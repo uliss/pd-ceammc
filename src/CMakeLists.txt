@@ -97,21 +97,26 @@ set(X_SRC
     x_vexp_fun.c
     x_vexp_if.c)
 
+set(PLATFORM_LINKFLAGS "")
+
 if(ALSA_FOUND)
     add_definitions(-DUSEAPI_ALSA)
     list(APPEND S_SRC s_audio_alsa.c s_audio_alsamm.c s_midi_alsa.c)
+    list(APPEND PLATFORM_LINKFLAGS ${ALSA_LIBRARIES})
 endif()
 
 if(JACK_FOUND)
-    add_definitions(-DUSEAPI_JACK)
+    add_definitions(-DUSEAPI_JACK -DJACK_XRUN)
     include_directories(JACK_INCLUDE_DIRECTORIES)
     list(APPEND S_SRC s_audio_jack.c)
+    list(APPEND PLATFORM_LINKFLAGS ${JACK_LIBRARIES})
 endif()
 
 if(PORTAUDIO_FOUND)
     add_definitions(-DUSEAPI_PORTAUDIO)
     include_directories(PORTAUDIO_INCLUDE_DIRS)
     list(APPEND S_SRC s_audio_pa.c)
+    list(APPEND PLATFORM_LINKFLAGS ${PORTAUDIO_LIBRARIES})
 endif()
 
 if(SOUND_DUMMY)
@@ -121,6 +126,19 @@ endif()
 
 add_library(puredata-core STATIC ${D_SRC} ${G_SRC} ${M_SRC} ${S_SRC} ${X_SRC})
 
+file(GLOB TCL_FILES ${PROJECT_SOURCE_DIR}/tcl/*.tcl)
+add_executable(pd MACOSX_BUNDLE s_entry.c ${TCL_FILES})
+target_link_libraries(pd puredata-core ${PLATFORM_LINKFLAGS})
 
-add_executable(pd s_entry.c)
-target_link_libraries(pd puredata-core ${JACK_LIBRARIES} ${PORTAUDIO_LIBRARIES})
+if(APPLE)
+#    add_definitions(-DINSTALL_PREFIX="../Resources/Script")
+    set_source_files_properties (pd
+      PROPERTIES
+      MACOSX_PACKAGE_LOCATION MacOSX)
+
+    set_source_files_properties (
+      ${TCL_FILES}
+      PROPERTIES
+      MACOSX_PACKAGE_LOCATION Resources/Scripts
+      )
+endif()
