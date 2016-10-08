@@ -29,6 +29,7 @@ option(SOUND_DUMMY "Build dummy sound module" OFF)
 check_include_files(unistd.h HAVE_UNISTD_H)
 check_include_files(alloca.h HAVE_ALLOCA_H)
 check_include_files(bstring.h HAVE_BSTRING_H)
+check_include_files(sys/soundfile.h HAVE_SYS_SOUNDCARD_H)
 check_function_exists(nanosleep HAVE_NANOSLEEP)
 
 if(LIBDL_FOUND)
