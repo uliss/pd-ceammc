@@ -23,6 +23,7 @@ include(FindALSA)
 include(FindJack)
 include(FindPortAudio)
 include(FindLibDL)
+include(FindFFTW)
 
 option(SOUND_DUMMY "Build dummy sound module" OFF)
 

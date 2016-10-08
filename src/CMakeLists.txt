@@ -17,7 +17,6 @@ set(D_SRC d_arithmetic.c
     d_delay.c
     d_fft.c
     d_fft_fftsg.c
-    d_fft_fftw.c
     d_filter.c
     d_global.c
     d_math.c
@@ -97,26 +96,32 @@ set(X_SRC
     x_vexp_fun.c
     x_vexp_if.c)
 
-set(PLATFORM_LINKFLAGS "")
+set(PLATFORM_LINK_LIBRARIES)
+
+if(FFTW_FOUND)
+    include_directories(FFTW_INCLUDE_DIRECTORIES)
+    list(APPEND D_SRC d_fft_fftw.c)
+    list(APPEND PLATFORM_LINK_LIBRARIES ${FFTW_LIBRARIES})
+endif()
 
 if(ALSA_FOUND)
     add_definitions(-DUSEAPI_ALSA)
     list(APPEND S_SRC s_audio_alsa.c s_audio_alsamm.c s_midi_alsa.c)
-    list(APPEND PLATFORM_LINKFLAGS ${ALSA_LIBRARIES})
+    list(APPEND PLATFORM_LINK_LIBRARIES ${ALSA_LIBRARIES})
 endif()
 
 if(JACK_FOUND)
     add_definitions(-DUSEAPI_JACK -DJACK_XRUN)
     include_directories(JACK_INCLUDE_DIRECTORIES)
     list(APPEND S_SRC s_audio_jack.c)
-    list(APPEND PLATFORM_LINKFLAGS ${JACK_LIBRARIES})
+    list(APPEND PLATFORM_LINK_LIBRARIES ${JACK_LIBRARIES})
 endif()
 
 if(PORTAUDIO_FOUND)
     add_definitions(-DUSEAPI_PORTAUDIO)
     include_directories(PORTAUDIO_INCLUDE_DIRS)
     list(APPEND S_SRC s_audio_pa.c)
-    list(APPEND PLATFORM_LINKFLAGS ${PORTAUDIO_LIBRARIES})
+    list(APPEND PLATFORM_LINK_LIBRARIES ${PORTAUDIO_LIBRARIES})
 endif()
 
 if(SOUND_DUMMY)
@@ -128,7 +133,7 @@ add_library(puredata-core STATIC ${D_SRC} ${G_SRC} ${M_SRC} ${S_SRC} ${X_SRC})
 
 file(GLOB TCL_FILES ${PROJECT_SOURCE_DIR}/tcl/*.tcl)
 add_executable(pd MACOSX_BUNDLE s_entry.c ${TCL_FILES})
-target_link_libraries(pd puredata-core ${PLATFORM_LINKFLAGS})
+target_link_libraries(pd puredata-core ${PLATFORM_LINK_LIBRARIES})
 
 if(APPLE)
 #    add_definitions(-DINSTALL_PREFIX="../Resources/Script")
