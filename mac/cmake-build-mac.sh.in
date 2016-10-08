@@ -38,6 +38,9 @@ cp -R "$SRC_DIR/po" .
 
 echo "Copying extensions:"
 mkdir -p extra
+
+cp $SRC_DIR/extra/*.pd extra
+
 find $BUILD_DIR/extra -maxdepth 1 -type d | sed 1d | grep -v -i cmake | while read ext_dir
 do
     echo "\t$(basename $ext_dir)"
