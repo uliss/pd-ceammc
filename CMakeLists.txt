@@ -17,15 +17,24 @@ project(puredata)
 add_definitions(-std=c99)
 enable_language(CXX C)
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
+include(PdPlatform)
 include(CheckIncludeFiles)
 include(CheckFunctionExists)
 include(FindALSA)
 include(FindJack)
 include(FindPortAudio)
 include(FindLibDL)
-include(FindFFTW)
 
 option(SOUND_DUMMY "Build dummy sound module" OFF)
+
+# FFTW3
+option(WITH_FFTW "Use fftw3 library (http://www.fftw.org/)" ON)
+if(WITH_FFTW)
+    include(FindFFTW)
+    if(!FFTW_FOUND)
+        unset(WITH_FFTW)
+    endif()
+endif()
 
 check_include_files(unistd.h HAVE_UNISTD_H)
 check_include_files(alloca.h HAVE_ALLOCA_H)
@@ -36,6 +45,8 @@ check_function_exists(nanosleep HAVE_NANOSLEEP)
 if(LIBDL_FOUND)
     set(HAVE_LIBDL 1)
 endif()
+
+
 
 CONFIGURE_FILE(${PROJECT_SOURCE_DIR}/config.h.in ${PROJECT_BINARY_DIR}/config.h)
 add_definitions(-include ${PROJECT_BINARY_DIR}/config.h)

@@ -16,7 +16,6 @@ set(D_SRC d_arithmetic.c
     d_dac.c
     d_delay.c
     d_fft.c
-    d_fft_fftsg.c
     d_filter.c
     d_global.c
     d_math.c
@@ -98,10 +97,12 @@ set(X_SRC
 
 set(PLATFORM_LINK_LIBRARIES)
 
-if(FFTW_FOUND)
+if(WITH_FFTW)
     include_directories(FFTW_INCLUDE_DIRECTORIES)
     list(APPEND D_SRC d_fft_fftw.c)
     list(APPEND PLATFORM_LINK_LIBRARIES ${FFTW_LIBRARIES})
+else()
+    list(APPEND D_SRC d_fft_fftsg.c)
 endif()
 
 if(ALSA_FOUND)
