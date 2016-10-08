@@ -43,8 +43,6 @@ macro(pd_add_extension)
         message(FATAL_ERROR "pd_add_extension: 'NAME' argument required.")
     endif()
 
-    message(STATUS ${CMAKE_SHARED_LINKER_FLAGS})
-
     foreach(_loop_var ${_PD_EXT_HELP_FILES})
         configure_file(${_loop_var} ${CMAKE_CURRENT_BINARY_DIR})
     endforeach()
