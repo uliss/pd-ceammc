@@ -26,6 +26,8 @@ include(FindLibDL)
 option(SOUND_DUMMY "Build dummy sound module" OFF)
 
 check_include_files(unistd.h HAVE_UNISTD_H)
+check_include_files(alloca.h HAVE_ALLOCA_H)
+
 if(LIBDL_FOUND)
     set(HAVE_LIBDL 1)
 endif()
