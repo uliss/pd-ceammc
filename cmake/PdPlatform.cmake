@@ -61,10 +61,14 @@ if(APPLE)
     set(PD_EXTERNAL_LDFLAGS "-flat_namespace -undefined dynamic_lookup")
 
     add_custom_command(
-        OUTPUT ${PROJECT_BINARY_DIR}/gen_build_mac.sh
+        OUTPUT ${PROJECT_BINARY_DIR}/dist/build_mac.sh
         COMMAND cmake ${CMAKE_COMMAND}
             -DPROJECT_SOURCE_DIR="${PROJECT_SOURCE_DIR}"
             -DPROJECT_BINARY_DIR="${PROJECT_BINARY_DIR}"
             -P ${PROJECT_SOURCE_DIR}/mac/cmake-build-mac.cmake)
-    add_custom_target(app DEPENDS gen_build_mac.sh)
+    add_custom_command(
+            OUTPUT dist/Pd.app
+            COMMAND sh ${PROJECT_BINARY_DIR}/dist/build_mac.sh
+            DEPENDS pd)
+    add_custom_target(app DEPENDS dist/build_mac.sh dist/Pd.app)
 endif()
