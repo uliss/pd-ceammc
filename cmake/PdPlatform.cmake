@@ -50,6 +50,10 @@ macro(pd_add_extension)
     endforeach()
 endmacro()
 
+macro(pd_add_simple_extension name)
+    pd_add_extension(NAME ${name} FILES ${name}.c HELP_FILES ${name}-help.pd)
+endmacro()
+
 if(APPLE)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -O3 -funroll-loops -fomit-frame-pointer")
     set(PD_EXTERNAL_EXTENSION ".d_fat")
