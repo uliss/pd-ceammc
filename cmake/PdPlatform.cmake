@@ -51,7 +51,6 @@ macro(pd_add_extension)
 endmacro()
 
 if(APPLE)
-    message(STATUS ${CMAKE_SHARED_LINKER_FLAGS} ${CMAKE_BUILD_TYPE})
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -O3 -funroll-loops -fomit-frame-pointer")
     set(PD_EXTERNAL_EXTENSION ".d_fat")
     set(PD_EXTERNAL_CFLAGS "-fPIC") 
