@@ -98,13 +98,14 @@ set(X_SRC
     x_vexp_if.c)
 
 if(ALSA_FOUND)
+    add_definitions(-DUSEAPI_ALSA)
     list(APPEND S_SRC s_audio_alsa.c s_audio_alsamm.c s_midi_alsa.c)
 endif()
 
 if(JACK_FOUND)
-#    add_definitions(-DUSEAPI_JACK)
-#    include_directories(JACK_INCLUDE_DIRECTORIES)
-#    list(APPEND S_SRC s_audio_jack.c)
+    add_definitions(-DUSEAPI_JACK)
+    include_directories(JACK_INCLUDE_DIRECTORIES)
+    list(APPEND S_SRC s_audio_jack.c)
 endif()
 
 if(PORTAUDIO_FOUND)
