@@ -29,5 +29,6 @@ mkdir bin
 cp "$BUILD_DIR/src/pd" bin
 cp -R "$SRC_DIR/tcl" .
 ln -s tcl Scripts
+cp -R "$SRC_DIR/doc" .
 
 cd ../../..
