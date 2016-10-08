@@ -132,19 +132,7 @@ endif()
 
 add_library(puredata-core STATIC ${D_SRC} ${G_SRC} ${M_SRC} ${S_SRC} ${X_SRC})
 
-file(GLOB TCL_FILES ${PROJECT_SOURCE_DIR}/tcl/*.tcl)
-add_executable(pd MACOSX_BUNDLE s_entry.c ${TCL_FILES})
+#file(GLOB TCL_FILES ${PROJECT_SOURCE_DIR}/tcl/*.tcl)
+add_executable(pd s_entry.c)
 target_link_libraries(pd puredata-core ${PLATFORM_LINK_LIBRARIES})
 
-if(APPLE)
-#    add_definitions(-DINSTALL_PREFIX="../Resources/Script")
-    set_source_files_properties (pd
-      PROPERTIES
-      MACOSX_PACKAGE_LOCATION MacOSX)
-
-    set_source_files_properties (
-      ${TCL_FILES}
-      PROPERTIES
-      MACOSX_PACKAGE_LOCATION Resources/Scripts
-      )
-endif()

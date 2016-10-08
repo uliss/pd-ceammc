@@ -1,0 +1,33 @@
+#!/bin/sh
+SRC_DIR=${PROJECT_SOURCE_DIR}
+BUILD_DIR=${PROJECT_BINARY_DIR}
+WISH=wish-shell.tgz
+PD_APP=Pd.app
+PD_INFO="$BUILD_DIR/Info.plist"
+PD_ICON="$SRC_DIR/mac/stuff/pd.icns"
+PD_ICON_FILE="$SRC_DIR/mac/stuff/pd-file.icns"
+
+cd "$BUILD_DIR"
+mkdir -p dist
+cd dist
+cp "$SRC_DIR/mac/stuff/$WISH" .
+tar xvf $WISH
+
+mv "Wish Shell.app" $PD_APP
+cd "$PD_APP/Contents"
+rm -f Info.plist
+cp -p "$PD_INFO" .
+cd MacOS
+ls
+mv "Wish Shell" Pd
+cd ..
+cd Resources
+rm -f Wish.icns
+cp -p "$PD_ICON" "$PD_ICON_FILE" .
+mv "Wish Shell.rsrc" Pd.rsrc
+mkdir bin
+cp "$BUILD_DIR/src/pd" bin
+cp -R "$SRC_DIR/tcl" .
+ln -s tcl Scripts
+
+cd ../../..
