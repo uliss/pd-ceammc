@@ -12,6 +12,9 @@ if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
 endif()
 
 cmake_minimum_required(VERSION 2.8)
+set(CMAKE_OSX_ARCHITECTURES "x86_64")
+set(CMAKE_OSX_SYSROOT macosx10.11)
+set(CMAKE_OSX_DEPLOYMENT_TARGET "10.6")
 project(puredata)
 
 add_definitions(-std=c99)
@@ -53,3 +56,4 @@ add_definitions(-include ${PROJECT_BINARY_DIR}/config.h)
 
 add_subdirectory(src)
 add_subdirectory(tcl)
+add_subdirectory(extra)

@@ -10,15 +10,16 @@ PD_ICON_FILE="$SRC_DIR/mac/stuff/pd-file.icns"
 cd "$BUILD_DIR"
 mkdir -p dist
 cd dist
+echo "Unpacking Wish Shell"
 cp "$SRC_DIR/mac/stuff/$WISH" .
-tar xvf $WISH
+tar xf $WISH
 
 mv "Wish Shell.app" $PD_APP
+echo "Copy Wish Shell to $PD_APP"
 cd "$PD_APP/Contents"
 rm -f Info.plist
 cp -p "$PD_INFO" .
 cd MacOS
-ls
 mv "Wish Shell" Pd
 cd ..
 cd Resources
@@ -29,7 +30,21 @@ mkdir bin
 cp "$BUILD_DIR/src/pd" bin
 cp -R "$SRC_DIR/tcl" .
 ln -s tcl Scripts
+
+echo "Copying docs..."
 cp -R "$SRC_DIR/doc" .
+echo "Copying translations..."
 cp -R "$SRC_DIR/po" .
+
+echo "Copying extensions:"
+mkdir -p extra
+find $BUILD_DIR/extra -maxdepth 1 -type d | sed 1d | grep -v -i cmake | while read ext_dir
+do
+    echo "\t$(basename $ext_dir)"
+    cp -R "$ext_dir" extra
+done
+
+echo "Copying license..."
+cp $SRC_DIR/License.txt Scripts
 
 cd ../../..
