@@ -2,3 +2,4 @@
 #cmakedefine HAVE_LIBDL
 #cmakedefine HAVE_ALLOCA_H
 #cmakedefine HAVE_BSTRING_H
+#cmakedefine HAVE_NANOSLEEP
