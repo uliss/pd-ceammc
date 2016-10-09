@@ -5,6 +5,7 @@ WISH=wish-shell.tgz
 PD_APP=Pd.app
 PD_CONTENT=$BUILD_DIR/dist/$PD_APP/Contents
 PD_RESOURCES=$PD_CONTENT/Resources
+PD_BIN=$PD_CONTENT/Resources/bin
 PD_INFO="$BUILD_DIR/Info.plist"
 PD_ICON="$SRC_DIR/mac/stuff/pd.icns"
 PD_ICON_FILE="$SRC_DIR/mac/stuff/pd-file.icns"
@@ -30,7 +31,10 @@ rm -f Wish.icns
 cp -p "$PD_ICON" "$PD_ICON_FILE" .
 mv "Wish Shell.rsrc" Pd.rsrc
 mkdir bin
+
+echo "Copying binaries..."
 cp "$BUILD_DIR/src/pd" bin
+cp "$BUILD_DIR/src/pd-watchdog" bin
 cp -R "$SRC_DIR/tcl" .
 ln -s tcl Scripts
 
