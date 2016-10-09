@@ -74,8 +74,7 @@ set(S_SRC
     s_midi_pm.c
     s_path.c
     s_print.c
-    s_utf8.c
-    s_watchdog.c)
+    s_utf8.c)
 
 set(X_SRC
     x_acoustics.c
@@ -135,4 +134,6 @@ add_library(puredata-core STATIC ${D_SRC} ${G_SRC} ${M_SRC} ${S_SRC} ${X_SRC})
 #file(GLOB TCL_FILES ${PROJECT_SOURCE_DIR}/tcl/*.tcl)
 add_executable(pd s_entry.c)
 target_link_libraries(pd puredata-core ${PLATFORM_LINK_LIBRARIES})
+
+add_executable(pd-watchdog s_watchdog.c)
 
