@@ -35,6 +35,8 @@ mkdir bin
 echo "Copying binaries..."
 cp "$BUILD_DIR/src/pd" bin
 cp "$BUILD_DIR/src/pd-watchdog" bin
+cp "$BUILD_DIR/src/pdsend" bin
+cp "$BUILD_DIR/src/pdreceive" bin
 cp -R "$SRC_DIR/tcl" .
 ln -s tcl Scripts
 

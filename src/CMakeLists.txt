@@ -136,4 +136,6 @@ add_executable(pd s_entry.c)
 target_link_libraries(pd puredata-core ${PLATFORM_LINK_LIBRARIES})
 
 add_executable(pd-watchdog s_watchdog.c)
+add_executable(pdsend u_pdsend.c)
+add_executable(pdreceive u_pdreceive.c)
 
