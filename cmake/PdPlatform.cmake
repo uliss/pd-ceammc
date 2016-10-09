@@ -69,4 +69,8 @@ if(APPLE)
             COMMAND sh ${PROJECT_BINARY_DIR}/dist/build_mac.sh
             DEPENDS pd)
     add_custom_target(app DEPENDS dist/build_mac.sh dist/Pd.app)
+
+    add_custom_target(codesign
+        COMMAND sh ${PROJECT_SOURCE_DIR}/mac/codesign.sh ${PROJECT_BINARY_DIR}/dist/Pd.app
+        WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/mac)
 endif()
