@@ -51,4 +51,24 @@ done
 echo "Copying license..."
 cp $SRC_DIR/License.txt Scripts
 
+echo "Copying libs..."
+NEWLIBPATH="@executable_path/.."
+EXECFILE="Resources/bin/pd"
+cd ..
+mkdir -p Frameworks
+/usr/bin/otool -LX "$EXECFILE" | cut -f2 | cut -d ' ' -f1 | grep -v libSystem | while read shlib
+do
+    TARGET=Frameworks/$(basename $shlib)
+    cp "$shlib" $TARGET
+    chown $(whoami) $TARGET
+    chmod +w $TARGET
+
+    TARGETID=$(otool -DX $TARGET)
+    NEWTARGETID=$NEWLIBPATH/$TARGET
+    echo $NEWTARGETID
+    install_name_tool -id $NEWTARGETID $TARGET
+    install_name_tool -change $TARGETID $NEWTARGETID $EXECFILE
+done
+
+
 cd ../../..
