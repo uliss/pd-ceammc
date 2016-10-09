@@ -3,6 +3,8 @@ SRC_DIR=${PROJECT_SOURCE_DIR}
 BUILD_DIR=${PROJECT_BINARY_DIR}
 WISH=wish-shell.tgz
 PD_APP=Pd.app
+PD_CONTENT=$BUILD_DIR/dist/$PD_APP/Contents
+PD_RESOURCES=$PD_CONTENT/Resources
 PD_INFO="$BUILD_DIR/Info.plist"
 PD_ICON="$SRC_DIR/mac/stuff/pd.icns"
 PD_ICON_FILE="$SRC_DIR/mac/stuff/pd-file.icns"
@@ -69,6 +71,10 @@ do
     install_name_tool -id $NEWTARGETID $TARGET
     install_name_tool -change $TARGETID $NEWTARGETID $EXECFILE
 done
+
+echo "Copying headers..."
+mkdir -p $PD_RESOURCES/include
+cp $SRC_DIR/src/m_pd.h $PD_RESOURCES/include
 
 
 cd ../../..
