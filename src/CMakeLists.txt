@@ -111,7 +111,7 @@ if(ALSA_FOUND)
     list(APPEND PLATFORM_LINK_LIBRARIES ${ALSA_LIBRARIES})
 endif()
 
-if(JACK_FOUND)
+if(WITH_JACK)
     add_definitions(-DUSEAPI_JACK -DJACK_XRUN)
     include_directories(${JACK_INCLUDE_DIRECTORIES})
     list(APPEND S_SRC s_audio_jack.c)
