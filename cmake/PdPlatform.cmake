@@ -60,25 +60,35 @@ if(APPLE)
     set(PD_EXTERNAL_CFLAGS "-fPIC") 
     set(PD_EXTERNAL_LDFLAGS "-flat_namespace -undefined dynamic_lookup")
 
+    if(BUNDLE_VERSION)
+        set(BUNDLE "Pd-${BUNDLE_VERSION}.app")
+    else()
+        set(BUNDLE "Pd.app")
+    endif()
+
+    set(MAKE_BUNDLE_SCRIPT ${PROJECT_BINARY_DIR}/dist/build_mac.sh)
+    set(BUNDLE_FULL_PATH "${PROJECT_BINARY_DIR}/dist/${BUNDLE}")
+
     add_custom_command(
-        OUTPUT ${PROJECT_BINARY_DIR}/dist/build_mac.sh
+        OUTPUT ${MAKE_BUNDLE_SCRIPT}
         COMMAND ${CMAKE_COMMAND}
             -DPROJECT_SOURCE_DIR="${PROJECT_SOURCE_DIR}"
             -DPROJECT_BINARY_DIR="${PROJECT_BINARY_DIR}"
+            -DBUNDLE=${BUNDLE_FULL_PATH}
             -P ${PROJECT_SOURCE_DIR}/cmake/cmake-build-mac.cmake)
+
     add_custom_command(
-        OUTPUT dist/Pd.app
+        OUTPUT ${BUNDLE_FULL_PATH}
         COMMAND sh ${PROJECT_BINARY_DIR}/dist/build_mac.sh
         COMMAND ${CMAKE_COMMAND}
-            -DBUNDLE="${PROJECT_BINARY_DIR}/dist/Pd.app"
-            -DLIBS="${PLATFORM_LINK_LIBRARIES}"
-            -DPROJECT_SOURCE_DIR="${PROJECT_SOURCE_DIR}"
+            -DBUNDLE=${BUNDLE_FULL_PATH}
             -P ${PROJECT_SOURCE_DIR}/cmake/bundle.cmake
         DEPENDS pd)
-    add_custom_target(app DEPENDS dist/build_mac.sh dist/Pd.app)
+
+    add_custom_target(app DEPENDS ${MAKE_BUNDLE_SCRIPT} ${BUNDLE_FULL_PATH})
 
     add_custom_target(codesign
-        COMMAND sh ${PROJECT_SOURCE_DIR}/mac/codesign.sh ${PROJECT_BINARY_DIR}/dist/Pd.app
+        COMMAND sh ${PROJECT_SOURCE_DIR}/mac/codesign.sh ${BUNDLE_FULL_PATH}
         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/mac)
 
     find_library(CoreServices_LIBRARY CoreServices)
