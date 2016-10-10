@@ -10,6 +10,12 @@ if(APPLE)
     set(PD_EXTERNAL_LDFLAGS "-flat_namespace -undefined dynamic_lookup")
 endif()
 
+if(LINUX)
+    set(PD_EXTERNAL_EXTENSION ".pd_linux")
+    set(PD_EXTERNAL_CFLAGS "-fPIC")
+    set(PD_EXTERNAL_LDFLAGS "-Wl,--export-dynamic -shared -fPIC")
+endif()
+
 function(pd_add_extension)
     set(_OPTIONS_ARGS)
     set(_ONE_VALUE_ARGS NAME)
@@ -28,6 +34,7 @@ function(pd_add_extension)
         /opt/local/include
         /Applications/Pd.app/Contents/Resources/include
         /Applications/Pd.app/Contents/Resources/src
+      PATH_SUFFIXES pd
     )
 
     if(_PD_EXT_NAME)

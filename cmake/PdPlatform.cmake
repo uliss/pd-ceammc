@@ -1,5 +1,9 @@
 set(PLATFORM_LINK_LIBRARIES)
 
+if(UNIX AND NOT APPLE)
+    set(LINUX True)
+endif()
+
 if(APPLE)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -O3 -funroll-loops -fomit-frame-pointer")
 
