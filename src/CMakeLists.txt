@@ -135,14 +135,14 @@ endif()
 
 add_library(puredata-core STATIC ${D_SRC} ${G_SRC} ${M_SRC} ${S_SRC} ${X_SRC})
 
-#file(GLOB TCL_FILES ${PROJECT_SOURCE_DIR}/tcl/*.tcl)
 add_executable(pd s_entry.c)
 target_link_libraries(pd puredata-core ${PLATFORM_LINK_LIBRARIES})
-install(TARGETS pd
-    BUNDLE DESTINATION .
-    RUNTIME DESTINATION bin)
 
 add_executable(pd-watchdog s_watchdog.c)
 add_executable(pdsend u_pdsend.c)
 add_executable(pdreceive u_pdreceive.c)
+
+install(TARGETS pd pdsend pdreceive
+    BUNDLE DESTINATION .
+    RUNTIME DESTINATION bin)
 
