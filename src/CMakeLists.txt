@@ -69,8 +69,8 @@ set(S_SRC
     s_main.c
     s_midi.c
 #    s_midi_alsa.c
-    s_midi_dummy.c
-    s_midi_oss.c
+#    s_midi_dummy.c
+#    s_midi_oss.c
     s_midi_pm.c
     s_path.c
     s_print.c
@@ -94,8 +94,6 @@ set(X_SRC
     x_vexp_fun.c
     x_vexp_if.c)
 
-set(PLATFORM_LINK_LIBRARIES)
-
 if(WITH_FFTW)
     include_directories(${FFTW_INCLUDE_DIRECTORIES})
     list(APPEND D_SRC d_fft_fftw.c)
@@ -110,7 +108,7 @@ if(ALSA_FOUND)
     list(APPEND PLATFORM_LINK_LIBRARIES ${ALSA_LIBRARIES})
 endif()
 
-if(WITH_JACK)
+if(JACK_FOUND)
     add_definitions(-DUSEAPI_JACK -DJACK_XRUN)
     include_directories(${JACK_INCLUDE_DIRECTORIES})
     list(APPEND S_SRC s_audio_jack.c)
@@ -122,6 +120,12 @@ if(PORTAUDIO_FOUND)
     include_directories(${PORTAUDIO_INCLUDE_DIRS})
     list(APPEND S_SRC s_audio_pa.c)
     list(APPEND PLATFORM_LINK_LIBRARIES ${PORTAUDIO_LIBRARIES})
+endif()
+
+if(PORTMIDI_FOUND)
+    include_directories(${PORTMIDI_INCLUDE_DIRECTORIES})
+    list(APPEND S_SRC s_midi_pm.c)
+    list(APPEND PLATFORM_LINK_LIBRARIES ${PORTMIDI_LIBRARIES})
 endif()
 
 if(SOUND_DUMMY)
