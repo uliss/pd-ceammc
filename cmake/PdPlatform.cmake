@@ -65,7 +65,7 @@ if(APPLE)
         COMMAND ${CMAKE_COMMAND}
             -DPROJECT_SOURCE_DIR="${PROJECT_SOURCE_DIR}"
             -DPROJECT_BINARY_DIR="${PROJECT_BINARY_DIR}"
-            -P ${PROJECT_SOURCE_DIR}/mac/cmake-build-mac.cmake)
+            -P ${PROJECT_SOURCE_DIR}/cmake/cmake-build-mac.cmake)
     add_custom_command(
         OUTPUT dist/Pd.app
         COMMAND sh ${PROJECT_BINARY_DIR}/dist/build_mac.sh
