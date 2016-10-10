@@ -72,6 +72,8 @@ NEWLIBPATH="@executable_path/../lib"
 EXECFILE="Resources/bin/pd"
 LIBDIR="Resources/lib"
 cd ..
+# to make codesign happy
+mkdir -p Frameworks
 mkdir -p $LIBDIR
 /usr/bin/otool -LX "$EXECFILE" | cut -f2 | cut -d ' ' -f1 | grep -v libSystem | grep -v /System/Library | grep -v CoreFoundation | while read shlib
 do
