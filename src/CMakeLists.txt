@@ -146,3 +146,4 @@ install(TARGETS pd pdsend pdreceive
     BUNDLE DESTINATION .
     RUNTIME DESTINATION bin)
 
+install(FILES m_pd.h DESTINATION include/pd)
