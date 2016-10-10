@@ -52,21 +52,27 @@ cp $SRC_DIR/extra/*.pd extra
 
 find $BUILD_DIR/extra -maxdepth 1 -type d | sed 1d | grep -v -i cmake | while read ext_dir
 do
-    echo "\t$(basename $ext_dir)"
-    cp -R "$ext_dir" extra
+    EXT_NAME=$(basename $ext_dir)
+    echo "\t$EXT_NAME"
+    mkdir extra/$EXT_NAME
+    find "$ext_dir" -type f | grep -v -i cmake | grep -v Makefile | while read target
+    do
+        cp $target extra/$EXT_NAME
+    done
+#    cp -R "$ext_dir" extra
 done
 
 echo "Copying license..."
 cp $SRC_DIR/License.txt Scripts
 
 echo "Copying libs..."
-NEWLIBPATH="@executable_path/.."
+NEWLIBPATH="@executable_path/../.."
 EXECFILE="Resources/bin/pd"
 cd ..
-mkdir -p Frameworks
-/usr/bin/otool -LX "$EXECFILE" | cut -f2 | cut -d ' ' -f1 | grep -v libSystem | while read shlib
+mkdir -p lib
+/usr/bin/otool -LX "$EXECFILE" | cut -f2 | cut -d ' ' -f1 | grep -v libSystem | grep -v /System/Library | grep -v CoreFoundation | while read shlib
 do
-    TARGET=Frameworks/$(basename $shlib)
+    TARGET=lib/$(basename $shlib)
     cp "$shlib" $TARGET
     chown $(whoami) $TARGET
     chmod +w $TARGET
