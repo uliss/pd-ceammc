@@ -36,7 +36,7 @@ if(APPLE)
 
     add_custom_target(dmg
         COMMAND sh ${PROJECT_SOURCE_DIR}/mac/dmg.sh ${BUNDLE_FULL_PATH}
-        WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/mac
+        WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
         DEPENDS app)
 
     find_library(CoreServices_LIBRARY CoreServices)
