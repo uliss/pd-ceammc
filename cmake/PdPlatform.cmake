@@ -4,6 +4,8 @@ set(PD_EXTERNAL_EXTENSION)
 set(PD_EXTERNAL_CFLAGS)
 set(PD_EXTERNAL_LDFLAGS)
 
+set(PLATFORM_LINK_LIBRARIES)
+
 macro(pd_add_extension)
     set(_OPTIONS_ARGS)
     set(_ONE_VALUE_ARGS NAME)
@@ -60,17 +62,35 @@ if(APPLE)
 
     add_custom_command(
         OUTPUT ${PROJECT_BINARY_DIR}/dist/build_mac.sh
-        COMMAND cmake ${CMAKE_COMMAND}
+        COMMAND ${CMAKE_COMMAND}
             -DPROJECT_SOURCE_DIR="${PROJECT_SOURCE_DIR}"
             -DPROJECT_BINARY_DIR="${PROJECT_BINARY_DIR}"
             -P ${PROJECT_SOURCE_DIR}/mac/cmake-build-mac.cmake)
     add_custom_command(
-            OUTPUT dist/Pd.app
-            COMMAND sh ${PROJECT_BINARY_DIR}/dist/build_mac.sh
-            DEPENDS pd)
+        OUTPUT dist/Pd.app
+        COMMAND sh ${PROJECT_BINARY_DIR}/dist/build_mac.sh
+        COMMAND ${CMAKE_COMMAND}
+            -DBUNDLE="${PROJECT_BINARY_DIR}/dist/Pd.app"
+            -DLIBS="${PLATFORM_LINK_LIBRARIES}"
+            -DPROJECT_SOURCE_DIR="${PROJECT_SOURCE_DIR}"
+            -P ${PROJECT_SOURCE_DIR}/mac/bundle.cmake
+        DEPENDS pd)
     add_custom_target(app DEPENDS dist/build_mac.sh dist/Pd.app)
 
     add_custom_target(codesign
         COMMAND sh ${PROJECT_SOURCE_DIR}/mac/codesign.sh ${PROJECT_BINARY_DIR}/dist/Pd.app
         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/mac)
+
+    find_library(CoreServices_LIBRARY CoreServices)
+    list(APPEND PLATFORM_LINK_LIBRARIES ${CoreServices_LIBRARY})
+    find_library(AudioUnit_LIBRARY AudioUnit)
+    list(APPEND PLATFORM_LINK_LIBRARIES ${AudioUnit_LIBRARY})
+    find_library(AudioToolbox_LIBRARY AudioToolbox)
+    list(APPEND PLATFORM_LINK_LIBRARIES ${AudioToolbox_LIBRARY})
+    find_library(CoreMidi_LIBRARY CoreMidi)
+    list(APPEND PLATFORM_LINK_LIBRARIES ${CoreMidi_LIBRARY})
+    find_library(CoreAudio_LIBRARY CoreAudio)
+    list(APPEND PLATFORM_LINK_LIBRARIES ${CoreAudio_LIBRARY})
+    find_library(CoreFoundation_LIBRARY CoreFoundation)
+    list(APPEND PLATFORM_LINK_LIBRARIES ${CoreFoundation_LIBRARY})
 endif()
