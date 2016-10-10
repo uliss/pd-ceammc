@@ -73,7 +73,7 @@ if(APPLE)
             -DBUNDLE="${PROJECT_BINARY_DIR}/dist/Pd.app"
             -DLIBS="${PLATFORM_LINK_LIBRARIES}"
             -DPROJECT_SOURCE_DIR="${PROJECT_SOURCE_DIR}"
-            -P ${PROJECT_SOURCE_DIR}/mac/bundle.cmake
+            -P ${PROJECT_SOURCE_DIR}/cmake/bundle.cmake
         DEPENDS pd)
     add_custom_target(app DEPENDS dist/build_mac.sh dist/Pd.app)
 
