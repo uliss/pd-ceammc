@@ -34,6 +34,11 @@ if(APPLE)
         COMMAND sh ${PROJECT_SOURCE_DIR}/mac/codesign.sh ${BUNDLE_FULL_PATH}
         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/mac)
 
+    add_custom_target(dmg
+        COMMAND sh ${PROJECT_SOURCE_DIR}/mac/dmg.sh ${BUNDLE_FULL_PATH}
+        WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/mac
+        DEPENDS app)
+
     find_library(CoreServices_LIBRARY CoreServices)
     list(APPEND PLATFORM_LINK_LIBRARIES ${CoreServices_LIBRARY})
     find_library(AudioUnit_LIBRARY AudioUnit)
