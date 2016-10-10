@@ -1,6 +1,17 @@
+include(TestBigEndian)
+test_big_endian(IS_BIG_ENDIAN)
+if(NOT ${IS_BIG_ENDIAN})
+    add_definitions(-DLITTLE_ENDIAN=0x0001 -DBYTE_ORDER=LITTLE_ENDIAN)
+endif()
+
+find_package(Threads)
+
 set(PLATFORM_LINK_LIBRARIES)
 
 if(UNIX AND NOT APPLE)
+    add_definitions(-D_GNU_SOURCE)
+    list(APPEND PLATFORM_LINK_LIBRARIES m)
+    list(APPEND PLATFORM_LINK_LIBRARIES ${CMAKE_THREAD_LIBS_INIT})
     set(LINUX True)
 endif()
 
