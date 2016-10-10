@@ -151,3 +151,6 @@ install(TARGETS pd pdsend pdreceive
     RUNTIME DESTINATION bin)
 
 install(FILES m_pd.h DESTINATION include/pd)
+install(TARGETS pd-watchdog pd
+    RUNTIME DESTINATION lib/puredata/bin
+)
