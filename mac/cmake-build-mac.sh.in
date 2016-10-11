@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 SRC_DIR=${PROJECT_SOURCE_DIR}
 BUILD_DIR=${PROJECT_BINARY_DIR}
 WISH=wish-shell.tgz
@@ -60,7 +60,8 @@ ln -s tcl Scripts
 echo "Copying docs..."
 cp -R "$SRC_DIR/doc" .
 echo "Copying translations..."
-cp -R "$SRC_DIR/po" .
+mkdir -p po
+cp $BUILD_DIR/po/*.msg "$PD_RESOURCES/po"
 
 echo "Copying extensions:"
 mkdir -p extra
