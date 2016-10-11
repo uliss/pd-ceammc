@@ -90,7 +90,7 @@ cd ..
 # to make codesign happy
 mkdir -p Frameworks
 mkdir -p $LIBDIR
-/usr/bin/otool -LX "$EXECFILE" | cut -f2 | cut -d ' ' -f1 | grep -v libSystem | grep -v /System/Library | grep -v CoreFoundation | while read shlib
+/usr/bin/otool -LX "$EXECFILE" | cut -f2 | cut -d ' ' -f1 | grep -v portmidi | grep -v libSystem | grep -v /System/Library | grep -v CoreFoundation | while read shlib
 do
     TARGET=$LIBDIR/$(basename $shlib)
     cp "$shlib" $TARGET
@@ -103,6 +103,13 @@ do
     install_name_tool -id $NEWTARGETID $TARGET
     install_name_tool -change $TARGETID $NEWTARGETID $EXECFILE
 done
+
+LIBPORTMIDI_NAME=libportmidi.dylib
+cp /usr/local/lib/$LIBPORTMIDI_NAME $LIBDIR
+LIBPORTMIDI=$LIBDIR/$LIBPORTMIDI_NAME
+PM_TARGET="@executable_path/../lib/$LIBPORTMIDI_NAME"
+install_name_tool -id $PM_TARGET $LIBPORTMIDI
+install_name_tool -change $LIBPORTMIDI_NAME $PM_TARGET $EXECFILE
 
 echo "Copying headers..."
 mkdir -p $PD_RESOURCES/include
