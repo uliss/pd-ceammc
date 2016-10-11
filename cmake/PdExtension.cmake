@@ -48,6 +48,7 @@ function(pd_add_extension)
         endforeach()
 
         include_directories(${_PD_INCLUDE_DIR})
+        include_directories(${CMAKE_SOURCE_DIR}/src)
         set_target_properties(${_PD_EXT_NAME} PROPERTIES
             PREFIX ""
             SUFFIX ${PD_EXTERNAL_EXTENSION}
