@@ -1,1 +1,1 @@
-pd_add_simple_extension(pique)
+pd_add_internal_extension(pique)

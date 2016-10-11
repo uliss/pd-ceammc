@@ -1,1 +1,1 @@
-pd_add_simple_extension(lrshift~)
+pd_add_internal_extension(lrshift~)

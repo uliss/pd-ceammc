@@ -17,8 +17,8 @@ if(LINUX)
 endif()
 
 function(pd_add_extension)
-    set(_OPTIONS_ARGS INTERNAL)
-    set(_ONE_VALUE_ARGS NAME INSTALL_DIR)
+    set(_OPTIONS_ARGS)
+    set(_ONE_VALUE_ARGS NAME INSTALL_DIR INTERNAL)
     set(_MULTI_VALUE_ARGS FILES HELP_FILES EXTRA_FILES)
 
     cmake_parse_arguments(_PD_EXT "${_OPTIONS_ARGS}" "${_ONE_VALUE_ARGS}" "${_MULTI_VALUE_ARGS}" ${ARGN})
@@ -77,9 +77,6 @@ function(pd_add_extension)
 
     set(INSTALL_DIR "${_PD_EXT_INSTALL_DIR}/${_PD_EXT_NAME}")
 
-    # install extension binary
-    install(TARGETS ${_PD_EXT_NAME} LIBRARY DESTINATION ${INSTALL_DIR})
-
     # install extension README etc. files
     install(DIRECTORY ../${_PD_EXT_NAME}
             DESTINATION ${_PD_EXT_INSTALL_DIR}
@@ -97,11 +94,31 @@ function(pd_add_extension)
         install(FILES ${fname} DESTINATION ${INSTALL_DIR})
     endforeach()
 
+    # installing extra files
     foreach(_extra_file ${_PD_EXT_EXTRA_FILES})
         install(FILES ${_extra_file} DESTINATION ${INSTALL_DIR})
     endforeach()
+
+    # install extension binary
+    install(TARGETS ${_PD_EXT_NAME} LIBRARY DESTINATION ${INSTALL_DIR})
 endfunction()
 
-function(pd_add_simple_extension name)
-    pd_add_extension(NAME ${name} FILES ${name}.c HELP_FILES ${name}-help.pd)
+function(pd_add_simple_extension)
+    set(_OPTIONS_ARGS)
+    set(_ONE_VALUE_ARGS NAME INTERNAL)
+    set(_MULTI_VALUE_ARGS)
+
+    cmake_parse_arguments(_PD_EXT "${_OPTIONS_ARGS}" "${_ONE_VALUE_ARGS}" "${_MULTI_VALUE_ARGS}" ${ARGN})
+
+    pd_add_extension(NAME ${_PD_EXT_NAME}
+        FILES ${_PD_EXT_NAME}.c
+        HELP_FILES ${_PD_EXT_NAME}-help.pd
+        INTERNAL ${_PD_EXT_INTERNAL})
+endfunction()
+
+function(pd_add_internal_extension name)
+    pd_add_simple_extension(NAME ${name}
+        FILES ${name}.c
+        HELP_FILES ${name}-help.pd
+        INTERNAL TRUE)
 endfunction()

@@ -1,1 +1,1 @@
-pd_add_simple_extension(stdout)
+pd_add_internal_extension(stdout)

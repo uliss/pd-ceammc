@@ -1,1 +1,1 @@
-pd_add_simple_extension(fiddle~)
+pd_add_internal_extension(fiddle~)

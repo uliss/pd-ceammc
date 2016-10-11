@@ -1,1 +1,1 @@
-pd_add_simple_extension(choice)
+pd_add_internal_extension(choice)

@@ -1,1 +1,1 @@
-pd_add_simple_extension(sigmund~)
+pd_add_internal_extension(sigmund~)
