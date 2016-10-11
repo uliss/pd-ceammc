@@ -69,9 +69,9 @@ set(S_SRC
     s_main.c
     s_midi.c
 #    s_midi_alsa.c
-#    s_midi_dummy.c
+    s_midi_dummy.c
 #    s_midi_oss.c
-    s_midi_pm.c
+#    s_midi_pm.c
     s_path.c
     s_print.c
     s_utf8.c)

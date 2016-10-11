@@ -17,9 +17,9 @@ if(LINUX)
 endif()
 
 function(pd_add_extension)
-    set(_OPTIONS_ARGS)
-    set(_ONE_VALUE_ARGS NAME)
-    set(_MULTI_VALUE_ARGS FILES HELP_FILES)
+    set(_OPTIONS_ARGS INTERNAL)
+    set(_ONE_VALUE_ARGS NAME INSTALL_DIR)
+    set(_MULTI_VALUE_ARGS FILES HELP_FILES EXTRA_FILES)
 
     cmake_parse_arguments(_PD_EXT "${_OPTIONS_ARGS}" "${_ONE_VALUE_ARGS}" "${_MULTI_VALUE_ARGS}" ${ARGN})
 
@@ -56,8 +56,49 @@ function(pd_add_extension)
         message(FATAL_ERROR "pd_add_extension: 'NAME' argument required.")
     endif()
 
+    #    default installation directory
+    set(DEFAULT_DEST ${CMAKE_CURRENT_BINARY_DIR})
+    if(UNIX AND NOT APPLE)
+        set(DEFAULT_DEST "lib/pd/extra")
+    elseif(APPLE)
+        set(DEFAULT_DEST "$ENV{HOME}/Library/Pd")
+    elseif(WIN32)
+
+    endif()
+
+    # explicit INSTALL_DIR used
+    if(NOT _PD_EXT_INSTALL_DIR)
+        if(_PD_EXT_INTERNAL)
+            set(_PD_EXT_INSTALL_DIR "lib/puredata/extra")
+        else()
+            set(_PD_EXT_INSTALL_DIR ${DEFAULT_DEST})
+        endif()
+    endif()
+
+    set(INSTALL_DIR "${_PD_EXT_INSTALL_DIR}/${_PD_EXT_NAME}")
+
+    # install extension binary
+    install(TARGETS ${_PD_EXT_NAME} LIBRARY DESTINATION ${INSTALL_DIR})
+
+    # install extension README etc. files
+    install(DIRECTORY ../${_PD_EXT_NAME}
+            DESTINATION ${_PD_EXT_INSTALL_DIR}
+            FILES_MATCHING REGEX "(README|LICENSE|NOTES|README.txt|LICENSE.txts|NOTES.txt)")
+
+    # install help files
+    if(NOT _PD_EXT_HELP_FILES)
+        file(GLOB _PD_EXT_HELP_FILES "*.pd")
+    endif()
+
     foreach(_loop_var ${_PD_EXT_HELP_FILES})
-        configure_file(${_loop_var} ${CMAKE_CURRENT_BINARY_DIR})
+        get_filename_component(_fname ${_loop_var} NAME)
+        set(fname "${CMAKE_CURRENT_BINARY_DIR}/${_fname}")
+        configure_file(${_loop_var} ${fname})
+        install(FILES ${fname} DESTINATION ${INSTALL_DIR})
+    endforeach()
+
+    foreach(_extra_file ${_PD_EXT_EXTRA_FILES})
+        install(FILES ${_extra_file} DESTINATION ${INSTALL_DIR})
     endforeach()
 endfunction()
 
