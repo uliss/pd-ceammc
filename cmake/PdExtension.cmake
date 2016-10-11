@@ -1,5 +1,7 @@
 include(CMakeParseArguments)
-cmake_policy(SET CMP0037 OLD)
+if(${CMAKE_VERSION} VERSION_GREATER "3.0")
+    cmake_policy(SET CMP0037 OLD)
+endif()
 set(PD_EXTERNAL_EXTENSION)
 set(PD_EXTERNAL_CFLAGS)
 set(PD_EXTERNAL_LDFLAGS)
