@@ -29,6 +29,7 @@ include(FindALSA)
 include(FindPortAudio)
 include(FindPortMidi)
 include(FindLibDL)
+find_package(Gettext)
 
 option(SOUND_DUMMY "Build dummy sound module" OFF)
 
@@ -65,3 +66,7 @@ add_subdirectory(src)
 add_subdirectory(tcl)
 add_subdirectory(extra)
 add_subdirectory(doc)
+
+if(GETTEXT_FOUND)
+    add_subdirectory(po)
+endif()
