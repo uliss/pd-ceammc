@@ -185,7 +185,7 @@ void glob_init(void)
         gensym("plugin-dispatch"), A_GIMME, 0);
     class_addmethod(glob_pdobject, (t_method)glob_helpintro,
         gensym("help-intro"), A_GIMME, 0);
-#if defined(__linux__) || defined(__FreeBSD_kernel__)
+#if defined(__linux__) || defined(__FreeBSD__)
     class_addmethod(glob_pdobject, (t_method)glob_watchdog,
         gensym("watchdog"), 0);
 #endif

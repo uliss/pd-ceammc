@@ -37,7 +37,7 @@ t_symbol *sys_flags = &s_;
 void sys_doflags( void);
 
     /* Hmm... maybe better would be to #if on not-apple-or-windows  */
-#if defined(__linux__) || defined(__CYGWIN__) || defined(__FreeBSD_kernel__) \
+#if defined(__linux__) || defined(__CYGWIN__) || defined(__FreeBSD__) \
 || defined(__GNU__) || defined(ANDROID) || defined(__OpenBSD__) || defined(__NetBSD__)
 
 /*****  linux/android/BSD etc: read and write to ~/.pdsettings file ******/
