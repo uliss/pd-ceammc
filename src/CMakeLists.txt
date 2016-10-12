@@ -69,7 +69,7 @@ set(S_SRC
     s_main.c
     s_midi.c
 #    s_midi_alsa.c
-    s_midi_dummy.c
+#    s_midi_dummy.c
 #    s_midi_oss.c
 #    s_midi_pm.c
     s_path.c
@@ -102,39 +102,56 @@ else()
     list(APPEND D_SRC d_fft_fftsg.c)
 endif()
 
-if(ALSA_FOUND)
-    add_definitions(-DUSEAPI_ALSA)
-    list(APPEND S_SRC s_audio_alsa.c s_audio_alsamm.c s_midi_alsa.c)
+# ALSA
+if(WITH_ALSA_AUDIO)
+    list(APPEND S_SRC s_audio_alsa.c s_audio_alsamm.c)
     list(APPEND PLATFORM_LINK_LIBRARIES ${ALSA_LIBRARIES})
 endif()
 
-if(LIBDL_FOUND)
-    list(APPEND PLATFORM_LINK_LIBRARIES ${LIBDL_LIBRARIES})
+if(WITH_ALSA_MIDI)
+    list(APPEND S_SRC s_midi_alsa.c)
+    list(APPEND PLATFORM_LINK_LIBRARIES ${ALSA_LIBRARIES})
 endif()
 
-if(JACK_FOUND)
-    add_definitions(-DUSEAPI_JACK -DJACK_XRUN)
+# JACK
+if(WITH_JACK)
     include_directories(${JACK_INCLUDE_DIRECTORIES})
     list(APPEND S_SRC s_audio_jack.c)
     list(APPEND PLATFORM_LINK_LIBRARIES ${JACK_LIBRARIES})
 endif()
 
-if(PORTAUDIO_FOUND)
-    add_definitions(-DUSEAPI_PORTAUDIO)
+if(WITH_PORTAUDIO)
     include_directories(${PORTAUDIO_INCLUDE_DIRS})
     list(APPEND S_SRC s_audio_pa.c)
     list(APPEND PLATFORM_LINK_LIBRARIES ${PORTAUDIO_LIBRARIES})
 endif()
 
-if(PORTMIDI_FOUND)
+if(WITH_PORTMIDI)
     include_directories(${PORTMIDI_INCLUDE_DIRECTORIES})
     list(APPEND S_SRC s_midi_pm.c)
     list(APPEND PLATFORM_LINK_LIBRARIES ${PORTMIDI_LIBRARIES})
 endif()
 
-if(SOUND_DUMMY)
-    add_definitions(-DUSEAPI_DUMMY)
+# OSS
+if(WITH_OSS_AUDIO)
+    list(APPEND S_SRC s_audio_oss.c)
+endif()
+
+if(WITH_OSS_MIDI)
+    list(APPEND S_SRC s_midi_oss.c)
+endif()
+
+# Dummy
+if(WITH_DUMMY_AUDIO)
     list(APPEND S_SRC s_audio_dummy.c)
+endif()
+
+if(WITH_DUMMY_MIDI)
+    list(APPEND S_SRC s_midi_dummy.c)
+endif()
+
+if(LIBDL_FOUND)
+    list(APPEND PLATFORM_LINK_LIBRARIES ${LIBDL_LIBRARIES})
 endif()
 
 add_library(puredata-core STATIC ${D_SRC} ${G_SRC} ${M_SRC} ${S_SRC} ${X_SRC})
