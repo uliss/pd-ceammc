@@ -18,6 +18,13 @@ if(LINUX)
     set(PD_EXTERNAL_LDFLAGS "-Wl,--export-dynamic -shared -fPIC")
 endif()
 
+
+if(MSYS)
+    set(PD_EXTERNAL_EXTENSION ".dll")
+    set(PD_EXTERNAL_CFLAGS "-mms-bitfields")
+    set(PD_EXTERNAL_LDFLAGS "-s shared -Wl,--enable-auto-import")
+endif()
+
 function(pd_add_extension)
     set(_OPTIONS_ARGS)
     set(_ONE_VALUE_ARGS NAME INSTALL_DIR INTERNAL)
@@ -51,9 +58,9 @@ function(pd_add_extension)
         include_directories(${CMAKE_SOURCE_DIR}/src)
         set_target_properties(${_PD_EXT_NAME} PROPERTIES
             PREFIX ""
-            SUFFIX ${PD_EXTERNAL_EXTENSION}
-            COMPILE_FLAGS ${PD_EXTERNAL_CFLAGS}
-            LINK_FLAGS ${PD_EXTERNAL_LDFLAGS}
+            SUFFIX "${PD_EXTERNAL_EXTENSION}"
+            COMPILE_FLAGS "${PD_EXTERNAL_CFLAGS}"
+            LINK_FLAGS "${PD_EXTERNAL_LDFLAGS}"
             )
     else()
         message(FATAL_ERROR "pd_add_extension: 'NAME' argument required.")
@@ -65,8 +72,8 @@ function(pd_add_extension)
         set(DEFAULT_DEST "lib/pd/extra")
     elseif(APPLE)
         set(DEFAULT_DEST "$ENV{HOME}/Library/Pd")
-    elseif(WIN32)
-
+    elseif(MSYS)
+        set(DEFAULT_DEST "extra")
     endif()
 
     # explicit INSTALL_DIR used
@@ -79,10 +86,11 @@ function(pd_add_extension)
     endif()
 
     set(INSTALL_DIR "${_PD_EXT_INSTALL_DIR}/${_PD_EXT_NAME}")
+    #message(STATUS "ext install dir: ${INSTALL_DIR}")
 
     # install extension README etc. files
-    install(DIRECTORY ../${_PD_EXT_NAME}
-            DESTINATION ${_PD_EXT_INSTALL_DIR}
+    install(DIRECTORY "../${_PD_EXT_NAME}"
+            DESTINATION "${_PD_EXT_INSTALL_DIR}"
             FILES_MATCHING REGEX "(README|LICENSE|NOTES|README.txt|LICENSE.txts|NOTES.txt)")
 
     # install help files
@@ -94,16 +102,22 @@ function(pd_add_extension)
         get_filename_component(_fname ${_loop_var} NAME)
         set(fname "${CMAKE_CURRENT_BINARY_DIR}/${_fname}")
         configure_file(${_loop_var} ${fname})
-        install(FILES ${fname} DESTINATION ${INSTALL_DIR})
+        install(FILES ${fname} DESTINATION "${INSTALL_DIR}")
     endforeach()
 
     # installing extra files
     foreach(_extra_file ${_PD_EXT_EXTRA_FILES})
-        install(FILES ${_extra_file} DESTINATION ${INSTALL_DIR})
+        install(FILES ${_extra_file} DESTINATION "${INSTALL_DIR}")
     endforeach()
 
     # install extension binary
-    install(TARGETS ${_PD_EXT_NAME} LIBRARY DESTINATION ${INSTALL_DIR})
+    if(MSYS)
+        install(TARGETS ${_PD_EXT_NAME} DESTINATION "${INSTALL_DIR}")
+    else()
+        install(TARGETS ${_PD_EXT_NAME} LIBRARY DESTINATION "${INSTALL_DIR}")
+    else()
+        install(TARGETS ${_PD_EXT_NAME} LIBRARY DESTINATION "${INSTALL_DIR}")
+    endif()
 endfunction()
 
 function(pd_add_simple_extension)
