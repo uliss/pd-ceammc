@@ -32,7 +32,7 @@ option(WITH_FFTW "Use fftw3 library (http://www.fftw.org/)" ON)
 if(WITH_FFTW)
     include(FindFFTW)
     if(!FFTW_FOUND)
-        unset(WITH_FFTW)
+        set(WITH_FFTW OFF CACHE BOOL "" FORCE)
     endif()
 endif()
 
