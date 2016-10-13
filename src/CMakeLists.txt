@@ -110,7 +110,6 @@ if(WITH_JACK)
 endif()
 
 if(WITH_PORTAUDIO)
-    include_directories(${PORTAUDIO_INCLUDE_DIRS})
     list(APPEND S_SRC s_audio_pa.c)
     list(APPEND PLATFORM_LINK_LIBRARIES ${PORTAUDIO_LIBRARIES})
 endif()
