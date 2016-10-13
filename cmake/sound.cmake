@@ -21,9 +21,9 @@ cmake_dependent_option(WITH_DUMMY_MIDI "Build dummy midi module" ON "WITH_DUMMY"
 if(WITH_ALSA_AUDIO OR WITH_ALSA_MIDI)
     include(FindALSA)
     if(NOT ALSA_FOUND)
-        set(WITH_ALSA OFF)
-        set(WITH_ALSA_AUDIO OFF)
-        set(WITH_ALSA_MIDI OFF)
+        set(WITH_ALSA OFF CACHE BOOL "" FORCE)
+        set(WITH_ALSA_AUDIO OFF CACHE BOOL "" FORCE)
+        set(WITH_ALSA_MIDI OFF CACHE BOOL "" FORCE)
     else()
         add_definitions(-DUSEAPI_ALSA)
     endif()
@@ -33,7 +33,7 @@ endif()
 if(WITH_JACK)
     include(FindJack)
     if(NOT JACK_FOUND)
-        set(WITH_JACK OFF)
+        set(WITH_JACK OFF CACHE BOOL "" FORCE)
     else()
          add_definitions(-DUSEAPI_JACK -DJACK_XRUN)
     endif()
@@ -72,4 +72,12 @@ endif()
 # Dummy
 if(WITH_DUMMY_AUDIO OR WITH_DUMMY_MIDI)
     add_definitions(-DUSEAPI_DUMMY)
+endif()
+
+if(NOT WITH_ALSA_AUDIO AND
+        NOT WITH_JACK AND
+        NOT WITH_OSS_AUDIO AND
+        NOT WITH_PORTAUDIO AND
+        NOT WITH_DUMMY_AUDIO)
+    message(FATAL_ERROR "At least one sound module required! See `cmake -L` for available config options.")
 endif()
