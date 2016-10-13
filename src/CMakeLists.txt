@@ -115,7 +115,6 @@ if(WITH_PORTAUDIO)
 endif()
 
 if(WITH_PORTMIDI)
-    include_directories(${PORTMIDI_INCLUDE_DIRECTORIES})
     list(APPEND S_SRC s_midi_pm.c)
     list(APPEND PLATFORM_LINK_LIBRARIES ${PORTMIDI_LIBRARIES})
 endif()
