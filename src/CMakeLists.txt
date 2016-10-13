@@ -137,19 +137,13 @@ if(WITH_PORTMIDI)
 endif()
 
 if(WISHAPP)
-	add_definitions(-DWISHAPP="${WISHAPP}")
+    add_definitions(-DWISHAPP="${WISHAPP}")
 endif()
 
-if(WITH_OSS_AUDIO)
+if(WITH_OSS)
     list(APPEND S_SRC s_audio_oss.c)
-    find_library(OSSLIB ossaudio)
-    if(OSSLIB)
-        list(APPEND PD_NEEDED_LIBS ${OSSLIB})
-    endif()
-endif()
-
-if(WITH_OSS_MIDI)
     list(APPEND S_SRC s_midi_oss.c)
+    list(APPEND PD_NEEDED_LIBS ${OSSLIB})
 endif()
 
 # Dummy
