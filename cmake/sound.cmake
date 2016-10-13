@@ -37,6 +37,7 @@ if(WITH_JACK)
         set(WITH_JACK OFF CACHE BOOL "" FORCE)
     else()
          add_definitions(-DUSEAPI_JACK -DJACK_XRUN)
+         include_directories(${JACK_INCLUDE_DIRECTORIES})
     endif()
 endif()
 

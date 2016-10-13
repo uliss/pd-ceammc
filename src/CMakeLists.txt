@@ -105,7 +105,6 @@ endif()
 
 # JACK
 if(WITH_JACK)
-    include_directories(${JACK_INCLUDE_DIRECTORIES})
     list(APPEND S_SRC s_audio_jack.c)
     list(APPEND PLATFORM_LINK_LIBRARIES ${JACK_LIBRARIES})
 endif()
