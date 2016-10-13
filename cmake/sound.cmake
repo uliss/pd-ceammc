@@ -26,6 +26,7 @@ if(WITH_ALSA_AUDIO OR WITH_ALSA_MIDI)
         set(WITH_ALSA_MIDI OFF CACHE BOOL "" FORCE)
     else()
         add_definitions(-DUSEAPI_ALSA)
+        include_directories(${ALSA_INCLUDE_DIR})
     endif()
 endif()
 
