@@ -15,6 +15,12 @@ if(UNIX AND NOT APPLE)
     set(LINUX True)
 endif()
 
+
+if(MSYS)
+    add_definitions(-DPD_INTERNAL -DWINVER=0x0501 -D_WIN32_WINNT=0x0501)
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mms-bitfields -g -O3 -funroll-loops -fomit-frame-pointer")
+endif()
+
 if(APPLE)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -O3 -funroll-loops -fomit-frame-pointer")
 
