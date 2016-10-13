@@ -16,8 +16,13 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
-#include <iconv.h>
 #include <iostream>
+
+#if defined(__FreeBSD__)
+#define LIBICONV_PLUG
+#endif
+
+#include <iconv.h>
 
 static const size_t BUF_SIZE = 100;
 static const size_t MAX_UNICODE_CHAR_WIDTH = 4;
