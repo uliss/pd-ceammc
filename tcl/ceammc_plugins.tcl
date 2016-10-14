@@ -22,3 +22,4 @@ proc load_plugin_script {filename} {
 }
 
 load_plugin_script [file join $::sys_guidir ceammc_editmode_plugin.tcl]
+load_plugin_script [file join $::sys_guidir ceammc_popup_category_menu.tcl]
