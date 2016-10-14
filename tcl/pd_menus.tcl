@@ -313,6 +313,9 @@ proc ::pd_menus::build_help_menu {mymenu} {
     }
     $mymenu add command -label [_ "HTML Manual..."] \
         -command {menu_doc_open doc/1.manual index.htm}
+    $mymenu add command -label [_ "FLOSS Manual..."] \
+        -command {menu_openfile \
+        {http://en.flossmanuals.net/pure-data/audio-tutorials/_booki/pure-data/pure-data.pdf}}
     $mymenu add command -label [_ "Browser..."] \
         -command {menu_helpbrowser} 
     $mymenu add command -label [_ "List of objects..."] \
