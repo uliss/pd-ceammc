@@ -45,5 +45,6 @@ if(GETTEXT_FOUND)
     add_subdirectory(po)
 endif()
 
+add_subdirectory(ceammc)
 
 include(summary)

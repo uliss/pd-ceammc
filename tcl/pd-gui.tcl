@@ -713,6 +713,7 @@ proc load_plugin_script {filename} {
 proc load_startup_plugins {} {
     # load built-in plugins
     load_plugin_script [file join $::sys_guidir pd_deken.tcl]
+    load_plugin_script [file join $::sys_guidir ceammc_plugins.tcl]
 
     # load other installed plugins
     foreach pathdir [concat $::sys_searchpath $::sys_staticpath] {
