@@ -1,4 +1,5 @@
 include(TestBigEndian)
+include(FindLibDL)
 test_big_endian(IS_BIG_ENDIAN)
 if(NOT ${IS_BIG_ENDIAN})
     add_definitions(-DLITTLE_ENDIAN=0x0001 -DBYTE_ORDER=LITTLE_ENDIAN)
@@ -7,6 +8,7 @@ endif()
 find_package(Threads)
 
 set(PLATFORM_LINK_LIBRARIES)
+
 
 if(UNIX AND NOT APPLE)
     add_definitions(-D_GNU_SOURCE)
@@ -17,8 +19,11 @@ endif()
 
 
 if(MSYS)
-    add_definitions(-DPD_INTERNAL -DWINVER=0x0501 -D_WIN32_WINNT=0x0501)
+    add_definitions(-DPD_INTERNAL -DWINVER=0x0502 -D_WIN32_WINNT=0x0502)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mms-bitfields -g -O3 -funroll-loops -fomit-frame-pointer")
+    list(APPEND PLATFORM_LINK_LIBRARIES ${CMAKE_THREAD_LIBS_INIT})
+    list(APPEND PLATFORM_LINK_LIBRARIES "m" "wsock32" "ole32" "winmm")
+    set(CMAKE_EXE_LINKER_FLAGS "-lOle32 -lWinmm -lpthread -static-libgcc")	
 endif()
 
 if(APPLE)
