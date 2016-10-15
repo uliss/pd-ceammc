@@ -23,6 +23,7 @@ if(MSYS)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mms-bitfields -g -O3 -funroll-loops -fomit-frame-pointer")
     list(APPEND PLATFORM_LINK_LIBRARIES ${CMAKE_THREAD_LIBS_INIT})
     list(APPEND PLATFORM_LINK_LIBRARIES "m" "wsock32" "ole32" "winmm")
+    set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--export-all-symbols")
     set(CMAKE_EXE_LINKER_FLAGS "-lOle32 -lWinmm -lpthread -static-libgcc")	
 endif()
 
