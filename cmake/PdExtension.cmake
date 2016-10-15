@@ -22,7 +22,7 @@ endif()
 if(MSYS)
     set(PD_EXTERNAL_EXTENSION ".dll")
     set(PD_EXTERNAL_CFLAGS "-mms-bitfields")
-    set(PD_EXTERNAL_LDFLAGS "-s shared -Wl,--enable-auto-import")
+    set(PD_EXTERNAL_LDFLAGS "-Wl,--enable-auto-import")
 endif()
 
 function(pd_add_extension)
@@ -62,6 +62,10 @@ function(pd_add_extension)
             COMPILE_FLAGS "${PD_EXTERNAL_CFLAGS}"
             LINK_FLAGS "${PD_EXTERNAL_LDFLAGS}"
             )
+
+        if(MSYS)
+            target_link_libraries(${_PD_EXT_NAME} pdcore)
+        endif()
     else()
         message(FATAL_ERROR "pd_add_extension: 'NAME' argument required.")
     endif()

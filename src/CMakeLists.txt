@@ -144,6 +144,9 @@ endif()
 
 add_library(puredata-core STATIC ${D_SRC} ${G_SRC} ${M_SRC} ${S_SRC} ${X_SRC})
 
+add_library(pdcore SHARED ${D_SRC} ${G_SRC} ${M_SRC} ${S_SRC} ${X_SRC})
+target_link_libraries(pdcore ${PLATFORM_LINK_LIBRARIES})
+
 add_executable(pd WIN32 s_entry.c)
 target_link_libraries(pd puredata-core ${PLATFORM_LINK_LIBRARIES})
 
