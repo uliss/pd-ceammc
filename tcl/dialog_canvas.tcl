@@ -143,7 +143,7 @@ proc ::dialog_canvas::create_dialog {mytoplevel} {
     wm resizable $mytoplevel 0 0
     wm transient $mytoplevel $::focused_window
     $mytoplevel configure -menu $::dialog_menubar
-    $mytoplevel configure -padx 0 -pady 0
+    $mytoplevel configure -padx 5 -pady 5
     ::pd_bindings::dialog_bindings $mytoplevel "canvas"
     
     labelframe $mytoplevel.scale -text [_ "Scale"] -borderwidth 1

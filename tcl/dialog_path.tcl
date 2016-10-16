@@ -38,9 +38,9 @@ proc ::dialog_path::create_dialog {mytoplevel} {
     scrollboxwindow::make $mytoplevel $::sys_searchpath \
         dialog_path::add dialog_path::edit dialog_path::commit \
         [_ "Pd search path for objects, help, fonts, and other files"] \
-        480 300 1
+        500 300 1
     ::pd_bindings::dialog_bindings $mytoplevel "path"
-    
+
     frame $mytoplevel.extraframe
     pack $mytoplevel.extraframe -side bottom -fill x -pady 2m
     checkbutton $mytoplevel.extraframe.extra -text [_ "Use standard extensions"] \
@@ -98,7 +98,7 @@ proc ::dialog_path::choosePath { currentpath title } {
 }
 
 proc ::dialog_path::add {} {
-    return [::dialog_path::choosePath "" {[_ "Add a new path"]}]
+    return [::dialog_path::choosePath "" [_ "Add a new path"]]
 }
 
 proc ::dialog_path::edit { currentpath } {
