@@ -1,5 +1,6 @@
 include(TestBigEndian)
 include(FindLibDL)
+include(windres)
 test_big_endian(IS_BIG_ENDIAN)
 if(NOT ${IS_BIG_ENDIAN})
     add_definitions(-DLITTLE_ENDIAN=0x0001 -DBYTE_ORDER=LITTLE_ENDIAN)

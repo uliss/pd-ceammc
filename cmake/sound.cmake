@@ -18,8 +18,13 @@ if(MSYS OR WIN32)
 endif()
 
 option(WITH_DUMMY "Build dummy audio and midi modules" OFF)
-cmake_dependent_option(WITH_DUMMY_AUDIO "Build dummy audio module" ON "WITH_DUMMY" OFF)
-cmake_dependent_option(WITH_DUMMY_MIDI "Build dummy midi module" ON "WITH_DUMMY" OFF)
+option(WITH_DUMMY_AUDIO "Build dummy audio module" OFF)
+option(WITH_DUMMY_MIDI "Build dummy midi module" OFF)
+if(WITH_DUMMY)
+    set(WITH_DUMMY_AUDIO ON CACHE BOOL "" FORCE)
+    set(WITH_DUMMY_MIDI ON CACHE BOOL "" FORCE)
+endif()
+
 
 # ALSA
 if(WITH_ALSA_AUDIO OR WITH_ALSA_MIDI)

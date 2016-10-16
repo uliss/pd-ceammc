@@ -54,7 +54,6 @@ set(S_SRC
     s_audio.c
 #    s_audio_audiounit.c
 #    s_audio_esd.c
-#    s_audio_mmio.c
     s_audio_paring.c
 #    s_entry.c
     s_file.c
@@ -62,6 +61,7 @@ set(S_SRC
     s_loader.c
     s_main.c
     s_midi.c
+    s_midi_dummy.c
     s_path.c
     s_print.c
     s_utf8.c)
@@ -144,6 +144,7 @@ endif()
 
 if(WIN32 OR MSYS)
     set(LIB_STATE "SHARED")
+    list(APPEND S_SRC "pd.rc")
 else()
     set(LIB_STATE "STATIC")
 endif()
