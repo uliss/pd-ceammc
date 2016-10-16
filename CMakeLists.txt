@@ -37,6 +37,7 @@ if(WITH_FFTW)
     endif()
 endif()
 
+add_subdirectory(portmidi)
 add_subdirectory(src)
 add_subdirectory(tcl)
 add_subdirectory(extra)

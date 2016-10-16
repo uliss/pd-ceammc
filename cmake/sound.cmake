@@ -73,16 +73,6 @@ if(WITH_PORTAUDIO)
     endif()
 endif()
 
-# PORTMIDI
-if(WITH_PORTMIDI)
-    include(FindPortMidi)
-    if(PORTMIDI_FOUND)
-        include_directories(${PORTMIDI_INCLUDE_DIRECTORIES})
-    else()
-        set(WITH_PORTMIDI OFF CACHE BOOL "" FORCE)
-    endif()
-endif()
-
 # Dummy
 if(WITH_DUMMY_AUDIO OR WITH_DUMMY_MIDI)
     add_definitions(-DUSEAPI_DUMMY)

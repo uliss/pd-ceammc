@@ -61,7 +61,7 @@ set(S_SRC
     s_loader.c
     s_main.c
     s_midi.c
-    s_midi_dummy.c
+#    s_midi_dummy.c
     s_path.c
     s_print.c
     s_utf8.c)
@@ -84,10 +84,12 @@ set(X_SRC
     x_vexp_fun.c
     x_vexp_if.c)
 
+set(PD_NEEDED_LIBS)
+
 if(WITH_FFTW)
     include_directories(${FFTW_INCLUDE_DIRECTORIES})
     list(APPEND D_SRC d_fft_fftw.c)
-    list(APPEND PLATFORM_LINK_LIBRARIES ${FFTW_LIBRARIES})
+    list(APPEND PD_NEEDED_LIBS ${FFTW_LIBRARIES})
 else()
     list(APPEND D_SRC d_fft_fftsg.c)
 endif()
@@ -95,28 +97,29 @@ endif()
 # ALSA
 if(WITH_ALSA_AUDIO)
     list(APPEND S_SRC s_audio_alsa.c s_audio_alsamm.c)
-    list(APPEND PLATFORM_LINK_LIBRARIES ${ALSA_LIBRARIES})
+    list(APPEND PD_NEEDED_LIBS ${ALSA_LIBRARIES})
 endif()
 
 if(WITH_ALSA_MIDI)
     list(APPEND S_SRC s_midi_alsa.c)
-    list(APPEND PLATFORM_LINK_LIBRARIES ${ALSA_LIBRARIES})
+    list(APPEND PD_NEEDED_LIBS ${ALSA_LIBRARIES})
 endif()
 
 # JACK
 if(WITH_JACK)
     list(APPEND S_SRC s_audio_jack.c)
-    list(APPEND PLATFORM_LINK_LIBRARIES ${JACK_LIBRARIES})
+    list(APPEND PD_NEEDED_LIBS ${JACK_LIBRARIES})
 endif()
 
 if(WITH_PORTAUDIO)
     list(APPEND S_SRC s_audio_pa.c)
-    list(APPEND PLATFORM_LINK_LIBRARIES ${PORTAUDIO_LIBRARIES})
+    list(APPEND PD_NEEDED_LIBS ${PORTAUDIO_LIBRARIES})
 endif()
 
 if(WITH_PORTMIDI)
+    include_directories(${PROJECT_SOURCE_DIR}/portmidi/pm_common)
     list(APPEND S_SRC s_midi_pm.c)
-    list(APPEND PLATFORM_LINK_LIBRARIES ${PORTMIDI_LIBRARIES})
+    list(APPEND PD_NEEDED_LIBS portmidi-static)
 endif()
 
 # OSS
@@ -153,7 +156,7 @@ add_library(puredata-core ${LIB_STATE} ${D_SRC} ${G_SRC} ${M_SRC} ${S_SRC} ${X_S
 target_link_libraries(puredata-core ${PLATFORM_LINK_LIBRARIES})
 
 add_executable(pd WIN32 s_entry.c)
-target_link_libraries(pd puredata-core)
+target_link_libraries(pd puredata-core ${PD_NEEDED_LIBS})
 
 if(UNIX AND NOT APPLE)
     add_executable(pd-watchdog s_watchdog.c)
