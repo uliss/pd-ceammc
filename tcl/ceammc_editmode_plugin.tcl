@@ -1,7 +1,7 @@
 # this script changes background color in edit/run modes
 
 namespace eval ::editmode_look {
-    set run_mode_color  "#888888"
+    set run_mode_color  "#EEEEEE"
     set edit_mode_color "#FFFFFF"
 }
 
