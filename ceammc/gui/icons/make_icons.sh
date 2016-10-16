@@ -27,5 +27,13 @@ make_icon 128
 make_icon 256
 make_icon 512
 
+echo "Making ICNS..."
 iconutil -c icns "${ICONSET}"
+
+echo "Making ICO..."
+PNGS=$(find "${ICONSET}" -name '*.png' | grep -v '@')
+echo $PNGS
+convert ${PNGS} pd_ceammc.ico
+
+
 

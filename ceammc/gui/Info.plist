@@ -22,7 +22,11 @@
 	<key>CFBundleExecutable</key>
 	<string>Pd</string>
 	<key>CFBundleIdentifier</key>
-	<string>org.puredata</string>
+        <string>com.ceammc.puredata</string>
+        <key>CFBundleDisplayName</key>
+        <string>PureData (ceammc)</string>
+        <key>CFBundleSpokenName</key>
+        <string>PureData</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundlePackageType</key>
