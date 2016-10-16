@@ -9,7 +9,7 @@ PD_RESOURCES=$PD_CONTENT/Resources
 PD_BIN=$PD_RESOURCES/bin
 
 PD_INFO="$BUILD_DIR/Info.plist"
-PD_ICON="$SRC_DIR/ceammc/gui/pd_ceammc.icns"
+PD_ICON="$SRC_DIR/ceammc/gui/icons/pd_ceammc.icns"
 PD_ICON_FILE="$SRC_DIR/mac/stuff/pd-file.icns"
 
 cd "$BUILD_DIR"

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 INK='/usr/local/bin/inkscape'
-ICONSET='./pd.iconset'
+ICONSET='./pd_ceammc.iconset'
 
 if [[ -z "$1" ]] 
 then
