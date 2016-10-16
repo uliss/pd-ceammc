@@ -38,7 +38,7 @@ proc ::dialog_path::create_dialog {mytoplevel} {
     scrollboxwindow::make $mytoplevel $::sys_searchpath \
         dialog_path::add dialog_path::edit dialog_path::commit \
         [_ "Pd search path for objects, help, fonts, and other files"] \
-        400 300 1
+        480 300 1
     ::pd_bindings::dialog_bindings $mytoplevel "path"
     
     frame $mytoplevel.extraframe
