@@ -31,7 +31,7 @@ msgstr "Вставить"
 
 #: ../tcl/dialog_array.tcl:256 ../tcl/dialog_array.tcl:263
 msgid "Array Properties"
-msgstr ""
+msgstr "Свойства Array"
 
 #: ../tcl/dialog_array.tcl:265 ../tcl/pd_menus.tcl:214 ../tcl/pd_menus.tcl:233
 msgid "Array"
@@ -39,7 +39,7 @@ msgstr ""
 
 #: ../tcl/dialog_array.tcl:269 ../tcl/dialog_array.tcl:273
 msgid "Name:"
-msgstr ""
+msgstr "Имя:"
 
 #: ../tcl/dialog_array.tcl:275 ../tcl/dialog_array.tcl:279
 #: ../tcl/dialog_canvas.tcl:181 ../tcl/dialog_canvas.tcl:196
@@ -47,39 +47,39 @@ msgstr ""
 #: ../tcl/dialog_iemgui.tcl:546 ../tcl/dialog_iemgui.tcl:556
 #: ../tcl/dialog_iemgui.tcl:630 ../tcl/dialog_iemgui.tcl:689
 msgid "Size:"
-msgstr ""
+msgstr "Размер:"
 
 #: ../tcl/dialog_array.tcl:279 ../tcl/dialog_array.tcl:283
 msgid "Save contents"
-msgstr ""
+msgstr "Сохранять содержимое"
 
 #: ../tcl/dialog_array.tcl:284 ../tcl/dialog_array.tcl:287
 msgid "Draw as:"
-msgstr ""
+msgstr "Рисовать:"
 
 #: ../tcl/dialog_array.tcl:287 ../tcl/dialog_array.tcl:292
 msgid "Polygon"
-msgstr ""
+msgstr "Линиями"
 
 #: ../tcl/dialog_array.tcl:289 ../tcl/dialog_array.tcl:290
 msgid "Points"
-msgstr ""
+msgstr "Точками"
 
 #: ../tcl/dialog_array.tcl:291 ../tcl/dialog_array.tcl:294
 msgid "Bezier curve"
-msgstr ""
+msgstr "Кривыми"
 
 #: ../tcl/dialog_array.tcl:298 ../tcl/dialog_array.tcl:300
 msgid "Put array into:"
-msgstr ""
+msgstr "Поместить array в:"
 
 #: ../tcl/dialog_array.tcl:301 ../tcl/dialog_array.tcl:303
 msgid "New graph"
-msgstr ""
+msgstr "Новый graph"
 
 #: ../tcl/dialog_array.tcl:303 ../tcl/dialog_array.tcl:305
 msgid "Last graph"
-msgstr ""
+msgstr "Последний graph"
 
 #: ../tcl/dialog_array.tcl:307
 msgid "Options"
@@ -255,23 +255,23 @@ msgstr ""
 
 #: ../tcl/dialog_canvas.tcl:141
 msgid "Canvas Properties"
-msgstr ""
+msgstr "Свойства Canvas"
 
 #: ../tcl/dialog_canvas.tcl:149
 msgid "Scale"
-msgstr ""
+msgstr "Масштаб"
 
 #: ../tcl/dialog_canvas.tcl:153
 msgid "X units per pixel:"
-msgstr ""
+msgstr "X единиц на пиксель:"
 
 #: ../tcl/dialog_canvas.tcl:158
 msgid "Y units per pixel:"
-msgstr ""
+msgstr "Y единиц на пиксель:"
 
 #: ../tcl/dialog_canvas.tcl:162
 msgid "Appearance on parent patch"
-msgstr ""
+msgstr "Вид на родительском патче"
 
 #: ../tcl/dialog_canvas.tcl:164
 msgid "Graph-On-Parent"
@@ -279,35 +279,35 @@ msgstr ""
 
 #: ../tcl/dialog_canvas.tcl:168
 msgid "Hide object name and arguments"
-msgstr ""
+msgstr "Скрыть имя объекта и аргументы"
 
 #: ../tcl/dialog_canvas.tcl:173
 msgid "Range and size"
-msgstr ""
+msgstr "Диапазон и размер"
 
 #: ../tcl/dialog_canvas.tcl:177
 msgid "X range, from"
-msgstr ""
+msgstr "X диапазон, от"
 
 #: ../tcl/dialog_canvas.tcl:177
 msgid "X range: from"
-msgstr ""
+msgstr "X диапазон: от"
 
 #: ../tcl/dialog_canvas.tcl:179 ../tcl/dialog_canvas.tcl:194
 msgid "to"
-msgstr ""
+msgstr "до"
 
 #: ../tcl/dialog_canvas.tcl:183 ../tcl/dialog_canvas.tcl:198
 msgid "Margin:"
-msgstr ""
+msgstr "Отступ:"
 
 #: ../tcl/dialog_canvas.tcl:192
 msgid "Y range, from"
-msgstr ""
+msgstr "Y диапазон, от"
 
 #: ../tcl/dialog_canvas.tcl:192
 msgid "Y range: from"
-msgstr ""
+msgstr "Y диапазон: от"
 
 #: ../tcl/dialog_data.tcl:29 ../tcl/dialog_data.tcl:35
 msgid "Data Properties"
@@ -329,12 +329,12 @@ msgstr ""
 #: ../tcl/dialog_find.tcl:114 ../tcl/dialog_find.tcl:145
 #: ../tcl/dialog_find.tcl:173
 msgid "Search in"
-msgstr ""
+msgstr "Поиск в"
 
 #: ../tcl/dialog_find.tcl:115 ../tcl/dialog_find.tcl:147
 #: ../tcl/dialog_find.tcl:173
 msgid "for:"
-msgstr ""
+msgstr ":"
 
 #: ../tcl/dialog_find.tcl:126 ../tcl/dialog_find.tcl:155
 #: ../tcl/dialog_find.tcl:167 ../tcl/dialog_find.tcl:194
@@ -359,7 +359,7 @@ msgstr ""
 
 #: ../tcl/dialog_find.tcl:157 ../tcl/dialog_find.tcl:184
 msgid "Match whole word only"
-msgstr ""
+msgstr "Только полное совпадение"
 
 #: ../tcl/dialog_find.tcl:171 ../tcl/dialog_find.tcl:198
 #: ../tcl/pd_menus.tcl:58 ../tcl/pd_menus.tcl:80 ../tcl/pd_menus.tcl:82
@@ -372,7 +372,7 @@ msgstr "Закрыть"
 #: ../tcl/dialog_font.tcl:49 ../tcl/dialog_font.tcl:60
 #, tcl-format
 msgid "%s Font"
-msgstr ""
+msgstr "Шрифт %s"
 
 #: ../tcl/dialog_font.tcl:107 ../tcl/dialog_font.tcl:119
 msgid "Font Size"
@@ -402,72 +402,72 @@ msgstr ""
 #: ../tcl/dialog_iemgui.tcl:528 ../tcl/dialog_iemgui.tcl:535
 #: ../tcl/dialog_iemgui.tcl:550 ../tcl/dialog_iemgui.tcl:558
 msgid "Width:"
-msgstr ""
+msgstr "Ширина:"
 
 #: ../tcl/dialog_gatom.tcl:107 ../tcl/dialog_gatom.tcl:112
 msgid "Limits"
-msgstr ""
+msgstr "Диапазон"
 
 #: ../tcl/dialog_gatom.tcl:111 ../tcl/dialog_gatom.tcl:116
 #: ../tcl/dialog_iemgui.tcl:523 ../tcl/dialog_iemgui.tcl:531
 #: ../tcl/dialog_iemgui.tcl:538
 msgid "Lower:"
-msgstr ""
+msgstr "От:"
 
 #: ../tcl/dialog_gatom.tcl:116 ../tcl/dialog_gatom.tcl:121
 #: ../tcl/dialog_iemgui.tcl:524 ../tcl/dialog_iemgui.tcl:532
 #: ../tcl/dialog_iemgui.tcl:539
 msgid "Upper:"
-msgstr ""
+msgstr "До:"
 
 #: ../tcl/dialog_gatom.tcl:120 ../tcl/dialog_gatom.tcl:125
 #: ../tcl/dialog_iemgui.tcl:610 ../tcl/dialog_iemgui.tcl:663
 #: ../tcl/dialog_iemgui.tcl:667 ../tcl/dialog_iemgui.tcl:720
 msgid "Label"
-msgstr ""
+msgstr "Ярлык"
 
 #: ../tcl/dialog_gatom.tcl:128 ../tcl/dialog_gatom.tcl:133
 msgid "Left   "
-msgstr ""
+msgstr "Слева"
 
 #: ../tcl/dialog_gatom.tcl:130 ../tcl/dialog_gatom.tcl:135
 msgid "Right"
-msgstr ""
+msgstr "Справа"
 
 #: ../tcl/dialog_gatom.tcl:132 ../tcl/dialog_gatom.tcl:137
 msgid "Top"
-msgstr ""
+msgstr "Сверху"
 
 #: ../tcl/dialog_gatom.tcl:134 ../tcl/dialog_gatom.tcl:139
 msgid "Bottom"
-msgstr ""
+msgstr "Снизу"
 
 #: ../tcl/dialog_gatom.tcl:141 ../tcl/dialog_gatom.tcl:146
 #: ../tcl/dialog_iemgui.tcl:580 ../tcl/dialog_iemgui.tcl:639
 msgid "Messages"
-msgstr ""
+msgstr "Сообщения"
 
 #: ../tcl/dialog_gatom.tcl:145 ../tcl/dialog_gatom.tcl:150
 #: ../tcl/dialog_iemgui.tcl:584 ../tcl/dialog_iemgui.tcl:643
 msgid "Send symbol:"
-msgstr ""
+msgstr "Отправлять:"
 
 #: ../tcl/dialog_gatom.tcl:151 ../tcl/dialog_gatom.tcl:156
 #: ../tcl/dialog_iemgui.tcl:593 ../tcl/dialog_iemgui.tcl:652
 msgid "Receive symbol:"
-msgstr ""
+msgstr "Получать:"
 
 #: ../tcl/dialog_iemgui.tcl:197 ../tcl/dialog_iemgui.tcl:202
 msgid "Background color"
-msgstr ""
+msgstr "Цвет фона"
 
 #: ../tcl/dialog_iemgui.tcl:204 ../tcl/dialog_iemgui.tcl:208
 msgid "Foreground color"
-msgstr ""
+msgstr "Цвет переднего плана"
 
 #: ../tcl/dialog_iemgui.tcl:211 ../tcl/dialog_iemgui.tcl:213
 msgid "Label color"
-msgstr ""
+msgstr "Ярлык"
 
 #: ../tcl/dialog_iemgui.tcl:272 ../tcl/dialog_iemgui.tcl:273
 #: ../tcl/dialog_iemgui.tcl:616
@@ -492,7 +492,7 @@ msgstr ""
 #: ../tcl/dialog_iemgui.tcl:502 ../tcl/dialog_iemgui.tcl:563
 #, tcl-format
 msgid "%s Properties"
-msgstr ""
+msgstr "Свойства %s"
 
 #: ../tcl/dialog_iemgui.tcl:508 ../tcl/pd_menus.tcl:194 ../tcl/pd_menus.tcl:213
 msgid "Bang"
@@ -500,7 +500,7 @@ msgstr ""
 
 #: ../tcl/dialog_iemgui.tcl:510
 msgid "Flash Time (msec)"
-msgstr ""
+msgstr "Время индикации нажатия (мкс)"
 
 #: ../tcl/dialog_iemgui.tcl:511
 msgid "Intrrpt:"
@@ -516,11 +516,11 @@ msgstr ""
 
 #: ../tcl/dialog_iemgui.tcl:516
 msgid "Non Zero Value"
-msgstr ""
+msgstr "Активное значение"
 
 #: ../tcl/dialog_iemgui.tcl:517
 msgid "Value:"
-msgstr ""
+msgstr "Значение:"
 
 #: ../tcl/dialog_iemgui.tcl:519 ../tcl/pd_menus.tcl:198 ../tcl/pd_menus.tcl:217
 msgid "Number2"
@@ -528,18 +528,18 @@ msgstr ""
 
 #: ../tcl/dialog_iemgui.tcl:520
 msgid "Width (digits):"
-msgstr ""
+msgstr "Ширина в разрядах:"
 
 #: ../tcl/dialog_iemgui.tcl:521 ../tcl/dialog_iemgui.tcl:529
 #: ../tcl/dialog_iemgui.tcl:536 ../tcl/dialog_iemgui.tcl:551
 #: ../tcl/dialog_iemgui.tcl:559
 msgid "Height:"
-msgstr ""
+msgstr "Высота:"
 
 #: ../tcl/dialog_iemgui.tcl:522 ../tcl/dialog_iemgui.tcl:530
 #: ../tcl/dialog_iemgui.tcl:537
 msgid "Output Range"
-msgstr ""
+msgstr "Диапазон значений"
 
 #: ../tcl/dialog_iemgui.tcl:525
 msgid "Log height:"
@@ -547,7 +547,7 @@ msgstr ""
 
 #: ../tcl/dialog_iemgui.tcl:527 ../tcl/pd_menus.tcl:200 ../tcl/pd_menus.tcl:219
 msgid "Vslider"
-msgstr ""
+msgstr "Vertial Slider"
 
 #: ../tcl/dialog_iemgui.tcl:534 ../tcl/pd_menus.tcl:202 ../tcl/pd_menus.tcl:221
 msgid "Hslider"
@@ -559,7 +559,7 @@ msgstr ""
 
 #: ../tcl/dialog_iemgui.tcl:543 ../tcl/dialog_iemgui.tcl:547
 msgid "Num cells:"
-msgstr ""
+msgstr "Число ячеек:"
 
 #: ../tcl/dialog_iemgui.tcl:545 ../tcl/pd_menus.tcl:206 ../tcl/pd_menus.tcl:225
 msgid "Hradio"
@@ -583,11 +583,11 @@ msgstr "Сохранить"
 
 #: ../tcl/dialog_iemgui.tcl:557
 msgid "Visible Rectangle (pix)"
-msgstr ""
+msgstr "Видимый размер (в пикселях)"
 
 #: ../tcl/dialog_iemgui.tcl:604
 msgid "Parameters"
-msgstr ""
+msgstr "Параметры"
 
 #: ../tcl/dialog_iemgui.tcl:618
 msgid "X offset"
@@ -595,31 +595,31 @@ msgstr ""
 
 #: ../tcl/dialog_iemgui.tcl:621
 msgid "Y offset"
-msgstr ""
+msgstr "Y-cмещение"
 
 #: ../tcl/dialog_iemgui.tcl:653 ../tcl/dialog_iemgui.tcl:710
 msgid "Colors"
-msgstr ""
+msgstr "Цвета"
 
 #: ../tcl/dialog_iemgui.tcl:659 ../tcl/dialog_iemgui.tcl:716
 msgid "Background"
-msgstr ""
+msgstr "Фон"
 
 #: ../tcl/dialog_iemgui.tcl:661 ../tcl/dialog_iemgui.tcl:718
 msgid "Front"
-msgstr ""
+msgstr "Передний план"
 
 #: ../tcl/dialog_iemgui.tcl:673 ../tcl/dialog_iemgui.tcl:730
 msgid "Compose color"
-msgstr ""
+msgstr "Выбрать цвет"
 
 #: ../tcl/dialog_iemgui.tcl:675
 msgid "X offset:"
-msgstr ""
+msgstr "X-cмещение:"
 
 #: ../tcl/dialog_iemgui.tcl:678
 msgid "Y offset:"
-msgstr ""
+msgstr "Y-cмещение:"
 
 #: ../tcl/dialog_iemgui.tcl:692 ../tcl/dialog_iemgui.tcl:751
 msgid "Test label"
@@ -627,7 +627,7 @@ msgstr ""
 
 #: ../tcl/dialog_message.tcl:61
 msgid "Send a Pd message"
-msgstr ""
+msgstr "Отправить сообщение PureData"
 
 #: ../tcl/dialog_message.tcl:80
 msgid "(use arrow keys for history)"
@@ -687,11 +687,11 @@ msgstr "Подробный вывод"
 
 #: ../tcl/dialog_startup.tcl:49 ../tcl/dialog_startup.tcl:57
 msgid "Add new library"
-msgstr ""
+msgstr "Добавить новую библиотеку"
 
 #: ../tcl/dialog_startup.tcl:53 ../tcl/dialog_startup.tcl:61
 msgid "Edit library"
-msgstr ""
+msgstr "Изменить библиотеку"
 
 #: ../tcl/dialog_startup.tcl:79 ../tcl/dialog_startup.tcl:87
 msgid "Pd libraries to load on startup"
@@ -699,7 +699,7 @@ msgstr "Библиотеки Pd, загружаемые при старте"
 
 #: ../tcl/dialog_startup.tcl:82 ../tcl/dialog_startup.tcl:93
 msgid "Startup flags:"
-msgstr ""
+msgstr "Флаги запуска:"
 
 #: ../tcl/dialog_startup.tcl:91 ../tcl/dialog_startup.tcl:101
 msgid "Defeat real-time scheduling"
@@ -707,7 +707,7 @@ msgstr ""
 
 #: ../tcl/helpbrowser.tcl:27
 msgid "Help Browser"
-msgstr ""
+msgstr "Обзор справки"
 
 #: ../tcl/pd-gui.tcl:296 ../tcl/pd-gui.tcl:330 ../tcl/pd-gui.tcl:365
 msgid "Associated Files"
@@ -759,11 +759,11 @@ msgstr ""
 
 #: ../tcl/pd_deken.tcl:292 ../tcl/pd_deken.tcl:337
 msgid "Show all"
-msgstr ""
+msgstr "Показать все"
 
 #: ../tcl/pd_deken.tcl:294
 msgid "Search"
-msgstr ""
+msgstr "Поиск"
 
 #: ../tcl/pd_deken.tcl:319 ../tcl/pd_deken.tcl:565 ../tcl/pd_deken.tcl:567
 msgid "Find externals"
@@ -875,19 +875,19 @@ msgstr "Объект"
 
 #: ../tcl/pd_menus.tcl:185 ../tcl/pd_menus.tcl:204
 msgid "Message"
-msgstr ""
+msgstr "Сообщение"
 
 #: ../tcl/pd_menus.tcl:187 ../tcl/pd_menus.tcl:206
 msgid "Number"
-msgstr ""
+msgstr "Число"
 
 #: ../tcl/pd_menus.tcl:189 ../tcl/pd_menus.tcl:208
 msgid "Symbol"
-msgstr ""
+msgstr "Символ"
 
 #: ../tcl/pd_menus.tcl:191 ../tcl/pd_menus.tcl:210
 msgid "Comment"
-msgstr ""
+msgstr "Комментарий"
 
 #: ../tcl/pd_menus.tcl:193 ../tcl/pd_menus.tcl:260 ../tcl/pd_menus.tcl:473
 #: ../tcl/pd_menus.tcl:517 ../tcl/pd_menus.tcl:567 ../tcl/pd_menus.tcl:614
@@ -928,11 +928,11 @@ msgstr "Индикатор загрузки"
 
 #: ../tcl/pd_menus.tcl:267 ../tcl/pd_menus.tcl:287
 msgid "Minimize"
-msgstr ""
+msgstr "Свернуть"
 
 #: ../tcl/pd_menus.tcl:269 ../tcl/pd_menus.tcl:289
 msgid "Zoom"
-msgstr ""
+msgstr "Раскрыть"
 
 #: ../tcl/pd_menus.tcl:272 ../tcl/pd_menus.tcl:292
 msgid "Bring All to Front"
@@ -940,7 +940,7 @@ msgstr "Все окна - на передний план"
 
 #: ../tcl/pd_menus.tcl:275 ../tcl/pd_menus.tcl:295
 msgid "Next Window"
-msgstr ""
+msgstr "Следующее окно"
 
 #: ../tcl/pd_menus.tcl:278 ../tcl/pd_menus.tcl:457 ../tcl/pd_menus.tcl:495
 msgid "Audio Settings..."
@@ -948,7 +948,7 @@ msgstr "Настройки аудио..."
 
 #: ../tcl/pd_menus.tcl:278 ../tcl/pd_menus.tcl:298
 msgid "Previous Window"
-msgstr ""
+msgstr "Предыдущее окно"
 
 #: ../tcl/pd_menus.tcl:280 ../tcl/pd_menus.tcl:459 ../tcl/pd_menus.tcl:497
 msgid "MIDI Settings..."
@@ -956,15 +956,15 @@ msgstr "Настройки MIDI..."
 
 #: ../tcl/pd_menus.tcl:285 ../tcl/pd_menus.tcl:305
 msgid "Parent Window"
-msgstr ""
+msgstr "Родительское окно"
 
 #: ../tcl/pd_menus.tcl:294 ../tcl/pd_menus.tcl:314
 msgid "HTML Manual..."
-msgstr ""
+msgstr "Руководство в формате HTML..."
 
 #: ../tcl/pd_menus.tcl:296 ../tcl/pd_menus.tcl:319
 msgid "Browser..."
-msgstr ""
+msgstr "Браузер..."
 
 #: ../tcl/pd_menus.tcl:299 ../tcl/pd_menus.tcl:324
 msgid "puredata.info"
@@ -1000,11 +1000,11 @@ msgstr "Запуск..."
 
 #: ../tcl/pd_menus.tcl:485 ../tcl/pd_menus.tcl:530
 msgid "Open Recent"
-msgstr ""
+msgstr "Недавно открытые файлы"
 
 #: ../tcl/pd_menus.tcl:499
 msgid "Zoom new windows"
-msgstr "Увеличивать новые окна"
+msgstr "Увеличенный шрифт в новых окнах"
 
 #: ../tcl/pd_menus.tcl:526 ../tcl/pd_menus.tcl:573 ../tcl/pd_menus.tcl:620
 msgid "Quit"
@@ -1014,7 +1014,7 @@ msgstr "Выход"
 #: ../tcl/pdtk_canvas.tcl:217 ../tcl/pdtk_canvas.tcl:219
 #: ../tcl/pdtk_canvas.tcl:236 ../tcl/pdtk_canvas.tcl:238
 msgid "Properties"
-msgstr ""
+msgstr "Свойства"
 
 #: ../tcl/pdtk_canvas.tcl:202 ../tcl/pdtk_canvas.tcl:223
 msgid "Help"
@@ -1108,7 +1108,7 @@ msgstr ""
 
 #: iemgui_dynamic_strings.tcl:21
 msgid "height:"
-msgstr ""
+msgstr "высота:"
 
 #: iemgui_dynamic_strings.tcl:22
 msgid "hold:"
@@ -1148,7 +1148,7 @@ msgstr ""
 
 #: iemgui_dynamic_strings.tcl:31
 msgid "size:"
-msgstr ""
+msgstr "размер:"
 
 #: iemgui_dynamic_strings.tcl:32
 msgid "top:"
@@ -1156,16 +1156,16 @@ msgstr ""
 
 #: iemgui_dynamic_strings.tcl:33
 msgid "value:"
-msgstr ""
+msgstr "значение:"
 
 #: iemgui_dynamic_strings.tcl:34
 msgid "width:"
-msgstr ""
+msgstr "ширина:"
 
 #: pd_dynamic_strings.tcl:10
 #, tcl-format
 msgid "Do you want to save the changes you made in '%s'?"
-msgstr ""
+msgstr "Сохранить изменения в '%s'?"
 
 #: pd_dynamic_strings.tcl:11
 #, tcl-format
@@ -1173,65 +1173,81 @@ msgid "Discard changes to '%s'?"
 msgstr ""
 
 #: pd_dynamic_strings.tcl:13
+#, fuzzy
 msgid "Undo clear"
-msgstr ""
+msgstr "Отменить удаление"
 
 #: pd_dynamic_strings.tcl:14
+#, fuzzy
 msgid "Undo connect"
-msgstr ""
+msgstr "Отменить соединение"
 
 #: pd_dynamic_strings.tcl:15
+#, fuzzy
 msgid "Undo cut"
-msgstr ""
+msgstr "Отменить вырезку"
 
 #: pd_dynamic_strings.tcl:16
+#, fuzzy
 msgid "Undo disconnect"
-msgstr ""
+msgstr "Отменить разъединение"
 
 #: pd_dynamic_strings.tcl:17
+#, fuzzy
 msgid "Undo duplicate"
-msgstr ""
+msgstr "Отменить дублирование"
 
 #: pd_dynamic_strings.tcl:18
+#, fuzzy
 msgid "Undo motion"
-msgstr ""
+msgstr "Отменить передвижение"
 
 #: pd_dynamic_strings.tcl:19
+#, fuzzy
 msgid "Undo paste"
-msgstr ""
+msgstr "Отменить вставку"
 
 #: pd_dynamic_strings.tcl:20
+#, fuzzy
 msgid "Undo typing"
-msgstr ""
+msgstr "Отменить ввод"
 
 #: pd_dynamic_strings.tcl:22
+#, fuzzy
 msgid "Redo clear"
-msgstr ""
+msgstr "Повторить удаление"
 
 #: pd_dynamic_strings.tcl:23
+#, fuzzy
 msgid "Redo connect"
-msgstr ""
+msgstr "Повторить соединение"
 
 #: pd_dynamic_strings.tcl:24
+#, fuzzy
 msgid "Redo cut"
-msgstr ""
+msgstr "Повторить вырезку"
 
 #: pd_dynamic_strings.tcl:25
+#, fuzzy
 msgid "Redo disconnect"
-msgstr ""
+msgstr "Повторить разъединение"
 
 #: pd_dynamic_strings.tcl:26
+#, fuzzy
 msgid "Redo duplicate"
-msgstr ""
+msgstr "Повторить дублирование"
 
 #: pd_dynamic_strings.tcl:27
+#, fuzzy
 msgid "Redo motion"
-msgstr ""
+msgstr "Повторить передвижение"
 
 #: pd_dynamic_strings.tcl:28
+#, fuzzy
 msgid "Redo paste"
-msgstr ""
+msgstr "Повторить вставку"
 
 #: pd_dynamic_strings.tcl:29
+#, fuzzy
 msgid "Redo typing"
-msgstr ""
+msgstr "Повторить ввод"
