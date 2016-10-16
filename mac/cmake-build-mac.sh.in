@@ -93,13 +93,6 @@ do
     install_name_tool -change $TARGETID $NEWTARGETID $EXECFILE
 done
 
-LIBPORTMIDI_NAME=libportmidi.dylib
-cp /usr/local/lib/$LIBPORTMIDI_NAME $LIBDIR
-LIBPORTMIDI=$LIBDIR/$LIBPORTMIDI_NAME
-PM_TARGET="@executable_path/../lib/$LIBPORTMIDI_NAME"
-install_name_tool -id $PM_TARGET $LIBPORTMIDI
-install_name_tool -change $LIBPORTMIDI_NAME $PM_TARGET $EXECFILE
-
 echo "Copying headers..."
 mkdir -p $PD_RESOURCES/include
 cp $SRC_DIR/src/m_pd.h $PD_RESOURCES/include
