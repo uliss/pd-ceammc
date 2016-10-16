@@ -31,14 +31,12 @@ endif()
 if(APPLE)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -O3 -funroll-loops -fomit-frame-pointer")
 
-    if(BUNDLE_VERSION)
-        set(BUNDLE "Pd-${BUNDLE_VERSION}.app")
-    else()
-        set(BUNDLE "Pd.app")
-    endif()
-
-    set(MAKE_BUNDLE_SCRIPT ${PROJECT_BINARY_DIR}/dist/build_mac.sh)
+    set(BUNDLE "Pd-${PD_MACOSX_BUNDLE_SUFFIX}.app")
     set(BUNDLE_FULL_PATH "${PROJECT_BINARY_DIR}/dist/${BUNDLE}")
+    set(MAKE_BUNDLE_SCRIPT ${PROJECT_BINARY_DIR}/dist/build_mac.sh)
+
+    # copy and substitute variables to Info.plist
+    configure_file(${PROJECT_SOURCE_DIR}/ceammc/gui/Info.plist ${PROJECT_BINARY_DIR}/Info.plist)
 
     add_custom_command(
         OUTPUT ${MAKE_BUNDLE_SCRIPT}
@@ -56,6 +54,8 @@ if(APPLE)
             -P ${PROJECT_SOURCE_DIR}/cmake/bundle.cmake
         DEPENDS pd)
 
+    # app target
+    # `make app` creates MacOSX bundle
     add_custom_target(app DEPENDS ${MAKE_BUNDLE_SCRIPT} ${BUNDLE_FULL_PATH})
 
     add_custom_target(codesign
@@ -66,17 +66,4 @@ if(APPLE)
         COMMAND sh ${PROJECT_SOURCE_DIR}/mac/dmg.sh ${BUNDLE_FULL_PATH}
         WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
         DEPENDS app)
-
-#    find_library(CoreServices_LIBRARY CoreServices)
-#    list(APPEND PLATFORM_LINK_LIBRARIES ${CoreServices_LIBRARY})
-#    find_library(AudioUnit_LIBRARY AudioUnit)
-#    list(APPEND PLATFORM_LINK_LIBRARIES ${AudioUnit_LIBRARY})
-#    find_library(AudioToolbox_LIBRARY AudioToolbox)
-#    list(APPEND PLATFORM_LINK_LIBRARIES ${AudioToolbox_LIBRARY})
-#    find_library(CoreMidi_LIBRARY CoreMidi)
-#    list(APPEND PLATFORM_LINK_LIBRARIES ${CoreMidi_LIBRARY})
-#    find_library(CoreAudio_LIBRARY CoreAudio)
-#    list(APPEND PLATFORM_LINK_LIBRARIES ${CoreAudio_LIBRARY})
-#    find_library(CoreFoundation_LIBRARY CoreFoundation)
-#    list(APPEND PLATFORM_LINK_LIBRARIES ${CoreFoundation_LIBRARY})
 endif()

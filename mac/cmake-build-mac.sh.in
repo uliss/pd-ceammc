@@ -2,12 +2,6 @@
 SRC_DIR=${PROJECT_SOURCE_DIR}
 BUILD_DIR=${PROJECT_BINARY_DIR}
 WISH=wish-shell.tgz
-PLIST_BUDDY=/usr/libexec/PlistBuddy
-
-function set_plist() {
-    $PLIST_BUDDY -c "Delete $1 string $2" $3
-    $PLIST_BUDDY -c "Add $1 string $2" $3
-}
 
 PD_APP=$(basename ${BUNDLE})
 PD_CONTENT=$BUILD_DIR/dist/$PD_APP/Contents
@@ -15,7 +9,7 @@ PD_RESOURCES=$PD_CONTENT/Resources
 PD_BIN=$PD_RESOURCES/bin
 
 PD_INFO="$BUILD_DIR/Info.plist"
-PD_ICON="$SRC_DIR/mac/stuff/pd.icns"
+PD_ICON="$SRC_DIR/ceammc/gui/pd_ceammc.icns"
 PD_ICON_FILE="$SRC_DIR/mac/stuff/pd-file.icns"
 
 cd "$BUILD_DIR"
@@ -31,12 +25,6 @@ echo "Copy Wish Shell to $PD_APP"
 cd "$PD_APP/Contents"
 
 echo "Copying Info.plist..."
-rm -f Info.plist
-VERSION=$(git -C $SRC_DIR describe --abbrev=0 --tags| tr - .)
-echo "Fixing version to: $VERSION"
-
-set_plist ":CFBundleVersion" $VERSION $PD_INFO
-set_plist ":CFBundleShortVersionString" $VERSION $PD_INFO
 cp -p "$PD_INFO" .
 
 

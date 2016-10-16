@@ -1,6 +1,7 @@
 message(STATUS "===========================================")
 message(STATUS "Configure summary:")
 message(STATUS "===========================================")
+message(STATUS "  Version:          ${PD_TEXT_VERSION_FULL}")
 message(STATUS "  Audio:")
 message(STATUS "       alsa:        ${WITH_ALSA}")
 message(STATUS "       dummy:       ${WITH_DUMMY_AUDIO}")
