@@ -147,7 +147,10 @@ endif()
 
 if(WIN32 OR MSYS)
     set(LIB_STATE "SHARED")
-    list(APPEND S_SRC "pd.rc")
+    # substitute version variables
+    configure_file("pd.rc" "${CMAKE_CURRENT_BINARY_DIR}/pd.rc")
+    configure_file("${PROJECT_SOURCE_DIR}/ceammc/gui/icons/pd_ceammc.ico" ${CMAKE_CURRENT_BINARY_DIR} COPYONLY)
+    list(APPEND S_SRC "${CMAKE_CURRENT_BINARY_DIR}/pd.rc")
 else()
     set(LIB_STATE "STATIC")
 endif()
