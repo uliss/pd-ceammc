@@ -36,7 +36,8 @@ if(APPLE)
     set(MAKE_BUNDLE_SCRIPT ${PROJECT_BINARY_DIR}/dist/build_mac.sh)
 
     # copy and substitute variables to Info.plist
-    configure_file(${PROJECT_SOURCE_DIR}/ceammc/gui/Info.plist ${PROJECT_BINARY_DIR}/Info.plist)
+    file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/dist)
+    configure_file(${PROJECT_SOURCE_DIR}/ceammc/gui/Info.plist ${PROJECT_BINARY_DIR}/dist/Info.plist)
 
     add_custom_command(
         OUTPUT ${MAKE_BUNDLE_SCRIPT}

@@ -8,33 +8,28 @@ PD_CONTENT=$BUILD_DIR/dist/$PD_APP/Contents
 PD_RESOURCES=$PD_CONTENT/Resources
 PD_BIN=$PD_RESOURCES/bin
 
-PD_INFO="$BUILD_DIR/Info.plist"
+PD_INFO="$BUILD_DIR/dist/Info.plist"
 PD_ICON="$SRC_DIR/ceammc/gui/icons/pd_ceammc.icns"
 PD_ICON_FILE="$SRC_DIR/mac/stuff/pd-file.icns"
+WISH_APP="/System/Library/Frameworks/Tk.framework/Versions/8.4/Resources/Wish.app"
+#WISH_APP="/Library/Frameworks/Tk.framework/Versions/8.6/Resources/Wish.app"
+
 
 cd "$BUILD_DIR"
 mkdir -p dist
 cd dist
-echo "Unpacking Wish Shell"
-cp "$SRC_DIR/mac/stuff/$WISH" .
-tar xf $WISH
 
-rm -rf $PD_APP
-mv "Wish Shell.app" $PD_APP
 echo "Copy Wish Shell to $PD_APP"
+cp -R "$WISH_APP" "$PD_APP"
 cd "$PD_APP/Contents"
 
 echo "Copying Info.plist..."
 cp -p "$PD_INFO" .
 
-
-cd MacOS
-mv "Wish Shell" Pd
-cd ..
 cd Resources
 rm -f Wish.icns
 cp -p "$PD_ICON" "$PD_ICON_FILE" .
-mv "Wish Shell.rsrc" Pd.rsrc
+mv "Wish.rsrc" Pd.rsrc
 mkdir bin
 
 echo "Copying binaries..."
