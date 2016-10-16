@@ -1,6 +1,12 @@
+html {
+    background-color: grey;
+}
+
 body {
-    width: 70%;
+    width: 75%;
     margin: 0 auto;
+    background-color: white;
+    padding: 20px 50px;
 }
 
 a {
