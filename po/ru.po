@@ -139,20 +139,20 @@ msgstr "Настройки"
 
 #: ../tcl/dialog_audio.tcl:150 ../tcl/dialog_audio.tcl:164
 msgid "Sample rate:"
-msgstr ""
+msgstr "Частота сэмплирования:"
 
 #: ../tcl/dialog_audio.tcl:152 ../tcl/dialog_audio.tcl:166
 msgid "Delay (msec):"
-msgstr ""
+msgstr "Задержка (мкс):"
 
 #: ../tcl/dialog_audio.tcl:156 ../tcl/dialog_audio.tcl:321
 #: ../tcl/pd_menus.tcl:503
 msgid "Save All Settings"
-msgstr ""
+msgstr "Сохранить все"
 
 #: ../tcl/dialog_audio.tcl:159 ../tcl/dialog_audio.tcl:169
 msgid "Block size:"
-msgstr ""
+msgstr "Размер блока:"
 
 #: ../tcl/dialog_audio.tcl:165 ../tcl/dialog_audio.tcl:176
 msgid "Use callbacks"
@@ -160,7 +160,7 @@ msgstr ""
 
 #: ../tcl/dialog_audio.tcl:170 ../tcl/dialog_midi.tcl:123
 msgid "Input Devices"
-msgstr ""
+msgstr "Устройства ввода"
 
 #: ../tcl/dialog_audio.tcl:178 ../tcl/dialog_audio.tcl:243
 #: ../tcl/dialog_midi.tcl:130 ../tcl/dialog_midi.tcl:238
@@ -214,7 +214,7 @@ msgstr ""
 
 #: ../tcl/dialog_audio.tcl:235 ../tcl/dialog_midi.tcl:232
 msgid "Output Devices"
-msgstr ""
+msgstr "Устройства вывода"
 
 #: ../tcl/dialog_audio.tcl:244 ../tcl/dialog_midi.tcl:157
 #: ../tcl/dialog_midi.tcl:293
@@ -247,7 +247,7 @@ msgstr ""
 #: ../tcl/dialog_audio.tcl:315 ../tcl/dialog_audio.tcl:316
 #: ../tcl/dialog_midi.tcl:202 ../tcl/dialog_midi.tcl:337
 msgid "Use multiple devices"
-msgstr ""
+msgstr "Использовать несколько устройств"
 
 #: ../tcl/dialog_canvas.tcl:121
 msgid "WARNING: unknown graphme flags received in pdtk_canvas_dialog"
@@ -376,7 +376,7 @@ msgstr ""
 
 #: ../tcl/dialog_font.tcl:107 ../tcl/dialog_font.tcl:119
 msgid "Font Size"
-msgstr ""
+msgstr "Размер шрифта"
 
 #: ../tcl/dialog_font.tcl:119 ../tcl/dialog_font.tcl:131
 msgid "Stretch"
@@ -579,7 +579,7 @@ msgstr ""
 #: ../tcl/pd_menus.tcl:516 ../tcl/pd_menus.tcl:533 ../tcl/pd_menus.tcl:561
 #: ../tcl/pd_menus.tcl:608
 msgid "Save"
-msgstr ""
+msgstr "Сохранить"
 
 #: ../tcl/dialog_iemgui.tcl:557
 msgid "Visible Rectangle (pix)"
@@ -675,15 +675,15 @@ msgstr ""
 
 #: ../tcl/dialog_path.tcl:32 ../tcl/dialog_path.tcl:40
 msgid "Pd search path for objects, help, fonts, and other files"
-msgstr ""
+msgstr "Пути поиска для объектов, справки, шрифтов и других файлов"
 
 #: ../tcl/dialog_path.tcl:37 ../tcl/dialog_path.tcl:46
 msgid "Use standard extensions"
-msgstr ""
+msgstr "Использовать стандартные расширения"
 
 #: ../tcl/dialog_path.tcl:39 ../tcl/dialog_path.tcl:48
 msgid "Verbose"
-msgstr ""
+msgstr "Подробный вывод"
 
 #: ../tcl/dialog_startup.tcl:49 ../tcl/dialog_startup.tcl:57
 msgid "Add new library"
@@ -695,7 +695,7 @@ msgstr ""
 
 #: ../tcl/dialog_startup.tcl:79 ../tcl/dialog_startup.tcl:87
 msgid "Pd libraries to load on startup"
-msgstr ""
+msgstr "Библиотеки Pd, загружаемые при старте"
 
 #: ../tcl/dialog_startup.tcl:82 ../tcl/dialog_startup.tcl:93
 msgid "Startup flags:"
@@ -767,39 +767,39 @@ msgstr ""
 
 #: ../tcl/pd_deken.tcl:319 ../tcl/pd_deken.tcl:565 ../tcl/pd_deken.tcl:567
 msgid "Find externals"
-msgstr ""
+msgstr "Поиск расширений"
 
 #: ../tcl/pd_menucommands.tcl:201 ../tcl/pd_menucommands.tcl:207
 #: ../tcl/pd_menus.tcl:292 ../tcl/pd_menus.tcl:312 ../tcl/pd_menus.tcl:470
 #: ../tcl/pd_menus.tcl:514
 msgid "About Pd"
-msgstr ""
+msgstr "О программе Pd"
 
 #: ../tcl/pd_menus.tcl:56 ../tcl/pd_menus.tcl:78 ../tcl/pd_menus.tcl:80
 #: ../tcl/pd_menus.tcl:103 ../tcl/pd_menus.tcl:107 ../tcl/pd_menus.tcl:131
 #: ../tcl/pd_menus.tcl:137 ../tcl/pd_menus.tcl:489 ../tcl/pd_menus.tcl:517
 #: ../tcl/pd_menus.tcl:534 ../tcl/pd_menus.tcl:562 ../tcl/pd_menus.tcl:609
 msgid "Save As..."
-msgstr ""
+msgstr "Сохранить как..."
 
 #: ../tcl/pd_menus.tcl:57 ../tcl/pd_menus.tcl:79 ../tcl/pd_menus.tcl:81
 #: ../tcl/pd_menus.tcl:104 ../tcl/pd_menus.tcl:108 ../tcl/pd_menus.tcl:135
 #: ../tcl/pd_menus.tcl:141 ../tcl/pd_menus.tcl:495 ../tcl/pd_menus.tcl:521
 #: ../tcl/pd_menus.tcl:540 ../tcl/pd_menus.tcl:568 ../tcl/pd_menus.tcl:615
 msgid "Print..."
-msgstr ""
+msgstr "Печать..."
 
 #: ../tcl/pd_menus.tcl:60 ../tcl/pd_menus.tcl:82 ../tcl/pd_menus.tcl:84
 #: ../tcl/pd_menus.tcl:108 ../tcl/pd_menus.tcl:112 ../tcl/pd_menus.tcl:151
 #: ../tcl/pd_menus.tcl:161
 msgid "Duplicate"
-msgstr ""
+msgstr "Дублировать"
 
 #: ../tcl/pd_menus.tcl:61 ../tcl/pd_menus.tcl:83 ../tcl/pd_menus.tcl:85
 #: ../tcl/pd_menus.tcl:109 ../tcl/pd_menus.tcl:113 ../tcl/pd_menus.tcl:167
 #: ../tcl/pd_menus.tcl:181
 msgid "Tidy Up"
-msgstr ""
+msgstr "Расставить"
 
 #: ../tcl/pd_menus.tcl:62 ../tcl/pd_menus.tcl:64 ../tcl/pd_menus.tcl:84
 #: ../tcl/pd_menus.tcl:88 ../tcl/pd_menus.tcl:110 ../tcl/pd_menus.tcl:116
@@ -807,35 +807,35 @@ msgstr ""
 #: ../tcl/pd_menus.tcl:596 ../tcl/pdtk_canvas.tcl:270
 #: ../tcl/pdtk_canvas.tcl:272
 msgid "Edit Mode"
-msgstr ""
+msgstr "Режим редактирования"
 
 #: ../tcl/pd_menus.tcl:62 ../tcl/pd_menus.tcl:86 ../tcl/pd_menus.tcl:114
 #: ../tcl/pd_menus.tcl:177
 msgid "Zoom In"
-msgstr ""
+msgstr "Увеличить"
 
 #: ../tcl/pd_menus.tcl:63 ../tcl/pd_menus.tcl:87 ../tcl/pd_menus.tcl:115
 #: ../tcl/pd_menus.tcl:179
 msgid "Zoom Out"
-msgstr ""
+msgstr "Уменьшить"
 
 #: ../tcl/pd_menus.tcl:65 ../tcl/pd_menus.tcl:67 ../tcl/pd_menus.tcl:113
 #: ../tcl/pd_menus.tcl:119 ../tcl/pd_menus.tcl:140 ../tcl/pd_menus.tcl:150
 #: ../tcl/pd_menus.tcl:318 ../tcl/pd_menus.tcl:339
 msgid "Undo"
-msgstr ""
+msgstr "Отменить"
 
 #: ../tcl/pd_menus.tcl:66 ../tcl/pd_menus.tcl:68 ../tcl/pd_menus.tcl:114
 #: ../tcl/pd_menus.tcl:120 ../tcl/pd_menus.tcl:142 ../tcl/pd_menus.tcl:152
 #: ../tcl/pd_menus.tcl:324 ../tcl/pd_menus.tcl:345
 msgid "Redo"
-msgstr ""
+msgstr "Повторить"
 
 #: ../tcl/pd_menus.tcl:128 ../tcl/pd_menus.tcl:134 ../tcl/pd_menus.tcl:482
 #: ../tcl/pd_menus.tcl:513 ../tcl/pd_menus.tcl:526 ../tcl/pd_menus.tcl:558
 #: ../tcl/pd_menus.tcl:605
 msgid "New"
-msgstr ""
+msgstr "Новый"
 
 #: ../tcl/pd_menus.tcl:129 ../tcl/pd_menus.tcl:135 ../tcl/pd_menus.tcl:483
 #: ../tcl/pd_menus.tcl:514 ../tcl/pd_menus.tcl:527 ../tcl/pd_menus.tcl:559
@@ -844,34 +844,34 @@ msgstr ""
 #: ../tcl/pdtk_canvas.tcl:222 ../tcl/pdtk_canvas.tcl:241
 #: ../tcl/pdtk_canvas.tcl:243
 msgid "Open"
-msgstr ""
+msgstr "Открыть"
 
 #: ../tcl/pd_menus.tcl:134 ../tcl/pd_menus.tcl:140 ../tcl/pd_menus.tcl:493
 #: ../tcl/pd_menus.tcl:520 ../tcl/pd_menus.tcl:538 ../tcl/pd_menus.tcl:565
 #: ../tcl/pd_menus.tcl:612
 msgid "Message..."
-msgstr ""
+msgstr "Сообщение..."
 
 #: ../tcl/pd_menus.tcl:145 ../tcl/pd_menus.tcl:155
 msgid "Cut"
-msgstr ""
+msgstr "Вырезать"
 
 #: ../tcl/pd_menus.tcl:153 ../tcl/pd_menus.tcl:163
 msgid "Select All"
-msgstr ""
+msgstr "Выделить все"
 
 #: ../tcl/pd_menus.tcl:159 ../tcl/pd_menus.tcl:164 ../tcl/pd_menus.tcl:169
 #: ../tcl/pd_menus.tcl:174
 msgid "Font"
-msgstr ""
+msgstr "Шрифт"
 
 #: ../tcl/pd_menus.tcl:169 ../tcl/pd_menus.tcl:183
 msgid "Clear Console"
-msgstr ""
+msgstr "Очистить консоль"
 
 #: ../tcl/pd_menus.tcl:183 ../tcl/pd_menus.tcl:202
 msgid "Object"
-msgstr ""
+msgstr "Объект"
 
 #: ../tcl/pd_menus.tcl:185 ../tcl/pd_menus.tcl:204
 msgid "Message"
@@ -892,7 +892,7 @@ msgstr ""
 #: ../tcl/pd_menus.tcl:193 ../tcl/pd_menus.tcl:260 ../tcl/pd_menus.tcl:473
 #: ../tcl/pd_menus.tcl:517 ../tcl/pd_menus.tcl:567 ../tcl/pd_menus.tcl:614
 msgid "Preferences"
-msgstr ""
+msgstr "Настройки"
 
 #: ../tcl/pd_menus.tcl:213 ../tcl/pd_menus.tcl:232
 msgid "Graph"
@@ -900,15 +900,15 @@ msgstr ""
 
 #: ../tcl/pd_menus.tcl:219 ../tcl/pd_menus.tcl:238
 msgid "Find..."
-msgstr ""
+msgstr "Найти..."
 
 #: ../tcl/pd_menus.tcl:221 ../tcl/pd_menus.tcl:240
 msgid "Find Again"
-msgstr ""
+msgstr "Найти далее"
 
 #: ../tcl/pd_menus.tcl:223 ../tcl/pd_menus.tcl:242
 msgid "Find Last Error"
-msgstr ""
+msgstr "Найти последнюю ошибку"
 
 #: ../tcl/pd_menus.tcl:229 ../tcl/pd_menus.tcl:248
 msgid "DSP On"
@@ -920,11 +920,11 @@ msgstr ""
 
 #: ../tcl/pd_menus.tcl:235 ../tcl/pd_menus.tcl:254
 msgid "Test Audio and MIDI..."
-msgstr ""
+msgstr "Проверка аудио и MIDI..."
 
 #: ../tcl/pd_menus.tcl:237 ../tcl/pd_menus.tcl:256
 msgid "Load Meter"
-msgstr ""
+msgstr "Индикатор загрузки"
 
 #: ../tcl/pd_menus.tcl:267 ../tcl/pd_menus.tcl:287
 msgid "Minimize"
@@ -936,7 +936,7 @@ msgstr ""
 
 #: ../tcl/pd_menus.tcl:272 ../tcl/pd_menus.tcl:292
 msgid "Bring All to Front"
-msgstr ""
+msgstr "Все окна - на передний план"
 
 #: ../tcl/pd_menus.tcl:275 ../tcl/pd_menus.tcl:295
 msgid "Next Window"
@@ -972,7 +972,7 @@ msgstr ""
 
 #: ../tcl/pd_menus.tcl:301 ../tcl/pd_menus.tcl:326
 msgid "Report a bug"
-msgstr ""
+msgstr "Сообщить об ошибке"
 
 #: ../tcl/pd_menus.tcl:304
 msgid "Tcl prompt"
@@ -984,7 +984,7 @@ msgstr ""
 
 #: ../tcl/pd_menus.tcl:321
 msgid "List of objects..."
-msgstr ""
+msgstr "Список объектов..."
 
 #: ../tcl/pd_menus.tcl:348 ../tcl/pd_menus.tcl:378
 msgid "Clear Menu"
@@ -992,11 +992,11 @@ msgstr "Очистить меню"
 
 #: ../tcl/pd_menus.tcl:453 ../tcl/pd_menus.tcl:491
 msgid "Path..."
-msgstr ""
+msgstr "Пути..."
 
 #: ../tcl/pd_menus.tcl:455 ../tcl/pd_menus.tcl:493
 msgid "Startup..."
-msgstr ""
+msgstr "Запуск..."
 
 #: ../tcl/pd_menus.tcl:485 ../tcl/pd_menus.tcl:530
 msgid "Open Recent"
@@ -1004,7 +1004,7 @@ msgstr ""
 
 #: ../tcl/pd_menus.tcl:499
 msgid "Zoom new windows"
-msgstr ""
+msgstr "Увеличивать новые окна"
 
 #: ../tcl/pd_menus.tcl:526 ../tcl/pd_menus.tcl:573 ../tcl/pd_menus.tcl:620
 msgid "Quit"
