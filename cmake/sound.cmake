@@ -13,9 +13,18 @@ cmake_dependent_option(WITH_OSS_MIDI "Use OSS midi API" ON "WITH_OSS" OFF)
 option(WITH_PORTAUDIO "Use PortAudio sound API" ON)
 option(WITH_PORTMIDI "Use PortMidi sound API" ON)
 
+if(MSYS OR WIN32)
+    option(WITH_MMIO "Use MMIO sound API" ON)
+endif()
+
 option(WITH_DUMMY "Build dummy audio and midi modules" OFF)
-cmake_dependent_option(WITH_DUMMY_AUDIO "Build dummy audio module" ON "WITH_DUMMY" OFF)
-cmake_dependent_option(WITH_DUMMY_MIDI "Build dummy midi module" ON "WITH_DUMMY" OFF)
+option(WITH_DUMMY_AUDIO "Build dummy audio module" OFF)
+option(WITH_DUMMY_MIDI "Build dummy midi module" OFF)
+if(WITH_DUMMY)
+    set(WITH_DUMMY_AUDIO ON CACHE BOOL "" FORCE)
+    set(WITH_DUMMY_MIDI ON CACHE BOOL "" FORCE)
+endif()
+
 
 # ALSA
 if(WITH_ALSA_AUDIO OR WITH_ALSA_MIDI)
@@ -83,6 +92,7 @@ if(NOT WITH_ALSA_AUDIO AND
         NOT WITH_JACK AND
         NOT WITH_OSS_AUDIO AND
         NOT WITH_PORTAUDIO AND
+        NOT WITH_MMIO AND
         NOT WITH_DUMMY_AUDIO)
     message(FATAL_ERROR "At least one sound module required! See `cmake -L` for available config options.
         You can build with dummy audio with cmake -DWITH_DUMMY_AUDIO=ON option.")

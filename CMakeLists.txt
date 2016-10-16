@@ -19,7 +19,7 @@ set(CMAKE_SKIP_RPATH True)
 set(CMAKE_MACOSX_RPATH 0)
 project(puredata)
 
-add_definitions(-std=c99)
+add_definitions(-std=gnu99)
 enable_language(CXX C)
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 include(PdPlatform)

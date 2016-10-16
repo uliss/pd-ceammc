@@ -54,7 +54,6 @@ set(S_SRC
     s_audio.c
 #    s_audio_audiounit.c
 #    s_audio_esd.c
-#    s_audio_mmio.c
     s_audio_paring.c
 #    s_entry.c
     s_file.c
@@ -62,6 +61,7 @@ set(S_SRC
     s_loader.c
     s_main.c
     s_midi.c
+    s_midi_dummy.c
     s_path.c
     s_print.c
     s_utf8.c)
@@ -139,22 +139,40 @@ endif()
 
 if(LIBDL_FOUND)
     list(APPEND PLATFORM_LINK_LIBRARIES ${LIBDL_LIBRARIES})
+    message(STATUS ${PLATFORM_LINK_LIBRARIES})
 endif()
 
-add_library(puredata-core STATIC ${D_SRC} ${G_SRC} ${M_SRC} ${S_SRC} ${X_SRC})
+if(WIN32 OR MSYS)
+    set(LIB_STATE "SHARED")
+    list(APPEND S_SRC "pd.rc")
+else()
+    set(LIB_STATE "STATIC")
+endif()
 
-add_executable(pd s_entry.c)
-target_link_libraries(pd puredata-core ${PLATFORM_LINK_LIBRARIES})
+add_library(puredata-core ${LIB_STATE} ${D_SRC} ${G_SRC} ${M_SRC} ${S_SRC} ${X_SRC})
+target_link_libraries(puredata-core ${PLATFORM_LINK_LIBRARIES})
 
-add_executable(pd-watchdog s_watchdog.c)
-add_executable(pdsend u_pdsend.c)
-add_executable(pdreceive u_pdreceive.c)
+add_executable(pd WIN32 s_entry.c)
+target_link_libraries(pd puredata-core)
+
+if(UNIX AND NOT APPLE)
+    add_executable(pd-watchdog s_watchdog.c)
+    target_link_libraries(pd-watchdog ${PLATFORM_LINK_LIBRARIES})
+endif()
+
+add_executable(pdsend WIN32 u_pdsend.c)
+target_link_libraries(pdsend ${PLATFORM_LINK_LIBRARIES})
+add_executable(pdreceive WIN32 u_pdreceive.c)
+target_link_libraries(pdreceive ${PLATFORM_LINK_LIBRARIES})
 
 install(TARGETS pd pdsend pdreceive
     BUNDLE DESTINATION .
     RUNTIME DESTINATION bin)
 
 install(FILES m_pd.h DESTINATION include/pd)
-install(TARGETS pd-watchdog pd
-    RUNTIME DESTINATION lib/puredata/bin
-)
+
+if(UNIX AND NOT APPLE)
+    install(TARGETS pd-watchdog pd
+        RUNTIME DESTINATION lib/puredata/bin
+    )
+endif()
