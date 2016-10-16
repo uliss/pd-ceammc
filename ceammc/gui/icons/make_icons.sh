@@ -32,7 +32,6 @@ iconutil -c icns "${ICONSET}"
 
 echo "Making ICO..."
 PNGS=$(find "${ICONSET}" -name '*.png' | grep -v '@')
-echo $PNGS
 convert ${PNGS} pd_ceammc.ico
 
 
