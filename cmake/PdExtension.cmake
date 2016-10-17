@@ -28,7 +28,7 @@ endif()
 function(pd_add_extension)
     set(_OPTIONS_ARGS)
     set(_ONE_VALUE_ARGS NAME INSTALL_DIR INTERNAL)
-    set(_MULTI_VALUE_ARGS FILES HELP_FILES EXTRA_FILES)
+    set(_MULTI_VALUE_ARGS FILES HELP_FILES EXTRA_FILES LINK)
 
     cmake_parse_arguments(_PD_EXT "${_OPTIONS_ARGS}" "${_ONE_VALUE_ARGS}" "${_MULTI_VALUE_ARGS}" ${ARGN})
 
@@ -64,8 +64,10 @@ function(pd_add_extension)
             )
 
         if(MSYS)
-            target_link_libraries(${_PD_EXT_NAME} puredata-core)
+            list(APPEND _PD_EXT_LINK puredata-core)
         endif()
+
+        target_link_libraries(${_PD_EXT_NAME} ${_PD_EXT_LINK})
     else()
         message(FATAL_ERROR "pd_add_extension: 'NAME' argument required.")
     endif()

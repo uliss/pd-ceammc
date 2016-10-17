@@ -11,15 +11,24 @@ typedef struct round
     t_outlet * x_outlet;
 } t_round;
 
-void round_float(t_round *x, t_floatarg f)
-{
+static t_floatarg round_private(t_floatarg v) {
 #if PD_FLOATSIZE == 32
-    outlet_float(x->x_outlet, roundf(f));
+    return roundf(v);
 #elif PD_FLOATSIZE == 64
-    outlet_float(x->x_outlet, round(f));
+    return round(v);
 #else
 #error "Unsupported PD_FLOATSIZE"
 #endif
+}
+
+void round_float(t_round *x, t_floatarg f)
+{
+    outlet_float(x->x_outlet, round_private(f));
+}
+
+void round_list(t_round *x, t_symbol *s, int argc, t_atom *argv)
+{
+    ceammc_atoms_map_float_to_outlet(x->x_outlet, s, argc, argv, round_private);
 }
 
 void *round_new()
@@ -33,6 +42,7 @@ void CEAMMC_MATH_MODULE(round)
 {
     round_class = class_new(gensym(CEAMMC_MATH_EXT("round")),
                             (t_newmethod) round_new, 0,
-                            sizeof(t_round), 0, A_NULL);
+                            sizeof(t_round), CLASS_DEFAULT, A_NULL);
     class_addfloat(round_class, round_float);
+    class_addlist(round_class, round_list);
 }
