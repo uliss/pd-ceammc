@@ -574,7 +574,7 @@ proc ::dialog_iemgui::pdtk_iemgui_dialog {mytoplevel mainheader dim_header \
     wm resizable $mytoplevel 0 0
     wm transient $mytoplevel $::focused_window
     $mytoplevel configure -menu $::dialog_menubar
-    $mytoplevel configure -padx 0 -pady 0
+    $mytoplevel configure -padx 8 -pady 8
     ::pd_bindings::dialog_bindings $mytoplevel "iemgui"
 
     # dimensions
@@ -736,7 +736,7 @@ proc ::dialog_iemgui::pdtk_iemgui_dialog {mytoplevel mainheader dim_header \
     frame $mytoplevel.colors.sections
     pack $mytoplevel.colors.sections -side top
     button $mytoplevel.colors.sections.but -text [_ "Compose color"] \
-        -command "::dialog_iemgui::choose_col_bkfrlb $mytoplevel"
+        -command "::dialog_iemgui::choose_col_bkfrlb $mytoplevel" -padx 10
     pack $mytoplevel.colors.sections.but -side left -anchor w -pady 5 \
         -expand yes -fill x
     frame $mytoplevel.colors.sections.exp
@@ -775,7 +775,7 @@ proc ::dialog_iemgui::pdtk_iemgui_dialog {mytoplevel mainheader dim_header \
        pack $mytoplevel.colors.$r -side top
        foreach i { 0 1 2 3 4 5 6 7 8 9} hexcol $hexcols \
            {
-               label $mytoplevel.colors.$r.c$i -background $hexcol -activebackground $hexcol -relief ridge -padx 7 -pady 0 -width 1
+               label $mytoplevel.colors.$r.c$i -background $hexcol -activebackground $hexcol -relief ridge -padx 4 -pady 0 -width 1
                bind $mytoplevel.colors.$r.c$i <Button> "::dialog_iemgui::preset_col $mytoplevel $hexcol"
            }
        pack $mytoplevel.colors.$r.c0 $mytoplevel.colors.$r.c1 $mytoplevel.colors.$r.c2 $mytoplevel.colors.$r.c3 \
