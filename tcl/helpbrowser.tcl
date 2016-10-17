@@ -20,13 +20,18 @@ proc ::helpbrowser::open_helpbrowser {} {
     if { [winfo exists .help_browser.frame] } {
         wm deiconify .help_browser
         raise .help_browser
+        focus .help_browser
     } else {
         toplevel .help_browser -class HelpBrowser
         wm group .help_browser .
         wm transient .help_browser
         wm title .help_browser [_ "Help Browser"]
-        bind .help_browser <$::modifier-Key-w> "wm withdraw .help_browser"
 
+        # destroy instead of withdraw, otherwise browser will stay in the
+        # window list even though it should have been closed
+        bind .help_browser <$::modifier-Key-w> "destroy .help_browser"
+
+        # add menubar on Mac or menu will disappear when the browser is closed
         if {$::windowingsystem eq "aqua"} {
             .help_browser configure -menu $::dialog_menubar
         }

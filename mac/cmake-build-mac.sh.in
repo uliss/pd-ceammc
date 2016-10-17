@@ -12,8 +12,8 @@ PD_BIN=$PD_RESOURCES/bin
 PD_INFO="$BUILD_DIR/dist/Info.plist"
 PD_ICON="$SRC_DIR/ceammc/gui/icons/pd_ceammc.icns"
 PD_ICON_FILE="$SRC_DIR/mac/stuff/pd-file.icns"
-WISH_APP="/System/Library/Frameworks/Tk.framework/Versions/8.4/Resources/Wish.app"
-#WISH_APP="/Library/Frameworks/Tk.framework/Versions/8.6/Resources/Wish.app"
+#WISH_APP="/System/Library/Frameworks/Tk.framework/Versions/8.4/Resources/Wish.app"
+WISH_APP="/Library/Frameworks/Tk.framework/Versions/8.6/Resources/Wish.app"
 
 CEAMMC_EXT_SRC_DIR="$SRC_DIR/ceammc/ext/src"
 CEAMMC_EXT_BIN_DIR="$BUILD_DIR/ceammc/ext/src"
