@@ -1210,6 +1210,4 @@ PFeRJGnmiA7U6vNsEK7Y4swphC5XuWoAm4UBdWKidCodCt7wbyxc866NYnjcDAwmAAA7
 }
 image create photo buttonimagevumeter -data $vumeterdata
 
-pdtk_post "Finished loading buttonbar-plugin.tcl\n"
-
-
+::pdwindow::debug "\[ceammc\]: ceammc_buttonbar-plugin loaded\n"

@@ -42,3 +42,5 @@ proc category_menu::create {mymenu} {
 }
 
 category_menu::create .popup
+
+::pdwindow::debug "\[ceammc\]: ceammc_popup_category_menu-plugin loaded\n"

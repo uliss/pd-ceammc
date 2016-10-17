@@ -29,3 +29,5 @@ proc ::editmode_look::set_style {mytoplevel} {
 
 bind PatchWindow <<EditMode>> {+::editmode_look::set_style %W}
 bind PatchWindow <<Loading>> {+::editmode_look::set_edit_style %W}
+
+::pdwindow::debug "\[ceammc\]: ceammc_editmode-plugin loaded\n"
