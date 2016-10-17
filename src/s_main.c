@@ -1149,6 +1149,11 @@ static void sys_afterargparse(void)
     sbuf[MAXPDSTRING-30] = 0;
     strcat(sbuf, "/extra");
     sys_setextrapath(sbuf);
+            /* add "ceammc" library to path */
+    strncpy(sbuf, sys_libdir->s_name, MAXPDSTRING-30);
+    sbuf[MAXPDSTRING-30] = 0;
+    strcat(sbuf, "/extra/ceammc");
+    sys_setextrapath(sbuf);
             /* add "doc/5.reference" library to helppath */
     strncpy(sbuf, sys_libdir->s_name, MAXPDSTRING-30);
     sbuf[MAXPDSTRING-30] = 0;
