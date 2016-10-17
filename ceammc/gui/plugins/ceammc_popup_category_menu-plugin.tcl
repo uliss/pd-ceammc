@@ -9,7 +9,7 @@ namespace eval category_menu {
 
 proc category_menu::load_menutree {} {
     # load object -> tags mapping from file in Pd's path
-    set testfile [file join $::sys_guidir ceammc_popup_menu_tree.tcl]
+    set testfile [file join $::ceammc_libdir ceammc_popup_menu_tree.tcl]
     set f [open $testfile]
     set menutree [read $f]
 #    set menutree [regsub -all {([\{\s])\-([\s\}])} [read $f] {\1\\\\-\2}]

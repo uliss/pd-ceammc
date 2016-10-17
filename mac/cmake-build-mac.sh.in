@@ -42,6 +42,10 @@ cp "$BUILD_DIR/src/pdsend" bin
 cp "$BUILD_DIR/src/pdreceive" bin
 cp -R "$SRC_DIR/tcl" .
 ln -s tcl Scripts
+mkdir -p tcl/ceammc
+
+echo "Copying plugins..."
+cp -R $SRC_DIR/ceammc/gui/plugins/*.tcl tcl/ceammc
 
 echo "Copying docs..."
 cp -R "$SRC_DIR/doc" .
