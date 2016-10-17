@@ -1,6 +1,8 @@
 #include <math.h>
 #include <m_pd.h>
 
+#include "ceammc.h"
+
 t_class *round_class;
 
 typedef struct round
@@ -11,7 +13,13 @@ typedef struct round
 
 void round_float(t_round *x, t_floatarg f)
 {
+#if PD_FLOATSIZE == 32
+    outlet_float(x->x_outlet, roundf(f));
+#elif PD_FLOATSIZE == 64
     outlet_float(x->x_outlet, round(f));
+#else
+#error "Unsupported PD_FLOATSIZE"
+#endif
 }
 
 void *round_new()
@@ -21,10 +29,10 @@ void *round_new()
     return (void*) x;
 }
 
-void round_setup()
+void CEAMMC_MATH_MODULE(round)
 {
-    round_class = class_new(gensym("round"),
+    round_class = class_new(gensym(CEAMMC_MATH_EXT("round")),
                             (t_newmethod) round_new, 0,
-                            sizeof(t_round), 0, 0);
+                            sizeof(t_round), 0, A_NULL);
     class_addfloat(round_class, round_float);
 }

@@ -6,6 +6,7 @@ WISH=wish-shell.tgz
 PD_APP=$(basename ${BUNDLE})
 PD_CONTENT=$BUILD_DIR/dist/$PD_APP/Contents
 PD_RESOURCES=$PD_CONTENT/Resources
+PD_EXTRA=$PD_RESOURCES/extra
 PD_BIN=$PD_RESOURCES/bin
 
 PD_INFO="$BUILD_DIR/dist/Info.plist"
@@ -13,6 +14,9 @@ PD_ICON="$SRC_DIR/ceammc/gui/icons/pd_ceammc.icns"
 PD_ICON_FILE="$SRC_DIR/mac/stuff/pd-file.icns"
 WISH_APP="/System/Library/Frameworks/Tk.framework/Versions/8.4/Resources/Wish.app"
 #WISH_APP="/Library/Frameworks/Tk.framework/Versions/8.6/Resources/Wish.app"
+
+CEAMMC_EXT_SRC_DIR="$SRC_DIR/ceammc/ext/src"
+CEAMMC_EXT_BIN_DIR="$BUILD_DIR/ceammc/ext/src"
 
 
 cd "$BUILD_DIR"
@@ -34,7 +38,6 @@ mkdir bin
 
 echo "Copying binaries..."
 cp "$BUILD_DIR/src/pd" bin
-cp "$BUILD_DIR/src/pd-watchdog" bin
 cp "$BUILD_DIR/src/pdsend" bin
 cp "$BUILD_DIR/src/pdreceive" bin
 cp -R "$SRC_DIR/tcl" .
@@ -51,6 +54,10 @@ mkdir -p extra
 
 cp $SRC_DIR/extra/*.pd extra
 
+function extension_files() {
+    find "$1" -type f | grep -v -i cmake | grep -v Makefile
+}
+
 find $BUILD_DIR/extra -maxdepth 1 -type d | sed 1d | grep -v -i cmake | while read ext_dir
 do
     EXT_NAME=$(basename $ext_dir)
@@ -58,10 +65,20 @@ do
     mkdir extra/$EXT_NAME
     find "$ext_dir" -type f | grep -v -i cmake | grep -v Makefile | while read target
     do
+        echo "\t\tCopying $(basename $target) ..."
         cp $target extra/$EXT_NAME
     done
 #    cp -R "$ext_dir" extra
 done
+
+echo "Copying CEAMMC extension:"
+mkdir -p $PD_EXTRA/ceammc
+extension_files $CEAMMC_EXT_BIN_DIR | while read f
+do
+    echo "\t$(basename $f)"
+    cp "$f" $PD_EXTRA/ceammc
+done
+
 
 echo "Copying license..."
 cp $SRC_DIR/License.txt Scripts
