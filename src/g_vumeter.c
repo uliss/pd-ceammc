@@ -14,6 +14,7 @@
 #include "g_canvas.h"
 
 #include "g_all_guis.h"
+#include "g_style.h"
 #include <math.h>
 
 #ifdef _WIN32
@@ -352,24 +353,24 @@ static void vu_draw_select(t_vu* x,t_glist* glist)
 
     if(x->x_gui.x_fsf.x_selected)
     {
-        sys_vgui(".x%lx.c itemconfigure %lxBASE -outline #%06x\n", canvas, x, IEM_GUI_COLOR_SELECTED);
+        sys_vgui(".x%lx.c itemconfigure %lxBASE -outline %s\n", canvas, x, STYLE_SELECT_COLOR);
         for(i=1; i<=IEM_VU_STEPS; i++)
         {
             if(((i+2)&3) && (x->x_scale))
-                sys_vgui(".x%lx.c itemconfigure %lxSCALE%d -fill #%06x\n",
-                         canvas, x, i, IEM_GUI_COLOR_SELECTED);
+                sys_vgui(".x%lx.c itemconfigure %lxSCALE%d -fill %s\n",
+                         canvas, x, i, STYLE_SELECT_COLOR);
         }
         if(x->x_scale)
         {
             i=IEM_VU_STEPS+1;
-            sys_vgui(".x%lx.c itemconfigure %lxSCALE%d -fill #%06x\n",
-                     canvas, x, i, IEM_GUI_COLOR_SELECTED);
+            sys_vgui(".x%lx.c itemconfigure %lxSCALE%d -fill %s\n",
+                     canvas, x, i, STYLE_SELECT_COLOR);
         }
-        sys_vgui(".x%lx.c itemconfigure %lxLABEL -fill #%06x\n", canvas, x, IEM_GUI_COLOR_SELECTED);
+        sys_vgui(".x%lx.c itemconfigure %lxLABEL -fill %s\n", canvas, x, STYLE_SELECT_COLOR);
     }
     else
     {
-        sys_vgui(".x%lx.c itemconfigure %lxBASE -outline #%06x\n", canvas, x, IEM_GUI_COLOR_NORMAL);
+        sys_vgui(".x%lx.c itemconfigure %lxBASE -outline %s\n", canvas, x, STYLE_BORDER_COLOR);
         for(i=1; i<=IEM_VU_STEPS; i++)
         {
             if(((i+2)&3) && (x->x_scale))
