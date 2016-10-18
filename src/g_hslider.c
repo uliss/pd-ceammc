@@ -49,10 +49,6 @@ static inline int xlet_height(t_hslider* x) {
     return 1;
 }
 
-static inline int knob_width(t_hslider* x) {
-    return 3;
-}
-
 static void hslider_draw_new(t_hslider *x, t_glist *glist)
 {
     int xpos=text_xpix(&x->x_gui.x_obj, glist);
@@ -70,7 +66,7 @@ static void hslider_draw_new(t_hslider *x, t_glist *glist)
              x->x_gui.x_bcol, x);
     sys_vgui(".x%lx.c create line %d %d %d %d -width %d -fill #%06x -tags %lxKNOB\n",
              canvas, r, ypos+1, r,
-             ypos + x->x_gui.x_h, knob_width(x), x->x_gui.x_fcol, x);
+             ypos + x->x_gui.x_h, STYLE_SLIDER_KNOB_WIDTH, x->x_gui.x_fcol, x);
     sys_vgui(".x%lx.c create text %d %d -text {%s} -anchor w \
              -font {{%s} -%d %s} -fill #%06x -tags [list %lxLABEL label text]\n",
              canvas, xpos+x->x_gui.x_ldx * zoomlabel,
