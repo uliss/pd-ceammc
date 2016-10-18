@@ -630,6 +630,7 @@ static void *vradio_donew(t_symbol *s, int argc, t_atom *argv, int old)
     x->x_gui.x_fontsize = fs;
     x->x_gui.x_w = iemgui_clip_size(a);
     x->x_gui.x_h = x->x_gui.x_w;
+    iemgui_newzoom(&x->x_gui);
     iemgui_verify_snd_ne_rcv(&x->x_gui);
     outlet_new(&x->x_gui.x_obj, &s_list);
     return (x);
