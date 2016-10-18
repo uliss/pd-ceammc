@@ -52,6 +52,7 @@ static inline int xlet_height(t_vslider* x) {
 
 #define VSLIDER_EXTRA_Y (-2)
 #define VSLIDER_EXTRA_H 3
+#define SLIDER_KNOB_X 1
 
 
 static void vslider_draw_new(t_vslider *x, t_glist *glist)
@@ -69,7 +70,7 @@ static void vslider_draw_new(t_vslider *x, t_glist *glist)
              STYLE_BORDER_WIDTH,
              x->x_gui.x_bcol, x);
     sys_vgui(".x%lx.c create line %d %d %d %d -width %d -fill #%06x -tags %lxKNOB\n",
-             canvas, xpos+1, r,
+             canvas, xpos + SLIDER_KNOB_X, r,
              xpos + x->x_gui.x_w, r, STYLE_SLIDER_KNOB_WIDTH, x->x_gui.x_fcol, x);
     sys_vgui(".x%lx.c create text %d %d -text {%s} -anchor w \
              -font {{%s} -%d %s} -fill #%06x -tags [list %lxLABEL label text]\n",
@@ -82,13 +83,13 @@ static void vslider_draw_new(t_vslider *x, t_glist *glist)
         sys_vgui(".x%lx.c create rectangle %d %d %d %d -fill black -tags [list %lxOUT%d outlet]\n",
              canvas,
              xpos, ypos + x->x_gui.x_h - xlet_height(x) + VSLIDER_EXTRA_H,
-             xpos+7, ypos + x->x_gui.x_h + VSLIDER_EXTRA_H,
+             xpos + STYLE_XLET_WIDTH, ypos + x->x_gui.x_h + VSLIDER_EXTRA_H,
              x, 0);
     if(!x->x_gui.x_fsf.x_rcv_able)
         sys_vgui(".x%lx.c create rectangle %d %d %d %d -fill black -tags [list %lxIN%d inlet]\n",
              canvas,
              xpos, ypos + VSLIDER_EXTRA_Y,
-             xpos+7, ypos + xlet_height(x) + VSLIDER_EXTRA_Y,
+             xpos + STYLE_XLET_WIDTH, ypos + xlet_height(x) + VSLIDER_EXTRA_Y,
              x, 0);
 }
 
@@ -103,10 +104,10 @@ static void vslider_draw_move(t_vslider *x, t_glist *glist)
 
     sys_vgui(".x%lx.c coords %lxBASE %d %d %d %d\n",
              canvas, x,
-             xpos, ypos,
-             xpos + x->x_gui.x_w, ypos + x->x_gui.x_h);
+             xpos, ypos + VSLIDER_EXTRA_Y,
+             xpos + x->x_gui.x_w, ypos + x->x_gui.x_h + VSLIDER_EXTRA_H);
     sys_vgui(".x%lx.c coords %lxKNOB %d %d %d %d\n",
-             canvas, x, xpos+1, r,
+             canvas, x, xpos + SLIDER_KNOB_X, r,
              xpos + x->x_gui.x_w, r);
     sys_vgui(".x%lx.c coords %lxLABEL %d %d\n",
              canvas, x, xpos+x->x_gui.x_ldx * zoomlabel,
@@ -114,13 +115,13 @@ static void vslider_draw_move(t_vslider *x, t_glist *glist)
     if(!x->x_gui.x_fsf.x_snd_able)
         sys_vgui(".x%lx.c coords %lxOUT%d %d %d %d %d\n",
              canvas, x, 0,
-             xpos, ypos + x->x_gui.x_h - xlet_height(x),
-             xpos+7, ypos + x->x_gui.x_h);
+             xpos, ypos + x->x_gui.x_h - xlet_height(x) + VSLIDER_EXTRA_H,
+             xpos + STYLE_XLET_WIDTH, ypos + x->x_gui.x_h + VSLIDER_EXTRA_H);
     if(!x->x_gui.x_fsf.x_rcv_able)
         sys_vgui(".x%lx.c coords %lxIN%d %d %d %d %d\n",
              canvas, x, 0,
-             xpos, ypos,
-             xpos+7, ypos + xlet_height(x));
+             xpos, ypos + VSLIDER_EXTRA_Y,
+             xpos + STYLE_XLET_WIDTH, ypos + xlet_height(x) + VSLIDER_EXTRA_Y);
 }
 
 static void vslider_draw_erase(t_vslider* x,t_glist* glist)
