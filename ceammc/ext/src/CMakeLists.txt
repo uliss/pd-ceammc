@@ -5,3 +5,4 @@ set_target_properties(ceammc_static PROPERTIES
 pd_add_extension(NAME math.round FILES round.c INTERNAL True LINK ceammc_static)
 pd_add_extension(NAME math.ceil FILES ceil.c INTERNAL True LINK ceammc_static)
 pd_add_extension(NAME math.floor FILES floor.c INTERNAL True LINK ceammc_static)
+pd_add_extension(NAME math.abs FILES abs.c INTERNAL True LINK ceammc_static)
