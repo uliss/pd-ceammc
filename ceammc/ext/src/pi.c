@@ -10,12 +10,17 @@ typedef struct math_abs {
     t_outlet* x_outlet;
 } t_pi;
 
-void pi_bang(t_pi* x)
+static void pi_bang(t_pi* x)
 {
     outlet_float(x->x_outlet, M_PI);
 }
 
-void* pi_new()
+static void pi_free(t_pi* x)
+{
+    outlet_free(x->x_outlet);
+}
+
+static void* pi_new()
 {
     t_pi* x = (t_pi*)pd_new(pi_class);
     x->x_outlet = outlet_new(&x->x_ob, gensym("float"));
@@ -25,7 +30,7 @@ void* pi_new()
 void CEAMMC_MATH_MODULE(pi)
 {
     pi_class = class_new(gensym(CEAMMC_MATH_EXT("pi")),
-        (t_newmethod)pi_new, 0,
+        (t_newmethod)pi_new, (t_method)pi_free,
         sizeof(t_pi), 0, A_NULL);
     class_addbang(pi_class, pi_bang);
 }
