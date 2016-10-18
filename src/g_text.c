@@ -429,8 +429,9 @@ static void message_click(t_message *x,
     if (glist_isvisible(x->m_glist))
     {
         t_rtext *y = glist_findrtext(x->m_glist, &x->m_text);
-        sys_vgui(".x%lx.c itemconfigure %sR -width 5\n",
-            glist_getcanvas(x->m_glist), rtext_gettag(y));
+        sys_vgui(".x%lx.c itemconfigure %sR -width %d -fill %s\n",
+            glist_getcanvas(x->m_glist), rtext_gettag(y),
+            STYLE_BORDER_WIDTH_CLICKED, STYLE_BORDER_COLOR_CLICKED);
         clock_delay(x->m_clock, 120);
     }
 }
@@ -440,8 +441,9 @@ static void message_tick(t_message *x)
     if (glist_isvisible(x->m_glist))
     {
         t_rtext *y = glist_findrtext(x->m_glist, &x->m_text);
-        sys_vgui(".x%lx.c itemconfigure %sR -width 1\n",
-            glist_getcanvas(x->m_glist), rtext_gettag(y));
+        sys_vgui(".x%lx.c itemconfigure %sR -width %d -fill %s\n",
+            glist_getcanvas(x->m_glist), rtext_gettag(y),
+            STYLE_BORDER_WIDTH, STYLE_BORDER_COLOR);
     }
 }
 
