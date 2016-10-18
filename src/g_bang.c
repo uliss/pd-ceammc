@@ -40,6 +40,10 @@ void bng_draw_update(t_bng *x, t_glist *glist)
     }
 }
 
+static inline int xlet_height(t_bng* x) {
+    return 1;
+}
+
 void bng_draw_new(t_bng *x, t_glist *glist)
 {
     int xpos=text_xpix(&x->x_gui.x_obj, glist);
@@ -47,7 +51,6 @@ void bng_draw_new(t_bng *x, t_glist *glist)
     int zoomlabel =
         1 + (IEMGUI_ZOOM(x)-1) * (x->x_gui.x_ldx >= 0 && x->x_gui.x_ldy >= 0);
     t_canvas *canvas=glist_getcanvas(glist);
-    int xlet_height = 1 * IEMGUI_ZOOM(x);
     int stroke_width = 1;
 
     sys_vgui(".x%lx.c create rectangle %d %d %d %d -width %d -fill #%6.6x -tags %lxBASE\n",
@@ -70,14 +73,14 @@ void bng_draw_new(t_bng *x, t_glist *glist)
     if(!x->x_gui.x_fsf.x_snd_able)
         sys_vgui(".x%lx.c create rectangle %d %d %d %d -outline #%06x -tags [list %lxOUT%d outlet]\n",
              canvas, xpos,
-             ypos + x->x_gui.x_h - xlet_height, xpos + IOWIDTH,
+             ypos + x->x_gui.x_h - xlet_height(x), xpos + IOWIDTH,
              ypos + x->x_gui.x_h,
              IEM_GUI_COLOR_NORMAL,
              x, 0);
     if(!x->x_gui.x_fsf.x_rcv_able)
         sys_vgui(".x%lx.c create rectangle %d %d %d %d -outline #%06x -tags [list %lxIN%d inlet]\n",
              canvas, xpos, ypos,
-             xpos + IOWIDTH, ypos + xlet_height, IEM_GUI_COLOR_NORMAL, x, 0);
+             xpos + IOWIDTH, ypos + xlet_height(x), IEM_GUI_COLOR_NORMAL, x, 0);
 }
 
 void bng_draw_move(t_bng *x, t_glist *glist)
@@ -87,7 +90,6 @@ void bng_draw_move(t_bng *x, t_glist *glist)
     int zoomlabel =
         1 + (IEMGUI_ZOOM(x)-1) * (x->x_gui.x_ldx >= 0 && x->x_gui.x_ldy >= 0);
     t_canvas *canvas=glist_getcanvas(glist);
-    int xlet_height = 1 * IEMGUI_ZOOM(x);
 
     sys_vgui(".x%lx.c coords %lxBASE %d %d %d %d\n",
              canvas, x, xpos, ypos,
@@ -103,12 +105,12 @@ void bng_draw_move(t_bng *x, t_glist *glist)
     if(!x->x_gui.x_fsf.x_snd_able)
         sys_vgui(".x%lx.c coords %lxOUT%d %d %d %d %d\n",
              canvas, x, 0, xpos,
-             ypos + x->x_gui.x_h - xlet_height, xpos + IOWIDTH,
+             ypos + x->x_gui.x_h - xlet_height(x), xpos + IOWIDTH,
              ypos + x->x_gui.x_h);
     if(!x->x_gui.x_fsf.x_rcv_able)
         sys_vgui(".x%lx.c coords %lxIN%d %d %d %d %d\n",
              canvas, x, 0, xpos, ypos,
-             xpos + IOWIDTH, ypos + xlet_height);
+             xpos + IOWIDTH, ypos + xlet_height(x));
 }
 
 void bng_draw_erase(t_bng* x, t_glist* glist)
