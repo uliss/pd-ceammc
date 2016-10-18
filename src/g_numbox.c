@@ -173,6 +173,11 @@ static void my_numbox_draw_update(t_gobj *client, t_glist *glist)
     }
 }
 
+static inline int xlet_height(t_my_numbox* x) {
+    return 1;
+}
+
+
 static void my_numbox_draw_new(t_my_numbox *x, t_glist *glist)
 {
     int half=x->x_gui.x_h/2, d=1+x->x_gui.x_h/34;
@@ -181,7 +186,6 @@ static void my_numbox_draw_new(t_my_numbox *x, t_glist *glist)
     int zoomlabel =
         1 + (IEMGUI_ZOOM(x)-1) * (x->x_gui.x_ldx >= 0 && x->x_gui.x_ldy >= 0);
     t_canvas *canvas=glist_getcanvas(glist);
-    int xlet_height = 1 * IEMGUI_ZOOM(x);
     int stroke_width = 1;
     int text_yoffset = 2 * (IEMGUI_ZOOM(x)-1);
 
@@ -216,7 +220,7 @@ static void my_numbox_draw_new(t_my_numbox *x, t_glist *glist)
     if(!x->x_gui.x_fsf.x_snd_able)
         sys_vgui(".x%lx.c create rectangle %d %d %d %d -outline %s -tags [list %lxOUT%d outlet]\n",
              canvas,
-             xpos, ypos + x->x_gui.x_h - xlet_height,
+             xpos, ypos + x->x_gui.x_h - xlet_height(x),
              xpos+IOWIDTH, ypos + x->x_gui.x_h,
              STYLE_BORDER_COLOR,
              x, 0);
@@ -224,7 +228,7 @@ static void my_numbox_draw_new(t_my_numbox *x, t_glist *glist)
         sys_vgui(".x%lx.c create rectangle %d %d %d %d -outline %s -tags [list %lxIN%d inlet]\n",
              canvas,
              xpos, ypos,
-             xpos+IOWIDTH, ypos + xlet_height,
+             xpos+IOWIDTH, ypos + xlet_height(x),
              STYLE_BORDER_COLOR,
              x, 0);
 }
@@ -234,7 +238,6 @@ static void my_numbox_draw_move(t_my_numbox *x, t_glist *glist)
     int half = x->x_gui.x_h/2, d=1+x->x_gui.x_h/34;
     int xpos=text_xpix(&x->x_gui.x_obj, glist);
     int ypos=text_ypix(&x->x_gui.x_obj, glist);
-    int xlet_height = 1 + 2 * (IEMGUI_ZOOM(x)-1);
     t_canvas *canvas=glist_getcanvas(glist);
 
     sys_vgui(".x%lx.c coords %lxBASE1 %d %d %d %d %d %d %d %d %d %d\n",
@@ -254,13 +257,13 @@ static void my_numbox_draw_move(t_my_numbox *x, t_glist *glist)
    if(!x->x_gui.x_fsf.x_snd_able)
         sys_vgui(".x%lx.c coords %lxOUT%d %d %d %d %d\n",
              canvas, x, 0,
-             xpos, ypos + x->x_gui.x_h - xlet_height,
+             xpos, ypos + x->x_gui.x_h - xlet_height(x),
              xpos+IOWIDTH, ypos + x->x_gui.x_h);
    if(!x->x_gui.x_fsf.x_rcv_able)
         sys_vgui(".x%lx.c coords %lxIN%d %d %d %d %d\n",
              canvas, x, 0,
              xpos, ypos,
-             xpos+IOWIDTH, ypos + xlet_height);
+             xpos+IOWIDTH, ypos + xlet_height(x));
 }
 
 static void my_numbox_draw_erase(t_my_numbox* x,t_glist* glist)
