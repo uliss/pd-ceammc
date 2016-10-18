@@ -14,6 +14,8 @@
 #define snprintf sprintf_s
 #endif
 
+#include "g_style.h"
+
 void glist_readfrombinbuf(t_glist *x, t_binbuf *b, char *filename,
     int selectem);
 
@@ -143,8 +145,8 @@ void glist_selectline(t_glist *x, t_outconnect *oc, int index1,
         x->gl_editor->e_selectline_index2 = index2;
         x->gl_editor->e_selectline_inno = inno;
         x->gl_editor->e_selectline_tag = oc;
-        sys_vgui(".x%lx.c itemconfigure l%lx -fill blue\n",
-            x, x->gl_editor->e_selectline_tag);
+        sys_vgui(".x%lx.c itemconfigure l%lx -fill %s\n",
+            x, x->gl_editor->e_selectline_tag, STYLE_CORD_SELECTED);
     }
 }
 
@@ -153,8 +155,8 @@ void glist_deselectline(t_glist *x)
     if (x->gl_editor)
     {
         x->gl_editor->e_selectedline = 0;
-        sys_vgui(".x%lx.c itemconfigure l%lx -fill black\n",
-            x, x->gl_editor->e_selectline_tag);
+        sys_vgui(".x%lx.c itemconfigure l%lx -fill %s\n",
+            x, x->gl_editor->e_selectline_tag, STYLE_CORD_NORMAL);
     }
 }
 
@@ -1385,14 +1387,13 @@ void canvas_doclick(t_canvas *x, int xpos, int ypos, int which,
                 {
                     if (doit)
                     {
-                        int issignal = obj_issignaloutlet(ob, closest);
                         x->gl_editor->e_onmotion = MA_CONNECT;
                         x->gl_editor->e_xwas = xpos;
                         x->gl_editor->e_ywas = ypos;
                         sys_vgui(
-                          ".x%lx.c create line %d %d %d %d -width %d -tags x\n",
+                          ".x%lx.c create line %d %d %d %d -width %d -fill %s -tags x\n",
                                 x, xpos, ypos, xpos, ypos,
-                                    (issignal ? 2 : 1) * x->gl_zoom);
+                                style_cord_width(x, ob, closest), STYLE_CORD_NORMAL);
                     }
                     else canvas_setcursor(x, CURSOR_EDITMODE_CONNECT);
                 }
@@ -1574,10 +1575,11 @@ void canvas_doconnect(t_canvas *x, int xpos, int ypos, int which, int doit)
                         ((x22-x21-IOWIDTH) * closest2)/(ninlet2-1) : 0)
                             + IOMIDDLE;
                 ly2 = y21;
-                sys_vgui(".x%lx.c create line %d %d %d %d -width %d -tags [list l%lx cord]\n",
+                sys_vgui(".x%lx.c create line %d %d %d %d -width %d -fill %s -tags [list l%lx cord]\n",
                     glist_getcanvas(x),
                         lx1, ly1, lx2, ly2,
-                        (obj_issignaloutlet(ob1, closest1) ? 2 : 1) * x->gl_zoom,
+                        style_cord_width(x, ob1, closest1),
+                        STYLE_CORD_NORMAL,
                         oc);
                 canvas_dirty(x, 1);
                 canvas_setundo(x, canvas_undo_connect,
@@ -2621,9 +2623,9 @@ void canvas_connect(t_canvas *x, t_floatarg fwhoout, t_floatarg foutno,
     if (!(oc = obj_connect(objsrc, outno, objsink, inno))) goto bad;
     if (glist_isvisible(x))
     {
-        sys_vgui(".x%lx.c create line %d %d %d %d -width %d -tags [list l%lx cord]\n",
+        sys_vgui(".x%lx.c create line %d %d %d %d -width %d -fill %s -tags [list l%lx cord]\n",
             glist_getcanvas(x), 0, 0, 0, 0,
-            (obj_issignaloutlet(objsrc, outno) ? 2 : 1),oc);
+            style_cord_width(x, objsrc, outno), STYLE_CORD_NORMAL, oc);
         canvas_fixlinesfor(x, objsrc);
     }
     return;
