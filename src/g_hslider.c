@@ -36,7 +36,7 @@ static void hslider_draw_update(t_gobj *client, t_glist *glist)
     t_hslider *x = (t_hslider *)client;
     if (glist_isvisible(glist))
     {
-        int r = text_xpix(&x->x_gui.x_obj, glist) + (x->x_val + 50)/100;
+        int r = text_xpix(&x->x_gui.x_obj, glist) + ((x->x_val + 50)/100) * IEMGUI_ZOOM(x);
         int ypos=text_ypix(&x->x_gui.x_obj, glist);
         t_canvas *canvas=glist_getcanvas(glist);
         sys_vgui(".x%lx.c coords %lxKNOB %d %d %d %d\n",
@@ -53,7 +53,8 @@ static void hslider_draw_new(t_hslider *x, t_glist *glist)
 {
     int xpos=text_xpix(&x->x_gui.x_obj, glist);
     int ypos=text_ypix(&x->x_gui.x_obj, glist);
-    int r = xpos + (x->x_val + 50)/100;
+    int r = xpos + ((x->x_val + 50)/100) * IEMGUI_ZOOM(x);
+
     int stroke_width = 1;
     int zoomlabel =
         1 + (IEMGUI_ZOOM(x)-1) * (x->x_gui.x_ldx >= 0 && x->x_gui.x_ldy >= 0);
@@ -88,7 +89,7 @@ static void hslider_draw_move(t_hslider *x, t_glist *glist)
 {
     int xpos=text_xpix(&x->x_gui.x_obj, glist);
     int ypos=text_ypix(&x->x_gui.x_obj, glist);
-    int r = xpos + (x->x_val + 50)/100;
+    int r = xpos + ((x->x_val + 50)/100) * IEMGUI_ZOOM(x);
     int zoomlabel =
         1 + (IEMGUI_ZOOM(x)-1) * (x->x_gui.x_ldx >= 0 && x->x_gui.x_ldy >= 0);
     t_canvas *canvas=glist_getcanvas(glist);
@@ -230,22 +231,26 @@ static void hslider_save(t_gobj *z, t_binbuf *b)
 
 void hslider_check_width(t_hslider *x, int w)
 {
+    int zoom = IEMGUI_ZOOM(x);
+
     if(w < IEM_SL_MINSIZE)
         w = IEM_SL_MINSIZE;
     x->x_gui.x_w = w;
-    if(x->x_val > (x->x_gui.x_w*100 - 100))
+    if(x->x_val > (x->x_gui.x_w*100 - 100) / zoom)
     {
-        x->x_pos = x->x_gui.x_w*100 - 100;
+        x->x_pos = (x->x_gui.x_w*100 - 100) / zoom;
         x->x_val = x->x_pos;
     }
     if(x->x_lin0_log1)
-        x->x_k = log(x->x_max/x->x_min)/(double)(x->x_gui.x_w - 1);
+        x->x_k = log(x->x_max/x->x_min)/(double)(x->x_gui.x_w / zoom - 1);
     else
-        x->x_k = (x->x_max - x->x_min)/(double)(x->x_gui.x_w - 1);
+        x->x_k = (x->x_max - x->x_min)/(double)(x->x_gui.x_w / zoom - 1);
 }
 
 void hslider_check_minmax(t_hslider *x, double min, double max)
 {
+    int zoom = IEMGUI_ZOOM(x);
+
     if(x->x_lin0_log1)
     {
         if((min == 0.0)&&(max == 0.0))
@@ -264,9 +269,9 @@ void hslider_check_minmax(t_hslider *x, double min, double max)
     x->x_min = min;
     x->x_max = max;
     if(x->x_lin0_log1)
-        x->x_k = log(x->x_max/x->x_min)/(double)(x->x_gui.x_w - 1);
+        x->x_k = log(x->x_max/x->x_min)/(double)(x->x_gui.x_w/zoom - 1);
     else
-        x->x_k = (x->x_max - x->x_min)/(double)(x->x_gui.x_w - 1);
+        x->x_k = (x->x_max - x->x_min)/(double)(x->x_gui.x_w/zoom - 1);
 }
 
 static void hslider_properties(t_gobj *z, t_glist *owner)
@@ -322,6 +327,8 @@ static void hslider_set(t_hslider *x, t_floatarg f)    /* bugfix */
     x->x_pos = x->x_val;
     if(x->x_val != old)
         (*x->x_gui.x_draw)(x, x->x_gui.x_glist, IEM_GUI_DRAW_MODE_UPDATE);
+
+    post("set: val=%i, pos=%i, fval=%d", x->x_val, x->x_pos, x->x_val, x->x_fval);
 }
 
     /* compute numeric value (fval) from pixel location (val) and range */
@@ -378,15 +385,17 @@ static void hslider_dialog(t_hslider *x, t_symbol *s, int argc, t_atom *argv)
 static void hslider_motion(t_hslider *x, t_floatarg dx, t_floatarg dy)
 {
     int old = x->x_val;
+    int zoom = IEMGUI_ZOOM(x);
 
     if(x->x_gui.x_fsf.x_finemoved)
         x->x_pos += (int)dx;
     else
         x->x_pos += 100*(int)dx;
-    x->x_val = x->x_pos;
-    if(x->x_val > (100*x->x_gui.x_w - 100))
+
+    x->x_val = x->x_pos / zoom;
+    if(x->x_val > 100 * (x->x_gui.x_w/zoom - 1))
     {
-        x->x_val = 100*x->x_gui.x_w - 100;
+        x->x_val = 100 * (x->x_gui.x_w / zoom - 1);
         x->x_pos += 50;
         x->x_pos -= x->x_pos%100;
     }
@@ -407,14 +416,20 @@ static void hslider_motion(t_hslider *x, t_floatarg dx, t_floatarg dy)
 static void hslider_click(t_hslider *x, t_floatarg xpos, t_floatarg ypos,
                           t_floatarg shift, t_floatarg ctrl, t_floatarg alt)
 {
+    int zoom = IEMGUI_ZOOM(x);
+
     if(!x->x_steady)
         x->x_val = (int)(100.0 * (xpos - text_xpix(&x->x_gui.x_obj, x->x_gui.x_glist)));
-    if(x->x_val > (100*x->x_gui.x_w - 100))
-        x->x_val = 100*x->x_gui.x_w - 100;
+
+    if(x->x_val > (100*x->x_gui.x_w/zoom - 100))
+        x->x_val = (100*x->x_gui.x_w/zoom - 100);
+
     if(x->x_val < 0)
         x->x_val = 0;
+
     x->x_fval = hslider_getfval(x);
-    x->x_pos = x->x_val;
+
+    x->x_pos = x->x_val * zoom;
     (*x->x_gui.x_draw)(x, x->x_gui.x_glist, IEM_GUI_DRAW_MODE_UPDATE);
     hslider_bang(x);
     glist_grab(x->x_gui.x_glist, &x->x_gui.x_obj.te_g, (t_glistmotionfn)hslider_motion,
