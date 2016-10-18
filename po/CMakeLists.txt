@@ -11,6 +11,7 @@ find_program(XGETTEXT xgettext)
 if(XGETTEXT)
     file(GLOB _TCL_FILES RELATIVE ${CMAKE_SOURCE_DIR}/po "${CMAKE_SOURCE_DIR}/tcl/*.tcl")
     file(GLOB _TCL_FILES2 RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "*.tcl")
+    file(GLOB _TCL_FILES3 RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "${CMAKE_SOURCE_DIR}/ceammc/gui/plugins/*.tcl")
     set(TEMPLATE "${CMAKE_CURRENT_SOURCE_DIR}/template.pot")
     add_custom_target(messages
         COMMAND ${XGETTEXT} --join-existing --from-code=UTF-8
@@ -19,6 +20,7 @@ if(XGETTEXT)
             --package-name="Pure Data" --package-version=${PD_TEXT_VERSION_FULL}
             --copyright-holder='This file is put in the public domain'
             --foreign-user --msgid-bugs-address=pd-dev@iem.at
-            ${_TCL_FILES} ${_TCL_FILES2}
+            ${_TCL_FILES} ${_TCL_FILES2} ${_TCL_FILES3}
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 endif()
+
