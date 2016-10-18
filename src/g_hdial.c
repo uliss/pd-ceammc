@@ -61,7 +61,6 @@ void hradio_draw_new(t_hradio *x, t_glist *glist)
     int yy21=yy11+s4, yy22=yy12-s4;
     int xx11b=text_xpix(&x->x_gui.x_obj, glist), xx11=xx11b, xx21=xx11b+s4;
     int xx22=xx11b+dx-s4;
-    int stroke_width = 1;
     int zoomlabel =
         1 + (IEMGUI_ZOOM(x)-1) * (x->x_gui.x_ldx >= 0 && x->x_gui.x_ldy >= 0);
 
@@ -69,7 +68,7 @@ void hradio_draw_new(t_hradio *x, t_glist *glist)
     for(i=0; i<n; i++)
     {
         sys_vgui(".x%lx.c create rectangle %d %d %d %d -width %d -fill #%06x -tags %lxBASE%d\n",
-                 canvas, xx11, yy11, xx11+dx, yy12, stroke_width,
+                 canvas, xx11, yy11, xx11+dx, yy12, STYLE_BORDER_WIDTH,
                  x->x_gui.x_bcol, x, i);
         sys_vgui(".x%lx.c create rectangle %d %d %d %d -fill #%06x -outline #%06x -tags %lxBUT%d\n",
                  canvas, xx21, yy21, xx22, yy22,

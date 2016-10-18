@@ -15,6 +15,7 @@ put out a "float" as in sliders, toggles, etc. */
 #include "g_canvas.h"
 
 #include "g_all_guis.h"
+#include "g_style.h"
 #include <math.h>
 
 /*------------------ global variables -------------------------*/
@@ -29,6 +30,10 @@ put out a "float" as in sliders, toggles, etc. */
 
 t_widgetbehavior vradio_widgetbehavior;
 static t_class *vradio_class, *vradio_old_class;
+
+static inline int xlet_height(t_vradio* x) {
+    return 1;
+}
 
 /* widget helper functions */
 
@@ -52,7 +57,7 @@ void vradio_draw_update(t_gobj *client, t_glist *glist)
 void vradio_draw_new(t_vradio *x, t_glist *glist)
 {
     t_canvas *canvas=glist_getcanvas(glist);
-    int n=x->x_number, i, dy=x->x_gui.x_h, s4=dy/4;
+    int n=x->x_number, i, dy=x->x_gui.x_h, s4 = dy/4 - 2*(IEMGUI_ZOOM(x)-1);
     int yy11b=text_ypix(&x->x_gui.x_obj, glist);
     int yy11=yy11b, yy12=yy11+dy;
     int yy21=yy11+s4, yy22=yy12-s4;
@@ -64,7 +69,7 @@ void vradio_draw_new(t_vradio *x, t_glist *glist)
     for(i=0; i<n; i++)
     {
         sys_vgui(".x%lx.c create rectangle %d %d %d %d -width %d -fill #%06x -tags %lxBASE%d\n",
-                 canvas, xx11, yy11, xx12, yy12, IEMGUI_ZOOM(x),
+                 canvas, xx11, yy11, xx12, yy12, STYLE_BORDER_WIDTH,
                  x->x_gui.x_bcol, x, i);
         sys_vgui(".x%lx.c create rectangle %d %d %d %d -fill #%06x -outline #%06x -tags %lxBUT%d\n",
                  canvas, xx21, yy21, xx22, yy22,
@@ -84,11 +89,11 @@ void vradio_draw_new(t_vradio *x, t_glist *glist)
              x->x_gui.x_font, x->x_gui.x_fontsize, sys_fontweight,
              x->x_gui.x_lcol, x);
     if(!x->x_gui.x_fsf.x_snd_able)
-        sys_vgui(".x%lx.c create rectangle %d %d %d %d -fill black -tags [list %lxOUT%d outlet]\n",
-             canvas, xx11, yy11+1-2*IEMGUI_ZOOM(x), xx11 + IOWIDTH, yy11, x, 0);
+        sys_vgui(".x%lx.c create rectangle %d %d %d %d -fill black -outline %s -tags [list %lxOUT%d outlet]\n",
+             canvas, xx11, yy11 - xlet_height(x), xx11 + IOWIDTH, yy11, STYLE_BORDER_COLOR, x, 0);
     if(!x->x_gui.x_fsf.x_rcv_able)
-        sys_vgui(".x%lx.c create rectangle %d %d %d %d -fill black -tags [list %lxIN%d inlet]\n",
-             canvas, xx11, yy11b, xx11 + IOWIDTH, yy11b-1+2*IEMGUI_ZOOM(x), x, 0);
+        sys_vgui(".x%lx.c create rectangle %d %d %d %d -fill black -outline %s -tags [list %lxIN%d inlet]\n",
+             canvas, xx11, yy11b, xx11 + IOWIDTH, yy11b + xlet_height(x), STYLE_BORDER_COLOR, x, 0);
 }
 
 void vradio_draw_move(t_vradio *x, t_glist *glist)
@@ -119,10 +124,10 @@ void vradio_draw_move(t_vradio *x, t_glist *glist)
              yy11b+x->x_gui.x_ldy * zoomlabel);
     if(!x->x_gui.x_fsf.x_snd_able)
         sys_vgui(".x%lx.c coords %lxOUT%d %d %d %d %d\n",
-             canvas, x, 0, xx11, yy11+1-2*IEMGUI_ZOOM(x), xx11 + IOWIDTH, yy11);
+             canvas, x, 0, xx11, yy11 - xlet_height(x), xx11 + IOWIDTH, yy11);
     if(!x->x_gui.x_fsf.x_rcv_able)
         sys_vgui(".x%lx.c coords %lxIN%d %d %d %d %d\n",
-             canvas, x, 0, xx11, yy11b, xx11 + IOWIDTH, yy11b-1+2*IEMGUI_ZOOM(x));
+             canvas, x, 0, xx11, yy11b, xx11 + IOWIDTH, yy11b + xlet_height(x));
 }
 
 void vradio_draw_erase(t_vradio* x, t_glist* glist)
@@ -168,17 +173,17 @@ void vradio_draw_io(t_vradio* x, t_glist* glist, int old_snd_rcv_flags)
     int ypos=text_ypix(&x->x_gui.x_obj, glist);
 
     if((old_snd_rcv_flags & IEM_GUI_OLD_SND_FLAG) && !x->x_gui.x_fsf.x_snd_able)
-        sys_vgui(".x%lx.c create rectangle %d %d %d %d -tags %lxOUT%d\n",
+        sys_vgui(".x%lx.c create rectangle %d %d %d %d -fill %s -tags %lxOUT%d\n",
                  canvas, xpos,
                  ypos+(x->x_number*x->x_gui.x_h)-1,
                  xpos+ IOWIDTH,
-                 ypos+(x->x_number*x->x_gui.x_h), x, 0);
+                 ypos+(x->x_number*x->x_gui.x_h), STYLE_BORDER_COLOR, x, 0);
     if(!(old_snd_rcv_flags & IEM_GUI_OLD_SND_FLAG) && x->x_gui.x_fsf.x_snd_able)
         sys_vgui(".x%lx.c delete %lxOUT%d\n", canvas, x, 0);
     if((old_snd_rcv_flags & IEM_GUI_OLD_RCV_FLAG) && !x->x_gui.x_fsf.x_rcv_able)
-        sys_vgui(".x%lx.c create rectangle %d %d %d %d -tags %lxIN%d\n",
+        sys_vgui(".x%lx.c create rectangle %d %d %d %d -fill %s -tags %lxIN%d\n",
                  canvas, xpos, ypos,
-                 xpos+ IOWIDTH, ypos+1,
+                 xpos+ IOWIDTH, ypos+1, STYLE_BORDER_COLOR,
                  x, 0);
     if(!(old_snd_rcv_flags & IEM_GUI_OLD_RCV_FLAG) && x->x_gui.x_fsf.x_rcv_able)
         sys_vgui(".x%lx.c delete %lxIN%d\n", canvas, x, 0);
@@ -193,20 +198,17 @@ void vradio_draw_select(t_vradio* x, t_glist* glist)
     {
         for(i=0; i<n; i++)
         {
-            sys_vgui(".x%lx.c itemconfigure %lxBASE%d -outline #%06x\n", canvas, x, i,
-                     IEM_GUI_COLOR_SELECTED);
+            sys_vgui(".x%lx.c itemconfigure %lxBASE%d -outline %s\n", canvas, x, i, STYLE_SELECT_COLOR);
         }
-        sys_vgui(".x%lx.c itemconfigure %lxLABEL -fill #%06x\n", canvas, x, IEM_GUI_COLOR_SELECTED);
+        sys_vgui(".x%lx.c itemconfigure %lxLABEL -fill %s\n", canvas, x, STYLE_SELECT_COLOR);
     }
     else
     {
         for(i=0; i<n; i++)
         {
-            sys_vgui(".x%lx.c itemconfigure %lxBASE%d -outline #%06x\n", canvas, x, i,
-                     IEM_GUI_COLOR_NORMAL);
+            sys_vgui(".x%lx.c itemconfigure %lxBASE%d -outline %s\n", canvas, x, i, STYLE_BORDER_COLOR);
         }
-        sys_vgui(".x%lx.c itemconfigure %lxLABEL -fill #%06x\n", canvas, x,
-                 x->x_gui.x_lcol);
+        sys_vgui(".x%lx.c itemconfigure %lxLABEL -fill %s\n", canvas, x, x->x_gui.x_lcol);
     }
 }
 
