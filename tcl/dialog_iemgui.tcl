@@ -631,10 +631,10 @@ proc ::dialog_iemgui::pdtk_iemgui_dialog {mytoplevel mainheader dim_header \
 
     if {[eval concat $$var_iemgui_steady] == 0} {
         button $mytoplevel.para.stdy_jmp -command "::dialog_iemgui::stdy_jmp $mytoplevel" \
-            -text [_ "Jump on click"] }
+            -text [_ "Jump on click"] -padx 10 }
     if {[eval concat $$var_iemgui_steady] == 1} {
         button $mytoplevel.para.stdy_jmp -command "::dialog_iemgui::stdy_jmp $mytoplevel" \
-            -text [_ "Steady on click"] }
+            -text [_ "Steady on click"] -padx 10 }
     if {[eval concat $$var_iemgui_lin0_log1] >= 0} {
         pack $mytoplevel.para.lilo -side left -expand 1}
     if {[eval concat $$var_iemgui_loadbang] >= 0} {
