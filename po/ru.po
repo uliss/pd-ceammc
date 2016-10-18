@@ -479,7 +479,6 @@ msgid "Log height:"
 msgstr ""
 
 #: ../tcl/pdwindow.tcl:359
-#, fuzzy
 msgid "Log:"
 msgstr "Журнал:"
 
