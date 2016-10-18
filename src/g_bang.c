@@ -22,6 +22,8 @@
 #include <unistd.h>
 #endif
 
+#include "g_style.h"
+
 
 /* --------------- bng     gui-bang ------------------------- */
 
@@ -71,16 +73,16 @@ void bng_draw_new(t_bng *x, t_glist *glist)
              x->x_gui.x_font, x->x_gui.x_fontsize, sys_fontweight,
              x->x_gui.x_lcol, x);
     if(!x->x_gui.x_fsf.x_snd_able)
-        sys_vgui(".x%lx.c create rectangle %d %d %d %d -outline #%06x -tags [list %lxOUT%d outlet]\n",
+        sys_vgui(".x%lx.c create rectangle %d %d %d %d -outline %s -tags [list %lxOUT%d outlet]\n",
              canvas, xpos,
              ypos + x->x_gui.x_h - xlet_height(x), xpos + IOWIDTH,
              ypos + x->x_gui.x_h,
-             IEM_GUI_COLOR_NORMAL,
+             STYLE_BORDER_COLOR,
              x, 0);
     if(!x->x_gui.x_fsf.x_rcv_able)
-        sys_vgui(".x%lx.c create rectangle %d %d %d %d -outline #%06x -tags [list %lxIN%d inlet]\n",
+        sys_vgui(".x%lx.c create rectangle %d %d %d %d -outline %s -tags [list %lxIN%d inlet]\n",
              canvas, xpos, ypos,
-             xpos + IOWIDTH, ypos + xlet_height(x), IEM_GUI_COLOR_NORMAL, x, 0);
+             xpos + IOWIDTH, ypos + xlet_height(x), STYLE_BORDER_COLOR, x, 0);
 }
 
 void bng_draw_move(t_bng *x, t_glist *glist)
@@ -166,14 +168,14 @@ void bng_draw_select(t_bng* x, t_glist* glist)
 
     if(x->x_gui.x_fsf.x_selected)
     {
-        sys_vgui(".x%lx.c itemconfigure %lxBASE -outline #%6.6x\n", canvas, x, IEM_GUI_COLOR_SELECTED);
-        sys_vgui(".x%lx.c itemconfigure %lxBUT -outline #%6.6x\n", canvas, x, IEM_GUI_COLOR_SELECTED);
-        sys_vgui(".x%lx.c itemconfigure %lxLABEL -fill #%6.6x\n", canvas, x, IEM_GUI_COLOR_SELECTED);
+        sys_vgui(".x%lx.c itemconfigure %lxBASE -outline %s\n", canvas, x, STYLE_SELECT_COLOR);
+        sys_vgui(".x%lx.c itemconfigure %lxBUT -outline %s\n", canvas, x, STYLE_SELECT_COLOR);
+        sys_vgui(".x%lx.c itemconfigure %lxLABEL -fill %s\n", canvas, x, STYLE_SELECT_COLOR);
     }
     else
     {
-        sys_vgui(".x%lx.c itemconfigure %lxBASE -outline #%6.6x\n", canvas, x, IEM_GUI_COLOR_NORMAL);
-        sys_vgui(".x%lx.c itemconfigure %lxBUT -outline #%6.6x\n", canvas, x, IEM_GUI_COLOR_NORMAL);
+        sys_vgui(".x%lx.c itemconfigure %lxBASE -outline %s\n", canvas, x, STYLE_BORDER_COLOR);
+        sys_vgui(".x%lx.c itemconfigure %lxBUT -outline %s\n", canvas, x, STYLE_BORDER_COLOR);
         sys_vgui(".x%lx.c itemconfigure %lxLABEL -fill #%6.6x\n", canvas, x, x->x_gui.x_lcol);
     }
 }

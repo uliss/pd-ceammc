@@ -16,6 +16,7 @@ put out a "float" as in sliders, toggles, etc. */
 #include "g_canvas.h"
 
 #include "g_all_guis.h"
+#include "g_style.h"
 #include <math.h>
 
 #ifdef _WIN32
@@ -87,11 +88,11 @@ void hradio_draw_new(t_hradio *x, t_glist *glist)
              x->x_gui.x_font, x->x_gui.x_fontsize, sys_fontweight,
              x->x_gui.x_lcol, x);
     if(!x->x_gui.x_fsf.x_snd_able)
-        sys_vgui(".x%lx.c create rectangle %d %d %d %d -outline #%06x -tags [list %lxOUT%d outlet]\n",
-             canvas, xx11b, yy12 - xlet_height(x), xx11b + IOWIDTH, yy12, IEM_GUI_COLOR_NORMAL, x, 0);
+        sys_vgui(".x%lx.c create rectangle %d %d %d %d -outline %s -tags [list %lxOUT%d outlet]\n",
+             canvas, xx11b, yy12 - xlet_height(x), xx11b + IOWIDTH, yy12, STYLE_BORDER_COLOR, x, 0);
     if(!x->x_gui.x_fsf.x_rcv_able)
-        sys_vgui(".x%lx.c create rectangle %d %d %d %d -outline #%06x -tags [list %lxIN%d inlet]\n",
-             canvas, xx11b, yy11, xx11b + IOWIDTH, yy11 + xlet_height(x), IEM_GUI_COLOR_NORMAL, x, 0);
+        sys_vgui(".x%lx.c create rectangle %d %d %d %d -outline %s -tags [list %lxIN%d inlet]\n",
+             canvas, xx11b, yy11, xx11b + IOWIDTH, yy11 + xlet_height(x), STYLE_BORDER_COLOR, x, 0);
 
 }
 
@@ -173,18 +174,20 @@ void hradio_draw_io(t_hradio* x, t_glist* glist, int old_snd_rcv_flags)
     int ypos=text_ypix(&x->x_gui.x_obj, glist);
 
     if((old_snd_rcv_flags & IEM_GUI_OLD_SND_FLAG) && !x->x_gui.x_fsf.x_snd_able)
-        sys_vgui(".x%lx.c create rectangle %d %d %d %d -tags %lxOUT%d\n",
+        sys_vgui(".x%lx.c create rectangle %d %d %d %d -fill %s -tags %lxOUT%d\n",
                  canvas,
                  xpos, ypos + x->x_gui.x_w-1,
                  xpos + IOWIDTH, ypos + x->x_gui.x_w,
+                 STYLE_BORDER_COLOR,
                  x, 0);
     if(!(old_snd_rcv_flags & IEM_GUI_OLD_SND_FLAG) && x->x_gui.x_fsf.x_snd_able)
         sys_vgui(".x%lx.c delete %lxOUT%d\n", canvas, x, 0);
     if((old_snd_rcv_flags & IEM_GUI_OLD_RCV_FLAG) && !x->x_gui.x_fsf.x_rcv_able)
-        sys_vgui(".x%lx.c create rectangle %d %d %d %d -tags %lxIN%d\n",
+        sys_vgui(".x%lx.c create rectangle %d %d %d %d -fill %s tags %lxIN%d\n",
                  canvas,
                  xpos, ypos,
-                 xpos + IOWIDTH, ypos+1, x, 0);
+                 xpos + IOWIDTH, ypos+1, STYLE_BORDER_COLOR,
+                 x, 0);
     if(!(old_snd_rcv_flags & IEM_GUI_OLD_RCV_FLAG) && x->x_gui.x_fsf.x_rcv_able)
         sys_vgui(".x%lx.c delete %lxIN%d\n", canvas, x, 0);
 }
@@ -198,17 +201,17 @@ void hradio_draw_select(t_hradio* x, t_glist* glist)
     {
         for(i=0; i<n; i++)
         {
-            sys_vgui(".x%lx.c itemconfigure %lxBASE%d -outline #%06x\n", canvas, x, i,
-                     IEM_GUI_COLOR_SELECTED);
+            sys_vgui(".x%lx.c itemconfigure %lxBASE%d -outline %s\n", canvas, x, i,
+                     STYLE_SELECT_COLOR);
         }
-        sys_vgui(".x%lx.c itemconfigure %lxLABEL -fill #%06x\n", canvas, x, IEM_GUI_COLOR_SELECTED);
+        sys_vgui(".x%lx.c itemconfigure %lxLABEL -fill %s\n", canvas, x, STYLE_SELECT_COLOR);
     }
     else
     {
         for(i=0; i<n; i++)
         {
-            sys_vgui(".x%lx.c itemconfigure %lxBASE%d -outline #%06x\n", canvas, x, i,
-                     IEM_GUI_COLOR_NORMAL);
+            sys_vgui(".x%lx.c itemconfigure %lxBASE%d -outline %s\n", canvas, x, i,
+                     STYLE_BORDER_COLOR);
         }
         sys_vgui(".x%lx.c itemconfigure %lxLABEL -fill #%06x\n", canvas, x,
                  x->x_gui.x_lcol);

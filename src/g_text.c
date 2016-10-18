@@ -17,24 +17,7 @@
 #include <math.h>
 
 #include "s_utf8.h"
-
-#define STYLE_SELECT_COLOR "#1441E6"
-#define STYLE_BORDER_WIDTH 1
-#define STYLE_BORDER_COLOR "#777777"
-#define STYLE_FILL_COLOR  "#DADADA"
-#define STYLE_TEXT_NORMAL_COLOR "#000000"
-#define STYLE_TEXT_SELECT_COLOR "#00FFFF"
-
-static inline int style_border_width(t_glist * glist) {
-//    glist->gl_zoom
-    return STYLE_BORDER_WIDTH;
-}
-
-static inline int style_xlet_height(t_glist * glist) {
-//    return 1 - 2*glist->gl_zoom;
-    return 1 + 1 ;// EXTRAPIX;
-}
-
+#include "g_style.h"
 
 t_class *text_class;
 static t_class *message_class;
@@ -1082,7 +1065,7 @@ static void text_select(t_gobj *z, t_glist *glist, int state)
     rtext_select(y, state);
     if (glist_isvisible(glist) && gobj_shouldvis(&x->te_g, glist))
         sys_vgui(".x%lx.c itemconfigure %sR -fill %s\n", glist,
-            rtext_gettag(y), (state? STYLE_SELECT_COLOR : STYLE_BORDER_COLOR));
+            rtext_gettag(y), (state? STYLE_TEXT_SELECT_COLOR : STYLE_TEXT_NORMAL_COLOR));
 }
 
 static void text_activate(t_gobj *z, t_glist *glist, int state)

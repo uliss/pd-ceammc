@@ -12,6 +12,7 @@
 #include "g_canvas.h"
 
 #include "g_all_guis.h"
+#include "g_style.h"
 #include <math.h>
 
 #ifdef _WIN32
@@ -185,7 +186,7 @@ static void my_numbox_draw_new(t_my_numbox *x, t_glist *glist)
     int text_yoffset = 2 * (IEMGUI_ZOOM(x)-1);
 
     sys_vgui(
-".x%lx.c create polygon %d %d %d %d %d %d %d %d %d %d -width %d -outline #%06x \
+".x%lx.c create polygon %d %d %d %d %d %d %d %d %d %d -width %d -outline %s \
 -fill #%06x -tags %lxBASE1\n",
              canvas, xpos, ypos,
              xpos + (x->x_numwidth-4) * IEMGUI_ZOOM(x), ypos,
@@ -193,7 +194,7 @@ static void my_numbox_draw_new(t_my_numbox *x, t_glist *glist)
              xpos + (x->x_numwidth) * IEMGUI_ZOOM(x), ypos + x->x_gui.x_h,
              xpos, ypos + x->x_gui.x_h,
              stroke_width,
-             IEM_GUI_COLOR_NORMAL, x->x_gui.x_bcol, x);
+             STYLE_BORDER_COLOR, x->x_gui.x_bcol, x);
     sys_vgui(
         ".x%lx.c create line %d %d %d %d %d %d -fill #%06x -tags %lxBASE2\n",
         canvas, xpos, ypos,
@@ -213,18 +214,18 @@ static void my_numbox_draw_new(t_my_numbox *x, t_glist *glist)
         x->x_buf, x->x_gui.x_font, x->x_gui.x_fontsize * IEMGUI_ZOOM(x), sys_fontweight,
         x->x_gui.x_fcol, x);
     if(!x->x_gui.x_fsf.x_snd_able)
-        sys_vgui(".x%lx.c create rectangle %d %d %d %d -outline #%06x -tags [list %lxOUT%d outlet]\n",
+        sys_vgui(".x%lx.c create rectangle %d %d %d %d -outline %s -tags [list %lxOUT%d outlet]\n",
              canvas,
              xpos, ypos + x->x_gui.x_h - xlet_height,
              xpos+IOWIDTH, ypos + x->x_gui.x_h,
-             IEM_GUI_COLOR_NORMAL,
+             STYLE_BORDER_COLOR,
              x, 0);
     if(!x->x_gui.x_fsf.x_rcv_able)
-        sys_vgui(".x%lx.c create rectangle %d %d %d %d -outline #%06x -tags [list %lxIN%d inlet]\n",
+        sys_vgui(".x%lx.c create rectangle %d %d %d %d -outline %s -tags [list %lxIN%d inlet]\n",
              canvas,
              xpos, ypos,
              xpos+IOWIDTH, ypos + xlet_height,
-             IEM_GUI_COLOR_NORMAL,
+             STYLE_BORDER_COLOR,
              x, 0);
 }
 
@@ -300,18 +301,18 @@ static void my_numbox_draw_io(t_my_numbox* x,t_glist* glist, int old_snd_rcv_fla
     t_canvas *canvas=glist_getcanvas(glist);
 
     if((old_snd_rcv_flags & IEM_GUI_OLD_SND_FLAG) && !x->x_gui.x_fsf.x_snd_able)
-        sys_vgui(".x%lx.c create rectangle %d %d %d %d -tags %lxOUT%d\n",
+        sys_vgui(".x%lx.c create rectangle %d %d %d %d -fill %s -tags %lxOUT%d\n",
              canvas,
              xpos, ypos + x->x_gui.x_h-1,
-             xpos+IOWIDTH, ypos + x->x_gui.x_h,
+             xpos+IOWIDTH, ypos + x->x_gui.x_h, STYLE_BORDER_COLOR,
              x, 0);
     if(!(old_snd_rcv_flags & IEM_GUI_OLD_SND_FLAG) && x->x_gui.x_fsf.x_snd_able)
         sys_vgui(".x%lx.c delete %lxOUT%d\n", canvas, x, 0);
     if((old_snd_rcv_flags & IEM_GUI_OLD_RCV_FLAG) && !x->x_gui.x_fsf.x_rcv_able)
-        sys_vgui(".x%lx.c create rectangle %d %d %d %d -tags %lxIN%d\n",
+        sys_vgui(".x%lx.c create rectangle %d %d %d %d -fill %s -tags %lxIN%d\n",
              canvas,
              xpos, ypos,
-             xpos+IOWIDTH, ypos+1,
+             xpos+IOWIDTH, ypos+1, STYLE_BORDER_COLOR,
              x, 0);
     if(!(old_snd_rcv_flags & IEM_GUI_OLD_RCV_FLAG) && x->x_gui.x_fsf.x_rcv_able)
         sys_vgui(".x%lx.c delete %lxIN%d\n", canvas, x, 0);
@@ -330,19 +331,19 @@ static void my_numbox_draw_select(t_my_numbox *x, t_glist *glist)
             x->x_buf[0] = 0;
             sys_queuegui(x, x->x_gui.x_glist, my_numbox_draw_update);
         }
-        sys_vgui(".x%lx.c itemconfigure %lxBASE1 -outline #%06x\n",
-            canvas, x, IEM_GUI_COLOR_SELECTED);
-        sys_vgui(".x%lx.c itemconfigure %lxBASE2 -fill #%06x\n",
-            canvas, x, IEM_GUI_COLOR_SELECTED);
-        sys_vgui(".x%lx.c itemconfigure %lxLABEL -fill #%06x\n",
-            canvas, x, IEM_GUI_COLOR_SELECTED);
-        sys_vgui(".x%lx.c itemconfigure %lxNUMBER -fill #%06x\n",
-            canvas, x, IEM_GUI_COLOR_SELECTED);
+        sys_vgui(".x%lx.c itemconfigure %lxBASE1 -outline %s\n",
+            canvas, x, STYLE_SELECT_COLOR);
+        sys_vgui(".x%lx.c itemconfigure %lxBASE2 -fill %s\n",
+            canvas, x, STYLE_SELECT_COLOR);
+        sys_vgui(".x%lx.c itemconfigure %lxLABEL -fill %s\n",
+            canvas, x, STYLE_SELECT_COLOR);
+        sys_vgui(".x%lx.c itemconfigure %lxNUMBER -fill %s\n",
+            canvas, x, STYLE_SELECT_COLOR);
     }
     else
     {
-        sys_vgui(".x%lx.c itemconfigure %lxBASE1 -outline #%06x\n",
-            canvas, x, IEM_GUI_COLOR_NORMAL);
+        sys_vgui(".x%lx.c itemconfigure %lxBASE1 -outline %s\n",
+            canvas, x, STYLE_BORDER_COLOR);
         sys_vgui(".x%lx.c itemconfigure %lxBASE2 -fill #%06x\n",
             canvas, x, x->x_gui.x_fcol);
         sys_vgui(".x%lx.c itemconfigure %lxLABEL -fill #%06x\n",
