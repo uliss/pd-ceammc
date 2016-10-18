@@ -9,4 +9,5 @@ pd_add_extension(NAME math.abs FILES abs.c INTERNAL True LINK ceammc_static)
 pd_add_extension(NAME math.pi FILES pi.c INTERNAL True)
 pd_add_extension(NAME math.e FILES e.c INTERNAL True)
 
+pd_add_extension(NAME list.length FILES list_length.c INTERNAL True)
 pd_add_extension(NAME list.separate FILES list_separate.c INTERNAL True)
