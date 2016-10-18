@@ -109,6 +109,17 @@ do
     install_name_tool -change $TARGETID $NEWTARGETID $EXECFILE
 done
 
+#copy Tcl8.6
+echo "Copying TCL Frameworks..."
+cp -R "/Library/Frameworks/Tk.framework" Frameworks
+cp -R "/Library/Frameworks/Tcl.framework" Frameworks
+rm -rf "./Frameworks/Tk.framework/Versions/8.6/Resources/Wish.app"
+/usr/bin/otool -LX $PD_CONTENT/MacOS/Wish | cut -f2 | cut -d ' ' -f1 | grep -e Tk -e Tcl | while read framework
+do
+    newpath=$(echo $framework | sed 's|/Library/Frameworks/||')
+    install_name_tool -change $framework "@executable_path/../Frameworks/$newpath" $PD_CONTENT/MacOS/Wish
+done
+
 echo "Copying headers..."
 mkdir -p $PD_RESOURCES/include
 cp $SRC_DIR/src/m_pd.h $PD_RESOURCES/include
