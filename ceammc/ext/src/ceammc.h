@@ -28,6 +28,14 @@
 // it expands to: setup_math0x2eround()
 #define CEAMMC_MATH_MODULE(name) setup_math0x2e##name()
 
+// LIST prefixes
+// to get "list.each" use CEAMMC_LIST_EXT("each")
+#define CEAMMC_LIST_EXT(name) "list." name
+
+// to get extension setup function use CEAMMC_LIST_MODULE(each)
+// it expands to: setup_list0x2eeach()
+#define CEAMMC_LIST_MODULE(name) setup_list0x2e##name()
+
 t_atom* ceammc_atoms_alloc(size_t n);
 void ceammc_atoms_free(t_atom* mem, size_t n);
 void ceammc_atoms_copy(size_t n, t_atom* from, t_atom* to);
