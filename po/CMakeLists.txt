@@ -6,21 +6,29 @@ foreach(_po_file ${_PO_FILES})
     install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${_locale}.msg DESTINATION lib/puredata/po)
 endforeach()
 
+set(POT_TEMPLATE "${CMAKE_CURRENT_SOURCE_DIR}/template.pot")
 find_program(XGETTEXT xgettext)
 
 if(XGETTEXT)
     file(GLOB _TCL_FILES RELATIVE ${CMAKE_SOURCE_DIR}/po "${CMAKE_SOURCE_DIR}/tcl/*.tcl")
     file(GLOB _TCL_FILES2 RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "*.tcl")
     file(GLOB _TCL_FILES3 RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "${CMAKE_SOURCE_DIR}/ceammc/gui/plugins/*.tcl")
-    set(TEMPLATE "${CMAKE_CURRENT_SOURCE_DIR}/template.pot")
+
     add_custom_target(messages
         COMMAND ${XGETTEXT} --join-existing --from-code=UTF-8
             --language=Tcl --keyword=_
-            --sort-by-file --output=${TEMPLATE}
+            --sort-by-file --output=${POT_TEMPLATE}
             --package-name="Pure Data" --package-version=${PD_TEXT_VERSION_FULL}
             --copyright-holder='This file is put in the public domain'
             --foreign-user --msgid-bugs-address=pd-dev@iem.at
             ${_TCL_FILES} ${_TCL_FILES2} ${_TCL_FILES3}
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+endif()
+
+if(GETTEXT_MSGMERGE_EXECUTABLE)
+    add_custom_target(messages_merge
+        COMMAND
+            ${GETTEXT_MSGMERGE_EXECUTABLE} --update --backup=none  --sort-output
+                "${CMAKE_CURRENT_SOURCE_DIR}/ru.po" ${POT_TEMPLATE})
 endif()
 
