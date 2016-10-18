@@ -33,14 +33,17 @@ cp -p "$PD_INFO" .
 cd Resources
 rm -f Wish.icns
 cp -p "$PD_ICON" "$PD_ICON_FILE" .
-mv "Wish.rsrc" Pd.rsrc
+#mv "Wish.rsrc" Pd.rsrc
 mkdir bin
 
 echo "Copying binaries..."
 cp "$BUILD_DIR/src/pd" bin
 cp "$BUILD_DIR/src/pdsend" bin
 cp "$BUILD_DIR/src/pdreceive" bin
-cp -R "$SRC_DIR/tcl" .
+
+
+echo "Copying tcl files..."
+rsync -a --exclude="CMake*" --exclude="Make*" "$SRC_DIR/tcl" .
 ln -s tcl Scripts
 mkdir -p tcl/ceammc
 
@@ -48,7 +51,7 @@ echo "Copying plugins..."
 cp -R $SRC_DIR/ceammc/gui/plugins/*.tcl tcl/ceammc
 
 echo "Copying docs..."
-cp -R "$SRC_DIR/doc" .
+rsync -a --exclude=.DS_Store "$SRC_DIR/doc" .
 echo "Copying translations..."
 mkdir -p po
 cp $BUILD_DIR/po/*.msg "$PD_RESOURCES/po"
@@ -59,7 +62,7 @@ mkdir -p extra
 cp $SRC_DIR/extra/*.pd extra
 
 function extension_files() {
-    find "$1" -type f | grep -v -i cmake | grep -v Makefile
+    find "$1" -type f | grep -e 'd_fat' -e '\.pd'
 }
 
 find $BUILD_DIR/extra -maxdepth 1 -type d | sed 1d | grep -v -i cmake | while read ext_dir
@@ -114,6 +117,8 @@ echo "Copying TCL Frameworks..."
 cp -R "/Library/Frameworks/Tk.framework" Frameworks
 cp -R "/Library/Frameworks/Tcl.framework" Frameworks
 rm -rf "./Frameworks/Tk.framework/Versions/8.6/Resources/Wish.app"
+rm -rf "./Frameworks/Tcl.framework/Versions/8.6/Resources/Documentation"
+
 /usr/bin/otool -LX $PD_CONTENT/MacOS/Wish | cut -f2 | cut -d ' ' -f1 | grep -e Tk -e Tcl | while read framework
 do
     newpath=$(echo $framework | sed 's|/Library/Frameworks/||')
