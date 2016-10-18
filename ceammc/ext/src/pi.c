@@ -23,7 +23,7 @@ static void pi_free(t_pi* x)
 static void* pi_new()
 {
     t_pi* x = (t_pi*)pd_new(pi_class);
-    x->x_outlet = outlet_new(&x->x_ob, gensym("float"));
+    x->x_outlet = outlet_new(&x->x_ob, &s_float);
     return (void*)x;
 }
 
