@@ -327,8 +327,6 @@ static void hslider_set(t_hslider *x, t_floatarg f)    /* bugfix */
     x->x_pos = x->x_val;
     if(x->x_val != old)
         (*x->x_gui.x_draw)(x, x->x_gui.x_glist, IEM_GUI_DRAW_MODE_UPDATE);
-
-    post("set: val=%i, pos=%i, fval=%d", x->x_val, x->x_pos, x->x_val, x->x_fval);
 }
 
     /* compute numeric value (fval) from pixel location (val) and range */
@@ -419,7 +417,7 @@ static void hslider_click(t_hslider *x, t_floatarg xpos, t_floatarg ypos,
     int zoom = IEMGUI_ZOOM(x);
 
     if(!x->x_steady)
-        x->x_val = (int)(100.0 * (xpos - text_xpix(&x->x_gui.x_obj, x->x_gui.x_glist)));
+        x->x_val = (int)(100.0 * (xpos - text_xpix(&x->x_gui.x_obj, x->x_gui.x_glist))) / zoom;
 
     if(x->x_val > (100*x->x_gui.x_w/zoom - 100))
         x->x_val = (100*x->x_gui.x_w/zoom - 100);
