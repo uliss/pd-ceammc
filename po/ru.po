@@ -15,8 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.8.9\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Language: ru_RU\n"
 "X-Source-Language: C\n"
 
@@ -132,9 +131,8 @@ msgid "About Pd"
 msgstr "О программе Pd"
 
 #: ../tcl/dialog_path.tcl:99
-#, fuzzy
 msgid "Add a new path"
-msgstr "Добавить новую библиотеку"
+msgstr "Добавить новый путь"
 
 #: ../tcl/dialog_startup.tcl:56
 msgid "Add new library"
@@ -161,15 +159,15 @@ msgstr "Свойства Array"
 
 #: ../tcl/pd-gui.tcl:309 ../tcl/pd-gui.tcl:351 ../tcl/pd-gui.tcl:386
 msgid "Associated Files"
-msgstr ""
+msgstr "Все поддерживаемые форматы"
 
 #: ../tcl/dialog_gatom.tcl:99
 msgid "Atom Box Properties"
-msgstr ""
+msgstr "Свойста AtomBox"
 
 #: ../tcl/pdwindow.tcl:351
 msgid "Audio I/O error"
-msgstr ""
+msgstr "Ошибка Audio I/O"
 
 #: ../tcl/dialog_audio.tcl:137
 msgid "Audio Settings"
@@ -232,7 +230,7 @@ msgstr "Свойства Canvas"
 #: ../tcl/dialog_audio.tcl:257 ../tcl/dialog_audio.tcl:277
 #: ../tcl/dialog_audio.tcl:293 ../tcl/dialog_audio.tcl:309
 msgid "Channels:"
-msgstr ""
+msgstr "Каналы:"
 
 #: ../tcl/pd_menus.tcl:193
 msgid "Clear Console"
@@ -267,7 +265,7 @@ msgstr "Копировать"
 #: ../tcl/dialog_find.tcl:124
 #, tcl-format
 msgid "Couldn't find '%s' in %s"
-msgstr ""
+msgstr "Не удалось найти '%s' в %s"
 
 #: ../tcl/pd_menus.tcl:165
 msgid "Cut"
@@ -287,7 +285,7 @@ msgstr ""
 
 #: ../tcl/dialog_data.tcl:35
 msgid "Data Properties"
-msgstr ""
+msgstr "Свойства данных"
 
 #: ../tcl/dialog_startup.tcl:101
 msgid "Defeat real-time scheduling"
@@ -299,7 +297,7 @@ msgstr "Задержка (мкс):"
 
 #: ../tcl/dialog_array.tcl:313
 msgid "Delete array"
-msgstr ""
+msgstr "Удалить array"
 
 #: pd_dynamic_strings.tcl:11
 #, tcl-format
@@ -331,11 +329,11 @@ msgstr "Изменить библиотеку"
 
 #: ../ceammc/gui/plugins/patch2svg-plugin.tcl:1680
 msgid "Export patch as SVG..."
-msgstr ""
+msgstr "Экспортировать патч в SVG..."
 
 #: ../tcl/pd_menus.tcl:331
 msgid "FLOSS Manual..."
-msgstr ""
+msgstr "FLOSS руководство..."
 
 #: ../tcl/dialog_find.tcl:155 ../tcl/dialog_find.tcl:200
 #, fuzzy
@@ -481,8 +479,9 @@ msgid "Log height:"
 msgstr ""
 
 #: ../tcl/pdwindow.tcl:359
+#, fuzzy
 msgid "Log:"
-msgstr ""
+msgstr "Журнал:"
 
 #: ../tcl/dialog_gatom.tcl:117 ../tcl/dialog_iemgui.tcl:532
 #: ../tcl/dialog_iemgui.tcl:540 ../tcl/dialog_iemgui.tcl:547
@@ -597,7 +596,7 @@ msgstr "Открыть"
 
 #: ../tcl/dialog_array.tcl:310
 msgid "Open List View..."
-msgstr ""
+msgstr "Открыть в виде списка..."
 
 #: ../tcl/pd_menus.tcl:547
 msgid "Open Recent"
@@ -605,7 +604,7 @@ msgstr "Недавно открытые файлы"
 
 #: ../tcl/dialog_array.tcl:308
 msgid "Options"
-msgstr ""
+msgstr "Опции"
 
 #: ../tcl/dialog_midi.tcl:433
 msgid "Out Ports:"
@@ -642,7 +641,7 @@ msgstr ""
 
 #: ../tcl/pd-gui.tcl:310 ../tcl/pd-gui.tcl:352 ../tcl/pd-gui.tcl:387
 msgid "Pd Files"
-msgstr ""
+msgstr "Файлы Pd"
 
 #: ../tcl/dialog_startup.tcl:87
 msgid "Pd libraries to load on startup"
@@ -706,42 +705,34 @@ msgid "Redo"
 msgstr "Повторить"
 
 #: pd_dynamic_strings.tcl:22
-#, fuzzy
 msgid "Redo clear"
 msgstr "Повторить удаление"
 
 #: pd_dynamic_strings.tcl:23
-#, fuzzy
 msgid "Redo connect"
 msgstr "Повторить соединение"
 
 #: pd_dynamic_strings.tcl:24
-#, fuzzy
 msgid "Redo cut"
 msgstr "Повторить вырезку"
 
 #: pd_dynamic_strings.tcl:25
-#, fuzzy
 msgid "Redo disconnect"
 msgstr "Повторить разъединение"
 
 #: pd_dynamic_strings.tcl:26
-#, fuzzy
 msgid "Redo duplicate"
 msgstr "Повторить дублирование"
 
 #: pd_dynamic_strings.tcl:27
-#, fuzzy
 msgid "Redo motion"
 msgstr "Повторить передвижение"
 
 #: pd_dynamic_strings.tcl:28
-#, fuzzy
 msgid "Redo paste"
 msgstr "Повторить вставку"
 
 #: pd_dynamic_strings.tcl:29
-#, fuzzy
 msgid "Redo typing"
 msgstr "Повторить ввод"
 
@@ -840,7 +831,7 @@ msgstr ""
 
 #: ../tcl/dialog_font.tcl:133
 msgid "Stretch"
-msgstr ""
+msgstr "Масштаб"
 
 #: ../tcl/pd_menus.tcl:218
 msgid "Symbol"
@@ -877,42 +868,34 @@ msgid "Undo"
 msgstr "Отменить"
 
 #: pd_dynamic_strings.tcl:13
-#, fuzzy
 msgid "Undo clear"
 msgstr "Отменить удаление"
 
 #: pd_dynamic_strings.tcl:14
-#, fuzzy
 msgid "Undo connect"
 msgstr "Отменить соединение"
 
 #: pd_dynamic_strings.tcl:15
-#, fuzzy
 msgid "Undo cut"
 msgstr "Отменить вырезку"
 
 #: pd_dynamic_strings.tcl:16
-#, fuzzy
 msgid "Undo disconnect"
 msgstr "Отменить разъединение"
 
 #: pd_dynamic_strings.tcl:17
-#, fuzzy
 msgid "Undo duplicate"
 msgstr "Отменить дублирование"
 
 #: pd_dynamic_strings.tcl:18
-#, fuzzy
 msgid "Undo motion"
 msgstr "Отменить передвижение"
 
 #: pd_dynamic_strings.tcl:19
-#, fuzzy
 msgid "Undo paste"
 msgstr "Отменить вставку"
 
 #: pd_dynamic_strings.tcl:20
-#, fuzzy
 msgid "Undo typing"
 msgstr "Отменить ввод"
 
@@ -983,7 +966,7 @@ msgstr "Ширина:"
 
 #: ../tcl/dialog_font.tcl:140
 msgid "X and Y"
-msgstr ""
+msgstr "X и Y"
 
 #: ../tcl/dialog_iemgui.tcl:684
 msgid "X offset:"
@@ -991,7 +974,7 @@ msgstr "X-cмещение:"
 
 #: ../tcl/dialog_font.tcl:142
 msgid "X only"
-msgstr ""
+msgstr "только X"
 
 #: ../tcl/dialog_canvas.tcl:178
 msgid "X range: from"
@@ -1007,7 +990,7 @@ msgstr "Y-cмещение:"
 
 #: ../tcl/dialog_font.tcl:144
 msgid "Y only"
-msgstr ""
+msgstr "только Y"
 
 #: ../tcl/dialog_canvas.tcl:193
 msgid "Y range: from"
@@ -1037,23 +1020,23 @@ msgstr "Увеличенный шрифт в новых окнах"
 
 #: ../tcl/pdwindow.tcl:368
 msgid "all"
-msgstr ""
+msgstr "все"
 
 #: iemgui_dynamic_strings.tcl:20
 msgid "bottom:"
-msgstr ""
+msgstr "снизу:"
 
 #: ../tcl/pdwindow.tcl:367
 msgid "debug"
-msgstr ""
+msgstr "отладка"
 
 #: ../tcl/pdwindow.tcl:365
 msgid "error"
-msgstr ""
+msgstr "ошибки"
 
 #: ../tcl/pdwindow.tcl:364
 msgid "fatal"
-msgstr ""
+msgstr "критические ошибки"
 
 #: ../tcl/dialog_find.tcl:115 ../tcl/dialog_find.tcl:179
 msgid "for:"
@@ -1097,7 +1080,7 @@ msgstr ""
 
 #: ../tcl/pdwindow.tcl:366
 msgid "normal"
-msgstr ""
+msgstr "обычный"
 
 #: ../tcl/pd_menus.tcl:337
 msgid "puredata.info"
