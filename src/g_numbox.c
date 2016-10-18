@@ -146,16 +146,16 @@ static void my_numbox_draw_update(t_gobj *client, t_glist *glist)
                 if(sl >= x->x_gui.x_w)
                     cp += sl - x->x_gui.x_w + 1;
                 sys_vgui(
-                    ".x%lx.c itemconfigure %lxNUMBER -fill #%06x -text {%s} \n",
-                         glist_getcanvas(glist), x, IEM_GUI_COLOR_EDITED, cp);
+                    ".x%lx.c itemconfigure %lxNUMBER -fill %s -text {%s} \n",
+                         glist_getcanvas(glist), x, STYLE_EDIT_COLOR, cp);
                 x->x_buf[sl] = 0;
             }
             else
             {
                 my_numbox_ftoa(x);
                 sys_vgui(
-                    ".x%lx.c itemconfigure %lxNUMBER -fill #%06x -text {%s} \n",
-                    glist_getcanvas(glist), x, IEM_GUI_COLOR_EDITED, x->x_buf);
+                    ".x%lx.c itemconfigure %lxNUMBER -fill %s -text {%s} \n",
+                    glist_getcanvas(glist), x, STYLE_EDIT_COLOR, x->x_buf);
                 x->x_buf[0] = 0;
             }
         }

@@ -4,8 +4,9 @@
 #include "m_pd.h"
 #include "m_imp.h"
 
-#define STYLE_NORMAL_COLOR   "#444444"
-#define STYLE_SELECT_COLOR "#1441E6"
+#define STYLE_NORMAL_COLOR  "#444444"
+#define STYLE_SELECT_COLOR  "#1441E6"
+#define STYLE_EDIT_COLOR    "#F62459"
 
 #define STYLE_BORDER_WIDTH 1
 #define STYLE_BORDER_COLOR "#444444"
