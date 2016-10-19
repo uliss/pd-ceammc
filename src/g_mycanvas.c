@@ -14,6 +14,7 @@
 #include "g_canvas.h"
 
 #include "g_all_guis.h"
+#include "g_style.h"
 #include <math.h>
 
 #ifdef _WIN32
@@ -102,7 +103,7 @@ void my_canvas_draw_select(t_my_canvas* x, t_glist* glist)
 
     if(x->x_gui.x_fsf.x_selected)
     {
-        sys_vgui(".x%lx.c itemconfigure %lxBASE -outline #%06x\n", canvas, x, IEM_GUI_COLOR_SELECTED);
+        sys_vgui(".x%lx.c itemconfigure %lxBASE -outline %s\n", canvas, x, STYLE_SELECT_COLOR);
     }
     else
     {
