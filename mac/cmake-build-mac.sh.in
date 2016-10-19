@@ -51,7 +51,7 @@ echo "Copying plugins..."
 cp -R $SRC_DIR/ceammc/gui/plugins/*.tcl tcl/ceammc
 
 echo "Copying docs..."
-rsync -a --exclude=.DS_Store "$SRC_DIR/doc" .
+rsync -a --exclude=.DS_Store --exclude=CMake* "$SRC_DIR/doc" .
 echo "Copying translations..."
 mkdir -p po
 cp $BUILD_DIR/po/*.msg "$PD_RESOURCES/po"
