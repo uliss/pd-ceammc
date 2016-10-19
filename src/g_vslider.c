@@ -64,10 +64,14 @@ static void vslider_draw_new(t_vslider *x, t_glist *glist)
         1 + (IEMGUI_ZOOM(x)-1) * (x->x_gui.x_ldx >= 0 && x->x_gui.x_ldy >= 0);
     t_canvas *canvas=glist_getcanvas(glist);
 
-    sys_vgui(".x%lx.c create rectangle %d %d %d %d -width %d -fill #%06x -tags %lxBASE\n",
+    sys_vgui(".x%lx.c create rectangle %d %d %d %d "
+             "-width %d "
+             "-outline %s "
+             "-fill #%06x -tags %lxBASE\n",
              canvas, xpos, ypos + VSLIDER_EXTRA_Y,
              xpos + x->x_gui.x_w, ypos + x->x_gui.x_h + VSLIDER_EXTRA_H,
              STYLE_BORDER_WIDTH,
+             STYLE_IEM_BORDER_COLOR,
              x->x_gui.x_bcol, x);
     sys_vgui(".x%lx.c create line %d %d %d %d -width %d -fill #%06x -tags %lxKNOB\n",
              canvas, xpos + SLIDER_KNOB_X, r,
@@ -186,7 +190,7 @@ static void vslider_draw_select(t_vslider *x, t_glist *glist)
     }
     else
     {
-        sys_vgui(".x%lx.c itemconfigure %lxBASE -outline %s\n", canvas, x, STYLE_BORDER_COLOR);
+        sys_vgui(".x%lx.c itemconfigure %lxBASE -outline %s\n", canvas, x, STYLE_IEM_BORDER_COLOR);
         sys_vgui(".x%lx.c itemconfigure %lxLABEL -fill #%06x\n", canvas, x, x->x_gui.x_lcol);
     }
 }
