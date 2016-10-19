@@ -58,9 +58,12 @@ void toggle_draw_new(t_toggle *x, t_glist *glist)
         w = 2;
     if(x->x_gui.x_w >= 60)
         w = 3;
-    sys_vgui(".x%lx.c create rectangle %d %d %d %d -width %d -fill #%06x -tags %lxBASE\n",
+    sys_vgui(".x%lx.c create rectangle %d %d %d %d -width %d "
+             "-outline %s "
+             "-fill #%06x -tags %lxBASE\n",
              canvas, xx, yy, xx + x->x_gui.x_w, yy + x->x_gui.x_h,
              stroke_width,
+             STYLE_IEM_BORDER_COLOR,
              x->x_gui.x_bcol, x);
     sys_vgui(".x%lx.c create line %d %d %d %d -width %d -fill #%06x -tags %lxX1\n",
              canvas, xx+w+1, yy+w+1, xx + x->x_gui.x_w-w, yy + x->x_gui.x_h-w, w,
@@ -78,10 +81,10 @@ void toggle_draw_new(t_toggle *x, t_glist *glist)
     if(!x->x_gui.x_fsf.x_snd_able)
         sys_vgui(".x%lx.c create rectangle %d %d %d %d -outline %s -tags [list %lxOUT%d outlet]\n",
              canvas, xx, yy + x->x_gui.x_h - xlet_height(x),
-                xx + IOWIDTH, yy + x->x_gui.x_h, STYLE_BORDER_COLOR, x, 0);
+                xx + IOWIDTH, yy + x->x_gui.x_h, STYLE_IEM_BORDER_COLOR, x, 0);
     if(!x->x_gui.x_fsf.x_rcv_able)
         sys_vgui(".x%lx.c create rectangle %d %d %d %d -outline %s -tags [list %lxIN%d inlet]\n",
-             canvas, xx, yy, xx + IOWIDTH, yy + xlet_height(x), STYLE_BORDER_COLOR, x, 0);
+             canvas, xx, yy, xx + IOWIDTH, yy + xlet_height(x), STYLE_IEM_BORDER_COLOR, x, 0);
 }
 
 void toggle_draw_move(t_toggle *x, t_glist *glist)
@@ -155,13 +158,13 @@ void toggle_draw_io(t_toggle* x, t_glist* glist, int old_snd_rcv_flags)
         sys_vgui(".x%lx.c create rectangle %d %d %d %d -fill %s -tags %lxOUT%d\n",
              canvas, xpos,
              ypos + x->x_gui.x_h-1, xpos + IOWIDTH,
-             ypos + x->x_gui.x_h, STYLE_BORDER_COLOR, x, 0);
+             ypos + x->x_gui.x_h, STYLE_CONTROL_XLET_COLOR, x, 0);
     if(!(old_snd_rcv_flags & IEM_GUI_OLD_SND_FLAG) && x->x_gui.x_fsf.x_snd_able)
         sys_vgui(".x%lx.c delete %lxOUT%d\n", canvas, x, 0);
     if((old_snd_rcv_flags & IEM_GUI_OLD_RCV_FLAG) && !x->x_gui.x_fsf.x_rcv_able)
         sys_vgui(".x%lx.c create rectangle %d %d %d %d -fill %s -tags %lxIN%d\n",
              canvas, xpos, ypos,
-             xpos + IOWIDTH, ypos+1, STYLE_BORDER_COLOR, x, 0);
+             xpos + IOWIDTH, ypos+1, STYLE_CONTROL_XLET_COLOR, x, 0);
     if(!(old_snd_rcv_flags & IEM_GUI_OLD_RCV_FLAG) && x->x_gui.x_fsf.x_rcv_able)
         sys_vgui(".x%lx.c delete %lxIN%d\n", canvas, x, 0);
 }
