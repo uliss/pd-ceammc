@@ -118,6 +118,7 @@ endif()
 
 if(WITH_PORTMIDI)
     include_directories(${PROJECT_SOURCE_DIR}/portmidi/pm_common)
+    include_directories(${PROJECT_SOURCE_DIR}/portmidi/porttime)
     list(APPEND S_SRC s_midi_pm.c)
     list(APPEND PD_NEEDED_LIBS portmidi-static)
 endif()

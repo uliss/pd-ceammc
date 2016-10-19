@@ -56,13 +56,14 @@ if(UNIX)
             CACHE INTERNAL "")
 
         message(STATUS "SYSROOT: " ${CMAKE_OSX_SYSROOT})
-    else(APPLE)
+    else()
         # LINUX settings...
         set(LINUXSRC pmlinuxalsa pmlinux finddefault)
         prepend_path(LIBSRC ../pm_linux/ ${LINUXSRC})
         list(APPEND LIBSRC ../porttime/ptlinux)
 
         set(PM_NEEDED_LIBS pthread asound)
+        include_directories(../porttime)
     endif()
 else(UNIX)
     if(WIN32)
