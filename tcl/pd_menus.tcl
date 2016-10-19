@@ -331,6 +331,8 @@ proc ::pd_menus::build_help_menu {mymenu} {
     $mymenu add command -label [_ "FLOSS Manual..."] \
         -command {menu_openfile \
         {http://en.flossmanuals.net/pure-data/audio-tutorials/_booki/pure-data/pure-data.pdf}}
+    $mymenu add command -label [_ "Pd tutorial by Johannes Kreidler"] \
+        -command {menu_openfile {http://www.pd-tutorial.com/english/}}
     $mymenu add command -label [_ "List of objects..."] \
         -command {menu_objectlist} 
     $mymenu add  separator
