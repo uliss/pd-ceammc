@@ -882,7 +882,7 @@ static void gatom_vis(t_gobj *z, t_glist *glist, int vis)
                 (double)x1, (double)y1,
                 canvas_realizedollar(x->a_glist, x->a_label)->s_name,
                 sys_hostfontsize(glist_getfont(glist), glist_getzoom(glist)),
-                "blue");
+                STYLE_TEXT_NORMAL_COLOR);
         }
         else sys_vgui(".x%lx.c delete %lx.l\n", glist_getcanvas(glist), x);
     }
@@ -1017,7 +1017,7 @@ static void text_getrect(t_gobj *z, t_glist *glist,
         int fontwidth = glist_fontwidth(glist),
             fontheight = glist_fontheight(glist);
         width = (x->te_width > 0 ? x->te_width : 6) * fontwidth + 2;
-        height = fontheight + 1; /* borrowed from TMARGIN, etc, in g_rtext.c */
+        height = fontheight + 3; /* borrowed from TMARGIN, etc, in g_rtext.c */
     }
         /* if we're invisible we don't know our size so we just lie about
         it.  This is called on invisible boxes to establish order of inlets
@@ -1070,7 +1070,7 @@ static void text_select(t_gobj *z, t_glist *glist, int state)
     if (glist_isvisible(glist) && gobj_shouldvis(&x->te_g, glist)) {
         if (x->te_type != T_TEXT) {
             sys_vgui(".x%lx.c itemconfigure %sR -outline %s\n", glist,
-                rtext_gettag(y), (state? STYLE_TEXT_SELECT_COLOR : STYLE_TEXT_NORMAL_COLOR));
+                rtext_gettag(y), (state? STYLE_SELECT_COLOR : STYLE_BORDER_COLOR));
         }
     }
 }
@@ -1246,18 +1246,20 @@ void glist_drawiofor(t_glist *glist, t_object *ob, int firsttime,
         if (firsttime) {
            // NB - this is highly inefficient on large outlet number.
            if(obj_issignaloutlet(ob, i)) {
-               sys_vgui(".x%lx.c create rectangle %d %d %d %d -tags [list %so%d outlet] -fill %s -outline %s\n",
+               sys_vgui(".x%lx.c create rectangle %d %d %d %d -tags [list %so%d outlet] "
+                        "-fill %s "
+                        "-outline %s\n",
                         glist_getcanvas(glist),
                         onset, y2 - style_xlet_height(glist),
                         onset + IOWIDTH, y2,
-                        tag, i, STYLE_BORDER_COLOR, STYLE_BORDER_COLOR);
+                        tag, i, STYLE_AUDIO_XLET_COLOR, STYLE_AUDIO_XLET_COLOR);
                 }
             else {
                 sys_vgui(".x%lx.c create rectangle %d %d %d %d -tags [list %so%d outlet] -outline %s\n",
                     glist_getcanvas(glist),
                     onset, y2 - style_xlet_height(glist),
                     onset + IOWIDTH, y2,
-                    tag, i, STYLE_BORDER_COLOR);
+                    tag, i, STYLE_CONTROL_XLET_COLOR);
             }
         }
         else
@@ -1274,18 +1276,21 @@ void glist_drawiofor(t_glist *glist, t_object *ob, int firsttime,
         if (firsttime) {
             // NB - this is highly inefficient on large inlet number.
             if(obj_issignalinlet(ob, i)) {
-                sys_vgui(".x%lx.c create rectangle %d %d %d %d -tags [list %si%d inlet] -outline %s -fill %s\n",
+                sys_vgui(".x%lx.c create rectangle %d %d %d %d -tags [list %si%d inlet] "
+                         "-outline %s "
+                         "-fill %s\n",
                     glist_getcanvas(glist),
                     onset, y1,
                     onset + IOWIDTH, y1 + style_xlet_height(glist),
-                    tag, i, STYLE_BORDER_COLOR, STYLE_BORDER_COLOR);
+                    tag, i, STYLE_AUDIO_XLET_COLOR, STYLE_AUDIO_XLET_COLOR);
             }
             else {
-                sys_vgui(".x%lx.c create rectangle %d %d %d %d -tags [list %si%d inlet] -outline %s\n",
+                sys_vgui(".x%lx.c create rectangle %d %d %d %d -tags [list %si%d inlet] "
+                         "-outline %s\n",
                     glist_getcanvas(glist),
                     onset, y1,
                     onset + IOWIDTH, y1 + style_xlet_height(glist),
-                    tag, i, STYLE_BORDER_COLOR);
+                    tag, i, STYLE_CONTROL_XLET_COLOR);
             }
         }
         else
@@ -1308,11 +1313,15 @@ void text_drawborder(t_text *x, t_glist *glist,
     {
         char *pattern = ((pd_class(&x->te_pd) == text_class) ? "-" : "\"\"");
         if (firsttime) {
-            sys_vgui(".x%lx.c create polygon\
- %d %d %d %d %d %d %d %d %d %d -dash %s -width %d -outline black -fill %s -tags [list %sR obj]\n",
+            sys_vgui(".x%lx.c create polygon %d %d %d %d %d %d %d %d %d %d "
+                     "-dash %s "
+                     "-width %d "
+                     "-outline %s "
+                     "-fill %s "
+                     "-tags [list %sR obj]\n",
                 glist_getcanvas(glist),
                     x1, y1,  x2, y1,  x2, y2,  x1, y2,  x1, y1,  pattern,
-                    style_border_width(glist), "#FEFEFE", tag);
+                    style_border_width(glist), STYLE_BORDER_COLOR, STYLE_FILL_COLOR, tag);
         }
         else
         {
@@ -1327,41 +1336,33 @@ void text_drawborder(t_text *x, t_glist *glist,
     else if (x->te_type == T_MESSAGE)
     {
         if (firsttime) {
-            sys_vgui(".x%lx.c create polygon %d %d %d %d %d %d %d %d %d %d %d %d %d %d -width %d -outline black -fill %s \
-                    -tags [list %sR msg]\n",
+            sys_vgui(".x%lx.c create polygon %d %d %d %d %d %d %d %d %d %d %d %d %d %d "
+                     "-width %d "
+                     "-outline %s "
+                     "-fill %s "
+                     "-tags [list %sR msg]\n",
                     glist_getcanvas(glist),
                     x1, y1,  x2+4, y1,  x2, y1+4,  x2, y2-4,  x2+4, y2,
                     x1, y2,  x1, y1,
-                    1, "#FEFEFE", tag);
-
-//            sys_vgui(".x%lx.c create line\
-// %d %d %d %d %d %d %d %d %d %d %d %d %d %d -width %d -fill %s -tags [list %sR msg]\n",
-//                glist_getcanvas(glist),
-//                x1, y1,  x2+4, y1,  x2, y1+4,  x2, y2-4,  x2+4, y2,
-//                x1, y2,  x1, y1,
-//                style_border_width(glist), STYLE_BORDER_COLOR, tag);
+                    1, STYLE_BORDER_COLOR, STYLE_FILL_COLOR, tag);
         }
         else {
             sys_vgui(".x%lx.c coords %sR %d %d %d %d %d %d %d %d %d %d %d %d %d %d\n",
                     glist_getcanvas(glist), tag,
                     x1, y1,  x2+4, y1,  x2, y1+4,  x2, y2-4,  x2+4, y2,
                     x1, y2,  x1, y1);
-
-//            sys_vgui(".x%lx.c coords %sR\
-// %d %d %d %d %d %d %d %d %d %d %d %d %d %d\n",
-//                glist_getcanvas(glist), tag,
-//                x1, y1,  x2+4, y1,  x2, y1+4,  x2, y2-4,  x2+4, y2,
-//                x1, y2,  x1, y1);
         }
     }
     else if (x->te_type == T_ATOM)
     {
         if (firsttime)
-            sys_vgui(".x%lx.c create polygon\
- %d %d %d %d %d %d %d %d %d %d %d %d -width %d -outline black -fill %s -tags [list %sR atom]\n",
+            sys_vgui(".x%lx.c create polygon %d %d %d %d %d %d %d %d %d %d %d %d "
+                     "-width %d "
+                     "-outline %s "
+                     "-fill %s -tags [list %sR atom]\n",
                 glist_getcanvas(glist),
                 x1, y1,  x2-4, y1,  x2, y1+4,  x2, y2,  x1, y2,  x1, y1,
-                style_border_width(glist), "#FEFEFE", tag);
+                style_border_width(glist), STYLE_BORDER_COLOR, STYLE_FILL_COLOR, tag);
         else
             sys_vgui(".x%lx.c coords %sR\
  %d %d %d %d %d %d %d %d %d %d %d %d\n",
