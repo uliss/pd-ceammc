@@ -60,10 +60,14 @@ static void hslider_draw_new(t_hslider *x, t_glist *glist)
         1 + (IEMGUI_ZOOM(x)-1) * (x->x_gui.x_ldx >= 0 && x->x_gui.x_ldy >= 0);
     t_canvas *canvas=glist_getcanvas(glist);
 
-    sys_vgui(".x%lx.c create rectangle %d %d %d %d -width %d -fill #%06x -tags %lxBASE\n",
+    sys_vgui(".x%lx.c create rectangle %d %d %d %d "
+             "-width %d "
+             "-outline %s "
+             "-fill #%06x -tags %lxBASE\n",
              canvas, xpos-3, ypos,
              xpos + x->x_gui.x_w+2, ypos + x->x_gui.x_h,
              stroke_width,
+             STYLE_IEM_BORDER_COLOR,
              x->x_gui.x_bcol, x);
     sys_vgui(".x%lx.c create line %d %d %d %d -width %d -fill #%06x -tags %lxKNOB\n",
              canvas, r, ypos+1, r,
@@ -78,11 +82,11 @@ static void hslider_draw_new(t_hslider *x, t_glist *glist)
     if(!x->x_gui.x_fsf.x_snd_able)
         sys_vgui(".x%lx.c create rectangle %d %d %d %d -outline %s -tags [list %lxOUT%d outlet]\n",
              canvas, xpos-3, ypos + x->x_gui.x_h - xlet_height(x),
-             xpos+4, ypos + x->x_gui.x_h, STYLE_BORDER_COLOR, x, 0);
+             xpos+4, ypos + x->x_gui.x_h, STYLE_CONTROL_XLET_COLOR, x, 0);
     if(!x->x_gui.x_fsf.x_rcv_able)
         sys_vgui(".x%lx.c create rectangle %d %d %d %d -outline %s -tags [list %lxIN%d inlet]\n",
              canvas, xpos-3, ypos,
-             xpos+4, ypos + xlet_height(x), STYLE_BORDER_COLOR, x, 0);
+             xpos+4, ypos + xlet_height(x), STYLE_CONTROL_XLET_COLOR, x, 0);
 }
 
 static void hslider_draw_move(t_hslider *x, t_glist *glist)
@@ -150,13 +154,13 @@ static void hslider_draw_io(t_hslider* x,t_glist* glist, int old_snd_rcv_flags)
     if((old_snd_rcv_flags & IEM_GUI_OLD_SND_FLAG) && !x->x_gui.x_fsf.x_snd_able)
         sys_vgui(".x%lx.c create rectangle %d %d %d %d -fill %s -tags %lxOUT%d\n",
              canvas, xpos-3, ypos + x->x_gui.x_h-1,
-             xpos+4, ypos + x->x_gui.x_h, STYLE_BORDER_COLOR, x, 0);
+             xpos+4, ypos + x->x_gui.x_h, STYLE_CONTROL_XLET_COLOR, x, 0);
     if(!(old_snd_rcv_flags & IEM_GUI_OLD_SND_FLAG) && x->x_gui.x_fsf.x_snd_able)
         sys_vgui(".x%lx.c delete %lxOUT%d\n", canvas, x, 0);
     if((old_snd_rcv_flags & IEM_GUI_OLD_RCV_FLAG) && !x->x_gui.x_fsf.x_rcv_able)
         sys_vgui(".x%lx.c create rectangle %d %d %d %d -fill %s -tags %lxIN%d\n",
              canvas, xpos-3, ypos,
-             xpos+4, ypos+1, STYLE_BORDER_COLOR, x, 0);
+             xpos+4, ypos+1, STYLE_CONTROL_XLET_COLOR, x, 0);
     if(!(old_snd_rcv_flags & IEM_GUI_OLD_RCV_FLAG) && x->x_gui.x_fsf.x_rcv_able)
         sys_vgui(".x%lx.c delete %lxIN%d\n", canvas, x, 0);
 }
@@ -172,7 +176,7 @@ static void hslider_draw_select(t_hslider* x,t_glist* glist)
     }
     else
     {
-        sys_vgui(".x%lx.c itemconfigure %lxBASE -outline %s\n", canvas, x, STYLE_BORDER_COLOR);
+        sys_vgui(".x%lx.c itemconfigure %lxBASE -outline %s\n", canvas, x, STYLE_IEM_BORDER_COLOR);
         sys_vgui(".x%lx.c itemconfigure %lxLABEL -fill #%06x\n", canvas, x, x->x_gui.x_lcol);
     }
 }
