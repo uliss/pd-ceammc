@@ -36,8 +36,8 @@ pd_add_extension(NAME math.e     FILES math_e.c     INTERNAL True)
 pd_add_extension(NAME list.length FILES list_length.c INTERNAL True)
 pd_add_extension(NAME list.separate FILES list_separate.c INTERNAL True)
 
-pd_add_extension(NAME path.basename FILES path_basename.cpp INTERNAL True LINK ceammc_static)
-pd_add_extension(NAME path.exists FILES path_exists.cpp INTERNAL True LINK ceammc_static)
+#pd_add_extension(NAME path.basename FILES path_basename.cpp INTERNAL True LINK ceammc_static)
+#pd_add_extension(NAME path.exists FILES path_exists.cpp INTERNAL True LINK ceammc_static)
 
 include(FindLibSndFile)
 if(LIBSNDFILE_FOUND)
