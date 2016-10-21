@@ -19,7 +19,7 @@ set(CMAKE_SKIP_RPATH True)
 set(CMAKE_MACOSX_RPATH 0)
 project(puredata)
 
-add_definitions(-std=gnu99)
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu99")
 enable_language(CXX C)
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 include(version)
