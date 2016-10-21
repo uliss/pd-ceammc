@@ -20,21 +20,19 @@ parser.add_argument('--free', dest='free', action='store_true', help='generate f
 group_math = parser.add_argument_group('math')
 group_math.add_argument('--f32', dest='func32', help='32-bit float function')
 group_math.add_argument('--f64', dest='func64', help='64-bit double function')
-group_math.add_argument('--unary', dest='unary', action='store_true', default=False,
-                    help='generate unary function')
-group_math.add_argument('--libm', dest='libm', action='store_true', default=False,
-                    help='generate function from C math library')
-group_math.add_argument('--code', dest='code', help='generated code', type=bool)
+group_math.add_argument('--type', dest='type', choices=['none', 'unary', 'const'],
+                        help='generate function of given type')
+group_math.add_argument('--code', dest='code', help='generated code')
 
 args = parser.parse_args()
 methods = []
 
-if args.module== 'math':
+if args.module == 'math':
     code = None
     func32 = None
     func64 = None
 
-    if args.unary:
+    if args.type == 'unary':
         code = args.code
         if args.func32:
             func32 = args.func32
@@ -43,11 +41,16 @@ if args.module== 'math':
 
         if not func32:
             code = ' '
+
+        g = ceammc.PdMathUnaryExtension(args.name, func32, func64, code)
+        g.generate()
+    elif args.type == 'const':
+        g = ceammc.PdMathConstExtension(args.name, args.code)
+        g.generate()
     else:
         code = ' '
-
-    g = ceammc.PdMathUnaryExtension(args.name, func32, func64, code)
-    g.generate()
+        g = ceammc.PdMathUnaryExtension(args.name, func32, func64, code)
+        g.generate()
 
 else:
     headers = None

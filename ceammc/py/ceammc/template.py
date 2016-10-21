@@ -200,3 +200,19 @@ class PdMathUnaryExtension(PdExtension):
                 print '    return {}(v);'.format(self.func32)
 
         print '}'
+
+
+class PdMathConstExtension(PdExtension):
+    def __init__(self, name, const_value, headers=None):
+        if headers is None:
+            headers = ["math.h"]
+
+        super(self.__class__, self).__init__("math", name, headers, False, False)
+        self.const_value = const_value
+
+    def generate(self):
+        self.generate_header()
+        self.generate_struct()
+        self.generate_bang('outlet_float(x->x_obj.te_outlet, {});'.format(self.const_value))
+        self.generate_new(outlet_type='s_float')
+        self.generate_setup(['bang'])

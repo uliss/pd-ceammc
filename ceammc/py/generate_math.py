@@ -30,14 +30,29 @@ UNARY_EXT = [
     ('trunc', 'trunkcf','trunc')
 ]
 
+CONST_EXT = [
+    ('pi',  'M_PI'),
+    ('e',   'M_E'),
+    ('nan', 'NAN'),
+    ('inf', 'INFINITY')
+]
+
 SCRIPT = os.path.join(os.path.dirname(__file__), 'extension_generator.py')
 
 for ext in UNARY_EXT:
     name = ext[0]
     f = open("math_{}.c".format(name), "w")
-    cmd = [SCRIPT, "--unary", "--f32", ext[1], "--f64", ext[2], "math", name]
+    cmd = [SCRIPT, "--type", "unary", "--f32", ext[1], "--f64", ext[2], "math", name]
     subprocess.call(cmd, stdout=f)
     f.close()
     print "math_{}.c generated".format(name)
 
 
+for ext in CONST_EXT:
+    name = ext[0]
+    value = ext[1]
+    f = open("math_{}.c".format(name), "w")
+    cmd = [SCRIPT, "--type", "const", "--code", value, "math", name]
+    subprocess.call(cmd, stdout=f)
+    f.close()
+    print "math_{}.c generated".format(name)
