@@ -20,21 +20,17 @@
 #include <m_pd.h>
 #include <stddef.h>
 
-// MATH prefixes
-// to get "math.abs" use CEAMMC_MATH_EXT("abs")
-#define CEAMMC_MATH_EXT(name) "math." name
-
-// to get extension setup function use CEAMMC_MATH_MODULE(round)
-// it expands to: setup_math0x2eround()
-#define CEAMMC_MATH_MODULE(name) setup_math0x2e##name()
-
-// LIST prefixes
-// to get "list.each" use CEAMMC_LIST_EXT("each")
-#define CEAMMC_LIST_EXT(name) "list." name
+// module prefixes
+#define CEAMMC_LIST_GENSYM(name) gensym("list." #name)
+#define CEAMMC_MATH_GENSYM(name) gensym("math." #name)
+#define CEAMMC_PATH_GENSYM(name) gensym("path." #name)
 
 // to get extension setup function use CEAMMC_LIST_MODULE(each)
 // it expands to: setup_list0x2eeach()
-#define CEAMMC_LIST_MODULE(name) setup_list0x2e##name()
+#define CEAMMC_DOT_MODULE(prefix, name) setup_ ## prefix ## 0x2e ## name()
+#define CEAMMC_MATH_MODULE(name) CEAMMC_DOT_MODULE(math, name)
+#define CEAMMC_LIST_MODULE(name) CEAMMC_DOT_MODULE(list, name)
+#define CEAMMC_PATH_MODULE(name) CEAMMC_DOT_MODULE(path, name)
 
 t_atom* ceammc_atoms_alloc(size_t n);
 void ceammc_atoms_free(t_atom* mem, size_t n);
