@@ -1,48 +1,47 @@
-#include <math.h>
 #include <m_pd.h>
-
+#include <math.h>
 #include "ceammc.h"
 
-t_class *round_class;
+t_class* math_round_class;
+typedef struct math_round {
+    t_object x_obj;
+} t_math_round;
 
-typedef struct round
+static t_float private_math_round(t_float v) 
 {
-    t_object x_ob;
-    t_outlet * x_outlet;
-} t_round;
-
-static t_floatarg round_private(t_floatarg v) {
 #if PD_FLOATSIZE == 32
     return roundf(v);
 #elif PD_FLOATSIZE == 64
-    return round(v);
 #else
+    return round(v);
 #error "Unsupported PD_FLOATSIZE"
 #endif
 }
 
-void round_float(t_round *x, t_floatarg f)
+static void math_round_float(t_math_round* x, t_floatarg f)
 {
-    outlet_float(x->x_outlet, round_private(f));
+    outlet_float(x->x_obj.te_outlet, private_math_round(f));
 }
 
-void round_list(t_round *x, t_symbol *s, int argc, t_atom *argv)
+static void math_round_list(t_math_round* x, t_symbol* s, int argc, t_atom* argv)
 {
-    ceammc_atoms_map_float_to_outlet(x->x_outlet, s, argc, argv, round_private);
+    ceammc_atoms_map_float_to_outlet(x->x_obj.te_outlet, s, argc, argv, private_math_round);
 }
 
-void *round_new()
+static void* math_round_new()
 {
-    t_round *x = (t_round*) pd_new(round_class);
-    x->x_outlet = outlet_new(&x->x_ob, gensym("float"));
-    return (void*) x;
+    t_math_round* x = (t_math_round*)pd_new(math_round_class);
+    outlet_new(&x->x_obj, &s_float);
+    
+    return (void*)x;
 }
 
-void CEAMMC_MATH_MODULE(round)
+void setup_math0x2eround()
 {
-    round_class = class_new(gensym(CEAMMC_MATH_EXT("round")),
-                            (t_newmethod) round_new, 0,
-                            sizeof(t_round), CLASS_DEFAULT, A_NULL);
-    class_addfloat(round_class, round_float);
-    class_addlist(round_class, round_list);
+    math_round_class = class_new(gensym("math.round"),
+        (t_newmethod)math_round_new, 0,
+            sizeof(t_math_round), 0, A_NULL);
+    class_addfloat(math_round_class, math_round_float);
+    class_addlist(math_round_class, math_round_list);
 }
+

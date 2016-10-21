@@ -16,7 +16,18 @@ UNARY_EXT = [
     ('cos',   'cosf',   'cos'),
     ('cosh',  'coshf',  'cosh'),
     ('exp',   'expf',   'exp'),
-    ('exp2',   'exp2f',   'exp2')
+    ('exp2',  'exp2f',  'exp2'),
+    ('floor', 'floorf', 'floor'),
+    ('log',   'logf',   'log'),
+    ('log10', 'log10f', 'log10'),
+    ('log2',  'log2f',  'log2'),
+    ('round', 'roundf', 'round'),
+    ('sin',   'sinf',   'sin'),
+    ('sinh',  'sinhf',  'sinh'),
+    ('sqrt',  'sqrtf',  'sqrt'),
+    ('tan',   'tanf',   'tan'),
+    ('tanh',  'tanhf',  'tanh'),
+    ('trunc', 'trunkcf','trunc')
 ]
 
 SCRIPT = os.path.join(os.path.dirname(__file__), 'extension_generator.py')

@@ -20,8 +20,16 @@ pd_add_extension(NAME math.cosh  FILES math_cosh.c  INTERNAL True LINK ceammc_st
 pd_add_extension(NAME math.exp   FILES math_exp.c   INTERNAL True LINK ceammc_static)
 pd_add_extension(NAME math.exp2  FILES math_exp2.c  INTERNAL True LINK ceammc_static)
 pd_add_extension(NAME math.floor FILES math_floor.c INTERNAL True LINK ceammc_static)
-
+pd_add_extension(NAME math.log   FILES math_log.c   INTERNAL True LINK ceammc_static)
+pd_add_extension(NAME math.log10 FILES math_log10.c INTERNAL True LINK ceammc_static)
+pd_add_extension(NAME math.log2  FILES math_log2.c  INTERNAL True LINK ceammc_static)
 pd_add_extension(NAME math.round FILES math_round.c INTERNAL True LINK ceammc_static)
+pd_add_extension(NAME math.sin   FILES math_sin.c   INTERNAL True LINK ceammc_static)
+pd_add_extension(NAME math.sinh  FILES math_sinh.c  INTERNAL True LINK ceammc_static)
+pd_add_extension(NAME math.sqrt  FILES math_sqrt.c  INTERNAL True LINK ceammc_static)
+pd_add_extension(NAME math.tan   FILES math_tan.c   INTERNAL True LINK ceammc_static)
+pd_add_extension(NAME math.tanh  FILES math_tanh.c  INTERNAL True LINK ceammc_static)
+
 pd_add_extension(NAME math.pi    FILES math_pi.c    INTERNAL True)
 pd_add_extension(NAME math.e     FILES math_e.c     INTERNAL True)
 
@@ -35,6 +43,6 @@ include(FindLibSndFile)
 if(LIBSNDFILE_FOUND)
     message(STATUS "FOUNDDDD")
     include_directories(${LIBSNDFILE_INCLUDE_DIRS})
-    pd_add_extension(NAME ffmpeg FILES ffmpeg.cpp INTERNAL True LINK ceammc_static ${LIBSNDFILE_LIBRARIES})
+#    pd_add_extension(NAME ffmpeg FILES ffmpeg.cpp INTERNAL True LINK ceammc_static ${LIBSNDFILE_LIBRARIES})
 endif()
 
