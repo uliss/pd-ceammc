@@ -36,6 +36,7 @@ pd_add_extension(NAME math.nan   FILES math_nan.c   INTERNAL True)
 pd_add_extension(NAME math.inf   FILES math_inf.c   INTERNAL True)
 
 pd_add_extension(NAME math.reciprocal  FILES math_reciprocal.c INTERNAL True LINK ceammc_static)
+pd_add_extension(NAME math.sign        FILES math_sign.c       INTERNAL True LINK ceammc_static)
 
 pd_add_extension(NAME list.length FILES list_length.c INTERNAL True)
 pd_add_extension(NAME list.separate FILES list_separate.c INTERNAL True)
