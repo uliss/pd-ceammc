@@ -120,11 +120,11 @@ static void* {name}_new()
 
     def generate_free(self, code=''):
         res = '''
-static void* {name}_free()
+static void {name}_free({type} *x)
 {{
     {code}
 }}'''
-        print res.format(name=self.name_, code=code)
+        print res.format(name=self.name_, code=code, type=self.type_)
 
     def generate_setup(self, methods=None):
         # handle cpp
@@ -139,11 +139,11 @@ static void* {name}_free()
 
         free = '0';
         if self.gen_free:
-            free = ' (t_newmethod){}_free'.format(self.name_)
+            free = '{}_free'.format(self.name_)
 
         res += '''
     {class_} = class_new(gensym("{mod}.{ext}"),
-        (t_newmethod){name_}_new, {free_},
+        (t_newmethod){name_}_new, (t_method){free_},
             sizeof({type_}), 0, A_NULL);'''.format(class_=self.class_,
                                                    type_=self.type_,
                                                    name_=self.name_,

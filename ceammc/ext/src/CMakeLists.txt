@@ -44,10 +44,19 @@ pd_add_extension(NAME list.separate FILES list_separate.c INTERNAL True)
 #pd_add_extension(NAME path.basename FILES path_basename.cpp INTERNAL True LINK ceammc_static)
 #pd_add_extension(NAME path.exists FILES path_exists.cpp INTERNAL True LINK ceammc_static)
 
+
 include(FindLibSndFile)
 if(LIBSNDFILE_FOUND)
     message(STATUS "FOUNDDDD")
     include_directories(${LIBSNDFILE_INCLUDE_DIRS})
 #    pd_add_extension(NAME ffmpeg FILES ffmpeg.cpp INTERNAL True LINK ceammc_static ${LIBSNDFILE_LIBRARIES})
 endif()
+
+find_package(Boost 1.36.0)
+if(Boost_FOUND)
+    include_directories(${Boost_INCLUDE_DIRS})
+    pd_add_extension(NAME test.data   FILES test_data.cpp   INTERNAL True LINK ceammc_static)
+    pd_add_extension(NAME test.expect FILES test_expect.cpp INTERNAL True LINK ceammc_static)
+endif()
+
 
