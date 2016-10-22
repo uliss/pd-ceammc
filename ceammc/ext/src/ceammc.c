@@ -41,7 +41,7 @@ t_atom* ceammc_atoms_alloc_copy(size_t n, t_atom* from)
 }
 
 void ceammc_atoms_map_float(size_t n, t_atom* a,
-    ceammc_map_float func)
+    ceammc_float_unary_func func)
 {
     for (size_t i = 0; i < n; i++) {
         if (a[i].a_type == A_FLOAT) {
@@ -50,7 +50,7 @@ void ceammc_atoms_map_float(size_t n, t_atom* a,
     }
 }
 
-void ceammc_atoms_map_float_to_outlet(t_outlet* o, t_symbol* s, int n, t_atom* a, ceammc_map_float func)
+void ceammc_atoms_map_float_to_outlet(t_outlet* o, t_symbol* s, int n, t_atom* a, ceammc_float_unary_func func)
 {
     t_atom * lst = ceammc_atoms_alloc_copy(n, a);
     ceammc_atoms_map_float(n, lst, func);
