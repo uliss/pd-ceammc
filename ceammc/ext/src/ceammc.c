@@ -57,9 +57,9 @@ void ceammc_atoms_map_float_to_outlet(t_outlet* o, t_symbol* s, int n, t_atom* a
     ceammc_atoms_free(lst, n);
 }
 
-t_float ceammc_atoms_reduce_float(size_t n, t_atom* a, ceammc_float_binary_func func)
+t_float ceammc_atoms_reduce_float(size_t n, t_atom* a, t_float init, ceammc_float_binary_func func)
 {
-    t_float accum = 0;
+    t_float accum = init;
     for (size_t i = 0; i < n; i++) {
         accum = func(accum, atom_getfloat(&a[i]));
     }

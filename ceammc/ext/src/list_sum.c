@@ -15,7 +15,7 @@ static t_float sum(t_float f1, t_float f2) { return f1 + f2; }
 
 static void list_sum_list(t_list_sum* x, t_symbol* s, int argc, t_atom* argv)
 {
-    outlet_float(x->x_obj.te_outlet, ceammc_atoms_reduce_float(argc, argv, &sum));
+    outlet_float(x->x_obj.te_outlet, ceammc_atoms_reduce_float(argc, argv, 0.0, &sum));
 }
 
 static void* list_sum_new()
