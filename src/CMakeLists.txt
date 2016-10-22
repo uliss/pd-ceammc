@@ -126,6 +126,10 @@ endif()
 # OSS
 if(WITH_OSS_AUDIO)
     list(APPEND S_SRC s_audio_oss.c)
+    find_library(OSSLIB ossaudio)
+    if(OSSLIB)
+        list(APPEND PD_NEEDED_LIBS ${OSSLIB})
+    endif()
 endif()
 
 if(WITH_OSS_MIDI)

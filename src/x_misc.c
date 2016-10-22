@@ -21,7 +21,7 @@
 #include <unistd.h>
 #endif /* _WIN32 */
 
-#if defined (__APPLE__) || defined (__FreeBSD__)
+#if defined (__APPLE__) || defined (__FreeBSD__) || defined(__NetBSD__)
 #define CLOCKHZ CLK_TCK
 #endif
 #if defined (__linux__) || defined (__CYGWIN__) || defined (ANDROID)

@@ -59,7 +59,7 @@ static t_class *pd_tilde_class;
 
 #endif
 
-#if defined(__linux__) || defined(__FreeBSD_kernel__) || defined(__GNU__) || defined(__OpenBSD__)
+#if defined(__linux__) || defined(__FreeBSD_kernel__) || defined(__GNU__) || defined(__OpenBSD__) || defined(__NetBSD__)
 #ifdef __x86_64__
 static char pd_tilde_dllextent[] = ".l_ia64",
     pd_tilde_dllextent2[] = ".pd_linux";
