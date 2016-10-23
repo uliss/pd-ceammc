@@ -32,8 +32,7 @@ matrix:
 
 before_install:
 ## install some dependencies
-- sudo apt-get update -qq
-- sudo apt-get install -qq libportmidi-dev libfftw3-dev libasound2-dev libjack-dev
+- sudo apt-get install -qq libboost-dev libportmidi-dev libfftw3-dev libasound2-dev libjack-dev
 
 
 before_script:
