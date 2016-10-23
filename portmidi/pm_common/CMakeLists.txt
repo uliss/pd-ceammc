@@ -77,6 +77,7 @@ else(UNIX)
         # /MDd is multithread debug DLL, /MTd is multithread debug
         # /MD is multithread DLL, /MT is multithread. Change to static:
         include(../pm_win/static.cmake)
+        include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../porttime)
 
         set(WINSRC pmwin pmwinmm)
         prepend_path(LIBSRC ../pm_win/ ${WINSRC})
