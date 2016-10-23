@@ -48,6 +48,7 @@ pd_add_extension(NAME list.max     FILES  list_max.cpp     INTERNAL True LINK ce
 pd_add_extension(NAME list.min     FILES  list_min.cpp     INTERNAL True LINK ceammc_static)
 pd_add_extension(NAME list.minmax  FILES  list_minmax.cpp  INTERNAL True LINK ceammc_static)
 pd_add_extension(NAME list.product FILES  list_product.c   INTERNAL True LINK ceammc_static)
+pd_add_extension(NAME list.seq     FILES  list_seq.cpp     INTERNAL True LINK ceammc_static)
 pd_add_extension(NAME list.sort    FILES  list_sort.cpp    INTERNAL True LINK ceammc_static)
 pd_add_extension(NAME list.shuffle FILES  list_shuffle.cpp INTERNAL True LINK ceammc_static)
 pd_add_extension(NAME list.sum     FILES  list_sum.c       INTERNAL True LINK ceammc_static)
