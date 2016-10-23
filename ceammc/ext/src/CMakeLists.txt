@@ -44,6 +44,8 @@ pd_add_extension(NAME list.repeat  FILES  list_repeat.cpp  INTERNAL True LINK ce
 pd_add_extension(NAME list.reverse FILES  list_reverse.cpp INTERNAL True LINK ceammc_static)
 pd_add_extension(NAME list.length  FILES  list_length.c    INTERNAL True)
 pd_add_extension(NAME list.product FILES  list_product.c   INTERNAL True LINK ceammc_static)
+#pd_add_extension(NAME list.sort    FILES  list_sort.cpp    INTERNAL True LINK ceammc_static)
+pd_add_extension(NAME list.shuffle FILES  list_shuffle.cpp INTERNAL True LINK ceammc_static)
 pd_add_extension(NAME list.sum     FILES  list_sum.c       INTERNAL True LINK ceammc_static)
 pd_add_extension(NAME list.separate FILES list_separate.c  INTERNAL True)
 
