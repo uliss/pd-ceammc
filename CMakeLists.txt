@@ -51,3 +51,4 @@ endif()
 add_subdirectory(ceammc)
 
 include(summary)
+include(package)
