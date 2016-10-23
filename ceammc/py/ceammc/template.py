@@ -13,6 +13,7 @@ class PdExtension(object):
         self.type_ = 't_' + self.name_
         self.headers = headers
         self.gen_free = gen_free
+        self.gen_cpp = False
         self.cpp = cpp
 
     def generate(self, methods='common'):
@@ -54,6 +55,14 @@ t_class* {0};
 typedef struct {1} {{
     t_object x_obj;{fields}
 }} {2};'''
+
+        if self.gen_cpp:
+            res = '''
+t_class* {0};
+struct {2} {{
+    t_object x_obj;{fields}
+}};'''
+
         print res.format(self.class_, self.name_, self.type_, fields="\n".join(fields))
 
     def generate_bang(self, code=''):
@@ -116,6 +125,16 @@ static void* {name}_new()
     {code}
     return (void*)x;
 }}'''
+        if(self.gen_cpp):
+            res = '''
+static void* {name}_new()
+{{
+    {type}* x = reinterpret_cast<{type}*>(pd_new({class_}));
+    outlet_new(&x->x_obj, &{outlet});
+    {code}
+    return static_cast<void*>(x);
+}}'''
+
         print res.format(name=self.name_, type=self.type_, class_=self.class_, outlet=outlet_type, code=code)
 
     def generate_free(self, code=''):
@@ -130,7 +149,7 @@ static void {name}_free({type} *x)
         # handle cpp
         if methods is None:
             methods = ['float', 'list']
-        if self.cpp:
+        if self.gen_cpp:
             res = '\nextern "C" '
         else:
             res = '\n'
@@ -141,10 +160,22 @@ static void {name}_free({type} *x)
         if self.gen_free:
             free = '{}_free'.format(self.name_)
 
-        res += '''
+        if self.gen_cpp:
+            res += '''
+    {class_} = class_new(gensym("{mod}.{ext}"),
+        static_cast<t_newmethod>({name_}_new),
+        static_cast<t_method>({free_}),
+        sizeof({type_}), 0, A_NULL);'''.format(class_=self.class_,
+                                                   type_=self.type_,
+                                                   name_=self.name_,
+                                                   free_=free,
+                                                   mod=self.module,
+                                                   ext=self.extension)
+        else:
+            res += '''
     {class_} = class_new(gensym("{mod}.{ext}"),
         (t_newmethod){name_}_new, (t_method){free_},
-            sizeof({type_}), 0, A_NULL);'''.format(class_=self.class_,
+        sizeof({type_}), 0, A_NULL);'''.format(class_=self.class_,
                                                    type_=self.type_,
                                                    name_=self.name_,
                                                    free_=free,
