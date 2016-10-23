@@ -14,6 +14,7 @@ parser.add_argument('name', metavar='NAME', help='extension name')
 
 parser.add_argument('--headers', dest='headers', help='#include headers')
 parser.add_argument('--methods', dest='methods', help='generated methods')
+parser.add_argument('--cpp',  dest='cpp', action='store_true', help='generate C++ style extension')
 parser.add_argument('--free', dest='free', action='store_true', help='generate free function')
 
 
@@ -39,6 +40,7 @@ def generate_common(args):
         methods = args.methods.split(',')
 
     g.gen_free = args.free
+    g.gen_cpp = args.cpp
     g.generate(methods)
 
 
@@ -58,6 +60,7 @@ if args.module == 'math':
             code = ' '
 
         g = ceammc.PdMathUnaryExtension(args.name, func32, func64, code)
+        g.gen_cpp = args.cpp
         g.generate()
     elif args.type == 'const':
         g = ceammc.PdMathConstExtension(args.name, args.code)
