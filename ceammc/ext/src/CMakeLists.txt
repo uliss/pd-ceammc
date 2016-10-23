@@ -61,20 +61,20 @@ pd_add_extension(NAME list.separate FILES list_separate.c  INTERNAL True)
 
 include(FindLibSndFile)
 if(LIBSNDFILE_FOUND)
-    message(STATUS "FOUNDDDD")
     include_directories(${LIBSNDFILE_INCLUDE_DIRS})
 #    pd_add_extension(NAME ffmpeg FILES ffmpeg.cpp INTERNAL True LINK ceammc_static ${LIBSNDFILE_LIBRARIES})
 endif()
 
-find_package(Boost 1.36.0)
+# we need 1.47.0 for boost random uniform distribution
+find_package(Boost 1.47.0)
 if(Boost_FOUND)
     include_directories(${Boost_INCLUDE_DIRS})
     pd_add_extension(NAME test.data   FILES test_data.cpp   INTERNAL True LINK ceammc_static)
     pd_add_extension(NAME test.expect FILES test_expect.cpp INTERNAL True LINK ceammc_static)
 
     pd_add_extension(NAME random.float        FILES  random_float.cpp      INTERNAL True)
-    pd_add_extension(NAME random.int          FILES  random_int.cpp  INTERNAL True)
-    pd_add_extension(NAME random.gauss        FILES  random_gauss.cpp  INTERNAL True)
+    pd_add_extension(NAME random.int          FILES  random_int.cpp        INTERNAL True)
+    pd_add_extension(NAME random.gauss        FILES  random_gauss.cpp      INTERNAL True)
 endif()
 
 
