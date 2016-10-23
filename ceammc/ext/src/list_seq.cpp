@@ -38,6 +38,12 @@ static void list_seq_list(t_list_seq* x, t_symbol* s, int argc, t_atom* argv)
 {
 }
 
+static void list_seq_free(t_list_seq* x)
+{
+    inlet_free(x->i_step);
+    inlet_free(x->i_times);
+}
+
 static void* list_seq_new(t_floatarg start, t_floatarg num, t_floatarg step)
 {
     t_list_seq* x = reinterpret_cast<t_list_seq*>(pd_new(list_seq_class));
@@ -54,7 +60,7 @@ extern "C" void setup_list0x2eseq()
 {
     list_seq_class = class_new(gensym("list.seq"),
         reinterpret_cast<t_newmethod>(list_seq_new),
-        static_cast<t_method>(0),
+        reinterpret_cast<t_method>(list_seq_free),
         sizeof(t_list_seq), 0, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
     class_addbang(list_seq_class, list_seq_bang);
     class_addlist(list_seq_class, list_seq_list);

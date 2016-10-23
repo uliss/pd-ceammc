@@ -57,6 +57,11 @@ static void list_repeat_list(t_list_repeat* x, t_symbol* s, int argc, t_atom* ar
     ceammc::pd::output(x->x_obj.te_outlet, result);
 }
 
+static void list_repeat_free(t_list_repeat* x)
+{
+    inlet_free(x->n_inlet);
+}
+
 static void* list_repeat_new(t_floatarg f)
 {
     t_list_repeat* x = reinterpret_cast<t_list_repeat*>(pd_new(list_repeat_class));
@@ -77,7 +82,7 @@ extern "C" void setup_list0x2erepeat()
 {
     list_repeat_class = class_new(gensym("list.repeat"),
         reinterpret_cast<t_newmethod>(list_repeat_new),
-        static_cast<t_method>(0),
+        reinterpret_cast<t_method>(list_repeat_free),
         sizeof(t_list_repeat), CLASS_DEFAULT, A_DEFFLOAT, 0);
     class_addfloat(list_repeat_class, list_repeat_float);
     class_addlist(list_repeat_class, list_repeat_list);
