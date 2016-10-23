@@ -161,7 +161,7 @@ else()
 endif()
 
 add_library(puredata-core ${LIB_STATE} ${D_SRC} ${G_SRC} ${M_SRC} ${S_SRC} ${X_SRC})
-target_link_libraries(puredata-core ${PLATFORM_LINK_LIBRARIES})
+target_link_libraries(puredata-core ${PD_NEEDED_LIBS} ${PLATFORM_LINK_LIBRARIES})
 
 add_executable(pd WIN32 s_entry.c)
 target_link_libraries(pd puredata-core ${PD_NEEDED_LIBS})
