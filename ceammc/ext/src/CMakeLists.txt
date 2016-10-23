@@ -38,6 +38,7 @@ pd_add_extension(NAME math.inf   FILES math_inf.c   INTERNAL True)
 pd_add_extension(NAME math.reciprocal  FILES math_reciprocal.c INTERNAL True LINK ceammc_static)
 pd_add_extension(NAME math.sign        FILES math_sign.c       INTERNAL True LINK ceammc_static)
 pd_add_extension(NAME math.neg         FILES math_neg.c        INTERNAL True LINK ceammc_static)
+pd_add_extension(NAME math.squared     FILES math_squared.c    INTERNAL True LINK ceammc_static)
 
 pd_add_extension(NAME list.repeat  FILES  list_repeat.cpp INTERNAL True LINK ceammc_static)
 pd_add_extension(NAME list.length  FILES  list_length.c   INTERNAL True)
