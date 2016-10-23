@@ -17,6 +17,10 @@
 #ifndef CEAMMC_H
 #define CEAMMC_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <m_pd.h>
 #include <stddef.h>
 
@@ -42,5 +46,9 @@ typedef t_float (*ceammc_float_binary_func)(t_float, t_float);
 void ceammc_atoms_map_float(size_t n, t_atom* a, ceammc_float_unary_func func);
 void ceammc_atoms_map_float_to_outlet(t_outlet* o, t_symbol* s, int n, t_atom* a, ceammc_float_unary_func func);
 t_float ceammc_atoms_reduce_float(size_t n, t_atom* a, t_float init, ceammc_float_binary_func func);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif // CEAMMC_H
