@@ -21,7 +21,6 @@ static void* list_sort_new()
 {
     t_list_sort* x = reinterpret_cast<t_list_sort*>(pd_new(list_sort_class));
     outlet_new(&x->x_obj, &s_float);
-
     return static_cast<void*>(x);
 }
 
