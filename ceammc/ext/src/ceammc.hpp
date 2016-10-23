@@ -30,6 +30,10 @@ namespace pd {
     {
         outlet_list(x, &s_list, static_cast<int>(lst.size()), const_cast<t_atom*>(lst.data()));
     }
+
+    static bool atoms_compare_lt(const t_atom& a1, const t_atom& a2) {
+        return ::ceammc_atoms_compare(&a1, &a2) == -1;
+    }
 }
 }
 

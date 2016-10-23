@@ -36,6 +36,7 @@ extern "C" {
 #define CEAMMC_LIST_MODULE(name) CEAMMC_DOT_MODULE(list, name)
 #define CEAMMC_PATH_MODULE(name) CEAMMC_DOT_MODULE(path, name)
 
+int ceammc_atoms_compare(const t_atom* a1, const t_atom* a2);
 t_atom* ceammc_atoms_alloc(size_t n);
 void ceammc_atoms_free(t_atom* mem, size_t n);
 void ceammc_atoms_copy(size_t n, t_atom* from, t_atom* to);
