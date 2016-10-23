@@ -176,14 +176,20 @@ target_link_libraries(pdsend ${PLATFORM_LINK_LIBRARIES})
 add_executable(pdreceive WIN32 u_pdreceive.c)
 target_link_libraries(pdreceive ${PLATFORM_LINK_LIBRARIES})
 
-install(TARGETS pd pdsend pdreceive
-    BUNDLE DESTINATION .
-    RUNTIME DESTINATION bin)
-
-install(FILES m_pd.h DESTINATION include/pd)
+# exe install
+install(TARGETS pd         RUNTIME DESTINATION ${PD_EXE_INSTALL_PATH})
+install(TARGETS pdsend     RUNTIME DESTINATION ${PD_SEND_INSTALL_PATH})
+install(TARGETS pdreceive RUNTIME DESTINATION ${PD_RECEIVE_INSTALL_PATH})
 
 if(UNIX AND NOT APPLE)
-    install(TARGETS pd-watchdog pd
-        RUNTIME DESTINATION lib/puredata/bin
-    )
+    install(TARGETS pd-watchdog RUNTIME DESTINATION ${PD_WATCHDOG_INSTALL_PATH})
 endif()
+
+# install libs
+install(TARGETS puredata-core
+    LIBRARY DESTINATION ${PDCORE_LIB_INSTALL_PATH}
+    ARCHIVE DESTINATION ${PDCORE_LIB_INSTALL_PATH})
+
+
+# install headers
+install(FILES m_pd.h DESTINATION include/pd)
