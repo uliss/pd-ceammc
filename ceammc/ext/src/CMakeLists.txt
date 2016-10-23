@@ -71,6 +71,8 @@ if(Boost_FOUND)
     include_directories(${Boost_INCLUDE_DIRS})
     pd_add_extension(NAME test.data   FILES test_data.cpp   INTERNAL True LINK ceammc_static)
     pd_add_extension(NAME test.expect FILES test_expect.cpp INTERNAL True LINK ceammc_static)
+
+    pd_add_extension(NAME random.uniform      FILES  random_uniform.cpp      INTERNAL True)
 endif()
 
 
