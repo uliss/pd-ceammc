@@ -9,7 +9,7 @@ t_class* random_gauss_class;
 struct t_random_gauss {
     t_object x_obj;
     t_inlet* sigma_inlet;
-    t_float expect;
+    t_float mean;
     t_float sigma;
 };
 
@@ -17,22 +17,27 @@ static boost::random::mt19937 random_gen(std::time(0));
 
 static void random_gauss_bang(t_random_gauss* x)
 {
-    boost::random::normal_distribution<t_float> dist(x->expect, x->sigma);
+    if(x->sigma < 0) {
+        pd_error(x, "sigma value should be equal or greater then zero. (%f)", x->sigma);
+        return;
+    }
+
+    boost::random::normal_distribution<t_float> dist(x->mean, x->sigma);
     outlet_float(x->x_obj.te_outlet, dist(random_gen));
 }
 
-static void random_gauss_float(t_random_gauss* x, t_floatarg expect)
+static void random_gauss_float(t_random_gauss* x, t_floatarg mean)
 {
-    x->expect = expect;
+    x->mean = mean;
 }
 
-static void* random_gauss_new(t_floatarg expect, t_floatarg sigma)
+static void* random_gauss_new(t_floatarg mean, t_floatarg sigma)
 {
     t_random_gauss* x = reinterpret_cast<t_random_gauss*>(pd_new(random_gauss_class));
     outlet_new(&x->x_obj, &s_float);
     x->sigma_inlet = floatinlet_new(&x->x_obj, &x->sigma);
     x->sigma = sigma;
-    x->expect = expect;
+    x->mean = mean;
     return static_cast<void*>(x);
 }
 
