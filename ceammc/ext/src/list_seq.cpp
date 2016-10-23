@@ -50,6 +50,13 @@ static void* list_seq_new(t_floatarg start, t_floatarg num, t_floatarg step)
     outlet_new(&x->x_obj, &s_list);
     x->i_times = floatinlet_new(&x->x_obj, &x->times);
     x->i_step = floatinlet_new(&x->x_obj, &x->step);
+
+    // one argument [list.seq 100]
+    if (num == 0.0 && step == 0 && start > 0) {
+        std::swap(start, num);
+        step = 1;
+    }
+
     x->start = start;
     x->times = num;
     x->step = (step == 0) ? 1 : step;
