@@ -3,7 +3,7 @@ file(GLOB _PO_FILES "*.po")
 foreach(_po_file ${_PO_FILES})
     get_filename_component(_locale ${_po_file} NAME_WE)
     execute_process(COMMAND ${GETTEXT_MSGFMT_EXECUTABLE} --tcl -l ${_locale} -d ${CMAKE_CURRENT_BINARY_DIR} ${_po_file})
-    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${_locale}.msg DESTINATION lib/puredata/po)
+    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${_locale}.msg DESTINATION ${PD_PO_INSTALL_PATH})
 endforeach()
 
 set(POT_TEMPLATE "${CMAKE_CURRENT_SOURCE_DIR}/template.pot")

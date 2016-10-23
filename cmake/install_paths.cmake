@@ -5,5 +5,6 @@ set(PD_WATCHDOG_INSTALL_PATH lib/puredata/bin)
 set(PDCORE_LIB_INSTALL_PATH lib)
 set(PD_DOC_INSTALL_PATH lib/puredata)
 set(PD_TCL_INSTALL_PATH lib/puredata)
+set(PD_PO_INSTALL_PATH lib/puredata/po)
 
 
