@@ -36,6 +36,9 @@ static void* random_uniform_new(t_floatarg lower, t_floatarg upper)
     t_random_uniform* x = reinterpret_cast<t_random_uniform*>(pd_new(random_uniform_class));
     outlet_new(&x->x_obj, &s_float);
     x->upper_range_inlet = floatinlet_new(&x->x_obj, &x->upper_range);
+
+    if (upper < lower)
+        std::swap(upper, lower);
     x->upper_range = upper;
     x->lower_range = lower;
     return static_cast<void*>(x);
@@ -46,9 +49,9 @@ static void random_uniform_free(t_random_uniform* x)
     inlet_free(x->upper_range_inlet);
 }
 
-extern "C" void setup_random0x2euniform()
+extern "C" void setup_random0x2efloat()
 {
-    random_uniform_class = class_new(gensym("random.uniform"),
+    random_uniform_class = class_new(gensym("random.float"),
         reinterpret_cast<t_newmethod>(random_uniform_new),
         reinterpret_cast<t_method>(random_uniform_free),
         sizeof(t_random_uniform), 0, A_DEFFLOAT, A_DEFFLOAT, 0);
