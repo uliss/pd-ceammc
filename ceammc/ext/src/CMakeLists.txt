@@ -72,8 +72,9 @@ if(Boost_FOUND)
     pd_add_extension(NAME test.data   FILES test_data.cpp   INTERNAL True LINK ceammc_static)
     pd_add_extension(NAME test.expect FILES test_expect.cpp INTERNAL True LINK ceammc_static)
 
-    pd_add_extension(NAME random.float        FILES  random_uniform.cpp      INTERNAL True)
-    pd_add_extension(NAME random.int          FILES  random_uniform_int.cpp  INTERNAL True)
+    pd_add_extension(NAME random.float        FILES  random_float.cpp      INTERNAL True)
+    pd_add_extension(NAME random.int          FILES  random_int.cpp  INTERNAL True)
+    pd_add_extension(NAME random.gauss        FILES  random_gauss.cpp  INTERNAL True)
 endif()
 
 
