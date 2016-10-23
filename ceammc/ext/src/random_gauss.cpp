@@ -36,6 +36,12 @@ static void* random_gauss_new(t_floatarg mean, t_floatarg sigma)
     t_random_gauss* x = reinterpret_cast<t_random_gauss*>(pd_new(random_gauss_class));
     outlet_new(&x->x_obj, &s_float);
     x->sigma_inlet = floatinlet_new(&x->x_obj, &x->sigma);
+
+    if(sigma < 0) {
+        pd_error(x, "sigma value should be equal or greater then zero (%f). Setting to 0", sigma);
+        sigma = 0;
+    }
+
     x->sigma = sigma;
     x->mean = mean;
     return static_cast<void*>(x);
