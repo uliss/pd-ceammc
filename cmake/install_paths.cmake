@@ -6,5 +6,6 @@ set(PDCORE_LIB_INSTALL_PATH lib)
 set(PD_DOC_INSTALL_PATH lib/puredata)
 set(PD_TCL_INSTALL_PATH lib/puredata)
 set(PD_PO_INSTALL_PATH lib/puredata/po)
+set(PD_GUI_PLUGINS_PATH lib/puredata/tcl)
 
 
