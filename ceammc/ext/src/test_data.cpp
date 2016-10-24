@@ -16,6 +16,9 @@
 typedef boost::variant<t_float, std::string> test_atom;
 typedef std::vector<test_atom> test_atom_lst;
 typedef std::string test_condition;
+typedef boost::property_tree::ptree::iterator iterator;
+typedef boost::property_tree::ptree ptree;
+
 
 struct single_test {
     single_test() {}
@@ -61,7 +64,6 @@ public:
 };
 
 typedef std::vector<single_test> all_tests;
-
 all_tests* create_all_tests()
 {
     return new all_tests;
@@ -118,28 +120,28 @@ static void test_data_load(t_test_data* x, t_symbol* s)
 {
     x->data->clear();
     try {
-        boost::property_tree::ptree pt;
+        ptree pt;
         boost::property_tree::read_json(s->s_name, pt);
 
         // tests iterate
-        auto test_iter = pt.begin(), test_iter_end = pt.end();
+        iterator test_iter = pt.begin(), test_iter_end = pt.end();
         for (; test_iter != test_iter_end; ++test_iter) {
             test_atom_lst input;
             test_atom_lst expect;
             test_condition cond = test_iter->first;
 
-            auto test_case = test_iter->second;
-            auto case_it = test_case.begin(), case_it_end = test_case.end();
+            ptree test_case = test_iter->second;
+            iterator case_it = test_case.begin(), case_it_end = test_case.end();
             for (; case_it != case_it_end; ++case_it) {
-                auto key = case_it->first;
-                auto value = case_it->second;
+                std::string key = case_it->first;
+                ptree value = case_it->second;
 
                 if (key == "expect") {
                     // single value
                     if (value.empty() && !value.data().empty()) {
                         expect.push_back(value.get_value<std::string>());
                     } else { // list
-                        auto it = value.begin(), it_end = value.end();
+                        iterator it = value.begin(), it_end = value.end();
                         for (; it != it_end; ++it) {
                             t_float v = it->second.get_value<t_float>();
                             expect.push_back(v);
@@ -152,7 +154,7 @@ static void test_data_load(t_test_data* x, t_symbol* s)
                     if (value.empty() && !value.data().empty()) {
                         input.push_back(value.get_value<std::string>());
                     } else { // list
-                        auto it = value.begin(), it_end = value.end();
+                        iterator it = value.begin(), it_end = value.end();
                         for (; it != it_end; ++it) {
                             t_float v = it->second.get_value<t_float>();
                             input.push_back(v);
