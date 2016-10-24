@@ -64,7 +64,7 @@ endif()
 
 # PORTAUDIO
 if(WITH_PORTAUDIO)
-    include(FindPortAudio)
+    find_package(PortAudio REQUIRED)
     if(PORTAUDIO_FOUND)
         add_definitions(-DUSEAPI_PORTAUDIO)
         include_directories(${PORTAUDIO_INCLUDE_DIRS})

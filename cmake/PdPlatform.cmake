@@ -6,6 +6,7 @@ if(NOT ${IS_BIG_ENDIAN})
     add_definitions(-DLITTLE_ENDIAN=0x0001 -DBYTE_ORDER=LITTLE_ENDIAN)
 endif()
 
+set(CMAKE_THREAD_PREFER_PTHREAD ON)
 find_package(Threads)
 
 set(PLATFORM_LINK_LIBRARIES)
@@ -20,12 +21,43 @@ endif()
 
 
 if(MSYS)
+    find_program(WISH_PATH NAMES wish86.exe wish85.exe wish.exe)
+    if(NOT WISH_PATH)
+        message(FATAL_ERROR "wish.exe not found")
+    else()
+        message(STATUS "wish found: ${WISH_PATH}")
+        get_filename_component(WISHAPP ${WISH_PATH} NAME)
+    endif()
+    
+    install(PROGRAMS ${WISH_PATH} DESTINATION ${PD_EXE_INSTALL_PATH})
+    include(InstallRequiredSystemLibraries)
+    
+    # pthreadGC-3.dll
+    find_file(PTHREADGC_DLL NAMES pthreadGC-3.dll pthreadGC-2.dll PATHS /mingw/bin)
+    if(PTHREADGC_DLL)
+        install(FILES ${PTHREADGC_DLL} DESTINATION ${PD_EXE_INSTALL_PATH})
+    endif()
+    
+    # libportaudio-2.dll
+    find_file(LIBPORTAUDIO_DLL NAMES libportaudio-2.dll PATHS /usr/bin /usr/local/bin)
+    if(LIBPORTAUDIO_DLL)
+        install(FILES ${LIBPORTAUDIO_DLL} DESTINATION ${PD_EXE_INSTALL_PATH})
+    endif()
+    
+    # install README, LICENSE.txt to root 
+    install(FILES 
+            ${CMAKE_SOURCE_DIR}/README.txt
+            ${CMAKE_SOURCE_DIR}/LICENSE.txt
+        DESTINATION
+            ${CMAKE_INSTALL_PREFIX})
+    
+    
     add_definitions(-DPD_INTERNAL -DWINVER=0x0502 -D_WIN32_WINNT=0x0502)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mms-bitfields -g -O3 -funroll-loops -fomit-frame-pointer")
     list(APPEND PLATFORM_LINK_LIBRARIES ${CMAKE_THREAD_LIBS_INIT})
     list(APPEND PLATFORM_LINK_LIBRARIES "m" "wsock32" "ole32" "winmm")
-    set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--export-all-symbols")
-    set(CMAKE_EXE_LINKER_FLAGS "-lOle32 -lWinmm -lpthread -static-libgcc")	
+    set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--export-all-symbols -pthread")
+    set(CMAKE_EXE_LINKER_FLAGS "-static -pthread -lOle32 -lWinmm -static-libgcc")	
 endif()
 
 if(APPLE)

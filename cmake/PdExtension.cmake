@@ -27,7 +27,7 @@ endif()
 
 function(pd_add_extension)
     set(_OPTIONS_ARGS)
-    set(_ONE_VALUE_ARGS NAME INSTALL_DIR INTERNAL)
+    set(_ONE_VALUE_ARGS NAME INSTALL_DIR INTERNAL LIBRARY)
     set(_MULTI_VALUE_ARGS FILES HELP_FILES EXTRA_FILES LINK)
 
     cmake_parse_arguments(_PD_EXT "${_OPTIONS_ARGS}" "${_ONE_VALUE_ARGS}" "${_MULTI_VALUE_ARGS}" ${ARGN})
@@ -43,6 +43,7 @@ function(pd_add_extension)
         /opt/local/include
         /Applications/Pd.app/Contents/Resources/include
         /Applications/Pd.app/Contents/Resources/src
+        $ENV{PROGRAMFILES}/Pd/include
       PATH_SUFFIXES pd
     )
 
@@ -84,20 +85,28 @@ function(pd_add_extension)
 
     # explicit INSTALL_DIR used
     if(NOT _PD_EXT_INSTALL_DIR)
+        # internal extensions use this
         if(_PD_EXT_INTERNAL)
-            set(_PD_EXT_INSTALL_DIR "lib/puredata/extra")
+            set(_PD_EXT_INSTALL_DIR ${PD_INTERNAL_EXT_INSTALL_PATH})
         else()
             set(_PD_EXT_INSTALL_DIR ${DEFAULT_DEST})
         endif()
     endif()
 
-    set(INSTALL_DIR "${_PD_EXT_INSTALL_DIR}/${_PD_EXT_NAME}")
-    #message(STATUS "ext install dir: ${INSTALL_DIR}")
+    # if extension part of library
+    # install it to library directory
+    if(_PD_EXT_LIBRARY)
+        set(INSTALL_DIR "${_PD_EXT_INSTALL_DIR}/${_PD_EXT_LIBRARY}")
+    else()
+        set(INSTALL_DIR "${_PD_EXT_INSTALL_DIR}/${_PD_EXT_NAME}")
+    endif()
+    
+    #message(STATUS ${INSTALL_DIR})
 
     # install extension README etc. files
-    install(DIRECTORY "../${_PD_EXT_NAME}"
-            DESTINATION "${_PD_EXT_INSTALL_DIR}"
-            FILES_MATCHING REGEX "(README|LICENSE|NOTES|README.txt|LICENSE.txts|NOTES.txt)")
+    #install(DIRECTORY "../${_PD_EXT_NAME}"
+    #        DESTINATION "${_PD_EXT_INSTALL_DIR}"
+    #        FILES_MATCHING REGEX "(README|LICENSE|NOTES|README.txt|LICENSE.txts|NOTES.txt)")
 
     # install help files
     if(NOT _PD_EXT_HELP_FILES)
@@ -119,8 +128,6 @@ function(pd_add_extension)
     # install extension binary
     if(MSYS)
         install(TARGETS ${_PD_EXT_NAME} DESTINATION "${INSTALL_DIR}")
-    else()
-        install(TARGETS ${_PD_EXT_NAME} LIBRARY DESTINATION "${INSTALL_DIR}")
     else()
         install(TARGETS ${_PD_EXT_NAME} LIBRARY DESTINATION "${INSTALL_DIR}")
     endif()

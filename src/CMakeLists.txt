@@ -123,7 +123,10 @@ if(WITH_PORTMIDI)
     list(APPEND PD_NEEDED_LIBS portmidi-static)
 endif()
 
-# OSS
+if(WISHAPP)
+	add_definitions(-DWISHAPP="${WISHAPP}")
+endif()
+
 if(WITH_OSS_AUDIO)
     list(APPEND S_SRC s_audio_oss.c)
     find_library(OSSLIB ossaudio)
@@ -170,9 +173,9 @@ if(UNIX AND NOT APPLE)
     target_link_libraries(pd-watchdog ${PLATFORM_LINK_LIBRARIES})
 endif()
 
-add_executable(pdsend WIN32 u_pdsend.c)
+add_executable(pdsend u_pdsend.c)
 target_link_libraries(pdsend ${PLATFORM_LINK_LIBRARIES})
-add_executable(pdreceive WIN32 u_pdreceive.c)
+add_executable(pdreceive u_pdreceive.c)
 target_link_libraries(pdreceive ${PLATFORM_LINK_LIBRARIES})
 
 # exe install
@@ -186,6 +189,7 @@ endif()
 
 # install libs
 install(TARGETS puredata-core
+    RUNTIME DESTINATION ${PDCORE_LIB_INSTALL_PATH}
     LIBRARY DESTINATION ${PDCORE_LIB_INSTALL_PATH}
     ARCHIVE DESTINATION ${PDCORE_LIB_INSTALL_PATH})
 

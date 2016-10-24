@@ -15,6 +15,8 @@ else (PORTAUDIO_LIBRARIES AND PORTAUDIO_INCLUDE_DIRS)
       /usr/local/include
       /opt/local/include
       /sw/include
+      C:/MinGW/msys/1.0/usr/lib
+      C:/MinGW/msys/1.0/usr/local/lib
   )
   
   find_library(PORTAUDIO_LIBRARY
@@ -25,6 +27,8 @@ else (PORTAUDIO_LIBRARIES AND PORTAUDIO_INCLUDE_DIRS)
       /usr/local/lib
       /opt/local/lib
       /sw/lib
+      C:/MinGW/msys/1.0/usr/lib
+      C:/MinGW/msys/1.0/usr/local/lib
   )
 
   set(PORTAUDIO_INCLUDE_DIRS
