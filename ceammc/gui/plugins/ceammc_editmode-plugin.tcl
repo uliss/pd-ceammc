@@ -1,7 +1,7 @@
 # this script changes background color in edit/run modes
 
 namespace eval ::editmode_look {
-    set run_mode_color  "#F5F5F5"
+    set run_mode_color  "#FAFAFA"
     set edit_mode_color "#FFFFFF"
 }
 
@@ -28,6 +28,6 @@ proc ::editmode_look::set_style {mytoplevel} {
 }
 
 bind PatchWindow <<EditMode>> {+::editmode_look::set_style %W}
-bind PatchWindow <<Loading>> {+::editmode_look::set_edit_style %W}
+bind PatchWindow <<Loaded>> {+::editmode_look::set_edit_style %W}
 
 ::pdwindow::debug "\[ceammc\]: ceammc_editmode-plugin loaded\n"
