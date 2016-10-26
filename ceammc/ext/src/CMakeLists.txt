@@ -79,6 +79,13 @@ ceammc_cxx_extension(list shuffle)
 ceammc_cxx_extension(list sort)
 ceammc_c_extension(list sum)
 
+###############################
+# IS
+###############################
+ceammc_cxx_extension(is even)
+ceammc_cxx_extension(is odd)
+#ceammc_cxx_extension(is int)
+
 
 ###############################
 # PATH

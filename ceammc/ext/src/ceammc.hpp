@@ -21,6 +21,12 @@ namespace math {
     {
         return (v >= 0 && (ceil<T>(v) == v));
     }
+
+    template <class T>
+    static inline bool is_integer(T v)
+    {
+        return ceil<T>(v) == v;
+    }
 }
 
 namespace pd {
