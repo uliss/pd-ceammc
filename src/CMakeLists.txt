@@ -195,4 +195,4 @@ install(TARGETS puredata-core
 
 
 # install headers
-install(FILES m_pd.h DESTINATION include/pd)
+install(FILES m_pd.h DESTINATION ${PD_INCLUDE_INSTALL_PATH})

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mime-type xmlns="http://www.freedesktop.org/standards/shared-mime-info" type="application/x-pd-item">
+  <comment>PureData patch document</comment>
+  <acronym>PD</acronym>
+  <expanded-acronym>PureData Document</expanded-acronym>
+  <generic-icon name="x-office-document"/>
+  <glob pattern="*.pd"/>
+  <!--<alias type="application/x-pd-item"/>-->
+</mime-type>

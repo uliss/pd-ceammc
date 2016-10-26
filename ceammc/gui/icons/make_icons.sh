@@ -27,6 +27,8 @@ make_icon 128
 make_icon 256
 make_icon 512
 
+cp ${ICONSET}/icon_512x512.png ./puredata-ceammc.png
+
 if [ -e "@ICONUTIL@" ]
 then
     echo "Making ICNS..."
