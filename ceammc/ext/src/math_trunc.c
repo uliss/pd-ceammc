@@ -12,8 +12,8 @@ static t_float private_math_trunc(t_float v)
 #if PD_FLOATSIZE == 32
     return trunkcf(v);
 #elif PD_FLOATSIZE == 64
-#else
     return trunc(v);
+#else
 #error "Unsupported PD_FLOATSIZE"
 #endif
 }
@@ -39,8 +39,8 @@ static void* math_trunc_new()
 void setup_math0x2etrunc()
 {
     math_trunc_class = class_new(gensym("math.trunc"),
-        (t_newmethod)math_trunc_new, 0,
-            sizeof(t_math_trunc), 0, A_NULL);
+        (t_newmethod)math_trunc_new, (t_method)0,
+        sizeof(t_math_trunc), 0, A_NULL);
     class_addfloat(math_trunc_class, math_trunc_float);
     class_addlist(math_trunc_class, math_trunc_list);
 }

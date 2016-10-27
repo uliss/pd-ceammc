@@ -12,8 +12,8 @@ static t_float private_math_round(t_float v)
 #if PD_FLOATSIZE == 32
     return roundf(v);
 #elif PD_FLOATSIZE == 64
-#else
     return round(v);
+#else
 #error "Unsupported PD_FLOATSIZE"
 #endif
 }
@@ -39,8 +39,8 @@ static void* math_round_new()
 void setup_math0x2eround()
 {
     math_round_class = class_new(gensym("math.round"),
-        (t_newmethod)math_round_new, 0,
-            sizeof(t_math_round), 0, A_NULL);
+        (t_newmethod)math_round_new, (t_method)0,
+        sizeof(t_math_round), 0, A_NULL);
     class_addfloat(math_round_class, math_round_float);
     class_addlist(math_round_class, math_round_list);
 }

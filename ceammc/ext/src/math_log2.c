@@ -12,8 +12,8 @@ static t_float private_math_log2(t_float v)
 #if PD_FLOATSIZE == 32
     return log2f(v);
 #elif PD_FLOATSIZE == 64
-#else
     return log2(v);
+#else
 #error "Unsupported PD_FLOATSIZE"
 #endif
 }
@@ -39,8 +39,8 @@ static void* math_log2_new()
 void setup_math0x2elog2()
 {
     math_log2_class = class_new(gensym("math.log2"),
-        (t_newmethod)math_log2_new, 0,
-            sizeof(t_math_log2), 0, A_NULL);
+        (t_newmethod)math_log2_new, (t_method)0,
+        sizeof(t_math_log2), 0, A_NULL);
     class_addfloat(math_log2_class, math_log2_float);
     class_addlist(math_log2_class, math_log2_list);
 }

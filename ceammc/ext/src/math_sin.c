@@ -12,8 +12,8 @@ static t_float private_math_sin(t_float v)
 #if PD_FLOATSIZE == 32
     return sinf(v);
 #elif PD_FLOATSIZE == 64
-#else
     return sin(v);
+#else
 #error "Unsupported PD_FLOATSIZE"
 #endif
 }
@@ -39,8 +39,8 @@ static void* math_sin_new()
 void setup_math0x2esin()
 {
     math_sin_class = class_new(gensym("math.sin"),
-        (t_newmethod)math_sin_new, 0,
-            sizeof(t_math_sin), 0, A_NULL);
+        (t_newmethod)math_sin_new, (t_method)0,
+        sizeof(t_math_sin), 0, A_NULL);
     class_addfloat(math_sin_class, math_sin_float);
     class_addlist(math_sin_class, math_sin_list);
 }

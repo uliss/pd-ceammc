@@ -23,8 +23,8 @@ static void* math_pi_new()
 void setup_math0x2epi()
 {
     math_pi_class = class_new(gensym("math.pi"),
-        (t_newmethod)math_pi_new, 0,
-            sizeof(t_math_pi), 0, A_NULL);
+        (t_newmethod)math_pi_new, (t_method)0,
+        sizeof(t_math_pi), 0, A_NULL);
     class_addbang(math_pi_class, math_pi_bang);
 }
 

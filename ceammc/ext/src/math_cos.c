@@ -12,8 +12,8 @@ static t_float private_math_cos(t_float v)
 #if PD_FLOATSIZE == 32
     return cosf(v);
 #elif PD_FLOATSIZE == 64
-#else
     return cos(v);
+#else
 #error "Unsupported PD_FLOATSIZE"
 #endif
 }
@@ -39,8 +39,8 @@ static void* math_cos_new()
 void setup_math0x2ecos()
 {
     math_cos_class = class_new(gensym("math.cos"),
-        (t_newmethod)math_cos_new, 0,
-            sizeof(t_math_cos), 0, A_NULL);
+        (t_newmethod)math_cos_new, (t_method)0,
+        sizeof(t_math_cos), 0, A_NULL);
     class_addfloat(math_cos_class, math_cos_float);
     class_addlist(math_cos_class, math_cos_list);
 }

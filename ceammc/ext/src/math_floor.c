@@ -12,8 +12,8 @@ static t_float private_math_floor(t_float v)
 #if PD_FLOATSIZE == 32
     return floorf(v);
 #elif PD_FLOATSIZE == 64
-#else
     return floor(v);
+#else
 #error "Unsupported PD_FLOATSIZE"
 #endif
 }
@@ -39,8 +39,8 @@ static void* math_floor_new()
 void setup_math0x2efloor()
 {
     math_floor_class = class_new(gensym("math.floor"),
-        (t_newmethod)math_floor_new, 0,
-            sizeof(t_math_floor), 0, A_NULL);
+        (t_newmethod)math_floor_new, (t_method)0,
+        sizeof(t_math_floor), 0, A_NULL);
     class_addfloat(math_floor_class, math_floor_float);
     class_addlist(math_floor_class, math_floor_list);
 }

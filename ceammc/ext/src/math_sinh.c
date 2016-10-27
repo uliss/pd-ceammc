@@ -12,8 +12,8 @@ static t_float private_math_sinh(t_float v)
 #if PD_FLOATSIZE == 32
     return sinhf(v);
 #elif PD_FLOATSIZE == 64
-#else
     return sinh(v);
+#else
 #error "Unsupported PD_FLOATSIZE"
 #endif
 }
@@ -39,8 +39,8 @@ static void* math_sinh_new()
 void setup_math0x2esinh()
 {
     math_sinh_class = class_new(gensym("math.sinh"),
-        (t_newmethod)math_sinh_new, 0,
-            sizeof(t_math_sinh), 0, A_NULL);
+        (t_newmethod)math_sinh_new, (t_method)0,
+        sizeof(t_math_sinh), 0, A_NULL);
     class_addfloat(math_sinh_class, math_sinh_float);
     class_addlist(math_sinh_class, math_sinh_list);
 }

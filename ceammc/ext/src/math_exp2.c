@@ -12,8 +12,8 @@ static t_float private_math_exp2(t_float v)
 #if PD_FLOATSIZE == 32
     return exp2f(v);
 #elif PD_FLOATSIZE == 64
-#else
     return exp2(v);
+#else
 #error "Unsupported PD_FLOATSIZE"
 #endif
 }
@@ -39,8 +39,8 @@ static void* math_exp2_new()
 void setup_math0x2eexp2()
 {
     math_exp2_class = class_new(gensym("math.exp2"),
-        (t_newmethod)math_exp2_new, 0,
-            sizeof(t_math_exp2), 0, A_NULL);
+        (t_newmethod)math_exp2_new, (t_method)0,
+        sizeof(t_math_exp2), 0, A_NULL);
     class_addfloat(math_exp2_class, math_exp2_float);
     class_addlist(math_exp2_class, math_exp2_list);
 }

@@ -12,8 +12,8 @@ static t_float private_math_log10(t_float v)
 #if PD_FLOATSIZE == 32
     return log10f(v);
 #elif PD_FLOATSIZE == 64
-#else
     return log10(v);
+#else
 #error "Unsupported PD_FLOATSIZE"
 #endif
 }
@@ -39,8 +39,8 @@ static void* math_log10_new()
 void setup_math0x2elog10()
 {
     math_log10_class = class_new(gensym("math.log10"),
-        (t_newmethod)math_log10_new, 0,
-            sizeof(t_math_log10), 0, A_NULL);
+        (t_newmethod)math_log10_new, (t_method)0,
+        sizeof(t_math_log10), 0, A_NULL);
     class_addfloat(math_log10_class, math_log10_float);
     class_addlist(math_log10_class, math_log10_list);
 }

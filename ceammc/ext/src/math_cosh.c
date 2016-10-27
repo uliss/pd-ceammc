@@ -12,8 +12,8 @@ static t_float private_math_cosh(t_float v)
 #if PD_FLOATSIZE == 32
     return coshf(v);
 #elif PD_FLOATSIZE == 64
-#else
     return cosh(v);
+#else
 #error "Unsupported PD_FLOATSIZE"
 #endif
 }
@@ -39,8 +39,8 @@ static void* math_cosh_new()
 void setup_math0x2ecosh()
 {
     math_cosh_class = class_new(gensym("math.cosh"),
-        (t_newmethod)math_cosh_new, 0,
-            sizeof(t_math_cosh), 0, A_NULL);
+        (t_newmethod)math_cosh_new, (t_method)0,
+        sizeof(t_math_cosh), 0, A_NULL);
     class_addfloat(math_cosh_class, math_cosh_float);
     class_addlist(math_cosh_class, math_cosh_list);
 }

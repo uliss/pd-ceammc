@@ -12,8 +12,8 @@ static t_float private_math_cbrt(t_float v)
 #if PD_FLOATSIZE == 32
     return cbrtf(v);
 #elif PD_FLOATSIZE == 64
-#else
     return cbrt(v);
+#else
 #error "Unsupported PD_FLOATSIZE"
 #endif
 }
@@ -39,8 +39,8 @@ static void* math_cbrt_new()
 void setup_math0x2ecbrt()
 {
     math_cbrt_class = class_new(gensym("math.cbrt"),
-        (t_newmethod)math_cbrt_new, 0,
-            sizeof(t_math_cbrt), 0, A_NULL);
+        (t_newmethod)math_cbrt_new, (t_method)0,
+        sizeof(t_math_cbrt), 0, A_NULL);
     class_addfloat(math_cbrt_class, math_cbrt_float);
     class_addlist(math_cbrt_class, math_cbrt_list);
 }

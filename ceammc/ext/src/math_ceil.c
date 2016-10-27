@@ -12,8 +12,8 @@ static t_float private_math_ceil(t_float v)
 #if PD_FLOATSIZE == 32
     return ceilf(v);
 #elif PD_FLOATSIZE == 64
-#else
     return ceil(v);
+#else
 #error "Unsupported PD_FLOATSIZE"
 #endif
 }
@@ -39,8 +39,8 @@ static void* math_ceil_new()
 void setup_math0x2eceil()
 {
     math_ceil_class = class_new(gensym("math.ceil"),
-        (t_newmethod)math_ceil_new, 0,
-            sizeof(t_math_ceil), 0, A_NULL);
+        (t_newmethod)math_ceil_new, (t_method)0,
+        sizeof(t_math_ceil), 0, A_NULL);
     class_addfloat(math_ceil_class, math_ceil_float);
     class_addlist(math_ceil_class, math_ceil_list);
 }

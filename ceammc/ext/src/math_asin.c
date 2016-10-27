@@ -12,8 +12,8 @@ static t_float private_math_asin(t_float v)
 #if PD_FLOATSIZE == 32
     return asinf(v);
 #elif PD_FLOATSIZE == 64
-#else
     return asin(v);
+#else
 #error "Unsupported PD_FLOATSIZE"
 #endif
 }
@@ -39,8 +39,8 @@ static void* math_asin_new()
 void setup_math0x2easin()
 {
     math_asin_class = class_new(gensym("math.asin"),
-        (t_newmethod)math_asin_new, 0,
-            sizeof(t_math_asin), 0, A_NULL);
+        (t_newmethod)math_asin_new, (t_method)0,
+        sizeof(t_math_asin), 0, A_NULL);
     class_addfloat(math_asin_class, math_asin_float);
     class_addlist(math_asin_class, math_asin_list);
 }

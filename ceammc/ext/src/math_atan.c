@@ -12,8 +12,8 @@ static t_float private_math_atan(t_float v)
 #if PD_FLOATSIZE == 32
     return atanf(v);
 #elif PD_FLOATSIZE == 64
-#else
     return atan(v);
+#else
 #error "Unsupported PD_FLOATSIZE"
 #endif
 }
@@ -39,8 +39,8 @@ static void* math_atan_new()
 void setup_math0x2eatan()
 {
     math_atan_class = class_new(gensym("math.atan"),
-        (t_newmethod)math_atan_new, 0,
-            sizeof(t_math_atan), 0, A_NULL);
+        (t_newmethod)math_atan_new, (t_method)0,
+        sizeof(t_math_atan), 0, A_NULL);
     class_addfloat(math_atan_class, math_atan_float);
     class_addlist(math_atan_class, math_atan_list);
 }

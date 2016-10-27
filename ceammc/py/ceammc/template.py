@@ -222,8 +222,8 @@ class PdMathUnaryExtension(PdExtension):
                 print '''#if PD_FLOATSIZE == 32
     return {func32}(v);
 #elif PD_FLOATSIZE == 64
-#else
     return {func64}(v);
+#else
 #error "Unsupported PD_FLOATSIZE"
 #endif'''.format(func32=self.func32, func64=self.func64)
 

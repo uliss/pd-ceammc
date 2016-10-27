@@ -12,8 +12,8 @@ static t_float private_math_sqrt(t_float v)
 #if PD_FLOATSIZE == 32
     return sqrtf(v);
 #elif PD_FLOATSIZE == 64
-#else
     return sqrt(v);
+#else
 #error "Unsupported PD_FLOATSIZE"
 #endif
 }
@@ -39,8 +39,8 @@ static void* math_sqrt_new()
 void setup_math0x2esqrt()
 {
     math_sqrt_class = class_new(gensym("math.sqrt"),
-        (t_newmethod)math_sqrt_new, 0,
-            sizeof(t_math_sqrt), 0, A_NULL);
+        (t_newmethod)math_sqrt_new, (t_method)0,
+        sizeof(t_math_sqrt), 0, A_NULL);
     class_addfloat(math_sqrt_class, math_sqrt_float);
     class_addlist(math_sqrt_class, math_sqrt_list);
 }

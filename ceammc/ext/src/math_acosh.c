@@ -12,8 +12,8 @@ static t_float private_math_acosh(t_float v)
 #if PD_FLOATSIZE == 32
     return acoshf(v);
 #elif PD_FLOATSIZE == 64
-#else
     return acosh(v);
+#else
 #error "Unsupported PD_FLOATSIZE"
 #endif
 }
@@ -39,8 +39,8 @@ static void* math_acosh_new()
 void setup_math0x2eacosh()
 {
     math_acosh_class = class_new(gensym("math.acosh"),
-        (t_newmethod)math_acosh_new, 0,
-            sizeof(t_math_acosh), 0, A_NULL);
+        (t_newmethod)math_acosh_new, (t_method)0,
+        sizeof(t_math_acosh), 0, A_NULL);
     class_addfloat(math_acosh_class, math_acosh_float);
     class_addlist(math_acosh_class, math_acosh_list);
 }

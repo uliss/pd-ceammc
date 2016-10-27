@@ -23,8 +23,8 @@ static void* math_inf_new()
 void setup_math0x2einf()
 {
     math_inf_class = class_new(gensym("math.inf"),
-        (t_newmethod)math_inf_new, 0,
-            sizeof(t_math_inf), 0, A_NULL);
+        (t_newmethod)math_inf_new, (t_method)0,
+        sizeof(t_math_inf), 0, A_NULL);
     class_addbang(math_inf_class, math_inf_bang);
 }
 

@@ -12,8 +12,8 @@ static t_float private_math_abs(t_float v)
 #if PD_FLOATSIZE == 32
     return fabsf(v);
 #elif PD_FLOATSIZE == 64
-#else
     return fabs(v);
+#else
 #error "Unsupported PD_FLOATSIZE"
 #endif
 }
@@ -39,8 +39,8 @@ static void* math_abs_new()
 void setup_math0x2eabs()
 {
     math_abs_class = class_new(gensym("math.abs"),
-        (t_newmethod)math_abs_new, 0,
-            sizeof(t_math_abs), 0, A_NULL);
+        (t_newmethod)math_abs_new, (t_method)0,
+        sizeof(t_math_abs), 0, A_NULL);
     class_addfloat(math_abs_class, math_abs_float);
     class_addlist(math_abs_class, math_abs_list);
 }

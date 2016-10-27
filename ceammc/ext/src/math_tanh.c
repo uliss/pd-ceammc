@@ -12,8 +12,8 @@ static t_float private_math_tanh(t_float v)
 #if PD_FLOATSIZE == 32
     return tanhf(v);
 #elif PD_FLOATSIZE == 64
-#else
     return tanh(v);
+#else
 #error "Unsupported PD_FLOATSIZE"
 #endif
 }
@@ -39,8 +39,8 @@ static void* math_tanh_new()
 void setup_math0x2etanh()
 {
     math_tanh_class = class_new(gensym("math.tanh"),
-        (t_newmethod)math_tanh_new, 0,
-            sizeof(t_math_tanh), 0, A_NULL);
+        (t_newmethod)math_tanh_new, (t_method)0,
+        sizeof(t_math_tanh), 0, A_NULL);
     class_addfloat(math_tanh_class, math_tanh_float);
     class_addlist(math_tanh_class, math_tanh_list);
 }

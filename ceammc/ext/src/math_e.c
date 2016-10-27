@@ -23,8 +23,8 @@ static void* math_e_new()
 void setup_math0x2ee()
 {
     math_e_class = class_new(gensym("math.e"),
-        (t_newmethod)math_e_new, 0,
-            sizeof(t_math_e), 0, A_NULL);
+        (t_newmethod)math_e_new, (t_method)0,
+        sizeof(t_math_e), 0, A_NULL);
     class_addbang(math_e_class, math_e_bang);
 }
 
