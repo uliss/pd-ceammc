@@ -22,6 +22,22 @@ macro(ceammc_cxx_extension module name)
     ceammc_extension(${module} ${name} cpp)
 endmacro()
 
+macro(ceammc_extension_ module name ext)
+    pd_add_extension(NAME "${module}_${name}"
+        FILES "${module}_${name}.${ext}"
+        INTERNAL True
+        LIBRARY ceammc
+        LINK ceammc_static)
+endmacro()
+
+macro(ceammc_c_extension_ module name)
+    ceammc_extension_(${module} ${name} c)
+endmacro()
+
+macro(ceammc_cxx_extension_ module name)
+    ceammc_extension_(${module} ${name} cpp)
+endmacro()
+
 
 ###############################
 # MATH
@@ -80,18 +96,19 @@ ceammc_cxx_extension(list sort)
 ceammc_c_extension(list sum)
 ceammc_cxx_extension(list pack)
 ceammc_c_extension(list unpack)
+ceammc_cxx_extension(list reject)
 
 ###############################
 # IS
 ###############################
-ceammc_cxx_extension(is even)
-ceammc_cxx_extension(is odd)
-ceammc_cxx_extension(is any)
-ceammc_cxx_extension(is bang)
-ceammc_cxx_extension(is float)
-ceammc_cxx_extension(is list)
-ceammc_cxx_extension(is symbol)
-ceammc_cxx_extension(is pointer)
+ceammc_cxx_extension_(is even)
+ceammc_cxx_extension_(is odd)
+ceammc_cxx_extension_(is any)
+ceammc_cxx_extension_(is bang)
+ceammc_cxx_extension_(is float)
+ceammc_cxx_extension_(is list)
+ceammc_cxx_extension_(is symbol)
+ceammc_cxx_extension_(is pointer)
 
 ###############################
 # PATH
