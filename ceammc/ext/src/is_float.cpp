@@ -51,9 +51,9 @@ static void is_float_free(t_is_float* x)
     outlet_free(x->out_value);
 }
 
-extern "C" void setup_is0x2efloat()
+extern "C" void is_float_setup()
 {
-    is_float_class = class_new(gensym("is.float"),
+    is_float_class = class_new(gensym("is_float"),
         reinterpret_cast<t_newmethod>(is_float_new),
         reinterpret_cast<t_method>(is_float_free),
         sizeof(t_is_float), 0, A_NULL);
