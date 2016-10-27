@@ -42,7 +42,7 @@ static void* is_any_new()
 {
     t_is_any* x = reinterpret_cast<t_is_any*>(pd_new(is_any_class));
     outlet_new(&x->x_obj, &s_float);
-
+    x->out_value = outlet_new(&x->x_obj, &s_anything);
     return static_cast<void*>(x);
 }
 
