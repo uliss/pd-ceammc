@@ -14,3 +14,6 @@ if(INKSCAPE)
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
     message(STATUS "*icons* target added to generate pixmap icons from SVG files")
 endif()
+
+
+install(FILES pd_ceammc.ico DESTINATION ${PD_TCL_INSTALL_PATH}/tcl)

@@ -397,7 +397,7 @@ proc init_for_platform {} {
             set ::windowframex 0
             set ::windowframey 0
             # TODO use 'winico' package for full, hicolor icon support
-            wm iconbitmap . -default [file join $::sys_guidir pd.ico]
+            wm iconbitmap . -default [file join $::sys_guidir pd_ceammc.ico]
             # mouse cursors for all the different modes
             set ::cursor_runmode_nothing "right_ptr"
             set ::cursor_runmode_clickme "arrow"
