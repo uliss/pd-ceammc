@@ -83,7 +83,7 @@ ceammc_c_extension(math squared)
 ###############################
 ceammc_cxx_extension(list at)
 ceammc_c_extension(list length)
-ceammc_cxx_extension(list map)
+ceammc_cxx_extension(list each)
 ceammc_cxx_extension(list max)
 ceammc_cxx_extension(list min)
 ceammc_cxx_extension(list minmax)
