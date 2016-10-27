@@ -9,8 +9,8 @@ struct t_is_any {
 
 static void is_any_anything(t_is_any* x, t_symbol* s, int argc, t_atom* argv)
 {
-    outlet_float(x->x_obj.te_outlet, 1);
     outlet_anything(x->out_value, s, argc, argv);
+    outlet_float(x->x_obj.te_outlet, 1);
 }
 
 static void is_any_bang(t_is_any* x)
