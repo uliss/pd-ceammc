@@ -14,8 +14,8 @@ static void is_bang_anything(t_is_bang* x, t_symbol* /*s*/, int /*argc*/, t_atom
 
 static void is_bang_bang(t_is_bang* x)
 {
-    outlet_float(x->x_obj.te_outlet, 1);
     outlet_bang(x->out_value);
+    outlet_float(x->x_obj.te_outlet, 1);
 }
 
 static void is_bang_float(t_is_bang* x, t_floatarg /*f*/)
