@@ -86,8 +86,12 @@ ceammc_c_extension(list unpack)
 ###############################
 ceammc_cxx_extension(is even)
 ceammc_cxx_extension(is odd)
-#ceammc_cxx_extension(is int)
-
+ceammc_cxx_extension(is any)
+ceammc_cxx_extension(is bang)
+ceammc_cxx_extension(is float)
+ceammc_cxx_extension(is list)
+ceammc_cxx_extension(is symbol)
+ceammc_cxx_extension(is pointer)
 
 ###############################
 # PATH
