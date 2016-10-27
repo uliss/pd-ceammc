@@ -12,9 +12,11 @@ typedef struct list_each {
 
 static void list_each_value(t_list_each* x, t_symbol* s, int argc, t_atom* argv)
 {
+    if (!x->atoms)
+        return;
+
     for (int i = 0; i < argc; i++) {
-        if (x->atoms != 0)
-            x->atoms->push_back(argv[i]);
+        x->atoms->push_back(argv[i]);
     }
 }
 
