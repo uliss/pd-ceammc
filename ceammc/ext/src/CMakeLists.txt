@@ -75,11 +75,11 @@ ceammc_c_extension(list product)
 ceammc_cxx_extension(list repeat)
 ceammc_cxx_extension(list reverse)
 ceammc_cxx_extension(list seq)
-ceammc_c_extension(list separate)
 ceammc_cxx_extension(list shuffle)
 ceammc_cxx_extension(list sort)
 ceammc_c_extension(list sum)
 ceammc_cxx_extension(list pack)
+ceammc_c_extension(list unpack)
 
 ###############################
 # IS
