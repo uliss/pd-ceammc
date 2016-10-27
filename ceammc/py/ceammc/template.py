@@ -163,8 +163,8 @@ static void {name}_free({type} *x)
         if self.gen_cpp:
             res += '''
     {class_} = class_new(gensym("{mod}.{ext}"),
-        static_cast<t_newmethod>({name_}_new),
-        static_cast<t_method>({free_}),
+        reinterpret_cast<t_newmethod>({name_}_new),
+        reinterpret_cast<t_method>({free_}),
         sizeof({type_}), 0, A_NULL);'''.format(class_=self.class_,
                                                    type_=self.type_,
                                                    name_=self.name_,

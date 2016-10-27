@@ -79,6 +79,7 @@ ceammc_c_extension(list separate)
 ceammc_cxx_extension(list shuffle)
 ceammc_cxx_extension(list sort)
 ceammc_c_extension(list sum)
+ceammc_cxx_extension(list pack)
 
 ###############################
 # IS
