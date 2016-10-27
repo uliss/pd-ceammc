@@ -100,7 +100,7 @@ static void {name}_symbol({type}* x, t_symbol *s)
 
     def generate_pointer(self, code=''):
         res = '''
-static void {name}_pointer({type}* x, t_gpointer *pt);
+static void {name}_pointer({type}* x, t_gpointer *pt)
 {{
      {code}
 }}'''
@@ -109,7 +109,7 @@ static void {name}_pointer({type}* x, t_gpointer *pt);
 
     def generate_anything(self, code=''):
         res = '''
-static void {name}_any({type} *x, t_symbol *s, int argc, t_atom *argv);
+static void {name}_anything({type} *x, t_symbol *s, int argc, t_atom *argv)
 {{
     {code}
 }}'''
