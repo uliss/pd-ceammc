@@ -1,7 +1,7 @@
 set(SVG_ICON "pd_ceammc4.svg")
 
 find_program(INKSCAPE inkscape
-    PATHS /usr/bin /usr/loca/bin)
+    PATHS /usr/bin /usr/local/bin)
 
 if(INKSCAPE)
     message(STATUS "Inkscape found: ${INKSCAPE}")
