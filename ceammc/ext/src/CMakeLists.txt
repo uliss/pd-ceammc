@@ -96,7 +96,9 @@ ceammc_cxx_extension(list sort)
 ceammc_c_extension(list sum)
 ceammc_cxx_extension(list pack)
 ceammc_c_extension(list unpack)
-ceammc_cxx_extension(list reject)
+
+#
+ceammc_cxx_extension(reject if)
 
 ###############################
 # IS
