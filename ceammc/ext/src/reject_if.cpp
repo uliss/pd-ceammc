@@ -25,16 +25,7 @@ static void reject_if_list(t_reject_if* x, t_symbol* s, int argc, t_atom* argv)
 
     for (int i = 0; i < argc; i++) {
         t_atom* a = argv + i;
-        switch (a->a_type) {
-        case A_FLOAT:
-            outlet_float(x->out_pred, atom_getfloat(a));
-            break;
-        case A_SYMBOL:
-            outlet_symbol(x->out_pred, atom_getsymbol(a));
-            break;
-        default:
-            break;
-        }
+        output_atom(x->out_pred, a);
 
         if (x->do_reject == 0.0)
             lst.push_back(*a);
