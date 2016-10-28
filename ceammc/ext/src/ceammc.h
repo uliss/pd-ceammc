@@ -41,6 +41,7 @@ t_atom* ceammc_atoms_alloc(size_t n);
 void ceammc_atoms_free(t_atom* mem, size_t n);
 void ceammc_atoms_copy(size_t n, t_atom* from, t_atom* to);
 t_atom* ceammc_atoms_alloc_copy(size_t, t_atom* from);
+void output_atom(t_outlet* out, t_atom* atom);
 
 typedef t_float (*ceammc_float_unary_func)(t_float);
 typedef t_float (*ceammc_float_binary_func)(t_float, t_float);

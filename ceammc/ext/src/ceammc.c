@@ -76,3 +76,21 @@ int ceammc_atoms_compare(const t_atom* a1, const t_atom* a2)
 
     return (a1->a_type < a2->a_type) ? -1 : 1;
 }
+
+void output_atom(t_outlet* out, t_atom* atom)
+{
+    if(!out || !atom) return;
+    switch(atom->a_type) {
+        case A_FLOAT:
+            outlet_float(out, atom->a_w.w_float);
+        break;
+        case A_SYMBOL:
+            outlet_symbol(out, atom->a_w.w_symbol);
+        break;
+        case A_POINTER:
+            outlet_pointer(out, atom->a_w.w_gpointer);
+        break;
+        default:
+        break;
+    }
+}
