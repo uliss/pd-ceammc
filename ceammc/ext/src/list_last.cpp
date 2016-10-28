@@ -12,7 +12,7 @@ static void list_last_list(t_list_last* x, t_symbol* s, int argc, t_atom* argv)
         return;
 
     t_atom* a = argv + (argc - 1);
-    output_atom(x->x_obj.te_outlet, a);
+    outlet_list(x->x_obj.te_outlet, s, 1, a);
 }
 
 static void* list_last_new()
