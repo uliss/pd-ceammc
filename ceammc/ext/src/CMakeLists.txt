@@ -97,8 +97,9 @@ ceammc_c_extension(list sum)
 ceammc_cxx_extension(list pack)
 ceammc_c_extension(list unpack)
 
-#
+# STREAM
 ceammc_cxx_extension(reject if)
+ceammc_cxx_extension(pass if)
 
 ###############################
 # IS
