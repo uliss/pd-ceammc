@@ -119,9 +119,12 @@ ceammc_cxx_extension_(is symbol)
 ceammc_cxx_extension_(is pointer)
 
 ###############################
+# SYMBOL
+###############################
+
+###############################
 # PATH
 ###############################
-#pd_add_extension(NAME path.basename FILES path_basename.cpp INTERNAL True LINK ceammc_static)
 #pd_add_extension(NAME path.exists FILES path_exists.cpp INTERNAL True LINK ceammc_static)
 
 
@@ -139,9 +142,15 @@ if(Boost_FOUND)
     pd_add_extension(NAME test.data   FILES test_data.cpp   INTERNAL True LINK ceammc_static)
     pd_add_extension(NAME test.expect FILES test_expect.cpp INTERNAL True LINK ceammc_static)
 
+#    pd_add_extension(NAME path.basename FILES path_basename.cpp INTERNAL True
+#        LINK ceammc_static ${Boost_LIBRARIES})
+
     ceammc_cxx_extension(random float)
     ceammc_cxx_extension(random int)
     ceammc_cxx_extension(random gauss)
+
+    # symbol
+    ceammc_cxx_extension(symbol ends_with)
 endif()
 
 
