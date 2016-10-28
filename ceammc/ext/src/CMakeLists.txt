@@ -101,6 +101,7 @@ ceammc_cxx_extension(list gen)
 # STREAM
 ceammc_cxx_extension(reject if)
 ceammc_cxx_extension(pass if)
+pd_add_extension(NAME pass FILES pass.cpp LINK ceammc_static)
 
 ###############################
 # IS
