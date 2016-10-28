@@ -10,11 +10,6 @@ struct t_reject_if {
     t_atom value;
 };
 
-static void list_from_pred(t_reject_if* x, t_symbol* s, int argc, t_atom* argv)
-{
-    post("%s: %d (");
-}
-
 static void reject_if_float(t_reject_if* x, t_floatarg f)
 {
     outlet_float(x->out_pred, f);
