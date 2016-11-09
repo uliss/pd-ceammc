@@ -4,6 +4,7 @@
 #include "ceammc.h"
 #include <cmath>
 #include <vector>
+#include <cstring>
 
 namespace ceammc {
 namespace math {
