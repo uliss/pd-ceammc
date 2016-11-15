@@ -90,6 +90,7 @@ ceammc_cxx_extension(list minmax)
 ceammc_c_extension(list product)
 ceammc_cxx_extension(list repeat)
 ceammc_cxx_extension(list reverse)
+ceammc_cxx_extension(list rotate)
 ceammc_cxx_extension(list seq)
 ceammc_cxx_extension(list shuffle)
 ceammc_cxx_extension(list sort)
@@ -118,6 +119,11 @@ ceammc_cxx_extension_(is symbol)
 ceammc_cxx_extension_(is pointer)
 
 ###############################
+# TIME
+###############################
+# ceammc_cxx_extension(time current)
+
+###############################
 # SYMBOL
 ###############################
 
@@ -125,7 +131,6 @@ ceammc_cxx_extension_(is pointer)
 # PATH
 ###############################
 #pd_add_extension(NAME path.exists FILES path_exists.cpp INTERNAL True LINK ceammc_static)
-
 
 include(FindLibSndFile)
 if(LIBSNDFILE_FOUND)
@@ -151,6 +156,13 @@ if(Boost_FOUND)
 
     # symbol
     ceammc_cxx_extension(symbol ends_with)
+#    ceammc_cxx_extension(symbol to_upper)
 endif()
+
+###############################
+# DSP
+###############################
+#pd_add_extension(NAME impulse~ FILES lfo_impulse.cpp INTERNAL TRUE)
+
 
 
