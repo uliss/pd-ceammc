@@ -183,24 +183,13 @@ find_package(GLIB)
 if(GLIB_FOUND)
     include_directories(${GLIB_INCLUDE_DIRS})
 
-    pd_add_extension(NAME path.exists FILES path_exists.cpp INTERNAL True
-           LINK ${GLIB_LIBRARIES})
-    pd_add_extension(NAME path.basename FILES path_basename.cpp INTERNAL True
-           LINK ${GLIB_LIBRARIES})
-    pd_add_extension(NAME path.home FILES path_home.cpp INTERNAL True
-           LINK ${GLIB_LIBRARIES})
+    ceammc_glib_extension(path basename)
     ceammc_glib_extension(path dirname)
-    pd_add_extension(NAME system.hostname FILES system_hostname.cpp INTERNAL True
-           LINK ${GLIB_LIBRARIES})
-    pd_add_extension(NAME system.getenv FILES system_getenv.cpp INTERNAL True
-           LINK ${GLIB_LIBRARIES})
+    ceammc_glib_extension(path exists)
+    ceammc_glib_extension(path home)
 
-    if(APPLE)
-        ceammc_apple_link_fix(path exists)
-        ceammc_apple_link_fix(path basename)
-        ceammc_apple_link_fix(path home)
-        ceammc_apple_link_fix(system hostname)
-    endif()
+    ceammc_glib_extension(system hostname)
+    ceammc_glib_extension(system getenv)
 endif()
 
 ###############################
