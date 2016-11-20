@@ -9,7 +9,9 @@ struct t_system_getenv {
 
 static void system_getenv_symbol(t_system_getenv* x, t_symbol* s)
 {
-    outlet_symbol(x->x_obj.te_outlet, gensym(g_getenv(s->s_name)));
+    const gchar* v = g_getenv(s->s_name);
+    if (v != NULL)
+        outlet_symbol(x->x_obj.te_outlet, gensym(v));
 }
 
 static void* system_getenv_new()

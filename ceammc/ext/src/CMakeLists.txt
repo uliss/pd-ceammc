@@ -181,6 +181,8 @@ if(GLIB_FOUND)
            LINK ${GLIB_LIBRARIES})
     pd_add_extension(NAME system.hostname FILES system_hostname.cpp INTERNAL True
            LINK ${GLIB_LIBRARIES})
+    pd_add_extension(NAME system.getenv FILES system_getenv.cpp INTERNAL True
+           LINK ${GLIB_LIBRARIES})
 
     if(APPLE)
         ceammc_apple_link_fix(path exists)
