@@ -25,7 +25,7 @@ static void path_basename_symbol(t_path_basename* x, t_symbol* s)
 {
     gchar* bn = g_path_get_basename(s->s_name);
     outlet_symbol(x->x_out, gensym(bn));
-    free(bn);
+    g_free(bn);
 }
 
 extern "C" void CEAMMC_DOT_MODULE(path, basename)
