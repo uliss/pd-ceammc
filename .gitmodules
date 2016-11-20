@@ -1,3 +1,0 @@
-[submodule "ceammc/extra/filesystem"]
-	path = ceammc/extra/filesystem
-	url = https://github.com/wjakob/filesystem.git
