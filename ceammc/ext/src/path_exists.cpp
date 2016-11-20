@@ -1,6 +1,6 @@
 #include "ceammc.h"
+#include <glib.h>
 #include <m_pd.h>
-#include <sys/stat.h>
 
 t_class* path_exists_class;
 
@@ -17,9 +17,7 @@ static void* path_exists_new()
 
 static void path_exists_symbol(t_path_exists* x, t_symbol* s)
 {
-    struct stat buf;
-    t_float val = (stat(s->s_name, &buf) == 0) ? 1 : 0;
-    outlet_float(x->x_obj.ob_outlet, val);
+    outlet_float(x->x_obj.ob_outlet, g_file_test(s->s_name, G_FILE_TEST_EXISTS) ? 1 : 0);
 }
 
 extern "C" void CEAMMC_PATH_MODULE(exists)

@@ -38,6 +38,13 @@ macro(ceammc_cxx_extension_ module name)
     ceammc_extension_(${module} ${name} cpp)
 endmacro()
 
+macro(ceammc_apple_link_fix module name)
+    add_custom_command(TARGET "${module}.${name}" POST_BUILD
+        COMMAND bash ${CMAKE_CURRENT_SOURCE_DIR}/apple_poco_path_fix.sh
+                $<TARGET_FILE:${module}.${name}>
+                ${CMAKE_CURRENT_BINARY_DIR})
+endmacro()
+
 
 ###############################
 # MATH
@@ -76,11 +83,16 @@ ceammc_c_extension(math sign)
 ceammc_c_extension(math neg)
 ceammc_c_extension(math squared)
 
+###############################
+# DATA
+###############################
+ceammc_cxx_extension(data fifo)
 
 ###############################
 # LIST
 ###############################
 ceammc_cxx_extension(list at)
+#ceammc_cxx_extension(list count)
 ceammc_c_extension(list length)
 ceammc_cxx_extension(list each)
 ceammc_cxx_extension(list last)
@@ -132,7 +144,6 @@ ceammc_cxx_extension_(is pointer)
 ###############################
 # PATH
 ###############################
-#pd_add_extension(NAME path.exists FILES path_exists.cpp INTERNAL True LINK ceammc_static)
 
 include(FindLibSndFile)
 if(LIBSNDFILE_FOUND)
@@ -148,10 +159,6 @@ if(Boost_FOUND)
     ceammc_cxx_extension(math prime)
     pd_add_extension(NAME test.data   FILES test_data.cpp   INTERNAL True LINK ceammc_static)
     pd_add_extension(NAME test.expect FILES test_expect.cpp INTERNAL True LINK ceammc_static)
-
-#    pd_add_extension(NAME path.basename FILES path_basename.cpp INTERNAL True
-#        LINK ceammc_static ${Boost_LIBRARIES})
-
     ceammc_cxx_extension(random float)
     ceammc_cxx_extension(random int)
     ceammc_cxx_extension(random gauss)
@@ -159,6 +166,28 @@ if(Boost_FOUND)
     # symbol
     ceammc_cxx_extension(symbol ends_with)
 #    ceammc_cxx_extension(symbol to_upper)
+endif()
+
+
+find_package(GLIB)
+if(GLIB_FOUND)
+    include_directories(${GLIB_INCLUDE_DIRS})
+
+    pd_add_extension(NAME path.exists FILES path_exists.cpp INTERNAL True
+           LINK ${GLIB_LIBRARIES})
+    pd_add_extension(NAME path.basename FILES path_basename.cpp INTERNAL True
+           LINK ${GLIB_LIBRARIES})
+    pd_add_extension(NAME path.home FILES path_home.cpp INTERNAL True
+           LINK ${GLIB_LIBRARIES})
+    pd_add_extension(NAME system.hostname FILES system_hostname.cpp INTERNAL True
+           LINK ${GLIB_LIBRARIES})
+
+    if(APPLE)
+        ceammc_apple_link_fix(path exists)
+        ceammc_apple_link_fix(path basename)
+        ceammc_apple_link_fix(path home)
+        ceammc_apple_link_fix(system hostname)
+    endif()
 endif()
 
 ###############################

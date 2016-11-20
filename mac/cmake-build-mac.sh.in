@@ -85,6 +85,7 @@ do
     echo "\t$(basename $f)"
     cp "$f" $PD_EXTRA/ceammc
 done
+cp $CEAMMC_EXT_BIN_DIR/*.dylib $PD_EXTRA/ceammc
 
 
 echo "Copying license..."

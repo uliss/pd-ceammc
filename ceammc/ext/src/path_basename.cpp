@@ -1,6 +1,6 @@
 #include "ceammc.h"
 #include <m_pd.h>
-#include <string>
+#include <glib.h>
 
 t_class* path_basename_class;
 
@@ -23,9 +23,9 @@ static void* path_basename_new()
 
 static void path_basename_symbol(t_path_basename* x, t_symbol* s)
 {
-    std::string p(s->s_name);
-    std::string bn = p.substr(p.find_last_of("/\\") + 1);
-    outlet_symbol(x->x_out, gensym(bn.c_str()));
+    gchar* bn = g_path_get_basename(s->s_name);
+    outlet_symbol(x->x_out, gensym(bn));
+    free(bn);
 }
 
 extern "C" void CEAMMC_DOT_MODULE(path, basename)
