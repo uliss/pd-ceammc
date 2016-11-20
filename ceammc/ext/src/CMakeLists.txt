@@ -45,6 +45,16 @@ macro(ceammc_apple_link_fix module name)
                 ${CMAKE_CURRENT_BINARY_DIR})
 endmacro()
 
+macro(ceammc_glib_extension module name)
+    pd_add_extension(NAME "${module}.${name}"
+        FILES "${module}_${name}.cpp" INTERNAL True
+        LINK ${GLIB_LIBRARIES})
+
+    if(APPLE)
+        ceammc_apple_link_fix(${module} ${name})
+    endif()
+endmacro()
+
 
 ###############################
 # MATH
@@ -179,6 +189,7 @@ if(GLIB_FOUND)
            LINK ${GLIB_LIBRARIES})
     pd_add_extension(NAME path.home FILES path_home.cpp INTERNAL True
            LINK ${GLIB_LIBRARIES})
+    ceammc_glib_extension(path dirname)
     pd_add_extension(NAME system.hostname FILES system_hostname.cpp INTERNAL True
            LINK ${GLIB_LIBRARIES})
     pd_add_extension(NAME system.getenv FILES system_getenv.cpp INTERNAL True
