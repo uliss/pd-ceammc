@@ -229,6 +229,7 @@ endif()
 ###############################
 #pd_add_extension(NAME impulse~ FILES lfo_impulse.cpp INTERNAL TRUE)
 ceammc_faust_extension(lfo impulse simple_pd_ext)
+ceammc_faust_extension(lfo tri simple_pd_ext)
 
 
 
