@@ -55,6 +55,16 @@ macro(ceammc_glib_extension module name)
     endif()
 endmacro()
 
+macro(ceammc_glib_extension_ module name)
+    pd_add_extension(NAME "${module}_${name}"
+        FILES "${module}_${name}.cpp" INTERNAL True
+        LINK ${GLIB_LIBRARIES})
+
+    if(APPLE)
+        ceammc_apple_link_fix(${module} ${name})
+    endif()
+endmacro()
+
 
 ###############################
 # MATH
@@ -148,7 +158,7 @@ ceammc_cxx_extension_(is pointer)
 # ceammc_cxx_extension(time current)
 
 ###############################
-# SYMBOL
+# STRING
 ###############################
 
 ###############################
@@ -187,9 +197,14 @@ if(GLIB_FOUND)
     ceammc_glib_extension(path dirname)
     ceammc_glib_extension(path exists)
     ceammc_glib_extension(path home)
+    ceammc_glib_extension(path listdir)
+
+    ceammc_glib_extension(string length)
 
     ceammc_glib_extension(system hostname)
     ceammc_glib_extension(system getenv)
+
+    ceammc_glib_extension_(is file)
 endif()
 
 ###############################
