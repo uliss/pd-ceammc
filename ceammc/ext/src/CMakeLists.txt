@@ -200,6 +200,7 @@ if(GLIB_FOUND)
     ceammc_glib_extension(path listdir)
 
     ceammc_glib_extension(string length)
+    ceammc_glib_extension(string reverse)
 
     ceammc_glib_extension(system hostname)
     ceammc_glib_extension(system getenv)
