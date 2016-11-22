@@ -17,7 +17,7 @@ pass thru values equal to given in arguments
 
 arguments
 -----------------------------
-passed values
+*  passed values
 
 inlets
 ------------------
@@ -27,7 +27,7 @@ inlets
 
 outlet
 ------------------
-1. passed values
+1. passed value
 
 
 .. versionadded:: 0.0.1
