@@ -231,6 +231,6 @@ endif()
 ceammc_faust_extension(lfo impulse simple_pd_ext)
 ceammc_faust_extension(lfo tri simple_pd_ext)
 ceammc_faust_extension(lfo square simple_pd_ext)
-
+ceammc_faust_extension(osc sinfb simple_pd_control_ext)
 
 
