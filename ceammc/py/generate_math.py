@@ -27,7 +27,7 @@ UNARY_EXT = [
     ('sqrt',  'sqrtf',  'sqrt'),
     ('tan',   'tanf',   'tan'),
     ('tanh',  'tanhf',  'tanh'),
-    ('trunc', 'trunkcf','trunc')
+    ('trunc', 'truncf', 'trunc')
 ]
 
 CONST_EXT = [

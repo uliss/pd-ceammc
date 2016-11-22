@@ -10,7 +10,7 @@ typedef struct math_trunc {
 static t_float private_math_trunc(t_float v) 
 {
 #if PD_FLOATSIZE == 32
-    return trunkcf(v);
+    return truncf(v);
 #elif PD_FLOATSIZE == 64
     return trunc(v);
 #else
