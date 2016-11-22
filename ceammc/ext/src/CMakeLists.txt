@@ -201,6 +201,7 @@ if(GLIB_FOUND)
 
     ceammc_glib_extension(string length)
     ceammc_glib_extension(string reverse)
+    ceammc_glib_extension(string to_lower)
     ceammc_glib_extension(string to_upper)
 
     ceammc_glib_extension(system hostname)
