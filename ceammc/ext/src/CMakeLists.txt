@@ -1,3 +1,5 @@
+include(faust)
+
 add_library(ceammc_static STATIC ceammc.c)
 set_target_properties(ceammc_static PROPERTIES
     COMPILE_FLAGS ${PD_EXTERNAL_CFLAGS})
@@ -63,6 +65,18 @@ macro(ceammc_glib_extension_ module name)
     if(APPLE)
         ceammc_apple_link_fix(${module} ${name})
     endif()
+endmacro()
+
+macro(ceammc_faust_extension module name ext)
+    add_custom_target("faust_${module}_${name}"
+        COMMAND ${FAUST_BIN} -vec -vs 64
+            -a ${CMAKE_SOURCE_DIR}/ceammc/faust/${ext}.cpp
+            -cn ${name}
+            "${CMAKE_SOURCE_DIR}/ceammc/faust/${module}_${name}.dsp"
+            -o ${CMAKE_CURRENT_SOURCE_DIR}/${module}_${name}.h)
+
+    pd_add_extension(NAME "${module}.${name}~"
+        FILES "${module}_${name}.cpp" INTERNAL TRUE)
 endmacro()
 
 
@@ -214,6 +228,7 @@ endif()
 # DSP
 ###############################
 #pd_add_extension(NAME impulse~ FILES lfo_impulse.cpp INTERNAL TRUE)
+ceammc_faust_extension(lfo impulse simple_pd_ext)
 
 
 

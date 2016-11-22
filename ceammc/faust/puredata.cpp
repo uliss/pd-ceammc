@@ -597,8 +597,11 @@ static void *faust_new(t_symbol *s, int argc, t_atom *argv)
     x->buf[i] = NULL;
   x->dsp->init(sr);
   x->dsp->buildUserInterface(x->ui);
-  for (int i = 0; i < x->n_in; i++)
+  for (int i = 0; i < x->n_in; i++) {
+//    signalinlet_new(&x->x_obj, 0);
     inlet_new(&x->x_obj, &x->x_obj.ob_pd, &s_signal, &s_signal);
+  }
+
   for (int i = 0; i < x->n_out; i++)
     outlet_new(&x->x_obj, &s_signal);
     x->out = outlet_new(&x->x_obj, 0);
@@ -614,20 +617,23 @@ extern "C" void faust_setup(mydsp)
 {
   t_symbol *s = gensym(sym(mydsp) "~");
   faust_class =
-    class_new(s, (t_newmethod)faust_new, (t_method)faust_free,
-          sizeof(t_faust), CLASS_DEFAULT,
-	      A_GIMME, A_NULL);
-  class_addmethod(faust_class, (t_method)faust_dsp, gensym((char*)"dsp"), A_NULL);
+    class_new(s, reinterpret_cast<t_newmethod>(faust_new),
+              reinterpret_cast<t_method>(faust_free),
+              sizeof(t_faust),
+              CLASS_DEFAULT,
+              A_GIMME, A_NULL);
+  class_addmethod(faust_class, nullfn, &s_signal, A_NULL);
+  class_addmethod(faust_class, (t_method)faust_dsp, gensym("dsp"), A_NULL);
   CLASS_MAINSIGNALIN(faust_class, t_faust, f);
-//  class_addanything(faust_class, faust_any);
-//  class_addmethod(faust_class, nullfn, &s_signal, A_NULL);
-  s_button = gensym((char*)"button");
-  s_checkbox = gensym((char*)"checkbox");
-  s_vslider = gensym((char*)"vslider");
-  s_hslider = gensym((char*)"hslider");
-  s_nentry = gensym((char*)"nentry");
-  s_vbargraph = gensym((char*)"vbargraph");
-  s_hbargraph = gensym((char*)"hbargraph");
+  class_addanything(faust_class, faust_any);
+//
+  s_button = gensym("button");
+  s_checkbox = gensym("checkbox");
+  s_vslider = gensym("vslider");
+  s_hslider = gensym("hslider");
+  s_nentry = gensym("nentry");
+  s_vbargraph = gensym("vbargraph");
+  s_hbargraph = gensym("hbargraph");
   /* give some indication that we're loaded and ready to go */
   //  mydsp dsp = mydsp();
 //  post("[faust] %s: %d inputs, %d outputs", sym(mydsp) "~",
