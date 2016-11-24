@@ -69,7 +69,7 @@ endmacro()
 
 macro(ceammc_faust_extension module name ext)
     add_custom_target("faust_${module}_${name}"
-        COMMAND ${FAUST_BIN} -vec -vs 64
+        COMMAND ${FAUST_BIN} -vec -vs 64 -i
             -a ${CMAKE_SOURCE_DIR}/ceammc/faust/${ext}.cpp
             -cn ${name}
             "${CMAKE_SOURCE_DIR}/ceammc/faust/${module}_${name}.dsp"
@@ -232,5 +232,7 @@ ceammc_faust_extension(lfo impulse simple_pd_ext)
 ceammc_faust_extension(lfo tri simple_pd_ext)
 ceammc_faust_extension(lfo square simple_pd_ext)
 ceammc_faust_extension(osc sinfb simple_pd_control_ext)
+
+#ceammc_faust_extension(env adsr simple_pd_control_ext)
 
 

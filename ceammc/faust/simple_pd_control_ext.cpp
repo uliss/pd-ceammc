@@ -104,6 +104,9 @@ public:
     virtual void closeBox();
 
     virtual void run();
+public:
+    ui_elem_t* findElementByLabel(const char* label);
+    void setElementValue(const char* label, float v);
 };
 
 static std::string mangle(const char* name, int level, const char* s)
@@ -323,6 +326,29 @@ void PdUI::closeBox()
 }
 
 void PdUI::run() {}
+
+static int pathcmp(const char* s, const char* t);
+ui_elem_t* PdUI::findElementByLabel(const char* label)
+{
+    if (!elems)
+        return NULL;
+
+    for (int i = 0; i < nelems; i++) {
+        if(pathcmp(elems[i].label, label) == 0)
+            return &elems[i];
+    }
+
+    return NULL;
+}
+
+void PdUI::setElementValue(const char* label, float v)
+{
+    ui_elem_t* el = findElementByLabel(label);
+    if(!el) return;
+
+    if(el->min <= v && v <= el->max)
+        *el->zone = v;
+}
 
 /******************************************************************************
 *******************************************************************************
@@ -571,76 +597,86 @@ static void faust_any(t_faust* x, t_symbol* s, int argc, t_atom* argv)
     }
 }
 
-static void faust_free(t_faust* x)
-{
-    if (x->label)
-        delete x->label;
-    if (x->dsp)
-        delete x->dsp;
-    if (x->ui)
-        delete x->ui;
-    if (x->inputs)
-        free(x->inputs);
-    if (x->outputs)
-        free(x->outputs);
+static void faust_free_label(t_faust* x) { delete x->label; x->label = NULL; }
+static void faust_free_dsp(t_faust* x) { delete x->dsp; x->dsp = NULL; }
+static void faust_free_ui(t_faust* x) { delete x->ui; x->ui = NULL; }
+
+static void faust_free_inputs(t_faust* x) {
+    if(x->inputs) free(x->inputs);
+    x->inputs = NULL;
+}
+
+static void faust_free_outputs(t_faust* x) {
+    if(x->outputs) free(x->outputs);
+    x->outputs = NULL;
+}
+
+static void faust_free_buf(t_faust* x) {
     if (x->buf) {
-        for (int i = 0; i < x->n_out; i++)
-            if (x->buf[i])
-                free(x->buf[i]);
+        for (int i = 0; i < x->n_out; i++) {
+            if (x->buf[i]) free(x->buf[i]);
+        }
+
         free(x->buf);
     }
 }
 
-static void* faust_new(t_symbol* s, int argc, t_atom* argv)
+
+static void faust_free(t_faust* x)
 {
-    t_faust* x = (t_faust*)pd_new(faust_class);
-    int sr = -1;
-    t_symbol* id = NULL;
-    x->active = 1;
-    for (int i = 0; i < argc; i++) {
-        if (argv[i].a_type == A_SYMBOL || argv[i].a_type == A_DEFSYMBOL)
-            id = argv[i].a_w.w_symbol;
-    }
+    faust_free_label(x);
+    faust_free_dsp(x);
+    faust_free_ui(x);
+    faust_free_inputs(x);
+    faust_free_outputs(x);
+    faust_free_buf(x);
+}
 
-    if (sr <= 0)
-        sr = 44100;
-    x->xfade = 0;
-    x->n_xfade = static_cast<int>(sr * XFADE_TIME / 64);
-    x->inputs = x->outputs = x->buf = NULL;
-    x->label = new std::string(sym(mydsp) "~");
-    x->dsp = new mydsp();
-    x->ui = new PdUI(sym(mydsp), id ? id->s_name : NULL);
-    if (!x->dsp || !x->ui || !x->label)
-        goto error;
-    if (id) {
-        *x->label += " ";
-        *x->label += id->s_name;
-    }
-
+static bool faust_init_inputs(t_faust* x) {
+    x->inputs = NULL;
     x->n_in = x->dsp->getNumInputs();
-    x->n_out = x->dsp->getNumOutputs();
 
-    if (x->n_in > 0)
-        x->inputs = static_cast<t_sample**>(malloc(x->n_in * sizeof(t_sample*)));
+    if (x->n_in > 0) {
+        x->inputs = static_cast<t_sample**>(calloc(x->n_in, sizeof(t_sample*)));
 
-    if (x->n_out > 0) {
-        x->outputs = static_cast<t_sample**>(malloc(x->n_out * sizeof(t_sample*)));
-        x->buf = static_cast<t_sample**>(malloc(x->n_out * sizeof(t_sample*)));
+        if(x->inputs == NULL) {
+            error("[ceammc] faust_init_inputs failed");
+            return false;
+        }
     }
 
-    if ((x->n_in > 0 && x->inputs == NULL) || (x->n_out > 0 && (x->outputs == NULL || x->buf == NULL)))
-        goto error;
-
-    for (int i = 0; i < x->n_out; i++)
-        x->buf[i] = NULL;
-
-    x->dsp->init(sr);
-    x->dsp->buildUserInterface(x->ui);
-
-    // creating sound inlets (except first one)
+    // creating sound inlets (except the first one!)
     for (int i = 0; i < (x->n_in - 1); i++) {
         inlet_new(&x->x_obj, &x->x_obj.ob_pd, &s_signal, &s_signal);
     }
+
+    return true;
+}
+
+static bool faust_init_outputs(t_faust* x) {
+    x->outputs = NULL;
+    x->buf = NULL;
+
+    x->n_out = x->dsp->getNumOutputs();
+
+    if (x->n_out > 0) {
+        x->outputs = static_cast<t_sample**>(calloc(x->n_out, sizeof(t_sample*)));
+        if(x->outputs == NULL) {
+            error("[ceammc] faust_init_outputs failed");
+            return false;
+        }
+
+        x->buf = static_cast<t_sample**>(calloc(x->n_out, sizeof(t_sample*)));
+        if(x->buf == NULL) {
+            error("[ceammc] faust_init_outputs failed");
+            faust_free_outputs(x);
+            return false;
+        }
+
+//        for (int i = 0; i < x->n_out; i++)
+//            x->buf[i] = NULL;
+    }
+
 
     // creating sound outlets
     for (int i = 0; i < x->n_out; i++) {
@@ -650,11 +686,96 @@ static void* faust_new(t_symbol* s, int argc, t_atom* argv)
     // control outlet
     x->out = outlet_new(&x->x_obj, 0);
 
-    return x;
-error:
-    faust_free(x);
-    x->dsp = NULL;
-    x->ui = NULL;
-    x->inputs = x->outputs = x->buf = NULL;
-    return x;
+    return true;
 }
+
+static void faust_init_label(t_faust* x, const char* obj_id) {
+    x->label = new std::string(sym(mydsp) "~");
+
+    // label settings
+    if (obj_id) {
+        *x->label += " ";
+        *x->label += obj_id;
+    }
+}
+
+static bool faust_new_internal(t_faust* x, const char* obj_id = NULL) {
+    int sr = 44100;
+    x->active = 1;
+    x->xfade = 0;
+    x->n_xfade = static_cast<int>(sr * XFADE_TIME / 64);
+
+    x->dsp = new mydsp();
+    x->ui = new PdUI(sym(mydsp), obj_id);
+
+    faust_init_label(x, obj_id);
+
+    if(!faust_init_inputs(x)) {
+        faust_free(x);
+        return false;
+    }
+
+    if(!faust_init_outputs(x)) {
+        faust_free(x);
+        return false;
+    }
+
+    x->dsp->init(sr);
+    x->dsp->buildUserInterface(x->ui);
+
+    return true;
+}
+
+template<class InputIterator, class NthOccurence, class UnaryPredicate>
+InputIterator find_nth_if(InputIterator first, InputIterator last, NthOccurence Nth, UnaryPredicate pred)
+{
+    if (Nth > 0)
+        while (first != last) {
+            if (pred(*first))
+                if (!--Nth)
+                    return first;
+            ++first;
+        }
+    return last;
+}
+
+static bool atom_is_float(const t_atom& a) {
+    switch(a.a_type) {
+        case A_FLOAT:
+        case A_DEFFLOAT:
+            return true;
+        default:
+            return false;
+    }
+}
+
+static bool atom_is_symbol(const t_atom& a) {
+    switch(a.a_type) {
+        case A_DEFSYMBOL:
+        case A_SYMBOL:
+            return true;
+        default:
+            return false;
+    }
+}
+
+static bool get_nth_float_arg(int argc, t_atom* argv, int nth, t_float* dest) {
+    t_atom* last = argv + argc;
+    t_atom* res = find_nth_if(argv, last, nth, atom_is_float);
+    if(last == res) return false;
+
+    *dest = atom_getfloat(res);
+    return true;
+}
+
+static bool get_nth_symbol_arg(int argc, t_atom* argv, int nth, const char** dest) {
+    t_atom* last = argv + argc;
+    t_atom* res = find_nth_if(argv, last, nth, atom_is_symbol);
+    if(last == res) return false;
+
+    t_symbol* s = atom_getsymbol(res);
+    *dest = s->s_name;
+    return true;
+}
+
+
