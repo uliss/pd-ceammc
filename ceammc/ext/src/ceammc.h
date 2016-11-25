@@ -36,7 +36,20 @@ extern "C" {
 #define CEAMMC_LIST_MODULE(name) CEAMMC_DOT_MODULE(list, name)
 #define CEAMMC_PATH_MODULE(name) CEAMMC_DOT_MODULE(path, name)
 
+/**
+ * @brief compare atoms
+ * @return 0 - if a1 == a2, _-1); -1 - if a1 < a2; +1 - if a1 > a2
+ * @see ceammc_atoms_equal
+ */
 int ceammc_atoms_compare(const t_atom* a1, const t_atom* a2);
+
+/**
+ * @brief check for atoms equality
+ * @return 1 if equal, 0 - otherwise
+ * @see ceammc_atoms_compare
+ */
+int ceammc_atoms_equal(const t_atom* a1, const t_atom* a2);
+
 t_atom* ceammc_atoms_alloc(size_t n);
 void ceammc_atoms_free(t_atom* mem, size_t n);
 void ceammc_atoms_copy(size_t n, t_atom* from, t_atom* to);

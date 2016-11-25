@@ -5,6 +5,7 @@
 #include <cmath>
 #include <vector>
 #include <cstring>
+#include <functional>
 
 namespace ceammc {
 namespace math {
@@ -55,7 +56,7 @@ namespace pd {
 
     static bool atom_equals(const t_atom& a1, const t_atom& a2)
     {
-        return memcmp(&a1, &a2, sizeof(a1)) == 0;
+        return ceammc_atoms_equal(&a1, &a2);
     }
 
     static bool atom_list_contains(const atom_list& lst, t_float v)
@@ -84,6 +85,15 @@ namespace pd {
         }
         return false;
     }
+
+    struct AtomEq
+        : public std::binary_function<t_atom, t_atom, bool>
+    {
+        bool operator()(const t_atom& a, const t_atom& b) const
+        {
+            return atom_equals(a, b);
+        }
+    };
 }
 }
 

@@ -126,7 +126,7 @@ ceammc_cxx_extension(data fifo)
 # LIST
 ###############################
 ceammc_cxx_extension(list at)
-#ceammc_cxx_extension(list count)
+ceammc_cxx_extension(list count)
 ceammc_c_extension(list length)
 ceammc_cxx_extension(list each)
 ceammc_cxx_extension(list last)
