@@ -11,8 +11,6 @@ static void* faust_new(t_symbol* s, int argc, t_atom* argv)
     t_float freq = 0;
     get_nth_float_arg(argc, argv, 1, &freq);
     pd_float((t_pd*)x, freq);
-//    (*x)->c_floatmethod)(x, 1);
-//    pd_float(faust_class, freq);
 
     t_float fb = 0;
     get_nth_float_arg(argc, argv, 2, &fb);
