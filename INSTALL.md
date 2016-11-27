@@ -5,12 +5,14 @@
 Install Homebrew: http://brew.sh/
 
 
-install libs
+Install libs:
+
 ``
-brew install cmake boost fftw portaudio glib
+brew install cmake boost fftw portaudio glib gettext
 ``
 
-clone and make
+clone and build:
+
 ``
 git clone https://github.com/uliss/pure-data.git
 cd pure-data
