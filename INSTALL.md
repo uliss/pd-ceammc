@@ -16,7 +16,7 @@ clone and build:
 ```
 git clone https://github.com/uliss/pure-data.git
 cd pure-data
-git branch ceammc
+git checkout ceammc
 cd ..
 mkdir build
 cd build
