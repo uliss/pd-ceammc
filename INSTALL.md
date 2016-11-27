@@ -26,3 +26,5 @@ make
 make app
 make dmg
 ```
+
+Application bundle in ./dist directory and DMG in root of build directory.
