@@ -48,6 +48,7 @@ if(UNIX)
         set(MACSRC pmmacosxcm pmmac readbinaryplist finddefault)
         prepend_path(LIBSRC ../pm_mac/ ${MACSRC})
         list(APPEND LIBSRC ../porttime/ptmacosx_mach)
+        include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../porttime)
 
         include_directories(${CMAKE_OSX_SYSROOT}/Developer/Headers/FlatCarbon)
         set(FRAMEWORK_PATH ${CMAKE_OSX_SYSROOT}/System/Library/Frameworks)
