@@ -13,11 +13,13 @@
     
     This will generate **ceammc/ext/src/PREFIX_OBJECTNAME.h** and **ceammc/ext/src/PREFIX_OBJECTNAME.cpp** files.
 
-3. Add entry to **ceammc/ext/src/CMakeLists.txt**:
+3. Edit **ceammc/ext/src/PREFIX_OBJECTNAME.cpp** for your needs.
+
+4. Add entry to **ceammc/ext/src/CMakeLists.txt**:
    ```
    ceammc_faust_extension(PREFIX OBJECTNAME simple_pd_control_ext)
    ```
-4. Run ```make```
+5. Run ```make```
 
 Run ```make faust_PREFIX_OBJECTNAME``` to regenerate **ceammc/ext/src/PREFIX_OBJECTNAME.h** every time on faust DSP file change.
 
