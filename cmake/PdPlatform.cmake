@@ -71,12 +71,17 @@ if(APPLE)
     file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/dist)
     configure_file(${PROJECT_SOURCE_DIR}/ceammc/gui/Info.plist ${PROJECT_BINARY_DIR}/dist/Info.plist)
 
+    if(NOT WISH_APP)
+        set(WISH_APP "/Library/Frameworks/Tk.framework/Versions/8.6/Resources/Wish.app")
+    endif()
+
     add_custom_command(
         OUTPUT ${MAKE_BUNDLE_SCRIPT}
         COMMAND ${CMAKE_COMMAND}
             -DPROJECT_SOURCE_DIR="${PROJECT_SOURCE_DIR}"
             -DPROJECT_BINARY_DIR="${PROJECT_BINARY_DIR}"
             -DBUNDLE=${BUNDLE_FULL_PATH}
+            -DWISH_APP=${WISH_APP}
             -P ${PROJECT_SOURCE_DIR}/cmake/cmake-build-mac.cmake)
 
     add_custom_command(
