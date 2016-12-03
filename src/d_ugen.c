@@ -367,11 +367,8 @@ void signal_cleanup(void)
 {
     t_signal **svec, *sig, *sig2;
     int i;
-<<<<<<< HEAD
+
     while ((sig = pd_this->pd_signals))
-=======
-    while (sig = pd_this->pd_signals)
->>>>>>> uliss/0.46
     {
         pd_this->pd_signals = sig->s_nextused;
         if (!sig->s_isborrowed)
