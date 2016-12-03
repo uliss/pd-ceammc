@@ -234,6 +234,8 @@ ceammc_faust_extension(lfo tri simple_pd_ext)
 ceammc_faust_extension(lfo square simple_pd_ext)
 ceammc_faust_extension(osc sinfb simple_pd_control_ext)
 
+ceammc_faust_extension(fx softclip simple_pd_ext)
+
 ceammc_faust_extension(env adsr simple_pd_control_ext)
 
 
