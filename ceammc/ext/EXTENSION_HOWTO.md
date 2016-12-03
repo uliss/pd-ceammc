@@ -4,12 +4,12 @@
 
 ### Adding Faust extension
 
-1. put your faust dsp file info *ceammc/faust* directory.
-   file should be named like: PREFIX_OBJECTNAME.dsp
-2. create *ceammc/ext/src/PREFIX_OBJECTNAME.cpp*
+1. put your faust dsp file info **ceammc/faust** directory.
+   file should be named like: **PREFIX_OBJECTNAME.dsp**
+2. create **ceammc/ext/src/PREFIX_OBJECTNAME.cpp**
     with following content:
 
-    ```
+    ```c++
     #include "${PREFIX}_${OBJECTNAME}.h"
 
     extern "C" void setup_${PREFIX}0x2e${OBJECTNAME}_tilde()
