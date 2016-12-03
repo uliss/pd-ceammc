@@ -10,6 +10,8 @@
     ```
     ./generate_skeleton.sh PREFIX OBJECTNAME
     ```
+    
+    This will generate **ceammc/ext/src/PREFIX_OBJECTNAME.h** and **ceammc/ext/src/PREFIX_OBJECTNAME.cpp** files.
 
 3. Add entry to **ceammc/ext/src/CMakeLists.txt**:
    ```
