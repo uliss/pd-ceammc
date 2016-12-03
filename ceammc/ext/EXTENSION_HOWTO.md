@@ -4,9 +4,9 @@
 
 ### Adding Faust extension
 
-1. put your faust dsp file info **ceammc/faust** directory.
-   file should be named like: **PREFIX_OBJECTNAME.dsp**
-2. create **ceammc/ext/src/PREFIX_OBJECTNAME.cpp**
+1. Put your faust dsp file info **ceammc/faust** directory.
+   File should be named like: **PREFIX_OBJECTNAME.dsp**
+2. Create **ceammc/ext/src/PREFIX_OBJECTNAME.cpp**
     with following content:
 
     ```c++
@@ -37,10 +37,10 @@
     }
     ```
 
-3. add entry to *ceammc/ext/src/CMakeLists.txt*:
+3. Add entry to **ceammc/ext/src/CMakeLists.txt**:
    ```
    ceammc_faust_extension(PREFIX OBJECTNAME simple_pd_control_ext)
    ```
-4. run ```make faust_PREFIX_OBJECTNAME``` to generate *ceammc/ext/src/PREFIX_OBJECTNAME.h*
-5. run ```make```
+4. Run ```make faust_PREFIX_OBJECTNAME``` to generate **ceammc/ext/src/PREFIX_OBJECTNAME.h**
+5. Run ```make```
 
