@@ -16,7 +16,7 @@ PD_ICON_FILE="$SRC_DIR/mac/stuff/pd-file.icns"
 #"/Library/Frameworks/Tk.framework/Versions/8.6/Resources/Wish.app"
 WISH_APP="${WISH_APP}"
 TK_PATH=$(dirname $(dirname $(dirname $(dirname "${WISH_APP}"))))
-TCL_PATH="$(echo $TK_PATH | tr Tk.framework Tcl.framework)"
+TCL_PATH="$(echo $TK_PATH | sed 's/Tk.framework/Tcl.framework/')"
 
 echo "$TK_PATH"
 echo "$TCL_PATH"
@@ -121,8 +121,8 @@ done
 
 #copy Tcl8.6
 echo "Copying TCL Frameworks..."
-cp -R "/Library/Frameworks/Tk.framework" Frameworks
-cp -R "/Library/Frameworks/Tcl.framework" Frameworks
+cp -R "$TK_PATH" Frameworks
+cp -R "$TCL_PATH" Frameworks
 rm -rf "./Frameworks/Tk.framework/Versions/8.6/Resources/Wish.app"
 rm -rf "./Frameworks/Tcl.framework/Versions/8.6/Resources/Documentation"
 
