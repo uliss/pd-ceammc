@@ -15,6 +15,11 @@ PD_ICON_FILE="$SRC_DIR/mac/stuff/pd-file.icns"
 #WISH_APP="/System/Library/Frameworks/Tk.framework/Versions/8.4/Resources/Wish.app"
 #"/Library/Frameworks/Tk.framework/Versions/8.6/Resources/Wish.app"
 WISH_APP="${WISH_APP}"
+TK_PATH=$(dirname $(dirname $(dirname $(dirname "${WISH_APP}"))))
+TCL_PATH="$(echo $TK_PATH | tr Tk.framework Tcl.framework)"
+
+echo "$TK_PATH"
+echo "$TCL_PATH"
 
 CEAMMC_EXT_SRC_DIR="$SRC_DIR/ceammc/ext/src"
 CEAMMC_EXT_BIN_DIR="$BUILD_DIR/ceammc/ext/src"
