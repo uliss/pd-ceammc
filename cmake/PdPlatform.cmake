@@ -71,9 +71,45 @@ if(APPLE)
     file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/dist)
     configure_file(${PROJECT_SOURCE_DIR}/ceammc/gui/Info.plist ${PROJECT_BINARY_DIR}/dist/Info.plist)
 
-    if(NOT WISH_APP)
-        set(WISH_APP "/Library/Frameworks/Tk.framework/Versions/8.6/Resources/Wish.app")
+    set(CUSTOM_TCL "/Library/Frameworks/Tcl.framework")
+    set(CUSTOM_TK  "/Library/Frameworks/Tk.framework")
+    set(CUSTOM_WISH "${CUSTOM_TK}/Versions/8.6/Resources/Wish.app")
+
+    set(SYSTEM_TCL     "/System/Library/Frameworks/Tcl.framework")
+    set(SYSTEM_TK      "/System/Library/Frameworks/Tk.framework")
+    set(SYSTEM_WISH_V5 "${SYSTEM_TK}/Versions/8.5/Resources/Wish.app")
+    set(SYSTEM_WISH_V4 "${SYSTEM_TK}/Versions/8.4/Resources/Wish.app")
+
+    set(IS_SYSTEM_TK 0)
+    set(TK_VERSION "")
+
+    if(EXISTS ${CUSTOM_TCL} AND EXISTS ${CUSTOM_TK} AND EXISTS ${CUSTOM_WISH})
+        set(TCL_PATH "${CUSTOM_TCL}")
+        set(TK_PATH  "${CUSTOM_TK}")
+        set(WISH_APP "${CUSTOM_WISH}")
+        set(TK_VERSION "8.6")
+    elseif(EXISTS ${SYSTEM_TCL} AND EXISTS ${SYSTEM_TK})
+        set(TCL_PATH "${SYSTEM_TCL}")
+        set(TK_PATH  "${SYSTEM_TK}")
+
+        if(EXISTS ${SYSTEM_WISH_V5})
+            set(WISH_APP "${SYSTEM_WISH_V5}")
+            set(TK_VERSION "8.5")
+        elseif(EXISTS ${SYSTEM_WISH_V4})
+            set(WISH_APP "${SYSTEM_WISH_V4}")
+            set(TK_VERSION "8.4")
+        else()
+            message(FATAL_ERROR "Wish.app not found in \"${SYSTEM_TK}\"")
+        endif()
+        set(IS_SYSTEM_TK 1)
+    else()
+        message(FATAL_ERROR "TCL not found")
     endif()
+
+    message(STATUS "found Tcl: ${TCL_PATH}")
+    message(STATUS "found Tk:  ${TK_PATH}")
+    message(STATUS "found Wish.app: ${WISH_APP}")
+    message(STATUS "found Tcl/Tk version: ${TK_VERSION}")
 
     add_custom_command(
         OUTPUT ${MAKE_BUNDLE_SCRIPT}
@@ -82,6 +118,10 @@ if(APPLE)
             -DPROJECT_BINARY_DIR="${PROJECT_BINARY_DIR}"
             -DBUNDLE=${BUNDLE_FULL_PATH}
             -DWISH_APP=${WISH_APP}
+            -DTCL_PATH=${TCL_PATH}
+            -DTK_PATH=${TK_PATH}
+            -DIS_SYSTEM_TK=${IS_SYSTEM_TK}
+            -DTK_VERSION=${TK_VERSION}
             -P ${PROJECT_SOURCE_DIR}/cmake/cmake-build-mac.cmake)
 
     add_custom_command(

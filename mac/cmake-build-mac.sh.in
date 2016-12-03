@@ -12,11 +12,10 @@ PD_BIN=$PD_RESOURCES/bin
 PD_INFO="$BUILD_DIR/dist/Info.plist"
 PD_ICON="$SRC_DIR/ceammc/gui/icons/pd_ceammc.icns"
 PD_ICON_FILE="$SRC_DIR/mac/stuff/pd-file.icns"
-#WISH_APP="/System/Library/Frameworks/Tk.framework/Versions/8.4/Resources/Wish.app"
-#"/Library/Frameworks/Tk.framework/Versions/8.6/Resources/Wish.app"
 WISH_APP="${WISH_APP}"
-TK_PATH=$(dirname $(dirname $(dirname $(dirname "${WISH_APP}"))))
-TCL_PATH="$(echo $TK_PATH | sed 's/Tk.framework/Tcl.framework/')"
+TK_PATH="${TK_PATH}"
+TCL_PATH="${TCL_PATH}"
+IS_SYSTEM_TK=${IS_SYSTEM_TK}
 
 echo "$TK_PATH"
 echo "$TCL_PATH"
@@ -30,7 +29,7 @@ mkdir -p dist
 cd dist
 
 echo "Copy Wish Shell to $PD_APP"
-cp -R "$WISH_APP" "$PD_APP"
+cp -R "${WISH_APP}" "$PD_APP"
 cd "$PD_APP/Contents"
 
 echo "Copying Info.plist..."
@@ -119,18 +118,22 @@ do
     install_name_tool -change $TARGETID $NEWTARGETID $EXECFILE
 done
 
-#copy Tcl8.6
-echo "Copying TCL Frameworks..."
-cp -R "$TK_PATH" Frameworks
-cp -R "$TCL_PATH" Frameworks
-rm -rf "./Frameworks/Tk.framework/Versions/8.6/Resources/Wish.app"
-rm -rf "./Frameworks/Tcl.framework/Versions/8.6/Resources/Documentation"
+#copy Tcl${TK_VERSION}
+if [ $IS_SYSTEM_TK -eq 0 ]
+then
+    echo "Copying TCL/Tk Frameworks..."
+    cp -R "${TK_PATH}" Frameworks
+    cp -R "${TCL_PATH}" Frameworks
+    rm -rf "./Frameworks/Tk.framework/Versions/${TK_VERSION}/Resources/Wish.app"
+    rm -rf "./Frameworks/Tcl.framework/Versions/${TK_VERSION}/Resources/Documentation"
 
-/usr/bin/otool -LX $PD_CONTENT/MacOS/Wish | cut -f2 | cut -d ' ' -f1 | grep -e Tk -e Tcl | while read framework
-do
-    newpath=$(echo $framework | sed 's|/Library/Frameworks/||')
-    install_name_tool -change $framework "@executable_path/../Frameworks/$newpath" $PD_CONTENT/MacOS/Wish
-done
+    echo "Tk link fix..."
+    /usr/bin/otool -LX $PD_CONTENT/MacOS/Wish | cut -f2 | cut -d ' ' -f1 | grep -e Tk -e Tcl | while read framework
+    do
+        newpath=$(echo $framework | sed 's|/Library/Frameworks/||')
+        install_name_tool -change $framework "@executable_path/../Frameworks/$newpath" $PD_CONTENT/MacOS/Wish
+    done
+fi
 
 echo "Copying headers..."
 mkdir -p $PD_RESOURCES/include
