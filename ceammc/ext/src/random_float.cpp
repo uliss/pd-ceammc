@@ -22,6 +22,9 @@ static void random_uniform_bang(t_random_uniform* x)
         return;
     }
 
+    if (x->upper_range < x->lower_range)
+        std::swap(x->upper_range, x->lower_range);
+
     boost::random::uniform_real_distribution<t_float> dist(x->lower_range, x->upper_range);
     outlet_float(x->x_obj.te_outlet, dist(random_gen));
 }
