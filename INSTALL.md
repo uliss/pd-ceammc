@@ -8,7 +8,8 @@ Install Homebrew: http://brew.sh/
 Install libs:
 
 ```
-brew install cmake boost fftw portaudio glib gettext libsndfile
+brew install cmake boost gettext
+brew install --universal portaudio fftw glib libsndfile
 ```
 
 clone and build:
