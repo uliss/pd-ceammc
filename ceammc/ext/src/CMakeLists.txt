@@ -253,6 +253,10 @@ ceammc_faust_extension(flt c_highshelf simple_pd_control_ext)
 ceammc_faust_extension(dyn comp simple_pd_control_ext)
 ceammc_faust_extension(dyn limit simple_pd_control_ext)
 
+ceammc_faust_extension(osc bsaw simple_pd_control_ext)
+ceammc_faust_extension(osc bsqr simple_pd_control_ext)
+ceammc_faust_extension(osc btri simple_pd_control_ext)
+
 ceammc_faust_extension(env adsr simple_pd_control_ext)
 
 
