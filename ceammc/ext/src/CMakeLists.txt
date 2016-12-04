@@ -237,6 +237,8 @@ ceammc_faust_extension(osc sinfb simple_pd_control_ext)
 ceammc_faust_extension(fx softclip simple_pd_control_ext)
 ceammc_faust_extension(fx envfollow simple_pd_control_ext)
 ceammc_faust_extension(fx freqshift simple_pd_control_ext)
+ceammc_faust_extension(fx pitchshift simple_pd_control_ext)
+ceammc_faust_extension(fx dcblock simple_pd_control_ext)
 
 ceammc_faust_extension(eq lowshelf simple_pd_control_ext)
 ceammc_faust_extension(eq highshelf simple_pd_control_ext)
@@ -252,10 +254,15 @@ ceammc_faust_extension(flt c_highshelf simple_pd_control_ext)
 
 ceammc_faust_extension(dyn comp simple_pd_control_ext)
 ceammc_faust_extension(dyn limit simple_pd_control_ext)
+ceammc_faust_extension(dyn gate simple_pd_control_ext)
+
+ceammc_faust_extension(spat pan2 simple_pd_control_ext)
+ceammc_faust_extension(spat pan4 simple_pd_control_ext)
 
 ceammc_faust_extension(osc bsaw simple_pd_control_ext)
 ceammc_faust_extension(osc bsqr simple_pd_control_ext)
 ceammc_faust_extension(osc btri simple_pd_control_ext)
+
 
 ceammc_faust_extension(env adsr simple_pd_control_ext)
 
