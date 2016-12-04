@@ -242,6 +242,15 @@ ceammc_faust_extension(eq lowshelf simple_pd_control_ext)
 ceammc_faust_extension(eq highshelf simple_pd_control_ext)
 ceammc_faust_extension(eq peak simple_pd_control_ext)
 
+ceammc_faust_extension(flt biquad simple_pd_control_ext)
+ceammc_faust_extension(flt c_lpf simple_pd_control_ext)
+ceammc_faust_extension(flt c_hpf simple_pd_control_ext)
+ceammc_faust_extension(flt c_bpf simple_pd_control_ext)
+ceammc_faust_extension(flt c_peak simple_pd_control_ext)
+ceammc_faust_extension(flt c_lowshelf simple_pd_control_ext)
+ceammc_faust_extension(flt c_highshelf simple_pd_control_ext)
+
+
 ceammc_faust_extension(env adsr simple_pd_control_ext)
 
 
