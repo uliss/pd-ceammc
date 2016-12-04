@@ -1,5 +1,6 @@
 #include "ceammc.h"
-#include "string.h"
+#include <string.h>
+#include <math.h>
 
 t_atom* ceammc_atoms_alloc(size_t n)
 {

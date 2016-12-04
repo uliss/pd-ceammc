@@ -3,9 +3,9 @@
 
 #include "ceammc.h"
 #include <cmath>
-#include <vector>
 #include <cstring>
 #include <functional>
+#include <vector>
 
 namespace ceammc {
 namespace math {
@@ -33,6 +33,25 @@ namespace math {
 
 namespace pd {
     typedef std::vector<t_atom> atom_list;
+
+    static inline bool is_float(const t_atom& a)
+    {
+        return a.a_type == A_FLOAT || a.a_type == A_DEFFLOAT;
+    }
+
+    static inline bool get_float(const t_atom& a, t_float* v)
+    {
+        if (is_float(a)) {
+            *v = a.a_w.w_float;
+            return true;
+        }
+        return false;
+    }
+
+    static inline bool is_symbol(const t_atom& a)
+    {
+        return a.a_type == A_DEFSYMBOL;
+    }
 
     static inline void output(t_outlet* x, const atom_list& lst)
     {
@@ -86,9 +105,11 @@ namespace pd {
         return false;
     }
 
+    bool atoms_minmax(const atom_list& lst, t_float* min, t_float* max);
+    bool atoms_normalize(atom_list& lst);
+
     struct AtomEq
-        : public std::binary_function<t_atom, t_atom, bool>
-    {
+        : public std::binary_function<t_atom, t_atom, bool> {
         bool operator()(const t_atom& a, const t_atom& b) const
         {
             return atom_equals(a, b);

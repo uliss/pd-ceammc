@@ -1,6 +1,6 @@
 include(faust)
 
-add_library(ceammc_static STATIC ceammc.c)
+add_library(ceammc_static STATIC ceammc.c ceammc.cpp)
 set_target_properties(ceammc_static PROPERTIES
     COMPILE_FLAGS ${PD_EXTERNAL_CFLAGS})
 
@@ -135,6 +135,7 @@ ceammc_cxx_extension(list max)
 ceammc_cxx_extension(list mean)
 ceammc_cxx_extension(list min)
 ceammc_cxx_extension(list minmax)
+ceammc_cxx_extension(list normalize)
 ceammc_c_extension(list product)
 ceammc_cxx_extension(list repeat)
 ceammc_cxx_extension(list reverse)
