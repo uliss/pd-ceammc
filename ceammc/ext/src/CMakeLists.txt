@@ -238,6 +238,10 @@ ceammc_faust_extension(fx softclip simple_pd_control_ext)
 ceammc_faust_extension(fx envfollow simple_pd_control_ext)
 ceammc_faust_extension(fx freqshift simple_pd_control_ext)
 
+ceammc_faust_extension(eq lowshelf simple_pd_control_ext)
+ceammc_faust_extension(eq highshelf simple_pd_control_ext)
+ceammc_faust_extension(eq peak simple_pd_control_ext)
+
 ceammc_faust_extension(env adsr simple_pd_control_ext)
 
 
