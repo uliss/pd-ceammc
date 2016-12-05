@@ -153,6 +153,11 @@ ceammc_cxx_extension(list change)
 ceammc_cxx_extension(list delta)
 ceammc_cxx_extension(list integrator)
 ceammc_cxx_extension(list stretch)
+
+ceammc_cxx_extension(list vlength)
+ceammc_cxx_extension(list vnormalize)
+
+
 # STREAM
 ceammc_cxx_extension(reject if)
 ceammc_cxx_extension(reject this)

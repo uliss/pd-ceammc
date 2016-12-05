@@ -53,7 +53,7 @@ static void list_integrator_list(t_list_integrator* x, t_symbol* s, int argc, t_
 static void* list_integrator_new()
 {
     t_list_integrator* x = reinterpret_cast<t_list_integrator*>(pd_new(list_integrator_class));
-    outlet_new(&x->x_obj, &s_float);
+    outlet_new(&x->x_obj, &s_list);
     
     x->stored_list = (t_atom*)malloc(0);     //dummy
     x->stored_list_len = 0;

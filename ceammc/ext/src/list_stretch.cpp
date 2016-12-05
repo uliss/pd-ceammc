@@ -39,7 +39,7 @@ static void list_stretch_list(t_list_stretch* x, t_symbol* s, int argc, t_atom* 
 static void* list_stretch_new()
 {
     t_list_stretch* x = reinterpret_cast<t_list_stretch*>(pd_new(list_stretch_class));
-    outlet_new(&x->x_obj, &s_float);
+    outlet_new(&x->x_obj, &s_list);
     
     floatinlet_new(&x->x_obj, &x->new_len);
     
