@@ -149,6 +149,10 @@ ceammc_c_extension(list unpack)
 ceammc_cxx_extension(list gen)
 ceammc_cxx_extension(list zip)
 
+ceammc_cxx_extension(list change)
+ceammc_cxx_extension(list delta)
+ceammc_cxx_extension(list integrator)
+ceammc_cxx_extension(list stretch)
 # STREAM
 ceammc_cxx_extension(reject if)
 ceammc_cxx_extension(reject this)
