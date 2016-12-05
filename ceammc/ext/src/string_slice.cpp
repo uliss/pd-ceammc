@@ -49,8 +49,8 @@ static void* string_slice_new()
 extern "C" void setup_string0x2eslice()
 {
     string_slice_class = class_new(gensym("string.slice"),
-                                   reinterpret_cast<t_newmethod>(string_slice_new),
-                                   reinterpret_cast<t_method>(0),
-                                   sizeof(t_string_slice), 0, A_NULL);
+        reinterpret_cast<t_newmethod>(string_slice_new),
+        reinterpret_cast<t_method>(0),
+        sizeof(t_string_slice), 0, A_NULL);
     class_addsymbol(string_slice_class, string_slice_symbol);
 }

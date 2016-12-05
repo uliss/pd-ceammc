@@ -221,6 +221,7 @@ if(GLIB_FOUND)
 
     ceammc_glib_extension(string join)
     ceammc_glib_extension(string slice)
+    ceammc_glib_extension(string compare)
 
     ceammc_glib_extension(system hostname)
     ceammc_glib_extension(system getenv)
