@@ -155,8 +155,8 @@ ceammc_cxx_extension(list integrator)
 ceammc_cxx_extension(list stretch)
 ceammc_cxx_extension(list shift)
 
-ceammc_cxx_extension(list vlength)
-ceammc_cxx_extension(list vnormalize)
+ceammc_cxx_extension(vector length)
+ceammc_cxx_extension(vector normalize)
 
 
 # STREAM

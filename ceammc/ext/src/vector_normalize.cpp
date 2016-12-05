@@ -4,14 +4,14 @@
 
 #define MIN(a, b)  (((a) < (b)) ? (a) : (b))
 
-t_class* list_vnormalize_class;
-struct t_list_vnormalize {
+t_class* vector_normalize_class;
+struct t_vector_normalize {
     t_object x_obj;
     
 };
 
 
-static void list_vnormalize_list(t_list_vnormalize* x, t_symbol* s, int argc, t_atom* argv)
+static void vector_normalize_vector(t_vector_normalize* x, t_symbol* s, int argc, t_atom* argv)
 {
     if (argc < 1 )
         return;
@@ -34,22 +34,22 @@ static void list_vnormalize_list(t_list_vnormalize* x, t_symbol* s, int argc, t_
     
 }
 
-static void* list_vnormalize_new()
+static void* vector_normalize_new()
 {
-    t_list_vnormalize* x = reinterpret_cast<t_list_vnormalize*>(pd_new(list_vnormalize_class));
+    t_vector_normalize* x = reinterpret_cast<t_vector_normalize*>(pd_new(vector_normalize_class));
     outlet_new(&x->x_obj, &s_list);
     
     
     return static_cast<void*>(x);
 }
 
-extern "C" void setup_list0x2evnormalize()
+extern "C" void setup_vector0x2enormalize()
 {
-    list_vnormalize_class = class_new(gensym("list.vnormalize"),
-                                  reinterpret_cast<t_newmethod>(list_vnormalize_new),
+    vector_normalize_class = class_new(gensym("vector.normalize"),
+                                  reinterpret_cast<t_newmethod>(vector_normalize_new),
                                   reinterpret_cast<t_method>(0),
-                                  sizeof(t_list_vnormalize), 0, A_NULL);
-    class_addlist(list_vnormalize_class, list_vnormalize_list);
+                                  sizeof(t_vector_normalize), 0, A_NULL);
+    class_addlist(vector_normalize_class, vector_normalize_vector);
     
     
     
