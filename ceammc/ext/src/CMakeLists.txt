@@ -153,6 +153,7 @@ ceammc_cxx_extension(list change)
 ceammc_cxx_extension(list delta)
 ceammc_cxx_extension(list integrator)
 ceammc_cxx_extension(list stretch)
+ceammc_cxx_extension(list shift)
 
 ceammc_cxx_extension(list vlength)
 ceammc_cxx_extension(list vnormalize)
