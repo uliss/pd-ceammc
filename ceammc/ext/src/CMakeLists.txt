@@ -155,9 +155,13 @@ ceammc_cxx_extension(list integrator)
 ceammc_cxx_extension(list stretch)
 ceammc_cxx_extension(list shift)
 
+ceammc_cxx_extension(list unwrap)
+ceammc_cxx_extension(list wrap)
+
 ceammc_cxx_extension(vector length)
 ceammc_cxx_extension(vector normalize)
-
+ceammc_cxx_extension(vector distance)
+ceammc_cxx_extension(vector dot)
 
 # STREAM
 ceammc_cxx_extension(reject if)
