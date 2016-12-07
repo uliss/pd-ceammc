@@ -17,16 +17,13 @@
 #X text 120 225 1\.;
 #X text 150 225 *any*;
 #X text 230 225 outputs '1' to 1st outlet \, otherwise '0';
-#X text 150 243 *float*;
-#X text 230 243 outputs '0';
-#X text 150 259 (0-20000);
-#X obj 20 287 cnv 1 640 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 297 cnv 10 100 20 empty empty outlets: 17 7 0 14 -262144
+#X obj 20 253 cnv 1 640 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 263 cnv 10 100 20 empty empty outlets: 17 7 0 14 -262144
 -49933 0;
-#X text 120 297 1\.;
-#X text 230 297 0 or 1;
-#X text 120 317 2\.;
-#X text 230 317 passes *any* message;
+#X text 120 263 1\.;
+#X text 230 263 0 or 1;
+#X text 120 283 2\.;
+#X text 230 283 passes *any* message;
 #X obj 1 503 cnv 15 680 48 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 506 library: ceammc v0\.1;
 #X obj 379 523 is_bang;
