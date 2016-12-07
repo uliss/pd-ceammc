@@ -20,7 +20,7 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="bang">outputs '1' to 1st outlet \, otherwise '0'</xinfo>
+                <xinfo on="bang">outputs '1' to 1st outlet, otherwise '0'</xinfo>
             </inlet>
         </inlets>
         <outlets>
