@@ -24,6 +24,11 @@ macro(ceammc_cxx_extension module name)
     ceammc_extension(${module} ${name} cpp)
 endmacro()
 
+macro(ceammc_cxx11_extension module name)
+    set(CMAKE_CXX_STANDARD 11)
+    ceammc_extension(${module} ${name} cpp)
+endmacro()
+
 macro(ceammc_extension_ module name ext)
     pd_add_extension(NAME "${module}_${name}"
         FILES "${module}_${name}.${ext}"
@@ -162,6 +167,8 @@ ceammc_cxx_extension(vector length)
 ceammc_cxx_extension(vector normalize)
 ceammc_cxx_extension(vector distance)
 ceammc_cxx_extension(vector dot)
+
+ceammc_cxx11_extension(json simple)
 
 # STREAM
 ceammc_cxx_extension(reject if)
