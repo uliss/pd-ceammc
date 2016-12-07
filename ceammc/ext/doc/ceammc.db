@@ -1,4 +1,2 @@
-pass.this       .    .
-pass.if         ..   ..
-is_odd          .    ..
-is_bang         .    ..
+is_any		.		..
+is_bang		.		..
