@@ -1,4 +1,4 @@
-#N canvas 0 0 361 115 ;
+#N canvas 0 0 361 115 12;
 #X msg 20 48 message;
 #X msg 116 48 1;
 #X msg 154 48 symbol a;
