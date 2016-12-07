@@ -1,4 +1,4 @@
-find_program(PD_XML2PD pd_xml2pd)
+find_program(PD_DOC2PD pd_doc2pd)
 find_program(PD_MAKELIB pd_makelibrary)
 
 set(DOC_FILES is_any is_bang)
@@ -20,7 +20,7 @@ else()
         add_custom_command(
             OUTPUT ${fname}
             DEPENDS "${f}.pddoc"
-            COMMAND ${PD_XML2PD}
+            COMMAND ${PD_DOC2PD}
                  --force
                  --version "${CEAMMC_LIB_VERSION}"
                  --website "${CEAMMC_LIB_HOME}"
