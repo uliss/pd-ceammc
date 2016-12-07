@@ -22,7 +22,6 @@
         <inlets>
             <inlet>
                 <xinfo on="any">outputs '1' to 1st outlet \, otherwise '0'</xinfo>
-                <xinfo on="float" minvalue="0" maxvalue="20000">outputs '0'</xinfo>
             </inlet>
         </inlets>
         <outlets>
