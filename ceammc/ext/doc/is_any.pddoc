@@ -6,12 +6,11 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>checks if input data has * any * type</description>
+            <description>checks if input data has *any* type</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>predicates</category>
             <keywords>predicate any</keywords>
-            <website>https://github.com/uliss/pure-data</website>
             <also>
                 <see>is_bang</see>
                 <see>is_float</see>
