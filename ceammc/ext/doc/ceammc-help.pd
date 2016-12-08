@@ -1,14 +1,22 @@
-#N canvas 0 0 450 600 12;
+#N canvas 0 0 600 500 12;
 #X obj 20 70 cnv 10 100 20 empty empty predicates 17 7 0 14 -262144
 -49933 0;
-#X obj 20 90 cnv 1 426 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 90 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 110 is_any;
-#X text 110 110 checks if input data has *any* type;
+#X text 150 110 checks if input data has *any* type;
 #X obj 20 140 is_bang;
-#X text 110 140 checks if input data has *bang* type;
+#X text 150 140 checks if input data has *bang* type;
 #X obj 20 170 is_float;
-#X text 110 170 checks if input data has *float* type;
+#X text 150 170 checks if input data has *float* type;
 #X obj 20 200 is_list;
-#X text 110 200 checks if input data has *list* type;
-#X obj 1 1 cnv 15 447 60 empty empty library:CEAMMC 20 20 0 20 -104026
+#X text 150 200 checks if input data has *list* type;
+#X obj 20 230 is_symbol;
+#X text 150 230 checks if input data has *symbol* type;
+#X obj 20 270 cnv 10 100 20 empty empty system 17 7 0 14 -262144
+-49933 0;
+#X obj 20 290 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 310 system.memsize;
+#X text 150 310 Returns the size of physical memory (RAM) in bytes
+round to float data type\.;
+#X obj 1 1 cnv 15 597 60 empty empty library:CEAMMC 20 20 0 20 -104026
 -4096 0;

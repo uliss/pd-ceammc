@@ -222,6 +222,7 @@ if(GLIB_FOUND)
 
     ceammc_glib_extension(system hostname)
     ceammc_glib_extension(system getenv)
+    ceammc_cxx_extension(system memsize)
 
     ceammc_glib_extension_(is file)
 endif()

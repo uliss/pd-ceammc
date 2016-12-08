@@ -13,5 +13,13 @@
     <entry descr="checks if input data has *list* type" name="is_list">
       <xi:include href="/Users/serj/work/music/pure-data/ceammc/ext/doc/is_list.pddoc" parse="xml"/>
     </entry>
+    <entry descr="checks if input data has *symbol* type" name="is_symbol">
+      <xi:include href="/Users/serj/work/music/pure-data/ceammc/ext/doc/is_symbol.pddoc" parse="xml"/>
+    </entry>
+  </category>
+  <category name="system">
+    <entry descr="Returns the size of physical memory (RAM) in bytes round to float data type." name="system.memsize">
+      <xi:include href="/Users/serj/work/music/pure-data/ceammc/ext/doc/system.memsize.pddoc" parse="xml"/>
+    </entry>
   </category>
 </library>

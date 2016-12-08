@@ -1,4 +1,5 @@
 #include "ceammc.h"
+#include "memsize.h"
 #include <string.h>
 #include <math.h>
 
@@ -99,4 +100,9 @@ void output_atom(t_outlet* out, t_atom* atom)
 int ceammc_atoms_equal(const t_atom* a1, const t_atom* a2)
 {
     return ceammc_atoms_compare(a1, a2) == 0 ? 1 : 0;
+}
+
+size_t ceammc_memory_size()
+{
+    return getMemorySize();
 }
