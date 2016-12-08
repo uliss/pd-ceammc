@@ -804,6 +804,8 @@ EXTERN void pdinstance_free(t_pdinstance *x);
 EXTERN t_canvas *pd_getcanvaslist(void);
 EXTERN int pd_getdspstate(void);
 
+    //TEST
+    EXTERN void canvas_saveto(t_canvas *x, t_binbuf *b);
 #if defined(_LANGUAGE_C_PLUS_PLUS) || defined(__cplusplus)
 }
 #endif

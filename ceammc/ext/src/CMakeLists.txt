@@ -168,7 +168,9 @@ ceammc_cxx_extension(vector normalize)
 ceammc_cxx_extension(vector distance)
 ceammc_cxx_extension(vector dot)
 
-ceammc_cxx11_extension(json simple)
+ceammc_cxx11_extension(json object)
+
+ceammc_cxx_extension(exp patchdata)
 
 # STREAM
 ceammc_cxx_extension(reject if)
@@ -243,6 +245,7 @@ if(GLIB_FOUND)
     ceammc_glib_extension(string join)
     ceammc_glib_extension(string slice)
     ceammc_glib_extension(string compare)
+    ceammc_glib_extension(string split)
 
     ceammc_glib_extension(system hostname)
     ceammc_glib_extension(system getenv)
