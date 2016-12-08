@@ -7,5 +7,8 @@
     <entry descr="checks if input data has *bang* type" name="is_bang">
       <xi:include href="/Users/serj/work/music/pure-data/ceammc/ext/doc/is_bang.pddoc" parse="xml"/>
     </entry>
+    <entry descr="checks if input data has *float* type" name="is_float">
+      <xi:include href="/Users/serj/work/music/pure-data/ceammc/ext/doc/is_float.pddoc" parse="xml"/>
+    </entry>
   </category>
 </library>

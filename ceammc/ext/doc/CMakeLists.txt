@@ -1,7 +1,8 @@
 find_program(PD_DOC2PD pd_doc2pd)
 find_program(PD_MAKELIB pd_makelibrary)
+find_program(PD_LIB2PD pd_lib2pd)
 
-set(DOC_FILES is_any is_bang)
+set(DOC_FILES is_any is_bang is_float)
 
 if(NOT PD_XML2PD)
     message(STATUS "pd_xml2pd not found.")
@@ -40,8 +41,14 @@ else()
         COMMAND ${PD_MAKELIB} --library ceammc --output "ceammc_lib.xml" ${DOC_PDDOC_FILES}
         WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
 
+    add_custom_command(
+        OUTPUT "ceammc-help.pd"
+        DEPENDS "ceammc_lib.xml"
+        COMMAND ${PD_LIB2PD} "ceammc_lib.xml"
+        WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
+
     add_custom_target(ceammc_pddoc
-        DEPENDS ${DOC_PD_FILES} "ceammc.db" "ceammc_lib.xml"
+        DEPENDS ${DOC_PD_FILES} "ceammc.db" "ceammc_lib.xml" "ceammc-help.pd"
         WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
 endif()
 
