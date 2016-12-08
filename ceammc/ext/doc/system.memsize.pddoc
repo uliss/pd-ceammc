@@ -10,7 +10,7 @@
             <license>GPL3</license>
             <library>ceammc</library>
             <category>system</category>
-            <keywords>system</keywords>
+            <keywords>system memory</keywords>
             <also>
                 <see>system.memrss</see>
             </also>
