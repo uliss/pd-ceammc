@@ -8,5 +8,7 @@
 #X text 110 140 checks if input data has *bang* type;
 #X obj 20 170 is_float;
 #X text 110 170 checks if input data has *float* type;
+#X obj 20 200 is_list;
+#X text 110 200 checks if input data has *list* type;
 #X obj 1 1 cnv 15 447 60 empty empty library:CEAMMC 20 20 0 20 -104026
 -4096 0;

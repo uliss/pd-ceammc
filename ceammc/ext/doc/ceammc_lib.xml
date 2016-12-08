@@ -10,5 +10,8 @@
     <entry descr="checks if input data has *float* type" name="is_float">
       <xi:include href="/Users/serj/work/music/pure-data/ceammc/ext/doc/is_float.pddoc" parse="xml"/>
     </entry>
+    <entry descr="checks if input data has *list* type" name="is_list">
+      <xi:include href="/Users/serj/work/music/pure-data/ceammc/ext/doc/is_list.pddoc" parse="xml"/>
+    </entry>
   </category>
 </library>
