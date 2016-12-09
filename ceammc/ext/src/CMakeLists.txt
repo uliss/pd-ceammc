@@ -9,6 +9,7 @@ add_custom_target(ceammc_generate_math
     COMMAND ${CMAKE_SOURCE_DIR}/ceammc/py/generate_math.py
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 <<<<<<< HEAD
+<<<<<<< HEAD
     
 macro(ceammc_extension module name ext)
     pd_add_extension(NAME "${module}.${name}" 
@@ -86,6 +87,8 @@ macro(ceammc_faust_extension module name ext)
         FILES "${module}_${name}.cpp" INTERNAL TRUE)
 endmacro()
 
+=======
+>>>>>>> uliss/ceammc
 =======
 >>>>>>> uliss/ceammc
 
