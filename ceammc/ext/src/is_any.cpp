@@ -1,30 +1,6 @@
 #include "ceammc.h"
 #include <m_pd.h>
 
-/**
- * @brief checks if input data has *any* type
- *
- * Checks if control input value has 'any' type
- *
- * @inlet input @type control
- * @outlet outputs 1 - if input data has 'any' type, otherwise 0, @values 0,1
- * @outlet outputs original message untouched
- * @name is_any
- * @author Serge Poltavsky
- * @category predicates
- * @library ceammc
- * @see is_bang, is_float, is_symbol, is_list
- * @since 0.1
- */
-
-/// \pddoc
-/// [message(  [1(
-/// |      ____/
-/// [is_any]
-/// |
-/// [print]
-/// \pddoc_end
-
 t_class* is_any_class;
 struct t_is_any {
     t_object x_obj;
