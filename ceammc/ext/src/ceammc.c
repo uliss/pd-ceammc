@@ -1,5 +1,6 @@
 #include "ceammc.h"
 #include "memsize.h"
+#include "memrss.h"
 #include <string.h>
 #include <math.h>
 
@@ -105,4 +106,14 @@ int ceammc_atoms_equal(const t_atom* a1, const t_atom* a2)
 size_t ceammc_memory_size()
 {
     return getMemorySize();
+}
+
+size_t ceammc_memory_current_rss()
+{
+    return getCurrentRSS();
+}
+
+size_t ceammc_memory_peak_rss()
+{
+    return getPeakRSS();
 }

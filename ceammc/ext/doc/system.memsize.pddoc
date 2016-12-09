@@ -6,13 +6,13 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>Returns the size of physical memory (RAM) in bytes round to float data type.</description>
+            <description>returns the size of physical memory (RAM) in bytes round to float data type.</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>system</category>
             <keywords>system memory</keywords>
             <also>
-                <see>system.memrss</see>
+                <see>system.memused</see>
             </also>
         </meta>
         <inlets>
@@ -29,6 +29,10 @@
 [bng]
 |
 [system.memsize]
+|
+[/ 1024]
+|
+[/ 1024] /* in Mbytes */
 |
 [floatatom digits=12]
 

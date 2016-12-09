@@ -18,8 +18,11 @@
     </entry>
   </category>
   <category name="system">
-    <entry descr="Returns the size of physical memory (RAM) in bytes round to float data type." name="system.memsize">
+    <entry descr="returns the size of physical memory (RAM) in bytes round to float data type." name="system.memsize">
       <xi:include href="/Users/serj/work/music/pure-data/ceammc/ext/doc/system.memsize.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="returns the process physical memory use - current and peak" name="system.memused">
+      <xi:include href="/Users/serj/work/music/pure-data/ceammc/ext/doc/system.memused.pddoc" parse="xml"/>
     </entry>
   </category>
 </library>

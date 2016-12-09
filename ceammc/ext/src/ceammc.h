@@ -63,6 +63,8 @@ void ceammc_atoms_map_float_to_outlet(t_outlet* o, t_symbol* s, int n, t_atom* a
 t_float ceammc_atoms_reduce_float(size_t n, t_atom* a, t_float init, ceammc_float_binary_func func);
 
 size_t ceammc_memory_size();
+size_t ceammc_memory_current_rss();
+size_t ceammc_memory_peak_rss();
 
 #ifdef __cplusplus
 }

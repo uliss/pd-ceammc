@@ -4,3 +4,4 @@ is_float		.		..
 is_list		.		..
 is_symbol		.		..
 system.memsize		.		.
+system.memused		.		..
