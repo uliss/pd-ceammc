@@ -1,4 +1,5 @@
 include(faust)
+include(ceammc_pd.cmake)
 
 add_library(ceammc_static STATIC ceammc.c ceammc.cpp)
 set_target_properties(ceammc_static PROPERTIES
@@ -7,6 +8,7 @@ set_target_properties(ceammc_static PROPERTIES
 add_custom_target(ceammc_generate_math
     COMMAND ${CMAKE_SOURCE_DIR}/ceammc/py/generate_math.py
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+<<<<<<< HEAD
     
 macro(ceammc_extension module name ext)
     pd_add_extension(NAME "${module}.${name}" 
@@ -84,6 +86,8 @@ macro(ceammc_faust_extension module name ext)
         FILES "${module}_${name}.cpp" INTERNAL TRUE)
 endmacro()
 
+=======
+>>>>>>> uliss/ceammc
 
 ###############################
 # MATH
@@ -182,14 +186,14 @@ ceammc_cxx_extension(pass this)
 ###############################
 # IS
 ###############################
-ceammc_cxx_extension_(is even)
-ceammc_cxx_extension_(is odd)
-ceammc_cxx_extension_(is any)
-ceammc_cxx_extension_(is bang)
-ceammc_cxx_extension_(is float)
-ceammc_cxx_extension_(is list)
-ceammc_cxx_extension_(is symbol)
-ceammc_cxx_extension_(is pointer)
+ceammc_cxx_extension__(is even)
+ceammc_cxx_extension__(is odd)
+ceammc_cxx_extension__(is any)
+ceammc_cxx_extension__(is bang)
+ceammc_cxx_extension__(is float)
+ceammc_cxx_extension__(is list)
+ceammc_cxx_extension__(is symbol)
+ceammc_cxx_extension__(is pointer)
 
 ###############################
 # TIME
@@ -250,11 +254,11 @@ if(GLIB_FOUND)
 
     ceammc_glib_extension(system hostname)
     ceammc_glib_extension(system getenv)
-    ceammc_cxx_extension(system memsize)
-    ceammc_cxx_extension(system memused)
-
-    ceammc_glib_extension_(is file)
+    ceammc_glib_extension__(is file)
 endif()
+
+ceammc_cxx_extension(system memsize)
+ceammc_cxx_extension(system memused)
 
 ###############################
 # DSP
