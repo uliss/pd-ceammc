@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library xmlns:xi="http://www.w3.org/2001/XInclude" name="ceammc" version="1.0">
+  <category name="predicates">
+    <entry descr="checks if input data has *any* type" name="is_any">
+      <xi:include href="/Users/serj/work/music/pure-data/ceammc/ext/doc/is_any.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="checks if input data has *bang* type" name="is_bang">
+      <xi:include href="/Users/serj/work/music/pure-data/ceammc/ext/doc/is_bang.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="checks if input data has *float* type" name="is_float">
+      <xi:include href="/Users/serj/work/music/pure-data/ceammc/ext/doc/is_float.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="checks if input data has *list* type" name="is_list">
+      <xi:include href="/Users/serj/work/music/pure-data/ceammc/ext/doc/is_list.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="checks if input data has *symbol* type" name="is_symbol">
+      <xi:include href="/Users/serj/work/music/pure-data/ceammc/ext/doc/is_symbol.pddoc" parse="xml"/>
+    </entry>
+  </category>
+  <category name="system">
+    <entry descr="returns the size of physical memory (RAM) in bytes round to float data type." name="system.memsize">
+      <xi:include href="/Users/serj/work/music/pure-data/ceammc/ext/doc/system.memsize.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="returns the process physical memory use - current and peak" name="system.memused">
+      <xi:include href="/Users/serj/work/music/pure-data/ceammc/ext/doc/system.memused.pddoc" parse="xml"/>
+    </entry>
+  </category>
+</library>

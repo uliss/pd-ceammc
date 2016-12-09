@@ -1,4 +1,7 @@
-pass.this       .    .
-pass.if         ..   ..
-is_odd          .    ..
-is_bang         .    ..
+is_any		.		..
+is_bang		.		..
+is_float		.		..
+is_list		.		..
+is_symbol		.		..
+system.memsize		.		.
+system.memused		.		..
