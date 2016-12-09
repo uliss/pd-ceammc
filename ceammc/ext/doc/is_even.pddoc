@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pddoc version="1.0">
+    <object name="is_even">
+        <title>is_even</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>checks if input number is even</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>predicates</category>
+            <keywords>predicate numbers</keywords>
+            <also>
+                <see>is_odd</see>
+            </also>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="int">outputs '1' if number can be divided exactly by 2, otherwise '0'</xinfo>
+                <xinfo on="float">value converted to integer, then the check is performed</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>0 or 1</outlet>
+            <outlet>passed even numbers</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+                <![CDATA[
+[floatatom]
+|
+[is_even     ]
+|           ^|
+[floatatom]  [print passed]
+
+                ]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
+

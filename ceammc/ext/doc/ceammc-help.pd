@@ -6,20 +6,22 @@
 #X text 150 110 checks if input data has *any* type;
 #X obj 20 137 is_bang;
 #X text 150 137 checks if input data has *bang* type;
-#X obj 20 164 is_float;
-#X text 150 164 checks if input data has *float* type;
-#X obj 20 191 is_list;
-#X text 150 191 checks if input data has *list* type;
-#X obj 20 218 is_symbol;
-#X text 150 218 checks if input data has *symbol* type;
-#X obj 20 255 cnv 10 100 20 empty empty system 17 7 0 14 -262144
+#X obj 20 164 is_even;
+#X text 150 164 checks if input number is even;
+#X obj 20 191 is_float;
+#X text 150 191 checks if input data has *float* type;
+#X obj 20 218 is_list;
+#X text 150 218 checks if input data has *list* type;
+#X obj 20 245 is_symbol;
+#X text 150 245 checks if input data has *symbol* type;
+#X obj 20 282 cnv 10 100 20 empty empty system 17 7 0 14 -262144
 -49933 0;
-#X obj 20 275 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 295 system.memsize;
-#X text 150 295 returns the size of physical memory (RAM) in bytes
+#X obj 20 302 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 322 system.memsize;
+#X text 150 322 returns the size of physical memory (RAM) in bytes
 round to float data type\.;
-#X obj 20 332 system.memused;
-#X text 150 332 returns the process physical memory use - current and
+#X obj 20 359 system.memused;
+#X text 150 359 returns the process physical memory use - current and
 peak;
 #X obj 1 1 cnv 15 597 60 empty empty library:CEAMMC 20 20 0 20 -104026
 -4096 0;
