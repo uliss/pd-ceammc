@@ -12,6 +12,7 @@
             <library>ceammc</library>
             <category>dyn</category>
             <keywords>predicate compressor</keywords>
+            <since>0.1</since>
             <also>
                 <see>dyn.comp2~</see>
             </also>

@@ -11,6 +11,7 @@
             <library>ceammc</library>
             <category>list</category>
             <keywords>list functional</keywords>
+            <since>0.1</since>
         </meta>
         <arguments>
             <argument name="index" type="int">position index</argument>
