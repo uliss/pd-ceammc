@@ -779,10 +779,10 @@ void PdUI::setElementValue(const char* label, float v)
 
 
 #ifndef FAUSTCLASS 
-#define FAUSTCLASS comp2
+#define FAUSTCLASS comp
 #endif
 
-class comp2 : public dsp {
+class comp : public dsp {
   private:
 	float 	fConst0;
 	float 	fConst1;
@@ -815,8 +815,8 @@ class comp2 : public dsp {
 		m->declare("math.lib/license", "LGPL with exception");
 	}
 
-	virtual int getNumInputs() { return 2; }
-	virtual int getNumOutputs() { return 2; }
+	virtual int getNumInputs() { return 1; }
+	virtual int getNumOutputs() { return 1; }
 	static void classInit(int samplingFreq) {
 	}
 	virtual void instanceConstants(int samplingFreq) {
@@ -845,8 +845,8 @@ class comp2 : public dsp {
 		instanceResetUserInterface();
 		instanceClear();
 	}
-	virtual comp2* clone() {
-		return new comp2();
+	virtual comp* clone() {
+		return new comp();
 	}
 	virtual int getSampleRate() {
 		return fSamplingFreq;
@@ -865,7 +865,6 @@ class comp2 : public dsp {
 		float 	fRec2_tmp[64+4];
 		float 	fRec1_tmp[64+4];
 		float 	fRec0_tmp[64+4];
-		float 	fZec2[64];
 		float 	fSlow0 = expf((0 - (fConst1 / float(fslider0))));
 		float 	fSlow1 = float(fslider1);
 		float 	fSlow2 = expf((0 - (fConst1 / fSlow1)));
@@ -881,18 +880,16 @@ class comp2 : public dsp {
 			// compute by blocks of 64 samples
 			const int count = 64;
 			FAUSTFLOAT* input0 = &input[0][index];
-			FAUSTFLOAT* input1 = &input[1][index];
 			FAUSTFLOAT* output0 = &output[0][index];
-			FAUSTFLOAT* output1 = &output[1][index];
 			// SECTION : 1
-			// LOOP 0x7fb1f0de5c80
+			// LOOP 0x7f88d156e020
 			// exec code
 			for (int i=0; i<count; i++) {
-				fZec0[i] = fabsf((fabsf((float)input0[i]) + fabsf((float)input1[i])));
+				fZec0[i] = fabsf((float)input0[i]);
 			}
 			
 			// SECTION : 2
-			// LOOP 0x7fb1f0de5920
+			// LOOP 0x7f88d156dcc0
 			// pre processing
 			for (int i=0; i<4; i++) fRec2_tmp[i]=fRec2_perm[i];
 			for (int i=0; i<4; i++) fRec1_tmp[i]=fRec1_perm[i];
@@ -907,7 +904,7 @@ class comp2 : public dsp {
 			for (int i=0; i<4; i++) fRec2_perm[i]=fRec2_tmp[count+i];
 			
 			// SECTION : 3
-			// LOOP 0x7fb1f0de5620
+			// LOOP 0x7f88d156d9c0
 			// pre processing
 			for (int i=0; i<4; i++) fRec0_tmp[i]=fRec0_perm[i];
 			// exec code
@@ -918,23 +915,10 @@ class comp2 : public dsp {
 			for (int i=0; i<4; i++) fRec0_perm[i]=fRec0_tmp[count+i];
 			
 			// SECTION : 4
-			// LOOP 0x7fb1f0deb430
+			// LOOP 0x7f88d156d8e0
 			// exec code
 			for (int i=0; i<count; i++) {
-				fZec2[i] = powf(10,(0.05f * fRec0[i]));
-			}
-			
-			// SECTION : 5
-			// LOOP 0x7fb1f0de5540
-			// exec code
-			for (int i=0; i<count; i++) {
-				output0[i] = (FAUSTFLOAT)((float)input0[i] * fZec2[i]);
-			}
-			
-			// LOOP 0x7fb1f0debd40
-			// exec code
-			for (int i=0; i<count; i++) {
-				output1[i] = (FAUSTFLOAT)((float)input1[i] * fZec2[i]);
+				output0[i] = (FAUSTFLOAT)((float)input0[i] * powf(10,(0.05f * fRec0[i])));
 			}
 			
 		}
@@ -942,18 +926,16 @@ class comp2 : public dsp {
 			// compute the remaining samples if any
 			int count = fullcount-index;
 			FAUSTFLOAT* input0 = &input[0][index];
-			FAUSTFLOAT* input1 = &input[1][index];
 			FAUSTFLOAT* output0 = &output[0][index];
-			FAUSTFLOAT* output1 = &output[1][index];
 			// SECTION : 1
-			// LOOP 0x7fb1f0de5c80
+			// LOOP 0x7f88d156e020
 			// exec code
 			for (int i=0; i<count; i++) {
-				fZec0[i] = fabsf((fabsf((float)input0[i]) + fabsf((float)input1[i])));
+				fZec0[i] = fabsf((float)input0[i]);
 			}
 			
 			// SECTION : 2
-			// LOOP 0x7fb1f0de5920
+			// LOOP 0x7f88d156dcc0
 			// pre processing
 			for (int i=0; i<4; i++) fRec2_tmp[i]=fRec2_perm[i];
 			for (int i=0; i<4; i++) fRec1_tmp[i]=fRec1_perm[i];
@@ -968,7 +950,7 @@ class comp2 : public dsp {
 			for (int i=0; i<4; i++) fRec2_perm[i]=fRec2_tmp[count+i];
 			
 			// SECTION : 3
-			// LOOP 0x7fb1f0de5620
+			// LOOP 0x7f88d156d9c0
 			// pre processing
 			for (int i=0; i<4; i++) fRec0_tmp[i]=fRec0_perm[i];
 			// exec code
@@ -979,23 +961,10 @@ class comp2 : public dsp {
 			for (int i=0; i<4; i++) fRec0_perm[i]=fRec0_tmp[count+i];
 			
 			// SECTION : 4
-			// LOOP 0x7fb1f0deb430
+			// LOOP 0x7f88d156d8e0
 			// exec code
 			for (int i=0; i<count; i++) {
-				fZec2[i] = powf(10,(0.05f * fRec0[i]));
-			}
-			
-			// SECTION : 5
-			// LOOP 0x7fb1f0de5540
-			// exec code
-			for (int i=0; i<count; i++) {
-				output0[i] = (FAUSTFLOAT)((float)input0[i] * fZec2[i]);
-			}
-			
-			// LOOP 0x7fb1f0debd40
-			// exec code
-			for (int i=0; i<count; i++) {
-				output1[i] = (FAUSTFLOAT)((float)input1[i] * fZec2[i]);
+				output0[i] = (FAUSTFLOAT)((float)input0[i] * powf(10,(0.05f * fRec0[i])));
 			}
 			
 		}
@@ -1025,7 +994,7 @@ struct t_faust {
      to write past the end of x_obj on Windows. */
     int fence; /* dummy field (not used) */
 #endif
-    comp2* dsp;
+    comp* dsp;
     PdUI* ui;
     std::string* label;
     int active, xfade, n_xfade, rate, n_in, n_out;
@@ -1330,7 +1299,7 @@ static bool faust_init_outputs(t_faust* x) {
 }
 
 static void faust_init_label(t_faust* x, const char* obj_id) {
-    x->label = new std::string(sym(comp2) "~");
+    x->label = new std::string(sym(comp) "~");
 
     // label settings
     if (obj_id) {
@@ -1345,8 +1314,8 @@ static bool faust_new_internal(t_faust* x, const char* obj_id = NULL) {
     x->xfade = 0;
     x->n_xfade = static_cast<int>(sr * XFADE_TIME / 64);
 
-    x->dsp = new comp2();
-    x->ui = new PdUI(sym(comp2), obj_id);
+    x->dsp = new comp();
+    x->ui = new PdUI(sym(comp), obj_id);
 
     faust_init_label(x, obj_id);
 

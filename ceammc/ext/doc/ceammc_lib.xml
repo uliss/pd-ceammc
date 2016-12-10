@@ -4,6 +4,9 @@
     <entry descr="stereo dynamic range compressor" name="dyn.comp2~">
       <xi:include href="/Users/serj/work/music/pure-data/ceammc/ext/doc/dyn.comp2~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="mono dynamic range compressors" name="dyn.comp~">
+      <xi:include href="/Users/serj/work/music/pure-data/ceammc/ext/doc/dyn.comp~.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="list">
     <entry descr="modifies list value at specified position, filtering it via external object." name="list.apply_to">
