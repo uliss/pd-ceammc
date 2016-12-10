@@ -804,8 +804,6 @@ class comp2 : public dsp {
 		m->declare("ceammc.lib/version", "0.1");
 		m->declare("analyzer.lib/name", "Faust Analyzer Library");
 		m->declare("analyzer.lib/version", "0.0");
-		m->declare("signal.lib/name", "Faust Signal Routing Library");
-		m->declare("signal.lib/version", "0.0");
 		m->declare("basic.lib/name", "Faust Basic Element Library");
 		m->declare("basic.lib/version", "0.0");
 		m->declare("math.lib/name", "Faust Math Library");
@@ -813,6 +811,8 @@ class comp2 : public dsp {
 		m->declare("math.lib/author", "GRAME");
 		m->declare("math.lib/copyright", "GRAME");
 		m->declare("math.lib/license", "LGPL with exception");
+		m->declare("signal.lib/name", "Faust Signal Routing Library");
+		m->declare("signal.lib/version", "0.0");
 	}
 
 	virtual int getNumInputs() { return 2; }
@@ -885,14 +885,14 @@ class comp2 : public dsp {
 			FAUSTFLOAT* output0 = &output[0][index];
 			FAUSTFLOAT* output1 = &output[1][index];
 			// SECTION : 1
-			// LOOP 0x7fc43a4b2ea0
+			// LOOP 0x7fa49155abc0
 			// exec code
 			for (int i=0; i<count; i++) {
 				fZec0[i] = fabsf((fabsf((float)input0[i]) + fabsf((float)input1[i])));
 			}
 			
 			// SECTION : 2
-			// LOOP 0x7fc43a4b2b40
+			// LOOP 0x7fa49155a860
 			// pre processing
 			for (int i=0; i<4; i++) fRec2_tmp[i]=fRec2_perm[i];
 			for (int i=0; i<4; i++) fRec1_tmp[i]=fRec1_perm[i];
@@ -907,7 +907,7 @@ class comp2 : public dsp {
 			for (int i=0; i<4; i++) fRec2_perm[i]=fRec2_tmp[count+i];
 			
 			// SECTION : 3
-			// LOOP 0x7fc43a4b2840
+			// LOOP 0x7fa49155a560
 			// pre processing
 			for (int i=0; i<4; i++) fRec0_tmp[i]=fRec0_perm[i];
 			// exec code
@@ -918,20 +918,20 @@ class comp2 : public dsp {
 			for (int i=0; i<4; i++) fRec0_perm[i]=fRec0_tmp[count+i];
 			
 			// SECTION : 4
-			// LOOP 0x7fc43a4b8650
+			// LOOP 0x7fa491560370
 			// exec code
 			for (int i=0; i<count; i++) {
 				fZec2[i] = powf(10,(0.05f * fRec0[i]));
 			}
 			
 			// SECTION : 5
-			// LOOP 0x7fc43a4b2760
+			// LOOP 0x7fa49155a480
 			// exec code
 			for (int i=0; i<count; i++) {
 				output0[i] = (FAUSTFLOAT)((float)input0[i] * fZec2[i]);
 			}
 			
-			// LOOP 0x7fc43a4b8f60
+			// LOOP 0x7fa491560c80
 			// exec code
 			for (int i=0; i<count; i++) {
 				output1[i] = (FAUSTFLOAT)((float)input1[i] * fZec2[i]);
@@ -946,14 +946,14 @@ class comp2 : public dsp {
 			FAUSTFLOAT* output0 = &output[0][index];
 			FAUSTFLOAT* output1 = &output[1][index];
 			// SECTION : 1
-			// LOOP 0x7fc43a4b2ea0
+			// LOOP 0x7fa49155abc0
 			// exec code
 			for (int i=0; i<count; i++) {
 				fZec0[i] = fabsf((fabsf((float)input0[i]) + fabsf((float)input1[i])));
 			}
 			
 			// SECTION : 2
-			// LOOP 0x7fc43a4b2b40
+			// LOOP 0x7fa49155a860
 			// pre processing
 			for (int i=0; i<4; i++) fRec2_tmp[i]=fRec2_perm[i];
 			for (int i=0; i<4; i++) fRec1_tmp[i]=fRec1_perm[i];
@@ -968,7 +968,7 @@ class comp2 : public dsp {
 			for (int i=0; i<4; i++) fRec2_perm[i]=fRec2_tmp[count+i];
 			
 			// SECTION : 3
-			// LOOP 0x7fc43a4b2840
+			// LOOP 0x7fa49155a560
 			// pre processing
 			for (int i=0; i<4; i++) fRec0_tmp[i]=fRec0_perm[i];
 			// exec code
@@ -979,20 +979,20 @@ class comp2 : public dsp {
 			for (int i=0; i<4; i++) fRec0_perm[i]=fRec0_tmp[count+i];
 			
 			// SECTION : 4
-			// LOOP 0x7fc43a4b8650
+			// LOOP 0x7fa491560370
 			// exec code
 			for (int i=0; i<count; i++) {
 				fZec2[i] = powf(10,(0.05f * fRec0[i]));
 			}
 			
 			// SECTION : 5
-			// LOOP 0x7fc43a4b2760
+			// LOOP 0x7fa49155a480
 			// exec code
 			for (int i=0; i<count; i++) {
 				output0[i] = (FAUSTFLOAT)((float)input0[i] * fZec2[i]);
 			}
 			
-			// LOOP 0x7fc43a4b8f60
+			// LOOP 0x7fa491560c80
 			// exec code
 			for (int i=0; i<count; i++) {
 				output1[i] = (FAUSTFLOAT)((float)input1[i] * fZec2[i]);
@@ -1442,9 +1442,6 @@ static bool get_nth_symbol_arg(int argc, t_atom* argv, int nth, const char** des
     t_atom* last = argv + argc;
     t_atom* res = find_nth_if(argv, last, nth, atom_is_symbol);
     if(last == res) return false;
-
-    if(res->a_type != A_DEFSYMBOL)
-        return false;
 
     t_symbol* s = atom_getsymbol(res);
     *dest = s->s_name;

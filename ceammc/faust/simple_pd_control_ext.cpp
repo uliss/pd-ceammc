@@ -803,9 +803,6 @@ static bool get_nth_symbol_arg(int argc, t_atom* argv, int nth, const char** des
     t_atom* res = find_nth_if(argv, last, nth, atom_is_symbol);
     if(last == res) return false;
 
-    if(res->a_type != A_DEFSYMBOL)
-        return false;
-
     t_symbol* s = atom_getsymbol(res);
     *dest = s->s_name;
     return true;
