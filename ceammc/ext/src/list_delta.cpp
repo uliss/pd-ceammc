@@ -48,6 +48,8 @@ static void list_delta_list(t_list_delta* x, t_symbol* s, int argc, t_atom* argv
     
     outlet_list(x->x_obj.te_outlet, s, argc, argv);
     
+    free(temp_list);
+    
 }
 
 static void* list_delta_new()

@@ -68,6 +68,7 @@ static void list_wrap_list(t_list_wrap* x, t_symbol* s, int argc, t_atom* argv)
     
     free(temp1);
     free(temp2);
+    free(prev);
     
 }
 

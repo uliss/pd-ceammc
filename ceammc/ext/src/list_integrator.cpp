@@ -48,6 +48,8 @@ static void list_integrator_list(t_list_integrator* x, t_symbol* s, int argc, t_
     
     outlet_list(x->x_obj.te_outlet, s, argc, argv);
     
+    free(temp_list);
+    
 }
 
 static void* list_integrator_new()
