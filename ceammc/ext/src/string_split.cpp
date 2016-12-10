@@ -1,5 +1,6 @@
 #include "ceammc.h"
 #include <glib.h>
+#include <stdlib.h>
 #include <m_pd.h>
 #include <string>
 #include <vector>
