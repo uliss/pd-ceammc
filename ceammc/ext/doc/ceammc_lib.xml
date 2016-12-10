@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library xmlns:xi="http://www.w3.org/2001/XInclude" name="ceammc" version="1.0">
+  <category name="list">
+    <entry descr="modifies list value at specified position, filtering it via external object." name="list.apply_to">
+      <xi:include href="/Users/serj/work/music/pure-data/ceammc/ext/doc/list.apply_to.pddoc" parse="xml"/>
+    </entry>
+  </category>
   <category name="predicates">
     <entry descr="checks if input data has *any* type" name="is_any">
       <xi:include href="/Users/serj/work/music/pure-data/ceammc/ext/doc/is_any.pddoc" parse="xml"/>
