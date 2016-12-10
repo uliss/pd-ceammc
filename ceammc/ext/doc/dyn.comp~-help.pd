@@ -10,8 +10,8 @@
 #X obj 50 205 *~ 20;
 #X obj 126 205 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 234 dyn.comp~ 3 90 10 100;
-#X obj 50 262 dac~ 1;
+#X obj 50 234 dyn.comp~ 3 90 10 100 id;
+#X obj 50 262 dac~;
 #X obj 165 262 print;
 #X obj 20 301 cnv 1 640 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 311 cnv 10 100 20 empty empty arguments: 17 9 0 14 -262144
@@ -82,6 +82,7 @@ https://github.com/uliss/pure-data;
 #X connect 9 1 11 0;
 #X connect 6 0 9 0;
 #X connect 9 0 10 0;
+#X connect 9 0 10 1;
 #X connect 2 0 3 0;
 #X connect 7 0 9 0;
 #X connect 4 0 6 0;

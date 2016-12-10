@@ -7,10 +7,11 @@
 #X obj 20 135 *~ 20;
 #X obj 96 135 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 20 164 dyn.comp~ 3 90 10 100;
-#X obj 20 192 dac~ 1;
+#X obj 20 164 dyn.comp~ 3 90 10 100 id;
+#X obj 20 192 dac~;
 #X obj 135 192 print;
 #X connect 7 1 9 0;
+#X connect 7 0 8 1;
 #X connect 5 0 7 0;
 #X connect 2 0 4 0;
 #X connect 6 0 7 0;

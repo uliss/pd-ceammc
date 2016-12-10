@@ -56,9 +56,9 @@
 |             [prepend ratio]
 [*~ 20] [bng] |
 |       |     |
-[dyn.comp2~ 3 90 10 100 #id]
-|    ^|.  ^^|
-[dac~  ]    [print]
+[dyn.comp2~ 3 90 10 100 id]
+|    ^|.       ^^|
+[dac~  ]       [print]
 
                 ]]>
             </pdascii>
