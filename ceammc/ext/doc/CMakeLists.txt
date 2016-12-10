@@ -3,6 +3,7 @@ find_program(PD_MAKELIB pd_makelibrary)
 find_program(PD_LIB2PD pd_lib2pd)
 
 set(DOC_FILES
+    dyn.comp2~
     is_any
     is_bang
     is_float

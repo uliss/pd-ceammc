@@ -13,7 +13,7 @@
             <keywords>list functional</keywords>
         </meta>
         <arguments>
-            <argument type="int">index</argument>
+            <argument name="index" type="int">position index</argument>
         </arguments>
         <inlets>
             <inlet>

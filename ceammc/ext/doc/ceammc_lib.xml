@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library xmlns:xi="http://www.w3.org/2001/XInclude" name="ceammc" version="1.0">
+  <category name="dyn">
+    <entry descr="stereo dynamic range compressor" name="dyn.comp2~">
+      <xi:include href="/Users/serj/work/music/pure-data/ceammc/ext/doc/dyn.comp2~.pddoc" parse="xml"/>
+    </entry>
+  </category>
   <category name="list">
     <entry descr="modifies list value at specified position, filtering it via external object." name="list.apply_to">
       <xi:include href="/Users/serj/work/music/pure-data/ceammc/ext/doc/list.apply_to.pddoc" parse="xml"/>

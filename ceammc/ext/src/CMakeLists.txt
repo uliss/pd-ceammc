@@ -209,7 +209,7 @@ ceammc_faust_extension(flt c_peak simple_pd_control_ext)
 ceammc_faust_extension(flt c_lowshelf simple_pd_control_ext)
 ceammc_faust_extension(flt c_highshelf simple_pd_control_ext)
 
-ceammc_faust_extension(dyn comp simple_pd_control_ext)
+ceammc_faust_extension(dyn comp2 simple_pd_control_ext)
 ceammc_faust_extension(dyn limit simple_pd_control_ext)
 ceammc_faust_extension(dyn gate simple_pd_control_ext)
 
