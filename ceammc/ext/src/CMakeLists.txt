@@ -9,6 +9,84 @@ add_custom_target(ceammc_generate_math
     COMMAND ${CMAKE_SOURCE_DIR}/ceammc/py/generate_math.py
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 
+    
+macro(ceammc_extension module name ext)
+    pd_add_extension(NAME "${module}.${name}" 
+        FILES "${module}_${name}.${ext}"
+        INTERNAL True
+        LIBRARY ceammc
+        LINK ceammc_static)
+endmacro()    
+    
+macro(ceammc_c_extension module name)
+    ceammc_extension(${module} ${name} c)
+endmacro()
+
+macro(ceammc_cxx_extension module name)
+    ceammc_extension(${module} ${name} cpp)
+endmacro()
+
+macro(ceammc_cxx11_extension module name)
+    set(CMAKE_CXX_STANDARD 11)
+    ceammc_extension(${module} ${name} cpp)
+endmacro()
+
+macro(ceammc_extension_ module name ext)
+    pd_add_extension(NAME "${module}_${name}"
+        FILES "${module}_${name}.${ext}"
+        INTERNAL True
+        LIBRARY ceammc
+        LINK ceammc_static)
+endmacro()
+
+macro(ceammc_c_extension_ module name)
+    ceammc_extension_(${module} ${name} c)
+endmacro()
+
+macro(ceammc_cxx_extension_ module name)
+    ceammc_extension_(${module} ${name} cpp)
+endmacro()
+
+macro(ceammc_apple_link_fix module name)
+    add_custom_command(TARGET "${module}.${name}" POST_BUILD
+        COMMAND bash ${CMAKE_CURRENT_SOURCE_DIR}/apple_poco_path_fix.sh
+                $<TARGET_FILE:${module}.${name}>
+                ${CMAKE_CURRENT_BINARY_DIR})
+endmacro()
+
+macro(ceammc_glib_extension module name)
+    pd_add_extension(NAME "${module}.${name}"
+        FILES "${module}_${name}.cpp" INTERNAL True
+        LINK ${GLIB_LIBRARIES})
+
+    if(APPLE)
+        ceammc_apple_link_fix(${module} ${name})
+    endif()
+endmacro()
+
+macro(ceammc_glib_extension_ module name)
+    pd_add_extension(NAME "${module}_${name}"
+        FILES "${module}_${name}.cpp" INTERNAL True
+        LINK ${GLIB_LIBRARIES})
+
+    if(APPLE)
+        ceammc_apple_link_fix(${module} ${name})
+    endif()
+endmacro()
+
+macro(ceammc_faust_extension module name ext)
+    add_custom_target("faust_${module}_${name}"
+        COMMAND ${FAUST_BIN} -vec -vs 64 -i
+            -a ${CMAKE_SOURCE_DIR}/ceammc/faust/${ext}.cpp
+            -cn ${name}
+            "${CMAKE_SOURCE_DIR}/ceammc/faust/${module}_${name}.dsp"
+            -o ${CMAKE_CURRENT_SOURCE_DIR}/${module}_${name}.h)
+
+    pd_add_extension(NAME "${module}.${name}~"
+        FILES "${module}_${name}.cpp" INTERNAL TRUE)
+endmacro()
+
+
 ###############################
 # MATH
 ###############################
@@ -78,6 +156,24 @@ ceammc_cxx_extension(list pack)
 ceammc_c_extension(list unpack)
 ceammc_cxx_extension(list gen)
 ceammc_cxx_extension(list zip)
+
+ceammc_cxx_extension(list change)
+ceammc_cxx_extension(list delta)
+ceammc_cxx_extension(list integrator)
+ceammc_cxx_extension(list stretch)
+ceammc_cxx_extension(list shift)
+
+ceammc_cxx_extension(list unwrap)
+ceammc_cxx_extension(list wrap)
+
+ceammc_cxx_extension(vector length)
+ceammc_cxx_extension(vector normalize)
+ceammc_cxx_extension(vector distance)
+ceammc_cxx_extension(vector dot)
+
+ceammc_cxx11_extension(json object)
+
+ceammc_cxx_extension(exp patchdata)
 
 # STREAM
 ceammc_cxx_extension(reject if)
@@ -149,6 +245,11 @@ if(GLIB_FOUND)
     ceammc_glib_extension(string to_lower)
     ceammc_glib_extension(string to_upper)
 
+    ceammc_glib_extension(string join)
+    ceammc_glib_extension(string slice)
+    ceammc_glib_extension(string compare)
+    ceammc_glib_extension(string split)
+
     ceammc_glib_extension(system hostname)
     ceammc_glib_extension(system getenv)
     ceammc_glib_extension__(is file)
@@ -165,6 +266,36 @@ ceammc_faust_extension(lfo impulse simple_pd_ext)
 ceammc_faust_extension(lfo tri simple_pd_ext)
 ceammc_faust_extension(lfo square simple_pd_ext)
 ceammc_faust_extension(osc sinfb simple_pd_control_ext)
+
+ceammc_faust_extension(fx softclip simple_pd_control_ext)
+ceammc_faust_extension(fx envfollow simple_pd_control_ext)
+ceammc_faust_extension(fx freqshift simple_pd_control_ext)
+ceammc_faust_extension(fx pitchshift simple_pd_control_ext)
+ceammc_faust_extension(fx dcblock simple_pd_control_ext)
+
+ceammc_faust_extension(eq lowshelf simple_pd_control_ext)
+ceammc_faust_extension(eq highshelf simple_pd_control_ext)
+ceammc_faust_extension(eq peak simple_pd_control_ext)
+
+ceammc_faust_extension(flt biquad simple_pd_control_ext)
+ceammc_faust_extension(flt c_lpf simple_pd_control_ext)
+ceammc_faust_extension(flt c_hpf simple_pd_control_ext)
+ceammc_faust_extension(flt c_bpf simple_pd_control_ext)
+ceammc_faust_extension(flt c_peak simple_pd_control_ext)
+ceammc_faust_extension(flt c_lowshelf simple_pd_control_ext)
+ceammc_faust_extension(flt c_highshelf simple_pd_control_ext)
+
+ceammc_faust_extension(dyn comp simple_pd_control_ext)
+ceammc_faust_extension(dyn limit simple_pd_control_ext)
+ceammc_faust_extension(dyn gate simple_pd_control_ext)
+
+ceammc_faust_extension(spat pan2 simple_pd_control_ext)
+ceammc_faust_extension(spat pan4 simple_pd_control_ext)
+
+ceammc_faust_extension(osc bsaw simple_pd_control_ext)
+ceammc_faust_extension(osc bsqr simple_pd_control_ext)
+ceammc_faust_extension(osc btri simple_pd_control_ext)
+
 
 ceammc_faust_extension(env adsr simple_pd_control_ext)
 
