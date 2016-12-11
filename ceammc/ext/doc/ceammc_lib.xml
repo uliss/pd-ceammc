@@ -2,43 +2,43 @@
 <library xmlns:xi="http://www.w3.org/2001/XInclude" name="ceammc" version="1.0">
   <category name="dyn">
     <entry descr="stereo dynamic range compressor" name="dyn.comp2~">
-      <xi:include href="/Users/serj/work/music/pure-data/ceammc/ext/doc/dyn.comp2~.pddoc" parse="xml"/>
+      <xi:include href="dyn.comp2~.pddoc" parse="xml"/>
     </entry>
     <entry descr="mono dynamic range compressors" name="dyn.comp~">
-      <xi:include href="/Users/serj/work/music/pure-data/ceammc/ext/doc/dyn.comp~.pddoc" parse="xml"/>
+      <xi:include href="dyn.comp~.pddoc" parse="xml"/>
     </entry>
   </category>
   <category name="list">
     <entry descr="modifies list value at specified position, filtering it via external object." name="list.apply_to">
-      <xi:include href="/Users/serj/work/music/pure-data/ceammc/ext/doc/list.apply_to.pddoc" parse="xml"/>
+      <xi:include href="list.apply_to.pddoc" parse="xml"/>
     </entry>
   </category>
   <category name="predicates">
     <entry descr="checks if input data has *any* type" name="is_any">
-      <xi:include href="/Users/serj/work/music/pure-data/ceammc/ext/doc/is_any.pddoc" parse="xml"/>
+      <xi:include href="is_any.pddoc" parse="xml"/>
     </entry>
     <entry descr="checks if input data has *bang* type" name="is_bang">
-      <xi:include href="/Users/serj/work/music/pure-data/ceammc/ext/doc/is_bang.pddoc" parse="xml"/>
+      <xi:include href="is_bang.pddoc" parse="xml"/>
     </entry>
     <entry descr="checks if input number is even" name="is_even">
-      <xi:include href="/Users/serj/work/music/pure-data/ceammc/ext/doc/is_even.pddoc" parse="xml"/>
+      <xi:include href="is_even.pddoc" parse="xml"/>
     </entry>
     <entry descr="checks if input data has *float* type" name="is_float">
-      <xi:include href="/Users/serj/work/music/pure-data/ceammc/ext/doc/is_float.pddoc" parse="xml"/>
+      <xi:include href="is_float.pddoc" parse="xml"/>
     </entry>
     <entry descr="checks if input data has *list* type" name="is_list">
-      <xi:include href="/Users/serj/work/music/pure-data/ceammc/ext/doc/is_list.pddoc" parse="xml"/>
+      <xi:include href="is_list.pddoc" parse="xml"/>
     </entry>
     <entry descr="checks if input data has *symbol* type" name="is_symbol">
-      <xi:include href="/Users/serj/work/music/pure-data/ceammc/ext/doc/is_symbol.pddoc" parse="xml"/>
+      <xi:include href="is_symbol.pddoc" parse="xml"/>
     </entry>
   </category>
   <category name="system">
     <entry descr="returns the size of physical memory (RAM) in bytes round to float data type." name="system.memsize">
-      <xi:include href="/Users/serj/work/music/pure-data/ceammc/ext/doc/system.memsize.pddoc" parse="xml"/>
+      <xi:include href="system.memsize.pddoc" parse="xml"/>
     </entry>
     <entry descr="returns the process physical memory use - current and peak" name="system.memused">
-      <xi:include href="/Users/serj/work/music/pure-data/ceammc/ext/doc/system.memused.pddoc" parse="xml"/>
+      <xi:include href="system.memused.pddoc" parse="xml"/>
     </entry>
   </category>
 </library>
