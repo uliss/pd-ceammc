@@ -1,0 +1,12 @@
+#N canvas 0 0 600 500 12;
+#X obj 1 1 cnv 15 597 40 empty empty ceammc::list 20 20 0 20 -104026
+-4096 0;
+#X text 20 50  objects for list processing ;
+#X obj 20 75 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 90 list.apply_to;
+#X text 150 90 modifies list value at specified position \, filtering
+it via external object\.;
+#X obj 1 458 cnv 15 597 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 460 library: ;
+#X obj 80 460 pddp/pddplink ceammc-help.pd -text ceammc;
+#X text 20 478 version: 0\.1;

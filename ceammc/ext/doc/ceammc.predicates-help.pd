@@ -1,0 +1,19 @@
+#N canvas 0 0 600 500 12;
+#X obj 1 1 cnv 15 597 40 empty empty ceammc::predicates 20 20 0 20
+-104026 -4096 0;
+#X obj 20 50 is_any;
+#X text 150 50 checks if input data has *any* type;
+#X obj 20 77 is_bang;
+#X text 150 77 checks if input data has *bang* type;
+#X obj 20 104 is_even;
+#X text 150 104 checks if input number is even;
+#X obj 20 131 is_float;
+#X text 150 131 checks if input data has *float* type;
+#X obj 20 158 is_list;
+#X text 150 158 checks if input data has *list* type;
+#X obj 20 185 is_symbol;
+#X text 150 185 checks if input data has *symbol* type;
+#X obj 1 458 cnv 15 597 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 460 library: ;
+#X obj 80 460 pddp/pddplink ceammc-help.pd -text ceammc;
+#X text 20 478 version: 0\.1;

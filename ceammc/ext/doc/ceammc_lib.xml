@@ -12,6 +12,7 @@
     <entry descr="modifies list value at specified position, filtering it via external object." name="list.apply_to">
       <xi:include href="list.apply_to.pddoc" parse="xml"/>
     </entry>
+    <xi:include href="ceammc_category_list.xml" parse="xml"/>
   </category>
   <category name="predicates">
     <entry descr="checks if input data has *any* type" name="is_any">
@@ -41,4 +42,12 @@
       <xi:include href="system.memused.pddoc" parse="xml"/>
     </entry>
   </category>
+  <meta>
+    <version>0.1</version>
+    <authors>
+      <author>Alex Nadzharov</author>
+      <author>Serge Poltavsky</author>
+    </authors>
+    <xi:include href="ceammc_meta.xml" parse="xml"/>
+  </meta>
 </library>

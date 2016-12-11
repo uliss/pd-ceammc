@@ -49,7 +49,10 @@ else()
     add_custom_command(
         OUTPUT "ceammc_lib.xml"
         DEPENDS ${DOC_PDDOC_FILES}
-        COMMAND ${PD_MAKELIB} --library ceammc --output "ceammc_lib.xml" ${DOC_PDDOC_FILES}
+        COMMAND ${PD_MAKELIB}
+            --library ceammc
+            --version "${CEAMMC_LIB_VERSION}"
+            --output "ceammc_lib.xml" ${DOC_PDDOC_FILES}
         WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
 
     add_custom_command(
