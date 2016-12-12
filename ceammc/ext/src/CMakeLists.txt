@@ -2,6 +2,7 @@ include(faust)
 include(ceammc_pd.cmake)
 
 add_library(ceammc_static STATIC ceammc.c ceammc.cpp)
+add_library(timeline SHARED tl_lib.cpp)
 set_target_properties(ceammc_static PROPERTIES
     COMPILE_FLAGS ${PD_EXTERNAL_CFLAGS})
 
@@ -9,15 +10,15 @@ add_custom_target(ceammc_generate_math
     COMMAND ${CMAKE_SOURCE_DIR}/ceammc/py/generate_math.py
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 
-    
+
 macro(ceammc_extension module name ext)
-    pd_add_extension(NAME "${module}.${name}" 
+    pd_add_extension(NAME "${module}.${name}"
         FILES "${module}_${name}.${ext}"
         INTERNAL True
         LIBRARY ceammc
         LINK ceammc_static)
-endmacro()    
-    
+endmacro()
+
 macro(ceammc_c_extension module name)
     ceammc_extension(${module} ${name} c)
 endmacro()
@@ -29,6 +30,14 @@ endmacro()
 macro(ceammc_cxx11_extension module name)
     set(CMAKE_CXX_STANDARD 11)
     ceammc_extension(${module} ${name} cpp)
+endmacro()
+
+macro(ceammc_cxx_tl_extension module name)
+    pd_add_extension(NAME "${module}.${name}"
+      FILES "${module}_${name}.cpp"
+      INTERNAL True
+      LIBRARY ceammc
+      LINK timeline)
 endmacro()
 
 macro(ceammc_extension_ module name ext)
@@ -171,6 +180,14 @@ ceammc_cxx_extension(vector normalize)
 ceammc_cxx_extension(vector distance)
 ceammc_cxx_extension(vector dot)
 
+# TIMELINE
+
+ceammc_cxx_tl_extension(tl transport)
+ceammc_cxx_tl_extension(tl bang)
+ceammc_cxx_tl_extension(tl cue)
+
+# JSON
+
 ceammc_cxx11_extension(json object)
 
 ceammc_cxx_extension(exp patchdata)
@@ -209,7 +226,7 @@ ceammc_cxx_extension__(is pointer)
 include(FindLibSndFile)
 if(LIBSNDFILE_FOUND)
     include_directories(${LIBSNDFILE_INCLUDE_DIRS})
-#    pd_add_extension(NAME ffmpeg FILES ffmpeg.cpp 
+#    pd_add_extension(NAME ffmpeg FILES ffmpeg.cpp
 #    INTERNAL True LINK ceammc_static ${LIBSNDFILE_LIBRARIES})
 endif()
 
@@ -298,5 +315,3 @@ ceammc_faust_extension(osc btri simple_pd_control_ext)
 
 
 ceammc_faust_extension(env adsr simple_pd_control_ext)
-
-

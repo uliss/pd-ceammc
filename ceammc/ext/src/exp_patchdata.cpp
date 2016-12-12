@@ -13,34 +13,34 @@ struct t_exp_patchdata {
     t_outlet *out1;
 };
 
-extern t_pd *newest;
-
-//copied
-static t_canvas *clone_makeone(t_symbol *s, int argc, t_atom *argv)
-{
-    t_canvas *retval;
-    newest = 0;
-    typedmess(&pd_objectmaker, s, argc, argv);
-    if (newest == 0)
-    {
-        error("clone: can't create subpatch '%s'",
-              s->s_name);
-        return (0);
-    }
-    if (*newest != canvas_class)
-    {
-        error("clone: can't clone '%s' because it's not an abstraction",
-              s->s_name);
-        pd_free(newest);
-        newest = 0;
-        return (0);
-    }
-    retval = (t_canvas *)newest;
-    newest = 0;
-    retval->gl_owner = 0;
-    retval->gl_isclone = 1;
-    return (retval);
-}
+//extern t_pd *newest;
+//
+////copied
+//static t_canvas *clone_makeone(t_symbol *s, int argc, t_atom *argv)
+//{
+//    t_canvas *retval;
+//    newest = 0;
+//    typedmess(&pd_objectmaker, s, argc, argv);
+//    if (newest == 0)
+//    {
+//        error("clone: can't create subpatch '%s'",
+//              s->s_name);
+//        return (0);
+//    }
+//    if (*newest != canvas_class)
+//    {
+//        error("clone: can't clone '%s' because it's not an abstraction",
+//              s->s_name);
+//        pd_free(newest);
+//        newest = 0;
+//        return (0);
+//    }
+//    retval = (t_canvas *)newest;
+//    newest = 0;
+//    retval->gl_owner = 0;
+//    retval->gl_isclone = 1;
+//    return (retval);
+//}
 
 static void exp_patchdata_dump(t_exp_patchdata* x, t_symbol* s, int argc, t_atom *argv)
 {
@@ -92,8 +92,6 @@ static void exp_patchdata_dump(t_exp_patchdata* x, t_symbol* s, int argc, t_atom
 static void* exp_patchdata_new()
 {
     //printf("new\n");
-    
-    
     
     t_exp_patchdata* x = reinterpret_cast<t_exp_patchdata*>(pd_new(exp_patchdata_class));
     
