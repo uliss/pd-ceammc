@@ -32,6 +32,26 @@
             </argument>
             <argument name="ID" type="symbol">object ID for OSC control path</argument>
         </arguments>
+        <methods>
+            <method name="ratio">
+                <param type="float">compression ratio (1 = no compression, >1 means compression)</param>
+            </method>
+            <method name="threshold">
+                <param type="float" units="decibel">
+                level threshold above which compression kicks in (100 dB = max level)
+                </param>
+            </method>
+            <method name="attack">
+                <param type="float" units="millisecond">
+                time constant when level &amp; compression going up
+                </param>
+            </method>
+            <method name="release">
+                <param type="float" units="millisecond">
+                release time = time constant coming out of compression
+                </param>
+            </method>
+        </methods>
         <inlets>
             <inlet type="audio">
                 <xinfo>input signal</xinfo>
