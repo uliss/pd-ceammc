@@ -11,7 +11,7 @@ add_custom_target(ceammc_generate_math
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 
 
-<<<<<<< HEAD
+
 macro(ceammc_extension module name ext)
     pd_add_extension(NAME "${module}.${name}"
         FILES "${module}_${name}.${ext}"
@@ -97,8 +97,7 @@ macro(ceammc_faust_extension module name ext)
 endmacro()
 
 
-=======
->>>>>>> uliss/ceammc
+
 ###############################
 # MATH
 ###############################
@@ -184,7 +183,7 @@ ceammc_cxx_extension(vector normalize)
 ceammc_cxx_extension(vector distance)
 ceammc_cxx_extension(vector dot)
 
-<<<<<<< HEAD
+
 # TIMELINE
 
 ceammc_cxx_tl_extension(tl transport)
@@ -194,9 +193,6 @@ ceammc_cxx_tl_extension(tl cue)
 # JSON
 
 ceammc_cxx11_extension(json object)
-=======
-#ceammc_cxx11_extension(json object)
->>>>>>> uliss/ceammc
 
 ceammc_cxx_extension(exp patchdata)
 
@@ -309,26 +305,10 @@ ceammc_faust_extension(flt c_bpf simple_pd_control_ext)
 ceammc_faust_extension(flt c_peak simple_pd_control_ext)
 ceammc_faust_extension(flt c_lowshelf simple_pd_control_ext)
 ceammc_faust_extension(flt c_highshelf simple_pd_control_ext)
-<<<<<<< HEAD
-=======
+
 
 ceammc_faust_extension(dyn comp simple_pd_control_ext)
 ceammc_faust_extension(dyn comp2 simple_pd_control_ext)
-ceammc_faust_extension(dyn limit simple_pd_control_ext)
-ceammc_faust_extension(dyn gate simple_pd_control_ext)
-
-ceammc_faust_extension(spat pan2 simple_pd_control_ext)
-ceammc_faust_extension(spat pan4 simple_pd_control_ext)
-
-ceammc_faust_extension(osc bsaw simple_pd_control_ext)
-ceammc_faust_extension(osc bsqr simple_pd_control_ext)
-ceammc_faust_extension(osc btri simple_pd_control_ext)
-
-
-ceammc_faust_extension(env adsr simple_pd_control_ext)
->>>>>>> uliss/ceammc
-
-ceammc_faust_extension(dyn comp simple_pd_control_ext)
 ceammc_faust_extension(dyn limit simple_pd_control_ext)
 ceammc_faust_extension(dyn gate simple_pd_control_ext)
 

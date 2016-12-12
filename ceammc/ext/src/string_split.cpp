@@ -1,9 +1,6 @@
 #include "ceammc.h"
 #include <glib.h>
-<<<<<<< HEAD
-=======
 #include <stdlib.h>
->>>>>>> uliss/ceammc
 #include <m_pd.h>
 #include <string>
 #include <vector>
@@ -39,12 +36,12 @@ static void string_split_symbol(t_string_split* x, t_symbol* s)
 
     std::string str1 = s->s_name;
     std::string del1 = x->str2->s_name;
-    
+
     std::vector<std::string> vec = string_split(str1, del1.c_str()[0]);
-    
+
     x->out1count = (int)vec.size();
     x->out1 = (t_atom*)malloc(sizeof(t_atom)*x->out1count);
-  
+
     std::vector<std::string>::iterator it;
     int i=0;
     for (it = vec.begin(); it != vec.end(); ++it)
@@ -54,20 +51,20 @@ static void string_split_symbol(t_string_split* x, t_symbol* s)
         printf("%s\n",it->c_str());
         i++;
     }
-    
+
     outlet_list(x->outlet1, &s_list, x->out1count, x->out1);
 }
 
 static void* string_split_new()
 {
     t_string_split* x = reinterpret_cast<t_string_split*>(pd_new(string_split_class));
-    
+
     symbolinlet_new(&x->x_obj, &x->str2);
-    
+
     x->str2 = gensym(" ");
-    
+
     x->outlet1 = outlet_new(&x->x_obj, &s_list);
-    
+
     x->out1 = (t_atom*)malloc(0);    //dummy
     return static_cast<void*>(x);
 }
@@ -78,6 +75,6 @@ extern "C" void setup_string0x2esplit()
         reinterpret_cast<t_newmethod>(string_split_new),
         reinterpret_cast<t_method>(0),
         sizeof(t_string_split), 0, A_NULL);
-    
+
     class_addsymbol(string_split_class, string_split_symbol);
 }

@@ -8,10 +8,10 @@
 t_class* list_wrap_class;
 struct t_list_wrap {
     t_object x_obj;
-    
+
     t_atom *outlist1;
     t_atom *outlist2;
-    
+
     t_outlet *out1;
     t_outlet *out2;
 };
@@ -21,13 +21,13 @@ static void list_wrap_list(t_list_wrap* x, t_symbol* s, int argc, t_atom* argv)
 {
     if (argc < 1 )
         return;
-    
+
     t_atom *temp1 = (t_atom*)malloc(sizeof(t_atom)*argc);
     t_atom *temp2 = (t_atom*)malloc(sizeof(t_atom)*argc);
     t_atom *prev = (t_atom*)malloc(sizeof(t_atom));
-    
+
     int j=1, k=0;
-    
+
     for (int i=0;i<argc;i++)
     {
         if (argv[i].a_w.w_float != prev->a_w.w_float)
@@ -37,7 +37,7 @@ static void list_wrap_list(t_list_wrap* x, t_symbol* s, int argc, t_atom* argv)
             temp1[k].a_w.w_float = argv[i].a_w.w_float;
             temp2[k].a_w.w_float = j;
             temp2[k].a_type = A_FLOAT;
-            
+
             k++;
         }
         else
@@ -45,15 +45,15 @@ static void list_wrap_list(t_list_wrap* x, t_symbol* s, int argc, t_atom* argv)
             j++;
             temp2[k-1].a_w.w_float = j;
         }
-        
+
         prev->a_w.w_float = argv[i].a_w.w_float;
     }
-    
+
     free(x->outlist1);
     free(x->outlist2);
     x->outlist1 = (t_atom*)malloc(sizeof(t_atom)*k);
     x->outlist2 = (t_atom*)malloc(sizeof(t_atom)*k);
-    
+
     // ?
     for (int i =0; i<k; i++)
     {
@@ -62,30 +62,27 @@ static void list_wrap_list(t_list_wrap* x, t_symbol* s, int argc, t_atom* argv)
         x->outlist1[i].a_w.w_float = temp1[i].a_w.w_float;
         x->outlist2[i].a_w.w_float = temp2[i].a_w.w_float;
     }
-    
+
     outlet_list(x->out1, &s_list, k, x->outlist1);
     outlet_list(x->out2, &s_list, k, x->outlist2);
-    
+
     free(temp1);
     free(temp2);
-<<<<<<< HEAD
     free(prev);
-=======
->>>>>>> uliss/ceammc
     
 }
 
 static void* list_wrap_new()
 {
     t_list_wrap* x = reinterpret_cast<t_list_wrap*>(pd_new(list_wrap_class));
-    
+
     x->out1 = outlet_new(&x->x_obj, &s_list);
     x->out2 = outlet_new(&x->x_obj, &s_list);
-    
-    
+
+
     x->outlist1 = (t_atom*)malloc(0);    //dummy
     x->outlist2 = (t_atom*)malloc(0);    //dummy
-    
+
     return static_cast<void*>(x);
 }
 
@@ -96,7 +93,7 @@ extern "C" void setup_list0x2ewrap()
                                       reinterpret_cast<t_method>(0),
                                       sizeof(t_list_wrap), 0, A_NULL);
     class_addlist(list_wrap_class, list_wrap_list);
-    
-    
-    
+
+
+
 }
