@@ -13,6 +13,9 @@
     <entry descr="mono signal gate" name="dyn.gate~">
       <xi:include href="dyn.gate~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="1176LN Peak Limiter" name="dyn.limit~">
+      <xi:include href="dyn.limit~.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="list">
     <entry descr="modifies list value at specified position, filtering it via external object." name="list.apply_to">

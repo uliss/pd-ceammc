@@ -2,6 +2,7 @@ dyn.comp2~		~~		~~.
 dyn.comp~		~		~.
 dyn.gate2~		~~		~~.
 dyn.gate~		~		~.
+dyn.limit~		~		~.
 is_any		.		..
 is_bang		.		..
 is_even		.		..

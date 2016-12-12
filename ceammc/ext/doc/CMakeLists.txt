@@ -8,6 +8,7 @@ set(DOC_FILES
     dyn.comp2~
     dyn.gate~
     dyn.gate2~
+    dyn.limit~
     is_any
     is_bang
     is_float

@@ -12,41 +12,43 @@ purposes in centre of electroacoustic music of Moscow Convervatory
 #X text 150 195 stereo signal gate;
 #X obj 30 222 dyn.gate~;
 #X text 150 222 mono signal gate;
-#X obj 20 249 cnv 5 37 19 empty empty list 0 17 0 17 -262144 -49933 0;
-#X obj 20 278 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 289 list.apply_to;
-#X text 150 289 modifies list value at specified position \, filtering
+#X obj 30 249 dyn.limit~;
+#X text 150 249 1176LN Peak Limiter;
+#X obj 20 276 cnv 5 37 19 empty empty list 0 17 0 17 -262144 -49933 0;
+#X obj 20 305 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 316 list.apply_to;
+#X text 150 316 modifies list value at specified position \, filtering
 it via external object\.;
-#X obj 20 326 cnv 5 28 19 empty empty osc 0 17 0 17 -262144 -49933 0;
-#X obj 20 355 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 366 osc.sinfb~;
-#X text 150 366 sine oscilator with feedback;
-#X obj 20 393 cnv 5 99 19 empty empty predicates 0 17 0 17 -262144
+#X obj 20 353 cnv 5 28 19 empty empty osc 0 17 0 17 -262144 -49933 0;
+#X obj 20 382 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 393 osc.sinfb~;
+#X text 150 393 sine oscilator with feedback;
+#X obj 20 420 cnv 5 99 19 empty empty predicates 0 17 0 17 -262144
 -49933 0;
-#X obj 20 422 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 433 is_any;
-#X text 150 433 checks if input data has *any* type;
-#X obj 30 460 is_bang;
-#X text 150 460 checks if input data has *bang* type;
-#X obj 30 487 is_even;
-#X text 150 487 checks if input number is even;
-#X obj 30 514 is_float;
-#X text 150 514 checks if input data has *float* type;
-#X obj 30 541 is_list;
-#X text 150 541 checks if input data has *list* type;
-#X obj 30 568 is_symbol;
-#X text 150 568 checks if input data has *symbol* type;
-#X obj 20 595 cnv 5 58 19 empty empty system 0 17 0 17 -262144 -49933
+#X obj 20 449 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 460 is_any;
+#X text 150 460 checks if input data has *any* type;
+#X obj 30 487 is_bang;
+#X text 150 487 checks if input data has *bang* type;
+#X obj 30 514 is_even;
+#X text 150 514 checks if input number is even;
+#X obj 30 541 is_float;
+#X text 150 541 checks if input data has *float* type;
+#X obj 30 568 is_list;
+#X text 150 568 checks if input data has *list* type;
+#X obj 30 595 is_symbol;
+#X text 150 595 checks if input data has *symbol* type;
+#X obj 20 622 cnv 5 58 19 empty empty system 0 17 0 17 -262144 -49933
 0;
-#X obj 20 624 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 635 system.memsize;
-#X text 150 635 returns the size of physical memory (RAM) in bytes
+#X obj 20 651 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 662 system.memsize;
+#X text 150 662 returns the size of physical memory (RAM) in bytes
 round to float data type\.;
-#X obj 30 672 system.memused;
-#X text 150 672 returns the process physical memory use - current and
+#X obj 30 699 system.memused;
+#X text 150 699 returns the process physical memory use - current and
 peak;
 #X obj 1 1 cnv 5 597 40 empty empty ceammc 20 20 0 20 -104026 -4096 0;
-#X obj 1 699 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 699 version: v0\.1 \, license: GPL3;
-#X obj 20 715 pddp/pddplink https://github.com/uliss/pure-data -text
+#X obj 1 726 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 726 version: v0\.1 \, license: GPL3;
+#X obj 20 742 pddp/pddplink https://github.com/uliss/pure-data -text
 https://github.com/uliss/pure-data;
