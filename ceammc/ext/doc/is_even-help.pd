@@ -1,16 +1,16 @@
 #N canvas 0 0 685 555 12;
-#X obj 431 50 cnv 15 222 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 431 50 checks if input number is even;
-#X obj 1 1 cnv 10 682 40 empty empty is_even 10 18 0 20 -104026 -4096
+#X obj 443 50 cnv 1 222 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 443 50 checks if input number is even;
+#X obj 1 1 cnv 5 682 40 empty empty is_even 20 20 0 20 -104026 -4096
 0;
-#X obj 607 11 is_even;
+#X obj 610 11 is_even;
 #X floatatom 50 118 5 0 0 0 - - -;
 #X obj 50 147 is_even;
 #X floatatom 50 176 5 0 0 0 - - -;
 #X obj 174 176 print passed;
-#X obj 20 215 cnv 1 640 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 225 cnv 10 100 20 empty empty inlets: 17 9 0 14 -262144
--49933 0;
+#X obj 20 215 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 220 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
+0;
 #X text 125 225 1\.;
 #X text 150 225 *int*;
 #X text 230 225 outputs '1' if number can be divided exactly by 2 \,
@@ -18,21 +18,25 @@ otherwise '0';
 #X text 150 257 *float*;
 #X text 230 257 value converted to integer \, then the check is
 performed;
-#X obj 20 285 cnv 1 640 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 295 cnv 10 100 20 empty empty outlets: 17 9 0 14 -262144
+#X obj 20 285 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 290 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;
 #X text 125 295 1\.;
 #X text 230 295 0 or 1;
 #X text 125 313 2\.;
 #X text 230 313 passed even numbers;
-#X obj 10 45 pddp/pddplink ceammc-help.pd -text ceammc::;
-#X obj 73 45 pddp/pddplink ceammc.predicates-help.pd -text predicates;
-#X obj 1 505 cnv 15 682 48 empty empty empty 17 7 0 10 -183085 -1 0;
+#X obj 10 45 pddp/pddplink ../index-help.pd -text index;
+#X text 51 45 ::;
+#X obj 67 45 pddp/pddplink ceammc-help.pd -text ceammc;
+#X text 115 45 ::;
+#X obj 131 45 pddp/pddplink ceammc.predicates-help.pd -text
+predicates;
+#X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X obj 617 525 is_odd;
-#X text 547 527 see also:;
+#X text 557 520 see also:;
+#X obj 627 520 is_odd;
 #N canvas 10 527 400 250 info 0;
-#X obj 1 1 cnv 15 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
+#X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
