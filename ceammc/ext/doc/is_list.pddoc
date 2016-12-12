@@ -17,6 +17,7 @@
                 <see>is_symbol</see>
                 <see>is_float</see>
             </also>
+            <since>0.1</since>
         </meta>
         <inlets>
             <inlet>

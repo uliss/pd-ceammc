@@ -1,5 +1,9 @@
 #include "ceammc.h"
 #include <glib.h>
+<<<<<<< HEAD
+=======
+#include <stdlib.h>
+>>>>>>> uliss/ceammc
 #include <m_pd.h>
 #include <string>
 #include <vector>

@@ -1,14 +1,18 @@
 find_program(PD_DOC2PD pd_doc2pd)
 find_program(PD_MAKELIB pd_makelibrary)
 find_program(PD_LIB2PD pd_lib2pd)
+find_program(PD_CAT2PD pd_cat2pd)
 
 set(DOC_FILES
+    dyn.comp~
+    dyn.comp2~
     is_any
     is_bang
     is_float
     is_symbol
     is_list
     is_even
+    list.apply_to
     system.memsize
     system.memused)
 
@@ -46,7 +50,10 @@ else()
     add_custom_command(
         OUTPUT "ceammc_lib.xml"
         DEPENDS ${DOC_PDDOC_FILES}
-        COMMAND ${PD_MAKELIB} --library ceammc --output "ceammc_lib.xml" ${DOC_PDDOC_FILES}
+        COMMAND ${PD_MAKELIB}
+            --library ceammc
+            --version "${CEAMMC_LIB_VERSION}"
+            --output "ceammc_lib.xml" ${DOC_PDDOC_FILES}
         WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
 
     add_custom_command(
@@ -56,7 +63,12 @@ else()
         WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
 
     add_custom_target(ceammc_pddoc
-        DEPENDS ${DOC_PD_FILES} "ceammc.db" "ceammc_lib.xml" "ceammc-help.pd"
+        DEPENDS ${DOC_PD_FILES} "ceammc.db" "ceammc_lib.xml" "ceammc-help.pd" ceammc_pddoc_cat
+        WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
+
+    add_custom_target(ceammc_pddoc_cat
+        DEPENDS ${DOC_PD_FILES} "ceammc_lib.xml"
+        COMMAND pd_cat2pd "ceammc_lib.xml"
         WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
 endif()
 

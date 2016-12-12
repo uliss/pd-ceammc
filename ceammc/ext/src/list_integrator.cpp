@@ -48,8 +48,11 @@ static void list_integrator_list(t_list_integrator* x, t_symbol* s, int argc, t_
     
     outlet_list(x->x_obj.te_outlet, s, argc, argv);
     
+<<<<<<< HEAD
     free(temp_list);
     
+=======
+>>>>>>> uliss/ceammc
 }
 
 static void* list_integrator_new()

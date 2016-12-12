@@ -1,10 +1,16 @@
 #include "ceammc.h"
 #include <m_pd.h>
+<<<<<<< HEAD
 //#include <stdlib.h>
 //#include <vector>
 //#include "json.hpp"
 
 #include "ceammc_json_objects.hpp"
+=======
+#include <stdlib.h>
+#include <vector>
+#include "json.hpp"
+>>>>>>> uliss/ceammc
 
 #define MIN(a, b)  (((a) < (b)) ? (a) : (b))
 
@@ -12,6 +18,12 @@ using json = nlohmann::json;
 
 t_class* json_object_class;
 
+<<<<<<< HEAD
+=======
+typedef struct {t_symbol *symbol; json *object;} json_object_ptr;   //todo refcounter?
+std::vector<json_object_ptr> json_objects;
+
+>>>>>>> uliss/ceammc
 struct t_json_object {
     t_object x_obj;
     
@@ -24,7 +36,70 @@ struct t_json_object {
     t_outlet *outlet1, *outlet2;
 };
 
+<<<<<<< HEAD
 
+=======
+static inline json from_atom(t_atom atom)
+{
+    json ret = json::object();
+    
+    int at1 = (int)atom.a_type;
+    ret["type"] = at1;
+    ret["symbol"] = atom.a_w.w_symbol->s_name;
+    ret["float"] = atom.a_w.w_float;
+    
+    return ret;
+}
+
+static inline t_atom from_json(json in1)
+{
+    t_atom ret;
+    
+    ret.a_type = A_SYMBOL;
+    ret.a_w.w_symbol = gensym("<>");
+    
+    if (in1.is_object())
+    {
+        int at1 = in1["type"];
+        ret.a_type = (t_atomtype)at1;
+        std::string sym = in1["symbol"];
+        ret.a_w.w_symbol = gensym(sym.c_str());
+        ret.a_w.w_float = in1["float"];
+    }
+    
+    return ret;
+}
+
+static inline t_atom from_json_string(json in1)
+{
+    t_atom ret;
+    
+    ret.a_type = A_SYMBOL;
+    ret.a_w.w_symbol = gensym("<>");
+    
+    if (in1.is_string())
+    {
+        std::string sym = in1;
+        ret.a_w.w_symbol = gensym(sym.c_str());
+    }
+    
+    return ret;
+}
+
+static inline std::string to_key(t_atom* atom)
+{
+    std::string key;
+    if (atom->a_type == A_FLOAT)
+    {
+        key = std::to_string((int)atom->a_w.w_float);
+    }
+    if (atom->a_type == A_SYMBOL)
+    {
+        key = atom->a_w.w_symbol->s_name;
+    }
+    return key;
+}
+>>>>>>> uliss/ceammc
 
 static void json_object_set(t_json_object* x, t_symbol* s, int argc, t_atom* argv)
 {
@@ -35,11 +110,19 @@ static void json_object_set(t_json_object* x, t_symbol* s, int argc, t_atom* arg
     
     for (int i=1;i<argc;i++)
     {
+<<<<<<< HEAD
         arr.push_back(cm_json_from_atom(argv[i]));
     }
     
     json j = *x->j_j;   //?
     j[cm_jsonkey_from_atom(&argv[0]).c_str()] = arr;
+=======
+        arr.push_back(from_atom(argv[i]));
+    }
+    
+    json j = *x->j_j;   //?
+    j[to_key(&argv[0]).c_str()] = arr;
+>>>>>>> uliss/ceammc
     *x->j_j = j;
     
 }
@@ -50,7 +133,11 @@ static void json_object_get(t_json_object* x, t_symbol* s, int argc, t_atom* arg
     int l=0;
     
     json j = *x->j_j;
+<<<<<<< HEAD
     json arr = j[cm_jsonkey_from_atom(&argv[0]).c_str()];
+=======
+    json arr = j[to_key(&argv[0]).c_str()];
+>>>>>>> uliss/ceammc
     
     l = (int)arr.size();
     
@@ -60,7 +147,11 @@ static void json_object_get(t_json_object* x, t_symbol* s, int argc, t_atom* arg
     for (int i=0;i<l;i++)
     {
         json j = arr[i];
+<<<<<<< HEAD
         x->out1[i] = cm_atom_from_json(j);
+=======
+        x->out1[i] = from_json(j);
+>>>>>>> uliss/ceammc
     }
     
     outlet_list(x->outlet1, &s_list, l,  x->out1);
@@ -80,12 +171,20 @@ static void json_object_dump(t_json_object* x, t_symbol* s, int argc, t_atom* ar
         free(x->out1);
         x->out1 = (t_atom*) malloc(sizeof(t_atom)*(l));;
         
+<<<<<<< HEAD
         x->out1[0] = cm_atom_from_json_string(it.key());
+=======
+        x->out1[0] = from_json_string(it.key());
+>>>>>>> uliss/ceammc
         
         for (int i=1;i<l;i++)
         {
             json j = arr[i-1];
+<<<<<<< HEAD
             x->out1[i] = cm_atom_from_json(j);
+=======
+            x->out1[i] = from_json(j);
+>>>>>>> uliss/ceammc
         }
         
         outlet_list(x->outlet2, &s_list, l,  x->out1);
@@ -95,7 +194,11 @@ static void json_object_dump(t_json_object* x, t_symbol* s, int argc, t_atom* ar
 
 static void json_object_delete(t_json_object* x, t_symbol* s, int argc, t_atom* argv)
 {
+<<<<<<< HEAD
     x->j_j->erase(cm_jsonkey_from_atom(&argv[0]).c_str());
+=======
+    x->j_j->erase(to_key(&argv[0]).c_str());
+>>>>>>> uliss/ceammc
 }
 
 

@@ -1,8 +1,11 @@
+dyn.comp2~		~~		~~.
+dyn.comp~		~		~.
 is_any		.		..
 is_bang		.		..
 is_even		.		..
 is_float		.		..
 is_list		.		..
 is_symbol		.		..
+list.apply_to		..		..
 system.memsize		.		.
 system.memused		.		..

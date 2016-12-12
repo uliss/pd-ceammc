@@ -1,2 +1,2 @@
 import("stdfaust.lib");
-process = os.lf_imptrain;
+process = abs : os.lf_imptrain;

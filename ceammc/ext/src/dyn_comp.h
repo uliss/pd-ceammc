@@ -800,6 +800,11 @@ class comp : public dsp {
 	virtual void metadata(Meta* m) { 
 		m->declare("compressor.lib/name", "Faust Compressor Effect Library");
 		m->declare("compressor.lib/version", "0.0");
+<<<<<<< HEAD
+=======
+		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
+		m->declare("ceammc.lib/version", "0.1");
+>>>>>>> uliss/ceammc
 		m->declare("analyzer.lib/name", "Faust Analyzer Library");
 		m->declare("analyzer.lib/version", "0.0");
 		m->declare("signal.lib/name", "Faust Signal Routing Library");
@@ -813,13 +818,19 @@ class comp : public dsp {
 		m->declare("math.lib/license", "LGPL with exception");
 	}
 
+<<<<<<< HEAD
 	virtual int getNumInputs() { return 2; }
 	virtual int getNumOutputs() { return 2; }
+=======
+	virtual int getNumInputs() { return 1; }
+	virtual int getNumOutputs() { return 1; }
+>>>>>>> uliss/ceammc
 	static void classInit(int samplingFreq) {
 	}
 	virtual void instanceConstants(int samplingFreq) {
 		fSamplingFreq = samplingFreq;
 		fConst0 = min(1.92e+05f, max(1.0f, (float)fSamplingFreq));
+<<<<<<< HEAD
 		fConst1 = (1.0f / fConst0);
 		fConst2 = (2.0f / fConst0);
 	}
@@ -827,6 +838,15 @@ class comp : public dsp {
 		fslider0 = 0.0f;
 		fslider1 = 0.0f;
 		fslider2 = 1e+03f;
+=======
+		fConst1 = (1e+03f / fConst0);
+		fConst2 = (2e+03f / fConst0);
+	}
+	virtual void instanceResetUserInterface() {
+		fslider0 = 5e+01f;
+		fslider1 = 1e+01f;
+		fslider2 = 1.0f;
+>>>>>>> uliss/ceammc
 		fslider3 = 1e+02f;
 	}
 	virtual void instanceClear() {
@@ -851,10 +871,17 @@ class comp : public dsp {
 	}
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("0x00");
+<<<<<<< HEAD
 		ui_interface->addVerticalSlider("atk", &fslider1, 0.0f, -9e+01f, 1e+01f, 0.1f);
 		ui_interface->addHorizontalSlider("ratio", &fslider2, 1e+03f, 2e+01f, 2e+04f, 0.1f);
 		ui_interface->addVerticalSlider("rel", &fslider0, 0.0f, -9e+01f, 1e+01f, 0.1f);
 		ui_interface->addHorizontalSlider("thresh", &fslider3, 1e+02f, 1.0f, 5e+03f, 0.1f);
+=======
+		ui_interface->addVerticalSlider("attack", &fslider1, 1e+01f, 1.0f, 1e+02f, 0.1f);
+		ui_interface->addHorizontalSlider("ratio", &fslider2, 1.0f, 1.0f, 1e+01f, 0.001f);
+		ui_interface->addVerticalSlider("release", &fslider0, 5e+01f, 1.0f, 5e+02f, 0.1f);
+		ui_interface->addHorizontalSlider("threshold", &fslider3, 1e+02f, 0.0f, 1e+02f, 0.1f);
+>>>>>>> uliss/ceammc
 		ui_interface->closeBox();
 	}
 	virtual void compute (int count, FAUSTFLOAT** input, FAUSTFLOAT** output) {
@@ -863,14 +890,21 @@ class comp : public dsp {
 		float 	fRec2_tmp[64+4];
 		float 	fRec1_tmp[64+4];
 		float 	fRec0_tmp[64+4];
+<<<<<<< HEAD
 		float 	fZec2[64];
+=======
+>>>>>>> uliss/ceammc
 		float 	fSlow0 = expf((0 - (fConst1 / float(fslider0))));
 		float 	fSlow1 = float(fslider1);
 		float 	fSlow2 = expf((0 - (fConst1 / fSlow1)));
 		float* 	fRec2 = &fRec2_tmp[4];
 		float* 	fRec1 = &fRec1_tmp[4];
 		float 	fSlow3 = expf((0 - (fConst2 / fSlow1)));
+<<<<<<< HEAD
 		float 	fSlow4 = (((1.0f / float(float(fslider2))) + -1.0f) * (1.0f - fSlow3));
+=======
+		float 	fSlow4 = (((1.0f / float(max((float)1, float(fslider2)))) + -1.0f) * (1.0f - fSlow3));
+>>>>>>> uliss/ceammc
 		float 	fSlow5 = float(fslider3);
 		float* 	fRec0 = &fRec0_tmp[4];
 		int index;
@@ -879,6 +913,7 @@ class comp : public dsp {
 			// compute by blocks of 64 samples
 			const int count = 64;
 			FAUSTFLOAT* input0 = &input[0][index];
+<<<<<<< HEAD
 			FAUSTFLOAT* input1 = &input[1][index];
 			FAUSTFLOAT* output0 = &output[0][index];
 			FAUSTFLOAT* output1 = &output[1][index];
@@ -891,6 +926,18 @@ class comp : public dsp {
 			
 			// SECTION : 2
 			// LOOP 0x7fbf4b62d0d0
+=======
+			FAUSTFLOAT* output0 = &output[0][index];
+			// SECTION : 1
+			// LOOP 0x7ff910d6f600
+			// exec code
+			for (int i=0; i<count; i++) {
+				fZec0[i] = fabsf((float)input0[i]);
+			}
+			
+			// SECTION : 2
+			// LOOP 0x7ff910d6f2a0
+>>>>>>> uliss/ceammc
 			// pre processing
 			for (int i=0; i<4; i++) fRec2_tmp[i]=fRec2_perm[i];
 			for (int i=0; i<4; i++) fRec1_tmp[i]=fRec1_perm[i];
@@ -905,17 +952,26 @@ class comp : public dsp {
 			for (int i=0; i<4; i++) fRec2_perm[i]=fRec2_tmp[count+i];
 			
 			// SECTION : 3
+<<<<<<< HEAD
 			// LOOP 0x7fbf4b62cdd0
+=======
+			// LOOP 0x7ff910d6efa0
+>>>>>>> uliss/ceammc
 			// pre processing
 			for (int i=0; i<4; i++) fRec0_tmp[i]=fRec0_perm[i];
 			// exec code
 			for (int i=0; i<count; i++) {
+<<<<<<< HEAD
 				fRec0[i] = ((fSlow3 * fRec0[i-1]) + (fSlow4 * max(((20 * log10f(fRec1[i])) - fSlow5), 0.0f)));
+=======
+				fRec0[i] = ((fSlow3 * fRec0[i-1]) + (fSlow4 * max((((20 * log10f(fRec1[i])) + 100) - fSlow5), 0.0f)));
+>>>>>>> uliss/ceammc
 			}
 			// post processing
 			for (int i=0; i<4; i++) fRec0_perm[i]=fRec0_tmp[count+i];
 			
 			// SECTION : 4
+<<<<<<< HEAD
 			// LOOP 0x7fbf4b709f30
 			// exec code
 			for (int i=0; i<count; i++) {
@@ -933,6 +989,12 @@ class comp : public dsp {
 			// exec code
 			for (int i=0; i<count; i++) {
 				output1[i] = (FAUSTFLOAT)((float)input1[i] * fZec2[i]);
+=======
+			// LOOP 0x7ff910d6eec0
+			// exec code
+			for (int i=0; i<count; i++) {
+				output0[i] = (FAUSTFLOAT)((float)input0[i] * powf(10,(0.05f * fRec0[i])));
+>>>>>>> uliss/ceammc
 			}
 			
 		}
@@ -940,6 +1002,7 @@ class comp : public dsp {
 			// compute the remaining samples if any
 			int count = fullcount-index;
 			FAUSTFLOAT* input0 = &input[0][index];
+<<<<<<< HEAD
 			FAUSTFLOAT* input1 = &input[1][index];
 			FAUSTFLOAT* output0 = &output[0][index];
 			FAUSTFLOAT* output1 = &output[1][index];
@@ -952,6 +1015,18 @@ class comp : public dsp {
 			
 			// SECTION : 2
 			// LOOP 0x7fbf4b62d0d0
+=======
+			FAUSTFLOAT* output0 = &output[0][index];
+			// SECTION : 1
+			// LOOP 0x7ff910d6f600
+			// exec code
+			for (int i=0; i<count; i++) {
+				fZec0[i] = fabsf((float)input0[i]);
+			}
+			
+			// SECTION : 2
+			// LOOP 0x7ff910d6f2a0
+>>>>>>> uliss/ceammc
 			// pre processing
 			for (int i=0; i<4; i++) fRec2_tmp[i]=fRec2_perm[i];
 			for (int i=0; i<4; i++) fRec1_tmp[i]=fRec1_perm[i];
@@ -966,17 +1041,26 @@ class comp : public dsp {
 			for (int i=0; i<4; i++) fRec2_perm[i]=fRec2_tmp[count+i];
 			
 			// SECTION : 3
+<<<<<<< HEAD
 			// LOOP 0x7fbf4b62cdd0
+=======
+			// LOOP 0x7ff910d6efa0
+>>>>>>> uliss/ceammc
 			// pre processing
 			for (int i=0; i<4; i++) fRec0_tmp[i]=fRec0_perm[i];
 			// exec code
 			for (int i=0; i<count; i++) {
+<<<<<<< HEAD
 				fRec0[i] = ((fSlow3 * fRec0[i-1]) + (fSlow4 * max(((20 * log10f(fRec1[i])) - fSlow5), 0.0f)));
+=======
+				fRec0[i] = ((fSlow3 * fRec0[i-1]) + (fSlow4 * max((((20 * log10f(fRec1[i])) + 100) - fSlow5), 0.0f)));
+>>>>>>> uliss/ceammc
 			}
 			// post processing
 			for (int i=0; i<4; i++) fRec0_perm[i]=fRec0_tmp[count+i];
 			
 			// SECTION : 4
+<<<<<<< HEAD
 			// LOOP 0x7fbf4b709f30
 			// exec code
 			for (int i=0; i<count; i++) {
@@ -994,6 +1078,12 @@ class comp : public dsp {
 			// exec code
 			for (int i=0; i<count; i++) {
 				output1[i] = (FAUSTFLOAT)((float)input1[i] * fZec2[i]);
+=======
+			// LOOP 0x7ff910d6eec0
+			// exec code
+			for (int i=0; i<count; i++) {
+				output0[i] = (FAUSTFLOAT)((float)input0[i] * powf(10,(0.05f * fRec0[i])));
+>>>>>>> uliss/ceammc
 			}
 			
 		}
@@ -1364,6 +1454,17 @@ static bool faust_new_internal(t_faust* x, const char* obj_id = NULL) {
     return true;
 }
 
+<<<<<<< HEAD
+=======
+/**
+ * find nth element that satisfies given predicate
+ * @first - first element of sequence
+ * @last - pointer behind last element of sequence
+ * @Nth - searched element index
+ * @pred - predicate
+ * @return pointer to found element or pointer to @bold last, if not found
+ */
+>>>>>>> uliss/ceammc
 template<class InputIterator, class NthOccurence, class UnaryPredicate>
 InputIterator find_nth_if(InputIterator first, InputIterator last, NthOccurence Nth, UnaryPredicate pred)
 {
@@ -1377,6 +1478,12 @@ InputIterator find_nth_if(InputIterator first, InputIterator last, NthOccurence 
     return last;
 }
 
+<<<<<<< HEAD
+=======
+/**
+ * @return true if given atom is a float
+ */
+>>>>>>> uliss/ceammc
 static bool atom_is_float(const t_atom& a) {
     switch(a.a_type) {
         case A_FLOAT:
@@ -1387,6 +1494,12 @@ static bool atom_is_float(const t_atom& a) {
     }
 }
 
+<<<<<<< HEAD
+=======
+/**
+ * @return true if given atom is a symbol
+ */
+>>>>>>> uliss/ceammc
 static bool atom_is_symbol(const t_atom& a) {
     switch(a.a_type) {
         case A_DEFSYMBOL:
@@ -1397,6 +1510,17 @@ static bool atom_is_symbol(const t_atom& a) {
     }
 }
 
+<<<<<<< HEAD
+=======
+/**
+ * @brief find nth float in argument list. (arguments can be mixed)
+ * @param argc argument count
+ * @param argv pointer to argument vector
+ * @param nth find position. nth should be > 0!
+ * @param dest destination to write value
+ * @return true if argument at given position was found, otherwise false
+ */
+>>>>>>> uliss/ceammc
 static bool get_nth_float_arg(int argc, t_atom* argv, int nth, t_float* dest) {
     t_atom* last = argv + argc;
     t_atom* res = find_nth_if(argv, last, nth, atom_is_float);
@@ -1406,6 +1530,17 @@ static bool get_nth_float_arg(int argc, t_atom* argv, int nth, t_float* dest) {
     return true;
 }
 
+<<<<<<< HEAD
+=======
+/**
+ * @brief find nth symbol in argument list. (arguments can be mixed)
+ * @param argc argument count
+ * @param argv pointer to argument vector
+ * @param nth find position. nth should be > 0!
+ * @param dest destination to write found argument value
+ * @return true if argument at given position was found, otherwise false
+ */
+>>>>>>> uliss/ceammc
 static bool get_nth_symbol_arg(int argc, t_atom* argv, int nth, const char** dest) {
     t_atom* last = argv + argc;
     t_atom* res = find_nth_if(argv, last, nth, atom_is_symbol);
@@ -1416,4 +1551,57 @@ static bool get_nth_symbol_arg(int argc, t_atom* argv, int nth, const char** des
     return true;
 }
 
+<<<<<<< HEAD
+=======
+class PdArgParser {
+    t_faust* x_;
+    int argc_;
+    t_atom* argv_;
+
+public:
+    /**
+     * @brief FaustArgParser
+     * @param x pointer to faust class
+     * @param argc arguments count
+     * @param argv pointer to argument vector
+     */
+    PdArgParser(t_faust* x, int argc, t_atom* argv)
+        : x_(x)
+        , argc_(argc)
+        , argv_(argv)
+    {
+        const char* id = NULL;
+        get_nth_symbol_arg(this->argc_, this->argv_, 1, &id);
+
+        // init error
+        if (!faust_new_internal(x, id)) {
+            this->x_ = NULL;
+        }
+    }
+
+    /**
+     * @brief initFloatArg
+     * @param name argument name
+     * @param pos argument position among of @bold float(!) arguments. Position starts from @bold 1(!).
+     * to select first argument - pass 1.
+     * @param def default value for argument
+     */
+    void initFloatArg(const char* name, int pos)
+    {
+        // object was not created
+        if (!this->x_)
+            return;
+
+        t_float v = 0.0;
+        if (get_nth_float_arg(this->argc_, this->argv_, pos, &v))
+            this->x_->ui->setElementValue(name, v);
+    }
+
+    t_faust* pd_obj()
+    {
+        return this->x_;
+    }
+};
+
+>>>>>>> uliss/ceammc
 

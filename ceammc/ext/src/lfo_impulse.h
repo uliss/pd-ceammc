@@ -817,19 +817,19 @@ class impulse : public dsp {
 			FAUSTFLOAT* input0 = &input[0][index];
 			FAUSTFLOAT* output0 = &output[0][index];
 			// SECTION : 1
-			// LOOP 0x7fa4a2550570
+			// LOOP 0x7fc53bd602e0
 			// pre processing
 			for (int i=0; i<4; i++) fRec0_tmp[i]=fRec0_perm[i];
 			// exec code
 			for (int i=0; i<count; i++) {
-				fZec0[i] = ((fConst0 * (float)input0[i]) + fRec0[i-1]);
+				fZec0[i] = ((fConst0 * fabsf((float)input0[i])) + fRec0[i-1]);
 				fRec0[i] = (fZec0[i] - floorf(fZec0[i]));
 			}
 			// post processing
 			for (int i=0; i<4; i++) fRec0_perm[i]=fRec0_tmp[count+i];
 			
 			// SECTION : 2
-			// LOOP 0x7fa4a2550490
+			// LOOP 0x7fc53bd60200
 			// exec code
 			for (int i=0; i<count; i++) {
 				output0[i] = (FAUSTFLOAT)((fRec0[i] - fRec0[i-1]) < 0);
@@ -842,19 +842,19 @@ class impulse : public dsp {
 			FAUSTFLOAT* input0 = &input[0][index];
 			FAUSTFLOAT* output0 = &output[0][index];
 			// SECTION : 1
-			// LOOP 0x7fa4a2550570
+			// LOOP 0x7fc53bd602e0
 			// pre processing
 			for (int i=0; i<4; i++) fRec0_tmp[i]=fRec0_perm[i];
 			// exec code
 			for (int i=0; i<count; i++) {
-				fZec0[i] = ((fConst0 * (float)input0[i]) + fRec0[i-1]);
+				fZec0[i] = ((fConst0 * fabsf((float)input0[i])) + fRec0[i-1]);
 				fRec0[i] = (fZec0[i] - floorf(fZec0[i]));
 			}
 			// post processing
 			for (int i=0; i<4; i++) fRec0_perm[i]=fRec0_tmp[count+i];
 			
 			// SECTION : 2
-			// LOOP 0x7fa4a2550490
+			// LOOP 0x7fc53bd60200
 			// exec code
 			for (int i=0; i<count; i++) {
 				output0[i] = (FAUSTFLOAT)((fRec0[i] - fRec0[i-1]) < 0);
