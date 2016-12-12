@@ -842,13 +842,13 @@ class sinfb : public dsp {
 	virtual void metadata(Meta* m) { 
 		m->declare("miscoscillator.lib/name", "Faust Oscillator Library");
 		m->declare("miscoscillator.lib/version", "0.0");
+		m->declare("basic.lib/name", "Faust Basic Element Library");
+		m->declare("basic.lib/version", "0.0");
 		m->declare("math.lib/name", "Faust Math Library");
 		m->declare("math.lib/version", "2.0");
 		m->declare("math.lib/author", "GRAME");
 		m->declare("math.lib/copyright", "GRAME");
 		m->declare("math.lib/license", "LGPL with exception");
-		m->declare("basic.lib/name", "Faust Basic Element Library");
-		m->declare("basic.lib/version", "0.0");
 	}
 
 	virtual int getNumInputs() { return 1; }
@@ -909,7 +909,7 @@ class sinfb : public dsp {
 			FAUSTFLOAT* input0 = &input[0][index];
 			FAUSTFLOAT* output0 = &output[0][index];
 			// SECTION : 1
-			// LOOP 0x7f8093557d10
+			// LOOP 0x7fc940c85030
 			// pre processing
 			for (int i=0; i<4; i++) fRec1_tmp[i]=fRec1_perm[i];
 			// exec code
@@ -921,14 +921,14 @@ class sinfb : public dsp {
 			for (int i=0; i<4; i++) fRec1_perm[i]=fRec1_tmp[count+i];
 			
 			// SECTION : 2
-			// LOOP 0x7f809355c130
+			// LOOP 0x7fc940c89450
 			// exec code
 			for (int i=0; i<count; i++) {
 				iZec2[i] = int((65536.0f * fRec1[i]));
 			}
 			
 			// SECTION : 3
-			// LOOP 0x7f8093557a10
+			// LOOP 0x7fc940c84d30
 			// pre processing
 			for (int i=0; i<4; i++) fRec0_tmp[i]=fRec0_perm[i];
 			// exec code
@@ -940,7 +940,7 @@ class sinfb : public dsp {
 			for (int i=0; i<4; i++) fRec0_perm[i]=fRec0_tmp[count+i];
 			
 			// SECTION : 4
-			// LOOP 0x7f8093557930
+			// LOOP 0x7fc940c84c50
 			// exec code
 			for (int i=0; i<count; i++) {
 				output0[i] = (FAUSTFLOAT)fRec0[i];
@@ -953,7 +953,7 @@ class sinfb : public dsp {
 			FAUSTFLOAT* input0 = &input[0][index];
 			FAUSTFLOAT* output0 = &output[0][index];
 			// SECTION : 1
-			// LOOP 0x7f8093557d10
+			// LOOP 0x7fc940c85030
 			// pre processing
 			for (int i=0; i<4; i++) fRec1_tmp[i]=fRec1_perm[i];
 			// exec code
@@ -965,14 +965,14 @@ class sinfb : public dsp {
 			for (int i=0; i<4; i++) fRec1_perm[i]=fRec1_tmp[count+i];
 			
 			// SECTION : 2
-			// LOOP 0x7f809355c130
+			// LOOP 0x7fc940c89450
 			// exec code
 			for (int i=0; i<count; i++) {
 				iZec2[i] = int((65536.0f * fRec1[i]));
 			}
 			
 			// SECTION : 3
-			// LOOP 0x7f8093557a10
+			// LOOP 0x7fc940c84d30
 			// pre processing
 			for (int i=0; i<4; i++) fRec0_tmp[i]=fRec0_perm[i];
 			// exec code
@@ -984,7 +984,7 @@ class sinfb : public dsp {
 			for (int i=0; i<4; i++) fRec0_perm[i]=fRec0_tmp[count+i];
 			
 			// SECTION : 4
-			// LOOP 0x7f8093557930
+			// LOOP 0x7fc940c84c50
 			// exec code
 			for (int i=0; i<count; i++) {
 				output0[i] = (FAUSTFLOAT)fRec0[i];
@@ -1360,6 +1360,14 @@ static bool faust_new_internal(t_faust* x, const char* obj_id = NULL) {
     return true;
 }
 
+/**
+ * find nth element that satisfies given predicate
+ * @first - first element of sequence
+ * @last - pointer behind last element of sequence
+ * @Nth - searched element index
+ * @pred - predicate
+ * @return pointer to found element or pointer to @bold last, if not found
+ */
 template<class InputIterator, class NthOccurence, class UnaryPredicate>
 InputIterator find_nth_if(InputIterator first, InputIterator last, NthOccurence Nth, UnaryPredicate pred)
 {
@@ -1373,6 +1381,9 @@ InputIterator find_nth_if(InputIterator first, InputIterator last, NthOccurence 
     return last;
 }
 
+/**
+ * @return true if given atom is a float
+ */
 static bool atom_is_float(const t_atom& a) {
     switch(a.a_type) {
         case A_FLOAT:
@@ -1383,6 +1394,9 @@ static bool atom_is_float(const t_atom& a) {
     }
 }
 
+/**
+ * @return true if given atom is a symbol
+ */
 static bool atom_is_symbol(const t_atom& a) {
     switch(a.a_type) {
         case A_DEFSYMBOL:
@@ -1393,6 +1407,14 @@ static bool atom_is_symbol(const t_atom& a) {
     }
 }
 
+/**
+ * @brief find nth float in argument list. (arguments can be mixed)
+ * @param argc argument count
+ * @param argv pointer to argument vector
+ * @param nth find position. nth should be > 0!
+ * @param dest destination to write value
+ * @return true if argument at given position was found, otherwise false
+ */
 static bool get_nth_float_arg(int argc, t_atom* argv, int nth, t_float* dest) {
     t_atom* last = argv + argc;
     t_atom* res = find_nth_if(argv, last, nth, atom_is_float);
@@ -1402,6 +1424,14 @@ static bool get_nth_float_arg(int argc, t_atom* argv, int nth, t_float* dest) {
     return true;
 }
 
+/**
+ * @brief find nth symbol in argument list. (arguments can be mixed)
+ * @param argc argument count
+ * @param argv pointer to argument vector
+ * @param nth find position. nth should be > 0!
+ * @param dest destination to write found argument value
+ * @return true if argument at given position was found, otherwise false
+ */
 static bool get_nth_symbol_arg(int argc, t_atom* argv, int nth, const char** dest) {
     t_atom* last = argv + argc;
     t_atom* res = find_nth_if(argv, last, nth, atom_is_symbol);
@@ -1411,5 +1441,55 @@ static bool get_nth_symbol_arg(int argc, t_atom* argv, int nth, const char** des
     *dest = s->s_name;
     return true;
 }
+
+class PdArgParser {
+    t_faust* x_;
+    int argc_;
+    t_atom* argv_;
+
+public:
+    /**
+     * @brief FaustArgParser
+     * @param x pointer to faust class
+     * @param argc arguments count
+     * @param argv pointer to argument vector
+     */
+    PdArgParser(t_faust* x, int argc, t_atom* argv)
+        : x_(x)
+        , argc_(argc)
+        , argv_(argv)
+    {
+        const char* id = NULL;
+        get_nth_symbol_arg(this->argc_, this->argv_, 1, &id);
+
+        // init error
+        if (!faust_new_internal(x, id)) {
+            this->x_ = NULL;
+        }
+    }
+
+    /**
+     * @brief initFloatArg
+     * @param name argument name
+     * @param pos argument position among of @bold float(!) arguments. Position starts from @bold 1(!).
+     * to select first argument - pass 1.
+     * @param def default value for argument
+     */
+    void initFloatArg(const char* name, int pos)
+    {
+        // object was not created
+        if (!this->x_)
+            return;
+
+        t_float v = 0.0;
+        if (get_nth_float_arg(this->argc_, this->argv_, pos, &v))
+            this->x_->ui->setElementValue(name, v);
+    }
+
+    t_faust* pd_obj()
+    {
+        return this->x_;
+    }
+};
 
 

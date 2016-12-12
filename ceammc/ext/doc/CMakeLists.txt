@@ -6,6 +6,8 @@ find_program(PD_CAT2PD pd_cat2pd)
 set(DOC_FILES
     dyn.comp~
     dyn.comp2~
+    dyn.gate~
+    dyn.gate2~
     is_any
     is_bang
     is_float
@@ -13,6 +15,7 @@ set(DOC_FILES
     is_list
     is_even
     list.apply_to
+    osc.sinfb~
     system.memsize
     system.memused)
 

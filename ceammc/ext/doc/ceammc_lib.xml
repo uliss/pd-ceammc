@@ -7,12 +7,23 @@
     <entry descr="mono dynamic range compressors" name="dyn.comp~">
       <xi:include href="dyn.comp~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="stereo signal gate" name="dyn.gate2~">
+      <xi:include href="dyn.gate2~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="mono signal gate" name="dyn.gate~">
+      <xi:include href="dyn.gate~.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="list">
     <entry descr="modifies list value at specified position, filtering it via external object." name="list.apply_to">
       <xi:include href="list.apply_to.pddoc" parse="xml"/>
     </entry>
     <xi:include href="ceammc_category_list.xml" parse="xml"/>
+  </category>
+  <category name="osc">
+    <entry descr="sine oscilator with feedback" name="osc.sinfb~">
+      <xi:include href="osc.sinfb~.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="predicates">
     <entry descr="checks if input data has *any* type" name="is_any">

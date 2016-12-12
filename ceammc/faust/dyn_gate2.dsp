@@ -6,4 +6,4 @@ atk = vslider("attack", 0.1, 0, 500, 0.1) : time_pd2faust;
 hold = vslider("hold", 100, 1, 500, 0.1) : time_pd2faust;
 rel = vslider("release", 20, 1, 500, 0.1) : time_pd2faust;
 
-process = gate_mono(thresh, atk, hold, rel);
+process = gate_stereo(thresh, atk, hold, rel);

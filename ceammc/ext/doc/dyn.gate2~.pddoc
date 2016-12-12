@@ -1,54 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pddoc version="1.0">
-    <object name="dyn.comp2~">
-        <title>dyn.comp2~</title>
+    <object name="dyn.gate2~">
+        <title>dyn.gate2~</title>
         <meta>
             <authors>
                 <author>Alex Nadzharov</author>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>stereo dynamic range compressor</description>
+            <description>stereo signal gate</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>dyn</category>
-            <keywords>compressor</keywords>
+            <keywords>gate</keywords>
             <since>0.1</since>
             <also>
-                <see>dyn.comp~</see>
+                <see>dyn.gate~</see>
             </also>
         </meta>
         <methods>
-            <method name="ratio">
-                <param type="float">compression ratio (1 = no compression, >1 means compression)</param>
-            </method>
             <method name="threshold">
                 <param type="float" units="decibel">
-                level threshold above which compression kicks in (100 dB = max level)
+                dB level threshold above which gate opens (e.g., 40 dB)
                 </param>
             </method>
             <method name="attack">
                 <param type="float" units="millisecond">
-                time constant when level &amp; compression going up
+                attack time = time constant (ms) for gate to open
+                </param>
+            </method>
+            <method name="hold">
+                <param type="float" units="millisecond">
+                hold time = time (ms) gate stays open after signal level &lt; threshold
                 </param>
             </method>
             <method name="release">
                 <param type="float" units="millisecond">
-                release time = time constant coming out of compression
+                release time = time constant (ms) for gate to close
                 </param>
             </method>
         </methods>
         <arguments>
-            <argument name="ratio" type="float" minvalue="1">
-                compression ratio (1 = no compression, >1 means compression)
-            </argument>
-            <argument name="threshold" type="float" minvalue="0" maxvalue="100" units="decibel">
-                level threshold above which compression kicks in (100 dB = max level)
+            <argument name="threshold" type="float" units="decibel">
+                dB level threshold above which gate opens (e.g., 40 dB)
             </argument>
             <argument name="attack" type="float" units="millisecond">
-                attack time = time constant when level &amp; compression going up
+                attack time = time constant (ms) for gate to open
+            </argument>
+            <argument name="hold" type="float" units="millisecond">
+                hold time = time (ms) gate stays open after signal level &lt; threshold
             </argument>
             <argument name="release" type="float" units="millisecond">
-                release time = time constant coming out of compression
+                release time = time constant (ms) for gate to close
             </argument>
             <argument name="ID" type="symbol">object ID for OSC control path</argument>
         </arguments>
@@ -68,20 +70,19 @@
         </outlets>
         <example>
             <pdascii>
-                <![CDATA[
-[phasor~ 10]
-|
-[*~ 100]
-|             [floatatom]
-[clip~ 0 1]   |
-|             [prepend ratio]
-[*~ 20] [bng] |
-|       |     |
-[dyn.comp2~ 3 90 10 100 id]
-|    ^|.       ^^|
-[dac~  ]       [print]
-
-                ]]>
+<![CDATA[
+[osc~ 440]  [floatatom]
+|           |
+[*~         ]
+| |
+| [env~]
+| |
+| [floatatom] [bng]
+|             |
+[dyn.gate2~ 90 id]
+|\        |
+[dac~]    [print]
+]]>
             </pdascii>
         </example>
     </object>

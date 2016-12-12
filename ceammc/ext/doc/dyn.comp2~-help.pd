@@ -100,7 +100,7 @@ compression\. ;
 #X text 10 142 license:;
 #X text 120 142 GPL3;
 #X text 10 164 keywords:;
-#X text 120 164 predicate \, compressor;
+#X text 120 164 compressor;
 #X text 10 186 website:;
 #X obj 120 186 pddp/pddplink https://github.com/uliss/pure-data -text
 https://github.com/uliss/pure-data;

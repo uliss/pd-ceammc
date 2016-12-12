@@ -11,7 +11,7 @@
             <license>GPL3</license>
             <library>ceammc</library>
             <category>dyn</category>
-            <keywords>predicate compressor</keywords>
+            <keywords>compressor</keywords>
             <since>0.1</since>
             <also>
                 <see>dyn.comp2~</see>

@@ -779,10 +779,10 @@ void PdUI::setElementValue(const char* label, float v)
 
 
 #ifndef FAUSTCLASS 
-#define FAUSTCLASS gate
+#define FAUSTCLASS gate2
 #endif
 
-class gate : public dsp {
+class gate2 : public dsp {
   private:
 	float 	fConst0;
 	float 	fConst1;
@@ -801,25 +801,25 @@ class gate : public dsp {
 
   public:
 	virtual void metadata(Meta* m) { 
-		m->declare("signal.lib/name", "Faust Signal Routing Library");
-		m->declare("signal.lib/version", "0.0");
-		m->declare("basic.lib/name", "Faust Basic Element Library");
-		m->declare("basic.lib/version", "0.0");
 		m->declare("misceffect.lib/name", "Faust Math Library");
 		m->declare("misceffect.lib/version", "2.0");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
 		m->declare("ceammc.lib/version", "0.1");
 		m->declare("analyzer.lib/name", "Faust Analyzer Library");
 		m->declare("analyzer.lib/version", "0.0");
+		m->declare("basic.lib/name", "Faust Basic Element Library");
+		m->declare("basic.lib/version", "0.0");
 		m->declare("math.lib/name", "Faust Math Library");
 		m->declare("math.lib/version", "2.0");
 		m->declare("math.lib/author", "GRAME");
 		m->declare("math.lib/copyright", "GRAME");
 		m->declare("math.lib/license", "LGPL with exception");
+		m->declare("signal.lib/name", "Faust Signal Routing Library");
+		m->declare("signal.lib/version", "0.0");
 	}
 
-	virtual int getNumInputs() { return 1; }
-	virtual int getNumOutputs() { return 1; }
+	virtual int getNumInputs() { return 2; }
+	virtual int getNumOutputs() { return 2; }
 	static void classInit(int samplingFreq) {
 	}
 	virtual void instanceConstants(int samplingFreq) {
@@ -830,10 +830,10 @@ class gate : public dsp {
 		fConst3 = (1e+03f / fConst0);
 	}
 	virtual void instanceResetUserInterface() {
-		fslider0 = 0.1f;
-		fslider1 = 2e+01f;
-		fslider2 = 1e+02f;
-		fslider3 = 4e+01f;
+		fslider0 = 1.0f;
+		fslider1 = 1e+01f;
+		fslider2 = 1e+01f;
+		fslider3 = 1e+02f;
 	}
 	virtual void instanceClear() {
 		for (int i=0; i<4; i++) fRec3_perm[i]=0;
@@ -851,18 +851,18 @@ class gate : public dsp {
 		instanceResetUserInterface();
 		instanceClear();
 	}
-	virtual gate* clone() {
-		return new gate();
+	virtual gate2* clone() {
+		return new gate2();
 	}
 	virtual int getSampleRate() {
 		return fSamplingFreq;
 	}
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("0x00");
-		ui_interface->addVerticalSlider("attack", &fslider0, 0.1f, 0.0f, 5e+02f, 0.1f);
-		ui_interface->addVerticalSlider("hold", &fslider2, 1e+02f, 1.0f, 5e+02f, 0.1f);
-		ui_interface->addVerticalSlider("release", &fslider1, 2e+01f, 1.0f, 5e+02f, 0.1f);
-		ui_interface->addHorizontalSlider("threshold", &fslider3, 4e+01f, 0.0f, 1e+02f, 0.1f);
+		ui_interface->addVerticalSlider("attack", &fslider0, 1.0f, 0.0f, 5e+02f, 0.1f);
+		ui_interface->addVerticalSlider("hold", &fslider2, 1e+01f, 1.0f, 5e+02f, 0.1f);
+		ui_interface->addVerticalSlider("release", &fslider1, 1e+01f, 1.0f, 5e+02f, 0.1f);
+		ui_interface->addHorizontalSlider("threshold", &fslider3, 1e+02f, 0.0f, 1e+02f, 0.1f);
 		ui_interface->closeBox();
 	}
 	virtual void compute (int count, FAUSTFLOAT** input, FAUSTFLOAT** output) {
@@ -893,9 +893,11 @@ class gate : public dsp {
 			// compute by blocks of 64 samples
 			const int count = 64;
 			FAUSTFLOAT* input0 = &input[0][index];
+			FAUSTFLOAT* input1 = &input[1][index];
 			FAUSTFLOAT* output0 = &output[0][index];
+			FAUSTFLOAT* output1 = &output[1][index];
 			// SECTION : 1
-			// LOOP 0x7fd3c25b27a0
+			// LOOP 0x7f8d52d47f90
 			// pre processing
 			for (int i=0; i<4; i++) iYec0_tmp[i]=iYec0_perm[i];
 			// exec code
@@ -906,17 +908,17 @@ class gate : public dsp {
 			for (int i=0; i<4; i++) iYec0_perm[i]=iYec0_tmp[count+i];
 			
 			// SECTION : 2
-			// LOOP 0x7fd3c25af980
+			// LOOP 0x7f8d52d44dc0
 			// pre processing
 			for (int i=0; i<4; i++) fRec3_tmp[i]=fRec3_perm[i];
 			// exec code
 			for (int i=0; i<count; i++) {
-				fRec3[i] = ((fSlow3 * fabsf((float)input0[i])) + (fSlow2 * fRec3[i-1]));
+				fRec3[i] = ((fSlow3 * fabsf((fabsf((float)input0[i]) + fabsf((float)input1[i])))) + (fSlow2 * fRec3[i-1]));
 			}
 			// post processing
 			for (int i=0; i<4; i++) fRec3_perm[i]=fRec3_tmp[count+i];
 			
-			// LOOP 0x7fd3c25b1e20
+			// LOOP 0x7f8d52d475f0
 			// pre processing
 			for (int i=0; i<4; i++) iRec4_tmp[i]=iRec4_perm[i];
 			// exec code
@@ -927,20 +929,20 @@ class gate : public dsp {
 			for (int i=0; i<4; i++) iRec4_perm[i]=iRec4_tmp[count+i];
 			
 			// SECTION : 3
-			// LOOP 0x7fd3c25af6e0
+			// LOOP 0x7f8d52d44b20
 			// exec code
 			for (int i=0; i<count; i++) {
 				fRec2[i] = fRec3[i];
 			}
 			
-			// LOOP 0x7fd3c25b4630
+			// LOOP 0x7f8d52d49e50
 			// exec code
 			for (int i=0; i<count; i++) {
 				fZec0[i] = fabsf(max(float(iYec0[i]), (float)(iRec4[i] > 0)));
 			}
 			
 			// SECTION : 4
-			// LOOP 0x7fd3c25af160
+			// LOOP 0x7f8d52d445a0
 			// pre processing
 			for (int i=0; i<4; i++) fRec1_tmp[i]=fRec1_perm[i];
 			for (int i=0; i<4; i++) fRec0_tmp[i]=fRec0_perm[i];
@@ -955,10 +957,16 @@ class gate : public dsp {
 			for (int i=0; i<4; i++) fRec1_perm[i]=fRec1_tmp[count+i];
 			
 			// SECTION : 5
-			// LOOP 0x7fd3c25af080
+			// LOOP 0x7f8d52d444c0
 			// exec code
 			for (int i=0; i<count; i++) {
 				output0[i] = (FAUSTFLOAT)((float)input0[i] * fRec0[i]);
+			}
+			
+			// LOOP 0x7f8d52d4c3b0
+			// exec code
+			for (int i=0; i<count; i++) {
+				output1[i] = (FAUSTFLOAT)((float)input1[i] * fRec0[i]);
 			}
 			
 		}
@@ -966,9 +974,11 @@ class gate : public dsp {
 			// compute the remaining samples if any
 			int count = fullcount-index;
 			FAUSTFLOAT* input0 = &input[0][index];
+			FAUSTFLOAT* input1 = &input[1][index];
 			FAUSTFLOAT* output0 = &output[0][index];
+			FAUSTFLOAT* output1 = &output[1][index];
 			// SECTION : 1
-			// LOOP 0x7fd3c25b27a0
+			// LOOP 0x7f8d52d47f90
 			// pre processing
 			for (int i=0; i<4; i++) iYec0_tmp[i]=iYec0_perm[i];
 			// exec code
@@ -979,17 +989,17 @@ class gate : public dsp {
 			for (int i=0; i<4; i++) iYec0_perm[i]=iYec0_tmp[count+i];
 			
 			// SECTION : 2
-			// LOOP 0x7fd3c25af980
+			// LOOP 0x7f8d52d44dc0
 			// pre processing
 			for (int i=0; i<4; i++) fRec3_tmp[i]=fRec3_perm[i];
 			// exec code
 			for (int i=0; i<count; i++) {
-				fRec3[i] = ((fSlow3 * fabsf((float)input0[i])) + (fSlow2 * fRec3[i-1]));
+				fRec3[i] = ((fSlow3 * fabsf((fabsf((float)input0[i]) + fabsf((float)input1[i])))) + (fSlow2 * fRec3[i-1]));
 			}
 			// post processing
 			for (int i=0; i<4; i++) fRec3_perm[i]=fRec3_tmp[count+i];
 			
-			// LOOP 0x7fd3c25b1e20
+			// LOOP 0x7f8d52d475f0
 			// pre processing
 			for (int i=0; i<4; i++) iRec4_tmp[i]=iRec4_perm[i];
 			// exec code
@@ -1000,20 +1010,20 @@ class gate : public dsp {
 			for (int i=0; i<4; i++) iRec4_perm[i]=iRec4_tmp[count+i];
 			
 			// SECTION : 3
-			// LOOP 0x7fd3c25af6e0
+			// LOOP 0x7f8d52d44b20
 			// exec code
 			for (int i=0; i<count; i++) {
 				fRec2[i] = fRec3[i];
 			}
 			
-			// LOOP 0x7fd3c25b4630
+			// LOOP 0x7f8d52d49e50
 			// exec code
 			for (int i=0; i<count; i++) {
 				fZec0[i] = fabsf(max(float(iYec0[i]), (float)(iRec4[i] > 0)));
 			}
 			
 			// SECTION : 4
-			// LOOP 0x7fd3c25af160
+			// LOOP 0x7f8d52d445a0
 			// pre processing
 			for (int i=0; i<4; i++) fRec1_tmp[i]=fRec1_perm[i];
 			for (int i=0; i<4; i++) fRec0_tmp[i]=fRec0_perm[i];
@@ -1028,10 +1038,16 @@ class gate : public dsp {
 			for (int i=0; i<4; i++) fRec1_perm[i]=fRec1_tmp[count+i];
 			
 			// SECTION : 5
-			// LOOP 0x7fd3c25af080
+			// LOOP 0x7f8d52d444c0
 			// exec code
 			for (int i=0; i<count; i++) {
 				output0[i] = (FAUSTFLOAT)((float)input0[i] * fRec0[i]);
+			}
+			
+			// LOOP 0x7f8d52d4c3b0
+			// exec code
+			for (int i=0; i<count; i++) {
+				output1[i] = (FAUSTFLOAT)((float)input1[i] * fRec0[i]);
 			}
 			
 		}
@@ -1061,7 +1077,7 @@ struct t_faust {
      to write past the end of x_obj on Windows. */
     int fence; /* dummy field (not used) */
 #endif
-    gate* dsp;
+    gate2* dsp;
     PdUI* ui;
     std::string* label;
     int active, xfade, n_xfade, rate, n_in, n_out;
@@ -1366,7 +1382,7 @@ static bool faust_init_outputs(t_faust* x) {
 }
 
 static void faust_init_label(t_faust* x, const char* obj_id) {
-    x->label = new std::string(sym(gate) "~");
+    x->label = new std::string(sym(gate2) "~");
 
     // label settings
     if (obj_id) {
@@ -1381,8 +1397,8 @@ static bool faust_new_internal(t_faust* x, const char* obj_id = NULL) {
     x->xfade = 0;
     x->n_xfade = static_cast<int>(sr * XFADE_TIME / 64);
 
-    x->dsp = new gate();
-    x->ui = new PdUI(sym(gate), obj_id);
+    x->dsp = new gate2();
+    x->ui = new PdUI(sym(gate2), obj_id);
 
     faust_init_label(x, obj_id);
 
