@@ -1,6 +1,7 @@
 find_program(PD_DOC2PD pd_doc2pd)
 find_program(PD_MAKELIB pd_makelibrary)
 find_program(PD_LIB2PD pd_lib2pd)
+find_program(PD_CAT2PD pd_cat2pd)
 
 set(DOC_FILES
     dyn.comp~
@@ -63,6 +64,11 @@ else()
 
     add_custom_target(ceammc_pddoc
         DEPENDS ${DOC_PD_FILES} "ceammc.db" "ceammc_lib.xml" "ceammc-help.pd"
+        WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
+
+    add_custom_target(ceammc_pddoc_cat
+        DEPENDS ${DOC_PD_FILES} "ceammc_lib.xml"
+        COMMAND pd_cat2pd "ceammc_lib.xml"
         WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
 endif()
 

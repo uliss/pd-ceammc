@@ -1,13 +1,14 @@
 #N canvas 0 0 600 500 12;
-#X obj 1 1 cnv 15 597 40 empty empty ceammc::system 20 20 0 20 -104026
--4096 0;
-#X obj 20 50 system.memsize;
-#X text 150 50 returns the size of physical memory (RAM) in bytes
+#X obj 20 50 pddp/pddplink ../index-help.pd -text index;
+#X text 349 50 ::;
+#X obj 378 50 pddp/pddplink ceammc-help.pd -text ceammc;
+#X obj 30 117 system.memsize;
+#X text 150 117 returns the size of physical memory (RAM) in bytes
 round to float data type\.;
-#X obj 20 87 system.memused;
-#X text 150 87 returns the process physical memory use - current and
+#X obj 30 154 system.memused;
+#X text 150 154 returns the process physical memory use - current and
 peak;
-#X obj 1 458 cnv 15 597 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 460 library: ;
-#X obj 80 460 pddp/pddplink ceammc-help.pd -text ceammc;
-#X text 20 478 version: 0\.1;
+#X obj 1 1 cnv 5 597 40 empty empty ceammc::system 20 20 0 20 -104026
+-4096 0;
+#X obj 1 457 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 467 libarary: ceammc;
