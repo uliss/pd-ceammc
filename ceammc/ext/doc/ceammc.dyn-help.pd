@@ -1,12 +1,12 @@
 #N canvas 0 0 600 500 12;
 #X obj 20 50 pddp/pddplink ../index-help.pd -text index;
-#X text 349 50 ::;
-#X obj 378 50 pddp/pddplink ceammc-help.pd -text ceammc;
-#X obj 30 117 dyn.comp2~;
-#X text 150 117 stereo dynamic range compressor;
-#X obj 30 144 dyn.comp~;
-#X text 150 144 mono dynamic range compressors;
+#X text 62 50 ::;
+#X obj 79 50 pddp/pddplink ceammc-help.pd -text ceammc;
+#X obj 30 113 dyn.comp2~;
+#X text 150 113 stereo dynamic range compressor;
+#X obj 30 140 dyn.comp~;
+#X text 150 140 mono dynamic range compressors;
 #X obj 1 1 cnv 5 597 40 empty empty ceammc::dyn 20 20 0 20 -104026
 -4096 0;
 #X obj 1 457 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 467 libarary: ceammc;
+#X text 20 467 library: ceammc;
