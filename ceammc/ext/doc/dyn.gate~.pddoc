@@ -68,15 +68,15 @@
         <pdascii>
 <![CDATA[
 [osc~ 440]  [floatatom]
-|           |
-[*~         ]
+|           |.
+[*~          ]
 | |
 | [env~]
 | |
 | [floatatom] [bng]
 |             |
 [dyn.gate~ 90 id]
-|\        |
+|\        ^|
 [dac~]    [print]
 ]]>
         </pdascii>
