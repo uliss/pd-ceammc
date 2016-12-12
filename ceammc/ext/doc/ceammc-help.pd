@@ -1,43 +1,44 @@
 #N canvas 0 0 600 500 12;
-#X text 20 50 General purpose Pd library used for work and education
+#X text 30 50 General purpose Pd library used for work and education
 purposes in centre of electro-acoutic music of Moscow Convervatory
 (CEAMMC) and ZIL-electro studio\. ;
-#X obj 20 111 cnv 10 100 20 empty empty dyn 17 7 0 14 -262144 -49933
-0;
-#X obj 20 131 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 151 dyn.comp2~;
-#X text 150 151 stereo dynamic range compressor;
-#X obj 20 178 dyn.comp~;
-#X text 150 178 mono dynamic range compressors;
-#X obj 20 215 cnv 10 100 20 empty empty list 17 7 0 14 -262144 -49933
-0;
-#X obj 20 235 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 255 list.apply_to;
-#X text 150 255 modifies list value at specified position \, filtering
+#X obj 20 101 cnv 5 28 19 empty empty dyn 0 17 0 17 -262144 -49933 0;
+#X obj 20 130 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 141 dyn.comp2~;
+#X text 150 141 stereo dynamic range compressor;
+#X obj 30 168 dyn.comp~;
+#X text 150 168 mono dynamic range compressors;
+#X obj 20 195 cnv 5 37 19 empty empty list 0 17 0 17 -262144 -49933 0;
+#X obj 20 224 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 235 list.apply_to;
+#X text 150 235 modifies list value at specified position \, filtering
 it via external object\.;
-#X obj 20 302 cnv 10 100 20 empty empty predicates 17 7 0 14 -262144
+#X obj 20 272 cnv 5 99 19 empty empty predicates 0 17 0 17 -262144
 -49933 0;
-#X obj 20 322 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 342 is_any;
-#X text 150 342 checks if input data has *any* type;
-#X obj 20 369 is_bang;
-#X text 150 369 checks if input data has *bang* type;
-#X obj 20 396 is_even;
-#X text 150 396 checks if input number is even;
-#X obj 20 423 is_float;
-#X text 150 423 checks if input data has *float* type;
-#X obj 20 450 is_list;
-#X text 150 450 checks if input data has *list* type;
-#X obj 20 477 is_symbol;
-#X text 150 477 checks if input data has *symbol* type;
-#X obj 20 514 cnv 10 100 20 empty empty system 17 7 0 14 -262144
--49933 0;
-#X obj 20 534 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 554 system.memsize;
-#X text 150 554 returns the size of physical memory (RAM) in bytes
+#X obj 20 301 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 312 is_any;
+#X text 150 312 checks if input data has *any* type;
+#X obj 30 339 is_bang;
+#X text 150 339 checks if input data has *bang* type;
+#X obj 30 366 is_even;
+#X text 150 366 checks if input number is even;
+#X obj 30 393 is_float;
+#X text 150 393 checks if input data has *float* type;
+#X obj 30 420 is_list;
+#X text 150 420 checks if input data has *list* type;
+#X obj 30 447 is_symbol;
+#X text 150 447 checks if input data has *symbol* type;
+#X obj 20 474 cnv 5 58 19 empty empty system 0 17 0 17 -262144 -49933
+0;
+#X obj 20 503 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 514 system.memsize;
+#X text 150 514 returns the size of physical memory (RAM) in bytes
 round to float data type\.;
-#X obj 20 591 system.memused;
-#X text 150 591 returns the process physical memory use - current and
+#X obj 30 551 system.memused;
+#X text 150 551 returns the process physical memory use - current and
 peak;
-#X obj 1 1 cnv 15 597 40 empty empty ceammc(0.1) 20 20 0 20 -104026
--4096 0;
+#X obj 1 1 cnv 5 597 40 empty empty ceammc 20 20 0 20 -104026 -4096 0;
+#X obj 1 578 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 578 version: v0\.1 \, license: GPL3;
+#X obj 20 594 pddp/pddplink https://github.com/uliss/pure-data -text
+https://github.com/uliss/pure-data;
