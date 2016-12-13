@@ -17,6 +17,11 @@
       <xi:include href="dyn.limit~.pddoc" parse="xml"/>
     </entry>
   </category>
+  <category name="env">
+    <entry descr="ADSR (Attack, Decay, Sustain, Release) envelope generator" name="env.adsr~">
+      <xi:include href="env.adsr~.pddoc" parse="xml"/>
+    </entry>
+  </category>
   <category name="list">
     <entry descr="modifies list value at specified position, filtering it via external object." name="list.apply_to">
       <xi:include href="list.apply_to.pddoc" parse="xml"/>
