@@ -1,4 +1,4 @@
-#include "dyn_limit.h"
+#include "dyn_limit2.h"
 
 static void* faust_new(t_symbol* s, int argc, t_atom* argv)
 {
@@ -7,9 +7,9 @@ static void* faust_new(t_symbol* s, int argc, t_atom* argv)
     return p.pd_obj();
 }
 
-extern "C" void setup_dyn0x2elimit_tilde()
+extern "C" void setup_dyn0x2elimit2_tilde()
 {
-    t_symbol* s = gensym("dyn.limit~");
+    t_symbol* s = gensym("dyn.limit2~");
     faust_class = class_new(s, reinterpret_cast<t_newmethod>(faust_new),
         reinterpret_cast<t_method>(faust_free),
         sizeof(t_faust),

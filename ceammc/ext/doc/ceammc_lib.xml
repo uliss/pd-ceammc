@@ -13,7 +13,10 @@
     <entry descr="mono signal gate" name="dyn.gate~">
       <xi:include href="dyn.gate~.pddoc" parse="xml"/>
     </entry>
-    <entry descr="1176LN Peak Limiter" name="dyn.limit~">
+    <entry descr="stereo 1176LN Peak Limiter" name="dyn.limit2~">
+      <xi:include href="dyn.limit2~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="mono 1176LN Peak Limiter" name="dyn.limit~">
       <xi:include href="dyn.limit~.pddoc" parse="xml"/>
     </entry>
   </category>

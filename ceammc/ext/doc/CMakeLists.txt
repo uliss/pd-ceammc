@@ -9,6 +9,7 @@ set(DOC_FILES
     dyn.gate~
     dyn.gate2~
     dyn.limit~
+    dyn.limit2~
     env.ar~
     env.adsr~
     is_any

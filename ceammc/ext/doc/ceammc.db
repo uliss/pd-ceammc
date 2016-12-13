@@ -2,6 +2,7 @@ dyn.comp2~		~~		~~.
 dyn.comp~		~		~.
 dyn.gate2~		~~		~~.
 dyn.gate~		~		~.
+dyn.limit2~		~~		~~
 dyn.limit~		~		~
 env.adsr~		~		~.
 env.ar~		~		~.

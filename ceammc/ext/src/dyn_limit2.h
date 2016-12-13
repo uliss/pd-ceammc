@@ -779,10 +779,10 @@ void PdUI::setElementValue(const char* label, float v)
 
 
 #ifndef FAUSTCLASS 
-#define FAUSTCLASS limit
+#define FAUSTCLASS limit2
 #endif
 
-class limit : public dsp {
+class limit2 : public dsp {
   private:
 	float 	fConst0;
 	float 	fConst1;
@@ -811,8 +811,8 @@ class limit : public dsp {
 		m->declare("math.lib/license", "LGPL with exception");
 	}
 
-	virtual int getNumInputs() { return 1; }
-	virtual int getNumOutputs() { return 1; }
+	virtual int getNumInputs() { return 2; }
+	virtual int getNumOutputs() { return 2; }
 	static void classInit(int samplingFreq) {
 	}
 	virtual void instanceConstants(int samplingFreq) {
@@ -839,8 +839,8 @@ class limit : public dsp {
 		instanceResetUserInterface();
 		instanceClear();
 	}
-	virtual limit* clone() {
-		return new limit();
+	virtual limit2* clone() {
+		return new limit2();
 	}
 	virtual int getSampleRate() {
 		return fSamplingFreq;
@@ -855,6 +855,7 @@ class limit : public dsp {
 		float 	fRec2_tmp[64+4];
 		float 	fRec1_tmp[64+4];
 		float 	fRec0_tmp[64+4];
+		float 	fZec2[64];
 		float* 	fRec2 = &fRec2_tmp[4];
 		float* 	fRec1 = &fRec1_tmp[4];
 		float* 	fRec0 = &fRec0_tmp[4];
@@ -864,16 +865,18 @@ class limit : public dsp {
 			// compute by blocks of 64 samples
 			const int count = 64;
 			FAUSTFLOAT* input0 = &input[0][index];
+			FAUSTFLOAT* input1 = &input[1][index];
 			FAUSTFLOAT* output0 = &output[0][index];
+			FAUSTFLOAT* output1 = &output[1][index];
 			// SECTION : 1
-			// LOOP 0x7fd2db49a2c0
+			// LOOP 0x7f8959c79d40
 			// exec code
 			for (int i=0; i<count; i++) {
-				fZec0[i] = fabsf((float)input0[i]);
+				fZec0[i] = fabsf((fabsf((float)input0[i]) + fabsf((float)input1[i])));
 			}
 			
 			// SECTION : 2
-			// LOOP 0x7fd2db499f60
+			// LOOP 0x7f8959c79940
 			// pre processing
 			for (int i=0; i<4; i++) fRec2_tmp[i]=fRec2_perm[i];
 			for (int i=0; i<4; i++) fRec1_tmp[i]=fRec1_perm[i];
@@ -888,7 +891,7 @@ class limit : public dsp {
 			for (int i=0; i<4; i++) fRec2_perm[i]=fRec2_tmp[count+i];
 			
 			// SECTION : 3
-			// LOOP 0x7fd2db499c60
+			// LOOP 0x7f8959d4ac80
 			// pre processing
 			for (int i=0; i<4; i++) fRec0_tmp[i]=fRec0_perm[i];
 			// exec code
@@ -899,10 +902,23 @@ class limit : public dsp {
 			for (int i=0; i<4; i++) fRec0_perm[i]=fRec0_tmp[count+i];
 			
 			// SECTION : 4
-			// LOOP 0x7fd2db499b80
+			// LOOP 0x7f8959c7de00
 			// exec code
 			for (int i=0; i<count; i++) {
-				output0[i] = (FAUSTFLOAT)((float)input0[i] * powf(10,(0.05f * fRec0[i])));
+				fZec2[i] = powf(10,(0.05f * fRec0[i]));
+			}
+			
+			// SECTION : 5
+			// LOOP 0x7f8959c7e6e0
+			// exec code
+			for (int i=0; i<count; i++) {
+				output1[i] = (FAUSTFLOAT)((float)input1[i] * fZec2[i]);
+			}
+			
+			// LOOP 0x7f8959d4aba0
+			// exec code
+			for (int i=0; i<count; i++) {
+				output0[i] = (FAUSTFLOAT)((float)input0[i] * fZec2[i]);
 			}
 			
 		}
@@ -910,16 +926,18 @@ class limit : public dsp {
 			// compute the remaining samples if any
 			int count = fullcount-index;
 			FAUSTFLOAT* input0 = &input[0][index];
+			FAUSTFLOAT* input1 = &input[1][index];
 			FAUSTFLOAT* output0 = &output[0][index];
+			FAUSTFLOAT* output1 = &output[1][index];
 			// SECTION : 1
-			// LOOP 0x7fd2db49a2c0
+			// LOOP 0x7f8959c79d40
 			// exec code
 			for (int i=0; i<count; i++) {
-				fZec0[i] = fabsf((float)input0[i]);
+				fZec0[i] = fabsf((fabsf((float)input0[i]) + fabsf((float)input1[i])));
 			}
 			
 			// SECTION : 2
-			// LOOP 0x7fd2db499f60
+			// LOOP 0x7f8959c79940
 			// pre processing
 			for (int i=0; i<4; i++) fRec2_tmp[i]=fRec2_perm[i];
 			for (int i=0; i<4; i++) fRec1_tmp[i]=fRec1_perm[i];
@@ -934,7 +952,7 @@ class limit : public dsp {
 			for (int i=0; i<4; i++) fRec2_perm[i]=fRec2_tmp[count+i];
 			
 			// SECTION : 3
-			// LOOP 0x7fd2db499c60
+			// LOOP 0x7f8959d4ac80
 			// pre processing
 			for (int i=0; i<4; i++) fRec0_tmp[i]=fRec0_perm[i];
 			// exec code
@@ -945,10 +963,23 @@ class limit : public dsp {
 			for (int i=0; i<4; i++) fRec0_perm[i]=fRec0_tmp[count+i];
 			
 			// SECTION : 4
-			// LOOP 0x7fd2db499b80
+			// LOOP 0x7f8959c7de00
 			// exec code
 			for (int i=0; i<count; i++) {
-				output0[i] = (FAUSTFLOAT)((float)input0[i] * powf(10,(0.05f * fRec0[i])));
+				fZec2[i] = powf(10,(0.05f * fRec0[i]));
+			}
+			
+			// SECTION : 5
+			// LOOP 0x7f8959c7e6e0
+			// exec code
+			for (int i=0; i<count; i++) {
+				output1[i] = (FAUSTFLOAT)((float)input1[i] * fZec2[i]);
+			}
+			
+			// LOOP 0x7f8959d4aba0
+			// exec code
+			for (int i=0; i<count; i++) {
+				output0[i] = (FAUSTFLOAT)((float)input0[i] * fZec2[i]);
 			}
 			
 		}
@@ -978,7 +1009,7 @@ struct t_faust {
      to write past the end of x_obj on Windows. */
     int fence; /* dummy field (not used) */
 #endif
-    limit* dsp;
+    limit2* dsp;
     PdUI* ui;
     std::string* label;
     int active, xfade, n_xfade, rate, n_in, n_out;
@@ -1292,7 +1323,7 @@ static bool faust_init_outputs(t_faust* x, bool info_outlet) {
 }
 
 static void faust_init_label(t_faust* x, const char* obj_id) {
-    x->label = new std::string(sym(limit) "~");
+    x->label = new std::string(sym(limit2) "~");
 
     // label settings
     if (obj_id) {
@@ -1307,8 +1338,8 @@ static bool faust_new_internal(t_faust* x, const char* obj_id = NULL, bool info_
     x->xfade = 0;
     x->n_xfade = static_cast<int>(sr * XFADE_TIME / 64);
 
-    x->dsp = new limit();
-    x->ui = new PdUI(sym(limit), obj_id);
+    x->dsp = new limit2();
+    x->ui = new PdUI(sym(limit2), obj_id);
 
     faust_init_label(x, obj_id);
 
