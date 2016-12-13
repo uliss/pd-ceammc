@@ -22,6 +22,11 @@
       <xi:include href="env.adsr~.pddoc" parse="xml"/>
     </entry>
   </category>
+  <category name="lfo">
+    <entry descr="Unit-amplitude low-frequency impulse train" name="lfo.impulse~">
+      <xi:include href="lfo.impulse~.pddoc" parse="xml"/>
+    </entry>
+  </category>
   <category name="list">
     <entry descr="modifies list value at specified position, filtering it via external object." name="list.apply_to">
       <xi:include href="list.apply_to.pddoc" parse="xml"/>

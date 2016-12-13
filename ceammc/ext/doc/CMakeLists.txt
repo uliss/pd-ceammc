@@ -3,15 +3,6 @@ find_program(PD_MAKELIB pd_makelibrary)
 find_program(PD_LIB2PD pd_lib2pd)
 find_program(PD_CAT2PD pd_cat2pd)
 
-set(DEFAULT_DOC_DEST ${CMAKE_CURRENT_BINARY_DIR})
-if(UNIX AND NOT APPLE)
-    set(DEFAULT_DOC_DEST "lib/pd_ceammc/extra/ceammc")
-elseif(APPLE)
-    set(DEFAULT_DOC_DEST "$ENV{HOME}/Library/Pd/ceammc")
-elseif(MSYS)
-    set(DEFAULT_DOC_DEST "extra/ceammc")
-endif()
-
 set(DOC_FILES
     dyn.comp~
     dyn.comp2~
@@ -26,6 +17,7 @@ set(DOC_FILES
     is_list
     is_even
     list.apply_to
+    lfo.impulse~
     osc.sinfb~
     system.memsize
     system.memused)
@@ -51,6 +43,7 @@ else()
                  --force
                  --version "${CEAMMC_LIB_VERSION}"
                  --website "${CEAMMC_LIB_HOME}"
+                 --xlet-db "ceammc.db"
                 "${f}.pddoc" ${fname}
             WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
     endforeach()
@@ -85,7 +78,4 @@ else()
         COMMAND pd_cat2pd "ceammc_lib.xml"
         WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
 endif()
-
-install(DIRECTORY . DESTINATION ${DEFAULT_DOC_DEST}
-    FILES_MATCHING PATTERN "*-help.pd" PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
 

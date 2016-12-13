@@ -10,6 +10,7 @@ is_even		.		..
 is_float		.		..
 is_list		.		..
 is_symbol		.		..
+lfo.impulse~		~		~
 list.apply_to		..		..
 osc.sibfb~		~		~
 osc.sinfb~		~		~.

@@ -8,7 +8,7 @@
 #X obj 50 147 *~ 100;
 #X floatatom 184 162 5 0 0 0 - - -;
 #X obj 50 176 clip~ 0 1;
-#X obj 184 190 prepend ratio;
+#X msg 184 190 ratio \$1;
 #X obj 50 205 *~ 20;
 #X obj 126 205 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;

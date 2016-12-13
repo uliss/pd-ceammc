@@ -1,9 +1,9 @@
-#N canvas 0 0 273 201 12;
+#N canvas 0 0 240 201 12;
 #X obj 20 48 phasor~ 10;
 #X obj 20 77 *~ 100;
 #X floatatom 154 92 5 0 0 0 - - -;
 #X obj 20 106 clip~ 0 1;
-#X obj 154 120 prepend ratio;
+#X msg 154 120 ratio \$1;
 #X obj 20 135 *~ 20;
 #X obj 96 135 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
