@@ -19,45 +19,48 @@ purposes in centre of electroacoustic music of Moscow Convervatory
 #X obj 30 316 env.adsr~;
 #X text 150 316 ADSR (Attack \, Decay \, Sustain \, Release) envelope
 generator;
-#X obj 20 343 cnv 5 27 19 empty empty lfo 0 17 0 17 -262144 -49933 0;
-#X obj 20 372 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 383 lfo.impulse~;
-#X text 150 383 Unit-amplitude low-frequency impulse train;
-#X obj 20 410 cnv 5 37 19 empty empty list 0 17 0 17 -262144 -49933 0;
-#X obj 20 439 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 450 list.apply_to;
-#X text 150 450 modifies list value at specified position \, filtering
+#X obj 30 343 env.ar~;
+#X text 150 343 AR (Attack \, Release) envelope generator (useful to
+create percussion envelopes)\.;
+#X obj 20 380 cnv 5 27 19 empty empty lfo 0 17 0 17 -262144 -49933 0;
+#X obj 20 409 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 420 lfo.impulse~;
+#X text 150 420 Unit-amplitude low-frequency impulse train;
+#X obj 20 447 cnv 5 37 19 empty empty list 0 17 0 17 -262144 -49933 0;
+#X obj 20 476 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 487 list.apply_to;
+#X text 150 487 modifies list value at specified position \, filtering
 it via external object\.;
-#X obj 20 487 cnv 5 28 19 empty empty osc 0 17 0 17 -262144 -49933 0;
-#X obj 20 516 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 527 osc.sinfb~;
-#X text 150 527 sine oscilator with feedback;
-#X obj 20 554 cnv 5 99 19 empty empty predicates 0 17 0 17 -262144
+#X obj 20 524 cnv 5 28 19 empty empty osc 0 17 0 17 -262144 -49933 0;
+#X obj 20 553 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 564 osc.sinfb~;
+#X text 150 564 sine oscilator with feedback;
+#X obj 20 591 cnv 5 99 19 empty empty predicates 0 17 0 17 -262144
 -49933 0;
-#X obj 20 583 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 594 is_any;
-#X text 150 594 checks if input data has *any* type;
-#X obj 30 621 is_bang;
-#X text 150 621 checks if input data has *bang* type;
-#X obj 30 648 is_even;
-#X text 150 648 checks if input number is even;
-#X obj 30 675 is_float;
-#X text 150 675 checks if input data has *float* type;
-#X obj 30 702 is_list;
-#X text 150 702 checks if input data has *list* type;
-#X obj 30 729 is_symbol;
-#X text 150 729 checks if input data has *symbol* type;
-#X obj 20 756 cnv 5 58 19 empty empty system 0 17 0 17 -262144 -49933
+#X obj 20 620 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 631 is_any;
+#X text 150 631 checks if input data has *any* type;
+#X obj 30 658 is_bang;
+#X text 150 658 checks if input data has *bang* type;
+#X obj 30 685 is_even;
+#X text 150 685 checks if input number is even;
+#X obj 30 712 is_float;
+#X text 150 712 checks if input data has *float* type;
+#X obj 30 739 is_list;
+#X text 150 739 checks if input data has *list* type;
+#X obj 30 766 is_symbol;
+#X text 150 766 checks if input data has *symbol* type;
+#X obj 20 793 cnv 5 58 19 empty empty system 0 17 0 17 -262144 -49933
 0;
-#X obj 20 785 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 796 system.memsize;
-#X text 150 796 returns the size of physical memory (RAM) in bytes
+#X obj 20 822 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 833 system.memsize;
+#X text 150 833 returns the size of physical memory (RAM) in bytes
 round to float data type\.;
-#X obj 30 833 system.memused;
-#X text 150 833 returns the process physical memory use - current and
+#X obj 30 870 system.memused;
+#X text 150 870 returns the process physical memory use - current and
 peak;
 #X obj 1 1 cnv 5 597 40 empty empty ceammc 20 20 0 20 -104026 -4096 0;
-#X obj 1 860 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 860 version: v0\.1 \, license: GPL3;
-#X obj 20 876 pddp/pddplink https://github.com/uliss/pure-data -text
+#X obj 1 897 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 897 version: v0\.1 \, license: GPL3;
+#X obj 20 913 pddp/pddplink https://github.com/uliss/pure-data -text
 https://github.com/uliss/pure-data;

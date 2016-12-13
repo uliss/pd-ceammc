@@ -21,6 +21,9 @@
     <entry descr="ADSR (Attack, Decay, Sustain, Release) envelope generator" name="env.adsr~">
       <xi:include href="env.adsr~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="AR (Attack, Release) envelope generator (useful to create percussion envelopes)." name="env.ar~">
+      <xi:include href="env.ar~.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="lfo">
     <entry descr="Unit-amplitude low-frequency impulse train" name="lfo.impulse~">
