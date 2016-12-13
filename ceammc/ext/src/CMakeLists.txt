@@ -218,7 +218,7 @@ ceammc_faust_extension(spat pan2 simple_pd_control_ext)
 ceammc_faust_extension(spat pan4 simple_pd_control_ext)
 
 ceammc_faust_extension(osc bsaw simple_pd_control_ext)
-ceammc_faust_extension(osc bsqr simple_pd_control_ext)
+ceammc_faust_extension(osc sqr simple_pd_control_ext)
 ceammc_faust_extension(osc tri simple_pd_control_ext)
 
 

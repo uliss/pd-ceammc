@@ -5,6 +5,18 @@
 
 /* link with  */
 #include <math.h>
+#ifndef FAUSTPOWER
+#define FAUSTPOWER
+#include <cmath>
+template <int N> inline int faustpower(int x)              { return faustpower<N/2>(x) * faustpower<N-N/2>(x); } 
+template <> 	 inline int faustpower<0>(int x)            { return 1; }
+template <> 	 inline int faustpower<1>(int x)            { return x; }
+template <> 	 inline int faustpower<2>(int x)            { return x*x; }
+template <int N> inline float faustpower(float x)            { return faustpower<N/2>(x) * faustpower<N-N/2>(x); } 
+template <> 	 inline float faustpower<0>(float x)          { return 1; }
+template <> 	 inline float faustpower<1>(float x)          { return x; }
+template <> 	 inline float faustpower<2>(float x)          { return x*x; }
+#endif
 /************************************************************************
  ************************************************************************
     FAUST Architecture File
@@ -779,63 +791,22 @@ void PdUI::setElementValue(const char* label, float v)
 
 
 #ifndef FAUSTCLASS 
-#define FAUSTCLASS bsqr
+#define FAUSTCLASS sqr
 #endif
 
-class bsqr : public dsp {
+class sqr : public dsp {
   private:
-	class SIG0 {
-	  private:
-		int fSamplingFreq;
-		int 	iRec2[2];
-	  public:
-		int getNumInputs() { return 0; }
-		int getNumOutputs() { return 1; }
-		void init(int samplingFreq) {
-			fSamplingFreq = samplingFreq;
-			for (int i=0; i<2; i++) iRec2[i] = 0;
-		}
-		void fill (int count, float output[]) {
-			// SECTION : 1
-			for (int i=0; i<count; i++) {
-				iRec2[0] = (iRec2[1] + 1);
-				output[i] = sinf((9.58738e-05f * float((iRec2[0] + -1))));
-				// post processing
-				iRec2[1] = iRec2[0];
-			}
-		}
-	};
-
-
-	class SIG1 {
-	  private:
-		int fSamplingFreq;
-		int 	iRec3[2];
-	  public:
-		int getNumInputs() { return 0; }
-		int getNumOutputs() { return 1; }
-		void init(int samplingFreq) {
-			fSamplingFreq = samplingFreq;
-			for (int i=0; i<2; i++) iRec3[i] = 0;
-		}
-		void fill (int count, float output[]) {
-			// SECTION : 1
-			for (int i=0; i<count; i++) {
-				iRec3[0] = (iRec3[1] + 1);
-				output[i] = cosf((9.58738e-05f * float((iRec3[0] + -1))));
-				// post processing
-				iRec3[1] = iRec3[0];
-			}
-		}
-	};
-
-
 	float 	fConst0;
-	float 	fRec1_perm[4];
-	FAUSTFLOAT 	fslider0;
-	static float 	ftbl0[65536];
-	static float 	ftbl1[65536];
+	float 	fConst1;
 	float 	fRec0_perm[4];
+	float 	fConst2;
+	float 	fConst3;
+	int 	iVec0_perm[4];
+	float 	fYec0_perm[4];
+	float 	fYec1[4096];
+	int 	fYec1_idx;
+	int 	fYec1_idx_save;
+	float 	fConst4;
 	int fSamplingFreq;
 
   public:
@@ -847,30 +818,29 @@ class bsqr : public dsp {
 		m->declare("math.lib/author", "GRAME");
 		m->declare("math.lib/copyright", "GRAME");
 		m->declare("math.lib/license", "LGPL with exception");
-		m->declare("basic.lib/name", "Faust Basic Element Library");
-		m->declare("basic.lib/version", "0.0");
 	}
 
 	virtual int getNumInputs() { return 1; }
 	virtual int getNumOutputs() { return 1; }
 	static void classInit(int samplingFreq) {
-		SIG0 sig0;
-		sig0.init(samplingFreq);
-		sig0.fill(65536,ftbl0);
-		SIG1 sig1;
-		sig1.init(samplingFreq);
-		sig1.fill(65536,ftbl1);
 	}
 	virtual void instanceConstants(int samplingFreq) {
 		fSamplingFreq = samplingFreq;
-		fConst0 = (1.0f / float(min(1.92e+05f, max(1.0f, (float)fSamplingFreq))));
+		fConst0 = min(1.92e+05f, max(1.0f, (float)fSamplingFreq));
+		fConst1 = (1.0f / fConst0);
+		fConst2 = float(fConst0);
+		fConst3 = (0.25f * fConst2);
+		fConst4 = (0.5f * fConst2);
 	}
 	virtual void instanceResetUserInterface() {
-		fslider0 = 0.0f;
 	}
 	virtual void instanceClear() {
-		for (int i=0; i<4; i++) fRec1_perm[i]=0;
 		for (int i=0; i<4; i++) fRec0_perm[i]=0;
+		for (int i=0; i<4; i++) iVec0_perm[i]=0;
+		for (int i=0; i<4; i++) fYec0_perm[i]=0;
+		for (int i=0; i<4096; i++) fYec1[i]=0;
+		fYec1_idx = 0;
+		fYec1_idx_save = 0;
 	}
 	virtual void init(int samplingFreq) {
 		classInit(samplingFreq);
@@ -881,26 +851,29 @@ class bsqr : public dsp {
 		instanceResetUserInterface();
 		instanceClear();
 	}
-	virtual bsqr* clone() {
-		return new bsqr();
+	virtual sqr* clone() {
+		return new sqr();
 	}
 	virtual int getSampleRate() {
 		return fSamplingFreq;
 	}
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("0x00");
-		ui_interface->addHorizontalSlider("feedback", &fslider0, 0.0f, 0.0f, 4.0f, 0.1f);
 		ui_interface->closeBox();
 	}
 	virtual void compute (int count, FAUSTFLOAT** input, FAUSTFLOAT** output) {
 		float 	fZec0[64];
-		float 	fRec1_tmp[64+4];
 		float 	fZec1[64];
-		int 	iZec2[64];
+		float 	fZec2[64];
 		float 	fRec0_tmp[64+4];
-		float* 	fRec1 = &fRec1_tmp[4];
-		float 	fSlow0 = float(fslider0);
+		int 	iVec0_tmp[64+4];
+		float 	fYec0_tmp[64+4];
+		float 	fZec3[64];
+		float 	fZec4[64];
+		int 	iZec5[64];
 		float* 	fRec0 = &fRec0_tmp[4];
+		int* 	iVec0 = &iVec0_tmp[4];
+		float* 	fYec0 = &fYec0_tmp[4];
 		int index;
 		int fullcount = count;
 		for (index = 0; index <= fullcount - 64; index += 64) {
@@ -909,41 +882,86 @@ class bsqr : public dsp {
 			FAUSTFLOAT* input0 = &input[0][index];
 			FAUSTFLOAT* output0 = &output[0][index];
 			// SECTION : 1
-			// LOOP 0x7feffb702400
-			// pre processing
-			for (int i=0; i<4; i++) fRec1_tmp[i]=fRec1_perm[i];
+			// LOOP 0x7fe06a53b800
 			// exec code
 			for (int i=0; i<count; i++) {
-				fZec0[i] = ((fConst0 * (float)input0[i]) + fRec1[i-1]);
-				fRec1[i] = (fZec0[i] - floorf(fZec0[i]));
+				fZec0[i] = max((float)input0[i], 23.44895f);
 			}
-			// post processing
-			for (int i=0; i<4; i++) fRec1_perm[i]=fRec1_tmp[count+i];
 			
 			// SECTION : 2
-			// LOOP 0x7feffb4683c0
+			// LOOP 0x7fe06a53b720
 			// exec code
 			for (int i=0; i<count; i++) {
-				iZec2[i] = int((65536.0f * fRec1[i]));
+				fZec1[i] = max(2e+01f, fabsf(fZec0[i]));
 			}
 			
 			// SECTION : 3
-			// LOOP 0x7feffb702120
+			// LOOP 0x7fe06a53ad50
 			// pre processing
 			for (int i=0; i<4; i++) fRec0_tmp[i]=fRec0_perm[i];
 			// exec code
 			for (int i=0; i<count; i++) {
-				fZec1[i] = (fSlow0 * fRec0[i-1]);
-				fRec0[i] = ((cosf(fZec1[i]) * ftbl0[iZec2[i]]) + (sinf(fZec1[i]) * ftbl1[iZec2[i]]));
+				fZec2[i] = ((fConst1 * fZec1[i]) + fRec0[i-1]);
+				fRec0[i] = (fZec2[i] - floorf(fZec2[i]));
 			}
 			// post processing
 			for (int i=0; i<4; i++) fRec0_perm[i]=fRec0_tmp[count+i];
 			
 			// SECTION : 4
-			// LOOP 0x7feffb702040
+			// LOOP 0x7fe06a53d000
+			// pre processing
+			for (int i=0; i<4; i++) iVec0_tmp[i]=iVec0_perm[i];
 			// exec code
 			for (int i=0; i<count; i++) {
-				output0[i] = (FAUSTFLOAT)fRec0[i];
+				iVec0[i] = 1;
+			}
+			// post processing
+			for (int i=0; i<4; i++) iVec0_perm[i]=iVec0_tmp[count+i];
+			
+			// LOOP 0x7fe06a53d590
+			// pre processing
+			for (int i=0; i<4; i++) fYec0_tmp[i]=fYec0_perm[i];
+			// exec code
+			for (int i=0; i<count; i++) {
+				fYec0[i] = faustpower<2>(((2 * fRec0[i]) + -1));
+			}
+			// post processing
+			for (int i=0; i<4; i++) fYec0_perm[i]=fYec0_tmp[count+i];
+			
+			// LOOP 0x7fe06a53e880
+			// exec code
+			for (int i=0; i<count; i++) {
+				fZec3[i] = max((float)0, min((float)2047, (fConst4 / fZec0[i])));
+			}
+			
+			// SECTION : 5
+			// LOOP 0x7fe06a53cf20
+			// pre processing
+			fYec1_idx = (fYec1_idx+fYec1_idx_save)&4095;
+			// exec code
+			for (int i=0; i<count; i++) {
+				fYec1[(fYec1_idx+i)&4095] = ((iVec0[i-1] * (fYec0[i] - fYec0[i-1])) / fZec1[i]);
+			}
+			// post processing
+			fYec1_idx_save = count;
+			
+			// LOOP 0x7fe06a53f270
+			// exec code
+			for (int i=0; i<count; i++) {
+				fZec4[i] = floorf(fZec3[i]);
+			}
+			
+			// LOOP 0x7fe06a53f700
+			// exec code
+			for (int i=0; i<count; i++) {
+				iZec5[i] = int(fZec3[i]);
+			}
+			
+			// SECTION : 6
+			// LOOP 0x7fe06a53ac70
+			// exec code
+			for (int i=0; i<count; i++) {
+				output0[i] = (FAUSTFLOAT)(fConst3 * (fYec1[(fYec1_idx+i) & 4095] - (((fZec3[i] - fZec4[i]) * fYec1[(fYec1_idx+i-int((iZec5[i] + 1)))&4095]) + ((fZec4[i] + (1 - fZec3[i])) * fYec1[(fYec1_idx+i-iZec5[i])&4095]))));
 			}
 			
 		}
@@ -953,41 +971,86 @@ class bsqr : public dsp {
 			FAUSTFLOAT* input0 = &input[0][index];
 			FAUSTFLOAT* output0 = &output[0][index];
 			// SECTION : 1
-			// LOOP 0x7feffb702400
-			// pre processing
-			for (int i=0; i<4; i++) fRec1_tmp[i]=fRec1_perm[i];
+			// LOOP 0x7fe06a53b800
 			// exec code
 			for (int i=0; i<count; i++) {
-				fZec0[i] = ((fConst0 * (float)input0[i]) + fRec1[i-1]);
-				fRec1[i] = (fZec0[i] - floorf(fZec0[i]));
+				fZec0[i] = max((float)input0[i], 23.44895f);
 			}
-			// post processing
-			for (int i=0; i<4; i++) fRec1_perm[i]=fRec1_tmp[count+i];
 			
 			// SECTION : 2
-			// LOOP 0x7feffb4683c0
+			// LOOP 0x7fe06a53b720
 			// exec code
 			for (int i=0; i<count; i++) {
-				iZec2[i] = int((65536.0f * fRec1[i]));
+				fZec1[i] = max(2e+01f, fabsf(fZec0[i]));
 			}
 			
 			// SECTION : 3
-			// LOOP 0x7feffb702120
+			// LOOP 0x7fe06a53ad50
 			// pre processing
 			for (int i=0; i<4; i++) fRec0_tmp[i]=fRec0_perm[i];
 			// exec code
 			for (int i=0; i<count; i++) {
-				fZec1[i] = (fSlow0 * fRec0[i-1]);
-				fRec0[i] = ((cosf(fZec1[i]) * ftbl0[iZec2[i]]) + (sinf(fZec1[i]) * ftbl1[iZec2[i]]));
+				fZec2[i] = ((fConst1 * fZec1[i]) + fRec0[i-1]);
+				fRec0[i] = (fZec2[i] - floorf(fZec2[i]));
 			}
 			// post processing
 			for (int i=0; i<4; i++) fRec0_perm[i]=fRec0_tmp[count+i];
 			
 			// SECTION : 4
-			// LOOP 0x7feffb702040
+			// LOOP 0x7fe06a53d000
+			// pre processing
+			for (int i=0; i<4; i++) iVec0_tmp[i]=iVec0_perm[i];
 			// exec code
 			for (int i=0; i<count; i++) {
-				output0[i] = (FAUSTFLOAT)fRec0[i];
+				iVec0[i] = 1;
+			}
+			// post processing
+			for (int i=0; i<4; i++) iVec0_perm[i]=iVec0_tmp[count+i];
+			
+			// LOOP 0x7fe06a53d590
+			// pre processing
+			for (int i=0; i<4; i++) fYec0_tmp[i]=fYec0_perm[i];
+			// exec code
+			for (int i=0; i<count; i++) {
+				fYec0[i] = faustpower<2>(((2 * fRec0[i]) + -1));
+			}
+			// post processing
+			for (int i=0; i<4; i++) fYec0_perm[i]=fYec0_tmp[count+i];
+			
+			// LOOP 0x7fe06a53e880
+			// exec code
+			for (int i=0; i<count; i++) {
+				fZec3[i] = max((float)0, min((float)2047, (fConst4 / fZec0[i])));
+			}
+			
+			// SECTION : 5
+			// LOOP 0x7fe06a53cf20
+			// pre processing
+			fYec1_idx = (fYec1_idx+fYec1_idx_save)&4095;
+			// exec code
+			for (int i=0; i<count; i++) {
+				fYec1[(fYec1_idx+i)&4095] = ((iVec0[i-1] * (fYec0[i] - fYec0[i-1])) / fZec1[i]);
+			}
+			// post processing
+			fYec1_idx_save = count;
+			
+			// LOOP 0x7fe06a53f270
+			// exec code
+			for (int i=0; i<count; i++) {
+				fZec4[i] = floorf(fZec3[i]);
+			}
+			
+			// LOOP 0x7fe06a53f700
+			// exec code
+			for (int i=0; i<count; i++) {
+				iZec5[i] = int(fZec3[i]);
+			}
+			
+			// SECTION : 6
+			// LOOP 0x7fe06a53ac70
+			// exec code
+			for (int i=0; i<count; i++) {
+				output0[i] = (FAUSTFLOAT)(fConst3 * (fYec1[(fYec1_idx+i) & 4095] - (((fZec3[i] - fZec4[i]) * fYec1[(fYec1_idx+i-int((iZec5[i] + 1)))&4095]) + ((fZec4[i] + (1 - fZec3[i])) * fYec1[(fYec1_idx+i-iZec5[i])&4095]))));
 			}
 			
 		}
@@ -995,8 +1058,6 @@ class bsqr : public dsp {
 };
 
 
-float 	bsqr::ftbl0[65536];
-float 	bsqr::ftbl1[65536];
 
 #include "m_pd.h"
 #include <stdio.h>
@@ -1019,7 +1080,7 @@ struct t_faust {
      to write past the end of x_obj on Windows. */
     int fence; /* dummy field (not used) */
 #endif
-    bsqr* dsp;
+    sqr* dsp;
     PdUI* ui;
     std::string* label;
     int active, xfade, n_xfade, rate, n_in, n_out;
@@ -1195,7 +1256,9 @@ static void faust_any(t_faust* x, t_symbol* s, int argc, t_atom* argv)
                 SETFLOAT(&args[3], ui->elems[i].min);
                 SETFLOAT(&args[4], ui->elems[i].max);
                 SETFLOAT(&args[5], ui->elems[i].step);
-                outlet_anything(x->out, _s, 6, args);
+                if(x->out) {
+                    outlet_anything(x->out, _s, 6, args);
+                }
             }
     } else {
         const char* label = s->s_name;
@@ -1206,7 +1269,9 @@ static void faust_any(t_faust* x, t_symbol* s, int argc, t_atom* argv)
                     if (ui->elems[i].zone) {
                         t_atom arg;
                         SETFLOAT(&arg, *ui->elems[i].zone);
-                        outlet_anything(x->out, gensym(ui->elems[i].label), 1, &arg);
+                        if(x->out) {
+                            outlet_anything(x->out, gensym(ui->elems[i].label), 1, &arg);
+                        }
                     }
                     ++count;
                 } else if (argc == 1 && (argv[0].a_type == A_FLOAT || argv[0].a_type == A_DEFFLOAT) && ui->elems[i].zone) {
@@ -1221,7 +1286,9 @@ static void faust_any(t_faust* x, t_symbol* s, int argc, t_atom* argv)
             if (argc == 0) {
                 t_atom arg;
                 SETFLOAT(&arg, (float)x->active);
-                outlet_anything(x->out, gensym("active"), 1, &arg);
+                if(x->out) {
+                    outlet_anything(x->out, gensym("active"), 1, &arg);
+                }
             } else if (argc == 1 && (argv[0].a_type == A_FLOAT || argv[0].a_type == A_DEFFLOAT)) {
                 float f = atom_getfloat(argv);
                 x->active = (int)f;
@@ -1287,7 +1354,7 @@ static bool faust_init_inputs(t_faust* x) {
     return true;
 }
 
-static bool faust_init_outputs(t_faust* x) {
+static bool faust_init_outputs(t_faust* x, bool info_outlet) {
     x->outputs = NULL;
     x->buf = NULL;
 
@@ -1318,13 +1385,16 @@ static bool faust_init_outputs(t_faust* x) {
     }
 
     // control outlet
-    x->out = outlet_new(&x->x_obj, 0);
+    if(info_outlet)
+        x->out = outlet_new(&x->x_obj, 0);
+    else
+        x->out = 0;
 
     return true;
 }
 
 static void faust_init_label(t_faust* x, const char* obj_id) {
-    x->label = new std::string(sym(bsqr) "~");
+    x->label = new std::string(sym(sqr) "~");
 
     // label settings
     if (obj_id) {
@@ -1333,14 +1403,14 @@ static void faust_init_label(t_faust* x, const char* obj_id) {
     }
 }
 
-static bool faust_new_internal(t_faust* x, const char* obj_id = NULL) {
+static bool faust_new_internal(t_faust* x, const char* obj_id = NULL, bool info_outlet = true) {
     int sr = 44100;
     x->active = 1;
     x->xfade = 0;
     x->n_xfade = static_cast<int>(sr * XFADE_TIME / 64);
 
-    x->dsp = new bsqr();
-    x->ui = new PdUI(sym(bsqr), obj_id);
+    x->dsp = new sqr();
+    x->ui = new PdUI(sym(sqr), obj_id);
 
     faust_init_label(x, obj_id);
 
@@ -1349,7 +1419,7 @@ static bool faust_new_internal(t_faust* x, const char* obj_id = NULL) {
         return false;
     }
 
-    if(!faust_init_outputs(x)) {
+    if(!faust_init_outputs(x, info_outlet)) {
         faust_free(x);
         return false;
     }
@@ -1360,6 +1430,14 @@ static bool faust_new_internal(t_faust* x, const char* obj_id = NULL) {
     return true;
 }
 
+/**
+ * find nth element that satisfies given predicate
+ * @first - first element of sequence
+ * @last - pointer behind last element of sequence
+ * @Nth - searched element index
+ * @pred - predicate
+ * @return pointer to found element or pointer to @bold last, if not found
+ */
 template<class InputIterator, class NthOccurence, class UnaryPredicate>
 InputIterator find_nth_if(InputIterator first, InputIterator last, NthOccurence Nth, UnaryPredicate pred)
 {
@@ -1373,6 +1451,9 @@ InputIterator find_nth_if(InputIterator first, InputIterator last, NthOccurence 
     return last;
 }
 
+/**
+ * @return true if given atom is a float
+ */
 static bool atom_is_float(const t_atom& a) {
     switch(a.a_type) {
         case A_FLOAT:
@@ -1383,6 +1464,9 @@ static bool atom_is_float(const t_atom& a) {
     }
 }
 
+/**
+ * @return true if given atom is a symbol
+ */
 static bool atom_is_symbol(const t_atom& a) {
     switch(a.a_type) {
         case A_DEFSYMBOL:
@@ -1393,6 +1477,14 @@ static bool atom_is_symbol(const t_atom& a) {
     }
 }
 
+/**
+ * @brief find nth float in argument list. (arguments can be mixed)
+ * @param argc argument count
+ * @param argv pointer to argument vector
+ * @param nth find position. nth should be > 0!
+ * @param dest destination to write value
+ * @return true if argument at given position was found, otherwise false
+ */
 static bool get_nth_float_arg(int argc, t_atom* argv, int nth, t_float* dest) {
     t_atom* last = argv + argc;
     t_atom* res = find_nth_if(argv, last, nth, atom_is_float);
@@ -1402,6 +1494,14 @@ static bool get_nth_float_arg(int argc, t_atom* argv, int nth, t_float* dest) {
     return true;
 }
 
+/**
+ * @brief find nth symbol in argument list. (arguments can be mixed)
+ * @param argc argument count
+ * @param argv pointer to argument vector
+ * @param nth find position. nth should be > 0!
+ * @param dest destination to write found argument value
+ * @return true if argument at given position was found, otherwise false
+ */
 static bool get_nth_symbol_arg(int argc, t_atom* argv, int nth, const char** dest) {
     t_atom* last = argv + argc;
     t_atom* res = find_nth_if(argv, last, nth, atom_is_symbol);
@@ -1411,5 +1511,73 @@ static bool get_nth_symbol_arg(int argc, t_atom* argv, int nth, const char** des
     *dest = s->s_name;
     return true;
 }
+
+class PdArgParser {
+    t_faust* x_;
+    int argc_;
+    t_atom* argv_;
+    bool control_outlet_;
+
+public:
+    /**
+     * @brief FaustArgParser
+     * @param x pointer to faust class
+     * @param argc arguments count
+     * @param argv pointer to argument vector
+     */
+    PdArgParser(t_faust* x, int argc, t_atom* argv, bool info_outlet = true)
+        : x_(x)
+        , argc_(argc)
+        , argv_(argv)
+        , control_outlet_(info_outlet)
+    {
+        const char* id = NULL;
+        get_nth_symbol_arg(argc_, argv_, 1, &id);
+
+        // init error
+        if (!faust_new_internal(x, id, control_outlet_)) {
+            this->x_ = NULL;
+        }
+    }
+
+    /**
+     * @brief initFloatArg
+     * @param name argument name
+     * @param pos argument position among of @bold float(!) arguments. Position starts from @bold 1(!).
+     * to select first argument - pass 1.
+     */
+    void initFloatArg(const char* name, int pos)
+    {
+        // object was not created
+        if (!this->x_)
+            return;
+
+        t_float v = 0.0;
+        if (get_nth_float_arg(this->argc_, this->argv_, pos, &v))
+            this->x_->ui->setElementValue(name, v);
+    }
+
+    /**
+     * @brief send creation argument to first signal inlet
+     * @param name argument name
+     * @param pos argument position among of @bold float(!) arguments. Position starts from @bold 1(!).
+     * to select first argument - pass 1.
+     */
+    void signalFloatArg(const char* name, int pos)
+    {
+        // object was not created
+        if (!this->x_)
+            return;
+
+        t_float arg = 0;
+        if(get_nth_float_arg(this->argc_, this->argv_, pos, &arg))
+            pd_float(reinterpret_cast<t_pd*>(this->x_), arg);
+    }
+
+    t_faust* pd_obj()
+    {
+        return this->x_;
+    }
+};
 
 
