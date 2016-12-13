@@ -5,8 +5,8 @@
 -4096 0;
 #X obj 573 11 lfo.impulse~;
 #X floatatom 50 118 5 0 0 0 - - -;
-#X obj 50 147 lfo.impulse~ 440;
-#X obj 146 162 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 50 147 lfo.impulse~ 8;
+#X obj 194 162 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 50 190 *~;
 #X obj 50 219 dac~;
 #X obj 20 258 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;

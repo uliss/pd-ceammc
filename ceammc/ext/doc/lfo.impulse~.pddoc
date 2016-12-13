@@ -30,9 +30,9 @@
 <![CDATA[
 [floatatom]
 |
-[lfo.impulse~ 440]
-|         [tgl]
-|  .______/
+[lfo.impulse~ 8]
+|              [tgl]
+|  .___________/
 [*~]
 |\
 [dac~]
