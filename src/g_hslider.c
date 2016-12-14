@@ -74,10 +74,10 @@ static void hslider_draw_new(t_hslider *x, t_glist *glist)
              ypos + x->x_gui.x_h, STYLE_SLIDER_KNOB_WIDTH, x->x_gui.x_fcol, x);
     sys_vgui(".x%lx.c create text %d %d -text {%s} -anchor w \
              -font {{%s} -%d %s} -fill #%06x -tags [list %lxLABEL label text]\n",
-             canvas, xpos+x->x_gui.x_ldx * zoomlabel,
-             ypos+x->x_gui.x_ldy * zoomlabel,
+             canvas, xpos+x->x_gui.x_ldx * IEMGUI_ZOOM(x),
+             ypos+x->x_gui.x_ldy * IEMGUI_ZOOM(x),
              strcmp(x->x_gui.x_lab->s_name, "empty")?x->x_gui.x_lab->s_name:"",
-             x->x_gui.x_font, x->x_gui.x_fontsize, sys_fontweight,
+             x->x_gui.x_font, x->x_gui.x_fontsize * IEMGUI_ZOOM(x), sys_fontweight,
              x->x_gui.x_lcol, x);
     if(!x->x_gui.x_fsf.x_snd_able)
         sys_vgui(".x%lx.c create rectangle %d %d %d %d -outline %s -tags [list %lxOUT%d outlet]\n",
