@@ -16,6 +16,7 @@ set(DOC_FILES
     flt.dcblock2~
     flt.highshelf~
     flt.lowshelf~
+    flt.eq_peak~
     is_any
     is_bang
     is_float
