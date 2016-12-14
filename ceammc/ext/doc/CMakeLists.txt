@@ -13,6 +13,7 @@ set(DOC_FILES
     env.ar~
     env.adsr~
     flt.highshelf~
+    flt.lowshelf~
     is_any
     is_bang
     is_float

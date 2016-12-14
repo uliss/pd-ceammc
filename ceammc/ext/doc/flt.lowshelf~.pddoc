@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pddoc version="1.0">
-    <object name="flt.highshelf~">
-        <title>flt.highshelf~</title>
+    <object name="flt.lowshelf~">
+        <title>flt.lowshelf~</title>
         <meta>
             <authors>
                 <author>Alex Nadzharov</author>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>gain boost|cut above some frequency</description>
+            <description>gain boost|cut below some frequency</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>flt</category>
-            <keywords>filter highshelf</keywords>
+            <keywords>filter lowshelf</keywords>
             <since>0.1</since>
             <also>
-                <see>flt.lowshelf~</see>
-                <see>flt.c_highshelf~</see>
+                <see>flt.highshelf~</see>
+                <see>flt.c_lowshelf~</see>
             </also>
         </meta>
         <methods>
             <method name="freq">
                 <param type="float" units="herz">
-                starting frequency for the shelf (e.g., 5000 Hz)
+                corner frequency for the shelf (e.g., 100 Hz)
                 </param>
             </method>
             <method name="gain">
                 <param type="float" units="decibel">
-                amount of boost or cut apply to the signal (e.g., +10 db)
+                amount of boost or cut apply to the signal (e.g., -10 db)
                 </param>
             </method>
         </methods>
         <arguments>
             <argument name="freq" type="float" units="herz">
-                starting frequency for the shelf
+                corner frequency for the shelf
             </argument>
             <argument name="gain" type="float" units="decibel">
                 amount of boost or cut apply to the signal
@@ -56,7 +56,7 @@
 |  ._____/      |           |
 [*~]      [bng] [freq $1(   [gain $1(
 |         |     |           |
-[flt.highshelf~ 3000 -15 id]
+[flt.lowshelf~ 200 10 id    ]
 |\                      ^|
 [dac~]                 [print]
 ]]>

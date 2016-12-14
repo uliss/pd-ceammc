@@ -8,7 +8,7 @@
 -1;
 #X msg 173 77 freq \$1;
 #X msg 288 77 gain \$1;
-#X obj 20 106 flt.highshelf~ 3000 -15 id;
+#X obj 20 106 flt.lowshelf~ 200 10 id;
 #X obj 20 135 dac~;
 #X obj 240 135 print;
 #X connect 2 0 6 0;

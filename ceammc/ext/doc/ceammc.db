@@ -7,6 +7,7 @@ dyn.limit~		~		~
 env.adsr~		~		~.
 env.ar~		~		~.
 flt.highshelf~		~		~.
+flt.lowshelf~		~		~.
 is_any		.		..
 is_bang		.		..
 is_even		.		..

@@ -1,9 +1,9 @@
 #N canvas 0 0 685 555 12;
 #X obj 406 50 cnv 1 259 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 406 50 gain boost|cut above some frequency;
-#X obj 1 1 cnv 5 682 40 empty empty flt.highshelf~ 20 20 0 20 -104026
+#X text 406 50 gain boost|cut below some frequency;
+#X obj 1 1 cnv 5 682 40 empty empty flt.lowshelf~ 20 20 0 20 -104026
 -4096 0;
-#X obj 558 11 flt.highshelf~;
+#X obj 565 11 flt.lowshelf~;
 #X obj 50 118 noise~;
 #X obj 136 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X floatatom 203 118 5 0 0 0 - - -;
@@ -13,7 +13,7 @@
 -1;
 #X msg 203 147 freq \$1;
 #X msg 318 147 gain \$1;
-#X obj 50 176 flt.highshelf~ 3000 -15 id;
+#X obj 50 176 flt.lowshelf~ 200 10 id;
 #X obj 50 205 dac~;
 #X obj 270 205 print;
 #X obj 20 244 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -22,7 +22,7 @@
 #X text 125 254 1\.;
 #X text 150 254 float;
 #X obj 231 255 cnv 1 65 18 empty empty empty 17 7 0 10 -237308 -1 0;
-#X text 230 254 freq(Hz):   starting frequency for the shelf  ;
+#X text 230 254 freq(Hz):   corner frequency for the shelf  ;
 #X text 125 272 2\.;
 #X text 150 272 float;
 #X obj 231 273 cnv 1 66 18 empty empty empty 17 7 0 10 -237308 -1 0;
@@ -36,11 +36,10 @@
 #X obj 20 323 cnv 5 63 16 empty empty methods: 0 14 0 14 -262144
 -49933 0;
 #X msg 125 328 freq HZ;
-#X text 230 328 starting frequency for the shelf (e\.g\. \, 5000 Hz)\.
-;
+#X text 230 328 corner frequency for the shelf (e\.g\. \, 100 Hz)\. ;
 #X msg 125 355 gain DB;
 #X text 230 355 amount of boost or cut apply to the signal (e\.g\. \,
-+10 db)\. ;
+-10 db)\. ;
 #X obj 20 402 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 407 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
 0;
@@ -63,8 +62,8 @@
 #X obj 1 534 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 537 library: ceammc v0\.1;
 #X text 374 549 see also:;
-#X obj 444 549 flt.lowshelf~;
-#X obj 554 549 flt.c_highshelf~;
+#X obj 444 549 flt.highshelf~;
+#X obj 561 549 flt.c_lowshelf~;
 #N canvas 10 556 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
@@ -72,7 +71,7 @@
 #X text 10 32 version:;
 #X text 120 32 0\.1;
 #X text 10 54 object:;
-#X text 120 54 flt\.highshelf~;
+#X text 120 54 flt\.lowshelf~;
 #X text 10 76 category:;
 #X text 120 76 flt;
 #X text 10 98 since:;
@@ -82,7 +81,7 @@
 #X text 10 142 license:;
 #X text 120 142 GPL3;
 #X text 10 164 keywords:;
-#X text 120 164 filter \, highshelf;
+#X text 120 164 filter \, lowshelf;
 #X text 10 186 website:;
 #X obj 120 186 pddp/pddplink https://github.com/uliss/pure-data -text
 https://github.com/uliss/pure-data;
