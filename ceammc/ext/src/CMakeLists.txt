@@ -218,6 +218,7 @@ ceammc_faust_extension(dyn limit2 simple_pd_control_ext)
 ceammc_faust_extension(spat pan2 simple_pd_control_ext)
 ceammc_faust_extension(spat pan4 simple_pd_control_ext)
 
+ceammc_faust_extension(osc impulse simple_pd_control_ext)
 ceammc_faust_extension(osc saw simple_pd_control_ext)
 ceammc_faust_extension(osc sinfb simple_pd_control_ext)
 ceammc_faust_extension(osc sqr simple_pd_control_ext)

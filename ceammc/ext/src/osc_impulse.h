@@ -791,19 +791,18 @@ void PdUI::setElementValue(const char* label, float v)
 
 
 #ifndef FAUSTCLASS 
-#define FAUSTCLASS saw
+#define FAUSTCLASS impulse
 #endif
 
-class saw : public dsp {
+class impulse : public dsp {
   private:
 	float 	fConst0;
 	float 	fConst1;
 	float 	fRec0_perm[4];
 	float 	fConst2;
-	int 	iVec0_perm[4];
 	float 	fYec0_perm[4];
+	int 	iVec0_perm[4];
 	float 	fYec1_perm[4];
-	float 	fYec2_perm[4];
 	int fSamplingFreq;
 
   public:
@@ -825,16 +824,15 @@ class saw : public dsp {
 		fSamplingFreq = samplingFreq;
 		fConst0 = min(1.92e+05f, max(1.0f, (float)fSamplingFreq));
 		fConst1 = (1.0f / fConst0);
-		fConst2 = (0.0052083335f * faustpower<3>(float(fConst0)));
+		fConst2 = (0.25f * float(fConst0));
 	}
 	virtual void instanceResetUserInterface() {
 	}
 	virtual void instanceClear() {
 		for (int i=0; i<4; i++) fRec0_perm[i]=0;
-		for (int i=0; i<4; i++) iVec0_perm[i]=0;
 		for (int i=0; i<4; i++) fYec0_perm[i]=0;
+		for (int i=0; i<4; i++) iVec0_perm[i]=0;
 		for (int i=0; i<4; i++) fYec1_perm[i]=0;
-		for (int i=0; i<4; i++) fYec2_perm[i]=0;
 	}
 	virtual void init(int samplingFreq) {
 		classInit(samplingFreq);
@@ -845,8 +843,8 @@ class saw : public dsp {
 		instanceResetUserInterface();
 		instanceClear();
 	}
-	virtual saw* clone() {
-		return new saw();
+	virtual impulse* clone() {
+		return new impulse();
 	}
 	virtual int getSampleRate() {
 		return fSamplingFreq;
@@ -859,16 +857,13 @@ class saw : public dsp {
 		float 	fZec0[64];
 		float 	fZec1[64];
 		float 	fRec0_tmp[64+4];
-		int 	iVec0_tmp[64+4];
-		float 	fZec2[64];
 		float 	fYec0_tmp[64+4];
+		int 	iVec0_tmp[64+4];
 		float 	fYec1_tmp[64+4];
-		float 	fYec2_tmp[64+4];
 		float* 	fRec0 = &fRec0_tmp[4];
-		int* 	iVec0 = &iVec0_tmp[4];
 		float* 	fYec0 = &fYec0_tmp[4];
+		int* 	iVec0 = &iVec0_tmp[4];
 		float* 	fYec1 = &fYec1_tmp[4];
-		float* 	fYec2 = &fYec2_tmp[4];
 		int index;
 		int fullcount = count;
 		for (index = 0; index <= fullcount - 64; index += 64) {
@@ -877,55 +872,36 @@ class saw : public dsp {
 			FAUSTFLOAT* input0 = &input[0][index];
 			FAUSTFLOAT* output0 = &output[0][index];
 			// SECTION : 1
-			// LOOP 0x7fb05355f5b0
+			// LOOP 0x7ff693c37160
 			// exec code
 			for (int i=0; i<count; i++) {
 				fZec0[i] = max(2e+01f, fabsf((float)input0[i]));
 			}
 			
 			// SECTION : 2
-			// LOOP 0x7fb053435b40
+			// LOOP 0x7ff693c36630
 			// pre processing
 			for (int i=0; i<4; i++) fRec0_tmp[i]=fRec0_perm[i];
 			// exec code
 			for (int i=0; i<count; i++) {
-				fZec1[i] = ((fConst1 * fZec0[i]) + fRec0[i-1]);
+				fZec1[i] = (fRec0[i-1] + (fConst1 * fZec0[i]));
 				fRec0[i] = (fZec1[i] - floorf(fZec1[i]));
 			}
 			// post processing
 			for (int i=0; i<4; i++) fRec0_perm[i]=fRec0_tmp[count+i];
 			
 			// SECTION : 3
-			// LOOP 0x7fb053561330
-			// exec code
-			for (int i=0; i<count; i++) {
-				fZec2[i] = faustpower<2>(((2 * fRec0[i]) + -1));
-			}
-			
-			// SECTION : 4
-			// LOOP 0x7fb053561250
+			// LOOP 0x7ff693c385a0
 			// pre processing
 			for (int i=0; i<4; i++) fYec0_tmp[i]=fYec0_perm[i];
 			// exec code
 			for (int i=0; i<count; i++) {
-				fYec0[i] = (fZec2[i] * (fZec2[i] + -2.0f));
+				fYec0[i] = faustpower<2>(((2 * fRec0[i]) + -1));
 			}
 			// post processing
 			for (int i=0; i<4; i++) fYec0_perm[i]=fYec0_tmp[count+i];
 			
-			// SECTION : 5
-			// LOOP 0x7fb053561170
-			// pre processing
-			for (int i=0; i<4; i++) fYec1_tmp[i]=fYec1_perm[i];
-			// exec code
-			for (int i=0; i<count; i++) {
-				fYec1[i] = ((fYec0[i] - fYec0[i-1]) / fZec0[i]);
-			}
-			// post processing
-			for (int i=0; i<4; i++) fYec1_perm[i]=fYec1_tmp[count+i];
-			
-			// SECTION : 6
-			// LOOP 0x7fb053560ac0
+			// LOOP 0x7ff693c39140
 			// pre processing
 			for (int i=0; i<4; i++) iVec0_tmp[i]=iVec0_perm[i];
 			// exec code
@@ -935,21 +911,22 @@ class saw : public dsp {
 			// post processing
 			for (int i=0; i<4; i++) iVec0_perm[i]=iVec0_tmp[count+i];
 			
-			// LOOP 0x7fb053560fc0
+			// SECTION : 4
+			// LOOP 0x7ff693c384c0
 			// pre processing
-			for (int i=0; i<4; i++) fYec2_tmp[i]=fYec2_perm[i];
+			for (int i=0; i<4; i++) fYec1_tmp[i]=fYec1_perm[i];
 			// exec code
 			for (int i=0; i<count; i++) {
-				fYec2[i] = ((fYec1[i] - fYec1[i-1]) / fZec0[i]);
+				fYec1[i] = (((fYec0[i] - fYec0[i-1]) * iVec0[i-1]) / fZec0[i]);
 			}
 			// post processing
-			for (int i=0; i<4; i++) fYec2_perm[i]=fYec2_tmp[count+i];
+			for (int i=0; i<4; i++) fYec1_perm[i]=fYec1_tmp[count+i];
 			
-			// SECTION : 7
-			// LOOP 0x7fb053435a60
+			// SECTION : 5
+			// LOOP 0x7ff693c36550
 			// exec code
 			for (int i=0; i<count; i++) {
-				output0[i] = (FAUSTFLOAT)(fConst2 * ((iVec0[i-3] * (fYec2[i] - fYec2[i-1])) / fZec0[i]));
+				output0[i] = (FAUSTFLOAT)((0.5f * (0 - (fConst2 * (fYec1[i] - fYec1[i-1])))) + (1 - iVec0[i-1]));
 			}
 			
 		}
@@ -959,55 +936,36 @@ class saw : public dsp {
 			FAUSTFLOAT* input0 = &input[0][index];
 			FAUSTFLOAT* output0 = &output[0][index];
 			// SECTION : 1
-			// LOOP 0x7fb05355f5b0
+			// LOOP 0x7ff693c37160
 			// exec code
 			for (int i=0; i<count; i++) {
 				fZec0[i] = max(2e+01f, fabsf((float)input0[i]));
 			}
 			
 			// SECTION : 2
-			// LOOP 0x7fb053435b40
+			// LOOP 0x7ff693c36630
 			// pre processing
 			for (int i=0; i<4; i++) fRec0_tmp[i]=fRec0_perm[i];
 			// exec code
 			for (int i=0; i<count; i++) {
-				fZec1[i] = ((fConst1 * fZec0[i]) + fRec0[i-1]);
+				fZec1[i] = (fRec0[i-1] + (fConst1 * fZec0[i]));
 				fRec0[i] = (fZec1[i] - floorf(fZec1[i]));
 			}
 			// post processing
 			for (int i=0; i<4; i++) fRec0_perm[i]=fRec0_tmp[count+i];
 			
 			// SECTION : 3
-			// LOOP 0x7fb053561330
-			// exec code
-			for (int i=0; i<count; i++) {
-				fZec2[i] = faustpower<2>(((2 * fRec0[i]) + -1));
-			}
-			
-			// SECTION : 4
-			// LOOP 0x7fb053561250
+			// LOOP 0x7ff693c385a0
 			// pre processing
 			for (int i=0; i<4; i++) fYec0_tmp[i]=fYec0_perm[i];
 			// exec code
 			for (int i=0; i<count; i++) {
-				fYec0[i] = (fZec2[i] * (fZec2[i] + -2.0f));
+				fYec0[i] = faustpower<2>(((2 * fRec0[i]) + -1));
 			}
 			// post processing
 			for (int i=0; i<4; i++) fYec0_perm[i]=fYec0_tmp[count+i];
 			
-			// SECTION : 5
-			// LOOP 0x7fb053561170
-			// pre processing
-			for (int i=0; i<4; i++) fYec1_tmp[i]=fYec1_perm[i];
-			// exec code
-			for (int i=0; i<count; i++) {
-				fYec1[i] = ((fYec0[i] - fYec0[i-1]) / fZec0[i]);
-			}
-			// post processing
-			for (int i=0; i<4; i++) fYec1_perm[i]=fYec1_tmp[count+i];
-			
-			// SECTION : 6
-			// LOOP 0x7fb053560ac0
+			// LOOP 0x7ff693c39140
 			// pre processing
 			for (int i=0; i<4; i++) iVec0_tmp[i]=iVec0_perm[i];
 			// exec code
@@ -1017,21 +975,22 @@ class saw : public dsp {
 			// post processing
 			for (int i=0; i<4; i++) iVec0_perm[i]=iVec0_tmp[count+i];
 			
-			// LOOP 0x7fb053560fc0
+			// SECTION : 4
+			// LOOP 0x7ff693c384c0
 			// pre processing
-			for (int i=0; i<4; i++) fYec2_tmp[i]=fYec2_perm[i];
+			for (int i=0; i<4; i++) fYec1_tmp[i]=fYec1_perm[i];
 			// exec code
 			for (int i=0; i<count; i++) {
-				fYec2[i] = ((fYec1[i] - fYec1[i-1]) / fZec0[i]);
+				fYec1[i] = (((fYec0[i] - fYec0[i-1]) * iVec0[i-1]) / fZec0[i]);
 			}
 			// post processing
-			for (int i=0; i<4; i++) fYec2_perm[i]=fYec2_tmp[count+i];
+			for (int i=0; i<4; i++) fYec1_perm[i]=fYec1_tmp[count+i];
 			
-			// SECTION : 7
-			// LOOP 0x7fb053435a60
+			// SECTION : 5
+			// LOOP 0x7ff693c36550
 			// exec code
 			for (int i=0; i<count; i++) {
-				output0[i] = (FAUSTFLOAT)(fConst2 * ((iVec0[i-3] * (fYec2[i] - fYec2[i-1])) / fZec0[i]));
+				output0[i] = (FAUSTFLOAT)((0.5f * (0 - (fConst2 * (fYec1[i] - fYec1[i-1])))) + (1 - iVec0[i-1]));
 			}
 			
 		}
@@ -1061,7 +1020,7 @@ struct t_faust {
      to write past the end of x_obj on Windows. */
     int fence; /* dummy field (not used) */
 #endif
-    saw* dsp;
+    impulse* dsp;
     PdUI* ui;
     std::string* label;
     int active, xfade, n_xfade, rate, n_in, n_out;
@@ -1378,7 +1337,7 @@ static bool faust_init_outputs(t_faust* x, bool info_outlet) {
 }
 
 static void faust_init_label(t_faust* x, const char* obj_id) {
-    x->label = new std::string(sym(saw) "~");
+    x->label = new std::string(sym(impulse) "~");
 
     // label settings
     if (obj_id) {
@@ -1393,8 +1352,8 @@ static bool faust_new_internal(t_faust* x, const char* obj_id = NULL, bool info_
     x->xfade = 0;
     x->n_xfade = static_cast<int>(sr * XFADE_TIME / 64);
 
-    x->dsp = new saw();
-    x->ui = new PdUI(sym(saw), obj_id);
+    x->dsp = new impulse();
+    x->ui = new PdUI(sym(impulse), obj_id);
 
     faust_init_label(x, obj_id);
 

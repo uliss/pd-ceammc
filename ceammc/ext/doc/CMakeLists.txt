@@ -26,6 +26,7 @@ set(DOC_FILES
     is_even
     list.apply_to
     lfo.impulse~
+    osc.impulse~
     osc.sinfb~
     system.memsize
     system.memused)

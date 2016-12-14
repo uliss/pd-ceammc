@@ -62,6 +62,9 @@
     <xi:include href="ceammc_category_list.xml" parse="xml"/>
   </category>
   <category name="osc">
+    <entry descr="Bandlimited impulse train generator" name="osc.impulse~">
+      <xi:include href="osc.impulse~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="sine oscilator with feedback" name="osc.sinfb~">
       <xi:include href="osc.sinfb~.pddoc" parse="xml"/>
     </entry>
