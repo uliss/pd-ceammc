@@ -65,7 +65,7 @@ it via external object\.;
 #X text 150 959 Bandlimited saw wave oscillator;
 #X obj 30 986 osc.sinfb~;
 #X text 150 986 sine oscilator with feedback;
-#X obj 30 1013 osc.sqr~;
+#X obj 30 1013 osc.square~;
 #X text 150 1013 Bandlimited square wave oscillator;
 #X obj 30 1040 osc.tri~;
 #X text 150 1040 Bandlimited triangle wave oscillator;

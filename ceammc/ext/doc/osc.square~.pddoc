@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pddoc version="1.0">
-    <object name="osc.sqr~">
-        <title>osc.sqr~</title>
+    <object name="osc.square~">
+        <title>osc.square~</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
@@ -15,7 +15,7 @@
             <also>
                 <see>osc.saw~</see>
                 <see>osc.tri~</see>
-                <see>lfo.tri~</see>
+                <see>lfo.square~</see>
             </also>
         </meta>
         <arguments>
@@ -34,7 +34,7 @@
 <![CDATA[
 [F]
 |
-[osc.sqr~ 200]
+[osc.square~ 200]
 |              [T]
 |  .___________/
 [*~]

@@ -1,4 +1,4 @@
-#include "osc_sqr.h"
+#include "osc_square.h"
 
 static void* faust_new(t_symbol* s, int argc, t_atom* argv)
 {
@@ -8,9 +8,9 @@ static void* faust_new(t_symbol* s, int argc, t_atom* argv)
     return p.pd_obj();
 }
 
-extern "C" void setup_osc0x2esqr_tilde()
+extern "C" void setup_osc0x2esquare_tilde()
 {
-    t_symbol* s = gensym("osc.sqr~");
+    t_symbol* s = gensym("osc.square~");
     faust_class = class_new(s, reinterpret_cast<t_newmethod>(faust_new),
         reinterpret_cast<t_method>(faust_free),
         sizeof(t_faust),

@@ -10,7 +10,7 @@
 #X text 150 167 Bandlimited saw wave oscillator;
 #X obj 30 194 osc.sinfb~;
 #X text 150 194 sine oscilator with feedback;
-#X obj 30 221 osc.sqr~;
+#X obj 30 221 osc.square~;
 #X text 150 221 Bandlimited square wave oscillator;
 #X obj 30 248 osc.tri~;
 #X text 150 248 Bandlimited triangle wave oscillator;

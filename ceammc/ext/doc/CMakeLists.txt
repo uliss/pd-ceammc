@@ -30,7 +30,7 @@ set(DOC_FILES
     osc.pulse~
     osc.saw~
     osc.sinfb~
-    osc.sqr~
+    osc.square~
     osc.tri~
     system.memsize
     system.memused)

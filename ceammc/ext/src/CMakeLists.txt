@@ -222,7 +222,7 @@ ceammc_faust_extension(osc impulse simple_pd_control_ext)
 ceammc_faust_extension(osc pulse simple_pd_control_ext)
 ceammc_faust_extension(osc saw simple_pd_control_ext)
 ceammc_faust_extension(osc sinfb simple_pd_control_ext)
-ceammc_faust_extension(osc sqr simple_pd_control_ext)
+ceammc_faust_extension(osc square simple_pd_control_ext)
 ceammc_faust_extension(osc tri simple_pd_control_ext)
 
 ceammc_faust_extension(env adsr simple_pd_control_ext)
