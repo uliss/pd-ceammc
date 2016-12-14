@@ -187,7 +187,7 @@ ceammc_cxx_extension(system memused)
 ###############################
 ceammc_faust_extension(lfo impulse simple_pd_control_ext)
 ceammc_faust_extension(lfo tri simple_pd_ext)
-ceammc_faust_extension(lfo square simple_pd_ext)
+ceammc_faust_extension(lfo square simple_pd_control_ext)
 
 ceammc_faust_extension(fx softclip simple_pd_control_ext)
 ceammc_faust_extension(fx envfollow simple_pd_control_ext)
