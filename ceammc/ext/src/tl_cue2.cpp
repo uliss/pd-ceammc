@@ -110,24 +110,8 @@ void tl_cue2_object::w_select(t_gobj *z, t_glist *glist, int selected)
 
 ////////////////////
 
-void tl_cue2_object::ui_property_init()
-{
-    printf("cue2 property init!\n");
-    
-    ceammc_gui_object::ui_property_init();
-    
-    this->ui_property_set("cue_name", "cue x");
-    
-    this->ui_property_set("object_name", "tl.cue2");
 
-}
-
-
-//void tl_cue2::pd_setup(t_object* obj)
-//{
-//    ceammc_gui::pd_setup(obj);
-//    printf("nope\n");
-//}
+#pragma mark -
 
 void tl_cue2_object::pd_instance_init(t_object *obj)
 {
@@ -138,31 +122,29 @@ void tl_cue2_object::pd_instance_init(t_object *obj)
     ((tl_cue2_object*)obj)->outlet1 = outlet_new(obj, &s_list);
 }
 
-void cpp__()
+void tl_cue2_object::ui_property_init()
 {
+    printf("cue2 property init!\n");
     
-    //printf("extern cue2\n");
+    ceammc_gui_object::ui_property_init();
     
-    ceammc_gui *gui = new ceammc_gui();
+    this->ui_property_set("cue_name", "cue x");
     
-    tl_cue2_object *obj1 = new tl_cue2_object(); //(tl_cue2_object*)malloc(16384); //
-    
-    //printf ("obj %lu \n", obj1);
-    obj1->ui_property_init();
-    
-    gui->pd_setup((t_object*)obj1);
+    this->ui_property_set("object_name", "tl.cue2");
     
 }
-
-
 
 extern "C" {
     
     void setup()    //_tl0x2ecue2
     {
-        printf("extern C\n");
+        ceammc_gui *gui = new ceammc_gui();
         
-        cpp__();
+        tl_cue2_object *obj1 = new tl_cue2_object(); //(tl_cue2_object*)malloc(16384); //
+        
+        obj1->ui_property_init();
+        gui->pd_setup((t_object*)obj1);
+        
     }
     
 }

@@ -15,8 +15,6 @@
 #include <stdlib.h>
 //#include <m_pd.h>
 
-//#define HIDE __attribute__ ((visibility ("hidden")))
-//#define HIDE
 
 //alias
 

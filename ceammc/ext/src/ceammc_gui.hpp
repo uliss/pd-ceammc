@@ -18,35 +18,9 @@
 #include <m_pd.h>
 #include <g_canvas.h>
 
-//typedef class
-//{
-//public:
-//    t_object            x_obj;
-//    t_glist             *x_glist;
-//    void                *x_ceammc_gui;
-//
-//    int x_w;
-//    int x_h;
-//
-//    bool x_selected;
-//}
-//t_ceammc_gui;
-
-
-//pd
-
 
 class ceammc_gui_object;
 
-
-
-//class ceammc_widget_class
-//{
-//
-//
-//public:
-//
-//};
 
 class w_proxy{
 public:
@@ -76,15 +50,10 @@ class ceammc_gui{
     
 private:
     
-    //widget
-    
-    
-    //
-    static std::vector<std::string> ui_property_names;
-    static std::vector<std::string> ui_get_property_names();
-    void ui_set_property_names(std::vector<std::string> names);
-    
-    
+//    //
+//    static std::vector<std::string> ui_property_names;
+//    static std::vector<std::string> ui_get_property_names();
+//    void ui_set_property_names(std::vector<std::string> names);
     
     //pd class
     //t_class *pd_class;
@@ -94,22 +63,15 @@ private:
     
     //TEMP
     static t_object *ceammc_gui_pd_object;     //name
-    
     static t_class* ceammc_gui_pd_class;
     
 public:
     //log
     static void e_error(std::string err);
     
-    //    static void ui_set_property_names(std::vector<std::string> names);
-    //
-    //
     virtual void pd_setup(t_object *gui_class);
     
     static gui_properties *default_properties;
-    
-    
-    
     
     
 };
@@ -147,7 +109,6 @@ public:
     
     //??
     gui_properties *ui_properties;
-//    std::vector<std::string> ui_property_names;
     std::string class_name;
     
     //
@@ -200,39 +161,11 @@ public:
     static void dw_set_width (std::string obj, int w);
     static void dw_delete(std::string obj);
     
-    
-    
 };
 
 
 
 #pragma mark -
-
-//typedef struct _iemgui
-//{
-//    t_object           x_obj;
-//    t_glist            *x_glist;
-//    t_iemfunptr        x_draw;
-//    int                x_h;
-//    int                x_w;
-//    int                x_ldx;
-//    int                x_ldy;
-//    char               x_font[MAXPDSTRING]; /* font names can be long! */
-//    t_iem_fstyle_flags x_fsf;
-//    int                x_fontsize;
-//    t_iem_init_symargs x_isa;
-//    int                x_fcol;
-//    int                x_bcol;
-//    int                x_lcol;
-//    t_symbol           *x_snd;              /* send symbol */
-//    t_symbol           *x_rcv;              /* receive */
-//    t_symbol           *x_lab;              /* label */
-//    t_symbol           *x_snd_unexpanded;   /* same 3, with '$' unexpanded */
-//    t_symbol           *x_rcv_unexpanded;
-//    t_symbol           *x_lab_unexpanded;
-//    int                x_binbufindex;       /* where in binbuf to find these */
-//    int                x_labelbindex;       /* where in binbuf to find label */
-//} t_iemgui;
 
 
 #endif /* ceammc_gui_hpp */

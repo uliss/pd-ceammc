@@ -11,13 +11,11 @@
 #pragma mark init
 
 t_object * ceammc_gui::ceammc_gui_pd_object = NULL;
-std::vector<std::string> ceammc_gui::ui_property_names;
 t_class* ceammc_gui::ceammc_gui_pd_class;
 
 t_widgetbehavior w_proxy::w_widget;
 t_object* w_proxy::ceammc_gui_pd_object = NULL;
 t_object* w_proxy::ceammc_gui_pd_instance = NULL;
-
 
 t_canvas *draw_wrappers::w_canvas;
 t_object *draw_wrappers::w_obj;
@@ -114,10 +112,8 @@ bool ceammc_gui_object::ui_property_load(t_atom *values)
     }
     
     printf( "** loaded %i\n",i);
-    
     return true;
-    
-}
+    }
 
 void ceammc_gui_object::ui_property_init()
 {
@@ -153,7 +149,6 @@ void ceammc_gui_object::ui_property_init()
     this->ui_property_set("label_y", 7);
     
     this->ui_property_set("_selected", 0);
-    
     
     printf( "** done\n");
     
@@ -231,7 +226,6 @@ void draw_wrappers::dw_delete(std::string obj)
     sys_vgui(".x%lx.c delete %lx%s\n", draw_wrappers::w_canvas, draw_wrappers::w_obj, obj.c_str());
 }
 
-
 #pragma mark -
 #pragma mark widget
 
@@ -250,7 +244,6 @@ t_widgetbehavior *w_proxy::w_create()
     
     return ret;
 }
-
 
 //
 
@@ -300,17 +293,11 @@ void ceammc_gui_object::w_getrect(t_gobj *z, t_glist *glist, int *x1, int *y1, i
     
     ceammc_gui_object *x = (ceammc_gui_object *)z;
     
-//    *x1 = text_xpix(&x->x_obj, glist);
-//    *y1 = text_ypix(&x->x_obj, glist);
-//    *x2 = *x1 + x->x_w;
-//    *y2 = *y1 + x->x_h;
-    
     *x1 = x->ui_property_get_float("x");
     *y1 = x->ui_property_get_float("y");
     *x2 = *x1 + x->ui_property_get_float("width");
     *y2 = *y1 + x->ui_property_get_float("height");
-    
-    //printf("getrect %d %d %d %d\n", *x1,*y1,*x2,*y2);
+
 }
 
 
@@ -322,12 +309,9 @@ int ceammc_gui_object::w_click(t_gobj *z, struct _glist *glist, int xpix, int yp
 
 void ceammc_gui_object::w_displace(t_gobj *z, t_glist *glist, int dx, int dy)
 {
-//    printf("displace prototype\n");
+
     ceammc_gui_object *x = (ceammc_gui_object *)z;
-    
-//    x->x_obj.te_xpix += dx;
-//    x->x_obj.te_ypix += dy;
-    
+   
     x->ui_property_set("x", x->ui_property_get_float("x") + dx);
     x->ui_property_set("y", x->ui_property_get_float("y") + dy);
     
@@ -389,14 +373,7 @@ void w_proxy::w_vis(t_gobj *z, t_glist *glist, int vis)
 void w_proxy::pd_instance_init(t_object *obj)
 {
     printf(">>> w proxy instance init base\n");
-    
-    //static_cast<decltype(w_proxy::ceammc_gui_pd_object)>(obj) -> pd_instance_init()
-    
-    //((v_widget*)obj)->&pd_instance_init = ((v_widget*)w_proxy::ceammc_gui_pd_object)->&pd_instance_init;
-    
     ((v_widget*)w_proxy::ceammc_gui_pd_object) -> pd_instance_init(obj);
-    
-    //(((typeid(w_proxy::ceammc_gui_pd_object))))obj) -> pd_instance_init();
 }
 
 #pragma mark log
@@ -407,21 +384,6 @@ void ceammc_gui::e_error(std::string err)
 }
 
 #pragma mark -
-#pragma mark class
-
-
-
-void ceammc_gui::ui_set_property_names(std::vector<std::string> names)
-{
-    ceammc_gui::ui_property_names = names;
-}
-
-std::vector<std::string> ceammc_gui::ui_get_property_names()
-{
-    return ceammc_gui::ui_property_names;
-}
-
-#pragma mark _
 
 void ceammc_gui_object::pd_instance_init(t_object *obj)
 {
@@ -435,7 +397,7 @@ void v_widget::pd_instance_init(t_object *obj)
 
 
 
-#pragma mark _ _
+#pragma mark -
 
 void *ceammc_gui::pd_class_new(t_symbol *s, int argc, t_atom *argv)
 {
@@ -443,13 +405,8 @@ void *ceammc_gui::pd_class_new(t_symbol *s, int argc, t_atom *argv)
     
     ceammc_gui_object* x = reinterpret_cast<ceammc_gui_object*>(pd_new(ceammc_gui::ceammc_gui_pd_class));
     
-    //x->ui_property_names = ceammc_gui::ui_property_names;
-    
-    //((w_vidget*)w_proxy::ceammc_gui_pd_object)  = (t_object*)x;
-
     x->ui_property_copy();
     
-    //w_proxy::ceammc_gui_pd_instance = ;
     w_proxy::pd_instance_init((t_object*)x);
 
     
@@ -468,10 +425,9 @@ void *ceammc_gui::pd_class_new(t_symbol *s, int argc, t_atom *argv)
 
 void ceammc_gui::pd_class_free(ceammc_gui_object *x)
 {
-    //    if(x->x_gui.x_fsf.x_rcv_able)
-    //        pd_unbind(&x->x_gui.x_obj.ob_pd, x->x_gui.x_rcv);
     
-    //gfxstub_deleteforkey(x);
+    //TODO
+    //w_proxy::pd_instance_free((t_object*)x);
 }
 
 void ceammc_gui::pd_class_save(t_gobj *z, t_binbuf *b)
@@ -480,14 +436,10 @@ void ceammc_gui::pd_class_save(t_gobj *z, t_binbuf *b)
     
     binbuf_addv(b, "s", gensym("#X obj"));
     
-    
     binbuf_addv(b, "i", int(((*x->ui_properties)["x"]).a_w.w_float));
     binbuf_addv(b, "i", int(((*x->ui_properties)["y"]).a_w.w_float));
     
     binbuf_addv(b, "s", ((*x->ui_properties)["object_name"]).a_w.w_symbol);
-    
-//    binbuf_addv(b, "i", int(((*x->ui_properties)["width"]).a_w.w_float));
-//    binbuf_addv(b, "i", int(((*x->ui_properties)["height"]).a_w.w_float));
     
     std::map<std::string,t_atom>::iterator it;
     for (it = (*x->ui_properties).begin(); it!= (*x->ui_properties).end(); ++it)
@@ -499,17 +451,7 @@ void ceammc_gui::pd_class_save(t_gobj *z, t_binbuf *b)
     
 }
 
-#pragma mark plus
-
-
-
-
-
 #pragma mark -
-
-
-
-
 
 void ceammc_gui::pd_setup(t_object *gui_class)
 {
@@ -533,45 +475,13 @@ void ceammc_gui::pd_setup(t_object *gui_class)
     w_proxy::w_widget = *pr1.w_create();
     pr1.ceammc_gui_pd_object = gui_class;
     
-    //ceammc_gui::w_widget = *this->w_create();
-    
-    
-//    ((ceammc_gui_object*)gui_class)->dw_set_object((t_object*)ceammc_gui::ceammc_gui_pd_class);
-//
     
     class_setwidget(ceammc_gui::ceammc_gui_pd_class, &w_proxy::w_widget);
-    
     class_setsavefn(ceammc_gui::ceammc_gui_pd_class, pd_class_save);
     
     
 }
 
-
-//struct _class
-//{
-//    t_symbol *c_name;                   /* name (mostly for error reporting) */
-//    t_symbol *c_helpname;               /* name of help file */
-//    t_symbol *c_externdir;              /* directory extern was loaded from */
-//    size_t c_size;                      /* size of an instance */
-//    t_methodentry *c_methods;           /* methods other than bang, etc below */
-//    int c_nmethod;                      /* number of methods */
-//    t_method c_freemethod;              /* function to call before freeing */
-//    t_bangmethod c_bangmethod;          /* common methods */
-//    t_pointermethod c_pointermethod;
-//    t_floatmethod c_floatmethod;
-//    t_symbolmethod c_symbolmethod;
-//    t_listmethod c_listmethod;
-//    t_anymethod c_anymethod;
-//    struct _widgetbehavior *c_wb;       /* "gobjs" only */
-//    struct _parentwidgetbehavior *c_pwb;/* widget behavior in parent */
-//    t_savefn c_savefn;                  /* function to call when saving */
-//    t_propertiesfn c_propertiesfn;      /* function to start prop dialog */
-//    int c_floatsignalin;                /* onset to float for signal input */
-//    char c_gobj;                        /* true if is a gobj */
-//    char c_patchable;                   /* true if we have a t_object header */
-//    char c_firstin;                 /* if patchable, true if draw first inlet */
-//    char c_drawcommand;             /* a drawing command for a template */
-//};
 
 
 ////////////////////
