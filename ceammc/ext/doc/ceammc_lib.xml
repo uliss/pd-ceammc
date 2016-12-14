@@ -74,6 +74,9 @@
     <entry descr="sine oscilator with feedback" name="osc.sinfb~">
       <xi:include href="osc.sinfb~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="Bandlimited square wave oscillator" name="osc.sqr~">
+      <xi:include href="osc.sqr~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="Bandlimited triangle wave oscillator" name="osc.tri~">
       <xi:include href="osc.tri~.pddoc" parse="xml"/>
     </entry>

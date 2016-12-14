@@ -28,9 +28,10 @@ set(DOC_FILES
     lfo.impulse~
     osc.impulse~
     osc.pulse~
-    osc.sinfb~
-    osc.tri~
     osc.saw~
+    osc.sinfb~
+    osc.sqr~
+    osc.tri~
     system.memsize
     system.memused)
 
