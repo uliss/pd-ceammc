@@ -13,22 +13,34 @@
 t_object * ceammc_gui::ceammc_gui_pd_object = NULL;
 std::vector<std::string> ceammc_gui::ui_property_names;
 t_class* ceammc_gui::ceammc_gui_pd_class;
-t_widgetbehavior ceammc_gui::w_widget;
+
+t_widgetbehavior w_proxy::w_widget;
+t_object* w_proxy::ceammc_gui_pd_object = NULL;
+t_object* w_proxy::ceammc_gui_pd_instance = NULL;
+
+
+t_canvas *draw_wrappers::w_canvas;
+t_object *draw_wrappers::w_obj;
+
+gui_properties *ceammc_gui::default_properties;
+
 
 #pragma mark properties
 
 t_atom ceammc_gui_object::ui_property_get(std::string name)
 {
-    t_atom ret = this->ui_properties[name];
+    t_atom ret = (*this->ui_properties)[name];
     
     return ret;
 }
 
 t_float ceammc_gui_object::ui_property_get_float(std::string name)
 {
-    if (this->ui_properties[name].a_type == A_FLOAT)
+    //printf("property get float\n");
+    
+    if ((*this->ui_properties)[name].a_type == A_FLOAT)
     {
-        t_float ret = this->ui_properties[name].a_w.w_float;
+        t_float ret = (*this->ui_properties)[name].a_w.w_float;
     
         return ret;
     }
@@ -41,22 +53,25 @@ t_float ceammc_gui_object::ui_property_get_float(std::string name)
 
 char* ceammc_gui_object::ui_property_get_c_str(std::string name)
 {
-    if (this->ui_properties[name].a_type == A_SYMBOL)
+    //printf("property get cstr %s\n", name.c_str());
+    
+    if ((*this->ui_properties)[name].a_type == A_SYMBOL)
     {
-        char* ret = this->ui_properties[name].a_w.w_symbol->s_name;
+        char* ret = (*this->ui_properties)[name].a_w.w_symbol->s_name;
         
         return ret;
     }
     else
     {
         ceammc_gui::e_error("bad symbol value");
+        printf ("property get cstr err\n");
         return "";
     }
 }
 
 void ceammc_gui_object::ui_property_set(std::string name, t_atom value)
 {
-    this->ui_properties[name] = value;
+    (*this->ui_properties)[name] = value;
 }
 
 void ceammc_gui_object::ui_property_set(std::string name, std::string value)
@@ -64,7 +79,7 @@ void ceammc_gui_object::ui_property_set(std::string name, std::string value)
     t_atom a;
     a.a_w.w_symbol = gensym(value.c_str());
     a.a_type = A_SYMBOL;
-    this->ui_properties[name] = a;
+    (*this->ui_properties)[name] = a;
 }
 
 void ceammc_gui_object::ui_property_set(std::string name, float value)
@@ -72,17 +87,18 @@ void ceammc_gui_object::ui_property_set(std::string name, float value)
     t_atom a;
     a.a_w.w_float = value;
     a.a_type = A_FLOAT;
-    this->ui_properties[name] = a;
+    (*this->ui_properties)[name] = a;
 }
 
 bool ceammc_gui_object::ui_property_load(t_atom *values)
 {
-    int count = (int)this->ui_properties.size();
+    printf("** property load [%lu]\n", (long)this);
+    int count = (int)(*this->ui_properties).size();
     int i=0;
     
     std::map<std::string, t_atom>::iterator it;
     
-    for (it = this->ui_properties.begin(); it != this->ui_properties.end(); ++it)
+    for (it = (*this->ui_properties).begin(); it != (*this->ui_properties).end(); ++it)
     {
         if (i==count) break;
         
@@ -97,12 +113,22 @@ bool ceammc_gui_object::ui_property_load(t_atom *values)
         
     }
     
+    printf( "** loaded %i\n",i);
+    
     return true;
     
 }
 
 void ceammc_gui_object::ui_property_init()
 {
+    printf("**property init [%lu]\n", (long)this);
+    
+    if (this->ui_properties)
+    {
+        printf("p del\n");
+        delete this->ui_properties;
+    }
+    this->ui_properties = new std::map<std::string,t_atom>;
     
     this->ui_property_set("object_name", "ceammc.gui_object");
     
@@ -126,61 +152,83 @@ void ceammc_gui_object::ui_property_init()
     this->ui_property_set("label_x", 7);
     this->ui_property_set("label_y", 7);
     
+    this->ui_property_set("_selected", 0);
+    
+    
+    printf( "** done\n");
+    
 }
+void ceammc_gui_object::ui_property_copy()
+{
+    if (this->ui_properties)
+    {
+        printf("p del\n");
+        delete this->ui_properties;
+    }
+    this->ui_properties = new std::map<std::string,t_atom>;
+    
+    *this->ui_properties = *ceammc_gui::default_properties;
+
+}
+
 
 #pragma mark -
 #pragma mark draw wrappers
 
 //TODO names
 
-void ceammc_gui_object::dw_set_canvas(t_glist *glist)
+void draw_wrappers::dw_set_canvas(t_glist *glist)
 {
-//    printf("---");
-    this->w_canvas = glist;
+    printf("--set c-\n");
+    draw_wrappers::w_canvas = glist;
 }
 
-void ceammc_gui_object::dw_set_object(t_object *obj)
+void draw_wrappers::dw_set_object(t_object *obj)
 {
-    this->w_obj = obj;
+    printf("--set obj-\n");
+    draw_wrappers::w_obj = obj;
 }
 
-void ceammc_gui_object::dw_rect (std::string obj, int x, int y, int w, int h, std::string stroke_color, std::string fill_color, float line_width)
+void draw_wrappers::dw_rect (std::string obj, int x, int y, int w, int h, std::string stroke_color, std::string fill_color, float line_width)
 {
+//    printf ("rect\n");
     sys_vgui(".x%lx.c create rectangle %d %d %d %d -width %d -outline %s -fill %s -tags %lx%s\n",
-             this->w_canvas, x, y,x+w, y+h,
-             line_width,
+             draw_wrappers::w_canvas, x, y,x+w, y+h,
+             int(line_width),
              stroke_color.c_str(),
-             fill_color.c_str(), this->w_obj, obj.c_str());
+             fill_color.c_str(), draw_wrappers::w_obj, obj.c_str());
 }
 
-void ceammc_gui_object::dw_text (std::string obj, int x, int y, std::string text, std::string text_color)
+void draw_wrappers::dw_text (std::string obj, int x, int y, std::string text, std::string text_color)
 {
+//    printf ("text\n");
+    
     int font_size = 12;//*(this->ui_property_get("font_size")).get();
     sys_vgui(".x%lx.c create text %d %d -text {%s} -anchor w -font {{%s} -%d %s} -fill %s -tags [list %lx%s label text]\n",
-             this->w_canvas, x,
-             y,
-             text.c_str(),
+             draw_wrappers::w_canvas, int(x),
+             int(y),
+             text.c_str(),"Helvetica",
              font_size, sys_fontweight,
-             text_color.c_str(), this->w_obj, obj.c_str());
+             text_color.c_str(), draw_wrappers::w_obj, obj.c_str());
     
     //xx+x->x_gui.x_ldx * zoomlabel
     //yy+x->x_gui.x_ldy * zoomlabel
 }
 
-void ceammc_gui_object::dw_move (std::string obj, int x, int y, int w, int h)
+void draw_wrappers::dw_move (std::string obj, int x, int y, int w, int h)
 {
     sys_vgui(".x%lx.c coords %lx%s %d %d %d %d\n",
-             this->w_canvas, this->w_obj, obj.c_str(), x, y, w, h);
+             draw_wrappers::w_canvas, draw_wrappers::w_obj, obj.c_str(), x, y, x+w, y+h);
 }
 
-void ceammc_gui_object::dw_set_width (std::string obj, int w)
+void draw_wrappers::dw_set_width (std::string obj, int w)
 {
-    sys_vgui(".x%lx.c itemconfigure %lx%s -width %d\n", this->w_canvas, this->w_obj ,obj.c_str(), w);
+    sys_vgui(".x%lx.c itemconfigure %lx%s -width %d\n", draw_wrappers::w_canvas, draw_wrappers::w_obj ,obj.c_str(), w);
 }
 
-void ceammc_gui_object::dw_delete(std::string obj)
+void draw_wrappers::dw_delete(std::string obj)
 {
-    sys_vgui(".x%lx.c delete %lx%s\n", this->w_canvas, this->w_obj, obj.c_str());
+    sys_vgui(".x%lx.c delete %lx%s\n", draw_wrappers::w_canvas, draw_wrappers::w_obj, obj.c_str());
 }
 
 
@@ -188,17 +236,17 @@ void ceammc_gui_object::dw_delete(std::string obj)
 #pragma mark widget
 
 
-t_widgetbehavior *ceammc_gui::w_create()
+t_widgetbehavior *w_proxy::w_create()
 {
     t_widgetbehavior *ret = new t_widgetbehavior;
     
     ret->w_activatefn = NULL;   //TEMP
-    ret->w_clickfn = ceammc_gui::w_click;
-    ret->w_deletefn = ceammc_gui::w_delete;
-    ret->w_displacefn = ceammc_gui::w_displace;
-    ret->w_getrectfn = ceammc_gui::w_getrect;
-    ret->w_selectfn = ceammc_gui::w_select;
-    ret->w_visfn = ceammc_gui::w_vis;
+    ret->w_clickfn = w_proxy::w_click;
+    ret->w_deletefn = w_proxy::w_delete;
+    ret->w_displacefn = w_proxy::w_displace;
+    ret->w_getrectfn = w_proxy::w_getrect;
+    ret->w_selectfn = w_proxy::w_select;
+    ret->w_visfn = w_proxy::w_vis;
     
     return ret;
 }
@@ -206,17 +254,63 @@ t_widgetbehavior *ceammc_gui::w_create()
 
 //
 
+#pragma mark proto ceammc_widget_class
+
+void v_widget::w_getrect(t_gobj *z, t_glist *glist, int *x1, int *y1, int *x2, int *y2)
+{
+    printf("w displace prototype\n");
+}
+
+
+int v_widget::w_click(t_gobj *z, struct _glist *glist, int xpix, int ypix, int shift, int alt, int dbl, int doit)
+{
+    return 1;
+    
+}
+
+void v_widget::w_displace(t_gobj *z, t_glist *glist, int dx, int dy)
+{
+    printf("w displace prototype\n");
+}
+
+void v_widget::w_select(t_gobj *z, t_glist *glist, int selected)
+{
+    printf("w sel prototype\n");
+}
+
+void v_widget::w_delete(t_gobj *z, t_glist *glist)
+{
+    printf("w del prototype \n");
+}
+
+void v_widget::w_draw(t_gobj *z, t_glist *glist)
+{
+    printf("w draw prototype\n");
+}
+
+void v_widget::w_erase(t_gobj *z, t_glist *glist)
+{
+    printf("w erase prototype\n");
+}
+
 #pragma mark ceammc_widget_class
 
 void ceammc_gui_object::w_getrect(t_gobj *z, t_glist *glist, int *x1, int *y1, int *x2, int *y2)
 {
-//    printf("getrect prototype\n");
+    
     ceammc_gui_object *x = (ceammc_gui_object *)z;
     
-    *x1 = text_xpix(&x->x_obj, glist);
-    *y1 = text_ypix(&x->x_obj, glist);
-    *x2 = *x1 + x->x_w;
-    *y2 = *y1 + x->x_h;
+//    *x1 = text_xpix(&x->x_obj, glist);
+//    *y1 = text_ypix(&x->x_obj, glist);
+//    *x2 = *x1 + x->x_w;
+//    *y2 = *y1 + x->x_h;
+    
+    *x1 = x->ui_property_get_float("x");
+    *y1 = x->ui_property_get_float("y");
+    *x2 = *x1 + x->ui_property_get_float("width");
+    *y2 = *y1 + x->ui_property_get_float("height");
+    
+    //printf("getrect %d %d %d %d\n", *x1,*y1,*x2,*y2);
 }
 
 
@@ -228,7 +322,15 @@ int ceammc_gui_object::w_click(t_gobj *z, struct _glist *glist, int xpix, int yp
 
 void ceammc_gui_object::w_displace(t_gobj *z, t_glist *glist, int dx, int dy)
 {
-    printf("displace prototype\n");
+//    printf("displace prototype\n");
+    ceammc_gui_object *x = (ceammc_gui_object *)z;
+    
+//    x->x_obj.te_xpix += dx;
+//    x->x_obj.te_ypix += dy;
+    
+    x->ui_property_set("x", x->ui_property_get_float("x") + dx);
+    x->ui_property_set("y", x->ui_property_get_float("y") + dy);
+    
 }
 
 void ceammc_gui_object::w_select(t_gobj *z, t_glist *glist, int selected)
@@ -255,35 +357,40 @@ void ceammc_gui_object::w_erase(t_gobj *z, t_glist *glist)
 
 #pragma mark widget proxy
 
-void ceammc_gui::w_getrect(t_gobj *z, t_glist *glist, int *x1, int *y1, int *x2, int *y2)
+void w_proxy::w_getrect(t_gobj *z, t_glist *glist, int *x1, int *y1, int *x2, int *y2)
 {
-    ((ceammc_gui_object*)ceammc_gui::ceammc_gui_pd_object) -> w_getrect(z,glist,x1,y1,x2,y2);
+    ((v_widget*)w_proxy::ceammc_gui_pd_object) -> w_getrect(z,glist,x1,y1,x2,y2);
 }
-int ceammc_gui::w_click(t_gobj *z, struct _glist *glist, int xpix, int ypix, int shift, int alt, int dbl, int doit)
+int w_proxy::w_click(t_gobj *z, struct _glist *glist, int xpix, int ypix, int shift, int alt, int dbl, int doit)
 {
-    return ((ceammc_gui_object*)ceammc_gui::ceammc_gui_pd_object) -> w_click(z, glist, xpix, ypix, shift, alt, dbl, doit);
+    return ((v_widget*)w_proxy::ceammc_gui_pd_object) -> w_click(z, glist, xpix, ypix, shift, alt, dbl, doit);
 }
-void ceammc_gui::w_displace(t_gobj *z, t_glist *glist, int dx, int dy)
+void w_proxy::w_displace(t_gobj *z, t_glist *glist, int dx, int dy)
 {
-    ((ceammc_gui_object*)ceammc_gui::ceammc_gui_pd_object) -> w_displace(z, glist, dx, dy);
+    ((v_widget*)w_proxy::ceammc_gui_pd_object) -> w_displace(z, glist, dx, dy);
 }
-void ceammc_gui::w_select(t_gobj *z, t_glist *glist, int selected)
+void w_proxy::w_select(t_gobj *z, t_glist *glist, int selected)
 {
-    ((ceammc_gui_object*)ceammc_gui::ceammc_gui_pd_object) -> w_select(z, glist, selected);
+    ((v_widget*)w_proxy::ceammc_gui_pd_object) -> w_select(z, glist, selected);
 }
-void ceammc_gui::w_delete(t_gobj *z, t_glist *glist)
+void w_proxy::w_delete(t_gobj *z, t_glist *glist)
 {
-    ((ceammc_gui_object*)ceammc_gui::ceammc_gui_pd_object) -> w_delete(z, glist);
+    ((v_widget*)w_proxy::ceammc_gui_pd_object) -> w_delete(z, glist);
 }
-void ceammc_gui::w_vis(t_gobj *z, t_glist *glist, int vis)
+void w_proxy::w_vis(t_gobj *z, t_glist *glist, int vis)
 {
     if (vis)
-        ((ceammc_gui_object*)ceammc_gui::ceammc_gui_pd_object) -> w_draw(z, glist);
+        ((v_widget*)w_proxy::ceammc_gui_pd_object) -> w_draw(z, glist);
     else
-        ((ceammc_gui_object*)ceammc_gui::ceammc_gui_pd_object) -> w_erase(z, glist);
+        ((v_widget*)w_proxy::ceammc_gui_pd_object) -> w_erase(z, glist);
     
 }
 
+void w_proxy::pd_instance_init()
+{
+    printf(">>> w proxy instance init base\n");
+    ((v_widget*)w_proxy::ceammc_gui_pd_object) -> pd_instance_init();
+}
 
 #pragma mark log
 
@@ -309,6 +416,19 @@ std::vector<std::string> ceammc_gui::ui_get_property_names()
 
 #pragma mark _
 
+void ceammc_gui_object::pd_instance_init()
+{
+    printf(">>> instance init base\n");
+}
+
+void v_widget::pd_instance_init()
+{
+    printf(">>> w instance init base\n");
+}
+
+
+
+#pragma mark _ _
 
 void *ceammc_gui::pd_class_new(t_symbol *s, int argc, t_atom *argv)
 {
@@ -316,18 +436,28 @@ void *ceammc_gui::pd_class_new(t_symbol *s, int argc, t_atom *argv)
     
     ceammc_gui_object* x = reinterpret_cast<ceammc_gui_object*>(pd_new(ceammc_gui::ceammc_gui_pd_class));
     
-    x->ui_property_names = ceammc_gui::ui_property_names;
+    //x->ui_property_names = ceammc_gui::ui_property_names;
     
-    ceammc_gui::ceammc_gui_pd_object = (t_object*)x;
+    //((w_vidget*)w_proxy::ceammc_gui_pd_object)  = (t_object*)x;
 
-    if (argc!=x->ui_property_names.size())
+    x->ui_property_copy();
+    
+    w_proxy::ceammc_gui_pd_instance = (t_object*)x;
+    w_proxy::pd_instance_init();
+//    
+//    if (argc!=x->ui_property_names.size())
+//    {
+//        x->ui_property_init();
+//    }//
+    
+    if ((argc-3)==(*x->ui_properties).size())
     {
-        x->ui_property_init();
+        x->ui_property_load(argv+3);
+            //x->ui_property_init();
     }
     else
     {
-        if (!x->ui_property_load(argv))
-            x->ui_property_init();
+        printf("no args to load: argc %i prop: %lu\n", argc, (*x->ui_properties).size());
     }
     
     return static_cast<void*>(x);
@@ -345,10 +475,19 @@ void ceammc_gui::pd_class_save(t_gobj *z, t_binbuf *b)
 {
     ceammc_gui_object *x = (ceammc_gui_object *)z;
     
-    binbuf_addv(b, "#X obj ");
+    binbuf_addv(b, "s", gensym("#X obj"));
+    
+    
+    binbuf_addv(b, "i", int(((*x->ui_properties)["x"]).a_w.w_float));
+    binbuf_addv(b, "i", int(((*x->ui_properties)["y"]).a_w.w_float));
+    
+    binbuf_addv(b, "s", ((*x->ui_properties)["object_name"]).a_w.w_symbol);
+    
+//    binbuf_addv(b, "i", int(((*x->ui_properties)["width"]).a_w.w_float));
+//    binbuf_addv(b, "i", int(((*x->ui_properties)["height"]).a_w.w_float));
     
     std::map<std::string,t_atom>::iterator it;
-    for (it = x->ui_properties.begin(); it!= x->ui_properties.end(); ++it)
+    for (it = (*x->ui_properties).begin(); it!= (*x->ui_properties).end(); ++it)
     {
         binbuf_add(b, 1, &it->second);
     }
@@ -373,30 +512,33 @@ void ceammc_gui::pd_setup(t_object *gui_class)
 {
     printf("lib pd_setup %lu | %lu\n", gui_class, ceammc_gui::ceammc_gui_pd_object);
     
-    //ceammc_gui::ceammc_gui_pd_object = gui_class;
-    
     
     std::string name = ((ceammc_gui_object*)gui_class)->ui_property_get_c_str("object_name");
-    //printf("* name %s",name.c_str());
+    printf("* name %s",name.c_str());
     if (name.length()==0) {ceammc_gui::e_error("bad object name");return;}
 
-    //?
-    //
+    ceammc_gui::default_properties = ((ceammc_gui_object*)gui_class)->ui_properties;
     ceammc_gui::ceammc_gui_pd_class = class_new(gensym(name.c_str()),
                                reinterpret_cast<t_newmethod>(pd_class_new),
                                reinterpret_cast<t_method>(pd_class_free),
                                ((ceammc_gui_object*)gui_class)->size(), CLASS_PATCHABLE, A_GIMME,0);   //sizeof(gui_class)*16
-    //this->pd_class= ceammc_gui_pd_class;
+                                                //((ceammc_gui_object*)gui_class)->size()
     
     printf("new ptr %lu\n", ceammc_gui::ceammc_gui_pd_class);
     
+    w_proxy pr1;
+    w_proxy::w_widget = *pr1.w_create();
+    pr1.ceammc_gui_pd_object = gui_class;
     
-    ceammc_gui::w_widget = *this->w_create();
+    //ceammc_gui::w_widget = *this->w_create();
+    
     
 //    ((ceammc_gui_object*)gui_class)->dw_set_object((t_object*)ceammc_gui::ceammc_gui_pd_class);
-//    
-    class_setwidget(ceammc_gui::ceammc_gui_pd_class, &ceammc_gui::w_widget);
-//    class_setsavefn(ceammc_gui::ceammc_gui_pd_class, pd_class_save);
+//
+    
+    class_setwidget(ceammc_gui::ceammc_gui_pd_class, &w_proxy::w_widget);
+    
+    class_setsavefn(ceammc_gui::ceammc_gui_pd_class, pd_class_save);
     
     
 }

@@ -24,7 +24,7 @@
 #include <stdlib.h>
 #include <vector>
 #include "m_pd.h"
-#include <g_canvas.h>
+#include "ceammc_gui.hpp"
 
 //#include "g_all_guis.h"
 
