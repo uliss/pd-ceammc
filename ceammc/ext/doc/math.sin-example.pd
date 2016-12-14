@@ -1,0 +1,12 @@
+#N canvas 0 0 209 115 12;
+#X floatatom 20 48 5 0 0 0 - - -;
+#X msg 68 48 1 2 3;
+#X msg 144 48 1 a 2;
+#X obj 20 77 math.sin;
+#X floatatom 20 106 5 0 0 0 - - -;
+#X obj 68 106 print;
+#X connect 0 0 3 0;
+#X connect 2 0 3 0;
+#X connect 3 0 5 0;
+#X connect 3 0 4 0;
+#X connect 1 0 3 0;

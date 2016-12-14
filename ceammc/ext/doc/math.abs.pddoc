@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pddoc version="1.0">
+    <object name="math.abs">
+        <title>math.abs</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>absolute value function</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math abs</keywords>
+            <also>
+                <see>math.floor</see>
+            </also>
+            <since>0.1</since>
+        </meta>
+        <info>
+            <par>The abs() function computes the absolute value of the float input.
+</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo on="float">input value</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>result value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]
+|
+[math.abs]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

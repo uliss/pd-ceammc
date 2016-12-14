@@ -26,6 +26,30 @@ set(DOC_FILES
     is_even
     list.apply_to
     lfo.impulse~
+    math.abs
+    math.acos
+    math.acosh
+    math.asin
+    math.asinh
+    math.atan
+    math.atanh
+    math.cbrt
+    math.ceil
+    math.cos
+    math.cosh
+    math.exp
+    math.exp2
+    math.floor
+    math.log
+    math.log10
+    math.log2
+    math.round
+    math.sin
+    math.sinh
+    math.sqrt
+    math.tan
+    math.tanh
+    math.trunc
     osc.impulse~
     osc.pulse~
     osc.saw~

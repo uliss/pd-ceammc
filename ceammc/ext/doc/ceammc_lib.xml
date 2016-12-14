@@ -61,6 +61,80 @@
     </entry>
     <xi:include href="ceammc_category_list.xml" parse="xml"/>
   </category>
+  <category name="math">
+    <entry descr="absolute value function" name="math.abs">
+      <xi:include href="math.abs.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="arc cosine function" name="math.acos">
+      <xi:include href="math.acos.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="inverse hyperbolic cosine function" name="math.acosh">
+      <xi:include href="math.acosh.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="arc sine function" name="math.asin">
+      <xi:include href="math.asin.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="inverse hyperbolic sine function" name="math.asinh">
+      <xi:include href="math.asinh.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="arc tangent function" name="math.atan">
+      <xi:include href="math.atan.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="inverse hyperbolic tangent function" name="math.atanh">
+      <xi:include href="math.atanh.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="cube root function" name="math.cbrt">
+      <xi:include href="math.cbrt.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="round to smallest integral value not less than input value" name="math.ceil">
+      <xi:include href="math.ceil.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="cosine function" name="math.cos">
+      <xi:include href="math.cos.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="hyperbolic cosine function" name="math.cosh">
+      <xi:include href="math.cosh.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="exponential functions" name="math.exp">
+      <xi:include href="math.exp.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="exponential functions" name="math.exp2">
+      <xi:include href="math.exp2.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="round to largest integral value not greater than x" name="math.floor">
+      <xi:include href="math.floor.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="logarithm functions" name="math.log">
+      <xi:include href="math.log.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="logarithm functions" name="math.log10">
+      <xi:include href="math.log10.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="logarithm functions" name="math.log2">
+      <xi:include href="math.log2.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="round to integral value, regardless of rounding direction" name="math.round">
+      <xi:include href="math.round.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="sine function" name="math.sin">
+      <xi:include href="math.sin.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="hyperbolic sine function" name="math.sinh">
+      <xi:include href="math.sinh.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="square root function" name="math.sqrt">
+      <xi:include href="math.sqrt.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="tangent function" name="math.tan">
+      <xi:include href="math.tan.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="hyperbolic tangent function" name="math.tanh">
+      <xi:include href="math.tanh.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="truncate to integer value" name="math.trunc">
+      <xi:include href="math.trunc.pddoc" parse="xml"/>
+    </entry>
+  </category>
   <category name="osc">
     <entry descr="Bandlimited impulse train generator" name="osc.impulse~">
       <xi:include href="osc.impulse~.pddoc" parse="xml"/>
