@@ -1,1 +1,1 @@
-osc.pulse~		~		~
+osc.pulse~		~		~.
