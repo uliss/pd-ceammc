@@ -1,4 +1,4 @@
-#include "eq_highshelf.h"
+#include "flt_highshelf.h"
 
 static void* faust_new(t_symbol* s, int argc, t_atom* argv)
 {
@@ -9,9 +9,9 @@ static void* faust_new(t_symbol* s, int argc, t_atom* argv)
     return p.pd_obj();
 }
 
-extern "C" void setup_eq0x2ehighshelf_tilde()
+extern "C" void setup_flt0x2ehighshelf_tilde()
 {
-    t_symbol* s = gensym("eq.highshelf~");
+    t_symbol* s = gensym("flt.highshelf~");
     faust_class = class_new(s, reinterpret_cast<t_newmethod>(faust_new),
         reinterpret_cast<t_method>(faust_free),
         sizeof(t_faust),

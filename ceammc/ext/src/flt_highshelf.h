@@ -5,18 +5,6 @@
 
 /* link with  */
 #include <math.h>
-#ifndef FAUSTPOWER
-#define FAUSTPOWER
-#include <cmath>
-template <int N> inline int faustpower(int x)              { return faustpower<N/2>(x) * faustpower<N-N/2>(x); } 
-template <> 	 inline int faustpower<0>(int x)            { return 1; }
-template <> 	 inline int faustpower<1>(int x)            { return x; }
-template <> 	 inline int faustpower<2>(int x)            { return x*x; }
-template <int N> inline float faustpower(float x)            { return faustpower<N/2>(x) * faustpower<N-N/2>(x); } 
-template <> 	 inline float faustpower<0>(float x)          { return 1; }
-template <> 	 inline float faustpower<1>(float x)          { return x; }
-template <> 	 inline float faustpower<2>(float x)          { return x*x; }
-#endif
 /************************************************************************
  ************************************************************************
     FAUST Architecture File
@@ -796,26 +784,19 @@ void PdUI::setElementValue(const char* label, float v)
 
 class highshelf : public dsp {
   private:
-	float 	fConst0;
 	FAUSTFLOAT 	fslider0;
-	float 	fYec0_perm[4];
-	float 	fRec1_perm[4];
-	float 	fRec0_perm[4];
-	float 	fRec3_perm[4];
-	float 	fRec2_perm[4];
+	float 	fConst0;
 	FAUSTFLOAT 	fslider1;
+	float 	fRec0_perm[4];
 	int fSamplingFreq;
 
   public:
 	virtual void metadata(Meta* m) { 
-		m->declare("filter.lib/name", "Faust Filter Library");
-		m->declare("filter.lib/version", "2.0");
-		m->declare("basic.lib/name", "Faust Basic Element Library");
-		m->declare("basic.lib/version", "0.0");
-		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
-		m->declare("ceammc.lib/version", "0.1");
-		m->declare("analyzer.lib/name", "Faust Analyzer Library");
-		m->declare("analyzer.lib/version", "0.0");
+		m->declare("maxmsp.lib/name", "MaxMSP compatibility Library");
+		m->declare("maxmsp.lib/author", "GRAME");
+		m->declare("maxmsp.lib/copyright", "GRAME");
+		m->declare("maxmsp.lib/version", "1.1");
+		m->declare("maxmsp.lib/license", "LGPL");
 		m->declare("math.lib/name", "Faust Math Library");
 		m->declare("math.lib/version", "2.0");
 		m->declare("math.lib/author", "GRAME");
@@ -829,18 +810,14 @@ class highshelf : public dsp {
 	}
 	virtual void instanceConstants(int samplingFreq) {
 		fSamplingFreq = samplingFreq;
-		fConst0 = (3.1415927f / min(1.92e+05f, max(1.0f, (float)fSamplingFreq)));
+		fConst0 = (6.2831855f / min(1.92e+05f, max(1.0f, (float)fSamplingFreq)));
 	}
 	virtual void instanceResetUserInterface() {
-		fslider0 = 1e+03f;
-		fslider1 = 1e+02f;
+		fslider0 = 0.0f;
+		fslider1 = 1e+04f;
 	}
 	virtual void instanceClear() {
-		for (int i=0; i<4; i++) fYec0_perm[i]=0;
-		for (int i=0; i<4; i++) fRec1_perm[i]=0;
 		for (int i=0; i<4; i++) fRec0_perm[i]=0;
-		for (int i=0; i<4; i++) fRec3_perm[i]=0;
-		for (int i=0; i<4; i++) fRec2_perm[i]=0;
 	}
 	virtual void init(int samplingFreq) {
 		classInit(samplingFreq);
@@ -859,33 +836,26 @@ class highshelf : public dsp {
 	}
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("0x00");
-		ui_interface->addHorizontalSlider("freq", &fslider0, 1e+03f, 2e+01f, 2e+04f, 0.1f);
-		ui_interface->addVerticalSlider("gain", &fslider1, 1e+02f, 1e+01f, 1.1e+02f, 0.1f);
+		ui_interface->addHorizontalSlider("freq", &fslider1, 1e+04f, 2e+01f, 2e+04f, 0.1f);
+		ui_interface->addVerticalSlider("gain", &fslider0, 0.0f, -15.0f, 15.0f, 0.1f);
 		ui_interface->closeBox();
 	}
 	virtual void compute (int count, FAUSTFLOAT** input, FAUSTFLOAT** output) {
-		float 	fYec0_tmp[64+4];
-		float 	fRec1_tmp[64+4];
 		float 	fRec0_tmp[64+4];
-		float 	fRec3_tmp[64+4];
-		float 	fRec2_tmp[64+4];
-		float 	fSlow0 = tanf((fConst0 * float(fslider0)));
-		float 	fSlow1 = (1.0f / fSlow0);
-		float 	fSlow2 = (fSlow1 + 1);
-		float 	fSlow3 = (1.0f / fSlow2);
-		float* 	fYec0 = &fYec0_tmp[4];
-		float 	fSlow4 = (0 - ((1 - fSlow1) / fSlow2));
-		float* 	fRec1 = &fRec1_tmp[4];
-		float 	fSlow5 = (1.0f / (((fSlow1 + 1.0f) / fSlow0) + 1));
-		float 	fSlow6 = (((fSlow1 + -1.0f) / fSlow0) + 1);
-		float 	fSlow7 = (1.0f / faustpower<2>(fSlow0));
-		float 	fSlow8 = (2 * (1 - fSlow7));
+		float 	fSlow0 = powf(10,(0.025f * float(fslider0)));
+		float 	fSlow1 = (fConst0 * max((float)0, float(fslider1)));
+		float 	fSlow2 = (sqrtf(fSlow0) * sinf(fSlow1));
+		float 	fSlow3 = cosf(fSlow1);
+		float 	fSlow4 = ((fSlow0 + -1) * fSlow3);
+		float 	fSlow5 = (1.0f / ((fSlow0 + fSlow2) + (1 - fSlow4)));
+		float 	fSlow6 = ((fSlow0 + 1) * fSlow3);
+		float 	fSlow7 = (2 * (fSlow0 + (-1 - fSlow6)));
+		float 	fSlow8 = (fSlow0 + (1 - (fSlow4 + fSlow2)));
 		float* 	fRec0 = &fRec0_tmp[4];
-		float 	fSlow9 = (0 - fSlow1);
-		float* 	fRec3 = &fRec3_tmp[4];
-		float* 	fRec2 = &fRec2_tmp[4];
-		float 	fSlow10 = powf(10,(0.05f * (float(fslider1) + -100)));
-		float 	fSlow11 = (2 * (0 - fSlow7));
+		float 	fSlow9 = ((0 - (2 * fSlow0)) * ((fSlow0 + fSlow6) + -1));
+		float 	fSlow10 = (fSlow0 + fSlow4);
+		float 	fSlow11 = ((fSlow2 + fSlow10) + 1);
+		float 	fSlow12 = (fSlow10 + (1 - fSlow2));
 		int index;
 		int fullcount = count;
 		for (index = 0; index <= fullcount - 64; index += 64) {
@@ -894,63 +864,21 @@ class highshelf : public dsp {
 			FAUSTFLOAT* input0 = &input[0][index];
 			FAUSTFLOAT* output0 = &output[0][index];
 			// SECTION : 1
-			// LOOP 0x7f9ef1ce5890
-			// pre processing
-			for (int i=0; i<4; i++) fYec0_tmp[i]=fYec0_perm[i];
-			// exec code
-			for (int i=0; i<count; i++) {
-				fYec0[i] = (float)input0[i];
-			}
-			// post processing
-			for (int i=0; i<4; i++) fYec0_perm[i]=fYec0_tmp[count+i];
-			
-			// SECTION : 2
-			// LOOP 0x7f9ef1ce45d0
-			// pre processing
-			for (int i=0; i<4; i++) fRec1_tmp[i]=fRec1_perm[i];
-			// exec code
-			for (int i=0; i<count; i++) {
-				fRec1[i] = ((fSlow3 * (fYec0[i-1] + (float)input0[i])) + (fSlow4 * fRec1[i-1]));
-			}
-			// post processing
-			for (int i=0; i<4; i++) fRec1_perm[i]=fRec1_tmp[count+i];
-			
-			// LOOP 0x7f9ef1ce8600
-			// pre processing
-			for (int i=0; i<4; i++) fRec3_tmp[i]=fRec3_perm[i];
-			// exec code
-			for (int i=0; i<count; i++) {
-				fRec3[i] = ((fSlow3 * ((fSlow1 * (float)input0[i]) + (fSlow9 * fYec0[i-1]))) + (fSlow4 * fRec3[i-1]));
-			}
-			// post processing
-			for (int i=0; i<4; i++) fRec3_perm[i]=fRec3_tmp[count+i];
-			
-			// SECTION : 3
-			// LOOP 0x7f9ef1ce42d0
+			// LOOP 0x7fbb0148a2e0
 			// pre processing
 			for (int i=0; i<4; i++) fRec0_tmp[i]=fRec0_perm[i];
 			// exec code
 			for (int i=0; i<count; i++) {
-				fRec0[i] = (fRec1[i] - (fSlow5 * ((fSlow6 * fRec0[i-2]) + (fSlow8 * fRec0[i-1]))));
+				fRec0[i] = ((float)input0[i] - (fSlow5 * ((fSlow7 * fRec0[i-1]) + (fSlow8 * fRec0[i-2]))));
 			}
 			// post processing
 			for (int i=0; i<4; i++) fRec0_perm[i]=fRec0_tmp[count+i];
 			
-			// LOOP 0x7f9ef1ce8380
-			// pre processing
-			for (int i=0; i<4; i++) fRec2_tmp[i]=fRec2_perm[i];
+			// SECTION : 2
+			// LOOP 0x7fbb0148a200
 			// exec code
 			for (int i=0; i<count; i++) {
-				fRec2[i] = (fRec3[i] - (fSlow5 * ((fSlow6 * fRec2[i-2]) + (fSlow8 * fRec2[i-1]))));
-			}
-			// post processing
-			for (int i=0; i<4; i++) fRec2_perm[i]=fRec2_tmp[count+i];
-			
-			// SECTION : 4
-			// LOOP 0x7f9ef1ce41f0
-			// exec code
-			for (int i=0; i<count; i++) {
-				output0[i] = (FAUSTFLOAT)(fSlow5 * ((fRec0[i] + (fRec0[i-2] + (2.0f * fRec0[i-1]))) + (fSlow10 * ((fSlow11 * fRec2[i-1]) + (fSlow7 * (fRec2[i-2] + fRec2[i]))))));
+				output0[i] = (FAUSTFLOAT)(fSlow5 * ((fSlow9 * fRec0[i-1]) + (fSlow0 * ((fSlow11 * fRec0[i]) + (fSlow12 * fRec0[i-2])))));
 			}
 			
 		}
@@ -960,63 +888,21 @@ class highshelf : public dsp {
 			FAUSTFLOAT* input0 = &input[0][index];
 			FAUSTFLOAT* output0 = &output[0][index];
 			// SECTION : 1
-			// LOOP 0x7f9ef1ce5890
-			// pre processing
-			for (int i=0; i<4; i++) fYec0_tmp[i]=fYec0_perm[i];
-			// exec code
-			for (int i=0; i<count; i++) {
-				fYec0[i] = (float)input0[i];
-			}
-			// post processing
-			for (int i=0; i<4; i++) fYec0_perm[i]=fYec0_tmp[count+i];
-			
-			// SECTION : 2
-			// LOOP 0x7f9ef1ce45d0
-			// pre processing
-			for (int i=0; i<4; i++) fRec1_tmp[i]=fRec1_perm[i];
-			// exec code
-			for (int i=0; i<count; i++) {
-				fRec1[i] = ((fSlow3 * (fYec0[i-1] + (float)input0[i])) + (fSlow4 * fRec1[i-1]));
-			}
-			// post processing
-			for (int i=0; i<4; i++) fRec1_perm[i]=fRec1_tmp[count+i];
-			
-			// LOOP 0x7f9ef1ce8600
-			// pre processing
-			for (int i=0; i<4; i++) fRec3_tmp[i]=fRec3_perm[i];
-			// exec code
-			for (int i=0; i<count; i++) {
-				fRec3[i] = ((fSlow3 * ((fSlow1 * (float)input0[i]) + (fSlow9 * fYec0[i-1]))) + (fSlow4 * fRec3[i-1]));
-			}
-			// post processing
-			for (int i=0; i<4; i++) fRec3_perm[i]=fRec3_tmp[count+i];
-			
-			// SECTION : 3
-			// LOOP 0x7f9ef1ce42d0
+			// LOOP 0x7fbb0148a2e0
 			// pre processing
 			for (int i=0; i<4; i++) fRec0_tmp[i]=fRec0_perm[i];
 			// exec code
 			for (int i=0; i<count; i++) {
-				fRec0[i] = (fRec1[i] - (fSlow5 * ((fSlow6 * fRec0[i-2]) + (fSlow8 * fRec0[i-1]))));
+				fRec0[i] = ((float)input0[i] - (fSlow5 * ((fSlow7 * fRec0[i-1]) + (fSlow8 * fRec0[i-2]))));
 			}
 			// post processing
 			for (int i=0; i<4; i++) fRec0_perm[i]=fRec0_tmp[count+i];
 			
-			// LOOP 0x7f9ef1ce8380
-			// pre processing
-			for (int i=0; i<4; i++) fRec2_tmp[i]=fRec2_perm[i];
+			// SECTION : 2
+			// LOOP 0x7fbb0148a200
 			// exec code
 			for (int i=0; i<count; i++) {
-				fRec2[i] = (fRec3[i] - (fSlow5 * ((fSlow6 * fRec2[i-2]) + (fSlow8 * fRec2[i-1]))));
-			}
-			// post processing
-			for (int i=0; i<4; i++) fRec2_perm[i]=fRec2_tmp[count+i];
-			
-			// SECTION : 4
-			// LOOP 0x7f9ef1ce41f0
-			// exec code
-			for (int i=0; i<count; i++) {
-				output0[i] = (FAUSTFLOAT)(fSlow5 * ((fRec0[i] + (fRec0[i-2] + (2.0f * fRec0[i-1]))) + (fSlow10 * ((fSlow11 * fRec2[i-1]) + (fSlow7 * (fRec2[i-2] + fRec2[i]))))));
+				output0[i] = (FAUSTFLOAT)(fSlow5 * ((fSlow9 * fRec0[i-1]) + (fSlow0 * ((fSlow11 * fRec0[i]) + (fSlow12 * fRec0[i-2])))));
 			}
 			
 		}

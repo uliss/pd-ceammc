@@ -792,16 +792,16 @@ class c_highshelf : public dsp {
 
   public:
 	virtual void metadata(Meta* m) { 
-		m->declare("maxmsp.lib/name", "MaxMSP compatibility Library");
-		m->declare("maxmsp.lib/author", "GRAME");
-		m->declare("maxmsp.lib/copyright", "GRAME");
-		m->declare("maxmsp.lib/version", "1.1");
-		m->declare("maxmsp.lib/license", "LGPL");
 		m->declare("math.lib/name", "Faust Math Library");
 		m->declare("math.lib/version", "2.0");
 		m->declare("math.lib/author", "GRAME");
 		m->declare("math.lib/copyright", "GRAME");
 		m->declare("math.lib/license", "LGPL with exception");
+		m->declare("maxmsp.lib/name", "MaxMSP compatibility Library");
+		m->declare("maxmsp.lib/author", "GRAME");
+		m->declare("maxmsp.lib/copyright", "GRAME");
+		m->declare("maxmsp.lib/version", "1.1");
+		m->declare("maxmsp.lib/license", "LGPL");
 	}
 
 	virtual int getNumInputs() { return 0; }
@@ -814,8 +814,8 @@ class c_highshelf : public dsp {
 	}
 	virtual void instanceResetUserInterface() {
 		fslider0 = 0.0f;
-		fslider1 = 1e+03f;
-		fslider2 = 1e+02f;
+		fslider1 = 1e+04f;
+		fslider2 = 1.0f;
 	}
 	virtual void instanceClear() {
 	}
@@ -836,25 +836,25 @@ class c_highshelf : public dsp {
 	}
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("0x00");
-		ui_interface->addHorizontalSlider("freq", &fslider1, 1e+03f, 2e+01f, 2e+04f, 0.1f);
-		ui_interface->addVerticalSlider("gain", &fslider0, 0.0f, -9e+01f, 1e+01f, 0.1f);
-		ui_interface->addHorizontalSlider("q", &fslider2, 1e+02f, 1.0f, 5e+03f, 0.1f);
+		ui_interface->addHorizontalSlider("freq", &fslider1, 1e+04f, 2e+01f, 2e+04f, 0.1f);
+		ui_interface->addHorizontalSlider("gain", &fslider0, 0.0f, -15.0f, 15.0f, 0.1f);
+		ui_interface->addHorizontalSlider("q", &fslider2, 1.0f, 0.5f, 2.0f, 0.1f);
 		ui_interface->closeBox();
 	}
 	virtual void compute (int count, FAUSTFLOAT** input, FAUSTFLOAT** output) {
 		float 	fSlow0 = powf(10,(0.025f * float(fslider0)));
 		float 	fSlow1 = (fConst0 * max((float)0, float(fslider1)));
-		float 	fSlow2 = ((sqrtf(fSlow0) * sinf(fSlow1)) / max(0.001f, float(fslider2)));
-		float 	fSlow3 = cosf(fSlow1);
-		float 	fSlow4 = ((fSlow0 + -1) * fSlow3);
-		float 	fSlow5 = (fSlow0 + fSlow4);
-		float 	fSlow6 = ((fSlow0 + fSlow2) + (1 - fSlow4));
-		float 	fSlow7 = ((fSlow0 * ((fSlow2 + fSlow5) + 1)) / fSlow6);
-		float 	fSlow8 = ((fSlow0 + 1) * fSlow3);
-		float 	fSlow9 = (((0 - (2 * fSlow0)) * ((fSlow0 + fSlow8) + -1)) / fSlow6);
-		float 	fSlow10 = ((fSlow0 * (fSlow5 + (1 - fSlow2))) / fSlow6);
+		float 	fSlow2 = cosf(fSlow1);
+		float 	fSlow3 = ((fSlow0 + -1) * fSlow2);
+		float 	fSlow4 = (fSlow0 + fSlow3);
+		float 	fSlow5 = ((sqrtf(fSlow0) * sinf(fSlow1)) / max(0.001f, float(fslider2)));
+		float 	fSlow6 = ((fSlow0 + fSlow5) + (1 - fSlow3));
+		float 	fSlow7 = ((((fSlow4 + fSlow5) + 1) * fSlow0) / fSlow6);
+		float 	fSlow8 = ((fSlow0 + 1) * fSlow2);
+		float 	fSlow9 = (((0 - (2 * fSlow0)) * ((fSlow8 + fSlow0) + -1)) / fSlow6);
+		float 	fSlow10 = (((fSlow4 + (1 - fSlow5)) * fSlow0) / fSlow6);
 		float 	fSlow11 = (2 * ((fSlow0 + (-1 - fSlow8)) / fSlow6));
-		float 	fSlow12 = ((fSlow0 + (1 - (fSlow4 + fSlow2))) / fSlow6);
+		float 	fSlow12 = ((fSlow0 + (1 - (fSlow3 + fSlow5))) / fSlow6);
 		int index;
 		int fullcount = count;
 		for (index = 0; index <= fullcount - 64; index += 64) {
@@ -866,31 +866,31 @@ class c_highshelf : public dsp {
 			FAUSTFLOAT* output3 = &output[3][index];
 			FAUSTFLOAT* output4 = &output[4][index];
 			// SECTION : 1
-			// LOOP 0x7ff46960d730
+			// LOOP 0x7fa473c4d700
 			// exec code
 			for (int i=0; i<count; i++) {
 				output0[i] = (FAUSTFLOAT)fSlow7;
 			}
 			
-			// LOOP 0x7ff469610170
+			// LOOP 0x7fa473d42b50
 			// exec code
 			for (int i=0; i<count; i++) {
 				output1[i] = (FAUSTFLOAT)fSlow9;
 			}
 			
-			// LOOP 0x7ff469610a60
+			// LOOP 0x7fa473d43620
 			// exec code
 			for (int i=0; i<count; i++) {
 				output2[i] = (FAUSTFLOAT)fSlow10;
 			}
 			
-			// LOOP 0x7ff469611140
+			// LOOP 0x7fa473d43b30
 			// exec code
 			for (int i=0; i<count; i++) {
 				output3[i] = (FAUSTFLOAT)fSlow11;
 			}
 			
-			// LOOP 0x7ff469611810
+			// LOOP 0x7fa473d44220
 			// exec code
 			for (int i=0; i<count; i++) {
 				output4[i] = (FAUSTFLOAT)fSlow12;
@@ -906,31 +906,31 @@ class c_highshelf : public dsp {
 			FAUSTFLOAT* output3 = &output[3][index];
 			FAUSTFLOAT* output4 = &output[4][index];
 			// SECTION : 1
-			// LOOP 0x7ff46960d730
+			// LOOP 0x7fa473c4d700
 			// exec code
 			for (int i=0; i<count; i++) {
 				output0[i] = (FAUSTFLOAT)fSlow7;
 			}
 			
-			// LOOP 0x7ff469610170
+			// LOOP 0x7fa473d42b50
 			// exec code
 			for (int i=0; i<count; i++) {
 				output1[i] = (FAUSTFLOAT)fSlow9;
 			}
 			
-			// LOOP 0x7ff469610a60
+			// LOOP 0x7fa473d43620
 			// exec code
 			for (int i=0; i<count; i++) {
 				output2[i] = (FAUSTFLOAT)fSlow10;
 			}
 			
-			// LOOP 0x7ff469611140
+			// LOOP 0x7fa473d43b30
 			// exec code
 			for (int i=0; i<count; i++) {
 				output3[i] = (FAUSTFLOAT)fSlow11;
 			}
 			
-			// LOOP 0x7ff469611810
+			// LOOP 0x7fa473d44220
 			// exec code
 			for (int i=0; i<count; i++) {
 				output4[i] = (FAUSTFLOAT)fSlow12;
@@ -1139,7 +1139,9 @@ static void faust_any(t_faust* x, t_symbol* s, int argc, t_atom* argv)
                 SETFLOAT(&args[3], ui->elems[i].min);
                 SETFLOAT(&args[4], ui->elems[i].max);
                 SETFLOAT(&args[5], ui->elems[i].step);
-                outlet_anything(x->out, _s, 6, args);
+                if(x->out) {
+                    outlet_anything(x->out, _s, 6, args);
+                }
             }
     } else {
         const char* label = s->s_name;
@@ -1150,7 +1152,9 @@ static void faust_any(t_faust* x, t_symbol* s, int argc, t_atom* argv)
                     if (ui->elems[i].zone) {
                         t_atom arg;
                         SETFLOAT(&arg, *ui->elems[i].zone);
-                        outlet_anything(x->out, gensym(ui->elems[i].label), 1, &arg);
+                        if(x->out) {
+                            outlet_anything(x->out, gensym(ui->elems[i].label), 1, &arg);
+                        }
                     }
                     ++count;
                 } else if (argc == 1 && (argv[0].a_type == A_FLOAT || argv[0].a_type == A_DEFFLOAT) && ui->elems[i].zone) {
@@ -1165,7 +1169,9 @@ static void faust_any(t_faust* x, t_symbol* s, int argc, t_atom* argv)
             if (argc == 0) {
                 t_atom arg;
                 SETFLOAT(&arg, (float)x->active);
-                outlet_anything(x->out, gensym("active"), 1, &arg);
+                if(x->out) {
+                    outlet_anything(x->out, gensym("active"), 1, &arg);
+                }
             } else if (argc == 1 && (argv[0].a_type == A_FLOAT || argv[0].a_type == A_DEFFLOAT)) {
                 float f = atom_getfloat(argv);
                 x->active = (int)f;
@@ -1231,7 +1237,7 @@ static bool faust_init_inputs(t_faust* x) {
     return true;
 }
 
-static bool faust_init_outputs(t_faust* x) {
+static bool faust_init_outputs(t_faust* x, bool info_outlet) {
     x->outputs = NULL;
     x->buf = NULL;
 
@@ -1262,7 +1268,10 @@ static bool faust_init_outputs(t_faust* x) {
     }
 
     // control outlet
-    x->out = outlet_new(&x->x_obj, 0);
+    if(info_outlet)
+        x->out = outlet_new(&x->x_obj, 0);
+    else
+        x->out = 0;
 
     return true;
 }
@@ -1277,7 +1286,7 @@ static void faust_init_label(t_faust* x, const char* obj_id) {
     }
 }
 
-static bool faust_new_internal(t_faust* x, const char* obj_id = NULL) {
+static bool faust_new_internal(t_faust* x, const char* obj_id = NULL, bool info_outlet = true) {
     int sr = 44100;
     x->active = 1;
     x->xfade = 0;
@@ -1293,7 +1302,7 @@ static bool faust_new_internal(t_faust* x, const char* obj_id = NULL) {
         return false;
     }
 
-    if(!faust_init_outputs(x)) {
+    if(!faust_init_outputs(x, info_outlet)) {
         faust_free(x);
         return false;
     }
@@ -1304,6 +1313,14 @@ static bool faust_new_internal(t_faust* x, const char* obj_id = NULL) {
     return true;
 }
 
+/**
+ * find nth element that satisfies given predicate
+ * @first - first element of sequence
+ * @last - pointer behind last element of sequence
+ * @Nth - searched element index
+ * @pred - predicate
+ * @return pointer to found element or pointer to @bold last, if not found
+ */
 template<class InputIterator, class NthOccurence, class UnaryPredicate>
 InputIterator find_nth_if(InputIterator first, InputIterator last, NthOccurence Nth, UnaryPredicate pred)
 {
@@ -1317,6 +1334,9 @@ InputIterator find_nth_if(InputIterator first, InputIterator last, NthOccurence 
     return last;
 }
 
+/**
+ * @return true if given atom is a float
+ */
 static bool atom_is_float(const t_atom& a) {
     switch(a.a_type) {
         case A_FLOAT:
@@ -1327,6 +1347,9 @@ static bool atom_is_float(const t_atom& a) {
     }
 }
 
+/**
+ * @return true if given atom is a symbol
+ */
 static bool atom_is_symbol(const t_atom& a) {
     switch(a.a_type) {
         case A_DEFSYMBOL:
@@ -1337,6 +1360,14 @@ static bool atom_is_symbol(const t_atom& a) {
     }
 }
 
+/**
+ * @brief find nth float in argument list. (arguments can be mixed)
+ * @param argc argument count
+ * @param argv pointer to argument vector
+ * @param nth find position. nth should be > 0!
+ * @param dest destination to write value
+ * @return true if argument at given position was found, otherwise false
+ */
 static bool get_nth_float_arg(int argc, t_atom* argv, int nth, t_float* dest) {
     t_atom* last = argv + argc;
     t_atom* res = find_nth_if(argv, last, nth, atom_is_float);
@@ -1346,6 +1377,14 @@ static bool get_nth_float_arg(int argc, t_atom* argv, int nth, t_float* dest) {
     return true;
 }
 
+/**
+ * @brief find nth symbol in argument list. (arguments can be mixed)
+ * @param argc argument count
+ * @param argv pointer to argument vector
+ * @param nth find position. nth should be > 0!
+ * @param dest destination to write found argument value
+ * @return true if argument at given position was found, otherwise false
+ */
 static bool get_nth_symbol_arg(int argc, t_atom* argv, int nth, const char** dest) {
     t_atom* last = argv + argc;
     t_atom* res = find_nth_if(argv, last, nth, atom_is_symbol);
@@ -1355,5 +1394,73 @@ static bool get_nth_symbol_arg(int argc, t_atom* argv, int nth, const char** des
     *dest = s->s_name;
     return true;
 }
+
+class PdArgParser {
+    t_faust* x_;
+    int argc_;
+    t_atom* argv_;
+    bool control_outlet_;
+
+public:
+    /**
+     * @brief FaustArgParser
+     * @param x pointer to faust class
+     * @param argc arguments count
+     * @param argv pointer to argument vector
+     */
+    PdArgParser(t_faust* x, int argc, t_atom* argv, bool info_outlet = true)
+        : x_(x)
+        , argc_(argc)
+        , argv_(argv)
+        , control_outlet_(info_outlet)
+    {
+        const char* id = NULL;
+        get_nth_symbol_arg(argc_, argv_, 1, &id);
+
+        // init error
+        if (!faust_new_internal(x, id, control_outlet_)) {
+            this->x_ = NULL;
+        }
+    }
+
+    /**
+     * @brief initFloatArg
+     * @param name argument name
+     * @param pos argument position among of @bold float(!) arguments. Position starts from @bold 1(!).
+     * to select first argument - pass 1.
+     */
+    void initFloatArg(const char* name, int pos)
+    {
+        // object was not created
+        if (!this->x_)
+            return;
+
+        t_float v = 0.0;
+        if (get_nth_float_arg(this->argc_, this->argv_, pos, &v))
+            this->x_->ui->setElementValue(name, v);
+    }
+
+    /**
+     * @brief send creation argument to first signal inlet
+     * @param name argument name
+     * @param pos argument position among of @bold float(!) arguments. Position starts from @bold 1(!).
+     * to select first argument - pass 1.
+     */
+    void signalFloatArg(const char* name, int pos)
+    {
+        // object was not created
+        if (!this->x_)
+            return;
+
+        t_float arg = 0;
+        if(get_nth_float_arg(this->argc_, this->argv_, pos, &arg))
+            pd_float(reinterpret_cast<t_pd*>(this->x_), arg);
+    }
+
+    t_faust* pd_obj()
+    {
+        return this->x_;
+    }
+};
 
 
