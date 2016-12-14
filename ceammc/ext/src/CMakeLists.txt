@@ -188,7 +188,6 @@ ceammc_cxx_extension(system memused)
 ceammc_faust_extension(lfo impulse simple_pd_control_ext)
 ceammc_faust_extension(lfo tri simple_pd_ext)
 ceammc_faust_extension(lfo square simple_pd_ext)
-ceammc_faust_extension(osc sinfb simple_pd_control_ext)
 
 ceammc_faust_extension(fx softclip simple_pd_control_ext)
 ceammc_faust_extension(fx envfollow simple_pd_control_ext)
@@ -219,10 +218,10 @@ ceammc_faust_extension(dyn limit2 simple_pd_control_ext)
 ceammc_faust_extension(spat pan2 simple_pd_control_ext)
 ceammc_faust_extension(spat pan4 simple_pd_control_ext)
 
-ceammc_faust_extension(osc bsaw simple_pd_control_ext)
+ceammc_faust_extension(osc saw simple_pd_control_ext)
+ceammc_faust_extension(osc sinfb simple_pd_control_ext)
 ceammc_faust_extension(osc sqr simple_pd_control_ext)
 ceammc_faust_extension(osc tri simple_pd_control_ext)
-
 
 ceammc_faust_extension(env adsr simple_pd_control_ext)
 ceammc_faust_extension(env ar simple_pd_control_ext)
