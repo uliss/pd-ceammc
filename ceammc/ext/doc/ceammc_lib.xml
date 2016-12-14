@@ -71,6 +71,9 @@
     <entry descr="sine oscilator with feedback" name="osc.sinfb~">
       <xi:include href="osc.sinfb~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="Bandlimited triangle wave oscillator" name="osc.tri~">
+      <xi:include href="osc.tri~.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="predicates">
     <entry descr="checks if input data has *any* type" name="is_any">

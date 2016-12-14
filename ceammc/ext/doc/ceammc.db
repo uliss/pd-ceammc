@@ -24,5 +24,6 @@ osc.impulse~		~		~
 osc.pulse~		~		~.
 osc.sibfb~		~		~
 osc.sinfb~		~		~.
+osc.tri~		~		~
 system.memsize		.		.
 system.memused		.		..

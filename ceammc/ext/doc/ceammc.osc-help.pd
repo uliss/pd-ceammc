@@ -8,6 +8,8 @@
 #X text 150 140 Bandlimited pulse train oscillator\. ;
 #X obj 30 167 osc.sinfb~;
 #X text 150 167 sine oscilator with feedback;
+#X obj 30 194 osc.tri~;
+#X text 150 194 Bandlimited triangle wave oscillator;
 #X obj 1 1 cnv 5 597 40 empty empty ceammc::osc 20 20 0 20 -104026
 -4096 0;
 #X obj 1 458 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;
