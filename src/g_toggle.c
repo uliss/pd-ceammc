@@ -73,10 +73,10 @@ void toggle_draw_new(t_toggle *x, t_glist *glist)
              (x->x_on!=0.0)?x->x_gui.x_fcol:x->x_gui.x_bcol, x);
     sys_vgui(".x%lx.c create text %d %d -text {%s} -anchor w \
              -font {{%s} -%d %s} -fill #%06x -tags [list %lxLABEL label text]\n",
-             canvas, xx+x->x_gui.x_ldx * zoomlabel,
-             yy+x->x_gui.x_ldy * zoomlabel,
+             canvas, xx+x->x_gui.x_ldx * IEMGUI_ZOOM(x),
+             yy+x->x_gui.x_ldy * IEMGUI_ZOOM(x),
              strcmp(x->x_gui.x_lab->s_name, "empty")?x->x_gui.x_lab->s_name:"",
-             x->x_gui.x_font, x->x_gui.x_fontsize, sys_fontweight,
+             x->x_gui.x_font, x->x_gui.x_fontsize * IEMGUI_ZOOM(x), sys_fontweight,
              x->x_gui.x_lcol, x);
     if(!x->x_gui.x_fsf.x_snd_able)
         sys_vgui(".x%lx.c create rectangle %d %d %d %d -outline %s -tags [list %lxOUT%d outlet]\n",
@@ -108,8 +108,8 @@ void toggle_draw_move(t_toggle *x, t_glist *glist)
     sys_vgui(".x%lx.c coords %lxX2 %d %d %d %d\n",
              canvas, x, xx+w+1, yy + x->x_gui.x_h-w-1, xx + x->x_gui.x_w-w, yy+w);
     sys_vgui(".x%lx.c coords %lxLABEL %d %d\n",
-             canvas, x, xx+x->x_gui.x_ldx * zoomlabel,
-             yy+x->x_gui.x_ldy * zoomlabel);
+             canvas, x, xx+x->x_gui.x_ldx * IEMGUI_ZOOM(x),
+             yy+x->x_gui.x_ldy * IEMGUI_ZOOM(x));
     if(!x->x_gui.x_fsf.x_snd_able)
         sys_vgui(".x%lx.c coords %lxOUT%d %d %d %d %d\n",
              canvas, x, 0, xx, yy + x->x_gui.x_h - xlet_height(x), xx + IOWIDTH, yy + x->x_gui.x_h);
@@ -137,7 +137,7 @@ void toggle_draw_config(t_toggle* x, t_glist* glist)
     t_canvas *canvas=glist_getcanvas(glist);
 
     sys_vgui(".x%lx.c itemconfigure %lxLABEL -font {{%s} -%d %s} -fill #%06x -text {%s} \n",
-             canvas, x, x->x_gui.x_font, x->x_gui.x_fontsize, sys_fontweight,
+             canvas, x, x->x_gui.x_font, x->x_gui.x_fontsize * IEMGUI_ZOOM(x), sys_fontweight,
              x->x_gui.x_fsf.x_selected?IEM_GUI_COLOR_SELECTED:x->x_gui.x_lcol,
              strcmp(x->x_gui.x_lab->s_name, "empty")?x->x_gui.x_lab->s_name:"");
     sys_vgui(".x%lx.c itemconfigure %lxBASE -fill #%06x\n", canvas, x,
