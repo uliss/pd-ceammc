@@ -68,6 +68,8 @@ private:
 public:
     //log
     static void e_error(std::string err);
+    static void e_properties(t_object *obj);
+    static void e_atoms(t_atom *obj, int count);
     
     virtual void pd_setup(t_object *gui_class);
     

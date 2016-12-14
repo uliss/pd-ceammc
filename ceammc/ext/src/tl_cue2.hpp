@@ -16,17 +16,6 @@
 //#include <m_pd.h>
 
 
-//alias
-
-//class tl_cue2 : public ceammc_gui
-//{
-//public:
-//    //     void pd_setup(t_object* obj);
-//    
-//} ;
-
-
-
 
 
 class tl_cue2_object : public ceammc_gui_object

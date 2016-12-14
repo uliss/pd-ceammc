@@ -1,5 +1,5 @@
 ////
-////  tl_cue.cpp
+////  tl_cue2.cpp
 ////  pd_ext
 ////
 ////  Created by Alex Nadzharov on 10/12/16.
@@ -72,7 +72,7 @@ void tl_cue2_object::w_displace(t_gobj *z, t_glist *glist, int dx, int dy)
     
     int cue_idx = tll_cue_getnumber((t_object *)x);
     char cuename[10];
-    sprintf(cuename, "cue %d", cue_idx);
+    sprintf(cuename, "cue_%d", cue_idx);
     UI_Set("cue_name",cuename);
     
     UI_Set ("y",0);
@@ -128,7 +128,7 @@ void tl_cue2_object::ui_property_init()
     
     ceammc_gui_object::ui_property_init();
     
-    this->ui_property_set("cue_name", "cue x");
+    this->ui_property_set("cue_name", "cue_x");
     
     this->ui_property_set("object_name", "tl.cue2");
     
