@@ -12,6 +12,8 @@ set(DOC_FILES
     dyn.limit2~
     env.ar~
     env.adsr~
+    flt.dcblock~
+    flt.dcblock2~
     flt.highshelf~
     flt.lowshelf~
     is_any

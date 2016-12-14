@@ -2,10 +2,18 @@
 #X obj 20 50 pddp/pddplink ../index-help.pd -text index;
 #X text 62 50 ::;
 #X obj 79 50 pddp/pddplink ceammc-help.pd -text ceammc;
-#X obj 30 113 flt.highshelf~;
-#X text 150 113 gain boost|cut above some frequency;
-#X obj 30 140 flt.lowshelf~;
-#X text 150 140 gain boost|cut below some frequency;
+#X obj 30 113 flt.dcblock2~;
+#X text 150 113 stereo DC blocker\. It has -3dB point near 35 Hz (at
+44\.1 kHz)  and high-frequency gain near 1\.0025 (due to no
+scaling)\.;
+#X obj 30 164 flt.dcblock~;
+#X text 150 164 mono DC blocker\. It has -3dB point near 35 Hz (at
+44\.1 kHz)  and high-frequency gain near 1\.0025 (due to no
+scaling)\.;
+#X obj 30 215 flt.highshelf~;
+#X text 150 215 gain boost|cut above some frequency;
+#X obj 30 242 flt.lowshelf~;
+#X text 150 242 gain boost|cut below some frequency;
 #X obj 1 1 cnv 5 597 40 empty empty ceammc::flt 20 20 0 20 -104026
 -4096 0;
 #X obj 1 458 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;

@@ -198,6 +198,7 @@ ceammc_faust_extension(fx pitchshift simple_pd_control_ext)
 ceammc_faust_extension(eq peak simple_pd_control_ext)
 
 ceammc_faust_extension(flt dcblock simple_pd_control_ext)
+ceammc_faust_extension(flt dcblock2 simple_pd_control_ext)
 ceammc_faust_extension(flt highshelf simple_pd_control_ext)
 ceammc_faust_extension(flt lowshelf simple_pd_control_ext)
 ceammc_faust_extension(flt biquad simple_pd_control_ext)

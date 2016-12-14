@@ -7,3 +7,7 @@ db_faust2pd(v) = (v + 100);
 
 // in puredata common time management in milliseconds
 time_pd2faust(sec) = (sec / 1000.0);
+
+// duplicate inputs
+duplicate(1, x) = x;
+duplicate(n, x) = x, duplicate(n-1, x);
