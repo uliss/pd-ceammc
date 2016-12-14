@@ -27,6 +27,7 @@ set(DOC_FILES
     list.apply_to
     lfo.impulse~
     osc.impulse~
+    osc.pulse~
     osc.sinfb~
     system.memsize
     system.memused)

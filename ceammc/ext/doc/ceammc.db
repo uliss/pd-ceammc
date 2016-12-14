@@ -21,6 +21,7 @@ is_symbol		.		..
 lfo.impulse~		~		~
 list.apply_to		..		..
 osc.impulse~		~		~
+osc.pulse~		~		~
 osc.sibfb~		~		~
 osc.sinfb~		~		~.
 system.memsize		.		.

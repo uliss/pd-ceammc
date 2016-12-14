@@ -59,34 +59,36 @@ it via external object\.;
 #X obj 20 894 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 905 osc.impulse~;
 #X text 150 905 Bandlimited impulse train generator;
-#X obj 30 932 osc.sinfb~;
-#X text 150 932 sine oscilator with feedback;
-#X obj 20 959 cnv 5 99 19 empty empty predicates 0 17 0 17 -262144
+#X obj 30 932 osc.pulse~;
+#X text 150 932 Bandlimited pulse train oscillator\. ;
+#X obj 30 959 osc.sinfb~;
+#X text 150 959 sine oscilator with feedback;
+#X obj 20 986 cnv 5 99 19 empty empty predicates 0 17 0 17 -262144
 -49933 0;
-#X obj 20 988 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 999 is_any;
-#X text 150 999 checks if input data has *any* type;
-#X obj 30 1026 is_bang;
-#X text 150 1026 checks if input data has *bang* type;
-#X obj 30 1053 is_even;
-#X text 150 1053 checks if input number is even;
-#X obj 30 1080 is_float;
-#X text 150 1080 checks if input data has *float* type;
-#X obj 30 1107 is_list;
-#X text 150 1107 checks if input data has *list* type;
-#X obj 30 1134 is_symbol;
-#X text 150 1134 checks if input data has *symbol* type;
-#X obj 20 1161 cnv 5 58 19 empty empty system 0 17 0 17 -262144 -49933
+#X obj 20 1015 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 1026 is_any;
+#X text 150 1026 checks if input data has *any* type;
+#X obj 30 1053 is_bang;
+#X text 150 1053 checks if input data has *bang* type;
+#X obj 30 1080 is_even;
+#X text 150 1080 checks if input number is even;
+#X obj 30 1107 is_float;
+#X text 150 1107 checks if input data has *float* type;
+#X obj 30 1134 is_list;
+#X text 150 1134 checks if input data has *list* type;
+#X obj 30 1161 is_symbol;
+#X text 150 1161 checks if input data has *symbol* type;
+#X obj 20 1188 cnv 5 58 19 empty empty system 0 17 0 17 -262144 -49933
 0;
-#X obj 20 1190 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 1201 system.memsize;
-#X text 150 1201 returns the size of physical memory (RAM) in bytes
+#X obj 20 1217 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 1228 system.memsize;
+#X text 150 1228 returns the size of physical memory (RAM) in bytes
 round to float data type\.;
-#X obj 30 1238 system.memused;
-#X text 150 1238 returns the process physical memory use - current and
+#X obj 30 1265 system.memused;
+#X text 150 1265 returns the process physical memory use - current and
 peak;
 #X obj 1 1 cnv 5 597 40 empty empty ceammc 20 20 0 20 -104026 -4096 0;
-#X obj 1 1265 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 1265 version: v0\.1 \, license: GPL3;
-#X obj 20 1281 pddp/pddplink https://github.com/uliss/pure-data -text
+#X obj 1 1292 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 1292 version: v0\.1 \, license: GPL3;
+#X obj 20 1308 pddp/pddplink https://github.com/uliss/pure-data -text
 https://github.com/uliss/pure-data;
