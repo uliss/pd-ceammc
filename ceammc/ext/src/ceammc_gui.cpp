@@ -179,13 +179,13 @@ void ceammc_gui_object::ui_property_copy()
 
 void draw_wrappers::dw_set_canvas(t_glist *glist)
 {
-    printf("--set c-\n");
+//    printf("--set c-\n");
     draw_wrappers::w_canvas = glist;
 }
 
 void draw_wrappers::dw_set_object(t_object *obj)
 {
-    printf("--set obj-\n");
+//    printf("--set obj-\n");
     draw_wrappers::w_obj = obj;
 }
 
@@ -386,10 +386,17 @@ void w_proxy::w_vis(t_gobj *z, t_glist *glist, int vis)
     
 }
 
-void w_proxy::pd_instance_init()
+void w_proxy::pd_instance_init(t_object *obj)
 {
     printf(">>> w proxy instance init base\n");
-    ((v_widget*)w_proxy::ceammc_gui_pd_object) -> pd_instance_init();
+    
+    //static_cast<decltype(w_proxy::ceammc_gui_pd_object)>(obj) -> pd_instance_init()
+    
+    //((v_widget*)obj)->&pd_instance_init = ((v_widget*)w_proxy::ceammc_gui_pd_object)->&pd_instance_init;
+    
+    ((v_widget*)w_proxy::ceammc_gui_pd_object) -> pd_instance_init(obj);
+    
+    //(((typeid(w_proxy::ceammc_gui_pd_object))))obj) -> pd_instance_init();
 }
 
 #pragma mark log
@@ -416,12 +423,12 @@ std::vector<std::string> ceammc_gui::ui_get_property_names()
 
 #pragma mark _
 
-void ceammc_gui_object::pd_instance_init()
+void ceammc_gui_object::pd_instance_init(t_object *obj)
 {
     printf(">>> instance init base\n");
 }
 
-void v_widget::pd_instance_init()
+void v_widget::pd_instance_init(t_object *obj)
 {
     printf(">>> w instance init base\n");
 }
@@ -442,13 +449,9 @@ void *ceammc_gui::pd_class_new(t_symbol *s, int argc, t_atom *argv)
 
     x->ui_property_copy();
     
-    w_proxy::ceammc_gui_pd_instance = (t_object*)x;
-    w_proxy::pd_instance_init();
-//    
-//    if (argc!=x->ui_property_names.size())
-//    {
-//        x->ui_property_init();
-//    }//
+    //w_proxy::ceammc_gui_pd_instance = ;
+    w_proxy::pd_instance_init((t_object*)x);
+
     
     if ((argc-3)==(*x->ui_properties).size())
     {

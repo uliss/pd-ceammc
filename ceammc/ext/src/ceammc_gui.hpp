@@ -65,7 +65,7 @@ public:
     //TEMP
     static t_object *ceammc_gui_pd_object;     //name
     
-    static void pd_instance_init();
+    static void pd_instance_init(t_object *obj);
     static t_object *ceammc_gui_pd_instance;
     
 };
@@ -126,7 +126,7 @@ public:
     virtual void w_draw(t_gobj *z, t_glist *glist);
     virtual void w_erase(t_gobj *z, t_glist *glist);
     
-    virtual void pd_instance_init();
+    virtual void pd_instance_init(t_object *obj);
 };
 
 //typedef void (drawfunc)(t_gobj, t_glist);
@@ -179,7 +179,7 @@ public:
     virtual  void w_draw(t_gobj *z, t_glist *glist);
     virtual  void w_erase(t_gobj *z, t_glist *glist);
     
-    virtual void pd_instance_init();
+    virtual void pd_instance_init(t_object *obj);
     
     
     

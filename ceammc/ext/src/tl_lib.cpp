@@ -76,6 +76,7 @@ EXTERN int tll_cue_getnumber(t_object* obj)
 {
     return tll_cue_find_by_object(obj);
 }
+
 EXTERN void tll_cue_add(t_object *x, float x_pos)
 {
     tl_t_cue new_c;
@@ -98,7 +99,8 @@ EXTERN void tll_cue_dump()
     for (it=tl_ui_cues.begin(); it != tl_ui_cues.end(); ++it)
     {
         it->cue_number = tll_cue_getnumber(it->ui_obj);
-        printf("cue %i pos %f\n", it->cue_number, it->x_pos);
+        printf("cue %i [%lu] pos %f\n",  it->cue_number, (long)it->ui_obj, it->x_pos);
+        //post("cue %i pos %f\n", it->cue_number, it->x_pos);
         //logpost(NULL, 2, "cue %i pos %f\n", it->cue_number, it->x_pos);
     }
 }
@@ -109,10 +111,10 @@ EXTERN void tll_cue_update_pos(t_object *x, float x_pos)
     std::vector<tl_t_cue>::iterator it;
     for (it=tl_ui_cues.begin(); it != tl_ui_cues.end(); ++it)
     {
-        if (it->ui_obj)
+        if (it->ui_obj == x)
         {
-            t_object *x = it->ui_obj;
-            float x_pos = x->te_xpix;
+            //t_object *x = it->ui_obj;
+            //float x_pos = x->te_xpix;     //for cue1
             it->x_pos = x_pos;
             
         }

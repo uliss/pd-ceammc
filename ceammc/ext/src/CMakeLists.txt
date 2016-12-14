@@ -36,7 +36,7 @@ endmacro()
 macro(ceammc_cxx_tl_extension module name)
     pd_add_extension(NAME "${module}.${name}"
       FILES "${module}_${name}.cpp"
-      INTERNAL True
+      INTERNAL TRUE
       LIBRARY ceammc
       LINK timeline)
 endmacro()
@@ -189,6 +189,7 @@ ceammc_cxx_extension(vector dot)
 ceammc_cxx_tl_extension(tl transport)
 ceammc_cxx_tl_extension(tl bang)
 ceammc_cxx_tl_extension(tl cue)
+ceammc_cxx_tl_extension(tl cue2)
 
 # JSON
 
