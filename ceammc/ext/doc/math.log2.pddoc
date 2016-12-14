@@ -13,7 +13,6 @@
             <keywords>math log2</keywords>
             <also>
                 <see>math.exp</see>
-                <see>math.pow</see>
             </also>
             <since>0.1</since>
         </meta>

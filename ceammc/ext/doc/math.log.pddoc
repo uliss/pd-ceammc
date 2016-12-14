@@ -13,7 +13,6 @@
             <keywords>math log</keywords>
             <also>
                 <see>math.exp</see>
-                <see>math.pow</see>
                 <see>math.math</see>
             </also>
             <since>0.1</since>
