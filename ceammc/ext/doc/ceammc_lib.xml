@@ -28,6 +28,11 @@
       <xi:include href="env.ar~.pddoc" parse="xml"/>
     </entry>
   </category>
+  <category name="flt">
+    <entry descr="gain boost|cut above some frequency" name="flt.highshelf~">
+      <xi:include href="flt.highshelf~.pddoc" parse="xml"/>
+    </entry>
+  </category>
   <category name="lfo">
     <entry descr="Unit-amplitude low-frequency impulse train" name="lfo.impulse~">
       <xi:include href="lfo.impulse~.pddoc" parse="xml"/>

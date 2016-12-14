@@ -852,9 +852,9 @@ class highshelf : public dsp {
 		float 	fSlow7 = (2 * (fSlow0 + (-1 - fSlow6)));
 		float 	fSlow8 = (fSlow0 + (1 - (fSlow4 + fSlow2)));
 		float* 	fRec0 = &fRec0_tmp[4];
-		float 	fSlow9 = ((0 - (2 * fSlow0)) * ((fSlow0 + fSlow6) + -1));
+		float 	fSlow9 = ((0 - (2 * fSlow0)) * ((fSlow6 + fSlow0) + -1));
 		float 	fSlow10 = (fSlow0 + fSlow4);
-		float 	fSlow11 = ((fSlow2 + fSlow10) + 1);
+		float 	fSlow11 = ((fSlow10 + fSlow2) + 1);
 		float 	fSlow12 = (fSlow10 + (1 - fSlow2));
 		int index;
 		int fullcount = count;
@@ -864,7 +864,7 @@ class highshelf : public dsp {
 			FAUSTFLOAT* input0 = &input[0][index];
 			FAUSTFLOAT* output0 = &output[0][index];
 			// SECTION : 1
-			// LOOP 0x7fbb0148a2e0
+			// LOOP 0x7fc9fac72910
 			// pre processing
 			for (int i=0; i<4; i++) fRec0_tmp[i]=fRec0_perm[i];
 			// exec code
@@ -875,7 +875,7 @@ class highshelf : public dsp {
 			for (int i=0; i<4; i++) fRec0_perm[i]=fRec0_tmp[count+i];
 			
 			// SECTION : 2
-			// LOOP 0x7fbb0148a200
+			// LOOP 0x7fc9fac72830
 			// exec code
 			for (int i=0; i<count; i++) {
 				output0[i] = (FAUSTFLOAT)(fSlow5 * ((fSlow9 * fRec0[i-1]) + (fSlow0 * ((fSlow11 * fRec0[i]) + (fSlow12 * fRec0[i-2])))));
@@ -888,7 +888,7 @@ class highshelf : public dsp {
 			FAUSTFLOAT* input0 = &input[0][index];
 			FAUSTFLOAT* output0 = &output[0][index];
 			// SECTION : 1
-			// LOOP 0x7fbb0148a2e0
+			// LOOP 0x7fc9fac72910
 			// pre processing
 			for (int i=0; i<4; i++) fRec0_tmp[i]=fRec0_perm[i];
 			// exec code
@@ -899,7 +899,7 @@ class highshelf : public dsp {
 			for (int i=0; i<4; i++) fRec0_perm[i]=fRec0_tmp[count+i];
 			
 			// SECTION : 2
-			// LOOP 0x7fbb0148a200
+			// LOOP 0x7fc9fac72830
 			// exec code
 			for (int i=0; i<count; i++) {
 				output0[i] = (FAUSTFLOAT)(fSlow5 * ((fSlow9 * fRec0[i-1]) + (fSlow0 * ((fSlow11 * fRec0[i]) + (fSlow12 * fRec0[i-2])))));
@@ -1128,7 +1128,10 @@ static void faust_any(t_faust* x, t_symbol* s, int argc, t_atom* argv)
                     ++count;
                 } else if (argc == 1 && (argv[0].a_type == A_FLOAT || argv[0].a_type == A_DEFFLOAT) && ui->elems[i].zone) {
                     float f = atom_getfloat(argv);
-                    *ui->elems[i].zone = f;
+                    ui_elem_t* el = &ui->elems[i];
+                    if(el->min <= f && f <= el->max) {
+                        *el->zone = f;
+                    }
                     ++count;
                 } else
                     pd_error(x, "[ceammc] %s: bad control argument: %s",

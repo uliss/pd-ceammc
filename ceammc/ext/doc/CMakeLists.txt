@@ -12,6 +12,7 @@ set(DOC_FILES
     dyn.limit2~
     env.ar~
     env.adsr~
+    flt.highshelf~
     is_any
     is_bang
     is_float
