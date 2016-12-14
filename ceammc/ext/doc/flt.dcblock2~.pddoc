@@ -18,12 +18,12 @@
             </also>
         </meta>
         <inlets>
-            <inlet type="audio">
-                <xinfo>input signal</xinfo>
-            </inlet>
+            <inlet type="audio"><xinfo>right input signal</xinfo></inlet>
+            <inlet type="audio"><xinfo>left input signal</xinfo></inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">filtered signal</outlet>
+            <outlet type="audio">left filtered signal</outlet>
+            <outlet type="audio">right filtered signal</outlet>
         </outlets>
         <example>
         <pdascii>
