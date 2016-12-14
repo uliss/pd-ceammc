@@ -15,7 +15,6 @@
         </meta>
         <arguments>
             <argument name="freq" type="float" units="herz">frequency</argument>
-            <argument name="ID" type="symbol">object ID for OSC control path</argument>
         </arguments>
         <inlets>
             <inlet type="audio">
