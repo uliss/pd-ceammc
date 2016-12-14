@@ -6,7 +6,7 @@ dyn.limit2~		~~		~~
 dyn.limit~		~		~
 env.adsr~		~		~.
 env.ar~		~		~.
-flt.dcblock2~		~		~
+flt.dcblock2~		~~		~~
 flt.dcblock~		~		~
 flt.eq_peak~		~		~.
 flt.highshelf~		~		~.

@@ -3,7 +3,7 @@
 #X text 62 50 ::;
 #X obj 79 50 pddp/pddplink ceammc-help.pd -text ceammc;
 #X obj 30 113 math.abs;
-#X text 150 113 integer absolute value function;
+#X text 150 113 absolute value function;
 #X obj 30 140 math.acos;
 #X text 150 140 arc cosine function;
 #X obj 30 167 math.acosh;
@@ -13,13 +13,14 @@
 #X obj 30 221 math.asinh;
 #X text 150 221 inverse hyperbolic sine function;
 #X obj 30 248 math.atan;
-#X text 150 248 arc tangent function of one variable;
+#X text 150 248 arc tangent function;
 #X obj 30 275 math.atanh;
 #X text 150 275 inverse hyperbolic tangent function;
 #X obj 30 302 math.cbrt;
 #X text 150 302 cube root function;
 #X obj 30 329 math.ceil;
-#X text 150 329 round to smallest integral value not less than x;
+#X text 150 329 round to smallest integral value not less than input
+value;
 #X obj 30 356 math.cos;
 #X text 150 356 cosine function;
 #X obj 30 383 math.cosh;

@@ -15,7 +15,6 @@
                 <see>math.acos</see>
                 <see>math.asin</see>
                 <see>math.atan</see>
-                <see>math.atan2</see>
             </also>
             <since>0.1</since>
         </meta>
@@ -24,9 +23,7 @@
 </par>
             <par>Special values:</par>
             <par>sin(+-0) returns +-0.</par>
-            <par>sin(+-infinity) returns a NaN and raises the &#34;invalid&#34; floating-point
-exception.
-</par>
+            <par>sin(+-infinity) returns a NaN.</par>
         </info>
         <inlets>
             <inlet>
@@ -40,11 +37,13 @@ exception.
         <example>
             <pdascii>
 <![CDATA[
-[F]  [1 2 3( [1 a 2(
-|    |   ____/
-[math.sin]
+[F]  [1 2 3(
 |    |
-[F]  [print]
+[math.sin]
+|
+[prepend set]
+|
+[  (
 ]]>
             </pdascii>
         </example>

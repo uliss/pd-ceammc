@@ -17,12 +17,12 @@
             <since>0.1</since>
         </meta>
         <info>
-            <par>The abs() function computes the absolute value of the float input.
-</par>
+            <par>The abs() function computes the absolute value of the float input.</par>
         </info>
         <inlets>
             <inlet>
                 <xinfo on="float">input value</xinfo>
+                <xinfo on="list">apply to all numeric values</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -31,11 +31,13 @@
         <example>
             <pdascii>
 <![CDATA[
-[F]
-|
+[F]    [1 2 -5 7 d b(
+|      |
 [math.abs]
 |
-[F]
+[prepend set]
+|
+[  (
 ]]>
             </pdascii>
         </example>

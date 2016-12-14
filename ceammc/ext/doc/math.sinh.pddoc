@@ -15,7 +15,6 @@
                 <see>math.acos</see>
                 <see>math.asin</see>
                 <see>math.atan</see>
-                <see>math.atan2</see>
             </also>
             <since>0.1</since>
         </meta>

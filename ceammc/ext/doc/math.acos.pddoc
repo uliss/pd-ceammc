@@ -21,17 +21,15 @@
         </meta>
         <info>
             <par>The acos() function computes the principle value of the arc cosine of input value.
-The result is in the range [0, pi].
-</par>
+The result is in the range [0, pi].</par>
             <par>Special values:</par>
             <par>acos(1) returns +0.</par>
-            <par>acos(x) returns a NAN and raises the &#34;invalid&#34; floating-point exception
-for |x| &gt; 1.
-</par>
+            <par>acos(x) returns a NAN.</par>
         </info>
         <inlets>
             <inlet>
                 <xinfo on="float">input value</xinfo>
+                <xinfo on="list">apply to all numeric values</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -40,11 +38,13 @@ for |x| &gt; 1.
         <example>
             <pdascii>
 <![CDATA[
-[F]
-|
+[F]    [1 2 d b(
+|      |
 [math.acos]
 |
-[F]
+[prepend set]
+|
+[  (
 ]]>
             </pdascii>
         </example>
