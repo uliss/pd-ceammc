@@ -17,6 +17,7 @@ set(DOC_FILES
     flt.highshelf~
     flt.lowshelf~
     flt.eq_peak~
+    fx.softclip~
     is_any
     is_bang
     is_float

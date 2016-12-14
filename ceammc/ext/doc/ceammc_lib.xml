@@ -45,6 +45,11 @@
       <xi:include href="flt.lowshelf~.pddoc" parse="xml"/>
     </entry>
   </category>
+  <category name="fx">
+    <entry descr="soft signal clip" name="fx.softclip~">
+      <xi:include href="fx.softclip~.pddoc" parse="xml"/>
+    </entry>
+  </category>
   <category name="lfo">
     <entry descr="Unit-amplitude low-frequency impulse train" name="lfo.impulse~">
       <xi:include href="lfo.impulse~.pddoc" parse="xml"/>
