@@ -788,15 +788,17 @@ class pitchshift : public dsp {
 	float 	fConst1;
 	FAUSTFLOAT 	fslider0;
 	float 	fRec0_perm[4];
-	float 	fConst2;
-	FAUSTFLOAT 	fslider1;
 	float 	fYec0[131072];
 	int 	fYec0_idx;
 	int 	fYec0_idx_save;
+	float 	fConst2;
+	FAUSTFLOAT 	fslider1;
 	int fSamplingFreq;
 
   public:
 	virtual void metadata(Meta* m) { 
+		m->declare("misceffect.lib/name", "Faust Math Library");
+		m->declare("misceffect.lib/version", "2.0");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
 		m->declare("ceammc.lib/version", "0.1");
 		m->declare("math.lib/name", "Faust Math Library");
@@ -806,8 +808,6 @@ class pitchshift : public dsp {
 		m->declare("math.lib/license", "LGPL with exception");
 		m->declare("delay.lib/name", "Faust Delay Library");
 		m->declare("delay.lib/version", "0.0");
-		m->declare("misceffect.lib/name", "Faust Math Library");
-		m->declare("misceffect.lib/version", "2.0");
 	}
 
 	virtual int getNumInputs() { return 2; }
@@ -853,9 +853,9 @@ class pitchshift : public dsp {
 	}
 	virtual void compute (int count, FAUSTFLOAT** input, FAUSTFLOAT** output) {
 		float 	fRec0_tmp[64+4];
-		float 	fZec0[64];
+		int 	iZec0[64];
 		float 	fZec1[64];
-		int 	iZec2[64];
+		float 	fZec2[64];
 		float 	fZec3[64];
 		float 	fZec4[64];
 		int 	iZec5[64];
@@ -872,31 +872,25 @@ class pitchshift : public dsp {
 			FAUSTFLOAT* input1 = &input[1][index];
 			FAUSTFLOAT* output0 = &output[0][index];
 			// SECTION : 1
-			// LOOP 0x7f82e85897f0
+			// LOOP 0x7ff183cd3b40
 			// pre processing
 			for (int i=0; i<4; i++) fRec0_tmp[i]=fRec0_perm[i];
 			// exec code
 			for (int i=0; i<count; i++) {
-				fRec0[i] = fmodf((fSlow0 + (fRec0[i-1] + (1 - powf(2,(0.083333336f * min((float)48, max((float)-38, (float)input1[i]))))))),fSlow0);
+				fRec0[i] = fmodf((fSlow0 + (fRec0[i-1] + (1 - powf(2,(0.083333336f * min((float)60, max((float)-38, (float)input1[i]))))))),fSlow0);
 			}
 			// post processing
 			for (int i=0; i<4; i++) fRec0_perm[i]=fRec0_tmp[count+i];
 			
 			// SECTION : 2
-			// LOOP 0x7f82e84738c0
+			// LOOP 0x7ff183cd8ab0
 			// exec code
 			for (int i=0; i<count; i++) {
-				fZec1[i] = (fSlow0 + fRec0[i]);
+				fZec4[i] = (fSlow0 + fRec0[i]);
 			}
 			
 			// SECTION : 3
-			// LOOP 0x7f82e8472470
-			// exec code
-			for (int i=0; i<count; i++) {
-				fZec0[i] = min((fSlow1 * fRec0[i]), (float)1);
-			}
-			
-			// LOOP 0x7f82e84730f0
+			// LOOP 0x7ff183cd5930
 			// pre processing
 			fYec0_idx = (fYec0_idx+fYec0_idx_save)&131071;
 			// exec code
@@ -906,41 +900,47 @@ class pitchshift : public dsp {
 			// post processing
 			fYec0_idx_save = count;
 			
-			// LOOP 0x7f82e84737e0
+			// LOOP 0x7ff183cd6100
 			// exec code
 			for (int i=0; i<count; i++) {
-				iZec2[i] = int(fZec1[i]);
+				iZec0[i] = int(fRec0[i]);
 			}
 			
-			// LOOP 0x7f82e84745b0
+			// LOOP 0x7ff183cd6a70
 			// exec code
 			for (int i=0; i<count; i++) {
-				fZec3[i] = floorf(fZec1[i]);
+				fZec1[i] = floorf(fRec0[i]);
 			}
 			
-			// LOOP 0x7f82e8474fd0
+			// LOOP 0x7ff183cd6dc0
 			// exec code
 			for (int i=0; i<count; i++) {
-				fZec4[i] = (1 - fRec0[i]);
+				fZec2[i] = (1 - fRec0[i]);
 			}
 			
-			// LOOP 0x7f82e8475a20
+			// LOOP 0x7ff183cd7a30
 			// exec code
 			for (int i=0; i<count; i++) {
-				iZec5[i] = int(fRec0[i]);
+				fZec3[i] = min((fSlow1 * fRec0[i]), (float)1);
 			}
 			
-			// LOOP 0x7f82e84760c0
+			// LOOP 0x7ff183cd8970
 			// exec code
 			for (int i=0; i<count; i++) {
-				fZec6[i] = floorf(fRec0[i]);
+				iZec5[i] = int(fZec4[i]);
+			}
+			
+			// LOOP 0x7ff183cd93d0
+			// exec code
+			for (int i=0; i<count; i++) {
+				fZec6[i] = floorf(fZec4[i]);
 			}
 			
 			// SECTION : 4
-			// LOOP 0x7f82e8589710
+			// LOOP 0x7ff183cd3a60
 			// exec code
 			for (int i=0; i<count; i++) {
-				output0[i] = (FAUSTFLOAT)(((1 - fZec0[i]) * ((fYec0[(fYec0_idx+i-int((int((iZec2[i] + 1)) & 65535)))&131071] * (fSlow0 + (fRec0[i] - fZec3[i]))) + (fYec0[(fYec0_idx+i-int((iZec2[i] & 65535)))&131071] * ((fZec3[i] + fZec4[i]) - fSlow0)))) + (((fYec0[(fYec0_idx+i-int((iZec5[i] & 65535)))&131071] * (fZec6[i] + fZec4[i])) + ((fRec0[i] - fZec6[i]) * fYec0[(fYec0_idx+i-int((int((iZec5[i] + 1)) & 65535)))&131071])) * fZec0[i]));
+				output0[i] = (FAUSTFLOAT)((((fYec0[(fYec0_idx+i-int((iZec0[i] & 65535)))&131071] * (fZec1[i] + fZec2[i])) + ((fRec0[i] - fZec1[i]) * fYec0[(fYec0_idx+i-int((int((iZec0[i] + 1)) & 65535)))&131071])) * fZec3[i]) + (((fYec0[(fYec0_idx+i-int((iZec5[i] & 65535)))&131071] * ((fZec6[i] + fZec2[i]) - fSlow0)) + ((fSlow0 + (fRec0[i] - fZec6[i])) * fYec0[(fYec0_idx+i-int((int((iZec5[i] + 1)) & 65535)))&131071])) * (1 - fZec3[i])));
 			}
 			
 		}
@@ -951,31 +951,25 @@ class pitchshift : public dsp {
 			FAUSTFLOAT* input1 = &input[1][index];
 			FAUSTFLOAT* output0 = &output[0][index];
 			// SECTION : 1
-			// LOOP 0x7f82e85897f0
+			// LOOP 0x7ff183cd3b40
 			// pre processing
 			for (int i=0; i<4; i++) fRec0_tmp[i]=fRec0_perm[i];
 			// exec code
 			for (int i=0; i<count; i++) {
-				fRec0[i] = fmodf((fSlow0 + (fRec0[i-1] + (1 - powf(2,(0.083333336f * min((float)48, max((float)-38, (float)input1[i]))))))),fSlow0);
+				fRec0[i] = fmodf((fSlow0 + (fRec0[i-1] + (1 - powf(2,(0.083333336f * min((float)60, max((float)-38, (float)input1[i]))))))),fSlow0);
 			}
 			// post processing
 			for (int i=0; i<4; i++) fRec0_perm[i]=fRec0_tmp[count+i];
 			
 			// SECTION : 2
-			// LOOP 0x7f82e84738c0
+			// LOOP 0x7ff183cd8ab0
 			// exec code
 			for (int i=0; i<count; i++) {
-				fZec1[i] = (fSlow0 + fRec0[i]);
+				fZec4[i] = (fSlow0 + fRec0[i]);
 			}
 			
 			// SECTION : 3
-			// LOOP 0x7f82e8472470
-			// exec code
-			for (int i=0; i<count; i++) {
-				fZec0[i] = min((fSlow1 * fRec0[i]), (float)1);
-			}
-			
-			// LOOP 0x7f82e84730f0
+			// LOOP 0x7ff183cd5930
 			// pre processing
 			fYec0_idx = (fYec0_idx+fYec0_idx_save)&131071;
 			// exec code
@@ -985,41 +979,47 @@ class pitchshift : public dsp {
 			// post processing
 			fYec0_idx_save = count;
 			
-			// LOOP 0x7f82e84737e0
+			// LOOP 0x7ff183cd6100
 			// exec code
 			for (int i=0; i<count; i++) {
-				iZec2[i] = int(fZec1[i]);
+				iZec0[i] = int(fRec0[i]);
 			}
 			
-			// LOOP 0x7f82e84745b0
+			// LOOP 0x7ff183cd6a70
 			// exec code
 			for (int i=0; i<count; i++) {
-				fZec3[i] = floorf(fZec1[i]);
+				fZec1[i] = floorf(fRec0[i]);
 			}
 			
-			// LOOP 0x7f82e8474fd0
+			// LOOP 0x7ff183cd6dc0
 			// exec code
 			for (int i=0; i<count; i++) {
-				fZec4[i] = (1 - fRec0[i]);
+				fZec2[i] = (1 - fRec0[i]);
 			}
 			
-			// LOOP 0x7f82e8475a20
+			// LOOP 0x7ff183cd7a30
 			// exec code
 			for (int i=0; i<count; i++) {
-				iZec5[i] = int(fRec0[i]);
+				fZec3[i] = min((fSlow1 * fRec0[i]), (float)1);
 			}
 			
-			// LOOP 0x7f82e84760c0
+			// LOOP 0x7ff183cd8970
 			// exec code
 			for (int i=0; i<count; i++) {
-				fZec6[i] = floorf(fRec0[i]);
+				iZec5[i] = int(fZec4[i]);
+			}
+			
+			// LOOP 0x7ff183cd93d0
+			// exec code
+			for (int i=0; i<count; i++) {
+				fZec6[i] = floorf(fZec4[i]);
 			}
 			
 			// SECTION : 4
-			// LOOP 0x7f82e8589710
+			// LOOP 0x7ff183cd3a60
 			// exec code
 			for (int i=0; i<count; i++) {
-				output0[i] = (FAUSTFLOAT)(((1 - fZec0[i]) * ((fYec0[(fYec0_idx+i-int((int((iZec2[i] + 1)) & 65535)))&131071] * (fSlow0 + (fRec0[i] - fZec3[i]))) + (fYec0[(fYec0_idx+i-int((iZec2[i] & 65535)))&131071] * ((fZec3[i] + fZec4[i]) - fSlow0)))) + (((fYec0[(fYec0_idx+i-int((iZec5[i] & 65535)))&131071] * (fZec6[i] + fZec4[i])) + ((fRec0[i] - fZec6[i]) * fYec0[(fYec0_idx+i-int((int((iZec5[i] + 1)) & 65535)))&131071])) * fZec0[i]));
+				output0[i] = (FAUSTFLOAT)((((fYec0[(fYec0_idx+i-int((iZec0[i] & 65535)))&131071] * (fZec1[i] + fZec2[i])) + ((fRec0[i] - fZec1[i]) * fYec0[(fYec0_idx+i-int((int((iZec0[i] + 1)) & 65535)))&131071])) * fZec3[i]) + (((fYec0[(fYec0_idx+i-int((iZec5[i] & 65535)))&131071] * ((fZec6[i] + fZec2[i]) - fSlow0)) + ((fSlow0 + (fRec0[i] - fZec6[i])) * fYec0[(fYec0_idx+i-int((int((iZec5[i] + 1)) & 65535)))&131071])) * (1 - fZec3[i])));
 			}
 			
 		}
