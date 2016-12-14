@@ -51,7 +51,7 @@ void my_canvas_draw_new(t_my_canvas *x, t_glist *glist)
              canvas, xpos+x->x_gui.x_ldx * zoomlabel,
              ypos+x->x_gui.x_ldy * zoomlabel,
              strcmp(x->x_gui.x_lab->s_name, "empty")?x->x_gui.x_lab->s_name:"",
-             x->x_gui.x_font, x->x_gui.x_fontsize, sys_fontweight,
+             x->x_gui.x_font, x->x_gui.x_fontsize * IEMGUI_ZOOM(x), sys_fontweight,
              x->x_gui.x_lcol, x);
 }
 
