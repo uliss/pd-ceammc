@@ -1,3 +1,3 @@
 os = library("miscoscillator.lib");
 
-process= os.saw4;
+process = max(30) : os.saw4;

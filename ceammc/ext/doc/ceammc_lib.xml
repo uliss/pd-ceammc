@@ -68,6 +68,9 @@
     <entry descr="Bandlimited pulse train oscillator. " name="osc.pulse~">
       <xi:include href="osc.pulse~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="Bandlimited saw wave oscillator" name="osc.saw~">
+      <xi:include href="osc.saw~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="sine oscilator with feedback" name="osc.sinfb~">
       <xi:include href="osc.sinfb~.pddoc" parse="xml"/>
     </entry>

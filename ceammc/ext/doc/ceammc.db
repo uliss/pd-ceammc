@@ -22,6 +22,7 @@ lfo.impulse~		~		~
 list.apply_to		..		..
 osc.impulse~		~		~
 osc.pulse~		~		~.
+osc.saw~		~		~
 osc.sibfb~		~		~
 osc.sinfb~		~		~.
 osc.tri~		~		~
