@@ -17,14 +17,14 @@
             <argument name="freq" type="float" minvalue="0" maxvalue="20000" units="herz">
                 initial frequence
             </argument>
-            <argument name="feedback" type="float" minvalue="0" maxvalue="4">
+            <argument name="feedback" type="float" minvalue="0" maxvalue="16">
                 oscillator feedback coefficent
             </argument>
             <argument name="ID" type="symbol">object ID for OSC control path</argument>
         </arguments>
         <methods>
             <method name="feedback">
-                <param type="float" minvalue="0" maxvalue="4">oscillator feedback coefficent</param>
+                <param type="float" minvalue="0" maxvalue="16">oscillator feedback coefficent</param>
             </method>
         </methods>
         <inlets>
@@ -41,13 +41,17 @@
         <example>
             <pdascii>
                 <![CDATA[
-[floatatom]     [floatatom]
-|               |
-|   [bng]       [prepend feedback]
-|   |           |
+[F]     [F]
+|       |
+| [B]   [feedback $1(
+| |     |
 [osc.sinfb~ 440 2]
-|  |.          ^|
-[dac~]        [print]
+|               ^|
+|  [T]          [print]
+|  |.
+[*~ ]
+|  |.
+[dac~]
                 ]]>
             </pdascii>
         </example>
