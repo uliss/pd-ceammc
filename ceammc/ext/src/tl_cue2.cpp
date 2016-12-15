@@ -41,9 +41,14 @@ void tl_cue2::w_draw(t_gobj *z, t_glist *glist)
     
     UI_Setup
     
+    //((t_object* x)y)->
+    
+    //printf("xpos [%lu] : %f\n", (long)x, x_pos);
+    
+    
     std::string obj_color = (UI_Pf("_selected")==0)? "#00C0FF" : "#0000C0";
     
-    //printf("draw obj %lu\n | %d %d\n",x, x->te_xpix, x->te_ypix);
+    //printf("draw obj %lu\n | %lu : %d\n",(long)z, (long)&x->te_xpix, (int)x->te_xpix);
 
     
     //printf ("coords %f %f", UI_Pf("x"), UI_Pf("y"));
@@ -93,7 +98,6 @@ void tl_cue2::w_displace(t_gobj *z, t_glist *glist, int dx, int dy)
     float x_pos = UI_x;//UI_Pf("x");
     tll_cue_update_pos((t_object *)x, x_pos);
     
-    printf("xpos [%lu] : %f\n", (long)x, x_pos);
     
     int cue_idx = tll_cue_getnumber((t_object *)x);
     char cuename[10];
@@ -165,9 +169,6 @@ void *tl_cue2::pd_class_new1(t_symbol *s, int argc, t_atom *argv)
     
     tll_cue_add((t_object*)obj,((tl_cue2_object*)obj)->ui_property_get_float("x"));
     
-    //outlet test
-//    ((tl_cue2_object*)obj)->outlet1 = outlet_new(obj, &s_list);
-    
     return obj;
 }
 
@@ -213,7 +214,7 @@ void tl_cue2::tl_cue2_drawcue(t_object *z)
     
     float x_pos = UI_Pf("x");
     
-    printf("xpos [%lu] : %f\n", (long)x, x_pos);
+    //printf("xpos [%lu] : %f\n (%lu):%lu", (long)x, (long)&x->te_xpix, (long)x->te_xpix );
     
     int cue_idx = tll_cue_getnumber((t_object *)x);
     char cuename[10];

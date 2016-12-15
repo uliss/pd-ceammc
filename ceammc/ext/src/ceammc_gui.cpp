@@ -235,8 +235,8 @@ void draw_wrappers::dw_text (std::string obj, int x, int y, std::string text, st
     sys_vgui(s1,
              draw_wrappers::w_canvas, int(x),
              int(y),
-             text.c_str(),"Helvetica",
-             font_size, sys_fontweight,
+             text.c_str(),"Monaco",
+             font_size, "normal",
              text_color.c_str(), draw_wrappers::w_obj, obj.c_str());
     
     //xx+x->x_gui.x_ldx * zoomlabel
@@ -428,6 +428,7 @@ void *ceammc_gui::pd_class_new_common(t_class *c1,t_object* prototype, t_symbol 
     
     //    int xp1 = text_xpix(&x->x_gui.x_obj, glist);
     //    x->ui_property_set("x", xp1);
+    
     x->x_canvas = canvas_getcurrent();
     
     
@@ -444,20 +445,19 @@ void *ceammc_gui::pd_class_new_common(t_class *c1,t_object* prototype, t_symbol 
         //ceammc_gui::e_atoms(argv, argc);
     }
     
-    
-    
     printf("\n--new instance properties (%d,%d):\n", 0,0);
     
     ceammc_gui::e_properties((t_object*)x);
     
-    printf("pd instance ptr: %lu\n", (long)x);
+    printf("pd instance ptr: %lu (%lu)\n", (long)x);//, (long)&x->x_obj);
     printf("pd class ptr: %lu\n", (long)c1);
     
     //x->te_xpix = x->x_canvas->gl_x1;
     
     //x->ui_property_set("x", x->te_xpix);
     
-    printf("te pix %d\n", x->x_obj.te_xpix);
+    //printf("te pix %d\n", x->x_obj.te_xpix);
+    
     
     return static_cast<void*>(x);
 }
@@ -504,6 +504,7 @@ void ceammc_gui::pd_class_save(t_gobj *z, t_binbuf *b)
     
     
 }
+#pragma mark -
 
 void ceammc_gui::ceammc_gui_pos(t_object *z, t_symbol *s, int argc, t_atom *argv)
 {

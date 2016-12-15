@@ -83,18 +83,32 @@ public:
     
 };
 
+//t_object
 
-//typedef void (drawfunc)(t_gobj, t_glist);
-
-
-//struct t_gui1
+//struct copy_obj
 //{
-//    t_object            x_obj;
+//    t_gobj te_g;                /* header for graphical object */
+//    t_binbuf *te_binbuf;        /* holder for the text */
+//    t_outlet *te_outlet;        /* linked list of outlets */
+//    t_inlet *te_inlet;          /* linked list of inlets */
+//    short te_xpix;              /* x&y location (within the toplevel) */
+//    short te_ypix;
+//    short te_width;             /* requested width in chars, 0 if auto */
+//    unsigned int te_type:2;     /* from defs below */
 //};
 
-
-
 class ceammc_gui_object  {
+
+    
+public:
+
+
+    //pd
+    
+    t_object            x_obj;
+//    t_glist             *x_glist;
+    t_canvas            *x_canvas;
+    
 private:
     //widget
     t_canvas *w_canvas;
@@ -104,10 +118,6 @@ private:
     t_class *proto_class;
     
 public:
-    //pd
-    t_object            x_obj;
-    t_glist             *x_glist;
-    t_canvas            *x_canvas;
     
     
     //
@@ -117,20 +127,6 @@ public:
     gui_properties *ui_properties;
     gui_properties *ui_default_properties;
     std::string class_name;
-    
-    //
-//    int x_w;
-//    int x_h;
-//    bool x_selected;
-    
-    //t_gobj te_g;                /* header for graphical object */
-//    t_binbuf *te_binbuf;        /* holder for the text */
-//    t_outlet *te_outlet;        /* linked list of outlets */
-//    t_inlet *te_inlet;          /* linked list of inlets */
-//    short te_xpix;              /* x&y location (within the toplevel) */
-//    short te_ypix;
-//    short te_width;             /* requested width in chars, 0 if auto */
-//    unsigned int te_type:2;     /* from defs below */
     
     //
     t_atom ui_property_get(std::string name);
@@ -159,16 +155,13 @@ public:
     
     //virtual void pd_instance_init(t_object *obj);
     
-//    virtual void* pd_init_v(t_symbol *s, int argc, t_atom *argv);
-//    virtual void pd_init_v(ceammc_gui_object *x);
+
     
     virtual t_newmethod get_pd_class_new();
     virtual t_method get_pd_class_free();
     
-    //
-    //ceammc_gui_object(){this->ui_properties_init();}
-    
 };
+
 
 
 

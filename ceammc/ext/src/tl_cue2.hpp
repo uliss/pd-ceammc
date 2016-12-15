@@ -53,17 +53,6 @@ public:
     
     virtual void ui_properties_init();
     
-    
-//    //    void w_getrect(t_gobj *z, t_glist *glist, int *x1, int *y1, int *x2, int *y2) ;
-//    virtual void w_displace(t_gobj *z, t_glist *glist, int dx, int dy) ;
-//    //virtual  void w_delete(t_gobj *z, t_glist *glist) ;
-//    virtual  void w_draw(t_gobj *z, t_glist *glist);
-//    virtual  void w_erase(t_gobj *z, t_glist *glist);
-//    //int w_click(t_gobj *z, struct _glist *glist, int xpix, int ypix, int shift, int alt, int dbl, int doit);
-//    virtual void w_select(t_gobj *z, t_glist *glist, int selected);
-    
-//    virtual void pd_instance_init(t_object *obj);
-    
     t_outlet *outlet1;
     
     virtual t_newmethod get_pd_class_new();
@@ -71,19 +60,6 @@ public:
     
 };
 
-//class tl_cue2_widget : public w_proxy
-//{
-//public:
-//    //    void w_getrect(t_gobj *z, t_glist *glist, int *x1, int *y1, int *x2, int *y2) ;
-//    static void w_displace(t_gobj *z, t_glist *glist, int dx, int dy) ;
-//    //virtual  void w_delete(t_gobj *z, t_glist *glist) ;
-//    static  void w_draw(t_gobj *z, t_glist *glist);
-//    static  void w_erase(t_gobj *z, t_glist *glist);
-//    //int w_click(t_gobj *z, struct _glist *glist, int xpix, int ypix, int shift, int alt, int dbl, int doit);
-//    static void w_select(t_gobj *z, t_glist *glist, int selected);
-//    
-//    static void w_vis(t_gobj *z, t_glist *glist,int vis);
-//    
-//};
+
 
 #endif /* tl_cue2_h */
