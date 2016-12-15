@@ -18,6 +18,8 @@
 #include <m_pd.h>
 #include <g_canvas.h>
 
+//#include "g_all_guis.h"
+
 
 class ceammc_gui_object;
 
@@ -75,11 +77,22 @@ public:
     virtual t_class* get_pd_class();
     virtual void set_pd_class(t_class* c1);
 
+    static void ceammc_gui_pos(t_object *z, t_symbol *s, int argc, t_atom *argv);
+    static void ceammc_gui_delta(t_object *z, t_symbol *s, int argc, t_atom *argv);
+    
     
 };
 
 
 //typedef void (drawfunc)(t_gobj, t_glist);
+
+
+//struct t_gui1
+//{
+//    t_object            x_obj;
+//};
+
+
 
 class ceammc_gui_object  {
 private:
@@ -96,6 +109,7 @@ public:
     t_glist             *x_glist;
     t_canvas            *x_canvas;
     
+    
     //
     virtual long size(){return sizeof(ceammc_gui_object);}
     
@@ -108,6 +122,15 @@ public:
 //    int x_w;
 //    int x_h;
 //    bool x_selected;
+    
+    //t_gobj te_g;                /* header for graphical object */
+//    t_binbuf *te_binbuf;        /* holder for the text */
+//    t_outlet *te_outlet;        /* linked list of outlets */
+//    t_inlet *te_inlet;          /* linked list of inlets */
+//    short te_xpix;              /* x&y location (within the toplevel) */
+//    short te_ypix;
+//    short te_width;             /* requested width in chars, 0 if auto */
+//    unsigned int te_type:2;     /* from defs below */
     
     //
     t_atom ui_property_get(std::string name);
@@ -122,7 +145,6 @@ public:
     void ui_properties_init();
 
     //
-    
     
     ///
     // widget

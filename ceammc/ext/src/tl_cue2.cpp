@@ -28,6 +28,7 @@ void tl_cue2::set_pd_class(t_class* c1){tl_cue2::ceammc_gui_pd_class=c1;}
 #define UI_Ps x->ui_property_get_c_str
 #define UI_ draw_wrappers::
 #define UI_Set x->ui_property_set
+#define UI_x UI_Pf("x")
 
 #define UI_Setup  ceammc_gui_object *x  = (ceammc_gui_object*)z;UI_ dw_set_canvas(glist); UI_ dw_set_object((t_object*)x);
 
@@ -36,21 +37,26 @@ void tl_cue2::set_pd_class(t_class* c1){tl_cue2::ceammc_gui_pd_class=c1;}
 
 void tl_cue2::w_draw(t_gobj *z, t_glist *glist)
 {
+    printf("cue2 draw\n");
+    
     UI_Setup
     
     std::string obj_color = (UI_Pf("_selected")==0)? "#00C0FF" : "#0000C0";
     
+    //printf("draw obj %lu\n | %d %d\n",x, x->te_xpix, x->te_ypix);
+
+    
     //printf ("coords %f %f", UI_Pf("x"), UI_Pf("y"));
-    UI_ dw_rect("BASE", UI_Pf("x"), UI_Pf("y"), UI_Pf("width"), UI_Pf("height"),
+    UI_ dw_rect("BASE", UI_x, UI_Pf("y"), UI_Pf("width"), UI_Pf("height"),
                 obj_color, "#F0F0F0", 1.0f);
-    UI_ dw_rect("VLINE", UI_Pf("x"), 0.0f, 1, 1000.0f,
+    UI_ dw_rect("VLINE", UI_x, 0.0f, 1, 1000.0f,
                 obj_color, obj_color, 1.0f);
-    UI_ dw_text("LABEL", UI_Pf("x")+UI_Pf("label_x"), UI_Pf("y")+UI_Pf("label_y"),
+    UI_ dw_text("LABEL", UI_x+UI_Pf("label_x"), UI_Pf("y")+UI_Pf("label_y"),
                 UI_Ps("cue_name"), "#000000");
     
     //outlet test
-    UI_ dw_rect("OUT", UI_Pf("x"), UI_Pf("y")+UI_Pf("height")-2,IOWIDTH, 2,
-                "#000000", "#F0F0F0", 1.0f);
+//    UI_ dw_rect("OUT", UI_Pf("x"), UI_Pf("y")+UI_Pf("height")-2,IOWIDTH, 2,
+//                "#000000", "#F0F0F0", 1.0f);
     
     //tll_update_cue_guis();
 
@@ -66,7 +72,7 @@ void tl_cue2::w_erase(t_gobj *z, t_glist *glist)
     UI_ dw_delete("LABEL");
     
     //outlet test
-    UI_ dw_delete("OUT");
+    //UI_ dw_delete("OUT");
     
 }
 
@@ -84,7 +90,7 @@ void tl_cue2::w_displace(t_gobj *z, t_glist *glist, int dx, int dy)
     
     UI_Setup
     
-    float x_pos = UI_Pf("x");
+    float x_pos = UI_x;//UI_Pf("x");
     tll_cue_update_pos((t_object *)x, x_pos);
     
     printf("xpos [%lu] : %f\n", (long)x, x_pos);
@@ -104,7 +110,7 @@ void tl_cue2::w_displace(t_gobj *z, t_glist *glist, int dx, int dy)
     UI_ dw_move("VLINE", UI_Pf("x"), 0, 1, 1000);
     
     //outlet test
-    UI_ dw_move("OUT", UI_Pf("x"), UI_Pf("y")+UI_Pf("height")-2,IOWIDTH, 2);
+//    UI_ dw_move("OUT", UI_Pf("x"), UI_Pf("y")+UI_Pf("height")-2,IOWIDTH, 2);
     
     canvas_fixlinesfor(glist, (t_text *)z);
     
@@ -154,12 +160,13 @@ void *tl_cue2::pd_class_new1(t_symbol *s, int argc, t_atom *argv)
     obj1->ui_properties_init();
     
     t_object *obj = (t_object*)ceammc_gui::pd_class_new_common((t_class*)tl_cue2::ceammc_gui_pd_class,(t_object*)obj1,s,argc,argv);
+    
     printf("*** CUE2 instance init base\n");
     
     tll_cue_add((t_object*)obj,((tl_cue2_object*)obj)->ui_property_get_float("x"));
     
     //outlet test
-    ((tl_cue2_object*)obj)->outlet1 = outlet_new(obj, &s_list);
+//    ((tl_cue2_object*)obj)->outlet1 = outlet_new(obj, &s_list);
     
     return obj;
 }

@@ -35,7 +35,7 @@ EXTERN int tll_cue_find_by_object(t_object* obj)
     std::vector<tl_t_cue>::iterator it;
     for (it = tl_ui_cues.begin(); it != tl_ui_cues.end(); ++it)
     {
-        if (it->ui_obj == obj) {ret = i;};
+        if (it->ui_obj == obj) {ret = i;return i;};
         i++;
         
     }
@@ -60,12 +60,12 @@ EXTERN void tll_cue_delete(t_object *x)
 {
     int erase_idx = tll_cue_find_by_object(x);
     
-    if (erase_idx)
+    if (erase_idx!=-1)
         tl_ui_cues.erase(tl_ui_cues.begin()+erase_idx);
     
     tll_cue_assign_numbers();
     
-    printf("cue del\n");
+    printf("cue del %d\n", erase_idx);
 }
 
 

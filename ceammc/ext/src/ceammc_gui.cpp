@@ -275,6 +275,8 @@ void ceammc_gui_object::w_getrect(t_gobj *z, t_glist *glist, int *x1, int *y1, i
     *x2 = *x1 + x->ui_property_get_float("width");
     *y2 = *y1 + x->ui_property_get_float("height");
     
+//    x->ui_property_set("x",x->te_xpix);
+//    x->ui_property_set("y",x->te_ypix);
 }
 
 
@@ -286,6 +288,10 @@ void ceammc_gui_object::w_displace(t_gobj *z, t_glist *glist, int dx, int dy)
     
     x->ui_property_set("x", x->ui_property_get_float("x") + dx);
     x->ui_property_set("y", x->ui_property_get_float("y") + dy);
+    
+//    x->te_xpix += dx;
+//    x->te_xpix += dy;
+    
     
 }
 
@@ -402,19 +408,28 @@ void *ceammc_gui::pd_class_new_common(t_class *c1,t_object* prototype, t_symbol 
     printf("gui class new\n");
     printf("class ptr: %lu\n",(long)c1);
     
+    class_addmethod(c1, reinterpret_cast<t_method>(&ceammc_gui::ceammc_gui_pos), gensym("pos"), A_GIMME, 0);
+    class_addmethod(c1, reinterpret_cast<t_method>(&ceammc_gui::ceammc_gui_delta), gensym("delta"), A_GIMME, 0);
+    
+    
     ceammc_gui_object* x = reinterpret_cast<ceammc_gui_object*>(pd_new(c1));
     
     //todo moved
     x->ui_property_copy(prototype);
     
-    //   t_canvas *glist = canvas_getcurrent();
-    int xp1 = x->x_obj.te_xpix;//text_xpix(&x->x_obj, glist);
-    int yp1 = x->x_obj.te_ypix;//text_ypix(&x->x_obj, glist);
+//    t_canvas *glist = canvas_getcurrent();
     
-    x->ui_property_set("x", xp1);
-    x->ui_property_set("y", yp1);
+//    int xp1 = text_xpix(&x->x_gui.x_obj, glist);
+//    x->ui_property_set("x", xp1);
+//    //x->ui_property_set("y", yp1);
     
+    //int xp1 = (int)atom_getintarg(0, argc, argv);
+    //iemgui->x_obj.te_ypix = (int)atom_getintarg(1, ac, av);
+    
+    //    int xp1 = text_xpix(&x->x_gui.x_obj, glist);
+    //    x->ui_property_set("x", xp1);
     x->x_canvas = canvas_getcurrent();
+    
     
     //remove name
     if ((argc)==(*x->ui_properties).size())
@@ -438,6 +453,12 @@ void *ceammc_gui::pd_class_new_common(t_class *c1,t_object* prototype, t_symbol 
     printf("pd instance ptr: %lu\n", (long)x);
     printf("pd class ptr: %lu\n", (long)c1);
     
+    //x->te_xpix = x->x_canvas->gl_x1;
+    
+    //x->ui_property_set("x", x->te_xpix);
+    
+    printf("te pix %d\n", x->x_obj.te_xpix);
+    
     return static_cast<void*>(x);
 }
 
@@ -456,14 +477,15 @@ void ceammc_gui::pd_class_save(t_gobj *z, t_binbuf *b)
     char c_int[] = "i";
     char c_sc[] = ";";
     
-    binbuf_addv(b, c_sym, gensym("#X obj"));
+    binbuf_addv(b,c_sym, gensym("#X"));
+     binbuf_addv(b,c_sym, gensym("obj"));
     
     
     binbuf_addv(b, c_int, int(((*x->ui_properties)["x"]).a_w.w_float));
     binbuf_addv(b, c_int, int(((*x->ui_properties)["y"]).a_w.w_float));
     
     //TODO wrap in quotes
-    binbuf_addv(b, c_sym, ((*x->ui_properties)["object_name"]).a_w.w_symbol);
+    binbuf_addv(b, c_sym, gensym((*x->ui_properties)["object_name"].a_w.w_symbol->s_name));
     
     std::map<std::string,t_atom>::iterator it;
     for (it = (*x->ui_properties).begin(); it!= (*x->ui_properties).end(); ++it)
@@ -482,6 +504,31 @@ void ceammc_gui::pd_class_save(t_gobj *z, t_binbuf *b)
     
     
 }
+
+void ceammc_gui::ceammc_gui_pos(t_object *z, t_symbol *s, int argc, t_atom *argv)
+{
+    ceammc_gui_object *x = (ceammc_gui_object *)z;
+    
+    printf("pos\n");
+    int xp1 = (int)atom_getintarg(0, argc, argv);
+    x->ui_property_set("x", xp1);
+    int yp1 = (int)atom_getintarg(1, argc, argv);
+    x->ui_property_set("y", yp1);
+    
+}
+
+void ceammc_gui::ceammc_gui_delta(t_object *z, t_symbol *s, int argc, t_atom *argv)
+{
+    ceammc_gui_object *x = (ceammc_gui_object *)z;
+    
+    printf("delta\n");
+    int xp1 = (int)atom_getintarg(0, argc, argv) + (int)x->ui_property_get_float("x");
+    x->ui_property_set("x", xp1);
+    int yp1 = (int)atom_getintarg(1, argc, argv)  + (int)x->ui_property_get_float("y");
+    x->ui_property_set("y", yp1);
+    
+}
+
 
 #pragma mark -
 
@@ -504,6 +551,9 @@ t_class* ceammc_gui::pd_setup(t_object *gui_class, std::string class_name, t_cla
                          ((ceammc_gui_object*)gui_class)->size(), CLASS_PATCHABLE, A_GIMME,0);   //sizeof(gui_class)*16
     
     printf("new ptr %lu\n", (long)pd_class);
+    
+    class_addmethod(pd_class, reinterpret_cast<t_method>(ceammc_gui_pos), gensym("pos"), A_GIMME, 0);
+    class_addmethod(pd_class, reinterpret_cast<t_method>(ceammc_gui_delta), gensym("delta"), A_GIMME, 0);
     
     class_setsavefn(pd_class, pd_class_save);
     
