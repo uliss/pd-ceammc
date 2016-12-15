@@ -61,6 +61,11 @@
     </entry>
     <xi:include href="ceammc_category_list.xml" parse="xml"/>
   </category>
+  <category name="live">
+    <entry descr="record up to 8s of sound and playback the recorded sound in loop" name="live.capture~">
+      <xi:include href="live.capture~.pddoc" parse="xml"/>
+    </entry>
+  </category>
   <category name="math">
     <entry descr="absolute value function" name="math.abs">
       <xi:include href="math.abs.pddoc" parse="xml"/>

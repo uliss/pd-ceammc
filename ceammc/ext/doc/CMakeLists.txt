@@ -24,6 +24,7 @@ set(DOC_FILES
     is_symbol
     is_list
     is_even
+    live.capture~
     list.apply_to
     lfo.impulse~
     math.abs

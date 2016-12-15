@@ -20,6 +20,7 @@ is_list		.		..
 is_symbol		.		..
 lfo.impulse~		~		~
 list.apply_to		..		..
+live.capture~		~		~.
 math.abs		.		.
 math.acos		.		.
 math.acosh		.		.
