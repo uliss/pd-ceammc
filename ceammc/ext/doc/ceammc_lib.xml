@@ -118,6 +118,9 @@
     <entry descr="logarithm functions" name="math.log2">
       <xi:include href="math.log2.pddoc" parse="xml"/>
     </entry>
+    <entry descr="mathematical constant" name="math.pi">
+      <xi:include href="math.pi.pddoc" parse="xml"/>
+    </entry>
     <entry descr="round to integral value, regardless of rounding direction" name="math.round">
       <xi:include href="math.round.pddoc" parse="xml"/>
     </entry>

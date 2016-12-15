@@ -44,6 +44,7 @@ set(DOC_FILES
     math.log
     math.log10
     math.log2
+    math.pi
     math.round
     math.sin
     math.sinh
