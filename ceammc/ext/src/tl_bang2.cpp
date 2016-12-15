@@ -133,15 +133,15 @@ void tl_bang2::w_select(t_gobj *z, t_glist *glist, int selected)
 
 t_newmethod tl_bang2_object::get_pd_class_new()
 {
-    printf("\n**tl_bang2::get_pd_class_new \n");
     return (t_newmethod)(tl_bang2::pd_class_new1);
 }
 
 t_method tl_bang2_object::get_pd_class_free()
 {
-    printf("\n**tl_bang2::get_pd_class_free \n");
     return (t_method)(tl_bang2::pd_class_free1);
 }
+
+#pragma mark -
 
 void *tl_bang2::pd_class_new1(t_symbol *s, int argc, t_atom *argv)
 {
@@ -167,11 +167,6 @@ void tl_bang2::pd_class_free1(t_object *x)
     ceammc_gui::pd_class_free_common(x);
 }
 
-//void tl_bang2_object::pd_instance_init(t_object *obj)
-//{
-//    
-//}
-
 
 
 void tl_bang2_object::ui_properties_init()
@@ -180,11 +175,10 @@ void tl_bang2_object::ui_properties_init()
     
     ceammc_gui_object::ui_properties_init();
     
-    //this->ui_property_set("cue_name", "cue x");
-    
     this->ui_property_set("object_name", "tl.bang2");
     
 }
+
 
 #pragma mark -
 void tl_bang2::tl_bang2_action(t_object *x) //, tl_t_list list)
@@ -207,8 +201,6 @@ extern "C" {
         
         gui->w_ = new t_widgetbehavior;
         
-        //gui->w_->w_clickfn = w_proxy::pw_click;
-        //gui->w_->w_deletefn = w_proxy::pw_delete;
         gui->w_->w_displacefn = tl_bang2::w_displace;
         gui->w_->w_getrectfn = ceammc_gui_object::w_getrect;
         gui->w_->w_selectfn = tl_bang2::w_select;

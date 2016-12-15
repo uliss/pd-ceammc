@@ -41,6 +41,8 @@ public:
     
     static void w_vis(t_gobj *z, t_glist *glist,int vis);
     
+    static void tl_cue2_drawcue(t_object *z);
+    
 };
 
 

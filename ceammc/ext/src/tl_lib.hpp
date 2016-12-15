@@ -49,8 +49,8 @@ typedef struct
     t_atom *data;
 } tl_t_list;
 
-typedef void(*tl_ui_action)(t_object*);//, tl_t_list) ;     //bang action + optional data. yet removed
-typedef void(*tl_ui_drawcue)(t_object*) ;                   //temporary
+typedef void(*tl_ui_action)(t_object*);
+typedef void(*tl_ui_drawcue)(t_object*);                   //temporary
 
 
 typedef struct{
@@ -76,7 +76,7 @@ typedef struct
 typedef struct
 {
     tl_ui_action ui_action;
-    //tl_ui_drawcue drawcue;
+    tl_ui_drawcue drawcue;
 } tl_t_methods;
 
 
@@ -108,6 +108,7 @@ EXTERN void tll_ui_dump();
 ///////
 
 EXTERN void tll_perform_actions_for_cue(int cue_number);
+EXTERN void tll_update_cue_guis();
 
 ///////
 

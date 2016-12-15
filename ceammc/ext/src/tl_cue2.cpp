@@ -190,6 +190,34 @@ void tl_cue2_object::ui_properties_init()
     
 }
 
+#pragma mark -
+
+void tl_cue2::tl_cue2_drawcue(t_object *z)
+{
+    printf("cue redraw");
+    
+    _glist *glist = ((ceammc_gui_object*)z)->x_canvas;
+    
+    UI_Setup
+    
+    float x_pos = UI_Pf("x");
+    
+    printf("xpos [%lu] : %f\n", (long)x, x_pos);
+    
+    int cue_idx = tll_cue_getnumber((t_object *)x);
+    char cuename[10];
+    sprintf(cuename, "cue_%d", cue_idx);
+    UI_Set("cue_name",cuename);
+    
+    UI_Set ("y",0);
+    
+    UI_ dw_delete("LABEL");
+    UI_ dw_text("LABEL", UI_Pf("x")+UI_Pf("label_x"), UI_Pf("y")+UI_Pf("label_y"),
+                cuename, "#000000");
+    
+    
+}
+
 t_widgetbehavior *w_ ;
 
 extern "C" {
@@ -213,6 +241,9 @@ extern "C" {
         gui->w_->w_getrectfn = ceammc_gui_object::w_getrect;
         gui->w_->w_selectfn = tl_cue2::w_select;
         gui->w_->w_visfn = tl_cue2::w_vis;
+        
+        tll_set_ui_drawcue(reinterpret_cast<tl_ui_drawcue>(&tl_cue2::tl_cue2_drawcue));
+        
         
         class_setwidget(tl_cue2::ceammc_gui_pd_class, gui->w_);
         

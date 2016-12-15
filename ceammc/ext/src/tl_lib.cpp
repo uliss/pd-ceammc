@@ -88,6 +88,7 @@ EXTERN void tll_cue_add(t_object *x, float x_pos)
     tl_ui_cues.push_back(new_c);
     
     tll_cue_assign_numbers();
+    tll_update_cue_guis();
 }
 
 
@@ -133,6 +134,8 @@ EXTERN void tll_ui_add(t_object *x, float x_pos)
     new_u.ui_obj = (t_object*)x;
     
     tl_ui_objects.push_back(new_u);
+    
+    
 }
 
 //TEMP. todo: std::vector<std::string>
@@ -196,11 +199,29 @@ EXTERN void tll_perform_actions_for_cue(int cue_number)
     }
 }
 
+EXTERN void tll_update_cue_guis()
+{
+    printf("update cue\n");
+    
+    
+    std::vector<tl_t_cue>::iterator it;
+    for (it = tl_ui_cues.begin(); it != tl_ui_cues.end(); ++it)
+    {
+        if (it->ui_obj)
+            tl_methods.drawcue( it->ui_obj );
+    }
+}
+
 #pragma mark -
 
 EXTERN void tll_set_ui_action (tl_ui_action method)
 {
     tl_methods.ui_action = method;
     
+}
+
+EXTERN void tll_set_ui_drawcue (tl_ui_drawcue method)
+{
+    tl_methods.drawcue = method;
 }
 

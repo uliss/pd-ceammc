@@ -414,6 +414,8 @@ void *ceammc_gui::pd_class_new_common(t_class *c1,t_object* prototype, t_symbol 
     x->ui_property_set("x", xp1);
     x->ui_property_set("y", yp1);
     
+    x->x_canvas = canvas_getcurrent();
+    
     //remove name
     if ((argc)==(*x->ui_properties).size())
     {

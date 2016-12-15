@@ -94,6 +94,7 @@ public:
     //pd
     t_object            x_obj;
     t_glist             *x_glist;
+    t_canvas            *x_canvas;
     
     //
     virtual long size(){return sizeof(ceammc_gui_object);}
