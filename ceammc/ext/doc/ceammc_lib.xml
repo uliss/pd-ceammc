@@ -100,6 +100,9 @@
     <entry descr="hyperbolic cosine function" name="math.cosh">
       <xi:include href="math.cosh.pddoc" parse="xml"/>
     </entry>
+    <entry descr="mathematical constant, base of the natural logarithm" name="math.e">
+      <xi:include href="math.e.pddoc" parse="xml"/>
+    </entry>
     <entry descr="exponential functions" name="math.exp">
       <xi:include href="math.exp.pddoc" parse="xml"/>
     </entry>
@@ -117,6 +120,9 @@
     </entry>
     <entry descr="logarithm functions" name="math.log2">
       <xi:include href="math.log2.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="Not a Number, unrepresentable value" name="math.nan">
+      <xi:include href="math.nan.pddoc" parse="xml"/>
     </entry>
     <entry descr="mathematical constant" name="math.pi">
       <xi:include href="math.pi.pddoc" parse="xml"/>

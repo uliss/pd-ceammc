@@ -38,12 +38,14 @@ set(DOC_FILES
     math.ceil
     math.cos
     math.cosh
+    math.e
     math.exp
     math.exp2
     math.floor
     math.log
     math.log10
     math.log2
+    math.nan
     math.pi
     math.round
     math.sin
