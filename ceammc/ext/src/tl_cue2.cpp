@@ -16,6 +16,12 @@
 
 #include "tl_lib.hpp"
 
+t_class *tl_cue2::ceammc_gui_pd_class;
+
+t_class *tl_cue2::get_pd_class(){return tl_cue2::ceammc_gui_pd_class;}
+void tl_cue2::set_pd_class(t_class* c1){tl_cue2::ceammc_gui_pd_class=c1;}
+
+
 #pragma mark -
 
 #define UI_Pf x->ui_property_get_float
@@ -25,7 +31,10 @@
 
 #define UI_Setup  ceammc_gui_object *x  = (ceammc_gui_object*)z;UI_ dw_set_canvas(glist); UI_ dw_set_object((t_object*)x);
 
-void tl_cue2_object::w_draw(t_gobj *z, t_glist *glist)
+
+
+
+void tl_cue2::w_draw(t_gobj *z, t_glist *glist)
 {
     UI_Setup
     
@@ -46,7 +55,7 @@ void tl_cue2_object::w_draw(t_gobj *z, t_glist *glist)
     
 }
 //
-void tl_cue2_object::w_erase(t_gobj *z, t_glist *glist)
+void tl_cue2::w_erase(t_gobj *z, t_glist *glist)
 {
     UI_Setup
     
@@ -59,9 +68,17 @@ void tl_cue2_object::w_erase(t_gobj *z, t_glist *glist)
     
 }
 
-void tl_cue2_object::w_displace(t_gobj *z, t_glist *glist, int dx, int dy)
+void tl_cue2::w_vis(t_gobj *z, t_glist *glist,int vis)
 {
-    this->ceammc_gui_object::w_displace(z,glist,dx,dy);
+    if (vis)
+        tl_cue2::w_draw(z, glist);
+    else
+        tl_cue2::w_erase(z, glist);
+}
+
+void tl_cue2::w_displace(t_gobj *z, t_glist *glist, int dx, int dy)
+{
+    ceammc_gui_object::w_displace(z,glist,dx,dy);
     
     UI_Setup
     
@@ -92,14 +109,15 @@ void tl_cue2_object::w_displace(t_gobj *z, t_glist *glist, int dx, int dy)
     tll_cue_dump();
 }
 
-void tl_cue2_object::w_select(t_gobj *z, t_glist *glist, int selected)
+void tl_cue2::w_select(t_gobj *z, t_glist *glist, int selected)
 {
     UI_Setup
     
     UI_Set ("_selected", selected);
     
-    this->w_erase(z,glist);
-    this->w_draw(z, glist);
+    tl_cue2::w_erase(z,glist);
+    tl_cue2::w_draw(z, glist);
+//   printf("wsel\n");
 }
 
 //void tl_cue2_object::w_delete(t_gobj *z, t_glist *glist)
@@ -113,13 +131,34 @@ void tl_cue2_object::w_select(t_gobj *z, t_glist *glist, int selected)
 
 #pragma mark -
 
-void tl_cue2_object::pd_instance_init(t_object *obj)
+t_newmethod tl_cue2_object::get_pd_class_new()
 {
+    printf("\n**tl_cue2::get_pd_class_new \n");
+    return (t_newmethod)(tl_cue2::pd_class_new1);
+}
+
+void *tl_cue2::pd_class_new1(t_symbol *s, int argc, t_atom *argv)
+{
+    printf("\n**tl_cue2::pd_class_new1 \n");
+    printf ("new class ptr here %lu\n",(long)tl_cue2::ceammc_gui_pd_class);
+    
+    t_object *obj = (t_object*)ceammc_gui::pd_class_new2((t_class*)tl_cue2::ceammc_gui_pd_class,s,argc,argv);
     printf("*** CUE2 instance init base\n");
     tll_cue_add((t_object*)obj,((tl_cue2_object*)obj)->ui_property_get_float("x"));
     
     //outlet test
     ((tl_cue2_object*)obj)->outlet1 = outlet_new(obj, &s_list);
+    
+    return obj;
+}
+
+void tl_cue2_object::pd_instance_init(t_object *obj)
+{
+//    printf("*** CUE2 instance init base\n");
+//    tll_cue_add((t_object*)obj,((tl_cue2_object*)obj)->ui_property_get_float("x"));
+//    
+//    //outlet test
+//    ((tl_cue2_object*)obj)->outlet1 = outlet_new(obj, &s_list);
 }
 
 void tl_cue2_object::ui_property_init()
@@ -134,16 +173,32 @@ void tl_cue2_object::ui_property_init()
     
 }
 
+t_widgetbehavior *w_ ;
+
 extern "C" {
     
-    void setup()    //_tl0x2ecue2
+    void setup_tl0x2ecue2()    //_tl0x2ecue2
     {
-        ceammc_gui *gui = new ceammc_gui();
+        tl_cue2 *gui = new tl_cue2();
         
-        tl_cue2_object *obj1 = new tl_cue2_object(); //(tl_cue2_object*)malloc(16384); //
+        tl_cue2_object *obj1 = new tl_cue2_object();
         
         obj1->ui_property_init();
-        gui->pd_setup((t_object*)obj1);
+        tl_cue2::ceammc_gui_pd_class = gui->pd_setup((t_object*)obj1, "tl.cue2", tl_cue2::ceammc_gui_pd_class);
+        
+        printf("new widget");
+        
+        gui->w_ = new t_widgetbehavior;
+        
+        //gui->w_->w_clickfn = w_proxy::pw_click;
+        gui->w_->w_deletefn = w_proxy::pw_delete;
+        gui->w_->w_displacefn = tl_cue2::w_displace;
+        gui->w_->w_getrectfn = ceammc_gui_object::w_getrect;
+        gui->w_->w_selectfn = tl_cue2::w_select;
+        gui->w_->w_visfn = tl_cue2::w_vis;
+        
+        class_setwidget(tl_cue2::ceammc_gui_pd_class, gui->w_);
+        
         
     }
     

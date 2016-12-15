@@ -21,17 +21,13 @@
 
 class ceammc_gui_object;
 
+//typedef t_class*(ceammc_gui_get_pd_class_p)();
 
 class w_proxy{
 public:
 
     t_widgetbehavior *w_create();
-    static void w_getrect(t_gobj *z, t_glist *glist, int *x1, int *y1, int *x2, int *y2);
-    static void w_displace(t_gobj *z, t_glist *glist, int dx, int dy);
-    static void w_select(t_gobj *z, t_glist *glist, int selected);
-    static void w_delete(t_gobj *z, t_glist *glist);
-    static void w_vis(t_gobj *z, t_glist *glist, int vis);
-    static int w_click(t_gobj *z, struct _glist *glist, int xpix, int ypix, int shift, int alt, int dbl, int doit);
+
 
     //
     static t_widgetbehavior w_widget;
@@ -41,6 +37,15 @@ public:
     
     static void pd_instance_init(t_object *obj);
     static t_object *ceammc_gui_pd_instance;
+    
+    
+    //proxy
+    static void pw_getrect(t_gobj *z, t_glist *glist, int *x1, int *y1, int *x2, int *y2);
+    static void pw_displace(t_gobj *z, t_glist *glist, int dx, int dy);
+    static void pw_select(t_gobj *z, t_glist *glist, int selected);
+    static void pw_delete(t_gobj *z, t_glist *glist);
+    static void pw_vis(t_gobj *z, t_glist *glist, int vis);
+    static int pw_click(t_gobj *z, struct _glist *glist, int xpix, int ypix, int shift, int alt, int dbl, int doit);
     
 };
 
@@ -57,7 +62,7 @@ private:
     
     //pd class
     //t_class *pd_class;
-    static void *pd_class_new(t_symbol *s, int argc, t_atom *argv);
+    
     static void pd_class_free(ceammc_gui_object *x);
     static void pd_class_save(t_gobj *z, t_binbuf *b);
     
@@ -66,15 +71,22 @@ private:
     static t_class* ceammc_gui_pd_class;
     
 public:
+    //test
+    static void *pd_class_new1(t_symbol *s, int argc, t_atom *argv);
+    static void *pd_class_new2(t_class *c, t_symbol *s, int argc, t_atom *argv);
+    
     //log
     static void e_error(std::string err);
     static void e_properties(t_object *obj);
     static void e_atoms(t_atom *obj, int count);
     
-    virtual void pd_setup(t_object *gui_class);
+    virtual t_class*  pd_setup(t_object *gui_class, std::string class_name,  t_class *pd_class);
     
     static gui_properties *default_properties;
     
+    virtual t_class* get_pd_class();
+    virtual void set_pd_class(t_class* c1);
+
     
 };
 
@@ -90,16 +102,19 @@ public:
     virtual void w_draw(t_gobj *z, t_glist *glist);
     virtual void w_erase(t_gobj *z, t_glist *glist);
     
-    virtual void pd_instance_init(t_object *obj);
+    //virtual void pd_instance_init(t_object *obj);
 };
 
 //typedef void (drawfunc)(t_gobj, t_glist);
 
-class ceammc_gui_object : public v_widget{
+class ceammc_gui_object  {
 private:
     //widget
     t_canvas *w_canvas;
     t_object *w_obj;
+    
+    //prototype
+    t_class *proto_class;
     
 public:
     //pd
@@ -134,16 +149,20 @@ public:
     ///
     // widget
     
-    virtual void w_getrect(t_gobj *z, t_glist *glist, int *x1, int *y1, int *x2, int *y2);
-    virtual  int w_click(t_gobj *z, struct _glist *glist, int xpix, int ypix, int shift, int alt, int dbl, int doit);
-    virtual  void w_displace(t_gobj *z, t_glist *glist, int dx, int dy);
-    virtual  void w_select(t_gobj *z, t_glist *glist, int selected);
-    virtual  void w_delete(t_gobj *z, t_glist *glist);
-    virtual  void w_draw(t_gobj *z, t_glist *glist);
-    virtual  void w_erase(t_gobj *z, t_glist *glist);
+    static void w_getrect(t_gobj *z, t_glist *glist, int *x1, int *y1, int *x2, int *y2);
+    static  int w_click(t_gobj *z, struct _glist *glist, int xpix, int ypix, int shift, int alt, int dbl, int doit);
+    static  void w_displace(t_gobj *z, t_glist *glist, int dx, int dy);
+    static  void w_select(t_gobj *z, t_glist *glist, int selected);
+    static  void w_delete(t_gobj *z, t_glist *glist);
+    static  void w_draw(t_gobj *z, t_glist *glist);
+    static  void w_erase(t_gobj *z, t_glist *glist);
     
     virtual void pd_instance_init(t_object *obj);
     
+    virtual void* pd_init_v(t_symbol *s, int argc, t_atom *argv);
+    virtual void pd_init_v(ceammc_gui_object *x);
+    
+    virtual t_newmethod get_pd_class_new();
     
     
 };
@@ -165,6 +184,31 @@ public:
     
 };
 
+//struct _widgetbehavior
+//{
+//    t_getrectfn w_getrectfn;
+//    t_displacefn w_displacefn;
+//    t_selectfn w_selectfn;
+//    t_activatefn w_activatefn;
+//    t_deletefn w_deletefn;
+//    t_visfn w_visfn;
+//    t_clickfn w_clickfn;
+//};
+
+class n_widget
+{
+    static void w_getrect(t_gobj *z, t_glist *glist, int *x1, int *y1, int *x2, int *y2);
+    static int w_click(t_gobj *z, struct _glist *glist, int xpix, int ypix, int shift, int alt, int dbl, int doit);
+    static void w_displace(t_gobj *z, t_glist *glist, int dx, int dy);
+    static void w_select(t_gobj *z, t_glist *glist, int selected);
+    static void w_delete(t_gobj *z, t_glist *glist);
+    static void pw_vis(t_gobj *z, t_glist *glist, int vis);
+    
+    //
+    static void w_draw(t_gobj *z, t_glist *glist);
+    static void w_erase(t_gobj *z, t_glist *glist);
+    
+};
 
 
 #pragma mark -
