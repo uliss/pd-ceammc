@@ -80,7 +80,7 @@ void tl_bang2::w_displace(t_gobj *z, t_glist *glist, int dx, int dy)
     UI_Setup
     
     float x_pos = UI_Pf("x");
-    tll_cue_update_pos((t_object *)x, x_pos);
+    tll_ui_update_pos((t_object *)x, x_pos);
     
     printf("xpos [%lu] : %f\n", (long)x, x_pos);
     
@@ -137,32 +137,60 @@ t_newmethod tl_bang2_object::get_pd_class_new()
     return (t_newmethod)(tl_bang2::pd_class_new1);
 }
 
+t_method tl_bang2_object::get_pd_class_free()
+{
+    printf("\n**tl_bang2::get_pd_class_free \n");
+    return (t_method)(tl_bang2::pd_class_free1);
+}
+
 void *tl_bang2::pd_class_new1(t_symbol *s, int argc, t_atom *argv)
 {
     printf("\n**tl_bang2::pd_class_new1 \n");
-
-    return ceammc_gui::pd_class_new2((t_class*)tl_bang2::ceammc_gui_pd_class,s,argc,argv);
-}
-
-void tl_bang2_object::pd_instance_init(t_object *obj)
-{
+    
+    tl_bang2_object *obj1 = new tl_bang2_object();
+    obj1->ui_properties_init();
+    
+    t_object *obj = (t_object*)ceammc_gui::pd_class_new_common((t_class*)tl_bang2::ceammc_gui_pd_class,(t_object*)obj1,s,argc,argv);
+    
     printf("*** bang2 instance init base\n");
-    tll_cue_add((t_object*)obj,((tl_bang2_object*)obj)->ui_property_get_float("x"));
+    tll_ui_add((t_object*)obj,((tl_bang2_object*)obj)->ui_property_get_float("x"));
     
     //outlet test
     ((tl_bang2_object*)obj)->outlet1 = outlet_new(obj, &s_list);
+    
+    return obj;
 }
 
-void tl_bang2_object::ui_property_init()
+void tl_bang2::pd_class_free1(t_object *x)
+{
+    
+    ceammc_gui::pd_class_free_common(x);
+}
+
+//void tl_bang2_object::pd_instance_init(t_object *obj)
+//{
+//    
+//}
+
+
+
+void tl_bang2_object::ui_properties_init()
 {
     printf("bang2 property init!\n");
     
-    ceammc_gui_object::ui_property_init();
+    ceammc_gui_object::ui_properties_init();
     
     //this->ui_property_set("cue_name", "cue x");
     
     this->ui_property_set("object_name", "tl.bang2");
     
+}
+
+#pragma mark -
+void tl_bang2::tl_bang2_action(t_object *x) //, tl_t_list list)
+{
+    printf("bang action");
+    outlet_bang(((tl_bang2_object*)x)->outlet1);
 }
 
 extern "C" {
@@ -173,18 +201,20 @@ extern "C" {
         
         tl_bang2_object *obj1 = new tl_bang2_object(); //(tl_bang2_object*)malloc(16384); //
         
-        obj1->ui_property_init();
+        obj1->ui_properties_init();
         
         tl_bang2::ceammc_gui_pd_class = gui->pd_setup((t_object*)obj1, "tl.bang2", tl_bang2::ceammc_gui_pd_class);
         
         gui->w_ = new t_widgetbehavior;
         
-        gui->w_->w_clickfn = w_proxy::pw_click;
-        gui->w_->w_deletefn = w_proxy::pw_delete;
+        //gui->w_->w_clickfn = w_proxy::pw_click;
+        //gui->w_->w_deletefn = w_proxy::pw_delete;
         gui->w_->w_displacefn = tl_bang2::w_displace;
         gui->w_->w_getrectfn = ceammc_gui_object::w_getrect;
         gui->w_->w_selectfn = tl_bang2::w_select;
         gui->w_->w_visfn = tl_bang2::w_vis;
+        
+        tll_set_ui_action(reinterpret_cast<tl_ui_action>(&tl_bang2::tl_bang2_action));
         
         class_setwidget(tl_bang2::ceammc_gui_pd_class, gui->w_);
     }

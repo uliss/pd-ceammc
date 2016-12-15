@@ -137,12 +137,21 @@ t_newmethod tl_cue2_object::get_pd_class_new()
     return (t_newmethod)(tl_cue2::pd_class_new1);
 }
 
+t_method tl_cue2_object::get_pd_class_free()
+{
+    printf("\n**tl_cue2::get_pd_class_free \n");
+    return (t_method)(tl_cue2::pd_class_free1);
+}
+
 void *tl_cue2::pd_class_new1(t_symbol *s, int argc, t_atom *argv)
 {
     printf("\n**tl_cue2::pd_class_new1 \n");
     printf ("new class ptr here %lu\n",(long)tl_cue2::ceammc_gui_pd_class);
     
-    t_object *obj = (t_object*)ceammc_gui::pd_class_new2((t_class*)tl_cue2::ceammc_gui_pd_class,s,argc,argv);
+    tl_cue2_object *obj1 = new tl_cue2_object();
+    obj1->ui_properties_init();
+    
+    t_object *obj = (t_object*)ceammc_gui::pd_class_new_common((t_class*)tl_cue2::ceammc_gui_pd_class,(t_object*)obj1,s,argc,argv);
     printf("*** CUE2 instance init base\n");
     tll_cue_add((t_object*)obj,((tl_cue2_object*)obj)->ui_property_get_float("x"));
     
@@ -152,24 +161,32 @@ void *tl_cue2::pd_class_new1(t_symbol *s, int argc, t_atom *argv)
     return obj;
 }
 
-void tl_cue2_object::pd_instance_init(t_object *obj)
+void tl_cue2::pd_class_free1(t_object *x)
 {
-//    printf("*** CUE2 instance init base\n");
-//    tll_cue_add((t_object*)obj,((tl_cue2_object*)obj)->ui_property_get_float("x"));
-//    
-//    //outlet test
-//    ((tl_cue2_object*)obj)->outlet1 = outlet_new(obj, &s_list);
+    tll_cue_delete(x);
+    ceammc_gui::pd_class_free_common(x);
 }
 
-void tl_cue2_object::ui_property_init()
+//void tl_cue2_object::pd_instance_init(t_object *obj)
+//{
+////    printf("*** CUE2 instance init base\n");
+////    tll_cue_add((t_object*)obj,((tl_cue2_object*)obj)->ui_property_get_float("x"));
+////    
+////    //outlet test
+////    ((tl_cue2_object*)obj)->outlet1 = outlet_new(obj, &s_list);
+//}
+
+void tl_cue2_object::ui_properties_init()
 {
     printf("cue2 property init!\n");
     
-    ceammc_gui_object::ui_property_init();
+    ceammc_gui_object::ui_properties_init();
     
     this->ui_property_set("cue_name", "cue_x");
-    
     this->ui_property_set("object_name", "tl.cue2");
+    
+    //todo method for setting def prop
+    *this->ui_default_properties = *this->ui_properties;
     
 }
 
@@ -182,8 +199,8 @@ extern "C" {
         tl_cue2 *gui = new tl_cue2();
         
         tl_cue2_object *obj1 = new tl_cue2_object();
+        obj1->ui_properties_init();
         
-        obj1->ui_property_init();
         tl_cue2::ceammc_gui_pd_class = gui->pd_setup((t_object*)obj1, "tl.cue2", tl_cue2::ceammc_gui_pd_class);
         
         printf("new widget");
@@ -191,7 +208,7 @@ extern "C" {
         gui->w_ = new t_widgetbehavior;
         
         //gui->w_->w_clickfn = w_proxy::pw_click;
-        gui->w_->w_deletefn = w_proxy::pw_delete;
+        //gui->w_->w_deletefn = w_proxy::pw_delete;
         gui->w_->w_displacefn = tl_cue2::w_displace;
         gui->w_->w_getrectfn = ceammc_gui_object::w_getrect;
         gui->w_->w_selectfn = tl_cue2::w_select;

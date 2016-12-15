@@ -27,6 +27,8 @@ public:
     
     //virtual t_newmethod get_pd_class_new();
     static void *pd_class_new1(t_symbol *s, int argc, t_atom *argv);
+    static void pd_class_free1(t_object *x);
+    
     
     t_widgetbehavior *w_ ;
         //    void w_getrect(t_gobj *z, t_glist *glist, int *x1, int *y1, int *x2, int *y2) ;
@@ -47,7 +49,7 @@ class tl_cue2_object : public ceammc_gui_object
 public:
     virtual long size(){return sizeof(tl_cue2_object);}
     
-    virtual void ui_property_init();
+    virtual void ui_properties_init();
     
     
 //    //    void w_getrect(t_gobj *z, t_glist *glist, int *x1, int *y1, int *x2, int *y2) ;
@@ -58,11 +60,12 @@ public:
 //    //int w_click(t_gobj *z, struct _glist *glist, int xpix, int ypix, int shift, int alt, int dbl, int doit);
 //    virtual void w_select(t_gobj *z, t_glist *glist, int selected);
     
-    virtual void pd_instance_init(t_object *obj);
+//    virtual void pd_instance_init(t_object *obj);
     
     t_outlet *outlet1;
     
     virtual t_newmethod get_pd_class_new();
+    virtual t_method get_pd_class_free();
     
 };
 
