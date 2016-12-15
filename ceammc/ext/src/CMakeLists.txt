@@ -230,3 +230,6 @@ ceammc_faust_extension(env adsr simple_pd_control_ext)
 ceammc_faust_extension(env ar simple_pd_control_ext)
 
 
+ceammc_faust_extension(live capture simple_pd_control_ext)
+
+
