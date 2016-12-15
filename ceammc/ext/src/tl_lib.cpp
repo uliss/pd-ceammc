@@ -65,7 +65,7 @@ EXTERN void tll_cue_delete(t_object *x)
     
     tll_cue_assign_numbers();
     
-    printf("cue del");
+    printf("cue del\n");
 }
 
 
@@ -88,7 +88,7 @@ EXTERN void tll_cue_add(t_object *x, float x_pos)
     tl_ui_cues.push_back(new_c);
     
     tll_cue_assign_numbers();
-    tll_update_cue_guis();
+    
 }
 
 
@@ -201,7 +201,7 @@ EXTERN void tll_perform_actions_for_cue(int cue_number)
 
 EXTERN void tll_update_cue_guis()
 {
-    printf("update cue\n");
+    printf("update cue guis\n");
     
     
     std::vector<tl_t_cue>::iterator it;

@@ -40,7 +40,7 @@ void tl_cue2::w_draw(t_gobj *z, t_glist *glist)
     
     std::string obj_color = (UI_Pf("_selected")==0)? "#00C0FF" : "#0000C0";
     
-    printf ("coords %f %f", UI_Pf("x"), UI_Pf("y"));
+    //printf ("coords %f %f", UI_Pf("x"), UI_Pf("y"));
     UI_ dw_rect("BASE", UI_Pf("x"), UI_Pf("y"), UI_Pf("width"), UI_Pf("height"),
                 obj_color, "#F0F0F0", 1.0f);
     UI_ dw_rect("VLINE", UI_Pf("x"), 0.0f, 1, 1000.0f,
@@ -51,6 +51,8 @@ void tl_cue2::w_draw(t_gobj *z, t_glist *glist)
     //outlet test
     UI_ dw_rect("OUT", UI_Pf("x"), UI_Pf("y")+UI_Pf("height")-2,IOWIDTH, 2,
                 "#000000", "#F0F0F0", 1.0f);
+    
+    //tll_update_cue_guis();
 
     
 }
@@ -153,6 +155,7 @@ void *tl_cue2::pd_class_new1(t_symbol *s, int argc, t_atom *argv)
     
     t_object *obj = (t_object*)ceammc_gui::pd_class_new_common((t_class*)tl_cue2::ceammc_gui_pd_class,(t_object*)obj1,s,argc,argv);
     printf("*** CUE2 instance init base\n");
+    
     tll_cue_add((t_object*)obj,((tl_cue2_object*)obj)->ui_property_get_float("x"));
     
     //outlet test
@@ -163,6 +166,7 @@ void *tl_cue2::pd_class_new1(t_symbol *s, int argc, t_atom *argv)
 
 void tl_cue2::pd_class_free1(t_object *x)
 {
+    printf("*cue2 pd class free1\n");
     tll_cue_delete(x);
     ceammc_gui::pd_class_free_common(x);
 }
@@ -194,7 +198,7 @@ void tl_cue2_object::ui_properties_init()
 
 void tl_cue2::tl_cue2_drawcue(t_object *z)
 {
-    printf("cue redraw");
+    printf("cue redraw\n");
     
     _glist *glist = ((ceammc_gui_object*)z)->x_canvas;
     

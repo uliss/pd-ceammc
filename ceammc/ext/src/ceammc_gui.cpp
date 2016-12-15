@@ -444,8 +444,6 @@ void *ceammc_gui::pd_class_new_common(t_class *c1,t_object* prototype, t_symbol 
 void ceammc_gui::pd_class_free_common(t_object *x)
 {
     
-    //TODO
-    //w_proxy::pd_instance_free((t_object*)x);
 }
 
 
@@ -478,6 +476,9 @@ void ceammc_gui::pd_class_save(t_gobj *z, t_binbuf *b)
     printf("********** save\n");
     ceammc_gui::e_properties((t_object*)x);
     
+    char *bchar; int l;
+    binbuf_gettext(b, &bchar, &l);
+    printf("data: %s\n\n", bchar);
     
     
 }
