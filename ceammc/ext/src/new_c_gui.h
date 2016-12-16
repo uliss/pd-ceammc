@@ -124,18 +124,16 @@ public:
 struct cm_gui_base_pd_object
 {
     t_object x_gui;
+    t_inlet **inlets;
+    t_inlet **outlets;
+    int inlet_count;
+    int oulet_count;
+    t_atomtype *inlet_types;
+    t_atomtype *outet_types;
+    
 };
 
 #pragma mark -------
-
-//t_class *__pd_class;
-
-//struct cm_gui_instance
-//{
-//public:
-//    t_object *pd_object;
-//    cm_gui_properties properties;
-//};
 
 typedef std::map<t_object*, cm_gui_properties*> cm_gui_instances;
 
@@ -227,8 +225,10 @@ public:
         *inst_prop = *(cm_gui_object<U>::ui_default_properties);
         instances[z] = (inst_prop);
         
-        t_text *t = (t_text*) &(((U*)z)->x_gui);
-        printf("-new coords %d %d\n", t->te_xpix, t->te_ypix);
+        //t_text *t = (t_text*) &(((U*)z)->x_gui);
+        //printf("-new coords %d %d\n", t->te_xpix, t->te_ypix);
+        
+        cm_gui_object<U>::load_method(z, argv);
         
         cm_gui_object<U>::new_ext(z, s, argc, argv);
         
@@ -250,6 +250,47 @@ public:
         printf("free");
         
     }
+    
+    static bool load_method (t_object *z,t_atom *values)
+    {
+        printf("** property load [%lu]\n", (long)z);
+        int count = (int)(instances[z]->size());
+        int i=0;
+        
+        printf("count: %i\n", count);
+        //ceammc_gui::e_atoms(values, count);
+        
+        std::map<std::string, t_atom>::iterator it;
+        
+        for (it = (*instances[z]).begin(); it != (*instances[z]).end(); ++it)
+        {
+            if (i==count) break;
+            
+            t_atom a = values[i];
+            if (a.a_type != it->second.a_type)
+            {
+                printf("ERR broken object data");
+                
+                return false;
+            }
+            else
+            {
+                it->second = a;
+            }
+            
+            i++;
+            
+        }
+        
+        printf( "** loaded %i\n",i);
+        
+        printf("********** load\n");
+        //ceammc_gui::e_properties((t_object*)this);
+        instances[z]->log();
+        
+        return true;
+    }
+
     
     static void save_method(t_gobj *z, t_binbuf *b)
     {
@@ -284,7 +325,7 @@ public:
         
         char *bchar; int l;
         binbuf_gettext(b, &bchar, &l);
-        printf("data: %s\n\n", bchar);
+        //printf("data: %s\n\n", bchar);
         
         
     }
@@ -364,12 +405,8 @@ public:
 public:
     void setup(std::string _class_name)
     {
-        printf("--\n");
-        t_class *cl;// = cm_gui_object<U>::pd_class;
-        
-//        printf("ptr: %lu | %lu | %lu", cm_gui_object<cm_gui_base_pd_object>::new_method, cm_gui_object<U>::free_method, cl);
-//        cm_gui_object<U>::new_method(NULL,NULL,NULL);
-        
+        t_class *cl;
+
         cl = class_new(gensym(_class_name.c_str()),reinterpret_cast<t_newmethod>(cm_gui_object<U>::new_method), reinterpret_cast<t_method>(cm_gui_object<U>::free_method), sizeof(U), CLASS_PATCHABLE, A_GIMME,0);
         
         printf ("cl %lu\n",(long)cl);
@@ -378,7 +415,6 @@ public:
         cm_gui_object<U>::ui_properties_init();
         
         //widget
-        
         widget.w_visfn = &cm_gui_object<U>::w_vis;
         widget.w_displacefn = &cm_gui_object<U>::w_displace;
         widget.w_getrectfn = &cm_gui_object<U>::w_getrect;
@@ -391,9 +427,20 @@ public:
         cm_gui_object<U>::pd_class = cl;
         
         cm_gui_object<U>::w_testfunc() ;
+        
+        
+    }
+    
+    void setup_io(std::string _class_name, t_atomtype *ins, t_atomtype *outs)
+    {
+        this->setup(_class_name);
+        
+        
     }
     
 };
+
+
 
 template <typename U>
 t_class* cm_gui_object<U>::pd_class;

@@ -103,12 +103,14 @@ EXTERN void tll_ui_add(t_object *x, float x_pos);
 EXTERN void tll_ui_update_all_pos();
 EXTERN void tll_ui_update_pos(t_object *x, float x_pos);
 
+EXTERN void tll_ui_delete(t_object *x);
+
 EXTERN void tll_ui_dump();
 
 ///////
 
 EXTERN void tll_perform_actions_for_cue(int cue_number);
-EXTERN void tll_update_cue_guis();
+EXTERN void tll_update_cue_guis(t_object *x);
 
 ///////
 

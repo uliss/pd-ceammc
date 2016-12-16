@@ -15,7 +15,7 @@
 
 struct tl_cue : cm_gui_base_pd_object
 {
-    
+    t_canvas *canvas;
 };
 
 UI_fun(tl_cue)::w_draw(t_gobj *z, t_glist *glist)
@@ -80,8 +80,12 @@ UI_fun(tl_cue)::w_displace(t_gobj *z, t_glist *glist, int dx, int dy)
     
     canvas_fixlinesfor(glist, (t_text *)z);
     
-    tll_cue_dump();
+    //tll_update_cue_guis((t_object*)z);
+    
+    //tll_cue_dump();
 }
+
+
 
 
 
@@ -92,18 +96,22 @@ UI_fun(tl_cue)::w_displace(t_gobj *z, t_glist *glist, int dx, int dy)
 
 UI_fun(tl_cue)::new_ext(t_object* z, t_symbol *s, int argc, t_atom *argv)
 {
-    cm_gui_properties *x  = instances[(t_object *)z];
+    //cm_gui_properties *x  = instances[(t_object *)z];
     
     tll_cue_add((t_object*)z, UI_x);
     
-    printf("add cue %lu (gui %lu)\n", (long*)z,(long)& ((cm_gui_base_pd_object*)z)->x_gui);
+    ((tl_cue*)z)->canvas = canvas_getcurrent();
+    
+    //printf("add cue %lu (gui %lu)\n", (long*)z,(long)& ((cm_gui_base_pd_object*)z)->x_gui);
+    
+    tll_cue_update_pos((t_object *)z, UI_x);
+    tll_update_cue_guis((t_object*)z);
 
 }
 
 UI_fun(tl_cue)::free_ext(t_object *x)
 {
     printf("*cue2 pd class free1\n");
-    
     
     tll_cue_delete(x);
     
@@ -126,6 +134,8 @@ UI_fun(tl_cue)::ui_properties_init_ext(cm_gui_properties *def_p)
 void tl_cue_drawcue(t_object *z)
 {
     printf("cue redraw\n");
+    
+    cm_gui_object<tl_cue>::w_displace((t_gobj*)z, ((tl_cue*)z)->canvas,0,0);
 }
 
 

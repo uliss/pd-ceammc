@@ -126,16 +126,44 @@ EXTERN void tll_cue_update_pos(t_object *x, float x_pos)
 
 #pragma mark ui objects
 
+EXTERN int tll_ui_find_by_object(t_object* obj)
+{
+    int ret = -1;
+    int i=0;
+    
+    std::vector<tl_t_ui_object>::iterator it;
+    for (it = tl_ui_objects.begin(); it != tl_ui_objects.end(); ++it)
+    {
+        if (it->ui_obj == obj) {ret = i;return i;};
+        i++;
+        
+    }
+    return ret;
+}
+
 EXTERN void tll_ui_add(t_object *x, float x_pos)
 {
     tl_t_ui_object new_u;
     
     new_u.x_pos = x_pos;
-    new_u.ui_obj = (t_object*)x;
+    new_u.ui_obj = x;
     
     tl_ui_objects.push_back(new_u);
     
+    //printf("added cue %lu\n", (long)x);
     
+    
+}
+EXTERN void tll_ui_delete(t_object *x)
+{
+    int erase_idx = tll_ui_find_by_object(x);
+    
+    if (erase_idx!=-1)
+        tl_ui_cues.erase(tl_ui_cues.begin()+erase_idx);
+    
+    //tll_cue_assign_numbers();
+    
+    printf("ui del %d\n", erase_idx);
 }
 
 //TEMP. todo: std::vector<std::string>
@@ -144,12 +172,18 @@ EXTERN void tll_ui_update_pos(t_object *x, float x_pos)
     std::vector<tl_t_ui_object>::iterator it;
     for (it=tl_ui_objects.begin(); it != tl_ui_objects.end(); ++it)
     {
-        if (it->ui_obj)
+        if (it->ui_obj == x)
         {
-            t_object *x = (t_object*)it->ui_obj;
-            float x_pos = x->te_xpix;
+//            t_object *x = (t_object*)it->ui_obj;
+//            float x_pos = x->te_xpix;
             it->x_pos = x_pos;
             printf("uiobj upd\n");
+            
+            return;
+//            if (it->ui_obj != x)
+//            {
+//                tl_methods.drawcue( it->ui_obj );
+//            }
             
         }
     }
@@ -172,7 +206,7 @@ EXTERN void tll_ui_dump()
     std::vector<tl_t_ui_object>::iterator it;
     for (it=tl_ui_objects.begin(); it != tl_ui_objects.end(); ++it)
     {
-        printf("ui pos %f\n", it->x_pos);
+        printf("ui [%lu] pos %f\n",(long)it->ui_obj ,it->x_pos);
     }
 }
 
@@ -182,9 +216,9 @@ EXTERN void tll_perform_actions_for_cue(int cue_number)
 {
     printf("perform actions\n");
     
-    if ( (cue_number>0) && (cue_number<tl_ui_cues.size()) )
+    if ( (cue_number>=0) && (cue_number<tl_ui_cues.size()) )
     {
-        printf("method call  %lu @ %lu", (long)tl_methods.ui_action, (long)tl_ui_objects[cue_number].ui_obj);
+        //printf("method call  %lu @ %lu", (long)tl_methods.ui_action, (long)tl_ui_objects[cue_number].ui_obj);
         
         int min_cue_x = tl_ui_cues[cue_number].x_pos;
         int max_cue_x = (cue_number<(tl_ui_cues.size()-1))?tl_ui_cues[cue_number+1].x_pos:65535;
@@ -199,17 +233,35 @@ EXTERN void tll_perform_actions_for_cue(int cue_number)
     }
 }
 
-EXTERN void tll_update_cue_guis()
+EXTERN void tll_update_cue_guis(t_object *x)
 {
     printf("update cue guis\n");
+//DISABLED
+//    
+//    std::vector<tl_t_cue>::iterator it;
+//    for (it = tl_ui_cues.begin(); it != tl_ui_cues.end(); ++it)
+//    {
+//        if (it->ui_obj)
+//            tl_methods.drawcue( it->ui_obj );
+//    }
     
-    
-    std::vector<tl_t_cue>::iterator it;
-    for (it = tl_ui_cues.begin(); it != tl_ui_cues.end(); ++it)
-    {
-        if (it->ui_obj)
-            tl_methods.drawcue( it->ui_obj );
-    }
+//    std::vector<tl_t_cue>::iterator it;
+//    for (it=tl_ui_cues.begin(); it != tl_ui_cues.end(); ++it)
+//    {
+//        if (it->ui_obj)
+//        {
+//            //            t_object *x = (t_object*)it->ui_obj;
+//            //            float x_pos = x->te_xpix;
+////            it->x_pos = x_pos;
+////            printf("uiobj upd\n");
+//            
+//            if (it->ui_obj != x)
+//            {
+//                tl_methods.drawcue( it->ui_obj );
+//            }
+//            
+//        }
+//    }
 }
 
 #pragma mark -
