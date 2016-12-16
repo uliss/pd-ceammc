@@ -92,6 +92,8 @@ void ceammc_gui_object::ui_property_set(std::string name, float value)
     (*this->ui_properties)[name] = a;
 }
 
+#pragma mark -
+
 bool ceammc_gui_object::ui_property_load(t_atom *values)
 {
     printf("** property load [%lu]\n", (long)this);
@@ -198,69 +200,7 @@ void ceammc_gui_object::ui_property_copy(t_object *obj)
 }
 
 
-#pragma mark -
-#pragma mark draw wrappers
 
-//TODO names
-
-void draw_wrappers::dw_set_canvas(t_glist *glist)
-{
-    //    printf("--set c-\n");
-    draw_wrappers::w_canvas = glist;
-}
-
-void draw_wrappers::dw_set_object(t_object *obj)
-{
-    //    printf("--set obj-\n");
-    draw_wrappers::w_obj = obj;
-}
-
-void draw_wrappers::dw_rect (std::string obj, int x, int y, int w, int h, std::string stroke_color, std::string fill_color, float line_width)
-{
-    //    printf ("rect\n");
-    char s1[] = ".x%lx.c create rectangle %d %d %d %d -width %d -outline %s -fill %s -tags %lx%s\n";
-    sys_vgui(s1,
-             draw_wrappers::w_canvas, x, y,x+w, y+h,
-             int(line_width),
-             stroke_color.c_str(),
-             fill_color.c_str(), draw_wrappers::w_obj, obj.c_str());
-}
-
-void draw_wrappers::dw_text (std::string obj, int x, int y, std::string text, std::string text_color)
-{
-    //    printf ("text\n");
-    
-    int font_size = 12;//*(this->ui_property_get("font_size")).get();
-    char s1[] = ".x%lx.c create text %d %d -text {%s} -anchor w -font {{%s} -%d %s} -fill %s -tags [list %lx%s label text]\n";
-    sys_vgui(s1,
-             draw_wrappers::w_canvas, int(x),
-             int(y),
-             text.c_str(),"Monaco",
-             font_size, "normal",
-             text_color.c_str(), draw_wrappers::w_obj, obj.c_str());
-    
-    //xx+x->x_gui.x_ldx * zoomlabel
-    //yy+x->x_gui.x_ldy * zoomlabel
-}
-
-void draw_wrappers::dw_move (std::string obj, int x, int y, int w, int h)
-{
-    char s1[] = ".x%lx.c coords %lx%s %d %d %d %d\n";
-    sys_vgui(s1,
-             draw_wrappers::w_canvas, draw_wrappers::w_obj, obj.c_str(), x, y, x+w, y+h);
-}
-
-void draw_wrappers::dw_set_width (std::string obj, int w)
-{
-    char s1[] = ".x%lx.c itemconfigure %lx%s -width %d\n";
-    sys_vgui(s1, draw_wrappers::w_canvas, draw_wrappers::w_obj ,obj.c_str(), w);
-}
-
-void draw_wrappers::dw_delete(std::string obj)
-{
-    char s1[] = ".x%lx.c delete %lx%s\n";
-    sys_vgui(s1, draw_wrappers::w_canvas, draw_wrappers::w_obj, obj.c_str());
-}
 
 #pragma mark -
 
@@ -274,9 +214,7 @@ void ceammc_gui_object::w_getrect(t_gobj *z, t_glist *glist, int *x1, int *y1, i
     *y1 = x->ui_property_get_float("y");
     *x2 = *x1 + x->ui_property_get_float("width");
     *y2 = *y1 + x->ui_property_get_float("height");
-    
-//    x->ui_property_set("x",x->te_xpix);
-//    x->ui_property_set("y",x->te_ypix);
+
 }
 
 
@@ -288,10 +226,6 @@ void ceammc_gui_object::w_displace(t_gobj *z, t_glist *glist, int dx, int dy)
     
     x->ui_property_set("x", x->ui_property_get_float("x") + dx);
     x->ui_property_set("y", x->ui_property_get_float("y") + dy);
-    
-//    x->te_xpix += dx;
-//    x->te_xpix += dy;
-    
     
 }
 
@@ -559,6 +493,72 @@ t_class* ceammc_gui::pd_setup(t_object *gui_class, std::string class_name, t_cla
     class_setsavefn(pd_class, pd_class_save);
     
     return pd_class;
+}
+
+
+
+#pragma mark -
+#pragma mark draw wrappers
+
+//TODO names
+
+void draw_wrappers::dw_set_canvas(t_glist *glist)
+{
+    //    printf("--set c-\n");
+    draw_wrappers::w_canvas = glist;
+}
+
+void draw_wrappers::dw_set_object(t_object *obj)
+{
+    //    printf("--set obj-\n");
+    draw_wrappers::w_obj = obj;
+}
+
+void draw_wrappers::dw_rect (std::string obj, int x, int y, int w, int h, std::string stroke_color, std::string fill_color, float line_width)
+{
+    //    printf ("rect\n");
+    char s1[] = ".x%lx.c create rectangle %d %d %d %d -width %d -outline %s -fill %s -tags %lx%s\n";
+    sys_vgui(s1,
+             draw_wrappers::w_canvas, x, y,x+w, y+h,
+             int(line_width),
+             stroke_color.c_str(),
+             fill_color.c_str(), draw_wrappers::w_obj, obj.c_str());
+}
+
+void draw_wrappers::dw_text (std::string obj, int x, int y, std::string text, std::string text_color)
+{
+    //    printf ("text\n");
+    
+    int font_size = 12;//*(this->ui_property_get("font_size")).get();
+    char s1[] = ".x%lx.c create text %d %d -text {%s} -anchor w -font {{%s} -%d %s} -fill %s -tags [list %lx%s label text]\n";
+    sys_vgui(s1,
+             draw_wrappers::w_canvas, int(x),
+             int(y),
+             text.c_str(),"Monaco",
+             font_size, "normal",
+             text_color.c_str(), draw_wrappers::w_obj, obj.c_str());
+    
+    //xx+x->x_gui.x_ldx * zoomlabel
+    //yy+x->x_gui.x_ldy * zoomlabel
+}
+
+void draw_wrappers::dw_move (std::string obj, int x, int y, int w, int h)
+{
+    char s1[] = ".x%lx.c coords %lx%s %d %d %d %d\n";
+    sys_vgui(s1,
+             draw_wrappers::w_canvas, draw_wrappers::w_obj, obj.c_str(), x, y, x+w, y+h);
+}
+
+void draw_wrappers::dw_set_width (std::string obj, int w)
+{
+    char s1[] = ".x%lx.c itemconfigure %lx%s -width %d\n";
+    sys_vgui(s1, draw_wrappers::w_canvas, draw_wrappers::w_obj ,obj.c_str(), w);
+}
+
+void draw_wrappers::dw_delete(std::string obj)
+{
+    char s1[] = ".x%lx.c delete %lx%s\n";
+    sys_vgui(s1, draw_wrappers::w_canvas, draw_wrappers::w_obj, obj.c_str());
 }
 
 

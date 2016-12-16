@@ -18,6 +18,8 @@
 #include <m_pd.h>
 #include <g_canvas.h>
 
+//#include "ceammc_draw_wrappers.cpp"
+
 //#include "g_all_guis.h"
 
 
@@ -126,15 +128,18 @@ public:
     //??
     gui_properties *ui_properties;
     gui_properties *ui_default_properties;
+    
     std::string class_name;
     
     //
     t_atom ui_property_get(std::string name);
     t_float ui_property_get_float(std::string name);
     char* ui_property_get_c_str(std::string name);
+    
     void ui_property_set(std::string name, t_atom value);
     void ui_property_set(std::string name, std::string value);
     void ui_property_set(std::string name, float value);
+    
     bool ui_property_load(t_atom *values);          //true if ok
     void ui_property_copy(t_object *obj);
     
@@ -163,8 +168,7 @@ public:
 };
 
 
-
-
+#pragma mark -
 class draw_wrappers
 {
 private:
@@ -181,6 +185,9 @@ public:
     static void dw_delete(std::string obj);
     
 };
+
+
+
 
 
 #pragma mark -

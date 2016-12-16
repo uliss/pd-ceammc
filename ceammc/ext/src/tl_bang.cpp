@@ -13,6 +13,8 @@
 
 #include "g_all_guis.h"
 
+#include "ceammc_gui.hpp"
+
 //GUI copied from pd source
 
 int tlbang_iemgui_color_hex[]=

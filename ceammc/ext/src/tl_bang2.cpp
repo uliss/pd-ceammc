@@ -16,6 +16,8 @@
 
 #include "tl_lib.hpp"
 
+#include "ceammc_gui.hpp"
+
 t_class *tl_bang2::ceammc_gui_pd_class;
 
 t_class *tl_bang2::get_pd_class(){return tl_bang2::ceammc_gui_pd_class;}
