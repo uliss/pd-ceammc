@@ -785,9 +785,11 @@ void PdUI::setElementValue(const char* label, float v)
 class lowshelf : public dsp {
   private:
 	FAUSTFLOAT 	fslider0;
-	float 	fConst0;
-	FAUSTFLOAT 	fslider1;
 	float 	fRec0_perm[4];
+	FAUSTFLOAT 	fslider1;
+	float 	fRec1_perm[4];
+	float 	fConst0;
+	float 	fRec2_perm[4];
 	int fSamplingFreq;
 
   public:
@@ -802,6 +804,8 @@ class lowshelf : public dsp {
 		m->declare("math.lib/author", "GRAME");
 		m->declare("math.lib/copyright", "GRAME");
 		m->declare("math.lib/license", "LGPL with exception");
+		m->declare("signal.lib/name", "Faust Signal Routing Library");
+		m->declare("signal.lib/version", "0.0");
 	}
 
 	virtual int getNumInputs() { return 1; }
@@ -818,6 +822,8 @@ class lowshelf : public dsp {
 	}
 	virtual void instanceClear() {
 		for (int i=0; i<4; i++) fRec0_perm[i]=0;
+		for (int i=0; i<4; i++) fRec1_perm[i]=0;
+		for (int i=0; i<4; i++) fRec2_perm[i]=0;
 	}
 	virtual void init(int samplingFreq) {
 		classInit(samplingFreq);
@@ -842,22 +848,21 @@ class lowshelf : public dsp {
 	}
 	virtual void compute (int count, FAUSTFLOAT** input, FAUSTFLOAT** output) {
 		float 	fRec0_tmp[64+4];
-		float 	fSlow0 = powf(10,(0.025f * float(fslider0)));
-		float 	fSlow1 = (fConst0 * max((float)0, float(fslider1)));
-		float 	fSlow2 = cosf(fSlow1);
-		float 	fSlow3 = ((fSlow0 + -1) * fSlow2);
-		float 	fSlow4 = (fSlow0 + fSlow3);
-		float 	fSlow5 = (sqrtf(fSlow0) * sinf(fSlow1));
-		float 	fSlow6 = ((fSlow4 + fSlow5) + 1);
-		float 	fSlow7 = (1.0f / fSlow6);
-		float 	fSlow8 = (fSlow4 + (1 - fSlow5));
-		float 	fSlow9 = ((fSlow0 + 1) * fSlow2);
-		float 	fSlow10 = (0 - (2 * ((fSlow0 + fSlow9) + -1)));
+		float 	fRec1_tmp[64+4];
+		float 	fZec0[64];
+		float 	fZec1[64];
+		float 	fZec2[64];
+		float 	fZec3[64];
+		float 	fZec4[64];
+		float 	fZec5[64];
+		float 	fZec6[64];
+		float 	fZec7[64];
+		float 	fRec2_tmp[64+4];
+		float 	fSlow0 = (0.001f * float(fslider0));
 		float* 	fRec0 = &fRec0_tmp[4];
-		float 	fSlow11 = (fSlow0 / fSlow6);
-		float 	fSlow12 = (2 * (fSlow0 + (-1 - fSlow9)));
-		float 	fSlow13 = ((fSlow0 + fSlow5) + (1 - fSlow3));
-		float 	fSlow14 = (fSlow0 + (1 - (fSlow3 + fSlow5)));
+		float 	fSlow1 = (0.001f * float(fslider1));
+		float* 	fRec1 = &fRec1_tmp[4];
+		float* 	fRec2 = &fRec2_tmp[4];
 		int index;
 		int fullcount = count;
 		for (index = 0; index <= fullcount - 64; index += 64) {
@@ -866,21 +871,94 @@ class lowshelf : public dsp {
 			FAUSTFLOAT* input0 = &input[0][index];
 			FAUSTFLOAT* output0 = &output[0][index];
 			// SECTION : 1
-			// LOOP 0x7f863845d540
+			// LOOP 0x7febca4a09e0
 			// pre processing
 			for (int i=0; i<4; i++) fRec0_tmp[i]=fRec0_perm[i];
 			// exec code
 			for (int i=0; i<count; i++) {
-				fRec0[i] = ((float)input0[i] - (fSlow7 * ((fSlow8 * fRec0[i-2]) + (fSlow10 * fRec0[i-1]))));
+				fRec0[i] = (fSlow0 + (0.999f * fRec0[i-1]));
 			}
 			// post processing
 			for (int i=0; i<4; i++) fRec0_perm[i]=fRec0_tmp[count+i];
 			
-			// SECTION : 2
-			// LOOP 0x7f863845d460
+			// LOOP 0x7febca4a1a10
+			// pre processing
+			for (int i=0; i<4; i++) fRec1_tmp[i]=fRec1_perm[i];
 			// exec code
 			for (int i=0; i<count; i++) {
-				output0[i] = (FAUSTFLOAT)(fSlow11 * ((fSlow12 * fRec0[i-1]) + ((fSlow13 * fRec0[i]) + (fSlow14 * fRec0[i-2]))));
+				fRec1[i] = (fSlow1 + (0.999f * fRec1[i-1]));
+			}
+			// post processing
+			for (int i=0; i<4; i++) fRec1_perm[i]=fRec1_tmp[count+i];
+			
+			// SECTION : 2
+			// LOOP 0x7febca4a2ca0
+			// exec code
+			for (int i=0; i<count; i++) {
+				fZec0[i] = powf(10,(0.025f * fRec0[i]));
+			}
+			
+			// LOOP 0x7febca4a35c0
+			// exec code
+			for (int i=0; i<count; i++) {
+				fZec1[i] = (fConst0 * max((float)0, fRec1[i]));
+			}
+			
+			// SECTION : 3
+			// LOOP 0x7febca4a34e0
+			// exec code
+			for (int i=0; i<count; i++) {
+				fZec2[i] = cosf(fZec1[i]);
+			}
+			
+			// LOOP 0x7febca4a5490
+			// exec code
+			for (int i=0; i<count; i++) {
+				fZec5[i] = (sqrtf(fZec0[i]) * sinf(fZec1[i]));
+			}
+			
+			// SECTION : 4
+			// LOOP 0x7febca4a4fc0
+			// exec code
+			for (int i=0; i<count; i++) {
+				fZec4[i] = ((fZec0[i] + -1) * fZec2[i]);
+			}
+			
+			// LOOP 0x7febca4a6170
+			// exec code
+			for (int i=0; i<count; i++) {
+				fZec6[i] = (fZec0[i] + fZec5[i]);
+			}
+			
+			// SECTION : 5
+			// LOOP 0x7febca4a3400
+			// exec code
+			for (int i=0; i<count; i++) {
+				fZec3[i] = (fZec2[i] * (fZec0[i] + 1));
+			}
+			
+			// LOOP 0x7febca4a6090
+			// exec code
+			for (int i=0; i<count; i++) {
+				fZec7[i] = ((fZec6[i] + fZec4[i]) + 1);
+			}
+			
+			// SECTION : 6
+			// LOOP 0x7febca4a2800
+			// pre processing
+			for (int i=0; i<4; i++) fRec2_tmp[i]=fRec2_perm[i];
+			// exec code
+			for (int i=0; i<count; i++) {
+				fRec2[i] = ((float)input0[i] - (((fRec2[i-1] * (0 - (2 * ((fZec0[i] + fZec3[i]) + -1)))) + (fRec2[i-2] * ((fZec0[i] + fZec4[i]) + (1 - fZec5[i])))) / fZec7[i]));
+			}
+			// post processing
+			for (int i=0; i<4; i++) fRec2_perm[i]=fRec2_tmp[count+i];
+			
+			// SECTION : 7
+			// LOOP 0x7febca4a0900
+			// exec code
+			for (int i=0; i<count; i++) {
+				output0[i] = (FAUSTFLOAT)((fZec0[i] * ((((fZec6[i] + (1 - fZec4[i])) * fRec2[i]) + (2 * (fRec2[i-1] * (fZec0[i] + (-1 - fZec3[i]))))) + (fRec2[i-2] * (fZec0[i] + (1 - (fZec5[i] + fZec4[i])))))) / fZec7[i]);
 			}
 			
 		}
@@ -890,21 +968,94 @@ class lowshelf : public dsp {
 			FAUSTFLOAT* input0 = &input[0][index];
 			FAUSTFLOAT* output0 = &output[0][index];
 			// SECTION : 1
-			// LOOP 0x7f863845d540
+			// LOOP 0x7febca4a09e0
 			// pre processing
 			for (int i=0; i<4; i++) fRec0_tmp[i]=fRec0_perm[i];
 			// exec code
 			for (int i=0; i<count; i++) {
-				fRec0[i] = ((float)input0[i] - (fSlow7 * ((fSlow8 * fRec0[i-2]) + (fSlow10 * fRec0[i-1]))));
+				fRec0[i] = (fSlow0 + (0.999f * fRec0[i-1]));
 			}
 			// post processing
 			for (int i=0; i<4; i++) fRec0_perm[i]=fRec0_tmp[count+i];
 			
-			// SECTION : 2
-			// LOOP 0x7f863845d460
+			// LOOP 0x7febca4a1a10
+			// pre processing
+			for (int i=0; i<4; i++) fRec1_tmp[i]=fRec1_perm[i];
 			// exec code
 			for (int i=0; i<count; i++) {
-				output0[i] = (FAUSTFLOAT)(fSlow11 * ((fSlow12 * fRec0[i-1]) + ((fSlow13 * fRec0[i]) + (fSlow14 * fRec0[i-2]))));
+				fRec1[i] = (fSlow1 + (0.999f * fRec1[i-1]));
+			}
+			// post processing
+			for (int i=0; i<4; i++) fRec1_perm[i]=fRec1_tmp[count+i];
+			
+			// SECTION : 2
+			// LOOP 0x7febca4a2ca0
+			// exec code
+			for (int i=0; i<count; i++) {
+				fZec0[i] = powf(10,(0.025f * fRec0[i]));
+			}
+			
+			// LOOP 0x7febca4a35c0
+			// exec code
+			for (int i=0; i<count; i++) {
+				fZec1[i] = (fConst0 * max((float)0, fRec1[i]));
+			}
+			
+			// SECTION : 3
+			// LOOP 0x7febca4a34e0
+			// exec code
+			for (int i=0; i<count; i++) {
+				fZec2[i] = cosf(fZec1[i]);
+			}
+			
+			// LOOP 0x7febca4a5490
+			// exec code
+			for (int i=0; i<count; i++) {
+				fZec5[i] = (sqrtf(fZec0[i]) * sinf(fZec1[i]));
+			}
+			
+			// SECTION : 4
+			// LOOP 0x7febca4a4fc0
+			// exec code
+			for (int i=0; i<count; i++) {
+				fZec4[i] = ((fZec0[i] + -1) * fZec2[i]);
+			}
+			
+			// LOOP 0x7febca4a6170
+			// exec code
+			for (int i=0; i<count; i++) {
+				fZec6[i] = (fZec0[i] + fZec5[i]);
+			}
+			
+			// SECTION : 5
+			// LOOP 0x7febca4a3400
+			// exec code
+			for (int i=0; i<count; i++) {
+				fZec3[i] = (fZec2[i] * (fZec0[i] + 1));
+			}
+			
+			// LOOP 0x7febca4a6090
+			// exec code
+			for (int i=0; i<count; i++) {
+				fZec7[i] = ((fZec6[i] + fZec4[i]) + 1);
+			}
+			
+			// SECTION : 6
+			// LOOP 0x7febca4a2800
+			// pre processing
+			for (int i=0; i<4; i++) fRec2_tmp[i]=fRec2_perm[i];
+			// exec code
+			for (int i=0; i<count; i++) {
+				fRec2[i] = ((float)input0[i] - (((fRec2[i-1] * (0 - (2 * ((fZec0[i] + fZec3[i]) + -1)))) + (fRec2[i-2] * ((fZec0[i] + fZec4[i]) + (1 - fZec5[i])))) / fZec7[i]));
+			}
+			// post processing
+			for (int i=0; i<4; i++) fRec2_perm[i]=fRec2_tmp[count+i];
+			
+			// SECTION : 7
+			// LOOP 0x7febca4a0900
+			// exec code
+			for (int i=0; i<count; i++) {
+				output0[i] = (FAUSTFLOAT)((fZec0[i] * ((((fZec6[i] + (1 - fZec4[i])) * fRec2[i]) + (2 * (fRec2[i-1] * (fZec0[i] + (-1 - fZec3[i]))))) + (fRec2[i-2] * (fZec0[i] + (1 - (fZec5[i] + fZec4[i])))))) / fZec7[i]);
 			}
 			
 		}
