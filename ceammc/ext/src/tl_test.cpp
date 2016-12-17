@@ -8,7 +8,7 @@
 
 
 
-#include "new_c_gui.h"
+#include "ceammc_gui.h"
 
 
 //t_object* pd_obj;

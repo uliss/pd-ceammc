@@ -2,7 +2,7 @@
 //  new_c_gui.h
 //  pd_ext
 //
-//  Created by Alex on 15/12/16.
+//  Created by Alex Nadzharov on 15/12/16.
 //
 //
 
@@ -11,10 +11,14 @@
 
 #include "m_pd.h"
 #include <string>
+#include <sstream>
 #include <vector>
 #include <map>
 
 #include "ceammc_draw_wrappers.h"
+#include "ceammc_named_atom.h"
+
+
 
 #pragma mark UI defines
 
@@ -32,11 +36,13 @@
 #define UI_Setup  gui_set_canvas(glist); gui_set_object((t_object*)z);
 
 
+
 typedef std::map<std::string,t_atom> cm_gui_properties_;
 
 class  cm_gui_properties: public cm_gui_properties_
 {
 public:
+    
     t_atom ui_property_get(std::string name)
     {
         t_atom ret = (*this)[name];
@@ -213,6 +219,16 @@ public:
         
     }
     
+    static void load_ext(t_object *x)
+    {
+        
+    }
+    
+    static void free_ext(t_object *x)
+    {
+        
+    }
+    
     static void *new_method(t_symbol *s, int argc, t_atom *argv)
     {
         printf("new method %lu",(long)cm_gui_object<U>::pd_class);
@@ -236,10 +252,7 @@ public:
     }
     
 
-    static void free_ext(t_object *x)
-    {
-        
-    }
+
     
     static void free_method(t_object *x)
     {
@@ -357,7 +370,7 @@ public:
         cm_gui_object<U>::w_erase(z, glist);
         cm_gui_object<U>::w_draw(z, glist);
         
-        printf("sel %d\n", UI_Pf("_selected"));
+        printf("sel %f\n", UI_Pf("_selected"));
     }
     
     static void w_vis(t_gobj *z, t_glist *glist,int vis)

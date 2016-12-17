@@ -13,7 +13,7 @@
 
 #include "tl_lib.hpp"
 
-#include "new_c_gui.h"
+#include "ceammc_gui.h"
 
 struct tl_bang : cm_gui_base_pd_object
 {
