@@ -191,6 +191,10 @@ ceammc_cxx_tl_extension(tl bang)
 ceammc_cxx_tl_extension(tl cue)
 ceammc_cxx_tl_extension(tl test)
 
+# GUI
+
+ceammc_cxx_tl_extension(ui keyboard1)
+
 # JSON
 
 ceammc_cxx11_extension(json object)

@@ -100,6 +100,8 @@ class t_namedatom
         return ret;
     }
     
+#pragma mark -
+    
     t_namedatom from_str(std::string str)
     {
         std::vector<std::string> str_list;

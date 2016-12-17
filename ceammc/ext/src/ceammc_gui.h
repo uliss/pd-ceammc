@@ -16,8 +16,62 @@
 #include <map>
 
 #include "ceammc_draw_wrappers.h"
-#include "ceammc_named_atom.h"
+//#include "ceammc_named_atom.h"
 
+
+
+//MOVE
+
+//#pragma gui extra
+
+//based on that:
+//https://github.com/CICM/CicmWrapper
+//Copyright (C) 2013-2015 Pierre Guillot - CICM - Universite Paris 8
+//The Cream Library in under the BSD2 License.
+
+//std::string  ui_x_obj_cnv_id (t_canvas *c1)
+//{
+//
+//    std::string ret;
+//    char buffer[MAXPDSTRING];
+//    
+//    sprintf(buffer,".x%lx.c", (long unsigned int) c1);
+//    ret = buffer;
+//    return ret;
+//    
+//    
+//}
+//std::string ui_x_obj_ui_id(t_object *x , std::string cls_name)
+//{
+//    
+//    std::string ret;
+//    char buffer[MAXPDSTRING];
+//    
+//    sprintf(buffer,"#%s%lx", cls_name.c_str(), (long unsigned int)x);
+//    ret = buffer;
+//    return ret;
+//    
+//}
+
+//void ui_x_bind(t_object *x, std::string cls_name, t_canvas *c1)
+//{
+//   
+//    
+//    // object symbol name
+//    
+////    sys_vgui("bind %s <Button-3> {+pdsend {%s mousedown %%x %%y %i}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name, EMOD_RIGHT);
+////    sys_vgui("bind %s <Button-2> {+pdsend {%s mousedown %%x %%y %i}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name, EMOD_RIGHT);
+////    sys_vgui("bind %s <Button-1> {+pdsend {%s mousedown %%x %%y %%s}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name);
+////    sys_vgui("bind %s <ButtonRelease> {+pdsend {%s mouseup %%x %%y %%s}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name);
+//    
+////    sys_vgui("bind %s <Motion> {+pdsend {%s mousemove %%x %%y %%s}}\n", ui_x_obj_cnv_id(c1).c_str(), ui_x_obj_ui_id(x,cls_name).c_str() );
+////    
+////    printf(" ** bind: %s %s \n", ui_x_obj_cnv_id(c1).c_str(), ui_x_obj_ui_id(x,cls_name).c_str());
+////
+////    sys_vgui("bind %s <Enter> {+pdsend {%s mouseenter}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name);
+////    sys_vgui("bind %s <Leave> {+pdsend {%s mouseleave}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name);
+//    
+//}
 
 
 #pragma mark UI defines
@@ -36,6 +90,7 @@
 #define UI_Setup  gui_set_canvas(glist); gui_set_object((t_object*)z);
 
 
+#pragma mark -
 
 typedef std::map<std::string,t_atom> cm_gui_properties_;
 
@@ -160,7 +215,7 @@ public:
     static std::string class_name;
 
     
-#pragma mark -
+
     static void ui_properties_init()
     {
         //printf("**property init default [%lu]\n", (long)this);
@@ -205,14 +260,12 @@ public:
         
     }
     
-    static void ui_properties_init_ext(cm_gui_properties *def_p)
-    {
-        
-    }
+    
     
 
     
 #pragma mark -
+#pragma mark 'extensions'
     
     static void new_ext(t_object *x, t_symbol *s, int argc, t_atom *argv)
     {
@@ -228,6 +281,13 @@ public:
     {
         
     }
+    
+    static void ui_properties_init_ext(cm_gui_properties *def_p)
+    {
+        
+    }
+    
+#pragma mark pd object instance
     
     static void *new_method(t_symbol *s, int argc, t_atom *argv)
     {
@@ -245,8 +305,11 @@ public:
         //printf("-new coords %d %d\n", t->te_xpix, t->te_ypix);
         
         cm_gui_object<U>::load_method(z, argv);
-        
         cm_gui_object<U>::new_ext(z, s, argc, argv);
+        
+        
+//        pd_bind((t_pd*)cm_gui_object<U>::pd_class, gensym(cm_gui_object<U>::class_name.c_str()));
+//        ui_x_bind(z, cm_gui_object<U>::class_name.c_str(), canvas_getcurrent() );
         
         return static_cast<void*>(z);
     }
@@ -282,7 +345,7 @@ public:
             t_atom a = values[i];
             if (a.a_type != it->second.a_type)
             {
-                printf("ERR broken object data");
+                printf("ERR broken object data\n");
                 
                 return false;
             }
@@ -345,19 +408,17 @@ public:
     
     
 #pragma mark -
-#pragma mark widgets
+#pragma mark standard widget methods
     
     
-
     static void w_draw(t_gobj *z, t_glist *glist)
     {
-        printf("w_draw stub");
-        
+        //printf("w_draw stub");
     }
     
     static void w_erase(t_gobj *z, t_glist *glist)
     {
-        printf("w_erase stub");
+        //printf("w_erase stub");
     }
     
     static void w_select(t_gobj *z, t_glist *glist, int selected)
@@ -393,7 +454,6 @@ public:
         *x2 = *x1 + UI_Pf("width");
         *y2 = *y1 + UI_Pf("height");
         
-        //printf ("getrect %d %d %d %d\n", *x1,*y1,*x2,*y2);
         
     }
     
@@ -404,16 +464,16 @@ public:
         UI_y += dy;
     }
     
-    static void w_testfunc()
-    {
-        printf("runs from P");
-    }
-    
-#pragma mark -
-    
 
+    
+#pragma mark extended ui methods
+static void wx_mousemove(t_object* x, t_symbol* s, int argc, t_atom* argv)
+    {
+        printf("!mousemove\n");
+    }
    
 
+#pragma mark -
     
 public:
     void setup(std::string _class_name)
@@ -439,7 +499,12 @@ public:
         
         cm_gui_object<U>::pd_class = cl;
         
-        cm_gui_object<U>::w_testfunc() ;
+        //cm_gui_object<U>::w_testfunc() ;
+        
+        
+        class_addmethod(cl, reinterpret_cast<t_method>(cm_gui_object<U>::wx_mousemove), gensym("mousemove"), A_GIMME,0);
+        
+        
         
         
     }
