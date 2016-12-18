@@ -1,8 +1,12 @@
 #include "ceammc.h"
 #include <m_pd.h>
-#include <stdlib.h>
-#include <vector>
-#include "json.hpp"
+
+//#include <stdlib.h>
+//#include <vector>
+//#include "json.hpp"
+
+#include "ceammc_json_objects.hpp"
+
 
 #define MIN(a, b)  (((a) < (b)) ? (a) : (b))
 
@@ -10,152 +14,93 @@ using json = nlohmann::json;
 
 t_class* json_object_class;
 
-typedef struct {t_symbol *symbol; json *object;} json_object_ptr;   //todo refcounter?
-std::vector<json_object_ptr> json_objects;
 
 struct t_json_object {
     t_object x_obj;
-    
+
     json *j_j;   //local
     t_symbol *j_name;
-    
+
     t_atom *out1;
     t_atom *out2;
-    
+
     t_outlet *outlet1, *outlet2;
 };
 
-static inline json from_atom(t_atom atom)
-{
-    json ret = json::object();
-    
-    int at1 = (int)atom.a_type;
-    ret["type"] = at1;
-    ret["symbol"] = atom.a_w.w_symbol->s_name;
-    ret["float"] = atom.a_w.w_float;
-    
-    return ret;
-}
 
-static inline t_atom from_json(json in1)
-{
-    t_atom ret;
-    
-    ret.a_type = A_SYMBOL;
-    ret.a_w.w_symbol = gensym("<>");
-    
-    if (in1.is_object())
-    {
-        int at1 = in1["type"];
-        ret.a_type = (t_atomtype)at1;
-        std::string sym = in1["symbol"];
-        ret.a_w.w_symbol = gensym(sym.c_str());
-        ret.a_w.w_float = in1["float"];
-    }
-    
-    return ret;
-}
-
-static inline t_atom from_json_string(json in1)
-{
-    t_atom ret;
-    
-    ret.a_type = A_SYMBOL;
-    ret.a_w.w_symbol = gensym("<>");
-    
-    if (in1.is_string())
-    {
-        std::string sym = in1;
-        ret.a_w.w_symbol = gensym(sym.c_str());
-    }
-    
-    return ret;
-}
-
-static inline std::string to_key(t_atom* atom)
-{
-    std::string key;
-    if (atom->a_type == A_FLOAT)
-    {
-        key = std::to_string((int)atom->a_w.w_float);
-    }
-    if (atom->a_type == A_SYMBOL)
-    {
-        key = atom->a_w.w_symbol->s_name;
-    }
-    return key;
-}
 
 static void json_object_set(t_json_object* x, t_symbol* s, int argc, t_atom* argv)
 {
     if (argc < 2 )
         return;
-    
+
     json arr = json::array();
-    
+
     for (int i=1;i<argc;i++)
     {
-        arr.push_back(from_atom(argv[i]));
+
+        arr.push_back(cm_json_from_atom(argv[i]));
     }
-    
+
     json j = *x->j_j;   //?
-    j[to_key(&argv[0]).c_str()] = arr;
+    j[cm_jsonkey_from_atom(&argv[0]).c_str()] = arr;
+
     *x->j_j = j;
-    
+
 }
 
 static void json_object_get(t_json_object* x, t_symbol* s, int argc, t_atom* argv)
 {
-    
+
     int l=0;
-    
+
     json j = *x->j_j;
-    json arr = j[to_key(&argv[0]).c_str()];
-    
+    json arr = j[cm_jsonkey_from_atom(&argv[0]).c_str()];
+
     l = (int)arr.size();
-    
+
     free(x->out1);
     x->out1 = (t_atom*) malloc(sizeof(t_atom)*(l));
-    
+
     for (int i=0;i<l;i++)
     {
         json j = arr[i];
-        x->out1[i] = from_json(j);
+        x->out1[i] = cm_atom_from_json(j);
     }
-    
+
     outlet_list(x->outlet1, &s_list, l,  x->out1);
-    
+
 }
 
 static void json_object_dump(t_json_object* x, t_symbol* s, int argc, t_atom* argv)
 {
     int l=0;
-    
+
     for (json::iterator it = x->j_j->begin(); it != x->j_j->end(); ++it)
     {
         json arr = it.value();
-        
+
         l = (int)arr.size()+1;
-        
+
         free(x->out1);
         x->out1 = (t_atom*) malloc(sizeof(t_atom)*(l));;
-        
-        x->out1[0] = from_json_string(it.key());
-        
+
+        x->out1[0] = cm_atom_from_json_string(it.key());
+
         for (int i=1;i<l;i++)
         {
             json j = arr[i-1];
-            x->out1[i] = from_json(j);
+            x->out1[i] = cm_atom_from_json(j);
         }
-        
+
         outlet_list(x->outlet2, &s_list, l,  x->out1);
     }
-    
+
 }
 
 static void json_object_delete(t_json_object* x, t_symbol* s, int argc, t_atom* argv)
 {
-    x->j_j->erase(to_key(&argv[0]).c_str());
+    x->j_j->erase(cm_jsonkey_from_atom(&argv[0]).c_str());
 }
 
 
@@ -166,7 +111,7 @@ static void json_object_clear(t_json_object* x, t_symbol* s, int argc, t_atom* a
 
 static void json_object_setobject(t_json_object* x, t_symbol* s, int argc, t_atom* argv)
 {
-    
+
     if (argv[0].a_type==A_SYMBOL){
         std::vector<json_object_ptr>::iterator it;
         for (it = json_objects.begin(); it != json_objects.end(); ++it)
@@ -178,17 +123,17 @@ static void json_object_setobject(t_json_object* x, t_symbol* s, int argc, t_ato
                 break;
             }
         }
-        
+
     }
     else
     {
         x->j_j = (json*)malloc(sizeof(json));
         *x->j_j = json::object();
         x->j_name = gensym("<local>");
-        
+
     }
-    
-    
+
+
 }
 
 static void json_object_getobject(t_json_object* x, t_symbol* s, int argc, t_atom* argv)
@@ -208,7 +153,7 @@ static void json_object_anything(t_json_object* x, t_symbol* s, int argc, t_atom
 {
     if (argc < 1 )
         return;
-    
+
     if (strcmp(s->s_name, "get")==0)
         json_object_get(x,s,argc,argv);
     if (strcmp(s->s_name, "set")==0)
@@ -217,25 +162,25 @@ static void json_object_anything(t_json_object* x, t_symbol* s, int argc, t_atom
         json_object_delete(x,s,argc,argv);
     if (strcmp(s->s_name, "setobject")==0)
         json_object_setobject(x,s,argc,argv);
-    
+
 }
 
 static void json_object_objectlist(t_json_object* x, t_symbol* s, int argc, t_atom* argv)
 {
     int l=0;
-    
+
     std::vector<json_object_ptr>::iterator it;
-    
+
     l = (int)json_objects.size()+1;
     free(x->out1);
     x->out1 = (t_atom*) malloc(sizeof(t_atom)*(l));;
-    
+
     t_atom hdr;
     hdr.a_type = A_SYMBOL;
     hdr.a_w.w_symbol = gensym("objectlist");
     x->out1[0] = hdr;
     int i=1;
-    
+
     for (it = json_objects.begin(); it != json_objects.end(); ++it)
     {
         t_atom sym;
@@ -251,9 +196,9 @@ static void json_object_objectlist(t_json_object* x, t_symbol* s, int argc, t_at
 static void* json_object_new(t_symbol *s, int argc, t_atom *argv)
 {
     t_json_object* x = reinterpret_cast<t_json_object*>(pd_new(json_object_class));
-    
+
     printf("argc %i\n",argc);
-    
+
     if (argc>0)
     {
         if (argv[0].a_type==A_SYMBOL){
@@ -266,18 +211,18 @@ static void* json_object_new(t_symbol *s, int argc, t_atom *argv)
                     break;
                 }
             }
-            
+
             if (it == json_objects.end())
             {
                 x->j_j = (json*)malloc(sizeof(json));
                 *x->j_j = json::object();
-                
+
                 json_object_ptr obj1;
                 obj1.symbol = gensym(argv[0].a_w.w_symbol->s_name);
                 obj1.object = x->j_j;
                 json_objects.push_back(obj1);
                 x->j_name = obj1.symbol;
-                
+
             }
         }
     }
@@ -287,12 +232,12 @@ static void* json_object_new(t_symbol *s, int argc, t_atom *argv)
         *x->j_j = json::object();
         x->j_name = gensym("<local>");
     }
-    
+
     x->out1 = (t_atom*)malloc(0);   //dummy
-    
+
     x->outlet1 = outlet_new(&x->x_obj, &s_list);
     x->outlet2 = outlet_new(&x->x_obj, &s_list);
-    
+
     return static_cast<void*>(x);
 }
 
@@ -305,12 +250,12 @@ extern "C" void setup_json0x2eobject()
                                   reinterpret_cast<t_method>(0),
                                   sizeof(t_json_object), CLASS_PATCHABLE, A_GIMME,0);
     class_addanything(json_object_class, json_object_anything);
-    
+
     class_addmethod(json_object_class, reinterpret_cast<t_method>(json_object_clear), gensym("clear"), A_NULL);
     class_addmethod(json_object_class, reinterpret_cast<t_method>(json_object_dump), gensym("dump"), A_NULL);
     class_addmethod(json_object_class, reinterpret_cast<t_method>(json_object_getobject), gensym("getobject"), A_NULL);
     class_addmethod(json_object_class, reinterpret_cast<t_method>(json_object_setobject), gensym("setobject"), A_GIMME);
     class_addmethod(json_object_class, reinterpret_cast<t_method>(json_object_objectlist), gensym("objectlist"), A_GIMME);
-    
-    
+
+
 }

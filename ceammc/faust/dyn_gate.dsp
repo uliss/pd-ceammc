@@ -1,9 +1,8 @@
 import("misceffect.lib");
-import("ceammc.lib");
 
-thresh = hslider("threshold", 40, 0, 100, 0.1) : db_pd2faust;
-atk = vslider("attack", 0.1, 0, 500, 0.1) : time_pd2faust;
-hold = vslider("hold", 100, 1, 500, 0.1) : time_pd2faust;
-rel = vslider("release", 20, 1, 500, 0.1) : time_pd2faust;
+thresh= hslider("thresh",-90,0,-40,0.1);
+atk = vslider("atk",0,5,.1,0.1);
+rel = vslider("rel",0,5,.1,0.1);
+hold = vslider("hold",0.1,5,.1,0.1);
 
-process = gate_mono(thresh, atk, hold, rel);
+process =  _,_ : gate_stereo(thresh,atk,hold,rel) : _,_;
