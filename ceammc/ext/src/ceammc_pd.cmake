@@ -59,7 +59,7 @@ endmacro()
 # file named "MODULE_NAME.dsp" should exists in ceammc/faust directory
 macro(ceammc_faust_extension module name ext)
     add_custom_target("faust_${module}_${name}"
-        COMMAND ${FAUST_BIN} -vec -vs 64 -i
+        COMMAND ${FAUST_BIN} -i
             -a ${CMAKE_SOURCE_DIR}/ceammc/faust/${ext}.cpp
             -cn ${name}
             "${CMAKE_SOURCE_DIR}/ceammc/faust/${module}_${name}.dsp"
