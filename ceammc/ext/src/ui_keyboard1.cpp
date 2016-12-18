@@ -66,6 +66,15 @@ kRect get_key_r(int number, int kWidth, int kHeight)
     return ret;
 }
 
+bool mouse_in_rect(int x, int y, kRect kr)
+{
+    return (x>kr.x) &&
+    x<(kr.x+kr.w) &&
+    y>(kr.y) &&
+    y<(kr.y+kr.h);
+    
+}
+
 UI_fun(ui_keyboard1)::wx_paint(t_object *z, t_object *view)
 {
     UI_Prop
@@ -101,7 +110,7 @@ UI_fun(ui_keyboard1)::wx_paint(t_object *z, t_object *view)
                 egraphics_fill(g);
                 
                 egraphics_rectangle(g, k.x, k.y, k.w, k.h);
-                egraphics_set_color_hex(g, gensym("#00C0FF"));
+                egraphics_set_color_hex(g, gensym((mouse_in_rect(UI_Pf("_mouse_x"), UI_Pf("_mouse_y"), k)) ? "#FF0000" : "#00C0FF"));
                 egraphics_stroke(g);
 
                 
@@ -110,7 +119,7 @@ UI_fun(ui_keyboard1)::wx_paint(t_object *z, t_object *view)
         
         for (int i = 0; i<numKeys; i++)
         {
-            kRect k = get_key_r(i, kWidth, UI_Pf("height"));
+            kRect k = get_key_r(i, kWidth, rect.height);
             
             if (k.is_black)
             {
@@ -122,7 +131,7 @@ UI_fun(ui_keyboard1)::wx_paint(t_object *z, t_object *view)
                 egraphics_fill(g);
                 
                 egraphics_rectangle(g, k.x, k.y, k.w, k.h);
-                egraphics_set_color_hex(g, gensym("#00C0FF"));
+                egraphics_set_color_hex(g, gensym((mouse_in_rect(UI_Pf("_mouse_x"), UI_Pf("_mouse_y"), k)) ? "#FF0000" : "#00C0FF"));
                 egraphics_stroke(g);
                 
             }
@@ -135,6 +144,10 @@ UI_fun(ui_keyboard1)::wx_paint(t_object *z, t_object *view)
     ebox_paint_layer((t_ebox *)z, bgl, 0., 0.);
 }
 
+UI_fun(ui_keyboard1)::init_ext(t_eclass *z)
+{
+    CLASS_ATTR_DEFAULT(z, "Key count", 0, "61");
+}
 
 UI_fun(ui_keyboard1)::new_ext(t_object *x, t_symbol *s, int argcl, t_atom *argv)
 {

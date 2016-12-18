@@ -230,6 +230,11 @@ public:
 #pragma mark -
 #pragma mark 'extensions'
     
+    static void init_ext(t_eclass *z)
+    {
+        
+    }
+    
     static void new_ext(t_object *x, t_symbol *s, int argcl, t_atom *argv)
     {
         
@@ -391,15 +396,6 @@ public:
 #pragma mark standard widget methods
     
     
-    //    static void w_draw(t_gobj *z, t_glist *glist)
-    //    {
-    //        printf("w_draw stub");
-    //    }
-    //
-    //    static void w_erase(t_gobj *z, t_glist *glist)
-    //    {
-    //        printf("w_erase stub");
-    //    }
     
     static void w_select(t_gobj *z, t_glist *glist, int selected)
     {
@@ -408,45 +404,21 @@ public:
         
         UI_Pset("_selected", selected);
         
-        //        cm_gui_object<U>::w_erase(z, glist);
-        //        cm_gui_object<U>::w_draw(z, glist);
         
         printf("sel %f\n", UI_Pf("_selected"));
     }
     
-    //    static void w_vis(t_gobj *z, t_glist *glist,int vis)
-    //    {
-    //        if (vis)
-    //            cm_gui_object<U>::w_draw(z, glist);
-    //        else
-    //            cm_gui_object<U>::w_erase(z, glist);
-    //
-    //    }
     
-    //    static void w_getrect(t_gobj *z, t_glist *glist, int *x1, int *y1, int *x2, int *y2)
-    //    {
-    //
-    //        //UI_Setup
-    //        UI_Prop
-    ////
-    ////        *x1 = UI_x;
-    ////        *y1 = UI_y;
-    //        *x2 = *x1 + UI_Pf("width");
-    //        *y2 = *y1 + UI_Pf("height");
-    //
-    //
-    //    }
-    
-    
-    //    static void w_displace(t_gobj *z, t_glist *glist, int dx, int dy)
-    //    {
-    ////        UI_x += dx;
-    ////        UI_y += dy;
-    //    }
     
     
     
 #pragma mark extended ui methods
+    
+    static void ws_redraw(t_object *x)
+    {
+        ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
+        ebox_redraw((t_ebox *)x);
+    }
     
     static void wx_paint(t_object *x, t_object *view)
     {
@@ -471,9 +443,87 @@ public:
         ebox_paint_layer((t_ebox *)x, bgl, 0., 0.);
     }
     
-    static void wx_mousemove(t_object* x, t_symbol* s, int argcl, t_atom* argv)
+    //static void bang_mousedown(t_bang *x, t_object *view, t_pt pt, long modifiers)
+    
+    static void wx_mousemove(t_object* z, t_object *view, t_pt pt, long modifiers)
     {
+        UI_Prop
+
+        UI_Pset("_mouse_x",pt.x);
+        UI_Pset("_mouse_y",pt.y);
+        
         printf("!mousemove\n");
+        printf("mouse %f %f\n",UI_Pf("_mouse_x"),UI_Pf("_mouse_y"));
+        
+        cm_gui_object<U>::wx_mousemove_ext(z,view,pt,modifiers);
+        
+    }
+    
+    static void wx_mousedown(t_object* z, t_object *view, t_pt pt, long modifiers)
+    {
+        printf("!mousedown\n");
+        
+        UI_Prop
+        
+        UI_Pset("_mouse_x",pt.x);
+        UI_Pset("_mouse_y",pt.y);
+        
+
+        
+        UI_Pset("_mouse_dn",1);
+        
+        cm_gui_object<U>::wx_mousedown_ext(z,view,pt,modifiers);
+            
+
+    }
+    
+    static void wx_mouseup(t_object* z, t_object *view, t_pt pt, long modifiers)
+    {
+        UI_Prop
+        
+        UI_Pset("_mouse_x",pt.x);
+        UI_Pset("_mouse_y",pt.y);
+        
+        printf("!mousedown\n");
+        
+        UI_Pset("_mouse_dn",0);
+        
+        cm_gui_object<U>::wx_mouseup_ext(z,view,pt,modifiers);
+    }
+    
+    static void wx_mousedrag(t_object* z, t_object *view, t_pt pt, long modifiers)
+    {
+        UI_Prop
+        
+        UI_Pset("_mouse_x",pt.x);
+        UI_Pset("_mouse_y",pt.y);
+        
+        printf("!mousedrag\n");
+        printf("mouse %f %f\n",UI_Pf("_mouse_x"),UI_Pf("_mouse_y"));
+        
+        cm_gui_object<U>::wx_mousedrag_ext(z,view,pt,modifiers);
+        
+    }
+    
+#pragma mark extensions
+    static void wx_mousemove_ext(t_object* z, t_object *view, t_pt pt, long modifiers)
+    {
+        cm_gui_object<U>::ws_redraw(z);
+    }
+    
+    static void wx_mousedown_ext(t_object* z, t_object *view, t_pt pt, long modifiers)
+    {
+    
+    }
+    
+    static void wx_mouseup_ext(t_object* z, t_object *view, t_pt pt, long modifiers)
+    {
+    
+    }
+    
+    static void wx_mousedrag_ext(t_object* z, t_object *view, t_pt pt, long modifiers)
+    {
+        
     }
     
     
@@ -508,40 +558,43 @@ public:
             
             // We intialize the attribute of the t_bang.
             // All the GUI classes has font attributes but we don't need them for the bang classe so we mark them invisible.
-            //            CLASS_ATTR_INVISIBLE            (cl, "fontname", 1);
-            //            CLASS_ATTR_INVISIBLE            (cl, "fontweight", 1);
-            //            CLASS_ATTR_INVISIBLE            (cl, "fontslant", 1);
-            //            CLASS_ATTR_INVISIBLE            (cl, "fontsize", 1);
+                        CLASS_ATTR_INVISIBLE            (cl, "fontname", 1);
+                        CLASS_ATTR_INVISIBLE            (cl, "fontweight", 1);
+                        CLASS_ATTR_INVISIBLE            (cl, "fontslant", 1);
+                        CLASS_ATTR_INVISIBLE            (cl, "fontsize", 1);
             //            // All the GUI classes has a size attribute, we just set up the default value.
             //            CLASS_ATTR_DEFAULT              (cl, "size", 0, "16. 16.");
             
-                        // We create a new t_rgba attribute that refers to the b_color_background member of the t_bang and that will match to
-                        // "bgcolor". The user will be able to change the background color with the "bgcolor" message.
-                        //CLASS_ATTR_RGBA                 (cl, "bgcolor", 0, U, b_color_background);
-                        // We set up the label that will be displayed in the properties window of the object for the attribute.
-                        CLASS_ATTR_LABEL                (cl, "bgcolor", 0, "Background Color");
-                        // We set up the order of the attribute in the properties window (this is unused for the moment).
-                        CLASS_ATTR_ORDER                (cl, "bgcolor", 0, "1");
-                        // We set up the the default value of the color. This macro also defines that the attribute will automatically call ebox_redraw when its value has changed and that its value will be saved with the patcher.
-                        CLASS_ATTR_DEFAULT_SAVE_PAINT   (cl, "bgcolor", 0, "0.75 0.75 0.75 1.");
-                        // We set up the that the attribute should be displayed as a color slector in the properties window.
-                        CLASS_ATTR_STYLE                (cl, "bgcolor", 0, "color");
-                        // We do the same thing for the border color and the bang color.
-                        //CLASS_ATTR_RGBA                 (cl, "bdcolor", 0, U, b_color_border);
-                        CLASS_ATTR_LABEL                (cl, "bdcolor", 0, "Border Color");
-                        CLASS_ATTR_ORDER                (cl, "bdcolor", 0, "2");
-                        CLASS_ATTR_DEFAULT_SAVE_PAINT   (cl, "bdcolor", 0, "0.5 0.5 0.5 1.");
-                        CLASS_ATTR_STYLE                (cl, "bdcolor", 0, "color");
+            // We create a new t_rgba attribute that refers to the b_color_background member of the t_bang and that will match to
+            // "bgcolor". The user will be able to change the background color with the "bgcolor" message.
+            //CLASS_ATTR_RGBA                 (cl, "bgcolor", 0, U, b_color_background);
+            // We set up the label that will be displayed in the properties window of the object for the attribute.
+            CLASS_ATTR_LABEL                (cl, "bgcolor", 0, "Background Color");
+            // We set up the order of the attribute in the properties window (this is unused for the moment).
+            CLASS_ATTR_ORDER                (cl, "bgcolor", 0, "1");
+            // We set up the the default value of the color. This macro also defines that the attribute will automatically call ebox_redraw when its value has changed and that its value will be saved with the patcher.
+            CLASS_ATTR_DEFAULT_SAVE_PAINT   (cl, "bgcolor", 0, "0.75 0.75 0.75 1.");
+            // We set up the that the attribute should be displayed as a color slector in the properties window.
+            CLASS_ATTR_STYLE                (cl, "bgcolor", 0, "color");
+            // We do the same thing for the border color and the bang color.
+            //CLASS_ATTR_RGBA                 (cl, "bdcolor", 0, U, b_color_border);
+            CLASS_ATTR_LABEL                (cl, "bdcolor", 0, "Border Color");
+            CLASS_ATTR_ORDER                (cl, "bdcolor", 0, "2");
+            CLASS_ATTR_DEFAULT_SAVE_PAINT   (cl, "bdcolor", 0, "0.5 0.5 0.5 1.");
+            CLASS_ATTR_STYLE                (cl, "bdcolor", 0, "color");
             
-                        //CLASS_ATTR_RGBA                 (cl, "bacolor", 0, U, b_color_bang);
-                        CLASS_ATTR_LABEL                (cl, "bacolor", 0, "Bang Color");
-                        CLASS_ATTR_ORDER                (cl, "bacolor", 0, "3");
-                        CLASS_ATTR_DEFAULT_SAVE_PAINT   (cl, "bacolor", 0, "0. 0. 0. 1.");
-                        CLASS_ATTR_STYLE                (cl, "bacolor", 0, "color");
+            //CLASS_ATTR_RGBA                 (cl, "bacolor", 0, U, b_color_bang);
+            CLASS_ATTR_LABEL                (cl, "bacolor", 0, "Bang Color");
+            CLASS_ATTR_ORDER                (cl, "bacolor", 0, "3");
+            CLASS_ATTR_DEFAULT_SAVE_PAINT   (cl, "bacolor", 0, "0. 0. 0. 1.");
+            CLASS_ATTR_STYLE                (cl, "bacolor", 0, "color");
             
             eclass_addmethod(cl, (method)(&cm_gui_object<U>::wx_paint), ("paint"), A_GIMME,0);
             
             eclass_addmethod(cl, (method)(&cm_gui_object<U>::wx_mousemove), ("mousemove"), A_GIMME,0);
+            eclass_addmethod(cl, (method)(&cm_gui_object<U>::wx_mousedown), ("mousedown"), A_GIMME,0);
+            eclass_addmethod(cl, (method)(&cm_gui_object<U>::wx_mouseup), ("mouseup"), A_GIMME,0);
+            eclass_addmethod(cl, (method)(&cm_gui_object<U>::wx_mousedrag), ("mousedrag"), A_GIMME,0);
             
             //
             //cl->c_widget.w_save = &cm_gui_object<U>::save_method;
@@ -552,7 +605,9 @@ public:
             
             cm_gui_object<U>::pd_class = cl;
             
-            //eclass_register(CLASS_BOX, cl);
+            cm_gui_object<U>::init_ext(cl);
+            
+            eclass_register(CLASS_BOX, cl);
             
             
             printf("gui init (%lu)\n",(long)cl);
