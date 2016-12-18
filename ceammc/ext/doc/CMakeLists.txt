@@ -6,13 +6,66 @@ find_program(PD_CAT2PD pd_cat2pd)
 set(DOC_FILES
     dyn.comp~
     dyn.comp2~
+    dyn.gate~
+    dyn.gate2~
+    dyn.limit~
+    dyn.limit2~
+    env.ar~
+    env.adsr~
+    flt.dcblock~
+    flt.dcblock2~
+    flt.highshelf~
+    flt.lowshelf~
+    flt.eq_peak~
+    fx.softclip~
     is_any
     is_bang
     is_float
+    is_odd
+    is_pointer
     is_symbol
     is_list
     is_even
+    live.capture~
     list.apply_to
+    list.sort
+    lfo.impulse~
+    lfo.square~
+    lfo.tri~
+    math.abs
+    math.acos
+    math.acosh
+    math.asin
+    math.asinh
+    math.atan
+    math.atanh
+    math.cbrt
+    math.ceil
+    math.cos
+    math.cosh
+    math.e
+    math.exp
+    math.exp2
+    math.floor
+    math.inf
+    math.log
+    math.log10
+    math.log2
+    math.nan
+    math.pi
+    math.round
+    math.sin
+    math.sinh
+    math.sqrt
+    math.tan
+    math.tanh
+    math.trunc
+    osc.impulse~
+    osc.pulse~
+    osc.saw~
+    osc.sinfb~
+    osc.square~
+    osc.tri~
     system.memsize
     system.memused)
 
@@ -37,6 +90,7 @@ else()
                  --force
                  --version "${CEAMMC_LIB_VERSION}"
                  --website "${CEAMMC_LIB_HOME}"
+                 --xlet-db "ceammc.db"
                 "${f}.pddoc" ${fname}
             WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
     endforeach()

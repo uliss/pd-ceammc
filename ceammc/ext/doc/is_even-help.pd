@@ -6,8 +6,8 @@
 #X obj 610 11 is_even;
 #X floatatom 50 118 5 0 0 0 - - -;
 #X obj 50 147 is_even;
-#X floatatom 50 176 5 0 0 0 - - -;
-#X obj 174 176 print passed;
+#X obj 50 176 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X floatatom 98 176 5 0 0 0 - - -;
 #X obj 20 215 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 220 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
 0;
@@ -16,15 +16,15 @@
 #X text 230 225 outputs '1' if number can be divided exactly by 2 \,
 otherwise '0';
 #X text 150 257 *float*;
-#X text 230 257 value converted to integer \, then the check is
+#X text 230 257 first value converted to integer \, then the check is
 performed;
-#X obj 20 285 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 290 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
+#X obj 20 299 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 304 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;
-#X text 125 295 1\.;
-#X text 230 295 0 or 1;
-#X text 125 313 2\.;
-#X text 230 313 passed even numbers;
+#X text 125 309 1\.;
+#X text 230 309 0 or 1;
+#X text 125 327 2\.;
+#X text 230 327 passed even numbers;
 #X obj 10 45 pddp/pddplink ../index-help.pd -text index;
 #X text 51 45 ::;
 #X obj 67 45 pddp/pddplink ceammc-help.pd -text ceammc;

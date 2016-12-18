@@ -7,12 +7,179 @@
     <entry descr="mono dynamic range compressors" name="dyn.comp~">
       <xi:include href="dyn.comp~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="stereo signal gate" name="dyn.gate2~">
+      <xi:include href="dyn.gate2~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="mono signal gate" name="dyn.gate~">
+      <xi:include href="dyn.gate~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="stereo 1176LN Peak Limiter" name="dyn.limit2~">
+      <xi:include href="dyn.limit2~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="mono 1176LN Peak Limiter" name="dyn.limit~">
+      <xi:include href="dyn.limit~.pddoc" parse="xml"/>
+    </entry>
+  </category>
+  <category name="env">
+    <entry descr="ADSR (Attack, Decay, Sustain, Release) envelope generator" name="env.adsr~">
+      <xi:include href="env.adsr~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="AR (Attack, Release) envelope generator (useful to create percussion envelopes)." name="env.ar~">
+      <xi:include href="env.ar~.pddoc" parse="xml"/>
+    </entry>
+  </category>
+  <category name="flt">
+    <entry descr="stereo DC blocker" name="flt.dcblock2~">
+      <xi:include href="flt.dcblock2~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="mono DC blocker" name="flt.dcblock~">
+      <xi:include href="flt.dcblock~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="second order &quot;peaking equalizer&quot; section (gain boost or cut near some frequency).&#10;            Also called a &quot;parametric equalizer&quot; section." name="flt.eq_peak~">
+      <xi:include href="flt.eq_peak~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="gain boost|cut above some frequency" name="flt.highshelf~">
+      <xi:include href="flt.highshelf~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="gain boost|cut below some frequency" name="flt.lowshelf~">
+      <xi:include href="flt.lowshelf~.pddoc" parse="xml"/>
+    </entry>
+  </category>
+  <category name="fx">
+    <entry descr="soft signal clip" name="fx.softclip~">
+      <xi:include href="fx.softclip~.pddoc" parse="xml"/>
+    </entry>
+  </category>
+  <category name="lfo">
+    <entry descr="Unit-amplitude low-frequency impulse train" name="lfo.impulse~">
+      <xi:include href="lfo.impulse~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="Positive low frequence square wave" name="lfo.square~">
+      <xi:include href="lfo.square~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="Positive unit-amplitude low frequency triangle wave" name="lfo.tri~">
+      <xi:include href="lfo.tri~.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="list">
     <entry descr="modifies list value at specified position, filtering it via external object." name="list.apply_to">
       <xi:include href="list.apply_to.pddoc" parse="xml"/>
     </entry>
+    <entry descr="sorts list values by ascending order" name="list.sort">
+      <xi:include href="list.sort.pddoc" parse="xml"/>
+    </entry>
     <xi:include href="ceammc_category_list.xml" parse="xml"/>
+  </category>
+  <category name="live">
+    <entry descr="record up to 8s of sound and playback the recorded sound in loop" name="live.capture~">
+      <xi:include href="live.capture~.pddoc" parse="xml"/>
+    </entry>
+  </category>
+  <category name="math">
+    <entry descr="absolute value function" name="math.abs">
+      <xi:include href="math.abs.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="arc cosine function" name="math.acos">
+      <xi:include href="math.acos.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="inverse hyperbolic cosine function" name="math.acosh">
+      <xi:include href="math.acosh.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="arc sine function" name="math.asin">
+      <xi:include href="math.asin.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="inverse hyperbolic sine function" name="math.asinh">
+      <xi:include href="math.asinh.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="arc tangent function" name="math.atan">
+      <xi:include href="math.atan.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="inverse hyperbolic tangent function" name="math.atanh">
+      <xi:include href="math.atanh.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="cube root function" name="math.cbrt">
+      <xi:include href="math.cbrt.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="round to smallest integral value not less than input value" name="math.ceil">
+      <xi:include href="math.ceil.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="cosine function" name="math.cos">
+      <xi:include href="math.cos.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="hyperbolic cosine function" name="math.cosh">
+      <xi:include href="math.cosh.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="mathematical constant, base of the natural logarithm" name="math.e">
+      <xi:include href="math.e.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="exponential functions" name="math.exp">
+      <xi:include href="math.exp.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="exponential functions" name="math.exp2">
+      <xi:include href="math.exp2.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="round to largest integral value not greater than x" name="math.floor">
+      <xi:include href="math.floor.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="infinity value that cannot be represented accurately" name="math.inf">
+      <xi:include href="math.inf.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="logarithm functions" name="math.log">
+      <xi:include href="math.log.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="logarithm functions" name="math.log10">
+      <xi:include href="math.log10.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="logarithm functions" name="math.log2">
+      <xi:include href="math.log2.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="Not a Number, unrepresentable value" name="math.nan">
+      <xi:include href="math.nan.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="mathematical constant" name="math.pi">
+      <xi:include href="math.pi.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="round to integral value, regardless of rounding direction" name="math.round">
+      <xi:include href="math.round.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="sine function" name="math.sin">
+      <xi:include href="math.sin.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="hyperbolic sine function" name="math.sinh">
+      <xi:include href="math.sinh.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="square root function" name="math.sqrt">
+      <xi:include href="math.sqrt.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="tangent function" name="math.tan">
+      <xi:include href="math.tan.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="hyperbolic tangent function" name="math.tanh">
+      <xi:include href="math.tanh.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="truncate to integer value" name="math.trunc">
+      <xi:include href="math.trunc.pddoc" parse="xml"/>
+    </entry>
+  </category>
+  <category name="osc">
+    <entry descr="Bandlimited impulse train generator" name="osc.impulse~">
+      <xi:include href="osc.impulse~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="Bandlimited pulse train oscillator. " name="osc.pulse~">
+      <xi:include href="osc.pulse~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="Bandlimited saw wave oscillator" name="osc.saw~">
+      <xi:include href="osc.saw~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="sine oscilator with feedback" name="osc.sinfb~">
+      <xi:include href="osc.sinfb~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="Bandlimited square wave oscillator" name="osc.square~">
+      <xi:include href="osc.square~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="Bandlimited triangle wave oscillator" name="osc.tri~">
+      <xi:include href="osc.tri~.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="predicates">
     <entry descr="checks if input data has *any* type" name="is_any">
@@ -29,6 +196,12 @@
     </entry>
     <entry descr="checks if input data has *list* type" name="is_list">
       <xi:include href="is_list.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="checks if input number is odd" name="is_odd">
+      <xi:include href="is_odd.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="checks if input data has *pointer* type" name="is_pointer">
+      <xi:include href="is_pointer.pddoc" parse="xml"/>
     </entry>
     <entry descr="checks if input data has *symbol* type" name="is_symbol">
       <xi:include href="is_symbol.pddoc" parse="xml"/>

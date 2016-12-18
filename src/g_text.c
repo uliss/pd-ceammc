@@ -119,6 +119,8 @@ static void canvas_objtext(t_glist *gl, int xpix, int ypix, int width,
     x->te_ypix = ypix;
     x->te_width = width;
     x->te_type = T_OBJECT;
+    printf("binbuf obj @(%lu) %lu\n | %d %d\n",x, &x->te_xpix, x->te_xpix, x->te_ypix);
+    
     glist_add(gl, &x->te_g);
     if (selected)
     {

@@ -19,7 +19,7 @@
         <inlets>
             <inlet>
                 <xinfo on="int">outputs '1' if number can be divided exactly by 2, otherwise '0'</xinfo>
-                <xinfo on="float">value converted to integer, then the check is performed</xinfo>
+                <xinfo on="float">first value converted to integer, then the check is performed</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -28,14 +28,13 @@
         </outlets>
         <example>
             <pdascii>
-                <![CDATA[
-[floatatom]
+<![CDATA[
+[F]
 |
 [is_even     ]
-|           ^|
-[floatatom]  [print passed]
-
-                ]]>
+|    ^|
+[_]  [F]
+]]>
             </pdascii>
         </example>
     </object>

@@ -8,7 +8,6 @@
 //
 
 
-
 #include <iostream>
 
 #include "tl_lib.hpp"
@@ -41,6 +40,7 @@ UI_fun(tl_bang)::w_draw(t_gobj *z, t_glist *glist)
                 "#000000", "#F0F0F0", 1.0f);
     
 }
+
 //
 UI_fun(tl_bang)::w_erase(t_gobj *z, t_glist *glist)
 {

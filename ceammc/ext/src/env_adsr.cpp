@@ -3,28 +3,12 @@
 static void* faust_new(t_symbol* s, int argc, t_atom* argv)
 {
     t_faust* x = reinterpret_cast<t_faust*>(pd_new(faust_class));
-
-    const char* id = NULL;
-    get_nth_symbol_arg(argc, argv, 1, &id);
-    faust_new_internal(x, id);
-
-    t_float attack = 0.01;
-    get_nth_float_arg(argc, argv, 1, &attack);
-    x->ui->setElementValue("attack", attack);
-
-    t_float decay = 0.1;
-    get_nth_float_arg(argc, argv, 2, &decay);
-    x->ui->setElementValue("decay", decay);
-
-    t_float sustain = 0.5;
-    get_nth_float_arg(argc, argv, 3, &sustain);
-    x->ui->setElementValue("sustain", sustain);
-
-    t_float release = 1;
-    get_nth_float_arg(argc, argv, 4, &release);
-    x->ui->setElementValue("release", release);
-
-    return x;
+    PdArgParser p(x, argc, argv);
+    p.initFloatArg("attack", 1);
+    p.initFloatArg("decay", 2);
+    p.initFloatArg("sustain", 3);
+    p.initFloatArg("release", 4);
+    return p.pd_obj();
 }
 
 extern "C" void setup_env0x2eadsr_tilde()

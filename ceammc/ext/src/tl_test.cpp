@@ -2,7 +2,7 @@
 //  tl_test.cpp
 //  
 //
-//  Created by Alex on 15/12/16.
+//  Created by Alex Nadzharov on 15/12/16.
 //
 //
 
@@ -10,9 +10,6 @@
 
 #include "ceammc_gui.h"
 
-
-//t_object* pd_obj;
-//t_class* pd_class;
 
 struct test_obj1 : cm_gui_base_pd_object
 {

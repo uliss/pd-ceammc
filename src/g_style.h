@@ -29,7 +29,7 @@
 #define STYLE_CANVAS_GOP_RECT_COLOR "#ff8080"
 
 static inline int style_cord_width(t_canvas* x, t_object* ob, int closest) {
-    return (obj_issignaloutlet(ob, closest) ? 2 : 1); // * x->gl_zoom;
+    return (obj_issignaloutlet(ob, closest) ? 2 : 1) * x->gl_zoom;
 }
 
 static inline int style_border_width(t_glist * glist) {

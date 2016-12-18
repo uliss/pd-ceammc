@@ -515,6 +515,9 @@ public:
     virtual void closeBox();
 
     virtual void run();
+public:
+    ui_elem_t* findElementByLabel(const char* label);
+    void setElementValue(const char* label, float v);
 };
 
 static std::string mangle(const char* name, int level, const char* s)
@@ -735,6 +738,29 @@ void PdUI::closeBox()
 
 void PdUI::run() {}
 
+static int pathcmp(const char* s, const char* t);
+ui_elem_t* PdUI::findElementByLabel(const char* label)
+{
+    if (!elems)
+        return NULL;
+
+    for (int i = 0; i < nelems; i++) {
+        if(pathcmp(elems[i].label, label) == 0)
+            return &elems[i];
+    }
+
+    return NULL;
+}
+
+void PdUI::setElementValue(const char* label, float v)
+{
+    ui_elem_t* el = findElementByLabel(label);
+    if(!el) return;
+
+    if(el->min <= v && v <= el->max)
+        *el->zone = v;
+}
+
 /******************************************************************************
 *******************************************************************************
 
@@ -817,7 +843,7 @@ class impulse : public dsp {
 			FAUSTFLOAT* input0 = &input[0][index];
 			FAUSTFLOAT* output0 = &output[0][index];
 			// SECTION : 1
-			// LOOP 0x7fc53bd602e0
+			// LOOP 0x7fe680c1ad70
 			// pre processing
 			for (int i=0; i<4; i++) fRec0_tmp[i]=fRec0_perm[i];
 			// exec code
@@ -829,7 +855,7 @@ class impulse : public dsp {
 			for (int i=0; i<4; i++) fRec0_perm[i]=fRec0_tmp[count+i];
 			
 			// SECTION : 2
-			// LOOP 0x7fc53bd60200
+			// LOOP 0x7fe680c1ac90
 			// exec code
 			for (int i=0; i<count; i++) {
 				output0[i] = (FAUSTFLOAT)((fRec0[i] - fRec0[i-1]) < 0);
@@ -842,7 +868,7 @@ class impulse : public dsp {
 			FAUSTFLOAT* input0 = &input[0][index];
 			FAUSTFLOAT* output0 = &output[0][index];
 			// SECTION : 1
-			// LOOP 0x7fc53bd602e0
+			// LOOP 0x7fe680c1ad70
 			// pre processing
 			for (int i=0; i<4; i++) fRec0_tmp[i]=fRec0_perm[i];
 			// exec code
@@ -854,7 +880,7 @@ class impulse : public dsp {
 			for (int i=0; i<4; i++) fRec0_perm[i]=fRec0_tmp[count+i];
 			
 			// SECTION : 2
-			// LOOP 0x7fc53bd60200
+			// LOOP 0x7fe680c1ac90
 			// exec code
 			for (int i=0; i<count; i++) {
 				output0[i] = (FAUSTFLOAT)((fRec0[i] - fRec0[i-1]) < 0);
@@ -892,6 +918,7 @@ struct t_faust {
     std::string* label;
     int active, xfade, n_xfade, rate, n_in, n_out;
     t_sample **inputs, **outputs, **buf;
+    t_outlet* out;
     t_sample f;
 };
 
@@ -1020,87 +1047,370 @@ static int pathcmp(const char* s, const char* t)
         return strcmp(s + n - m, t);
 }
 
-static void faust_free(t_faust* x)
+
+static void faust_any(t_faust* x, t_symbol* s, int argc, t_atom* argv)
 {
-    if (x->label)
-        delete x->label;
-    if (x->dsp)
-        delete x->dsp;
-    if (x->ui)
-        delete x->ui;
-    if (x->inputs)
-        free(x->inputs);
-    if (x->outputs)
-        free(x->outputs);
+    if (!x->dsp)
+        return;
+    PdUI* ui = x->ui;
+    if (s == &s_bang) {
+        for (int i = 0; i < ui->nelems; i++)
+            if (ui->elems[i].label && ui->elems[i].zone) {
+                t_atom args[6];
+                t_symbol* _s;
+                switch (ui->elems[i].type) {
+                case UI_BUTTON:
+                    _s = s_button;
+                    break;
+                case UI_CHECK_BUTTON:
+                    _s = s_checkbox;
+                    break;
+                case UI_V_SLIDER:
+                    _s = s_vslider;
+                    break;
+                case UI_H_SLIDER:
+                    _s = s_hslider;
+                    break;
+                case UI_NUM_ENTRY:
+                    _s = s_nentry;
+                    break;
+                case UI_V_BARGRAPH:
+                    _s = s_vbargraph;
+                    break;
+                case UI_H_BARGRAPH:
+                    _s = s_hbargraph;
+                    break;
+                default:
+                    continue;
+                }
+                SETSYMBOL(&args[0], gensym(ui->elems[i].label));
+                SETFLOAT(&args[1], *ui->elems[i].zone);
+                SETFLOAT(&args[2], ui->elems[i].init);
+                SETFLOAT(&args[3], ui->elems[i].min);
+                SETFLOAT(&args[4], ui->elems[i].max);
+                SETFLOAT(&args[5], ui->elems[i].step);
+                if(x->out) {
+                    outlet_anything(x->out, _s, 6, args);
+                }
+            }
+    } else {
+        const char* label = s->s_name;
+        int count = 0;
+        for (int i = 0; i < ui->nelems; i++)
+            if (ui->elems[i].label && pathcmp(ui->elems[i].label, label) == 0) {
+                if (argc == 0) {
+                    if (ui->elems[i].zone) {
+                        t_atom arg;
+                        SETFLOAT(&arg, *ui->elems[i].zone);
+                        if(x->out) {
+                            outlet_anything(x->out, gensym(ui->elems[i].label), 1, &arg);
+                        }
+                    }
+                    ++count;
+                } else if (argc == 1 && (argv[0].a_type == A_FLOAT || argv[0].a_type == A_DEFFLOAT) && ui->elems[i].zone) {
+                    float f = atom_getfloat(argv);
+                    *ui->elems[i].zone = f;
+                    ++count;
+                } else
+                    pd_error(x, "[ceammc] %s: bad control argument: %s",
+                        x->label->c_str(), label);
+            }
+        if (count == 0 && strcmp(label, "active") == 0) {
+            if (argc == 0) {
+                t_atom arg;
+                SETFLOAT(&arg, (float)x->active);
+                if(x->out) {
+                    outlet_anything(x->out, gensym("active"), 1, &arg);
+                }
+            } else if (argc == 1 && (argv[0].a_type == A_FLOAT || argv[0].a_type == A_DEFFLOAT)) {
+                float f = atom_getfloat(argv);
+                x->active = (int)f;
+                x->xfade = x->n_xfade;
+            }
+        }
+    }
+}
+
+static void faust_free_label(t_faust* x) { delete x->label; x->label = NULL; }
+static void faust_free_dsp(t_faust* x) { delete x->dsp; x->dsp = NULL; }
+static void faust_free_ui(t_faust* x) { delete x->ui; x->ui = NULL; }
+
+static void faust_free_inputs(t_faust* x) {
+    if(x->inputs) free(x->inputs);
+    x->inputs = NULL;
+}
+
+static void faust_free_outputs(t_faust* x) {
+    if(x->outputs) free(x->outputs);
+    x->outputs = NULL;
+}
+
+static void faust_free_buf(t_faust* x) {
     if (x->buf) {
-        for (int i = 0; i < x->n_out; i++)
-            if (x->buf[i])
-                free(x->buf[i]);
+        for (int i = 0; i < x->n_out; i++) {
+            if (x->buf[i]) free(x->buf[i]);
+        }
+
         free(x->buf);
     }
 }
 
-static void* faust_new(t_symbol* s, int argc, t_atom* argv)
+
+static void faust_free(t_faust* x)
 {
-    t_faust* x = (t_faust*)pd_new(faust_class);
-    int sr = -1;
-    t_symbol* id = NULL;
-    x->active = 1;
-    for (int i = 0; i < argc; i++) {
-        if (argv[i].a_type == A_SYMBOL || argv[i].a_type == A_DEFSYMBOL)
-            id = argv[i].a_w.w_symbol;
-    }
+    faust_free_label(x);
+    faust_free_dsp(x);
+    faust_free_ui(x);
+    faust_free_inputs(x);
+    faust_free_outputs(x);
+    faust_free_buf(x);
+}
 
-    if (sr <= 0)
-        sr = 44100;
-    x->xfade = 0;
-    x->n_xfade = static_cast<int>(sr * XFADE_TIME / 64);
-    x->inputs = x->outputs = x->buf = NULL;
-    x->label = new std::string(sym(impulse) "~");
-    x->dsp = new impulse();
-    x->ui = new PdUI(sym(impulse), id ? id->s_name : NULL);
-    if (!x->dsp || !x->ui || !x->label)
-        goto error;
-    if (id) {
-        *x->label += " ";
-        *x->label += id->s_name;
-    }
-
+static bool faust_init_inputs(t_faust* x) {
+    x->inputs = NULL;
     x->n_in = x->dsp->getNumInputs();
-    x->n_out = x->dsp->getNumOutputs();
 
-    if (x->n_in > 0)
-        x->inputs = static_cast<t_sample**>(malloc(x->n_in * sizeof(t_sample*)));
+    if (x->n_in > 0) {
+        x->inputs = static_cast<t_sample**>(calloc(x->n_in, sizeof(t_sample*)));
 
-    if (x->n_out > 0) {
-        x->outputs = static_cast<t_sample**>(malloc(x->n_out * sizeof(t_sample*)));
-        x->buf = static_cast<t_sample**>(malloc(x->n_out * sizeof(t_sample*)));
+        if(x->inputs == NULL) {
+            error("[ceammc] faust_init_inputs failed");
+            return false;
+        }
     }
 
-    if ((x->n_in > 0 && x->inputs == NULL) || (x->n_out > 0 && (x->outputs == NULL || x->buf == NULL)))
-        goto error;
-
-    for (int i = 0; i < x->n_out; i++)
-        x->buf[i] = NULL;
-
-    x->dsp->init(sr);
-    x->dsp->buildUserInterface(x->ui);
-
-    // creating sound inlets (except first one)
+    // creating sound inlets (except the first one!)
     for (int i = 0; i < (x->n_in - 1); i++) {
         inlet_new(&x->x_obj, &x->x_obj.ob_pd, &s_signal, &s_signal);
     }
+
+    return true;
+}
+
+static bool faust_init_outputs(t_faust* x, bool info_outlet) {
+    x->outputs = NULL;
+    x->buf = NULL;
+
+    x->n_out = x->dsp->getNumOutputs();
+
+    if (x->n_out > 0) {
+        x->outputs = static_cast<t_sample**>(calloc(x->n_out, sizeof(t_sample*)));
+        if(x->outputs == NULL) {
+            error("[ceammc] faust_init_outputs failed");
+            return false;
+        }
+
+        x->buf = static_cast<t_sample**>(calloc(x->n_out, sizeof(t_sample*)));
+        if(x->buf == NULL) {
+            error("[ceammc] faust_init_outputs failed");
+            faust_free_outputs(x);
+            return false;
+        }
+
+//        for (int i = 0; i < x->n_out; i++)
+//            x->buf[i] = NULL;
+    }
+
 
     // creating sound outlets
     for (int i = 0; i < x->n_out; i++) {
         outlet_new(&x->x_obj, &s_signal);
     }
 
-    return x;
-error:
-    faust_free(x);
-    x->dsp = NULL;
-    x->ui = NULL;
-    x->inputs = x->outputs = x->buf = NULL;
-    return x;
+    // control outlet
+    if(info_outlet)
+        x->out = outlet_new(&x->x_obj, 0);
+    else
+        x->out = 0;
+
+    return true;
 }
+
+static void faust_init_label(t_faust* x, const char* obj_id) {
+    x->label = new std::string(sym(impulse) "~");
+
+    // label settings
+    if (obj_id) {
+        *x->label += " ";
+        *x->label += obj_id;
+    }
+}
+
+static bool faust_new_internal(t_faust* x, const char* obj_id = NULL, bool info_outlet = true) {
+    int sr = 44100;
+    x->active = 1;
+    x->xfade = 0;
+    x->n_xfade = static_cast<int>(sr * XFADE_TIME / 64);
+
+    x->dsp = new impulse();
+    x->ui = new PdUI(sym(impulse), obj_id);
+
+    faust_init_label(x, obj_id);
+
+    if(!faust_init_inputs(x)) {
+        faust_free(x);
+        return false;
+    }
+
+    if(!faust_init_outputs(x, info_outlet)) {
+        faust_free(x);
+        return false;
+    }
+
+    x->dsp->init(sr);
+    x->dsp->buildUserInterface(x->ui);
+
+    return true;
+}
+
+/**
+ * find nth element that satisfies given predicate
+ * @first - first element of sequence
+ * @last - pointer behind last element of sequence
+ * @Nth - searched element index
+ * @pred - predicate
+ * @return pointer to found element or pointer to @bold last, if not found
+ */
+template<class InputIterator, class NthOccurence, class UnaryPredicate>
+InputIterator find_nth_if(InputIterator first, InputIterator last, NthOccurence Nth, UnaryPredicate pred)
+{
+    if (Nth > 0)
+        while (first != last) {
+            if (pred(*first))
+                if (!--Nth)
+                    return first;
+            ++first;
+        }
+    return last;
+}
+
+/**
+ * @return true if given atom is a float
+ */
+static bool atom_is_float(const t_atom& a) {
+    switch(a.a_type) {
+        case A_FLOAT:
+        case A_DEFFLOAT:
+            return true;
+        default:
+            return false;
+    }
+}
+
+/**
+ * @return true if given atom is a symbol
+ */
+static bool atom_is_symbol(const t_atom& a) {
+    switch(a.a_type) {
+        case A_DEFSYMBOL:
+        case A_SYMBOL:
+            return true;
+        default:
+            return false;
+    }
+}
+
+/**
+ * @brief find nth float in argument list. (arguments can be mixed)
+ * @param argc argument count
+ * @param argv pointer to argument vector
+ * @param nth find position. nth should be > 0!
+ * @param dest destination to write value
+ * @return true if argument at given position was found, otherwise false
+ */
+static bool get_nth_float_arg(int argc, t_atom* argv, int nth, t_float* dest) {
+    t_atom* last = argv + argc;
+    t_atom* res = find_nth_if(argv, last, nth, atom_is_float);
+    if(last == res) return false;
+
+    *dest = atom_getfloat(res);
+    return true;
+}
+
+/**
+ * @brief find nth symbol in argument list. (arguments can be mixed)
+ * @param argc argument count
+ * @param argv pointer to argument vector
+ * @param nth find position. nth should be > 0!
+ * @param dest destination to write found argument value
+ * @return true if argument at given position was found, otherwise false
+ */
+static bool get_nth_symbol_arg(int argc, t_atom* argv, int nth, const char** dest) {
+    t_atom* last = argv + argc;
+    t_atom* res = find_nth_if(argv, last, nth, atom_is_symbol);
+    if(last == res) return false;
+
+    t_symbol* s = atom_getsymbol(res);
+    *dest = s->s_name;
+    return true;
+}
+
+class PdArgParser {
+    t_faust* x_;
+    int argc_;
+    t_atom* argv_;
+    bool control_outlet_;
+
+public:
+    /**
+     * @brief FaustArgParser
+     * @param x pointer to faust class
+     * @param argc arguments count
+     * @param argv pointer to argument vector
+     */
+    PdArgParser(t_faust* x, int argc, t_atom* argv, bool info_outlet = true)
+        : x_(x)
+        , argc_(argc)
+        , argv_(argv)
+        , control_outlet_(info_outlet)
+    {
+        const char* id = NULL;
+        get_nth_symbol_arg(argc_, argv_, 1, &id);
+
+        // init error
+        if (!faust_new_internal(x, id, control_outlet_)) {
+            this->x_ = NULL;
+        }
+    }
+
+    /**
+     * @brief initFloatArg
+     * @param name argument name
+     * @param pos argument position among of @bold float(!) arguments. Position starts from @bold 1(!).
+     * to select first argument - pass 1.
+     */
+    void initFloatArg(const char* name, int pos)
+    {
+        // object was not created
+        if (!this->x_)
+            return;
+
+        t_float v = 0.0;
+        if (get_nth_float_arg(this->argc_, this->argv_, pos, &v))
+            this->x_->ui->setElementValue(name, v);
+    }
+
+    /**
+     * @brief send creation argument to first signal inlet
+     * @param name argument name
+     * @param pos argument position among of @bold float(!) arguments. Position starts from @bold 1(!).
+     * to select first argument - pass 1.
+     */
+    void signalFloatArg(const char* name, int pos)
+    {
+        // object was not created
+        if (!this->x_)
+            return;
+
+        t_float arg = 0;
+        if(get_nth_float_arg(this->argc_, this->argv_, pos, &arg))
+            pd_float(reinterpret_cast<t_pd*>(this->x_), arg);
+    }
+
+    t_faust* pd_obj()
+    {
+        return this->x_;
+    }
+};
+
+

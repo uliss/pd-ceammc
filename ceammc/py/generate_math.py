@@ -39,20 +39,25 @@ CONST_EXT = [
 
 SCRIPT = os.path.join(os.path.dirname(__file__), 'extension_generator.py')
 
-for ext in UNARY_EXT:
-    name = ext[0]
-    f = open("math_{}.c".format(name), "w")
-    cmd = [SCRIPT, "--type", "unary", "--f32", ext[1], "--f64", ext[2], "math", name]
-    subprocess.call(cmd, stdout=f)
-    f.close()
-    print "math_{}.c generated".format(name)
+
+def main():
+    for ext in UNARY_EXT:
+        name = ext[0]
+        f = open("math_{}.c".format(name), "w")
+        cmd = [SCRIPT, "--type", "unary", "--f32", ext[1], "--f64", ext[2], "math", name]
+        subprocess.call(cmd, stdout=f)
+        f.close()
+        print "math_{}.c generated".format(name)
 
 
-for ext in CONST_EXT:
-    name = ext[0]
-    value = ext[1]
-    f = open("math_{}.c".format(name), "w")
-    cmd = [SCRIPT, "--type", "const", "--code", value, "math", name]
-    subprocess.call(cmd, stdout=f)
-    f.close()
-    print "math_{}.c generated".format(name)
+    for ext in CONST_EXT:
+        name = ext[0]
+        value = ext[1]
+        f = open("math_{}.c".format(name), "w")
+        cmd = [SCRIPT, "--type", "const", "--code", value, "math", name]
+        subprocess.call(cmd, stdout=f)
+        f.close()
+        print "math_{}.c generated".format(name)
+
+if __name__ == '__main__':
+    main()

@@ -29,6 +29,7 @@ static void is_pointer_list(t_is_pointer* x, t_symbol* /*s*/, int /*argc*/, t_at
 
 static void is_pointer_pointer(t_is_pointer* x, t_gpointer* pt)
 {
+    outlet_pointer(x->out_value, pt);
     outlet_float(x->x_obj.te_outlet, 1);
 }
 

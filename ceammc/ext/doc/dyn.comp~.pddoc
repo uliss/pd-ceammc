@@ -11,7 +11,7 @@
             <license>GPL3</license>
             <library>ceammc</library>
             <category>dyn</category>
-            <keywords>predicate compressor</keywords>
+            <keywords>compressor</keywords>
             <since>0.1</since>
             <also>
                 <see>dyn.comp2~</see>
@@ -59,23 +59,22 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">left output signal</outlet>
+            <outlet type="audio">output signal</outlet>
             <outlet type="control">information output</outlet>
         </outlets>
         <example>
             <pdascii>
                 <![CDATA[
-[phasor~ 10]
-|
-[*~ 100]
-|             [floatatom]
-[clip~ 0 1]   |
-|             [prepend ratio]
-[*~ 20] [bng] |
-|       |     |
-[dyn.comp~ 3 90 10 100 id]
-|\           ^|
-[dac~]      [print]
+[lfo.impulse~ 10] [tgl]
+|  .______________/
+[*~]
+|         [floatatom] [floatatom]
+[*~ 4]    |           |
+|   [bng] [ratio $1(  [threshold $1(
+|   |     |           |
+[dyn.comp~ 3 40 10 100 id]
+|\               ^|
+[dac~]           [print]
 
                 ]]>
             </pdascii>

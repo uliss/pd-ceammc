@@ -1,5 +1,5 @@
 //
-//  tl_object_common.hpp
+//  tl_lib.hpp
 //  pd_ext
 //
 //  Created by Alex Nadzharov on 09/12/16.
@@ -35,7 +35,7 @@
 
 //struct tl_bang_object {
 //    t_object x_obj;
-//    
+//
 //    t_outlet *out1;
 //};
 
@@ -70,7 +70,7 @@ typedef struct
 
 typedef struct
 {
-    
+
 }tl_t_action;
 
 typedef struct

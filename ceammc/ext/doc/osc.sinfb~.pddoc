@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pddoc version="1.0">
+    <object name="osc.sinfb~">
+        <title>osc.sinfb~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>sine oscilator with feedback</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>osc</category>
+            <keywords>osc feedback</keywords>
+            <since>0.1</since>
+        </meta>
+        <arguments>
+            <argument name="freq" type="float" minvalue="0" maxvalue="20000" units="herz">
+                initial frequence
+            </argument>
+            <argument name="feedback" type="float" minvalue="0" maxvalue="16">
+                oscillator feedback coefficent
+            </argument>
+            <argument name="ID" type="symbol">object ID for OSC control path</argument>
+        </arguments>
+        <methods>
+            <method name="feedback">
+                <param type="float" minvalue="0" maxvalue="16">oscillator feedback coefficent</param>
+            </method>
+        </methods>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>frequency</xinfo>
+                <xinfo on="float">frequency</xinfo>
+                <xinfo on="bang">outputs object internal state to rightmost outlet</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output signal</outlet>
+            <outlet type="control">information output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+                <![CDATA[
+[F]     [F]
+|       |
+| [B]   [feedback $1(
+| |     |
+[osc.sinfb~ 440 2]
+|               ^|
+|  [T]          [print]
+|  |.
+[*~ ]
+|  |.
+[dac~]
+                ]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
+

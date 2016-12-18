@@ -223,6 +223,7 @@ gotone:
     dlobj = dlopen(filename, RTLD_NOW | RTLD_GLOBAL);
     if (!dlobj)
     {
+        post(1,"%s: %s", filename, dlerror());   //TEMP
         verbose(1, "%s: %s", filename, dlerror());
         class_set_extern_dir(&s_);
         return (0);

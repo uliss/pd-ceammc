@@ -84,10 +84,10 @@ void hradio_draw_new(t_hradio *x, t_glist *glist)
     }
     sys_vgui(".x%lx.c create text %d %d -text {%s} -anchor w \
              -font {{%s} -%d %s} -fill #%06x -tags [list %lxLABEL label text]\n",
-             canvas, xx11b+x->x_gui.x_ldx * zoomlabel,
-             yy11+x->x_gui.x_ldy * zoomlabel,
+             canvas, xx11b+x->x_gui.x_ldx * IEMGUI_ZOOM(x),
+             yy11+x->x_gui.x_ldy * IEMGUI_ZOOM(x),
              strcmp(x->x_gui.x_lab->s_name, "empty")?x->x_gui.x_lab->s_name:"",
-             x->x_gui.x_font, x->x_gui.x_fontsize, sys_fontweight,
+             x->x_gui.x_font, x->x_gui.x_fontsize * IEMGUI_ZOOM(x), sys_fontweight,
              x->x_gui.x_lcol, x);
     if(!x->x_gui.x_fsf.x_snd_able)
         sys_vgui(".x%lx.c create rectangle %d %d %d %d -outline %s -tags [list %lxOUT%d outlet]\n",
@@ -123,8 +123,8 @@ void hradio_draw_move(t_hradio *x, t_glist *glist)
         xx22 += dx;
     }
     sys_vgui(".x%lx.c coords %lxLABEL %d %d\n",
-             canvas, x, xx11b+x->x_gui.x_ldx * zoomlabel,
-             yy11+x->x_gui.x_ldy * zoomlabel);
+             canvas, x, xx11b+x->x_gui.x_ldx * IEMGUI_ZOOM(x),
+             yy11+x->x_gui.x_ldy * IEMGUI_ZOOM(x));
     if(!x->x_gui.x_fsf.x_snd_able)
         sys_vgui(".x%lx.c coords %lxOUT%d %d %d %d %d\n",
              canvas, x, 0, xx11b, yy12 - xlet_height(x), xx11b + IOWIDTH, yy12);
@@ -156,7 +156,7 @@ void hradio_draw_config(t_hradio* x, t_glist* glist)
     int n=x->x_number, i;
 
     sys_vgui(".x%lx.c itemconfigure %lxLABEL -font {{%s} -%d %s} -fill #%06x -text {%s} \n",
-             canvas, x, x->x_gui.x_font, x->x_gui.x_fontsize, sys_fontweight,
+             canvas, x, x->x_gui.x_font, x->x_gui.x_fontsize * IEMGUI_ZOOM(x), sys_fontweight,
              x->x_gui.x_fsf.x_selected?IEM_GUI_COLOR_SELECTED:x->x_gui.x_lcol,
              strcmp(x->x_gui.x_lab->s_name, "empty")?x->x_gui.x_lab->s_name:"");
     for(i=0; i<n; i++)
