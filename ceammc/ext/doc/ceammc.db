@@ -18,6 +18,7 @@ is_even		.		..
 is_float		.		..
 is_list		.		..
 is_odd		.		..
+is_pointer		.		..
 is_symbol		.		..
 lfo.impulse~		~		~
 lfo.square~		~		~

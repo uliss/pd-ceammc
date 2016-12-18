@@ -14,7 +14,7 @@
             <since>0.1</since>
             <also>
                 <see>lfo.square~</see>
-                <see>lfo.tri~</see>
+                <see>lfo.impulse~</see>
             </also>
         </meta>
         <arguments>

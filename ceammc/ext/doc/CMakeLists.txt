@@ -22,6 +22,7 @@ set(DOC_FILES
     is_bang
     is_float
     is_odd
+    is_pointer
     is_symbol
     is_list
     is_even

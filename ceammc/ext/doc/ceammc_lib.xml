@@ -197,6 +197,9 @@
     <entry descr="checks if input number is odd" name="is_odd">
       <xi:include href="is_odd.pddoc" parse="xml"/>
     </entry>
+    <entry descr="checks if input data has *pointer* type" name="is_pointer">
+      <xi:include href="is_pointer.pddoc" parse="xml"/>
+    </entry>
     <entry descr="checks if input data has *symbol* type" name="is_symbol">
       <xi:include href="is_symbol.pddoc" parse="xml"/>
     </entry>

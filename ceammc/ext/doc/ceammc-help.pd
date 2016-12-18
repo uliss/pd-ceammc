@@ -155,19 +155,21 @@ direction;
 #X text 150 2142 checks if input data has *list* type;
 #X obj 30 2169 is_odd;
 #X text 150 2169 checks if input number is odd;
-#X obj 30 2196 is_symbol;
-#X text 150 2196 checks if input data has *symbol* type;
-#X obj 20 2223 cnv 5 58 19 empty empty system 0 17 0 17 -262144 -49933
+#X obj 30 2196 is_pointer;
+#X text 150 2196 checks if input data has *pointer* type;
+#X obj 30 2223 is_symbol;
+#X text 150 2223 checks if input data has *symbol* type;
+#X obj 20 2250 cnv 5 58 19 empty empty system 0 17 0 17 -262144 -49933
 0;
-#X obj 20 2252 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 2263 system.memsize;
-#X text 150 2263 returns the size of physical memory (RAM) in bytes
+#X obj 20 2279 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 2290 system.memsize;
+#X text 150 2290 returns the size of physical memory (RAM) in bytes
 round to float data type\.;
-#X obj 30 2300 system.memused;
-#X text 150 2300 returns the process physical memory use - current and
+#X obj 30 2327 system.memused;
+#X text 150 2327 returns the process physical memory use - current and
 peak;
 #X obj 1 1 cnv 5 597 40 empty empty ceammc 20 20 0 20 -104026 -4096 0;
-#X obj 1 2327 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 2327 version: v0\.1 \, license: GPL3;
-#X obj 20 2343 pddp/pddplink https://github.com/uliss/pure-data -text
+#X obj 1 2354 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 2354 version: v0\.1 \, license: GPL3;
+#X obj 20 2370 pddp/pddplink https://github.com/uliss/pure-data -text
 https://github.com/uliss/pure-data;

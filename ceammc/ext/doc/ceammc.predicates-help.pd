@@ -14,8 +14,10 @@
 #X text 150 221 checks if input data has *list* type;
 #X obj 30 248 is_odd;
 #X text 150 248 checks if input number is odd;
-#X obj 30 275 is_symbol;
-#X text 150 275 checks if input data has *symbol* type;
+#X obj 30 275 is_pointer;
+#X text 150 275 checks if input data has *pointer* type;
+#X obj 30 302 is_symbol;
+#X text 150 302 checks if input data has *symbol* type;
 #X obj 1 1 cnv 5 597 40 empty empty ceammc::predicates 20 20 0 20
 -104026 -4096 0;
 #X obj 1 458 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;
