@@ -57,6 +57,9 @@
     <entry descr="Positive low frequence square wave" name="lfo.square~">
       <xi:include href="lfo.square~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="Positive unit-amplitude low frequency triangle wave" name="lfo.tri~">
+      <xi:include href="lfo.tri~.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="list">
     <entry descr="modifies list value at specified position, filtering it via external object." name="list.apply_to">
