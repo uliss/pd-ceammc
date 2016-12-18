@@ -1,8 +1,7 @@
 import("compressor.lib");
-
 import("ceammc.lib");
 
-ratio = max(1, hslider("ratio", 1, 1, 10, 0.001));
+ratio = vslider("ratio", 1, 1, 10, 0.001);
 thresh = hslider("threshold", 100, 0, 100, 0.1) : db_pd2faust;
 atk = vslider("attack", 10, 1, 100, 0.1) : time_pd2faust;
 rel = vslider("release", 50, 1, 500, 0.1) : time_pd2faust;

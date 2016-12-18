@@ -11,8 +11,8 @@
 #X obj 116 192 print;
 #X connect 6 0 7 0;
 #X connect 3 0 4 0;
-#X connect 6 0 7 1;
-#X connect 6 1 8 0;
+#X connect 6 2 8 0;
+#X connect 6 1 7 1;
 #X connect 5 0 6 0;
 #X connect 1 0 2 1;
 #X connect 2 0 3 0;

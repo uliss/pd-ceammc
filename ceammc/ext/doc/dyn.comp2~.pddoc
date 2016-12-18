@@ -68,7 +68,7 @@
         </outlets>
         <example>
             <pdascii>
-                <![CDATA[
+<![CDATA[
 [phasor~ 10]
 |
 [*~ 100]
@@ -80,8 +80,7 @@
 [dyn.comp2~ 3 90 10 100 id]
 |    ^|.       ^^|
 [dac~  ]       [print]
-
-                ]]>
+]]>
             </pdascii>
         </example>
     </object>

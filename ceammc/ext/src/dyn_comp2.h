@@ -790,20 +790,16 @@ class comp2 : public dsp {
 	FAUSTFLOAT 	fslider1;
 	float 	fRec2_perm[4];
 	float 	fRec1_perm[4];
-	FAUSTFLOAT 	fslider2;
 	float 	fConst2;
+	FAUSTFLOAT 	fslider2;
 	FAUSTFLOAT 	fslider3;
 	float 	fRec0_perm[4];
 	int fSamplingFreq;
 
   public:
 	virtual void metadata(Meta* m) { 
-		m->declare("compressor.lib/name", "Faust Compressor Effect Library");
-		m->declare("compressor.lib/version", "0.0");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
 		m->declare("ceammc.lib/version", "0.1");
-		m->declare("analyzer.lib/name", "Faust Analyzer Library");
-		m->declare("analyzer.lib/version", "0.0");
 		m->declare("signal.lib/name", "Faust Signal Routing Library");
 		m->declare("signal.lib/version", "0.0");
 		m->declare("basic.lib/name", "Faust Basic Element Library");
@@ -813,6 +809,10 @@ class comp2 : public dsp {
 		m->declare("math.lib/author", "GRAME");
 		m->declare("math.lib/copyright", "GRAME");
 		m->declare("math.lib/license", "LGPL with exception");
+		m->declare("compressor.lib/name", "Faust Compressor Effect Library");
+		m->declare("compressor.lib/version", "0.0");
+		m->declare("analyzer.lib/name", "Faust Analyzer Library");
+		m->declare("analyzer.lib/version", "0.0");
 	}
 
 	virtual int getNumInputs() { return 2; }
@@ -854,7 +854,7 @@ class comp2 : public dsp {
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("0x00");
 		ui_interface->addVerticalSlider("attack", &fslider1, 1e+01f, 1.0f, 1e+02f, 0.1f);
-		ui_interface->addHorizontalSlider("ratio", &fslider2, 1.0f, 1.0f, 1e+01f, 0.001f);
+		ui_interface->addVerticalSlider("ratio", &fslider2, 1.0f, 1.0f, 1e+01f, 0.001f);
 		ui_interface->addVerticalSlider("release", &fslider0, 5e+01f, 1.0f, 5e+02f, 0.1f);
 		ui_interface->addHorizontalSlider("threshold", &fslider3, 1e+02f, 0.0f, 1e+02f, 0.1f);
 		ui_interface->closeBox();
@@ -872,7 +872,7 @@ class comp2 : public dsp {
 		float* 	fRec2 = &fRec2_tmp[4];
 		float* 	fRec1 = &fRec1_tmp[4];
 		float 	fSlow3 = expf((0 - (fConst2 / fSlow1)));
-		float 	fSlow4 = (((1.0f / float(max((float)1, float(fslider2)))) + -1.0f) * (1.0f - fSlow3));
+		float 	fSlow4 = (((1.0f / float(float(fslider2))) + -1.0f) * (1.0f - fSlow3));
 		float 	fSlow5 = float(fslider3);
 		float* 	fRec0 = &fRec0_tmp[4];
 		int index;
@@ -885,21 +885,21 @@ class comp2 : public dsp {
 			FAUSTFLOAT* output0 = &output[0][index];
 			FAUSTFLOAT* output1 = &output[1][index];
 			// SECTION : 1
-			// LOOP 0x7f8bc1cc4230
+			// LOOP 0x7f8da0550c50
 			// exec code
 			for (int i=0; i<count; i++) {
 				fZec0[i] = fabsf((fabsf((float)input0[i]) + fabsf((float)input1[i])));
 			}
 			
 			// SECTION : 2
-			// LOOP 0x7f8bc1cc3b20
+			// LOOP 0x7f8da05508f0
 			// pre processing
 			for (int i=0; i<4; i++) fRec2_tmp[i]=fRec2_perm[i];
 			for (int i=0; i<4; i++) fRec1_tmp[i]=fRec1_perm[i];
 			// exec code
 			for (int i=0; i<count; i++) {
 				fZec1[i] = ((int((fRec1[i-1] > fZec0[i])))?fSlow0:fSlow2);
-				fRec2[i] = ((fRec2[i-1] * fZec1[i]) + (fZec0[i] * (1.0f - fZec1[i])));
+				fRec2[i] = ((fZec0[i] * (1.0f - fZec1[i])) + (fZec1[i] * fRec2[i-1]));
 				fRec1[i] = fRec2[i];
 			}
 			// post processing
@@ -907,31 +907,31 @@ class comp2 : public dsp {
 			for (int i=0; i<4; i++) fRec2_perm[i]=fRec2_tmp[count+i];
 			
 			// SECTION : 3
-			// LOOP 0x7f8bc1cc3820
+			// LOOP 0x7f8da05505f0
 			// pre processing
 			for (int i=0; i<4; i++) fRec0_tmp[i]=fRec0_perm[i];
 			// exec code
 			for (int i=0; i<count; i++) {
-				fRec0[i] = ((fSlow4 * max((((20 * log10f(fRec1[i])) + 100) - fSlow5), 0.0f)) + (fSlow3 * fRec0[i-1]));
+				fRec0[i] = ((fSlow3 * fRec0[i-1]) + (fSlow4 * max((((20 * log10f(fRec1[i])) + 100) - fSlow5), 0.0f)));
 			}
 			// post processing
 			for (int i=0; i<4; i++) fRec0_perm[i]=fRec0_tmp[count+i];
 			
 			// SECTION : 4
-			// LOOP 0x7f8bc1cc92d0
+			// LOOP 0x7f8da04a27f0
 			// exec code
 			for (int i=0; i<count; i++) {
 				fZec2[i] = powf(10,(0.05f * fRec0[i]));
 			}
 			
 			// SECTION : 5
-			// LOOP 0x7f8bc1cc9f50
+			// LOOP 0x7f8da04a3130
 			// exec code
 			for (int i=0; i<count; i++) {
 				output1[i] = (FAUSTFLOAT)((float)input1[i] * fZec2[i]);
 			}
 			
-			// LOOP 0x7f8bc1d2e700
+			// LOOP 0x7f8da0550510
 			// exec code
 			for (int i=0; i<count; i++) {
 				output0[i] = (FAUSTFLOAT)((float)input0[i] * fZec2[i]);
@@ -946,21 +946,21 @@ class comp2 : public dsp {
 			FAUSTFLOAT* output0 = &output[0][index];
 			FAUSTFLOAT* output1 = &output[1][index];
 			// SECTION : 1
-			// LOOP 0x7f8bc1cc4230
+			// LOOP 0x7f8da0550c50
 			// exec code
 			for (int i=0; i<count; i++) {
 				fZec0[i] = fabsf((fabsf((float)input0[i]) + fabsf((float)input1[i])));
 			}
 			
 			// SECTION : 2
-			// LOOP 0x7f8bc1cc3b20
+			// LOOP 0x7f8da05508f0
 			// pre processing
 			for (int i=0; i<4; i++) fRec2_tmp[i]=fRec2_perm[i];
 			for (int i=0; i<4; i++) fRec1_tmp[i]=fRec1_perm[i];
 			// exec code
 			for (int i=0; i<count; i++) {
 				fZec1[i] = ((int((fRec1[i-1] > fZec0[i])))?fSlow0:fSlow2);
-				fRec2[i] = ((fRec2[i-1] * fZec1[i]) + (fZec0[i] * (1.0f - fZec1[i])));
+				fRec2[i] = ((fZec0[i] * (1.0f - fZec1[i])) + (fZec1[i] * fRec2[i-1]));
 				fRec1[i] = fRec2[i];
 			}
 			// post processing
@@ -968,31 +968,31 @@ class comp2 : public dsp {
 			for (int i=0; i<4; i++) fRec2_perm[i]=fRec2_tmp[count+i];
 			
 			// SECTION : 3
-			// LOOP 0x7f8bc1cc3820
+			// LOOP 0x7f8da05505f0
 			// pre processing
 			for (int i=0; i<4; i++) fRec0_tmp[i]=fRec0_perm[i];
 			// exec code
 			for (int i=0; i<count; i++) {
-				fRec0[i] = ((fSlow4 * max((((20 * log10f(fRec1[i])) + 100) - fSlow5), 0.0f)) + (fSlow3 * fRec0[i-1]));
+				fRec0[i] = ((fSlow3 * fRec0[i-1]) + (fSlow4 * max((((20 * log10f(fRec1[i])) + 100) - fSlow5), 0.0f)));
 			}
 			// post processing
 			for (int i=0; i<4; i++) fRec0_perm[i]=fRec0_tmp[count+i];
 			
 			// SECTION : 4
-			// LOOP 0x7f8bc1cc92d0
+			// LOOP 0x7f8da04a27f0
 			// exec code
 			for (int i=0; i<count; i++) {
 				fZec2[i] = powf(10,(0.05f * fRec0[i]));
 			}
 			
 			// SECTION : 5
-			// LOOP 0x7f8bc1cc9f50
+			// LOOP 0x7f8da04a3130
 			// exec code
 			for (int i=0; i<count; i++) {
 				output1[i] = (FAUSTFLOAT)((float)input1[i] * fZec2[i]);
 			}
 			
-			// LOOP 0x7f8bc1d2e700
+			// LOOP 0x7f8da0550510
 			// exec code
 			for (int i=0; i<count; i++) {
 				output0[i] = (FAUSTFLOAT)((float)input0[i] * fZec2[i]);
