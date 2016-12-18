@@ -21,6 +21,7 @@ set(DOC_FILES
     is_any
     is_bang
     is_float
+    is_odd
     is_symbol
     is_list
     is_even

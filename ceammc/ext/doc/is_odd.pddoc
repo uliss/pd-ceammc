@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pddoc version="1.0">
-    <object name="is_even">
-        <title>is_even</title>
+    <object name="is_odd">
+        <title>is_odd</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>checks if input number is even</description>
+            <description>checks if input number is odd</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>predicates</category>
             <keywords>predicate numbers</keywords>
             <also>
-                <see>is_odd</see>
+                <see>is_even</see>
             </also>
             <since>0.1</since>
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="int">outputs '1' if number can be divided exactly by 2, otherwise '0'</xinfo>
+                <xinfo on="int">outputs '1' if number is not a multiple of two, otherwise outputs '0'.</xinfo>
                 <xinfo on="float">first value converted to integer, then the check is performed</xinfo>
             </inlet>
         </inlets>
         <outlets>
             <outlet>0 or 1</outlet>
-            <outlet>passed even numbers</outlet>
+            <outlet>passed odd numbers</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
 [F]
 |
-[is_even     ]
+[is_odd  ]
 |    ^|
 [_]  [F]
 ]]>
