@@ -1,101 +1,19 @@
 include(faust)
 include(ceammc_pd.cmake)
 
+# main static library
 add_library(ceammc_static STATIC ceammc.c ceammc.cpp)
-add_library(timeline SHARED tl_lib.cpp)
 set_target_properties(ceammc_static PROPERTIES
     COMPILE_FLAGS ${PD_EXTERNAL_CFLAGS})
+
+# timeline shared library
+add_library(timeline SHARED tl_lib.cpp)
+set_target_properties(timeline PROPERTIES
+    COMPILE_FLAGS "-std=c++0x")
 
 add_custom_target(ceammc_generate_math
     COMMAND ${CMAKE_SOURCE_DIR}/ceammc/py/generate_math.py
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
-
-
-
-macro(ceammc_extension module name ext)
-    pd_add_extension(NAME "${module}.${name}"
-        FILES "${module}_${name}.${ext}"
-        INTERNAL True
-        LIBRARY ceammc
-        LINK ceammc_static)
-endmacro()
-
-macro(ceammc_c_extension module name)
-    ceammc_extension(${module} ${name} c)
-endmacro()
-
-macro(ceammc_cxx_extension module name)
-    ceammc_extension(${module} ${name} cpp)
-endmacro()
-
-macro(ceammc_cxx11_extension module name)
-    set(CMAKE_CXX_STANDARD 11)
-    ceammc_extension(${module} ${name} cpp)
-endmacro()
-
-macro(ceammc_cxx_tl_extension module name)
-    pd_add_extension(NAME "${module}.${name}"
-      FILES "${module}_${name}.cpp"
-      INTERNAL TRUE
-      LIBRARY ceammc
-      LINK timeline)
-endmacro()
-
-macro(ceammc_extension_ module name ext)
-    pd_add_extension(NAME "${module}_${name}"
-        FILES "${module}_${name}.${ext}"
-        INTERNAL True
-        LIBRARY ceammc
-        LINK ceammc_static)
-endmacro()
-
-macro(ceammc_c_extension_ module name)
-    ceammc_extension_(${module} ${name} c)
-endmacro()
-
-macro(ceammc_cxx_extension_ module name)
-    ceammc_extension_(${module} ${name} cpp)
-endmacro()
-
-macro(ceammc_apple_link_fix module name)
-    add_custom_command(TARGET "${module}.${name}" POST_BUILD
-        COMMAND bash ${CMAKE_CURRENT_SOURCE_DIR}/apple_poco_path_fix.sh
-                $<TARGET_FILE:${module}.${name}>
-                ${CMAKE_CURRENT_BINARY_DIR})
-endmacro()
-
-macro(ceammc_glib_extension module name)
-    pd_add_extension(NAME "${module}.${name}"
-        FILES "${module}_${name}.cpp" INTERNAL True
-        LINK ${GLIB_LIBRARIES})
-
-    if(APPLE)
-        ceammc_apple_link_fix(${module} ${name})
-    endif()
-endmacro()
-
-macro(ceammc_glib_extension_ module name)
-    pd_add_extension(NAME "${module}_${name}"
-        FILES "${module}_${name}.cpp" INTERNAL True
-        LINK ${GLIB_LIBRARIES})
-
-    if(APPLE)
-        ceammc_apple_link_fix(${module} ${name})
-    endif()
-endmacro()
-
-macro(ceammc_faust_extension module name ext)
-    add_custom_target("faust_${module}_${name}"
-        COMMAND ${FAUST_BIN} -vec -vs 64 -i
-            -a ${CMAKE_SOURCE_DIR}/ceammc/faust/${ext}.cpp
-            -cn ${name}
-            "${CMAKE_SOURCE_DIR}/ceammc/faust/${module}_${name}.dsp"
-            -o ${CMAKE_CURRENT_SOURCE_DIR}/${module}_${name}.h)
-
-    pd_add_extension(NAME "${module}.${name}~"
-        FILES "${module}_${name}.cpp" INTERNAL TRUE)
-endmacro()
-
 
 
 ###############################
@@ -200,7 +118,7 @@ ceammc_cxx_tl_extension(ui test_cicm)
 
 # JSON
 
-ceammc_cxx11_extension(json object)
+#ceammc_cxx11_extension(json object)
 
 ceammc_cxx_extension(exp patchdata)
 

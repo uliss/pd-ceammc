@@ -69,3 +69,19 @@ macro(ceammc_faust_extension module name ext)
     pd_add_extension(NAME "${module}.${name}~"
         FILES "${module}_${name}.cpp" INTERNAL TRUE)
 endmacro()
+
+
+macro(ceammc_cxx11_extension module name)
+    ceammc_cxx_extension(${module} ${name} cpp)
+    set_target_properties("${module}.${name}" PROPERTIES COMPILE_FLAGS "-std=c++11 -stdlib=libstdc++")
+endmacro()
+
+macro(ceammc_cxx_tl_extension module name)
+    pd_add_extension(NAME "${module}.${name}"
+      FILES "${module}_${name}.cpp"
+      INTERNAL TRUE
+      LIBRARY ceammc
+      LINK timeline)
+
+    set_target_properties("${module}.${name}" PROPERTIES COMPILE_FLAGS "-std=c++11")
+endmacro()
