@@ -19,6 +19,7 @@ is_float		.		..
 is_list		.		..
 is_symbol		.		..
 lfo.impulse~		~		~
+lfo.square~		~		~
 list.apply_to		..		..
 list.sort		.		.
 live.capture~		~		~.

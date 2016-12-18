@@ -54,6 +54,9 @@
     <entry descr="Unit-amplitude low-frequency impulse train" name="lfo.impulse~">
       <xi:include href="lfo.impulse~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="Positive low frequence square wave" name="lfo.square~">
+      <xi:include href="lfo.square~.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="list">
     <entry descr="modifies list value at specified position, filtering it via external object." name="list.apply_to">

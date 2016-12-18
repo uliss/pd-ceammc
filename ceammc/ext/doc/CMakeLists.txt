@@ -28,6 +28,7 @@ set(DOC_FILES
     list.apply_to
     list.sort
     lfo.impulse~
+    lfo.square~
     math.abs
     math.acos
     math.acosh
