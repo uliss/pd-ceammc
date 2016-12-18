@@ -121,6 +121,9 @@
     <entry descr="round to largest integral value not greater than x" name="math.floor">
       <xi:include href="math.floor.pddoc" parse="xml"/>
     </entry>
+    <entry descr="infinity value that cannot be represented accurately" name="math.inf">
+      <xi:include href="math.inf.pddoc" parse="xml"/>
+    </entry>
     <entry descr="logarithm functions" name="math.log">
       <xi:include href="math.log.pddoc" parse="xml"/>
     </entry>

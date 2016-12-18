@@ -47,6 +47,7 @@ set(DOC_FILES
     math.exp
     math.exp2
     math.floor
+    math.inf
     math.log
     math.log10
     math.log2
