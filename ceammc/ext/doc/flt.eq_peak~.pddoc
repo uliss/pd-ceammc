@@ -49,11 +49,11 @@
         <example>
         <pdascii>
 <![CDATA[
-[noise~] [tgl]  [floatatom] [floatatom] [floatatom]
-|  ._____/      |           |           |
-[*~]      [bng] [freq $1(   [gain $1(   [bandwidth $1(
-|         |     |           |           |
-[flt.eq_peak~ 3000 20 400 id            ]
+[noise~] [_]  [F]       [F]       [F]
+|  ._____/    |         |         |
+[*~]      [B] [freq $1( [gain $1( [bandwidth $1(
+|         |   |         |         |
+[flt.eq_peak~ 3000 20 400 id      ]
 |\                      ^|
 [dac~]                 [print]
 ]]>
