@@ -26,7 +26,6 @@ macro(ceammc_cxx_extension__ module name)
     ceammc_extension_sep(${module} ${name} cpp "_")
 endmacro()
 
-
 macro(ceammc_link_fix_sep module name separator)
     if(APPLE)
         add_custom_command(TARGET "${module}${separator}${name}" POST_BUILD
@@ -70,7 +69,6 @@ macro(ceammc_faust_extension module name ext)
         FILES "${module}_${name}.cpp" INTERNAL TRUE)
 endmacro()
 
-
 macro(ceammc_cxx11_extension module name)
     ceammc_cxx_extension(${module} ${name} cpp)
     set_target_properties("${module}.${name}" PROPERTIES COMPILE_FLAGS "-std=c++11 -stdlib=libstdc++")
@@ -83,5 +81,16 @@ macro(ceammc_cxx_tl_extension module name)
       LIBRARY ceammc
       LINK timeline)
 
-    set_target_properties("${module}.${name}" PROPERTIES COMPILE_FLAGS "-std=c++11")
+    set(C11 "")
+    if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+        set(C11 "-std=c++0x")
+    elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+        set(C11 "-std=gnu++0x")
+    elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Intel")
+    # using Intel C++
+    elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+    # using Visual Studio C++
+    endif()
+
+    set_target_properties("${module}.${name}" PROPERTIES COMPILE_FLAGS ${C11})
 endmacro()

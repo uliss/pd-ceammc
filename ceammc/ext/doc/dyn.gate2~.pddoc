@@ -80,7 +80,7 @@
 | [floatatom] [bng]
 |             |
 [dyn.gate2~ 90 id]
-|\        ^|
+|  ^|.     ^^|
 [dac~]    [print]
 ]]>
             </pdascii>
