@@ -194,6 +194,7 @@ ceammc_cxx_tl_extension(tl test)
 # GUI
 
 ceammc_cxx_tl_extension(ui keyboard1)
+ceammc_cxx_tl_extension(ui test_cicm)
 
 # JSON
 
