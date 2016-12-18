@@ -682,8 +682,8 @@ static bool faust_init_outputs(t_faust* x, bool info_outlet) {
             return false;
         }
 
-//        for (int i = 0; i < x->n_out; i++)
-//            x->buf[i] = NULL;
+        for (int i = 0; i < x->n_out; i++)
+            x->buf[i] = NULL;
     }
 
 
@@ -715,6 +715,7 @@ static bool faust_new_internal(t_faust* x, const char* obj_id = NULL, bool info_
     int sr = 44100;
     x->active = 1;
     x->xfade = 0;
+    x->rate = sr;
     x->n_xfade = static_cast<int>(sr * XFADE_TIME / 64);
 
     x->dsp = new mydsp();
