@@ -30,6 +30,7 @@ set(DOC_FILES
     is_even
     live.capture~
     list.apply_to
+    list.at
     list.sort
     lfo.impulse~
     lfo.square~

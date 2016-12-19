@@ -27,6 +27,7 @@ lfo.impulse~		~		~
 lfo.square~		~		~
 lfo.tri~		~		~
 list.apply_to		..		..
+list.at		..		.
 list.sort		.		.
 live.capture~		~		~.
 math.abs		.		.

@@ -71,6 +71,9 @@
     <entry descr="modifies list value at specified position, filtering it via external object." name="list.apply_to">
       <xi:include href="list.apply_to.pddoc" parse="xml"/>
     </entry>
+    <entry descr="returns list element at given position" name="list.at">
+      <xi:include href="list.at.pddoc" parse="xml"/>
+    </entry>
     <entry descr="sorts list values by ascending order" name="list.sort">
       <xi:include href="list.sort.pddoc" parse="xml"/>
     </entry>
