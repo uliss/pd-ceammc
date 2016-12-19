@@ -795,17 +795,17 @@ class follow : public dsp {
 	virtual void metadata(Meta* m) { 
 		m->declare("analyzer.lib/name", "Faust Analyzer Library");
 		m->declare("analyzer.lib/version", "0.0");
+		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
 		m->declare("signal.lib/name", "Faust Signal Routing Library");
 		m->declare("signal.lib/version", "0.0");
+		m->declare("basic.lib/name", "Faust Basic Element Library");
+		m->declare("basic.lib/version", "0.0");
+		m->declare("ceammc.lib/version", "0.1");
 		m->declare("math.lib/name", "Faust Math Library");
 		m->declare("math.lib/version", "2.0");
 		m->declare("math.lib/author", "GRAME");
 		m->declare("math.lib/copyright", "GRAME");
 		m->declare("math.lib/license", "LGPL with exception");
-		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
-		m->declare("ceammc.lib/version", "0.1");
-		m->declare("basic.lib/name", "Faust Basic Element Library");
-		m->declare("basic.lib/version", "0.0");
 	}
 
 	virtual int getNumInputs() { return 1; }
@@ -841,8 +841,8 @@ class follow : public dsp {
 	}
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("0x00");
-		ui_interface->addHorizontalSlider("attack", &fslider1, 2e+02f, 0.0f, 1e+03f, 0.1f);
-		ui_interface->addHorizontalSlider("release", &fslider0, 2e+02f, 0.0f, 1e+03f, 0.1f);
+		ui_interface->addHorizontalSlider("attack", &fslider1, 2e+02f, 1.0f, 1e+03f, 0.1f);
+		ui_interface->addHorizontalSlider("release", &fslider0, 2e+02f, 1.0f, 1e+03f, 0.1f);
 		ui_interface->closeBox();
 	}
 	virtual void compute (int count, FAUSTFLOAT** input, FAUSTFLOAT** output) {
