@@ -136,8 +136,8 @@ public:
         {
             post("ERR: bad symbol value");
             printf ("property get cstr err\n");
-            //char no[] = "";
-            return nullptr;
+            char* no = "<error>";
+            return no;
         }
     }
     
