@@ -37,6 +37,23 @@ void e_polyarc(t_elayer *g, float xc, float yc, float radius, float angle1, floa
     }
 }
 
+void e_marc(t_elayer *g, float xc, float yc, float radius, float angle1, float angle2, float anglem, float lod)
+{
+    float x1,x2,y1,y2;
+    float d_angle = angle2-angle1;
+    
+    x1 = xc + cos(angle1)  *radius;// + d_angle* float(i/lod)) *radius;
+    x2 = xc + cos(angle1 + d_angle ) *radius;
+    
+    y1 = yc - sin(angle1) *radius;
+    y2 = yc - sin(angle1 + d_angle) *radius;
+    
+    float angle_l = 1. - 0.99*((angle1+d_angle)/d_angle)*anglem;
+    
+    egraphics_move_to(g, x1, y1);
+    egraphics_arc_to(g, xc, yc, angle_l);
+}
+
 UI_fun(ui_knob)::wx_paint(t_object *z, t_object *view)
 {
     UI_Prop
@@ -55,9 +72,9 @@ UI_fun(ui_knob)::wx_paint(t_object *z, t_object *view)
         
         
         
-        float rmin = .45*rect.width*.9;
-        float rmid = .45*rect.width*.95;
-        float rmax = .45*rect.width;
+        float rmin = .5*rect.width*.7 -2;
+        float rmid = .5*rect.width -2;
+        float rmax = .5*rect.width -2;
         float amin = 5/8.*M_PI*2.;
         float amax = -1/8.*M_PI*2.;
         float aval = M_PI*2.*6/8.*UI_Pf("_value");
@@ -65,21 +82,27 @@ UI_fun(ui_knob)::wx_paint(t_object *z, t_object *view)
         float cx = rect.width*.5;
         float cy = rect.height*.5;
         
-        egraphics_set_line_width(g, 2);
-        egraphics_set_color_hex(g, gensym("#00C0FF"));
-        e_polyarc(g, cx, cy, rmid, amax + aval, amin, 20);
-        egraphics_line(g, cx , cy , cx + cos(amax + aval)*rmid, cy - sin(amax + aval)*rmid );
-        egraphics_stroke(g);
-        
         egraphics_set_line_width(g, 1);
         egraphics_set_color_hex(g, gensym("#C0C0C0"));
-        e_polyarc(g, cx, cy, rmax, amin, amin+ 2*M_PI, 20);
-        //e_polyarc(g, cx, cy, rmin, amin, amax, 20);
+        //e_marc(g, cx, cy, rmax, amin, amin+ 2*M_PI, EPD_2PI*6/8., 20);
+        e_polyarc(g, cx, cy, rmin, amin, amax, 30);
+        e_polyarc(g, cx, cy, rmax, amin, amax, 30);
+        //egraphics_circle(g, cx, cy, rmax);
         
         egraphics_line(g, cx + cos(amin)*rmin, cy - sin(amin)*rmin, cx + cos(amin)*rmax, cy - sin(amin)*rmax );
         egraphics_line(g, cx + cos(amax)*rmin, cy - sin(amax)*rmin, cx + cos(amax)*rmax, cy - sin(amax)*rmax );
         
         egraphics_stroke(g);
+        
+        egraphics_set_line_width(g, 2);
+        egraphics_set_color_hex(g, gensym("#00C0FF"));
+        //e_marc(g, cx, cy, rmid, amax + aval, amin, EPD_2PI*6/8., 20);
+        e_polyarc(g, cx, cy, rmid, amax + aval, amin,  30 - floor(29 * UI_Pf("_value")));
+        //egraphics_arc(g, cx, cy, rmid, amax+aval, amin);
+        egraphics_line(g, cx , cy , cx + cos(amax + aval)*rmid, cy - sin(amax + aval)*rmid );
+        egraphics_stroke(g);
+        
+
         
         
         
@@ -95,7 +118,10 @@ UI_fun(ui_knob)::wx_oksize(t_object *z, t_rect *newrect)
 {
     UI_Prop
     
+    newrect->width = floorf(newrect->width/5.)*5;
+    
     newrect->height = newrect->width;
+    
     
     //UI_Pset("_is_vertical", newrect->width<newrect->height);
 }
@@ -158,7 +184,7 @@ UI_fun(ui_knob)::ui_properties_init_ext(cm_gui_properties *def_p)
     def_p->ui_property_set("width", 45.);
     def_p->ui_property_set("height", 45.);
     
-    def_p->ui_property_set("_value", 0.);
+    def_p->ui_property_set("_value", 1.);
     
     
 }
