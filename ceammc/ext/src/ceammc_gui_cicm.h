@@ -243,6 +243,9 @@ public:
     static void m_float(t_object *z, t_float f)
     {}
     
+    static void m_set(t_object *z, t_symbol *s, int argc, t_atom *argv)
+    {}
+    
 #pragma mark 'extensions' stubs
     
     static void init_ext(t_eclass *z)
@@ -280,12 +283,18 @@ public:
         
         if (z && d)
         {
-            ebox_attrprocess_viabinbuf(z, d);}
+            //moved
+            cm_gui_object<U>::load_method(z, argv);
+            cm_gui_object<U>::new_ext(z, s, argcl, argv);
+            
+            ebox_attrprocess_viabinbuf(z, d);
+        
+        }
+        
+        
+
         
         ebox_ready((t_ebox *)z);
-        
-        cm_gui_object<U>::load_method(z, argv);
-        cm_gui_object<U>::new_ext(z, s, argcl, argv);
         
         printf("new instance done\n");
         return static_cast<void*>(z);
@@ -301,6 +310,18 @@ public:
         instances.erase(x);
         
         ebox_free((t_ebox *)x);
+        
+        printf("free");
+        
+    }
+    
+    static void free_dsp_method(t_object *x)
+    {
+        cm_gui_object<U>::free_ext(x);
+        
+        instances.erase(x);
+        
+        eobj_dspfree((t_ebox *)x);
         
         printf("free");
         
@@ -615,6 +636,8 @@ public:
             eclass_addmethod(cl, (method)(&cm_gui_object<U>::m_float), ("float"), A_GIMME,0);
             eclass_addmethod(cl, (method)(&cm_gui_object<U>::m_bang), ("bang"), A_GIMME,0);
             
+            eclass_addmethod(cl, (method)(&cm_gui_object<U>::m_set), ("set"), A_GIMME,0);
+            
             //
             //cl->c_widget.w_save = &cm_gui_object<U>::save_method;
             
@@ -627,6 +650,104 @@ public:
             cm_gui_object<U>::init_ext(cl);
             
             eclass_register(CLASS_BOX, cl);
+            
+            
+            printf("gui init (%lu)\n",(long)cl);
+            
+            
+        }
+        
+        printf("init done\n");
+        
+    }
+    
+    void setup_dsp(std::string _class_name)
+    {
+        t_eclass *cl;
+        
+        cl = eclass_new(_class_name.c_str(),(method)cm_gui_object<U>::new_method, (method)&cm_gui_object<U>::free_dsp_method, sizeof(U), CLASS_PATCHABLE, A_GIMME,0);
+        
+        printf("init\n");
+        
+        if (cl)
+        {
+            eclass_guiinit(cl, 0);
+            eclass_dspinit(cl);
+            
+            cm_gui_object<U>::class_name = _class_name;
+            cm_gui_object<U>::ui_properties_init();
+            
+            //widget
+            
+            //TODO methods
+            //                    cl->c_widget.w_visfn = &cm_gui_object<U>::w_vis;
+            //                    cl->c_widget.w_displacefn = &cm_gui_object<U>::w_displace;
+            //                    cl->c_widget.w_getrectfn = &cm_gui_object<U>::w_getrect;
+            //                    cl->c_widget.w_selectfn = &cm_gui_object<U>::w_select;
+            
+            
+            
+            // We intialize the attribute of the t_bang.
+            // All the GUI classes has font attributes but we don't need them for the bang classe so we mark them invisible.
+            CLASS_ATTR_INVISIBLE            (cl, "fontname", 1);
+            CLASS_ATTR_INVISIBLE            (cl, "fontweight", 1);
+            CLASS_ATTR_INVISIBLE            (cl, "fontslant", 1);
+            CLASS_ATTR_INVISIBLE            (cl, "fontsize", 1);
+            //            // All the GUI classes has a size attribute, we just set up the default value.
+            //            CLASS_ATTR_DEFAULT              (cl, "size", 0, "16. 16.");
+            
+            // We create a new t_rgba attribute that refers to the b_color_background member of the t_bang and that will match to
+            // "bgcolor". The user will be able to change the background color with the "bgcolor" message.
+            //CLASS_ATTR_RGBA                 (cl, "bgcolor", 0, U, b_color_background);
+            // We set up the label that will be displayed in the properties window of the object for the attribute.
+            CLASS_ATTR_LABEL                (cl, "bgcolor", 0, "Background Color");
+            // We set up the order of the attribute in the properties window (this is unused for the moment).
+            CLASS_ATTR_ORDER                (cl, "bgcolor", 0, "1");
+            // We set up the the default value of the color. This macro also defines that the attribute will automatically call ebox_redraw when its value has changed and that its value will be saved with the patcher.
+            CLASS_ATTR_DEFAULT_SAVE_PAINT   (cl, "bgcolor", 0, "0.75 0.75 0.75 1.");
+            // We set up the that the attribute should be displayed as a color slector in the properties window.
+            CLASS_ATTR_STYLE                (cl, "bgcolor", 0, "color");
+            // We do the same thing for the border color and the bang color.
+            //CLASS_ATTR_RGBA                 (cl, "bdcolor", 0, U, b_color_border);
+            CLASS_ATTR_LABEL                (cl, "bdcolor", 0, "Border Color");
+            CLASS_ATTR_ORDER                (cl, "bdcolor", 0, "2");
+            CLASS_ATTR_DEFAULT_SAVE_PAINT   (cl, "bdcolor", 0, "0.5 0.5 0.5 1.");
+            CLASS_ATTR_STYLE                (cl, "bdcolor", 0, "color");
+            
+            //CLASS_ATTR_RGBA                 (cl, "bacolor", 0, U, b_color_bang);
+            CLASS_ATTR_LABEL                (cl, "bacolor", 0, "Bang Color");
+            CLASS_ATTR_ORDER                (cl, "bacolor", 0, "3");
+            CLASS_ATTR_DEFAULT_SAVE_PAINT   (cl, "bacolor", 0, "0. 0. 0. 1.");
+            CLASS_ATTR_STYLE                (cl, "bacolor", 0, "color");
+            
+            eclass_addmethod(cl, (method)(&cm_gui_object<U>::wx_paint), ("paint"), A_GIMME,0);
+            
+            eclass_addmethod(cl, (method)(&cm_gui_object<U>::wx_mousemove), ("mousemove"), A_GIMME,0);
+            eclass_addmethod(cl, (method)(&cm_gui_object<U>::wx_mousedown), ("mousedown"), A_GIMME,0);
+            eclass_addmethod(cl, (method)(&cm_gui_object<U>::wx_mouseup), ("mouseup"), A_GIMME,0);
+            eclass_addmethod(cl, (method)(&cm_gui_object<U>::wx_mousedrag), ("mousedrag"), A_GIMME,0);
+            
+            eclass_addmethod(cl, (method)(&cm_gui_object<U>::wx_mouseleave), ("mouseleave"), A_GIMME,0);
+            
+            eclass_addmethod(cl, (method)(&cm_gui_object<U>::wx_oksize), ("oksize"), A_GIMME,0);
+            
+            eclass_addmethod(cl, (method)(&cm_gui_object<U>::m_list), ("list"), A_GIMME,0);
+            eclass_addmethod(cl, (method)(&cm_gui_object<U>::m_float), ("float"), A_GIMME,0);
+            eclass_addmethod(cl, (method)(&cm_gui_object<U>::m_bang), ("bang"), A_GIMME,0);
+            
+            //
+            //cl->c_widget.w_save = &cm_gui_object<U>::save_method;
+            
+            CLASS_ATTR_DEFAULT (cl, "size", 0, "45. 15.");
+            
+            
+            
+            cm_gui_object<U>::pd_class = cl;
+            eclass_register(CLASS_OBJ, cl);
+            
+            cm_gui_object<U>::init_ext(cl);
+            
+            
             
             
             printf("gui init (%lu)\n",(long)cl);

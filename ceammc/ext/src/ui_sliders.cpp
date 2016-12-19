@@ -110,7 +110,7 @@ UI_fun(ui_sliders)::m_list(t_object *z, t_symbol *s, int argc, t_atom *argv)
 //    
 //    cm_gui_object<cm_gui_base_pd_object>::ws_redraw(z);
     
-    cm_gui_object::m_set(z, s, argc, argv);
+    cm_gui_object<ui_sliders>::m_set(z, s, argc, argv);
     
     outlet_list( ((ui_sliders*)z)->out1, &s_list, ((ui_sliders*)z)->val_list_size, ((ui_sliders*)z)->val_list );
     

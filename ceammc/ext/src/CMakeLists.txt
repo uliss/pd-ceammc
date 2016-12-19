@@ -117,6 +117,8 @@ ceammc_cxx_tl_extension(ui slider2d)
 ceammc_cxx_tl_extension(ui sliders)
 ceammc_cxx_tl_extension(ui knob)
 ceammc_cxx_tl_extension(ui test_cicm)
+ceammc_cxx_tl_extension(ui scope)
+
 
 # JSON
 
