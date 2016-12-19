@@ -213,7 +213,6 @@ ceammc_faust_extension(lfo tri simple_pd_control_ext)
 ceammc_faust_extension(lfo square simple_pd_control_ext)
 
 ceammc_faust_extension(fx softclip simple_pd_control_ext)
-ceammc_faust_extension(fx envfollow simple_pd_control_ext)
 ceammc_faust_extension(fx freqshift simple_pd_control_ext)
 ceammc_faust_extension(fx pitchshift simple_pd_control_ext)
 
@@ -250,8 +249,8 @@ ceammc_faust_extension(osc square simple_pd_control_ext)
 ceammc_faust_extension(osc tri simple_pd_control_ext)
 
 ceammc_faust_extension(env adsr simple_pd_control_ext)
-
 ceammc_faust_extension(env ar simple_pd_control_ext)
+ceammc_faust_extension(env follow simple_pd_control_ext)
 
 
 ceammc_faust_extension(live capture simple_pd_control_ext)
