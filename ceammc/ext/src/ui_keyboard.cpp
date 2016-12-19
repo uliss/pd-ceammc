@@ -96,7 +96,15 @@ UI_fun(ui_keyboard)::wx_paint(t_object *z, t_object *view)
         if ( UI_Pf("keys") > 127 ) UI_Pset("keys",127);
         
         int numKeys = UI_Pf("keys");
-        int kWidth = rect.width/UI_Pf("keys");
+        float kWidth = floor(rect.width/UI_Pf("keys"));
+        
+        t_symbol *color_wh_f = gensym("#F0F0F0");
+        t_symbol *color_wh_b = gensym("#C0C0C0");
+        t_symbol *color_bl_f = gensym("#505050");
+        t_symbol *color_bl_b = gensym("#C0C0C0");
+        t_symbol *color_hv_b = gensym("#00C0FF");
+        t_symbol *color_md_f = gensym("#00C0FF");
+        
         
         // two pass draw
         for (int i = 0; i<numKeys; i++)
@@ -108,22 +116,22 @@ UI_fun(ui_keyboard)::wx_paint(t_object *z, t_object *view)
                 char keyname[7];
                 sprintf(keyname, "KEY%d", i);
                 
+                bool hover = ( i == int(UI_Pf("_pitch")) );
+                bool click = ( UI_Pf("_mouse_dn")==1 );
+                
                 egraphics_rectangle(g, k.x, k.y, k.w, k.h);
-                egraphics_set_color_hex(g,
-                                        (mouse_in_rect(UI_Pf("_mouse_x"), UI_Pf("_mouse_y"), k)) &&
-                                        (UI_Pf("_mouse_dn")==0)
-                                        ? gensym("#00C0FF") : gensym("#E0E0E0")  );
+                egraphics_set_color_hex(g, (hover) ? (click ? color_md_f : color_wh_f) : color_wh_f);
                 egraphics_fill(g);
                 
                 egraphics_rectangle(g, k.x, k.y, k.w, k.h);
-                egraphics_set_color_hex(g, gensym((mouse_in_rect(UI_Pf("_mouse_x"), UI_Pf("_mouse_y"), k)) ? "#FF0000" : "#505050"));
+                egraphics_set_color_hex(g, (hover) ? (click ? color_hv_b : color_hv_b) : color_wh_b);
                 egraphics_stroke(g);
                 
-                //TEMP
-                if (mouse_in_rect(UI_Pf("_mouse_x"), UI_Pf("_mouse_y"), k))
-                {
-                    UI_Pset("_pitch", (float)i);
-                }
+//                //TEMP
+//                if (mouse_in_rect(UI_Pf("_mouse_x"), UI_Pf("_mouse_y"), k))
+//                {
+//                    UI_Pset("_pitch", (float)i);
+//                }
                 
             }
         }
@@ -137,20 +145,21 @@ UI_fun(ui_keyboard)::wx_paint(t_object *z, t_object *view)
                 char keyname[7];
                 sprintf(keyname, "KEY%d", i);
                 
+                bool hover = ( i == int(UI_Pf("_pitch")) );
+                bool click = ( UI_Pf("_mouse_dn")==1 );
+                
                 egraphics_rectangle(g, k.x, k.y, k.w, k.h);
-                egraphics_set_color_hex(g, (mouse_in_rect(UI_Pf("_mouse_x"), UI_Pf("_mouse_y"), k)) &&
-                                        (UI_Pf("_mouse_dn")==0)
-                                        ?  gensym("#0070C0") : gensym("#707070") );
+                egraphics_set_color_hex(g, (hover) ? (click ? color_md_f : color_bl_f) : color_bl_f);
                 egraphics_fill(g);
                 
                 egraphics_rectangle(g, k.x, k.y, k.w, k.h);
-                egraphics_set_color_hex(g, gensym((mouse_in_rect(UI_Pf("_mouse_x"), UI_Pf("_mouse_y"), k)) ? "#FF0000" : "#505050"));
+                egraphics_set_color_hex(g, (hover) ? (click ? color_hv_b : color_hv_b) : color_bl_b);
                 egraphics_stroke(g);
                 
-                if (mouse_in_rect(UI_Pf("_mouse_x"), UI_Pf("_mouse_y"), k))
-                {
-                    UI_Pset("_pitch", (float)i);
-                }
+//                if (mouse_in_rect(UI_Pf("_mouse_x"), UI_Pf("_mouse_y"), k))
+//                {
+//                    UI_Pset("_pitch", (float)i);
+//                }
             }
         }
         
@@ -165,6 +174,49 @@ UI_fun(ui_keyboard)::wx_paint(t_object *z, t_object *view)
 
 #pragma mark -
 
+UI_fun(ui_keyboard)::wx_mousemove_ext(t_object* z, t_object *view, t_pt pt, long modifiers)
+{
+    UI_Prop
+    
+    t_symbol *bgl = gensym("background_layer");
+    float size;
+    t_rect rect;
+    ebox_get_rect_for_view((t_ebox *)z, &rect);
+    
+    int numKeys = UI_Pf("keys");
+    float kWidth = floor(rect.width/UI_Pf("keys"));
+    
+    for (int i = 0; i<numKeys; i++)
+    {
+        kRect k = get_key_r(i, kWidth, rect.height);
+        
+        if (!k.is_black)
+        {
+            
+            //TEMP
+            if (mouse_in_rect(UI_Pf("_mouse_x"), UI_Pf("_mouse_y"), k))
+            {
+                UI_Pset("_pitch", (float)i);
+            }
+            
+        }
+    }
+    
+    for (int i = 0; i<numKeys; i++)
+    {
+        kRect k = get_key_r(i, kWidth, rect.height);
+        
+        if (k.is_black)
+        {
+            if (mouse_in_rect(UI_Pf("_mouse_x"), UI_Pf("_mouse_y"), k))
+            {
+                UI_Pset("_pitch", (float)i);
+            }
+        }
+    }
+    
+}
+
 UI_fun(ui_keyboard)::wx_mousedown_ext(t_object* z, t_object *view, t_pt pt, long modifiers)
 {
     UI_Prop
@@ -176,6 +228,9 @@ UI_fun(ui_keyboard)::wx_mousedown_ext(t_object* z, t_object *view, t_pt pt, long
     
     int pitch= UI_Pf("_pitch");
     int vel= int(pt.y/rect.height*127.);
+    
+    UI_Pset("_vel", vel);
+    UI_Pset("_pitch_prev", pitch);
     
     atom_setfloat(&((ui_keyboard*)z)->out_list[0], (float)pitch);
     atom_setfloat(&((ui_keyboard*)z)->out_list[1], (float)vel);
@@ -199,6 +254,8 @@ UI_fun(ui_keyboard)::wx_mouseup_ext(t_object* z, t_object *view, t_pt pt, long m
     int pitch= UI_Pf("_pitch");
     int vel=0;
     
+    UI_Pset("_vel", vel);
+    
     atom_setfloat(&((ui_keyboard*)z)->out_list[0], (float)pitch);
     atom_setfloat(&((ui_keyboard*)z)->out_list[1], (float)vel);
     
@@ -215,16 +272,33 @@ UI_fun(ui_keyboard)::wx_mousedrag_ext(t_object* z, t_object *view, t_pt pt, long
     
     printf("n mouse drag\n");
     
-    //    t_rect rect;
-    //    ebox_get_rect_for_view((t_ebox *)z, &rect);
-    //
-    //    int pitch=0;
-    //    int vel=0;
-    //
-    //    atom_setfloat(&((ui_slider2d*)z)->out_list[0], pitch);
-    //    atom_setfloat(&((ui_slider2d*)z)->out_list[1], vel);
-    //
-    //    outlet_list( ((ui_slider2d*)z)->out1, &s_list, 2, ((ui_slider2d*)z)->out_list );
+    cm_gui_object<ui_keyboard>::wx_mousemove_ext(z,view,pt,modifiers);
+    
+    if (UI_Pf("_pitch_prev") != UI_Pf("_pitch") )
+    {
+        int pitch= UI_Pf("_pitch");
+        int vel= UI_Pf("_pitch");
+        
+        UI_Pset("_pitch_prev", pitch);
+        
+        atom_setfloat(&((ui_keyboard*)z)->out_list[0], (float)pitch);
+        atom_setfloat(&((ui_keyboard*)z)->out_list[1], (float)vel);
+        
+        printf("pitch vel %d %d \n", pitch,vel);
+        
+        outlet_list( ((ui_keyboard*)z)->out1, &s_list, 2, ((ui_keyboard*)z)->out_list );
+        
+        
+    }
+    
+    cm_gui_object<cm_gui_base_pd_object>::ws_redraw(z);
+}
+
+UI_fun(ui_keyboard)::wx_mouseleave_ext(t_object *z, t_object *view, t_pt pt, long modifiers)
+{
+    UI_Prop
+    
+    UI_Pset("_pitch",-1);
     
     cm_gui_object<cm_gui_base_pd_object>::ws_redraw(z);
 }

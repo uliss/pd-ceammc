@@ -228,32 +228,34 @@ public:
     
     
 #pragma mark -
-#pragma mark 'extensions'
+    
+#pragma mark method stubs
+    
+    static void m_bang(t_object *z, t_symbol *s, int argc, t_atom *argv)
+    {}
+    
+    static void m_list(t_object *z, t_symbol *s, int argc, t_atom *argv)
+    {}
+    
+    static void m_symbol(t_object *z, t_symbol *s, int argc, t_atom *argv)
+    {}
+    
+#pragma mark 'extensions' stubs
     
     static void init_ext(t_eclass *z)
-    {
-        
-    }
+    {}
     
     static void new_ext(t_object *x, t_symbol *s, int argcl, t_atom *argv)
-    {
-        
-    }
+    {}
     
     static void load_ext(t_object *x)
-    {
-        
-    }
+    {}
     
     static void free_ext(t_object *x)
-    {
-        
-    }
+    {}
     
     static void ui_properties_init_ext(cm_gui_properties *def_p)
-    {
-        
-    }
+    {}
     
 #pragma mark pd object instance
     
@@ -262,10 +264,6 @@ public:
         printf("new instance (%lu) \n",(long)cm_gui_object<U>::pd_class);
         
         t_object* z = (t_object*)eobj_new(cm_gui_object<U>::pd_class);
-        
-        //reinterpret_cast<t_object*>(pd_new((t_class*)cm_gui_object<U>::pd_class));
-        
-        //U *x = (U*)z;
         
         cm_gui_properties *inst_prop = new cm_gui_properties;
         *inst_prop = *(cm_gui_object<U>::ui_default_properties);
@@ -283,15 +281,8 @@ public:
         
         ebox_ready((t_ebox *)z);
         
-        //t_text *t = (t_text*) &(((U*)z)->x_gui);
-        //printf("-new coords %d %d\n", t->te_xpix, t->te_ypix);
-        
         cm_gui_object<U>::load_method(z, argv);
         cm_gui_object<U>::new_ext(z, s, argcl, argv);
-        
-        
-        //        pd_bind((t_pd*)cm_gui_object<U>::pd_class, gensym(cm_gui_object<U>::class_name.c_str()));
-        //        ui_x_bind(z, cm_gui_object<U>::class_name.c_str(), canvas_getcurrent() );
         
         printf("new instance done\n");
         return static_cast<void*>(z);
@@ -443,7 +434,12 @@ public:
         ebox_paint_layer((t_ebox *)x, bgl, 0., 0.);
     }
     
-    //static void bang_mousedown(t_bang *x, t_object *view, t_pt pt, long modifiers)
+#pragma mark _
+    
+    static void wx_oksize(t_object *z, t_rect *newrect)
+    {
+    
+    }
     
     static void wx_mousemove(t_object* z, t_object *view, t_pt pt, long modifiers)
     {
@@ -505,6 +501,13 @@ public:
         
     }
     
+    static void wx_mouseleave(t_object* z, t_object *view, t_pt pt, long modifiers)
+    {
+        
+//        cm_gui_object<U>::wx_mouseleave_ext(z,view,pt,modifiers);
+
+    }
+    
 #pragma mark extensions
     static void wx_mousemove_ext(t_object* z, t_object *view, t_pt pt, long modifiers)
     {
@@ -522,6 +525,11 @@ public:
     }
     
     static void wx_mousedrag_ext(t_object* z, t_object *view, t_pt pt, long modifiers)
+    {
+        
+    }
+    
+    static void wx_mouseleave_ext(t_object* z, t_object *view, t_pt pt, long modifiers)
     {
         
     }
@@ -595,6 +603,12 @@ public:
             eclass_addmethod(cl, (method)(&cm_gui_object<U>::wx_mousedown), ("mousedown"), A_GIMME,0);
             eclass_addmethod(cl, (method)(&cm_gui_object<U>::wx_mouseup), ("mouseup"), A_GIMME,0);
             eclass_addmethod(cl, (method)(&cm_gui_object<U>::wx_mousedrag), ("mousedrag"), A_GIMME,0);
+            
+            eclass_addmethod(cl, (method)(&cm_gui_object<U>::wx_mouseleave), ("mouseleave"), A_GIMME,0);
+            
+            eclass_addmethod(cl, (method)(&cm_gui_object<U>::wx_oksize), ("oksize"), A_GIMME,0);
+            
+            eclass_addmethod(cl, (method)(&cm_gui_object<U>::m_list), ("list"), A_GIMME,0);
             
             //
             //cl->c_widget.w_save = &cm_gui_object<U>::save_method;
