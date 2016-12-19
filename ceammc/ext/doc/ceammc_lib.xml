@@ -19,6 +19,9 @@
     <entry descr="mono 1176LN Peak Limiter" name="dyn.limit~">
       <xi:include href="dyn.limit~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="soft signal clip" name="dyn.softclip~">
+      <xi:include href="dyn.softclip~.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="env">
     <entry descr="ADSR (Attack, Decay, Sustain, Release) envelope generator" name="env.adsr~">
@@ -51,9 +54,6 @@
   <category name="fx">
     <entry descr="simple pitch shifter based on 2 delay lines" name="fx.pitchshift~">
       <xi:include href="fx.pitchshift~.pddoc" parse="xml"/>
-    </entry>
-    <entry descr="soft signal clip" name="fx.softclip~">
-      <xi:include href="fx.softclip~.pddoc" parse="xml"/>
     </entry>
   </category>
   <category name="lfo">

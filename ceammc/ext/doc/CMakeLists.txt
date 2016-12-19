@@ -10,6 +10,7 @@ set(DOC_FILES
     dyn.gate2~
     dyn.limit~
     dyn.limit2~
+    dyn.softclip~
     env.ar~
     env.adsr~
     env.follow~
@@ -19,7 +20,6 @@ set(DOC_FILES
     flt.lowshelf~
     flt.eq_peak~
     fx.pitchshift~
-    fx.softclip~
     is_any
     is_bang
     is_float

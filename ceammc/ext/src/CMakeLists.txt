@@ -221,7 +221,6 @@ ceammc_faust_extension(lfo impulse simple_pd_control_ext)
 ceammc_faust_extension(lfo tri simple_pd_control_ext)
 ceammc_faust_extension(lfo square simple_pd_control_ext)
 
-ceammc_faust_extension(fx softclip simple_pd_control_ext)
 ceammc_faust_extension(fx freqshift simple_pd_control_ext)
 ceammc_faust_extension(fx pitchshift simple_pd_control_ext)
 
@@ -246,6 +245,7 @@ ceammc_faust_extension(dyn gate  simple_pd_control_ext)
 ceammc_faust_extension(dyn gate2 simple_pd_control_ext)
 ceammc_faust_extension(dyn limit simple_pd_control_ext)
 ceammc_faust_extension(dyn limit2 simple_pd_control_ext)
+ceammc_faust_extension(dyn softclip simple_pd_control_ext)
 
 ceammc_faust_extension(spat pan2 simple_pd_control_ext)
 ceammc_faust_extension(spat pan4 simple_pd_control_ext)

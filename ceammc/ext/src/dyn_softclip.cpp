@@ -1,4 +1,4 @@
-#include "fx_softclip.h"
+#include "dyn_softclip.h"
 
 static void* faust_new(t_symbol* s, int argc, t_atom* argv)
 {
@@ -7,7 +7,7 @@ static void* faust_new(t_symbol* s, int argc, t_atom* argv)
     return p.pd_obj();
 }
 
-extern "C" void setup_fx0x2esoftclip_tilde()
+extern "C" void setup_dyn0x2esoftclip_tilde()
 {
-    internal_setup(gensym("fx.softclip~"));
+    internal_setup(gensym("dyn.softclip~"));
 }

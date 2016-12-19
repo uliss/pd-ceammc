@@ -14,6 +14,8 @@
 #X text 150 221 stereo 1176LN Peak Limiter;
 #X obj 30 248 dyn.limit~;
 #X text 150 248 mono 1176LN Peak Limiter;
+#X obj 30 275 dyn.softclip~;
+#X text 150 275 soft signal clip;
 #X obj 1 1 cnv 5 597 40 empty empty ceammc::dyn 20 20 0 20 -104026
 -4096 0;
 #X obj 1 458 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;

@@ -53,7 +53,6 @@
 [fx.pitchshift~ 200 100 id]
 |\                  ^|
 [dac~]              [print]
-
 ]]>
         </pdascii>
         </example>

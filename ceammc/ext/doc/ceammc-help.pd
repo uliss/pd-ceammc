@@ -16,37 +16,37 @@ purposes in centre of electroacoustic music of Moscow Convervatory
 #X text 150 249 stereo 1176LN Peak Limiter;
 #X obj 30 276 dyn.limit~;
 #X text 150 276 mono 1176LN Peak Limiter;
-#X obj 20 303 cnv 5 28 19 empty empty env 0 17 0 17 -262144 -49933 0;
-#X obj 20 332 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 343 env.adsr~;
-#X text 150 343 ADSR (Attack \, Decay \, Sustain \, Release) envelope
+#X obj 30 303 dyn.softclip~;
+#X text 150 303 soft signal clip;
+#X obj 20 330 cnv 5 28 19 empty empty env 0 17 0 17 -262144 -49933 0;
+#X obj 20 359 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 370 env.adsr~;
+#X text 150 370 ADSR (Attack \, Decay \, Sustain \, Release) envelope
 generator;
-#X obj 30 370 env.ar~;
-#X text 150 370 AR (Attack \, Release) envelope generator (useful to
+#X obj 30 397 env.ar~;
+#X text 150 397 AR (Attack \, Release) envelope generator (useful to
 create percussion envelopes)\.;
-#X obj 30 407 env.follow~;
-#X text 150 407 Envelope follower with independent attack and release
+#X obj 30 434 env.follow~;
+#X text 150 434 Envelope follower with independent attack and release
 times\.;
-#X obj 20 444 cnv 5 27 19 empty empty flt 0 17 0 17 -262144 -49933 0;
-#X obj 20 473 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 484 flt.dcblock2~;
-#X text 150 484 stereo DC blocker;
-#X obj 30 511 flt.dcblock~;
-#X text 150 511 mono DC blocker;
-#X obj 30 538 flt.eq_peak~;
-#X text 150 538 second order "peaking equalizer" section (gain boost
+#X obj 20 471 cnv 5 27 19 empty empty flt 0 17 0 17 -262144 -49933 0;
+#X obj 20 500 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 511 flt.dcblock2~;
+#X text 150 511 stereo DC blocker;
+#X obj 30 538 flt.dcblock~;
+#X text 150 538 mono DC blocker;
+#X obj 30 565 flt.eq_peak~;
+#X text 150 565 second order "peaking equalizer" section (gain boost
 or cut near some frequency)\.  Also called a "parametric equalizer"
 section\.;
-#X obj 30 589 flt.highshelf~;
-#X text 150 589 gain boost|cut above some frequency;
-#X obj 30 616 flt.lowshelf~;
-#X text 150 616 gain boost|cut below some frequency;
-#X obj 20 643 cnv 5 18 19 empty empty fx 0 17 0 17 -262144 -49933 0;
-#X obj 20 672 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 683 fx.pitchshift~;
-#X text 150 683 simple pitch shifter based on 2 delay lines;
-#X obj 30 710 fx.softclip~;
-#X text 150 710 soft signal clip;
+#X obj 30 616 flt.highshelf~;
+#X text 150 616 gain boost|cut above some frequency;
+#X obj 30 643 flt.lowshelf~;
+#X text 150 643 gain boost|cut below some frequency;
+#X obj 20 670 cnv 5 18 19 empty empty fx 0 17 0 17 -262144 -49933 0;
+#X obj 20 699 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 710 fx.pitchshift~;
+#X text 150 710 simple pitch shifter based on 2 delay lines;
 #X obj 20 737 cnv 5 27 19 empty empty lfo 0 17 0 17 -262144 -49933 0;
 #X obj 20 766 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 777 lfo.impulse~;
