@@ -118,6 +118,7 @@ ceammc_cxx_tl_extension(ui sliders)
 ceammc_cxx_tl_extension(ui knob)
 ceammc_cxx_tl_extension(ui test_cicm)
 ceammc_cxx_tl_extension(ui scope)
+ceammc_cxx_tl_extension(ui spectroscope)
 
 
 # JSON

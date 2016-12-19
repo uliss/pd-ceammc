@@ -57,7 +57,7 @@ UI_fun(ui_scope)::wx_paint(t_object *z, t_object *view)
         {
             float xx = float(i+1)/128.*rect.width;
             float val = ( ((ui_scope*)z)->buf[i] ==  ((ui_scope*)z)->buf[i] ) ? ((ui_scope*)z)->buf[i] : 0.;
-            float yy = (val *.5 + .5)*rect.height;
+            float yy = (-val *.5 + .5)*rect.height;
             
             egraphics_line_to(g, xx, yy);
         }
