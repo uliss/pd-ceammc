@@ -240,15 +240,13 @@ public:
     static void m_symbol(t_object *z, t_symbol *s, int argc, t_atom *argv)
     {}
     
-<<<<<<< HEAD
     static void m_float(t_object *z, t_float f)
     {}
     
     static void m_set(t_object *z, t_symbol *s, int argc, t_atom *argv)
     {}
     
-=======
->>>>>>> uliss/ceammc
+
 #pragma mark 'extensions' stubs
     
     static void init_ext(t_eclass *z)
