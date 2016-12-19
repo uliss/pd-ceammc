@@ -48,6 +48,11 @@ class PdExtension(object):
             print "#include <{}>".format(f)
 
         print '#include "ceammc.h"'
+        macro = '''
+#define OBJ_NAME "{mod}.{ext}"
+#define MSG_PREFIX "[" OBJ_NAME "] "
+'''
+        print macro.format(mod=self.module, ext=self.extension)
 
     def generate_struct(self, fields=[]):
         res = '''
@@ -162,7 +167,7 @@ static void {name}_free({type} *x)
 
         if self.gen_cpp:
             res += '''
-    {class_} = class_new(gensym("{mod}.{ext}"),
+    {class_} = class_new(gensym(OBJ_NAME),
         reinterpret_cast<t_newmethod>({name_}_new),
         reinterpret_cast<t_method>({free_}),
         sizeof({type_}), 0, A_NULL);'''.format(class_=self.class_,
@@ -173,7 +178,7 @@ static void {name}_free({type} *x)
                                                    ext=self.extension)
         else:
             res += '''
-    {class_} = class_new(gensym("{mod}.{ext}"),
+    {class_} = class_new(gensym(OBJ_NAME),
         (t_newmethod){name_}_new, (t_method){free_},
         sizeof({type_}), 0, A_NULL);'''.format(class_=self.class_,
                                                    type_=self.type_,
