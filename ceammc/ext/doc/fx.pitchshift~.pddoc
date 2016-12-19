@@ -48,11 +48,11 @@
 <![CDATA[
 [F]
 |
-[phasor~ 300]      [F]   /* transposition */
-|                  |.
+[phasor~ 300] [B]   [F]   /* transposition */
+|             |     |.
 [fx.pitchshift~ 200 100 id]
-|\                 ^|
-[dac~]             [print]
+|\                  ^|
+[dac~]              [print]
 
 ]]>
         </pdascii>
