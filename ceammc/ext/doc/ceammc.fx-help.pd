@@ -2,8 +2,10 @@
 #X obj 20 50 pddp/pddplink ../index-help.pd -text index;
 #X text 62 50 ::;
 #X obj 79 50 pddp/pddplink ceammc-help.pd -text ceammc;
-#X obj 30 113 fx.softclip~;
-#X text 150 113 soft signal clip;
+#X obj 30 113 fx.pitchshift~;
+#X text 150 113 simple pitch shifter based on 2 delay lines;
+#X obj 30 140 fx.softclip~;
+#X text 150 140 soft signal clip;
 #X obj 1 1 cnv 5 597 40 empty empty ceammc::fx 20 20 0 20 -104026
 -4096 0;
 #X obj 1 458 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;

@@ -18,6 +18,7 @@ set(DOC_FILES
     flt.highshelf~
     flt.lowshelf~
     flt.eq_peak~
+    fx.pitchshift~
     fx.softclip~
     is_any
     is_bang
