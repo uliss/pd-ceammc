@@ -134,7 +134,9 @@ ceammc_cxx_extension(exp patchdata)
 # STREAM
 ceammc_cxx_extension(reject if)
 ceammc_cxx_extension(reject this)
+
 ceammc_cxx_extension(pass if)
+ceammc_cxx_extension(pass changed)
 ceammc_cxx_extension(pass this)
 
 ###############################

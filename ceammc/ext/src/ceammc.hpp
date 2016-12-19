@@ -33,6 +33,8 @@ namespace math {
 
 namespace pd {
     typedef std::vector<t_atom> atom_list;
+    bool operator==(const atom_list& l1, const atom_list& l2);
+    bool operator!=(const atom_list& l1, const atom_list& l2);
 
     static inline bool is_float(const t_atom& a)
     {
@@ -115,6 +117,47 @@ namespace pd {
             return atom_equals(a, b);
         }
     };
+
+    class ControlValue {
+        enum ValueType {
+            NONE,
+            FLOAT,
+            SYMBOL,
+            LIST,
+            ANY
+        };
+
+        ValueType type_;
+        t_float float_v_;
+        const t_symbol* symbol_v_;
+        atom_list list_v_;
+
+    public:
+        // create none
+        ControlValue();
+        // create float
+        ControlValue(t_float v);
+        // create symbol
+        ControlValue(const t_symbol* s);
+        // create list
+        ControlValue(const atom_list& lst);
+        ControlValue(int argc, t_atom* argv);
+        // create any
+        ControlValue(t_symbol* s, int argc, t_atom* argv);
+
+        ControlValue(const ControlValue& v);
+
+        ControlValue& operator=(const ControlValue& v);
+        bool isEqual(const ControlValue& v) const;
+
+        void output(t_outlet* o);
+
+        friend bool operator==(const ControlValue& c1, const ControlValue& c2);
+        friend bool operator!=(const ControlValue& c1, const ControlValue& c2);
+    };
+
+    bool operator==(const ControlValue& c1, const ControlValue& c2);
+    bool operator!=(const ControlValue& c1, const ControlValue& c2);
 }
 }
 
