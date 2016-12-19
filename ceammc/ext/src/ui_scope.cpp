@@ -62,8 +62,6 @@ UI_fun(ui_scope)::wx_paint(t_object *z, t_object *view)
             egraphics_line_to(g, xx, yy);
         }
         
-        //printf ("val %f\n", ((ui_scope*)z)->buf[0]);
-        
         egraphics_stroke(g);
     }
 
@@ -71,7 +69,6 @@ UI_fun(ui_scope)::wx_paint(t_object *z, t_object *view)
     ebox_end_layer((t_ebox*)z, bgl);
     ebox_paint_layer((t_ebox *)z, bgl, 0., 0.);
     
-    //printf(" * ");
     
 }
 
@@ -79,15 +76,8 @@ UI_fun(ui_scope)::wx_paint(t_object *z, t_object *view)
 
 static void ui_scope_perform(ui_scope *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
-    //ui_scope *x = (ui_scope *)(w[1]);
-    t_sample  *in1 =   ins[0]; //(t_sample *)(w[2]);
-//    t_sample  *in2 =    (t_sample *)(w[3]);
-    //t_sample  *out =    (t_sample *)(w[4]);
+    t_sample  *in1 =   ins[0];
     int          n =           sampleframes;
-    //t_sample f_pan = (x->f_pan<0)?0.0:(x->f_pan>1)?1.0:x->f_pan;
-    
-    //t_sample * out = (x)->buf;
-
 
     t_sample * out = &(x)->buf [x->counter * sampleframes];
     
@@ -95,39 +85,29 @@ static void ui_scope_perform(ui_scope *x, t_object *dsp64, t_sample **ins, long 
 
     x->counter++; if (x->counter==32) {x->counter=0; cm_gui_object<ui_scope>::ws_redraw(((t_object *)x));}
  
-    //printf( " buf %f ", x->buf[0]);
 }
 //
 //
 void ui_scope_dsp(ui_scope *x, t_object *dsp, short *count, double samplerate, long maxvectorsize, long flags)
 {
-    //dsp_add(ui_scope_perform, 5, x,
-    //        sp[0]->s_vec, sp[1]->s_vec, sp[2]->s_vec, sp[0]->s_n);
-    
-    
     object_method(dsp, gensym("dsp_add"), x, (method)ui_scope_perform, 0, NULL);
     
-   // dsp_add(ui_scope_perform, 4, sp[0]->s_vec, sp[0]->s_n);
+   
 }
 
 UI_fun(ui_scope)::new_ext(t_object *z, t_symbol *s, int argcl, t_atom *argv)
 {
-    //((ui_scope*)z)->in1 = inlet_new(&((ui_scope*)z)->x_gui, &((ui_scope*)z)->x_gui.ob_pd, &s_signal, &s_signal);
     eobj_dspsetup(z, 1, 0);
     printf ("new ext \n");
 }
 
-UI_fun(ui_scope)::free_ext(t_object *x)
-{
-    //eobj_dspfree(x);
-}
+
 
 UI_fun(ui_scope)::init_ext(t_eclass *z)
 {
-    //eclass
     eclass_addmethod(z, (method)ui_scope_dsp, "dsp", A_CANT, 0);
     
-    //CLASS_MAINSIGNALIN(z, ui_scope, f);
+    
 }
 
 extern "C" void setup_ui0x2escope()
