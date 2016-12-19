@@ -81,15 +81,6 @@ macro(ceammc_cxx_tl_extension module name)
         LIBRARY ceammc
         LINK timeline)
 
-    if(APPLE)
-        set(TL_DLL "libtimeline.dylib")
-        set(TL_DLL_FIX "@loader_path/libtimeline.dylib")
-        add_custom_command(TARGET "${module}.${name}"
-            POST_BUILD
-            COMMAND install_name_tool -change ${TL_DLL} ${TL_DLL_FIX}  $<TARGET_FILE:${module}.${name}>
-        )
-    endif()
-
     set(C11 "")
     if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
         set(C11 "-std=c++0x")
