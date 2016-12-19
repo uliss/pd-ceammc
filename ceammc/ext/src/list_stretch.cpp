@@ -8,6 +8,8 @@ t_class* list_stretch_class;
 struct t_list_stretch {
     t_object x_obj;
     t_float new_len;
+    
+    t_atom *output;
 
 };
 
@@ -17,7 +19,8 @@ static void list_stretch_list(t_list_stretch* x, t_symbol* s, int argc, t_atom* 
     if (argc < 1 || x->new_len<1)
         return;
     
-    t_atom* a_out = (t_atom*)malloc(sizeof(t_atom)*x->new_len);
+    if (x->output) free(x->output);
+    x->output = (t_atom*)malloc(sizeof(t_atom)*x->new_len);
     
     for (int i=0;i<x->new_len;i++)
     {
@@ -27,12 +30,12 @@ static void list_stretch_list(t_list_stretch* x, t_symbol* s, int argc, t_atom* 
         int idx2 = ((idx1+1)<argc)? (idx1+1) : (idx1);
         float mix1 = new_index - idx1;
         
-        a_out[i].a_type = A_FLOAT;      //?
-        a_out[i].a_w.w_float = argv[idx1].a_w.w_float * (1-mix1) + argv[idx2].a_w.w_float * mix1;
+        x->output[i].a_type = A_FLOAT;      //?
+        x->output[i].a_w.w_float = argv[idx1].a_w.w_float * (1-mix1) + argv[idx2].a_w.w_float * mix1;
         
     }
     
-    outlet_list(x->x_obj.te_outlet, s, x->new_len, a_out);
+    outlet_list(x->x_obj.te_outlet, s, x->new_len, x->output);
     
 }
 
@@ -40,6 +43,8 @@ static void* list_stretch_new()
 {
     t_list_stretch* x = reinterpret_cast<t_list_stretch*>(pd_new(list_stretch_class));
     outlet_new(&x->x_obj, &s_list);
+    
+    x->output = (t_atom*)malloc(0);         //dummy
     
     floatinlet_new(&x->x_obj, &x->new_len);
     

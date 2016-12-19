@@ -10,6 +10,8 @@ t_class* list_shift_class;
 struct t_list_shift {
     t_object x_obj;
     t_float idx_shift;
+    
+    t_atom *output;
 
 };
 
@@ -19,7 +21,9 @@ static void list_shift_list(t_list_shift* x, t_symbol* s, int argc, t_atom* argv
     if (argc < 1 )
         return;
     
-    t_atom* a_out = (t_atom*)malloc(sizeof(t_atom)*argc);
+    if (x->output) free(x->output);
+    x->output = (t_atom*)malloc(sizeof(t_atom)*argc);
+    
     
     for (int i=0;i<argc;i++)
     {
@@ -35,14 +39,12 @@ static void list_shift_list(t_list_shift* x, t_symbol* s, int argc, t_atom* argv
         float a1 = argv[idx1].a_w.w_float;
         float a2 = argv[idx2].a_w.w_float;
         
-        a_out[i].a_type = A_FLOAT;      //?
-        a_out[i].a_w.w_float = inrange * ( a1 * (1-mix1) + a2 * mix1 );
+        x->output[i].a_type = A_FLOAT;      //?
+        x->output[i].a_w.w_float = inrange * ( a1 * (1-mix1) + a2 * mix1 );
         
     }
     
-    outlet_list(x->x_obj.te_outlet, s, argc, a_out);
-    
-    
+    outlet_list(x->x_obj.te_outlet, s, argc, x->output);
     
 }
 
@@ -52,6 +54,8 @@ static void* list_shift_new()
     outlet_new(&x->x_obj, &s_list);
     
     floatinlet_new(&x->x_obj, &x->idx_shift);
+    
+    x->output = (t_atom*)malloc(0);         //dummy
     
     return static_cast<void*>(x);
 }
