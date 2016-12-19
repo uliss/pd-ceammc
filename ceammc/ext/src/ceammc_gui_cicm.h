@@ -240,6 +240,9 @@ public:
     static void m_symbol(t_object *z, t_symbol *s, int argc, t_atom *argv)
     {}
     
+    static void m_float(t_object *z, t_float f)
+    {}
+    
 #pragma mark 'extensions' stubs
     
     static void init_ext(t_eclass *z)
@@ -609,6 +612,8 @@ public:
             eclass_addmethod(cl, (method)(&cm_gui_object<U>::wx_oksize), ("oksize"), A_GIMME,0);
             
             eclass_addmethod(cl, (method)(&cm_gui_object<U>::m_list), ("list"), A_GIMME,0);
+            eclass_addmethod(cl, (method)(&cm_gui_object<U>::m_float), ("float"), A_GIMME,0);
+            eclass_addmethod(cl, (method)(&cm_gui_object<U>::m_bang), ("bang"), A_GIMME,0);
             
             //
             //cl->c_widget.w_save = &cm_gui_object<U>::save_method;
