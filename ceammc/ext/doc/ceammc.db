@@ -65,5 +65,6 @@ osc.sibfb~		~		~
 osc.sinfb~		~		~.
 osc.square~		~		~
 osc.tri~		~		~
+pass.changed		.		.
 system.memsize		.		.
 system.memused		.		..

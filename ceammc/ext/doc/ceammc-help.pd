@@ -145,36 +145,41 @@ direction;
 #X text 150 2010 Bandlimited square wave oscillator;
 #X obj 30 2037 osc.tri~;
 #X text 150 2037 Bandlimited triangle wave oscillator;
-#X obj 20 2064 cnv 5 99 19 empty empty predicates 0 17 0 17 -262144
--49933 0;
-#X obj 20 2093 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 2104 is_any;
-#X text 150 2104 checks if input data has *any* type;
-#X obj 30 2131 is_bang;
-#X text 150 2131 checks if input data has *bang* type;
-#X obj 30 2158 is_even;
-#X text 150 2158 checks if input number is even;
-#X obj 30 2185 is_float;
-#X text 150 2185 checks if input data has *float* type;
-#X obj 30 2212 is_list;
-#X text 150 2212 checks if input data has *list* type;
-#X obj 30 2239 is_odd;
-#X text 150 2239 checks if input number is odd;
-#X obj 30 2266 is_pointer;
-#X text 150 2266 checks if input data has *pointer* type;
-#X obj 30 2293 is_symbol;
-#X text 150 2293 checks if input data has *symbol* type;
-#X obj 20 2320 cnv 5 58 19 empty empty system 0 17 0 17 -262144 -49933
+#X obj 20 2064 cnv 5 37 19 empty empty pass 0 17 0 17 -262144 -49933
 0;
-#X obj 20 2349 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 2360 system.memsize;
-#X text 150 2360 returns the size of physical memory (RAM) in bytes
+#X obj 20 2093 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 2104 pass.changed;
+#X text 150 2104 rejects redundant input values;
+#X obj 20 2131 cnv 5 99 19 empty empty predicates 0 17 0 17 -262144
+-49933 0;
+#X obj 20 2160 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 2171 is_any;
+#X text 150 2171 checks if input data has *any* type;
+#X obj 30 2198 is_bang;
+#X text 150 2198 checks if input data has *bang* type;
+#X obj 30 2225 is_even;
+#X text 150 2225 checks if input number is even;
+#X obj 30 2252 is_float;
+#X text 150 2252 checks if input data has *float* type;
+#X obj 30 2279 is_list;
+#X text 150 2279 checks if input data has *list* type;
+#X obj 30 2306 is_odd;
+#X text 150 2306 checks if input number is odd;
+#X obj 30 2333 is_pointer;
+#X text 150 2333 checks if input data has *pointer* type;
+#X obj 30 2360 is_symbol;
+#X text 150 2360 checks if input data has *symbol* type;
+#X obj 20 2387 cnv 5 58 19 empty empty system 0 17 0 17 -262144 -49933
+0;
+#X obj 20 2416 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 2427 system.memsize;
+#X text 150 2427 returns the size of physical memory (RAM) in bytes
 round to float data type\.;
-#X obj 30 2397 system.memused;
-#X text 150 2397 returns the process physical memory use - current and
+#X obj 30 2464 system.memused;
+#X text 150 2464 returns the process physical memory use - current and
 peak;
 #X obj 1 1 cnv 5 597 40 empty empty ceammc 20 20 0 20 -104026 -4096 0;
-#X obj 1 2424 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 2424 version: v0\.1 \, license: GPL3;
-#X obj 20 2440 pddp/pddplink https://github.com/uliss/pure-data -text
+#X obj 1 2491 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 2491 version: v0\.1 \, license: GPL3;
+#X obj 20 2507 pddp/pddplink https://github.com/uliss/pure-data -text
 https://github.com/uliss/pure-data;

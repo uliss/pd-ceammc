@@ -190,6 +190,11 @@
       <xi:include href="osc.tri~.pddoc" parse="xml"/>
     </entry>
   </category>
+  <category name="pass">
+    <entry descr="rejects redundant input values" name="pass.changed">
+      <xi:include href="pass.changed.pddoc" parse="xml"/>
+    </entry>
+  </category>
   <category name="predicates">
     <entry descr="checks if input data has *any* type" name="is_any">
       <xi:include href="is_any.pddoc" parse="xml"/>

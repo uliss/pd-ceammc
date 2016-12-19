@@ -20,6 +20,21 @@ static void pass_changed_reset(t_pass_changed* x)
     *x->x_prev = ControlValue();
 }
 
+static void pass_changed_set(t_pass_changed* x, t_symbol* s, int argc, t_atom* argv)
+{
+    if (argc < 1)
+        return;
+
+    if (argc == 1) {
+        if (ceammc::pd::is_float(argv[0]))
+            *x->x_prev = ControlValue(atom_getfloat(argv));
+        if (ceammc::pd::is_symbol(argv[0]))
+            *x->x_prev = ControlValue(atom_getsymbol(argv));
+    } else {
+        *x->x_prev = ControlValue(argc, argv);
+    }
+}
+
 static void pass_changed_anything(t_pass_changed* x, t_symbol* s, int argc, t_atom* argv)
 {
     ControlValue v(s, argc, argv);
@@ -32,6 +47,7 @@ static void pass_changed_anything(t_pass_changed* x, t_symbol* s, int argc, t_at
 
 static void pass_changed_bang(t_pass_changed* x)
 {
+    x->x_prev->output(x->x_obj.te_outlet);
 }
 
 static void pass_changed_float(t_pass_changed* x, t_floatarg f)
@@ -91,4 +107,7 @@ extern "C" void setup_pass0x2echanged()
     class_addmethod(pass_changed_class,
         reinterpret_cast<t_method>(pass_changed_reset),
         gensym("reset"), A_NULL);
+    class_addmethod(pass_changed_class,
+        reinterpret_cast<t_method>(pass_changed_set),
+        gensym("set"), A_GIMME, A_NULL);
 }
