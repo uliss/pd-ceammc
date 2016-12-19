@@ -505,6 +505,13 @@ public:
         
     }
     
+    static void wx_mouseleave(t_object* z, t_object *view, t_pt pt, long modifiers)
+    {
+        
+//        cm_gui_object<U>::wx_mouseleave_ext(z,view,pt,modifiers);
+
+    }
+    
 #pragma mark extensions
     static void wx_mousemove_ext(t_object* z, t_object *view, t_pt pt, long modifiers)
     {
@@ -522,6 +529,11 @@ public:
     }
     
     static void wx_mousedrag_ext(t_object* z, t_object *view, t_pt pt, long modifiers)
+    {
+        
+    }
+    
+    static void wx_mouseleave_ext(t_object* z, t_object *view, t_pt pt, long modifiers)
     {
         
     }
@@ -595,6 +607,8 @@ public:
             eclass_addmethod(cl, (method)(&cm_gui_object<U>::wx_mousedown), ("mousedown"), A_GIMME,0);
             eclass_addmethod(cl, (method)(&cm_gui_object<U>::wx_mouseup), ("mouseup"), A_GIMME,0);
             eclass_addmethod(cl, (method)(&cm_gui_object<U>::wx_mousedrag), ("mousedrag"), A_GIMME,0);
+            
+            eclass_addmethod(cl, (method)(&cm_gui_object<U>::wx_mouseleave), ("mouseleave"), A_GIMME,0);
             
             //
             //cl->c_widget.w_save = &cm_gui_object<U>::save_method;
