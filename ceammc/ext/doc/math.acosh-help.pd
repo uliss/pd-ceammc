@@ -22,9 +22,9 @@ range [0 \, +infinity]\.;
 0;
 #X text 125 397 1\.;
 #X text 150 397 *float*;
-#X text 230 397 input value;
+#X text 230 397 input value\. ;
 #X text 150 415 *list*;
-#X text 230 415 apply to all numeric values;
+#X text 230 415 apply to all numeric values\. ;
 #X obj 20 443 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 448 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;

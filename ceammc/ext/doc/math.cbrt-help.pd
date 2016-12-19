@@ -18,7 +18,7 @@ value\.;
 0;
 #X text 125 317 1\.;
 #X text 150 317 *float*;
-#X text 230 317 input value;
+#X text 230 317 input value\. ;
 #X obj 20 345 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 350 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;

@@ -22,26 +22,26 @@
 #X text 150 297 float;
 #X obj 231 298 cnv 1 102 18 empty empty empty 17 7 0 10 -237308 -1 0;
 #X text 230 297 threshold(db):   dB level threshold above which gate
-opens (e\.g\. \, 40 dB)  ;
+opens (e\.g\. \, 40 dB)\. ;
 #X text 125 329 2\.;
 #X text 150 329 float;
 #X obj 231 330 cnv 1 80 18 empty empty empty 17 7 0 10 -237308 -1 0;
 #X text 230 329 attack(ms):   attack time = time constant (ms) for
-gate to open  ;
+gate to open\. ;
 #X text 125 361 3\.;
 #X text 150 361 float;
 #X obj 231 362 cnv 1 65 18 empty empty empty 17 7 0 10 -237308 -1 0;
 #X text 230 361 hold(ms):   hold time = time (ms) gate stays open
-after signal level < threshold  ;
+after signal level < threshold\. ;
 #X text 125 393 4\.;
 #X text 150 393 float;
 #X obj 231 394 cnv 1 86 18 empty empty empty 17 7 0 10 -237308 -1 0;
 #X text 230 393 release(ms):   release time = time constant (ms) for
-gate to close  ;
+gate to close\. ;
 #X text 125 425 5\.;
 #X text 150 425 symbol;
 #X obj 231 426 cnv 1 22 18 empty empty empty 17 7 0 10 -237308 -1 0;
-#X text 230 425 ID: object ID for OSC control path;
+#X text 230 425 ID: object ID for OSC control path\. ;
 #X obj 20 453 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 458 cnv 5 63 16 empty empty methods: 0 14 0 14 -262144
 -49933 0;
@@ -60,9 +60,9 @@ level < threshold\. ;
 #X obj 20 596 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
 0;
 #X text 125 601 1\.;
-#X text 230 601 input signal;
+#X text 230 601 input signal\. ;
 #X text 150 619 *bang*;
-#X text 230 619 outputs object internal state to rightmost outlet;
+#X text 230 619 outputs object internal state to rightmost outlet\. ;
 #X obj 20 647 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 652 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;

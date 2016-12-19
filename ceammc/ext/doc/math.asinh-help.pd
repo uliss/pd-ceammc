@@ -18,7 +18,7 @@ sine of the real argument;
 0;
 #X text 125 331 1\.;
 #X text 150 331 *float*;
-#X text 230 331 input value;
+#X text 230 331 input value\. ;
 #X obj 20 359 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 364 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;

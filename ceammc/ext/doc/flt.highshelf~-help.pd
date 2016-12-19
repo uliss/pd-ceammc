@@ -22,16 +22,16 @@
 #X text 125 254 1\.;
 #X text 150 254 float;
 #X obj 231 255 cnv 1 65 18 empty empty empty 17 7 0 10 -237308 -1 0;
-#X text 230 254 freq(Hz):   starting frequency for the shelf  ;
+#X text 230 254 freq(Hz):   starting frequency for the shelf\. ;
 #X text 125 272 2\.;
 #X text 150 272 float;
 #X obj 231 273 cnv 1 66 18 empty empty empty 17 7 0 10 -237308 -1 0;
-#X text 230 272 gain(db):   amount of boost or cut apply to the signal
-;
+#X text 230 272 gain(db):   amount of boost or cut apply to the
+signal\. ;
 #X text 125 290 3\.;
 #X text 150 290 symbol;
 #X obj 231 291 cnv 1 22 18 empty empty empty 17 7 0 10 -237308 -1 0;
-#X text 230 290 ID: object ID for OSC control;
+#X text 230 290 ID: object ID for OSC control\. ;
 #X obj 20 318 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 323 cnv 5 63 16 empty empty methods: 0 14 0 14 -262144
 -49933 0;
@@ -45,9 +45,9 @@
 #X obj 20 407 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
 0;
 #X text 125 412 1\.;
-#X text 230 412 input signal;
+#X text 230 412 input signal\. ;
 #X text 150 430 *bang*;
-#X text 230 430 outputs object internal state to rightmost outlet;
+#X text 230 430 outputs object internal state to rightmost outlet\. ;
 #X obj 20 458 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 463 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;

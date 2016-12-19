@@ -16,16 +16,16 @@ it via external object\.;
 #X text 125 254 1\.;
 #X text 150 254 int;
 #X obj 231 255 cnv 1 44 18 empty empty empty 17 7 0 10 -237308 -1 0;
-#X text 230 254 index: position index;
+#X text 230 254 index: position index\. ;
 #X obj 20 282 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 287 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
 0;
 #X text 125 292 1\.;
 #X text 150 292 *list*;
 #X text 230 292 Input list\. If no element found by specified index -
-list passed without changes\.;
+list passed without changes\.\. ;
 #X text 125 324 2\.;
-#X text 230 324 New modified value from applied object\.;
+#X text 230 324 New modified value from applied object\.\. ;
 #X obj 20 352 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 357 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;

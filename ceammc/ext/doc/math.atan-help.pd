@@ -19,7 +19,7 @@ arc tangent of input value\. The result is in the range [-pi/2 \,
 0;
 #X text 125 345 1\.;
 #X text 150 345 *float*;
-#X text 230 345 input value;
+#X text 230 345 input value\. ;
 #X obj 20 373 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 378 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;
