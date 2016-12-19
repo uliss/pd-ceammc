@@ -1,6 +1,6 @@
 #N canvas 0 0 600 500 12;
 #X text 30 50 General purpose Pd library used for work and education
-purposes in centre of electroacoustic music of Moscow Convervatory
+purposes in centre of electroacoustic music of Moscow Conservatory
 (CEAMMC) and ZIL-electro studio\. ;
 #X obj 20 101 cnv 5 28 19 empty empty dyn 0 17 0 17 -262144 -49933 0;
 #X obj 20 130 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
