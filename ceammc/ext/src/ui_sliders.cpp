@@ -42,6 +42,10 @@ UI_fun(ui_sliders)::wx_paint(t_object *z, t_object *view)
         for (int i =0; i<UI_Pf("count"); i++)
         {
             float v = (zx->val_list)[i].a_w.w_float;
+
+            if (v>1) v=1;
+            if (v<0) v=0;
+
             
             float xx,yy,w,h;
             
@@ -70,9 +74,11 @@ UI_fun(ui_sliders)::wx_paint(t_object *z, t_object *view)
     ebox_end_layer((t_ebox*)z, bgl);
     ebox_paint_layer((t_ebox *)z, bgl, 0., 0.);
 
+    
 }
 
-UI_fun(ui_sliders)::m_list(t_object *z, t_symbol *s, int argc, t_atom *argv)
+UI_fun(ui_sliders)::m_set(t_object *z, t_symbol *s, int argc, t_atom *argv)
+
 {
     UI_Prop
     
@@ -88,6 +94,27 @@ UI_fun(ui_sliders)::m_list(t_object *z, t_symbol *s, int argc, t_atom *argv)
     for (int i=0;i<argc;i++) { zx->val_list[i] = argv[i]; }
     
     cm_gui_object<cm_gui_base_pd_object>::ws_redraw(z);
+    
+
+}
+
+UI_fun(ui_sliders)::m_list(t_object *z, t_symbol *s, int argc, t_atom *argv)
+{
+    
+    cm_gui_object<ui_sliders>::m_set(z, s, argc, argv);
+    
+    outlet_list( ((ui_sliders*)z)->out1, &s_list, ((ui_sliders*)z)->val_list_size, ((ui_sliders*)z)->val_list );
+    
+    
+}
+
+
+
+UI_fun(ui_sliders)::m_bang(t_object *z, t_symbol *s, int argc, t_atom *argv)
+{
+    UI_Prop
+    
+    ui_sliders *zx = (ui_sliders*)z;
     
     outlet_list( ((ui_sliders*)z)->out1, &s_list, ((ui_sliders*)z)->val_list_size, ((ui_sliders*)z)->val_list );
     
@@ -119,7 +146,9 @@ UI_fun(ui_sliders)::wx_mousedrag_ext(t_object* z, t_object *view, t_pt pt, long 
     }
     else
     {
-       numslider = floor(pt.x/rect.width * ((ui_sliders*)z)->val_list_size);
+
+        numslider = floor(pt.x/rect.width * ((ui_sliders*)z)->val_list_size);
+
         val = 1. - pt.y/rect.height;
     }
     
@@ -145,6 +174,7 @@ UI_fun(ui_sliders)::ui_properties_init_ext(cm_gui_properties *def_p)
     
 }
 
+
 UI_fun(ui_sliders)::new_ext(t_object *x, t_symbol *s, int argcl, t_atom *argv)
 {
     ((ui_sliders*)x)->out1 = outlet_new(x, &s_list);
@@ -153,8 +183,10 @@ UI_fun(ui_sliders)::new_ext(t_object *x, t_symbol *s, int argcl, t_atom *argv)
     ((ui_sliders*)x)->val_list = (t_atom*)malloc(sizeof(t_atom)*8);
     for (int i=0;i<8;i++)
     {
+
     ((ui_sliders*)x)->val_list[i].a_type = A_FLOAT;
     ((ui_sliders*)x)->val_list[i].a_w.w_float = 0.;
+
     }
 }
 

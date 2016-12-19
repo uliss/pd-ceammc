@@ -116,10 +116,14 @@ ceammc_cxx_tl_extension(tl test)
 
 # GUI
 
-ceammc_cxx_tl_extension(ui keyboard)
-ceammc_cxx_tl_extension(ui slider2d)
-ceammc_cxx_tl_extension(ui sliders)
-ceammc_cxx_tl_extension(ui test_cicm)
+ceammc_cxx_extension(ui keyboard)
+ceammc_cxx_extension(ui slider2d)
+ceammc_cxx_extension(ui sliders)
+ceammc_cxx_extension(ui knob)
+ceammc_cxx_extension(ui test_cicm)
+ceammc_cxx_extension(ui scope)
+ceammc_cxx_extension(ui spectroscope)
+
 
 # JSON
 
