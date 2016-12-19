@@ -6,6 +6,7 @@ dyn.limit2~		~~		~~
 dyn.limit~		~		~
 env.adsr~		~		~.
 env.ar~		~		~.
+env.follow~		~		~.
 flt.dcblock2~		~~		~~
 flt.dcblock~		~		~
 flt.eq_peak~		~		~.

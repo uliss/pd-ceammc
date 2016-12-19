@@ -682,8 +682,8 @@ static bool faust_init_outputs(t_faust* x, bool info_outlet) {
             return false;
         }
 
-//        for (int i = 0; i < x->n_out; i++)
-//            x->buf[i] = NULL;
+        for (int i = 0; i < x->n_out; i++)
+            x->buf[i] = NULL;
     }
 
 
@@ -715,6 +715,7 @@ static bool faust_new_internal(t_faust* x, const char* obj_id = NULL, bool info_
     int sr = 44100;
     x->active = 1;
     x->xfade = 0;
+    x->rate = sr;
     x->n_xfade = static_cast<int>(sr * XFADE_TIME / 64);
 
     x->dsp = new mydsp();
@@ -887,5 +888,29 @@ public:
         return this->x_;
     }
 };
+
+
+static void* faust_new(t_symbol* s, int argc, t_atom* argv);
+
+static void internal_setup(t_symbol* s)
+{
+    faust_class = class_new(s, reinterpret_cast<t_newmethod>(faust_new),
+        reinterpret_cast<t_method>(faust_free),
+        sizeof(t_faust),
+        CLASS_DEFAULT,
+        A_GIMME, A_NULL);
+    class_addmethod(faust_class, nullfn, &s_signal, A_NULL);
+    class_addmethod(faust_class, reinterpret_cast<t_method>(faust_dsp), gensym("dsp"), A_NULL);
+    CLASS_MAINSIGNALIN(faust_class, t_faust, f);
+    class_addanything(faust_class, faust_any);
+
+    s_button = gensym("button");
+    s_checkbox = gensym("checkbox");
+    s_vslider = gensym("vslider");
+    s_hslider = gensym("hslider");
+    s_nentry = gensym("nentry");
+    s_vbargraph = gensym("vbargraph");
+    s_hbargraph = gensym("hbargraph");
+}
 
 

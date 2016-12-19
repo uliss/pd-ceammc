@@ -71,14 +71,14 @@
         <example>
             <pdascii>
 <![CDATA[
-[osc~ 440]  [floatatom]
-|           |.
-[*~          ]
-| |
-| [env~]
-| |
-| [floatatom] [bng]
-|             |
+[osc~ 440] [F]
+|          |
+|    [dbtorms]
+|    |.
+[*~   ]      [F]
+|            |
+|   [bng]    [threshold $1(
+|   |        |
 [dyn.gate2~ 90 id]
 |  ^|.     ^^|
 [dac~]    [print]

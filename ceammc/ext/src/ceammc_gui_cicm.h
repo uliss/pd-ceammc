@@ -240,12 +240,15 @@ public:
     static void m_symbol(t_object *z, t_symbol *s, int argc, t_atom *argv)
     {}
     
+<<<<<<< HEAD
     static void m_float(t_object *z, t_float f)
     {}
     
     static void m_set(t_object *z, t_symbol *s, int argc, t_atom *argv)
     {}
     
+=======
+>>>>>>> uliss/ceammc
 #pragma mark 'extensions' stubs
     
     static void init_ext(t_eclass *z)
@@ -289,6 +292,7 @@ public:
             
             ebox_attrprocess_viabinbuf(z, d);
         
+
         }
         
         
@@ -637,6 +641,7 @@ public:
             eclass_addmethod(cl, (method)(&cm_gui_object<U>::m_bang), ("bang"), A_GIMME,0);
             
             eclass_addmethod(cl, (method)(&cm_gui_object<U>::m_set), ("set"), A_GIMME,0);
+
             
             //
             //cl->c_widget.w_save = &cm_gui_object<U>::save_method;

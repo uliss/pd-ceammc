@@ -785,11 +785,11 @@ void PdUI::setElementValue(const char* label, float v)
 class highshelf : public dsp {
   private:
 	FAUSTFLOAT 	fslider0;
-	float 	fRec0_perm[4];
-	FAUSTFLOAT 	fslider1;
-	float 	fRec1_perm[4];
+	float 	fRec1[2];
 	float 	fConst0;
-	float 	fRec2_perm[4];
+	FAUSTFLOAT 	fslider1;
+	float 	fRec2[2];
+	float 	fRec0[3];
 	int fSamplingFreq;
 
   public:
@@ -817,13 +817,13 @@ class highshelf : public dsp {
 		fConst0 = (6.2831855f / min(1.92e+05f, max(1.0f, (float)fSamplingFreq)));
 	}
 	virtual void instanceResetUserInterface() {
-		fslider0 = 1e+04f;
-		fslider1 = 0.0f;
+		fslider0 = 0.0f;
+		fslider1 = 1e+04f;
 	}
 	virtual void instanceClear() {
-		for (int i=0; i<4; i++) fRec0_perm[i]=0;
-		for (int i=0; i<4; i++) fRec1_perm[i]=0;
-		for (int i=0; i<4; i++) fRec2_perm[i]=0;
+		for (int i=0; i<2; i++) fRec1[i] = 0;
+		for (int i=0; i<2; i++) fRec2[i] = 0;
+		for (int i=0; i<3; i++) fRec0[i] = 0;
 	}
 	virtual void init(int samplingFreq) {
 		classInit(samplingFreq);
@@ -842,222 +842,32 @@ class highshelf : public dsp {
 	}
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("0x00");
-		ui_interface->addHorizontalSlider("freq", &fslider0, 1e+04f, 2e+01f, 2e+04f, 0.1f);
-		ui_interface->addVerticalSlider("gain", &fslider1, 0.0f, -15.0f, 15.0f, 0.1f);
+		ui_interface->addHorizontalSlider("freq", &fslider1, 1e+04f, 2e+01f, 2e+04f, 0.1f);
+		ui_interface->addVerticalSlider("gain", &fslider0, 0.0f, -15.0f, 15.0f, 0.1f);
 		ui_interface->closeBox();
 	}
 	virtual void compute (int count, FAUSTFLOAT** input, FAUSTFLOAT** output) {
-		float 	fRec0_tmp[64+4];
-		float 	fRec1_tmp[64+4];
-		float 	fZec0[64];
-		float 	fZec1[64];
-		float 	fZec2[64];
-		float 	fZec3[64];
-		float 	fZec4[64];
-		float 	fZec5[64];
-		float 	fZec6[64];
-		float 	fZec7[64];
-		float 	fRec2_tmp[64+4];
 		float 	fSlow0 = (0.001f * float(fslider0));
-		float* 	fRec0 = &fRec0_tmp[4];
 		float 	fSlow1 = (0.001f * float(fslider1));
-		float* 	fRec1 = &fRec1_tmp[4];
-		float* 	fRec2 = &fRec2_tmp[4];
-		int index;
-		int fullcount = count;
-		for (index = 0; index <= fullcount - 64; index += 64) {
-			// compute by blocks of 64 samples
-			const int count = 64;
-			FAUSTFLOAT* input0 = &input[0][index];
-			FAUSTFLOAT* output0 = &output[0][index];
-			// SECTION : 1
-			// LOOP 0x7fece0459d30
-			// pre processing
-			for (int i=0; i<4; i++) fRec1_tmp[i]=fRec1_perm[i];
-			// exec code
-			for (int i=0; i<count; i++) {
-				fRec1[i] = (fSlow1 + (0.999f * fRec1[i-1]));
-			}
+		FAUSTFLOAT* input0 = input[0];
+		FAUSTFLOAT* output0 = output[0];
+		for (int i=0; i<count; i++) {
+			fRec1[0] = (fSlow0 + (0.999f * fRec1[1]));
+			float fTemp0 = powf(10,(0.025f * fRec1[0]));
+			fRec2[0] = (fSlow1 + (0.999f * fRec2[1]));
+			float fTemp1 = (fConst0 * max((float)0, fRec2[0]));
+			float fTemp2 = (sqrtf(fTemp0) * sinf(fTemp1));
+			float fTemp3 = cosf(fTemp1);
+			float fTemp4 = ((fTemp0 + -1) * fTemp3);
+			float fTemp5 = (fTemp3 * (fTemp0 + 1));
+			float fTemp6 = (fTemp0 + fTemp2);
+			float fTemp7 = (fTemp6 + (1 - fTemp4));
+			fRec0[0] = ((float)input0[i] - (((fRec0[2] * (fTemp0 + (1 - (fTemp2 + fTemp4)))) + (2 * (fRec0[1] * (fTemp0 + (-1 - fTemp5))))) / fTemp7));
+			output0[i] = (FAUSTFLOAT)((((fRec0[1] * (0 - (2 * fTemp0))) * ((fTemp0 + fTemp5) + -1)) + (fTemp0 * ((fRec0[0] * ((fTemp4 + fTemp6) + 1)) + (fRec0[2] * ((fTemp0 + fTemp4) + (1 - fTemp2)))))) / fTemp7);
 			// post processing
-			for (int i=0; i<4; i++) fRec1_perm[i]=fRec1_tmp[count+i];
-			
-			// LOOP 0x7fece0565820
-			// pre processing
-			for (int i=0; i<4; i++) fRec0_tmp[i]=fRec0_perm[i];
-			// exec code
-			for (int i=0; i<count; i++) {
-				fRec0[i] = (fSlow0 + (0.999f * fRec0[i-1]));
-			}
-			// post processing
-			for (int i=0; i<4; i++) fRec0_perm[i]=fRec0_tmp[count+i];
-			
-			// SECTION : 2
-			// LOOP 0x7fece045ac30
-			// exec code
-			for (int i=0; i<count; i++) {
-				fZec0[i] = powf(10,(0.025f * fRec1[i]));
-			}
-			
-			// LOOP 0x7fece045b740
-			// exec code
-			for (int i=0; i<count; i++) {
-				fZec1[i] = (fConst0 * max((float)0, fRec0[i]));
-			}
-			
-			// SECTION : 3
-			// LOOP 0x7fece045b520
-			// exec code
-			for (int i=0; i<count; i++) {
-				fZec2[i] = (sqrtf(fZec0[i]) * sinf(fZec1[i]));
-			}
-			
-			// LOOP 0x7fece045c960
-			// exec code
-			for (int i=0; i<count; i++) {
-				fZec3[i] = cosf(fZec1[i]);
-			}
-			
-			// SECTION : 4
-			// LOOP 0x7fece045c7a0
-			// exec code
-			for (int i=0; i<count; i++) {
-				fZec4[i] = ((fZec0[i] + -1) * fZec3[i]);
-			}
-			
-			// LOOP 0x7fece045e440
-			// exec code
-			for (int i=0; i<count; i++) {
-				fZec6[i] = (fZec0[i] + fZec2[i]);
-			}
-			
-			// SECTION : 5
-			// LOOP 0x7fece045d770
-			// exec code
-			for (int i=0; i<count; i++) {
-				fZec5[i] = (fZec3[i] * (fZec0[i] + 1));
-			}
-			
-			// LOOP 0x7fece045e360
-			// exec code
-			for (int i=0; i<count; i++) {
-				fZec7[i] = (fZec6[i] + (1 - fZec4[i]));
-			}
-			
-			// SECTION : 6
-			// LOOP 0x7fece045ab50
-			// pre processing
-			for (int i=0; i<4; i++) fRec2_tmp[i]=fRec2_perm[i];
-			// exec code
-			for (int i=0; i<count; i++) {
-				fRec2[i] = ((float)input0[i] - ((((fZec0[i] + (1 - (fZec2[i] + fZec4[i]))) * fRec2[i-2]) + (2 * ((fZec0[i] + (-1 - fZec5[i])) * fRec2[i-1]))) / fZec7[i]));
-			}
-			// post processing
-			for (int i=0; i<4; i++) fRec2_perm[i]=fRec2_tmp[count+i];
-			
-			// SECTION : 7
-			// LOOP 0x7fece0565740
-			// exec code
-			for (int i=0; i<count; i++) {
-				output0[i] = (FAUSTFLOAT)((((((fZec5[i] + fZec0[i]) + -1) * fRec2[i-1]) * (0 - (2 * fZec0[i]))) + (((fRec2[i-2] * ((fZec0[i] + fZec4[i]) + (1 - fZec2[i]))) + (((fZec4[i] + fZec6[i]) + 1) * fRec2[i])) * fZec0[i])) / fZec7[i]);
-			}
-			
-		}
-		if (index < fullcount) {
-			// compute the remaining samples if any
-			int count = fullcount-index;
-			FAUSTFLOAT* input0 = &input[0][index];
-			FAUSTFLOAT* output0 = &output[0][index];
-			// SECTION : 1
-			// LOOP 0x7fece0459d30
-			// pre processing
-			for (int i=0; i<4; i++) fRec1_tmp[i]=fRec1_perm[i];
-			// exec code
-			for (int i=0; i<count; i++) {
-				fRec1[i] = (fSlow1 + (0.999f * fRec1[i-1]));
-			}
-			// post processing
-			for (int i=0; i<4; i++) fRec1_perm[i]=fRec1_tmp[count+i];
-			
-			// LOOP 0x7fece0565820
-			// pre processing
-			for (int i=0; i<4; i++) fRec0_tmp[i]=fRec0_perm[i];
-			// exec code
-			for (int i=0; i<count; i++) {
-				fRec0[i] = (fSlow0 + (0.999f * fRec0[i-1]));
-			}
-			// post processing
-			for (int i=0; i<4; i++) fRec0_perm[i]=fRec0_tmp[count+i];
-			
-			// SECTION : 2
-			// LOOP 0x7fece045ac30
-			// exec code
-			for (int i=0; i<count; i++) {
-				fZec0[i] = powf(10,(0.025f * fRec1[i]));
-			}
-			
-			// LOOP 0x7fece045b740
-			// exec code
-			for (int i=0; i<count; i++) {
-				fZec1[i] = (fConst0 * max((float)0, fRec0[i]));
-			}
-			
-			// SECTION : 3
-			// LOOP 0x7fece045b520
-			// exec code
-			for (int i=0; i<count; i++) {
-				fZec2[i] = (sqrtf(fZec0[i]) * sinf(fZec1[i]));
-			}
-			
-			// LOOP 0x7fece045c960
-			// exec code
-			for (int i=0; i<count; i++) {
-				fZec3[i] = cosf(fZec1[i]);
-			}
-			
-			// SECTION : 4
-			// LOOP 0x7fece045c7a0
-			// exec code
-			for (int i=0; i<count; i++) {
-				fZec4[i] = ((fZec0[i] + -1) * fZec3[i]);
-			}
-			
-			// LOOP 0x7fece045e440
-			// exec code
-			for (int i=0; i<count; i++) {
-				fZec6[i] = (fZec0[i] + fZec2[i]);
-			}
-			
-			// SECTION : 5
-			// LOOP 0x7fece045d770
-			// exec code
-			for (int i=0; i<count; i++) {
-				fZec5[i] = (fZec3[i] * (fZec0[i] + 1));
-			}
-			
-			// LOOP 0x7fece045e360
-			// exec code
-			for (int i=0; i<count; i++) {
-				fZec7[i] = (fZec6[i] + (1 - fZec4[i]));
-			}
-			
-			// SECTION : 6
-			// LOOP 0x7fece045ab50
-			// pre processing
-			for (int i=0; i<4; i++) fRec2_tmp[i]=fRec2_perm[i];
-			// exec code
-			for (int i=0; i<count; i++) {
-				fRec2[i] = ((float)input0[i] - ((((fZec0[i] + (1 - (fZec2[i] + fZec4[i]))) * fRec2[i-2]) + (2 * ((fZec0[i] + (-1 - fZec5[i])) * fRec2[i-1]))) / fZec7[i]));
-			}
-			// post processing
-			for (int i=0; i<4; i++) fRec2_perm[i]=fRec2_tmp[count+i];
-			
-			// SECTION : 7
-			// LOOP 0x7fece0565740
-			// exec code
-			for (int i=0; i<count; i++) {
-				output0[i] = (FAUSTFLOAT)((((((fZec5[i] + fZec0[i]) + -1) * fRec2[i-1]) * (0 - (2 * fZec0[i]))) + (((fRec2[i-2] * ((fZec0[i] + fZec4[i]) + (1 - fZec2[i]))) + (((fZec4[i] + fZec6[i]) + 1) * fRec2[i])) * fZec0[i])) / fZec7[i]);
-			}
-			
+			fRec0[2] = fRec0[1]; fRec0[1] = fRec0[0];
+			fRec2[1] = fRec2[0];
+			fRec1[1] = fRec1[0];
 		}
 	}
 };
@@ -1382,8 +1192,8 @@ static bool faust_init_outputs(t_faust* x, bool info_outlet) {
             return false;
         }
 
-//        for (int i = 0; i < x->n_out; i++)
-//            x->buf[i] = NULL;
+        for (int i = 0; i < x->n_out; i++)
+            x->buf[i] = NULL;
     }
 
 
@@ -1415,6 +1225,7 @@ static bool faust_new_internal(t_faust* x, const char* obj_id = NULL, bool info_
     int sr = 44100;
     x->active = 1;
     x->xfade = 0;
+    x->rate = sr;
     x->n_xfade = static_cast<int>(sr * XFADE_TIME / 64);
 
     x->dsp = new highshelf();
@@ -1587,5 +1398,29 @@ public:
         return this->x_;
     }
 };
+
+
+static void* faust_new(t_symbol* s, int argc, t_atom* argv);
+
+static void internal_setup(t_symbol* s)
+{
+    faust_class = class_new(s, reinterpret_cast<t_newmethod>(faust_new),
+        reinterpret_cast<t_method>(faust_free),
+        sizeof(t_faust),
+        CLASS_DEFAULT,
+        A_GIMME, A_NULL);
+    class_addmethod(faust_class, nullfn, &s_signal, A_NULL);
+    class_addmethod(faust_class, reinterpret_cast<t_method>(faust_dsp), gensym("dsp"), A_NULL);
+    CLASS_MAINSIGNALIN(faust_class, t_faust, f);
+    class_addanything(faust_class, faust_any);
+
+    s_button = gensym("button");
+    s_checkbox = gensym("checkbox");
+    s_vslider = gensym("vslider");
+    s_hslider = gensym("hslider");
+    s_nentry = gensym("nentry");
+    s_vbargraph = gensym("vbargraph");
+    s_hbargraph = gensym("hbargraph");
+}
 
 

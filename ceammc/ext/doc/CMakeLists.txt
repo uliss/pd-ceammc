@@ -12,6 +12,7 @@ set(DOC_FILES
     dyn.limit2~
     env.ar~
     env.adsr~
+    env.follow~
     flt.dcblock~
     flt.dcblock2~
     flt.highshelf~

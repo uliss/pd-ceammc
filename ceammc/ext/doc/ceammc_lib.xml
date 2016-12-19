@@ -27,6 +27,9 @@
     <entry descr="AR (Attack, Release) envelope generator (useful to create percussion envelopes)." name="env.ar~">
       <xi:include href="env.ar~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="Envelope follower with independent attack and release times." name="env.follow~">
+      <xi:include href="env.follow~.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="flt">
     <entry descr="stereo DC blocker" name="flt.dcblock2~">

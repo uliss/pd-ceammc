@@ -783,8 +783,8 @@ void PdUI::setElementValue(const char* label, float v)
 
 class dcblock : public dsp {
   private:
-	float 	fYec0_perm[4];
-	float 	fRec0_perm[4];
+	float 	fVec0[2];
+	float 	fRec0[2];
 	int fSamplingFreq;
 
   public:
@@ -803,8 +803,8 @@ class dcblock : public dsp {
 	virtual void instanceResetUserInterface() {
 	}
 	virtual void instanceClear() {
-		for (int i=0; i<4; i++) fYec0_perm[i]=0;
-		for (int i=0; i<4; i++) fRec0_perm[i]=0;
+		for (int i=0; i<2; i++) fVec0[i] = 0;
+		for (int i=0; i<2; i++) fRec0[i] = 0;
 	}
 	virtual void init(int samplingFreq) {
 		classInit(samplingFreq);
@@ -826,81 +826,16 @@ class dcblock : public dsp {
 		ui_interface->closeBox();
 	}
 	virtual void compute (int count, FAUSTFLOAT** input, FAUSTFLOAT** output) {
-		float 	fYec0_tmp[64+4];
-		float 	fRec0_tmp[64+4];
-		float* 	fYec0 = &fYec0_tmp[4];
-		float* 	fRec0 = &fRec0_tmp[4];
-		int index;
-		int fullcount = count;
-		for (index = 0; index <= fullcount - 64; index += 64) {
-			// compute by blocks of 64 samples
-			const int count = 64;
-			FAUSTFLOAT* input0 = &input[0][index];
-			FAUSTFLOAT* output0 = &output[0][index];
-			// SECTION : 1
-			// LOOP 0x7fdf295090b0
-			// pre processing
-			for (int i=0; i<4; i++) fYec0_tmp[i]=fYec0_perm[i];
-			// exec code
-			for (int i=0; i<count; i++) {
-				fYec0[i] = (float)input0[i];
-			}
+		FAUSTFLOAT* input0 = input[0];
+		FAUSTFLOAT* output0 = output[0];
+		for (int i=0; i<count; i++) {
+			float fTemp0 = (float)input0[i];
+			fVec0[0] = fTemp0;
+			fRec0[0] = ((fVec0[0] + (0.995f * fRec0[1])) - fVec0[1]);
+			output0[i] = (FAUSTFLOAT)fRec0[0];
 			// post processing
-			for (int i=0; i<4; i++) fYec0_perm[i]=fYec0_tmp[count+i];
-			
-			// SECTION : 2
-			// LOOP 0x7fdf29508f50
-			// pre processing
-			for (int i=0; i<4; i++) fRec0_tmp[i]=fRec0_perm[i];
-			// exec code
-			for (int i=0; i<count; i++) {
-				fRec0[i] = (((float)input0[i] + (0.995f * fRec0[i-1])) - fYec0[i-1]);
-			}
-			// post processing
-			for (int i=0; i<4; i++) fRec0_perm[i]=fRec0_tmp[count+i];
-			
-			// SECTION : 3
-			// LOOP 0x7fdf29508e70
-			// exec code
-			for (int i=0; i<count; i++) {
-				output0[i] = (FAUSTFLOAT)fRec0[i];
-			}
-			
-		}
-		if (index < fullcount) {
-			// compute the remaining samples if any
-			int count = fullcount-index;
-			FAUSTFLOAT* input0 = &input[0][index];
-			FAUSTFLOAT* output0 = &output[0][index];
-			// SECTION : 1
-			// LOOP 0x7fdf295090b0
-			// pre processing
-			for (int i=0; i<4; i++) fYec0_tmp[i]=fYec0_perm[i];
-			// exec code
-			for (int i=0; i<count; i++) {
-				fYec0[i] = (float)input0[i];
-			}
-			// post processing
-			for (int i=0; i<4; i++) fYec0_perm[i]=fYec0_tmp[count+i];
-			
-			// SECTION : 2
-			// LOOP 0x7fdf29508f50
-			// pre processing
-			for (int i=0; i<4; i++) fRec0_tmp[i]=fRec0_perm[i];
-			// exec code
-			for (int i=0; i<count; i++) {
-				fRec0[i] = (((float)input0[i] + (0.995f * fRec0[i-1])) - fYec0[i-1]);
-			}
-			// post processing
-			for (int i=0; i<4; i++) fRec0_perm[i]=fRec0_tmp[count+i];
-			
-			// SECTION : 3
-			// LOOP 0x7fdf29508e70
-			// exec code
-			for (int i=0; i<count; i++) {
-				output0[i] = (FAUSTFLOAT)fRec0[i];
-			}
-			
+			fRec0[1] = fRec0[0];
+			fVec0[1] = fVec0[0];
 		}
 	}
 };
@@ -1225,8 +1160,8 @@ static bool faust_init_outputs(t_faust* x, bool info_outlet) {
             return false;
         }
 
-//        for (int i = 0; i < x->n_out; i++)
-//            x->buf[i] = NULL;
+        for (int i = 0; i < x->n_out; i++)
+            x->buf[i] = NULL;
     }
 
 
@@ -1258,6 +1193,7 @@ static bool faust_new_internal(t_faust* x, const char* obj_id = NULL, bool info_
     int sr = 44100;
     x->active = 1;
     x->xfade = 0;
+    x->rate = sr;
     x->n_xfade = static_cast<int>(sr * XFADE_TIME / 64);
 
     x->dsp = new dcblock();
@@ -1430,5 +1366,29 @@ public:
         return this->x_;
     }
 };
+
+
+static void* faust_new(t_symbol* s, int argc, t_atom* argv);
+
+static void internal_setup(t_symbol* s)
+{
+    faust_class = class_new(s, reinterpret_cast<t_newmethod>(faust_new),
+        reinterpret_cast<t_method>(faust_free),
+        sizeof(t_faust),
+        CLASS_DEFAULT,
+        A_GIMME, A_NULL);
+    class_addmethod(faust_class, nullfn, &s_signal, A_NULL);
+    class_addmethod(faust_class, reinterpret_cast<t_method>(faust_dsp), gensym("dsp"), A_NULL);
+    CLASS_MAINSIGNALIN(faust_class, t_faust, f);
+    class_addanything(faust_class, faust_any);
+
+    s_button = gensym("button");
+    s_checkbox = gensym("checkbox");
+    s_vslider = gensym("vslider");
+    s_hslider = gensym("hslider");
+    s_nentry = gensym("nentry");
+    s_vbargraph = gensym("vbargraph");
+    s_hbargraph = gensym("hbargraph");
+}
 
 
