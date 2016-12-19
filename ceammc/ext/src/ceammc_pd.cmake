@@ -76,10 +76,10 @@ endmacro()
 
 macro(ceammc_cxx_tl_extension module name)
     pd_add_extension(NAME "${module}.${name}"
-      FILES "${module}_${name}.cpp"
-      INTERNAL TRUE
-      LIBRARY ceammc
-      LINK timeline)
+        FILES "${module}_${name}.cpp"
+        INTERNAL TRUE
+        LIBRARY ceammc
+        LINK timeline)
 
     set(C11 "")
     if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
