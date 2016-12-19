@@ -263,6 +263,13 @@ void sys_setextrapath(const char *p)
     sys_expandpath("%CommonProgramFiles%/Pd", pathbuf, MAXPDSTRING);
     sys_staticpath = namelist_append(sys_staticpath, pathbuf, 0);
 #endif
+
+    /* add "ceammc" library to path */
+    strncpy(pathbuf, sys_libdir->s_name, MAXPDSTRING-30);
+    pathbuf[MAXPDSTRING-30] = 0;
+    strcat(pathbuf, "/extra/ceammc");
+    sys_staticpath = namelist_append(sys_staticpath, pathbuf, 0);
+
     /* add built-in "extra" path last so its checked last */
     sys_staticpath = namelist_append(sys_staticpath, p, 0);
 }

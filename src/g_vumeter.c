@@ -14,6 +14,7 @@
 #include "g_canvas.h"
 
 #include "g_all_guis.h"
+#include "g_style.h"
 #include <math.h>
 
 #ifdef _WIN32
@@ -352,24 +353,24 @@ static void vu_draw_select(t_vu* x,t_glist* glist)
 
     if(x->x_gui.x_fsf.x_selected)
     {
-        sys_vgui(".x%lx.c itemconfigure %lxBASE -outline #%06x\n", canvas, x, IEM_GUI_COLOR_SELECTED);
+        sys_vgui(".x%lx.c itemconfigure %lxBASE -outline %s\n", canvas, x, STYLE_SELECT_COLOR);
         for(i=1; i<=IEM_VU_STEPS; i++)
         {
             if(((i+2)&3) && (x->x_scale))
-                sys_vgui(".x%lx.c itemconfigure %lxSCALE%d -fill #%06x\n",
-                         canvas, x, i, IEM_GUI_COLOR_SELECTED);
+                sys_vgui(".x%lx.c itemconfigure %lxSCALE%d -fill %s\n",
+                         canvas, x, i, STYLE_SELECT_COLOR);
         }
         if(x->x_scale)
         {
             i=IEM_VU_STEPS+1;
-            sys_vgui(".x%lx.c itemconfigure %lxSCALE%d -fill #%06x\n",
-                     canvas, x, i, IEM_GUI_COLOR_SELECTED);
+            sys_vgui(".x%lx.c itemconfigure %lxSCALE%d -fill %s\n",
+                     canvas, x, i, STYLE_SELECT_COLOR);
         }
-        sys_vgui(".x%lx.c itemconfigure %lxLABEL -fill #%06x\n", canvas, x, IEM_GUI_COLOR_SELECTED);
+        sys_vgui(".x%lx.c itemconfigure %lxLABEL -fill %s\n", canvas, x, STYLE_SELECT_COLOR);
     }
     else
     {
-        sys_vgui(".x%lx.c itemconfigure %lxBASE -outline #%06x\n", canvas, x, IEM_GUI_COLOR_NORMAL);
+        sys_vgui(".x%lx.c itemconfigure %lxBASE -outline %s\n", canvas, x, STYLE_BORDER_COLOR);
         for(i=1; i<=IEM_VU_STEPS; i++)
         {
             if(((i+2)&3) && (x->x_scale))
@@ -635,14 +636,14 @@ static void *vu_new(t_symbol *s, int argc, t_atom *argv)
 {
     t_vu *x = (t_vu *)pd_new(vu_class);
     int w=IEM_GUI_DEFAULTSIZE, h=IEM_VU_STEPS*IEM_VU_DEFAULTSIZE;
-    int ldx=-1, ldy=-8, f=0, fs=10, scale=1;
+    int ldx=-1, ldy=-8, f=0, fs=8, scale=1;
     int ftbreak=IEM_BNG_DEFAULTBREAKFLASHTIME, fthold=IEM_BNG_DEFAULTHOLDFLASHTIME;
     char str[144];
 
     iem_inttosymargs(&x->x_gui.x_isa, 0);
     iem_inttofstyle(&x->x_gui.x_fsf, 0);
 
-    x->x_gui.x_bcol = 0x404040;
+    x->x_gui.x_bcol = 0x505050;
     x->x_gui.x_fcol = 0x00;
     x->x_gui.x_lcol = 0x00;
 

@@ -24,10 +24,11 @@ proc ::dialog_path::pdtk_path_dialog {mytoplevel extrapath verbose} {
     global verbose_button
     set use_standard_extensions_button $extrapath
     set verbose_button $verbose
-
     if {[winfo exists $mytoplevel]} {
+        # this doesn't seem to be called...
         wm deiconify $mytoplevel
         raise $mytoplevel
+        focus $mytoplevel
     } else {
         create_dialog $mytoplevel
     }
@@ -38,15 +39,15 @@ proc ::dialog_path::create_dialog {mytoplevel} {
     scrollboxwindow::make $mytoplevel $::sys_searchpath \
         dialog_path::add dialog_path::edit dialog_path::commit \
         [_ "Pd search path for objects, help, fonts, and other files"] \
-        400 300 1
+        500 320 1
     ::pd_bindings::dialog_bindings $mytoplevel "path"
     
     frame $mytoplevel.extraframe
-    pack $mytoplevel.extraframe -side bottom -fill x -pady 2m
+    pack $mytoplevel.extraframe -side bottom -fill x -pady 2m -padx 10
     checkbutton $mytoplevel.extraframe.extra -text [_ "Use standard extensions"] \
-        -variable use_standard_extensions_button -anchor w 
+        -variable use_standard_extensions_button -anchor w -padx 5
     checkbutton $mytoplevel.extraframe.verbose -text [_ "Verbose"] \
-        -variable verbose_button -anchor w 
+        -variable verbose_button -anchor w -padx 5
     pack $mytoplevel.extraframe.extra -side left -expand 1
     pack $mytoplevel.extraframe.verbose -side right -expand 1
 
@@ -57,13 +58,6 @@ proc ::dialog_path::create_dialog {mytoplevel} {
         bind $mytoplevel.listbox.box <FocusIn> "::dialog_path::unbind_return $mytoplevel"
         bind $mytoplevel.listbox.box <FocusOut> "::dialog_path::rebind_return $mytoplevel"
 
-        # can't see focus for buttons, so disable it
-        $mytoplevel.actions.delete_path config -takefocus 0
-        $mytoplevel.actions.edit_path config -takefocus 0
-        $mytoplevel.actions.add_path config -takefocus 0
-        $mytoplevel.extraframe.extra config -takefocus 0
-        $mytoplevel.extraframe.verbose config -takefocus 0
-
         # remove cancel button from focus list since it's not activated on Return
         $mytoplevel.nb.buttonframe.cancel config -takefocus 0
 
@@ -71,6 +65,10 @@ proc ::dialog_path::create_dialog {mytoplevel} {
         $mytoplevel.nb.buttonframe.ok config -default normal
         bind $mytoplevel.nb.buttonframe.ok <FocusIn> "$mytoplevel.nb.buttonframe.ok config -default active"
         bind $mytoplevel.nb.buttonframe.ok <FocusOut> "$mytoplevel.nb.buttonframe.ok config -default normal"
+    
+        # since we show the active focus, disable the highlight outline
+        $mytoplevel.nb.buttonframe.ok config -highlightthickness 0
+        $mytoplevel.nb.buttonframe.cancel config -highlightthickness 0
     }
 }
 
@@ -98,7 +96,7 @@ proc ::dialog_path::choosePath { currentpath title } {
 }
 
 proc ::dialog_path::add {} {
-    return [::dialog_path::choosePath "" {Add a new path}]
+    return [::dialog_path::choosePath "" [_ "Add a new path"]
 }
 
 proc ::dialog_path::edit { currentpath } {
@@ -112,4 +110,3 @@ proc ::dialog_path::commit { new_path } {
     set ::sys_searchpath $new_path
     pdsend "pd path-dialog $use_standard_extensions_button $verbose_button $::sys_searchpath"
 }
-

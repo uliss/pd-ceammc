@@ -13,6 +13,7 @@ to be different but are now unified except for some fossilized names.) */
 #include "g_canvas.h"
 #include <string.h>
 #include "g_all_guis.h"
+#include "g_style.h"
 
 #ifdef _MSC_VER
 #define snprintf sprintf_s
@@ -28,8 +29,8 @@ struct _canvasenvironment
     t_namelist *ce_path;   /* search path */
 };
 
-#define GLIST_DEFCANVASWIDTH 450
-#define GLIST_DEFCANVASHEIGHT 300
+#define GLIST_DEFCANVASWIDTH 700
+#define GLIST_DEFCANVASHEIGHT 500
 
 /* since the window decorations aren't included, open new windows a few
 pixels down so you can posibly move the window later.  Apple needs less
@@ -622,13 +623,13 @@ void canvas_drawredrect(t_canvas *x, int doit)
 {
     if (doit)
         sys_vgui(".x%lx.c create line\
-            %d %d %d %d %d %d %d %d %d %d -fill #ff8080 -tags GOP\n",
+            %d %d %d %d %d %d %d %d %d %d -fill %s -tags GOP\n",
             glist_getcanvas(x),
             x->gl_xmargin, x->gl_ymargin,
             x->gl_xmargin + x->gl_pixwidth, x->gl_ymargin,
             x->gl_xmargin + x->gl_pixwidth, x->gl_ymargin + x->gl_pixheight,
             x->gl_xmargin, x->gl_ymargin + x->gl_pixheight,
-            x->gl_xmargin, x->gl_ymargin);
+            x->gl_xmargin, x->gl_ymargin, STYLE_CANVAS_GOP_RECT_COLOR);
     else sys_vgui(".x%lx.c delete GOP\n",  glist_getcanvas(x));
 }
 

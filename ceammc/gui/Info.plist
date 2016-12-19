@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>pd</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>pd-file.icns</string>
+			<key>CFBundleTypeName</key>
+			<string>Pure Data Patch</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+		</dict>
+	</array>
+	<key>CFBundleExecutable</key>
+        <string>Wish</string>
+	<key>CFBundleIdentifier</key>
+        <string>com.ceammc.puredata</string>
+        <key>CFBundleDisplayName</key>
+        <string>PureData (ceammc)</string>
+        <key>CFBundleName</key>
+        <string>Pd</string>
+        <key>CFBundleSpokenName</key>
+        <string>PureData</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleIconFile</key>
+        <string>pd_ceammc.icns</string>
+	<key>CFBundleVersion</key>
+        <string>${PD_TEXT_VERSION_SHORT}</string>
+</dict>
+</plist>

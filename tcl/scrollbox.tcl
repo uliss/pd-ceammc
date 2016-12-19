@@ -131,8 +131,8 @@ proc ::scrollbox::release { mytoplevel x y } {
 # add_method - method to be called when we add a new item
 # edit_method - method to be called when we edit an existing item
 proc ::scrollbox::make { mytoplevel listdata add_method edit_method } {
-    frame $mytoplevel.listbox
-    listbox $mytoplevel.listbox.box -relief raised -highlightthickness 0 \
+    frame $mytoplevel.listbox -pady 1 -padx 3 -relief groove -bd 1
+    listbox $mytoplevel.listbox.box -relief raised -bd 0 -highlightthickness 0 \
         -selectmode browse -activestyle dotbox \
         -yscrollcommand [list "$mytoplevel.listbox.scrollbar" set]
 
@@ -175,11 +175,11 @@ proc ::scrollbox::make { mytoplevel listdata add_method edit_method } {
     frame $mytoplevel.actions 
     pack $mytoplevel.actions -side top -padx 2m -fill x 
     button $mytoplevel.actions.add_path -text {New...} \
-        -command "::scrollbox::add_item $mytoplevel $add_method"
+        -command "::scrollbox::add_item $mytoplevel $add_method" -padx 10
     button $mytoplevel.actions.edit_path -text {Edit...} \
-        -command "::scrollbox::edit_item $mytoplevel $edit_method"
+        -command "::scrollbox::edit_item $mytoplevel $edit_method" -padx 10
     button $mytoplevel.actions.delete_path -text {Delete} \
-        -command "::scrollbox::delete_item $mytoplevel"
+        -command "::scrollbox::delete_item $mytoplevel" -padx 10
 
     pack $mytoplevel.actions.delete_path -side right -pady 2m -padx 5
     pack $mytoplevel.actions.edit_path -side right -pady 2m -padx 5

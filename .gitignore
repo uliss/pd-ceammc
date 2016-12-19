@@ -34,3 +34,11 @@ ASIOSDK2
 pd-0.*
 pd.pc
 dist
+*.creator
+PureData.config
+PureData.creator
+PureData.creator.user
+PureData.files
+PureData.includes
+
+*.mo

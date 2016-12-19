@@ -1,0 +1,20 @@
+#N canvas 0 0 600 500 12;
+#X obj 20 50 pddp/pddplink ../index-help.pd -text index;
+#X text 62 50 ::;
+#X obj 79 50 pddp/pddplink ceammc-help.pd -text ceammc;
+#X obj 30 113 dyn.comp2~;
+#X text 150 113 stereo dynamic range compressor;
+#X obj 30 140 dyn.comp~;
+#X text 150 140 mono dynamic range compressors;
+#X obj 30 167 dyn.gate2~;
+#X text 150 167 stereo signal gate;
+#X obj 30 194 dyn.gate~;
+#X text 150 194 mono signal gate;
+#X obj 30 221 dyn.limit2~;
+#X text 150 221 stereo 1176LN Peak Limiter;
+#X obj 30 248 dyn.limit~;
+#X text 150 248 mono 1176LN Peak Limiter;
+#X obj 1 1 cnv 5 597 40 empty empty ceammc::dyn 20 20 0 20 -104026
+-4096 0;
+#X obj 1 458 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 468 library: ceammc;

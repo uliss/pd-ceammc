@@ -1,0 +1,71 @@
+# build products
+*.la
+*.a
+*.lo
+*.o
+*.so
+*.pd_darwin
+*.pd_linux
+*.l_ia64
+*.l_i386
+*.dll
+.deps
+.libs
+*.lib
+
+#Backup file
+*~
+
+#################
+## automake files
+#################
+Makefile
+Makefile.in
+c.library-meta.pd
+README.txt
+config/*
+configure
+config.status
+libtool
+aclocal.m4
+
+# Libraries
+*.lib
+*.a
+
+# Shared objects (inc. Windows DLLs)
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# xcode
+*.xcbkptlist
+*.xcuserstate
+*.xcsettings
+*.plist
+*.xcscheme
+
+#Visual Studio
+*.tlog
+*.obj
+*.log
+*.idb
+*.pdb
+*.lastbuildstate
+*.ipch
+*.opensdf
+*.sdf
+*.user
+*.suo
+*.cache
+*.unsuccessfulbuild
+*.exp
+*.ilk
+*.rc
+*.manifest
+*.res

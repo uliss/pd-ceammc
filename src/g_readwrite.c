@@ -592,7 +592,7 @@ typedef void (*t_zoomfn)(void *x, t_floatarg arg1);
 
     /* save to a binbuf, called recursively; cf. canvas_savetofile() which
     saves the document, and is only called on root canvases. */
-static void canvas_saveto(t_canvas *x, t_binbuf *b)
+EXTERN void canvas_saveto(t_canvas *x, t_binbuf *b)                         //TEST
 {
     t_gobj *y;
     t_linetraverser t;

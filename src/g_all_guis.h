@@ -37,8 +37,8 @@
 #define IEM_GUI_COLNR_D_BLUE         28
 #define IEM_GUI_COLNR_D_MAGENTA      29
 
-#define IEM_GUI_COLOR_SELECTED       255
-#define IEM_GUI_COLOR_NORMAL         0
+#define IEM_GUI_COLOR_SELECTED       0x1441E6
+#define IEM_GUI_COLOR_NORMAL         0x333333
 
 #define IEM_GUI_MAX_COLOR            30
 
@@ -95,7 +95,7 @@
 #define IEM_GUI_OLD_SND_FLAG 1
 #define IEM_GUI_OLD_RCV_FLAG 2
 
-#define IEM_GUI_COLOR_EDITED 16711680
+#define IEM_GUI_COLOR_EDITED 0xF62459
 #define IEMGUI_MAX_NUM_LEN 32
 
 #define IEMGUI_ZOOM(x) ((x)->x_gui.x_glist->gl_zoom)

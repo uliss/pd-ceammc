@@ -66,7 +66,7 @@ typedef int socklen_t;
 #define WISHAPP "wish85.exe"
 #endif
 
-#if defined(__linux__) || defined(__FreeBSD_kernel__) || defined(__GNU__)
+#if defined(__linux__) || defined(__FreeBSD__) || defined(__GNU__)
 #define LOCALHOST "127.0.0.1"
 #else
 #define LOCALHOST "localhost"
@@ -294,7 +294,7 @@ void sys_setsignalhandlers( void)
 #endif /* NOT _WIN32 && NOT __CYGWIN__ */
 }
 
-#if defined(__linux__) || defined(__FreeBSD_kernel__) || defined(__GNU__)
+#if defined(__linux__) || defined(__FreeBSD__) || defined(__GNU__)
 
 #if defined(_POSIX_PRIORITY_SCHEDULING) || defined(_POSIX_MEMLOCK)
 #include <sched.h>
@@ -852,7 +852,7 @@ void sys_init_fdpoll(void)
 
 static int sys_watchfd;
 
-#if defined(__linux__) || defined(__FreeBSD_kernel__) || defined(__GNU__)
+#if defined(__linux__) || defined(__FreeBSD__) || defined(__GNU__)
 void glob_watchdog(t_pd *dummy)
 {
     if (write(sys_watchfd, "\n", 1) < 1)
@@ -1140,7 +1140,7 @@ int sys_startgui(const char *libdir)
 #endif /* NOT _WIN32 */
     }
 
-#if defined(__linux__) || defined(__FreeBSD_kernel__)
+#if defined(__linux__) || defined(__FreeBSD__)
         /* now that we've spun off the child process we can promote
         our process's priority, if we can and want to.  If not specfied
         (-1), we assume real-time was wanted.  Afterward, just in case
@@ -1274,7 +1274,7 @@ int sys_startgui(const char *libdir)
             sys_socketreceiver);
 
             /* here is where we start the pinging. */
-#if defined(__linux__) || defined(__FreeBSD_kernel__)
+#if defined(__linux__) || defined(__FreeBSD__)
         if (sys_hipriority)
             sys_gui("pdtk_watchdog\n");
 #endif
@@ -1304,7 +1304,7 @@ void sys_bail(int n)
     if (!reentered)
     {
         reentered = 1;
-#if !defined(__linux__) && !defined(__FreeBSD_kernel__) && !defined(__GNU__) /* sys_close_audio() hangs if you're in a signal? */
+#if !defined(__linux__) && !defined(__FreeBSD__) && !defined(__GNU__) /* sys_close_audio() hangs if you're in a signal? */
         fprintf(stderr ,"sys_guisock %d - ", sys_guisock);
         fprintf(stderr, "closing audio...\n");
         sys_close_audio();

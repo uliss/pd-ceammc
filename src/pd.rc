@@ -1,20 +1,20 @@
-id ICON "pd.ico"
+id ICON "${CMAKE_SOURCE_DIR}/ceammc/gui/icons/pd_ceammc.ico"
 1 VERSIONINFO
-FILEVERSION     0,47,1,0
-PRODUCTVERSION  0,47,1,0
+FILEVERSION     ${PD_MAJOR_VERSION},${PD_MINOR_VERSION},${PD_BUGFIX_VERSION},0
+PRODUCTVERSION  ${PD_MAJOR_VERSION},${PD_MINOR_VERSION},${PD_BUGFIX_VERSION},0
 BEGIN
   BLOCK "StringFileInfo"
   BEGIN
     BLOCK "040904E4"
     BEGIN
-      VALUE "CompanyName", "puredata.info"
+      VALUE "CompanyName", "ceammc.com"
       VALUE "FileDescription", "Pure Data Application"
-      VALUE "FileVersion", "0.47-1"
+      VALUE "FileVersion", "${PD_TEXT_VERSION_FULL}"
       VALUE "InternalName", "pd.exe"
       VALUE "LegalCopyright", "Miller Puckette, et al."
       VALUE "OriginalFilename", "pd.exe"
       VALUE "ProductName", "Pure Data"
-      VALUE "ProductVersion", "0.47-1"
+      VALUE "ProductVersion", "${PD_TEXT_VERSION_FULL}"
     END
   END
 

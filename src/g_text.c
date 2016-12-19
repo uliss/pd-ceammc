@@ -17,6 +17,7 @@
 #include <math.h>
 
 #include "s_utf8.h"
+#include "g_style.h"
 
 t_class *text_class;
 static t_class *message_class;
@@ -118,6 +119,8 @@ static void canvas_objtext(t_glist *gl, int xpix, int ypix, int width,
     x->te_ypix = ypix;
     x->te_width = width;
     x->te_type = T_OBJECT;
+    printf("binbuf obj @(%lu) %lu\n | %d %d\n",x, &x->te_xpix, x->te_xpix, x->te_ypix);
+    
     glist_add(gl, &x->te_g);
     if (selected)
     {
@@ -428,8 +431,9 @@ static void message_click(t_message *x,
     if (glist_isvisible(x->m_glist))
     {
         t_rtext *y = glist_findrtext(x->m_glist, &x->m_text);
-        sys_vgui(".x%lx.c itemconfigure %sR -width 5\n",
-            glist_getcanvas(x->m_glist), rtext_gettag(y));
+        sys_vgui(".x%lx.c itemconfigure %sR -width %d -outline %s\n",
+            glist_getcanvas(x->m_glist), rtext_gettag(y),
+            STYLE_BORDER_WIDTH_CLICKED, STYLE_BORDER_COLOR_CLICKED);
         clock_delay(x->m_clock, 120);
     }
 }
@@ -439,8 +443,10 @@ static void message_tick(t_message *x)
     if (glist_isvisible(x->m_glist))
     {
         t_rtext *y = glist_findrtext(x->m_glist, &x->m_text);
-        sys_vgui(".x%lx.c itemconfigure %sR -width 1\n",
-            glist_getcanvas(x->m_glist), rtext_gettag(y));
+
+        sys_vgui(".x%lx.c itemconfigure %sR -width %d -outline %s\n",
+            glist_getcanvas(x->m_glist), rtext_gettag(y),
+            STYLE_BORDER_WIDTH, STYLE_BORDER_COLOR);
     }
 }
 
@@ -878,7 +884,7 @@ static void gatom_vis(t_gobj *z, t_glist *glist, int vis)
                 (double)x1, (double)y1,
                 canvas_realizedollar(x->a_glist, x->a_label)->s_name,
                 sys_hostfontsize(glist_getfont(glist), glist_getzoom(glist)),
-                "black");
+                STYLE_TEXT_NORMAL_COLOR);
         }
         else sys_vgui(".x%lx.c delete %lx.l\n", glist_getcanvas(glist), x);
     }
@@ -1013,7 +1019,7 @@ static void text_getrect(t_gobj *z, t_glist *glist,
         int fontwidth = glist_fontwidth(glist),
             fontheight = glist_fontheight(glist);
         width = (x->te_width > 0 ? x->te_width : 6) * fontwidth + 2;
-        height = fontheight + 1; /* borrowed from TMARGIN, etc, in g_rtext.c */
+        height = fontheight + 3; /* borrowed from TMARGIN, etc, in g_rtext.c */
     }
         /* if we're invisible we don't know our size so we just lie about
         it.  This is called on invisible boxes to establish order of inlets
@@ -1062,9 +1068,13 @@ static void text_select(t_gobj *z, t_glist *glist, int state)
     t_text *x = (t_text *)z;
     t_rtext *y = glist_findrtext(glist, x);
     rtext_select(y, state);
-    if (glist_isvisible(glist) && gobj_shouldvis(&x->te_g, glist))
-        sys_vgui(".x%lx.c itemconfigure %sR -fill %s\n", glist,
-            rtext_gettag(y), (state? "blue" : "black"));
+
+    if (glist_isvisible(glist) && gobj_shouldvis(&x->te_g, glist)) {
+        if (x->te_type != T_TEXT) {
+            sys_vgui(".x%lx.c itemconfigure %sR -outline %s\n", glist,
+                rtext_gettag(y), (state? STYLE_SELECT_COLOR : STYLE_BORDER_COLOR));
+        }
+    }
 }
 
 static void text_activate(t_gobj *z, t_glist *glist, int state)
@@ -1235,17 +1245,29 @@ void glist_drawiofor(t_glist *glist, t_object *ob, int firsttime,
     for (i = 0; i < n; i++)
     {
         int onset = x1 + (width - IOWIDTH) * i / nplus;
-        if (firsttime)
-            sys_vgui(".x%lx.c create rectangle %d %d %d %d \
--tags [list %so%d outlet] -fill black\n",
-                glist_getcanvas(glist),
-                onset, y2 + 1 - 2*glist->gl_zoom,
-                onset + IOWIDTH, y2,
-                tag, i);
+        if (firsttime) {
+           // NB - this is highly inefficient on large outlet number.
+           if(obj_issignaloutlet(ob, i)) {
+               sys_vgui(".x%lx.c create rectangle %d %d %d %d -tags [list %so%d outlet] "
+                        "-fill %s "
+                        "-outline %s\n",
+                        glist_getcanvas(glist),
+                        onset, y2 - style_xlet_height(glist),
+                        onset + IOWIDTH, y2,
+                        tag, i, STYLE_AUDIO_XLET_COLOR, STYLE_AUDIO_XLET_COLOR);
+                }
+            else {
+                sys_vgui(".x%lx.c create rectangle %d %d %d %d -tags [list %so%d outlet] -outline %s\n",
+                    glist_getcanvas(glist),
+                    onset, y2 - style_xlet_height(glist),
+                    onset + IOWIDTH, y2,
+                    tag, i, STYLE_CONTROL_XLET_COLOR);
+            }
+        }
         else
             sys_vgui(".x%lx.c coords %so%d %d %d %d %d\n",
                 glist_getcanvas(glist), tag, i,
-                onset, y2 + 1 - 2*glist->gl_zoom,
+                onset, y2 - style_xlet_height(glist),
                 onset + IOWIDTH, y2);
     }
     n = obj_ninlets(ob);
@@ -1253,18 +1275,31 @@ void glist_drawiofor(t_glist *glist, t_object *ob, int firsttime,
     for (i = 0; i < n; i++)
     {
         int onset = x1 + (width - IOWIDTH) * i / nplus;
-        if (firsttime)
-            sys_vgui(".x%lx.c create rectangle %d %d %d %d \
--tags [list %si%d inlet] -fill black\n",
-                glist_getcanvas(glist),
-                onset, y1,
-                onset + IOWIDTH, y1 + glist->gl_zoom + EXTRAPIX,
-                tag, i);
+        if (firsttime) {
+            // NB - this is highly inefficient on large inlet number.
+            if(obj_issignalinlet(ob, i)) {
+                sys_vgui(".x%lx.c create rectangle %d %d %d %d -tags [list %si%d inlet] "
+                         "-outline %s "
+                         "-fill %s\n",
+                    glist_getcanvas(glist),
+                    onset, y1,
+                    onset + IOWIDTH, y1 + style_xlet_height(glist),
+                    tag, i, STYLE_AUDIO_XLET_COLOR, STYLE_AUDIO_XLET_COLOR);
+            }
+            else {
+                sys_vgui(".x%lx.c create rectangle %d %d %d %d -tags [list %si%d inlet] "
+                         "-outline %s\n",
+                    glist_getcanvas(glist),
+                    onset, y1,
+                    onset + IOWIDTH, y1 + style_xlet_height(glist),
+                    tag, i, STYLE_CONTROL_XLET_COLOR);
+            }
+        }
         else
             sys_vgui(".x%lx.c coords %si%d %d %d %d %d\n",
                 glist_getcanvas(glist), tag, i,
                 onset, y1,
-                onset + IOWIDTH, y1 + glist->gl_zoom + EXTRAPIX);
+                onset + IOWIDTH, y1 + style_xlet_height(glist));
     }
 }
 
@@ -1279,12 +1314,17 @@ void text_drawborder(t_text *x, t_glist *glist,
     if (x->te_type == T_OBJECT)
     {
         char *pattern = ((pd_class(&x->te_pd) == text_class) ? "-" : "\"\"");
-        if (firsttime)
-            sys_vgui(".x%lx.c create line\
- %d %d %d %d %d %d %d %d %d %d -dash %s -width %d -tags [list %sR obj]\n",
+        if (firsttime) {
+            sys_vgui(".x%lx.c create polygon %d %d %d %d %d %d %d %d %d %d "
+                     "-dash %s "
+                     "-width %d "
+                     "-outline %s "
+                     "-fill %s "
+                     "-tags [list %sR obj]\n",
                 glist_getcanvas(glist),
                     x1, y1,  x2, y1,  x2, y2,  x1, y2,  x1, y1,  pattern,
-                    glist->gl_zoom, tag);
+                    style_border_width(glist), STYLE_BORDER_COLOR, STYLE_FILL_COLOR, tag);
+        }
         else
         {
             sys_vgui(".x%lx.c coords %sR\
@@ -1297,28 +1337,34 @@ void text_drawborder(t_text *x, t_glist *glist,
     }
     else if (x->te_type == T_MESSAGE)
     {
-        if (firsttime)
-            sys_vgui(".x%lx.c create line\
- %d %d %d %d %d %d %d %d %d %d %d %d %d %d -width %d -tags [list %sR msg]\n",
-                glist_getcanvas(glist),
-                x1, y1,  x2+4, y1,  x2, y1+4,  x2, y2-4,  x2+4, y2,
-                x1, y2,  x1, y1,
-                    glist->gl_zoom, tag);
-        else
-            sys_vgui(".x%lx.c coords %sR\
- %d %d %d %d %d %d %d %d %d %d %d %d %d %d\n",
-                glist_getcanvas(glist), tag,
-                x1, y1,  x2+4, y1,  x2, y1+4,  x2, y2-4,  x2+4, y2,
-                x1, y2,  x1, y1);
+        if (firsttime) {
+            sys_vgui(".x%lx.c create polygon %d %d %d %d %d %d %d %d %d %d %d %d %d %d "
+                     "-width %d "
+                     "-outline %s "
+                     "-fill %s "
+                     "-tags [list %sR msg]\n",
+                    glist_getcanvas(glist),
+                    x1, y1,  x2+4, y1,  x2, y1+4,  x2, y2-4,  x2+4, y2,
+                    x1, y2,  x1, y1,
+                    1, STYLE_BORDER_COLOR, STYLE_FILL_COLOR, tag);
+        }
+        else {
+            sys_vgui(".x%lx.c coords %sR %d %d %d %d %d %d %d %d %d %d %d %d %d %d\n",
+                    glist_getcanvas(glist), tag,
+                    x1, y1,  x2+4, y1,  x2, y1+4,  x2, y2-4,  x2+4, y2,
+                    x1, y2,  x1, y1);
+        }
     }
     else if (x->te_type == T_ATOM)
     {
         if (firsttime)
-            sys_vgui(".x%lx.c create line\
- %d %d %d %d %d %d %d %d %d %d %d %d -width %d -tags [list %sR atom]\n",
+            sys_vgui(".x%lx.c create polygon %d %d %d %d %d %d %d %d %d %d %d %d "
+                     "-width %d "
+                     "-outline %s "
+                     "-fill %s -tags [list %sR atom]\n",
                 glist_getcanvas(glist),
                 x1, y1,  x2-4, y1,  x2, y1+4,  x2, y2,  x1, y2,  x1, y1,
-                    glist->gl_zoom, tag);
+                style_border_width(glist), STYLE_BORDER_COLOR, STYLE_FILL_COLOR, tag);
         else
             sys_vgui(".x%lx.c coords %sR\
  %d %d %d %d %d %d %d %d %d %d %d %d\n",
@@ -1332,9 +1378,9 @@ void text_drawborder(t_text *x, t_glist *glist,
     {
         if (firsttime)
             sys_vgui(".x%lx.c create line\
- %d %d %d %d -tags [list %sR commentbar]\n",
+ %d %d %d %d -fill %s -tags [list %sR commentbar]\n",
                 glist_getcanvas(glist),
-                x2, y1,  x2, y2, tag);
+                x2, y1,  x2, y2, STYLE_BORDER_COLOR, tag);
         else
             sys_vgui(".x%lx.c coords %sR %d %d %d %d\n",
                 glist_getcanvas(glist), tag, x2, y1,  x2, y2);

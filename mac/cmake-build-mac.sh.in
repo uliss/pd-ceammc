@@ -1,0 +1,150 @@
+#!/bin/bash
+SRC_DIR=${PROJECT_SOURCE_DIR}
+BUILD_DIR=${PROJECT_BINARY_DIR}
+WISH=wish-shell.tgz
+
+PD_APP=$(basename ${BUNDLE})
+PD_CONTENT=$BUILD_DIR/dist/$PD_APP/Contents
+PD_RESOURCES=$PD_CONTENT/Resources
+PD_EXTRA=$PD_RESOURCES/extra
+PD_BIN=$PD_RESOURCES/bin
+
+PD_INFO="$BUILD_DIR/dist/Info.plist"
+PD_ICON="$SRC_DIR/ceammc/gui/icons/pd_ceammc.icns"
+PD_ICON_FILE="$SRC_DIR/mac/stuff/pd-file.icns"
+WISH_APP="${WISH_APP}"
+TK_PATH="${TK_PATH}"
+TCL_PATH="${TCL_PATH}"
+IS_SYSTEM_TK=${IS_SYSTEM_TK}
+
+echo "$TK_PATH"
+echo "$TCL_PATH"
+
+CEAMMC_EXT_SRC_DIR="$SRC_DIR/ceammc/ext/src"
+CEAMMC_EXT_BIN_DIR="$BUILD_DIR/ceammc/ext/src"
+
+
+cd "$BUILD_DIR"
+mkdir -p dist
+cd dist
+
+echo "Copy Wish Shell to $PD_APP"
+cp -R "${WISH_APP}" "$PD_APP"
+cd "$PD_APP/Contents"
+
+echo "Copying Info.plist..."
+cp -p "$PD_INFO" .
+
+cd Resources
+rm -f Wish.icns
+cp -p "$PD_ICON" "$PD_ICON_FILE" .
+#mv "Wish.rsrc" Pd.rsrc
+mkdir bin
+
+echo "Copying binaries..."
+cp "$BUILD_DIR/src/pd" bin
+cp "$BUILD_DIR/src/pdsend" bin
+cp "$BUILD_DIR/src/pdreceive" bin
+
+
+echo "Copying tcl files..."
+rsync -a --exclude="CMake*" --exclude="Make*" "$SRC_DIR/tcl" .
+ln -s tcl Scripts
+mkdir -p tcl/ceammc
+
+echo "Copying plugins..."
+cp -R $SRC_DIR/ceammc/gui/plugins/*.tcl tcl/ceammc
+
+echo "Copying docs..."
+rsync -a --exclude=.DS_Store --exclude=CMake* "$SRC_DIR/doc" .
+echo "Copying translations..."
+mkdir -p po
+cp $BUILD_DIR/po/*.msg "$PD_RESOURCES/po"
+
+echo "Copying extensions:"
+mkdir -p extra
+
+cp $SRC_DIR/extra/*.pd extra
+
+function extension_files() {
+    find "$1" -type f | grep -e 'd_fat' -e '\.pd'
+}
+
+find $BUILD_DIR/extra -maxdepth 1 -type d | sed 1d | grep -v -i cmake | while read ext_dir
+do
+    EXT_NAME=$(basename $ext_dir)
+    echo "\t$EXT_NAME"
+    mkdir extra/$EXT_NAME
+    find "$ext_dir" -type f | grep -v -i cmake | grep -v Makefile | while read target
+    do
+        echo "\t\tCopying $(basename $target) ..."
+        cp $target extra/$EXT_NAME
+    done
+#    cp -R "$ext_dir" extra
+done
+
+echo "Copying CEAMMC extension:"
+mkdir -p $PD_EXTRA/ceammc
+extension_files $CEAMMC_EXT_BIN_DIR | while read f
+do
+    echo "\t$(basename $f)"
+    cp "$f" $PD_EXTRA/ceammc
+done
+cp $CEAMMC_EXT_BIN_DIR/*.dylib $PD_EXTRA/ceammc
+echo "Copying CEAMMC help files:"
+cp $SRC_DIR/ceammc/ext/doc/*-help.pd $PD_EXTRA/ceammc
+
+
+echo "Copying license..."
+cp $SRC_DIR/License.txt Scripts
+
+echo "Copying libs..."
+NEWLIBPATH="@executable_path/../lib"
+EXECFILE="Resources/bin/pd"
+LIBDIR="Resources/lib"
+cd ..
+# to make codesign happy
+mkdir -p Frameworks
+mkdir -p $LIBDIR
+/usr/bin/otool -LX "$EXECFILE" | cut -f2 | cut -d ' ' -f1 | grep -v portmidi | grep -v libSystem | grep -v /System/Library | grep -v CoreFoundation | while read shlib
+do
+    TARGET=$LIBDIR/$(basename $shlib)
+    cp "$shlib" $TARGET
+    chown $(whoami) $TARGET
+    chmod +w $TARGET
+
+    TARGETID=$(otool -DX $TARGET)
+    NEWTARGETID=$NEWLIBPATH/$(basename $shlib)
+    echo $NEWTARGETID
+    install_name_tool -id $NEWTARGETID $TARGET
+    install_name_tool -change $TARGETID $NEWTARGETID $EXECFILE
+done
+
+#copy Tcl${TK_VERSION}
+if [ $IS_SYSTEM_TK -eq 0 ]
+then
+    echo "Copying TCL/Tk Frameworks..."
+    cp -R "${TK_PATH}" Frameworks
+    cp -R "${TCL_PATH}" Frameworks
+    rm -rf "./Frameworks/Tk.framework/Versions/${TK_VERSION}/Resources/Wish.app"
+    rm -rf "./Frameworks/Tcl.framework/Versions/${TK_VERSION}/Resources/Documentation"
+
+    echo "Tk link fix..."
+    /usr/bin/otool -LX $PD_CONTENT/MacOS/Wish | cut -f2 | cut -d ' ' -f1 | grep -e Tk -e Tcl | while read framework
+    do
+        newpath=$(echo $framework | sed 's|/Library/Frameworks/||')
+        install_name_tool -change $framework "@executable_path/../Frameworks/$newpath" $PD_CONTENT/MacOS/Wish
+    done
+fi
+
+echo "Copying headers..."
+mkdir -p $PD_RESOURCES/include
+cp $SRC_DIR/src/m_pd.h $PD_RESOURCES/include
+
+echo "Copying cmake files..."
+CMAKE_DIR=$PD_RESOURCES/share/pd/cmake
+echo $CMAKE_DIR
+mkdir -p $CMAKE_DIR
+cp $SRC_DIR/cmake/PdExtension.cmake $CMAKE_DIR
+
+cd ../../..

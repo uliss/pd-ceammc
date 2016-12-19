@@ -83,6 +83,7 @@ proc ::dialog_font::pdtk_canvas_dofont {gfxstub initsize} {
     if {[winfo exists .font]} {
         wm deiconify .font
         raise .font
+        focus .font
         # the gfxstub stuff expects multiple font windows, we only have one,
         # so kill the new gfxstub requests as the come in.  We'll save the
         # original gfxstub for when the font panel gets closed
@@ -97,6 +98,7 @@ proc ::dialog_font::create_dialog {gfxstub} {
     .font configure -menu $::dialog_menubar
     .font configure -padx 10 -pady 5
     wm group .font .
+    wm title .font [_ "Font"]
 #    wm resizable .font 0 0
     wm transient .font $::focused_window
     ::pd_bindings::dialog_bindings .font "font"
@@ -113,7 +115,7 @@ proc ::dialog_font::create_dialog {gfxstub} {
     frame .font.buttonframe
     pack .font.buttonframe -side bottom -fill x -pady 2m
     button .font.buttonframe.ok -text [_ "OK"] \
-        -command "::dialog_font::ok $gfxstub" -default active
+        -command "::dialog_font::ok $gfxstub" -default active -padx 10
     pack .font.buttonframe.ok -side left -expand 1
     
     labelframe .font.fontsize -text [_ "Font Size"] -padx 5 -pady 4 -borderwidth 1 \
@@ -145,4 +147,11 @@ proc ::dialog_font::create_dialog {gfxstub} {
     pack .font.stretch.radio1 -side top -anchor w
     pack .font.stretch.radio2 -side top -anchor w
     pack .font.stretch.radio3 -side top -anchor w
+
+    # for focus handling on OSX
+    if {$::windowingsystem eq "aqua"} {
+
+        # since we show the active focus, disable the highlight outline
+        .font.buttonframe.ok config -highlightthickness 0
+    }
 }
