@@ -832,63 +832,12 @@ class softclip : public dsp {
 		ui_interface->closeBox();
 	}
 	virtual void compute (int count, FAUSTFLOAT** input, FAUSTFLOAT** output) {
-		float 	fZec0[64];
-		float 	fZec1[64];
-		int index;
-		int fullcount = count;
-		for (index = 0; index <= fullcount - 64; index += 64) {
-			// compute by blocks of 64 samples
-			const int count = 64;
-			FAUSTFLOAT* input0 = &input[0][index];
-			FAUSTFLOAT* output0 = &output[0][index];
-			// SECTION : 1
-			// LOOP 0x7fd5c0c113c0
-			// exec code
-			for (int i=0; i<count; i++) {
-				fZec0[i] = (fabsf((2 * (max(-0.25f, min(0.25f, (0.1588f * (float)input0[i]))) + -0.25f))) + -0.5f);
-			}
-			
-			// SECTION : 2
-			// LOOP 0x7fd5c0c123b0
-			// exec code
-			for (int i=0; i<count; i++) {
-				fZec1[i] = faustpower<2>(fZec0[i]);
-			}
-			
-			// SECTION : 3
-			// LOOP 0x7fd5c0c112e0
-			// exec code
-			for (int i=0; i<count; i++) {
-				output0[i] = (FAUSTFLOAT)(fZec0[i] * ((fZec1[i] * ((2.26548f * fZec1[i]) + -5.13274f)) + 3.14159f));
-			}
-			
-		}
-		if (index < fullcount) {
-			// compute the remaining samples if any
-			int count = fullcount-index;
-			FAUSTFLOAT* input0 = &input[0][index];
-			FAUSTFLOAT* output0 = &output[0][index];
-			// SECTION : 1
-			// LOOP 0x7fd5c0c113c0
-			// exec code
-			for (int i=0; i<count; i++) {
-				fZec0[i] = (fabsf((2 * (max(-0.25f, min(0.25f, (0.1588f * (float)input0[i]))) + -0.25f))) + -0.5f);
-			}
-			
-			// SECTION : 2
-			// LOOP 0x7fd5c0c123b0
-			// exec code
-			for (int i=0; i<count; i++) {
-				fZec1[i] = faustpower<2>(fZec0[i]);
-			}
-			
-			// SECTION : 3
-			// LOOP 0x7fd5c0c112e0
-			// exec code
-			for (int i=0; i<count; i++) {
-				output0[i] = (FAUSTFLOAT)(fZec0[i] * ((fZec1[i] * ((2.26548f * fZec1[i]) + -5.13274f)) + 3.14159f));
-			}
-			
+		FAUSTFLOAT* input0 = input[0];
+		FAUSTFLOAT* output0 = output[0];
+		for (int i=0; i<count; i++) {
+			float fTemp0 = (fabsf((2 * (max(-0.25f, min(0.25f, (0.1588f * (float)input0[i]))) + -0.25f))) + -0.5f);
+			float fTemp1 = faustpower<2>(fTemp0);
+			output0[i] = (FAUSTFLOAT)(fTemp0 * ((fTemp1 * ((2.26548f * fTemp1) + -5.13274f)) + 3.14159f));
 		}
 	}
 };
@@ -1213,8 +1162,8 @@ static bool faust_init_outputs(t_faust* x, bool info_outlet) {
             return false;
         }
 
-//        for (int i = 0; i < x->n_out; i++)
-//            x->buf[i] = NULL;
+        for (int i = 0; i < x->n_out; i++)
+            x->buf[i] = NULL;
     }
 
 
@@ -1246,6 +1195,7 @@ static bool faust_new_internal(t_faust* x, const char* obj_id = NULL, bool info_
     int sr = 44100;
     x->active = 1;
     x->xfade = 0;
+    x->rate = sr;
     x->n_xfade = static_cast<int>(sr * XFADE_TIME / 64);
 
     x->dsp = new softclip();
@@ -1418,5 +1368,29 @@ public:
         return this->x_;
     }
 };
+
+
+static void* faust_new(t_symbol* s, int argc, t_atom* argv);
+
+static void internal_setup(t_symbol* s)
+{
+    faust_class = class_new(s, reinterpret_cast<t_newmethod>(faust_new),
+        reinterpret_cast<t_method>(faust_free),
+        sizeof(t_faust),
+        CLASS_DEFAULT,
+        A_GIMME, A_NULL);
+    class_addmethod(faust_class, nullfn, &s_signal, A_NULL);
+    class_addmethod(faust_class, reinterpret_cast<t_method>(faust_dsp), gensym("dsp"), A_NULL);
+    CLASS_MAINSIGNALIN(faust_class, t_faust, f);
+    class_addanything(faust_class, faust_any);
+
+    s_button = gensym("button");
+    s_checkbox = gensym("checkbox");
+    s_vslider = gensym("vslider");
+    s_hslider = gensym("hslider");
+    s_nentry = gensym("nentry");
+    s_vbargraph = gensym("vbargraph");
+    s_hbargraph = gensym("hbargraph");
+}
 
 
