@@ -61,7 +61,6 @@ UI_fun(ui_slider2d)::wx_paint(t_object *z, t_object *view)
     }
     
     ebox_end_layer((t_ebox*)z, bgl);
-    
     ebox_paint_layer((t_ebox *)z, bgl, 0., 0.);
 }
 

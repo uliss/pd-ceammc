@@ -114,6 +114,7 @@ ceammc_cxx_tl_extension(tl test)
 
 ceammc_cxx_tl_extension(ui keyboard)
 ceammc_cxx_tl_extension(ui slider2d)
+ceammc_cxx_tl_extension(ui sliders)
 ceammc_cxx_tl_extension(ui test_cicm)
 
 # JSON
