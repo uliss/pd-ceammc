@@ -790,10 +790,11 @@ class gate : public dsp {
 	FAUSTFLOAT 	fslider1;
 	float 	fRec3[2];
 	FAUSTFLOAT 	fslider2;
+	float 	fRec4[2];
 	int 	iVec0[2];
 	float 	fConst2;
 	FAUSTFLOAT 	fslider3;
-	int 	iRec4[2];
+	int 	iRec5[2];
 	float 	fConst3;
 	float 	fRec1[2];
 	float 	fRec0[2];
@@ -801,14 +802,10 @@ class gate : public dsp {
 
   public:
 	virtual void metadata(Meta* m) { 
-		m->declare("misceffect.lib/name", "Faust Math Library");
-		m->declare("misceffect.lib/version", "2.0");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
 		m->declare("ceammc.lib/version", "0.1");
-		m->declare("analyzer.lib/name", "Faust Analyzer Library");
-		m->declare("analyzer.lib/version", "0.0");
-		m->declare("signal.lib/name", "Faust Signal Routing Library");
-		m->declare("signal.lib/version", "0.0");
+		m->declare("misceffect.lib/name", "Faust Math Library");
+		m->declare("misceffect.lib/version", "2.0");
 		m->declare("basic.lib/name", "Faust Basic Element Library");
 		m->declare("basic.lib/version", "0.0");
 		m->declare("math.lib/name", "Faust Math Library");
@@ -816,6 +813,10 @@ class gate : public dsp {
 		m->declare("math.lib/author", "GRAME");
 		m->declare("math.lib/copyright", "GRAME");
 		m->declare("math.lib/license", "LGPL with exception");
+		m->declare("signal.lib/name", "Faust Signal Routing Library");
+		m->declare("signal.lib/version", "0.0");
+		m->declare("analyzer.lib/name", "Faust Analyzer Library");
+		m->declare("analyzer.lib/version", "0.0");
 	}
 
 	virtual int getNumInputs() { return 1; }
@@ -837,8 +838,9 @@ class gate : public dsp {
 	}
 	virtual void instanceClear() {
 		for (int i=0; i<2; i++) fRec3[i] = 0;
+		for (int i=0; i<2; i++) fRec4[i] = 0;
 		for (int i=0; i<2; i++) iVec0[i] = 0;
-		for (int i=0; i<2; i++) iRec4[i] = 0;
+		for (int i=0; i<2; i++) iRec5[i] = 0;
 		for (int i=0; i<2; i++) fRec1[i] = 0;
 		for (int i=0; i<2; i++) fRec0[i] = 0;
 	}
@@ -862,7 +864,7 @@ class gate : public dsp {
 		ui_interface->addVerticalSlider("attack", &fslider0, 0.1f, 0.0f, 5e+02f, 0.1f);
 		ui_interface->addVerticalSlider("hold", &fslider3, 1e+02f, 1.0f, 5e+02f, 0.1f);
 		ui_interface->addVerticalSlider("release", &fslider1, 2e+01f, 1.0f, 5e+02f, 0.1f);
-		ui_interface->addHorizontalSlider("threshold", &fslider2, 4e+01f, 0.0f, 1e+02f, 0.1f);
+		ui_interface->addVerticalSlider("threshold", &fslider2, 4e+01f, 0.0f, 1e+02f, 0.1f);
 		ui_interface->closeBox();
 	}
 	virtual void compute (int count, FAUSTFLOAT** input, FAUSTFLOAT** output) {
@@ -870,7 +872,7 @@ class gate : public dsp {
 		float 	fSlow1 = float(fslider1);
 		float 	fSlow2 = expf((0 - (fConst1 / min((0.001f * fSlow0), (0.001f * fSlow1)))));
 		float 	fSlow3 = (1.0f - fSlow2);
-		float 	fSlow4 = powf(10,(0.05f * (float(fslider2) + -100)));
+		float 	fSlow4 = (0.001f * (float(fslider2) + -100));
 		int 	iSlow5 = int((fConst2 * float(fslider3)));
 		float 	fSlow6 = expf((0 - (fConst3 / fSlow1)));
 		float 	fSlow7 = expf((0 - (fConst3 / fSlow0)));
@@ -880,19 +882,21 @@ class gate : public dsp {
 			float fTemp0 = (float)input0[i];
 			fRec3[0] = ((fSlow3 * fabsf(fTemp0)) + (fSlow2 * fRec3[1]));
 			float 	fRec2 = fRec3[0];
-			int iTemp1 = (fRec2 > fSlow4);
+			fRec4[0] = (fSlow4 + (0.999f * fRec4[1]));
+			int iTemp1 = (fRec2 > powf(10,(0.05f * fRec4[0])));
 			iVec0[0] = iTemp1;
-			iRec4[0] = max((int)(iSlow5 * (iVec0[0] < iVec0[1])), (int)(iRec4[1] + -1));
-			float fTemp2 = fabsf(max(float(iVec0[0]), (float)(iRec4[0] > 0)));
+			iRec5[0] = max((int)(iSlow5 * (iVec0[0] < iVec0[1])), (int)(iRec5[1] + -1));
+			float fTemp2 = fabsf(max(float(iVec0[0]), (float)(iRec5[0] > 0)));
 			float fTemp3 = ((int((fRec0[1] > fTemp2)))?fSlow6:fSlow7);
-			fRec1[0] = ((fRec1[1] * fTemp3) + (fTemp2 * (1.0f - fTemp3)));
+			fRec1[0] = ((fTemp2 * (1.0f - fTemp3)) + (fRec1[1] * fTemp3));
 			fRec0[0] = fRec1[0];
 			output0[i] = (FAUSTFLOAT)(fTemp0 * fRec0[0]);
 			// post processing
 			fRec0[1] = fRec0[0];
 			fRec1[1] = fRec1[0];
-			iRec4[1] = iRec4[0];
+			iRec5[1] = iRec5[0];
 			iVec0[1] = iVec0[0];
+			fRec4[1] = fRec4[0];
 			fRec3[1] = fRec3[0];
 		}
 	}
