@@ -2,6 +2,7 @@ include(faust)
 include(ceammc_pd.cmake)
 add_subdirectory(lib)
 include_directories(lib)
+add_subdirectory(tests)
 
 # timeline shared library
 add_library(timeline SHARED tl_lib.cpp)
