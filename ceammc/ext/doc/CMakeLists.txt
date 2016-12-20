@@ -32,6 +32,7 @@ set(DOC_FILES
     live.capture~
     list.apply_to
     list.at
+    list.each
     list.length
     list.sort
     lfo.impulse~

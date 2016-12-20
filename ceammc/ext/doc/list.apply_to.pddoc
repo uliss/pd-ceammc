@@ -12,6 +12,9 @@
             <category>list</category>
             <keywords>list functional</keywords>
             <since>0.1</since>
+            <also>
+                <see>list.each</see>
+            </also>
         </meta>
         <arguments>
             <argument name="index" type="int">position index. Negative value means position from end of the list.

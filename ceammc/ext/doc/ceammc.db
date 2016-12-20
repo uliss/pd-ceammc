@@ -29,6 +29,7 @@ lfo.square~		~		~
 lfo.tri~		~		~
 list.apply_to		..		..
 list.at		..		.
+list.each		..		..
 list.length		.		.
 list.sort		.		.
 live.capture~		~		~.
