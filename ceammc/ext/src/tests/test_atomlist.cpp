@@ -380,5 +380,19 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         REQUIRE(l.count(isSymbol) == 3);
         REQUIRE(l.allOff(isSymbol));
     }
+
+    SECTION("contains")
+    {
+        AtomList l;
+        l.append(1.f);
+        l.append(2.f);
+        l.append(3.f);
+        l.append(1.f);
+        l.append(1.f);
+
+        REQUIRE(l.contains(1.f));
+        REQUIRE(l.contains(2.f));
+        REQUIRE(l.contains(3.f));
+    }
 }
 

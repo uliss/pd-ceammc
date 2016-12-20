@@ -239,6 +239,11 @@ Atom* AtomList::findLast(AtomPredicate pred)
     return it == atoms_.rend() ? 0 : &(*it);
 }
 
+bool AtomList::contains(const Atom& a) const
+{
+    return find(a) != 0;
+}
+
 size_t AtomList::count(const Atom& a) const
 {
     return std::count(atoms_.begin(), atoms_.end(), a);
