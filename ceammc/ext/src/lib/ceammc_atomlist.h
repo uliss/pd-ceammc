@@ -77,6 +77,7 @@ public:
     Atom* findLast(AtomPredicate pred);
 
     bool contains(const Atom& a) const;
+    int findPos(const Atom& a) const;
     size_t count(const Atom& a) const;
     size_t count(AtomPredicate pred) const;
 

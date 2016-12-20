@@ -394,5 +394,19 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         REQUIRE(l.contains(2.f));
         REQUIRE(l.contains(3.f));
     }
+
+    SECTION("findPos")
+    {
+        AtomList l;
+        l.append(1.f);
+        l.append(2.f);
+        l.append(3.f);
+        l.append(1.f);
+        l.append(1.f);
+
+        REQUIRE(l.findPos(3.f) == 2);
+        REQUIRE(l.findPos(2.f) == 1);
+        REQUIRE(l.findPos(1.f) == 0);
+    }
 }
 

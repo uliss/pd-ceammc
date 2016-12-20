@@ -244,6 +244,15 @@ bool AtomList::contains(const Atom& a) const
     return find(a) != 0;
 }
 
+int AtomList::findPos(const Atom& a) const
+{
+    const_atom_iterator it = std::find(atoms_.begin(), atoms_.end(), a);
+    if (it == atoms_.end())
+        return -1;
+
+    return std::distance(atoms_.begin(), it);
+}
+
 size_t AtomList::count(const Atom& a) const
 {
     return std::count(atoms_.begin(), atoms_.end(), a);
