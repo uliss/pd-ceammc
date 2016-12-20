@@ -36,6 +36,7 @@ class AtomList {
 
 public:
     AtomList();
+    AtomList(size_t n, t_atom* lst);
     size_t size() const;
     bool empty() const;
 
@@ -43,6 +44,8 @@ public:
     Atom* relAt(int pos);
     const Atom* relAt(int pos) const;
 
+    void fromPdData(size_t n, t_atom* lst);
+    t_atom* toPdData() const;
     void append(const Atom& a);
     bool insert(size_t pos, const Atom& a);
     bool remove(size_t pos);
@@ -94,6 +97,8 @@ public:
 
 bool operator==(const AtomList& l1, const AtomList& l2);
 bool operator!=(const AtomList& l1, const AtomList& l2);
+
+bool to_outlet(t_outlet* x, const AtomList& a);
 
 } // namespace ceammc
 

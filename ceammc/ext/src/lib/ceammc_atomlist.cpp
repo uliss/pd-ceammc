@@ -49,6 +49,11 @@ AtomList::AtomList()
 {
 }
 
+AtomList::AtomList(size_t n, t_atom* lst)
+{
+    fromPdData(n, lst);
+}
+
 size_t AtomList::size() const
 {
     return atoms_.size();
@@ -76,6 +81,20 @@ Atom* AtomList::relAt(int pos)
 const Atom* AtomList::relAt(int pos) const
 {
     return const_cast<AtomList*>(this)->relAt(pos);
+}
+
+void AtomList::fromPdData(size_t n, t_atom* lst)
+{
+    atoms_.clear();
+    atoms_.reserve(n);
+    for (size_t i = 0; i < n; i++) {
+        atoms_.push_back(lst[i]);
+    }
+}
+
+t_atom* AtomList::toPdData() const
+{
+    return reinterpret_cast<t_atom*>(const_cast<Atom*>(atoms_.data()));
 }
 
 void AtomList::append(const Atom& a)
@@ -361,6 +380,16 @@ bool operator==(const AtomList& l1, const AtomList& l2)
 bool operator!=(const AtomList& l1, const AtomList& l2)
 {
     return !(l1 == l2);
+}
+
+bool to_outlet(t_outlet* x, const AtomList& a)
+{
+    int n = static_cast<int>(a.size());
+    if (n < 1)
+        return false;
+
+    outlet_list(x, &s_list, n, a.toPdData());
+    return true;
 }
 
 } // namespace ceammc
