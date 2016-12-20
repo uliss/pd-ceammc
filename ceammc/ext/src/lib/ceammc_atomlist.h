@@ -27,6 +27,7 @@ class AtomList {
     atom_list atoms_;
     typedef atom_list::const_iterator const_atom_iterator;
     typedef atom_list::iterator atom_iterator;
+    typedef atom_list::reverse_iterator atom_riterator;
 
     static bool calc_rel_idx(int pos, size_t* dest, size_t sz);
     bool getRelativeIdx(int pos, size_t* idx) const;
@@ -56,10 +57,12 @@ public:
     const Atom* min() const;
     const Atom* max() const;
     const Atom* find(const Atom& a) const;
+    const Atom* findLast(const Atom& a) const;
     const Atom* find(AtomPredicate pred) const;
     Atom* min();
     Atom* max();
     Atom* find(const Atom& a);
+    Atom* findLast(const Atom& a);
     Atom* find(AtomPredicate pred);
 
     FloatList asFloats() const;

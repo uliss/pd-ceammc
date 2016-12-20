@@ -219,6 +219,11 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         REQUIRE(l2.find(Atom(3.f)) != 0);
         REQUIRE(l2.find(Atom(4.f)) == 0);
 
+        REQUIRE(l2.findLast(Atom(1.f)) != 0);
+        REQUIRE(l2.findLast(Atom(2.f)) != 0);
+        REQUIRE(l2.findLast(Atom(3.f)) != 0);
+        REQUIRE(l2.findLast(Atom(4.f)) == 0);
+
         // find by predicate
         REQUIRE(l2.find(isFloat) != 0);
         REQUIRE(l2.find(isSymbol) == 0);
