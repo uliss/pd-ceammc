@@ -30,6 +30,7 @@ class AtomList {
 
     static bool calc_rel_idx(int pos, size_t* dest, size_t sz);
     bool getRelativeIdx(int pos, size_t* idx) const;
+
 public:
     AtomList();
     size_t size() const;
@@ -55,10 +56,11 @@ public:
     const Atom* min() const;
     const Atom* max() const;
     const Atom* find(const Atom& a) const;
+    const Atom* find(AtomPredicate pred) const;
     Atom* min();
     Atom* max();
     Atom* find(const Atom& a);
-
+    Atom* find(AtomPredicate pred);
 
     FloatList asFloats() const;
 

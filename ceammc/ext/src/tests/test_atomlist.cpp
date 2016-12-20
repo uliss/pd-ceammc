@@ -206,6 +206,7 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
     {
         AtomList l;
         REQUIRE(l.find(Atom(1.0)) == 0);
+        REQUIRE(l.find(isFloat) == 0);
 
         l.append(Atom(1.f));
         l.append(Atom(2.f));
@@ -217,5 +218,9 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         REQUIRE(l2.find(Atom(2.f)) != 0);
         REQUIRE(l2.find(Atom(3.f)) != 0);
         REQUIRE(l2.find(Atom(4.f)) == 0);
+
+        // find by predicate
+        REQUIRE(l2.find(isFloat) != 0);
+        REQUIRE(l2.find(isSymbol) == 0);
     }
 }

@@ -179,6 +179,15 @@ Atom* AtomList::find(const Atom& a)
     return it == atoms_.end() ? 0 : &(*it);
 }
 
+Atom* AtomList::find(AtomPredicate pred)
+{
+    if (empty())
+        return 0;
+
+    atom_iterator it = std::find_if(atoms_.begin(), atoms_.end(), pred);
+    return it == atoms_.end() ? 0 : &(*it);
+}
+
 const Atom* AtomList::max() const
 {
     return const_cast<AtomList*>(this)->max();
@@ -187,6 +196,11 @@ const Atom* AtomList::max() const
 const Atom* AtomList::find(const Atom& a) const
 {
     return const_cast<AtomList*>(this)->find(a);
+}
+
+const Atom* AtomList::find(AtomPredicate pred) const
+{
+    return const_cast<AtomList*>(this)->find(pred);
 }
 
 FloatList AtomList::asFloats() const
