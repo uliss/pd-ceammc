@@ -47,7 +47,7 @@
 <![CDATA[
                  [F]
                  |
-    [pop(  [1 2( [size $1(
+    [pop(  [1 2( [resize $1(
     |      |         |
 [F] |  [B] | [clear( | [flush(
 |   |  |   | |       | |

@@ -2,7 +2,7 @@
 #X floatatom 183 48 5 0 0 0 - - -;
 #X msg 58 77 pop;
 #X msg 125 77 1 2;
-#X msg 183 77 size \$1;
+#X msg 183 77 resize \$1;
 #X floatatom 20 106 5 0 0 0 - - -;
 #X obj 87 106 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;

@@ -11,7 +11,7 @@ first value in queue\.  ;
 #X floatatom 213 169 5 0 0 0 - - -;
 #X msg 88 198 pop;
 #X msg 155 198 1 2;
-#X msg 213 198 size \$1;
+#X msg 213 198 resize \$1;
 #X floatatom 50 227 5 0 0 0 - - -;
 #X obj 117 227 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
