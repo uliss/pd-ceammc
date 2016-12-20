@@ -255,6 +255,19 @@ bool AtomList::anyOff(AtomPredicate pred) const
     return false;
 }
 
+bool AtomList::noneOff(AtomPredicate pred) const
+{
+    const_atom_iterator first = atoms_.begin();
+    const_atom_iterator last = atoms_.end();
+
+    while (first != last) {
+        if (pred(*first))
+            return false;
+        ++first;
+    }
+    return true;
+}
+
 Atom* AtomList::find(AtomPredicate pred)
 {
     if (empty())

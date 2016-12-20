@@ -77,6 +77,7 @@ public:
 
     bool allOff(AtomPredicate pred) const;
     bool anyOff(AtomPredicate pred) const;
+    bool noneOff(AtomPredicate pred) const;
 
     FloatList asFloats() const;
 

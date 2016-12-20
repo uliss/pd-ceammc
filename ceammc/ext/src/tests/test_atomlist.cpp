@@ -299,6 +299,15 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         REQUIRE(l.anyOff(isSymbol));
     }
 
+    SECTION("noneOff")
+    {
+        AtomList l;
+        REQUIRE(l.noneOff(isFloat));
+        l.fill(1.f, 10);
+        REQUIRE_FALSE(l.noneOff(isFloat));
+        REQUIRE(l.noneOff(isSymbol));
+    }
+
     SECTION("shuffle")
     {
         AtomList l;
