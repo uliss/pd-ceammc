@@ -67,6 +67,7 @@ TEST_CASE("Atom", "[ceammc::Atom]")
         REQUIRE_FALSE(satom.isFloat());
         REQUIRE(satom.type() == Atom::SYMBOL);
         REQUIRE(satom.asSymbol() == gensym("test"));
+        REQUIRE(satom.asString() == "test");
         t_symbol* s;
         REQUIRE(satom.getSymbol(&s));
         REQUIRE_FALSE(satom.getSymbol(NULL));
@@ -162,6 +163,5 @@ TEST_CASE("Atom", "[ceammc::Atom]")
         t_atom r2;
         r2.a_type = A_NULL;
         REQUIRE_FALSE(Atom(r1) < Atom(r2));
-
     }
 }

@@ -8,7 +8,7 @@ if(${WITH_COVERAGE})
 endif()
 
 # main static library
-add_library(ceammc_static STATIC ceammc.c ceammc.cpp ceammc_atom.cpp)
+add_library(ceammc_static STATIC ceammc.c ceammc.cpp ceammc_atom.cpp ceammc_atomlist.cpp)
 set_target_properties(ceammc_static PROPERTIES
     COMPILE_FLAGS "${FLAGS}" LINK_FLAGS "${FLAGS}")
 

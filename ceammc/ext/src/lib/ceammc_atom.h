@@ -45,6 +45,7 @@ public:
 
     t_float asFloat() const;
     t_symbol* asSymbol() const;
+    std::string asString() const;
 
     bool operator<(const Atom& a) const;
 
