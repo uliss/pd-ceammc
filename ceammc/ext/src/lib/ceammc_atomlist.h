@@ -22,6 +22,7 @@ namespace ceammc {
 typedef std::vector<t_float> FloatList;
 typedef bool (*AtomPredicate)(const Atom& a);
 typedef Atom (*AtomGenerator)();
+typedef Atom (*AtomMapFunction)(const Atom& a);
 
 class AtomList {
     typedef std::vector<Atom> atom_list;
@@ -54,6 +55,7 @@ public:
     const Atom* last() const;
 
     void sort();
+    void shuffle();
     AtomList filtered(AtomPredicate pred) const;
 
     const Atom* min() const;

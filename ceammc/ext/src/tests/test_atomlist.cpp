@@ -298,4 +298,10 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         l.append(gensym("test"));
         REQUIRE(l.anyOff(isSymbol));
     }
+
+    SECTION("shuffle")
+    {
+        AtomList l;
+        l.shuffle();
+    }
 }
