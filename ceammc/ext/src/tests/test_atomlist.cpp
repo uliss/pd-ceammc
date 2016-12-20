@@ -327,5 +327,18 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         REQUIRE(l.at(2).asFloat() == 1.f);
     }
 
+    SECTION("removeAll")
+    {
+        AtomList l;
+        l.append(1.f);
+        l.append(2.f);
+        l.append(3.f);
+        l.append(1.f);
+        l.append(1.f);
+
+        l.removeAll(1.f);
+        REQUIRE(l.size() == 2);
+        REQUIRE(l.find(1.f) == 0);
+    }
 }
 

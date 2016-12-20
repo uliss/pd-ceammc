@@ -101,6 +101,12 @@ bool AtomList::remove(size_t pos)
     return true;
 }
 
+void AtomList::removeAll(const Atom& a)
+{
+    atom_iterator nend = std::remove(atoms_.begin(), atoms_.end(), a);
+    atoms_.erase(nend, atoms_.end());
+}
+
 Atom* AtomList::first()
 {
     if (empty())
