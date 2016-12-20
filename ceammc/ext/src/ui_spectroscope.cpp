@@ -94,6 +94,8 @@ UI_fun(ui_spectroscope)::wx_paint(t_object *z, t_object *view)
             float xx = float(i+1)/fft_size*rect.width;
             float val = ( out1[i]  ==   out1[i] ) ? out1[i] : 0.;
             
+            //val = 1+log10(val);
+            
             float yy = (1.-val )*rect.height;
             
             egraphics_line_to(g, xx, yy);
