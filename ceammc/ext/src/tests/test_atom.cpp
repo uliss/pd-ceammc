@@ -19,6 +19,44 @@ using namespace ceammc;
 
 TEST_CASE("Atom", "[ceammc::Atom]")
 {
-    Atom a(0);
-    REQUIRE(a.isFloat());
+    SECTION("Atom contruct")
+    {
+        t_atom a;
+        SETFLOAT(&a, 1.1f);
+        Atom fatom(a);
+        REQUIRE(fatom.isFloat());
+        REQUIRE_FALSE(fatom.isSymbol());
+        std::string s;
+        REQUIRE_FALSE(fatom.getString(s));
+        t_float v;
+        REQUIRE(fatom.getFloat(&v));
+        CHECK(v == 1.1f);
+    }
+
+    SECTION("Float atom tests")
+    {
+        Atom fatom(1.99f);
+        REQUIRE(fatom.isFloat());
+        t_float v;
+        REQUIRE(fatom.getFloat(&v));
+        REQUIRE_FALSE(fatom.getFloat(NULL));
+        t_symbol* s;
+        REQUIRE_FALSE(fatom.getSymbol(&s));
+        REQUIRE_FALSE(fatom.getSymbol(NULL));
+    }
+
+    SECTION("Symbol atom tests")
+    {
+        Atom satom(gensym("test"));
+        REQUIRE_FALSE(satom.isFloat());
+        t_symbol* s;
+        REQUIRE(satom.getSymbol(&s));
+        REQUIRE_FALSE(satom.getSymbol(NULL));
+        t_float v;
+        REQUIRE_FALSE(satom.getFloat(NULL));
+        REQUIRE_FALSE(satom.getFloat(&v));
+        std::string str;
+        REQUIRE(satom.getString(str));
+        REQUIRE(str == "test");
+    }
 }

@@ -30,6 +30,11 @@ Atom::Atom(t_float v)
     SETFLOAT(this, v);
 }
 
+Atom::Atom(t_symbol* s)
+{
+    SETSYMBOL(this, s);
+}
+
 bool Atom::isFloat() const
 {
     return a_type == A_FLOAT;
@@ -38,5 +43,38 @@ bool Atom::isFloat() const
 bool Atom::isSymbol() const
 {
     return a_type == A_SYMBOL;
+}
+
+bool Atom::getFloat(t_float* v) const
+{
+    if (v == 0)
+        return false;
+
+    if (!isFloat())
+        return false;
+
+    *v = this->a_w.w_float;
+    return true;
+}
+
+bool Atom::getSymbol(t_symbol** s) const
+{
+    if (s == 0)
+        return false;
+
+    if (!isSymbol())
+        return false;
+
+    *s = this->a_w.w_symbol;
+    return true;
+}
+
+bool Atom::getString(std::string& str) const
+{
+    if (!isSymbol())
+        return false;
+
+    str = this->a_w.w_symbol->s_name;
+    return true;
 }
 }

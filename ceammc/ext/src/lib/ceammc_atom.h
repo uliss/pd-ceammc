@@ -15,6 +15,7 @@
 #define CEAMMC_ATOM_H
 
 #include <m_pd.h>
+#include <string>
 
 namespace ceammc {
 
@@ -29,8 +30,13 @@ public:
 public:
     Atom(const t_atom& a);
     Atom(t_float v);
+    Atom(t_symbol* s);
     bool isFloat() const;
     bool isSymbol() const;
+
+    bool getFloat(t_float* v) const;
+    bool getSymbol(t_symbol** s) const;
+    bool getString(std::string& str) const;
 };
 }
 
