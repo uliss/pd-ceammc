@@ -83,15 +83,6 @@ namespace pd {
         return true;
     }
 
-    Atom::Atom(const t_atom& a)
-    {
-
-    }
-
-    AtomList::AtomList()
-    {
-    }
-
     AtomList::AtomList(int argc, t_atom* argv)
     {
         if (argc < 0) {
