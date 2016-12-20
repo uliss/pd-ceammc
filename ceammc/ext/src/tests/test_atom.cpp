@@ -45,6 +45,17 @@ TEST_CASE("Atom", "[ceammc::Atom]")
         REQUIRE_FALSE(fatom.getSymbol(NULL));
     }
 
+    SECTION("Type replace")
+    {
+        t_atom a;
+        a.a_type = A_DEFFLOAT;
+        Atom fatom(a);
+        REQUIRE(fatom.isFloat());
+        a.a_type = A_DEFSYMBOL;
+        fatom = Atom(a);
+        REQUIRE(fatom.isSymbol());
+    }
+
     SECTION("Symbol atom tests")
     {
         Atom satom(gensym("test"));
