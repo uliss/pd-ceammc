@@ -4,12 +4,14 @@ find_program(PD_LIB2PD pd_lib2pd)
 find_program(PD_CAT2PD pd_cat2pd)
 
 set(DOC_FILES
+    data.fifo
     dyn.comp~
     dyn.comp2~
     dyn.gate~
     dyn.gate2~
     dyn.limit~
     dyn.limit2~
+    dyn.softclip~
     env.ar~
     env.adsr~
     env.follow~
@@ -18,7 +20,7 @@ set(DOC_FILES
     flt.highshelf~
     flt.lowshelf~
     flt.eq_peak~
-    fx.softclip~
+    fx.pitchshift~
     is_any
     is_bang
     is_float
@@ -29,6 +31,9 @@ set(DOC_FILES
     is_even
     live.capture~
     list.apply_to
+    list.at
+    list.each
+    list.length
     list.sort
     lfo.impulse~
     lfo.square~
@@ -67,6 +72,7 @@ set(DOC_FILES
     osc.sinfb~
     osc.square~
     osc.tri~
+    pass.changed
     system.memsize
     system.memused)
 

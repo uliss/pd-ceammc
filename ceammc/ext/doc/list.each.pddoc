@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pddoc version="1.0">
+    <object name="list.each">
+        <title>list.each</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>maps each list value via external object(s)</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>list</category>
+            <keywords>list functional</keywords>
+            <since>0.1</since>
+            <also>
+                <see>list.apply_to</see>
+            </also>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="list">Input list</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo>New modified value from applied object.</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>New modified list</outlet>
+            <outlet>Single list element</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[1 2 3 4 5 6 7 8 9(
+|
+[list.each] X [pow 2]
+|
+[prepend set]
+|
+[ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
+

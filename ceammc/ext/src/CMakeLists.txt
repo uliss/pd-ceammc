@@ -92,7 +92,6 @@ ceammc_c_extension(list unpack)
 ceammc_cxx_extension(list gen)
 ceammc_cxx_extension(list zip)
 
-ceammc_cxx_extension(list change)
 ceammc_cxx_extension(list delta)
 ceammc_cxx_extension(list integrator)
 ceammc_cxx_extension(list stretch)
@@ -134,7 +133,9 @@ ceammc_cxx_extension(exp patchdata)
 # STREAM
 ceammc_cxx_extension(reject if)
 ceammc_cxx_extension(reject this)
+
 ceammc_cxx_extension(pass if)
+ceammc_cxx_extension(pass changed)
 ceammc_cxx_extension(pass this)
 
 ###############################
@@ -221,7 +222,6 @@ ceammc_faust_extension(lfo impulse simple_pd_control_ext)
 ceammc_faust_extension(lfo tri simple_pd_control_ext)
 ceammc_faust_extension(lfo square simple_pd_control_ext)
 
-ceammc_faust_extension(fx softclip simple_pd_control_ext)
 ceammc_faust_extension(fx freqshift simple_pd_control_ext)
 ceammc_faust_extension(fx pitchshift simple_pd_control_ext)
 
@@ -246,6 +246,7 @@ ceammc_faust_extension(dyn gate  simple_pd_control_ext)
 ceammc_faust_extension(dyn gate2 simple_pd_control_ext)
 ceammc_faust_extension(dyn limit simple_pd_control_ext)
 ceammc_faust_extension(dyn limit2 simple_pd_control_ext)
+ceammc_faust_extension(dyn softclip simple_pd_control_ext)
 
 ceammc_faust_extension(spat pan2 simple_pd_control_ext)
 ceammc_faust_extension(spat pan4 simple_pd_control_ext)

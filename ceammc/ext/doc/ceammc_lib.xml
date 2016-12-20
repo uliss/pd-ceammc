@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library xmlns:xi="http://www.w3.org/2001/XInclude" name="ceammc" version="1.0">
+  <category name="data">
+    <entry descr="First-In-First-Out (FIFO) queue data container" name="data.fifo">
+      <xi:include href="data.fifo.pddoc" parse="xml"/>
+    </entry>
+  </category>
   <category name="dyn">
     <entry descr="stereo dynamic range compressor" name="dyn.comp2~">
       <xi:include href="dyn.comp2~.pddoc" parse="xml"/>
@@ -18,6 +23,9 @@
     </entry>
     <entry descr="mono 1176LN Peak Limiter" name="dyn.limit~">
       <xi:include href="dyn.limit~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="soft signal clip" name="dyn.softclip~">
+      <xi:include href="dyn.softclip~.pddoc" parse="xml"/>
     </entry>
   </category>
   <category name="env">
@@ -49,8 +57,8 @@
     </entry>
   </category>
   <category name="fx">
-    <entry descr="soft signal clip" name="fx.softclip~">
-      <xi:include href="fx.softclip~.pddoc" parse="xml"/>
+    <entry descr="simple pitch shifter based on 2 delay lines" name="fx.pitchshift~">
+      <xi:include href="fx.pitchshift~.pddoc" parse="xml"/>
     </entry>
   </category>
   <category name="lfo">
@@ -67,6 +75,15 @@
   <category name="list">
     <entry descr="modifies list value at specified position, filtering it via external object." name="list.apply_to">
       <xi:include href="list.apply_to.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="returns list element at given position" name="list.at">
+      <xi:include href="list.at.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="maps each list value via external object(s)" name="list.each">
+      <xi:include href="list.each.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="returns the number of elements in the list." name="list.length">
+      <xi:include href="list.length.pddoc" parse="xml"/>
     </entry>
     <entry descr="sorts list values by ascending order" name="list.sort">
       <xi:include href="list.sort.pddoc" parse="xml"/>
@@ -182,6 +199,11 @@
     </entry>
     <entry descr="Bandlimited triangle wave oscillator" name="osc.tri~">
       <xi:include href="osc.tri~.pddoc" parse="xml"/>
+    </entry>
+  </category>
+  <category name="pass">
+    <entry descr="rejects redundant input values" name="pass.changed">
+      <xi:include href="pass.changed.pddoc" parse="xml"/>
     </entry>
   </category>
   <category name="predicates">

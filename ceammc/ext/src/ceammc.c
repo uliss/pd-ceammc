@@ -3,6 +3,7 @@
 #include "memrss.h"
 #include <string.h>
 #include <math.h>
+#include <float.h>
 
 t_atom* ceammc_atoms_alloc(size_t n)
 {
@@ -73,7 +74,7 @@ int ceammc_atoms_compare(const t_atom* a1, const t_atom* a2)
                 return r;
             }
             default:
-                    return 0;
+                return 0;
         }
     }
 
@@ -117,3 +118,18 @@ size_t ceammc_memory_peak_rss()
 {
     return getPeakRSS();
 }
+
+int ceammc_floats_equal(float a, float b)
+{
+    // Calculate the difference.
+    float diff = fabs(a - b);
+    a = fabs(a);
+    b = fabs(b);
+    // Find the largest
+    float largest = (b > a) ? b : a;
+
+    if (diff <= largest * FLT_EPSILON)
+        return 1;
+    return 0;
+}
+

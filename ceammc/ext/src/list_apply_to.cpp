@@ -1,10 +1,14 @@
 #include "ceammc.hpp"
+#include <cstdlib>
 #include <m_pd.h>
+
+#define OBJ_NAME "list.apply_to"
+#define MSG_PREFIX "[" OBJ_NAME "] "
 
 t_class* list_apply_to_class;
 struct t_list_apply_to {
     t_object x_obj;
-    size_t x_apply_idx;
+    int x_apply_idx;
     t_atom mapped_value;
     ceammc::pd::atom_list* x_list;
     t_inlet* inlet1;
@@ -15,21 +19,25 @@ static void list_mapped_value(t_list_apply_to* x, t_symbol* s, int argc, t_atom*
 {
     // invalid mapped value
     if (argc != 1) {
-        pd_error(x, "invalid mapped value given");
+        pd_error(x, MSG_PREFIX "invalid mapped value given");
         return;
     }
 
     if (x->x_list == 0) {
-        pd_error(x, "atom list not allocated");
+        pd_error(x, MSG_PREFIX "atom list not allocated");
         return;
     }
 
-    if (x->x_list->size() <= x->x_apply_idx) {
-        pd_error(x, "invalid list index: %zu", x->x_apply_idx);
+    int idx = x->x_apply_idx;
+    if (x->x_list->size() <= abs(idx)) {
+        pd_error(x, MSG_PREFIX "invalid list index: %i", idx);
         return;
     }
 
-    x->x_list->at(x->x_apply_idx) = argv[0];
+    if(idx < 0)
+        idx += x->x_list->size();
+
+    x->x_list->at(idx) = argv[0];
 }
 
 static void list_apply_to_list(t_list_apply_to* x, t_symbol* s, int argc, t_atom* argv)
@@ -37,24 +45,32 @@ static void list_apply_to_list(t_list_apply_to* x, t_symbol* s, int argc, t_atom
     if (argc < 2)
         return;
 
-    //  pass unmodified if list index greater then given list size
-    if (argc <= x->x_apply_idx) {
+    int idx = x->x_apply_idx;
+    if (abs(idx) >= argc) {
+        // pass unmodified if invalid index given
+        pd_error(x, MSG_PREFIX "index %i is out of range. should be < %i or > %i", idx, argc, -argc);
         outlet_list(x->x_obj.te_outlet, s, argc, argv);
         return;
     }
 
-    x->x_list = new ceammc::pd::atom_list(argv, argv + argc);
-    t_atom el = argv[x->x_apply_idx];
+    // handle negative index
+    if (idx < 0)
+        idx += argc;
 
+    x->x_list = new ceammc::pd::atom_list(argv, argv + argc);
+    t_atom el = argv[idx];
+
+    // output to right outlet to mapped objected
     if (ceammc::pd::is_float(el))
         outlet_float(x->outlet1, atom_getfloat(&el));
     else if (ceammc::pd::is_symbol(el))
         outlet_symbol(x->outlet1, atom_getsymbol(&el));
     else {
-        pd_error(x, "unsupported type: %i. skipping", el.a_type);
+        pd_error(x, MSG_PREFIX "unsupported type: %i. skipping", el.a_type);
         return;
     }
 
+    // output modified list to left outlet
     ceammc::pd::output(x->x_obj.te_outlet, *x->x_list);
 
     delete x->x_list;
@@ -69,11 +85,12 @@ static void* list_apply_to_new(t_floatarg idx)
     x->outlet1 = outlet_new(&x->x_obj, &s_float);
     x->x_list = 0;
 
-    if (idx < 0)
+    if (!ceammc::math::is_integer(idx)) {
+        pd_error(x, MSG_PREFIX "list index should be integer. Using '0' as index position.");
         x->x_apply_idx = 0;
-    else
-        x->x_apply_idx = static_cast<size_t>(idx);
+    }
 
+    x->x_apply_idx = static_cast<int>(idx);
     return static_cast<void*>(x);
 }
 

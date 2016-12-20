@@ -20,7 +20,7 @@ floating-point exception for |x| > 1\. ;
 0;
 #X text 125 359 1\.;
 #X text 150 359 *float*;
-#X text 230 359 input value;
+#X text 230 359 input value\. ;
 #X obj 20 387 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 392 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;

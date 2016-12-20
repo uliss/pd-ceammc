@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pddoc version="1.0">
-    <object name="fx.softclip~">
-        <title>fx.softclip~</title>
+    <object name="dyn.softclip~">
+        <title>dyn.softclip~</title>
         <meta>
             <authors>
                 <author>Alex Nadzharov</author>
@@ -9,8 +9,8 @@
             <description>soft signal clip</description>
             <license>GPL3</license>
             <library>ceammc</library>
-            <category>fx</category>
-            <keywords>fx clip limiter</keywords>
+            <category>dyn</category>
+            <keywords>dyn clip limiter</keywords>
             <since>0.1</since>
         </meta>
         <inlets>
@@ -24,16 +24,16 @@
         <example>
         <pdascii>
 <![CDATA[
-[osc~ 220] [floatatom]  [osc~ 220] [floatatom]
-|  ._______/            |  ._______/
-[*~]                    [*~]
-|                       |
-[fx.softclip~]          [clip~ -1 1]
-|  [tgl]                |  [tgl]
-|  |.                   |  |.
-[*~ ]                   [*~ ]
-|\                      |\
-[dac~]                  [dac~]
+[osc~ 220] [F]      [osc~ 220] [F]
+|  ._______/        |  ._______/
+[*~]                [*~]
+|                   |
+[dyn.softclip~]     [clip~ -1 1]
+|     [_]           |      [_]
+|     |.            |      |.
+[*~   ]             [*~    ]
+|\                  |\
+[dac~]              [dac~]
 ]]>
         </pdascii>
         </example>

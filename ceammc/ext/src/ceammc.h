@@ -50,6 +50,12 @@ int ceammc_atoms_compare(const t_atom* a1, const t_atom* a2);
  */
 int ceammc_atoms_equal(const t_atom* a1, const t_atom* a2);
 
+/**
+ * @brief checks is floats are equal with using machine epsilon
+ * @return 1 if given floats are almost equal, 0 otherwise
+ */
+int ceammc_floats_equal(float a, float b);
+
 t_atom* ceammc_atoms_alloc(size_t n);
 void ceammc_atoms_free(t_atom* mem, size_t n);
 void ceammc_atoms_copy(size_t n, t_atom* from, t_atom* to);

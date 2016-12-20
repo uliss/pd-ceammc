@@ -13,10 +13,10 @@
 #X text 125 225 1\.;
 #X text 150 225 *int*;
 #X text 230 225 outputs '1' if number is not a multiple of two \,
-otherwise outputs '0'\.;
+otherwise outputs '0'\.\. ;
 #X text 150 257 *float*;
 #X text 230 257 first value converted to integer \, then the check is
-performed;
+performed\. ;
 #X obj 20 299 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 304 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;

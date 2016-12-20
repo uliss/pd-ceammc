@@ -1,176 +1,194 @@
 #N canvas 0 0 600 500 12;
 #X text 30 50 General purpose Pd library used for work and education
-purposes in centre of electroacoustic music of Moscow Convervatory
+purposes in centre of electroacoustic music of Moscow Conservatory
 (CEAMMC) and ZIL-electro studio\. ;
-#X obj 20 101 cnv 5 28 19 empty empty dyn 0 17 0 17 -262144 -49933 0;
+#X obj 20 101 cnv 5 38 19 empty empty data 0 17 0 17 -262144 -49933 0;
 #X obj 20 130 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 141 dyn.comp2~;
-#X text 150 141 stereo dynamic range compressor;
-#X obj 30 168 dyn.comp~;
-#X text 150 168 mono dynamic range compressors;
-#X obj 30 195 dyn.gate2~;
-#X text 150 195 stereo signal gate;
-#X obj 30 222 dyn.gate~;
-#X text 150 222 mono signal gate;
-#X obj 30 249 dyn.limit2~;
-#X text 150 249 stereo 1176LN Peak Limiter;
-#X obj 30 276 dyn.limit~;
-#X text 150 276 mono 1176LN Peak Limiter;
-#X obj 20 303 cnv 5 28 19 empty empty env 0 17 0 17 -262144 -49933 0;
-#X obj 20 332 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 343 env.adsr~;
-#X text 150 343 ADSR (Attack \, Decay \, Sustain \, Release) envelope
+#X obj 30 141 data.fifo;
+#X text 150 141 First-In-First-Out (FIFO) queue data container;
+#X obj 20 168 cnv 5 28 19 empty empty dyn 0 17 0 17 -262144 -49933 0;
+#X obj 20 197 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 208 dyn.comp2~;
+#X text 150 208 stereo dynamic range compressor;
+#X obj 30 235 dyn.comp~;
+#X text 150 235 mono dynamic range compressors;
+#X obj 30 262 dyn.gate2~;
+#X text 150 262 stereo signal gate;
+#X obj 30 289 dyn.gate~;
+#X text 150 289 mono signal gate;
+#X obj 30 316 dyn.limit2~;
+#X text 150 316 stereo 1176LN Peak Limiter;
+#X obj 30 343 dyn.limit~;
+#X text 150 343 mono 1176LN Peak Limiter;
+#X obj 30 370 dyn.softclip~;
+#X text 150 370 soft signal clip;
+#X obj 20 397 cnv 5 28 19 empty empty env 0 17 0 17 -262144 -49933 0;
+#X obj 20 426 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 437 env.adsr~;
+#X text 150 437 ADSR (Attack \, Decay \, Sustain \, Release) envelope
 generator;
-#X obj 30 370 env.ar~;
-#X text 150 370 AR (Attack \, Release) envelope generator (useful to
+#X obj 30 464 env.ar~;
+#X text 150 464 AR (Attack \, Release) envelope generator (useful to
 create percussion envelopes)\.;
-#X obj 30 407 env.follow~;
-#X text 150 407 Envelope follower with independent attack and release
+#X obj 30 501 env.follow~;
+#X text 150 501 Envelope follower with independent attack and release
 times\.;
-#X obj 20 444 cnv 5 27 19 empty empty flt 0 17 0 17 -262144 -49933 0;
-#X obj 20 473 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 484 flt.dcblock2~;
-#X text 150 484 stereo DC blocker;
-#X obj 30 511 flt.dcblock~;
-#X text 150 511 mono DC blocker;
-#X obj 30 538 flt.eq_peak~;
-#X text 150 538 second order "peaking equalizer" section (gain boost
+#X obj 20 538 cnv 5 27 19 empty empty flt 0 17 0 17 -262144 -49933 0;
+#X obj 20 567 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 578 flt.dcblock2~;
+#X text 150 578 stereo DC blocker;
+#X obj 30 605 flt.dcblock~;
+#X text 150 605 mono DC blocker;
+#X obj 30 632 flt.eq_peak~;
+#X text 150 632 second order "peaking equalizer" section (gain boost
 or cut near some frequency)\.  Also called a "parametric equalizer"
 section\.;
-#X obj 30 589 flt.highshelf~;
-#X text 150 589 gain boost|cut above some frequency;
-#X obj 30 616 flt.lowshelf~;
-#X text 150 616 gain boost|cut below some frequency;
-#X obj 20 643 cnv 5 18 19 empty empty fx 0 17 0 17 -262144 -49933 0;
-#X obj 20 672 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 683 fx.softclip~;
-#X text 150 683 soft signal clip;
-#X obj 20 710 cnv 5 27 19 empty empty lfo 0 17 0 17 -262144 -49933 0;
-#X obj 20 739 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 750 lfo.impulse~;
-#X text 150 750 Unit-amplitude low-frequency impulse train;
-#X obj 30 777 lfo.square~;
-#X text 150 777 Positive low frequence square wave;
-#X obj 30 804 lfo.tri~;
-#X text 150 804 Positive unit-amplitude low frequency triangle wave;
-#X obj 20 831 cnv 5 37 19 empty empty list 0 17 0 17 -262144 -49933 0;
-#X obj 20 860 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 871 list.apply_to;
-#X text 150 871 modifies list value at specified position \, filtering
+#X obj 30 683 flt.highshelf~;
+#X text 150 683 gain boost|cut above some frequency;
+#X obj 30 710 flt.lowshelf~;
+#X text 150 710 gain boost|cut below some frequency;
+#X obj 20 737 cnv 5 18 19 empty empty fx 0 17 0 17 -262144 -49933 0;
+#X obj 20 766 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 777 fx.pitchshift~;
+#X text 150 777 simple pitch shifter based on 2 delay lines;
+#X obj 20 804 cnv 5 27 19 empty empty lfo 0 17 0 17 -262144 -49933 0;
+#X obj 20 833 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 844 lfo.impulse~;
+#X text 150 844 Unit-amplitude low-frequency impulse train;
+#X obj 30 871 lfo.square~;
+#X text 150 871 Positive low frequence square wave;
+#X obj 30 898 lfo.tri~;
+#X text 150 898 Positive unit-amplitude low frequency triangle wave;
+#X obj 20 925 cnv 5 37 19 empty empty list 0 17 0 17 -262144 -49933 0;
+#X obj 20 954 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 965 list.apply_to;
+#X text 150 965 modifies list value at specified position \, filtering
 it via external object\.;
-#X obj 30 908 list.sort;
-#X text 150 908 sorts list values by ascending order;
-#X obj 20 935 cnv 5 38 19 empty empty live 0 17 0 17 -262144 -49933 0;
-#X obj 20 964 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 975 live.capture~;
-#X text 150 975 record up to 8s of sound and playback the recorded
+#X obj 30 1002 list.at;
+#X text 150 1002 returns list element at given position;
+#X obj 30 1029 list.each;
+#X text 150 1029 maps each list value via external object(s);
+#X obj 30 1056 list.length;
+#X text 150 1056 returns the number of elements in the list\.;
+#X obj 30 1083 list.sort;
+#X text 150 1083 sorts list values by ascending order;
+#X obj 20 1110 cnv 5 38 19 empty empty live 0 17 0 17 -262144 -49933
+0;
+#X obj 20 1139 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 1150 live.capture~;
+#X text 150 1150 record up to 8s of sound and playback the recorded
 sound in loop;
-#X obj 20 1012 cnv 5 38 19 empty empty math 0 17 0 17 -262144 -49933
+#X obj 20 1187 cnv 5 38 19 empty empty math 0 17 0 17 -262144 -49933
 0;
-#X obj 20 1041 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 1052 math.abs;
-#X text 150 1052 absolute value function;
-#X obj 30 1079 math.acos;
-#X text 150 1079 arc cosine function;
-#X obj 30 1106 math.acosh;
-#X text 150 1106 inverse hyperbolic cosine function;
-#X obj 30 1133 math.asin;
-#X text 150 1133 arc sine function;
-#X obj 30 1160 math.asinh;
-#X text 150 1160 inverse hyperbolic sine function;
-#X obj 30 1187 math.atan;
-#X text 150 1187 arc tangent function;
-#X obj 30 1214 math.atanh;
-#X text 150 1214 inverse hyperbolic tangent function;
-#X obj 30 1241 math.cbrt;
-#X text 150 1241 cube root function;
-#X obj 30 1268 math.ceil;
-#X text 150 1268 round to smallest integral value not less than input
+#X obj 20 1216 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 1227 math.abs;
+#X text 150 1227 absolute value function;
+#X obj 30 1254 math.acos;
+#X text 150 1254 arc cosine function;
+#X obj 30 1281 math.acosh;
+#X text 150 1281 inverse hyperbolic cosine function;
+#X obj 30 1308 math.asin;
+#X text 150 1308 arc sine function;
+#X obj 30 1335 math.asinh;
+#X text 150 1335 inverse hyperbolic sine function;
+#X obj 30 1362 math.atan;
+#X text 150 1362 arc tangent function;
+#X obj 30 1389 math.atanh;
+#X text 150 1389 inverse hyperbolic tangent function;
+#X obj 30 1416 math.cbrt;
+#X text 150 1416 cube root function;
+#X obj 30 1443 math.ceil;
+#X text 150 1443 round to smallest integral value not less than input
 value;
-#X obj 30 1295 math.cos;
-#X text 150 1295 cosine function;
-#X obj 30 1322 math.cosh;
-#X text 150 1322 hyperbolic cosine function;
-#X obj 30 1349 math.e;
-#X text 150 1349 mathematical constant \, base of the natural
+#X obj 30 1470 math.cos;
+#X text 150 1470 cosine function;
+#X obj 30 1497 math.cosh;
+#X text 150 1497 hyperbolic cosine function;
+#X obj 30 1524 math.e;
+#X text 150 1524 mathematical constant \, base of the natural
 logarithm;
-#X obj 30 1376 math.exp;
-#X text 150 1376 exponential functions;
-#X obj 30 1403 math.exp2;
-#X text 150 1403 exponential functions;
-#X obj 30 1430 math.floor;
-#X text 150 1430 round to largest integral value not greater than x;
-#X obj 30 1457 math.inf;
-#X text 150 1457 infinity value that cannot be represented accurately;
-#X obj 30 1484 math.log;
-#X text 150 1484 logarithm functions;
-#X obj 30 1511 math.log10;
-#X text 150 1511 logarithm functions;
-#X obj 30 1538 math.log2;
-#X text 150 1538 logarithm functions;
-#X obj 30 1565 math.nan;
-#X text 150 1565 Not a Number \, unrepresentable value;
-#X obj 30 1592 math.pi;
-#X text 150 1592 mathematical constant;
-#X obj 30 1619 math.round;
-#X text 150 1619 round to integral value \, regardless of rounding
+#X obj 30 1551 math.exp;
+#X text 150 1551 exponential functions;
+#X obj 30 1578 math.exp2;
+#X text 150 1578 exponential functions;
+#X obj 30 1605 math.floor;
+#X text 150 1605 round to largest integral value not greater than x;
+#X obj 30 1632 math.inf;
+#X text 150 1632 infinity value that cannot be represented accurately;
+#X obj 30 1659 math.log;
+#X text 150 1659 logarithm functions;
+#X obj 30 1686 math.log10;
+#X text 150 1686 logarithm functions;
+#X obj 30 1713 math.log2;
+#X text 150 1713 logarithm functions;
+#X obj 30 1740 math.nan;
+#X text 150 1740 Not a Number \, unrepresentable value;
+#X obj 30 1767 math.pi;
+#X text 150 1767 mathematical constant;
+#X obj 30 1794 math.round;
+#X text 150 1794 round to integral value \, regardless of rounding
 direction;
-#X obj 30 1646 math.sin;
-#X text 150 1646 sine function;
-#X obj 30 1673 math.sinh;
-#X text 150 1673 hyperbolic sine function;
-#X obj 30 1700 math.sqrt;
-#X text 150 1700 square root function;
-#X obj 30 1727 math.tan;
-#X text 150 1727 tangent function;
-#X obj 30 1754 math.tanh;
-#X text 150 1754 hyperbolic tangent function;
-#X obj 30 1781 math.trunc;
-#X text 150 1781 truncate to integer value;
-#X obj 20 1808 cnv 5 28 19 empty empty osc 0 17 0 17 -262144 -49933 0;
-#X obj 20 1837 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 1848 osc.impulse~;
-#X text 150 1848 Bandlimited impulse train generator;
-#X obj 30 1875 osc.pulse~;
-#X text 150 1875 Bandlimited pulse train oscillator\. ;
-#X obj 30 1902 osc.saw~;
-#X text 150 1902 Bandlimited saw wave oscillator;
-#X obj 30 1929 osc.sinfb~;
-#X text 150 1929 sine oscilator with feedback;
-#X obj 30 1956 osc.square~;
-#X text 150 1956 Bandlimited square wave oscillator;
-#X obj 30 1983 osc.tri~;
-#X text 150 1983 Bandlimited triangle wave oscillator;
-#X obj 20 2010 cnv 5 99 19 empty empty predicates 0 17 0 17 -262144
--49933 0;
-#X obj 20 2039 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 2050 is_any;
-#X text 150 2050 checks if input data has *any* type;
-#X obj 30 2077 is_bang;
-#X text 150 2077 checks if input data has *bang* type;
-#X obj 30 2104 is_even;
-#X text 150 2104 checks if input number is even;
-#X obj 30 2131 is_float;
-#X text 150 2131 checks if input data has *float* type;
-#X obj 30 2158 is_list;
-#X text 150 2158 checks if input data has *list* type;
-#X obj 30 2185 is_odd;
-#X text 150 2185 checks if input number is odd;
-#X obj 30 2212 is_pointer;
-#X text 150 2212 checks if input data has *pointer* type;
-#X obj 30 2239 is_symbol;
-#X text 150 2239 checks if input data has *symbol* type;
-#X obj 20 2266 cnv 5 58 19 empty empty system 0 17 0 17 -262144 -49933
+#X obj 30 1821 math.sin;
+#X text 150 1821 sine function;
+#X obj 30 1848 math.sinh;
+#X text 150 1848 hyperbolic sine function;
+#X obj 30 1875 math.sqrt;
+#X text 150 1875 square root function;
+#X obj 30 1902 math.tan;
+#X text 150 1902 tangent function;
+#X obj 30 1929 math.tanh;
+#X text 150 1929 hyperbolic tangent function;
+#X obj 30 1956 math.trunc;
+#X text 150 1956 truncate to integer value;
+#X obj 20 1983 cnv 5 28 19 empty empty osc 0 17 0 17 -262144 -49933 0;
+#X obj 20 2012 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 2023 osc.impulse~;
+#X text 150 2023 Bandlimited impulse train generator;
+#X obj 30 2050 osc.pulse~;
+#X text 150 2050 Bandlimited pulse train oscillator\. ;
+#X obj 30 2077 osc.saw~;
+#X text 150 2077 Bandlimited saw wave oscillator;
+#X obj 30 2104 osc.sinfb~;
+#X text 150 2104 sine oscilator with feedback;
+#X obj 30 2131 osc.square~;
+#X text 150 2131 Bandlimited square wave oscillator;
+#X obj 30 2158 osc.tri~;
+#X text 150 2158 Bandlimited triangle wave oscillator;
+#X obj 20 2185 cnv 5 37 19 empty empty pass 0 17 0 17 -262144 -49933
 0;
-#X obj 20 2295 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 2306 system.memsize;
-#X text 150 2306 returns the size of physical memory (RAM) in bytes
+#X obj 20 2214 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 2225 pass.changed;
+#X text 150 2225 rejects redundant input values;
+#X obj 20 2252 cnv 5 99 19 empty empty predicates 0 17 0 17 -262144
+-49933 0;
+#X obj 20 2281 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 2292 is_any;
+#X text 150 2292 checks if input data has *any* type;
+#X obj 30 2319 is_bang;
+#X text 150 2319 checks if input data has *bang* type;
+#X obj 30 2346 is_even;
+#X text 150 2346 checks if input number is even;
+#X obj 30 2373 is_float;
+#X text 150 2373 checks if input data has *float* type;
+#X obj 30 2400 is_list;
+#X text 150 2400 checks if input data has *list* type;
+#X obj 30 2427 is_odd;
+#X text 150 2427 checks if input number is odd;
+#X obj 30 2454 is_pointer;
+#X text 150 2454 checks if input data has *pointer* type;
+#X obj 30 2481 is_symbol;
+#X text 150 2481 checks if input data has *symbol* type;
+#X obj 20 2508 cnv 5 58 19 empty empty system 0 17 0 17 -262144 -49933
+0;
+#X obj 20 2537 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 2548 system.memsize;
+#X text 150 2548 returns the size of physical memory (RAM) in bytes
 round to float data type\.;
-#X obj 30 2343 system.memused;
-#X text 150 2343 returns the process physical memory use - current and
+#X obj 30 2585 system.memused;
+#X text 150 2585 returns the process physical memory use - current and
 peak;
 #X obj 1 1 cnv 5 597 40 empty empty ceammc 20 20 0 20 -104026 -4096 0;
-#X obj 1 2370 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 2370 version: v0\.1 \, license: GPL3;
-#X obj 20 2386 pddp/pddplink https://github.com/uliss/pure-data -text
+#X obj 1 2612 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 2612 version: v0\.1 \, license: GPL3;
+#X obj 20 2628 pddp/pddplink https://github.com/uliss/pure-data -text
 https://github.com/uliss/pure-data;

@@ -1,9 +1,11 @@
+data.fifo		.		.
 dyn.comp2~		~~		~~.
 dyn.comp~		~		~.
 dyn.gate2~		~~		~~.
 dyn.gate~		~		~.
 dyn.limit2~		~~		~~
 dyn.limit~		~		~
+dyn.softclip~		~		~
 env.adsr~		~		~.
 env.ar~		~		~.
 env.follow~		~		~.
@@ -12,6 +14,7 @@ flt.dcblock~		~		~
 flt.eq_peak~		~		~.
 flt.highshelf~		~		~.
 flt.lowshelf~		~		~.
+fx.pitchshift~		~~		~.
 fx.softclip~		~		~
 is_any		.		..
 is_bang		.		..
@@ -25,6 +28,9 @@ lfo.impulse~		~		~
 lfo.square~		~		~
 lfo.tri~		~		~
 list.apply_to		..		..
+list.at		..		.
+list.each		..		..
+list.length		.		.
 list.sort		.		.
 live.capture~		~		~.
 math.abs		.		.
@@ -62,5 +68,6 @@ osc.sibfb~		~		~
 osc.sinfb~		~		~.
 osc.square~		~		~
 osc.tri~		~		~
+pass.changed		.		.
 system.memsize		.		.
 system.memused		.		..

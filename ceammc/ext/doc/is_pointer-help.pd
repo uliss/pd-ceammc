@@ -19,7 +19,7 @@
 0;
 #X text 125 254 1\.;
 #X text 150 254 *pointer*;
-#X text 230 254 outputs '1' to 1st outlet \, otherwise '0';
+#X text 230 254 outputs '1' to 1st outlet \, otherwise '0'\. ;
 #X obj 20 282 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 287 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;
