@@ -263,4 +263,15 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         REQUIRE(l.count(1.1f) == 1);
         REQUIRE(l.count(isFloat) == 2);
     }
+
+    SECTION("fill")
+    {
+        AtomList l;
+        l.append(Atom(1.f));
+        l.append(Atom(2.f));
+        l.append(Atom(3.f));
+
+        l.fill(4.f);
+        REQUIRE(l.count(4.f) == 3);
+    }
 }

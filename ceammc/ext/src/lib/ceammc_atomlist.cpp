@@ -130,6 +130,11 @@ void AtomList::clear()
     atoms_.clear();
 }
 
+void AtomList::fill(const Atom& a)
+{
+    std::fill(atoms_.begin(), atoms_.end(), a);
+}
+
 void AtomList::sort()
 {
     std::sort(atoms_.begin(), atoms_.end());

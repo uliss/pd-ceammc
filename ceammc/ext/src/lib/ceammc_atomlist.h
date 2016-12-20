@@ -45,6 +45,7 @@ public:
     bool insert(size_t pos, const Atom& a);
     bool remove(size_t pos);
     void clear();
+    void fill(const Atom& a);
 
     Atom* first();
     Atom* last();
