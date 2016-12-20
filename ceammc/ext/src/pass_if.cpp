@@ -20,18 +20,10 @@ static void pass_if_float(t_pass_if* x, t_floatarg f)
 
 static void pass_if_list(t_pass_if* x, t_symbol* s, int argc, t_atom* argv)
 {
-    ceammc::pd::atom_list lst;
-    lst.reserve(argc);
+    outlet_list(x->out_pred, s, argc, argv);
 
-    for (int i = 0; i < argc; i++) {
-        t_atom* a = argv + i;
-        output_atom(x->out_pred, a);
-
-        if (x->do_pass != 0.0)
-            lst.push_back(*a);
-    }
-
-    ceammc::pd::output(x->x_obj.te_outlet, lst);
+    if (x->do_pass != 0.0)
+        outlet_list(x->x_obj.te_outlet, s, argc, argv);
 }
 
 static void pass_if_symbol(t_pass_if* x, t_symbol* s)

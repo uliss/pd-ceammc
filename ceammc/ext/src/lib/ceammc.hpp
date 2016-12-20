@@ -118,6 +118,21 @@ namespace pd {
         }
     };
 
+    class Atom : private t_atom {
+    public:
+        Atom(const t_atom& a);
+    };
+
+    class AtomList {
+        atom_list lst_;
+
+    public:
+        AtomList();
+        AtomList(int argc, t_atom* argv);
+        AtomList(const atom_list& lst);
+        void append(t_float v);
+    };
+
     class ControlValue {
         enum ValueType {
             NONE,

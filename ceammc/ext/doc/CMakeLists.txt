@@ -73,6 +73,7 @@ set(DOC_FILES
     osc.square~
     osc.tri~
     pass.changed
+    pass.if
     system.memsize
     system.memused)
 

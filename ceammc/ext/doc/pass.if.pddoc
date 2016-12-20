@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pddoc version="1.0">
+    <object name="pass.if">
+        <title>pass.if</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>pass values that accepted by predicate object</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>pass</category>
+            <keywords>pass functional</keywords>
+            <since>0.1</since>
+            <also>
+                <see>pass.this</see>
+            </also>
+        </meta>
+        <info>
+            <par>conditional value pass according to *predicate* object.
+            *predicate* should accept value and ouput 0 or 1, for value passing.</par>
+            <par>[is_even] [is_list] - examples of predicates.</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo>input value</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="int" minvalue="0" maxvalue="1">conditional output from predicate object. '1' means pass, '0' means reject</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>passed values</outlet>
+            <outlet>output to predicate object</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]   [1 2 3 4 5(        [F]   [1 2 3 4 5(
+|     |                  |     |
+[pass.if] X [is_even]    [pass.if] X [is_list]
+|       \________        |
+|               |        |
+[prepend set]   [print]  [prepend set]
+|                        |
+[ (                      [ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
+
