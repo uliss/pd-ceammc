@@ -43,6 +43,8 @@ public:
     bool setFloat(t_float v, bool force = false);
     bool setSymbol(t_symbol* s, bool force = false);
 
+    bool operator<(const Atom& a) const;
+
 public:
     friend bool operator==(const Atom& a1, const Atom& a2);
     friend bool operator!=(const Atom& a1, const Atom& a2);

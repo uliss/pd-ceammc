@@ -100,7 +100,7 @@ TEST_CASE("Atom", "[ceammc::Atom]")
         REQUIRE(a2.isFloat());
     }
 
-    SECTION("compare tests")
+    SECTION("equal tests")
     {
         Atom a1(1.2f);
         Atom a2(1.2f);
@@ -133,5 +133,33 @@ TEST_CASE("Atom", "[ceammc::Atom]")
         Atom u1(p);
         Atom u2(p);
         REQUIRE(u1 != u2);
+    }
+
+    SECTION("compare tests")
+    {
+        Atom a1(1.0);
+
+        REQUIRE_FALSE(a1 < a1);
+        Atom a2(1.0);
+        REQUIRE_FALSE(a1 < a2);
+        a2.setFloat(1.0001);
+        REQUIRE(a1 < a2);
+
+        Atom s1(gensym("test"));
+        REQUIRE(a1 < s1);
+
+        Atom s2(gensym("test"));
+        REQUIRE_FALSE(s1 < s2);
+
+        Atom s3(gensym("a"));
+        Atom s4(gensym("b"));
+        REQUIRE(s3 < s4);
+
+        t_atom r1;
+        r1.a_type = A_NULL;
+        t_atom r2;
+        r2.a_type = A_NULL;
+        REQUIRE_FALSE(Atom(r1) < Atom(r2));
+
     }
 }

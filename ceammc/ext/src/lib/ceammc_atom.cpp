@@ -109,6 +109,27 @@ bool Atom::setSymbol(t_symbol* s, bool force)
     return true;
 }
 
+bool Atom::operator<(const Atom& a) const
+{
+    if (this == &a)
+        return false;
+
+    if (this->a_type < a.a_type)
+        return true;
+
+    if (isFloat())
+        return this->a_w.w_float < a.a_w.w_float;
+
+    if (isSymbol()) {
+        if (this->a_w.w_symbol == a.a_w.w_symbol)
+            return false;
+
+        return strcmp(a_w.w_symbol->s_name, a.a_w.w_symbol->s_name) < 0;
+    }
+
+    return false;
+}
+
 bool operator==(const Atom& a1, const Atom& a2)
 {
     if (&a1 == &a2)
