@@ -355,5 +355,18 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         REQUIRE(l.size() == 1);
         REQUIRE(l.at(0).asString() == "a");
     }
+
+    SECTION("replaceAll")
+    {
+        AtomList l;
+        l.append(1.f);
+        l.append(2.f);
+        l.append(3.f);
+        l.append(1.f);
+        l.append(1.f);
+
+        l.replaceAll(1.f, -1.f);
+        REQUIRE(l.count(-1.f) == 3);
+    }
 }
 
