@@ -68,6 +68,7 @@ public:
     Atom* findLast(AtomPredicate pred);
 
     size_t count(const Atom& a) const;
+    size_t count(AtomPredicate pred) const;
 
     FloatList asFloats() const;
 

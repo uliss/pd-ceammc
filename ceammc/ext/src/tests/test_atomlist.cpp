@@ -256,8 +256,11 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
     {
         AtomList l;
         REQUIRE(l.count(1.0) == 0);
-        l.append(1.1);
-        REQUIRE(l.count(1.0) == 0);
-        REQUIRE(l.count(1.1) == 1);
+        REQUIRE(l.count(isFloat) == 0);
+        l.append(1.1f);
+        l.append(1.4f);
+        REQUIRE(l.count(1.0f) == 0);
+        REQUIRE(l.count(1.1f) == 1);
+        REQUIRE(l.count(isFloat) == 2);
     }
 }

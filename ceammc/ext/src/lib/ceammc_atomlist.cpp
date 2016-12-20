@@ -202,6 +202,11 @@ size_t AtomList::count(const Atom& a) const
     return std::count(atoms_.begin(), atoms_.end(), a);
 }
 
+size_t AtomList::count(AtomPredicate pred) const
+{
+    return std::count_if(atoms_.begin(), atoms_.end(), pred);
+}
+
 Atom* AtomList::find(AtomPredicate pred)
 {
     if (empty())
