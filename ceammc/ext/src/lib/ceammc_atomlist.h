@@ -57,13 +57,15 @@ public:
     const Atom* min() const;
     const Atom* max() const;
     const Atom* find(const Atom& a) const;
-    const Atom* findLast(const Atom& a) const;
     const Atom* find(AtomPredicate pred) const;
+    const Atom* findLast(const Atom& a) const;
+    const Atom* findLast(AtomPredicate pred) const;
     Atom* min();
     Atom* max();
     Atom* find(const Atom& a);
-    Atom* findLast(const Atom& a);
     Atom* find(AtomPredicate pred);
+    Atom* findLast(const Atom& a);
+    Atom* findLast(AtomPredicate pred);
 
     FloatList asFloats() const;
 

@@ -188,6 +188,15 @@ Atom* AtomList::findLast(const Atom& a)
     return it == atoms_.rend() ? 0 : &(*it);
 }
 
+Atom* AtomList::findLast(AtomPredicate pred)
+{
+    if (empty())
+        return 0;
+
+    atom_riterator it = std::find_if(atoms_.rbegin(), atoms_.rend(), pred);
+    return it == atoms_.rend() ? 0 : &(*it);
+}
+
 Atom* AtomList::find(AtomPredicate pred)
 {
     if (empty())
@@ -210,6 +219,11 @@ const Atom* AtomList::find(const Atom& a) const
 const Atom* AtomList::findLast(const Atom& a) const
 {
     return const_cast<AtomList*>(this)->findLast(a);
+}
+
+const Atom* AtomList::findLast(AtomPredicate pred) const
+{
+    return const_cast<AtomList*>(this)->findLast(pred);
 }
 
 const Atom* AtomList::find(AtomPredicate pred) const

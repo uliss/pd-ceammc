@@ -207,6 +207,8 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         AtomList l;
         REQUIRE(l.find(Atom(1.0)) == 0);
         REQUIRE(l.find(isFloat) == 0);
+        REQUIRE(l.findLast(1.0) == 0);
+        REQUIRE(l.findLast(isFloat) == 0);
 
         l.append(Atom(1.f));
         l.append(Atom(2.f));
@@ -227,5 +229,26 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         // find by predicate
         REQUIRE(l2.find(isFloat) != 0);
         REQUIRE(l2.find(isSymbol) == 0);
+    }
+
+    SECTION("find pred")
+    {
+        AtomList l;
+        REQUIRE(l.find(isFloat) == 0);
+        REQUIRE(l.find(isSymbol) == 0);
+        REQUIRE(l.findLast(isFloat) == 0);
+        REQUIRE(l.findLast(isSymbol) == 0);
+
+        l.append(Atom(1.f));
+        l.append(Atom(gensym("a")));
+        l.append(Atom(3.f));
+        l.append(Atom(gensym("b")));
+
+        const AtomList l2 = l;
+
+        REQUIRE(l2.find(isFloat)->asFloat() == 1.f);
+        REQUIRE(l2.findLast(isFloat)->asFloat() == 3.f);
+        REQUIRE(l2.find(isSymbol)->asString() == "a");
+        REQUIRE(l2.findLast(isSymbol)->asString() == "b");
     }
 }
