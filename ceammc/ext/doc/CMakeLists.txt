@@ -4,6 +4,7 @@ find_program(PD_LIB2PD pd_lib2pd)
 find_program(PD_CAT2PD pd_cat2pd)
 
 set(DOC_FILES
+    data.fifo
     dyn.comp~
     dyn.comp2~
     dyn.gate~

@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library xmlns:xi="http://www.w3.org/2001/XInclude" name="ceammc" version="1.0">
+  <category name="data">
+    <entry descr="First-In-First-Out (FIFO) queue data container" name="data.fifo">
+      <xi:include href="data.fifo.pddoc" parse="xml"/>
+    </entry>
+  </category>
   <category name="dyn">
     <entry descr="stereo dynamic range compressor" name="dyn.comp2~">
       <xi:include href="dyn.comp2~.pddoc" parse="xml"/>
