@@ -47,6 +47,7 @@ public:
     bool insert(size_t pos, const Atom& a);
     bool remove(size_t pos);
     void removeAll(const Atom& a);
+    void removeAll(AtomPredicate pred);
     void clear();
     void fill(const Atom& a);
     void fill(const Atom& a, size_t sz);

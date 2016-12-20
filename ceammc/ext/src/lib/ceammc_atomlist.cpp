@@ -107,6 +107,12 @@ void AtomList::removeAll(const Atom& a)
     atoms_.erase(nend, atoms_.end());
 }
 
+void AtomList::removeAll(AtomPredicate pred)
+{
+    atom_iterator nend = std::remove_if(atoms_.begin(), atoms_.end(), pred);
+    atoms_.erase(nend, atoms_.end());
+}
+
 Atom* AtomList::first()
 {
     if (empty())

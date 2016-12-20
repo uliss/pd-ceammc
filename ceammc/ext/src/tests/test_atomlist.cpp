@@ -340,5 +340,20 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         REQUIRE(l.size() == 2);
         REQUIRE(l.find(1.f) == 0);
     }
+
+    SECTION("removeAllPred")
+    {
+        AtomList l;
+        l.append(1.f);
+        l.append(2.f);
+        l.append(3.f);
+        l.append(1.f);
+        l.append(1.f);
+        l.append(gensym("a"));
+
+        l.removeAll(isFloat);
+        REQUIRE(l.size() == 1);
+        REQUIRE(l.at(0).asString() == "a");
+    }
 }
 
