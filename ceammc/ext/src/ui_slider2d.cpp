@@ -160,6 +160,12 @@ UI_fun(ui_slider2d)::ui_properties_init_ext(cm_gui_properties *def_p)
     
 }
 
+UI_fun(ui_slider2d)::init_ext(t_eclass *z)
+{
+    CLASS_ATTR_DEFAULT (z, "size", 0, "100. 100.");
+    
+}
+
 UI_fun(ui_slider2d)::new_ext(t_object *x, t_symbol *s, int argcl, t_atom *argv)
 {
     ((ui_slider2d*)x)->out1 = outlet_new(x, &s_list);

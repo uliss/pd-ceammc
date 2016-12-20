@@ -27,7 +27,7 @@ proc ::pd_menucommands::menu_open {} {
                        -filetypes $::filetypes \
                        -initialdir $::fileopendir]
     if {$files ne ""} {
-        foreach filename $files { 
+        foreach filename $files {
             open_file $filename
         }
         set ::fileopendir [file dirname $filename]
@@ -42,7 +42,7 @@ proc ::pd_menucommands::menu_print {mytoplevel} {
                       -filetypes { {{postscript} {.ps}} }]
     if {$filename ne ""} {
         set tkcanvas [tkcanvas_name $mytoplevel]
-        $tkcanvas postscript -file $filename 
+        $tkcanvas postscript -file $filename
     }
 }
 
@@ -223,7 +223,7 @@ proc ::pd_menucommands::menu_aboutpd {} {
         pack .aboutpd.scroll -side right -fill y
         pack .aboutpd.text -side left -fill both -expand 1
         bind .aboutpd <$::modifier-Key-w> "destroy .aboutpd"
-        
+
         set textfile [open $filename]
         while {![eof $textfile]} {
             set bigstring [read $textfile 1000]
@@ -276,6 +276,12 @@ proc ::pd_menucommands::menu_openfile {filename} {
 # open the help-intro.pd patch which provides a list of core objects
 proc ::pd_menucommands::menu_objectlist {} {
     pdsend "pd help-intro"
+}
+
+# ------------------------------------------------------------------------------
+# open the ceammc-help.pd patch which provides a list of ceammc objects
+proc ::pd_menucommands::menu_ceammcobjectlist {} {
+    pdsend "pd ceammc-help"
 }
 
 # ------------------------------------------------------------------------------

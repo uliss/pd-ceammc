@@ -94,6 +94,8 @@ UI_fun(ui_spectroscope)::wx_paint(t_object *z, t_object *view)
             float xx = float(i+1)/fft_size*rect.width;
             float val = ( out1[i]  ==   out1[i] ) ? out1[i] : 0.;
             
+            //val = 1+log10(val);
+            
             float yy = (1.-val )*rect.height;
             
             egraphics_line_to(g, xx, yy);
@@ -144,7 +146,7 @@ UI_fun(ui_spectroscope)::new_ext(t_object *z, t_symbol *s, int argcl, t_atom *ar
 UI_fun(ui_spectroscope)::init_ext(t_eclass *z)
 {
     eclass_addmethod(z, (method)ui_spectroscope_dsp, "dsp", A_CANT, 0);
-    
+    CLASS_ATTR_DEFAULT (z, "size", 0, "150. 100.");
     
 }
 

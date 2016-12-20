@@ -174,6 +174,11 @@ UI_fun(ui_sliders)::ui_properties_init_ext(cm_gui_properties *def_p)
     
 }
 
+UI_fun(ui_sliders)::init_ext(t_eclass *z)
+{
+    CLASS_ATTR_DEFAULT (z, "size", 0, "150. 100.");
+    
+}
 
 UI_fun(ui_sliders)::new_ext(t_object *x, t_symbol *s, int argcl, t_atom *argv)
 {

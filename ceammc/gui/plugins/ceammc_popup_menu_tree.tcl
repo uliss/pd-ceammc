@@ -30,3 +30,36 @@
     {reverb
         {rev1~ rev2~ rev3~}}
 }
+{ceammc
+    {audio_osc
+        {osc.impulse~ osc.pulse~ osc.saw~ osc.sinfb~ osc.square~ osc.tri~}
+    }
+    {audio_dynamics
+        {dyn.comp~ dyn.comp2~ dyn.gate~ dyn.gate2~ dyn.limit~ dyn.limit2~ dyn.softclip~}}
+    {audio_envelope
+        {env.adsr~ env.ar~ env.follow~}}
+    {audio_filters
+        {flt.highshelf~ flt.lowshelf~ flt.eq_peak~ flt.dcblock~ flt.dcblock2~ flt.c_lpf~ flt.c_bpf~ flt.c_hpf~ flt.c_lowshelf~ flt.c_highshelf~ flt.biquad~}}
+    {audio_fx
+        {fx.pitchshift~}}
+    {list
+        {list.apply_to list.at list.each list.length list.sort list.count list.delta list.equal list.gen list.integrator list.last list.max list.mean list.min list.minmax list.normalize list.pack list.product list.repeat list.reverse list.rotate list.seq list.shift list.shuffle list.sort list.stretch list.sum list.zip list.wrap list.unwrap}}
+    {math
+        {math.abs math.acos math.acosh math.asin math.asinh math.atan math.atanh math.cbrt math.ceil math.cos math.cosh math.e math.exp math.exp2 math.floor math.inf math.lof math.log10 math.log2 math.nan math.pi math.round math.sin math.sinh math.sqrt math.tan math.tanh math.trunc}
+    }
+    {predicates
+        {is_any is_bang is_even is_float is_list is_odd is_pointer is_symbol}
+    }
+    {data
+        {data.fifo}
+    }
+    {pass
+        {pass.changed}
+    }
+    {ui
+        {ui.keyboard ui.sliders ui.slider2d ui.scope ui.spectroscope}
+    }
+    {experimental
+        {exp.patchdata}
+    }
+}
