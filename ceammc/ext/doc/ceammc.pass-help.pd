@@ -4,6 +4,8 @@
 #X obj 79 50 pddp/pddplink ceammc-help.pd -text ceammc;
 #X obj 30 113 pass.changed;
 #X text 150 113 rejects redundant input values;
+#X obj 30 140 pass.if;
+#X text 150 140 pass values that accepted by predicate object;
 #X obj 1 1 cnv 5 597 40 empty empty ceammc::pass 20 20 0 20 -104026
 -4096 0;
 #X obj 1 458 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;

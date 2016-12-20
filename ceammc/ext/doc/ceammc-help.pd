@@ -159,36 +159,38 @@ direction;
 #X obj 20 2214 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 2225 pass.changed;
 #X text 150 2225 rejects redundant input values;
-#X obj 20 2252 cnv 5 99 19 empty empty predicates 0 17 0 17 -262144
+#X obj 30 2252 pass.if;
+#X text 150 2252 pass values that accepted by predicate object;
+#X obj 20 2279 cnv 5 99 19 empty empty predicates 0 17 0 17 -262144
 -49933 0;
-#X obj 20 2281 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 2292 is_any;
-#X text 150 2292 checks if input data has *any* type;
-#X obj 30 2319 is_bang;
-#X text 150 2319 checks if input data has *bang* type;
-#X obj 30 2346 is_even;
-#X text 150 2346 checks if input number is even;
-#X obj 30 2373 is_float;
-#X text 150 2373 checks if input data has *float* type;
-#X obj 30 2400 is_list;
-#X text 150 2400 checks if input data has *list* type;
-#X obj 30 2427 is_odd;
-#X text 150 2427 checks if input number is odd;
-#X obj 30 2454 is_pointer;
-#X text 150 2454 checks if input data has *pointer* type;
-#X obj 30 2481 is_symbol;
-#X text 150 2481 checks if input data has *symbol* type;
-#X obj 20 2508 cnv 5 58 19 empty empty system 0 17 0 17 -262144 -49933
+#X obj 20 2308 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 2319 is_any;
+#X text 150 2319 checks if input data has *any* type;
+#X obj 30 2346 is_bang;
+#X text 150 2346 checks if input data has *bang* type;
+#X obj 30 2373 is_even;
+#X text 150 2373 checks if input number is even;
+#X obj 30 2400 is_float;
+#X text 150 2400 checks if input data has *float* type;
+#X obj 30 2427 is_list;
+#X text 150 2427 checks if input data has *list* type;
+#X obj 30 2454 is_odd;
+#X text 150 2454 checks if input number is odd;
+#X obj 30 2481 is_pointer;
+#X text 150 2481 checks if input data has *pointer* type;
+#X obj 30 2508 is_symbol;
+#X text 150 2508 checks if input data has *symbol* type;
+#X obj 20 2535 cnv 5 58 19 empty empty system 0 17 0 17 -262144 -49933
 0;
-#X obj 20 2537 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 2548 system.memsize;
-#X text 150 2548 returns the size of physical memory (RAM) in bytes
+#X obj 20 2564 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 2575 system.memsize;
+#X text 150 2575 returns the size of physical memory (RAM) in bytes
 round to float data type\.;
-#X obj 30 2585 system.memused;
-#X text 150 2585 returns the process physical memory use - current and
+#X obj 30 2612 system.memused;
+#X text 150 2612 returns the process physical memory use - current and
 peak;
 #X obj 1 1 cnv 5 597 40 empty empty ceammc 20 20 0 20 -104026 -4096 0;
-#X obj 1 2612 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 2612 version: v0\.1 \, license: GPL3;
-#X obj 20 2628 pddp/pddplink https://github.com/uliss/pure-data -text
+#X obj 1 2639 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 2639 version: v0\.1 \, license: GPL3;
+#X obj 20 2655 pddp/pddplink https://github.com/uliss/pure-data -text
 https://github.com/uliss/pure-data;
