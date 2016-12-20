@@ -83,28 +83,6 @@ namespace pd {
         return true;
     }
 
-    AtomList::AtomList(int argc, t_atom* argv)
-    {
-        if (argc < 0) {
-            error("[ceammc] ivalid atom list size: %i. Should be >= 0.", argc);
-            return;
-        }
-
-        lst_.assign(argv, argv + argc);
-    }
-
-    AtomList::AtomList(const atom_list& lst)
-        : lst_(lst)
-    {
-    }
-
-    void AtomList::append(t_float v)
-    {
-        t_atom a;
-        SETFLOAT(&a, v);
-        lst_.push_back(a);
-    }
-
     ControlValue::ControlValue()
         : type_(NONE)
         , float_v_(0)
