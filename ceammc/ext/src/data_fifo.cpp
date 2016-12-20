@@ -1,4 +1,4 @@
-#include "ceammc.hpp"
+#include "ceammc_controlvalue.h"
 #include <m_pd.h>
 #include <queue>
 
@@ -7,7 +7,7 @@
 
 static const size_t MAX_FIFO_SIZE = 1024;
 
-typedef ceammc::pd::ControlValue ControlValue;
+typedef ceammc::ControlValue ControlValue;
 typedef std::queue<ControlValue> ControlFifo;
 
 t_class* data_fifo_class;
