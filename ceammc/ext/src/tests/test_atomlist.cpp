@@ -251,4 +251,13 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         REQUIRE(l2.find(isSymbol)->asString() == "a");
         REQUIRE(l2.findLast(isSymbol)->asString() == "b");
     }
+
+    SECTION("count")
+    {
+        AtomList l;
+        REQUIRE(l.count(1.0) == 0);
+        l.append(1.1);
+        REQUIRE(l.count(1.0) == 0);
+        REQUIRE(l.count(1.1) == 1);
+    }
 }
