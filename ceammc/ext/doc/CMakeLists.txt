@@ -33,6 +33,7 @@ set(DOC_FILES
     list.apply_to
     list.at
     list.each
+    list.first
     list.last
     list.length
     list.max
@@ -128,7 +129,7 @@ else()
         WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
 
     add_custom_target(ceammc_pddoc
-        DEPENDS ${DOC_PD_FILES} "ceammc.db" "ceammc_lib.xml" "ceammc-help.pd" ceammc_pddoc_cat
+        DEPENDS ${DOC_PD_FILES} "ceammc.db" ceammc_pddoc_cat "ceammc_lib.xml" "ceammc-help.pd"
         WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
 
     add_custom_target(ceammc_pddoc_cat

@@ -82,6 +82,9 @@
     <entry descr="maps each list value via external object(s)" name="list.each">
       <xi:include href="list.each.pddoc" parse="xml"/>
     </entry>
+    <entry descr="returns first list element" name="list.first">
+      <xi:include href="list.first.pddoc" parse="xml"/>
+    </entry>
     <entry descr="returns last list element" name="list.last">
       <xi:include href="list.last.pddoc" parse="xml"/>
     </entry>

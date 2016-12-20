@@ -30,6 +30,7 @@ lfo.tri~		~		~
 list.apply_to		..		..
 list.at		..		.
 list.each		..		..
+list.first		.		.
 list.last		.		.
 list.length		.		.
 list.max		.		.
