@@ -33,6 +33,7 @@ set(DOC_FILES
     list.apply_to
     list.at
     list.each
+    list.last
     list.length
     list.sort
     lfo.impulse~

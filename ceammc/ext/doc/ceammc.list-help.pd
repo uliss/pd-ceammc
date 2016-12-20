@@ -11,10 +11,12 @@ it via external object\.;
 #X text 150 150 returns list element at given position;
 #X obj 30 177 list.each;
 #X text 150 177 maps each list value via external object(s);
-#X obj 30 204 list.length;
-#X text 150 204 returns the number of elements in the list\.;
-#X obj 30 231 list.sort;
-#X text 150 231 sorts list values by ascending order;
+#X obj 30 204 list.last;
+#X text 150 204 returns last list element;
+#X obj 30 231 list.length;
+#X text 150 231 returns the number of elements in the list\.;
+#X obj 30 258 list.sort;
+#X text 150 258 sorts list values by ascending order;
 #X obj 1 1 cnv 5 597 40 empty empty ceammc::list 20 20 0 20 -104026
 -4096 0;
 #X obj 1 458 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;
