@@ -77,7 +77,7 @@ Atom* AtomList::last()
 {
     if (empty())
         return 0;
-    return &atom_list_[atom_list_.size() - 1];
+    return &atom_list_.back();
 }
 
 const Atom* AtomList::first() const
