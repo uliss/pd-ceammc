@@ -39,21 +39,27 @@
     {audio_envelope
         {env.adsr~ env.ar~ env.follow~}}
     {audio_filters
-        {flt.highshelf~ flt.lowshelf~ flt.eq_peak~ flt.dcblock~ flt.dcblock2~}}
+        {flt.highshelf~ flt.lowshelf~ flt.eq_peak~ flt.dcblock~ flt.dcblock2~ flt.c_lpf~ flt.c_bpf~ flt.c_hpf~ flt.c_lowshelf~ flt.c_highshelf~ flt.biquad~}}
     {audio_fx
         {fx.pitchshift~}}
     {list
-        {list.apply_to list.at list.each list.length list.sort}}
+        {list.apply_to list.at list.each list.length list.sort list.count list.delta list.equal list.gen list.integrator list.last list.max list.mean list.min list.minmax list.normalize list.pack list.product list.repeat list.reverse list.rotate list.seq list.shift list.shuffle list.sort list.stretch list.sum list.zip list.wrap list.unwrap}}
     {math
         {math.abs math.acos math.acosh math.asin math.asinh math.atan math.atanh math.cbrt math.ceil math.cos math.cosh math.e math.exp math.exp2 math.floor math.inf math.lof math.log10 math.log2 math.nan math.pi math.round math.sin math.sinh math.sqrt math.tan math.tanh math.trunc}
     }
     {predicates
         {is_any is_bang is_even is_float is_list is_odd is_pointer is_symbol}
     }
-    {data_pass
-        {data.fifo pass.changed}
+    {data
+        {data.fifo}
+    }
+    {pass
+        {pass.changed}
     }
     {ui
         {ui.keyboard ui.sliders ui.slider2d ui.scope ui.spectroscope}
+    }
+    {experimental
+        {exp.patchdata}
     }
 }
