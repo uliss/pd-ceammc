@@ -24,6 +24,10 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         AtomList l;
         REQUIRE(l.empty());
         REQUIRE(l.size() == 0);
+        REQUIRE(l.min() == 0);
+        REQUIRE(l.max() == 0);
+        REQUIRE(l.first() == 0);
+        REQUIRE(l.last() == 0);
 
         l.append(Atom(1.0));
         REQUIRE_FALSE(l.empty());
@@ -79,6 +83,8 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
     {
         AtomList l;
         l.sort();
+        REQUIRE(l.max() == 0);
+        REQUIRE(l.min() == 0);
 
         l.append(Atom(gensym("a")));
         l.append(Atom(2.0));
@@ -100,5 +106,47 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         REQUIRE(l.at(2).asString() == "a");
         REQUIRE(l.at(3).asString() == "a");
         REQUIRE(l.at(4).asString() == "b");
+
+        REQUIRE(l.max() != 0);
+        REQUIRE(l.max()->asString() == "b");
+        REQUIRE(l.min() != 0);
+        REQUIRE(l.min()->asFloat() == -3.0f);
+
+        const AtomList c1 = l;
+        REQUIRE(c1.max() != 0);
+        REQUIRE(c1.max()->asString() == "b");
+        REQUIRE(c1.min() != 0);
+        REQUIRE(c1.min()->asFloat() == -3.0f);
+        REQUIRE(c1.first()->asFloat() == -3.0f);
+        REQUIRE(c1.last()->asString() == "b");
+    }
+
+    SECTION("compare")
+    {
+        AtomList l1, l2;
+        REQUIRE(l1 == l1);
+        REQUIRE(l1 == l2);
+        l2.append(Atom(1.0));
+        REQUIRE(l1 != l2);
+    }
+
+    SECTION("filtered")
+    {
+        AtomList l1;
+        l1.append(Atom(gensym("a")));
+        l1.append(Atom(2.0));
+
+        AtomList l2 = l1.filtered(0);
+        REQUIRE(l1 == l2);
+
+        l2 = l1.filtered(isFloat);
+        REQUIRE(l1 != l2);
+        REQUIRE(l2.size() == 1);
+        REQUIRE(l2.at(0).asFloat() == 2.0f);
+
+        l2 = l1.filtered(isSymbol);
+        REQUIRE(l1 != l2);
+        REQUIRE(l2.size() == 1);
+        REQUIRE(l2.at(0).asString() == "a");
     }
 }

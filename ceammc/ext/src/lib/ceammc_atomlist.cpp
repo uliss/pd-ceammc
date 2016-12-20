@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "ceammc_atomlist.h"
 #include <algorithm>
+#include <iterator>
 
 namespace ceammc {
 
@@ -40,9 +41,73 @@ void AtomList::append(const Atom& a)
     atom_list_.push_back(a);
 }
 
+Atom* AtomList::first()
+{
+    if (empty())
+        return 0;
+    return &atom_list_.front();
+}
+
+Atom* AtomList::last()
+{
+    if (empty())
+        return 0;
+    return &atom_list_[atom_list_.size() - 1];
+}
+
+const Atom* AtomList::first() const
+{
+    return const_cast<AtomList*>(this)->first();
+}
+
+const Atom* AtomList::last() const
+{
+    return const_cast<AtomList*>(this)->last();
+}
+
 void AtomList::sort()
 {
     std::sort(atom_list_.begin(), atom_list_.end());
+}
+
+AtomList AtomList::filtered(AtomPredicate pred) const
+{
+    if (!pred)
+        return *this;
+    AtomList res;
+    res.atom_list_.reserve(size());
+    for (size_t i = 0; i < atom_list_.size(); i++) {
+        const Atom& a = atom_list_[i];
+        if (pred(a))
+            res.atom_list_.push_back(a);
+    }
+    return res;
+}
+
+Atom* AtomList::min()
+{
+    if (empty())
+        return 0;
+
+    return &(*std::min_element(atom_list_.begin(), atom_list_.end()));
+}
+
+const Atom* AtomList::min() const
+{
+    return const_cast<AtomList*>(this)->min();
+}
+
+Atom* AtomList::max()
+{
+    if (empty())
+        return 0;
+
+    return &(*std::max_element(atom_list_.begin(), atom_list_.end()));
+}
+
+const Atom* AtomList::max() const
+{
+    return const_cast<AtomList*>(this)->max();
 }
 
 FloatList AtomList::asFloats() const
@@ -52,6 +117,22 @@ FloatList AtomList::asFloats() const
         res.push_back(atom_list_[i].asFloat());
     }
     return res;
+}
+
+bool operator==(const AtomList& l1, const AtomList& l2)
+{
+    if (&l1 == &l2)
+        return true;
+
+    if (l1.size() != l2.size())
+        return false;
+
+    return std::equal(l1.atom_list_.begin(), l1.atom_list_.end(), l2.atom_list_.begin());
+}
+
+bool operator!=(const AtomList& l1, const AtomList& l2)
+{
+    return !(l1 == l2);
 }
 
 } // namespace ceammc

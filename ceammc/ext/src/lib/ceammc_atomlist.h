@@ -20,9 +20,13 @@
 namespace ceammc {
 
 typedef std::vector<t_float> FloatList;
+typedef bool (*AtomPredicate)(const Atom& a);
 
 class AtomList {
-    std::vector<Atom> atom_list_;
+    typedef std::vector<Atom> atom_list;
+    atom_list atom_list_;
+    typedef atom_list::const_iterator const_atom_iterator;
+    typedef atom_list::iterator atom_iterator;
 
 public:
     AtomList();
@@ -32,10 +36,28 @@ public:
     Atom at(size_t pos) const;
     void append(const Atom& a);
 
+    Atom* first();
+    Atom* last();
+    const Atom* first() const;
+    const Atom* last() const;
+
     void sort();
+    AtomList filtered(AtomPredicate pred) const;
+
+    const Atom* min() const;
+    const Atom* max() const;
+    Atom* min();
+    Atom* max();
 
     FloatList asFloats() const;
+
+public:
+    friend bool operator==(const AtomList& l1, const AtomList& l2);
+    friend bool operator!=(const AtomList& l1, const AtomList& l2);
 };
+
+bool operator==(const AtomList& l1, const AtomList& l2);
+bool operator!=(const AtomList& l1, const AtomList& l2);
 
 } // namespace ceammc
 
