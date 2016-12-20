@@ -36,12 +36,16 @@ public:
     Atom at(size_t pos) const;
     Atom* relAt(int pos);
     const Atom* relAt(int pos) const;
+
     void append(const Atom& a);
+    void insert(size_t pos, const Atom& a);
 
     Atom* first();
     Atom* last();
     const Atom* first() const;
     const Atom* last() const;
+
+    void clear();
 
     void sort();
     AtomList filtered(AtomPredicate pred) const;

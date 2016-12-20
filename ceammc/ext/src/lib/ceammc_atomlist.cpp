@@ -66,6 +66,14 @@ void AtomList::append(const Atom& a)
     atom_list_.push_back(a);
 }
 
+void AtomList::insert(size_t pos, const Atom& a)
+{
+    if (pos > atom_list_.size())
+        return;
+
+    atom_list_.insert(atom_list_.begin() + pos, a);
+}
+
 Atom* AtomList::first()
 {
     if (empty())
@@ -88,6 +96,11 @@ const Atom* AtomList::first() const
 const Atom* AtomList::last() const
 {
     return const_cast<AtomList*>(this)->last();
+}
+
+void AtomList::clear()
+{
+    atom_list_.clear();
 }
 
 void AtomList::sort()

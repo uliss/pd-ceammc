@@ -156,4 +156,34 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         REQUIRE(l2.size() == 1);
         REQUIRE(l2.at(0).asString() == "a");
     }
+
+    SECTION("clear")
+    {
+        AtomList l1;
+        l1.clear();
+        REQUIRE(l1.size() == 0);
+        l1.append(Atom(8.5));
+        REQUIRE(l1.size() == 1);
+        l1.clear();
+        REQUIRE(l1.size() == 0);
+    }
+
+    SECTION("insert")
+    {
+        AtomList l;
+        l.insert(0, Atom(1.1f));
+        REQUIRE(l.size() == 1);
+        REQUIRE(l.at(0).asFloat() == 1.1f);
+
+        l.insert(0, Atom(-1.1f));
+        REQUIRE(l.size() == 2);
+        REQUIRE(l.at(0).asFloat() == -1.1f);
+
+        l.insert(2, Atom(15));
+        REQUIRE(l.size() == 3);
+        REQUIRE(l.at(2).asFloat() == 15.f);
+
+        l.insert(20, Atom(15));
+        REQUIRE(l.size() == 3);
+    }
 }
