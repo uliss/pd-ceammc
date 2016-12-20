@@ -1,10 +1,7 @@
 include(faust)
 include(ceammc_pd.cmake)
-
-# main static library
-add_library(ceammc_static STATIC ceammc.c ceammc.cpp)
-set_target_properties(ceammc_static PROPERTIES
-    COMPILE_FLAGS ${PD_EXTERNAL_CFLAGS})
+add_subdirectory(lib)
+include_directories(lib)
 
 # timeline shared library
 add_library(timeline SHARED tl_lib.cpp)
