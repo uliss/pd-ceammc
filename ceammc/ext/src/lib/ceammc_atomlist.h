@@ -56,6 +56,7 @@ public:
 
     void sort();
     void shuffle();
+    void reverse();
     AtomList filtered(AtomPredicate pred) const;
 
     const Atom* min() const;

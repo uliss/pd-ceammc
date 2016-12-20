@@ -150,6 +150,11 @@ void AtomList::shuffle()
     std::random_shuffle(atoms_.begin(), atoms_.end());
 }
 
+void AtomList::reverse()
+{
+    std::reverse(atoms_.begin(), atoms_.end());
+}
+
 AtomList AtomList::filtered(AtomPredicate pred) const
 {
     if (!pred)

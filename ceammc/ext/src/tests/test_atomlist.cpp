@@ -304,4 +304,19 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         AtomList l;
         l.shuffle();
     }
+
+    SECTION("reverse")
+    {
+        AtomList l;
+        l.append(1.f);
+        l.append(2.f);
+        l.append(3.f);
+
+        l.reverse();
+        REQUIRE(l.at(0).asFloat() == 3.f);
+        REQUIRE(l.at(1).asFloat() == 2.f);
+        REQUIRE(l.at(2).asFloat() == 1.f);
+    }
+
 }
+
