@@ -57,7 +57,7 @@
         {pass.changed}
     }
     {ui
-        {ui.keyboard ui.sliders ui.slider2d ui.scope ui.spectroscope}
+        {ui.keyboard ui.sliders ui.slider2d ui.scope ui.spectroscope ui.bpfun}
     }
     {experimental
         {exp.patchdata}

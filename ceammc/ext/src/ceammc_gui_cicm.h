@@ -422,7 +422,7 @@ public:
         UI_Pset("_selected", selected);
         
         
-        printf("sel %f\n", UI_Pf("_selected"));
+        //printf("sel %f\n", UI_Pf("_selected"));
     }
     
     
@@ -474,8 +474,8 @@ public:
         UI_Pset("_mouse_x",pt.x);
         UI_Pset("_mouse_y",pt.y);
         
-        printf("!mousemove\n");
-        printf("mouse %f %f\n",UI_Pf("_mouse_x"),UI_Pf("_mouse_y"));
+        //printf("!mousemove\n");
+        //printf("mouse %f %f\n",UI_Pf("_mouse_x"),UI_Pf("_mouse_y"));
         
         cm_gui_object<U>::wx_mousemove_ext(z,view,pt,modifiers);
         
@@ -483,7 +483,7 @@ public:
     
     static void wx_mousedown(t_object* z, t_object *view, t_pt pt, long modifiers)
     {
-        printf("!mousedown\n");
+        //printf("!mousedown\n");
         
         UI_Prop
         
@@ -506,7 +506,7 @@ public:
         UI_Pset("_mouse_x",pt.x);
         UI_Pset("_mouse_y",pt.y);
         
-        printf("!mousedown\n");
+        //printf("!mouseup\n");
         
         UI_Pset("_mouse_dn",0);
         
@@ -520,8 +520,8 @@ public:
         UI_Pset("_mouse_x",pt.x);
         UI_Pset("_mouse_y",pt.y);
         
-        printf("!mousedrag\n");
-        printf("mouse %f %f\n",UI_Pf("_mouse_x"),UI_Pf("_mouse_y"));
+        //printf("!mousedrag\n");
+        //printf("mouse %f %f\n",UI_Pf("_mouse_x"),UI_Pf("_mouse_y"));
         
         cm_gui_object<U>::wx_mousedrag_ext(z,view,pt,modifiers);
         
