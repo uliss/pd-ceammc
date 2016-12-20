@@ -119,6 +119,11 @@ t_symbol* Atom::asSymbol() const
     return a_w.w_symbol;
 }
 
+std::string Atom::asString() const
+{
+    return a_w.w_symbol->s_name;
+}
+
 bool Atom::operator<(const Atom& a) const
 {
     if (this == &a)
@@ -130,8 +135,14 @@ bool Atom::operator<(const Atom& a) const
     if (isFloat())
         return this->a_w.w_float < a.a_w.w_float;
 
-    if (isSymbol()) {
-        if (this->a_w.w_symbol == a.a_w.w_symbol)
+    if (isSymbol() && a.isSymbol()) {
+        if (a_w.w_symbol == a.a_w.w_symbol)
+            return false;
+
+        if (a_w.w_symbol == 0 || a.a_w.w_symbol == 0)
+            return false;
+
+        if (a_w.w_symbol->s_name == 0 || a.a_w.w_symbol->s_name == 0)
             return false;
 
         return strcmp(a_w.w_symbol->s_name, a.a_w.w_symbol->s_name) < 0;
@@ -154,6 +165,12 @@ bool operator==(const Atom& a1, const Atom& a2)
     if (a1.isSymbol()) {
         if (a1.a_w.w_symbol == a2.a_w.w_symbol)
             return true;
+
+        if (a1.a_w.w_symbol == 0 || a1.a_w.w_symbol == 0)
+            return false;
+
+        if (a1.a_w.w_symbol->s_name == 0 || a2.a_w.w_symbol->s_name == 0)
+            return false;
 
         return strcmp(a1.a_w.w_symbol->s_name, a2.a_w.w_symbol->s_name) == 0;
     }
