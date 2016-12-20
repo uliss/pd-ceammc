@@ -1,4 +1,4 @@
-#include "ceammc.hpp"
+#include "ceammc_controlvalue.h"
 #include <cfloat>
 #include <cmath>
 #include <cstring>
@@ -9,7 +9,7 @@
 
 t_class* pass_changed_class;
 
-typedef ceammc::pd::ControlValue ControlValue;
+typedef ceammc::ControlValue ControlValue;
 struct t_pass_changed {
     t_object x_obj;
     ControlValue* x_prev;
@@ -26,10 +26,7 @@ static void pass_changed_set(t_pass_changed* x, t_symbol* s, int argc, t_atom* a
         return;
 
     if (argc == 1) {
-        if (ceammc::pd::is_float(argv[0]))
-            *x->x_prev = ControlValue(atom_getfloat(argv));
-        if (ceammc::pd::is_symbol(argv[0]))
-            *x->x_prev = ControlValue(atom_getsymbol(argv));
+        *x->x_prev = ControlValue(argv[0]);
     } else {
         *x->x_prev = ControlValue(argc, argv);
     }

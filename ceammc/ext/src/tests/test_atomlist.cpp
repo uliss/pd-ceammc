@@ -340,5 +340,73 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         REQUIRE(l.size() == 2);
         REQUIRE(l.find(1.f) == 0);
     }
+
+    SECTION("removeAllPred")
+    {
+        AtomList l;
+        l.append(1.f);
+        l.append(2.f);
+        l.append(3.f);
+        l.append(1.f);
+        l.append(1.f);
+        l.append(gensym("a"));
+
+        l.removeAll(isFloat);
+        REQUIRE(l.size() == 1);
+        REQUIRE(l.at(0).asString() == "a");
+    }
+
+    SECTION("replaceAll")
+    {
+        AtomList l;
+        l.append(1.f);
+        l.append(2.f);
+        l.append(3.f);
+        l.append(1.f);
+        l.append(1.f);
+
+        l.replaceAll(1.f, -1.f);
+        REQUIRE(l.count(-1.f) == 3);
+    }
+
+    SECTION("replaceAllPred")
+    {
+        AtomList l;
+        l.append(1.f);
+        l.append(2.f);
+        l.append(3.f);
+
+        l.replaceAll(isFloat, gensym("x"));
+        REQUIRE(l.count(isSymbol) == 3);
+        REQUIRE(l.allOff(isSymbol));
+    }
+
+    SECTION("contains")
+    {
+        AtomList l;
+        l.append(1.f);
+        l.append(2.f);
+        l.append(3.f);
+        l.append(1.f);
+        l.append(1.f);
+
+        REQUIRE(l.contains(1.f));
+        REQUIRE(l.contains(2.f));
+        REQUIRE(l.contains(3.f));
+    }
+
+    SECTION("findPos")
+    {
+        AtomList l;
+        l.append(1.f);
+        l.append(2.f);
+        l.append(3.f);
+        l.append(1.f);
+        l.append(1.f);
+
+        REQUIRE(l.findPos(3.f) == 2);
+        REQUIRE(l.findPos(2.f) == 1);
+        REQUIRE(l.findPos(1.f) == 0);
+    }
 }
 

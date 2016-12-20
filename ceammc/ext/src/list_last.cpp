@@ -1,4 +1,4 @@
-#include "ceammc.h"
+#include "ceammc_atom.h"
 #include <m_pd.h>
 
 t_class* list_last_class;
@@ -6,13 +6,15 @@ struct t_list_last {
     t_object x_obj;
 };
 
+using namespace ceammc;
+
 static void list_last_list(t_list_last* x, t_symbol* s, int argc, t_atom* argv)
 {
     if (argc < 1)
         return;
 
-    t_atom* a = argv + (argc - 1);
-    outlet_list(x->x_obj.te_outlet, s, 1, a);
+    Atom a(argv[argc - 1]);
+    to_outlet(x->x_obj.te_outlet, a);
 }
 
 static void* list_last_new()

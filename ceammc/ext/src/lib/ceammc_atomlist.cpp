@@ -49,6 +49,11 @@ AtomList::AtomList()
 {
 }
 
+AtomList::AtomList(size_t n, t_atom* lst)
+{
+    fromPdData(n, lst);
+}
+
 size_t AtomList::size() const
 {
     return atoms_.size();
@@ -78,6 +83,20 @@ const Atom* AtomList::relAt(int pos) const
     return const_cast<AtomList*>(this)->relAt(pos);
 }
 
+void AtomList::fromPdData(size_t n, t_atom* lst)
+{
+    atoms_.clear();
+    atoms_.reserve(n);
+    for (size_t i = 0; i < n; i++) {
+        atoms_.push_back(lst[i]);
+    }
+}
+
+t_atom* AtomList::toPdData() const
+{
+    return reinterpret_cast<t_atom*>(const_cast<Atom*>(atoms_.data()));
+}
+
 void AtomList::append(const Atom& a)
 {
     atoms_.push_back(a);
@@ -105,6 +124,22 @@ void AtomList::removeAll(const Atom& a)
 {
     atom_iterator nend = std::remove(atoms_.begin(), atoms_.end(), a);
     atoms_.erase(nend, atoms_.end());
+}
+
+void AtomList::removeAll(AtomPredicate pred)
+{
+    atom_iterator nend = std::remove_if(atoms_.begin(), atoms_.end(), pred);
+    atoms_.erase(nend, atoms_.end());
+}
+
+void AtomList::replaceAll(const Atom& old_value, const Atom& new_value)
+{
+    std::replace(atoms_.begin(), atoms_.end(), old_value, new_value);
+}
+
+void AtomList::replaceAll(AtomPredicate pred, const Atom& new_value)
+{
+    std::replace_if(atoms_.begin(), atoms_.end(), pred, new_value);
 }
 
 Atom* AtomList::first()
@@ -223,6 +258,20 @@ Atom* AtomList::findLast(AtomPredicate pred)
     return it == atoms_.rend() ? 0 : &(*it);
 }
 
+bool AtomList::contains(const Atom& a) const
+{
+    return find(a) != 0;
+}
+
+int AtomList::findPos(const Atom& a) const
+{
+    const_atom_iterator it = std::find(atoms_.begin(), atoms_.end(), a);
+    if (it == atoms_.end())
+        return -1;
+
+    return std::distance(atoms_.begin(), it);
+}
+
 size_t AtomList::count(const Atom& a) const
 {
     return std::count(atoms_.begin(), atoms_.end(), a);
@@ -331,6 +380,16 @@ bool operator==(const AtomList& l1, const AtomList& l2)
 bool operator!=(const AtomList& l1, const AtomList& l2)
 {
     return !(l1 == l2);
+}
+
+bool to_outlet(t_outlet* x, const AtomList& a)
+{
+    int n = static_cast<int>(a.size());
+    if (n < 1)
+        return false;
+
+    outlet_list(x, &s_list, n, a.toPdData());
+    return true;
 }
 
 } // namespace ceammc
