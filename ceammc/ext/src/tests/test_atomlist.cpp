@@ -368,5 +368,17 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         l.replaceAll(1.f, -1.f);
         REQUIRE(l.count(-1.f) == 3);
     }
+
+    SECTION("replaceAllPred")
+    {
+        AtomList l;
+        l.append(1.f);
+        l.append(2.f);
+        l.append(3.f);
+
+        l.replaceAll(isFloat, gensym("x"));
+        REQUIRE(l.count(isSymbol) == 3);
+        REQUIRE(l.allOff(isSymbol));
+    }
 }
 

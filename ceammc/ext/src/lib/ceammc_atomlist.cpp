@@ -118,6 +118,11 @@ void AtomList::replaceAll(const Atom& old_value, const Atom& new_value)
     std::replace(atoms_.begin(), atoms_.end(), old_value, new_value);
 }
 
+void AtomList::replaceAll(AtomPredicate pred, const Atom& new_value)
+{
+    std::replace_if(atoms_.begin(), atoms_.end(), pred, new_value);
+}
+
 Atom* AtomList::first()
 {
     if (empty())
