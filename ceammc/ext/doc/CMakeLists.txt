@@ -35,6 +35,7 @@ set(DOC_FILES
     list.each
     list.last
     list.length
+    list.max
     list.sort
     lfo.impulse~
     lfo.square~

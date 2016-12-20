@@ -32,6 +32,7 @@ list.at		..		.
 list.each		..		..
 list.last		.		.
 list.length		.		.
+list.max		.		.
 list.sort		.		.
 live.capture~		~		~.
 math.abs		.		.
