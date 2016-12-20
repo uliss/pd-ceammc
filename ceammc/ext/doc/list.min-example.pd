@@ -4,7 +4,7 @@
 #X text 221 48  (!) ;
 #X msg 39 77 1 2 3;
 #X floatatom 144 77 5 0 0 0 - - -;
-#X obj 20 106 list.max;
+#X obj 20 106 list.min;
 #X obj 20 135 prepend set;
 #X msg 20 164 ;
 #X connect 1 0 5 0;

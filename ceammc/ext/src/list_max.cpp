@@ -11,12 +11,13 @@ typedef struct list_max {
 
 using namespace ceammc;
 
-static void list_max_list(t_list_max* x, t_symbol* /*s*/, int argc, t_atom* argv)
+static void list_max_list(t_list_max* x, t_symbol*, int argc, t_atom* argv)
 {
     AtomList lst(static_cast<size_t>(argc), argv);
     Atom* a = lst.max();
     if (a == 0) {
         pd_error(x, MSG_PREFIX "invalid list");
+        return;
     }
 
     to_outlet(x->x_obj.te_outlet, *a);

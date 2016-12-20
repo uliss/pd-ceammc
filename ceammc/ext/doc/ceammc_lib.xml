@@ -91,6 +91,9 @@
     <entry descr="returns largest element in the list" name="list.max">
       <xi:include href="list.max.pddoc" parse="xml"/>
     </entry>
+    <entry descr="returns smallest element in the list" name="list.min">
+      <xi:include href="list.min.pddoc" parse="xml"/>
+    </entry>
     <entry descr="sorts list values by ascending order" name="list.sort">
       <xi:include href="list.sort.pddoc" parse="xml"/>
     </entry>
