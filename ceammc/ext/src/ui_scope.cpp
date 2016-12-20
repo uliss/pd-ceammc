@@ -74,6 +74,7 @@ UI_fun(ui_scope)::wx_paint(t_object *z, t_object *view)
 
 
 
+
 static void ui_scope_perform(ui_scope *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
     t_sample  *in1 =   ins[0];
@@ -106,7 +107,7 @@ UI_fun(ui_scope)::new_ext(t_object *z, t_symbol *s, int argcl, t_atom *argv)
 UI_fun(ui_scope)::init_ext(t_eclass *z)
 {
     eclass_addmethod(z, (method)ui_scope_dsp, "dsp", A_CANT, 0);
-    
+    CLASS_ATTR_DEFAULT (z, "size", 0, "150. 100.");
     
 }
 

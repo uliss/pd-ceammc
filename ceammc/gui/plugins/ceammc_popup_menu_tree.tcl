@@ -53,4 +53,7 @@
     {data_pass
         {data.fifo pass.changed}
     }
+    {ui
+        {ui.keyboard ui.sliders ui.slider2d ui.scope ui.spectroscope}
+    }
 }

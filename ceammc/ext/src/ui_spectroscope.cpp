@@ -146,7 +146,7 @@ UI_fun(ui_spectroscope)::new_ext(t_object *z, t_symbol *s, int argcl, t_atom *ar
 UI_fun(ui_spectroscope)::init_ext(t_eclass *z)
 {
     eclass_addmethod(z, (method)ui_spectroscope_dsp, "dsp", A_CANT, 0);
-    
+    CLASS_ATTR_DEFAULT (z, "size", 0, "150. 100.");
     
 }
 
