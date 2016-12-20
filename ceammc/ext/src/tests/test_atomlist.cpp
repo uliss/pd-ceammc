@@ -273,5 +273,18 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
 
         l.fill(4.f);
         REQUIRE(l.count(4.f) == 3);
+
+        AtomList l2;
+        l2.fill(1.1, 10);
+        REQUIRE(l2.size() == 10);
+    }
+
+    SECTION("allOff")
+    {
+        AtomList l;
+        REQUIRE_FALSE(l.allOff(isFloat));
+        l.fill(1.f, 10);
+        REQUIRE(l.allOff(isFloat));
+        REQUIRE_FALSE(l.allOff(isSymbol));
     }
 }

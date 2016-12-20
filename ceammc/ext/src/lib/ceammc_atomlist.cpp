@@ -135,6 +135,11 @@ void AtomList::fill(const Atom& a)
     std::fill(atoms_.begin(), atoms_.end(), a);
 }
 
+void AtomList::fill(const Atom& a, size_t sz)
+{
+    atoms_ = atom_list(sz, a);
+}
+
 void AtomList::sort()
 {
     std::sort(atoms_.begin(), atoms_.end());
@@ -210,6 +215,21 @@ size_t AtomList::count(const Atom& a) const
 size_t AtomList::count(AtomPredicate pred) const
 {
     return std::count_if(atoms_.begin(), atoms_.end(), pred);
+}
+
+bool AtomList::allOff(AtomPredicate pred) const
+{
+    if (empty())
+        return false;
+
+    const_atom_iterator first = atoms_.begin();
+    const_atom_iterator last = atoms_.end();
+    while (first != last) {
+        if (!pred(*first))
+            return false;
+        ++first;
+    }
+    return true;
 }
 
 Atom* AtomList::find(AtomPredicate pred)

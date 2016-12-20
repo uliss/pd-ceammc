@@ -21,6 +21,7 @@ namespace ceammc {
 
 typedef std::vector<t_float> FloatList;
 typedef bool (*AtomPredicate)(const Atom& a);
+typedef Atom (*AtomGenerator)();
 
 class AtomList {
     typedef std::vector<Atom> atom_list;
@@ -46,7 +47,7 @@ public:
     bool remove(size_t pos);
     void clear();
     void fill(const Atom& a);
-
+    void fill(const Atom& a, size_t sz);
     Atom* first();
     Atom* last();
     const Atom* first() const;
@@ -70,6 +71,8 @@ public:
 
     size_t count(const Atom& a) const;
     size_t count(AtomPredicate pred) const;
+
+    bool allOff(AtomPredicate pred) const;
 
     FloatList asFloats() const;
 
