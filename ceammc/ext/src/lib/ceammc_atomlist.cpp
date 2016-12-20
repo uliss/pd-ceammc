@@ -19,41 +19,58 @@
 
 namespace ceammc {
 
+bool AtomList::getRelativeIdx(int pos, size_t* idx) const
+{
+    return calc_rel_idx(pos, idx, atoms_.size());
+}
+
+bool AtomList::calc_rel_idx(int pos, size_t* dest, size_t sz)
+{
+    if (sz == 0)
+        return false;
+
+    if (dest == 0)
+        return false;
+
+    const int isz = static_cast<int>(sz);
+    if (abs(pos) > isz)
+        return false;
+
+    if (pos < 0)
+        pos += isz;
+
+    assert(0 <= pos);
+    assert(pos < isz);
+    *dest = static_cast<size_t>(pos);
+    return true;
+}
+
 AtomList::AtomList()
 {
 }
 
 size_t AtomList::size() const
 {
-    return atom_list_.size();
+    return atoms_.size();
 }
 
 bool AtomList::empty() const
 {
-    return atom_list_.empty();
+    return atoms_.empty();
 }
 
 Atom AtomList::at(size_t pos) const
 {
-    return atom_list_.at(pos);
+    return atoms_.at(pos);
 }
 
 Atom* AtomList::relAt(int pos)
 {
-    if (empty())
+    size_t idx;
+    if (!getRelativeIdx(pos, &idx))
         return 0;
 
-    int sz = static_cast<int>(atom_list_.size());
-    if (abs(pos) > sz)
-        return 0;
-
-    if (pos < 0)
-        pos += sz;
-
-    assert(0 <= pos);
-    assert(pos < sz);
-
-    return &atom_list_[static_cast<size_t>(pos)];
+    return &atoms_[static_cast<size_t>(idx)];
 }
 
 const Atom* AtomList::relAt(int pos) const
@@ -63,29 +80,39 @@ const Atom* AtomList::relAt(int pos) const
 
 void AtomList::append(const Atom& a)
 {
-    atom_list_.push_back(a);
+    atoms_.push_back(a);
 }
 
-void AtomList::insert(size_t pos, const Atom& a)
+bool AtomList::insert(size_t pos, const Atom& a)
 {
-    if (pos > atom_list_.size())
-        return;
+    if (pos > atoms_.size())
+        return false;
 
-    atom_list_.insert(atom_list_.begin() + pos, a);
+    atoms_.insert(atoms_.begin() + pos, a);
+    return true;
+}
+
+bool AtomList::remove(size_t pos)
+{
+    if (pos >= size())
+        return false;
+
+    atoms_.erase(atoms_.begin() + pos);
+    return true;
 }
 
 Atom* AtomList::first()
 {
     if (empty())
         return 0;
-    return &atom_list_.front();
+    return &atoms_.front();
 }
 
 Atom* AtomList::last()
 {
     if (empty())
         return 0;
-    return &atom_list_.back();
+    return &atoms_.back();
 }
 
 const Atom* AtomList::first() const
@@ -100,12 +127,12 @@ const Atom* AtomList::last() const
 
 void AtomList::clear()
 {
-    atom_list_.clear();
+    atoms_.clear();
 }
 
 void AtomList::sort()
 {
-    std::sort(atom_list_.begin(), atom_list_.end());
+    std::sort(atoms_.begin(), atoms_.end());
 }
 
 AtomList AtomList::filtered(AtomPredicate pred) const
@@ -113,11 +140,11 @@ AtomList AtomList::filtered(AtomPredicate pred) const
     if (!pred)
         return *this;
     AtomList res;
-    res.atom_list_.reserve(size());
-    for (size_t i = 0; i < atom_list_.size(); i++) {
-        const Atom& a = atom_list_[i];
+    res.atoms_.reserve(size());
+    for (size_t i = 0; i < atoms_.size(); i++) {
+        const Atom& a = atoms_[i];
         if (pred(a))
-            res.atom_list_.push_back(a);
+            res.atoms_.push_back(a);
     }
     return res;
 }
@@ -127,7 +154,7 @@ Atom* AtomList::min()
     if (empty())
         return 0;
 
-    return &(*std::min_element(atom_list_.begin(), atom_list_.end()));
+    return &(*std::min_element(atoms_.begin(), atoms_.end()));
 }
 
 const Atom* AtomList::min() const
@@ -140,7 +167,16 @@ Atom* AtomList::max()
     if (empty())
         return 0;
 
-    return &(*std::max_element(atom_list_.begin(), atom_list_.end()));
+    return &(*std::max_element(atoms_.begin(), atoms_.end()));
+}
+
+Atom* AtomList::find(const Atom& a)
+{
+    if (empty())
+        return 0;
+
+    atom_iterator it = std::find(atoms_.begin(), atoms_.end(), a);
+    return it == atoms_.end() ? 0 : &(*it);
 }
 
 const Atom* AtomList::max() const
@@ -148,11 +184,16 @@ const Atom* AtomList::max() const
     return const_cast<AtomList*>(this)->max();
 }
 
+const Atom* AtomList::find(const Atom& a) const
+{
+    return const_cast<AtomList*>(this)->find(a);
+}
+
 FloatList AtomList::asFloats() const
 {
     FloatList res;
-    for (size_t i = 0; i < atom_list_.size(); i++) {
-        res.push_back(atom_list_[i].asFloat());
+    for (size_t i = 0; i < atoms_.size(); i++) {
+        res.push_back(atoms_[i].asFloat());
     }
     return res;
 }
@@ -165,7 +206,7 @@ bool operator==(const AtomList& l1, const AtomList& l2)
     if (l1.size() != l2.size())
         return false;
 
-    return std::equal(l1.atom_list_.begin(), l1.atom_list_.end(), l2.atom_list_.begin());
+    return std::equal(l1.atoms_.begin(), l1.atoms_.end(), l2.atoms_.begin());
 }
 
 bool operator!=(const AtomList& l1, const AtomList& l2)

@@ -186,4 +186,36 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         l.insert(20, Atom(15));
         REQUIRE(l.size() == 3);
     }
+
+    SECTION("remove")
+    {
+        AtomList l;
+        l.append(Atom(1.f));
+        l.append(Atom(2.f));
+        l.append(Atom(3.f));
+
+        REQUIRE(l.size() == 3);
+        REQUIRE_FALSE(l.remove(20));
+        REQUIRE(l.size() == 3);
+        REQUIRE(l.remove(1));
+        REQUIRE(l.size() == 2);
+        REQUIRE(l.at(1).asFloat() == 3.f);
+    }
+
+    SECTION("find")
+    {
+        AtomList l;
+        REQUIRE(l.find(Atom(1.0)) == 0);
+
+        l.append(Atom(1.f));
+        l.append(Atom(2.f));
+        l.append(Atom(3.f));
+
+        const AtomList l2 = l;
+
+        REQUIRE(l2.find(Atom(1.f)) != 0);
+        REQUIRE(l2.find(Atom(2.f)) != 0);
+        REQUIRE(l2.find(Atom(3.f)) != 0);
+        REQUIRE(l2.find(Atom(4.f)) == 0);
+    }
 }

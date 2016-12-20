@@ -24,10 +24,12 @@ typedef bool (*AtomPredicate)(const Atom& a);
 
 class AtomList {
     typedef std::vector<Atom> atom_list;
-    atom_list atom_list_;
+    atom_list atoms_;
     typedef atom_list::const_iterator const_atom_iterator;
     typedef atom_list::iterator atom_iterator;
 
+    static bool calc_rel_idx(int pos, size_t* dest, size_t sz);
+    bool getRelativeIdx(int pos, size_t* idx) const;
 public:
     AtomList();
     size_t size() const;
@@ -38,22 +40,25 @@ public:
     const Atom* relAt(int pos) const;
 
     void append(const Atom& a);
-    void insert(size_t pos, const Atom& a);
+    bool insert(size_t pos, const Atom& a);
+    bool remove(size_t pos);
+    void clear();
 
     Atom* first();
     Atom* last();
     const Atom* first() const;
     const Atom* last() const;
 
-    void clear();
-
     void sort();
     AtomList filtered(AtomPredicate pred) const;
 
     const Atom* min() const;
     const Atom* max() const;
+    const Atom* find(const Atom& a) const;
     Atom* min();
     Atom* max();
+    Atom* find(const Atom& a);
+
 
     FloatList asFloats() const;
 
