@@ -34,6 +34,8 @@ public:
     bool empty() const;
 
     Atom at(size_t pos) const;
+    Atom* relAt(int pos);
+    const Atom* relAt(int pos) const;
     void append(const Atom& a);
 
     Atom* first();

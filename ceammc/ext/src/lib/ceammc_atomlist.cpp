@@ -13,6 +13,8 @@
  *****************************************************************************/
 #include "ceammc_atomlist.h"
 #include <algorithm>
+#include <cassert>
+#include <cstdlib>
 #include <iterator>
 
 namespace ceammc {
@@ -34,6 +36,29 @@ bool AtomList::empty() const
 Atom AtomList::at(size_t pos) const
 {
     return atom_list_.at(pos);
+}
+
+Atom* AtomList::relAt(int pos)
+{
+    if (empty())
+        return 0;
+
+    int sz = static_cast<int>(atom_list_.size());
+    if (abs(pos) > sz)
+        return 0;
+
+    if (pos < 0)
+        pos += sz;
+
+    assert(0 <= pos);
+    assert(pos < sz);
+
+    return &atom_list_[static_cast<size_t>(pos)];
+}
+
+const Atom* AtomList::relAt(int pos) const
+{
+    return const_cast<AtomList*>(this)->relAt(pos);
 }
 
 void AtomList::append(const Atom& a)

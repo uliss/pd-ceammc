@@ -28,6 +28,9 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         REQUIRE(l.max() == 0);
         REQUIRE(l.first() == 0);
         REQUIRE(l.last() == 0);
+        REQUIRE(l.relAt(0) == 0);
+        REQUIRE(l.relAt(1) == 0);
+        REQUIRE(l.relAt(-1) == 0);
 
         l.append(Atom(1.0));
         REQUIRE_FALSE(l.empty());
@@ -119,6 +122,10 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         REQUIRE(c1.min()->asFloat() == -3.0f);
         REQUIRE(c1.first()->asFloat() == -3.0f);
         REQUIRE(c1.last()->asString() == "b");
+
+        REQUIRE(c1.relAt(0)->asFloat() == -3.0f);
+        REQUIRE(c1.relAt(-1)->asString() == "b");
+        REQUIRE(c1.relAt(1000) == 0);
     }
 
     SECTION("compare")
