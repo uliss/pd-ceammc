@@ -41,6 +41,7 @@ public:
     ControlValue(t_float v);
     // create symbol
     ControlValue(t_symbol* s);
+    ControlValue(const Atom& a);
     // create list
     ControlValue(const AtomList& l);
     ControlValue(int argc, t_atom* argv);

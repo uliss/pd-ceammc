@@ -38,6 +38,11 @@ TEST_CASE("ControlValue", "[ceammc::ControlValue]")
     ControlValue v5(gensym("c"), 2, &atoms[0]);
     REQUIRE(v5.isAny());
 
+    ControlValue v6(Atom(1.f));
+    REQUIRE(v6.isFloat());
+    ControlValue v7(Atom(gensym("b")));
+    REQUIRE(v7.isSymbol());
+
     SECTION("compare")
     {
         REQUIRE(v1 == v1);

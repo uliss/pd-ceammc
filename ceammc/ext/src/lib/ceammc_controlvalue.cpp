@@ -35,6 +35,16 @@ ControlValue::ControlValue(t_symbol* s)
 {
 }
 
+ControlValue::ControlValue(const Atom& a)
+    : type_(NONE)
+    , value_(a)
+{
+    if (value_.isFloat())
+        type_ = FLOAT;
+    if (value_.isSymbol())
+        type_ = SYMBOL;
+}
+
 ControlValue::ControlValue(const AtomList& l)
     : type_(LIST)
     , value_(Atom(0.f))
