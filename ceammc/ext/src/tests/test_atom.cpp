@@ -26,6 +26,7 @@ TEST_CASE("Atom", "[ceammc::Atom]")
         Atom fatom(a);
         REQUIRE(fatom.isFloat());
         REQUIRE_FALSE(fatom.isSymbol());
+        REQUIRE(fatom.type() == Atom::FLOAT);
         std::string s;
         REQUIRE_FALSE(fatom.getString(s));
         t_float v;
@@ -54,12 +55,16 @@ TEST_CASE("Atom", "[ceammc::Atom]")
         a.a_type = A_DEFSYMBOL;
         fatom = Atom(a);
         REQUIRE(fatom.isSymbol());
+
+        a.a_type = A_NULL;
+        REQUIRE(Atom(a).type() == Atom::NONE);
     }
 
     SECTION("Symbol atom tests")
     {
         Atom satom(gensym("test"));
         REQUIRE_FALSE(satom.isFloat());
+        REQUIRE(satom.type() == Atom::SYMBOL);
         t_symbol* s;
         REQUIRE(satom.getSymbol(&s));
         REQUIRE_FALSE(satom.getSymbol(NULL));
@@ -69,5 +74,64 @@ TEST_CASE("Atom", "[ceammc::Atom]")
         std::string str;
         REQUIRE(satom.getString(str));
         REQUIRE(str == "test");
+    }
+
+    SECTION("set tests")
+    {
+        Atom a1(1.2f);
+        REQUIRE(a1.setFloat(2.0f));
+        REQUIRE(a1.isFloat());
+        REQUIRE(a1.setFloat(3.0f, true));
+        REQUIRE(a1.isFloat());
+        REQUIRE_FALSE(a1.setSymbol(0));
+        REQUIRE(a1.isFloat());
+        REQUIRE(a1.setSymbol(0, true));
+        REQUIRE(a1.isSymbol());
+
+        Atom a2(gensym("test"));
+        REQUIRE(a2.setSymbol(gensym("test2")));
+        REQUIRE(a2.isSymbol());
+        REQUIRE(a2.setSymbol(gensym("test2"), true));
+        REQUIRE(a2.isSymbol());
+
+        REQUIRE_FALSE(a2.setFloat(1));
+        REQUIRE(a2.isSymbol());
+        REQUIRE(a2.setFloat(1, true));
+        REQUIRE(a2.isFloat());
+    }
+
+    SECTION("compare tests")
+    {
+        Atom a1(1.2f);
+        Atom a2(1.2f);
+
+        REQUIRE(a1 == a1);
+        REQUIRE_FALSE(a1 != a1);
+        REQUIRE(a1 == a2);
+
+        a2.setFloat(1.3);
+        REQUIRE(a1 != a2);
+
+        Atom a3(a2);
+        REQUIRE(a3 == a2);
+
+        Atom a4(1.0f);
+        a4 = a2;
+        REQUIRE(a4 == a2);
+
+        Atom s1(gensym("test"));
+        Atom s2(gensym("test"));
+        REQUIRE(s1 == s2);
+
+        Atom s3(gensym("test2"));
+        REQUIRE(s1 != s3);
+
+        REQUIRE(s1 != a1);
+
+        t_atom p;
+        p.a_type = A_NULL;
+        Atom u1(p);
+        Atom u2(p);
+        REQUIRE(u1 != u2);
     }
 }

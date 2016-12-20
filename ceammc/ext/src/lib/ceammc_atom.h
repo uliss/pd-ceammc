@@ -34,10 +34,22 @@ public:
     bool isFloat() const;
     bool isSymbol() const;
 
+    Type type() const;
+
     bool getFloat(t_float* v) const;
     bool getSymbol(t_symbol** s) const;
     bool getString(std::string& str) const;
+
+    bool setFloat(t_float v, bool force = false);
+    bool setSymbol(t_symbol* s, bool force = false);
+
+public:
+    friend bool operator==(const Atom& a1, const Atom& a2);
+    friend bool operator!=(const Atom& a1, const Atom& a2);
 };
+
+bool operator==(const Atom& a1, const Atom& a2);
+bool operator!=(const Atom& a1, const Atom& a2);
 }
 
 #endif // CEAMMC_ATOM_H
