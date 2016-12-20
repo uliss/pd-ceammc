@@ -38,6 +38,7 @@ TEST_CASE("Atom", "[ceammc::Atom]")
     {
         Atom fatom(1.99f);
         REQUIRE(fatom.isFloat());
+        REQUIRE(fatom.asFloat() == 1.99f);
         t_float v;
         REQUIRE(fatom.getFloat(&v));
         REQUIRE_FALSE(fatom.getFloat(NULL));
@@ -65,6 +66,7 @@ TEST_CASE("Atom", "[ceammc::Atom]")
         Atom satom(gensym("test"));
         REQUIRE_FALSE(satom.isFloat());
         REQUIRE(satom.type() == Atom::SYMBOL);
+        REQUIRE(satom.asSymbol() == gensym("test"));
         t_symbol* s;
         REQUIRE(satom.getSymbol(&s));
         REQUIRE_FALSE(satom.getSymbol(NULL));

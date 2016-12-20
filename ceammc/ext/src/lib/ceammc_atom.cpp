@@ -109,6 +109,16 @@ bool Atom::setSymbol(t_symbol* s, bool force)
     return true;
 }
 
+t_float Atom::asFloat() const
+{
+    return a_w.w_float;
+}
+
+t_symbol* Atom::asSymbol() const
+{
+    return a_w.w_symbol;
+}
+
 bool Atom::operator<(const Atom& a) const
 {
     if (this == &a)
@@ -154,5 +164,20 @@ bool operator==(const Atom& a1, const Atom& a2)
 bool operator!=(const Atom& a1, const Atom& a2)
 {
     return !(a1 == a2);
+}
+
+bool to_outlet(t_outlet* x, const Atom& a)
+{
+    if (a.isFloat()) {
+        outlet_float(x, a.asFloat());
+        return true;
+    }
+
+    if (a.isSymbol()) {
+        outlet_symbol(x, a.asSymbol());
+        return true;
+    }
+
+    return false;
 }
 }
