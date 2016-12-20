@@ -1,0 +1,3 @@
+[submodule "ceammc/ext/src/tests/Catch"]
+	path = ceammc/ext/src/tests/Catch
+	url = https://github.com/philsquared/Catch.git

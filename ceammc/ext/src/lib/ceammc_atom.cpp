@@ -25,6 +25,11 @@ Atom::Atom(const t_atom& a)
         a_type = A_SYMBOL;
 }
 
+Atom::Atom(t_float v)
+{
+    SETFLOAT(this, v);
+}
+
 bool Atom::isFloat() const
 {
     return a_type == A_FLOAT;

@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Copyright 2016 Serge Poltavski. All rights reserved.
+ * Copyright 2016 Serge Poltavsky. All rights reserved.
  *
  * This file may be distributed under the terms of GNU Public License version
  * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
@@ -11,27 +11,14 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef CEAMMC_ATOM_H
-#define CEAMMC_ATOM_H
+#define CATCH_CONFIG_MAIN
+#include "catch.hpp"
+#include "ceammc_atom.h"
 
-#include <m_pd.h>
+using namespace ceammc;
 
-namespace ceammc {
-
-class Atom : t_atom {
-public:
-    enum Type {
-        NONE,
-        FLOAT,
-        SYMBOL
-    };
-
-public:
-    Atom(const t_atom& a);
-    Atom(t_float v);
-    bool isFloat() const;
-    bool isSymbol() const;
-};
+TEST_CASE("Atom", "[ceammc::Atom]")
+{
+    Atom a(0);
+    REQUIRE(a.isFloat());
 }
-
-#endif // CEAMMC_ATOM_H

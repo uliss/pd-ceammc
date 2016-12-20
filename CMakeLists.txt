@@ -52,6 +52,7 @@ if(GETTEXT_FOUND)
     add_subdirectory(po)
 endif()
 
+enable_testing(true)
 add_subdirectory(ceammc)
 
 include(summary)
