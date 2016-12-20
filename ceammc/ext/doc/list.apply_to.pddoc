@@ -14,7 +14,8 @@
             <since>0.1</since>
         </meta>
         <arguments>
-            <argument name="index" type="int">position index</argument>
+            <argument name="index" type="int">position index. Negative value means position from end of the list.
+            For example: '-1' means last element.</argument>
         </arguments>
         <inlets>
             <inlet>
