@@ -73,6 +73,7 @@ public:
     size_t count(AtomPredicate pred) const;
 
     bool allOff(AtomPredicate pred) const;
+    bool anyOff(AtomPredicate pred) const;
 
     FloatList asFloats() const;
 
