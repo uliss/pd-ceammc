@@ -20,7 +20,8 @@
 namespace ceammc {
 
 class ControlValue {
-    enum ValueType {
+public:
+    enum Type {
         NONE,
         FLOAT,
         SYMBOL,
@@ -28,7 +29,8 @@ class ControlValue {
         ANY
     };
 
-    ValueType type_;
+private:
+    Type type_;
     Atom value_;
     AtomList v_list_;
 
@@ -40,20 +42,33 @@ public:
     // create symbol
     ControlValue(t_symbol* s);
     // create list
+    ControlValue(const AtomList& l);
     ControlValue(int argc, t_atom* argv);
     // create any
+    ControlValue(t_symbol* s, const AtomList& l);
     ControlValue(t_symbol* s, int argc, t_atom* argv);
 
     void setFloat(t_float v);
     void setSymbol(t_symbol* s);
     void setList(const AtomList& l);
     void setList(int argc, t_atom* argv);
+    void setAny(t_symbol* s, const AtomList& l);
     void setAny(t_symbol* s, int argc, t_atom* argv);
 
     bool isEqual(const ControlValue& v) const;
+    Type type() const;
 
-    void output(t_outlet* o);
+    void output(t_outlet* x);
+
+    inline bool isFloat() const { return type_ == FLOAT; }
+    inline bool isSymbol() const { return type_ == SYMBOL; }
+    inline bool isList() const { return type_ == LIST; }
+    inline bool isAny() const { return type_ == ANY; }
+    inline bool isNone() const { return type_ == NONE; }
 };
+
+bool operator==(const ControlValue& c1, const ControlValue& c2);
+bool operator!=(const ControlValue& c1, const ControlValue& c2);
 
 } // namespace ceammc
 
