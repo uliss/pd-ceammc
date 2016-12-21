@@ -14,7 +14,7 @@
 
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
-#include "ceammc_shareddata.h"
+#include "ceammc_globaldata.h"
 
 class TestRef {
 public:
