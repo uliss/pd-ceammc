@@ -39,9 +39,7 @@ private:
     static T* ref_val(iterator it) { return it->second.second; }
 
 public:
-    NamedDataDict()
-    {
-    }
+    NamedDataDict() {}
 
     ~NamedDataDict()
     {
@@ -152,57 +150,53 @@ public:
 };
 
 template <typename T>
-class SharedData {
+class GlobalData {
 private:
     typedef typename NamedDataDict<T>::iterator iterator;
     static NamedDataDict<T> data_;
 
 private:
     T* ptr_;
-    std::string* name_;
+    std::string name_;
 
 public:
-    SharedData(const std::string& name)
+    /**
+     * @brief creates GlobalData<T> with given name. T should have default contstructor.
+     * @param name - data name
+     */
+    GlobalData(const std::string& name)
         : ptr_(0)
-        , name_(0)
     {
-        name_ = new std::string(name);
+        name_ = name;
         ptr_ = data_.acquire(name);
-        if (ptr_ == 0) {
+        if (ptr_ == 0) { // if not found
             data_.create(name, new T());
             ptr_ = data_.acquire(name);
         }
     }
 
-    ~SharedData()
-    {
-        data_.release(*name_);
-        delete name_;
-    }
+    ~GlobalData() { data_.release(name_); }
 
-    T* operator->()
-    {
-        return ptr_;
-    }
+    /**
+     * You can access data via pointer
+     */
+    T* operator->() { return ptr_; }
+    const T* operator->() const { return ptr_; }
 
-    std::string name() const
-    {
-        return *name_;
-    }
+    /**
+     * Returns data name
+     */
+    std::string name() const { return name_; }
 
-    T& get()
-    {
-        return *ptr_;
-    }
-
-    const T& get() const
-    {
-        return *ptr_;
-    }
+    /**
+     * Returns reference to data
+     */
+    T& ref() { return *ptr_; }
+    const T& ref() const { return *ptr_; }
 };
 
 template <typename T>
-NamedDataDict<T> SharedData<T>::data_;
+NamedDataDict<T> GlobalData<T>::data_;
 }
 
 #endif // CEAMMC_SHAREDDATA_H

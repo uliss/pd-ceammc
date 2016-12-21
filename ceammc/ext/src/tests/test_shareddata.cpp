@@ -29,7 +29,7 @@ public:
 };
 
 using namespace ceammc;
-typedef SharedData<std::string> SharedStr;
+typedef GlobalData<int> GlobalInt;
 typedef NamedDataDict<TestRef> NamedTestDict;
 typedef NamedDataDict<int> NamedIntDict;
 
@@ -65,18 +65,26 @@ TEST_CASE("NamedDataDict", "[ceammc::NamedDataDict]")
     REQUIRE(dict.refCount("test") == 0);
     REQUIRE_FALSE(dict.contains("test"));
 
+    // not acquired data
     REQUIRE(TestRef::count == 1);
+    // release not acquired
     REQUIRE(dict.release("test2"));
     REQUIRE(TestRef::count == 0);
 }
 
 TEST_CASE("SharedData", "[ceammc::SharedData]")
 {
-    SharedStr s1("id1");
-    s1->append("test");
-    SharedStr s2("id1");
-    REQUIRE(&s1.get() == &s2.get());
-    REQUIRE(s1.get() == s2.get());
-    s1.get() = "new content";
-    REQUIRE(s2.get() == "new content");
+    GlobalInt int1("id1");
+    // default constructor
+    REQUIRE(int1.ref() == 0);
+    int1.ref() = 200;
+    // Same ID
+    GlobalInt int2("id1");
+    REQUIRE(int2.ref() == 200);
+    // same pointer
+    REQUIRE(&int1.ref() == &int2.ref());
+
+    // change data
+    int2.ref() = 300;
+    REQUIRE(int1.ref() == 300);
 }
