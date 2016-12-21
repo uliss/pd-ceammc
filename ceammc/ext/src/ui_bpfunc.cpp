@@ -65,8 +65,8 @@ inline void bpf_point_sort(t_object *z)
         bool operator()(t_bpt const & a, t_bpt const & b) const {
             return a.x < b.x;
         }
-    };
-    std::sort(ps->begin(), ps->end(), pred());
+    } pred1;
+    std::sort(ps->begin(), ps->end(), pred1);
     
     
 }
