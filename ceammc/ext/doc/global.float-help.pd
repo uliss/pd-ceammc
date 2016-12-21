@@ -13,7 +13,7 @@ name\.;
 -1;
 #X text 299 170  get value ;
 #X obj 50 199 global.float id;
-#X obj 232 199 global.int id;
+#X obj 232 199 global.float id;
 #X floatatom 232 228 5 0 0 0 - - -;
 #X obj 20 267 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 272 cnv 5 80 16 empty empty arguments: 0 14 0 14 -262144

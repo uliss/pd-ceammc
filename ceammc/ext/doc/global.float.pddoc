@@ -42,7 +42,7 @@
 
 [F]                [bng]  /* get value */
 |                  |
-[global.float id]  [global.int id]
+[global.float id]  [global.float id]
                    |
                    [F]
 ]]>

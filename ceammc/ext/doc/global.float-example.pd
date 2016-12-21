@@ -5,7 +5,7 @@
 -1;
 #X text 269 77  get value ;
 #X obj 20 106 global.float id;
-#X obj 202 106 global.int id;
+#X obj 202 106 global.float id;
 #X floatatom 202 135 5 0 0 0 - - -;
 #X connect 2 0 5 0;
 #X connect 5 0 6 0;
