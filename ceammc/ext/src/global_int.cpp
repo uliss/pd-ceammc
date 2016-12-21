@@ -37,7 +37,7 @@ static void* global_int_new(t_symbol* id)
 {
     t_global_int* x = reinterpret_cast<t_global_int*>(pd_new(global_int_class));
     outlet_new(&x->x_obj, &s_float);
-    x->x_global = new GlobalInt(id->s_name);
+    x->x_global = new GlobalInt(id->s_name, OBJ_NAME);
     return static_cast<void*>(x);
 }
 

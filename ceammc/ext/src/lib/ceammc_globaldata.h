@@ -19,6 +19,8 @@
 #include <string>
 #include <utility>
 
+#include <m_pd.h>
+
 namespace ceammc {
 
 template <typename T>
@@ -154,28 +156,43 @@ class GlobalData {
 private:
     typedef typename NamedDataDict<T>::iterator iterator;
     static NamedDataDict<T> data_;
+    const static int log_level = 0;
 
 private:
     T* ptr_;
     std::string name_;
+    std::string descr_;
 
 public:
     /**
      * @brief creates GlobalData<T> with given name. T should have default contstructor.
      * @param name - data name
+     * @param descr - data description
      */
-    GlobalData(const std::string& name)
+    GlobalData(const std::string& name, const std::string& desc = "")
         : ptr_(0)
+        , name_(name)
+        , descr_(desc)
     {
-        name_ = name;
         ptr_ = data_.acquire(name);
         if (ptr_ == 0) { // if not found
             data_.create(name, new T());
             ptr_ = data_.acquire(name);
+
+            verbose(log_level, "[%s %s] created", descr_.c_str(), name_.c_str());
         }
+
+        verbose(log_level, "[%s %s] +1", descr_.c_str(), name_.c_str());
     }
 
-    ~GlobalData() { data_.release(name_); }
+    ~GlobalData()
+    {
+        verbose(log_level, "[%s %s] -1", descr_.c_str(), name_.c_str());
+        data_.release(name_);
+
+        if (!data_.contains(name_))
+            verbose(log_level, "[%s] destroyed", descr_.c_str(), name_.c_str());
+    }
 
     /**
      * You can access data via pointer
@@ -187,6 +204,11 @@ public:
      * Returns data name
      */
     std::string name() const { return name_; }
+
+    /**
+     * Returns data description
+     */
+    std::string description() const { return descr_; }
 
     /**
      * Returns reference to data

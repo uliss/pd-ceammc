@@ -61,6 +61,11 @@
       <xi:include href="fx.pitchshift~.pddoc" parse="xml"/>
     </entry>
   </category>
+  <category name="global">
+    <entry descr="global named integer object" name="global.int">
+      <xi:include href="global.int.pddoc" parse="xml"/>
+    </entry>
+  </category>
   <category name="lfo">
     <entry descr="Unit-amplitude low-frequency impulse train" name="lfo.impulse~">
       <xi:include href="lfo.impulse~.pddoc" parse="xml"/>
