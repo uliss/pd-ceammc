@@ -56,14 +56,14 @@ class PdExtension(object):
 
     def generate_struct(self, fields=[]):
         res = '''
-t_class* {0};
+static t_class* {0};
 typedef struct {1} {{
     t_object x_obj;{fields}
 }} {2};'''
 
         if self.gen_cpp:
             res = '''
-t_class* {0};
+static t_class* {0};
 struct {2} {{
     t_object x_obj;{fields}
 }};'''
