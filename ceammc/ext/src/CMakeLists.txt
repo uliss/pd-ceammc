@@ -164,6 +164,13 @@ ceammc_cxx_extension__(is pointer)
 # PATH
 ###############################
 
+###############################
+# GLOBAL
+###############################
+ceammc_cxx_extension(global int)
+ceammc_cxx_extension(global float)
+ceammc_cxx_extension(global list)
+
 include(FindLibSndFile)
 if(LIBSNDFILE_FOUND)
     include_directories(${LIBSNDFILE_INCLUDE_DIRS})

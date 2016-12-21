@@ -21,6 +21,9 @@ set(DOC_FILES
     flt.lowshelf~
     flt.eq_peak~
     fx.pitchshift~
+    global.float
+    global.int
+    global.list
     is_any
     is_bang
     is_float

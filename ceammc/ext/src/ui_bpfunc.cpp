@@ -64,12 +64,14 @@ inline void bpf_point_sort(t_object *z)
 {
 
     bpf_points *ps = ((ui_bpfunc*)z)->points;
+
 //    
 //    struct pred {
 //        bool operator()(t_bpt const & a, t_bpt const & b) const {
 //            return a.x < b.x;
 //        }
 //    } pred1;
+
     std::sort(ps->begin(), ps->end(), bpf_sort_pred);
     
     
