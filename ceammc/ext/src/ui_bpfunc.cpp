@@ -31,6 +31,10 @@ struct ui_bpfunc : cm_gui_base_pd_object
 {
     t_ebox x_gui;
     
+    t_outlet *out1;
+    t_atom *out_list;
+    t_int out_list_count;
+    
     bpf_points *points;
     
     float _px;
@@ -39,8 +43,26 @@ struct ui_bpfunc : cm_gui_base_pd_object
     int addidx;
     float addpos;
     float addpos_y;
+    bool del_mod;
+    
     
 };
+
+
+inline void bpf_point_sort(t_object *z)
+{
+
+    bpf_points *ps = ((ui_bpfunc*)z)->points;
+    
+    struct pred {
+        bool operator()(t_bpt const & a, t_bpt const & b) const {
+            return a.x < b.x;
+        }
+    };
+    std::sort(ps->begin(), ps->end(), pred());
+    
+    
+}
 
 inline void bpf_point_add(t_object *z,int idx, float x, float y)
 {
@@ -53,13 +75,7 @@ inline void bpf_point_add(t_object *z,int idx, float x, float y)
     
     ps->push_back(pt1);
     
-    
-    struct pred {
-        bool operator()(t_bpt const & a, t_bpt const & b) const {
-            return a.idx < b.idx;
-        }
-    };
-    std::sort(ps->begin(), ps->end(), pred());
+    bpf_point_sort(z);
     
     
 }
@@ -67,6 +83,13 @@ inline void bpf_point_add(t_object *z,int idx, float x, float y)
 inline void bpf_point_del(t_object *z,int idx)
 {
     //
+     bpf_points *ps = ((ui_bpfunc*)z)->points;
+    
+    if (ps->size()>2)
+    {
+        ps->erase(ps->begin()+idx);
+        bpf_point_sort(z);
+    }
 }
 
 inline int bpf_size(t_object *z)
@@ -166,6 +189,8 @@ UI_fun(ui_bpfunc)::wx_paint(t_object *z, t_object *view)
             
             for ( ; it != zx->points->end(); ++it)
             {
+                egraphics_set_color_hex(g, gensym("#505050"));
+                
                 egraphics_set_line_width(g, 1+2*lw);
                 egraphics_line(g, px, py, it->x * rect.width, (1-it->y) * rect.height);
                 egraphics_stroke(g);
@@ -186,6 +211,8 @@ UI_fun(ui_bpfunc)::wx_paint(t_object *z, t_object *view)
                 
                 if (it->dist < .1)
                 {
+                    egraphics_set_color_hex(g, gensym((zx->del_mod)?"#FF0000":"#505050"));
+                    
                     egraphics_rectangle(g, it->x * rect.width -6, (1-it->y) * rect.height -6, 11, 11);
                     egraphics_stroke(g);
                     
@@ -201,6 +228,9 @@ UI_fun(ui_bpfunc)::wx_paint(t_object *z, t_object *view)
     ebox_paint_layer((t_ebox *)z, bgl, 0., 0.);
     
 }
+
+#pragma mark -
+#pragma mark mouse
 
 UI_fun(ui_bpfunc)::wx_mousemove_ext(t_object *z, t_object *view, t_pt pt, long modifiers)
 {
@@ -250,9 +280,7 @@ UI_fun(ui_bpfunc)::wx_mousemove_ext(t_object *z, t_object *view, t_pt pt, long m
         
         it->ldist = abs(dot1);
         
-        
         //float d2 = .5 * sqrtf(dx2*dx2 + dy2*dy2);
-        
         //it->ldist = sqrtf(it->dist * it->dist - d2 * d2) + sqrtf(itn->dist * itn->dist - d2 * d2);
         
         if ( (it->x < (pt.x / rect.width)) && ((pt.x / rect.width )< itn->x) )
@@ -273,12 +301,19 @@ UI_fun(ui_bpfunc)::wx_mousemove_ext(t_object *z, t_object *view, t_pt pt, long m
         else
         {
             zx->addpos = -1;
+            zx->del_mod = false;
+        }
+        
+        if (modifiers == EMOD_ALT)
+        {
+            zx->del_mod = true;
         }
         
         //printf ("(%f,%f) %f : ", dx,dy, it->dist);
         //printf("%f : ", it->ldist);
     }
     //printf("\n");
+    
     cm_gui_object<cm_gui_base_pd_object>::ws_redraw(z);
 }
 
@@ -306,6 +341,20 @@ UI_fun(ui_bpfunc)::wx_mousedown_ext(t_object *z, t_object *view, t_pt pt, long m
         cm_gui_object<cm_gui_base_pd_object>::ws_redraw(z);
         
     }
+    
+    if (modifiers==EMOD_ALT)
+    {
+        bpf_point_del(z, zx->addidx);
+        cm_gui_object<cm_gui_base_pd_object>::ws_redraw(z);
+        
+    }
+}
+
+UI_fun(ui_bpfunc)::wx_mouseup_ext(t_object *z, t_object *view, t_pt pt, long modifiers)
+{
+    ui_bpfunc *zx = (ui_bpfunc*)z;
+    
+    zx->addpos = -1;
 }
 
 UI_fun(ui_bpfunc)::wx_mousedrag_ext(t_object *z, t_object *view, t_pt pt, long modifiers)
@@ -334,11 +383,64 @@ UI_fun(ui_bpfunc)::wx_mousedrag_ext(t_object *z, t_object *view, t_pt pt, long m
         }
     }
     
-    
     zx->_px = pt.x;
     zx->_py = pt.y;
     
+    bpf_point_sort(z);
+    
+    
     cm_gui_object<cm_gui_base_pd_object>::ws_redraw(z);
+    
+}
+
+
+
+#pragma mark -
+#pragma mark messages
+
+UI_fun(ui_bpfunc)::m_bang(t_object *z, t_symbol *s, int argc, t_atom *argv)
+{
+
+    ui_bpfunc *zx = (ui_bpfunc*)z;
+    
+    zx->out_list_count = zx->points->size() * 2;
+    
+    if (zx->out_list) {free(zx->out_list);}
+    
+    zx->out_list = (t_atom*)malloc(sizeof(t_atom)*zx->out_list_count);
+    
+    int j=0;
+    for (int i=0;i<zx->out_list_count;i+=2)
+    {
+        zx->out_list[i].a_type = A_FLOAT;
+        zx->out_list[i].a_w.w_float = zx->points->at(j).x;
+        
+        zx->out_list[i+1].a_type = A_FLOAT;
+        zx->out_list[i+1].a_w.w_float = zx->points->at(j).y;
+        
+        j++;
+    }
+    
+    outlet_list(zx->out1, &s_list, zx->out_list_count, zx->out_list);
+}
+
+void bpf_m_range_x(t_object *z, t_symbol *s, int argc, t_atom *argv)
+{
+    
+}
+
+void bpf_m_range_y(t_object *z, t_symbol *s, int argc, t_atom *argv)
+{
+    
+}
+
+void bpf_m_shift_x(t_object *z, t_symbol *s, int argc, t_atom *argv)
+{
+    
+}
+
+void bpf_m_shift_y(t_object *z, t_symbol *s, int argc, t_atom *argv)
+{
     
 }
 
@@ -362,12 +464,20 @@ UI_fun(ui_bpfunc)::new_ext(t_object *z, t_symbol *s, int argcl, t_atom *argv)
     zx->_px = 0;
     zx->_py = 0;
     
+    zx->out1 = outlet_new(z, &s_list);
+    
+    
 }
 
 UI_fun(ui_bpfunc)::init_ext(t_eclass *z)
 {
     CLASS_ATTR_DEFAULT (z, "size", 0, "200. 150.");
     
+    eclass_addmethod(z, (method)(bpf_m_range_x), ("range_x"), A_GIMME,0);
+    eclass_addmethod(z, (method)(bpf_m_range_y), ("range_y"), A_GIMME,0);
+    eclass_addmethod(z, (method)(bpf_m_shift_x), ("shift_x"), A_GIMME,0);
+    eclass_addmethod(z, (method)(bpf_m_shift_y), ("shift_y"), A_GIMME,0);
+
 }
 
 extern "C" void setup_ui0x2ebpfunc()
