@@ -1,0 +1,12 @@
+#N canvas 0 0 352 144 12;
+#X text 20 48  set value ;
+#X floatatom 20 77 5 0 0 0 - - -;
+#X obj 202 77 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X text 269 77  get value ;
+#X obj 20 106 global.float id;
+#X obj 202 106 global.int id;
+#X floatatom 202 135 5 0 0 0 - - -;
+#X connect 2 0 5 0;
+#X connect 5 0 6 0;
+#X connect 1 0 4 0;

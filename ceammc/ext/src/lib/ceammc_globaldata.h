@@ -191,7 +191,7 @@ public:
         data_.release(name_);
 
         if (!data_.contains(name_))
-            verbose(log_level, "[%s] destroyed", descr_.c_str(), name_.c_str());
+            verbose(log_level, "[%s %s] destroyed", descr_.c_str(), name_.c_str());
     }
 
     /**

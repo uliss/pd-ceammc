@@ -62,6 +62,9 @@
     </entry>
   </category>
   <category name="global">
+    <entry descr="global named float object" name="global.float">
+      <xi:include href="global.float.pddoc" parse="xml"/>
+    </entry>
     <entry descr="global named integer object" name="global.int">
       <xi:include href="global.int.pddoc" parse="xml"/>
     </entry>
