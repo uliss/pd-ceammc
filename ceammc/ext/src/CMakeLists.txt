@@ -167,6 +167,7 @@ ceammc_cxx_extension__(is pointer)
 ###############################
 ceammc_cxx_extension(global int)
 ceammc_cxx_extension(global float)
+ceammc_cxx_extension(global list)
 
 include(FindLibSndFile)
 if(LIBSNDFILE_FOUND)

@@ -6,6 +6,8 @@
 #X text 150 113 global named float object;
 #X obj 30 140 global.int;
 #X text 150 140 global named integer object;
+#X obj 30 167 global.list;
+#X text 150 167 global named list object;
 #X obj 1 1 cnv 5 597 40 empty empty ceammc::global 20 20 0 20 -104026
 -4096 0;
 #X obj 1 458 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;

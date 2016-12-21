@@ -23,6 +23,7 @@ set(DOC_FILES
     fx.pitchshift~
     global.float
     global.int
+    global.list
     is_any
     is_bang
     is_float

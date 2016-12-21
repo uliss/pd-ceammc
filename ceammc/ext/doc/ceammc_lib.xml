@@ -68,6 +68,9 @@
     <entry descr="global named integer object" name="global.int">
       <xi:include href="global.int.pddoc" parse="xml"/>
     </entry>
+    <entry descr="global named list object" name="global.list">
+      <xi:include href="global.list.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="lfo">
     <entry descr="Unit-amplitude low-frequency impulse train" name="lfo.impulse~">

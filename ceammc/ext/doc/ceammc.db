@@ -18,6 +18,7 @@ fx.pitchshift~		~~		~.
 fx.softclip~		~		~
 global.float		.		.
 global.int		.		.
+global.list		.		.
 is_any		.		..
 is_bang		.		..
 is_even		.		..
