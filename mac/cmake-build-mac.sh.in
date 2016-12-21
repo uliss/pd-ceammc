@@ -67,7 +67,7 @@ mkdir -p extra
 cp $SRC_DIR/extra/*.pd extra
 
 function extension_files() {
-    find "$1" -type f | grep -e 'd_fat' -e '\.pd'
+    find "$1" -type f | grep -e 'd_fat' -e '\.pd' -e '\.tcl'
 }
 
 find $BUILD_DIR/extra -maxdepth 1 -type d | sed 1d | grep -v -i cmake | while read ext_dir
