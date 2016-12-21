@@ -53,20 +53,22 @@ UI_fun(ui_display)::wx_paint(t_object *z, t_object *view)
     
     if(g)
     {
-        egraphics_set_color_hex(g, gensym("#E0E0E0"));
+        egraphics_set_color_hex(g, gensym(zx->bang?"#00C0FF":"#E0E0E0"));
+        
+        //egraphics_set_color_hex(g, gensym("#E0E0E0"));
         egraphics_rectangle(g, 0, 0, rect.width, rect.height);
         egraphics_fill(g);
         
         
         //zx->t_e->c_text = gensym(zx->display.c_str());
         
-        egraphics_set_color_hex(g, gensym(zx->bang?"#00C0FF":"#000000"));
+        //egraphics_set_color_hex(g, gensym(zx->bang?"#00C0FF":"#000000"));
         
         etext_layout_set(zx->t_e, zx->display.c_str(), zx->t_ef, rect.width/2, rect.height/2, rect.width, rect.height, ETEXT_CENTER, ETEXT_JLEFT, ETEXT_WRAP);
         
         etext_layout_draw(zx->t_e, g);
         
-        printf("draw %s\n", zx->display.c_str());
+        //printf("draw %s\n", zx->display.c_str());
         
     }
     

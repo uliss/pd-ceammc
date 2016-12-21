@@ -45,6 +45,12 @@ struct ui_bpfunc : cm_gui_base_pd_object
     float addpos_y;
     bool del_mod;
     
+    float range_x;
+    float range_y;
+    float shift_x;
+    float shift_y;
+    
+    
     
 };
 
@@ -413,10 +419,10 @@ UI_fun(ui_bpfunc)::m_bang(t_object *z, t_symbol *s, int argc, t_atom *argv)
     for (int i=0;i<zx->out_list_count;i+=2)
     {
         zx->out_list[i].a_type = A_FLOAT;
-        zx->out_list[i].a_w.w_float = zx->points->at(j).x;
+        zx->out_list[i].a_w.w_float = zx->points->at(j).x * zx->range_x + zx->shift_x;
         
         zx->out_list[i+1].a_type = A_FLOAT;
-        zx->out_list[i+1].a_w.w_float = zx->points->at(j).y;
+        zx->out_list[i+1].a_w.w_float = zx->points->at(j).y * zx->range_y + zx->shift_y;
         
         j++;
     }
@@ -426,24 +432,53 @@ UI_fun(ui_bpfunc)::m_bang(t_object *z, t_symbol *s, int argc, t_atom *argv)
 
 void bpf_m_range_x(t_object *z, t_symbol *s, int argc, t_atom *argv)
 {
-    
+    ui_bpfunc *zx = (ui_bpfunc*)z;
+    zx->range_x = argv[0].a_w.w_float;
 }
 
 void bpf_m_range_y(t_object *z, t_symbol *s, int argc, t_atom *argv)
 {
-    
+    ui_bpfunc *zx = (ui_bpfunc*)z;
+    zx->range_y = argv[0].a_w.w_float;
 }
 
 void bpf_m_shift_x(t_object *z, t_symbol *s, int argc, t_atom *argv)
 {
-    
+    ui_bpfunc *zx = (ui_bpfunc*)z;
+    zx->shift_x = argv[0].a_w.w_float;
 }
 
 void bpf_m_shift_y(t_object *z, t_symbol *s, int argc, t_atom *argv)
 {
-    
+    ui_bpfunc *zx = (ui_bpfunc*)z;
+    zx->shift_y = argv[0].a_w.w_float;
 }
 
+void bpf_m_raw(t_object *z, t_symbol *s, int argc, t_atom *argv)
+{
+    
+    ui_bpfunc *zx = (ui_bpfunc*)z;
+    
+    zx->out_list_count = zx->points->size() * 2;
+    
+    if (zx->out_list) {free(zx->out_list);}
+    
+    zx->out_list = (t_atom*)malloc(sizeof(t_atom)*zx->out_list_count);
+    
+    int j=0;
+    for (int i=0;i<zx->out_list_count;i+=2)
+    {
+        zx->out_list[i].a_type = A_FLOAT;
+        zx->out_list[i].a_w.w_float = zx->points->at(j).x ;
+        
+        zx->out_list[i+1].a_type = A_FLOAT;
+        zx->out_list[i+1].a_w.w_float = zx->points->at(j).y ;
+        
+        j++;
+    }
+    
+    outlet_list(zx->out1, &s_list, zx->out_list_count, zx->out_list);
+}
 #pragma mark -
 
 UI_fun(ui_bpfunc)::new_ext(t_object *z, t_symbol *s, int argcl, t_atom *argv)
@@ -466,6 +501,10 @@ UI_fun(ui_bpfunc)::new_ext(t_object *z, t_symbol *s, int argcl, t_atom *argv)
     
     zx->out1 = outlet_new(z, &s_list);
     
+    zx->range_x = 1000;
+    zx->range_y = 1;
+    zx->shift_x = 0;
+    zx->shift_y = 0;
     
 }
 
@@ -477,6 +516,8 @@ UI_fun(ui_bpfunc)::init_ext(t_eclass *z)
     eclass_addmethod(z, (method)(bpf_m_range_y), ("range_y"), A_GIMME,0);
     eclass_addmethod(z, (method)(bpf_m_shift_x), ("shift_x"), A_GIMME,0);
     eclass_addmethod(z, (method)(bpf_m_shift_y), ("shift_y"), A_GIMME,0);
+    
+    eclass_addmethod(z, (method)(bpf_m_raw), ("raw"), A_GIMME,0);
 
 }
 
