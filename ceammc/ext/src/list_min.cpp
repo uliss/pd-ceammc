@@ -1,25 +1,26 @@
-#include "ceammc.hpp"
-#include <algorithm>
+#include "ceammc_atomlist.h"
 #include <m_pd.h>
 
-t_class* list_min_class;
+#define OBJ_NAME "list.min"
+#define MSG_PREFIX "[" OBJ_NAME "] "
+
+static t_class* list_min_class;
 typedef struct list_min {
     t_object x_obj;
 } t_list_min;
 
+using namespace ceammc;
+
 static void list_min_list(t_list_min* x, t_symbol*, int argc, t_atom* argv)
 {
-    if (argc == 0)
+    AtomList lst(static_cast<size_t>(argc), argv);
+    Atom* a = lst.min();
+    if (a == 0) {
+        pd_error(x, MSG_PREFIX "invalid list");
         return;
+    }
 
-    t_atom* a = std::min_element(argv, argv + argc, ceammc::pd::atoms_compare_lt);
-
-    if (a->a_type == A_FLOAT)
-        return outlet_float(x->x_obj.te_outlet, atom_getfloat(a));
-    else if (a->a_type == A_SYMBOL)
-        return outlet_symbol(x->x_obj.te_outlet, atom_getsymbol(a));
-    else
-        return pd_error(x, "only floats and symbols are supported");
+    to_outlet(x->x_obj.te_outlet, *a);
 }
 
 static void* list_min_new()
@@ -32,7 +33,8 @@ static void* list_min_new()
 extern "C" void setup_list0x2emin()
 {
     list_min_class = class_new(gensym("list.min"),
-        (t_newmethod)list_min_new, (t_method)0,
+        reinterpret_cast<t_newmethod>(list_min_new),
+        static_cast<t_method>(0),
         sizeof(t_list_min), 0, A_NULL);
     class_addlist(list_min_class, list_min_list);
 }

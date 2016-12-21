@@ -82,11 +82,20 @@
     <entry descr="maps each list value via external object(s)" name="list.each">
       <xi:include href="list.each.pddoc" parse="xml"/>
     </entry>
+    <entry descr="returns first list element" name="list.first">
+      <xi:include href="list.first.pddoc" parse="xml"/>
+    </entry>
     <entry descr="returns last list element" name="list.last">
       <xi:include href="list.last.pddoc" parse="xml"/>
     </entry>
     <entry descr="returns the number of elements in the list." name="list.length">
       <xi:include href="list.length.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="returns largest element in the list" name="list.max">
+      <xi:include href="list.max.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="returns smallest element in the list" name="list.min">
+      <xi:include href="list.min.pddoc" parse="xml"/>
     </entry>
     <entry descr="sorts list values by ascending order" name="list.sort">
       <xi:include href="list.sort.pddoc" parse="xml"/>

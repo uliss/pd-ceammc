@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pddoc version="1.0">
+    <object name="list.min">
+        <title>list.min</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>returns smallest element in the list</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>list</category>
+            <keywords>list min compare</keywords>
+            <since>0.1</since>
+            <also>
+                <see>list.max</see>
+            </also>
+        </meta>
+        <info>
+            <par>Note: numbers are smaller then symbols</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo on="list">input list</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>smallest element</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[list a b( [1 2 b c( /* (!) */
+|          |
+| [1 2 3(  | [F]
+| |        | |
+[list.min    ]
+|
+[prepend set]
+|
+[ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
+
