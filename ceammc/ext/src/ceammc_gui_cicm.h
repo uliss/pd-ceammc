@@ -237,6 +237,9 @@ public:
     static void m_list(t_object *z, t_symbol *s, int argc, t_atom *argv)
     {}
     
+    static void m_anything(t_object *z, t_symbol *s, int argc, t_atom *argv)
+    {}
+    
     static void m_symbol(t_object *z, t_symbol *s, int argc, t_atom *argv)
     {}
     
@@ -422,7 +425,7 @@ public:
         UI_Pset("_selected", selected);
         
         
-        printf("sel %f\n", UI_Pf("_selected"));
+        //printf("sel %f\n", UI_Pf("_selected"));
     }
     
     
@@ -474,8 +477,8 @@ public:
         UI_Pset("_mouse_x",pt.x);
         UI_Pset("_mouse_y",pt.y);
         
-        printf("!mousemove\n");
-        printf("mouse %f %f\n",UI_Pf("_mouse_x"),UI_Pf("_mouse_y"));
+        //printf("!mousemove\n");
+        //printf("mouse %f %f\n",UI_Pf("_mouse_x"),UI_Pf("_mouse_y"));
         
         cm_gui_object<U>::wx_mousemove_ext(z,view,pt,modifiers);
         
@@ -483,7 +486,7 @@ public:
     
     static void wx_mousedown(t_object* z, t_object *view, t_pt pt, long modifiers)
     {
-        printf("!mousedown\n");
+        //printf("!mousedown\n");
         
         UI_Prop
         
@@ -506,7 +509,7 @@ public:
         UI_Pset("_mouse_x",pt.x);
         UI_Pset("_mouse_y",pt.y);
         
-        printf("!mousedown\n");
+        //printf("!mouseup\n");
         
         UI_Pset("_mouse_dn",0);
         
@@ -520,8 +523,8 @@ public:
         UI_Pset("_mouse_x",pt.x);
         UI_Pset("_mouse_y",pt.y);
         
-        printf("!mousedrag\n");
-        printf("mouse %f %f\n",UI_Pf("_mouse_x"),UI_Pf("_mouse_y"));
+        //printf("!mousedrag\n");
+        //printf("mouse %f %f\n",UI_Pf("_mouse_x"),UI_Pf("_mouse_y"));
         
         cm_gui_object<U>::wx_mousedrag_ext(z,view,pt,modifiers);
         
@@ -638,6 +641,8 @@ public:
             eclass_addmethod(cl, (method)(&cm_gui_object<U>::m_float), ("float"), A_GIMME,0);
             eclass_addmethod(cl, (method)(&cm_gui_object<U>::m_bang), ("bang"), A_GIMME,0);
             
+            eclass_addmethod(cl, (method)(&cm_gui_object<U>::m_anything), ("anything"), A_GIMME,0);
+            
             eclass_addmethod(cl, (method)(&cm_gui_object<U>::m_set), ("set"), A_GIMME,0);
 
             
@@ -737,6 +742,8 @@ public:
             eclass_addmethod(cl, (method)(&cm_gui_object<U>::m_list), ("list"), A_GIMME,0);
             eclass_addmethod(cl, (method)(&cm_gui_object<U>::m_float), ("float"), A_GIMME,0);
             eclass_addmethod(cl, (method)(&cm_gui_object<U>::m_bang), ("bang"), A_GIMME,0);
+            
+            eclass_addmethod(cl, (method)(&cm_gui_object<U>::m_anything), ("anything"), A_GIMME,0);
             
             //
             //cl->c_widget.w_save = &cm_gui_object<U>::save_method;

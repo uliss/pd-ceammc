@@ -26,6 +26,15 @@ proc make_iemgui_button {mytoplevel name tooltip} {
     tooltip::tooltip $mytoplevel.buttonbar.$name $tooltip
 }
 
+proc make_ceammc_button {mytoplevel name tooltip} {
+    button $mytoplevel.buttonbar.$name -image buttonimage$name \
+        -relief solid -borderwidth 1 -highlightthickness 0 \
+        -highlightcolor grey -highlightbackground grey -padx 1 -pady 1 \
+        -command "menu_send \$::focused_window ui.$name"
+    pack $mytoplevel.buttonbar.$name -side left -padx 0 -pady 0
+    tooltip::tooltip $mytoplevel.buttonbar.$name $tooltip
+}
+
 proc showhide_buttonbar {mytoplevel} {
     if { ! [winfo exists $mytoplevel.buttonbar]} {
         frame $mytoplevel.buttonbar -cursor arrow -background grey \
@@ -44,7 +53,13 @@ proc showhide_buttonbar {mytoplevel} {
         make_iemgui_button $mytoplevel vradio  "Vertical radio"
         make_iemgui_button $mytoplevel mycnv   "Canvas"
         make_iemgui_button $mytoplevel menuarray "Array"
-        make_iemgui_button $mytoplevel vumeter "VU meter"
+        make_ceammc_button $mytoplevel sliders "sliders"
+        make_ceammc_button $mytoplevel slider2d "slider 2D"
+        make_ceammc_button $mytoplevel keyboard "Keyboard"
+        make_ceammc_button $mytoplevel bpfunc "Breakpoint function"
+        make_ceammc_button $mytoplevel display "Display"
+        make_ceammc_button $mytoplevel scope "Scope"
+        make_ceammc_button $mytoplevel spectroscope "Spectroscope"
     }
     if {$::editmode($mytoplevel)} {
         set tkcanvas [tkcanvas_name $mytoplevel]
