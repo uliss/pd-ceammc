@@ -12,14 +12,25 @@ struct t_global_int {
     GlobalInt* x_global;
 };
 
-static void global_int_bang(t_global_int* x)
+static void global_int_set(t_global_int* x, t_floatarg f)
+{
+    x->x_global->ref() = static_cast<int>(f);
+}
+
+static void global_int_output(t_global_int* x)
 {
     outlet_float(x->x_obj.te_outlet, x->x_global->ref());
 }
 
+static void global_int_bang(t_global_int* x)
+{
+    global_int_output(x);
+}
+
 static void global_int_float(t_global_int* x, t_floatarg f)
 {
-    x->x_global->ref() = static_cast<int>(f);
+    global_int_set(x, f);
+    global_int_output(x);
 }
 
 static void* global_int_new(t_symbol* id)
@@ -43,4 +54,7 @@ extern "C" void setup_global0x2eint()
         sizeof(t_global_int), 0, A_DEFSYMBOL, A_NULL);
     class_addbang(global_int_class, global_int_bang);
     class_addfloat(global_int_class, global_int_float);
+    class_addmethod(global_int_class,
+        reinterpret_cast<t_method>(global_int_set),
+        gensym("set"), A_DEFFLOAT, A_NULL);
 }
