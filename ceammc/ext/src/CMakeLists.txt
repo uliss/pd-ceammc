@@ -121,6 +121,7 @@ ceammc_cxx_extension(ui test_cicm)
 ceammc_cxx_extension(ui scope)
 ceammc_cxx_extension(ui spectroscope)
 ceammc_cxx_extension(ui bpfunc)
+ceammc_cxx_extension(ui display)
 
 
 # JSON

@@ -237,6 +237,9 @@ public:
     static void m_list(t_object *z, t_symbol *s, int argc, t_atom *argv)
     {}
     
+    static void m_anything(t_object *z, t_symbol *s, int argc, t_atom *argv)
+    {}
+    
     static void m_symbol(t_object *z, t_symbol *s, int argc, t_atom *argv)
     {}
     
@@ -638,6 +641,8 @@ public:
             eclass_addmethod(cl, (method)(&cm_gui_object<U>::m_float), ("float"), A_GIMME,0);
             eclass_addmethod(cl, (method)(&cm_gui_object<U>::m_bang), ("bang"), A_GIMME,0);
             
+            eclass_addmethod(cl, (method)(&cm_gui_object<U>::m_anything), ("anything"), A_GIMME,0);
+            
             eclass_addmethod(cl, (method)(&cm_gui_object<U>::m_set), ("set"), A_GIMME,0);
 
             
@@ -737,6 +742,8 @@ public:
             eclass_addmethod(cl, (method)(&cm_gui_object<U>::m_list), ("list"), A_GIMME,0);
             eclass_addmethod(cl, (method)(&cm_gui_object<U>::m_float), ("float"), A_GIMME,0);
             eclass_addmethod(cl, (method)(&cm_gui_object<U>::m_bang), ("bang"), A_GIMME,0);
+            
+            eclass_addmethod(cl, (method)(&cm_gui_object<U>::m_anything), ("anything"), A_GIMME,0);
             
             //
             //cl->c_widget.w_save = &cm_gui_object<U>::save_method;
