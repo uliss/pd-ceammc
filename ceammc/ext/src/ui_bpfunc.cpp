@@ -11,6 +11,7 @@
 #include "ceammc_gui_cicm.h"
 
 #include <map>
+#include <algorithm>
 
 typedef struct t_bpt
 {

@@ -277,7 +277,7 @@ UI_fun(ui_keyboard)::wx_mousedrag_ext(t_object* z, t_object *view, t_pt pt, long
     if (UI_Pf("_pitch_prev") != UI_Pf("_pitch") )
     {
         int pitch= UI_Pf("_pitch");
-        int vel= UI_Pf("_pitch");
+        int vel= UI_Pf("_vel");
         
         UI_Pset("_pitch_prev", pitch);
         
