@@ -55,6 +55,10 @@ struct ui_bpfunc : cm_gui_base_pd_object
     
 };
 
+const bool bpf_sort_pred(t_bpt const & a, t_bpt const & b)  {
+    return a.x < b.x;
+    }
+
 
 inline void bpf_point_sort(t_object *z)
 {
@@ -66,7 +70,9 @@ inline void bpf_point_sort(t_object *z)
             return a.x < b.x;
         }
     } pred1;
-    std::sort(ps->begin(), ps->end(), pred1);
+    std::sort(ps->begin(), ps->end(), bpf_sort_pred);
+    
+    
     
     
 }
