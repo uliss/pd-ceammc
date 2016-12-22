@@ -30,7 +30,7 @@ proc make_ceammc_button {mytoplevel name tooltip} {
     button $mytoplevel.buttonbar.$name -image buttonimage$name \
         -relief solid -borderwidth 1 -highlightthickness 0 \
         -highlightcolor grey -highlightbackground grey -padx 1 -pady 1 \
-        -command "menu_send \$::focused_window ui.$name"
+    -command "menu_send \$::focused_window ui.$name"
     pack $mytoplevel.buttonbar.$name -side left -padx 0 -pady 0
     tooltip::tooltip $mytoplevel.buttonbar.$name $tooltip
 }

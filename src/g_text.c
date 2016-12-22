@@ -285,6 +285,59 @@ void canvas_numbox(t_glist *gl, t_symbol *s, int argc, t_atom *argv)
     canvas_iemguis(gl, gensym("nbx"));
 }
 
+/* CEAMMC */
+
+void canvas_ceammcgui(t_glist *gl, t_symbol *guiobjname)
+{
+    t_atom at;
+    t_binbuf *b = binbuf_new();
+    int xpix, ypix;
+    
+    pd_vmess(&gl->gl_pd, gensym("editmode"), "i", 1);
+    glist_noselect(gl);
+    SETSYMBOL(&at, guiobjname);
+    binbuf_restore(b, 1, &at);
+    glist_getnextxy(gl, &xpix, &ypix);
+    canvas_objtext(gl, xpix, ypix, 0, 1, b);
+    canvas_startmotion(glist_getcanvas(gl));
+}
+
+void canvas_keyboard(t_glist *gl, t_symbol *s, int argc, t_atom *argv)
+{
+    canvas_ceammcgui(gl, gensym("ui.keyboard"));
+}
+
+void canvas_sliders(t_glist *gl, t_symbol *s, int argc, t_atom *argv)
+{
+    canvas_ceammcgui(gl, gensym("ui.sliders"));
+}
+
+void canvas_slider2d(t_glist *gl, t_symbol *s, int argc, t_atom *argv)
+{
+    canvas_ceammcgui(gl, gensym("ui.slider2d"));
+}
+
+void canvas_bpfunc(t_glist *gl, t_symbol *s, int argc, t_atom *argv)
+{
+    canvas_ceammcgui(gl, gensym("ui.bpfunc"));
+}
+
+void canvas_display(t_glist *gl, t_symbol *s, int argc, t_atom *argv)
+{
+    canvas_ceammcgui(gl, gensym("ui.display"));
+}
+
+void canvas_scope(t_glist *gl, t_symbol *s, int argc, t_atom *argv)
+{
+    canvas_ceammcgui(gl, gensym("ui.scope"));
+}
+
+void canvas_spectroscope(t_glist *gl, t_symbol *s, int argc, t_atom *argv)
+{
+    canvas_ceammcgui(gl, gensym("ui.spectroscope"));
+}
+
+
 /* iemlib */
 
 void canvas_objfor(t_glist *gl, t_text *x, int argc, t_atom *argv)
