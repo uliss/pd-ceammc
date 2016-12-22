@@ -1,21 +1,23 @@
 #include "ceammc.hpp"
+#include "ceammc_atomlist.h"
 #include <cstdlib>
 #include <m_pd.h>
 
 #define OBJ_NAME "list.apply_to"
 #define MSG_PREFIX "[" OBJ_NAME "] "
 
-t_class* list_apply_to_class;
+using namespace ceammc;
+
+static t_class* list_apply_to_class;
 struct t_list_apply_to {
     t_object x_obj;
-    int x_apply_idx;
-    t_atom mapped_value;
-    ceammc::pd::atom_list* x_list;
-    t_inlet* inlet1;
-    t_outlet* outlet1;
+    int idx;
+    AtomList* list;
+    t_inlet* in1;
+    t_outlet* out1;
 };
 
-static void list_mapped_value(t_list_apply_to* x, t_symbol* s, int argc, t_atom* argv)
+static void list_mapped_value(t_list_apply_to* x, t_symbol*, int argc, t_atom* argv)
 {
     // invalid mapped value
     if (argc != 1) {
@@ -23,82 +25,71 @@ static void list_mapped_value(t_list_apply_to* x, t_symbol* s, int argc, t_atom*
         return;
     }
 
-    if (x->x_list == 0) {
+    if (x->list == 0) {
         pd_error(x, MSG_PREFIX "atom list not allocated");
         return;
     }
 
-    int idx = x->x_apply_idx;
-    if (x->x_list->size() <= abs(idx)) {
-        pd_error(x, MSG_PREFIX "invalid list index: %i", idx);
+    Atom* old = x->list->relativeAt(x->idx);
+    if (!old) {
+        pd_error(x, MSG_PREFIX "invalid list index: %i", x->idx);
         return;
     }
 
-    if(idx < 0)
-        idx += x->x_list->size();
-
-    x->x_list->at(idx) = argv[0];
+    // setting new value
+    *old = Atom(argv[0]);
 }
 
-static void list_apply_to_list(t_list_apply_to* x, t_symbol* s, int argc, t_atom* argv)
+static void list_apply_to_list(t_list_apply_to* x, t_symbol*, int argc, t_atom* argv)
 {
     if (argc < 2)
         return;
 
-    int idx = x->x_apply_idx;
-    if (abs(idx) >= argc) {
+    x->list = new AtomList(static_cast<size_t>(argc), argv);
+    // getting atom at relative position
+    Atom* a = x->list->relativeAt(x->idx);
+
+    // invalid position
+    if (a == NULL) {
+        pd_error(x, MSG_PREFIX "invalid list index: %i", x->idx);
+
         // pass unmodified if invalid index given
-        pd_error(x, MSG_PREFIX "index %i is out of range. should be < %i or > %i", idx, argc, -argc);
-        outlet_list(x->x_obj.te_outlet, s, argc, argv);
+        x->list->output(x->x_obj.te_outlet);
         return;
     }
 
-    // handle negative index
-    if (idx < 0)
-        idx += argc;
+    // output to map function
+    a->output(x->out1);
 
-    x->x_list = new ceammc::pd::atom_list(argv, argv + argc);
-    t_atom el = argv[idx];
+    // output mapped list to main outlet
+    x->list->output(x->x_obj.te_outlet);
 
-    // output to right outlet to mapped objected
-    if (ceammc::pd::is_float(el))
-        outlet_float(x->outlet1, atom_getfloat(&el));
-    else if (ceammc::pd::is_symbol(el))
-        outlet_symbol(x->outlet1, atom_getsymbol(&el));
-    else {
-        pd_error(x, MSG_PREFIX "unsupported type: %i. skipping", el.a_type);
-        return;
-    }
-
-    // output modified list to left outlet
-    ceammc::pd::output(x->x_obj.te_outlet, *x->x_list);
-
-    delete x->x_list;
-    x->x_list = 0;
+    delete x->list;
+    x->list = 0;
 }
 
 static void* list_apply_to_new(t_floatarg idx)
 {
     t_list_apply_to* x = reinterpret_cast<t_list_apply_to*>(pd_new(list_apply_to_class));
     outlet_new(&x->x_obj, &s_list);
-    x->inlet1 = inlet_new(&x->x_obj, &x->x_obj.ob_pd, &s_list, gensym("mapped value"));
-    x->outlet1 = outlet_new(&x->x_obj, &s_float);
-    x->x_list = 0;
+    x->in1 = inlet_new(&x->x_obj, &x->x_obj.ob_pd, &s_list, gensym("mapped value"));
+    x->out1 = outlet_new(&x->x_obj, &s_float);
+    x->list = 0;
 
-    if (!ceammc::math::is_integer(idx)) {
+    if (!math::is_integer(idx)) {
         pd_error(x, MSG_PREFIX "list index should be integer. Using '0' as index position.");
-        x->x_apply_idx = 0;
+        x->idx = 0;
     }
 
-    x->x_apply_idx = static_cast<int>(idx);
+    x->idx = static_cast<int>(idx);
     return static_cast<void*>(x);
 }
 
 static void list_apply_to_free(t_list_apply_to* x)
 {
-    outlet_free(x->outlet1);
-    inlet_free(x->inlet1);
-    delete x->x_list;
+    outlet_free(x->out1);
+    inlet_free(x->in1);
+    delete x->list;
 }
 
 extern "C" void setup_list0x2eapply_to()

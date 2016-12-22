@@ -28,10 +28,12 @@ public:
     };
 
 public:
+    Atom();
     Atom(const t_atom& a);
     Atom(t_float v);
     Atom(t_symbol* s);
     bool isFloat() const;
+    bool isNone() const;
     bool isSymbol() const;
 
     Type type() const;
@@ -48,6 +50,12 @@ public:
     std::string asString() const;
 
     bool operator<(const Atom& a) const;
+
+    /**
+     * @brief outputs atom to given outlet
+     * @param x - pointer to outlet
+     */
+    void output(t_outlet* x) const;
 
 public:
     friend bool operator==(const Atom& a1, const Atom& a2);

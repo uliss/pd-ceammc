@@ -9,20 +9,23 @@
 it via external object\.;
 #X obj 30 150 list.at;
 #X text 150 150 returns list element at given position;
-#X obj 30 177 list.each;
-#X text 150 177 maps each list value via external object(s);
-#X obj 30 204 list.first;
-#X text 150 204 returns first list element;
-#X obj 30 231 list.last;
-#X text 150 231 returns last list element;
-#X obj 30 258 list.length;
-#X text 150 258 returns the number of elements in the list\.;
-#X obj 30 285 list.max;
-#X text 150 285 returns largest element in the list;
-#X obj 30 312 list.min;
-#X text 150 312 returns smallest element in the list;
-#X obj 30 339 list.sort;
-#X text 150 339 sorts list values by ascending order;
+#X obj 30 177 list.count;
+#X text 150 177 returns the number of items that equal to specified
+value;
+#X obj 30 204 list.each;
+#X text 150 204 maps each list value via external object(s);
+#X obj 30 231 list.first;
+#X text 150 231 returns first list element;
+#X obj 30 258 list.last;
+#X text 150 258 returns last list element;
+#X obj 30 285 list.length;
+#X text 150 285 returns the number of elements in the list\.;
+#X obj 30 312 list.max;
+#X text 150 312 returns largest element in the list;
+#X obj 30 339 list.min;
+#X text 150 339 returns smallest element in the list;
+#X obj 30 366 list.sort;
+#X text 150 366 sorts list values by ascending order;
 #X obj 1 1 cnv 5 597 40 empty empty ceammc::list 20 20 0 20 -104026
 -4096 0;
 #X obj 1 458 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;

@@ -32,6 +32,9 @@ TEST_CASE("Atom", "[ceammc::Atom]")
         t_float v;
         REQUIRE(fatom.getFloat(&v));
         CHECK(v == 1.1f);
+
+        Atom b;
+        REQUIRE(b.isNone());
     }
 
     SECTION("Float atom tests")
@@ -112,7 +115,7 @@ TEST_CASE("Atom", "[ceammc::Atom]")
         REQUIRE_FALSE(a1 != a1);
         REQUIRE(a1 == a2);
 
-        a2.setFloat(1.3);
+        a2.setFloat(1.3f);
         REQUIRE(a1 != a2);
 
         Atom a3(a2);

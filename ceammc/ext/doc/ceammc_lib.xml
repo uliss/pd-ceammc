@@ -90,6 +90,9 @@
     <entry descr="returns list element at given position" name="list.at">
       <xi:include href="list.at.pddoc" parse="xml"/>
     </entry>
+    <entry descr="returns the number of items that equal to specified value" name="list.count">
+      <xi:include href="list.count.pddoc" parse="xml"/>
+    </entry>
     <entry descr="maps each list value via external object(s)" name="list.each">
       <xi:include href="list.each.pddoc" parse="xml"/>
     </entry>

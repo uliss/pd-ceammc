@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure\\ Data 0.47.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2016-10-18 23:00+0300\n"
+"POT-Creation-Date: 2016-12-22 12:56+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../ceammc/gui/plugins/buttonbar.tmpl.tcl:33
+#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl:42
+#: ../ceammc/gui/plugins/ceammc-buttonbar-plugin.tcl:42
 #: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl:33 ../tcl/pd_menus.tcl:212
+#: ../tcl/pd_menus.tcl:215
 msgid "Object"
 msgstr ""
 
@@ -25,11 +28,11 @@ msgstr ""
 msgid "Export patch as SVG..."
 msgstr ""
 
-#: ../tcl/dialog_array.tcl:113 ../tcl/pd_menus.tcl:167
+#: ../tcl/dialog_array.tcl:113 ../tcl/pd_menus.tcl:167 ../tcl/pd_menus.tcl:170
 msgid "Copy"
 msgstr ""
 
-#: ../tcl/dialog_array.tcl:116 ../tcl/pd_menus.tcl:169
+#: ../tcl/dialog_array.tcl:116 ../tcl/pd_menus.tcl:169 ../tcl/pd_menus.tcl:172
 msgid "Paste"
 msgstr ""
 
@@ -37,7 +40,7 @@ msgstr ""
 msgid "Array Properties"
 msgstr ""
 
-#: ../tcl/dialog_array.tcl:266 ../tcl/pd_menus.tcl:244
+#: ../tcl/dialog_array.tcl:266 ../tcl/pd_menus.tcl:244 ../tcl/pd_menus.tcl:247
 msgid "Array"
 msgstr ""
 
@@ -187,7 +190,7 @@ msgstr ""
 msgid "Use multiple devices"
 msgstr ""
 
-#: ../tcl/dialog_audio.tcl:326 ../tcl/pd_menus.tcl:521
+#: ../tcl/dialog_audio.tcl:326 ../tcl/pd_menus.tcl:521 ../tcl/pd_menus.tcl:528
 msgid "Save All Settings"
 msgstr ""
 
@@ -274,7 +277,7 @@ msgstr ""
 msgid "Find"
 msgstr ""
 
-#: ../tcl/dialog_find.tcl:179 ../tcl/pd_menus.tcl:318
+#: ../tcl/dialog_find.tcl:179 ../tcl/pd_menus.tcl:318 ../tcl/pd_menus.tcl:321
 msgid "Pd window"
 msgstr ""
 
@@ -283,8 +286,10 @@ msgid "Match whole word only"
 msgstr ""
 
 #: ../tcl/dialog_find.tcl:204 ../tcl/pd_menus.tcl:58 ../tcl/pd_menus.tcl:85
-#: ../tcl/pd_menus.tcl:116 ../tcl/pd_menus.tcl:149 ../tcl/pd_menus.tcl:549
-#: ../tcl/pd_menus.tcl:589 ../tcl/pd_menus.tcl:636
+#: ../tcl/pd_menus.tcl:86 ../tcl/pd_menus.tcl:116 ../tcl/pd_menus.tcl:118
+#: ../tcl/pd_menus.tcl:149 ../tcl/pd_menus.tcl:152 ../tcl/pd_menus.tcl:549
+#: ../tcl/pd_menus.tcl:556 ../tcl/pd_menus.tcl:589 ../tcl/pd_menus.tcl:598
+#: ../tcl/pd_menus.tcl:636 ../tcl/pd_menus.tcl:646
 msgid "Close"
 msgstr ""
 
@@ -293,8 +298,9 @@ msgstr ""
 msgid "%s Font"
 msgstr ""
 
-#: ../tcl/dialog_font.tcl:101 ../tcl/pd_menus.tcl:118 ../tcl/pd_menus.tcl:179
-#: ../tcl/pd_menus.tcl:184
+#: ../tcl/dialog_font.tcl:101 ../tcl/pd_menus.tcl:118 ../tcl/pd_menus.tcl:120
+#: ../tcl/pd_menus.tcl:179 ../tcl/pd_menus.tcl:182 ../tcl/pd_menus.tcl:184
+#: ../tcl/pd_menus.tcl:187
 msgid "Font"
 msgstr ""
 
@@ -403,7 +409,7 @@ msgstr ""
 msgid "Steady on click"
 msgstr ""
 
-#: ../tcl/dialog_iemgui.tcl:517 ../tcl/pd_menus.tcl:223
+#: ../tcl/dialog_iemgui.tcl:517 ../tcl/pd_menus.tcl:223 ../tcl/pd_menus.tcl:226
 msgid "Bang"
 msgstr ""
 
@@ -419,7 +425,7 @@ msgstr ""
 msgid "Hold:"
 msgstr ""
 
-#: ../tcl/dialog_iemgui.tcl:523 ../tcl/pd_menus.tcl:225
+#: ../tcl/dialog_iemgui.tcl:523 ../tcl/pd_menus.tcl:225 ../tcl/pd_menus.tcl:228
 msgid "Toggle"
 msgstr ""
 
@@ -431,7 +437,7 @@ msgstr ""
 msgid "Value:"
 msgstr ""
 
-#: ../tcl/dialog_iemgui.tcl:528 ../tcl/pd_menus.tcl:227
+#: ../tcl/dialog_iemgui.tcl:528 ../tcl/pd_menus.tcl:227 ../tcl/pd_menus.tcl:230
 msgid "Number2"
 msgstr ""
 
@@ -454,15 +460,15 @@ msgstr ""
 msgid "Log height:"
 msgstr ""
 
-#: ../tcl/dialog_iemgui.tcl:536 ../tcl/pd_menus.tcl:229
+#: ../tcl/dialog_iemgui.tcl:536 ../tcl/pd_menus.tcl:229 ../tcl/pd_menus.tcl:232
 msgid "Vslider"
 msgstr ""
 
-#: ../tcl/dialog_iemgui.tcl:543 ../tcl/pd_menus.tcl:231
+#: ../tcl/dialog_iemgui.tcl:543 ../tcl/pd_menus.tcl:231 ../tcl/pd_menus.tcl:234
 msgid "Hslider"
 msgstr ""
 
-#: ../tcl/dialog_iemgui.tcl:550 ../tcl/pd_menus.tcl:233
+#: ../tcl/dialog_iemgui.tcl:550 ../tcl/pd_menus.tcl:233 ../tcl/pd_menus.tcl:236
 msgid "Vradio"
 msgstr ""
 
@@ -470,15 +476,15 @@ msgstr ""
 msgid "Num cells:"
 msgstr ""
 
-#: ../tcl/dialog_iemgui.tcl:554 ../tcl/pd_menus.tcl:235
+#: ../tcl/dialog_iemgui.tcl:554 ../tcl/pd_menus.tcl:235 ../tcl/pd_menus.tcl:238
 msgid "Hradio"
 msgstr ""
 
-#: ../tcl/dialog_iemgui.tcl:558 ../tcl/pd_menus.tcl:237
+#: ../tcl/dialog_iemgui.tcl:558 ../tcl/pd_menus.tcl:237 ../tcl/pd_menus.tcl:240
 msgid "VU Meter"
 msgstr ""
 
-#: ../tcl/dialog_iemgui.tcl:564 ../tcl/pd_menus.tcl:239
+#: ../tcl/dialog_iemgui.tcl:564 ../tcl/pd_menus.tcl:239 ../tcl/pd_menus.tcl:242
 msgid "Canvas"
 msgstr ""
 
@@ -666,218 +672,250 @@ msgid "Find externals"
 msgstr ""
 
 #: ../tcl/pd_menucommands.tcl:217 ../tcl/pd_menus.tcl:327
-#: ../tcl/pd_menus.tcl:532
+#: ../tcl/pd_menus.tcl:330 ../tcl/pd_menus.tcl:532 ../tcl/pd_menus.tcl:539
 msgid "About Pd"
 msgstr ""
 
 #: ../tcl/pd_menus.tcl:55 ../tcl/pd_menus.tcl:82 ../tcl/pd_menus.tcl:112
-#: ../tcl/pd_menus.tcl:146 ../tcl/pd_menus.tcl:550 ../tcl/pd_menus.tcl:578
-#: ../tcl/pd_menus.tcl:625
+#: ../tcl/pd_menus.tcl:114 ../tcl/pd_menus.tcl:146 ../tcl/pd_menus.tcl:148
+#: ../tcl/pd_menus.tcl:550 ../tcl/pd_menus.tcl:557 ../tcl/pd_menus.tcl:578
+#: ../tcl/pd_menus.tcl:586 ../tcl/pd_menus.tcl:625 ../tcl/pd_menus.tcl:634
 msgid "Save"
 msgstr ""
 
 #: ../tcl/pd_menus.tcl:56 ../tcl/pd_menus.tcl:83 ../tcl/pd_menus.tcl:113
-#: ../tcl/pd_menus.tcl:147 ../tcl/pd_menus.tcl:551 ../tcl/pd_menus.tcl:579
-#: ../tcl/pd_menus.tcl:626
+#: ../tcl/pd_menus.tcl:115 ../tcl/pd_menus.tcl:147 ../tcl/pd_menus.tcl:149
+#: ../tcl/pd_menus.tcl:551 ../tcl/pd_menus.tcl:558 ../tcl/pd_menus.tcl:579
+#: ../tcl/pd_menus.tcl:587 ../tcl/pd_menus.tcl:626 ../tcl/pd_menus.tcl:635
 msgid "Save As..."
 msgstr ""
 
-#: ../tcl/pd_menus.tcl:57 ../tcl/pd_menus.tcl:84 ../tcl/pd_menus.tcl:114
-#: ../tcl/pd_menus.tcl:151 ../tcl/pd_menus.tcl:557 ../tcl/pd_menus.tcl:585
-#: ../tcl/pd_menus.tcl:632
+#: ../tcl/pd_menus.tcl:57 ../tcl/pd_menus.tcl:84 ../tcl/pd_menus.tcl:85
+#: ../tcl/pd_menus.tcl:114 ../tcl/pd_menus.tcl:116 ../tcl/pd_menus.tcl:151
+#: ../tcl/pd_menus.tcl:154 ../tcl/pd_menus.tcl:557 ../tcl/pd_menus.tcl:565
+#: ../tcl/pd_menus.tcl:585 ../tcl/pd_menus.tcl:594 ../tcl/pd_menus.tcl:632
+#: ../tcl/pd_menus.tcl:642
 msgid "Print..."
 msgstr ""
 
-#: ../tcl/pd_menus.tcl:60 ../tcl/pd_menus.tcl:87 ../tcl/pd_menus.tcl:119
-#: ../tcl/pd_menus.tcl:171
+#: ../tcl/pd_menus.tcl:60 ../tcl/pd_menus.tcl:87 ../tcl/pd_menus.tcl:88
+#: ../tcl/pd_menus.tcl:119 ../tcl/pd_menus.tcl:121 ../tcl/pd_menus.tcl:171
+#: ../tcl/pd_menus.tcl:174
 msgid "Duplicate"
 msgstr ""
 
-#: ../tcl/pd_menus.tcl:61 ../tcl/pd_menus.tcl:88 ../tcl/pd_menus.tcl:120
-#: ../tcl/pd_menus.tcl:191
+#: ../tcl/pd_menus.tcl:61 ../tcl/pd_menus.tcl:88 ../tcl/pd_menus.tcl:89
+#: ../tcl/pd_menus.tcl:120 ../tcl/pd_menus.tcl:122 ../tcl/pd_menus.tcl:191
+#: ../tcl/pd_menus.tcl:194
 msgid "Tidy Up"
 msgstr ""
 
-#: ../tcl/pd_menus.tcl:62 ../tcl/pd_menus.tcl:89 ../tcl/pd_menus.tcl:121
-#: ../tcl/pd_menus.tcl:187
+#: ../tcl/pd_menus.tcl:62 ../tcl/pd_menus.tcl:89 ../tcl/pd_menus.tcl:90
+#: ../tcl/pd_menus.tcl:121 ../tcl/pd_menus.tcl:123 ../tcl/pd_menus.tcl:187
+#: ../tcl/pd_menus.tcl:190
 msgid "Zoom In"
 msgstr ""
 
-#: ../tcl/pd_menus.tcl:63 ../tcl/pd_menus.tcl:90 ../tcl/pd_menus.tcl:122
-#: ../tcl/pd_menus.tcl:189
+#: ../tcl/pd_menus.tcl:63 ../tcl/pd_menus.tcl:90 ../tcl/pd_menus.tcl:91
+#: ../tcl/pd_menus.tcl:122 ../tcl/pd_menus.tcl:124 ../tcl/pd_menus.tcl:189
+#: ../tcl/pd_menus.tcl:192
 msgid "Zoom Out"
 msgstr ""
 
-#: ../tcl/pd_menus.tcl:64 ../tcl/pd_menus.tcl:91 ../tcl/pd_menus.tcl:123
-#: ../tcl/pd_menus.tcl:197 ../tcl/pd_menus.tcl:613
+#: ../tcl/pd_menus.tcl:64 ../tcl/pd_menus.tcl:91 ../tcl/pd_menus.tcl:92
+#: ../tcl/pd_menus.tcl:123 ../tcl/pd_menus.tcl:125 ../tcl/pd_menus.tcl:197
+#: ../tcl/pd_menus.tcl:200 ../tcl/pd_menus.tcl:613 ../tcl/pd_menus.tcl:622
 msgid "Edit Mode"
 msgstr ""
 
-#: ../tcl/pd_menus.tcl:67 ../tcl/pd_menus.tcl:126 ../tcl/pd_menus.tcl:160
-#: ../tcl/pd_menus.tcl:352
+#: ../tcl/pd_menus.tcl:67 ../tcl/pd_menus.tcl:126 ../tcl/pd_menus.tcl:128
+#: ../tcl/pd_menus.tcl:160 ../tcl/pd_menus.tcl:163 ../tcl/pd_menus.tcl:352
+#: ../tcl/pd_menus.tcl:359
 msgid "Undo"
 msgstr ""
 
-#: ../tcl/pd_menus.tcl:68 ../tcl/pd_menus.tcl:127 ../tcl/pd_menus.tcl:162
-#: ../tcl/pd_menus.tcl:358
+#: ../tcl/pd_menus.tcl:68 ../tcl/pd_menus.tcl:127 ../tcl/pd_menus.tcl:129
+#: ../tcl/pd_menus.tcl:162 ../tcl/pd_menus.tcl:165 ../tcl/pd_menus.tcl:358
+#: ../tcl/pd_menus.tcl:365
 msgid "Redo"
 msgstr ""
 
-#: ../tcl/pd_menus.tcl:76 ../tcl/pd_menus.tcl:103 ../tcl/pd_menus.tcl:135
-#: ../tcl/pd_menus.tcl:334
+#: ../tcl/pd_menus.tcl:76 ../tcl/pd_menus.tcl:103 ../tcl/pd_menus.tcl:104
+#: ../tcl/pd_menus.tcl:135 ../tcl/pd_menus.tcl:137 ../tcl/pd_menus.tcl:334
+#: ../tcl/pd_menus.tcl:339
 msgid "List of objects..."
 msgstr ""
 
-#: ../tcl/pd_menus.tcl:144 ../tcl/pd_menus.tcl:543 ../tcl/pd_menus.tcl:575
-#: ../tcl/pd_menus.tcl:622
+#: ../tcl/pd_menus.tcl:84 ../tcl/pd_menus.tcl:150 ../tcl/pd_menus.tcl:559
+#: ../tcl/pd_menus.tcl:588 ../tcl/pd_menus.tcl:636
+msgid "Save Current Patch As..."
+msgstr ""
+
+#: ../tcl/pd_menus.tcl:105 ../tcl/pd_menus.tcl:341
+msgid "CEAMMC objects"
+msgstr ""
+
+#: ../tcl/pd_menus.tcl:144 ../tcl/pd_menus.tcl:146 ../tcl/pd_menus.tcl:543
+#: ../tcl/pd_menus.tcl:550 ../tcl/pd_menus.tcl:575 ../tcl/pd_menus.tcl:583
+#: ../tcl/pd_menus.tcl:622 ../tcl/pd_menus.tcl:631
 msgid "New"
 msgstr ""
 
-#: ../tcl/pd_menus.tcl:145 ../tcl/pd_menus.tcl:544 ../tcl/pd_menus.tcl:576
-#: ../tcl/pd_menus.tcl:623 ../tcl/pdtk_canvas.tcl:221
+#: ../tcl/pd_menus.tcl:145 ../tcl/pd_menus.tcl:147 ../tcl/pd_menus.tcl:544
+#: ../tcl/pd_menus.tcl:551 ../tcl/pd_menus.tcl:576 ../tcl/pd_menus.tcl:584
+#: ../tcl/pd_menus.tcl:623 ../tcl/pd_menus.tcl:632 ../tcl/pdtk_canvas.tcl:221
 #: ../tcl/pdtk_canvas.tcl:241 ../tcl/pdtk_canvas.tcl:243
 msgid "Open"
 msgstr ""
 
-#: ../tcl/pd_menus.tcl:150 ../tcl/pd_menus.tcl:555 ../tcl/pd_menus.tcl:582
-#: ../tcl/pd_menus.tcl:629
+#: ../tcl/pd_menus.tcl:150 ../tcl/pd_menus.tcl:153 ../tcl/pd_menus.tcl:555
+#: ../tcl/pd_menus.tcl:563 ../tcl/pd_menus.tcl:582 ../tcl/pd_menus.tcl:591
+#: ../tcl/pd_menus.tcl:629 ../tcl/pd_menus.tcl:639
 msgid "Message..."
 msgstr ""
 
-#: ../tcl/pd_menus.tcl:165
+#: ../tcl/pd_menus.tcl:165 ../tcl/pd_menus.tcl:168
 msgid "Cut"
 msgstr ""
 
-#: ../tcl/pd_menus.tcl:173
+#: ../tcl/pd_menus.tcl:173 ../tcl/pd_menus.tcl:176
 msgid "Select All"
 msgstr ""
 
-#: ../tcl/pd_menus.tcl:193
+#: ../tcl/pd_menus.tcl:193 ../tcl/pd_menus.tcl:196
 msgid "Clear Console"
 msgstr ""
 
-#: ../tcl/pd_menus.tcl:203 ../tcl/pd_menus.tcl:535 ../tcl/pd_menus.tcl:584
-#: ../tcl/pd_menus.tcl:631
+#: ../tcl/pd_menus.tcl:203 ../tcl/pd_menus.tcl:206 ../tcl/pd_menus.tcl:535
+#: ../tcl/pd_menus.tcl:542 ../tcl/pd_menus.tcl:584 ../tcl/pd_menus.tcl:593
+#: ../tcl/pd_menus.tcl:631 ../tcl/pd_menus.tcl:641
 msgid "Preferences"
 msgstr ""
 
-#: ../tcl/pd_menus.tcl:214
+#: ../tcl/pd_menus.tcl:214 ../tcl/pd_menus.tcl:217
 msgid "Message"
 msgstr ""
 
-#: ../tcl/pd_menus.tcl:216
+#: ../tcl/pd_menus.tcl:216 ../tcl/pd_menus.tcl:219
 msgid "Number"
 msgstr ""
 
-#: ../tcl/pd_menus.tcl:218
+#: ../tcl/pd_menus.tcl:218 ../tcl/pd_menus.tcl:221
 msgid "Symbol"
 msgstr ""
 
-#: ../tcl/pd_menus.tcl:220
+#: ../tcl/pd_menus.tcl:220 ../tcl/pd_menus.tcl:223
 msgid "Comment"
 msgstr ""
 
-#: ../tcl/pd_menus.tcl:242
+#: ../tcl/pd_menus.tcl:242 ../tcl/pd_menus.tcl:245
 msgid "Graph"
 msgstr ""
 
-#: ../tcl/pd_menus.tcl:250
+#: ../tcl/pd_menus.tcl:250 ../tcl/pd_menus.tcl:253
 msgid "Find..."
 msgstr ""
 
-#: ../tcl/pd_menus.tcl:252
+#: ../tcl/pd_menus.tcl:252 ../tcl/pd_menus.tcl:255
 msgid "Find Again"
 msgstr ""
 
-#: ../tcl/pd_menus.tcl:254
+#: ../tcl/pd_menus.tcl:254 ../tcl/pd_menus.tcl:257
 msgid "Find Last Error"
 msgstr ""
 
-#: ../tcl/pd_menus.tcl:260
+#: ../tcl/pd_menus.tcl:260 ../tcl/pd_menus.tcl:263
 msgid "DSP On"
 msgstr ""
 
-#: ../tcl/pd_menus.tcl:262
+#: ../tcl/pd_menus.tcl:262 ../tcl/pd_menus.tcl:265
 msgid "DSP Off"
 msgstr ""
 
-#: ../tcl/pd_menus.tcl:266
+#: ../tcl/pd_menus.tcl:266 ../tcl/pd_menus.tcl:269
 msgid "Test Audio and MIDI..."
 msgstr ""
 
-#: ../tcl/pd_menus.tcl:268
+#: ../tcl/pd_menus.tcl:268 ../tcl/pd_menus.tcl:271
 msgid "Load Meter"
 msgstr ""
 
-#: ../tcl/pd_menus.tcl:290 ../tcl/pd_menus.tcl:513
+#: ../tcl/pd_menus.tcl:290 ../tcl/pd_menus.tcl:293 ../tcl/pd_menus.tcl:513
+#: ../tcl/pd_menus.tcl:520
 msgid "Audio Settings..."
 msgstr ""
 
-#: ../tcl/pd_menus.tcl:292 ../tcl/pd_menus.tcl:515
+#: ../tcl/pd_menus.tcl:292 ../tcl/pd_menus.tcl:295 ../tcl/pd_menus.tcl:515
+#: ../tcl/pd_menus.tcl:522
 msgid "MIDI Settings..."
 msgstr ""
 
-#: ../tcl/pd_menus.tcl:301
+#: ../tcl/pd_menus.tcl:301 ../tcl/pd_menus.tcl:304
 msgid "Minimize"
 msgstr ""
 
-#: ../tcl/pd_menus.tcl:303
+#: ../tcl/pd_menus.tcl:303 ../tcl/pd_menus.tcl:306
 msgid "Zoom"
 msgstr ""
 
-#: ../tcl/pd_menus.tcl:306
+#: ../tcl/pd_menus.tcl:306 ../tcl/pd_menus.tcl:309
 msgid "Bring All to Front"
 msgstr ""
 
-#: ../tcl/pd_menus.tcl:310
+#: ../tcl/pd_menus.tcl:310 ../tcl/pd_menus.tcl:313
 msgid "Next Window"
 msgstr ""
 
-#: ../tcl/pd_menus.tcl:313
+#: ../tcl/pd_menus.tcl:313 ../tcl/pd_menus.tcl:316
 msgid "Previous Window"
 msgstr ""
 
-#: ../tcl/pd_menus.tcl:320
+#: ../tcl/pd_menus.tcl:320 ../tcl/pd_menus.tcl:323
 msgid "Parent Window"
 msgstr ""
 
-#: ../tcl/pd_menus.tcl:329
+#: ../tcl/pd_menus.tcl:329 ../tcl/pd_menus.tcl:332
 msgid "HTML Manual..."
 msgstr ""
 
-#: ../tcl/pd_menus.tcl:331
+#: ../tcl/pd_menus.tcl:331 ../tcl/pd_menus.tcl:334
 msgid "FLOSS Manual..."
 msgstr ""
 
 #: ../tcl/pd_menus.tcl:337
+msgid "Pd tutorial by Johannes Kreidler"
+msgstr ""
+
+#: ../tcl/pd_menus.tcl:337 ../tcl/pd_menus.tcl:344
 msgid "puredata.info"
 msgstr ""
 
-#: ../tcl/pd_menus.tcl:339
+#: ../tcl/pd_menus.tcl:339 ../tcl/pd_menus.tcl:346
 msgid "Report a bug"
 msgstr ""
 
-#: ../tcl/pd_menus.tcl:391
+#: ../tcl/pd_menus.tcl:391 ../tcl/pd_menus.tcl:398
 msgid "Clear Menu"
 msgstr ""
 
-#: ../tcl/pd_menus.tcl:509
+#: ../tcl/pd_menus.tcl:509 ../tcl/pd_menus.tcl:516
 msgid "Path..."
 msgstr ""
 
-#: ../tcl/pd_menus.tcl:511
+#: ../tcl/pd_menus.tcl:511 ../tcl/pd_menus.tcl:518
 msgid "Startup..."
 msgstr ""
 
-#: ../tcl/pd_menus.tcl:517
+#: ../tcl/pd_menus.tcl:517 ../tcl/pd_menus.tcl:524
 msgid "Zoom new windows"
 msgstr ""
 
-#: ../tcl/pd_menus.tcl:547
+#: ../tcl/pd_menus.tcl:547 ../tcl/pd_menus.tcl:554
 msgid "Open Recent"
 msgstr ""
 
-#: ../tcl/pd_menus.tcl:590 ../tcl/pd_menus.tcl:637
+#: ../tcl/pd_menus.tcl:590 ../tcl/pd_menus.tcl:599 ../tcl/pd_menus.tcl:637
+#: ../tcl/pd_menus.tcl:647
 msgid "Quit"
 msgstr ""
 

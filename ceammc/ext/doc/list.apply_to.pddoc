@@ -17,7 +17,7 @@
             </also>
         </meta>
         <arguments>
-            <argument name="index" type="int">position index. Negative value means position from end of the list.
+            <argument name="index" type="int">position index (starting from 0). Negative value means position from end of the list.
             For example: '-1' means last element.</argument>
         </arguments>
         <inlets>

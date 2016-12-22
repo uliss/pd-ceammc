@@ -17,6 +17,11 @@
 
 namespace ceammc {
 
+Atom::Atom()
+{
+    a_type = A_NULL;
+}
+
 Atom::Atom(const t_atom& a)
     : t_atom(a)
 {
@@ -39,6 +44,11 @@ Atom::Atom(t_symbol* s)
 bool Atom::isFloat() const
 {
     return a_type == A_FLOAT;
+}
+
+bool Atom::isNone() const
+{
+    return a_type == A_NULL;
 }
 
 bool Atom::isSymbol() const
@@ -149,6 +159,11 @@ bool Atom::operator<(const Atom& a) const
     }
 
     return false;
+}
+
+void Atom::output(_outlet* x) const
+{
+    to_outlet(x, *this);
 }
 
 bool operator==(const Atom& a1, const Atom& a2)

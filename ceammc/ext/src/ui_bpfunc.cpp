@@ -552,6 +552,7 @@ void bpf_m_vline(t_object *z, t_symbol *s, int argc, t_atom *argv)
     
     ui_bpfunc *zx = (ui_bpfunc*)z;
     
+
     float last_time = 0;
     
     //memory dealloc???

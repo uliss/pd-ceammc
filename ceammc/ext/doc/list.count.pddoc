@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pddoc version="1.0">
+    <object name="list.count">
+        <title>list.count</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>returns the number of items that equal to specified value</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>list</category>
+            <keywords>list</keywords>
+            <since>0.1</since>
+            <also>
+                <see>list.count_if</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="pattern" type="float">count pattern value</argument>
+        </arguments>
+        <methods>
+            <method name="pattern">
+                <param type="float">new pattern value</param>
+            </method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="list">Input list</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo>change pattern value</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>count of found elements</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+          [pattern c(   [list a b c c(
+          |             |
+[1 2 3 1( | [F]         |
+|         | |.          |
+[list.count             a]
+|        |
+[F]      [print]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
+
