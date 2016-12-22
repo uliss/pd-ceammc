@@ -102,6 +102,7 @@ proc ::pd_menus::configure_for_canvas {mytoplevel} {
     # Help menu
     # make sure "List of objects..." is enabled, it sometimes greys out on Mac
     $menubar.help entryconfigure [_ "List of objects..."] -state normal
+    $menubar.help entryconfigure [_ "CEAMMC objects"]     -state normal
 }
 
 proc ::pd_menus::configure_for_dialog {mytoplevel} {
