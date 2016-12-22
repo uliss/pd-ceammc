@@ -25,10 +25,14 @@ Atom::Atom()
 Atom::Atom(const t_atom& a)
     : t_atom(a)
 {
-    if (a_type == A_DEFFLOAT)
+    switch (a_type) {
+    case A_DEFFLOAT:
         a_type = A_FLOAT;
-    if (a_type == A_DEFSYMBOL)
+        break;
+    case A_DEFSYMBOL:
         a_type = A_SYMBOL;
+        break;
+    }
 }
 
 Atom::Atom(t_float v)
@@ -43,17 +47,17 @@ Atom::Atom(t_symbol* s)
 
 bool Atom::isFloat() const
 {
-    return a_type == A_FLOAT;
+    return type() == FLOAT;
 }
 
 bool Atom::isNone() const
 {
-    return a_type == A_NULL;
+    return type() == NONE;
 }
 
 bool Atom::isSymbol() const
 {
-    return a_type == A_SYMBOL;
+    return type() == SYMBOL;
 }
 
 Atom::Type Atom::type() const
@@ -121,7 +125,7 @@ bool Atom::setSymbol(t_symbol* s, bool force)
 
 t_float Atom::asFloat() const
 {
-    return a_w.w_float;
+    return isFloat() ? a_w.w_float : 0;
 }
 
 t_symbol* Atom::asSymbol() const
