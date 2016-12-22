@@ -37,14 +37,30 @@ class AtomList {
 public:
     AtomList();
     AtomList(size_t n, t_atom* lst);
+    explicit AtomList(int n, t_atom* lst);
     size_t size() const;
     bool empty() const;
 
-    Atom at(size_t pos) const;
-    Atom* relAt(int pos);
-    const Atom* relAt(int pos) const;
+    /**
+     * @brief returns reference to element at specified position
+     * @param pos - position (starting from 0)
+     * @return reference to element
+     * @throw exception if invalid position given
+     */
+    Atom& at(size_t pos);
+    const Atom& at(size_t pos) const;
+
+    /**
+     * @brief returns pointer to element at specified relative position
+     * @param pos - positive value means position from the begining, negative position - from end.
+     * @example pos == -1 means last element (if exists)
+     * @return pointer to element, or NULL if no element at given position
+     */
+    Atom* relativeAt(int pos);
+    const Atom* relativeAt(int pos) const;
 
     void fromPdData(size_t n, t_atom* lst);
+    void fromPdData(int n, t_atom* lst);
     t_atom* toPdData() const;
     void append(const Atom& a);
     bool insert(size_t pos, const Atom& a);
@@ -95,6 +111,13 @@ public:
      * @param x - output outlet
      */
     void outputAtoms(t_outlet* x) const;
+
+    /**
+      * Outputs list to given outlet
+      * @param x - pointer to outlet
+      */
+    void output(t_outlet* x) const;
+
 public:
     friend bool operator==(const AtomList& l1, const AtomList& l2);
     friend bool operator!=(const AtomList& l1, const AtomList& l2);

@@ -51,6 +51,12 @@ public:
 
     bool operator<(const Atom& a) const;
 
+    /**
+     * @brief outputs atom to given outlet
+     * @param x - pointer to outlet
+     */
+    void output(t_outlet* x) const;
+
 public:
     friend bool operator==(const Atom& a1, const Atom& a2);
     friend bool operator!=(const Atom& a1, const Atom& a2);

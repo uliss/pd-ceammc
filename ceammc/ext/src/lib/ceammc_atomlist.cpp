@@ -54,6 +54,11 @@ AtomList::AtomList(size_t n, t_atom* lst)
     fromPdData(n, lst);
 }
 
+AtomList::AtomList(int n, t_atom* lst)
+{
+    fromPdData(n, lst);
+}
+
 size_t AtomList::size() const
 {
     return atoms_.size();
@@ -64,12 +69,17 @@ bool AtomList::empty() const
     return atoms_.empty();
 }
 
-Atom AtomList::at(size_t pos) const
+Atom& AtomList::at(size_t pos)
 {
     return atoms_.at(pos);
 }
 
-Atom* AtomList::relAt(int pos)
+const Atom& AtomList::at(size_t pos) const
+{
+    return atoms_.at(pos);
+}
+
+Atom* AtomList::relativeAt(int pos)
 {
     size_t idx;
     if (!getRelativeIdx(pos, &idx))
@@ -78,9 +88,9 @@ Atom* AtomList::relAt(int pos)
     return &atoms_[static_cast<size_t>(idx)];
 }
 
-const Atom* AtomList::relAt(int pos) const
+const Atom* AtomList::relativeAt(int pos) const
 {
-    return const_cast<AtomList*>(this)->relAt(pos);
+    return const_cast<AtomList*>(this)->relativeAt(pos);
 }
 
 void AtomList::fromPdData(size_t n, t_atom* lst)
@@ -90,6 +100,11 @@ void AtomList::fromPdData(size_t n, t_atom* lst)
     for (size_t i = 0; i < n; i++) {
         atoms_.push_back(lst[i]);
     }
+}
+
+void AtomList::fromPdData(int n, t_atom* lst)
+{
+    fromPdData(static_cast<size_t>(n), lst);
 }
 
 t_atom* AtomList::toPdData() const
@@ -370,6 +385,11 @@ void AtomList::outputAtoms(t_outlet* x) const
 {
     for (size_t i = 0; i < size(); i++)
         to_outlet(x, at(i));
+}
+
+void AtomList::output(_outlet* x) const
+{
+    to_outlet(x, *this);
 }
 
 bool operator==(const AtomList& l1, const AtomList& l2)

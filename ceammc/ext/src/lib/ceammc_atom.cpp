@@ -161,6 +161,11 @@ bool Atom::operator<(const Atom& a) const
     return false;
 }
 
+void Atom::output(_outlet* x) const
+{
+    to_outlet(x, *this);
+}
+
 bool operator==(const Atom& a1, const Atom& a2)
 {
     if (&a1 == &a2)
