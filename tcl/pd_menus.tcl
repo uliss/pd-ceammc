@@ -81,6 +81,7 @@ proc ::pd_menus::configure_for_canvas {mytoplevel} {
     # File menu
     $menubar.file entryconfigure [_ "Save"] -state normal
     $menubar.file entryconfigure [_ "Save As..."] -state normal
+    $menubar.file entryconfigure [_ "Save Current Patch As..."] -state normal
     $menubar.file entryconfigure [_ "Print..."] -state normal
     $menubar.file entryconfigure [_ "Close"] -state normal
     # Edit menu
@@ -145,6 +146,7 @@ proc ::pd_menus::build_file_menu {mymenu} {
     $mymenu entryconfigure [_ "Open"]       -command {menu_open}
     $mymenu entryconfigure [_ "Save"]       -command {menu_send $::focused_window menusave}
     $mymenu entryconfigure [_ "Save As..."] -command {menu_send $::focused_window menusaveas}
+    $mymenu entryconfigure [_ "Save Current Patch As..."] -command {menu_send $::focused_window menusavecurrentas}
     #$mymenu entryconfigure [_ "Revert*"]    -command {menu_revert $::focused_window}
     $mymenu entryconfigure [_ "Close"]      -command {menu_send_float $::focused_window menuclose 0}
     $mymenu entryconfigure [_ "Message..."] -command {menu_message_dialog}
@@ -553,6 +555,7 @@ proc ::pd_menus::build_file_menu_aqua {mymenu} {
     $mymenu add command -label [_ "Close"]      -accelerator "$accelerator+W"
     $mymenu add command -label [_ "Save"]       -accelerator "$accelerator+S"
     $mymenu add command -label [_ "Save As..."] -accelerator "$accelerator+Shift+S"
+    $mymenu add command -label [_ "Save Current Patch As..."] -accelerator "$accelerator+Alt+Shift+S"
     #$mymenu add command -label [_ "Save All"]
     #$mymenu add command -label [_ "Revert to Saved"]
     $mymenu add  separator
@@ -581,6 +584,7 @@ proc ::pd_menus::build_file_menu_x11 {mymenu} {
     $mymenu add  separator
     $mymenu add command -label [_ "Save"]        -accelerator "$accelerator+S"
     $mymenu add command -label [_ "Save As..."]  -accelerator "Shift+$accelerator+S"
+    $mymenu add command -label [_ "Save Current Patch As..."] -accelerator "$accelerator+Alt+Shift+S"
     #    $mymenu add command -label "Revert"
     $mymenu add  separator
     $mymenu add command -label [_ "Message..."]  -accelerator "$accelerator+M"
@@ -628,6 +632,7 @@ proc ::pd_menus::build_file_menu_win32 {mymenu} {
     $mymenu add  separator
     $mymenu add command -label [_ "Save"]        -accelerator "$accelerator+S"
     $mymenu add command -label [_ "Save As..."]  -accelerator "Shift+$accelerator+S"
+    $mymenu add command -label [_ "Save Current Patch As..."] -accelerator "$accelerator+Alt+Shift+S"
     #    $mymenu add command -label "Revert"
     $mymenu add  separator
     $mymenu add command -label [_ "Message..."]  -accelerator "$accelerator+M"
