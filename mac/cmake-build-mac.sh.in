@@ -54,6 +54,7 @@ mkdir -p tcl/ceammc
 
 echo "Copying plugins..."
 cp -R $SRC_DIR/ceammc/gui/plugins/*.tcl tcl/ceammc
+cp -R $SRC_DIR/ceammc/gui/plugins/*.cfg tcl/ceammc
 
 echo "Copying docs..."
 rsync -a --exclude=.DS_Store --exclude=CMake* "$SRC_DIR/doc" .
