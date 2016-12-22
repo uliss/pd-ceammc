@@ -94,6 +94,7 @@ done
 cp $CEAMMC_EXT_BIN_DIR/*.dylib $PD_EXTRA/ceammc
 echo "Copying CEAMMC help files:"
 cp $SRC_DIR/ceammc/ext/doc/*-help.pd $PD_EXTRA/ceammc
+chmod 0444 $PD_EXTRA/ceammc/*-help.pd
 
 
 echo "Copying license..."
