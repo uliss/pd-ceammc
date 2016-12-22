@@ -1947,6 +1947,7 @@ void canvas_motion(t_canvas *x, t_floatarg xpos, t_floatarg ypos,
         clock_delay(x->gl_editor->e_clock, 5);
         x->gl_editor->e_xnew = xpos;
         x->gl_editor->e_ynew = ypos;
+        
     }
     else if (x->gl_editor->e_onmotion == MA_REGION)
         canvas_doregion(x, xpos, ypos, 0);
@@ -2860,6 +2861,16 @@ void canvas_editmode(t_canvas *x, t_floatarg state)
           glist_getcanvas(x), x->gl_edit);
 }
 
+    /* CEAMMC grid */
+void canvas_gridmode(t_canvas *x, t_floatarg state)
+{
+    if (x->gl_grid == (unsigned int) state)
+        return;
+    x->gl_grid = (unsigned int) state;
+    canvas_drawgrid(x);
+    printf("->grid mode\n");
+}
+
     /* called by canvas_font below */
 static void canvas_dofont(t_canvas *x, t_floatarg font, t_floatarg xresize,
     t_floatarg yresize)
@@ -2905,6 +2916,7 @@ static void canvas_font(t_canvas *x, t_floatarg font, t_floatarg resize,
     sys_defaultfont = font;
 }
 
+/*CEAMMC grid moved  declarations to canvas_motion */
 
 void glist_getnextxy(t_glist *gl, int *xpix, int *ypix)
 {
@@ -2916,6 +2928,18 @@ void glist_getnextxy(t_glist *gl, int *xpix, int *ypix)
 static void glist_setlastxy(t_glist *gl, int xval, int yval)
 {
     canvas_last_glist = gl;
+    
+    // CEAMMC grid
+//    if ((t_canvas*)gl->gl_grid)
+//    {
+//        canvas_last_glist_x = floor((xval)/20)*20;
+//        canvas_last_glist_y = floor((yval)/20)*20;
+//    }
+//    else
+    {
+        canvas_last_glist_x = xval;
+        canvas_last_glist_y = yval;
+    }
 }
 
 
@@ -2976,6 +3000,10 @@ void g_editor_setup(void)
         gensym("donecanvasdialog"), A_GIMME, A_NULL);
     class_addmethod(canvas_class, (t_method)glist_arraydialog,
         gensym("arraydialog"), A_SYMBOL, A_FLOAT, A_FLOAT, A_FLOAT, A_NULL);
+    
+/* ---------- CEAMMC grid ---------- */
+    class_addmethod(canvas_class, (t_method)canvas_gridmode,
+                    gensym("gridmode"), A_DEFFLOAT, A_NULL);
 
 /* -------------- connect method used in reading files ------------------ */
     class_addmethod(canvas_class, (t_method)canvas_connect,
