@@ -14,7 +14,7 @@ struct t_list_count_if {
     size_t x_count;
 };
 
-static void from_predicate(t_list_count_if* x, t_symbol* s, int argc, t_atom* argv)
+static void from_predicate(t_list_count_if* x, t_symbol*, int argc, t_atom* argv)
 {
     if (argc < 1)
         return;
@@ -22,10 +22,11 @@ static void from_predicate(t_list_count_if* x, t_symbol* s, int argc, t_atom* ar
     x->x_count += atom_getfloat(argv);
 }
 
-static void list_count_if_list(t_list_count_if* x, t_symbol* s, int argc, t_atom* argv)
+static void list_count_if_list(t_list_count_if* x, t_symbol*, int argc, t_atom* argv)
 {
     x->x_count = 0;
-    ceammc::AtomList lst(argc, argv);
+    ceammc::AtomList lst(static_cast<size_t>(argc), argv);
+    // output separately
     lst.outputAtoms(x->x_out1);
     outlet_float(x->x_obj.te_outlet, x->x_count);
 }
@@ -42,6 +43,8 @@ static void* list_count_if_new()
 
 static void list_count_if_free(t_list_count_if* x)
 {
+    inlet_free(x->x_in1);
+    outlet_free(x->x_out1);
 }
 
 extern "C" void setup_list0x2ecount_if()
