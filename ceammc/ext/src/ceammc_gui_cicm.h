@@ -1,5 +1,5 @@
 //
-//  new_c_gui.h
+//  ceammc_gui_cicm.h
 //  pd_ext
 //
 //  Created by Alex Nadzharov on 15/12/16.
@@ -15,11 +15,7 @@
 #include <vector>
 #include <map>
 
-//#include "ceammc_draw_wrappers.h"
-//#include "ceammc_named_atom.h"
-
 //#include "../../extra/CicmWrapper/Sources/cicm_wrapper.h"
-
 //TEMP
 
 extern "C" {

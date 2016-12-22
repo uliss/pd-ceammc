@@ -199,6 +199,9 @@ proc ::pd_menus::build_edit_menu {mymenu} {
     $mymenu add check -label [_ "Edit Mode"]    -accelerator "$accelerator+E" \
         -variable ::editmode_button \
         -command {menu_editmode $::editmode_button}
+    $mymenu add check -label [_ "Draw Grid"]    -accelerator "$accelerator+Alt+Shift+G" \
+        -variable ::gridmode_button \
+        -command {menu_gridmode $::gridmode_button}
     if {$::windowingsystem ne "aqua"} {
         $mymenu add  separator
         create_preferences_menu $mymenu.preferences

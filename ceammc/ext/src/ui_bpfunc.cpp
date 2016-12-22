@@ -552,7 +552,6 @@ void bpf_m_vline(t_object *z, t_symbol *s, int argc, t_atom *argv)
     
     ui_bpfunc *zx = (ui_bpfunc*)z;
     
-    //int list_count = zx->points->size() * 3;
     float last_time = 0;
     
     //memory dealloc???
@@ -575,8 +574,7 @@ void bpf_m_vline(t_object *z, t_symbol *s, int argc, t_atom *argv)
         last_time += this_time;
         
         outlet_list(zx->out1, &s_list, 3, out_list);
-        
-        //j++;
+
     }
     
     

@@ -73,6 +73,18 @@ proc ::pd_menucommands::menu_toggle_editmode {} {
     menu_editmode [expr {! $::editmode_button}]
 }
 
+proc ::pd_menucommands::menu_gridmode {state} {
+if {[winfo class $::focused_window] ne "PatchWindow"} {return}
+set ::gridmode_button $state
+# this shouldn't be necessary because 'pd' will reply with pdtk_canvas_editmode
+#    set ::editmode($::focused_window) $state
+pdsend "$::focused_window gridmode $state"
+}
+
+proc ::pd_menucommands::menu_toggle_gridmode {} {
+menu_gridmode [expr {! $::gridmode_button}]
+}
+
 # ------------------------------------------------------------------------------
 # generic procs for sending menu events
 

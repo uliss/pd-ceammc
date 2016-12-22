@@ -190,6 +190,8 @@ struct _glist
     unsigned int gl_hidetext:1;     /* hide object-name + args when doing graph on parent */
     unsigned int gl_private:1;      /* private flag used in x_scalar.c */
     unsigned int gl_isclone:1;      /* esists as part of a clone object */
+    /* CEAMMC grid */
+    unsigned int gl_grid:1;
 };
 
 #define gl_gobj gl_obj.te_g
@@ -651,6 +653,9 @@ EXTERN t_symbol *iemgui_dollar2raute(t_symbol *s);
 
 /*-------------  g_clone.c ------------- */
 extern t_class *clone_class;
+    
+/* ----- CEAMMC grid ----- */
+    EXTERN void canvas_drawgrid(t_canvas *x);
 
 #if defined(_LANGUAGE_C_PLUS_PLUS) || defined(__cplusplus)
 }
