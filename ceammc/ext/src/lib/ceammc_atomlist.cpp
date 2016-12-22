@@ -366,6 +366,12 @@ FloatList AtomList::asFloats() const
     return res;
 }
 
+void AtomList::outputAtoms(t_outlet* x) const
+{
+    for (size_t i = 0; i < size(); i++)
+        to_outlet(x, at(i));
+}
+
 bool operator==(const AtomList& l1, const AtomList& l2)
 {
     if (&l1 == &l2)

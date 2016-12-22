@@ -90,6 +90,11 @@ public:
 
     FloatList asFloats() const;
 
+    /**
+     * @brief output list atoms separatly, one by one
+     * @param x - output outlet
+     */
+    void outputAtoms(t_outlet* x) const;
 public:
     friend bool operator==(const AtomList& l1, const AtomList& l2);
     friend bool operator!=(const AtomList& l1, const AtomList& l2);
