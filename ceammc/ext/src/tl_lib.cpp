@@ -44,16 +44,19 @@ EXTERN int tll_cue_find_by_object(t_object* obj)
 }
 
 
+const bool tll_sort_pred (tl_t_cue const& a, tl_t_cue const& b)  {
+    return a.x_pos < b.x_pos;
+}
 
 static void tll_cue_assign_numbers()
 {
-    struct pred {
-        bool operator()(tl_t_cue const& a, tl_t_cue const& b) const {
-            return a.x_pos < b.x_pos;
-        }
-    } pred1;
+//    struct pred {
+//        bool operator()(tl_t_cue const& a, tl_t_cue const& b) const {
+//            return a.x_pos < b.x_pos;
+//        }
+//    } pred1;
     
-    std::sort(tl_ui_cues.begin(), tl_ui_cues.end(), pred1);
+    std::sort(tl_ui_cues.begin(), tl_ui_cues.end(), tll_sort_pred);
     
 }
 

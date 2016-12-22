@@ -1685,6 +1685,14 @@ extern void canvas_msg(t_glist *gl, t_symbol *s, int argc, t_atom *argv);
 extern void canvas_floatatom(t_glist *gl, t_symbol *s, int argc, t_atom *argv);
 extern void canvas_symbolatom(t_glist *gl, t_symbol *s, int argc, t_atom *argv);
 extern void glist_scalar(t_glist *canvas, t_symbol *s, int argc, t_atom *argv);
+    /* CEAMMC */
+extern void canvas_keyboard(t_glist *gl, t_symbol *s, int argc, t_atom *argv);
+extern void canvas_sliders(t_glist *gl, t_symbol *s, int argc, t_atom *argv);
+extern void canvas_slider2d(t_glist *gl, t_symbol *s, int argc, t_atom *argv);
+extern void canvas_bpfunc(t_glist *gl, t_symbol *s, int argc, t_atom *argv);
+extern void canvas_display(t_glist *gl, t_symbol *s, int argc, t_atom *argv);
+extern void canvas_scope(t_glist *gl, t_symbol *s, int argc, t_atom *argv);
+extern void canvas_spectroscope(t_glist *gl, t_symbol *s, int argc, t_atom *argv);
 
 void g_graph_setup(void);
 void g_editor_setup(void);
@@ -1745,6 +1753,23 @@ void g_canvas_setup(void)
     class_addmethod(canvas_class, (t_method)canvas_mycnv, gensym("mycnv"),
                     A_GIMME, A_NULL);
     class_addmethod(canvas_class, (t_method)canvas_numbox, gensym("numbox"),
+                    A_GIMME, A_NULL);
+    
+/* -------------- CEAMMC GUI: keyboard, sliders etc.   ------------ */
+    
+    class_addmethod(canvas_class, (t_method)canvas_keyboard, gensym("ui.keyboard"),
+                    A_GIMME, A_NULL);
+    class_addmethod(canvas_class, (t_method)canvas_sliders, gensym("ui.sliders"),
+                    A_GIMME, A_NULL);
+    class_addmethod(canvas_class, (t_method)canvas_slider2d, gensym("ui.slider2d"),
+                    A_GIMME, A_NULL);
+    class_addmethod(canvas_class, (t_method)canvas_bpfunc, gensym("ui.bpfunc"),
+                    A_GIMME, A_NULL);
+    class_addmethod(canvas_class, (t_method)canvas_display, gensym("ui.display"),
+                    A_GIMME, A_NULL);
+    class_addmethod(canvas_class, (t_method)canvas_scope, gensym("ui.scope"),
+                    A_GIMME, A_NULL);
+    class_addmethod(canvas_class, (t_method)canvas_spectroscope, gensym("ui.spectroscope"),
                     A_GIMME, A_NULL);
 
 /* ------------------------ gui stuff --------------------------- */

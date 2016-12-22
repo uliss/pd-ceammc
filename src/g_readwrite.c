@@ -769,6 +769,13 @@ static void canvas_menusaveas(t_canvas *x, float fdestroy)
         x2->gl_name->s_name, canvas_getdir(x2)->s_name, (fdestroy != 0));
 }
 
+static void canvas_menusavecurrentas(t_canvas *x, float fdestroy)
+{
+    //t_canvas *x2 = canvas_getrootfor(x);
+    sys_vgui("pdtk_canvas_saveas .x%lx {%s} {%s} %d\n", x,
+             x->gl_name->s_name, canvas_getdir(x)->s_name, (fdestroy != 0));
+}
+
 static void canvas_menusave(t_canvas *x, float fdestroy)
 {
     t_canvas *x2 = canvas_getrootfor(x);
@@ -799,6 +806,9 @@ void g_readwrite_setup(void)
         gensym("menusave"), A_DEFFLOAT, 0);
     class_addmethod(canvas_class, (t_method)canvas_menusaveas,
         gensym("menusaveas"), A_DEFFLOAT, 0);
+/* ------------------ CEAMMC -------------------------------- */
+    class_addmethod(canvas_class, (t_method)canvas_menusavecurrentas,
+                    gensym("menusavecurrentas"), A_DEFFLOAT, 0);
 }
 
 void canvas_readwrite_for_class(t_class *c)

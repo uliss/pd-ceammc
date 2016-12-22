@@ -42,6 +42,8 @@ struct ui_bpfunc : cm_gui_base_pd_object
     float _py;
     
     int addidx;
+    int delidx;
+    
     float addpos;
     float addpos_y;
     bool del_mod;
@@ -64,12 +66,14 @@ inline void bpf_point_sort(t_object *z)
 {
 
     bpf_points *ps = ((ui_bpfunc*)z)->points;
-    
-    struct pred {
-        bool operator()(t_bpt const & a, t_bpt const & b) const {
-            return a.x < b.x;
-        }
-    } pred1;
+
+//    
+//    struct pred {
+//        bool operator()(t_bpt const & a, t_bpt const & b) const {
+//            return a.x < b.x;
+//        }
+//    } pred1;
+
     std::sort(ps->begin(), ps->end(), bpf_sort_pred);
     
     
@@ -96,6 +100,8 @@ inline void bpf_point_add(t_object *z,int idx, float x, float y)
 inline void bpf_point_del(t_object *z,int idx)
 {
     //
+    printf("del pt: %i", idx);
+    
      bpf_points *ps = ((ui_bpfunc*)z)->points;
     
     if (ps->size()>2)
@@ -116,6 +122,13 @@ inline void bpf_points_new(t_object *z)
     if (((ui_bpfunc*)z)->points) free (((ui_bpfunc*)z)->points);
     
     ((ui_bpfunc*)z)->points = new bpf_points;
+}
+
+inline void bpf_points_free(t_object *z)
+{
+    //check
+    if (((ui_bpfunc*)z)->points) free (((ui_bpfunc*)z)->points);
+    
 }
 
 
@@ -191,12 +204,12 @@ UI_fun(ui_bpfunc)::wx_paint(t_object *z, t_object *view)
             }
             
             
+            //yet disabled
+//            float lw = (it->ldist<.4);// && (it->ldist>.2);
+//            if (lw<0) lw = 0;
+//            if (lw>1) lw=1;
             
-            float lw = (it->ldist<.4);// && (it->ldist>.2);
-            if (lw<0) lw = 0;
-            if (lw>1) lw=1;
-            
-            egraphics_set_line_width(g, 1+2*lw);
+            egraphics_set_line_width(g, 1);    //yet disabled
             
             ++it;
             
@@ -204,19 +217,17 @@ UI_fun(ui_bpfunc)::wx_paint(t_object *z, t_object *view)
             {
                 egraphics_set_color_hex(g, gensym("#505050"));
                 
-                egraphics_set_line_width(g, 1+2*lw);
+                egraphics_set_line_width(g, 1);
                 egraphics_line(g, px, py, it->x * rect.width, (1-it->y) * rect.height);
                 egraphics_stroke(g);
                 
                 px = it->x * rect.width;
                 py = (1-it->y) * rect.height;
-                
-                lw = (it->ldist<.4);// && (it->ldist>.2);
-                if (lw<0) lw = 0;
-                if (lw>1) lw=1;
-                
-                
-                
+
+                //yet disabled
+//                lw = (it->ldist<.4);
+//                if (lw<0) lw = 0;
+//                if (lw>1) lw=1;
                 
                 egraphics_set_line_width(g, 1);
                 egraphics_rectangle(g, it->x * rect.width -3, (1-it->y) * rect.height -3, 6, 6);
@@ -291,7 +302,7 @@ UI_fun(ui_bpfunc)::wx_mousemove_ext(t_object *z, t_object *view, t_pt pt, long m
         float dot1 = nnx*ndx2 + nny*ndy2;
         //if (dot1<0) dot1 = 0;
         
-        it->ldist = abs(dot1);
+        it->ldist = 1;//abs(dot1);
         
         //float d2 = .5 * sqrtf(dx2*dx2 + dy2*dy2);
         //it->ldist = sqrtf(it->dist * it->dist - d2 * d2) + sqrtf(itn->dist * itn->dist - d2 * d2);
@@ -316,6 +327,8 @@ UI_fun(ui_bpfunc)::wx_mousemove_ext(t_object *z, t_object *view, t_pt pt, long m
             zx->addpos = -1;
             zx->del_mod = false;
         }
+        
+        if (it->selected) zx->delidx = i;
         
         if (modifiers == EMOD_ALT)
         {
@@ -357,7 +370,8 @@ UI_fun(ui_bpfunc)::wx_mousedown_ext(t_object *z, t_object *view, t_pt pt, long m
     
     if (modifiers==EMOD_ALT)
     {
-        bpf_point_del(z, zx->addidx);
+        bpf_point_del(z, zx->delidx);
+        printf("del %i\n", zx->delidx);
         cm_gui_object<cm_gui_base_pd_object>::ws_redraw(z);
         
     }
@@ -486,6 +500,88 @@ void bpf_m_raw(t_object *z, t_symbol *s, int argc, t_atom *argv)
     
     outlet_list(zx->out1, &s_list, zx->out_list_count, zx->out_list);
 }
+
+void bpf_m_clear(t_object *z, t_symbol *s, int argc, t_atom *argv)
+{
+    
+    ui_bpfunc *zx = (ui_bpfunc*)z;
+    
+    bpf_points_new(z);
+    
+    bpf_point_add(z, 0, 0, 0);
+    bpf_point_add(z, 1, .5, .75);
+    bpf_point_add(z, 2, 1, 1);
+    
+    cm_gui_object<cm_gui_base_pd_object>::ws_redraw(z);
+
+}
+
+void bpf_m_add(t_object *z, t_symbol *s, int argc, t_atom *argv)
+{
+    ui_bpfunc *zx = (ui_bpfunc*)z;
+    
+    if (argc <2) return;
+    if ( (argv[0].a_type != A_FLOAT) && (argv[1].a_type != A_FLOAT) ) return;
+    
+    float xx = argv[0].a_w.w_float;
+    float yy = argv[1].a_w.w_float;
+    
+    t_rect rect;
+    ebox_get_rect_for_view((t_ebox *)z, &rect);
+    
+    bpf_point_add(z, zx->addidx, (xx-zx->shift_x)/zx->range_x, (yy-zx->shift_y)/zx->range_y);
+    cm_gui_object<cm_gui_base_pd_object>::ws_redraw(z);
+    
+}
+
+void bpf_m_del(t_object *z, t_symbol *s, int argc, t_atom *argv)
+{
+    if (argc <1) return;
+    if (argv[0].a_type != A_FLOAT) return;
+    
+    int del_i = (int)argv[0].a_w.w_float;
+    
+    bpf_point_del(z, del_i);
+    cm_gui_object<cm_gui_base_pd_object>::ws_redraw(z);
+
+    
+}
+
+void bpf_m_vline(t_object *z, t_symbol *s, int argc, t_atom *argv)
+{
+    
+    ui_bpfunc *zx = (ui_bpfunc*)z;
+    
+    //int list_count = zx->points->size() * 3;
+    float last_time = 0;
+    
+    //memory dealloc???
+    
+    for (int j=0;j<zx->points->size();j++)      //i is on vacation
+    {
+        t_atom *out_list = (t_atom*)malloc(sizeof(t_atom)*3);
+        
+        float this_time = zx->points->at(j).x * zx->range_x + zx->shift_x;
+        
+        out_list[1].a_type = A_FLOAT;
+        out_list[1].a_w.w_float = this_time;
+        
+        out_list[0].a_type = A_FLOAT;
+        out_list[0].a_w.w_float = zx->points->at(j).y * zx->range_y + zx->shift_y;
+        
+        out_list[2].a_type = A_FLOAT;
+        out_list[2].a_w.w_float = last_time;
+        
+        last_time += this_time;
+        
+        outlet_list(zx->out1, &s_list, 3, out_list);
+        
+        //j++;
+    }
+    
+    
+}
+
 #pragma mark -
 
 UI_fun(ui_bpfunc)::new_ext(t_object *z, t_symbol *s, int argcl, t_atom *argv)
@@ -525,6 +621,13 @@ UI_fun(ui_bpfunc)::init_ext(t_eclass *z)
     eclass_addmethod(z, (method)(bpf_m_shift_y), ("shift_y"), A_GIMME,0);
     
     eclass_addmethod(z, (method)(bpf_m_raw), ("raw"), A_GIMME,0);
+    
+    eclass_addmethod(z, (method)(bpf_m_clear), ("clear"), A_GIMME,0);
+    
+    eclass_addmethod(z, (method)(bpf_m_add), ("add"), A_GIMME,0);
+    eclass_addmethod(z, (method)(bpf_m_del), ("del"), A_GIMME,0);
+    
+    eclass_addmethod(z, (method)(bpf_m_vline), ("vline"), A_GIMME,0);
 
 }
 
