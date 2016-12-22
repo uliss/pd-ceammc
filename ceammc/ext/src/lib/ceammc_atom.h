@@ -28,10 +28,12 @@ public:
     };
 
 public:
+    Atom();
     Atom(const t_atom& a);
     Atom(t_float v);
     Atom(t_symbol* s);
     bool isFloat() const;
+    bool isNone() const;
     bool isSymbol() const;
 
     Type type() const;
