@@ -547,6 +547,41 @@ void bpf_m_del(t_object *z, t_symbol *s, int argc, t_atom *argv)
     
 }
 
+void bpf_m_vline(t_object *z, t_symbol *s, int argc, t_atom *argv)
+{
+    
+    ui_bpfunc *zx = (ui_bpfunc*)z;
+    
+    //int list_count = zx->points->size() * 3;
+    float last_time = 0;
+    
+    //memory dealloc???
+    
+    for (int j=0;j<zx->points->size();j++)      //i is on vacation
+    {
+        t_atom *out_list = (t_atom*)malloc(sizeof(t_atom)*3);
+        
+        float this_time = zx->points->at(j).x * zx->range_x + zx->shift_x;
+        
+        out_list[1].a_type = A_FLOAT;
+        out_list[1].a_w.w_float = this_time;
+        
+        out_list[0].a_type = A_FLOAT;
+        out_list[0].a_w.w_float = zx->points->at(j).y * zx->range_y + zx->shift_y;
+        
+        out_list[2].a_type = A_FLOAT;
+        out_list[2].a_w.w_float = last_time;
+        
+        last_time += this_time;
+        
+        outlet_list(zx->out1, &s_list, 3, out_list);
+        
+        //j++;
+    }
+    
+    
+}
+
 #pragma mark -
 
 UI_fun(ui_bpfunc)::new_ext(t_object *z, t_symbol *s, int argcl, t_atom *argv)
@@ -591,6 +626,8 @@ UI_fun(ui_bpfunc)::init_ext(t_eclass *z)
     
     eclass_addmethod(z, (method)(bpf_m_add), ("add"), A_GIMME,0);
     eclass_addmethod(z, (method)(bpf_m_del), ("del"), A_GIMME,0);
+    
+    eclass_addmethod(z, (method)(bpf_m_vline), ("vline"), A_GIMME,0);
 
 }
 
