@@ -1,0 +1,17 @@
+digraph "ceammc_gui::properties::ui_property_set"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="ceammc_gui::properties\l::ui_property_set",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="ceammc_gui::object\l::ui_properties_init",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classceammc__gui_1_1object.html#ae7a64dfcf60ab0789360b575edb4d7bb",tooltip="DEPRECATED Initialize default property values. "];
+  Node2 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="ceammc_gui::object\l::setup",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classceammc__gui_1_1object.html#acc0300f5ede9ecd013337baddd6bb74e",tooltip="main setup routine  this methods creates new pd class with one inlet, creates new default ui box attr..."];
+  Node3 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="ceammc_gui::object\l::setup_io",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classceammc__gui_1_1object.html#a50a896ba5220a5b074ea32a5731eef4a",tooltip="temporary / stub "];
+  Node2 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="ceammc_gui::object\l::setup_dsp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classceammc__gui_1_1object.html#a28ee8e0a66a4b9fbc2fe655c658a5d11",tooltip="GUI DSP setup routine  this methods creates new pd class with one inlet, creates new default ui box a..."];
+  Node2 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="ceammc_gui::object\l::setup_noin",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classceammc__gui_1_1object.html#a5b865286ac1930d8b5205c6ec550fc48"];
+}

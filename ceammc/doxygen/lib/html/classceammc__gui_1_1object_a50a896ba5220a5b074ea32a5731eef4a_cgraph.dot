@@ -1,0 +1,19 @@
+digraph "ceammc_gui::object::setup_io"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="ceammc_gui::object\l::setup_io",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="ceammc_gui::object\l::setup",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classceammc__gui_1_1object.html#acc0300f5ede9ecd013337baddd6bb74e",tooltip="main setup routine  this methods creates new pd class with one inlet, creates new default ui box attr..."];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="ceammc_gui::object\l::ui_properties_init",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classceammc__gui_1_1object.html#ae7a64dfcf60ab0789360b575edb4d7bb",tooltip="DEPRECATED Initialize default property values. "];
+  Node3 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="ceammc_gui::properties\l::ui_property_set",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classceammc__gui_1_1properties.html#a61180c37e7a052452e9ad819e91578e1"];
+  Node3 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="ceammc_gui::object\l::ui_properties_init_ext",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classceammc__gui_1_1object.html#a484b6777e6120a75bb442e38ca0e6ba7",tooltip="DEPRECATED &quot;extension&quot;: properties init routine (within class init) "];
+  Node3 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="ceammc_gui::properties::log",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classceammc__gui_1_1properties.html#a66c828972682b993a3cd16940b039905"];
+  Node2 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="ceammc_gui::object\l::init_ext",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classceammc__gui_1_1object.html#a9e50e8adcc0b2389e96a0c7c50457c93",tooltip="&quot;extension&quot;: class initialization "];
+}
