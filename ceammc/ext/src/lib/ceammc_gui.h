@@ -41,10 +41,6 @@ extern "C" {
     
 }
 
-
-
-
-
 namespace ceammc_gui {
     
 #pragma mark UI defines
@@ -184,7 +180,7 @@ struct base_pd_object
  *
  */
 
-typedef std::map<t_object*, properties*> instances;
+typedef std::map<t_object*, properties*> t_instances;
 
 
 /**
@@ -202,7 +198,7 @@ public:
 #pragma mark static - definitions
     
     static t_eclass* pd_class;
-    static instances instances;
+    static t_instances instances;
     
     static properties *ui_default_properties;
     
@@ -933,7 +929,7 @@ template <typename U>
 properties *object<U>::ui_default_properties;
 
 template <typename U>
-instances object<U>::instances;
+t_instances object<U>::instances;
 
 //template <typename U>
 //t_ewidget object<U>::widget;
