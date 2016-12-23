@@ -26,19 +26,13 @@
 #include <vector>
 #include <map>
 
-//#include "../../extra/CicmWrapper/Sources/cicm_wrapper.h"
-//TEMP
+
 
 extern "C" {
     
-#include "../../../extra/CicmWrapper/Sources/eclass.c"
-#include "../../../extra/CicmWrapper/Sources/ecommon.c"
-#include "../../../extra/CicmWrapper/Sources/eobj.c"
-#include "../../../extra/CicmWrapper/Sources/ebox.c"
-#include "../../../extra/CicmWrapper/Sources/epopup.c"
-#include "../../../extra/CicmWrapper/Sources/egraphics.c"
-#include "../../../extra/CicmWrapper/Sources/epdmax.h"
-    
+    //TEMP, replace with 'cicm_wrapper.h'
+    #include "../../../extra/CicmWrapper/Sources/cicm_wrapper_c.h"
+
 }
 
 namespace ceammc_gui {

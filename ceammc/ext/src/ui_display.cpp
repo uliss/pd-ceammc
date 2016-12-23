@@ -82,7 +82,7 @@ namespace ceammc_gui {
     
     UI_fun(ui_display)::m_anything(t_object *z, t_symbol *s, int argc, t_atom *argv)
     {
-        printf("anything\n");
+        //printf("anything\n");
         ui_display *zx = (ui_display*)z;
         
         
@@ -149,10 +149,9 @@ namespace ceammc_gui {
     UI_fun(ui_display)::new_ext(t_object *z, t_symbol *s, int argcl, t_atom *argv)
     {
         ui_display *zx = (ui_display*)z;
+        
         zx->t_e = etext_layout_create();
-        
         zx->t_ef = efont_create(gensym("Helvetica"), gensym(""), gensym("normal"), 12);
-        
         zx->t_c = clock_new(zx, (t_method)display_clock);
         
         
