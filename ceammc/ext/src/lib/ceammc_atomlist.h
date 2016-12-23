@@ -49,6 +49,8 @@ public:
      */
     Atom& at(size_t pos);
     const Atom& at(size_t pos) const;
+    Atom& operator[](size_t pos);
+    const Atom& operator[](size_t pos) const;
 
     /**
      * @brief returns pointer to element at specified relative position
@@ -166,6 +168,18 @@ public:
       */
     void output(t_outlet* x) const;
 
+    /**
+     * Outputs list content as any message. First list atom became selector
+     */
+    void outputAsAny(t_outlet* x) const;
+
+    /**
+     * Outputs list content as any message.
+     * @param x - pointer to outlet
+     * @param s - any selector
+     */
+    void outputAsAny(t_outlet* x, t_symbol* s) const;
+
     enum NonEqualLengthBehaivor {
         MINSIZE = 0, // result of min size
         PADZERO, // result of max size, min list padded with zeroes
@@ -196,7 +210,7 @@ bool operator==(const AtomList& l1, const AtomList& l2);
 bool operator!=(const AtomList& l1, const AtomList& l2);
 std::ostream& operator<<(std::ostream& os, const AtomList& l);
 
-bool to_outlet(t_outlet* x, const AtomList& a);
+void to_outlet(t_outlet* x, const AtomList& a);
 
 } // namespace ceammc
 

@@ -218,7 +218,7 @@ bool to_outlet(t_outlet* x, const Atom& a)
         return true;
     }
 
-    if (a.isSymbol()) {
+    if (a.isSymbol() || a.isProperty()) {
         outlet_symbol(x, a.asSymbol());
         return true;
     }
