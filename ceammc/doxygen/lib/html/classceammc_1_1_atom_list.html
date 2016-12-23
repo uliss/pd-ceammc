@@ -107,7 +107,9 @@ $(document).ready(function(){initNavTree('classceammc_1_1_atom_list.html','');})
 
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="classceammc_1_1_atom_list-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -117,6 +119,19 @@ $(document).ready(function(){initNavTree('classceammc_1_1_atom_list.html','');})
 
 <p><code>#include &lt;<a class="el" href="ceammc__atomlist_8h_source.html">ceammc_atomlist.h</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:adcc13ae2c5194b6d83691b56835ed29e"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classceammc_1_1_atom_list.html#adcc13ae2c5194b6d83691b56835ed29e">NonEqualLengthBehaivor</a> { <br/>
+&#160;&#160;<a class="el" href="classceammc_1_1_atom_list.html#adcc13ae2c5194b6d83691b56835ed29ea5fa7f29f8f40a534c16e8be795bae07c">MINSIZE</a> = 0, 
+<a class="el" href="classceammc_1_1_atom_list.html#adcc13ae2c5194b6d83691b56835ed29ea78022f4dfb700032843387bf24c240a2">PADZERO</a>, 
+<a class="el" href="classceammc_1_1_atom_list.html#adcc13ae2c5194b6d83691b56835ed29ea50fab1d6e2c65f760ad8e48f999d077b">CLIP</a>, 
+<a class="el" href="classceammc_1_1_atom_list.html#adcc13ae2c5194b6d83691b56835ed29ea68c5803ba3d9b8925e52159b26ebf2c7">WRAP</a>, 
+<br/>
+&#160;&#160;<a class="el" href="classceammc_1_1_atom_list.html#adcc13ae2c5194b6d83691b56835ed29eab97dca147a2238fc504ecc21a43fbec8">FOLD</a>
+<br/>
+ }</td></tr>
+<tr class="separator:adcc13ae2c5194b6d83691b56835ed29e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ac49d2e9ceae66ac0fdf0f419b3f07bd1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classceammc_1_1_atom_list.html#ac49d2e9ceae66ac0fdf0f419b3f07bd1">AtomList</a> ()</td></tr>
@@ -138,6 +153,20 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a809cbddcdf03ba6b5eb6395d536c431b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a191ea02cf2db2e5b0146248724b584af"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classceammc_1_1_atom.html">Atom</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classceammc_1_1_atom_list.html#a191ea02cf2db2e5b0146248724b584af">relativeAt</a> (int pos) const </td></tr>
 <tr class="separator:a191ea02cf2db2e5b0146248724b584af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98da82f586d204e8ad8034e39e9285df"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classceammc_1_1_atom.html">Atom</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classceammc_1_1_atom_list.html#a98da82f586d204e8ad8034e39e9285df">clipAt</a> (size_t pos)</td></tr>
+<tr class="separator:a98da82f586d204e8ad8034e39e9285df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a8dc5700e36081a5de8f3666fc7117b"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classceammc_1_1_atom.html">Atom</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classceammc_1_1_atom_list.html#a1a8dc5700e36081a5de8f3666fc7117b">clipAt</a> (size_t pos) const </td></tr>
+<tr class="separator:a1a8dc5700e36081a5de8f3666fc7117b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae37a3576769c578e4cfa89be826f8e85"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classceammc_1_1_atom.html">Atom</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classceammc_1_1_atom_list.html#ae37a3576769c578e4cfa89be826f8e85">wrapAt</a> (size_t pos)</td></tr>
+<tr class="separator:ae37a3576769c578e4cfa89be826f8e85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60e4b885284c1d964e5a2f912b8e067f"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classceammc_1_1_atom.html">Atom</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classceammc_1_1_atom_list.html#a60e4b885284c1d964e5a2f912b8e067f">wrapAt</a> (size_t pos) const </td></tr>
+<tr class="separator:a60e4b885284c1d964e5a2f912b8e067f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18ec1677b1358ef01fd171d9a1c3289a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classceammc_1_1_atom.html">Atom</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classceammc_1_1_atom_list.html#a18ec1677b1358ef01fd171d9a1c3289a">foldAt</a> (size_t pos)</td></tr>
+<tr class="separator:a18ec1677b1358ef01fd171d9a1c3289a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa89fa98cbd34771c61558dee56987ee1"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classceammc_1_1_atom.html">Atom</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classceammc_1_1_atom_list.html#aa89fa98cbd34771c61558dee56987ee1">foldAt</a> (size_t pos) const </td></tr>
+<tr class="separator:aa89fa98cbd34771c61558dee56987ee1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab91234569833c2bb0fa84a61ed213f6f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classceammc_1_1_atom_list.html#ab91234569833c2bb0fa84a61ed213f6f">resizePad</a> (size_t n, const <a class="el" href="classceammc_1_1_atom.html">Atom</a> &amp;v)</td></tr>
+<tr class="separator:ab91234569833c2bb0fa84a61ed213f6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4a2e9ce3816e03a75a7e26eaac83e6fe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classceammc_1_1_atom_list.html#a4a2e9ce3816e03a75a7e26eaac83e6fe">fromPdData</a> (size_t n, t_atom *lst)</td></tr>
 <tr class="separator:a4a2e9ce3816e03a75a7e26eaac83e6fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac262f1872eb937927b263719979366e9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classceammc_1_1_atom_list.html#ac262f1872eb937927b263719979366e9">fromPdData</a> (int n, t_atom *lst)</td></tr>
@@ -225,6 +254,18 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ad9ab20dba34f17a62c10d842231b97a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0c9b1478f4d137abaea403b33cff6c2c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classceammc_1_1_atom_list.html#a0c9b1478f4d137abaea403b33cff6c2c">output</a> (t_outlet *x) const </td></tr>
 <tr class="separator:a0c9b1478f4d137abaea403b33cff6c2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7aada2958fbe349f3ffc53fc6c734496"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classceammc_1_1_atom_list.html">AtomList</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classceammc_1_1_atom_list.html#a7aada2958fbe349f3ffc53fc6c734496">sub</a> (const <a class="el" href="classceammc_1_1_atom_list.html">AtomList</a> &amp;l, <a class="el" href="classceammc_1_1_atom_list.html#adcc13ae2c5194b6d83691b56835ed29e">NonEqualLengthBehaivor</a> b=<a class="el" href="classceammc_1_1_atom_list.html#adcc13ae2c5194b6d83691b56835ed29ea5fa7f29f8f40a534c16e8be795bae07c">MINSIZE</a>) const </td></tr>
+<tr class="memdesc:a7aada2958fbe349f3ffc53fc6c734496"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns new list that is contains from pair difference  <a href="#a7aada2958fbe349f3ffc53fc6c734496">More...</a><br/></td></tr>
+<tr class="separator:a7aada2958fbe349f3ffc53fc6c734496"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a15a818b799000d9d3ebf292a40031327"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classceammc_1_1_atom_list.html">AtomList</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classceammc_1_1_atom_list.html#a15a818b799000d9d3ebf292a40031327">zeroes</a> (size_t n)</td></tr>
+<tr class="separator:a15a818b799000d9d3ebf292a40031327"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92b272364f2b26029c7e98bc66a47e4d"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classceammc_1_1_atom_list.html">AtomList</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classceammc_1_1_atom_list.html#a92b272364f2b26029c7e98bc66a47e4d">ones</a> (size_t n)</td></tr>
+<tr class="separator:a92b272364f2b26029c7e98bc66a47e4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4046c6d278ff0f285c60821fee2d77e7"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classceammc_1_1_atom_list.html">AtomList</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classceammc_1_1_atom_list.html#a4046c6d278ff0f285c60821fee2d77e7">filled</a> (const <a class="el" href="classceammc_1_1_atom.html">Atom</a> &amp;a, size_t n)</td></tr>
+<tr class="separator:a4046c6d278ff0f285c60821fee2d77e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -233,6 +274,31 @@ Friends</h2></td></tr>
 <tr class="memitem:a7a7de121fc24b49128b72f6938178c67"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classceammc_1_1_atom_list.html#a7a7de121fc24b49128b72f6938178c67">operator!=</a> (const <a class="el" href="classceammc_1_1_atom_list.html">AtomList</a> &amp;l1, const <a class="el" href="classceammc_1_1_atom_list.html">AtomList</a> &amp;l2)</td></tr>
 <tr class="separator:a7a7de121fc24b49128b72f6938178c67"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Enumeration Documentation</h2>
+<a class="anchor" id="adcc13ae2c5194b6d83691b56835ed29e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="classceammc_1_1_atom_list.html#adcc13ae2c5194b6d83691b56835ed29e">ceammc::AtomList::NonEqualLengthBehaivor</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><em><a class="anchor" id="adcc13ae2c5194b6d83691b56835ed29ea5fa7f29f8f40a534c16e8be795bae07c"></a>MINSIZE</em>&nbsp;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="adcc13ae2c5194b6d83691b56835ed29ea78022f4dfb700032843387bf24c240a2"></a>PADZERO</em>&nbsp;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="adcc13ae2c5194b6d83691b56835ed29ea50fab1d6e2c65f760ad8e48f999d077b"></a>CLIP</em>&nbsp;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="adcc13ae2c5194b6d83691b56835ed29ea68c5803ba3d9b8925e52159b26ebf2c7"></a>WRAP</em>&nbsp;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="adcc13ae2c5194b6d83691b56835ed29eab97dca147a2238fc504ecc21a43fbec8"></a>FOLD</em>&nbsp;</td><td class="fielddoc">
+</td></tr>
+</table>
+
+</div>
+</div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ac49d2e9ceae66ac0fdf0f419b3f07bd1"></a>
 <div class="memitem">
@@ -435,6 +501,46 @@ Friends</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a98da82f586d204e8ad8034e39e9285df"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classceammc_1_1_atom.html">Atom</a> * ceammc::AtomList::clipAt </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>pos</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Same as <a class="el" href="classceammc_1_1_atom_list.html#aa2d99dac15a5a5fe7afa41a38f2aeece" title="returns reference to element at specified position ">at()</a>, but values for index greater than the size of the List will be clipped to the last index. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pos</td><td>- position index </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>pointer to element, or NULL if empty </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a1a8dc5700e36081a5de8f3666fc7117b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classceammc_1_1_atom.html">Atom</a> * ceammc::AtomList::clipAt </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>pos</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a64fec50cf58275a65472a2dc9a706455"></a>
 <div class="memitem">
 <div class="memproto">
@@ -536,6 +642,40 @@ Friends</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a4046c6d278ff0f285c60821fee2d77e7"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classceammc_1_1_atom_list.html">AtomList</a> ceammc::AtomList::filled </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classceammc_1_1_atom.html">Atom</a> &amp;&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>n</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -730,6 +870,46 @@ Friends</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a18ec1677b1358ef01fd171d9a1c3289a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classceammc_1_1_atom.html">Atom</a> * ceammc::AtomList::foldAt </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>pos</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Same as <a class="el" href="classceammc_1_1_atom_list.html#aa2d99dac15a5a5fe7afa41a38f2aeece" title="returns reference to element at specified position ">at()</a>, but values for index greater than the size of the List will be folded back. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pos</td><td>- position index </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>pointer to element, or NULL if empty </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aa89fa98cbd34771c61558dee56987ee1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classceammc_1_1_atom.html">Atom</a> * ceammc::AtomList::foldAt </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>pos</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a4a2e9ce3816e03a75a7e26eaac83e6fe"></a>
 <div class="memitem">
 <div class="memproto">
@@ -914,6 +1094,30 @@ Friends</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a92b272364f2b26029c7e98bc66a47e4d"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classceammc_1_1_atom_list.html">AtomList</a> ceammc::AtomList::ones </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>n</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a0c9b1478f4d137abaea403b33cff6c2c"></a>
 <div class="memitem">
 <div class="memproto">
@@ -1093,6 +1297,40 @@ Friends</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ab91234569833c2bb0fa84a61ed213f6f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ceammc::AtomList::resizePad </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classceammc_1_1_atom.html">Atom</a> &amp;&#160;</td>
+          <td class="paramname"><em>v</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Resize list. If new size is less the current, last values are dropped. If new size is bigger - pad with given value </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">n</td><td>- new size </td></tr>
+    <tr><td class="paramname">v</td><td>- pad value </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a class="anchor" id="a22b3510a7142b4cce158033036bc9af5"></a>
 <div class="memitem">
 <div class="memproto">
@@ -1153,6 +1391,42 @@ Friends</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a7aada2958fbe349f3ffc53fc6c734496"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classceammc_1_1_atom_list.html">AtomList</a> ceammc::AtomList::sub </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classceammc_1_1_atom_list.html">AtomList</a> &amp;&#160;</td>
+          <td class="paramname"><em>l</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classceammc_1_1_atom_list.html#adcc13ae2c5194b6d83691b56835ed29e">AtomList::NonEqualLengthBehaivor</a>&#160;</td>
+          <td class="paramname"><em>b</em> = <code><a class="el" href="classceammc_1_1_atom_list.html#adcc13ae2c5194b6d83691b56835ed29ea5fa7f29f8f40a534c16e8be795bae07c">MINSIZE</a></code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>returns new list that is contains from pair difference </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">l</td><td>- list </td></tr>
+    <tr><td class="paramname">b</td><td>- behaivor flag, when lists are different lengths </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>new list </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="ac7c328692c6caab66d1320207e8a1cfb"></a>
 <div class="memitem">
 <div class="memproto">
@@ -1164,6 +1438,70 @@ Friends</h2></td></tr>
           <td> const</td>
         </tr>
       </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ae37a3576769c578e4cfa89be826f8e85"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classceammc_1_1_atom.html">Atom</a> * ceammc::AtomList::wrapAt </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>pos</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Same as <a class="el" href="classceammc_1_1_atom_list.html#aa2d99dac15a5a5fe7afa41a38f2aeece" title="returns reference to element at specified position ">at()</a>, but values for index greater than the size of the List will be wrapped around to 0. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pos</td><td>- position index </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>pointer to element, or NULL if empty </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a60e4b885284c1d964e5a2f912b8e067f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classceammc_1_1_atom.html">Atom</a> * ceammc::AtomList::wrapAt </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>pos</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a15a818b799000d9d3ebf292a40031327"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classceammc_1_1_atom_list.html">AtomList</a> ceammc::AtomList::zeroes </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>n</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -1247,7 +1585,7 @@ Friends</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceceammc.html">ceammc</a></li><li class="navelem"><a class="el" href="classceammc_1_1_atom_list.html">AtomList</a></li>
-    <li class="footer">Generated on Fri Dec 23 2016 11:40:53 for CEAMMC Puredata library by
+    <li class="footer">Generated on Fri Dec 23 2016 12:35:23 for CEAMMC Puredata library by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.5 </li>
   </ul>

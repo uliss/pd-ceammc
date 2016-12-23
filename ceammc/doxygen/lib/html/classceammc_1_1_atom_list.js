@@ -1,5 +1,12 @@
 var classceammc_1_1_atom_list =
 [
+    [ "NonEqualLengthBehaivor", "classceammc_1_1_atom_list.html#adcc13ae2c5194b6d83691b56835ed29e", [
+      [ "MINSIZE", "classceammc_1_1_atom_list.html#adcc13ae2c5194b6d83691b56835ed29ea5fa7f29f8f40a534c16e8be795bae07c", null ],
+      [ "PADZERO", "classceammc_1_1_atom_list.html#adcc13ae2c5194b6d83691b56835ed29ea78022f4dfb700032843387bf24c240a2", null ],
+      [ "CLIP", "classceammc_1_1_atom_list.html#adcc13ae2c5194b6d83691b56835ed29ea50fab1d6e2c65f760ad8e48f999d077b", null ],
+      [ "WRAP", "classceammc_1_1_atom_list.html#adcc13ae2c5194b6d83691b56835ed29ea68c5803ba3d9b8925e52159b26ebf2c7", null ],
+      [ "FOLD", "classceammc_1_1_atom_list.html#adcc13ae2c5194b6d83691b56835ed29eab97dca147a2238fc504ecc21a43fbec8", null ]
+    ] ],
     [ "AtomList", "classceammc_1_1_atom_list.html#ac49d2e9ceae66ac0fdf0f419b3f07bd1", null ],
     [ "AtomList", "classceammc_1_1_atom_list.html#aa00f5ffab7a7815dd5f80dc23564261f", null ],
     [ "AtomList", "classceammc_1_1_atom_list.html#aac1080adb018ab877d63de6f7ee73526", null ],
@@ -10,6 +17,8 @@ var classceammc_1_1_atom_list =
     [ "at", "classceammc_1_1_atom_list.html#aa2d99dac15a5a5fe7afa41a38f2aeece", null ],
     [ "at", "classceammc_1_1_atom_list.html#adbbd36db9591da49e2957d55f1e6ff30", null ],
     [ "clear", "classceammc_1_1_atom_list.html#aad5901c10e4bf12a36db3a49ff4928ed", null ],
+    [ "clipAt", "classceammc_1_1_atom_list.html#a98da82f586d204e8ad8034e39e9285df", null ],
+    [ "clipAt", "classceammc_1_1_atom_list.html#a1a8dc5700e36081a5de8f3666fc7117b", null ],
     [ "contains", "classceammc_1_1_atom_list.html#a64fec50cf58275a65472a2dc9a706455", null ],
     [ "count", "classceammc_1_1_atom_list.html#a79e0ec7012d71d4d240f7b6785658106", null ],
     [ "count", "classceammc_1_1_atom_list.html#a43925a17c1e64ea52fdf1cf709111c34", null ],
@@ -28,6 +37,8 @@ var classceammc_1_1_atom_list =
     [ "findPos", "classceammc_1_1_atom_list.html#a30f74ed1b06307572594bfa223f21d55", null ],
     [ "first", "classceammc_1_1_atom_list.html#abe1192c063ec3c56909007fddb9927ec", null ],
     [ "first", "classceammc_1_1_atom_list.html#ad3dc9e749f5af0125fc1f4c0e7e56221", null ],
+    [ "foldAt", "classceammc_1_1_atom_list.html#a18ec1677b1358ef01fd171d9a1c3289a", null ],
+    [ "foldAt", "classceammc_1_1_atom_list.html#aa89fa98cbd34771c61558dee56987ee1", null ],
     [ "fromPdData", "classceammc_1_1_atom_list.html#a4a2e9ce3816e03a75a7e26eaac83e6fe", null ],
     [ "fromPdData", "classceammc_1_1_atom_list.html#ac262f1872eb937927b263719979366e9", null ],
     [ "insert", "classceammc_1_1_atom_list.html#a8fb783701919036bb9c026375626859d", null ],
@@ -47,11 +58,15 @@ var classceammc_1_1_atom_list =
     [ "removeAll", "classceammc_1_1_atom_list.html#a3e6d3901d56759ca0478a4ad1e324b03", null ],
     [ "replaceAll", "classceammc_1_1_atom_list.html#a1096c4f7a09680eefbf355e8e6edec92", null ],
     [ "replaceAll", "classceammc_1_1_atom_list.html#a1168817ee92f71a5f2906b88e7ef60bf", null ],
+    [ "resizePad", "classceammc_1_1_atom_list.html#ab91234569833c2bb0fa84a61ed213f6f", null ],
     [ "reverse", "classceammc_1_1_atom_list.html#a22b3510a7142b4cce158033036bc9af5", null ],
     [ "shuffle", "classceammc_1_1_atom_list.html#abf80f0b307369920bc7aef849caa7567", null ],
     [ "size", "classceammc_1_1_atom_list.html#ad52fdc5b4f54329460495caa1b00d1ac", null ],
     [ "sort", "classceammc_1_1_atom_list.html#a7ea888d2eac7ea2dc11e7e7939bf2010", null ],
+    [ "sub", "classceammc_1_1_atom_list.html#a7aada2958fbe349f3ffc53fc6c734496", null ],
     [ "toPdData", "classceammc_1_1_atom_list.html#ac7c328692c6caab66d1320207e8a1cfb", null ],
+    [ "wrapAt", "classceammc_1_1_atom_list.html#ae37a3576769c578e4cfa89be826f8e85", null ],
+    [ "wrapAt", "classceammc_1_1_atom_list.html#a60e4b885284c1d964e5a2f912b8e067f", null ],
     [ "operator!=", "classceammc_1_1_atom_list.html#a7a7de121fc24b49128b72f6938178c67", null ],
     [ "operator==", "classceammc_1_1_atom_list.html#a2cedc092f5468095272ca243fc68080f", null ]
 ];
