@@ -278,3 +278,5 @@ ceammc_faust_extension(env follow simple_pd_control_ext)
 
 
 ceammc_faust_extension(live capture simple_pd_control_ext)
+
+pd_add_extension(NAME "@prop.get" FILES "prop_get.cpp" LIBRARY ceammc LINK ceammc_static INTERNAL TRUE)

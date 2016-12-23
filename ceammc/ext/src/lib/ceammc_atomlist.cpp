@@ -17,6 +17,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <iterator>
+#include <string>
 
 namespace ceammc {
 
@@ -141,6 +142,45 @@ const Atom* AtomList::foldAt(size_t pos) const
 void AtomList::resizePad(size_t n, const Atom& v)
 {
     atoms_.resize(n, v);
+}
+
+bool AtomList::property(const std::string& name, Atom* dest) const
+{
+    if (!dest)
+        return false;
+
+    for (size_t i = 0; i < atoms_.size(); i++) {
+        if (!atoms_[i].isProperty())
+            continue;
+
+        // found
+        if (name == atoms_[i].asSymbol()->s_name) {
+            if (i < (atoms_.size() - 1)) {
+                // if next property
+                if (atoms_[i + 1].isProperty())
+                    return false;
+
+                *dest = atoms_[i + 1];
+                return true;
+            } else { // last element is list
+                return false;
+            }
+        }
+    }
+
+    return false;
+}
+
+bool AtomList::hasProperty(const std::string& name) const
+{
+    for (size_t i = 0; i < atoms_.size(); i++) {
+        if (!atoms_[i].isProperty())
+            continue;
+
+        if (name == atoms_[i].asSymbol()->s_name)
+            return true;
+    }
+    return false;
 }
 
 void AtomList::fromPdData(size_t n, t_atom* lst)

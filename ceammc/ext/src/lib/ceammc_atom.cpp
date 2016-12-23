@@ -61,11 +61,19 @@ bool Atom::isSymbol() const
     return type() == SYMBOL;
 }
 
+bool Atom::isProperty() const
+{
+    return type() == PROPERTY;
+}
+
 Atom::Type Atom::type() const
 {
     switch (a_type) {
     case A_SYMBOL:
-        return SYMBOL;
+        if (a_w.w_symbol == 0)
+            return NONE;
+
+        return (a_w.w_symbol->s_name[0] == PROP_PREFIX) ? PROPERTY : SYMBOL;
     case A_FLOAT:
         return FLOAT;
     default:
@@ -90,7 +98,7 @@ bool Atom::getSymbol(t_symbol** s) const
     if (s == 0)
         return false;
 
-    if (!isSymbol())
+    if (!isSymbol() && !isProperty())
         return false;
 
     *s = this->a_w.w_symbol;
@@ -99,7 +107,7 @@ bool Atom::getSymbol(t_symbol** s) const
 
 bool Atom::getString(std::string& str) const
 {
-    if (!isSymbol())
+    if (!isSymbol() && !isProperty())
         return false;
 
     str = this->a_w.w_symbol->s_name;
