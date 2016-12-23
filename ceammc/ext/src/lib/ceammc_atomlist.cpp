@@ -144,7 +144,7 @@ void AtomList::resizePad(size_t n, const Atom& v)
     atoms_.resize(n, v);
 }
 
-bool AtomList::property(const std::string& name, Atom* dest)
+bool AtomList::property(const std::string& name, Atom* dest) const
 {
     if (!dest)
         return false;
@@ -153,12 +153,8 @@ bool AtomList::property(const std::string& name, Atom* dest)
         if (!atoms_[i].isProperty())
             continue;
 
-        t_symbol* s = atoms_[i].asSymbol();
-        if (s == 0)
-            continue;
-
         // found
-        if (name == s->s_name) {
+        if (name == atoms_[i].asSymbol()->s_name) {
             if (i < (atoms_.size() - 1)) {
                 // if next property
                 if (atoms_[i + 1].isProperty())
@@ -172,6 +168,18 @@ bool AtomList::property(const std::string& name, Atom* dest)
         }
     }
 
+    return false;
+}
+
+bool AtomList::hasProperty(const std::string& name) const
+{
+    for (size_t i = 0; i < atoms_.size(); i++) {
+        if (!atoms_[i].isProperty())
+            continue;
+
+        if (name == atoms_[i].asSymbol()->s_name)
+            return true;
+    }
     return false;
 }
 

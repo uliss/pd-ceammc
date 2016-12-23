@@ -100,7 +100,12 @@ public:
      * @param dest - output destination
      * @return true if property was found and it has value
      */
-    bool property(const std::string& name, Atom* dest);
+    bool property(const std::string& name, Atom* dest) const;
+
+    /**
+     * Checks is has property in list
+     */
+    bool hasProperty(const std::string& name) const;
 
     void fromPdData(size_t n, t_atom* lst);
     void fromPdData(int n, t_atom* lst);

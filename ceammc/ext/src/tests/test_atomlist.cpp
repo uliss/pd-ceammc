@@ -729,6 +729,7 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         REQUIRE(p1.asFloat() == 3.f);
 
         l.append(gensym("@test2"));
+        REQUIRE(l.hasProperty("@test2"));
         l.append(4.f);
 
         Atom p2;
