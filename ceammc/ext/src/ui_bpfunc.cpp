@@ -8,7 +8,7 @@
 
 #include <stdio.h>
 
-#include "ceammc_gui_cicm.h"
+#include "lib/ceammc_gui.h"
 
 #include <map>
 #include <algorithm>
@@ -28,7 +28,7 @@ typedef struct t_bpt
 typedef std::vector<t_bpt> bpf_points;
 
 
-struct ui_bpfunc : cm_gui_base_pd_object
+struct ui_bpfunc : ceammc_gui::base_pd_object
 {
     t_ebox x_gui;
     
@@ -340,7 +340,7 @@ UI_fun(ui_bpfunc)::wx_mousemove_ext(t_object *z, t_object *view, t_pt pt, long m
     }
     //printf("\n");
     
-    cm_gui_object<cm_gui_base_pd_object>::ws_redraw(z);
+    ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
 }
 
 
@@ -364,7 +364,7 @@ UI_fun(ui_bpfunc)::wx_mousedown_ext(t_object *z, t_object *view, t_pt pt, long m
     if (modifiers==EMOD_SHIFT)
     {
         bpf_point_add(z, zx->addidx, pt.x/rect.width, 1-(pt.y/rect.height));
-        cm_gui_object<cm_gui_base_pd_object>::ws_redraw(z);
+        ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
         
     }
     
@@ -372,7 +372,7 @@ UI_fun(ui_bpfunc)::wx_mousedown_ext(t_object *z, t_object *view, t_pt pt, long m
     {
         bpf_point_del(z, zx->delidx);
         printf("del %i\n", zx->delidx);
-        cm_gui_object<cm_gui_base_pd_object>::ws_redraw(z);
+        ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
         
     }
 }
@@ -416,7 +416,7 @@ UI_fun(ui_bpfunc)::wx_mousedrag_ext(t_object *z, t_object *view, t_pt pt, long m
     bpf_point_sort(z);
     
     
-    cm_gui_object<cm_gui_base_pd_object>::ws_redraw(z);
+    ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
     
 }
 
@@ -512,7 +512,7 @@ void bpf_m_clear(t_object *z, t_symbol *s, int argc, t_atom *argv)
     bpf_point_add(z, 1, .5, .75);
     bpf_point_add(z, 2, 1, 1);
     
-    cm_gui_object<cm_gui_base_pd_object>::ws_redraw(z);
+    ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
 
 }
 
@@ -530,7 +530,7 @@ void bpf_m_add(t_object *z, t_symbol *s, int argc, t_atom *argv)
     ebox_get_rect_for_view((t_ebox *)z, &rect);
     
     bpf_point_add(z, zx->addidx, (xx-zx->shift_x)/zx->range_x, (yy-zx->shift_y)/zx->range_y);
-    cm_gui_object<cm_gui_base_pd_object>::ws_redraw(z);
+    ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
     
 }
 
@@ -542,7 +542,7 @@ void bpf_m_del(t_object *z, t_symbol *s, int argc, t_atom *argv)
     int del_i = (int)argv[0].a_w.w_float;
     
     bpf_point_del(z, del_i);
-    cm_gui_object<cm_gui_base_pd_object>::ws_redraw(z);
+    ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
 
     
 }
@@ -632,6 +632,6 @@ UI_fun(ui_bpfunc)::init_ext(t_eclass *z)
 
 extern "C" void setup_ui0x2ebpfunc()
 {
-    cm_gui_object<ui_bpfunc> class1;
+    ceammc_gui::object<ui_bpfunc> class1;
     class1.setup("ui.bpfunc");
 }

@@ -7,9 +7,9 @@
 //
 
 
-#include "ceammc_gui_cicm.h"
+#include "lib/ceammc_gui.h"
 
-struct ui_knob : cm_gui_base_pd_object
+struct ui_knob : ceammc_gui::base_pd_object
 {
     t_ebox x_gui;
     t_outlet *out1;
@@ -143,7 +143,7 @@ UI_fun(ui_knob)::wx_mousedrag_ext(t_object* z, t_object *view, t_pt pt, long mod
     
     UI_Pset("_value",val);
     
-    cm_gui_object<cm_gui_base_pd_object>::ws_redraw(z);
+    ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
     
     outlet_float(((ui_knob*)z)->out1, (1-val)*127);
     
@@ -152,7 +152,7 @@ UI_fun(ui_knob)::wx_mousedrag_ext(t_object* z, t_object *view, t_pt pt, long mod
 
 UI_fun(ui_knob)::wx_mousedown_ext(t_object *z, t_object *view, t_pt pt, long modifiers)
 {
-    cm_gui_object<ui_knob>::wx_mousedrag_ext(z, view, pt, modifiers);
+    ceammc_gui::object<ui_knob>::wx_mousedrag_ext(z, view, pt, modifiers);
 }
 
 UI_fun(ui_knob)::m_float(t_object *z,  t_float f)
@@ -163,7 +163,7 @@ UI_fun(ui_knob)::m_float(t_object *z,  t_float f)
     UI_Pset("_value",1.-f/127.);
     float val =UI_Pf("_value");
     
-    cm_gui_object<cm_gui_base_pd_object>::ws_redraw(z);
+    ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
     
     outlet_float(((ui_knob*)z)->out1, val*127);
     
@@ -177,7 +177,7 @@ UI_fun(ui_knob)::m_bang(t_object *z, t_symbol *s, int argc, t_atom *argv)
     outlet_float(((ui_knob*)z)->out1, val*127);
 }
 
-UI_fun(ui_knob)::ui_properties_init_ext(cm_gui_properties *def_p)
+UI_fun(ui_knob)::ui_properties_init_ext(ceammc_gui::properties *def_p)
 {
     
     
@@ -209,6 +209,6 @@ UI_fun(ui_knob)::new_ext(t_object *x, t_symbol *s, int argcl, t_atom *argv)
 
 extern "C" void setup_ui0x2eknob()
 {
-    cm_gui_object<ui_knob> class1;
+    ceammc_gui::object<ui_knob> class1;
     class1.setup("ui.knob");
 }

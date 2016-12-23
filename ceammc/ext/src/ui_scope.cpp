@@ -8,9 +8,9 @@
 
 #include <stdio.h>
 
-#include "ceammc_gui_cicm.h"
+#include "lib/ceammc_gui.h"
 
-struct ui_scope : cm_gui_base_pd_object
+struct ui_scope : ceammc_gui::base_pd_object
 {
     //t_ebox x_gui;
     t_edspobj d_dsp;
@@ -84,7 +84,7 @@ static void ui_scope_perform(ui_scope *x, t_object *dsp64, t_sample **ins, long 
     
     while (n--){*out++ = *in1++;} //
 
-    x->counter++; if (x->counter==32) {x->counter=0; cm_gui_object<ui_scope>::ws_redraw(((t_object *)x));}
+    x->counter++; if (x->counter==32) {x->counter=0; ceammc_gui::object<ui_scope>::ws_redraw(((t_object *)x));}
  
 }
 //
@@ -113,6 +113,6 @@ UI_fun(ui_scope)::init_ext(t_eclass *z)
 
 extern "C" void setup_ui0x2escope()
 {
-    cm_gui_object<ui_scope> class1;
+    ceammc_gui::object<ui_scope> class1;
     class1.setup_dsp("ui.scope");
 }

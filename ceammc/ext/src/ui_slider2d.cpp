@@ -8,9 +8,9 @@
 
 #include <stdio.h>
 
-#include "ceammc_gui_cicm.h"
+#include "lib/ceammc_gui.h"
 
-struct ui_slider2d : cm_gui_base_pd_object
+struct ui_slider2d : ceammc_gui::base_pd_object
 {
     t_ebox x_gui;
     t_outlet *out1;
@@ -89,7 +89,7 @@ UI_fun(ui_slider2d)::wx_mousedrag_ext(t_object* z, t_object *view, t_pt pt, long
     
     printf("move %f %f\n", xx,yy);
     
-    cm_gui_object<cm_gui_base_pd_object>::ws_redraw(z);
+    ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
     
     atom_setfloat(&((ui_slider2d*)z)->out_list[0], UI_Pf("pos_x"));
     atom_setfloat(&((ui_slider2d*)z)->out_list[1], UI_Pf("pos_y"));
@@ -114,7 +114,7 @@ UI_fun(ui_slider2d)::wx_mousedown_ext(t_object* z, t_object *view, t_pt pt, long
     UI_Pset("pos_x",xx);
     UI_Pset("pos_y",yy);
     
-    cm_gui_object<cm_gui_base_pd_object>::ws_redraw(z);
+    ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
     
     atom_setfloat(&((ui_slider2d*)z)->out_list[0], UI_Pf("pos_x"));
     atom_setfloat(&((ui_slider2d*)z)->out_list[1], UI_Pf("pos_y"));
@@ -128,7 +128,7 @@ UI_fun(ui_slider2d)::wx_mouseup_ext(t_object* z, t_object *view, t_pt pt, long m
 
     printf("n mouse up\n");
     
-    //cm_gui_object<cm_gui_base_pd_object>::wx_mouseup(z, view, pt, modifiers);
+    //ceammc_gui::object<ceammc_gui::base_pd_object>::wx_mouseup(z, view, pt, modifiers);
     
     t_rect rect;
     ebox_get_rect_for_view((t_ebox *)z, &rect);
@@ -139,7 +139,7 @@ UI_fun(ui_slider2d)::wx_mouseup_ext(t_object* z, t_object *view, t_pt pt, long m
     UI_Pset("pos_x",xx);
     UI_Pset("pos_y",yy);
     
-    cm_gui_object<cm_gui_base_pd_object>::ws_redraw(z);
+    ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
     
     //t_atom out_list[2];
     
@@ -150,7 +150,7 @@ UI_fun(ui_slider2d)::wx_mouseup_ext(t_object* z, t_object *view, t_pt pt, long m
 }
 
 
-UI_fun(ui_slider2d)::ui_properties_init_ext(cm_gui_properties *def_p)
+UI_fun(ui_slider2d)::ui_properties_init_ext(ceammc_gui::properties *def_p)
 {
     
     def_p->ui_property_set("pos_x", 0);
@@ -174,6 +174,6 @@ UI_fun(ui_slider2d)::new_ext(t_object *x, t_symbol *s, int argcl, t_atom *argv)
 
 extern "C" void setup_ui0x2eslider2d()
 {
-    cm_gui_object<ui_slider2d> class1;
+    ceammc_gui::object<ui_slider2d> class1;
     class1.setup("ui.slider2d");
 }

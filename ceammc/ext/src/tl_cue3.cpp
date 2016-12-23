@@ -11,9 +11,9 @@
 #include <iostream>
 #include "tl_lib.hpp"
 
-#include "ceammc_gui_cicm.h"
+#include "lib/ceammc_gui.h"
 
-struct tl_cue : cm_gui_base_pd_object
+struct tl_cue : ceammc_gui::base_pd_object
 {
     t_canvas *canvas;
 };
@@ -180,13 +180,13 @@ UI_fun(tl_cue)::init_ext(t_eclass *z)
 
 UI_fun(tl_cue)::new_ext(t_object* z, t_symbol *s, int argc, t_atom *argv)
 {
-    //cm_gui_properties *x  = instances[(t_object *)z];
+    //ceammc_gui::properties *x  = instances[(t_object *)z];
     
 //    tll_cue_add((t_object*)z, rect.x);
 //    
 //    ((tl_cue*)z)->canvas = canvas_getcurrent();
 //    
-//    //printf("add cue %lu (gui %lu)\n", (long*)z,(long)& ((cm_gui_base_pd_object*)z)->x_gui);
+//    //printf("add cue %lu (gui %lu)\n", (long*)z,(long)& ((ceammc_gui::base_pd_object*)z)->x_gui);
 //    
 //    tll_cue_update_pos((t_object *)z, rect.x);
 //    tll_update_cue_guis((t_object*)z);
@@ -226,7 +226,7 @@ UI_fun(tl_cue)::free_ext(t_object *x)
 }
 
 
-UI_fun(tl_cue)::ui_properties_init_ext(cm_gui_properties *def_p)
+UI_fun(tl_cue)::ui_properties_init_ext(ceammc_gui::properties *def_p)
 {
     
     printf("cue2 property init!\n");
@@ -241,7 +241,7 @@ void tl_cue_drawcue(t_object *z)
 {
     printf("cue redraw\n");
     
-   // cm_gui_object<tl_cue>::w_displace((t_gobj*)z, ((tl_cue*)z)->canvas,0,0);
+   // ceammc_gui::object<tl_cue>::w_displace((t_gobj*)z, ((tl_cue*)z)->canvas,0,0);
 }
 
 
@@ -249,7 +249,7 @@ void tl_cue_drawcue(t_object *z)
 
 extern "C" void setup_tl0x2ecue()
 {
-    cm_gui_object<tl_cue> class1;
+    ceammc_gui::object<tl_cue> class1;
     class1.setup("tl.cue");
 }
 

@@ -7,9 +7,9 @@
 //
 
 
-#include "ceammc_gui_cicm.h"
+#include "lib/ceammc_gui.h"
 
-struct ui_sliders : cm_gui_base_pd_object
+struct ui_sliders : ceammc_gui::base_pd_object
 {
     t_ebox x_gui;
     t_outlet *out1;
@@ -93,7 +93,7 @@ UI_fun(ui_sliders)::m_set(t_object *z, t_symbol *s, int argc, t_atom *argv)
     
     for (int i=0;i<argc;i++) { zx->val_list[i] = argv[i]; }
     
-    cm_gui_object<cm_gui_base_pd_object>::ws_redraw(z);
+    ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
     
 
 }
@@ -101,7 +101,7 @@ UI_fun(ui_sliders)::m_set(t_object *z, t_symbol *s, int argc, t_atom *argv)
 UI_fun(ui_sliders)::m_list(t_object *z, t_symbol *s, int argc, t_atom *argv)
 {
     
-    cm_gui_object<ui_sliders>::m_set(z, s, argc, argv);
+    ceammc_gui::object<ui_sliders>::m_set(z, s, argc, argv);
     
     outlet_list( ((ui_sliders*)z)->out1, &s_list, ((ui_sliders*)z)->val_list_size, ((ui_sliders*)z)->val_list );
     
@@ -154,7 +154,7 @@ UI_fun(ui_sliders)::wx_mousedrag_ext(t_object* z, t_object *view, t_pt pt, long 
     
     ((ui_sliders*)z)->val_list[numslider].a_w.w_float = val;
     
-    cm_gui_object<cm_gui_base_pd_object>::ws_redraw(z);
+    ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
     
     outlet_list( ((ui_sliders*)z)->out1, &s_list, ((ui_sliders*)z)->val_list_size, ((ui_sliders*)z)->val_list );
     
@@ -162,10 +162,10 @@ UI_fun(ui_sliders)::wx_mousedrag_ext(t_object* z, t_object *view, t_pt pt, long 
 
 UI_fun(ui_sliders)::wx_mousedown_ext(t_object *z, t_object *view, t_pt pt, long modifiers)
 {
-    cm_gui_object<ui_sliders>::wx_mousedrag_ext(z, view, pt, modifiers);
+    ceammc_gui::object<ui_sliders>::wx_mousedrag_ext(z, view, pt, modifiers);
 }
 
-UI_fun(ui_sliders)::ui_properties_init_ext(cm_gui_properties *def_p)
+UI_fun(ui_sliders)::ui_properties_init_ext(ceammc_gui::properties *def_p)
 {
     
     def_p->ui_property_set("count", 8);
@@ -197,6 +197,6 @@ UI_fun(ui_sliders)::new_ext(t_object *x, t_symbol *s, int argcl, t_atom *argv)
 
 extern "C" void setup_ui0x2esliders()
 {
-    cm_gui_object<ui_sliders> class1;
+    ceammc_gui::object<ui_sliders> class1;
     class1.setup("ui.sliders");
 }

@@ -334,7 +334,7 @@ public:
         int i=0;
         
         printf("count: %i\n", count);
-        //ceammc_gui::e_atoms(values, count);
+        //cm_gui_e_atoms(values, count);
         
         std::map<std::string, t_atom>::iterator it;
         
@@ -361,7 +361,7 @@ public:
         printf( "** loaded %i\n",i);
         
         printf("********** load\n");
-        //ceammc_gui::e_properties((t_object*)this);
+        //cm_gui_e_properties((t_object*)this);
         instances[z]->log();
         
         return true;

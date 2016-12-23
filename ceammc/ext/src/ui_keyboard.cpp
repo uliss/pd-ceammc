@@ -6,9 +6,9 @@
 //
 //
 
-#include "ceammc_gui_cicm.h"
+#include "lib/ceammc_gui.h"
 
-struct ui_keyboard : cm_gui_base_pd_object
+struct ui_keyboard : ceammc_gui::base_pd_object
 {
     t_ebox x_gui;
     t_outlet *out1;
@@ -239,7 +239,7 @@ UI_fun(ui_keyboard)::wx_mousedown_ext(t_object* z, t_object *view, t_pt pt, long
     
     outlet_list( ((ui_keyboard*)z)->out1, &s_list, 2, ((ui_keyboard*)z)->out_list );
     
-    cm_gui_object<cm_gui_base_pd_object>::ws_redraw(z);
+    ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
 }
 
 UI_fun(ui_keyboard)::wx_mouseup_ext(t_object* z, t_object *view, t_pt pt, long modifiers)
@@ -263,7 +263,7 @@ UI_fun(ui_keyboard)::wx_mouseup_ext(t_object* z, t_object *view, t_pt pt, long m
     
     outlet_list( ((ui_keyboard*)z)->out1, &s_list, 2, ((ui_keyboard*)z)->out_list );
     
-    cm_gui_object<cm_gui_base_pd_object>::ws_redraw(z);
+    ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
 }
 
 UI_fun(ui_keyboard)::wx_mousedrag_ext(t_object* z, t_object *view, t_pt pt, long modifiers)
@@ -272,7 +272,7 @@ UI_fun(ui_keyboard)::wx_mousedrag_ext(t_object* z, t_object *view, t_pt pt, long
     
     printf("n mouse drag\n");
     
-    cm_gui_object<ui_keyboard>::wx_mousemove_ext(z,view,pt,modifiers);
+    ceammc_gui::object<ui_keyboard>::wx_mousemove_ext(z,view,pt,modifiers);
     
     if (UI_Pf("_pitch_prev") != UI_Pf("_pitch") )
     {
@@ -291,7 +291,7 @@ UI_fun(ui_keyboard)::wx_mousedrag_ext(t_object* z, t_object *view, t_pt pt, long
         
     }
     
-    cm_gui_object<cm_gui_base_pd_object>::ws_redraw(z);
+    ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
 }
 
 UI_fun(ui_keyboard)::wx_mouseleave_ext(t_object *z, t_object *view, t_pt pt, long modifiers)
@@ -300,7 +300,7 @@ UI_fun(ui_keyboard)::wx_mouseleave_ext(t_object *z, t_object *view, t_pt pt, lon
     
     UI_Pset("_pitch",-1);
     
-    cm_gui_object<cm_gui_base_pd_object>::ws_redraw(z);
+    ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
 }
 
 
@@ -320,7 +320,7 @@ UI_fun(ui_keyboard)::new_ext(t_object *x, t_symbol *s, int argcl, t_atom *argv)
 }
 
 
-UI_fun(ui_keyboard)::ui_properties_init_ext(cm_gui_properties *def_p)
+UI_fun(ui_keyboard)::ui_properties_init_ext(ceammc_gui::properties *def_p)
 {
     
     def_p->ui_property_set("width", 450.);
@@ -335,6 +335,6 @@ UI_fun(ui_keyboard)::ui_properties_init_ext(cm_gui_properties *def_p)
 
 extern "C" void setup_ui0x2ekeyboard()
 {
-    cm_gui_object<ui_keyboard> class1;
+    ceammc_gui::object<ui_keyboard> class1;
     class1.setup("ui.keyboard");
 }

@@ -8,7 +8,7 @@
 
 
 
-#include "ceammc_gui.h"
+#include "ceammc_gui_old.h"
 
 
 struct test_obj1 : cm_gui_base_pd_object

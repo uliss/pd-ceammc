@@ -8,7 +8,7 @@
 
 #include <stdio.h>
 
-#include "ceammc_gui_cicm.h"
+#include "lib/ceammc_gui.h"
 
 #include "m_imp.h"  /* FIXME need access to c_externdir... */
 //#include "g_canvas.h"
@@ -18,7 +18,7 @@
 #include <string>
 #include <iostream>
 
-struct ui_link : cm_gui_base_pd_object
+struct ui_link : ceammc_gui::base_pd_object
 {
     t_ebox x_gui;
     
@@ -144,6 +144,6 @@ UI_fun(ui_link)::init_ext(t_eclass *z)
 
 extern "C" void setup_ui0x2elink()
 {
-    cm_gui_object<ui_link> class1;
+    ceammc_gui::object<ui_link> class1;
     class1.setup_noin("ui.link");
 }

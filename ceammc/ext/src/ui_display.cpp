@@ -8,12 +8,12 @@
 
 #include <stdio.h>
 
-#include "ceammc_gui_cicm.h"
+#include "lib/ceammc_gui.h"
 
 #include <string>
 #include <iostream>
 
-struct ui_display : cm_gui_base_pd_object
+struct ui_display : ceammc_gui::base_pd_object
 {
     t_ebox x_gui;
     
@@ -109,13 +109,13 @@ UI_fun(ui_display)::m_anything(t_object *z, t_symbol *s, int argc, t_atom *argv)
     
     clock_delay(zx->t_c, 100);
     
-    cm_gui_object<cm_gui_base_pd_object>::ws_redraw(z);
+    ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
     
 }
 
 UI_fun(ui_display)::m_list(t_object *z, t_symbol *s, int argc, t_atom *argv)
 {
-    cm_gui_object<ui_display>::m_anything(z, &s_list, argc, argv);
+    ceammc_gui::object<ui_display>::m_anything(z, &s_list, argc, argv);
 }
 
 UI_fun(ui_display)::m_float(t_object *z, t_float f)
@@ -127,12 +127,12 @@ UI_fun(ui_display)::m_float(t_object *z, t_float f)
     argv.a_w.w_float = f;
     int argc = 1;
     
-    cm_gui_object<ui_display>::m_anything(z, &s_float, argc, &argv);
+    ceammc_gui::object<ui_display>::m_anything(z, &s_float, argc, &argv);
 }
 
 UI_fun(ui_display)::m_bang(t_object *z, t_symbol *s, int argc, t_atom *argv)
 {
-    cm_gui_object<ui_display>::m_anything(z, &s_list, argc, argv);
+    ceammc_gui::object<ui_display>::m_anything(z, &s_list, argc, argv);
 }
 
 void display_clock(t_object *z)
@@ -141,7 +141,7 @@ void display_clock(t_object *z)
     
     zx->bang = false;
     
-    cm_gui_object<cm_gui_base_pd_object>::ws_redraw(z);
+    ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
 }
 
 UI_fun(ui_display)::new_ext(t_object *z, t_symbol *s, int argcl, t_atom *argv)
@@ -172,6 +172,6 @@ UI_fun(ui_display)::init_ext(t_eclass *z)
 
 extern "C" void setup_ui0x2edisplay()
 {
-    cm_gui_object<ui_display> class1;
+    ceammc_gui::object<ui_display> class1;
     class1.setup("ui.display");
 }
