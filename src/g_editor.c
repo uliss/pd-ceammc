@@ -45,6 +45,26 @@ void gobj_displace(t_gobj *x, t_glist *glist, int dx, int dy)
 {
     if (x->g_pd->c_wb && x->g_pd->c_wb->w_displacefn)
         (*x->g_pd->c_wb->w_displacefn)(x, glist, dx, dy);
+    
+}
+
+void gobj_displace_grid(t_gobj *x, t_glist *glist, int sx, int sy, int ex,int ey)
+{
+    int xx0 = ((t_text*)x)->te_xpix;
+    int yy0 = ((t_text*)x)->te_ypix;
+    
+
+    
+    int xx = ex;
+    int yy = ey;
+    
+    xx -= xx%20 + xx0;
+    yy -= yy%20 + yy0;
+    
+    
+    if (x->g_pd->c_wb && x->g_pd->c_wb->w_displacefn)
+        (*x->g_pd->c_wb->w_displacefn)(x, glist, xx, yy);
+    
 }
 
     /* here we add an extra check whether we're mapped, because some
@@ -1694,6 +1714,36 @@ static void canvas_displaceselection(t_canvas *x, int dx, int dy)
     {
         t_class *cl = pd_class(&y->sel_what->g_pd);
         gobj_displace(y->sel_what, x, dx, dy);
+        
+        if (cl == vinlet_class) resortin = 1;
+        else if (cl == voutlet_class) resortout = 1;
+    }
+    if (resortin) canvas_resortinlets(x);
+    if (resortout) canvas_resortoutlets(x);
+    sys_vgui("pdtk_canvas_getscroll .x%lx.c\n", x);
+    if (x->gl_editor->e_selection)
+        canvas_dirty(x, 1);
+}
+
+/* CEAMMC grid */
+static void canvas_displaceselection_grid(t_canvas *x, int ex, int sx, int ey, int sy)
+{
+    t_selection *y;
+    int resortin = 0, resortout = 0;
+    if (!canvas_undo_already_set_move)
+    {
+        canvas_setundo(x, canvas_undo_move, canvas_undo_set_move(x, 1),
+                       "motion");
+        canvas_undo_already_set_move = 1;
+    }
+    for (y = x->gl_editor->e_selection; y; y = y->sel_next)
+    {
+        t_class *cl = pd_class(&y->sel_what->g_pd);
+
+        gobj_displace_grid(y->sel_what, x, sx, sy, ex, ey);
+            
+
+
         if (cl == vinlet_class) resortin = 1;
         else if (cl == voutlet_class) resortout = 1;
     }
@@ -1856,12 +1906,27 @@ void canvas_key(t_canvas *x, t_symbol *s, int ac, t_atom *av)
 
 static void delay_move(t_canvas *x)
 {
+    /* CEAMMC grid */
+    
+    if (x->gl_grid)
+    {
+        canvas_displaceselection_grid(x,
+                                      x->gl_editor->e_xnew , x->gl_editor->e_xwas,
+                                      x->gl_editor->e_ynew , x->gl_editor->e_ywas);
+    }
+    else
+    {
     canvas_displaceselection(x,
        x->gl_editor->e_xnew - x->gl_editor->e_xwas,
        x->gl_editor->e_ynew - x->gl_editor->e_ywas);
     x->gl_editor->e_xwas = x->gl_editor->e_xnew;
     x->gl_editor->e_ywas = x->gl_editor->e_ynew;
+    }
 }
+
+/* moved here for CEAMMC grid */
+static t_glist *canvas_last_glist;
+static int canvas_last_glist_x, canvas_last_glist_y;
 
 void canvas_motion(t_canvas *x, t_floatarg xpos, t_floatarg ypos,
     t_floatarg fmod)
@@ -1882,6 +1947,7 @@ void canvas_motion(t_canvas *x, t_floatarg xpos, t_floatarg ypos,
         clock_delay(x->gl_editor->e_clock, 5);
         x->gl_editor->e_xnew = xpos;
         x->gl_editor->e_ynew = ypos;
+        
     }
     else if (x->gl_editor->e_onmotion == MA_REGION)
         canvas_doregion(x, xpos, ypos, 0);
@@ -2795,6 +2861,16 @@ void canvas_editmode(t_canvas *x, t_floatarg state)
           glist_getcanvas(x), x->gl_edit);
 }
 
+    /* CEAMMC grid */
+void canvas_gridmode(t_canvas *x, t_floatarg state)
+{
+    if (x->gl_grid == (unsigned int) state)
+        return;
+    x->gl_grid = (unsigned int) state;
+    canvas_drawgrid(x);
+    printf("->grid mode\n");
+}
+
     /* called by canvas_font below */
 static void canvas_dofont(t_canvas *x, t_floatarg font, t_floatarg xresize,
     t_floatarg yresize)
@@ -2840,8 +2916,7 @@ static void canvas_font(t_canvas *x, t_floatarg font, t_floatarg resize,
     sys_defaultfont = font;
 }
 
-static t_glist *canvas_last_glist;
-static int canvas_last_glist_x, canvas_last_glist_y;
+/*CEAMMC grid moved  declarations to canvas_motion */
 
 void glist_getnextxy(t_glist *gl, int *xpix, int *ypix)
 {
@@ -2853,8 +2928,18 @@ void glist_getnextxy(t_glist *gl, int *xpix, int *ypix)
 static void glist_setlastxy(t_glist *gl, int xval, int yval)
 {
     canvas_last_glist = gl;
-    canvas_last_glist_x = xval;
-    canvas_last_glist_y = yval;
+    
+    // CEAMMC grid
+//    if ((t_canvas*)gl->gl_grid)
+//    {
+//        canvas_last_glist_x = floor((xval)/20)*20;
+//        canvas_last_glist_y = floor((yval)/20)*20;
+//    }
+//    else
+    {
+        canvas_last_glist_x = xval;
+        canvas_last_glist_y = yval;
+    }
 }
 
 
@@ -2915,6 +3000,10 @@ void g_editor_setup(void)
         gensym("donecanvasdialog"), A_GIMME, A_NULL);
     class_addmethod(canvas_class, (t_method)glist_arraydialog,
         gensym("arraydialog"), A_SYMBOL, A_FLOAT, A_FLOAT, A_FLOAT, A_NULL);
+    
+/* ---------- CEAMMC grid ---------- */
+    class_addmethod(canvas_class, (t_method)canvas_gridmode,
+                    gensym("gridmode"), A_DEFFLOAT, A_NULL);
 
 /* -------------- connect method used in reading files ------------------ */
     class_addmethod(canvas_class, (t_method)canvas_connect,

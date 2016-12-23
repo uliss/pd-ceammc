@@ -555,6 +555,7 @@ static void canvas_dosetbounds(t_canvas *x, int x1, int y1, int x2, int y2)
             if (pd_checkobject(&y->g_pd))
                 gobj_displace(y, x, 0, heightchange);
         canvas_redraw(x);
+        
     }
 }
 
@@ -633,6 +634,47 @@ void canvas_drawredrect(t_canvas *x, int doit)
     else sys_vgui(".x%lx.c delete GOP\n",  glist_getcanvas(x));
 }
 
+/* ----- CEAMMC grid ----- */
+EXTERN void canvas_drawgrid(t_canvas *x)
+{
+    
+    int grid_w =  x->gl_screenx2 - x->gl_screenx1;
+    int grid_h =  x->gl_screeny2 - x->gl_screeny1;
+    
+    printf("grid %f %f\n", grid_w, grid_h);
+    
+    t_glist *c = glist_getcanvas(x);
+    
+    for (int xx=0; xx< grid_w; xx+=20)
+    {
+        if (x->gl_grid==1)
+        {
+            sys_vgui(
+                     ".x%lx.c create line %d %d %d %d -width 1 -fill #EFEFEF -tags GRID \n",
+                     c,
+                     xx, 0,xx, grid_h);
+        }
+        
+        
+    }
+    
+    for (int yy=0; yy< grid_h; yy+=20)
+    {
+        sys_vgui(
+                 ".x%lx.c create line %d %d %d %d -width 1 -tags GRID -fill #EFEFEF\n",
+                 c,
+                 0,yy,grid_w,yy);
+        
+    }
+    
+    if (x->gl_grid==0)
+    {
+        sys_vgui(".x%lx.c delete GRID\n",  glist_getcanvas(x));
+    }
+    
+
+}
+
     /* the window becomes "mapped" (visible and not miniaturized) or
     "unmapped" (either miniaturized or just plain gone.)  This should be
     called from the GUI after the fact to "notify" us that we're mapped. */
@@ -655,6 +697,7 @@ void canvas_map(t_canvas *x, t_floatarg f)
             x->gl_mapped = 1;
             for (sel = x->gl_editor->e_selection; sel; sel = sel->sel_next)
                 gobj_select(sel->sel_what, x, 1);
+            canvas_drawgrid(x);
             canvas_drawlines(x);
             if (x->gl_isgraph && x->gl_goprect)
                 canvas_drawredrect(x, 1);
@@ -678,7 +721,10 @@ void canvas_redraw(t_canvas *x)
     {
         canvas_map(x, 0);
         canvas_map(x, 1);
+        
     }
+    
+    
 }
 
 
@@ -774,6 +820,8 @@ void canvas_free(t_canvas *x)
     if (!x->gl_owner && !x->gl_isclone)
         canvas_takeofflist(x);
 }
+
+
 
 /* ----------------- lines ---------- */
 

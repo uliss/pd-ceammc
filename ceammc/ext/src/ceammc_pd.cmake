@@ -3,6 +3,7 @@ macro(ceammc_extension_sep module name ext separator)
         FILES "${module}_${name}.${ext}"
         INTERNAL True
         LIBRARY ceammc
+        COMPILE_FLAGS "-std=c++0x"
         LINK ceammc_static)
 endmacro()
 
