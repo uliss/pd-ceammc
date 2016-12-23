@@ -61,11 +61,19 @@ bool Atom::isSymbol() const
     return type() == SYMBOL;
 }
 
+bool Atom::isAttr() const
+{
+    return type() == ATTR;
+}
+
 Atom::Type Atom::type() const
 {
     switch (a_type) {
     case A_SYMBOL:
-        return SYMBOL;
+        if (a_w.w_symbol == 0)
+            return NONE;
+
+        return (a_w.w_symbol->s_name[0] == '@') ? ATTR : SYMBOL;
     case A_FLOAT:
         return FLOAT;
     default:

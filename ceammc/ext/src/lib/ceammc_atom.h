@@ -14,9 +14,9 @@
 #ifndef CEAMMC_ATOM_H
 #define CEAMMC_ATOM_H
 
+#include <iosfwd>
 #include <m_pd.h>
 #include <string>
-#include <iosfwd>
 
 namespace ceammc {
 
@@ -25,8 +25,11 @@ public:
     enum Type {
         NONE,
         FLOAT,
-        SYMBOL
+        SYMBOL,
+        ATTR
     };
+
+    static const char ATTR_PREFIX = '@';
 
 public:
     Atom();
@@ -36,6 +39,7 @@ public:
     bool isFloat() const;
     bool isNone() const;
     bool isSymbol() const;
+    bool isAttr() const;
 
     Type type() const;
 
@@ -71,8 +75,10 @@ bool to_outlet(t_outlet* x, const Atom& a);
 
 static inline bool isFloat(const Atom& a) { return a.isFloat(); }
 static inline bool isSymbol(const Atom& a) { return a.isSymbol(); }
+static inline bool isAttr(const Atom& a) { return a.isAttr(); }
 static inline bool notFloat(const Atom& a) { return !a.isFloat(); }
 static inline bool notSymbol(const Atom& a) { return !a.isSymbol(); }
+static inline bool notAttr(const Atom& a) { return !a.isAttr(); }
 }
 
 #endif // CEAMMC_ATOM_H

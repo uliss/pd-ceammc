@@ -38,6 +38,18 @@ TEST_CASE("Atom", "[ceammc::Atom]")
         REQUIRE(b.isNone());
     }
 
+    SECTION("Atom attr")
+    {
+        t_atom a;
+        SETSYMBOL(&a, gensym("@attr"));
+        Atom atom(a);
+        REQUIRE(atom.isAttr());
+        REQUIRE_FALSE(notAttr(atom));
+
+        atom.setFloat(1.f, true);
+        REQUIRE(!atom.isAttr());
+    }
+
     SECTION("Float atom tests")
     {
         Atom fatom(1.99f);
@@ -57,6 +69,8 @@ TEST_CASE("Atom", "[ceammc::Atom]")
         a.a_type = A_DEFFLOAT;
         Atom fatom(a);
         REQUIRE(fatom.isFloat());
+        SETSYMBOL(&a, gensym("a"));
+        REQUIRE(a.a_type == A_SYMBOL);
         a.a_type = A_DEFSYMBOL;
         fatom = Atom(a);
         REQUIRE(fatom.isSymbol());
@@ -92,7 +106,10 @@ TEST_CASE("Atom", "[ceammc::Atom]")
         REQUIRE(a1.isFloat());
         REQUIRE_FALSE(a1.setSymbol(0));
         REQUIRE(a1.isFloat());
+        // setting null pointer
         REQUIRE(a1.setSymbol(0, true));
+        REQUIRE_FALSE(a1.isSymbol());
+        REQUIRE(a1.setSymbol(gensym("a"), true));
         REQUIRE(a1.isSymbol());
 
         Atom a2(gensym("test"));
