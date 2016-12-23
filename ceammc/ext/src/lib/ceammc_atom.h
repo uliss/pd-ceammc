@@ -16,6 +16,7 @@
 
 #include <m_pd.h>
 #include <string>
+#include <iosfwd>
 
 namespace ceammc {
 
@@ -64,11 +65,14 @@ public:
 
 bool operator==(const Atom& a1, const Atom& a2);
 bool operator!=(const Atom& a1, const Atom& a2);
+std::ostream& operator<<(std::ostream& os, const Atom& a);
 
 bool to_outlet(t_outlet* x, const Atom& a);
 
 static inline bool isFloat(const Atom& a) { return a.isFloat(); }
 static inline bool isSymbol(const Atom& a) { return a.isSymbol(); }
+static inline bool notFloat(const Atom& a) { return !a.isFloat(); }
+static inline bool notSymbol(const Atom& a) { return !a.isSymbol(); }
 }
 
 #endif // CEAMMC_ATOM_H

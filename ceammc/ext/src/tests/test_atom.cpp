@@ -14,6 +14,7 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
 #include "ceammc_atom.h"
+#include <sstream>
 
 using namespace ceammc;
 
@@ -166,5 +167,29 @@ TEST_CASE("Atom", "[ceammc::Atom]")
         t_atom r2;
         r2.a_type = A_NULL;
         REQUIRE_FALSE(Atom(r1) < Atom(r2));
+    }
+
+    SECTION("test output")
+    {
+        {
+            Atom a1;
+            std::ostringstream ss;
+            ss << a1;
+            REQUIRE(ss.str() == "NONE");
+        }
+
+        {
+            Atom a1(1.23f);
+            std::ostringstream ss;
+            ss << a1;
+            REQUIRE(ss.str() == "1.23");
+        }
+
+        {
+            Atom a1(gensym("test"));
+            std::ostringstream ss;
+            ss << a1;
+            REQUIRE(ss.str() == "test");
+        }
     }
 }

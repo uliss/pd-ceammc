@@ -15,6 +15,7 @@
 #include <algorithm>
 #include <cassert>
 #include <cstdlib>
+#include <iostream>
 #include <iterator>
 
 namespace ceammc {
@@ -91,6 +92,55 @@ Atom* AtomList::relativeAt(int pos)
 const Atom* AtomList::relativeAt(int pos) const
 {
     return const_cast<AtomList*>(this)->relativeAt(pos);
+}
+
+Atom* AtomList::clipAt(size_t pos)
+{
+    if (empty())
+        return 0;
+
+    return &at(std::min(size() - 1, pos));
+}
+
+const Atom* AtomList::clipAt(size_t pos) const
+{
+    return const_cast<AtomList*>(this)->clipAt(pos);
+}
+
+Atom* AtomList::wrapAt(size_t pos)
+{
+    if (empty())
+        return 0;
+
+    return &at(pos % size());
+}
+
+const Atom* AtomList::wrapAt(size_t pos) const
+{
+    return const_cast<AtomList*>(this)->wrapAt(pos);
+}
+
+Atom* AtomList::foldAt(size_t pos)
+{
+    if (empty())
+        return 0;
+
+    if (size() == 1)
+        return first();
+
+    const size_t a = size() - 1;
+    const size_t b = pos % (a * 2);
+    return &at(std::min(b, a * 2 - b));
+}
+
+const Atom* AtomList::foldAt(size_t pos) const
+{
+    return const_cast<AtomList*>(this)->foldAt(pos);
+}
+
+void AtomList::resizePad(size_t n, const Atom& v)
+{
+    atoms_.resize(n, v);
 }
 
 void AtomList::fromPdData(size_t n, t_atom* lst)
@@ -392,6 +442,91 @@ void AtomList::output(_outlet* x) const
     to_outlet(x, *this);
 }
 
+AtomList AtomList::sub(const AtomList& l, AtomList::NonEqualLengthBehaivor b) const
+{
+    AtomList res;
+    switch (b) {
+    case MINSIZE: {
+        size_t sz = std::min(size(), l.size());
+        res.atoms_.reserve(sz);
+
+        for (size_t i = 0; i < sz; i++)
+            res.append(at(i).asFloat() - l.at(i).asFloat());
+
+        return res;
+    }
+    case PADZERO: {
+        size_t sz = std::max(size(), l.size());
+        AtomList l1(*this);
+        AtomList l2(l);
+        l1.resizePad(sz, 0.f);
+        l2.resizePad(sz, 0.f);
+        return l1.sub(l2, MINSIZE);
+    }
+    case CLIP: {
+        const size_t min_sz = std::min(size(), l.size());
+        // protect agains empty list. with it we can't take clipped value
+        if (min_sz == 0)
+            return res;
+
+        const size_t sz = std::max(size(), l.size());
+        res.atoms_.reserve(sz);
+
+        for (size_t i = 0; i < sz; i++)
+            res.append(clipAt(i)->asFloat() - l.clipAt(i)->asFloat());
+
+        return res;
+    }
+
+    case WRAP: {
+        const size_t min_sz = std::min(size(), l.size());
+        // protect agains empty list. with it we can't take wrapped value
+        if (min_sz == 0)
+            return res;
+
+        const size_t sz = std::max(size(), l.size());
+        res.atoms_.reserve(sz);
+
+        for (size_t i = 0; i < sz; i++)
+            res.append(wrapAt(i)->asFloat() - l.wrapAt(i)->asFloat());
+
+        return res;
+    }
+
+    case FOLD: {
+        const size_t min_sz = std::min(size(), l.size());
+        // protect agains empty list. with it we can't take folded value
+        if (min_sz == 0)
+            return res;
+
+        const size_t sz = std::max(size(), l.size());
+        res.atoms_.reserve(sz);
+
+        for (size_t i = 0; i < sz; i++)
+            res.append(foldAt(i)->asFloat() - l.foldAt(i)->asFloat());
+
+        return res;
+    }
+    }
+}
+
+AtomList AtomList::zeroes(size_t n)
+{
+    return filled(Atom(0.f), n);
+}
+
+AtomList AtomList::ones(size_t n)
+{
+    return filled(1.f, n);
+}
+
+AtomList AtomList::filled(const Atom& a, size_t n)
+{
+    AtomList res;
+    res.fill(a, n);
+    return res;
+}
+
 bool operator==(const AtomList& l1, const AtomList& l2)
 {
     if (&l1 == &l2)
@@ -416,6 +551,20 @@ bool to_outlet(t_outlet* x, const AtomList& a)
 
     outlet_list(x, &s_list, n, a.toPdData());
     return true;
+}
+
+std::ostream& operator<<(std::ostream& os, const AtomList& l)
+{
+    os << "[ ";
+    for (size_t i = 0; i < l.size(); i++) {
+        if (i != 0)
+            os << ", ";
+
+        os << l.at(i);
+    }
+
+    os << " ]";
+    return os;
 }
 
 } // namespace ceammc

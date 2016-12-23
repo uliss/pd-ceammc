@@ -1,6 +1,10 @@
 var NAVTREE =
 [
+<<<<<<< HEAD
   [ "CEAMMC Puredata library", "index.html", [
+=======
+  [ "CEAMMC library for Puredata", "index.html", [
+>>>>>>> uliss/ceammc
     [ "Namespaces", null, [
       [ "Namespace List", "namespaces.html", "namespaces" ],
       [ "Namespace Members", "namespacemembers.html", [
@@ -39,7 +43,11 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
+<<<<<<< HEAD
 "functions.html"
+=======
+"df/d82/classceammc_1_1_named_data_dict.html#a3c6508c4ac3b2069884f8c8852f0b756"
+>>>>>>> uliss/ceammc
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

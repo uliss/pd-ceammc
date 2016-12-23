@@ -16,6 +16,7 @@
 
 #include "ceammc_atom.h"
 #include <vector>
+#include <iosfwd>
 
 namespace ceammc {
 
@@ -58,6 +59,41 @@ public:
      */
     Atom* relativeAt(int pos);
     const Atom* relativeAt(int pos) const;
+
+    /**
+     * Same as at(), but values for index greater than the size of the
+     * List will be clipped to the last index.
+     * @param pos - position index
+     * @return pointer to element, or NULL if empty
+     */
+    Atom* clipAt(size_t pos);
+    const Atom* clipAt(size_t pos) const;
+
+    /**
+     * Same as at(), but values for index greater than the size of the
+     * List will be wrapped around to 0.
+     * @param pos - position index
+     * @return pointer to element, or NULL if empty
+     */
+    Atom* wrapAt(size_t pos);
+    const Atom* wrapAt(size_t pos) const;
+
+    /**
+     * Same as at(), but values for index greater than the size of the
+     * List will be folded back.
+     * @param pos - position index
+     * @return pointer to element, or NULL if empty
+     */
+    Atom* foldAt(size_t pos);
+    const Atom* foldAt(size_t pos) const;
+
+    /**
+     * Resize list. If new size is less the current, last values are dropped.
+     * If new size is bigger - pad with given value
+     * @param n - new size
+     * @param v - pad value
+     */
+    void resizePad(size_t n, const Atom& v);
 
     void fromPdData(size_t n, t_atom* lst);
     void fromPdData(int n, t_atom* lst);
@@ -118,6 +154,27 @@ public:
       */
     void output(t_outlet* x) const;
 
+    enum NonEqualLengthBehaivor {
+        MINSIZE = 0, // result of min size
+        PADZERO, // result of max size, min list padded with zeroes
+        CLIP, // result of max size, min list clipped with last value
+        WRAP, // result of max size, min list wraped
+        FOLD // result of max size, min list wraped
+    };
+
+    /**
+     * @brief returns new list that is contains from pair difference
+     * @param l - list
+     * @param b - behaivor flag, when lists are different lengths
+     * @return new list
+     */
+    AtomList sub(const AtomList& l, NonEqualLengthBehaivor b = MINSIZE) const;
+
+public:
+    static AtomList zeroes(size_t n);
+    static AtomList ones(size_t n);
+    static AtomList filled(const Atom& a, size_t n);
+
 public:
     friend bool operator==(const AtomList& l1, const AtomList& l2);
     friend bool operator!=(const AtomList& l1, const AtomList& l2);
@@ -125,6 +182,7 @@ public:
 
 bool operator==(const AtomList& l1, const AtomList& l2);
 bool operator!=(const AtomList& l1, const AtomList& l2);
+std::ostream& operator<<(std::ostream& os, const AtomList& l);
 
 bool to_outlet(t_outlet* x, const AtomList& a);
 
