@@ -22,25 +22,47 @@ namespace ceammc {
 
 class Atom : t_atom {
 public:
+    /**
+     * @brief logical atom type
+     */
     enum Type {
         NONE,
         FLOAT,
         SYMBOL,
-        ATTR
+        PROPERTY
     };
 
-    static const char ATTR_PREFIX = '@';
+    static const char PROP_PREFIX = '@';
 
 public:
     Atom();
     Atom(const t_atom& a);
     Atom(t_float v);
     Atom(t_symbol* s);
-    bool isFloat() const;
-    bool isNone() const;
-    bool isSymbol() const;
-    bool isAttr() const;
 
+    /**
+     * @returns true if atom has logical type Atom::FLOAT
+     */
+    bool isFloat() const;
+
+    /**
+     * @returns true if atom has logical type Atom::NONE
+     */
+    bool isNone() const;
+
+    /**
+     * @returns true if atom has logical type Atom::SYMBOL
+     */
+    bool isSymbol() const;
+
+    /**
+     * @returns true if atom has logical type Atom::PROPERTY
+     */
+    bool isProperty() const;
+
+    /**
+     * @returns atom logical type
+     */
     Type type() const;
 
     bool getFloat(t_float* v) const;
@@ -75,10 +97,10 @@ bool to_outlet(t_outlet* x, const Atom& a);
 
 static inline bool isFloat(const Atom& a) { return a.isFloat(); }
 static inline bool isSymbol(const Atom& a) { return a.isSymbol(); }
-static inline bool isAttr(const Atom& a) { return a.isAttr(); }
+static inline bool isProperty(const Atom& a);
 static inline bool notFloat(const Atom& a) { return !a.isFloat(); }
 static inline bool notSymbol(const Atom& a) { return !a.isSymbol(); }
-static inline bool notAttr(const Atom& a) { return !a.isAttr(); }
+static inline bool notProperty(const Atom& a) { return !a.isProperty(); }
 }
 
 #endif // CEAMMC_ATOM_H

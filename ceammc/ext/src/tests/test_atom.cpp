@@ -43,11 +43,17 @@ TEST_CASE("Atom", "[ceammc::Atom]")
         t_atom a;
         SETSYMBOL(&a, gensym("@attr"));
         Atom atom(a);
-        REQUIRE(atom.isAttr());
-        REQUIRE_FALSE(notAttr(atom));
+        REQUIRE(atom.isProperty());
+        REQUIRE_FALSE(notProperty(atom));
+        REQUIRE(!atom.isSymbol());
+        REQUIRE(atom.asString() == "@attr");
+        REQUIRE(atom.asSymbol() == gensym("@attr"));
 
         atom.setFloat(1.f, true);
-        REQUIRE(!atom.isAttr());
+        REQUIRE(!atom.isProperty());
+
+        atom.setSymbol(gensym(""), true);
+        REQUIRE(!atom.isProperty());
     }
 
     SECTION("Float atom tests")
