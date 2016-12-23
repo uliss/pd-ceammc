@@ -14,6 +14,7 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
 #include "ceammc_atomlist.h"
+#include <cstdarg>
 
 using namespace ceammc;
 
