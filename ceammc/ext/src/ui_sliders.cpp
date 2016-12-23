@@ -88,7 +88,7 @@ namespace ceammc_gui {
                     egraphics_rectangle(g, xx, yy, w, h);
                     egraphics_set_color_hex(g, gensym("#303030"));
                     egraphics_stroke(g);
-                
+                    
                 }
                 
                 char c_min[10];
@@ -158,13 +158,13 @@ namespace ceammc_gui {
         else
         {
             
-        for (int i=0;i<argc;i++)
-        {
-            zx->val_list[i] = argv[i];
-            zx->draw_list[i] = argv[i];
-            zx->draw_list[i].a_w.w_float = (zx->draw_list[i].a_w.w_float - zx->shift) /  zx->range;
-            
-        }
+            for (int i=0;i<argc;i++)
+            {
+                zx->val_list[i] = argv[i];
+                zx->draw_list[i] = argv[i];
+                zx->draw_list[i].a_w.w_float = (zx->draw_list[i].a_w.w_float - zx->shift) /  zx->range;
+                
+            }
             
         }
         
@@ -248,6 +248,8 @@ namespace ceammc_gui {
         ui_sliders *zx = (ui_sliders*)z;
         zx->range = argv[0].a_w.w_float;
         
+        ceammc_gui::object<ui_sliders>::m_set(z, s, zx->val_list_size, zx->val_list);
+        
         ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
         
     }
@@ -274,6 +276,10 @@ namespace ceammc_gui {
     {
         ui_sliders *zx = (ui_sliders*)z;
         zx->auto_range = (argv[0].a_w.w_float>0);
+        
+        ceammc_gui::object<ui_sliders>::m_set(z, s, zx->val_list_size, zx->val_list);
+        
+        ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
     }
     
     UI_fun(ui_sliders)::ui_properties_init_ext(ceammc_gui::properties *def_p)
