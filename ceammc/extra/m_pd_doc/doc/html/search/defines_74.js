@@ -6,20 +6,12 @@ var searchData=
   ['t_5fcanvas',['t_canvas',['../m__pd__doc_8h.html#afc86fc309b3f7a01b7825ec451ab4714',1,'m_pd_doc.h']]],
   ['t_5fclass',['t_class',['../m__pd__doc_8h.html#a1f4a0cd6f1c47700b5fb0fc839a645c1',1,'m_pd_doc.h']]],
   ['t_5fclock',['t_clock',['../m__pd__doc_8h.html#af5350822c82c2b276ece501dfff6f5f4',1,'m_pd_doc.h']]],
-  ['t_5ffreebytes',['t_freebytes',['../m__pd__doc_8h.html#af14ba62da11408100d447eb1c0dd5db8',1,'m_pd_doc.h']]],
-  ['t_5fgarray',['t_garray',['../m__pd__doc_8h.html#ac071d0f7a80e8bdaf1a3e9dc977d03b8',1,'m_pd_doc.h']]],
-  ['t_5fgetbytes',['t_getbytes',['../m__pd__doc_8h.html#aa599aab40b2132ef96291ca6837dea41',1,'m_pd_doc.h']]],
   ['t_5fglist',['t_glist',['../m__pd__doc_8h.html#ab393a051c343dee0706ef25a551dcfb3',1,'m_pd_doc.h']]],
   ['t_5finlet',['t_inlet',['../m__pd__doc_8h.html#a9cce84dada7a58c1b60ee4b8964445fe',1,'m_pd_doc.h']]],
   ['t_5fmessage',['T_MESSAGE',['../m__pd__doc_8h.html#aeb6bc91fd1739704dae9d5d01df1684c',1,'m_pd_doc.h']]],
   ['t_5fobject',['T_OBJECT',['../m__pd__doc_8h.html#abed71c72d5c3083041d52ad25630270e',1,'m_pd_doc.h']]],
   ['t_5foutconnect',['t_outconnect',['../m__pd__doc_8h.html#a39a6e3746022aac7d0a904523dc7571e',1,'m_pd_doc.h']]],
   ['t_5foutlet',['t_outlet',['../m__pd__doc_8h.html#a46dc692dc9e70ff60679462933409d90',1,'m_pd_doc.h']]],
-  ['t_5fparentwidgetbehavior',['t_parentwidgetbehavior',['../m__pd__doc_8h.html#a113d123a587a3169060a046e16b28088',1,'m_pd_doc.h']]],
-  ['t_5fpdinstance',['t_pdinstance',['../m__pd__doc_8h.html#a91f0646b26012303ae6403b92dbb17fa',1,'m_pd_doc.h']]],
-  ['t_5fresizebytes',['t_resizebytes',['../m__pd__doc_8h.html#a6dcb7d5a6b86ffce5dc8535704bf8cc7',1,'m_pd_doc.h']]],
   ['t_5ftext',['T_TEXT',['../m__pd__doc_8h.html#afaf02c150ea1b8449ce451420c245743',1,'m_pd_doc.h']]],
-  ['t_5fwidgetbehavior',['t_widgetbehavior',['../m__pd__doc_8h.html#af64b9fb1c0b53aaf10b33d2b886d0303',1,'m_pd_doc.h']]],
-  ['te_5fpd',['te_pd',['../m__pd__doc_8h.html#a9e5459bf44675df616dfa76711ebfe91',1,'m_pd_doc.h']]],
-  ['typedmess',['typedmess',['../m__pd__doc_8h.html#adba6fd1d8de56b851d869f7f7b1a34f7',1,'m_pd_doc.h']]]
+  ['te_5fpd',['te_pd',['../m__pd__doc_8h.html#a9e5459bf44675df616dfa76711ebfe91',1,'m_pd_doc.h']]]
 ];

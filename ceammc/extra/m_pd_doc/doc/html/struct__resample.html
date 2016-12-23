@@ -45,6 +45,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="modules.html"><span>Modules</span></a></li>
       <li class="current"><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -92,7 +93,7 @@ $(document).ready(function(){initNavTree('struct__resample.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -105,7 +106,7 @@ $(document).ready(function(){initNavTree('struct__resample.html','');});
   <div class="summary">
 <a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
-<div class="title">_resample Struct Reference</div>  </div>
+<div class="title">_resample Struct Reference<div class="ingroups"><a class="el" href="group__g19.html">up/downsampling</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -113,142 +114,31 @@ $(document).ready(function(){initNavTree('struct__resample.html','');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:adcc9a19ad3119f823a658f6a49a24e64"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__resample.html#adcc9a19ad3119f823a658f6a49a24e64">method</a></td></tr>
-<tr class="separator:adcc9a19ad3119f823a658f6a49a24e64"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a723813822b784b6c65edcc0a16dc4c62"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__resample.html#a723813822b784b6c65edcc0a16dc4c62">downsample</a></td></tr>
-<tr class="separator:a723813822b784b6c65edcc0a16dc4c62"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a728f0b8302d4370cbf0f713329889c8e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__resample.html#a728f0b8302d4370cbf0f713329889c8e">upsample</a></td></tr>
-<tr class="separator:a728f0b8302d4370cbf0f713329889c8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad4ecec8b90444188a47a8cde0babc5ae"><td class="memItemLeft" align="right" valign="top"><a class="el" href="m__pd__doc_8h.html#ac270cb9478f28b671e00b6e943175a35">t_sample</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__resample.html#ad4ecec8b90444188a47a8cde0babc5ae">s_vec</a></td></tr>
-<tr class="separator:ad4ecec8b90444188a47a8cde0babc5ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aee0a45e5329caef59b617145b09fc3fa"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__resample.html#aee0a45e5329caef59b617145b09fc3fa">s_n</a></td></tr>
-<tr class="separator:aee0a45e5329caef59b617145b09fc3fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c34ce6a37c6273044bd148d1b7e6298"><td class="memItemLeft" align="right" valign="top"><a class="el" href="m__pd__doc_8h.html#ac270cb9478f28b671e00b6e943175a35">t_sample</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__resample.html#a9c34ce6a37c6273044bd148d1b7e6298">coeffs</a></td></tr>
-<tr class="separator:a9c34ce6a37c6273044bd148d1b7e6298"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8ebe6d92ebeffa641883431e18e5fe2b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__resample.html#a8ebe6d92ebeffa641883431e18e5fe2b">coefsize</a></td></tr>
-<tr class="separator:a8ebe6d92ebeffa641883431e18e5fe2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad3f952f1432d55dde1e47bf4ed4296fb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="m__pd__doc_8h.html#ac270cb9478f28b671e00b6e943175a35">t_sample</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__resample.html#ad3f952f1432d55dde1e47bf4ed4296fb">buffer</a></td></tr>
-<tr class="separator:ad3f952f1432d55dde1e47bf4ed4296fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a199ab88d4ca8eab30e1cb7d35edacca5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__resample.html#a199ab88d4ca8eab30e1cb7d35edacca5">bufsize</a></td></tr>
-<tr class="separator:a199ab88d4ca8eab30e1cb7d35edacca5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadcc9a19ad3119f823a658f6a49a24e64"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__g23.html#gadcc9a19ad3119f823a658f6a49a24e64">method</a></td></tr>
+<tr class="separator:gadcc9a19ad3119f823a658f6a49a24e64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga723813822b784b6c65edcc0a16dc4c62"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__g23.html#ga723813822b784b6c65edcc0a16dc4c62">downsample</a></td></tr>
+<tr class="memdesc:ga723813822b784b6c65edcc0a16dc4c62"><td class="mdescLeft">&#160;</td><td class="mdescRight">up/downsampling method ID  <a href="group__g23.html#ga723813822b784b6c65edcc0a16dc4c62">More...</a><br/></td></tr>
+<tr class="separator:ga723813822b784b6c65edcc0a16dc4c62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga728f0b8302d4370cbf0f713329889c8e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__g23.html#ga728f0b8302d4370cbf0f713329889c8e">upsample</a></td></tr>
+<tr class="memdesc:ga728f0b8302d4370cbf0f713329889c8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">downsampling factor  <a href="group__g23.html#ga728f0b8302d4370cbf0f713329889c8e">More...</a><br/></td></tr>
+<tr class="separator:ga728f0b8302d4370cbf0f713329889c8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad4ecec8b90444188a47a8cde0babc5ae"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__g18.html#gac270cb9478f28b671e00b6e943175a35">t_sample</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__g23.html#gad4ecec8b90444188a47a8cde0babc5ae">s_vec</a></td></tr>
+<tr class="memdesc:gad4ecec8b90444188a47a8cde0babc5ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">upsampling factor  <a href="group__g23.html#gad4ecec8b90444188a47a8cde0babc5ae">More...</a><br/></td></tr>
+<tr class="separator:gad4ecec8b90444188a47a8cde0babc5ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaee0a45e5329caef59b617145b09fc3fa"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__g23.html#gaee0a45e5329caef59b617145b09fc3fa">s_n</a></td></tr>
+<tr class="memdesc:gaee0a45e5329caef59b617145b09fc3fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">here we hold the resampled data  <a href="group__g23.html#gaee0a45e5329caef59b617145b09fc3fa">More...</a><br/></td></tr>
+<tr class="separator:gaee0a45e5329caef59b617145b09fc3fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9c34ce6a37c6273044bd148d1b7e6298"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__g18.html#gac270cb9478f28b671e00b6e943175a35">t_sample</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__g23.html#ga9c34ce6a37c6273044bd148d1b7e6298">coeffs</a></td></tr>
+<tr class="separator:ga9c34ce6a37c6273044bd148d1b7e6298"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8ebe6d92ebeffa641883431e18e5fe2b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__g23.html#ga8ebe6d92ebeffa641883431e18e5fe2b">coefsize</a></td></tr>
+<tr class="memdesc:ga8ebe6d92ebeffa641883431e18e5fe2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">coefficients for filtering...  <a href="group__g23.html#ga8ebe6d92ebeffa641883431e18e5fe2b">More...</a><br/></td></tr>
+<tr class="separator:ga8ebe6d92ebeffa641883431e18e5fe2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad3f952f1432d55dde1e47bf4ed4296fb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__g18.html#gac270cb9478f28b671e00b6e943175a35">t_sample</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__g23.html#gad3f952f1432d55dde1e47bf4ed4296fb">buffer</a></td></tr>
+<tr class="separator:gad3f952f1432d55dde1e47bf4ed4296fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga199ab88d4ca8eab30e1cb7d35edacca5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__g23.html#ga199ab88d4ca8eab30e1cb7d35edacca5">bufsize</a></td></tr>
+<tr class="memdesc:ga199ab88d4ca8eab30e1cb7d35edacca5"><td class="mdescLeft">&#160;</td><td class="mdescRight">buffer for filtering  <a href="group__g23.html#ga199ab88d4ca8eab30e1cb7d35edacca5">More...</a><br/></td></tr>
+<tr class="separator:ga199ab88d4ca8eab30e1cb7d35edacca5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>up/downsampling </p>
-</div><h2 class="groupheader">Field Documentation</h2>
-<a class="anchor" id="ad3f952f1432d55dde1e47bf4ed4296fb"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="m__pd__doc_8h.html#ac270cb9478f28b671e00b6e943175a35">t_sample</a>* buffer</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a199ab88d4ca8eab30e1cb7d35edacca5"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int bufsize</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>buffer for filtering </p>
-
-</div>
-</div>
-<a class="anchor" id="a9c34ce6a37c6273044bd148d1b7e6298"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="m__pd__doc_8h.html#ac270cb9478f28b671e00b6e943175a35">t_sample</a>* coeffs</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a8ebe6d92ebeffa641883431e18e5fe2b"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int coefsize</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>coefficients for filtering... </p>
-
-</div>
-</div>
-<a class="anchor" id="a723813822b784b6c65edcc0a16dc4c62"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int downsample</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>up/downsampling method ID </p>
-
-</div>
-</div>
-<a class="anchor" id="adcc9a19ad3119f823a658f6a49a24e64"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int method</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="aee0a45e5329caef59b617145b09fc3fa"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int s_n</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>here we hold the resampled data </p>
-
-</div>
-</div>
-<a class="anchor" id="ad4ecec8b90444188a47a8cde0babc5ae"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="m__pd__doc_8h.html#ac270cb9478f28b671e00b6e943175a35">t_sample</a>* s_vec</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>upsampling factor </p>
-
-</div>
-</div>
-<a class="anchor" id="a728f0b8302d4370cbf0f713329889c8e"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int upsample</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>downsampling factor </p>
-
-</div>
-</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li><a class="el" href="m__pd__doc_8h_source.html">m_pd_doc.h</a></li>
 </ul>
@@ -258,7 +148,7 @@ Data Fields</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="struct__resample.html">_resample</a></li>
-    <li class="footer">Generated on Fri Dec 23 2016 12:06:17 for PD API documentation by
+    <li class="footer">Generated on Fri Dec 23 2016 12:28:31 for PD API documentation by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.5 </li>
   </ul>

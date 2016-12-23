@@ -45,6 +45,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="modules.html"><span>Modules</span></a></li>
       <li class="current"><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -92,7 +93,7 @@ $(document).ready(function(){initNavTree('struct__signal.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -105,7 +106,7 @@ $(document).ready(function(){initNavTree('struct__signal.html','');});
   <div class="summary">
 <a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
-<div class="title">_signal Struct Reference</div>  </div>
+<div class="title">_signal Struct Reference<div class="ingroups"><a class="el" href="group__g18.html">signals</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -113,142 +114,33 @@ $(document).ready(function(){initNavTree('struct__signal.html','');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:aee0a45e5329caef59b617145b09fc3fa"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__signal.html#aee0a45e5329caef59b617145b09fc3fa">s_n</a></td></tr>
-<tr class="separator:aee0a45e5329caef59b617145b09fc3fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad4ecec8b90444188a47a8cde0babc5ae"><td class="memItemLeft" align="right" valign="top"><a class="el" href="m__pd__doc_8h.html#ac270cb9478f28b671e00b6e943175a35">t_sample</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__signal.html#ad4ecec8b90444188a47a8cde0babc5ae">s_vec</a></td></tr>
-<tr class="separator:ad4ecec8b90444188a47a8cde0babc5ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8ba1138e0b981e66f0f8bf5d43acc167"><td class="memItemLeft" align="right" valign="top"><a class="el" href="m__pd__doc_8h.html#a3124ce8d82f58aeb8be59a2db6a1a5f0">t_float</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__signal.html#a8ba1138e0b981e66f0f8bf5d43acc167">s_sr</a></td></tr>
-<tr class="separator:a8ba1138e0b981e66f0f8bf5d43acc167"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a42a0b1e2d910862e122c6f7d405487f5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__signal.html#a42a0b1e2d910862e122c6f7d405487f5">s_refcount</a></td></tr>
-<tr class="separator:a42a0b1e2d910862e122c6f7d405487f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a211530a9874e7c762db5ed3331af114d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__signal.html#a211530a9874e7c762db5ed3331af114d">s_isborrowed</a></td></tr>
-<tr class="separator:a211530a9874e7c762db5ed3331af114d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af3c568b7265404de9c4fc354806b885e"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="struct__signal.html">_signal</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__signal.html#af3c568b7265404de9c4fc354806b885e">s_borrowedfrom</a></td></tr>
-<tr class="separator:af3c568b7265404de9c4fc354806b885e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1563a6d75e23f0d92b8842c5523a069e"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="struct__signal.html">_signal</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__signal.html#a1563a6d75e23f0d92b8842c5523a069e">s_nextfree</a></td></tr>
-<tr class="separator:a1563a6d75e23f0d92b8842c5523a069e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a80b00e740f17b23928cba11f8f0a7c6a"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="struct__signal.html">_signal</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__signal.html#a80b00e740f17b23928cba11f8f0a7c6a">s_nextused</a></td></tr>
-<tr class="separator:a80b00e740f17b23928cba11f8f0a7c6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a769a509c26775c6ff747d1a1f3326456"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__signal.html#a769a509c26775c6ff747d1a1f3326456">s_vecsize</a></td></tr>
-<tr class="separator:a769a509c26775c6ff747d1a1f3326456"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaee0a45e5329caef59b617145b09fc3fa"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__g23.html#gaee0a45e5329caef59b617145b09fc3fa">s_n</a></td></tr>
+<tr class="separator:gaee0a45e5329caef59b617145b09fc3fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad4ecec8b90444188a47a8cde0babc5ae"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__g18.html#gac270cb9478f28b671e00b6e943175a35">t_sample</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__g23.html#gad4ecec8b90444188a47a8cde0babc5ae">s_vec</a></td></tr>
+<tr class="memdesc:gad4ecec8b90444188a47a8cde0babc5ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">number of points in the array  <a href="group__g23.html#gad4ecec8b90444188a47a8cde0babc5ae">More...</a><br/></td></tr>
+<tr class="separator:gad4ecec8b90444188a47a8cde0babc5ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8ba1138e0b981e66f0f8bf5d43acc167"><td class="memItemLeft" align="right" valign="top"><a class="el" href="m__pd__doc_8h.html#a3124ce8d82f58aeb8be59a2db6a1a5f0">t_float</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__g23.html#ga8ba1138e0b981e66f0f8bf5d43acc167">s_sr</a></td></tr>
+<tr class="memdesc:ga8ba1138e0b981e66f0f8bf5d43acc167"><td class="mdescLeft">&#160;</td><td class="mdescRight">the array  <a href="group__g23.html#ga8ba1138e0b981e66f0f8bf5d43acc167">More...</a><br/></td></tr>
+<tr class="separator:ga8ba1138e0b981e66f0f8bf5d43acc167"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga42a0b1e2d910862e122c6f7d405487f5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__g23.html#ga42a0b1e2d910862e122c6f7d405487f5">s_refcount</a></td></tr>
+<tr class="memdesc:ga42a0b1e2d910862e122c6f7d405487f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">sample rate  <a href="group__g23.html#ga42a0b1e2d910862e122c6f7d405487f5">More...</a><br/></td></tr>
+<tr class="separator:ga42a0b1e2d910862e122c6f7d405487f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga211530a9874e7c762db5ed3331af114d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__g23.html#ga211530a9874e7c762db5ed3331af114d">s_isborrowed</a></td></tr>
+<tr class="memdesc:ga211530a9874e7c762db5ed3331af114d"><td class="mdescLeft">&#160;</td><td class="mdescRight">number of times used  <a href="group__g23.html#ga211530a9874e7c762db5ed3331af114d">More...</a><br/></td></tr>
+<tr class="separator:ga211530a9874e7c762db5ed3331af114d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf3c568b7265404de9c4fc354806b885e"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="struct__signal.html">_signal</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__g23.html#gaf3c568b7265404de9c4fc354806b885e">s_borrowedfrom</a></td></tr>
+<tr class="memdesc:gaf3c568b7265404de9c4fc354806b885e"><td class="mdescLeft">&#160;</td><td class="mdescRight">whether we're going to borrow our array  <a href="group__g23.html#gaf3c568b7265404de9c4fc354806b885e">More...</a><br/></td></tr>
+<tr class="separator:gaf3c568b7265404de9c4fc354806b885e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1563a6d75e23f0d92b8842c5523a069e"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="struct__signal.html">_signal</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__g23.html#ga1563a6d75e23f0d92b8842c5523a069e">s_nextfree</a></td></tr>
+<tr class="memdesc:ga1563a6d75e23f0d92b8842c5523a069e"><td class="mdescLeft">&#160;</td><td class="mdescRight">signal to borrow it from  <a href="group__g23.html#ga1563a6d75e23f0d92b8842c5523a069e">More...</a><br/></td></tr>
+<tr class="separator:ga1563a6d75e23f0d92b8842c5523a069e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga80b00e740f17b23928cba11f8f0a7c6a"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="struct__signal.html">_signal</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__g23.html#ga80b00e740f17b23928cba11f8f0a7c6a">s_nextused</a></td></tr>
+<tr class="memdesc:ga80b00e740f17b23928cba11f8f0a7c6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">next in freelist  <a href="group__g23.html#ga80b00e740f17b23928cba11f8f0a7c6a">More...</a><br/></td></tr>
+<tr class="separator:ga80b00e740f17b23928cba11f8f0a7c6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga769a509c26775c6ff747d1a1f3326456"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__g23.html#ga769a509c26775c6ff747d1a1f3326456">s_vecsize</a></td></tr>
+<tr class="memdesc:ga769a509c26775c6ff747d1a1f3326456"><td class="mdescLeft">&#160;</td><td class="mdescRight">next in used list  <a href="group__g23.html#ga769a509c26775c6ff747d1a1f3326456">More...</a><br/></td></tr>
+<tr class="separator:ga769a509c26775c6ff747d1a1f3326456"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Field Documentation</h2>
-<a class="anchor" id="af3c568b7265404de9c4fc354806b885e"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">struct <a class="el" href="struct__signal.html">_signal</a>* s_borrowedfrom</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>whether we're going to borrow our array </p>
-
-</div>
-</div>
-<a class="anchor" id="a211530a9874e7c762db5ed3331af114d"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int s_isborrowed</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>number of times used </p>
-
-</div>
-</div>
-<a class="anchor" id="aee0a45e5329caef59b617145b09fc3fa"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int s_n</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a1563a6d75e23f0d92b8842c5523a069e"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">struct <a class="el" href="struct__signal.html">_signal</a>* s_nextfree</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>signal to borrow it from </p>
-
-</div>
-</div>
-<a class="anchor" id="a80b00e740f17b23928cba11f8f0a7c6a"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">struct <a class="el" href="struct__signal.html">_signal</a>* s_nextused</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>next in freelist </p>
-
-</div>
-</div>
-<a class="anchor" id="a42a0b1e2d910862e122c6f7d405487f5"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int s_refcount</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>sample rate </p>
-
-</div>
-</div>
-<a class="anchor" id="a8ba1138e0b981e66f0f8bf5d43acc167"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="m__pd__doc_8h.html#a3124ce8d82f58aeb8be59a2db6a1a5f0">t_float</a> s_sr</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>the array </p>
-
-</div>
-</div>
-<a class="anchor" id="ad4ecec8b90444188a47a8cde0babc5ae"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="m__pd__doc_8h.html#ac270cb9478f28b671e00b6e943175a35">t_sample</a>* s_vec</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>number of points in the array </p>
-
-</div>
-</div>
-<a class="anchor" id="a769a509c26775c6ff747d1a1f3326456"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int s_vecsize</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>next in used list </p>
-
-</div>
-</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li><a class="el" href="m__pd__doc_8h_source.html">m_pd_doc.h</a></li>
 </ul>
@@ -258,7 +150,7 @@ Data Fields</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="struct__signal.html">_signal</a></li>
-    <li class="footer">Generated on Fri Dec 23 2016 12:06:17 for PD API documentation by
+    <li class="footer">Generated on Fri Dec 23 2016 12:28:31 for PD API documentation by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.5 </li>
   </ul>

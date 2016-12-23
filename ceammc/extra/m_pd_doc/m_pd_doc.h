@@ -1,4 +1,4 @@
-/** \detail Copyright (c) 1997-1999 Miller Puckette.
+/** \brief Copyright (c) 1997-1999 Miller Puckette.
 * For information on usage and redistribution, and for a DISCLAIMER OF ALL
 * WARRANTIES, see the file, "LICENSE.txt," in this distribution.  */
 
@@ -12,34 +12,34 @@ extern "C" {
 #define PD_MINOR_VERSION 47
 #define PD_BUGFIX_VERSION 1
 #define PD_TEST_VERSION ""
-extern int pd_compatibilitylevel;   /** \detail e.g., 43 for pd 0.43 compatibility */
+extern int pd_compatibilitylevel;   /** \brief e.g., 43 for pd 0.43 compatibility */
 
-/** \detail old name for "MSW" flag -- we have to take it for the sake of many old
+/** \brief old name for "MSW" flag -- we have to take it for the sake of many old
 "nmakefiles" for externs, which will define NT and not MSW */
 #if defined(NT) && !defined(MSW)
 #define MSW
 #endif
 
-/** \detail These pragmas are only used for MSVC, not MinGW or Cygwin <hans@at.or.at> */
+/** \brief These pragmas are only used for MSVC, not MinGW or Cygwin <hans@at.or.at> */
 #ifdef _MSC_VER
-/** \detail #pragma warning( disable : 4091 ) */
-#pragma warning( disable : 4305 )  /** \detail uncast const double to float */
-#pragma warning( disable : 4244 )  /** \detail uncast float/int conversion etc. */
-#pragma warning( disable : 4101 )  /** \detail unused automatic variables */
-#endif /** \detail _MSC_VER */
+/** \brief #pragma warning( disable : 4091 ) */
+#pragma warning( disable : 4305 )  /** \brief uncast const double to float */
+#pragma warning( disable : 4244 )  /** \brief uncast float/int conversion etc. */
+#pragma warning( disable : 4101 )  /** \brief unused automatic variables */
+#endif /** \brief _MSC_VER */
 
-    /** \detail the external storage class is "extern" in UNIX; in MSW it's ugly. */
+    /** \brief the external storage class is "extern" in UNIX; in MSW it's ugly. */
 #ifdef _WIN32
 #ifdef PD_INTERNAL
 #define EXTERN __declspec(dllexport) extern
 #else
 #define EXTERN __declspec(dllimport) extern
-#endif /** \detail PD_INTERNAL */
+#endif /** \brief PD_INTERNAL */
 #else
 #define EXTERN extern
-#endif /** \detail _WIN32 */
+#endif /** \brief _WIN32 */
 
-    /** \detail On most c compilers, you can just say "struct foo;" to declare a
+    /** \brief On most c compilers, you can just say "struct foo;" to declare a
     structure whose elements are defined elsewhere.  On MSVC, when compiling
     C (but not C++) code, you have to say "extern struct foo;".  So we make
     a stupid macro: */
@@ -50,7 +50,7 @@ extern int pd_compatibilitylevel;   /** \detail e.g., 43 for pd 0.43 compatibili
 #define EXTERN_STRUCT struct
 #endif
 
-/** \detail Define some attributes, specific to the compiler */
+/** \brief Define some attributes, specific to the compiler */
 #if defined(__GNUC__)
 #define ATTRIBUTE_FORMAT_PRINTF(a, b) __attribute__ ((format (printf, a, b)))
 #else
@@ -58,10 +58,10 @@ extern int pd_compatibilitylevel;   /** \detail e.g., 43 for pd 0.43 compatibili
 #endif
 
 #if !defined(_SIZE_T) && !defined(_SIZE_T_)
-#include <stddef.h>     /** \detail just for size_t -- how lame! */
+#include <stddef.h>     /** \brief just for size_t -- how lame! */
 #endif
 
-/** \detail Microsoft Visual Studio is not C99, it does not provide stdint.h */
+/** \brief Microsoft Visual Studio is not C99, it does not provide stdint.h */
 #ifdef _MSC_VER
 typedef signed __int8     int8_t;
 typedef signed __int16    int16_t;
@@ -75,25 +75,25 @@ typedef unsigned __int64  uint64_t;
 # include <stdint.h>
 #endif
 
-/** \detail for FILE, needed by sys_fopen() and sys_fclose() only */
+/** \brief for FILE, needed by sys_fopen() and sys_fclose() only */
 #include <stdio.h>
 
-#define MAXPDSTRING 1000        /** \detail use this for anything you want */
-#define MAXPDARG 5              /** \detail max number of args we can typecheck today */
+#define MAXPDSTRING 1000        /** \brief use this for anything you want */
+#define MAXPDARG 5              /** \brief max number of args we can typecheck today */
 
-/** \detail signed and unsigned integer types the size of a pointer:  */
+/** \brief signed and unsigned integer types the size of a pointer:  */
 #if !defined(PD_LONGINTTYPE)
 #define PD_LONGINTTYPE long
 #endif
 
 #if !defined(PD_FLOATSIZE)
-  /** \detail normally, our floats (t_float, t_sample,...) are 32bit */
+  /** \brief normally, our floats (t_float, t_sample,...) are 32bit */
 # define PD_FLOATSIZE 32
 #endif
 
 #if PD_FLOATSIZE == 32
 # define PD_FLOATTYPE float
-/** \detail an unsigned int of the same size as FLOATTYPE: */
+/** \brief an unsigned int of the same size as FLOATTYPE: */
 # define PD_FLOATUINTTYPE unsigned int
 
 #elif PD_FLOATSIZE == 64
@@ -103,9 +103,9 @@ typedef unsigned __int64  uint64_t;
 # error invalid FLOATSIZE: must be 32 or 64
 #endif
 
-typedef PD_LONGINTTYPE t_int;       /** \detail pointer-size integer */
-typedef PD_FLOATTYPE t_float;       /** \detail a float type at most the same size */
-typedef PD_FLOATTYPE t_floatarg;    /** \detail float type for function calls */
+typedef PD_LONGINTTYPE t_int;       /** \brief pointer-size integer */
+typedef PD_FLOATTYPE t_float;       /** \brief a float type at most the same size */
+typedef PD_FLOATTYPE t_floatarg;    /** \brief float type for function calls */
 
 typedef struct _symbol
 {
@@ -115,37 +115,37 @@ typedef struct _symbol
 } t_symbol;
 
 EXTERN_STRUCT _array;
-#define t_array struct _array       /** \detail g_canvas.h */
+#define t_array struct _array       /** \brief g_canvas.h */
 
-/** \detail pointers to glist and array elements go through a "stub" which sticks
+/** \brief pointers to glist and array elements go through a "stub" which sticks
 around after the glist or array is freed.  The stub itself is deleted when
 both the glist/array is gone and the refcount is zero, ensuring that no
 gpointers are pointing here. */
 
-#define GP_NONE 0       /** \detail the stub points nowhere (has been cut off) */
-#define GP_GLIST 1      /** \detail the stub points to a glist element */
-#define GP_ARRAY 2      /** \detail ... or array */
+#define GP_NONE 0       /** \brief the stub points nowhere (has been cut off) */
+#define GP_GLIST 1      /** \brief the stub points to a glist element */
+#define GP_ARRAY 2      /** \brief ... or array */
 
 typedef struct _gstub
 {
     union
     {
-        struct _glist *gs_glist;    /** \detail glist we're in */
-        struct _array *gs_array;    /** \detail array we're in */
+        struct _glist *gs_glist;    /** \brief glist we're in */
+        struct _array *gs_array;    /** \brief array we're in */
     } gs_un;
-    int gs_which;                   /** \detail GP_GLIST/GP_ARRAY */
-    int gs_refcount;                /** \detail number of gpointers pointing here */
+    int gs_which;                   /** \brief GP_GLIST/GP_ARRAY */
+    int gs_refcount;                /** \brief number of gpointers pointing here */
 } t_gstub;
 
-typedef struct _gpointer           /** \detail pointer to a gobj in a glist */
+typedef struct _gpointer           /** \brief pointer to a gobj in a glist */
 {
     union
     {
-        struct _scalar *gp_scalar;  /** \detail scalar we're in (if glist) */
-        union word *gp_w;           /** \detail raw data (if array) */
+        struct _scalar *gp_scalar;  /** \brief scalar we're in (if glist) */
+        union word *gp_w;           /** \brief raw data (if array) */
     } gp_un;
-    int gp_valid;                   /** \detail number which must match gpointee */
-    t_gstub *gp_stub;               /** \detail stub which points to glist/array */
+    int gp_valid;                   /** \brief number which must match gpointee */
+    t_gstub *gp_stub;               /** \brief stub which points to glist/array */
 } t_gpointer;
 
 typedef union word
@@ -174,7 +174,7 @@ typedef enum
     A_CANT
 }  t_atomtype;
 
-#define A_DEFSYMBOL A_DEFSYM    /** \detail better name for this */
+#define A_DEFSYMBOL A_DEFSYM    /** \brief better name for this */
 
 typedef struct _atom
 {
@@ -202,43 +202,43 @@ EXTERN_STRUCT _outconnect;
 
 EXTERN_STRUCT _glist;
 #define t_glist struct _glist
-#define t_canvas struct _glist  /** \detail LATER lose this */
+#define t_canvas struct _glist  /** \brief LATER lose this */
 
-typedef t_class *t_pd;      /** \detail pure datum: nothing but a class pointer */
+typedef t_class *t_pd;      /** \brief pure datum: nothing but a class pointer */
 
-typedef struct _gobj        /** \detail a graphical object */
+typedef struct _gobj        /** \brief a graphical object */
 {
-    t_pd g_pd;              /** \detail pure datum header (class) */
-    struct _gobj *g_next;   /** \detail next in list */
+    t_pd g_pd;              /** \brief pure datum header (class) */
+    struct _gobj *g_next;   /** \brief next in list */
 } t_gobj;
 
-typedef struct _scalar      /** \detail a graphical object holding data */
+typedef struct _scalar      /** \brief a graphical object holding data */
 {
-    t_gobj sc_gobj;         /** \detail header for graphical object */
-    t_symbol *sc_template;  /** \detail template name (LATER replace with pointer) */
-    t_word sc_vec[1];       /** \detail indeterminate-length array of words */
+    t_gobj sc_gobj;         /** \brief header for graphical object */
+    t_symbol *sc_template;  /** \brief template name (LATER replace with pointer) */
+    t_word sc_vec[1];       /** \brief indeterminate-length array of words */
 } t_scalar;
 
-typedef struct _text        /** \detail patchable object - graphical, with text */
+typedef struct _text        /** \brief patchable object - graphical, with text */
 {
-    t_gobj te_g;                /** \detail header for graphical object */
-    t_binbuf *te_binbuf;        /** \detail holder for the text */
-    t_outlet *te_outlet;        /** \detail linked list of outlets */
-    t_inlet *te_inlet;          /** \detail linked list of inlets */
-    short te_xpix;              /** \detail x&y location (within the toplevel) */
+    t_gobj te_g;                /** \brief header for graphical object */
+    t_binbuf *te_binbuf;        /** \brief holder for the text */
+    t_outlet *te_outlet;        /** \brief linked list of outlets */
+    t_inlet *te_inlet;          /** \brief linked list of inlets */
+    short te_xpix;              /** \brief x&y location (within the toplevel) */
     short te_ypix;
-    short te_width;             /** \detail requested width in chars, 0 if auto */
-    unsigned int te_type:2;     /** \detail from defs below */
+    short te_width;             /** \brief requested width in chars, 0 if auto */
+    unsigned int te_type:2;     /** \brief from defs below */
 } t_text;
 
-#define T_TEXT 0        /** \detail just a textual comment */
-#define T_OBJECT 1      /** \detail a MAX style patchable object */
-#define T_MESSAGE 2     /** \detail a MAX stype message */
-#define T_ATOM 3        /** \detail a cell to display a number or symbol */
+#define T_TEXT 0        /** \brief just a textual comment */
+#define T_OBJECT 1      /** \brief a MAX style patchable object */
+#define T_MESSAGE 2     /** \brief a MAX stype message */
+#define T_ATOM 3        /** \brief a cell to display a number or symbol */
 
 #define te_pd te_g.g_pd
 
-   /** \detail t_object is synonym for t_text (LATER unify them) */
+   /** \brief t_object is synonym for t_text (LATER unify them) */
 
 typedef struct _text t_object;
 
@@ -251,7 +251,7 @@ typedef struct _text t_object;
 typedef void (*t_method)(void);
 typedef void *(*t_newmethod)( void);
 
-/** \detail in ARM 64 a varargs prototype generates a different function call sequence
+/** \brief in ARM 64 a varargs prototype generates a different function call sequence
 from a fixed one, so in that special case we make a more restrictive
 definition for t_gotfn.  This will break some code in the "chaos" package
 in Pd extended.  (that code will run incorrectly anyhow so why not catch it
@@ -262,9 +262,11 @@ typedef void (*t_gotfn)(void *x);
 typedef void (*t_gotfn)(void *x, ...);
 #endif
 
-/** \detail ---------------- pre-defined objects and symbols --------------*/
-EXTERN t_pd pd_objectmaker;     /** \detail factory for creating "object" boxes */
-EXTERN t_pd pd_canvasmaker;     /** \detail factory for creating canvases */
+/** \defgroup g1 pre-defined objects and symbols
+ * @{ 
+ */
+EXTERN t_pd pd_objectmaker;     /** \brief factory for creating "object" boxes */
+EXTERN t_pd pd_canvasmaker;     /** \brief factory for creating canvases */
 EXTERN t_symbol s_pointer;
 EXTERN t_symbol s_float;
 EXTERN t_symbol s_symbol;
@@ -277,8 +279,13 @@ EXTERN t_symbol s__X;
 EXTERN t_symbol s_x;
 EXTERN t_symbol s_y;
 EXTERN t_symbol s_;
+    /** 
+     *@}
+     */
 
-/** \detail --------- prototypes from the central message system ----------- */
+/** \defgroup g2 prototypes from the central message system
+ * @{ 
+ */
 EXTERN void pd_typedmess(t_pd *x, t_symbol *s, int argc, t_atom *argv);
 EXTERN void pd_forwardmess(t_pd *x, int argc, t_atom *argv);
 EXTERN t_symbol *gensym(const char *s);
@@ -286,8 +293,11 @@ EXTERN t_gotfn getfn(t_pd *x, t_symbol *s);
 EXTERN t_gotfn zgetfn(t_pd *x, t_symbol *s);
 EXTERN void nullfn(void);
 EXTERN void pd_vmess(t_pd *x, t_symbol *s, char *fmt, ...);
+    /**
+     *@}
+     */
 
-/** \detail the following macrose are for sending non-type-checkable mesages, i.e.,
+/** \brief the following macrose are for sending non-type-checkable mesages, i.e.,
 using function lookup but circumventing type checking on arguments.  Only
 use for internal messaging protected by A_CANT so that the message can't
 be generated at patch level. */
@@ -310,14 +320,21 @@ typedef void (*t_gotfn5)(void *x,
 EXTERN void obj_list(t_object *x, t_symbol *s, int argc, t_atom *argv);
 EXTERN t_pd *pd_newest(void);
 
-/** \detail --------------- memory management -------------------- */
+    /** \defgroup g3 memory management
+     * @{
+     */
 EXTERN void *getbytes(size_t nbytes);
 EXTERN void *getzbytes(size_t nbytes);
 EXTERN void *copybytes(void *src, size_t nbytes);
 EXTERN void freebytes(void *x, size_t nbytes);
 EXTERN void *resizebytes(void *x, size_t oldsize, size_t newsize);
-
-/** \detail -------------------- atoms ----------------------------- */
+    /**
+     *@}
+     */
+    
+    /** \defgroup g4 atoms
+     * @{
+     */
 
 #define SETSEMI(atom) ((atom)->a_type = A_SEMI, (atom)->a_w.w_index = 0)
 #define SETCOMMA(atom) ((atom)->a_type = A_COMMA, (atom)->a_w.w_index = 0)
@@ -340,8 +357,13 @@ EXTERN t_int atom_getintarg(int which, int argc, t_atom *argv);
 EXTERN t_symbol *atom_getsymbolarg(int which, int argc, t_atom *argv);
 
 EXTERN void atom_string(t_atom *a, char *buf, unsigned int bufsize);
-
-/** \detail ------------------  binbufs --------------- */
+    /**
+     *@}
+     */
+    
+    /** \defgroup g5 binbufs
+     * @{
+     */
 
 EXTERN t_binbuf *binbuf_new(void);
 EXTERN void binbuf_free(t_binbuf *x);
@@ -371,8 +393,13 @@ EXTERN int binbuf_write(t_binbuf *x, char *filename, char *dir,
 EXTERN void binbuf_evalfile(t_symbol *name, t_symbol *dir);
 EXTERN t_symbol *binbuf_realizedollsym(t_symbol *s, int ac, t_atom *av,
     int tonew);
-
-/** \detail ------------------  clocks --------------- */
+    /**
+     *@}
+     */
+    
+    /** \defgroup g6 clocks
+     * @{
+     */
 
 EXTERN t_clock *clock_new(void *owner, t_method fn);
 EXTERN void clock_set(t_clock *x, double systime);
@@ -380,14 +407,19 @@ EXTERN void clock_delay(t_clock *x, double delaytime);
 EXTERN void clock_unset(t_clock *x);
 EXTERN void clock_setunit(t_clock *x, double timeunit, int sampflag);
 EXTERN double clock_getlogicaltime(void);
-EXTERN double clock_getsystime(void); /** \detail OBSOLETE; use clock_getlogicaltime() */
+EXTERN double clock_getsystime(void); /** \brief OBSOLETE; use clock_getlogicaltime() */
 EXTERN double clock_gettimesince(double prevsystime);
 EXTERN double clock_gettimesincewithunits(double prevsystime,
     double units, int sampflag);
 EXTERN double clock_getsystimeafter(double delaytime);
 EXTERN void clock_free(t_clock *x);
-
-/** \detail ----------------- pure data ---------------- */
+    /**
+     *@}
+     */
+    
+    /** \defgroup g7 puredata
+     * @{
+     */
 EXTERN t_pd *pd_new(t_class *cls);
 EXTERN void pd_free(t_pd *x);
 EXTERN void pd_bind(t_pd *x, t_symbol *s);
@@ -404,14 +436,24 @@ EXTERN void pd_symbol(t_pd *x, t_symbol *s);
 EXTERN void pd_list(t_pd *x, t_symbol *s, int argc, t_atom *argv);
 EXTERN void pd_anything(t_pd *x, t_symbol *s, int argc, t_atom *argv);
 #define pd_class(x) (*(x))
-
-/** \detail ----------------- pointers ---------------- */
+    /**
+     *@}
+     */
+    
+    /** \defgroup g8 pointers
+     * @{
+     */
 EXTERN void gpointer_init(t_gpointer *gp);
 EXTERN void gpointer_copy(const t_gpointer *gpfrom, t_gpointer *gpto);
 EXTERN void gpointer_unset(t_gpointer *gp);
 EXTERN int gpointer_check(const t_gpointer *gp, int headok);
-
-/** \detail ----------------- patchable "objects" -------------- */
+    /**
+     *@}
+     */
+    
+    /** \defgroup g9 patchable "objects"
+     * @{
+     */
 EXTERN t_inlet *inlet_new(t_object *owner, t_pd *dest, t_symbol *s1,
     t_symbol *s2);
 EXTERN t_inlet *pointerinlet_new(t_object *owner, t_gpointer *gp);
@@ -430,9 +472,13 @@ EXTERN void outlet_anything(t_outlet *x, t_symbol *s, int argc, t_atom *argv);
 EXTERN t_symbol *outlet_getsymbol(t_outlet *x);
 EXTERN void outlet_free(t_outlet *x);
 EXTERN t_object *pd_checkobject(t_pd *x);
+    /**
+     *@}
+     */
 
-
-/** \detail -------------------- canvases -------------- */
+    /** \defgroup g10 canvases
+     * @{
+     */
 
 EXTERN void glob_setfilename(void *dummy, t_symbol *name, t_symbol *dir);
 
@@ -443,8 +489,8 @@ EXTERN t_glist *canvas_getcurrent(void);
 EXTERN void canvas_makefilename(t_glist *c, char *file,
     char *result,int resultsize);
 EXTERN t_symbol *canvas_getdir(t_glist *x);
-EXTERN char sys_font[]; /** \detail default typeface set in s_main.c */
-EXTERN char sys_fontweight[]; /** \detail default font weight set in s_main.c */
+EXTERN char sys_font[]; /** \brief default typeface set in s_main.c */
+EXTERN char sys_fontweight[]; /** \brief default font weight set in s_main.c */
 EXTERN int sys_zoomfontwidth(int fontsize, int zoom, int worstcase);
 EXTERN int sys_zoomfontheight(int fontsize, int zoom, int worstcase);
 EXTERN int sys_fontwidth(int fontsize);
@@ -452,8 +498,13 @@ EXTERN int sys_fontheight(int fontsize);
 EXTERN void canvas_dataproperties(t_glist *x, t_scalar *sc, t_binbuf *b);
 EXTERN int canvas_open(t_canvas *x, const char *name, const char *ext,
     char *dirresult, char **nameresult, unsigned int size, int bin);
-
-/** \detail ---------------- widget behaviors ---------------------- */
+    /**
+     *@}
+     */
+    
+    /** \defgroup g11 widget behaviours
+     * @{
+     */
 
 EXTERN_STRUCT _widgetbehavior;
 #define t_widgetbehavior struct _widgetbehavior
@@ -461,10 +512,15 @@ EXTERN_STRUCT _widgetbehavior;
 EXTERN_STRUCT _parentwidgetbehavior;
 #define t_parentwidgetbehavior struct _parentwidgetbehavior
 EXTERN t_parentwidgetbehavior *pd_getparentwidget(t_pd *x);
+    /**
+     *@}
+     */
+    
+    /** \defgroup g12 classes
+     * @{
+     */
 
-/** \detail -------------------- classes -------------- */
-
-#define CLASS_DEFAULT 0         /** \detail flags for new classes below */
+#define CLASS_DEFAULT 0         /** \brief flags for new classes below */
 #define CLASS_PD 1
 #define CLASS_GOBJ 2
 #define CLASS_PATCHABLE 3
@@ -498,14 +554,26 @@ EXTERN void class_domainsignalin(t_class *c, int onset);
 EXTERN void class_set_extern_dir(t_symbol *s);
 #define CLASS_MAINSIGNALIN(c, type, field) \
     class_domainsignalin(c, (char *)(&((type *)0)->field) - (char *)0)
-
-         /** \detail prototype for functions to save Pd's to a binbuf */
+    /**
+     *@}
+     */
+    
+    /** \defgroup g13 prototype for functions to save Pd's to a binbuf
+     * @{
+     */
+    
 typedef void (*t_savefn)(t_gobj *x, t_binbuf *b);
 EXTERN void class_setsavefn(t_class *c, t_savefn f);
 EXTERN t_savefn class_getsavefn(t_class *c);
-EXTERN void obj_saveformat(t_object *x, t_binbuf *bb); /** \detail add format to bb */
-
-        /** \detail prototype for functions to open properties dialogs */
+EXTERN void obj_saveformat(t_object *x, t_binbuf *bb); /** \brief add format to bb */
+    /**
+     *@}
+     */
+    
+    /** \defgroup g14 prototype for functions to open properties dialogs
+     * @{
+     */
+    
 typedef void (*t_propertiesfn)(t_gobj *x, struct _glist *glist);
 EXTERN void class_setpropertiesfn(t_class *c, t_propertiesfn f);
 EXTERN t_propertiesfn class_getpropertiesfn(t_class *c);
@@ -518,8 +586,13 @@ EXTERN t_propertiesfn class_getpropertiesfn(t_class *c);
 #define class_addlist(x, y) class_addlist((x), (t_method)(y))
 #define class_addanything(x, y) class_addanything((x), (t_method)(y))
 #endif
-
-/** \detail ------------   printing --------------------------------- */
+    /**
+     *@}
+     */
+    
+    /** \defgroup g15 printing
+     * @{
+     */
 EXTERN void post(const char *fmt, ...);
 EXTERN void startpost(const char *fmt, ...);
 EXTERN void poststring(const char *s);
@@ -535,9 +608,13 @@ EXTERN void logpost(const void *object, const int level, const char *fmt, ...)
 EXTERN void sys_logerror(const char *object, const char *s);
 EXTERN void sys_unixerror(const char *object);
 EXTERN void sys_ouch(void);
+    /**
+     *@}
+     */
 
-
-/** \detail ------------  system interface routines ------------------- */
+    /** \defgroup g16 system interface routines
+     * @{
+     */
 EXTERN int sys_isreadablefile(const char *name);
 EXTERN int sys_isabsolutepath(const char *dir);
 EXTERN void sys_bashfilename(const char *from, char *to);
@@ -546,9 +623,9 @@ EXTERN int open_via_path(const char *dir, const char *name, const char *ext,
     char *dirresult, char **nameresult, unsigned int size, int bin);
 EXTERN int sched_geteventno(void);
 EXTERN double sys_getrealtime(void);
-EXTERN int (*sys_idlehook)(void);   /** \detail hook to add idle time computation */
+EXTERN int (*sys_idlehook)(void);   /** \brief hook to add idle time computation */
 
-/** \detail Win32's open()/fopen() do not handle UTF-8 filenames so we need
+/** \brief Win32's open()/fopen() do not handle UTF-8 filenames so we need
  * these internal versions that handle UTF-8 filenames the same across
  * all platforms.  They are recommended for use in external
  * objectclasses as well so they work with Unicode filenames on Windows */
@@ -556,14 +633,23 @@ EXTERN int sys_open(const char *path, int oflag, ...);
 EXTERN int sys_close(int fd);
 EXTERN FILE *sys_fopen(const char *filename, const char *mode);
 EXTERN int sys_fclose(FILE *stream);
-
-/** \detail ------------  threading ------------------- */
+    /**
+     *@}
+     */
+    
+    /** \defgroup g17 threading
+     * @{
+     */
 EXTERN void sys_lock(void);
 EXTERN void sys_unlock(void);
 EXTERN int sys_trylock(void);
+    /**
+     *@}
+     */
 
-
-/** \detail --------------- signals ----------------------------------- */
+    /** \defgroup g18 signals
+     * @{
+     */
 
 typedef PD_FLOATTYPE t_sample;
 typedef union _sampleint_union {
@@ -575,15 +661,15 @@ typedef union _sampleint_union {
 
 typedef struct _signal
 {
-    int s_n;            /** \detail number of points in the array */
-    t_sample *s_vec;    /** \detail the array */
-    t_float s_sr;         /** \detail sample rate */
-    int s_refcount;     /** \detail number of times used */
-    int s_isborrowed;   /** \detail whether we're going to borrow our array */
-    struct _signal *s_borrowedfrom;     /** \detail signal to borrow it from */
-    struct _signal *s_nextfree;         /** \detail next in freelist */
-    struct _signal *s_nextused;         /** \detail next in used list */
-    int s_vecsize;      /** \detail allocated size of array in points */
+    int s_n;            /** \brief number of points in the array */
+    t_sample *s_vec;    /** \brief the array */
+    t_float s_sr;         /** \brief sample rate */
+    int s_refcount;     /** \brief number of times used */
+    int s_isborrowed;   /** \brief whether we're going to borrow our array */
+    struct _signal *s_borrowedfrom;     /** \brief signal to borrow it from */
+    struct _signal *s_nextfree;         /** \brief next in freelist */
+    struct _signal *s_nextused;         /** \brief next in used list */
+    int s_vecsize;      /** \brief allocated size of array in points */
 } t_signal;
 
 typedef t_int *(*t_perfroutine)(t_int *args);
@@ -621,22 +707,27 @@ EXTERN int canvas_suspend_dsp(void);
 EXTERN void canvas_resume_dsp(int oldstate);
 EXTERN void canvas_update_dsp(void);
 EXTERN int canvas_dspstate;
-
-/** \detail   up/downsampling */
+    /**
+     *@}
+     */
+    
+    /** \defgroup g19 up/downsampling
+     * @{
+     */
 typedef struct _resample
 {
-  int method;       /** \detail up/downsampling method ID */
+  int method;       /** \brief up/downsampling method ID */
 
-  int downsample; /** \detail downsampling factor */
-  int upsample;   /** \detail upsampling factor */
+  int downsample; /** \brief downsampling factor */
+  int upsample;   /** \brief upsampling factor */
 
-  t_sample *s_vec;   /** \detail here we hold the resampled data */
+  t_sample *s_vec;   /** \brief here we hold the resampled data */
   int      s_n;
 
-  t_sample *coeffs;  /** \detail coefficients for filtering... */
+  t_sample *coeffs;  /** \brief coefficients for filtering... */
   int      coefsize;
 
-  t_sample *buffer;  /** \detail buffer for filtering */
+  t_sample *buffer;  /** \brief buffer for filtering */
   int      bufsize;
 } t_resample;
 
@@ -646,8 +737,13 @@ EXTERN void resample_free(t_resample *x);
 EXTERN void resample_dsp(t_resample *x, t_sample *in, int insize, t_sample *out, int outsize, int method);
 EXTERN void resamplefrom_dsp(t_resample *x, t_sample *in, int insize, int outsize, int method);
 EXTERN void resampleto_dsp(t_resample *x, t_sample *out, int insize, int outsize, int method);
-
-/** \detail ----------------------- utility functions for signals -------------- */
+    /**
+     *@}
+     */
+    
+    /** \defgroup g20 utility for functions/signals
+     * @{
+     */
 EXTERN t_float mtof(t_float);
 EXTERN t_float ftom(t_float);
 EXTERN t_float rmstodb(t_float);
@@ -658,12 +754,17 @@ EXTERN t_float dbtopow(t_float);
 EXTERN t_float q8_sqrt(t_float);
 EXTERN t_float q8_rsqrt(t_float);
 #ifndef N32
-EXTERN t_float qsqrt(t_float);  /** \detail old names kept for extern compatibility */
+EXTERN t_float qsqrt(t_float);  /** \brief old names kept for extern compatibility */
 EXTERN t_float qrsqrt(t_float);
 #endif
-/** \detail --------------------- data --------------------------------- */
+    /**
+     *@}
+     */
+    
+    /** \defgroup g21 data : graphical arrays
+     * @{
+     */
 
-    /** \detail graphical arrays */
 EXTERN_STRUCT _garray;
 #define t_garray struct _garray
 
@@ -673,8 +774,8 @@ EXTERN int garray_getfloatwords(t_garray *x, int *size, t_word **vec);
 EXTERN void garray_redraw(t_garray *x);
 EXTERN int garray_npoints(t_garray *x);
 EXTERN char *garray_vec(t_garray *x);
-EXTERN void garray_resize(t_garray *x, t_floatarg f);  /** \detail avoid; use this: */
-EXTERN void garray_resize_long(t_garray *x, long n);   /** \detail better version */
+EXTERN void garray_resize(t_garray *x, t_floatarg f);  /** \brief avoid; use this: */
+EXTERN void garray_resize_long(t_garray *x, long n);   /** \brief better version */
 EXTERN void garray_usedindsp(t_garray *x);
 EXTERN void garray_setsaveit(t_garray *x, int saveit);
 EXTERN t_glist *garray_getglist(t_garray *x);
@@ -685,8 +786,13 @@ EXTERN t_float *value_get(t_symbol *s);
 EXTERN void value_release(t_symbol *s);
 EXTERN int value_getfloat(t_symbol *s, t_float *f);
 EXTERN int value_setfloat(t_symbol *s, t_float f);
-
-/** \detail ------- GUI interface - functions to send strings to TK --------- */
+    /**
+     *@}
+     */
+    
+    /** \defgroup g22 GUI interface - functions to send strings to TK
+     * @{
+     */
 typedef void (*t_guicallbackfn)(t_gobj *client, t_glist *glist);
 
 EXTERN void sys_vgui(char *fmt, ...);
@@ -694,15 +800,20 @@ EXTERN void sys_gui(char *s);
 EXTERN void sys_pretendguibytes(int n);
 EXTERN void sys_queuegui(void *client, t_glist *glist, t_guicallbackfn f);
 EXTERN void sys_unqueuegui(void *client);
-    /** \detail dialog window creation and destruction */
+    /** \brief dialog window creation and destruction */
 EXTERN void gfxstub_new(t_pd *owner, void *key, const char *cmd);
 EXTERN void gfxstub_deleteforkey(void *key);
 
-extern t_class *glob_pdobject;  /** \detail object to send "pd" messages */
+extern t_class *glob_pdobject;  /** \brief object to send "pd" messages */
+    /**
+     *@}
+     */
 
-/** \detail-------------  Max 0.26 compatibility --------------------*/
+    /** \defgroup g23 Max 0.26 compatibility
+     * @{
+     */
 
-/** \detail the following reflects the new way classes are laid out, with the class
+/** \brief the following reflects the new way classes are laid out, with the class
    pointing to the messlist and not vice versa. Externs shouldn't feel it. */
 typedef t_class *t_externclass;
 
@@ -717,14 +828,14 @@ EXTERN void c_addmess(t_method fn, t_symbol *sel, t_atomtype arg1, ...);
 #define typedmess pd_typedmess
 #define vmess pd_vmess
 
-/** \detail A definition to help gui objects straddle 0.34-0.35 changes.  If this is
+/** \brief A definition to help gui objects straddle 0.34-0.35 changes.  If this is
 defined, there is a "te_xpix" field in objects, not a "te_xpos" as before: */
 
 #define PD_USE_TE_XPIX
 
-#ifndef _MSC_VER /** \detail Microoft compiler can't handle "inline" function/macros */
+#ifndef _MSC_VER /** \brief Microoft compiler can't handle "inline" function/macros */
 #if defined(__i386__) || defined(__x86_64__) || defined(__arm__)
-/** \detail a test for NANs and denormals.  Should only be necessary on i386. */
+/** \brief a test for NANs and denormals.  Should only be necessary on i386. */
 #if PD_FLOATSIZE == 32
 
 typedef  union
@@ -733,7 +844,7 @@ typedef  union
     unsigned int ui;
 }t_bigorsmall32;
 
-static inline int PD_BADFLOAT(t_float f)  /** \detail malformed float */
+static inline int PD_BADFLOAT(t_float f)  /** \brief malformed float */
 {
     t_bigorsmall32 pun;
     pun.f = f;
@@ -741,7 +852,7 @@ static inline int PD_BADFLOAT(t_float f)  /** \detail malformed float */
     return((pun.ui == 0) | (pun.ui == 0x7f800000));
 }
 
-static inline int PD_BIGORSMALL(t_float f)  /** \detail exponent outside (-64,64) */
+static inline int PD_BIGORSMALL(t_float f)  /** \brief exponent outside (-64,64) */
 {
     t_bigorsmall32 pun;
     pun.f = f;
@@ -756,7 +867,7 @@ typedef  union
     unsigned int ui[2];
 }t_bigorsmall64;
 
-static inline int PD_BADFLOAT(t_float f)  /** \detail malformed double */
+static inline int PD_BADFLOAT(t_float f)  /** \brief malformed double */
 {
     t_bigorsmall64 pun;
     pun.f = f;
@@ -764,39 +875,39 @@ static inline int PD_BADFLOAT(t_float f)  /** \detail malformed double */
     return((pun.ui[1] == 0) | (pun.ui[1] == 0x7ff00000));
 }
 
-static inline int PD_BIGORSMALL(t_float f)  /** \detail exponent outside (-512,512) */
+static inline int PD_BIGORSMALL(t_float f)  /** \brief exponent outside (-512,512) */
 {
     t_bigorsmall64 pun;
     pun.f = f;
     return((pun.ui[1] & 0x20000000) == ((pun.ui[1] >> 1) & 0x20000000));
 }
 
-#endif /** \detail PD_FLOATSIZE */
-#else /** \detail not INTEL or ARM */
+#endif /** \brief PD_FLOATSIZE */
+#else /** \brief not INTEL or ARM */
 #define PD_BADFLOAT(f) 0
 #define PD_BIGORSMALL(f) 0
 #endif
 
-#else   /** \detail _MSC_VER */
+#else   /** \brief _MSC_VER */
 #if PD_FLOATSIZE == 32
 #define PD_BADFLOAT(f) ((((*(unsigned int*)&(f))&0x7f800000)==0) || \
     (((*(unsigned int*)&(f))&0x7f800000)==0x7f800000))
-/** \detail more stringent test: anything not between 1e-19 and 1e19 in absolute val */
+/** \brief more stringent test: anything not between 1e-19 and 1e19 in absolute val */
 #define PD_BIGORSMALL(f) ((((*(unsigned int*)&(f))&0x60000000)==0) || \
     (((*(unsigned int*)&(f))&0x60000000)==0x60000000))
-#else   /** \detail 64 bits... don't know what to do here */
+#else   /** \brief 64 bits... don't know what to do here */
 #define PD_BADFLOAT(f) (!(((f) >= 0) || ((f) <= 0)))
 #define PD_BIGORSMALL(f) ((f) > 1e150 || (f) <  -1e150 \
     || (f) > -1e-150 && (f) < 1e-150 )
 #endif
-#endif /** \detail _MSC_VER */
-    /** \detail get version number at run time */
+#endif /** \brief _MSC_VER */
+    /** \brief get version number at run time */
 EXTERN void sys_getversion(int *major, int *minor, int *bugfix);
 
 EXTERN_STRUCT _pdinstance;
-#define t_pdinstance struct _pdinstance       /** \detail m_imp.h */
+#define t_pdinstance struct _pdinstance       /** \brief m_imp.h */
 
-/** \detail m_pd.c */
+/** \brief m_pd.c */
 
 EXTERN t_pdinstance *pdinstance_new( void);
 EXTERN void pd_setinstance(t_pdinstance *x);
@@ -811,4 +922,4 @@ EXTERN int pd_getdspstate(void);
 #endif
 
 #define __m_pd_h_
-#endif /** \detail __m_pd_h_ */
+#endif /** \brief __m_pd_h_ */

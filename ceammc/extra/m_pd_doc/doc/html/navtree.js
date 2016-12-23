@@ -1,6 +1,7 @@
 var NAVTREE =
 [
   [ "PD API documentation", "index.html", [
+    [ "Modules", "modules.html", "modules" ],
     [ "Data Structures", null, [
       [ "Data Structures", "annotated.html", "annotated" ],
       [ "Data Structure Index", "classes.html", null ],
@@ -27,8 +28,9 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"m__pd__doc_8h.html#a88a00ad6b9c0ee15dca0a9c80193b4de",
-"unionword.html#a985fdabd5996a0ae1ed311855f8e4be7"
+"group__g22.html#gacac5c3608548b51929c1449204dc9276",
+"m__pd__doc_8h.html#a1b552352d2562a8ae63d9c8c38c062ee",
+"m__pd__doc_8h.html#ga9925f69a08ca1d88ee725bb31402c3ef"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
