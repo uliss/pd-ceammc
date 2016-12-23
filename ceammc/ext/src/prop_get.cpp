@@ -20,7 +20,7 @@ static void prop_get_dump(t_prop* x)
 {
     OutletIndexMap::iterator it;
     for (it = x->prop_map->begin(); it != x->prop_map->end(); ++it)
-        post(MSG_PREFIX "dump: property %s:", it->first->s_name);
+        post(MSG_PREFIX "dump: property %s", it->first->s_name);
 }
 
 static inline void add_prop_map(t_prop* x, t_symbol* s)
