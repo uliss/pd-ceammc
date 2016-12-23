@@ -14,6 +14,7 @@
 
 #include "ceammc_atom.h"
 #include <cstring>
+#include <iostream>
 
 namespace ceammc {
 
@@ -215,5 +216,17 @@ bool to_outlet(t_outlet* x, const Atom& a)
     }
 
     return false;
+}
+
+std::ostream& operator<<(std::ostream& os, const Atom& a)
+{
+    if (a.isFloat())
+        os << a.asFloat();
+    if (a.isSymbol())
+        os << a.asString();
+    if (a.isNone())
+        os << "NONE";
+
+    return os;
 }
 }

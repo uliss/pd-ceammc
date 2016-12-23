@@ -16,6 +16,7 @@
 
 #include "ceammc_atom.h"
 #include <vector>
+#include <iosfwd>
 
 namespace ceammc {
 
@@ -86,6 +87,14 @@ public:
     Atom* foldAt(size_t pos);
     const Atom* foldAt(size_t pos) const;
 
+    /**
+     * Resize list. If new size is less the current, last values are dropped.
+     * If new size is bigger - pad with given value
+     * @param n - new size
+     * @param v - pad value
+     */
+    void resizePad(size_t n, const Atom& v);
+
     void fromPdData(size_t n, t_atom* lst);
     void fromPdData(int n, t_atom* lst);
     t_atom* toPdData() const;
@@ -153,7 +162,18 @@ public:
         FOLD // result of max size, min list wraped
     };
 
+    /**
+     * @brief returns new list that is contains from pair difference
+     * @param l - list
+     * @param b - behaivor flag, when lists are different lengths
+     * @return new list
+     */
     AtomList sub(const AtomList& l, NonEqualLengthBehaivor b = MINSIZE) const;
+
+public:
+    static AtomList zeroes(size_t n);
+    static AtomList ones(size_t n);
+    static AtomList filled(const Atom& a, size_t n);
 
 public:
     friend bool operator==(const AtomList& l1, const AtomList& l2);
@@ -162,6 +182,7 @@ public:
 
 bool operator==(const AtomList& l1, const AtomList& l2);
 bool operator!=(const AtomList& l1, const AtomList& l2);
+std::ostream& operator<<(std::ostream& os, const AtomList& l);
 
 bool to_outlet(t_outlet* x, const AtomList& a);
 
