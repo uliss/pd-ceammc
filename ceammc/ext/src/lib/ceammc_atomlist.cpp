@@ -93,6 +93,50 @@ const Atom* AtomList::relativeAt(int pos) const
     return const_cast<AtomList*>(this)->relativeAt(pos);
 }
 
+Atom* AtomList::clipAt(size_t pos)
+{
+    if (empty())
+        return 0;
+
+    return &at(std::min(size() - 1, pos));
+}
+
+const Atom* AtomList::clipAt(size_t pos) const
+{
+    return const_cast<AtomList*>(this)->clipAt(pos);
+}
+
+Atom* AtomList::wrapAt(size_t pos)
+{
+    if (empty())
+        return 0;
+
+    return &at(pos % size());
+}
+
+const Atom* AtomList::wrapAt(size_t pos) const
+{
+    return const_cast<AtomList*>(this)->wrapAt(pos);
+}
+
+Atom* AtomList::foldAt(size_t pos)
+{
+    if (empty())
+        return 0;
+
+    if (size() == 1)
+        return first();
+
+    const size_t a = size() - 1;
+    const size_t b = pos % (a * 2);
+    return &at(std::min(b, a * 2 - b));
+}
+
+const Atom* AtomList::foldAt(size_t pos) const
+{
+    return const_cast<AtomList*>(this)->foldAt(pos);
+}
+
 void AtomList::fromPdData(size_t n, t_atom* lst)
 {
     atoms_.clear();

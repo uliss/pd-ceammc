@@ -59,6 +59,33 @@ public:
     Atom* relativeAt(int pos);
     const Atom* relativeAt(int pos) const;
 
+    /**
+     * Same as at(), but values for index greater than the size of the
+     * List will be clipped to the last index.
+     * @param pos - position index
+     * @return pointer to element, or NULL if empty
+     */
+    Atom* clipAt(size_t pos);
+    const Atom* clipAt(size_t pos) const;
+
+    /**
+     * Same as at(), but values for index greater than the size of the
+     * List will be wrapped around to 0.
+     * @param pos - position index
+     * @return pointer to element, or NULL if empty
+     */
+    Atom* wrapAt(size_t pos);
+    const Atom* wrapAt(size_t pos) const;
+
+    /**
+     * Same as at(), but values for index greater than the size of the
+     * List will be folded back.
+     * @param pos - position index
+     * @return pointer to element, or NULL if empty
+     */
+    Atom* foldAt(size_t pos);
+    const Atom* foldAt(size_t pos) const;
+
     void fromPdData(size_t n, t_atom* lst);
     void fromPdData(int n, t_atom* lst);
     t_atom* toPdData() const;
@@ -117,6 +144,16 @@ public:
       * @param x - pointer to outlet
       */
     void output(t_outlet* x) const;
+
+    enum NonEqualLengthBehaivor {
+        MINSIZE = 0, // result of min size
+        PADZERO, // result of max size, min list padded with zeroes
+        CLIP, // result of max size, min list clipped with last value
+        WRAP, // result of max size, min list wraped
+        FOLD // result of max size, min list wraped
+    };
+
+    AtomList sub(const AtomList& l, NonEqualLengthBehaivor b = MINSIZE) const;
 
 public:
     friend bool operator==(const AtomList& l1, const AtomList& l2);

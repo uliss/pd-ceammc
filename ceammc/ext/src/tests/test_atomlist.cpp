@@ -407,6 +407,150 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         REQUIRE(l.findPos(3.f) == 2);
         REQUIRE(l.findPos(2.f) == 1);
         REQUIRE(l.findPos(1.f) == 0);
+        REQUIRE(l.findPos(100.f) == -1);
+        REQUIRE(l.findPos(gensym("a")) == -1);
+    }
+
+    SECTION("clipAt")
+    {
+        AtomList l;
+        REQUIRE(l.clipAt(0) == 0);
+        l.append(1.f);
+        l.append(2.f);
+
+        const AtomList cl(l);
+        REQUIRE(cl.clipAt(0)->asFloat() == 1.f);
+        REQUIRE(cl.clipAt(1)->asFloat() == 2.f);
+        REQUIRE(cl.clipAt(2)->asFloat() == 2.f);
+        REQUIRE(cl.clipAt(200)->asFloat() == 2.f);
+    }
+
+    SECTION("clipAt1")
+    {
+        AtomList l;
+        REQUIRE(l.clipAt(0) == 0);
+        l.append(1.f);
+
+        const AtomList cl(l);
+        REQUIRE(cl.clipAt(0)->asFloat() == 1.f);
+        REQUIRE(cl.clipAt(1)->asFloat() == 1.f);
+        REQUIRE(cl.clipAt(2)->asFloat() == 1.f);
+    }
+
+    SECTION("wrapAt2")
+    {
+        AtomList l;
+        REQUIRE(l.wrapAt(0) == 0);
+        l.append(1.f);
+        l.append(2.f);
+
+        const AtomList cl(l);
+        REQUIRE(cl.wrapAt(0)->asFloat() == 1.f);
+        REQUIRE(cl.wrapAt(1)->asFloat() == 2.f);
+        REQUIRE(cl.wrapAt(2)->asFloat() == 1.f);
+        REQUIRE(cl.wrapAt(3)->asFloat() == 2.f);
+        REQUIRE(cl.wrapAt(4)->asFloat() == 1.f);
+        REQUIRE(cl.wrapAt(200)->asFloat() == 1.f);
+    }
+
+    SECTION("wrapAt1")
+    {
+        AtomList l;
+        REQUIRE(l.wrapAt(0) == 0);
+        l.append(1.f);
+
+        const AtomList cl(l);
+        REQUIRE(cl.wrapAt(0)->asFloat() == 1.f);
+        REQUIRE(cl.wrapAt(1)->asFloat() == 1.f);
+        REQUIRE(cl.wrapAt(2)->asFloat() == 1.f);
+        REQUIRE(cl.wrapAt(3)->asFloat() == 1.f);
+        REQUIRE(cl.wrapAt(4)->asFloat() == 1.f);
+    }
+
+    SECTION("foldAt3")
+    {
+        AtomList l;
+        REQUIRE(l.foldAt(0) == 0);
+        l.append(1.f);
+        l.append(2.f);
+        l.append(3.f);
+
+        const AtomList cl(l);
+        REQUIRE(cl.foldAt(0)->asFloat() == 1.f);
+        REQUIRE(cl.foldAt(1)->asFloat() == 2.f);
+        REQUIRE(cl.foldAt(2)->asFloat() == 3.f);
+        REQUIRE(cl.foldAt(3)->asFloat() == 2.f);
+        REQUIRE(cl.foldAt(4)->asFloat() == 1.f);
+        REQUIRE(cl.foldAt(5)->asFloat() == 2.f);
+        REQUIRE(cl.foldAt(6)->asFloat() == 3.f);
+        REQUIRE(cl.foldAt(7)->asFloat() == 2.f);
+        REQUIRE(cl.foldAt(8)->asFloat() == 1.f);
+    }
+
+    SECTION("foldAt2")
+    {
+        AtomList l;
+        REQUIRE(l.foldAt(0) == 0);
+        l.append(1.f);
+        l.append(2.f);
+
+        const AtomList cl(l);
+        REQUIRE(cl.foldAt(0)->asFloat() == 1.f);
+        REQUIRE(cl.foldAt(1)->asFloat() == 2.f);
+        REQUIRE(cl.foldAt(2)->asFloat() == 1.f);
+        REQUIRE(cl.foldAt(3)->asFloat() == 2.f);
+        REQUIRE(cl.foldAt(4)->asFloat() == 1.f);
+        REQUIRE(cl.foldAt(5)->asFloat() == 2.f);
+        REQUIRE(cl.foldAt(6)->asFloat() == 1.f);
+        REQUIRE(cl.foldAt(7)->asFloat() == 2.f);
+        REQUIRE(cl.foldAt(8)->asFloat() == 1.f);
+    }
+
+    SECTION("foldAt1")
+    {
+        AtomList l;
+        REQUIRE(l.foldAt(0) == 0);
+        l.append(1.f);
+
+        const AtomList cl(l);
+        REQUIRE(cl.foldAt(0)->asFloat() == 1.f);
+        REQUIRE(cl.foldAt(1)->asFloat() == 1.f);
+        REQUIRE(cl.foldAt(2)->asFloat() == 1.f);
+        REQUIRE(cl.foldAt(3)->asFloat() == 1.f);
+        REQUIRE(cl.foldAt(4)->asFloat() == 1.f);
+        REQUIRE(cl.foldAt(5)->asFloat() == 1.f);
+    }
+
+    SECTION("foldAt4")
+    {
+        AtomList l;
+        REQUIRE(l.foldAt(0) == 0);
+        l.append(1.f);
+        l.append(2.f);
+        l.append(3.f);
+        l.append(4.f);
+
+        const AtomList cl(l);
+        REQUIRE(cl.at(0) == 1.f);
+        REQUIRE(cl.foldAt(0)->asFloat() == 1.f);
+        REQUIRE(cl.foldAt(1)->asFloat() == 2.f);
+        REQUIRE(cl.foldAt(2)->asFloat() == 3.f);
+        REQUIRE(cl.foldAt(3)->asFloat() == 4.f);
+        REQUIRE(cl.foldAt(4)->asFloat() == 3.f);
+        REQUIRE(cl.foldAt(5)->asFloat() == 2.f);
+        REQUIRE(cl.foldAt(6)->asFloat() == 1.f);
+        REQUIRE(cl.foldAt(7)->asFloat() == 2.f);
+        REQUIRE(cl.foldAt(8)->asFloat() == 3.f);
+    }
+
+    SECTION("toPdData")
+    {
+        AtomList l;
+        l.append(1.f);
+        l.append(gensym("a"));
+        t_atom* atoms = l.toPdData();
+        REQUIRE(atoms != 0);
+        REQUIRE(atom_getfloat(&atoms[0]) == 1.f);
+        REQUIRE(atom_getsymbol(&atoms[1]) == gensym("a"));
     }
 }
-
