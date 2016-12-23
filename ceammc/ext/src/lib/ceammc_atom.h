@@ -14,7 +14,7 @@
 #ifndef CEAMMC_ATOM_H
 #define CEAMMC_ATOM_H
 
-#include <iosfwd>
+#include <iostream>
 #include <m_pd.h>
 #include <string>
 

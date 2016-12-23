@@ -16,7 +16,6 @@
 
 #include "ceammc_atom.h"
 #include <vector>
-#include <iosfwd>
 
 namespace ceammc {
 
@@ -26,8 +25,8 @@ typedef Atom (*AtomGenerator)();
 typedef Atom (*AtomMapFunction)(const Atom& a);
 
 class AtomList {
+    std::vector<Atom> atoms_;
     typedef std::vector<Atom> atom_list;
-    atom_list atoms_;
     typedef atom_list::const_iterator const_atom_iterator;
     typedef atom_list::iterator atom_iterator;
     typedef atom_list::reverse_iterator atom_riterator;
@@ -94,6 +93,14 @@ public:
      * @param v - pad value
      */
     void resizePad(size_t n, const Atom& v);
+
+    /**
+     * Get property value from list
+     * @param name - property name with (starts with '@')
+     * @param dest - output destination
+     * @return true if property was found and it has value
+     */
+    bool property(const std::string& name, Atom* dest);
 
     void fromPdData(size_t n, t_atom* lst);
     void fromPdData(int n, t_atom* lst);

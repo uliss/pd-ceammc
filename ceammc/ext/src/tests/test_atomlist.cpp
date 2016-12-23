@@ -710,4 +710,33 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         l1.resizePad(0, 100.f);
         REQUIRE(l1.empty());
     }
+
+    SECTION("property")
+    {
+        AtomList l;
+        REQUIRE_FALSE(l.property("@test", 0));
+
+        Atom p1;
+        REQUIRE_FALSE(l.property("@test", &p1));
+
+        l.append(1.f);
+        l.append(2.f);
+        l.append(gensym("a"));
+        l.append(gensym("@test"));
+        REQUIRE_FALSE(l.property("@test", &p1));
+        l.append(3.f);
+        REQUIRE(l.property("@test", &p1));
+        REQUIRE(p1.asFloat() == 3.f);
+
+        l.append(gensym("@test2"));
+        l.append(4.f);
+
+        Atom p2;
+        REQUIRE(l.property("@test2", &p2));
+        REQUIRE(p2.asFloat() == 4.f);
+
+        p1 = p2; // reset
+        REQUIRE(l.property("@test", &p1));
+        REQUIRE(p1.asFloat() == 3.f);
+    }
 }
