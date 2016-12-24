@@ -351,7 +351,7 @@ EXTERN void binbuf_text(t_binbuf *x, char *text, size_t size);
 EXTERN void binbuf_gettext(t_binbuf *x, char **bufp, int *lengthp);
 EXTERN void binbuf_clear(t_binbuf *x);
 EXTERN void binbuf_add(t_binbuf *x, int argc, t_atom *argv);
-EXTERN void binbuf_addv(t_binbuf *x, char *fmt, ...);
+EXTERN void binbuf_addv(t_binbuf *x, const char *fmt, ...);
 EXTERN void binbuf_addbinbuf(t_binbuf *x, t_binbuf *y);
 EXTERN void binbuf_addsemi(t_binbuf *x);
 EXTERN void binbuf_restore(t_binbuf *x, int argc, t_atom *argv);
