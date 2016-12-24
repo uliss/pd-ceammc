@@ -133,6 +133,10 @@ namespace ceammc_gui {
             {
                 (*zx->s_value) = sym1.asString() + " " + list1.toString();
             }
+            else
+            {
+                (*zx->s_value) = list1.toString();
+            }
         }
         else
             (*zx->s_value) = list1.toString();
