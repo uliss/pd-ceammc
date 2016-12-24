@@ -1,15 +1,15 @@
 #include "ceammc_controlvalue.h"
 #include "ceammc_globaldata.h"
-#include "ceammc_property.h"
 #include <m_pd.h>
 #include <queue>
 
 #define OBJ_NAME "data.fifo"
 #define MSG_PREFIX "[" OBJ_NAME "] "
 
+using namespace ceammc;
+
 static const size_t MAX_FIFO_SIZE = 1024;
 
-typedef ceammc::ControlValue ControlValue;
 typedef std::queue<ControlValue> ControlFifo;
 
 static t_class* data_fifo_class;
@@ -137,5 +137,5 @@ extern "C" void setup_data0x2efifo()
     class_addmethod(data_fifo_class, reinterpret_cast<t_method>(fifo_set_resize),
         gensym("resize"), A_DEFFLOAT, A_NULL);
 
-    ceammc::class_addproperty_rw<t_data_fifo, size_t, &t_data_fifo::max_fifo_sz>(data_fifo_class, gensym("@size"));
+//    ceammc::class_addproperty_rw(data_fifo_class, &t_data_fifo::prop_size, gensym("@size"));
 }

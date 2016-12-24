@@ -15,102 +15,156 @@
 #define CEAMMC_PROPERTY_H
 
 #include "ceammc_atomlist.h"
+#include "ceammc_controlvalue.h"
 #include <m_pd.h>
 
 namespace ceammc {
 
-template <typename V>
-void property_atom_get(V*, const Atom&) {}
-
-template <>
-void property_atom_get(t_float* v, const Atom& a) { a.getFloat(v); }
-
-template <>
-void property_atom_get(int* v, const Atom& a)
-{
-    if (a.isFloat())
-        *v = static_cast<int>(a.asFloat());
-}
-
-template <>
-void property_atom_get(size_t* v, const Atom& a)
-{
-    if (a.isFloat())
-        *v = static_cast<size_t>(a.asFloat());
-}
-
-template <>
-void property_atom_get(t_symbol* s, const Atom& a) { a.getSymbol(&s); }
-
-template <typename V>
-void property_atom_set(Atom&, V*) {}
-
-template <>
-void property_atom_set(Atom& a, t_float* v) { a.setFloat(*v, true); }
-
-template <>
-void property_atom_set(Atom& a, int* v) { a.setFloat(*v, true); }
-
-template <>
-void property_atom_set(Atom& a, size_t* v) { a.setFloat(*v, true); }
-
-template <>
-void property_atom_set(Atom& a, t_symbol* s) { a.setSymbol(s, true); }
-
-template <>
-void property_atom_set(Atom& a, Atom* v) { a = *v; }
-
-template <typename T, typename V>
-static void property_get(T* x, t_symbol* sel, V T::*prop)
-{
-    Atom a;
-    property_atom_set(a, &(x->*prop));
-    a.outputAsAny(x->x_obj.te_outlet, sel);
-}
-
-template <typename T, typename V, V T::*prop>
-static void property_set(T* x, const Atom& a)
-{
-    property_atom_get(&(x->*prop), a);
-}
-
-template <typename T, typename V, V T::*prop>
-static void property_set_list(T* x, const AtomList& l)
-{
-    (x->*prop) = l;
-}
-
-template <typename T, typename V, V T::*prop>
-static void process_property_rw(T* x, t_symbol* sel, int argc, t_atom* argv)
-{
-    if (argc < 1)
-        property_get(x, sel, prop);
-    else if (argc == 1)
-        property_set<T, V, prop>(x, Atom(argv[0]));
-}
-
-template <typename T, typename V, V T::*prop>
-static void process_property_ro(T* x, t_symbol* sel)
-{
-    property_get(x, sel, prop);
-}
-
-template <typename T, typename V, V T::*prop>
-struct PropertyCallbackRW {
-    typedef void (*type)(T*, t_symbol* sel, int argc, t_atom* argv);
+template <typename T>
+struct PdAnyFunction {
+    typedef void (*type)(T*, t_symbol*, int, t_atom*);
 };
 
-template <typename T, typename V, V T::*prop>
-void class_addproperty_rw(t_class* c, t_symbol* s)
+template <typename T>
+struct PdListFunction {
+    typedef void (*type)(T*, t_symbol*, int, t_atom*);
+};
+
+template <typename T>
+struct PdBangFunction {
+    typedef void (*type)(T*);
+};
+
+template <typename T>
+struct PdFloatFunction {
+    typedef void (*type)(T*, t_float);
+};
+
+template <typename T>
+struct PdSymbolFunction {
+    typedef void (*type)(T*, t_float);
+};
+
+template <typename V>
+class Property {
+    V prop_;
+    t_symbol* name_;
+
+public:
+    Property(t_symbol* name)
+        : name_(name)
+    {
+    }
+
+    t_symbol* name() { return name_; }
+    const t_symbol* name() const { return name_; }
+
+    V& get() { return prop_; }
+    const V& get() const { return prop_; }
+    void set(const V& p) { prop_ = p; }
+
+    void setFromPd(t_symbol* sel, int argc, t_atom* argv)
+    {
+        if (name_ != sel)
+            return;
+
+        if (argc < 1)
+            return;
+
+        propertyValueSet(AtomList(argc, argv));
+    }
+
+    void output(t_outlet* x)
+    {
+        ControlValue cv;
+        controlValueSet(cv, &prop_);
+        cv.output(x);
+    }
+
+    void controlValueSet(ControlValue&, V*) {}
+    void propertyValueSet(const AtomList&) {}
+};
+
+template <>
+void Property<t_float>::controlValueSet(ControlValue& cv, t_float* f) { cv.setFloat(*f); }
+
+template <>
+void Property<int>::controlValueSet(ControlValue& cv, int* i) { cv.setFloat(*i); }
+
+template <>
+void Property<size_t>::controlValueSet(ControlValue& cv, size_t* sz) { cv.setFloat(*sz); }
+
+template <>
+void Property<t_symbol*>::controlValueSet(ControlValue& cv, t_symbol** s) { cv.setSymbol(*s); }
+
+template <>
+void Property<Atom>::controlValueSet(ControlValue& cv, Atom* a) { cv.setAtom(*a); }
+
+template <>
+void Property<AtomList>::controlValueSet(ControlValue& cv, AtomList* l) { cv.setList(*l); }
+
+template <>
+void Property<t_float>::propertyValueSet(const AtomList& lst)
 {
-    class_addmethod(c, reinterpret_cast<t_method>(&process_property_rw<T, V, prop>), s, A_GIMME, A_NULL);
+    lst.first()->getFloat(&prop_);
 }
 
-template <typename T, typename V, V T::*prop>
-void class_addproperty_ro(t_class* c, t_symbol* s)
+template <>
+void Property<int>::propertyValueSet(const AtomList& lst)
 {
-    class_addmethod(c, reinterpret_cast<t_method>(&process_property_ro<T, V, prop>), s, A_GIMME, A_NULL);
+    t_float f;
+    if (lst.first()->getFloat(&f))
+        prop_ = static_cast<int>(f);
 }
+
+template <>
+void Property<size_t>::propertyValueSet(const AtomList& lst)
+{
+    t_float f;
+    if (lst.first()->getFloat(&f))
+        prop_ = static_cast<size_t>(f);
+}
+
+template <>
+void Property<t_symbol*>::propertyValueSet(const AtomList& lst)
+{
+    lst.first()->getSymbol(&prop_);
+}
+
+typedef Property<t_float> FloatProperty;
+typedef Property<int> IntProperty;
+typedef Property<size_t> SizeProperty;
+typedef Property<t_symbol*> SymbolProperty;
+
+template <typename T, typename V>
+struct PropertyFieldPtr {
+    Property<V>* T::*prop_member_ptr;
+    PdAnyFunction<T> pd_call_func_;
+
+    PropertyFieldPtr(Property<V>* T::*p, PdAnyFunction<T> fn)
+        : prop_member_ptr(p)
+        , pd_call_func_(fn)
+    {
+    }
+
+    void process_rw(T* x, t_symbol* sel, int argc, t_atom* argv)
+    {
+        if (argc < 1)
+            (x->*prop_member_ptr)->output(x->x_obj.te_outlet);
+        else
+            (x->*prop_member_ptr)->setFromPd(sel, argc, argv);
+    }
+};
+
+//template <typename T, typename V>
+//void class_addproperty_rw(t_class* c, Property<V>* T::*prop, t_symbol* s)
+//{
+//    static std::function<void(PropertyFieldPtr<T, V>&, T * x, t_symbol * sel, int argc, t_atom* argv)> func = &PropertyFieldPtr<T, V>::process_rw;
+
+//    //    auto f = std::bind(&p::process_rw);
+//    class_addmethod(c,
+//        reinterpret_cast<t_method>(func), s, A_GIMME, A_NULL);
+//}
 
 }
 
