@@ -122,7 +122,7 @@ public:
         }
     }
     
-    char* ui_property_get_c_str(std::string name)
+    const char* ui_property_get_c_str(std::string name)
     {
         //printf("property get cstr %s\n", name.c_str());
         
@@ -136,7 +136,7 @@ public:
         {
             post("ERR: bad symbol value");
             printf ("property get cstr err\n");
-            char* no = "<error>";
+            const char* no = "<error>";
             return no;
         }
     }

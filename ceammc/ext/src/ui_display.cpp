@@ -9,6 +9,7 @@
 #include <stdio.h>
 
 #include "ceammc_atomlist.h"
+#include "ceammc_format.h"
 
 #include "lib/ceammc_gui.h"
 
@@ -114,39 +115,19 @@ namespace ceammc_gui {
     }
     
     UI_fun(ui_display)::m_anything(t_object* z, t_symbol* s, int argc, t_atom* argv)
-    {
-        t_symbol* bgl = gensym("background_layer");
-        
+
+    {   
         ui_display* zx = (ui_display*)z;
-        
-        Atom sym1 = Atom(s);
-        
-        (*zx->s_value) = "";
-        (*zx->s_type) = sym1.asString();
-        
-        AtomList list1 = AtomList();
-        list1.fromPdData(argc, argv);
-        
-        if ( (!sym1.isFloat()) &&  (!sym1.isNone()))
-        {
-            if (sym1.asString() != "list")
-            {
-                (*zx->s_value) = sym1.asString() + " " + list1.toString();
-            }
-            else
-            {
-                (*zx->s_value) = list1.toString();
-            }
-        }
-        else
-            (*zx->s_value) = list1.toString();
-        
+
+        (*zx->s_type) = s->s_name;
+        (*zx->s_value) = to_string(AtomList(argc, argv));
         
         if (zx->show_bang)
         {
             zx->bang = true;
             clock_delay(zx->t_c, 100);
         }
+
         
         ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
         
@@ -167,7 +148,8 @@ namespace ceammc_gui {
     
     UI_fun(ui_display)::m_bang(t_object* z, t_symbol* s, int argc, t_atom* argv)
     {
-        ceammc_gui::object<ui_display>::m_anything(z, &s_bang, 0, nullptr);
+
+        ceammc_gui::object<ui_display>::m_anything(z, &s_bang, 0, 0);
     }
     
     void display_clock(t_object* z)
@@ -177,12 +159,14 @@ namespace ceammc_gui {
         ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
     }
     
+
     UI_fun(ui_display)::wx_oksize(t_object *z, t_rect *newrect)
     {
         newrect->height = (newrect->height>15)? newrect->height : 15;
         
     }
     
+
     UI_fun(ui_display)::new_ext(t_object* z, t_symbol* s, int argcl, t_atom* argv)
     {
         ui_display* zx = (ui_display*)z;

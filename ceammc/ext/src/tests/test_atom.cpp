@@ -45,7 +45,7 @@ TEST_CASE("Atom", "[ceammc::Atom]")
         Atom atom(a);
         REQUIRE(atom.isProperty());
         REQUIRE_FALSE(notProperty(atom));
-        REQUIRE(!atom.isSymbol());
+        REQUIRE(atom.isSymbol());
         REQUIRE(atom.asString() == "@attr");
         REQUIRE(atom.asSymbol() == gensym("@attr"));
 
@@ -54,6 +54,10 @@ TEST_CASE("Atom", "[ceammc::Atom]")
 
         atom.setSymbol(gensym(""), true);
         REQUIRE(!atom.isProperty());
+
+        Atom p(gensym("a"));
+        REQUIRE(!p.isProperty());
+        REQUIRE(p.isSymbol());
     }
 
     SECTION("Float atom tests")

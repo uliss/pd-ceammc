@@ -5,5 +5,6 @@ include(tests.cmake)
 
 ceammc_add_test("ceammc::Atom" test_atom)
 ceammc_add_test("ceammc::AtomList" test_atomlist)
-ceammc_add_test("ceammc::ControlValue" test_controlvalue)
+ceammc_add_test("ceammc::ControlValue" test_message)
 ceammc_add_test("ceammc::SharedData" test_shareddata)
+ceammc_add_test("ceammc::formatting" test_format)

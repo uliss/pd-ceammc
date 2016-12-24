@@ -15,6 +15,7 @@
 #define CEAMMC_ATOMLIST_H
 
 #include "ceammc_atom.h"
+#include <string>
 #include <vector>
 #include <string>
 
@@ -128,12 +129,12 @@ public:
     const Atom* first() const;
     const Atom* last() const;
     //
-    std::string toString();
+    std::string toString() const;
 
     void sort();
     void shuffle();
     void reverse();
-    // name conflicts with sub(subtract float lists)
+
     AtomList sub(int begin, int end);
     AtomList filtered(AtomPredicate pred) const;
 
@@ -212,6 +213,7 @@ public:
     static AtomList zeroes(size_t n);
     static AtomList ones(size_t n);
     static AtomList filled(const Atom& a, size_t n);
+    static AtomList values(size_t n, ...);
 
 public:
     friend bool operator==(const AtomList& l1, const AtomList& l2);

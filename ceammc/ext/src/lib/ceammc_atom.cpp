@@ -15,6 +15,7 @@
 #include "ceammc_atom.h"
 #include <cstring>
 #include <iostream>
+#include <sstream>
 
 namespace ceammc {
 
@@ -26,14 +27,10 @@ Atom::Atom()
 Atom::Atom(const t_atom& a)
     : t_atom(a)
 {
-    switch (a_type) {
-    case A_DEFFLOAT:
+    if (a_type == A_DEFFLOAT)
         a_type = A_FLOAT;
-        break;
-    case A_DEFSYMBOL:
+    if (a_type == A_DEFSYMBOL)
         a_type = A_SYMBOL;
-        break;
-    }
 }
 
 Atom::Atom(t_float v)
@@ -58,7 +55,7 @@ bool Atom::isNone() const
 
 bool Atom::isSymbol() const
 {
-    return type() == SYMBOL;
+    return type() == SYMBOL || type() == PROPERTY;
 }
 
 bool Atom::isProperty() const
@@ -98,7 +95,7 @@ bool Atom::getSymbol(t_symbol** s) const
     if (s == 0)
         return false;
 
-    if (!isSymbol() && !isProperty())
+    if (!isSymbol())
         return false;
 
     *s = this->a_w.w_symbol;
@@ -107,7 +104,7 @@ bool Atom::getSymbol(t_symbol** s) const
 
 bool Atom::getString(std::string& str) const
 {
-    if (!isSymbol() && !isProperty())
+    if (!isSymbol())
         return false;
 
     str = this->a_w.w_symbol->s_name;
@@ -244,7 +241,7 @@ bool to_outlet(t_outlet* x, const Atom& a)
         return true;
     }
 
-    if (a.isSymbol() || a.isProperty()) {
+    if (a.isSymbol()) {
         outlet_symbol(x, a.asSymbol());
         return true;
     }

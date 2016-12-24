@@ -262,12 +262,12 @@ void binbuf_add(t_binbuf *x, int argc, t_atom *argv)
 }
 
 #define MAXADDMESSV 100
-void binbuf_addv(t_binbuf *x, char *fmt, ...)
+void binbuf_addv(t_binbuf *x, const char *fmt, ...)
 {
     va_list ap;
     t_atom arg[MAXADDMESSV], *at =arg;
     int nargs = 0;
-    char *fp = fmt;
+    const char *fp = fmt;
 
     va_start(ap, fmt);
     while (1)

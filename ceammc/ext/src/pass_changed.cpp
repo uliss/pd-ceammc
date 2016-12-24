@@ -1,4 +1,4 @@
-#include "ceammc_controlvalue.h"
+#include "ceammc_message.h"
 #include <cfloat>
 #include <cmath>
 #include <cstring>
@@ -9,15 +9,15 @@
 
 t_class* pass_changed_class;
 
-typedef ceammc::ControlValue ControlValue;
+typedef ceammc::Message Message;
 struct t_pass_changed {
     t_object x_obj;
-    ControlValue* x_prev;
+    Message* x_prev;
 };
 
 static void pass_changed_reset(t_pass_changed* x)
 {
-    *x->x_prev = ControlValue();
+    *x->x_prev = Message();
 }
 
 static void pass_changed_set(t_pass_changed* x, t_symbol* s, int argc, t_atom* argv)
@@ -26,15 +26,15 @@ static void pass_changed_set(t_pass_changed* x, t_symbol* s, int argc, t_atom* a
         return;
 
     if (argc == 1) {
-        *x->x_prev = ControlValue(argv[0]);
+        *x->x_prev = Message(argv[0]);
     } else {
-        *x->x_prev = ControlValue(argc, argv);
+        *x->x_prev = Message(argc, argv);
     }
 }
 
 static void pass_changed_anything(t_pass_changed* x, t_symbol* s, int argc, t_atom* argv)
 {
-    ControlValue v(s, argc, argv);
+    Message v(s, argc, argv);
     if (x->x_prev->isEqual(v))
         return;
 
@@ -49,7 +49,7 @@ static void pass_changed_bang(t_pass_changed* x)
 
 static void pass_changed_float(t_pass_changed* x, t_floatarg f)
 {
-    ControlValue v(f);
+    Message v(f);
     if (x->x_prev->isEqual(v))
         return;
 
@@ -59,7 +59,7 @@ static void pass_changed_float(t_pass_changed* x, t_floatarg f)
 
 static void pass_changed_list(t_pass_changed* x, t_symbol* s, int argc, t_atom* argv)
 {
-    ControlValue v(argc, argv);
+    Message v(argc, argv);
     if (x->x_prev->isEqual(v))
         return;
 
@@ -69,7 +69,7 @@ static void pass_changed_list(t_pass_changed* x, t_symbol* s, int argc, t_atom* 
 
 static void pass_changed_symbol(t_pass_changed* x, t_symbol* s)
 {
-    ControlValue v(s);
+    Message v(s);
     if (x->x_prev->isEqual(v))
         return;
 
@@ -81,7 +81,7 @@ static void* pass_changed_new()
 {
     t_pass_changed* x = reinterpret_cast<t_pass_changed*>(pd_new(pass_changed_class));
     outlet_new(&x->x_obj, &s_float);
-    x->x_prev = new ControlValue();
+    x->x_prev = new Message();
     return static_cast<void*>(x);
 }
 

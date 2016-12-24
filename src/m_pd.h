@@ -285,7 +285,7 @@ EXTERN t_symbol *gensym(const char *s);
 EXTERN t_gotfn getfn(t_pd *x, t_symbol *s);
 EXTERN t_gotfn zgetfn(t_pd *x, t_symbol *s);
 EXTERN void nullfn(void);
-EXTERN void pd_vmess(t_pd *x, t_symbol *s, char *fmt, ...);
+EXTERN void pd_vmess(t_pd *x, t_symbol *s, const char *fmt, ...);
 
 /* the following macrose are for sending non-type-checkable mesages, i.e.,
 using function lookup but circumventing type checking on arguments.  Only
@@ -351,7 +351,7 @@ EXTERN void binbuf_text(t_binbuf *x, char *text, size_t size);
 EXTERN void binbuf_gettext(t_binbuf *x, char **bufp, int *lengthp);
 EXTERN void binbuf_clear(t_binbuf *x);
 EXTERN void binbuf_add(t_binbuf *x, int argc, t_atom *argv);
-EXTERN void binbuf_addv(t_binbuf *x, char *fmt, ...);
+EXTERN void binbuf_addv(t_binbuf *x, const char *fmt, ...);
 EXTERN void binbuf_addbinbuf(t_binbuf *x, t_binbuf *y);
 EXTERN void binbuf_addsemi(t_binbuf *x);
 EXTERN void binbuf_restore(t_binbuf *x, int argc, t_atom *argv);
@@ -689,8 +689,8 @@ EXTERN int value_setfloat(t_symbol *s, t_float f);
 /* ------- GUI interface - functions to send strings to TK --------- */
 typedef void (*t_guicallbackfn)(t_gobj *client, t_glist *glist);
 
-EXTERN void sys_vgui(char *fmt, ...);
-EXTERN void sys_gui(char *s);
+EXTERN void sys_vgui(const char *fmt, ...);
+EXTERN void sys_gui(const char *s);
 EXTERN void sys_pretendguibytes(int n);
 EXTERN void sys_queuegui(void *client, t_glist *glist, t_guicallbackfn f);
 EXTERN void sys_unqueuegui(void *client);

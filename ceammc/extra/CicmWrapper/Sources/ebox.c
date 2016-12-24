@@ -12,7 +12,7 @@
 #include "egraphics.h"
 #include "eobj.h"
 
-static char *my_cursorlist[] =
+static const char *my_cursorlist[] =
 {
     "left_ptr",
     "center_ptr",
