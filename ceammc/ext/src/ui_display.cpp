@@ -167,7 +167,7 @@ namespace ceammc_gui {
     
     UI_fun(ui_display)::m_bang(t_object* z, t_symbol* s, int argc, t_atom* argv)
     {
-        ceammc_gui::object<ui_display>::m_anything(z, &s_bang, 0, nullptr);
+        ceammc_gui::object<ui_display>::m_anything(z, &s_bang, 0, 0);
     }
     
     void display_clock(t_object* z)
