@@ -323,6 +323,23 @@ void AtomList::reverse()
 {
     std::reverse(atoms_.begin(), atoms_.end());
 }
+    
+AtomList AtomList::sub(int begin, int end)
+{
+    AtomList ret;
+        
+    if ((end-begin)>0)
+    {
+        //temporary
+        for (size_t i = begin; i < end; i++) {
+            const Atom& a = atoms_[i];
+            ret.atoms_.push_back(a);
+        }
+            
+    }
+        
+   return ret;
+}
 
 AtomList AtomList::filtered(AtomPredicate pred) const
 {

@@ -137,6 +137,15 @@ t_float Atom::asFloat() const
     return isFloat() ? a_w.w_float : 0;
 }
 
+t_float Atom::asFloatInRange(float min, float max) const
+{
+    if (!isFloat()) return 0;
+    t_float ret = a_w.w_float;
+    if (ret<min) ret=min;
+    if (ret>max) ret=max;
+    return ret;
+}
+    
 t_symbol* Atom::asSymbol() const
 {
     return a_w.w_symbol;

@@ -90,7 +90,7 @@ public:
     const Atom* foldAt(size_t pos) const;
 
     /**
-     * Resize list. If new size is less the current, last values are dropped.
+     * Resize list. If new size is less than current, last values are dropped.
      * If new size is bigger - pad with given value
      * @param n - new size
      * @param v - pad value
@@ -133,6 +133,8 @@ public:
     void sort();
     void shuffle();
     void reverse();
+    //
+    AtomList sub(int begin, int end);
     AtomList filtered(AtomPredicate pred) const;
 
     const Atom* min() const;
