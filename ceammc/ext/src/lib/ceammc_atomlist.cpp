@@ -630,16 +630,6 @@ void to_outlet(t_outlet* x, const AtomList& a)
         return;
     }
 
-//    if (a.empty()) {
-//        outlet_bang(x);
-//        return;
-//    }
-
-    if (a.size() == 1) {
-        a[0].output(x);
-        return;
-    }
-
     outlet_list(x, &s_list, static_cast<int>(a.size()), a.toPdData());
 }
 

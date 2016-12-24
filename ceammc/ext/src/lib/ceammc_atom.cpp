@@ -191,6 +191,11 @@ void Atom::output(_outlet* x) const
     to_outlet(x, *this);
 }
 
+void Atom::outputAsAny(t_outlet* x, t_symbol* sel) const
+{
+    outlet_anything(x, sel, 1, (t_atom*)this);
+}
+
 bool operator==(const Atom& a1, const Atom& a2)
 {
     if (&a1 == &a2)
