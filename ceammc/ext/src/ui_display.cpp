@@ -34,6 +34,10 @@ struct ui_display : ceammc_gui::base_pd_object {
     std::string * s_value;
     std::string * s_type;
     AtomList *list;
+    
+    int show_type;
+    int show_bang;
+    
 };
 
 namespace ceammc_gui {
@@ -72,22 +76,36 @@ namespace ceammc_gui {
         
         if (g) {
             
-            egraphics_set_color_hex(g, msg_color((*zx->s_type)));
-            egraphics_rectangle(g, 0, 0, 45, rect.height);
-            egraphics_fill(g);
+            
+            if (zx->show_type)
+            {
+                egraphics_set_color_hex(g, msg_color((*zx->s_type)));
+                egraphics_rectangle(g, 0, 0, 45, rect.height);
+                egraphics_fill(g);
+                
+                
+                egraphics_set_color_hex(g, gensym(zx->bang ? "#00C0FF" : "#E0E0E0"));
+                egraphics_rectangle(g, 45, 0, rect.width, rect.height);
+                egraphics_fill(g);
+                
+                etext_layout_set(zx->txt_type, (*zx->s_type).c_str(), zx->txt_font, 3, rect.height /1 , 45, rect.height, ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
+                etext_layout_set(zx->txt_val, (*zx->s_value).c_str(), zx->txt_font, 48, rect.height /1 , rect.width-50, rect.height, ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_WRAP);
+                etext_layout_draw(zx->txt_type, g);
+                etext_layout_draw(zx->txt_val, g);
+            }
+            else
+            {
+                
+                egraphics_set_color_hex(g, gensym(zx->bang ? "#00C0FF" : "#E0E0E0"));
+                egraphics_rectangle(g, 0, 0, rect.width, rect.height);
+                egraphics_fill(g);
+                
+                etext_layout_set(zx->txt_val, (*zx->s_value).c_str(), zx->txt_font, 3, rect.height /1 , rect.width-5, rect.height, ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_WRAP);
+                
+                etext_layout_draw(zx->txt_val, g);
+            }
             
             
-            egraphics_set_color_hex(g, gensym(zx->bang ? "#00C0FF" : "#E0E0E0"));
-            egraphics_rectangle(g, 45, 0, rect.width, rect.height);
-            egraphics_fill(g);
-            
-            //zx->txt_val->c_text = gensym((*zx->s_value).c_str());
-            
-            etext_layout_set(zx->txt_type, (*zx->s_type).c_str(), zx->txt_font, 3, rect.height /1 , 45, rect.height, ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
-            etext_layout_set(zx->txt_val, (*zx->s_value).c_str(), zx->txt_font, 48, rect.height /1 , rect.width-50, rect.height, ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_WRAP);
-            
-            etext_layout_draw(zx->txt_type, g);
-            etext_layout_draw(zx->txt_val, g);
             
         }
         
@@ -109,16 +127,24 @@ namespace ceammc_gui {
         AtomList list1 = AtomList();
         list1.fromPdData(argc, argv);
         
-        (*zx->s_value) = list1.toString();
+        if ( (!sym1.isFloat()) &&  (!sym1.isNone()))
+        {
+            if (sym1.asString() != "list")
+            {
+                (*zx->s_value) = sym1.asString() + " " + list1.toString();
+            }
+        }
+        else
+            (*zx->s_value) = list1.toString();
         
-        zx->bang = true;
         
-        clock_delay(zx->t_c, 100);
+        if (zx->show_bang)
+        {
+            zx->bang = true;
+            clock_delay(zx->t_c, 100);
+        }
         
         ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
-        
-        
-        
         
     }
     
@@ -160,6 +186,10 @@ namespace ceammc_gui {
         zx->txt_font = efont_create(gensym("Helvetica"), gensym(""), gensym("normal"), 12);
         
         zx->t_c = clock_new(zx, (t_method)display_clock);
+        
+        zx->show_bang = 1;
+        zx->show_type = 0;
+        
     }
     
     UI_fun(ui_display)::free_ext(t_object* z)
@@ -177,6 +207,18 @@ namespace ceammc_gui {
     UI_fun(ui_display)::init_ext(t_eclass* z)
     {
         CLASS_ATTR_DEFAULT(z, "size", 0, "120. 15.");
+        
+        //      TODO
+        CLASS_ATTR_INT(z, "display_events", 0, ui_display, show_bang);
+        CLASS_ATTR_DEFAULT(z, "display_events", 0, "1");
+        CLASS_ATTR_LABEL(z, "display_events", 0, "Display events");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT(z, "display_events", 0, "1");
+        
+        CLASS_ATTR_INT(z, "display_type", 0, ui_display, show_type);
+        CLASS_ATTR_DEFAULT(z, "display_type", 0, "0");
+        CLASS_ATTR_LABEL(z, "display_type", 0, "Display type");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT(z, "display_type", 0, "0");
+        
     }
 }
 
