@@ -15,6 +15,7 @@
 #include "ceammc_atom.h"
 #include <cstring>
 #include <iostream>
+#include <sstream>
 
 namespace ceammc {
 
@@ -26,14 +27,10 @@ Atom::Atom()
 Atom::Atom(const t_atom& a)
     : t_atom(a)
 {
-    switch (a_type) {
-    case A_DEFFLOAT:
+    if (a_type == A_DEFFLOAT)
         a_type = A_FLOAT;
-        break;
-    case A_DEFSYMBOL:
+    if (a_type == A_DEFSYMBOL)
         a_type = A_SYMBOL;
-        break;
-    }
 }
 
 Atom::Atom(t_float v)
@@ -139,13 +136,16 @@ t_float Atom::asFloat() const
 
 t_float Atom::asFloatInRange(float min, float max) const
 {
-    if (!isFloat()) return 0;
+    if (!isFloat())
+        return 0;
     t_float ret = a_w.w_float;
-    if (ret<min) ret=min;
-    if (ret>max) ret=max;
+    if (ret < min)
+        ret = min;
+    if (ret > max)
+        ret = max;
     return ret;
 }
-    
+
 t_symbol* Atom::asSymbol() const
 {
     return a_w.w_symbol;
@@ -153,19 +153,7 @@ t_symbol* Atom::asSymbol() const
 
 std::string Atom::asString() const
 {
-    if (isSymbol())
-        return a_w.w_symbol->s_name;
-    if (isFloat())
-        {
-            char buf[16];
-            if ((a_w.w_float-(int)(a_w.w_float))<0.001)
-                sprintf(buf, "%.0f", a_w.w_float);
-            else
-                sprintf(buf, "%.4f", a_w.w_float);
-            std::string ret = buf;
-            return ret;
-        }
-    return "";
+    return a_w.w_symbol->s_name;
 }
 
 bool Atom::operator<(const Atom& a) const
@@ -256,7 +244,7 @@ std::ostream& operator<<(std::ostream& os, const Atom& a)
 {
     if (a.isFloat())
         os << a.asFloat();
-    if (a.isSymbol())
+    if (a.isSymbol() || a.isProperty())
         os << a.asString();
     if (a.isNone())
         os << "NONE";

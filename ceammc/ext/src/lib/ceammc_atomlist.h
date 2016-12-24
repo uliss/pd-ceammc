@@ -15,8 +15,8 @@
 #define CEAMMC_ATOMLIST_H
 
 #include "ceammc_atom.h"
-#include <vector>
 #include <string>
+#include <vector>
 
 namespace ceammc {
 
@@ -128,7 +128,7 @@ public:
     const Atom* first() const;
     const Atom* last() const;
     //
-    std::string toString();
+    std::string toString() const;
 
     void sort();
     void shuffle();

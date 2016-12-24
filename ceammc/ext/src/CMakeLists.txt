@@ -2,6 +2,7 @@ include(faust)
 include(ceammc_pd.cmake)
 add_subdirectory(lib)
 include_directories(lib)
+include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra/CicmWrapper/Sources)
 add_subdirectory(tests)
 
 # timeline shared library

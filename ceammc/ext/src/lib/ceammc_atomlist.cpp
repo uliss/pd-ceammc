@@ -212,7 +212,7 @@ t_atom* AtomList::toPdData() const
     return reinterpret_cast<t_atom*>(const_cast<Atom*>(atoms_.data()));
 }
     
-std::string AtomList::toString()
+std::string AtomList::toString() const
 {
     std::string ret = "";
     
