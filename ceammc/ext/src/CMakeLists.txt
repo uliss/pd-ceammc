@@ -177,6 +177,8 @@ ceammc_cxx_extension(global int)
 ceammc_cxx_extension(global float)
 ceammc_cxx_extension(global list)
 
+ceammc_cxx_extension(prop get)
+
 include(FindLibSndFile)
 if(LIBSNDFILE_FOUND)
     include_directories(${LIBSNDFILE_INCLUDE_DIRS})
@@ -278,5 +280,3 @@ ceammc_faust_extension(env follow simple_pd_control_ext)
 
 
 ceammc_faust_extension(live capture simple_pd_control_ext)
-
-pd_add_extension(NAME "@prop.get" FILES "prop_get.cpp" LIBRARY ceammc LINK ceammc_static INTERNAL TRUE)

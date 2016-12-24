@@ -81,6 +81,16 @@ const Atom& AtomList::at(size_t pos) const
     return atoms_.at(pos);
 }
 
+Atom& AtomList::operator[](size_t pos)
+{
+    return atoms_.at(pos);
+}
+
+const Atom& AtomList::operator[](size_t pos) const
+{
+    return atoms_.at(pos);
+}
+
 Atom* AtomList::relativeAt(int pos)
 {
     size_t idx;
@@ -490,9 +500,26 @@ void AtomList::outputAtoms(t_outlet* x) const
         to_outlet(x, at(i));
 }
 
-void AtomList::output(_outlet* x) const
+void AtomList::output(t_outlet* x) const
 {
     to_outlet(x, *this);
+}
+
+void AtomList::outputAsAny(t_outlet* x) const
+{
+    if (empty())
+        return;
+
+    // check for valid selector
+    if (!atoms_.front().isSymbol())
+        return;
+
+    outlet_anything(x, atoms_[0].asSymbol(), static_cast<int>(size() - 1), toPdData() + 1);
+}
+
+void AtomList::outputAsAny(_outlet* x, t_symbol* s) const
+{
+    outlet_anything(x, s, static_cast<int>(size()), toPdData());
 }
 
 AtomList AtomList::sub(const AtomList& l, AtomList::NonEqualLengthBehaivor b) const
@@ -596,14 +623,24 @@ bool operator!=(const AtomList& l1, const AtomList& l2)
     return !(l1 == l2);
 }
 
-bool to_outlet(t_outlet* x, const AtomList& a)
+void to_outlet(t_outlet* x, const AtomList& a)
 {
-    int n = static_cast<int>(a.size());
-    if (n < 1)
-        return false;
+    if (x == 0) {
+        post("[ceammc] ERROR! NULL outlet pointer: %s", __FUNCTION__);
+        return;
+    }
 
-    outlet_list(x, &s_list, n, a.toPdData());
-    return true;
+//    if (a.empty()) {
+//        outlet_bang(x);
+//        return;
+//    }
+
+    if (a.size() == 1) {
+        a[0].output(x);
+        return;
+    }
+
+    outlet_list(x, &s_list, static_cast<int>(a.size()), a.toPdData());
 }
 
 std::ostream& operator<<(std::ostream& os, const AtomList& l)

@@ -97,7 +97,7 @@ bool to_outlet(t_outlet* x, const Atom& a);
 
 static inline bool isFloat(const Atom& a) { return a.isFloat(); }
 static inline bool isSymbol(const Atom& a) { return a.isSymbol(); }
-static inline bool isProperty(const Atom& a);
+static inline bool isProperty(const Atom& a) { return a.isProperty(); }
 static inline bool notFloat(const Atom& a) { return !a.isFloat(); }
 static inline bool notSymbol(const Atom& a) { return !a.isSymbol(); }
 static inline bool notProperty(const Atom& a) { return !a.isProperty(); }
