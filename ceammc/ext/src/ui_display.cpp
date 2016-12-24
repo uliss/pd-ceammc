@@ -177,6 +177,12 @@ namespace ceammc_gui {
         ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
     }
     
+    UI_fun(ui_display)::wx_oksize(t_object *z, t_rect *newrect)
+    {
+        newrect->height = (newrect->height>15)? newrect->height : 15;
+        
+    }
+    
     UI_fun(ui_display)::new_ext(t_object* z, t_symbol* s, int argcl, t_atom* argv)
     {
         ui_display* zx = (ui_display*)z;

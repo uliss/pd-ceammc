@@ -8,11 +8,18 @@ static t_class* list_delta_class;
 struct t_list_delta {
     t_object x_obj;
     AtomList* stored_list;
+    AtomList* out_list;
 };
 
 static void list_delta_clear(t_list_delta* x, t_symbol*, int, t_atom*)
 {
     x->stored_list->clear();
+    x->out_list->clear();
+}
+
+static void list_delta_bang(t_list_delta* x, t_symbol*, int, t_atom*)
+{
+    x->out_list->output(x->x_obj.te_outlet);
 }
 
 static void list_delta_list(t_list_delta* x, t_symbol*, int argc, t_atom* argv)
@@ -26,6 +33,7 @@ static void list_delta_list(t_list_delta* x, t_symbol*, int argc, t_atom* argv)
 
     delta_list.output(x->x_obj.te_outlet);
     *x->stored_list = new_list;
+    *x->out_list = delta_list;
 }
 
 static void* list_delta_new()
@@ -33,6 +41,7 @@ static void* list_delta_new()
     t_list_delta* x = reinterpret_cast<t_list_delta*>(pd_new(list_delta_class));
     outlet_new(&x->x_obj, &s_float);
     x->stored_list = new AtomList;
+    x->out_list = new AtomList;
     return static_cast<void*>(x);
 }
 
@@ -49,4 +58,5 @@ extern "C" void setup_list0x2edelta()
         sizeof(t_list_delta), 0, A_NULL);
     class_addlist(list_delta_class, list_delta_list);
     class_addanything(list_delta_class, list_delta_clear);
+    class_addbang(list_delta_class, list_delta_bang);
 }
