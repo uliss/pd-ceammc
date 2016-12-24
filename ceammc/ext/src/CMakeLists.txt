@@ -100,6 +100,10 @@ ceammc_cxx_extension(list shift)
 ceammc_cxx_extension(list unwrap)
 ceammc_cxx_extension(list wrap)
 
+ceammc_cxx_extension(list interleave)
+ceammc_cxx_extension(list deinterleave)
+ceammc_cxx_extension(list split)
+
 ceammc_cxx_extension(vector length)
 ceammc_cxx_extension(vector normalize)
 ceammc_cxx_extension(vector distance)

@@ -211,6 +211,19 @@ t_atom* AtomList::toPdData() const
 {
     return reinterpret_cast<t_atom*>(const_cast<Atom*>(atoms_.data()));
 }
+    
+std::string AtomList::toString()
+{
+    std::string ret = "";
+    
+    //iterator??
+    for (int i=0; i<this->size();i++)
+    {
+        ret = ret + this->at(i).asString() + (i!=(this->size()-1)?" ":"");
+    }
+    
+    return ret;
+};
 
 void AtomList::append(const Atom& a)
 {
@@ -309,6 +322,23 @@ void AtomList::shuffle()
 void AtomList::reverse()
 {
     std::reverse(atoms_.begin(), atoms_.end());
+}
+    
+AtomList AtomList::sub(int begin, int end)
+{
+    AtomList ret;
+        
+    if ((end-begin)>0)
+    {
+        //temporary
+        for (size_t i = begin; i < end; i++) {
+            const Atom& a = atoms_[i];
+            ret.atoms_.push_back(a);
+        }
+            
+    }
+        
+   return ret;
 }
 
 AtomList AtomList::filtered(AtomPredicate pred) const

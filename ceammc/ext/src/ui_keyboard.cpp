@@ -223,7 +223,7 @@ namespace ceammc_gui {
     {
         UI_Prop
         
-        printf("n mouse dn\n");
+        //printf("n mouse dn\n");
         
         t_rect rect;
         ebox_get_rect_for_view((t_ebox *)z, &rect);
@@ -237,7 +237,7 @@ namespace ceammc_gui {
         atom_setfloat(&((ui_keyboard*)z)->out_list[0], (float)pitch);
         atom_setfloat(&((ui_keyboard*)z)->out_list[1], (float)vel);
         
-        printf("pitch vel %d %d \n", pitch,vel);
+        //printf("pitch vel %d %d \n", pitch,vel);
         
         outlet_list( ((ui_keyboard*)z)->out1, &s_list, 2, ((ui_keyboard*)z)->out_list );
         

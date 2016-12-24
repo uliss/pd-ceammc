@@ -42,10 +42,22 @@
         {flt.highshelf~ flt.lowshelf~ flt.eq_peak~ flt.dcblock~ flt.dcblock2~ flt.c_lpf~ flt.c_bpf~ flt.c_hpf~ flt.c_lowshelf~ flt.c_highshelf~ flt.biquad~}}
     {audio_fx
         {fx.freqshift~ fx.pitchshift~}}
+    {audio_spat
+    	{spat.pan2~ spat.pan4~}
+    }
     {list
-        {list.apply_to list.at list.each list.length list.sort list.count list.delta list.equal list.gen list.integrator list.last list.max list.mean list.min list.minmax list.normalize list.pack list.product list.repeat list.reverse list.rotate list.seq list.shift list.shuffle list.sort list.stretch list.sum list.zip list.wrap list.unwrap}}
+        {list.apply_to list.at list.each list.length list.sort list.count list.delta list.equal list.gen list.integrator list.last list.max list.mean list.min list.minmax list.normalize list.pack list.product list.repeat list.reverse list.rotate list.seq list.shift list.shuffle list.sort list.stretch list.sum list.zip list.wrap list.unwrap list.interleave list.deinterleave list.split}}
     {math
         {math.abs math.acos math.acosh math.asin math.asinh math.atan math.atanh math.cbrt math.ceil math.cos math.cosh math.e math.exp math.exp2 math.floor math.inf math.lof math.log10 math.log2 math.nan math.pi math.round math.sin math.sinh math.sqrt math.tan math.tanh math.trunc}
+    }
+    {random
+        {random.float random.gauss random.int}
+    }
+    {path
+        {path.basename path.dirname path.exists path.home path.listdir}
+    }
+    {string
+        {string.compare string.join string.length string.reverse string.slice string.split string.to_lower string.to_upper}
     }
     {predicates
         {is_any is_bang is_even is_float is_list is_odd is_pointer is_symbol}
@@ -53,8 +65,8 @@
     {data
         {data.fifo}
     }
-    {pass
-        {pass.changed}
+    {pass/reject
+        {pass.changed reject.if reject.this}
     }
     {ui
         {ui.keyboard ui.sliders ui.slider2d ui.bpfun ui.display ui.scope ui.spectroscope }

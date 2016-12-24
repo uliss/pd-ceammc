@@ -26,19 +26,13 @@
 #include <vector>
 #include <map>
 
-//#include "../../extra/CicmWrapper/Sources/cicm_wrapper.h"
-//TEMP
+
 
 extern "C" {
     
-#include "../../../extra/CicmWrapper/Sources/eclass.c"
-#include "../../../extra/CicmWrapper/Sources/ecommon.c"
-#include "../../../extra/CicmWrapper/Sources/eobj.c"
-#include "../../../extra/CicmWrapper/Sources/ebox.c"
-#include "../../../extra/CicmWrapper/Sources/epopup.c"
-#include "../../../extra/CicmWrapper/Sources/egraphics.c"
-#include "../../../extra/CicmWrapper/Sources/epdmax.h"
-    
+    //TEMP, replace with 'cicm_wrapper.h'
+    #include "../../../extra/CicmWrapper/Sources/cicm_wrapper_c.h"
+
 }
 
 namespace ceammc_gui {
@@ -387,6 +381,15 @@ public:
     {
         
     }
+    
+    /**
+     * @brief "extension": mouse leave event
+     * @param z: pd object, view: view, pt: mouse location, modifiers: modifiers
+     */
+    static void wx_mouseenter_ext(t_object* z, t_object *view, t_pt pt, long modifiers)
+    {
+        
+    }
 
 #pragma mark -
 #pragma mark pd object instance
@@ -684,6 +687,17 @@ public:
 
     }
     
+    /**
+     * @brief CICM widget method: mouse enter
+     * @param z: pd object, view: view, pt: mouse location, modifiers: modifiers
+     */
+    static void wx_mouseenter(t_object* z, t_object *view, t_pt pt, long modifiers)
+    {
+        
+        object<U>::wx_mouseenter_ext(z,view,pt,modifiers);
+        
+    }
+    
     
 
     
@@ -738,6 +752,7 @@ public:
             eclass_addmethod(cl, (method)(&object<U>::wx_mouseup), ("mouseup"), A_GIMME,0);
             eclass_addmethod(cl, (method)(&object<U>::wx_mousedrag), ("mousedrag"), A_GIMME,0);
             
+            eclass_addmethod(cl, (method)(&object<U>::wx_mouseenter), ("mouseenter"), A_GIMME,0);
             eclass_addmethod(cl, (method)(&object<U>::wx_mouseleave), ("mouseleave"), A_GIMME,0);
             
             eclass_addmethod(cl, (method)(&object<U>::wx_oksize), ("oksize"), A_GIMME,0);
@@ -813,6 +828,7 @@ public:
             eclass_addmethod(cl, (method)(&object<U>::wx_mouseup), ("mouseup"), A_GIMME,0);
             eclass_addmethod(cl, (method)(&object<U>::wx_mousedrag), ("mousedrag"), A_GIMME,0);
             
+            eclass_addmethod(cl, (method)(&object<U>::wx_mouseenter), ("mouseenter"), A_GIMME,0);
             eclass_addmethod(cl, (method)(&object<U>::wx_mouseleave), ("mouseleave"), A_GIMME,0);
             
             eclass_addmethod(cl, (method)(&object<U>::wx_oksize), ("oksize"), A_GIMME,0);
@@ -843,14 +859,13 @@ public:
     {
         t_eclass *cl;
         
-        cl = eclass_new(_class_name.c_str(),(method)object<U>::new_method, (method)&object<U>::free_method, sizeof(U), CLASS_PATCHABLE, A_GIMME,0);
+        cl = eclass_new(_class_name.c_str(),(method)object<U>::new_method, (method)&object<U>::free_method, sizeof(U), CLASS_NOINLET, A_GIMME,0);
         
         printf("init\n");
         
         if (cl)
         {
             eclass_guiinit(cl, 0);
-            
             
             object<U>::class_name = _class_name;
             object<U>::ui_properties_init();
@@ -881,6 +896,7 @@ public:
             eclass_addmethod(cl, (method)(&object<U>::wx_mouseup), ("mouseup"), A_GIMME,0);
             eclass_addmethod(cl, (method)(&object<U>::wx_mousedrag), ("mousedrag"), A_GIMME,0);
             
+            eclass_addmethod(cl, (method)(&object<U>::wx_mouseenter), ("mouseenter"), A_GIMME,0);
             eclass_addmethod(cl, (method)(&object<U>::wx_mouseleave), ("mouseleave"), A_GIMME,0);
             
             eclass_addmethod(cl, (method)(&object<U>::wx_oksize), ("oksize"), A_GIMME,0);
