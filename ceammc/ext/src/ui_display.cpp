@@ -9,6 +9,7 @@
 #include <stdio.h>
 
 #include "ceammc_atomlist.h"
+#include "ceammc_format.h"
 
 #include "lib/ceammc_gui.h"
 
@@ -114,33 +115,11 @@ namespace ceammc_gui {
     }
     
     UI_fun(ui_display)::m_anything(t_object* z, t_symbol* s, int argc, t_atom* argv)
-    {
-        t_symbol* bgl = gensym("background_layer");
-        
+    {   
         ui_display* zx = (ui_display*)z;
-        
-        Atom sym1 = Atom(s);
-        
-        (*zx->s_value) = "";
-        (*zx->s_type) = sym1.asString();
-        
-        AtomList list1 = AtomList();
-        list1.fromPdData(argc, argv);
-        
-        if ( (!sym1.isFloat()) &&  (!sym1.isNone()))
-        {
-            if (sym1.asString() != "list")
-            {
-                (*zx->s_value) = sym1.asString() + " " + list1.toString();
-            }
-            else
-            {
-                (*zx->s_value) = list1.toString();
-            }
-        }
-        else
-            (*zx->s_value) = list1.toString();
-        
+
+        (*zx->s_type) = s->s_name;
+        (*zx->s_value) = to_string(AtomList(argc, argv));
         
         if (zx->show_bang)
         {

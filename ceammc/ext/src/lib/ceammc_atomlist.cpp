@@ -18,6 +18,7 @@
 #include <iostream>
 #include <iterator>
 #include <string>
+#include <cstdarg>
 
 namespace ceammc {
 
@@ -211,17 +212,16 @@ t_atom* AtomList::toPdData() const
 {
     return reinterpret_cast<t_atom*>(const_cast<Atom*>(atoms_.data()));
 }
-    
+
 std::string AtomList::toString() const
 {
     std::string ret = "";
-    
+
     //iterator??
-    for (int i=0; i<this->size();i++)
-    {
-        ret = ret + this->at(i).asString() + (i!=(this->size()-1)?" ":"");
+    for (int i = 0; i < this->size(); i++) {
+        ret = ret + this->at(i).asString() + (i != (this->size() - 1) ? " " : "");
     }
-    
+
     return ret;
 };
 
@@ -323,22 +323,20 @@ void AtomList::reverse()
 {
     std::reverse(atoms_.begin(), atoms_.end());
 }
-    
+
 AtomList AtomList::sub(int begin, int end)
 {
     AtomList ret;
-        
-    if ((end-begin)>0)
-    {
+
+    if ((end - begin) > 0) {
         //temporary
         for (size_t i = begin; i < end; i++) {
             const Atom& a = atoms_[i];
             ret.atoms_.push_back(a);
         }
-            
     }
-        
-   return ret;
+
+    return ret;
 }
 
 AtomList AtomList::filtered(AtomPredicate pred) const
@@ -621,6 +619,20 @@ AtomList AtomList::filled(const Atom& a, size_t n)
 {
     AtomList res;
     res.fill(a, n);
+    return res;
+}
+
+AtomList AtomList::values(size_t n, ...)
+{
+    AtomList res;
+    va_list ap;
+    va_start(ap, n);
+
+    for (size_t i = 2; i <= n + 1; i++) {
+        res.append(Atom(static_cast<float>(va_arg(ap, double))));
+    }
+
+    va_end(ap);
     return res;
 }
 

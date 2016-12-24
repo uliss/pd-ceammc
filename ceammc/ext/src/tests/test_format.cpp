@@ -15,6 +15,7 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
 #include "ceammc_atom.h"
+#include "ceammc_atomlist.h"
 #include "ceammc_format.h"
 
 using namespace ceammc;
@@ -30,7 +31,7 @@ TEST_CASE("format", "[ceammc::format]")
 
         // float
         REQUIRE(to_float_string(123) == "123");
-        REQUIRE(to_float_string(123.12) == "123.12");
+        REQUIRE(to_float_string(123.12f) == "123.12");
         REQUIRE(to_float_string(gensym("1.1")) == "");
 
         // hex
@@ -45,5 +46,10 @@ TEST_CASE("format", "[ceammc::format]")
         REQUIRE(to_float_range_string(-1, -1, 1) == "-1");
         REQUIRE(to_float_range_string(1, -1, 1) == "1");
         REQUIRE(to_float_range_string(gensym("255"), -1, 1) == "");
+    }
+
+    SECTION("atomlist format")
+    {
+        REQUIRE(to_string(AtomList::values(3, 1.f, 2.f, 3.f)) == "1 2 3");
     }
 }

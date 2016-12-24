@@ -65,4 +65,19 @@ std::string to_float_range_string(const Atom& a, float min, float max)
     return ss.str();
 }
 
+std::string to_string(const AtomList& a, const std::string& separator)
+{
+    if (a.empty())
+        return "";
+
+    std::ostringstream ss;
+    for (size_t i = 0; i < a.size(); i++) {
+        if (i != 0)
+            ss << separator;
+
+        ss << a[i];
+    }
+    return ss.str();
+}
+
 } // namespace ceammc

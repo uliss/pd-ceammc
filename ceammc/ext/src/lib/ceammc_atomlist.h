@@ -205,6 +205,7 @@ public:
     static AtomList zeroes(size_t n);
     static AtomList ones(size_t n);
     static AtomList filled(const Atom& a, size_t n);
+    static AtomList values(size_t n, ...);
 
 public:
     friend bool operator==(const AtomList& l1, const AtomList& l2);
