@@ -84,6 +84,8 @@ public:
      */
     void output(t_outlet* x) const;
 
+    void outputAsAny(t_outlet* x, t_symbol* sel) const;
+
 public:
     friend bool operator==(const Atom& a1, const Atom& a2);
     friend bool operator!=(const Atom& a1, const Atom& a2);
