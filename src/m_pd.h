@@ -285,7 +285,7 @@ EXTERN t_symbol *gensym(const char *s);
 EXTERN t_gotfn getfn(t_pd *x, t_symbol *s);
 EXTERN t_gotfn zgetfn(t_pd *x, t_symbol *s);
 EXTERN void nullfn(void);
-EXTERN void pd_vmess(t_pd *x, t_symbol *s, char *fmt, ...);
+EXTERN void pd_vmess(t_pd *x, t_symbol *s, const char *fmt, ...);
 
 /* the following macrose are for sending non-type-checkable mesages, i.e.,
 using function lookup but circumventing type checking on arguments.  Only
