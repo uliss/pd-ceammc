@@ -55,7 +55,7 @@ bool Atom::isNone() const
 
 bool Atom::isSymbol() const
 {
-    return type() == SYMBOL;
+    return type() == SYMBOL || type() == PROPERTY;
 }
 
 bool Atom::isProperty() const
@@ -95,7 +95,7 @@ bool Atom::getSymbol(t_symbol** s) const
     if (s == 0)
         return false;
 
-    if (!isSymbol() && !isProperty())
+    if (!isSymbol())
         return false;
 
     *s = this->a_w.w_symbol;
@@ -104,7 +104,7 @@ bool Atom::getSymbol(t_symbol** s) const
 
 bool Atom::getString(std::string& str) const
 {
-    if (!isSymbol() && !isProperty())
+    if (!isSymbol())
         return false;
 
     str = this->a_w.w_symbol->s_name;
@@ -232,7 +232,7 @@ std::ostream& operator<<(std::ostream& os, const Atom& a)
 {
     if (a.isFloat())
         os << a.asFloat();
-    if (a.isSymbol() || a.isProperty())
+    if (a.isSymbol())
         os << a.asString();
     if (a.isNone())
         os << "NONE";
