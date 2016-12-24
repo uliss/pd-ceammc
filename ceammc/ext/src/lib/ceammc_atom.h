@@ -75,9 +75,6 @@ public:
     t_float asFloat() const;
     t_symbol* asSymbol() const;
     std::string asString() const;
-    //
-    // added range check and clipping
-    t_float asFloatInRange(float min, float max) const;
 
     bool operator<(const Atom& a) const;
 
