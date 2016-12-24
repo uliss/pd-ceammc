@@ -16,6 +16,7 @@
 
 #include "ceammc_atom.h"
 #include <vector>
+#include <string>
 
 namespace ceammc {
 
@@ -124,6 +125,8 @@ public:
     Atom* last();
     const Atom* first() const;
     const Atom* last() const;
+    //
+    std::string toString();
 
     void sort();
     void shuffle();
