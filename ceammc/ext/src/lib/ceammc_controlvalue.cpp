@@ -73,6 +73,15 @@ ControlValue::ControlValue(t_symbol* s, int argc, t_atom* argv)
 {
 }
 
+void ControlValue::setAtom(const Atom& a)
+{
+    value_ = a;
+    if (a.isFloat())
+        type_ = FLOAT;
+    if (a.isSymbol())
+        type_ = SYMBOL;
+}
+
 void ControlValue::setFloat(t_float v)
 {
     type_ = FLOAT;

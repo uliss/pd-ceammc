@@ -49,6 +49,7 @@ public:
     ControlValue(t_symbol* s, const AtomList& l);
     ControlValue(t_symbol* s, int argc, t_atom* argv);
 
+    void setAtom(const Atom& a);
     void setFloat(t_float v);
     void setSymbol(t_symbol* s);
     void setList(const AtomList& l);
