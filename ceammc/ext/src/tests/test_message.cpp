@@ -13,34 +13,34 @@
  *****************************************************************************/
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
-#include "ceammc_controlvalue.h"
+#include "ceammc_message.h"
 
 using namespace ceammc;
 
-TEST_CASE("ControlValue", "[ceammc::ControlValue]")
+TEST_CASE("Message", "[ceammc::Message]")
 {
-    ControlValue v1;
+    Message v1;
     REQUIRE(v1.isNone());
-    REQUIRE(v1.type() == ControlValue::NONE);
+    REQUIRE(v1.type() == Message::NONE);
 
-    ControlValue v2(1.f);
+    Message v2(1.f);
     REQUIRE(v2.isFloat());
 
-    ControlValue v3(gensym("a"));
+    Message v3(gensym("a"));
     REQUIRE(v3.isSymbol());
 
     t_atom atoms[2];
     SETFLOAT(&atoms[0], 1);
     SETSYMBOL(&atoms[1], gensym("b"));
-    ControlValue v4(2, &atoms[0]);
+    Message v4(2, &atoms[0]);
     REQUIRE(v4.isList());
 
-    ControlValue v5(gensym("c"), 2, &atoms[0]);
+    Message v5(gensym("c"), 2, &atoms[0]);
     REQUIRE(v5.isAny());
 
-    ControlValue v6(Atom(1.f));
+    Message v6(Atom(1.f));
     REQUIRE(v6.isFloat());
-    ControlValue v7(Atom(gensym("b")));
+    Message v7(Atom(gensym("b")));
     REQUIRE(v7.isSymbol());
 
     SECTION("compare")
@@ -68,29 +68,29 @@ TEST_CASE("ControlValue", "[ceammc::ControlValue]")
 
     SECTION("compare2")
     {
-        REQUIRE(v2 == ControlValue(1.f));
-        REQUIRE(v2 != ControlValue(1.0001f));
+        REQUIRE(v2 == Message(1.f));
+        REQUIRE(v2 != Message(1.0001f));
 
-        REQUIRE(v3 == ControlValue(gensym("a")));
-        REQUIRE(v3 != ControlValue(gensym("b")));
+        REQUIRE(v3 == Message(gensym("a")));
+        REQUIRE(v3 != Message(gensym("b")));
 
         AtomList l1;
-        REQUIRE(v4 != ControlValue(l1));
+        REQUIRE(v4 != Message(l1));
         l1.append(1);
         l1.append(gensym("b"));
-        REQUIRE(v4 == ControlValue(l1));
+        REQUIRE(v4 == Message(l1));
 
-        REQUIRE(v5 != ControlValue(gensym("a"), l1));
-        REQUIRE(v5 != ControlValue(gensym("c"), AtomList()));
-        REQUIRE(v5 == ControlValue(gensym("c"), l1));
+        REQUIRE(v5 != Message(gensym("a"), l1));
+        REQUIRE(v5 != Message(gensym("c"), AtomList()));
+        REQUIRE(v5 == Message(gensym("c"), l1));
 
         AtomList l2;
         l2.append(gensym("a"));
         l2.append(gensym("b"));
         l2.append(gensym("c"));
 
-        ControlValue c1(l2);
-        ControlValue c2(gensym("a"), l2);
+        Message c1(l2);
+        Message c2(gensym("a"), l2);
         REQUIRE(c1 != c2);
     }
 

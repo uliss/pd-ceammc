@@ -11,31 +11,31 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "ceammc_controlvalue.h"
+#include "ceammc_message.h"
 #include <cassert>
 #include <cstring>
 
 namespace ceammc {
 
-ControlValue::ControlValue()
+Message::Message()
     : type_(NONE)
     , value_(Atom(0.f))
 {
 }
 
-ControlValue::ControlValue(t_float v)
+Message::Message(t_float v)
     : type_(FLOAT)
     , value_(v)
 {
 }
 
-ControlValue::ControlValue(t_symbol* s)
+Message::Message(t_symbol* s)
     : type_(SYMBOL)
     , value_(s)
 {
 }
 
-ControlValue::ControlValue(const Atom& a)
+Message::Message(const Atom& a)
     : type_(NONE)
     , value_(a)
 {
@@ -45,35 +45,35 @@ ControlValue::ControlValue(const Atom& a)
         type_ = SYMBOL;
 }
 
-ControlValue::ControlValue(const AtomList& l)
+Message::Message(const AtomList& l)
     : type_(LIST)
     , value_(Atom(0.f))
     , v_list_(l)
 {
 }
 
-ControlValue::ControlValue(int argc, t_atom* argv)
+Message::Message(int argc, t_atom* argv)
     : type_(LIST)
     , value_(Atom(0.f))
     , v_list_(argc, argv)
 {
 }
 
-ControlValue::ControlValue(t_symbol* s, const AtomList& l)
+Message::Message(t_symbol* s, const AtomList& l)
     : type_(ANY)
     , value_(s)
     , v_list_(l)
 {
 }
 
-ControlValue::ControlValue(t_symbol* s, int argc, t_atom* argv)
+Message::Message(t_symbol* s, int argc, t_atom* argv)
     : type_(ANY)
     , value_(s)
     , v_list_(argc, argv)
 {
 }
 
-void ControlValue::setAtom(const Atom& a)
+void Message::setAtom(const Atom& a)
 {
     value_ = a;
     if (a.isFloat())
@@ -82,42 +82,42 @@ void ControlValue::setAtom(const Atom& a)
         type_ = SYMBOL;
 }
 
-void ControlValue::setFloat(t_float v)
+void Message::setFloat(t_float v)
 {
     type_ = FLOAT;
     value_.setFloat(v, true);
 }
 
-void ControlValue::setSymbol(t_symbol* s)
+void Message::setSymbol(t_symbol* s)
 {
     type_ = SYMBOL;
     value_.setSymbol(s, true);
 }
 
-void ControlValue::setList(const AtomList& l)
+void Message::setList(const AtomList& l)
 {
     type_ = LIST;
     v_list_ = l;
 }
 
-void ControlValue::setList(int argc, t_atom* argv)
+void Message::setList(int argc, t_atom* argv)
 {
     setList(AtomList(static_cast<size_t>(argc), argv));
 }
 
-void ControlValue::setAny(t_symbol* s, const AtomList& l)
+void Message::setAny(t_symbol* s, const AtomList& l)
 {
     type_ = ANY;
     value_.setSymbol(s, true);
     v_list_ = l;
 }
 
-void ControlValue::setAny(t_symbol* s, int argc, t_atom* argv)
+void Message::setAny(t_symbol* s, int argc, t_atom* argv)
 {
     setAny(s, AtomList(static_cast<size_t>(argc), argv));
 }
 
-bool ControlValue::isEqual(const ControlValue& v) const
+bool Message::isEqual(const Message& v) const
 {
     if (this == &v)
         return true;
@@ -138,12 +138,12 @@ bool ControlValue::isEqual(const ControlValue& v) const
     }
 }
 
-ControlValue::Type ControlValue::type() const
+Message::Type Message::type() const
 {
     return type_;
 }
 
-void ControlValue::output(t_outlet* x)
+void Message::output(t_outlet* x)
 {
     switch (type_) {
     case FLOAT:
@@ -164,12 +164,12 @@ void ControlValue::output(t_outlet* x)
     }
 }
 
-bool operator==(const ControlValue& c1, const ControlValue& c2)
+bool operator==(const Message& c1, const Message& c2)
 {
     return c1.isEqual(c2);
 }
 
-bool operator!=(const ControlValue& c1, const ControlValue& c2)
+bool operator!=(const Message& c1, const Message& c2)
 {
     return !(c1 == c2);
 }

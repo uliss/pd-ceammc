@@ -13,7 +13,7 @@ add_library(ceammc_static STATIC ceammc.c
     ceammc.cpp
     ceammc_atom.cpp
     ceammc_atomlist.cpp
-    ceammc_controlvalue.cpp
+    ceammc_message.cpp
     ceammc_format.cpp)
 
 set_target_properties(ceammc_static PROPERTIES

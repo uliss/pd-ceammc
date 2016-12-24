@@ -20,7 +20,7 @@ namespace ceammc {
 
 class Atom;
 class AtomList;
-class ControlValue;
+class Message;
 
 std::string to_string(const Atom& a);
 std::string to_float_string(const Atom& a);

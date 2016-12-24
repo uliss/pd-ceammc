@@ -1,4 +1,4 @@
-#include "ceammc_controlvalue.h"
+#include "ceammc_message.h"
 #include "ceammc_globaldata.h"
 #include <m_pd.h>
 #include <queue>
@@ -10,13 +10,13 @@ using namespace ceammc;
 
 static const size_t MAX_FIFO_SIZE = 1024;
 
-typedef std::queue<ControlValue> ControlFifo;
+typedef std::queue<Message> MessageFifo;
 
 static t_class* data_fifo_class;
 struct t_data_fifo {
     t_object x_obj;
     size_t max_fifo_sz;
-    ControlFifo* x_fifo;
+    MessageFifo* x_fifo;
 };
 
 // output first, remove first
@@ -76,7 +76,7 @@ static void fifo_set_resize(t_data_fifo* x, t_floatarg sz)
 
 static void data_fifo_anything(t_data_fifo* x, t_symbol* s, int argc, t_atom* argv)
 {
-    x->x_fifo->push(ControlValue(s, argc, argv));
+    x->x_fifo->push(Message(s, argc, argv));
     fifo_maybe_output(x);
 }
 
@@ -87,19 +87,19 @@ static void data_fifo_bang(t_data_fifo* x)
 
 static void data_fifo_float(t_data_fifo* x, t_floatarg f)
 {
-    x->x_fifo->push(ControlValue(f));
+    x->x_fifo->push(Message(f));
     fifo_maybe_output(x);
 }
 
 static void data_fifo_symbol(t_data_fifo* x, t_symbol* s)
 {
-    x->x_fifo->push(ControlValue(s));
+    x->x_fifo->push(Message(s));
     fifo_maybe_output(x);
 }
 
 static void data_fifo_list(t_data_fifo* x, t_symbol*, int argc, t_atom* argv)
 {
-    x->x_fifo->push(ControlValue(argc, argv));
+    x->x_fifo->push(Message(argc, argv));
     fifo_maybe_output(x);
 }
 
@@ -107,7 +107,7 @@ static void* data_fifo_new(t_floatarg sz)
 {
     t_data_fifo* x = reinterpret_cast<t_data_fifo*>(pd_new(data_fifo_class));
     outlet_new(&x->x_obj, &s_float);
-    x->x_fifo = new ControlFifo();
+    x->x_fifo = new MessageFifo();
     if (sz < 1)
         sz = MAX_FIFO_SIZE;
     x->max_fifo_sz = static_cast<size_t>(sz);

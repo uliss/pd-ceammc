@@ -11,15 +11,15 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef CEAMMC_CONTROLVALUE_H
-#define CEAMMC_CONTROLVALUE_H
+#ifndef CEAMMC_MESSAGE_H
+#define CEAMMC_MESSAGE_H
 
 #include "ceammc_atomlist.h"
 #include <m_pd.h>
 
 namespace ceammc {
 
-class ControlValue {
+class Message {
 public:
     enum Type {
         NONE,
@@ -36,18 +36,18 @@ private:
 
 public:
     // create none
-    ControlValue();
+    Message();
     // create float
-    ControlValue(t_float v);
+    Message(t_float v);
     // create symbol
-    ControlValue(t_symbol* s);
-    ControlValue(const Atom& a);
+    Message(t_symbol* s);
+    Message(const Atom& a);
     // create list
-    ControlValue(const AtomList& l);
-    ControlValue(int argc, t_atom* argv);
+    Message(const AtomList& l);
+    Message(int argc, t_atom* argv);
     // create any
-    ControlValue(t_symbol* s, const AtomList& l);
-    ControlValue(t_symbol* s, int argc, t_atom* argv);
+    Message(t_symbol* s, const AtomList& l);
+    Message(t_symbol* s, int argc, t_atom* argv);
 
     void setAtom(const Atom& a);
     void setFloat(t_float v);
@@ -57,7 +57,7 @@ public:
     void setAny(t_symbol* s, const AtomList& l);
     void setAny(t_symbol* s, int argc, t_atom* argv);
 
-    bool isEqual(const ControlValue& v) const;
+    bool isEqual(const Message& v) const;
     Type type() const;
 
     void output(t_outlet* x);
@@ -69,9 +69,9 @@ public:
     inline bool isNone() const { return type_ == NONE; }
 };
 
-bool operator==(const ControlValue& c1, const ControlValue& c2);
-bool operator!=(const ControlValue& c1, const ControlValue& c2);
+bool operator==(const Message& c1, const Message& c2);
+bool operator!=(const Message& c1, const Message& c2);
 
 } // namespace ceammc
 
-#endif // CEAMMC_CONTROLVALUE_H
+#endif // CEAMMC_MESSAGE_H
