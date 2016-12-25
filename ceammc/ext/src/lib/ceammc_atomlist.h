@@ -135,7 +135,7 @@ public:
     void shuffle();
     void reverse();
 
-    AtomList sub(int begin, int end);
+    AtomList subList(int begin, int end);
     AtomList filtered(AtomPredicate pred) const;
 
     const Atom* min() const;

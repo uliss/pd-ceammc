@@ -37,8 +37,8 @@ static void list_split_l1(t_object *z, _symbol *s, int argc, t_atom *argv)
     
     int n_split = zx->list_split ;
     
-    AtomList out1 = list1.sub(0, n_split);
-    AtomList out2 = list1.sub(n_split, zx->list_len);
+    AtomList out1 = list1.subList(0, n_split);
+    AtomList out2 = list1.subList(n_split, zx->list_len);
     
     out1.output(zx->out1);
     out2.output(zx->out2);

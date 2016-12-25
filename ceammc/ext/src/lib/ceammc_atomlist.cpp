@@ -337,7 +337,7 @@ void AtomList::reverse()
     std::reverse(atoms_.begin(), atoms_.end());
 }
     
-AtomList AtomList::sub(int begin, int end)
+AtomList AtomList::subList(int begin, int end)
 {
     AtomList ret;
         
