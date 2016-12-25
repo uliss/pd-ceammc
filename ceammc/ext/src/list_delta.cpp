@@ -29,7 +29,7 @@ static void list_delta_list(t_list_delta* x, t_symbol*, int argc, t_atom* argv)
 
     AtomList new_list(argc, argv);
     //    new_list.removeAll(notFloat); // remove all non float atoms
-    AtomList delta_list(x->stored_list->sub(new_list, AtomList::PADZERO));
+    AtomList delta_list(x->stored_list->subFrom(new_list, AtomList::PADZERO));
 
     delta_list.output(x->x_obj.te_outlet);
     *x->stored_list = new_list;

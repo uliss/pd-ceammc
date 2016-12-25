@@ -201,6 +201,14 @@ public:
      * @return new list
      */
     AtomList sub(const AtomList& l, NonEqualLengthBehaivor b = MINSIZE) const;
+    
+    /**
+     * @brief returns new list that contains difference from new list and original list
+     * @param l - list
+     * @param b - behaivor flag, when lists are different lengths
+     * @return new list
+     */
+    AtomList subFrom(const AtomList& l, NonEqualLengthBehaivor b = MINSIZE) const;
     /**
      * @brief returns new list that is a sum of original list values and new list ("l") values
      * @param l - list
