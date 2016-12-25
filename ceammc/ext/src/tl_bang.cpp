@@ -30,7 +30,7 @@ UI_fun(tl_bang)::w_draw(t_gobj *z, t_glist *glist)
     
     std::string obj_color = (UI_Pf("_selected")==0)? "#00C0FF" : "#0000C0";
     
-    printf ("coords %f %f", UI_x, UI_y);
+    printf ("coords %d %d", UI_x, UI_y);
     gui_rect("BASE", UI_x, UI_y, UI_Pf("width"), UI_Pf("height"),
                 obj_color, "#C0C0C0", 1.0f);
     gui_text("LABEL", UI_x+UI_Pf("label_x"), UI_y+UI_Pf("label_y"),

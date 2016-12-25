@@ -8,6 +8,9 @@
 
 #include "lib/ceammc_gui.h"
 
+#include "ceammc_atomlist.h"
+#include "ceammc_format.h"
+
 struct ui_keyboard : ceammc_gui::base_pd_object
 {
     t_ebox x_gui;
@@ -85,7 +88,7 @@ namespace ceammc_gui {
         UI_Prop
         
         t_symbol *bgl = gensym("background_layer");
-        float size;
+        //float size;
         t_rect rect;
         ebox_get_rect_for_view((t_ebox *)z, &rect);
         
@@ -180,8 +183,8 @@ namespace ceammc_gui {
     {
         UI_Prop
         
-        t_symbol *bgl = gensym("background_layer");
-        float size;
+        //t_symbol *bgl = gensym("background_layer");
+        //float size;
         t_rect rect;
         ebox_get_rect_for_view((t_ebox *)z, &rect);
         

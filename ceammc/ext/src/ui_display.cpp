@@ -2,7 +2,7 @@
 //  ui_display.cpp
 //  pd_ext
 //
-//  Created by Alex on 21/12/16.
+//  Created by Alex Nadzharov on 21/12/16.
 //
 //
 
@@ -67,7 +67,7 @@ namespace ceammc_gui {
         //UI_Prop
         
         t_symbol* bgl = gensym("background_layer");
-        float size;
+        //float size;
         t_rect rect;
         ebox_get_rect_for_view((t_ebox*)z, &rect);
         

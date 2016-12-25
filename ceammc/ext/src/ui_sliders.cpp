@@ -9,6 +9,9 @@
 
 #include "lib/ceammc_gui.h"
 
+#include "ceammc_atomlist.h"
+#include "ceammc_format.h"
+
 struct ui_sliders : ceammc_gui::base_pd_object
 {
     t_ebox x_gui;
@@ -39,7 +42,7 @@ namespace ceammc_gui {
         UI_Prop
         
         t_symbol *bgl = gensym("background_layer");
-        float size;
+        //float size;
         t_rect rect;
         ebox_get_rect_for_view((t_ebox *)z, &rect);
         
@@ -187,9 +190,8 @@ namespace ceammc_gui {
     
     UI_fun(ui_sliders)::m_bang(t_object *z, t_symbol *s, int argc, t_atom *argv)
     {
-        UI_Prop
-        
-        ui_sliders *zx = (ui_sliders*)z;
+        //UI_Prop
+        //ui_sliders *zx = (ui_sliders*)z;
         
         outlet_list( ((ui_sliders*)z)->out1, &s_list, ((ui_sliders*)z)->val_list_size, ((ui_sliders*)z)->val_list );
         

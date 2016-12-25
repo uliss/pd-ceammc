@@ -13,6 +13,7 @@
 
 struct test_cicm : ceammc_gui::base_pd_object
 {
+    t_ebox x_gui;
     
 };
 
@@ -20,9 +21,7 @@ namespace ceammc_gui {
     
     UI_fun(test_cicm)::new_ext(t_object *x, t_symbol *s, int argc, t_atom *argv)
     {
-        
         printf("additional init\n");
-        
         
     }
 }

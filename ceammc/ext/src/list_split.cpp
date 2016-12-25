@@ -74,7 +74,7 @@ static void* list_split_new(t_symbol *s, int argc, t_atom *argv)
         x->list_split = a1.asFloat();
     }
     
-    printf("ptr %lu\n",x);
+    printf("ptr %lu\n",(long)x);
     
     return static_cast<void*>(x);
 }

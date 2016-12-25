@@ -8,6 +8,9 @@
 
 #include <stdio.h>
 
+#include "ceammc_atomlist.h"
+#include "ceammc_format.h"
+
 #include "lib/ceammc_gui.h"
 
 struct ui_slider2d : ceammc_gui::base_pd_object
@@ -26,7 +29,7 @@ namespace ceammc_gui {
         UI_Prop
         
         t_symbol *bgl = gensym("background_layer");
-        float size;
+        //float size;
         t_rect rect;
         ebox_get_rect_for_view((t_ebox *)z, &rect);
         

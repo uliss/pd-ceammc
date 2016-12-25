@@ -10,6 +10,9 @@
 
 #include "lib/ceammc_gui.h"
 
+#include "ceammc_atomlist.h"
+#include "ceammc_format.h"
+
 #include <map>
 #include <algorithm>
 
@@ -28,7 +31,7 @@ typedef struct t_bpt
 typedef std::vector<t_bpt> bpf_points;
 
 
-
+using namespace ceammc;
 
 struct ui_bpfunc : ceammc_gui::base_pd_object
 {
@@ -36,7 +39,9 @@ struct ui_bpfunc : ceammc_gui::base_pd_object
     
     t_outlet *out1;
     t_atom *out_list;
-    t_int out_list_count;
+    int out_list_count;
+    
+    AtomList *output;
     
     bpf_points *points;
     
@@ -116,7 +121,7 @@ namespace ceammc_gui {
     
     inline int bpf_size(t_object *z)
     {
-        return ((ui_bpfunc*)z)->points->size();
+        return (int)((ui_bpfunc*)z)->points->size();
     }
     
     inline void bpf_points_new(t_object *z)
@@ -142,7 +147,7 @@ namespace ceammc_gui {
         //UI_Prop
         
         t_symbol *bgl = gensym("background_layer");
-        float size;
+        //float size;
         t_rect rect;
         ebox_get_rect_for_view((t_ebox *)z, &rect);
         
@@ -271,9 +276,9 @@ namespace ceammc_gui {
         float nx = pt.x / rect.width;
         float ny = pt.y / rect.height;
         
-        float nlen = sqrtf(nx*nx+ny*ny);
-        float nnx = (nlen!=0) ? nx/ nlen : 0;
-        float nny = (nlen!=0) ? ny/ nlen : 0;
+//        float nlen = sqrtf(nx*nx+ny*ny);
+//        float nnx = (nlen!=0) ? nx/ nlen : 0;
+//        float nny = (nlen!=0) ? ny/ nlen : 0;
         
         
         //bpf_points::iterator it;
@@ -292,17 +297,17 @@ namespace ceammc_gui {
             it->selected = (it->dist<.1);
             
             //////
-            
             //if (itn != zx->points->end())
             
-            float dx2 = itn->x - it->x;
-            float dy2 = (1-itn->y) - (1-it->y);
+//            float dx2 = itn->x - it->x;
+//            float dy2 = (1-itn->y) - (1-it->y);
             
-            float len2 = sqrtf(dx2*dx2+dy2*dy2);
-            float ndx2 = (len2!=0) ? dx2/ len2 : 0;
-            float ndy2 = (len2!=0) ? dy2/ len2 : 0;
+//            float len2 = sqrtf(dx2*dx2+dy2*dy2);
+//            float ndx2 = (len2!=0) ? dx2/ len2 : 0;
+//            float ndy2 = (len2!=0) ? dy2/ len2 : 0;
             
-            float dot1 = nnx*ndx2 + nny*ndy2;
+            //temporary - line selection
+            //float dot1 = nnx*ndx2 + nny*ndy2;
             //if (dot1<0) dot1 = 0;
             
             it->ldist = 1;//abs(dot1);
@@ -316,7 +321,7 @@ namespace ceammc_gui {
             }
             else
             {
-                zx->addidx = zx->points->size();
+                zx->addidx = (int)zx->points->size();
                 
             }
             
@@ -409,7 +414,6 @@ namespace ceammc_gui {
                 if (it->y>1) it->y=1;
                 if (it->y<0) it->y=0;
                 
-                
             }
         }
         
@@ -417,7 +421,6 @@ namespace ceammc_gui {
         zx->_py = pt.y;
         
         bpf_point_sort(z);
-        
         
         ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
         
@@ -433,7 +436,7 @@ namespace ceammc_gui {
         
         ui_bpfunc *zx = (ui_bpfunc*)z;
         
-        zx->out_list_count = zx->points->size() * 2;
+        zx->out_list_count = (int)zx->points->size() * 2;
         
         if (zx->out_list) {free(zx->out_list);}
         
@@ -483,7 +486,7 @@ namespace ceammc_gui {
         
         ui_bpfunc *zx = (ui_bpfunc*)z;
         
-        zx->out_list_count = zx->points->size() * 2;
+        zx->out_list_count = (int)zx->points->size() * 2;
         
         if (zx->out_list) {free(zx->out_list);}
         
@@ -507,7 +510,7 @@ namespace ceammc_gui {
     void bpf_m_clear(t_object *z, t_symbol *s, int argc, t_atom *argv)
     {
         
-        ui_bpfunc *zx = (ui_bpfunc*)z;
+        //ui_bpfunc *zx = (ui_bpfunc*)z;
         
         bpf_points_new(z);
         
@@ -610,6 +613,8 @@ namespace ceammc_gui {
         zx->range_y = 1;
         zx->shift_x = 0;
         zx->shift_y = 0;
+        
+        zx->output = new AtomList;
         
     }
     

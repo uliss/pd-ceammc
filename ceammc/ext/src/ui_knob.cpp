@@ -9,6 +9,9 @@
 
 #include "lib/ceammc_gui.h"
 
+#include "ceammc_atomlist.h"
+#include "ceammc_format.h"
+
 struct ui_knob : ceammc_gui::base_pd_object
 {
     t_ebox x_gui;
@@ -61,18 +64,16 @@ namespace ceammc_gui {
         UI_Prop
         
         t_symbol *bgl = gensym("background_layer");
-        float size;
+        //float size;
         t_rect rect;
         ebox_get_rect_for_view((t_ebox *)z, &rect);
         
         t_elayer *g = ebox_start_layer((t_ebox *)z, bgl, rect.width, rect.height);
         
-        ui_knob *zx = (ui_knob*)z;
+        //ui_knob *zx = (ui_knob*)z;
         
         if(g)
         {
-            
-            
             
             float rmin = .5*rect.width*.7 -2;
             float rmid = .5*rect.width -2;
@@ -118,14 +119,9 @@ namespace ceammc_gui {
     
     UI_fun(ui_knob)::wx_oksize(t_object *z, t_rect *newrect)
     {
-        UI_Prop
-        
         newrect->width = floorf(newrect->width/5.)*5;
-        
         newrect->height = newrect->width;
         
-        
-        //UI_Pset("_is_vertical", newrect->width<newrect->height);
     }
     
     

@@ -104,8 +104,8 @@ public:
         {
             post("ERR: bad symbol value");
             printf ("property get cstr err\n");
-            char* no = "<error>";
-            return no;
+            std::string no = "<error>";
+            return (char*)no.c_str();   //?
         }
     }
     
@@ -509,7 +509,7 @@ public:
         properties *x  = instances[(t_object *)z];
         
         char c_sym[] = "s";
-        char c_int[] = "i";
+        //char c_int[] = "i";
         char c_sc[] = ";";
         
         binbuf_addv(b,c_sym, gensym("#X"));
@@ -580,7 +580,7 @@ public:
     static void wx_paint(t_object *z, t_object *view)
     {
         t_symbol *bgl = gensym("background_layer");
-        float size;
+        //float size;
         t_rect rect;
         ebox_get_rect_for_view((t_ebox *)z, &rect);
         
