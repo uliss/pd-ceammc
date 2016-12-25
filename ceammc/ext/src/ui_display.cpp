@@ -202,7 +202,6 @@ namespace ceammc_gui {
     {
         CLASS_ATTR_DEFAULT(z, "size", 0, "120. 15.");
         
-        //      TODO
         CLASS_ATTR_INT(z, "display_events", 0, ui_display, show_bang);
         CLASS_ATTR_DEFAULT(z, "display_events", 0, "1");
         CLASS_ATTR_LABEL(z, "display_events", 0, "Display events");

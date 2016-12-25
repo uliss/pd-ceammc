@@ -297,6 +297,21 @@ namespace ceammc_gui {
     {
         CLASS_ATTR_DEFAULT (z, "size", 0, "150. 100.");
         
+        CLASS_ATTR_FLOAT(z, "shift", 0, ui_sliders, shift);
+        CLASS_ATTR_DEFAULT(z, "shift", 0, "36");
+        CLASS_ATTR_LABEL(z, "shift", 0, "shift");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT(z, "shift", 0, "0");
+        
+        CLASS_ATTR_FLOAT(z, "range", 0, ui_sliders, range);
+        CLASS_ATTR_DEFAULT(z, "range", 0, "1");
+        CLASS_ATTR_LABEL(z, "range", 0, "range");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT(z, "range", 0, "1");
+        
+        CLASS_ATTR_INT(z, "auto_range", 0, ui_sliders, auto_range);
+        CLASS_ATTR_DEFAULT(z, "auto_range", 0, "0");
+        CLASS_ATTR_LABEL(z, "auto_range", 0, "auto_range");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT(z, "auto_range", 0, "0");
+        
         eclass_addmethod(z, (method)(sliders_m_range), ("range"), A_GIMME,0);
         eclass_addmethod(z, (method)(sliders_m_shift), ("shift"), A_GIMME,0);
         eclass_addmethod(z, (method)(sliders_m_select), ("select"), A_GIMME,0);
@@ -338,7 +353,7 @@ namespace ceammc_gui {
         zx->txt_min = etext_layout_create();
         zx->txt_font = efont_create(gensym("Helvetica"), gensym("light"), gensym("normal"), 8);
         
-        
+
     }
     
 }

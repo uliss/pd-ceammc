@@ -88,12 +88,12 @@ namespace ceammc_gui {
             egraphics_set_line_width(g, 1);
             egraphics_set_color_hex(g, gensym("#C0C0C0"));
             //e_marc(g, cx, cy, rmax, amin, amin+ 2*M_PI, EPD_2PI*6/8., 20);
-            e_polyarc(g, cx, cy, rmin, amin, amax, 30);
+            e_polyarc(g, cx, cy, rmin, amax + aval, amax, 30);
             e_polyarc(g, cx, cy, rmax, amin, amax, 30);
             //egraphics_circle(g, cx, cy, rmax);
             
-            egraphics_line(g, cx + cos(amin)*rmin, cy - sin(amin)*rmin, cx + cos(amin)*rmax, cy - sin(amin)*rmax );
-            egraphics_line(g, cx + cos(amax)*rmin, cy - sin(amax)*rmin, cx + cos(amax)*rmax, cy - sin(amax)*rmax );
+            egraphics_line(g, cx + cos(amin)*0, cy - sin(amin)*0, cx + cos(amin)*rmax, cy - sin(amin)*rmax );
+            egraphics_line(g, cx + cos(amax)*0, cy - sin(amax)*0, cx + cos(amax)*rmax, cy - sin(amax)*rmax );
             
             egraphics_stroke(g);
             
@@ -103,6 +103,7 @@ namespace ceammc_gui {
             e_polyarc(g, cx, cy, rmid, amax + aval, amin,  30 - floor(29 * UI_Pf("_value")));
             //egraphics_arc(g, cx, cy, rmid, amax+aval, amin);
             egraphics_line(g, cx , cy , cx + cos(amax + aval)*rmid, cy - sin(amax + aval)*rmid );
+            egraphics_line(g, cx , cy , cx + cos(amin)*rmid, cy - sin(amin)*rmid );
             egraphics_stroke(g);
             
             
@@ -188,7 +189,7 @@ namespace ceammc_gui {
     }
     UI_fun(ui_knob)::init_ext(t_eclass *z)
     {
-        CLASS_ATTR_DEFAULT (z, "size", 0, "100. 100.");
+        CLASS_ATTR_DEFAULT (z, "size", 0, "60. 60.");
         
     }
     

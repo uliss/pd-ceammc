@@ -622,6 +622,26 @@ namespace ceammc_gui {
     {
         CLASS_ATTR_DEFAULT (z, "size", 0, "200. 150.");
         
+        CLASS_ATTR_FLOAT(z, "shift_x", 0, ui_bpfunc, shift_x);
+        CLASS_ATTR_DEFAULT(z, "shift_x", 0, "0");
+        CLASS_ATTR_LABEL(z, "shift_x", 0, "shift_x");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT(z, "shift_x", 0, "0");
+        
+        CLASS_ATTR_FLOAT(z, "range_x", 0, ui_bpfunc, range_x);
+        CLASS_ATTR_DEFAULT(z, "range_x", 0, "1");
+        CLASS_ATTR_LABEL(z, "range_x", 0, "range_x");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT(z, "range_x", 0, "1");
+        
+        CLASS_ATTR_FLOAT(z, "shift_y", 0, ui_bpfunc, shift_y);
+        CLASS_ATTR_DEFAULT(z, "shift_y", 0, "0");
+        CLASS_ATTR_LABEL(z, "shift_y", 0, "shift_y");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT(z, "shift_y", 0, "0");
+        
+        CLASS_ATTR_FLOAT(z, "range_y", 0, ui_bpfunc, range_y);
+        CLASS_ATTR_DEFAULT(z, "range_y", 0, "1");
+        CLASS_ATTR_LABEL(z, "range_y", 0, "range_y");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT(z, "range_y", 0, "1");
+        
         eclass_addmethod(z, (method)(bpf_m_range_x), ("range_x"), A_GIMME,0);
         eclass_addmethod(z, (method)(bpf_m_range_y), ("range_y"), A_GIMME,0);
         eclass_addmethod(z, (method)(bpf_m_shift_x), ("shift_x"), A_GIMME,0);

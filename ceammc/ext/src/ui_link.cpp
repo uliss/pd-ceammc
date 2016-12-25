@@ -65,7 +65,6 @@ namespace ceammc_gui {
 //            egraphics_rectangle(g, 0, 0, rect.width, rect.height);
 //            egraphics_fill(g);
             
-            
             egraphics_set_color_hex(g, gensym("#00A0C0"));
             etext_layout_set(zx->t_e, zx->title->s_name, zx->t_ef, 3, rect.height, rect.width, rect.height, ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_WRAP);
             
