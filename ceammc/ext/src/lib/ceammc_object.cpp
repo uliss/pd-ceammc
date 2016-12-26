@@ -202,8 +202,8 @@ BaseObject::~BaseObject()
 
 void BaseObject::dump() const
 {
-    post("[%s] inlet number: %zu", className().c_str(), numInlets());
-    post("[%s] outlet number: %zu", className().c_str(), numOutlets());
+    post("[%s] inlets: %zu", className().c_str(), numInlets());
+    post("[%s] outlets: %zu", className().c_str(), numOutlets());
 
     Properties::const_iterator it;
     for (it = props_.begin(); it != props_.end(); ++it)
