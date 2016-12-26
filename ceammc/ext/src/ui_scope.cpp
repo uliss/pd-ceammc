@@ -26,16 +26,11 @@ namespace ceammc_gui {
     
     UI_fun(ui_scope)::wx_paint(t_object *z, t_object *view)
     {
-        //UI_Prop
-        
         t_symbol *bgl = gensym("background_layer");
-        //float size;
         t_rect rect;
         ebox_get_rect_for_view((t_ebox *)z, &rect);
         
         t_elayer *g = ebox_start_layer((t_ebox *)z, bgl, rect.width, rect.height);
-        
-        //ui_scope *zx = (ui_scope*)z;
         
         if(g)
         {

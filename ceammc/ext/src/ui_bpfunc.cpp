@@ -75,13 +75,6 @@ namespace ceammc_gui {
         
         bpf_points *ps = ((ui_bpfunc*)z)->points;
         
-        //
-        //    struct pred {
-        //        bool operator()(t_bpt const & a, t_bpt const & b) const {
-        //            return a.x < b.x;
-        //        }
-        //    } pred1;
-        
         std::sort(ps->begin(), ps->end(), bpf_sort_pred);
         
         
@@ -296,24 +289,7 @@ namespace ceammc_gui {
             
             it->selected = (it->dist<.1);
             
-            //////
-            //if (itn != zx->points->end())
-            
-//            float dx2 = itn->x - it->x;
-//            float dy2 = (1-itn->y) - (1-it->y);
-            
-//            float len2 = sqrtf(dx2*dx2+dy2*dy2);
-//            float ndx2 = (len2!=0) ? dx2/ len2 : 0;
-//            float ndy2 = (len2!=0) ? dy2/ len2 : 0;
-            
-            //temporary - line selection
-            //float dot1 = nnx*ndx2 + nny*ndy2;
-            //if (dot1<0) dot1 = 0;
-            
             it->ldist = 1;//abs(dot1);
-            
-            //float d2 = .5 * sqrtf(dx2*dx2 + dy2*dy2);
-            //it->ldist = sqrtf(it->dist * it->dist - d2 * d2) + sqrtf(itn->dist * itn->dist - d2 * d2);
             
             if ( (it->x < (pt.x / rect.width)) && ((pt.x / rect.width )< itn->x) )
             {

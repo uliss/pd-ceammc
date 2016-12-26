@@ -197,13 +197,6 @@ namespace ceammc_gui {
     {
         ((ui_knob*)x)->out1 = outlet_new(x, &s_float);
         
-        //    ((ui_knob*)x)->val_list_size = 8;
-        //    ((ui_knob*)x)->val_list = (t_atom*)malloc(sizeof(t_atom)*8);
-        //    for (int i=0;i<8;i++)
-        //    {
-        //    ((ui_knob*)x)->val_list[i].a_type = A_FLOAT;
-        //    ((ui_knob*)x)->val_list[i].a_w.w_float = 0.;
-        //    }
     }
     
 }

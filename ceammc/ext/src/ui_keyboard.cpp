@@ -108,11 +108,6 @@ namespace ceammc_gui {
             if (zx->keys < 3) zx->keys = 3;                         // rapper's piano meme
             if (zx->keys > 127) zx->keys = 127;
             
-//          if ( UI_Pf("keys") < 3 ) UI_Pset("keys",3);
-//          if ( UI_Pf("keys") > 127 ) UI_Pset("keys",127);
-//            
-            //int numKeys = UI_Pf("keys");
-            //float kWidth = floor(rect.width/UI_Pf("keys"));
             float kWidth = ceil(rect.width/zx->keys);
             
             t_symbol *color_wh_f = gensym("#F0F0F0");
@@ -145,12 +140,6 @@ namespace ceammc_gui {
                     egraphics_set_color_hex(g, (hover) ? (click ? color_hv_b : color_hv_b) : color_wh_b);
                     egraphics_stroke(g);
                     
-                    //                //TEMP
-                    //                if (mouse_in_rect(UI_Pf("_mouse_x"), UI_Pf("_mouse_y"), k))
-                    //                {
-                    //                    UI_Pset("_pitch", (float)i);
-                    //                }
-                    
                 }
             }
             
@@ -163,7 +152,6 @@ namespace ceammc_gui {
                     char keyname[7];
                     sprintf(keyname, "KEY%d", i);
                     
-                    //bool hover = ( i == int(UI_Pf("_pitch")) );
                     bool hover = ( i == int(zx->_pitch));
                     bool click = ( UI_Pf("_mouse_dn")==1 );
                     
@@ -174,11 +162,7 @@ namespace ceammc_gui {
                     egraphics_rectangle(g, k.x, k.y, k.w, k.h);
                     egraphics_set_color_hex(g, (hover) ? (click ? color_hv_b : color_hv_b) : color_bl_b);
                     egraphics_stroke(g);
-                    
-                    //                if (mouse_in_rect(UI_Pf("_mouse_x"), UI_Pf("_mouse_y"), k))
-                    //                {
-                    //                    UI_Pset("_pitch", (float)i);
-                    //                }
+
                 }
             }
             
@@ -188,7 +172,6 @@ namespace ceammc_gui {
         
         ebox_paint_layer((t_ebox *)z, bgl, 0., 0.);
         
-        //printf("pitch vel %d\n", UI_Pf("_pitch"));
     }
     
 #pragma mark -
@@ -197,16 +180,12 @@ namespace ceammc_gui {
     {
         UI_Prop
         
-        //t_symbol *bgl = gensym("background_layer");
-        //float size;
-        
         ui_keyboard *zx = (ui_keyboard*)z;
         
         t_rect rect;
         ebox_get_rect_for_view((t_ebox *)z, &rect);
         
         zx->keys = UI_Pf("keys");
-        //float kWidth = floor(rect.width/UI_Pf("keys"));
         float kWidth = ceil(rect.width/zx->keys);
         
         
@@ -220,7 +199,6 @@ namespace ceammc_gui {
                 //TEMP
                 if (mouse_in_rect(UI_Pf("_mouse_x"), UI_Pf("_mouse_y"), k))
                 {
-                    //UI_Pset("_pitch", (float)i);
                     zx->_pitch = i;
                 }
                 
@@ -235,7 +213,6 @@ namespace ceammc_gui {
             {
                 if (mouse_in_rect(UI_Pf("_mouse_x"), UI_Pf("_mouse_y"), k))
                 {
-                    //UI_Pset("_pitch", (float)i);
                     zx->_pitch = i;
                 }
             }
@@ -249,21 +226,13 @@ namespace ceammc_gui {
         
         ui_keyboard *zx = (ui_keyboard*)z;
         
-        //printf("n mouse dn\n");
-        
         t_rect rect;
         ebox_get_rect_for_view((t_ebox *)z, &rect);
         
-        //int pitch= UI_Pf("_pitch");
         zx->_vel= int(pt.y/rect.height*127.);
-        
-        //UI_Pset("_vel", vel);
-        //UI_Pset("_pitch_prev", pitch);
         
         atom_setfloat(&((ui_keyboard*)z)->out_list[0], (float)zx->_pitch);
         atom_setfloat(&((ui_keyboard*)z)->out_list[1], (float)zx->_vel);
-        
-        //printf("pitch vel %d %d \n", pitch,vel);
         
         outlet_list( ((ui_keyboard*)z)->out1, &s_list, 2, ((ui_keyboard*)z)->out_list );
         
@@ -276,21 +245,13 @@ namespace ceammc_gui {
         
         ui_keyboard *zx = (ui_keyboard*)z;
         
-        
-        //printf("n mouse up\n");
-        
         t_rect rect;
         ebox_get_rect_for_view((t_ebox *)z, &rect);
         
-        //int pitch= UI_Pf("_pitch");
         zx->_vel=0;
-        
-        //UI_Pset("_vel", vel);
         
         atom_setfloat(&((ui_keyboard*)z)->out_list[0], (float)zx->_pitch);
         atom_setfloat(&((ui_keyboard*)z)->out_list[1], (float)zx->_vel);
-        
-        //printf("pitch vel %d %d \n", pitch,vel);
         
         outlet_list( ((ui_keyboard*)z)->out1, &s_list, 2, ((ui_keyboard*)z)->out_list );
         
@@ -299,32 +260,20 @@ namespace ceammc_gui {
     
     UI_fun(ui_keyboard)::wx_mousedrag_ext(t_object* z, t_object *view, t_pt pt, long modifiers)
     {
-//        UI_Prop
-        
-        //printf("n mouse drag\n");
-        
+
         ui_keyboard *zx = (ui_keyboard*)z;
-        
         
         ceammc_gui::object<ui_keyboard>::wx_mousemove_ext(z,view,pt,modifiers);
         
         if (zx->_pitch_prev != zx->_pitch )
-            
-        //if (UI_Pf("_pitch_prev") != UI_Pf("_pitch") )
         {
-//            int pitch= UI_Pf("_pitch");
-//            int vel= UI_Pf("_vel");
-            
-            //UI_Pset("_pitch_prev", pitch);
-            
+
             zx->_pitch_prev = zx->_pitch;
-            
             
             atom_setfloat(&((ui_keyboard*)z)->out_list[0], (float)zx->_pitch);
             atom_setfloat(&((ui_keyboard*)z)->out_list[1], (float)zx->_vel);
             
             outlet_list( ((ui_keyboard*)z)->out1, &s_list, 2, ((ui_keyboard*)z)->out_list );
-            
             
         }
         
@@ -336,8 +285,6 @@ namespace ceammc_gui {
         ui_keyboard *zx = (ui_keyboard*)z;
         zx->_pitch = -1;
         
-        //UI_Pset("_pitch",-1);
-        
         ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
     }
     
@@ -346,7 +293,6 @@ namespace ceammc_gui {
     
     UI_fun(ui_keyboard)::init_ext(t_eclass *z)
     {
-        
         CLASS_ATTR_DEFAULT (z, "size", 0, "450. 45.");
         
         CLASS_ATTR_INT(z, "shift", 0, ui_keyboard, shift);
@@ -369,9 +315,6 @@ namespace ceammc_gui {
     
     UI_fun(ui_keyboard)::ui_properties_init_ext(ceammc_gui::properties *def_p)
     {
-        
-//        def_p->ui_property_set("width", 450.);
-//        def_p->ui_property_set("height", 45.);
         
         def_p->ui_property_set("keys", 61.);
         

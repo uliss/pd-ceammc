@@ -27,16 +27,11 @@ namespace ceammc_gui {
     
     UI_fun(ui_spectroscope)::wx_paint(t_object *z, t_object *view)
     {
-        //UI_Prop
-        
         t_symbol *bgl = gensym("background_layer");
-        //float size;
         t_rect rect;
         ebox_get_rect_for_view((t_ebox *)z, &rect);
         
         t_elayer *g = ebox_start_layer((t_ebox *)z, bgl, rect.width, rect.height);
-        
-        //ui_spectroscope *zx = (ui_spectroscope*)z;
         
         if(g)
         {
@@ -92,8 +87,6 @@ namespace ceammc_gui {
                 
                 float xx = float(i+1)/fft_size*rect.width;
                 float val = ( out1[i]  ==   out1[i] ) ? out1[i] : 0.;
-                
-                //val = 1+log10(val);
                 
                 float yy = (1.-val )*rect.height;
                 

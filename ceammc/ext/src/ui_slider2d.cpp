@@ -38,7 +38,6 @@ namespace ceammc_gui {
         UI_Prop
         
         t_symbol *bgl = gensym("background_layer");
-        //float size;
         t_rect rect;
         ebox_get_rect_for_view((t_ebox *)z, &rect);
         
@@ -46,9 +45,6 @@ namespace ceammc_gui {
         if(g)
         {
             ui_slider2d *zx = (ui_slider2d*) z;
-            
-//            float xx = UI_Pf("pos_x")*.5+.5;
-//            float yy = UI_Pf("pos_y")*.5+.5;
             
             float xx = zx->_posx*.5+.5;
             float yy = zx->_posy*.5+.5;
@@ -77,7 +73,6 @@ namespace ceammc_gui {
             egraphics_rectangle(g, xx-0.5*knobsize+1, yy-0.5*knobsize+1, knobsize-1, knobsize-1);
             egraphics_fill(g);
             
-//            printf("draw\n");
             
         }
         
@@ -97,22 +92,14 @@ namespace ceammc_gui {
     
     UI_fun(ui_slider2d)::wx_mousedrag_ext(t_object* z, t_object *view, t_pt pt, long modifiers)
     {
-//        UI_Prop
-        
         ui_slider2d *zx = (ui_slider2d*) z;
-        
         
         t_rect rect;
         ebox_get_rect_for_view((t_ebox *)z, &rect);
         
         zx->_posx = (pt.x/rect.width)*2.-1.;
         zx->_posy = (pt.y/rect.height)*2.-1.;
-        
-//        UI_Pset("pos_x",xx);
-//        UI_Pset("pos_y",yy);
-        
-//        printf("move %f %f\n", xx,yy);
-        
+
         ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
         
         atom_setfloat(&((ui_slider2d*)z)->out_list[0], zx->_posx);
@@ -124,20 +111,13 @@ namespace ceammc_gui {
     
     UI_fun(ui_slider2d)::wx_mousedown_ext(t_object* z, t_object *view, t_pt pt, long modifiers)
     {
-//        UI_Prop
-        
         ui_slider2d *zx = (ui_slider2d*) z;
-        
-        //printf("n mouse dn\n");
         
         t_rect rect;
         ebox_get_rect_for_view((t_ebox *)z, &rect);
         
         zx->_posx = (pt.x/rect.width)*2.-1.;
         zx->_posy = (pt.y/rect.height)*2.-1.;
-        
-//        UI_Pset("pos_x",xx);
-//        UI_Pset("pos_y",yy);
         
         ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
         
@@ -149,13 +129,8 @@ namespace ceammc_gui {
     
     UI_fun(ui_slider2d)::wx_mouseup_ext(t_object* z, t_object *view, t_pt pt, long modifiers)
     {
-//        UI_Prop
         
         ui_slider2d *zx = (ui_slider2d*) z;
-        
-        //printf("n mouse up\n");
-        
-        //ceammc_gui::object<ceammc_gui::base_pd_object>::wx_mouseup(z, view, pt, modifiers);
         
         t_rect rect;
         ebox_get_rect_for_view((t_ebox *)z, &rect);
@@ -163,12 +138,7 @@ namespace ceammc_gui {
         zx->_posx = (pt.x/rect.width)*2.-1.;
         zx->_posy = (pt.y/rect.height)*2.-1.;
         
-//        UI_Pset("pos_x",xx);
-//        UI_Pset("pos_y",yy);
-        
         ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
-        
-        //t_atom out_list[2];
         
         atom_setfloat(&((ui_slider2d*)z)->out_list[0], zx->_posx);
         atom_setfloat(&((ui_slider2d*)z)->out_list[1], zx->_posy);
@@ -180,10 +150,7 @@ namespace ceammc_gui {
     UI_fun(ui_slider2d)::ui_properties_init_ext(ceammc_gui::properties *def_p)
     {
         
-//        def_p->ui_property_set("pos_x", 0);
-//        def_p->ui_property_set("pos_y", 0);
         def_p->ui_property_set("_mouse_down", 0);
-        
         
     }
     
