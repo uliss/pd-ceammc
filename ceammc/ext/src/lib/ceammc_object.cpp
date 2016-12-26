@@ -14,7 +14,10 @@
 
 #include "ceammc_object.h"
 #include "ceammc_format.h"
+
+extern "C" {
 #include "m_imp.h"
+}
 
 namespace ceammc {
 
