@@ -12,7 +12,6 @@
 
 struct ui_scope : ceammc_gui::base_pd_object
 {
-    //t_ebox x_gui;
     t_edspobj d_dsp;
     
     t_inlet *in1;
@@ -27,16 +26,16 @@ namespace ceammc_gui {
     
     UI_fun(ui_scope)::wx_paint(t_object *z, t_object *view)
     {
-        UI_Prop
+        //UI_Prop
         
         t_symbol *bgl = gensym("background_layer");
-        float size;
+        //float size;
         t_rect rect;
         ebox_get_rect_for_view((t_ebox *)z, &rect);
         
         t_elayer *g = ebox_start_layer((t_ebox *)z, bgl, rect.width, rect.height);
         
-        ui_scope *zx = (ui_scope*)z;
+        //ui_scope *zx = (ui_scope*)z;
         
         if(g)
         {
@@ -75,12 +74,10 @@ namespace ceammc_gui {
     }
     
     
-    
-    
     static void ui_scope_perform(ui_scope *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
     {
-        t_sample  *in1 =   ins[0];
-        int          n =           sampleframes;
+        t_sample  *in1 = ins[0];
+        int n = (int)sampleframes;
         
         t_sample * out = &(x)->buf [x->counter * sampleframes];
         
@@ -89,8 +86,7 @@ namespace ceammc_gui {
         x->counter++; if (x->counter==32) {x->counter=0; ceammc_gui::object<ui_scope>::ws_redraw(((t_object *)x));}
         
     }
-    //
-    //
+    
     void ui_scope_dsp(ui_scope *x, t_object *dsp, short *count, double samplerate, long maxvectorsize, long flags)
     {
         object_method(dsp, gensym("dsp_add"), x, (method)ui_scope_perform, 0, NULL);
@@ -103,8 +99,6 @@ namespace ceammc_gui {
         eobj_dspsetup(z, 1, 0);
         printf ("new ext \n");
     }
-    
-    
     
     UI_fun(ui_scope)::init_ext(t_eclass *z)
     {

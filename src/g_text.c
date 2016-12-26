@@ -302,6 +302,11 @@ void canvas_ceammcgui(t_glist *gl, t_symbol *guiobjname)
     canvas_startmotion(glist_getcanvas(gl));
 }
 
+void canvas_knob(t_glist *gl, t_symbol *s, int argc, t_atom *argv)
+{
+    canvas_ceammcgui(gl, gensym("ui.knob"));
+}
+
 void canvas_keyboard(t_glist *gl, t_symbol *s, int argc, t_atom *argv)
 {
     canvas_ceammcgui(gl, gensym("ui.keyboard"));

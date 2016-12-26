@@ -2,7 +2,7 @@
 //  ui_display.cpp
 //  pd_ext
 //
-//  Created by Alex on 21/12/16.
+//  Created by Alex Nadzharov on 21/12/16.
 //
 //
 
@@ -67,7 +67,7 @@ namespace ceammc_gui {
         //UI_Prop
         
         t_symbol* bgl = gensym("background_layer");
-        float size;
+        //float size;
         t_rect rect;
         ebox_get_rect_for_view((t_ebox*)z, &rect);
         
@@ -115,6 +115,7 @@ namespace ceammc_gui {
     }
     
     UI_fun(ui_display)::m_anything(t_object* z, t_symbol* s, int argc, t_atom* argv)
+
     {   
         ui_display* zx = (ui_display*)z;
 
@@ -126,6 +127,7 @@ namespace ceammc_gui {
             zx->bang = true;
             clock_delay(zx->t_c, 100);
         }
+
         
         ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
         
@@ -146,6 +148,7 @@ namespace ceammc_gui {
     
     UI_fun(ui_display)::m_bang(t_object* z, t_symbol* s, int argc, t_atom* argv)
     {
+
         ceammc_gui::object<ui_display>::m_anything(z, &s_bang, 0, 0);
     }
     
@@ -156,6 +159,14 @@ namespace ceammc_gui {
         ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
     }
     
+
+    UI_fun(ui_display)::wx_oksize(t_object *z, t_rect *newrect)
+    {
+        newrect->height = (newrect->height>15)? newrect->height : 15;
+        
+    }
+    
+
     UI_fun(ui_display)::new_ext(t_object* z, t_symbol* s, int argcl, t_atom* argv)
     {
         ui_display* zx = (ui_display*)z;
@@ -191,7 +202,6 @@ namespace ceammc_gui {
     {
         CLASS_ATTR_DEFAULT(z, "size", 0, "120. 15.");
         
-        //      TODO
         CLASS_ATTR_INT(z, "display_events", 0, ui_display, show_bang);
         CLASS_ATTR_DEFAULT(z, "display_events", 0, "1");
         CLASS_ATTR_LABEL(z, "display_events", 0, "Display events");

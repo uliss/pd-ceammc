@@ -15,7 +15,7 @@ for i in ${IMGDIR}/*.gif
 do
     name=${i%.gif}
     shortname=$(basename $name)
-    echo "set ${shortname}data {$(base64 -w80 $i)}" >> ${OUT}
+    echo "set ${shortname}data {$(base64 $i)}" >> ${OUT}
     echo "image create photo buttonimage${shortname} -data \$${shortname}data" >> ${OUT}
     echo "" >> ${OUT}
 done

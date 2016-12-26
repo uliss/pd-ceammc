@@ -42,3 +42,7 @@ PureData.files
 PureData.includes
 
 *.mo
+
+ceammc/doxygen/lib
+ceammc/doxygen/lib/html
+ceammc/extra/m_pd_doc/doc

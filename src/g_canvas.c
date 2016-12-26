@@ -1734,6 +1734,7 @@ extern void canvas_floatatom(t_glist *gl, t_symbol *s, int argc, t_atom *argv);
 extern void canvas_symbolatom(t_glist *gl, t_symbol *s, int argc, t_atom *argv);
 extern void glist_scalar(t_glist *canvas, t_symbol *s, int argc, t_atom *argv);
     /* CEAMMC */
+extern void canvas_knob(t_glist *gl, t_symbol *s, int argc, t_atom *argv);
 extern void canvas_keyboard(t_glist *gl, t_symbol *s, int argc, t_atom *argv);
 extern void canvas_sliders(t_glist *gl, t_symbol *s, int argc, t_atom *argv);
 extern void canvas_slider2d(t_glist *gl, t_symbol *s, int argc, t_atom *argv);
@@ -1805,6 +1806,8 @@ void g_canvas_setup(void)
     
 /* -------------- CEAMMC GUI: keyboard, sliders etc.   ------------ */
     
+    class_addmethod(canvas_class, (t_method)canvas_knob, gensym("ui.knob"),
+                    A_GIMME, A_NULL);
     class_addmethod(canvas_class, (t_method)canvas_keyboard, gensym("ui.keyboard"),
                     A_GIMME, A_NULL);
     class_addmethod(canvas_class, (t_method)canvas_sliders, gensym("ui.sliders"),

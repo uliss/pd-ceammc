@@ -9,6 +9,9 @@
 
 #include "lib/ceammc_gui.h"
 
+#include "ceammc_atomlist.h"
+#include "ceammc_format.h"
+
 struct ui_sliders : ceammc_gui::base_pd_object
 {
     t_ebox x_gui;
@@ -39,7 +42,7 @@ namespace ceammc_gui {
         UI_Prop
         
         t_symbol *bgl = gensym("background_layer");
-        float size;
+        //float size;
         t_rect rect;
         ebox_get_rect_for_view((t_ebox *)z, &rect);
         
@@ -187,9 +190,8 @@ namespace ceammc_gui {
     
     UI_fun(ui_sliders)::m_bang(t_object *z, t_symbol *s, int argc, t_atom *argv)
     {
-        UI_Prop
-        
-        ui_sliders *zx = (ui_sliders*)z;
+        //UI_Prop
+        //ui_sliders *zx = (ui_sliders*)z;
         
         outlet_list( ((ui_sliders*)z)->out1, &s_list, ((ui_sliders*)z)->val_list_size, ((ui_sliders*)z)->val_list );
         
@@ -295,6 +297,21 @@ namespace ceammc_gui {
     {
         CLASS_ATTR_DEFAULT (z, "size", 0, "150. 100.");
         
+        CLASS_ATTR_FLOAT(z, "shift", 0, ui_sliders, shift);
+        CLASS_ATTR_DEFAULT(z, "shift", 0, "36");
+        CLASS_ATTR_LABEL(z, "shift", 0, "shift");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT(z, "shift", 0, "0");
+        
+        CLASS_ATTR_FLOAT(z, "range", 0, ui_sliders, range);
+        CLASS_ATTR_DEFAULT(z, "range", 0, "1");
+        CLASS_ATTR_LABEL(z, "range", 0, "range");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT(z, "range", 0, "1");
+        
+        CLASS_ATTR_INT(z, "auto_range", 0, ui_sliders, auto_range);
+        CLASS_ATTR_DEFAULT(z, "auto_range", 0, "0");
+        CLASS_ATTR_LABEL(z, "auto_range", 0, "auto_range");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT(z, "auto_range", 0, "0");
+        
         eclass_addmethod(z, (method)(sliders_m_range), ("range"), A_GIMME,0);
         eclass_addmethod(z, (method)(sliders_m_shift), ("shift"), A_GIMME,0);
         eclass_addmethod(z, (method)(sliders_m_select), ("select"), A_GIMME,0);
@@ -336,7 +353,7 @@ namespace ceammc_gui {
         zx->txt_min = etext_layout_create();
         zx->txt_font = efont_create(gensym("Helvetica"), gensym("light"), gensym("normal"), 8);
         
-        
+
     }
     
 }

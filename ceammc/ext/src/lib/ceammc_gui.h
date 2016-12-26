@@ -30,13 +30,15 @@
 
 extern "C" {
     
-    //TEMP, replace with 'cicm_wrapper.h'
+    //TEMP, replace with 'cicm_wrapper.h' and properly link with library
     #include "../../../extra/CicmWrapper/Sources/cicm_wrapper_c.h"
 
 }
 
 namespace ceammc_gui {
-    
+   
+    /** \deprecated this was a separate property handling, should be merged with existing CICM properties
+     */
 #pragma mark UI defines
     
 #define UI_fun(x) template<> void ceammc_gui::object<x>
@@ -58,7 +60,7 @@ namespace ceammc_gui {
     
     
     /**
-     * @brief DEPRECATED Properties handling;
+     * \deprecated Properties handling;
      */
 typedef std::map<std::string,t_atom> properties_;
 
@@ -66,12 +68,19 @@ class  properties: public properties_
 {
 public:
     
+    /**
+     * \deprecated get property as atom;
+     */
     t_atom ui_property_get(std::string name)
     {
         t_atom ret = (*this)[name];
         
         return ret;
     }
+    
+    /**
+     * \deprecated get property as float;
+     */
     
     t_float ui_property_get_float(std::string name)
     {
@@ -90,6 +99,10 @@ public:
         }
     }
     
+    /**
+     * \deprecated get property as char*;
+     */
+    
     char* ui_property_get_c_str(std::string name)
     {
         //printf("property get cstr %s\n", name.c_str());
@@ -104,15 +117,23 @@ public:
         {
             post("ERR: bad symbol value");
             printf ("property get cstr err\n");
-            char* no = "<error>";
-            return no;
+            std::string no = "<error>";
+            return (char*)no.c_str();   //?
         }
     }
+    
+    /**
+     * \deprecated set property - name, atom;
+     */
     
     void ui_property_set(std::string name, t_atom value)
     {
         (*this)[name] = value;
     }
+    
+    /**
+     * \deprecated set property - name, std:string;
+     */
     
     void ui_property_set(std::string name, std::string value)
     {
@@ -121,6 +142,10 @@ public:
         a.a_type = A_SYMBOL;
         (*this)[name] = a;
     }
+    
+    /**
+     * \deprecated set property - name, float;
+     */
     
     void ui_property_set(std::string name, float value)
     {
@@ -131,6 +156,10 @@ public:
     }
     
 #pragma mark -
+    /**
+     * \deprecated prints contents of 'properties' map
+     */
+    
     void log()
     {
         
@@ -158,7 +187,14 @@ public:
 
 struct base_pd_object
 {
+    /** \brief CICM ui box. 
+     * this must be included in inherited structure 
+     * \detail  for DSP object override with t_edspobj in inherited class (backwards compatible) */
     t_ebox b_box;
+    
+    // this was prototype for dynamic I/O
+    // todo merge with CICM functionality
+    
     //    t_inlet **inlets;
     //    t_inlet **outlets;
     //    int inlet_count;
@@ -170,7 +206,7 @@ struct base_pd_object
 
 
 /**
- * @brief Map of property data. This part will be rewritten as this is duplicating the CICM attributes.
+ * \deprecated Map of property data. This part will be rewritten as this is duplicating the CICM 'attributes'.
  *
  */
 
@@ -178,12 +214,13 @@ typedef std::map<t_object*, properties*> t_instances;
 
 
 /**
- * @brief The class for GUI objects. Provides basic functionality with CICM Wrapper.
+ * @brief The template class for GUI objects. Provides basic functionality with CICM Wrapper.
  * @details To create your own UI object:
+ *
  * 1. Create your structure for object. If you don't need any additional fields, just make struct new_obj:base_pd_object{};
  * 2. In the standard pd-object setup routine create new instance of object<new_obj> and call setup()
  *
- * All of the class methods here provide additional '_ext' methods that can be used if you want both standard action from this class and your custom code otherwise just override the standard method by implicitly implementing object<your_object_struct_name>::method()
+ * METHODS: All of the class methods here provide additional '[something]_ext' methods that can be used if you want both standard action from this class and your custom code. Otherwise just override the standard method by implicitly implementing object<your_object_struct_name>::method()
  */
 template <typename U>
 class object {
@@ -192,18 +229,16 @@ public:
 #pragma mark static - definitions
     
     static t_eclass* pd_class;
+    /** \deprecated storage for support class - this was made for properties handling */
     static t_instances instances;
     
+    /** \deprecated storage for properties */
     static properties *ui_default_properties;
-    
-    //static t_ewidget widget;
     
     static std::string class_name;
     
-    
-    
     /**
-     * @brief DEPRECATED Initialize default property values.
+     * \deprecated Initialize default property values.
      *
      */
     static void ui_properties_init()
@@ -211,7 +246,7 @@ public:
         if (ui_default_properties)
         {
             printf("p del\n");
-            //delete this->ui_properties;
+            
             delete ui_default_properties;
         }
         
@@ -400,15 +435,13 @@ public:
      */
     static void *new_method(t_symbol *s, int argc, t_atom *argv)
     {
-        //printf("new instance (%lu) \n",(long)object<U>::pd_class);
-        
         t_object* z = (t_object*)eobj_new(object<U>::pd_class);
         
+        //deprecated: properties handling
         properties *inst_prop = new properties;
         *inst_prop = *(object<U>::ui_default_properties);
         instances[z] = (inst_prop);
         
-        //printf("...\n");
         t_binbuf* d = binbuf_via_atoms(argc,argv);
         ebox_new((t_ebox *)z, 0 | EBOX_GROWINDI);
         
@@ -422,7 +455,6 @@ public:
         }
         ebox_ready((t_ebox *)z);
         
-        //printf("new instance done\n");
         return static_cast<void*>(z);
     }
     
@@ -456,7 +488,7 @@ public:
     }
     
     /**
-     * @brief DEPRECATED pd object property load method
+     * \deprecated pd object property load method
      * @param z: pd object, values: data
      */
     static bool load_method (t_object *z,t_atom *values)
@@ -499,7 +531,7 @@ public:
     }
     
     /**
-     * @brief DEPRECATED pd object property save method
+     * \deprecated pd object property save method
      * @param z: pd object, b: pointer to binbuf to save to
      */
     static void save_method(t_gobj *z, t_binbuf *b)
@@ -509,7 +541,7 @@ public:
         properties *x  = instances[(t_object *)z];
         
         char c_sym[] = "s";
-        char c_int[] = "i";
+        //char c_int[] = "i";
         char c_sc[] = ";";
         
         binbuf_addv(b,c_sym, gensym("#X"));
@@ -580,14 +612,14 @@ public:
     static void wx_paint(t_object *z, t_object *view)
     {
         t_symbol *bgl = gensym("background_layer");
-        float size;
+        //float size;
         t_rect rect;
         ebox_get_rect_for_view((t_ebox *)z, &rect);
         
         t_elayer *g = ebox_start_layer((t_ebox *)z, bgl, rect.width, rect.height);
         if(g)
         {
-            //EXAMPLE
+            // EXAMPLE
             //            size = rect.width * 0.5;
             //            egraphics_set_color_hex(g, gensym("#00C0FF"));
             //            egraphics_circle(g, floor(size + 0.5), floor(size + 0.5), size * 0.9);
@@ -617,6 +649,7 @@ public:
      */
     static void wx_mousemove(t_object* z, t_object *view, t_pt pt, long modifiers)
     {
+        // TODO use values in object struct
         UI_Prop
 
         UI_Pset("_mouse_x",pt.x);
@@ -632,7 +665,7 @@ public:
      */
     static void wx_mousedown(t_object* z, t_object *view, t_pt pt, long modifiers)
     {
-        
+        // TODO use values in object struct
         UI_Prop
         
         UI_Pset("_mouse_x",pt.x);
@@ -651,6 +684,7 @@ public:
      */
     static void wx_mouseup(t_object* z, t_object *view, t_pt pt, long modifiers)
     {
+        // TODO use values in object struct
         UI_Prop
         
         UI_Pset("_mouse_x",pt.x);
@@ -667,6 +701,7 @@ public:
      */
     static void wx_mousedrag(t_object* z, t_object *view, t_pt pt, long modifiers)
     {
+        // TODO use values in object struct
         UI_Prop
         
         UI_Pset("_mouse_x",pt.x);
@@ -717,8 +752,7 @@ public:
         
         cl = eclass_new(_class_name.c_str(),(method)object<U>::new_method, (method)&object<U>::free_method, sizeof(U), CLASS_PATCHABLE, A_GIMME,0);
         
-        printf("init\n");
-        
+        //printf("init\n");
         if (cl)
         {
             eclass_guiinit(cl, 0);
@@ -738,6 +772,7 @@ public:
             CLASS_ATTR_DEFAULT_SAVE_PAINT   (cl, "bgcolor", 0, "0.75 0.75 0.75 1.");
             CLASS_ATTR_STYLE                (cl, "bgcolor", 0, "color");
             
+            // TODO
 //            CLASS_ATTR_RGBA                 (cl, "bdcolor", 0, U, b_color_border);
 //            CLASS_ATTR_LABEL                (cl, "bdcolor", 0, "Border Color");
 //            CLASS_ATTR_ORDER                (cl, "bdcolor", 0, "2");
@@ -796,6 +831,8 @@ public:
         
         if (cl)
         {
+            //TODO common init
+            
             eclass_guiinit(cl, 0);
             eclass_dspinit(cl);
             
@@ -814,6 +851,7 @@ public:
             CLASS_ATTR_DEFAULT_SAVE_PAINT   (cl, "bgcolor", 0, "0.75 0.75 0.75 1.");
             CLASS_ATTR_STYLE                (cl, "bgcolor", 0, "color");
             
+            //TODO
 //            CLASS_ATTR_RGBA                 (cl, "bdcolor", 0, U, b_color_border);
 //            CLASS_ATTR_LABEL                (cl, "bdcolor", 0, "Border Color");
 //            CLASS_ATTR_ORDER                (cl, "bdcolor", 0, "2");

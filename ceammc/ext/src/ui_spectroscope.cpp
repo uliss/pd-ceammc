@@ -11,10 +11,8 @@
 #include "lib/ceammc_gui.h"
 
 
-
 struct ui_spectroscope : ceammc_gui::base_pd_object
 {
-    //t_ebox x_gui;
     t_edspobj d_dsp;
     
     t_inlet *in1;
@@ -29,16 +27,16 @@ namespace ceammc_gui {
     
     UI_fun(ui_spectroscope)::wx_paint(t_object *z, t_object *view)
     {
-        UI_Prop
+        //UI_Prop
         
         t_symbol *bgl = gensym("background_layer");
-        float size;
+        //float size;
         t_rect rect;
         ebox_get_rect_for_view((t_ebox *)z, &rect);
         
         t_elayer *g = ebox_start_layer((t_ebox *)z, bgl, rect.width, rect.height);
         
-        ui_spectroscope *zx = (ui_spectroscope*)z;
+        //ui_spectroscope *zx = (ui_spectroscope*)z;
         
         if(g)
         {
@@ -49,8 +47,6 @@ namespace ceammc_gui {
             egraphics_line(g, 0, rect.height*.25, rect.width, rect.height*.25);
             egraphics_line(g, 0, rect.height*.75, rect.width, rect.height*.75);
             egraphics_stroke(g);
-            
-            
             
             egraphics_set_line_width(g, 1);
             
@@ -68,7 +64,7 @@ namespace ceammc_gui {
             {
                 zero[i]=0;
             }
-            int half_fft = fft_size/2;
+            //int half_fft = fft_size/2;
             
             mayer_fft(fft_size, in1,zero1);
             int i2=0;
@@ -82,7 +78,6 @@ namespace ceammc_gui {
                 t_sample f_i = 1./fft_size * in1[(int)floor(i2/2)+fft_size];
                 
                 out1[i2] = sqrtf(f_r*f_r + f_i*f_i);
-                
                 
                 i2++;
                 
@@ -108,34 +103,27 @@ namespace ceammc_gui {
             egraphics_stroke(g);
         }
         
-        
         ebox_end_layer((t_ebox*)z, bgl);
         ebox_paint_layer((t_ebox *)z, bgl, 0., 0.);
         
-        
     }
-    
-    
     
     static void ui_spectroscope_perform(ui_spectroscope *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
     {
-        t_sample  *in1 =   ins[0];
-        int          n =           sampleframes;
+        t_sample  *in1 = ins[0];
+        int n = (int)sampleframes;
         
         t_sample * out = &(x)->buf [x->counter * sampleframes];
         
         while (n--){*out++ = *in1++;} //
         
-        
         x->counter++; if (x->counter==32) {x->counter=0; ceammc_gui::object<ui_spectroscope>::ws_redraw(((t_object *)x));}
         
     }
-    //
-    //
+    
     void ui_spectroscope_dsp(ui_spectroscope *x, t_object *dsp, short *count, double samplerate, long maxvectorsize, long flags)
     {
         object_method(dsp, gensym("dsp_add"), x, (method)ui_spectroscope_perform, 0, NULL);
-        
         
     }
     
@@ -144,8 +132,6 @@ namespace ceammc_gui {
         eobj_dspsetup(z, 1, 0);
         printf ("new ext \n");
     }
-    
-    
     
     UI_fun(ui_spectroscope)::init_ext(t_eclass *z)
     {

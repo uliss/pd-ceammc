@@ -17,6 +17,7 @@
 #include "ceammc_atom.h"
 #include <string>
 #include <vector>
+#include <string>
 
 namespace ceammc {
 
@@ -133,8 +134,8 @@ public:
     void sort();
     void shuffle();
     void reverse();
-    //
-    AtomList sub(int begin, int end);
+
+    AtomList subList(int begin, int end);
     AtomList filtered(AtomPredicate pred) const;
 
     const Atom* min() const;
@@ -194,12 +195,27 @@ public:
     };
 
     /**
-     * @brief returns new list that is contains from pair difference
+     * @brief returns new list that contains difference from original list and new list
      * @param l - list
      * @param b - behaivor flag, when lists are different lengths
      * @return new list
      */
     AtomList sub(const AtomList& l, NonEqualLengthBehaivor b = MINSIZE) const;
+    
+    /**
+     * @brief returns new list that contains difference from new list and original list
+     * @param l - list
+     * @param b - behaivor flag, when lists are different lengths
+     * @return new list
+     */
+    AtomList subFrom(const AtomList& l, NonEqualLengthBehaivor b = MINSIZE) const;
+    /**
+     * @brief returns new list that is a sum of original list values and new list ("l") values
+     * @param l - list
+     * @param b - behaivor flag, when lists are different lengths
+     * @return new list
+     */
+    AtomList addTo(const AtomList& l, NonEqualLengthBehaivor b = MINSIZE) const;
 
 public:
     static AtomList zeroes(size_t n);
