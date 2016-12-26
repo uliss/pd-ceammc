@@ -47,6 +47,9 @@
     }
     {list
         {list.apply_to list.at list.each list.length list.sort list.count list.delta list.equal list.gen list.integrator list.last list.max list.mean list.min list.minmax list.normalize list.pack list.product list.repeat list.reverse list.rotate list.seq list.shift list.shuffle list.sort list.stretch list.sum list.zip list.wrap list.unwrap list.interleave list.deinterleave list.split}}
+    {vector
+    	{vector.length vector.normalize vector.dot vector.distance}
+    }
     {math
         {math.abs math.acos math.acosh math.asin math.asinh math.atan math.atanh math.cbrt math.ceil math.cos math.cosh math.e math.exp math.exp2 math.floor math.inf math.lof math.log10 math.log2 math.nan math.pi math.round math.sin math.sinh math.sqrt math.tan math.tanh math.trunc}
     }
@@ -65,13 +68,19 @@
     {data
         {data.fifo}
     }
+    {global
+        {global.list global.float global.int}
+    }
     {pass/reject
         {pass.changed reject.if reject.this}
     }
     {ui
-        {ui.keyboard ui.sliders ui.slider2d ui.bpfun ui.display ui.scope ui.spectroscope }
+        {ui.knob ui.keyboard ui.sliders ui.slider2d ui.bpfun ui.display ui.scope ui.spectroscope }
     }
     {experimental
         {exp.patchdata}
+    }
+    {timeline
+    	{tl.transport tl.cue tl.bang}
     }
 }
