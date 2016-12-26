@@ -362,27 +362,183 @@ static void *canvas_undo_buf;           /* data private to the undo function */
 static t_canvas *canvas_undo_canvas;    /* which canvas we can undo on */
 static const char *canvas_undo_name;
 
+/* CEAMMC multi_undo */
+typedef struct cm_undo_entry
+{
+    /* current undo function if any */
+    t_undofn canvas_undo_fn;
+    /* (unused) whether we can now UNDO or REDO */
+    int canvas_undo_whatnext;
+    /* data private to the undo function */
+    void *canvas_undo_buf;
+    /* which canvas we can undo on */
+    t_canvas *canvas_undo_canvas;
+    const char *canvas_undo_name;
+    
+} t_cm_undo_entry;
+
+const int cm_undo_count = 30;
+typedef struct _cm_undo
+{
+    t_cm_undo_entry undo[cm_undo_count];
+    int undo_write_pos;
+    int undo_read_pos;
+    int undo_steps_avail;
+    int redo_steps_avail;
+} t_cm_undo;
+
+static t_cm_undo cm_undo_entries;
+
+void cm_undo_add(t_canvas *x, t_undofn undofn, void *buf,
+                 const char *name)
+{
+    int idx = cm_undo_entries.undo_write_pos;
+    cm_undo_entries.undo[idx].canvas_undo_canvas = x;
+    cm_undo_entries.undo[idx].canvas_undo_fn = undofn;
+    cm_undo_entries.undo[idx].canvas_undo_buf = buf;
+    cm_undo_entries.undo[idx].canvas_undo_whatnext = UNDO_UNDO;
+    cm_undo_entries.undo[idx].canvas_undo_name = name;
+    
+    cm_undo_entries.undo_write_pos++;
+    if (cm_undo_entries.undo_write_pos>cm_undo_count) cm_undo_entries.undo_write_pos = 0;
+    
+    cm_undo_entries.undo_read_pos  = cm_undo_entries.undo_write_pos-1;
+    if (cm_undo_entries.undo_read_pos>= cm_undo_count ) {cm_undo_entries.undo_read_pos = 0;}
+    if (cm_undo_entries.undo_read_pos<0  ) {cm_undo_entries.undo_read_pos = cm_undo_count - 1;}
+    
+    cm_undo_entries.undo_steps_avail++;
+    if (cm_undo_entries.undo_steps_avail>= cm_undo_count ) {cm_undo_entries.undo_steps_avail = cm_undo_count;}
+    
+    cm_undo_entries.redo_steps_avail = 0;
+    
+}
+
+void cm_undo_proxy(t_canvas *canvas, void *buf, int action)
+{
+    printf("undo proxy\n");
+    printf("write %d read %d || %s %s \n", cm_undo_entries.undo_write_pos,
+           cm_undo_entries.undo_read_pos,
+           cm_undo_entries.undo[cm_undo_entries.undo_write_pos].canvas_undo_name,
+           cm_undo_entries.undo[cm_undo_entries.undo_read_pos].canvas_undo_name
+           );
+    
+    int idx = cm_undo_entries.undo_read_pos;
+    
+    if (action==UNDO_REDO)
+    {
+        idx++;
+        if (idx>cm_undo_count) idx = cm_undo_count;
+    }
+    
+    if ( cm_undo_entries.undo[idx].canvas_undo_fn )
+    {
+        cm_undo_entries.undo[idx].canvas_undo_fn (cm_undo_entries.undo[idx].canvas_undo_canvas ,cm_undo_entries.undo[idx].canvas_undo_buf,action);
+    }
+    
+    //undo
+    if (action==UNDO_UNDO)
+    {
+        
+        
+        const char *redo_name = cm_undo_entries.undo[cm_undo_entries.undo_read_pos].canvas_undo_name;
+        
+        cm_undo_entries.undo_read_pos--;
+        if (cm_undo_entries.undo_read_pos<0)
+        {
+            cm_undo_entries.undo_read_pos = cm_undo_count - 1;
+        }
+        
+        const char *undo_name = cm_undo_entries.undo[cm_undo_entries.undo_read_pos].canvas_undo_name;
+        
+        cm_undo_entries.undo_steps_avail--;
+        if (cm_undo_entries.undo_steps_avail<= 0 )
+        {
+            cm_undo_entries.undo_steps_avail = 0;
+            undo_name = "no";
+        }
+        
+        if (canvas && glist_isvisible(canvas) && glist_istoplevel(canvas))
+            // set name
+            sys_vgui("pdtk_undomenu .x%lx %s %s\n", canvas, undo_name, redo_name);
+        
+        cm_undo_entries.redo_steps_avail++;
+        if (cm_undo_entries.redo_steps_avail>= cm_undo_count ) {cm_undo_entries.redo_steps_avail = cm_undo_count;}
+        
+    }
+    else if (action==UNDO_REDO)
+    {
+        const char *redo_name = cm_undo_entries.undo[cm_undo_entries.undo_read_pos].canvas_undo_name;
+        
+        cm_undo_entries.undo_read_pos++;
+        if (cm_undo_entries.undo_read_pos>= cm_undo_count )
+        {
+            cm_undo_entries.undo_read_pos = 0;
+        }
+        
+        const char *undo_name = cm_undo_entries.undo[cm_undo_entries.undo_read_pos].canvas_undo_name;
+        
+        cm_undo_entries.redo_steps_avail--;
+        if (cm_undo_entries.redo_steps_avail<= 0 )
+        {
+            cm_undo_entries.redo_steps_avail = 0;
+            redo_name = "no";
+        }
+        
+        if (canvas && glist_isvisible(canvas) && glist_istoplevel(canvas))
+            // set name
+            sys_vgui("pdtk_undomenu .x%lx %s %s\n", canvas, undo_name, redo_name);
+        
+        cm_undo_entries.undo_steps_avail++;
+        if (cm_undo_entries.undo_steps_avail>= cm_undo_count ) {cm_undo_entries.undo_steps_avail = cm_undo_count;}
+        
+        
+    }
+    
+    cm_undo_entries.undo_write_pos  = cm_undo_entries.undo_read_pos+1;
+    if (cm_undo_entries.undo_write_pos>cm_undo_count) cm_undo_entries.undo_write_pos = 0;
+    if (cm_undo_entries.undo_write_pos<0) {cm_undo_entries.undo_write_pos = cm_undo_count - 1;}
+}
+
 void canvas_setundo(t_canvas *x, t_undofn undofn, void *buf,
     const char *name)
 {
-    int hadone = 0;
-        /* blow away the old undo information.  In one special case the
-        old undo info is re-used; if so we shouldn't free it here. */
-    if (canvas_undo_fn && canvas_undo_buf && (buf != canvas_undo_buf))
-    {
-        (*canvas_undo_fn)(canvas_undo_canvas, canvas_undo_buf, UNDO_FREE);
-        hadone = 1;
-    }
+    //CEAMMC
+    printf ("set undo %s \n", name);
+    
+    cm_undo_add(x,undofn,buf,name);
+    
     canvas_undo_canvas = x;
-    canvas_undo_fn = undofn;
+    canvas_undo_fn = cm_undo_proxy;
     canvas_undo_buf = buf;
     canvas_undo_whatnext = UNDO_UNDO;
     canvas_undo_name = name;
+    
     if (x && glist_isvisible(x) && glist_istoplevel(x))
-            /* enable undo in menu */
+    /* enable undo in menu */
         sys_vgui("pdtk_undomenu .x%lx %s no\n", x, name);
-    else if (hadone)
-        sys_vgui("pdtk_undomenu nobody no no\n");
+    
+    
+//    int hadone = 0;
+//     
+//        /* blow away the old undo information.  In one special case the
+//        old undo info is re-used; if so we shouldn't free it here. */
+//    
+//    if (canvas_undo_fn && canvas_undo_buf && (buf != canvas_undo_buf))
+//    {
+//        (*canvas_undo_fn)(canvas_undo_canvas, canvas_undo_buf, UNDO_FREE);
+//        hadone = 1;
+//    }
+//    canvas_undo_canvas = x;
+//    canvas_undo_fn = undofn;
+//    canvas_undo_buf = buf;
+//    canvas_undo_whatnext = UNDO_UNDO;
+//    canvas_undo_name = name;
+//    if (x && glist_isvisible(x) && glist_istoplevel(x))
+//            /* enable undo in menu */
+//        sys_vgui("pdtk_undomenu .x%lx %s no\n", x, name);
+//    else if (hadone)
+//        sys_vgui("pdtk_undomenu nobody no no\n");
+    
 }
 
     /* clear undo if it happens to be for the canvas x.
@@ -398,16 +554,16 @@ static void canvas_undo(t_canvas *x)
     int dspwas = canvas_suspend_dsp();
     if (x != canvas_undo_canvas)
         bug("canvas_undo 1");
-    else if (canvas_undo_whatnext != UNDO_UNDO)
-        bug("canvas_undo 2");
+//    else if (canvas_undo_whatnext != UNDO_UNDO)
+//        bug("canvas_undo 2");
     else
     {
         /* post("undo"); */
         (*canvas_undo_fn)(canvas_undo_canvas, canvas_undo_buf, UNDO_UNDO);
             /* enable redo in menu */
-        if (glist_isvisible(x) && glist_istoplevel(x))
-            sys_vgui("pdtk_undomenu .x%lx no %s\n", x, canvas_undo_name);
-        canvas_undo_whatnext = UNDO_REDO;
+//        if (glist_isvisible(x) && glist_istoplevel(x))
+//            sys_vgui("pdtk_undomenu .x%lx no %s\n", x, canvas_undo_name);
+        //canvas_undo_whatnext = UNDO_REDO;
     }
     canvas_resume_dsp(dspwas);
 }
@@ -417,16 +573,16 @@ static void canvas_redo(t_canvas *x)
     int dspwas = canvas_suspend_dsp();
     if (x != canvas_undo_canvas)
         bug("canvas_undo 1");
-    else if (canvas_undo_whatnext != UNDO_REDO)
-        bug("canvas_undo 2");
+//    else if (canvas_undo_whatnext != UNDO_REDO)
+//        bug("canvas_undo 2");
     else
     {
         /* post("redo"); */
         (*canvas_undo_fn)(canvas_undo_canvas, canvas_undo_buf, UNDO_REDO);
             /* enable undo in menu */
-        if (glist_isvisible(x) && glist_istoplevel(x))
-            sys_vgui("pdtk_undomenu .x%lx %s no\n", x, canvas_undo_name);
-        canvas_undo_whatnext = UNDO_UNDO;
+//        if (glist_isvisible(x) && glist_istoplevel(x))
+//            sys_vgui("pdtk_undomenu .x%lx %s no\n", x, canvas_undo_name);
+        //canvas_undo_whatnext = UNDO_UNDO;
     }
     canvas_resume_dsp(dspwas);
 }
@@ -746,6 +902,8 @@ static void canvas_undo_paste(t_canvas *x, void *z, int action)
 else if (action == UNDO_FREE)
         t_freebytes(buf, sizeof(*buf));
 }
+
+/* ------- */
 
 int clone_match(t_pd *z, t_symbol *name, t_symbol *dir);
 
@@ -2394,8 +2552,14 @@ static t_binbuf *canvas_docopy(t_canvas *x)
     return (b);
 }
 
+/* CEAMMC paste fix workaround */
+static int paste_counter = 0;
+
 static void canvas_copy(t_canvas *x)
 {
+    // CEAMMC
+    paste_counter = 0;
+    
     if (!x->gl_editor || !x->gl_editor->e_selection)
         return;
     binbuf_free(copy_binbuf);
@@ -2483,8 +2647,13 @@ restore:
     canvas_dirty(x, 1);
 }
 
+
+
 static void canvas_cut(t_canvas *x)
 {
+    // CEAMMC
+    paste_counter = 0;
+    
     if (!x->gl_editor)  /* ignore if invisible */
         return;
     if (x->gl_editor && x->gl_editor->e_selectedline)   /* delete line */
@@ -2580,9 +2749,18 @@ static void canvas_paste(t_canvas *x)
     }
     else
     {
+        // CEAMMC
+        t_selection *y;
+        
         canvas_setundo(x, canvas_undo_paste, canvas_undo_set_paste(x),
             "paste");
         canvas_dopaste(x, copy_binbuf);
+        for (y = x->gl_editor->e_selection; y; y = y->sel_next)
+            gobj_displace(y->sel_what, x,
+                          10+10*paste_counter, 10+10*paste_counter);
+        canvas_dirty(x, 1);
+        
+        paste_counter++;
     }
 }
 
@@ -2601,6 +2779,8 @@ static void canvas_duplicate(t_canvas *x)
             gobj_displace(y->sel_what, x,
                 10, 10);
         canvas_dirty(x, 1);
+        //CEAMMC
+        paste_counter = 1;
     }
 }
 
