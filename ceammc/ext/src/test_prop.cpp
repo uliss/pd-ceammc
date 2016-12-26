@@ -1,6 +1,6 @@
 #include "ceammc_format.h"
 #include "ceammc_object.h"
-#include "ceammc_objectclass.h"
+#include "ceammc_factory.h"
 
 using namespace ceammc;
 
@@ -34,7 +34,7 @@ public:
 
 extern "C" void setup_test0x2eprop()
 {
-    ObjectClass<TestProp> t("test.prop");
+    ObjectFactory<TestProp> t("test.prop");
     t.addMethod("help", &TestProp::testMethod);
     t.addMethod("help2", &TestProp::testMethod2);
 }

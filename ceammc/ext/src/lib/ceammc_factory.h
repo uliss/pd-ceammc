@@ -26,7 +26,7 @@
 namespace ceammc {
 
 template <typename T>
-class ObjectClass;
+class ObjectFactory;
 
 template <typename T>
 struct PdObject {
@@ -35,7 +35,7 @@ struct PdObject {
 };
 
 template <typename T>
-class ObjectClass {
+class ObjectFactory {
 public:
     typedef PdObject<T> ObjectProxy;
 
@@ -56,7 +56,7 @@ public:
     typedef std::map<t_symbol*, MethodPtrList> MethodListMap;
 
 public:
-    ObjectClass(const char* name)
+    ObjectFactory(const char* name)
         : name_(name)
         , fn_bang_(0)
         , fn_float_(0)
@@ -193,13 +193,13 @@ private:
 };
 
 template <typename T>
-t_class* ObjectClass<T>::class_;
+t_class* ObjectFactory<T>::class_;
 
 template <typename T>
-t_symbol* ObjectClass<T>::class_name_ = 0;
+t_symbol* ObjectFactory<T>::class_name_ = 0;
 
 template <typename T>
-typename ObjectClass<T>::MethodListMap ObjectClass<T>::methods_;
+typename ObjectFactory<T>::MethodListMap ObjectFactory<T>::methods_;
 
 #define CLASS_ADD_METHOD()
 
