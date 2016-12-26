@@ -81,6 +81,7 @@ public:
     t_inlet* createInlet(float* v);
     t_inlet* createInlet(t_symbol** s);
     void freeInlets();
+    size_t numInlets() const;
 
     t_outlet* createOutlet(bool signal = false);
     void freeOutlets();

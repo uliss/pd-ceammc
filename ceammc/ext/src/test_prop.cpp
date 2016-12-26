@@ -12,6 +12,7 @@ public:
         createOutlet();
         createOutlet();
         createInlet();
+        createInlet();
         createProperty("@a");
         createProperty("@b");
         createProperty("@c");

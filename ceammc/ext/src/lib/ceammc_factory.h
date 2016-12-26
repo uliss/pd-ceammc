@@ -56,7 +56,7 @@ public:
     typedef std::map<t_symbol*, MethodPtrList> MethodListMap;
 
 public:
-    ObjectFactory(const char* name)
+    ObjectFactory(const char* name, int flags = 0)
         : name_(name)
         , fn_bang_(0)
         , fn_float_(0)
@@ -68,7 +68,7 @@ public:
         t_class* c = class_new(s_name,
             reinterpret_cast<t_newmethod>(object_new),
             reinterpret_cast<t_method>(object_free),
-            sizeof(ObjectProxy), CLASS_DEFAULT, A_GIMME, A_NULL);
+            sizeof(ObjectProxy), flags, A_GIMME, A_NULL);
 
         class_ = c;
 
