@@ -127,8 +127,6 @@ public:
     Atom* last();
     const Atom* first() const;
     const Atom* last() const;
-    //
-    std::string toString() const;
 
     void sort();
     void shuffle();

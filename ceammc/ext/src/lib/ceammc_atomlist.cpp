@@ -213,18 +213,6 @@ t_atom* AtomList::toPdData() const
     return reinterpret_cast<t_atom*>(const_cast<Atom*>(atoms_.data()));
 }
 
-std::string AtomList::toString() const
-{
-    std::string ret = "";
-
-    //iterator??
-    for (int i = 0; i < this->size(); i++) {
-        ret = ret + this->at(i).asString() + (i != (this->size() - 1) ? " " : "");
-    }
-
-    return ret;
-};
-
 void AtomList::append(const Atom& a)
 {
     atoms_.push_back(a);
