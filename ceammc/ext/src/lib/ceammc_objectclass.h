@@ -163,6 +163,8 @@ public:
         for (it = methods_.begin(); it != methods_.end(); ++it) {
             post("[%s] method: %s", class_name_->s_name, it->first->s_name);
         }
+
+        x->impl->dump();
     }
 
     static void defaultListMethod(ObjectProxy* x, t_symbol* sel, int argc, t_atom* argv)

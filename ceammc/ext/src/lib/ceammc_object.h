@@ -39,7 +39,6 @@ public:
 
 class BaseObject {
     PdArgs pd_;
-    std::string name_;
     typedef std::vector<t_inlet*> InletList;
     typedef std::vector<t_outlet*> OutletList;
     typedef std::vector<t_symbol*> SymbolList;
@@ -57,6 +56,11 @@ public:
     inline const AtomList& args() const { return pd_.args; }
     inline std::string className() const { return pd_.className->s_name; }
     inline t_object* owner() { return pd_.owner; }
+
+    /**
+     * Dumps object info to Pd window
+     */
+    void dump() const;
 
     void processBang() {}
     void processFloat(float) {}

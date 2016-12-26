@@ -13,13 +13,14 @@
  *****************************************************************************/
 
 #include "ceammc_object.h"
+#include "ceammc_format.h"
 
 namespace ceammc {
 
 t_outlet* BaseObject::outletAt(size_t n)
 {
     if (n >= outlets_.size()) {
-        post("[%s]: ERROR! invalid outlet index: %Ul", name_.c_str(), n);
+        post("[%s]: ERROR! invalid outlet index: %Ul", className().c_str(), n);
         return 0;
     }
 
@@ -34,7 +35,7 @@ void BaseObject::createProperty(const char* name)
 void BaseObject::bangTo(size_t n)
 {
     if (n >= outlets_.size()) {
-        post("[%s]: ERROR! invalid outlet index: %Ul", name_.c_str(), n);
+        post("[%s]: ERROR! invalid outlet index: %Ul", className().c_str(), n);
         return;
     }
     outlet_bang(outlets_[n]);
@@ -43,7 +44,7 @@ void BaseObject::bangTo(size_t n)
 void BaseObject::floatTo(size_t n, float v)
 {
     if (n >= outlets_.size()) {
-        post("[%s]: ERROR! invalid outlet index: %Ul", name_.c_str(), n);
+        post("[%s]: ERROR! invalid outlet index: %Ul", className().c_str(), n);
         return;
     }
     outlet_float(outlets_[n], v);
@@ -52,7 +53,7 @@ void BaseObject::floatTo(size_t n, float v)
 void BaseObject::symbolTo(size_t n, t_symbol* s)
 {
     if (n >= outlets_.size()) {
-        post("[%s]: ERROR! invalid outlet index: %Ul", name_.c_str(), n);
+        post("[%s]: ERROR! invalid outlet index: %Ul", className().c_str(), n);
         return;
     }
     outlet_symbol(outlets_[n], s);
@@ -61,7 +62,7 @@ void BaseObject::symbolTo(size_t n, t_symbol* s)
 void BaseObject::atomTo(size_t n, const Atom& a)
 {
     if (n >= outlets_.size()) {
-        post("[%s]: ERROR! invalid outlet index: %Ul", name_.c_str(), n);
+        post("[%s]: ERROR! invalid outlet index: %Ul", className().c_str(), n);
         return;
     }
 
@@ -71,7 +72,7 @@ void BaseObject::atomTo(size_t n, const Atom& a)
 void BaseObject::listTo(size_t n, const AtomList& l)
 {
     if (n >= outlets_.size()) {
-        post("[%s]: ERROR! invalid outlet index: %Ul", name_.c_str(), n);
+        post("[%s]: ERROR! invalid outlet index: %Ul", className().c_str(), n);
         return;
     }
 
@@ -81,7 +82,7 @@ void BaseObject::listTo(size_t n, const AtomList& l)
 void BaseObject::anyTo(size_t n, t_symbol* s, const Atom& a)
 {
     if (n >= outlets_.size()) {
-        post("[%s]: ERROR! invalid outlet index: %Ul", name_.c_str(), n);
+        post("[%s]: ERROR! invalid outlet index: %Ul", className().c_str(), n);
         return;
     }
 
@@ -91,7 +92,7 @@ void BaseObject::anyTo(size_t n, t_symbol* s, const Atom& a)
 void BaseObject::anyTo(size_t n, t_symbol* s, const AtomList& l)
 {
     if (n >= outlets_.size()) {
-        post("[%s]: ERROR! invalid outlet index: %Ul", name_.c_str(), n);
+        post("[%s]: ERROR! invalid outlet index: %Ul", className().c_str(), n);
         return;
     }
 
@@ -188,5 +189,15 @@ BaseObject::~BaseObject()
 {
     freeInlets();
     freeOutlets();
+}
+
+void BaseObject::dump() const
+{
+    post("[%s] inlet number: %zu", className().c_str(), inlets_.size());
+    post("[%s] outlet number: %zu", className().c_str(), outlets_.size());
+
+    Properties::const_iterator it;
+    for (it = props_.begin(); it != props_.end(); ++it)
+        post("[%s] property: %s = %s", className().c_str(), it->first->s_name, to_string(it->second).c_str());
 }
 }
