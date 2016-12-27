@@ -16,7 +16,8 @@
 
 #include "ceammc_atomlist.h"
 #include "ceammc_message.h"
-#include <algorithm>
+#include "ceammc_property.h"
+
 #include <map>
 #include <string>
 #include <vector>
@@ -42,15 +43,19 @@ class BaseObject {
     typedef std::vector<t_inlet*> InletList;
     typedef std::vector<t_outlet*> OutletList;
     typedef std::vector<t_symbol*> SymbolList;
-    typedef std::map<t_symbol*, AtomList> Properties;
+    typedef std::map<t_symbol*, Property*> Properties;
     InletList inlets_;
     OutletList outlets_;
     SymbolList inlets_s_;
     Properties props_;
 
 public:
+    typedef AtomList (BaseObject::*GetterFn)();
+    typedef void (BaseObject::*SetterFn)(const AtomList&);
+
+public:
     BaseObject(const PdArgs& args);
-    ~BaseObject();
+    virtual ~BaseObject();
 
     inline AtomList& args() { return pd_.args; }
     inline const AtomList& args() const { return pd_.args; }
@@ -88,7 +93,15 @@ public:
     inline t_outlet* outletAt(size_t n);
     size_t numOutlets() const { return outlets_.size(); }
 
-    void createProperty(const char* name);
+    void createProperty(Property* p);
+    template <class T>
+    void createCbProperty(const std::string& name,
+        AtomList (T::*getter)(),
+        void (T::*setter)(const AtomList&) = 0)
+    {
+        CallbackProperty<T>* p = new CallbackProperty<T>(name, this, getter, setter);
+        createProperty(p);
+    }
 
     inline void atomTo(size_t n, const Atom& a);
     inline void bangTo(size_t n);
@@ -100,6 +113,12 @@ public:
 
     bool processAnyInlets(t_symbol* sel, const AtomList& lst);
     bool processAnyProps(t_symbol* sel, const AtomList& lst);
+
+private:
+    void freeProps();
+    AtomList propNumInlets();
+    AtomList propNumOutlets();
+    AtomList listAllProps();
 };
 }
 

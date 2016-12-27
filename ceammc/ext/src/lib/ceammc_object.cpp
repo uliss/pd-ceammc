@@ -15,6 +15,8 @@
 #include "ceammc_object.h"
 #include "ceammc_format.h"
 
+#include <algorithm>
+
 extern "C" {
 #include "m_imp.h"
 }
@@ -31,9 +33,17 @@ t_outlet* BaseObject::outletAt(size_t n)
     return outlets_[n];
 }
 
-void BaseObject::createProperty(const char* name)
+void BaseObject::createProperty(Property* p)
 {
-    props_[gensym(name)] = AtomList();
+    t_symbol* key = gensym(p->name().c_str());
+    Properties::iterator it = props_.find(key);
+    if (it != props_.end()) {
+        // free previous
+        if (p != it->second)
+            delete it->second;
+    }
+
+    props_[key] = p;
 }
 
 void BaseObject::bangTo(size_t n)
@@ -130,12 +140,45 @@ bool BaseObject::processAnyProps(t_symbol* sel, const AtomList& lst)
         if (numOutlets() < 1)
             return true;
 
-        anyTo(0, sel, it->second);
+        anyTo(0, sel, it->second->get());
     } else {
-        it->second = lst;
+        it->second->set(lst);
     }
 
     return true;
+}
+
+void BaseObject::freeProps()
+{
+    Properties::iterator it;
+    for (it = props_.begin(); it != props_.end(); ++it)
+        delete it->second;
+
+    props_.erase(props_.begin(), props_.end());
+}
+
+AtomList BaseObject::propNumInlets()
+{
+    return listFrom(numInlets());
+}
+
+AtomList BaseObject::propNumOutlets()
+{
+    return listFrom(numOutlets());
+}
+
+AtomList BaseObject::listAllProps()
+{
+    AtomList res;
+    Properties::iterator it;
+    for (it = props_.begin(); it != props_.end(); ++it) {
+        if (it->first == gensym("@*"))
+            continue;
+
+        res.append(Atom(it->first));
+    }
+
+    return res;
 }
 
 t_outlet* BaseObject::createOutlet(bool signal)
@@ -192,12 +235,14 @@ t_inlet* BaseObject::createInlet()
 BaseObject::BaseObject(const PdArgs& args)
     : pd_(args)
 {
+    createCbProperty("@*", &BaseObject::listAllProps);
 }
 
 BaseObject::~BaseObject()
 {
     freeInlets();
     freeOutlets();
+    freeProps();
 }
 
 void BaseObject::dump() const
@@ -207,6 +252,9 @@ void BaseObject::dump() const
 
     Properties::const_iterator it;
     for (it = props_.begin(); it != props_.end(); ++it)
-        post("[%s] property: %s = %s", className().c_str(), it->first->s_name, to_string(it->second).c_str());
+        post("[%s] property: %s = %s",
+            className().c_str(),
+            it->first->s_name,
+            to_string(it->second->get()).c_str());
 }
 }

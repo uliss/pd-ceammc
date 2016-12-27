@@ -216,6 +216,17 @@ std::ostream& operator<<(std::ostream& os, const AtomList& l);
 
 void to_outlet(t_outlet* x, const AtomList& a);
 
+template <typename T>
+static Atom atomFrom(T v) { return Atom(v); }
+
+template <typename T>
+static AtomList listFrom(T v)
+{
+    AtomList res;
+    res.append(atomFrom<T>(v));
+    return res;
+}
+
 } // namespace ceammc
 
 #endif // CEAMMC_ATOMLIST_H

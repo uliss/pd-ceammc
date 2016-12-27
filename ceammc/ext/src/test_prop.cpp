@@ -1,6 +1,6 @@
+#include "ceammc_factory.h"
 #include "ceammc_format.h"
 #include "ceammc_object.h"
-#include "ceammc_factory.h"
 
 using namespace ceammc;
 
@@ -13,9 +13,8 @@ public:
         createOutlet();
         createInlet();
         createInlet();
-        createProperty("@a");
-        createProperty("@b");
-        createProperty("@c");
+        createProperty(new FloatProperty("@a", 0));
+        createProperty(new ListProperty("@b"));
     }
 
     void processInlet(size_t n, const AtomList& lst)

@@ -15,157 +15,123 @@
 #define CEAMMC_PROPERTY_H
 
 #include "ceammc_atomlist.h"
-#include "ceammc_controlvalue.h"
-#include <m_pd.h>
+
+#include <string>
 
 namespace ceammc {
 
-template <typename T>
-struct PdAnyFunction {
-    typedef void (*type)(T*, t_symbol*, int, t_atom*);
-};
-
-template <typename T>
-struct PdListFunction {
-    typedef void (*type)(T*, t_symbol*, int, t_atom*);
-};
-
-template <typename T>
-struct PdBangFunction {
-    typedef void (*type)(T*);
-};
-
-template <typename T>
-struct PdFloatFunction {
-    typedef void (*type)(T*, t_float);
-};
-
-template <typename T>
-struct PdSymbolFunction {
-    typedef void (*type)(T*, t_float);
-};
-
-template <typename V>
 class Property {
-    V prop_;
-    t_symbol* name_;
+    std::string name_;
+    bool readonly_;
 
 public:
-    Property(t_symbol* name)
-        : name_(name)
-    {
-    }
+    Property(const std::string& name, bool readonly = false);
+    virtual ~Property();
 
-    t_symbol* name() { return name_; }
-    const t_symbol* name() const { return name_; }
+    std::string name() const { return name_; }
+    void setName(const std::string& name) { name_ = name; }
 
-    V& get() { return prop_; }
-    const V& get() const { return prop_; }
-    void set(const V& p) { prop_ = p; }
+    bool readonly() const { return readonly_; }
 
-    void setFromPd(t_symbol* sel, int argc, t_atom* argv)
-    {
-        if (name_ != sel)
-            return;
+    virtual bool set(const AtomList&) = 0;
+    virtual AtomList get() const = 0;
 
-        if (argc < 1)
-            return;
-
-        propertyValueSet(AtomList(argc, argv));
-    }
-
-    void output(t_outlet* x)
-    {
-        ControlValue cv;
-        controlValueSet(cv, &prop_);
-        cv.output(x);
-    }
-
-    void controlValueSet(ControlValue&, V*) {}
-    void propertyValueSet(const AtomList&) {}
+protected:
+    bool readonlyCheck() const;
+    bool emptyValueCheck(const AtomList& v) const;
 };
 
-template <>
-void Property<t_float>::controlValueSet(ControlValue& cv, t_float* f) { cv.setFloat(*f); }
+class AtomProperty : public Property {
+    Atom v_;
 
-template <>
-void Property<int>::controlValueSet(ControlValue& cv, int* i) { cv.setFloat(*i); }
-
-template <>
-void Property<size_t>::controlValueSet(ControlValue& cv, size_t* sz) { cv.setFloat(*sz); }
-
-template <>
-void Property<t_symbol*>::controlValueSet(ControlValue& cv, t_symbol** s) { cv.setSymbol(*s); }
-
-template <>
-void Property<Atom>::controlValueSet(ControlValue& cv, Atom* a) { cv.setAtom(*a); }
-
-template <>
-void Property<AtomList>::controlValueSet(ControlValue& cv, AtomList* l) { cv.setList(*l); }
-
-template <>
-void Property<t_float>::propertyValueSet(const AtomList& lst)
-{
-    lst.first()->getFloat(&prop_);
-}
-
-template <>
-void Property<int>::propertyValueSet(const AtomList& lst)
-{
-    t_float f;
-    if (lst.first()->getFloat(&f))
-        prop_ = static_cast<int>(f);
-}
-
-template <>
-void Property<size_t>::propertyValueSet(const AtomList& lst)
-{
-    t_float f;
-    if (lst.first()->getFloat(&f))
-        prop_ = static_cast<size_t>(f);
-}
-
-template <>
-void Property<t_symbol*>::propertyValueSet(const AtomList& lst)
-{
-    lst.first()->getSymbol(&prop_);
-}
-
-typedef Property<t_float> FloatProperty;
-typedef Property<int> IntProperty;
-typedef Property<size_t> SizeProperty;
-typedef Property<t_symbol*> SymbolProperty;
-
-template <typename T, typename V>
-struct PropertyFieldPtr {
-    Property<V>* T::*prop_member_ptr;
-    PdAnyFunction<T> pd_call_func_;
-
-    PropertyFieldPtr(Property<V>* T::*p, PdAnyFunction<T> fn)
-        : prop_member_ptr(p)
-        , pd_call_func_(fn)
-    {
-    }
-
-    void process_rw(T* x, t_symbol* sel, int argc, t_atom* argv)
-    {
-        if (argc < 1)
-            (x->*prop_member_ptr)->output(x->x_obj.te_outlet);
-        else
-            (x->*prop_member_ptr)->setFromPd(sel, argc, argv);
-    }
+public:
+    AtomProperty(const std::string& name, const Atom& a, bool readonly = false);
+    bool set(const AtomList& lst);
+    AtomList get() const;
 };
 
-//template <typename T, typename V>
-//void class_addproperty_rw(t_class* c, Property<V>* T::*prop, t_symbol* s)
-//{
-//    static std::function<void(PropertyFieldPtr<T, V>&, T * x, t_symbol * sel, int argc, t_atom* argv)> func = &PropertyFieldPtr<T, V>::process_rw;
+class ListProperty : public Property {
+    AtomList lst_;
 
-//    //    auto f = std::bind(&p::process_rw);
-//    class_addmethod(c,
-//        reinterpret_cast<t_method>(func), s, A_GIMME, A_NULL);
-//}
+public:
+    ListProperty(const std::string& name, const AtomList& l = AtomList(), bool readonly = false);
+    bool set(const AtomList& lst);
+    AtomList get() const;
+};
 
+class FloatProperty : public Property {
+    float v_;
+
+public:
+    FloatProperty(const std::string& name, float defaultValue = 0, bool readonly = false);
+    bool set(const AtomList& lst);
+    AtomList get() const;
+};
+
+template <typename T>
+class CallbackProperty : public Property {
+public:
+    typedef AtomList (T::*GetterFn)();
+    typedef void (T::*SetterFn)(const AtomList& v);
+
+public:
+    CallbackProperty(const std::string& name, T* obj, GetterFn gf, SetterFn sf = 0)
+        : Property(name)
+        , obj_(obj)
+        , getter_(gf)
+        , setter_(sf)
+    {
+    }
+
+    bool set(const AtomList& lst)
+    {
+        if (!setter_) {
+            pd_error(0, "[%s] is readonly!", name().c_str());
+            return false;
+        }
+
+        (obj_->*setter_)(lst);
+        return true;
+    }
+
+    AtomList get() const
+    {
+        return (obj_->*getter_)();
+    }
+
+protected:
+    T* obj_;
+
+private:
+    GetterFn getter_;
+    SetterFn setter_;
+};
+
+template <typename T, typename B>
+class TypedCbProperty : public CallbackProperty<B> {
+    typedef T (B::*TGetterFn)();
+
+public:
+    TypedCbProperty(const std::string& name, B* obj, TGetterFn gf = 0)
+        : CallbackProperty<B>(name,
+              obj,
+              &TypedCbProperty::defGetter, 0)
+        , tgetter_(gf)
+    {
+    }
+
+private:
+    AtomList defGetter()
+    {
+        T v = (this->obj_->*tgetter_)();
+        AtomList res;
+        res.append(Atom(v));
+        return res;
+    }
+
+private:
+    TGetterFn tgetter_;
+};
 }
 
 #endif // CEAMMC_PROPERTY_H
