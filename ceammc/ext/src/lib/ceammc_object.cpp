@@ -93,6 +93,16 @@ void BaseObject::listTo(size_t n, const AtomList& l)
     l.output(outlets_[n]);
 }
 
+void BaseObject::messageTo(size_t n, const Message& msg)
+{
+    if (n >= outlets_.size()) {
+        post("[%s]: ERROR! invalid outlet index: %Ul", className().c_str(), n);
+        return;
+    }
+
+    msg.output(outlets_[n]);
+}
+
 void BaseObject::anyTo(size_t n, t_symbol* s, const Atom& a)
 {
     if (n >= outlets_.size()) {
@@ -123,7 +133,7 @@ bool BaseObject::processAnyInlets(t_symbol* sel, const AtomList& lst)
         return false;
 
     size_t pos = std::distance(inlets_s_.begin(), it) + 1;
-    processInlet(pos, lst);
+    onInlet(pos, lst);
     return true;
 }
 
@@ -257,4 +267,5 @@ void BaseObject::dump() const
             it->first->s_name,
             to_string(it->second->get()).c_str());
 }
+
 }

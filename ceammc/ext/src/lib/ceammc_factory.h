@@ -134,27 +134,27 @@ public:
 
     static void processBang(ObjectProxy* x)
     {
-        x->impl->processBang();
+        x->impl->onBang();
     }
 
     static void processFloat(ObjectProxy* x, t_floatarg f)
     {
-        x->impl->processFloat(static_cast<double>(f));
+        x->impl->onFloat(static_cast<double>(f));
     }
 
     static void processSymbol(ObjectProxy* x, t_symbol* s)
     {
-        x->impl->processSymbol(s->s_name);
+        x->impl->onSymbol(s);
     }
 
     static void processList(ObjectProxy* x, t_symbol*, int argc, t_atom* argv)
     {
-        x->impl->processList(AtomList(argc, argv));
+        x->impl->onList(AtomList(argc, argv));
     }
 
     static void processAny(ObjectProxy* x, t_symbol* s, int argc, t_atom* argv)
     {
-        x->impl->processAny(s, AtomList(argc, argv));
+        x->impl->anyDispatch(s, AtomList(argc, argv));
     }
 
     static void dumpMethodList(ObjectProxy* x)

@@ -60,7 +60,7 @@ public:
     bool isEqual(const Message& v) const;
     Type type() const;
 
-    void output(t_outlet* x);
+    void output(t_outlet* x) const;
 
     inline bool isFloat() const { return type_ == FLOAT; }
     inline bool isSymbol() const { return type_ == SYMBOL; }

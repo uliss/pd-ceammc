@@ -65,21 +65,24 @@ public:
     /**
      * Dumps object info to Pd window
      */
-    void dump() const;
+    virtual void dump() const;
 
-    void processBang() {}
-    void processFloat(float) {}
-    void processSymbol(const std::string&) {}
-    void processList(const AtomList&) {}
-    void processInlet(size_t, const AtomList&) {}
+    virtual void onBang() {}
+    virtual void onFloat(float) {}
+    virtual void onSymbol(t_symbol*) {}
+    virtual void onList(const AtomList&) {}
+    virtual void onAny(t_symbol*, const AtomList&) {}
+    void onInlet(size_t, const AtomList&) {}
 
-    inline void processAny(t_symbol* s, const AtomList& lst)
+    void anyDispatch(t_symbol* s, const AtomList& lst)
     {
         if (processAnyInlets(s, lst))
             return;
 
         if (processAnyProps(s, lst))
             return;
+
+        onAny(s, lst);
     }
 
     t_inlet* createInlet();
@@ -99,17 +102,18 @@ public:
         AtomList (T::*getter)(),
         void (T::*setter)(const AtomList&) = 0)
     {
-        CallbackProperty<T>* p = new CallbackProperty<T>(name, this, getter, setter);
+        CallbackProperty<T>* p = new CallbackProperty<T>(name, static_cast<T*>(this), getter, setter);
         createProperty(p);
     }
 
-    inline void atomTo(size_t n, const Atom& a);
-    inline void bangTo(size_t n);
-    inline void floatTo(size_t n, float v);
-    inline void symbolTo(size_t n, t_symbol* s);
-    inline void listTo(size_t n, const AtomList& l);
-    inline void anyTo(size_t n, t_symbol* s, const Atom& a);
-    inline void anyTo(size_t n, t_symbol* s, const AtomList& l);
+    void atomTo(size_t n, const Atom& a);
+    void bangTo(size_t n);
+    void floatTo(size_t n, float v);
+    void symbolTo(size_t n, t_symbol* s);
+    void listTo(size_t n, const AtomList& l);
+    void messageTo(size_t n, const Message& msg);
+    void anyTo(size_t n, t_symbol* s, const Atom& a);
+    void anyTo(size_t n, t_symbol* s, const AtomList& l);
 
     bool processAnyInlets(t_symbol* sel, const AtomList& lst);
     bool processAnyProps(t_symbol* sel, const AtomList& lst);
