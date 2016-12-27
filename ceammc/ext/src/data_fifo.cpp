@@ -27,6 +27,8 @@ public:
 
         createOutlet();
         createCbProperty("@size", &DataFifo::p_size);
+        createCbProperty("@maxsize", &DataFifo::p_max_size);
+        createCbProperty("@free", &DataFifo::p_free);
     }
 
     void onBang() { flush(); }
@@ -49,11 +51,9 @@ public:
         resize(static_cast<size_t>(sz));
     }
 
-    AtomList
-    p_size()
-    {
-        return listFrom(size_);
-    }
+    AtomList p_size() { return listFrom(fifo_.size()); }
+    AtomList p_max_size() { return listFrom(size_); }
+    AtomList p_free() { return listFrom(size_ - fifo_.size()); }
 
     void add(const Message& msg)
     {
@@ -73,8 +73,10 @@ public:
     // output all, remove all
     void flush()
     {
-        for (size_t i = 0; i < fifo_.size(); i++)
-            pop();
+        for (size_t i = 0; i < fifo_.size(); i++) {
+            messageTo(0, fifo_.front());
+            fifo_.pop();
+        }
     }
 
     // output and remove first in queue
