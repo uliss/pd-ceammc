@@ -22,11 +22,8 @@ public:
         : BaseObject(args)
         , size_(MAX_SIZE)
     {
-        if (args.args.size() > 0) {
-            float sz = MAX_SIZE;
-            args.args.at(0).getFloat(&sz);
-            size_ = static_cast<size_t>(sz);
-        }
+        if (args.args.size() > 0)
+            size_ = args.args.first()->asSizeT(MAX_SIZE);
 
         createOutlet();
         createCbProperty("@size", &DataFifo::p_size);
@@ -43,16 +40,13 @@ public:
     void m_pop(t_symbol*, const AtomList&) { pop(); }
     void m_resize(t_symbol*, const AtomList& l)
     {
-        if (l.empty())
-            return;
-
-        float v = l.at(0).asFloat();
-        if (v < 1) {
-            pd_error(owner(), MSG_PREFIX "invalid size value %f. Using default size: %li", v, MAX_SIZE);
+        size_t sz = l.asSizeT(0);
+        if (sz < 1) {
+            pd_error(owner(), MSG_PREFIX "invalid size value %lu. Using default size: %lu", sz, MAX_SIZE);
             return;
         }
 
-        resize(static_cast<size_t>(v));
+        resize(static_cast<size_t>(sz));
     }
 
     AtomList

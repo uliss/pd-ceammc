@@ -14,11 +14,11 @@
 #include "ceammc_atomlist.h"
 #include <algorithm>
 #include <cassert>
+#include <cstdarg>
 #include <cstdlib>
 #include <iostream>
 #include <iterator>
 #include <string>
-#include <cstdarg>
 
 namespace ceammc {
 
@@ -495,6 +495,14 @@ FloatList AtomList::asFloats() const
         res.push_back(atoms_[i].asFloat());
     }
     return res;
+}
+
+size_t AtomList::asSizeT(size_t defaultValue) const
+{
+    if (empty())
+        return defaultValue;
+
+    return atoms_.front().asSizeT(defaultValue);
 }
 
 void AtomList::outputAtoms(t_outlet* x) const

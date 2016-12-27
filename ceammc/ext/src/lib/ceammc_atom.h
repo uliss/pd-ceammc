@@ -72,7 +72,9 @@ public:
     bool setFloat(t_float v, bool force = false);
     bool setSymbol(t_symbol* s, bool force = false);
 
-    t_float asFloat() const;
+    t_float asFloat(float def = 0.f) const;
+    int asInt(int def = 0) const;
+    size_t asSizeT(size_t def = 0) const;
     t_symbol* asSymbol() const;
     std::string asString() const;
 

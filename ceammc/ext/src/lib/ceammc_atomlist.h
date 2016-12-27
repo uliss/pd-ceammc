@@ -158,6 +158,7 @@ public:
     bool noneOff(AtomPredicate pred) const;
 
     FloatList asFloats() const;
+    size_t asSizeT(size_t defaultValue = 0) const;
 
     /**
      * @brief output list atoms separatly, one by one
