@@ -49,8 +49,6 @@ namespace ceammc_gui {
     
     UI_fun(ui_sliders)::wx_paint(t_object *z, t_object *view)
     {
-//        UI_Prop
-        
         t_symbol *bgl = gensym("background_layer");
         t_rect rect;
         ebox_get_rect_for_view((t_ebox *)z, &rect);
@@ -63,10 +61,6 @@ namespace ceammc_gui {
         {
             if (zx->count<1) zx->count = 1;
             if (zx->count>1280) zx->count = 128;
-            
-//            if (UI_Pf("count")<1) UI_Pset("count",1);
-//            if (UI_Pf("count")>128) UI_Pset("count",128);   //TEMP
-//            
             
             for (int i =0; i<zx->count; i++)
             {
@@ -111,10 +105,10 @@ namespace ceammc_gui {
                 char c_max[10];
                 sprintf(c_max, "%.2f", zx->range+zx->shift);
                 
-                etext_layout_set(zx->txt_min, c_min, zx->txt_font, 3, rect.height*.95, rect.width*2, rect.height, ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_WRAP);
+                etext_layout_set(zx->txt_min, c_min, zx->txt_font, 3, rect.height-12, rect.width*2, rect.height/2, ETEXT_UP_LEFT, ETEXT_JLEFT, ETEXT_WRAP);
                 etext_layout_draw(zx->txt_min, g);
                 
-                etext_layout_set(zx->txt_max, c_max, zx->txt_font, 3, rect.height*.05, rect.width*2, rect.height, ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_WRAP);
+                etext_layout_set(zx->txt_max, c_max, zx->txt_font, 3, 12, rect.width*2, rect.height/2, ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_WRAP);
                 etext_layout_draw(zx->txt_max, g);
                 
                 
@@ -128,10 +122,7 @@ namespace ceammc_gui {
     }
     
     UI_fun(ui_sliders)::m_set(t_object *z, t_symbol *s, int argc, t_atom *argv)
-    
     {
-        //UI_Prop
-        
         ui_sliders *zx = (ui_sliders*)z;
         
         if (zx->val_list) free (zx->val_list);
@@ -209,21 +200,15 @@ namespace ceammc_gui {
     
     UI_fun(ui_sliders)::wx_oksize(t_object *z, t_rect *newrect)
     {
-//        UI_Prop
-        
         ui_sliders *zx = (ui_sliders*)z;
         
         zx->_is_vertical = newrect->width<newrect->height;
-        
-//        UI_Pset("_is_vertical", newrect->width<newrect->height);
     }
     
     
     
     UI_fun(ui_sliders)::wx_mousedrag_ext(t_object* z, t_object *view, t_pt pt, long modifiers)
     {
-//        UI_Prop
-        
         t_rect rect;
         ebox_get_rect_for_view((t_ebox *)z, &rect);
         
@@ -231,18 +216,55 @@ namespace ceammc_gui {
         
         ui_sliders* zx  = (ui_sliders*) z;
         
+        if (zx->val_list_size != zx->count)
+        {
+            if (zx->val_list) free (zx->val_list);
+            
+            zx->val_list = (t_atom*)malloc(sizeof(t_atom)*zx->count);
+            zx->val_list_size = zx->count;
+            
+            for (int i=0;i<zx->count;i++)
+            {
+                
+                zx->val_list[i].a_type = A_FLOAT;
+                zx->val_list[i].a_w.w_float = 0.;
+                
+            }
+            
+        }
+        
+        if (zx->draw_list_size != zx->count)
+        {
+            if (zx->draw_list) free (zx->draw_list);
+            
+            zx->draw_list = (t_atom*)malloc(sizeof(t_atom)*zx->count);
+            zx->draw_list_size = zx->count;
+            
+            for (int i=0;i<zx->count;i++)
+            {
+                zx->draw_list[i].a_type = A_FLOAT;
+                zx->draw_list[i].a_w.w_float = 0.;
+                
+            }
+            
+        }
+        
+        
         if (zx->_is_vertical)
         {
-            numslider = floor(pt.y/rect.height * ((ui_sliders*)z)->val_list_size);
+            numslider = floor(pt.y/rect.height * zx->val_list_size);
             val = pt.x/rect.width;
         }
         else
         {
             
-            numslider = floor(pt.x/rect.width * ((ui_sliders*)z)->val_list_size);
+            numslider = floor(pt.x/rect.width * zx->val_list_size);
             
             val = 1. - pt.y/rect.height;
         }
+        
+        if (numslider>(zx->count-1)) numslider = zx->count-1;
+        if (numslider<0) numslider = 0;
         
         zx->val_list[numslider].a_w.w_float = val * zx->range + zx->shift;
         zx->draw_list[numslider].a_w.w_float = val;
@@ -297,15 +319,6 @@ namespace ceammc_gui {
         ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
     }
     
-//    UI_fun(ui_sliders)::ui_properties_init_ext(ceammc_gui::properties *def_p)
-//    {
-//        
-//        def_p->ui_property_set("count", 8);
-//        def_p->ui_property_set("_is_vertical", 0);
-//        
-//        
-//    }
-    
     UI_fun(ui_sliders)::init_ext(t_eclass *z)
     {
         CLASS_ATTR_DEFAULT (z, "size", 0, "150. 100.");
@@ -313,10 +326,10 @@ namespace ceammc_gui {
         CLASS_ATTR_INT(z, "count", 0, ui_sliders, count);
         CLASS_ATTR_DEFAULT(z, "count", 0, "8");
         CLASS_ATTR_LABEL(z, "count", 0, "count");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT(z, "count", 0, "0");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT(z, "count", 0, "8");
         
         CLASS_ATTR_FLOAT(z, "shift", 0, ui_sliders, shift);
-        CLASS_ATTR_DEFAULT(z, "shift", 0, "36");
+        CLASS_ATTR_DEFAULT(z, "shift", 0, "0");
         CLASS_ATTR_LABEL(z, "shift", 0, "shift");
         CLASS_ATTR_DEFAULT_SAVE_PAINT(z, "shift", 0, "0");
         

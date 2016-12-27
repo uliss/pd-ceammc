@@ -69,10 +69,8 @@ namespace ceammc_gui {
     
     UI_fun(ui_display)::wx_paint(t_object* z, t_object* view)
     {
-        //UI_Prop
-        
         t_symbol* bgl = gensym("background_layer");
-        //float size;
+        
         t_rect rect;
         ebox_get_rect_for_view((t_ebox*)z, &rect);
         

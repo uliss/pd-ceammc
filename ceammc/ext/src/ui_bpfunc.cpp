@@ -66,6 +66,11 @@ struct ui_bpfunc : public ceammc_gui::base_pd_object
     float shift_y;
     
     
+    t_etext *txt_min;
+    t_etext *txt_max;
+    t_efont *txt_font;
+    
+    
     
 };
 
@@ -173,9 +178,6 @@ namespace ceammc_gui {
             
             bpf_points::iterator it = zx->points->begin();
             
-            //        egraphics_stroke(g);
-            
-            //
             if (zx->addpos>0)
             {
                 egraphics_set_color_hex(g, gensym("#00C0FF"));
@@ -251,6 +253,18 @@ namespace ceammc_gui {
                     
                 }
             }
+            
+            char c_min[10];
+            sprintf(c_min, "%.2f", zx->shift_y);
+            
+            char c_max[10];
+            sprintf(c_max, "%.2f", zx->range_y+zx->shift_y);
+            
+            etext_layout_set(zx->txt_min, c_min, zx->txt_font, 3, rect.height-12, rect.width*2, rect.height/2, ETEXT_UP_LEFT, ETEXT_JLEFT, ETEXT_WRAP);
+            etext_layout_draw(zx->txt_min, g);
+            
+            etext_layout_set(zx->txt_max, c_max, zx->txt_font, 3, 12, rect.width*2, rect.height/2, ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_WRAP);
+            etext_layout_draw(zx->txt_max, g);
             
         }
         
@@ -543,7 +557,6 @@ namespace ceammc_gui {
         float last_time = 0;
         
         //memory dealloc???
-        
         for (int j=0;j<zx->points->size();j++)      //i is on vacation
         {
             t_atom *out_list = (t_atom*)malloc(sizeof(t_atom)*3);
@@ -596,6 +609,10 @@ namespace ceammc_gui {
         zx->shift_y = 0;
         
         zx->output = new AtomList;
+        
+        zx->txt_max = etext_layout_create();
+        zx->txt_min = etext_layout_create();
+        zx->txt_font = efont_create(gensym("Helvetica"), gensym("light"), gensym("normal"), 8);
         
     }
     

@@ -33,7 +33,6 @@ struct ui_link : public ceammc_gui::base_pd_object
     t_canvas *x_canvas;
     t_symbol *x_dirsym;
     
-    // std::string display;
     
 };
 
@@ -52,8 +51,6 @@ namespace ceammc_gui {
     
     UI_fun(ui_link)::wx_paint(t_object *z, t_object *view)
     {
-        //UI_Prop
-        
         t_symbol *bgl = gensym("background_layer");
         t_rect rect;
         ebox_get_rect_for_view((t_ebox *)z, &rect);
@@ -85,20 +82,6 @@ namespace ceammc_gui {
     UI_fun(ui_link)::wx_mousedown_ext(t_object *z, t_object *view, t_pt pt, long modifiers)
     {
         ui_link *zx = (ui_link*)z;
-        
-        //
-        //
-        //    t_symbol *dir = canvas_getdir((t_glist*)view);
-        //
-        //    char final_name[FILENAME_MAX];
-        //    sys_expandpathelems(zx->display.c_str(), final_name);
-        
-        //printf("file %s\n", zx->display.c_str() );
-        
-//        char final_name[FILENAME_MAX];
-//        sys_expandpathelems(x->x_ulink->s_name, final_name);
-        
-        
         
         sys_vgui("pddplink_open {%s} {%s}\n",
                  zx->link->s_name, zx->x_dirsym );
