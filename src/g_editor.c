@@ -377,7 +377,7 @@ typedef struct cm_undo_entry
     
 } t_cm_undo_entry;
 
-#define cm_undo_count 30;
+#define cm_undo_count 30
 typedef struct _cm_undo
 {
     t_cm_undo_entry undo[cm_undo_count];
