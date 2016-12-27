@@ -12,13 +12,17 @@
 
 #include "m_imp.h"  /* FIXME need access to c_externdir... */
 
-
 #include <string>
 #include <iostream>
 
-struct ui_link : ceammc_gui::base_pd_object
+struct ui_link : public ceammc_gui::base_pd_object
 {
     t_ebox x_gui;
+    
+    float mouse_x;
+    float mouse_y;
+    int mouse_dn;
+    bool _selected;
     
     t_etext *t_e;
     t_efont *t_ef;

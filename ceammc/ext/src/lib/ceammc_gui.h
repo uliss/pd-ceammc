@@ -62,121 +62,121 @@ namespace ceammc_gui {
     /**
      * \deprecated Properties handling;
      */
-typedef std::map<std::string,t_atom> properties_;
-
-class  properties: public properties_
-{
-public:
-    
-    /**
-     * \deprecated get property as atom;
-     */
-    t_atom ui_property_get(std::string name)
-    {
-        t_atom ret = (*this)[name];
-        
-        return ret;
-    }
-    
-    /**
-     * \deprecated get property as float;
-     */
-    
-    t_float ui_property_get_float(std::string name)
-    {
-        //printf("property get float\n");
-        
-        if ((*this)[name].a_type == A_FLOAT)
-        {
-            t_float ret = (*this)[name].a_w.w_float;
-            
-            return ret;
-        }
-        else
-        {
-            post("ERR: bad float value");
-            return 0;
-        }
-    }
-    
-    /**
-     * \deprecated get property as char*;
-     */
-    
-    char* ui_property_get_c_str(std::string name)
-    {
-        //printf("property get cstr %s\n", name.c_str());
-        
-        if ((*this)[name].a_type == A_SYMBOL)
-        {
-            char* ret = (*this)[name].a_w.w_symbol->s_name;
-            
-            return ret;
-        }
-        else
-        {
-            post("ERR: bad symbol value");
-            printf ("property get cstr err\n");
-            std::string no = "<error>";
-            return (char*)no.c_str();   //?
-        }
-    }
-    
-    /**
-     * \deprecated set property - name, atom;
-     */
-    
-    void ui_property_set(std::string name, t_atom value)
-    {
-        (*this)[name] = value;
-    }
-    
-    /**
-     * \deprecated set property - name, std:string;
-     */
-    
-    void ui_property_set(std::string name, std::string value)
-    {
-        t_atom a;
-        a.a_w.w_symbol = gensym(value.c_str());
-        a.a_type = A_SYMBOL;
-        (*this)[name] = a;
-    }
-    
-    /**
-     * \deprecated set property - name, float;
-     */
-    
-    void ui_property_set(std::string name, float value)
-    {
-        t_atom a;
-        a.a_w.w_float = value;
-        a.a_type = A_FLOAT;
-        (*this)[name] = a;
-    }
-    
-#pragma mark -
-    /**
-     * \deprecated prints contents of 'properties' map
-     */
-    
-    void log()
-    {
-        
-        properties::iterator it;
-        
-        for (it = this->begin(); it != this->end(); ++it)
-        {
-            (it->second.a_type == A_SYMBOL)?
-            printf("[ %s ] : %s \n", it->first.c_str(), it->second.a_w.w_symbol->s_name )
-            :
-            printf("[ %s ] : %f \n", it->first.c_str(), it->second.a_w.w_float )
-            ;
-        }
-        
-        printf("\n");
-    }
-};
+//typedef std::map<std::string,t_atom> properties_;
+//
+//class  properties: public properties_
+//{
+//public:
+//    
+//    /**
+//     * \deprecated get property as atom;
+//     */
+//    t_atom ui_property_get(std::string name)
+//    {
+//        t_atom ret = (*this)[name];
+//        
+//        return ret;
+//    }
+//    
+//    /**
+//     * \deprecated get property as float;
+//     */
+//    
+//    t_float ui_property_get_float(std::string name)
+//    {
+//        //printf("property get float\n");
+//        
+//        if ((*this)[name].a_type == A_FLOAT)
+//        {
+//            t_float ret = (*this)[name].a_w.w_float;
+//            
+//            return ret;
+//        }
+//        else
+//        {
+//            post("ERR: bad float value");
+//            return 0;
+//        }
+//    }
+//    
+//    /**
+//     * \deprecated get property as char*;
+//     */
+//    
+//    char* ui_property_get_c_str(std::string name)
+//    {
+//        //printf("property get cstr %s\n", name.c_str());
+//        
+//        if ((*this)[name].a_type == A_SYMBOL)
+//        {
+//            char* ret = (*this)[name].a_w.w_symbol->s_name;
+//            
+//            return ret;
+//        }
+//        else
+//        {
+//            post("ERR: bad symbol value");
+//            printf ("property get cstr err\n");
+//            std::string no = "<error>";
+//            return (char*)no.c_str();   //?
+//        }
+//    }
+//    
+//    /**
+//     * \deprecated set property - name, atom;
+//     */
+//    
+//    void ui_property_set(std::string name, t_atom value)
+//    {
+//        (*this)[name] = value;
+//    }
+//    
+//    /**
+//     * \deprecated set property - name, std:string;
+//     */
+//    
+//    void ui_property_set(std::string name, std::string value)
+//    {
+//        t_atom a;
+//        a.a_w.w_symbol = gensym(value.c_str());
+//        a.a_type = A_SYMBOL;
+//        (*this)[name] = a;
+//    }
+//    
+//    /**
+//     * \deprecated set property - name, float;
+//     */
+//    
+//    void ui_property_set(std::string name, float value)
+//    {
+//        t_atom a;
+//        a.a_w.w_float = value;
+//        a.a_type = A_FLOAT;
+//        (*this)[name] = a;
+//    }
+//    
+//#pragma mark -
+//    /**
+//     * \deprecated prints contents of 'properties' map
+//     */
+//    
+//    void log()
+//    {
+//        
+//        properties::iterator it;
+//        
+//        for (it = this->begin(); it != this->end(); ++it)
+//        {
+//            (it->second.a_type == A_SYMBOL)?
+//            printf("[ %s ] : %s \n", it->first.c_str(), it->second.a_w.w_symbol->s_name )
+//            :
+//            printf("[ %s ] : %f \n", it->first.c_str(), it->second.a_w.w_float )
+//            ;
+//        }
+//        
+//        printf("\n");
+//    }
+//};
 
 #pragma mark -
 
@@ -191,6 +191,13 @@ struct base_pd_object
      * this must be included in inherited structure 
      * \detail  for DSP object override with t_edspobj in inherited class (backwards compatible) */
     t_ebox b_box;
+    
+    // basic mouse handling
+    
+    float mouse_x;
+    float mouse_y;
+    int mouse_dn;
+    bool _selected;
     
     // this was prototype for dynamic I/O
     // todo merge with CICM functionality
@@ -210,7 +217,7 @@ struct base_pd_object
  *
  */
 
-typedef std::map<t_object*, properties*> t_instances;
+//typedef std::map<t_object*, properties*> t_instances;
 
 
 /**
@@ -230,10 +237,10 @@ public:
     
     static t_eclass* pd_class;
     /** \deprecated storage for support class - this was made for properties handling */
-    static t_instances instances;
+//    static t_instances instances;
     
     /** \deprecated storage for properties */
-    static properties *ui_default_properties;
+//    static properties *ui_default_properties;
     
     static std::string class_name;
     
@@ -241,45 +248,45 @@ public:
      * \deprecated Initialize default property values.
      *
      */
-    static void ui_properties_init()
-    {
-        if (ui_default_properties)
-        {
-            printf("p del\n");
-            
-            delete ui_default_properties;
-        }
-        
-        ui_default_properties = new properties;
-        
-        ui_default_properties->ui_property_set("width", 45);
-        ui_default_properties->ui_property_set("height", 15);
-        
-        ui_default_properties->ui_property_set("font", "Helvetica");
-        ui_default_properties->ui_property_set("font_size", 14.);
-        
-        ui_default_properties->ui_property_set("color_bg", "#FFFFFF");
-        ui_default_properties->ui_property_set("color_text", "#000000");
-        ui_default_properties->ui_property_set("color_line", "#00C0FF");
-        
-        ui_default_properties->ui_property_set("send_id", "no_send");
-        ui_default_properties->ui_property_set("receive_id", "no_receive");
-        
-        ui_default_properties->ui_property_set("label", "CEAMMC_gui_template");
-        
-        ui_default_properties->ui_property_set("label_x", 7);
-        ui_default_properties->ui_property_set("label_y", 7);
-        
-        ui_default_properties->ui_property_set("_selected", 0);
-        
-        ui_properties_init_ext(ui_default_properties);
-        
-        printf( "** done\n");
-        
-        printf("********** init\n");
-        ui_default_properties->log();
-        
-    }
+//    static void ui_properties_init()
+//    {
+//        if (ui_default_properties)
+//        {
+//            printf("p del\n");
+//            
+//            delete ui_default_properties;
+//        }
+//        
+//        ui_default_properties = new properties;
+//        
+//        ui_default_properties->ui_property_set("width", 45);
+//        ui_default_properties->ui_property_set("height", 15);
+//        
+//        ui_default_properties->ui_property_set("font", "Helvetica");
+//        ui_default_properties->ui_property_set("font_size", 14.);
+//        
+//        ui_default_properties->ui_property_set("color_bg", "#FFFFFF");
+//        ui_default_properties->ui_property_set("color_text", "#000000");
+//        ui_default_properties->ui_property_set("color_line", "#00C0FF");
+//        
+//        ui_default_properties->ui_property_set("send_id", "no_send");
+//        ui_default_properties->ui_property_set("receive_id", "no_receive");
+//        
+//        ui_default_properties->ui_property_set("label", "CEAMMC_gui_template");
+//        
+//        ui_default_properties->ui_property_set("label_x", 7);
+//        ui_default_properties->ui_property_set("label_y", 7);
+//        
+//        ui_default_properties->ui_property_set("_selected", 0);
+//        
+//        ui_properties_init_ext(ui_default_properties);
+//        
+//        printf( "** done\n");
+//        
+//        printf("********** init\n");
+//        ui_default_properties->log();
+//        
+//    }
     
     
     
@@ -366,8 +373,8 @@ public:
      * @brief DEPRECATED "extension": properties init routine (within class init)
      * @param z: pd object
      */
-    static void ui_properties_init_ext(properties *def_p)
-    {}
+//    static void ui_properties_init_ext(properties *def_p)
+//    {}
     
     
 #pragma mark ui interaction 'extension' stubs
@@ -438,9 +445,9 @@ public:
         t_object* z = (t_object*)eobj_new(object<U>::pd_class);
         
         //deprecated: properties handling
-        properties *inst_prop = new properties;
-        *inst_prop = *(object<U>::ui_default_properties);
-        instances[z] = (inst_prop);
+//        properties *inst_prop = new properties;
+//        *inst_prop = *(object<U>::ui_default_properties);
+//        instances[z] = (inst_prop);
         
         t_binbuf* d = binbuf_via_atoms(argc,argv);
         ebox_new((t_ebox *)z, 0 | EBOX_GROWINDI);
@@ -467,7 +474,7 @@ public:
     static void free_method(t_object *z)
     {
         object<U>::free_ext(z);
-        instances.erase(z);
+//        instances.erase(z);
         ebox_free((t_ebox *)z);
         
         //printf("free");
@@ -480,7 +487,7 @@ public:
     static void free_dsp_method(t_object *x)
     {
         object<U>::free_ext(x);
-        instances.erase(x);
+//        instances.erase(x);
         eobj_dspfree((t_ebox *)x);
         
         //printf("free");
@@ -493,39 +500,39 @@ public:
      */
     static bool load_method (t_object *z,t_atom *values)
     {
-        printf("** property load [%lu]\n", (long)z);
-        int count = (int)(instances[z]->size());
-        int i=0;
-        
-        printf("count: %i\n", count);
-        //ceammc_gui::e_atoms(values, count);
-        
-        std::map<std::string, t_atom>::iterator it;
-        
-        for (it = (*instances[z]).begin(); it != (*instances[z]).end(); ++it)
-        {
-            if (i==count) break;
-            
-            t_atom a = values[i];
-            if (a.a_type != it->second.a_type)
-            {
-                printf("ERR broken object data\n");
-                
-                return false;
-            }
-            else
-            {
-                it->second = a;
-            }
-            
-            i++;
-            
-        }
-        
-        printf( "** loaded %i\n",i);
-        printf("********** load\n");
-        //ceammc_gui::e_properties((t_object*)this);
-        instances[z]->log();
+//        printf("** property load [%lu]\n", (long)z);
+//        int count = (int)(instances[z]->size());
+//        int i=0;
+//        
+//        printf("count: %i\n", count);
+//        //ceammc_gui::e_atoms(values, count);
+//        
+//        std::map<std::string, t_atom>::iterator it;
+//        
+//        for (it = (*instances[z]).begin(); it != (*instances[z]).end(); ++it)
+//        {
+//            if (i==count) break;
+//            
+//            t_atom a = values[i];
+//            if (a.a_type != it->second.a_type)
+//            {
+//                printf("ERR broken object data\n");
+//                
+//                return false;
+//            }
+//            else
+//            {
+//                it->second = a;
+//            }
+//            
+//            i++;
+//            
+//        }
+//        
+//        printf( "** loaded %i\n",i);
+//        printf("********** load\n");
+//        //ceammc_gui::e_properties((t_object*)this);
+//        instances[z]->log();
         
         return true;
     }
@@ -538,7 +545,7 @@ public:
     {
         //U *x = (U*)((base_pd_object*)z)->x_gui;
         
-        properties *x  = instances[(t_object *)z];
+//        properties *x  = instances[(t_object *)z];
         
         char c_sym[] = "s";
         //char c_int[] = "i";
@@ -554,16 +561,16 @@ public:
         //TODO wrap in quotes
         binbuf_addv(b, c_sym, gensym(object<U>::class_name.c_str()));
         
-        std::map<std::string,t_atom>::iterator it;
-        for (it = (*x).begin(); it!= (*x).end(); ++it)
-        {
-            binbuf_add(b, 1, &it->second);
-        }
-        
-        binbuf_addv(b, c_sc);
-        
-        printf("********** save\n");
-        x->log();
+//        std::map<std::string,t_atom>::iterator it;
+//        for (it = (*x).begin(); it!= (*x).end(); ++it)
+//        {
+//            binbuf_add(b, 1, &it->second);
+//        }
+//        
+//        binbuf_addv(b, c_sc);
+//        
+//        printf("********** save\n");
+//        x->log();
         
         char *bchar; int l;
         binbuf_gettext(b, &bchar, &l);
@@ -582,9 +589,13 @@ public:
      */
     static void w_select(t_gobj *z, t_glist *glist, int selected)
     {
+        U* zx = (U*)z;
+        
+        zx->_selected = selected;
+        
         //UI_Setup
-        UI_Prop
-        UI_Pset("_selected", selected);
+//        UI_Prop
+//        UI_Pset("_selected", selected);
         
         //printf("sel %f\n", UI_Pf("_selected"));
     }
@@ -649,11 +660,17 @@ public:
      */
     static void wx_mousemove(t_object* z, t_object *view, t_pt pt, long modifiers)
     {
+        
+        U* zx = (U*)z;
+        
+        zx->mouse_x = pt.x;
+        zx->mouse_y = pt.y;
+        
         // TODO use values in object struct
-        UI_Prop
-
-        UI_Pset("_mouse_x",pt.x);
-        UI_Pset("_mouse_y",pt.y);
+//        UI_Prop
+//        
+//        UI_Pset("_mouse_x",pt.x);
+//        UI_Pset("_mouse_y",pt.y);
         
         object<U>::wx_mousemove_ext(z,view,pt,modifiers);
         
@@ -665,13 +682,20 @@ public:
      */
     static void wx_mousedown(t_object* z, t_object *view, t_pt pt, long modifiers)
     {
+        U* zx = (U*)z;
+        
+        zx->mouse_x = pt.x;
+        zx->mouse_y = pt.y;
+        
+        zx->mouse_dn = 1;
+        
         // TODO use values in object struct
-        UI_Prop
-        
-        UI_Pset("_mouse_x",pt.x);
-        UI_Pset("_mouse_y",pt.y);
-        
-        UI_Pset("_mouse_dn",1);
+//        UI_Prop
+//        
+//        UI_Pset("_mouse_x",pt.x);
+//        UI_Pset("_mouse_y",pt.y);
+//        
+//        UI_Pset("_mouse_dn",1);
         
         object<U>::wx_mousedown_ext(z,view,pt,modifiers);
             
@@ -684,13 +708,20 @@ public:
      */
     static void wx_mouseup(t_object* z, t_object *view, t_pt pt, long modifiers)
     {
+        U* zx = (U*)z;
+        
+        zx->mouse_x = pt.x;
+        zx->mouse_y = pt.y;
+        
+        zx->mouse_dn = 0;
+        
         // TODO use values in object struct
-        UI_Prop
-        
-        UI_Pset("_mouse_x",pt.x);
-        UI_Pset("_mouse_y",pt.y);
-        
-        UI_Pset("_mouse_dn",0);
+//        UI_Prop
+//        
+//        UI_Pset("_mouse_x",pt.x);
+//        UI_Pset("_mouse_y",pt.y);
+//        
+//        UI_Pset("_mouse_dn",0);
         
         object<U>::wx_mouseup_ext(z,view,pt,modifiers);
     }
@@ -701,11 +732,16 @@ public:
      */
     static void wx_mousedrag(t_object* z, t_object *view, t_pt pt, long modifiers)
     {
-        // TODO use values in object struct
-        UI_Prop
+        U* zx = (U*)z;
         
-        UI_Pset("_mouse_x",pt.x);
-        UI_Pset("_mouse_y",pt.y);
+        zx->mouse_x = pt.x;
+        zx->mouse_y = pt.y;
+        
+        // TODO use values in object struct
+//        UI_Prop
+//        
+//        UI_Pset("_mouse_x",pt.x);
+//        UI_Pset("_mouse_y",pt.y);
         
         object<U>::wx_mousedrag_ext(z,view,pt,modifiers);
         
@@ -758,7 +794,7 @@ public:
             eclass_guiinit(cl, 0);
             
             object<U>::class_name = _class_name;
-            object<U>::ui_properties_init();
+//            object<U>::ui_properties_init();
             
             //hide standard CICM attributes
             CLASS_ATTR_INVISIBLE            (cl, "fontname", 1);
@@ -837,7 +873,7 @@ public:
             eclass_dspinit(cl);
             
             object<U>::class_name = _class_name;
-            object<U>::ui_properties_init();
+//            object<U>::ui_properties_init();
             
             //hide standard CICM attributes
             CLASS_ATTR_INVISIBLE            (cl, "fontname", 1);
@@ -906,7 +942,7 @@ public:
             eclass_guiinit(cl, 0);
             
             object<U>::class_name = _class_name;
-            object<U>::ui_properties_init();
+//            object<U>::ui_properties_init();
             
             //hide standard CICM attributes
             CLASS_ATTR_INVISIBLE            (cl, "fontname", 1);
@@ -979,11 +1015,11 @@ public:
 template <typename U>
 t_eclass* object<U>::pd_class;
 
-template <typename U>
-properties *object<U>::ui_default_properties;
-
-template <typename U>
-t_instances object<U>::instances;
+//template <typename U>
+//properties *object<U>::ui_default_properties;
+//
+//template <typename U>
+//t_instances object<U>::instances;
 
 //template <typename U>
 //t_ewidget object<U>::widget;

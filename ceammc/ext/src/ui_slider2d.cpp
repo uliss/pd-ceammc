@@ -13,9 +13,15 @@
 
 #include "lib/ceammc_gui.h"
 
-struct ui_slider2d : ceammc_gui::base_pd_object
+struct ui_slider2d : public ceammc_gui::base_pd_object
 {
     t_ebox x_gui;
+    
+    float mouse_x;
+    float mouse_y;
+    int mouse_dn;
+    bool _selected;
+    
     t_outlet *out1;
     
     t_atom out_list[2];
@@ -35,7 +41,7 @@ namespace ceammc_gui {
     
     UI_fun(ui_slider2d)::wx_paint(t_object *z, t_object *view)
     {
-        UI_Prop
+//        UI_Prop
         
         t_symbol *bgl = gensym("background_layer");
         t_rect rect;
@@ -65,11 +71,11 @@ namespace ceammc_gui {
             egraphics_stroke(g);
             
             egraphics_set_line_width(g, 1.);
-            egraphics_set_color_hex(g, gensym ((UI_Pf("_mouse_dn")==1) ? "#00C0FF" : "#707070"));
+            egraphics_set_color_hex(g, gensym (zx->mouse_dn ? "#00C0FF" : "#707070"));      //(UI_Pf("_mouse_dn")==1)
             egraphics_rectangle(g, xx-0.5*knobsize, yy-0.5*knobsize, knobsize, knobsize);
             egraphics_stroke(g);
             
-            egraphics_set_color_hex(g, gensym ((UI_Pf("_mouse_dn")==1) ? "#003070" : "#C0C0C0"));
+            egraphics_set_color_hex(g, gensym (zx->mouse_dn ? "#003070" : "#C0C0C0"));
             egraphics_rectangle(g, xx-0.5*knobsize+1, yy-0.5*knobsize+1, knobsize-1, knobsize-1);
             egraphics_fill(g);
             
@@ -81,14 +87,14 @@ namespace ceammc_gui {
     }
     
     
-    UI_fun(ui_slider2d)::wx_mousemove_ext(t_object* z, t_object *view, t_pt pt, long modifiers)
-    {
-        UI_Prop
-        
-        UI_Pset("_mouse_x",pt.x);
-        UI_Pset("_mouse_y",pt.y);
-        
-    }
+//    UI_fun(ui_slider2d)::wx_mousemove_ext(t_object* z, t_object *view, t_pt pt, long modifiers)
+//    {
+//        UI_Prop
+//        
+//        UI_Pset("_mouse_x",pt.x);
+//        UI_Pset("_mouse_y",pt.y);
+//        
+//    }
     
     UI_fun(ui_slider2d)::wx_mousedrag_ext(t_object* z, t_object *view, t_pt pt, long modifiers)
     {
@@ -147,12 +153,13 @@ namespace ceammc_gui {
     }
     
     
-    UI_fun(ui_slider2d)::ui_properties_init_ext(ceammc_gui::properties *def_p)
-    {
-        
-        def_p->ui_property_set("_mouse_down", 0);
-        
-    }
+//    UI_fun(ui_slider2d)::ui_properties_init_ext(ceammc_gui::properties *def_p)
+//    {
+//        
+//        //def_p->ui_property_set("_mouse_down", 0);
+//        
+//        
+//    }
     
     UI_fun(ui_slider2d)::init_ext(t_eclass *z)
     {

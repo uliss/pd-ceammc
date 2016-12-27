@@ -33,9 +33,14 @@ typedef std::vector<t_bpt> bpf_points;
 
 using namespace ceammc;
 
-struct ui_bpfunc : ceammc_gui::base_pd_object
+struct ui_bpfunc : public ceammc_gui::base_pd_object
 {
     t_ebox x_gui;
+    
+    float mouse_x;
+    float mouse_y;
+    int mouse_dn;
+    bool _selected;
     
     t_outlet *out1;
     t_atom *out_list;

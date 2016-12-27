@@ -14,6 +14,12 @@
 struct ui_keyboard : public ceammc_gui::base_pd_object
 {
     t_ebox x_gui;
+    
+    float mouse_x;
+    float mouse_y;
+    int mouse_dn;
+    bool _selected;
+    
     t_outlet *out1;
     t_atom out_list[2];
     
@@ -91,7 +97,7 @@ namespace ceammc_gui {
     
     UI_fun(ui_keyboard)::wx_paint(t_object *z, t_object *view)
     {
-        UI_Prop
+        //UI_Prop
         
         t_symbol *bgl = gensym("background_layer");
         //float size;
@@ -130,7 +136,7 @@ namespace ceammc_gui {
                     
                     //bool hover = ( i == int(UI_Pf("_pitch")) );
                     bool hover = ( i == int(zx->_pitch));
-                    bool click = ( UI_Pf("_mouse_dn")==1 );
+                    bool click = zx->mouse_dn; //( UI_Pf("_mouse_dn")==1 );
                     
                     egraphics_rectangle(g, k.x, k.y, k.w, k.h);
                     egraphics_set_color_hex(g, (hover) ? (click ? color_md_f : color_wh_f) : color_wh_f);
@@ -153,7 +159,7 @@ namespace ceammc_gui {
                     sprintf(keyname, "KEY%d", i);
                     
                     bool hover = ( i == int(zx->_pitch));
-                    bool click = ( UI_Pf("_mouse_dn")==1 );
+                    bool click = zx->mouse_dn; //( UI_Pf("_mouse_dn")==1 );
                     
                     egraphics_rectangle(g, k.x, k.y, k.w, k.h);
                     egraphics_set_color_hex(g, (hover) ? (click ? color_md_f : color_bl_f) : color_bl_f);
@@ -178,14 +184,14 @@ namespace ceammc_gui {
     
     UI_fun(ui_keyboard)::wx_mousemove_ext(t_object* z, t_object *view, t_pt pt, long modifiers)
     {
-        UI_Prop
+        //UI_Prop
         
         ui_keyboard *zx = (ui_keyboard*)z;
         
         t_rect rect;
         ebox_get_rect_for_view((t_ebox *)z, &rect);
         
-        zx->keys = UI_Pf("keys");
+        //zx->keys = UI_Pf("keys");
         float kWidth = ceil(rect.width/zx->keys);
         
         
@@ -197,7 +203,8 @@ namespace ceammc_gui {
             {
                 
                 //TEMP
-                if (mouse_in_rect(UI_Pf("_mouse_x"), UI_Pf("_mouse_y"), k))
+                //if (mouse_in_rect(UI_Pf("_mouse_x"), UI_Pf("_mouse_y"), k))
+                if (mouse_in_rect(zx->mouse_x,zx->mouse_y, k))
                 {
                     zx->_pitch = i;
                 }
@@ -211,7 +218,8 @@ namespace ceammc_gui {
             
             if (k.is_black)
             {
-                if (mouse_in_rect(UI_Pf("_mouse_x"), UI_Pf("_mouse_y"), k))
+                //if (mouse_in_rect(UI_Pf("_mouse_x"), UI_Pf("_mouse_y"), k))
+                if (mouse_in_rect(zx->mouse_x,zx->mouse_y, k))
                 {
                     zx->_pitch = i;
                 }
@@ -313,16 +321,16 @@ namespace ceammc_gui {
     }
     
     
-    UI_fun(ui_keyboard)::ui_properties_init_ext(ceammc_gui::properties *def_p)
-    {
-        
-        def_p->ui_property_set("keys", 61.);
-        
-        def_p->ui_property_set("_pitch", 0);
-        
-        
-        
-    }
+//    UI_fun(ui_keyboard)::ui_properties_init_ext(ceammc_gui::properties *def_p)
+//    {
+//        
+//        def_p->ui_property_set("keys", 61.);
+//        
+//        def_p->ui_property_set("_pitch", 0);
+//        
+//        
+//        
+//    }
     
 }
 

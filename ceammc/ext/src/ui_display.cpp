@@ -18,8 +18,13 @@
 
 using namespace ceammc;
 
-struct ui_display : ceammc_gui::base_pd_object {
+struct ui_display : public ceammc_gui::base_pd_object {
     t_ebox x_gui;
+    
+    float mouse_x;
+    float mouse_y;
+    int mouse_dn;
+    bool _selected;
     
     int argc;
     t_atom* argv;

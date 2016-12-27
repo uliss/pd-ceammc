@@ -11,7 +11,7 @@
 #include "lib/ceammc_gui.h"
 
 
-struct ui_spectroscope : ceammc_gui::base_pd_object
+struct ui_spectroscope : public ceammc_gui::base_pd_object
 {
     t_edspobj d_dsp;
     
@@ -132,6 +132,28 @@ namespace ceammc_gui {
         CLASS_ATTR_DEFAULT (z, "size", 0, "150. 100.");
         
     }
+    
+    // these are added as a quick fix
+    UI_fun(ui_spectroscope)::wx_mousedown(t_object *z, t_object *view, t_pt pt, long modifiers)
+    {
+        
+    }
+    
+    UI_fun(ui_spectroscope)::wx_mouseup(t_object *z, t_object *view, t_pt pt, long modifiers)
+    {
+        
+    }
+    
+    UI_fun(ui_spectroscope)::wx_mousemove(t_object *z, t_object *view, t_pt pt, long modifiers)
+    {
+        
+    }
+    
+    UI_fun(ui_spectroscope)::wx_mousedrag(t_object *z, t_object *view, t_pt pt, long modifiers)
+    {
+        
+    }
+    
     
 }
 
