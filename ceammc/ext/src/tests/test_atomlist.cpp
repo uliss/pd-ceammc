@@ -814,5 +814,10 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         REQUIRE(l.slice(-3) == AtomList::values(3, 3.f, 4.f, 5.f));
         REQUIRE(l.slice(-4) == AtomList::values(4, 2.f, 3.f, 4.f, 5.f));
         REQUIRE(l.slice(-5) == AtomList::values(5, 1.f, 2.f, 3.f, 4.f, 5.f));
+
+        AtomList l2;
+        REQUIRE(l2.slice(0) == AtomList());
+        REQUIRE(l2.slice(1) == AtomList());
+        REQUIRE(l2.slice(-1) == AtomList());
     }
 }
