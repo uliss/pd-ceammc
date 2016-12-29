@@ -754,4 +754,16 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         REQUIRE(l.at(1).asFloat() == 2.f);
         REQUIRE(l.at(2).asFloat() == 3.f);
     }
+
+    SECTION("test ones")
+    {
+        AtomList l = AtomList::ones(4);
+        REQUIRE(l.size() == 4);
+        REQUIRE(l == AtomList::values(4, 1.f, 1.f, 1.f, 1.f));
+
+        REQUIRE(l.at(0).asFloat() == 1.f);
+        REQUIRE(l.at(1).asFloat() == 1.f);
+        REQUIRE(l.at(2).asFloat() == 1.f);
+        REQUIRE(l.at(3).asFloat() == 1.f);
+    }
 }
