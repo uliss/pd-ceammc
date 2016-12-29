@@ -268,4 +268,15 @@ void BaseObject::dump() const
             to_string(it->second->get()).c_str());
 }
 
+void BaseObject::anyDispatch(t_symbol* s, const AtomList& lst)
+{
+    if (processAnyInlets(s, lst))
+        return;
+
+    if (processAnyProps(s, lst))
+        return;
+
+    onAny(s, lst);
+}
+
 }

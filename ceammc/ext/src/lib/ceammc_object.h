@@ -59,7 +59,15 @@ public:
 
     inline AtomList& args() { return pd_.args; }
     inline const AtomList& args() const { return pd_.args; }
+
+    /**
+     * Returns object class name as string.
+     */
     inline std::string className() const { return pd_.className->s_name; }
+
+    /**
+     * Returns pointer to pd object struct, if you need manually call pd fuctions.
+     */
     inline t_object* owner() { return pd_.owner; }
 
     /**
@@ -67,33 +75,59 @@ public:
      */
     virtual void dump() const;
 
+    /**
+     * You should override this functions to react upon arrived messages.
+     */
     virtual void onBang() {}
     virtual void onFloat(float) {}
     virtual void onSymbol(t_symbol*) {}
     virtual void onList(const AtomList&) {}
     virtual void onAny(t_symbol*, const AtomList&) {}
+
+    /**
+     * This function called when value come in inlet, except the first one
+     * @param - inlet number, starting form 0
+     * @param - incoming message
+     */
     void onInlet(size_t, const AtomList&) {}
 
-    void anyDispatch(t_symbol* s, const AtomList& lst)
-    {
-        if (processAnyInlets(s, lst))
-            return;
-
-        if (processAnyProps(s, lst))
-            return;
-
-        onAny(s, lst);
-    }
-
     t_inlet* createInlet();
+
+    /**
+     * Creates float inlet - all incoming messages will change binded float value
+     * @param v - pointer to binded float value
+     * @return pointer to new inlet
+     */
     t_inlet* createInlet(float* v);
+
+    /**
+     * Creates symbol inlet - all incoming messages will change binded symbol value
+     * @param s - pointer to binded symbol value
+     * @return pointer to new inlet
+     */
     t_inlet* createInlet(t_symbol** s);
-    void freeInlets();
+
+    /**
+     * Returns number of inlets
+     */
     size_t numInlets() const;
 
+    /**
+     * Creates outlet
+     * @param signal - if true create signal outlet
+     */
     t_outlet* createOutlet(bool signal = false);
-    void freeOutlets();
+
+    /**
+     * Returns pointer to outlet specified by given index
+     * @param n - outlet index. Starting from 0.
+     * @return pointer to outlet or 0 if invalid index given.
+     */
     inline t_outlet* outletAt(size_t n);
+
+    /**
+     * Returns number of outlets.
+     */
     size_t numOutlets() const { return outlets_.size(); }
 
     void createProperty(Property* p);
@@ -106,19 +140,56 @@ public:
         createProperty(p);
     }
 
+    /**
+     * Outputs atom to specified outlet
+     * @param n - outlet number
+     * @param a - atom value
+     */
     void atomTo(size_t n, const Atom& a);
+
+    /**
+     * Outputs bang to specified outlet
+     * @param n - outlet number
+     */
     void bangTo(size_t n);
+
+    /**
+     * Outputs float value to specified outlet
+     * @param n - outlet number
+     * @param v - float value
+     */
     void floatTo(size_t n, float v);
+
+    /**
+     * Outputs symbol value to specified outlet
+     * @param n - outlet number
+     * @param s - symbol value
+     */
     void symbolTo(size_t n, t_symbol* s);
+
+    /**
+     * Outputs list to specified outlet
+     * @param n - outlet number
+     * @param l - list value
+     */
     void listTo(size_t n, const AtomList& l);
+
+    /**
+     * Outputs message to specified outlet
+     * @param n - outlet number
+     * @param msg - message value
+     */
     void messageTo(size_t n, const Message& msg);
     void anyTo(size_t n, t_symbol* s, const Atom& a);
     void anyTo(size_t n, t_symbol* s, const AtomList& l);
 
     bool processAnyInlets(t_symbol* sel, const AtomList& lst);
     bool processAnyProps(t_symbol* sel, const AtomList& lst);
+    void anyDispatch(t_symbol* s, const AtomList& lst);
 
 private:
+    void freeInlets();
+    void freeOutlets();
     void freeProps();
     AtomList propNumInlets();
     AtomList propNumOutlets();
