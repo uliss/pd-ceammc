@@ -229,25 +229,29 @@ AtomList AtomList::slice(int start) const
 
 AtomList AtomList::slice(int start, int end) const
 {
-    //    if (start >= static_cast<int>(size()))
-    //        return AtomList();
+    if (empty())
+        return AtomList();
 
-    //    // lower bound
-    //    start = std::max(start, -static_cast<int>(size()));
-    //    end = std::max(end, -static_cast<int>(size()));
-    //    end = std::min(end, static_cast<int>(size()));
+    if (start >= static_cast<int>(size()))
+        return AtomList();
 
-    //    size_t start_pos = 0;
-    //    getRelativeIdx(start, &start_pos);
+    // lower bound
+    start = std::max(start, -static_cast<int>(size()));
+    end = std::max(end, -static_cast<int>(size()));
+    end = std::min(end, static_cast<int>(size()));
 
-    //    size_t end_pos = 0;
-    //    getRelativeIdx(end, &end_pos);
+    size_t start_pos = 0;
+    getRelativeIdx(start, &start_pos);
 
-    //    AtomList res;
-    //    res.atoms_.reserve(atoms_.size() - pos);
-    //    std::copy(atoms_.begin() + pos, atoms_.end(), std::back_inserter(res.atoms_));
-    //    return res;
-    return AtomList();
+    if (end < 0)
+        end += size();
+
+    if (start_pos >= end)
+        return AtomList();
+
+    AtomList res;
+    std::copy(atoms_.begin() + start_pos, atoms_.begin() + end, std::back_inserter(res.atoms_));
+    return res;
 }
 
 AtomList AtomList::slice(int start, int end, int step) const
