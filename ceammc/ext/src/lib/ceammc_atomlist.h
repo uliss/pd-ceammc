@@ -117,8 +117,7 @@ public:
     bool hasProperty(const std::string& name) const;
 
     AtomList slice(int start) const;
-    AtomList slice(int start, int end) const;
-    AtomList slice(int start, int end, int step) const;
+    AtomList slice(int start, int end, size_t step = 1) const;
 
     void fromPdData(size_t n, t_atom* lst);
     void fromPdData(int n, t_atom* lst);

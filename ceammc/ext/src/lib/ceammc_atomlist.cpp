@@ -227,8 +227,11 @@ AtomList AtomList::slice(int start) const
     return res;
 }
 
-AtomList AtomList::slice(int start, int end) const
+AtomList AtomList::slice(int start, int end, size_t step) const
 {
+    if (step < 1)
+        return AtomList();
+
     if (empty())
         return AtomList();
 
@@ -250,13 +253,10 @@ AtomList AtomList::slice(int start, int end) const
         return AtomList();
 
     AtomList res;
-    std::copy(atoms_.begin() + start_pos, atoms_.begin() + end, std::back_inserter(res.atoms_));
-    return res;
-}
+    for (size_t i = start_pos; i < end; i += step)
+        res.atoms_.push_back(atoms_[i]);
 
-AtomList AtomList::slice(int start, int end, int step) const
-{
-    return AtomList();
+    return res;
 }
 
 void AtomList::fromPdData(size_t n, t_atom* lst)
