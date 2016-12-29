@@ -14,6 +14,8 @@
 
 #include "ceammc_property.h"
 #include "ceammc_format.h"
+#include <algorithm>
+#include <cctype>
 #include <m_pd.h>
 
 namespace ceammc {
@@ -116,5 +118,45 @@ bool FloatProperty::set(const AtomList& lst)
 AtomList FloatProperty::get() const
 {
     return AtomList::values(1, v_);
+}
+
+BoolProperty::BoolProperty(const std::string& name, bool init, bool readonly)
+    : Property(name, readonly)
+    , v_(init)
+{
+}
+
+bool BoolProperty::set(const AtomList& lst)
+{
+    if (!readonlyCheck())
+        return false;
+
+    if (!emptyValueCheck(lst))
+        return false;
+
+    Atom a = lst[0];
+
+    if (a.isFloat()) {
+        v_ = (a.asInt(0) == 0) ? false : true;
+        return true;
+    }
+
+    if (a.isSymbol()) {
+        std::string str(a.asSymbol()->s_name);
+        std::transform(str.begin(), str.end(), str.begin(), ::tolower);
+        if (str == "true")
+            v_ = true;
+        else if (str == "false")
+            v_ = false;
+        else
+            return false;
+    }
+
+    return false;
+}
+
+AtomList BoolProperty::get() const
+{
+    return AtomList::values(1, v_ ? 1.f : 0.f);
 }
 }

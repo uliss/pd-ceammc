@@ -48,6 +48,9 @@ public:
     AtomProperty(const std::string& name, const Atom& a, bool readonly = false);
     bool set(const AtomList& lst);
     AtomList get() const;
+
+    Atom value() const { return v_; }
+    void setValue(const Atom& v) { v_ = v; }
 };
 
 class ListProperty : public Property {
@@ -66,6 +69,21 @@ public:
     FloatProperty(const std::string& name, float init = 0, bool readonly = false);
     bool set(const AtomList& lst);
     AtomList get() const;
+
+    float value() const { return v_; }
+    void setValue(float v) { v_ = v; }
+};
+
+class BoolProperty : public Property {
+    bool v_;
+
+public:
+    BoolProperty(const std::string& name, bool init, bool readonly = false);
+    bool set(const AtomList& lst);
+    AtomList get() const;
+
+    bool value() const { return v_; }
+    void setValue(bool v) { v_ = v; }
 };
 
 template <typename T>
