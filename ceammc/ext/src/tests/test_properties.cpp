@@ -28,6 +28,12 @@ struct prop_rw {
     void set(const AtomList& l) { lst = l; }
 };
 
+struct prop_t_rw {
+    double sz;
+    double getSize() const { return sz; }
+    void setSize(const double& s) { sz = s; }
+};
+
 TEST_CASE("Properties", "[ceammc::properties]")
 {
     SECTION("float property")
@@ -118,5 +124,15 @@ TEST_CASE("Properties", "[ceammc::properties]")
         v1.append(-1231.f);
         REQUIRE(p1.get() == AtomList::values(1, 2.f));
 
+        prop_t_rw s1;
+        s1.sz = 3.1415;
+        TypedCbProperty<double, prop_t_rw> p2("@size1", &s1, &prop_t_rw::getSize, &prop_t_rw::setSize);
+        REQUIRE(p2.name() == "@size1");
+        REQUIRE(p2.readonly() == false);
+
+        REQUIRE(p2.get() == AtomList::values(1, 3.1415f));
+        REQUIRE_FALSE(p2.set(AtomList()));
+        REQUIRE(p2.set(AtomList::values(4, 34.f)));
+        REQUIRE(s1.sz == 34.f);
     }
 }

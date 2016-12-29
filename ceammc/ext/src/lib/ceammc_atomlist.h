@@ -228,6 +228,45 @@ static AtomList listFrom(T v)
     return res;
 }
 
+template <typename T>
+static T atomlistToValue(const AtomList&, const T& def) { return def; }
+
+template <>
+float atomlistToValue(const AtomList& l, const float& def)
+{
+    if (l.empty())
+        return def;
+
+    return l[0].asFloat(def);
+}
+
+template <>
+double atomlistToValue(const AtomList& l, const double& def)
+{
+    if (l.empty())
+        return def;
+
+    return static_cast<double>(l[0].asFloat(static_cast<float>(def)));
+}
+
+template <>
+int atomlistToValue(const AtomList& l, const int& def)
+{
+    if (l.empty())
+        return def;
+
+    return static_cast<int>(l[0].asFloat(def));
+}
+
+template <>
+size_t atomlistToValue(const AtomList& l, const size_t& def)
+{
+    if (l.empty())
+        return def;
+
+    return static_cast<size_t>(l[0].asFloat(def));
+}
+
 } // namespace ceammc
 
 #endif // CEAMMC_ATOMLIST_H
