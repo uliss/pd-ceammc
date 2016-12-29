@@ -76,7 +76,7 @@ public:
 
 public:
     CallbackProperty(const std::string& name, T* obj, GetterFn gf, SetterFn sf = 0)
-        : Property(name)
+        : Property(name, sf == 0 ? true : false)
         , obj_(obj)
         , getter_(gf)
         , setter_(sf)
@@ -85,10 +85,11 @@ public:
 
     bool set(const AtomList& lst)
     {
-        if (!setter_) {
-            pd_error(0, "[%s] is readonly!", name().c_str());
+        if (!readonlyCheck())
             return false;
-        }
+
+        if (!emptyValueCheck(lst))
+            return false;
 
         (obj_->*setter_)(lst);
         return true;

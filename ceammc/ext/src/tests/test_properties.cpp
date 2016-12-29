@@ -18,6 +18,16 @@
 
 using namespace ceammc;
 
+struct prop_ro {
+    AtomList get() { return AtomList::values(1, 100.f); }
+};
+
+struct prop_rw {
+    AtomList lst;
+    AtomList get() { return lst; }
+    void set(const AtomList& l) { lst = l; }
+};
+
 TEST_CASE("Properties", "[ceammc::properties]")
 {
     SECTION("float property")
@@ -25,6 +35,8 @@ TEST_CASE("Properties", "[ceammc::properties]")
         FloatProperty p("test", 0.1f);
         REQUIRE(!p.readonly());
         REQUIRE(p.name() == "test");
+        p.setName("a");
+        REQUIRE(p.name() == "a");
         AtomList v = p.get();
 
         REQUIRE(v.size() == 1);
@@ -73,5 +85,24 @@ TEST_CASE("Properties", "[ceammc::properties]")
         REQUIRE(p2.readonly());
         REQUIRE(p2.name() == "test2");
         REQUIRE_FALSE(p2.set(AtomList::ones(10)));
+    }
+
+    SECTION("atom cb property")
+    {
+        prop_ro r1;
+        CallbackProperty<prop_ro> p1("test", &r1, &prop_ro::get);
+        REQUIRE(p1.name() == "test");
+        REQUIRE(p1.readonly() == true);
+        REQUIRE(p1.get() == AtomList::values(1, 100.f));
+        REQUIRE_FALSE(p1.set(AtomList()));
+
+        prop_rw r2;
+        CallbackProperty<prop_rw> p2("test2", &r2, &prop_rw::get, &prop_rw::set);
+        REQUIRE(p2.name() == "test2");
+        REQUIRE(p2.readonly() == false);
+        REQUIRE(p2.get() == AtomList());
+        REQUIRE(p2.set(AtomList::ones(5)));
+        REQUIRE_FALSE(p2.set(AtomList()));
+        REQUIRE(p2.get() == AtomList::ones(5));
     }
 }
