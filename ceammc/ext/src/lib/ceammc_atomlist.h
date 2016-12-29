@@ -15,6 +15,7 @@
 #define CEAMMC_ATOMLIST_H
 
 #include "ceammc_atom.h"
+#include <deque>
 #include <string>
 #include <vector>
 
@@ -106,9 +107,18 @@ public:
     bool property(const std::string& name, Atom* dest) const;
 
     /**
+     * Returns all properties and their values from list
+     */
+    std::deque<AtomList> properties() const;
+
+    /**
      * Checks is has property in list
      */
     bool hasProperty(const std::string& name) const;
+
+    AtomList slice(int start) const;
+    AtomList slice(int start, int end) const;
+    AtomList slice(int start, int end, int step) const;
 
     void fromPdData(size_t n, t_atom* lst);
     void fromPdData(int n, t_atom* lst);

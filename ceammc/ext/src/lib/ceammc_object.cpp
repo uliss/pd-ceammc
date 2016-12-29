@@ -46,6 +46,11 @@ void BaseObject::createProperty(Property* p)
     props_[key] = p;
 }
 
+bool BaseObject::hasProperty(t_symbol* key) const
+{
+    return props_.find(key) != props_.end();
+}
+
 void BaseObject::bangTo(size_t n)
 {
     if (n >= outlets_.size()) {
@@ -255,6 +260,24 @@ BaseObject::~BaseObject()
     freeProps();
 }
 
+void BaseObject::parseArguments()
+{
+    std::deque<AtomList> p = pd_.args.properties();
+    for (size_t i = 0; i < p.size(); i++) {
+        if (p[i].size() < 2) {
+            continue;
+        }
+
+        t_symbol* pname = p[i][0].asSymbol();
+        if (!hasProperty(pname)) {
+            post("[%s] warning! unknown property in argument list: %s", className().c_str(), pname->s_name);
+            continue;
+        }
+
+        props_[pname]->set(p[i].slice(1));
+    }
+}
+
 void BaseObject::dump() const
 {
     post("[%s] inlets: %zu", className().c_str(), numInlets());
@@ -278,5 +301,4 @@ void BaseObject::anyDispatch(t_symbol* s, const AtomList& lst)
 
     onAny(s, lst);
 }
-
 }

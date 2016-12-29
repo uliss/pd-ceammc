@@ -59,6 +59,7 @@ public:
 
     inline AtomList& args() { return pd_.args; }
     inline const AtomList& args() const { return pd_.args; }
+    void parseArguments();
 
     /**
      * Returns object class name as string.
@@ -139,6 +140,7 @@ public:
         CallbackProperty<T>* p = new CallbackProperty<T>(name, static_cast<T*>(this), getter, setter);
         createProperty(p);
     }
+    bool hasProperty(t_symbol* key) const;
 
     /**
      * Outputs atom to specified outlet

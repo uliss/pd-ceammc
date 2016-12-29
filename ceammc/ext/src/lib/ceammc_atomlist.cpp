@@ -182,6 +182,23 @@ bool AtomList::property(const std::string& name, Atom* dest) const
     return false;
 }
 
+std::deque<AtomList> AtomList::properties() const
+{
+    std::deque<AtomList> res;
+    for (size_t i = 0; i < atoms_.size(); i++) {
+        if (atoms_[i].isProperty()) {
+            res.push_back(AtomList());
+        }
+
+        if (res.empty())
+            continue;
+
+        res.back().append(atoms_[i]);
+    }
+
+    return res;
+}
+
 bool AtomList::hasProperty(const std::string& name) const
 {
     for (size_t i = 0; i < atoms_.size(); i++) {
@@ -192,6 +209,50 @@ bool AtomList::hasProperty(const std::string& name) const
             return true;
     }
     return false;
+}
+
+AtomList AtomList::slice(int start) const
+{
+    if (start >= static_cast<int>(size()))
+        return AtomList();
+
+    // lower bound
+    start = std::max(start, -static_cast<int>(size()));
+    size_t pos = 0;
+    getRelativeIdx(start, &pos);
+
+    AtomList res;
+    res.atoms_.reserve(atoms_.size() - pos);
+    std::copy(atoms_.begin() + pos, atoms_.end(), std::back_inserter(res.atoms_));
+    return res;
+}
+
+AtomList AtomList::slice(int start, int end) const
+{
+    //    if (start >= static_cast<int>(size()))
+    //        return AtomList();
+
+    //    // lower bound
+    //    start = std::max(start, -static_cast<int>(size()));
+    //    end = std::max(end, -static_cast<int>(size()));
+    //    end = std::min(end, static_cast<int>(size()));
+
+    //    size_t start_pos = 0;
+    //    getRelativeIdx(start, &start_pos);
+
+    //    size_t end_pos = 0;
+    //    getRelativeIdx(end, &end_pos);
+
+    //    AtomList res;
+    //    res.atoms_.reserve(atoms_.size() - pos);
+    //    std::copy(atoms_.begin() + pos, atoms_.end(), std::back_inserter(res.atoms_));
+    //    return res;
+    return AtomList();
+}
+
+AtomList AtomList::slice(int start, int end, int step) const
+{
+    return AtomList();
 }
 
 void AtomList::fromPdData(size_t n, t_atom* lst)
