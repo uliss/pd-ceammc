@@ -50,7 +50,7 @@ class BaseObject {
     Properties props_;
 
 public:
-    typedef AtomList (BaseObject::*GetterFn)();
+    typedef AtomList (BaseObject::*GetterFn)() const;
     typedef void (BaseObject::*SetterFn)(const AtomList&);
 
 public:
@@ -99,7 +99,7 @@ public:
     void createProperty(Property* p);
     template <class T>
     void createCbProperty(const std::string& name,
-        AtomList (T::*getter)(),
+        AtomList (T::*getter)() const,
         void (T::*setter)(const AtomList&) = 0)
     {
         CallbackProperty<T>* p = new CallbackProperty<T>(name, static_cast<T*>(this), getter, setter);
@@ -122,7 +122,7 @@ private:
     void freeProps();
     AtomList propNumInlets();
     AtomList propNumOutlets();
-    AtomList listAllProps();
+    AtomList listAllProps() const;
 };
 }
 

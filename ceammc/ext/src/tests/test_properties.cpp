@@ -19,12 +19,12 @@
 using namespace ceammc;
 
 struct prop_ro {
-    AtomList get() { return AtomList::values(1, 100.f); }
+    AtomList get() const { return AtomList::values(1, 100.f); }
 };
 
 struct prop_rw {
     AtomList lst;
-    AtomList get() { return lst; }
+    AtomList get() const { return lst; }
     void set(const AtomList& l) { lst = l; }
 };
 
@@ -104,5 +104,19 @@ TEST_CASE("Properties", "[ceammc::properties]")
         REQUIRE(p2.set(AtomList::ones(5)));
         REQUIRE_FALSE(p2.set(AtomList()));
         REQUIRE(p2.get() == AtomList::ones(5));
+    }
+
+    SECTION("atom typed cb property")
+    {
+        AtomList v1;
+        TypedCbProperty<size_t, AtomList> p1("@size", &v1, &AtomList::size);
+        REQUIRE(p1.name() == "@size");
+        REQUIRE(p1.readonly() == true);
+
+        REQUIRE(p1.get() == AtomList::values(1, 0.f));
+        v1.append(1.f);
+        v1.append(-1231.f);
+        REQUIRE(p1.get() == AtomList::values(1, 2.f));
+
     }
 }

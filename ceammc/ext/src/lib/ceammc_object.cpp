@@ -177,10 +177,10 @@ AtomList BaseObject::propNumOutlets()
     return listFrom(numOutlets());
 }
 
-AtomList BaseObject::listAllProps()
+AtomList BaseObject::listAllProps() const
 {
     AtomList res;
-    Properties::iterator it;
+    Properties::const_iterator it;
     for (it = props_.begin(); it != props_.end(); ++it) {
         if (it->first == gensym("@*"))
             continue;

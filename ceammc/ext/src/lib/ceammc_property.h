@@ -71,7 +71,7 @@ public:
 template <typename T>
 class CallbackProperty : public Property {
 public:
-    typedef AtomList (T::*GetterFn)();
+    typedef AtomList (T::*GetterFn)() const;
     typedef void (T::*SetterFn)(const AtomList& v);
 
 public:
@@ -109,28 +109,31 @@ private:
 };
 
 template <typename T, typename B>
-class TypedCbProperty : public CallbackProperty<B> {
-    typedef T (B::*TGetterFn)();
+class TypedCbProperty : public CallbackProperty<TypedCbProperty<T, B> > {
+    typedef T (B::*TGetterFn)() const;
 
 public:
     TypedCbProperty(const std::string& name, B* obj, TGetterFn gf = 0)
-        : CallbackProperty<B>(name,
-              obj,
-              &TypedCbProperty::defGetter, 0)
+        : CallbackProperty<TypedCbProperty<T, B> >(name,
+              this,
+              &TypedCbProperty::defGetter)
         , tgetter_(gf)
+        , bobj_(obj)
+
     {
     }
 
 private:
-    AtomList defGetter()
+    AtomList defGetter() const
     {
-        T v = (this->obj_->*tgetter_)();
+        T v = (this->bobj_->*tgetter_)();
         AtomList res;
         res.append(Atom(v));
         return res;
     }
 
 private:
+    B* bobj_;
     TGetterFn tgetter_;
 };
 }
