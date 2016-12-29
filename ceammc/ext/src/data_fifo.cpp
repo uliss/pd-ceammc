@@ -100,7 +100,7 @@ public:
         BaseObject::dump();
 
         post("values:");
-        for (MessageFifo::reverse_iterator it = fifo_.rbegin(); it != fifo_.rend(); it++) {
+        for (MessageFifo::const_reverse_iterator it = fifo_.rbegin(); it != fifo_.rend(); it++) {
             post("    %s", to_string(*it).c_str());
         }
     }
