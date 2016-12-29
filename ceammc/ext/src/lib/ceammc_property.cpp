@@ -89,9 +89,9 @@ AtomList ListProperty::get() const
     return lst_;
 }
 
-FloatProperty::FloatProperty(const std::string& name, float defaultValue, bool readonly)
+FloatProperty::FloatProperty(const std::string& name, float init, bool readonly)
     : Property(name, readonly)
-    , v_(defaultValue)
+    , v_(init)
 {
 }
 

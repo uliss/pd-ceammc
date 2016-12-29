@@ -63,7 +63,7 @@ class FloatProperty : public Property {
     float v_;
 
 public:
-    FloatProperty(const std::string& name, float defaultValue = 0, bool readonly = false);
+    FloatProperty(const std::string& name, float init = 0, bool readonly = false);
     bool set(const AtomList& lst);
     AtomList get() const;
 };

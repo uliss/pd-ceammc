@@ -753,6 +753,8 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         REQUIRE(l.at(0).asFloat() == 1.f);
         REQUIRE(l.at(1).asFloat() == 2.f);
         REQUIRE(l.at(2).asFloat() == 3.f);
+
+        REQUIRE(AtomList::values(0) == AtomList());
     }
 
     SECTION("test ones")
@@ -765,5 +767,8 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         REQUIRE(l.at(1).asFloat() == 1.f);
         REQUIRE(l.at(2).asFloat() == 1.f);
         REQUIRE(l.at(3).asFloat() == 1.f);
+
+        REQUIRE(AtomList::ones(0) == AtomList());
+        REQUIRE(AtomList::zeroes(0) == AtomList());
     }
 }
