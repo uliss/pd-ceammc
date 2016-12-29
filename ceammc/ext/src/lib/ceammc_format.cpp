@@ -35,30 +35,30 @@ std::string to_string(const Atom& a)
     return ss.str();
 }
 
-std::string to_float_string(const Atom& a)
+std::string to_float_string(const Atom& a, const std::string& defaultValue)
 {
     if (!a.isFloat())
-        return "";
+        return defaultValue;
 
     std::ostringstream ss;
     ss << a.asFloat();
     return ss.str();
 }
 
-std::string to_hex_string(const Atom& a)
+std::string to_hex_string(const Atom& a, const std::string& defaultValue)
 {
     if (!a.isFloat())
-        return "";
+        return defaultValue;
 
     std::ostringstream ss;
     ss << std::hex << std::uppercase << static_cast<long>(a.asFloat());
     return ss.str();
 }
 
-std::string to_float_range_string(const Atom& a, float min, float max)
+std::string to_float_range_string(const Atom& a, float min, float max, const std::string& defaultValue)
 {
     if (!a.isFloat())
-        return "";
+        return defaultValue;
 
     std::ostringstream ss;
     ss << clip(a.asFloat(), min, max);
