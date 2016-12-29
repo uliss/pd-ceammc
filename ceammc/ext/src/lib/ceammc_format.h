@@ -28,6 +28,7 @@ std::string to_float_range_string(const Atom& a, float min, float max);
 std::string to_hex_string(const Atom& a);
 
 std::string to_string(const AtomList& a, const std::string& separator = " ");
+std::string to_string(const Message& msg, const std::string& separator = " ");
 
 } // namespace ceammc
 

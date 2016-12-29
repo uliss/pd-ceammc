@@ -1,15 +1,16 @@
 #include "ceammc_factory.h"
+#include "ceammc_format.h"
 #include "ceammc_message.h"
 #include "ceammc_object.h"
 
-#include <queue>
+#include <list>
 
 #define OBJ_NAME "data.fifo"
 #define MSG_PREFIX "[" OBJ_NAME "] "
 
 using namespace ceammc;
 
-typedef std::queue<Message> MessageFifo;
+typedef std::list<Message> MessageFifo;
 
 static size_t MAX_SIZE = 1024;
 
@@ -60,23 +61,22 @@ public:
         if (fifo_.size() >= size_)
             pop();
 
-        fifo_.push(msg);
+        fifo_.push_back(msg);
     }
 
     // remove all, no output
     void clear()
     {
-        for (size_t i = 0; i < fifo_.size(); i++)
-            fifo_.pop();
+        fifo_.clear();
     }
 
     // output all, remove all
     void flush()
     {
-        for (size_t i = 0; i < fifo_.size(); i++) {
-            messageTo(0, fifo_.front());
-            fifo_.pop();
-        }
+        for (MessageFifo::iterator it = fifo_.begin(); it != fifo_.end(); it++)
+            messageTo(0, *it);
+
+        fifo_.clear();
     }
 
     // output and remove first in queue
@@ -86,13 +86,23 @@ public:
             return;
 
         messageTo(0, fifo_.front());
-        fifo_.pop();
+        fifo_.pop_front();
     }
 
     void resize(size_t sz)
     {
         clear();
         size_ = std::min(sz, MAX_SIZE);
+    }
+
+    void dump()
+    {
+        BaseObject::dump();
+
+        post("values:");
+        for (MessageFifo::reverse_iterator it = fifo_.rbegin(); it != fifo_.rend(); it++) {
+            post("    %s", to_string(*it).c_str());
+        }
     }
 };
 

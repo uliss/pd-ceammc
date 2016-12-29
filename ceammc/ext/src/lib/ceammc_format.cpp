@@ -80,4 +80,18 @@ std::string to_string(const AtomList& a, const std::string& separator)
     return ss.str();
 }
 
+std::string ceammc::to_string(const ceammc::Message& msg, const std::string& separator)
+{
+    if (msg.isFloat() || msg.isSymbol())
+        return to_string(msg.atomValue());
+
+    if (msg.isList())
+        return to_string(msg.listValue(), separator);
+
+    if (msg.isAny())
+        return to_string(msg.atomValue()) + separator + to_string(msg.listValue(), separator);
+
+    return "";
+}
+
 } // namespace ceammc
