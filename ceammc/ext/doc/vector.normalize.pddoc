@@ -17,28 +17,20 @@
                 <see>vector.length vector.distance vector.dot</see>
             </also>
         </meta>
-        <arguments>
-            <argument name="index" type="int">position index (starting from 0). Negative value means position from end of the list.
-            For example: '-1' means last element.</argument>
-        </arguments>
         <inlets>
             <inlet>
-                <xinfo on="list">Input list. If no element found by specified index - list passed without changes.</xinfo>
-            </inlet>
-            <inlet>
-                <xinfo>New modified value from applied object.</xinfo>
+                <xinfo on="list">Input list of floats.</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>new modified list</outlet>
-            <outlet>Element at given index. Should be passed to applied object.</outlet>
+            <outlet>normalized vector - list of floats</outlet>
         </outlets>
         <example>
             <pdascii>
                 <![CDATA[
-[1 60 120(
+[1 2 3(
 |
-[list.apply_to 1] X [mtof]
+[vector.normalize]
 |
 [prepend set]
 |

@@ -165,6 +165,7 @@ namespace ceammc_gui {
 
     UI_fun(ui_display)::wx_oksize(t_object *z, t_rect *newrect)
     {
+        newrect->height = floor(newrect->height / 15) *15;
         newrect->height = (newrect->height>15)? newrect->height : 15;
         
     }
@@ -203,7 +204,7 @@ namespace ceammc_gui {
     
     UI_fun(ui_display)::init_ext(t_eclass* z)
     {
-        CLASS_ATTR_DEFAULT(z, "size", 0, "120. 15.");
+        CLASS_ATTR_DEFAULT(z, "size", 0, "150. 15.");
         
         CLASS_ATTR_INT(z, "display_events", 0, ui_display, show_bang);
         CLASS_ATTR_DEFAULT(z, "display_events", 0, "1");
