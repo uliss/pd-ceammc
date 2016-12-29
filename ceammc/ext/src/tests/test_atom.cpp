@@ -219,4 +219,23 @@ TEST_CASE("Atom", "[ceammc::Atom]")
             REQUIRE(ss.str() == "test");
         }
     }
+
+    SECTION("test as int") {
+        Atom a1(1.34f);
+        REQUIRE(a1.asInt(0) == 1);
+
+        Atom a2(gensym("a"));
+        REQUIRE(a2.asInt(-30) == -30);
+    }
+
+    SECTION("test as size_t") {
+        Atom a1(21.34f);
+        REQUIRE(a1.asSizeT(0) == 21);
+
+        Atom a2(gensym("a"));
+        REQUIRE(a2.asSizeT(30) == 30);
+
+        Atom a3(-132.f);
+        REQUIRE(a3.asSizeT(10) == 10);
+    }
 }
