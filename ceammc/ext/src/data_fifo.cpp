@@ -95,7 +95,7 @@ public:
         size_ = std::min(sz, MAX_SIZE);
     }
 
-    void dump()
+    void dump() const
     {
         BaseObject::dump();
 
