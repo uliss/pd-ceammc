@@ -80,7 +80,7 @@ std::string to_string(const AtomList& a, const std::string& separator)
     return ss.str();
 }
 
-std::string ceammc::to_string(const ceammc::Message& msg, const std::string& separator)
+std::string to_string(const Message& msg, const std::string& separator)
 {
     if (msg.isFloat() || msg.isSymbol())
         return to_string(msg.atomValue());
