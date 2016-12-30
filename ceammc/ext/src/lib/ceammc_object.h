@@ -209,6 +209,7 @@ class Error : public std::ostringstream {
 public:
     Error(const BaseObject* obj = NULL);
     ~Error();
+    Error& stream() { return *this; }
 };
 
 class Debug : public std::ostringstream {
@@ -217,10 +218,11 @@ class Debug : public std::ostringstream {
 public:
     Debug(const BaseObject* obj = NULL);
     ~Debug();
+    Debug& stream() { return *this; }
 };
 
-#define ERR Error(this)
-#define DBG Debug(this)
+#define ERR Error(this).stream()
+#define DBG Debug(this).stream()
 }
 
 #endif // CEAMMC_OBJECT_H
