@@ -135,8 +135,10 @@ bool BaseObject::processAnyInlets(t_symbol* sel, const AtomList& lst)
         return false;
 
     SymbolList::iterator it = std::find(inlets_s_.begin(), inlets_s_.end(), sel);
-    if (it == inlets_s_.end())
+    if (it == inlets_s_.end()) {
+        pd_error(owner(), "[%s] invalid inlet: %s", className().c_str(), sel->s_name);
         return false;
+    }
 
     size_t pos = std::distance(inlets_s_.begin(), it) + 1;
     onInlet(pos, lst);
