@@ -1,9 +1,5 @@
 #include "ceammc_factory.h"
-#include "ceammc_format.h"
-#include "ceammc_message.h"
 #include "ceammc_object.h"
-
-#define OBJ_NAME "list.at"
 
 using namespace ceammc;
 
@@ -67,5 +63,5 @@ public:
 
 extern "C" void setup_list0x2eat()
 {
-    ObjectFactory<ListAt> obj(OBJ_NAME);
+    ObjectFactory<ListAt> obj("list.at");
 }
