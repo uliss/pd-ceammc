@@ -875,4 +875,18 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         REQUIRE(l2.slice(-1, -1) == AtomList());
         REQUIRE(l2.slice(-1, 0) == AtomList());
     }
+
+    SECTION("test slice3")
+    {
+        REQUIRE(atomlistToValue<bool>(AtomList::ones(10), false) == true);
+        REQUIRE(atomlistToValue<float>(AtomList::ones(10), 0.f) == 1.f);
+        REQUIRE(atomlistToValue<double>(AtomList::ones(10), 0) == 1);
+        REQUIRE(atomlistToValue<int>(AtomList::ones(10), 112) == 1);
+        REQUIRE(atomlistToValue<size_t>(AtomList::ones(10), 12) == 1);
+
+        REQUIRE(atomlistToValue<float>(AtomList(), 10.f) == 10.f);
+        REQUIRE(atomlistToValue<double>(AtomList(), 11.) == 11.);
+        REQUIRE(atomlistToValue<int>(AtomList(), 10) == 10);
+        REQUIRE(atomlistToValue<size_t>(AtomList(), 20) == 20);
+    }
 }

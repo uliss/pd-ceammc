@@ -241,6 +241,21 @@ template <typename T>
 static T atomlistToValue(const AtomList&, const T& def) { return def; }
 
 template <>
+bool atomlistToValue(const AtomList& l, const bool& def)
+{
+    if (l.empty())
+        return def;
+
+    if (l[0].isFloat())
+        return l[0].asFloat(0.f) != 0.f;
+
+    if (l[0].isSymbol())
+        return l[0].asSymbol() == gensym("true");
+
+    return false;
+}
+
+template <>
 float atomlistToValue(const AtomList& l, const float& def)
 {
     if (l.empty())
