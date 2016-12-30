@@ -110,15 +110,18 @@ const Atom* AtomList::relativeAt(int pos) const
     return const_cast<AtomList*>(this)->relativeAt(pos);
 }
 
-Atom* AtomList::clipAt(size_t pos)
+Atom* AtomList::clipAt(int pos)
 {
     if (empty())
         return 0;
 
-    return &at(std::min(size() - 1, pos));
+    const int sz = static_cast<int>(size()) - 1;
+    int idx = std::min(std::max(pos, 0), sz);
+
+    return &at(idx);
 }
 
-const Atom* AtomList::clipAt(size_t pos) const
+const Atom* AtomList::clipAt(int pos) const
 {
     return const_cast<AtomList*>(this)->clipAt(pos);
 }

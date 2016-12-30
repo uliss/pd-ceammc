@@ -70,8 +70,8 @@ public:
      * @param pos - position index
      * @return pointer to element, or NULL if empty
      */
-    Atom* clipAt(size_t pos);
-    const Atom* clipAt(size_t pos) const;
+    Atom* clipAt(int pos);
+    const Atom* clipAt(int pos) const;
 
     /**
      * Same as at(), but values for index greater than the size of the
