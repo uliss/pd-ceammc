@@ -18,7 +18,9 @@
 #include "ceammc_message.h"
 #include "ceammc_property.h"
 
+#include <iostream>
 #include <map>
+#include <sstream>
 #include <string>
 #include <vector>
 
@@ -36,6 +38,14 @@ public:
         , owner(own)
     {
     }
+};
+
+class ErrorStream : public std::stringbuf {
+    t_object* obj_;
+
+public:
+    ErrorStream(t_object* obj);
+    virtual int sync();
 };
 
 class BaseObject {
@@ -189,6 +199,7 @@ public:
     bool processAnyProps(t_symbol* sel, const AtomList& lst);
     void anyDispatch(t_symbol* s, const AtomList& lst);
 
+    std::ostream& errorStream();
 public:
     static t_symbol* tryGetPropKey(t_symbol* sel);
 
