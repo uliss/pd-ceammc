@@ -198,7 +198,7 @@ public:
     {
     }
 
-    bool set(const AtomList&) { ptr_->setValue(val_); }
+    bool set(const AtomList&) { ptr_->setValue(val_); return true; }
     AtomList get() const { return listFrom(bool(ptr_->value() == val_)); }
 };
 
