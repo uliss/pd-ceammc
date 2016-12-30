@@ -4,7 +4,6 @@
 #include "ceammc_object.h"
 
 #define OBJ_NAME "list.at"
-#define MSG_PREFIX "[" OBJ_NAME "] "
 
 using namespace ceammc;
 
@@ -68,5 +67,5 @@ public:
 
 extern "C" void setup_list0x2eat()
 {
-    ObjectFactory<ListAt> obj("list.at");
+    ObjectFactory<ListAt> obj(OBJ_NAME);
 }
