@@ -123,15 +123,20 @@ const Atom* AtomList::clipAt(size_t pos) const
     return const_cast<AtomList*>(this)->clipAt(pos);
 }
 
-Atom* AtomList::wrapAt(size_t pos)
+Atom* AtomList::wrapAt(int pos)
 {
     if (empty())
         return 0;
 
-    return &at(pos % size());
+    const int sz = static_cast<int>(size());
+    int idx = pos % sz;
+    if (idx < 0)
+        idx += sz;
+
+    return &at(idx);
 }
 
-const Atom* AtomList::wrapAt(size_t pos) const
+const Atom* AtomList::wrapAt(int pos) const
 {
     return const_cast<AtomList*>(this)->wrapAt(pos);
 }

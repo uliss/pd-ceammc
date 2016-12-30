@@ -464,6 +464,30 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         REQUIRE(cl.wrapAt(3)->asFloat() == 2.f);
         REQUIRE(cl.wrapAt(4)->asFloat() == 1.f);
         REQUIRE(cl.wrapAt(200)->asFloat() == 1.f);
+
+        REQUIRE(cl.wrapAt(-1)->asFloat() == 2.f);
+        REQUIRE(cl.wrapAt(-2)->asFloat() == 1.f);
+        REQUIRE(cl.wrapAt(-3)->asFloat() == 2.f);
+        REQUIRE(cl.wrapAt(-4)->asFloat() == 1.f);
+
+        AtomList l2;
+        l2.append(1.f);
+        l2.append(2.f);
+        l2.append(3.f);
+
+        REQUIRE(l2.wrapAt(6)->asFloat() == 1.f);
+        REQUIRE(l2.wrapAt(5)->asFloat() == 3.f);
+        REQUIRE(l2.wrapAt(4)->asFloat() == 2.f);
+        REQUIRE(l2.wrapAt(3)->asFloat() == 1.f);
+        REQUIRE(l2.wrapAt(2)->asFloat() == 3.f);
+        REQUIRE(l2.wrapAt(1)->asFloat() == 2.f);
+        REQUIRE(l2.wrapAt(0)->asFloat() == 1.f);
+        REQUIRE(l2.wrapAt(-1)->asFloat() == 3.f);
+        REQUIRE(l2.wrapAt(-2)->asFloat() == 2.f);
+        REQUIRE(l2.wrapAt(-3)->asFloat() == 1.f);
+        REQUIRE(l2.wrapAt(-4)->asFloat() == 3.f);
+        REQUIRE(l2.wrapAt(-5)->asFloat() == 2.f);
+        REQUIRE(l2.wrapAt(-6)->asFloat() == 1.f);
     }
 
     SECTION("wrapAt1")

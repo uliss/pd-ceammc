@@ -79,8 +79,8 @@ public:
      * @param pos - position index
      * @return pointer to element, or NULL if empty
      */
-    Atom* wrapAt(size_t pos);
-    const Atom* wrapAt(size_t pos) const;
+    Atom* wrapAt(int pos);
+    const Atom* wrapAt(int pos) const;
 
     /**
      * Same as at(), but values for index greater than the size of the
