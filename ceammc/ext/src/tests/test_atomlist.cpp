@@ -430,12 +430,17 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         REQUIRE(l.clipAt(0) == 0);
         l.append(1.f);
         l.append(2.f);
+        l.append(3.f);
 
         const AtomList cl(l);
+        REQUIRE(cl.clipAt(-2)->asFloat() == 1.f);
+        REQUIRE(cl.clipAt(-1)->asFloat() == 1.f);
         REQUIRE(cl.clipAt(0)->asFloat() == 1.f);
         REQUIRE(cl.clipAt(1)->asFloat() == 2.f);
-        REQUIRE(cl.clipAt(2)->asFloat() == 2.f);
-        REQUIRE(cl.clipAt(200)->asFloat() == 2.f);
+        REQUIRE(cl.clipAt(2)->asFloat() == 3.f);
+        REQUIRE(cl.clipAt(3)->asFloat() == 3.f);
+        REQUIRE(cl.clipAt(4)->asFloat() == 3.f);
+        REQUIRE(cl.clipAt(200)->asFloat() == 3.f);
     }
 
     SECTION("clipAt1")
