@@ -269,7 +269,7 @@ void BaseObject::parseArguments()
 {
     std::deque<AtomList> p = pd_.args.properties();
     for (size_t i = 0; i < p.size(); i++) {
-        if (p[i].size() < 2) {
+        if (p[i].size() < 1) {
             continue;
         }
 
@@ -281,6 +281,12 @@ void BaseObject::parseArguments()
 
         props_[pname]->set(p[i].slice(1));
     }
+
+    int idx = pd_.args.findPos(isProperty);
+    if (idx < 0)
+        return;
+
+    pd_.args = pd_.args.slice(0, idx);
 }
 
 void BaseObject::dump() const
@@ -289,11 +295,15 @@ void BaseObject::dump() const
     post("[%s] outlets: %zu", className().c_str(), numOutlets());
 
     Properties::const_iterator it;
-    for (it = props_.begin(); it != props_.end(); ++it)
+    for (it = props_.begin(); it != props_.end(); ++it) {
+        if (!it->second->visible())
+            continue;
+
         post("[%s] property: %s = %s",
             className().c_str(),
             it->first->s_name,
             to_string(it->second->get()).c_str());
+    }
 }
 
 void BaseObject::anyDispatch(t_symbol* s, const AtomList& lst)

@@ -90,7 +90,7 @@ public:
      * @param - inlet number, starting form 0
      * @param - incoming message
      */
-    void onInlet(size_t, const AtomList&) {}
+    virtual void onInlet(size_t, const AtomList&) {}
 
     t_inlet* createInlet();
 

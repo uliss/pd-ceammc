@@ -168,7 +168,7 @@ TEST_CASE("Properties", "[ceammc::properties]")
 
     SECTION("symbol enum property")
     {
-        SymbolEnumProperty p("test", gensym("default"));
+        SymbolEnumProperty p("test", "default");
         REQUIRE(!p.readonly());
         REQUIRE(p.name() == "test");
         REQUIRE(p.value() == gensym("default"));
@@ -177,9 +177,9 @@ TEST_CASE("Properties", "[ceammc::properties]")
 
         REQUIRE(p.get() == AtomList());
 
-        p.appendEnum(gensym("a"));
-        p.appendEnum(gensym("a")); // check twice!
-        p.appendEnum(gensym("b"));
+        p.appendEnum("a");
+        p.appendEnum("a"); // check twice!
+        p.appendEnum("b");
 
         REQUIRE(p.numEnums() == 3);
 

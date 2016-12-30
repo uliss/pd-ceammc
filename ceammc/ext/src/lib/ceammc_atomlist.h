@@ -160,6 +160,7 @@ public:
 
     bool contains(const Atom& a) const;
     int findPos(const Atom& a) const;
+    int findPos(AtomPredicate pred) const;
     size_t count(const Atom& a) const;
     size_t count(AtomPredicate pred) const;
 
@@ -250,6 +251,14 @@ static AtomList listFrom(T v)
 {
     AtomList res;
     res.append(atomFrom<T>(v));
+    return res;
+}
+
+template <>
+AtomList listFrom(bool v)
+{
+    AtomList res;
+    res.append(Atom(v ? 1.f : 0.f));
     return res;
 }
 

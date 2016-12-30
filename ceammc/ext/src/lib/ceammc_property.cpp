@@ -23,6 +23,7 @@ namespace ceammc {
 Property::Property(const std::string& name, bool readonly)
     : name_(name)
     , readonly_(readonly)
+    , visible_(true)
 {
 }
 
@@ -190,6 +191,4 @@ AtomList IntProperty::get() const
 {
     return AtomList::values(1, float(v_));
 }
-
-
 }

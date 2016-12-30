@@ -24,6 +24,7 @@ namespace ceammc {
 class Property {
     std::string name_;
     bool readonly_;
+    bool visible_;
 
 public:
     Property(const std::string& name, bool readonly = false);
@@ -33,6 +34,7 @@ public:
     void setName(const std::string& name) { name_ = name; }
 
     bool readonly() const { return readonly_; }
+    bool visible() const { return visible_; }
 
     virtual bool set(const AtomList&) = 0;
     virtual AtomList get() const = 0;
@@ -40,6 +42,7 @@ public:
 protected:
     bool readonlyCheck() const;
     bool emptyValueCheck(const AtomList& v) const;
+    void setVisible(bool v) { visible_ = v; }
 };
 
 class AtomProperty : public Property {
@@ -95,7 +98,7 @@ public:
 public:
     EnumProperty(const std::string& name, T def, bool readonly = false)
         : Property(name, readonly)
-        , idx_(-1)
+        , idx_(0)
         , def_(def)
     {
         allowed_.push_back(def);
@@ -103,6 +106,12 @@ public:
 
     bool set(const AtomList& lst)
     {
+        if (!readonlyCheck())
+            return false;
+
+        if (!emptyValueCheck(lst))
+            return false;
+
         T v = atomlistToValue<T>(lst, def_);
         long idx = enumIndex(v);
         if (idx < 0)
@@ -115,7 +124,7 @@ public:
     AtomList get() const
     {
         if (idx_ < 0)
-            return AtomList();
+            return listFrom(def_);
 
         return listFrom(allowed_[idx_]);
     }
@@ -136,6 +145,7 @@ public:
             return false;
 
         idx_ = idx;
+        return true;
     }
 
     void appendEnum(T v)
@@ -160,7 +170,43 @@ private:
     int idx_;
 };
 
-typedef EnumProperty<t_symbol*> SymbolEnumProperty;
+class SymbolEnumProperty : public EnumProperty<t_symbol*> {
+public:
+    SymbolEnumProperty(const std::string& name, const char* sym, bool readonly = false)
+        : EnumProperty<t_symbol*>(name, gensym(sym), readonly)
+    {
+    }
+
+    void appendEnum(const char* v)
+    {
+        EnumProperty<t_symbol*>::appendEnum(gensym(v));
+    }
+
+    bool is(const char* v) const
+    {
+        return value() == gensym(v);
+    }
+};
+
+template <typename T, typename V>
+class AliasProperty : public Property {
+    T* ptr_;
+    V val_;
+
+public:
+    AliasProperty(const std::string& name, T* prop, V v)
+        : Property(name, false)
+        , ptr_(prop)
+        , val_(v)
+    {
+    }
+
+    bool set(const AtomList&) { ptr_->setValue(val_); }
+    AtomList get() const { return listFrom(bool(ptr_->value() == val_)); }
+};
+
+typedef AliasProperty<SymbolEnumProperty, t_symbol*> SymbolEnumAlias;
+
 typedef EnumProperty<int> IntEnumProperty;
 
 class BoolProperty : public Property {
