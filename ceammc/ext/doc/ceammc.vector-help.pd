@@ -1,0 +1,18 @@
+#N canvas 0 0 600 500 12;
+#X obj 20 50 pddp/pddplink ../index-help.pd -text index;
+#X text 62 50 ::;
+#X obj 79 50 pddp/pddplink ceammc-help.pd -text ceammc;
+#X obj 30 113 vector.length;
+#X text 150 113 returns length of vector (list of floats)\.;
+#X obj 30 140 vector.distance;
+#X text 150 140 returns distance between two vectors (lists of
+floats)\.;
+#X obj 30 167 vector.dot;
+#X text 150 167 returns dot product of two vectors (lists of
+floats)\.;
+#X obj 30 194 vector.normalize;
+#X text 150 194 returns normalized vector (list of floats)\.;
+#X obj 1 1 cnv 5 597 40 empty empty ceammc::vector 20 20 0 20 -104026
+-4096 0;
+#X obj 1 458 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 468 library: ceammc;

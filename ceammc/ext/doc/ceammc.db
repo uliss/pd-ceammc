@@ -80,3 +80,4 @@ pass.changed		.		.
 pass.if		..		..
 system.memsize		.		.
 system.memused		.		..
+vector.length		.		.

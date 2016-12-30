@@ -114,6 +114,9 @@
     <entry descr="sorts list values by ascending order" name="list.sort">
       <xi:include href="list.sort.pddoc" parse="xml"/>
     </entry>
+    <entry descr="treats list of floats as vector, returns vector length: sqrt(element(1)^2 + ...element(n)^2)." name="vector.length">
+      <xi:include href="vector.length.pddoc" parse="xml"/>
+    </entry>
     <xi:include href="ceammc_category_list.xml" parse="xml"/>
   </category>
   <category name="live">
@@ -267,20 +270,6 @@
     </entry>
     <entry descr="returns the process physical memory use - current and peak" name="system.memused">
       <xi:include href="system.memused.pddoc" parse="xml"/>
-    </entry>
-  </category>
-  <category name="vector">
-    <entry descr="returns length of vector (list of floats)." name="vector.length">
-      <xi:include href="vector.length.pddoc" parse="xml"/>
-    </entry>
-    <entry descr="returns distance between two vectors (lists of floats)." name="vector.distance">
-        <xi:include href="vector.distance.pddoc" parse="xml"/>
-    </entry>
-    <entry descr="returns dot product of two vectors (lists of floats)." name="vector.dot">
-        <xi:include href="vector.dot.pddoc" parse="xml"/>
-    </entry>
-    <entry descr="returns normalized vector (list of floats)." name="vector.normalize">
-        <xi:include href="vector.normalize.pddoc" parse="xml"/>
     </entry>
   </category>
   <meta>

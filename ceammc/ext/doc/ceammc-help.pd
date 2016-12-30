@@ -93,125 +93,128 @@ value;
 #X text 150 1312 returns smallest element in the list;
 #X obj 30 1339 list.sort;
 #X text 150 1339 sorts list values by ascending order;
-#X obj 20 1366 cnv 5 38 19 empty empty live 0 17 0 17 -262144 -49933
+#X obj 30 1366 vector.length;
+#X text 150 1366 treats list of floats as vector \, returns vector
+length: sqrt(element(1)^2 + \.\.\.element(n)^2)\.;
+#X obj 20 1403 cnv 5 38 19 empty empty live 0 17 0 17 -262144 -49933
 0;
-#X obj 20 1395 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 1406 live.capture~;
-#X text 150 1406 record up to 8s of sound and playback the recorded
+#X obj 20 1432 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 1443 live.capture~;
+#X text 150 1443 record up to 8s of sound and playback the recorded
 sound in loop;
-#X obj 20 1443 cnv 5 38 19 empty empty math 0 17 0 17 -262144 -49933
+#X obj 20 1480 cnv 5 38 19 empty empty math 0 17 0 17 -262144 -49933
 0;
-#X obj 20 1472 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 1483 math.abs;
-#X text 150 1483 absolute value function;
-#X obj 30 1510 math.acos;
-#X text 150 1510 arc cosine function;
-#X obj 30 1537 math.acosh;
-#X text 150 1537 inverse hyperbolic cosine function;
-#X obj 30 1564 math.asin;
-#X text 150 1564 arc sine function;
-#X obj 30 1591 math.asinh;
-#X text 150 1591 inverse hyperbolic sine function;
-#X obj 30 1618 math.atan;
-#X text 150 1618 arc tangent function;
-#X obj 30 1645 math.atanh;
-#X text 150 1645 inverse hyperbolic tangent function;
-#X obj 30 1672 math.cbrt;
-#X text 150 1672 cube root function;
-#X obj 30 1699 math.ceil;
-#X text 150 1699 round to smallest integral value not less than input
+#X obj 20 1509 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 1520 math.abs;
+#X text 150 1520 absolute value function;
+#X obj 30 1547 math.acos;
+#X text 150 1547 arc cosine function;
+#X obj 30 1574 math.acosh;
+#X text 150 1574 inverse hyperbolic cosine function;
+#X obj 30 1601 math.asin;
+#X text 150 1601 arc sine function;
+#X obj 30 1628 math.asinh;
+#X text 150 1628 inverse hyperbolic sine function;
+#X obj 30 1655 math.atan;
+#X text 150 1655 arc tangent function;
+#X obj 30 1682 math.atanh;
+#X text 150 1682 inverse hyperbolic tangent function;
+#X obj 30 1709 math.cbrt;
+#X text 150 1709 cube root function;
+#X obj 30 1736 math.ceil;
+#X text 150 1736 round to smallest integral value not less than input
 value;
-#X obj 30 1726 math.cos;
-#X text 150 1726 cosine function;
-#X obj 30 1753 math.cosh;
-#X text 150 1753 hyperbolic cosine function;
-#X obj 30 1780 math.e;
-#X text 150 1780 mathematical constant \, base of the natural
+#X obj 30 1763 math.cos;
+#X text 150 1763 cosine function;
+#X obj 30 1790 math.cosh;
+#X text 150 1790 hyperbolic cosine function;
+#X obj 30 1817 math.e;
+#X text 150 1817 mathematical constant \, base of the natural
 logarithm;
-#X obj 30 1807 math.exp;
-#X text 150 1807 exponential functions;
-#X obj 30 1834 math.exp2;
-#X text 150 1834 exponential functions;
-#X obj 30 1861 math.floor;
-#X text 150 1861 round to largest integral value not greater than x;
-#X obj 30 1888 math.inf;
-#X text 150 1888 infinity value that cannot be represented accurately;
-#X obj 30 1915 math.log;
-#X text 150 1915 logarithm functions;
-#X obj 30 1942 math.log10;
-#X text 150 1942 logarithm functions;
-#X obj 30 1969 math.log2;
-#X text 150 1969 logarithm functions;
-#X obj 30 1996 math.nan;
-#X text 150 1996 Not a Number \, unrepresentable value;
-#X obj 30 2023 math.pi;
-#X text 150 2023 mathematical constant;
-#X obj 30 2050 math.round;
-#X text 150 2050 round to integral value \, regardless of rounding
+#X obj 30 1844 math.exp;
+#X text 150 1844 exponential functions;
+#X obj 30 1871 math.exp2;
+#X text 150 1871 exponential functions;
+#X obj 30 1898 math.floor;
+#X text 150 1898 round to largest integral value not greater than x;
+#X obj 30 1925 math.inf;
+#X text 150 1925 infinity value that cannot be represented accurately;
+#X obj 30 1952 math.log;
+#X text 150 1952 logarithm functions;
+#X obj 30 1979 math.log10;
+#X text 150 1979 logarithm functions;
+#X obj 30 2006 math.log2;
+#X text 150 2006 logarithm functions;
+#X obj 30 2033 math.nan;
+#X text 150 2033 Not a Number \, unrepresentable value;
+#X obj 30 2060 math.pi;
+#X text 150 2060 mathematical constant;
+#X obj 30 2087 math.round;
+#X text 150 2087 round to integral value \, regardless of rounding
 direction;
-#X obj 30 2077 math.sin;
-#X text 150 2077 sine function;
-#X obj 30 2104 math.sinh;
-#X text 150 2104 hyperbolic sine function;
-#X obj 30 2131 math.sqrt;
-#X text 150 2131 square root function;
-#X obj 30 2158 math.tan;
-#X text 150 2158 tangent function;
-#X obj 30 2185 math.tanh;
-#X text 150 2185 hyperbolic tangent function;
-#X obj 30 2212 math.trunc;
-#X text 150 2212 truncate to integer value;
-#X obj 20 2239 cnv 5 28 19 empty empty osc 0 17 0 17 -262144 -49933 0;
-#X obj 20 2268 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 2279 osc.impulse~;
-#X text 150 2279 Bandlimited impulse train generator;
-#X obj 30 2306 osc.pulse~;
-#X text 150 2306 Bandlimited pulse train oscillator\. ;
-#X obj 30 2333 osc.saw~;
-#X text 150 2333 Bandlimited saw wave oscillator;
-#X obj 30 2360 osc.sinfb~;
-#X text 150 2360 sine oscilator with feedback;
-#X obj 30 2387 osc.square~;
-#X text 150 2387 Bandlimited square wave oscillator;
-#X obj 30 2414 osc.tri~;
-#X text 150 2414 Bandlimited triangle wave oscillator;
-#X obj 20 2441 cnv 5 37 19 empty empty pass 0 17 0 17 -262144 -49933
+#X obj 30 2114 math.sin;
+#X text 150 2114 sine function;
+#X obj 30 2141 math.sinh;
+#X text 150 2141 hyperbolic sine function;
+#X obj 30 2168 math.sqrt;
+#X text 150 2168 square root function;
+#X obj 30 2195 math.tan;
+#X text 150 2195 tangent function;
+#X obj 30 2222 math.tanh;
+#X text 150 2222 hyperbolic tangent function;
+#X obj 30 2249 math.trunc;
+#X text 150 2249 truncate to integer value;
+#X obj 20 2276 cnv 5 28 19 empty empty osc 0 17 0 17 -262144 -49933 0;
+#X obj 20 2305 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 2316 osc.impulse~;
+#X text 150 2316 Bandlimited impulse train generator;
+#X obj 30 2343 osc.pulse~;
+#X text 150 2343 Bandlimited pulse train oscillator\. ;
+#X obj 30 2370 osc.saw~;
+#X text 150 2370 Bandlimited saw wave oscillator;
+#X obj 30 2397 osc.sinfb~;
+#X text 150 2397 sine oscilator with feedback;
+#X obj 30 2424 osc.square~;
+#X text 150 2424 Bandlimited square wave oscillator;
+#X obj 30 2451 osc.tri~;
+#X text 150 2451 Bandlimited triangle wave oscillator;
+#X obj 20 2478 cnv 5 37 19 empty empty pass 0 17 0 17 -262144 -49933
 0;
-#X obj 20 2470 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 2481 pass.changed;
-#X text 150 2481 rejects redundant input values;
-#X obj 30 2508 pass.if;
-#X text 150 2508 pass values that accepted by predicate object;
-#X obj 20 2535 cnv 5 99 19 empty empty predicates 0 17 0 17 -262144
+#X obj 20 2507 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 2518 pass.changed;
+#X text 150 2518 rejects redundant input values;
+#X obj 30 2545 pass.if;
+#X text 150 2545 pass values that accepted by predicate object;
+#X obj 20 2572 cnv 5 99 19 empty empty predicates 0 17 0 17 -262144
 -49933 0;
-#X obj 20 2564 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 2575 is_any;
-#X text 150 2575 checks if input data has *any* type;
-#X obj 30 2602 is_bang;
-#X text 150 2602 checks if input data has *bang* type;
-#X obj 30 2629 is_even;
-#X text 150 2629 checks if input number is even;
-#X obj 30 2656 is_float;
-#X text 150 2656 checks if input data has *float* type;
-#X obj 30 2683 is_list;
-#X text 150 2683 checks if input data has *list* type;
-#X obj 30 2710 is_odd;
-#X text 150 2710 checks if input number is odd;
-#X obj 30 2737 is_pointer;
-#X text 150 2737 checks if input data has *pointer* type;
-#X obj 30 2764 is_symbol;
-#X text 150 2764 checks if input data has *symbol* type;
-#X obj 20 2791 cnv 5 58 19 empty empty system 0 17 0 17 -262144 -49933
+#X obj 20 2601 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 2612 is_any;
+#X text 150 2612 checks if input data has *any* type;
+#X obj 30 2639 is_bang;
+#X text 150 2639 checks if input data has *bang* type;
+#X obj 30 2666 is_even;
+#X text 150 2666 checks if input number is even;
+#X obj 30 2693 is_float;
+#X text 150 2693 checks if input data has *float* type;
+#X obj 30 2720 is_list;
+#X text 150 2720 checks if input data has *list* type;
+#X obj 30 2747 is_odd;
+#X text 150 2747 checks if input number is odd;
+#X obj 30 2774 is_pointer;
+#X text 150 2774 checks if input data has *pointer* type;
+#X obj 30 2801 is_symbol;
+#X text 150 2801 checks if input data has *symbol* type;
+#X obj 20 2828 cnv 5 58 19 empty empty system 0 17 0 17 -262144 -49933
 0;
-#X obj 20 2820 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 2831 system.memsize;
-#X text 150 2831 returns the size of physical memory (RAM) in bytes
+#X obj 20 2857 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 2868 system.memsize;
+#X text 150 2868 returns the size of physical memory (RAM) in bytes
 round to float data type\.;
-#X obj 30 2868 system.memused;
-#X text 150 2868 returns the process physical memory use - current and
+#X obj 30 2905 system.memused;
+#X text 150 2905 returns the process physical memory use - current and
 peak;
 #X obj 1 1 cnv 5 597 40 empty empty ceammc 20 20 0 20 -104026 -4096 0;
-#X obj 1 2895 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 2895 version: v0\.1 \, license: GPL3;
-#X obj 20 2911 pddp/pddplink https://github.com/uliss/pure-data -text
+#X obj 1 2932 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 2932 version: v0\.1 \, license: GPL3;
+#X obj 20 2948 pddp/pddplink https://github.com/uliss/pure-data -text
 https://github.com/uliss/pure-data;
