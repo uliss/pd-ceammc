@@ -123,10 +123,7 @@ public:
 
     AtomList get() const
     {
-        if (idx_ < 0)
-            return listFrom(def_);
-
-        return listFrom(allowed_[idx_]);
+        return listFrom(value());
     }
 
     size_t numEnums() const { return allowed_.size(); }

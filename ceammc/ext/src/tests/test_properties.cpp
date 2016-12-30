@@ -175,7 +175,7 @@ TEST_CASE("Properties", "[ceammc::properties]")
         REQUIRE_FALSE(p.setValue(gensym("a")));
         REQUIRE(p.numEnums() == 1);
 
-        REQUIRE(p.get() == AtomList());
+        REQUIRE(p.get() == listFrom(gensym("default")));
 
         p.appendEnum("a");
         p.appendEnum("a"); // check twice!
@@ -183,9 +183,8 @@ TEST_CASE("Properties", "[ceammc::properties]")
 
         REQUIRE(p.numEnums() == 3);
 
-        REQUIRE(p.get() == AtomList());
-
         REQUIRE(p.set(listFrom(gensym("a"))));
         REQUIRE(p.value() == gensym("a"));
+        REQUIRE(p.get() == listFrom(gensym("a")));
     }
 }
