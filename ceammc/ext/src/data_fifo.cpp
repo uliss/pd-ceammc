@@ -27,8 +27,8 @@ public:
             size_ = args.args.first()->asSizeT(MAX_SIZE);
 
         createOutlet();
-        createCbProperty("@size", &DataFifo::p_size);
-        createCbProperty("@maxsize", &DataFifo::p_max_size);
+        createCbProperty("@filled", &DataFifo::p_size);
+        createCbProperty("@size", &DataFifo::p_max_size);
         createCbProperty("@free", &DataFifo::p_free);
     }
 
