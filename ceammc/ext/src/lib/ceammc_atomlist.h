@@ -204,20 +204,13 @@ public:
     };
 
     /**
-     * @brief returns new list that contains difference from original list and new list
-     * @param l - list
-     * @param b - behaivor flag, when lists are different lengths
-     * @return new list
-     */
-    AtomList sub(const AtomList& l, NonEqualLengthBehaivor b = MINSIZE) const;
-
-    /**
      * @brief returns new list that contains difference from new list and original list
      * @param l - list
      * @param b - behaivor flag, when lists are different lengths
      * @return new list
      */
     AtomList subFrom(const AtomList& l, NonEqualLengthBehaivor b = MINSIZE) const;
+
     /**
      * @brief returns new list that is a sum of original list values and new list ("l") values
      * @param l - list
@@ -231,6 +224,15 @@ public:
     static AtomList ones(size_t n);
     static AtomList filled(const Atom& a, size_t n);
     static AtomList values(size_t n, ...);
+
+    /**
+     * @brief returns new list that contains difference from given lists
+     * @param a - first list
+     * @param b - second list
+     * @param lb - behaivor flag, when lists are different lengths
+     * @return new list
+     */
+    static AtomList substruct(const AtomList& a, const AtomList& b, NonEqualLengthBehaivor lb = MINSIZE);
 
 public:
     friend bool operator==(const AtomList& l1, const AtomList& l2);

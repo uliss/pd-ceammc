@@ -647,74 +647,6 @@ void AtomList::outputAsAny(_outlet* x, t_symbol* s) const
     outlet_anything(x, s, static_cast<int>(size()), toPdData());
 }
 
-AtomList AtomList::sub(const AtomList& l, AtomList::NonEqualLengthBehaivor b) const
-{
-    AtomList res;
-    switch (b) {
-    case MINSIZE: {
-        size_t sz = std::min(size(), l.size());
-        res.atoms_.reserve(sz);
-
-        for (size_t i = 0; i < sz; i++)
-            res.append(at(i).asFloat() - l.at(i).asFloat());
-
-        return res;
-    }
-    case PADZERO: {
-        size_t sz = std::max(size(), l.size());
-        AtomList l1(*this);
-        AtomList l2(l);
-        l1.resizePad(sz, 0.f);
-        l2.resizePad(sz, 0.f);
-        return l1.sub(l2, MINSIZE);
-    }
-    case CLIP: {
-        const size_t min_sz = std::min(size(), l.size());
-        // protect agains empty list. with it we can't take clipped value
-        if (min_sz == 0)
-            return res;
-
-        const size_t sz = std::max(size(), l.size());
-        res.atoms_.reserve(sz);
-
-        for (size_t i = 0; i < sz; i++)
-            res.append(clipAt(i)->asFloat() - l.clipAt(i)->asFloat());
-
-        return res;
-    }
-
-    case WRAP: {
-        const size_t min_sz = std::min(size(), l.size());
-        // protect agains empty list. with it we can't take wrapped value
-        if (min_sz == 0)
-            return res;
-
-        const size_t sz = std::max(size(), l.size());
-        res.atoms_.reserve(sz);
-
-        for (size_t i = 0; i < sz; i++)
-            res.append(wrapAt(i)->asFloat() - l.wrapAt(i)->asFloat());
-
-        return res;
-    }
-
-    case FOLD: {
-        const size_t min_sz = std::min(size(), l.size());
-        // protect agains empty list. with it we can't take folded value
-        if (min_sz == 0)
-            return res;
-
-        const size_t sz = std::max(size(), l.size());
-        res.atoms_.reserve(sz);
-
-        for (size_t i = 0; i < sz; i++)
-            res.append(foldAt(i)->asFloat() - l.foldAt(i)->asFloat());
-
-        return res;
-    }
-    }
-}
-
 AtomList AtomList::subFrom(const AtomList& l, AtomList::NonEqualLengthBehaivor b) const
 {
     AtomList res;
@@ -880,6 +812,54 @@ AtomList AtomList::values(size_t n, ...)
 
     va_end(ap);
     return res;
+}
+
+typedef const Atom* (AtomList::*ElementAccessFn)(int)const;
+
+static AtomList listSubstruct(const AtomList& a, const AtomList& b, ElementAccessFn fn)
+{
+    AtomList res;
+    const size_t min_sz = std::min(a.size(), b.size());
+    // protect agains empty list
+    if (min_sz == 0)
+        return res;
+
+    const size_t sz = std::max(a.size(), b.size());
+
+    for (size_t i = 0; i < sz; i++)
+        res.append((a.*fn)(static_cast<int>(i))->asFloat() - (b.*fn)(static_cast<int>(i))->asFloat());
+
+    return res;
+}
+
+AtomList AtomList::substruct(const AtomList& a, const AtomList& b, AtomList::NonEqualLengthBehaivor lb)
+{
+    switch (lb) {
+    case MINSIZE: {
+        AtomList res;
+        size_t sz = std::min(a.size(), b.size());
+        res.atoms_.reserve(sz);
+
+        for (size_t i = 0; i < sz; i++)
+            res.append(a[i].asFloat() - b[i].asFloat());
+
+        return res;
+    }
+    case PADZERO: {
+        size_t sz = std::max(a.size(), b.size());
+        AtomList l1(a);
+        AtomList l2(b);
+        l1.resizePad(sz, 0.f);
+        l2.resizePad(sz, 0.f);
+        return substruct(l1, l2, MINSIZE);
+    }
+    case CLIP:
+        return listSubstruct(a, b, &AtomList::clipAt);
+    case WRAP:
+        return listSubstruct(a, b, &AtomList::wrapAt);
+    case FOLD:
+        return listSubstruct(a, b, &AtomList::foldAt);
+    }
 }
 
 bool operator==(const AtomList& l1, const AtomList& l2)
