@@ -14,11 +14,11 @@
 #include "ceammc_atomlist.h"
 #include <algorithm>
 #include <cassert>
+#include <cstdarg>
 #include <cstdlib>
 #include <iostream>
 #include <iterator>
 #include <string>
-#include <cstdarg>
 
 namespace ceammc {
 
@@ -182,6 +182,23 @@ bool AtomList::property(const std::string& name, Atom* dest) const
     return false;
 }
 
+std::deque<AtomList> AtomList::properties() const
+{
+    std::deque<AtomList> res;
+    for (size_t i = 0; i < atoms_.size(); i++) {
+        if (atoms_[i].isProperty()) {
+            res.push_back(AtomList());
+        }
+
+        if (res.empty())
+            continue;
+
+        res.back().append(atoms_[i]);
+    }
+
+    return res;
+}
+
 bool AtomList::hasProperty(const std::string& name) const
 {
     for (size_t i = 0; i < atoms_.size(); i++) {
@@ -192,6 +209,54 @@ bool AtomList::hasProperty(const std::string& name) const
             return true;
     }
     return false;
+}
+
+AtomList AtomList::slice(int start) const
+{
+    if (start >= static_cast<int>(size()))
+        return AtomList();
+
+    // lower bound
+    start = std::max(start, -static_cast<int>(size()));
+    size_t pos = 0;
+    getRelativeIdx(start, &pos);
+
+    AtomList res;
+    res.atoms_.reserve(atoms_.size() - pos);
+    std::copy(atoms_.begin() + pos, atoms_.end(), std::back_inserter(res.atoms_));
+    return res;
+}
+
+AtomList AtomList::slice(int start, int end, size_t step) const
+{
+    if (step < 1)
+        return AtomList();
+
+    if (empty())
+        return AtomList();
+
+    if (start >= static_cast<int>(size()))
+        return AtomList();
+
+    // lower bound
+    start = std::max(start, -static_cast<int>(size()));
+    end = std::max(end, -static_cast<int>(size()));
+    end = std::min(end, static_cast<int>(size()));
+
+    size_t start_pos = 0;
+    getRelativeIdx(start, &start_pos);
+
+    if (end < 0)
+        end += size();
+
+    if (start_pos >= end)
+        return AtomList();
+
+    AtomList res;
+    for (size_t i = start_pos; i < end; i += step)
+        res.atoms_.push_back(atoms_[i]);
+
+    return res;
 }
 
 void AtomList::fromPdData(size_t n, t_atom* lst)
@@ -225,18 +290,6 @@ t_atom* AtomList::toPdData() const
 //    
 //    return ret;
 //};
-
-std::string AtomList::toString() const
-{
-    std::string ret = "";
-
-    //iterator??
-    for (int i = 0; i < this->size(); i++) {
-        ret = ret + this->at(i).asString() + (i != (this->size() - 1) ? " " : "");
-    }
-
-    return ret;
-};
 
 void AtomList::append(const Atom& a)
 {
@@ -537,6 +590,14 @@ FloatList AtomList::asFloats() const
         res.push_back(atoms_[i].asFloat());
     }
     return res;
+}
+
+size_t AtomList::asSizeT(size_t defaultValue) const
+{
+    if (empty())
+        return defaultValue;
+
+    return atoms_.front().asSizeT(defaultValue);
 }
 
 void AtomList::outputAtoms(t_outlet* x) const

@@ -22,6 +22,7 @@ TEST_CASE("Message", "[ceammc::Message]")
     Message v1;
     REQUIRE(v1.isNone());
     REQUIRE(v1.type() == Message::NONE);
+    REQUIRE(v1 != Message());
 
     Message v2(1.f);
     REQUIRE(v2.isFloat());
@@ -108,5 +109,10 @@ TEST_CASE("Message", "[ceammc::Message]")
         REQUIRE(v1.isList());
         v1.setAny(gensym("c"), 2, &atoms[0]);
         REQUIRE(v1.isAny());
+
+        v1.setAtom(Atom(1.f));
+        REQUIRE(v1.isFloat());
+        v1.setAtom(Atom(gensym("a")));
+        REQUIRE(v1.isSymbol());
     }
 }
