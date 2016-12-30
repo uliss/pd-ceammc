@@ -232,7 +232,7 @@ public:
      * @param lb - behaivor flag, when lists are different lengths
      * @return new list
      */
-    static AtomList substruct(const AtomList& a, const AtomList& b, NonEqualLengthBehaivor lb = MINSIZE);
+    static AtomList sub(const AtomList& a, const AtomList& b, NonEqualLengthBehaivor lb = MINSIZE);
 
 public:
     friend bool operator==(const AtomList& l1, const AtomList& l2);

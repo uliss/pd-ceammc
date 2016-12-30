@@ -832,7 +832,7 @@ static AtomList listSubstruct(const AtomList& a, const AtomList& b, ElementAcces
     return res;
 }
 
-AtomList AtomList::substruct(const AtomList& a, const AtomList& b, AtomList::NonEqualLengthBehaivor lb)
+AtomList AtomList::sub(const AtomList& a, const AtomList& b, AtomList::NonEqualLengthBehaivor lb)
 {
     switch (lb) {
     case MINSIZE: {
@@ -851,7 +851,7 @@ AtomList AtomList::substruct(const AtomList& a, const AtomList& b, AtomList::Non
         AtomList l2(b);
         l1.resizePad(sz, 0.f);
         l2.resizePad(sz, 0.f);
-        return substruct(l1, l2, MINSIZE);
+        return sub(l1, l2, MINSIZE);
     }
     case CLIP:
         return listSubstruct(a, b, &AtomList::clipAt);
