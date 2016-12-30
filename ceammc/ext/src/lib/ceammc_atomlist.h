@@ -88,8 +88,8 @@ public:
      * @param pos - position index
      * @return pointer to element, or NULL if empty
      */
-    Atom* foldAt(size_t pos);
-    const Atom* foldAt(size_t pos) const;
+    Atom* foldAt(int pos);
+    const Atom* foldAt(int pos) const;
 
     /**
      * Resize list. If new size is less than current, last values are dropped.

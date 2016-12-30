@@ -518,6 +518,12 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         l.append(3.f);
 
         const AtomList cl(l);
+        REQUIRE(cl.foldAt(-6)->asFloat() == 3.f);
+        REQUIRE(cl.foldAt(-5)->asFloat() == 2.f);
+        REQUIRE(cl.foldAt(-4)->asFloat() == 1.f);
+        REQUIRE(cl.foldAt(-3)->asFloat() == 2.f);
+        REQUIRE(cl.foldAt(-2)->asFloat() == 3.f);
+        REQUIRE(cl.foldAt(-1)->asFloat() == 2.f);
         REQUIRE(cl.foldAt(0)->asFloat() == 1.f);
         REQUIRE(cl.foldAt(1)->asFloat() == 2.f);
         REQUIRE(cl.foldAt(2)->asFloat() == 3.f);

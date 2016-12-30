@@ -144,7 +144,7 @@ const Atom* AtomList::wrapAt(int pos) const
     return const_cast<AtomList*>(this)->wrapAt(pos);
 }
 
-Atom* AtomList::foldAt(size_t pos)
+Atom* AtomList::foldAt(int pos)
 {
     if (empty())
         return 0;
@@ -153,11 +153,11 @@ Atom* AtomList::foldAt(size_t pos)
         return first();
 
     const size_t a = size() - 1;
-    const size_t b = pos % (a * 2);
+    const size_t b = static_cast<size_t>(abs(pos)) % (a * 2);
     return &at(std::min(b, a * 2 - b));
 }
 
-const Atom* AtomList::foldAt(size_t pos) const
+const Atom* AtomList::foldAt(int pos) const
 {
     return const_cast<AtomList*>(this)->foldAt(pos);
 }
