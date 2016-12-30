@@ -203,19 +203,19 @@ public:
         FOLD // result of max size, min list wraped
     };
 
+public:
+    static AtomList zeroes(size_t n);
+    static AtomList ones(size_t n);
+    static AtomList filled(const Atom& a, size_t n);
+    static AtomList values(size_t n, ...);
+
     /**
      * @brief returns new list that is a sum of original list values and new list ("l") values
      * @param l - list
      * @param b - behaivor flag, when lists are different lengths
      * @return new list
      */
-    AtomList addTo(const AtomList& l, NonEqualLengthBehaivor b = MINSIZE) const;
-
-public:
-    static AtomList zeroes(size_t n);
-    static AtomList ones(size_t n);
-    static AtomList filled(const Atom& a, size_t n);
-    static AtomList values(size_t n, ...);
+    static AtomList add(const AtomList& a, const AtomList& b, NonEqualLengthBehaivor lb = MINSIZE);
 
     /**
      * @brief returns new list that contains difference from given lists

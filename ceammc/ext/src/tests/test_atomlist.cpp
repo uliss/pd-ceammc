@@ -924,4 +924,135 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         REQUIRE(atomlistToValue<int>(AtomList(), 10) == 10);
         REQUIRE(atomlistToValue<size_t>(AtomList(), 20) == 20);
     }
+
+    SECTION("addMin")
+    {
+        AtomList l1;
+        AtomList l2;
+
+        REQUIRE(AtomList::add(l1, l1) == l1);
+        REQUIRE(AtomList::add(l1, l2) == l1);
+
+        l1.append(1.f);
+        REQUIRE(AtomList::add(l1, l1) == AtomList::filled(2.f, 1));
+        REQUIRE(AtomList::add(l2, l1) == AtomList());
+        REQUIRE(AtomList::add(l1, l2) == AtomList());
+
+        l2.append(2.f);
+        REQUIRE(AtomList::add(l1, l2) == AtomList::filled(3.f, 1));
+        REQUIRE(AtomList::add(l2, l1) == AtomList::filled(3.f, 1));
+    }
+
+    SECTION("addPadZero")
+    {
+        AtomList l1;
+        AtomList l2;
+
+        REQUIRE(AtomList::add(l1, l1, AtomList::PADZERO) == AtomList());
+        REQUIRE(AtomList::add(l1, l2, AtomList::PADZERO) == AtomList());
+
+        l1.append(1.f);
+        REQUIRE(AtomList::add(l1, l1, AtomList::PADZERO) == AtomList::filled(2.f, 1));
+        REQUIRE(AtomList::add(l2, l1, AtomList::PADZERO) == AtomList::filled(1.f, 1));
+    }
+
+    SECTION("addClip")
+    {
+        AtomList l1;
+        AtomList l2;
+
+        REQUIRE(AtomList::add(l1, l1, AtomList::CLIP) == AtomList());
+        REQUIRE(AtomList::add(l1, l2, AtomList::CLIP) == AtomList());
+
+        l1.append(1.f);
+        REQUIRE(AtomList::add(l1, l1, AtomList::CLIP) == AtomList::filled(2.f, 1));
+        REQUIRE(AtomList::add(l2, l1, AtomList::CLIP) == AtomList());
+        REQUIRE(AtomList::add(l1, l2, AtomList::CLIP) == AtomList());
+
+        l2.append(2.f);
+        REQUIRE(AtomList::add(l1, l2, AtomList::CLIP) == AtomList::filled(3.f, 1));
+        REQUIRE(AtomList::add(l2, l1, AtomList::CLIP) == AtomList::filled(3.f, 1));
+
+        l1.append(2.f);
+        l1.append(3.f);
+        l1.append(4.f);
+
+        // [2, 2, 2, 2]
+        // [1, 2, 3, 4]
+        // [3, 4, 5, 6]
+        REQUIRE(AtomList::add(l1, l2, AtomList::CLIP) == AtomList::values(4, 3.f, 4.f, 5.f, 6.f));
+        REQUIRE(AtomList::add(l2, l1, AtomList::CLIP) == AtomList::values(4, 3.f, 4.f, 5.f, 6.f));
+    }
+
+    SECTION("addWrap")
+    {
+        AtomList l1;
+        AtomList l2;
+
+        REQUIRE(AtomList::add(l1, l1, AtomList::WRAP) == AtomList());
+        REQUIRE(AtomList::add(l1, l2, AtomList::WRAP) == AtomList());
+
+        l1.append(1.f);
+        REQUIRE(AtomList::add(l1, l1, AtomList::WRAP) == AtomList::filled(2.f, 1));
+        REQUIRE(AtomList::add(l2, l1, AtomList::WRAP) == AtomList());
+        REQUIRE(AtomList::add(l1, l2, AtomList::WRAP) == AtomList());
+
+        l2.append(2.f);
+        REQUIRE(AtomList::add(l1, l2, AtomList::WRAP) == AtomList::filled(3.f, 1));
+        REQUIRE(AtomList::add(l2, l1, AtomList::WRAP) == AtomList::filled(3.f, 1));
+
+        l1.append(2.f);
+        l1.append(3.f);
+        l1.append(4.f);
+        l1.append(5.f);
+        l1.append(6.f);
+        l1.append(7.f);
+        l1.append(8.f);
+
+        l2.append(1.f);
+        l2.append(3.f);
+
+        // [1, 2, 3, 4, 5, 6, 7, 8]
+        // [2, 1, 3]
+        // [2, 1, 3, 2, 1, 3, 2, 1] - wrapped version
+        // [3, 3, 6, 6, 6, 9, 9, 9] - sum
+        REQUIRE(AtomList::add(l1, l2, AtomList::WRAP) == AList(8, 3., 3., 6., 6., 6., 9., 9., 9.));
+        REQUIRE(AtomList::add(l2, l1, AtomList::WRAP) == AList(8, 3., 3., 6., 6., 6., 9., 9., 9.));
+    }
+
+    SECTION("addFold")
+    {
+        AtomList l1;
+        AtomList l2;
+
+        REQUIRE(AtomList::add(l1, l1, AtomList::FOLD) == AtomList());
+        REQUIRE(AtomList::add(l1, l2, AtomList::FOLD) == AtomList());
+
+        l1.append(1.f);
+        REQUIRE(AtomList::add(l1, l1, AtomList::FOLD) == AtomList::filled(2.f, 1));
+        REQUIRE(AtomList::add(l2, l1, AtomList::FOLD) == AtomList());
+        REQUIRE(AtomList::add(l1, l2, AtomList::FOLD) == AtomList());
+
+        l2.append(2.f);
+        REQUIRE(AtomList::add(l1, l2, AtomList::FOLD) == AtomList::filled(3.f, 1));
+        REQUIRE(AtomList::add(l2, l1, AtomList::FOLD) == AtomList::filled(3.f, 1));
+
+        l1.append(2.f);
+        l1.append(3.f);
+        l1.append(4.f);
+        l1.append(5.f);
+        l1.append(6.f);
+        l1.append(7.f);
+        l1.append(8.f);
+
+        l2.append(1.f);
+        l2.append(3.f);
+
+        // [1, 2, 3, 4, 5, 6, 7, 8]
+        // [2, 1, 3]
+        // [2, 1, 3, 1, 2, 1, 3, 1] - folded version
+        // [3, 3, 6, 5, 7, 7, 10, 9] - sum
+        REQUIRE(AtomList::add(l1, l2, AtomList::FOLD) == AList(8, 3., 3., 6., 5., 7., 7., 10., 9.));
+        REQUIRE(AtomList::add(l2, l1, AtomList::FOLD) == AList(8, 3., 3., 6., 5., 7., 7., 10., 9.));
+    }
 }
