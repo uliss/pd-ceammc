@@ -1,68 +1,51 @@
-#include "ceammc.hpp"
-#include "ceammc_atomlist.h"
-#include <algorithm>
-#include <functional>
-#include <m_pd.h>
-
-#define OBJ_NAME "list.сount"
-#define MSG_PREFIX "[" OBJ_NAME "] "
+#include "ceammc_factory.h"
+#include "ceammc_object.h"
 
 using namespace ceammc;
 
-static t_class* list_count_class;
-struct t_list_count {
-    t_object x_obj;
-    t_inlet* in_cmp;
-    Atom pattern;
-};
+class ListCount : public BaseObject {
+    Atom pattern_;
 
-static void list_count_set_pattern(t_list_count* x, t_symbol*, int argc, t_atom* argv)
-{
-    if (argc < 1)
-        return;
+public:
+    ListCount(const PdArgs& a)
+        : BaseObject(a)
+    {
+        createInlet();
+        createOutlet();
 
-    if (argc > 1)
-        pd_error(x, MSG_PREFIX "search pattern can be only single element, not list. Using first element.");
+        createCbProperty("@pattern", &ListCount::pattern);
 
-    x->pattern = Atom(argv[0]);
-}
-
-static void list_count_list(t_list_count* x, t_symbol*, int argc, t_atom* argv)
-{
-    size_t count = AtomList(static_cast<size_t>(argc), argv).count(x->pattern);
-    outlet_float(x->x_obj.te_outlet, count);
-}
-
-static void* list_count_new(t_symbol*, int argc, t_atom* argv)
-{
-    t_list_count* x = reinterpret_cast<t_list_count*>(pd_new(list_count_class));
-    outlet_new(&x->x_obj, &s_float);
-    x->in_cmp = inlet_new(&x->x_obj, &x->x_obj.ob_pd, &s_list, gensym("pattern"));
-
-    // pattern specified
-    if (argc > 0) {
-        x->pattern = Atom(argv[0]);
-    } else {
-        pd_error(x, MSG_PREFIX "search pattern not specfied.");
-        x->pattern = Atom();
+        if (!args().empty())
+            pattern_ = args().at(0);
     }
 
-    return static_cast<void*>(x);
-}
+    void onList(const AtomList& l)
+    {
+        floatTo(0, l.count(pattern_));
+    }
 
-static void list_count_free(t_list_count* x)
-{
-    inlet_free(x->in_cmp);
-}
+    void onInlet(size_t n, const AtomList& l)
+    {
+        if (n != 1)
+            return;
+
+        if (l.size() < 1)
+            return;
+        else if (l.size() == 1)
+            pattern_ = l[0];
+        else {
+            DBG << "search pattern can be only single element, not list. Using first element from " << l;
+            pattern_ = l[0];
+        }
+    }
+
+    AtomList pattern() const
+    {
+        return listFrom(pattern_);
+    }
+};
 
 extern "C" void setup_list0x2ecount()
 {
-    list_count_class = class_new(gensym("list.count"),
-        reinterpret_cast<t_newmethod>(list_count_new),
-        reinterpret_cast<t_method>(list_count_free),
-        sizeof(t_list_count), 0, A_GIMME, A_NULL);
-    class_addlist(list_count_class, list_count_list);
-    class_addmethod(list_count_class,
-        reinterpret_cast<t_method>(list_count_set_pattern),
-        gensym("pattern"), A_GIMME, 0);
+    ObjectFactory<ListCount> obj("list.count");
 }
