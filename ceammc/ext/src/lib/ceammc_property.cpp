@@ -144,12 +144,15 @@ bool BoolProperty::set(const AtomList& lst)
     if (a.isSymbol()) {
         std::string str(a.asSymbol()->s_name);
         std::transform(str.begin(), str.end(), str.begin(), ::tolower);
+
         if (str == "true")
             v_ = true;
         else if (str == "false")
             v_ = false;
         else
             return false;
+
+        return true;
     }
 
     return false;

@@ -135,4 +135,28 @@ TEST_CASE("Properties", "[ceammc::properties]")
         REQUIRE(p2.set(AtomList::values(4, 34.f)));
         REQUIRE(s1.sz == 34.f);
     }
+
+    SECTION("bool property")
+    {
+        BoolProperty p("test", true);
+        REQUIRE(!p.readonly());
+        REQUIRE(p.name() == "test");
+        REQUIRE(p.value() == true);
+        REQUIRE(p.get() == AtomList::ones(1));
+        REQUIRE_FALSE(p.set(AtomList::zeroes(0)));
+        REQUIRE(p.set(AtomList::zeroes(10)));
+        REQUIRE(p.value() == false);
+        REQUIRE(p.get() == AtomList::zeroes(1));
+
+        REQUIRE_FALSE(p.set(listFrom(Atom(gensym("a")))));
+        REQUIRE(p.set(listFrom(Atom(gensym("True")))));
+        REQUIRE(p.value() == true);
+        REQUIRE(p.set(listFrom(gensym("false"))));
+        REQUIRE(p.value() == false);
+
+        BoolProperty p2("test2", true, true);
+        REQUIRE(p2.readonly());
+        REQUIRE(p2.name() == "test2");
+        REQUIRE_FALSE(p2.set(AtomList::ones(1)));
+    }
 }
