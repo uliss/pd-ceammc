@@ -10,11 +10,13 @@
             <description>treats list of floats as vector, returns vector length: sqrt(element(1)^2 + ...element(n)^2).</description>
             <license>GPL3</license>
             <library>ceammc</library>
-            <category>list</category>
+            <category>vector</category>
             <keywords>list vector</keywords>
             <since>0.1</since>
             <also>
-                <see>vector.normalize vector.distance vector.dot</see>
+                <see>vector.normalize</see>
+                <see>vector.distance</see>
+                <see>vector.dot</see>
             </also>
         </meta>
         <inlets>
@@ -28,8 +30,8 @@
         <example>
             <pdascii>
                 <![CDATA[
-[1 0 0(
-|
+[1 0 0( [3 4(
+|       |
 [vector.length]
 |
 [prepend set]
