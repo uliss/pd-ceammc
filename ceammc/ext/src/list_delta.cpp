@@ -1,62 +1,93 @@
-#include "ceammc_atomlist.h"
-#include <m_pd.h>
-#include <stdlib.h>
+#include "ceammc_factory.h"
+#include "ceammc_object.h"
 
 using namespace ceammc;
 
-static t_class* list_delta_class;
-struct t_list_delta {
-    t_object x_obj;
-    AtomList* stored_list;
-    AtomList* out_list;
+class ListDelta : public BaseObject {
+    AtomList prev_list_;
+    AtomList delta_list_;
+    SymbolEnumProperty* wrap_method_;
+    t_symbol* gmin_;
+    t_symbol* gpadz_;
+    t_symbol* gclip_;
+    t_symbol* gwrap_;
+    t_symbol* gfold_;
+
+public:
+    ListDelta(const PdArgs& a)
+        : BaseObject(a)
+    {
+        createOutlet();
+        wrap_method_ = new SymbolEnumProperty("@oversize", "min");
+        wrap_method_->appendEnum("padz");
+        wrap_method_->appendEnum("clip");
+        wrap_method_->appendEnum("fold");
+        wrap_method_->appendEnum("wrap");
+        createProperty(wrap_method_);
+
+        gmin_ = gensym("min");
+        gpadz_ = gensym("padz");
+        gclip_ = gensym("clip");
+        gwrap_ = gensym("wrap");
+        gfold_ = gensym("fold");
+
+        createProperty(new SymbolEnumAlias("@padz", wrap_method_, gmin_));
+        createProperty(new SymbolEnumAlias("@padz", wrap_method_, gpadz_));
+        createProperty(new SymbolEnumAlias("@clip", wrap_method_, gclip_));
+        createProperty(new SymbolEnumAlias("@wrap", wrap_method_, gwrap_));
+        createProperty(new SymbolEnumAlias("@fold", wrap_method_, gfold_));
+
+        parseArguments();
+        if (args().size() > 2) {
+            ERR << "only one optional argument accepted: oversize method";
+        }
+    }
+
+    AtomList::NonEqualLengthBehaivor symbolToWrap(t_symbol* s)
+    {
+        if (s == gmin_)
+            return AtomList::MINSIZE;
+        else if (s == gpadz_)
+            return AtomList::PADZERO;
+        else if (s == gclip_)
+            return AtomList::CLIP;
+        else if (s == gwrap_)
+            return AtomList::WRAP;
+        else if (s == gfold_)
+            return AtomList::FOLD;
+        else
+            return AtomList::MINSIZE;
+    }
+
+    void onBang()
+    {
+        listTo(0, delta_list_);
+    }
+
+    void onList(const AtomList& l)
+    {
+        delta_list_ = AtomList::sub(prev_list_, l, symbolToWrap(wrap_method_->value()));
+        prev_list_ = l;
+
+        listTo(0, delta_list_);
+    }
+
+    void m_clear(t_symbol*, const AtomList&)
+    {
+        prev_list_.clear();
+        delta_list_.clear();
+    }
+
+    void dump() const
+    {
+        BaseObject::dump();
+        DBG << "current value: " << prev_list_;
+        DBG << "delta:         " << delta_list_;
+    }
 };
-
-static void list_delta_clear(t_list_delta* x, t_symbol*, int, t_atom*)
-{
-    x->stored_list->clear();
-    x->out_list->clear();
-}
-
-static void list_delta_bang(t_list_delta* x, t_symbol*, int, t_atom*)
-{
-    x->out_list->output(x->x_obj.te_outlet);
-}
-
-static void list_delta_list(t_list_delta* x, t_symbol*, int argc, t_atom* argv)
-{
-    if (argc < 1)
-        return;
-
-    AtomList new_list(argc, argv);
-    //    new_list.removeAll(notFloat); // remove all non float atoms
-    AtomList delta_list(x->stored_list->subFrom(new_list, AtomList::PADZERO));
-
-    delta_list.output(x->x_obj.te_outlet);
-    *x->stored_list = new_list;
-    *x->out_list = delta_list;
-}
-
-static void* list_delta_new()
-{
-    t_list_delta* x = reinterpret_cast<t_list_delta*>(pd_new(list_delta_class));
-    outlet_new(&x->x_obj, &s_float);
-    x->stored_list = new AtomList;
-    x->out_list = new AtomList;
-    return static_cast<void*>(x);
-}
-
-static void list_delta_free(t_list_delta* x)
-{
-    delete x->stored_list;
-}
 
 extern "C" void setup_list0x2edelta()
 {
-    list_delta_class = class_new(gensym("list.delta"),
-        reinterpret_cast<t_newmethod>(list_delta_new),
-        reinterpret_cast<t_method>(list_delta_free),
-        sizeof(t_list_delta), 0, A_NULL);
-    class_addlist(list_delta_class, list_delta_list);
-    class_addanything(list_delta_class, list_delta_clear);
-    class_addbang(list_delta_class, list_delta_bang);
+    ObjectFactory<ListDelta> obj("list.delta");
+    obj.addMethod("clear", &ListDelta::m_clear);
 }
