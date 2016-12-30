@@ -6,13 +6,12 @@
 #include <list>
 
 #define OBJ_NAME "data.fifo"
-#define MSG_PREFIX "[" OBJ_NAME "] "
 
 using namespace ceammc;
 
 typedef std::list<Message> MessageFifo;
 
-static size_t MAX_SIZE = 1024;
+static size_t DEFAULT_SIZE = 1024;
 
 class DataFifo : public BaseObject {
     MessageFifo fifo_;
@@ -21,10 +20,9 @@ class DataFifo : public BaseObject {
 public:
     DataFifo(const PdArgs& args)
         : BaseObject(args)
-        , size_(MAX_SIZE)
+        , size_(DEFAULT_SIZE)
     {
-        if (args.args.size() > 0)
-            size_ = args.args.first()->asSizeT(MAX_SIZE);
+        size_ = args.args.asSizeT(DEFAULT_SIZE);
 
         createOutlet();
         createCbProperty("@filled", &DataFifo::p_size);
@@ -45,7 +43,7 @@ public:
     {
         size_t sz = l.asSizeT(0);
         if (sz < 1) {
-            pd_error(owner(), MSG_PREFIX "invalid size value %lu. Using default size: %lu", sz, MAX_SIZE);
+            errorStream() << "invalid size value: " << sz << ". Using default size: " << DEFAULT_SIZE;
             return;
         }
 
@@ -92,7 +90,7 @@ public:
     void resize(size_t sz)
     {
         clear();
-        size_ = std::min(sz, MAX_SIZE);
+        size_ = std::min(sz, DEFAULT_SIZE);
     }
 
     void dump() const
@@ -108,7 +106,7 @@ public:
 
 extern "C" void setup_data0x2efifo()
 {
-    ObjectFactory<DataFifo> obj("data.fifo");
+    ObjectFactory<DataFifo> obj(OBJ_NAME);
     obj.addMethod("flush", &DataFifo::m_flush);
     obj.addMethod("clear", &DataFifo::m_clear);
     obj.addMethod("pop", &DataFifo::m_pop);
