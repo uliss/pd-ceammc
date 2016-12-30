@@ -40,14 +40,6 @@ public:
     }
 };
 
-class ErrorStream : public std::stringbuf {
-    t_object* obj_;
-
-public:
-    ErrorStream(t_object* obj);
-    virtual int sync();
-};
-
 class BaseObject {
     PdArgs pd_;
     typedef std::vector<t_inlet*> InletList;
@@ -199,7 +191,6 @@ public:
     bool processAnyProps(t_symbol* sel, const AtomList& lst);
     void anyDispatch(t_symbol* s, const AtomList& lst);
 
-    std::ostream& errorStream();
 public:
     static t_symbol* tryGetPropKey(t_symbol* sel);
 
@@ -211,6 +202,25 @@ private:
     AtomList propNumOutlets();
     AtomList listAllProps() const;
 };
+
+class Error : public std::ostringstream {
+    const BaseObject* obj_;
+
+public:
+    Error(const BaseObject* obj = NULL);
+    ~Error();
+};
+
+class Debug : public std::ostringstream {
+    const BaseObject* obj_;
+
+public:
+    Debug(const BaseObject* obj = NULL);
+    ~Debug();
+};
+
+#define ERR Error(this)
+#define DBG Debug(this)
 }
 
 #endif // CEAMMC_OBJECT_H

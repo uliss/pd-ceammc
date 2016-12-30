@@ -43,7 +43,7 @@ public:
     {
         size_t sz = l.asSizeT(0);
         if (sz < 1) {
-            errorStream() << "invalid size value: " << sz << ". Using default size: " << DEFAULT_SIZE;
+            ERR << "invalid size value: " << sz << ". Using default size: " << DEFAULT_SIZE;
             return;
         }
 

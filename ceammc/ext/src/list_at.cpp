@@ -58,7 +58,7 @@ public:
             a = l.relativeAt(pos_->value());
 
         if (a == 0) {
-            errorStream() << "invalid index value: " << pos_->value() << std::flush;
+            ERR << "invalid index value: " << pos_->value();
             return;
         }
 
