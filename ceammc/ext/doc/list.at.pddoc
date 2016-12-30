@@ -18,12 +18,16 @@
         </meta>
         <info>
             <par>Returns the element at the given index position in the list.</par>
-            <par>The position must be a valid index position in the string
-            (i.e., -LIST_SIZE &lt; position &lt; LIST_SIZE).
-            '0' means first element. Negative index means position from the end of the list. For example: -1 returns last element.</par>
+            <par>@rel property allows to acess elements in range (-LIST_SIZE, LIST_SIZE).
+Negative index means position from the end of the list. For example: -1 returns last element.</par>
+            <par>@clip property: if element index &lt; 0 - first element returned. If element index &gt;= LIST_SIZE
+last element returned.</par>
+            <par>@wrap property: in range [0, LIST_SIZE) ordinal elements are returned. Other indexes are wrapped by modulo division.</par>
         </info>
         <arguments>
             <argument name="position" type="int">position</argument>
+            <argument name="method" type="symbol">@rel(default), @clip, @fold or @wrap.
+            They are aliases for property: @method rel, @method clip, @method fold and @method wrap</argument>
         </arguments>
         <inlets>
             <inlet>
@@ -39,13 +43,18 @@
         <example>
             <pdascii>
 <![CDATA[
-[1 60 120 b 11( [F]
-|               |.
-[list.at       -1]
-|
-[prepend set]
-|
-[ (
+[1 2 3 4 5( [F]  [1 2 3 4 5( [F]
+|           |.   |           |.
+[list.at -1  ]   [list.at @clip]
+|                |
+[F]              [F]
+
+
+[1 2 3 4 5( [F]  [1 2 3 4 5( [F]
+|           |.   |           |.
+[list.at @wrap]  [list.at @fold]
+|                |
+[F]              [F]
 ]]>
             </pdascii>
         </example>

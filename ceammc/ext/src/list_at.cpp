@@ -23,6 +23,7 @@ public:
         at_method_->appendEnum("fold");
         createProperty(at_method_);
 
+        createProperty(new SymbolEnumAlias("@rel", at_method_, gensym("rel")));
         createProperty(new SymbolEnumAlias("@clip", at_method_, gensym("clip")));
         createProperty(new SymbolEnumAlias("@wrap", at_method_, gensym("wrap")));
         createProperty(new SymbolEnumAlias("@fold", at_method_, gensym("fold")));
