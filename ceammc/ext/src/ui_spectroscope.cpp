@@ -11,7 +11,7 @@
 #include "lib/ceammc_gui.h"
 
 
-struct ui_spectroscope : ceammc_gui::base_pd_object
+struct ui_spectroscope : public ceammc_gui::base_pd_object
 {
     t_edspobj d_dsp;
     
@@ -27,16 +27,11 @@ namespace ceammc_gui {
     
     UI_fun(ui_spectroscope)::wx_paint(t_object *z, t_object *view)
     {
-        //UI_Prop
-        
         t_symbol *bgl = gensym("background_layer");
-        //float size;
         t_rect rect;
         ebox_get_rect_for_view((t_ebox *)z, &rect);
         
         t_elayer *g = ebox_start_layer((t_ebox *)z, bgl, rect.width, rect.height);
-        
-        //ui_spectroscope *zx = (ui_spectroscope*)z;
         
         if(g)
         {
@@ -93,8 +88,6 @@ namespace ceammc_gui {
                 float xx = float(i+1)/fft_size*rect.width;
                 float val = ( out1[i]  ==   out1[i] ) ? out1[i] : 0.;
                 
-                //val = 1+log10(val);
-                
                 float yy = (1.-val )*rect.height;
                 
                 egraphics_line_to(g, xx, yy);
@@ -139,6 +132,28 @@ namespace ceammc_gui {
         CLASS_ATTR_DEFAULT (z, "size", 0, "150. 100.");
         
     }
+    
+    // these are added as a quick fix
+    UI_fun(ui_spectroscope)::wx_mousedown(t_object *z, t_object *view, t_pt pt, long modifiers)
+    {
+        
+    }
+    
+    UI_fun(ui_spectroscope)::wx_mouseup(t_object *z, t_object *view, t_pt pt, long modifiers)
+    {
+        
+    }
+    
+    UI_fun(ui_spectroscope)::wx_mousemove(t_object *z, t_object *view, t_pt pt, long modifiers)
+    {
+        
+    }
+    
+    UI_fun(ui_spectroscope)::wx_mousedrag(t_object *z, t_object *view, t_pt pt, long modifiers)
+    {
+        
+    }
+    
     
 }
 

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pddoc version="1.0">
+    <object name="vector.normalize">
+        <title>vector.normalize</title>
+        <meta>
+            <authors>
+                <author>Alex Nadzharov</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>treats list of floats as vector, divides the vector by its length (return 0 if length is 0)</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>list</category>
+            <keywords>list</keywords>
+            <since>0.1</since>
+            <also>
+                <see>vector.length vector.distance vector.dot</see>
+            </also>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="list">Input list of floats.</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>normalized vector - list of floats</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+                <![CDATA[
+[1 2 3(
+|
+[vector.normalize]
+|
+[prepend set]
+|
+[ (
+                ]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
+

@@ -18,8 +18,13 @@
 
 using namespace ceammc;
 
-struct ui_display : ceammc_gui::base_pd_object {
+struct ui_display : public ceammc_gui::base_pd_object {
     t_ebox x_gui;
+    
+    float mouse_x;
+    float mouse_y;
+    int mouse_dn;
+    bool _selected;
     
     int argc;
     t_atom* argv;
@@ -64,10 +69,8 @@ namespace ceammc_gui {
     
     UI_fun(ui_display)::wx_paint(t_object* z, t_object* view)
     {
-        //UI_Prop
-        
         t_symbol* bgl = gensym("background_layer");
-        //float size;
+        
         t_rect rect;
         ebox_get_rect_for_view((t_ebox*)z, &rect);
         
@@ -162,6 +165,7 @@ namespace ceammc_gui {
 
     UI_fun(ui_display)::wx_oksize(t_object *z, t_rect *newrect)
     {
+        newrect->height = floor(newrect->height / 15) *15;
         newrect->height = (newrect->height>15)? newrect->height : 15;
         
     }
@@ -200,7 +204,7 @@ namespace ceammc_gui {
     
     UI_fun(ui_display)::init_ext(t_eclass* z)
     {
-        CLASS_ATTR_DEFAULT(z, "size", 0, "120. 15.");
+        CLASS_ATTR_DEFAULT(z, "size", 0, "150. 15.");
         
         CLASS_ATTR_INT(z, "display_events", 0, ui_display, show_bang);
         CLASS_ATTR_DEFAULT(z, "display_events", 0, "1");

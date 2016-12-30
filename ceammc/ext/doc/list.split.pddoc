@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pddoc version="1.0">
+    <object name="list.split">
+        <title>list.split</title>
+        <meta>
+            <authors>
+                <author>Alex Nadzharov</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>splits list into two parts, the length of first list is specified by the argument.</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>list</category>
+            <keywords>list</keywords>
+            <since>0.1</since>
+            <also>
+                <see>list.split</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="index" type="int">position index (starting from 0). Negative value means position from end of the list.
+            For example: '-1' means last element.</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="list">Input list. If no element found by specified index - list passed without changes.</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo>New modified value from applied object.</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>new modified list</outlet>
+            <outlet>Element at given index. Should be passed to applied object.</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+                <![CDATA[
+[1 60 120(
+|
+[list.apply_to 1] X [mtof]
+|
+[prepend set]
+|
+[ (
+                ]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
+

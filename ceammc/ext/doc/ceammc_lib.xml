@@ -269,6 +269,20 @@
       <xi:include href="system.memused.pddoc" parse="xml"/>
     </entry>
   </category>
+  <category name="vector">
+    <entry descr="returns length of vector (list of floats)." name="vector.length">
+      <xi:include href="vector.length.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="returns distance between two vectors (lists of floats)." name="vector.distance">
+        <xi:include href="vector.distance.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="returns dot product of two vectors (lists of floats)." name="vector.dot">
+        <xi:include href="vector.dot.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="returns normalized vector (list of floats)." name="vector.normalize">
+        <xi:include href="vector.normalize.pddoc" parse="xml"/>
+    </entry>
+  </category>
   <meta>
     <version>0.1</version>
     <authors>

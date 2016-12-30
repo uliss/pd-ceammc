@@ -33,9 +33,14 @@ typedef std::vector<t_bpt> bpf_points;
 
 using namespace ceammc;
 
-struct ui_bpfunc : ceammc_gui::base_pd_object
+struct ui_bpfunc : public ceammc_gui::base_pd_object
 {
     t_ebox x_gui;
+    
+    float mouse_x;
+    float mouse_y;
+    int mouse_dn;
+    bool _selected;
     
     t_outlet *out1;
     t_atom *out_list;
@@ -61,6 +66,11 @@ struct ui_bpfunc : ceammc_gui::base_pd_object
     float shift_y;
     
     
+    t_etext *txt_min;
+    t_etext *txt_max;
+    t_efont *txt_font;
+    
+    
     
 };
 
@@ -74,13 +84,6 @@ namespace ceammc_gui {
     {
         
         bpf_points *ps = ((ui_bpfunc*)z)->points;
-        
-        //
-        //    struct pred {
-        //        bool operator()(t_bpt const & a, t_bpt const & b) const {
-        //            return a.x < b.x;
-        //        }
-        //    } pred1;
         
         std::sort(ps->begin(), ps->end(), bpf_sort_pred);
         
@@ -175,9 +178,6 @@ namespace ceammc_gui {
             
             bpf_points::iterator it = zx->points->begin();
             
-            //        egraphics_stroke(g);
-            
-            //
             if (zx->addpos>0)
             {
                 egraphics_set_color_hex(g, gensym("#00C0FF"));
@@ -254,6 +254,18 @@ namespace ceammc_gui {
                 }
             }
             
+            char c_min[10];
+            sprintf(c_min, "%.2f", zx->shift_y);
+            
+            char c_max[10];
+            sprintf(c_max, "%.2f", zx->range_y+zx->shift_y);
+            
+            etext_layout_set(zx->txt_min, c_min, zx->txt_font, 3, rect.height-12, rect.width*2, rect.height/2, ETEXT_UP_LEFT, ETEXT_JLEFT, ETEXT_WRAP);
+            etext_layout_draw(zx->txt_min, g);
+            
+            etext_layout_set(zx->txt_max, c_max, zx->txt_font, 3, 12, rect.width*2, rect.height/2, ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_WRAP);
+            etext_layout_draw(zx->txt_max, g);
+            
         }
         
         ebox_end_layer((t_ebox*)z, bgl);
@@ -296,24 +308,7 @@ namespace ceammc_gui {
             
             it->selected = (it->dist<.1);
             
-            //////
-            //if (itn != zx->points->end())
-            
-//            float dx2 = itn->x - it->x;
-//            float dy2 = (1-itn->y) - (1-it->y);
-            
-//            float len2 = sqrtf(dx2*dx2+dy2*dy2);
-//            float ndx2 = (len2!=0) ? dx2/ len2 : 0;
-//            float ndy2 = (len2!=0) ? dy2/ len2 : 0;
-            
-            //temporary - line selection
-            //float dot1 = nnx*ndx2 + nny*ndy2;
-            //if (dot1<0) dot1 = 0;
-            
             it->ldist = 1;//abs(dot1);
-            
-            //float d2 = .5 * sqrtf(dx2*dx2 + dy2*dy2);
-            //it->ldist = sqrtf(it->dist * it->dist - d2 * d2) + sqrtf(itn->dist * itn->dist - d2 * d2);
             
             if ( (it->x < (pt.x / rect.width)) && ((pt.x / rect.width )< itn->x) )
             {
@@ -562,7 +557,6 @@ namespace ceammc_gui {
         float last_time = 0;
         
         //memory dealloc???
-        
         for (int j=0;j<zx->points->size();j++)      //i is on vacation
         {
             t_atom *out_list = (t_atom*)malloc(sizeof(t_atom)*3);
@@ -615,6 +609,10 @@ namespace ceammc_gui {
         zx->shift_y = 0;
         
         zx->output = new AtomList;
+        
+        zx->txt_max = etext_layout_create();
+        zx->txt_min = etext_layout_create();
+        zx->txt_font = efont_create(gensym("Helvetica"), gensym("light"), gensym("normal"), 8);
         
     }
     
