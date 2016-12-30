@@ -16,6 +16,7 @@
 
 #include "ceammc_atomlist.h"
 
+#include <iterator>
 #include <string>
 
 namespace ceammc {
@@ -73,6 +74,94 @@ public:
     float value() const { return v_; }
     void setValue(float v) { v_ = v; }
 };
+
+class IntProperty : public Property {
+    int v_;
+
+public:
+    IntProperty(const std::string& name, int init = 0, bool readonly = false);
+    bool set(const AtomList& lst);
+    AtomList get() const;
+
+    int value() const { return v_; }
+    void setValue(int v) { v_ = v; }
+};
+
+template <typename T>
+class EnumProperty : public Property {
+public:
+    typedef std::vector<T> ValueList;
+
+public:
+    EnumProperty(const std::string& name, T def, bool readonly = false)
+        : Property(name, readonly)
+        , idx_(-1)
+        , def_(def)
+    {
+        allowed_.push_back(def);
+    }
+
+    bool set(const AtomList& lst)
+    {
+        T v = atomlistToValue<T>(lst, def_);
+        long idx = enumIndex(v);
+        if (idx < 0)
+            return false;
+
+        idx_ = idx;
+        return true;
+    }
+
+    AtomList get() const
+    {
+        if (idx_ < 0)
+            return AtomList();
+
+        return listFrom(allowed_[idx_]);
+    }
+
+    size_t numEnums() const { return allowed_.size(); }
+
+    T value() const
+    {
+        if (idx_ < 0)
+            return def_;
+        return allowed_[idx_];
+    }
+
+    bool setValue(T v)
+    {
+        long idx = enumIndex(v);
+        if (idx < 0)
+            return false;
+
+        idx_ = idx;
+    }
+
+    void appendEnum(T v)
+    {
+        if (enumIndex(v) < 0)
+            allowed_.push_back(v);
+    }
+
+    long enumIndex(T v) const
+    {
+        typename ValueList::const_iterator it;
+        for (it = allowed_.begin(); it != allowed_.end(); ++it) {
+            if (*it == v)
+                return std::distance(allowed_.begin(), it);
+        }
+        return -1;
+    }
+
+private:
+    ValueList allowed_;
+    T def_;
+    int idx_;
+};
+
+typedef EnumProperty<t_symbol*> SymbolEnumProperty;
+typedef EnumProperty<int> IntEnumProperty;
 
 class BoolProperty : public Property {
     bool v_;

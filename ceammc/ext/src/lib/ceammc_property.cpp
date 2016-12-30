@@ -162,4 +162,34 @@ AtomList BoolProperty::get() const
 {
     return AtomList::values(1, v_ ? 1.f : 0.f);
 }
+
+IntProperty::IntProperty(const std::string& name, int init, bool readonly)
+    : Property(name, readonly)
+{
+}
+
+bool IntProperty::set(const AtomList& lst)
+{
+    if (!readonlyCheck())
+        return false;
+
+    if (!emptyValueCheck(lst))
+        return false;
+
+    Atom v = lst.at(0);
+    if (!v.isFloat()) {
+        post("[ceammc] not a integer given for property %s: %s", name().c_str(), to_string(v).c_str());
+        return false;
+    }
+
+    v_ = static_cast<int>(v.asFloat());
+    return true;
+}
+
+AtomList IntProperty::get() const
+{
+    return AtomList::values(1, float(v_));
+}
+
+
 }

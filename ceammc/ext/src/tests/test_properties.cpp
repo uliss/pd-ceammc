@@ -34,6 +34,12 @@ struct prop_t_rw {
     void setSize(const double& s) { sz = s; }
 };
 
+static inline std::ostream& operator<<(std::ostream& os, t_symbol s)
+{
+    os << s.s_name;
+    return os;
+}
+
 TEST_CASE("Properties", "[ceammc::properties]")
 {
     SECTION("float property")
@@ -158,5 +164,28 @@ TEST_CASE("Properties", "[ceammc::properties]")
         REQUIRE(p2.readonly());
         REQUIRE(p2.name() == "test2");
         REQUIRE_FALSE(p2.set(AtomList::ones(1)));
+    }
+
+    SECTION("symbol enum property")
+    {
+        SymbolEnumProperty p("test", gensym("default"));
+        REQUIRE(!p.readonly());
+        REQUIRE(p.name() == "test");
+        REQUIRE(p.value() == gensym("default"));
+        REQUIRE_FALSE(p.setValue(gensym("a")));
+        REQUIRE(p.numEnums() == 1);
+
+        REQUIRE(p.get() == AtomList());
+
+        p.appendEnum(gensym("a"));
+        p.appendEnum(gensym("a")); // check twice!
+        p.appendEnum(gensym("b"));
+
+        REQUIRE(p.numEnums() == 3);
+
+        REQUIRE(p.get() == AtomList());
+
+        REQUIRE(p.set(listFrom(gensym("a"))));
+        REQUIRE(p.value() == gensym("a"));
     }
 }

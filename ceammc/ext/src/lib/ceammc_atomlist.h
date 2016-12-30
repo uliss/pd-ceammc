@@ -17,8 +17,8 @@
 #include "ceammc_atom.h"
 #include <deque>
 #include <string>
-#include <vector>
 #include <string>
+#include <vector>
 
 namespace ceammc {
 
@@ -209,7 +209,7 @@ public:
      * @return new list
      */
     AtomList sub(const AtomList& l, NonEqualLengthBehaivor b = MINSIZE) const;
-    
+
     /**
      * @brief returns new list that contains difference from new list and original list
      * @param l - list
@@ -305,6 +305,18 @@ size_t atomlistToValue(const AtomList& l, const size_t& def)
         return def;
 
     return static_cast<size_t>(l[0].asFloat(def));
+}
+
+template <>
+t_symbol* atomlistToValue(const AtomList& l, t_symbol* const& def)
+{
+    if (l.empty())
+        return const_cast<t_symbol*>(def);
+
+    if (!l[0].isSymbol())
+        return const_cast<t_symbol*>(def);
+
+    return l[0].asSymbol();
 }
 
 } // namespace ceammc
