@@ -189,6 +189,9 @@ public:
     bool processAnyProps(t_symbol* sel, const AtomList& lst);
     void anyDispatch(t_symbol* s, const AtomList& lst);
 
+public:
+    static t_symbol* tryGetPropKey(t_symbol* sel);
+
 private:
     void freeInlets();
     void freeOutlets();

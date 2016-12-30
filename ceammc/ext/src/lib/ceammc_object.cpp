@@ -16,6 +16,7 @@
 #include "ceammc_format.h"
 
 #include <algorithm>
+#include <cstring>
 
 extern "C" {
 #include "m_imp.h"
@@ -147,15 +148,19 @@ bool BaseObject::processAnyProps(t_symbol* sel, const AtomList& lst)
     if (sel->s_name[0] != '@')
         return false;
 
+    t_symbol* get_key = tryGetPropKey(sel);
+    if (get_key != 0)
+        sel = get_key;
+
     Properties::iterator it = props_.find(sel);
     if (it == props_.end())
         return false;
 
-    if (lst.empty()) {
+    if (get_key != 0) {
         if (numOutlets() < 1)
             return true;
 
-        anyTo(0, sel, it->second->get());
+        anyTo(0, get_key, it->second->get());
     } else {
         it->second->set(lst);
     }
@@ -300,5 +305,20 @@ void BaseObject::anyDispatch(t_symbol* s, const AtomList& lst)
         return;
 
     onAny(s, lst);
+}
+
+t_symbol* BaseObject::tryGetPropKey(t_symbol* sel)
+{
+    char buf[MAXPDSTRING] = { 0 };
+    t_symbol* res = 0;
+    const char* s_name = sel->s_name;
+    const size_t last_char_idx = strlen(s_name) - 1;
+    if (s_name[last_char_idx] == '?') {
+        memcpy(&buf, s_name, last_char_idx);
+        buf[last_char_idx] = '\0';
+        res = gensym(buf);
+    }
+
+    return res;
 }
 }

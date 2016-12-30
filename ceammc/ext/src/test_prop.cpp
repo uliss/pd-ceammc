@@ -15,6 +15,8 @@ public:
         createInlet();
         createProperty(new FloatProperty("@a", 0));
         createProperty(new ListProperty("@b"));
+
+        parseArguments();
     }
 
     void processInlet(size_t n, const AtomList& lst)
