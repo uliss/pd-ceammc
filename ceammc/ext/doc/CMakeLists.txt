@@ -84,6 +84,7 @@ set(DOC_FILES
     pass.if
     system.memsize
     system.memused
+    vector.dot
     vector.length
     )
 

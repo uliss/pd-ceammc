@@ -270,6 +270,9 @@
     </entry>
   </category>
   <category name="vector">
+    <entry descr="treats list of floats as vector, returns the dot product (sum of the elements of two lists with same indexes multiplied)." name="vector.dot">
+      <xi:include href="vector.dot.pddoc" parse="xml"/>
+    </entry>
     <entry descr="treats list of floats as vector, returns vector length: sqrt(element(1)^2 + ...element(n)^2)." name="vector.length">
       <xi:include href="vector.length.pddoc" parse="xml"/>
     </entry>

@@ -213,11 +213,15 @@ peak;
 #X obj 20 2895 cnv 5 59 19 empty empty vector 0 17 0 17 -262144 -49933
 0;
 #X obj 20 2924 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 2935 vector.length;
-#X text 150 2935 treats list of floats as vector \, returns vector
+#X obj 30 2935 vector.dot;
+#X text 150 2935 treats list of floats as vector \, returns the dot
+product (sum of the elements of two lists with same indexes
+multiplied)\.;
+#X obj 30 2986 vector.length;
+#X text 150 2986 treats list of floats as vector \, returns vector
 length: sqrt(element(1)^2 + \.\.\.element(n)^2)\.;
 #X obj 1 1 cnv 5 597 40 empty empty ceammc 20 20 0 20 -104026 -4096 0;
-#X obj 1 2972 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 2972 version: v0\.1 \, license: GPL3;
-#X obj 20 2988 pddp/pddplink https://github.com/uliss/pure-data -text
+#X obj 1 3023 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 3023 version: v0\.1 \, license: GPL3;
+#X obj 20 3039 pddp/pddplink https://github.com/uliss/pure-data -text
 https://github.com/uliss/pure-data;
