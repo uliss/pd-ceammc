@@ -1080,5 +1080,21 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
             REQUIRE(listFrom(true) == AtomList::ones(1));
             REQUIRE(listFrom(false) == AtomList::zeroes(1));
         }
+
+        SECTION("number")
+        {
+            REQUIRE(listFrom(1) == AtomList::ones(1));
+            REQUIRE(listFrom(0) == AtomList::zeroes(1));
+            REQUIRE(listFrom(1.) == AtomList::ones(1));
+            REQUIRE(listFrom(0.) == AtomList::zeroes(1));
+            REQUIRE(listFrom(1.f) == AtomList::ones(1));
+            REQUIRE(listFrom(0.f) == AtomList::zeroes(1));
+        }
+
+        SECTION("t_symbol")
+        {
+            REQUIRE(listFrom(gensym("a")).size() == 1);
+            REQUIRE(listFrom(gensym("a")).at(0).asSymbol() == gensym("a"));
+        }
     }
 }
