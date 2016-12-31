@@ -1110,6 +1110,22 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
             REQUIRE(atomlistToValue<bool>(AtomList::filled(0.f, 11), true) == false);
             REQUIRE(atomlistToValue<bool>(AtomList::filled(1.f, 11), true) == true);
             REQUIRE(atomlistToValue<bool>(AtomList::filled(-10.f, 11), false) == true);
+
+            AtomList l;
+            l.append(gensym("true"));
+            REQUIRE(atomlistToValue<bool>(l, true) == true);
+
+            l.clear();
+            l.append(gensym("false"));
+            REQUIRE(atomlistToValue<bool>(l, true) == false);
+
+            l.clear();
+            l.append(gensym("TRUE"));
+            REQUIRE(atomlistToValue<bool>(l, true) == false);
+
+            l.clear();
+            l.append(gensym("UNKNOWN"));
+            REQUIRE(atomlistToValue<bool>(l, true) == false);
         }
     }
 }
