@@ -43,7 +43,7 @@ division\.;
 #X obj 231 549 cnv 1 52 18 empty empty empty 17 7 0 10 -237308 -1 0;
 #X text 230 548 method: @rel(default) \, @clip \, @fold or @wrap\.
 They are aliases for property: @method rel \, @method clip \, @method
-fold and @method wrap\.\. ;
+fold and @method wrap\. ;
 #X obj 20 604 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 609 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
 0;
