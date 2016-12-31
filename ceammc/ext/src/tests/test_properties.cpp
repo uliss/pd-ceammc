@@ -66,6 +66,32 @@ TEST_CASE("Properties", "[ceammc::properties]")
         REQUIRE_FALSE(p2.set(AtomList::ones(1)));
     }
 
+    SECTION("int property")
+    {
+        IntProperty p("test", 120);
+        REQUIRE(!p.readonly());
+        REQUIRE(p.value() == 120);
+        REQUIRE(p.name() == "test");
+        p.setName("a");
+        REQUIRE(p.name() == "a");
+        AtomList v = p.get();
+
+        REQUIRE(v.size() == 1);
+        REQUIRE(v[0].isFloat());
+        REQUIRE(v[0].asFloat(0.0f) == 120.f);
+
+        REQUIRE_FALSE(p.set(AtomList()));
+        REQUIRE(p.set(AtomList::ones(2)));
+
+        AtomList al;
+        al.append(gensym("a"));
+        REQUIRE_FALSE(p.set(al));
+
+        IntProperty p2("test2", 123123, true);
+        REQUIRE_FALSE(p2.set(AtomList::ones(1)));
+        REQUIRE(p2.get()[0].asFloat(0.0f) == 123123.f);
+    }
+
     SECTION("list property")
     {
         ListProperty p("test", AtomList::values(3, -1.f, -2.f, -3.f), false);
