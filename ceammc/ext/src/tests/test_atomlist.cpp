@@ -1126,6 +1126,10 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
             l.clear();
             l.append(gensym("UNKNOWN"));
             REQUIRE(atomlistToValue<bool>(l, true) == false);
+
+            l.clear();
+            l.append(Atom());
+            REQUIRE(atomlistToValue<bool>(l, true) == false);
         }
     }
 }
