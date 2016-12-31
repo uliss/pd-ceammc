@@ -43,7 +43,10 @@ class {0} : public BaseObject
 {{
     {0}(const PdArgs& a) : BaseObject(a)
     {{
-
+        // createInlet();
+        // createOutlet();
+        // createProperty();
+        // parseArguments();
     }}'''
 
         print res.format(self.class_)
