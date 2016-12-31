@@ -424,6 +424,20 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         REQUIRE(l.findPos(gensym("a")) == -1);
     }
 
+    SECTION("findPos predicate")
+    {
+        AtomList l;
+        l.append(1.f);
+        l.append(gensym("b"));
+        l.append(gensym("@a"));
+        l.append(3.f);
+        l.append(1.f);
+
+        REQUIRE(l.findPos(isFloat) == 0);
+        REQUIRE(l.findPos(isProperty) == 2);
+        REQUIRE(l.findPos(isSymbol) == 1);
+    }
+
     SECTION("clipAt")
     {
         AtomList l;
