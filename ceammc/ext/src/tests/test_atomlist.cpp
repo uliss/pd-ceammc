@@ -1097,4 +1097,19 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
             REQUIRE(listFrom(gensym("a")).at(0).asSymbol() == gensym("a"));
         }
     }
+
+    SECTION("atomlistToValue templates")
+    {
+        SECTION("bool")
+        {
+            REQUIRE(atomlistToValue<bool>(AtomList(), true) == true);
+            REQUIRE(atomlistToValue<bool>(AtomList(), false) == false);
+            REQUIRE(atomlistToValue<bool>(AtomList::filled(0.f, 1), true) == false);
+            REQUIRE(atomlistToValue<bool>(AtomList::filled(1.f, 1), true) == true);
+
+            REQUIRE(atomlistToValue<bool>(AtomList::filled(0.f, 11), true) == false);
+            REQUIRE(atomlistToValue<bool>(AtomList::filled(1.f, 11), true) == true);
+            REQUIRE(atomlistToValue<bool>(AtomList::filled(-10.f, 11), false) == true);
+        }
+    }
 }
