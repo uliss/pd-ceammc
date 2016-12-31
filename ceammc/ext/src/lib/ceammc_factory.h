@@ -83,6 +83,12 @@ public:
         class_name_ = s_name;
     }
 
+    void mapFloatToList()
+    {
+        fn_float_ = defaultFloatToList;
+        class_addfloat(class_, fn_float_);
+    }
+
     void setBangFn(PdBangFunction fn)
     {
         fn_bang_ = fn;
@@ -176,6 +182,17 @@ public:
         }
 
         (x->impl->*(it->second))(sel, AtomList(argc, argv));
+    }
+
+private:
+    static void defaultFloatToList(ObjectProxy* x, t_floatarg f)
+    {
+        x->impl->onList(AtomList::filled(f, 1));
+    }
+
+    static void defaultSymbolToList(ObjectProxy* x, t_symbol* s)
+    {
+        x->impl->onList(listFrom(s));
     }
 
 private:
