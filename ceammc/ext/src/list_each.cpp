@@ -33,7 +33,8 @@ public:
         if (l.empty())
             return;
 
-        mapped_list_.append(l[0]);
+        for (size_t i = 0; i < l.size(); i++)
+            mapped_list_.append(l[i]);
     }
 };
 
