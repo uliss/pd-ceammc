@@ -35,30 +35,30 @@ std::string to_string(const Atom& a)
     return ss.str();
 }
 
-std::string to_float_string(const Atom& a)
+std::string to_float_string(const Atom& a, const std::string& defaultValue)
 {
     if (!a.isFloat())
-        return "";
+        return defaultValue;
 
     std::ostringstream ss;
     ss << a.asFloat();
     return ss.str();
 }
 
-std::string to_hex_string(const Atom& a)
+std::string to_hex_string(const Atom& a, const std::string& defaultValue)
 {
     if (!a.isFloat())
-        return "";
+        return defaultValue;
 
     std::ostringstream ss;
     ss << std::hex << std::uppercase << static_cast<long>(a.asFloat());
     return ss.str();
 }
 
-std::string to_float_range_string(const Atom& a, float min, float max)
+std::string to_float_range_string(const Atom& a, float min, float max, const std::string& defaultValue)
 {
     if (!a.isFloat())
-        return "";
+        return defaultValue;
 
     std::ostringstream ss;
     ss << clip(a.asFloat(), min, max);
@@ -78,6 +78,20 @@ std::string to_string(const AtomList& a, const std::string& separator)
         ss << a[i];
     }
     return ss.str();
+}
+
+std::string to_string(const Message& msg, const std::string& separator)
+{
+    if (msg.isFloat() || msg.isSymbol())
+        return to_string(msg.atomValue());
+
+    if (msg.isList())
+        return to_string(msg.listValue(), separator);
+
+    if (msg.isAny())
+        return to_string(msg.atomValue()) + separator + to_string(msg.listValue(), separator);
+
+    return "";
 }
 
 } // namespace ceammc

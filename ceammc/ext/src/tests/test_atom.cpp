@@ -18,6 +18,13 @@
 
 using namespace ceammc;
 
+struct _outlet {
+    t_object* o_owner;
+    struct _outlet* o_next;
+    t_outconnect* o_connections;
+    t_symbol* o_sym;
+};
+
 TEST_CASE("Atom", "[ceammc::Atom]")
 {
     SECTION("Atom contruct")
@@ -218,5 +225,40 @@ TEST_CASE("Atom", "[ceammc::Atom]")
             ss << a1;
             REQUIRE(ss.str() == "test");
         }
+    }
+
+    SECTION("test as int")
+    {
+        Atom a1(1.34f);
+        REQUIRE(a1.asInt(0) == 1);
+
+        Atom a2(gensym("a"));
+        REQUIRE(a2.asInt(-30) == -30);
+    }
+
+    SECTION("test as size_t")
+    {
+        Atom a1(21.34f);
+        REQUIRE(a1.asSizeT(0) == 21);
+
+        Atom a2(gensym("a"));
+        REQUIRE(a2.asSizeT(30) == 30);
+
+        Atom a3(-132.f);
+        REQUIRE(a3.asSizeT(10) == 10);
+    }
+
+    SECTION("test output2")
+    {
+        _outlet out = { 0, 0, 0, 0 };
+        Atom a1(21.34f);
+        a1.output(&out);
+        REQUIRE(to_outlet(&out, a1));
+        REQUIRE(to_outlet(&out, Atom(gensym("a"))));
+
+        Atom a_none;
+        REQUIRE(!to_outlet(&out, a_none));
+
+        a1.outputAsAny(&out, gensym("sel"));
     }
 }

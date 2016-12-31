@@ -143,7 +143,7 @@ Message::Type Message::type() const
     return type_;
 }
 
-void Message::output(t_outlet* x)
+void Message::output(t_outlet* x) const
 {
     switch (type_) {
     case FLOAT:

@@ -83,7 +83,10 @@ set(DOC_FILES
     pass.changed
     pass.if
     system.memsize
-    system.memused)
+    system.memused
+    vector.dot
+    vector.length
+    )
 
 if(NOT PD_XML2PD)
     message(STATUS "pd_xml2pd not found.")

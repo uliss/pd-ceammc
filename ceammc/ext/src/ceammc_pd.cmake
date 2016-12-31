@@ -4,7 +4,7 @@ macro(ceammc_extension_sep module name ext separator)
         INTERNAL True
         LIBRARY ceammc
         COMPILE_FLAGS "-std=c++0x"
-        LINK ceammc_static)
+        LINK ceammc_static cicm_static)
 endmacro()
 
 # adds .dotted. extension on C language: MODULE.NAME

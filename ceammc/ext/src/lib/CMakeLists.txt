@@ -14,7 +14,9 @@ add_library(ceammc_static STATIC ceammc.c
     ceammc_atom.cpp
     ceammc_atomlist.cpp
     ceammc_message.cpp
-    ceammc_format.cpp)
+    ceammc_format.cpp
+    ceammc_object.cpp
+    ceammc_property.cpp)
 
 set_target_properties(ceammc_static PROPERTIES
     COMPILE_FLAGS "${FLAGS}" LINK_FLAGS "${FLAGS}")

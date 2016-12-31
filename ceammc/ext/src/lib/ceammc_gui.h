@@ -26,14 +26,7 @@
 #include <vector>
 #include <map>
 
-
-
-extern "C" {
-    
-    //TEMP, replace with 'cicm_wrapper.h' and properly link with library
-    #include "../../../extra/CicmWrapper/Sources/cicm_wrapper_c.h"
-
-}
+#include "cicm_wrapper_c.h"
 
 namespace ceammc_gui {
    

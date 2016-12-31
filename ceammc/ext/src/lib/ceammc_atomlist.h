@@ -15,6 +15,7 @@
 #define CEAMMC_ATOMLIST_H
 
 #include "ceammc_atom.h"
+#include <deque>
 #include <string>
 #include <vector>
 #include <string>
@@ -107,9 +108,17 @@ public:
     bool property(const std::string& name, Atom* dest) const;
 
     /**
+     * Returns all properties and their values from list
+     */
+    std::deque<AtomList> properties() const;
+
+    /**
      * Checks is has property in list
      */
     bool hasProperty(const std::string& name) const;
+
+    AtomList slice(int start) const;
+    AtomList slice(int start, int end, size_t step = 1) const;
 
     void fromPdData(size_t n, t_atom* lst);
     void fromPdData(int n, t_atom* lst);
@@ -128,8 +137,6 @@ public:
     Atom* last();
     const Atom* first() const;
     const Atom* last() const;
-    //
-    std::string toString() const;
 
     void sort();
     void shuffle();
@@ -161,6 +168,7 @@ public:
     bool noneOff(AtomPredicate pred) const;
 
     FloatList asFloats() const;
+    size_t asSizeT(size_t defaultValue = 0) const;
 
     /**
      * @brief output list atoms separatly, one by one
@@ -233,6 +241,71 @@ bool operator!=(const AtomList& l1, const AtomList& l2);
 std::ostream& operator<<(std::ostream& os, const AtomList& l);
 
 void to_outlet(t_outlet* x, const AtomList& a);
+
+template <typename T>
+static Atom atomFrom(T v) { return Atom(v); }
+
+template <typename T>
+static AtomList listFrom(T v)
+{
+    AtomList res;
+    res.append(atomFrom<T>(v));
+    return res;
+}
+
+template <typename T>
+static T atomlistToValue(const AtomList&, const T& def) { return def; }
+
+template <>
+bool atomlistToValue(const AtomList& l, const bool& def)
+{
+    if (l.empty())
+        return def;
+
+    if (l[0].isFloat())
+        return l[0].asFloat(0.f) != 0.f;
+
+    if (l[0].isSymbol())
+        return l[0].asSymbol() == gensym("true");
+
+    return false;
+}
+
+template <>
+float atomlistToValue(const AtomList& l, const float& def)
+{
+    if (l.empty())
+        return def;
+
+    return l[0].asFloat(def);
+}
+
+template <>
+double atomlistToValue(const AtomList& l, const double& def)
+{
+    if (l.empty())
+        return def;
+
+    return static_cast<double>(l[0].asFloat(static_cast<float>(def)));
+}
+
+template <>
+int atomlistToValue(const AtomList& l, const int& def)
+{
+    if (l.empty())
+        return def;
+
+    return static_cast<int>(l[0].asFloat(def));
+}
+
+template <>
+size_t atomlistToValue(const AtomList& l, const size_t& def)
+{
+    if (l.empty())
+        return def;
+
+    return static_cast<size_t>(l[0].asFloat(def));
+}
 
 } // namespace ceammc
 

@@ -129,9 +129,23 @@ bool Atom::setSymbol(t_symbol* s, bool force)
     return true;
 }
 
-t_float Atom::asFloat() const
+t_float Atom::asFloat(float def) const
 {
-    return isFloat() ? a_w.w_float : 0;
+    return isFloat() ? a_w.w_float : def;
+}
+
+int Atom::asInt(int def) const
+{
+    return isFloat() ? static_cast<int>(a_w.w_float) : def;
+}
+
+size_t Atom::asSizeT(size_t def) const
+{
+    if (!isFloat())
+        return def;
+
+    t_float v = a_w.w_float;
+    return (v < 0) ? def : static_cast<size_t>(v);
 }
 
 t_float Atom::asFloatInRange(float min, float max) const
@@ -199,7 +213,7 @@ void Atom::output(_outlet* x) const
 
 void Atom::outputAsAny(t_outlet* x, t_symbol* sel) const
 {
-    outlet_anything(x, sel, 1, (t_atom*)this);
+    outlet_anything(x, sel, 1, const_cast<t_atom*>(static_cast<const t_atom*>(this)));
 }
 
 bool operator==(const Atom& a1, const Atom& a2)

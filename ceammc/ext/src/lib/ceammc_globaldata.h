@@ -18,6 +18,7 @@
 #include <map>
 #include <string>
 #include <utility>
+#include <vector>
 
 #include <m_pd.h>
 
@@ -215,6 +216,23 @@ public:
      */
     T& ref() { return *ptr_; }
     const T& ref() const { return *ptr_; }
+    
+    /**
+     * Returns list of keys, STUB
+     */
+    std::vector<std::string> getKeys() const
+    {
+        std::vector<std::string> ret;
+        
+        iterator it;
+        
+//        for (it = data_.begin(); it!= data_.Map->end(); ++it)
+//        {
+//            ret.push_back(it->first);
+//        }
+        
+        return ret;
+    }
 };
 
 template <typename T>
