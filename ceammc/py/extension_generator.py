@@ -7,6 +7,7 @@ import argparse
 
 CWD = os.path.dirname(__file__)
 ceammc = imp.load_source('module.name', os.path.join(CWD, 'ceammc/template.py'))
+ceammc_cpp = imp.load_source('module.name2', os.path.join(CWD, 'ceammc/cppextension.py'))
 
 parser = argparse.ArgumentParser(description='Generate PureData ceammc math extensions.')
 parser.add_argument('module', metavar='MODULE', help='Module name')
@@ -35,13 +36,18 @@ def generate_common(args):
         headers = args.headers.split(',')
 
     g = ceammc.PdExtension(args.module, args.name, headers=headers)
+    cpp = ceammc_cpp.CppExtension(args.module, args.name)
     methods = ['float', 'list']
     if args.methods:
         methods = args.methods.split(',')
 
     g.gen_free = args.free
     g.gen_cpp = args.cpp
-    g.generate(methods)
+
+    if args.cpp:
+        cpp.generate(methods)
+    else:
+        g.generate(methods)
 
 
 if args.module == 'math':

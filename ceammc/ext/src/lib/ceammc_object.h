@@ -18,7 +18,9 @@
 #include "ceammc_message.h"
 #include "ceammc_property.h"
 
+#include <iostream>
 #include <map>
+#include <sstream>
 #include <string>
 #include <vector>
 
@@ -90,7 +92,7 @@ public:
      * @param - inlet number, starting form 0
      * @param - incoming message
      */
-    void onInlet(size_t, const AtomList&) {}
+    virtual void onInlet(size_t, const AtomList&) {}
 
     t_inlet* createInlet();
 
@@ -200,6 +202,27 @@ private:
     AtomList propNumOutlets();
     AtomList listAllProps() const;
 };
+
+class Error : public std::ostringstream {
+    const BaseObject* obj_;
+
+public:
+    Error(const BaseObject* obj = NULL);
+    ~Error();
+    Error& stream() { return *this; }
+};
+
+class Debug : public std::ostringstream {
+    const BaseObject* obj_;
+
+public:
+    Debug(const BaseObject* obj = NULL);
+    ~Debug();
+    Debug& stream() { return *this; }
+};
+
+#define ERR Error(this).stream()
+#define DBG Debug(this).stream()
 }
 
 #endif // CEAMMC_OBJECT_H

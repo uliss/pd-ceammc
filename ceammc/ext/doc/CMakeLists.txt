@@ -35,6 +35,7 @@ set(DOC_FILES
     live.capture~
     list.apply_to
     list.at
+    list.choice
     list.count
     list.each
     list.first

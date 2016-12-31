@@ -17,8 +17,8 @@
 #include "ceammc_atom.h"
 #include <deque>
 #include <string>
-#include <vector>
 #include <string>
+#include <vector>
 
 namespace ceammc {
 
@@ -70,8 +70,8 @@ public:
      * @param pos - position index
      * @return pointer to element, or NULL if empty
      */
-    Atom* clipAt(size_t pos);
-    const Atom* clipAt(size_t pos) const;
+    Atom* clipAt(int pos);
+    const Atom* clipAt(int pos) const;
 
     /**
      * Same as at(), but values for index greater than the size of the
@@ -79,8 +79,8 @@ public:
      * @param pos - position index
      * @return pointer to element, or NULL if empty
      */
-    Atom* wrapAt(size_t pos);
-    const Atom* wrapAt(size_t pos) const;
+    Atom* wrapAt(int pos);
+    const Atom* wrapAt(int pos) const;
 
     /**
      * Same as at(), but values for index greater than the size of the
@@ -88,8 +88,8 @@ public:
      * @param pos - position index
      * @return pointer to element, or NULL if empty
      */
-    Atom* foldAt(size_t pos);
-    const Atom* foldAt(size_t pos) const;
+    Atom* foldAt(int pos);
+    const Atom* foldAt(int pos) const;
 
     /**
      * Resize list. If new size is less than current, last values are dropped.
@@ -160,6 +160,7 @@ public:
 
     bool contains(const Atom& a) const;
     int findPos(const Atom& a) const;
+    int findPos(AtomPredicate pred) const;
     size_t count(const Atom& a) const;
     size_t count(AtomPredicate pred) const;
 
@@ -202,34 +203,28 @@ public:
         FOLD // result of max size, min list wraped
     };
 
-    /**
-     * @brief returns new list that contains difference from original list and new list
-     * @param l - list
-     * @param b - behaivor flag, when lists are different lengths
-     * @return new list
-     */
-    AtomList sub(const AtomList& l, NonEqualLengthBehaivor b = MINSIZE) const;
-    
-    /**
-     * @brief returns new list that contains difference from new list and original list
-     * @param l - list
-     * @param b - behaivor flag, when lists are different lengths
-     * @return new list
-     */
-    AtomList subFrom(const AtomList& l, NonEqualLengthBehaivor b = MINSIZE) const;
+public:
+    static AtomList zeroes(size_t n);
+    static AtomList ones(size_t n);
+    static AtomList filled(const Atom& a, size_t n);
+    static AtomList values(size_t n, ...);
+
     /**
      * @brief returns new list that is a sum of original list values and new list ("l") values
      * @param l - list
      * @param b - behaivor flag, when lists are different lengths
      * @return new list
      */
-    AtomList addTo(const AtomList& l, NonEqualLengthBehaivor b = MINSIZE) const;
+    static AtomList add(const AtomList& a, const AtomList& b, NonEqualLengthBehaivor lb = MINSIZE);
 
-public:
-    static AtomList zeroes(size_t n);
-    static AtomList ones(size_t n);
-    static AtomList filled(const Atom& a, size_t n);
-    static AtomList values(size_t n, ...);
+    /**
+     * @brief returns new list that contains difference from given lists
+     * @param a - first list
+     * @param b - second list
+     * @param lb - behaivor flag, when lists are different lengths
+     * @return new list
+     */
+    static AtomList sub(const AtomList& a, const AtomList& b, NonEqualLengthBehaivor lb = MINSIZE);
 
 public:
     friend bool operator==(const AtomList& l1, const AtomList& l2);
@@ -250,6 +245,14 @@ static AtomList listFrom(T v)
 {
     AtomList res;
     res.append(atomFrom<T>(v));
+    return res;
+}
+
+template <>
+AtomList listFrom(bool v)
+{
+    AtomList res;
+    res.append(Atom(v ? 1.f : 0.f));
     return res;
 }
 
@@ -305,6 +308,18 @@ size_t atomlistToValue(const AtomList& l, const size_t& def)
         return def;
 
     return static_cast<size_t>(l[0].asFloat(def));
+}
+
+template <>
+t_symbol* atomlistToValue(const AtomList& l, t_symbol* const& def)
+{
+    if (l.empty())
+        return const_cast<t_symbol*>(def);
+
+    if (!l[0].isSymbol())
+        return const_cast<t_symbol*>(def);
+
+    return l[0].asSymbol();
 }
 
 } // namespace ceammc

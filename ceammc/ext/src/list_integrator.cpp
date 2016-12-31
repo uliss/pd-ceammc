@@ -26,8 +26,7 @@ static void list_integrator_list(t_list_integrator* x, t_symbol*, int argc, t_at
         return;
     
     AtomList new_list(argc, argv);
-    //    new_list.removeAll(notFloat); // remove all non float atoms
-    AtomList integrator_list(x->stored_list->addTo(new_list, AtomList::PADZERO));
+    AtomList integrator_list(AtomList::add(*x->stored_list, new_list, AtomList::PADZERO));
     
     integrator_list.output(x->x_obj.te_outlet);
     *x->stored_list = integrator_list;

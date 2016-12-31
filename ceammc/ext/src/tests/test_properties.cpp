@@ -34,6 +34,12 @@ struct prop_t_rw {
     void setSize(const double& s) { sz = s; }
 };
 
+static inline std::ostream& operator<<(std::ostream& os, t_symbol s)
+{
+    os << s.s_name;
+    return os;
+}
+
 TEST_CASE("Properties", "[ceammc::properties]")
 {
     SECTION("float property")
@@ -58,6 +64,32 @@ TEST_CASE("Properties", "[ceammc::properties]")
 
         FloatProperty p2("test2", 123123, true);
         REQUIRE_FALSE(p2.set(AtomList::ones(1)));
+    }
+
+    SECTION("int property")
+    {
+        IntProperty p("test", 120);
+        REQUIRE(!p.readonly());
+        REQUIRE(p.value() == 120);
+        REQUIRE(p.name() == "test");
+        p.setName("a");
+        REQUIRE(p.name() == "a");
+        AtomList v = p.get();
+
+        REQUIRE(v.size() == 1);
+        REQUIRE(v[0].isFloat());
+        REQUIRE(v[0].asFloat(0.0f) == 120.f);
+
+        REQUIRE_FALSE(p.set(AtomList()));
+        REQUIRE(p.set(AtomList::ones(2)));
+
+        AtomList al;
+        al.append(gensym("a"));
+        REQUIRE_FALSE(p.set(al));
+
+        IntProperty p2("test2", 123123, true);
+        REQUIRE_FALSE(p2.set(AtomList::ones(1)));
+        REQUIRE(p2.get()[0].asFloat(0.0f) == 123123.f);
     }
 
     SECTION("list property")
@@ -158,5 +190,27 @@ TEST_CASE("Properties", "[ceammc::properties]")
         REQUIRE(p2.readonly());
         REQUIRE(p2.name() == "test2");
         REQUIRE_FALSE(p2.set(AtomList::ones(1)));
+    }
+
+    SECTION("symbol enum property")
+    {
+        SymbolEnumProperty p("test", "default");
+        REQUIRE(!p.readonly());
+        REQUIRE(p.name() == "test");
+        REQUIRE(p.value() == gensym("default"));
+        REQUIRE_FALSE(p.setValue(gensym("a")));
+        REQUIRE(p.numEnums() == 1);
+
+        REQUIRE(p.get() == listFrom(gensym("default")));
+
+        p.appendEnum("a");
+        p.appendEnum("a"); // check twice!
+        p.appendEnum("b");
+
+        REQUIRE(p.numEnums() == 3);
+
+        REQUIRE(p.set(listFrom(gensym("a"))));
+        REQUIRE(p.value() == gensym("a"));
+        REQUIRE(p.get() == listFrom(gensym("a")));
     }
 }

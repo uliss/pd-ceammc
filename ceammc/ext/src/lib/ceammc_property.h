@@ -16,6 +16,7 @@
 
 #include "ceammc_atomlist.h"
 
+#include <iterator>
 #include <string>
 
 namespace ceammc {
@@ -23,6 +24,7 @@ namespace ceammc {
 class Property {
     std::string name_;
     bool readonly_;
+    bool visible_;
 
 public:
     Property(const std::string& name, bool readonly = false);
@@ -32,6 +34,7 @@ public:
     void setName(const std::string& name) { name_ = name; }
 
     bool readonly() const { return readonly_; }
+    bool visible() const { return visible_; }
 
     virtual bool set(const AtomList&) = 0;
     virtual AtomList get() const = 0;
@@ -39,6 +42,7 @@ public:
 protected:
     bool readonlyCheck() const;
     bool emptyValueCheck(const AtomList& v) const;
+    void setVisible(bool v) { visible_ = v; }
 };
 
 class AtomProperty : public Property {
@@ -73,6 +77,134 @@ public:
     float value() const { return v_; }
     void setValue(float v) { v_ = v; }
 };
+
+class IntProperty : public Property {
+    int v_;
+
+public:
+    IntProperty(const std::string& name, int init = 0, bool readonly = false);
+    bool set(const AtomList& lst);
+    AtomList get() const;
+
+    int value() const { return v_; }
+    void setValue(int v) { v_ = v; }
+};
+
+template <typename T>
+class EnumProperty : public Property {
+public:
+    typedef std::vector<T> ValueList;
+
+public:
+    EnumProperty(const std::string& name, T def, bool readonly = false)
+        : Property(name, readonly)
+        , idx_(0)
+        , def_(def)
+    {
+        allowed_.push_back(def);
+    }
+
+    bool set(const AtomList& lst)
+    {
+        if (!readonlyCheck())
+            return false;
+
+        if (!emptyValueCheck(lst))
+            return false;
+
+        T v = atomlistToValue<T>(lst, def_);
+        long idx = enumIndex(v);
+        if (idx < 0)
+            return false;
+
+        idx_ = idx;
+        return true;
+    }
+
+    AtomList get() const
+    {
+        return listFrom(value());
+    }
+
+    size_t numEnums() const { return allowed_.size(); }
+
+    T value() const
+    {
+        if (idx_ < 0)
+            return def_;
+        return allowed_[idx_];
+    }
+
+    bool setValue(T v)
+    {
+        long idx = enumIndex(v);
+        if (idx < 0)
+            return false;
+
+        idx_ = idx;
+        return true;
+    }
+
+    void appendEnum(T v)
+    {
+        if (enumIndex(v) < 0)
+            allowed_.push_back(v);
+    }
+
+    long enumIndex(T v) const
+    {
+        typename ValueList::const_iterator it;
+        for (it = allowed_.begin(); it != allowed_.end(); ++it) {
+            if (*it == v)
+                return std::distance(allowed_.begin(), it);
+        }
+        return -1;
+    }
+
+private:
+    ValueList allowed_;
+    T def_;
+    int idx_;
+};
+
+class SymbolEnumProperty : public EnumProperty<t_symbol*> {
+public:
+    SymbolEnumProperty(const std::string& name, const char* sym, bool readonly = false)
+        : EnumProperty<t_symbol*>(name, gensym(sym), readonly)
+    {
+    }
+
+    void appendEnum(const char* v)
+    {
+        EnumProperty<t_symbol*>::appendEnum(gensym(v));
+    }
+
+    bool is(const char* v) const
+    {
+        return value() == gensym(v);
+    }
+};
+
+template <typename T, typename V>
+class AliasProperty : public Property {
+    T* ptr_;
+    V val_;
+
+public:
+    AliasProperty(const std::string& name, T* prop, V v)
+        : Property(name, false)
+        , ptr_(prop)
+        , val_(v)
+    {
+    }
+
+    bool set(const AtomList&) { ptr_->setValue(val_); return true; }
+    AtomList get() const { return listFrom(bool(ptr_->value() == val_)); }
+};
+
+typedef AliasProperty<SymbolEnumProperty, t_symbol*> SymbolEnumAlias;
+
+typedef EnumProperty<int> IntEnumProperty;
 
 class BoolProperty : public Property {
     bool v_;

@@ -48,10 +48,10 @@
                  [F]
                  |
     [pop(  [1 2( [resize $1(
-    |      |         |
-[F] |  [B] | [clear( | [flush(
-|   |  |   | |       | |
-[data.fifo            5]
+    |      |         |        [@size?( [@free?( [@filled?(
+[F] |  [B] | [clear( | [flush( |       |        |
+|   |  |   | |       | |       |       |        |
+[data.fifo                                     5]
 |                |
 [prepend set]    [print]
 |
