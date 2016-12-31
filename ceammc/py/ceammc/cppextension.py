@@ -41,6 +41,7 @@ class CppExtension(object):
         res = '''
 class {0} : public BaseObject
 {{
+public:
     {0}(const PdArgs& a) : BaseObject(a)
     {{
         // createInlet();
