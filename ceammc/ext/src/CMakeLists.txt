@@ -67,6 +67,7 @@ ceammc_cxx_extension(data fifo)
 ###############################
 ceammc_cxx_extension(list at)
 ceammc_cxx_extension(list apply_to)
+ceammc_cxx_extension(list choice)
 ceammc_cxx_extension(list count)
 ceammc_cxx_extension(list count_if)
 ceammc_c_extension(list length)
