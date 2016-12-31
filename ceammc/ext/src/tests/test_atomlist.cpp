@@ -1072,4 +1072,13 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         REQUIRE(AtomList::add(l1, l2, AtomList::FOLD) == AList(8, 3., 3., 6., 5., 7., 7., 10., 9.));
         REQUIRE(AtomList::add(l2, l1, AtomList::FOLD) == AList(8, 3., 3., 6., 5., 7., 7., 10., 9.));
     }
+
+    SECTION("listFrom templates")
+    {
+        SECTION("bool")
+        {
+            REQUIRE(listFrom(true) == AtomList::ones(1));
+            REQUIRE(listFrom(false) == AtomList::zeroes(1));
+        }
+    }
 }
