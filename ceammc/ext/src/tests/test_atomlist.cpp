@@ -751,6 +751,7 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
     {
         AtomList l;
         REQUIRE_FALSE(l.property("@test", 0));
+        REQUIRE_FALSE(l.hasProperty("@test"));
 
         Atom p1;
         REQUIRE_FALSE(l.property("@test", &p1));
@@ -760,8 +761,10 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         l.append(gensym("a"));
         l.append(gensym("@test"));
         REQUIRE_FALSE(l.property("@test", &p1));
+        REQUIRE(l.hasProperty("@test"));
         l.append(3.f);
         REQUIRE(l.property("@test", &p1));
+        REQUIRE(l.hasProperty("@test"));
         REQUIRE(p1.asFloat() == 3.f);
 
         l.append(gensym("@test2"));
