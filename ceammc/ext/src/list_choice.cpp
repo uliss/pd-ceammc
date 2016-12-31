@@ -22,4 +22,5 @@ public:
 extern "C" void setup_list0x2echoice()
 {
     ObjectFactory<ListChoice> obj("list.choice");
+    obj.mapFloatToList();
 }
