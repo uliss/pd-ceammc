@@ -14,24 +14,27 @@ it via external object\.;
 #X obj 30 204 list.count;
 #X text 150 204 returns the number of items that equal to specified
 value;
-#X obj 30 231 list.each;
-#X text 150 231 maps each list value via external object(s);
-#X obj 30 258 list.first;
-#X text 150 258 returns first list element;
-#X obj 30 285 list.gen;
-#X text 150 285 generates list of specified length via external
+#X obj 30 231 list.delta;
+#X text 150 231 returns the difference between the current list of
+floats and previous one\.;
+#X obj 30 268 list.each;
+#X text 150 268 maps each list value via external object(s);
+#X obj 30 295 list.first;
+#X text 150 295 returns first list element;
+#X obj 30 322 list.gen;
+#X text 150 322 generates list of specified length via external
 generator;
-#X obj 30 312 list.last;
-#X text 150 312 returns last list element;
-#X obj 30 339 list.length;
-#X text 150 339 returns the number of atoms in the message;
-#X obj 30 366 list.max;
-#X text 150 366 returns largest element in the list;
-#X obj 30 393 list.min;
-#X text 150 393 returns smallest element in the list;
-#X obj 30 420 list.sort;
-#X text 150 420 sorts list values by ascending order;
+#X obj 30 349 list.last;
+#X text 150 349 returns last list element;
+#X obj 30 376 list.length;
+#X text 150 376 returns the number of atoms in the message;
+#X obj 30 403 list.max;
+#X text 150 403 returns largest element in the list;
+#X obj 30 430 list.min;
+#X text 150 430 returns smallest element in the list;
+#X obj 30 457 list.sort;
+#X text 150 457 sorts list values by ascending order;
 #X obj 1 1 cnv 5 597 40 empty empty ceammc::list 20 20 0 20 -104026
 -4096 0;
-#X obj 1 458 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 468 library: ceammc;
+#X obj 1 484 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 494 library: ceammc;

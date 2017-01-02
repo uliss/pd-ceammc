@@ -66,7 +66,7 @@ public:
 
     void onList(const AtomList& l)
     {
-        delta_list_ = AtomList::sub(prev_list_, l, symbolToWrap(wrap_method_->value()));
+        delta_list_ = AtomList::sub(l, prev_list_, symbolToWrap(wrap_method_->value()));
         prev_list_ = l;
 
         listTo(0, delta_list_);

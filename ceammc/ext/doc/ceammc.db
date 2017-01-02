@@ -34,6 +34,7 @@ list.apply_to		..		..
 list.at		..		.
 list.choice		.		.
 list.count		..		.
+list.delta		.		.
 list.each		..		..
 list.first		.		.
 list.gen		...		..

@@ -37,6 +37,7 @@ set(DOC_FILES
     list.at
     list.choice
     list.count
+    list.delta
     list.each
     list.first
     list.gen

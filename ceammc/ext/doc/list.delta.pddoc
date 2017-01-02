@@ -7,43 +7,63 @@
                 <author>Alex Nadzharov</author>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>returns the difference between the current list and previous one.</description>
+            <description>returns the difference between the current list of floats and the previous one.</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>list</category>
-            <keywords>list</keywords>
+            <keywords>list delta</keywords>
             <since>0.1</since>
             <also>
                 <see>list.integrator</see>
             </also>
         </meta>
         <arguments>
-            <argument name="index" type="int">position index (starting from 0). Negative value means position from end of the list.
-            For example: '-1' means last element.</argument>
+            <argument name="@oversize" type="symbol">Specifies behavior, if list have different sizes.
+            Possible values are: min, padz, clip, wrap and fold. Default value: min.</argument>
+            <argument name="@min" type="symbol">alias for "@oversize min" property.
+            Truncates lists to minimal common size. </argument>
+            <argument name="@clip" type="symbol">alias for "@oversize min" property.
+            Truncates lists to minimal common size. </argument>
+            <argument name="@padz" type="symbol">alias for "@oversize padz" property.
+            Pad shortest list with zeroes.</argument>
+            <argument name="@clip" type="symbol">alias for "@oversize clip" property.
+            Pad shortest list with last element to conform longest list</argument>
+            <argument name="@wrap" type="symbol">alias for "@oversize wrap" property.
+            Pad shortest list with repeated values from the beginning.</argument>
+            <argument name="@fold" type="symbol">alias for "@oversize fold" property.
+            Pad shortest list with repeated values from the end to the beginning, then back and so on.</argument>
         </arguments>
         <inlets>
             <inlet>
-                <xinfo on="list">Input list. If no element found by specified index - list passed without changes.</xinfo>
-            </inlet>
-            <inlet>
-                <xinfo>New modified value from applied object.</xinfo>
+                <xinfo on="list">Input float list</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>new modified list</outlet>
-            <outlet>Element at given index. Should be passed to applied object.</outlet>
+            <outlet>delta list</outlet>
         </outlets>
         <example>
             <pdascii>
-                <![CDATA[
-[1 60 120(
-|
-[list.apply_to 1] X [mtof]
+<![CDATA[
+             [B]   [F]
+             |     |
+             [list.gen       4] X [random 10]
+             |                |
+             [t b  a]         [data.fifo 1]
+             |  ^|            |
+             |  [prepend set] [prepend set]
+             |  |             |
+[2 -2(       [  (             [ (
+|            |
+| [1 60 120( | [dump( [@padz( [@clip( [@fold( [@wrap(
+| |          | |      |       |       |       |
+| |          | |      |       |       |       |
+| |          | |      |       |       |       |
+[list.delta                                   @clip]
 |
 [prepend set]
 |
 [ (
-                ]]>
+]]>
             </pdascii>
         </example>
     </object>
