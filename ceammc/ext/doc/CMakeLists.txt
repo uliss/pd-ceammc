@@ -50,6 +50,7 @@ set(DOC_FILES
     list.reverse
     list.shuffle
     list.sort
+    list.sum
     list.walk
     lfo.impulse~
     lfo.square~

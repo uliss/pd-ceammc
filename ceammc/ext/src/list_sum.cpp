@@ -1,7 +1,7 @@
-#include <m_pd.h>
 #include "ceammc.h"
+#include <m_pd.h>
 
-t_class* list_sum_class;
+static t_class* list_sum_class;
 typedef struct list_sum {
     t_object x_obj;
 } t_list_sum;
@@ -13,24 +13,25 @@ static void list_sum_float(t_list_sum* x, t_floatarg f)
 
 static t_float sum(t_float f1, t_float f2) { return f1 + f2; }
 
-static void list_sum_list(t_list_sum* x, t_symbol* s, int argc, t_atom* argv)
+static void list_sum_list(t_list_sum* x, t_symbol*, int argc, t_atom* argv)
 {
     outlet_float(x->x_obj.te_outlet, ceammc_atoms_reduce_float(argc, argv, 0.0, &sum));
 }
 
 static void* list_sum_new()
 {
-    t_list_sum* x = (t_list_sum*)pd_new(list_sum_class);
+    t_list_sum* x = reinterpret_cast<t_list_sum*>(pd_new(list_sum_class));
     outlet_new(&x->x_obj, &s_float);
-    return (void*)x;
+    return reinterpret_cast<void*>(x);
 }
 
-void setup_list0x2esum()
+extern "C" void setup_list0x2esum()
 {
     list_sum_class = class_new(gensym("list.sum"),
-        (t_newmethod)list_sum_new, (t_method)0,
-            sizeof(t_list_sum), 0, A_NULL);
+        reinterpret_cast<t_newmethod>(list_sum_new),
+        reinterpret_cast<t_method>(0),
+        sizeof(t_list_sum), 0, A_NULL);
+
     class_addfloat(list_sum_class, list_sum_float);
     class_addlist(list_sum_class, list_sum_list);
 }
-

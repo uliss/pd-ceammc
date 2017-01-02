@@ -135,6 +135,9 @@
     <entry descr="sorts list values by ascending order" name="list.sort">
       <xi:include href="list.sort.pddoc" parse="xml"/>
     </entry>
+    <entry descr="calculates sum of floats in list" name="list.sum">
+      <xi:include href="list.sum.pddoc" parse="xml"/>
+    </entry>
     <entry descr="Walks thru the list" name="list.walk">
       <xi:include href="list.walk.pddoc" parse="xml"/>
     </entry>

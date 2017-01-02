@@ -47,6 +47,7 @@ list.min		.		.
 list.reverse		.		.
 list.shuffle		.		.
 list.sort		.		.
+list.sum		.		.
 list.walk		.		.
 live.capture~		~		~.
 math.abs		.		.

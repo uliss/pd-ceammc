@@ -43,9 +43,11 @@ generator;
 #X text 150 548 randomly rearranges elements in list;
 #X obj 30 575 list.sort;
 #X text 150 575 sorts list values by ascending order;
-#X obj 30 602 list.walk;
-#X text 150 602 Walks thru the list;
+#X obj 30 602 list.sum;
+#X text 150 602 calculates sum of floats in list;
+#X obj 30 629 list.walk;
+#X text 150 629 Walks thru the list;
 #X obj 1 1 cnv 5 597 40 empty empty ceammc::list 20 20 0 20 -104026
 -4096 0;
-#X obj 1 629 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 639 library: ceammc;
+#X obj 1 656 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 666 library: ceammc;
