@@ -126,6 +126,9 @@
     <entry descr="returns smallest element in the list" name="list.min">
       <xi:include href="list.min.pddoc" parse="xml"/>
     </entry>
+    <entry descr="randomly rearranges elements in list" name="list.shuffle">
+      <xi:include href="list.shuffle.pddoc" parse="xml"/>
+    </entry>
     <entry descr="sorts list values by ascending order" name="list.sort">
       <xi:include href="list.sort.pddoc" parse="xml"/>
     </entry>

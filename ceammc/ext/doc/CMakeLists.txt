@@ -47,6 +47,7 @@ set(DOC_FILES
     list.length
     list.max
     list.min
+    list.shuffle
     list.sort
     list.walk
     lfo.impulse~

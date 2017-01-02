@@ -44,6 +44,7 @@ list.last		.		.
 list.length		.		.
 list.max		.		.
 list.min		.		.
+list.shuffle		.		.
 list.sort		.		.
 list.walk		.		.
 live.capture~		~		~.

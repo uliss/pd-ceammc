@@ -1,41 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pddoc version="1.0">
-    <object name="list.sort">
-        <title>list.sort</title>
+    <object name="list.shuffle">
+        <title>list.shuffle</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>sorts list values by ascending order</description>
+            <description>randomly rearranges elements in list</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>list</category>
-            <keywords>list sort</keywords>
+            <keywords>list shuffle random</keywords>
             <since>0.1</since>
             <also>
+                <see>list.sort</see>
                 <see>list.reverse</see>
-                <see>list.shuffle</see>
             </also>
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="list">Input list.</xinfo>
+                <xinfo on="list">input list</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>new sorted list</outlet>
+            <outlet>new shuffled list</outlet>
         </outlets>
         <example>
             <pdascii>
-                <![CDATA[
-[2 -2 4 1 2.0( [1 a -2 b 4 1 2.0(
-|              |
-[list.sort     ]
+<![CDATA[
+[1 2 3 a b c(
+|
+[list.shuffle]
 |
 [prepend set]
 |
 [ (
-                ]]>
+]]>
             </pdascii>
         </example>
     </object>
