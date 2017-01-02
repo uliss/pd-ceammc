@@ -96,7 +96,10 @@
     <entry descr="returns the number of items that equal to specified value" name="list.count">
       <xi:include href="list.count.pddoc" parse="xml"/>
     </entry>
-    <entry descr="returns the difference between the current list of floats and previous one." name="list.delta">
+    <entry descr="returns the number of items that satisfy to external predicate." name="list.count_if">
+      <xi:include href="list.count_if.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="returns the difference between the current list of floats and the previous one." name="list.delta">
       <xi:include href="list.delta.pddoc" parse="xml"/>
     </entry>
     <entry descr="maps each list value via external object(s)" name="list.each">

@@ -126,7 +126,7 @@ public:
      * @param n - outlet index. Starting from 0.
      * @return pointer to outlet or 0 if invalid index given.
      */
-    inline t_outlet* outletAt(size_t n);
+    t_outlet* outletAt(size_t n);
 
     /**
      * Returns number of outlets.
