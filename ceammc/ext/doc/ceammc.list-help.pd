@@ -21,7 +21,7 @@ value;
 #X obj 30 285 list.last;
 #X text 150 285 returns last list element;
 #X obj 30 312 list.length;
-#X text 150 312 returns the number of elements in the list\.;
+#X text 150 312 returns the number of atoms in the message;
 #X obj 30 339 list.max;
 #X text 150 339 returns largest element in the list;
 #X obj 30 366 list.min;

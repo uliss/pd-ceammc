@@ -105,7 +105,7 @@
     <entry descr="returns last list element" name="list.last">
       <xi:include href="list.last.pddoc" parse="xml"/>
     </entry>
-    <entry descr="returns the number of elements in the list." name="list.length">
+    <entry descr="returns the number of atoms in the message" name="list.length">
       <xi:include href="list.length.pddoc" parse="xml"/>
     </entry>
     <entry descr="returns largest element in the list" name="list.max">
