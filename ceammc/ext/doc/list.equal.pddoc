@@ -16,6 +16,10 @@
         <arguments>
             <argument name="LIST" type="list">initial value</argument>
         </arguments>
+        <methods>
+            <method name="dump">dumps object state to PD console window</method>
+            <method name="@pattern?">output current pattern property</method>
+        </methods>
         <inlets>
             <inlet>
                 <xinfo on="list">First list</xinfo>
@@ -30,11 +34,14 @@
         <example>
             <pdascii>
 <![CDATA[
-[1 2 3( [list a b c(
-|       |
-|       |   [1 2 3( [list a b c(
-|       |   |.      |.
-[list.equal     a b c]
+[1 2 3(  [list a b c(
+|        |
+|        |   [1 2 3( [list a b c(
+|        |   |       |
+|        |   |       |   [dump( [@pattern?(
+|        |   |       |   |      |
+|        |   |.      |.  |      |
+[list.equal                a b c]
 |     |
 [F]   [print]
 ]]>
