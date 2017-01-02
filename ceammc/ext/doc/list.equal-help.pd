@@ -1,42 +1,37 @@
 #N canvas 0 0 685 555 12;
-#X obj 248 50 cnv 1 417 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 248 50 returns the number of items that equal to specified
-value;
-#X obj 1 1 cnv 5 682 40 empty empty list.count 20 20 0 20 -104026
+#X obj 435 50 cnv 1 230 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 435 50 checks if given lists are equal;
+#X obj 1 1 cnv 5 682 40 empty empty list.equal 20 20 0 20 -104026
 -4096 0;
-#X obj 588 11 list.count;
-#X msg 146 118 pattern c;
-#X msg 280 118 list a b c c;
-#X msg 50 147 1 2 3 1;
-#X floatatom 165 147 5 0 0 0 - - -;
-#X obj 50 176 list.count a;
+#X obj 588 11 list.equal;
+#X msg 50 118 1 2 3;
+#X msg 126 118 list a b c;
+#X msg 165 147 1 2 3;
+#X msg 242 147 list a b c;
+#X obj 50 176 list.equal a b c;
 #X floatatom 50 205 5 0 0 0 - - -;
-#X obj 136 205 print;
+#X obj 107 205 print;
 #X obj 20 244 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 249 cnv 5 80 16 empty empty arguments: 0 14 0 14 -262144
 -49933 0;
 #X text 125 254 1\.;
-#X text 150 254 any;
-#X obj 231 255 cnv 1 58 18 empty empty empty 17 7 0 10 -237308 -1 0;
-#X text 230 254 pattern: count pattern value\. ;
+#X text 150 254 list;
+#X obj 231 255 cnv 1 36 18 empty empty empty 17 7 0 10 -237308 -1 0;
+#X text 230 254 LIST: initial value\. ;
 #X obj 20 282 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 287 cnv 5 63 16 empty empty methods: 0 14 0 14 -262144
--49933 0;
-#X msg 125 292 pattern X;
-#X text 230 292 new pattern value\. ;
-#X obj 20 329 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 334 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
+#X obj 20 287 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
 0;
-#X text 125 339 1\.;
-#X text 150 339 *list*;
-#X text 230 339 Input list\. ;
-#X text 125 357 2\.;
-#X text 230 357 change pattern value\. ;
-#X obj 20 385 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 390 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
+#X text 125 292 1\.;
+#X text 150 292 *list*;
+#X text 230 292 First list\. ;
+#X text 125 310 2\.;
+#X text 150 310 *list*;
+#X text 230 310 Second list\. ;
+#X obj 20 338 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 343 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;
-#X text 125 395 1\.;
-#X text 230 395 count of found elements;
+#X text 125 348 1\.;
+#X text 230 348 "1" if lists are equal \, "0" otherwise;
 #X obj 10 45 pddp/pddplink ../index-help.pd -text index;
 #X text 51 45 ::;
 #X obj 67 45 pddp/pddplink ceammc-help.pd -text ceammc;
@@ -44,8 +39,6 @@ value;
 #X obj 131 45 pddp/pddplink ceammc.list-help.pd -text list;
 #X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 496 520 see also:;
-#X obj 566 520 list.count_if;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
@@ -53,7 +46,7 @@ value;
 #X text 10 32 version:;
 #X text 120 32 0\.1;
 #X text 10 54 object:;
-#X text 120 54 list\.count;
+#X text 120 54 list\.equal;
 #X text 10 76 category:;
 #X text 120 76 list;
 #X text 10 98 since:;
@@ -63,7 +56,7 @@ value;
 #X text 10 142 license:;
 #X text 120 142 GPL3;
 #X text 10 164 keywords:;
-#X text 120 164 list;
+#X text 120 164 list \, compare \, equal;
 #X text 10 186 website:;
 #X obj 120 186 pddp/pddplink https://github.com/uliss/pure-data -text
 https://github.com/uliss/pure-data;
@@ -74,5 +67,5 @@ https://github.com/uliss/pure-data;
 #X connect 7 0 8 1;
 #X connect 5 0 8 0;
 #X connect 8 0 10 0;
-#X connect 6 0 8 0;
+#X connect 6 0 8 1;
 #X connect 4 0 8 0;

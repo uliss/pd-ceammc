@@ -40,6 +40,7 @@ set(DOC_FILES
     list.count_if
     list.delta
     list.each
+    list.equal
     list.first
     list.gen
     list.last

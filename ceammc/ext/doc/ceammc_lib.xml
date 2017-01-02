@@ -105,6 +105,9 @@
     <entry descr="maps each list value via external object(s)" name="list.each">
       <xi:include href="list.each.pddoc" parse="xml"/>
     </entry>
+    <entry descr="checks if given lists are equal" name="list.equal">
+      <xi:include href="list.equal.pddoc" parse="xml"/>
+    </entry>
     <entry descr="returns first list element" name="list.first">
       <xi:include href="list.first.pddoc" parse="xml"/>
     </entry>

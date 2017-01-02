@@ -17,11 +17,11 @@
             </also>
         </meta>
         <arguments>
-            <argument name="pattern" type="float">count pattern value</argument>
+            <argument name="pattern" type="any">count pattern value</argument>
         </arguments>
         <methods>
             <method name="pattern">
-                <param type="float">new pattern value</param>
+                <param type="any">new pattern value</param>
             </method>
         </methods>
         <inlets>
