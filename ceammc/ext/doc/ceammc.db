@@ -45,6 +45,7 @@ list.length		.		.
 list.max		.		.
 list.min		.		.
 list.sort		.		.
+list.walk		.		.
 live.capture~		~		~.
 math.abs		.		.
 math.acos		.		.

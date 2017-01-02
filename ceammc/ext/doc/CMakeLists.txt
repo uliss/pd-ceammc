@@ -48,6 +48,7 @@ set(DOC_FILES
     list.max
     list.min
     list.sort
+    list.walk
     lfo.impulse~
     lfo.square~
     lfo.tri~

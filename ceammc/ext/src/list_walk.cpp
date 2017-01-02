@@ -5,7 +5,7 @@ using namespace ceammc;
 
 class ListWalk : public BaseObject {
     AtomList lst_;
-    SymbolEnumProperty* order_;
+    SymbolEnumProperty* walk_mode_;
     t_symbol* m_single_;
     t_symbol* m_clip_;
     t_symbol* m_wrap_;
@@ -16,7 +16,7 @@ class ListWalk : public BaseObject {
 public:
     ListWalk(const PdArgs& a)
         : BaseObject(a)
-        , order_(0)
+        , walk_mode_(0)
         , m_single_(gensym("single"))
         , m_clip_(gensym("clip"))
         , m_wrap_(gensym("wrap"))
@@ -29,27 +29,24 @@ public:
         createProperty(new PointerProperty<bool>("@direction", &forward_, false));
         createProperty(new PointerProperty<int>("@current_pos", &current_pos_, false));
         createProperty(new PointerProperty<AtomList>("@current_list", &lst_));
-        order_ = new SymbolEnumProperty("@pass", "single");
-        order_->appendEnum("wrap");
-        order_->appendEnum("clip");
-        order_->appendEnum("fold");
-        createProperty(order_);
+        walk_mode_ = new SymbolEnumProperty("@mode", "single");
+        walk_mode_->appendEnum("wrap");
+        walk_mode_->appendEnum("clip");
+        walk_mode_->appendEnum("fold");
+        createProperty(walk_mode_);
 
         // aliases
-        createProperty(new SymbolEnumAlias("@single", order_, gensym("single")));
-        createProperty(new SymbolEnumAlias("@loop", order_, gensym("wrap")));
-        createProperty(new SymbolEnumAlias("@wrap", order_, gensym("wrap")));
-        createProperty(new SymbolEnumAlias("@clip", order_, gensym("clip")));
-        createProperty(new SymbolEnumAlias("@fold", order_, gensym("fold")));
+        createProperty(new SymbolEnumAlias("@single", walk_mode_, gensym("single")));
+        createProperty(new SymbolEnumAlias("@loop", walk_mode_, gensym("wrap")));
+        createProperty(new SymbolEnumAlias("@wrap", walk_mode_, gensym("wrap")));
+        createProperty(new SymbolEnumAlias("@clip", walk_mode_, gensym("clip")));
+        createProperty(new SymbolEnumAlias("@fold", walk_mode_, gensym("fold")));
 
         parseArguments();
         lst_ = args();
     }
 
-    void onBang()
-    {
-        m_next();
-    }
+    void onBang() { next(); }
 
     void onList(const AtomList& l)
     {
@@ -57,46 +54,63 @@ public:
         current_pos_ = 0;
     }
 
-    void m_next()
-    {
-        if (forward_)
-            go_to(current_pos_ + 1);
-        else
-            go_to(current_pos_ - 1);
-    }
+    void m_next(t_symbol*, const AtomList& l) { next(atomlistToValue<int>(l, 1)); }
+    void m_prev(t_symbol*, const AtomList& l) { prev(atomlistToValue<int>(l, 1)); }
 
 private:
+    void next(int step = 1)
+    {
+        if (forward_) {
+            go_to(current_pos_);
+            current_pos_ += step;
+        } else {
+            go_to(current_pos_);
+            current_pos_ -= step;
+        }
+    }
+
+    void prev(int step = 1)
+    {
+        if (forward_) {
+            go_to(current_pos_);
+            current_pos_ -= step;
+        } else {
+            go_to(current_pos_);
+            current_pos_ += step;
+        }
+    }
+
     void go_to(int pos)
     {
         Atom* a = 0;
 
-        if (order_->value() == m_single_) {
+        if (walk_mode_->value() == m_single_) {
             if (pos < 0 || pos >= lst_.size())
                 return;
 
             a = &lst_[pos];
         }
 
-        else if (order_->value() == m_clip_) {
+        else if (walk_mode_->value() == m_clip_) {
             a = lst_.clipAt(pos);
         }
 
-        else if (order_->value() == m_wrap_) {
+        else if (walk_mode_->value() == m_wrap_) {
             a = lst_.wrapAt(pos);
         }
 
-        else if (order_->value() == m_fold_) {
+        else if (walk_mode_->value() == m_fold_) {
             a = lst_.foldAt(pos);
         }
 
-        if (a != 0) {
+        if (a != 0)
             atomTo(0, *a);
-            current_pos_ = pos;
-        }
     }
 };
 
 extern "C" void setup_list0x2ewalk()
 {
     ObjectFactory<ListWalk> obj("list.walk");
+    obj.addMethod("next", &ListWalk::m_next);
+    obj.addMethod("prev", &ListWalk::m_prev);
 }
