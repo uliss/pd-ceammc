@@ -39,6 +39,7 @@ set(DOC_FILES
     list.count
     list.each
     list.first
+    list.gen
     list.last
     list.length
     list.max

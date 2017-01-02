@@ -102,6 +102,9 @@
     <entry descr="returns first list element" name="list.first">
       <xi:include href="list.first.pddoc" parse="xml"/>
     </entry>
+    <entry descr="generates list of specified length via external generator" name="list.gen">
+      <xi:include href="list.gen.pddoc" parse="xml"/>
+    </entry>
     <entry descr="returns last list element" name="list.last">
       <xi:include href="list.last.pddoc" parse="xml"/>
     </entry>
