@@ -4,11 +4,11 @@
 
 using namespace ceammc;
 
-static const size_t MAX_COUNT = 1024;
+static const int MAX_COUNT = 1024;
 
 class ListGenerate : public BaseObject {
     AtomList gen_values_;
-    size_t count_;
+    IntProperty* count_;
 
 public:
     ListGenerate(const PdArgs& a)
@@ -16,20 +16,22 @@ public:
         , count_(0)
     {
         createInlet();
-        createInlet();
         createOutlet();
         createOutlet();
 
-        createProperty(new PointerProperty<size_t>("@count", &count_, true));
+        count_ = new IntProperty("@count", 0);
+        createProperty(count_);
+        parseArguments();
 
-        setCount(atomlistToValue<float>(args(), 0.f));
+        if (args().size() > 0)
+            setCount(atomlistToValue<float>(args(), 0.f));
     }
 
     void onBang()
     {
         gen_values_.clear();
 
-        for (size_t i = 0; i < count_; i++)
+        for (int i = 0; i < count_->value(); i++)
             bangTo(1);
 
         listTo(0, gen_values_);
@@ -46,11 +48,6 @@ public:
     void onInlet(size_t n, const AtomList& l)
     {
         if (n == 1) {
-            setCount(atomlistToValue<float>(l, 0));
-            return;
-        }
-
-        else if (n == 2) {
             gen_values_.append(l);
             return;
         }
@@ -64,12 +61,12 @@ private:
             return false;
         }
 
-        size_t c = static_cast<size_t>(v);
+        int c = static_cast<int>(v);
         if (c > MAX_COUNT) {
             ERR << "count should be less then " << MAX_COUNT << ". Setting to " << MAX_COUNT;
         }
 
-        count_ = std::min(c, MAX_COUNT);
+        count_->setValue(std::min(c, MAX_COUNT));
         return true;
     }
 };
