@@ -1,1 +1,1 @@
-list.gen		...		..
+list.gen		..		..

@@ -39,7 +39,7 @@ list.delta		.		.
 list.each		..		..
 list.equal		..		.
 list.first		.		.
-list.gen		...		..
+list.gen		..		..
 list.last		.		.
 list.length		.		.
 list.max		.		.

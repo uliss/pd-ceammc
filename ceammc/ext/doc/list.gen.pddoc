@@ -23,13 +23,15 @@
         <arguments>
             <argument type="int" minvalue="0" maxvalue="1024" name="N">length of generated list</argument>
         </arguments>
+        <methods>
+            <method name="dump">dump internal object state to Pd console window</method>
+            <method name="@count?">outputs current list length</method>
+            <method name="@count">set new length for generated list</method>
+        </methods>
         <inlets>
             <inlet>
                 <xinfo on="bang">starts list generation</xinfo>
                 <xinfo on="int" minvalue="0" maxvalue="1024">changes length of generated list and starts generation</xinfo>
-            </inlet>
-            <inlet>
-                <xinfo on="int">changes length of generated list</xinfo>
             </inlet>
             <inlet>
                 <xinfo on="any">input for generated values</xinfo>
@@ -42,10 +44,10 @@
         <example>
             <pdascii>
 <![CDATA[
-    [F]
-    |
-[B] |  [dump( [F]
-|   |  |      |.
+    [F]       [F]
+    |         |
+[B] |  [dump( [@count $1(
+|   |  |      |
 [list.gen    3] X [random 100]
 |
 [prepend set]
