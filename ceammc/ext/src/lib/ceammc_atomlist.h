@@ -256,6 +256,12 @@ AtomList listFrom(bool v)
     return res;
 }
 
+template <>
+AtomList listFrom(AtomList v)
+{
+    return v;
+}
+
 template <typename T>
 static T atomlistToValue(const AtomList&, const T& def) { return def; }
 
