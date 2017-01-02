@@ -310,6 +310,11 @@ void AtomList::append(const Atom& a)
     atoms_.push_back(a);
 }
 
+void AtomList::append(const AtomList& l)
+{
+    atoms_.insert(atoms_.end(), l.atoms_.begin(), l.atoms_.end());
+}
+
 bool AtomList::insert(size_t pos, const Atom& a)
 {
     if (pos > atoms_.size())
