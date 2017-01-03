@@ -302,6 +302,7 @@
     </entry>
     <entry descr="treats list of floats as vector, returns vector length: sqrt(element(1)^2 + ...element(n)^2)." name="vector.length">
       <xi:include href="vector.length.pddoc" parse="xml"/>
+
     </entry>
   </category>
   <meta>

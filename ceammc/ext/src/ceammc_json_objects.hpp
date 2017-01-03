@@ -27,6 +27,16 @@
 //todo: check Windows/MinGW C++11 compatibility. Change JSON library if needed.
 using json = nlohmann::json;
 
+//moving
+#include "rapidjson/prettywriter.h"
+#include "rapidjson/document.h"
+#include "rapidjson/rapidjson.h"
+
+#include "ceammc_globaldata.h"
+
+using namespace ceammc;
+using namespace rapidjson;
+
 typedef struct {
     t_symbol *symbol;
     json *object;
@@ -60,7 +70,7 @@ static inline t_atom cm_atom_from_json(json in1)
         ret.a_type = (t_atomtype)at1;
         std::string sym = in1["symbol"];
         ret.a_w.w_symbol = gensym(sym.c_str());
-        ret.a_w.w_float = in1["float"];
+        ret.a_w.w_float = in1["float"];         //check PD_FLOATSIZE
     }
     
     return ret;
@@ -76,6 +86,58 @@ static inline t_atom cm_atom_from_json_string(json in1)
     if (in1.is_string())
     {
         std::string sym = in1;
+        ret.a_w.w_symbol = gensym(sym.c_str());
+    }
+    
+    return ret;
+}
+
+#pragma mark -
+
+static inline Document ncm_json_from_atom(t_atom atom)
+{
+    Document ret;
+    
+    Document::AllocatorType& allocator = ret.GetAllocator();
+    
+    ret.AddMember("type", (int)atom.a_type, allocator);
+    ret.AddMember("symbol", *atom.a_w.w_symbol->s_name, allocator);
+    ret.AddMember("float", atom.a_w.w_float, allocator);
+    
+    return ret;
+}
+
+static inline t_atom ncm_atom_from_json(Document in1)
+{
+    t_atom ret;
+    
+    ret.a_type = A_SYMBOL;
+    ret.a_w.w_symbol = gensym("<>");
+    
+    if (in1["type"].IsNumber() && in1["symbol"].IsString() && in1["float"].IsNumber())
+    {
+        int at1 = in1["type"].GetInt();
+        ret.a_type = (t_atomtype)at1;
+        std::string sym = in1["symbol"].GetString();
+        ret.a_w.w_symbol = gensym(sym.c_str());
+        ret.a_w.w_float = in1["float"].GetFloat();      //check PD_FLOATSIZE
+    }
+    
+    return ret;
+    
+}
+
+
+static inline t_atom ncm_atom_from_json_string(Document in1)
+{
+    t_atom ret;
+    
+    ret.a_type = A_SYMBOL;
+    ret.a_w.w_symbol = gensym("<>");
+    
+    if (in1.IsString())
+    {
+        std::string sym = in1.GetString();
         ret.a_w.w_symbol = gensym(sym.c_str());
     }
     
