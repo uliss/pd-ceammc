@@ -32,6 +32,13 @@ set(CREAM_SRC
 )
 
 add_library(cream_core STATIC ${CREAM_SRC})
+set(CREAM_COMPILE_FLAGS "")
+if(UNIX)
+    list(APPEND CREAM_COMPILE_FLAGS "-fPIC")
+else()
+endif()
+set_target_properties(cream_core PROPERTIES COMPILE_FLAGS "${CREAM_COMPILE_FLAGS}")
+
 #target_link_libraries(cream_core cicm_static)
 
 pd_add_extension(NAME cream
