@@ -31,7 +31,7 @@ public:
         gwrap_ = gensym("wrap");
         gfold_ = gensym("fold");
 
-        createProperty(new SymbolEnumAlias("@padz", wrap_method_, gmin_));
+        createProperty(new SymbolEnumAlias("@min", wrap_method_, gmin_));
         createProperty(new SymbolEnumAlias("@padz", wrap_method_, gpadz_));
         createProperty(new SymbolEnumAlias("@clip", wrap_method_, gclip_));
         createProperty(new SymbolEnumAlias("@wrap", wrap_method_, gwrap_));
