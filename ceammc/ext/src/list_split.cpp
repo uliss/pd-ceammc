@@ -9,7 +9,7 @@
 #include "ceammc_atomlist.h"
 //#include <m_pd.h>
 #include <stdlib.h>
-#include "../../extra/CicmWrapper/Sources/cicm_wrapper_c.h"
+#include "cicm_wrapper.h"
 
 using namespace ceammc;
 

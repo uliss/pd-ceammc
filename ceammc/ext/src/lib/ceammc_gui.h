@@ -26,7 +26,8 @@
 #include <vector>
 #include <map>
 
-#include "cicm_wrapper_c.h"
+
+#include "cicm_wrapper.h"
 
 namespace ceammc_gui {
    
