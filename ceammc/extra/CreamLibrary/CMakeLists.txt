@@ -5,6 +5,13 @@ include_directories(${PROJECT_SOURCE_DIR}/src)
 include_directories(../CicmWrapper/Sources)
 
 set(CREAM_SRC
+    Deprecated/c.loadmess.cpp
+    Deprecated/c.prepend.cpp
+    Deprecated/c.pak.cpp
+    Deprecated/c.patcherargs.cpp
+    Deprecated/c.patcherinfos.cpp
+    Deprecated/c.patchermess.cpp
+    Deprecated/c.prepend.cpp
     Sources/c.bang.cpp
     Sources/c.blackboard.cpp
     Sources/c.breakpoints.cpp
@@ -13,7 +20,7 @@ set(CREAM_SRC
     Sources/c.dsp_tilde.cpp
     Sources/c.gain_tilde.cpp
     Sources/c.incdec.cpp
-    Sources/c.keyboard.cpp
+#    Sources/c.keyboard.cpp
     Sources/c.knob.cpp
     Sources/c.matrix.cpp
     Sources/c.menu.cpp

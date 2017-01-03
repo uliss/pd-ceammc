@@ -100,7 +100,7 @@ chmod 0444 $PD_EXTRA/ceammc/*-help.pd
 echo "Copying CICM/Cream files:"
 cp $BUILD_DIR/ceammc/extra/CreamLibrary/cream.d_fat $PD_EXTRA/ceammc
 cp -R $SRC_DIR/ceammc/extra/CreamLibrary/Package/Cream/helps $PD_EXTRA/ceammc
-cp -R $SRC_DIR/ceammc/extra/CreamLibrary/Package/Cream/misc $PD_EXTRA/misc
+cp $SRC_DIR/ceammc/extra/CreamLibrary/Package/Cream/misc/* $PD_EXTRA/ceammc/helps
 
 echo "Copying license..."
 cp $SRC_DIR/License.txt Scripts
