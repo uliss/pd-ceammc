@@ -85,20 +85,22 @@ namespace ceammc_gui {
             egraphics_rectangle(g, xx-0.5*knobsize+1, yy-0.5*knobsize+1, knobsize-1, knobsize-1);
             egraphics_fill(g);
             
+            char c_min[30];
+            sprintf(c_min, "[%.2f..%.2f]", zx->shift_x,zx->range_x+zx->shift_x );
+            
+            char c_max[30];
+            sprintf(c_max, "[%.2f..%.2f]", zx->shift_y,zx->range_y+zx->shift_y);
+            
+            etext_layout_set(zx->txt_min, c_min, zx->txt_font, rect.width-3, rect.height-12, rect.width, rect.height/2, ETEXT_UP_RIGHT, ETEXT_JRIGHT, ETEXT_WRAP);
+            etext_layout_draw(zx->txt_min, g);
+            
+            etext_layout_set(zx->txt_max, c_max, zx->txt_font, 3, 12, rect.width*2, rect.height/2, ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_WRAP);
+            etext_layout_draw(zx->txt_max, g);
+            
             
         }
         
-        char c_min[30];
-        sprintf(c_min, "[%.2f..%.2f]", zx->shift_x,zx->range_x+zx->shift_x );
-    
-        char c_max[30];
-        sprintf(c_max, "[%.2f..%.2f]", zx->shift_y,zx->range_y+zx->shift_y);
         
-        etext_layout_set(zx->txt_min, c_min, zx->txt_font, rect.width-3, rect.height-12, rect.width, rect.height/2, ETEXT_UP_RIGHT, ETEXT_JRIGHT, ETEXT_WRAP);
-        etext_layout_draw(zx->txt_min, g);
-        
-        etext_layout_set(zx->txt_max, c_max, zx->txt_font, 3, 12, rect.width*2, rect.height/2, ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_WRAP);
-        etext_layout_draw(zx->txt_max, g);
         
         ebox_end_layer((t_ebox*)z, bgl);
         ebox_paint_layer((t_ebox *)z, bgl, 0., 0.);
