@@ -17,7 +17,7 @@ ARG_ICON=
 ARG_BACKGROUND=
 ARG_COORDS=
 ARG_SIZE="640:480"
-ARG_VOL_NAME="PureData"
+ARG_VOL_NAME="PureData_$2"
 ARG_TMP_DIR="./tmp"
 ARG_ADD_VERSION=
 ARG_CODESIGN_ID=
@@ -74,9 +74,10 @@ fi
 
 VOL_ICON_NAME=${ARG_ICON}
 
+INFO_PLIST="${APP_BUNDLE_PATH}/Contents/Info.plist"
 if [ "${ARG_ADD_VERSION}" ]; then
-        APP_VERSION=`/usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" "${APP_BUNDLE_PATH}/Contents/Info.plist"`
-        APP_BUILD_VERSION=`/usr/libexec/PlistBuddy -c "Print :CFBundleVersion" "${APP_BUNDLE_PATH}/Contents/Info.plist"`
+        APP_VERSION=`/usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" "${INFO_PLIST}"`
+        APP_BUILD_VERSION=`/usr/libexec/PlistBuddy -c "Print :CFBundleVersion" "${INFO_PLIST}t"`
         DMG_NAME_SUFFIX=" ${APP_VERSION}.${APP_BUILD_VERSION}"
 else
         APP_VERSION=
@@ -109,6 +110,15 @@ if [ -e ${XQUARTZ_PATH} ]; then
     cp "${XQUARTZ_PATH}" ${TMP_DIR}/
 fi
 echo "done!"
+
+TMP_INFO_PLIST="${TMP_DIR}/${APP_BUNDLE_NAME}/Contents/Info.plist"
+BUNDLE_VERSION=`/usr/libexec/PlistBuddy -c "Print :CFBundleDisplayName" "${TMP_INFO_PLIST}"`
+echo "Bundle version: ${BUNDLE_VERSION}"
+GIT_HASH=$(git -C "${SRC_PATH}" log -1 --pretty=format:%h)
+echo "Build git hash: ${GIT_HASH}"
+BUNDLE_VERSION="${BUNDLE_VERSION} ${GIT_HASH}"
+echo "New bundle version: ${BUNDLE_VERSION}"
+/usr/libexec/PlistBuddy -c "Set :CFBundleDisplayName '${BUNDLE_VERSION}'" "${TMP_INFO_PLIST}"
 
 echo -n "*** Creating temporary dmg disk image..."
 rm -f "${DMG_NAME_TMP}"
