@@ -24,7 +24,7 @@
 	<key>CFBundleIdentifier</key>
         <string>com.ceammc.puredata</string>
         <key>CFBundleDisplayName</key>
-        <string>PureData (ceammc)</string>
+        <string>PureData (${PD_MACOSX_BUNDLE_SUFFIX})</string>
         <key>CFBundleName</key>
         <string>Pd</string>
         <key>CFBundleSpokenName</key>
