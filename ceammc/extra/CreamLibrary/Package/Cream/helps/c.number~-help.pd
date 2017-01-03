@@ -1,0 +1,51 @@
+#N canvas 390 346 606 432 10;
+#X msg 26 210 interval \$1;
+#X obj 125 211 osc~ 0.2;
+#X text 21 122 Tick interval (ms);
+#X obj 26 186 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 125 186 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 125 268 c.number~ @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@interval 20 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
+#X obj 26 147 c.loadmess 20;
+#X obj 125 147 c.loadmess 0.2;
+#X obj 173 298 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 125 336 c.number~ @size 78 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@interval 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
+#X obj 8 24 c.patcherinfos;
+#X obj 9 15 c.loadmess;
+#X obj 3 3 c.help.header;
+#X obj 68 373 c.help.pub;
+#X obj 438 391 c.help.gui;
+#X text 435 375 Look at me;
+#X obj 342 156 c.dsp~ @size 30 30 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @logocolor 0 0.6 0
+0.8;
+#X text 3 44 c.number~ is the cream counterpart of the vanilla nbx
+for signal.;
+#X connect 0 0 5 0;
+#X connect 1 0 5 0;
+#X connect 3 0 0 0;
+#X connect 4 0 1 0;
+#X connect 5 0 9 0;
+#X connect 5 1 8 0;
+#X connect 6 0 3 0;
+#X connect 7 0 4 0;
+#X connect 10 0 12 0;
+#X connect 11 0 10 0;

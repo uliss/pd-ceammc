@@ -1,0 +1,62 @@
+#N canvas 359 368 579 423 10;
+#X obj 39 206 *~ 1.05;
+#X text 90 201 Just to ensure that the;
+#X text 90 211 overled will blink !;
+#X obj 39 170 phasor~ 0.3;
+#X text 96 355 dB;
+#X text 333 248 dB;
+#X obj 39 139 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 277 148 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 277 187 sig~ 1;
+#X obj 277 249 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 39 352 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 277 218 c.meter~ @size 85 13 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@interval 50 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @coldcolor
+0 0.6 0 0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor
+1 0.6 0 0.8 @overcolor 1 0 0 0.8;
+#X obj 39 252 c.meter~ @size 13 85 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@interval 50 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @coldcolor
+0 0.6 0 0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor
+1 0.6 0 0.8 @overcolor 1 0 0 0.8;
+#X obj 277 114 c.loadmess 0.1;
+#X obj 39 104 c.loadmess 0.3;
+#X obj 7 30 c.patcherinfos;
+#X obj 8 11 c.loadmess;
+#X obj 4 5 c.help.header;
+#X obj 160 357 c.help.pub;
+#X obj 409 319 c.help.gui;
+#X text 406 303 Look at me;
+#X obj 446 113 c.dsp~ @size 30 30 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @logocolor 0 0.6 0
+0.8;
+#X text 3 49 c.meter~ is the cream counterpart of the vanilla vu.;
+#X connect 0 0 12 0;
+#X connect 3 0 0 0;
+#X connect 6 0 3 0;
+#X connect 7 0 8 0;
+#X connect 8 0 11 0;
+#X connect 11 0 9 0;
+#X connect 12 0 10 0;
+#X connect 13 0 7 0;
+#X connect 14 0 6 0;
+#X connect 15 0 17 0;
+#X connect 16 0 15 0;

@@ -1,0 +1,103 @@
+#N canvas 297 100 896 520 10;
+#X msg 254 154 set \$1;
+#X msg 476 125 append 17;
+#X text 89 74 Selection;
+#X text 461 74 Edition;
+#X obj 97 233 c.tab @size 196 34 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @orientation 1 @toggle 1 @items "in America" "in the West"
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1
+@hocolor 0.5 0.5 0.5 1 @secolor 0.35 0.35 0.35 1;
+#X obj 97 291 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 254 123 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min 0 @max 1 @minmax 0 1 @decimal 0 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 41 137 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min 0 @max 3 @minmax 0 3 @decimal 0 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X msg 590 354 Jimi Hendrix;
+#X obj 436 234 c.tab @size 314 32 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @orientation 0 @toggle 0 @items "Jimi Hendrix"
+"Janis Joplin" "John Lennon" "Jim Morisson" @bgcolor 0.75 0.75 0.75
+1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1 @hocolor 0.5 0.5 0.5 1
+@secolor 0.35 0.35 0.35 1;
+#X msg 647 201 clear;
+#X obj 436 311 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min 0 @max "(null)" @minmax 0 "(null)" @decimal
+0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0
+1;
+#X msg 192 404 Once upon a time in the West;
+#X msg 586 184 delete 2;
+#X text 693 202 Tab with an horizontal;
+#X text 693 212 orientation in "bang" mode.;
+#X text 161 202 Tab with an vertcial;
+#X text 161 212 orientation in "toggle" mode.;
+#X obj 288 289 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X text 430 339 Clicked index;
+#X text 589 377 Clicked item;
+#X text 280 313 Hover index;
+#X text 740 325 Hover index;
+#X text 91 319 Selected index;
+#X obj 745 303 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X text 507 404 Note that you can use the inspector to edit the tab.
+;
+#X text 507 414 Don't forget that ' and " are the separators.;
+#X obj 254 89 c.loadmess 1;
+#X text 181 428 Selected item;
+#X msg 562 159 insert 1 Lou Reed;
+#X msg 554 128 setitem 2 Bob Dylan;
+#X msg 436 98 append Pete TownShend \, append David Gilmour;
+#X msg 97 98 set in the West;
+#X msg 140 139 "in America";
+#X text 7 46 c.tab displays a list of text buttons or text toggles.
+;
+#X obj 10 25 c.patcherinfos;
+#X obj 11 16 c.loadmess;
+#X obj 5 4 c.help.header;
+#X obj 196 454 c.help.pub;
+#X obj 192 347 list prepend set Once upon a time;
+#X obj 192 369 list trim;
+#X obj 590 302 list prepend set;
+#X obj 590 324 list trim;
+#X obj 566 471 c.help.gui;
+#X text 563 455 Look at me;
+#X connect 0 0 4 0;
+#X connect 1 0 9 0;
+#X connect 4 0 5 0;
+#X connect 4 1 39 0;
+#X connect 4 2 18 0;
+#X connect 6 0 0 0;
+#X connect 7 0 4 0;
+#X connect 9 0 11 0;
+#X connect 9 1 41 0;
+#X connect 9 2 24 0;
+#X connect 10 0 9 0;
+#X connect 13 0 9 0;
+#X connect 27 0 6 0;
+#X connect 29 0 9 0;
+#X connect 30 0 9 0;
+#X connect 31 0 9 0;
+#X connect 32 0 4 0;
+#X connect 33 0 4 0;
+#X connect 35 0 37 0;
+#X connect 36 0 35 0;
+#X connect 39 0 40 0;
+#X connect 40 0 12 0;
+#X connect 41 0 42 0;
+#X connect 42 0 8 0;

@@ -1,0 +1,35 @@
+#N canvas 518 103 426 319 10;
+#X obj 57 121 delay 500;
+#X obj 57 91 c.bang @size 17 17 @fontname "Helvetica" @fontweight "normal"
+@fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)" @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X obj 57 187 delay 500;
+#X obj 57 157 c.bang @size 17 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X obj 185 187 delay 500;
+#X obj 185 157 c.bang @size 17 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X obj 185 121 delay 500;
+#X obj 185 91 c.bang @size 17 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X text 13 50 c.bang do nothing more than vanilla bang for the moment...
+;
+#X obj 18 28 c.patcherinfos;
+#X obj 20 12 c.loadmess;
+#X obj 29 246 c.help.pub;
+#X obj 13 8 c.help.header;
+#X obj 299 169 c.help.gui;
+#X text 296 153 Look at me;
+#X connect 0 0 3 0;
+#X connect 1 0 0 0;
+#X connect 2 0 5 0;
+#X connect 3 0 2 0;
+#X connect 4 0 7 0;
+#X connect 5 0 4 0;
+#X connect 6 0 1 0;
+#X connect 7 0 6 0;
+#X connect 9 0 12 0;
+#X connect 10 0 9 0;

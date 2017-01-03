@@ -1,0 +1,75 @@
+
+Cream Library
+
+For an overview of library, please refer to the « cream-help.pd ».
+
+------------------------
+Beta 0.4
+------------------------
+
+c.dsp~
+removed objects : 
+c.mousestate (use cyclone with patch alias)
+deprecated : 
+c.prepend
+c.loadmes
+
+------------------------
+Beta 0.3
+------------------------
+
+Small bugs and helps 
+Vanilla and Extended separate
+
+Coffee
+- c.mousestate
+
+------------------------
+Beta 0.2
+------------------------
+
+General :
+Property window, proxy inlets, preset function, etc...
+A lot of stuff can't enum everything, look at the commit...
+
+Chocolate :
+- c.rslider
+- c.blackboard updated
+- c.breakpoint updated
+- c.preset updated
+
+Caramel :
+- c.freeverb~
+- c.convolve~
+
+------------------------
+Beta 0.1
+------------------------
+
+Chocolate : 
+- c.bang
+- c.blackbloard
+- c.colorpanel
+- c.breakpoint
+- c.incdec
+- c.knob
+- c.menu
+- c.number
+- c.plane
+- c.preset
+- c.radio
+- c.slider
+- c.tab
+- c.toggle
+- c.gain~
+- c.meter~
+- c.number~
+- c.scope
+
+Coffee : 
+- c.loadmess
+- c.pak
+- c.patcherargs
+- c.patcherinfos
+- c.prepend
+
