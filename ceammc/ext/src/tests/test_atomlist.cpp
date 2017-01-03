@@ -30,6 +30,26 @@ AtomList AList(size_t n_args, ...)
     return res;
 }
 
+static float atomSum(const Atom& a, const Atom& b)
+{
+    return a.asFloat(0) + b.asFloat(0);
+}
+
+static float floatSum(float a, float b)
+{
+    return a + b;
+}
+
+static float atomMul(const Atom& a, const Atom& b)
+{
+    return a.asFloat(1) * b.asFloat(1);
+}
+
+static float floatMul(float a, float b)
+{
+    return a * b;
+}
+
 TEST_CASE("AtomList", "[ceammc::AtomList]")
 {
     SECTION("construct")
@@ -1131,5 +1151,69 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
             l.append(Atom());
             REQUIRE(atomlistToValue<bool>(l, true) == false);
         }
+    }
+
+    SECTION("test reduce")
+    {
+        SECTION("template")
+        {
+            AtomList l;
+            REQUIRE(l.reduce(1.f, &atomSum) == 1.f);
+            REQUIRE(l.reduce(1.f, &atomMul) == 1.f);
+            l.append(1.f);
+            l.append(2.f);
+            REQUIRE(l.reduce(0.5f, &atomSum) == 3.5f);
+            REQUIRE(l.reduce(2.f, &atomMul) == 4.f);
+            l.append(gensym("a"));
+            REQUIRE(l.reduce(0.5f, &atomSum) == 3.5f);
+            REQUIRE(l.reduce(2.f, &atomMul) == 4.f);
+            l.append(2.f);
+            REQUIRE(l.reduce(0.5f, &atomSum) == 5.5f);
+            REQUIRE(l.reduce(2.f, &atomMul) == 8.f);
+        }
+
+        SECTION("float")
+        {
+
+            AtomList l;
+            REQUIRE(l.reduceFloat(1.f, 0.f, &floatSum) == 1.f);
+            REQUIRE(l.reduceFloat(1.f, 1.f, &floatMul) == 1.f);
+            l.append(1.f);
+            l.append(2.f);
+            REQUIRE(l.reduceFloat(0.5f, 0.f, &floatSum) == 3.5f);
+            REQUIRE(l.reduceFloat(2.f, 1.f, &floatMul) == 4.f);
+            l.append(gensym("a"));
+            REQUIRE(l.reduceFloat(0.5f, 0.f, &floatSum) == 3.5f);
+            REQUIRE(l.reduceFloat(2.f, 1.f, &floatMul) == 4.f);
+            l.append(2.f);
+            REQUIRE(l.reduceFloat(0.5f, 0.f, &floatSum) == 5.5f);
+            REQUIRE(l.reduceFloat(2.f, 1.f, &floatMul) == 8.f);
+        }
+    }
+
+    SECTION("test sum")
+    {
+        AtomList l;
+        REQUIRE(l.sum() == 0.f);
+        l.append(1.f);
+        l.append(2.f);
+        REQUIRE(l.sum() == 3.f);
+        l.append(gensym("a"));
+        REQUIRE(l.sum() == 3.f);
+        l.append(3.f);
+        REQUIRE(l.sum() == 6.f);
+    }
+
+    SECTION("test product")
+    {
+        AtomList l;
+        REQUIRE(l.product() == 0.f);
+        l.append(1.f);
+        l.append(2.f);
+        REQUIRE(l.product() == 2.f);
+        l.append(gensym("a"));
+        REQUIRE(l.product() == 2.f);
+        l.append(3.f);
+        REQUIRE(l.product() == 6.f);
     }
 }

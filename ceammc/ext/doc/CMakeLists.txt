@@ -37,13 +37,21 @@ set(DOC_FILES
     list.at
     list.choice
     list.count
+    list.count_if
+    list.delta
     list.each
+    list.equal
     list.first
+    list.gen
     list.last
     list.length
     list.max
     list.min
+    list.reverse
+    list.shuffle
     list.sort
+    list.sum
+    list.walk
     lfo.impulse~
     lfo.square~
     lfo.tri~

@@ -14,21 +14,40 @@ it via external object\.;
 #X obj 30 204 list.count;
 #X text 150 204 returns the number of items that equal to specified
 value;
-#X obj 30 231 list.each;
-#X text 150 231 maps each list value via external object(s);
-#X obj 30 258 list.first;
-#X text 150 258 returns first list element;
-#X obj 30 285 list.last;
-#X text 150 285 returns last list element;
-#X obj 30 312 list.length;
-#X text 150 312 returns the number of elements in the list\.;
-#X obj 30 339 list.max;
-#X text 150 339 returns largest element in the list;
-#X obj 30 366 list.min;
-#X text 150 366 returns smallest element in the list;
-#X obj 30 393 list.sort;
-#X text 150 393 sorts list values by ascending order;
+#X obj 30 231 list.count_if;
+#X text 150 231 returns the number of items that satisfy to external
+predicate\.;
+#X obj 30 268 list.delta;
+#X text 150 268 returns the difference between the current list of
+floats and the previous one\.;
+#X obj 30 305 list.each;
+#X text 150 305 maps each list value via external object(s);
+#X obj 30 332 list.equal;
+#X text 150 332 checks if given lists are equal;
+#X obj 30 359 list.first;
+#X text 150 359 returns first list element;
+#X obj 30 386 list.gen;
+#X text 150 386 generates list of specified length via external
+generator;
+#X obj 30 413 list.last;
+#X text 150 413 returns last list element;
+#X obj 30 440 list.length;
+#X text 150 440 returns the number of atoms in the message;
+#X obj 30 467 list.max;
+#X text 150 467 returns largest element in the list;
+#X obj 30 494 list.min;
+#X text 150 494 returns smallest element in the list;
+#X obj 30 521 list.reverse;
+#X text 150 521 reverses the order of the elements in the list;
+#X obj 30 548 list.shuffle;
+#X text 150 548 randomly rearranges elements in list;
+#X obj 30 575 list.sort;
+#X text 150 575 sorts list values by ascending order;
+#X obj 30 602 list.sum;
+#X text 150 602 calculates sum of floats in list;
+#X obj 30 629 list.walk;
+#X text 150 629 Walks thru the list;
 #X obj 1 1 cnv 5 597 40 empty empty ceammc::list 20 20 0 20 -104026
 -4096 0;
-#X obj 1 458 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 468 library: ceammc;
+#X obj 1 656 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 666 library: ceammc;

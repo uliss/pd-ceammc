@@ -1,69 +1,77 @@
 #include "ceammc.hpp"
-#include <m_pd.h>
+#include "ceammc_factory.h"
+#include "ceammc_object.h"
 
-t_class* list_gen_class;
-struct t_list_gen {
-    t_object x_obj;
-    t_outlet* out_gen;
-    t_inlet* in_gen;
-    ceammc::pd::atom_list* values;
-};
+using namespace ceammc;
 
-static void add_generated_value(t_list_gen* x, t_symbol* /*s*/, int argc, t_atom* argv)
-{
-    if (!x->values)
-        return;
+static const int MAX_COUNT = 1024;
 
-    for (int i = 0; i < argc; i++)
-        x->values->push_back(argv[i]);
-}
+class ListGenerate : public BaseObject {
+    AtomList gen_values_;
+    IntProperty* count_;
 
-static void list_gen_float(t_list_gen* x, t_floatarg num)
-{
-    const int n = static_cast<int>(num);
-    if (n < 1) {
-        pd_error(x, "argument should be > 1. %i", n);
-        return;
+public:
+    ListGenerate(const PdArgs& a)
+        : BaseObject(a)
+        , count_(0)
+    {
+        createInlet();
+        createOutlet();
+        createOutlet();
+
+        count_ = new IntProperty("@count", 0);
+        createProperty(count_);
+        parseArguments();
+
+        if (args().size() > 0)
+            setCount(atomlistToValue<float>(args(), 0.f));
     }
 
-    x->values = new ceammc::pd::atom_list();
-    x->values->reserve(n);
+    void onBang()
+    {
+        gen_values_.clear();
 
-    // output bangs to generator right outlet
-    for (int i = 0; i < n; i++)
-        outlet_bang(x->out_gen);
+        for (int i = 0; i < count_->value(); i++)
+            bangTo(1);
 
-    // output generated values to main left outlet
-    ceammc::pd::output(x->x_obj.te_outlet, *x->values);
+        listTo(0, gen_values_);
+    }
 
-    delete x->values;
-    x->values = 0;
-}
+    void onFloat(float v)
+    {
+        if (!setCount(v))
+            return;
 
-static void* list_gen_new(t_floatarg num)
-{
-    t_list_gen* x = reinterpret_cast<t_list_gen*>(pd_new(list_gen_class));
-    outlet_new(&x->x_obj, &s_float);
-    x->out_gen = outlet_new(&x->x_obj, &s_bang);
-    x->in_gen = inlet_new(&x->x_obj, &x->x_obj.ob_pd, &s_list, gensym("generated value"));
-    x->values = 0;
-    return static_cast<void*>(x);
-}
+        onBang();
+    }
 
-static void list_gen_free(t_list_gen* x)
-{
-    outlet_free(x->out_gen);
-    inlet_free(x->in_gen);
-}
+    void onInlet(size_t n, const AtomList& l)
+    {
+        if (n == 1) {
+            gen_values_.append(l);
+            return;
+        }
+    }
+
+private:
+    bool setCount(float v)
+    {
+        if (!math::is_natural(v)) {
+            ERR << "invalid argument! natural number expected: " << v;
+            return false;
+        }
+
+        int c = static_cast<int>(v);
+        if (c > MAX_COUNT) {
+            ERR << "count should be less then " << MAX_COUNT << ". Setting to " << MAX_COUNT;
+        }
+
+        count_->setValue(std::min(c, MAX_COUNT));
+        return true;
+    }
+};
 
 extern "C" void setup_list0x2egen()
 {
-    list_gen_class = class_new(gensym("list.gen"),
-        reinterpret_cast<t_newmethod>(list_gen_new),
-        reinterpret_cast<t_method>(list_gen_free),
-        sizeof(t_list_gen), 0, A_NULL);
-    class_addfloat(list_gen_class, list_gen_float);
-    class_addmethod(list_gen_class,
-        reinterpret_cast<t_method>(add_generated_value),
-        gensym("generated value"), A_GIMME, 0);
+    ObjectFactory<ListGenerate> obj("list.gen");
 }

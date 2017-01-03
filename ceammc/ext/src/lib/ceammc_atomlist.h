@@ -124,6 +124,7 @@ public:
     void fromPdData(int n, t_atom* lst);
     t_atom* toPdData() const;
     void append(const Atom& a);
+    void append(const AtomList& l);
     bool insert(size_t pos, const Atom& a);
     bool remove(size_t pos);
     void removeAll(const Atom& a);
@@ -157,6 +158,16 @@ public:
     Atom* find(AtomPredicate pred);
     Atom* findLast(const Atom& a);
     Atom* findLast(AtomPredicate pred);
+
+    /**
+     * Returns sum of floats in list or 0 if empty
+     */
+    float sum() const;
+
+    /**
+     * Returns product of floats in list or 0 if empty
+     */
+    float product() const;
 
     bool contains(const Atom& a) const;
     int findPos(const Atom& a) const;
@@ -203,6 +214,9 @@ public:
         FOLD // result of max size, min list wraped
     };
 
+    template <typename T>
+    T reduce(T init, T (*fn)(const Atom&, const Atom&)) const;
+    t_float reduceFloat(t_float init, t_float def, t_float (*fn)(t_float, t_float)) const;
 public:
     static AtomList zeroes(size_t n);
     static AtomList ones(size_t n);
@@ -231,6 +245,18 @@ public:
     friend bool operator!=(const AtomList& l1, const AtomList& l2);
 };
 
+template <typename T>
+T AtomList::reduce(T init, T (*fn)(const Atom&, const Atom&)) const
+{
+    T accum(init);
+    AtomList::const_atom_iterator it;
+    for (it = atoms_.begin(); it != atoms_.end(); ++it) {
+        accum = fn(accum, *it);
+    }
+
+    return accum;
+}
+
 bool operator==(const AtomList& l1, const AtomList& l2);
 bool operator!=(const AtomList& l1, const AtomList& l2);
 std::ostream& operator<<(std::ostream& os, const AtomList& l);
@@ -254,6 +280,12 @@ AtomList listFrom(bool v)
     AtomList res;
     res.append(Atom(v ? 1.f : 0.f));
     return res;
+}
+
+template <>
+AtomList listFrom(AtomList v)
+{
+    return v;
 }
 
 template <typename T>

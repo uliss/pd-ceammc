@@ -198,7 +198,11 @@ public:
     {
     }
 
-    bool set(const AtomList&) { ptr_->setValue(val_); return true; }
+    bool set(const AtomList&)
+    {
+        ptr_->setValue(val_);
+        return true;
+    }
     AtomList get() const { return listFrom(bool(ptr_->value() == val_)); }
 };
 
@@ -292,6 +296,35 @@ private:
     B* bobj_;
     TGetterFn tgetter_;
     SGetterFn tsetter_;
+};
+
+template <typename T>
+class PointerProperty : public Property {
+    T* vptr_;
+
+public:
+    PointerProperty(const std::string& name, T* value, bool readonly = true)
+        : Property(name, readonly)
+        , vptr_(value)
+    {
+    }
+
+    bool set(const AtomList& lst)
+    {
+        if (!readonlyCheck())
+            return false;
+
+        if (!emptyValueCheck(lst))
+            return false;
+
+        *vptr_ = atomlistToValue(lst, T());
+        return true;
+    }
+
+    AtomList get() const
+    {
+        return listFrom<T>(*vptr_);
+    }
 };
 }
 

@@ -310,6 +310,11 @@ void AtomList::append(const Atom& a)
     atoms_.push_back(a);
 }
 
+void AtomList::append(const AtomList& l)
+{
+    atoms_.insert(atoms_.end(), l.atoms_.begin(), l.atoms_.end());
+}
+
 bool AtomList::insert(size_t pos, const Atom& a)
 {
     if (pos > atoms_.size())
@@ -496,6 +501,29 @@ Atom* AtomList::findLast(AtomPredicate pred)
     return it == atoms_.rend() ? 0 : &(*it);
 }
 
+static t_float atom_sum(t_float a, t_float b)
+{
+    return a + b;
+}
+
+float AtomList::sum() const
+{
+    return reduceFloat(0.f, 0.f, &atom_sum);
+}
+
+static t_float atom_mul(t_float a, t_float b)
+{
+    return a * b;
+}
+
+float AtomList::product() const
+{
+    if (empty())
+        return 0;
+
+    return reduceFloat(1.f, 1.f, &atom_mul);
+}
+
 bool AtomList::contains(const Atom& a) const
 {
     return find(a) != 0;
@@ -647,6 +675,17 @@ void AtomList::outputAsAny(t_outlet* x) const
 void AtomList::outputAsAny(_outlet* x, t_symbol* s) const
 {
     outlet_anything(x, s, static_cast<int>(size()), toPdData());
+}
+
+t_float AtomList::reduceFloat(t_float init, t_float def, t_float (*fn)(t_float, t_float)) const
+{
+    t_float accum = init;
+    const_atom_iterator it;
+    for (it = atoms_.begin(); it != atoms_.end(); ++it) {
+        accum = fn(accum, it->asFloat(def));
+    }
+
+    return accum;
 }
 
 static AtomList listAdd(const AtomList& a, const AtomList& b, ElementAccessFn fn)
