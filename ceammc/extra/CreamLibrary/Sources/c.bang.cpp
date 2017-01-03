@@ -106,7 +106,7 @@ extern "C" void setup_c0x2ebang(void)
     // patchable object or CLASS_NOINLET if you don't want a default first inlet, CLASS_PD should be used for no patchable object).
     // Sixth argument is the kind parameters you creation method is excepting (for GUI, you should always use A_GIMME to be able
     // to parse attributes. The last argument is dummy and should always be zero for the moment.
-    t_eclass *c = eclass_new("c.bang", (method)bang_new, (method)bang_free, (short)sizeof(t_bang), CLASS_DEFAULT, A_GIMME, 0);
+    t_eclass *c = eclass_new("ui.bang", (method)bang_new, (method)bang_free, (short)sizeof(t_bang), CLASS_DEFAULT, A_GIMME, 0);
     if(c)
     {
         // We initialize the defaults attributes and methods for the GUI.
