@@ -1,0 +1,89 @@
+#N canvas 277 200 558 514 10;
+#X obj 125 174 r c.plane;
+#X obj 25 429 s x1;
+#X obj 220 428 s y1;
+#X obj 25 80 r x1;
+#X obj 92 82 r y1;
+#X msg 92 104 set \$1;
+#X msg 25 104 set \$1;
+#X obj 377 325 s c.plane;
+#X text 312 80 Change the boundaries :;
+#X text 312 100 x min \, y min \, x max \, y max;
+#X obj 25 215 c.plane @size 200 200 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @bound -1 -1 1 1 @ptsize 5 @bgcolor 0.75 0.75
+0.75 1 @bdcolor 0.5 0.5 0.5 1 @ptcolor 0 0 0 1;
+#X obj 92 129 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 25 129 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 402 180 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 377 154 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 452 231 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 427 205 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 377 128 c.loadmess -1;
+#X obj 465 175 c.loadmess 1;
+#X text 2 44 c.plane allows you to move a point on a cartesian plane.
+;
+#X obj 8 23 c.patcherinfos;
+#X obj 9 14 c.loadmess;
+#X obj 3 2 c.help.header;
+#X obj 47 458 c.help.pub;
+#X obj 377 281 list prepend bound;
+#X obj 377 303 list trim;
+#X obj 416 476 c.help.gui;
+#X text 413 460 Look at me;
+#X obj 25 185 pack f f;
+#X obj 25 164 t b f, f 8;
+#X obj 356 224 c.bang @size 17 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X obj 377 260 pack 0 0 0 0, f 13;
+#X connect 0 0 10 0;
+#X connect 3 0 6 0;
+#X connect 4 0 5 0;
+#X connect 5 0 11 0;
+#X connect 6 0 12 0;
+#X connect 10 0 1 0;
+#X connect 10 1 2 0;
+#X connect 11 0 29 0;
+#X connect 12 0 28 0;
+#X connect 13 0 31 1;
+#X connect 14 0 31 0;
+#X connect 15 0 31 3;
+#X connect 16 0 31 2;
+#X connect 17 0 14 0;
+#X connect 17 0 13 0;
+#X connect 18 0 16 0;
+#X connect 18 0 15 0;
+#X connect 20 0 22 0;
+#X connect 21 0 20 0;
+#X connect 24 0 25 0;
+#X connect 25 0 7 0;
+#X connect 28 0 10 0;
+#X connect 29 0 28 0;
+#X connect 29 1 28 1;
+#X connect 30 0 31 0;
+#X connect 31 0 24 0;

@@ -1,0 +1,24 @@
+#N canvas 459 186 599 329 10;
+#X obj 76 171 - 1;
+#X obj 76 102 loadbang;
+#X obj 76 142 c.toggle @size 15 15 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "chocogll" @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
+1 @crcolor 0.5 0.5 0.5 1;
+#X obj 76 204 c.toggle @size 45 45 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
+1 @crcolor 0.5 0.5 0.5 1;
+#X obj 8 27 c.patcherinfos;
+#X obj 9 18 c.loadmess;
+#X obj 3 6 c.help.header;
+#X obj 45 268 c.help.pub;
+#X obj 413 287 c.help.gui;
+#X text 410 271 Look at me;
+#X text 4 50 c.toggle is the cream counterpart of the vanilla toggle.
+;
+#X connect 0 0 3 0;
+#X connect 1 0 2 0;
+#X connect 2 0 0 0;
+#X connect 4 0 6 0;
+#X connect 5 0 4 0;

@@ -1,0 +1,123 @@
+#N canvas 138 102 1068 532 10;
+#X msg 68 200 erase;
+#X msg 60 173 remove 2;
+#X obj 37 305 c.breakpoints @size 200 100 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @absrange 0 1000 @ordrange 0 1 @outline "Linear"
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @ptcolor 0.5 0.5 0.5
+1 @licolor 0 0 0 1 @textcolor 0 0 0 1 @points 0 0 0 0 0 0 1 0 183.673
+0.518519 370 0.87 650 0.81 1000 0.0493827;
+#X obj 357 395 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 357 124 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 384 153 c.bang @size 17 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X msg 37 123 add 733 0.1;
+#X text 118 123 Add a breakpoint (x \, y);
+#X text 119 173 remove a breakpoint (index);
+#X msg 53 148 move 4 \$1 \$2;
+#X text 138 146 Move a breakpoint (index x \, y);
+#X text 109 200 Erase all;
+#X text 33 410 Click and drag on a breakpoint to move it;
+#X obj 357 257 c.breakpoints @size 200 100 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @absrange 0 1000 @ordrange 0 1 @outline "Linear"
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @ptcolor 0.5 0.5 0.5
+1 @licolor 0 0 0 1 @textcolor 0 0 0 1 @points 0 0 204.082 0.481481
+392.857 0.814815 556.122 0.493827 714.286 0.876543 714.286 0.506173
+882.653 0.432099 1000 0 1000 0 1000 0;
+#X text 378 99 Play;
+#X text 48 99 Edit;
+#X text 417 118 Output the interpolated ordinate;
+#X obj 454 392 line;
+#X obj 454 415 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X msg 552 417 0 0 0.481481 204.082 0.814815 392.857 0.493827 556.122
+0.876543 714.286 0.506173 714.286 0.432099 882.653 0 1000 0 1000 0
+1000;
+#X msg 418 221 getlist;
+#X text 407 157 for a line or line~ object;
+#X text 407 147 Output several formatted lists;
+#X text 469 221 Output the function as one list;
+#X obj 692 305 c.breakpoints @size 200 100 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @absrange 0 1000 @ordrange -1 2 @outline "Linear"
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @ptcolor 0.5 0.5 0.5
+1 @licolor 0 0 0 1 @textcolor 0 0 0 1 @points 0 2 122.449 0.888889
+316.327 0 785.714 -0.925926 989.796 -1;
+#X msg 692 101 absrange 0 1000;
+#X text 791 100 Change the abscissa range;
+#X msg 712 122 absrange 0 2000;
+#X msg 722 151 ordrange 0 1;
+#X msg 742 172 ordrange -1 2;
+#X text 801 151 Change the ordinate range;
+#X text 713 77 Some Properties;
+#X text 843 201 Change the abscissa range;
+#X text 874 251 Change the ordinate range;
+#X msg 772 222 scaleabs 0 2000;
+#X msg 752 201 scaleabs 0 500;
+#X msg 782 251 scaleord 0 1.5;
+#X msg 802 272 scaleord -1 -0.2;
+#X text 873 211 and retain the;
+#X text 873 221 function shape;
+#X text 908 261 and retain the;
+#X text 908 271 function shape;
+#X msg 403 177 next;
+#X text 441 177 Output the next breakpoint;
+#X msg 413 199 prev;
+#X text 451 199 Output the previous breakpoint;
+#X text 417 128 for an abscissa (here \, between 0 - 1000);
+#X text 33 430 Click with shift to create a breakpoint;
+#X msg 78 225 write;
+#X text 119 225 Write function in a file;
+#X msg 88 255 read;
+#X text 129 255 Read function from a file;
+#X text 7 50 c.breakpoints allows to create a breakpoint function and
+to use it for line.;
+#X text 33 450 Click with ctrl to remove a breakpoint;
+#X obj 10 25 c.patcherinfos;
+#X obj 11 16 c.loadmess;
+#X obj 5 4 c.help.header;
+#X obj 309 467 c.help.pub;
+#X obj 552 374 list prepend set;
+#X obj 552 396 list trim;
+#X obj 686 486 c.help.gui;
+#X text 683 470 Look at me;
+#X connect 0 0 2 0;
+#X connect 1 0 2 0;
+#X connect 4 0 13 0;
+#X connect 5 0 13 0;
+#X connect 6 0 2 0;
+#X connect 9 0 2 0;
+#X connect 13 0 3 0;
+#X connect 13 1 17 0;
+#X connect 13 2 58 0;
+#X connect 17 0 18 0;
+#X connect 20 0 13 0;
+#X connect 25 0 24 0;
+#X connect 27 0 24 0;
+#X connect 28 0 24 0;
+#X connect 29 0 24 0;
+#X connect 34 0 24 0;
+#X connect 35 0 24 0;
+#X connect 36 0 24 0;
+#X connect 37 0 24 0;
+#X connect 42 0 13 0;
+#X connect 44 0 13 0;
+#X connect 48 0 2 0;
+#X connect 50 0 2 0;
+#X connect 54 0 56 0;
+#X connect 55 0 54 0;
+#X connect 58 0 59 0;
+#X connect 59 0 19 0;

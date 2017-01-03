@@ -1,0 +1,57 @@
+#N canvas 85 143 587 438 10;
+#X obj 46 324 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 46 126 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min 0 @max 1 @minmax 0 1 @decimal 6 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 46 95 c.loadmess 0.3;
+#X obj 46 160 c.rslider @size 16 120 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @listmode 0 @min 0 @max 1 @bgcolor 0.75 0.75 0.75
+1 @bdcolor 0.5 0.5 0.5 1 @kncolor 0.5 0.5 0.5 1;
+#X obj 261 141 c.rslider @size 120 16 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @listmode 1 @min 0 @max 1 @bgcolor 0.75 0.75 0.75
+1 @bdcolor 0.5 0.5 0.5 1 @kncolor 0.5 0.5 0.5 1;
+#X obj 147 126 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min 0 @max 1 @minmax 0 1 @decimal 6 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 147 95 c.loadmess 0.8;
+#X obj 57 293 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X msg 261 111 0.1 0.9;
+#X msg 261 217 0.1 0.9;
+#X text 167 267 Use shift to drag;
+#X text 167 280 the closest slider.;
+#X obj 13 28 c.patcherinfos;
+#X obj 14 19 c.loadmess;
+#X obj 8 7 c.help.header;
+#X obj 99 367 c.help.pub;
+#X obj 261 166 list prepend set;
+#X obj 261 188 list trim;
+#X obj 467 385 c.help.gui;
+#X text 464 369 Look at me;
+#X obj 261 89 loadbang;
+#X text 10 50 c.rslider is the cream range counterpart of the vanilla
+hslider or vslider.;
+#X connect 1 0 3 0;
+#X connect 2 0 1 0;
+#X connect 3 0 0 0;
+#X connect 3 1 7 0;
+#X connect 4 0 16 0;
+#X connect 5 0 3 1;
+#X connect 6 0 5 0;
+#X connect 8 0 4 0;
+#X connect 12 0 14 0;
+#X connect 13 0 12 0;
+#X connect 16 0 17 0;
+#X connect 17 0 9 0;
+#X connect 20 0 8 0;

@@ -1,0 +1,105 @@
+#N canvas 164 167 1207 412 10;
+#X obj 5 6 cnv 40 552 40 empty empty c.canvasinfos 3 12 0 18 -228856
+-33289 0;
+#X obj 87 101 c.bang @size 17 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X obj 87 159 c.prepend set;
+#X obj 226 159 c.prepend set;
+#X text 115 101 Bang or double click;
+#N canvas 298 515 610 300 subpatch 0;
+#X obj 67 31 c.bang @size 17 17 @fontname "Helvetica" @fontweight "normal"
+@fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)" @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X obj 67 89 c.prepend set;
+#X obj 206 89 c.prepend set;
+#X text 95 31 Bang or double click;
+#X msg 206 185 /Users/Pierre/GitHub/CicmWrapper/CreamLibrary/Package/CreamLibrary/helps
+;
+#X msg 67 185 subpatch;
+#X msg 306 145 298 515 908 815;
+#X msg 436 145 0 0 0 0;
+#X obj 306 123 c.prepend set;
+#X obj 436 123 c.prepend set;
+#X obj 306 89 route windowsize canvassize;
+#X obj 67 62 c.canvasinfos;
+#X connect 0 0 11 0;
+#X connect 1 0 5 0;
+#X connect 2 0 4 0;
+#X connect 8 0 6 0;
+#X connect 9 0 7 0;
+#X connect 10 0 8 0;
+#X connect 10 1 9 0;
+#X connect 11 0 1 0;
+#X connect 11 1 2 0;
+#X connect 11 2 10 0;
+#X restore 622 155 pd subpatch;
+#X msg 87 305 c.patcherinfos-help.pd;
+#X msg 226 275 /Users/Pierre/GitHub/CreamLibrary/Package/cream/helps
+;
+#X msg 366 215 164 167 1371 579;
+#X msg 496 215 0 0 0 0;
+#X obj 366 193 c.prepend set;
+#X obj 496 193 c.prepend set;
+#X obj 366 159 route windowsize canvassize;
+#X obj 87 132 c.canvasinfos;
+#X text 6 49 c.canvasinfos (or patcherinfos) retrieves the name \,
+the path and coordinates of the canvas and the window.;
+#N canvas 281 319 656 383 subpatch2 0;
+#X obj 57 55 c.bang @size 17 17 @fontname "Helvetica" @fontweight "normal"
+@fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)" @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X text 85 61 Bang or double click;
+#X obj 276 129 route windowsize canvassize;
+#X obj 86 113 c.blackboard @size 459 15 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@chalkmode 1 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
+#X obj 86 129 c.prepend text 5 5;
+#X msg 84 153 clear;
+#X obj 57 82 t b b;
+#X obj 57 129 c.prepend text 5 5;
+#X obj 57 81 c.blackboard @size 120 15 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@chalkmode 1 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
+#X obj 106 143 c.blackboard @size 166 15 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@chalkmode 1 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
+#X obj 126 173 c.blackboard @size 165 15 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@chalkmode 1 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
+#X obj 276 153 c.prepend text 5 5 windowsize;
+#X obj 406 153 c.prepend text 5 5 canvassize;
+#X obj 57 102 c.canvasinfos;
+#X connect 0 0 6 0;
+#X connect 2 0 11 0;
+#X connect 2 1 12 0;
+#X connect 4 0 3 0;
+#X connect 5 0 3 0;
+#X connect 5 0 8 0;
+#X connect 5 0 9 0;
+#X connect 5 0 10 0;
+#X connect 6 0 13 0;
+#X connect 6 1 5 0;
+#X connect 7 0 8 0;
+#X connect 11 0 9 0;
+#X connect 12 0 10 0;
+#X connect 13 0 7 0;
+#X connect 13 1 4 0;
+#X connect 13 2 2 0;
+#X coords 0 -1 1 1 500 150 2 50 50;
+#X restore 622 195 pd subpatch2;
+#X text 8 28 An object that retrieve the patcher informations.;
+#X text 588 14 Important : Perhaps in the future this object will be
+a part of another library dedicated to messages management. The cream
+library tries to be exclusively a GUI library.;
+#X text 37 375 Pierre Guillot | CICM - Université Paris 8;
+#X connect 1 0 13 0;
+#X connect 2 0 6 0;
+#X connect 3 0 7 0;
+#X connect 10 0 8 0;
+#X connect 11 0 9 0;
+#X connect 12 0 10 0;
+#X connect 12 1 11 0;
+#X connect 13 0 2 0;
+#X connect 13 1 3 0;
+#X connect 13 2 12 0;

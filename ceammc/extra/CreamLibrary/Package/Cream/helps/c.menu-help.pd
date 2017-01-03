@@ -1,0 +1,101 @@
+#N canvas 188 158 690 619 10;
+#X msg 19 247 set \$1;
+#X msg 321 148 append 17;
+#X msg 19 247 set \$1;
+#X text 118 126 Selection;
+#X text 370 87 Edition;
+#X msg 202 192 Jimi Hendrix;
+#X obj 136 286 c.menu @size 100 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @hover 0 @items "Jimi Hendrix" "Janis Joplin"
+"John Lennon" "Jim Morisson" @states 0 0 0 0 @bgcolor 0.75 0.75 0.75
+1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X msg 136 159 set Janis Joplin;
+#X obj 136 384 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 19 213 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min 0 @max 3 @minmax 0 3 @decimal 0 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 80 190 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min 0 @max 3 @minmax 0 3 @decimal 0 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X msg 231 383 Janis Joplin;
+#X obj 345 287 c.menu @size 99 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @hover 0 @items "in America" "in the West" @states
+0 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0
+0 1;
+#X msg 492 254 clear;
+#X obj 345 384 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min 0 @max 4.29497e+09 @minmax 0 4.29497e+09
+@decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X msg 439 382 Once upon a time in the West;
+#X msg 281 121 append in Paris \, append in L.A.;
+#X msg 407 186 insert 1 in Tokyo;
+#X msg 431 227 delete 2;
+#X obj 530 189 c.toggle @size 15 15 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
+1 @crcolor 0.5 0.5 0.5 1;
+#X msg 530 225 state 0 \$1;
+#X msg 399 151 setitem 2 in Mumbai;
+#X obj 122 453 c.menu @size 151 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @hover 0 @items "Sunday Morning" "I m Waiting For The Man"
+"Femme Fatale" "Venus In Furs" "Run Run Run" @states 0 0 0 0 0 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X text 191 419 Mousing : Click or Hover;
+#X obj 292 453 c.menu @size 175 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @hover 1 @items "All Tomorrow" "Heroin" "There She Goes"
+"I ll Be Your miror" "The Black Angel Death Song" "European Son" @states
+0 0 0 0 0 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X text 490 435 Note that you can use the;
+#X text 490 445 inspector to edit the tab.;
+#X text 490 455 Don't forget that ' and ";
+#X text 490 465 are the separators.;
+#X text 6 49 c.menu displays a list of item and offers several interactions.
+;
+#X obj 19 149 c.loadmess 2;
+#X obj 11 27 c.patcherinfos;
+#X obj 12 18 c.loadmess;
+#X obj 6 6 c.help.header;
+#X obj 132 510 c.help.pub;
+#X obj 231 313 list prepend set;
+#X obj 231 335 list trim;
+#X obj 439 315 list prepend set Once upon a time;
+#X obj 439 337 list trim;
+#X obj 503 528 c.help.gui;
+#X text 500 512 Look at me;
+#X connect 0 0 6 0;
+#X connect 1 0 12 0;
+#X connect 5 0 6 0;
+#X connect 6 0 8 0;
+#X connect 6 1 35 0;
+#X connect 7 0 6 0;
+#X connect 9 0 0 0;
+#X connect 10 0 6 0;
+#X connect 12 0 14 0;
+#X connect 12 1 37 0;
+#X connect 13 0 12 0;
+#X connect 16 0 12 0;
+#X connect 17 0 12 0;
+#X connect 18 0 12 0;
+#X connect 19 0 20 0;
+#X connect 20 0 12 0;
+#X connect 21 0 12 0;
+#X connect 30 0 9 0;
+#X connect 31 0 33 0;
+#X connect 32 0 31 0;
+#X connect 35 0 36 0;
+#X connect 36 0 11 0;
+#X connect 37 0 38 0;
+#X connect 38 0 15 0;
