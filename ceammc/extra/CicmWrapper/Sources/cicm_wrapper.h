@@ -11,7 +11,9 @@
 #ifndef DEF_EPD
 #define DEF_EPD
 
-
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include "eclass.h"
 #include "ecommon.h"
@@ -20,4 +22,9 @@
 #include "epopup.h"
 #include "egraphics.h"
 #include "epdmax.h"
+
+#ifdef __cplusplus
+}
+#endif
+
 #endif
