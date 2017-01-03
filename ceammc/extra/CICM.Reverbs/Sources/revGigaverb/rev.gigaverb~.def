@@ -1,0 +1,7 @@
+;rev.gigaverb~.def
+
+LIBRARY rev.gigaverb~.mxe
+
+EXPORTS
+	main
+

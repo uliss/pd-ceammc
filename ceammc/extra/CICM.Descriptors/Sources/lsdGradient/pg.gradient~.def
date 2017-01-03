@@ -1,0 +1,7 @@
+;pg.gradient~.def
+
+LIBRARY pg.gradient~.mxe
+
+EXPORTS
+	main
+

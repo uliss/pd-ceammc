@@ -1,0 +1,7 @@
+;rev.rotate~.def
+
+LIBRARY rev.rotate~.mxe
+
+EXPORTS
+	main
+

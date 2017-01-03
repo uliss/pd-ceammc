@@ -1,0 +1,7 @@
+;rev.width~.def
+
+LIBRARY rev.width~.mxe
+
+EXPORTS
+	main
+
