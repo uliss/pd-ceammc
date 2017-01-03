@@ -6,7 +6,7 @@ VERSION="$0 version ${VERSION_NUMBER}
 Original name: make_dmg.sh
 Author: Valentine Silvansky <v.silvansky@gmail.com>"
 
-LICENSE="This software is distibuted under GNU GPLv3 license.
+LICENSE="This software is distributed under GNU GPLv3 license.
 Visit http://www.gnu.org/licenses/gpl-3.0.txt for more information."
 
 HELP="Usage:
@@ -17,7 +17,6 @@ ARG_ICON=
 ARG_BACKGROUND=
 ARG_COORDS=
 ARG_SIZE="640:480"
-ARG_DMG_NAME="Pd"
 ARG_VOL_NAME="PureData"
 ARG_TMP_DIR="./tmp"
 ARG_ADD_VERSION=
@@ -27,9 +26,13 @@ XQUARTZ_PATH="XQuartz.pkg"
 
 APP_BUNDLE_PATH=$1
 APP_BUNDLE_NAME=$(basename ${APP_BUNDLE_PATH})
+ARG_DMG_NAME="Pd_$2"
+SRC_PATH="$3"
 
-if [ $# -eq 1 ]; then
+if [ $# -eq 3 ]; then
         echo "Bundle path set to ${APP_BUNDLE_PATH}";
+        echo "DMG name set to ${ARG_DMG_NAME}";
+        echo "Source path set to ${SRC_PATH}";
 else
         echo "Error! Bundle path is not specified."
         exit 1;
