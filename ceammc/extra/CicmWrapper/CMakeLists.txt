@@ -11,3 +11,15 @@ set(CICM_SRC
 include_directories(${PROJECT_SOURCE_DIR}/src)
 
 add_library(cicm_static STATIC ${CICM_SRC})
+
+set(CICM_COMPILE_FLAGS "")
+
+if(UNIX)
+    list(APPEND CICM_COMPILE_FLAGS "-fPIC")
+else()
+
+endif()
+
+
+set_target_properties(cicm_static PROPERTIES
+    COMPILE_FLAGS "${CICM_COMPILE_FLAGS}")
