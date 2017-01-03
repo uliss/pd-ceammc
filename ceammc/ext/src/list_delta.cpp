@@ -18,8 +18,8 @@ public:
         : BaseObject(a)
     {
         createOutlet();
-        wrap_method_ = new SymbolEnumProperty("@oversize", "min");
-        wrap_method_->appendEnum("padz");
+        wrap_method_ = new SymbolEnumProperty("@oversize", "padz");
+        wrap_method_->appendEnum("min");
         wrap_method_->appendEnum("clip");
         wrap_method_->appendEnum("fold");
         wrap_method_->appendEnum("wrap");
