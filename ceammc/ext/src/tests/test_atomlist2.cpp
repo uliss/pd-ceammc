@@ -70,5 +70,76 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
             REQUIRE(newl[3] == 3.f);
             REQUIRE(newl[4] == 3.f);
         }
+
+        SECTION("wrap")
+        {
+            AtomList l;
+            l.resizeWrap(10);
+            REQUIRE(l.empty());
+
+            l.append(1.f);
+            l.append(2.f);
+            l.append(3.f);
+
+            AtomList newl = l;
+            newl.resizeWrap(0);
+            REQUIRE(newl.empty());
+
+            newl = l;
+            newl.resizeWrap(1);
+            REQUIRE(newl.size() == 1);
+            REQUIRE(newl[0] == 1.f);
+
+            newl = l;
+            newl.resizeWrap(2);
+            REQUIRE(newl.size() == 2);
+            REQUIRE(newl[0] == 1.f);
+            REQUIRE(newl[1] == 2.f);
+
+            newl = l;
+            newl.resizeWrap(3);
+            REQUIRE(newl.size() == 3);
+            REQUIRE(newl[0] == 1.f);
+            REQUIRE(newl[1] == 2.f);
+            REQUIRE(newl[2] == 3.f);
+
+            newl = l;
+            newl.resizeWrap(4);
+            REQUIRE(newl.size() == 4);
+            REQUIRE(newl[0] == 1.f);
+            REQUIRE(newl[1] == 2.f);
+            REQUIRE(newl[2] == 3.f);
+            REQUIRE(newl[3] == 1.f);
+
+            newl = l;
+            newl.resizeWrap(5);
+            REQUIRE(newl.size() == 5);
+            REQUIRE(newl[0] == 1.f);
+            REQUIRE(newl[1] == 2.f);
+            REQUIRE(newl[2] == 3.f);
+            REQUIRE(newl[3] == 1.f);
+            REQUIRE(newl[4] == 2.f);
+
+            newl = l;
+            newl.resizeWrap(6);
+            REQUIRE(newl.size() == 6);
+            REQUIRE(newl[0] == 1.f);
+            REQUIRE(newl[1] == 2.f);
+            REQUIRE(newl[2] == 3.f);
+            REQUIRE(newl[3] == 1.f);
+            REQUIRE(newl[4] == 2.f);
+            REQUIRE(newl[5] == 3.f);
+
+            newl = l;
+            newl.resizeWrap(7);
+            REQUIRE(newl.size() == 7);
+            REQUIRE(newl[0] == 1.f);
+            REQUIRE(newl[1] == 2.f);
+            REQUIRE(newl[2] == 3.f);
+            REQUIRE(newl[3] == 1.f);
+            REQUIRE(newl[4] == 2.f);
+            REQUIRE(newl[5] == 3.f);
+            REQUIRE(newl[6] == 1.f);
+        }
     }
 }

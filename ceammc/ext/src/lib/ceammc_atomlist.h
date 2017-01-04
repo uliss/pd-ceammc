@@ -104,8 +104,18 @@ public:
      * If new size is bigger - pad with last value
      * @param n - new size
      * @param v - pad value
+     * @note do nothing on empty list
      */
     void resizeClip(size_t n);
+
+    /**
+     * Resize list. If new size is less than current, last values are dropped.
+     * If new size is bigger - wrap with list values
+     * @param n - new size
+     * @param v - pad value
+     * @note do nothing on empty list
+     */
+    void resizeWrap(size_t n);
 
     /**
      * Get property value from list

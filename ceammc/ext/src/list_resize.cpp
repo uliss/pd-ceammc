@@ -82,6 +82,8 @@ public:
             tmp.resizePad(n, pad_value_->value());
         } else if (m == gclip_) {
             tmp.resizeClip(n);
+        } else if (m == gwrap_) {
+            tmp.resizeWrap(n);
         }
 
         listTo(0, tmp);
