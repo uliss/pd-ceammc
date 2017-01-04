@@ -369,7 +369,14 @@ size_t atomlistToValue(const AtomList& l, const size_t& def)
     if (l.empty())
         return def;
 
-    return static_cast<size_t>(l[0].asFloat(def));
+    t_float v = def;
+    if (!l[0].getFloat(&v))
+        return def;
+
+    if (v < 0)
+        return def;
+
+    return static_cast<size_t>(v);
 }
 
 template <>
