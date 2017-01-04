@@ -169,6 +169,14 @@ void AtomList::resizePad(size_t n, const Atom& v)
     atoms_.resize(n, v);
 }
 
+void AtomList::resizeClip(size_t n)
+{
+    if (empty())
+        return;
+
+    resizePad(n, atoms_.back());
+}
+
 bool AtomList::property(const std::string& name, Atom* dest) const
 {
     if (!dest)

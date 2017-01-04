@@ -75,9 +75,15 @@ public:
     void onList(const AtomList& l)
     {
         AtomList tmp(l);
-        if (method_->value() == gpad_) {
-            tmp.resizePad(size_->value(), pad_value_->value());
+        const t_symbol* m = method_->value();
+        const size_t n = size_->value();
+
+        if (m == gpad_) {
+            tmp.resizePad(n, pad_value_->value());
+        } else if (m == gclip_) {
+            tmp.resizeClip(n);
         }
+
         listTo(0, tmp);
     }
 };

@@ -100,6 +100,14 @@ public:
     void resizePad(size_t n, const Atom& v);
 
     /**
+     * Resize list. If new size is less than current, last values are dropped.
+     * If new size is bigger - pad with last value
+     * @param n - new size
+     * @param v - pad value
+     */
+    void resizeClip(size_t n);
+
+    /**
      * Get property value from list
      * @param name - property name with (starts with '@')
      * @param dest - output destination
