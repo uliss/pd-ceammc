@@ -77,7 +77,7 @@ extern "C" void setup_c0x2emenu(void)
 {
 	t_eclass *c;
     
-	c = eclass_new("c.menu", (method)menu_new, (method)menu_free, (short)sizeof(t_menu), 0L, A_GIMME, 0);
+	c = eclass_new("ui.menu", (method)menu_new, (method)menu_free, (short)sizeof(t_menu), 0L, A_GIMME, 0);
     
     eclass_guiinit(c, 0);
     eclass_addmethod(c, (method) menu_assist,          "assist",           A_NULL, 0);

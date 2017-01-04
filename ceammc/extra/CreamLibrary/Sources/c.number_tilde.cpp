@@ -220,7 +220,7 @@ extern "C" void setup_c0x2enumber_tilde(void)
 {
     t_eclass *c;
     
-    c = eclass_new("c.number~", (method)number_tilde_new, (method)number_tilde_free, (short)sizeof(t_number_tilde), 0L, A_GIMME, 0);
+    c = eclass_new("ui.number~", (method)number_tilde_new, (method)number_tilde_free, (short)sizeof(t_number_tilde), 0L, A_GIMME, 0);
     
     eclass_dspinit(c);
     eclass_guiinit(c, 0);

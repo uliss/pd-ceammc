@@ -85,7 +85,7 @@ extern "C" void cream_setup(void)
     //setup_c0x2ebreakpoints();
     setup_c0x2ecolorpanel();
     setup_c0x2edsp_tilde();
-    setup_c0x2egain_tilde();
+    //setup_c0x2egain_tilde();
     setup_c0x2eincdec();
     setup_c0x2eknob();
     setup_c0x2ematrix();
@@ -116,8 +116,8 @@ extern "C" void cream_setup(void)
     
 #ifdef __APPLE__
 //    setup_c0x2ekeyboard();
-    setup_c0x2ecamomile();
-    setup_c0x2ewavesel();
+//    setup_c0x2ecamomile();
+//    setup_c0x2ewavesel();
 #endif
     
     // Deprecated

@@ -12,11 +12,11 @@ set(CREAM_SRC
     Deprecated/c.patcherargs.cpp
     Deprecated/c.patcherinfos.cpp
     Deprecated/c.patchermess.cpp
-    Deprecated/c.prepend.cpp
-    Sources/c.bang.cpp
+#    Deprecated/c.prepend.cpp
+#    Sources/c.bang.cpp
     Sources/c.blackboard.cpp
     Sources/c.breakpoints.cpp
-    Sources/c.camomile.cpp
+#    Sources/c.camomile.cpp
     Sources/c.colorpanel.cpp
     Sources/c.dsp_tilde.cpp
 #    Sources/c.gain_tilde.cpp
@@ -36,17 +36,17 @@ set(CREAM_SRC
     Sources/c.slider.cpp
     Sources/c.tab.cpp
     Sources/c.toggle.cpp
-    Sources/c.wavesel.cpp
+#    Sources/c.wavesel.cpp
 
-    Sources/ui.bang.cpp
-    Sources/ui.number_tilde.cpp
-    Sources/ui.number.cpp
-    Sources/ui.preset.cpp
-    Sources/ui.radio.cpp
-    Sources/ui.rslider.cpp
-    Sources/ui.slider.cpp
-    Sources/ui.tab.cpp
-    Sources/ui.toggle.cpp
+    Sources/с.bang.cpp
+    Sources/с.number_tilde.cpp
+    Sources/с.number.cpp
+    Sources/с.preset.cpp
+    Sources/с.radio.cpp
+    Sources/с.rslider.cpp
+    Sources/с.slider.cpp
+    Sources/с.tab.cpp
+    Sources/с.toggle.cpp
 )
 
 add_library(cream_core STATIC ${CREAM_SRC})

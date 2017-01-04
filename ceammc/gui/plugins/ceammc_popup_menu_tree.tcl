@@ -75,7 +75,7 @@
         {pass.changed reject.if reject.this}
     }
     {ui
-        {ui.knob ui.keyboard ui.sliders ui.slider2d ui.bpfun ui.display ui.scope ui.spectroscope }
+        {ui.bang ui.toggle ui.slider ui.number ui.preset ui.tab ui.radio ui.rslider ui.number~ ui.radio ui.menu ui.matrix ui.meter~ ui.knob ui.keyboard ui.sliders ui.slider2d ui.bpfun ui.display ui.scope ui.spectroscope }
     }
     {experimental
         {exp.patchdata}

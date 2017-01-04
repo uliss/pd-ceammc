@@ -258,7 +258,7 @@ static void *slider_new(t_symbol *s, int argc, t_atom *argv)
 
 extern "C" void setup_c0x2eslider(void)
 {
-    t_eclass *c = eclass_new("c.slider", (method)slider_new, (method)ebox_free, (short)sizeof(t_slider), 0L, A_GIMME, 0);
+    t_eclass *c = eclass_new("ui.slider", (method)slider_new, (method)ebox_free, (short)sizeof(t_slider), 0L, A_GIMME, 0);
     if(c)
     {
         eclass_guiinit(c, 0);

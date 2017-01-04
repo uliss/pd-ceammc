@@ -278,7 +278,7 @@ extern "C" void setup_c0x2emeter_tilde(void)
 {
     t_eclass *c;
     
-    c = eclass_new("c.meter~", (method)meter_new, (method)meter_free, (short)sizeof(t_meter), 0L, A_GIMME, 0);
+    c = eclass_new("ui.meter~", (method)meter_new, (method)meter_free, (short)sizeof(t_meter), 0L, A_GIMME, 0);
     
     eclass_dspinit(c);
     eclass_guiinit(c, 0);

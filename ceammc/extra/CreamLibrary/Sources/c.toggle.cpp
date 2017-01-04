@@ -134,7 +134,7 @@ static void *toggle_new(t_symbol *s, int argc, t_atom *argv)
 
 extern "C" void setup_c0x2etoggle(void)
 {
-    t_eclass *c = eclass_new("c.toggle", (method)toggle_new, (method)ebox_free, (short)sizeof(t_toggle), 0L, A_GIMME, 0);
+    t_eclass *c = eclass_new("ui.toggle", (method)toggle_new, (method)ebox_free, (short)sizeof(t_toggle), 0L, A_GIMME, 0);
     if(c)
     {
         eclass_guiinit(c, 0);

@@ -473,7 +473,7 @@ static void *number_new(t_symbol *s, int argc, t_atom *argv)
 
 extern "C" void setup_c0x2enumber(void)
 {
-    t_eclass *c = eclass_new("c.number", (method)number_new, (method)ebox_free, (short)sizeof(t_number), 0L, A_GIMME, 0);
+    t_eclass *c = eclass_new("ui.number", (method)number_new, (method)ebox_free, (short)sizeof(t_number), 0L, A_GIMME, 0);
     
     if(c)
     {

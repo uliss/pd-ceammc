@@ -23,7 +23,7 @@ extern "C" void setup_c0x2eblackboard(void);
 extern "C" void setup_c0x2ebreakpoints(void);
 extern "C" void setup_c0x2ecolorpanel(void);
 extern "C" void setup_c0x2edsp_tilde(void);
-extern "C" void setup_c0x2egain_tilde(void);
+//extern "C" void setup_c0x2egain_tilde(void);
 extern "C" void setup_c0x2eincdec(void);
 extern "C" void setup_c0x2eknob(void);
 extern "C" void setup_c0x2ematrix(void);
@@ -53,9 +53,9 @@ extern "C" void setup_ui0x2etoggle(void);
 
 #ifdef __APPLE__
 extern "C" void setup_c0x2ekeyboard(void);
-extern "C" void setup_c0x2ecamomile(void);
+//extern "C" void setup_c0x2ecamomile(void);
 
-extern "C" void setup_c0x2ewavesel(void);
+//extern "C" void setup_c0x2ewavesel(void);
 #endif
 
 // Deprecated

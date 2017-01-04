@@ -558,7 +558,7 @@ static void preset_free(t_preset *x)
 
 extern "C" void setup_c0x2epreset(void)
 {
-    t_eclass* c = eclass_new("c.preset", (method)preset_new, (method)preset_free, (short)sizeof(t_preset), 0L, A_GIMME, 0);
+    t_eclass* c = eclass_new("ui.preset", (method)preset_new, (method)preset_free, (short)sizeof(t_preset), 0L, A_GIMME, 0);
 
     if(c)
     {
