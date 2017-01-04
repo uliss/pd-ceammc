@@ -14,9 +14,9 @@
 
 #include "ceammc_property.h"
 #include "ceammc_format.h"
+#include "ceammc_log.h"
 #include <algorithm>
 #include <cctype>
-#include <m_pd.h>
 
 namespace ceammc {
 
@@ -32,7 +32,7 @@ Property::~Property() {}
 bool Property::readonlyCheck() const
 {
     if (readonly_) {
-        post("[ceammc] readonly property: %s", name().c_str());
+        LIB_DBG << "readonly property: " << name();
         return false;
     }
     return true;
@@ -41,7 +41,7 @@ bool Property::readonlyCheck() const
 bool Property::emptyValueCheck(const AtomList& v) const
 {
     if (v.empty()) {
-        post("[ceammc] empty value given for property: %s", name().c_str());
+        LIB_DBG << "empty value given for property: " << name();
         return false;
     }
 
@@ -108,7 +108,7 @@ bool FloatProperty::set(const AtomList& lst)
 
     Atom v = lst.at(0);
     if (!v.isFloat()) {
-        post("[ceammc] not a float given for property %s: %s", name().c_str(), to_string(v).c_str());
+        LIB_DBG << "not a float given for property " << name().c_str() << ": " << to_string(v);
         return false;
     }
 
@@ -180,7 +180,7 @@ bool IntProperty::set(const AtomList& lst)
 
     Atom v = lst.at(0);
     if (!v.isFloat()) {
-        post("[ceammc] not a integer given for property %s: %s", name().c_str(), to_string(v).c_str());
+        LIB_DBG << "not a number given for property " << name() << ": " << to_string(v);
         return false;
     }
 
@@ -189,6 +189,42 @@ bool IntProperty::set(const AtomList& lst)
 }
 
 AtomList IntProperty::get() const
+{
+    return AtomList::filled(static_cast<float>(v_), 1);
+}
+
+SizeTProperty::SizeTProperty(const std::string& name, size_t init, bool readonly)
+    : Property(name, readonly)
+    , v_(init)
+{
+}
+
+bool SizeTProperty::set(const AtomList& lst)
+{
+    if (!readonlyCheck())
+        return false;
+
+    if (!emptyValueCheck(lst))
+        return false;
+
+    Atom v = lst.at(0);
+    t_float f = 0;
+    if (!v.getFloat(&f)) {
+        LIB_DBG << "not a number given for property " << name() << ": " << to_string(v);
+        return false;
+    }
+
+    if (f < 0.f) {
+        LIB_DBG << "negative value given for property " << name() << ": "
+                << to_string(v) << ", ignored.";
+        return false;
+    }
+
+    v_ = v.asSizeT(0);
+    return true;
+}
+
+AtomList SizeTProperty::get() const
 {
     return AtomList::filled(static_cast<float>(v_), 1);
 }

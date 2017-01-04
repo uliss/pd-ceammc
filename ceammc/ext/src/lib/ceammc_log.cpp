@@ -15,6 +15,8 @@
 #include "ceammc_log.h"
 #include "ceammc_object.h"
 
+#include "m_pd.h"
+
 namespace ceammc {
 
 Error::Error(const BaseObject* obj)
