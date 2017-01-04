@@ -39,7 +39,7 @@ public:
 
         parseArguments();
         if (args().size() > 2) {
-            ERR << "only one optional argument accepted: oversize method";
+            OBJ_ERR << "only one optional argument accepted: oversize method";
         }
     }
 
@@ -81,8 +81,8 @@ public:
     void dump() const
     {
         BaseObject::dump();
-        DBG << "current value: " << prev_list_;
-        DBG << "delta:         " << delta_list_;
+        OBJ_DBG << "current value: " << prev_list_;
+        OBJ_DBG << "delta:         " << delta_list_;
     }
 };
 

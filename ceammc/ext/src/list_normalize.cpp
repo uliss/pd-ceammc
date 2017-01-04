@@ -16,7 +16,7 @@ public:
         AtomList out(lst.filtered(isFloat));
 
         if (!out.normalizeFloats()) {
-            ERR << "Invalid list values: " << lst;
+            OBJ_ERR << "Invalid list values: " << lst;
             return;
         }
 
