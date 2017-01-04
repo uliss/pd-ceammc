@@ -13,6 +13,7 @@
  *****************************************************************************/
 
 #include "ceammc_atom.h"
+#include <cmath>
 #include <cstring>
 #include <iostream>
 #include <sstream>
@@ -61,6 +62,11 @@ bool Atom::isSymbol() const
 bool Atom::isProperty() const
 {
     return type() == PROPERTY;
+}
+
+bool Atom::isInteger() const
+{
+    return isFloat() && ceilf(a_w.w_float) == a_w.w_float;
 }
 
 Atom::Type Atom::type() const
@@ -150,13 +156,16 @@ size_t Atom::asSizeT(size_t def) const
 
 t_float Atom::asFloatInRange(float min, float max) const
 {
-    if (!isFloat()) return 0;
+    if (!isFloat())
+        return 0;
     t_float ret = a_w.w_float;
-    if (ret<min) ret=min;
-    if (ret>max) ret=max;
+    if (ret < min)
+        ret = min;
+    if (ret > max)
+        ret = max;
     return ret;
 }
-    
+
 t_symbol* Atom::asSymbol() const
 {
     return a_w.w_symbol;
@@ -166,16 +175,15 @@ std::string Atom::asString() const
 {
     if (isSymbol())
         return a_w.w_symbol->s_name;
-    if (isFloat())
-        {
-            char buf[16];
-            if ((a_w.w_float-(int)(a_w.w_float))<0.001)
-                sprintf(buf, "%.0f", a_w.w_float);
-            else
-                sprintf(buf, "%.4f", a_w.w_float);
-            std::string ret = buf;
-            return ret;
-        }
+    if (isFloat()) {
+        char buf[16];
+        if ((a_w.w_float - (int)(a_w.w_float)) < 0.001)
+            sprintf(buf, "%.0f", a_w.w_float);
+        else
+            sprintf(buf, "%.4f", a_w.w_float);
+        std::string ret = buf;
+        return ret;
+    }
     return "";
 }
 

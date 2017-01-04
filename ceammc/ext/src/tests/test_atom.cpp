@@ -261,4 +261,22 @@ TEST_CASE("Atom", "[ceammc::Atom]")
 
         a1.outputAsAny(&out, gensym("sel"));
     }
+
+    SECTION("test isInteger")
+    {
+        REQUIRE(Atom(0.f).isInteger());
+        REQUIRE(Atom(-0.f).isInteger());
+        REQUIRE(Atom(1.f).isInteger());
+        REQUIRE(Atom(-1.f).isInteger());
+        REQUIRE(Atom(100000.f).isInteger());
+        REQUIRE(Atom(-100000.f).isInteger());
+
+        REQUIRE_FALSE(Atom().isInteger());
+        REQUIRE_FALSE(Atom(gensym("a")).isInteger());
+
+        REQUIRE_FALSE(Atom(0.0000001f).isInteger());
+        REQUIRE_FALSE(Atom(1.0000001f).isInteger());
+        REQUIRE_FALSE(Atom(-0.0000001f).isInteger());
+        REQUIRE_FALSE(Atom(-1.0000001f).isInteger());
+    }
 }
