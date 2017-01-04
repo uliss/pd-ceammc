@@ -126,6 +126,9 @@
     <entry descr="returns smallest element in the list" name="list.min">
       <xi:include href="list.min.pddoc" parse="xml"/>
     </entry>
+    <entry descr="normalizes float list values to get their sum = 1.0" name="list.normalize">
+      <xi:include href="list.normalize.pddoc" parse="xml"/>
+    </entry>
     <entry descr="reverses the order of the elements in the list" name="list.reverse">
       <xi:include href="list.reverse.pddoc" parse="xml"/>
     </entry>
