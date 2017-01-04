@@ -28,6 +28,11 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
             REQUIRE(l.empty());
 
             l.append(1.f);
+
+            l.resizeClip(10);
+            REQUIRE(l == AtomList::ones(10));
+            l.resizeClip(1);
+
             l.append(2.f);
             l.append(3.f);
 
@@ -78,6 +83,11 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
             REQUIRE(l.empty());
 
             l.append(1.f);
+
+            l.resizeWrap(10);
+            REQUIRE(l == AtomList::ones(10));
+            l.resizeWrap(1);
+
             l.append(2.f);
             l.append(3.f);
 
@@ -140,6 +150,82 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
             REQUIRE(newl[4] == 2.f);
             REQUIRE(newl[5] == 3.f);
             REQUIRE(newl[6] == 1.f);
+        }
+
+        SECTION("fold")
+        {
+            AtomList l;
+            l.resizeFold(10);
+            REQUIRE(l.empty());
+
+            l.append(1.f);
+
+            l.resizeFold(10);
+            REQUIRE(l == AtomList::ones(10));
+            l.resizeFold(1);
+
+            l.append(2.f);
+            l.append(3.f);
+
+            AtomList newl = l;
+            newl.resizeFold(0);
+            REQUIRE(newl.empty());
+
+            newl = l;
+            newl.resizeFold(1);
+            REQUIRE(newl.size() == 1);
+            REQUIRE(newl[0] == 1.f);
+
+            newl = l;
+            newl.resizeFold(2);
+            REQUIRE(newl.size() == 2);
+            REQUIRE(newl[0] == 1.f);
+            REQUIRE(newl[1] == 2.f);
+
+            newl = l;
+            newl.resizeFold(3);
+            REQUIRE(newl.size() == 3);
+            REQUIRE(newl[0] == 1.f);
+            REQUIRE(newl[1] == 2.f);
+            REQUIRE(newl[2] == 3.f);
+
+            newl = l;
+            newl.resizeFold(4);
+            REQUIRE(newl.size() == 4);
+            REQUIRE(newl[0] == 1.f);
+            REQUIRE(newl[1] == 2.f);
+            REQUIRE(newl[2] == 3.f);
+            REQUIRE(newl[3] == 2.f);
+
+            newl = l;
+            newl.resizeFold(5);
+            REQUIRE(newl.size() == 5);
+            REQUIRE(newl[0] == 1.f);
+            REQUIRE(newl[1] == 2.f);
+            REQUIRE(newl[2] == 3.f);
+            REQUIRE(newl[3] == 2.f);
+            REQUIRE(newl[4] == 1.f);
+
+            newl = l;
+            newl.resizeFold(6);
+            REQUIRE(newl.size() == 6);
+            REQUIRE(newl[0] == 1.f);
+            REQUIRE(newl[1] == 2.f);
+            REQUIRE(newl[2] == 3.f);
+            REQUIRE(newl[3] == 2.f);
+            REQUIRE(newl[4] == 1.f);
+            REQUIRE(newl[5] == 2.f);
+
+            newl = l;
+            newl.resizeFold(7);
+            REQUIRE(newl.size() == 7);
+            REQUIRE(newl[0] == 1.f);
+            REQUIRE(newl[1] == 2.f);
+            REQUIRE(newl[2] == 3.f);
+            REQUIRE(newl[3] == 2.f);
+            REQUIRE(newl[4] == 1.f);
+            REQUIRE(newl[5] == 2.f);
+            REQUIRE(newl[6] == 3.f);
         }
     }
 }

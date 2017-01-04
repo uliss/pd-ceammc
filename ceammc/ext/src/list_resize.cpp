@@ -84,6 +84,8 @@ public:
             tmp.resizeClip(n);
         } else if (m == gwrap_) {
             tmp.resizeWrap(n);
+        } else if (m == gfold_) {
+            tmp.resizeFold(n);
         }
 
         listTo(0, tmp);

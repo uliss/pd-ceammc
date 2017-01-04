@@ -118,6 +118,15 @@ public:
     void resizeWrap(size_t n);
 
     /**
+     * Resize list. If new size is less than current, last values are dropped.
+     * If new size is bigger - fold with list values
+     * @param n - new size
+     * @param v - pad value
+     * @note do nothing on empty list
+     */
+    void resizeFold(size_t n);
+
+    /**
      * Get property value from list
      * @param name - property name with (starts with '@')
      * @param dest - output destination
