@@ -952,8 +952,9 @@ static void eclass_properties_dialog(t_eclass* c)
         }
     }
     sys_vgui("toplevel $id\n");
-    sys_vgui("wm title $id {%s properties}\n", c->c_class.c_name->s_name);
+    sys_vgui("wm title $id {%s properties} \n", c->c_class.c_name->s_name);
     sys_vgui("wm resizable $id 0 0\n", c->c_class.c_name->s_name);
+    sys_vgui("wm attributes $id -topmost 1 \n", c->c_class.c_name->s_name);
     
     //CEAMMC
     sys_vgui("$id configure -background #C0C0C0\n");
