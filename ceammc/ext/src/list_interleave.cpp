@@ -6,6 +6,7 @@
 //
 
 #include "ceammc.hpp"
+#include "ceammc_ext_list.h"
 #include "ceammc_factory.h"
 #include "ceammc_log.h"
 #include "ceammc_object.h"
@@ -75,28 +76,7 @@ private:
 
     void processLists()
     {
-        out_list_.clear();
-        size_t min_size = shortestSize();
-        if (min_size == 0)
-            return;
-
-        for (size_t i = 0; i < min_size; i++) {
-            for (size_t j = 0; j < in_count_; j++) {
-                out_list_.append(in_list_[j][i]);
-            }
-        }
-    }
-
-    size_t shortestSize() const
-    {
-        assert(in_count_ == in_list_.size());
-
-        size_t res = std::numeric_limits<size_t>::max();
-
-        for (size_t i = 0; i < in_count_; i++)
-            res = std::min(res, in_list_[i].size());
-
-        return res;
+        out_list_ = list::interleaveMinLength(in_list_);
     }
 };
 
