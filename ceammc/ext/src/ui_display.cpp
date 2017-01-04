@@ -143,6 +143,16 @@ namespace ceammc_gui {
             zx->x_gui.b_rect.width = w;
             zx->x_gui.b_rect.height = h;
             
+//            AtomList argv;
+//
+//            argv.append(Atom(gensym("size")));
+////            argv.append(Atom(gensym("0 300 30")));
+//            argv.append(Atom(w));
+//            argv.append(Atom(h));
+//            
+//            ebox_attrprocess_viatoms(zx, 2, argv.toPdData());
+            
+            
             
         }
         

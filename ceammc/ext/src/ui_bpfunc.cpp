@@ -886,7 +886,7 @@ namespace ceammc_gui {
         
         if (zx->auto_send)
         {
-            ceammc_gui::object<ceammc_gui::ui_bpfunc>::m_bang(z, &s_bang, 0, nullptr);
+            ceammc_gui::object<ceammc_gui::ui_bpfunc>::m_bang(z, &s_bang, 0, NULL);
         }
         
     }
