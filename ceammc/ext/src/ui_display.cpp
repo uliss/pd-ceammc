@@ -136,23 +136,24 @@ namespace ceammc_gui {
 
         if (zx->auto_size)
         {
-            float w = (*zx->s_value).size() * 15;
-            float h = int (w/250) *15;
-            w = fmod(w , 250);
+            float w = (*zx->s_value).size() * 8 + (zx->show_type * 50);
+            float h = int (w/250) *15 + 15;
+            w = (w>250)?250:w;
             
             zx->x_gui.b_rect.width = w;
             zx->x_gui.b_rect.height = h;
             
-//            AtomList argv;
+            
+            AtomList argv;
 //
 //            argv.append(Atom(gensym("size")));
 ////            argv.append(Atom(gensym("0 300 30")));
-//            argv.append(Atom(w));
-//            argv.append(Atom(h));
-//            
+            argv.append(Atom(w));
+            argv.append(Atom(h));
+//
 //            ebox_attrprocess_viatoms(zx, 2, argv.toPdData());
             
-            
+            eobj_attr_setvalueof(zx, gensym("size"), 2, argv.toPdData());
             
         }
         
