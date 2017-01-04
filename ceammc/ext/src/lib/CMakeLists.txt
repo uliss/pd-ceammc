@@ -13,7 +13,7 @@ add_library(ceammc_static STATIC ceammc.c
     ceammc.cpp
     ceammc_atom.cpp
     ceammc_atomlist.cpp
-    ceammc_ext_list.cpp
+    ceammc_fn_list.cpp
     ceammc_log.cpp
     ceammc_message.cpp
     ceammc_format.cpp
