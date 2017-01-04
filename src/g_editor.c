@@ -503,7 +503,7 @@ void canvas_setundo(t_canvas *x, t_undofn undofn, void *buf,
     const char *name)
 {
     //CEAMMC
-    printf ("set undo %s \n", name);
+    logpost(NULL,3, "set undo %s\n", name);
     
     cm_undo_add(x,undofn,buf,name);
     
