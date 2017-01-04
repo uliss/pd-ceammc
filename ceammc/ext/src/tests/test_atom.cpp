@@ -174,6 +174,19 @@ TEST_CASE("Atom", "[ceammc::Atom]")
         Atom u1(p);
         Atom u2(p);
         REQUIRE(u1 != u2);
+
+        SECTION("symbol")
+        {
+            t_atom a1;
+            t_atom a2;
+
+            SETSYMBOL(&a1, gensym("a"));
+            SETSYMBOL(&a2, gensym("a"));
+
+            REQUIRE(Atom(a1) == Atom(a2));
+            a1.a_w.w_symbol = 0;
+            REQUIRE(Atom(a1) != Atom(a2));
+        }
     }
 
     SECTION("compare tests")
