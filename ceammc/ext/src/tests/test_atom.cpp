@@ -279,4 +279,27 @@ TEST_CASE("Atom", "[ceammc::Atom]")
         REQUIRE_FALSE(Atom(-0.0000001f).isInteger());
         REQUIRE_FALSE(Atom(-1.0000001f).isInteger());
     }
+
+    SECTION("test isNatural")
+    {
+        REQUIRE(Atom(0.f).isNatural());
+        REQUIRE(Atom(1.f).isNatural());
+        REQUIRE(Atom(2.f).isNatural());
+        REQUIRE(Atom(3.f).isNatural());
+        REQUIRE(Atom(4.f).isNatural());
+        REQUIRE(!Atom(4.00001f).isNatural());
+        REQUIRE(Atom(-0.f).isNatural());
+        REQUIRE(Atom(1.f).isNatural());
+        REQUIRE(!Atom(-1.f).isNatural());
+        REQUIRE(Atom(100000.f).isNatural());
+        REQUIRE(!Atom(-100000.f).isNatural());
+
+        REQUIRE(!Atom().isNatural());
+        REQUIRE(!Atom(gensym("a")).isNatural());
+
+        REQUIRE(!Atom(0.0000001f).isNatural());
+        REQUIRE(!Atom(1.0000001f).isNatural());
+        REQUIRE(!Atom(-0.0000001f).isNatural());
+        REQUIRE(!Atom(-1.0000001f).isNatural());
+    }
 }

@@ -69,6 +69,11 @@ bool Atom::isInteger() const
     return isFloat() && ceilf(a_w.w_float) == a_w.w_float;
 }
 
+bool Atom::isNatural() const
+{
+    return isInteger() && a_w.w_float >= 0.f;
+}
+
 Atom::Type Atom::type() const
 {
     switch (a_type) {

@@ -66,6 +66,11 @@ public:
     bool isInteger() const;
 
     /**
+     * @returns true if atom has logical type Atom::FLOAT and value is natural (with 0)
+     */
+    bool isNatural() const;
+
+    /**
      * @returns atom logical type
      */
     Type type() const;
