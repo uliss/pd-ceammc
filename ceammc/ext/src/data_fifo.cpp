@@ -1,5 +1,6 @@
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
+#include "ceammc_log.h"
 #include "ceammc_message.h"
 #include "ceammc_object.h"
 
@@ -43,7 +44,7 @@ public:
     {
         size_t sz = l.asSizeT(0);
         if (sz < 1) {
-            ERR << "invalid size value: " << sz << ". Using default size: " << DEFAULT_SIZE;
+            OBJ_ERR << "invalid size value: " << sz << ". Using default size: " << DEFAULT_SIZE;
             return;
         }
 

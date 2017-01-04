@@ -90,6 +90,18 @@ public:
     void setValue(int v) { v_ = v; }
 };
 
+class SizeTProperty : public Property {
+    size_t v_;
+
+public:
+    SizeTProperty(const std::string& name, size_t init = 0, bool readonly = false);
+    bool set(const AtomList& lst);
+    AtomList get() const;
+
+    size_t value() const { return v_; }
+    void setValue(size_t v) { v_ = v; }
+};
+
 template <typename T>
 class EnumProperty : public Property {
 public:

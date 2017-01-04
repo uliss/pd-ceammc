@@ -1,4 +1,5 @@
 #include "ceammc_factory.h"
+#include "ceammc_log.h"
 #include "ceammc_object.h"
 
 using namespace ceammc;
@@ -34,7 +35,7 @@ public:
         else if (l.size() == 1)
             pattern_ = l[0];
         else {
-            DBG << "search pattern can be only single element, not list. Using first element from " << l;
+            OBJ_DBG << "search pattern can be only single element, not list. Using first element from " << l;
             pattern_ = l[0];
         }
     }

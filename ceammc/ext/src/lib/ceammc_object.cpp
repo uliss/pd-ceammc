@@ -13,6 +13,7 @@
  *****************************************************************************/
 
 #include "ceammc_object.h"
+#include "ceammc_log.h"
 #include "ceammc_format.h"
 
 #include <algorithm>
@@ -28,7 +29,7 @@ namespace ceammc {
 t_outlet* BaseObject::outletAt(size_t n)
 {
     if (n >= outlets_.size()) {
-        ERR << "invalid outlet index: " << n;
+        OBJ_ERR << "invalid outlet index: " << n;
         return 0;
     }
 
@@ -56,7 +57,7 @@ bool BaseObject::hasProperty(t_symbol* key) const
 void BaseObject::bangTo(size_t n)
 {
     if (n >= outlets_.size()) {
-        ERR << "invalid outlet index: " << n;
+        OBJ_ERR << "invalid outlet index: " << n;
         return;
     }
     outlet_bang(outlets_[n]);
@@ -65,7 +66,7 @@ void BaseObject::bangTo(size_t n)
 void BaseObject::floatTo(size_t n, float v)
 {
     if (n >= outlets_.size()) {
-        ERR << "invalid outlet index: " << n;
+        OBJ_ERR << "invalid outlet index: " << n;
         return;
     }
     outlet_float(outlets_[n], v);
@@ -74,7 +75,7 @@ void BaseObject::floatTo(size_t n, float v)
 void BaseObject::symbolTo(size_t n, t_symbol* s)
 {
     if (n >= outlets_.size()) {
-        ERR << "invalid outlet index: " << n;
+        OBJ_ERR << "invalid outlet index: " << n;
         return;
     }
     outlet_symbol(outlets_[n], s);
@@ -83,7 +84,7 @@ void BaseObject::symbolTo(size_t n, t_symbol* s)
 void BaseObject::atomTo(size_t n, const Atom& a)
 {
     if (n >= outlets_.size()) {
-        ERR << "invalid outlet index: " << n;
+        OBJ_ERR << "invalid outlet index: " << n;
         return;
     }
 
@@ -93,7 +94,7 @@ void BaseObject::atomTo(size_t n, const Atom& a)
 void BaseObject::listTo(size_t n, const AtomList& l)
 {
     if (n >= outlets_.size()) {
-        ERR << "invalid outlet index: " << n;
+        OBJ_ERR << "invalid outlet index: " << n;
         return;
     }
 
@@ -103,7 +104,7 @@ void BaseObject::listTo(size_t n, const AtomList& l)
 void BaseObject::messageTo(size_t n, const Message& msg)
 {
     if (n >= outlets_.size()) {
-        ERR << "invalid outlet index: " << n;
+        OBJ_ERR << "invalid outlet index: " << n;
         return;
     }
 
@@ -113,7 +114,7 @@ void BaseObject::messageTo(size_t n, const Message& msg)
 void BaseObject::anyTo(size_t n, t_symbol* s, const Atom& a)
 {
     if (n >= outlets_.size()) {
-        ERR << "invalid outlet index: " << n;
+        OBJ_ERR << "invalid outlet index: " << n;
         return;
     }
 
@@ -123,7 +124,7 @@ void BaseObject::anyTo(size_t n, t_symbol* s, const Atom& a)
 void BaseObject::anyTo(size_t n, t_symbol* s, const AtomList& l)
 {
     if (n >= outlets_.size()) {
-        ERR << "invalid outlet index: " << n;
+        OBJ_ERR << "invalid outlet index: " << n;
         return;
     }
 
@@ -137,7 +138,7 @@ bool BaseObject::processAnyInlets(t_symbol* sel, const AtomList& lst)
 
     SymbolList::iterator it = std::find(inlets_s_.begin(), inlets_s_.end(), sel);
     if (it == inlets_s_.end()) {
-        ERR << "invalid inlet: " << sel->s_name;
+        OBJ_ERR << "invalid inlet: " << sel->s_name;
         return false;
     }
 
@@ -157,7 +158,7 @@ bool BaseObject::processAnyProps(t_symbol* sel, const AtomList& lst)
 
     Properties::iterator it = props_.find(sel);
     if (it == props_.end()) {
-        ERR << "invalid property: " << sel->s_name;
+        OBJ_ERR << "invalid property: " << sel->s_name;
         return false;
     }
 
@@ -280,7 +281,7 @@ void BaseObject::parseArguments()
 
         t_symbol* pname = p[i][0].asSymbol();
         if (!hasProperty(pname)) {
-            ERR << "unknown property in argument list: " << pname->s_name;
+            OBJ_ERR << "unknown property in argument list: " << pname->s_name;
             continue;
         }
 
@@ -337,29 +338,4 @@ t_symbol* BaseObject::tryGetPropKey(t_symbol* sel)
     return res;
 }
 
-Error::Error(const BaseObject* obj)
-    : obj_(obj)
-{
-}
-
-Error::~Error()
-{
-    if (obj_ != 0)
-        pd_error((void*) obj_, "[%s] %s", obj_->className().c_str(), str().c_str());
-    else
-        pd_error(0, "[ceammc] %s", str().c_str());
-}
-
-Debug::Debug(const BaseObject* obj)
-    : obj_(obj)
-{
-}
-
-Debug::~Debug()
-{
-    if (obj_ != 0)
-        post("[%s] %s", obj_->className().c_str(), str().c_str());
-    else
-        post("[ceammc] %s", str().c_str());
-}
 }

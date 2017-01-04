@@ -61,10 +61,26 @@ public:
     bool isProperty() const;
 
     /**
+     * @returns true if atom has logical type Atom::FLOAT and value is integer
+     */
+    bool isInteger() const;
+
+    /**
+     * @returns true if atom has logical type Atom::FLOAT and value is natural (with 0)
+     */
+    bool isNatural() const;
+
+    /**
      * @returns atom logical type
      */
     Type type() const;
 
+    /**
+     * Tries to get float from atom - writes to destination only if atom type if float
+     * @param v - pointer to destination
+     * @return true on success, false - if atom is not float
+     * @see getSymbol
+     */
     bool getFloat(t_float* v) const;
     bool getSymbol(t_symbol** s) const;
     bool getString(std::string& str) const;

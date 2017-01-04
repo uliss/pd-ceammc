@@ -1,4 +1,5 @@
 #include "ceammc_factory.h"
+#include "ceammc_log.h"
 #include "ceammc_object.h"
 
 using namespace ceammc;
@@ -16,7 +17,7 @@ public:
         AtomList out(lst.filtered(isFloat));
 
         if (!out.normalizeFloats()) {
-            ERR << "Invalid list values: " << lst;
+            OBJ_ERR << "Invalid list values: " << lst;
             return;
         }
 

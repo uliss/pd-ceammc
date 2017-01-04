@@ -1,5 +1,6 @@
 #include "ceammc.hpp"
 #include "ceammc_factory.h"
+#include "ceammc_log.h"
 #include "ceammc_object.h"
 
 using namespace ceammc;
@@ -57,13 +58,13 @@ private:
     bool setCount(float v)
     {
         if (!math::is_natural(v)) {
-            ERR << "invalid argument! natural number expected: " << v;
+            OBJ_ERR << "invalid argument! natural number expected: " << v;
             return false;
         }
 
         int c = static_cast<int>(v);
         if (c > MAX_COUNT) {
-            ERR << "count should be less then " << MAX_COUNT << ". Setting to " << MAX_COUNT;
+            OBJ_ERR << "count should be less then " << MAX_COUNT << ". Setting to " << MAX_COUNT;
         }
 
         count_->setValue(std::min(c, MAX_COUNT));

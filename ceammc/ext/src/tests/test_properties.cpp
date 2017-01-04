@@ -213,4 +213,31 @@ TEST_CASE("Properties", "[ceammc::properties]")
         REQUIRE(p.value() == gensym("a"));
         REQUIRE(p.get() == listFrom(gensym("a")));
     }
+
+    SECTION("SizeT property")
+    {
+        SizeTProperty p("test", 12);
+        REQUIRE(!p.readonly());
+        REQUIRE(p.value() == 12);
+        REQUIRE(p.name() == "test");
+        p.setName("a");
+        REQUIRE(p.name() == "a");
+        AtomList v = p.get();
+
+        REQUIRE(v.size() == 1);
+        REQUIRE(v[0].isFloat());
+        REQUIRE(v[0].asSizeT(0) == 12);
+
+        REQUIRE_FALSE(p.set(AtomList()));
+        REQUIRE(p.set(AtomList::ones(2)));
+        REQUIRE_FALSE(p.set(AtomList::filled(-10, 1)));
+
+        AtomList al;
+        al.append(gensym("a"));
+        REQUIRE_FALSE(p.set(al));
+
+        SizeTProperty p2("test2", 12, true);
+        REQUIRE_FALSE(p2.set(AtomList::ones(1)));
+        REQUIRE(p2.get()[0].asSizeT(0) == 12);
+    }
 }

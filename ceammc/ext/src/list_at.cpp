@@ -1,4 +1,5 @@
 #include "ceammc_factory.h"
+#include "ceammc_log.h"
 #include "ceammc_object.h"
 
 using namespace ceammc;
@@ -54,7 +55,7 @@ public:
             a = l.relativeAt(pos_->value());
 
         if (a == 0) {
-            ERR << "invalid index value: " << pos_->value();
+            OBJ_ERR << "invalid index value: " << pos_->value();
             return;
         }
 

@@ -202,27 +202,6 @@ private:
     AtomList propNumOutlets();
     AtomList listAllProps() const;
 };
-
-class Error : public std::ostringstream {
-    const BaseObject* obj_;
-
-public:
-    Error(const BaseObject* obj = NULL);
-    ~Error();
-    Error& stream() { return *this; }
-};
-
-class Debug : public std::ostringstream {
-    const BaseObject* obj_;
-
-public:
-    Debug(const BaseObject* obj = NULL);
-    ~Debug();
-    Debug& stream() { return *this; }
-};
-
-#define ERR Error(this).stream()
-#define DBG Debug(this).stream()
 }
 
 #endif // CEAMMC_OBJECT_H

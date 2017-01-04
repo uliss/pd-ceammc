@@ -174,6 +174,19 @@ TEST_CASE("Atom", "[ceammc::Atom]")
         Atom u1(p);
         Atom u2(p);
         REQUIRE(u1 != u2);
+
+        SECTION("symbol")
+        {
+            t_atom a1;
+            t_atom a2;
+
+            SETSYMBOL(&a1, gensym("a"));
+            SETSYMBOL(&a2, gensym("a"));
+
+            REQUIRE(Atom(a1) == Atom(a2));
+            a1.a_w.w_symbol = 0;
+            REQUIRE(Atom(a1) != Atom(a2));
+        }
     }
 
     SECTION("compare tests")
@@ -260,5 +273,46 @@ TEST_CASE("Atom", "[ceammc::Atom]")
         REQUIRE(!to_outlet(&out, a_none));
 
         a1.outputAsAny(&out, gensym("sel"));
+    }
+
+    SECTION("test isInteger")
+    {
+        REQUIRE(Atom(0.f).isInteger());
+        REQUIRE(Atom(-0.f).isInteger());
+        REQUIRE(Atom(1.f).isInteger());
+        REQUIRE(Atom(-1.f).isInteger());
+        REQUIRE(Atom(100000.f).isInteger());
+        REQUIRE(Atom(-100000.f).isInteger());
+
+        REQUIRE_FALSE(Atom().isInteger());
+        REQUIRE_FALSE(Atom(gensym("a")).isInteger());
+
+        REQUIRE_FALSE(Atom(0.0000001f).isInteger());
+        REQUIRE_FALSE(Atom(1.0000001f).isInteger());
+        REQUIRE_FALSE(Atom(-0.0000001f).isInteger());
+        REQUIRE_FALSE(Atom(-1.0000001f).isInteger());
+    }
+
+    SECTION("test isNatural")
+    {
+        REQUIRE(Atom(0.f).isNatural());
+        REQUIRE(Atom(1.f).isNatural());
+        REQUIRE(Atom(2.f).isNatural());
+        REQUIRE(Atom(3.f).isNatural());
+        REQUIRE(Atom(4.f).isNatural());
+        REQUIRE(!Atom(4.00001f).isNatural());
+        REQUIRE(Atom(-0.f).isNatural());
+        REQUIRE(Atom(1.f).isNatural());
+        REQUIRE(!Atom(-1.f).isNatural());
+        REQUIRE(Atom(100000.f).isNatural());
+        REQUIRE(!Atom(-100000.f).isNatural());
+
+        REQUIRE(!Atom().isNatural());
+        REQUIRE(!Atom(gensym("a")).isNatural());
+
+        REQUIRE(!Atom(0.0000001f).isNatural());
+        REQUIRE(!Atom(1.0000001f).isNatural());
+        REQUIRE(!Atom(-0.0000001f).isNatural());
+        REQUIRE(!Atom(-1.0000001f).isNatural());
     }
 }
