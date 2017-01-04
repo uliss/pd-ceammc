@@ -1411,12 +1411,12 @@ t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
                 if(gobj->e_filled)
                 {
                     sprintf(header, "%s create polygon ", x->b_drawing_id->s_name);
-                    sprintf(bottom, "-smooth 1 -splinesteps 100 -fill %s -width 0 -tags { %s %s }\n", gobj->e_color->s_name,  g->e_id->s_name, x->b_all_id->s_name);
+                    sprintf(bottom, "-smooth raw -splinesteps 100 -fill %s -width 0 -tags { %s %s }\n", gobj->e_color->s_name,  g->e_id->s_name, x->b_all_id->s_name);
                 }
                 else
                 {
                     sprintf(header, "%s create line ", x->b_drawing_id->s_name);
-                    sprintf(bottom, "-smooth 1 -splinesteps 100 -fill %s -width %f -tags { %s %s }\n", gobj->e_color->s_name, gobj->e_width, g->e_id->s_name, x->b_all_id->s_name);
+                    sprintf(bottom, "-smooth raw -splinesteps 100 -fill %s -width %f -tags { %s %s }\n", gobj->e_color->s_name, gobj->e_width, g->e_id->s_name, x->b_all_id->s_name);
                 }
 
                 for(j = 0; j < gobj->e_npoints; )

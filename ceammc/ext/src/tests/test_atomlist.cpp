@@ -30,6 +30,11 @@ AtomList AList(size_t n_args, ...)
     return res;
 }
 
+static Atom atomAdd(const Atom& a, const Atom& b)
+{
+    return Atom(a.asFloat() + b.asFloat());
+}
+
 static float atomSum(const Atom& a, const Atom& b)
 {
     return a.asFloat(0) + b.asFloat(0);
@@ -1215,5 +1220,27 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         REQUIRE(l.product() == 2.f);
         l.append(3.f);
         REQUIRE(l.product() == 6.f);
+    }
+
+    SECTION("test normalize")
+    {
+        AtomList l;
+        REQUIRE_FALSE(l.normalizeFloats());
+
+        l.append(0.f);
+        REQUIRE_FALSE(l.normalizeFloats());
+        l.append(gensym("a"));
+        REQUIRE_FALSE(l.normalizeFloats());
+
+        l.append(3.f);
+        REQUIRE(l.normalizeFloats());
+        REQUIRE(l[2] == 1.f);
+
+        l.append(3.f);
+        // 0 0 1.0  3.0
+        // 0 0 0.25 0.75
+        REQUIRE(l.normalizeFloats());
+        REQUIRE(l[2] == 0.25f);
+        REQUIRE(l[3] == 0.75f);
     }
 }

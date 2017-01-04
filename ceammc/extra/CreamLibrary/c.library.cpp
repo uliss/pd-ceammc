@@ -115,7 +115,7 @@ extern "C" void cream_setup(void)
     
     
 #ifdef __APPLE__
-    setup_c0x2ekeyboard();
+//    setup_c0x2ekeyboard();
     setup_c0x2ecamomile();
     setup_c0x2ewavesel();
 #endif
@@ -123,12 +123,12 @@ extern "C" void cream_setup(void)
     // Deprecated
 //    setup_c0x2econvolve_tilde();
 //    setup_c0x2efreeverb_tilde();
-//    setup_c0x2epak();
-//    setup_c0x2epatcherargs();
-//    setup_c0x2epatcherinfos();
-//    setup_c0x2epatchermess();
-//    setup_c0x2eloadmess();
-//    setup_c0x2eprepend();
+    setup_c0x2epak();
+    setup_c0x2epatcherargs();
+    setup_c0x2epatcherinfos();
+    setup_c0x2epatchermess();
+    setup_c0x2eloadmess();
+    setup_c0x2eprepend();
     
     epd_add_folder("Cream", "misc");
     epd_add_folder("Cream", "helps");

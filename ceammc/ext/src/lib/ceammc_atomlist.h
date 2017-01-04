@@ -217,6 +217,9 @@ public:
     template <typename T>
     T reduce(T init, T (*fn)(const Atom&, const Atom&)) const;
     t_float reduceFloat(t_float init, t_float def, t_float (*fn)(t_float, t_float)) const;
+
+    bool normalizeFloats();
+
 public:
     static AtomList zeroes(size_t n);
     static AtomList ones(size_t n);

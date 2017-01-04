@@ -688,6 +688,27 @@ t_float AtomList::reduceFloat(t_float init, t_float def, t_float (*fn)(t_float, 
     return accum;
 }
 
+bool AtomList::normalizeFloats()
+{
+    if (empty())
+        return false;
+
+    float s = sum();
+    if (s == 0.f)
+        return false;
+
+    atom_iterator it;
+    for (it = atoms_.begin(); it != atoms_.end(); ++it) {
+        t_float f = 0.f;
+        if (!it->getFloat(&f))
+            continue;
+
+        it->setFloat(f / s);
+    }
+
+    return true;
+}
+
 static AtomList listAdd(const AtomList& a, const AtomList& b, ElementAccessFn fn)
 {
     AtomList res;

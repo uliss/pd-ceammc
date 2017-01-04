@@ -90,13 +90,13 @@ static t_symbol* bang_sym_background_layer;
 // you should set up the default methods, behaviors and attributes of your object. If your object's name is simple like
 // "bang", this function should be named "bang_setup" otherwise, if your object's name is more complex like "c.bang" the
 // function's name should replace the special character with the matching UTF8-hexadecimal value and put "setup" before the name
-// of the object. In this example, the dot is replaced with "0x2e" and the function name becomes "setup_c0x2ebang".
+// of the object. In this example, the dot is replaced with "0x2e" and the function name becomes "setup_ui0x2ebang".
 /*!
- * \fn          extern "C" void setup_c0x2ebang(void)
+ * \fn          extern "C" void setup_ui0x2ebang(void)
  * \brief       Setups the bang_class for GUI behavior.
- * \details     This function is called by Pd to initialize the bang_class of the c.bang object. In the function, you should set up the default methods, behaviors and attributes of your object. If your object's name is simple like \"bang\", this function should be named \"bang_setup\" otherwise, if your object's name is more complex like \"c.bang\" the function's name should replace the special character with the matching UTF8-hexadecimal value and put \"setup\" before the name of the object. In this example, the dot is replaced with \"c0x2e\" and the function name becomes \"setup_c0x2ebang\".
+ * \details     This function is called by Pd to initialize the bang_class of the c.bang object. In the function, you should set up the default methods, behaviors and attributes of your object. If your object's name is simple like \"bang\", this function should be named \"bang_setup\" otherwise, if your object's name is more complex like \"c.bang\" the function's name should replace the special character with the matching UTF8-hexadecimal value and put \"setup\" before the name of the object. In this example, the dot is replaced with \"c0x2e\" and the function name becomes \"setup_ui0x2ebang\".
  */
-extern "C" void setup_c0x2ebang(void)
+extern "C" void setup_ui0x2ebang(void)
 {
     // We creates a new t_eclass for the t_bang structure.
     // You should use this method for all the objects that uses either the t_eobj, t_edspobj, t_ebox or t_edspbox structure.

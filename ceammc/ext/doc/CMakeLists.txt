@@ -47,6 +47,7 @@ set(DOC_FILES
     list.length
     list.max
     list.min
+    list.normalize
     list.reverse
     list.shuffle
     list.sort

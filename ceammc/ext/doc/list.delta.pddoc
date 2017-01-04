@@ -19,7 +19,7 @@
         </meta>
         <arguments>
             <argument name="@oversize" type="symbol">Specifies behavior, if list have different sizes.
-            Possible values are: min, padz, clip, wrap and fold. Default value: min.</argument>
+            Possible values are: min, padz, clip, wrap and fold. Default value: padz.</argument>
             <argument name="@min" type="symbol">alias for "@oversize min" property.
             Truncates lists to minimal common size. </argument>
             <argument name="@clip" type="symbol">alias for "@oversize min" property.
@@ -33,6 +33,9 @@
             <argument name="@fold" type="symbol">alias for "@oversize fold" property.
             Pad shortest list with repeated values from the end to the beginning, then back and so on.</argument>
         </arguments>
+        <methods>
+            <method name="clear">sets to empty list current state</method>
+        </methods>
         <inlets>
             <inlet>
                 <xinfo on="list">Input float list</xinfo>
@@ -50,14 +53,14 @@
              |                |
              [t b  a]         [data.fifo 1]
              |  ^|            |
-             |  [prepend set] [prepend set]
-             |  |             |
-[2 -2(       [  (             [ (
-|            |
-| [1 60 120( | [dump( [@padz( [@clip( [@fold( [@wrap(
-| |          | |      |       |       |       |
-| |          | |      |       |       |       |
-| |          | |      |       |       |       |
+ [1 60 120(  |  [prepend set] [prepend set]
+          |  |  |             |
+[2 -2(    |  [  (             [ (
+|         |  |
+|         |  | [dump( [@padz( [@clip( [@fold( [@wrap(
+| [clear( |  | |      |       |       |       |
+| |       |  | |      |       |       |       |
+| |       |  | |      |       |       |       |
 [list.delta                                   @clip]
 |
 [prepend set]

@@ -141,7 +141,11 @@ if(APPLE)
         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/mac)
 
     add_custom_target(dmg
-        COMMAND sh ${PROJECT_SOURCE_DIR}/mac/dmg.sh ${BUNDLE_FULL_PATH}
+        COMMAND
+            sh ${PROJECT_SOURCE_DIR}/mac/dmg.sh
+            ${BUNDLE_FULL_PATH}
+            ${PD_MACOSX_BUNDLE_SUFFIX}
+            ${PROJECT_SOURCE_DIR}
         WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
         DEPENDS app)
 endif()
