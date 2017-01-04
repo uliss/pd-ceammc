@@ -1,5 +1,6 @@
 #include "ceammc.hpp"
 #include "ceammc_factory.h"
+#include "ceammc_log.h"
 #include "ceammc_object.h"
 
 using namespace ceammc;

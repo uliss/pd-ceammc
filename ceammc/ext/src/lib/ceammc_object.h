@@ -15,7 +15,6 @@
 #define CEAMMC_OBJECT_H
 
 #include "ceammc_atomlist.h"
-#include "ceammc_log.h"
 #include "ceammc_message.h"
 #include "ceammc_property.h"
 

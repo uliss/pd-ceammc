@@ -13,6 +13,7 @@
  *****************************************************************************/
 
 #include "ceammc_object.h"
+#include "ceammc_log.h"
 #include "ceammc_format.h"
 
 #include <algorithm>

@@ -1,5 +1,6 @@
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
+#include "ceammc_log.h"
 #include "ceammc_message.h"
 #include "ceammc_object.h"
 
