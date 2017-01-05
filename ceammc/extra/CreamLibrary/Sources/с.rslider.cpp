@@ -348,7 +348,7 @@ static void rslider_mousedrag(t_rslider *x, t_object *patcherview, t_pt pt, long
     ebox_redraw((t_ebox *)x);
 }
 
-extern "C" void setup_c0x2erslider(void)
+extern "C" void setup_ui0x2erslider(void)
 {
 	t_eclass *c = eclass_new("ui.rslider", (method)rslider_new, (method)ebox_free, (short)sizeof(t_rslider), CLASS_NOINLET, A_GIMME, 0);
     

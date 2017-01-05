@@ -119,7 +119,7 @@ ceammc_cxx_extension(vector dot)
 ceammc_cxx_tl_extension(tl transport)
 ceammc_cxx_tl_extension(tl bang)
 ceammc_cxx_tl_extension(tl cue)
-ceammc_cxx_tl_extension(tl test)
+#ceammc_cxx_tl_extension(tl test)
 
 # GUI
 

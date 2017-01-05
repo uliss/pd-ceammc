@@ -18,12 +18,12 @@ extern "C" void cream_setup(void);
 extern "C" void Cream_setup(void);
 extern "C" void libpd_loadcream(void);
 
-extern "C" void setup_c0x2ebang(void);
+//extern "C" void setup_c0x2ebang(void);
 extern "C" void setup_c0x2eblackboard(void);
 extern "C" void setup_c0x2ebreakpoints(void);
 extern "C" void setup_c0x2ecolorpanel(void);
 extern "C" void setup_c0x2edsp_tilde(void);
-extern "C" void setup_c0x2egain_tilde(void);
+//extern "C" void setup_c0x2egain_tilde(void);
 extern "C" void setup_c0x2eincdec(void);
 extern "C" void setup_c0x2eknob(void);
 extern "C" void setup_c0x2ematrix(void);
@@ -40,11 +40,22 @@ extern "C" void setup_c0x2eslider(void);
 extern "C" void setup_c0x2etab(void);
 extern "C" void setup_c0x2etoggle(void);
 
+//CEAMMC
+extern "C" void setup_ui0x2ebang(void);
+extern "C" void setup_ui0x2enumber_tilde(void);
+extern "C" void setup_ui0x2enumber(void);
+extern "C" void setup_ui0x2epreset(void);
+extern "C" void setup_ui0x2eradio(void);
+extern "C" void setup_ui0x2erslider(void);
+extern "C" void setup_ui0x2eslider(void);
+extern "C" void setup_ui0x2etab(void);
+extern "C" void setup_ui0x2etoggle(void);
+
 #ifdef __APPLE__
 extern "C" void setup_c0x2ekeyboard(void);
-extern "C" void setup_c0x2ecamomile(void);
+//extern "C" void setup_c0x2ecamomile(void);
 
-extern "C" void setup_c0x2ewavesel(void);
+//extern "C" void setup_c0x2ewavesel(void);
 #endif
 
 // Deprecated

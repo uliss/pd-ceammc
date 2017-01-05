@@ -952,8 +952,14 @@ static void eclass_properties_dialog(t_eclass* c)
         }
     }
     sys_vgui("toplevel $id\n");
-    sys_vgui("wm title $id {%s properties}\n", c->c_class.c_name->s_name);
+    sys_vgui("wm title $id {%s properties} \n", c->c_class.c_name->s_name);
     sys_vgui("wm resizable $id 0 0\n", c->c_class.c_name->s_name);
+    sys_vgui("wm attributes $id -topmost 1 \n", c->c_class.c_name->s_name);
+    
+    //CEAMMC
+    sys_vgui("$id configure -background #C0C0C0\n");
+    //sys_vgui("frame $id.win_bg -background #0070A0 -width 100 -height 300 \n");
+    
     
     for(i = 0; i < c->c_nattr; i++)
     {
@@ -963,13 +969,13 @@ static void eclass_properties_dialog(t_eclass* c)
             sys_vgui("frame $id.sele%i \n", i+1);
             
             // ATTRIBUTES NAMES //
-            sys_vgui("label $id.name%i.name -justify left -font {Helvetica 12} -text \"%s :\"\n", i+1, c->c_attr[i]->label->s_name);
+            sys_vgui("label $id.name%i.name  -background #C0C0C0 -justify left -font {Helvetica 12} -text \"%s :\"\n", i+1, c->c_attr[i]->label->s_name);
             sys_vgui("pack  $id.name%i.name -side left\n", i+1);
             // SELECTOR //
             
             if(c->c_attr[i]->style == gensym("checkbutton"))
             {
-                sys_vgui("checkbutton $id.sele%i.selec -variable $var_%s -command  [concat pdtk_%s_dialog_apply_%s $id]\n", i+1, c->c_attr[i]->name->s_name, c->c_class.c_name->s_name, c->c_attr[i]->name->s_name);
+                sys_vgui("checkbutton $id.sele%i.selec -background #C0C0C0 -variable $var_%s -command  [concat pdtk_%s_dialog_apply_%s $id]\n", i+1, c->c_attr[i]->name->s_name, c->c_class.c_name->s_name, c->c_attr[i]->name->s_name);
                 sys_vgui("pack  $id.sele%i.selec -side left\n", i+1);
             }
             else if(c->c_attr[i]->style == gensym("color"))
@@ -981,7 +987,7 @@ static void eclass_properties_dialog(t_eclass* c)
             }
             else if(c->c_attr[i]->style == gensym("number"))
             {
-                sys_vgui("spinbox $id.sele%i.selec -font {Helvetica 12} -width 18 -textvariable [string trim $var_%s] -increment %f \n", i+1, c->c_attr[i]->name->s_name, (float)c->c_attr[i]->step);
+                sys_vgui("spinbox $id.sele%i.selec -background #C0C0C0 -font {Helvetica 12} -width 18 -textvariable [string trim $var_%s] -increment %f \n", i+1, c->c_attr[i]->name->s_name, (float)c->c_attr[i]->step);
                 sys_vgui("$id.sele%i.selec configure -command [concat pdtk_%s_dialog_apply_%s $id]\n", i+1, c->c_class.c_name->s_name,  c->c_attr[i]->name->s_name);
                 sys_vgui("$id.sele%i.selec configure -from -9999999999999 -to 9999999999999\n", i+1, (float)c->c_attr[i]->maximum); // Should be enough
                 sys_vgui("$id.sele%i.selec delete 0 end \n", i+1);
@@ -992,7 +998,7 @@ static void eclass_properties_dialog(t_eclass* c)
             }
             else if(c->c_attr[i]->style == gensym("menu"))
             {
-                sys_vgui("spinbox $id.sele%i.selec -font {Helvetica 12} -width 18 -textvariable [string trim $var_%s] -state readonly\n", i+1, c->c_attr[i]->name->s_name);
+                sys_vgui("spinbox $id.sele%i.selec  -background #C0C0C0 -font {Helvetica 12} -width 18 -textvariable [string trim $var_%s] -state readonly\n", i+1, c->c_attr[i]->name->s_name);
                 sys_vgui("$id.sele%i.selec configure -command [concat pdtk_%s_dialog_apply_%s $id]\n", i+1, c->c_class.c_name->s_name,  c->c_attr[i]->name->s_name);
                 sys_vgui("$id.sele%i.selec configure -value {", i+1);
                 for(j = 0; j < c->c_attr[i]->itemssize; j++)
@@ -1007,7 +1013,7 @@ static void eclass_properties_dialog(t_eclass* c)
             }
             else
             {
-                sys_vgui("entry $id.sele%i.selec -font {Helvetica 12} -width 20 -textvariable [string trim $var_%s]\n", i+1, c->c_attr[i]->name->s_name);
+                sys_vgui("entry $id.sele%i.selec  -background #C0C0C0 -bd 0 -selectborderwidth 0 -borderwidth 0 -relief flat -highlightcolor #00C0FF -font {Helvetica 12} -width 20 -textvariable [string trim $var_%s]\n", i+1, c->c_attr[i]->name->s_name);
                 sys_vgui("bind $id.sele%i.selec <KeyPress-Return> [concat pdtk_%s_dialog_apply_%s $id]\n", i+1, c->c_class.c_name->s_name,  c->c_attr[i]->name->s_name);
                 sys_vgui("pack $id.sele%i.selec -side left\n", i+1);
                 

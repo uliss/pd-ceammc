@@ -592,7 +592,7 @@ static void *tab_new(t_symbol *s, int argc, t_atom *argv)
     return (x);
 }
 
-extern "C" void setup_c0x2etab(void)
+extern "C" void setup_ui0x2etab(void)
 {
     t_eclass *c = eclass_new("ui.tab", (method)tab_new, (method)ebox_free, (short)sizeof(t_tab), 0L, A_GIMME, 0);
     

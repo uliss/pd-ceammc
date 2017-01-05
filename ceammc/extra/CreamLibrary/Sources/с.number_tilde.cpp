@@ -216,7 +216,7 @@ static void *number_tilde_new(t_symbol *s, int argc, t_atom *argv)
     return (x);
 }
 
-extern "C" void setup_c0x2enumber_tilde(void)
+extern "C" void setup_ui0x2enumber_tilde(void)
 {
     t_eclass *c;
     

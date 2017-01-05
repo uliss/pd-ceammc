@@ -503,7 +503,7 @@ void canvas_setundo(t_canvas *x, t_undofn undofn, void *buf,
     const char *name)
 {
     //CEAMMC
-    printf ("set undo %s \n", name);
+    logpost(NULL,3, "set undo %s\n", name);
     
     cm_undo_add(x,undofn,buf,name);
     
@@ -1506,6 +1506,11 @@ void canvas_doclick(t_canvas *x, int xpos, int ypos, int which,
         t_object *ob = pd_checkobject(&y->g_pd);
             /* check you're in the rectangle */
         ob = pd_checkobject(&y->g_pd);
+        
+        //CEAMMC bindings
+        sys_vgui("pdtk_canvas_setup %d %d\n",
+                 xpos, ypos);   //.x%lx  x,
+        
         if (rightclick)
             canvas_rightclick(x, xpos, ypos, y);
         else if (shiftmod)

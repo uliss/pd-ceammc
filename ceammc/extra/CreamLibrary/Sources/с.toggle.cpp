@@ -132,7 +132,7 @@ static void *toggle_new(t_symbol *s, int argc, t_atom *argv)
     return NULL;
 }
 
-extern "C" void setup_c0x2etoggle(void)
+extern "C" void setup_ui0x2etoggle(void)
 {
     t_eclass *c = eclass_new("ui.toggle", (method)toggle_new, (method)ebox_free, (short)sizeof(t_toggle), 0L, A_GIMME, 0);
     if(c)

@@ -16,7 +16,9 @@
 #include <iostream>
 #include <string>
 
+
 using namespace ceammc;
+
 
 struct ui_display : public ceammc_gui::base_pd_object {
     t_ebox x_gui;
@@ -43,6 +45,11 @@ struct ui_display : public ceammc_gui::base_pd_object {
     
     int show_type;
     int show_bang;
+    
+    int auto_size;
+    
+    
+    
     
 };
 
@@ -131,6 +138,27 @@ namespace ceammc_gui {
             clock_delay(zx->t_c, 100);
         }
 
+        if (zx->auto_size)
+        {
+            float w = (*zx->s_value).size() * 8 + (zx->show_type * 50)+ 7;
+            float h = int (w/250) *15 + 15;
+            w = (w>250)?250:w;
+            
+            zx->x_gui.b_rect.width = w;
+            zx->x_gui.b_rect.height = h;
+            
+            AtomList argv;
+//
+//            argv.append(Atom(gensym("size")));
+////            argv.append(Atom(gensym("0 300 30")));
+            argv.append(Atom(w));
+            argv.append(Atom(h));
+//
+//            ebox_attrprocess_viatoms(zx, 2, argv.toPdData());
+            
+            eobj_attr_setvalueof(zx, gensym("size"), 2, argv.toPdData());
+            
+        }
         
         ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
         
@@ -210,11 +238,19 @@ namespace ceammc_gui {
         CLASS_ATTR_DEFAULT(z, "display_events", 0, "1");
         CLASS_ATTR_LABEL(z, "display_events", 0, "Display events");
         CLASS_ATTR_DEFAULT_SAVE_PAINT(z, "display_events", 0, "1");
+        CLASS_ATTR_STYLE(z, "display_events", 0, "onoff");
         
         CLASS_ATTR_INT(z, "display_type", 0, ui_display, show_type);
         CLASS_ATTR_DEFAULT(z, "display_type", 0, "0");
         CLASS_ATTR_LABEL(z, "display_type", 0, "Display type");
         CLASS_ATTR_DEFAULT_SAVE_PAINT(z, "display_type", 0, "0");
+        CLASS_ATTR_STYLE(z, "display_type", 0, "onoff");
+        
+        CLASS_ATTR_INT(z, "auto_size", 0, ui_display, auto_size);
+        CLASS_ATTR_DEFAULT(z, "auto_size", 0, "0");
+        CLASS_ATTR_LABEL(z, "auto_size", 0, "Auto size");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT(z, "auto_size", 0, "1");
+        CLASS_ATTR_STYLE(z, "auto_size", 0, "onoff");
         
     }
 }
