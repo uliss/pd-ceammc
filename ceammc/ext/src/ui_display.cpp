@@ -143,7 +143,6 @@ namespace ceammc_gui {
             zx->x_gui.b_rect.width = w;
             zx->x_gui.b_rect.height = h;
             
-            
             AtomList argv;
 //
 //            argv.append(Atom(gensym("size")));

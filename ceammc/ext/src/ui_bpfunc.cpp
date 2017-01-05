@@ -39,6 +39,8 @@ namespace ceammc_gui {
         bool lock_x;
         bool lock_y;
         
+        bool join_next;     //
+        
     } t_bpt;
     
     typedef std::vector<t_bpt> bpf_points;
@@ -79,6 +81,8 @@ namespace ceammc_gui {
         
         bool auto_send;
         bool drag_limit;
+        
+        int seg_count;
         
         t_etext *txt_min;
         t_etext *txt_max;
@@ -146,6 +150,11 @@ namespace ceammc_gui {
         bpf_points *ps = ((ui_bpfunc*)z)->points;
         
         ps->at(idx).end_segment = !ps->at(idx).end_segment;
+        
+        ui_bpfunc *zx = (ui_bpfunc*)z;
+        
+        if (ps->at(idx).end_segment) zx->seg_count ++; else zx->seg_count--;
+        
     }
     
     inline int bpf_size(t_object *z)
@@ -636,6 +645,8 @@ namespace ceammc_gui {
         
         zx->points->at(i).end_segment = b;
         
+        if (b) zx->seg_count ++; else zx->seg_count--;
+        
         ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
         
     }
@@ -665,6 +676,20 @@ namespace ceammc_gui {
         outlet_list(zx->out1, &s_list, zx->out_list_count, zx->out_list);
     }
     
+    void bpf_m_seg_count(t_object *z, t_symbol *s, int argc, t_atom *argv)
+    {
+        
+        ui_bpfunc *zx = (ui_bpfunc*)z;
+        
+        if (zx->out_list) {free(zx->out_list);}
+        zx->out_list = (t_atom*)malloc(sizeof(t_atom));
+        
+        zx->out_list[0].a_type = A_FLOAT;
+        zx->out_list[0].a_w.w_float = zx->seg_count;
+        
+        outlet_list(zx->out1, &s_list, 1, zx->out_list);
+    }
+    
     void bpf_m_lock_x(t_object *z, t_symbol *s, int argc, t_atom *argv)
     {
         if (argc<2) return;
@@ -692,6 +717,21 @@ namespace ceammc_gui {
         
         ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
     }
+    
+    void bpf_m_join_next(t_object *z, t_symbol *s, int argc, t_atom *argv)
+    {
+        if (argc<2) return;
+        
+        if (argv[0].a_type == A_FLOAT)
+        {
+            ui_bpfunc *zx = (ui_bpfunc*)z;
+            int idx = (int)(argv[0].a_w.w_float);
+            zx->points->at(idx).join_next = (argv[1].a_w.w_float!=0);
+        }
+        
+        ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
+    }
+    
     void bpf_m_raw(t_object *z, t_symbol *s, int argc, t_atom *argv)
     {
         
@@ -872,6 +912,11 @@ namespace ceammc_gui {
                     if (it->y>1) it->y=1;
                     if (it->y<0) it->y=0;
                     
+                    if (it->join_next)
+                    {
+                        it_next->y = it->y;
+                    }
+                    
                 }
                 
             }
@@ -921,6 +966,8 @@ namespace ceammc_gui {
         zx->select_idx = -1;
         
         zx->auto_send = 0;
+        
+        zx->seg_count = 1;
         
         //zx->output = new AtomList;
         
@@ -972,6 +1019,13 @@ namespace ceammc_gui {
         CLASS_ATTR_DEFAULT_SAVE_PAINT(z, "auto_send", 0, "0");
         CLASS_ATTR_STYLE(z, "auto_send", 0, "onoff");
         
+        //todo readonly or disable?
+//        CLASS_ATTR_INT(z, "seg_count", 0, ui_bpfunc, seg_count);
+//        CLASS_ATTR_DEFAULT(z, "seg_count", 0, "1");
+//        CLASS_ATTR_LABEL(z, "seg_count", 0, "seg_count");
+//        CLASS_ATTR_DEFAULT_SAVE_PAINT(z, "seg_count", 0, "1");
+        
+        
         eclass_addmethod(z, (method)(bpf_m_range_x), ("range_x"), A_GIMME,0);
         eclass_addmethod(z, (method)(bpf_m_range_y), ("range_y"), A_GIMME,0);
         eclass_addmethod(z, (method)(bpf_m_shift_x), ("shift_x"), A_GIMME,0);
@@ -999,7 +1053,7 @@ namespace ceammc_gui {
         //eclass_addmethod(z, (method)(bpf_m_set_full), ("set_full"), A_GIMME,0);
         
         //eclass_addmethod(z, (method)(bpf_m_vline_seg), ("vline_seg"), A_GIMME,0);
-        //eclass_addmethod(z, (method)(bpf_m_seg_count), ("seg_count"), A_GIMME,0);
+        eclass_addmethod(z, (method)(bpf_m_seg_count), ("seg_count"), A_GIMME,0);
         
         eclass_addmethod(z, (method)(bpf_m_end_seg), ("end_seg"), A_GIMME,0);
         
@@ -1010,6 +1064,7 @@ namespace ceammc_gui {
         
         eclass_addmethod(z, (method)(bpf_m_lock_x), ("lock_x"), A_GIMME,0);
         eclass_addmethod(z, (method)(bpf_m_lock_y), ("lock_y"), A_GIMME,0);
+        eclass_addmethod(z, (method)(bpf_m_join_next), ("join_next"), A_GIMME,0);
         
         eclass_addmethod(z, (method)(bpf_m_clear), ("clear"), A_GIMME,0);
         
