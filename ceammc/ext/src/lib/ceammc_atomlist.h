@@ -391,6 +391,15 @@ t_symbol* atomlistToValue(const AtomList& l, t_symbol* const& def)
     return l[0].asSymbol();
 }
 
+template <>
+Atom atomlistToValue(const AtomList& l, const Atom& def)
+{
+    if (l.empty())
+        return def;
+
+    return l[0];
+}
+
 } // namespace ceammc
 
 #endif // CEAMMC_ATOMLIST_H

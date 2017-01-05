@@ -19,11 +19,11 @@ static const size_t MIN_INLET = 2;
 static const size_t MAX_INLET = 20;
 
 class ListInterleave : public BaseObject {
-    size_t in_count_;
+    const size_t in_count_;
     std::vector<AtomList> in_list_;
     AtomList out_list_;
     SymbolEnumProperty* method_;
-    AtomProperty* pad_value_;
+    Atom pad_;
     t_symbol* gmin_;
     t_symbol* gpad_;
     t_symbol* gclip_;
@@ -35,7 +35,7 @@ public:
         : BaseObject(a)
         , in_count_(math::clip(atomlistToValue<size_t>(a.args, MIN_INLET), MIN_INLET, MAX_INLET))
         , method_(0)
-        , pad_value_(0)
+        , pad_(0.f)
         , gmin_(0)
         , gpad_(0)
         , gclip_(0)
@@ -63,7 +63,7 @@ public:
         if (m == gmin_)
             out_list_ = list::interleaveMinLength(in_list_);
         else if (m == gpad_)
-            out_list_ = list::interleavePadWith(in_list_, pad_value_->value());
+            out_list_ = list::interleavePadWith(in_list_, pad_);
         else if (m == gclip_)
             out_list_ = list::interleaveClip(in_list_);
         else if (m == gwrap_)
@@ -127,10 +127,6 @@ private:
         method_->appendEnum("fold");
         createProperty(method_);
 
-        // by default pad with zero
-        pad_value_ = new AtomProperty("@pad_value", Atom(0.f));
-        createProperty(pad_value_);
-
         // init t_symbol* pointer members for fast compare
         gmin_ = gensym("min");
         gpad_ = gensym("pad");
@@ -140,10 +136,19 @@ private:
 
         // adding aliases
         createProperty(new SymbolEnumAlias("@min", method_, gmin_));
-        createProperty(new SymbolEnumAlias("@pad", method_, gpad_));
         createProperty(new SymbolEnumAlias("@clip", method_, gclip_));
         createProperty(new SymbolEnumAlias("@wrap", method_, gwrap_));
         createProperty(new SymbolEnumAlias("@fold", method_, gfold_));
+
+        createCbProperty("@pad", &ListInterleave::getPadValue, &ListInterleave::setPadValue);
+    }
+
+    AtomList getPadValue() const { return listFrom(pad_); }
+
+    void setPadValue(const AtomList& l)
+    {
+        pad_ = atomlistToValue<Atom>(l, Atom(0.f));
+        method_->setValue(gpad_);
     }
 };
 
