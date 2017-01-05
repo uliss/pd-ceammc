@@ -23,16 +23,23 @@ class ListDeinterleave : public BaseObject {
     const size_t out_count_;
     AtomList in_list_;
     std::vector<AtomList> out_lists_;
+    Atom pad_;
+    SymbolEnumProperty* method_;
+    t_symbol* gmin_;
+    t_symbol* gpad_;
 
 public:
     ListDeinterleave(const PdArgs& a)
         : BaseObject(a)
         , out_count_(math::clip(atomlistToValue<size_t>(a.args, MIN_OUTLET), MIN_OUTLET, MAX_OUTLET))
+        , pad_(0.f)
+        , method_(0)
+        , gmin_(gensym("min"))
+        , gpad_(gensym("pad"))
     {
-        for (size_t i = 0; i < out_count_; i++) {
-            out_lists_.push_back(AtomList());
-            createOutlet();
-        }
+        initOutlets();
+        initProperties();
+        parseArguments();
     }
 
     void onBang()
@@ -45,10 +52,10 @@ public:
     {
         clearOutputList();
 
-        for (size_t i = 0; i < l.size(); i++) {
-            size_t ndx = i % out_count_;
-            out_lists_[ndx].append(l[i]);
-        }
+        if (method_->value() == gmin_)
+            processMin(l);
+        else if (method_->value() == gpad_)
+            processPad(l);
 
         onBang();
     }
@@ -58,6 +65,58 @@ private:
     {
         for (size_t i = 0; i < out_lists_.size(); i++)
             out_lists_[i].clear();
+    }
+
+    void initOutlets()
+    {
+        for (size_t i = 0; i < out_count_; i++) {
+            out_lists_.push_back(AtomList());
+            createOutlet();
+        }
+    }
+
+    void initProperties()
+    {
+        method_ = new SymbolEnumProperty("@method", "min");
+        method_->appendEnum("pad");
+        createProperty(method_);
+        createProperty(new SymbolEnumAlias("@min", method_, gmin_));
+        createCbProperty("@pad", &ListDeinterleave::getPadValue, &ListDeinterleave::setPadValue);
+    }
+
+    AtomList getPadValue() const
+    {
+        return listFrom(pad_);
+    }
+
+    void setPadValue(const AtomList& l)
+    {
+        pad_ = atomlistToValue<Atom>(l, Atom(0.f));
+        method_->setValue(gpad_);
+    }
+
+    void processMin(const AtomList& l)
+    {
+        for (size_t i = 0; i < l.size(); i++) {
+            size_t ndx = i % out_count_;
+            out_lists_[ndx].append(l[i]);
+        }
+    }
+
+    void processPad(const AtomList& l)
+    {
+        if (l.empty())
+            return;
+
+        size_t maxlen = out_count_ * (((l.size() - 1) / out_count_) + 1);
+
+        for (size_t i = 0; i < maxlen; i++) {
+            size_t ndx = i % out_count_;
+            if (i < l.size())
+                out_lists_[ndx].append(l[i]);
+            else
+                out_lists_[ndx].append(pad_);
+        }
     }
 };
 
