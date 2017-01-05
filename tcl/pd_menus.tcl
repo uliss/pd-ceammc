@@ -39,9 +39,15 @@ proc ::pd_menus::create_menubar {} {
     if {$::windowingsystem eq "aqua"} {create_apple_menu $menubar}
     set menulist "file edit put find media window help"
     foreach mymenu $menulist {
+        if {$mymenu eq "find"} {
+            set underlined 3
+        } {
+            set underlined 0
+        }
+
         menu $menubar.$mymenu
         $menubar add cascade -label [_ [string totitle $mymenu]] \
-            -menu $menubar.$mymenu
+            -underline $underlined -menu $menubar.$mymenu
         [format build_%s_menu $mymenu] $menubar.$mymenu
     }
     if {$::windowingsystem eq "win32"} {create_system_menu $menubar}
