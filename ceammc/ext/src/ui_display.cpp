@@ -16,7 +16,9 @@
 #include <iostream>
 #include <string>
 
+
 using namespace ceammc;
+
 
 struct ui_display : public ceammc_gui::base_pd_object {
     t_ebox x_gui;
@@ -45,6 +47,8 @@ struct ui_display : public ceammc_gui::base_pd_object {
     int show_bang;
     
     int auto_size;
+    
+    
     
     
 };

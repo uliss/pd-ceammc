@@ -16,9 +16,11 @@
 #include <map>
 #include <algorithm>
 
-
+#include <vector>
 
 //using namespace ceammc;
+
+using namespace std;
 
 
 namespace ceammc_gui {
@@ -90,6 +92,8 @@ namespace ceammc_gui {
         
         t_efont *txt_font;
         
+        vector<int> seg_idx;
+        
         
     };
     
@@ -153,7 +157,22 @@ namespace ceammc_gui {
         
         ui_bpfunc *zx = (ui_bpfunc*)z;
         
-        if (ps->at(idx).end_segment) zx->seg_count ++; else zx->seg_count--;
+        if (ps->at(idx).end_segment)
+        {
+            zx->seg_count++;
+            
+            zx->seg_idx.push_back(idx);
+            std::sort(zx->seg_idx.begin(), zx->seg_idx.end());
+        }
+        else
+        {
+            zx->seg_count--;
+            
+            vector<int>::iterator pos = find(zx->seg_idx.begin(),zx->seg_idx.end(), idx);
+            if (pos != zx->seg_idx.end())
+                zx->seg_idx.erase(pos);
+            
+        };
         
     }
     
@@ -636,16 +655,30 @@ namespace ceammc_gui {
         
         ui_bpfunc *zx = (ui_bpfunc*)z;
         
-        int i = int(argv[0].a_w.w_float);
-        if (i>zx->points->size()-1) return;//i = (int)zx->points->size()-1;
-        if (i<0) return; //i=0;
+        int idx = int(argv[0].a_w.w_float);
+        if (idx>zx->points->size()-1) return;//idx = (int)zx->points->size()-1;
+        if (idx<0) return; //idx=0;
         
         bool b = argv[1].a_w.w_float != 0;
         
+        zx->points->at(idx).end_segment = b;
         
-        zx->points->at(i).end_segment = b;
-        
-        if (b) zx->seg_count ++; else zx->seg_count--;
+        if (b)
+        {
+            zx->seg_count ++;
+            
+            zx->seg_idx.push_back(idx);
+            std::sort(zx->seg_idx.begin(), zx->seg_idx.end());
+        }
+        else
+        {
+            zx->seg_count--;
+            
+            vector<int>::iterator pos = find(zx->seg_idx.begin(),zx->seg_idx.end(), idx);
+            if (pos != zx->seg_idx.end())
+                zx->seg_idx.erase(pos);
+            
+        };
         
         ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
         
@@ -761,13 +794,18 @@ namespace ceammc_gui {
     void bpf_m_clear(t_object *z, t_symbol *s, int argc, t_atom *argv)
     {
         
-        //ui_bpfunc *zx = (ui_bpfunc*)z;
+        ui_bpfunc *zx = (ui_bpfunc*)z;
         
         bpf_points_new(z);
         
         bpf_point_add(z, 0, 0, 0);
         bpf_point_add(z, 1, .5, .75);
         bpf_point_add(z, 2, 1, 1);
+        
+        zx->seg_count = 1;
+        
+        zx->seg_idx.clear();
+        zx->seg_idx.push_back(0);
         
         ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
         
@@ -832,8 +870,6 @@ namespace ceammc_gui {
         
         
         //?replace with AtomList
-        
-        
         for (int j=0;j<zx->points->size();j++)      //i is on vacation
         {
             t_atom *out_list = (t_atom*)malloc(sizeof(t_atom)*3);
@@ -855,6 +891,84 @@ namespace ceammc_gui {
             
         }
         
+        
+    }
+    
+    void bpf_m_vline_seg(t_object *z, t_symbol *s, int argc, t_atom *argv)
+    {
+        if (argc<1) return;
+        if (argv[0].a_type!=A_FLOAT) {return;}
+        
+        int seg_number = int(argv[0].a_w.w_float);
+        
+        ui_bpfunc *zx = (ui_bpfunc*)z;
+        
+        if (seg_number<0) {error("segment number should be greater than zero"); return;}
+        if (seg_number>(zx->seg_count-1)) {error("segment number out of range"); return;}
+        
+        vector<int>::iterator it = zx->seg_idx.begin();
+        //printf("advance %d to %d\n", *it, seg_number);
+        advance(it, seg_number);
+        
+        int seg_index_start = *it ;
+        int seg_index_end = (int)zx->points->size()-1;
+        
+        if (seg_number<(zx->seg_count-1))
+        {
+            advance(it,1);
+            seg_index_end = *it;
+        }
+        
+        //printf("from %d to %d\n", seg_index_start, seg_index_end);
+        
+        
+        float last_time = 0;
+        
+        
+        //?replace with AtomList
+        for (int j=seg_index_start;j<=seg_index_end;j++)      //i is on vacation
+        {
+            
+            t_atom *out_list = (t_atom*)malloc(sizeof(t_atom)*3);
+            
+            float this_time = zx->points->at(j).x * zx->range_x + zx->shift_x;
+            
+            out_list[1].a_type = A_FLOAT;
+            out_list[1].a_w.w_float = this_time;
+            
+            out_list[0].a_type = A_FLOAT;
+            out_list[0].a_w.w_float = zx->points->at(j).y * zx->range_y + zx->shift_y;
+            
+            out_list[2].a_type = A_FLOAT;
+            out_list[2].a_w.w_float = last_time;
+            
+            last_time += this_time;
+            
+            outlet_list(zx->out1, &s_list, 3, out_list);
+            
+            
+        }
+        
+        
+    }
+    
+    void bpf_m_vline_tgl(t_object *z, t_symbol *s, int argc, t_atom *argv)
+    {
+        if (argc<1) return;
+        if (argv[0].a_type!=A_FLOAT) {return;}
+        
+        int seg_number = int(argv[0].a_w.w_float);
+        
+        ui_bpfunc *zx = (ui_bpfunc*)z;
+        
+        if (seg_number<0) {error("segment number should be 0 or 1"); return;}
+        if (seg_number>(1)) {error("segment number should be 0 or 1"); return;}
+        
+        t_atom tgl;
+        tgl.a_type = A_FLOAT;
+        tgl.a_w.w_float = 1 - seg_number;
+        
+        bpf_m_vline_seg(z, s, 1, &tgl);
         
     }
     
@@ -977,6 +1091,8 @@ namespace ceammc_gui {
         zx->txt_min = etext_layout_create();
         zx->txt_val = etext_layout_create();
         
+        zx->seg_idx.clear();
+        zx->seg_idx.push_back(0);
         
         zx->txt_font = efont_create(gensym("Helvetica"), gensym("light"), gensym("normal"), 8);
         
@@ -1052,7 +1168,6 @@ namespace ceammc_gui {
         //eclass_addmethod(z, (method)(bpf_m_set_seg), ("set_seg"), A_GIMME,0);
         //eclass_addmethod(z, (method)(bpf_m_set_full), ("set_full"), A_GIMME,0);
         
-        //eclass_addmethod(z, (method)(bpf_m_vline_seg), ("vline_seg"), A_GIMME,0);
         eclass_addmethod(z, (method)(bpf_m_seg_count), ("seg_count"), A_GIMME,0);
         
         eclass_addmethod(z, (method)(bpf_m_end_seg), ("end_seg"), A_GIMME,0);
@@ -1069,6 +1184,8 @@ namespace ceammc_gui {
         eclass_addmethod(z, (method)(bpf_m_clear), ("clear"), A_GIMME,0);
         
         eclass_addmethod(z, (method)(bpf_m_vline), ("vline"), A_GIMME,0);
+        eclass_addmethod(z, (method)(bpf_m_vline_seg), ("vline_seg"), A_GIMME,0);
+        eclass_addmethod(z, (method)(bpf_m_vline_tgl), ("vline_tgl"), A_GIMME,0);
         
         
     }
