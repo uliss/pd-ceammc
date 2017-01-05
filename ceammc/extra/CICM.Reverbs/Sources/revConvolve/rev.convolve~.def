@@ -1,8 +1,0 @@
-
-;rev.convolve.def
-
-LIBRARY rev.convolve~.mxe
-
-EXPORTS
-	main
-

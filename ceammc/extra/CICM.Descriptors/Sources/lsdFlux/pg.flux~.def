@@ -1,7 +1,0 @@
-;pg.flux~.def
-
-LIBRARY pg.flux~.mxe
-
-EXPORTS
-	main
-

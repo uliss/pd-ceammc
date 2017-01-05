@@ -1,7 +1,0 @@
-;pg.mel~.def
-
-LIBRARY pg.mel~.mxe
-
-EXPORTS
-	main
-

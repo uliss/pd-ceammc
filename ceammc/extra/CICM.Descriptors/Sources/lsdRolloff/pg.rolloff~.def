@@ -1,7 +1,0 @@
-;pg.rolloff~.def
-
-LIBRARY pg.rolloff~.mxe
-
-EXPORTS
-	main
-

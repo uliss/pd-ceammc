@@ -1,7 +1,0 @@
-;rev.freeverb~.def
-
-LIBRARY rev.freeverb~.mxe
-
-EXPORTS
-	main
-
