@@ -29,6 +29,12 @@ namespace math {
     {
         return ceil<T>(v) == v;
     }
+
+    template <class T>
+    static inline T clip(T v, T min, T max)
+    {
+        return std::max(min, std::min(v, max));
+    }
 }
 
 namespace pd {

@@ -177,6 +177,42 @@ void AtomList::resizeClip(size_t n)
     resizePad(n, atoms_.back());
 }
 
+void AtomList::resizeWrap(size_t n)
+{
+    if (empty())
+        return;
+
+    if (n < size())
+        return atoms_.resize(n);
+
+    atoms_.reserve(n);
+    const size_t old_size = size();
+    for (size_t i = old_size; i < n; i++)
+        atoms_.push_back(atoms_[i % old_size]);
+}
+
+void AtomList::resizeFold(size_t n)
+{
+    if (empty())
+        return;
+
+    if (n < size())
+        return atoms_.resize(n);
+
+    atoms_.reserve(n);
+    const size_t old_size = size();
+    const size_t fold_size = (old_size - 1) * 2;
+
+    // check for division by zero if single element in list
+    if (fold_size == 0)
+        return resizeClip(n);
+
+    for (size_t i = old_size; i < n; i++) {
+        size_t wrap = i % fold_size;
+        atoms_.push_back(atoms_[std::min(wrap, fold_size - wrap)]);
+    }
+}
+
 bool AtomList::property(const std::string& name, Atom* dest) const
 {
     if (!dest)

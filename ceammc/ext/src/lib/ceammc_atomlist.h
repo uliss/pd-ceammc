@@ -104,8 +104,27 @@ public:
      * If new size is bigger - pad with last value
      * @param n - new size
      * @param v - pad value
+     * @note do nothing on empty list
      */
     void resizeClip(size_t n);
+
+    /**
+     * Resize list. If new size is less than current, last values are dropped.
+     * If new size is bigger - wrap with list values
+     * @param n - new size
+     * @param v - pad value
+     * @note do nothing on empty list
+     */
+    void resizeWrap(size_t n);
+
+    /**
+     * Resize list. If new size is less than current, last values are dropped.
+     * If new size is bigger - fold with list values
+     * @param n - new size
+     * @param v - pad value
+     * @note do nothing on empty list
+     */
+    void resizeFold(size_t n);
 
     /**
      * Get property value from list
@@ -350,7 +369,14 @@ size_t atomlistToValue(const AtomList& l, const size_t& def)
     if (l.empty())
         return def;
 
-    return static_cast<size_t>(l[0].asFloat(def));
+    t_float v = def;
+    if (!l[0].getFloat(&v))
+        return def;
+
+    if (v < 0)
+        return def;
+
+    return static_cast<size_t>(v);
 }
 
 template <>
@@ -363,6 +389,15 @@ t_symbol* atomlistToValue(const AtomList& l, t_symbol* const& def)
         return const_cast<t_symbol*>(def);
 
     return l[0].asSymbol();
+}
+
+template <>
+Atom atomlistToValue(const AtomList& l, const Atom& def)
+{
+    if (l.empty())
+        return def;
+
+    return l[0];
 }
 
 } // namespace ceammc
