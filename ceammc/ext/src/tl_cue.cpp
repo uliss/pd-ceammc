@@ -83,6 +83,14 @@ UI_fun(tl_cue)::wx_paint(t_object *z, t_object *view)
         egraphics_set_color_hex(g, gensym("#F0F0F0"));
         egraphics_fill(g);
         
+        tll_cue_update_pos((t_object *)z, zx->b_box.b_rect.x);
+        
+        int cue_idx = tll_cue_getnumber((t_object *)z);
+        char cuename[10];
+        sprintf(cuename, "cue_%d", cue_idx);
+        zx->cue_name = cuename;
+        
+        
         etext_layout_set(zx->txt, zx->cue_name.c_str(), zx->fnt, 2, 15, rect.width, rect.height/2, ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
         etext_layout_draw(zx->txt, g);  //zx->cue_name.c_str()
         
@@ -90,6 +98,9 @@ UI_fun(tl_cue)::wx_paint(t_object *z, t_object *view)
         gui_delete(zx->canvas, z, "VLINE");
         gui_rect(zx->canvas, z, "VLINE", rect.x-2 , 0.0f, 1, 1000.0f,
                  rgba_to_hex(zx->border_color), rgba_to_hex(zx->border_color), 1.0f);
+        
+        
+        
         
     }
     

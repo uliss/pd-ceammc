@@ -105,8 +105,11 @@ EXTERN void tll_cue_dump()
     {
         it->cue_number = tll_cue_getnumber(it->ui_obj);
         printf("cue %i [%lu] pos %f\n",  it->cue_number, (long)it->ui_obj, it->x_pos);
+        
+        //post("cue %i [%lu] pos %f\n",  it->cue_number, (long)it->ui_obj, it->x_pos);
         //post("cue %i pos %f\n", it->cue_number, it->x_pos);
         //logpost(NULL, 2, "cue %i pos %f\n", it->cue_number, it->x_pos);
+        
     }
 }
 
@@ -181,7 +184,7 @@ EXTERN void tll_ui_update_pos(t_object *x, float x_pos)
 //            t_object *x = (t_object*)it->ui_obj;
 //            float x_pos = x->te_xpix;
             it->x_pos = x_pos;
-            printf("uiobj upd\n");
+            //printf("uiobj upd\n");
             
             return;
 //            if (it->ui_obj != x)

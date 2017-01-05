@@ -18,7 +18,7 @@ struct tl_transport_object {
 
 static void tl_transport_cue(tl_transport_object* x,t_symbol *s, int argc, t_atom *argv)
 {
-    printf("\n*cue\n");
+    //printf("\n*cue\n");
     
     if (argc==1)
     {
@@ -31,7 +31,7 @@ static void tl_transport_cue(tl_transport_object* x,t_symbol *s, int argc, t_ato
 
 static void tl_transport_update(tl_transport_object* x,t_symbol *s, int argc, t_atom *argv)
 {
-    printf("update\n");
+    //printf("update\n");
     
     tll_cue_update_all_pos();
     tll_ui_update_all_pos();
@@ -40,7 +40,7 @@ static void tl_transport_update(tl_transport_object* x,t_symbol *s, int argc, t_
 
 static void tl_transport_info(tl_transport_object* x,t_symbol *s, int argc, t_atom *argv)
 {
-    printf("info\n");
+    //printf("info\n");
     
     tll_cue_dump();
     tll_ui_dump();
@@ -51,7 +51,7 @@ static void* tl_transport_new()//(t_symbol *s, int argc, t_atom *argv)
 {
     tl_transport_object* x = reinterpret_cast<tl_transport_object*>(pd_new(tl_transport_class));
     
-    printf("transport-new\n");
+    //printf("transport-new\n");
     
     return static_cast<void*>(x);
 }

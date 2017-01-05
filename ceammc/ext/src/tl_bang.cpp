@@ -53,6 +53,8 @@ UI_fun(tl_bang)::wx_paint(t_object *z, t_object *view)
         etext_layout_set(zx->txt, "tl.bang", zx->fnt, 2, 15, rect.width, rect.height/2, ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
         etext_layout_draw(zx->txt, g);  //zx->cue_name.c_str()
         
+        tll_ui_update_pos((t_object *)z, zx->b_box.b_rect.x);
+        
     }
     
     ebox_end_layer((t_ebox*)z, bgl);
@@ -61,70 +63,6 @@ UI_fun(tl_bang)::wx_paint(t_object *z, t_object *view)
 }
 
 
-
-//UI_fun(tl_bang)::w_draw(t_gobj *z, t_glist *glist)
-//{
-//    printf("cue2 draw\n");
-//    
-//    UI_Setup
-//    UI_Prop
-//    
-//    std::string obj_color = (UI_Pf("_selected")==0)? "#00C0FF" : "#0000C0";
-//    
-//    printf ("coords %d %d", UI_x, UI_y);
-//    gui_rect("BASE", UI_x, UI_y, UI_Pf("width"), UI_Pf("height"),
-//                obj_color, "#C0C0C0", 1.0f);
-//    gui_text("LABEL", UI_x+UI_Pf("label_x"), UI_y+UI_Pf("label_y"),
-//                "tl.bang", "#000000");
-//    
-//    gui_rect("OUT", UI_x, UI_y+UI_Pf("height")-2,IOWIDTH, 2,
-//                "#000000", "#F0F0F0", 1.0f);
-//    
-//}
-//
-////
-//UI_fun(tl_bang)::w_erase(t_gobj *z, t_glist *glist)
-//{
-//    UI_Setup
-//    
-//    gui_delete("BASE");
-//    gui_delete("LABEL");
-//    gui_delete("OUT");
-//    
-//}
-//
-//
-//UI_fun(tl_bang)::w_displace(t_gobj *z, t_glist *glist, int dx, int dy)
-//{
-//    UI_Setup
-//    UI_Prop
-//    
-//    UI_basefun::w_displace(z,glist,dx,dy);
-//    
-//    tll_ui_update_pos((t_object *)z, UI_x);
-//    
-//    printf("xpos [%lu] : %d\n", (long)x, UI_x);
-//    
-////    int cue_idx = tll_cue_getnumber((t_object *)x);
-////    char cuename[10];
-////    sprintf(cuename, "cue %d", cue_idx);
-////    UI_Set("cue_name",cuename);
-//    
-//    //TODO MOVE
-//    gui_delete("LABEL");
-//    gui_text("LABEL", UI_x+UI_Pf("label_x"), UI_y+UI_Pf("label_y"),
-//                "tl.bang", "#000000");
-//    
-//    gui_move("BASE", UI_x, UI_y, UI_Pf("width"), UI_Pf("height"));
-//    
-//    gui_move("OUT", UI_x, UI_y+UI_Pf("height")-2,IOWIDTH, 2);
-//    
-//    canvas_fixlinesfor(glist, (t_text *)z);
-//    
-//    //tll_cue_dump();
-//}
-//
-//
 
 #pragma mark -
 
@@ -199,13 +137,14 @@ UI_fun(tl_bang)::new_ext(t_object* z, t_symbol *s, int argc, t_atom *argv)
     
     tll_ui_add((t_object*)z, zx->b_box.b_rect.x);
     ((tl_bang*)z)->out1 =outlet_new(z, &s_bang);
-    tll_ui_update_pos((t_object *)z, zx->b_box.b_rect.x);
+    tll_ui_update_pos((t_object *)z, zx->b_box.b_obj.o_obj.te_xpix);
     
     zx->txt = etext_layout_create();
     zx->fnt = efont_create(gensym("Monaco"), gensym(""), gensym("normal"), 12);
     
     
 }
+
 
 UI_fun(tl_bang)::init_ext(t_eclass *z)
 {
