@@ -22,8 +22,17 @@ namespace ceammc {
 namespace list {
 
     size_t shortestListSize(const std::vector<AtomList>& l);
+    size_t longestListSize(const std::vector<AtomList>& l);
+
+    typedef const Atom* (AtomList::*constAtomlistAt)(int)const;
 
     AtomList interleaveMinLength(const std::vector<AtomList>& l);
+    AtomList interleaveMaxLength(const std::vector<AtomList>& l, constAtomlistAt fn);
+
+    AtomList interleavePadWith(const std::vector<AtomList>& l, const Atom& pad);
+    AtomList interleaveClip(const std::vector<AtomList>& l);
+    AtomList interleaveWrap(const std::vector<AtomList>& l);
+    AtomList interleaveFold(const std::vector<AtomList>& l);
 }
 }
 

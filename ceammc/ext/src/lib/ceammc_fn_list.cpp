@@ -51,5 +51,76 @@ namespace list {
 
         return res;
     }
+
+    size_t longestListSize(const std::vector<AtomList>& l)
+    {
+        if (l.empty())
+            return 0;
+
+        size_t res = std::numeric_limits<size_t>::min();
+        std::vector<AtomList>::const_iterator it;
+
+        for (it = l.begin(); it != l.end(); ++it) {
+            res = std::max(res, it->size());
+        }
+
+        return res;
+    }
+
+    AtomList interleavePadWith(const std::vector<AtomList>& l, const Atom& pad)
+    {
+        AtomList res;
+        if (l.empty())
+            return res;
+
+        size_t max_size = longestListSize(l);
+        if (max_size == 0)
+            return res;
+
+        for (size_t i = 0; i < max_size; i++) {
+            for (size_t j = 0; j < l.size(); j++) {
+                if (i >= l[j].size())
+                    res.append(pad);
+                else
+                    res.append(l[j][i]);
+            }
+        }
+
+        return res;
+    }
+
+    AtomList interleaveClip(const std::vector<AtomList>& l)
+    {
+        return interleaveMaxLength(l, &AtomList::clipAt);
+    }
+
+    AtomList interleaveWrap(const std::vector<AtomList>& l)
+    {
+        return interleaveMaxLength(l, &AtomList::wrapAt);
+    }
+
+    AtomList interleaveFold(const std::vector<AtomList>& l)
+    {
+        return interleaveMaxLength(l, &AtomList::foldAt);
+    }
+
+    AtomList interleaveMaxLength(const std::vector<AtomList>& l, constAtomlistAt fn)
+    {
+        AtomList res;
+        if (l.empty())
+            return res;
+
+        size_t max_size = longestListSize(l);
+        if (max_size == 0)
+            return res;
+
+        for (size_t i = 0; i < max_size; i++) {
+            for (size_t j = 0; j < l.size(); j++) {
+                res.append(*(l[j].*fn)(i));
+            }
+        }
+
+        return res;
+    }
 }
 }
