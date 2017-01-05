@@ -86,6 +86,9 @@ namespace import ::dialog_midi::pdtk_alsa_midi_dialog
 namespace import ::dialog_path::pdtk_path_dialog
 namespace import ::dialog_startup::pdtk_startup_dialog
 
+#ceammc
+namespace import ::pdtk_canvas::pdtk_canvas_setup
+
 # hack - these should be better handled in the C code
 namespace import ::dialog_array::pdtk_array_listview_new
 namespace import ::dialog_array::pdtk_array_listview_fillpage

@@ -1504,6 +1504,11 @@ void canvas_doclick(t_canvas *x, int xpos, int ypos, int which,
         t_object *ob = pd_checkobject(&y->g_pd);
             /* check you're in the rectangle */
         ob = pd_checkobject(&y->g_pd);
+        
+        //CEAMMC bindings
+        sys_vgui("pdtk_canvas_setup %d %d\n",
+                 xpos, ypos);   //.x%lx  x,
+        
         if (rightclick)
             canvas_rightclick(x, xpos, ypos, y);
         else if (shiftmod)

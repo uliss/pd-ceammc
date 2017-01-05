@@ -10,6 +10,9 @@ namespace eval ::pdtk_canvas:: {
     namespace export pdtk_canvas_setparents
     namespace export pdtk_canvas_reflecttitle
     namespace export pdtk_canvas_menuclose
+
+    #ceammc
+    namespace export pdtk_canvas_setup
 }
 
 # One thing that is tricky to understand is the difference between a Tk
@@ -214,19 +217,39 @@ proc pdtk_canvas_clickpaste {tkcanvas x y b} {
 # commands in pd_bindings.tcl
 proc ::pdtk_canvas::create_popup {} {
     if { ! [winfo exists .popup]} {
+    	#ceammc
+    	variable accelerator
+    	if {$::windowingsystem eq "aqua"} {
+        	set accelerator "Cmd"
+    		} else {
+        	set accelerator "Ctrl"
+    	}
         # the popup menu for the canvas
         menu .popup -tearoff false
-        .popup add command -label [_ "Properties"] \
+        .popup add command -label [_ "Properties"] -accelerator "$accelerator-Shift-P" \
             -command {::pdtk_canvas::done_popup $::focused_window 0}
         .popup add command -label [_ "Open"]       \
             -command {::pdtk_canvas::done_popup $::focused_window 1}
-        .popup add command -label [_ "Help"]       \
+        .popup add command -label [_ "Help"] -accelerator "$accelerator-Shift-H"       \
             -command {::pdtk_canvas::done_popup $::focused_window 2}
+
+        # ceammc
+        #-accelerator "Alt-I" 
+        bind all <$::modifier-Shift-Key-h>      {::pdtk_canvas::done_popup $::focused_window 2}
+    	bind all <$::modifier-Shift-Key-H>      {::pdtk_canvas::done_popup $::focused_window 2}
+        bind all <$::modifier-Shift-Key-p>      {::pdtk_canvas::done_popup $::focused_window 0}
+    	bind all <$::modifier-Shift-Key-P>      {::pdtk_canvas::done_popup $::focused_window 0}
     }
 }
 
 proc ::pdtk_canvas::done_popup {mytoplevel action} {
     pdsend "$mytoplevel done-popup $action $::popup_xcanvas $::popup_ycanvas"
+}
+
+#ceammc
+proc ::pdtk_canvas::pdtk_canvas_setup {xcanvas ycanvas} {
+	set ::popup_xcanvas $xcanvas
+    set ::popup_ycanvas $ycanvas
 }
 
 proc ::pdtk_canvas::pdtk_canvas_popup {mytoplevel xcanvas ycanvas hasproperties hasopen} {
