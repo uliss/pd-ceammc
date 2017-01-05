@@ -84,7 +84,7 @@ public:
         in_list_[n] = l;
     }
 
-    void dump()
+    void dump() const
     {
         BaseObject::dump();
 
