@@ -7,117 +7,231 @@
 ////
 //
 
+//  CICM Wrapper version
+
 
 #include <iostream>
 
 #include "tl_lib.hpp"
 
-#include "ceammc_gui_old.h"
+#include "ceammc_gui.h"
 
-struct tl_bang : cm_gui_base_pd_object
+using namespace ceammc_gui;
+
+struct tl_bang : public base_pd_object
 {
+    
+    t_etext *txt;
+    t_efont *fnt;
+    
+    t_rgba border_color;
+    t_rgba bg_color;
+    
     t_object x_gui;
     t_outlet *out1;
 };
 
 
-UI_fun(tl_bang)::w_draw(t_gobj *z, t_glist *glist)
+UI_fun(tl_bang)::wx_paint(t_object *z, t_object *view)
 {
-    printf("cue2 draw\n");
     
-    UI_Setup
-    UI_Prop
+    t_symbol *bgl = gensym("background_layer");
+    //float size;
     
-    std::string obj_color = (UI_Pf("_selected")==0)? "#00C0FF" : "#0000C0";
+    t_rect rect;
+    ebox_get_rect_for_view((t_ebox *)z, &rect);
     
-    printf ("coords %d %d", UI_x, UI_y);
-    gui_rect("BASE", UI_x, UI_y, UI_Pf("width"), UI_Pf("height"),
-                obj_color, "#C0C0C0", 1.0f);
-    gui_text("LABEL", UI_x+UI_Pf("label_x"), UI_y+UI_Pf("label_y"),
-                "tl.bang", "#000000");
+    t_elayer *g = ebox_start_layer((t_ebox *)z, bgl, rect.width, rect.height);
+    if(g)
+    {
+        tl_bang* zx = (tl_bang*)z;
+        
+        egraphics_rectangle(g, 0, 0, rect.width, rect.height);
+        egraphics_set_color_hex(g, gensym("#F0F0F0"));
+        egraphics_fill(g);
+        
+        etext_layout_set(zx->txt, "tl.bang", zx->fnt, 2, 15, rect.width, rect.height/2, ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
+        etext_layout_draw(zx->txt, g);  //zx->cue_name.c_str()
+        
+    }
     
-    gui_rect("OUT", UI_x, UI_y+UI_Pf("height")-2,IOWIDTH, 2,
-                "#000000", "#F0F0F0", 1.0f);
+    ebox_end_layer((t_ebox*)z, bgl);
+    ebox_paint_layer((t_ebox *)z, bgl, 0., 0.);
     
 }
 
+
+
+//UI_fun(tl_bang)::w_draw(t_gobj *z, t_glist *glist)
+//{
+//    printf("cue2 draw\n");
+//    
+//    UI_Setup
+//    UI_Prop
+//    
+//    std::string obj_color = (UI_Pf("_selected")==0)? "#00C0FF" : "#0000C0";
+//    
+//    printf ("coords %d %d", UI_x, UI_y);
+//    gui_rect("BASE", UI_x, UI_y, UI_Pf("width"), UI_Pf("height"),
+//                obj_color, "#C0C0C0", 1.0f);
+//    gui_text("LABEL", UI_x+UI_Pf("label_x"), UI_y+UI_Pf("label_y"),
+//                "tl.bang", "#000000");
+//    
+//    gui_rect("OUT", UI_x, UI_y+UI_Pf("height")-2,IOWIDTH, 2,
+//                "#000000", "#F0F0F0", 1.0f);
+//    
+//}
 //
-UI_fun(tl_bang)::w_erase(t_gobj *z, t_glist *glist)
+////
+//UI_fun(tl_bang)::w_erase(t_gobj *z, t_glist *glist)
+//{
+//    UI_Setup
+//    
+//    gui_delete("BASE");
+//    gui_delete("LABEL");
+//    gui_delete("OUT");
+//    
+//}
+//
+//
+//UI_fun(tl_bang)::w_displace(t_gobj *z, t_glist *glist, int dx, int dy)
+//{
+//    UI_Setup
+//    UI_Prop
+//    
+//    UI_basefun::w_displace(z,glist,dx,dy);
+//    
+//    tll_ui_update_pos((t_object *)z, UI_x);
+//    
+//    printf("xpos [%lu] : %d\n", (long)x, UI_x);
+//    
+////    int cue_idx = tll_cue_getnumber((t_object *)x);
+////    char cuename[10];
+////    sprintf(cuename, "cue %d", cue_idx);
+////    UI_Set("cue_name",cuename);
+//    
+//    //TODO MOVE
+//    gui_delete("LABEL");
+//    gui_text("LABEL", UI_x+UI_Pf("label_x"), UI_y+UI_Pf("label_y"),
+//                "tl.bang", "#000000");
+//    
+//    gui_move("BASE", UI_x, UI_y, UI_Pf("width"), UI_Pf("height"));
+//    
+//    gui_move("OUT", UI_x, UI_y+UI_Pf("height")-2,IOWIDTH, 2);
+//    
+//    canvas_fixlinesfor(glist, (t_text *)z);
+//    
+//    //tll_cue_dump();
+//}
+//
+//
+
+#pragma mark -
+
+static void tl_cue_ebox_move(t_ebox* x)
 {
-    UI_Setup
+    if(glist_isvisible(x->b_obj.o_canvas))
+    {
+        sys_vgui("%s coords %s %d %d\n", x->b_canvas_id->s_name, x->b_window_id->s_name, (int)(x->b_rect.x - x->b_boxparameters.d_borderthickness), (int)(x->b_rect.y - x->b_boxparameters.d_borderthickness));
+    }
+    canvas_fixlinesfor(glist_getcanvas(x->b_obj.o_canvas), (t_text*)x);
+}
+
+void tl_cue_displace(t_gobj *z, t_glist *glist, int dx, int dy)
+{
+    //todo set arg - see ui.display
     
-    gui_delete("BASE");
-    gui_delete("LABEL");
-    gui_delete("OUT");
     
+    //ebox src
+#ifdef _WINDOWS
+    t_ebox* x = (t_ebox *)z;
+    if(x->b_selected_box)
+    {
+        x->b_rect.x += dx;
+        x->b_rect.y += dy;
+        x->b_obj.o_obj.te_xpix += dx;
+        x->b_obj.o_obj.te_ypix += dy;
+        tl_cue_ebox_move(x);
+    }
+#else
+    t_ebox* x = (t_ebox *)z;
+    
+    x->b_rect.x += dx;
+    x->b_rect.y += dy;
+    x->b_obj.o_obj.te_xpix += dx;
+    x->b_obj.o_obj.te_ypix += dy;
+    tl_cue_ebox_move(x);
+#endif
+    
+    t_rect rect;
+    ebox_get_rect_for_view((t_ebox *)x, &rect);
+    
+    tl_bang* zx = (tl_bang*)z;
+    
+    object<tl_bang>::ws_redraw((t_object*)z);
+    
+    tll_ui_update_pos((t_object *)z, zx->b_box.b_rect.x);
 }
 
 
-UI_fun(tl_bang)::w_displace(t_gobj *z, t_glist *glist, int dx, int dy)
+UI_fun(tl_bang)::wx_oksize(t_object *z, t_rect *newrect)
 {
-    UI_Setup
-    UI_Prop
-    
-    UI_basefun::w_displace(z,glist,dx,dy);
-    
-    tll_ui_update_pos((t_object *)z, UI_x);
-    
-    printf("xpos [%lu] : %d\n", (long)x, UI_x);
-    
-//    int cue_idx = tll_cue_getnumber((t_object *)x);
-//    char cuename[10];
-//    sprintf(cuename, "cue %d", cue_idx);
-//    UI_Set("cue_name",cuename);
-    
-    //TODO MOVE
-    gui_delete("LABEL");
-    gui_text("LABEL", UI_x+UI_Pf("label_x"), UI_y+UI_Pf("label_y"),
-                "tl.bang", "#000000");
-    
-    gui_move("BASE", UI_x, UI_y, UI_Pf("width"), UI_Pf("height"));
-    
-    gui_move("OUT", UI_x, UI_y+UI_Pf("height")-2,IOWIDTH, 2);
-    
-    canvas_fixlinesfor(glist, (t_text *)z);
-    
-    //tll_cue_dump();
+    newrect->width=60;
+    newrect->height=15;
 }
 
+#pragma mark
+
+static void tl_bang_getdrawparams(tl_bang *x, t_object *view, t_edrawparams *params)
+{
+    params->d_borderthickness   = 2;
+    params->d_cornersize        = 2;
+    params->d_bordercolor       = x->border_color;
+    params->d_boxfillcolor      = x->bg_color;
+}
 
 #pragma mark -
 
 
 UI_fun(tl_bang)::new_ext(t_object* z, t_symbol *s, int argc, t_atom *argv)
 {
+    tl_bang* zx = (tl_bang*)z;
     
-    tll_ui_add((t_object*)z, UI_x);
-    
+    tll_ui_add((t_object*)z, zx->b_box.b_rect.x);
     ((tl_bang*)z)->out1 =outlet_new(z, &s_bang);
+    tll_ui_update_pos((t_object *)z, zx->b_box.b_rect.x);
     
-    tll_ui_update_pos((t_object *)z, UI_x);
+    zx->txt = etext_layout_create();
+    zx->fnt = efont_create(gensym("Monaco"), gensym(""), gensym("normal"), 12);
     
     
+}
+
+UI_fun(tl_bang)::init_ext(t_eclass *z)
+{
+    z->c_widget.w_displacefn = tl_cue_displace;
+    
+    eclass_addmethod(z, (method) tl_bang_getdrawparams,   "getdrawparams",    A_NULL, 0);
+   
+    
+    CLASS_ATTR_RGBA                 (z, "brcolor", 0, tl_bang, border_color);
+    CLASS_ATTR_LABEL                (z, "brcolor", 0, "Border Color");
+    CLASS_ATTR_ORDER                (z, "brcolor", 0, "3");
+    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "brcolor", 0, "0. 0.7 1. 1.");
+    CLASS_ATTR_STYLE                (z, "brcolor", 0, "color");
+    
+    CLASS_ATTR_RGBA                 (z, "bgcolor", 0, tl_bang, bg_color);
+    CLASS_ATTR_LABEL                (z, "bgcolor", 0, "Background Color");
+    CLASS_ATTR_ORDER                (z, "bgcolor", 0, "3");
+    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "bgcolor", 0, ".7 .7 .7 1.");
+    CLASS_ATTR_STYLE                (z, "bgcolor", 0, "color");
 }
 
 
 
 UI_fun(tl_bang)::free_ext(t_object *x)
 {
-    printf("*cue2 pd class free1\n");
-    
-    
     tll_ui_delete(x);
-    
-    printf("del cue %lu \n", (long)x);
-    
-}
-
-UI_fun(tl_bang)::ui_properties_init_ext(cm_gui_properties *def_p)
-{
-
-    def_p->ui_property_set("label_x", 3);
-    def_p->ui_property_set("width", 45);
-    
     
 }
 
@@ -125,18 +239,16 @@ UI_fun(tl_bang)::ui_properties_init_ext(cm_gui_properties *def_p)
 #pragma mark -
 void tl_bang_action(t_object *x)
 {
-    printf("bang action");
+//    printf("bang action");
     outlet_bang(((tl_bang*)x)->out1);
 }
 
 
 extern "C" void setup_tl0x2ebang()
 {
-    cm_gui_object<tl_bang> class1;
+    object<tl_bang> class1;
     tll_set_ui_action((tl_bang_action));    //reinterpret_cast<tl_ui_action>
     class1.setup("tl.bang");
-    
-    
     
 }
 
