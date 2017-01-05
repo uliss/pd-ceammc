@@ -136,7 +136,7 @@ namespace ceammc_gui {
 
         if (zx->auto_size)
         {
-            float w = (*zx->s_value).size() * 8 + (zx->show_type * 50);
+            float w = (*zx->s_value).size() * 8 + (zx->show_type * 50)+ 7;
             float h = int (w/250) *15 + 15;
             w = (w>250)?250:w;
             
