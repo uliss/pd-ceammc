@@ -53,4 +53,28 @@ TEST_CASE("list functions", "[ceammc::list]")
         lst.push_back(AtomList());
         REQUIRE(list::longestListSize(lst) == 10);
     }
+
+    SECTION("interleave")
+    {
+        SECTION("min length")
+        {
+            std::vector<AtomList> lst;
+            AtomList res;
+            res = list::interleaveMinLength(lst);
+            REQUIRE(res == AtomList());
+
+            lst.push_back(AtomList::ones(3));
+            res = list::interleaveMinLength(lst);
+            REQUIRE(res == AtomList::ones(3));
+
+            lst.push_back(AtomList::zeroes(5));
+            res = list::interleaveMinLength(lst);
+            REQUIRE(res.size() == 6);
+            REQUIRE(res == AtomList::values(6, 1.f, 0.f, 1.f, 0.f, 1.f, 0.f));
+
+            lst.push_back(AtomList());
+            res = list::interleaveMinLength(lst);
+            REQUIRE(res == AtomList());
+        }
+    }
 }
