@@ -140,8 +140,9 @@ TEST_CASE("Properties", "[ceammc::properties]")
         REQUIRE(p2.readonly() == false);
         REQUIRE(p2.get() == AtomList());
         REQUIRE(p2.set(AtomList::ones(5)));
-        REQUIRE_FALSE(p2.set(AtomList()));
         REQUIRE(p2.get() == AtomList::ones(5));
+        REQUIRE(p2.set(AtomList()));
+        REQUIRE(p2.get() == AtomList());
     }
 
     SECTION("atom typed cb property")
@@ -163,7 +164,7 @@ TEST_CASE("Properties", "[ceammc::properties]")
         REQUIRE(p2.readonly() == false);
 
         REQUIRE(p2.get() == AtomList::values(1, 3.1415f));
-        REQUIRE_FALSE(p2.set(AtomList()));
+        REQUIRE(p2.set(AtomList()));
         REQUIRE(p2.set(AtomList::values(4, 34.f)));
         REQUIRE(s1.sz == 34.f);
     }

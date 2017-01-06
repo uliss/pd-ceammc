@@ -52,6 +52,24 @@ namespace list {
         return res;
     }
 
+    std::pair<size_t, size_t> minmaxListSize(const std::vector<AtomList>& l)
+    {
+        if (l.empty())
+            return std::make_pair(0, 0);
+
+        size_t m1 = std::numeric_limits<size_t>::max();
+        size_t m2 = std::numeric_limits<size_t>::min();
+
+        std::vector<AtomList>::const_iterator it;
+
+        for (it = l.begin(); it != l.end(); ++it) {
+            m1 = std::min(m1, it->size());
+            m2 = std::max(m2, it->size());
+        }
+
+        return std::make_pair(m1, m2);
+    }
+
     size_t longestListSize(const std::vector<AtomList>& l)
     {
         if (l.empty())
@@ -110,17 +128,48 @@ namespace list {
         if (l.empty())
             return res;
 
-        size_t max_size = longestListSize(l);
-        if (max_size == 0)
+        const std::pair<size_t, size_t> minmax = minmaxListSize(l);
+        if (minmax.first == 0 || minmax.second == 0)
             return res;
 
-        for (size_t i = 0; i < max_size; i++) {
+        for (int i = 0; i < minmax.second; i++) {
             for (size_t j = 0; j < l.size(); j++) {
                 res.append(*(l[j].*fn)(i));
             }
         }
 
         return res;
+    }
+
+    void deinterleaveMinLength(const AtomList& in, std::vector<AtomList>& out)
+    {
+        const size_t in_sz = in.size();
+        const size_t out_sz = out.size();
+
+        if (out_sz == 0)
+            return;
+
+        for (size_t i = 0; i < in_sz; i++)
+            out[i % out_sz].append(in[i]);
+    }
+
+    void deinterleavePadWith(const AtomList& in, const Atom& pad, std::vector<AtomList>& out)
+    {
+        if (in.empty() || out.empty())
+            return;
+
+        const size_t in_sz = in.size();
+        const size_t out_sz = out.size();
+        const size_t wrap_sz = in_sz % out_sz;
+        const size_t max_sz = ((in_sz / out_sz) + (wrap_sz > 0 ? 1 : 0)) * (out_sz);
+
+        for (size_t i = 0; i < max_sz; i++) {
+            const size_t ndx = i % out_sz;
+            if (i < in.size())
+                out[ndx].append(in[i]);
+            else
+                out[ndx].append(pad);
+        }
     }
 }
 }

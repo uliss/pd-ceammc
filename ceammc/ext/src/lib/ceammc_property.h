@@ -254,9 +254,6 @@ public:
         if (!readonlyCheck())
             return false;
 
-        if (!emptyValueCheck(lst))
-            return false;
-
         (obj_->*setter_)(lst);
         return true;
     }
