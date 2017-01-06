@@ -18,6 +18,8 @@
 
 using namespace ceammc_gui;
 
+namespace ceammc_gui {
+
 struct tl_bang : public base_pd_object
 {
     
@@ -181,7 +183,7 @@ void tl_bang_action(t_object *x)
 //    printf("bang action");
     outlet_bang(((tl_bang*)x)->out1);
 }
-
+}
 
 extern "C" void setup_tl0x2ebang()
 {
