@@ -12,7 +12,7 @@
 #include "ceammc_atomlist.h"
 #include "ceammc_format.h"
 
-struct ui_sliders : public ceammc_gui::base_pd_object
+struct ui_sliders : public ceammc_gui::BaseGuiObject
 {
     t_ebox x_gui;
     
@@ -176,7 +176,7 @@ namespace ceammc_gui {
             
         }
         
-        ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
+        ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
         
         
     }
@@ -184,7 +184,7 @@ namespace ceammc_gui {
     UI_fun(ui_sliders)::m_list(t_object *z, t_symbol *s, int argc, t_atom *argv)
     {
         
-        ceammc_gui::object<ui_sliders>::m_set(z, s, argc, argv);
+        ceammc_gui::GuiFactory<ui_sliders>::m_set(z, s, argc, argv);
         
         outlet_list( ((ui_sliders*)z)->out1, &s_list, ((ui_sliders*)z)->val_list_size, ((ui_sliders*)z)->val_list );
         
@@ -271,7 +271,7 @@ namespace ceammc_gui {
         zx->val_list[numslider].a_w.w_float = val * zx->range + zx->shift;
         zx->draw_list[numslider].a_w.w_float = val;
         
-        ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
+        ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
         
         outlet_list( ((ui_sliders*)z)->out1, &s_list, ((ui_sliders*)z)->val_list_size, ((ui_sliders*)z)->val_list );
         
@@ -279,7 +279,7 @@ namespace ceammc_gui {
     
     UI_fun(ui_sliders)::wx_mousedown_ext(t_object *z, t_object *view, t_pt pt, long modifiers)
     {
-        ceammc_gui::object<ui_sliders>::wx_mousedrag_ext(z, view, pt, modifiers);
+        ceammc_gui::GuiFactory<ui_sliders>::wx_mousedrag_ext(z, view, pt, modifiers);
     }
     
     void sliders_m_range(t_object *z, t_symbol *s, int argc, t_atom *argv)
@@ -287,9 +287,9 @@ namespace ceammc_gui {
         ui_sliders *zx = (ui_sliders*)z;
         zx->range = argv[0].a_w.w_float;
         
-        ceammc_gui::object<ui_sliders>::m_set(z, s, zx->val_list_size, zx->val_list);
+        ceammc_gui::GuiFactory<ui_sliders>::m_set(z, s, zx->val_list_size, zx->val_list);
         
-        ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
+        ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
         
     }
     
@@ -298,7 +298,7 @@ namespace ceammc_gui {
         ui_sliders *zx = (ui_sliders*)z;
         zx->shift = argv[0].a_w.w_float;
         
-        ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
+        ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
         
     }
     
@@ -307,7 +307,7 @@ namespace ceammc_gui {
         ui_sliders *zx = (ui_sliders*)z;
         zx->sel_idx = (int)argv[0].a_w.w_float;
         
-        ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
+        ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
         
     }
     
@@ -316,9 +316,9 @@ namespace ceammc_gui {
         ui_sliders *zx = (ui_sliders*)z;
         zx->auto_range = (argv[0].a_w.w_float>0);
         
-        ceammc_gui::object<ui_sliders>::m_set(z, s, zx->val_list_size, zx->val_list);
+        ceammc_gui::GuiFactory<ui_sliders>::m_set(z, s, zx->val_list_size, zx->val_list);
         
-        ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
+        ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
     }
     
     static void ui_sl_getdrawparams(ui_sliders *x, t_object *patcherview, t_edrawparams *params)
@@ -415,6 +415,6 @@ namespace ceammc_gui {
 
 extern "C" void setup_ui0x2esliders()
 {
-    ceammc_gui::object<ui_sliders> class1;
+    ceammc_gui::GuiFactory<ui_sliders> class1;
     class1.setup("ui.sliders");
 }

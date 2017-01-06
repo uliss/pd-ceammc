@@ -11,7 +11,7 @@
 #include "lib/ceammc_gui.h"
 
 
-struct ui_spectroscope : public ceammc_gui::base_pd_object
+struct ui_spectroscope : public ceammc_gui::BaseGuiObject
 {
     t_edspobj d_dsp;
     
@@ -113,7 +113,7 @@ namespace ceammc_gui {
         
         while (n--){*out++ = *in1++;} //
         
-        x->counter++; if (x->counter==32) {x->counter=0; ceammc_gui::object<ui_spectroscope>::ws_redraw(((t_object *)x));}
+        x->counter++; if (x->counter==32) {x->counter=0; ceammc_gui::GuiFactory<ui_spectroscope>::ws_redraw(((t_object *)x));}
         
     }
     
@@ -184,6 +184,6 @@ namespace ceammc_gui {
 
 extern "C" void setup_ui0x2espectroscope()
 {
-    ceammc_gui::object<ui_spectroscope> class1;
+    ceammc_gui::GuiFactory<ui_spectroscope> class1;
     class1.setup_dsp("ui.spectroscope");
 }

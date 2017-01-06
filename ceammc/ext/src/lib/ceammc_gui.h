@@ -35,12 +35,12 @@ namespace ceammc_gui {
      */
 #pragma mark UI defines
     
-#define UI_fun(x) template<> void ceammc_gui::object<x>
-#define UI_funp(x) template<> void* ceammc_gui::object<x>
-#define UI_basefun object<base_pd_object>
+#define UI_fun(x) template<> void ceammc_gui::GuiFactory<x>
+#define UI_funp(x) template<> void* ceammc_gui::GuiFactory<x>
+#define UI_basefun object<BaseGuiObject>
 
-#define UI_x ((t_text*) &(((base_pd_object*)z)->x_gui))->te_xpix
-#define UI_y ((t_text*) &(((base_pd_object*)z)->x_gui))->te_ypix
+#define UI_x ((t_text*) &(((BaseGuiObject*)z)->x_gui))->te_xpix
+#define UI_y ((t_text*) &(((BaseGuiObject*)z)->x_gui))->te_ypix
     
 #define UI_Setup  gui_set_canvas(glist); gui_set_object((t_object*)z);
     
@@ -54,7 +54,7 @@ namespace ceammc_gui {
  *
  */
 
-struct base_pd_object
+struct BaseGuiObject
 {
     /** \brief CICM ui box. 
      * this must be included in inherited structure 
@@ -86,13 +86,13 @@ struct base_pd_object
  * @brief The template class for GUI objects. Provides basic functionality with CICM Wrapper.
  * @details To create your own UI object:
  *
- * 1. Create your structure for object. If you don't need any additional fields, just make struct new_obj:base_pd_object{};
+ * 1. Create your structure for object. If you don't need any additional fields, just make struct new_obj:BaseGuiObject{};
  * 2. In the standard pd-object setup routine create new instance of object<new_obj> and call setup()
  *
  * METHODS: All of the class methods here provide additional '[something]_ext' methods that can be used if you want both standard action from this class and your custom code. Otherwise just override the standard method by implicitly implementing object<your_object_struct_name>::method()
  */
 template <typename U>
-class object {
+class GuiFactory {
     
 public:
 #pragma mark static - definitions
@@ -189,7 +189,7 @@ public:
      */
     static void wx_mousemove_ext(t_object* z, t_object *view, t_pt pt, long modifiers)
     {
-        object<U>::ws_redraw(z);
+        GuiFactory<U>::ws_redraw(z);
     }
     
     /**
@@ -246,7 +246,7 @@ public:
      */
     static void *new_method(t_symbol *s, int argc, t_atom *argv)
     {
-        t_object* z = (t_object*)eobj_new(object<U>::pd_class);
+        t_object* z = (t_object*)eobj_new(GuiFactory<U>::pd_class);
         
         t_binbuf* d = binbuf_via_atoms(argc,argv);
         ebox_new((t_ebox *)z, 0 | EBOX_GROWINDI);
@@ -254,7 +254,7 @@ public:
         if (z && d)
         {
             //moved
-            object<U>::new_ext(z, s, argc, argv);
+            GuiFactory<U>::new_ext(z, s, argc, argv);
             
             ebox_attrprocess_viabinbuf(z, d);
         }
@@ -271,7 +271,7 @@ public:
      */
     static void free_method(t_object *z)
     {
-        object<U>::free_ext(z);
+        GuiFactory<U>::free_ext(z);
 //        instances.erase(z);
         ebox_free((t_ebox *)z);
         
@@ -284,7 +284,7 @@ public:
      */
     static void free_dsp_method(t_object *x)
     {
-        object<U>::free_ext(x);
+        GuiFactory<U>::free_ext(x);
 //        instances.erase(x);
         eobj_dspfree((t_ebox *)x);
         
@@ -380,7 +380,7 @@ public:
         zx->mouse_x = pt.x;
         zx->mouse_y = pt.y;
         
-        object<U>::wx_mousemove_ext(z,view,pt,modifiers);
+        GuiFactory<U>::wx_mousemove_ext(z,view,pt,modifiers);
         
     }
     
@@ -397,7 +397,7 @@ public:
         
         zx->mouse_dn = 1;
         
-        object<U>::wx_mousedown_ext(z,view,pt,modifiers);
+        GuiFactory<U>::wx_mousedown_ext(z,view,pt,modifiers);
             
 
     }
@@ -415,7 +415,7 @@ public:
         
         zx->mouse_dn = 0;
         
-        object<U>::wx_mouseup_ext(z,view,pt,modifiers);
+        GuiFactory<U>::wx_mouseup_ext(z,view,pt,modifiers);
     }
     
     /**
@@ -429,7 +429,7 @@ public:
         zx->mouse_x = pt.x;
         zx->mouse_y = pt.y;
         
-        object<U>::wx_mousedrag_ext(z,view,pt,modifiers);
+        GuiFactory<U>::wx_mousedrag_ext(z,view,pt,modifiers);
         
     }
     
@@ -440,7 +440,7 @@ public:
     static void wx_mouseleave(t_object* z, t_object *view, t_pt pt, long modifiers)
     {
         
-        object<U>::wx_mouseleave_ext(z,view,pt,modifiers);
+        GuiFactory<U>::wx_mouseleave_ext(z,view,pt,modifiers);
 
     }
     
@@ -451,7 +451,7 @@ public:
     static void wx_mouseenter(t_object* z, t_object *view, t_pt pt, long modifiers)
     {
         
-        object<U>::wx_mouseenter_ext(z,view,pt,modifiers);
+        GuiFactory<U>::wx_mouseenter_ext(z,view,pt,modifiers);
         
     }
     
@@ -472,15 +472,16 @@ public:
     {
         t_eclass *cl;
         
-        cl = eclass_new(_class_name.c_str(),(method)object<U>::new_method, (method)&object<U>::free_method, sizeof(U), CLASS_PATCHABLE, A_GIMME,0);
+        cl = eclass_new(_class_name.c_str(),(method)GuiFactory<U>::new_method, (method)&GuiFactory<U>::free_method, sizeof(U), CLASS_PATCHABLE, A_GIMME,0);
         
         //printf("init\n");
         if (cl)
         {
             eclass_guiinit(cl, 0);
             
-            object<U>::class_name = _class_name;
-//            object<U>::ui_properties_init();
+            GuiFactory<U>::class_name = _class_name;
+            
+//            GuiFactory<U>::ui_properties_init();
             
             //hide standard CICM attributes
             CLASS_ATTR_INVISIBLE            (cl, "fontname", 1);
@@ -502,32 +503,32 @@ public:
 //            CLASS_ATTR_STYLE                (cl, "bdcolor", 0, "color");
             
             // methods
-            eclass_addmethod(cl, (method)(&object<U>::wx_paint), ("paint"), A_GIMME,0);
+            eclass_addmethod(cl, (method)(&GuiFactory<U>::wx_paint), ("paint"), A_GIMME,0);
             
-            eclass_addmethod(cl, (method)(&object<U>::wx_mousemove), ("mousemove"), A_GIMME,0);
-            eclass_addmethod(cl, (method)(&object<U>::wx_mousedown), ("mousedown"), A_GIMME,0);
-            eclass_addmethod(cl, (method)(&object<U>::wx_mouseup), ("mouseup"), A_GIMME,0);
-            eclass_addmethod(cl, (method)(&object<U>::wx_mousedrag), ("mousedrag"), A_GIMME,0);
+            eclass_addmethod(cl, (method)(&GuiFactory<U>::wx_mousemove), ("mousemove"), A_GIMME,0);
+            eclass_addmethod(cl, (method)(&GuiFactory<U>::wx_mousedown), ("mousedown"), A_GIMME,0);
+            eclass_addmethod(cl, (method)(&GuiFactory<U>::wx_mouseup), ("mouseup"), A_GIMME,0);
+            eclass_addmethod(cl, (method)(&GuiFactory<U>::wx_mousedrag), ("mousedrag"), A_GIMME,0);
             
-            eclass_addmethod(cl, (method)(&object<U>::wx_mouseenter), ("mouseenter"), A_GIMME,0);
-            eclass_addmethod(cl, (method)(&object<U>::wx_mouseleave), ("mouseleave"), A_GIMME,0);
+            eclass_addmethod(cl, (method)(&GuiFactory<U>::wx_mouseenter), ("mouseenter"), A_GIMME,0);
+            eclass_addmethod(cl, (method)(&GuiFactory<U>::wx_mouseleave), ("mouseleave"), A_GIMME,0);
             
-            eclass_addmethod(cl, (method)(&object<U>::wx_oksize), ("oksize"), A_GIMME,0);
+            eclass_addmethod(cl, (method)(&GuiFactory<U>::wx_oksize), ("oksize"), A_GIMME,0);
             
-            eclass_addmethod(cl, (method)(&object<U>::m_list), ("list"), A_GIMME,0);
-            eclass_addmethod(cl, (method)(&object<U>::m_float), ("float"), A_GIMME,0);
-            eclass_addmethod(cl, (method)(&object<U>::m_bang), ("bang"), A_GIMME,0);
+            eclass_addmethod(cl, (method)(&GuiFactory<U>::m_list), ("list"), A_GIMME,0);
+            eclass_addmethod(cl, (method)(&GuiFactory<U>::m_float), ("float"), A_GIMME,0);
+            eclass_addmethod(cl, (method)(&GuiFactory<U>::m_bang), ("bang"), A_GIMME,0);
             
-            eclass_addmethod(cl, (method)(&object<U>::m_anything), ("anything"), A_GIMME,0);
+            eclass_addmethod(cl, (method)(&GuiFactory<U>::m_anything), ("anything"), A_GIMME,0);
             
-            eclass_addmethod(cl, (method)(&object<U>::m_set), ("set"), A_GIMME,0);
+            eclass_addmethod(cl, (method)(&GuiFactory<U>::m_set), ("set"), A_GIMME,0);
 
             // default
             CLASS_ATTR_DEFAULT (cl, "size", 0, "45. 15.");
             
-            object<U>::pd_class = cl;
+            GuiFactory<U>::pd_class = cl;
             
-            object<U>::init_ext(cl);
+            GuiFactory<U>::init_ext(cl);
             
             eclass_register(CLASS_BOX, cl);
             
@@ -547,7 +548,7 @@ public:
     {
         t_eclass *cl;
         
-        cl = eclass_new(_class_name.c_str(),(method)object<U>::new_method, (method)&object<U>::free_dsp_method, sizeof(U), CLASS_PATCHABLE, A_GIMME,0);
+        cl = eclass_new(_class_name.c_str(),(method)GuiFactory<U>::new_method, (method)&GuiFactory<U>::free_dsp_method, sizeof(U), CLASS_PATCHABLE, A_GIMME,0);
         
         printf("init\n");
         
@@ -558,8 +559,8 @@ public:
             eclass_dspinit(cl);
             eclass_guiinit(cl, 0);
             
-            object<U>::class_name = _class_name;
-//            object<U>::ui_properties_init();
+            GuiFactory<U>::class_name = _class_name;
+//            GuiFactory<U>::ui_properties_init();
             
             //hide standard CICM attributes
             CLASS_ATTR_INVISIBLE            (cl, "fontname", 1);
@@ -581,29 +582,29 @@ public:
 //            CLASS_ATTR_STYLE                (cl, "bdcolor", 0, "color");
             
             // methods
-            eclass_addmethod(cl, (method)(&object<U>::wx_paint), ("paint"), A_GIMME,0);
+            eclass_addmethod(cl, (method)(&GuiFactory<U>::wx_paint), ("paint"), A_GIMME,0);
             
-            eclass_addmethod(cl, (method)(&object<U>::wx_mousemove), ("mousemove"), A_GIMME,0);
-            eclass_addmethod(cl, (method)(&object<U>::wx_mousedown), ("mousedown"), A_GIMME,0);
-            eclass_addmethod(cl, (method)(&object<U>::wx_mouseup), ("mouseup"), A_GIMME,0);
-            eclass_addmethod(cl, (method)(&object<U>::wx_mousedrag), ("mousedrag"), A_GIMME,0);
+            eclass_addmethod(cl, (method)(&GuiFactory<U>::wx_mousemove), ("mousemove"), A_GIMME,0);
+            eclass_addmethod(cl, (method)(&GuiFactory<U>::wx_mousedown), ("mousedown"), A_GIMME,0);
+            eclass_addmethod(cl, (method)(&GuiFactory<U>::wx_mouseup), ("mouseup"), A_GIMME,0);
+            eclass_addmethod(cl, (method)(&GuiFactory<U>::wx_mousedrag), ("mousedrag"), A_GIMME,0);
             
-            eclass_addmethod(cl, (method)(&object<U>::wx_mouseenter), ("mouseenter"), A_GIMME,0);
-            eclass_addmethod(cl, (method)(&object<U>::wx_mouseleave), ("mouseleave"), A_GIMME,0);
+            eclass_addmethod(cl, (method)(&GuiFactory<U>::wx_mouseenter), ("mouseenter"), A_GIMME,0);
+            eclass_addmethod(cl, (method)(&GuiFactory<U>::wx_mouseleave), ("mouseleave"), A_GIMME,0);
             
-            eclass_addmethod(cl, (method)(&object<U>::wx_oksize), ("oksize"), A_GIMME,0);
+            eclass_addmethod(cl, (method)(&GuiFactory<U>::wx_oksize), ("oksize"), A_GIMME,0);
             
-            eclass_addmethod(cl, (method)(&object<U>::m_list), ("list"), A_GIMME,0);
-            eclass_addmethod(cl, (method)(&object<U>::m_float), ("float"), A_GIMME,0);
-            eclass_addmethod(cl, (method)(&object<U>::m_bang), ("bang"), A_GIMME,0);
+            eclass_addmethod(cl, (method)(&GuiFactory<U>::m_list), ("list"), A_GIMME,0);
+            eclass_addmethod(cl, (method)(&GuiFactory<U>::m_float), ("float"), A_GIMME,0);
+            eclass_addmethod(cl, (method)(&GuiFactory<U>::m_bang), ("bang"), A_GIMME,0);
             
-            eclass_addmethod(cl, (method)(&object<U>::m_anything), ("anything"), A_GIMME,0);
+            eclass_addmethod(cl, (method)(&GuiFactory<U>::m_anything), ("anything"), A_GIMME,0);
             
             CLASS_ATTR_DEFAULT (cl, "size", 0, "45. 15.");
             
-            object<U>::init_ext(cl);
+            GuiFactory<U>::init_ext(cl);
             
-            object<U>::pd_class = cl;
+            GuiFactory<U>::pd_class = cl;
             eclass_register(CLASS_OBJ, cl);
             
             
@@ -621,7 +622,7 @@ public:
     {
         t_eclass *cl;
         
-        cl = eclass_new(_class_name.c_str(),(method)object<U>::new_method, (method)&object<U>::free_method, sizeof(U), CLASS_NOINLET, A_GIMME,0);
+        cl = eclass_new(_class_name.c_str(),(method)GuiFactory<U>::new_method, (method)&GuiFactory<U>::free_method, sizeof(U), CLASS_NOINLET, A_GIMME,0);
         
         printf("init\n");
         
@@ -629,8 +630,8 @@ public:
         {
             eclass_guiinit(cl, 0);
             
-            object<U>::class_name = _class_name;
-//            object<U>::ui_properties_init();
+            GuiFactory<U>::class_name = _class_name;
+//            GuiFactory<U>::ui_properties_init();
             
             //hide standard CICM attributes
             CLASS_ATTR_INVISIBLE            (cl, "fontname", 1);
@@ -651,30 +652,30 @@ public:
 //            CLASS_ATTR_STYLE                (cl, "bdcolor", 0, "color");
             
             // methods
-            eclass_addmethod(cl, (method)(&object<U>::wx_paint), ("paint"), A_GIMME,0);
+            eclass_addmethod(cl, (method)(&GuiFactory<U>::wx_paint), ("paint"), A_GIMME,0);
             
-            eclass_addmethod(cl, (method)(&object<U>::wx_mousemove), ("mousemove"), A_GIMME,0);
-            eclass_addmethod(cl, (method)(&object<U>::wx_mousedown), ("mousedown"), A_GIMME,0);
-            eclass_addmethod(cl, (method)(&object<U>::wx_mouseup), ("mouseup"), A_GIMME,0);
-            eclass_addmethod(cl, (method)(&object<U>::wx_mousedrag), ("mousedrag"), A_GIMME,0);
+            eclass_addmethod(cl, (method)(&GuiFactory<U>::wx_mousemove), ("mousemove"), A_GIMME,0);
+            eclass_addmethod(cl, (method)(&GuiFactory<U>::wx_mousedown), ("mousedown"), A_GIMME,0);
+            eclass_addmethod(cl, (method)(&GuiFactory<U>::wx_mouseup), ("mouseup"), A_GIMME,0);
+            eclass_addmethod(cl, (method)(&GuiFactory<U>::wx_mousedrag), ("mousedrag"), A_GIMME,0);
             
-            eclass_addmethod(cl, (method)(&object<U>::wx_mouseenter), ("mouseenter"), A_GIMME,0);
-            eclass_addmethod(cl, (method)(&object<U>::wx_mouseleave), ("mouseleave"), A_GIMME,0);
+            eclass_addmethod(cl, (method)(&GuiFactory<U>::wx_mouseenter), ("mouseenter"), A_GIMME,0);
+            eclass_addmethod(cl, (method)(&GuiFactory<U>::wx_mouseleave), ("mouseleave"), A_GIMME,0);
             
-            eclass_addmethod(cl, (method)(&object<U>::wx_oksize), ("oksize"), A_GIMME,0);
+            eclass_addmethod(cl, (method)(&GuiFactory<U>::wx_oksize), ("oksize"), A_GIMME,0);
             
-            eclass_addmethod(cl, (method)(&object<U>::m_list), ("list"), A_GIMME,0);
-            eclass_addmethod(cl, (method)(&object<U>::m_float), ("float"), A_GIMME,0);
-            eclass_addmethod(cl, (method)(&object<U>::m_bang), ("bang"), A_GIMME,0);
+            eclass_addmethod(cl, (method)(&GuiFactory<U>::m_list), ("list"), A_GIMME,0);
+            eclass_addmethod(cl, (method)(&GuiFactory<U>::m_float), ("float"), A_GIMME,0);
+            eclass_addmethod(cl, (method)(&GuiFactory<U>::m_bang), ("bang"), A_GIMME,0);
             
-            eclass_addmethod(cl, (method)(&object<U>::m_anything), ("anything"), A_GIMME,0);
+            eclass_addmethod(cl, (method)(&GuiFactory<U>::m_anything), ("anything"), A_GIMME,0);
             
-            eclass_addmethod(cl, (method)(&object<U>::m_set), ("set"), A_GIMME,0);
+            eclass_addmethod(cl, (method)(&GuiFactory<U>::m_set), ("set"), A_GIMME,0);
             
             CLASS_ATTR_DEFAULT (cl, "size", 0, "45. 15.");
             
-            object<U>::pd_class = cl;
-            object<U>::init_ext(cl);
+            GuiFactory<U>::pd_class = cl;
+            GuiFactory<U>::init_ext(cl);
             
             eclass_register(CLASS_BOX, cl);
             
@@ -701,11 +702,11 @@ public:
 
 
 template <typename U>
-t_eclass* object<U>::pd_class;
+t_eclass* GuiFactory<U>::pd_class;
 
 
 template <typename U>
-std::string object<U>::class_name;
+std::string GuiFactory<U>::class_name;
     
 };  //namespace ceammc_gui
 

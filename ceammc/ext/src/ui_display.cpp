@@ -20,7 +20,7 @@
 using namespace ceammc;
 
 
-struct ui_display : public ceammc_gui::base_pd_object {
+struct ui_display : public ceammc_gui::BaseGuiObject {
     t_ebox x_gui;
     
     float mouse_x;
@@ -165,13 +165,13 @@ namespace ceammc_gui {
             
         }
         
-        ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
+        ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
         
     }
     
     UI_fun(ui_display)::m_list(t_object* z, t_symbol* s, int argc, t_atom* argv)
     {
-        ceammc_gui::object<ui_display>::m_anything(z, &s_list, argc, argv);
+        ceammc_gui::GuiFactory<ui_display>::m_anything(z, &s_list, argc, argv);
     }
     
     UI_fun(ui_display)::m_float(t_object* z, t_float f)
@@ -179,20 +179,20 @@ namespace ceammc_gui {
         Atom value1 = Atom(f);
         AtomList list1 = AtomList();
         list1.append(value1);
-        ceammc_gui::object<ui_display>::m_anything(z, &s_float, 1, list1.toPdData());
+        ceammc_gui::GuiFactory<ui_display>::m_anything(z, &s_float, 1, list1.toPdData());
     }
     
     UI_fun(ui_display)::m_bang(t_object* z, t_symbol* s, int argc, t_atom* argv)
     {
 
-        ceammc_gui::object<ui_display>::m_anything(z, &s_bang, 0, 0);
+        ceammc_gui::GuiFactory<ui_display>::m_anything(z, &s_bang, 0, 0);
     }
     
     void display_clock(t_object* z)
     {
         ui_display* zx = (ui_display*)z;
         zx->bang = false;
-        ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
+        ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
     }
     
 
@@ -284,6 +284,6 @@ namespace ceammc_gui {
 
 extern "C" void setup_ui0x2edisplay()
 {
-    ceammc_gui::object<ui_display> class1;
+    ceammc_gui::GuiFactory<ui_display> class1;
     class1.setup("ui.display");
 }

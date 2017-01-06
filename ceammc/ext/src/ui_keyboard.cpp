@@ -11,7 +11,7 @@
 #include "ceammc_atomlist.h"
 #include "ceammc_format.h"
 
-struct ui_keyboard : public ceammc_gui::base_pd_object
+struct ui_keyboard : public ceammc_gui::BaseGuiObject
 {
     t_ebox x_gui;
     
@@ -249,7 +249,7 @@ namespace ceammc_gui {
         
         outlet_list( ((ui_keyboard*)z)->out1, &s_list, 2, ((ui_keyboard*)z)->out_list );
         
-        ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
+        ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
     }
     
     UI_fun(ui_keyboard)::wx_mouseup_ext(t_object* z, t_object *view, t_pt pt, long modifiers)
@@ -266,7 +266,7 @@ namespace ceammc_gui {
         
         outlet_list( ((ui_keyboard*)z)->out1, &s_list, 2, ((ui_keyboard*)z)->out_list );
         
-        ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
+        ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
     }
     
     UI_fun(ui_keyboard)::wx_mousedrag_ext(t_object* z, t_object *view, t_pt pt, long modifiers)
@@ -274,7 +274,7 @@ namespace ceammc_gui {
 
         ui_keyboard *zx = (ui_keyboard*)z;
         
-        ceammc_gui::object<ui_keyboard>::wx_mousemove_ext(z,view,pt,modifiers);
+        ceammc_gui::GuiFactory<ui_keyboard>::wx_mousemove_ext(z,view,pt,modifiers);
         
         if (zx->_pitch_prev != zx->_pitch )
         {
@@ -288,7 +288,7 @@ namespace ceammc_gui {
             
         }
         
-        ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
+        ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
     }
     
     UI_fun(ui_keyboard)::wx_mouseleave_ext(t_object *z, t_object *view, t_pt pt, long modifiers)
@@ -296,7 +296,7 @@ namespace ceammc_gui {
         ui_keyboard *zx = (ui_keyboard*)z;
         zx->_pitch = -1;
         
-        ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
+        ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
     }
 
     // yet disabled
@@ -361,6 +361,6 @@ namespace ceammc_gui {
 
 extern "C" void setup_ui0x2ekeyboard()
 {
-    ceammc_gui::object<ui_keyboard> class1;
+    ceammc_gui::GuiFactory<ui_keyboard> class1;
     class1.setup("ui.keyboard");
 }

@@ -12,7 +12,7 @@
 #include "ceammc_atomlist.h"
 #include "ceammc_format.h"
 
-struct ui_knob : public ceammc_gui::base_pd_object
+struct ui_knob : public ceammc_gui::BaseGuiObject
 {
     t_ebox x_gui;
     
@@ -166,7 +166,7 @@ namespace ceammc_gui {
         ui_knob *zx = (ui_knob*)z;
         zx->_value = val;
         
-        ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
+        ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
         
         outlet_float(((ui_knob*)z)->out1, (1-val)*zx->range + zx->shift);
         
@@ -175,7 +175,7 @@ namespace ceammc_gui {
     
     UI_fun(ui_knob)::wx_mousedown_ext(t_object *z, t_object *view, t_pt pt, long modifiers)
     {
-        ceammc_gui::object<ui_knob>::wx_mousedrag_ext(z, view, pt, modifiers);
+        ceammc_gui::GuiFactory<ui_knob>::wx_mousedrag_ext(z, view, pt, modifiers);
     }
     
     UI_fun(ui_knob)::m_float(t_object *z,  t_float f)
@@ -183,7 +183,7 @@ namespace ceammc_gui {
         ui_knob *zx = (ui_knob*)z;
         zx->_value = 1.-f/127.;
         
-        ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
+        ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
         
         outlet_float(((ui_knob*)z)->out1, zx->_value*zx->range + zx->shift);
         
@@ -252,6 +252,6 @@ namespace ceammc_gui {
 
 extern "C" void setup_ui0x2eknob()
 {
-    ceammc_gui::object<ui_knob> class1;
+    ceammc_gui::GuiFactory<ui_knob> class1;
     class1.setup("ui.knob");
 }

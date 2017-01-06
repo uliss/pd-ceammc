@@ -18,7 +18,7 @@ using namespace ceammc_gui;
 
 namespace ceammc_gui {
     
-    struct tl_cue : public base_pd_object
+    struct tl_cue : public BaseGuiObject
     {
         t_canvas *canvas;
         
@@ -180,7 +180,7 @@ namespace ceammc_gui {
     
     void tl_cue_draw(t_object *z)
     {
-        object<tl_cue>::ws_redraw((t_object*)z);
+        GuiFactory<tl_cue>::ws_redraw((t_object*)z);
     }
     
 #pragma mark -
@@ -232,7 +232,7 @@ namespace ceammc_gui {
 
 extern "C" void setup_tl0x2ecue()
 {
-    object<tl_cue> class1;
+    GuiFactory<tl_cue> class1;
     tll_set_ui_drawcue(tl_cue_draw);
     class1.setup_noin("tl.cue");
 }

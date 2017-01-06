@@ -20,7 +20,7 @@ using namespace ceammc_gui;
 
 namespace ceammc_gui {
 
-struct tl_bang : public base_pd_object
+struct tl_bang : public BaseGuiObject
 {
     
     t_etext *txt;
@@ -108,7 +108,7 @@ void tl_cue_displace(t_gobj *z, t_glist *glist, int dx, int dy)
     
     tl_bang* zx = (tl_bang*)z;
     
-    object<tl_bang>::ws_redraw((t_object*)z);
+    GuiFactory<tl_bang>::ws_redraw((t_object*)z);
     
     tll_ui_update_pos((t_object *)z, zx->b_box.b_rect.x);
 }
@@ -187,7 +187,7 @@ void tl_bang_action(t_object *x)
 
 extern "C" void setup_tl0x2ebang()
 {
-    object<tl_bang> class1;
+    GuiFactory<tl_bang> class1;
     tll_set_ui_action((tl_bang_action));    //reinterpret_cast<tl_ui_action>
     class1.setup("tl.bang");
     

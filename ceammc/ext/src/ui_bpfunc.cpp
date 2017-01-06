@@ -47,7 +47,7 @@ namespace ceammc_gui {
     
     typedef std::vector<t_bpt> bpf_points;
     
-    struct ui_bpfunc : public ceammc_gui::base_pd_object
+    struct ui_bpfunc : public ceammc_gui::BaseGuiObject
     {
         t_ebox x_gui;
         
@@ -454,7 +454,7 @@ namespace ceammc_gui {
         }
         //printf("\n");
         
-        ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
+        ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
     }
     
     
@@ -478,7 +478,7 @@ namespace ceammc_gui {
         if (modifiers==EMOD_SHIFT)
         {
             bpf_point_add(z, zx->addidx, pt.x/rect.width, 1-(pt.y/rect.height));
-            ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
+            ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
             
         }
         
@@ -486,7 +486,7 @@ namespace ceammc_gui {
         {
             bpf_point_del(z, zx->delidx);
             printf("del %i\n", zx->delidx);
-            ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
+            ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
             
         }
         
@@ -494,7 +494,7 @@ namespace ceammc_gui {
         {
             bpf_point_split(z, zx->delidx);
             
-            ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
+            ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
             
         }
     }
@@ -573,7 +573,7 @@ namespace ceammc_gui {
             zx->select_idx = (int)(argv[0].a_w.w_float);
         }
         
-        ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
+        ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
     }
     
     void bpf_m_drag_limit(t_object *z, t_symbol *s, int argc, t_atom *argv)
@@ -586,7 +586,7 @@ namespace ceammc_gui {
             zx->drag_limit = (int)(argv[0].a_w.w_float!=0);
         }
         
-        //ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
+        //ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
     }
     
     void bpf_m_get(t_object *z, t_symbol *s, int argc, t_atom *argv)
@@ -631,7 +631,7 @@ namespace ceammc_gui {
         zx->points->at(i).x = (x-zx->shift_x)/zx->range_x;
         zx->points->at(i).y = (y-zx->shift_y)/zx->range_y;
         
-        ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
+        ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
     }
     
     void bpf_m_set_raw(t_object *z, t_symbol *s, int argc, t_atom *argv)
@@ -651,7 +651,7 @@ namespace ceammc_gui {
         zx->points->at(i).x = x;
         zx->points->at(i).y = y;
         
-        ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
+        ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
     }
     
     void bpf_m_end_seg(t_object *z, t_symbol *s, int argc, t_atom *argv)
@@ -686,7 +686,7 @@ namespace ceammc_gui {
             
         };
         
-        ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
+        ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
         
     }
     
@@ -740,7 +740,7 @@ namespace ceammc_gui {
             zx->points->at(idx).lock_x = (argv[1].a_w.w_float!=0);
         }
         
-        ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
+        ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
     }
     
     void bpf_m_lock_y(t_object *z, t_symbol *s, int argc, t_atom *argv)
@@ -754,7 +754,7 @@ namespace ceammc_gui {
             zx->points->at(idx).lock_y = (argv[1].a_w.w_float!=0);
         }
         
-        ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
+        ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
     }
     
     void bpf_m_join_next(t_object *z, t_symbol *s, int argc, t_atom *argv)
@@ -768,7 +768,7 @@ namespace ceammc_gui {
             zx->points->at(idx).join_next = (argv[1].a_w.w_float!=0);
         }
         
-        ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
+        ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
     }
     
     void bpf_m_raw(t_object *z, t_symbol *s, int argc, t_atom *argv)
@@ -813,7 +813,7 @@ namespace ceammc_gui {
         zx->seg_idx.clear();
         zx->seg_idx.push_back(0);
         
-        ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
+        ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
         
     }
     
@@ -831,7 +831,7 @@ namespace ceammc_gui {
         ebox_get_rect_for_view((t_ebox *)z, &rect);
         
         bpf_point_add(z, zx->addidx, (xx-zx->shift_x)/zx->range_x, (yy-zx->shift_y)/zx->range_y);
-        ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
+        ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
         
     }
     
@@ -849,7 +849,7 @@ namespace ceammc_gui {
         ebox_get_rect_for_view((t_ebox *)z, &rect);
         
         bpf_point_add(z, zx->addidx, xx, yy );
-        ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
+        ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
         
     }
     
@@ -861,7 +861,7 @@ namespace ceammc_gui {
         int del_i = (int)argv[0].a_w.w_float;
         
         bpf_point_del(z, del_i);
-        ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
+        ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
         
         
     }
@@ -1047,11 +1047,11 @@ namespace ceammc_gui {
         
         bpf_point_sort(z);
         
-        ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
+        ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
         
         if (zx->auto_send)
         {
-            ceammc_gui::object<ceammc_gui::ui_bpfunc>::m_bang(z, &s_bang, 0, NULL);
+            ceammc_gui::GuiFactory<ceammc_gui::ui_bpfunc>::m_bang(z, &s_bang, 0, NULL);
         }
         
     }
@@ -1221,6 +1221,6 @@ namespace ceammc_gui {
 
 extern "C" void setup_ui0x2ebpfunc()
 {
-    ceammc_gui::object<ceammc_gui::ui_bpfunc> class1;
+    ceammc_gui::GuiFactory<ceammc_gui::ui_bpfunc> class1;
     class1.setup("ui.bpfunc");
 }

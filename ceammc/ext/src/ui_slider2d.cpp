@@ -13,7 +13,7 @@
 
 #include "lib/ceammc_gui.h"
 
-struct ui_slider2d : public ceammc_gui::base_pd_object
+struct ui_slider2d : public ceammc_gui::BaseGuiObject
 {
     t_ebox x_gui;
     
@@ -123,7 +123,7 @@ namespace ceammc_gui {
         if ( (zx->_posy) > (zx->shift_y+zx->range_y) ) zx->_posy = zx->shift_y+zx->range_y;
         if ( (zx->_posy) < (zx->shift_y) ) zx->_posy = zx->shift_y;
 
-        ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
+        ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
         
         atom_setfloat(&((ui_slider2d*)z)->out_list[0], zx->_posx);
         atom_setfloat(&((ui_slider2d*)z)->out_list[1], zx->_posy);
@@ -148,7 +148,7 @@ namespace ceammc_gui {
         if ( (zx->_posy) < (zx->shift_y) ) zx->_posy = zx->shift_y;
         
         
-        ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
+        ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
         
         atom_setfloat(&((ui_slider2d*)z)->out_list[0], zx->_posx);
         atom_setfloat(&((ui_slider2d*)z)->out_list[1], zx->_posy);
@@ -172,7 +172,7 @@ namespace ceammc_gui {
         if ( (zx->_posy) > (zx->shift_y+zx->range_y) ) zx->_posy = zx->shift_y+zx->range_y;
         if ( (zx->_posy) < (zx->shift_y) ) zx->_posy = zx->shift_y;
         
-        ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
+        ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
         
         atom_setfloat(&((ui_slider2d*)z)->out_list[0], zx->_posx);
         atom_setfloat(&((ui_slider2d*)z)->out_list[1], zx->_posy);
@@ -243,6 +243,6 @@ namespace ceammc_gui {
 
 extern "C" void setup_ui0x2eslider2d()
 {
-    ceammc_gui::object<ui_slider2d> class1;
+    ceammc_gui::GuiFactory<ui_slider2d> class1;
     class1.setup("ui.slider2d");
 }
