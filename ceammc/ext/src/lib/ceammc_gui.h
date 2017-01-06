@@ -555,8 +555,8 @@ public:
         {
             //TODO common init
             
-            eclass_guiinit(cl, 0);
             eclass_dspinit(cl);
+            eclass_guiinit(cl, 0);
             
             object<U>::class_name = _class_name;
 //            object<U>::ui_properties_init();
@@ -601,10 +601,12 @@ public:
             
             CLASS_ATTR_DEFAULT (cl, "size", 0, "45. 15.");
             
+            object<U>::init_ext(cl);
+            
             object<U>::pd_class = cl;
             eclass_register(CLASS_OBJ, cl);
             
-            object<U>::init_ext(cl);
+            
             
             //printf("gui dsp init (%lu)\n",(long)cl);
             

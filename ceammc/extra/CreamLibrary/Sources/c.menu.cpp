@@ -44,6 +44,7 @@ void menu_assist(t_menu *x, void *b, long m, long a, char *s);
 
 t_pd_err menu_notify(t_menu *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
 t_pd_err menu_states_set(t_menu *x, t_object *attr, int ac, t_atom *av);
+t_pd_err menu_states_get_nop(t_menu *x, t_object *attr, int ac, t_atom *av);
 t_pd_err menu_items_set(t_menu *x, t_object *attr, int ac, t_atom *av);
 t_pd_err menu_items_get(t_menu *x, t_object *attr, long* ac, t_atom **av);
 
@@ -118,11 +119,12 @@ extern "C" void setup_c0x2emenu(void)
     CLASS_ATTR_ORDER                (c, "items", 0, "1");
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "items", 0, "(null)");
     
-    CLASS_ATTR_LONG_VARSIZE         (c, "states", 0, t_menu, f_states, f_states_size, MAXITEMS);
-    CLASS_ATTR_LABEL                (c, "states", 0, "Items Disable State");
-    CLASS_ATTR_ACCESSORS            (c, "states", NULL, menu_states_set);
-    CLASS_ATTR_ORDER                (c, "states", 0, "1");
-    CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "states", 0, "0");
+//  caused crash, disabled
+//    CLASS_ATTR_LONG_VARSIZE         (c, "states", 0, t_menu, f_states, f_states_size, MAXITEMS);
+//    CLASS_ATTR_LABEL                (c, "states", 0, "Items Disable State");
+//    CLASS_ATTR_ACCESSORS            (c, "states", menu_states_get_nop, menu_states_set);
+//    CLASS_ATTR_ORDER                (c, "states", 0, "1");
+//    CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "states", 0, "0");
     
 	CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_menu, f_color_background);
 	CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
@@ -599,6 +601,11 @@ void menu_mousemove(t_menu *x, t_object *patcherview, t_pt pt, long modifiers)
         x->f_open = 1;
         eobj_attr_setvalueof(x, gensym("size"), 1, av);
     }
+}
+
+t_pd_err menu_states_get_nop(t_menu *x, t_object *attr, int ac, t_atom *av)
+{
+    return 0;
 }
 
 t_pd_err menu_states_set(t_menu *x, t_object *attr, int ac, t_atom *av)
