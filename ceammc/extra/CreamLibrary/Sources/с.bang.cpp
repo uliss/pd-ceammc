@@ -142,20 +142,20 @@ extern "C" void setup_ui0x2ebang(void)
         // We set up the order of the attribute in the properties window (this is unused for the moment).
         CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
         // We set up the the default value of the color. This macro also defines that the attribute will automatically call ebox_redraw when its value has changed and that its value will be saved with the patcher.
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.75 0.75 0.75 1.");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.5 0.5 0.5 1.");
         // We set up the that the attribute should be displayed as a color slector in the properties window.
         CLASS_ATTR_STYLE                (c, "bgcolor", 0, "color");
         // We do the same thing for the border color and the bang color.
         CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_bang, b_color_border);
         CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Border Color");
         CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0.5 0.5 0.5 1.");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0.93 0.93 0.93 1.");
         CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
         
         CLASS_ATTR_RGBA                 (c, "bacolor", 0, t_bang, b_color_bang);
         CLASS_ATTR_LABEL                (c, "bacolor", 0, "Bang Color");
         CLASS_ATTR_ORDER                (c, "bacolor", 0, "3");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bacolor", 0, "0. 0. 0. 1.");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bacolor", 0, "0. 0.75 1. 1.");
         CLASS_ATTR_STYLE                (c, "bacolor", 0, "color");
         
         // We register the class. This function is important it will set up some dsp members if needs and the properties window
@@ -249,7 +249,7 @@ static void bang_free(t_bang *x)
 static void bang_getdrawparams(t_bang *x, t_object *view, t_edrawparams *params)
 {
     // We define a border size of 2 px.
-	params->d_borderthickness   = 2;
+	params->d_borderthickness   = 1;
     // We define a corner size of 2 px (dummy).
 	params->d_cornersize        = 2;
     // We define the border color with our border attribute color.

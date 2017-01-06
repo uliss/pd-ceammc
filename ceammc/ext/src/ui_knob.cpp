@@ -35,6 +35,8 @@ struct ui_knob : public ceammc_gui::base_pd_object
     t_etext *txt_max;
     t_efont *txt_font;
     
+    t_rgba b_color_background;
+    t_rgba b_color_border;
 };
 
 namespace ceammc_gui {
@@ -194,6 +196,14 @@ namespace ceammc_gui {
         outlet_float(((ui_knob*)z)->out1, zx->_value*zx->range + zx->shift);
     }
 
+    static void ui_kn_getdrawparams(ui_knob *x, t_object *patcherview, t_edrawparams *params)
+    {
+        params->d_borderthickness   = 1;
+        params->d_cornersize        = 2;
+        params->d_bordercolor       = x->b_color_border;
+        params->d_boxfillcolor      = x->b_color_background;
+    }
+    
     UI_fun(ui_knob)::init_ext(t_eclass *z)
     {
         CLASS_ATTR_DEFAULT (z, "size", 0, "60. 60.");
@@ -207,6 +217,20 @@ namespace ceammc_gui {
         CLASS_ATTR_DEFAULT(z, "range", 0, "127");
         CLASS_ATTR_LABEL(z, "range", 0, "range");
         CLASS_ATTR_DEFAULT_SAVE_PAINT(z, "range", 0, "127");
+        
+        CLASS_ATTR_RGBA                 (z, "bgcolor", 0, ui_knob, b_color_background);
+        CLASS_ATTR_LABEL                (z, "bgcolor", 0, "Background Color");
+        CLASS_ATTR_ORDER                (z, "bgcolor", 0, "1");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "bgcolor", 0, "0.93 0.93 0.93 1.");
+        CLASS_ATTR_STYLE                (z, "bgcolor", 0, "color");
+        
+        CLASS_ATTR_RGBA                 (z, "bdcolor", 0, ui_knob, b_color_border);
+        CLASS_ATTR_LABEL                (z, "bdcolor", 0, "Border Color");
+        CLASS_ATTR_ORDER                (z, "bdcolor", 0, "2");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "bdcolor", 0, "0. 0. 0. 1.");
+        CLASS_ATTR_STYLE                (z, "bdcolor", 0, "color");
+        
+        eclass_addmethod(z, (method) ui_kn_getdrawparams,   "getdrawparams",    A_NULL, 0);
         
         
     }

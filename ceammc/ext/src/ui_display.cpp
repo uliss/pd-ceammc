@@ -48,6 +48,8 @@ struct ui_display : public ceammc_gui::base_pd_object {
     
     int auto_size;
     
+    t_rgba b_color_background;
+    t_rgba b_color_border;
     
     
     
@@ -91,11 +93,13 @@ namespace ceammc_gui {
             if (zx->show_type)
             {
                 egraphics_set_color_hex(g, msg_color((*zx->s_type)));
+                
                 egraphics_rectangle(g, 0, 0, 45, rect.height);
                 egraphics_fill(g);
                 
-                
-                egraphics_set_color_hex(g, gensym(zx->bang ? "#00C0FF" : "#E0E0E0"));
+                egraphics_set_color_rgba(g, &zx->b_color_background);
+                if (zx->bang)
+                    egraphics_set_color_hex(g, gensym("#00C0FF"));
                 egraphics_rectangle(g, 45, 0, rect.width, rect.height);
                 egraphics_fill(g);
                 
@@ -106,8 +110,9 @@ namespace ceammc_gui {
             }
             else
             {
-                
-                egraphics_set_color_hex(g, gensym(zx->bang ? "#00C0FF" : "#E0E0E0"));
+                egraphics_set_color_rgba(g, &zx->b_color_background);
+                if (zx->bang)
+                    egraphics_set_color_hex(g, gensym("#00C0FF"));
                 egraphics_rectangle(g, 0, 0, rect.width, rect.height);
                 egraphics_fill(g);
                 
@@ -230,6 +235,14 @@ namespace ceammc_gui {
         etext_layout_destroy(zx->txt_val);
     }
     
+    static void ui_disp_getdrawparams(ui_display *x, t_object *patcherview, t_edrawparams *params)
+    {
+        params->d_borderthickness   = 1;
+        params->d_cornersize        = 2;
+        params->d_bordercolor       = x->b_color_border;
+        params->d_boxfillcolor      = x->b_color_background;
+    }
+    
     UI_fun(ui_display)::init_ext(t_eclass* z)
     {
         CLASS_ATTR_DEFAULT(z, "size", 0, "150. 15.");
@@ -251,6 +264,20 @@ namespace ceammc_gui {
         CLASS_ATTR_LABEL(z, "auto_size", 0, "Auto size");
         CLASS_ATTR_DEFAULT_SAVE_PAINT(z, "auto_size", 0, "1");
         CLASS_ATTR_STYLE(z, "auto_size", 0, "onoff");
+        
+        CLASS_ATTR_RGBA                 (z, "bgcolor", 0, ui_display, b_color_background);
+        CLASS_ATTR_LABEL                (z, "bgcolor", 0, "Background Color");
+        CLASS_ATTR_ORDER                (z, "bgcolor", 0, "1");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "bgcolor", 0, "0.93 0.93 0.93 1.");
+        CLASS_ATTR_STYLE                (z, "bgcolor", 0, "color");
+        
+        CLASS_ATTR_RGBA                 (z, "bdcolor", 0, ui_display, b_color_border);
+        CLASS_ATTR_LABEL                (z, "bdcolor", 0, "Border Color");
+        CLASS_ATTR_ORDER                (z, "bdcolor", 0, "2");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "bdcolor", 0, "0. 0. 0. 1.");
+        CLASS_ATTR_STYLE                (z, "bdcolor", 0, "color");
+        
+        eclass_addmethod(z, (method) ui_disp_getdrawparams,   "getdrawparams",    A_NULL, 0);
         
     }
 }

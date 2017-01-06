@@ -94,6 +94,9 @@ namespace ceammc_gui {
         
         vector<int> seg_idx;
         
+        t_rgba b_color_background;
+        t_rgba b_color_border;
+        
         
     };
     
@@ -214,7 +217,8 @@ namespace ceammc_gui {
         
         if(g)
         {
-            egraphics_set_color_hex(g, gensym("#E0E0E0"));
+            //egraphics_set_color_hex(g, gensym("#E0E0E0"));
+            egraphics_set_color_rgba(g, &zx->b_color_background);
             
             egraphics_rectangle(g, 0, 0, rect.width, rect.height);
             egraphics_fill(g);
@@ -269,6 +273,8 @@ namespace ceammc_gui {
                 
                 int pw1 = 6-4*it->lock_x;
                 int ph1 = 6-4*it->lock_y;
+                //egraphics_set_color_rgba(g, &zx->b_color_background);
+                
                 egraphics_rectangle(g, it->x * rect.width -.5*pw1, (1-it->y) * rect.height -.5*ph1, pw1, ph1);
                 egraphics_fill(g);
                 
@@ -1099,6 +1105,14 @@ namespace ceammc_gui {
         
     }
     
+    static void ui_bpf_getdrawparams(ui_bpfunc *x, t_object *patcherview, t_edrawparams *params)
+    {
+        params->d_borderthickness   = 1;
+        params->d_cornersize        = 2;
+        params->d_bordercolor       = x->b_color_border;
+        params->d_boxfillcolor      = x->b_color_background;
+    }
+    
     UI_fun(ui_bpfunc)::init_ext(t_eclass *z)
     {
         CLASS_ATTR_DEFAULT (z, "size", 0, "200. 150.");
@@ -1134,6 +1148,18 @@ namespace ceammc_gui {
         CLASS_ATTR_LABEL(z, "auto_send", 0, "auto_send");
         CLASS_ATTR_DEFAULT_SAVE_PAINT(z, "auto_send", 0, "0");
         CLASS_ATTR_STYLE(z, "auto_send", 0, "onoff");
+        
+        CLASS_ATTR_RGBA                 (z, "bgcolor", 0, ui_bpfunc, b_color_background);
+        CLASS_ATTR_LABEL                (z, "bgcolor", 0, "Background Color");
+        CLASS_ATTR_ORDER                (z, "bgcolor", 0, "1");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "bgcolor", 0, "0.93 0.93 0.93 1.");
+        CLASS_ATTR_STYLE                (z, "bgcolor", 0, "color");
+        
+        CLASS_ATTR_RGBA                 (z, "bdcolor", 0, ui_bpfunc, b_color_border);
+        CLASS_ATTR_LABEL                (z, "bdcolor", 0, "Border Color");
+        CLASS_ATTR_ORDER                (z, "bdcolor", 0, "2");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "bdcolor", 0, "0. 0. 0. 1.");
+        CLASS_ATTR_STYLE                (z, "bdcolor", 0, "color");
         
         //todo readonly or disable?
 //        CLASS_ATTR_INT(z, "seg_count", 0, ui_bpfunc, seg_count);
@@ -1187,6 +1213,7 @@ namespace ceammc_gui {
         eclass_addmethod(z, (method)(bpf_m_vline_seg), ("vline_seg"), A_GIMME,0);
         eclass_addmethod(z, (method)(bpf_m_vline_tgl), ("vline_tgl"), A_GIMME,0);
         
+        eclass_addmethod(z, (method) ui_bpf_getdrawparams,   "getdrawparams",    A_NULL, 0);
         
     }
     

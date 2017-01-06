@@ -43,6 +43,8 @@ struct ui_sliders : public ceammc_gui::base_pd_object
     t_etext *txt_max;
     t_efont *txt_font;
     
+    t_rgba b_color_background;
+    t_rgba b_color_border;
 };
 
 namespace ceammc_gui {
@@ -319,6 +321,14 @@ namespace ceammc_gui {
         ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
     }
     
+    static void ui_sl_getdrawparams(ui_sliders *x, t_object *patcherview, t_edrawparams *params)
+    {
+        params->d_borderthickness   = 1;
+        params->d_cornersize        = 2;
+        params->d_bordercolor       = x->b_color_border;
+        params->d_boxfillcolor      = x->b_color_background;
+    }
+    
     UI_fun(ui_sliders)::init_ext(t_eclass *z)
     {
         CLASS_ATTR_DEFAULT (z, "size", 0, "150. 100.");
@@ -343,10 +353,24 @@ namespace ceammc_gui {
         CLASS_ATTR_LABEL(z, "auto_range", 0, "auto_range");
         CLASS_ATTR_DEFAULT_SAVE_PAINT(z, "auto_range", 0, "0");
         
+        CLASS_ATTR_RGBA                 (z, "bgcolor", 0, ui_sliders, b_color_background);
+        CLASS_ATTR_LABEL                (z, "bgcolor", 0, "Background Color");
+        CLASS_ATTR_ORDER                (z, "bgcolor", 0, "1");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "bgcolor", 0, "0.93 0.93 0.93 1.");
+        CLASS_ATTR_STYLE                (z, "bgcolor", 0, "color");
+        
+        CLASS_ATTR_RGBA                 (z, "bdcolor", 0, ui_sliders, b_color_border);
+        CLASS_ATTR_LABEL                (z, "bdcolor", 0, "Border Color");
+        CLASS_ATTR_ORDER                (z, "bdcolor", 0, "2");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "bdcolor", 0, "0. 0. 0. 1.");
+        CLASS_ATTR_STYLE                (z, "bdcolor", 0, "color");
+        
         eclass_addmethod(z, (method)(sliders_m_range), ("range"), A_GIMME,0);
         eclass_addmethod(z, (method)(sliders_m_shift), ("shift"), A_GIMME,0);
         eclass_addmethod(z, (method)(sliders_m_select), ("select"), A_GIMME,0);
         eclass_addmethod(z, (method)(sliders_m_auto_range), ("auto_range"), A_GIMME,0);
+        
+        eclass_addmethod(z, (method) ui_sl_getdrawparams,   "getdrawparams",    A_NULL, 0);
         
     }
     

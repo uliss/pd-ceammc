@@ -173,7 +173,7 @@ static void number_tilde_paint(t_number_tilde *x, t_object *view)
 
 static void number_tilde_getdrawparams(t_number_tilde *x, t_object *patcherview, t_edrawparams *params)
 {
-    params->d_borderthickness   = 2;
+    params->d_borderthickness   = 1;
     params->d_cornersize        = 2;
     params->d_bordercolor       = x->f_color_border;
     params->d_boxfillcolor      = x->f_color_background;
@@ -255,13 +255,13 @@ extern "C" void setup_c0x2enumber_tilde(void)
     CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_number_tilde, f_color_background);
     CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
     CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
-    CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.75 0.75 0.75 1.");
+    CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.87 0.87 0.87 1.");
     CLASS_ATTR_STYLE                (c, "bgcolor", 0, "color");
     
     CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_number_tilde, f_color_border);
     CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Border Color");
     CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
-    CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0.5 0.5 0.5 1.");
+    CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0. 0. 0. 1.");
     CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
     
     CLASS_ATTR_RGBA                 (c, "textcolor", 0, t_number_tilde, f_color_text);

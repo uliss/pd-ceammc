@@ -127,13 +127,13 @@ extern "C" void setup_c0x2emenu(void)
 	CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_menu, f_color_background);
 	CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
 	CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
-	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.75 0.75 0.75 1.");
+	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.93 0.93 0.93 1.");
     CLASS_ATTR_STYLE                (c, "bgcolor", 0, "color");
     
 	CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_menu, f_color_border);
 	CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Border Color");
 	CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
-	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0.5 0.5 0.5 1.");
+	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0. 0. 0. 1.");
 	CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
     
 	CLASS_ATTR_RGBA                 (c, "textcolor", 0, t_menu, f_color_text);
@@ -413,7 +413,7 @@ void menu_output(t_menu *x)
 
 void menu_getdrawparams(t_menu *x, t_object *patcherview, t_edrawparams *params)
 {
-	params->d_borderthickness   = 2;
+	params->d_borderthickness   = 1;
 	params->d_cornersize        = 2;
     params->d_bordercolor       = x->f_color_border;
     params->d_boxfillcolor      = x->f_color_background;
@@ -490,16 +490,16 @@ void draw_background(t_menu *x, t_object *view, t_rect *rect)
         
         // Separation
         egraphics_set_color_rgba(g, &x->f_color_border);
-        egraphics_set_line_width(g, 2);
+        egraphics_set_line_width(g, 1);     //Cream: 2
         egraphics_line_fast(g, width, 0., width, x->f_close_height);
         
-        // Arraw Up
+        // Arrow Up
         egraphics_move_to(g, width + x->f_close_height * 0.3 + 1, x->f_close_height * 0.4);
         egraphics_line_to(g, width + x->f_close_height * 0.7 + 1, x->f_close_height * 0.4);
         egraphics_line_to(g, width + x->f_close_height * 0.5 + 1, x->f_close_height * 0.1);
         egraphics_fill(g);
         
-        // Arraw Down
+        // Arrow Down
         egraphics_move_to(g, width + x->f_close_height * 0.3 + 1, x->f_close_height * 0.6);
         egraphics_line_to(g, width + x->f_close_height * 0.7 + 1, x->f_close_height * 0.6);
         egraphics_line_to(g, width + x->f_close_height * 0.5 + 1, x->f_close_height * 0.9);

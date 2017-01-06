@@ -21,6 +21,9 @@ struct ui_spectroscope : public ceammc_gui::base_pd_object
     
     int counter;
     
+    t_rgba b_color_background;
+    t_rgba b_color_border;
+    
 } _ui_spectroscope;
 
 namespace ceammc_gui {
@@ -126,10 +129,32 @@ namespace ceammc_gui {
         printf ("new ext \n");
     }
     
+    static void ui_sps_getdrawparams(ui_spectroscope *x, t_object *patcherview, t_edrawparams *params)
+    {
+        params->d_borderthickness   = 1;
+        params->d_cornersize        = 2;
+        params->d_bordercolor       = x->b_color_border;
+        params->d_boxfillcolor      = x->b_color_background;
+    }
+    
     UI_fun(ui_spectroscope)::init_ext(t_eclass *z)
     {
         eclass_addmethod(z, (method)ui_spectroscope_dsp, "dsp", A_CANT, 0);
         CLASS_ATTR_DEFAULT (z, "size", 0, "150. 100.");
+        
+        CLASS_ATTR_RGBA                 (z, "bgcolor", 0, ui_spectroscope, b_color_background);
+        CLASS_ATTR_LABEL                (z, "bgcolor", 0, "Background Color");
+        CLASS_ATTR_ORDER                (z, "bgcolor", 0, "1");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "bgcolor", 0, "0.93 0.93 0.93 1.");
+        CLASS_ATTR_STYLE                (z, "bgcolor", 0, "color");
+        
+        CLASS_ATTR_RGBA                 (z, "bdcolor", 0, ui_spectroscope, b_color_border);
+        CLASS_ATTR_LABEL                (z, "bdcolor", 0, "Border Color");
+        CLASS_ATTR_ORDER                (z, "bdcolor", 0, "2");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "bdcolor", 0, "0. 0. 0. 1.");
+        CLASS_ATTR_STYLE                (z, "bdcolor", 0, "color");
+        
+        eclass_addmethod(z, (method) ui_sps_getdrawparams,   "getdrawparams",    A_NULL, 0);
         
     }
     

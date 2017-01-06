@@ -29,6 +29,9 @@ struct ui_keyboard : public ceammc_gui::base_pd_object
     int _pitch;
     int _vel;
     int _pitch_prev;
+    
+    //t_rgba b_color_background;
+    t_rgba b_color_border;
 };
 
 namespace ceammc_gui {
@@ -309,6 +312,13 @@ namespace ceammc_gui {
 //        newrect->width = kWidth * zx->keys/.9;
 //    }
     
+    static void ui_k_getdrawparams(ui_keyboard *x, t_object *patcherview, t_edrawparams *params)
+    {
+        params->d_borderthickness   = 1;
+        params->d_cornersize        = 2;
+        params->d_bordercolor       = x->b_color_border;
+        //params->d_boxfillcolor      = x->b_color_background;
+    }
     
 #pragma mark -
     
@@ -325,6 +335,20 @@ namespace ceammc_gui {
         CLASS_ATTR_DEFAULT(z, "keys", 0, "61");
         CLASS_ATTR_LABEL(z, "keys", 0, "keys");
         CLASS_ATTR_DEFAULT_SAVE_PAINT(z, "keys", 0, "61");
+        
+//        CLASS_ATTR_RGBA                 (z, "bgcolor", 0, ui_keyboard, b_color_background);
+//        CLASS_ATTR_LABEL                (z, "bgcolor", 0, "Background Color");
+//        CLASS_ATTR_ORDER                (z, "bgcolor", 0, "1");
+//        CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "bgcolor", 0, "0.93 0.93 0.93 1.");
+//        CLASS_ATTR_STYLE                (z, "bgcolor", 0, "color");
+        
+        CLASS_ATTR_RGBA                 (z, "bdcolor", 0, ui_keyboard, b_color_border);
+        CLASS_ATTR_LABEL                (z, "bdcolor", 0, "Border Color");
+        CLASS_ATTR_ORDER                (z, "bdcolor", 0, "2");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "bdcolor", 0, "0. 0. 0. 1.");
+        CLASS_ATTR_STYLE                (z, "bdcolor", 0, "color");
+        
+        eclass_addmethod(z, (method) ui_k_getdrawparams,   "getdrawparams",    A_NULL, 0);
         
     }
     
