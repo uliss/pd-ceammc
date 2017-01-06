@@ -4,6 +4,6 @@ add_custom_target(buttonbar
 
 file(GLOB GUI_PLUGINS "${CMAKE_CURRENT_SOURCE_DIR}/*-plugin.tcl")
 list(APPEND GUI_PLUGINS "${CMAKE_CURRENT_SOURCE_DIR}/ceammc_popup_menu_tree.tcl")
-list(APPEND GUI_PLUGINS "${CMAKE_CURRENT_SOURCE_DIR}/completion*")
+list(APPEND GUI_PLUGINS "${CMAKE_CURRENT_SOURCE_DIR}/completion.cfg")
 
 install(FILES ${GUI_PLUGINS} DESTINATION ${PD_GUI_PLUGINS_PATH}/ceammc)
