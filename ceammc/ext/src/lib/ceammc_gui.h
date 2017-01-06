@@ -87,7 +87,7 @@ struct BaseGuiObject
  * @details To create your own UI object:
  *
  * 1. Create your structure for object. If you don't need any additional fields, just make struct new_obj:BaseGuiObject{};
- * 2. In the standard pd-object setup routine create new instance of object<new_obj> and call setup()
+ * 2. In the standard pd-object setup routine create new instance of GuiFactory<new_obj> and call setup()
  *
  * METHODS: All of the class methods here provide additional '[something]_ext' methods that can be used if you want both standard action from this class and your custom code. Otherwise just override the standard method by implicitly implementing object<your_object_struct_name>::method()
  */

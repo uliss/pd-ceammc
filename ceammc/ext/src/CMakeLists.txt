@@ -134,6 +134,13 @@ ceammc_cxx_extension(ui bpfunc)
 ceammc_cxx_extension(ui display)
 ceammc_cxx_extension(ui link)
 
+#BPF CONVERTERS
+ceammc_cxx_extension(conv bpf2env)
+ceammc_cxx_extension(conv bpf2list)
+ceammc_cxx_extension(conv bpf2vline)
+ceammc_cxx_extension(conv env2bpf)
+ceammc_cxx_extension(conv list2bpf)
+ceammc_cxx_extension(conv vline2bpf)
 
 # JSON
 
