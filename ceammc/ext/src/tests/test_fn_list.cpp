@@ -54,6 +54,28 @@ TEST_CASE("list functions", "[ceammc::list]")
         REQUIRE(list::longestListSize(lst) == 10);
     }
 
+    SECTION("minmax")
+    {
+        typedef std::pair<size_t, size_t> Pair;
+        std::vector<AtomList> l;
+        REQUIRE(list::minmaxListSize(l) == Pair(0, 0));
+
+        l.push_back(AtomList::ones(2));
+        REQUIRE(list::minmaxListSize(l) == Pair(2, 2));
+
+        l.push_back(AtomList::ones(4));
+        REQUIRE(list::minmaxListSize(l) == Pair(2, 4));
+
+        l.push_back(AtomList::ones(3));
+        REQUIRE(list::minmaxListSize(l) == Pair(2, 4));
+
+        l.push_back(AtomList::ones(10));
+        REQUIRE(list::minmaxListSize(l) == Pair(2, 10));
+
+        l.push_back(AtomList());
+        REQUIRE(list::minmaxListSize(l) == Pair(0, 10));
+    }
+
     SECTION("interleave")
     {
         SECTION("min length")
@@ -91,6 +113,24 @@ TEST_CASE("list functions", "[ceammc::list]")
             l.clear();
             l.push_back(AtomList());
             REQUIRE(list::interleavePadWith(l, Atom(1.f)) == AtomList());
+        }
+
+        SECTION("clip length")
+        {
+            std::vector<AtomList> l;
+            REQUIRE(list::interleaveClip(l) == AtomList());
+
+            l.push_back(AtomList());
+            REQUIRE(list::interleaveClip(l) == AtomList());
+
+            //            l.push_back(AtomList::ones(3));
+            //            REQUIRE(list::interleaveClip(l) == AtomList::ones(6));
+
+            //            l.clear();
+            //            l.push_back(AtomList::values(2, 1., 2.));
+            //            l.push_back(AtomList::values(4, -1., -2., -3., -4));
+
+            //            REQUIRE(list::interleaveClip(l) == AtomList::values(8, 1., -1., 2., -2., 2., -3., 2., -4.));
         }
     }
 }

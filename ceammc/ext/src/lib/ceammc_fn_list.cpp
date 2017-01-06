@@ -52,6 +52,24 @@ namespace list {
         return res;
     }
 
+    std::pair<size_t, size_t> minmaxListSize(const std::vector<AtomList>& l)
+    {
+        if (l.empty())
+            return std::make_pair(0, 0);
+
+        size_t m1 = std::numeric_limits<size_t>::max();
+        size_t m2 = std::numeric_limits<size_t>::min();
+
+        std::vector<AtomList>::const_iterator it;
+
+        for (it = l.begin(); it != l.end(); ++it) {
+            m1 = std::min(m1, it->size());
+            m2 = std::max(m2, it->size());
+        }
+
+        return std::make_pair(m1, m2);
+    }
+
     size_t longestListSize(const std::vector<AtomList>& l)
     {
         if (l.empty())
@@ -110,9 +128,11 @@ namespace list {
         if (l.empty())
             return res;
 
-        size_t max_size = longestListSize(l);
+        const size_t max_size = longestListSize(l);
         if (max_size == 0)
             return res;
+
+        const size_t min_size = shortestListSize(l);
 
         for (size_t i = 0; i < max_size; i++) {
             for (size_t j = 0; j < l.size(); j++) {

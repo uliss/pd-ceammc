@@ -17,12 +17,14 @@
 #include "ceammc_atomlist.h"
 
 #include <vector>
+#include <utility>
 
 namespace ceammc {
 namespace list {
 
     size_t shortestListSize(const std::vector<AtomList>& l);
     size_t longestListSize(const std::vector<AtomList>& l);
+    std::pair<size_t, size_t> minmaxListSize(const std::vector<AtomList>& l);
 
     typedef const Atom* (AtomList::*constAtomlistAt)(int)const;
 
