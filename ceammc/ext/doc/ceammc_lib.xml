@@ -132,6 +132,9 @@
     <entry descr="apply function of two arguments cumulatively to the list" name="list.reduce">
       <xi:include href="list.reduce.pddoc" parse="xml"/>
     </entry>
+    <entry descr="changes list size with" name="list.resize">
+      <xi:include href="list.resize.pddoc" parse="xml"/>
+    </entry>
     <entry descr="reverses the order of the elements in the list" name="list.reverse">
       <xi:include href="list.reverse.pddoc" parse="xml"/>
     </entry>
