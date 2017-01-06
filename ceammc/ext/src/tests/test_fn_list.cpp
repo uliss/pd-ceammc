@@ -70,11 +70,27 @@ TEST_CASE("list functions", "[ceammc::list]")
             lst.push_back(AtomList::zeroes(5));
             res = list::interleaveMinLength(lst);
             REQUIRE(res.size() == 6);
-            REQUIRE(res == AtomList::values(6, 1.f, 0.f, 1.f, 0.f, 1.f, 0.f));
+            REQUIRE(res == AtomList::values(6, 1., 0., 1., 0., 1., 0.));
 
             lst.push_back(AtomList());
             res = list::interleaveMinLength(lst);
             REQUIRE(res == AtomList());
+        }
+
+        SECTION("pad length")
+        {
+            std::vector<AtomList> l;
+            REQUIRE(list::interleavePadWith(l, Atom(1.f)) == AtomList());
+
+            l.push_back(AtomList::ones(3));
+            REQUIRE(list::interleavePadWith(l, Atom(2.f)) == AtomList::ones(3));
+
+            l.push_back(AtomList::zeroes(1));
+            REQUIRE(list::interleavePadWith(l, Atom(2.f)) == AtomList::values(6, 1., 0., 1., 2., 1., 2.));
+
+            l.clear();
+            l.push_back(AtomList());
+            REQUIRE(list::interleavePadWith(l, Atom(1.f)) == AtomList());
         }
     }
 }
