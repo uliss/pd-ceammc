@@ -12,7 +12,7 @@
 #include "ceammc_atomlist.h"
 #include "ceammc_format.h"
 
-struct ui_sliders : public ceammc_gui::base_pd_object
+struct ui_sliders : public ceammc_gui::BaseGuiObject
 {
     t_ebox x_gui;
     
@@ -43,6 +43,8 @@ struct ui_sliders : public ceammc_gui::base_pd_object
     t_etext *txt_max;
     t_efont *txt_font;
     
+    t_rgba b_color_background;
+    t_rgba b_color_border;
 };
 
 namespace ceammc_gui {
@@ -174,7 +176,7 @@ namespace ceammc_gui {
             
         }
         
-        ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
+        ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
         
         
     }
@@ -182,7 +184,7 @@ namespace ceammc_gui {
     UI_fun(ui_sliders)::m_list(t_object *z, t_symbol *s, int argc, t_atom *argv)
     {
         
-        ceammc_gui::object<ui_sliders>::m_set(z, s, argc, argv);
+        ceammc_gui::GuiFactory<ui_sliders>::m_set(z, s, argc, argv);
         
         outlet_list( ((ui_sliders*)z)->out1, &s_list, ((ui_sliders*)z)->val_list_size, ((ui_sliders*)z)->val_list );
         
@@ -269,7 +271,7 @@ namespace ceammc_gui {
         zx->val_list[numslider].a_w.w_float = val * zx->range + zx->shift;
         zx->draw_list[numslider].a_w.w_float = val;
         
-        ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
+        ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
         
         outlet_list( ((ui_sliders*)z)->out1, &s_list, ((ui_sliders*)z)->val_list_size, ((ui_sliders*)z)->val_list );
         
@@ -277,7 +279,7 @@ namespace ceammc_gui {
     
     UI_fun(ui_sliders)::wx_mousedown_ext(t_object *z, t_object *view, t_pt pt, long modifiers)
     {
-        ceammc_gui::object<ui_sliders>::wx_mousedrag_ext(z, view, pt, modifiers);
+        ceammc_gui::GuiFactory<ui_sliders>::wx_mousedrag_ext(z, view, pt, modifiers);
     }
     
     void sliders_m_range(t_object *z, t_symbol *s, int argc, t_atom *argv)
@@ -285,9 +287,9 @@ namespace ceammc_gui {
         ui_sliders *zx = (ui_sliders*)z;
         zx->range = argv[0].a_w.w_float;
         
-        ceammc_gui::object<ui_sliders>::m_set(z, s, zx->val_list_size, zx->val_list);
+        ceammc_gui::GuiFactory<ui_sliders>::m_set(z, s, zx->val_list_size, zx->val_list);
         
-        ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
+        ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
         
     }
     
@@ -296,7 +298,7 @@ namespace ceammc_gui {
         ui_sliders *zx = (ui_sliders*)z;
         zx->shift = argv[0].a_w.w_float;
         
-        ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
+        ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
         
     }
     
@@ -305,7 +307,7 @@ namespace ceammc_gui {
         ui_sliders *zx = (ui_sliders*)z;
         zx->sel_idx = (int)argv[0].a_w.w_float;
         
-        ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
+        ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
         
     }
     
@@ -314,9 +316,17 @@ namespace ceammc_gui {
         ui_sliders *zx = (ui_sliders*)z;
         zx->auto_range = (argv[0].a_w.w_float>0);
         
-        ceammc_gui::object<ui_sliders>::m_set(z, s, zx->val_list_size, zx->val_list);
+        ceammc_gui::GuiFactory<ui_sliders>::m_set(z, s, zx->val_list_size, zx->val_list);
         
-        ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
+        ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
+    }
+    
+    static void ui_sl_getdrawparams(ui_sliders *x, t_object *patcherview, t_edrawparams *params)
+    {
+        params->d_borderthickness   = 1;
+        params->d_cornersize        = 2;
+        params->d_bordercolor       = x->b_color_border;
+        params->d_boxfillcolor      = x->b_color_background;
     }
     
     UI_fun(ui_sliders)::init_ext(t_eclass *z)
@@ -343,10 +353,24 @@ namespace ceammc_gui {
         CLASS_ATTR_LABEL(z, "auto_range", 0, "auto_range");
         CLASS_ATTR_DEFAULT_SAVE_PAINT(z, "auto_range", 0, "0");
         
+        CLASS_ATTR_RGBA                 (z, "bgcolor", 0, ui_sliders, b_color_background);
+        CLASS_ATTR_LABEL                (z, "bgcolor", 0, "Background Color");
+        CLASS_ATTR_ORDER                (z, "bgcolor", 0, "1");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "bgcolor", 0, "0.93 0.93 0.93 1.");
+        CLASS_ATTR_STYLE                (z, "bgcolor", 0, "color");
+        
+        CLASS_ATTR_RGBA                 (z, "bdcolor", 0, ui_sliders, b_color_border);
+        CLASS_ATTR_LABEL                (z, "bdcolor", 0, "Border Color");
+        CLASS_ATTR_ORDER                (z, "bdcolor", 0, "2");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "bdcolor", 0, "0. 0. 0. 1.");
+        CLASS_ATTR_STYLE                (z, "bdcolor", 0, "color");
+        
         eclass_addmethod(z, (method)(sliders_m_range), ("range"), A_GIMME,0);
         eclass_addmethod(z, (method)(sliders_m_shift), ("shift"), A_GIMME,0);
         eclass_addmethod(z, (method)(sliders_m_select), ("select"), A_GIMME,0);
         eclass_addmethod(z, (method)(sliders_m_auto_range), ("auto_range"), A_GIMME,0);
+        
+        eclass_addmethod(z, (method) ui_sl_getdrawparams,   "getdrawparams",    A_NULL, 0);
         
     }
     
@@ -391,6 +415,6 @@ namespace ceammc_gui {
 
 extern "C" void setup_ui0x2esliders()
 {
-    ceammc_gui::object<ui_sliders> class1;
+    ceammc_gui::GuiFactory<ui_sliders> class1;
     class1.setup("ui.sliders");
 }

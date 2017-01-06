@@ -11,7 +11,7 @@
 #include "ceammc_atomlist.h"
 #include "ceammc_format.h"
 
-struct ui_keyboard : public ceammc_gui::base_pd_object
+struct ui_keyboard : public ceammc_gui::BaseGuiObject
 {
     t_ebox x_gui;
     
@@ -29,6 +29,9 @@ struct ui_keyboard : public ceammc_gui::base_pd_object
     int _pitch;
     int _vel;
     int _pitch_prev;
+    
+    //t_rgba b_color_background;
+    t_rgba b_color_border;
 };
 
 namespace ceammc_gui {
@@ -246,7 +249,7 @@ namespace ceammc_gui {
         
         outlet_list( ((ui_keyboard*)z)->out1, &s_list, 2, ((ui_keyboard*)z)->out_list );
         
-        ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
+        ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
     }
     
     UI_fun(ui_keyboard)::wx_mouseup_ext(t_object* z, t_object *view, t_pt pt, long modifiers)
@@ -263,7 +266,7 @@ namespace ceammc_gui {
         
         outlet_list( ((ui_keyboard*)z)->out1, &s_list, 2, ((ui_keyboard*)z)->out_list );
         
-        ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
+        ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
     }
     
     UI_fun(ui_keyboard)::wx_mousedrag_ext(t_object* z, t_object *view, t_pt pt, long modifiers)
@@ -271,7 +274,7 @@ namespace ceammc_gui {
 
         ui_keyboard *zx = (ui_keyboard*)z;
         
-        ceammc_gui::object<ui_keyboard>::wx_mousemove_ext(z,view,pt,modifiers);
+        ceammc_gui::GuiFactory<ui_keyboard>::wx_mousemove_ext(z,view,pt,modifiers);
         
         if (zx->_pitch_prev != zx->_pitch )
         {
@@ -285,7 +288,7 @@ namespace ceammc_gui {
             
         }
         
-        ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
+        ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
     }
     
     UI_fun(ui_keyboard)::wx_mouseleave_ext(t_object *z, t_object *view, t_pt pt, long modifiers)
@@ -293,7 +296,7 @@ namespace ceammc_gui {
         ui_keyboard *zx = (ui_keyboard*)z;
         zx->_pitch = -1;
         
-        ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
+        ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
     }
 
     // yet disabled
@@ -309,6 +312,13 @@ namespace ceammc_gui {
 //        newrect->width = kWidth * zx->keys/.9;
 //    }
     
+    static void ui_k_getdrawparams(ui_keyboard *x, t_object *patcherview, t_edrawparams *params)
+    {
+        params->d_borderthickness   = 1;
+        params->d_cornersize        = 2;
+        params->d_bordercolor       = x->b_color_border;
+        //params->d_boxfillcolor      = x->b_color_background;
+    }
     
 #pragma mark -
     
@@ -326,6 +336,20 @@ namespace ceammc_gui {
         CLASS_ATTR_LABEL(z, "keys", 0, "keys");
         CLASS_ATTR_DEFAULT_SAVE_PAINT(z, "keys", 0, "61");
         
+//        CLASS_ATTR_RGBA                 (z, "bgcolor", 0, ui_keyboard, b_color_background);
+//        CLASS_ATTR_LABEL                (z, "bgcolor", 0, "Background Color");
+//        CLASS_ATTR_ORDER                (z, "bgcolor", 0, "1");
+//        CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "bgcolor", 0, "0.93 0.93 0.93 1.");
+//        CLASS_ATTR_STYLE                (z, "bgcolor", 0, "color");
+        
+        CLASS_ATTR_RGBA                 (z, "bdcolor", 0, ui_keyboard, b_color_border);
+        CLASS_ATTR_LABEL                (z, "bdcolor", 0, "Border Color");
+        CLASS_ATTR_ORDER                (z, "bdcolor", 0, "2");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "bdcolor", 0, "0. 0. 0. 1.");
+        CLASS_ATTR_STYLE                (z, "bdcolor", 0, "color");
+        
+        eclass_addmethod(z, (method) ui_k_getdrawparams,   "getdrawparams",    A_NULL, 0);
+        
     }
     
     UI_fun(ui_keyboard)::new_ext(t_object *x, t_symbol *s, int argcl, t_atom *argv)
@@ -337,6 +361,6 @@ namespace ceammc_gui {
 
 extern "C" void setup_ui0x2ekeyboard()
 {
-    ceammc_gui::object<ui_keyboard> class1;
+    ceammc_gui::GuiFactory<ui_keyboard> class1;
     class1.setup("ui.keyboard");
 }

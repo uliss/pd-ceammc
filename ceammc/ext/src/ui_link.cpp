@@ -15,7 +15,7 @@
 #include <string>
 #include <iostream>
 
-struct ui_link : public ceammc_gui::base_pd_object
+struct ui_link : public ceammc_gui::BaseGuiObject
 {
     t_ebox x_gui;
     
@@ -95,7 +95,7 @@ namespace ceammc_gui {
         ui_link *zx = (ui_link*)z;
         zx->t_ef->c_weight = gensym("bold");
         
-        ceammc_gui::object<base_pd_object>::ws_redraw(z);
+        ceammc_gui::GuiFactory<BaseGuiObject>::ws_redraw(z);
     }
     
     UI_fun(ui_link)::wx_mouseleave(t_object *z, t_object *view, t_pt pt, long modifiers)
@@ -103,7 +103,7 @@ namespace ceammc_gui {
         ui_link *zx = (ui_link*)z;
         zx->t_ef->c_weight = gensym("normal");
         
-        ceammc_gui::object<base_pd_object>::ws_redraw(z);
+        ceammc_gui::GuiFactory<BaseGuiObject>::ws_redraw(z);
     
     }
     
@@ -159,6 +159,6 @@ namespace ceammc_gui {
 
 extern "C" void setup_ui0x2elink()
 {
-    ceammc_gui::object<ui_link> class1;
+    ceammc_gui::GuiFactory<ui_link> class1;
     class1.setup_noin("ui.link");
 }

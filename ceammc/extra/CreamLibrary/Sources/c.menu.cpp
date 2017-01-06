@@ -44,6 +44,7 @@ void menu_assist(t_menu *x, void *b, long m, long a, char *s);
 
 t_pd_err menu_notify(t_menu *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
 t_pd_err menu_states_set(t_menu *x, t_object *attr, int ac, t_atom *av);
+t_pd_err menu_states_get_nop(t_menu *x, t_object *attr, int ac, t_atom *av);
 t_pd_err menu_items_set(t_menu *x, t_object *attr, int ac, t_atom *av);
 t_pd_err menu_items_get(t_menu *x, t_object *attr, long* ac, t_atom **av);
 
@@ -118,22 +119,23 @@ extern "C" void setup_c0x2emenu(void)
     CLASS_ATTR_ORDER                (c, "items", 0, "1");
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "items", 0, "(null)");
     
-    CLASS_ATTR_LONG_VARSIZE         (c, "states", 0, t_menu, f_states, f_states_size, MAXITEMS);
-    CLASS_ATTR_LABEL                (c, "states", 0, "Items Disable State");
-    CLASS_ATTR_ACCESSORS            (c, "states", NULL, menu_states_set);
-    CLASS_ATTR_ORDER                (c, "states", 0, "1");
-    CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "states", 0, "0");
+//  caused crash, disabled
+//    CLASS_ATTR_LONG_VARSIZE         (c, "states", 0, t_menu, f_states, f_states_size, MAXITEMS);
+//    CLASS_ATTR_LABEL                (c, "states", 0, "Items Disable State");
+//    CLASS_ATTR_ACCESSORS            (c, "states", menu_states_get_nop, menu_states_set);
+//    CLASS_ATTR_ORDER                (c, "states", 0, "1");
+//    CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "states", 0, "0");
     
 	CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_menu, f_color_background);
 	CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
 	CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
-	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.75 0.75 0.75 1.");
+	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.93 0.93 0.93 1.");
     CLASS_ATTR_STYLE                (c, "bgcolor", 0, "color");
     
 	CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_menu, f_color_border);
 	CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Border Color");
 	CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
-	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0.5 0.5 0.5 1.");
+	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0. 0. 0. 1.");
 	CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
     
 	CLASS_ATTR_RGBA                 (c, "textcolor", 0, t_menu, f_color_text);
@@ -413,7 +415,7 @@ void menu_output(t_menu *x)
 
 void menu_getdrawparams(t_menu *x, t_object *patcherview, t_edrawparams *params)
 {
-	params->d_borderthickness   = 2;
+	params->d_borderthickness   = 1;
 	params->d_cornersize        = 2;
     params->d_bordercolor       = x->f_color_border;
     params->d_boxfillcolor      = x->f_color_background;
@@ -490,16 +492,16 @@ void draw_background(t_menu *x, t_object *view, t_rect *rect)
         
         // Separation
         egraphics_set_color_rgba(g, &x->f_color_border);
-        egraphics_set_line_width(g, 2);
+        egraphics_set_line_width(g, 1);     //Cream: 2
         egraphics_line_fast(g, width, 0., width, x->f_close_height);
         
-        // Arraw Up
+        // Arrow Up
         egraphics_move_to(g, width + x->f_close_height * 0.3 + 1, x->f_close_height * 0.4);
         egraphics_line_to(g, width + x->f_close_height * 0.7 + 1, x->f_close_height * 0.4);
         egraphics_line_to(g, width + x->f_close_height * 0.5 + 1, x->f_close_height * 0.1);
         egraphics_fill(g);
         
-        // Arraw Down
+        // Arrow Down
         egraphics_move_to(g, width + x->f_close_height * 0.3 + 1, x->f_close_height * 0.6);
         egraphics_line_to(g, width + x->f_close_height * 0.7 + 1, x->f_close_height * 0.6);
         egraphics_line_to(g, width + x->f_close_height * 0.5 + 1, x->f_close_height * 0.9);
@@ -599,6 +601,11 @@ void menu_mousemove(t_menu *x, t_object *patcherview, t_pt pt, long modifiers)
         x->f_open = 1;
         eobj_attr_setvalueof(x, gensym("size"), 1, av);
     }
+}
+
+t_pd_err menu_states_get_nop(t_menu *x, t_object *attr, int ac, t_atom *av)
+{
+    return 0;
 }
 
 t_pd_err menu_states_set(t_menu *x, t_object *attr, int ac, t_atom *av)

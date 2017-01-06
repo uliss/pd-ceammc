@@ -10,7 +10,7 @@
 
 #include "lib/ceammc_gui.h"
 
-struct ui_scope : public ceammc_gui::base_pd_object
+struct ui_scope : public ceammc_gui::BaseGuiObject
 {
     t_edspobj d_dsp;
     
@@ -19,6 +19,9 @@ struct ui_scope : public ceammc_gui::base_pd_object
     t_sample buf[8192];
     
     int counter;
+    
+    t_rgba b_color_background;
+    t_rgba b_color_border;
     
 } _ui_scope;
 
@@ -78,7 +81,7 @@ namespace ceammc_gui {
         
         while (n--){*out++ = *in1++;} //
         
-        x->counter++; if (x->counter==32) {x->counter=0; ceammc_gui::object<ui_scope>::ws_redraw(((t_object *)x));}
+        x->counter++; if (x->counter==32) {x->counter=0; ceammc_gui::GuiFactory<ui_scope>::ws_redraw(((t_object *)x));}
         
     }
     
@@ -95,10 +98,32 @@ namespace ceammc_gui {
         printf ("new ext \n");
     }
     
+    static void ui_s_getdrawparams(ui_scope *x, t_object *patcherview, t_edrawparams *params)
+    {
+        params->d_borderthickness   = 1;
+        params->d_cornersize        = 2;
+        params->d_bordercolor       = x->b_color_border;
+        params->d_boxfillcolor      = x->b_color_background;
+    }
+    
     UI_fun(ui_scope)::init_ext(t_eclass *z)
     {
         eclass_addmethod(z, (method)ui_scope_dsp, "dsp", A_CANT, 0);
         CLASS_ATTR_DEFAULT (z, "size", 0, "150. 100.");
+        
+        CLASS_ATTR_RGBA                 (z, "bgcolor", 0, ui_scope, b_color_background);
+        CLASS_ATTR_LABEL                (z, "bgcolor", 0, "Background Color");
+        CLASS_ATTR_ORDER                (z, "bgcolor", 0, "1");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "bgcolor", 0, "0.93 0.93 0.93 1.");
+        CLASS_ATTR_STYLE                (z, "bgcolor", 0, "color");
+        
+        CLASS_ATTR_RGBA                 (z, "bdcolor", 0, ui_scope, b_color_border);
+        CLASS_ATTR_LABEL                (z, "bdcolor", 0, "Border Color");
+        CLASS_ATTR_ORDER                (z, "bdcolor", 0, "2");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "bdcolor", 0, "0. 0. 0. 1.");
+        CLASS_ATTR_STYLE                (z, "bdcolor", 0, "color");
+        
+        eclass_addmethod(z, (method) ui_s_getdrawparams,   "getdrawparams",    A_NULL, 0);
         
     }
     
@@ -127,6 +152,6 @@ namespace ceammc_gui {
 
 extern "C" void setup_ui0x2escope()
 {
-    ceammc_gui::object<ui_scope> class1;
+    ceammc_gui::GuiFactory<ui_scope> class1;
     class1.setup_dsp("ui.scope");
 }

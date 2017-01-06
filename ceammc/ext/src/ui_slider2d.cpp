@@ -13,7 +13,7 @@
 
 #include "lib/ceammc_gui.h"
 
-struct ui_slider2d : public ceammc_gui::base_pd_object
+struct ui_slider2d : public ceammc_gui::BaseGuiObject
 {
     t_ebox x_gui;
     
@@ -38,6 +38,8 @@ struct ui_slider2d : public ceammc_gui::base_pd_object
     t_etext *txt_max;
     t_efont *txt_font;
     
+    t_rgba b_color_background;
+    t_rgba b_color_border;
     
 };
 
@@ -53,7 +55,7 @@ namespace ceammc_gui {
         
         t_elayer *g = ebox_start_layer((t_ebox *)z, bgl, rect.width, rect.height);
         
-        ui_slider2d *zx = (ui_slider2d*)z;
+        //ui_slider2d *zx = (ui_slider2d*)z;
         if(g)
         {
             ui_slider2d *zx = (ui_slider2d*) z;
@@ -121,7 +123,7 @@ namespace ceammc_gui {
         if ( (zx->_posy) > (zx->shift_y+zx->range_y) ) zx->_posy = zx->shift_y+zx->range_y;
         if ( (zx->_posy) < (zx->shift_y) ) zx->_posy = zx->shift_y;
 
-        ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
+        ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
         
         atom_setfloat(&((ui_slider2d*)z)->out_list[0], zx->_posx);
         atom_setfloat(&((ui_slider2d*)z)->out_list[1], zx->_posy);
@@ -146,7 +148,7 @@ namespace ceammc_gui {
         if ( (zx->_posy) < (zx->shift_y) ) zx->_posy = zx->shift_y;
         
         
-        ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
+        ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
         
         atom_setfloat(&((ui_slider2d*)z)->out_list[0], zx->_posx);
         atom_setfloat(&((ui_slider2d*)z)->out_list[1], zx->_posy);
@@ -170,12 +172,20 @@ namespace ceammc_gui {
         if ( (zx->_posy) > (zx->shift_y+zx->range_y) ) zx->_posy = zx->shift_y+zx->range_y;
         if ( (zx->_posy) < (zx->shift_y) ) zx->_posy = zx->shift_y;
         
-        ceammc_gui::object<ceammc_gui::base_pd_object>::ws_redraw(z);
+        ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
         
         atom_setfloat(&((ui_slider2d*)z)->out_list[0], zx->_posx);
         atom_setfloat(&((ui_slider2d*)z)->out_list[1], zx->_posy);
         
         outlet_list( zx->out1, &s_list, 2, zx->out_list );
+    }
+    
+    static void ui_s2_getdrawparams(ui_slider2d *x, t_object *patcherview, t_edrawparams *params)
+    {
+        params->d_borderthickness   = 1;
+        params->d_cornersize        = 2;
+        params->d_bordercolor       = x->b_color_border;
+        params->d_boxfillcolor      = x->b_color_background;
     }
     
     UI_fun(ui_slider2d)::init_ext(t_eclass *z)
@@ -202,6 +212,19 @@ namespace ceammc_gui {
         CLASS_ATTR_LABEL(z, "range_y", 0, "range_y");
         CLASS_ATTR_DEFAULT_SAVE_PAINT(z, "range_y", 0, "2");
         
+        CLASS_ATTR_RGBA                 (z, "bgcolor", 0, ui_slider2d, b_color_background);
+        CLASS_ATTR_LABEL                (z, "bgcolor", 0, "Background Color");
+        CLASS_ATTR_ORDER                (z, "bgcolor", 0, "1");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "bgcolor", 0, "0.93 0.93 0.93 1.");
+        CLASS_ATTR_STYLE                (z, "bgcolor", 0, "color");
+        
+        CLASS_ATTR_RGBA                 (z, "bdcolor", 0, ui_slider2d, b_color_border);
+        CLASS_ATTR_LABEL                (z, "bdcolor", 0, "Border Color");
+        CLASS_ATTR_ORDER                (z, "bdcolor", 0, "2");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "bdcolor", 0, "0. 0. 0. 1.");
+        CLASS_ATTR_STYLE                (z, "bdcolor", 0, "color");
+        
+        eclass_addmethod(z, (method) ui_s2_getdrawparams,   "getdrawparams",    A_NULL, 0);
         
         
     }
@@ -220,6 +243,6 @@ namespace ceammc_gui {
 
 extern "C" void setup_ui0x2eslider2d()
 {
-    ceammc_gui::object<ui_slider2d> class1;
+    ceammc_gui::GuiFactory<ui_slider2d> class1;
     class1.setup("ui.slider2d");
 }
