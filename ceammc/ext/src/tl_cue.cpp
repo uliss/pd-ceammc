@@ -83,6 +83,7 @@ UI_fun(tl_cue)::wx_paint(t_object *z, t_object *view)
         egraphics_set_color_hex(g, gensym("#F0F0F0"));
         egraphics_fill(g);
         
+        //
         tll_cue_update_pos((t_object *)z, zx->b_box.b_rect.x);
         
         int cue_idx = tll_cue_getnumber((t_object *)z);
@@ -90,16 +91,15 @@ UI_fun(tl_cue)::wx_paint(t_object *z, t_object *view)
         sprintf(cuename, "cue_%d", cue_idx);
         zx->cue_name = cuename;
         
+        //
         
         etext_layout_set(zx->txt, zx->cue_name.c_str(), zx->fnt, 2, 15, rect.width, rect.height/2, ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
-        etext_layout_draw(zx->txt, g);  //zx->cue_name.c_str()
+        etext_layout_draw(zx->txt, g);
         
         //get layer / egraphics?
         gui_delete(zx->canvas, z, "VLINE");
         gui_rect(zx->canvas, z, "VLINE", rect.x-2 , 0.0f, 1, 1000.0f,
                  rgba_to_hex(zx->border_color), rgba_to_hex(zx->border_color), 1.0f);
-        
-        
         
         
     }
@@ -122,7 +122,6 @@ static void tl_cue_ebox_move(t_ebox* x)
 void tl_cue_displace(t_gobj *z, t_glist *glist, int dx, int dy)
 {
     //todo set arg - see ui.display
-    
     
     //ebox src
 #ifdef _WINDOWS
@@ -149,16 +148,19 @@ void tl_cue_displace(t_gobj *z, t_glist *glist, int dx, int dy)
     ebox_get_rect_for_view((t_ebox *)x, &rect);
     
     tl_cue* zx = (tl_cue*)z;
-    gui_move(glist, (t_object*)z, "VLINE", rect.x-2, 0, 1, 1000);
     
-    int cue_idx = tll_cue_getnumber((t_object *)z);
-    char cuename[10];
-    sprintf(cuename, "cue_%d", cue_idx);
-    zx->cue_name = cuename;
+//    gui_move(glist, (t_object*)z, "VLINE", rect.x-2, 0, 1, 1000);
     
-    object<tl_cue>::ws_redraw((t_object*)z);
+//    int cue_idx = tll_cue_getnumber((t_object *)z);
+//    char cuename[10];
+//    sprintf(cuename, "cue_%d", cue_idx);
+//    zx->cue_name = cuename;
+    
+    //
     
     tll_cue_update_pos((t_object *)z, zx->b_box.b_rect.x);
+    tll_update_cue_guis(NULL);  //(t_object *)z
+    
 }
 
 
@@ -174,6 +176,10 @@ UI_fun(tl_cue)::free_ext(t_object *z)
     tll_cue_delete(z);
 }
 
+void tl_cue_draw(t_object *z)
+{
+    object<tl_cue>::ws_redraw((t_object*)z);
+}
 
 #pragma mark -
 
@@ -192,7 +198,7 @@ UI_fun(tl_cue)::new_ext(t_object *z, t_symbol *s, int argc, t_atom *argv)
     //
     tll_cue_add((t_object*)z, zx->b_box.b_rect.x);
     tll_cue_update_pos((t_object *)z, zx->b_box.b_rect.x);
-    
+    tll_update_cue_guis(NULL);
 }
 
 
@@ -224,6 +230,7 @@ UI_fun(tl_cue)::init_ext(t_eclass *z)
 extern "C" void setup_tl0x2ecue()
 {
     object<tl_cue> class1;
+    tll_set_ui_drawcue(tl_cue_draw);
     class1.setup_noin("tl.cue");
 }
 
