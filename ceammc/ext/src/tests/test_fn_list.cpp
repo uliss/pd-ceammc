@@ -200,6 +200,48 @@ TEST_CASE("list functions", "[ceammc::list]")
                 REQUIRE(l.at(1) == AtomList::ones(1));
                 REQUIRE(l.at(2) == AtomList::ones(1));
             }
+
+            SECTION("pad")
+            {
+                std::vector<AtomList> l;
+                list::deinterleavePadWith(AtomList::ones(5), Atom(100.f), l);
+                REQUIRE(l.empty());
+
+                l.push_back(AtomList());
+                list::deinterleavePadWith(AtomList::ones(3), Atom(100.f), l);
+                REQUIRE(l.size() == 1);
+                REQUIRE(l.front() == AtomList::ones(3));
+
+                l.clear();
+                l.push_back(AtomList());
+                l.push_back(AtomList());
+                list::deinterleavePadWith(AtomList::values(3, 1.0, 2.0, 3.0), Atom(200.f), l);
+                REQUIRE(l.size() == 2);
+                REQUIRE(l.at(0) == AtomList::values(2, 1.0, 3.0));
+                REQUIRE(l.at(1) == AtomList::values(2, 2.0, 200.));
+
+                l.clear();
+                l.push_back(AtomList());
+                l.push_back(AtomList());
+                l.push_back(AtomList());
+                list::deinterleavePadWith(AtomList::values(3, 1.0, 2.0, 3.0), Atom(200.f), l);
+                REQUIRE(l.size() == 3);
+                REQUIRE(l.at(0) == AtomList::values(1, 1.0));
+                REQUIRE(l.at(1) == AtomList::values(1, 2.0));
+                REQUIRE(l.at(2) == AtomList::values(1, 3.0));
+
+                l.clear();
+                l.push_back(AtomList());
+                l.push_back(AtomList());
+                l.push_back(AtomList());
+                l.push_back(AtomList());
+                list::deinterleavePadWith(AtomList::values(3, 1.0, 2.0, 3.0), Atom(200.f), l);
+                REQUIRE(l.size() == 4);
+                REQUIRE(l.at(0) == AtomList::values(1, 1.0));
+                REQUIRE(l.at(1) == AtomList::values(1, 2.0));
+                REQUIRE(l.at(2) == AtomList::values(1, 3.0));
+                REQUIRE(l.at(3) == AtomList::values(1, 200.0));
+            }
         }
     }
 }

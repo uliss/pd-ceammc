@@ -37,6 +37,7 @@ namespace list {
     AtomList interleaveFold(const std::vector<AtomList>& l);
 
     void deinterleaveMinLength(const AtomList& in, std::vector<AtomList>& out);
+    void deinterleavePadWith(const AtomList& in, const Atom& pad, std::vector<AtomList>& out);
 }
 }
 

@@ -53,9 +53,9 @@ public:
         clearOutputList();
 
         if (method_->value() == gmin_)
-            processMin(l);
+            list::deinterleaveMinLength(l, out_lists_);
         else if (method_->value() == gpad_)
-            processPad(l);
+            list::deinterleavePadWith(l, pad_, out_lists_);
 
         onBang();
     }
@@ -93,30 +93,6 @@ private:
     {
         pad_ = atomlistToValue<Atom>(l, Atom(0.f));
         method_->setValue(gpad_);
-    }
-
-    void processMin(const AtomList& l)
-    {
-        for (size_t i = 0; i < l.size(); i++) {
-            size_t ndx = i % out_count_;
-            out_lists_[ndx].append(l[i]);
-        }
-    }
-
-    void processPad(const AtomList& l)
-    {
-        if (l.empty())
-            return;
-
-        size_t maxlen = out_count_ * (((l.size() - 1) / out_count_) + 1);
-
-        for (size_t i = 0; i < maxlen; i++) {
-            size_t ndx = i % out_count_;
-            if (i < l.size())
-                out_lists_[ndx].append(l[i]);
-            else
-                out_lists_[ndx].append(pad_);
-        }
     }
 };
 

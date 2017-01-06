@@ -152,5 +152,24 @@ namespace list {
         for (size_t i = 0; i < in_sz; i++)
             out[i % out_sz].append(in[i]);
     }
+
+    void deinterleavePadWith(const AtomList& in, const Atom& pad, std::vector<AtomList>& out)
+    {
+        if (in.empty() || out.empty())
+            return;
+
+        const size_t in_sz = in.size();
+        const size_t out_sz = out.size();
+        const size_t wrap_sz = in_sz % out_sz;
+        const size_t max_sz = ((in_sz / out_sz) + (wrap_sz > 0 ? 1 : 0)) * (out_sz);
+
+        for (size_t i = 0; i < max_sz; i++) {
+            const size_t ndx = i % out_sz;
+            if (i < in.size())
+                out[ndx].append(in[i]);
+            else
+                out[ndx].append(pad);
+        }
+    }
 }
 }
