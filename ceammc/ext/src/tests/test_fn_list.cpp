@@ -20,150 +20,186 @@ using namespace ceammc;
 
 TEST_CASE("list functions", "[ceammc::list]")
 {
-    SECTION("shortest")
-    {
-        std::vector<AtomList> lst;
-        REQUIRE(list::shortestListSize(lst) == 0);
-
-        lst.push_back(AtomList::ones(10));
-        REQUIRE(list::shortestListSize(lst) == 10);
-        lst.push_back(AtomList::ones(9));
-        REQUIRE(list::shortestListSize(lst) == 9);
-        lst.push_back(AtomList::ones(10));
-        REQUIRE(list::shortestListSize(lst) == 9);
-        lst.push_back(AtomList::ones(3));
-        REQUIRE(list::shortestListSize(lst) == 3);
-        lst.push_back(AtomList());
-        REQUIRE(list::shortestListSize(lst) == 0);
-    }
-
-    SECTION("longest")
-    {
-        std::vector<AtomList> lst;
-        REQUIRE(list::longestListSize(lst) == 0);
-
-        lst.push_back(AtomList::ones(1));
-        REQUIRE(list::longestListSize(lst) == 1);
-        lst.push_back(AtomList::ones(10));
-        REQUIRE(list::longestListSize(lst) == 10);
-        lst.push_back(AtomList::ones(10));
-        REQUIRE(list::longestListSize(lst) == 10);
-        lst.push_back(AtomList::ones(3));
-        REQUIRE(list::longestListSize(lst) == 10);
-        lst.push_back(AtomList());
-        REQUIRE(list::longestListSize(lst) == 10);
-    }
-
-    SECTION("minmax")
-    {
-        typedef std::pair<size_t, size_t> Pair;
-        std::vector<AtomList> l;
-        REQUIRE(list::minmaxListSize(l) == Pair(0, 0));
-
-        l.push_back(AtomList::ones(2));
-        REQUIRE(list::minmaxListSize(l) == Pair(2, 2));
-
-        l.push_back(AtomList::ones(4));
-        REQUIRE(list::minmaxListSize(l) == Pair(2, 4));
-
-        l.push_back(AtomList::ones(3));
-        REQUIRE(list::minmaxListSize(l) == Pair(2, 4));
-
-        l.push_back(AtomList::ones(10));
-        REQUIRE(list::minmaxListSize(l) == Pair(2, 10));
-
-        l.push_back(AtomList());
-        REQUIRE(list::minmaxListSize(l) == Pair(0, 10));
-    }
-
     SECTION("interleave")
     {
-        SECTION("min length")
+        SECTION("shortest")
         {
             std::vector<AtomList> lst;
-            AtomList res;
-            res = list::interleaveMinLength(lst);
-            REQUIRE(res == AtomList());
+            REQUIRE(list::shortestListSize(lst) == 0);
 
+            lst.push_back(AtomList::ones(10));
+            REQUIRE(list::shortestListSize(lst) == 10);
+            lst.push_back(AtomList::ones(9));
+            REQUIRE(list::shortestListSize(lst) == 9);
+            lst.push_back(AtomList::ones(10));
+            REQUIRE(list::shortestListSize(lst) == 9);
             lst.push_back(AtomList::ones(3));
-            res = list::interleaveMinLength(lst);
-            REQUIRE(res == AtomList::ones(3));
-
-            lst.push_back(AtomList::zeroes(5));
-            res = list::interleaveMinLength(lst);
-            REQUIRE(res.size() == 6);
-            REQUIRE(res == AtomList::values(6, 1., 0., 1., 0., 1., 0.));
-
+            REQUIRE(list::shortestListSize(lst) == 3);
             lst.push_back(AtomList());
-            res = list::interleaveMinLength(lst);
-            REQUIRE(res == AtomList());
+            REQUIRE(list::shortestListSize(lst) == 0);
         }
 
-        SECTION("pad length")
+        SECTION("longest")
         {
-            std::vector<AtomList> l;
-            REQUIRE(list::interleavePadWith(l, Atom(1.f)) == AtomList());
+            std::vector<AtomList> lst;
+            REQUIRE(list::longestListSize(lst) == 0);
 
-            l.push_back(AtomList::ones(3));
-            REQUIRE(list::interleavePadWith(l, Atom(2.f)) == AtomList::ones(3));
-
-            l.push_back(AtomList::zeroes(1));
-            REQUIRE(list::interleavePadWith(l, Atom(2.f)) == AtomList::values(6, 1., 0., 1., 2., 1., 2.));
-
-            l.clear();
-            l.push_back(AtomList());
-            REQUIRE(list::interleavePadWith(l, Atom(1.f)) == AtomList());
+            lst.push_back(AtomList::ones(1));
+            REQUIRE(list::longestListSize(lst) == 1);
+            lst.push_back(AtomList::ones(10));
+            REQUIRE(list::longestListSize(lst) == 10);
+            lst.push_back(AtomList::ones(10));
+            REQUIRE(list::longestListSize(lst) == 10);
+            lst.push_back(AtomList::ones(3));
+            REQUIRE(list::longestListSize(lst) == 10);
+            lst.push_back(AtomList());
+            REQUIRE(list::longestListSize(lst) == 10);
         }
 
-        SECTION("clip length")
+        SECTION("minmax")
         {
+            typedef std::pair<size_t, size_t> Pair;
             std::vector<AtomList> l;
-            REQUIRE(list::interleaveClip(l) == AtomList());
+            REQUIRE(list::minmaxListSize(l) == Pair(0, 0));
 
-            l.push_back(AtomList());
-            REQUIRE(list::interleaveClip(l) == AtomList());
+            l.push_back(AtomList::ones(2));
+            REQUIRE(list::minmaxListSize(l) == Pair(2, 2));
+
+            l.push_back(AtomList::ones(4));
+            REQUIRE(list::minmaxListSize(l) == Pair(2, 4));
 
             l.push_back(AtomList::ones(3));
-            REQUIRE(list::interleaveClip(l) == AtomList());
+            REQUIRE(list::minmaxListSize(l) == Pair(2, 4));
 
-            l.clear();
-            l.push_back(AtomList::values(2, 1.0, 2.0));
-            l.push_back(AtomList::values(4, -1.0, -2.0, -3.0, -4.0));
-            REQUIRE(list::interleaveClip(l) == AtomList::values(8, 1.0, -1.0, 2.0, -2.0, 2.0, -3.0, 2.0, -4.0));
+            l.push_back(AtomList::ones(10));
+            REQUIRE(list::minmaxListSize(l) == Pair(2, 10));
+
+            l.push_back(AtomList());
+            REQUIRE(list::minmaxListSize(l) == Pair(0, 10));
         }
 
-        SECTION("wrap length")
+        SECTION("interleave")
         {
-            std::vector<AtomList> l;
-            REQUIRE(list::interleaveWrap(l) == AtomList());
+            SECTION("min length")
+            {
+                std::vector<AtomList> lst;
+                AtomList res;
+                res = list::interleaveMinLength(lst);
+                REQUIRE(res == AtomList());
 
-            l.push_back(AtomList());
-            REQUIRE(list::interleaveWrap(l) == AtomList());
+                lst.push_back(AtomList::ones(3));
+                res = list::interleaveMinLength(lst);
+                REQUIRE(res == AtomList::ones(3));
 
-            l.push_back(AtomList::ones(3));
-            REQUIRE(list::interleaveWrap(l) == AtomList());
+                lst.push_back(AtomList::zeroes(5));
+                res = list::interleaveMinLength(lst);
+                REQUIRE(res.size() == 6);
+                REQUIRE(res == AtomList::values(6, 1., 0., 1., 0., 1., 0.));
 
-            l.clear();
-            l.push_back(AtomList::values(2, 1.0, 2.0));
-            l.push_back(AtomList::values(4, -1.0, -2.0, -3.0, -4.0));
-            REQUIRE(list::interleaveWrap(l) == AtomList::values(8, 1.0, -1.0, 2.0, -2.0, 1.0, -3.0, 2.0, -4.0));
+                lst.push_back(AtomList());
+                res = list::interleaveMinLength(lst);
+                REQUIRE(res == AtomList());
+            }
+
+            SECTION("pad length")
+            {
+                std::vector<AtomList> l;
+                REQUIRE(list::interleavePadWith(l, Atom(1.f)) == AtomList());
+
+                l.push_back(AtomList::ones(3));
+                REQUIRE(list::interleavePadWith(l, Atom(2.f)) == AtomList::ones(3));
+
+                l.push_back(AtomList::zeroes(1));
+                REQUIRE(list::interleavePadWith(l, Atom(2.f)) == AtomList::values(6, 1., 0., 1., 2., 1., 2.));
+
+                l.clear();
+                l.push_back(AtomList());
+                REQUIRE(list::interleavePadWith(l, Atom(1.f)) == AtomList());
+            }
+
+            SECTION("clip length")
+            {
+                std::vector<AtomList> l;
+                REQUIRE(list::interleaveClip(l) == AtomList());
+
+                l.push_back(AtomList());
+                REQUIRE(list::interleaveClip(l) == AtomList());
+
+                l.push_back(AtomList::ones(3));
+                REQUIRE(list::interleaveClip(l) == AtomList());
+
+                l.clear();
+                l.push_back(AtomList::values(2, 1.0, 2.0));
+                l.push_back(AtomList::values(4, -1.0, -2.0, -3.0, -4.0));
+                REQUIRE(list::interleaveClip(l) == AtomList::values(8, 1.0, -1.0, 2.0, -2.0, 2.0, -3.0, 2.0, -4.0));
+            }
+
+            SECTION("wrap length")
+            {
+                std::vector<AtomList> l;
+                REQUIRE(list::interleaveWrap(l) == AtomList());
+
+                l.push_back(AtomList());
+                REQUIRE(list::interleaveWrap(l) == AtomList());
+
+                l.push_back(AtomList::ones(3));
+                REQUIRE(list::interleaveWrap(l) == AtomList());
+
+                l.clear();
+                l.push_back(AtomList::values(2, 1.0, 2.0));
+                l.push_back(AtomList::values(4, -1.0, -2.0, -3.0, -4.0));
+                REQUIRE(list::interleaveWrap(l) == AtomList::values(8, 1.0, -1.0, 2.0, -2.0, 1.0, -3.0, 2.0, -4.0));
+            }
+
+            SECTION("fold length")
+            {
+                std::vector<AtomList> l;
+                REQUIRE(list::interleaveFold(l) == AtomList());
+
+                l.push_back(AtomList());
+                REQUIRE(list::interleaveFold(l) == AtomList());
+
+                l.push_back(AtomList::ones(3));
+                REQUIRE(list::interleaveFold(l) == AtomList());
+
+                l.clear();
+                l.push_back(AtomList::values(3, 1.0, 2.0, 3.0));
+                l.push_back(AtomList::values(4, -1.0, -2.0, -3.0, -4.0));
+                REQUIRE(list::interleaveFold(l) == AtomList::values(8, 1.0, -1.0, 2.0, -2.0, 3.0, -3.0, 2.0, -4.0));
+            }
         }
 
-        SECTION("fold length")
+        SECTION("deinterleave")
         {
-            std::vector<AtomList> l;
-            REQUIRE(list::interleaveFold(l) == AtomList());
+            SECTION("min length")
+            {
+                std::vector<AtomList> l;
+                list::deinterleaveMinLength(AtomList::ones(5), l);
+                REQUIRE(l.empty());
 
-            l.push_back(AtomList());
-            REQUIRE(list::interleaveFold(l) == AtomList());
+                l.push_back(AtomList());
+                list::deinterleaveMinLength(AtomList::ones(3), l);
+                REQUIRE(l.size() == 1);
+                REQUIRE(l.front() == AtomList::ones(3));
 
-            l.push_back(AtomList::ones(3));
-            REQUIRE(list::interleaveFold(l) == AtomList());
+                l.clear();
+                l.push_back(AtomList());
+                l.push_back(AtomList());
+                list::deinterleaveMinLength(AtomList::ones(3), l);
+                REQUIRE(l.size() == 2);
+                REQUIRE(l.at(0) == AtomList::ones(2));
+                REQUIRE(l.at(1) == AtomList::ones(1));
 
-            l.clear();
-            l.push_back(AtomList::values(3, 1.0, 2.0, 3.0));
-            l.push_back(AtomList::values(4, -1.0, -2.0, -3.0, -4.0));
-            REQUIRE(list::interleaveFold(l) == AtomList::values(8, 1.0, -1.0, 2.0, -2.0, 3.0, -3.0, 2.0, -4.0));
+                l.clear();
+                l.push_back(AtomList());
+                l.push_back(AtomList());
+                l.push_back(AtomList());
+                list::deinterleaveMinLength(AtomList::ones(3), l);
+                REQUIRE(l.size() == 3);
+                REQUIRE(l.at(0) == AtomList::ones(1));
+                REQUIRE(l.at(1) == AtomList::ones(1));
+                REQUIRE(l.at(2) == AtomList::ones(1));
+            }
         }
     }
 }

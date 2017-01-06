@@ -16,8 +16,8 @@
 
 #include "ceammc_atomlist.h"
 
-#include <vector>
 #include <utility>
+#include <vector>
 
 namespace ceammc {
 namespace list {
@@ -35,6 +35,8 @@ namespace list {
     AtomList interleaveClip(const std::vector<AtomList>& l);
     AtomList interleaveWrap(const std::vector<AtomList>& l);
     AtomList interleaveFold(const std::vector<AtomList>& l);
+
+    void deinterleaveMinLength(const AtomList& in, std::vector<AtomList>& out);
 }
 }
 

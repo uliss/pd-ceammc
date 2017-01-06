@@ -140,5 +140,17 @@ namespace list {
 
         return res;
     }
+
+    void deinterleaveMinLength(const AtomList& in, std::vector<AtomList>& out)
+    {
+        const size_t in_sz = in.size();
+        const size_t out_sz = out.size();
+
+        if (out_sz == 0)
+            return;
+
+        for (size_t i = 0; i < in_sz; i++)
+            out[i % out_sz].append(in[i]);
+    }
 }
 }
