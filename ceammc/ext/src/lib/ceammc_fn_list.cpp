@@ -128,13 +128,11 @@ namespace list {
         if (l.empty())
             return res;
 
-        const size_t max_size = longestListSize(l);
-        if (max_size == 0)
+        const std::pair<size_t, size_t> minmax = minmaxListSize(l);
+        if (minmax.first == 0 || minmax.second == 0)
             return res;
 
-        const size_t min_size = shortestListSize(l);
-
-        for (size_t i = 0; i < max_size; i++) {
+        for (int i = 0; i < minmax.second; i++) {
             for (size_t j = 0; j < l.size(); j++) {
                 res.append(*(l[j].*fn)(i));
             }

@@ -123,14 +123,47 @@ TEST_CASE("list functions", "[ceammc::list]")
             l.push_back(AtomList());
             REQUIRE(list::interleaveClip(l) == AtomList());
 
-            //            l.push_back(AtomList::ones(3));
-            //            REQUIRE(list::interleaveClip(l) == AtomList::ones(6));
+            l.push_back(AtomList::ones(3));
+            REQUIRE(list::interleaveClip(l) == AtomList());
 
-            //            l.clear();
-            //            l.push_back(AtomList::values(2, 1., 2.));
-            //            l.push_back(AtomList::values(4, -1., -2., -3., -4));
+            l.clear();
+            l.push_back(AtomList::values(2, 1.0, 2.0));
+            l.push_back(AtomList::values(4, -1.0, -2.0, -3.0, -4.0));
+            REQUIRE(list::interleaveClip(l) == AtomList::values(8, 1.0, -1.0, 2.0, -2.0, 2.0, -3.0, 2.0, -4.0));
+        }
 
-            //            REQUIRE(list::interleaveClip(l) == AtomList::values(8, 1., -1., 2., -2., 2., -3., 2., -4.));
+        SECTION("wrap length")
+        {
+            std::vector<AtomList> l;
+            REQUIRE(list::interleaveWrap(l) == AtomList());
+
+            l.push_back(AtomList());
+            REQUIRE(list::interleaveWrap(l) == AtomList());
+
+            l.push_back(AtomList::ones(3));
+            REQUIRE(list::interleaveWrap(l) == AtomList());
+
+            l.clear();
+            l.push_back(AtomList::values(2, 1.0, 2.0));
+            l.push_back(AtomList::values(4, -1.0, -2.0, -3.0, -4.0));
+            REQUIRE(list::interleaveWrap(l) == AtomList::values(8, 1.0, -1.0, 2.0, -2.0, 1.0, -3.0, 2.0, -4.0));
+        }
+
+        SECTION("fold length")
+        {
+            std::vector<AtomList> l;
+            REQUIRE(list::interleaveFold(l) == AtomList());
+
+            l.push_back(AtomList());
+            REQUIRE(list::interleaveFold(l) == AtomList());
+
+            l.push_back(AtomList::ones(3));
+            REQUIRE(list::interleaveFold(l) == AtomList());
+
+            l.clear();
+            l.push_back(AtomList::values(3, 1.0, 2.0, 3.0));
+            l.push_back(AtomList::values(4, -1.0, -2.0, -3.0, -4.0));
+            REQUIRE(list::interleaveFold(l) == AtomList::values(8, 1.0, -1.0, 2.0, -2.0, 3.0, -3.0, 2.0, -4.0));
         }
     }
 }
