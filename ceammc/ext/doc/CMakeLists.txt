@@ -42,6 +42,7 @@ set(DOC_FILES
     list.each
     list.equal
     list.first
+    list.interleave
     list.gen
     list.last
     list.length
