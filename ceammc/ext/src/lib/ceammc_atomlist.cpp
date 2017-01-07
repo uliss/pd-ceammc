@@ -656,6 +656,38 @@ const Atom* AtomList::max() const
     return const_cast<AtomList*>(this)->max();
 }
 
+template <class ForwardIterator>
+static std::pair<ForwardIterator, ForwardIterator>
+minmax_element(ForwardIterator first, ForwardIterator last)
+{
+    if (first == last)
+        return std::make_pair(last, last);
+
+    ForwardIterator smallest = first;
+    ForwardIterator largest = first;
+
+    while (++first != last) {
+        if (*first < *smallest)
+            smallest = first;
+
+        if (*largest < *first)
+            largest = first;
+    }
+
+    return std::make_pair(smallest, largest);
+}
+
+bool AtomList::range(Atom& min, Atom& max) const
+{
+    if (empty())
+        return false;
+
+    std::pair<const_atom_iterator, const_atom_iterator> res = ceammc::minmax_element(atoms_.begin(), atoms_.end());
+    min = *res.first;
+    max = *res.second;
+    return true;
+}
+
 const Atom* AtomList::find(const Atom& a) const
 {
     return const_cast<AtomList*>(this)->find(a);

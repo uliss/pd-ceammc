@@ -42,13 +42,17 @@ set(DOC_FILES
     list.each
     list.equal
     list.first
+    list.interleave
     list.gen
     list.last
     list.length
     list.max
     list.min
     list.normalize
+    list.product
+    list.range
     list.reduce
+    list.resize
     list.reverse
     list.shuffle
     list.sort

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pddoc version="1.0">
+    <object name="list.resize">
+        <title>list.resize</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>changes list size with</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>list</category>
+            <keywords>list size resize</keywords>
+            <since>0.1</since>
+            <also>
+                <see>list.length</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="SIZE" type="int" minvalue="0">desired list size</argument>
+            <argument name="@size INT" type="int" minvalue="0">desired list size</argument>
+            <argument name="@method ENUM" type="property">method of resizing, if new size is longer then current.
+            Possible values are: pad, clip, wrap, fold.</argument>
+            <argument name="@pad VALUE" type="float">set pad value for pad method of resizing.</argument>
+            <argument name="@clip" type="property">pad with last values</argument>
+            <argument name="@wrap" type="property">wrap list values</argument>
+            <argument name="@fold" type="property">fold list values</argument>
+        </arguments>
+        <methods>
+            <method name="@size?">output current size</method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="list">input list</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>resized list</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[1 2 3 4 5 6 7 8 9 10 11(
+|
+| [1 2 3(
+| |
+| | [@wrap( [@fold( [@clip( [@pad -1( [dump(
+| | |       |       |       |         |
+| | |       |       |       |         |
+| | |       |       |       |         |
+[list.resize                          8]
+|
+[prepend set]
+|
+[ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
+

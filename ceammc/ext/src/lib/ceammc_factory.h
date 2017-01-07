@@ -89,6 +89,12 @@ public:
         class_addfloat(class_, fn_float_);
     }
 
+    void mapSymbolToList()
+    {
+        fn_symbol_ = defaultSymbolToList;
+        class_addsymbol(class_, fn_symbol_);
+    }
+
     void setBangFn(PdBangFunction fn)
     {
         fn_bang_ = fn;

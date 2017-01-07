@@ -175,6 +175,7 @@ public:
 
     const Atom* min() const;
     const Atom* max() const;
+    bool range(Atom& min, Atom& max) const;
     const Atom* find(const Atom& a) const;
     const Atom* find(AtomPredicate pred) const;
     const Atom* findLast(const Atom& a) const;

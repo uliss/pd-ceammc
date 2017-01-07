@@ -114,6 +114,9 @@
     <entry descr="generates list of specified length via external generator" name="list.gen">
       <xi:include href="list.gen.pddoc" parse="xml"/>
     </entry>
+    <entry descr="takes n lists from n inlets (specified by argument) and output their elements sequentially (list1-1 list2-1 list1-2 list2-2 etc.)." name="list.interleave">
+      <xi:include href="list.interleave.pddoc" parse="xml"/>
+    </entry>
     <entry descr="returns last list element" name="list.last">
       <xi:include href="list.last.pddoc" parse="xml"/>
     </entry>
@@ -129,8 +132,17 @@
     <entry descr="normalizes float list values to get their sum = 1.0" name="list.normalize">
       <xi:include href="list.normalize.pddoc" parse="xml"/>
     </entry>
+    <entry descr="calculates product of floats in list" name="list.product">
+      <xi:include href="list.product.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="returns list smallest and largest value" name="list.range">
+      <xi:include href="list.range.pddoc" parse="xml"/>
+    </entry>
     <entry descr="apply function of two arguments cumulatively to the list" name="list.reduce">
       <xi:include href="list.reduce.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="changes list size with" name="list.resize">
+      <xi:include href="list.resize.pddoc" parse="xml"/>
     </entry>
     <entry descr="reverses the order of the elements in the list" name="list.reverse">
       <xi:include href="list.reverse.pddoc" parse="xml"/>

@@ -228,4 +228,31 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
             REQUIRE(newl[6] == 3.f);
         }
     }
+
+    SECTION("range")
+    {
+        AtomList l;
+        Atom min, max;
+        REQUIRE(l.range(min, max) == false);
+
+        l.append(10.f);
+        REQUIRE(l.range(min, max));
+        REQUIRE(min == 10.f);
+        REQUIRE(max == 10.f);
+
+        l.append(-3.f);
+        REQUIRE(l.range(min, max));
+        REQUIRE(min == -3.f);
+        REQUIRE(max == 10.f);
+
+        l.append(2.f);
+        REQUIRE(l.range(min, max));
+        REQUIRE(min == -3.f);
+        REQUIRE(max == 10.f);
+
+        l.append(20.f);
+        REQUIRE(l.range(min, max));
+        REQUIRE(min == -3.f);
+        REQUIRE(max == 20.f);
+    }
 }

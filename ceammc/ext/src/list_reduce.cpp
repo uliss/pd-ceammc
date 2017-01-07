@@ -44,4 +44,6 @@ public:
 extern "C" void setup_list0x2ereduce()
 {
     ObjectFactory<ListReduce> obj("list.reduce");
+    obj.mapFloatToList();
+    obj.mapSymbolToList();
 }

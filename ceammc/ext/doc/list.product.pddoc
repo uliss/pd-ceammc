@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pddoc version="1.0">
-    <object name="list.min">
-        <title>list.min</title>
+    <object name="list.product">
+        <title>list.product</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>returns smallest element in the list</description>
+            <description>calculates product of floats in list</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>list</category>
-            <keywords>list min compare</keywords>
+            <keywords>list product</keywords>
             <since>0.1</since>
             <also>
-                <see>list.max</see>
-                <see>list.range</see>
+                <see>list.sum</see>
             </also>
         </meta>
         <info>
-            <par>Note: numbers are smaller then symbols</par>
+            <par>Note: symbol values are treated as 0.
+            So if list contains at least one symbol, product will be always equal to zero</par>
         </info>
         <inlets>
             <inlet>
@@ -26,20 +26,19 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>smallest element</outlet>
+            <outlet>float list product</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[list a b( [1 2 b c( /* (!) */
-|          |
-| [1 2 3(  | [F]
-| |        | |
-[list.min    ]
+[1 2 3 4 5 -6(   [1 2 a b c(
+|                |
+|  [1 2 3(       |
+|  |             |
+|  |             |
+[list.product    ]
 |
-[prepend set]
-|
-[ (
+[F]
 ]]>
             </pdascii>
         </example>
