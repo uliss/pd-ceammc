@@ -20,7 +20,7 @@
         <arguments>
             <argument name="N" type="int" minvalue="2">number of inputs</argument>
         </arguments>
-        <inlets>
+        <inlets dynamic="true">
             <inlet>
                 <xinfo on="list">input list</xinfo>
             </inlet>

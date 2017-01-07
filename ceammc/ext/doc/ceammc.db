@@ -40,7 +40,7 @@ list.each		..		..
 list.equal		..		.
 list.first		.		.
 list.gen		..		..
-list.interleave		.		.
+list.interleave		?		.
 list.last		.		.
 list.length		.		.
 list.max		.		.
