@@ -129,6 +129,9 @@
     <entry descr="normalizes float list values to get their sum = 1.0" name="list.normalize">
       <xi:include href="list.normalize.pddoc" parse="xml"/>
     </entry>
+    <entry descr="calculates product of floats in list" name="list.product">
+      <xi:include href="list.product.pddoc" parse="xml"/>
+    </entry>
     <entry descr="returns list smallest and largest value" name="list.range">
       <xi:include href="list.range.pddoc" parse="xml"/>
     </entry>
