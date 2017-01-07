@@ -48,6 +48,7 @@ set(DOC_FILES
     list.max
     list.min
     list.normalize
+    list.range
     list.reduce
     list.resize
     list.reverse
