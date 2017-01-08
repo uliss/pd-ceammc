@@ -71,4 +71,58 @@ TEST_CASE("vector functions", "[ceammc::vector]")
         b.append(20.f);
         REQUIRE(vector::dotProduct(a, b) == 200.);
     }
+
+    SECTION("distance")
+    {
+        AtomList a;
+        AtomList b;
+
+        REQUIRE(vector::distance(a, b) == 0.0);
+        REQUIRE(vector::distance(b, a) == 0.0);
+
+        a.append(1.f);
+        REQUIRE(vector::distance(a, b) == 0.f);
+        REQUIRE(vector::distance(b, a) == 0.f);
+
+        a.clear();
+        b.clear();
+        a.append(1.f);
+        b.append(0.f);
+        REQUIRE(vector::distance(a, b) == 1.f);
+        REQUIRE(vector::distance(b, a) == 1.f);
+
+        a.clear();
+        b.clear();
+        a.append(1.f);
+        b.append(1.f);
+        REQUIRE(vector::distance(a, b) == 0.f);
+        REQUIRE(vector::distance(b, a) == 0.f);
+
+        a.clear();
+        b.clear();
+        a.append(1.f);
+        a.append(10.f);
+        b.append(1.f);
+        b.append(12.f);
+        REQUIRE(vector::distance(a, b) == 2.f);
+        REQUIRE(vector::distance(b, a) == 2.f);
+
+        a.clear();
+        b.clear();
+        a.append(10.f);
+        b.append(20.f);
+        REQUIRE(vector::distance(a, b) > 0);
+        REQUIRE(vector::distance(b, a) > 0);
+
+        a.clear();
+        b.clear();
+        a.append(3.f);
+        a.append(8.f);
+        b.append(6.f);
+        b.append(12.f);
+        REQUIRE(vector::distance(a, b) == 5.0);
+        REQUIRE(vector::distance(b, a) == 5.0);
+
+        REQUIRE(vector::distance(a, a) == 0.0);
+    }
 }
