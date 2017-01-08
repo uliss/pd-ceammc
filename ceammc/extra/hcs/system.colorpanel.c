@@ -89,7 +89,7 @@ static void *colorpanel_new( void)
     return(x);
 }
 
-void colorpanel_setup(void)
+void setup_system0x2ecolorpanel(void)
 {
     colorpanel_class = class_new(gensym("system.colorpanel"),
         (t_newmethod)colorpanel_new, (t_method)colorpanel_free,

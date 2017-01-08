@@ -231,7 +231,7 @@ static void *cursor_new(void)
     return(x);
 }
 
-void cursor_setup(void)
+void setup_system0x2ecursor(void)
 {
     cursor_class = class_new(gensym("system.cursor"),
         (t_newmethod)cursor_new, (t_method)cursor_free,
