@@ -312,6 +312,11 @@
       <xi:include href="is_symbol.pddoc" parse="xml"/>
     </entry>
   </category>
+  <category name="symbol">
+    <entry descr="length of symbol (unicode supported)" name="symbol.length">
+      <xi:include href="symbol.length.pddoc" parse="xml"/>
+    </entry>
+  </category>
   <category name="system">
     <entry descr="returns the size of physical memory (RAM) in bytes round to float data type." name="system.memsize">
       <xi:include href="system.memsize.pddoc" parse="xml"/>

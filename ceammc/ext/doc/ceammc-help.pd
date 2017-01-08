@@ -241,27 +241,32 @@ direction;
 #X text 150 3240 checks if input data has *pointer* type;
 #X obj 30 3267 is_symbol;
 #X text 150 3267 checks if input data has *symbol* type;
-#X obj 20 3294 cnv 5 58 19 empty empty system 0 17 0 17 -262144 -49933
+#X obj 20 3294 cnv 5 58 19 empty empty symbol 0 17 0 17 -262144 -49933
 0;
 #X obj 20 3323 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 3334 system.memsize;
-#X text 150 3334 returns the size of physical memory (RAM) in bytes
-round to float data type\.;
-#X obj 30 3371 system.memused;
-#X text 150 3371 returns the process physical memory use - current and
-peak;
-#X obj 20 3398 cnv 5 59 19 empty empty vector 0 17 0 17 -262144 -49933
+#X obj 30 3334 symbol.length;
+#X text 150 3334 length of symbol (unicode supported);
+#X obj 20 3361 cnv 5 58 19 empty empty system 0 17 0 17 -262144 -49933
 0;
-#X obj 20 3427 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 3438 vector.dot;
-#X text 150 3438 treats list of floats as vector \, returns the dot
+#X obj 20 3390 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 3401 system.memsize;
+#X text 150 3401 returns the size of physical memory (RAM) in bytes
+round to float data type\.;
+#X obj 30 3438 system.memused;
+#X text 150 3438 returns the process physical memory use - current and
+peak;
+#X obj 20 3465 cnv 5 59 19 empty empty vector 0 17 0 17 -262144 -49933
+0;
+#X obj 20 3494 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 3505 vector.dot;
+#X text 150 3505 treats list of floats as vector \, returns the dot
 product (sum of the elements of two lists with same indexes
 multiplied)\.;
-#X obj 30 3489 vector.length;
-#X text 150 3489 treats list of floats as vector \, returns vector
+#X obj 30 3556 vector.length;
+#X text 150 3556 treats list of floats as vector \, returns vector
 length: sqrt(element(1)^2 + \.\.\.element(n)^2)\.;
 #X obj 1 1 cnv 5 597 40 empty empty ceammc 20 20 0 20 -104026 -4096 0;
-#X obj 1 3526 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 3526 version: v0\.1 \, license: GPL3;
-#X obj 20 3542 pddp/pddplink https://github.com/uliss/pure-data -text
+#X obj 1 3593 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 3593 version: v0\.1 \, license: GPL3;
+#X obj 20 3609 pddp/pddplink https://github.com/uliss/pure-data -text
 https://github.com/uliss/pure-data;

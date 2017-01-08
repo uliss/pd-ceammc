@@ -98,6 +98,7 @@ set(DOC_FILES
     osc.tri~
     pass.changed
     pass.if
+    symbol.length
     system.memsize
     system.memused
     vector.dot
