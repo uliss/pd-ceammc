@@ -271,6 +271,19 @@ public:
      */
     static AtomList sub(const AtomList& a, const AtomList& b, NonEqualLengthBehaivor lb = MINSIZE);
 
+    /**
+      * arithmetic operators
+      */
+    AtomList& operator+=(double v);
+    AtomList& operator-=(double v);
+    AtomList& operator*=(double v);
+    AtomList& operator/=(double v);
+
+    AtomList operator+(double v) const;
+    AtomList operator-(double v) const;
+    AtomList operator*(double v) const;
+    AtomList operator/(double v) const;
+
 public:
     friend bool operator==(const AtomList& l1, const AtomList& l2);
     friend bool operator!=(const AtomList& l1, const AtomList& l2);

@@ -35,12 +35,13 @@ list.at		..		.
 list.choice		.		.
 list.count		..		.
 list.count_if		..		..
+list.deinterleave		.		?
 list.delta		.		.
 list.each		..		..
 list.equal		..		.
 list.first		.		.
 list.gen		..		..
-list.interleave		.		.
+list.interleave		?		.
 list.last		.		.
 list.length		.		.
 list.max		.		.
@@ -97,3 +98,4 @@ system.memsize		.		.
 system.memused		.		..
 vector.dot		..		.
 vector.length		.		.
+vector.normalize		.		.

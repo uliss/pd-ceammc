@@ -224,6 +224,58 @@ void Atom::output(_outlet* x) const
     to_outlet(x, *this);
 }
 
+Atom& Atom::operator+=(double v)
+{
+    if (isFloat())
+        a_w.w_float += v;
+
+    return *this;
+}
+
+Atom& Atom::operator-=(double v)
+{
+    if (isFloat())
+        a_w.w_float -= v;
+
+    return *this;
+}
+
+Atom& Atom::operator*=(double v)
+{
+    if (isFloat())
+        a_w.w_float *= v;
+
+    return *this;
+}
+
+Atom& Atom::operator/=(double v)
+{
+    if (isFloat() && v != 0.0)
+        a_w.w_float /= v;
+
+    return *this;
+}
+
+Atom Atom::operator+(double v) const
+{
+    return Atom(*this) += v;
+}
+
+Atom Atom::operator-(double v) const
+{
+    return Atom(*this) -= v;
+}
+
+Atom Atom::operator*(double v) const
+{
+    return Atom(*this) *= v;
+}
+
+Atom Atom::operator/(double v) const
+{
+    return Atom(*this) /= v;
+}
+
 void Atom::outputAsAny(t_outlet* x, t_symbol* sel) const
 {
     outlet_anything(x, sel, 1, const_cast<t_atom*>(static_cast<const t_atom*>(this)));

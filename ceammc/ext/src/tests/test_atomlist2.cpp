@@ -255,4 +255,41 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
         REQUIRE(min == -3.f);
         REQUIRE(max == 20.f);
     }
+
+    SECTION("double operators")
+    {
+        SECTION("assign")
+        {
+            REQUIRE((AtomList() += 1.0) == AtomList());
+            REQUIRE((AtomList() -= 1.0) == AtomList());
+            REQUIRE((AtomList() *= 1.0) == AtomList());
+            REQUIRE((AtomList() /= 1.0) == AtomList());
+
+            AtomList l = AtomList::values(3, -1.0, 0.0, 2.0);
+            REQUIRE((l += 10) == AtomList::values(3, 9.0, 10.0, 12.0));
+            REQUIRE((l -= 5) == AtomList::values(3, 4.0, 5.0, 7.0));
+            REQUIRE((l *= 2) == AtomList::values(3, 8.0, 10.0, 14.0));
+            REQUIRE((l /= 2) == AtomList::values(3, 4.0, 5.0, 7.0));
+            REQUIRE((l /= 0) == AtomList::values(3, 4.0, 5.0, 7.0));
+
+            l.clear();
+            l.append(2.0);
+            l.append(gensym("a"));
+            l += 10;
+            REQUIRE(l[0] == 12.0);
+            REQUIRE(l[1] == gensym("a"));
+            l -= 5;
+            REQUIRE(l[0] == 7.0);
+            REQUIRE(l[1] == gensym("a"));
+            l *= 8;
+            REQUIRE(l[0] == 56.0);
+            REQUIRE(l[1] == gensym("a"));
+            l /= 4;
+            REQUIRE(l[0] == 14.0);
+            REQUIRE(l[1] == gensym("a"));
+            l /= 0;
+            REQUIRE(l[0] == 14.0);
+            REQUIRE(l[1] == gensym("a"));
+        }
+    }
 }

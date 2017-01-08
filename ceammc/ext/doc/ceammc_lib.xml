@@ -99,6 +99,9 @@
     <entry descr="returns the number of items that satisfy to external predicate." name="list.count_if">
       <xi:include href="list.count_if.pddoc" parse="xml"/>
     </entry>
+    <entry descr="splits list to N lists, each to separate output" name="list.deinterleave">
+      <xi:include href="list.deinterleave.pddoc" parse="xml"/>
+    </entry>
     <entry descr="returns the difference between the current list of floats and the previous one." name="list.delta">
       <xi:include href="list.delta.pddoc" parse="xml"/>
     </entry>
@@ -158,6 +161,9 @@
     </entry>
     <entry descr="Walks thru the list" name="list.walk">
       <xi:include href="list.walk.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="returns normalized vector" name="vector.normalize">
+      <xi:include href="vector.normalize.pddoc" parse="xml"/>
     </entry>
     <xi:include href="ceammc_category_list.xml" parse="xml"/>
   </category>

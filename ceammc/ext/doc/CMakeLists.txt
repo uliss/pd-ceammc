@@ -38,6 +38,7 @@ set(DOC_FILES
     list.choice
     list.count
     list.count_if
+    list.deinterleave
     list.delta
     list.each
     list.equal
@@ -101,6 +102,7 @@ set(DOC_FILES
     system.memused
     vector.dot
     vector.length
+    vector.normalize
     )
 
 if(NOT PD_XML2PD)
