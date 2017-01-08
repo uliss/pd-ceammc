@@ -1,40 +1,58 @@
-#include "ceammc_atomlist.h"
-#include <m_pd.h>
-
-#define OBJ_NAME "list.min"
-#define MSG_PREFIX "[" OBJ_NAME "] "
-
-static t_class* list_min_class;
-typedef struct list_min {
-    t_object x_obj;
-} t_list_min;
+#include "ceammc_factory.h"
+#include "ceammc_object.h"
 
 using namespace ceammc;
 
-static void list_min_list(t_list_min* x, t_symbol*, int argc, t_atom* argv)
-{
-    AtomList lst(static_cast<size_t>(argc), argv);
-    Atom* a = lst.min();
-    if (a == 0) {
-        pd_error(x, MSG_PREFIX "invalid list");
-        return;
+class ListMin : public BaseObject {
+    SymbolEnumProperty* type_;
+    t_symbol* alias_float_;
+    t_symbol* alias_symbol_;
+    t_symbol* alias_any_;
+
+public:
+    ListMin(const PdArgs& a)
+        : BaseObject(a)
+        , type_(0)
+        , alias_float_(gensym("float"))
+        , alias_symbol_(gensym("symbol"))
+        , alias_any_(gensym("any"))
+    {
+        createOutlet();
+
+        type_ = new SymbolEnumProperty("@type", "float");
+        type_->appendEnum("symbol");
+        type_->appendEnum("any");
+        createProperty(type_);
+
+        createProperty(new SymbolEnumAlias("@float", type_, alias_float_));
+        createProperty(new SymbolEnumAlias("@symbol", type_, alias_symbol_));
+        createProperty(new SymbolEnumAlias("@any", type_, alias_any_));
+
+        parseArguments();
     }
 
-    to_outlet(x->x_obj.te_outlet, *a);
-}
+    void onList(const AtomList& l)
+    {
+        if (l.empty())
+            return;
 
-static void* list_min_new()
-{
-    t_list_min* x = reinterpret_cast<t_list_min*>(pd_new(list_min_class));
-    outlet_new(&x->x_obj, &s_anything);
-    return static_cast<void*>(x);
-}
+        const Atom* min = 0;
+
+        if (type_->value() == alias_any_)
+            min = l.min();
+        else if (type_->value() == alias_float_)
+            min = l.filtered(isFloat).min();
+        else if (type_->value() == alias_symbol_)
+            min = l.filtered(isSymbol).min();
+
+        if (min != 0)
+            atomTo(0, *min);
+    }
+};
 
 extern "C" void setup_list0x2emin()
 {
-    list_min_class = class_new(gensym("list.min"),
-        reinterpret_cast<t_newmethod>(list_min_new),
-        static_cast<t_method>(0),
-        sizeof(t_list_min), 0, A_NULL);
-    class_addlist(list_min_class, list_min_list);
+    ObjectFactory<ListMin> obj("list.min");
+    obj.mapFloatToList();
+    obj.mapSymbolToList();
 }
