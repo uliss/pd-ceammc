@@ -124,5 +124,12 @@ TEST_CASE("vector functions", "[ceammc::vector]")
         REQUIRE(vector::distance(b, a) == 5.0);
 
         REQUIRE(vector::distance(a, a) == 0.0);
+
+        a.clear();
+        b.clear();
+        a.append(-10.f);
+        b.append(-20.f);
+        REQUIRE(vector::distance(a, b) > 0);
+        REQUIRE(vector::distance(b, a) > 0);
     }
 }
