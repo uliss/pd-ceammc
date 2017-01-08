@@ -38,6 +38,7 @@ set(DOC_FILES
     list.choice
     list.count
     list.count_if
+    list.deinterleave
     list.delta
     list.each
     list.equal

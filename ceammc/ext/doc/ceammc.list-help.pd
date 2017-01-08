@@ -17,52 +17,54 @@ value;
 #X obj 30 231 list.count_if;
 #X text 150 231 returns the number of items that satisfy to external
 predicate\.;
-#X obj 30 268 list.delta;
-#X text 150 268 returns the difference between the current list of
+#X obj 30 268 list.deinterleave;
+#X text 150 268 splits list to N lists \, each to separate output;
+#X obj 30 295 list.delta;
+#X text 150 295 returns the difference between the current list of
 floats and the previous one\.;
-#X obj 30 305 list.each;
-#X text 150 305 maps each list value via external object(s);
-#X obj 30 332 list.equal;
-#X text 150 332 checks if given lists are equal;
-#X obj 30 359 list.first;
-#X text 150 359 returns first list element;
-#X obj 30 386 list.gen;
-#X text 150 386 generates list of specified length via external
+#X obj 30 332 list.each;
+#X text 150 332 maps each list value via external object(s);
+#X obj 30 359 list.equal;
+#X text 150 359 checks if given lists are equal;
+#X obj 30 386 list.first;
+#X text 150 386 returns first list element;
+#X obj 30 413 list.gen;
+#X text 150 413 generates list of specified length via external
 generator;
-#X obj 30 413 list.interleave;
-#X text 150 413 takes n lists from n inlets (specified by argument)
+#X obj 30 440 list.interleave;
+#X text 150 440 takes n lists from n inlets (specified by argument)
 and output their elements sequentially (list1-1 list2-1 list1-2
 list2-2 etc\.)\.;
-#X obj 30 464 list.last;
-#X text 150 464 returns last list element;
-#X obj 30 491 list.length;
-#X text 150 491 returns the number of atoms in the message;
-#X obj 30 518 list.max;
-#X text 150 518 returns largest element in the list;
-#X obj 30 545 list.min;
-#X text 150 545 returns smallest element in the list;
-#X obj 30 572 list.normalize;
-#X text 150 572 normalizes float list values to get their sum = 1\.0;
-#X obj 30 599 list.product;
-#X text 150 599 calculates product of floats in list;
-#X obj 30 626 list.range;
-#X text 150 626 returns list smallest and largest value;
-#X obj 30 653 list.reduce;
-#X text 150 653 apply function of two arguments cumulatively to the
+#X obj 30 491 list.last;
+#X text 150 491 returns last list element;
+#X obj 30 518 list.length;
+#X text 150 518 returns the number of atoms in the message;
+#X obj 30 545 list.max;
+#X text 150 545 returns largest element in the list;
+#X obj 30 572 list.min;
+#X text 150 572 returns smallest element in the list;
+#X obj 30 599 list.normalize;
+#X text 150 599 normalizes float list values to get their sum = 1\.0;
+#X obj 30 626 list.product;
+#X text 150 626 calculates product of floats in list;
+#X obj 30 653 list.range;
+#X text 150 653 returns list smallest and largest value;
+#X obj 30 680 list.reduce;
+#X text 150 680 apply function of two arguments cumulatively to the
 list;
-#X obj 30 680 list.resize;
-#X text 150 680 changes list size with;
-#X obj 30 707 list.reverse;
-#X text 150 707 reverses the order of the elements in the list;
-#X obj 30 734 list.shuffle;
-#X text 150 734 randomly rearranges elements in list;
-#X obj 30 761 list.sort;
-#X text 150 761 sorts list values by ascending order;
-#X obj 30 788 list.sum;
-#X text 150 788 calculates sum of floats in list;
-#X obj 30 815 list.walk;
-#X text 150 815 Walks thru the list;
+#X obj 30 707 list.resize;
+#X text 150 707 changes list size with;
+#X obj 30 734 list.reverse;
+#X text 150 734 reverses the order of the elements in the list;
+#X obj 30 761 list.shuffle;
+#X text 150 761 randomly rearranges elements in list;
+#X obj 30 788 list.sort;
+#X text 150 788 sorts list values by ascending order;
+#X obj 30 815 list.sum;
+#X text 150 815 calculates sum of floats in list;
+#X obj 30 842 list.walk;
+#X text 150 842 Walks thru the list;
 #X obj 1 1 cnv 5 597 40 empty empty ceammc::list 20 20 0 20 -104026
 -4096 0;
-#X obj 1 842 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 852 library: ceammc;
+#X obj 1 869 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 879 library: ceammc;
