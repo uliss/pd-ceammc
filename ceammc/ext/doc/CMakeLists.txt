@@ -102,7 +102,7 @@ set(DOC_FILES
     symbol.length
     system.memsize
     system.memused
-#    vector.distance
+    vector.distance
     vector.dot
     vector.length
     vector.normalize

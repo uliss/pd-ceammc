@@ -329,6 +329,9 @@
     </entry>
   </category>
   <category name="vector">
+    <entry descr="returns euclidean distance between two points" name="vector.distance">
+      <xi:include href="vector.distance.pddoc" parse="xml"/>
+    </entry>
     <entry descr="treats list of floats as vector, returns the dot product (sum of the elements of two lists with same indexes multiplied)." name="vector.dot">
       <xi:include href="vector.dot.pddoc" parse="xml"/>
     </entry>
