@@ -48,6 +48,7 @@ set(DOC_FILES
     list.last
     list.length
     list.max
+    list.mean
     list.min
     list.normalize
     list.product

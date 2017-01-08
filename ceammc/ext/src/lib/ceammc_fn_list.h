@@ -38,6 +38,8 @@ namespace list {
 
     void deinterleaveMinLength(const AtomList& in, std::vector<AtomList>& out);
     void deinterleavePadWith(const AtomList& in, const Atom& pad, std::vector<AtomList>& out);
+
+    float average(const AtomList& l);
 }
 }
 

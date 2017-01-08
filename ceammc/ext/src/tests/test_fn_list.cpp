@@ -244,4 +244,22 @@ TEST_CASE("list functions", "[ceammc::list]")
             }
         }
     }
+
+    SECTION("average")
+    {
+        REQUIRE(list::average(AtomList()) == 0.f);
+        REQUIRE(list::average(AtomList::ones(100.f)) == 1.f);
+        REQUIRE(list::average(AtomList::zeroes(10.f)) == 0.f);
+        REQUIRE(list::average(AtomList::values(5, 1.0, 2.0, 3.0, 4.0, 5.0)) == 3.f);
+
+        AtomList l;
+        l.append(gensym("a"));
+        REQUIRE(list::average(l) == 0.f);
+        l.append(gensym("b"));
+        REQUIRE(list::average(l) == 0.f);
+        l.append(1.0);
+        REQUIRE(list::average(l) == 1.f);
+        l.append(2.0);
+        REQUIRE(list::average(l) == 1.5f);
+    }
 }
