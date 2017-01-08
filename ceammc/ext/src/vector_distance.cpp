@@ -1,82 +1,51 @@
-#include "ceammc.h"
-#include <m_pd.h>
-#include <stdlib.h>
-#include <string.h>
+#include "ceammc_factory.h"
+#include "ceammc_fn_vector.h"
+#include "ceammc_log.h"
+#include "ceammc_object.h"
 
-#define MIN(a, b)  (((a) < (b)) ? (a) : (b))
+using namespace ceammc;
 
-t_class* vector_distance_class;
-struct t_vector_distance {
-    t_object x_obj;
-    t_atom *vec2;
-    int vec2_size;
-    
-    t_inlet *in2;
+class VectorDistance : public BaseObject {
+    AtomList a_;
+    AtomList b_;
+    float distance_;
+
+public:
+    VectorDistance(const PdArgs& a)
+        : BaseObject(a)
+        , distance_(0.f)
+    {
+        createInlet();
+        createOutlet();
+    }
+
+    void onBang()
+    {
+        floatTo(0, distance_);
+    }
+
+    void onList(const AtomList& l)
+    {
+        a_ = l;
+        distance_ = static_cast<t_float>(vector::distance(a_, b_));
+        onBang();
+    }
+
+    void onInlet(size_t, const AtomList& l)
+    {
+        b_ = l;
+    }
+
+    void dump() const
+    {
+        BaseObject::dump();
+        OBJ_DBG << "first point:  " << a_;
+        OBJ_DBG << "second point: " << b_;
+        OBJ_DBG << "distance:     " << distance_;
+    }
 };
-
-
-static void vector_distance_list2(t_vector_distance* x, t_symbol* s, int argc, t_atom* argv)
-{
-    if (strcmp(s->s_name,"list2")==0)
-    {
-        x->vec2_size = argc;
-        
-        free(x->vec2);
-        
-        x->vec2 = (t_atom*)malloc(sizeof(t_atom)*argc);
-        
-        for (int i=0;i<argc;i++)
-        {
-            x->vec2[i] = argv[i];
-        }
-    }
-}
-
-static void vector_distance_list(t_vector_distance* x, t_symbol* s, int argc, t_atom* argv)
-{
-    if (argc < 1 || x->vec2_size < 1)
-        return;
-    
-    float len1 = 0;
-    
-    int min_size = MIN(argc, x->vec2_size);
-    
-    for (int i=0;i<min_size;i++)
-    {
-        len1 += argv[i].a_w.w_float*argv[i].a_w.w_float;
-        len1 -= x->vec2->a_w.w_float*x->vec2[i].a_w.w_float;
-        
-    }
-    
-    len1 = qsqrt(len1);
-    
-    
-    outlet_float(x->x_obj.te_outlet, len1);
-    
-}
-
-static void* vector_distance_new()
-{
-    t_vector_distance* x = reinterpret_cast<t_vector_distance*>(pd_new(vector_distance_class));
-    outlet_new(&x->x_obj, &s_float);
-    
-    inlet_new(&x->x_obj, &x->x_obj.ob_pd, gensym("list"), gensym("list2"));
-    
-    x->vec2 = (t_atom*)malloc(0);    //dummy
-    x->vec2_size=0;
-    
-    return static_cast<void*>(x);
-}
 
 extern "C" void setup_vector0x2edistance()
 {
-    vector_distance_class = class_new(gensym("vector.distance"),
-                                  reinterpret_cast<t_newmethod>(vector_distance_new),
-                                  reinterpret_cast<t_method>(0),
-                                  sizeof(t_vector_distance), 0, A_NULL);
-    class_addlist(vector_distance_class, vector_distance_list);
-    
-    class_addanything(vector_distance_class, vector_distance_list2);
-    
-    
+    ObjectFactory<VectorDistance> obj("vector.distance");
 }
