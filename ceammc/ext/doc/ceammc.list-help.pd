@@ -65,9 +65,8 @@ list;
 #X obj 30 842 list.walk;
 #X text 150 842 Walks thru the list;
 #X obj 30 869 vector.normalize;
-#X text 150 869 treats list of floats as vector \, divides the vector
-elements by its magnitude;
+#X text 150 869 returns normalized vector;
 #X obj 1 1 cnv 5 597 40 empty empty ceammc::list 20 20 0 20 -104026
 -4096 0;
-#X obj 1 906 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 916 library: ceammc;
+#X obj 1 896 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 906 library: ceammc;

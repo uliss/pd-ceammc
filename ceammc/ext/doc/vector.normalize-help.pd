@@ -6,7 +6,7 @@
 #X obj 544 11 vector.normalize;
 #X obj 225 80 cnv 1 440 61 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 230 80 Treats list of floats as vector \, divides the vector
-elements by its magnitude\.  Note: return 0 vector if vector length
+elements by its magnitude\.  Note: returns 0 vector if vector length
 (magnitude) is 0\.;
 #X msg 50 169 1 2 3;
 #X msg 126 169 0 0 0;

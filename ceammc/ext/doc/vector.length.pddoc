@@ -29,15 +29,15 @@
         </outlets>
         <example>
             <pdascii>
-                <![CDATA[
-[1 0 0( [3 4(
-|       |
+<![CDATA[
+[1 0 0( [3 4( [1 2 3 4(
+|       |     |
+|       |     |
+|       |     |
 [vector.length]
 |
-[prepend set]
-|
-[ (
-                ]]>
+[F]
+]]>
             </pdascii>
         </example>
     </object>
