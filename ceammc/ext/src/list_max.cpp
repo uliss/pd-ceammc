@@ -1,40 +1,58 @@
-#include "ceammc_atomlist.h"
-#include <m_pd.h>
-
-#define OBJ_NAME "list.max"
-#define MSG_PREFIX "[" OBJ_NAME "] "
-
-static t_class* list_max_class;
-typedef struct list_max {
-    t_object x_obj;
-} t_list_max;
+#include "ceammc_factory.h"
+#include "ceammc_object.h"
 
 using namespace ceammc;
 
-static void list_max_list(t_list_max* x, t_symbol*, int argc, t_atom* argv)
-{
-    AtomList lst(static_cast<size_t>(argc), argv);
-    Atom* a = lst.max();
-    if (a == 0) {
-        pd_error(x, MSG_PREFIX "invalid list");
-        return;
+class ListMax : public BaseObject {
+    SymbolEnumProperty* type_;
+    t_symbol* alias_float_;
+    t_symbol* alias_symbol_;
+    t_symbol* alias_any_;
+
+public:
+    ListMax(const PdArgs& a)
+        : BaseObject(a)
+        , type_(0)
+        , alias_float_(gensym("float"))
+        , alias_symbol_(gensym("symbol"))
+        , alias_any_(gensym("any"))
+    {
+        createOutlet();
+
+        type_ = new SymbolEnumProperty("@type", "float");
+        type_->appendEnum("symbol");
+        type_->appendEnum("any");
+        createProperty(type_);
+
+        createProperty(new SymbolEnumAlias("@float", type_, alias_float_));
+        createProperty(new SymbolEnumAlias("@symbol", type_, alias_symbol_));
+        createProperty(new SymbolEnumAlias("@any", type_, alias_any_));
+
+        parseArguments();
     }
 
-    to_outlet(x->x_obj.te_outlet, *a);
-}
+    void onList(const AtomList& l)
+    {
+        if (l.empty())
+            return;
 
-static void* list_max_new()
-{
-    t_list_max* x = reinterpret_cast<t_list_max*>(pd_new(list_max_class));
-    outlet_new(&x->x_obj, &s_anything);
-    return static_cast<void*>(x);
-}
+        const Atom* max = 0;
+
+        if (type_->value() == alias_any_)
+            max = l.max();
+        else if (type_->value() == alias_float_)
+            max = l.filtered(isFloat).max();
+        else if (type_->value() == alias_symbol_)
+            max = l.filtered(isSymbol).max();
+
+        if (max != 0)
+            atomTo(0, *max);
+    }
+};
 
 extern "C" void setup_list0x2emax()
 {
-    list_max_class = class_new(gensym("list.max"),
-        reinterpret_cast<t_newmethod>(list_max_new),
-        static_cast<t_method>(0),
-        sizeof(t_list_max), 0, A_NULL);
-    class_addlist(list_max_class, list_max_list);
+    ObjectFactory<ListMax> obj("list.max");
+    obj.mapFloatToList();
+    obj.mapSymbolToList();
 }
