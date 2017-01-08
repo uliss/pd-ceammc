@@ -98,3 +98,4 @@ system.memsize		.		.
 system.memused		.		..
 vector.dot		..		.
 vector.length		.		.
+vector.normalize		.		.

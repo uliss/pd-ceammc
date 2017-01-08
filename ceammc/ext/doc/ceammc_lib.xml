@@ -162,6 +162,9 @@
     <entry descr="Walks thru the list" name="list.walk">
       <xi:include href="list.walk.pddoc" parse="xml"/>
     </entry>
+    <entry descr="treats list of floats as vector, divides the vector by its length (return 0 if length is 0)" name="vector.normalize">
+      <xi:include href="vector.normalize.pddoc" parse="xml"/>
+    </entry>
     <xi:include href="ceammc_category_list.xml" parse="xml"/>
   </category>
   <category name="live">

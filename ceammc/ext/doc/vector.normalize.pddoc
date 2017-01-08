@@ -14,7 +14,9 @@
             <keywords>list</keywords>
             <since>0.1</since>
             <also>
-                <see>vector.length vector.distance vector.dot</see>
+                <see>vector.length</see>
+                <see>vector.distance</see>
+                <see>vector.dot</see>
             </also>
         </meta>
         <inlets>
@@ -27,7 +29,7 @@
         </outlets>
         <example>
             <pdascii>
-                <![CDATA[
+<![CDATA[
 [1 2 3(
 |
 [vector.normalize]
@@ -35,7 +37,7 @@
 [prepend set]
 |
 [ (
-                ]]>
+]]>
             </pdascii>
         </example>
     </object>
