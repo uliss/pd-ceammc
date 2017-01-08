@@ -107,6 +107,19 @@ public:
 
     void outputAsAny(t_outlet* x, t_symbol* sel) const;
 
+    /**
+      * Operators
+      */
+    Atom& operator+=(double v);
+    Atom& operator-=(double v);
+    Atom& operator*=(double v);
+    Atom& operator/=(double v);
+
+    Atom operator+(double v) const;
+    Atom operator-(double v) const;
+    Atom operator*(double v) const;
+    Atom operator/(double v) const;
+
 public:
     friend bool operator==(const Atom& a1, const Atom& a2);
     friend bool operator!=(const Atom& a1, const Atom& a2);

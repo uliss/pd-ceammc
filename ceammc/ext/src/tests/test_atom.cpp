@@ -315,4 +315,41 @@ TEST_CASE("Atom", "[ceammc::Atom]")
         REQUIRE(!Atom(-0.0000001f).isNatural());
         REQUIRE(!Atom(-1.0000001f).isNatural());
     }
+
+    SECTION("test float operators")
+    {
+        SECTION("")
+        {
+            REQUIRE((Atom(1.f) + 10.0) == 11.f);
+            REQUIRE((Atom(1.f) - 10.0) == -9.f);
+            REQUIRE((Atom(2.f) * 10.0) == 20.f);
+            REQUIRE((Atom(20.f) / 10.0) == 2.f);
+            REQUIRE((Atom(20.f) / 0.0) == 20.f);
+
+            REQUIRE((Atom(gensym("a")) + 10.0) == Atom(gensym("a")));
+            REQUIRE((Atom(gensym("a")) - 10.0) == Atom(gensym("a")));
+            REQUIRE((Atom(gensym("a")) * 10.0) == Atom(gensym("a")));
+            REQUIRE((Atom(gensym("a")) / 10.0) == Atom(gensym("a")));
+            REQUIRE((Atom(gensym("a")) / 0.0) == Atom(gensym("a")));
+        }
+
+        SECTION("test assign")
+        {
+            Atom a(1.f);
+            REQUIRE((a += 10.0) == 11.f);
+            REQUIRE((a -= 2.0) == 9.f);
+            REQUIRE((a *= 10.0) == 90.f);
+            REQUIRE((a /= 3.0) == 30.f);
+            REQUIRE((a /= 0.0) == 30.f);
+
+            Atom b(gensym("a"));
+            const Atom c(b);
+
+            REQUIRE((b += 10.0) == c);
+            REQUIRE((b -= 2.0) == c);
+            REQUIRE((b *= 10.0) == c);
+            REQUIRE((b /= 3.0) == c);
+            REQUIRE((b /= 0.0) == c);
+        }
+    }
 }

@@ -7,7 +7,7 @@
                 <author>Alex Nadzharov</author>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>treats list of floats as vector, divides the vector by its length (return 0 if length is 0)</description>
+            <description>returns normalized vector</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>list</category>
@@ -19,9 +19,13 @@
                 <see>vector.dot</see>
             </also>
         </meta>
+        <info>
+            <par>Treats list of floats as vector, divides the vector elements by its magnitude.
+            Note: returns 0 vector if vector length (magnitude) is 0.</par>
+        </info>
         <inlets>
             <inlet>
-                <xinfo on="list">Input list of floats.</xinfo>
+                <xinfo on="list">input list of floats</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -30,8 +34,9 @@
         <example>
             <pdascii>
 <![CDATA[
-[1 2 3(
-|
+[1 2 3( [0 0 0(
+|       |
+|       |
 [vector.normalize]
 |
 [prepend set]

@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_atomlist.h"
+#include "ceammc_log.h"
 #include <algorithm>
 #include <cassert>
 #include <cstdarg>
@@ -906,6 +907,71 @@ AtomList AtomList::sub(const AtomList& a, const AtomList& b, AtomList::NonEqualL
     case FOLD:
         return listSubstract(a, b, &AtomList::foldAt);
     }
+}
+
+AtomList& AtomList::operator+=(double v)
+{
+    for (size_t i = 0; i < size(); i++)
+        atoms_[i] += v;
+
+    return *this;
+}
+
+AtomList& AtomList::operator-=(double v)
+{
+    for (size_t i = 0; i < size(); i++)
+        atoms_[i] -= v;
+
+    return *this;
+}
+
+AtomList& AtomList::operator*=(double v)
+{
+    for (size_t i = 0; i < size(); i++)
+        atoms_[i] *= v;
+
+    return *this;
+}
+
+AtomList& AtomList::operator/=(double v)
+{
+    if (v == 0.0) {
+        LIB_ERR << "division by zero";
+        return *this;
+    }
+
+    for (size_t i = 0; i < size(); i++)
+        atoms_[i] /= v;
+
+    return *this;
+}
+
+AtomList AtomList::operator+(double v) const
+{
+    AtomList res(*this);
+    res += v;
+    return res;
+}
+
+AtomList AtomList::operator-(double v) const
+{
+    AtomList res(*this);
+    res -= v;
+    return res;
+}
+
+AtomList AtomList::operator*(double v) const
+{
+    AtomList res(*this);
+    res *= v;
+    return res;
+}
+
+AtomList AtomList::operator/(double v) const
+{
+    AtomList res(*this);
+    res /= v;
+    return res;
 }
 
 bool operator==(const AtomList& l1, const AtomList& l2)
