@@ -224,7 +224,7 @@ if(GLIB_FOUND)
     ceammc_glib_extension(path home)
     ceammc_glib_extension(path listdir)
 
-    ceammc_glib_extension(string length)
+    ceammc_glib_extension(symbol length)
     ceammc_glib_extension(string reverse)
     ceammc_glib_extension(string to_lower)
     ceammc_glib_extension(string to_upper)

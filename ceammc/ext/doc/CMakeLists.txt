@@ -48,6 +48,7 @@ set(DOC_FILES
     list.last
     list.length
     list.max
+    list.mean
     list.min
     list.normalize
     list.product
@@ -98,8 +99,10 @@ set(DOC_FILES
     osc.tri~
     pass.changed
     pass.if
+    symbol.length
     system.memsize
     system.memused
+    vector.distance
     vector.dot
     vector.length
     vector.normalize

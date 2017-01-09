@@ -171,5 +171,14 @@ namespace list {
                 out[ndx].append(pad);
         }
     }
+
+    float average(const AtomList& l)
+    {
+        AtomList r = l.filtered(isFloat);
+        if (r.empty())
+            return 0;
+
+        return r.sum() / r.size();
+    }
 }
 }

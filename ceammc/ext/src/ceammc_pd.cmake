@@ -40,7 +40,7 @@ macro(ceammc_glib_extension_sep module name separator)
     pd_add_extension(NAME "${module}${separator}${name}"
         FILES "${module}_${name}.cpp"
         INTERNAL True
-        LINK ${GLIB_LIBRARIES})
+        LINK ${GLIB_LIBRARIES} ceammc_static)
 
     ceammc_link_fix_sep(${module} ${name} ${separator})
 endmacro()

@@ -129,6 +129,9 @@
     <entry descr="returns largest element in the list" name="list.max">
       <xi:include href="list.max.pddoc" parse="xml"/>
     </entry>
+    <entry descr="calculates average of list of floats" name="list.mean">
+      <xi:include href="list.mean.pddoc" parse="xml"/>
+    </entry>
     <entry descr="returns smallest element in the list" name="list.min">
       <xi:include href="list.min.pddoc" parse="xml"/>
     </entry>
@@ -312,6 +315,11 @@
       <xi:include href="is_symbol.pddoc" parse="xml"/>
     </entry>
   </category>
+  <category name="symbol">
+    <entry descr="length of symbol (unicode supported)" name="symbol.length">
+      <xi:include href="symbol.length.pddoc" parse="xml"/>
+    </entry>
+  </category>
   <category name="system">
     <entry descr="returns the size of physical memory (RAM) in bytes round to float data type." name="system.memsize">
       <xi:include href="system.memsize.pddoc" parse="xml"/>
@@ -321,6 +329,9 @@
     </entry>
   </category>
   <category name="vector">
+    <entry descr="returns euclidean distance between two points" name="vector.distance">
+      <xi:include href="vector.distance.pddoc" parse="xml"/>
+    </entry>
     <entry descr="treats list of floats as vector, returns the dot product (sum of the elements of two lists with same indexes multiplied)." name="vector.dot">
       <xi:include href="vector.dot.pddoc" parse="xml"/>
     </entry>

@@ -2,12 +2,14 @@
 #X obj 20 50 pddp/pddplink ../index-help.pd -text index;
 #X text 62 50 ::;
 #X obj 79 50 pddp/pddplink ceammc-help.pd -text ceammc;
-#X obj 30 113 vector.dot;
-#X text 150 113 treats list of floats as vector \, returns the dot
+#X obj 30 113 vector.distance;
+#X text 150 113 returns euclidean distance between two points;
+#X obj 30 140 vector.dot;
+#X text 150 140 treats list of floats as vector \, returns the dot
 product (sum of the elements of two lists with same indexes
 multiplied)\.;
-#X obj 30 164 vector.length;
-#X text 150 164 treats list of floats as vector \, returns vector
+#X obj 30 191 vector.length;
+#X text 150 191 treats list of floats as vector \, returns vector
 length: sqrt(element(1)^2 + \.\.\.element(n)^2)\.;
 #X obj 1 1 cnv 5 597 40 empty empty ceammc::vector 20 20 0 20 -104026
 -4096 0;
