@@ -162,6 +162,9 @@
     <entry descr="calculates sum of floats in list" name="list.sum">
       <xi:include href="list.sum.pddoc" parse="xml"/>
     </entry>
+    <entry descr="sends list element one by one separately" name="list.unpack">
+      <xi:include href="list.unpack.pddoc" parse="xml"/>
+    </entry>
     <entry descr="Walks thru the list" name="list.walk">
       <xi:include href="list.walk.pddoc" parse="xml"/>
     </entry>

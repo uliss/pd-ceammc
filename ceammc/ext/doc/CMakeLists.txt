@@ -59,6 +59,7 @@ set(DOC_FILES
     list.shuffle
     list.sort
     list.sum
+    list.unpack
     list.walk
     lfo.impulse~
     lfo.square~

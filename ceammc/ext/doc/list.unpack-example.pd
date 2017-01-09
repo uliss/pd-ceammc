@@ -1,0 +1,8 @@
+#N canvas 0 0 150 201 12;
+#X msg 20 48 list a b c d e;
+#X obj 20 77 list.unpack;
+#X obj 20 106 m insert 0;
+#X obj 20 135 data.list;
+#X obj 20 164 m set;
+#X msg 20 192 ;
+#X connect 0 0 1 0;
