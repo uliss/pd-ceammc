@@ -2,12 +2,10 @@
 #include "ceammc_factory.h"
 #include "ceammc_object.h"
 
-#include <algorithm>
-
 using namespace ceammc;
 
-const size_t MIN_GROUP_SIZE = 1;
-const size_t MAX_GROUP_SIZE = 1024;
+static const size_t MIN_GROUP_SIZE = 1;
+static const size_t MAX_GROUP_SIZE = 1024;
 
 template <typename T>
 static size_t checkedGroupSize(T v)
@@ -15,11 +13,11 @@ static size_t checkedGroupSize(T v)
     return math::clip(static_cast<size_t>(v), MIN_GROUP_SIZE, MAX_GROUP_SIZE);
 }
 
-class ListUngroup : public BaseObject {
+class ListRepack : public BaseObject {
     SizeTPropertyClosedRange* group_size_;
 
 public:
-    ListUngroup(const PdArgs& a)
+    ListRepack(const PdArgs& a)
         : BaseObject(a)
         , group_size_(0)
     {
@@ -38,14 +36,14 @@ public:
     {
         const size_t step = math::clip(group_size_->value(), MIN_GROUP_SIZE, MAX_GROUP_SIZE);
         for (size_t i = 0; i < l.size(); i += step) {
-            listTo(1, l.slice(i, i + step, 1));
+            listTo(0, l.slice(i, i + step, 1));
         }
 
-        bangTo(0);
+        bangTo(1);
     }
 };
 
-extern "C" void setup_list0x2eungroup()
+extern "C" void setup_list0x2erepack()
 {
-    ObjectFactory<ListUngroup> obj("list.ungroup");
+    ObjectFactory<ListRepack> obj("list.repack");
 }

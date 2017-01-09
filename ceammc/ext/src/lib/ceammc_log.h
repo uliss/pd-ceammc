@@ -41,6 +41,8 @@ public:
 
 #define OBJ_ERR Error(this).stream()
 #define OBJ_DBG Debug(this).stream()
+#define METHOD_ERR(s) Error(this).stream() << "[" << s->s_name << "( "
+#define METHOD_DBG(s) Error(this).stream() << "[" << s->s_name << "( "
 
 #define LIB_ERR Error(0).stream()
 #define LIB_DBG Debug(0).stream()

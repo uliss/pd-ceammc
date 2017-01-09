@@ -223,6 +223,15 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
 
         l.insert(20, Atom(15));
         REQUIRE(l.size() == 3);
+
+        l.clear();
+        REQUIRE(l.insert(0, AtomList::ones(4)));
+        REQUIRE(l.size() == 4);
+        REQUIRE(l.insert(0, AtomList::zeroes(2)));
+        REQUIRE(l.size() == 6);
+        REQUIRE(l == AtomList::values(6, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0));
+        REQUIRE_FALSE(l.insert(200, AtomList()));
+        REQUIRE_FALSE(l.insert(200, AtomList(2)));
     }
 
     SECTION("remove")

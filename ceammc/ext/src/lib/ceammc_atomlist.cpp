@@ -380,6 +380,14 @@ bool AtomList::insert(size_t pos, const Atom& a)
     return true;
 }
 
+bool AtomList::insert(size_t pos, const AtomList& l)
+{
+    if (pos > atoms_.size())
+        return false;
+    atoms_.insert(atoms_.begin() + pos, l.atoms_.begin(), l.atoms_.end());
+    return true;
+}
+
 bool AtomList::remove(size_t pos)
 {
     if (pos >= size())

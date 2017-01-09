@@ -155,6 +155,7 @@ public:
     void append(const Atom& a);
     void append(const AtomList& l);
     bool insert(size_t pos, const Atom& a);
+    bool insert(size_t pos, const AtomList& l);
     bool remove(size_t pos);
     void removeAll(const Atom& a);
     void removeAll(AtomPredicate pred);
