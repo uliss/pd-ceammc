@@ -15,6 +15,7 @@
 #define CEAMMC_LOG_H
 
 #include <sstream>
+#include <vector>
 
 namespace ceammc {
 
@@ -43,6 +44,40 @@ public:
 
 #define LIB_ERR Error(0).stream()
 #define LIB_DBG Debug(0).stream()
+}
+
+struct _symbol;
+std::ostream& operator<<(std::ostream& os, _symbol*& s);
+std::ostream& operator<<(std::ostream& os, const _symbol* const & s);
+
+template <typename T>
+static std::ostream& operator<<(std::ostream& os, const std::vector<T>& v)
+{
+    os << '[';
+    typename std::vector<T>::const_iterator it;
+    for (it = v.begin(); it != v.end(); ++it) {
+        if (it != v.begin())
+            os << ", ";
+
+        os << *it;
+    }
+    os << ']';
+    return os;
+}
+
+template <>
+std::ostream& operator<<(std::ostream& os, const std::vector<_symbol*>& v)
+{
+    os << '[';
+    typename std::vector<_symbol*>::const_iterator it;
+    for (it = v.begin(); it != v.end(); ++it) {
+        if (it != v.begin())
+            os << ", ";
+
+        ::operator<<(os, *it);
+    }
+    os << ']';
+    return os;
 }
 
 #endif // CEAMMC_LOG_H

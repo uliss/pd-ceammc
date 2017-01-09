@@ -127,8 +127,10 @@ public:
 
         T v = atomlistToValue<T>(lst, def_);
         long idx = enumIndex(v);
-        if (idx < 0)
+        if (idx < 0) {
+            LIB_ERR << "invalid property value: " << v << ". valid values are: " << allowed_;
             return false;
+        }
 
         idx_ = idx;
         return true;

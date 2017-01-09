@@ -46,6 +46,7 @@ TEST_CASE("Properties", "[ceammc::properties]")
     {
         FloatProperty p("test", 0.1f);
         REQUIRE(!p.readonly());
+        REQUIRE(p.visible());
         REQUIRE(p.name() == "test");
         p.setName("a");
         REQUIRE(p.name() == "a");
@@ -53,7 +54,11 @@ TEST_CASE("Properties", "[ceammc::properties]")
 
         REQUIRE(v.size() == 1);
         REQUIRE(v[0].isFloat());
+        REQUIRE(p.value() == 0.1f);
         REQUIRE(v[0].asFloat(0.0f) == 0.1f);
+
+        p.setValue(3.f);
+        REQUIRE(p.value() == 3.f);
 
         REQUIRE_FALSE(p.set(AtomList()));
         REQUIRE(p.set(AtomList::ones(2)));
@@ -214,6 +219,15 @@ TEST_CASE("Properties", "[ceammc::properties]")
         REQUIRE(p.set(listFrom(gensym("a"))));
         REQUIRE(p.value() == gensym("a"));
         REQUIRE(p.get() == listFrom(gensym("a")));
+
+        REQUIRE_FALSE(p.set(AtomList()));
+        REQUIRE_FALSE(p.set(AtomList(gensym("c"))));
+        REQUIRE(p.value() == gensym("a"));
+
+        p.setValue(gensym("c"));
+        REQUIRE(p.value() == gensym("a"));
+        p.setValue(gensym("b"));
+        REQUIRE(p.value() == gensym("b"));
     }
 
     SECTION("SizeT property")
@@ -229,6 +243,8 @@ TEST_CASE("Properties", "[ceammc::properties]")
         REQUIRE(v.size() == 1);
         REQUIRE(v[0].isFloat());
         REQUIRE(v[0].asSizeT(0) == 12);
+        p.setValue(24);
+        REQUIRE(p.value() == 24);
 
         REQUIRE_FALSE(p.set(AtomList()));
         REQUIRE(p.set(AtomList::ones(2)));
@@ -341,5 +357,24 @@ TEST_CASE("Properties", "[ceammc::properties]")
                 REQUIRE(p.value() == 100);
             }
         }
+    }
+
+    SECTION("pointer properties")
+    {
+        int v = 10;
+        PointerProperty<int> rw("test", &v, false);
+        REQUIRE(rw.get() == AtomList(10));
+        v = 20;
+        REQUIRE(rw.get() == AtomList(20));
+        REQUIRE(rw.set(AtomList(25)));
+        REQUIRE(v == 25);
+        REQUIRE_FALSE(rw.set(AtomList()));
+
+        PointerProperty<int> ro("test", &v, true);
+        REQUIRE(ro.get() == AtomList(25));
+        v = 20;
+        REQUIRE(ro.get() == AtomList(20));
+        REQUIRE_FALSE(ro.set(AtomList(15)));
+        REQUIRE(v == 20);
     }
 }
