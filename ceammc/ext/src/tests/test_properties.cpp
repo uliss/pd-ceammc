@@ -186,6 +186,7 @@ TEST_CASE("Properties", "[ceammc::properties]")
         REQUIRE(p.value() == true);
         REQUIRE(p.set(listFrom(gensym("false"))));
         REQUIRE(p.value() == false);
+        REQUIRE_FALSE(p.set(AtomList(Atom())));
 
         BoolProperty p2("test2", true, true);
         REQUIRE(p2.readonly());
