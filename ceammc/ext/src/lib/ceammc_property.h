@@ -362,7 +362,7 @@ public:
 
     bool set(const AtomList& lst)
     {
-        if(emptyValueCheck(lst))
+        if(!emptyValueCheck(lst))
             return false;
 
         if (!check_fn_(atomlistToValue<V>(lst, def_))) {
