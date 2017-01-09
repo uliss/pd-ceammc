@@ -500,6 +500,10 @@ EXTERN void canvas_loadbang(t_canvas *x);
 EXTERN int canvas_hitbox(t_canvas *x, t_gobj *y, int xpos, int ypos,
     int *x1p, int *y1p, int *x2p, int *y2p);
 EXTERN int canvas_setdeleting(t_canvas *x, int flag);
+    
+    //ceammc test
+    EXTERN void *subcanvas_new(t_symbol *s);
+    EXTERN void canvas_setgraph(t_glist *x, int flag, int nogoprect);
 
 #define LB_LOAD 0       /* "loadbang" actions - 0 for original meaning */
 #define LB_INIT 1       /* loaded but not yet connected to parent patch */

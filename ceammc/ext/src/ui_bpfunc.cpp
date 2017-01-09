@@ -1192,7 +1192,9 @@ namespace ceammc_gui {
         //stubs
         
         //eclass_addmethod(z, (method)(bpf_m_set_seg), ("set_seg"), A_GIMME,0);
-        //eclass_addmethod(z, (method)(bpf_m_set_full), ("set_full"), A_GIMME,0);
+        //eclass_addmethod(z, (method)(bpf_m_set), ("set"), A_GIMME,0);
+        
+        //eclass_addmethod(z, (method)(bpf_m_env), ("env"), A_GIMME,0);
         
         eclass_addmethod(z, (method)(bpf_m_seg_count), ("seg_count"), A_GIMME,0);
         
@@ -1213,7 +1215,7 @@ namespace ceammc_gui {
         eclass_addmethod(z, (method)(bpf_m_vline_seg), ("vline_seg"), A_GIMME,0);
         eclass_addmethod(z, (method)(bpf_m_vline_tgl), ("vline_tgl"), A_GIMME,0);
         
-        eclass_addmethod(z, (method) ui_bpf_getdrawparams,   "getdrawparams",    A_NULL, 0);
+        eclass_addmethod(z, (method)(ui_bpf_getdrawparams), "getdrawparams", A_NULL, 0);
         
     }
     

@@ -641,7 +641,7 @@ EXTERN void canvas_drawgrid(t_canvas *x)
     int grid_w =  x->gl_screenx2 - x->gl_screenx1;
     int grid_h =  x->gl_screeny2 - x->gl_screeny1;
     
-    printf("grid %f %f\n", grid_w, grid_h);
+    printf("grid %d %d\n", grid_w, grid_h);
     
     t_glist *c = glist_getcanvas(x);
     
@@ -692,12 +692,12 @@ void canvas_map(t_canvas *x, t_floatarg f)
                 bug("canvas_map");
                 canvas_vis(x, 1);
             }
+            canvas_drawgrid(x);
             for (y = x->gl_list; y; y = y->g_next)
                 gobj_vis(y, x, 1);
             x->gl_mapped = 1;
             for (sel = x->gl_editor->e_selection; sel; sel = sel->sel_next)
                 gobj_select(sel->sel_what, x, 1);
-            canvas_drawgrid(x);
             canvas_drawlines(x);
             if (x->gl_isgraph && x->gl_goprect)
                 canvas_drawredrect(x, 1);
@@ -1058,7 +1058,7 @@ void canvas_logerror(t_object *y)
 
 /* -------------------------- subcanvases ---------------------- */
 
-static void *subcanvas_new(t_symbol *s)
+EXTERN void *subcanvas_new(t_symbol *s)
 {
     t_atom a[6];
     t_canvas *x, *z = canvas_getcurrent();
@@ -1070,6 +1070,8 @@ static void *subcanvas_new(t_symbol *s)
     SETSYMBOL(a+4, s);
     SETFLOAT(a+5, 1);
     x = canvas_new(0, 0, 6, a);
+    //ceammc
+    if (!x->gl_obj.te_binbuf) x->gl_obj.te_binbuf = binbuf_new();
     x->gl_owner = z;
     canvas_pop(x, 1);
     return (x);

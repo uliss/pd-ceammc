@@ -127,6 +127,26 @@ static inline t_atom ncm_atom_from_json(Document in1)
     
 }
 
+static inline t_atom ncm_atom_from_json_value(Value in1)
+{
+    t_atom ret;
+    
+    ret.a_type = A_SYMBOL;
+    ret.a_w.w_symbol = gensym("<>");
+    
+    if (in1["type"].IsNumber() && in1["symbol"].IsString() && in1["float"].IsNumber())
+    {
+        int at1 = in1["type"].GetInt();
+        ret.a_type = (t_atomtype)at1;
+        std::string sym = in1["symbol"].GetString();
+        ret.a_w.w_symbol = gensym(sym.c_str());
+        ret.a_w.w_float = in1["float"].GetFloat();      //check PD_FLOATSIZE
+    }
+    
+    return ret;
+    
+}
+
 
 static inline t_atom ncm_atom_from_json_string(Document in1)
 {

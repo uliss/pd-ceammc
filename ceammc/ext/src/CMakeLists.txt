@@ -146,7 +146,9 @@ ceammc_cxx_extension(conv vline2bpf)
 
 #ceammc_cxx11_extension(json object)
 
+# EXPERIMENTS
 ceammc_cxx_extension(exp patchdata)
+ceammc_cxx_extension(ui ecanvas)
 
 # STREAM
 ceammc_cxx_extension(reject if)
