@@ -89,7 +89,7 @@ public:
 
         size_t pos = l[0].asSizeT(0);
         if (!list_.insert(pos, l.slice(1)))
-            ;
+            METHOD_ERR(s) << "invalid index: " << pos;
     }
 
     void m_flush(t_symbol* s, const AtomList& l)
