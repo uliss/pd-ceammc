@@ -114,6 +114,7 @@ ceammc_cxx_extension(vector normalize)
 ceammc_cxx_extension(vector distance)
 ceammc_cxx_extension(vector dot)
 
+ceammc_cxx_extension(list ungroup)
 
 # TIMELINE
 
