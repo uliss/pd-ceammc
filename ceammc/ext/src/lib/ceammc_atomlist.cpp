@@ -59,6 +59,17 @@ AtomList::AtomList()
 {
 }
 
+AtomList::AtomList(const Atom& a)
+{
+    append(a);
+}
+
+AtomList::AtomList(const Atom& a, const Atom& b)
+{
+    append(a);
+    append(b);
+}
+
 AtomList::AtomList(size_t n, t_atom* lst)
 {
     fromPdData(n, lst);

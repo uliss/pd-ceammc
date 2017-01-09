@@ -241,4 +241,104 @@ TEST_CASE("Properties", "[ceammc::properties]")
         REQUIRE_FALSE(p2.set(AtomList::ones(1)));
         REQUIRE(p2.get()[0].asSizeT(0) == 12);
     }
+
+    SECTION("checked properties")
+    {
+        SECTION("INT")
+        {
+            SECTION("INT MIN")
+            {
+                IntPropertyMin p("test", 10, 2);
+                REQUIRE(p.value() == 10);
+                p.setValue(0);
+                REQUIRE(p.value() == 10);
+                p.setValue(2);
+                REQUIRE(p.value() == 10);
+                p.setValue(3);
+                REQUIRE(p.value() == 3);
+
+                REQUIRE_FALSE(p.set(AtomList::ones(1)));
+                REQUIRE(p.value() == 3);
+
+                REQUIRE(p.set(AtomList(40)));
+                REQUIRE(p.value() == 40);
+
+                REQUIRE(p.get() == AtomList(40));
+            }
+
+            SECTION("INT MIN EQ")
+            {
+                IntPropertyMinEq p("test", 10, 2);
+                REQUIRE(p.value() == 10);
+                p.setValue(0);
+                REQUIRE(p.value() == 10);
+                p.setValue(2);
+                REQUIRE(p.value() == 2);
+                p.setValue(3);
+                REQUIRE(p.value() == 3);
+            }
+
+            SECTION("INT MAX")
+            {
+                IntPropertyMax p("test", -10, 200);
+                REQUIRE(p.value() == -10);
+                p.setValue(0);
+                REQUIRE(p.value() == 0);
+                p.setValue(199);
+                REQUIRE(p.value() == 199);
+                p.setValue(200);
+                REQUIRE(p.value() == 199);
+            }
+
+            SECTION("INT MAX EQ")
+            {
+                IntPropertyMaxEq p("test", -10, 200);
+                REQUIRE(p.value() == -10);
+                p.setValue(0);
+                REQUIRE(p.value() == 0);
+                p.setValue(199);
+                REQUIRE(p.value() == 199);
+                p.setValue(200);
+                REQUIRE(p.value() == 200);
+                p.setValue(201);
+                REQUIRE(p.value() == 200);
+            }
+
+            SECTION("INT OPEN RANGE")
+            {
+                IntPropertyOpenRange p("test", -10, -100, 100);
+                REQUIRE(p.value() == -10);
+                p.setValue(0);
+                REQUIRE(p.value() == 0);
+                p.setValue(-99);
+                REQUIRE(p.value() == -99);
+                p.setValue(-100);
+                REQUIRE(p.value() == -99);
+                p.setValue(99);
+                REQUIRE(p.value() == 99);
+                p.setValue(100);
+                REQUIRE(p.value() == 99);
+            }
+
+            SECTION("INT CLOSED RANGE")
+            {
+                IntPropertyClosedRange p("test", -10, -100, 100);
+                REQUIRE(p.value() == -10);
+                p.setValue(0);
+                REQUIRE(p.value() == 0);
+                p.setValue(-99);
+                REQUIRE(p.value() == -99);
+                p.setValue(-100);
+                REQUIRE(p.value() == -100);
+                p.setValue(-101);
+                REQUIRE(p.value() == -100);
+                p.setValue(99);
+                REQUIRE(p.value() == 99);
+                p.setValue(100);
+                REQUIRE(p.value() == 100);
+                p.setValue(101);
+                REQUIRE(p.value() == 100);
+            }
+        }
+    }
 }
