@@ -57,6 +57,7 @@ set(DOC_FILES
     list.reduce
     list.resize
     list.reverse
+    list.seq
     list.shuffle
     list.sort
     list.sum

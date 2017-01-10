@@ -54,6 +54,7 @@ list.range		.		.
 list.reduce		..		..
 list.resize		.		.
 list.reverse		.		.
+list.seq		...		.
 list.shuffle		.		.
 list.sort		.		.
 list.sum		.		.

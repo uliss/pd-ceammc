@@ -156,6 +156,9 @@
     <entry descr="reverses the order of the elements in the list" name="list.reverse">
       <xi:include href="list.reverse.pddoc" parse="xml"/>
     </entry>
+    <entry descr="numeric sequence list generator" name="list.seq">
+      <xi:include href="list.seq.pddoc" parse="xml"/>
+    </entry>
     <entry descr="randomly rearranges elements in list" name="list.shuffle">
       <xi:include href="list.shuffle.pddoc" parse="xml"/>
     </entry>
