@@ -4,6 +4,9 @@
     <entry descr="First-In-First-Out (FIFO) queue data container" name="data.fifo">
       <xi:include href="data.fifo.pddoc" parse="xml"/>
     </entry>
+    <entry descr="list container" name="data.list">
+      <xi:include href="data.list.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="dyn">
     <entry descr="stereo dynamic range compressor" name="dyn.comp2~">
@@ -153,6 +156,9 @@
     <entry descr="reverses the order of the elements in the list" name="list.reverse">
       <xi:include href="list.reverse.pddoc" parse="xml"/>
     </entry>
+    <entry descr="numeric sequence list generator" name="list.seq">
+      <xi:include href="list.seq.pddoc" parse="xml"/>
+    </entry>
     <entry descr="randomly rearranges elements in list" name="list.shuffle">
       <xi:include href="list.shuffle.pddoc" parse="xml"/>
     </entry>
@@ -161,6 +167,9 @@
     </entry>
     <entry descr="calculates sum of floats in list" name="list.sum">
       <xi:include href="list.sum.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="sends list element one by one separately" name="list.unpack">
+      <xi:include href="list.unpack.pddoc" parse="xml"/>
     </entry>
     <entry descr="Walks thru the list" name="list.walk">
       <xi:include href="list.walk.pddoc" parse="xml"/>
@@ -259,6 +268,11 @@
     </entry>
     <entry descr="truncate to integer value" name="math.trunc">
       <xi:include href="math.trunc.pddoc" parse="xml"/>
+    </entry>
+  </category>
+  <category name="msg">
+    <entry descr="message constructor" name="msg">
+      <xi:include href="msg.pddoc" parse="xml"/>
     </entry>
   </category>
   <category name="osc">

@@ -48,9 +48,11 @@
     |         |
 [B] |  [dump( [@count $1(
 |   |  |      |
+|   |  |      |
+|   |  |      |
 [list.gen    3] X [random 100]
 |
-[prepend set]
+[m set]
 |
 [ (
 ]]>

@@ -5,6 +5,7 @@ find_program(PD_CAT2PD pd_cat2pd)
 
 set(DOC_FILES
     data.fifo
+    data.list
     dyn.comp~
     dyn.comp2~
     dyn.gate~
@@ -56,9 +57,11 @@ set(DOC_FILES
     list.reduce
     list.resize
     list.reverse
+    list.seq
     list.shuffle
     list.sort
     list.sum
+    list.unpack
     list.walk
     lfo.impulse~
     lfo.square~
@@ -91,6 +94,7 @@ set(DOC_FILES
     math.tan
     math.tanh
     math.trunc
+    msg
     osc.impulse~
     osc.pulse~
     osc.saw~
