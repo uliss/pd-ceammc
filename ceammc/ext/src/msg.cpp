@@ -62,9 +62,17 @@ private:
     }
 };
 
+extern "C" void msg_setup()
+{
+    ObjectFactory<Msg> obj("msg");
+    obj.mapFloatToList();
+    obj.mapSymbolToList();
+}
+
 extern "C" void m_setup()
 {
     ObjectFactory<Msg> obj("m");
     obj.mapFloatToList();
     obj.mapSymbolToList();
+    obj.setHelp("msg");
 }

@@ -92,6 +92,7 @@ set(DOC_FILES
     math.tan
     math.tanh
     math.trunc
+    msg
     osc.impulse~
     osc.pulse~
     osc.saw~

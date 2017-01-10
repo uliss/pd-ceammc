@@ -264,6 +264,11 @@
       <xi:include href="math.trunc.pddoc" parse="xml"/>
     </entry>
   </category>
+  <category name="msg">
+    <entry descr="message constructor" name="msg">
+      <xi:include href="msg.pddoc" parse="xml"/>
+    </entry>
+  </category>
   <category name="osc">
     <entry descr="Bandlimited impulse train generator" name="osc.impulse~">
       <xi:include href="osc.impulse~.pddoc" parse="xml"/>

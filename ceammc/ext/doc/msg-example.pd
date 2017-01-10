@@ -1,0 +1,12 @@
+#N canvas 0 0 267 144 12;
+#X msg 20 48 1 2 3;
+#X floatatom 96 48 5 0 0 0 - - -;
+#X msg 144 48 other message;
+#X obj 20 106 msg set;
+#X obj 20 135 print;
+#X msg 106 135 ;
+#X connect 0 0 3 0;
+#X connect 2 0 3 0;
+#X connect 3 0 5 0;
+#X connect 3 0 4 0;
+#X connect 1 0 3 0;

@@ -87,6 +87,7 @@ math.sqrt		.		.
 math.tan		.		.
 math.tanh		.		.
 math.trunc		.		.
+msg,m		.		.
 osc.impulse~		~		~
 osc.pulse~		~		~.
 osc.saw~		~		~

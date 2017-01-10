@@ -190,7 +190,9 @@ ceammc_cxx_extension(global float)
 ceammc_cxx_extension(global list)
 
 ceammc_cxx_extension(prop get)
-pd_add_extension(NAME "m" FILES "m.cpp" INTERNAL True LIBRARY ceammc LINK ceammc_static cicm_static)
+pd_add_extension(NAME "msg" FILES "msg.cpp" INTERNAL True LIBRARY ceammc LINK ceammc_static cicm_static)
+pd_add_extension(NAME "m" FILES "msg.cpp" INTERNAL True LIBRARY ceammc LINK ceammc_static cicm_static)
+
 
 include(FindLibSndFile)
 if(LIBSNDFILE_FOUND)

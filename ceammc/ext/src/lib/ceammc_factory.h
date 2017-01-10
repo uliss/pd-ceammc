@@ -95,6 +95,11 @@ public:
         class_addsymbol(class_, fn_symbol_);
     }
 
+    void setHelp(const char* name)
+    {
+        class_sethelpsymbol(class_, gensym(name));
+    }
+
     void setBangFn(PdBangFunction fn)
     {
         fn_bang_ = fn;
