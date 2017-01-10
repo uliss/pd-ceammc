@@ -4,6 +4,8 @@
 #X obj 79 50 pddp/pddplink ceammc-help.pd -text ceammc;
 #X obj 30 113 data.fifo;
 #X text 150 113 First-In-First-Out (FIFO) queue data container;
+#X obj 30 140 data.list;
+#X text 150 140 list container;
 #X obj 1 1 cnv 5 597 40 empty empty ceammc::data 20 20 0 20 -104026
 -4096 0;
 #X obj 1 458 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;

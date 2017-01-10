@@ -1,4 +1,5 @@
 data.fifo		.		.
+data.list		..		.
 dyn.comp2~		~~		~~.
 dyn.comp~		~		~.
 dyn.gate2~		~~		~~.
@@ -87,7 +88,7 @@ math.sqrt		.		.
 math.tan		.		.
 math.tanh		.		.
 math.trunc		.		.
-msg,m		.		.
+msg,m		..		.
 osc.impulse~		~		~
 osc.pulse~		~		~.
 osc.saw~		~		~

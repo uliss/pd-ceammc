@@ -4,6 +4,9 @@
     <entry descr="First-In-First-Out (FIFO) queue data container" name="data.fifo">
       <xi:include href="data.fifo.pddoc" parse="xml"/>
     </entry>
+    <entry descr="list container" name="data.list">
+      <xi:include href="data.list.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="dyn">
     <entry descr="stereo dynamic range compressor" name="dyn.comp2~">

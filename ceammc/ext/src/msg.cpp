@@ -55,7 +55,7 @@ private:
             return;
 
         if (!l[0].getSymbol(&sel_)) {
-            OBJ_ERR << "first argument is not a symbol: " << args();
+            OBJ_ERR << "first argument is not a symbol: " << l[0];
         } else {
             prefix_ = l.slice(1);
         }

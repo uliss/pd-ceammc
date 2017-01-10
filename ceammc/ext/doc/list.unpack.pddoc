@@ -32,9 +32,9 @@
 |
 [list.unpack   ]
 |             ^|
-[m insert 0]   |
-|              |
-[data.list     ]
+[m insert 0] [flush(
+|            |
+[data.list   ]
 |
 [m set]
 |

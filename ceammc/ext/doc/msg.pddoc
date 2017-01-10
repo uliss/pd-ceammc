@@ -26,6 +26,10 @@
                 <xinfo on="float">appends float to message content and outputs it</xinfo>
                 <xinfo on="symbol">appends symbol to message content and outputs it</xinfo>
             </inlet>
+            <inlet>
+                <xinfo on="symbol">change message selector</xinfo>
+                <xinfo on="list">change message selector and first atoms</xinfo>
+            </inlet>
         </inlets>
         <outlets>
             <outlet>message output</outlet>
@@ -35,9 +39,10 @@
 <![CDATA[
 [1 2 3( [F]  [other message(
 |       |    |
-|       |    |
-|       |    |
-[msg       set]
+|       |    |  [list a( [list set a b c(
+|       |    |  |        |
+|       |    |  |.       |.
+[msg                   set]
 |        |
 [print]  [ (
 ]]>
