@@ -80,7 +80,7 @@ public:
     float init, min, max, step;
     ui_elem_type_t type;
 
-    _symbol* typeSymbol()
+    t_symbol* typeSymbol()
     {
         switch (type) {
         case UI_BUTTON:
