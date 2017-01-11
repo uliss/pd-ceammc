@@ -26,8 +26,8 @@
    then loaded dynamically by Pd as an external. */
 
 #include <math.h>
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string>
 
 #include "faust/dsp/dsp.h"
@@ -35,6 +35,7 @@
 #include "faust/gui/meta.h"
 #include "faust/misc.h"
 
+#include "ceammc_atomlist.h"
 #include <m_pd.h>
 
 /******************************************************************************
@@ -46,7 +47,9 @@
 *******************************************************************************/
 
 #ifdef FAUST_MACRO
+// clang-format off
 <<includeIntrinsic>>
+// clang-format on
 #endif
 
 /***************************************************************************
@@ -54,7 +57,8 @@
 ***************************************************************************/
 
 #ifndef FAUST_MACRO
-struct mydsp : public dsp {};
+    struct mydsp : public dsp {
+};
 #endif
 
 enum ui_elem_type_t {
@@ -76,6 +80,7 @@ static t_symbol *s_button, *s_checkbox, *s_vslider, *s_hslider, *s_nentry, *s_vb
 class ui_elem_t {
 public:
     char* label;
+    t_symbol* property;
     float* zone;
     float init, min, max, step;
     ui_elem_type_t type;
@@ -100,6 +105,18 @@ public:
         default:
             return 0;
         }
+    }
+
+    void initProperty(const char* name)
+    {
+        if (name == NULL) {
+            property = gensym("?");
+            return;
+        }
+
+        char buf[MAXPDSTRING];
+        sprintf(buf, "@%s", name);
+        property = gensym(buf);
     }
 };
 
@@ -143,6 +160,8 @@ public:
     ui_elem_t* findElementByLabel(const char* label);
     void setElementValue(const char* label, float v);
     void dumpUI(t_outlet* out);
+    void outputAllProperties(t_outlet* out);
+    void outputProperty(const char* name, t_outlet* out);
 };
 
 static std::string mangle(const char* name, int level, const char* s)
@@ -237,6 +256,7 @@ inline void PdUI::add_elem(ui_elem_type_t type, const char* label)
     std::string s = pathcat(path, mangle(name, level, label));
     elems[nelems].type = type;
     elems[nelems].label = strdup(s.c_str());
+    elems[nelems].initProperty(label);
     elems[nelems].zone = NULL;
     elems[nelems].init = 0.0;
     elems[nelems].min = 0.0;
@@ -255,6 +275,7 @@ inline void PdUI::add_elem(ui_elem_type_t type, const char* label, float* zone)
     std::string s = pathcat(path, mangle(name, level, label));
     elems[nelems].type = type;
     elems[nelems].label = strdup(s.c_str());
+    elems[nelems].initProperty(label);
     elems[nelems].zone = zone;
     elems[nelems].init = 0.0;
     elems[nelems].min = 0.0;
@@ -274,6 +295,7 @@ inline void PdUI::add_elem(ui_elem_type_t type, const char* label, float* zone,
     std::string s = pathcat(path, mangle(name, level, label));
     elems[nelems].type = type;
     elems[nelems].label = strdup(s.c_str());
+    elems[nelems].initProperty(label);
     elems[nelems].zone = zone;
     elems[nelems].init = init;
     elems[nelems].min = min;
@@ -293,6 +315,7 @@ inline void PdUI::add_elem(ui_elem_type_t type, const char* label, float* zone,
     std::string s = pathcat(path, mangle(name, level, label));
     elems[nelems].type = type;
     elems[nelems].label = strdup(s.c_str());
+    elems[nelems].initProperty(label);
     elems[nelems].zone = zone;
     elems[nelems].init = 0.0;
     elems[nelems].min = min;
@@ -410,6 +433,28 @@ void PdUI::dumpUI(t_outlet* out)
     }
 }
 
+void PdUI::outputAllProperties(t_outlet* out)
+{
+    ceammc::AtomList l;
+    for (int i = 0; i < nelems; i++)
+        l.append(elems[i].property);
+
+    l.output(out);
+}
+
+void PdUI::outputProperty(const char* name, t_outlet* out)
+{
+    const size_t len = strlen(name);
+    if (len < 1)
+        return;
+
+    std::string needle(name, len - 1);
+    for (int i = 0; i < nelems; i++) {
+        if (needle == elems[i].label) {
+        }
+    }
+}
+
 /******************************************************************************
 *******************************************************************************
 
@@ -423,7 +468,9 @@ void PdUI::dumpUI(t_outlet* out)
 //----------------------------------------------------------------------------
 
 #ifdef FAUST_MACRO
+// clang-format off
 <<includeclass>>
+// clang-format on
 #endif
 
 #define sym(name) xsym(name)
@@ -434,7 +481,7 @@ void PdUI::dumpUI(t_outlet* out)
 // time for "active" toggle xfades in secs
 #define XFADE_TIME 0.1f
 
-static t_class* faust_class;
+    static t_class* faust_class;
 
 struct t_faust {
     t_object x_obj;
@@ -574,17 +621,43 @@ static int pathcmp(const char* s, const char* t)
         return strcmp(s + n - m, t);
 }
 
+static bool isGetAllProperties(t_symbol* s)
+{
+    size_t len = strlen(s->s_name);
+    if (len < 2)
+        return false;
+
+    return s->s_name[0] == '@' && s->s_name[1] == '*';
+}
+
+static bool isGetProperty(t_symbol* s)
+{
+    size_t len = strlen(s->s_name);
+    if (len < 1)
+        return false;
+
+    if (s->s_name[0] != '@')
+        return false;
+
+    return s->s_name[len - 1] == '?';
+}
+
 static void faust_any(t_faust* x, t_symbol* s, int argc, t_atom* argv)
 {
     if (!x->dsp)
         return;
+
     PdUI* ui = x->ui;
     if (s == &s_bang) {
         ui->dumpUI(x->out);
+    } else if (isGetAllProperties(s)) {
+        ui->outputAllProperties(x->out);
+    } else if (isGetProperty(s)) {
+        ui->outputProperty(s->s_name, x->out);
     } else {
         const char* label = s->s_name;
         int count = 0;
-        for (int i = 0; i < ui->nelems; i++)
+        for (int i = 0; i < ui->nelems; i++) {
             if (ui->elems[i].label && pathcmp(ui->elems[i].label, label) == 0) {
                 if (argc == 0) {
                     if (ui->elems[i].zone) {
@@ -606,6 +679,8 @@ static void faust_any(t_faust* x, t_symbol* s, int argc, t_atom* argv)
                     pd_error(x, "[ceammc] %s: bad control argument: %s",
                         x->label->c_str(), label);
             }
+        }
+
         if (count == 0 && strcmp(label, "active") == 0) {
             if (argc == 0) {
                 t_atom arg;
