@@ -492,44 +492,73 @@ class ui_elem_t {
 public:
     char* label;
     t_symbol* property;
+    t_symbol* get_property;
     float* zone;
     float init, min, max, step;
     ui_elem_type_t type;
 
-    t_symbol* typeSymbol()
-    {
-        switch (type) {
-        case UI_BUTTON:
-            return s_button;
-        case UI_CHECK_BUTTON:
-            return s_checkbox;
-        case UI_V_SLIDER:
-            return s_vslider;
-        case UI_H_SLIDER:
-            return s_hslider;
-        case UI_NUM_ENTRY:
-            return s_nentry;
-        case UI_V_BARGRAPH:
-            return s_vbargraph;
-        case UI_H_BARGRAPH:
-            return s_hbargraph;
-        default:
-            return 0;
-        }
-    }
-
-    void initProperty(const char* name)
-    {
-        if (name == NULL) {
-            property = gensym("?");
-            return;
-        }
-
-        char buf[MAXPDSTRING];
-        sprintf(buf, "@%s", name);
-        property = gensym(buf);
-    }
+    t_symbol* typeSymbol();
+    void initProperty(const char* name);
+    float value(float def = 0.f) const;
+    void outputProperty(t_outlet* out);
 };
+
+t_symbol* ui_elem_t::typeSymbol()
+{
+    switch (type) {
+    case UI_BUTTON:
+        return s_button;
+    case UI_CHECK_BUTTON:
+        return s_checkbox;
+    case UI_V_SLIDER:
+        return s_vslider;
+    case UI_H_SLIDER:
+        return s_hslider;
+    case UI_NUM_ENTRY:
+        return s_nentry;
+    case UI_V_BARGRAPH:
+        return s_vbargraph;
+    case UI_H_BARGRAPH:
+        return s_hbargraph;
+    default:
+        return 0;
+    }
+}
+
+void ui_elem_t::initProperty(const char* name)
+{
+    if (name == NULL) {
+        property = gensym("?");
+        get_property = gensym("?");
+        return;
+    }
+
+    char buf[MAXPDSTRING];
+    sprintf(buf, "@%s", name);
+    property = gensym(buf);
+    sprintf(buf, "@%s?", name);
+    get_property = gensym(buf);
+}
+
+float ui_elem_t::value(float def) const
+{
+    if (!zone)
+        return def;
+
+    return *zone;
+}
+
+void ui_elem_t::outputProperty(t_outlet* out)
+{
+    ceammc::Atom a;
+
+    if (zone)
+        a.setFloat(*zone, true);
+    else
+        a.setSymbol(gensym("?"), true);
+
+    a.outputAsAny(out, property);
+}
 
 class PdUI : public UI {
 public:
@@ -572,7 +601,7 @@ public:
     void setElementValue(const char* label, float v);
     void dumpUI(t_outlet* out);
     void outputAllProperties(t_outlet* out);
-    void outputProperty(const char* name, t_outlet* out);
+    void outputProperty(t_symbol* s, t_outlet* out);
 };
 
 static std::string mangle(const char* name, int level, const char* s)
@@ -739,18 +768,22 @@ void PdUI::addButton(const char* label, float* zone)
 {
     add_elem(UI_BUTTON, label, zone);
 }
+
 void PdUI::addCheckButton(const char* label, float* zone)
 {
     add_elem(UI_CHECK_BUTTON, label, zone);
 }
+
 void PdUI::addVerticalSlider(const char* label, float* zone, float init, float min, float max, float step)
 {
     add_elem(UI_V_SLIDER, label, zone, init, min, max, step);
 }
+
 void PdUI::addHorizontalSlider(const char* label, float* zone, float init, float min, float max, float step)
 {
     add_elem(UI_H_SLIDER, label, zone, init, min, max, step);
 }
+
 void PdUI::addNumEntry(const char* label, float* zone, float init, float min, float max, float step)
 {
     add_elem(UI_NUM_ENTRY, label, zone, init, min, max, step);
@@ -760,6 +793,7 @@ void PdUI::addHorizontalBargraph(const char* label, float* zone, float min, floa
 {
     add_elem(UI_H_BARGRAPH, label, zone, min, max);
 }
+
 void PdUI::addVerticalBargraph(const char* label, float* zone, float min, float max)
 {
     add_elem(UI_V_BARGRAPH, label, zone, min, max);
@@ -772,6 +806,7 @@ void PdUI::openTabBox(const char* label)
     path += mangle(name, level, label);
     level++;
 }
+
 void PdUI::openHorizontalBox(const char* label)
 {
     if (!path.empty())
@@ -779,6 +814,7 @@ void PdUI::openHorizontalBox(const char* label)
     path += mangle(name, level, label);
     level++;
 }
+
 void PdUI::openVerticalBox(const char* label)
 {
     if (!path.empty())
@@ -786,6 +822,7 @@ void PdUI::openVerticalBox(const char* label)
     path += mangle(name, level, label);
     level++;
 }
+
 void PdUI::closeBox()
 {
     int pos = path.rfind("/");
@@ -853,16 +890,11 @@ void PdUI::outputAllProperties(t_outlet* out)
     l.output(out);
 }
 
-void PdUI::outputProperty(const char* name, t_outlet* out)
+void PdUI::outputProperty(t_symbol* s, t_outlet* out)
 {
-    const size_t len = strlen(name);
-    if (len < 1)
-        return;
-
-    std::string needle(name, len - 1);
     for (int i = 0; i < nelems; i++) {
-        if (needle == elems[i].label) {
-        }
+        if (elems[i].get_property == s)
+            elems[i].outputProperty(out);
     }
 }
 
@@ -903,15 +935,15 @@ class pitchshift : public dsp {
 
   public:
 	virtual void metadata(Meta* m) { 
-		m->declare("misceffect.lib/name", "Faust Math Library");
-		m->declare("misceffect.lib/version", "2.0");
-		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
-		m->declare("ceammc.lib/version", "0.1");
 		m->declare("math.lib/name", "Faust Math Library");
 		m->declare("math.lib/version", "2.0");
 		m->declare("math.lib/author", "GRAME");
 		m->declare("math.lib/copyright", "GRAME");
 		m->declare("math.lib/license", "LGPL with exception");
+		m->declare("misceffect.lib/name", "Faust Math Library");
+		m->declare("misceffect.lib/version", "2.0");
+		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
+		m->declare("ceammc.lib/version", "0.1");
 		m->declare("delay.lib/name", "Faust Delay Library");
 		m->declare("delay.lib/version", "0.0");
 	}
@@ -1040,27 +1072,33 @@ static t_int* faust_perform(t_int* w)
         float d = 1.0f / x->n_xfade, f = (x->xfade--) * d;
         d = d / n;
         x->dsp->compute(n, x->inputs, x->buf);
-        if (x->active)
-            if (x->n_in == x->n_out)
+        if (x->active) {
+            if (x->n_in == x->n_out) {
                 /* xfade inputs -> buf */
-                for (int j = 0; j < n; j++, f -= d)
+                for (int j = 0; j < n; j++, f -= d) {
                     for (int i = 0; i < x->n_out; i++)
                         x->outputs[i][j] = f * x->inputs[i][j] + (1.0f - f) * x->buf[i][j];
-            else
+                }
+            } else {
                 /* xfade 0 -> buf */
-                for (int j = 0; j < n; j++, f -= d)
+                for (int j = 0; j < n; j++, f -= d) {
                     for (int i = 0; i < x->n_out; i++)
                         x->outputs[i][j] = (1.0f - f) * x->buf[i][j];
-        else if (x->n_in == x->n_out)
+                }
+            }
+        } else if (x->n_in == x->n_out) {
             /* xfade buf -> inputs */
-            for (int j = 0; j < n; j++, f -= d)
+            for (int j = 0; j < n; j++, f -= d) {
                 for (int i = 0; i < x->n_out; i++)
                     x->outputs[i][j] = f * x->buf[i][j] + (1.0f - f) * x->inputs[i][j];
-        else
+            }
+        } else {
             /* xfade buf -> 0 */
-            for (int j = 0; j < n; j++, f -= d)
+            for (int j = 0; j < n; j++, f -= d) {
                 for (int i = 0; i < x->n_out; i++)
                     x->outputs[i][j] = f * x->buf[i][j];
+            }
+        }
     } else if (x->active) {
         x->dsp->compute(n, x->inputs, x->buf);
         copy_samples(x->n_out, n, x->outputs, x->buf);
@@ -1069,6 +1107,7 @@ static t_int* faust_perform(t_int* w)
         copy_samples(x->n_out, n, x->outputs, x->buf);
     } else
         zero_samples(x->n_out, n, x->outputs);
+
     return (w + 3);
 }
 
@@ -1081,9 +1120,10 @@ static void faust_dsp(t_faust* x, t_signal** sp)
         float* z = NULL;
         if (ui->nelems > 0 && (z = (float*)malloc(ui->nelems * sizeof(float)))) {
             /* save the current control values */
-            for (int i = 0; i < ui->nelems; i++)
+            for (int i = 0; i < ui->nelems; i++) {
                 if (ui->elems[i].zone)
                     z[i] = *ui->elems[i].zone;
+            }
         }
         /* set the proper sample rate; this requires reinitializing the dsp */
         x->rate = sr;
@@ -1107,7 +1147,7 @@ static void faust_dsp(t_faust* x, t_signal** sp)
     for (int i = 0; i < x->n_out; i++)
         x->outputs[i] = sp[x->n_in + i]->s_vec;
 
-    if (x->buf != NULL)
+    if (x->buf != NULL) {
         for (int i = 0; i < x->n_out; i++) {
             x->buf[i] = static_cast<t_sample*>(malloc(n * sizeof(t_sample)));
             if (x->buf[i] == NULL) {
@@ -1118,6 +1158,7 @@ static void faust_dsp(t_faust* x, t_signal** sp)
                 break;
             }
         }
+    }
 }
 
 static int pathcmp(const char* s, const char* t)
@@ -1165,7 +1206,7 @@ static void faust_any(t_faust* x, t_symbol* s, int argc, t_atom* argv)
     } else if (isGetAllProperties(s)) {
         ui->outputAllProperties(x->out);
     } else if (isGetProperty(s)) {
-        ui->outputProperty(s->s_name, x->out);
+        ui->outputProperty(s, x->out);
     } else {
         const char* label = s->s_name;
         int count = 0;
@@ -1214,11 +1255,13 @@ static void faust_free_label(t_faust* x)
     delete x->label;
     x->label = NULL;
 }
+
 static void faust_free_dsp(t_faust* x)
 {
     delete x->dsp;
     x->dsp = NULL;
 }
+
 static void faust_free_ui(t_faust* x)
 {
     delete x->ui;
@@ -1373,13 +1416,14 @@ static bool faust_new_internal(t_faust* x, const char* obj_id = NULL, bool info_
 template <class InputIterator, class NthOccurence, class UnaryPredicate>
 InputIterator find_nth_if(InputIterator first, InputIterator last, NthOccurence Nth, UnaryPredicate pred)
 {
-    if (Nth > 0)
+    if (Nth > 0) {
         while (first != last) {
             if (pred(*first))
                 if (!--Nth)
                     return first;
             ++first;
         }
+    }
     return last;
 }
 
