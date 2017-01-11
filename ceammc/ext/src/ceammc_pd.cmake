@@ -68,6 +68,7 @@ macro(ceammc_faust_extension module name ext)
 
     pd_add_extension(NAME "${module}.${name}~"
         FILES "${module}_${name}.cpp" INTERNAL TRUE)
+    set_target_properties("${module}.${name}~" PROPERTIES COMPILE_FLAGS "-DFAUST_MACRO")
 endmacro()
 
 macro(ceammc_cxx11_extension module name)

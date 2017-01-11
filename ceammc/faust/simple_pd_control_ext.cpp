@@ -27,12 +27,15 @@
 
 #include <math.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <string>
 
 #include "faust/dsp/dsp.h"
 #include "faust/gui/UI.h"
 #include "faust/gui/meta.h"
 #include "faust/misc.h"
+
+#include <m_pd.h>
 
 /******************************************************************************
 *******************************************************************************
@@ -42,11 +45,17 @@
 *******************************************************************************
 *******************************************************************************/
 
+#ifdef FAUST_MACRO
 <<includeIntrinsic>>
+#endif
 
 /***************************************************************************
    Pd UI interface
- ***************************************************************************/
+***************************************************************************/
+
+#ifndef FAUST_MACRO
+struct mydsp : public dsp {};
+#endif
 
 enum ui_elem_type_t {
     UI_BUTTON,
@@ -62,11 +71,36 @@ enum ui_elem_type_t {
     UI_T_GROUP
 };
 
-struct ui_elem_t {
-    ui_elem_type_t type;
+static t_symbol *s_button, *s_checkbox, *s_vslider, *s_hslider, *s_nentry, *s_vbargraph, *s_hbargraph;
+
+class ui_elem_t {
+public:
     char* label;
     float* zone;
     float init, min, max, step;
+    ui_elem_type_t type;
+
+    _symbol* typeSymbol()
+    {
+        switch (type) {
+        case UI_BUTTON:
+            return s_button;
+        case UI_CHECK_BUTTON:
+            return s_checkbox;
+        case UI_V_SLIDER:
+            return s_vslider;
+        case UI_H_SLIDER:
+            return s_hslider;
+        case UI_NUM_ENTRY:
+            return s_nentry;
+        case UI_V_BARGRAPH:
+            return s_vbargraph;
+        case UI_H_BARGRAPH:
+            return s_hbargraph;
+        default:
+            return 0;
+        }
+    }
 };
 
 class PdUI : public UI {
@@ -104,9 +138,11 @@ public:
     virtual void closeBox();
 
     virtual void run();
+
 public:
     ui_elem_t* findElementByLabel(const char* label);
     void setElementValue(const char* label, float v);
+    void dumpUI(t_outlet* out);
 };
 
 static std::string mangle(const char* name, int level, const char* s)
@@ -334,7 +370,7 @@ ui_elem_t* PdUI::findElementByLabel(const char* label)
         return NULL;
 
     for (int i = 0; i < nelems; i++) {
-        if(pathcmp(elems[i].label, label) == 0)
+        if (pathcmp(elems[i].label, label) == 0)
             return &elems[i];
     }
 
@@ -344,10 +380,34 @@ ui_elem_t* PdUI::findElementByLabel(const char* label)
 void PdUI::setElementValue(const char* label, float v)
 {
     ui_elem_t* el = findElementByLabel(label);
-    if(!el) return;
+    if (!el)
+        return;
 
-    if(el->min <= v && v <= el->max)
+    if (el->min <= v && v <= el->max)
         *el->zone = v;
+}
+
+void PdUI::dumpUI(t_outlet* out)
+{
+    for (int i = 0; i < nelems; i++) {
+        if (elems[i].label && elems[i].zone) {
+            t_atom args[6];
+            t_symbol* _s = elems[i].typeSymbol();
+            if (!_s)
+                continue;
+
+            SETSYMBOL(&args[0], gensym(elems[i].label));
+            SETFLOAT(&args[1], *elems[i].zone);
+            SETFLOAT(&args[2], elems[i].init);
+            SETFLOAT(&args[3], elems[i].min);
+            SETFLOAT(&args[4], elems[i].max);
+            SETFLOAT(&args[5], elems[i].step);
+
+            if (out) {
+                outlet_anything(out, _s, 6, args);
+            }
+        }
+    }
 }
 
 /******************************************************************************
@@ -362,11 +422,9 @@ void PdUI::setElementValue(const char* label, float v)
 //  FAUST generated signal processor
 //----------------------------------------------------------------------------
 
+#ifdef FAUST_MACRO
 <<includeclass>>
-
-#include "m_pd.h"
-#include <stdio.h>
-#include <string>
+#endif
 
 #define sym(name) xsym(name)
 #define xsym(name) #name
@@ -393,9 +451,6 @@ struct t_faust {
     t_outlet* out;
     t_sample f;
 };
-
-static t_symbol *s_button, *s_checkbox, *s_vslider, *s_hslider, *s_nentry,
-    *s_vbargraph, *s_hbargraph;
 
 static inline void zero_samples(int k, int n, t_sample** out)
 {
@@ -519,52 +574,13 @@ static int pathcmp(const char* s, const char* t)
         return strcmp(s + n - m, t);
 }
 
-
 static void faust_any(t_faust* x, t_symbol* s, int argc, t_atom* argv)
 {
     if (!x->dsp)
         return;
     PdUI* ui = x->ui;
     if (s == &s_bang) {
-        for (int i = 0; i < ui->nelems; i++)
-            if (ui->elems[i].label && ui->elems[i].zone) {
-                t_atom args[6];
-                t_symbol* _s;
-                switch (ui->elems[i].type) {
-                case UI_BUTTON:
-                    _s = s_button;
-                    break;
-                case UI_CHECK_BUTTON:
-                    _s = s_checkbox;
-                    break;
-                case UI_V_SLIDER:
-                    _s = s_vslider;
-                    break;
-                case UI_H_SLIDER:
-                    _s = s_hslider;
-                    break;
-                case UI_NUM_ENTRY:
-                    _s = s_nentry;
-                    break;
-                case UI_V_BARGRAPH:
-                    _s = s_vbargraph;
-                    break;
-                case UI_H_BARGRAPH:
-                    _s = s_hbargraph;
-                    break;
-                default:
-                    continue;
-                }
-                SETSYMBOL(&args[0], gensym(ui->elems[i].label));
-                SETFLOAT(&args[1], *ui->elems[i].zone);
-                SETFLOAT(&args[2], ui->elems[i].init);
-                SETFLOAT(&args[3], ui->elems[i].min);
-                SETFLOAT(&args[4], ui->elems[i].max);
-                SETFLOAT(&args[5], ui->elems[i].step);
-                if(x->out) {
-                    outlet_anything(x->out, _s, 6, args);
-                }
-            }
+        ui->dumpUI(x->out);
     } else {
         const char* label = s->s_name;
         int count = 0;
@@ -574,7 +590,7 @@ static void faust_any(t_faust* x, t_symbol* s, int argc, t_atom* argv)
                     if (ui->elems[i].zone) {
                         t_atom arg;
                         SETFLOAT(&arg, *ui->elems[i].zone);
-                        if(x->out) {
+                        if (x->out) {
                             outlet_anything(x->out, gensym(ui->elems[i].label), 1, &arg);
                         }
                     }
@@ -582,7 +598,7 @@ static void faust_any(t_faust* x, t_symbol* s, int argc, t_atom* argv)
                 } else if (argc == 1 && (argv[0].a_type == A_FLOAT || argv[0].a_type == A_DEFFLOAT) && ui->elems[i].zone) {
                     float f = atom_getfloat(argv);
                     ui_elem_t* el = &ui->elems[i];
-                    if(el->min <= f && f <= el->max) {
+                    if (el->min <= f && f <= el->max) {
                         *el->zone = f;
                     }
                     ++count;
@@ -594,7 +610,7 @@ static void faust_any(t_faust* x, t_symbol* s, int argc, t_atom* argv)
             if (argc == 0) {
                 t_atom arg;
                 SETFLOAT(&arg, (float)x->active);
-                if(x->out) {
+                if (x->out) {
                     outlet_anything(x->out, gensym("active"), 1, &arg);
                 }
             } else if (argc == 1 && (argv[0].a_type == A_FLOAT || argv[0].a_type == A_DEFFLOAT)) {
@@ -606,30 +622,47 @@ static void faust_any(t_faust* x, t_symbol* s, int argc, t_atom* argv)
     }
 }
 
-static void faust_free_label(t_faust* x) { delete x->label; x->label = NULL; }
-static void faust_free_dsp(t_faust* x) { delete x->dsp; x->dsp = NULL; }
-static void faust_free_ui(t_faust* x) { delete x->ui; x->ui = NULL; }
+static void faust_free_label(t_faust* x)
+{
+    delete x->label;
+    x->label = NULL;
+}
+static void faust_free_dsp(t_faust* x)
+{
+    delete x->dsp;
+    x->dsp = NULL;
+}
+static void faust_free_ui(t_faust* x)
+{
+    delete x->ui;
+    x->ui = NULL;
+}
 
-static void faust_free_inputs(t_faust* x) {
-    if(x->inputs) free(x->inputs);
+static void faust_free_inputs(t_faust* x)
+{
+    if (x->inputs)
+        free(x->inputs);
     x->inputs = NULL;
 }
 
-static void faust_free_outputs(t_faust* x) {
-    if(x->outputs) free(x->outputs);
+static void faust_free_outputs(t_faust* x)
+{
+    if (x->outputs)
+        free(x->outputs);
     x->outputs = NULL;
 }
 
-static void faust_free_buf(t_faust* x) {
+static void faust_free_buf(t_faust* x)
+{
     if (x->buf) {
         for (int i = 0; i < x->n_out; i++) {
-            if (x->buf[i]) free(x->buf[i]);
+            if (x->buf[i])
+                free(x->buf[i]);
         }
 
         free(x->buf);
     }
 }
-
 
 static void faust_free(t_faust* x)
 {
@@ -641,14 +674,15 @@ static void faust_free(t_faust* x)
     faust_free_buf(x);
 }
 
-static bool faust_init_inputs(t_faust* x) {
+static bool faust_init_inputs(t_faust* x)
+{
     x->inputs = NULL;
     x->n_in = x->dsp->getNumInputs();
 
     if (x->n_in > 0) {
         x->inputs = static_cast<t_sample**>(calloc(x->n_in, sizeof(t_sample*)));
 
-        if(x->inputs == NULL) {
+        if (x->inputs == NULL) {
             error("[ceammc] faust_init_inputs failed");
             return false;
         }
@@ -662,7 +696,8 @@ static bool faust_init_inputs(t_faust* x) {
     return true;
 }
 
-static bool faust_init_outputs(t_faust* x, bool info_outlet) {
+static bool faust_init_outputs(t_faust* x, bool info_outlet)
+{
     x->outputs = NULL;
     x->buf = NULL;
 
@@ -670,13 +705,13 @@ static bool faust_init_outputs(t_faust* x, bool info_outlet) {
 
     if (x->n_out > 0) {
         x->outputs = static_cast<t_sample**>(calloc(x->n_out, sizeof(t_sample*)));
-        if(x->outputs == NULL) {
+        if (x->outputs == NULL) {
             error("[ceammc] faust_init_outputs failed");
             return false;
         }
 
         x->buf = static_cast<t_sample**>(calloc(x->n_out, sizeof(t_sample*)));
-        if(x->buf == NULL) {
+        if (x->buf == NULL) {
             error("[ceammc] faust_init_outputs failed");
             faust_free_outputs(x);
             return false;
@@ -686,14 +721,13 @@ static bool faust_init_outputs(t_faust* x, bool info_outlet) {
             x->buf[i] = NULL;
     }
 
-
     // creating sound outlets
     for (int i = 0; i < x->n_out; i++) {
         outlet_new(&x->x_obj, &s_signal);
     }
 
     // control outlet
-    if(info_outlet)
+    if (info_outlet)
         x->out = outlet_new(&x->x_obj, 0);
     else
         x->out = 0;
@@ -701,7 +735,8 @@ static bool faust_init_outputs(t_faust* x, bool info_outlet) {
     return true;
 }
 
-static void faust_init_label(t_faust* x, const char* obj_id) {
+static void faust_init_label(t_faust* x, const char* obj_id)
+{
     x->label = new std::string(sym(mydsp) "~");
 
     // label settings
@@ -711,7 +746,8 @@ static void faust_init_label(t_faust* x, const char* obj_id) {
     }
 }
 
-static bool faust_new_internal(t_faust* x, const char* obj_id = NULL, bool info_outlet = true) {
+static bool faust_new_internal(t_faust* x, const char* obj_id = NULL, bool info_outlet = true)
+{
     int sr = 44100;
     x->active = 1;
     x->xfade = 0;
@@ -723,12 +759,12 @@ static bool faust_new_internal(t_faust* x, const char* obj_id = NULL, bool info_
 
     faust_init_label(x, obj_id);
 
-    if(!faust_init_inputs(x)) {
+    if (!faust_init_inputs(x)) {
         faust_free(x);
         return false;
     }
 
-    if(!faust_init_outputs(x, info_outlet)) {
+    if (!faust_init_outputs(x, info_outlet)) {
         faust_free(x);
         return false;
     }
@@ -747,7 +783,7 @@ static bool faust_new_internal(t_faust* x, const char* obj_id = NULL, bool info_
  * @pred - predicate
  * @return pointer to found element or pointer to @bold last, if not found
  */
-template<class InputIterator, class NthOccurence, class UnaryPredicate>
+template <class InputIterator, class NthOccurence, class UnaryPredicate>
 InputIterator find_nth_if(InputIterator first, InputIterator last, NthOccurence Nth, UnaryPredicate pred)
 {
     if (Nth > 0)
@@ -763,26 +799,28 @@ InputIterator find_nth_if(InputIterator first, InputIterator last, NthOccurence 
 /**
  * @return true if given atom is a float
  */
-static bool atom_is_float(const t_atom& a) {
-    switch(a.a_type) {
-        case A_FLOAT:
-        case A_DEFFLOAT:
-            return true;
-        default:
-            return false;
+static bool atom_is_float(const t_atom& a)
+{
+    switch (a.a_type) {
+    case A_FLOAT:
+    case A_DEFFLOAT:
+        return true;
+    default:
+        return false;
     }
 }
 
 /**
  * @return true if given atom is a symbol
  */
-static bool atom_is_symbol(const t_atom& a) {
-    switch(a.a_type) {
-        case A_DEFSYMBOL:
-        case A_SYMBOL:
-            return true;
-        default:
-            return false;
+static bool atom_is_symbol(const t_atom& a)
+{
+    switch (a.a_type) {
+    case A_DEFSYMBOL:
+    case A_SYMBOL:
+        return true;
+    default:
+        return false;
     }
 }
 
@@ -794,10 +832,12 @@ static bool atom_is_symbol(const t_atom& a) {
  * @param dest destination to write value
  * @return true if argument at given position was found, otherwise false
  */
-static bool get_nth_float_arg(int argc, t_atom* argv, int nth, t_float* dest) {
+static bool get_nth_float_arg(int argc, t_atom* argv, int nth, t_float* dest)
+{
     t_atom* last = argv + argc;
     t_atom* res = find_nth_if(argv, last, nth, atom_is_float);
-    if(last == res) return false;
+    if (last == res)
+        return false;
 
     *dest = atom_getfloat(res);
     return true;
@@ -811,10 +851,12 @@ static bool get_nth_float_arg(int argc, t_atom* argv, int nth, t_float* dest) {
  * @param dest destination to write found argument value
  * @return true if argument at given position was found, otherwise false
  */
-static bool get_nth_symbol_arg(int argc, t_atom* argv, int nth, const char** dest) {
+static bool get_nth_symbol_arg(int argc, t_atom* argv, int nth, const char** dest)
+{
     t_atom* last = argv + argc;
     t_atom* res = find_nth_if(argv, last, nth, atom_is_symbol);
-    if(last == res) return false;
+    if (last == res)
+        return false;
 
     t_symbol* s = atom_getsymbol(res);
     *dest = s->s_name;
@@ -879,7 +921,7 @@ public:
             return;
 
         t_float arg = 0;
-        if(get_nth_float_arg(this->argc_, this->argv_, pos, &arg))
+        if (get_nth_float_arg(this->argc_, this->argv_, pos, &arg))
             pd_float(reinterpret_cast<t_pd*>(this->x_), arg);
     }
 
@@ -888,7 +930,6 @@ public:
         return this->x_;
     }
 };
-
 
 static void* faust_new(t_symbol* s, int argc, t_atom* argv);
 
@@ -912,5 +953,3 @@ static void internal_setup(t_symbol* s)
     s_vbargraph = gensym("vbargraph");
     s_hbargraph = gensym("hbargraph");
 }
-
-
