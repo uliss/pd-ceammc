@@ -93,6 +93,12 @@ do
 done
 cp $CEAMMC_EXT_BIN_DIR/*.dylib $PD_EXTRA/ceammc
 
+echo "Copying Additional extra:"
+cp $BUILD_DIR/ceammc/extra/comport/system.serial.d_fat $PD_EXTRA/ceammc
+cp $BUILD_DIR/ceammc/extra/hcs/*.d_fat $PD_EXTRA/ceammc
+cp $SRC_DIR/ceammc/extra/hcs/*.tcl $PD_EXTRA/ceammc
+cp $SRC_DIR/ceammc/extra/hcs/*-help.pd $PD_EXTRA/ceammc
+
 echo "Copying CEAMMC help files:"
 cp $SRC_DIR/ceammc/ext/doc/*-help.pd $PD_EXTRA/ceammc
 chmod 0444 $PD_EXTRA/ceammc/*-help.pd
