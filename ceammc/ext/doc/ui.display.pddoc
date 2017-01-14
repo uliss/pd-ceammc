@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pddoc version="1.0">
+    <object name="ui.bpfunc">
+        <title>ui.bpfunc</title>
+        <meta>
+            <authors>
+                <author>Alex Nadzharov</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Display GUI object</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>list</category>
+            <keywords>list</keywords>
+            <since>0.1</since>
+            <also>
+                <see>ui.scope~ ui.spectroscope~</see>
+            </also>
+        </meta>
+        <arguments>
+            
+        </arguments>
+        <methods>
+            
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="list">accepts any messages and displays it.  </xinfo>
+            </inlet>
+            
+        </inlets>
+        <outlets>
+            
+            
+        </outlets>
+        <example>
+            <pdascii>
+                <![CDATA[
+
+[1 2 3 4 5(
+|
+|
+[ui.display]
+
+[1 2 3 4 5( [3.1415(]
+|           |
+|           |
+[ui.display @display_type 1]
+
+                ]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
+
