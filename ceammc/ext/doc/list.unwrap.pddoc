@@ -11,38 +11,36 @@
             <license>GPL3</license>
             <library>ceammc</library>
             <category>list</category>
-            <keywords>list functional</keywords>
+            <keywords>list</keywords>
             <since>0.1</since>
             <also>
-                <see>list.wrap</see>
+                <see>list.unwrap</see>
             </also>
         </meta>
         <arguments>
-            <argument name="index" type="int">position index (starting from 0). Negative value means position from end of the list.
-            For example: '-1' means last element.</argument>
+            
         </arguments>
         <inlets>
             <inlet>
-                <xinfo on="list">Input list. If no element found by specified index - list passed without changes.</xinfo>
+                <xinfo on="list">First list - single elements</xinfo>
             </inlet>
             <inlet>
-                <xinfo>New modified value from applied object.</xinfo>
+                <xinfo on="list">Second list - count of each element</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>new modified list</outlet>
-            <outlet>Element at given index. Should be passed to applied object.</outlet>
+            <outlet>result - elements repeated n times specified by corresponding values in second list</outlet>
         </outlets>
         <example>
             <pdascii>
                 <![CDATA[
-[1 60 120(
-|
-[list.apply_to 1] X [mtof]
+[1 2 1 3(   [1 3 2 2(
+|            |.
+[list.wrap            ]
 |
 [prepend set]
 |
-[ (
+[ (       
                 ]]>
             </pdascii>
         </example>

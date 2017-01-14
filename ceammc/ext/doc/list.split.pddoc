@@ -18,31 +18,30 @@
             </also>
         </meta>
         <arguments>
-            <argument name="index" type="int">position index (starting from 0). Negative value means position from end of the list.
-            For example: '-1' means last element.</argument>
+            <argument name="split" type="int">size of first list. The size of the list on the second output is the size of input list - this value</argument>
         </arguments>
         <inlets>
             <inlet>
-                <xinfo on="list">Input list. If no element found by specified index - list passed without changes.</xinfo>
+                <xinfo on="list">Input list. </xinfo>
             </inlet>
             <inlet>
-                <xinfo>New modified value from applied object.</xinfo>
+                <xinfo>New split point value.</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>new modified list</outlet>
-            <outlet>Element at given index. Should be passed to applied object.</outlet>
+            <outlet>first sub-list of given size</outlet>
+            <outlet>second sub-list</outlet>
         </outlets>
         <example>
             <pdascii>
                 <![CDATA[
-[1 60 120(
-|
-[list.apply_to 1] X [mtof]
-|
-[prepend set]
-|
-[ (
+[1 2 3 4 5(  [3 (
+|            |.
+[list.split      2]
+|              ^|
+[prepend set]   [prepend set]
+|               |
+[ (             [ (
                 ]]>
             </pdascii>
         </example>
