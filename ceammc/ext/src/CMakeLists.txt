@@ -147,7 +147,10 @@ ceammc_cxx_extension(conv vline2bpf)
 
 #ceammc_cxx11_extension(json object)
 
+# EXPERIMENTAL
+
 ceammc_cxx_extension(exp patchdata)
+ceammc_cxx_extension(exp recursion)
 
 # STREAM
 ceammc_cxx_extension(reject if)
