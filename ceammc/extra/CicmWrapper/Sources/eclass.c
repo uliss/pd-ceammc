@@ -708,13 +708,14 @@ void eclass_attr_ceammc_getter(t_object* x, t_symbol *s, int argc, t_atom* argv)
     
     t_ebox* z   = (t_ebox *)x;
     
-    int len = strlen(s->s_name);
-    
+    //todo check
+    int len = (int)strlen(s->s_name);
     char *name = (char*)malloc(sizeof(char)*len);
-    
+    char *name2 = (char*)malloc(sizeof(char)*len);
     memcpy(name, s->s_name+1, len-2);
-    
+    memcpy(name2, s->s_name, len-1);
     name[len-1] = '\0';
+    name2[len-1] = '\0';
     
     eclass_attr_getter(x, gensym(name), &argc_, &argv_);
     
@@ -722,7 +723,7 @@ void eclass_attr_ceammc_getter(t_object* x, t_symbol *s, int argc, t_atom* argv)
     
     if (z->b_obj.o_obj.te_outlet)
     {
-        outlet_anything((t_outlet*)z->b_obj.o_obj.te_outlet, s, argc_, argv_);
+        outlet_anything((t_outlet*)z->b_obj.o_obj.te_outlet, gensym(name2), argc_, argv_);
     }
 }
 
