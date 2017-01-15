@@ -152,6 +152,8 @@ ceammc_cxx_extension(conv vline2bpf)
 ceammc_cxx_extension(exp patchdata)
 ceammc_cxx_extension(exp recursion)
 
+ceammc_cxx_extension(local list)
+
 # STREAM
 ceammc_cxx_extension(reject if)
 ceammc_cxx_extension(reject this)
