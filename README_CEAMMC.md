@@ -11,7 +11,7 @@ Key concepts
    - All the externals are grouped by their function. This is different from the traditional approach but this aims to simplify the learning process and makes the language itself more clear.
    - Higher level set of objects for education and handy use in work process: oscillators, filters etc.
    - Library adds several features to basic Pd API, written in C++ and covered with tests
-   - Inclusion of some modern techniques. Library v0.1 includes comprehensive set of objects that work with lists and include some concepts from functional programming
+   - Inclusion of some modern techniques. Library v0.1 includes comprehensive set of objects that work with lists and include some concepts from functional programming.
    
 
 Features: v0.1
@@ -47,20 +47,21 @@ Roadmap v0.2:
  * Core objects: 
    - objects working with strings and string data type
    - math.* - add functions with multiple arguments
-   - audio filters: biquad coefficients generators
+   - Audio filters: biquad coefficients generators
  * GUI
-   - simplified set of objects excluding similar ones with compatibility layer for all patches
-   - property handling
+   - Simplified set of objects that excludes similar ones and the compatibility layer for all patches
+   - Property handling
+   - Transition from Tcl/Tk
 
 this work is based on / includes:
 ---------------------------------
-   - Pd vanilla
-   - CICM library
-   - Cream library
-   - hcs library
-   - comport object
-   - FAUSTDSP
-   - pddoc
+   - Pd vanilla (this repository)
+   - CICM Wrapper library (https://github.com/CICM/CicmWrapper)
+   - Cream library (https://github.com/CICM/CreamLibrary)
+   - hcs library (https://puredata.info/downloads/hcs)
+   - comport object 
+   - FAUSTDSP (http://faust.grame.fr)
+   - pddoc (https://github.com/uliss/pddoc)
 
 
 Authors: 
