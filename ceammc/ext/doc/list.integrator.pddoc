@@ -28,8 +28,10 @@
         <example>
             <pdascii>
 <![CDATA[
-[1 2 3(
-|
+[1 2 3(   [-1 -2 -3(
+|         |
+|  [dump( |
+|  |      |
 [list.integrator]
 |
 [msg set]
