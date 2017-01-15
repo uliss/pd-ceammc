@@ -31,11 +31,11 @@ typedef struct _cursor
     //    t_outlet *status_outlet; // not used (yet?)
 } t_cursor;
 
-static void cursor_setmethod(t_cursor *x, t_symbol *s, int argc, t_atom *argv)
-{
-    sys_vgui("set ::cursor_%s \"%s\"\n", s->s_name, atom_getsymbol(argv)->s_name);
-    canvas_setcursor(x->parent_canvas, 0); /* hack to refresh the cursor */
-}
+//static void cursor_setmethod(t_cursor *x, t_symbol *s, int argc, t_atom *argv)
+//{
+//    sys_vgui("set ::cursor_%s \"%s\"\n", s->s_name, atom_getsymbol(argv)->s_name);
+//    canvas_setcursor(x->parent_canvas, 0); /* hack to refresh the cursor */
+//}
 
 static void cursor_bang(t_cursor *x)
 {
@@ -146,20 +146,20 @@ void setup_system0x2ecursor(void)
                     mousewheel_symbol, A_DEFFLOAT, 0);
     
     /* methods for setting the cursor icon */
-    class_addmethod(cursor_class, (t_method)cursor_setmethod,
-                    gensym("runmode_nothing"), A_GIMME, 0);
-    class_addmethod(cursor_class, (t_method)cursor_setmethod,
-                    gensym("runmode_clickme"), A_GIMME, 0);
-    class_addmethod(cursor_class, (t_method)cursor_setmethod,
-                    gensym("runmode_thicken"), A_GIMME, 0);
-    class_addmethod(cursor_class, (t_method)cursor_setmethod,
-                    gensym("runmode_addpoint"), A_GIMME, 0);
-    class_addmethod(cursor_class, (t_method)cursor_setmethod,
-                    gensym("editmode_nothing"), A_GIMME, 0);
-    class_addmethod(cursor_class, (t_method)cursor_setmethod,
-                    gensym("editmode_connect"), A_GIMME, 0);
-    class_addmethod(cursor_class, (t_method)cursor_setmethod,
-                    gensym("editmode_disconnect"), A_GIMME, 0);
+//    class_addmethod(cursor_class, (t_method)cursor_setmethod,
+//                    gensym("runmode_nothing"), A_GIMME, 0);
+//    class_addmethod(cursor_class, (t_method)cursor_setmethod,
+//                    gensym("runmode_clickme"), A_GIMME, 0);
+//    class_addmethod(cursor_class, (t_method)cursor_setmethod,
+//                    gensym("runmode_thicken"), A_GIMME, 0);
+//    class_addmethod(cursor_class, (t_method)cursor_setmethod,
+//                    gensym("runmode_addpoint"), A_GIMME, 0);
+//    class_addmethod(cursor_class, (t_method)cursor_setmethod,
+//                    gensym("editmode_nothing"), A_GIMME, 0);
+//    class_addmethod(cursor_class, (t_method)cursor_setmethod,
+//                    gensym("editmode_connect"), A_GIMME, 0);
+//    class_addmethod(cursor_class, (t_method)cursor_setmethod,
+//                    gensym("editmode_disconnect"), A_GIMME, 0);
     
     sys_vgui("eval [read [open {%s/%s.tcl}]]\n",
              cursor_class->c_externdir->s_name,
