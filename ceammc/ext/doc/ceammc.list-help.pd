@@ -68,11 +68,18 @@ list;
 #X text 150 869 calculates sum of floats in list;
 #X obj 30 896 list.unpack;
 #X text 150 896 sends list element one by one separately;
-#X obj 30 923 list.walk;
-#X text 150 923 Walks thru the list;
-#X obj 30 950 vector.normalize;
-#X text 150 950 returns normalized vector;
+#X obj 30 923 list.unwrap;
+#X text 150 923 gets list element on first input and list with count
+of each element on a second inlet\.;
+#X obj 30 960 list.walk;
+#X text 150 960 Walks thru the list;
+#X obj 30 987 list.wrap;
+#X text 150 987 filters repeated elements of the list and outputs
+unique elements on first outlet \, outputs the count of elements on
+second\.;
+#X obj 30 1038 vector.normalize;
+#X text 150 1038 returns normalized vector;
 #X obj 1 1 cnv 5 597 40 empty empty ceammc::list 20 20 0 20 -104026
 -4096 0;
-#X obj 1 977 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 987 library: ceammc;
+#X obj 1 1065 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 1075 library: ceammc;

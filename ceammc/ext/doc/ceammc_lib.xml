@@ -63,9 +63,6 @@
     <entry descr="simple pitch shifter based on 2 delay lines" name="fx.pitchshift~">
       <xi:include href="fx.pitchshift~.pddoc" parse="xml"/>
     </entry>
-    <entry descr="frequency shifter or single sideband ring modulation" name="fx.freqshift~">
-        <xi:include href="fx.freqshift~.pddoc" parse="xml"/>
-    </entry>
   </category>
   <category name="global">
     <entry descr="global named float object" name="global.float">
@@ -174,8 +171,14 @@
     <entry descr="sends list element one by one separately" name="list.unpack">
       <xi:include href="list.unpack.pddoc" parse="xml"/>
     </entry>
+    <entry descr="gets list element on first input and list with count of each element on a second inlet." name="list.unwrap">
+      <xi:include href="list.unwrap.pddoc" parse="xml"/>
+    </entry>
     <entry descr="Walks thru the list" name="list.walk">
       <xi:include href="list.walk.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="filters repeated elements of the list and outputs unique elements on first outlet, outputs the count of elements on second." name="list.wrap">
+      <xi:include href="list.wrap.pddoc" parse="xml"/>
     </entry>
     <entry descr="returns normalized vector" name="vector.normalize">
       <xi:include href="vector.normalize.pddoc" parse="xml"/>
@@ -354,9 +357,6 @@
     </entry>
     <entry descr="treats list of floats as vector, returns vector length: sqrt(element(1)^2 + ...element(n)^2)." name="vector.length">
       <xi:include href="vector.length.pddoc" parse="xml"/>
-    </entry>
-    <entry descr="treats list of floats as vector, returns normalized vector (vector divided by its length) " name="vector.normalize">
-        <xi:include href="vector.normalize.pddoc" parse="xml"/>
     </entry>
   </category>
   <meta>

@@ -63,6 +63,8 @@ set(DOC_FILES
     list.sum
     list.unpack
     list.walk
+    list.wrap
+    list.unwrap
     lfo.impulse~
     lfo.square~
     lfo.tri~

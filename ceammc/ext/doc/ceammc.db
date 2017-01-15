@@ -59,7 +59,9 @@ list.shuffle		.		.
 list.sort		.		.
 list.sum		.		.
 list.unpack		.		..
+list.unwrap		..		.
 list.walk		.		.
+list.wrap		.		..
 live.capture~		~		~.
 math.abs		.		.
 math.acos		.		.

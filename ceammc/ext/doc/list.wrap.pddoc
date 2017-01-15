@@ -14,15 +14,12 @@
             <keywords>list functional</keywords>
             <since>0.1</since>
             <also>
-                <see>list.wrap</see>
+                <see>list.unwrap</see>
             </also>
         </meta>
-        <arguments>
-            
-        </arguments>
         <inlets>
             <inlet>
-                <xinfo on="list">Input list. </xinfo>
+                <xinfo on="list">Input list</xinfo>
             </inlet>
             
         </inlets>
@@ -32,15 +29,17 @@
         </outlets>
         <example>
             <pdascii>
-                <![CDATA[
+<![CDATA[
+
 [1 1 2 2 2 1 1(
 |
 [list.wrap       ]
 |              ^|
-[prepend set]   [prepend set]
-|               |
-[ (             [ (
-                ]]>
+[msg set]      [msg set]
+|              |
+[ (            [ (
+
+]]>
             </pdascii>
         </example>
     </object>
