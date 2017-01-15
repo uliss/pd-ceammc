@@ -120,6 +120,9 @@
     <entry descr="generates list of specified length via external generator" name="list.gen">
       <xi:include href="list.gen.pddoc" parse="xml"/>
     </entry>
+    <entry descr="returns the sum of the previously stored list and the current one then stores this sum." name="list.integrator">
+      <xi:include href="list.integrator.pddoc" parse="xml"/>
+    </entry>
     <entry descr="takes n lists from n inlets (specified by argument) and output their elements sequentially (list1-1 list2-1 list1-2 list2-2 etc.)." name="list.interleave">
       <xi:include href="list.interleave.pddoc" parse="xml"/>
     </entry>

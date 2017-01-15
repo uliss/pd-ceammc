@@ -45,6 +45,7 @@ set(DOC_FILES
     list.equal
     list.first
     list.interleave
+    list.integrator
     list.gen
     list.last
     list.length

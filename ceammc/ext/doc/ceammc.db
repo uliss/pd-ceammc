@@ -42,6 +42,7 @@ list.each		..		..
 list.equal		..		.
 list.first		.		.
 list.gen		..		..
+list.integrator		.		.
 list.interleave		?		.
 list.last		.		.
 list.length		.		.
