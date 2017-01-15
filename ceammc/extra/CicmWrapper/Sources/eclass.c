@@ -344,6 +344,9 @@ void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, 
                 c->c_attr = attrs;
                 c->c_attr[c->c_nattr] = attr;
                 class_addmethod((t_class *)c, (t_method)eclass_attr_setter, gensym(attrname), A_GIMME, 0);
+                //CEAMMC
+                sprintf(getattr, "@%s?", attrname);
+                class_addmethod((t_class *)c, (t_method)eclass_attr_ceammc_getter, gensym(getattr), A_GIMME, 0);
                 sprintf(getattr, "get%s", attrname);
                 class_addmethod((t_class *)c, (t_method)eclass_attr_getter, gensym(getattr), A_GIMME, 0);
                 c->c_nattr++;
@@ -607,12 +610,18 @@ void eclass_attr_accessor(t_eclass* c, const char* attrname, t_err_method getter
 
 void eclass_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)
 {
+    //ceammc
+    //int zero_argc = 0;
+    
     int i, j;
     char *point;
     t_ebox* z   = (t_ebox *)x;
     t_eclass* c = (t_eclass *)z->b_obj.o_obj.te_g.g_pd;
-    if(argv[0] && argc[0])
-        free(argv);
+    //CEAMMC temporary
+    if (argc==NULL)
+        {argc = (int*)malloc(sizeof(int));} //
+    if(argv!=NULL)
+    {if (argc[0]) free(argv);}
     argc[0] = 0;
     
     for(i = 0; i < c->c_nattr; i++)
@@ -684,6 +693,36 @@ void eclass_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)
                 }
             }
         }
+    }
+}
+
+void eclass_attr_ceammc_getter(t_object* x, t_symbol *s, int argc, t_atom* argv)
+{
+    //post("ceammc getter");
+    
+    int argc_ = 0;
+    t_atom *argv_ = NULL;
+    
+    
+    //if (!argc_) return;
+    
+    t_ebox* z   = (t_ebox *)x;
+    
+    int len = strlen(s->s_name);
+    
+    char *name = (char*)malloc(sizeof(char)*len);
+    
+    memcpy(name, s->s_name+1, len-2);
+    
+    name[len-1] = '\0';
+    
+    eclass_attr_getter(x, gensym(name), &argc_, &argv_);
+    
+    
+    
+    if (z->b_obj.o_obj.te_outlet)
+    {
+        outlet_anything((t_outlet*)z->b_obj.o_obj.te_outlet, s, argc_, argv_);
     }
 }
 
