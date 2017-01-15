@@ -21,6 +21,7 @@ set(DOC_FILES
     flt.highshelf~
     flt.lowshelf~
     flt.eq_peak~
+    fx.freqshift~
     fx.pitchshift~
     global.float
     global.int

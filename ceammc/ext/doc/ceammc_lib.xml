@@ -60,6 +60,9 @@
     </entry>
   </category>
   <category name="fx">
+    <entry descr="frequency shifter or single-sideband ring modulation" name="fx.freqshift~">
+      <xi:include href="fx.freqshift~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="simple pitch shifter based on 2 delay lines" name="fx.pitchshift~">
       <xi:include href="fx.pitchshift~.pddoc" parse="xml"/>
     </entry>

@@ -28,6 +28,7 @@
         </inlets>
         <outlets>
             <outlet type="audio">output signal</outlet>
+            <outlet type="audio">output signal</outlet>
             <outlet type="control">information output</outlet>
         </outlets>
         <example>
@@ -35,11 +36,15 @@
 <![CDATA[
 [F]
 |
-[phasor~ 300] [B] [F]   /* frequency shift */
-|             |  /.
-[fx.freqshift~ id]
-|\               ^|
-[dac~]              [print]
+[osc.tri~ 300] [F]   /* frequency shift */
+|              |
+|              [sig~]
+|              |
+|              [lop~ 10]
+|              |.
+[fx.freqshift~   id]
+|  |.            ^^|
+[dac~   ]        [print]
 ]]>
         </pdascii>
         </example>
