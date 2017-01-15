@@ -1090,6 +1090,20 @@ void ebox_attrprint(t_ebox* x)
     }
 }
 
+void ebox_attrceammcprint(t_ebox* x)
+{
+    //stub
+    
+    int i;
+    t_eclass* c = eobj_getclass(x);
+    post("%s attributes :", c->c_class.c_name->s_name);
+    for(i = 0; i < c->c_nattr; i++)
+    {
+        
+        post("@%s : type: %s size: %i", c->c_attr[i]->name->s_name, c->c_attr[i]->type->s_name, c->c_attr[i]->size);
+    }
+}
+
 void ebox_properties(t_ebox *x, t_glist *glist)
 {
     int i, j, lenght;
