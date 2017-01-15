@@ -48,6 +48,11 @@ public:
         setMethod(l);
     }
 
+    bool processAnyProps(t_symbol*, const AtomList&)
+    {
+        return false;
+    }
+
 private:
     void setMethod(const AtomList& l)
     {

@@ -1,57 +1,89 @@
-#include "ceammc_atomlist.h"
-#include <m_pd.h>
-#include <stdlib.h>
+#include "ceammc_factory.h"
+#include "ceammc_log.h"
+#include "ceammc_object.h"
 
 using namespace ceammc;
 
-static t_class* list_integrator_class;
-struct t_list_integrator {
-    t_object x_obj;
-    AtomList* stored_list;
+class ListIntegrator : public BaseObject {
+    AtomList integral_list_;
+    SymbolEnumProperty* wrap_method_;
+    t_symbol* gmin_;
+    t_symbol* gpadz_;
+    t_symbol* gclip_;
+    t_symbol* gwrap_;
+    t_symbol* gfold_;
+
+public:
+    ListIntegrator(const PdArgs& a)
+        : BaseObject(a)
+    {
+        createOutlet();
+        wrap_method_ = new SymbolEnumProperty("@oversize", "padz");
+        wrap_method_->appendEnum("min");
+        wrap_method_->appendEnum("clip");
+        wrap_method_->appendEnum("fold");
+        wrap_method_->appendEnum("wrap");
+        createProperty(wrap_method_);
+
+        gmin_ = gensym("min");
+        gpadz_ = gensym("padz");
+        gclip_ = gensym("clip");
+        gwrap_ = gensym("wrap");
+        gfold_ = gensym("fold");
+
+        createProperty(new SymbolEnumAlias("@min", wrap_method_, gmin_));
+        createProperty(new SymbolEnumAlias("@padz", wrap_method_, gpadz_));
+        createProperty(new SymbolEnumAlias("@clip", wrap_method_, gclip_));
+        createProperty(new SymbolEnumAlias("@wrap", wrap_method_, gwrap_));
+        createProperty(new SymbolEnumAlias("@fold", wrap_method_, gfold_));
+
+        parseArguments();
+        if (args().size() > 2) {
+            OBJ_ERR << "only one optional argument accepted: oversize method";
+        }
+    }
+
+    AtomList::NonEqualLengthBehaivor symbolToWrap(t_symbol* s)
+    {
+        if (s == gmin_)
+            return AtomList::MINSIZE;
+        else if (s == gpadz_)
+            return AtomList::PADZERO;
+        else if (s == gclip_)
+            return AtomList::CLIP;
+        else if (s == gwrap_)
+            return AtomList::WRAP;
+        else if (s == gfold_)
+            return AtomList::FOLD;
+        else
+            return AtomList::MINSIZE;
+    }
+
+    void onBang()
+    {
+        listTo(0, integral_list_);
+    }
+
+    void onList(const AtomList& l)
+    {
+        integral_list_ = AtomList::add(l, integral_list_, symbolToWrap(wrap_method_->value()));
+        listTo(0, integral_list_);
+    }
+
+    void m_clear(t_symbol*, const AtomList&)
+    {
+        integral_list_.clear();
+    }
+
+    void dump() const
+    {
+        BaseObject::dump();
+        OBJ_DBG << "integral sum:  " << integral_list_;
+    }
 };
-
-static void list_integrator_clear(t_list_integrator* x, t_symbol*, int, t_atom*)
-{
-    x->stored_list->clear();
-}
-
-static void list_integrator_bang(t_list_integrator* x, t_symbol*, int, t_atom*)
-{
-    x->stored_list->output(x->x_obj.te_outlet);
-}
-
-static void list_integrator_list(t_list_integrator* x, t_symbol*, int argc, t_atom* argv)
-{
-    if (argc < 1)
-        return;
-    
-    AtomList new_list(argc, argv);
-    AtomList integrator_list(AtomList::add(*x->stored_list, new_list, AtomList::PADZERO));
-    
-    integrator_list.output(x->x_obj.te_outlet);
-    *x->stored_list = integrator_list;
-}
-
-static void* list_integrator_new()
-{
-    t_list_integrator* x = reinterpret_cast<t_list_integrator*>(pd_new(list_integrator_class));
-    outlet_new(&x->x_obj, &s_float);
-    x->stored_list = new AtomList;
-    return static_cast<void*>(x);
-}
-
-static void list_integrator_free(t_list_integrator* x)
-{
-    delete x->stored_list;
-}
 
 extern "C" void setup_list0x2eintegrator()
 {
-    list_integrator_class = class_new(gensym("list.integrator"),
-                                 reinterpret_cast<t_newmethod>(list_integrator_new),
-                                 reinterpret_cast<t_method>(list_integrator_free),
-                                 sizeof(t_list_integrator), 0, A_NULL);
-    class_addlist(list_integrator_class, list_integrator_list);
-    class_addanything(list_integrator_class, list_integrator_clear);
-    class_addbang(list_integrator_class, list_integrator_bang);
+    ObjectFactory<ListIntegrator> obj("list.integrator");
+    obj.addMethod("clear", &ListIntegrator::m_clear);
 }

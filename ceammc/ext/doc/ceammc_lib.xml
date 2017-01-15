@@ -123,6 +123,9 @@
     <entry descr="generates list of specified length via external generator" name="list.gen">
       <xi:include href="list.gen.pddoc" parse="xml"/>
     </entry>
+    <entry descr="returns the sum of the previously stored list and the current one then stores this sum." name="list.integrator">
+      <xi:include href="list.integrator.pddoc" parse="xml"/>
+    </entry>
     <entry descr="takes n lists from n inlets (specified by argument) and output their elements sequentially (list1-1 list2-1 list1-2 list2-2 etc.)." name="list.interleave">
       <xi:include href="list.interleave.pddoc" parse="xml"/>
     </entry>
@@ -174,8 +177,14 @@
     <entry descr="sends list element one by one separately" name="list.unpack">
       <xi:include href="list.unpack.pddoc" parse="xml"/>
     </entry>
+    <entry descr="gets list element on first input and list with count of each element on a second inlet." name="list.unwrap">
+      <xi:include href="list.unwrap.pddoc" parse="xml"/>
+    </entry>
     <entry descr="Walks thru the list" name="list.walk">
       <xi:include href="list.walk.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="filters repeated elements of the list and outputs unique elements on first outlet, outputs the count of elements on second." name="list.wrap">
+      <xi:include href="list.wrap.pddoc" parse="xml"/>
     </entry>
     <entry descr="returns normalized vector" name="vector.normalize">
       <xi:include href="vector.normalize.pddoc" parse="xml"/>

@@ -17,14 +17,12 @@
                 <see>list.wrap</see>
             </also>
         </meta>
-        <arguments>
-            
-        </arguments>
+
         <inlets>
             <inlet>
-                <xinfo on="list">Input list. </xinfo>
+                <xinfo on="list">Input list</xinfo>
             </inlet>
-            
+
         </inlets>
         <outlets>
             <outlet>First list: list entries without repetitions. For example 1 1 2 2 2 1 1 becomes 1 2 1 </outlet>
@@ -32,17 +30,19 @@
         </outlets>
         <example>
             <pdascii>
-                <![CDATA[
+
+<![CDATA[
+
 [1 1 2 2 2 1 1(
 |
 [list.wrap       ]
 |              ^|
-[prepend set]   [prepend set]
-|               |
-[ (             [ (
-                ]]>
+[msg set]      [msg set]
+|              |
+[ (            [ (
+
+]]>
             </pdascii>
         </example>
     </object>
 </pddoc>
-

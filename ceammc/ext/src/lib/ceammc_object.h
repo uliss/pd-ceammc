@@ -187,9 +187,9 @@ public:
     void anyTo(size_t n, t_symbol* s, const Atom& a);
     void anyTo(size_t n, t_symbol* s, const AtomList& l);
 
-    bool processAnyInlets(t_symbol* sel, const AtomList& lst);
-    bool processAnyProps(t_symbol* sel, const AtomList& lst);
-    void anyDispatch(t_symbol* s, const AtomList& lst);
+    virtual bool processAnyInlets(t_symbol* sel, const AtomList& lst);
+    virtual bool processAnyProps(t_symbol* sel, const AtomList& lst);
+    virtual void anyDispatch(t_symbol* s, const AtomList& lst);
 
 public:
     static t_symbol* tryGetPropKey(t_symbol* sel);

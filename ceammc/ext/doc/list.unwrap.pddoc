@@ -11,15 +11,15 @@
             <license>GPL3</license>
             <library>ceammc</library>
             <category>list</category>
-            <keywords>list</keywords>
+
+            <keywords>list unwrap</keywords>
+
             <since>0.1</since>
             <also>
                 <see>list.unwrap</see>
             </also>
         </meta>
-        <arguments>
-            
-        </arguments>
+
         <inlets>
             <inlet>
                 <xinfo on="list">First list - single elements</xinfo>
@@ -33,17 +33,16 @@
         </outlets>
         <example>
             <pdascii>
-                <![CDATA[
-[1 2 1 3(   [1 3 2 2(
+<![CDATA[
+[1 2 1 3(    [1 3 2 2(
 |            |.
-[list.wrap            ]
+[list.unwrap  ]
 |
-[prepend set]
+[msg set]
 |
-[ (       
-                ]]>
+[ (
+]]>
             </pdascii>
         </example>
     </object>
 </pddoc>
-

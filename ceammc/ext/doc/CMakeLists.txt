@@ -45,6 +45,7 @@ set(DOC_FILES
     list.equal
     list.first
     list.interleave
+    list.integrator
     list.gen
     list.last
     list.length
@@ -63,6 +64,8 @@ set(DOC_FILES
     list.sum
     list.unpack
     list.walk
+    list.wrap
+    list.unwrap
     lfo.impulse~
     lfo.square~
     lfo.tri~
