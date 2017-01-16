@@ -144,8 +144,9 @@ ceammc_cxx_extension(conv list2bpf)
 ceammc_cxx_extension(conv vline2bpf)
 
 # JSON
+# new one
 
-#ceammc_cxx11_extension(json object)
+ceammc_cxx_extension(json object)
 
 # EXPERIMENTAL
 
