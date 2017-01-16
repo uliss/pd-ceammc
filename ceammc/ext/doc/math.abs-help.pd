@@ -3,7 +3,7 @@
 #X text 493 50 absolute value function;
 #X obj 1 1 cnv 5 682 40 empty empty math.abs 20 20 0 20 -104026 -4096
 0;
-#X obj 602 11 math.abs;
+#X obj 599 11 math.abs;
 #X obj 225 80 cnv 1 440 47 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 230 80 The abs() function computes the absolute value of the
 float input\.;
@@ -32,8 +32,8 @@ float input\.;
 #X obj 131 45 pddp/pddplink ceammc.math-help.pd -text math;
 #X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 527 520 see also:;
-#X obj 597 520 math.floor;
+#X text 517 520 see also:;
+#X obj 587 520 math.floor;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

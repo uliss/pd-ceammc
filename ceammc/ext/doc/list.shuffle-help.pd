@@ -3,7 +3,7 @@
 #X text 401 50 randomly rearranges elements in list;
 #X obj 1 1 cnv 5 682 40 empty empty list.shuffle 20 20 0 20 -104026
 -4096 0;
-#X obj 573 11 list.shuffle;
+#X obj 570 11 list.shuffle;
 #X msg 50 118 1 2 3 a b c;
 #X obj 50 147 list.shuffle;
 #X obj 50 176 prepend set;

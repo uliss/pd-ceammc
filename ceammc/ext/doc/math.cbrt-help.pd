@@ -3,7 +3,7 @@
 #X text 530 50 cube root function;
 #X obj 1 1 cnv 5 682 40 empty empty math.cbrt 20 20 0 20 -104026 -4096
 0;
-#X obj 595 11 math.cbrt;
+#X obj 592 11 math.cbrt;
 #X obj 225 80 cnv 1 440 102 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 230 80 The cbrt() function computes the cube root of input
 value\.;
@@ -31,8 +31,8 @@ value\.;
 #X obj 131 45 pddp/pddplink ceammc.math-help.pd -text math;
 #X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 535 520 see also:;
-#X obj 605 520 math.sqrt;
+#X text 525 520 see also:;
+#X obj 595 520 math.sqrt;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

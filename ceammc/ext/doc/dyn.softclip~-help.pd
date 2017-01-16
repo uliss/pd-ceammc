@@ -3,7 +3,7 @@
 #X text 544 50 soft signal clip;
 #X obj 1 1 cnv 5 682 40 empty empty dyn.softclip~ 20 20 0 20 -104026
 -4096 0;
-#X obj 565 11 dyn.softclip~;
+#X obj 562 11 dyn.softclip~;
 #X obj 50 118 osc~ 220;
 #X floatatom 155 118 5 0 0 0 - - -;
 #X obj 242 118 osc~ 220;

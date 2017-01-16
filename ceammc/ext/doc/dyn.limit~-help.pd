@@ -3,7 +3,7 @@
 #X text 485 50 mono 1176LN Peak Limiter;
 #X obj 1 1 cnv 5 682 40 empty empty dyn.limit~ 20 20 0 20 -104026
 -4096 0;
-#X obj 587 11 dyn.limit~;
+#X obj 584 11 dyn.limit~;
 #X obj 50 118 osc~ 440;
 #X floatatom 165 118 5 0 0 0 - - -;
 #X obj 50 147 *~;
@@ -29,9 +29,9 @@
 #X obj 131 45 pddp/pddplink ceammc.dyn-help.pd -text dyn;
 #X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 438 520 see also:;
-#X obj 508 520 dyn.limit2~;
-#X obj 604 520 dyn.comp~;
+#X text 428 520 see also:;
+#X obj 498 520 dyn.limit2~;
+#X obj 594 520 dyn.comp~;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

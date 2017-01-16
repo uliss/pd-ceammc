@@ -3,7 +3,7 @@
 #X text 479 50 global named float object;
 #X obj 1 1 cnv 5 682 40 empty empty global.float 20 20 0 20 -104026
 -4096 0;
-#X obj 573 11 global.float;
+#X obj 570 11 global.float;
 #X obj 225 80 cnv 1 440 33 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 230 80 Defines global scope float variable \, accessed by ID
 name\.;
@@ -51,8 +51,8 @@ name\.;
 #X obj 131 45 pddp/pddplink ceammc.global-help.pd -text global;
 #X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 528 520 see also:;
-#X obj 598 520 global.int;
+#X text 518 520 see also:;
+#X obj 588 520 global.int;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

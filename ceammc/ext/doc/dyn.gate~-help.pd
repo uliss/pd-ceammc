@@ -3,7 +3,7 @@
 #X text 543 50 mono signal gate;
 #X obj 1 1 cnv 5 682 40 empty empty dyn.gate~ 20 20 0 20 -104026 -4096
 0;
-#X obj 594 11 dyn.gate~;
+#X obj 591 11 dyn.gate~;
 #X obj 50 118 osc~ 440;
 #X floatatom 155 118 5 0 0 0 - - -;
 #X obj 107 147 dbtorms;
@@ -77,8 +77,8 @@ level < threshold\. ;
 #X obj 131 45 pddp/pddplink ceammc.dyn-help.pd -text dyn;
 #X obj 1 723 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 726 library: ceammc v0\.1;
-#X text 527 738 see also:;
-#X obj 597 738 dyn.gate2~;
+#X text 517 738 see also:;
+#X obj 587 738 dyn.gate2~;
 #N canvas 10 745 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

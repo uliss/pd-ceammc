@@ -3,7 +3,7 @@
 #X text 392 50 checks if input data has *float* type;
 #X obj 1 1 cnv 5 682 40 empty empty is_float 20 20 0 20 -104026 -4096
 0;
-#X obj 603 11 is_float;
+#X obj 600 11 is_float;
 #X msg 50 118 100;
 #X msg 117 118 any;
 #X msg 174 118 symbol a;
@@ -32,11 +32,11 @@
 predicates;
 #X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 347 520 see also:;
-#X obj 417 520 is_any;
-#X obj 475 520 is_bang;
-#X obj 540 520 is_symbol;
-#X obj 620 520 is_list;
+#X text 337 520 see also:;
+#X obj 407 520 is_any;
+#X obj 465 520 is_bang;
+#X obj 530 520 is_symbol;
+#X obj 610 520 is_list;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

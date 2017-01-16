@@ -3,7 +3,7 @@
 #X text 401 50 returns smallest element in the list;
 #X obj 1 1 cnv 5 682 40 empty empty list.min 20 20 0 20 -104026 -4096
 0;
-#X obj 603 11 list.min;
+#X obj 600 11 list.min;
 #X obj 225 80 cnv 1 440 84 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 230 80 By default returns smallest float in list \, this equal
 to using @float property\.;

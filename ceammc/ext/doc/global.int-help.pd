@@ -3,7 +3,7 @@
 #X text 464 50 global named integer object;
 #X obj 1 1 cnv 5 682 40 empty empty global.int 20 20 0 20 -104026
 -4096 0;
-#X obj 588 11 global.int;
+#X obj 585 11 global.int;
 #X obj 225 80 cnv 1 440 47 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 230 80 Defines global scope integer variable \, accessed by ID
 name\.;
@@ -53,8 +53,8 @@ and outputs new value\. ;
 #X obj 131 45 pddp/pddplink ceammc.global-help.pd -text global;
 #X obj 1 530 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 533 library: ceammc v0\.1;
-#X text 513 545 see also:;
-#X obj 583 545 global.float;
+#X text 503 545 see also:;
+#X obj 573 545 global.float;
 #N canvas 10 552 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

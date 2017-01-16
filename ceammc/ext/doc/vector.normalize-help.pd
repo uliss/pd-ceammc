@@ -3,7 +3,7 @@
 #X text 479 50 returns normalized vector;
 #X obj 1 1 cnv 5 682 40 empty empty vector.normalize 20 20 0 20
 -104026 -4096 0;
-#X obj 544 11 vector.normalize;
+#X obj 541 11 vector.normalize;
 #X obj 225 80 cnv 1 440 61 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 230 80 Treats list of floats as vector \, divides the vector
 elements by its magnitude\.  Note: returns 0 vector if vector length

@@ -3,7 +3,7 @@
 #X text 408 50 returns largest element in the list;
 #X obj 1 1 cnv 5 682 40 empty empty list.max 20 20 0 20 -104026 -4096
 0;
-#X obj 602 11 list.max;
+#X obj 599 11 list.max;
 #X obj 225 80 cnv 1 440 84 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 230 80 By default returns largest float in list \, this equal
 to using @float property\.;

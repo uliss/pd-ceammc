@@ -3,7 +3,7 @@
 #X text 328 50 reverses the order of the elements in the list;
 #X obj 1 1 cnv 5 682 40 empty empty list.reverse 20 20 0 20 -104026
 -4096 0;
-#X obj 573 11 list.reverse;
+#X obj 570 11 list.reverse;
 #X msg 50 118 1 2 3 4 5;
 #X msg 174 118 list a b c d e;
 #X obj 50 147 list.reverse;

@@ -2,7 +2,7 @@
 #X obj 283 50 cnv 1 382 21 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 283 50 mathematical constant \, base of the natural logarithm;
 #X obj 1 1 cnv 5 682 40 empty empty math.e 20 20 0 20 -104026 -4096 0;
-#X obj 616 11 math.e;
+#X obj 613 11 math.e;
 #X obj 225 80 cnv 1 440 47 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 230 80 It is approximately equal to 2\.71828 \, and is the
 limit of (1 + 1/n)^n as n approaches infinity\.;
@@ -28,8 +28,8 @@ limit of (1 + 1/n)^n as n approaches infinity\.;
 #X obj 131 45 pddp/pddplink ceammc.math-help.pd -text math;
 #X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 549 520 see also:;
-#X obj 619 520 math.pi;
+#X text 539 520 see also:;
+#X obj 609 520 math.pi;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

@@ -4,7 +4,7 @@
 value;
 #X obj 1 1 cnv 5 682 40 empty empty list.count 20 20 0 20 -104026
 -4096 0;
-#X obj 588 11 list.count;
+#X obj 585 11 list.count;
 #X msg 146 118 pattern c;
 #X msg 280 118 list a b c c;
 #X msg 50 147 1 2 3 1;

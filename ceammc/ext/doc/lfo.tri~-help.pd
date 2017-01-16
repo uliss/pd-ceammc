@@ -3,7 +3,7 @@
 #X text 291 50 Positive unit-amplitude low frequency triangle wave;
 #X obj 1 1 cnv 5 682 40 empty empty lfo.tri~ 20 20 0 20 -104026 -4096
 0;
-#X obj 602 11 lfo.tri~;
+#X obj 599 11 lfo.tri~;
 #X obj 50 118 osc~ 200;
 #X floatatom 155 118 5 0 0 0 - - -;
 #X obj 155 147 lfo.tri~ 10;
@@ -35,9 +35,9 @@
 #X obj 131 45 pddp/pddplink ceammc.lfo-help.pd -text lfo;
 #X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 418 520 see also:;
-#X obj 488 520 lfo.square~;
-#X obj 583 520 lfo.impulse~;
+#X text 408 520 see also:;
+#X obj 478 520 lfo.square~;
+#X obj 573 520 lfo.impulse~;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

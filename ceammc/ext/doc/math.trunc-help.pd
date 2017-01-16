@@ -3,7 +3,7 @@
 #X text 478 50 truncate to integer value;
 #X obj 1 1 cnv 5 682 40 empty empty math.trunc 20 20 0 20 -104026
 -4096 0;
-#X obj 587 11 math.trunc;
+#X obj 584 11 math.trunc;
 #X obj 225 80 cnv 1 440 116 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 230 80 The trunc() functions return the integral value nearest
 to but no larger in magnitude than x\. ;
@@ -33,11 +33,11 @@ to but no larger in magnitude than x\. ;
 #X obj 131 45 pddp/pddplink ceammc.math-help.pd -text math;
 #X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 279 520 see also:;
-#X obj 349 520 math.ceil;
-#X obj 430 520 math.floor;
-#X obj 518 520 math.round;
-#X obj 605 520 math.math;
+#X text 269 520 see also:;
+#X obj 339 520 math.ceil;
+#X obj 420 520 math.floor;
+#X obj 508 520 math.round;
+#X obj 595 520 math.math;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
