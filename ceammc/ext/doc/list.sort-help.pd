@@ -3,7 +3,7 @@
 #X text 399 50 sorts list values by ascending order;
 #X obj 1 1 cnv 5 682 40 empty empty list.sort 20 20 0 20 -104026 -4096
 0;
-#X obj 596 11 list.sort;
+#X obj 593 11 list.sort;
 #X msg 50 118 2 -2 4 1 2.0;
 #X msg 194 118 1 a -2 b 4 1 2.0;
 #X obj 50 147 list.sort;

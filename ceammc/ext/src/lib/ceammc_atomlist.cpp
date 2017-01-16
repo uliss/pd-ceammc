@@ -59,6 +59,17 @@ AtomList::AtomList()
 {
 }
 
+AtomList::AtomList(const Atom& a)
+{
+    append(a);
+}
+
+AtomList::AtomList(const Atom& a, const Atom& b)
+{
+    append(a);
+    append(b);
+}
+
 AtomList::AtomList(size_t n, t_atom* lst)
 {
     fromPdData(n, lst);
@@ -369,6 +380,14 @@ bool AtomList::insert(size_t pos, const Atom& a)
     return true;
 }
 
+bool AtomList::insert(size_t pos, const AtomList& l)
+{
+    if (pos > atoms_.size())
+        return false;
+    atoms_.insert(atoms_.begin() + pos, l.atoms_.begin(), l.atoms_.end());
+    return true;
+}
+
 bool AtomList::remove(size_t pos)
 {
     if (pos >= size())
@@ -468,21 +487,6 @@ AtomList AtomList::subList(int begin, int end)
 
     return ret;
 }
-
-//AtomList AtomList::sub(int begin, int end)const
-//{
-//    AtomList ret;
-//
-//    if ((end - begin) > 0) {
-//        //temporary
-//        for (size_t i = begin; i < end; i++) {
-//            const Atom& a = atoms_[i];
-//            ret.atoms_.push_back(a);
-//        }
-//    }
-//
-//    return ret;
-//}
 
 AtomList AtomList::filtered(AtomPredicate pred) const
 {

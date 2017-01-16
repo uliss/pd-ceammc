@@ -18,11 +18,21 @@
             </also>
         </meta>
         <info>
-            <par>Note: numbers are smaller then symbols</par>
+            <par>By default returns smallest float in list, this equal to using @float property.</par>
+            <par>Also you can choose smallest symbol from list by using @symbol property.</par>
         </info>
+        <arguments>
+            <argument name="@type" type="property">type of smallest element. Possible values are: float (default), symbol, any</argument>
+            <argument name="@float" type="property">alias for @type float. Find min float element in list</argument>
+            <argument name="@symbol" type="property">alias for @type symbol. Find smallest symbol element</argument>
+            <argument name="@any" type="property">alias for @type any. Find smallest atom of any type.
+            Note: numbers are smaller then symbols</argument>
+        </arguments>
         <inlets>
             <inlet>
                 <xinfo on="list">input list</xinfo>
+                <xinfo on="float">passed thru in @float or @any mode</xinfo>
+                <xinfo on="symbol">passed thru in @symbol or @any mode</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -31,11 +41,17 @@
         <example>
             <pdascii>
 <![CDATA[
-[list a b( [1 2 b c( /* (!) */
-|          |
-| [1 2 3(  | [F]
-| |        | |
-[list.min    ]
+[1 2 3 a b(  [list a b c(  [1 2 3 a b(  [list aa ab ac(
+|            |             |            |
+|            |             |            |
+[list.min @float]          [list.min @symbol]
+|                          |
+[F]                        [S digits=10]
+
+[1 a 2 b 3 c( [F]    [S digits=8]
+|             |      |
+|             |      |
+[list.min @any       ]
 |
 [prepend set]
 |
@@ -45,4 +61,3 @@
         </example>
     </object>
 </pddoc>
-

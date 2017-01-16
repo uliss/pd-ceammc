@@ -61,6 +61,7 @@ ceammc_c_extension(math squared)
 # DATA
 ###############################
 ceammc_cxx_extension(data fifo)
+ceammc_cxx_extension(data list)
 
 ###############################
 # LIST
@@ -93,8 +94,6 @@ ceammc_cxx_extension(list shuffle)
 ceammc_cxx_extension(list sort)
 ceammc_cxx_extension(list sum)
 ceammc_cxx_extension(list unique)
-ceammc_cxx_extension(list pack)
-ceammc_c_extension(list unpack)
 ceammc_cxx_extension(list walk)
 ceammc_cxx_extension(list zip)
 
@@ -114,6 +113,8 @@ ceammc_cxx_extension(vector normalize)
 ceammc_cxx_extension(vector distance)
 ceammc_cxx_extension(vector dot)
 
+ceammc_cxx_extension(list repack)
+ceammc_cxx_extension(list unpack)
 
 # TIMELINE
 
@@ -143,12 +144,19 @@ ceammc_cxx_extension(conv list2bpf)
 ceammc_cxx_extension(conv vline2bpf)
 
 # JSON
+# new one
 
-#ceammc_cxx11_extension(json object)
+ceammc_cxx_extension(json object)
+
+# EXPERIMENTAL
 
 # EXPERIMENTS
 ceammc_cxx_extension(exp patchdata)
+
 ceammc_cxx_extension(ui ecanvas)
+ceammc_cxx_extension(exp recursion)
+
+ceammc_cxx_extension(local list)
 
 # STREAM
 ceammc_cxx_extension(reject if)
@@ -191,6 +199,9 @@ ceammc_cxx_extension(global float)
 ceammc_cxx_extension(global list)
 
 ceammc_cxx_extension(prop get)
+pd_add_extension(NAME "msg" FILES "msg.cpp" INTERNAL True LIBRARY ceammc LINK ceammc_static cicm_static)
+pd_add_extension(NAME "m" FILES "msg.cpp" INTERNAL True LIBRARY ceammc LINK ceammc_static cicm_static)
+
 
 include(FindLibSndFile)
 if(LIBSNDFILE_FOUND)
@@ -226,7 +237,7 @@ if(GLIB_FOUND)
     ceammc_glib_extension(path home)
     ceammc_glib_extension(path listdir)
 
-    ceammc_glib_extension(string length)
+    ceammc_glib_extension(symbol length)
     ceammc_glib_extension(string reverse)
     ceammc_glib_extension(string to_lower)
     ceammc_glib_extension(string to_upper)

@@ -19,6 +19,8 @@
 namespace ceammc {
 namespace vector {
     double magnitude(const AtomList& l);
+    double dotProduct(const AtomList& a, const AtomList& b);
+    double distance(const AtomList& a, const AtomList& b);
 }
 }
 

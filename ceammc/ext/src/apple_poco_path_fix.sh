@@ -4,38 +4,49 @@ OTOOL="/usr/bin/otool"
 TARGET="$1"
 BINDIR="$2"
 
-${OTOOL} -LX "$TARGET" | cut -f2 | cut -d ' ' -f1 | grep glib | while read shlib
+otool_dx() {
+    ${OTOOL} -DX "$1" | tail -1
+}
+
+otool_lx() {
+    ${OTOOL} -LX "$1" | sed -n /^$'\t'/p | cut -f2 | cut -d ' ' -f1
+}
+
+glib_fix() {
+    DEP_LIB=$1
+    GLIB=$2
+
+    echo "FIX dependency: \"$DEP_LIB\" in \"$GLIB\""
+
+    LIB_IN_BUNDLE=${BINDIR}/$(basename $DEP_LIB)
+    if [ ! -f ${LIB_IN_BUNDLE} ]
+    then
+        echo "    copy \"${DEP_LIB}\" to \"${LIB_IN_BUNDLE}\""
+        cp "${DEP_LIB}" ${LIB_IN_BUNDLE}
+        chmod +w ${LIB_IN_BUNDLE}
+    fi
+
+    LIB_OLD_ID=$(otool_dx $DEP_LIB)
+    LIB_NEW_ID=@loader_path/$(basename $DEP_LIB)
+
+    echo "    change \"${LIB_OLD_ID}\" to \"${LIB_NEW_ID}\" in \"${GLIB}\""
+
+    install_name_tool -id $LIB_NEW_ID ${LIB_IN_BUNDLE}
+    install_name_tool -change $LIB_OLD_ID $LIB_NEW_ID ${GLIB}
+}
+
+otool_lx "$TARGET" | grep glib | while read shlib
 do
-    TARGETID=$(otool -DX $shlib)
     GLIB=${BINDIR}/$(basename $shlib)
-    cp "$shlib" ${GLIB}
-    chmod +w ${GLIB}
-    NEWTARGETID=@loader_path/$(basename $shlib)
-    install_name_tool -id $NEWTARGETID $GLIB
-    install_name_tool -change $TARGETID $NEWTARGETID $TARGET
+    glib_fix ${shlib} ${TARGET}
 
-    ${OTOOL} -LX ${GLIB} | cut -f2 | cut -d ' ' -f1 | grep pcre | while read dep
+    otool_lx ${GLIB} | grep pcre | while read dep
     do
-        PCRE=${BINDIR}/$(basename $dep)
-        cp "$dep" $PCRE
-        chmod +w ${PCRE}
-
-        TARGETID=$(otool -DX $dep)
-        NEWTARGETID=@loader_path/$(basename $dep)
-        install_name_tool -id $NEWTARGETID $PCRE
-        install_name_tool -change $TARGETID $NEWTARGETID ${GLIB}
+        glib_fix ${dep} ${GLIB}
     done
 
-    ${OTOOL} -LX ${GLIB} | cut -f2 | cut -d ' ' -f1 | grep libintl | while read dep
+    otool_lx ${GLIB} | grep libintl | while read dep
     do
-        INTL=${BINDIR}/$(basename $dep)
-        cp "$dep" $INTL
-        chmod +w ${INTL}
-
-        TARGETID=$(otool -DX $dep)
-        NEWTARGETID=@loader_path/$(basename $dep)
-        install_name_tool -id $NEWTARGETID $INTL
-        install_name_tool -change $TARGETID $NEWTARGETID ${GLIB}
+        glib_fix ${dep} ${GLIB}
     done
 done
-

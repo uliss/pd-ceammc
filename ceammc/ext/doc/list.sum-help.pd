@@ -3,7 +3,7 @@
 #X text 429 50 calculates sum of floats in list;
 #X obj 1 1 cnv 5 682 40 empty empty list.sum 20 20 0 20 -104026 -4096
 0;
-#X obj 602 11 list.sum;
+#X obj 599 11 list.sum;
 #X msg 50 118 1 2 3 a b -1.1;
 #X msg 213 118 list a b c;
 #X obj 50 147 list.sum;

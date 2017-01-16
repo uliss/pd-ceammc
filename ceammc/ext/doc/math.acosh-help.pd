@@ -3,7 +3,7 @@
 #X text 414 50 inverse hyperbolic cosine function;
 #X obj 1 1 cnv 5 682 40 empty empty math.acosh 20 20 0 20 -104026
 -4096 0;
-#X obj 587 11 math.acosh;
+#X obj 584 11 math.acosh;
 #X obj 225 80 cnv 1 440 153 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 230 80 The acosh() function computes the principle value of
 the inverse hyperbolic cosine of input value\.  The result is in the
@@ -37,10 +37,10 @@ range [0 \, +infinity]\.;
 #X obj 131 45 pddp/pddplink ceammc.math-help.pd -text math;
 #X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 366 520 see also:;
-#X obj 436 520 math.asinh;
-#X obj 524 520 math.atanh;
-#X obj 612 520 math.exp;
+#X text 356 520 see also:;
+#X obj 426 520 math.asinh;
+#X obj 514 520 math.atanh;
+#X obj 602 520 math.exp;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

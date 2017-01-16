@@ -3,7 +3,7 @@
 #X text 379 50 returns list smallest and largest value;
 #X obj 1 1 cnv 5 682 40 empty empty list.range 20 20 0 20 -104026
 -4096 0;
-#X obj 588 11 list.range;
+#X obj 585 11 list.range;
 #X obj 225 80 cnv 1 440 33 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 230 80 Note: numbers are smaller then symbols;
 #X msg 50 141 list a b z;

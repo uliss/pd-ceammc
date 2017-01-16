@@ -3,7 +3,7 @@
 #X text 284 50 normalizes float list values to get their sum = 1\.0;
 #X obj 1 1 cnv 5 682 40 empty empty list.normalize 20 20 0 20 -104026
 -4096 0;
-#X obj 559 11 list.normalize;
+#X obj 556 11 list.normalize;
 #X msg 50 118 1 2 3 4;
 #X msg 78 147 1 2 a b c d;
 #X obj 50 176 list.normalize;

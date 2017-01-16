@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "ceammc_fn_vector.h"
 
+#include <algorithm>
 #include <cmath>
 
 namespace ceammc {
@@ -27,6 +28,29 @@ namespace vector {
             float v = 0.0;
             if (l[i].getFloat(&v))
                 res += (v * v);
+        }
+
+        return sqrt(res);
+    }
+
+    double dotProduct(const AtomList& a, const AtomList& b)
+    {
+        const size_t len = std::min(a.size(), b.size());
+        double res = 0.0;
+        for (size_t i = 0; i < len; i++) {
+            res += a[i].asFloat(0) * b[i].asFloat(0);
+        }
+
+        return res;
+    }
+
+    double distance(const AtomList& a, const AtomList& b)
+    {
+        const size_t len = std::min(a.size(), b.size());
+        double res = 0.0;
+        for (size_t i = 0; i < len; i++) {
+            const double p = a[i].asFloat(0) - b[i].asFloat(0);
+            res += p * p;
         }
 
         return sqrt(res);

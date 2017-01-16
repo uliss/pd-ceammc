@@ -3,7 +3,7 @@
 #X text 400 50 calculates product of floats in list;
 #X obj 1 1 cnv 5 682 40 empty empty list.product 20 20 0 20 -104026
 -4096 0;
-#X obj 574 11 list.product;
+#X obj 571 11 list.product;
 #X obj 225 80 cnv 1 440 47 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 230 80 Note: symbol values are treated as 0\.  So if list
 contains at least one symbol \, product will be always equal to zero;

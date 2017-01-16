@@ -4,6 +4,9 @@
     <entry descr="First-In-First-Out (FIFO) queue data container" name="data.fifo">
       <xi:include href="data.fifo.pddoc" parse="xml"/>
     </entry>
+    <entry descr="list container" name="data.list">
+      <xi:include href="data.list.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="dyn">
     <entry descr="stereo dynamic range compressor" name="dyn.comp2~">
@@ -57,6 +60,9 @@
     </entry>
   </category>
   <category name="fx">
+    <entry descr="frequency shifter or single-sideband ring modulation" name="fx.freqshift~">
+      <xi:include href="fx.freqshift~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="simple pitch shifter based on 2 delay lines" name="fx.pitchshift~">
       <xi:include href="fx.pitchshift~.pddoc" parse="xml"/>
     </entry>
@@ -117,6 +123,9 @@
     <entry descr="generates list of specified length via external generator" name="list.gen">
       <xi:include href="list.gen.pddoc" parse="xml"/>
     </entry>
+    <entry descr="returns the sum of the previously stored list and the current one then stores this sum." name="list.integrator">
+      <xi:include href="list.integrator.pddoc" parse="xml"/>
+    </entry>
     <entry descr="takes n lists from n inlets (specified by argument) and output their elements sequentially (list1-1 list2-1 list1-2 list2-2 etc.)." name="list.interleave">
       <xi:include href="list.interleave.pddoc" parse="xml"/>
     </entry>
@@ -128,6 +137,9 @@
     </entry>
     <entry descr="returns largest element in the list" name="list.max">
       <xi:include href="list.max.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="calculates average of list of floats" name="list.mean">
+      <xi:include href="list.mean.pddoc" parse="xml"/>
     </entry>
     <entry descr="returns smallest element in the list" name="list.min">
       <xi:include href="list.min.pddoc" parse="xml"/>
@@ -150,6 +162,9 @@
     <entry descr="reverses the order of the elements in the list" name="list.reverse">
       <xi:include href="list.reverse.pddoc" parse="xml"/>
     </entry>
+    <entry descr="numeric sequence list generator" name="list.seq">
+      <xi:include href="list.seq.pddoc" parse="xml"/>
+    </entry>
     <entry descr="randomly rearranges elements in list" name="list.shuffle">
       <xi:include href="list.shuffle.pddoc" parse="xml"/>
     </entry>
@@ -159,8 +174,17 @@
     <entry descr="calculates sum of floats in list" name="list.sum">
       <xi:include href="list.sum.pddoc" parse="xml"/>
     </entry>
+    <entry descr="sends list element one by one separately" name="list.unpack">
+      <xi:include href="list.unpack.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="gets list element on first input and list with count of each element on a second inlet." name="list.unwrap">
+      <xi:include href="list.unwrap.pddoc" parse="xml"/>
+    </entry>
     <entry descr="Walks thru the list" name="list.walk">
       <xi:include href="list.walk.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="filters repeated elements of the list and outputs unique elements on first outlet, outputs the count of elements on second." name="list.wrap">
+      <xi:include href="list.wrap.pddoc" parse="xml"/>
     </entry>
     <entry descr="returns normalized vector" name="vector.normalize">
       <xi:include href="vector.normalize.pddoc" parse="xml"/>
@@ -258,6 +282,11 @@
       <xi:include href="math.trunc.pddoc" parse="xml"/>
     </entry>
   </category>
+  <category name="msg">
+    <entry descr="message constructor" name="msg">
+      <xi:include href="msg.pddoc" parse="xml"/>
+    </entry>
+  </category>
   <category name="osc">
     <entry descr="Bandlimited impulse train generator" name="osc.impulse~">
       <xi:include href="osc.impulse~.pddoc" parse="xml"/>
@@ -312,6 +341,11 @@
       <xi:include href="is_symbol.pddoc" parse="xml"/>
     </entry>
   </category>
+  <category name="symbol">
+    <entry descr="length of symbol (unicode supported)" name="symbol.length">
+      <xi:include href="symbol.length.pddoc" parse="xml"/>
+    </entry>
+  </category>
   <category name="system">
     <entry descr="returns the size of physical memory (RAM) in bytes round to float data type." name="system.memsize">
       <xi:include href="system.memsize.pddoc" parse="xml"/>
@@ -321,6 +355,9 @@
     </entry>
   </category>
   <category name="vector">
+    <entry descr="returns euclidean distance between two points" name="vector.distance">
+      <xi:include href="vector.distance.pddoc" parse="xml"/>
+    </entry>
     <entry descr="treats list of floats as vector, returns the dot product (sum of the elements of two lists with same indexes multiplied)." name="vector.dot">
       <xi:include href="vector.dot.pddoc" parse="xml"/>
     </entry>

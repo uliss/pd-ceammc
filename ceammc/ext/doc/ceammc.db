@@ -1,4 +1,5 @@
 data.fifo		.		.
+data.list		..		.
 dyn.comp2~		~~		~~.
 dyn.comp~		~		~.
 dyn.gate2~		~~		~~.
@@ -14,6 +15,7 @@ flt.dcblock~		~		~
 flt.eq_peak~		~		~.
 flt.highshelf~		~		~.
 flt.lowshelf~		~		~.
+fx.freqshift~		~~		~~.
 fx.pitchshift~		~~		~.
 fx.softclip~		~		~
 global.float		.		.
@@ -41,10 +43,12 @@ list.each		..		..
 list.equal		..		.
 list.first		.		.
 list.gen		..		..
+list.integrator		.		.
 list.interleave		?		.
 list.last		.		.
 list.length		.		.
 list.max		.		.
+list.mean		.		.
 list.min		.		.
 list.normalize		.		.
 list.product		.		.
@@ -52,10 +56,14 @@ list.range		.		.
 list.reduce		..		..
 list.resize		.		.
 list.reverse		.		.
+list.seq		...		.
 list.shuffle		.		.
 list.sort		.		.
 list.sum		.		.
+list.unpack		.		..
+list.unwrap		..		.
 list.walk		.		.
+list.wrap		.		..
 live.capture~		~		~.
 math.abs		.		.
 math.acos		.		.
@@ -85,6 +93,7 @@ math.sqrt		.		.
 math.tan		.		.
 math.tanh		.		.
 math.trunc		.		.
+msg,m		..		.
 osc.impulse~		~		~
 osc.pulse~		~		~.
 osc.saw~		~		~
@@ -94,8 +103,10 @@ osc.square~		~		~
 osc.tri~		~		~
 pass.changed		.		.
 pass.if		..		..
+symbol.length		.		.
 system.memsize		.		.
 system.memused		.		..
+vector.distance		..		.
 vector.dot		..		.
 vector.length		.		.
 vector.normalize		.		.

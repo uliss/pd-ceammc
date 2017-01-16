@@ -3,7 +3,7 @@
 #X text 320 50 splits list to N lists \, each to separate output;
 #X obj 1 1 cnv 5 682 40 empty empty list.deinterleave 20 20 0 20
 -104026 -4096 0;
-#X obj 537 11 list.deinterleave;
+#X obj 534 11 list.deinterleave;
 #X obj 225 80 cnv 1 440 121 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 230 80 For N = 2 and list elements [1 2 3 4] we get [1 3] on
 output 1 and [2 4] on output 2\.;

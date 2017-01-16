@@ -3,7 +3,7 @@
 #X text 356 50 Unit-amplitude low-frequency impulse train;
 #X obj 1 1 cnv 5 682 40 empty empty lfo.impulse~ 20 20 0 20 -104026
 -4096 0;
-#X obj 573 11 lfo.impulse~;
+#X obj 570 11 lfo.impulse~;
 #X floatatom 50 118 5 0 0 0 - - -;
 #X obj 50 147 lfo.impulse~ 8;
 #X obj 194 162 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;

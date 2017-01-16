@@ -31,42 +31,58 @@ floats and the previous one\.;
 #X obj 30 413 list.gen;
 #X text 150 413 generates list of specified length via external
 generator;
-#X obj 30 440 list.interleave;
-#X text 150 440 takes n lists from n inlets (specified by argument)
+#X obj 30 440 list.integrator;
+#X text 150 440 returns the sum of the previously stored list and the
+current one then stores this sum\.;
+#X obj 30 477 list.interleave;
+#X text 150 477 takes n lists from n inlets (specified by argument)
 and output their elements sequentially (list1-1 list2-1 list1-2
 list2-2 etc\.)\.;
-#X obj 30 491 list.last;
-#X text 150 491 returns last list element;
-#X obj 30 518 list.length;
-#X text 150 518 returns the number of atoms in the message;
-#X obj 30 545 list.max;
-#X text 150 545 returns largest element in the list;
-#X obj 30 572 list.min;
-#X text 150 572 returns smallest element in the list;
-#X obj 30 599 list.normalize;
-#X text 150 599 normalizes float list values to get their sum = 1\.0;
-#X obj 30 626 list.product;
-#X text 150 626 calculates product of floats in list;
-#X obj 30 653 list.range;
-#X text 150 653 returns list smallest and largest value;
-#X obj 30 680 list.reduce;
-#X text 150 680 apply function of two arguments cumulatively to the
+#X obj 30 528 list.last;
+#X text 150 528 returns last list element;
+#X obj 30 555 list.length;
+#X text 150 555 returns the number of atoms in the message;
+#X obj 30 582 list.max;
+#X text 150 582 returns largest element in the list;
+#X obj 30 609 list.mean;
+#X text 150 609 calculates average of list of floats;
+#X obj 30 636 list.min;
+#X text 150 636 returns smallest element in the list;
+#X obj 30 663 list.normalize;
+#X text 150 663 normalizes float list values to get their sum = 1\.0;
+#X obj 30 690 list.product;
+#X text 150 690 calculates product of floats in list;
+#X obj 30 717 list.range;
+#X text 150 717 returns list smallest and largest value;
+#X obj 30 744 list.reduce;
+#X text 150 744 apply function of two arguments cumulatively to the
 list;
-#X obj 30 707 list.resize;
-#X text 150 707 changes list size with;
-#X obj 30 734 list.reverse;
-#X text 150 734 reverses the order of the elements in the list;
-#X obj 30 761 list.shuffle;
-#X text 150 761 randomly rearranges elements in list;
-#X obj 30 788 list.sort;
-#X text 150 788 sorts list values by ascending order;
-#X obj 30 815 list.sum;
-#X text 150 815 calculates sum of floats in list;
-#X obj 30 842 list.walk;
-#X text 150 842 Walks thru the list;
-#X obj 30 869 vector.normalize;
-#X text 150 869 returns normalized vector;
+#X obj 30 771 list.resize;
+#X text 150 771 changes list size with;
+#X obj 30 798 list.reverse;
+#X text 150 798 reverses the order of the elements in the list;
+#X obj 30 825 list.seq;
+#X text 150 825 numeric sequence list generator;
+#X obj 30 852 list.shuffle;
+#X text 150 852 randomly rearranges elements in list;
+#X obj 30 879 list.sort;
+#X text 150 879 sorts list values by ascending order;
+#X obj 30 906 list.sum;
+#X text 150 906 calculates sum of floats in list;
+#X obj 30 933 list.unpack;
+#X text 150 933 sends list element one by one separately;
+#X obj 30 960 list.unwrap;
+#X text 150 960 gets list element on first input and list with count
+of each element on a second inlet\.;
+#X obj 30 997 list.walk;
+#X text 150 997 Walks thru the list;
+#X obj 30 1024 list.wrap;
+#X text 150 1024 filters repeated elements of the list and outputs
+unique elements on first outlet \, outputs the count of elements on
+second\.;
+#X obj 30 1075 vector.normalize;
+#X text 150 1075 returns normalized vector;
 #X obj 1 1 cnv 5 597 40 empty empty ceammc::list 20 20 0 20 -104026
 -4096 0;
-#X obj 1 896 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 906 library: ceammc;
+#X obj 1 1102 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 1112 library: ceammc;

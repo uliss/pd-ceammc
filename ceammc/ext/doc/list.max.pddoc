@@ -17,11 +17,21 @@
             </also>
         </meta>
         <info>
-            <par>Note: symbols are greater then numbers</par>
+            <par>By default returns largest float in list, this equal to using @float property.</par>
+            <par>Also you can choose largest symbol from list, using @symbol property.</par>
         </info>
+        <arguments>
+            <argument name="@type" type="property">type of largest element. Possible values are: float (default), symbol, any</argument>
+            <argument name="@float" type="property">alias for @type float. Find max float element in list</argument>
+            <argument name="@symbol" type="property">alias for @type symbol. Find greatest symbol element</argument>
+            <argument name="@any" type="property">alias for @type any. Find greatest atom of any type.
+            Note: symbols are greater then numbers</argument>
+        </arguments>
         <inlets>
             <inlet>
                 <xinfo on="list">input list</xinfo>
+                <xinfo on="float">passed thru in @float or @any mode</xinfo>
+                <xinfo on="symbol">passed thru in @symbol or @any mode</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -30,11 +40,17 @@
         <example>
             <pdascii>
 <![CDATA[
-[list a b( [1 2 b c( /* (!) */
-|          |
-| [1 2 3(  | [F]
-| |        | |
-[list.max    ]
+[1 2 3 a b(  [list a b c(  [1 2 3 a b(  [list a aa ab ac(
+|            |             |            |
+|            |             |            |
+[list.max @float]          [list.max @symbol]
+|                          |
+[F]                        [S digits=10]
+
+[1 a 2 b 3 c( [F]    [S digits=8]
+|             |      |
+|             |      |
+[list.max @any       ]
 |
 [prepend set]
 |

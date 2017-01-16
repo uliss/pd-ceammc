@@ -3,7 +3,7 @@
 #X text 335 50 pass values that accepted by predicate object;
 #X obj 1 1 cnv 5 682 40 empty empty pass.if 20 20 0 20 -104026 -4096
 0;
-#X obj 610 11 pass.if;
+#X obj 607 11 pass.if;
 #X obj 225 80 cnv 1 440 84 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 230 80 conditional value pass according to *predicate*
 object\.  *predicate* should accept value and ouput 0 or 1 \, for
@@ -45,8 +45,8 @@ pass \, '0' means reject\. Range: 0\.\.\.1;
 #X obj 131 45 pddp/pddplink ceammc.pass-help.pd -text pass;
 #X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 535 520 see also:;
-#X obj 605 520 pass.this;
+#X text 525 520 see also:;
+#X obj 595 520 pass.this;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

@@ -11,34 +11,32 @@
             <license>GPL3</license>
             <library>ceammc</library>
             <category>list</category>
-            <keywords>list functional</keywords>
+            <keywords>list</keywords>
             <since>0.1</since>
             <also>
-                <see>list.shift</see>
+                <see>list.stretch</see>
             </also>
         </meta>
         <arguments>
-            <argument name="index" type="int">position index (starting from 0). Negative value means position from end of the list.
-            For example: '-1' means last element.</argument>
+            <argument name="stretch" type="float">New size of output list. Input list will be stretched to the new size with linear interpolation</argument>
         </arguments>
         <inlets>
             <inlet>
-                <xinfo on="list">Input list. If no element found by specified index - list passed without changes.</xinfo>
+                <xinfo on="list">Input list. </xinfo>
             </inlet>
             <inlet>
-                <xinfo>New modified value from applied object.</xinfo>
+                <xinfo>New length of output list</xinfo>
             </inlet>
         </inlets>
         <outlets>
             <outlet>new modified list</outlet>
-            <outlet>Element at given index. Should be passed to applied object.</outlet>
         </outlets>
         <example>
             <pdascii>
                 <![CDATA[
-[1 60 120(
-|
-[list.apply_to 1] X [mtof]
+[1 2 3 4 5(  [10 (
+|            |.
+[list.stretch 8]
 |
 [prepend set]
 |

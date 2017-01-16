@@ -3,7 +3,7 @@
 #X text 443 50 mono dynamic range compressors;
 #X obj 1 1 cnv 5 682 40 empty empty dyn.comp~ 20 20 0 20 -104026 -4096
 0;
-#X obj 594 11 dyn.comp~;
+#X obj 591 11 dyn.comp~;
 #X obj 50 118 lfo.impulse~ 10;
 #X obj 222 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 50 147 *~;
@@ -79,8 +79,8 @@ compression\. ;
 #X obj 131 45 pddp/pddplink ceammc.dyn-help.pd -text dyn;
 #X obj 1 733 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 736 library: ceammc v0\.1;
-#X text 527 748 see also:;
-#X obj 597 748 dyn.comp2~;
+#X text 517 748 see also:;
+#X obj 587 748 dyn.comp2~;
 #N canvas 10 755 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

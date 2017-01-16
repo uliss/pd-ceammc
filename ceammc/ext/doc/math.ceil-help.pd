@@ -4,7 +4,7 @@
 value;
 #X obj 1 1 cnv 5 682 40 empty empty math.ceil 20 20 0 20 -104026 -4096
 0;
-#X obj 594 11 math.ceil;
+#X obj 591 11 math.ceil;
 #X obj 225 80 cnv 1 440 116 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 230 80 The ceil() function return the smallest integral value
 greater than or equal to input value\.;
@@ -32,10 +32,10 @@ greater than or equal to input value\.;
 #X obj 131 45 pddp/pddplink ceammc.math-help.pd -text math;
 #X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 352 520 see also:;
-#X obj 422 520 math.floor;
-#X obj 510 520 math.round;
-#X obj 597 520 math.trunc;
+#X text 342 520 see also:;
+#X obj 412 520 math.floor;
+#X obj 500 520 math.round;
+#X obj 587 520 math.trunc;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

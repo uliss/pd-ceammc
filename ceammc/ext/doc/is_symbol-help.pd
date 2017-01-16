@@ -3,7 +3,7 @@
 #X text 385 50 checks if input data has *symbol* type;
 #X obj 1 1 cnv 5 682 40 empty empty is_symbol 20 20 0 20 -104026 -4096
 0;
-#X obj 595 11 is_symbol;
+#X obj 592 11 is_symbol;
 #X msg 50 118 100;
 #X msg 117 118 any;
 #X msg 174 118 symbol a;
@@ -33,11 +33,11 @@
 predicates;
 #X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 355 520 see also:;
-#X obj 425 520 is_any;
-#X obj 483 520 is_bang;
-#X obj 548 520 is_list;
-#X obj 613 520 is_float;
+#X text 345 520 see also:;
+#X obj 415 520 is_any;
+#X obj 473 520 is_bang;
+#X obj 538 520 is_list;
+#X obj 603 520 is_float;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

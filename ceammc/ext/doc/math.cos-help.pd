@@ -3,7 +3,7 @@
 #X text 551 50 cosine function;
 #X obj 1 1 cnv 5 682 40 empty empty math.cos 20 20 0 20 -104026 -4096
 0;
-#X obj 602 11 math.cos;
+#X obj 599 11 math.cos;
 #X obj 225 80 cnv 1 440 130 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 230 80 The cos() function computes the cosine of input value
 (measured in radians)\.;
@@ -32,11 +32,11 @@ floating-point exception\. ;
 #X obj 131 45 pddp/pddplink ceammc.math-help.pd -text math;
 #X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 309 520 see also:;
-#X obj 379 520 math.sin;
-#X obj 452 520 math.tan;
-#X obj 525 520 math.asin;
-#X obj 605 520 math.acos;
+#X text 299 520 see also:;
+#X obj 369 520 math.sin;
+#X obj 442 520 math.tan;
+#X obj 515 520 math.asin;
+#X obj 595 520 math.acos;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

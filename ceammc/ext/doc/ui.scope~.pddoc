@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pddoc version="1.0">
+    <object name="ui.bpfunc">
+        <title>ui.bpfunc</title>
+        <meta>
+            <authors>
+                <author>Alex Nadzharov</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Scope GUI object</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>list</category>
+            <keywords>list</keywords>
+            <since>0.1</since>
+            <also>
+                <see>ui.spectroscope~</see>
+            </also>
+        </meta>
+        <arguments>
+            
+        </arguments>
+        <methods>
+            
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="signal">signal input </xinfo>
+            </inlet>
+            
+        </inlets>
+        <outlets>
+            
+            
+        </outlets>
+        <example>
+            <pdascii>
+                <![CDATA[
+
+[osc~ 440]
+|
+|
+[ui.scope~]
+
+                ]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
+

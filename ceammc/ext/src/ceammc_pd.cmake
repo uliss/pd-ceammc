@@ -40,7 +40,7 @@ macro(ceammc_glib_extension_sep module name separator)
     pd_add_extension(NAME "${module}${separator}${name}"
         FILES "${module}_${name}.cpp"
         INTERNAL True
-        LINK ${GLIB_LIBRARIES})
+        LINK ${GLIB_LIBRARIES} ceammc_static)
 
     ceammc_link_fix_sep(${module} ${name} ${separator})
 endmacro()
@@ -67,7 +67,8 @@ macro(ceammc_faust_extension module name ext)
             -o ${CMAKE_CURRENT_SOURCE_DIR}/${module}_${name}.h)
 
     pd_add_extension(NAME "${module}.${name}~"
-        FILES "${module}_${name}.cpp" INTERNAL TRUE)
+        FILES "${module}_${name}.cpp" INTERNAL TRUE LINK ceammc_static)
+    set_target_properties("${module}.${name}~" PROPERTIES COMPILE_FLAGS "-DFAUST_MACRO")
 endmacro()
 
 macro(ceammc_cxx11_extension module name)

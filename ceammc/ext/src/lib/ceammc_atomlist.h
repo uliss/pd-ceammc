@@ -39,6 +39,8 @@ class AtomList {
 
 public:
     AtomList();
+    AtomList(const Atom& a);
+    AtomList(const Atom& a, const Atom& b);
     AtomList(size_t n, t_atom* lst);
     explicit AtomList(int n, t_atom* lst);
     size_t size() const;
@@ -153,6 +155,7 @@ public:
     void append(const Atom& a);
     void append(const AtomList& l);
     bool insert(size_t pos, const Atom& a);
+    bool insert(size_t pos, const AtomList& l);
     bool remove(size_t pos);
     void removeAll(const Atom& a);
     void removeAll(AtomPredicate pred);

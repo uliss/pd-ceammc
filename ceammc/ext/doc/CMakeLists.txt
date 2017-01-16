@@ -5,6 +5,7 @@ find_program(PD_CAT2PD pd_cat2pd)
 
 set(DOC_FILES
     data.fifo
+    data.list
     dyn.comp~
     dyn.comp2~
     dyn.gate~
@@ -20,6 +21,7 @@ set(DOC_FILES
     flt.highshelf~
     flt.lowshelf~
     flt.eq_peak~
+    fx.freqshift~
     fx.pitchshift~
     global.float
     global.int
@@ -44,10 +46,12 @@ set(DOC_FILES
     list.equal
     list.first
     list.interleave
+    list.integrator
     list.gen
     list.last
     list.length
     list.max
+    list.mean
     list.min
     list.normalize
     list.product
@@ -55,10 +59,14 @@ set(DOC_FILES
     list.reduce
     list.resize
     list.reverse
+    list.seq
     list.shuffle
     list.sort
     list.sum
+    list.unpack
     list.walk
+    list.wrap
+    list.unwrap
     lfo.impulse~
     lfo.square~
     lfo.tri~
@@ -90,6 +98,7 @@ set(DOC_FILES
     math.tan
     math.tanh
     math.trunc
+    msg
     osc.impulse~
     osc.pulse~
     osc.saw~
@@ -98,8 +107,10 @@ set(DOC_FILES
     osc.tri~
     pass.changed
     pass.if
+    symbol.length
     system.memsize
     system.memused
+    vector.distance
     vector.dot
     vector.length
     vector.normalize

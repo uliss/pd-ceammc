@@ -19,28 +19,32 @@
                 <see>vector.length</see>
             </also>
         </meta>
+        <arguments>
+            <argument name="LIST" type="list">initial second list value</argument>
+        </arguments>
         <inlets>
             <inlet>
-                <xinfo on="list">First list of floats.</xinfo>
+                <xinfo on="list">First list of floats</xinfo>
             </inlet>
             <inlet>
-                <xinfo on="list">Second list of floats.</xinfo>
+                <xinfo on="list">Second list of floats</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>returns dot of (list1, list2), float. </outlet>
+            <outlet>returns dot of (list1, list2), float</outlet>
         </outlets>
         <example>
             <pdascii>
-                <![CDATA[
-[1 0 .5(    [0 1 1(
-|          ./
-[vector.dot]
+<![CDATA[
+[1 0 .5(         [0 1 1(
+|        [dump(  |
+|        |       |.
+[vector.dot  1 2 3]
 |
 [prepend set]
 |
 [ (
-                ]]>
+]]>
             </pdascii>
         </example>
     </object>

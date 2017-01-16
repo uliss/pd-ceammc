@@ -7,40 +7,41 @@
                 <author>Alex Nadzharov</author>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>treats list of floats as vector, return length of two vectors difference.</description>
+            <description>returns euclidean distance between two points</description>
             <license>GPL3</license>
             <library>ceammc</library>
-            <category>list</category>
-            <keywords>list</keywords>
+            <category>vector</category>
+            <keywords>vector distance</keywords>
             <since>0.1</since>
             <also>
-                <see>vector.normalize vector.length vector.dot</see>
+                <see>vector.normalize</see>
+                <see>vector.length</see>
+                <see>vector.dot</see>
             </also>
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="list">First list of floats.</xinfo>
+                <xinfo on="list">First list of coords (float)</xinfo>
             </inlet>
             <inlet>
-                <xinfo on="list">Second list of floats.</xinfo>
+                <xinfo on="list">Second list of coords (float)</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>returns length of (list2-list1), float. </outlet>
+            <outlet>returns length of (list2-list1), float, always >= 0 </outlet>
         </outlets>
         <example>
             <pdascii>
-                <![CDATA[
-[1 0 0(         [3 0 0(
-|              ./
-[vector.distance]
+
+<![CDATA[
+[1 0 0( [dump(  [3 0 0(
+|       |       |
+|       |       |.
+[vector.distance ]
 |
-[prepend set]
-|
-[ (
-                ]]>
+[F]
+]]>
             </pdascii>
         </example>
     </object>
 </pddoc>
-

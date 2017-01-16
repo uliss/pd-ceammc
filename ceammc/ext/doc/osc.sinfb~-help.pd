@@ -3,7 +3,7 @@
 #X text 457 50 sine oscilator with feedback;
 #X obj 1 1 cnv 5 682 40 empty empty osc.sinfb~ 20 20 0 20 -104026
 -4096 0;
-#X obj 587 11 osc.sinfb~;
+#X obj 584 11 osc.sinfb~;
 #X floatatom 50 118 5 0 0 0 - - -;
 #X floatatom 126 118 5 0 0 0 - - -;
 #X obj 69 147 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1

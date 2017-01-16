@@ -3,7 +3,7 @@
 #X text 386 50 returns list element at given position;
 #X obj 1 1 cnv 5 682 40 empty empty list.at 20 20 0 20 -104026 -4096
 0;
-#X obj 610 11 list.at;
+#X obj 607 11 list.at;
 #X obj 225 80 cnv 1 440 214 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 230 80 Returns the element at the given index position in the
 list\.;
@@ -65,8 +65,8 @@ fold and @method wrap\. ;
 #X obj 131 45 pddp/pddplink ceammc.list-help.pd -text list;
 #X obj 1 718 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 721 library: ceammc v0\.1;
-#X text 506 733 see also:;
-#X obj 576 733 list.apply_to;
+#X text 496 733 see also:;
+#X obj 566 733 list.apply_to;
 #N canvas 10 740 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

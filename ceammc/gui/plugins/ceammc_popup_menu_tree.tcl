@@ -46,7 +46,7 @@
     	{spat.pan2~ spat.pan4~}
     }
     {list
-        {list.apply_to list.at list.each list.length list.sort list.count list.delta list.equal list.gen list.integrator list.last list.max list.mean list.min list.minmax list.normalize list.pack list.product list.repeat list.reverse list.rotate list.seq list.shift list.shuffle list.sort list.stretch list.sum list.zip list.wrap list.unwrap list.interleave list.deinterleave list.split}}
+        {list.apply_to list.at list.each list.length list.sort list.count list.delta list.equal list.gen list.integrator list.last list.max list.mean list.min list.choice list.normalize list.pack list.product list.repeat list.reverse list.rotate list.seq list.shift list.shuffle list.sort list.stretch list.sum list.zip list.wrap list.unwrap list.interleave list.deinterleave list.split}}
     {vector
     	{vector.length vector.normalize vector.dot vector.distance}
     }
@@ -68,8 +68,8 @@
     {data
         {data.fifo}
     }
-    {global
-        {global.list global.float global.int}
+    {global/local
+        {global.list global.float global.int local.list}
     }
     {pass/reject
         {pass.changed reject.if reject.this}

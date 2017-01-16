@@ -45,3 +45,15 @@ Debug::~Debug()
         post("[ceammc] %s", str().c_str());
 }
 }
+
+std::ostream& operator<<(std::ostream& os, t_symbol*& s)
+{
+    os << '"' << s->s_name << '"';
+    return os;
+}
+
+std::ostream& operator<<(std::ostream& os, const t_symbol* const& s)
+{
+    os << '"' << s->s_name << '"';
+    return os;
+}

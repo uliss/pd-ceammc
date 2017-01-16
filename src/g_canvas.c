@@ -555,7 +555,7 @@ static void canvas_dosetbounds(t_canvas *x, int x1, int y1, int x2, int y2)
             if (pd_checkobject(&y->g_pd))
                 gobj_displace(y, x, 0, heightchange);
         canvas_redraw(x);
-        
+
     }
 }
 
@@ -637,14 +637,15 @@ void canvas_drawredrect(t_canvas *x, int doit)
 /* ----- CEAMMC grid ----- */
 EXTERN void canvas_drawgrid(t_canvas *x)
 {
-    
+
     int grid_w =  x->gl_screenx2 - x->gl_screenx1;
     int grid_h =  x->gl_screeny2 - x->gl_screeny1;
-    
+
+
     printf("grid %d %d\n", grid_w, grid_h);
     
     t_glist *c = glist_getcanvas(x);
-    
+
     for (int xx=0; xx< grid_w; xx+=20)
     {
         if (x->gl_grid==1)
@@ -654,24 +655,24 @@ EXTERN void canvas_drawgrid(t_canvas *x)
                      c,
                      xx, 0,xx, grid_h);
         }
-        
-        
+
+
     }
-    
+
     for (int yy=0; yy< grid_h; yy+=20)
     {
         sys_vgui(
                  ".x%lx.c create line %d %d %d %d -width 1 -tags GRID -fill #EFEFEF\n",
                  c,
                  0,yy,grid_w,yy);
-        
+
     }
-    
+
     if (x->gl_grid==0)
     {
         sys_vgui(".x%lx.c delete GRID\n",  glist_getcanvas(x));
     }
-    
+
 
 }
 
@@ -721,10 +722,10 @@ void canvas_redraw(t_canvas *x)
     {
         canvas_map(x, 0);
         canvas_map(x, 1);
-        
+
     }
-    
-    
+
+
 }
 
 
@@ -1805,9 +1806,9 @@ void g_canvas_setup(void)
                     A_GIMME, A_NULL);
     class_addmethod(canvas_class, (t_method)canvas_numbox, gensym("numbox"),
                     A_GIMME, A_NULL);
-    
+
 /* -------------- CEAMMC GUI: keyboard, sliders etc.   ------------ */
-    
+
     class_addmethod(canvas_class, (t_method)canvas_knob, gensym("ui.knob"),
                     A_GIMME, A_NULL);
     class_addmethod(canvas_class, (t_method)canvas_keyboard, gensym("ui.keyboard"),
