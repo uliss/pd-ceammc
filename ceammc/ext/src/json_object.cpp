@@ -129,7 +129,7 @@ static void json_object_anything(t_json_object* x, t_symbol* s, int argc, t_atom
 
 static void json_object_objectlist(t_json_object* x, t_symbol* s, int argc, t_atom* argv)
 {
-    
+    //x->json_global->getKeys();
 }
 
 
@@ -140,7 +140,7 @@ static void* json_object_new(t_symbol *s, int argc, t_atom *argv)
     x->outlet1 = outlet_new(&x->x_obj, &s_list);
     x->outlet2 = outlet_new(&x->x_obj, &s_list);
     
-    t_symbol *id = gensym("local");
+    t_symbol *id;// = gensym("local");
     
     if (argc>0)
     {
@@ -149,23 +149,32 @@ static void* json_object_new(t_symbol *s, int argc, t_atom *argv)
         {
             id = gensym(a.asString().c_str());
         }
+        
+        x->json_global = new GlobalJSON(id->s_name, OBJ_NAME);
+        x->json_local = &x->json_global->ref();
+    }
+    else
+    {
+        x->json_local = new Document;
     }
     
-    x->json_global = new GlobalJSON(id->s_name, OBJ_NAME);
-    x->json_local = &x->json_global->ref();
     x->json_local->SetObject();
     
 
     return static_cast<void*>(x);
 }
 
+static void json_object_free(t_json_object* x)
+{
+    delete x->json_global;
+}
 
 
 extern "C" void setup_json0x2eobject()
 {
     json_object_class = class_new(gensym(OBJ_NAME),
                                   reinterpret_cast<t_newmethod>(json_object_new),
-                                  reinterpret_cast<t_method>(0),
+                                  reinterpret_cast<t_method>(json_object_free),
                                   sizeof(t_json_object), CLASS_PATCHABLE, A_GIMME,0);
     class_addanything(json_object_class, json_object_anything);
 
