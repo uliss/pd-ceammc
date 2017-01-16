@@ -5,7 +5,7 @@ cut near some frequency)\.  Also called a "parametric equalizer"
 section\.;
 #X obj 1 1 cnv 5 682 40 empty empty flt.eq_peak~ 20 20 0 20 -104026
 -4096 0;
-#X obj 573 11 flt.eq_peak~;
+#X obj 570 11 flt.eq_peak~;
 #X obj 50 118 noise~;
 #X obj 136 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X floatatom 184 118 5 0 0 0 - - -;
@@ -69,9 +69,9 @@ section\.;
 #X obj 131 45 pddp/pddplink ceammc.flt-help.pd -text flt;
 #X obj 1 569 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 572 library: ceammc v0\.1;
-#X text 388 584 see also:;
-#X obj 458 584 flt.lowshelf~;
-#X obj 568 584 flt.highshelf~;
+#X text 378 584 see also:;
+#X obj 448 584 flt.lowshelf~;
+#X obj 558 584 flt.highshelf~;
 #N canvas 10 591 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

@@ -6,26 +6,26 @@ second\.;
 #X obj 1 1 cnv 5 682 40 empty empty list.wrap 20 20 0 20 -104026 -4096
 0;
 #X obj 592 11 list.wrap;
-#X msg 50 133 1 1 2 2 2 1 1;
-#X obj 50 162 list.wrap;
-#X obj 50 190 msg set;
-#X obj 194 190 msg set;
-#X msg 50 219 ;
-#X msg 194 219 ;
-#X obj 20 243 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 248 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
+#X msg 50 147 1 1 2 2 2 1 1;
+#X obj 50 176 list.wrap;
+#X obj 50 205 msg set;
+#X obj 194 205 msg set;
+#X msg 50 234 ;
+#X msg 194 234 ;
+#X obj 20 244 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 249 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
 0;
-#X text 125 253 1\.;
-#X text 150 253 *list*;
-#X text 230 253 Input list\. ;
-#X obj 20 281 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 286 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
+#X text 125 254 1\.;
+#X text 150 254 *list*;
+#X text 230 254 Input list\. ;
+#X obj 20 282 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 287 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;
-#X text 125 291 1\.;
-#X text 230 291 First list: list entries without repetitions\. For
+#X text 125 292 1\.;
+#X text 230 292 First list: list entries without repetitions\. For
 example 1 1 2 2 2 1 1 becomes 1 2 1 ;
-#X text 125 323 2\.;
-#X text 230 323 Second list: count of entries\.;
+#X text 125 324 2\.;
+#X text 230 324 Second list: count of entries\.;
 #X obj 10 45 pddp/pddplink ../index-help.pd -text index;
 #X text 51 45 ::;
 #X obj 67 45 pddp/pddplink ceammc-help.pd -text ceammc;
@@ -33,8 +33,8 @@ example 1 1 2 2 2 1 1 becomes 1 2 1 ;
 #X obj 131 45 pddp/pddplink ceammc.list-help.pd -text list;
 #X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 511 520 see also:;
-#X obj 581 520 list.unwrap;
+#X text 525 520 see also:;
+#X obj 595 520 list.wrap;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

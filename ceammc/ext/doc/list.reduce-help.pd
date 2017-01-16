@@ -4,7 +4,7 @@
 list;
 #X obj 1 1 cnv 5 682 40 empty empty list.reduce 20 20 0 20 -104026
 -4096 0;
-#X obj 581 11 list.reduce;
+#X obj 578 11 list.reduce;
 #X obj 225 80 cnv 1 440 112 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 230 80 Apply function of two arguments cumulatively to the
 list \, from left to right \, so as to reduce the list to a single

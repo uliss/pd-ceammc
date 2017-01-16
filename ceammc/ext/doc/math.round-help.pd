@@ -4,7 +4,7 @@
 direction;
 #X obj 1 1 cnv 5 682 40 empty empty math.round 20 20 0 20 -104026
 -4096 0;
-#X obj 588 11 math.round;
+#X obj 585 11 math.round;
 #X obj 225 80 cnv 1 440 181 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 230 80 The round() functions return the integral value nearest
 to x rounding half-way cases away from zero \, regardless of the
@@ -36,10 +36,10 @@ numeric arguments\.;
 #X obj 131 45 pddp/pddplink ceammc.math-help.pd -text math;
 #X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 358 520 see also:;
-#X obj 428 520 math.ceil;
-#X obj 509 520 math.floor;
-#X obj 597 520 math.trunc;
+#X text 348 520 see also:;
+#X obj 418 520 math.ceil;
+#X obj 499 520 math.floor;
+#X obj 587 520 math.trunc;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

@@ -4,7 +4,7 @@
 it via external object\.;
 #X obj 1 1 cnv 5 682 40 empty empty list.apply_to 20 20 0 20 -104026
 -4096 0;
-#X obj 566 11 list.apply_to;
+#X obj 563 11 list.apply_to;
 #X msg 50 118 1 60 120;
 #X obj 50 147 list.apply_to 1;
 #X obj 242 147 mtof;
@@ -43,8 +43,8 @@ object\.;
 #X obj 131 45 pddp/pddplink ceammc.list-help.pd -text list;
 #X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 535 520 see also:;
-#X obj 605 520 list.each;
+#X text 525 520 see also:;
+#X obj 595 520 list.each;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

@@ -3,7 +3,7 @@
 #X text 435 50 Bandlimited saw wave oscillator;
 #X obj 1 1 cnv 5 682 40 empty empty osc.saw~ 20 20 0 20 -104026 -4096
 0;
-#X obj 601 11 osc.saw~;
+#X obj 598 11 osc.saw~;
 #X floatatom 50 118 5 0 0 0 - - -;
 #X obj 50 147 osc.saw~ 200;
 #X obj 194 162 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
@@ -34,10 +34,10 @@
 #X obj 131 45 pddp/pddplink ceammc.osc-help.pd -text osc;
 #X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 394 520 see also:;
-#X obj 464 520 osc.tri~;
-#X obj 538 520 osc.sqr~;
-#X obj 612 520 lfo.tri~;
+#X text 384 520 see also:;
+#X obj 454 520 osc.tri~;
+#X obj 528 520 osc.sqr~;
+#X obj 602 520 lfo.tri~;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

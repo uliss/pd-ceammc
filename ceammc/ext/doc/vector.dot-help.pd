@@ -5,7 +5,7 @@ product (sum of the elements of two lists with same indexes
 multiplied)\.;
 #X obj 1 1 cnv 5 682 40 empty empty vector.dot 20 20 0 20 -104026
 -4096 0;
-#X obj 588 11 vector.dot;
+#X obj 585 11 vector.dot;
 #X msg 50 118 1 0 .5;
 #X msg 213 118 0 1 1;
 #X msg 136 133 dump;

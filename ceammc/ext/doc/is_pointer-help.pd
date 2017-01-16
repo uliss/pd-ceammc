@@ -3,7 +3,7 @@
 #X text 378 50 checks if input data has *pointer* type;
 #X obj 1 1 cnv 5 682 40 empty empty is_pointer 20 20 0 20 -104026
 -4096 0;
-#X obj 588 11 is_pointer;
+#X obj 585 11 is_pointer;
 #X msg 50 118 traverse pd-pointer \, bang;
 #N canvas 357 118 200 100 pointer 0;
 #X restore 357 118 pd pointer;
@@ -35,11 +35,11 @@
 predicates;
 #X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 340 520 see also:;
-#X obj 410 520 is_any;
-#X obj 468 520 is_float;
-#X obj 540 520 is_symbol;
-#X obj 620 520 is_list;
+#X text 330 520 see also:;
+#X obj 400 520 is_any;
+#X obj 458 520 is_float;
+#X obj 530 520 is_symbol;
+#X obj 610 520 is_list;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

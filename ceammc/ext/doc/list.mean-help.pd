@@ -3,7 +3,7 @@
 #X text 400 50 calculates average of list of floats;
 #X obj 1 1 cnv 5 682 40 empty empty list.mean 20 20 0 20 -104026 -4096
 0;
-#X obj 595 11 list.mean;
+#X obj 592 11 list.mean;
 #X msg 50 118 1 2 3 4 5;
 #X msg 165 118 1 2 a b c;
 #X obj 50 162 list.mean;

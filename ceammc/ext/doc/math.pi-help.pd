@@ -3,7 +3,7 @@
 #X text 508 50 mathematical constant;
 #X obj 1 1 cnv 5 682 40 empty empty math.pi 20 20 0 20 -104026 -4096
 0;
-#X obj 609 11 math.pi;
+#X obj 606 11 math.pi;
 #X obj 225 80 cnv 1 440 61 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 230 80 The number PI is a mathematical constant \, the ratio
 of a circle's circumference to its diameter \,  commonly approximated
@@ -30,8 +30,8 @@ as 3\.14159\.;
 #X obj 131 45 pddp/pddplink ceammc.math-help.pd -text math;
 #X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 556 520 see also:;
-#X obj 626 520 math.e;
+#X text 546 520 see also:;
+#X obj 616 520 math.e;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

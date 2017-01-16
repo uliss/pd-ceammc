@@ -3,7 +3,7 @@
 #X text 444 50 rejects redundant input values;
 #X obj 1 1 cnv 5 682 40 empty empty pass.changed 20 20 0 20 -104026
 -4096 0;
-#X obj 574 11 pass.changed;
+#X obj 571 11 pass.changed;
 #X obj 225 80 cnv 1 440 84 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 230 80   The pass\.changed object outputs its input only when
 it changed\.  You can "set" the current value \, or bang to force
@@ -48,8 +48,8 @@ output\.  ;
 #X obj 131 45 pddp/pddplink ceammc.pass-help.pd -text pass;
 #X obj 1 517 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 520 library: ceammc v0\.1;
-#X text 556 532 see also:;
-#X obj 626 532 change;
+#X text 546 532 see also:;
+#X obj 616 532 change;
 #N canvas 10 539 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

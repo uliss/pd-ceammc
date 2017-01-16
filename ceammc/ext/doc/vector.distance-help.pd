@@ -3,7 +3,7 @@
 #X text 336 50 returns euclidean distance between two points;
 #X obj 1 1 cnv 5 682 40 empty empty vector.distance 20 20 0 20 -104026
 -4096 0;
-#X obj 551 11 vector.distance;
+#X obj 548 11 vector.distance;
 #X msg 50 118 1 0 0;
 #X msg 126 118 dump;
 #X msg 203 118 3 0 0;

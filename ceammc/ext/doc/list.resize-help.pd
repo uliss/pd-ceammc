@@ -3,7 +3,7 @@
 #X text 501 50 changes list size with;
 #X obj 1 1 cnv 5 682 40 empty empty list.resize 20 20 0 20 -104026
 -4096 0;
-#X obj 581 11 list.resize;
+#X obj 578 11 list.resize;
 #X msg 50 118 1 2 3 4 5 6 7 8 9 10 11;
 #X msg 69 147 1 2 3;
 #X msg 88 176 @wrap;

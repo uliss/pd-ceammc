@@ -4,7 +4,7 @@
 peak;
 #X obj 1 1 cnv 5 682 40 empty empty system.memused 20 20 0 20 -104026
 -4096 0;
-#X obj 559 11 system.memused;
+#X obj 556 11 system.memused;
 #X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 50 147 system.memused;
@@ -34,8 +34,8 @@ bytes \,  or zero if the value cannot be determined on this OS\.;
 #X obj 131 45 pddp/pddplink ceammc.system-help.pd -text system;
 #X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 499 520 see also:;
-#X obj 569 520 system.memsize;
+#X text 489 520 see also:;
+#X obj 559 520 system.memsize;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

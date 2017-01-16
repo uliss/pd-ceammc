@@ -3,7 +3,7 @@
 #X text 401 50 length of symbol (unicode supported);
 #X obj 1 1 cnv 5 682 40 empty empty symbol.length 20 20 0 20 -104026
 -4096 0;
-#X obj 566 11 symbol.length;
+#X obj 563 11 symbol.length;
 #X msg 50 118 symbol example;
 #X symbolatom 117 147 20 0 0 0 - - -;
 #X obj 50 176 symbol.length;

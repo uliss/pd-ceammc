@@ -3,7 +3,7 @@
 #X text 414 50 Positive low frequence square wave;
 #X obj 1 1 cnv 5 682 40 empty empty lfo.square~ 20 20 0 20 -104026
 -4096 0;
-#X obj 580 11 lfo.square~;
+#X obj 577 11 lfo.square~;
 #X obj 50 118 phasor~ 200;
 #X floatatom 184 118 5 0 0 0 - - -;
 #X obj 184 147 lfo.square~ 10;
@@ -35,9 +35,9 @@
 #X obj 131 45 pddp/pddplink ceammc.lfo-help.pd -text lfo;
 #X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 440 520 see also:;
-#X obj 510 520 lfo.impulse~;
-#X obj 612 520 lfo.tri~;
+#X text 430 520 see also:;
+#X obj 500 520 lfo.impulse~;
+#X obj 602 520 lfo.tri~;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

@@ -3,7 +3,7 @@
 #X text 473 50 returns first list element;
 #X obj 1 1 cnv 5 682 40 empty empty list.first 20 20 0 20 -104026
 -4096 0;
-#X obj 588 11 list.first;
+#X obj 585 11 list.first;
 #X msg 50 118 -11 60 12;
 #X msg 165 118 list a b;
 #X floatatom 270 118 5 0 0 0 - - -;
@@ -28,9 +28,9 @@
 #X obj 131 45 pddp/pddplink ceammc.list-help.pd -text list;
 #X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 471 520 see also:;
-#X obj 541 520 list.last;
-#X obj 620 520 list.at;
+#X text 461 520 see also:;
+#X obj 531 520 list.last;
+#X obj 610 520 list.at;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

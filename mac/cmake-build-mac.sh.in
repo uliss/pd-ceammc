@@ -119,18 +119,36 @@ cd ..
 # to make codesign happy
 mkdir -p Frameworks
 mkdir -p $LIBDIR
-/usr/bin/otool -LX "$EXECFILE" | cut -f2 | cut -d ' ' -f1 | grep -v portmidi | grep -v libSystem | grep -v /System/Library | grep -v CoreFoundation | while read shlib
-do
-    TARGET=$LIBDIR/$(basename $shlib)
-    cp "$shlib" $TARGET
-    chown $(whoami) $TARGET
-    chmod +w $TARGET
 
-    TARGETID=$(otool -DX $TARGET)
-    NEWTARGETID=$NEWLIBPATH/$(basename $shlib)
-    echo $NEWTARGETID
-    install_name_tool -id $NEWTARGETID $TARGET
-    install_name_tool -change $TARGETID $NEWTARGETID $EXECFILE
+otool_id() {
+    /usr/bin/otool -DX "$1" | tail -1
+}
+
+otool_deps() {
+    /usr/bin/otool -LX "$1" | sed -n /^$'\t'/p | cut -f2 | cut -d ' ' -f1
+}
+
+dep_fix() {
+    echo "FIX dependency: \"$1\" in \"$2\""
+    DEP_PATH_IN_BUNDLE=$LIBDIR/$(basename $1)
+    # copy in bundle
+    cp "$1" $DEP_PATH_IN_BUNDLE
+    chown $(whoami) $DEP_PATH_IN_BUNDLE
+    chmod +w $DEP_PATH_IN_BUNDLE
+
+    # get dep lib old id
+    DEP_ORIG_ID=$(otool_id $DEP_PATH_IN_BUNDLE)
+    DEP_NEW_ID="@executable_path/../lib/$(basename $1)"
+    echo "    change \"$DEP_ORIG_ID\" to \"$DEP_NEW_ID\" in \"$2\""
+    # change in dep
+    install_name_tool -id $DEP_NEW_ID $DEP_PATH_IN_BUNDLE
+    # change in exec
+    install_name_tool -change $DEP_ORIG_ID $DEP_NEW_ID $2
+}
+
+otool_deps "$EXECFILE" | grep -v portmidi | grep -v libSystem | grep -v /System/Library | grep -v CoreFoundation | while read shlib
+do
+    dep_fix $shlib $EXECFILE
 done
 
 #copy Tcl${TK_VERSION}
