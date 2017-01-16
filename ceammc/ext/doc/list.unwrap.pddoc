@@ -11,12 +11,15 @@
             <license>GPL3</license>
             <library>ceammc</library>
             <category>list</category>
+
             <keywords>list unwrap</keywords>
+
             <since>0.1</since>
             <also>
-                <see>list.wrap</see>
+                <see>list.unwrap</see>
             </also>
         </meta>
+
         <inlets>
             <inlet>
                 <xinfo on="list">First list - single elements</xinfo>
@@ -37,10 +40,9 @@
 |
 [msg set]
 |
-[ (       
+[ (
 ]]>
             </pdascii>
         </example>
     </object>
 </pddoc>
-

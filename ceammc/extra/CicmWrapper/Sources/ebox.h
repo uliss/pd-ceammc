@@ -426,6 +426,10 @@ t_pd_err ebox_notify(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *
  */
 t_pd_err ebox_size_set(t_ebox *x, t_object *attr, int argc, t_atom *argv);
 
+// CEAMMC test:
+t_pd_err ebox_size_get(t_ebox *x, t_object *attr, int argc, t_atom *argv);
+
+
 //! The attribute print method that post all the attributes characteristics in the PD console // PRIVATE
 /*
  * \memberof        ebox
@@ -433,6 +437,14 @@ t_pd_err ebox_size_set(t_ebox *x, t_object *attr, int argc, t_atom *argv);
  * \return          Nothing
  */
 void ebox_attrprint(t_ebox* x);
+
+//! The attribute print method that post all the attributes characteristics in the PD console , CEAMMC format// PRIVATE
+/*
+ * \memberof        ebox
+ * \param x         The ebox
+ * \return          Nothing
+ */
+void ebox_attrceammcprint(t_ebox* x);
 
 // The defaults pd widgets
 void ebox_wgetrect(t_gobj *z,     t_glist *glist, int *xp1, int *yp1, int *xp2, int *yp2);

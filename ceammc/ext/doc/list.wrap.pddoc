@@ -14,14 +14,15 @@
             <keywords>list functional</keywords>
             <since>0.1</since>
             <also>
-                <see>list.unwrap</see>
+                <see>list.wrap</see>
             </also>
         </meta>
+
         <inlets>
             <inlet>
                 <xinfo on="list">Input list</xinfo>
             </inlet>
-            
+
         </inlets>
         <outlets>
             <outlet>First list: list entries without repetitions. For example 1 1 2 2 2 1 1 becomes 1 2 1 </outlet>
@@ -29,6 +30,7 @@
         </outlets>
         <example>
             <pdascii>
+
 <![CDATA[
 
 [1 1 2 2 2 1 1(
@@ -44,4 +46,3 @@
         </example>
     </object>
 </pddoc>
-
