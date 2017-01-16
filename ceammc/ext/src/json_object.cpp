@@ -23,11 +23,6 @@ struct t_json_object {
     
     Document *json_local;
     GlobalJSON *json_global;
-    
-    t_symbol *j_name;
-
-    t_atom *out1;
-    t_atom *out2;
 
     t_outlet *outlet1, *outlet2;
 };
@@ -98,11 +93,21 @@ static void json_object_clear(t_json_object* x, t_symbol* s, int argc, t_atom* a
 static void json_object_setobject(t_json_object* x, t_symbol* s, int argc, t_atom* argv)
 {
 
+    if (argc<1) return;
+    Atom a = Atom(argv[0]);
+    
+    x->json_global = new GlobalJSON(a.asString(), OBJ_NAME);
+    x->json_local = &x->json_global->ref();
+    //x->json_local->SetObject();
+    
 }
 
 static void json_object_getobject(t_json_object* x, t_symbol* s, int argc, t_atom* argv)
 {
-
+    AtomList list;
+    Atom a = Atom(gensym(x->json_global->name().c_str()));
+    list.append(a);
+    list.output(x->outlet1);
 }
 
 
@@ -124,7 +129,7 @@ static void json_object_anything(t_json_object* x, t_symbol* s, int argc, t_atom
 
 static void json_object_objectlist(t_json_object* x, t_symbol* s, int argc, t_atom* argv)
 {
-
+    
 }
 
 
@@ -132,10 +137,6 @@ static void* json_object_new(t_symbol *s, int argc, t_atom *argv)
 {
     t_json_object* x = reinterpret_cast<t_json_object*>(pd_new(json_object_class));
     
-    
-
-    x->out1 = (t_atom*)malloc(0);   //dummy
-
     x->outlet1 = outlet_new(&x->x_obj, &s_list);
     x->outlet2 = outlet_new(&x->x_obj, &s_list);
     
@@ -171,8 +172,9 @@ extern "C" void setup_json0x2eobject()
     class_addmethod(json_object_class, reinterpret_cast<t_method>(json_object_clear), gensym("clear"), A_NULL);
     class_addmethod(json_object_class, reinterpret_cast<t_method>(json_object_dump), gensym("dump"), A_NULL);
     
-//    class_addmethod(json_object_class, reinterpret_cast<t_method>(json_object_getobject), gensym("getobject"), A_NULL);
-//    class_addmethod(json_object_class, reinterpret_cast<t_method>(json_object_setobject), gensym("setobject"), A_GIMME);
+    class_addmethod(json_object_class, reinterpret_cast<t_method>(json_object_getobject), gensym("getobject"), A_NULL);
+    class_addmethod(json_object_class, reinterpret_cast<t_method>(json_object_setobject), gensym("setobject"), A_GIMME);
+    
 //    class_addmethod(json_object_class, reinterpret_cast<t_method>(json_object_objectlist), gensym("objectlist"), A_GIMME);
 
 
