@@ -15,6 +15,7 @@ flt.dcblock~		~		~
 flt.eq_peak~		~		~.
 flt.highshelf~		~		~.
 flt.lowshelf~		~		~.
+fx.freqshift~		~~		~~.
 fx.pitchshift~		~~		~.
 fx.softclip~		~		~
 global.float		.		.
