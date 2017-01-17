@@ -618,8 +618,8 @@ void eclass_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)
     t_ebox* z   = (t_ebox *)x;
     t_eclass* c = (t_eclass *)z->b_obj.o_obj.te_g.g_pd;
     //CEAMMC temporary
-    if (argc==NULL)
-        {argc = (int*)malloc(sizeof(int));} //
+//    if (argc==NULL)
+//        {argc = (int*)malloc(sizeof(int));} //
     if(argv!=NULL)
     {if (argc[0]) free(argv);}
     argc[0] = 0;

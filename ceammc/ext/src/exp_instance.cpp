@@ -1,43 +1,9 @@
-#include "ceammc.h"
-#include <m_pd.h>
-//#include <g_canvas.h>
-#include <stdlib.h>
-//
-#include "ceammc_atomlist.h"
-
-#include "m_imp.h"
-
-#include <stdio.h>
-
-#include "cicm_wrapper.h"
-
-#include "ceammc_globaldata.h"
+#include "oop_common.h"
 
 t_eclass* exp_instance_class;
 
-typedef ceammc::GlobalData<t_canvas*> oPDClass;
 
-typedef std::map<t_symbol*, t_outlet*> oPDMethodOutlets;
 
-class t_instance
-{
-public:
-    std::string class_name;
-    t_canvas *canvas;
-    t_outlet *inst_out;
-    
-} ;
-typedef ceammc::GlobalData<t_instance> oPDInstance;
-
-#include <sstream>
-
-template <class T>
-inline std::string to_string (const T& t)
-{
-    std::stringstream ss;
-    ss << t;
-    return ss.str();
-}
 
 struct t_exp_instance {
     //t_object x_obj;
@@ -114,6 +80,7 @@ static void exp_instance_delete(t_exp_instance* x)
         
         
         //todo free
+        x->instance->ref().freeInstanceOut(x->out1);
         x->local_canvas = 0;
     }
 }
@@ -179,6 +146,7 @@ static void exp_instance_setobject(t_exp_instance* x, t_symbol*s, int argc, t_at
         x->class_name = "";
         
         //todo free!
+        x->instance->ref().freeInstanceOut(x->out1);
         x->local_canvas = 0;
         
         x->e_box.b_boxparameters.d_bordercolor = rgba_red;
@@ -199,6 +167,7 @@ static void exp_instance_setobject(t_exp_instance* x, t_symbol*s, int argc, t_at
         
         x->local_canvas = x->instance->ref().canvas;
         x->class_name = x->instance->ref().class_name;
+        x->instance->ref().addInstanceOut(x->out1);
         
         char c1[] = "#00C0FF";
         x->e_box.b_boxparameters.d_bordercolor = hex_to_rgba(c1);
@@ -287,7 +256,8 @@ static void exp_instance_setclass(t_exp_instance* x, t_symbol*id, int argc, t_at
         
         std::string str = to_string(x->local_canvas);
         x->instance = new oPDInstance(str, OBJ_NAME);
-        x->instance->ref().inst_out = x->out1;
+        //x->instance->ref().inst_out = x->out1;
+        x->instance->ref().addInstanceOut(x->out1);
         
         
     }
@@ -304,12 +274,10 @@ static void* exp_instance_new(t_symbol *id, int argc, t_atom *argv)
     
     std::string str = to_string(x->local_canvas);
     x->instance = new oPDInstance(str, OBJ_NAME);
-    x->instance->ref().inst_out = x->out1;
+    x->instance->ref().addInstanceOut(x->out1);
     
     
     ebox_new((t_ebox *)x, 0 );
-    
-    
     t_binbuf* d = binbuf_via_atoms(argc,argv);
     
     
@@ -356,6 +324,18 @@ static void exp_instance_vis(t_exp_instance* x, t_symbol*, int argc, t_atom* arg
         post("vis");
         canvas_vis(x->local_canvas, (a.asInt()>0));
     }
+}
+
+static void exp_instance_any(t_exp_instance* x, t_symbol*s, int argc, t_atom* argv)
+{
+    if (argc<2) return;
+    AtomList list = Atom(s);
+    list.append(AtomList(argc,argv));
+    
+    x->instance->ref().callMethod(list);
+    
+    
+    
 }
 
 #pragma mark -
@@ -417,6 +397,7 @@ extern "C" void setup_exp0x2einstance()
     CLASS_ATTR_INVISIBLE            (exp_instance_class, "fontslant", 1);
     CLASS_ATTR_INVISIBLE            (exp_instance_class, "fontsize", 1);
     
+    
     // background / border color
     CLASS_ATTR_LABEL                (exp_instance_class, "bgcolor", 0, "Background Color");
     CLASS_ATTR_ORDER                (exp_instance_class, "bgcolor", 0, "1");
@@ -435,7 +416,7 @@ extern "C" void setup_exp0x2einstance()
     eclass_addmethod(exp_instance_class, (method)(exp_instance_paint), ("paint"), A_NULL,0);
     eclass_addmethod(exp_instance_class, (method)(exp_instance_oksize), ("oksize"), A_GIMME,0);
     
-//    eclass_addmethod(exp_instance_class, (t_typ_method)(exp_instance_inlet_proxy), ("anything"), A_GIMME, 0);
+    eclass_addmethod(exp_instance_class, (t_typ_method)(exp_instance_any), ("anything"), A_GIMME, 0);
     
     
     
