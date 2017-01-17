@@ -28,132 +28,15 @@ struct t_exp_instance {
     oPDClass *global;
     std::string class_name;
     
-    //    t_binbuf *patch;
-    //
-    //    t_canvas *new_canvas;
-    //
-    //    t_inlet* inlets[64];
-    //    int inlet_count;
-    //    t_outlet* outlets[64];
-    //    int outlet_count;
-    
     t_etext *txt;
     t_efont *fnt;
     
+    
+    t_outlet *out1;
 };
 
 
-//*****
 
-//static int canvas_scanbinbuf(int natoms, t_atom *vec, int *p_indexout,
-//                             int *p_next)
-//{
-//    int i, j;
-//    int indexwas = *p_next;
-//    *p_indexout = indexwas;
-//    if (indexwas >= natoms)
-//        return (0);
-//    for (i = indexwas; i < natoms && vec[i].a_type != A_SEMI; i++)
-//        ;
-//    if (i >= natoms)
-//        *p_next = i;
-//    else *p_next = i + 1;
-//    return (i - indexwas);
-//}
-//
-//static void canvas_readerror(int natoms, t_atom *vec, int message,
-//                             int nline, char *s)
-//{
-//    error("%s", s);
-//    startpost("line was:");
-//    postatom(nline, vec + message);
-//    endpost();
-//}
-//
-//void glist_readfrombinbuf(t_glist *x, t_binbuf *b, char *filename, int selectem)
-//{
-//    t_canvas *canvas = glist_getcanvas(x);
-//    int cr = 0, natoms, nline, message, nextmsg = 0, i, j, nitems;
-//    t_atom *vec;
-//    t_gobj *gobj;
-//
-//    natoms = binbuf_getnatom(b);
-//    vec = binbuf_getvec(b);
-//
-//
-//    /* check for file type */
-//    nline = canvas_scanbinbuf(natoms, vec, &message, &nextmsg);
-//    if (nline != 1 && vec[message].a_type != A_SYMBOL &&
-//        strcmp(vec[message].a_w.w_symbol->s_name, "data"))
-//    {
-//        pd_error(x, "%s: file apparently of wrong type", filename);
-//        return;
-//    }
-//    /* read in templates and check for consistency */
-//    while (1)
-//    {
-//        t_template *newtemplate, *existtemplate;
-//        t_symbol *templatesym;
-//        t_atom *templateargs = (t_atom*)getbytes(0);
-//        int ntemplateargs = 0, newnargs;
-//        nline = canvas_scanbinbuf(natoms, vec, &message, &nextmsg);
-//        if (nline < 2)
-//        {
-//            t_freebytes(templateargs, sizeof (*templateargs) * ntemplateargs);
-//            break;
-//        }
-//        else if (nline > 2)
-//            canvas_readerror(natoms, vec, message, nline,
-//                             "extra items ignored");
-//        else if (vec[message].a_type != A_SYMBOL ||
-//                 strcmp(vec[message].a_w.w_symbol->s_name, "template") ||
-//                 vec[message + 1].a_type != A_SYMBOL)
-//        {
-//            canvas_readerror(natoms, vec, message, nline,
-//                             "bad template header");
-//            continue;
-//        }
-//        templatesym = canvas_makebindsym(vec[message + 1].a_w.w_symbol);
-//        while (1)
-//        {
-//            nline = canvas_scanbinbuf(natoms, vec, &message, &nextmsg);
-//            if (nline != 2 && nline != 3)
-//                break;
-//            newnargs = ntemplateargs + nline;
-//            templateargs = (t_atom *)t_resizebytes(templateargs,
-//                                                   sizeof(*templateargs) * ntemplateargs,
-//                                                   sizeof(*templateargs) * newnargs);
-//            templateargs[ntemplateargs] = vec[message];
-//            templateargs[ntemplateargs + 1] = vec[message + 1];
-//            if (nline == 3)
-//                templateargs[ntemplateargs + 2] = vec[message + 2];
-//            ntemplateargs = newnargs;
-//        }
-//        if (!(existtemplate = template_findbyname(templatesym)))
-//        {
-//            error("%s: template not found in current patch",
-//                  templatesym->s_name);
-//            t_freebytes(templateargs, sizeof (*templateargs) * ntemplateargs);
-//            return;
-//        }
-//        newtemplate = template_new(templatesym, ntemplateargs, templateargs);
-//        t_freebytes(templateargs, sizeof (*templateargs) * ntemplateargs);
-//        if (!template_match(existtemplate, newtemplate))
-//        {
-//            error("%s: template doesn't match current one",
-//                  templatesym->s_name);
-//            pd_free(&newtemplate->t_pdobj);
-//            return;
-//        }
-//        pd_free(&newtemplate->t_pdobj);
-//    }
-//    while (nextmsg < natoms)
-//    {
-//        canvas_readscalar(x, natoms, vec, &nextmsg, selectem);
-//    }
-//}
-
-//*****
 
 #define OBJ_NAME "exp.instance"
 
@@ -198,12 +81,14 @@ static void exp_instance_delete(t_exp_instance* x)
 {
     if (x->local_canvas)
     {
-        if (x->local_canvas->gl_list)
-        {
-            //glist_noselect(x->local_canvas);
-            //glist_select(x->local_canvas->gl_list, x->local_canvas->gl_list);
-            glist_delete(x->local_canvas, x->local_canvas->gl_list);
-        }
+//        if (x->local_canvas->gl_list)
+//        {
+//            glist_delete(x->local_canvas, x->local_canvas->gl_list);
+//        }
+        
+        
+        //todo free
+        x->local_canvas = 0;
     }
 }
 
@@ -215,11 +100,12 @@ static void exp_instance_update(t_exp_instance* x, t_symbol*s, int argc, t_atom*
         
         // create instance
         
+        canvas_setcurrent(x->parent_canvas);
+        
         if (!x->local_canvas)
         {
             //glist_init(x->local_canvas);
             
-            printf("init\n");
             
             x->local_canvas = (t_canvas*)subcanvas_new(gensym(x->class_name.c_str())); //LISP lol
             x->local_canvas->gl_havewindow = 1;
@@ -230,13 +116,8 @@ static void exp_instance_update(t_exp_instance* x, t_symbol*s, int argc, t_atom*
         else
         {
             //cleanup
-            
-           // t_gobj *y;
-            
             if (x->local_canvas->gl_list)
             {
-                //glist_noselect(x->local_canvas);
-                //glist_select(x->local_canvas->gl_list, x->local_canvas->gl_list);
                 glist_delete(x->local_canvas, x->local_canvas->gl_list);
             }
         }
@@ -270,28 +151,42 @@ static void exp_instance_setobject(t_exp_instance* x, t_symbol*id, int argc, t_a
         error("no class name provided!");
         x->e_box.b_boxparameters.d_bordercolor = rgba_red;
         exp_instance_delete(x);
+        
+        ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
+        ebox_redraw((t_ebox *)x);
     }
     Atom a = argv[0];
     if (!a.isSymbol())
     {
         error("bad class name!");
         x->e_box.b_boxparameters.d_bordercolor = rgba_red;
+        exp_instance_delete(x);
+        
+        ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
+        ebox_redraw((t_ebox *)x);
     }
     
     x->class_name = a.asString();
     
     
-    //oPDClass *pdClass =
     x->global = new oPDClass(a.asString(), OBJ_NAME);
     if (!x->global->ref())
     {
         error("class not found!");
         x->e_box.b_boxparameters.d_bordercolor = rgba_red;
+        
+        ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
+        ebox_redraw((t_ebox *)x);
     }
     else
     {
-        
+        printf("update %s\n", x->class_name.c_str());
         exp_instance_update(x, 0, 0, 0);
+        char c1[] = "#00C0FF";
+        x->e_box.b_boxparameters.d_bordercolor = hex_to_rgba(c1);
+        
+        ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
+        ebox_redraw((t_ebox *)x);
         
     }
     
@@ -319,7 +214,7 @@ static void* exp_instance_new(t_symbol *id, int argc, t_atom *argv)
     
     
     
-    exp_instance_setobject(x, id, argc, argv);
+    //exp_instance_setobject(x, id, argc, argv);
     
     
     x->txt = etext_layout_create();
@@ -339,8 +234,11 @@ static void* exp_instance_new(t_symbol *id, int argc, t_atom *argv)
     
     
     x->e_box.b_boxparameters.d_boxfillcolor = rgba_greylight;
-    char c1[] = "#00C0FF";
-    x->e_box.b_boxparameters.d_bordercolor = hex_to_rgba(c1);
+//    char c1[] = "#00C0FF";
+//    //x->e_box.b_boxparameters.d_bordercolor = hex_to_rgba(c1);
+    x->e_box.b_boxparameters.d_bordercolor = rgba_red;
+    
+    x->out1 = outlet_new((t_object*)x, &s_anything);
     
     return static_cast<void*>(x);
     
@@ -376,20 +274,6 @@ static void exp_instance_paint(t_object *z, t_object *view)
     
     if(g)
     {
-        // EXAMPLE
-        //            size = rect.width * 0.5;
-        //            egraphics_set_color_hex(g, gensym("#00C0FF"));
-        //            egraphics_circle(g, floor(size + 0.5), floor(size + 0.5), size * 0.9);
-        //            egraphics_fill(g);
-        //            ebox_end_layer((t_ebox*)x, bgl);
-        
-//        egraphics_rectangle(g, 0, 0, rect.width, rect.height);
-//        egraphics_set_color_hex(g, gensym("#F0F0F0"));
-//        egraphics_fill(g);
-        
-//        egraphics_rectangle(g, 0, 0, rect.width, rect.height);
-//        egraphics_set_color_hex(g, gensym("#F0F0F0"));
-//        egraphics_fill(g);
         
         printf("paint %f %f\n", rect.width, rect.height);
         
