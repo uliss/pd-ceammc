@@ -188,7 +188,13 @@ static void* exp_class_new(t_symbol *id, int argc, t_atom *argv)
     
     //ebox_new((t_ebox *)x, 0 );
     t_binbuf* d = binbuf_via_atoms(argc,argv);
-    
+    if (x && d)
+    {
+        ebox_attrprocess_viabinbuf(x, d);
+        
+//        if (x->class_name)
+//            poststring(x->class_name->s_name);
+    }
     
     x->parent_canvas = canvas_getcurrent();
     
@@ -202,9 +208,21 @@ static void* exp_class_new(t_symbol *id, int argc, t_atom *argv)
         x->sub_canvas->gl_havewindow = 1;
         x->sub_canvas->gl_isclone = 1;
         
+        canvas_vis(x->sub_canvas, 0);
+        
         x->global->ref() = x->sub_canvas;
         
-        canvas_vis(x->sub_canvas, 0);
+        // loader
+        t_binbuf *b1= binbuf_new();
+        binbuf_add(b1, x->patch_c, x->patch_a);
+        int natoms = binbuf_getnatom(b1);
+        t_atom* vec = binbuf_getvec(b1);
+        postatom(natoms, vec);
+        
+        canvas_dopaste(x->sub_canvas, b1);
+        canvas_setcurrent(x->parent_canvas);
+        
+        
 
     }
     else
@@ -213,17 +231,18 @@ static void* exp_class_new(t_symbol *id, int argc, t_atom *argv)
     }
     
     
+    //TODO multiple class save handling
     
     
-    if (x && d)
-    {
-        ebox_attrprocess_viabinbuf(x, d);
-        
-    }
+    
+    
+    
+    
+    
+    //
     
     x->out1 = outlet_new((t_object*)x, &s_anything);
     ebox_ready((t_ebox *)x);
-    
     
     
     //printf("dosave %lu ->",(long)eobj_getclass(x)->c_widget.w_dosave);

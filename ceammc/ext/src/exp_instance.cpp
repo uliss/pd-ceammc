@@ -34,40 +34,7 @@ struct t_exp_instance {
 
 using namespace ceammc;
 
-static void canvas_dopaste(t_canvas *x, t_binbuf *b)
-{
-    t_gobj *g2; // *last,*newgobj,
-    int dspstate = canvas_suspend_dsp(), nbox, count;
-    t_symbol *asym = gensym("#A");
-    /* save and clear bindings to symbols #a, $N, $X; restore when done */
-    t_pd *boundx = s__X.s_thing, *bounda = asym->s_thing,
-    *boundn = s__N.s_thing;
-    asym->s_thing = 0;
-    s__X.s_thing = &x->gl_pd;
-    s__N.s_thing = 0;//&pd_canvasmaker;
-    
-    canvas_editmode(x, 1.);
-    glist_noselect(x);
-    for (g2 = x->gl_list, nbox = 0; g2; g2 = g2->g_next) nbox++;
-    
-    //    paste_onset = nbox;
-    //    paste_canvas = x;
-    
-    binbuf_eval(b, 0, 0, 0);
-    for (g2 = x->gl_list, count = 0; g2; g2 = g2->g_next, count++)
-        if (count >= nbox)
-            glist_select(x, g2);
-    //    paste_canvas = 0;
-    canvas_resume_dsp(dspstate);
-    canvas_dirty(x, 1);
-    if (x->gl_mapped)
-        sys_vgui("pdtk_canvas_getscroll .x%lx.c\n", x);
-    //    if (!sys_noloadbang)
-    //        glist_donewloadbangs(x);
-    asym->s_thing = bounda;
-    s__X.s_thing = boundx;
-    s__N.s_thing = boundn;
-}
+
 
 static void exp_instance_delete(t_exp_instance* x)
 {
