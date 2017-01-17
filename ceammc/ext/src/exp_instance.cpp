@@ -14,18 +14,20 @@
 #include "ceammc_globaldata.h"
 
 t_eclass* exp_instance_class;
+
 typedef ceammc::GlobalData<t_canvas*> oPDClass;
 
-//class t_instance
-//{
-//public:
-//    std::string class_name;
-//    t_canvas *canvas;
-//    
-//    
-//} ;
-typedef ceammc::GlobalData<t_canvas*> oPDInstance;      //alias
-typedef ceammc::GlobalData<std::string> oPDInstanceClass;      //alias
+typedef std::map<t_symbol*, t_outlet*> oPDMethodOutlets;
+
+class t_instance
+{
+public:
+    std::string class_name;
+    t_canvas *canvas;
+    t_outlet *inst_out;
+    
+} ;
+typedef ceammc::GlobalData<t_instance> oPDInstance;
 
 #include <sstream>
 
@@ -195,7 +197,8 @@ static void exp_instance_setobject(t_exp_instance* x, t_symbol*s, int argc, t_at
         
         x->instance = new oPDInstance(a.asString(), OBJ_NAME);
         
-        x->local_canvas = x->instance->ref();
+        x->local_canvas = x->instance->ref().canvas;
+        x->class_name = x->instance->ref().class_name;
         
         char c1[] = "#00C0FF";
         x->e_box.b_boxparameters.d_bordercolor = hex_to_rgba(c1);
@@ -220,10 +223,8 @@ static void exp_instance_setobject(t_exp_instance* x, t_symbol*s, int argc, t_at
 static void exp_instance_getobject(t_exp_instance* x, t_symbol*s, int argc, t_atom* argv)
 {
     
-    
-    x->instance->ref() = x->local_canvas;
-    
-    //x->instance_class->ref() = x->class_name;
+    x->instance->ref().canvas = x->local_canvas;
+    x->instance->ref().class_name = x->class_name;
     
     Atom a;
     
@@ -231,12 +232,13 @@ static void exp_instance_getobject(t_exp_instance* x, t_symbol*s, int argc, t_at
     
     a= Atom(gensym("setobject"));
     list.append(a);
-    a= Atom(gensym(to_string(x).c_str()));
+    a= Atom(gensym(to_string(x->local_canvas).c_str()));
     list.append(a);
     
     list.outputAsAny(x->out1);
 }
 
+#pragma mark -
 
 static void exp_instance_setclass(t_exp_instance* x, t_symbol*id, int argc, t_atom* argv)
 {
@@ -275,13 +277,18 @@ static void exp_instance_setclass(t_exp_instance* x, t_symbol*id, int argc, t_at
     }
     else
     {
-        printf("update %s\n", x->class_name.c_str());
+        //printf("update %s\n", x->class_name.c_str());
         exp_instance_update(x, 0, 0, 0);
         char c1[] = "#00C0FF";
         x->e_box.b_boxparameters.d_bordercolor = hex_to_rgba(c1);
         
         ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
         ebox_redraw((t_ebox *)x);
+        
+        std::string str = to_string(x->local_canvas);
+        x->instance = new oPDInstance(str, OBJ_NAME);
+        x->instance->ref().inst_out = x->out1;
+        
         
     }
     
@@ -291,16 +298,14 @@ static void exp_instance_setclass(t_exp_instance* x, t_symbol*id, int argc, t_at
 static void* exp_instance_new(t_symbol *id, int argc, t_atom *argv)
 {
     
-    
-    
-    
     t_exp_instance* x = reinterpret_cast<t_exp_instance*>(eobj_new(exp_instance_class));
-    
     
     x->parent_canvas = canvas_getcurrent();
     
-    std::string str = to_string(x);
+    std::string str = to_string(x->local_canvas);
     x->instance = new oPDInstance(str, OBJ_NAME);
+    x->instance->ref().inst_out = x->out1;
+    
     
     ebox_new((t_ebox *)x, 0 );
     
@@ -431,6 +436,8 @@ extern "C" void setup_exp0x2einstance()
     eclass_addmethod(exp_instance_class, (method)(exp_instance_oksize), ("oksize"), A_GIMME,0);
     
 //    eclass_addmethod(exp_instance_class, (t_typ_method)(exp_instance_inlet_proxy), ("anything"), A_GIMME, 0);
+    
+    
     
     eclass_register(CLASS_BOX, exp_instance_class);
     
