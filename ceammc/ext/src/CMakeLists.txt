@@ -157,6 +157,7 @@ ceammc_cxx_extension(ui ecanvas)
 
 ceammc_cxx_extension(exp recursion)
 ceammc_cxx_extension(exp class)
+ceammc_cxx_extension(exp instance)
 
 ceammc_cxx_extension(local list)
 

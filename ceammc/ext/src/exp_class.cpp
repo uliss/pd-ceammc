@@ -324,10 +324,14 @@ static void* exp_class_new(t_symbol *id, int argc, t_atom *argv)
         x->sub_canvas->gl_havewindow = 1;
         //x->sub_canvas->gl_env = 0;
         x->sub_canvas->gl_isclone = 1;
+        //x->sub_canvas->gl_
         
         x->global->ref() = x->sub_canvas;
         
-        post("class construct");
+        canvas_vis(x->sub_canvas, 0);
+
+        
+        //post("class construct");
     }
     else
     {
