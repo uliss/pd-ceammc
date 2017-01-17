@@ -34,9 +34,6 @@ struct t_exp_class {
 
 using namespace ceammc;
 
-
-
-
 static void* exp_class_new(t_symbol *id, int argc, t_atom *argv)
 {
     

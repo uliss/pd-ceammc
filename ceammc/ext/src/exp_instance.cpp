@@ -16,6 +16,27 @@
 t_eclass* exp_instance_class;
 typedef ceammc::GlobalData<t_canvas*> oPDClass;
 
+//class t_instance
+//{
+//public:
+//    std::string class_name;
+//    t_canvas *canvas;
+//    
+//    
+//} ;
+typedef ceammc::GlobalData<t_canvas*> oPDInstance;      //alias
+typedef ceammc::GlobalData<std::string> oPDInstanceClass;      //alias
+
+#include <sstream>
+
+template <class T>
+inline std::string to_string (const T& t)
+{
+    std::stringstream ss;
+    ss << t;
+    return ss.str();
+}
+
 struct t_exp_instance {
     //t_object x_obj;
     
@@ -27,6 +48,9 @@ struct t_exp_instance {
     
     oPDClass *global;
     std::string class_name;
+    
+    oPDInstance *instance;
+    //oPDInstanceClass *instance_class;
     
     t_etext *txt;
     t_efont *fnt;
@@ -44,7 +68,7 @@ using namespace ceammc;
 
 static void canvas_dopaste(t_canvas *x, t_binbuf *b)
 {
-    t_gobj *newgobj, *last, *g2;
+    t_gobj *g2; // *last,*newgobj,
     int dspstate = canvas_suspend_dsp(), nbox, count;
     t_symbol *asym = gensym("#A");
     /* save and clear bindings to symbols #a, $N, $X; restore when done */
@@ -52,7 +76,7 @@ static void canvas_dopaste(t_canvas *x, t_binbuf *b)
     *boundn = s__N.s_thing;
     asym->s_thing = 0;
     s__X.s_thing = &x->gl_pd;
-    s__N.s_thing = 0;&pd_canvasmaker;
+    s__N.s_thing = 0;//&pd_canvasmaker;
     
     canvas_editmode(x, 1.);
     glist_noselect(x);
@@ -111,6 +135,8 @@ static void exp_instance_update(t_exp_instance* x, t_symbol*s, int argc, t_atom*
             x->local_canvas->gl_havewindow = 1;
             x->local_canvas->gl_env = 0;
             
+            //x->instance->ref() = x->local_canvas;
+            
             
         }
         else
@@ -144,7 +170,75 @@ static void exp_instance_update(t_exp_instance* x, t_symbol*s, int argc, t_atom*
     }
 }
 
-static void exp_instance_setobject(t_exp_instance* x, t_symbol*id, int argc, t_atom* argv)
+static void exp_instance_setobject(t_exp_instance* x, t_symbol*s, int argc, t_atom* argv)
+{
+    if (argc<1)
+    {
+        x->class_name = "";
+        
+        //todo free!
+        x->local_canvas = 0;
+        
+        x->e_box.b_boxparameters.d_bordercolor = rgba_red;
+        
+        ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
+        ebox_redraw((t_ebox *)x);
+
+        
+    }
+    else
+    {
+        if (x->local_canvas)
+            {canvas_vis(x->local_canvas, 0);}
+        
+        Atom a = argv[0];
+        
+        x->instance = new oPDInstance(a.asString(), OBJ_NAME);
+        
+        x->local_canvas = x->instance->ref();
+        
+        char c1[] = "#00C0FF";
+        x->e_box.b_boxparameters.d_bordercolor = hex_to_rgba(c1);
+        
+        ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
+        ebox_redraw((t_ebox *)x);
+        
+        if (!x->local_canvas)
+        {
+            x->e_box.b_boxparameters.d_bordercolor = rgba_red;
+            
+            ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
+            ebox_redraw((t_ebox *)x);
+            
+            
+        }
+        
+    }
+    
+}
+
+static void exp_instance_getobject(t_exp_instance* x, t_symbol*s, int argc, t_atom* argv)
+{
+    
+    
+    x->instance->ref() = x->local_canvas;
+    
+    //x->instance_class->ref() = x->class_name;
+    
+    Atom a;
+    
+    AtomList list;
+    
+    a= Atom(gensym("setobject"));
+    list.append(a);
+    a= Atom(gensym(to_string(x).c_str()));
+    list.append(a);
+    
+    list.outputAsAny(x->out1);
+}
+
+
+static void exp_instance_setclass(t_exp_instance* x, t_symbol*id, int argc, t_atom* argv)
 {
     if (argc<1)
     {
@@ -168,8 +262,9 @@ static void exp_instance_setobject(t_exp_instance* x, t_symbol*id, int argc, t_a
     
     x->class_name = a.asString();
     
-    
     x->global = new oPDClass(a.asString(), OBJ_NAME);
+    
+    
     if (!x->global->ref())
     {
         error("class not found!");
@@ -201,10 +296,11 @@ static void* exp_instance_new(t_symbol *id, int argc, t_atom *argv)
     
     t_exp_instance* x = reinterpret_cast<t_exp_instance*>(eobj_new(exp_instance_class));
     
-   
-    
     
     x->parent_canvas = canvas_getcurrent();
+    
+    std::string str = to_string(x);
+    x->instance = new oPDInstance(str, OBJ_NAME);
     
     ebox_new((t_ebox *)x, 0 );
     
@@ -212,13 +308,14 @@ static void* exp_instance_new(t_symbol *id, int argc, t_atom *argv)
     t_binbuf* d = binbuf_via_atoms(argc,argv);
     
     
-    
-    
-    //exp_instance_setobject(x, id, argc, argv);
+    x->class_name = "";
+    x->global = new oPDClass("", OBJ_NAME);
     
     
     x->txt = etext_layout_create();
     x->fnt = efont_create(gensym("Monaco"), gensym(""), gensym("normal"), 12);
+    
+    x->local_canvas = 0;
     
     canvas_setcurrent(x->parent_canvas);
     
@@ -232,10 +329,7 @@ static void* exp_instance_new(t_symbol *id, int argc, t_atom *argv)
     
     ebox_ready((t_ebox *)x);
     
-    
     x->e_box.b_boxparameters.d_boxfillcolor = rgba_greylight;
-//    char c1[] = "#00C0FF";
-//    //x->e_box.b_boxparameters.d_bordercolor = hex_to_rgba(c1);
     x->e_box.b_boxparameters.d_bordercolor = rgba_red;
     
     x->out1 = outlet_new((t_object*)x, &s_anything);
@@ -259,6 +353,7 @@ static void exp_instance_vis(t_exp_instance* x, t_symbol*, int argc, t_atom* arg
     }
 }
 
+#pragma mark -
 
 static void exp_instance_paint(t_object *z, t_object *view)
 {
@@ -290,7 +385,6 @@ static void exp_instance_paint(t_object *z, t_object *view)
 static void exp_instance_free(t_exp_instance* x)
 {
     canvas_free(x->local_canvas);
-    
     
 }
 
@@ -324,13 +418,14 @@ extern "C" void setup_exp0x2einstance()
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (exp_instance_class, "bgcolor", 0, "0.75 0.75 0.75 1.");
     CLASS_ATTR_STYLE                (exp_instance_class, "bgcolor", 0, "color");
     
-    
     eclass_addmethod(exp_instance_class,(t_typ_method)(exp_instance_vis), ("vis"), A_GIMME,0);
     
     eclass_addmethod(exp_instance_class,(t_typ_method)(exp_instance_update), ("update"), A_NULL,0);
     
-    eclass_addmethod(exp_instance_class,(t_typ_method)(exp_instance_setobject), ("object"), A_GIMME,0);
+    eclass_addmethod(exp_instance_class,(t_typ_method)(exp_instance_setclass), ("class"), A_GIMME,0);
     
+    eclass_addmethod(exp_instance_class,(t_typ_method)(exp_instance_getobject), ("getobject"), A_GIMME,0);
+    eclass_addmethod(exp_instance_class,(t_typ_method)(exp_instance_setobject), ("setobject"), A_GIMME,0);
     
     eclass_addmethod(exp_instance_class, (method)(exp_instance_paint), ("paint"), A_NULL,0);
     eclass_addmethod(exp_instance_class, (method)(exp_instance_oksize), ("oksize"), A_GIMME,0);
