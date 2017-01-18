@@ -17,6 +17,7 @@
 
 static void eclass_properties_dialog(t_eclass* c);
 static void ewidget_init(t_eclass* c);
+static void eclass_attr_ceammc_setter(t_object* x, t_symbol *s, int argc, t_atom *argv);
 
 t_eclass* eclass_new(const char *name, t_typ_method newm, t_typ_method freem, size_t size, int flags, t_atomtype arg1, int arg2)
 {
@@ -301,7 +302,6 @@ void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, 
     int i;
     t_eattr* attr;
     t_eattr** attrs;
-    char getattr[MAXPDSTRING];
     if(size >= 1)
     {
         for(i = 0; i < c->c_nattr; i++)
@@ -339,14 +339,14 @@ void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, 
             attr->itemssize = 0;
 
             attrs = (t_eattr **)realloc(c->c_attr, (size_t)(c->c_nattr + 1) * sizeof(t_eattr *));
-            if(attrs)
-            {
+            if(attrs) {
+                char buf[MAXPDSTRING];
                 c->c_attr = attrs;
                 c->c_attr[c->c_nattr] = attr;
-                class_addmethod((t_class *)c, (t_method)eclass_attr_setter, gensym(attrname), A_GIMME, 0);
-                //CEAMMC
-                sprintf(getattr, "@%s?", attrname);
-                class_addmethod((t_class *)c, (t_method)eclass_attr_ceammc_getter, gensym(getattr), A_GIMME, 0);
+                sprintf(buf, "@%s", attrname);
+                class_addmethod((t_class *)c, (t_method)eclass_attr_ceammc_setter, gensym(buf), A_GIMME, 0);
+                sprintf(buf, "@%s?", attrname);
+                class_addmethod((t_class *)c, (t_method)eclass_attr_ceammc_getter, gensym(buf), A_GIMME, 0);
                 c->c_nattr++;
             }
             else
@@ -702,6 +702,7 @@ void eclass_attr_ceammc_getter(t_object* x, t_symbol *s, int a, t_atom* l)
     }
 
     char buf[MAXPDSTRING];
+    // copy property name without leading '@' char and ending '?' char
     memcpy(buf, s->s_name + 1, len - 2);
     buf[len - 2] = '\0';
     t_symbol* prop_name = gensym(buf);
@@ -709,6 +710,7 @@ void eclass_attr_ceammc_getter(t_object* x, t_symbol *s, int a, t_atom* l)
     eclass_attr_getter(x, prop_name, &argc_, &argv_);
 
     if(argc_ > 0) {
+        // copy property name without ending '?' char
         memcpy(buf, s->s_name, len - 1);
         buf[len - 1] = '\0';
         t_symbol* prop_at_name = gensym(buf);
@@ -721,6 +723,22 @@ void eclass_attr_ceammc_getter(t_object* x, t_symbol *s, int a, t_atom* l)
         buf[len - 1] = '\0';
         pd_error(x, "[%s] unknown property: %s", class_getname(x->te_pd), buf);
     }
+}
+
+static void eclass_attr_ceammc_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
+{
+    const size_t len = strlen(s->s_name);
+    if(len < 2 || len > MAXPDSTRING) {
+        pd_error(x, "[%s] invalid property name", class_getname(x->te_pd));
+        return;
+    }
+
+    char buf[MAXPDSTRING];
+    // copy property name without leading '@' char
+    memcpy(buf, s->s_name + 1, len);
+    buf[len] = '\0';
+    t_symbol* prop_name = gensym(buf);
+    eclass_attr_setter(x, prop_name, argc, argv);
 }
 
 void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
