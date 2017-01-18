@@ -125,9 +125,9 @@ void eclass_guiinit(t_eclass* c, long flags)
     CLASS_ATTR_LABEL		(c, "send", 0, "Send Symbol");
 
     // GUI always need this methods //
-    class_addmethod((t_class *)c, (t_method)ebox_attrprint,         gensym("attrprint"),    A_NULL,  0);
-    class_addmethod((t_class *)c, (t_method)ebox_output_all_attrs,   gensym("@*?"),    A_NULL,  0);          //stub
-    class_addmethod((t_class *)c, (t_method)ebox_dialog,            gensym("dialog"),       A_GIMME, 0);
+    class_addmethod((t_class *)c, (t_method)ebox_attr_dump,         gensym("dump"),   A_NULL,  0);
+    class_addmethod((t_class *)c, (t_method)ebox_output_all_attrs,  gensym("@*?"),    A_NULL,  0);
+    class_addmethod((t_class *)c, (t_method)ebox_dialog,            gensym("dialog"), A_GIMME, 0);
 
     class_addmethod((t_class *)c, (t_method)ebox_mouse_enter, gensym("mouseenter"), A_NULL, 0);
     class_addmethod((t_class *)c, (t_method)ebox_mouse_leave, gensym("mouseleave"), A_NULL, 0);

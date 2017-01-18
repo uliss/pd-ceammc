@@ -1075,15 +1075,45 @@ t_pd_err ebox_notify(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *
     return 0;
 }
 
-void ebox_attrprint(t_ebox* x)
+void ebox_attr_dump(t_ebox* x)
 {
-    int i;
-    t_eclass* c = eobj_getclass(x);
-    post("%s attributes :", c->c_class.c_name->s_name);
-    for(i = 0; i < c->c_nattr; i++)
-    {
+    t_object* xobj = (t_object*)(x);
+    t_class* xc = xobj->te_pd;
+    const char* name = class_getname(xc);
 
-        post("Label : \"%s\" Name : \"%s\" Type : \"%s\" Size : \"%i\"", c->c_attr[i]->label->s_name, c->c_attr[i]->name->s_name, c->c_attr[i]->type->s_name, c->c_attr[i]->size);
+    // print methods
+    for(int i = 0; i < xc->c_nmethod; i++) {
+        // ignore property methods
+        if(xc->c_methods[i].me_name->s_name[0] == '@')
+            continue;
+
+        post("[%s] method: %s", name, xc->c_methods[i].me_name->s_name);
+    }
+
+    // print xlets
+    post("[%s] inlets: %i", name, obj_ninlets(xobj));
+    post("[%s] outlets: %i", name, obj_noutlets(xobj));
+
+    // print properties
+    t_eclass* c = eobj_getclass(x);
+    for(int i = 0; i < c->c_nattr; i++) {
+        int argc = 0;
+        t_atom* argv = 0;
+        eobj_attr_getvalueof(x,  c->c_attr[i]->name, &argc, &argv);
+        if(argc && argv) {
+            char buf[MAXPDSTRING];
+            buf[0] = '\0';
+
+            for(int j = 0; j < argc; j++) {
+                char prop_buf[256];
+                atom_string(&argv[j], prop_buf, 256);
+                strcat(buf, prop_buf);
+                strcat(buf, " ");
+            }
+
+            free(argv);
+            post("[%s] property: @%s = %s", name, c->c_attr[i]->name->s_name, buf);
+        }
     }
 }
 

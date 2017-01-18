@@ -426,13 +426,13 @@ t_pd_err ebox_notify(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *
  */
 t_pd_err ebox_size_set(t_ebox *x, t_object *attr, int argc, t_atom *argv);
 
-//! The attribute print method that post all the attributes characteristics in the PD console // PRIVATE
+//! The dumps all attributes values in the PD console // PRIVATE
 /*
  * \memberof        ebox
  * \param x         The ebox
  * \return          Nothing
  */
-void ebox_attrprint(t_ebox* x);
+void ebox_attr_dump(t_ebox* x);
 
 //! The property print method that post list of the all properties to first outlet // PRIVATE
 /*
