@@ -347,8 +347,6 @@ void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, 
                 //CEAMMC
                 sprintf(getattr, "@%s?", attrname);
                 class_addmethod((t_class *)c, (t_method)eclass_attr_ceammc_getter, gensym(getattr), A_GIMME, 0);
-                sprintf(getattr, "get%s", attrname);
-                class_addmethod((t_class *)c, (t_method)eclass_attr_getter, gensym(getattr), A_GIMME, 0);
                 c->c_nattr++;
             }
             else
@@ -616,12 +614,14 @@ void eclass_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)
     t_eclass* c = (t_eclass *)z->b_obj.o_obj.te_g.g_pd;
 
     if (argc == NULL) {
-        pd_error(x, "[eclass_attr_getter] null argc pointer given");
+        pd_error(x, "[%s] null argc pointer given", class_getname(x->te_pd));
         return;
     }
 
-    if(*argv && *argc)
-        free(argv);
+    if(*argv) {
+        pd_error(x, "[%s] invalid argv pointer given", class_getname(x->te_pd));
+        return;
+    }
 
     *argc = 0;
 
@@ -691,13 +691,13 @@ void eclass_attr_ceammc_getter(t_object* x, t_symbol *s, int a, t_atom* l)
     t_atom *argv_ = NULL;
     t_ebox* z   = (t_ebox *)x;
     if (!z->b_obj.o_obj.te_outlet) {
-        pd_error(x, "[eclass_attr_ceammc_getter] class has no outlets.");
+        pd_error(x, "[%s] class has no outlets.", class_getname(x->te_pd));
         return;
     }
 
     const size_t len = strlen(s->s_name);
     if(len < 3 || len > MAXPDSTRING) {
-        pd_error(x, "[eclass_attr_ceammc_getter] invalid property name");
+        pd_error(x, "[%s] invalid property name", class_getname(x->te_pd));
         return;
     }
 

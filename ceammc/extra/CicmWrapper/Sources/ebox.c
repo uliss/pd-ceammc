@@ -829,18 +829,15 @@ void ebox_dosave(t_ebox* x, t_binbuf *b)
     {
         state = canvas_suspend_dsp();
         binbuf_addv(b, (char *)"ssiis", &s__X, s_obj, (int)x->b_obj.o_obj.te_xpix, (int)x->b_obj.o_obj.te_ypix, eobj_getclassname(x));
-        for(i = 0; i < c->c_nattr; i++)
-        {
-            if(c->c_attr[i] && c->c_attr[i]->save && c->c_attr[i]->name)
-            {
+        for(i = 0; i < c->c_nattr; i++) {
+            if(c->c_attr[i] && c->c_attr[i]->save && c->c_attr[i]->name) {
+                argc = 0;
+                argv = NULL;
                 eobj_attr_getvalueof(x, c->c_attr[i]->name, &argc, &argv);
-                if(argc && argv)
-                {
+                if(argc && argv) {
                     snprintf(attr_name, MAXPDSTRING, "@%s", c->c_attr[i]->name->s_name);
-                    binbuf_append_attribute(b, gensym(attr_name), argc, argv);
-                    argc = 0;
+                    binbuf_append_attribute(b, gensym(attr_name), argc, argv); 
                     free(argv);
-                    argv = NULL;
                 }
             }
         }
@@ -1119,11 +1116,12 @@ void ebox_properties(t_ebox *x, t_glist *glist)
     {
         if(!c->c_attr[i]->invisible)
         {
+            argv = 0;
+            argc = 0;
             eobj_attr_getvalueof(x, c->c_attr[i]->name, &argc, &argv);
             strncat(buffer, " ", 1);
             strncat(buffer, "\"", 1);
-            if(argc && argv)
-            {
+            if(argc && argv) {
 #ifndef _WINDOWS
                 for(j = 0; j < argc-1; j++)
 #else
@@ -1159,7 +1157,6 @@ void ebox_properties(t_ebox *x, t_glist *glist)
                     strncat(buffer, temp, lenght);
                 }
                 free(argv);
-                argc = 0;
 #endif
             }
             strncat(buffer, "\"", 1);
@@ -1175,7 +1172,7 @@ void ebox_dialog(t_ebox *x, t_symbol *s, int argc, t_atom *argv)
     int i, lenght;
     int attrindex;
     t_eclass* c = eobj_getclass(x);
-    t_atom *av;
+    t_atom *av = NULL;
     int ac;
     char buffer[MAXPDSTRING];
     char temp[MAXPDSTRING];
@@ -1189,11 +1186,11 @@ void ebox_dialog(t_ebox *x, t_symbol *s, int argc, t_atom *argv)
             attrindex = (int)atom_getfloat(argv+1) - 1;
             if(attrindex >= 0 && attrindex < c->c_nattr)
             {
+                av = 0;
+                ac = 0;
                 eobj_attr_getvalueof((t_object *)x, c->c_attr[attrindex]->name, &ac, &av);
-                if(ac && av)
-                {
-                    if(c->c_attr[attrindex]->style == gensym("checkbutton"))
-                    {
+                if(ac && av) {
+                    if(c->c_attr[attrindex]->style == gensym("checkbutton")) {
                         if(atom_getfloat(av) == 0)
                             sys_vgui("%s.sele%i.selec deselect \n", atom_getsymbol(argv)->s_name, attrindex+1);
                         else
@@ -1233,6 +1230,8 @@ void ebox_dialog(t_ebox *x, t_symbol *s, int argc, t_atom *argv)
                         sys_vgui("%s.sele%i.selec insert 0 \"%s\" \n", atom_getsymbol(argv)->s_name, attrindex+1, buffer);
 
                     }
+
+                    free(av);
                 }
 
             }
