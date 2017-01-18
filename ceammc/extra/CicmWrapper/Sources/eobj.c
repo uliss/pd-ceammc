@@ -14,6 +14,8 @@
 
 static t_eproxy* eproxy_new(void *owner, t_symbol* s);
 static void eproxy_free(void *owner, t_eproxy* proxy);
+void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom* argv);
+void eclass_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv);
 
 void *eobj_new(t_eclass *c)
 {
@@ -246,22 +248,12 @@ void eobj_attrprocess_viabinbuf(void *x, t_binbuf *d)
 
 void eobj_attr_setvalueof(void *x, t_symbol* s, int argc, t_atom *argv)
 {
-    t_typ_method setvalue = (t_typ_method)getfn((t_pd *)x, s);
-    setvalue(x, s, argc, argv);
+    eclass_attr_setter((t_object*) x, s, argc, argv);
 }
 
 void eobj_attr_getvalueof(void *x, t_symbol *s, int *argc, t_atom **argv)
 {
-    char realname[MAXPDSTRING];
-    t_typ_method getvalue = NULL;
-    sprintf(realname, "get%s", s->s_name);
-    argc[0] = 0;
-    argv[0] = NULL;
-    getvalue = (t_typ_method)getfn((t_pd *)x, gensym(realname));
-    if(getvalue)
-    {
-        getvalue(x, s, argc, argv);
-    }
+    eclass_attr_getter((t_object*) x, s, argc, argv);
 }
 
 
