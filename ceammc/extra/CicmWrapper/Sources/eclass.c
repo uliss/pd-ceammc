@@ -626,64 +626,66 @@ void eclass_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)
     *argc = 0;
 
     for(i = 0; i < c->c_nattr; i++) {
-        if(c->c_attr[i]->name == s) {
-            t_symbol* type = c->c_attr[i]->type;
-            if(c->c_attr[i]->sizemax == 0)
-                *argc = (int)c->c_attr[i]->size;
-            else
-            {
-                point = (char *)x + c->c_attr[i]->size;
-                *argc = (int)point[0];
-                if(*argc > c->c_attr[i]->sizemax)
-                    *argc = (int)c->c_attr[i]->sizemax;
-            }
+        if(c->c_attr[i]->name != s)
+            continue;
 
-            point = (char *)x + c->c_attr[i]->offset;
+        t_symbol* type = c->c_attr[i]->type;
+        if(c->c_attr[i]->sizemax == 0) {
+            *argc = (int)c->c_attr[i]->size;
+        }
+        else {
+            point = (char *)x + c->c_attr[i]->size;
+            *argc = (int)point[0];
+            if(*argc > c->c_attr[i]->sizemax)
+                *argc = (int)c->c_attr[i]->sizemax;
+        }
 
-            argv[0] = (t_atom *)calloc((size_t)*argc, sizeof(t_atom));
-            if(c->c_attr[i]->getter) {
-                c->c_attr[i]->getter(x, c->c_attr[i], argc, argv);
+        point = (char *)x + c->c_attr[i]->offset;
+
+        argv[0] = (t_atom *)calloc((size_t)*argc, sizeof(t_atom));
+        if(c->c_attr[i]->getter) {
+            c->c_attr[i]->getter(x, c->c_attr[i], argc, argv);
+        }
+        else if(type == s_int) {
+            for(j = 0; j < *argc; j++) {
+                atom_setlong(argv[0]+j, ((int *)point)[j]);
             }
-            else if(type == s_int) {
-                for(j = 0; j < *argc; j++) {
-                    atom_setlong(argv[0]+j, ((int *)point)[j]);
-                }
+        }
+        else if(type == s_long) {
+            for(j = 0; j < *argc; j++) {
+                atom_setlong(argv[0]+j, ((long *)point)[j]);
             }
-            else if(type == s_long) {
-                for(j = 0; j < *argc; j++) {
-                    atom_setlong(argv[0]+j, ((long *)point)[j]);
-                }
+        }
+        else if(type == &s_float) {
+            for(j = 0; j < *argc; j++) {
+                atom_setfloat(argv[0]+j, ((float *)point)[j]);
             }
-            else if(type == &s_float) {
-                for(j = 0; j < *argc; j++) {
-                    atom_setfloat(argv[0]+j, ((float *)point)[j]);
-                }
+        }
+        else if(type == s_double) {
+            for(j = 0; j < *argc; j++) {
+                atom_setfloat(argv[0]+j, (float)(((double *)point)[j]));
             }
-            else if(type == s_double) {
-                for(j = 0; j < *argc; j++) {
-                    atom_setfloat(argv[0]+j, (float)(((double *)point)[j]));
-                }
-            }
-            else if(type == &s_symbol) {
-                t_symbol** syms = (t_symbol **)point;
-                for(j = 0; j < *argc; j++) {
-                    if(syms[j])
-                    {
-                        atom_setsym(argv[0]+j, gensym(syms[j]->s_name));
-                    }
-                }
-            }
-            else if(type == s_atom)
-            {
-                for(j = 0; j < *argc; j++) {
-                    argv[0][j] = ((t_atom *)point)[j];
+        }
+        else if(type == &s_symbol) {
+            t_symbol** syms = (t_symbol **)point;
+            for(j = 0; j < *argc; j++) {
+                if(syms[j])
+                {
+                    atom_setsym(argv[0]+j, gensym(syms[j]->s_name));
                 }
             }
         }
+        else if(type == s_atom) {
+            for(j = 0; j < *argc; j++) {
+                argv[0][j] = ((t_atom *)point)[j];
+            }
+        }
+
+        break;
     }
 }
 
-void eclass_attr_ceammc_getter(t_object* x, t_symbol *s, int argc, t_atom* argv)
+void eclass_attr_ceammc_getter(t_object* x, t_symbol *s, int a, t_atom* l)
 {
     int argc_ = 0;
     t_atom *argv_ = NULL;
@@ -699,17 +701,26 @@ void eclass_attr_ceammc_getter(t_object* x, t_symbol *s, int argc, t_atom* argv)
         return;
     }
 
-    char *name = (char*)malloc(sizeof(char)*len);
-    char *name2 = (char*)malloc(sizeof(char)*len);
-    memcpy(name, s->s_name+1, len-2);
-    memcpy(name2, s->s_name, len-1);
-    name[len - 2] = '\0';
-    name2[len - 1] = '\0';
+    char buf[MAXPDSTRING];
+    memcpy(buf, s->s_name + 1, len - 2);
+    buf[len - 2] = '\0';
+    t_symbol* prop_name = gensym(buf);
+    // NOTE: argv points to allocated array
+    eclass_attr_getter(x, prop_name, &argc_, &argv_);
 
-    eclass_attr_getter(x, gensym(name), &argc_, &argv_);
-    outlet_anything(z->b_obj.o_obj.te_outlet, gensym(name2), argc_, argv_);
-    free(name);
-    free(name2);
+    if(argc_ > 0) {
+        memcpy(buf, s->s_name, len - 1);
+        buf[len - 1] = '\0';
+        t_symbol* prop_at_name = gensym(buf);
+        outlet_anything(z->b_obj.o_obj.te_outlet, prop_at_name, argc_, argv_);
+        // free memory allocated in eclass_attr_getter()
+        free(argv_);
+    }
+    else {
+        memcpy(buf, s->s_name, len - 1);
+        buf[len - 1] = '\0';
+        pd_error(x, "[%s] unknown property: %s", class_getname(x->te_pd), buf);
+    }
 }
 
 void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
