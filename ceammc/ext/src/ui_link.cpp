@@ -14,6 +14,7 @@
 
 #include <string>
 #include <iostream>
+#include <sstream>
 
 struct ui_link : public ceammc_gui::BaseGuiObject
 {
