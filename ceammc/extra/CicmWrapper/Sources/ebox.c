@@ -1089,16 +1089,27 @@ void ebox_attrprint(t_ebox* x)
 
 void ebox_attrceammcprint(t_ebox* x)
 {
-    //stub
-    
-    int i;
-    t_eclass* c = eobj_getclass(x);
-    post("%s attributes :", c->c_class.c_name->s_name);
-    for(i = 0; i < c->c_nattr; i++)
-    {
-        
-        post("@%s : type: %s size: %i", c->c_attr[i]->name->s_name, c->c_attr[i]->type->s_name, c->c_attr[i]->size);
+    if (!x->b_obj.o_obj.te_outlet) {
+        pd_error(x, "[%s] object has no outlets.", class_getname(((t_object*)x)->te_pd));
+        return;
     }
+
+    t_eclass* c = eobj_getclass(x);
+    int argc = c->c_nattr;
+    if(argc < 1) {
+        post("[%s] no properties", class_getname(((t_object*)x)->te_pd));
+        return;
+    }
+
+    char buf[MAXPDSTRING];
+    t_atom* argv = (t_atom*) malloc(argc * sizeof(t_atom));
+    for(int i = 0; i < c->c_nattr; i++) {
+        sprintf(buf, "@%s", c->c_attr[i]->name->s_name);
+        atom_setsym(&argv[i], gensym(buf));
+    }
+
+    outlet_anything(x->b_obj.o_obj.te_outlet, gensym("@*"), argc, argv);
+    free(argv);
 }
 
 void ebox_properties(t_ebox *x, t_glist *glist)

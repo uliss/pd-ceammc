@@ -426,10 +426,6 @@ t_pd_err ebox_notify(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *
  */
 t_pd_err ebox_size_set(t_ebox *x, t_object *attr, int argc, t_atom *argv);
 
-// CEAMMC test:
-t_pd_err ebox_size_get(t_ebox *x, t_object *attr, int argc, t_atom *argv);
-
-
 //! The attribute print method that post all the attributes characteristics in the PD console // PRIVATE
 /*
  * \memberof        ebox
