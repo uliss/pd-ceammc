@@ -657,7 +657,7 @@ void ebox_mouse_move(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
                         atom_setfloat(av+1, mouse.y);
                     }
                 }
-                mess3((t_pd *)x, s_size,  s_size, (void *)2, (void *)av);
+                mess3((t_pd *)x, s_attr_size, s_attr_size, (void *)2, (void *)av);
             }
         }
         else

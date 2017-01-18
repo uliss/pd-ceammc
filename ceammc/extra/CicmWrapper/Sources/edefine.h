@@ -91,6 +91,8 @@ extern t_symbol* s_double;
 extern t_symbol* s_pinned;
 //! The pre-defined s_iscicm t_symbol*
 extern t_symbol* s_iscicm;
+//! The pre-defined attr_size t_symbol*
+extern t_symbol* s_attr_size;
 
 //! @cond
 typedef struct _namelist    /* element in a linked list of stored strings */
