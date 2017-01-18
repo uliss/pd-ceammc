@@ -32,6 +32,7 @@
         </outlets>
         <example>
             <pdascii>
+
 <![CDATA[
 [1 0 0( [dump(  [3 0 0(
 |       |       |
@@ -44,4 +45,3 @@
         </example>
     </object>
 </pddoc>
-

@@ -75,7 +75,7 @@ using namespace rapidjson;
 static inline Document* cmJSONFromAtom(Atom atom, Document::AllocatorType& allocator)
 {
     Document *ret = new Document;
-    
+
     if (atom.isSymbol())
     {
         ret->SetString(atom.asString().c_str(), (int)atom.asString().size(), allocator);
@@ -88,86 +88,87 @@ static inline Document* cmJSONFromAtom(Atom atom, Document::AllocatorType& alloc
     {
         ret->SetFloat(atom.asFloat());
     }
-    
+
     return ret;
-    
+
 }
 
 static inline void cmJSONFromAtomList(Document *doc, AtomList list)
 {
     Document::AllocatorType& allocator = doc->GetAllocator();
-    
+
     Value arr;
     arr.SetArray();
-    
+
     for (int i=1; i<list.size();i++)    //iterator!
     {
         Atom a = list.at(i);
         arr.PushBack(*cmJSONFromAtom(a, allocator), allocator);
-        
+
     }
-    
+
     Value *vKey = new Value;
-    
+
     vKey->SetString(list.at(0).asString().c_str() , (int)(list.at(0).asString().size()), allocator );
-    
+
     if (doc->HasMember(*vKey))
     {
         doc->RemoveMember(*vKey);
     }
-    
+
     doc->AddMember( *vKey , arr, allocator);
-    
+
 }
+
 
 static inline AtomList cmAtomListFromJSON(Document *doc, std::string key)
 {
     AtomList list;
-    
+
     Document::AllocatorType& allocator = doc->GetAllocator();
-    
+
     Value *vKey = new Value;
-    
+
     vKey->SetString(key.c_str() , (int)(key.size()), allocator );
-    
-    
+
+
     Value::ConstMemberIterator itr = doc->FindMember(*vKey);
     if (itr != doc->MemberEnd())
     {
         const Value& arr  = itr->value;
-        
+
         if (arr.IsArray())
         {
             for (int i=0; i<arr.Size(); i++)
             {
                 Atom a;
-                
+
                 if (arr[i].IsString())
                 {
                     a = Atom( gensym(arr[i].GetString()) );
-                    
+
                     list.append(a);
-                    
+
                 }
-                
+
                 if (arr[i].IsFloat())
                 {
                     a= Atom( (arr[i].GetFloat()) );
-                    
+
                     list.append(a);
                 }
-                
+
                 if (arr[i].IsInt())
                 {
                     a = Atom( (arr[i].GetInt()) );
-                    
+
                     list.append(a);
                 }
             }
         }
         else
         {
-            
+
             error("bad array");
             error("type: %d",arr.GetType());
         }
@@ -176,7 +177,7 @@ static inline AtomList cmAtomListFromJSON(Document *doc, std::string key)
     {
         error("key not found");
     }
-    
+
     return list;
 }
 
