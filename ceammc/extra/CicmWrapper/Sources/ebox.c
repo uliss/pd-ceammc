@@ -1087,7 +1087,7 @@ void ebox_attrprint(t_ebox* x)
     }
 }
 
-void ebox_attrceammcprint(t_ebox* x)
+void ebox_output_all_attrs(t_ebox* x)
 {
     if (!x->b_obj.o_obj.te_outlet) {
         pd_error(x, "[%s] object has no outlets.", class_getname(((t_object*)x)->te_pd));
