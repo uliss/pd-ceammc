@@ -61,4 +61,97 @@ TEST_CASE("timeline", "[ceammc::timelime]")
             REQUIRE(c1 < c2);
         }
     }
+
+    SECTION("CueStorage")
+    {
+        t_canvas* cnv = 0;
+        t_object* obj1 = 0;
+        CueData c1(cnv, obj1);
+        REQUIRE(CueStorage::cueCount(cnv) == 0);
+        REQUIRE_FALSE(CueStorage::exists(cnv));
+        REQUIRE_FALSE(CueStorage::exists(c1));
+        REQUIRE(CueStorage::index(c1) == -1);
+        REQUIRE(CueStorage::at(cnv, 0) == 0);
+        CueStorage::sort(cnv);
+        CueStorage::enumerate(cnv);
+        REQUIRE(CueStorage::index(c1) == -1);
+
+        CueStorage::add(c1);
+        REQUIRE(CueStorage::cueCount(cnv) == 1);
+        REQUIRE(CueStorage::exists(cnv));
+        REQUIRE(CueStorage::exists(c1));
+        REQUIRE(CueStorage::index(c1) == 0);
+        REQUIRE(*CueStorage::at(cnv, 0) == c1);
+        REQUIRE(CueStorage::at(cnv, 1) == 0);
+        REQUIRE(CueStorage::at(cnv, 0)->name() == "cue_0");
+        CueStorage::sort(cnv);
+        CueStorage::enumerate(cnv);
+        REQUIRE(CueStorage::at(cnv, 0)->name() == "cue_0");
+        REQUIRE(CueStorage::index(c1) == 0);
+
+        CueStorage::add(c1);
+        REQUIRE(CueStorage::cueCount(cnv) == 1);
+        REQUIRE(CueStorage::exists(cnv));
+        REQUIRE(CueStorage::exists(c1));
+        REQUIRE(CueStorage::index(c1) == 0);
+        CueStorage::sort(cnv);
+        CueStorage::enumerate(cnv);
+        REQUIRE(CueStorage::at(cnv, 0)->name() == "cue_0");
+        REQUIRE(CueStorage::index(c1) == 0);
+
+        CueData c2(cnv, (t_object*)100);
+
+        CueStorage::add(c2);
+        REQUIRE(CueStorage::cueCount(cnv) == 2);
+        REQUIRE(CueStorage::exists(cnv));
+        REQUIRE(CueStorage::exists(c1));
+        REQUIRE(CueStorage::exists(c2));
+        REQUIRE(CueStorage::index(c1) == 0);
+        REQUIRE(CueStorage::index(c2) == 1);
+        REQUIRE(CueStorage::at(cnv, 0)->name() == "cue_0");
+        REQUIRE(CueStorage::at(cnv, 1)->name() == "cue_1");
+        CueStorage::sort(cnv);
+        CueStorage::enumerate(cnv);
+        REQUIRE(*CueStorage::at(cnv, 0) == c1);
+        REQUIRE(*CueStorage::at(cnv, 1) == c2);
+        REQUIRE(CueStorage::at(cnv, 0)->name() == "cue_0");
+        REQUIRE(CueStorage::at(cnv, 1)->name() == "cue_1");
+
+        CueStorage::at(cnv, 0)->setXPos(10);
+        CueStorage::at(cnv, 1)->setXPos(20);
+        CueStorage::sort(cnv);
+        REQUIRE(*CueStorage::at(cnv, 0) == c1);
+        REQUIRE(*CueStorage::at(cnv, 1) == c2);
+        REQUIRE(CueStorage::at(cnv, 0)->name() == "cue_0");
+        REQUIRE(CueStorage::at(cnv, 1)->name() == "cue_1");
+
+        CueStorage::at(cnv, 0)->setXPos(20);
+        CueStorage::at(cnv, 1)->setXPos(10);
+        CueStorage::sort(cnv);
+        REQUIRE(*CueStorage::at(cnv, 1) == c1);
+        REQUIRE(*CueStorage::at(cnv, 0) == c2);
+        REQUIRE(CueStorage::at(cnv, 0)->name() == "cue_1");
+        REQUIRE(CueStorage::at(cnv, 1)->name() == "cue_0");
+        CueStorage::enumerate(cnv);
+        REQUIRE(CueStorage::at(cnv, 0)->name() == "cue_0");
+        REQUIRE(CueStorage::at(cnv, 1)->name() == "cue_1");
+
+        CueData c3(cnv, (t_object*)111);
+        c3.setXPos(-100);
+        CueStorage::add(c3);
+        REQUIRE(*CueStorage::at(cnv, 0) == c3);
+        REQUIRE(CueStorage::at(cnv, 0)->name() == "cue_0");
+
+        CueStorage::remove(c3);
+        CueStorage::remove(c1);
+        REQUIRE_FALSE(CueStorage::exists(c1));
+        REQUIRE_FALSE(CueStorage::exists(c3));
+        REQUIRE(CueStorage::exists(c2));
+        REQUIRE(CueStorage::cueCount(cnv) == 1);
+        REQUIRE(*CueStorage::at(cnv, 0) == c2);
+        REQUIRE(CueStorage::at(cnv, 0)->name() == "cue_0");
+
+        CueStorage::remove(c2);
+        REQUIRE_FALSE(CueStorage::exists(cnv));
+    }
 }

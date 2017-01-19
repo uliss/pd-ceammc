@@ -56,10 +56,12 @@ namespace tl {
         static void add(const CueData& c);
         static void remove(const CueData& c);
         static int index(const CueData& c);
+        static CueData* at(t_canvas* cnv, size_t pos);
         static bool exists(const CueData& c);
         static bool exists(t_canvas* cnv);
         static void sort(t_canvas* cnv);
         static void enumerate(t_canvas* cnv);
+        static size_t cueCount(t_canvas* cnv);
 
     private:
         static CueList* cueList(t_canvas* c);
