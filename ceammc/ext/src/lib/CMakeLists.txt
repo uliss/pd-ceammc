@@ -25,3 +25,11 @@ add_library(ceammc_static STATIC ceammc.c
 set_target_properties(ceammc_static PROPERTIES
     COMPILE_FLAGS "${FLAGS}" LINK_FLAGS "${FLAGS}")
 
+
+# timeline library
+add_library(ceammc_timeline STATIC
+    ceammc_timeline.cpp)
+
+set_target_properties(ceammc_timeline PROPERTIES
+    COMPILE_FLAGS "${FLAGS}" LINK_FLAGS "${FLAGS}")
+
