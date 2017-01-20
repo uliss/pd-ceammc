@@ -295,7 +295,7 @@ static void exp_instance_vis(t_exp_instance* x, t_symbol*, int argc, t_atom* arg
 
 static void exp_instance_any(t_exp_instance* x, t_symbol*s, int argc, t_atom* argv)
 {
-    if (argc<2) return;
+    if (argc<1) return;
     AtomList list = Atom(s);
     list.append(AtomList(argc,argv));
     
