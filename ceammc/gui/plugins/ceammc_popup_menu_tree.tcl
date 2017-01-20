@@ -69,7 +69,7 @@
         {data.fifo}
     }
     {global/local
-        {global.list global.float global.int local.list}
+        {global.list global.float global.int local.list local.float local.int}
     }
     {pass/reject
         {pass.changed reject.if reject.this}

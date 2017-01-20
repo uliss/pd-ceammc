@@ -164,6 +164,9 @@ using namespace ceammc;
 //
 //}
 
+
+
+
 static void exp_class_read(t_exp_class* x, t_symbol*, int argc, t_atom* argv)
 {
     if (argc<1) {error("specify file name"); return;}
@@ -187,7 +190,6 @@ static void exp_class_read(t_exp_class* x, t_symbol*, int argc, t_atom* argv)
     int blen=0;
     char *bchar;
     binbuf_gettext(b, &bchar, &blen);
-    
     
     //    int natoms = binbuf_getnatom(b);
     //    t_atom* vec = binbuf_getvec(b);
@@ -391,6 +393,7 @@ extern "C" void setup_exp0x2eclass()
     eclass_addmethod(exp_class_class, (t_typ_method)(exp_class_write), ("writeclass"), A_GIMME, 0);
     
     eclass_addmethod(exp_class_class, (t_typ_method)exp_class_dblclick, ("dblclick"), A_NULL, 0);
+    
     
     //eclass_addmethod(exp_class_class, (t_typ_method)exp_class_dblclick, ("dblclick"), A_NULL, 0);
     

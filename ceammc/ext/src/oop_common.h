@@ -140,6 +140,34 @@ public:
         }
     }
     
+    AtomList getMethodList()
+    {
+        AtomList ret;
+        
+        //this->methodOutputs[methodName]
+        
+        for (std::map<t_symbol*,multiOutput>::iterator it = this->methodOutputs.begin(); it != this->methodOutputs.end(); ++it)
+        {
+            ret.append(Atom(it->first));
+        }
+        
+        return ret;
+    }
+    
+    AtomList getPropertyList()
+    {
+        AtomList ret;
+        
+        //this->methodOutputs[methodName]
+        
+        for (std::map<t_symbol*,multiProperty>::iterator it = this->instancePropertyBoxes.begin(); it != this->instancePropertyBoxes.end(); ++it)
+        {
+            ret.append(Atom(it->first));
+        }
+        
+        return ret;
+    }
+    
 } ;
 typedef GlobalData<t_instance> oPDInstance;
 

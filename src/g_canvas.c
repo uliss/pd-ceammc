@@ -642,7 +642,7 @@ EXTERN void canvas_drawgrid(t_canvas *x)
     int grid_h =  x->gl_screeny2 - x->gl_screeny1;
 
 
-    printf("grid %d %d\n", grid_w, grid_h);
+    //printf("grid %d %d\n", grid_w, grid_h);
     
     t_glist *c = glist_getcanvas(x);
 
