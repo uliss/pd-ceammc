@@ -28,7 +28,7 @@ namespace ceammc_gui {
         t_rgba border_color;
         t_rgba bg_color;
         
-        std::string cue_name;
+        std::string* cue_name;
     };
     
 #pragma mark -
@@ -91,11 +91,11 @@ namespace ceammc_gui {
             int cue_idx = tll_cue_getnumber((t_object *)z);
             char cuename[10];
             sprintf(cuename, "cue_%d", cue_idx);
-            zx->cue_name = cuename;
+            *zx->cue_name = cuename;
             
             //
             
-            etext_layout_set(zx->txt, zx->cue_name.c_str(), zx->fnt, 2, 15, rect.width, rect.height/2, ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
+            etext_layout_set(zx->txt, zx->cue_name->c_str(), zx->fnt, 2, 15, rect.width, rect.height/2, ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
             etext_layout_draw(zx->txt, g);
             
             //get layer / egraphics?
@@ -195,7 +195,7 @@ namespace ceammc_gui {
         
         zx->canvas = canvas_getcurrent();
         
-        zx->cue_name = "cue_x";
+        zx->cue_name = new std::string("cue_x");
         
         //
         tll_cue_add((t_object*)z, zx->b_box.b_rect.x);
@@ -236,10 +236,3 @@ extern "C" void setup_tl0x2ecue()
     tll_set_ui_drawcue(tl_cue_draw);
     class1.setup_noin("tl.cue");
 }
-
-
-
-
-
-
-
