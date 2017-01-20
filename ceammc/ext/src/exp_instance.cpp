@@ -175,6 +175,32 @@ static void exp_instance_getobject(t_exp_instance* x, t_symbol*s, int argc, t_at
 }
 
 #pragma mark -
+static void exp_instance_getproperty(t_exp_instance* x, t_symbol*id, int argc, t_atom* argv)
+{
+    if (argc<1) return;
+    
+    Atom a = argv[0];
+    if (!a.isSymbol()) {error("bad property name"); return;}
+    
+    AtomList list = AtomList(argc, argv);
+    x->instance->ref().callGetter(list);
+    
+}
+
+static void exp_instance_setproperty(t_exp_instance* x, t_symbol*id, int argc, t_atom* argv)
+{
+    if (argc<1) return;
+    
+    Atom a = argv[0];
+    if (!a.isSymbol()) {error("bad property name"); return;}
+    
+    AtomList list = AtomList(argc, argv);
+    x->instance->ref().callSetter(list);
+    
+}
+
+
+#pragma mark -
 
 static void exp_instance_setclass(t_exp_instance* x, t_symbol*id, int argc, t_atom* argv)
 {
@@ -295,7 +321,7 @@ static void exp_instance_vis(t_exp_instance* x, t_symbol*, int argc, t_atom* arg
 
 static void exp_instance_any(t_exp_instance* x, t_symbol*s, int argc, t_atom* argv)
 {
-    if (argc<1) return;
+    //if (argc<1) return;
     AtomList list = Atom(s);
     list.append(AtomList(argc,argv));
     
@@ -379,6 +405,9 @@ extern "C" void setup_exp0x2einstance()
     
     eclass_addmethod(exp_instance_class,(t_typ_method)(exp_instance_getobject), ("getobject"), A_GIMME,0);
     eclass_addmethod(exp_instance_class,(t_typ_method)(exp_instance_setobject), ("setobject"), A_GIMME,0);
+    
+    eclass_addmethod(exp_instance_class,(t_typ_method)(exp_instance_getproperty), ("getp"), A_GIMME,0);
+    eclass_addmethod(exp_instance_class,(t_typ_method)(exp_instance_setproperty), ("setp"), A_GIMME,0);
     
     eclass_addmethod(exp_instance_class, (method)(exp_instance_paint), ("paint"), A_NULL,0);
     eclass_addmethod(exp_instance_class, (method)(exp_instance_oksize), ("oksize"), A_GIMME,0);

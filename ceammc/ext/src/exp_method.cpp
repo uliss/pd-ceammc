@@ -4,6 +4,7 @@
 
 t_eclass* exp_method_class;
 
+using namespace ceammc;
 
 //////////////
 
@@ -45,7 +46,7 @@ static void *exp_method_new(t_symbol *id, int argc, t_atom *argv)
             
         }
         
-        ceammc::Atom a = (argv[0]);
+        Atom a = (argv[0]);
         x->method_name = a.asSymbol();
         
         std::string str = to_string(x->parent_canvas);
@@ -75,7 +76,9 @@ static void exp_method_any(t_exp_method* x, t_symbol*id, int argc, t_atom* argv)
 {
       if (x->instance)
       {
-          ceammc::AtomList list(argc,argv);
+          AtomList list((Atom(id)));
+          AtomList list2(argc,argv);
+          list.append(list2);
           x->instance->ref().multipleOutput(list);
 
       }

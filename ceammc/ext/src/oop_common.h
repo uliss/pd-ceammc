@@ -23,15 +23,19 @@
 #include <algorithm>
 
 
-typedef std::vector<t_outlet*> multiOutput;
+using namespace ceammc;
 
-typedef ceammc::GlobalData<t_canvas*> oPDClass;
+typedef std::vector<t_outlet*> multiOutput;
+typedef std::vector<t_object*> multiProperty;
+
+typedef GlobalData<t_canvas*> oPDClass;
 
 class t_instance
 {
 private:
     std::map<t_symbol*,multiOutput> methodOutputs;
     multiOutput instanceOutputs;
+    std::map<t_symbol*,multiProperty> instancePropertyBoxes;
     
 public:
     std::string class_name;
@@ -49,6 +53,15 @@ public:
         this->methodOutputs.erase(methodName);
     }
     
+    void addPropertyBox(t_symbol* pMethodName, t_object *object)
+    {
+        this->instancePropertyBoxes[pMethodName].push_back(object);
+    }
+    void freePropertyBox(t_symbol* pMethodName)
+    {
+        this->instancePropertyBoxes.erase(pMethodName);
+    }
+    
     void addInstanceOut(t_outlet *outlet)
     {
         this->instanceOutputs.push_back(outlet);
@@ -59,7 +72,7 @@ public:
     }
     
     //
-    void multipleOutput(ceammc::AtomList list)
+    void multipleOutput(AtomList list)
     {
         
         for (multiOutput::iterator it =this->instanceOutputs.begin(); it!=this->instanceOutputs.end(); ++it)
@@ -69,12 +82,12 @@ public:
         
     }
     
-    void callMethod(ceammc::AtomList list)
+    void callMethod(AtomList list)
     {
         //post("call method %s", list[0].asString().c_str());
         t_symbol *method_name = list[0].asSymbol();
         
-        ceammc::AtomList subList = list.subList(1, list.size());;
+        AtomList subList = list.subList(1, list.size());;
         
         multiOutput *out1 = &this->methodOutputs[method_name];
         
@@ -87,8 +100,48 @@ public:
         }
     }
     
+    void callSetter(AtomList list)
+    {
+        //post("call method %s", list[0].asString().c_str());
+        t_symbol *property_name = list[0].asSymbol();
+        
+        //AtomList subList = list.subList(1, list.size());;
+        
+        multiProperty *out1 = &this->instancePropertyBoxes[property_name];
+        
+        if (out1)
+        {
+            for (multiProperty::iterator it =out1->begin(); it!=out1->end(); ++it)
+            {
+                //subList.output(*it);
+                
+                pd_typedmess((t_pd*)*it, gensym("set"), (int)list.size(), list.toPdData());
+            }
+        }
+    }
+    
+    void callGetter(AtomList list)
+    {
+        //post("call method %s", list[0].asString().c_str());
+        t_symbol *property_name = list[0].asSymbol();
+        
+        //AtomList subList = list.subList(1, list.size());;
+        
+        multiProperty *out1 = &this->instancePropertyBoxes[property_name];
+        
+        if (out1)
+        {
+            for (multiProperty::iterator it =out1->begin(); it!=out1->end(); ++it)
+            {
+                //subList.output(*it);
+                
+                pd_typedmess((t_pd*)*it, gensym("get"), (int)list.size(), list.toPdData());
+            }
+        }
+    }
+    
 } ;
-typedef ceammc::GlobalData<t_instance> oPDInstance;
+typedef GlobalData<t_instance> oPDInstance;
 
 
 #include <sstream>
@@ -121,6 +174,31 @@ static void canvas_dopaste(t_canvas *x, t_binbuf *b)
     
     //    paste_onset = nbox;
     //    paste_canvas = x;
+    
+    AtomList list;
+    //list.append(Atom(gensym("comment")));
+    //list.append(Atom(gensym("0")));
+    //list.append(Atom(gensym("0")));
+    //list.append(Atom(gensym("0 0 cnv 5 500 150 empty empty [INSTANCE] 0 18 0 24 -233017 -66577 0")));
+    
+    list.append(Atom(gensym("0")));
+    list.append(Atom(gensym("0")));
+    list.append(Atom(gensym("cnv")));
+    list.append(Atom(gensym("5")));
+    list.append(Atom(gensym("400")));
+    list.append(Atom(gensym("150")));
+    list.append(Atom(gensym("empty")));
+    list.append(Atom(gensym("empty")));
+    list.append(Atom(gensym("[INSTANCE]")));
+    list.append(Atom(gensym("0")));
+    list.append(Atom(gensym("18")));
+    list.append(Atom(gensym("0")));
+    list.append(Atom(gensym("24")));
+    list.append(Atom(gensym("0")));
+    list.append(Atom(gensym("0")));
+    list.append(Atom(gensym("0")));
+    
+    pd_typedmess((t_pd*)x, gensym("obj"), (int)list.size(), list.toPdData());
     
     binbuf_eval(b, 0, 0, 0);
     for (g2 = x->gl_list, count = 0; g2; g2 = g2->g_next, count++)
