@@ -8,10 +8,6 @@
 //
 
 //  CICM Wrapper version
-
-#include "tl_lib.hpp"
-#include <iostream>
-
 #include "ceammc_gui.h"
 #include "ceammc_timeline.h"
 
