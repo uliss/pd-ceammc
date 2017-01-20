@@ -48,7 +48,6 @@ static void* local_int_new(t_symbol* id)
     std::string name = id->s_name;
     name += buf;
     
-    
     x->x_global = new GlobalInt(name.c_str(), OBJ_NAME);
     return static_cast<void*>(x);
 }

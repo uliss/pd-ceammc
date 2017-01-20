@@ -2,23 +2,17 @@
 
 t_eclass* exp_instance_class;
 
-
-
-
 struct t_exp_instance {
-    //t_object x_obj;
-    
     t_ebox e_box;
     
-    t_canvas *parent_canvas;
+    t_canvas *parent_canvas;    //patch
     
-    t_canvas *local_canvas;
+    t_canvas *local_canvas;     //instance
     
-    oPDClass *global;
+    oPDClass *global;           //class
     std::string class_name;
     
     oPDInstance *instance;
-    //oPDInstanceClass *instance_class;
     
     t_etext *txt;
     t_efont *fnt;
@@ -27,14 +21,9 @@ struct t_exp_instance {
     t_outlet *out1;
 };
 
-
-
-
 #define OBJ_NAME "exp.instance"
 
 using namespace ceammc;
-
-
 
 static void exp_instance_delete(t_exp_instance* x)
 {
@@ -59,20 +48,16 @@ static void exp_instance_update(t_exp_instance* x, t_symbol*s, int argc, t_atom*
     {
         
         // create instance
-        
         canvas_setcurrent(x->parent_canvas);
         
         if (!x->local_canvas)
         {
             //glist_init(x->local_canvas);
-            
-            
             x->local_canvas = (t_canvas*)subcanvas_new(gensym(x->class_name.c_str())); //LISP lol
             x->local_canvas->gl_havewindow = 1;
             x->local_canvas->gl_env = 0;
             
             //x->instance->ref() = x->local_canvas;
-            
             
         }
         else
@@ -306,9 +291,7 @@ static void* exp_instance_new(t_symbol *id, int argc, t_atom *argv)
     
     if (x && d)
     {
-        
         ebox_attrprocess_viabinbuf(x, d);
-        
         
     }
     
@@ -346,8 +329,6 @@ static void exp_instance_any(t_exp_instance* x, t_symbol*s, int argc, t_atom* ar
     
     x->instance->ref().callMethod(list);
     
-    
-    
 }
 
 #pragma mark -
@@ -367,7 +348,7 @@ static void exp_instance_paint(t_object *z, t_object *view)
     if(g)
     {
         
-        printf("paint %f %f\n", rect.width, rect.height);
+        //printf("paint %f %f\n", rect.width, rect.height);
         
         etext_layout_set(zx->txt, zx->class_name.c_str(), zx->fnt, 2, 15, rect.width, rect.height/2, ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
         etext_layout_draw(zx->txt, g);
@@ -415,7 +396,6 @@ extern "C" void setup_exp0x2einstance()
     CLASS_ATTR_INVISIBLE            (exp_instance_class, "fontslant", 1);
     CLASS_ATTR_INVISIBLE            (exp_instance_class, "fontsize", 1);
     
-    
     // background / border color
     CLASS_ATTR_LABEL                (exp_instance_class, "bgcolor", 0, "Background Color");
     CLASS_ATTR_ORDER                (exp_instance_class, "bgcolor", 0, "1");
@@ -426,18 +406,22 @@ extern "C" void setup_exp0x2einstance()
     
     eclass_addmethod(exp_instance_class,(t_typ_method)(exp_instance_update), ("update"), A_NULL,0);
     
-    eclass_addmethod(exp_instance_class,(t_typ_method)(exp_instance_setclass), ("class"), A_GIMME,0);
+    eclass_addmethod(exp_instance_class,(t_typ_method)(exp_instance_setclass), ("class"), A_GIMME,0);   //will remove
+    eclass_addmethod(exp_instance_class,(t_typ_method)(exp_instance_setclass), ("new"), A_GIMME,0);
+    
+    //eclass_addmethod(exp_instance_class,(t_typ_method)(exp_instance_setclass), ("free"), A_GIMME,0);
     
     eclass_addmethod(exp_instance_class,(t_typ_method)(exp_instance_getobject), ("getobject"), A_GIMME,0);
     eclass_addmethod(exp_instance_class,(t_typ_method)(exp_instance_setobject), ("setobject"), A_GIMME,0);
     
+    //todo move to 'anything', use @prop / @prop?
     eclass_addmethod(exp_instance_class,(t_typ_method)(exp_instance_getproperty), ("getp"), A_GIMME,0);
     eclass_addmethod(exp_instance_class,(t_typ_method)(exp_instance_setproperty), ("setp"), A_GIMME,0);
     
+    eclass_addmethod(exp_instance_class, (t_typ_method)(exp_instance_any), ("anything"), A_GIMME, 0);
+    
     eclass_addmethod(exp_instance_class, (method)(exp_instance_paint), ("paint"), A_NULL,0);
     eclass_addmethod(exp_instance_class, (method)(exp_instance_oksize), ("oksize"), A_GIMME,0);
-    
-    eclass_addmethod(exp_instance_class, (t_typ_method)(exp_instance_any), ("anything"), A_GIMME, 0);
     
     eclass_addmethod(exp_instance_class, (t_typ_method)exp_instance_dblclick, ("dblclick"), A_NULL, 0);
     
