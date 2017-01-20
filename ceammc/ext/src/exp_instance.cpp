@@ -298,7 +298,7 @@ static void* exp_instance_new(t_symbol *id, int argc, t_atom *argv)
     
     
     x->txt = etext_layout_create();
-    x->fnt = efont_create(gensym("Monaco"), gensym(""), gensym("normal"), 12);
+    x->fnt = efont_create(gensym("Monaco"), gensym("normal"), gensym(""), 10);
     
     x->local_canvas = 0;
     
@@ -391,6 +391,12 @@ static void exp_instance_oksize(t_object *z, t_rect *newrect)
     newrect->height = 15;
 }
 
+static void exp_instance_dblclick(t_exp_instance* x, t_symbol* s, int argc, t_atom* argv)
+{
+    exp_instance_vis(x, 0, 1, AtomList(1, Atom(1)).toPdData());
+}
+
+
 extern "C" void setup_exp0x2einstance()
 {
     
@@ -432,6 +438,8 @@ extern "C" void setup_exp0x2einstance()
     eclass_addmethod(exp_instance_class, (method)(exp_instance_oksize), ("oksize"), A_GIMME,0);
     
     eclass_addmethod(exp_instance_class, (t_typ_method)(exp_instance_any), ("anything"), A_GIMME, 0);
+    
+    eclass_addmethod(exp_instance_class, (t_typ_method)exp_instance_dblclick, ("dblclick"), A_NULL, 0);
     
     
     

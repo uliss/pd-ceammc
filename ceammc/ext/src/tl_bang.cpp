@@ -142,7 +142,7 @@ UI_fun(tl_bang)::new_ext(t_object* z, t_symbol *s, int argc, t_atom *argv)
     tll_ui_update_pos((t_object *)z, zx->b_box.b_obj.o_obj.te_xpix);
     
     zx->txt = etext_layout_create();
-    zx->fnt = efont_create(gensym("Monaco"), gensym(""), gensym("normal"), 12);
+    zx->fnt = efont_create(gensym("Monaco"), gensym("normal"), gensym(""), 12);
     
     
 }

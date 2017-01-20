@@ -161,7 +161,7 @@ ceammc_cxx_extension(exp instance)
 ceammc_cxx_extension(exp method)
 ceammc_cxx_extension(exp aproperty)
 
-ceammc_cxx_extension(local list)
+
 
 # STREAM
 ceammc_cxx_extension(reject if)
@@ -197,11 +197,15 @@ ceammc_cxx_extension__(is pointer)
 ###############################
 
 ###############################
-# GLOBAL
+# GLOBAL / LOCAL
 ###############################
 ceammc_cxx_extension(global int)
 ceammc_cxx_extension(global float)
 ceammc_cxx_extension(global list)
+
+ceammc_cxx_extension(local list)
+ceammc_cxx_extension(local int)
+ceammc_cxx_extension(local float)
 
 ceammc_cxx_extension(prop get)
 pd_add_extension(NAME "msg" FILES "msg.cpp" INTERNAL True LIBRARY ceammc LINK ceammc_static cicm_static)

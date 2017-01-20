@@ -191,7 +191,7 @@ namespace ceammc_gui {
         tl_cue* zx = (tl_cue*)z;
         
         zx->txt = etext_layout_create();
-        zx->fnt = efont_create(gensym("Monaco"), gensym(""), gensym("normal"), 12);
+        zx->fnt = efont_create(gensym("Monaco"), gensym("normal"), gensym(""), 12);
         
         zx->canvas = canvas_getcurrent();
         
