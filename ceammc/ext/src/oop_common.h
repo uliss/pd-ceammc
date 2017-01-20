@@ -175,30 +175,7 @@ static void canvas_dopaste(t_canvas *x, t_binbuf *b)
     //    paste_onset = nbox;
     //    paste_canvas = x;
     
-    AtomList list;
-    //list.append(Atom(gensym("comment")));
-    //list.append(Atom(gensym("0")));
-    //list.append(Atom(gensym("0")));
-    //list.append(Atom(gensym("0 0 cnv 5 500 150 empty empty [INSTANCE] 0 18 0 24 -233017 -66577 0")));
     
-    list.append(Atom(gensym("0")));
-    list.append(Atom(gensym("0")));
-    list.append(Atom(gensym("cnv")));
-    list.append(Atom(gensym("5")));
-    list.append(Atom(gensym("400")));
-    list.append(Atom(gensym("150")));
-    list.append(Atom(gensym("empty")));
-    list.append(Atom(gensym("empty")));
-    list.append(Atom(gensym("[INSTANCE]")));
-    list.append(Atom(gensym("0")));
-    list.append(Atom(gensym("18")));
-    list.append(Atom(gensym("0")));
-    list.append(Atom(gensym("24")));
-    list.append(Atom(gensym("0")));
-    list.append(Atom(gensym("0")));
-    list.append(Atom(gensym("0")));
-    
-    pd_typedmess((t_pd*)x, gensym("obj"), (int)list.size(), list.toPdData());
     
     binbuf_eval(b, 0, 0, 0);
     for (g2 = x->gl_list, count = 0; g2; g2 = g2->g_next, count++)

@@ -95,9 +95,28 @@ static void exp_instance_update(t_exp_instance* x, t_symbol*s, int argc, t_atom*
         binbuf_gettext(b1, &bchar, &blen);
         
         
-        int natoms = binbuf_getnatom(b1);
-        t_atom* vec = binbuf_getvec(b1);
-        postatom(natoms, vec);
+        //int natoms = binbuf_getnatom(b1);
+        //t_atom* vec = binbuf_getvec(b1);
+        //postatom(natoms, vec);
+        
+//        AtomList list;
+//        list.append(Atom(gensym("0")));
+//        list.append(Atom(gensym("0")));
+//        list.append(Atom(gensym("cnv")));
+//        list.append(Atom(gensym("5")));
+//        list.append(Atom(gensym("300")));
+//        list.append(Atom(gensym("150")));
+//        list.append(Atom(gensym("empty")));
+//        list.append(Atom(gensym("empty")));
+//        list.append(Atom(gensym("Instance")));
+//        list.append(Atom(gensym("0")));
+//        list.append(Atom(gensym("18")));
+//        list.append(Atom(gensym("0")));
+//        list.append(Atom(gensym("24")));
+//        list.append(Atom(gensym("0")));
+//        list.append(Atom(gensym("0")));
+//        list.append(Atom(gensym("0")));
+//        pd_typedmess((t_pd*)x->local_canvas, gensym("obj"), (int)list.size(), list.toPdData());
         
         canvas_dopaste(x->local_canvas, b1);
         canvas_vis(x->local_canvas, 0);
@@ -314,7 +333,7 @@ static void exp_instance_vis(t_exp_instance* x, t_symbol*, int argc, t_atom* arg
     
     if (x->local_canvas)
     {
-        post("vis");
+        //post("vis");
         canvas_vis(x->local_canvas, (a.asInt()>0));
     }
 }
