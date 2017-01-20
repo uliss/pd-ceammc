@@ -10,7 +10,7 @@
 
 #include "lib/ceammc_gui.h"
 
-//#include "ceammc_atomlist.h"
+#include "ceammc_atomlist.h"
 //#include "ceammc_format.h"
 
 #include <map>
@@ -21,6 +21,7 @@
 //using namespace ceammc;
 
 using namespace std;
+using namespace ceammc;
 
 
 namespace ceammc_gui {
@@ -991,6 +992,109 @@ namespace ceammc_gui {
         
     }
     
+    //list sending defines
+#define e_list_clear list.clear();
+#define e_list_addf(x) a = Atom(x); list.append(a);
+    
+    void bpf_m_env(t_object *z, t_symbol *s, int argc, t_atom *argv)
+    {
+        if (argc<1) {error("bad argument");return;}
+        if (argv->a_type!= A_SYMBOL) {error("bad argument");return;}
+        
+        if (Atom(argv[0]).asString() == "adsr")
+        {
+//            ;
+//            bpf1 clear;
+//            bpf1 set_raw 1 0.25 1;
+//            bpf1 set_raw 2 0.5 0.6;
+//            bpf1 add_raw 1 0;
+//            bpf1 lock_y 0 1;
+//            bpf1 lock_y 1 1;
+//            bpf1 lock_y 3 1;
+//            bpf1 end_seg 2 1;
+//            bpf1 auto_send 1;
+//            bpf1 drag_limit 1
+            
+            AtomList list;
+            Atom a;
+            
+            //todo cleanup
+            
+            bpf_m_clear(z, 0, 0, 0);
+            
+            e_list_clear e_list_addf(1) e_list_addf(.25) e_list_addf(1)
+            bpf_m_set_raw(z, 0, (int)list.size(), list.toPdData());
+            e_list_clear e_list_addf(2) e_list_addf(.5) e_list_addf(.6)
+            bpf_m_set_raw(z, 0, (int)list.size(), list.toPdData());
+            e_list_clear e_list_addf(1) e_list_addf(0.)
+            bpf_m_add_raw(z, 0, (int)list.size(), list.toPdData());
+            e_list_clear e_list_addf(0.) e_list_addf(1)
+            bpf_m_lock_y(z, 0, (int)list.size(), list.toPdData());
+            e_list_clear e_list_addf(1.) e_list_addf(1)
+            bpf_m_lock_y(z, 0, (int)list.size(), list.toPdData());
+            e_list_clear e_list_addf(3.) e_list_addf(1)
+            bpf_m_lock_y(z, 0, (int)list.size(), list.toPdData());
+            e_list_clear e_list_addf(2) e_list_addf(1)
+            bpf_m_end_seg(z, 0, (int)list.size(), list.toPdData());
+            e_list_clear e_list_addf(1)
+            bpf_m_auto_send(z, 0, (int)list.size(), list.toPdData());
+            e_list_clear e_list_addf(1)
+            bpf_m_drag_limit(z, 0, (int)list.size(), list.toPdData());
+            
+        }
+            else if(Atom(argv[0]).asString() == "ahr")
+        {
+//            ;
+//            bpf2 clear;
+//            bpf2 set_raw 1 0.25 0.7;
+//            bpf2 set_raw 2 0.5 0.7;
+//            bpf2 add_raw 1 0;
+//            bpf2 lock_y 0 1;
+//            bpf2 lock_y 2 1;
+//            bpf2 join_next 1 1;
+//            bpf2 lock_y 3 1;
+//            bpf2 auto_send 1;
+//            bpf2 drag_limit 1
+            
+            AtomList list;
+            Atom a;
+            
+            //todo cleanup
+            bpf_m_clear(z, 0, 0, 0);
+            
+            e_list_clear e_list_addf(1) e_list_addf(.25) e_list_addf(.7)
+            bpf_m_set_raw(z, 0, (int)list.size(), list.toPdData());
+            e_list_clear e_list_addf(2) e_list_addf(.5) e_list_addf(.7)
+            bpf_m_set_raw(z, 0, (int)list.size(), list.toPdData());
+            e_list_clear e_list_addf(1) e_list_addf(0.)
+            bpf_m_add_raw(z, 0, (int)list.size(), list.toPdData());
+            e_list_clear e_list_addf(0.) e_list_addf(1)
+            bpf_m_lock_y(z, 0, (int)list.size(), list.toPdData());
+            e_list_clear e_list_addf(2.) e_list_addf(1)
+            bpf_m_lock_y(z, 0, (int)list.size(), list.toPdData());
+            e_list_clear e_list_addf(3.) e_list_addf(1)
+            bpf_m_lock_y(z, 0, (int)list.size(), list.toPdData());
+            e_list_clear e_list_addf(1.) e_list_addf(1)
+            bpf_m_join_next(z, 0, (int)list.size(), list.toPdData());
+            e_list_clear e_list_addf(1)
+            bpf_m_auto_send(z, 0, (int)list.size(), list.toPdData());
+            e_list_clear e_list_addf(1)
+            bpf_m_drag_limit(z, 0, (int)list.size(), list.toPdData());
+        }
+        else
+        {
+            error("bad envelope type specified: %s", ceammc::Atom(argv[0]).asString().c_str());
+        }
+        
+//        if (argv->a_type == A_FLOAT)
+//        {
+//            ui_bpfunc *zx = (ui_bpfunc*)z;
+//            zx->auto_send = (argv[0].a_w.w_float>0);
+//        }
+        
+        
+    }
+    
 #pragma mark -
 #pragma mark mouse+
     UI_fun(ui_bpfunc)::wx_mousedrag_ext(t_object *z, t_object *view, t_pt pt, long modifiers)
@@ -1194,7 +1298,7 @@ namespace ceammc_gui {
         //eclass_addmethod(z, (method)(bpf_m_set_seg), ("set_seg"), A_GIMME,0);
         //eclass_addmethod(z, (method)(bpf_m_set), ("set"), A_GIMME,0);
         
-        //eclass_addmethod(z, (method)(bpf_m_env), ("env"), A_GIMME,0);
+        eclass_addmethod(z, (method)(bpf_m_env), ("env"), A_GIMME,0);
         
         eclass_addmethod(z, (method)(bpf_m_seg_count), ("seg_count"), A_GIMME,0);
         
