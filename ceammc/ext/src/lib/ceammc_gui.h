@@ -84,6 +84,7 @@ class GuiFactory {
 public:
 #pragma mark static - definitions
     static t_eclass* pd_class;
+    static t_symbol* BG_LAYER;
 #pragma mark -
 
 #pragma mark method 'extension' stubs
@@ -285,7 +286,7 @@ public:
      */
     static void ws_redraw(t_object *z)
     {
-        ebox_invalidate_layer(reinterpret_cast<t_ebox*>(z), gensym("background_layer"));
+        ebox_invalidate_layer(reinterpret_cast<t_ebox*>(z), BG_LAYER);
         ebox_redraw(reinterpret_cast<t_ebox*>(z));
     }
     
@@ -295,22 +296,21 @@ public:
      */
     static void wx_paint(t_object *z, t_object *view)
     {
-        t_symbol *bgl = gensym("background_layer");
         //float size;
         t_rect rect;
         ebox_get_rect_for_view((t_ebox *)z, &rect);
         
-        t_elayer *g = ebox_start_layer((t_ebox *)z, bgl, rect.width, rect.height);
+        t_elayer *g = ebox_start_layer((t_ebox *)z, BG_LAYER, rect.width, rect.height);
         if(g) {
             // EXAMPLE
             //            size = rect.width * 0.5;
             //            egraphics_set_color_hex(g, gensym("#00C0FF"));
             //            egraphics_circle(g, floor(size + 0.5), floor(size + 0.5), size * 0.9);
             //            egraphics_fill(g);
-            //            ebox_end_layer((t_ebox*)x, bgl);
+            ebox_end_layer((t_ebox*)z, BG_LAYER);
         }
         
-        ebox_paint_layer((t_ebox *)z, bgl, 0., 0.);
+        ebox_paint_layer((t_ebox *)z, BG_LAYER, 0., 0.);
     }
     
     /**
@@ -546,6 +546,9 @@ public:
 
 template <typename U>
 t_eclass* GuiFactory<U>::pd_class = 0;
+
+template <typename U>
+t_symbol* GuiFactory<U>::BG_LAYER = gensym("background_layer");
 
 };  //namespace ceammc_gui
 

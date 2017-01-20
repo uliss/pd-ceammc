@@ -34,6 +34,8 @@ namespace tl {
         CueData(t_canvas* c, t_object* o);
         t_canvas* canvas() { return c_; }
         const t_canvas* canvas() const { return c_; }
+        t_object* object() { return obj_; }
+        const t_object* object() const { return obj_; }
         void setXPos(int x);
         void setIndex(int idx);
         int xPos() const { return xpos_; }
@@ -41,31 +43,31 @@ namespace tl {
         std::string name() const { return str_; }
 
     public:
-        bool operator<(const CueData& b) const;
         bool operator==(const CueData& c) const;
     };
 
+    typedef std::vector<CueData*> CueList;
+
     class CueStorage {
-        typedef std::vector<CueData> CueList;
         typedef std::map<t_canvas*, CueList> CanvasCueMap;
 
         static CanvasCueMap cue_map_;
         CueStorage();
 
     public:
-        static void add(const CueData& c);
-        static void remove(const CueData& c);
-        static int index(const CueData& c);
+        static void add(CueData* c);
+        static void remove(CueData* c);
+        static int index(CueData* c);
         static CueData* at(t_canvas* cnv, size_t pos);
-        static bool exists(const CueData& c);
+        static CueData* find(t_canvas* cnv, t_object* obj);
+        static bool exists(CueData* c);
         static bool exists(t_canvas* cnv);
         static void sort(t_canvas* cnv);
         static void enumerate(t_canvas* cnv);
         static size_t cueCount(t_canvas* cnv);
 
-    private:
         static CueList* cueList(t_canvas* c);
-        static CueList* cueList(const CueData& c);
+        static CueList* cueList(CueData* c);
     };
 }
 }

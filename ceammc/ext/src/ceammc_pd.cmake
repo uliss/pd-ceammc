@@ -81,7 +81,7 @@ macro(ceammc_cxx_tl_extension module name)
         FILES "${module}_${name}.cpp"
         INTERNAL TRUE
         LIBRARY ceammc
-        LINK timeline)
+        LINK timeline ceammc_timeline ceammc_static)
 
     set(C11 "")
     if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")

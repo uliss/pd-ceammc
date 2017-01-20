@@ -45,11 +45,6 @@ namespace tl {
         str_ = buf;
     }
 
-    bool CueData::operator<(const CueData& b) const
-    {
-        return xpos_ < b.xpos_;
-    }
-
     bool CueData::operator==(const CueData& c) const
     {
         return obj_ == c.obj_;
@@ -58,23 +53,31 @@ namespace tl {
     // static member init
     CueStorage::CanvasCueMap CueStorage::cue_map_;
 
-    void CueStorage::add(const CueData& c)
+    void CueStorage::add(CueData* c)
     {
+        if (c == 0) {
+            LIB_ERR << "[CueStorage::add] null pointer";
+            return;
+        }
+
         if (exists(c)) {
             LIB_ERR << "already exists in storage";
             return;
         }
 
-        t_canvas* cnv = const_cast<t_canvas*>(c.canvas());
+        t_canvas* cnv = const_cast<t_canvas*>(c->canvas());
         cue_map_[cnv].push_back(c);
 
         sort(cnv);
         enumerate(cnv);
     }
 
-    void CueStorage::remove(const CueData& c)
+    void CueStorage::remove(CueData* c)
     {
-        t_canvas* cnv = const_cast<t_canvas*>(c.canvas());
+        if (c == 0)
+            return;
+
+        t_canvas* cnv = const_cast<t_canvas*>(c->canvas());
         CanvasCueMap::iterator it = cue_map_.find(cnv);
         if (it == cue_map_.end())
             return;
@@ -92,7 +95,7 @@ namespace tl {
             cue_map_.erase(it);
     }
 
-    int CueStorage::index(const CueData& c)
+    int CueStorage::index(CueData* c)
     {
         CueList* lst = cueList(c);
         if (lst == 0)
@@ -108,10 +111,31 @@ namespace tl {
         if (lst == 0)
             return 0;
 
-        return (pos < lst->size()) ? &lst->at(pos) : 0;
+        return (pos < lst->size()) ? lst->at(pos) : 0;
     }
 
-    bool CueStorage::exists(const CueData& c)
+    struct ObjPred {
+        t_object* o_;
+        ObjPred(t_object* o)
+            : o_(o)
+        {
+        }
+
+        bool operator()(CueData* c) const { return c->object() == o_; }
+    };
+
+    CueData* CueStorage::find(t_canvas* cnv, t_object* obj)
+    {
+        CueList* lst = cueList(cnv);
+        if (lst == 0)
+            return 0;
+
+        ObjPred pred(obj);
+        CueList::iterator it = std::find_if(lst->begin(), lst->end(), pred);
+        return it == lst->end() ? 0 : (*it);
+    }
+
+    bool CueStorage::exists(CueData* c)
     {
         CueList* lst = cueList(c);
         if (lst == 0)
@@ -125,13 +149,18 @@ namespace tl {
         return cue_map_.find(cnv) != cue_map_.end();
     }
 
+    static bool sort_cue_ptr(CueData* a, CueData* b)
+    {
+        return a->xPos() < b->xPos();
+    }
+
     void CueStorage::sort(t_canvas* cnv)
     {
         CueList* lst = cueList(cnv);
         if (lst == 0)
             return;
 
-        std::sort(lst->begin(), lst->end());
+        std::sort(lst->begin(), lst->end(), sort_cue_ptr);
     }
 
     void CueStorage::enumerate(t_canvas* cnv)
@@ -143,7 +172,7 @@ namespace tl {
         CueList::iterator it;
         int i = 0;
         for (it = lst->begin(); it != lst->end(); ++it) {
-            it->setIndex(i++);
+            (*it)->setIndex(i++);
         }
     }
 
@@ -153,15 +182,18 @@ namespace tl {
         return lst == 0 ? 0 : lst->size();
     }
 
-    CueStorage::CueList* CueStorage::cueList(t_canvas* c)
+    CueList* CueStorage::cueList(t_canvas* c)
     {
         CanvasCueMap::iterator it = cue_map_.find(c);
         return it == cue_map_.end() ? 0 : &it->second;
     }
 
-    CueStorage::CueList* CueStorage::cueList(const CueData& c)
+    CueList* CueStorage::cueList(CueData* c)
     {
-        return cueList(const_cast<t_canvas*>(c.canvas()));
+        if (c == 0)
+            return 0;
+
+        return cueList(const_cast<t_canvas*>(c->canvas()));
     }
 }
 }
