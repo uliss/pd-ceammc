@@ -25,6 +25,10 @@ struct t_json_object {
     GlobalJSON *json_global;
 
     t_outlet *outlet1, *outlet2;
+    
+    t_canvas *canvas;
+    
+    //t_scalar *scalar;
 };
 
 
@@ -132,6 +136,82 @@ static void json_object_objectlist(t_json_object* x, t_symbol* s, int argc, t_at
     //x->json_global->getKeys();
 }
 
+// TODO
+//static void json_array_create(t_json_object* x, t_symbol* s, int argc, t_atom* argv)
+//{
+//    x->x_scalar = scalar_new(gl, templatesym);
+//}
+//void garray_savecontentsto(t_garray *x, t_binbuf *b)
+//{
+//    if (x->x_saveit)
+//    {
+//        t_array *array = garray_getarray(x);
+//        int n = array->a_n, n2 = 0;
+//        if (n > 200000)
+//            post("warning: I'm saving an array with %d points!\n", n);
+//        while (n2 < n)
+//        {
+//            int chunk = n - n2, i;
+//            if (chunk > ARRAYWRITECHUNKSIZE)
+//                chunk = ARRAYWRITECHUNKSIZE;
+//            binbuf_addv(b, "si", gensym("#A"), n2);
+//            for (i = 0; i < chunk; i++)
+//                binbuf_addv(b, "f", ((t_word *)(array->a_vec))[n2+i].w_float);
+//            binbuf_addv(b, ";");
+//            n2 += chunk;
+//        }
+//    }
+//}
+
+static void json_object_read(t_json_object* x, t_symbol* s, int argc, t_atom* argv)
+{
+    
+    if (argc<1) {error("specify file name"); return;}
+    t_binbuf *b;
+    b = binbuf_new();
+    
+    Atom a = Atom(argv[0]);
+    char * filename = (char*)a.asString().c_str();
+    binbuf_read_via_canvas(b,filename, x->canvas, 0);
+    
+    if (b)
+    {
+         char * txt;
+        int len;
+        
+        binbuf_gettext(b, &txt, &len);
+        
+        //todo free
+        x->json_local = new Document;
+        x->json_local->Parse(txt);
+    }
+}
+
+static void json_object_write(t_json_object* x, t_symbol* s, int argc, t_atom* argv)
+{
+    if (argc<1) {error("specify file name"); return;}
+    
+    StringBuffer buffer;
+    Writer<StringBuffer, Document::EncodingType, UTF8<> > writer(buffer);
+    x->json_local->Accept(writer);
+    std::string res = buffer.GetString();
+    
+    //list.output(x->outlet1);
+//    printf(res.c_str());
+//    printf("---\n");
+    
+    const char *txt = res.c_str();
+    int len = (int)res.length();
+    
+    t_binbuf *b= binbuf_new();
+    binbuf_text(b, (char*)txt, len);
+    
+    Atom a = Atom(argv[0]);
+    char * filename = (char*)a.asString().c_str();
+    const char * dir = canvas_getdir(x->canvas)->s_name;
+    binbuf_write(b, filename, (char *)dir, 0);
+    
+}
 
 static void* json_object_new(t_symbol *s, int argc, t_atom *argv)
 {
@@ -160,6 +240,8 @@ static void* json_object_new(t_symbol *s, int argc, t_atom *argv)
     
     x->json_local->SetObject();
     
+    
+    x->canvas = canvas_getcurrent();
 
     return static_cast<void*>(x);
 }
@@ -183,6 +265,9 @@ extern "C" void setup_json0x2eobject()
     
     class_addmethod(json_object_class, reinterpret_cast<t_method>(json_object_getobject), gensym("getobject"), A_NULL);
     class_addmethod(json_object_class, reinterpret_cast<t_method>(json_object_setobject), gensym("setobject"), A_GIMME);
+    
+    class_addmethod(json_object_class, reinterpret_cast<t_method>(json_object_read), gensym("read"), A_GIMME);
+    class_addmethod(json_object_class, reinterpret_cast<t_method>(json_object_write), gensym("write"), A_GIMME);
     
 //    class_addmethod(json_object_class, reinterpret_cast<t_method>(json_object_objectlist), gensym("objectlist"), A_GIMME);
 
