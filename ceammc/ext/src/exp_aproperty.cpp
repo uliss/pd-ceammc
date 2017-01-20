@@ -133,6 +133,7 @@ static void exp_method_bang(t_exp_method* x)
     exp_method_output(x);
 }
 
+//rename
 static void exp_method_list(t_exp_method* x, t_symbol* s, int argc, t_atom* argv)
 {
     x->x_global->ref().fromPdData(static_cast<size_t>(argc), argv);
@@ -178,13 +179,14 @@ extern "C" void setup_exp0x2eaproperty()
                                     sizeof(t_exp_method), CLASS_PATCHABLE, A_GIMME,0);
     
     //eclass_guiinit(exp_method_class, 0);
+    
     //eclass_addmethod(exp_method_class, (method)(exp_method_any), ("anything"), A_GIMME,0);
     
     eclass_addmethod(exp_method_class, (method)(exp_method_set), ("set"), A_GIMME, 0);
     eclass_addmethod(exp_method_class, (method)(exp_method_get), ("get"), A_GIMME, 0);
     
     eclass_addmethod(exp_method_class, (method)(exp_method_bang), ("bang"), A_GIMME, 0);
-    eclass_addmethod(exp_method_class, (method)(exp_method_list), ("list"), A_GIMME, 0);
+    eclass_addmethod(exp_method_class, (method)(exp_method_list), ("anything"), A_GIMME, 0);
     
     
     eclass_register(CLASS_BOX, exp_method_class);

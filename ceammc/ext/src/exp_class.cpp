@@ -225,13 +225,6 @@ static void exp_class_write(t_exp_class* x, t_symbol*, int argc, t_atom* argv)
 }
 
 
-
-
-
-
-
-
-
 static void exp_class_vis(t_exp_class* x, t_symbol*, int argc, t_atom* argv)
 {
     if (argc<1) return;

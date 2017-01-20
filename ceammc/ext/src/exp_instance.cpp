@@ -270,6 +270,7 @@ static void* exp_instance_new(t_symbol *id, int argc, t_atom *argv)
     x->parent_canvas = canvas_getcurrent();
     
     std::string str = to_string(x->local_canvas);
+    
     x->instance = new oPDInstance(str, OBJ_NAME);
     x->instance->ref().addInstanceOut(x->out1);
     
@@ -424,10 +425,10 @@ extern "C" void setup_exp0x2einstance()
     eclass_addmethod(exp_instance_class,(t_typ_method)(exp_instance_setclass), ("class"), A_GIMME,0);   //will remove
     eclass_addmethod(exp_instance_class,(t_typ_method)(exp_instance_setclass), ("new"), A_GIMME,0);
     
+    //todo
     //eclass_addmethod(exp_instance_class,(t_typ_method)(exp_instance_setclass), ("free"), A_GIMME,0);
     
     eclass_addmethod(exp_instance_class, (t_typ_method)exp_instance_methodlist, ("methodlist"), A_NULL, 0);
-    
     
     eclass_addmethod(exp_instance_class,(t_typ_method)(exp_instance_getobject), ("getobject"), A_GIMME,0);
     eclass_addmethod(exp_instance_class,(t_typ_method)(exp_instance_setobject), ("setobject"), A_GIMME,0);

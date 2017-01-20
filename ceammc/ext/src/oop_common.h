@@ -41,9 +41,6 @@ public:
     std::string class_name;
     t_canvas *canvas;
     
-    //t_outlet *inst_out;
-    
-    
     void addMethod(t_symbol* methodName, t_outlet *outlet)
     {
         this->methodOutputs[methodName].push_back(outlet);
@@ -87,7 +84,7 @@ public:
         //post("call method %s", list[0].asString().c_str());
         t_symbol *method_name = list[0].asSymbol();
         
-        AtomList subList = list.subList(1, list.size());;
+        AtomList subList = list.subList(1, (int)list.size());;
         
         multiOutput *out1 = &this->methodOutputs[method_name];
         
@@ -168,7 +165,7 @@ public:
         return ret;
     }
     
-} ;
+};
 typedef GlobalData<t_instance> oPDInstance;
 
 
