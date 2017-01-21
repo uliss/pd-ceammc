@@ -18,6 +18,9 @@
 
 #include <vector>
 
+//new
+#include "lib/ceammc_bpf.h"
+
 //using namespace ceammc;
 
 using namespace std;
@@ -27,25 +30,25 @@ using namespace ceammc_gui;
 
 namespace ceammc_gui {
     
-    typedef struct t_bpt
-    {
-        int idx;
-        float x;
-        float y;
-        
-        float dist;         // distance from mouse. recalculated on hover
-        float ldist;        //  distance to line
-        bool selected;
-        
-        bool end_segment;
-        float range_x;
-        
-        bool lock_x;
-        bool lock_y;
-        
-        bool join_next;     //
-        
-    } t_bpt;
+//    typedef struct t_bpt
+//    {
+//        int idx;
+//        float x;
+//        float y;
+//        
+//        float dist;         // distance from mouse. recalculated on hover
+//        float ldist;        //  distance to line
+//        bool selected;
+//        
+//        bool end_segment;
+//        float range_x;
+//        
+//        bool lock_x;
+//        bool lock_y;
+//        
+//        bool join_next;     //
+//        
+//    } t_bpt;
     
     typedef std::vector<t_bpt> bpf_points;
     
@@ -84,9 +87,9 @@ namespace ceammc_gui {
         int select_idx;
         
         bool auto_send;
-        bool drag_limit;
+        bool drag_limit;    //move
         
-        int seg_count;
+        int seg_count;      //move
         
         t_etext *txt_min;
         t_etext *txt_max;
@@ -94,7 +97,7 @@ namespace ceammc_gui {
         
         t_efont *txt_font;
         
-        vector<int> seg_idx;
+        vector<int> seg_idx;//move
         
         t_rgba b_color_background;
         t_rgba b_color_border;
@@ -515,6 +518,7 @@ namespace ceammc_gui {
 #pragma mark -
 #pragma mark messages
     
+    //get list; scaled
     UI_fun(ui_bpfunc)::m_bang(t_object *z, t_symbol *s, int argc, t_atom *argv)
     {
         
@@ -534,6 +538,32 @@ namespace ceammc_gui {
             
             zx->out_list[i+1].a_type = A_FLOAT;
             zx->out_list[i+1].a_w.w_float = zx->points->at(j).y * zx->range_y + zx->shift_y;
+            
+            j++;
+        }
+        
+        outlet_list(zx->out1, &s_list, zx->out_list_count, zx->out_list);
+    }
+    
+    void bpf_m_raw(t_object *z, t_symbol *s, int argc, t_atom *argv)
+    {
+        
+        ui_bpfunc *zx = (ui_bpfunc*)z;
+        
+        zx->out_list_count = (int)zx->points->size() * 2;
+        
+        if (zx->out_list) {free(zx->out_list);}
+        
+        zx->out_list = (t_atom*)malloc(sizeof(t_atom)*zx->out_list_count);
+        
+        int j=0;
+        for (int i=0;i<zx->out_list_count;i+=2)
+        {
+            zx->out_list[i].a_type = A_FLOAT;
+            zx->out_list[i].a_w.w_float = zx->points->at(j).x ;
+            
+            zx->out_list[i+1].a_type = A_FLOAT;
+            zx->out_list[i+1].a_w.w_float = zx->points->at(j).y ;
             
             j++;
         }
@@ -616,6 +646,31 @@ namespace ceammc_gui {
         outlet_list(zx->out1, &s_list, zx->out_list_count, zx->out_list);
     }
     
+    void bpf_m_getraw(t_object *z, t_symbol *s, int argc, t_atom *argv)
+    {
+        if (argc<0) return;
+        if (argv[0].a_type != A_FLOAT) return;
+        
+        ui_bpfunc *zx = (ui_bpfunc*)z;
+        
+        int i = int(argv[0].a_w.w_float);
+        if (i>zx->points->size()-1) return;//i = (int)zx->points->size()-1;
+        if (i<0) return; //i=0;
+        zx->out_list_count = 2;
+        
+        if (zx->out_list) {free(zx->out_list);}
+        
+        zx->out_list = (t_atom*)malloc(sizeof(t_atom)*zx->out_list_count);
+        
+        zx->out_list[0].a_type = A_FLOAT;
+        zx->out_list[0].a_w.w_float = zx->points->at(i).x;
+        
+        zx->out_list[1].a_type = A_FLOAT;
+        zx->out_list[1].a_w.w_float = zx->points->at(i).y;
+        
+        outlet_list(zx->out1, &s_list, zx->out_list_count, zx->out_list);
+    }
+    
     void bpf_m_set(t_object *z, t_symbol *s, int argc, t_atom *argv)
     {
         if (argc<3) return;
@@ -656,6 +711,7 @@ namespace ceammc_gui {
         GuiFactory<BaseGuiObject>::ws_redraw(z);
     }
     
+    
     void bpf_m_end_seg(t_object *z, t_symbol *s, int argc, t_atom *argv)
     {
         if (argc<2) return;
@@ -692,30 +748,7 @@ namespace ceammc_gui {
         
     }
     
-    void bpf_m_getraw(t_object *z, t_symbol *s, int argc, t_atom *argv)
-    {
-        if (argc<0) return;
-        if (argv[0].a_type != A_FLOAT) return;
-        
-        ui_bpfunc *zx = (ui_bpfunc*)z;
-        
-        int i = int(argv[0].a_w.w_float);
-        if (i>zx->points->size()-1) return;//i = (int)zx->points->size()-1;
-        if (i<0) return; //i=0;
-        zx->out_list_count = 2;
-        
-        if (zx->out_list) {free(zx->out_list);}
-        
-        zx->out_list = (t_atom*)malloc(sizeof(t_atom)*zx->out_list_count);
-        
-        zx->out_list[0].a_type = A_FLOAT;
-        zx->out_list[0].a_w.w_float = zx->points->at(i).x;
-        
-        zx->out_list[1].a_type = A_FLOAT;
-        zx->out_list[1].a_w.w_float = zx->points->at(i).y;
-        
-        outlet_list(zx->out1, &s_list, zx->out_list_count, zx->out_list);
-    }
+    
     
     void bpf_m_seg_count(t_object *z, t_symbol *s, int argc, t_atom *argv)
     {
@@ -773,31 +806,7 @@ namespace ceammc_gui {
         GuiFactory<BaseGuiObject>::ws_redraw(z);
     }
     
-    void bpf_m_raw(t_object *z, t_symbol *s, int argc, t_atom *argv)
-    {
-        
-        ui_bpfunc *zx = (ui_bpfunc*)z;
-        
-        zx->out_list_count = (int)zx->points->size() * 2;
-        
-        if (zx->out_list) {free(zx->out_list);}
-        
-        zx->out_list = (t_atom*)malloc(sizeof(t_atom)*zx->out_list_count);
-        
-        int j=0;
-        for (int i=0;i<zx->out_list_count;i+=2)
-        {
-            zx->out_list[i].a_type = A_FLOAT;
-            zx->out_list[i].a_w.w_float = zx->points->at(j).x ;
-            
-            zx->out_list[i+1].a_type = A_FLOAT;
-            zx->out_list[i+1].a_w.w_float = zx->points->at(j).y ;
-            
-            j++;
-        }
-        
-        outlet_list(zx->out1, &s_list, zx->out_list_count, zx->out_list);
-    }
+    
     
     void bpf_m_clear(t_object *z, t_symbol *s, int argc, t_atom *argv)
     {
@@ -997,7 +1006,7 @@ namespace ceammc_gui {
     {
         if (argc<2) return;
         
-        ui_bpfunc *zx = (ui_bpfunc*)z;
+        //ui_bpfunc *zx = (ui_bpfunc*)z;
         
         AtomList list = AtomList(argc,argv);
         
