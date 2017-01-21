@@ -69,6 +69,46 @@ namespace tl {
         static CueList* cueList(t_canvas* c);
         static CueList* cueList(CueData* c);
     };
+
+    class TimelineData;
+    typedef void (*UIAction)(TimelineData*);
+
+    class TimelineData {
+        t_canvas* canvas_;
+        t_object* obj_;
+        int xpos_;
+        UIAction cb_;
+
+    public:
+        TimelineData(t_canvas* c, t_object* obj);
+
+        int xPos() const { return xpos_; }
+        void setXPos(int x);
+
+        t_canvas* canvas() { return canvas_; }
+        const t_canvas* canvas() const { return canvas_; }
+        t_object* object() { return obj_; }
+        const t_object* object() const { return obj_; }
+
+        UIAction action() { return cb_; }
+        void setAction(UIAction fn);
+        void triggerAction();
+    };
+
+    typedef std::vector<TimelineData*> UIDataList;
+
+    class UIStorage {
+        static UIDataList data_;
+
+    public:
+        static void add(TimelineData* data);
+        static TimelineData* at(size_t pos);
+        static void remove(TimelineData* data);
+        static bool exists(TimelineData* data);
+        static size_t size();
+    };
+
+    void trigger_actions(t_canvas* cnv, size_t idx);
 }
 }
 

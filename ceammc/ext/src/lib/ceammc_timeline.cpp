@@ -195,5 +195,92 @@ namespace tl {
 
         return cueList(const_cast<t_canvas*>(c->canvas()));
     }
+
+    TimelineData::TimelineData(t_canvas* c, t_object* obj)
+        : canvas_(c)
+        , obj_(obj)
+        , xpos_(0)
+        , cb_(0)
+    {
+    }
+
+    void TimelineData::setXPos(int x)
+    {
+        xpos_ = x;
+    }
+
+    void TimelineData::setAction(UIAction fn)
+    {
+        cb_ = fn;
+    }
+
+    void TimelineData::triggerAction()
+    {
+        if (!cb_)
+            return;
+
+        cb_(this);
+    }
+
+    UIDataList UIStorage::data_;
+
+    void UIStorage::add(TimelineData* data)
+    {
+        if (exists(data)) {
+            LIB_ERR << "[UIStorage::add] already exists";
+            return;
+        }
+
+        data_.push_back(data);
+    }
+
+    TimelineData* UIStorage::at(size_t pos)
+    {
+        return (pos < data_.size()) ? data_[pos] : 0;
+    }
+
+    void UIStorage::remove(TimelineData* data)
+    {
+        UIDataList::iterator it = std::find(data_.begin(), data_.end(), data);
+        if (it != data_.end())
+            data_.erase(it);
+    }
+
+    bool UIStorage::exists(TimelineData* data)
+    {
+        UIDataList::iterator it = std::find(data_.begin(), data_.end(), data);
+        return it != data_.end();
+    }
+
+    size_t UIStorage::size()
+    {
+        return data_.size();
+    }
+
+    void trigger_actions(t_canvas* cnv, size_t idx)
+    {
+        CueList* lst = CueStorage::cueList(cnv);
+        if (lst == 0) {
+            LIB_ERR << "trigger_actions: no cues exists on current canvas";
+            return;
+        }
+
+        if (idx >= lst->size()) {
+            LIB_ERR << "[trigger_actions] invalid cue index given: " << idx;
+            return;
+        }
+
+        for (size_t i = 0; i < UIStorage::size(); i++) {
+            TimelineData* d = UIStorage::at(i);
+            if (d->canvas() != cnv)
+                continue;
+
+            int left = lst->at(idx)->xPos();
+            int right = (idx < (lst->size() - 1)) ? lst->at(idx + 1)->xPos() : 0xFFFF;
+
+            if (left <= d->xPos() && d->xPos() < right)
+                d->triggerAction();
+        }
+    }
 }
 }

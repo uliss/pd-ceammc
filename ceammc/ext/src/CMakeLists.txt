@@ -5,15 +5,6 @@ include_directories(lib)
 include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra/CicmWrapper/Sources)
 add_subdirectory(tests)
 
-# timeline shared library
-add_library(timeline SHARED tl_lib.cpp)
-set_target_properties(timeline PROPERTIES
-    COMPILE_FLAGS "-std=c++0x")
-if(APPLE)
-    add_custom_command(TARGET timeline POST_BUILD
-        COMMAND install_name_tool -id @loader_path/libtimeline.dylib $<TARGET_FILE:timeline>)
-endif()
-
 add_custom_target(ceammc_generate_math
     COMMAND ${CMAKE_SOURCE_DIR}/ceammc/py/generate_math.py
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
