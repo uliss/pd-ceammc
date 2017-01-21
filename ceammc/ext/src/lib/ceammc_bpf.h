@@ -183,7 +183,7 @@ namespace ceammc {
         {
             for (int i=0;i<this->_points.size();i++)
             {
-                if (this->_points.at(i).x>x)
+                if (this->_points.at(i).x>=x)
                 {
                     return i;
                 }
@@ -465,7 +465,7 @@ namespace ceammc {
                 
                 int idx = (next_idx>0) ? next_idx-1 : next_idx;
                 
-                if (idx)
+                //if (idx)
                 {
                     
                     float x1 = this->_points[idx].x;
@@ -476,9 +476,7 @@ namespace ceammc {
                     y1 = this->_points[idx].y;
                     y2 = this->_points[next_idx].y;
                     
-                    float y = mx*y2 + (1-mx)*y1;
-                    
-                    //printf("x x1 x2 dx mx y1 y2 %f %f %f %f %f %f %f\n", x,x1,x2,dx,mx,y1,y2);
+                    float y = mx * y2 + (1-mx) * y1;
                     
                     ret.append(Atom(y));
                 }

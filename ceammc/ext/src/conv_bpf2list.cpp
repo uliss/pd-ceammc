@@ -27,7 +27,7 @@ class Bpf2List : public BaseObject
 public:
     Bpf2List(const PdArgs& a)
     : BaseObject(a)
-    , size_(8)
+    , size_(16)
     
     {
         createOutlet();
@@ -45,16 +45,13 @@ public:
     void onList(const AtomList& l)
     {
         BPF func;
-        func.setBPFList(l);
+        func.empty();
         //temporary
         func.initRange();
         
-        this->out_list_ = func.getBpfList();
+        func.setBPFList(l);
         
-        
-        //postatom(this->out_list_.size(), this->out_list_.toPdData());
-        //post("");
-        //this->out_list_ = func.getVector(this->size_.asInt());
+        this->out_list_ = func.getVector(this->size_.asInt());
         
         onBang();
     }
