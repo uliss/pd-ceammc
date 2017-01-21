@@ -48,7 +48,7 @@ public:
     {
         BPF func;
         func.setBPFList(l);
-        //this->out_list_ = func.getBpfListRaw();
+        this->out_list_ = func.getVector(this->size_.asInt());
         
         onBang();
     }

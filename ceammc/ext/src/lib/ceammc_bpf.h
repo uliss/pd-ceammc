@@ -146,6 +146,18 @@ namespace ceammc {
             }
         }
         
+        int findPointByRawX(float x)
+        {
+            for (int i=0;i<this->_points.size();i++)
+            {
+                if (_points.at(i).x>x)
+                {
+                    return i;
+                }
+            }
+            
+            return -1;
+        }
         
         
         
@@ -399,6 +411,24 @@ namespace ceammc {
                 
                 ret.push_back(list);
                 
+            }
+            
+            return ret;
+        }
+        
+        AtomList getVector(int size)
+        {
+            AtomList ret;
+            
+            for (int i=0;i<size;i++)
+            {
+                float x = float(i)/size;
+                float y=0;
+                
+                int idx = this->findPointByRawX(x);
+                if (idx) y= this->_points[idx].y;
+                
+                ret.append(Atom(y));
             }
             
             return ret;
