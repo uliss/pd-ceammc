@@ -25,28 +25,38 @@ using namespace ceammc_gui;
 
 namespace ceammc {
     
+    /**
+     * @brief       structure for single point
+     * @details
+     */
+    
     typedef struct t_bpt
     {
         int idx;
         float x;
         float y;
         
-        float dist;         // distance from mouse. recalculated on hover
-        float ldist;        //  distance to line
-        bool selected;
+        float dist;         ///< distance from mouse. recalculated on hover
+        float ldist;        ///< distance to line
+        bool selected;      ///< selected flag. should be moved
         
-        bool end_segment;
-        float range_x;
+        bool end_segment;   ///< end segment flag. for envelopes
+        float range_x;      ///< stub for envelopes with different x scale
         
-        bool lock_x;
-        bool lock_y;
+        bool lock_x;        ///< lock flag x
+        bool lock_y;        ///< lock flag y
         
-        bool join_next;     //
+        bool join_next;     ///< join flag - for hold envelopes
         
     } t_bpt;
     
     typedef std::vector<t_bpt> t_bpf_points;
     
+    /**
+     * @brief   Breakpoint Function Class
+     * @details
+     * @param
+     */
     
     class BPF
     {
@@ -69,7 +79,12 @@ namespace ceammc {
         
         bool drag_limit;
         
- 
+        /**
+         * @brief   Accepts raw pairs of x y values and creates a function
+         * @details
+         * @param
+         */
+        
         void setBPFListRaw(AtomList list)
         {
             int num_points = floor(list.size()/2);
@@ -83,6 +98,12 @@ namespace ceammc {
             }
         
         }
+        
+        /**
+         * @brief   Accepts pairs of x y values in current scales and creates a function
+         * @details
+         * @param
+         */
         
         void setBPFList(AtomList list)
         {
@@ -98,6 +119,11 @@ namespace ceammc {
             
         }
         
+        /**
+         * @brief   creates empty BPF and sets several defaupt properties
+         * @details
+         * @param
+         */
         void empty()
         {
             this->_points.clear();
@@ -110,6 +136,12 @@ namespace ceammc {
             
         }
         
+        /**
+         * @brief inits ranges. should probably be moved
+         * @details
+         * @param
+         */
+        
         //temporary
         void initRange()
         {
@@ -119,6 +151,12 @@ namespace ceammc {
             this->range_y = 1;
         
         }
+        
+        /**
+         * @brief creates default BPF with 3 points
+         * @details
+         * @param
+         */
         
         void clear()
         {
@@ -134,6 +172,12 @@ namespace ceammc {
         
 #pragma mark point
         
+        /**
+         * @brief sorts points. should be private (see ui.bpfunc mouse handling)
+         * @details
+         * @param
+         */
+        
         inline void _Sort()     //?
         {
             
@@ -143,6 +187,12 @@ namespace ceammc {
             
             
         }
+        
+        /**
+         * @brief add point for specified index using raw values
+         * @details
+         * @param
+         */
         
         void addPointRaw(int idx, float x, float y)
         {
@@ -163,10 +213,21 @@ namespace ceammc {
             
         }
         
+        /**
+         * @brief add point for specified index with scaled values
+         * @details
+         * @param
+         */
         void addPoint(int idx, float x, float y)
         {
             this->addPointRaw(idx, (x - this->shift_x)/this->range_x, (y - this->shift_y)/this->range_y);
         }
+        
+        /**
+         * @brief delete point at specified index
+         * @details
+         * @param
+         */
         
         void deletePoint(int idx)
         {
@@ -178,6 +239,12 @@ namespace ceammc {
                 this->_Sort();
             }
         }
+        
+        /**
+         * @brief get the index of the point that has x value less than specified x
+         * @details
+         * @param
+         */
         
         int findPointByRawX(float x)
         {
@@ -197,6 +264,12 @@ namespace ceammc {
         
 #pragma mark set point values
         
+        /**
+         * @brief sets raw point value - similar to addraw
+         * @details
+         * @param
+         */
+        
         void setPointRaw(int idx, float x, float y)
         {
             this->_points.at(idx).x = x;
@@ -205,12 +278,22 @@ namespace ceammc {
             this->_Sort();
         }
         
+        /**
+         * @brief sets scaled point value - similar to add
+         * @details
+         * @param
+         */
+        
         void setPoint(int idx, float x, float y)
         {
             this->setPointRaw(idx, (x-this->shift_x)/this->range_x, (y-this->shift_y)/this->range_y);
         }
         
-        
+        /** sets/inverts split flag - should be merged with setPointSeg
+         * @brief
+         * @details
+         * @param
+         */
         
         void setSplit(int idx)
         {
@@ -238,6 +321,11 @@ namespace ceammc {
             
         }
         
+        /**
+         * @brief sets split flag
+         * @details
+         * @param
+         */
         void setPointSeg(int idx, bool val)
         {
             
@@ -264,16 +352,31 @@ namespace ceammc {
             
         }
         
+        /**
+         * @brief sets lock x flag
+         * @details
+         * @param
+         */
         void lockX(int idx, bool value)
         {
             this->_points.at(idx).lock_x = value;
         }
         
+        /**
+         * @brief sets lock y flag
+         * @details
+         * @param
+         */
         void lockY(int idx, bool value)
         {
             this->_points.at(idx).lock_y = value;
         }
         
+        /**
+         * @brief sets join next flag
+         * @details
+         * @param
+         */
         void joinNext(int idx, bool value)
         {
             this->_points.at(idx).join_next = value;
@@ -337,6 +440,11 @@ namespace ceammc {
         
 #pragma mark get messages
         
+        /**
+         * @brief gets list of x y raw value pairs
+         * @details
+         * @param
+         */
         AtomList getBpfListRaw()
         {
             AtomList ret;
@@ -351,6 +459,11 @@ namespace ceammc {
             return ret;
         }
         
+        /**
+         * @brief gets list of scaled x y value pairs
+         * @details
+         * @param
+         */
         AtomList getBpfList()
         {
             AtomList ret;
@@ -365,6 +478,11 @@ namespace ceammc {
             return ret;
         }
         
+        /**
+         * @brief gets x y scaled values for point with specified index
+         * @details
+         * @param
+         */
         AtomList getPoint(int idx)
         {
             AtomList ret;
@@ -376,6 +494,11 @@ namespace ceammc {
             
         }
         
+        /**
+         * @brief gets raw x y values for point with specified index
+         * @details
+         * @param
+         */
         AtomList getPointRaw(int idx)
         {
             AtomList ret;
@@ -386,6 +509,11 @@ namespace ceammc {
             return ret;
         }
         
+        /**
+         * @brief gets messages suited for vline for the whole BPF
+         * @details
+         * @param
+         */
         vector<AtomList> getVline()
         {
             vector<AtomList> ret;
@@ -411,6 +539,11 @@ namespace ceammc {
             return ret;
         }
         
+        /**
+         * @brief gets messages suited for vline for a specific segment
+         * @details
+         * @param
+         */
         vector<AtomList> getVlineSegment(int seg)
         {
             vector<AtomList> ret;
@@ -449,6 +582,11 @@ namespace ceammc {
             return ret;
         }
         
+        /**
+         * @brief gets list of values - conv.bpf2list
+         * @details
+         * @param
+         */
         AtomList getVector(int size)
         {
             AtomList ret;
