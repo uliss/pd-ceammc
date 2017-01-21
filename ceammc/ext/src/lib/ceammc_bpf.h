@@ -59,15 +59,7 @@ namespace ceammc {
             return a.x < b.x;
         }
         
-        inline void _Sort()
-        {
-            
-            t_bpf_points *ps = &this->_points;
-            
-            std::sort(ps->begin(), ps->end(), _BPFSortPred);
-            
-            
-        }
+        
         
     public:
         float range_x;
@@ -76,6 +68,16 @@ namespace ceammc {
         float shift_y;
         
         bool drag_limit;
+        
+        inline void _Sort()     //?
+        {
+            
+            t_bpf_points *ps = &this->_points;
+            
+            std::sort(ps->begin(), ps->end(), _BPFSortPred);
+            
+            
+        }
         
         void addPointRaw(int idx, float x, float y)
         {
@@ -118,9 +120,9 @@ namespace ceammc {
         {
             this->_points.clear();
             
-            this->addPoint(0, 0, 0);
-            this->addPoint(1, 0.5, 0.75);
-            this->addPoint(2, 1, 1);
+            this->addPointRaw(0, 0, 0);
+            this->addPointRaw(1, 0.5, 0.75);
+            this->addPointRaw(2, 1, 1);
             
             this->_seg_count = 1;
             
@@ -128,12 +130,16 @@ namespace ceammc {
             this->_seg_idx.push_back(0);
         }
         
+        
+        
 #pragma mark set point values
         
         void setPointRaw(int idx, float x, float y)
         {
             this->_points.at(idx).x = x;
             this->_points.at(idx).y = y;
+            
+            this->_Sort();
         }
         
         void setPoint(int idx, float x, float y)
@@ -169,6 +175,32 @@ namespace ceammc {
             
         }
         
+        void setPointSeg(int idx, bool val)
+        {
+            
+            t_bpf_points *ps = &this->_points;
+            
+            ps->at(idx).end_segment = val;//!ps->at(idx).end_segment;
+            
+            if (val)
+            {
+                this->_seg_count++;
+                
+                this->_seg_idx.push_back(idx);
+                std::sort(this->_seg_idx.begin(), this->_seg_idx.end());
+            }
+            else
+            {
+                this->_seg_count--;
+                
+                vector<int>::iterator pos = find(this->_seg_idx.begin(),this->_seg_idx.end(), idx);
+                if (pos != this->_seg_idx.end())
+                    this->_seg_idx.erase(pos);
+                
+            };
+            
+        }
+        
         void lockX(int idx, bool value)
         {
             this->_points.at(idx).lock_x = value;
@@ -183,6 +215,62 @@ namespace ceammc {
         {
             this->_points.at(idx).join_next = value;
         }
+        
+#pragma mark needed by paint
+        
+        float getPointRawX(int idx)
+        {
+            return this->_points.at(idx).x;
+        }
+        
+        float getPointRawY(int idx)
+        {
+            return this->_points.at(idx).y;
+        }
+        
+        float getPointLockX(int idx)
+        {
+            return this->_points.at(idx).lock_x;
+        }
+        
+        float getPointLockY(int idx)
+        {
+            return this->_points.at(idx).lock_y;
+        }
+        
+        void setPointDist(int idx, float dist)
+        {
+            this->_points.at(idx).dist = dist;
+        }
+        
+        float getPointDist(int idx)
+        {
+            return this->_points.at(idx).dist;
+        }
+        
+        bool getEndSeg(int idx)
+        {
+            return this->_points.at(idx).end_segment;
+        }
+        
+#pragma mark needed by mouse
+        
+        void setPointSel(int idx, bool sel)
+        {
+            this->_points.at(idx).selected = sel;
+        }
+        
+        bool getPointSel(int idx)
+        {
+            return this->_points.at(idx).selected;
+        }
+        
+        bool getJoinNext(int idx)
+        {
+            return this->_points.at(idx).join_next;
+        }
+        
+        
         
 #pragma mark get messages
         
@@ -247,8 +335,8 @@ namespace ceammc {
                 
                 float this_time = this->_points.at(j).x * this->range_x + this->shift_x;
                 
-                list.append(Atom(this_time));
                 list.append(Atom(this->_points.at(j).y * this->range_y + this->shift_y));
+                list.append(Atom(this_time));
                 list.append(Atom(last_time));
                 
                 last_time += this_time;
@@ -285,8 +373,8 @@ namespace ceammc {
                 
                 float this_time = this->_points.at(j).x * this->range_x + this->shift_x;
                 
-                list.append(Atom(this_time));
                 list.append(Atom(this->_points.at(j).y * this->range_y + this->shift_y));
+                list.append(Atom(this_time));
                 list.append(Atom(last_time));
                 
                 last_time += this_time;
@@ -302,9 +390,9 @@ namespace ceammc {
         
 #pragma mark get data
         
-        int size(t_object *z)
+        int size()
         {
-            return (int)(this->_points.size());
+            return (int)_points.size();
         }
         
         int getSegCount()
