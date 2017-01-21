@@ -18,6 +18,20 @@
 
 using namespace ceammc::tl;
 
+void tl_action(TimelineData* d)
+{
+}
+
+struct CbActionTest {
+    static TimelineData* orig;
+    static void action(TimelineData* d)
+    {
+        REQUIRE(orig == d);
+    }
+};
+
+TimelineData* CbActionTest::orig = 0;
+
 TEST_CASE("timeline", "[ceammc::timelime]")
 {
     SECTION("CueData")
@@ -141,5 +155,68 @@ TEST_CASE("timeline", "[ceammc::timelime]")
         delete c1;
         delete c2;
         delete c3;
+    }
+
+    SECTION("TimelineData")
+    {
+        TimelineData t1((t_canvas*)0xBEEF, (t_object*)0xBEE);
+        REQUIRE(t1.canvas() == (t_canvas*)0xBEEF);
+        REQUIRE(t1.object() == (t_object*)0xBEE);
+        REQUIRE(t1.xPos() == 0);
+        REQUIRE(t1.action() == 0);
+        t1.triggerAction();
+
+        t1.setXPos(100);
+        REQUIRE(t1.xPos() == 100);
+
+        t1.setAction(tl_action);
+        REQUIRE(t1.action() == (void*)tl_action);
+
+        t1.setAction(&CbActionTest::action);
+        CbActionTest::orig = &t1;
+        t1.triggerAction();
+    }
+
+    SECTION("UIStorage")
+    {
+        TimelineData t1((t_canvas*)0x111, (t_object*)0x222);
+        TimelineData t2((t_canvas*)0x333, (t_object*)0x444);
+
+        REQUIRE(UIStorage::at(0) == 0);
+        REQUIRE_FALSE(UIStorage::exists(&t1));
+        REQUIRE(UIStorage::size() == 0);
+
+        UIStorage::add(&t1);
+        REQUIRE(UIStorage::exists(&t1));
+        REQUIRE(UIStorage::at(0) == &t1);
+        REQUIRE(UIStorage::at(1) == 0);
+        REQUIRE(UIStorage::size() == 1);
+
+        UIStorage::add(&t1);
+        REQUIRE(UIStorage::exists(&t1));
+        REQUIRE(UIStorage::at(0) == &t1);
+        REQUIRE(UIStorage::at(1) == 0);
+        REQUIRE(UIStorage::size() == 1);
+
+        UIStorage::add(&t2);
+        REQUIRE(UIStorage::exists(&t1));
+        REQUIRE(UIStorage::exists(&t2));
+        REQUIRE(UIStorage::at(0) == &t1);
+        REQUIRE(UIStorage::at(1) == &t2);
+        REQUIRE(UIStorage::at(2) == 0);
+        REQUIRE(UIStorage::size() == 2);
+
+        UIStorage::remove(&t1);
+        REQUIRE(!UIStorage::exists(&t1));
+        REQUIRE(UIStorage::exists(&t2));
+        REQUIRE(UIStorage::at(0) == &t2);
+        REQUIRE(UIStorage::at(1) == 0);
+        REQUIRE(UIStorage::size() == 1);
+
+        UIStorage::remove(&t2);
+        REQUIRE(!UIStorage::exists(&t1));
+        REQUIRE(!UIStorage::exists(&t2));
+        REQUIRE(UIStorage::at(0) == 0);
+        REQUIRE(UIStorage::size() == 0);
     }
 }
