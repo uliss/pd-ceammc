@@ -734,6 +734,20 @@ namespace ceammc_gui {
     
     }
     
+    void bpf_m_setrawbpf(t_object *z, t_symbol *s, int argc, t_atom *argv)
+    {
+        if (argc<2) return;
+        
+        ui_bpfunc *zx = (ui_bpfunc*)z;
+        
+        AtomList list = AtomList(argc,argv);
+        
+        zx->x_bpf.setBPFListRaw(list);
+        
+        GuiFactory<BaseGuiObject>::ws_redraw(z);
+        
+    }
+    
     
 #pragma mark env
     
@@ -1038,7 +1052,8 @@ namespace ceammc_gui {
         //stubs
         
         //eclass_addmethod(z, (method)(bpf_m_set_seg), ("set_seg"), A_GIMME,0);
-        eclass_addmethod(z, (method)(bpf_m_setbpf), ("set_rawbpf"), A_GIMME,0);
+        eclass_addmethod(z, (method)(bpf_m_setbpf), ("set_bpf"), A_GIMME,0);
+        eclass_addmethod(z, (method)(bpf_m_setrawbpf), ("set_rawbpf"), A_GIMME,0);
         
         eclass_addmethod(z, (method)(bpf_m_env), ("env"), A_GIMME,0);
         

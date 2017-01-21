@@ -70,12 +70,12 @@ namespace ceammc {
         bool drag_limit;
         
  
-        void setBPFList(AtomList list)
+        void setBPFListRaw(AtomList list)
         {
             int num_points = floor(list.size()/2);
             
             
-            this->clear();
+            this->empty();
             
             for (int i=0; i<num_points; i++)
             {
@@ -83,19 +83,54 @@ namespace ceammc {
             }
         
         }
-        void clear()
+        
+        void setBPFList(AtomList list)
+        {
+            int num_points = floor(list.size()/2);
+            
+            
+            this->empty();
+            
+            for (int i=0; i<num_points; i++)
+            {
+                this->addPoint(i, list.at(i*2).asFloat(), list.at(i*2+1).asFloat());
+            }
+            
+        }
+        
+        void empty()
         {
             this->_points.clear();
-            
-            this->addPointRaw(0, 0, 0);
-            this->addPointRaw(1, 0.5, 0.75);
-            this->addPointRaw(2, 1, 1);
             
             this->_seg_count = 1;
             
             this->_seg_idx.clear();
             this->_seg_idx.push_back(0);
+            
+            
         }
+        
+        //temporary
+        void initRange()
+        {
+            this->shift_x = 0;
+            this->shift_y = 0;
+            this->range_x = 1000;
+            this->range_y = 1;
+        
+        }
+        
+        void clear()
+        {
+            this->empty();
+            
+            this->addPointRaw(0, 0, 0);
+            this->addPointRaw(1, 0.5, 0.75);
+            this->addPointRaw(2, 1, 1);
+            
+        }
+        
+        
         
 #pragma mark point
         
@@ -121,9 +156,7 @@ namespace ceammc {
             
             pt1.end_segment = false;
             
-            t_bpf_points *ps = &this->_points;
-            
-            ps->push_back(pt1);
+            this->_points.push_back(pt1);
             
             this->_Sort();
             
@@ -132,7 +165,7 @@ namespace ceammc {
         
         void addPoint(int idx, float x, float y)
         {
-            this->addPointRaw(idx, (x-this->shift_x)/this->range_x, (y-this->shift_y)/this->range_y);
+            this->addPointRaw(idx, (x - this->shift_x)/this->range_x, (y - this->shift_y)/this->range_y);
         }
         
         void deletePoint(int idx)
@@ -150,7 +183,7 @@ namespace ceammc {
         {
             for (int i=0;i<this->_points.size();i++)
             {
-                if (_points.at(i).x>x)
+                if (this->_points.at(i).x>x)
                 {
                     return i;
                 }
@@ -422,13 +455,35 @@ namespace ceammc {
             
             for (int i=0;i<size;i++)
             {
-                float x = float(i)/size;
-                float y=0;
+                float x = float(i)/float(size);
                 
-                int idx = this->findPointByRawX(x);
-                if (idx) y= this->_points[idx].y;
+                float y1 = 0;
+                float y2 = 0;
                 
-                ret.append(Atom(y));
+                int next_idx = this->findPointByRawX(x);
+                //int next_idx = (idx==(this->_points.size()-1)) ? idx : idx+1;
+                
+                int idx = (next_idx>0) ? next_idx-1 : next_idx;
+                
+                if (idx)
+                {
+                    
+                    float x1 = this->_points[idx].x;
+                    float x2 = this->_points[next_idx].x;
+                    float dx = x2 - x1;
+                    float mx = (dx>0.00001) ? (x - x1)/dx : 0;
+                    
+                    y1 = this->_points[idx].y;
+                    y2 = this->_points[next_idx].y;
+                    
+                    float y = mx*y2 + (1-mx)*y1;
+                    
+                    //printf("x x1 x2 dx mx y1 y2 %f %f %f %f %f %f %f\n", x,x1,x2,dx,mx,y1,y2);
+                    
+                    ret.append(Atom(y));
+                }
+                
+                
             }
             
             return ret;

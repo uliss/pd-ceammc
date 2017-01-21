@@ -39,16 +39,22 @@ public:
     
     void onBang()
     {
-       
-        
-        listTo(0, out_list_);
+        listTo(0, this->out_list_);
     }
     
     void onList(const AtomList& l)
     {
         BPF func;
         func.setBPFList(l);
-        this->out_list_ = func.getVector(this->size_.asInt());
+        //temporary
+        func.initRange();
+        
+        this->out_list_ = func.getBpfList();
+        
+        
+        //postatom(this->out_list_.size(), this->out_list_.toPdData());
+        //post("");
+        //this->out_list_ = func.getVector(this->size_.asInt());
         
         onBang();
     }
