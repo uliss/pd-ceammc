@@ -82,17 +82,4 @@ macro(ceammc_cxx_tl_extension module name)
         INTERNAL TRUE
         LIBRARY ceammc
         LINK ceammc_timeline ceammc_static)
-
-    set(C11 "")
-    if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-        set(C11 "-std=c++0x")
-    elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-        set(C11 "-std=gnu++0x")
-    elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Intel")
-    # using Intel C++
-    elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
-    # using Visual Studio C++
-    endif()
-
-    set_target_properties("${module}.${name}" PROPERTIES COMPILE_FLAGS ${C11})
 endmacro()
