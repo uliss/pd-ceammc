@@ -30,26 +30,6 @@ using namespace ceammc_gui;
 
 namespace ceammc_gui {
     
-//    typedef struct t_bpt
-//    {
-//        int idx;
-//        float x;
-//        float y;
-//        
-//        float dist;         // distance from mouse. recalculated on hover
-//        float ldist;        //  distance to line
-//        bool selected;
-//        
-//        bool end_segment;
-//        float range_x;
-//        
-//        bool lock_x;
-//        bool lock_y;
-//        
-//        bool join_next;     //
-//        
-//    } t_bpt;
-    
     typedef std::vector<t_bpt> bpf_points;
     
     struct ui_bpfunc : public BaseGuiObject
@@ -65,10 +45,6 @@ namespace ceammc_gui {
         t_atom *out_list;
         int out_list_count;
         
-        //AtomList *output;
-        
-        //bpf_points *points;
-        
         BPF x_bpf;      //later add globaldata / pointer
         
         float _px;
@@ -81,17 +57,9 @@ namespace ceammc_gui {
         float addpos_y;
         bool del_mod;
         
-//        float range_x;
-//        float range_y;
-//        float shift_x;
-//        float shift_y;
-        
         int select_idx;
         
         bool auto_send;
-        //bool drag_limit;    //move
-        
-        //int seg_count;      //move
         
         t_etext *txt_min;
         t_etext *txt_max;
@@ -99,112 +67,11 @@ namespace ceammc_gui {
         
         t_efont *txt_font;
         
-        //vector<int> seg_idx;//move
-        
         t_rgba b_color_background;
         t_rgba b_color_border;
         
         
     };
-    
-//    const bool bpf_sort_pred(t_bpt const & a, t_bpt const & b)  {
-//        return a.x < b.x;
-//    }
-//    
-//    inline void bpf_point_sort(t_object *z)
-//    {
-//        
-//        bpf_points *ps = ((ui_bpfunc*)z)->points;
-//        
-//        std::sort(ps->begin(), ps->end(), bpf_sort_pred);
-//        
-//        
-//    }
-//    
-//    inline void bpf_point_add(t_object *z,int idx, float x, float y)
-//    {
-//        t_bpt pt1;
-//        pt1.idx = idx;
-//        pt1.x = x;
-//        pt1.y = y;
-//        
-//        pt1.lock_x = false;
-//        pt1.lock_y = false;
-//        
-//        pt1.end_segment = false;
-//        
-//        bpf_points *ps = ((ui_bpfunc*)z)->points;
-//        
-//        ps->push_back(pt1);
-//        
-//        bpf_point_sort(z);
-//        
-//        
-//    }
-//    
-//    inline void bpf_point_del(t_object *z,int idx)
-//    {
-//        //
-//        //printf("del pt: %i", idx);
-//        
-//        bpf_points *ps = ((ui_bpfunc*)z)->points;
-//        
-//        if (ps->size()>2)
-//        {
-//            ps->erase(ps->begin()+idx);
-//            bpf_point_sort(z);
-//        }
-//    }
-//    
-//    inline void bpf_point_split(t_object *z,int idx)
-//    {
-//        //
-//        //printf("del pt: %i", idx);
-//        
-//        bpf_points *ps = ((ui_bpfunc*)z)->points;
-//        
-//        ps->at(idx).end_segment = !ps->at(idx).end_segment;
-//        
-//        ui_bpfunc *zx = (ui_bpfunc*)z;
-//        
-//        if (ps->at(idx).end_segment)
-//        {
-//            zx->seg_count++;
-//            
-//            zx->seg_idx.push_back(idx);
-//            std::sort(zx->seg_idx.begin(), zx->seg_idx.end());
-//        }
-//        else
-//        {
-//            zx->seg_count--;
-//            
-//            vector<int>::iterator pos = find(zx->seg_idx.begin(),zx->seg_idx.end(), idx);
-//            if (pos != zx->seg_idx.end())
-//                zx->seg_idx.erase(pos);
-//            
-//        };
-//        
-//    }
-//    
-//    inline int bpf_size(t_object *z)
-//    {
-//        return (int)((ui_bpfunc*)z)->points->size();
-//    }
-//    
-//    inline void bpf_points_new(t_object *z)
-//    {
-//        //check
-//        if (((ui_bpfunc*)z)->points) delete (((ui_bpfunc*)z)->points);
-//        
-//        ((ui_bpfunc*)z)->points = new bpf_points;
-//    }
-//    
-//    inline void bpf_points_free(t_object *z)
-//    {
-//        //check
-//        if (((ui_bpfunc*)z)->points) delete (((ui_bpfunc*)z)->points);
-//        
-//    }
     
     
 #pragma mark -
@@ -240,9 +107,6 @@ namespace ceammc_gui {
             
             egraphics_set_color_hex(g, gensym("#505050"));
             
-            
-            //bpf_points::iterator it = zx->points->begin();
-            
             char c_val[16];
             sprintf(c_val, "—");
             
@@ -270,21 +134,11 @@ namespace ceammc_gui {
             }
             
             int i=0;
-        
-                
-            
-            
-            
-            //for (; it != zx->points->end(); ++it)
             {
-                
-                //egraphics_circle(g, zx->x_bpf.getPointRawX(i) * rect.width, (1-zx->x_bpf.getPointRawY(i)) * rect.height, 6);
                 
                 
                 int pw1 = 6-4 * zx->x_bpf.getPointLockX(i);
                 int ph1 = 6-4 * zx->x_bpf.getPointLockY(i);
-                
-                //egraphics_set_color_rgba(g, &zx->b_color_background);
                 
                 egraphics_rectangle(g, zx->x_bpf.getPointRawX(i) * rect.width -.5*pw1, (1-zx->x_bpf.getPointRawY(i)) * rect.height -.5*ph1, pw1, ph1);
                 egraphics_fill(g);
@@ -294,13 +148,10 @@ namespace ceammc_gui {
                 float px = zx->x_bpf.getPointRawX(i) * rect.width;
                 float py = (1-zx->x_bpf.getPointRawY(i)) * rect.height;
                 
-                //egraphics_move_to(g, zx->x_bpf.getPointRawX(i) * rect.width, (1-zx->x_bpf.getPointRawY(i)) * rect.height);
-                
                 if (zx->x_bpf.getPointDist(i) < .1)
                 {
                     egraphics_rectangle(g, zx->x_bpf.getPointRawX(i) * rect.width -6, (1-zx->x_bpf.getPointRawY(i)) * rect.height -6, 11, 11);
                     egraphics_stroke(g);
-                    //egraphics_circle(g, zx->x_bpf.getPointRawX(i) * rect.width, (1-zx->x_bpf.getPointRawY(i)) * rect.height, 10. * it->dist);
                     
                     sprintf(c_val, "%.2f : %.2f", zx->x_bpf.getPointRawX(i) * zx->x_bpf.range_x+zx->x_bpf.shift_x, zx->x_bpf.getPointRawY(i) * zx->x_bpf.range_y+zx->x_bpf.shift_y);
                 }
@@ -312,10 +163,6 @@ namespace ceammc_gui {
                 //            if (lw>1) lw=1;
                 
                 egraphics_set_line_width(g, 1);    //yet disabled
-                
-                //++it;
-                
-                
                 
                 for (  i=1; i < zx->x_bpf.size(); i++)
                 {
@@ -417,13 +264,8 @@ namespace ceammc_gui {
 //        float nny = (nlen!=0) ? ny/ nlen : 0;
         
         
-        //bpf_points::iterator it;
-        //bpf_points::iterator itn;
-        
         for (int i = 0; i<zx->x_bpf.size();i++)   //it = zx->points->begin(); it != zx->points->end(); ++it
         {
-            //t_bpt * it = &(zx->points)->at(i);
-            //t_bpt * itn = ((i-1) == zx->x_bpf.size()) ? &(zx->points)->at(i+1) : &(zx->points)->at(i);
             
             int j = ((i-1) == zx->x_bpf.size()) ? i+1 : i;
             
@@ -432,16 +274,11 @@ namespace ceammc_gui {
             
             float dist = sqrtf(dx*dx + dy*dy);
             zx->x_bpf.setPointDist(i, dist);
-            //it->dist = sqrtf(dx*dx + dy*dy);
-            
-            
-            //it->selected = (it->dist<.1);
             
             bool sel = dist<.1;
             zx->x_bpf.setPointSel(i, sel);
             
             //todo ldist
-            //it->ldist = 1;//abs(dot1);
             
             if ( (zx->x_bpf.getPointRawX(i) < (pt.x / rect.width)) && ((pt.x / rect.width )< zx->x_bpf.getPointRawX(j)) )
             {
@@ -471,10 +308,7 @@ namespace ceammc_gui {
                 zx->del_mod = true;
             }
             
-            //printf ("(%f,%f) %f : ", dx,dy, it->dist);
-            //printf("%f : ", it->ldist);
         }
-        //printf("\n");
         
         GuiFactory<BaseGuiObject>::ws_redraw(z);
     }
@@ -499,7 +333,6 @@ namespace ceammc_gui {
         
         if (modifiers==EMOD_SHIFT)
         {
-            //bpf_point_add(z, zx->addidx, pt.x/rect.width, 1-(pt.y/rect.height));
             zx->x_bpf.addPointRaw(zx->addidx, pt.x/rect.width, 1-(pt.y/rect.height));
             GuiFactory<BaseGuiObject>::ws_redraw(z);
             
@@ -541,27 +374,7 @@ namespace ceammc_gui {
     {
         
         ui_bpfunc *zx = (ui_bpfunc*)z;
-//        
-//        zx->out_list_count = (int)zx->x_bpf.size() * 2;
-//        
-//        if (zx->out_list) {free(zx->out_list);}
-//        
-//        zx->out_list = (t_atom*)malloc(sizeof(t_atom)*zx->out_list_count);
-//        
-//        int j=0;
-//        for (int i=0;i<zx->out_list_count;i+=2)
-//        {
-//            zx->out_list[i].a_type = A_FLOAT;
-//            zx->out_list[i].a_w.w_float = zx->points->at(j).x * zx->range_x + zx->shift_x;
-//            
-//            zx->out_list[i+1].a_type = A_FLOAT;
-//            zx->out_list[i+1].a_w.w_float = zx->points->at(j).y * zx->range_y + zx->shift_y;
-//            
-//            j++;
-//        }
-        
-//        outlet_list(zx->out1, &s_list, zx->out_list_count, zx->out_list);
-        
+
         AtomList list = zx->x_bpf.getBpfList();
         list.output(zx->out1);
         
@@ -571,27 +384,7 @@ namespace ceammc_gui {
     {
         
         ui_bpfunc *zx = (ui_bpfunc*)z;
-        
-//        zx->out_list_count = (int)zx->x_bpf.size() * 2;
-//        
-//        if (zx->out_list) {free(zx->out_list);}
-//        
-//        zx->out_list = (t_atom*)malloc(sizeof(t_atom)*zx->out_list_count);
-//        
-//        int j=0;
-//        for (int i=0;i<zx->out_list_count;i+=2)
-//        {
-//            zx->out_list[i].a_type = A_FLOAT;
-//            zx->out_list[i].a_w.w_float = zx->points->at(j).x ;
-//            
-//            zx->out_list[i+1].a_type = A_FLOAT;
-//            zx->out_list[i+1].a_w.w_float = zx->points->at(j).y ;
-//            
-//            j++;
-//        }
-//        
-//        outlet_list(zx->out1, &s_list, zx->out_list_count, zx->out_list);
-        
+
         AtomList list = zx->x_bpf.getBpfListRaw();
         list.output(zx->out1);
     }
@@ -643,7 +436,7 @@ namespace ceammc_gui {
             zx->x_bpf.drag_limit = (int)(argv[0].a_w.w_float!=0);
         }
         
-        //GuiFactory<BaseGuiObject>::ws_redraw(z);
+        GuiFactory<BaseGuiObject>::ws_redraw(z);
     }
     
     void bpf_m_get(t_object *z, t_symbol *s, int argc, t_atom *argv)
@@ -656,20 +449,6 @@ namespace ceammc_gui {
         int i = int(argv[0].a_w.w_float);
         if (i>zx->x_bpf.size()-1) return;//i = (int)zx->x_bpf.size()-1;
         if (i<0) return; //i=0;
-        
-//        zx->out_list_count = 2;
-//        
-//        if (zx->out_list) {free(zx->out_list);}
-//        
-//        zx->out_list = (t_atom*)malloc(sizeof(t_atom)*zx->out_list_count);
-//        
-//        zx->out_list[0].a_type = A_FLOAT;
-//        zx->out_list[0].a_w.w_float = zx->x_bpf.getPointRawX(i) * zx->range_x + zx->shift_x;
-//            
-//        zx->out_list[1].a_type = A_FLOAT;
-//        zx->out_list[1].a_w.w_float = zx->x_bpf.getPointRawY(i) * zx->range_y + zx->shift_y;
-//        
-//        outlet_list(zx->out1, &s_list, zx->out_list_count, zx->out_list);
         
         AtomList list = zx->x_bpf.getPoint(i);
         list.output(zx->out1);
@@ -685,21 +464,7 @@ namespace ceammc_gui {
         int i = int(argv[0].a_w.w_float);
         if (i>zx->x_bpf.size()-1) return;//i = (int)zx->x_bpf.size()-1;
         if (i<0) return; //i=0;
-        
-//        zx->out_list_count = 2;
-//        
-//        if (zx->out_list) {free(zx->out_list);}
-//        
-//        zx->out_list = (t_atom*)malloc(sizeof(t_atom)*zx->out_list_count);
-//        
-//        zx->out_list[0].a_type = A_FLOAT;
-//        zx->out_list[0].a_w.w_float = zx->x_bpf.getPointRawX(i);
-//        
-//        zx->out_list[1].a_type = A_FLOAT;
-//        zx->out_list[1].a_w.w_float = zx->x_bpf.getPointRawY(i);
-//        
-//        outlet_list(zx->out1, &s_list, zx->out_list_count, zx->out_list);
-        
+
         AtomList list = zx->x_bpf.getPointRaw(i);
         list.output(zx->out1);
     }
@@ -719,9 +484,6 @@ namespace ceammc_gui {
         float y = argv[2].a_w.w_float;
         
         zx->x_bpf.setPoint(i, x, y);
-        
-//        zx->x_bpf.getPointRawX(i) = (x-zx->x_bpf.shift_x)/zx->x_bpf.range_x;
-//        zx->x_bpf.getPointRawY(i) = (y-zx->x_bpf.shift_y)/zx->x_bpf.range_y;
         
         GuiFactory<BaseGuiObject>::ws_redraw(z);
         
@@ -744,10 +506,6 @@ namespace ceammc_gui {
         
         zx->x_bpf.setPointRaw(i, x, y);
         
-        
-//        zx->x_bpf.getPointRawX(i) = x;
-//        zx->x_bpf.getPointRawY(i) = y;
-        
         GuiFactory<BaseGuiObject>::ws_redraw(z);
     }
     
@@ -766,26 +524,6 @@ namespace ceammc_gui {
         bool b = argv[1].a_w.w_float != 0;
         
         zx->x_bpf.setPointSeg(idx, b);
-        
-        
-//        zx->points->at(idx).end_segment = b;
-//        
-//        if (b)
-//        {
-//            zx->seg_count ++;
-//            
-//            zx->seg_idx.push_back(idx);
-//            std::sort(zx->seg_idx.begin(), zx->seg_idx.end());
-//        }
-//        else
-//        {
-//            zx->seg_count--;
-//            
-//            vector<int>::iterator pos = find(zx->seg_idx.begin(),zx->seg_idx.end(), idx);
-//            if (pos != zx->seg_idx.end())
-//                zx->seg_idx.erase(pos);
-//            
-//        };
         
         GuiFactory<BaseGuiObject>::ws_redraw(z);
         
@@ -817,7 +555,6 @@ namespace ceammc_gui {
             int idx = (int)(argv[0].a_w.w_float);
             
             zx->x_bpf.lockX(idx, (argv[1].a_w.w_float!=0));
-            //zx->points->at(idx).lock_x = (argv[1].a_w.w_float!=0);
         }
         
         GuiFactory<BaseGuiObject>::ws_redraw(z);
@@ -832,8 +569,6 @@ namespace ceammc_gui {
             ui_bpfunc *zx = (ui_bpfunc*)z;
             int idx = (int)(argv[0].a_w.w_float);
             zx->x_bpf.lockY(idx, (argv[1].a_w.w_float!=0));
-            
-            //zx->points->at(idx).lock_y = (argv[1].a_w.w_float!=0);
         }
         
         GuiFactory<BaseGuiObject>::ws_redraw(z);
@@ -848,8 +583,6 @@ namespace ceammc_gui {
             ui_bpfunc *zx = (ui_bpfunc*)z;
             int idx = (int)(argv[0].a_w.w_float);
             zx->x_bpf.joinNext(idx, (argv[1].a_w.w_float!=0));
-            
-            //zx->points->at(idx).join_next = (argv[1].a_w.w_float!=0);
         }
         
         GuiFactory<BaseGuiObject>::ws_redraw(z);
@@ -861,19 +594,7 @@ namespace ceammc_gui {
     {
         
         ui_bpfunc *zx = (ui_bpfunc*)z;
-        
-        //bpf_points_new(z);
-        
         zx->x_bpf.clear();
-        
-//        bpf_point_add(z, 0, 0, 0);
-//        bpf_point_add(z, 1, .5, .75);
-//        bpf_point_add(z, 2, 1, 1);
-//        
-//        zx->seg_count = 1;
-//        
-//        zx->seg_idx.clear();
-//        zx->seg_idx.push_back(0);
         
         GuiFactory<BaseGuiObject>::ws_redraw(z);
         
@@ -891,8 +612,6 @@ namespace ceammc_gui {
         
         t_rect rect;
         ebox_get_rect_for_view((t_ebox *)z, &rect);
-        
-        //bpf_point_add(z, zx->addidx, (xx-zx->shift_x)/zx->range_x, (yy-zx->shift_y)/zx->range_y);
         
         zx->x_bpf.addPoint(zx->addidx, xx, yy);
         
@@ -913,8 +632,6 @@ namespace ceammc_gui {
         t_rect rect;
         ebox_get_rect_for_view((t_ebox *)z, &rect);
         
-        //bpf_point_add(z, zx->addidx, xx, yy );
-        
         zx->x_bpf.addPointRaw(zx->addidx, xx, yy);
         
         GuiFactory<BaseGuiObject>::ws_redraw(z);
@@ -928,7 +645,6 @@ namespace ceammc_gui {
         
         int del_i = (int)argv[0].a_w.w_float;
         
-        //bpf_point_del(z, del_i);
         ui_bpfunc *zx = (ui_bpfunc*)z;
         
         zx->x_bpf.deletePoint(del_i);
@@ -942,32 +658,6 @@ namespace ceammc_gui {
     {
         
         ui_bpfunc *zx = (ui_bpfunc*)z;
-        
-        
-//        float last_time = 0;
-//        
-//        
-//        //?replace with AtomList
-//        for (int j=0;j<zx->x_bpf.size();j++)      //i is on vacation
-//        {
-//            t_atom *out_list = (t_atom*)malloc(sizeof(t_atom)*3);
-//            
-//            float this_time = zx->points->at(j).x * zx->range_x + zx->shift_x;
-//            
-//            out_list[1].a_type = A_FLOAT;
-//            out_list[1].a_w.w_float = this_time;
-//            
-//            out_list[0].a_type = A_FLOAT;
-//            out_list[0].a_w.w_float = zx->points->at(j).y * zx->range_y + zx->shift_y;
-//            
-//            out_list[2].a_type = A_FLOAT;
-//            out_list[2].a_w.w_float = last_time;
-//            
-//            last_time += this_time;
-//            
-//            outlet_list(zx->out1, &s_list, 3, out_list);
-//            
-//        }
         
         vector<AtomList> output = zx->x_bpf.getVline();
         
@@ -997,50 +687,6 @@ namespace ceammc_gui {
             output.at(i).output(zx->out1);  //lol
         }
         
-//        vector<int>::iterator it = zx->seg_idx.begin();
-//        //printf("advance %d to %d\n", *it, seg_number);
-//        advance(it, seg_number);
-//        
-//        int seg_index_start = *it ;
-//        int seg_index_end = (int)zx->x_bpf.size()-1;
-//        
-//        if (seg_number<(zx->seg_count-1))
-//        {
-//            advance(it,1);
-//            seg_index_end = *it;
-//        }
-//        
-//        //printf("from %d to %d\n", seg_index_start, seg_index_end);
-//        
-//        
-//        float last_time = 0;
-//        
-//        
-//        //?replace with AtomList
-//        for (int j=seg_index_start;j<=seg_index_end;j++)      //i is on vacation
-//        {
-//            
-//            t_atom *out_list = (t_atom*)malloc(sizeof(t_atom)*3);
-//            
-//            float this_time = zx->points->at(j).x * zx->range_x + zx->shift_x;
-//            
-//            out_list[1].a_type = A_FLOAT;
-//            out_list[1].a_w.w_float = this_time;
-//            
-//            out_list[0].a_type = A_FLOAT;
-//            out_list[0].a_w.w_float = zx->points->at(j).y * zx->range_y + zx->shift_y;
-//            
-//            out_list[2].a_type = A_FLOAT;
-//            out_list[2].a_w.w_float = last_time;
-//            
-//            last_time += this_time;
-//            
-//            outlet_list(zx->out1, &s_list, 3, out_list);
-//            
-//            
-//        }
-        
-        
     }
     
     void bpf_m_vline_tgl(t_object *z, t_symbol *s, int argc, t_atom *argv)
@@ -1049,8 +695,6 @@ namespace ceammc_gui {
         if (argv[0].a_type!=A_FLOAT) {return;}
         
         int seg_number = int(argv[0].a_w.w_float);
-        
-        //ui_bpfunc *zx = (ui_bpfunc*)z;
         
         if (seg_number<0) {error("segment number should be 0 or 1"); return;}
         if (seg_number>(1)) {error("segment number should be 0 or 1"); return;}
@@ -1084,16 +728,7 @@ namespace ceammc_gui {
         
         AtomList list = AtomList(argc,argv);
         
-        int num_points = floor(list.size()/2);
-        
-        
-        //bpf_points_new(z);
-        zx->x_bpf.clear();
-        
-        for (int i=0; i<num_points; i++)
-        {
-            zx->x_bpf.addPointRaw(i, list.at(i*2).asFloat(), list.at(i*2+1).asFloat());
-        }
+        zx->x_bpf.setBPFList(list);
         
         GuiFactory<BaseGuiObject>::ws_redraw(z);
     
@@ -1211,8 +846,6 @@ namespace ceammc_gui {
     {
         ui_bpfunc *zx = (ui_bpfunc*)z;
         
-        //bpf_points::iterator it = zx->points->begin();
-        
         t_rect rect;
         ebox_get_rect_for_view((t_ebox *)z, &rect);
         
@@ -1220,9 +853,6 @@ namespace ceammc_gui {
         {
             if (zx->x_bpf.getPointSel(i))
             {
-                //bpf_points::iterator it_prev = it-1;
-                //bpf_points::iterator it_next = it+1;
-                
                 int prev = i-1;
                 int next = i+1;
                 
@@ -1262,7 +892,6 @@ namespace ceammc_gui {
                     
                     if (zx->x_bpf.getJoinNext(i))
                     {
-                        //it_next->y = zx->x_bpf.getPointRawY(i);
                         zx->x_bpf.setPointRaw(next, zx->x_bpf.getPointRawX(next), y);
                     }
                     
@@ -1274,8 +903,6 @@ namespace ceammc_gui {
         
         zx->_px = pt.x;
         zx->_py = pt.y;
-        
-        //bpf_point_sort(z);
         
         zx->x_bpf._Sort();
         
@@ -1292,19 +919,7 @@ namespace ceammc_gui {
     
     UI_fun(ui_bpfunc)::new_ext(t_object *z, t_symbol *s, int argcl, t_atom *argv)
     {
-//        ((t_ebox*)z)->b_boxparameters.d_boxfillcolor.red = 0.75;
-//        ((t_ebox*)z)->b_boxparameters.d_boxfillcolor.green = 0.75;
-//        ((t_ebox*)z)->b_boxparameters.d_boxfillcolor.blue   = 0.75;
-//        ((t_ebox*)z)->b_boxparameters.d_boxfillcolor.alpha = 1.;
-        
-//        bpf_points_new(z);
-//        
-//        bpf_point_add(z, 0, 0, 0);
-//        bpf_point_add(z, 1, .5, .75);
-//        bpf_point_add(z, 2, 1, 1);
-        
-        
-        
+
         ui_bpfunc *zx = (ui_bpfunc*)z;
         
         zx->x_bpf.clear();
@@ -1323,19 +938,12 @@ namespace ceammc_gui {
         
         zx->auto_send = 0;
         
-        //zx->x_bpf.seg_count = 1;
-        
-        //zx->output = new AtomList;
-        
         zx->out_list = (t_atom*) malloc(sizeof(t_atom));
         
         zx->txt_max = etext_layout_create();
         zx->txt_min = etext_layout_create();
         zx->txt_val = etext_layout_create();
-        
-//        zx->seg_idx.clear();
-//        zx->seg_idx.push_back(0);
-        
+       
         zx->txt_font = efont_create(gensym("Helvetica"), gensym("light"), gensym("normal"), 8);
         
         
@@ -1352,6 +960,8 @@ namespace ceammc_gui {
     UI_fun(ui_bpfunc)::init_ext(t_eclass *z)
     {
         CLASS_ATTR_DEFAULT (z, "size", 0, "200. 150.");
+        
+        //TODO
         
 //        CLASS_ATTR_FLOAT(z, "shift_x", 0, ui_bpfunc, shift_x);
 //        CLASS_ATTR_DEFAULT(z, "shift_x", 0, "0");
