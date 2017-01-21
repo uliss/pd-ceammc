@@ -69,6 +69,36 @@ namespace ceammc {
         
         bool drag_limit;
         
+ 
+        void setBPFList(AtomList list)
+        {
+            int num_points = floor(list.size()/2);
+            
+            
+            this->clear();
+            
+            for (int i=0; i<num_points; i++)
+            {
+                this->addPointRaw(i, list.at(i*2).asFloat(), list.at(i*2+1).asFloat());
+            }
+        
+        }
+        void clear()
+        {
+            this->_points.clear();
+            
+            this->addPointRaw(0, 0, 0);
+            this->addPointRaw(1, 0.5, 0.75);
+            this->addPointRaw(2, 1, 1);
+            
+            this->_seg_count = 1;
+            
+            this->_seg_idx.clear();
+            this->_seg_idx.push_back(0);
+        }
+        
+#pragma mark point
+        
         inline void _Sort()     //?
         {
             
@@ -116,19 +146,7 @@ namespace ceammc {
             }
         }
         
-        void clear()
-        {
-            this->_points.clear();
-            
-            this->addPointRaw(0, 0, 0);
-            this->addPointRaw(1, 0.5, 0.75);
-            this->addPointRaw(2, 1, 1);
-            
-            this->_seg_count = 1;
-            
-            this->_seg_idx.clear();
-            this->_seg_idx.push_back(0);
-        }
+        
         
         
         

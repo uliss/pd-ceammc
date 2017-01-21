@@ -12,11 +12,13 @@
 #include "ceammc_log.h"
 #include "ceammc_object.h"
 
+#include "ceammc_bpf.h"
+
 using namespace ceammc;
 
 class Bpf2Vline : public BaseObject
 {
-    AtomList out_list_;
+    vector<AtomList> vline;
     
     SymbolEnumProperty* method_;
     
@@ -37,11 +39,19 @@ public:
     
     void onBang()
     {
-        listTo(0, out_list_);
+        for (int i = 0; i< this->vline.size(); i++)
+        {
+            listTo(0, this->vline.at(i));
+        }
+        
     }
     
     void onList(const AtomList& l)
     {
+        BPF func;
+        func.setBPFList(l);
+        this->vline = func.getVline();
+        
         onBang();
     }
     

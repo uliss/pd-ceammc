@@ -12,6 +12,8 @@
 #include "ceammc_log.h"
 #include "ceammc_object.h"
 
+#include "ceammc_bpf.h"
+
 using namespace ceammc;
 
 class Bpf2List : public BaseObject
@@ -37,11 +39,17 @@ public:
     
     void onBang()
     {
+       
+        
         listTo(0, out_list_);
     }
     
     void onList(const AtomList& l)
     {
+        BPF func;
+        func.setBPFList(l);
+        //this->out_list_ = func.getBpfListRaw();
+        
         onBang();
     }
     
