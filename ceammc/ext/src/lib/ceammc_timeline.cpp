@@ -15,8 +15,8 @@
 #include "ceammc_log.h"
 
 #include <algorithm>
-#include <string>
 #include <limits>
+#include <string>
 
 namespace ceammc {
 namespace tl {
@@ -54,16 +54,16 @@ namespace tl {
     // static member init
     CueStorage::CanvasCueMap CueStorage::cue_map_;
 
-    void CueStorage::add(CueData* c)
+    bool CueStorage::add(CueData* c)
     {
         if (c == 0) {
             LIB_ERR << "[CueStorage::add] null pointer";
-            return;
+            return false;
         }
 
         if (exists(c)) {
             LIB_ERR << "already exists in storage";
-            return;
+            return false;
         }
 
         t_canvas* cnv = const_cast<t_canvas*>(c->canvas());
@@ -71,17 +71,18 @@ namespace tl {
 
         sort(cnv);
         enumerate(cnv);
+        return true;
     }
 
-    void CueStorage::remove(CueData* c)
+    bool CueStorage::remove(CueData* c)
     {
         if (c == 0)
-            return;
+            return false;
 
         t_canvas* cnv = const_cast<t_canvas*>(c->canvas());
         CanvasCueMap::iterator it = cue_map_.find(cnv);
         if (it == cue_map_.end())
-            return;
+            return false;
 
         CueList* lst = &it->second;
 
@@ -94,6 +95,8 @@ namespace tl {
 
         if (lst->empty())
             cue_map_.erase(it);
+
+        return true;
     }
 
     int CueStorage::index(CueData* c)
@@ -225,14 +228,20 @@ namespace tl {
 
     UIDataList UIStorage::data_;
 
-    void UIStorage::add(TimelineData* data)
+    bool UIStorage::add(TimelineData* data)
     {
+        if (data == 0) {
+            LIB_ERR << "[UIStorage::add] null pointer";
+            return false;
+        }
+
         if (exists(data)) {
             LIB_ERR << "[UIStorage::add] already exists";
-            return;
+            return false;
         }
 
         data_.push_back(data);
+        return true;
     }
 
     TimelineData* UIStorage::at(size_t pos)

@@ -74,7 +74,8 @@ TEST_CASE("timeline", "[ceammc::timelime]")
         CueStorage::enumerate(cnv);
         REQUIRE(CueStorage::index(c1) == -1);
 
-        CueStorage::add(c1);
+        REQUIRE_FALSE(CueStorage::add(0));
+        REQUIRE(CueStorage::add(c1));
         REQUIRE(CueStorage::cueCount(cnv) == 1);
         REQUIRE(CueStorage::exists(cnv));
         REQUIRE(CueStorage::exists(c1));
@@ -137,9 +138,13 @@ TEST_CASE("timeline", "[ceammc::timelime]")
         CueData* c3 = new CueData(cnv, (t_object*)111);
         c3->setXPos(-100);
         CueStorage::add(c3);
+        REQUIRE(CueStorage::find(cnv, (t_object*)111) == c3);
+        REQUIRE(CueStorage::find((t_canvas*)0xBEE, (t_object*)111) == 0);
+        REQUIRE(CueStorage::find(cnv, (t_object*)112) == 0);
         REQUIRE(CueStorage::at(cnv, 0) == c3);
         REQUIRE(CueStorage::at(cnv, 0)->name() == "cue_0");
 
+        REQUIRE_FALSE(CueStorage::remove(0));
         CueStorage::remove(c3);
         CueStorage::remove(c1);
         REQUIRE_FALSE(CueStorage::exists(c1));
@@ -155,6 +160,12 @@ TEST_CASE("timeline", "[ceammc::timelime]")
         delete c1;
         delete c2;
         delete c3;
+
+        SECTION("cueList")
+        {
+            REQUIRE(CueStorage::cueList((CueData*)0) == 0);
+            REQUIRE(CueStorage::find(0, 0) == 0);
+        }
     }
 
     SECTION("TimelineData")
@@ -276,5 +287,14 @@ TEST_CASE("timeline", "[ceammc::timelime]")
         REQUIRE(trigger_actions(cnv1, 0) == 1);
         REQUIRE(trigger_actions(cnv1, 1) == 1);
         REQUIRE(trigger_actions(cnv1, 2) == 0);
+        REQUIRE(trigger_actions(cnv1, 3) == 0);
+
+        CueStorage::remove(&cue1);
+        CueStorage::remove(&cue2);
+        CueStorage::remove(&cue3);
+
+        UIStorage::remove(&tl1);
+        UIStorage::remove(&tl2);
+        UIStorage::remove(&tl3);
     }
 }

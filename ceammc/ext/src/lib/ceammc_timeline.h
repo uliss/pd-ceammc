@@ -55,8 +55,8 @@ namespace tl {
         CueStorage();
 
     public:
-        static void add(CueData* c);
-        static void remove(CueData* c);
+        static bool add(CueData* c);
+        static bool remove(CueData* c);
         static int index(CueData* c);
         static CueData* at(t_canvas* cnv, size_t pos);
         static CueData* find(t_canvas* cnv, t_object* obj);
@@ -101,7 +101,7 @@ namespace tl {
         static UIDataList data_;
 
     public:
-        static void add(TimelineData* data);
+        static bool add(TimelineData* data);
         static TimelineData* at(size_t pos);
         static void remove(TimelineData* data);
         static bool exists(TimelineData* data);
