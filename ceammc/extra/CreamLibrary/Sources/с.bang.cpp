@@ -58,6 +58,13 @@ typedef struct t_bang
     t_clock*    b_clock;            /*!< The t_clock of the object. */
     // If the object is performming a bang.
     char        b_active;           /*!< If the object is performming a bang. */
+    
+    // ceammc
+    int         b_borderwidth;
+    t_atom*     f_labeltext;
+    int         f_nlabeltext;
+    float       f_labeloffset[2];
+    
 } t_bang;
 
 //! @cond
@@ -128,10 +135,10 @@ extern "C" void setup_ui0x2ebang(void)
         
         // We intialize the attribute of the t_bang.
         // All the GUI classes has font attributes but we don't need them for the bang classe so we mark them invisible.
-        CLASS_ATTR_INVISIBLE            (c, "fontname", 1);
-        CLASS_ATTR_INVISIBLE            (c, "fontweight", 1);
-        CLASS_ATTR_INVISIBLE            (c, "fontslant", 1);
-        CLASS_ATTR_INVISIBLE            (c, "fontsize", 1);
+//        CLASS_ATTR_INVISIBLE            (c, "fontname", 1);
+//        CLASS_ATTR_INVISIBLE            (c, "fontweight", 1);
+//        CLASS_ATTR_INVISIBLE            (c, "fontslant", 1);
+//        CLASS_ATTR_INVISIBLE            (c, "fontsize", 1);
         // All the GUI classes has a size attribute, we just set up the default value.
         CLASS_ATTR_DEFAULT              (c, "size", 0, "16. 16.");
         // We create a new t_rgba attribute that refers to the b_color_background member of the t_bang and that will match to
@@ -142,14 +149,14 @@ extern "C" void setup_ui0x2ebang(void)
         // We set up the order of the attribute in the properties window (this is unused for the moment).
         CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
         // We set up the the default value of the color. This macro also defines that the attribute will automatically call ebox_redraw when its value has changed and that its value will be saved with the patcher.
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.5 0.5 0.5 1.");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.93 0.93 0.93 1.");
         // We set up the that the attribute should be displayed as a color slector in the properties window.
         CLASS_ATTR_STYLE                (c, "bgcolor", 0, "color");
         // We do the same thing for the border color and the bang color.
         CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_bang, b_color_border);
         CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Border Color");
         CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0.93 0.93 0.93 1.");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0. 0. 0. 1.");
         CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
         
         CLASS_ATTR_RGBA                 (c, "bacolor", 0, t_bang, b_color_bang);
@@ -157,6 +164,23 @@ extern "C" void setup_ui0x2ebang(void)
         CLASS_ATTR_ORDER                (c, "bacolor", 0, "3");
         CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bacolor", 0, "0. 0.75 1. 1.");
         CLASS_ATTR_STYLE                (c, "bacolor", 0, "color");
+        
+        
+        // CEAMMC
+        // compatibility with standard objects
+        
+        CLASS_ATTR_INT                  (c, "borderwidth", 0, t_bang, b_borderwidth);
+        CLASS_ATTR_LABEL                (c, "borderwidth", 0, "Border Width");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "borderwidth", 0, "1");
+        
+        CLASS_ATTR_SYMBOL_VARSIZE       (c, "labeltext", 0, t_bang, f_labeltext, f_nlabeltext, CREAM_MAXITEMS);
+        CLASS_ATTR_LABEL                (c, "labeltext", 0, "Label Text");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "labeltext", 0, "");
+        
+        CLASS_ATTR_FLOAT_ARRAY          (c, "labeloffset", 0, t_bang, f_labeloffset, 2);
+        CLASS_ATTR_LABEL                (c, "labeloffset", 0, "Label Offset");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "labeloffset", 0, "0 0");
+        
         
         // We register the class. This function is important it will set up some dsp members if needs and the properties window
         // if the class has attributes. The CLASS_BOX is for GUI otherwise use CLASS_OBJ this is pretty useless but it ensures
@@ -256,7 +280,7 @@ static void bang_getdrawparams(t_bang *x, t_object *view, t_edrawparams *params)
     params->d_bordercolor       = x->b_color_border;
     // We define the background color with our border attribute color. The background color will be used when the
     // t_bang is inactive to draw the circle.
-    params->d_boxfillcolor      = x->b_color_border;
+    params->d_boxfillcolor      = x->b_color_background;
 }
 
 // Defines and validates the size of a GUI.
@@ -308,18 +332,25 @@ static void bang_paint(t_bang *x, t_object *view)
         size = rect.width * 0.5;
         // We set up the bang color is the t_bang is currently active.
         // Otherwise we use the background color.
+        
+        // We add a circle at the center the t_elayer.
+        egraphics_circle(g, floor(size + 0.5), floor(size + 0.5), size * 0.9);
+        
         if(x->b_active)
         {
             egraphics_set_color_rgba(g, &x->b_color_bang);
+            // We fill the t_elayer with the drawing.
+            egraphics_fill(g);
+            
+            
         }
         else
         {
-            egraphics_set_color_rgba(g, &x->b_color_background);
+            egraphics_set_color_rgba(g, &x->b_color_border);
+            // We stroke the t_elayer with the drawing.
+            egraphics_stroke(g);
+            
         }
-        // We add a circle at the center the t_elayer.
-        egraphics_circle(g, floor(size + 0.5), floor(size + 0.5), size * 0.9);
-        // We fill the t_elayer with the drawing.
-        egraphics_fill(g);
         // We mark the layer as ready to be painted.
         ebox_end_layer((t_ebox*)x, bang_sym_background_layer);
     }
