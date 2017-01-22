@@ -1,6 +1,6 @@
 //
 //  2bpflist.cpp
-//  bpf2list
+//  Bpf2Array
 //
 //  Created by Alex Nadzharov on 06/01/17.
 //
@@ -16,23 +16,25 @@
 
 using namespace ceammc;
 
-class Bpf2List : public BaseObject
+class Bpf2Array : public BaseObject
 {
     AtomList out_list_;
     
     SymbolEnumProperty* method_;
-    Atom size_;
+    //Atom size_;
     
     t_symbol *arrayname;
     int array_size;
     
 public:
-    Bpf2List(const PdArgs& a)
+    Bpf2Array(const PdArgs& a)
     : BaseObject(a)
-    , size_(16)
+    , arrayname(gensym(""))
+    //, size_(16)
     
     {
         createOutlet();
+        createInlet();
         
         initProperties();
         // parse creation arguments and properties
@@ -71,7 +73,7 @@ public:
             pd_error(this->owner(), "%s: bad template for tabwrite", this->arrayname->s_name);
         else
         {
-            this->size_ = Atom(vecsize);
+            //this->size_ = Atom(vecsize);
             
             BPF func;
             func.empty();
@@ -80,7 +82,7 @@ public:
             
             func.setBPFList(l);
             
-            this->out_list_ = func.getVector(this->size_.asInt());
+            this->out_list_ = func.getVector(vecsize);
             
             onBang();
         }
@@ -88,14 +90,28 @@ public:
         
     }
     
-    void initProperties()
+    void onInlet(size_t n, const AtomList& l)
     {
-        
+        if (n==1)
+        {
+            this->arrayname = l.at(0).asSymbol();
+        }
     }
     
+    void initProperties()
+    {
+        createCbProperty("@array", &Bpf2Array::getArrayName, &Bpf2Array::setArrayName);
+    }
+    
+    AtomList getArrayName() const { return AtomList(Atom(this->arrayname)); }
+    
+    void setArrayName(const AtomList& l)
+    {
+        this->arrayname = l.at(0).asSymbol();
+    }
 };
 
 extern "C" void setup_conv0x2ebpf2array()
 {
-    ObjectFactory<Bpf2List> obj("conv.bpf2array");
+    ObjectFactory<Bpf2Array> obj("conv.bpf2array");
 }

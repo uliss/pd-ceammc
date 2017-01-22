@@ -31,6 +31,7 @@ public:
     
     {
         createOutlet();
+        createInlet();
         
         initProperties();
         // parse creation arguments and properties
@@ -56,9 +57,25 @@ public:
         onBang();
     }
     
+    void onInlet(size_t n, const AtomList& l)
+    {
+        if (n==1)
+        {
+            this->size_ = l.at(0);
+            if (this->size_.asFloat()<2) this->size_ = Atom(2.0f);
+        }
+    }
+    
     void initProperties()
     {
-        
+        createCbProperty("@size", &Bpf2List::getSize, &Bpf2List::setSize);
+    }
+    
+    AtomList getSize() const { return AtomList(Atom(this->size_)); }
+    
+    void setSize(const AtomList& l)
+    {
+        this->size_ = l.at(0).asInt();
     }
     
 };
