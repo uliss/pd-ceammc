@@ -1,6 +1,6 @@
 macro(ceammc_add_test title name)
     add_executable(${name} "${name}.cpp")
-    target_link_libraries(${name} ceammc_static puredata-core)
+    target_link_libraries(${name} ceammc_static puredata-core ceammc_timeline )
     add_test(${title} ${name})
 
     if(${WITH_COVERAGE})

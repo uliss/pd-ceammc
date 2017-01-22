@@ -9,84 +9,83 @@
 
 //  CICM Wrapper version
 
-
 #include <iostream>
 
-#include "tl_lib.hpp"
+//#include "tl_lib.hpp"
 
 #include "ceammc_gui.h"
+#include "ceammc_timeline.h"
 
 using namespace ceammc_gui;
+using namespace ceammc::tl;
 
 namespace ceammc_gui {
 
-struct tl_bang : public BaseGuiObject
-{
-    
-    t_etext *txt;
-    t_efont *fnt;
-    
+static t_symbol* FONT_FAMILY = gensym("Helvetica");
+static t_symbol* FONT_STYLE = gensym("roman");
+static t_symbol* FONT_WEIGHT = gensym("normal");
+static const int FONT_SIZE = 12;
+
+static t_symbol* FILL_COLOR = gensym("#F0F0F0");
+
+struct tl_bang : public BaseGuiObject {
+    t_canvas* canvas;
+
+    t_etext* txt;
+    t_efont* fnt;
+
     t_rgba border_color;
     t_rgba bg_color;
-    
+
     t_object x_gui;
-    t_outlet *out1;
+    t_outlet* out1;
+
+    TimelineData* data;
 };
 
-
-UI_fun(tl_bang)::wx_paint(t_object *z, t_object *view)
+static inline t_ebox* asBox(t_object* x)
 {
-    
-    t_symbol *bgl = gensym("background_layer");
-    //float size;
-    
-    t_rect rect;
-    ebox_get_rect_for_view((t_ebox *)z, &rect);
-    
-    t_elayer *g = ebox_start_layer((t_ebox *)z, bgl, rect.width, rect.height);
-    if(g)
-    {
-        tl_bang* zx = (tl_bang*)z;
-        
-        egraphics_rectangle(g, 0, 0, rect.width, rect.height);
-        egraphics_set_color_hex(g, gensym("#F0F0F0"));
-        egraphics_fill(g);
-        
-        etext_layout_set(zx->txt, "tl.bang", zx->fnt, 2, 15, rect.width, rect.height/2, ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
-        etext_layout_draw(zx->txt, g);  //zx->cue_name.c_str()
-        
-        tll_ui_update_pos((t_object *)z, zx->b_box.b_rect.x);
-        
-    }
-    
-    ebox_end_layer((t_ebox*)z, bgl);
-    ebox_paint_layer((t_ebox *)z, bgl, 0., 0.);
-    
+    return reinterpret_cast<t_ebox*>(x);
 }
 
-
-
-#pragma mark -
+static inline tl_bang* asBang(t_object* x)
+{
+    return reinterpret_cast<tl_bang*>(x);
+}
 
 static void tl_cue_ebox_move(t_ebox* x)
 {
-    if(glist_isvisible(x->b_obj.o_canvas))
-    {
-        sys_vgui("%s coords %s %d %d\n", x->b_canvas_id->s_name, x->b_window_id->s_name, (int)(x->b_rect.x - x->b_boxparameters.d_borderthickness), (int)(x->b_rect.y - x->b_boxparameters.d_borderthickness));
+    if (glist_isvisible(x->b_obj.o_canvas)) {
+        sys_vgui("%s coords %s %d %d\n",
+            x->b_canvas_id->s_name,
+            x->b_window_id->s_name,
+            (int)(x->b_rect.x - x->b_boxparameters.d_borderthickness),
+            (int)(x->b_rect.y - x->b_boxparameters.d_borderthickness));
     }
+
     canvas_fixlinesfor(glist_getcanvas(x->b_obj.o_canvas), (t_text*)x);
 }
 
-void tl_cue_displace(t_gobj *z, t_glist *glist, int dx, int dy)
+static void tl_bang_getdrawparams(tl_bang* x, t_object* /*view*/, t_edrawparams* params)
 {
-    //todo set arg - see ui.display
-    
-    
-    //ebox src
+    params->d_borderthickness = 2;
+    params->d_cornersize = 2;
+    params->d_bordercolor = x->border_color;
+    params->d_boxfillcolor = x->bg_color;
+}
+
+static void tl_bang_action(TimelineData* x)
+{
+    outlet_bang(asBang(x->object())->out1);
+}
+
+static void tl_cue_displace(t_gobj* z, t_glist* /*glist*/, int dx, int dy)
+{
+//todo set arg - see ui.display
+
 #ifdef _WINDOWS
-    t_ebox* x = (t_ebox *)z;
-    if(x->b_selected_box)
-    {
+    t_ebox* x = (t_ebox*)z;
+    if (x->b_selected_box) {
         x->b_rect.x += dx;
         x->b_rect.y += dy;
         x->b_obj.o_obj.te_xpix += dx;
@@ -94,104 +93,109 @@ void tl_cue_displace(t_gobj *z, t_glist *glist, int dx, int dy)
         tl_cue_ebox_move(x);
     }
 #else
-    t_ebox* x = (t_ebox *)z;
-    
+    t_ebox* x = (t_ebox*)z;
+
     x->b_rect.x += dx;
     x->b_rect.y += dy;
     x->b_obj.o_obj.te_xpix += dx;
     x->b_obj.o_obj.te_ypix += dy;
     tl_cue_ebox_move(x);
 #endif
-    
+
     t_rect rect;
-    ebox_get_rect_for_view((t_ebox *)x, &rect);
-    
+    ebox_get_rect_for_view(x, &rect);
+
     tl_bang* zx = (tl_bang*)z;
-    
     GuiFactory<tl_bang>::ws_redraw((t_object*)z);
-    
-    tll_ui_update_pos((t_object *)z, zx->b_box.b_rect.x);
+    zx->data->setXPos(zx->b_box.b_rect.x);
 }
 
-
-UI_fun(tl_bang)::wx_oksize(t_object *z, t_rect *newrect)
+UI_fun(tl_bang)::wx_paint(t_object* z, t_object* /*view*/)
 {
-    newrect->width=60;
-    newrect->height=15;
+    t_rect rect;
+    ebox_get_rect_for_view(asBox(z), &rect);
+
+    t_elayer* g = ebox_start_layer(asBox(z), BG_LAYER, rect.width, rect.height);
+    if (g) {
+        tl_bang* zx = asBang(z);
+
+        egraphics_rectangle(g, 0, 0, rect.width, rect.height);
+        egraphics_set_color_hex(g, FILL_COLOR);
+        egraphics_fill(g);
+
+        etext_layout_set(zx->txt, "tl.bang", zx->fnt, 2, 15, rect.width, rect.height / 2,
+            ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
+        etext_layout_draw(zx->txt, g);
+
+        zx->data->setXPos(zx->b_box.b_rect.x);
+        ebox_end_layer(asBox(z), BG_LAYER);
+    }
+
+    ebox_paint_layer(asBox(z), BG_LAYER, 0., 0.);
 }
 
-#pragma mark
-
-static void tl_bang_getdrawparams(tl_bang *x, t_object *view, t_edrawparams *params)
+UI_fun(tl_bang)::wx_oksize(t_object* /*z*/, t_rect* newrect)
 {
-    params->d_borderthickness   = 2;
-    params->d_cornersize        = 2;
-    params->d_bordercolor       = x->border_color;
-    params->d_boxfillcolor      = x->bg_color;
+    newrect->width = 60;
+    newrect->height = 15;
 }
 
-#pragma mark -
-
-
-UI_fun(tl_bang)::new_ext(t_object* z, t_symbol *s, int argc, t_atom *argv)
+UI_fun(tl_bang)::new_ext(t_object* z, t_symbol* /*s*/, int /*argc*/, t_atom* /*argv*/)
 {
-    tl_bang* zx = (tl_bang*)z;
-    
-    tll_ui_add((t_object*)z, zx->b_box.b_rect.x);
-    ((tl_bang*)z)->out1 =outlet_new(z, &s_bang);
-    tll_ui_update_pos((t_object *)z, zx->b_box.b_obj.o_obj.te_xpix);
-    
+    tl_bang* zx = asBang(z);
+    zx->canvas = canvas_getcurrent();
+
+    zx->data = new TimelineData(zx->canvas, z);
+    zx->data->setXPos(zx->b_box.b_obj.o_obj.te_xpix);
+    zx->data->setAction(&tl_bang_action);
+    UIStorage::add(zx->data);
+
+    zx->out1 = outlet_new(z, &s_bang);
+
     zx->txt = etext_layout_create();
-    zx->fnt = efont_create(gensym("Monaco"), gensym("normal"), gensym(""), 12);
-    
-    
+
+    zx->fnt = efont_create(FONT_FAMILY, FONT_STYLE, FONT_WEIGHT, FONT_SIZE);
+
 }
 
-
-UI_fun(tl_bang)::init_ext(t_eclass *z)
+UI_fun(tl_bang)::init_ext(t_eclass* z)
 {
     z->c_widget.w_displacefn = tl_cue_displace;
-    
-    eclass_addmethod(z, (method) tl_bang_getdrawparams,   "getdrawparams",    A_NULL, 0);
-   
-    
+    eclass_addmethod(z, reinterpret_cast<method>(tl_bang_getdrawparams), "getdrawparams", A_NULL, 0);
+
+    // clang-format off
     CLASS_ATTR_RGBA                 (z, "brcolor", 0, tl_bang, border_color);
     CLASS_ATTR_LABEL                (z, "brcolor", 0, "Border Color");
     CLASS_ATTR_ORDER                (z, "brcolor", 0, "3");
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "brcolor", 0, "0. 0.7 1. 1.");
     CLASS_ATTR_STYLE                (z, "brcolor", 0, "color");
-    
+
     CLASS_ATTR_RGBA                 (z, "bgcolor", 0, tl_bang, bg_color);
     CLASS_ATTR_LABEL                (z, "bgcolor", 0, "Background Color");
     CLASS_ATTR_ORDER                (z, "bgcolor", 0, "3");
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "bgcolor", 0, ".7 .7 .7 1.");
     CLASS_ATTR_STYLE                (z, "bgcolor", 0, "color");
+    // clang-format on
 }
 
-
-
-UI_fun(tl_bang)::free_ext(t_object *x)
+UI_fun(tl_bang)::free_ext(t_object* x)
 {
-    tll_ui_delete(x);
-    
-}
+    tl_bang* zx = asBang(x);
 
+    // CICM cleanup
+    etext_layout_destroy(zx->txt);
+    efont_destroy(zx->fnt);
 
-#pragma mark -
-void tl_bang_action(t_object *x)
-{
-//    printf("bang action");
-    outlet_bang(((tl_bang*)x)->out1);
+    outlet_free(zx->out1);
+
+    // storage cleanup
+    UIStorage::remove(zx->data);
+    delete zx->data;
 }
 }
 
 extern "C" void setup_tl0x2ebang()
 {
     GuiFactory<tl_bang> class1;
-    tll_set_ui_action((tl_bang_action));    //reinterpret_cast<tl_ui_action>
     class1.setup("tl.bang");
-    
 }
-
-
-
