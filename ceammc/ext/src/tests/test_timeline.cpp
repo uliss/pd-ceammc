@@ -219,4 +219,62 @@ TEST_CASE("timeline", "[ceammc::timelime]")
         REQUIRE(UIStorage::at(0) == 0);
         REQUIRE(UIStorage::size() == 0);
     }
+
+    SECTION("trigger_actions")
+    {
+        t_canvas* cnv1 = (t_canvas*)0xBEEF;
+        t_canvas* cnv2 = (t_canvas*)0xBEEB;
+        t_object* obj1 = (t_object*)0x11;
+        t_object* obj2 = (t_object*)0x22;
+        t_object* obj3 = (t_object*)0x33;
+        t_object* obj4 = (t_object*)0x44;
+        t_object* obj5 = (t_object*)0x55;
+        REQUIRE(trigger_actions(0, 0) == 0);
+
+        CueData cue1(cnv1, obj1);
+        REQUIRE(trigger_actions(cnv1, 0) == 0);
+
+        CueStorage::add(&cue1);
+        REQUIRE(trigger_actions(cnv1, 0) == 0);
+
+        cue1.setXPos(20);
+
+        TimelineData tl1(cnv1, obj2);
+        UIStorage::add(&tl1);
+        tl1.setXPos(5);
+        CbActionTest::orig = &tl1;
+        tl1.setAction(&CbActionTest::action);
+        REQUIRE(trigger_actions(cnv1, 0) == 0);
+
+        tl1.setXPos(30);
+        REQUIRE(trigger_actions(cnv1, 0) == 1);
+
+        // other canvas
+        TimelineData tl2(cnv2, obj3);
+        tl2.setXPos(30);
+        UIStorage::add(&tl2);
+        REQUIRE(trigger_actions(cnv1, 0) == 1);
+
+        TimelineData tl3(cnv1, obj3);
+        tl3.setXPos(50);
+        UIStorage::add(&tl3);
+        REQUIRE(trigger_actions(cnv1, 0) == 2);
+
+        // add new trigger
+        CueData cue2(cnv1, obj4);
+        cue2.setXPos(40);
+        CueStorage::add(&cue2);
+
+        REQUIRE(trigger_actions(cnv1, 0) == 1);
+        REQUIRE(trigger_actions(cnv1, 1) == 1);
+
+        // add new trigger
+        CueData cue3(cnv1, obj5);
+        cue3.setXPos(100);
+        CueStorage::add(&cue3);
+
+        REQUIRE(trigger_actions(cnv1, 0) == 1);
+        REQUIRE(trigger_actions(cnv1, 1) == 1);
+        REQUIRE(trigger_actions(cnv1, 2) == 0);
+    }
 }

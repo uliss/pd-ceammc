@@ -16,6 +16,7 @@
 
 #include <algorithm>
 #include <string>
+#include <limits>
 
 namespace ceammc {
 namespace tl {
@@ -257,17 +258,19 @@ namespace tl {
         return data_.size();
     }
 
-    void trigger_actions(t_canvas* cnv, size_t idx)
+    int trigger_actions(t_canvas* cnv, size_t idx)
     {
+        int res = 0;
+
         CueList* lst = CueStorage::cueList(cnv);
         if (lst == 0) {
             LIB_ERR << "trigger_actions: no cues exists on current canvas";
-            return;
+            return res;
         }
 
         if (idx >= lst->size()) {
             LIB_ERR << "[trigger_actions] invalid cue index given: " << idx;
-            return;
+            return res;
         }
 
         for (size_t i = 0; i < UIStorage::size(); i++) {
@@ -276,11 +279,15 @@ namespace tl {
                 continue;
 
             int left = lst->at(idx)->xPos();
-            int right = (idx < (lst->size() - 1)) ? lst->at(idx + 1)->xPos() : 0xFFFF;
+            int right = (idx < (lst->size() - 1)) ? lst->at(idx + 1)->xPos() : std::numeric_limits<int>::max();
 
-            if (left <= d->xPos() && d->xPos() < right)
+            if (left <= d->xPos() && d->xPos() < right) {
                 d->triggerAction();
+                res++;
+            }
         }
+
+        return res;
     }
 }
 }

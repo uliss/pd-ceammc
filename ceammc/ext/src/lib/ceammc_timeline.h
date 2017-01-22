@@ -108,7 +108,7 @@ namespace tl {
         static size_t size();
     };
 
-    void trigger_actions(t_canvas* cnv, size_t idx);
+    int trigger_actions(t_canvas* cnv, size_t idx);
 }
 }
 
