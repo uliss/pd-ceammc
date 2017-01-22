@@ -32,6 +32,28 @@ struct t_json_object {
 };
 
 
+//click stub:
+//static void textbuf_open(t_textbuf *x)
+//{
+//    if (x->b_guiconnect)
+//    {
+//        sys_vgui("wm deiconify .x%lx\n", x);
+//        sys_vgui("raise .x%lx\n", x);
+//        sys_vgui("focus .x%lx.text\n", x);
+//    }
+//    else
+//    {
+//        char buf[40];
+//        sys_vgui("pdtk_textwindow_open .x%lx %dx%d {%s: %s} %d\n",
+//                 x, 600, 340, "myname", "text",
+//                 sys_hostfontsize(glist_getfont(x->b_canvas),
+//                                  glist_getzoom(x->b_canvas)));
+//        sprintf(buf, ".x%lx", (unsigned long)x);
+//        x->b_guiconnect = guiconnect_new(&x->b_ob.ob_pd, gensym(buf));
+//        textbuf_senditup(x);
+//    }
+//}
+
 
 static void json_object_set(t_json_object* x, t_symbol* s, int argc, t_atom* argv)
 {

@@ -49,6 +49,9 @@ public:
     void onList(const AtomList& l)
     {
         BPF func;
+        //temporary
+        func.initRange();
+        
         func.setBPFList(l);
         this->vline = func.getVline();
         
