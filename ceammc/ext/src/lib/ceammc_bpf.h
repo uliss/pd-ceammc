@@ -79,6 +79,8 @@ namespace ceammc {
         
         bool drag_limit;
         
+        
+        
         /**
          * @brief   Accepts raw pairs of x y values and creates a function
          * @details
@@ -166,6 +168,11 @@ namespace ceammc {
             this->addPointRaw(1, 0.5, 0.75);
             this->addPointRaw(2, 1, 1);
             
+        }
+        
+        BPF()
+        {
+            this->clear();
         }
         
         

@@ -18,8 +18,9 @@
 
 #include <vector>
 
-//new
 #include "lib/ceammc_bpf.h"
+
+#include "ceammc_globaldata.h"
 
 //using namespace ceammc;
 
@@ -27,6 +28,17 @@ using namespace std;
 using namespace ceammc;
 using namespace ceammc_gui;
 
+
+// for local object name
+#include <sstream>
+
+template <class T>
+inline std::string to_string (const T& t)
+{
+    std::stringstream ss;
+    ss << t;
+    return ss.str();
+}
 
 namespace ceammc_gui {
     
@@ -45,7 +57,8 @@ namespace ceammc_gui {
         t_atom *out_list;
         int out_list_count;
         
-        BPF x_bpf;      //later add globaldata / pointer
+        BPF *x_bpf;      //later add globaldata / pointer
+        GlobalData<BPF> *g_bpf;
         
         float _px;
         float _py;
@@ -118,7 +131,7 @@ namespace ceammc_gui {
                 egraphics_line(g,zx->addpos , 0, zx->addpos, rect.height);
                 egraphics_line(g,0 , zx->addpos_y, rect.width, zx->addpos_y);
                 
-                sprintf(c_val, "%.2f : %.2f", zx->addpos / rect.width * zx->x_bpf.range_x+zx->x_bpf.shift_x, (1- zx->addpos_y / rect.height) * zx->x_bpf.range_y+zx->x_bpf.shift_y);
+                sprintf(c_val, "%.2f : %.2f", zx->addpos / rect.width * zx->x_bpf->range_x+zx->x_bpf->shift_x, (1- zx->addpos_y / rect.height) * zx->x_bpf->range_y+zx->x_bpf->shift_y);
                 
                 egraphics_stroke(g);
                 
@@ -128,7 +141,7 @@ namespace ceammc_gui {
             {
                 egraphics_set_color_hex(g, gensym("#00C0FF"));
                 
-                egraphics_rectangle(g, zx->x_bpf.getPointRawX(0) * rect.width -8, (1-zx->x_bpf.getPointRawY(0)) * rect.height -8, 15, 15);
+                egraphics_rectangle(g, zx->x_bpf->getPointRawX(0) * rect.width -8, (1-zx->x_bpf->getPointRawY(0)) * rect.height -8, 15, 15);
                 egraphics_stroke(g);
                 
             }
@@ -137,23 +150,23 @@ namespace ceammc_gui {
             {
                 
                 
-                int pw1 = 6-4 * zx->x_bpf.getPointLockX(i);
-                int ph1 = 6-4 * zx->x_bpf.getPointLockY(i);
+                int pw1 = 6-4 * zx->x_bpf->getPointLockX(i);
+                int ph1 = 6-4 * zx->x_bpf->getPointLockY(i);
                 
-                egraphics_rectangle(g, zx->x_bpf.getPointRawX(i) * rect.width -.5*pw1, (1-zx->x_bpf.getPointRawY(i)) * rect.height -.5*ph1, pw1, ph1);
+                egraphics_rectangle(g, zx->x_bpf->getPointRawX(i) * rect.width -.5*pw1, (1-zx->x_bpf->getPointRawY(i)) * rect.height -.5*ph1, pw1, ph1);
                 egraphics_fill(g);
                 
                 egraphics_set_color_hex(g, gensym("#505050"));
                 
-                float px = zx->x_bpf.getPointRawX(i) * rect.width;
-                float py = (1-zx->x_bpf.getPointRawY(i)) * rect.height;
+                float px = zx->x_bpf->getPointRawX(i) * rect.width;
+                float py = (1-zx->x_bpf->getPointRawY(i)) * rect.height;
                 
-                if (zx->x_bpf.getPointDist(i) < .1)
+                if (zx->x_bpf->getPointDist(i) < .1)
                 {
-                    egraphics_rectangle(g, zx->x_bpf.getPointRawX(i) * rect.width -6, (1-zx->x_bpf.getPointRawY(i)) * rect.height -6, 11, 11);
+                    egraphics_rectangle(g, zx->x_bpf->getPointRawX(i) * rect.width -6, (1-zx->x_bpf->getPointRawY(i)) * rect.height -6, 11, 11);
                     egraphics_stroke(g);
                     
-                    sprintf(c_val, "%.2f : %.2f", zx->x_bpf.getPointRawX(i) * zx->x_bpf.range_x+zx->x_bpf.shift_x, zx->x_bpf.getPointRawY(i) * zx->x_bpf.range_y+zx->x_bpf.shift_y);
+                    sprintf(c_val, "%.2f : %.2f", zx->x_bpf->getPointRawX(i) * zx->x_bpf->range_x+zx->x_bpf->shift_x, zx->x_bpf->getPointRawY(i) * zx->x_bpf->range_y+zx->x_bpf->shift_y);
                 }
                 
                 
@@ -164,16 +177,16 @@ namespace ceammc_gui {
                 
                 egraphics_set_line_width(g, 1);    //yet disabled
                 
-                for (  i=1; i < zx->x_bpf.size(); i++)
+                for (  i=1; i < zx->x_bpf->size(); i++)
                 {
                     egraphics_set_color_hex(g, gensym("#505050"));
                     
                     egraphics_set_line_width(g, 1);
-                    egraphics_line(g, px, py, zx->x_bpf.getPointRawX(i) * rect.width, (1-zx->x_bpf.getPointRawY(i)) * rect.height);
+                    egraphics_line(g, px, py, zx->x_bpf->getPointRawX(i) * rect.width, (1-zx->x_bpf->getPointRawY(i)) * rect.height);
                     egraphics_stroke(g);
                     
-                    px = zx->x_bpf.getPointRawX(i) * rect.width;
-                    py = (1-zx->x_bpf.getPointRawY(i)) * rect.height;
+                    px = zx->x_bpf->getPointRawX(i) * rect.width;
+                    py = (1-zx->x_bpf->getPointRawY(i)) * rect.height;
                     
                     //yet disabled
                     //                lw = (it->ldist<.4);
@@ -181,19 +194,19 @@ namespace ceammc_gui {
                     //                if (lw>1) lw=1;
                     
                     egraphics_set_line_width(g, 1);
-                    int pw1 = 6-4*zx->x_bpf.getPointLockX(i);
-                    int ph1 = 6-4*zx->x_bpf.getPointLockY(i);
-                    egraphics_rectangle(g, zx->x_bpf.getPointRawX(i) * rect.width -.5*pw1, (1-zx->x_bpf.getPointRawY(i)) * rect.height -.5*ph1, pw1, ph1);
+                    int pw1 = 6-4*zx->x_bpf->getPointLockX(i);
+                    int ph1 = 6-4*zx->x_bpf->getPointLockY(i);
+                    egraphics_rectangle(g, zx->x_bpf->getPointRawX(i) * rect.width -.5*pw1, (1-zx->x_bpf->getPointRawY(i)) * rect.height -.5*ph1, pw1, ph1);
                     egraphics_fill(g);
                     
-                    if (zx->x_bpf.getPointDist(i) < .1)
+                    if (zx->x_bpf->getPointDist(i) < .1)
                     {
                         egraphics_set_color_hex(g, gensym((zx->del_mod)?"#FF0000":"#505050"));
                         
-                        egraphics_rectangle(g, zx->x_bpf.getPointRawX(i) * rect.width -6, (1-zx->x_bpf.getPointRawY(i)) * rect.height -6, 11, 11);
+                        egraphics_rectangle(g, zx->x_bpf->getPointRawX(i) * rect.width -6, (1-zx->x_bpf->getPointRawY(i)) * rect.height -6, 11, 11);
                         egraphics_stroke(g);
                         
-                        sprintf(c_val, "%.2f : %.2f", zx->x_bpf.getPointRawX(i) * zx->x_bpf.range_x+zx->x_bpf.shift_x, zx->x_bpf.getPointRawY(i) * zx->x_bpf.range_y+zx->x_bpf.shift_y);
+                        sprintf(c_val, "%.2f : %.2f", zx->x_bpf->getPointRawX(i) * zx->x_bpf->range_x+zx->x_bpf->shift_x, zx->x_bpf->getPointRawY(i) * zx->x_bpf->range_y+zx->x_bpf->shift_y);
                         
                     }
                     
@@ -201,16 +214,16 @@ namespace ceammc_gui {
                     {
                         egraphics_set_color_hex(g, gensym("#00C0FF"));
                         
-                        egraphics_rectangle(g, zx->x_bpf.getPointRawX(i) * rect.width -8, (1-zx->x_bpf.getPointRawY(i)) * rect.height -8, 15, 15);
+                        egraphics_rectangle(g, zx->x_bpf->getPointRawX(i) * rect.width -8, (1-zx->x_bpf->getPointRawY(i)) * rect.height -8, 15, 15);
                         egraphics_stroke(g);
                         
                     }
                     
-                    if (zx->x_bpf.getEndSeg(i))
+                    if (zx->x_bpf->getEndSeg(i))
                     {
                         for (int sy=0;sy<rect.height; sy+=5)
                         {
-                            egraphics_line(g, zx->x_bpf.getPointRawX(i) * rect.width, sy, zx->x_bpf.getPointRawX(i) * rect.width, sy+2.5);
+                            egraphics_line(g, zx->x_bpf->getPointRawX(i) * rect.width, sy, zx->x_bpf->getPointRawX(i) * rect.width, sy+2.5);
                         }
                         egraphics_stroke(g);
                         
@@ -222,10 +235,10 @@ namespace ceammc_gui {
             }
             
             char c_min[10];
-            sprintf(c_min, "%.2f", zx->x_bpf.shift_y);
+            sprintf(c_min, "%.2f", zx->x_bpf->shift_y);
             
             char c_max[10];
-            sprintf(c_max, "%.2f", zx->x_bpf.range_y+zx->x_bpf.shift_y);
+            sprintf(c_max, "%.2f", zx->x_bpf->range_y+zx->x_bpf->shift_y);
             
             
             etext_layout_set(zx->txt_min, c_min, zx->txt_font, 3, rect.height-12, rect.width*2, rect.height/2, ETEXT_UP_LEFT, ETEXT_JLEFT, ETEXT_WRAP);
@@ -264,29 +277,29 @@ namespace ceammc_gui {
 //        float nny = (nlen!=0) ? ny/ nlen : 0;
         
         
-        for (int i = 0; i<zx->x_bpf.size();i++)   //it = zx->points->begin(); it != zx->points->end(); ++it
+        for (int i = 0; i<zx->x_bpf->size();i++)   //it = zx->points->begin(); it != zx->points->end(); ++it
         {
             
-            int j = ((i-1) == zx->x_bpf.size()) ? i+1 : i;
+            int j = ((i-1) == zx->x_bpf->size()) ? i+1 : i;
             
-            float dx = nx - zx->x_bpf.getPointRawX(i);
-            float dy =  ( ny - (1 -zx->x_bpf.getPointRawY(i)) );
+            float dx = nx - zx->x_bpf->getPointRawX(i);
+            float dy =  ( ny - (1 -zx->x_bpf->getPointRawY(i)) );
             
             float dist = sqrtf(dx*dx + dy*dy);
-            zx->x_bpf.setPointDist(i, dist);
+            zx->x_bpf->setPointDist(i, dist);
             
             bool sel = dist<.1;
-            zx->x_bpf.setPointSel(i, sel);
+            zx->x_bpf->setPointSel(i, sel);
             
             //todo ldist
             
-            if ( (zx->x_bpf.getPointRawX(i) < (pt.x / rect.width)) && ((pt.x / rect.width )< zx->x_bpf.getPointRawX(j)) )
+            if ( (zx->x_bpf->getPointRawX(i) < (pt.x / rect.width)) && ((pt.x / rect.width )< zx->x_bpf->getPointRawX(j)) )
             {
                 zx->addidx = i;
             }
             else
             {
-                zx->addidx = (int)zx->x_bpf.size();
+                zx->addidx = (int)zx->x_bpf->size();
                 
             }
             
@@ -333,14 +346,14 @@ namespace ceammc_gui {
         
         if (modifiers==EMOD_SHIFT)
         {
-            zx->x_bpf.addPointRaw(zx->addidx, pt.x/rect.width, 1-(pt.y/rect.height));
+            zx->x_bpf->addPointRaw(zx->addidx, pt.x/rect.width, 1-(pt.y/rect.height));
             GuiFactory<BaseGuiObject>::ws_redraw(z);
             
         }
         
         if (modifiers==EMOD_ALT)
         {
-            zx->x_bpf.deletePoint(zx->delidx);
+            zx->x_bpf->deletePoint(zx->delidx);
             
             GuiFactory<BaseGuiObject>::ws_redraw(z);
             
@@ -348,7 +361,7 @@ namespace ceammc_gui {
         
         if (modifiers==EMOD_CTRL)
         {
-            zx->x_bpf.setSplit(zx->delidx);
+            zx->x_bpf->setSplit(zx->delidx);
             
             GuiFactory<BaseGuiObject>::ws_redraw(z);
             
@@ -375,7 +388,7 @@ namespace ceammc_gui {
         
         ui_bpfunc *zx = (ui_bpfunc*)z;
 
-        AtomList list = zx->x_bpf.getBpfList();
+        AtomList list = zx->x_bpf->getBpfList();
         list.output(zx->out1);
         
     }
@@ -385,32 +398,32 @@ namespace ceammc_gui {
         
         ui_bpfunc *zx = (ui_bpfunc*)z;
 
-        AtomList list = zx->x_bpf.getBpfListRaw();
+        AtomList list = zx->x_bpf->getBpfListRaw();
         list.output(zx->out1);
     }
     
     void bpf_m_range_x(t_object *z, t_symbol *s, int argc, t_atom *argv)
     {
         ui_bpfunc *zx = (ui_bpfunc*)z;
-        zx->x_bpf.range_x = argv[0].a_w.w_float;
+        zx->x_bpf->range_x = argv[0].a_w.w_float;
     }
     
     void bpf_m_range_y(t_object *z, t_symbol *s, int argc, t_atom *argv)
     {
         ui_bpfunc *zx = (ui_bpfunc*)z;
-        zx->x_bpf.range_y = argv[0].a_w.w_float;
+        zx->x_bpf->range_y = argv[0].a_w.w_float;
     }
     
     void bpf_m_shift_x(t_object *z, t_symbol *s, int argc, t_atom *argv)
     {
         ui_bpfunc *zx = (ui_bpfunc*)z;
-        zx->x_bpf.shift_x = argv[0].a_w.w_float;
+        zx->x_bpf->shift_x = argv[0].a_w.w_float;
     }
     
     void bpf_m_shift_y(t_object *z, t_symbol *s, int argc, t_atom *argv)
     {
         ui_bpfunc *zx = (ui_bpfunc*)z;
-        zx->x_bpf.shift_y = argv[0].a_w.w_float;
+        zx->x_bpf->shift_y = argv[0].a_w.w_float;
     }
     
     void bpf_m_select(t_object *z, t_symbol *s, int argc, t_atom *argv)
@@ -433,7 +446,7 @@ namespace ceammc_gui {
         if (argv->a_type == A_FLOAT)
         {
             ui_bpfunc *zx = (ui_bpfunc*)z;
-            zx->x_bpf.drag_limit = (int)(argv[0].a_w.w_float!=0);
+            zx->x_bpf->drag_limit = (int)(argv[0].a_w.w_float!=0);
         }
         
         GuiFactory<BaseGuiObject>::ws_redraw(z);
@@ -447,10 +460,10 @@ namespace ceammc_gui {
         ui_bpfunc *zx = (ui_bpfunc*)z;
         
         int i = int(argv[0].a_w.w_float);
-        if (i>zx->x_bpf.size()-1) return;//i = (int)zx->x_bpf.size()-1;
+        if (i>zx->x_bpf->size()-1) return;//i = (int)zx->x_bpf->size()-1;
         if (i<0) return; //i=0;
         
-        AtomList list = zx->x_bpf.getPoint(i);
+        AtomList list = zx->x_bpf->getPoint(i);
         list.output(zx->out1);
     }
     
@@ -462,10 +475,10 @@ namespace ceammc_gui {
         ui_bpfunc *zx = (ui_bpfunc*)z;
         
         int i = int(argv[0].a_w.w_float);
-        if (i>zx->x_bpf.size()-1) return;//i = (int)zx->x_bpf.size()-1;
+        if (i>zx->x_bpf->size()-1) return;//i = (int)zx->x_bpf->size()-1;
         if (i<0) return; //i=0;
 
-        AtomList list = zx->x_bpf.getPointRaw(i);
+        AtomList list = zx->x_bpf->getPointRaw(i);
         list.output(zx->out1);
     }
     
@@ -477,13 +490,13 @@ namespace ceammc_gui {
         ui_bpfunc *zx = (ui_bpfunc*)z;
         
         int i = int(argv[0].a_w.w_float);
-        if (i>zx->x_bpf.size()-1) return;//i = (int)zx->x_bpf.size()-1;
+        if (i>zx->x_bpf->size()-1) return;//i = (int)zx->x_bpf->size()-1;
         if (i<0) return; //i=0;
         
         float x = argv[1].a_w.w_float;
         float y = argv[2].a_w.w_float;
         
-        zx->x_bpf.setPoint(i, x, y);
+        zx->x_bpf->setPoint(i, x, y);
         
         GuiFactory<BaseGuiObject>::ws_redraw(z);
         
@@ -498,13 +511,13 @@ namespace ceammc_gui {
         ui_bpfunc *zx = (ui_bpfunc*)z;
         
         int i = int(argv[0].a_w.w_float);
-        if (i>zx->x_bpf.size()-1) return;//i = (int)zx->x_bpf.size()-1;
+        if (i>zx->x_bpf->size()-1) return;//i = (int)zx->x_bpf->size()-1;
         if (i<0) return; //i=0;
         
         float x = argv[1].a_w.w_float;
         float y = argv[2].a_w.w_float;
         
-        zx->x_bpf.setPointRaw(i, x, y);
+        zx->x_bpf->setPointRaw(i, x, y);
         
         GuiFactory<BaseGuiObject>::ws_redraw(z);
     }
@@ -518,12 +531,12 @@ namespace ceammc_gui {
         ui_bpfunc *zx = (ui_bpfunc*)z;
         
         int idx = int(argv[0].a_w.w_float);
-        if (idx>zx->x_bpf.size()-1) return;//idx = (int)zx->x_bpf.size()-1;
+        if (idx>zx->x_bpf->size()-1) return;//idx = (int)zx->x_bpf->size()-1;
         if (idx<0) return; //idx=0;
         
         bool b = argv[1].a_w.w_float != 0;
         
-        zx->x_bpf.setPointSeg(idx, b);
+        zx->x_bpf->setPointSeg(idx, b);
         
         GuiFactory<BaseGuiObject>::ws_redraw(z);
         
@@ -540,7 +553,7 @@ namespace ceammc_gui {
         zx->out_list = (t_atom*)malloc(sizeof(t_atom));
         
         zx->out_list[0].a_type = A_FLOAT;
-        zx->out_list[0].a_w.w_float = zx->x_bpf.getSegCount();
+        zx->out_list[0].a_w.w_float = zx->x_bpf->getSegCount();
         
         outlet_list(zx->out1, &s_list, 1, zx->out_list);
     }
@@ -554,7 +567,7 @@ namespace ceammc_gui {
             ui_bpfunc *zx = (ui_bpfunc*)z;
             int idx = (int)(argv[0].a_w.w_float);
             
-            zx->x_bpf.lockX(idx, (argv[1].a_w.w_float!=0));
+            zx->x_bpf->lockX(idx, (argv[1].a_w.w_float!=0));
         }
         
         GuiFactory<BaseGuiObject>::ws_redraw(z);
@@ -568,7 +581,7 @@ namespace ceammc_gui {
         {
             ui_bpfunc *zx = (ui_bpfunc*)z;
             int idx = (int)(argv[0].a_w.w_float);
-            zx->x_bpf.lockY(idx, (argv[1].a_w.w_float!=0));
+            zx->x_bpf->lockY(idx, (argv[1].a_w.w_float!=0));
         }
         
         GuiFactory<BaseGuiObject>::ws_redraw(z);
@@ -582,7 +595,7 @@ namespace ceammc_gui {
         {
             ui_bpfunc *zx = (ui_bpfunc*)z;
             int idx = (int)(argv[0].a_w.w_float);
-            zx->x_bpf.joinNext(idx, (argv[1].a_w.w_float!=0));
+            zx->x_bpf->joinNext(idx, (argv[1].a_w.w_float!=0));
         }
         
         GuiFactory<BaseGuiObject>::ws_redraw(z);
@@ -594,7 +607,7 @@ namespace ceammc_gui {
     {
         
         ui_bpfunc *zx = (ui_bpfunc*)z;
-        zx->x_bpf.clear();
+        zx->x_bpf->clear();
         
         GuiFactory<BaseGuiObject>::ws_redraw(z);
         
@@ -613,7 +626,7 @@ namespace ceammc_gui {
         t_rect rect;
         ebox_get_rect_for_view((t_ebox *)z, &rect);
         
-        zx->x_bpf.addPoint(zx->addidx, xx, yy);
+        zx->x_bpf->addPoint(zx->addidx, xx, yy);
         
         GuiFactory<BaseGuiObject>::ws_redraw(z);
         
@@ -632,7 +645,7 @@ namespace ceammc_gui {
         t_rect rect;
         ebox_get_rect_for_view((t_ebox *)z, &rect);
         
-        zx->x_bpf.addPointRaw(zx->addidx, xx, yy);
+        zx->x_bpf->addPointRaw(zx->addidx, xx, yy);
         
         GuiFactory<BaseGuiObject>::ws_redraw(z);
         
@@ -647,7 +660,7 @@ namespace ceammc_gui {
         
         ui_bpfunc *zx = (ui_bpfunc*)z;
         
-        zx->x_bpf.deletePoint(del_i);
+        zx->x_bpf->deletePoint(del_i);
         
         GuiFactory<BaseGuiObject>::ws_redraw(z);
         
@@ -659,7 +672,7 @@ namespace ceammc_gui {
         
         ui_bpfunc *zx = (ui_bpfunc*)z;
         
-        vector<AtomList> output = zx->x_bpf.getVline();
+        vector<AtomList> output = zx->x_bpf->getVline();
         
         for (int i = 0; i< output.size(); i++)
         {
@@ -678,9 +691,9 @@ namespace ceammc_gui {
         ui_bpfunc *zx = (ui_bpfunc*)z;
         
         if (seg_number<0) {error("segment number should be greater than zero"); return;}
-        if (seg_number>(zx->x_bpf.getSegCount()-1)) {error("segment number out of range"); return;}
+        if (seg_number>(zx->x_bpf->getSegCount()-1)) {error("segment number out of range"); return;}
         
-        vector<AtomList> output = zx->x_bpf.getVlineSegment(seg_number);
+        vector<AtomList> output = zx->x_bpf->getVlineSegment(seg_number);
         
         for (int i = 0; i< output.size(); i++)
         {
@@ -728,7 +741,7 @@ namespace ceammc_gui {
         
         AtomList list = AtomList(argc,argv);
         
-        zx->x_bpf.setBPFList(list);
+        zx->x_bpf->setBPFList(list);
         
         GuiFactory<BaseGuiObject>::ws_redraw(z);
     
@@ -742,10 +755,22 @@ namespace ceammc_gui {
         
         AtomList list = AtomList(argc,argv);
         
-        zx->x_bpf.setBPFListRaw(list);
+        zx->x_bpf->setBPFListRaw(list);
         
         GuiFactory<BaseGuiObject>::ws_redraw(z);
         
+    }
+    
+    void bpf_m_set_object(t_object *z, t_symbol *s, int argc, t_atom *argv)
+    {
+//        ui_bpfunc *zx = (ui_bpfunc*)z;
+//        
+//        std::string obj_name = Atom(argv[0]).asString();
+//        
+//        zx->g_bpf = new GlobalData<BPF>(obj_name);
+//        zx->x_bpf = &zx->g_bpf->ref();
+//        
+//        GuiFactory<BaseGuiObject>::ws_redraw(z);
     }
     
     
@@ -863,50 +888,50 @@ namespace ceammc_gui {
         t_rect rect;
         ebox_get_rect_for_view((t_ebox *)z, &rect);
         
-        for ( int i=0; i < zx->x_bpf.size(); i++)
+        for ( int i=0; i < zx->x_bpf->size(); i++)
         {
-            if (zx->x_bpf.getPointSel(i))
+            if (zx->x_bpf->getPointSel(i))
             {
                 int prev = i-1;
                 int next = i+1;
                 
                 float prev_x = -1.;
                 if (prev>= 0)
-                    prev_x = zx->x_bpf.getPointRawX(prev);
+                    prev_x = zx->x_bpf->getPointRawX(prev);
                 
                 float next_x = 2.;
-                if (next< zx->x_bpf.size())
-                    next_x = zx->x_bpf.getPointRawX(next);
+                if (next< zx->x_bpf->size())
+                    next_x = zx->x_bpf->getPointRawX(next);
                 
                 float dx =(pt.x - zx->_px) / rect.width;
                 
-                if ( !((zx->x_bpf.drag_limit) && ( (prev_x>(zx->x_bpf.getPointRawX(i)+dx)) || (next_x<(zx->x_bpf.getPointRawX(i)+dx)) ) ))
+                if ( !((zx->x_bpf->drag_limit) && ( (prev_x>(zx->x_bpf->getPointRawX(i)+dx)) || (next_x<(zx->x_bpf->getPointRawX(i)+dx)) ) ))
                 {
-                    float x = zx->x_bpf.getPointRawX(i);
-                    float y = zx->x_bpf.getPointRawY(i);
+                    float x = zx->x_bpf->getPointRawX(i);
+                    float y = zx->x_bpf->getPointRawY(i);
                     float px = x; float py = y;
                     
-                    if (!zx->x_bpf.getPointLockX(i))
+                    if (!zx->x_bpf->getPointLockX(i))
                         x += dx;
-                    if (!zx->x_bpf.getPointLockY(i))
+                    if (!zx->x_bpf->getPointLockY(i))
                         y += ((1-pt.y) - (1-zx->_py)) / rect.height;
                     
-                    if (zx->x_bpf.getPointRawX(i)>1) x=1;
-                    if (zx->x_bpf.getPointRawX(i)<0) x=0;
+                    if (zx->x_bpf->getPointRawX(i)>1) x=1;
+                    if (zx->x_bpf->getPointRawX(i)<0) x=0;
                     
-                    if (zx->x_bpf.getPointRawY(i)>1) y=1;
-                    if (zx->x_bpf.getPointRawY(i)<0) y=0;
+                    if (zx->x_bpf->getPointRawY(i)>1) y=1;
+                    if (zx->x_bpf->getPointRawY(i)<0) y=0;
                     
                     
                     
                     if (px!=x || py!=y)
                     {
-                        zx->x_bpf.setPointRaw(i, x, y);
+                        zx->x_bpf->setPointRaw(i, x, y);
                     }
                     
-                    if (zx->x_bpf.getJoinNext(i))
+                    if (zx->x_bpf->getJoinNext(i))
                     {
-                        zx->x_bpf.setPointRaw(next, zx->x_bpf.getPointRawX(next), y);
+                        zx->x_bpf->setPointRaw(next, zx->x_bpf->getPointRawX(next), y);
                     }
                     
                     
@@ -918,7 +943,7 @@ namespace ceammc_gui {
         zx->_px = pt.x;
         zx->_py = pt.y;
         
-        zx->x_bpf._Sort();
+        zx->x_bpf->_Sort();
         
         GuiFactory<BaseGuiObject>::ws_redraw(z);
         
@@ -935,18 +960,23 @@ namespace ceammc_gui {
     {
 
         ui_bpfunc *zx = (ui_bpfunc*)z;
+       
+//        zx->g_bpf = new GlobalData<BPF>(to_string((unsigned long) z));
+//        zx->x_bpf = &zx->g_bpf->ref();
         
-        zx->x_bpf.clear();
+        zx->x_bpf = new BPF;
+        
+        //zx->x_bpf->clear();
         
         zx->_px = 0;
         zx->_py = 0;
         
         zx->out1 = outlet_new(z, &s_list);
         
-        zx->x_bpf.range_x = 1000;
-        zx->x_bpf.range_y = 1;
-        zx->x_bpf.shift_x = 0;
-        zx->x_bpf.shift_y = 0;
+        zx->x_bpf->range_x = 1000;
+        zx->x_bpf->range_y = 1;
+        zx->x_bpf->shift_x = 0;
+        zx->x_bpf->shift_y = 0;
         
         zx->select_idx = -1;
         
@@ -960,6 +990,16 @@ namespace ceammc_gui {
        
         zx->txt_font = efont_create(gensym("Helvetica"), gensym("light"), gensym("normal"), 8);
         
+        
+    }
+    
+    UI_fun(ui_bpfunc)::free_ext(t_object* z)
+    {
+        ui_bpfunc *zx = (ui_bpfunc*)z;
+        
+        //?
+        zx->g_bpf = new GlobalData<BPF>(to_string((unsigned long) z));
+        delete zx->g_bpf;
         
     }
     
@@ -1027,6 +1067,8 @@ namespace ceammc_gui {
 //        CLASS_ATTR_LABEL(z, "seg_count", 0, "seg_count");
 //        CLASS_ATTR_DEFAULT_SAVE_PAINT(z, "seg_count", 0, "1");
         
+        // TODO
+        //eclass_addmethod(z, (method)(bpf_m_set_object), ("set_object"), A_GIMME,0);
         
         eclass_addmethod(z, (method)(bpf_m_range_x), ("range_x"), A_GIMME,0);
         eclass_addmethod(z, (method)(bpf_m_range_y), ("range_y"), A_GIMME,0);
