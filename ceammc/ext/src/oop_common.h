@@ -95,11 +95,6 @@ public:
     std::string class_name;
     t_canvas *canvas;
     
-//    t_op_instance()     //temporary
-//    {
-//        this->class_name = "—";
-//        
-//    }
     void newInstance(t_op_class * _opclass) // todo constructor
     {
         // new canvas. check

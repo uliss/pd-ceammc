@@ -11,10 +11,9 @@ struct t_exp_class {
     t_canvas *parent_canvas;
     t_canvas *sub_canvas;
     
-    t_symbol* class_name;
+    //t_symbol* class_name;
     
-    
-    OPClass *global;
+    OPClass *op_class;
     
     t_atom *patch_a;
     int patch_c;
@@ -32,7 +31,7 @@ static void exp_class_read(t_exp_class* x, t_symbol*, int argc, t_atom* argv)
     if (argc<1) {error("specify file name"); return;}
     
     Atom a = Atom(argv[0]);
-    x->global->ref()->readFile(a.asString(), x->parent_canvas);
+    x->op_class->ref()->readFile(a.asString(), x->parent_canvas);
     
 }
 
@@ -41,7 +40,7 @@ static void exp_class_write(t_exp_class* x, t_symbol*, int argc, t_atom* argv)
     if (argc<1) {error("specify file name"); return;}
     
     Atom a = Atom(argv[0]);
-    x->global->ref()->writeFile(a.asString(), x->parent_canvas);
+    x->op_class->ref()->writeFile(a.asString(), x->parent_canvas);
 
 }
 
@@ -55,8 +54,6 @@ static void exp_class_click(t_exp_class* x, t_symbol*, int argc, t_atom* argv)
 
 static void* exp_class_new(t_symbol *id, int argc, t_atom *argv)
 {
-    
-    
     if (argc<1)
     {
         error("no class name provided!"); return 0;
@@ -73,7 +70,7 @@ static void* exp_class_new(t_symbol *id, int argc, t_atom *argv)
     x->patch_a = (t_atom*)malloc(0);
     x->patch_c = 0;
     
-    x->class_name = a.asSymbol();
+    //x->op_class->class_name = a.asSymbol();
     
     //ebox_new((t_ebox *)x, 0 );
     t_binbuf* d = binbuf_via_atoms(argc,argv);
@@ -81,29 +78,29 @@ static void* exp_class_new(t_symbol *id, int argc, t_atom *argv)
     {
         ebox_attrprocess_viabinbuf(x, d);
         
-        //        if (x->class_name)
-        //            poststring(x->class_name->s_name);
+        //        if (x->op_class->class_name)
+        //            poststring(x->op_class->class_name->s_name);
     }
     
     x->parent_canvas = canvas_getcurrent();
     
     
     //should be read only for others
-    x->global = new OPClass(a.asString(), OBJ_NAME);
+    x->op_class = new OPClass(a.asString(), OBJ_NAME);
     
-    if (!x->global->ref())
+    if (!x->op_class->ref())
     {
-        x->global->ref() = new t_op_class;
+        x->op_class->ref() = new t_op_class;
         
-        x->sub_canvas = (t_canvas*)subcanvas_new((x->class_name));
+        x->sub_canvas = (t_canvas*)subcanvas_new(gensym(x->op_class->ref()->class_name.c_str()));
         x->sub_canvas->gl_havewindow = 1;
         x->sub_canvas->gl_isclone = 1;
         
         canvas_vis(x->sub_canvas, 0);
         
-        x->global->ref()->canvas = x->sub_canvas;
+        x->op_class->ref()->canvas = x->sub_canvas;
         
-        x->global->ref()->class_name = a.asString();
+        x->op_class->ref()->class_name = a.asString();
         
         
         // loader - old
@@ -126,7 +123,7 @@ static void* exp_class_new(t_symbol *id, int argc, t_atom *argv)
     }
     else
     {
-        x->sub_canvas = x->global->ref()->canvas;
+        x->sub_canvas = x->op_class->ref()->canvas;
     }
     
     //TODO multiple class save handling
@@ -142,20 +139,20 @@ static void* exp_class_new(t_symbol *id, int argc, t_atom *argv)
 
 static void exp_class_free(t_exp_class* x)
 {
-    if (x->global->ref())
+    if (x->op_class->ref())
     {
         if (x->sub_canvas)
         {
-            std::string class_name = std::string(x->class_name->s_name) + ".class.pd";
+            std::string class_name = x->op_class->ref()->class_name + ".class.pd";
             Atom a_class_name = Atom(gensym(class_name.c_str()));
             exp_class_write(x, 0, 1, AtomList(a_class_name).toPdData());
             
             canvas_free(x->sub_canvas);
             
-            x->global->ref() = 0;
+            x->op_class->ref() = 0;
         }
         
-        delete x->global;
+        delete x->op_class;
     }
     
     
@@ -178,9 +175,10 @@ extern "C" void setup_exp0x2eclass()
     
     //    eclass_addmethod(exp_class_class,(t_typ_method)(exp_class_update), ("update"), A_NULL,0);
     //    eclass_addmethod(exp_class_class, (t_typ_method)(exp_class_inlet_proxy), ("anything"), A_GIMME, 0);
-    
-    CLASS_ATTR_SYMBOL(exp_class_class, "class_name", 0, t_exp_class, class_name);
-    CLASS_ATTR_DEFAULT_SAVE_PAINT   (exp_class_class, "class_name", 0, "[class]");
+
+    //todo
+//    CLASS_ATTR_SYMBOL(exp_class_class, "class_name", 0, t_exp_class, class_name);
+//    CLASS_ATTR_DEFAULT_SAVE_PAINT   (exp_class_class, "class_name", 0, "[class]");
     
     
     
