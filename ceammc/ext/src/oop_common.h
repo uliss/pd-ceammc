@@ -25,17 +25,18 @@
 
 using namespace ceammc;
 
-typedef std::vector<t_outlet*> multiOutput;
-typedef std::vector<t_object*> multiProperty;
+typedef std::vector<t_outlet*> OPOutputs;           ///< vector of method boxes outputs
+typedef std::vector<t_object*> OPProperties;        ///< vector of property boxes
 
-typedef GlobalData<t_canvas*> oPDClass;
+typedef GlobalData<t_canvas*> OPClass;              ///< canvas pointer for class prototype. probably use an object later
 
 class t_instance
 {
 private:
-    std::map<t_symbol*,multiOutput> methodOutputs;
-    multiOutput instanceOutputs;
-    std::map<t_symbol*,multiProperty> instancePropertyBoxes;
+    std::map<t_symbol*,OPOutputs> _methodOutputs;               ///< vector of method outputs
+    OPOutputs _instanceOutputs;                                 ///< vector of instances outputs
+    
+    std::map<t_symbol*,OPProperties> instancePropertyBoxes;     ///< for property hanling we get pointers to objects instead of outlets
     
 public:
     std::string class_name;
@@ -43,11 +44,11 @@ public:
     
     void addMethod(t_symbol* methodName, t_outlet *outlet)
     {
-        this->methodOutputs[methodName].push_back(outlet);
+        this->_methodOutputs[methodName].push_back(outlet);
     }
     void freeMethod(t_symbol* methodName)
     {
-        this->methodOutputs.erase(methodName);
+        this->_methodOutputs.erase(methodName);
     }
     
     void addPropertyBox(t_symbol* pMethodName, t_object *object)
@@ -61,18 +62,16 @@ public:
     
     void addInstanceOut(t_outlet *outlet)
     {
-        this->instanceOutputs.push_back(outlet);
+        this->_instanceOutputs.push_back(outlet);
     }
     void freeInstanceOut(t_outlet *outlet)
     {
-        this->instanceOutputs.erase(std::remove(this->instanceOutputs.begin(), this->instanceOutputs.end(), outlet), this->instanceOutputs.end());
+        this->_instanceOutputs.erase(std::remove(this->_instanceOutputs.begin(), this->_instanceOutputs.end(), outlet), this->_instanceOutputs.end());
     }
     
-    //
     void multipleOutput(AtomList list)
     {
-        
-        for (multiOutput::iterator it =this->instanceOutputs.begin(); it!=this->instanceOutputs.end(); ++it)
+        for (OPOutputs::iterator it =this->_instanceOutputs.begin(); it!=this->_instanceOutputs.end(); ++it)
         {
             list.output(*it);
         }
@@ -86,11 +85,11 @@ public:
         
         AtomList subList = list.subList(1, (int)list.size());;
         
-        multiOutput *out1 = &this->methodOutputs[method_name];
+        OPOutputs *out1 = &this->_methodOutputs[method_name];
         
         if (out1)
         {
-            for (multiOutput::iterator it =out1->begin(); it!=out1->end(); ++it)
+            for (OPOutputs::iterator it =out1->begin(); it!=out1->end(); ++it)
             {
                 subList.output(*it);
             }
@@ -104,11 +103,11 @@ public:
         
         //AtomList subList = list.subList(1, list.size());;
         
-        multiProperty *out1 = &this->instancePropertyBoxes[property_name];
+        OPProperties *out1 = &this->instancePropertyBoxes[property_name];
         
         if (out1)
         {
-            for (multiProperty::iterator it =out1->begin(); it!=out1->end(); ++it)
+            for (OPProperties::iterator it =out1->begin(); it!=out1->end(); ++it)
             {
                 //subList.output(*it);
                 
@@ -124,11 +123,11 @@ public:
         
         //AtomList subList = list.subList(1, list.size());;
         
-        multiProperty *out1 = &this->instancePropertyBoxes[property_name];
+        OPProperties *out1 = &this->instancePropertyBoxes[property_name];
         
         if (out1)
         {
-            for (multiProperty::iterator it =out1->begin(); it!=out1->end(); ++it)
+            for (OPProperties::iterator it =out1->begin(); it!=out1->end(); ++it)
             {
                 //subList.output(*it);
                 
@@ -141,9 +140,8 @@ public:
     {
         AtomList ret;
         
-        //this->methodOutputs[methodName]
-        
-        for (std::map<t_symbol*,multiOutput>::iterator it = this->methodOutputs.begin(); it != this->methodOutputs.end(); ++it)
+        //this->_methodOutputs[methodName]
+        for (std::map<t_symbol*,OPOutputs>::iterator it = this->_methodOutputs.begin(); it != this->_methodOutputs.end(); ++it)
         {
             ret.append(Atom(it->first));
         }
@@ -155,9 +153,8 @@ public:
     {
         AtomList ret;
         
-        //this->methodOutputs[methodName]
-        
-        for (std::map<t_symbol*,multiProperty>::iterator it = this->instancePropertyBoxes.begin(); it != this->instancePropertyBoxes.end(); ++it)
+        //this->_methodOutputs[methodName]
+        for (std::map<t_symbol*,OPProperties>::iterator it = this->instancePropertyBoxes.begin(); it != this->instancePropertyBoxes.end(); ++it)
         {
             ret.append(Atom(it->first));
         }
@@ -166,7 +163,7 @@ public:
     }
     
 };
-typedef GlobalData<t_instance> oPDInstance;
+typedef GlobalData<t_instance> OPInstance;          ///< Class instance is identified by canvas name. Probably fix that.
 
 
 #include <sstream>
@@ -181,7 +178,10 @@ inline std::string to_string (const T& t)
 
 #pragma mark -
 
-static void canvas_dopaste(t_canvas *x, t_binbuf *b)
+// copied from canvas_dopaste
+// todo fix
+
+static void canvas_paste_class(t_canvas *x, t_binbuf *b)
 {
     t_gobj *g2; // *last,*newgobj,
     int dspstate = canvas_suspend_dsp(), nbox, count;

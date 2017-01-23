@@ -23,7 +23,7 @@ struct t_exp_method {
     
     t_symbol *property_name;
     
-    oPDInstance *instance;
+    OPInstance *instance;
     
     LocalList *x_global;
     
@@ -70,7 +70,7 @@ static void *exp_method_new(t_symbol *id, int argc, t_atom *argv)
         x->property_name = a.asSymbol();
         
         std::string str = to_string(x->parent_canvas);
-        x->instance = new oPDInstance(str, OBJ_NAME);
+        x->instance = new OPInstance(str, OBJ_NAME);
         
         x->e_box.b_boxparameters.d_boxfillcolor = rgba_greylight;
         x->e_box.b_boxparameters.d_bordercolor = rgba_green;

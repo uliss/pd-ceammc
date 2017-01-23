@@ -9,10 +9,10 @@ struct t_exp_instance {
     
     t_canvas *local_canvas;     //instance
     
-    oPDClass *global;           //class
+    OPClass *global;           //class
     std::string class_name;
     
-    oPDInstance *instance;
+    OPInstance *instance;
     
     t_etext *txt;
     t_efont *fnt;
@@ -103,7 +103,7 @@ static void exp_instance_update(t_exp_instance* x, t_symbol*s, int argc, t_atom*
 //        list.append(Atom(gensym("0")));
 //        pd_typedmess((t_pd*)x->local_canvas, gensym("obj"), (int)list.size(), list.toPdData());
         
-        canvas_dopaste(x->local_canvas, b1);
+        canvas_paste_class(x->local_canvas, b1);
         canvas_vis(x->local_canvas, 0);
         canvas_setcurrent(x->parent_canvas);
         
@@ -134,7 +134,7 @@ static void exp_instance_setobject(t_exp_instance* x, t_symbol*s, int argc, t_at
         
         Atom a = argv[0];
         
-        x->instance = new oPDInstance(a.asString(), OBJ_NAME);
+        x->instance = new OPInstance(a.asString(), OBJ_NAME);
         
         x->local_canvas = x->instance->ref().canvas;
         x->class_name = x->instance->ref().class_name;
@@ -230,7 +230,7 @@ static void exp_instance_setclass(t_exp_instance* x, t_symbol*id, int argc, t_at
     
     x->class_name = a.asString();
     
-    x->global = new oPDClass(a.asString(), OBJ_NAME);
+    x->global = new OPClass(a.asString(), OBJ_NAME);
     
     
     if (!x->global->ref())
@@ -252,7 +252,7 @@ static void exp_instance_setclass(t_exp_instance* x, t_symbol*id, int argc, t_at
         ebox_redraw((t_ebox *)x);
         
         std::string str = to_string(x->local_canvas);
-        x->instance = new oPDInstance(str, OBJ_NAME);
+        x->instance = new OPInstance(str, OBJ_NAME);
         //x->instance->ref().inst_out = x->out1;
         x->instance->ref().addInstanceOut(x->out1);
         
@@ -271,7 +271,7 @@ static void* exp_instance_new(t_symbol *id, int argc, t_atom *argv)
     
     std::string str = to_string(x->local_canvas);
     
-    x->instance = new oPDInstance(str, OBJ_NAME);
+    x->instance = new OPInstance(str, OBJ_NAME);
     x->instance->ref().addInstanceOut(x->out1);
     
     
@@ -280,7 +280,7 @@ static void* exp_instance_new(t_symbol *id, int argc, t_atom *argv)
     
     
     x->class_name = "";
-    x->global = new oPDClass("", OBJ_NAME);
+    x->global = new OPClass("", OBJ_NAME);
     
     
     x->txt = etext_layout_create();

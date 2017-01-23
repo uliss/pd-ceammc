@@ -19,7 +19,7 @@ struct t_exp_method {
     
     t_symbol *method_name;
     
-    oPDInstance *instance;
+    OPInstance *instance;
     
     t_outlet *out1;
 };
@@ -50,7 +50,7 @@ static void *exp_method_new(t_symbol *id, int argc, t_atom *argv)
         x->method_name = a.asSymbol();
         
         std::string str = to_string(x->parent_canvas);
-        x->instance = new oPDInstance(str, OBJ_NAME);
+        x->instance = new OPInstance(str, OBJ_NAME);
         
         ebox_ready((t_ebox *)x);
         

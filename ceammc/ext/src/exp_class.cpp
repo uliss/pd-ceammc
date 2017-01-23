@@ -14,7 +14,7 @@ struct t_exp_class {
     t_symbol* class_name;
     
     
-    oPDClass *global;
+    OPClass *global;
     
     t_atom *patch_a;
     int patch_c;
@@ -196,7 +196,7 @@ static void exp_class_read(t_exp_class* x, t_symbol*, int argc, t_atom* argv)
     
     //postatom(natoms, vec);
     
-    canvas_dopaste(x->sub_canvas, b);
+    canvas_paste_class(x->sub_canvas, b);
     canvas_vis(x->sub_canvas, 0);
     canvas_setcurrent(x->parent_canvas);
     
@@ -282,7 +282,7 @@ static void* exp_class_new(t_symbol *id, int argc, t_atom *argv)
     
     
     //should be read only for others
-    x->global = new oPDClass(a.asString(), OBJ_NAME);
+    x->global = new OPClass(a.asString(), OBJ_NAME);
     
     if (!x->global->ref())
     {
@@ -304,8 +304,8 @@ static void* exp_class_new(t_symbol *id, int argc, t_atom *argv)
         //        canvas_dopaste(x->sub_canvas, b1);
         //        canvas_setcurrent(x->parent_canvas);
         
-        //attempt to load file
         
+        //attempt to load file
         std::string class_name = a.asString() + ".class.pd";
         Atom a_class_name = Atom(gensym(class_name.c_str()));
         exp_class_read(x, 0, 1, AtomList(a_class_name).toPdData());
