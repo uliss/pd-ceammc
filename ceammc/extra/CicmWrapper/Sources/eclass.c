@@ -1081,7 +1081,3 @@ static void eclass_properties_dialog(t_eclass* c)
     sys_gui("}\n");
 
 }
-
-
-
-

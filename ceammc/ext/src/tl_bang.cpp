@@ -153,7 +153,9 @@ UI_fun(tl_bang)::new_ext(t_object* z, t_symbol* /*s*/, int /*argc*/, t_atom* /*a
     zx->out1 = outlet_new(z, &s_bang);
 
     zx->txt = etext_layout_create();
+
     zx->fnt = efont_create(FONT_FAMILY, FONT_STYLE, FONT_WEIGHT, FONT_SIZE);
+
 }
 
 UI_fun(tl_bang)::init_ext(t_eclass* z)
@@ -167,7 +169,7 @@ UI_fun(tl_bang)::init_ext(t_eclass* z)
     CLASS_ATTR_ORDER                (z, "brcolor", 0, "3");
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "brcolor", 0, "0. 0.7 1. 1.");
     CLASS_ATTR_STYLE                (z, "brcolor", 0, "color");
-    
+
     CLASS_ATTR_RGBA                 (z, "bgcolor", 0, tl_bang, bg_color);
     CLASS_ATTR_LABEL                (z, "bgcolor", 0, "Background Color");
     CLASS_ATTR_ORDER                (z, "bgcolor", 0, "3");

@@ -1205,7 +1205,7 @@ void canvas_vis(t_canvas *x, t_floatarg f)
 
     /* set a canvas up as a graph-on-parent.  Set reasonable defaults for
     any missing paramters and redraw things if necessary. */
-void canvas_setgraph(t_glist *x, int flag, int nogoprect)
+EXTERN void canvas_setgraph(t_glist *x, int flag, int nogoprect)
 {
     if (!flag && glist_isgraph(x))
     {
@@ -2998,6 +2998,32 @@ static void canvas_tidy(t_canvas *x)
     canvas_dirty(x, 1);
 }
 
+/* CEAMMC align to grid */
+static void canvas_aligntogrid(t_canvas *x)
+{
+    int all = (x->gl_editor ? (x->gl_editor->e_selection == 0) : 1);
+    
+    canvas_setundo(x, canvas_undo_move, canvas_undo_set_move(x, !all), "motion");
+    
+    t_gobj *y;
+    int x1, y1, x2, y2, nx1, ny1;
+    
+    for (y = x->gl_list; y; y = y->g_next)
+        if (all || glist_isselected(x, y))
+        {
+            gobj_getrect(y, x, &x1, &y1, &x2, &y2);
+            
+            nx1 = floor(x1/15)*15;
+            ny1 = floor(y1/15)*15;
+            
+            gobj_displace(y, x, nx1-x1, ny1-y1);
+            
+        }
+    
+    canvas_dirty(x, 1);
+}
+
+
 static void canvas_texteditor(t_canvas *x)
 {
     t_rtext *foo;
@@ -3191,6 +3217,8 @@ void g_editor_setup(void)
 /* ---------- CEAMMC grid ---------- */
     class_addmethod(canvas_class, (t_method)canvas_gridmode,
                     gensym("gridmode"), A_DEFFLOAT, A_NULL);
+    class_addmethod(canvas_class, (t_method)canvas_aligntogrid,
+                    gensym("aligntogrid"), A_NULL);
 
 /* -------------- connect method used in reading files ------------------ */
     class_addmethod(canvas_class, (t_method)canvas_connect,

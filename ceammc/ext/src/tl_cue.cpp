@@ -140,6 +140,7 @@ void tl_cue_displace(t_gobj* z, t_glist* glist, int dx, int /*dy*/)
         x->b_obj.o_obj.te_ypix = 0;
         tl_cue_ebox_move(x);
     }
+
 #else
     t_ebox* x = (t_ebox*)z;
 

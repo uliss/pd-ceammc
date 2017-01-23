@@ -1,51 +1,77 @@
-[![Build Status](https://travis-ci.org/uliss/pure-data.svg?branch=ceammc)](https://travis-ci.org/uliss/pure-data)
+CEAMMC Pd library
+-----------------
 
-This is the README file for Pd, a free real-time computer music software
-package resembling Max.
+General purpose Pd library used for work and education purposes in Centre of electoacoustic music of Moscow Conservatory (CEAMMC) and ZIL-electro studio.
 
-You can get Pd for Linux, Mac OS X, or MS Windows from:
+This is an assembly of Puredata including the CEAMMC library.
 
-    http://msp.ucsd.edu/software.html
+Key concepts
+------------
 
-Installation instructions are in the HTML DOCUMENTATION at:
+   - All the externals are grouped by their function. This is different from the traditional approach but this aims to simplify the learning process and makes the language itself more clear.
+   - Higher level set of objects for education and handy use in work process: oscillators, filters etc.
+   - Library adds several features to basic Pd API. It is written in C++ and covered with tests.
+   - Inclusion of some modern techniques. Library v0.1 includes comprehensive set of objects that work with lists and include some concepts from functional programming.
 
-    http://msp.ucsd.edu/Pd_documentation/index.htm
 
-If you download and unpack Pd, you will also find the html documentation
-locally in the file ".../pd-whatever/doc/1.manual/index.htm".
+Features: v0.1
+--------------
 
-Linux (or FreeBSD): in some Linux installations you can download Pd via
-"apt-get install puredata" or "yum install puredata"; otherwise you will have to
-download the source and compile it as described in the file "INSTALL.txt".
+ * Core objects:
+   - list.* objects: 32 objects that cover different techniques to work with lists
+   - list.apply_to, list.reduce objects introduce basic functional approach to list processing.
+   - math.* : 28 objects covering math functions with 1 argument
+   - vector.* : basic vector operations
+   - basic JSON handling
+   - system.* object for various system features
+   - flow control: pass, reject objects; predicates objects
+   - random number generators
+   - property concept: non-UI objects may have properties that can be accessed after object creation. This includes special message and prop.get object for handling
+ * Audio objects:
+	 - dynamics: compressor, limiter, soft clip
+	 - envelope generators (ar, adsr) and follower
+	 - filters: eq peak and shelf filters, dc block
+	 - oscillators and LFO with different waveforms
+ * GUI objects:
+   - 8 new objects: knob, multiple slider box, 2d slider, keyboard, message display, scope and oscilloscope
+   - breakpoint function object, working with envelope objects
+   - Basic timeline objects: graphical cues in a patch
+   - Includes several objects from CICM Cream Library
+ * Extensions:
+   - New objects toolbar (also works as edit mode indicator)
+   - Saving subpatch as new patch
+   - Multiple undo (beta)
+   - Grid / Align to grid (beta)
 
-Microsoft Windows: Pd binaries are distributed as a "zip" file. Unzip this,
-creating a directory such as "\pd".
+Roadmap v0.2:
+-------------
 
-Macintosh: Pd binaries are distributed as a "tar.gz" file. The web browser will
-automatically download this archive into your Downloads folder. Double click
-to extract the archived Mac app which you can then run and/or drag into your
-Applications folder.
+ * Core objects:
+   - objects working with strings and string data type
+   - math.* - add functions with multiple arguments
+   - Audio filters: biquad coefficients generators
+ * GUI
+   - Simplified set of objects that excludes similar ones and the compatibility layer for all patches
+   - Property handling
+   - Grid
+   - Improved subpatch handling
+   - Transition from Tcl/Tk
 
-If you have questions about Pd, or if you wish to be notified of releases,
-check the Pd mailing list:
 
-    http://lists.puredata.info/listinfo
+this work is based on / includes:
+---------------------------------
+   - Pd vanilla (this repository)
+   - CICM Wrapper library (https://github.com/CICM/CicmWrapper)
+   - Cream library (https://github.com/CICM/CreamLibrary)
+   - hcs library (https://puredata.info/downloads/hcs)
+   - comport object
+   - FAUSTDSP (http://faust.grame.fr)
+   - pddoc (https://github.com/uliss/pddoc)
 
-Many extensions to Pd are available, notably for handling video and 3D
-graphics; see the html documentation for pointers.
 
-COPYRIGHT: except as otherwise noted, all files in the Pd distribution are
+### Authors
+Serge Poltavsky
+Alex Nadzharov
 
-    Copyright (c) 1997-2016 Miller Puckette and others.
-
-For information on usage and redistribution, and for a DISCLAIMER OF ALL
-WARRANTIES, see the file, "LICENSE.txt," included in the Pd distribution.
-(Note that tcl/tk, expr, and some other files are copyrighted separately).
-
-ACKNOWLEDGEMENTS: Thanks to Harry Castle, Krzysztof Czaja, Mark Danks,
-Christian Feldbauer, Guenter Geiger, Kerry Hagan, Trevor Johnson, Fernando
-Lopez-Lezcano, Adam Lindsay, Karl MacMillan, Thomas Musil, Toshinori Ohkouchi,
-Winfried Ritsch, Vibeke Sorensen, Rand Steiger, Hans-Christoph Steiner,
-Shahrokh Yadegari, David Zicarelli, Iohannes Zmoelnig, and probably many others
-for contributions of code, documentation, ideas, and expertise.  This work has
-received support from Intel, Keith Mcmillen Instruments, and UCSD.
+### License
+GPL3

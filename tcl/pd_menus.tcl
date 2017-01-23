@@ -199,6 +199,8 @@ proc ::pd_menus::build_edit_menu {mymenu} {
         -command {menu_send_float $::focused_window zoom 1}
     $mymenu add command -label [_ "Tidy Up"]    -accelerator "$accelerator+Shift+R" \
         -command {menu_send $::focused_window tidy}
+    $mymenu add command -label [_ "Align To Grid"]    -accelerator "$accelerator+Alt+Shift+R" \
+        -command {menu_send $::focused_window aligntogrid}
     $mymenu add command -label [_ "Clear Console"] \
         -accelerator "Shift+$accelerator+L" -command {menu_clear_console}
     $mymenu add  separator

@@ -107,15 +107,16 @@ ceammc_cxx_extension(vector dot)
 ceammc_cxx_extension(list repack)
 ceammc_cxx_extension(list unpack)
 
+###############################
 # TIMELINE
-
+###############################
 ceammc_cxx_tl_extension(tl transport)
 ceammc_cxx_tl_extension(tl bang)
 ceammc_cxx_tl_extension(tl cue)
 
-
+###############################
 # GUI
-
+###############################
 ceammc_cxx_extension(ui keyboard)
 ceammc_cxx_extension(ui slider2d)
 ceammc_cxx_extension(ui sliders)
@@ -126,26 +127,40 @@ ceammc_cxx_extension(ui bpfunc)
 ceammc_cxx_extension(ui display)
 ceammc_cxx_extension(ui link)
 
-#BPF CONVERTERS
+###############################
+# BPF CONVERTERS
+###############################
 ceammc_cxx_extension(conv bpf2env)
 ceammc_cxx_extension(conv bpf2list)
 ceammc_cxx_extension(conv bpf2vline)
 ceammc_cxx_extension(conv env2bpf)
 ceammc_cxx_extension(conv list2bpf)
 ceammc_cxx_extension(conv vline2bpf)
+ceammc_cxx_extension(conv bpf2array)
 
+###############################
 # JSON
+###############################
+ceammc_cxx_extension(global json)
+ceammc_cxx_extension(local json)
 
-#ceammc_cxx11_extension(json object)
-
+###############################
 # EXPERIMENTAL
-
+###############################
 ceammc_cxx_extension(exp patchdata)
+
+ceammc_cxx_extension(ui ecanvas)
+
 ceammc_cxx_extension(exp recursion)
+ceammc_cxx_extension(exp class)
+ceammc_cxx_extension(exp instance)
+ceammc_cxx_extension(exp method)
+ceammc_cxx_extension(exp aproperty)
 
-ceammc_cxx_extension(local list)
 
+###############################
 # STREAM
+###############################
 ceammc_cxx_extension(reject if)
 ceammc_cxx_extension(reject this)
 
@@ -179,11 +194,15 @@ ceammc_cxx_extension__(is pointer)
 ###############################
 
 ###############################
-# GLOBAL
+# GLOBAL / LOCAL
 ###############################
 ceammc_cxx_extension(global int)
 ceammc_cxx_extension(global float)
 ceammc_cxx_extension(global list)
+
+ceammc_cxx_extension(local list)
+ceammc_cxx_extension(local int)
+ceammc_cxx_extension(local float)
 
 ceammc_cxx_extension(prop get)
 pd_add_extension(NAME "msg" FILES "msg.cpp" INTERNAL True LIBRARY ceammc LINK ceammc_static cicm_static)
