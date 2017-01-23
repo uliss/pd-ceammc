@@ -11,7 +11,7 @@ elements by its magnitude\.  Note: returns 0 vector if vector length
 #X msg 50 169 1 2 3;
 #X msg 126 169 0 0 0;
 #X obj 50 213 vector.normalize;
-#X obj 50 241 prepend set;
+#X obj 50 241 msg set;
 #X msg 50 270 ;
 #X obj 20 309 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 314 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933

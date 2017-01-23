@@ -39,7 +39,7 @@
 |       |
 [vector.normalize]
 |
-[prepend set]
+[msg set]
 |
 [ (
 ]]>
