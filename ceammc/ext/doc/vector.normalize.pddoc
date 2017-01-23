@@ -10,7 +10,7 @@
             <description>returns normalized vector</description>
             <license>GPL3</license>
             <library>ceammc</library>
-            <category>list</category>
+            <category>vector</category>
             <keywords>list</keywords>
             <since>0.1</since>
             <also>

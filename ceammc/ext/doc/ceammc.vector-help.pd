@@ -11,9 +11,6 @@ multiplied)\.;
 #X obj 30 191 vector.length;
 #X text 150 191 treats list of floats as vector \, returns vector
 length: sqrt(element(1)^2 + \.\.\.element(n)^2)\.;
-#X obj 30 228 vector.normalize;
-#X text 150 228 treats list of floats as vector \, returns normalized
-vector (vector divided by its length) ;
 #X obj 1 1 cnv 5 597 40 empty empty ceammc::vector 20 20 0 20 -104026
 -4096 0;
 #X obj 1 458 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;

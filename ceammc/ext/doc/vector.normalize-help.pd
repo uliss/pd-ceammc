@@ -28,7 +28,7 @@ elements by its magnitude\.  Note: returns 0 vector if vector length
 #X text 51 45 ::;
 #X obj 67 45 pddp/pddplink ceammc-help.pd -text ceammc;
 #X text 115 45 ::;
-#X obj 131 45 pddp/pddplink ceammc.list-help.pd -text list;
+#X obj 131 45 pddp/pddplink ceammc.vector-help.pd -text vector;
 #X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
 #X text 285 520 see also:;
@@ -44,7 +44,7 @@ elements by its magnitude\.  Note: returns 0 vector if vector length
 #X text 10 54 object:;
 #X text 120 54 vector\.normalize;
 #X text 10 76 category:;
-#X text 120 76 list;
+#X text 120 76 vector;
 #X text 10 98 since:;
 #X text 120 98 0\.1;
 #X text 10 120 authors:;
