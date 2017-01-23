@@ -28,9 +28,62 @@ using namespace ceammc;
 typedef std::vector<t_outlet*> OPOutputs;           ///< vector of method boxes outputs
 typedef std::vector<t_object*> OPProperties;        ///< vector of property boxes
 
-typedef GlobalData<t_canvas*> OPClass;              ///< canvas pointer for class prototype. probably use an object later
+static void canvas_paste_class(t_canvas *x, t_binbuf *b);
 
-class t_instance
+class t_op_class
+{
+public:
+    std::string class_name;
+    t_canvas *canvas;
+    
+    void readFile(std::string fileName, t_canvas *parent_canvas)
+    {
+    
+        t_binbuf *b;
+        b = binbuf_new();
+        
+        binbuf_read_via_canvas(b,(char*)(fileName.c_str()), parent_canvas, 0);
+        
+        int blen=0;
+        char *bchar;
+        binbuf_gettext(b, &bchar, &blen);
+        
+        // to canvas
+        // find better way to load?
+        
+        if (this->canvas->gl_list)
+        {
+            glist_delete(this->canvas, this->canvas->gl_list);
+            
+        }
+        
+        canvas_paste_class(this->canvas, b);
+        canvas_vis(this->canvas, 0);
+        canvas_setcurrent(parent_canvas);
+        
+        post("loaded class: %s ", (char*)(fileName.c_str()));
+        
+    }
+    
+    void writeFile(std::string fileName, t_canvas *parent_canvas)
+    {
+        t_binbuf *b = binbuf_new();
+        
+        canvas_saveto(this->canvas, b);
+        
+        const char * dir = canvas_getdir(parent_canvas)->s_name;
+        binbuf_write(b, (char*)(fileName.c_str()), (char *)dir, 0);
+        
+        post("saved class: %s ", (char*)(fileName.c_str()));
+    }
+    
+    
+    
+};
+
+typedef GlobalData<t_op_class*> OPClass;                        ///< class prototype
+
+class t_op_instance
 {
 private:
     std::map<t_symbol*,OPOutputs> _methodOutputs;               ///< vector of method outputs
@@ -41,6 +94,34 @@ private:
 public:
     std::string class_name;
     t_canvas *canvas;
+    
+//    t_op_instance()     //temporary
+//    {
+//        this->class_name = "—";
+//        
+//    }
+    void newInstance(t_op_class * _opclass) // todo constructor
+    {
+        // new canvas. check
+        this->canvas = (t_canvas*)subcanvas_new(gensym(_opclass->class_name.c_str()));   //LISP lol
+        this->canvas->gl_havewindow = 1;
+        this->canvas->gl_env = 0;
+        this->class_name = _opclass->class_name;
+        
+        t_binbuf *b1 = binbuf_new();
+        
+        canvas_saveto(_opclass->canvas, b1);
+        
+        int blen=0;
+        char *bchar;
+        binbuf_gettext(b1, &bchar, &blen);
+        
+        canvas_paste_class(this->canvas, b1);
+        canvas_vis(this->canvas, 0);
+        
+        //todo refcounter?
+        
+    }
     
     void addMethod(t_symbol* methodName, t_outlet *outlet)
     {
@@ -163,7 +244,7 @@ public:
     }
     
 };
-typedef GlobalData<t_instance> OPInstance;          ///< Class instance is identified by canvas name. Probably fix that.
+typedef GlobalData<t_op_instance> OPInstance;          ///< Class instance is identified by canvas name. Probably fix that.
 
 
 #include <sstream>

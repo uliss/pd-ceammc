@@ -5,18 +5,15 @@ t_eclass* exp_instance_class;
 struct t_exp_instance {
     t_ebox e_box;
     
-    t_canvas *parent_canvas;    //patch
+    t_canvas *parent_canvas;        //patch
     
-    t_canvas *local_canvas;     //instance
+    t_canvas *local_canvas;         //instance
     
-    OPClass *global;           //class
-    std::string class_name;
-    
+    OPClass *op_class;              //class
     OPInstance *instance;
     
     t_etext *txt;
     t_efont *fnt;
-    
     
     t_outlet *out1;
 };
@@ -44,7 +41,7 @@ static void exp_instance_delete(t_exp_instance* x)
 static void exp_instance_update(t_exp_instance* x, t_symbol*s, int argc, t_atom* argv)
 {
     
-    if (x->global->ref())
+    if (x->op_class->ref())
     {
         
         // create instance
@@ -53,7 +50,7 @@ static void exp_instance_update(t_exp_instance* x, t_symbol*s, int argc, t_atom*
         if (!x->local_canvas)
         {
             //glist_init(x->local_canvas);
-            x->local_canvas = (t_canvas*)subcanvas_new(gensym(x->class_name.c_str())); //LISP lol
+            x->local_canvas = (t_canvas*)subcanvas_new(gensym(x->op_class->ref()->class_name.c_str())); //LISP lol
             x->local_canvas->gl_havewindow = 1;
             x->local_canvas->gl_env = 0;
             
@@ -69,7 +66,7 @@ static void exp_instance_update(t_exp_instance* x, t_symbol*s, int argc, t_atom*
             }
         }
         
-        t_canvas *src_canvas = x->global->ref();
+        t_canvas *src_canvas = x->op_class->ref()->canvas;
         
         t_binbuf *b1 = binbuf_new();
         
@@ -114,7 +111,8 @@ static void exp_instance_setobject(t_exp_instance* x, t_symbol*s, int argc, t_at
 {
     if (argc<1)
     {
-        x->class_name = "";
+        if (x->op_class->ref())
+            x->op_class->ref()->class_name = "";
         
         //todo free!
         x->instance->ref().freeInstanceOut(x->out1);
@@ -135,9 +133,11 @@ static void exp_instance_setobject(t_exp_instance* x, t_symbol*s, int argc, t_at
         Atom a = argv[0];
         
         x->instance = new OPInstance(a.asString(), OBJ_NAME);
+        //x->instance->ref().newInstance(x->op_class->ref());
         
         x->local_canvas = x->instance->ref().canvas;
-        x->class_name = x->instance->ref().class_name;
+//        if (x->op_class->ref())
+//            x->op_class->ref()->class_name = x->instance->ref().class_name;
         x->instance->ref().addInstanceOut(x->out1);
         
         char c1[] = "#00C0FF";
@@ -162,9 +162,11 @@ static void exp_instance_setobject(t_exp_instance* x, t_symbol*s, int argc, t_at
 
 static void exp_instance_getobject(t_exp_instance* x, t_symbol*s, int argc, t_atom* argv)
 {
-    
-    x->instance->ref().canvas = x->local_canvas;
-    x->instance->ref().class_name = x->class_name;
+    if (x->op_class->ref())
+    {
+        x->instance->ref().canvas = x->local_canvas;
+        x->instance->ref().class_name = x->op_class->ref()->class_name;
+    }
     
     Atom a;
     
@@ -228,12 +230,11 @@ static void exp_instance_setclass(t_exp_instance* x, t_symbol*id, int argc, t_at
         ebox_redraw((t_ebox *)x);
     }
     
-    x->class_name = a.asString();
+    x->op_class = new OPClass(a.asString(), OBJ_NAME);
+    //x->op_class->ref()->class_name = a.asString();
     
-    x->global = new OPClass(a.asString(), OBJ_NAME);
     
-    
-    if (!x->global->ref())
+    if (!x->op_class->ref())
     {
         error("class not found!");
         x->e_box.b_boxparameters.d_bordercolor = rgba_red;
@@ -243,7 +244,8 @@ static void exp_instance_setclass(t_exp_instance* x, t_symbol*id, int argc, t_at
     }
     else
     {
-        //printf("update %s\n", x->class_name.c_str());
+        //printf("update %s\n", x->op_class->ref()->class_name.c_str());
+        
         exp_instance_update(x, 0, 0, 0);
         char c1[] = "#00C0FF";
         x->e_box.b_boxparameters.d_bordercolor = hex_to_rgba(c1);
@@ -253,7 +255,7 @@ static void exp_instance_setclass(t_exp_instance* x, t_symbol*id, int argc, t_at
         
         std::string str = to_string(x->local_canvas);
         x->instance = new OPInstance(str, OBJ_NAME);
-        //x->instance->ref().inst_out = x->out1;
+        x->instance->ref().newInstance(x->op_class->ref());
         x->instance->ref().addInstanceOut(x->out1);
         
         
@@ -261,6 +263,9 @@ static void exp_instance_setclass(t_exp_instance* x, t_symbol*id, int argc, t_at
     
     
 }
+
+
+#pragma mark -
 
 static void* exp_instance_new(t_symbol *id, int argc, t_atom *argv)
 {
@@ -279,8 +284,8 @@ static void* exp_instance_new(t_symbol *id, int argc, t_atom *argv)
     t_binbuf* d = binbuf_via_atoms(argc,argv);
     
     
-    x->class_name = "";
-    x->global = new OPClass("", OBJ_NAME);
+    //x->op_class->ref()->class_name = "";
+    x->op_class = new OPClass("", OBJ_NAME);
     
     
     x->txt = etext_layout_create();
@@ -366,7 +371,10 @@ static void exp_instance_paint(t_object *z, t_object *view)
         
         //printf("paint %f %f\n", rect.width, rect.height);
         
-        etext_layout_set(zx->txt, zx->class_name.c_str(), zx->fnt, 2, 15, rect.width, rect.height/2, ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
+        std::string disp_name = zx->instance->ref().class_name; //(zx->instance->ref()) ? zx->instance->ref().class_name : "—";
+        if (disp_name=="") disp_name = "-";
+        
+        etext_layout_set(zx->txt, disp_name.c_str(), zx->fnt, 2, 15, rect.width, rect.height/2, ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
         etext_layout_draw(zx->txt, g);
         
     }

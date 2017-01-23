@@ -32,33 +32,7 @@ static void exp_class_read(t_exp_class* x, t_symbol*, int argc, t_atom* argv)
     if (argc<1) {error("specify file name"); return;}
     
     Atom a = Atom(argv[0]);
-    char * filename = (char*)a.asString().c_str();
-    
-    t_binbuf *b;
-    b = binbuf_new();
-    
-    binbuf_read_via_canvas(b,filename, x->parent_canvas, 0);
-    
-    // to canvas
-    // find better way to load?
-    
-    if (x->sub_canvas->gl_list)
-    {
-        glist_delete(x->sub_canvas, x->sub_canvas->gl_list);
-    }
-    
-    int blen=0;
-    char *bchar;
-    binbuf_gettext(b, &bchar, &blen);
-    
-    //    int natoms = binbuf_getnatom(b);
-    //    t_atom* vec = binbuf_getvec(b);
-    
-    //postatom(natoms, vec);
-    
-    canvas_paste_class(x->sub_canvas, b);
-    canvas_vis(x->sub_canvas, 0);
-    canvas_setcurrent(x->parent_canvas);
+    x->global->ref()->readFile(a.asString(), x->parent_canvas);
     
 }
 
@@ -66,44 +40,15 @@ static void exp_class_write(t_exp_class* x, t_symbol*, int argc, t_atom* argv)
 {
     if (argc<1) {error("specify file name"); return;}
     
-    //postatom(argc, argv);
-    
     Atom a = Atom(argv[0]);
-    char * filename = (char*)a.asString().c_str();
-    
-    t_binbuf *b = binbuf_new();
-    
-    canvas_saveto(x->sub_canvas, b);
-    
-    const char * dir = canvas_getdir(x->parent_canvas)->s_name;
-    binbuf_write(b, filename, (char *)dir, 0);
-    
-    //post("wrote %s to %s", filename, dir );
-    post("saved class: %s ", filename);
-    //postatom(argc, argv);
+    x->global->ref()->writeFile(a.asString(), x->parent_canvas);
+
 }
 
 #pragma mark -
 
-//static void exp_class_vis(t_exp_class* x, t_symbol*, int argc, t_atom* argv)
-//{
-//    if (argc<1) return;
-//    Atom a = argv[0];
-//    
-//    if (!a.isFloat()) return;
-//    
-//    if (x->sub_canvas)
-//    {
-//        //post("vis");
-//        canvas_vis(x->sub_canvas, (a.asInt()>0));
-//    }
-//}
-
-
 static void exp_class_click(t_exp_class* x, t_symbol*, int argc, t_atom* argv)
 {
-    //exp_class_vis(x, 0, 1, AtomList(1, Atom(1)).toPdData());
-    
     canvas_vis(x->sub_canvas, 1);
 }
 
@@ -148,13 +93,18 @@ static void* exp_class_new(t_symbol *id, int argc, t_atom *argv)
     
     if (!x->global->ref())
     {
+        x->global->ref() = new t_op_class;
+        
         x->sub_canvas = (t_canvas*)subcanvas_new((x->class_name));
         x->sub_canvas->gl_havewindow = 1;
         x->sub_canvas->gl_isclone = 1;
         
         canvas_vis(x->sub_canvas, 0);
         
-        x->global->ref() = x->sub_canvas;
+        x->global->ref()->canvas = x->sub_canvas;
+        
+        x->global->ref()->class_name = a.asString();
+        
         
         // loader - old
         //        t_binbuf *b1= binbuf_new();
@@ -176,37 +126,13 @@ static void* exp_class_new(t_symbol *id, int argc, t_atom *argv)
     }
     else
     {
-        x->sub_canvas = x->global->ref();
+        x->sub_canvas = x->global->ref()->canvas;
     }
-    
-    
     
     //TODO multiple class save handling
     
-    
-    
-    
-    
-    
-    
-    //
-    
     x->out1 = outlet_new((t_object*)x, &s_anything);
     ebox_ready((t_ebox *)x);
-    
-//    exp_class_class->c_class.c_wb->w_activatefn = (t_activatefn)(exp_class_dblclick);
-    
-    //if(c->c_widget.w_dblclick)
-    
-    
-    //sys_vgui("bind %s <Double-Button-1> {+pdsend {%s dblclick %%x %%y %%s}}\n", x->e_box.b_obj.o_obj.te_g, x->e_box.b_obj.o_id->s_name);
-    
-    
-    //printf("dosave %lu ->",(long)eobj_getclass(x)->c_widget.w_dosave);
-    
-    //eobj_getclass(x)->c_class.c_savefn = (t_savefn)exp_class_save;
-    
-    //printf("dosave %lu\n",(long)exp_class_save);
     
     return static_cast<void*>(x);
     
@@ -252,7 +178,6 @@ extern "C" void setup_exp0x2eclass()
     
     //    eclass_addmethod(exp_class_class,(t_typ_method)(exp_class_update), ("update"), A_NULL,0);
     //    eclass_addmethod(exp_class_class, (t_typ_method)(exp_class_inlet_proxy), ("anything"), A_GIMME, 0);
-    
     
     CLASS_ATTR_SYMBOL(exp_class_class, "class_name", 0, t_exp_class, class_name);
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (exp_class_class, "class_name", 0, "[class]");

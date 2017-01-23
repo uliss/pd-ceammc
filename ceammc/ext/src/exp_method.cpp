@@ -6,12 +6,6 @@ t_eclass* exp_method_class;
 
 using namespace ceammc;
 
-//////////////
-
-
-
-//////////////
-
 struct t_exp_method {
     t_ebox e_box;
     
@@ -40,10 +34,7 @@ static void *exp_method_new(t_symbol *id, int argc, t_atom *argv)
         
         if (x && d)
         {
-            
             ebox_attrprocess_viabinbuf(x, d);
-            
-            
         }
         
         Atom a = (argv[0]);

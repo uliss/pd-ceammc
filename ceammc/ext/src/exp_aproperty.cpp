@@ -188,7 +188,6 @@ extern "C" void setup_exp0x2eaproperty()
     eclass_addmethod(exp_method_class, (method)(exp_method_bang), ("bang"), A_GIMME, 0);
     eclass_addmethod(exp_method_class, (method)(exp_method_list), ("anything"), A_GIMME, 0);
     
-    
     eclass_register(CLASS_BOX, exp_method_class);
 
 }
