@@ -69,16 +69,19 @@
         {data.fifo}
     }
     {global/local
-        {global.list global.float global.int local.list local.float local.int}
+        {global.list global.float global.int global.json local.list local.float local.int local.json}
     }
     {pass/reject
         {pass.changed reject.if reject.this}
+    }
+    {converters
+    	{conv.bpf2env conv.bpf2vline conv.bpf2list conv.bpf2array}
     }
     {ui
         {ui.bang ui.toggle ui.slider ui.number ui.preset ui.tab ui.radio ui.rslider ui.number~ ui.radio ui.menu ui.matrix ui.meter~ ui.knob ui.keyboard ui.sliders ui.slider2d ui.bpfun ui.display ui.scope ui.spectroscope }
     }
     {experimental
-        {exp.patchdata}
+        {exp.patchdata exp.class exp.instance exp.method exp.aproperty}
     }
     {timeline
     	{tl.transport tl.cue tl.bang}

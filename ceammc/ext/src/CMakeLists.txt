@@ -141,7 +141,8 @@ ceammc_cxx_extension(conv bpf2array)
 ###############################
 # JSON
 ###############################
-ceammc_cxx_extension(json object)
+ceammc_cxx_extension(global json)
+ceammc_cxx_extension(local json)
 
 ###############################
 # EXPERIMENTAL

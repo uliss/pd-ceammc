@@ -10,7 +10,7 @@ Key concepts
 
    - All the externals are grouped by their function. This is different from the traditional approach but this aims to simplify the learning process and makes the language itself more clear.
    - Higher level set of objects for education and handy use in work process: oscillators, filters etc.
-   - Library adds several features to basic Pd API, written in C++ and covered with tests
+   - Library adds several features to basic Pd API. It is written in C++ and covered with tests.
    - Inclusion of some modern techniques. Library v0.1 includes comprehensive set of objects that work with lists and include some concepts from functional programming.
 
 
@@ -19,11 +19,12 @@ Features: v0.1
 
  * Core objects:
    - list.* objects: 32 objects that cover different techniques to work with lists
-   - list.apply_to, list.reduce introduces basic functional approach to list processing.
-   - math.*: 28 objects covering math functions with 1 argument
-   - vector.* basic vector operations
+   - list.apply_to, list.reduce objects introduce basic functional approach to list processing.
+   - math.* : 28 objects covering math functions with 1 argument
+   - vector.* : basic vector operations
+   - basic JSON handling
    - system.* object for various system features
-   - flow control: pass, reject objects; predicates objects.
+   - flow control: pass, reject objects; predicates objects
    - random number generators
    - property concept: non-UI objects may have properties that can be accessed after object creation. This includes special message and prop.get object for handling
  * Audio objects:
@@ -34,12 +35,13 @@ Features: v0.1
  * GUI objects:
    - 8 new objects: knob, multiple slider box, 2d slider, keyboard, message display, scope and oscilloscope
    - breakpoint function object, working with envelope objects
-   - Includes several objects from Cream library
+   - Basic timeline objects: graphical cues in a patch
+   - Includes several objects from CICM Cream Library
  * Extensions:
    - New objects toolbar (also works as edit mode indicator)
-   - Save subpatch as new patch
+   - Saving subpatch as new patch
    - Multiple undo (beta)
-   - Grid (beta)
+   - Grid / Align to grid (beta)
 
 Roadmap v0.2:
 -------------
@@ -67,9 +69,9 @@ this work is based on / includes:
    - pddoc (https://github.com/uliss/pddoc)
 
 
-Authors:
+### Authors
 Serge Poltavsky
 Alex Nadzharov
 
-License:
+### License
 GPL3
