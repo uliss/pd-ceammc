@@ -25,7 +25,7 @@ struct t_exp_method {
     
     OPInstance *instance;
     
-    LocalList *x_global;
+    //LocalList *x_global;
     
     t_canvas *canvas;
     
@@ -64,7 +64,7 @@ static void *exp_method_new(t_symbol *id, int argc, t_atom *argv)
         std::string name = id->s_name;
         name += buf;
         
-        x->x_global = new LocalList(name.c_str(), OBJ_NAME);
+        //x->x_global = new LocalList(name.c_str(), OBJ_NAME);
         
         Atom a = (argv[0]);
         x->property_name = a.asSymbol();
@@ -116,10 +116,12 @@ static void exp_method_set(t_exp_method* x, t_symbol*id, int argc, t_atom* argv)
     
     if (name.asSymbol() == x->property_name)
     {
-        //AtomList list2(argc,argv);
+        AtomList list2(argc-1,&argv[1]);
         //list.append(list2);
         
-        x->x_global->ref().fromPdData(static_cast<size_t>(argc-1), &argv[1]);
+        //x->x_global->ref().fromPdData(static_cast<size_t>(argc-1), &argv[1]);
+        
+        x->instance->setAtomListProperty(x->property_name, list2);
         
         outlet_bang(x->out2);
     }
@@ -128,7 +130,7 @@ static void exp_method_set(t_exp_method* x, t_symbol*id, int argc, t_atom* argv)
 
 static void exp_method_output(t_exp_method* x)
 {
-    ceammc::to_outlet(x->out1, x->x_global->ref());
+    ceammc::to_outlet(x->out1, (x->instance->getAtomListProperty(x->property_name)));
 }
 
 static void exp_method_bang(t_exp_method* x)
@@ -139,7 +141,9 @@ static void exp_method_bang(t_exp_method* x)
 //rename
 static void exp_method_list(t_exp_method* x, t_symbol* s, int argc, t_atom* argv)
 {
-    x->x_global->ref().fromPdData(static_cast<size_t>(argc), argv);
+    //x->x_global->ref().fromPdData(static_cast<size_t>(argc), argv);
+    
+    x->instance->setAtomListProperty(x->property_name, AtomList(argc,argv));
     exp_method_output(x);
 }
 
@@ -152,7 +156,10 @@ static void exp_method_get(t_exp_method* x, t_symbol*id, int argc, t_atom* argv)
     if (x->instance)
     {
         AtomList list((Atom(argv[0])));
-        list.append(x->x_global->ref());
+//        list.append(x->x_global->ref());
+        
+        list.append(x->instance->getAtomListProperty(x->property_name));
+        
         x->instance->multipleOutput(list);
         
     }

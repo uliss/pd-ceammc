@@ -139,6 +139,8 @@ private:
     
     
     
+    
+    
 public:
     string class_name;
     t_canvas *canvas;
@@ -185,6 +187,8 @@ public:
         this->_methodOutputs.erase(methodName);
     }
     
+#pragma mark properties
+    
     void addPropertyBox(t_symbol* pMethodName, t_object *object)
     {
         this->instancePropertyBoxes[pMethodName].push_back(object);
@@ -192,6 +196,31 @@ public:
     void freePropertyBox(t_symbol* pMethodName)
     {
         this->instancePropertyBoxes.erase(pMethodName);
+    }
+    
+    void setAtomListProperty(t_symbol *propertyName, AtomList list)
+    {
+        this->_propertyValues[propertyName] = list;
+    }
+    
+    AtomList getAtomListProperty(t_symbol *propertyName)
+    {
+        AtomList list = this->_propertyValues[propertyName];
+        
+        return list;
+    }
+    
+    AtomList getPropertyList()
+    {
+        AtomList ret;
+        
+        //this->_methodOutputs[methodName]
+        for (map<t_symbol*,OPProperties>::iterator it = this->instancePropertyBoxes.begin(); it != this->instancePropertyBoxes.end(); ++it)
+        {
+            ret.append(Atom(it->first));
+        }
+        
+        return ret;
     }
     
     void addInstanceOut(t_outlet *outlet)
@@ -252,10 +281,7 @@ public:
     
     void callGetter(AtomList list)
     {
-        //post("call method %s", list[0].asString().c_str());
         t_symbol *property_name = list[0].asSymbol();
-        
-        //AtomList subList = list.subList(1, list.size());;
         
         OPProperties *out1 = &this->instancePropertyBoxes[property_name];
         
@@ -263,8 +289,6 @@ public:
         {
             for (OPProperties::iterator it =out1->begin(); it!=out1->end(); ++it)
             {
-                //subList.output(*it);
-                
                 pd_typedmess((t_pd*)*it, gensym("get"), (int)list.size(), list.toPdData());
             }
         }
@@ -274,7 +298,6 @@ public:
     {
         AtomList ret;
         
-        //this->_methodOutputs[methodName]
         for (map<t_symbol*,OPOutputs>::iterator it = this->_methodOutputs.begin(); it != this->_methodOutputs.end(); ++it)
         {
             ret.append(Atom(it->first));
@@ -283,18 +306,7 @@ public:
         return ret;
     }
     
-    AtomList getPropertyList()
-    {
-        AtomList ret;
-        
-        //this->_methodOutputs[methodName]
-        for (map<t_symbol*,OPProperties>::iterator it = this->instancePropertyBoxes.begin(); it != this->instancePropertyBoxes.end(); ++it)
-        {
-            ret.append(Atom(it->first));
-        }
-        
-        return ret;
-    }
+    
     
 #pragma mark reference counting
     // names?
@@ -318,14 +330,12 @@ public:
     static OPInstance * findByCanvas(t_canvas* canvas)
     {
         OPInstanceByCanvas* ret = new OPInstanceByCanvas(to_string((long)canvas), "OOP.common");
-        //post("find link %s %lu", to_string((long)canvas).c_str(), (long)ret->ref());
         return ret->ref();
     }
     
     static OPInstance * findBySymbol(t_symbol * symbol)
     {
         OPInstanceBySymbol* ret = new OPInstanceBySymbol(symbol->s_name, "OOP.common");
-        //post("find link %s %lu", symbol->s_name, (long)ret->ref());
         return ret->ref();
     }
     

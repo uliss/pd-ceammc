@@ -32,74 +32,7 @@ static void exp_instance_delete(t_exp_instance* x)
     }
 }
 
-static void exp_instance_update(t_exp_instance* x, t_symbol*s, int argc, t_atom* argv)
-{
-    
-    //    if (x->op_class->ref())
-    //    {
-    //
-    //        // create instance
-    //        canvas_setcurrent(x->parent_canvas);
-    //
-    //        if (!x->instance->canvas)
-    //        {
-    //            //glist_init(x->instance->canvas);
-    //            x->instance->canvas = (t_canvas*)subcanvas_new(gensym(x->op_class->ref()->class_name.c_str())); //LISP lol
-    //            x->instance->canvas->gl_havewindow = 1;
-    //            x->instance->canvas->gl_env = 0;
-    //
-    //            //x->instance = x->instance->canvas;
-    //
-    //        }
-    //        else
-    //        {
-    //            //cleanup
-    //            if (x->instance->canvas->gl_list)
-    //            {
-    //                glist_delete(x->instance->canvas, x->instance->canvas->gl_list);
-    //            }
-    //        }
-    //
-    //        t_canvas *src_canvas = x->op_class->ref()->canvas;
-    //
-    //        t_binbuf *b1 = binbuf_new();
-    //
-    //        canvas_saveto(src_canvas, b1);
-    //
-    //        int blen=0;
-    //        char *bchar;
-    //        binbuf_gettext(b1, &bchar, &blen);
-    
-    
-    //int natoms = binbuf_getnatom(b1);
-    //t_atom* vec = binbuf_getvec(b1);
-    //postatom(natoms, vec);
-    
-    //        AtomList list;
-    //        list.append(Atom(gensym("0")));
-    //        list.append(Atom(gensym("0")));
-    //        list.append(Atom(gensym("cnv")));
-    //        list.append(Atom(gensym("5")));
-    //        list.append(Atom(gensym("300")));
-    //        list.append(Atom(gensym("150")));
-    //        list.append(Atom(gensym("empty")));
-    //        list.append(Atom(gensym("empty")));
-    //        list.append(Atom(gensym("Instance")));
-    //        list.append(Atom(gensym("0")));
-    //        list.append(Atom(gensym("18")));
-    //        list.append(Atom(gensym("0")));
-    //        list.append(Atom(gensym("24")));
-    //        list.append(Atom(gensym("0")));
-    //        list.append(Atom(gensym("0")));
-    //        list.append(Atom(gensym("0")));
-    //        pd_typedmess((t_pd*)x->instance->canvas, gensym("obj"), (int)list.size(), list.toPdData());
-    
-    //        canvas_paste_class(x->instance->canvas, b1);
-    //        canvas_vis(x->instance->canvas, 0);
-    //        canvas_setcurrent(x->parent_canvas);
-    
-    //    }
-}
+
 
 #pragma mark -
 
@@ -174,6 +107,15 @@ static void exp_instance_freeinstance(t_exp_instance* x, t_symbol*id, int argc, 
     
 }
 
+static void exp_instance_update(t_exp_instance* x, t_symbol*s, int argc, t_atom* argv)
+{
+    std::string className = x->instance->class_name;
+    
+    exp_instance_freeinstance(x,0,0,0);
+    exp_instance_newinstance(x, 0, 1, AtomList(Atom(gensym(className.c_str()))).toPdData());
+    
+    
+}
 #pragma mark -
 
 static void exp_instance_setobject(t_exp_instance* x, t_symbol*s, int argc, t_atom* argv)
