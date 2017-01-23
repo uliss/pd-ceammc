@@ -24,19 +24,43 @@
 
 
 using namespace ceammc;
+using namespace std;
 
-typedef std::vector<t_outlet*> OPOutputs;           ///< vector of method boxes outputs
-typedef std::vector<t_object*> OPProperties;        ///< vector of property boxes
+typedef vector<t_outlet*> OPOutputs;           ///< vector of method boxes outputs
+typedef vector<t_object*> OPProperties;        ///< vector of property boxes
 
 static void canvas_paste_class(t_canvas *x, t_binbuf *b);
 
-class t_op_class
+class OPClass
 {
+private:
+    vector<string> methodNames;
+    vector<string> propertyNames;
+    
 public:
-    std::string class_name;
+    string class_name;
     t_canvas *canvas;
     
-    void readFile(std::string fileName, t_canvas *parent_canvas)
+    
+    // for dynamic (change arguments?)
+    OPClass()
+    {
+        
+    }
+    // for canvas-based (change arguments?)
+    OPClass(string className)
+    {
+        this->canvas = (t_canvas*)subcanvas_new(gensym(className.c_str()));
+        this->canvas->gl_havewindow = 1;
+        this->canvas->gl_isclone = 1;
+        
+        canvas_vis(this->canvas, 0);
+        
+        this->class_name = className;
+        
+    }
+    
+    void readFile(string fileName, t_canvas *parent_canvas)
     {
     
         t_binbuf *b;
@@ -65,7 +89,7 @@ public:
         
     }
     
-    void writeFile(std::string fileName, t_canvas *parent_canvas)
+    void writeFile(string fileName, t_canvas *parent_canvas)
     {
         t_binbuf *b = binbuf_new();
         
@@ -77,25 +101,51 @@ public:
         post("saved class: %s ", (char*)(fileName.c_str()));
     }
     
+    // dynamic stub:
+    void addMethod(string methodName, string referenceName)
+    {
+    
+    }
+    
+    void addProperty(string methodName, string referenceName)
+    {
+        
+    }
+    
+    
     
     
 };
 
-typedef GlobalData<t_op_class*> OPClass;                        ///< class prototype
+typedef GlobalData<OPClass*> OPClasses;                        ///< class prototype
 
-class t_op_instance
+//weird
+class OPInstance;
+typedef GlobalData<OPInstance*> OPInstanceByCanvas;
+typedef GlobalData<OPInstance*> OPInstanceBySymbol;
+
+class OPInstance
 {
 private:
-    std::map<t_symbol*,OPOutputs> _methodOutputs;               ///< vector of method outputs
+    map<t_symbol*,OPOutputs> _methodOutputs;                    ///< vector of method outputs
     OPOutputs _instanceOutputs;                                 ///< vector of instances outputs
     
-    std::map<t_symbol*,OPProperties> instancePropertyBoxes;     ///< for property hanling we get pointers to objects instead of outlets
+    map<t_symbol*,OPProperties> instancePropertyBoxes;          ///< for property hanling we get pointers to objects instead of outlets
+    
+    //new
+    
+    map<t_symbol*, AtomList> _propertyValues;
+    int _refCount;
+    
+    
     
 public:
-    std::string class_name;
+    string class_name;
     t_canvas *canvas;
     
-    void newInstance(t_op_class * _opclass) // todo constructor
+    t_symbol *symbol;
+    
+    OPInstance(OPClass * _opclass) 
     {
         // new canvas. check
         this->canvas = (t_canvas*)subcanvas_new(gensym(_opclass->class_name.c_str()));   //LISP lol
@@ -103,18 +153,26 @@ public:
         this->canvas->gl_env = 0;
         this->class_name = _opclass->class_name;
         
+        OPInstanceByCanvas* link = new OPInstanceByCanvas(to_string((long)this->canvas), "OOP.common");
+        link->ref() = this;
+        
+        
+        this->symbol = gensym(to_string((long)this).c_str());
+        
+        OPInstanceBySymbol* link2 = new OPInstanceBySymbol(this->symbol->s_name, "OOP.common");
+        //post("add symbol %s", to_string((long)this).c_str());
+        link2->ref() = this;
+        
         t_binbuf *b1 = binbuf_new();
         
-        canvas_saveto(_opclass->canvas, b1);
-        
-        int blen=0;
-        char *bchar;
-        binbuf_gettext(b1, &bchar, &blen);
+        if (_opclass->canvas)
+            canvas_saveto(_opclass->canvas, b1);
         
         canvas_paste_class(this->canvas, b1);
         canvas_vis(this->canvas, 0);
         
         //todo refcounter?
+        this->retain();
         
     }
     
@@ -142,7 +200,7 @@ public:
     }
     void freeInstanceOut(t_outlet *outlet)
     {
-        this->_instanceOutputs.erase(std::remove(this->_instanceOutputs.begin(), this->_instanceOutputs.end(), outlet), this->_instanceOutputs.end());
+        this->_instanceOutputs.erase(remove(this->_instanceOutputs.begin(), this->_instanceOutputs.end(), outlet), this->_instanceOutputs.end());
     }
     
     void multipleOutput(AtomList list)
@@ -217,7 +275,7 @@ public:
         AtomList ret;
         
         //this->_methodOutputs[methodName]
-        for (std::map<t_symbol*,OPOutputs>::iterator it = this->_methodOutputs.begin(); it != this->_methodOutputs.end(); ++it)
+        for (map<t_symbol*,OPOutputs>::iterator it = this->_methodOutputs.begin(); it != this->_methodOutputs.end(); ++it)
         {
             ret.append(Atom(it->first));
         }
@@ -230,7 +288,7 @@ public:
         AtomList ret;
         
         //this->_methodOutputs[methodName]
-        for (std::map<t_symbol*,OPProperties>::iterator it = this->instancePropertyBoxes.begin(); it != this->instancePropertyBoxes.end(); ++it)
+        for (map<t_symbol*,OPProperties>::iterator it = this->instancePropertyBoxes.begin(); it != this->instancePropertyBoxes.end(); ++it)
         {
             ret.append(Atom(it->first));
         }
@@ -238,16 +296,51 @@ public:
         return ret;
     }
     
+#pragma mark reference counting
+    // names?
+    void retain()
+    {
+        this->_refCount++;
+    }
+    
+    //?
+    void release()
+    {
+        this->_refCount--;
+        if (!this->_refCount) delete this;
+    }
+    
+    //debug
+    int getRefCount()
+        {return this->_refCount;}
+    
+#pragma mark canvas
+    static OPInstance * findByCanvas(t_canvas* canvas)
+    {
+        OPInstanceByCanvas* ret = new OPInstanceByCanvas(to_string((long)canvas), "OOP.common");
+        //post("find link %s %lu", to_string((long)canvas).c_str(), (long)ret->ref());
+        return ret->ref();
+    }
+    
+    static OPInstance * findBySymbol(t_symbol * symbol)
+    {
+        OPInstanceBySymbol* ret = new OPInstanceBySymbol(symbol->s_name, "OOP.common");
+        //post("find link %s %lu", symbol->s_name, (long)ret->ref());
+        return ret->ref();
+    }
+    
 };
-typedef GlobalData<t_op_instance> OPInstance;          ///< Class instance is identified by canvas name. Probably fix that.
+
+//removed
+//typedef GlobalData<OPInstance*> OPInstances;          ///< Class instance is identified by canvas name. Probably fix that.
 
 
 #include <sstream>
 
 template <class T>
-inline std::string to_string (const T& t)
+inline string to_string (const T& t)
 {
-    std::stringstream ss;
+    stringstream ss;
     ss << t;
     return ss.str();
 }

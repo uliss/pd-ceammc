@@ -7,9 +7,9 @@ struct t_exp_class {
     t_ebox e_box;
     
     t_canvas *parent_canvas;
-    t_canvas *sub_canvas;
+    //t_canvas *sub_canvas;
     
-    OPClass *op_class;
+    OPClasses *op_class;
     
     t_atom *patch_a;
     int patch_c;
@@ -44,7 +44,7 @@ static void exp_class_write(t_exp_class* x, t_symbol*, int argc, t_atom* argv)
 
 static void exp_class_click(t_exp_class* x, t_symbol*, int argc, t_atom* argv)
 {
-    canvas_vis(x->sub_canvas, 1);
+    canvas_vis(x->op_class->ref()->canvas, 1);
 }
 
 
@@ -82,21 +82,11 @@ static void* exp_class_new(t_symbol *id, int argc, t_atom *argv)
     
     
     //should be read only for others
-    x->op_class = new OPClass(a.asString(), OBJ_NAME);
+    x->op_class = new OPClasses(a.asString(), OBJ_NAME);
     
     if (!x->op_class->ref())
     {
-        x->op_class->ref() = new t_op_class;
-        
-        x->sub_canvas = (t_canvas*)subcanvas_new(gensym(x->op_class->ref()->class_name.c_str()));
-        x->sub_canvas->gl_havewindow = 1;
-        x->sub_canvas->gl_isclone = 1;
-        
-        canvas_vis(x->sub_canvas, 0);
-        
-        x->op_class->ref()->canvas = x->sub_canvas;
-        
-        x->op_class->ref()->class_name = a.asString();
+        x->op_class->ref() = new OPClass(a.asString());
         
         
         // loader - old
@@ -117,10 +107,10 @@ static void* exp_class_new(t_symbol *id, int argc, t_atom *argv)
         
         
     }
-    else
-    {
-        x->sub_canvas = x->op_class->ref()->canvas;
-    }
+//    else
+//    {
+//        //x->sub_canvas = x->op_class->ref()->canvas;
+//    }
     
     //TODO multiple class save handling
     
@@ -137,13 +127,14 @@ static void exp_class_free(t_exp_class* x)
 {
     if (x->op_class->ref())
     {
-        if (x->sub_canvas)
+        //TODO
+        if (x->op_class->ref()->canvas)
         {
             std::string class_name = x->op_class->ref()->class_name + ".class.pd";
             Atom a_class_name = Atom(gensym(class_name.c_str()));
             exp_class_write(x, 0, 1, AtomList(a_class_name).toPdData());
             
-            canvas_free(x->sub_canvas);
+            canvas_free(x->op_class->ref()->canvas);
             
             x->op_class->ref() = 0;
         }

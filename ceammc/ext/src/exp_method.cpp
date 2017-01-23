@@ -40,8 +40,9 @@ static void *exp_method_new(t_symbol *id, int argc, t_atom *argv)
         Atom a = (argv[0]);
         x->method_name = a.asSymbol();
         
-        std::string str = to_string(x->parent_canvas);
-        x->instance = new OPInstance(str, OBJ_NAME);
+        //std::string str = to_string((long)x->parent_canvas);
+        
+        x->instance = OPInstance::findByCanvas(x->parent_canvas);//new OPInstances(str, OBJ_NAME);
         
         ebox_ready((t_ebox *)x);
         
@@ -50,7 +51,8 @@ static void *exp_method_new(t_symbol *id, int argc, t_atom *argv)
         
         x->out1 = outlet_new((t_object*)x, &s_anything);
         
-        x->instance->ref().addMethod(x->method_name, x->out1);
+        if (x->instance)
+            x->instance->addMethod(x->method_name, x->out1);
         
         return static_cast<void*>(x);
 
@@ -59,7 +61,8 @@ static void *exp_method_new(t_symbol *id, int argc, t_atom *argv)
 
 static void exp_method_free(t_exp_method* x, t_symbol*id, int argc, t_atom* argv)
 {
-    x->instance->ref().freeMethod(x->method_name);
+    if (x->instance)
+        x->instance->freeMethod(x->method_name);
     
 }
 
@@ -70,7 +73,8 @@ static void exp_method_any(t_exp_method* x, t_symbol*id, int argc, t_atom* argv)
           AtomList list((Atom(id)));
           AtomList list2(argc,argv);
           list.append(list2);
-          x->instance->ref().multipleOutput(list);
+          if (x->instance)
+          x->instance->multipleOutput(list);
 
       }
 }

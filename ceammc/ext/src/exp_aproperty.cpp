@@ -69,8 +69,9 @@ static void *exp_method_new(t_symbol *id, int argc, t_atom *argv)
         Atom a = (argv[0]);
         x->property_name = a.asSymbol();
         
-        std::string str = to_string(x->parent_canvas);
-        x->instance = new OPInstance(str, OBJ_NAME);
+        //std::string str = to_string(x->parent_canvas);
+        //x->instance = new OPInstances(str, OBJ_NAME);
+        x->instance = OPInstance::findByCanvas(x->parent_canvas);
         
         x->e_box.b_boxparameters.d_boxfillcolor = rgba_greylight;
         x->e_box.b_boxparameters.d_bordercolor = rgba_green;
@@ -82,10 +83,11 @@ static void *exp_method_new(t_symbol *id, int argc, t_atom *argv)
         //std::string getter_name = "get_" + std::string(x->property_name->s_name);
         //std::string setter_name = "set_" + std::string(x->property_name->s_name);
         
-        //x->instance->ref().addMethod(gensym(setter_name.c_str()), x->out1);
-        //x->instance->ref().addMethod(gensym(getter_name.c_str()), x->out2);
+        //x->instance->addMethod(gensym(setter_name.c_str()), x->out1);
+        //x->instance->addMethod(gensym(getter_name.c_str()), x->out2);
         
-        x->instance->ref().addPropertyBox(x->property_name, (t_object*)x);
+        if (x->instance)
+            x->instance->addPropertyBox(x->property_name, (t_object*)x);
         
         ebox_ready((t_ebox *)x);
         
@@ -97,7 +99,8 @@ static void *exp_method_new(t_symbol *id, int argc, t_atom *argv)
 
 static void exp_method_free(t_exp_method* x, t_symbol*id, int argc, t_atom* argv)
 {
-    x->instance->ref().freeMethod(x->property_name);
+    if (x->instance)
+        x->instance->freeMethod(x->property_name);
     
 }
 
@@ -150,7 +153,7 @@ static void exp_method_get(t_exp_method* x, t_symbol*id, int argc, t_atom* argv)
     {
         AtomList list((Atom(argv[0])));
         list.append(x->x_global->ref());
-        x->instance->ref().multipleOutput(list);
+        x->instance->multipleOutput(list);
         
     }
     
@@ -165,7 +168,7 @@ static void exp_method_get(t_exp_method* x, t_symbol*id, int argc, t_atom* argv)
 //          AtomList list((Atom(id)));
 //          AtomList list2(argc,argv);
 //          list.append(list2);
-//          x->instance->ref().multipleOutput(list);
+//          x->instance->multipleOutput(list);
 //
 //      }
 //}

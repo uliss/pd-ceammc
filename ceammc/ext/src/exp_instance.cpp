@@ -7,9 +7,9 @@ struct t_exp_instance {
     
     t_canvas *parent_canvas;        //patch
     
-    t_canvas *local_canvas;         //instance
+    //t_canvas *local_canvas;         //instance
     
-    OPClass *op_class;              //class
+    OPClasses *op_class;              //class
     OPInstance *instance;
     
     t_etext *txt;
@@ -24,137 +24,208 @@ using namespace ceammc;
 
 static void exp_instance_delete(t_exp_instance* x)
 {
-    if (x->local_canvas)
+    if (x->instance)
     {
-//        if (x->local_canvas->gl_list)
-//        {
-//            glist_delete(x->local_canvas, x->local_canvas->gl_list);
-//        }
-        
-        
-        //todo free
-        x->instance->ref().freeInstanceOut(x->out1);
-        x->local_canvas = 0;
+        x->instance->freeInstanceOut(x->out1);
+        x->instance->release();
+        x->instance = 0;
     }
 }
 
 static void exp_instance_update(t_exp_instance* x, t_symbol*s, int argc, t_atom* argv)
 {
     
-    if (x->op_class->ref())
+    //    if (x->op_class->ref())
+    //    {
+    //
+    //        // create instance
+    //        canvas_setcurrent(x->parent_canvas);
+    //
+    //        if (!x->instance->canvas)
+    //        {
+    //            //glist_init(x->instance->canvas);
+    //            x->instance->canvas = (t_canvas*)subcanvas_new(gensym(x->op_class->ref()->class_name.c_str())); //LISP lol
+    //            x->instance->canvas->gl_havewindow = 1;
+    //            x->instance->canvas->gl_env = 0;
+    //
+    //            //x->instance = x->instance->canvas;
+    //
+    //        }
+    //        else
+    //        {
+    //            //cleanup
+    //            if (x->instance->canvas->gl_list)
+    //            {
+    //                glist_delete(x->instance->canvas, x->instance->canvas->gl_list);
+    //            }
+    //        }
+    //
+    //        t_canvas *src_canvas = x->op_class->ref()->canvas;
+    //
+    //        t_binbuf *b1 = binbuf_new();
+    //
+    //        canvas_saveto(src_canvas, b1);
+    //
+    //        int blen=0;
+    //        char *bchar;
+    //        binbuf_gettext(b1, &bchar, &blen);
+    
+    
+    //int natoms = binbuf_getnatom(b1);
+    //t_atom* vec = binbuf_getvec(b1);
+    //postatom(natoms, vec);
+    
+    //        AtomList list;
+    //        list.append(Atom(gensym("0")));
+    //        list.append(Atom(gensym("0")));
+    //        list.append(Atom(gensym("cnv")));
+    //        list.append(Atom(gensym("5")));
+    //        list.append(Atom(gensym("300")));
+    //        list.append(Atom(gensym("150")));
+    //        list.append(Atom(gensym("empty")));
+    //        list.append(Atom(gensym("empty")));
+    //        list.append(Atom(gensym("Instance")));
+    //        list.append(Atom(gensym("0")));
+    //        list.append(Atom(gensym("18")));
+    //        list.append(Atom(gensym("0")));
+    //        list.append(Atom(gensym("24")));
+    //        list.append(Atom(gensym("0")));
+    //        list.append(Atom(gensym("0")));
+    //        list.append(Atom(gensym("0")));
+    //        pd_typedmess((t_pd*)x->instance->canvas, gensym("obj"), (int)list.size(), list.toPdData());
+    
+    //        canvas_paste_class(x->instance->canvas, b1);
+    //        canvas_vis(x->instance->canvas, 0);
+    //        canvas_setcurrent(x->parent_canvas);
+    
+    //    }
+}
+
+#pragma mark -
+
+static void exp_instance_newinstance(t_exp_instance* x, t_symbol*id, int argc, t_atom* argv)
+{
+    if (argc<1)
     {
+        error("no class name provided!");
+        //        x->e_box.b_boxparameters.d_bordercolor = rgba_red;
+        //        //exp_instance_delete(x);
+        //
+        //        ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
+        //        ebox_redraw((t_ebox *)x);
+    }
+    Atom a = argv[0];
+    if (!a.isSymbol())
+    {
+        error("bad class name!");
+        //        x->e_box.b_boxparameters.d_bordercolor = rgba_red;
+        //        //exp_instance_delete(x);
+        //
+        //        ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
+        //        ebox_redraw((t_ebox *)x);
+    }
+    
+    x->op_class = new OPClasses(a.asString(), OBJ_NAME);
+    x->op_class->ref()->class_name = a.asString();
+    
+    if (!x->op_class->ref())
+    {
+        error("class not found!");
+        //        x->e_box.b_boxparameters.d_bordercolor = rgba_red;
+        //
+        //        ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
+        //        ebox_redraw((t_ebox *)x);
+    }
+    else
+    {
+        //printf("update %s\n", x->op_class->ref()->class_name.c_str());
         
-        // create instance
+        //exp_instance_update(x, 0, 0, 0);
+        char c1[] = "#00C0FF";
+        x->e_box.b_boxparameters.d_bordercolor = hex_to_rgba(c1);
+        
         canvas_setcurrent(x->parent_canvas);
         
-        if (!x->local_canvas)
-        {
-            //glist_init(x->local_canvas);
-            x->local_canvas = (t_canvas*)subcanvas_new(gensym(x->op_class->ref()->class_name.c_str())); //LISP lol
-            x->local_canvas->gl_havewindow = 1;
-            x->local_canvas->gl_env = 0;
-            
-            //x->instance->ref() = x->local_canvas;
-            
-        }
-        else
-        {
-            //cleanup
-            if (x->local_canvas->gl_list)
-            {
-                glist_delete(x->local_canvas, x->local_canvas->gl_list);
-            }
-        }
+        //OPInstance *new_inst = new OPInstance(x->op_class->ref());
+        //std::string str = to_string(new_inst); //->instance->ref().canvas
+        //x->instance = new OPInstances(str, OBJ_NAME);
         
-        t_canvas *src_canvas = x->op_class->ref()->canvas;
+        x->instance = new OPInstance(x->op_class->ref());
+        x->instance->addInstanceOut(x->out1);
         
-        t_binbuf *b1 = binbuf_new();
+        ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
+        ebox_redraw((t_ebox *)x);
         
-        canvas_saveto(src_canvas, b1);
-        
-        int blen=0;
-        char *bchar;
-        binbuf_gettext(b1, &bchar, &blen);
-        
-        
-        //int natoms = binbuf_getnatom(b1);
-        //t_atom* vec = binbuf_getvec(b1);
-        //postatom(natoms, vec);
-        
-//        AtomList list;
-//        list.append(Atom(gensym("0")));
-//        list.append(Atom(gensym("0")));
-//        list.append(Atom(gensym("cnv")));
-//        list.append(Atom(gensym("5")));
-//        list.append(Atom(gensym("300")));
-//        list.append(Atom(gensym("150")));
-//        list.append(Atom(gensym("empty")));
-//        list.append(Atom(gensym("empty")));
-//        list.append(Atom(gensym("Instance")));
-//        list.append(Atom(gensym("0")));
-//        list.append(Atom(gensym("18")));
-//        list.append(Atom(gensym("0")));
-//        list.append(Atom(gensym("24")));
-//        list.append(Atom(gensym("0")));
-//        list.append(Atom(gensym("0")));
-//        list.append(Atom(gensym("0")));
-//        pd_typedmess((t_pd*)x->local_canvas, gensym("obj"), (int)list.size(), list.toPdData());
-        
-        canvas_paste_class(x->local_canvas, b1);
-        canvas_vis(x->local_canvas, 0);
-        canvas_setcurrent(x->parent_canvas);
         
     }
+    
+    
 }
+
+static void exp_instance_freeinstance(t_exp_instance* x, t_symbol*id, int argc, t_atom* argv)
+{
+    
+    exp_instance_delete(x);
+    
+    x->e_box.b_boxparameters.d_bordercolor = rgba_red;
+    
+    ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
+    ebox_redraw((t_ebox *)x);
+    
+}
+
+#pragma mark -
 
 static void exp_instance_setobject(t_exp_instance* x, t_symbol*s, int argc, t_atom* argv)
 {
     if (argc<1)
     {
-        if (x->op_class->ref())
-            x->op_class->ref()->class_name = "";
         
-        //todo free!
-        x->instance->ref().freeInstanceOut(x->out1);
-        x->local_canvas = 0;
+        exp_instance_freeinstance(x, 0, 0, 0);
         
-        x->e_box.b_boxparameters.d_bordercolor = rgba_red;
-        
-        ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
-        ebox_redraw((t_ebox *)x);
-
         
     }
     else
     {
-        if (x->local_canvas)
-            {canvas_vis(x->local_canvas, 0);}
+        if (x->instance)
+            if (x->instance->canvas)
+                {canvas_vis(x->instance->canvas, 0);}
         
         Atom a = argv[0];
+        postatom(argc, argv); post("");
+        x->instance = OPInstance::findBySymbol(a.asSymbol());
         
-        x->instance = new OPInstance(a.asString(), OBJ_NAME);
-        //x->instance->ref().newInstance(x->op_class->ref());
-        
-        x->local_canvas = x->instance->ref().canvas;
-//        if (x->op_class->ref())
-//            x->op_class->ref()->class_name = x->instance->ref().class_name;
-        x->instance->ref().addInstanceOut(x->out1);
-        
-        char c1[] = "#00C0FF";
-        x->e_box.b_boxparameters.d_bordercolor = hex_to_rgba(c1);
-        
-        ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
-        ebox_redraw((t_ebox *)x);
-        
-        if (!x->local_canvas)
+        if (x->instance)
         {
-            x->e_box.b_boxparameters.d_bordercolor = rgba_red;
+            x->instance->retain();
+            x->instance->addInstanceOut(x->out1);
+            
+            char c1[] = "#00C0FF";
+            x->e_box.b_boxparameters.d_bordercolor = hex_to_rgba(c1);
             
             ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
             ebox_redraw((t_ebox *)x);
             
-            
+            if (!x->instance->canvas)
+            {
+                x->e_box.b_boxparameters.d_bordercolor = rgba_red;
+                
+                ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
+                ebox_redraw((t_ebox *)x);
+                
+                
+            }
         }
+        else
+        {
+            error("instance not found!");
+            
+            x->e_box.b_boxparameters.d_bordercolor = rgba_red;
+            
+            ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
+            ebox_redraw((t_ebox *)x);
+        }
+        
         
     }
     
@@ -164,8 +235,8 @@ static void exp_instance_getobject(t_exp_instance* x, t_symbol*s, int argc, t_at
 {
     if (x->op_class->ref())
     {
-        x->instance->ref().canvas = x->local_canvas;
-        x->instance->ref().class_name = x->op_class->ref()->class_name;
+        //x->instance->canvas = x->instance->canvas;
+        x->instance->class_name = x->op_class->ref()->class_name;
     }
     
     Atom a;
@@ -174,7 +245,7 @@ static void exp_instance_getobject(t_exp_instance* x, t_symbol*s, int argc, t_at
     
     a= Atom(gensym("setobject"));
     list.append(a);
-    a= Atom(gensym(to_string(x->local_canvas).c_str()));
+    a= Atom(x->instance->symbol);
     list.append(a);
     
     list.outputAsAny(x->out1);
@@ -189,7 +260,7 @@ static void exp_instance_getproperty(t_exp_instance* x, t_symbol*id, int argc, t
     if (!a.isSymbol()) {error("bad property name"); return;}
     
     AtomList list = AtomList(argc, argv);
-    x->instance->ref().callGetter(list);
+    x->instance->callGetter(list);
     
 }
 
@@ -201,68 +272,12 @@ static void exp_instance_setproperty(t_exp_instance* x, t_symbol*id, int argc, t
     if (!a.isSymbol()) {error("bad property name"); return;}
     
     AtomList list = AtomList(argc, argv);
-    x->instance->ref().callSetter(list);
+    x->instance->callSetter(list);
     
 }
 
 
-#pragma mark -
 
-static void exp_instance_setclass(t_exp_instance* x, t_symbol*id, int argc, t_atom* argv)
-{
-    if (argc<1)
-    {
-        error("no class name provided!");
-        x->e_box.b_boxparameters.d_bordercolor = rgba_red;
-        exp_instance_delete(x);
-        
-        ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
-        ebox_redraw((t_ebox *)x);
-    }
-    Atom a = argv[0];
-    if (!a.isSymbol())
-    {
-        error("bad class name!");
-        x->e_box.b_boxparameters.d_bordercolor = rgba_red;
-        exp_instance_delete(x);
-        
-        ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
-        ebox_redraw((t_ebox *)x);
-    }
-    
-    x->op_class = new OPClass(a.asString(), OBJ_NAME);
-    //x->op_class->ref()->class_name = a.asString();
-    
-    
-    if (!x->op_class->ref())
-    {
-        error("class not found!");
-        x->e_box.b_boxparameters.d_bordercolor = rgba_red;
-        
-        ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
-        ebox_redraw((t_ebox *)x);
-    }
-    else
-    {
-        //printf("update %s\n", x->op_class->ref()->class_name.c_str());
-        
-        exp_instance_update(x, 0, 0, 0);
-        char c1[] = "#00C0FF";
-        x->e_box.b_boxparameters.d_bordercolor = hex_to_rgba(c1);
-        
-        ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
-        ebox_redraw((t_ebox *)x);
-        
-        std::string str = to_string(x->local_canvas);
-        x->instance = new OPInstance(str, OBJ_NAME);
-        x->instance->ref().newInstance(x->op_class->ref());
-        x->instance->ref().addInstanceOut(x->out1);
-        
-        
-    }
-    
-    
-}
 
 
 #pragma mark -
@@ -274,24 +289,21 @@ static void* exp_instance_new(t_symbol *id, int argc, t_atom *argv)
     
     x->parent_canvas = canvas_getcurrent();
     
-    std::string str = to_string(x->local_canvas);
+    //std::string str = to_string(x->instance->canvas);
     
-    x->instance = new OPInstance(str, OBJ_NAME);
-    x->instance->ref().addInstanceOut(x->out1);
     
+    x->op_class = new OPClasses("", OBJ_NAME);
+    //x->instance = new OPInstances("", OBJ_NAME);
+    
+    //    x->instance->canvas = 0;
+    
+    //x->instance->addInstanceOut(x->out1);
     
     ebox_new((t_ebox *)x, 0 );
     t_binbuf* d = binbuf_via_atoms(argc,argv);
     
-    
-    //x->op_class->ref()->class_name = "";
-    x->op_class = new OPClass("", OBJ_NAME);
-    
-    
     x->txt = etext_layout_create();
     x->fnt = efont_create(gensym("Monaco"), gensym("normal"), gensym(""), 10);
-    
-    x->local_canvas = 0;
     
     canvas_setcurrent(x->parent_canvas);
     
@@ -320,36 +332,46 @@ static void exp_instance_vis(t_exp_instance* x, t_symbol*, int argc, t_atom* arg
     
     if (!a.isFloat()) return;
     
-    if (x->local_canvas)
+    if (x->instance->canvas)
     {
         //post("vis");
-        canvas_vis(x->local_canvas, (a.asInt()>0));
+        canvas_vis(x->instance->canvas, (a.asInt()>0));
     }
 }
 
 static void exp_instance_any(t_exp_instance* x, t_symbol*s, int argc, t_atom* argv)
 {
     //if (argc<1) return;
-    AtomList list = Atom(s);
-    list.append(AtomList(argc,argv));
     
-    x->instance->ref().callMethod(list);
+    if (x->instance)
+    {
+        AtomList list = Atom(s);
+        list.append(AtomList(argc,argv));
+        
+        x->instance->callMethod(list);
+    }
     
 }
 
 static void exp_instance_methodlist(t_exp_instance* x, t_symbol*, int argc, t_atom* argv)
 {
     
-    AtomList list = x->instance->ref().getMethodList();
+    AtomList list = x->instance->getMethodList();
     
     post("Methods:");
     postatom((int)list.size(), list.toPdData());
     post("");
-    list = x->instance->ref().getPropertyList();
+    list = x->instance->getPropertyList();
     post("Properties:");
     postatom((int)list.size(), list.toPdData());
     post("");
     
+}
+
+static void exp_instance_refcount(t_exp_instance* x, t_symbol*, int argc, t_atom* argv)
+{
+    if (x->instance)
+    {post("reference count: %i",x->instance->getRefCount());}
 }
 
 #pragma mark -
@@ -368,14 +390,15 @@ static void exp_instance_paint(t_object *z, t_object *view)
     
     if(g)
     {
-        
-        //printf("paint %f %f\n", rect.width, rect.height);
-        
-        std::string disp_name = zx->instance->ref().class_name; //(zx->instance->ref()) ? zx->instance->ref().class_name : "—";
-        if (!zx->op_class->ref()) disp_name = "-";
-        
-        etext_layout_set(zx->txt, disp_name.c_str(), zx->fnt, 2, 15, rect.width, rect.height/2, ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
-        etext_layout_draw(zx->txt, g);
+        if (zx->instance)
+        {
+            
+            std::string disp_name = (zx->instance) ? zx->instance->class_name : "—";
+            //if (!zx->instance) disp_name = "-";
+            
+            etext_layout_set(zx->txt, disp_name.c_str(), zx->fnt, 2, 15, rect.width, rect.height/2, ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
+            etext_layout_draw(zx->txt, g);
+        }
         
     }
     
@@ -386,7 +409,9 @@ static void exp_instance_paint(t_object *z, t_object *view)
 
 static void exp_instance_free(t_exp_instance* x)
 {
-    canvas_free(x->local_canvas);
+    //canvas_free(x->instance->canvas);
+    
+    exp_instance_delete(x);
     
 }
 
@@ -400,8 +425,10 @@ static void exp_instance_click(t_exp_instance* x, t_symbol* s, int argc, t_atom*
 {
     //exp_instance_vis(x, 0, 1, AtomList(1, Atom(1)).toPdData());
     
-    if (x->local_canvas)
-        canvas_vis(x->local_canvas, 1);
+    if (x->instance)
+        if (x->instance->canvas)
+            canvas_vis(x->instance->canvas, 1);
+    
 }
 
 
@@ -433,13 +460,13 @@ extern "C" void setup_exp0x2einstance()
     
     eclass_addmethod(exp_instance_class,(t_typ_method)(exp_instance_update), ("update"), A_NULL,0);
     
-    eclass_addmethod(exp_instance_class,(t_typ_method)(exp_instance_setclass), ("class"), A_GIMME,0);   //will remove
-    eclass_addmethod(exp_instance_class,(t_typ_method)(exp_instance_setclass), ("new"), A_GIMME,0);
+    //eclass_addmethod(exp_instance_class,(t_typ_method)(exp_instance_setclass), ("class"), A_GIMME,0);   //will remove
+    eclass_addmethod(exp_instance_class,(t_typ_method)(exp_instance_newinstance), ("new"), A_GIMME,0);
+    eclass_addmethod(exp_instance_class,(t_typ_method)(exp_instance_freeinstance), ("free"), A_GIMME,0);
     
-    //todo
-    //eclass_addmethod(exp_instance_class,(t_typ_method)(exp_instance_setclass), ("free"), A_GIMME,0);
     
     eclass_addmethod(exp_instance_class, (t_typ_method)exp_instance_methodlist, ("methodlist"), A_NULL, 0);
+    eclass_addmethod(exp_instance_class, (t_typ_method)exp_instance_refcount, ("refcount"), A_NULL, 0);
     
     eclass_addmethod(exp_instance_class,(t_typ_method)(exp_instance_getobject), ("getobject"), A_GIMME,0);
     eclass_addmethod(exp_instance_class,(t_typ_method)(exp_instance_setobject), ("setobject"), A_GIMME,0);
