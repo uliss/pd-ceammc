@@ -71,7 +71,7 @@ template <>
 std::ostream& operator<<(std::ostream& os, const std::vector<_symbol*>& v)
 {
     os << '[';
-    typename std::vector<_symbol*>::const_iterator it;
+    std::vector<_symbol*>::const_iterator it;
     for (it = v.begin(); it != v.end(); ++it) {
         if (it != v.begin())
             os << ", ";
