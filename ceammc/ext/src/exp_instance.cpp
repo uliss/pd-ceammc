@@ -372,7 +372,7 @@ static void exp_instance_paint(t_object *z, t_object *view)
         //printf("paint %f %f\n", rect.width, rect.height);
         
         std::string disp_name = zx->instance->ref().class_name; //(zx->instance->ref()) ? zx->instance->ref().class_name : "—";
-        if (disp_name=="") disp_name = "-";
+        if (!zx->op_class->ref()) disp_name = "-";
         
         etext_layout_set(zx->txt, disp_name.c_str(), zx->fnt, 2, 15, rect.width, rect.height/2, ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
         etext_layout_draw(zx->txt, g);

@@ -4,14 +4,10 @@ t_eclass* exp_class_class;
 
 
 struct t_exp_class {
-    //t_object x_obj;
-    
     t_ebox e_box;
     
     t_canvas *parent_canvas;
     t_canvas *sub_canvas;
-    
-    //t_symbol* class_name;
     
     OPClass *op_class;
     
