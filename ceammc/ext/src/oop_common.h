@@ -162,7 +162,6 @@ public:
         this->symbol = gensym(to_string((long)this).c_str());
         
         OPInstanceBySymbol* link2 = new OPInstanceBySymbol(this->symbol->s_name, "OOP.common");
-        //post("add symbol %s", to_string((long)this).c_str());
         link2->ref() = this;
         
         t_binbuf *b1 = binbuf_new();
@@ -214,7 +213,6 @@ public:
     {
         AtomList ret;
         
-        //this->_methodOutputs[methodName]
         for (map<t_symbol*,OPProperties>::iterator it = this->instancePropertyBoxes.begin(); it != this->instancePropertyBoxes.end(); ++it)
         {
             ret.append(Atom(it->first));
@@ -243,7 +241,6 @@ public:
     
     void callMethod(AtomList list)
     {
-        //post("call method %s", list[0].asString().c_str());
         t_symbol *method_name = list[0].asSymbol();
         
         AtomList subList = list.subList(1, (int)list.size());;
@@ -261,10 +258,7 @@ public:
     
     void callSetter(AtomList list)
     {
-        //post("call method %s", list[0].asString().c_str());
         t_symbol *property_name = list[0].asSymbol();
-        
-        //AtomList subList = list.subList(1, list.size());;
         
         OPProperties *out1 = &this->instancePropertyBoxes[property_name];
         
@@ -272,8 +266,6 @@ public:
         {
             for (OPProperties::iterator it =out1->begin(); it!=out1->end(); ++it)
             {
-                //subList.output(*it);
-                
                 pd_typedmess((t_pd*)*it, gensym("set"), (int)list.size(), list.toPdData());
             }
         }
@@ -340,9 +332,6 @@ public:
     }
     
 };
-
-//removed
-//typedef GlobalData<OPInstance*> OPInstances;          ///< Class instance is identified by canvas name. Probably fix that.
 
 
 #include <sstream>

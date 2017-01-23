@@ -41,21 +41,13 @@ static void exp_instance_newinstance(t_exp_instance* x, t_symbol*id, int argc, t
     if (argc<1)
     {
         error("no class name provided!");
-        //        x->e_box.b_boxparameters.d_bordercolor = rgba_red;
-        //        //exp_instance_delete(x);
-        //
-        //        ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
-        //        ebox_redraw((t_ebox *)x);
+        
     }
     Atom a = argv[0];
     if (!a.isSymbol())
     {
         error("bad class name!");
-        //        x->e_box.b_boxparameters.d_bordercolor = rgba_red;
-        //        //exp_instance_delete(x);
-        //
-        //        ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
-        //        ebox_redraw((t_ebox *)x);
+        
     }
     
     x->op_class = new OPClasses(a.asString(), OBJ_NAME);
@@ -64,31 +56,21 @@ static void exp_instance_newinstance(t_exp_instance* x, t_symbol*id, int argc, t
     if (!x->op_class->ref())
     {
         error("class not found!");
-        //        x->e_box.b_boxparameters.d_bordercolor = rgba_red;
-        //
-        //        ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
-        //        ebox_redraw((t_ebox *)x);
+        
     }
     else
     {
-        //printf("update %s\n", x->op_class->ref()->class_name.c_str());
         
-        //exp_instance_update(x, 0, 0, 0);
         char c1[] = "#00C0FF";
         x->e_box.b_boxparameters.d_bordercolor = hex_to_rgba(c1);
         
         canvas_setcurrent(x->parent_canvas);
-        
-        //OPInstance *new_inst = new OPInstance(x->op_class->ref());
-        //std::string str = to_string(new_inst); //->instance->ref().canvas
-        //x->instance = new OPInstances(str, OBJ_NAME);
         
         x->instance = new OPInstance(x->op_class->ref());
         x->instance->addInstanceOut(x->out1);
         
         ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
         ebox_redraw((t_ebox *)x);
-        
         
     }
     
@@ -231,15 +213,7 @@ static void* exp_instance_new(t_symbol *id, int argc, t_atom *argv)
     
     x->parent_canvas = canvas_getcurrent();
     
-    //std::string str = to_string(x->instance->canvas);
-    
-    
     x->op_class = new OPClasses("", OBJ_NAME);
-    //x->instance = new OPInstances("", OBJ_NAME);
-    
-    //    x->instance->canvas = 0;
-    
-    //x->instance->addInstanceOut(x->out1);
     
     ebox_new((t_ebox *)x, 0 );
     t_binbuf* d = binbuf_via_atoms(argc,argv);
@@ -283,8 +257,6 @@ static void exp_instance_vis(t_exp_instance* x, t_symbol*, int argc, t_atom* arg
 
 static void exp_instance_any(t_exp_instance* x, t_symbol*s, int argc, t_atom* argv)
 {
-    //if (argc<1) return;
-    
     if (x->instance)
     {
         AtomList list = Atom(s);
@@ -297,7 +269,6 @@ static void exp_instance_any(t_exp_instance* x, t_symbol*s, int argc, t_atom* ar
 
 static void exp_instance_methodlist(t_exp_instance* x, t_symbol*, int argc, t_atom* argv)
 {
-    
     AtomList list = x->instance->getMethodList();
     
     post("Methods:");
@@ -336,7 +307,6 @@ static void exp_instance_paint(t_object *z, t_object *view)
         {
             
             std::string disp_name = (zx->instance) ? zx->instance->class_name : "—";
-            //if (!zx->instance) disp_name = "-";
             
             etext_layout_set(zx->txt, disp_name.c_str(), zx->fnt, 2, 15, rect.width, rect.height/2, ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
             etext_layout_draw(zx->txt, g);
@@ -351,8 +321,6 @@ static void exp_instance_paint(t_object *z, t_object *view)
 
 static void exp_instance_free(t_exp_instance* x)
 {
-    //canvas_free(x->instance->canvas);
-    
     exp_instance_delete(x);
     
 }
@@ -365,8 +333,6 @@ static void exp_instance_oksize(t_object *z, t_rect *newrect)
 
 static void exp_instance_click(t_exp_instance* x, t_symbol* s, int argc, t_atom* argv)
 {
-    //exp_instance_vis(x, 0, 1, AtomList(1, Atom(1)).toPdData());
-    
     if (x->instance)
         if (x->instance->canvas)
             canvas_vis(x->instance->canvas, 1);
@@ -398,11 +364,8 @@ extern "C" void setup_exp0x2einstance()
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (exp_instance_class, "bgcolor", 0, "0.75 0.75 0.75 1.");
     CLASS_ATTR_STYLE                (exp_instance_class, "bgcolor", 0, "color");
     
-    //eclass_addmethod(exp_instance_class,(t_typ_method)(exp_instance_vis), ("vis"), A_GIMME,0);
-    
     eclass_addmethod(exp_instance_class,(t_typ_method)(exp_instance_update), ("update"), A_NULL,0);
     
-    //eclass_addmethod(exp_instance_class,(t_typ_method)(exp_instance_setclass), ("class"), A_GIMME,0);   //will remove
     eclass_addmethod(exp_instance_class,(t_typ_method)(exp_instance_newinstance), ("new"), A_GIMME,0);
     eclass_addmethod(exp_instance_class,(t_typ_method)(exp_instance_freeinstance), ("free"), A_GIMME,0);
     
@@ -423,7 +386,6 @@ extern "C" void setup_exp0x2einstance()
     eclass_addmethod(exp_instance_class, (method)(exp_instance_oksize), ("oksize"), A_GIMME,0);
     
     eclass_addmethod(exp_instance_class, (t_typ_method)exp_instance_click, ("mousedown"), A_NULL, 0);
-    
     
     
     eclass_register(CLASS_BOX, exp_instance_class);
