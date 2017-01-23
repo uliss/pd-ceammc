@@ -282,7 +282,7 @@ static void json_object_free(t_json_object* x)
 }
 
 
-extern "C" void setup_global0x2ejson()
+extern "C" void setup_local0x2ejson()
 {
     json_object_class = class_new(gensym(OBJ_NAME),
                                   reinterpret_cast<t_newmethod>(json_object_new),
