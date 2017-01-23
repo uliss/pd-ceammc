@@ -388,9 +388,12 @@ static void exp_instance_oksize(t_object *z, t_rect *newrect)
     newrect->height = 15;
 }
 
-static void exp_instance_dblclick(t_exp_instance* x, t_symbol* s, int argc, t_atom* argv)
+static void exp_instance_click(t_exp_instance* x, t_symbol* s, int argc, t_atom* argv)
 {
-    exp_instance_vis(x, 0, 1, AtomList(1, Atom(1)).toPdData());
+    //exp_instance_vis(x, 0, 1, AtomList(1, Atom(1)).toPdData());
+    
+    if (x->local_canvas)
+        canvas_vis(x->local_canvas, 1);
 }
 
 
@@ -418,7 +421,7 @@ extern "C" void setup_exp0x2einstance()
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (exp_instance_class, "bgcolor", 0, "0.75 0.75 0.75 1.");
     CLASS_ATTR_STYLE                (exp_instance_class, "bgcolor", 0, "color");
     
-    eclass_addmethod(exp_instance_class,(t_typ_method)(exp_instance_vis), ("vis"), A_GIMME,0);
+    //eclass_addmethod(exp_instance_class,(t_typ_method)(exp_instance_vis), ("vis"), A_GIMME,0);
     
     eclass_addmethod(exp_instance_class,(t_typ_method)(exp_instance_update), ("update"), A_NULL,0);
     
@@ -442,7 +445,7 @@ extern "C" void setup_exp0x2einstance()
     eclass_addmethod(exp_instance_class, (method)(exp_instance_paint), ("paint"), A_NULL,0);
     eclass_addmethod(exp_instance_class, (method)(exp_instance_oksize), ("oksize"), A_GIMME,0);
     
-    eclass_addmethod(exp_instance_class, (t_typ_method)exp_instance_dblclick, ("dblclick"), A_NULL, 0);
+    eclass_addmethod(exp_instance_class, (t_typ_method)exp_instance_click, ("mousedown"), A_NULL, 0);
     
     
     
