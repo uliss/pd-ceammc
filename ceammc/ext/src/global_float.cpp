@@ -1,60 +1,73 @@
+#include "ceammc_factory.h"
+#include "ceammc_format.h"
 #include "ceammc_globaldata.h"
-#include <m_pd.h>
+#include "ceammc_log.h"
+#include "ceammc_object.h"
 
-#define OBJ_NAME "global.float"
-#define MSG_PREFIX "[" OBJ_NAME "] "
+using namespace ceammc;
 
-typedef ceammc::GlobalData<t_float> GlobalFloat;
+class GlobalFloat : public BaseObject {
+    GlobalData<t_float> data_;
 
-static t_class* global_float_class;
-struct t_global_float {
-    t_object x_obj;
-    GlobalFloat* x_global;
+public:
+    GlobalFloat(const PdArgs& a)
+        : BaseObject(a)
+        , data_(a.args.empty() ? "default" : to_string(a.args[0]), "global.float")
+    {
+        if (args().empty())
+            OBJ_ERR << "global object ID required! Using default: " << data_.name();
+
+        createOutlet();
+        createCbProperty("@id", &GlobalFloat::m_id);
+        createCbProperty("@refs", &GlobalFloat::m_refs);
+        createCbProperty("@keys", &GlobalFloat::m_keys);
+    }
+
+    void onBang()
+    {
+        floatTo(0, data_.ref());
+    }
+
+    void onFloat(float v)
+    {
+        data_.ref() = v;
+        onBang();
+    }
+
+    void m_set(t_symbol* /*s*/, const AtomList& lst)
+    {
+        if (lst.size() > 0 && lst.at(0).isFloat()) {
+            data_.ref() = lst.at(0).asFloat();
+        } else {
+            OBJ_ERR << "invalid arguments given: " << lst;
+        }
+    }
+
+    AtomList m_id() const
+    {
+        return listFrom(data_.name());
+    }
+
+    AtomList m_keys() const
+    {
+        std::vector<std::string> keys;
+        data_.keys(keys);
+        return listFrom(keys);
+    }
+
+    AtomList m_refs() const
+    {
+        return listFrom(data_.refCount());
+    }
+
+    void dump() const
+    {
+        BaseObject::dump();
+    }
 };
-
-static void global_float_set(t_global_float* x, t_floatarg f)
-{
-    x->x_global->ref() = f;
-}
-
-static void global_float_output(t_global_float* x)
-{
-    outlet_float(x->x_obj.te_outlet, x->x_global->ref());
-}
-
-static void global_float_bang(t_global_float* x)
-{
-    global_float_output(x);
-}
-
-static void global_float_float(t_global_float* x, t_floatarg f)
-{
-    global_float_set(x, f);
-    global_float_output(x);
-}
-
-static void* global_float_new(t_symbol* id)
-{
-    t_global_float* x = reinterpret_cast<t_global_float*>(pd_new(global_float_class));
-    outlet_new(&x->x_obj, &s_float);
-    x->x_global = new GlobalFloat(id->s_name, OBJ_NAME);
-    return static_cast<void*>(x);
-}
-
-static void global_float_free(t_global_float* x)
-{
-    delete x->x_global;
-}
 
 extern "C" void setup_global0x2efloat()
 {
-    global_float_class = class_new(gensym(OBJ_NAME),
-        reinterpret_cast<t_newmethod>(global_float_new),
-        reinterpret_cast<t_method>(global_float_free),
-        sizeof(t_global_float), 0, A_DEFSYMBOL, A_NULL);
-    class_addbang(global_float_class, global_float_bang);
-    class_addfloat(global_float_class, global_float_float);
-    class_addmethod(global_float_class,
-        reinterpret_cast<t_method>(global_float_set),
-        gensym("set"), A_DEFFLOAT, A_NULL);
+    ObjectFactory<GlobalFloat> obj("global.float");
+    obj.addMethod("set", &GlobalFloat::m_set);
 }
