@@ -44,7 +44,7 @@
 |  |          |            |
 [global.list id]           [global.list id]
 |                          |
-[prepend set]              [prepend set]
+[msg set]                  [msg set]
 |                          |
 [ (                        [ (
 ]]>

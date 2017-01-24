@@ -6,8 +6,8 @@
 -1;
 #X obj 20 106 global.list id;
 #X obj 279 106 global.list id;
-#X obj 20 135 prepend set;
-#X obj 279 135 prepend set;
+#X obj 20 135 msg set;
+#X obj 279 135 msg set;
 #X msg 20 164 ;
 #X msg 279 164 ;
 #X connect 1 0 4 0;
