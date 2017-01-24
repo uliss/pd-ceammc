@@ -71,7 +71,7 @@ static void exp_instance_newinstance(t_exp_instance* x, t_symbol*id, int argc, t
         canvas_setcurrent(x->parent_canvas);
         
         x->instance = new OPInstance(x->op_class->ref());
-        if (x->instance)
+        //if (x->instance)
             x->instance->addInstanceOut(x->out1);
         
         ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
@@ -293,7 +293,7 @@ static void* exp_instance_new(t_symbol *id, int argc, t_atom *argv)
     x->e_box.b_boxparameters.d_bordercolor = rgba_red;
     
     x->out1 = outlet_new((t_object*)x, &s_anything);
-    x->out1 = outlet_new((t_object*)x, &s_signal);
+    x->out2 = outlet_new((t_object*)x, &s_signal);
     
     x->in2=inlet_new(&x->e_box.b_obj.o_obj, &x->e_box.b_obj.o_obj.ob_pd, &s_signal, &s_signal);
     
