@@ -51,3 +51,6 @@ script:
 ## the actual build
 - make
 - make test
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
