@@ -150,6 +150,17 @@ public:
 
         return true;
     }
+
+    /**
+      * Retrieve all dict keys
+      */
+    void keys(std::vector<std::string>& res) const
+    {
+        typename Map::const_iterator it;
+        for (it = map_.begin(); it != map_.end(); ++it) {
+            res.push_back(it->first);
+        }
+    }
 };
 
 template <typename T>
@@ -216,22 +227,18 @@ public:
      */
     T& ref() { return *ptr_; }
     const T& ref() const { return *ptr_; }
-    
+
     /**
-     * Returns list of keys, STUB
-     */
-    std::vector<std::string> getKeys() const
+      * Returns number of references to global data
+      */
+    size_t refCount() const { return data_.refCount(name_); }
+
+    /**
+      * Retrieve all dict keys
+      */
+    static void keys(std::vector<std::string>& res)
     {
-        std::vector<std::string> ret;
-        
-        iterator it;
-        
-//        for (it = data_.begin(); it!= data_.Map->end(); ++it)
-//        {
-//            ret.push_back(it->first);
-//        }
-        
-        return ret;
+        data_.keys(res);
     }
 };
 
