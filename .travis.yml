@@ -56,6 +56,4 @@ script:
 - make test
 
 after_success:
-  #- for direct in $(find ceammc -type d); do (cd "$direct"; for file in $(ls | grep "\\.gcno$"); do gcov -b "$file"; done)  done
-  #- bash <(curl -s https://codecov.io/bash)
-  - coveralls --exclude lib --exclude tests --gcov-options '\-lp'
+  - coveralls --exclude /usr/include --gcov-options '\-lp'
