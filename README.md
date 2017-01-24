@@ -78,4 +78,4 @@ Alex Nadzharov
 ### License
 GPL3
 
-[a Original README](README_ORIGINAL.md)
+[Original README](README_ORIGINAL.md)
