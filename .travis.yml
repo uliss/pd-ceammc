@@ -32,11 +32,14 @@ matrix:
 
 before_install:
 ## install some dependencies
-- sudo apt-get install -qq libboost-dev libportmidi-dev libfftw3-dev libasound2-dev libjack-dev
+- sudo apt-get install -qq libboost-dev libportmidi-dev libfftw3-dev libasound2-dev libjack-dev:
+- pip install --user cpp-coveralls
 
 
 before_script:
-## basic autoconf setup
+  - uname -a
+  - printenv
+  - gcov --version
   - mkdir bin
   - cd bin
   - cmake -DWITH_ALSA_MIDI=OFF -DWITH_OSS_MIDI=ON  -DWITH_PORTMIDI=OFF -DWITH_COVERAGE=ON ..
@@ -53,5 +56,6 @@ script:
 - make test
 
 after_success:
-  - for direct in $(find ceammc -type d); do (cd "$direct"; for file in $(ls | grep "\\.gcno$"); do gcov -b "$file"; done)  done
-  - bash <(curl -s https://codecov.io/bash)
+  #- for direct in $(find ceammc -type d); do (cd "$direct"; for file in $(ls | grep "\\.gcno$"); do gcov -b "$file"; done)  done
+  #- bash <(curl -s https://codecov.io/bash)
+  - coveralls --exclude lib --exclude tests --gcov-options '\-lp'
