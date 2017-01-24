@@ -17,7 +17,6 @@
 #include "ceammc_atom.h"
 #include <deque>
 #include <string>
-#include <string>
 #include <vector>
 
 namespace ceammc {
@@ -313,6 +312,8 @@ void to_outlet(t_outlet* x, const AtomList& a);
 template <typename T>
 static Atom atomFrom(T v) { return Atom(v); }
 
+Atom atomFrom(const std::string& v);
+
 template <typename T>
 static AtomList listFrom(T v)
 {
@@ -321,19 +322,10 @@ static AtomList listFrom(T v)
     return res;
 }
 
-template <>
-AtomList listFrom(bool v)
-{
-    AtomList res;
-    res.append(Atom(v ? 1.f : 0.f));
-    return res;
-}
-
-template <>
-AtomList listFrom(AtomList v)
-{
-    return v;
-}
+AtomList listFrom(bool v);
+AtomList listFrom(const std::string& v);
+AtomList listFrom(const std::vector<std::string>& v);
+AtomList listFrom(const AtomList& v);
 
 template <typename T>
 static T atomlistToValue(const AtomList&, const T& def) { return def; }

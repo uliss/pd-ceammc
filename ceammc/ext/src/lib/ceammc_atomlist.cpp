@@ -1018,4 +1018,36 @@ std::ostream& operator<<(std::ostream& os, const AtomList& l)
     return os;
 }
 
+AtomList listFrom(const std::vector<std::string>& v)
+{
+    AtomList res;
+    for (size_t i = 0; i < v.size(); i++)
+        res.append(atomFrom(v[i]));
+    return res;
+}
+
+AtomList listFrom(const std::string& v)
+{
+    AtomList res;
+    res.append(atomFrom(v));
+    return res;
+}
+
+AtomList listFrom(const AtomList& v)
+{
+    return v;
+}
+
+AtomList listFrom(bool v)
+{
+    AtomList res;
+    res.append(Atom(v ? 1.f : 0.f));
+    return res;
+}
+
+Atom atomFrom(const std::string& v)
+{
+    return Atom(gensym(v.c_str()));
+}
+
 } // namespace ceammc
