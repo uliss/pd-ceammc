@@ -21,10 +21,17 @@
 
 #include "ceammc_globaldata.h"
 #include <algorithm>
+#include <string>
 
 
 using namespace ceammc;
 using namespace std;
+
+#pragma mark -
+
+
+
+#pragma mark -
 
 typedef vector<t_outlet*> OPOutputs;           ///< vector of method boxes outputs
 typedef vector<t_object*> OPProperties;        ///< vector of property boxes
@@ -34,22 +41,26 @@ static void canvas_paste_class(t_canvas *x, t_binbuf *b);
 class OPClass
 {
 private:
-    vector<string> methodNames;
-    vector<string> propertyNames;
+    
     
 public:
     string class_name;
     t_canvas *canvas;
     
+    //todo encapsulated
+    map<string,string> methodNames;
+    map<string,string> propertyNames;
     
     // for dynamic (change arguments?)
     OPClass()
     {
+        this->canvas = 0;
         
     }
     // for canvas-based (change arguments?)
     OPClass(string className)
     {
+        
         this->canvas = (t_canvas*)subcanvas_new(gensym(className.c_str()));
         this->canvas->gl_havewindow = 1;
         this->canvas->gl_isclone = 1;
@@ -62,7 +73,7 @@ public:
     
     void readFile(string fileName, t_canvas *parent_canvas)
     {
-    
+        
         t_binbuf *b;
         b = binbuf_new();
         
@@ -74,18 +85,20 @@ public:
         
         // to canvas
         // find better way to load?
-        
-        if (this->canvas->gl_list)
+        if(this->canvas)
         {
-            glist_delete(this->canvas, this->canvas->gl_list);
+            if (this->canvas->gl_list)
+            {
+                glist_delete(this->canvas, this->canvas->gl_list);
+                
+            }
             
+            canvas_paste_class(this->canvas, b);
+            canvas_vis(this->canvas, 0);
+            canvas_setcurrent(parent_canvas);
+            
+            post("loaded class: %s ", (char*)(fileName.c_str()));
         }
-        
-        canvas_paste_class(this->canvas, b);
-        canvas_vis(this->canvas, 0);
-        canvas_setcurrent(parent_canvas);
-        
-        post("loaded class: %s ", (char*)(fileName.c_str()));
         
     }
     
@@ -104,11 +117,12 @@ public:
     // dynamic stub:
     void addMethod(string methodName, string referenceName)
     {
-    
+        this->methodNames[methodName] = referenceName;
     }
     
-    void addProperty(string methodName, string referenceName)
+    void addProperty(string propertyName, string referenceName)
     {
+        this->propertyNames[propertyName] = referenceName;
         
     }
     
@@ -137,9 +151,9 @@ private:
     map<t_symbol*, AtomList> _propertyValues;
     int _refCount;
     
-    
-    
-    
+    // dynamic
+    map<string,string> methodNames;
+    map<string,string> propertyNames;
     
 public:
     string class_name;
@@ -147,32 +161,47 @@ public:
     
     t_symbol *symbol;
     
-    OPInstance(OPClass * _opclass) 
+    
+    
+    OPInstance(OPClass * _opclass)
+    
     {
-        // new canvas. check
-        this->canvas = (t_canvas*)subcanvas_new(gensym(_opclass->class_name.c_str()));   //LISP lol
-        this->canvas->gl_havewindow = 1;
-        this->canvas->gl_env = 0;
         this->class_name = _opclass->class_name;
-        
-        OPInstanceByCanvas* link = new OPInstanceByCanvas(to_string((long)this->canvas), "OOP.common");
-        link->ref() = this;
-        
-        
         this->symbol = gensym(to_string((long)this).c_str());
+        
+        // new canvas. only for canvas-based classes
+        if (_opclass->canvas)
+        {
+            this->canvas = (t_canvas*)subcanvas_new(gensym(_opclass->class_name.c_str()));
+            this->canvas->gl_havewindow = 1;
+            this->canvas->gl_isclone = 1;
+            
+            canvas_vis(this->canvas, 0);
+            
+            OPInstanceByCanvas* link = new OPInstanceByCanvas(to_string((long)this->canvas), "OOP.common");
+            link->ref() = this;
+            
+            //load
+            t_binbuf *b1 = binbuf_new();
+            
+            canvas_saveto(_opclass->canvas, b1);
+            
+            canvas_paste_class(this->canvas, b1);
+            canvas_vis(this->canvas, 0);
+            
+        }
         
         OPInstanceBySymbol* link2 = new OPInstanceBySymbol(this->symbol->s_name, "OOP.common");
         link2->ref() = this;
         
-        t_binbuf *b1 = binbuf_new();
+        //generate properties
         
-        if (_opclass->canvas)
-            canvas_saveto(_opclass->canvas, b1);
+        this->propertyNames = _opclass->propertyNames;
+        this->methodNames = _opclass->methodNames;
         
-        canvas_paste_class(this->canvas, b1);
-        canvas_vis(this->canvas, 0);
+        //todo bind symbols
         
-        //todo refcounter?
+        //todo cleanup?
         this->retain();
         
     }
@@ -216,6 +245,22 @@ public:
         for (map<t_symbol*,OPProperties>::iterator it = this->instancePropertyBoxes.begin(); it != this->instancePropertyBoxes.end(); ++it)
         {
             ret.append(Atom(it->first));
+        }
+        
+        //dynamic
+        
+        
+        
+        return ret;
+    }
+    
+    AtomList getDynamicPropertyList()
+    {
+        AtomList ret;
+        
+        for (map<string,string>::iterator it = this->propertyNames.begin(); it != this->propertyNames.end(); ++it)
+        {
+            ret.append(Atom(gensym(it->first.c_str())));
         }
         
         return ret;
@@ -295,9 +340,22 @@ public:
             ret.append(Atom(it->first));
         }
         
+        
+        
         return ret;
     }
     
+    AtomList getDynamicMethodList()
+    {
+        AtomList ret;
+        
+        for (map<string,string>::iterator it = this->methodNames.begin(); it != this->methodNames.end(); ++it)
+        {
+            ret.append(Atom(gensym(it->first.c_str())));
+        }
+        
+        return ret;
+    }
     
     
 #pragma mark reference counting
@@ -316,7 +374,7 @@ public:
     
     //debug
     int getRefCount()
-        {return this->_refCount;}
+    {return this->_refCount;}
     
 #pragma mark canvas
     static OPInstance * findByCanvas(t_canvas* canvas)

@@ -37,26 +37,79 @@ static void exp_class_write(t_exp_class* x, t_symbol*, int argc, t_atom* argv)
     
     Atom a = Atom(argv[0]);
     x->op_class->ref()->writeFile(a.asString(), x->parent_canvas);
+    
+}
 
+#pragma mark -
+
+static void exp_class_newclass(t_exp_class* x, t_symbol*, int argc, t_atom* argv)
+{
+    if (argc<1) {error("specify class name"); return;}
+    
+    Atom a = Atom(argv[0]);
+    
+    x->op_class = new OPClasses(a.asString(), OBJ_NAME);
+    x->op_class->ref() = new OPClass();
+    x->op_class->ref()->class_name = a.asString();
+    
+    post("new class: %s", a.asString().c_str());
+    
+}
+
+static void exp_class_addproperty(t_exp_class* x, t_symbol*, int argc, t_atom* argv)
+{
+    if (argc<2) {error("specify property name and alias"); return;}
+    
+    AtomList list = AtomList(argc, argv);
+    
+    if (x->op_class->ref())
+    {
+        x->op_class->ref()->addProperty(list[0].asString(), list[1].asString());
+        
+        post("new property: %s", list[0].asString().c_str());
+    }
+    
+}
+
+static void exp_class_addmethod(t_exp_class* x, t_symbol*, int argc, t_atom* argv)
+{
+    if (argc<2) {error("specify method name and alias"); return;}
+    
+    AtomList list = AtomList(argc, argv);
+    
+    if (x->op_class->ref())
+    {
+        x->op_class->ref()->addMethod(list[0].asString(), list[1].asString());
+        
+        post("new method: %s", list[0].asString().c_str());
+    }
+    
 }
 
 #pragma mark -
 
 static void exp_class_click(t_exp_class* x, t_symbol*, int argc, t_atom* argv)
 {
-    canvas_vis(x->op_class->ref()->canvas, 1);
+    if (x->op_class->ref())
+        if (x->op_class->ref()->canvas)
+            canvas_vis(x->op_class->ref()->canvas, 1);
 }
 
 
 static void* exp_class_new(t_symbol *id, int argc, t_atom *argv)
 {
+    Atom a;
+    
     if (argc<1)
     {
-        error("no class name provided!"); return 0;
+        a = Atom(gensym(""));
+    }
+    else
+    {
+        a = argv[0];
     }
     
-    Atom a = argv[0];
-    if (!a.isSymbol())
+    if (argc>0 && !a.isSymbol())
     {
         error("bad class name!"); return 0;
     }
@@ -66,39 +119,21 @@ static void* exp_class_new(t_symbol *id, int argc, t_atom *argv)
     x->patch_a = (t_atom*)malloc(0);
     x->patch_c = 0;
     
-    //x->op_class->class_name = a.asSymbol();
-    
-    //ebox_new((t_ebox *)x, 0 );
     t_binbuf* d = binbuf_via_atoms(argc,argv);
     if (x && d)
     {
         ebox_attrprocess_viabinbuf(x, d);
         
-        //        if (x->op_class->class_name)
-        //            poststring(x->op_class->class_name->s_name);
     }
     
     x->parent_canvas = canvas_getcurrent();
     
-    
     //should be read only for others
     x->op_class = new OPClasses(a.asString(), OBJ_NAME);
     
-    if (!x->op_class->ref())
+    if (!x->op_class->ref() && a.asString() != "")
     {
         x->op_class->ref() = new OPClass(a.asString());
-        
-        
-        // loader - old
-        //        t_binbuf *b1= binbuf_new();
-        //        binbuf_add(b1, x->patch_c, x->patch_a);
-        //        int natoms = binbuf_getnatom(b1);
-        //        t_atom* vec = binbuf_getvec(b1);
-        //        postatom(natoms, vec);
-        //
-        //        canvas_dopaste(x->sub_canvas, b1);
-        //        canvas_setcurrent(x->parent_canvas);
-        
         
         //attempt to load file
         std::string class_name = a.asString() + ".class.pd";
@@ -107,10 +142,10 @@ static void* exp_class_new(t_symbol *id, int argc, t_atom *argv)
         
         
     }
-//    else
-//    {
-//        //x->sub_canvas = x->op_class->ref()->canvas;
-//    }
+    else
+    {
+        post("empty class created");
+    }
     
     //TODO multiple class save handling
     
@@ -153,21 +188,16 @@ extern "C" void setup_exp0x2eclass()
                                  reinterpret_cast<t_typ_method>(exp_class_free),
                                  sizeof(t_exp_class), 0, A_GIMME,0);
     
-    //eclass_addmethod(exp_class_class,(t_typ_method)(exp_class_vis), ("vis"), A_GIMME,0);
-    
     eclass_addmethod(exp_class_class, (t_typ_method)(exp_class_read), ("readclass"), A_GIMME, 0);
     eclass_addmethod(exp_class_class, (t_typ_method)(exp_class_write), ("writeclass"), A_GIMME, 0);
     
     eclass_addmethod(exp_class_class, (t_typ_method)exp_class_click, ("click"), A_NULL, 0);
     
-    //    eclass_addmethod(exp_class_class,(t_typ_method)(exp_class_update), ("update"), A_NULL,0);
-    //    eclass_addmethod(exp_class_class, (t_typ_method)(exp_class_inlet_proxy), ("anything"), A_GIMME, 0);
-
-    //todo
-//    CLASS_ATTR_SYMBOL(exp_class_class, "class_name", 0, t_exp_class, class_name);
-//    CLASS_ATTR_DEFAULT_SAVE_PAINT   (exp_class_class, "class_name", 0, "[class]");
     
+    eclass_addmethod(exp_class_class, (t_typ_method)(exp_class_newclass), ("newclass"), A_GIMME, 0);
     
+    eclass_addmethod(exp_class_class, (t_typ_method)(exp_class_addproperty), ("addproperty"), A_GIMME, 0);
+    eclass_addmethod(exp_class_class, (t_typ_method)(exp_class_addmethod), ("addmethod"), A_GIMME, 0);
     
     eclass_register(CLASS_BOX, exp_class_class);
     

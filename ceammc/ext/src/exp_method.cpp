@@ -139,9 +139,6 @@ extern "C" void setup_exp0x2emethod()
                                   reinterpret_cast<t_typ_method>(exp_method_free),
                                   sizeof(t_exp_method), CLASS_NOINLET, A_GIMME,0);
     
-    //eclass_addmethod(exp_method_class, (method)(exp_method_any), ("anything"), A_GIMME,0);
-    
-    
     eclass_register(CLASS_OBJ, exp_method_class);
     
     exp_method_class = eclass_new((OBJ_OUT_NAME),

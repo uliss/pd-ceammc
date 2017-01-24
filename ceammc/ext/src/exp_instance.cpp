@@ -40,26 +40,26 @@ static void exp_instance_newinstance(t_exp_instance* x, t_symbol*id, int argc, t
 {
     if (argc<1)
     {
-        error("no class name provided!");
+        error("no class name provided!"); return;
         
     }
     Atom a = argv[0];
     if (!a.isSymbol())
     {
-        error("bad class name!");
+        error("bad class name!"); return;
         
     }
     
     x->op_class = new OPClasses(a.asString(), OBJ_NAME);
-    x->op_class->ref()->class_name = a.asString();
     
     if (!x->op_class->ref())
     {
-        error("class not found!");
+        error("class not found!"); return;
         
     }
     else
     {
+        //x->op_class->ref()->class_name = a.asString();
         
         char c1[] = "#00C0FF";
         x->e_box.b_boxparameters.d_bordercolor = hex_to_rgba(c1);
@@ -73,6 +73,7 @@ static void exp_instance_newinstance(t_exp_instance* x, t_symbol*id, int argc, t
         ebox_redraw((t_ebox *)x);
         
     }
+    
     
     
 }
@@ -113,7 +114,7 @@ static void exp_instance_setobject(t_exp_instance* x, t_symbol*s, int argc, t_at
     {
         if (x->instance)
             if (x->instance->canvas)
-                {canvas_vis(x->instance->canvas, 0);}
+            {canvas_vis(x->instance->canvas, 0);}
         
         Atom a = argv[0];
         postatom(argc, argv); post("");
@@ -269,15 +270,27 @@ static void exp_instance_any(t_exp_instance* x, t_symbol*s, int argc, t_atom* ar
 
 static void exp_instance_methodlist(t_exp_instance* x, t_symbol*, int argc, t_atom* argv)
 {
-    AtomList list = x->instance->getMethodList();
-    
-    post("Methods:");
-    postatom((int)list.size(), list.toPdData());
-    post("");
-    list = x->instance->getPropertyList();
-    post("Properties:");
-    postatom((int)list.size(), list.toPdData());
-    post("");
+    if (x->instance)
+    {
+        AtomList list = x->instance->getMethodList();
+        
+        post("Methods:");
+        postatom((int)list.size(), list.toPdData());
+        post("");
+        list = x->instance->getPropertyList();
+        post("Properties:");
+        postatom((int)list.size(), list.toPdData());
+        post("");
+        
+        list = x->instance->getDynamicMethodList();
+        post("Dynamically added Methods:");
+        postatom((int)list.size(), list.toPdData());
+        post("");
+        list = x->instance->getDynamicPropertyList();
+        post("Dynamically added Properties:");
+        postatom((int)list.size(), list.toPdData());
+        post("");
+    }
     
 }
 
