@@ -2,7 +2,7 @@
 
 t_eclass* exp_instance_class;
 
-struct t_exp_instance {
+typedef struct _exp_instance {
     t_ebox e_box;
     
     t_canvas *parent_canvas;        //patch
@@ -15,14 +15,18 @@ struct t_exp_instance {
     t_etext *txt;
     t_efont *fnt;
     
-    t_outlet *out1;
-};
+    t_inlet *in2;
+    t_sample *buffer;
+    int vec_size;
+    
+    t_outlet *out1, *out2;
+} t_exp_instance;
 
 #define OBJ_NAME "exp.instance"
 
 using namespace ceammc;
 
-static void exp_instance_delete(t_exp_instance* x)
+static void exp_instance_delete(t_exp_instance *x)
 {
     if (x->instance)
     {
@@ -67,7 +71,8 @@ static void exp_instance_newinstance(t_exp_instance* x, t_symbol*id, int argc, t
         canvas_setcurrent(x->parent_canvas);
         
         x->instance = new OPInstance(x->op_class->ref());
-        x->instance->addInstanceOut(x->out1);
+        if (x->instance)
+            x->instance->addInstanceOut(x->out1);
         
         ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
         ebox_redraw((t_ebox *)x);
@@ -114,7 +119,11 @@ static void exp_instance_setobject(t_exp_instance* x, t_symbol*s, int argc, t_at
     {
         if (x->instance)
             if (x->instance->canvas)
-            {canvas_vis(x->instance->canvas, 0);}
+            {
+                
+                canvas_vis(x->instance->canvas, 0);
+                
+            }
         
         Atom a = argv[0];
         postatom(argc, argv); post("");
@@ -139,6 +148,14 @@ static void exp_instance_setobject(t_exp_instance* x, t_symbol*s, int argc, t_at
                 ebox_redraw((t_ebox *)x);
                 
                 
+            }
+            
+            x->buffer =  x->instance->getBufferFor(gensym("out1"), x->vec_size);
+            
+            if (!x->buffer)
+            {
+                error ("buffer error!");
+                x->buffer = new t_sample[x->vec_size];
             }
         }
         else
@@ -201,7 +218,47 @@ static void exp_instance_setproperty(t_exp_instance* x, t_symbol*id, int argc, t
     
 }
 
+#pragma mark -
 
+//t_int *exp_instance_perform(t_int *w)
+//{
+//    //t_exp_instance *x = (t_exp_instance *)(w[1]);
+//    t_sample  *in1 =    (t_sample *)(w[2]);
+//    t_sample  *out =    (t_sample *)(w[3]);
+//    int          n =           (int)(w[4]);
+//    
+//    while (n--) *out++ = (*in1++);
+//    
+//    return (w+6);
+//}
+//static void exp_instance_dsp(t_exp_instance* x, t_signal **sp)
+//{
+//    
+//    dsp_add(exp_instance_perform, 4, x,
+//            sp[0]->s_vec, sp[1]->s_vec, sp[0]->s_n);
+//}
+
+static void exp_instance_perform(t_exp_instance* x, t_object*,
+                             t_sample** ins, long,
+                             t_sample**, long,
+                             long sampleframes, long, void*)
+{
+
+    
+//    t_sample* in = ins[0];
+//    t_sample* out;
+    
+    std::copy(x->buffer, x->buffer + sampleframes, ins[0]);
+    
+
+}
+
+static void exp_instance_dsp(t_exp_instance* x, t_object* dsp, short* /*count*/, double /*samplerate*/, long vec_size/*maxvectorsize*/, long /*flags*/)
+{
+    x->vec_size = (int)vec_size;
+    
+    object_method(dsp, gensym("dsp_add"), x, reinterpret_cast<method>(exp_instance_perform), 0, NULL);
+}
 
 
 
@@ -236,11 +293,24 @@ static void* exp_instance_new(t_symbol *id, int argc, t_atom *argv)
     x->e_box.b_boxparameters.d_bordercolor = rgba_red;
     
     x->out1 = outlet_new((t_object*)x, &s_anything);
+    x->out1 = outlet_new((t_object*)x, &s_signal);
+    
+    x->in2=inlet_new(&x->e_box.b_obj.o_obj, &x->e_box.b_obj.o_obj.ob_pd, &s_signal, &s_signal);
+    
+    x->vec_size = 64;   //test
+    x->instance = 0;
     
     return static_cast<void*>(x);
     
     
 }
+
+static void exp_instance_free(t_exp_instance* x)
+{
+    exp_instance_delete(x);
+    
+}
+
 
 static void exp_instance_vis(t_exp_instance* x, t_symbol*, int argc, t_atom* argv)
 {
@@ -332,11 +402,6 @@ static void exp_instance_paint(t_object *z, t_object *view)
 }
 
 
-static void exp_instance_free(t_exp_instance* x)
-{
-    exp_instance_delete(x);
-    
-}
 
 static void exp_instance_oksize(t_object *z, t_rect *newrect)
 {
@@ -361,6 +426,7 @@ extern "C" void setup_exp0x2einstance()
                                     reinterpret_cast<t_typ_method>(0),
                                     sizeof(t_exp_instance), CLASS_PATCHABLE, A_GIMME,0);
     
+    //eclass_dspinit(exp_instance_class);
     eclass_guiinit(exp_instance_class, 0);
     
     CLASS_ATTR_DEFAULT (exp_instance_class, "size", 0, "90. 15.");
@@ -400,7 +466,11 @@ extern "C" void setup_exp0x2einstance()
     
     eclass_addmethod(exp_instance_class, (t_typ_method)exp_instance_click, ("mousedown"), A_NULL, 0);
     
+    //audio
+    //eclass_addmethod(exp_instance_class, (t_typ_method)exp_instance_dsp, ("dsp"), A_NULL, 0);
     
     eclass_register(CLASS_BOX, exp_instance_class);
+    
+    //CLASS_MAINSIGNALIN((t_class*)exp_instance_class, t_exp_instance, in_f);
     
 }

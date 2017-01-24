@@ -156,6 +156,7 @@ ceammc_cxx_extension(exp class)
 ceammc_cxx_extension(exp instance)
 ceammc_cxx_extension(exp method)
 ceammc_cxx_extension(exp aproperty)
+ceammc_cxx_extension(exp signal)
 
 
 ###############################

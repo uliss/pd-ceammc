@@ -65,10 +65,6 @@ static void exp_method_free(t_exp_method* x, t_symbol*id, int argc, t_atom* argv
     
 }
 
-
-
-
-
 #pragma mark -
 
 static void *exp_method_out_new(t_symbol *id, int argc, t_atom *argv)

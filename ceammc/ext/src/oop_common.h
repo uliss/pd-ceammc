@@ -29,7 +29,33 @@ using namespace std;
 
 #pragma mark -
 
+struct t_n_canvasenvironment
+{
+    t_symbol *ce_dir;      /* directory patch lives in */
+    int ce_argc;           /* number of "$" arguments */
+    t_atom *ce_argv;       /* array of "$" arguments */
+    int ce_dollarzero;     /* value of "$0" */
+    t_namelist *ce_path;   /* search path */
+};
 
+static void canvas_addtolist(t_canvas *x)
+{
+    x->gl_next = pd_this->pd_canvaslist;
+    pd_this->pd_canvaslist = x;
+}
+
+static void canvas_takeofflist(t_canvas *x)
+{
+    /* take it off the window list */
+    if (x == pd_this->pd_canvaslist) pd_this->pd_canvaslist = x->gl_next;
+    else
+    {
+        t_canvas *z;
+        for (z = pd_this->pd_canvaslist; z->gl_next != x; z = z->gl_next)
+            if (!z->gl_next) return;
+        z->gl_next = x->gl_next;
+    }
+}
 
 #pragma mark -
 
@@ -66,6 +92,18 @@ public:
         this->canvas->gl_isclone = 1;
         
         canvas_vis(this->canvas, 0);
+        
+        int dollarzero = 1000;
+        t_n_canvasenvironment* env = (t_n_canvasenvironment *)getbytes(sizeof(t_n_canvasenvironment));   //TEMP
+        env->ce_dir = canvas_getcurrentdir();
+        env->ce_argc = 0;
+        env->ce_argv = 0;
+        env->ce_dollarzero = dollarzero++;
+        env->ce_path = 0;
+        
+        this->canvas->gl_env = (t_canvasenvironment*) env;
+        
+        this->canvas->gl_owner = 0;
         
         this->class_name = className;
         
@@ -155,6 +193,10 @@ private:
     map<string,string> methodNames;
     map<string,string> propertyNames;
     
+    //signal
+    map<t_symbol*,t_sample*> _signalBuffers;                    ///< vector of method outputs
+    
+    
 public:
     string class_name;
     t_canvas *canvas;
@@ -172,11 +214,25 @@ public:
         // new canvas. only for canvas-based classes
         if (_opclass->canvas)
         {
+            int dsp_state = canvas_suspend_dsp();
+            
             this->canvas = (t_canvas*)subcanvas_new(gensym(_opclass->class_name.c_str()));
             this->canvas->gl_havewindow = 1;
             this->canvas->gl_isclone = 1;
             
-            canvas_vis(this->canvas, 0);
+            int dollarzero = 1000;
+            t_n_canvasenvironment* env = (t_n_canvasenvironment *)getbytes(sizeof(t_n_canvasenvironment));   //TEMP
+            env->ce_dir = canvas_getcurrentdir();
+            env->ce_argc = 0;
+            env->ce_argv = 0;
+            env->ce_dollarzero = dollarzero++;
+            env->ce_path = 0;
+            
+            this->canvas->gl_env = (t_canvasenvironment*) env;
+            
+            this->canvas->gl_owner = 0;
+            
+            //this->canvas->gl_owner = 0;
             
             OPInstanceByCanvas* link = new OPInstanceByCanvas(to_string((long)this->canvas), "OOP.common");
             link->ref() = this;
@@ -189,22 +245,58 @@ public:
             canvas_paste_class(this->canvas, b1);
             canvas_vis(this->canvas, 0);
             
+            canvas_addtolist(this->canvas);
+            
+            canvas_loadbang(this->canvas);
+            
+            canvas_resume_dsp(dsp_state);
+            
+            OPInstanceBySymbol* link2 = new OPInstanceBySymbol(this->symbol->s_name, "OOP.common");
+            link2->ref() = this;
+            
+            //todo bind symbols
+
+            printf("OPInstance\n");
+            printf("canvas: %lu\n", (long)this->canvas);
+            
+            //todo cleanup?
+            //this->retain();
+            this->_refCount = 1;
+            
+            
+
+            
         }
-        
-        OPInstanceBySymbol* link2 = new OPInstanceBySymbol(this->symbol->s_name, "OOP.common");
-        link2->ref() = this;
         
         //generate properties
         
         this->propertyNames = _opclass->propertyNames;
         this->methodNames = _opclass->methodNames;
         
-        //todo bind symbols
-        
-        //todo cleanup?
-        this->retain();
         
     }
+    
+    ~OPInstance()
+    {
+        //int dsp_state = canvas_suspend_dsp();
+        
+        printf("canvas: %lu\n", (long)this->canvas);
+        
+        canvas_takeofflist(this->canvas);
+        canvas_free(this->canvas);
+        
+        
+        this->canvas = 0;
+        
+        //canvas_resume_dsp(dsp_state);
+        
+        
+        printf("~OPInstance\n");
+        printf("canvas: %lu\n", (long)this->canvas);
+        
+    }
+    
+#pragma mark methods
     
     void addMethod(t_symbol* methodName, t_outlet *outlet)
     {
@@ -213,6 +305,30 @@ public:
     void freeMethod(t_symbol* methodName)
     {
         this->_methodOutputs.erase(methodName);
+    }
+    
+#pragma mark signal
+    
+    t_sample *getBufferFor(t_symbol* signalName, int vec_size)
+    {
+        t_sample *ret = this->_signalBuffers[signalName];
+        
+        if (!ret)
+        {
+            ret = new t_sample[vec_size];
+            this->_signalBuffers[signalName] = ret;
+            printf("new buffer: %s %i\n", signalName->s_name, vec_size);
+        }
+        
+        return ret;
+    }
+    
+    void freeSignal(t_symbol* signalName)
+    {
+        //todo refcounter
+        
+        //delete (this->_signalBuffers[signalName]);
+        //this->_signalBuffers.erase(signalName);
     }
     
 #pragma mark properties
@@ -363,13 +479,16 @@ public:
     void retain()
     {
         this->_refCount++;
+        printf("OPInstance ref count: %i\n", this->_refCount);
+        
     }
     
     //?
     void release()
     {
         this->_refCount--;
-        if (!this->_refCount) delete this;
+        printf("OPInstance ref count: %i\n", this->_refCount);
+        if (this->_refCount==0) delete this;
     }
     
     //debug
@@ -427,7 +546,7 @@ static void canvas_paste_class(t_canvas *x, t_binbuf *b)
     //    paste_canvas = x;
     
     
-    
+    canvas_setargs(0, 0);
     binbuf_eval(b, 0, 0, 0);
     for (g2 = x->gl_list, count = 0; g2; g2 = g2->g_next, count++)
         if (count >= nbox)
