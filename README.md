@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/uliss/pure-data.svg?branch=ceammc)](https://travis-ci.org/uliss/pure-data)
+
 CEAMMC Pd library
 -----------------
 
@@ -75,3 +77,5 @@ Alex Nadzharov
 
 ### License
 GPL3
+
+[a Original README](README_ORIGINAL.md)
