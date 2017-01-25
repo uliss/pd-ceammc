@@ -488,7 +488,7 @@ enum UIElementType {
     UI_T_GROUP
 };
 
-class ui_elem_t {
+class UIElement {
 public:
     char* label;
     t_symbol* property;
@@ -506,15 +506,15 @@ private:
     static t_symbol *s_button, *s_checkbox, *s_vslider, *s_hslider, *s_nentry, *s_vbargraph, *s_hbargraph;
 };
 
-t_symbol* ui_elem_t::s_button = gensym("button");
-t_symbol* ui_elem_t::s_checkbox = gensym("checkbox");
-t_symbol* ui_elem_t::s_vslider = gensym("vslider");
-t_symbol* ui_elem_t::s_hslider = gensym("hslider");
-t_symbol* ui_elem_t::s_nentry = gensym("nentry");
-t_symbol* ui_elem_t::s_vbargraph = gensym("vbargraph");
-t_symbol* ui_elem_t::s_hbargraph = gensym("hbargraph");
+t_symbol* UIElement::s_button = gensym("button");
+t_symbol* UIElement::s_checkbox = gensym("checkbox");
+t_symbol* UIElement::s_vslider = gensym("vslider");
+t_symbol* UIElement::s_hslider = gensym("hslider");
+t_symbol* UIElement::s_nentry = gensym("nentry");
+t_symbol* UIElement::s_vbargraph = gensym("vbargraph");
+t_symbol* UIElement::s_hbargraph = gensym("hbargraph");
 
-t_symbol* ui_elem_t::typeSymbol()
+t_symbol* UIElement::typeSymbol()
 {
     switch (type) {
     case UI_BUTTON:
@@ -536,7 +536,7 @@ t_symbol* ui_elem_t::typeSymbol()
     }
 }
 
-void ui_elem_t::initProperty(const char* name)
+void UIElement::initProperty(const char* name)
 {
     if (name == NULL) {
         property = gensym("?");
@@ -551,7 +551,7 @@ void ui_elem_t::initProperty(const char* name)
     get_property = gensym(buf);
 }
 
-float ui_elem_t::value(float def) const
+float UIElement::value(float def) const
 {
     if (!zone)
         return def;
@@ -559,7 +559,7 @@ float ui_elem_t::value(float def) const
     return *zone;
 }
 
-void ui_elem_t::outputProperty(t_outlet* out)
+void UIElement::outputProperty(t_outlet* out)
 {
     ceammc::Atom a;
 
@@ -574,17 +574,17 @@ void ui_elem_t::outputProperty(t_outlet* out)
 class PdUI : public UI {
     std::string name;
     int level;
-    std::vector<ui_elem_t*> ui_elements_;
+    std::vector<UIElement*> ui_elements_;
 
 public:
     //    int nelems;
-    //    ui_elem_t* elems;
+    //    UIElement* elems;
 
     PdUI(const char* nm, const char* s);
     virtual ~PdUI();
 
-    ui_elem_t* uiAt(size_t pos);
-    const ui_elem_t* uiAt(size_t pos) const;
+    UIElement* uiAt(size_t pos);
+    const UIElement* uiAt(size_t pos) const;
     size_t uiCount() const { return ui_elements_.size(); }
 
 protected:
@@ -614,7 +614,7 @@ public:
     virtual void run();
 
 public:
-    ui_elem_t* findElementByLabel(const char* label);
+    UIElement* findElementByLabel(const char* label);
     void setElementValue(const char* label, float v);
     void dumpUI(t_outlet* out);
     void outputAllProperties(t_outlet* out);
@@ -694,19 +694,19 @@ PdUI::~PdUI()
     }
 }
 
-ui_elem_t* PdUI::uiAt(size_t pos)
+UIElement* PdUI::uiAt(size_t pos)
 {
     return pos < ui_elements_.size() ? ui_elements_.at(pos) : 0;
 }
 
-const ui_elem_t* PdUI::uiAt(size_t pos) const
+const UIElement* PdUI::uiAt(size_t pos) const
 {
     return pos < ui_elements_.size() ? ui_elements_.at(pos) : 0;
 }
 
 inline void PdUI::add_elem(UIElementType type, const char* label)
 {
-    ui_elem_t* elems = new ui_elem_t();
+    UIElement* elems = new UIElement();
     ui_elements_.push_back(elems);
     std::string s = pathcat(path, mangle(name, level, label));
     elems->type = type;
@@ -721,7 +721,7 @@ inline void PdUI::add_elem(UIElementType type, const char* label)
 
 inline void PdUI::add_elem(UIElementType type, const char* label, float* zone)
 {
-    ui_elem_t* elems = new ui_elem_t();
+    UIElement* elems = new UIElement();
     ui_elements_.push_back(elems);
     std::string s = pathcat(path, mangle(name, level, label));
     elems->type = type;
@@ -737,7 +737,7 @@ inline void PdUI::add_elem(UIElementType type, const char* label, float* zone)
 inline void PdUI::add_elem(UIElementType type, const char* label, float* zone,
     float init, float min, float max, float step)
 {
-    ui_elem_t* elems = new ui_elem_t();
+    UIElement* elems = new UIElement();
     ui_elements_.push_back(elems);
     std::string s = pathcat(path, mangle(name, level, label));
     elems->type = type;
@@ -753,7 +753,7 @@ inline void PdUI::add_elem(UIElementType type, const char* label, float* zone,
 inline void PdUI::add_elem(UIElementType type, const char* label, float* zone,
     float min, float max)
 {
-    ui_elem_t* elems = new ui_elem_t();
+    UIElement* elems = new UIElement();
     ui_elements_.push_back(elems);
     std::string s = pathcat(path, mangle(name, level, label));
     elems->type = type;
@@ -837,7 +837,7 @@ void PdUI::closeBox()
 void PdUI::run() {}
 
 static int pathcmp(const char* s, const char* t);
-ui_elem_t* PdUI::findElementByLabel(const char* label)
+UIElement* PdUI::findElementByLabel(const char* label)
 {
     for (size_t i = 0; i < uiCount(); i++) {
         if (pathcmp(ui_elements_[i]->label, label) == 0)
@@ -849,7 +849,7 @@ ui_elem_t* PdUI::findElementByLabel(const char* label)
 
 void PdUI::setElementValue(const char* label, float v)
 {
-    ui_elem_t* el = findElementByLabel(label);
+    UIElement* el = findElementByLabel(label);
     if (!el)
         return;
 
@@ -1222,7 +1222,7 @@ static void faust_any(t_faust* x, t_symbol* s, int argc, t_atom* argv)
                     ++count;
                 } else if (argc == 1 && (argv[0].a_type == A_FLOAT || argv[0].a_type == A_DEFFLOAT) && ui->uiAt(i)->zone) {
                     float f = atom_getfloat(argv);
-                    ui_elem_t* el = ui->uiAt(i);
+                    UIElement* el = ui->uiAt(i);
                     if (el->min <= f && f <= el->max) {
                         *el->zone = f;
                     }
