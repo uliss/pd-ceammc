@@ -489,13 +489,16 @@ enum UIElementType {
 };
 
 class UIElement {
+    UIElementType type;
+
 public:
+    UIElement(UIElementType t);
+
     char* label;
     t_symbol* property;
     t_symbol* get_property;
     float* zone;
     float init, min, max, step;
-    UIElementType type;
 
     t_symbol* typeSymbol();
     void initProperty(const char* name);
@@ -513,6 +516,19 @@ t_symbol* UIElement::s_hslider = gensym("hslider");
 t_symbol* UIElement::s_nentry = gensym("nentry");
 t_symbol* UIElement::s_vbargraph = gensym("vbargraph");
 t_symbol* UIElement::s_hbargraph = gensym("hbargraph");
+
+UIElement::UIElement(UIElementType t)
+    : type(t)
+    , label(0)
+    , property(0)
+    , get_property(0)
+    , zone(0)
+    , init(0)
+    , min(0)
+    , max(1)
+    , step(0)
+{
+}
 
 t_symbol* UIElement::typeSymbol()
 {
@@ -706,10 +722,9 @@ const UIElement* PdUI::uiAt(size_t pos) const
 
 inline void PdUI::add_elem(UIElementType type, const char* label)
 {
-    UIElement* elems = new UIElement();
+    UIElement* elems = new UIElement(type);
     ui_elements_.push_back(elems);
     std::string s = pathcat(path, mangle(name, level, label));
-    elems->type = type;
     elems->label = strdup(s.c_str());
     elems->initProperty(label);
     elems->zone = NULL;
@@ -721,10 +736,9 @@ inline void PdUI::add_elem(UIElementType type, const char* label)
 
 inline void PdUI::add_elem(UIElementType type, const char* label, float* zone)
 {
-    UIElement* elems = new UIElement();
+    UIElement* elems = new UIElement(type);
     ui_elements_.push_back(elems);
     std::string s = pathcat(path, mangle(name, level, label));
-    elems->type = type;
     elems->label = strdup(s.c_str());
     elems->initProperty(label);
     elems->zone = zone;
@@ -737,10 +751,9 @@ inline void PdUI::add_elem(UIElementType type, const char* label, float* zone)
 inline void PdUI::add_elem(UIElementType type, const char* label, float* zone,
     float init, float min, float max, float step)
 {
-    UIElement* elems = new UIElement();
+    UIElement* elems = new UIElement(type);
     ui_elements_.push_back(elems);
     std::string s = pathcat(path, mangle(name, level, label));
-    elems->type = type;
     elems->label = strdup(s.c_str());
     elems->initProperty(label);
     elems->zone = zone;
@@ -753,10 +766,9 @@ inline void PdUI::add_elem(UIElementType type, const char* label, float* zone,
 inline void PdUI::add_elem(UIElementType type, const char* label, float* zone,
     float min, float max)
 {
-    UIElement* elems = new UIElement();
+    UIElement* elems = new UIElement(type);
     ui_elements_.push_back(elems);
     std::string s = pathcat(path, mangle(name, level, label));
-    elems->type = type;
     elems->label = strdup(s.c_str());
     elems->initProperty(label);
     elems->zone = zone;
