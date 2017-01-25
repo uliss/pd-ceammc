@@ -75,8 +75,6 @@ enum ui_elem_type_t {
     UI_T_GROUP
 };
 
-static t_symbol *s_button, *s_checkbox, *s_vslider, *s_hslider, *s_nentry, *s_vbargraph, *s_hbargraph;
-
 class ui_elem_t {
 public:
     char* label;
@@ -90,7 +88,18 @@ public:
     void initProperty(const char* name);
     float value(float def = 0.f) const;
     void outputProperty(t_outlet* out);
+
+private:
+    static t_symbol *s_button, *s_checkbox, *s_vslider, *s_hslider, *s_nentry, *s_vbargraph, *s_hbargraph;
 };
+
+t_symbol* ui_elem_t::s_button = gensym("button");
+t_symbol* ui_elem_t::s_checkbox = gensym("checkbox");
+t_symbol* ui_elem_t::s_vslider = gensym("vslider");
+t_symbol* ui_elem_t::s_hslider = gensym("hslider");
+t_symbol* ui_elem_t::s_nentry = gensym("nentry");
+t_symbol* ui_elem_t::s_vbargraph = gensym("vbargraph");
+t_symbol* ui_elem_t::s_hbargraph = gensym("hbargraph");
 
 t_symbol* ui_elem_t::typeSymbol()
 {
@@ -1063,12 +1072,4 @@ static void internal_setup(t_symbol* s)
     class_addmethod(faust_class, reinterpret_cast<t_method>(faust_dsp), gensym("dsp"), A_NULL);
     CLASS_MAINSIGNALIN(faust_class, t_faust, f);
     class_addanything(faust_class, faust_any);
-
-    s_button = gensym("button");
-    s_checkbox = gensym("checkbox");
-    s_vslider = gensym("vslider");
-    s_hslider = gensym("hslider");
-    s_nentry = gensym("nentry");
-    s_vbargraph = gensym("vbargraph");
-    s_hbargraph = gensym("hbargraph");
 }
