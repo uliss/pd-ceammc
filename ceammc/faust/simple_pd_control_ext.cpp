@@ -239,7 +239,7 @@ static std::string normpath(std::string path)
     return path;
 }
 
-static std::string pathcat(std::string path, std::string label)
+static std::string pathcat(const std::string& path, const std::string& label)
 {
     if (path.empty())
         return normpath(label);

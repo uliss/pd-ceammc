@@ -650,7 +650,7 @@ static std::string normpath(std::string path)
     return path;
 }
 
-static std::string pathcat(std::string path, std::string label)
+static std::string pathcat(const std::string& path, const std::string& label)
 {
     if (path.empty())
         return normpath(label);
@@ -935,15 +935,15 @@ class pitchshift : public dsp {
 
   public:
 	virtual void metadata(Meta* m) { 
+		m->declare("misceffect.lib/name", "Faust Math Library");
+		m->declare("misceffect.lib/version", "2.0");
+		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
+		m->declare("ceammc.lib/version", "0.1");
 		m->declare("math.lib/name", "Faust Math Library");
 		m->declare("math.lib/version", "2.0");
 		m->declare("math.lib/author", "GRAME");
 		m->declare("math.lib/copyright", "GRAME");
 		m->declare("math.lib/license", "LGPL with exception");
-		m->declare("misceffect.lib/name", "Faust Math Library");
-		m->declare("misceffect.lib/version", "2.0");
-		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
-		m->declare("ceammc.lib/version", "0.1");
 		m->declare("delay.lib/name", "Faust Delay Library");
 		m->declare("delay.lib/version", "0.0");
 	}
