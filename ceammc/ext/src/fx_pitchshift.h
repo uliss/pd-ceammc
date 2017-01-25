@@ -571,9 +571,10 @@ void ui_elem_t::outputProperty(t_outlet* out)
 
 class PdUI : public UI {
     std::string name;
+    int level;
 
 public:
-    int nelems, level;
+    int nelems;
     ui_elem_t* elems;
 
     PdUI(const char* nm, const char* s);
