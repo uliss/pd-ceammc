@@ -123,10 +123,13 @@ static void exp_instance_setobject(t_exp_instance* x, t_symbol*s, int argc, t_at
                 
                 canvas_vis(x->instance->canvas, 0);
                 
+                exp_instance_freeinstance(x, 0, 0, 0);
+                
+                
             }
         
         Atom a = argv[0];
-        postatom(argc, argv); post("");
+        //postatom(argc, argv); post("");
         x->instance = OPInstance::findBySymbol(a.asSymbol());
         
         if (x->instance)

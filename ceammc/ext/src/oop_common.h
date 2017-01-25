@@ -278,17 +278,18 @@ public:
     
     ~OPInstance()
     {
-        //int dsp_state = canvas_suspend_dsp();
+        int dsp_state = canvas_suspend_dsp();
         
         printf("canvas: %lu\n", (long)this->canvas);
         
+        canvas_dirty(this->canvas, 0);
         canvas_takeofflist(this->canvas);
         canvas_free(this->canvas);
         
         
         this->canvas = 0;
         
-        //canvas_resume_dsp(dsp_state);
+        canvas_resume_dsp(dsp_state);
         
         
         printf("~OPInstance\n");
