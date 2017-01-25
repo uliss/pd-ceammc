@@ -61,7 +61,7 @@
 };
 #endif
 
-enum ui_elem_type_t {
+enum UIElementType {
     UI_BUTTON,
     UI_CHECK_BUTTON,
     UI_V_SLIDER,
@@ -82,7 +82,7 @@ public:
     t_symbol* get_property;
     float* zone;
     float init, min, max, step;
-    ui_elem_type_t type;
+    UIElementType type;
 
     t_symbol* typeSymbol();
     void initProperty(const char* name);
@@ -159,22 +159,22 @@ void ui_elem_t::outputProperty(t_outlet* out)
 }
 
 class PdUI : public UI {
+    std::string name;
+
 public:
-    const char* name;
     int nelems, level;
     ui_elem_t* elems;
 
-    PdUI();
     PdUI(const char* nm, const char* s);
     virtual ~PdUI();
 
 protected:
     std::string path;
-    void add_elem(ui_elem_type_t type, const char* label = NULL);
-    void add_elem(ui_elem_type_t type, const char* label, float* zone);
-    void add_elem(ui_elem_type_t type, const char* label, float* zone,
+    void add_elem(UIElementType type, const char* label = NULL);
+    void add_elem(UIElementType type, const char* label, float* zone);
+    void add_elem(UIElementType type, const char* label, float* zone,
         float init, float min, float max, float step);
-    void add_elem(ui_elem_type_t type, const char* label, float* zone,
+    void add_elem(UIElementType type, const char* label, float* zone,
         float min, float max);
 
 public:
@@ -202,7 +202,7 @@ public:
     void outputProperty(t_symbol* s, t_outlet* out);
 };
 
-static std::string mangle(const char* name, int level, const char* s)
+static std::string mangle(const std::string& name, int level, const char* s)
 {
     const char* s0 = s;
     std::string t = "";
@@ -216,7 +216,7 @@ static std::string mangle(const char* name, int level, const char* s)
     if (!*s || strcmp(s, "0x00") == 0) {
         if (level == 0)
             // toplevel group with empty label, map to dsp name
-            s = name;
+            s = name.c_str();
         else
             // empty label
             s = "";
@@ -258,20 +258,13 @@ static std::string pathcat(const std::string& path, const std::string& label)
         return normpath(path + "/" + label);
 }
 
-PdUI::PdUI()
-{
-    nelems = level = 0;
-    elems = NULL;
-    name = "";
-    path = "";
-}
-
 PdUI::PdUI(const char* nm, const char* s)
+    : name(nm ? nm : "")
+    , nelems(0)
+    , level(0)
+    , elems(NULL)
+    , path(s ? s : "")
 {
-    nelems = level = 0;
-    elems = NULL;
-    name = nm ? nm : "";
-    path = s ? s : "";
 }
 
 PdUI::~PdUI()
@@ -284,7 +277,7 @@ PdUI::~PdUI()
     }
 }
 
-inline void PdUI::add_elem(ui_elem_type_t type, const char* label)
+inline void PdUI::add_elem(UIElementType type, const char* label)
 {
     ui_elem_t* elems1 = (ui_elem_t*)realloc(elems, (nelems + 1) * sizeof(ui_elem_t));
     if (elems1)
@@ -303,7 +296,7 @@ inline void PdUI::add_elem(ui_elem_type_t type, const char* label)
     nelems++;
 }
 
-inline void PdUI::add_elem(ui_elem_type_t type, const char* label, float* zone)
+inline void PdUI::add_elem(UIElementType type, const char* label, float* zone)
 {
     ui_elem_t* elems1 = (ui_elem_t*)realloc(elems, (nelems + 1) * sizeof(ui_elem_t));
     if (elems1)
@@ -322,7 +315,7 @@ inline void PdUI::add_elem(ui_elem_type_t type, const char* label, float* zone)
     nelems++;
 }
 
-inline void PdUI::add_elem(ui_elem_type_t type, const char* label, float* zone,
+inline void PdUI::add_elem(UIElementType type, const char* label, float* zone,
     float init, float min, float max, float step)
 {
     ui_elem_t* elems1 = (ui_elem_t*)realloc(elems, (nelems + 1) * sizeof(ui_elem_t));
@@ -342,7 +335,7 @@ inline void PdUI::add_elem(ui_elem_type_t type, const char* label, float* zone,
     nelems++;
 }
 
-inline void PdUI::add_elem(ui_elem_type_t type, const char* label, float* zone,
+inline void PdUI::add_elem(UIElementType type, const char* label, float* zone,
     float min, float max)
 {
     ui_elem_t* elems1 = (ui_elem_t*)realloc(elems, (nelems + 1) * sizeof(ui_elem_t));
