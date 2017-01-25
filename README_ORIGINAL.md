@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/uliss/pure-data.svg?branch=ceammc)](https://travis-ci.org/uliss/pure-data)
-
 This is the README file for Pd, a free real-time computer music software
 package resembling Max.
 

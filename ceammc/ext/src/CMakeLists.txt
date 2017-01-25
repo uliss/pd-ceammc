@@ -245,9 +245,6 @@ if(GLIB_FOUND)
     ceammc_glib_extension(path listdir)
 
     ceammc_glib_extension(symbol length)
-    ceammc_glib_extension(string reverse)
-    ceammc_glib_extension(string to_lower)
-    ceammc_glib_extension(string to_upper)
 
     ceammc_glib_extension(string join)
     ceammc_glib_extension(string slice)

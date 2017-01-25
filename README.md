@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/uliss/pure-data.svg?branch=ceammc)](https://travis-ci.org/uliss/pure-data)
+[![Coverage Status](https://coveralls.io/repos/github/uliss/pure-data/badge.svg?branch=ceammc)](https://coveralls.io/github/uliss/pure-data?branch=ceammc)
+
 CEAMMC Pd library
 -----------------
 
@@ -75,3 +78,5 @@ Alex Nadzharov
 
 ### License
 GPL3
+
+[Original README](README_ORIGINAL.md)

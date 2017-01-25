@@ -33,13 +33,16 @@ matrix:
 before_install:
 ## install some dependencies
 - sudo apt-get install -qq libboost-dev libportmidi-dev libfftw3-dev libasound2-dev libjack-dev
+- pip install --user cpp-coveralls
 
 
 before_script:
-## basic autoconf setup
+  - uname -a
+  - printenv
+  - gcov --version
   - mkdir bin
   - cd bin
-  - cmake -DWITH_ALSA_MIDI=OFF -DWITH_OSS_MIDI=ON  -DWITH_PORTMIDI=OFF ..
+  - cmake -DWITH_ALSA_MIDI=OFF -DWITH_OSS_MIDI=ON  -DWITH_PORTMIDI=OFF -DWITH_COVERAGE=ON ..
   ## check whether we want to use coverity.scan and haven't met the quota yet.
   ## if so, build and submit. (else we skip to the ordinary build)
   # (implement Coverity Scan with before_script instead of addons.coverity_scan
@@ -51,3 +54,6 @@ script:
 ## the actual build
 - make
 - make test
+
+after_success:
+  - coveralls --exclude . --include ceammc/ext/src/lib --root .. --build-root . --gcov-options '\-lp'

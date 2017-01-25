@@ -48,7 +48,7 @@
    Pd UI interface
  ***************************************************************************/
 
-enum ui_elem_type_t {
+enum UIElementType {
     UI_BUTTON,
     UI_CHECK_BUTTON,
     UI_V_SLIDER,
@@ -63,7 +63,7 @@ enum ui_elem_type_t {
 };
 
 struct ui_elem_t {
-    ui_elem_type_t type;
+    UIElementType type;
     char* label;
     float* zone;
     float init, min, max, step;
@@ -81,11 +81,11 @@ public:
 
 protected:
     std::string path;
-    void add_elem(ui_elem_type_t type, const char* label = NULL);
-    void add_elem(ui_elem_type_t type, const char* label, float* zone);
-    void add_elem(ui_elem_type_t type, const char* label, float* zone,
+    void add_elem(UIElementType type, const char* label = NULL);
+    void add_elem(UIElementType type, const char* label, float* zone);
+    void add_elem(UIElementType type, const char* label, float* zone,
         float init, float min, float max, float step);
-    void add_elem(ui_elem_type_t type, const char* label, float* zone,
+    void add_elem(UIElementType type, const char* label, float* zone,
         float min, float max);
 
 public:
@@ -188,7 +188,7 @@ PdUI::~PdUI()
     }
 }
 
-inline void PdUI::add_elem(ui_elem_type_t type, const char* label)
+inline void PdUI::add_elem(UIElementType type, const char* label)
 {
     ui_elem_t* elems1 = (ui_elem_t*)realloc(elems, (nelems + 1) * sizeof(ui_elem_t));
     if (elems1)
@@ -206,7 +206,7 @@ inline void PdUI::add_elem(ui_elem_type_t type, const char* label)
     nelems++;
 }
 
-inline void PdUI::add_elem(ui_elem_type_t type, const char* label, float* zone)
+inline void PdUI::add_elem(UIElementType type, const char* label, float* zone)
 {
     ui_elem_t* elems1 = (ui_elem_t*)realloc(elems, (nelems + 1) * sizeof(ui_elem_t));
     if (elems1)
@@ -224,7 +224,7 @@ inline void PdUI::add_elem(ui_elem_type_t type, const char* label, float* zone)
     nelems++;
 }
 
-inline void PdUI::add_elem(ui_elem_type_t type, const char* label, float* zone,
+inline void PdUI::add_elem(UIElementType type, const char* label, float* zone,
     float init, float min, float max, float step)
 {
     ui_elem_t* elems1 = (ui_elem_t*)realloc(elems, (nelems + 1) * sizeof(ui_elem_t));
@@ -243,7 +243,7 @@ inline void PdUI::add_elem(ui_elem_type_t type, const char* label, float* zone,
     nelems++;
 }
 
-inline void PdUI::add_elem(ui_elem_type_t type, const char* label, float* zone,
+inline void PdUI::add_elem(UIElementType type, const char* label, float* zone,
     float min, float max)
 {
     ui_elem_t* elems1 = (ui_elem_t*)realloc(elems, (nelems + 1) * sizeof(ui_elem_t));

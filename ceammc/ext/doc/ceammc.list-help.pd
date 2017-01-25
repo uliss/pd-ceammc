@@ -80,9 +80,7 @@ of each element on a second inlet\.;
 #X text 150 1024 filters repeated elements of the list and outputs
 unique elements on first outlet \, outputs the count of elements on
 second\.;
-#X obj 30 1075 vector.normalize;
-#X text 150 1075 returns normalized vector;
 #X obj 1 1 cnv 5 597 40 empty empty ceammc::list 20 20 0 20 -104026
 -4096 0;
-#X obj 1 1102 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 1112 library: ceammc;
+#X obj 1 1075 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 1085 library: ceammc;

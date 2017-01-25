@@ -4,6 +4,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
 #include "m_pd.h"
 #include "m_imp.h"
 #include "s_stuff.h"

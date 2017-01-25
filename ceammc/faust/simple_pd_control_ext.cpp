@@ -56,12 +56,14 @@
    Pd UI interface
 ***************************************************************************/
 
+// clang-format off
 #ifndef FAUST_MACRO
-    struct mydsp : public dsp {
+struct mydsp : public dsp {
 };
 #endif
+// clang-format on
 
-enum ui_elem_type_t {
+enum UIElementType {
     UI_BUTTON,
     UI_CHECK_BUTTON,
     UI_V_SLIDER,
@@ -75,24 +77,49 @@ enum ui_elem_type_t {
     UI_T_GROUP
 };
 
-static t_symbol *s_button, *s_checkbox, *s_vslider, *s_hslider, *s_nentry, *s_vbargraph, *s_hbargraph;
+class UIElement {
+    UIElementType type;
 
-class ui_elem_t {
 public:
+    UIElement(UIElementType t);
+
     char* label;
     t_symbol* property;
     t_symbol* get_property;
     float* zone;
     float init, min, max, step;
-    ui_elem_type_t type;
 
     t_symbol* typeSymbol();
     void initProperty(const char* name);
     float value(float def = 0.f) const;
     void outputProperty(t_outlet* out);
+
+private:
+    static t_symbol *s_button, *s_checkbox, *s_vslider, *s_hslider, *s_nentry, *s_vbargraph, *s_hbargraph;
 };
 
-t_symbol* ui_elem_t::typeSymbol()
+t_symbol* UIElement::s_button = gensym("button");
+t_symbol* UIElement::s_checkbox = gensym("checkbox");
+t_symbol* UIElement::s_vslider = gensym("vslider");
+t_symbol* UIElement::s_hslider = gensym("hslider");
+t_symbol* UIElement::s_nentry = gensym("nentry");
+t_symbol* UIElement::s_vbargraph = gensym("vbargraph");
+t_symbol* UIElement::s_hbargraph = gensym("hbargraph");
+
+UIElement::UIElement(UIElementType t)
+    : type(t)
+    , label(0)
+    , property(0)
+    , get_property(0)
+    , zone(0)
+    , init(0)
+    , min(0)
+    , max(1)
+    , step(0)
+{
+}
+
+t_symbol* UIElement::typeSymbol()
 {
     switch (type) {
     case UI_BUTTON:
@@ -114,7 +141,7 @@ t_symbol* ui_elem_t::typeSymbol()
     }
 }
 
-void ui_elem_t::initProperty(const char* name)
+void UIElement::initProperty(const char* name)
 {
     if (name == NULL) {
         property = gensym("?");
@@ -129,7 +156,7 @@ void ui_elem_t::initProperty(const char* name)
     get_property = gensym(buf);
 }
 
-float ui_elem_t::value(float def) const
+float UIElement::value(float def) const
 {
     if (!zone)
         return def;
@@ -137,7 +164,7 @@ float ui_elem_t::value(float def) const
     return *zone;
 }
 
-void ui_elem_t::outputProperty(t_outlet* out)
+void UIElement::outputProperty(t_outlet* out)
 {
     ceammc::Atom a;
 
@@ -150,22 +177,28 @@ void ui_elem_t::outputProperty(t_outlet* out)
 }
 
 class PdUI : public UI {
-public:
-    const char* name;
-    int nelems, level;
-    ui_elem_t* elems;
+    std::string name;
+    int level;
+    std::vector<UIElement*> ui_elements_;
 
-    PdUI();
+public:
+    //    int nelems;
+    //    UIElement* elems;
+
     PdUI(const char* nm, const char* s);
     virtual ~PdUI();
 
+    UIElement* uiAt(size_t pos);
+    const UIElement* uiAt(size_t pos) const;
+    size_t uiCount() const { return ui_elements_.size(); }
+
 protected:
     std::string path;
-    void add_elem(ui_elem_type_t type, const char* label = NULL);
-    void add_elem(ui_elem_type_t type, const char* label, float* zone);
-    void add_elem(ui_elem_type_t type, const char* label, float* zone,
+    void add_elem(UIElementType type, const char* label = NULL);
+    void add_elem(UIElementType type, const char* label, float* zone);
+    void add_elem(UIElementType type, const char* label, float* zone,
         float init, float min, float max, float step);
-    void add_elem(ui_elem_type_t type, const char* label, float* zone,
+    void add_elem(UIElementType type, const char* label, float* zone,
         float min, float max);
 
 public:
@@ -186,14 +219,14 @@ public:
     virtual void run();
 
 public:
-    ui_elem_t* findElementByLabel(const char* label);
+    UIElement* findElementByLabel(const char* label);
     void setElementValue(const char* label, float v);
     void dumpUI(t_outlet* out);
     void outputAllProperties(t_outlet* out);
     void outputProperty(t_symbol* s, t_outlet* out);
 };
 
-static std::string mangle(const char* name, int level, const char* s)
+static std::string mangle(const std::string& name, int level, const char* s)
 {
     const char* s0 = s;
     std::string t = "";
@@ -207,7 +240,7 @@ static std::string mangle(const char* name, int level, const char* s)
     if (!*s || strcmp(s, "0x00") == 0) {
         if (level == 0)
             // toplevel group with empty label, map to dsp name
-            s = name;
+            s = name.c_str();
         else
             // empty label
             s = "";
@@ -239,7 +272,7 @@ static std::string normpath(std::string path)
     return path;
 }
 
-static std::string pathcat(std::string path, std::string label)
+static std::string pathcat(const std::string& path, const std::string& label)
 {
     if (path.empty())
         return normpath(label);
@@ -249,108 +282,89 @@ static std::string pathcat(std::string path, std::string label)
         return normpath(path + "/" + label);
 }
 
-PdUI::PdUI()
-{
-    nelems = level = 0;
-    elems = NULL;
-    name = "";
-    path = "";
-}
-
 PdUI::PdUI(const char* nm, const char* s)
+    : name(nm ? nm : "")
+    , level(0)
+    , path(s ? s : "")
 {
-    nelems = level = 0;
-    elems = NULL;
-    name = nm ? nm : "";
-    path = s ? s : "";
 }
 
 PdUI::~PdUI()
 {
-    if (elems) {
-        for (int i = 0; i < nelems; i++)
-            if (elems[i].label)
-                free(elems[i].label);
-        free(elems);
+    for (size_t i = 0; i < uiCount(); i++) {
+        if (ui_elements_[i]->label)
+            free(ui_elements_[i]->label);
+
+        delete ui_elements_[i];
     }
 }
 
-inline void PdUI::add_elem(ui_elem_type_t type, const char* label)
+UIElement* PdUI::uiAt(size_t pos)
 {
-    ui_elem_t* elems1 = (ui_elem_t*)realloc(elems, (nelems + 1) * sizeof(ui_elem_t));
-    if (elems1)
-        elems = elems1;
-    else
-        return;
-    std::string s = pathcat(path, mangle(name, level, label));
-    elems[nelems].type = type;
-    elems[nelems].label = strdup(s.c_str());
-    elems[nelems].initProperty(label);
-    elems[nelems].zone = NULL;
-    elems[nelems].init = 0.0;
-    elems[nelems].min = 0.0;
-    elems[nelems].max = 0.0;
-    elems[nelems].step = 0.0;
-    nelems++;
+    return pos < ui_elements_.size() ? ui_elements_.at(pos) : 0;
 }
 
-inline void PdUI::add_elem(ui_elem_type_t type, const char* label, float* zone)
+const UIElement* PdUI::uiAt(size_t pos) const
 {
-    ui_elem_t* elems1 = (ui_elem_t*)realloc(elems, (nelems + 1) * sizeof(ui_elem_t));
-    if (elems1)
-        elems = elems1;
-    else
-        return;
-    std::string s = pathcat(path, mangle(name, level, label));
-    elems[nelems].type = type;
-    elems[nelems].label = strdup(s.c_str());
-    elems[nelems].initProperty(label);
-    elems[nelems].zone = zone;
-    elems[nelems].init = 0.0;
-    elems[nelems].min = 0.0;
-    elems[nelems].max = 1.0;
-    elems[nelems].step = 1.0;
-    nelems++;
+    return pos < ui_elements_.size() ? ui_elements_.at(pos) : 0;
 }
 
-inline void PdUI::add_elem(ui_elem_type_t type, const char* label, float* zone,
+inline void PdUI::add_elem(UIElementType type, const char* label)
+{
+    UIElement* elems = new UIElement(type);
+    ui_elements_.push_back(elems);
+    std::string s = pathcat(path, mangle(name, level, label));
+    elems->label = strdup(s.c_str());
+    elems->initProperty(label);
+    elems->zone = NULL;
+    elems->init = 0.0;
+    elems->min = 0.0;
+    elems->max = 0.0;
+    elems->step = 0.0;
+}
+
+inline void PdUI::add_elem(UIElementType type, const char* label, float* zone)
+{
+    UIElement* elems = new UIElement(type);
+    ui_elements_.push_back(elems);
+    std::string s = pathcat(path, mangle(name, level, label));
+    elems->label = strdup(s.c_str());
+    elems->initProperty(label);
+    elems->zone = zone;
+    elems->init = 0.0;
+    elems->min = 0.0;
+    elems->max = 1.0;
+    elems->step = 1.0;
+}
+
+inline void PdUI::add_elem(UIElementType type, const char* label, float* zone,
     float init, float min, float max, float step)
 {
-    ui_elem_t* elems1 = (ui_elem_t*)realloc(elems, (nelems + 1) * sizeof(ui_elem_t));
-    if (elems1)
-        elems = elems1;
-    else
-        return;
+    UIElement* elems = new UIElement(type);
+    ui_elements_.push_back(elems);
     std::string s = pathcat(path, mangle(name, level, label));
-    elems[nelems].type = type;
-    elems[nelems].label = strdup(s.c_str());
-    elems[nelems].initProperty(label);
-    elems[nelems].zone = zone;
-    elems[nelems].init = init;
-    elems[nelems].min = min;
-    elems[nelems].max = max;
-    elems[nelems].step = step;
-    nelems++;
+    elems->label = strdup(s.c_str());
+    elems->initProperty(label);
+    elems->zone = zone;
+    elems->init = init;
+    elems->min = min;
+    elems->max = max;
+    elems->step = step;
 }
 
-inline void PdUI::add_elem(ui_elem_type_t type, const char* label, float* zone,
+inline void PdUI::add_elem(UIElementType type, const char* label, float* zone,
     float min, float max)
 {
-    ui_elem_t* elems1 = (ui_elem_t*)realloc(elems, (nelems + 1) * sizeof(ui_elem_t));
-    if (elems1)
-        elems = elems1;
-    else
-        return;
+    UIElement* elems = new UIElement(type);
+    ui_elements_.push_back(elems);
     std::string s = pathcat(path, mangle(name, level, label));
-    elems[nelems].type = type;
-    elems[nelems].label = strdup(s.c_str());
-    elems[nelems].initProperty(label);
-    elems[nelems].zone = zone;
-    elems[nelems].init = 0.0;
-    elems[nelems].min = min;
-    elems[nelems].max = max;
-    elems[nelems].step = 0.0;
-    nelems++;
+    elems->label = strdup(s.c_str());
+    elems->initProperty(label);
+    elems->zone = zone;
+    elems->init = 0.0;
+    elems->min = min;
+    elems->max = max;
+    elems->step = 0.0;
 }
 
 void PdUI::addButton(const char* label, float* zone)
@@ -424,14 +438,11 @@ void PdUI::closeBox()
 void PdUI::run() {}
 
 static int pathcmp(const char* s, const char* t);
-ui_elem_t* PdUI::findElementByLabel(const char* label)
+UIElement* PdUI::findElementByLabel(const char* label)
 {
-    if (!elems)
-        return NULL;
-
-    for (int i = 0; i < nelems; i++) {
-        if (pathcmp(elems[i].label, label) == 0)
-            return &elems[i];
+    for (size_t i = 0; i < uiCount(); i++) {
+        if (pathcmp(ui_elements_[i]->label, label) == 0)
+            return ui_elements_[i];
     }
 
     return NULL;
@@ -439,7 +450,7 @@ ui_elem_t* PdUI::findElementByLabel(const char* label)
 
 void PdUI::setElementValue(const char* label, float v)
 {
-    ui_elem_t* el = findElementByLabel(label);
+    UIElement* el = findElementByLabel(label);
     if (!el)
         return;
 
@@ -449,19 +460,19 @@ void PdUI::setElementValue(const char* label, float v)
 
 void PdUI::dumpUI(t_outlet* out)
 {
-    for (int i = 0; i < nelems; i++) {
-        if (elems[i].label && elems[i].zone) {
+    for (int i = 0; i < uiCount(); i++) {
+        if (ui_elements_[i]->label && ui_elements_[i]->zone) {
             t_atom args[6];
-            t_symbol* _s = elems[i].typeSymbol();
+            t_symbol* _s = ui_elements_[i]->typeSymbol();
             if (!_s)
                 continue;
 
-            SETSYMBOL(&args[0], gensym(elems[i].label));
-            SETFLOAT(&args[1], *elems[i].zone);
-            SETFLOAT(&args[2], elems[i].init);
-            SETFLOAT(&args[3], elems[i].min);
-            SETFLOAT(&args[4], elems[i].max);
-            SETFLOAT(&args[5], elems[i].step);
+            SETSYMBOL(&args[0], gensym(ui_elements_[i]->label));
+            SETFLOAT(&args[1], *ui_elements_[i]->zone);
+            SETFLOAT(&args[2], ui_elements_[i]->init);
+            SETFLOAT(&args[3], ui_elements_[i]->min);
+            SETFLOAT(&args[4], ui_elements_[i]->max);
+            SETFLOAT(&args[5], ui_elements_[i]->step);
 
             if (out) {
                 outlet_anything(out, _s, 6, args);
@@ -473,17 +484,17 @@ void PdUI::dumpUI(t_outlet* out)
 void PdUI::outputAllProperties(t_outlet* out)
 {
     ceammc::AtomList l;
-    for (int i = 0; i < nelems; i++)
-        l.append(elems[i].property);
+    for (size_t i = 0; i < uiCount(); i++)
+        l.append(ui_elements_[i]->property);
 
     l.output(out);
 }
 
 void PdUI::outputProperty(t_symbol* s, t_outlet* out)
 {
-    for (int i = 0; i < nelems; i++) {
-        if (elems[i].get_property == s)
-            elems[i].outputProperty(out);
+    for (int i = 0; i < uiCount(); i++) {
+        if (ui_elements_[i]->get_property == s)
+            ui_elements_[i]->outputProperty(out);
     }
 }
 
@@ -606,11 +617,11 @@ static void faust_dsp(t_faust* x, t_signal** sp)
         /* default sample rate is whatever Pd tells us */
         PdUI* ui = x->ui;
         float* z = NULL;
-        if (ui->nelems > 0 && (z = (float*)malloc(ui->nelems * sizeof(float)))) {
+        if (ui->uiCount() > 0 && (z = (float*)malloc(ui->uiCount() * sizeof(float)))) {
             /* save the current control values */
-            for (int i = 0; i < ui->nelems; i++) {
-                if (ui->elems[i].zone)
-                    z[i] = *ui->elems[i].zone;
+            for (size_t i = 0; i < ui->uiCount(); i++) {
+                if (ui->uiAt(i)->zone)
+                    z[i] = *ui->uiAt(i)->zone;
             }
         }
         /* set the proper sample rate; this requires reinitializing the dsp */
@@ -618,9 +629,9 @@ static void faust_dsp(t_faust* x, t_signal** sp)
         x->dsp->init(sr);
         if (z) {
             /* restore previous control values */
-            for (int i = 0; i < ui->nelems; i++)
-                if (ui->elems[i].zone)
-                    *ui->elems[i].zone = z[i];
+            for (int i = 0; i < ui->uiCount(); i++)
+                if (ui->uiAt(i)->zone)
+                    *ui->uiAt(i)->zone = z[i];
             free(z);
         }
     }
@@ -698,20 +709,20 @@ static void faust_any(t_faust* x, t_symbol* s, int argc, t_atom* argv)
     } else {
         const char* label = s->s_name;
         int count = 0;
-        for (int i = 0; i < ui->nelems; i++) {
-            if (ui->elems[i].label && pathcmp(ui->elems[i].label, label) == 0) {
+        for (int i = 0; i < ui->uiCount(); i++) {
+            if (ui->uiAt(i)->label && pathcmp(ui->uiAt(i)->label, label) == 0) {
                 if (argc == 0) {
-                    if (ui->elems[i].zone) {
+                    if (ui->uiAt(i)->zone) {
                         t_atom arg;
-                        SETFLOAT(&arg, *ui->elems[i].zone);
+                        SETFLOAT(&arg, *ui->uiAt(i)->zone);
                         if (x->out) {
-                            outlet_anything(x->out, gensym(ui->elems[i].label), 1, &arg);
+                            outlet_anything(x->out, gensym(ui->uiAt(i)->label), 1, &arg);
                         }
                     }
                     ++count;
-                } else if (argc == 1 && (argv[0].a_type == A_FLOAT || argv[0].a_type == A_DEFFLOAT) && ui->elems[i].zone) {
+                } else if (argc == 1 && (argv[0].a_type == A_FLOAT || argv[0].a_type == A_DEFFLOAT) && ui->uiAt(i)->zone) {
                     float f = atom_getfloat(argv);
-                    ui_elem_t* el = &ui->elems[i];
+                    UIElement* el = ui->uiAt(i);
                     if (el->min <= f && f <= el->max) {
                         *el->zone = f;
                     }
@@ -1063,12 +1074,4 @@ static void internal_setup(t_symbol* s)
     class_addmethod(faust_class, reinterpret_cast<t_method>(faust_dsp), gensym("dsp"), A_NULL);
     CLASS_MAINSIGNALIN(faust_class, t_faust, f);
     class_addanything(faust_class, faust_any);
-
-    s_button = gensym("button");
-    s_checkbox = gensym("checkbox");
-    s_vslider = gensym("vslider");
-    s_hslider = gensym("hslider");
-    s_nentry = gensym("nentry");
-    s_vbargraph = gensym("vbargraph");
-    s_hbargraph = gensym("hbargraph");
 }

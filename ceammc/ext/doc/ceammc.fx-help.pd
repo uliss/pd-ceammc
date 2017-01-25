@@ -6,8 +6,6 @@
 #X text 150 113 frequency shifter or single-sideband ring modulation;
 #X obj 30 140 fx.pitchshift~;
 #X text 150 140 simple pitch shifter based on 2 delay lines;
-#X obj 30 167 fx.freqshift~;
-#X text 150 167 frequency shifter or single sideband ring modulation;
 #X obj 1 1 cnv 5 597 40 empty empty ceammc::fx 20 20 0 20 -104026
 -4096 0;
 #X obj 1 458 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;

@@ -335,7 +335,7 @@ public:
 
     AtomList get() const
     {
-        return listFrom<T>(*vptr_);
+        return listFrom(*vptr_);
     }
 };
 
