@@ -56,4 +56,4 @@ script:
 - make test
 
 after_success:
-  - coveralls --exclude /usr/include --exclude portmidi --exclude /ceammc/ext/src/tests/Catch/single_include/catch.hpp --exclude src --root .. --build-root . --gcov-options '\-lp' &> /dev/null
+  - coveralls --exclude . --include ceammc --root .. --build-root . --gcov-options '\-lp'
