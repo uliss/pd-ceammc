@@ -28,6 +28,17 @@ using namespace ceammc;
 using namespace std;
 
 #pragma mark -
+#include <sstream>
+
+template <class T>
+inline string to_string (const T& t)
+{
+    stringstream ss;
+    ss << t;
+    return ss.str();
+}
+
+#pragma mark -
 
 struct t_n_canvasenvironment
 {
@@ -512,15 +523,7 @@ public:
 };
 
 
-#include <sstream>
 
-template <class T>
-inline string to_string (const T& t)
-{
-    stringstream ss;
-    ss << t;
-    return ss.str();
-}
 
 #pragma mark -
 
