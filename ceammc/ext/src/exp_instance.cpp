@@ -205,7 +205,8 @@ static void exp_instance_getproperty(t_exp_instance* x, t_symbol*id, int argc, t
     if (!a.isSymbol()) {error("bad property name"); return;}
     
     AtomList list = AtomList(argc, argv);
-    x->instance->callGetter(list);
+    if (x->instance)
+        x->instance->callGetter(list);
     
 }
 
@@ -217,7 +218,8 @@ static void exp_instance_setproperty(t_exp_instance* x, t_symbol*id, int argc, t
     if (!a.isSymbol()) {error("bad property name"); return;}
     
     AtomList list = AtomList(argc, argv);
-    x->instance->callSetter(list);
+    if (x->instance)
+        x->instance->callSetter(list);
     
 }
 

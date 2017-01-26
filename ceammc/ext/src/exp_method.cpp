@@ -99,10 +99,10 @@ static void *exp_method_out_new(t_symbol *id, int argc, t_atom *argv)
     x->e_box.b_boxparameters.d_boxfillcolor = rgba_greylight;
     x->e_box.b_boxparameters.d_bordercolor = rgba_green;
     
-    x->out1 = outlet_new((t_object*)x, &s_anything);
+//    x->out1 = outlet_new((t_object*)x, &s_anything);
     
-    if (x->instance)
-        x->instance->addMethod(x->method_name, x->out1);
+//    if (x->instance)
+//        x->instance->addMethod(x->method_name, x->out1);
     
     return static_cast<void*>(x);
     

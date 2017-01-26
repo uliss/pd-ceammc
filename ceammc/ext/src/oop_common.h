@@ -87,6 +87,7 @@ public:
     //todo encapsulated
     map<string,string> methodNames;
     map<string,string> propertyNames;
+    map<string,t_outlet*> methodOutlets;
     
     // for dynamic (change arguments?)
     OPClass()
@@ -169,9 +170,30 @@ public:
         this->methodNames[methodName] = referenceName;
     }
     
+    void addMethodOutlet(string methodName, t_outlet *outlet )
+    {
+        this->methodOutlets[methodName] = outlet;
+    }
+    
     void addProperty(string propertyName, string referenceName)
     {
         this->propertyNames[propertyName] = referenceName;
+        
+    }
+    
+    void freeMethod(string methodName)
+    {
+        this->methodNames.erase(methodName);
+    }
+    
+    void freeMethodOutlet(string methodName)
+    {
+        this->methodOutlets.erase(methodName);
+    }
+    
+    void freeProperty(string propertyName)
+    {
+        this->propertyNames.erase(propertyName);
         
     }
     
@@ -318,6 +340,7 @@ public:
     {
         this->_methodOutputs.erase(methodName);
     }
+    
     
 #pragma mark signal
     
