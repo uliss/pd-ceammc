@@ -361,10 +361,7 @@ static void exp_instance_methodlist(t_exp_instance* x, t_symbol*, int argc, t_at
         post("Dynamically added Methods:");
         postatom((int)list.size(), list.toPdData());
         post("");
-        list = x->instance->getDynamicPropertyList();
-        post("Dynamically added Properties:");
-        postatom((int)list.size(), list.toPdData());
-        post("");
+        
     }
     
 }

@@ -252,13 +252,14 @@ private:
     map<t_symbol*,OPOutputs> _methodOutputs;                    ///< vector of method outputs
     OPOutputs _instanceOutputs;                                 ///< vector of instances outputs
     
-    map<t_symbol*,OPProperties> instancePropertyBoxes;          ///< for property hanling we get pointers to objects instead of outlets
+    map<t_symbol*,OPOutputs> _getterOutputs;                    ///< new
+    map<t_symbol*,OPOutputs> _setterOutputs;                    ///< new
     
     //new
     map<t_symbol*, AtomList> _propertyValues;
     int _refCount;
     
-    // dynamic
+    // dynamic.
     map<string,string> methodNames;
     map<string,string> propertyNames;
     
@@ -271,8 +272,6 @@ public:
     t_canvas *canvas;
     
     t_symbol *symbol;
-    
-    
     
     OPInstance(OPClass * _opclass)
     
@@ -403,13 +402,19 @@ public:
     
 #pragma mark properties
     
-    void addPropertyBox(t_symbol* pMethodName, t_object *object)
+    void addProperty(t_symbol* propertyName, t_outlet *getter_out, t_outlet *setter_out)
     {
-        this->instancePropertyBoxes[pMethodName].push_back(object);
+        this->_getterOutputs[propertyName].push_back(getter_out);
+        this->_setterOutputs[propertyName].push_back(setter_out);
+        
+        this->propertyNames[propertyName->s_name] = "<none>";   //don't link by name as we link outlets.
     }
-    void freePropertyBox(t_symbol* pMethodName)
+    void freeProperty(t_symbol* propertyName)
     {
-        this->instancePropertyBoxes.erase(pMethodName);
+        this->_getterOutputs.erase(propertyName);
+        this->_setterOutputs.erase(propertyName);
+        
+        this->propertyNames.erase(propertyName->s_name);
     }
     
     void setAtomListProperty(t_symbol *propertyName, AtomList list)
@@ -428,22 +433,6 @@ public:
     {
         AtomList ret;
         
-        for (map<t_symbol*,OPProperties>::iterator it = this->instancePropertyBoxes.begin(); it != this->instancePropertyBoxes.end(); ++it)
-        {
-            ret.append(Atom(it->first));
-        }
-        
-        //dynamic
-        
-        
-        
-        return ret;
-    }
-    
-    AtomList getDynamicPropertyList()
-    {
-        AtomList ret;
-        
         for (map<string,string>::iterator it = this->propertyNames.begin(); it != this->propertyNames.end(); ++it)
         {
             ret.append(Atom(gensym(it->first.c_str())));
@@ -451,6 +440,8 @@ public:
         
         return ret;
     }
+    
+#pragma mark methods
     
     void addInstanceOut(t_outlet *outlet)
     {
@@ -491,14 +482,36 @@ public:
     {
         t_symbol *property_name = list[0].asSymbol();
         
-        OPProperties *out1 = &this->instancePropertyBoxes[property_name];
+//        OPProperties *out1 = &this->instancePropertyBoxes[property_name];
+//        
+//        if (out1)
+//        {
+//            for (OPProperties::iterator it =out1->begin(); it!=out1->end(); ++it)
+//            {
+//                pd_typedmess((t_pd*)*it, gensym("set"), (int)list.size(), list.toPdData());
+//            }
+//        }
         
-        if (out1)
+//        Atom name = Atom(argv[0]);
+//        
+//        if (name.asSymbol() == x->property_name)
+//        {
+//            AtomList list2(argc-1,&argv[1]);
+//            x->instance->setAtomListProperty(x->property_name, list2);
+//            
+//            outlet_bang(x->out2);
+//        }
+        
+        
+        
+        AtomList list2 ((size_t)list.size()-1, (t_atom*)list.toPdData()+1); //TODO
+        this->setAtomListProperty(property_name, list2);
+        
+        OPOutputs *out1 = &this->_setterOutputs[property_name];
+        
+        for (OPOutputs::iterator it =out1->begin(); it!=out1->end(); ++it)
         {
-            for (OPProperties::iterator it =out1->begin(); it!=out1->end(); ++it)
-            {
-                pd_typedmess((t_pd*)*it, gensym("set"), (int)list.size(), list.toPdData());
-            }
+            outlet_bang(*it);
         }
     }
     
@@ -506,15 +519,31 @@ public:
     {
         t_symbol *property_name = list[0].asSymbol();
         
-        OPProperties *out1 = &this->instancePropertyBoxes[property_name];
+//        OPProperties *out1 = &this->instancePropertyBoxes[property_name];
+//        
+//        if (out1)
+//        {
+//            for (OPProperties::iterator it =out1->begin(); it!=out1->end(); ++it)
+//            {
+//                pd_typedmess((t_pd*)*it, gensym("get"), (int)list.size(), list.toPdData());
+//            }
+//        }
         
-        if (out1)
+        AtomList list2 (list[0]);
+        list2.append(this->getAtomListProperty(property_name));
+            
+        this->multipleOutput(list2);
+        
+        OPOutputs *out1 = &this->_getterOutputs[property_name];
+        
+        for (OPOutputs::iterator it =out1->begin(); it!=out1->end(); ++it)
         {
-            for (OPProperties::iterator it =out1->begin(); it!=out1->end(); ++it)
-            {
-                pd_typedmess((t_pd*)*it, gensym("get"), (int)list.size(), list.toPdData());
-            }
+            outlet_bang(*it);
         }
+        
+        
+        
+        
     }
     
     AtomList getMethodList()

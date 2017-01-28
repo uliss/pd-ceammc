@@ -60,7 +60,11 @@ static void *exp_aproperty_new(t_symbol *id, int argc, t_atom *argv)
         x->out3 = outlet_new((t_object*)x, &s_anything);    //getter bang
         
         if (x->instance)
-            x->instance->addPropertyBox(x->property_name, (t_object*)x);
+        {
+            x->instance->addProperty(x->property_name, x->out3, x->out2);
+        }
+        
+        
         
         ebox_ready((t_ebox *)x);
         
@@ -73,45 +77,19 @@ static void *exp_aproperty_new(t_symbol *id, int argc, t_atom *argv)
 static void exp_aproperty_free(t_exp_aproperty* x, t_symbol*id, int argc, t_atom* argv)
 {
     if (x->instance)
-        x->instance->freeMethod(x->property_name);
+    {
+        x->instance->freeProperty(x->property_name);
+        
+    }
     
 }
 
 #pragma mark -
 
-static void exp_aproperty_set(t_exp_aproperty* x, t_symbol*id, int argc, t_atom* argv)
-{
-    
-    Atom name = Atom(argv[0]);
-    
-    if (name.asSymbol() == x->property_name)
-    {
-        AtomList list2(argc-1,&argv[1]);
-        x->instance->setAtomListProperty(x->property_name, list2);
-        
-        outlet_bang(x->out2);
-    }
-}
-
-static void exp_aproperty_get(t_exp_aproperty* x, t_symbol*id, int argc, t_atom* argv)
-{
-    
-    if (x->instance)
-    {
-        AtomList list((Atom(argv[0])));
-        list.append(x->instance->getAtomListProperty(x->property_name));
-        
-        x->instance->multipleOutput(list);
-        
-    }
-    
-    outlet_bang(x->out3);
-    
-}
-
 static void exp_aproperty_output(t_exp_aproperty* x)
 {
-    ceammc::to_outlet(x->out1, (x->instance->getAtomListProperty(x->property_name)));
+    if (x->instance)
+        ceammc::to_outlet(x->out1, (x->instance->getAtomListProperty(x->property_name)));
 }
 
 static void exp_aproperty_bang(t_exp_aproperty* x)
@@ -138,9 +116,6 @@ extern "C" void setup_exp0x2eaproperty()
                                     reinterpret_cast<t_typ_method>(exp_aproperty_new),
                                     reinterpret_cast<t_typ_method>(exp_aproperty_free),
                                     sizeof(t_exp_aproperty), CLASS_PATCHABLE, A_GIMME,0);
-    
-    eclass_addmethod(exp_aproperty_class, (method)(exp_aproperty_set), ("set"), A_GIMME, 0);
-    eclass_addmethod(exp_aproperty_class, (method)(exp_aproperty_get), ("get"), A_GIMME, 0);
     
     eclass_addmethod(exp_aproperty_class, (method)(exp_aproperty_bang), ("bang"), A_GIMME, 0);
     eclass_addmethod(exp_aproperty_class, (method)(exp_aproperty_list), ("anything"), A_GIMME, 0);
