@@ -8,9 +8,8 @@
 
 #include "ceammc.h"
 #include <m_pd.h>
-//#include <g_canvas.h>
 #include <stdlib.h>
-//
+
 #include "ceammc_atomlist.h"
 
 #include "m_imp.h"
@@ -34,7 +33,7 @@ template <class T>
 inline string to_string (const T& t)
 {
     stringstream ss;
-    ss << t;
+    ss << t;        // ss << std::hex << t;
     return ss.str();
 }
 
@@ -75,25 +74,29 @@ typedef vector<t_object*> OPProperties;        ///< vector of property boxes
 
 static void canvas_paste_class(t_canvas *x, t_binbuf *b);
 
+//weird
+class OPClass;
+typedef GlobalData<OPClass*> OPClassByCanvas;
+typedef GlobalData<OPClass*> OPClassBySymbol;
+
 class OPClass
 {
 private:
+    map<string,string> methodNames;
+    map<string,string> propertyNames;
+    map<string,t_outlet*> methodOutlets;
     
     
 public:
     string class_name;
     t_canvas *canvas;
     
-    //todo encapsulated
-    map<string,string> methodNames;
-    map<string,string> propertyNames;
-    map<string,t_outlet*> methodOutlets;
+    t_symbol *symbol;
     
     // for dynamic (change arguments?)
     OPClass()
     {
         this->canvas = 0;
-        
     }
     // for canvas-based (change arguments?)
     OPClass(string className)
@@ -102,6 +105,15 @@ public:
         this->canvas = (t_canvas*)subcanvas_new(gensym(className.c_str()));
         this->canvas->gl_havewindow = 1;
         this->canvas->gl_isclone = 1;
+        
+        this->symbol = gensym(class_name.c_str());
+        this->class_name = className;
+        
+        OPClassByCanvas* link = new OPClassByCanvas(to_string((long)this->canvas), "OOP.common");
+        link->ref() = this;
+        
+        OPClassBySymbol* link2 = new OPClassBySymbol(this->symbol->s_name, "OOP.common");
+        link2->ref() = this;
         
         canvas_vis(this->canvas, 0);
         
@@ -117,9 +129,23 @@ public:
         
         this->canvas->gl_owner = 0;
         
-        this->class_name = className;
-        
     }
+    
+#pragma mark getters
+    map<string,string> getMethodNames()
+    {
+        return this->methodNames;
+    }
+    map<string,string> getPropertyNames()
+    {
+        return this->propertyNames;
+    }
+    map<string,t_outlet*> getMethodOutlets()
+    {
+        return this->methodOutlets;
+    }
+    
+#pragma mark file io
     
     void readFile(string fileName, t_canvas *parent_canvas)
     {
@@ -140,7 +166,6 @@ public:
             if (this->canvas->gl_list)
             {
                 glist_delete(this->canvas, this->canvas->gl_list);
-                
             }
             
             canvas_paste_class(this->canvas, b);
@@ -164,6 +189,7 @@ public:
         post("saved class: %s ", (char*)(fileName.c_str()));
     }
     
+#pragma mark dynamic: properties / methods
     // dynamic stub:
     void addMethod(string methodName, string referenceName)
     {
@@ -197,8 +223,19 @@ public:
         
     }
     
+#pragma mark find
     
+    static OPClass * findByCanvas(t_canvas* canvas)
+    {
+        OPClassByCanvas* ret = new OPClassByCanvas(to_string((long)canvas), "OOP.common");
+        return ret->ref();
+    }
     
+    static OPClass * findBySymbol(t_symbol * symbol)
+    {
+        OPClassBySymbol* ret = new OPClassBySymbol(symbol->s_name, "OOP.common");
+        return ret->ref();
+    }
     
 };
 
@@ -218,7 +255,6 @@ private:
     map<t_symbol*,OPProperties> instancePropertyBoxes;          ///< for property hanling we get pointers to objects instead of outlets
     
     //new
-    
     map<t_symbol*, AtomList> _propertyValues;
     int _refCount;
     
@@ -270,6 +306,10 @@ public:
             OPInstanceByCanvas* link = new OPInstanceByCanvas(to_string((long)this->canvas), "OOP.common");
             link->ref() = this;
             
+            OPInstanceBySymbol* link2 = new OPInstanceBySymbol(this->symbol->s_name, "OOP.common");
+            link2->ref() = this;
+            
+            
             //load
             t_binbuf *b1 = binbuf_new();
             
@@ -284,8 +324,6 @@ public:
             
             canvas_resume_dsp(dsp_state);
             
-            OPInstanceBySymbol* link2 = new OPInstanceBySymbol(this->symbol->s_name, "OOP.common");
-            link2->ref() = this;
             
             //todo bind symbols
 
@@ -303,9 +341,8 @@ public:
         
         //generate properties
         
-        this->propertyNames = _opclass->propertyNames;
-        this->methodNames = _opclass->methodNames;
-        
+        this->propertyNames = _opclass->getPropertyNames();
+        this->methodNames = _opclass->getMethodNames();
         
     }
     
@@ -319,11 +356,9 @@ public:
         canvas_takeofflist(this->canvas);
         canvas_free(this->canvas);
         
-        
         this->canvas = 0;
         
         canvas_resume_dsp(dsp_state);
-        
         
         printf("~OPInstance\n");
         printf("canvas: %lu\n", (long)this->canvas);
@@ -530,7 +565,7 @@ public:
     int getRefCount()
     {return this->_refCount;}
     
-#pragma mark canvas
+#pragma mark find
     static OPInstance * findByCanvas(t_canvas* canvas)
     {
         OPInstanceByCanvas* ret = new OPInstanceByCanvas(to_string((long)canvas), "OOP.common");
@@ -545,8 +580,17 @@ public:
     
 };
 
+#pragma mark canvas additions - C style
 
+static bool canvas_is_class(t_canvas* canvas)
+{
+    return (OPClass::findByCanvas(canvas));
+}
 
+static bool canvas_is_instance(t_canvas* canvas)
+{
+    return (OPInstance::findByCanvas(canvas));
+}
 
 #pragma mark -
 
