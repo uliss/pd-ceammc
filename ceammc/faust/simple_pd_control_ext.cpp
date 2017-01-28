@@ -69,7 +69,8 @@ struct mydsp : public dsp {
 #include "ceammc_faust.h"
 using namespace ceammc::faust;
 
-class PdUI : public UI {
+template<typename T>
+class PdUI : public T {
     std::vector<UIElement*> ui_elements_;
     std::vector<std::string> osc_path_;
     std::string name_;
@@ -120,7 +121,8 @@ public:
     std::string oscPath(const std::string& label) const;
 };
 
-PdUI::PdUI(const std::string& name, const std::string& id)
+template<typename T>
+PdUI<T>::PdUI(const std::string& name, const std::string& id)
     : name_(name)
     , id_(id)
     , level(0)
@@ -131,30 +133,35 @@ PdUI::PdUI(const std::string& name, const std::string& id)
     osc_path_.push_back(name_);
 }
 
-PdUI::~PdUI()
+template<typename T>
+PdUI<T>::~PdUI()
 {
     for (size_t i = 0; i < uiCount(); i++)
         delete ui_elements_[i];
 }
 
-UIElement* PdUI::uiAt(size_t pos)
+template<typename T>
+UIElement* PdUI<T>::uiAt(size_t pos)
 {
     return pos < ui_elements_.size() ? ui_elements_.at(pos) : 0;
 }
 
-const UIElement* PdUI::uiAt(size_t pos) const
+template<typename T>
+const UIElement* PdUI<T>::uiAt(size_t pos) const
 {
     return pos < ui_elements_.size() ? ui_elements_.at(pos) : 0;
 }
 
-void PdUI::add_elem(UIElementType type, const std::string& label, float* zone)
+template<typename T>
+void PdUI<T>::add_elem(UIElementType type, const std::string& label, float* zone)
 {
     UIElement* elems = new UIElement(type, oscPath(label), label);
     elems->setValuePtr(zone);
     ui_elements_.push_back(elems);
 }
 
-void PdUI::add_elem(UIElementType type, const std::string& label, float* zone,
+template<typename T>
+void PdUI<T>::add_elem(UIElementType type, const std::string& label, float* zone,
     float init, float min, float max, float step)
 {
     UIElement* elems = new UIElement(type, oscPath(label), label);
@@ -163,7 +170,8 @@ void PdUI::add_elem(UIElementType type, const std::string& label, float* zone,
     ui_elements_.push_back(elems);
 }
 
-void PdUI::add_elem(UIElementType type, const std::string& label, float* zone,
+template<typename T>
+void PdUI<T>::add_elem(UIElementType type, const std::string& label, float* zone,
     float min, float max)
 {
     UIElement* elems = new UIElement(type, oscPath(label), label);
@@ -172,7 +180,8 @@ void PdUI::add_elem(UIElementType type, const std::string& label, float* zone,
     ui_elements_.push_back(elems);
 }
 
-void PdUI::addButton(const char* label, float* zone)
+template<typename T>
+void PdUI<T>::addButton(const char* label, float* zone)
 {
     UIElement* elems = new UIElement(UI_BUTTON, oscPath(label), label);
     elems->setContraints(0, 0, 1, 1);
@@ -180,7 +189,8 @@ void PdUI::addButton(const char* label, float* zone)
     ui_elements_.push_back(elems);
 }
 
-void PdUI::addCheckButton(const char* label, float* zone)
+template<typename T>
+void PdUI<T>::addCheckButton(const char* label, float* zone)
 {
     UIElement* elems = new UIElement(UI_CHECK_BUTTON, oscPath(label), label);
     elems->setContraints(0, 0, 1, 1);
@@ -188,54 +198,65 @@ void PdUI::addCheckButton(const char* label, float* zone)
     ui_elements_.push_back(elems);
 }
 
-void PdUI::addVerticalSlider(const char* label, float* zone, float init, float min, float max, float step)
+template<typename T>
+void PdUI<T>::addVerticalSlider(const char* label, float* zone, float init, float min, float max, float step)
 {
     add_elem(UI_V_SLIDER, label, zone, init, min, max, step);
 }
 
-void PdUI::addHorizontalSlider(const char* label, float* zone, float init, float min, float max, float step)
+template<typename T>
+void PdUI<T>::addHorizontalSlider(const char* label, float* zone, float init, float min, float max, float step)
 {
     add_elem(UI_H_SLIDER, label, zone, init, min, max, step);
 }
 
-void PdUI::addNumEntry(const char* label, float* zone, float init, float min, float max, float step)
+template<typename T>
+void PdUI<T>::addNumEntry(const char* label, float* zone, float init, float min, float max, float step)
 {
     add_elem(UI_NUM_ENTRY, label, zone, init, min, max, step);
 }
 
-void PdUI::addHorizontalBargraph(const char* label, float* zone, float min, float max)
+template<typename T>
+void PdUI<T>::addHorizontalBargraph(const char* label, float* zone, float min, float max)
 {
     add_elem(UI_H_BARGRAPH, label, zone, min, max);
 }
 
-void PdUI::addVerticalBargraph(const char* label, float* zone, float min, float max)
+template<typename T>
+void PdUI<T>::addVerticalBargraph(const char* label, float* zone, float min, float max)
 {
     add_elem(UI_V_BARGRAPH, label, zone, min, max);
 }
 
-void PdUI::openTabBox(const char* label)
+template<typename T>
+void PdUI<T>::openTabBox(const char* label)
 {
     osc_path_.push_back(label);
 }
 
-void PdUI::openHorizontalBox(const char* label)
+template<typename T>
+void PdUI<T>::openHorizontalBox(const char* label)
 {
     osc_path_.push_back(label);
 }
 
-void PdUI::openVerticalBox(const char* label)
+template<typename T>
+void PdUI<T>::openVerticalBox(const char* label)
 {
     osc_path_.push_back(label);
 }
 
-void PdUI::closeBox()
+template<typename T>
+void PdUI<T>::closeBox()
 {
     osc_path_.pop_back();
 }
 
-void PdUI::run() {}
+template<typename T>
+void PdUI<T>::run() {}
 
-UIElement* PdUI::findElementByLabel(const char* label)
+template<typename T>
+UIElement* PdUI<T>::findElementByLabel(const char* label)
 {
     for (size_t i = 0; i < uiCount(); i++) {
         if (ui_elements_[i]->pathcmp(label) == 0)
@@ -245,7 +266,8 @@ UIElement* PdUI::findElementByLabel(const char* label)
     return NULL;
 }
 
-void PdUI::setElementValue(const char* label, FAUSTFLOAT v)
+template<typename T>
+void PdUI<T>::setElementValue(const char* label, FAUSTFLOAT v)
 {
     UIElement* el = findElementByLabel(label);
     if (!el)
@@ -254,13 +276,15 @@ void PdUI::setElementValue(const char* label, FAUSTFLOAT v)
     el->setValue(v);
 }
 
-void PdUI::dumpUI(t_outlet* out)
+template<typename T>
+void PdUI<T>::dumpUI(t_outlet* out)
 {
     for (size_t i = 0; i < uiCount(); i++)
         ui_elements_[i]->dump(out);
 }
 
-void PdUI::outputAllProperties(t_outlet* out)
+template<typename T>
+void PdUI<T>::outputAllProperties(t_outlet* out)
 {
     ceammc::AtomList l;
     for (size_t i = 0; i < uiCount(); i++)
@@ -269,7 +293,8 @@ void PdUI::outputAllProperties(t_outlet* out)
     l.output(out);
 }
 
-void PdUI::outputProperty(t_symbol* s, t_outlet* out)
+template<typename T>
+void PdUI<T>::outputProperty(t_symbol* s, t_outlet* out)
 {
     for (size_t i = 0; i < uiCount(); i++) {
         if (ui_elements_[i]->getPropertySym() == s)
@@ -277,7 +302,8 @@ void PdUI::outputProperty(t_symbol* s, t_outlet* out)
     }
 }
 
-std::vector<FAUSTFLOAT> PdUI::uiValues() const
+template<typename T>
+std::vector<FAUSTFLOAT> PdUI<T>::uiValues() const
 {
     std::vector<FAUSTFLOAT> res;
     for (size_t i = 0; i < uiCount(); i++)
@@ -286,14 +312,16 @@ std::vector<FAUSTFLOAT> PdUI::uiValues() const
     return res;
 }
 
-void PdUI::setUIValues(const std::vector<float>& v)
+template<typename T>
+void PdUI<T>::setUIValues(const std::vector<float>& v)
 {
     size_t max = std::min(v.size(), uiCount());
     for (size_t i = 0; i < max; i++)
         uiAt(i)->setValue(v[i]);
 }
 
-std::string PdUI::fullName() const
+template<typename T>
+std::string PdUI<T>::fullName() const
 {
     std::string res(name_);
     res += " ";
@@ -301,7 +329,8 @@ std::string PdUI::fullName() const
     return res;
 }
 
-std::string PdUI::oscPath(const std::string& label) const
+template<typename T>
+std::string PdUI<T>::oscPath(const std::string& label) const
 {
     typedef std::vector<std::string> StringList;
 
@@ -352,7 +381,7 @@ struct t_faust {
     int fence; /* dummy field (not used) */
 #endif
     mydsp* dsp;
-    PdUI* ui;
+    PdUI<UI>* ui;
     int active, xfade, n_xfade, rate, n_in, n_out;
     t_sample **inputs, **outputs, **buf;
     t_outlet* out;
@@ -435,7 +464,7 @@ static void faust_dsp(t_faust* x, t_signal** sp)
 
     if (x->rate <= 0) {
         /* default sample rate is whatever Pd tells us */
-        PdUI* ui = x->ui;
+        PdUI<UI>* ui = x->ui;
         std::vector<FAUSTFLOAT> z = ui->uiValues();
         /* set the proper sample rate; this requires reinitializing the dsp */
         x->rate = sr;
@@ -472,7 +501,7 @@ static void faust_any(t_faust* x, t_symbol* s, int argc, t_atom* argv)
     if (!x->dsp)
         return;
 
-    PdUI* ui = x->ui;
+    PdUI<UI>* ui = x->ui;
     if (s == &s_bang) {
         ui->dumpUI(x->out);
     } else if (isGetAllProperties(s)) {
@@ -630,7 +659,7 @@ static bool faust_new_internal(t_faust* x, const std::string& objId = "", bool i
     x->n_xfade = static_cast<int>(sr * XFADE_TIME / 64);
 
     x->dsp = new mydsp();
-    x->ui = new PdUI(sym(mydsp), objId);
+    x->ui = new PdUI<UI>(sym(mydsp), objId);
 
     if (!faust_init_inputs(x)) {
         faust_free(x);
