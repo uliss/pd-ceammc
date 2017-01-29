@@ -463,6 +463,9 @@ inline const char* lopts(char* argv[], const char* name, const char* def)
 // clang-format on
 #endif
 
+#define sym(name) xsym(name)
+#define xsym(name) #name
+
 /***************************************************************************
    Pd UI interface
 ***************************************************************************/
@@ -474,440 +477,9 @@ struct pitchshift : public dsp {
 #endif
 // clang-format on
 
-enum UIElementType {
-    UI_BUTTON,
-    UI_CHECK_BUTTON,
-    UI_V_SLIDER,
-    UI_H_SLIDER,
-    UI_NUM_ENTRY,
-    UI_V_BARGRAPH,
-    UI_H_BARGRAPH,
-    UI_END_GROUP,
-    UI_V_GROUP,
-    UI_H_GROUP,
-    UI_T_GROUP
-};
+#include "ceammc_faust.h"
+using namespace ceammc::faust;
 
-class UIElement {
-    UIElementType type;
-
-public:
-    UIElement(UIElementType t);
-
-    char* label;
-    t_symbol* property;
-    t_symbol* get_property;
-    float* zone;
-    float init, min, max, step;
-
-    t_symbol* typeSymbol();
-    void initProperty(const char* name);
-    float value(float def = 0.f) const;
-    void outputProperty(t_outlet* out);
-
-private:
-    static t_symbol *s_button, *s_checkbox, *s_vslider, *s_hslider, *s_nentry, *s_vbargraph, *s_hbargraph;
-};
-
-t_symbol* UIElement::s_button = gensym("button");
-t_symbol* UIElement::s_checkbox = gensym("checkbox");
-t_symbol* UIElement::s_vslider = gensym("vslider");
-t_symbol* UIElement::s_hslider = gensym("hslider");
-t_symbol* UIElement::s_nentry = gensym("nentry");
-t_symbol* UIElement::s_vbargraph = gensym("vbargraph");
-t_symbol* UIElement::s_hbargraph = gensym("hbargraph");
-
-UIElement::UIElement(UIElementType t)
-    : type(t)
-    , label(0)
-    , property(0)
-    , get_property(0)
-    , zone(0)
-    , init(0)
-    , min(0)
-    , max(1)
-    , step(0)
-{
-}
-
-t_symbol* UIElement::typeSymbol()
-{
-    switch (type) {
-    case UI_BUTTON:
-        return s_button;
-    case UI_CHECK_BUTTON:
-        return s_checkbox;
-    case UI_V_SLIDER:
-        return s_vslider;
-    case UI_H_SLIDER:
-        return s_hslider;
-    case UI_NUM_ENTRY:
-        return s_nentry;
-    case UI_V_BARGRAPH:
-        return s_vbargraph;
-    case UI_H_BARGRAPH:
-        return s_hbargraph;
-    default:
-        return 0;
-    }
-}
-
-void UIElement::initProperty(const char* name)
-{
-    if (name == NULL) {
-        property = gensym("?");
-        get_property = gensym("?");
-        return;
-    }
-
-    char buf[MAXPDSTRING];
-    sprintf(buf, "@%s", name);
-    property = gensym(buf);
-    sprintf(buf, "@%s?", name);
-    get_property = gensym(buf);
-}
-
-float UIElement::value(float def) const
-{
-    if (!zone)
-        return def;
-
-    return *zone;
-}
-
-void UIElement::outputProperty(t_outlet* out)
-{
-    ceammc::Atom a;
-
-    if (zone)
-        a.setFloat(*zone, true);
-    else
-        a.setSymbol(gensym("?"), true);
-
-    a.outputAsAny(out, property);
-}
-
-class PdUI : public UI {
-    std::string name;
-    int level;
-    std::vector<UIElement*> ui_elements_;
-
-public:
-    //    int nelems;
-    //    UIElement* elems;
-
-    PdUI(const char* nm, const char* s);
-    virtual ~PdUI();
-
-    UIElement* uiAt(size_t pos);
-    const UIElement* uiAt(size_t pos) const;
-    size_t uiCount() const { return ui_elements_.size(); }
-
-protected:
-    std::string path;
-    void add_elem(UIElementType type, const char* label = NULL);
-    void add_elem(UIElementType type, const char* label, float* zone);
-    void add_elem(UIElementType type, const char* label, float* zone,
-        float init, float min, float max, float step);
-    void add_elem(UIElementType type, const char* label, float* zone,
-        float min, float max);
-
-public:
-    virtual void addButton(const char* label, float* zone);
-    virtual void addCheckButton(const char* label, float* zone);
-    virtual void addVerticalSlider(const char* label, float* zone, float init, float min, float max, float step);
-    virtual void addHorizontalSlider(const char* label, float* zone, float init, float min, float max, float step);
-    virtual void addNumEntry(const char* label, float* zone, float init, float min, float max, float step);
-
-    virtual void addHorizontalBargraph(const char* label, float* zone, float min, float max);
-    virtual void addVerticalBargraph(const char* label, float* zone, float min, float max);
-
-    virtual void openTabBox(const char* label);
-    virtual void openHorizontalBox(const char* label);
-    virtual void openVerticalBox(const char* label);
-    virtual void closeBox();
-
-    virtual void run();
-
-public:
-    UIElement* findElementByLabel(const char* label);
-    void setElementValue(const char* label, float v);
-    void dumpUI(t_outlet* out);
-    void outputAllProperties(t_outlet* out);
-    void outputProperty(t_symbol* s, t_outlet* out);
-};
-
-static std::string mangle(const std::string& name, int level, const char* s)
-{
-    const char* s0 = s;
-    std::string t = "";
-    if (!s)
-        return t;
-    // Get rid of bogus "0x00" labels in recent Faust revisions. Also, for
-    // backward compatibility with old Faust versions, make sure that default
-    // toplevel groups and explicit toplevel groups with an empty label are
-    // treated alike (these both return "0x00" labels in the latest Faust, but
-    // would be treated inconsistently in earlier versions).
-    if (!*s || strcmp(s, "0x00") == 0) {
-        if (level == 0)
-            // toplevel group with empty label, map to dsp name
-            s = name.c_str();
-        else
-            // empty label
-            s = "";
-    }
-    while (*s)
-        if (isalnum(*s))
-            t += *(s++);
-        else {
-            const char* s1 = s;
-            while (*s && !isalnum(*s))
-                ++s;
-            if (s1 != s0 && *s)
-                t += "-";
-        }
-    return t;
-}
-
-static std::string normpath(std::string path)
-{
-    path = std::string("/") + path;
-    int pos = path.find("//");
-    while (pos >= 0) {
-        path.erase(pos, 1);
-        pos = path.find("//");
-    }
-    size_t len = path.length();
-    if (len > 1 && path[len - 1] == '/')
-        path.erase(len - 1, 1);
-    return path;
-}
-
-static std::string pathcat(const std::string& path, const std::string& label)
-{
-    if (path.empty())
-        return normpath(label);
-    else if (label.empty())
-        return normpath(path);
-    else
-        return normpath(path + "/" + label);
-}
-
-PdUI::PdUI(const char* nm, const char* s)
-    : name(nm ? nm : "")
-    , level(0)
-    , path(s ? s : "")
-{
-}
-
-PdUI::~PdUI()
-{
-    for (size_t i = 0; i < uiCount(); i++) {
-        if (ui_elements_[i]->label)
-            free(ui_elements_[i]->label);
-
-        delete ui_elements_[i];
-    }
-}
-
-UIElement* PdUI::uiAt(size_t pos)
-{
-    return pos < ui_elements_.size() ? ui_elements_.at(pos) : 0;
-}
-
-const UIElement* PdUI::uiAt(size_t pos) const
-{
-    return pos < ui_elements_.size() ? ui_elements_.at(pos) : 0;
-}
-
-inline void PdUI::add_elem(UIElementType type, const char* label)
-{
-    UIElement* elems = new UIElement(type);
-    ui_elements_.push_back(elems);
-    std::string s = pathcat(path, mangle(name, level, label));
-    elems->label = strdup(s.c_str());
-    elems->initProperty(label);
-    elems->zone = NULL;
-    elems->init = 0.0;
-    elems->min = 0.0;
-    elems->max = 0.0;
-    elems->step = 0.0;
-}
-
-inline void PdUI::add_elem(UIElementType type, const char* label, float* zone)
-{
-    UIElement* elems = new UIElement(type);
-    ui_elements_.push_back(elems);
-    std::string s = pathcat(path, mangle(name, level, label));
-    elems->label = strdup(s.c_str());
-    elems->initProperty(label);
-    elems->zone = zone;
-    elems->init = 0.0;
-    elems->min = 0.0;
-    elems->max = 1.0;
-    elems->step = 1.0;
-}
-
-inline void PdUI::add_elem(UIElementType type, const char* label, float* zone,
-    float init, float min, float max, float step)
-{
-    UIElement* elems = new UIElement(type);
-    ui_elements_.push_back(elems);
-    std::string s = pathcat(path, mangle(name, level, label));
-    elems->label = strdup(s.c_str());
-    elems->initProperty(label);
-    elems->zone = zone;
-    elems->init = init;
-    elems->min = min;
-    elems->max = max;
-    elems->step = step;
-}
-
-inline void PdUI::add_elem(UIElementType type, const char* label, float* zone,
-    float min, float max)
-{
-    UIElement* elems = new UIElement(type);
-    ui_elements_.push_back(elems);
-    std::string s = pathcat(path, mangle(name, level, label));
-    elems->label = strdup(s.c_str());
-    elems->initProperty(label);
-    elems->zone = zone;
-    elems->init = 0.0;
-    elems->min = min;
-    elems->max = max;
-    elems->step = 0.0;
-}
-
-void PdUI::addButton(const char* label, float* zone)
-{
-    add_elem(UI_BUTTON, label, zone);
-}
-
-void PdUI::addCheckButton(const char* label, float* zone)
-{
-    add_elem(UI_CHECK_BUTTON, label, zone);
-}
-
-void PdUI::addVerticalSlider(const char* label, float* zone, float init, float min, float max, float step)
-{
-    add_elem(UI_V_SLIDER, label, zone, init, min, max, step);
-}
-
-void PdUI::addHorizontalSlider(const char* label, float* zone, float init, float min, float max, float step)
-{
-    add_elem(UI_H_SLIDER, label, zone, init, min, max, step);
-}
-
-void PdUI::addNumEntry(const char* label, float* zone, float init, float min, float max, float step)
-{
-    add_elem(UI_NUM_ENTRY, label, zone, init, min, max, step);
-}
-
-void PdUI::addHorizontalBargraph(const char* label, float* zone, float min, float max)
-{
-    add_elem(UI_H_BARGRAPH, label, zone, min, max);
-}
-
-void PdUI::addVerticalBargraph(const char* label, float* zone, float min, float max)
-{
-    add_elem(UI_V_BARGRAPH, label, zone, min, max);
-}
-
-void PdUI::openTabBox(const char* label)
-{
-    if (!path.empty())
-        path += "/";
-    path += mangle(name, level, label);
-    level++;
-}
-
-void PdUI::openHorizontalBox(const char* label)
-{
-    if (!path.empty())
-        path += "/";
-    path += mangle(name, level, label);
-    level++;
-}
-
-void PdUI::openVerticalBox(const char* label)
-{
-    if (!path.empty())
-        path += "/";
-    path += mangle(name, level, label);
-    level++;
-}
-
-void PdUI::closeBox()
-{
-    int pos = path.rfind("/");
-    if (pos < 0)
-        pos = 0;
-    path.erase(pos);
-    level--;
-}
-
-void PdUI::run() {}
-
-static int pathcmp(const char* s, const char* t);
-UIElement* PdUI::findElementByLabel(const char* label)
-{
-    for (size_t i = 0; i < uiCount(); i++) {
-        if (pathcmp(ui_elements_[i]->label, label) == 0)
-            return ui_elements_[i];
-    }
-
-    return NULL;
-}
-
-void PdUI::setElementValue(const char* label, float v)
-{
-    UIElement* el = findElementByLabel(label);
-    if (!el)
-        return;
-
-    if (el->min <= v && v <= el->max)
-        *el->zone = v;
-}
-
-void PdUI::dumpUI(t_outlet* out)
-{
-    for (int i = 0; i < uiCount(); i++) {
-        if (ui_elements_[i]->label && ui_elements_[i]->zone) {
-            t_atom args[6];
-            t_symbol* _s = ui_elements_[i]->typeSymbol();
-            if (!_s)
-                continue;
-
-            SETSYMBOL(&args[0], gensym(ui_elements_[i]->label));
-            SETFLOAT(&args[1], *ui_elements_[i]->zone);
-            SETFLOAT(&args[2], ui_elements_[i]->init);
-            SETFLOAT(&args[3], ui_elements_[i]->min);
-            SETFLOAT(&args[4], ui_elements_[i]->max);
-            SETFLOAT(&args[5], ui_elements_[i]->step);
-
-            if (out) {
-                outlet_anything(out, _s, 6, args);
-            }
-        }
-    }
-}
-
-void PdUI::outputAllProperties(t_outlet* out)
-{
-    ceammc::AtomList l;
-    for (size_t i = 0; i < uiCount(); i++)
-        l.append(ui_elements_[i]->property);
-
-    l.output(out);
-}
-
-void PdUI::outputProperty(t_symbol* s, t_outlet* out)
-{
-    for (int i = 0; i < uiCount(); i++) {
-        if (ui_elements_[i]->get_property == s)
-            ui_elements_[i]->outputProperty(out);
-    }
-}
 
 /******************************************************************************
 *******************************************************************************
@@ -1028,15 +600,13 @@ class pitchshift : public dsp {
 // clang-format on
 #endif
 
-#define sym(name) xsym(name)
-#define xsym(name) #name
+// clang-format off
 #define faust_setup(name) xfaust_setup(name)
 #define xfaust_setup(name) name##_tilde_setup(void)
-
 // time for "active" toggle xfades in secs
 #define XFADE_TIME 0.1f
-
-    static t_class* faust_class;
+static t_class* faust_class;
+// clang-format on
 
 struct t_faust {
     t_object x_obj;
@@ -1046,8 +616,7 @@ struct t_faust {
     int fence; /* dummy field (not used) */
 #endif
     pitchshift* dsp;
-    PdUI* ui;
-    std::string* label;
+    PdUI<UI>* ui;
     int active, xfade, n_xfade, rate, n_in, n_out;
     t_sample **inputs, **outputs, **buf;
     t_outlet* out;
@@ -1074,10 +643,11 @@ static inline void copy_samples(int k, int n, t_sample** out, t_sample** in)
 
 static t_int* faust_perform(t_int* w)
 {
-    t_faust* x = (t_faust*)(w[1]);
-    int n = (int)(w[2]);
+    t_faust* x = reinterpret_cast<t_faust*>(w[1]);
+    int n = static_cast<int>(w[2]);
     if (!x->dsp || !x->buf)
         return (w + 3);
+
     AVOIDDENORMALS;
     if (x->xfade > 0) {
         float d = 1.0f / x->n_xfade, f = (x->xfade--) * d;
@@ -1124,28 +694,17 @@ static t_int* faust_perform(t_int* w)
 
 static void faust_dsp(t_faust* x, t_signal** sp)
 {
-    int n = sp[0]->s_n, sr = (int)sp[0]->s_sr;
+    const int n = sp[0]->s_n;
+    const int sr = static_cast<int>(sp[0]->s_sr);
+
     if (x->rate <= 0) {
         /* default sample rate is whatever Pd tells us */
-        PdUI* ui = x->ui;
-        float* z = NULL;
-        if (ui->uiCount() > 0 && (z = (float*)malloc(ui->uiCount() * sizeof(float)))) {
-            /* save the current control values */
-            for (size_t i = 0; i < ui->uiCount(); i++) {
-                if (ui->uiAt(i)->zone)
-                    z[i] = *ui->uiAt(i)->zone;
-            }
-        }
+        PdUI<UI>* ui = x->ui;
+        std::vector<FAUSTFLOAT> z = ui->uiValues();
         /* set the proper sample rate; this requires reinitializing the dsp */
         x->rate = sr;
         x->dsp->init(sr);
-        if (z) {
-            /* restore previous control values */
-            for (int i = 0; i < ui->uiCount(); i++)
-                if (ui->uiAt(i)->zone)
-                    *ui->uiAt(i)->zone = z[i];
-            free(z);
-        }
+        ui->setUIValues(z);
     }
     if (n > 0)
         x->n_xfade = static_cast<int>(x->rate * XFADE_TIME / n);
@@ -1172,46 +731,12 @@ static void faust_dsp(t_faust* x, t_signal** sp)
     }
 }
 
-static int pathcmp(const char* s, const char* t)
-{
-    size_t n = strlen(s), m = strlen(t);
-    if (n == 0 || m == 0)
-        return 0;
-    else if (t[0] == '/')
-        return strcmp(s, t);
-    else if (n <= m || s[n - m - 1] != '/')
-        return strcmp(s + 1, t);
-    else
-        return strcmp(s + n - m, t);
-}
-
-static bool isGetAllProperties(t_symbol* s)
-{
-    size_t len = strlen(s->s_name);
-    if (len < 2)
-        return false;
-
-    return s->s_name[0] == '@' && s->s_name[1] == '*';
-}
-
-static bool isGetProperty(t_symbol* s)
-{
-    size_t len = strlen(s->s_name);
-    if (len < 1)
-        return false;
-
-    if (s->s_name[0] != '@')
-        return false;
-
-    return s->s_name[len - 1] == '?';
-}
-
 static void faust_any(t_faust* x, t_symbol* s, int argc, t_atom* argv)
 {
     if (!x->dsp)
         return;
 
-    PdUI* ui = x->ui;
+    PdUI<UI>* ui = x->ui;
     if (s == &s_bang) {
         ui->dumpUI(x->out);
     } else if (isGetAllProperties(s)) {
@@ -1221,27 +746,18 @@ static void faust_any(t_faust* x, t_symbol* s, int argc, t_atom* argv)
     } else {
         const char* label = s->s_name;
         int count = 0;
-        for (int i = 0; i < ui->uiCount(); i++) {
-            if (ui->uiAt(i)->label && pathcmp(ui->uiAt(i)->label, label) == 0) {
+        for (size_t i = 0; i < ui->uiCount(); i++) {
+            if (ui->uiAt(i)->pathcmp(label)) {
                 if (argc == 0) {
-                    if (ui->uiAt(i)->zone) {
-                        t_atom arg;
-                        SETFLOAT(&arg, *ui->uiAt(i)->zone);
-                        if (x->out) {
-                            outlet_anything(x->out, gensym(ui->uiAt(i)->label), 1, &arg);
-                        }
-                    }
+                    ui->uiAt(i)->outputValue(x->out);
                     ++count;
-                } else if (argc == 1 && (argv[0].a_type == A_FLOAT || argv[0].a_type == A_DEFFLOAT) && ui->uiAt(i)->zone) {
+                } else if (argc == 1 && (argv[0].a_type == A_FLOAT || argv[0].a_type == A_DEFFLOAT)) {
                     float f = atom_getfloat(argv);
                     UIElement* el = ui->uiAt(i);
-                    if (el->min <= f && f <= el->max) {
-                        *el->zone = f;
-                    }
+                    el->setValue(f);
                     ++count;
                 } else
-                    pd_error(x, "[ceammc] %s: bad control argument: %s",
-                        x->label->c_str(), label);
+                    pd_error(x, "[ceammc] %s: bad control argument: %s", ui->fullName().c_str(), label);
             }
         }
 
@@ -1259,12 +775,6 @@ static void faust_any(t_faust* x, t_symbol* s, int argc, t_atom* argv)
             }
         }
     }
-}
-
-static void faust_free_label(t_faust* x)
-{
-    delete x->label;
-    x->label = NULL;
 }
 
 static void faust_free_dsp(t_faust* x)
@@ -1307,7 +817,6 @@ static void faust_free_buf(t_faust* x)
 
 static void faust_free(t_faust* x)
 {
-    faust_free_label(x);
     faust_free_dsp(x);
     faust_free_ui(x);
     faust_free_inputs(x);
@@ -1324,7 +833,7 @@ static bool faust_init_inputs(t_faust* x)
         x->inputs = static_cast<t_sample**>(calloc(x->n_in, sizeof(t_sample*)));
 
         if (x->inputs == NULL) {
-            error("[ceammc] faust_init_inputs failed");
+            error("[%s] faust_init_inputs failed", sym(pitchshift));
             return false;
         }
     }
@@ -1347,13 +856,13 @@ static bool faust_init_outputs(t_faust* x, bool info_outlet)
     if (x->n_out > 0) {
         x->outputs = static_cast<t_sample**>(calloc(x->n_out, sizeof(t_sample*)));
         if (x->outputs == NULL) {
-            error("[ceammc] faust_init_outputs failed");
+            error("[%s] faust_init_outputs failed", sym(pitchshift));
             return false;
         }
 
         x->buf = static_cast<t_sample**>(calloc(x->n_out, sizeof(t_sample*)));
         if (x->buf == NULL) {
-            error("[ceammc] faust_init_outputs failed");
+            error("[%s] faust_init_outputs failed", sym(pitchshift));
             faust_free_outputs(x);
             return false;
         }
@@ -1376,18 +885,7 @@ static bool faust_init_outputs(t_faust* x, bool info_outlet)
     return true;
 }
 
-static void faust_init_label(t_faust* x, const char* obj_id)
-{
-    x->label = new std::string(sym(pitchshift) "~");
-
-    // label settings
-    if (obj_id) {
-        *x->label += " ";
-        *x->label += obj_id;
-    }
-}
-
-static bool faust_new_internal(t_faust* x, const char* obj_id = NULL, bool info_outlet = true)
+static bool faust_new_internal(t_faust* x, const std::string& objId = "", bool info_outlet = true)
 {
     int sr = 44100;
     x->active = 1;
@@ -1396,9 +894,7 @@ static bool faust_new_internal(t_faust* x, const char* obj_id = NULL, bool info_
     x->n_xfade = static_cast<int>(sr * XFADE_TIME / 64);
 
     x->dsp = new pitchshift();
-    x->ui = new PdUI(sym(pitchshift), obj_id);
-
-    faust_init_label(x, obj_id);
+    x->ui = new PdUI<UI>(sym(pitchshift), objId);
 
     if (!faust_init_inputs(x)) {
         faust_free(x);
@@ -1525,10 +1021,12 @@ public:
         , control_outlet_(info_outlet)
     {
         const char* id = NULL;
-        get_nth_symbol_arg(argc_, argv_, 1, &id);
+        std::string objId;
+        if (get_nth_symbol_arg(argc_, argv_, 1, &id))
+            objId = id;
 
         // init error
-        if (!faust_new_internal(x, id, control_outlet_)) {
+        if (!faust_new_internal(x, objId, control_outlet_)) {
             this->x_ = NULL;
         }
     }

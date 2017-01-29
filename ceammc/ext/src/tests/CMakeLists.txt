@@ -13,6 +13,7 @@ ceammc_add_test("ceammc::properties" test_properties)
 ceammc_add_test("ceammc::BaseObject" test_baseobject)
 ceammc_add_test("ceammc::list" test_fn_list)
 ceammc_add_test("ceammc::vector" test_fn_vector)
+ceammc_add_test("ceammc::faust" test_faust)
 
 if(APPLE)
     ceammc_add_test("ceammc::timeline" test_timeline)
