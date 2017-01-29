@@ -24,6 +24,10 @@ struct _outlet {
     t_symbol* o_sym;
 };
 
+struct Dummy {
+};
+typedef PdUI<Dummy> UI;
+
 t_outlet outlet()
 {
     t_outlet res;
@@ -110,6 +114,18 @@ TEST_CASE("Faust", "[ceammc::faust]")
             float v;
             e.setValuePtr(&v);
             e.dump(&xlet);
+        }
+
+        SECTION("pathcmp")
+        {
+            UIElement e(UI_V_SLIDER, "/ui/vsl", "Slider name");
+            REQUIRE_FALSE(e.pathcmp(""));
+            REQUIRE_FALSE(e.pathcmp(""));
+            REQUIRE_FALSE(e.pathcmp("/vsl"));
+            REQUIRE_FALSE(e.pathcmp("i/vsl"));
+            REQUIRE(e.pathcmp("ui/vsl"));
+            REQUIRE(e.pathcmp("/ui/vsl"));
+            REQUIRE(e.pathcmp("vsl"));
         }
     }
 
@@ -201,6 +217,71 @@ TEST_CASE("Faust", "[ceammc::faust]")
             REQUIRE_FALSE(isGetProperty(gensym("@!")));
             REQUIRE(isGetProperty(gensym("@?")));
             REQUIRE(isGetProperty(gensym("@longproperty?")));
+        }
+    }
+
+    SECTION("testPdUI")
+    {
+        SECTION("construct")
+        {
+            UI a("osc.tri~", "osc1");
+            REQUIRE(a.fullName() == "osc.tri~ osc1");
+            REQUIRE(a.uiCount() == 0);
+            REQUIRE(a.oscPath("freq") == "/osc1/osctri/freq");
+
+            UI b("osc.tri~", "");
+            REQUIRE(b.fullName() == "osc.tri~");
+            REQUIRE(b.uiCount() == 0);
+            REQUIRE(b.oscPath("freq") == "/osctri/freq");
+        }
+
+        SECTION("uiAt")
+        {
+            float b;
+            UI a("osc.tri~", "osc1");
+            REQUIRE(a.uiAt(0) == 0);
+            REQUIRE(a.findElementByLabel("run") == 0);
+
+            a.addButton("run", &b);
+            REQUIRE(a.uiCount() == 1);
+            REQUIRE(a.uiAt(0) != 0);
+            REQUIRE(a.uiAt(1) == 0);
+            REQUIRE(b == 0.f);
+            a.setElementValue("run1", 100.f);
+            REQUIRE(b == 0.f);
+            REQUIRE(a.findElementByLabel("run") == a.uiAt(0));
+            a.setElementValue("run", 1.f);
+            REQUIRE(b == 1.f);
+
+            const UI& c = a;
+            REQUIRE(c.uiAt(0) != 0);
+            REQUIRE(c.uiAt(1) == 0);
+            REQUIRE(c.uiAt(0)->label() == "run");
+            REQUIRE(c.uiAt(0)->path() == "/osc1/osctri/run");
+
+            REQUIRE(a.findElementByLabel("run") == a.uiAt(0));
+        }
+
+        SECTION("ui values")
+        {
+            float v;
+            std::vector<float> v_empty;
+            UI a("test", "id1");
+            REQUIRE(a.uiValues() == v_empty);
+            a.addVerticalSlider("vsl", &v, 5.f, -20, 20, 0.0f);
+            REQUIRE(a.uiCount() == 1);
+            REQUIRE(a.uiAt(0)->typeSymbol() == gensym("vslider"));
+            REQUIRE(v == 5.f);
+
+            float v1;
+            a.addNumEntry("num", &v1, 1.f, 0, 10, 0.1f);
+            REQUIRE(v1 == 1.f);
+            REQUIRE(a.uiAt(1)->typeSymbol() == gensym("nentry"));
+
+            std::vector<float> vals1;
+            vals1.push_back(5.f);
+            vals1.push_back(1.f);
+            REQUIRE(a.uiValues() == vals1);
         }
     }
 }

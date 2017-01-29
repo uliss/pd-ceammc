@@ -188,7 +188,7 @@ namespace faust {
             return;
 
         Atom a(value());
-        a.outputAsAny(out, gensym(label_.c_str()));
+        a.outputAsAny(out, gensym(path_.c_str()));
     }
 
     FAUSTFLOAT UIElement::value(FAUSTFLOAT def) const
@@ -239,7 +239,20 @@ namespace faust {
 
     bool UIElement::pathcmp(const std::string& path) const
     {
-        return spathcmp(label_.c_str(), path.c_str()) == 0;
+        size_t n = path_.size();
+        size_t m = path.size();
+
+        if (n == 0 || m == 0)
+            return false;
+
+        // full path check
+        if (path[0] == '/')
+            return path_ == path;
+
+        if (m < n && path_[n - m - 1] != '/')
+            return path_.compare(n - m - 1, std::string::npos, path) == 0;
+
+        return path_.compare(n - m, std::string::npos, path) == 0;
     }
 
     void UIElement::dump(t_outlet* out)
@@ -263,19 +276,6 @@ namespace faust {
         lst.append(step_);
 
         lst.outputAsAny(out, sel);
-    }
-
-    static int spathcmp(const char* s, const char* t)
-    {
-        size_t n = strlen(s), m = strlen(t);
-        if (n == 0 || m == 0)
-            return 0;
-        else if (t[0] == '/')
-            return strcmp(s, t);
-        else if (n <= m || s[n - m - 1] != '/')
-            return strcmp(s + 1, t);
-        else
-            return strcmp(s + n - m, t);
     }
 
     static bool isGetAllProperties(t_symbol* s)
@@ -329,6 +329,284 @@ namespace faust {
 
             res.push_back(escapeOscSegment(osc[i]));
         }
+        return res;
+    }
+
+    template <typename T>
+    class PdUI : public T {
+        std::vector<UIElement*> ui_elements_;
+        std::vector<std::string> osc_path_;
+        std::string name_;
+        std::string id_;
+
+    public:
+        PdUI(const std::string& name, const std::string& id);
+        virtual ~PdUI();
+
+        UIElement* uiAt(size_t pos);
+        const UIElement* uiAt(size_t pos) const;
+        size_t uiCount() const { return ui_elements_.size(); }
+
+    protected:
+        void add_elem(UIElementType type, const std::string& label, float* zone);
+        void add_elem(UIElementType type, const std::string& label, float* zone,
+            float init, float min, float max, float step);
+        void add_elem(UIElementType type, const std::string& label, float* zone, float min, float max);
+
+    public:
+        virtual void addButton(const char* label, float* zone);
+        virtual void addCheckButton(const char* label, float* zone);
+        virtual void addVerticalSlider(const char* label, float* zone, float init, float min, float max, float step);
+        virtual void addHorizontalSlider(const char* label, float* zone, float init, float min, float max, float step);
+        virtual void addNumEntry(const char* label, float* zone, float init, float min, float max, float step);
+
+        virtual void addHorizontalBargraph(const char* label, float* zone, float min, float max);
+        virtual void addVerticalBargraph(const char* label, float* zone, float min, float max);
+
+        virtual void openTabBox(const char* label);
+        virtual void openHorizontalBox(const char* label);
+        virtual void openVerticalBox(const char* label);
+        virtual void closeBox();
+
+        virtual void run();
+
+    public:
+        UIElement* findElementByLabel(const char* label);
+        void setElementValue(const char* label, FAUSTFLOAT v);
+        void dumpUI(t_outlet* out);
+        void outputAllProperties(t_outlet* out);
+        void outputProperty(t_symbol* s, t_outlet* out);
+
+        std::vector<FAUSTFLOAT> uiValues() const;
+        void setUIValues(const std::vector<FAUSTFLOAT>& v);
+        std::string fullName() const;
+        std::string oscPath(const std::string& label) const;
+    };
+
+    template <typename T>
+    PdUI<T>::PdUI(const std::string& name, const std::string& id)
+        : name_(name)
+        , id_(id)
+    {
+        if (!id.empty())
+            osc_path_.push_back(id_);
+
+        osc_path_.push_back(name_);
+    }
+
+    template <typename T>
+    PdUI<T>::~PdUI()
+    {
+        for (size_t i = 0; i < uiCount(); i++)
+            delete ui_elements_[i];
+    }
+
+    template <typename T>
+    UIElement* PdUI<T>::uiAt(size_t pos)
+    {
+        return pos < ui_elements_.size() ? ui_elements_.at(pos) : 0;
+    }
+
+    template <typename T>
+    const UIElement* PdUI<T>::uiAt(size_t pos) const
+    {
+        return pos < ui_elements_.size() ? ui_elements_.at(pos) : 0;
+    }
+
+    template <typename T>
+    void PdUI<T>::add_elem(UIElementType type, const std::string& label, float* zone)
+    {
+        UIElement* elems = new UIElement(type, oscPath(label), label);
+        elems->setValuePtr(zone);
+        ui_elements_.push_back(elems);
+    }
+
+    template <typename T>
+    void PdUI<T>::add_elem(UIElementType type, const std::string& label, float* zone,
+        float init, float min, float max, float step)
+    {
+        UIElement* elems = new UIElement(type, oscPath(label), label);
+        elems->setContraints(init, min, max, step);
+        elems->setValuePtr(zone);
+        ui_elements_.push_back(elems);
+    }
+
+    template <typename T>
+    void PdUI<T>::add_elem(UIElementType type, const std::string& label, float* zone,
+        float min, float max)
+    {
+        UIElement* elems = new UIElement(type, oscPath(label), label);
+        elems->setContraints(0.0, min, max, 0.0);
+        elems->setValuePtr(zone);
+        ui_elements_.push_back(elems);
+    }
+
+    template <typename T>
+    void PdUI<T>::addButton(const char* label, float* zone)
+    {
+        UIElement* elems = new UIElement(UI_BUTTON, oscPath(label), label);
+        elems->setContraints(0, 0, 1, 1);
+        elems->setValuePtr(zone);
+        ui_elements_.push_back(elems);
+    }
+
+    template <typename T>
+    void PdUI<T>::addCheckButton(const char* label, float* zone)
+    {
+        UIElement* elems = new UIElement(UI_CHECK_BUTTON, oscPath(label), label);
+        elems->setContraints(0, 0, 1, 1);
+        elems->setValuePtr(zone);
+        ui_elements_.push_back(elems);
+    }
+
+    template <typename T>
+    void PdUI<T>::addVerticalSlider(const char* label, float* zone, float init, float min, float max, float step)
+    {
+        add_elem(UI_V_SLIDER, label, zone, init, min, max, step);
+    }
+
+    template <typename T>
+    void PdUI<T>::addHorizontalSlider(const char* label, float* zone, float init, float min, float max, float step)
+    {
+        add_elem(UI_H_SLIDER, label, zone, init, min, max, step);
+    }
+
+    template <typename T>
+    void PdUI<T>::addNumEntry(const char* label, float* zone, float init, float min, float max, float step)
+    {
+        add_elem(UI_NUM_ENTRY, label, zone, init, min, max, step);
+    }
+
+    template <typename T>
+    void PdUI<T>::addHorizontalBargraph(const char* label, float* zone, float min, float max)
+    {
+        add_elem(UI_H_BARGRAPH, label, zone, min, max);
+    }
+
+    template <typename T>
+    void PdUI<T>::addVerticalBargraph(const char* label, float* zone, float min, float max)
+    {
+        add_elem(UI_V_BARGRAPH, label, zone, min, max);
+    }
+
+    template <typename T>
+    void PdUI<T>::openTabBox(const char* label)
+    {
+        osc_path_.push_back(label);
+    }
+
+    template <typename T>
+    void PdUI<T>::openHorizontalBox(const char* label)
+    {
+        osc_path_.push_back(label);
+    }
+
+    template <typename T>
+    void PdUI<T>::openVerticalBox(const char* label)
+    {
+        osc_path_.push_back(label);
+    }
+
+    template <typename T>
+    void PdUI<T>::closeBox()
+    {
+        osc_path_.pop_back();
+    }
+
+    template <typename T>
+    void PdUI<T>::run() {}
+
+    template <typename T>
+    UIElement* PdUI<T>::findElementByLabel(const char* label)
+    {
+        for (size_t i = 0; i < uiCount(); i++) {
+            if (ui_elements_[i]->pathcmp(label))
+                return ui_elements_[i];
+        }
+
+        return NULL;
+    }
+
+    template <typename T>
+    void PdUI<T>::setElementValue(const char* label, FAUSTFLOAT v)
+    {
+        UIElement* el = findElementByLabel(label);
+        if (!el)
+            return;
+
+        el->setValue(v);
+    }
+
+    template <typename T>
+    void PdUI<T>::dumpUI(t_outlet* out)
+    {
+        for (size_t i = 0; i < uiCount(); i++)
+            ui_elements_[i]->dump(out);
+    }
+
+    template <typename T>
+    void PdUI<T>::outputAllProperties(t_outlet* out)
+    {
+        ceammc::AtomList l;
+        for (size_t i = 0; i < uiCount(); i++)
+            l.append(ui_elements_[i]->setPropertySym());
+
+        l.output(out);
+    }
+
+    template <typename T>
+    void PdUI<T>::outputProperty(t_symbol* s, t_outlet* out)
+    {
+        for (size_t i = 0; i < uiCount(); i++) {
+            if (ui_elements_[i]->getPropertySym() == s)
+                ui_elements_[i]->outputProperty(out);
+        }
+    }
+
+    template <typename T>
+    std::vector<FAUSTFLOAT> PdUI<T>::uiValues() const
+    {
+        std::vector<FAUSTFLOAT> res;
+        for (size_t i = 0; i < uiCount(); i++)
+            res.push_back(uiAt(i)->value());
+
+        return res;
+    }
+
+    template <typename T>
+    void PdUI<T>::setUIValues(const std::vector<float>& v)
+    {
+        size_t max = std::min(v.size(), uiCount());
+        for (size_t i = 0; i < max; i++)
+            uiAt(i)->setValue(v[i]);
+    }
+
+    template <typename T>
+    std::string PdUI<T>::fullName() const
+    {
+        std::string res(name_);
+        if (!id_.empty()) {
+            res += " ";
+            res += id_;
+        }
+        return res;
+    }
+
+    template <typename T>
+    std::string PdUI<T>::oscPath(const std::string& label) const
+    {
+        typedef std::vector<std::string> StringList;
+
+        std::string res;
+        StringList tmp(osc_path_);
+        tmp.push_back(label);
+
+        StringList osc_segs = filterOscSegment(tmp);
+        for (size_t i = 0; i < osc_segs.size(); i++) {
+            res += '/';
+            res += osc_segs[i];
+        }
+
         return res;
     }
 }
