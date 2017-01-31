@@ -269,6 +269,51 @@ static void exp_instance_dsp(t_exp_instance* x, t_object* dsp, short* /*count*/,
 
 #pragma mark -
 
+
+
+static void exp_instance_any(t_exp_instance* x, t_symbol*s, int argc, t_atom* argv)
+{
+    if (x->instance)
+    {
+        AtomList list = Atom(s);
+        list.append(AtomList(argc,argv));
+        
+        x->instance->callMethod(list);
+    }
+    
+}
+
+static void exp_instance_methodlist(t_exp_instance* x, t_symbol*, int argc, t_atom* argv)
+{
+    if (x->instance)
+    {
+        AtomList list = x->instance->getMethodList();
+        
+        post("Methods:");
+        postatom((int)list.size(), list.toPdData());
+        post("");
+        list = x->instance->getPropertyList();
+        post("Properties:");
+        postatom((int)list.size(), list.toPdData());
+        post("");
+        
+        list = x->instance->getDynamicMethodList();
+        post("Dynamically added Methods:");
+        postatom((int)list.size(), list.toPdData());
+        post("");
+        
+    }
+    
+}
+
+static void exp_instance_refcount(t_exp_instance* x, t_symbol*, int argc, t_atom* argv)
+{
+    if (x->instance)
+    {post("reference count: %i",x->instance->getRefCount());}
+}
+
+#pragma mark -
+#pragma mark object box
 static void* exp_instance_new(t_symbol *id, int argc, t_atom *argv)
 {
     
@@ -330,49 +375,6 @@ static void exp_instance_vis(t_exp_instance* x, t_symbol*, int argc, t_atom* arg
         canvas_vis(x->instance->canvas, (a.asInt()>0));
     }
 }
-
-static void exp_instance_any(t_exp_instance* x, t_symbol*s, int argc, t_atom* argv)
-{
-    if (x->instance)
-    {
-        AtomList list = Atom(s);
-        list.append(AtomList(argc,argv));
-        
-        x->instance->callMethod(list);
-    }
-    
-}
-
-static void exp_instance_methodlist(t_exp_instance* x, t_symbol*, int argc, t_atom* argv)
-{
-    if (x->instance)
-    {
-        AtomList list = x->instance->getMethodList();
-        
-        post("Methods:");
-        postatom((int)list.size(), list.toPdData());
-        post("");
-        list = x->instance->getPropertyList();
-        post("Properties:");
-        postatom((int)list.size(), list.toPdData());
-        post("");
-        
-        list = x->instance->getDynamicMethodList();
-        post("Dynamically added Methods:");
-        postatom((int)list.size(), list.toPdData());
-        post("");
-        
-    }
-    
-}
-
-static void exp_instance_refcount(t_exp_instance* x, t_symbol*, int argc, t_atom* argv)
-{
-    if (x->instance)
-    {post("reference count: %i",x->instance->getRefCount());}
-}
-
-#pragma mark -
 
 static void exp_instance_paint(t_object *z, t_object *view)
 {

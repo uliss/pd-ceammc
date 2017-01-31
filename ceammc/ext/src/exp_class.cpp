@@ -50,10 +50,14 @@ static void exp_class_newclass(t_exp_class* x, t_symbol*, int argc, t_atom* argv
     Atom a = Atom(argv[0]);
     
     x->op_class = new OPClasses(a.asString(), OBJ_NAME);
-    x->op_class->ref() = new OPClass();
-    x->op_class->ref()->class_name = a.asString();
+    if (!x->op_class->ref())
+    {
+        x->op_class->ref() = new OPClass();
+        x->op_class->ref()->class_name = a.asString();
     
-    post("new class: %s", a.asString().c_str());
+        post("new class: %s", a.asString().c_str());
+    }
+    
     
 }
 

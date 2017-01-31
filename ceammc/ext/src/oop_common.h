@@ -82,10 +82,10 @@ typedef GlobalData<OPClass*> OPClassBySymbol;
 class OPClass
 {
 private:
-    map<string,string> methodNames;
+    map<string,string> methodNames;                 // todo rename
     map<string,string> propertyNames;
-    map<string,t_outlet*> methodOutlets;
-    
+    map<string,t_outlet*> methodOutlets;            //todo OPOutputs
+    map<string,t_outlet*> methodPointerOutlets;     //todo OPOutputs
     
 public:
     string class_name;
@@ -189,21 +189,51 @@ public:
         post("saved class: %s ", (char*)(fileName.c_str()));
     }
     
-#pragma mark dynamic: properties / methods
+#pragma mark dynamic: methods
     // dynamic stub:
     void addMethod(string methodName, string referenceName)
     {
         this->methodNames[methodName] = referenceName;
+        
     }
     
-    void addMethodOutlet(string methodName, t_outlet *outlet )
+    void addMethodOutlet(string referenceName, t_outlet *outlet )
     {
-        this->methodOutlets[methodName] = outlet;
+        //todo multiple
+        this->methodOutlets[referenceName] = outlet;
     }
     
-    void addProperty(string propertyName, string referenceName)
+    void addMethodPointerOutlet(string referenceName, t_outlet *outlet )
     {
-        this->propertyNames[propertyName] = referenceName;
+        //todo multiple
+        this->methodPointerOutlets[referenceName] = outlet;
+    }
+    
+    
+    
+    t_outlet* getMethodOutletForReferenceName(string referenceName)
+    {
+        t_outlet* ret;
+        if (this->methodOutlets.count(referenceName))
+        {
+            //todo multiple
+            ret  = this->methodOutlets[referenceName];
+        }
+        
+        return ret;
+        
+    }
+    
+    t_outlet* getMethodPointerOutletForReferenceName(string referenceName)
+    {
+        t_outlet* ret;
+        if (this->methodPointerOutlets.count(referenceName))
+        {
+            //todo multiple
+            ret  = this->methodPointerOutlets[referenceName];
+        }
+        
+        return ret;
         
     }
     
@@ -212,9 +242,23 @@ public:
         this->methodNames.erase(methodName);
     }
     
-    void freeMethodOutlet(string methodName)
+    void freeMethodOutlet(string referenceName)
     {
-        this->methodOutlets.erase(methodName);
+        this->methodOutlets.erase(referenceName);
+        
+    }
+    
+    void freeMethodPointerOutlet(string referenceName)
+    {
+        this->methodPointerOutlets.erase(referenceName);
+        
+    }
+    
+    
+    void addProperty(string propertyName, string referenceName)
+    {
+        this->propertyNames[propertyName] = referenceName;
+        
     }
     
     void freeProperty(string propertyName)
@@ -266,6 +310,8 @@ private:
     //signal
     map<t_symbol*,t_sample*> _signalBuffers;                    ///< vector of method outputs
     
+    //
+    map<t_symbol*,t_outlet*> _methodPointerOutputs;              // todo OPOutputs
     
 public:
     string class_name;
@@ -325,7 +371,7 @@ public:
             
             
             //todo bind symbols
-
+            
             printf("OPInstance\n");
             printf("canvas: %lu\n", (long)this->canvas);
             
@@ -334,14 +380,39 @@ public:
             this->_refCount = 1;
             
             
-
+            
             
         }
         
         //generate properties
-        
         this->propertyNames = _opclass->getPropertyNames();
+        
+        //generate methods
+        //TODO normal class / singleton
+        OPClasses *dyn_class = new OPClasses("__dynamicStub", "exp.method");
+        if (!dyn_class->ref())
+        {
+            dyn_class->ref() = new OPClass();
+            dyn_class->ref()->class_name = "__dynamicStub";
+        }
+        
         this->methodNames = _opclass->getMethodNames();
+        // temporary
+        map<string,string>::iterator it;
+        for (it = this->methodNames.begin(); it != this->methodNames.end(); ++it)
+        {
+            t_outlet *dyn_out = dyn_class->ref()->getMethodOutletForReferenceName(it->second);
+            
+            if (dyn_out)
+                this->addMethod(gensym(it->first.c_str()), dyn_out);
+            
+            t_outlet *dyn_pointer_out = dyn_class->ref()->getMethodPointerOutletForReferenceName(it->second);
+            
+            if (dyn_pointer_out)
+                this->addMethodPointerOut(gensym(it->first.c_str()), dyn_pointer_out);
+        }
+        
+        
         
     }
     
@@ -370,9 +441,20 @@ public:
     {
         this->_methodOutputs[methodName].push_back(outlet);
     }
+    
     void freeMethod(t_symbol* methodName)
     {
         this->_methodOutputs.erase(methodName);
+    }
+    
+    void addMethodPointerOut(t_symbol* methodName, t_outlet *outlet)
+    {
+        this->_methodPointerOutputs[methodName] = outlet;//.push_back(outlet);  TODO
+    }
+    
+    void freeMethodPointerOut(t_symbol* methodName)
+    {
+        this->_methodPointerOutputs.erase(methodName);
     }
     
     
@@ -476,31 +558,44 @@ public:
                 subList.output(*it);
             }
         }
+        
+        //dynamic. todo
+        
+        t_outlet* out2 = this->_methodPointerOutputs[method_name];
+        if (out2)
+        {
+            AtomList objList = AtomList(Atom(gensym("setobject")));
+            
+            objList.append(Atom(gensym(to_string((long)this).c_str())));
+            
+            
+            objList.output(out2);
+        }
     }
     
     void callSetter(AtomList list)
     {
         t_symbol *property_name = list[0].asSymbol();
         
-//        OPProperties *out1 = &this->instancePropertyBoxes[property_name];
-//        
-//        if (out1)
-//        {
-//            for (OPProperties::iterator it =out1->begin(); it!=out1->end(); ++it)
-//            {
-//                pd_typedmess((t_pd*)*it, gensym("set"), (int)list.size(), list.toPdData());
-//            }
-//        }
+        //        OPProperties *out1 = &this->instancePropertyBoxes[property_name];
+        //
+        //        if (out1)
+        //        {
+        //            for (OPProperties::iterator it =out1->begin(); it!=out1->end(); ++it)
+        //            {
+        //                pd_typedmess((t_pd*)*it, gensym("set"), (int)list.size(), list.toPdData());
+        //            }
+        //        }
         
-//        Atom name = Atom(argv[0]);
-//        
-//        if (name.asSymbol() == x->property_name)
-//        {
-//            AtomList list2(argc-1,&argv[1]);
-//            x->instance->setAtomListProperty(x->property_name, list2);
-//            
-//            outlet_bang(x->out2);
-//        }
+        //        Atom name = Atom(argv[0]);
+        //
+        //        if (name.asSymbol() == x->property_name)
+        //        {
+        //            AtomList list2(argc-1,&argv[1]);
+        //            x->instance->setAtomListProperty(x->property_name, list2);
+        //
+        //            outlet_bang(x->out2);
+        //        }
         
         
         
@@ -519,19 +614,19 @@ public:
     {
         t_symbol *property_name = list[0].asSymbol();
         
-//        OPProperties *out1 = &this->instancePropertyBoxes[property_name];
-//        
-//        if (out1)
-//        {
-//            for (OPProperties::iterator it =out1->begin(); it!=out1->end(); ++it)
-//            {
-//                pd_typedmess((t_pd*)*it, gensym("get"), (int)list.size(), list.toPdData());
-//            }
-//        }
+        //        OPProperties *out1 = &this->instancePropertyBoxes[property_name];
+        //
+        //        if (out1)
+        //        {
+        //            for (OPProperties::iterator it =out1->begin(); it!=out1->end(); ++it)
+        //            {
+        //                pd_typedmess((t_pd*)*it, gensym("get"), (int)list.size(), list.toPdData());
+        //            }
+        //        }
         
         AtomList list2 (list[0]);
         list2.append(this->getAtomListProperty(property_name));
-            
+        
         this->multipleOutput(list2);
         
         OPOutputs *out1 = &this->_getterOutputs[property_name];
@@ -609,6 +704,10 @@ public:
     
 };
 
+
+
+
+// yet unused
 #pragma mark canvas additions - C style
 
 static bool canvas_is_class(t_canvas* canvas)
