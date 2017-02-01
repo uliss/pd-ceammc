@@ -18,6 +18,7 @@ struct t_exp_method {
     OPInstance *instance;
     
     t_outlet *out1;
+    t_outlet *out2;     //temporary - separate pointer output for objects not inside the instance
 };
 
 
@@ -55,6 +56,30 @@ static void *exp_method_new(t_symbol *id, int argc, t_atom *argv)
         
         if (x->instance)
             x->instance->addMethod(x->method_name, x->out1);
+        
+        //add method for dynamic class
+        //TODO move later to separate singleton / static etc
+        //now uses "__dynamicStub" to store unconnected methods
+        
+        if (!canvas_is_instance(x->parent_canvas))
+        {
+            post("adding unconnected method: %s", a.asString().c_str());
+        
+            OPClasses *dyn_class = new OPClasses("__dynamicStub", OBJ_NAME);
+            if (!dyn_class->ref())
+            {
+                dyn_class->ref() = new OPClass();
+                dyn_class->ref()->class_name = "__dynamicStub";
+            }
+            
+            dyn_class->ref()->addMethodOutlet(x->method_name->s_name, x->out1);
+            
+            
+            x->out2 = outlet_new((t_object*)x, &s_anything);
+            dyn_class->ref()->addMethodPointerOutlet(x->method_name->s_name, x->out2);
+            
+        }
+        
         
         return static_cast<void*>(x);
 
@@ -99,11 +124,6 @@ static void *exp_method_out_new(t_symbol *id, int argc, t_atom *argv)
     x->e_box.b_boxparameters.d_boxfillcolor = rgba_greylight;
     x->e_box.b_boxparameters.d_bordercolor = rgba_green;
     
-    x->out1 = outlet_new((t_object*)x, &s_anything);
-    
-    if (x->instance)
-        x->instance->addMethod(x->method_name, x->out1);
-    
     return static_cast<void*>(x);
     
 }
@@ -119,7 +139,7 @@ static void exp_methodout_any(t_exp_method* x, t_symbol*id, int argc, t_atom* ar
 {
     if (x->instance)
     {
-        AtomList list((Atom(id)));
+        AtomList list((Atom(x->method_name)));
         AtomList list2(argc,argv);
         list.append(list2);
         if (x->instance)

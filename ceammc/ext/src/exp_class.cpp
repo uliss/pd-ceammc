@@ -41,6 +41,7 @@ static void exp_class_write(t_exp_class* x, t_symbol*, int argc, t_atom* argv)
 }
 
 #pragma mark -
+#pragma mark dynamic
 
 static void exp_class_newclass(t_exp_class* x, t_symbol*, int argc, t_atom* argv)
 {
@@ -49,10 +50,14 @@ static void exp_class_newclass(t_exp_class* x, t_symbol*, int argc, t_atom* argv
     Atom a = Atom(argv[0]);
     
     x->op_class = new OPClasses(a.asString(), OBJ_NAME);
-    x->op_class->ref() = new OPClass();
-    x->op_class->ref()->class_name = a.asString();
+    if (!x->op_class->ref())
+    {
+        x->op_class->ref() = new OPClass();
+        x->op_class->ref()->class_name = a.asString();
     
-    post("new class: %s", a.asString().c_str());
+        post("new class: %s", a.asString().c_str());
+    }
+    
     
 }
 
@@ -192,7 +197,6 @@ extern "C" void setup_exp0x2eclass()
     eclass_addmethod(exp_class_class, (t_typ_method)(exp_class_write), ("writeclass"), A_GIMME, 0);
     
     eclass_addmethod(exp_class_class, (t_typ_method)exp_class_click, ("click"), A_NULL, 0);
-    
     
     eclass_addmethod(exp_class_class, (t_typ_method)(exp_class_newclass), ("newclass"), A_GIMME, 0);
     

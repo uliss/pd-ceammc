@@ -8,9 +8,8 @@
 
 #include "ceammc.h"
 #include <m_pd.h>
-//#include <g_canvas.h>
 #include <stdlib.h>
-//
+
 #include "ceammc_atomlist.h"
 
 #include "m_imp.h"
@@ -34,7 +33,7 @@ template <class T>
 inline string to_string (const T& t)
 {
     stringstream ss;
-    ss << t;
+    ss << t;        // ss << std::hex << t;
     return ss.str();
 }
 
@@ -75,24 +74,29 @@ typedef vector<t_object*> OPProperties;        ///< vector of property boxes
 
 static void canvas_paste_class(t_canvas *x, t_binbuf *b);
 
+//weird
+class OPClass;
+typedef GlobalData<OPClass*> OPClassByCanvas;
+typedef GlobalData<OPClass*> OPClassBySymbol;
+
 class OPClass
 {
 private:
-    
+    map<string,string> methodNames;                 // todo rename
+    map<string,string> propertyNames;
+    map<string,t_outlet*> methodOutlets;            //todo OPOutputs
+    map<string,t_outlet*> methodPointerOutlets;     //todo OPOutputs
     
 public:
     string class_name;
     t_canvas *canvas;
     
-    //todo encapsulated
-    map<string,string> methodNames;
-    map<string,string> propertyNames;
+    t_symbol *symbol;
     
     // for dynamic (change arguments?)
     OPClass()
     {
         this->canvas = 0;
-        
     }
     // for canvas-based (change arguments?)
     OPClass(string className)
@@ -101,6 +105,15 @@ public:
         this->canvas = (t_canvas*)subcanvas_new(gensym(className.c_str()));
         this->canvas->gl_havewindow = 1;
         this->canvas->gl_isclone = 1;
+        
+        this->symbol = gensym(class_name.c_str());
+        this->class_name = className;
+        
+        OPClassByCanvas* link = new OPClassByCanvas(to_string((long)this->canvas), "OOP.common");
+        link->ref() = this;
+        
+        OPClassBySymbol* link2 = new OPClassBySymbol(this->symbol->s_name, "OOP.common");
+        link2->ref() = this;
         
         canvas_vis(this->canvas, 0);
         
@@ -116,9 +129,23 @@ public:
         
         this->canvas->gl_owner = 0;
         
-        this->class_name = className;
-        
     }
+    
+#pragma mark getters
+    map<string,string> getMethodNames()
+    {
+        return this->methodNames;
+    }
+    map<string,string> getPropertyNames()
+    {
+        return this->propertyNames;
+    }
+    map<string,t_outlet*> getMethodOutlets()
+    {
+        return this->methodOutlets;
+    }
+    
+#pragma mark file io
     
     void readFile(string fileName, t_canvas *parent_canvas)
     {
@@ -139,7 +166,6 @@ public:
             if (this->canvas->gl_list)
             {
                 glist_delete(this->canvas, this->canvas->gl_list);
-                
             }
             
             canvas_paste_class(this->canvas, b);
@@ -163,11 +189,71 @@ public:
         post("saved class: %s ", (char*)(fileName.c_str()));
     }
     
+#pragma mark dynamic: methods
     // dynamic stub:
     void addMethod(string methodName, string referenceName)
     {
         this->methodNames[methodName] = referenceName;
+        
     }
+    
+    void addMethodOutlet(string referenceName, t_outlet *outlet )
+    {
+        //todo multiple
+        this->methodOutlets[referenceName] = outlet;
+    }
+    
+    void addMethodPointerOutlet(string referenceName, t_outlet *outlet )
+    {
+        //todo multiple
+        this->methodPointerOutlets[referenceName] = outlet;
+    }
+    
+    
+    
+    t_outlet* getMethodOutletForReferenceName(string referenceName)
+    {
+        t_outlet* ret;
+        if (this->methodOutlets.count(referenceName))
+        {
+            //todo multiple
+            ret  = this->methodOutlets[referenceName];
+        }
+        
+        return ret;
+        
+    }
+    
+    t_outlet* getMethodPointerOutletForReferenceName(string referenceName)
+    {
+        t_outlet* ret;
+        if (this->methodPointerOutlets.count(referenceName))
+        {
+            //todo multiple
+            ret  = this->methodPointerOutlets[referenceName];
+        }
+        
+        return ret;
+        
+    }
+    
+    void freeMethod(string methodName)
+    {
+        this->methodNames.erase(methodName);
+    }
+    
+    void freeMethodOutlet(string referenceName)
+    {
+        this->methodOutlets.erase(referenceName);
+        
+    }
+    
+    void freeMethodPointerOutlet(string referenceName)
+    {
+        this->methodPointerOutlets.erase(referenceName);
+        
+    }
+    
     
     void addProperty(string propertyName, string referenceName)
     {
@@ -175,8 +261,25 @@ public:
         
     }
     
+    void freeProperty(string propertyName)
+    {
+        this->propertyNames.erase(propertyName);
+        
+    }
     
+#pragma mark find
     
+    static OPClass * findByCanvas(t_canvas* canvas)
+    {
+        OPClassByCanvas* ret = new OPClassByCanvas(to_string((long)canvas), "OOP.common");
+        return ret->ref();
+    }
+    
+    static OPClass * findBySymbol(t_symbol * symbol)
+    {
+        OPClassBySymbol* ret = new OPClassBySymbol(symbol->s_name, "OOP.common");
+        return ret->ref();
+    }
     
 };
 
@@ -193,28 +296,28 @@ private:
     map<t_symbol*,OPOutputs> _methodOutputs;                    ///< vector of method outputs
     OPOutputs _instanceOutputs;                                 ///< vector of instances outputs
     
-    map<t_symbol*,OPProperties> instancePropertyBoxes;          ///< for property hanling we get pointers to objects instead of outlets
+    map<t_symbol*,OPOutputs> _getterOutputs;                    ///< new
+    map<t_symbol*,OPOutputs> _setterOutputs;                    ///< new
     
     //new
-    
     map<t_symbol*, AtomList> _propertyValues;
     int _refCount;
     
-    // dynamic
+    // dynamic.
     map<string,string> methodNames;
     map<string,string> propertyNames;
     
     //signal
     map<t_symbol*,t_sample*> _signalBuffers;                    ///< vector of method outputs
     
+    //
+    map<t_symbol*,t_outlet*> _methodPointerOutputs;              // todo OPOutputs
     
 public:
     string class_name;
     t_canvas *canvas;
     
     t_symbol *symbol;
-    
-    
     
     OPInstance(OPClass * _opclass)
     
@@ -248,6 +351,10 @@ public:
             OPInstanceByCanvas* link = new OPInstanceByCanvas(to_string((long)this->canvas), "OOP.common");
             link->ref() = this;
             
+            OPInstanceBySymbol* link2 = new OPInstanceBySymbol(this->symbol->s_name, "OOP.common");
+            link2->ref() = this;
+            
+            
             //load
             t_binbuf *b1 = binbuf_new();
             
@@ -262,11 +369,9 @@ public:
             
             canvas_resume_dsp(dsp_state);
             
-            OPInstanceBySymbol* link2 = new OPInstanceBySymbol(this->symbol->s_name, "OOP.common");
-            link2->ref() = this;
             
             //todo bind symbols
-
+            
             printf("OPInstance\n");
             printf("canvas: %lu\n", (long)this->canvas);
             
@@ -275,14 +380,38 @@ public:
             this->_refCount = 1;
             
             
-
+            
             
         }
         
         //generate properties
+        this->propertyNames = _opclass->getPropertyNames();
         
-        this->propertyNames = _opclass->propertyNames;
-        this->methodNames = _opclass->methodNames;
+        //generate methods
+        //TODO normal class / singleton
+        OPClasses *dyn_class = new OPClasses("__dynamicStub", "exp.method");
+        if (!dyn_class->ref())
+        {
+            dyn_class->ref() = new OPClass();
+            dyn_class->ref()->class_name = "__dynamicStub";
+        }
+        
+        this->methodNames = _opclass->getMethodNames();
+        // temporary
+        map<string,string>::iterator it;
+        for (it = this->methodNames.begin(); it != this->methodNames.end(); ++it)
+        {
+            t_outlet *dyn_out = dyn_class->ref()->getMethodOutletForReferenceName(it->second);
+            
+            if (dyn_out)
+                this->addMethod(gensym(it->first.c_str()), dyn_out);
+            
+            t_outlet *dyn_pointer_out = dyn_class->ref()->getMethodPointerOutletForReferenceName(it->second);
+            
+            if (dyn_pointer_out)
+                this->addMethodPointerOut(gensym(it->first.c_str()), dyn_pointer_out);
+        }
+        
         
         
     }
@@ -297,11 +426,9 @@ public:
         canvas_takeofflist(this->canvas);
         canvas_free(this->canvas);
         
-        
         this->canvas = 0;
         
         canvas_resume_dsp(dsp_state);
-        
         
         printf("~OPInstance\n");
         printf("canvas: %lu\n", (long)this->canvas);
@@ -314,10 +441,22 @@ public:
     {
         this->_methodOutputs[methodName].push_back(outlet);
     }
+    
     void freeMethod(t_symbol* methodName)
     {
         this->_methodOutputs.erase(methodName);
     }
+    
+    void addMethodPointerOut(t_symbol* methodName, t_outlet *outlet)
+    {
+        this->_methodPointerOutputs[methodName] = outlet;//.push_back(outlet);  TODO
+    }
+    
+    void freeMethodPointerOut(t_symbol* methodName)
+    {
+        this->_methodPointerOutputs.erase(methodName);
+    }
+    
     
 #pragma mark signal
     
@@ -345,13 +484,19 @@ public:
     
 #pragma mark properties
     
-    void addPropertyBox(t_symbol* pMethodName, t_object *object)
+    void addProperty(t_symbol* propertyName, t_outlet *getter_out, t_outlet *setter_out)
     {
-        this->instancePropertyBoxes[pMethodName].push_back(object);
+        this->_getterOutputs[propertyName].push_back(getter_out);
+        this->_setterOutputs[propertyName].push_back(setter_out);
+        
+        this->propertyNames[propertyName->s_name] = "<none>";   //don't link by name as we link outlets.
     }
-    void freePropertyBox(t_symbol* pMethodName)
+    void freeProperty(t_symbol* propertyName)
     {
-        this->instancePropertyBoxes.erase(pMethodName);
+        this->_getterOutputs.erase(propertyName);
+        this->_setterOutputs.erase(propertyName);
+        
+        this->propertyNames.erase(propertyName->s_name);
     }
     
     void setAtomListProperty(t_symbol *propertyName, AtomList list)
@@ -370,22 +515,6 @@ public:
     {
         AtomList ret;
         
-        for (map<t_symbol*,OPProperties>::iterator it = this->instancePropertyBoxes.begin(); it != this->instancePropertyBoxes.end(); ++it)
-        {
-            ret.append(Atom(it->first));
-        }
-        
-        //dynamic
-        
-        
-        
-        return ret;
-    }
-    
-    AtomList getDynamicPropertyList()
-    {
-        AtomList ret;
-        
         for (map<string,string>::iterator it = this->propertyNames.begin(); it != this->propertyNames.end(); ++it)
         {
             ret.append(Atom(gensym(it->first.c_str())));
@@ -393,6 +522,8 @@ public:
         
         return ret;
     }
+    
+#pragma mark methods
     
     void addInstanceOut(t_outlet *outlet)
     {
@@ -427,20 +558,55 @@ public:
                 subList.output(*it);
             }
         }
+        
+        //dynamic. todo
+        
+        t_outlet* out2 = this->_methodPointerOutputs[method_name];
+        if (out2)
+        {
+            AtomList objList = AtomList(Atom(gensym("setobject")));
+            
+            objList.append(Atom(gensym(to_string((long)this).c_str())));
+            
+            
+            objList.output(out2);
+        }
     }
     
     void callSetter(AtomList list)
     {
         t_symbol *property_name = list[0].asSymbol();
         
-        OPProperties *out1 = &this->instancePropertyBoxes[property_name];
+        //        OPProperties *out1 = &this->instancePropertyBoxes[property_name];
+        //
+        //        if (out1)
+        //        {
+        //            for (OPProperties::iterator it =out1->begin(); it!=out1->end(); ++it)
+        //            {
+        //                pd_typedmess((t_pd*)*it, gensym("set"), (int)list.size(), list.toPdData());
+        //            }
+        //        }
         
-        if (out1)
+        //        Atom name = Atom(argv[0]);
+        //
+        //        if (name.asSymbol() == x->property_name)
+        //        {
+        //            AtomList list2(argc-1,&argv[1]);
+        //            x->instance->setAtomListProperty(x->property_name, list2);
+        //
+        //            outlet_bang(x->out2);
+        //        }
+        
+        
+        
+        AtomList list2 ((size_t)list.size()-1, (t_atom*)list.toPdData()+1); //TODO
+        this->setAtomListProperty(property_name, list2);
+        
+        OPOutputs *out1 = &this->_setterOutputs[property_name];
+        
+        for (OPOutputs::iterator it =out1->begin(); it!=out1->end(); ++it)
         {
-            for (OPProperties::iterator it =out1->begin(); it!=out1->end(); ++it)
-            {
-                pd_typedmess((t_pd*)*it, gensym("set"), (int)list.size(), list.toPdData());
-            }
+            outlet_bang(*it);
         }
     }
     
@@ -448,15 +614,31 @@ public:
     {
         t_symbol *property_name = list[0].asSymbol();
         
-        OPProperties *out1 = &this->instancePropertyBoxes[property_name];
+        //        OPProperties *out1 = &this->instancePropertyBoxes[property_name];
+        //
+        //        if (out1)
+        //        {
+        //            for (OPProperties::iterator it =out1->begin(); it!=out1->end(); ++it)
+        //            {
+        //                pd_typedmess((t_pd*)*it, gensym("get"), (int)list.size(), list.toPdData());
+        //            }
+        //        }
         
-        if (out1)
+        AtomList list2 (list[0]);
+        list2.append(this->getAtomListProperty(property_name));
+        
+        this->multipleOutput(list2);
+        
+        OPOutputs *out1 = &this->_getterOutputs[property_name];
+        
+        for (OPOutputs::iterator it =out1->begin(); it!=out1->end(); ++it)
         {
-            for (OPProperties::iterator it =out1->begin(); it!=out1->end(); ++it)
-            {
-                pd_typedmess((t_pd*)*it, gensym("get"), (int)list.size(), list.toPdData());
-            }
+            outlet_bang(*it);
         }
+        
+        
+        
+        
     }
     
     AtomList getMethodList()
@@ -507,7 +689,7 @@ public:
     int getRefCount()
     {return this->_refCount;}
     
-#pragma mark canvas
+#pragma mark find
     static OPInstance * findByCanvas(t_canvas* canvas)
     {
         OPInstanceByCanvas* ret = new OPInstanceByCanvas(to_string((long)canvas), "OOP.common");
@@ -524,6 +706,19 @@ public:
 
 
 
+
+// yet unused
+#pragma mark canvas additions - C style
+
+static bool canvas_is_class(t_canvas* canvas)
+{
+    return (OPClass::findByCanvas(canvas));
+}
+
+static bool canvas_is_instance(t_canvas* canvas)
+{
+    return (OPInstance::findByCanvas(canvas));
+}
 
 #pragma mark -
 
