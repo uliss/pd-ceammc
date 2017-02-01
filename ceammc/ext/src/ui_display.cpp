@@ -61,12 +61,12 @@ UI_fun(ui_display)::wx_paint(t_object* z, t_object* /*view*/)
     t_symbol* bgl = BG_LAYER;
 
     t_rect rect;
-    ebox_get_rect_for_view(toEBox(z), &rect);
+    ebox_get_rect_for_view(asBox(z), &rect);
 
-    t_elayer* g = ebox_start_layer(toEBox(z), bgl, rect.width, rect.height);
+    t_elayer* g = ebox_start_layer(asBox(z), bgl, rect.width, rect.height);
 
     if (g) {
-        ui_display* zx = toStruct(z);
+        ui_display* zx = asStruct(z);
 
         if (zx->show_type) {
             egraphics_set_color_hex(g, msg_color(zx->s_type));
@@ -96,16 +96,16 @@ UI_fun(ui_display)::wx_paint(t_object* z, t_object* /*view*/)
             etext_layout_draw(zx->txt_val, g);
         }
 
-        ebox_end_layer(toEBox(z), bgl);
+        ebox_end_layer(asBox(z), bgl);
     }
 
-    ebox_paint_layer(toEBox(z), bgl, 0., 0.);
+    ebox_paint_layer(asBox(z), bgl, 0., 0.);
 }
 
 UI_fun(ui_display)::m_anything(t_object* z, t_symbol* s, int argc, t_atom* argv)
 
 {
-    ui_display* zx = toStruct(z);
+    ui_display* zx = asStruct(z);
     zx->s_type = s;
     (*zx->s_value) = to_string(AtomList(argc, argv));
 
@@ -162,7 +162,7 @@ UI_fun(ui_display)::wx_oksize(t_object* /*z*/, t_rect* newrect)
 
 UI_fun(ui_display)::new_ext(t_object* z, t_symbol* /*s*/, int /*argcl*/, t_atom* /*argv*/)
 {
-    ui_display* zx = toStruct(z);
+    ui_display* zx = asStruct(z);
 
     zx->s_value = new std::string;
     zx->s_type = &s_anything;
@@ -180,7 +180,7 @@ UI_fun(ui_display)::new_ext(t_object* z, t_symbol* /*s*/, int /*argcl*/, t_atom*
 
 UI_fun(ui_display)::free_ext(t_object* z)
 {
-    ui_display* zx = toStruct(z);
+    ui_display* zx = asStruct(z);
     delete zx->s_value;
 
     efont_destroy(zx->txt_font);

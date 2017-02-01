@@ -16,11 +16,6 @@ using namespace ceammc::tl;
 
 namespace ceammc_gui {
 
-static t_symbol* FONT_FAMILY = gensym("Helvetica");
-static t_symbol* FONT_STYLE = gensym("roman");
-static t_symbol* FONT_WEIGHT = gensym("normal");
-static const int FONT_SIZE = 12;
-
 static t_symbol* FILL_COLOR = gensym("#F0F0F0");
 static const int LINE_WIDTH = 2;
 static const int LINE_BOTTOM_MARGIN = 5;
@@ -50,19 +45,9 @@ struct tl_cue : public BaseGuiObject {
     }
 };
 
-static inline tl_cue* asCue(t_object* x)
-{
-    return reinterpret_cast<tl_cue*>(x);
-}
-
 static inline tl_cue* asCue(t_ebox* x)
 {
     return reinterpret_cast<tl_cue*>(x);
-}
-
-static inline t_ebox* asBox(t_object* x)
-{
-    return reinterpret_cast<t_ebox*>(x);
 }
 
 static inline int canvas_height(t_ebox* x)
@@ -161,7 +146,7 @@ void tl_cue_displace(t_gobj* z, t_glist* glist, int dx, int /*dy*/)
 
 UI_fun(tl_cue)::new_ext(t_object* z, t_symbol* /*s*/, int /*argc*/, t_atom* /*argv*/)
 {
-    tl_cue* zx = asCue(z);
+    tl_cue* zx = asStruct(z);
 
     zx->txt = etext_layout_create();
     zx->fnt = efont_create(FONT_FAMILY, FONT_STYLE, FONT_WEIGHT, FONT_SIZE);
@@ -195,7 +180,7 @@ UI_fun(tl_cue)::init_ext(t_eclass* z)
 
 UI_fun(tl_cue)::free_ext(t_object* z)
 {
-    tl_cue* zx = asCue(z);
+    tl_cue* zx = asStruct(z);
     vline_delete(asBox(z));
     CueStorage::remove(zx->data);
     delete zx->data;
@@ -216,7 +201,7 @@ UI_fun(tl_cue)::wx_paint(t_object* z, t_object* /*view*/)
 
     t_elayer* g = ebox_start_layer(asBox(z), BG_LAYER, rect.width, rect.height);
     if (g) {
-        tl_cue* zx = asCue(z);
+        tl_cue* zx = asStruct(z);
 
         egraphics_rectangle(g, 0, 0, rect.width, rect.height);
         egraphics_set_color_hex(g, FILL_COLOR);

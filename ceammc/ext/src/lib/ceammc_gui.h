@@ -549,12 +549,12 @@ public:
         this->setup(_class_name);
     }
 
-    static U* toStruct(t_object* x)
+    static U* asStruct(t_object* x)
     {
         return reinterpret_cast<U*>(x);
     }
 
-    static t_ebox* toEBox(t_object* x)
+    static t_ebox* asBox(t_object* x)
     {
         return reinterpret_cast<t_ebox*>(x);
     }
