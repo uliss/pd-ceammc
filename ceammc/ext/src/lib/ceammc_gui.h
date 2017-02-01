@@ -22,17 +22,19 @@
 
 #include <string>
 
-#include "m_pd.h"
 #include "cicm_wrapper.h"
+#include "m_pd.h"
 
 namespace ceammc_gui {
-   
-    /** \deprecated this was a separate property handling, should be merged with existing CICM properties
+
+/** \deprecated this was a separate property handling, should be merged with existing CICM properties
      */
 #pragma mark UI defines
-    
-#define UI_fun(x) template<> void ceammc_gui::GuiFactory<x>
-#define UI_funp(x) template<> void* ceammc_gui::GuiFactory<x>
+
+#define UI_fun(x) template <> \
+void ceammc_gui::GuiFactory<x>
+#define UI_funp(x) template <> \
+void* ceammc_gui::GuiFactory<x>
 #define UI_METHOD_PTR(m) reinterpret_cast<method>(&GuiFactory<U>::m)
 
 #pragma mark -
@@ -40,24 +42,23 @@ namespace ceammc_gui {
 /**
  * @brief Structure prototype for pd object (t_object).
  */
-struct BaseGuiObject
-{
+struct BaseGuiObject {
     /** @brief CICM ui box.
      * this must be included in inherited structure 
      * @details for DSP object override with t_edspobj in inherited class (backwards compatible)
      */
     t_ebox b_box;
-    
+
     // basic mouse handling
-    
+
     float mouse_x;
     float mouse_y;
     int mouse_dn;
     bool _selected;
-    
+
     // this was prototype for dynamic I/O
     // todo merge with CICM functionality
-    
+
     //    t_inlet **inlets;
     //    t_inlet **outlets;
     //    int inlet_count;
@@ -65,7 +66,6 @@ struct BaseGuiObject
     //    t_atomtype *inlet_types;
     //    t_atomtype *outet_types;
 };
-
 
 /**
  * @brief The template class for GUI objects. Provides basic functionality with CICM Wrapper.
@@ -85,223 +85,230 @@ public:
 #pragma mark static - definitions
     static t_eclass* pd_class;
     static t_symbol* BG_LAYER;
+    static t_symbol* FONT_FAMILY;
+    static t_symbol* FONT_STYLE;
+    static t_symbol* FONT_WEIGHT;
+    static t_symbol* COLOR_ACTIVE;
+    static const int FONT_SIZE;
 #pragma mark -
 
 #pragma mark method 'extension' stubs
-    
+
     /**
      * @brief "extension": bang method
      * @param z: pd object, s: symbol ("bang"), argc: argument count (should be 0), argv: argument value
      */
-    static void m_bang(t_object *z, t_symbol *s, int argc, t_atom *argv)
-    {}
-    
+    static void m_bang(t_object* z, t_symbol* s, int argc, t_atom* argv)
+    {
+    }
+
     /**
      * @brief "extension": list method
      * @param z: pd object, s: symbol ("list"), argc: argument count , argv: argument value
      */
-    static void m_list(t_object *z, t_symbol *s, int argc, t_atom *argv)
-    {}
-    
+    static void m_list(t_object* z, t_symbol* s, int argc, t_atom* argv)
+    {
+    }
+
     /**
      * @brief "extension": anything method
      * @param z: pd object, s: symbol (message name, first element), argc: argument count, argv: argument value
      */
-    static void m_anything(t_object *z, t_symbol *s, int argc, t_atom *argv)
-    {}
-    
+    static void m_anything(t_object* z, t_symbol* s, int argc, t_atom* argv)
+    {
+    }
+
     /**
      * @brief "extension": symbol method
      * @param z: pd object, s: symbol (the symbol itself), argc: argument count, argv: argument value
      */
-    static void m_symbol(t_object *z, t_symbol *s, int argc, t_atom *argv)
-    {}
-    
+    static void m_symbol(t_object* z, t_symbol* s, int argc, t_atom* argv)
+    {
+    }
+
     /**
      * @brief "extension": float method
      * @param z: pd object, f: float value
      */
-    static void m_float(t_object *z, t_float f)
-    {}
-    
+    static void m_float(t_object* z, t_float f)
+    {
+    }
+
     /**
      * @brief "extension": set method
      * @param z: pd object, s: symbol ("set"), argc: argument count, argv: argument value
      */
-    static void m_set(t_object *z, t_symbol *s, int argc, t_atom *argv)
-    {}
-    
+    static void m_set(t_object* z, t_symbol* s, int argc, t_atom* argv)
+    {
+    }
 
 #pragma mark basic 'extension' stubs
-    
+
     /**
      * @brief "extension": class initialization
      * @param z: pd class
      */
-    static void init_ext(t_eclass *z)
-    {}
-    
+    static void init_ext(t_eclass* z)
+    {
+    }
+
     /**
      * @brief "extension": pd object (instance) initialization
      * @param z: pd object, s: symbol ("set"), argc: argument count, argv: argument value
      */
-    static void new_ext(t_object *z, t_symbol *s, int argc, t_atom *argv)
-    {}
-    
+    static void new_ext(t_object* z, t_symbol* s, int argc, t_atom* argv)
+    {
+    }
+
     /**
      * @brief DEPRECATED "extension": properties load routine
      * @param z: pd object
      */
-    static void load_ext(t_object *z)
-    {}
-    
+    static void load_ext(t_object* z)
+    {
+    }
+
     /**
      * @brief "extension": pd object (instance) free method.
      * @param z: pd object
      */
-    static void free_ext(t_object *z)
-    {}
-
+    static void free_ext(t_object* z)
+    {
+    }
 
 #pragma mark ui interaction 'extension' stubs
-    
+
     /**
      * @brief "extension": mouse move event
      * @param z: pd object, view: view, pt: mouse location, modifiers: modifiers
      */
-    static void wx_mousemove_ext(t_object* z, t_object *view, t_pt pt, long modifiers)
+    static void wx_mousemove_ext(t_object* z, t_object* view, t_pt pt, long modifiers)
     {
         GuiFactory<U>::ws_redraw(z);
     }
-    
+
     /**
      * @brief "extension": mouse down event
      * @param z: pd object, view: view, pt: mouse location, modifiers: modifiers
      */
-    static void wx_mousedown_ext(t_object* z, t_object *view, t_pt pt, long modifiers)
+    static void wx_mousedown_ext(t_object* z, t_object* view, t_pt pt, long modifiers)
     {
-        
     }
-    
+
     /**
      * @brief "extension": mouse up event
      * @param z: pd object, view: view, pt: mouse location, modifiers: modifiers
      */
-    static void wx_mouseup_ext(t_object* z, t_object *view, t_pt pt, long modifiers)
+    static void wx_mouseup_ext(t_object* z, t_object* view, t_pt pt, long modifiers)
     {
-        
     }
-    
+
     /**
      * @brief "extension": mouse drag event
      * @param z: pd object, view: view, pt: mouse location, modifiers: modifiers
      */
-    static void wx_mousedrag_ext(t_object* z, t_object *view, t_pt pt, long modifiers)
+    static void wx_mousedrag_ext(t_object* z, t_object* view, t_pt pt, long modifiers)
     {
-        
     }
-    
+
     /**
      * @brief "extension": mouse leave event
      * @param z: pd object, view: view, pt: mouse location, modifiers: modifiers
      */
-    static void wx_mouseleave_ext(t_object* z, t_object *view, t_pt pt, long modifiers)
+    static void wx_mouseleave_ext(t_object* z, t_object* view, t_pt pt, long modifiers)
     {
-        
     }
-    
+
     /**
      * @brief "extension": mouse leave event
      * @param z: pd object, view: view, pt: mouse location, modifiers: modifiers
      */
-    static void wx_mouseenter_ext(t_object* z, t_object *view, t_pt pt, long modifiers)
+    static void wx_mouseenter_ext(t_object* z, t_object* view, t_pt pt, long modifiers)
     {
-        
     }
 
 #pragma mark -
 #pragma mark pd object instance
-    
+
     /**
      * @brief new pd object instance.
      * @param s: symbol, argc: argument count, argv: argument value
      */
-    static void *new_method(t_symbol *s, int argc, t_atom *argv)
+    static void* new_method(t_symbol* s, int argc, t_atom* argv)
     {
         t_object* z = reinterpret_cast<t_object*>(eobj_new(GuiFactory<U>::pd_class));
-        
-        t_binbuf* d = binbuf_via_atoms(argc,argv);
+
+        t_binbuf* d = binbuf_via_atoms(argc, argv);
         ebox_new(reinterpret_cast<t_ebox*>(z), 0 | EBOX_GROWINDI);
-        
+
         if (z && d) {
             //moved
             GuiFactory<U>::new_ext(z, s, argc, argv);
-            
+
             ebox_attrprocess_viabinbuf(z, d);
         }
         ebox_ready(reinterpret_cast<t_ebox*>(z));
-        
+
         return static_cast<void*>(z);
     }
-       
+
     /**
      * @brief pd object free method
      * @param z: pd object
      */
-    static void free_method(t_object *z)
+    static void free_method(t_object* z)
     {
         GuiFactory<U>::free_ext(z);
         ebox_free(reinterpret_cast<t_ebox*>(z));
     }
-    
+
     /**
      * @brief pd object dsp free method
      * @param z: pd object
      */
-    static void free_dsp_method(t_object *x)
+    static void free_dsp_method(t_object* x)
     {
         GuiFactory<U>::free_ext(x);
         eobj_dspfree(reinterpret_cast<t_ebox*>(x));
     }
-    
-    
+
 #pragma mark -
 #pragma mark standard widget methods
-    
+
     /**
      * @brief pd widget method: select
      * @param z: pd graphic object, glist: pd canvas, selected: flag
      */
-    static void w_select(t_gobj *z, t_glist *glist, int selected)
+    static void w_select(t_gobj* z, t_glist* glist, int selected)
     {
         U* zx = reinterpret_cast<U*>(z);
         zx->_selected = selected;
     }
-    
+
 #pragma mark extended ui methods
-    
+
     /**
      * @brief CICM widget method: redraw
      * @param z: pd object
      */
-    static void ws_redraw(t_object *z)
+    static void ws_redraw(t_object* z)
     {
         ebox_invalidate_layer(reinterpret_cast<t_ebox*>(z), BG_LAYER);
         ebox_redraw(reinterpret_cast<t_ebox*>(z));
     }
-    
+
     /**
      * @brief CICM widget method: paint
      * @param z: pd object, view: canvas
      */
-    static void wx_paint(t_object *z, t_object *view)
+    static void wx_paint(t_object* z, t_object* view)
     {
         //float size;
         t_rect rect;
-        ebox_get_rect_for_view((t_ebox *)z, &rect);
-        
-        t_elayer *g = ebox_start_layer((t_ebox *)z, BG_LAYER, rect.width, rect.height);
-        if(g) {
+        ebox_get_rect_for_view((t_ebox*)z, &rect);
+
+        t_elayer* g = ebox_start_layer((t_ebox*)z, BG_LAYER, rect.width, rect.height);
+        if (g) {
             // EXAMPLE
             //            size = rect.width * 0.5;
             //            egraphics_set_color_hex(g, gensym("#00C0FF"));
@@ -309,103 +316,102 @@ public:
             //            egraphics_fill(g);
             ebox_end_layer((t_ebox*)z, BG_LAYER);
         }
-        
-        ebox_paint_layer((t_ebox *)z, BG_LAYER, 0., 0.);
+
+        ebox_paint_layer((t_ebox*)z, BG_LAYER, 0., 0.);
     }
-    
+
     /**
      * @brief CICM widget method: oksize
      * @details fix the object size in this method
      * @param z: pd object, newrect: object box rect
      */
-    static void wx_oksize(t_object *z, t_rect *newrect)
+    static void wx_oksize(t_object* z, t_rect* newrect)
     {
-    
     }
-    
+
 #pragma mark extended - interaction
-    
+
     /**
      * @brief CICM widget method: mouse move
      * @param z: pd object, view: view, pt: mouse location, modifiers: modifiers
      */
-    static void wx_mousemove(t_object* z, t_object *view, t_pt pt, long modifiers)
+    static void wx_mousemove(t_object* z, t_object* view, t_pt pt, long modifiers)
     {
         U* zx = reinterpret_cast<U*>(z);
-        
+
         zx->mouse_x = pt.x;
         zx->mouse_y = pt.y;
-        
+
         GuiFactory<U>::wx_mousemove_ext(z, view, pt, modifiers);
     }
-    
+
     /**
      * @brief CICM widget method: mouse down
      * @param z: pd object, view: view, pt: mouse location, modifiers: modifiers
      */
-    static void wx_mousedown(t_object* z, t_object *view, t_pt pt, long modifiers)
+    static void wx_mousedown(t_object* z, t_object* view, t_pt pt, long modifiers)
     {
         U* zx = reinterpret_cast<U*>(z);
-        
+
         zx->mouse_x = pt.x;
         zx->mouse_y = pt.y;
-        
+
         zx->mouse_dn = 1;
-        
+
         GuiFactory<U>::wx_mousedown_ext(z, view, pt, modifiers);
     }
-    
+
     /**
      * @brief CICM widget method: mouse up
      * @param z: pd object, view: view, pt: mouse location, modifiers: modifiers
      */
-    static void wx_mouseup(t_object* z, t_object *view, t_pt pt, long modifiers)
+    static void wx_mouseup(t_object* z, t_object* view, t_pt pt, long modifiers)
     {
         U* zx = reinterpret_cast<U*>(z);
-        
+
         zx->mouse_x = pt.x;
         zx->mouse_y = pt.y;
-        
+
         zx->mouse_dn = 0;
-        
+
         GuiFactory<U>::wx_mouseup_ext(z, view, pt, modifiers);
     }
-    
+
     /**
      * @brief CICM widget method: mouse drag
      * @param z: pd object, view: view, pt: mouse location, modifiers: modifiers
      */
-    static void wx_mousedrag(t_object* z, t_object *view, t_pt pt, long modifiers)
+    static void wx_mousedrag(t_object* z, t_object* view, t_pt pt, long modifiers)
     {
         U* zx = reinterpret_cast<U*>(z);
-        
+
         zx->mouse_x = pt.x;
         zx->mouse_y = pt.y;
-        
+
         GuiFactory<U>::wx_mousedrag_ext(z, view, pt, modifiers);
     }
-    
+
     /**
      * @brief CICM widget method: mouse leave
      * @param z: pd object, view: view, pt: mouse location, modifiers: modifiers
      */
-    static void wx_mouseleave(t_object* z, t_object *view, t_pt pt, long modifiers)
+    static void wx_mouseleave(t_object* z, t_object* view, t_pt pt, long modifiers)
     {
         GuiFactory<U>::wx_mouseleave_ext(z, view, pt, modifiers);
     }
-    
+
     /**
      * @brief CICM widget method: mouse enter
      * @param z: pd object, view: view, pt: mouse location, modifiers: modifiers
      */
-    static void wx_mouseenter(t_object* z, t_object *view, t_pt pt, long modifiers)
-    {  
+    static void wx_mouseenter(t_object* z, t_object* view, t_pt pt, long modifiers)
+    {
         GuiFactory<U>::wx_mouseenter_ext(z, view, pt, modifiers);
     }
-    
+
 #pragma mark -
 #pragma mark setup
-    
+
 public:
     void setup_methods(t_eclass* cl)
     {
@@ -413,7 +419,7 @@ public:
 
         eclass_addmethod(cl, UI_METHOD_PTR(wx_mousemove), "mousemove", A_GIMME, 0);
         eclass_addmethod(cl, UI_METHOD_PTR(wx_mousedown), "mousedown", A_GIMME, 0);
-        eclass_addmethod(cl, UI_METHOD_PTR(wx_mouseup),   "mouseup",   A_GIMME, 0);
+        eclass_addmethod(cl, UI_METHOD_PTR(wx_mouseup), "mouseup", A_GIMME, 0);
         eclass_addmethod(cl, UI_METHOD_PTR(wx_mousedrag), "mousedrag", A_GIMME, 0);
 
         eclass_addmethod(cl, UI_METHOD_PTR(wx_mouseenter), "mouseenter", A_GIMME, 0);
@@ -421,9 +427,9 @@ public:
 
         eclass_addmethod(cl, UI_METHOD_PTR(wx_oksize), "oksize", A_GIMME, 0);
 
-        eclass_addmethod(cl, UI_METHOD_PTR(m_bang),     "bang",     A_GIMME, 0);
-        eclass_addmethod(cl, UI_METHOD_PTR(m_float),    "float",    A_GIMME, 0);
-        eclass_addmethod(cl, UI_METHOD_PTR(m_list),     "list",     A_GIMME, 0);
+        eclass_addmethod(cl, UI_METHOD_PTR(m_bang), "bang", A_GIMME, 0);
+        eclass_addmethod(cl, UI_METHOD_PTR(m_float), "float", A_GIMME, 0);
+        eclass_addmethod(cl, UI_METHOD_PTR(m_list), "list", A_GIMME, 0);
         eclass_addmethod(cl, UI_METHOD_PTR(m_anything), "anything", A_GIMME, 0);
 
         eclass_addmethod(cl, UI_METHOD_PTR(m_set), "set", A_GIMME, 0);
@@ -432,16 +438,16 @@ public:
     void setup_attributes(t_eclass* cl)
     {
         //hide standard CICM attributes
-        CLASS_ATTR_INVISIBLE            (cl, "fontname", 1);
-        CLASS_ATTR_INVISIBLE            (cl, "fontweight", 1);
-        CLASS_ATTR_INVISIBLE            (cl, "fontslant", 1);
-        CLASS_ATTR_INVISIBLE            (cl, "fontsize", 1);
+        CLASS_ATTR_INVISIBLE(cl, "fontname", 1);
+        CLASS_ATTR_INVISIBLE(cl, "fontweight", 1);
+        CLASS_ATTR_INVISIBLE(cl, "fontslant", 1);
+        CLASS_ATTR_INVISIBLE(cl, "fontsize", 1);
 
         // background / border color
-        CLASS_ATTR_LABEL                (cl, "bgcolor", 0, "Background Color");
-        CLASS_ATTR_ORDER                (cl, "bgcolor", 0, "1");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (cl, "bgcolor", 0, "0.75 0.75 0.75 1.");
-        CLASS_ATTR_STYLE                (cl, "bgcolor", 0, "color");
+        CLASS_ATTR_LABEL(cl, "bgcolor", 0, "Background Color");
+        CLASS_ATTR_ORDER(cl, "bgcolor", 0, "1");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT(cl, "bgcolor", 0, "0.75 0.75 0.75 1.");
+        CLASS_ATTR_STYLE(cl, "bgcolor", 0, "color");
 
         // TODO
         // CLASS_ATTR_RGBA                 (cl, "bdcolor", 0, U, b_color_border);
@@ -451,15 +457,15 @@ public:
         // CLASS_ATTR_STYLE                (cl, "bdcolor", 0, "color");
 
         // default
-        CLASS_ATTR_DEFAULT (cl, "size", 0, "45. 15.");
+        CLASS_ATTR_DEFAULT(cl, "size", 0, "45. 15.");
     }
 
     void do_setup(const std::string& cname, method new_method, method free_method, int flags, t_symbol* obj_class)
     {
-        t_eclass *cl = eclass_new(cname.c_str(),
-                                  new_method,
-                                  free_method,
-                                  sizeof(U), flags, A_GIMME, 0);
+        t_eclass* cl = eclass_new(cname.c_str(),
+            new_method,
+            free_method,
+            sizeof(U), flags, A_GIMME, 0);
         if (cl) {
             eclass_guiinit(cl, 0);
             GuiFactory<U>::pd_class = cl;
@@ -477,9 +483,9 @@ public:
     void setup(const std::string& _class_name)
     {
         t_eclass* cl = eclass_new(_class_name.c_str(),
-                                  UI_METHOD_PTR(new_method),
-                                  UI_METHOD_PTR(free_method),
-                                  sizeof(U), CLASS_PATCHABLE, A_GIMME, 0);
+            UI_METHOD_PTR(new_method),
+            UI_METHOD_PTR(free_method),
+            sizeof(U), CLASS_PATCHABLE, A_GIMME, 0);
 
         if (cl) {
             eclass_guiinit(cl, 0);
@@ -490,7 +496,7 @@ public:
             eclass_register(CLASS_BOX, cl);
         }
     }
-    
+
     /**
      * @brief GUI DSP setup routine
      * @details this methods creates new pd class with one inlet,
@@ -500,9 +506,9 @@ public:
     void setup_dsp(const std::string& _class_name)
     {
         t_eclass* cl = eclass_new(_class_name.c_str(),
-                                  UI_METHOD_PTR(new_method),
-                                  UI_METHOD_PTR(free_method),
-                                  sizeof(U), CLASS_PATCHABLE, A_GIMME, 0);
+            UI_METHOD_PTR(new_method),
+            UI_METHOD_PTR(free_method),
+            sizeof(U), CLASS_PATCHABLE, A_GIMME, 0);
 
         if (cl) {
             eclass_dspinit(cl);
@@ -519,9 +525,9 @@ public:
     void setup_noin(const std::string& _class_name)
     {
         t_eclass* cl = eclass_new(_class_name.c_str(),
-                                  UI_METHOD_PTR(new_method),
-                                  UI_METHOD_PTR(free_method),
-                                  sizeof(U), CLASS_NOINLET, A_GIMME, 0);
+            UI_METHOD_PTR(new_method),
+            UI_METHOD_PTR(free_method),
+            sizeof(U), CLASS_NOINLET, A_GIMME, 0);
 
         if (cl) {
             eclass_guiinit(cl, 0);
@@ -533,14 +539,24 @@ public:
             eclass_register(CLASS_BOX, cl);
         }
     }
-    
+
     /**
      * @brief temporary / stub
      * @param _class_name: the class name, inlets/outlets arrays
      */
-    void setup_io(const std::string& _class_name, t_atomtype *ins, t_atomtype *outs)
+    void setup_io(const std::string& _class_name, t_atomtype* ins, t_atomtype* outs)
     {
         this->setup(_class_name);
+    }
+
+    static U* toStruct(t_object* x)
+    {
+        return reinterpret_cast<U*>(x);
+    }
+
+    static t_ebox* toEBox(t_object* x)
+    {
+        return reinterpret_cast<t_ebox*>(x);
     }
 };
 
@@ -550,6 +566,17 @@ t_eclass* GuiFactory<U>::pd_class = 0;
 template <typename U>
 t_symbol* GuiFactory<U>::BG_LAYER = gensym("background_layer");
 
-};  //namespace ceammc_gui
+template <typename U>
+t_symbol* GuiFactory<U>::FONT_FAMILY = gensym("Helvetica");
+template <typename U>
+t_symbol* GuiFactory<U>::FONT_STYLE = gensym("roman");
+template <typename U>
+t_symbol* GuiFactory<U>::FONT_WEIGHT = gensym("normal");
+template <typename U>
+const int GuiFactory<U>::FONT_SIZE = 12;
+template <typename U>
+t_symbol* GuiFactory<U>::COLOR_ACTIVE = gensym("#00C0FF");
+
+}; //namespace ceammc_gui
 
 #endif /* new_c_gui_h */
