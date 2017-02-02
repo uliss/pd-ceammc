@@ -70,7 +70,7 @@ static kRect get_white_key_r(int offset, int kWidth, int kHeight)
     int n_number = offset % 12;
     int n_octave = offset / 12;
 
-    ret.x = (offset + (n_number > 4) + 2 * n_octave) * kWidth;
+    ret.x = (offset + (n_number > 4 ? 1 : 0) + 2 * n_octave) * kWidth;
     ret.y = 0;
     ret.w = kWidth * 2;
     ret.h = kHeight;
