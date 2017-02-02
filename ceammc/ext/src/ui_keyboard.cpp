@@ -22,7 +22,6 @@ struct ui_keyboard : public ceammc_gui::BaseGuiObject {
 
     int _pitch;
     int _vel;
-    int _pitch_prev;
 
     t_rgba b_color_border;
 
@@ -38,6 +37,10 @@ public:
 };
 
 namespace ceammc_gui {
+
+static t_symbol* COLOR_KEY_WHITE = gensym("#F0F0F0");
+static t_symbol* COLOR_KEY_BLACK = gensym("#505050");
+static t_symbol* COLOR_KEY_BORDER = gensym("#C0C0C0");
 
 struct kRect {
     int x, y, w, h;
@@ -92,6 +95,7 @@ static bool mouse_in_rect(int x, int y, const kRect& kr)
 UI_fun(ui_keyboard)::wx_paint(t_object* z, t_object* /*view*/)
 {
     t_symbol* bgl = BG_LAYER;
+
     t_rect rect;
     ebox_get_rect_for_view(asBox(z), &rect);
 
@@ -107,40 +111,30 @@ UI_fun(ui_keyboard)::wx_paint(t_object* z, t_object* /*view*/)
 
         float kWidth = floorf(rect.width / zx->keys) * 0.9f; // weird
 
-        t_symbol* color_wh_f = gensym("#F0F0F0");
-        t_symbol* color_wh_b = gensym("#C0C0C0");
-        t_symbol* color_bl_f = gensym("#505050");
-        t_symbol* color_bl_b = gensym("#C0C0C0");
-        t_symbol* color_hv_b = gensym("#00C0FF");
-        t_symbol* color_md_f = gensym("#00C0FF");
-
         // two pass draw
+        // white keys first
         for (int i = 0; i < zx->keys; i++) {
             kRect k = get_key_r(i, kWidth, rect.height);
 
             if (!k.is_black) {
-                char keyname[7];
-                sprintf(keyname, "KEY%d", i);
-
-                //bool hover = ( i == int(UI_Pf("_pitch")) );
-                bool hover = (i == int(zx->_pitch));
-                bool click = zx->mouse_dn; //( UI_Pf("_mouse_dn")==1 );
+                bool hover = (i == zx->_pitch);
+                bool click = zx->mouse_dn;
 
                 egraphics_rectangle(g, k.x, k.y, k.w, k.h);
-                egraphics_set_color_hex(g, (hover) ? (click ? color_md_f : color_wh_f) : color_wh_f);
+                egraphics_set_color_hex(g, (hover) ? (click ? COLOR_ACTIVE : COLOR_KEY_WHITE) : COLOR_KEY_WHITE);
                 egraphics_fill(g);
 
                 egraphics_rectangle(g, k.x, k.y, k.w, k.h);
-                egraphics_set_color_hex(g, (hover) ? (click ? color_hv_b : color_hv_b) : color_wh_b);
+                egraphics_set_color_hex(g, (hover) ? COLOR_ACTIVE : COLOR_KEY_BORDER);
                 egraphics_stroke(g);
 
-                if ((i + zx->shift) == 60) {
+                if ((i + zx->shift) == 60) { // middle C
                     egraphics_set_line_width(g, 2);
-                    float w = k.w * .75;
+                    float w = k.w * 0.75f;
                     egraphics_line(g, k.x, k.y, k.x + w / 2, k.y + w / 2);
                     egraphics_line(g, k.x + w, k.y, k.x + w / 2, k.y + w / 2);
                     egraphics_line(g, k.x, k.y, k.x + w, k.y);
-                    egraphics_set_color_hex(g, gensym("#00C0FF"));
+                    egraphics_set_color_hex(g, COLOR_ACTIVE);
                     egraphics_stroke(g);
                     egraphics_set_line_width(g, 1);
                 }
@@ -151,29 +145,24 @@ UI_fun(ui_keyboard)::wx_paint(t_object* z, t_object* /*view*/)
             kRect k = get_key_r(i, kWidth, rect.height);
 
             if (k.is_black) {
-                char keyname[7];
-                sprintf(keyname, "KEY%d", i);
-
                 bool hover = (i == int(zx->_pitch));
-                bool click = zx->mouse_dn; //( UI_Pf("_mouse_dn")==1 );
+                bool click = zx->mouse_dn;
 
                 egraphics_rectangle(g, k.x, k.y, k.w, k.h);
-                egraphics_set_color_hex(g, (hover) ? (click ? color_md_f : color_bl_f) : color_bl_f);
+                egraphics_set_color_hex(g, (hover) ? (click ? COLOR_ACTIVE : COLOR_KEY_BLACK) : COLOR_KEY_BLACK);
                 egraphics_fill(g);
 
                 egraphics_rectangle(g, k.x, k.y, k.w, k.h);
-                egraphics_set_color_hex(g, (hover) ? (click ? color_hv_b : color_hv_b) : color_bl_b);
+                egraphics_set_color_hex(g, (hover) ? COLOR_ACTIVE : COLOR_KEY_BORDER);
                 egraphics_stroke(g);
             }
         }
+
+        ebox_end_layer(asBox(z), bgl);
     }
 
-    ebox_end_layer((t_ebox*)z, bgl);
-
-    ebox_paint_layer((t_ebox*)z, bgl, 0., 0.);
+    ebox_paint_layer(asBox(z), bgl, 0., 0.);
 }
-
-#pragma mark -
 
 UI_fun(ui_keyboard)::wx_mousemove_ext(t_object* z, t_object* /*view*/, t_pt /*pt*/, long /*modifiers*/)
 {
@@ -210,9 +199,11 @@ UI_fun(ui_keyboard)::wx_mousedown_ext(t_object* z, t_object* /*view*/, t_pt pt, 
     ui_keyboard* zx = asStruct(z);
 
     t_rect rect;
-    ebox_get_rect_for_view(reinterpret_cast<t_ebox*>(z), &rect);
+    ebox_get_rect_for_view(asBox(z), &rect);
 
+    // calc velocity
     zx->_vel = int(pt.y / rect.height * 127.f);
+
     zx->output();
     ws_redraw(z);
 }
@@ -222,6 +213,7 @@ UI_fun(ui_keyboard)::wx_mouseup_ext(t_object* z, t_object* /*view*/, t_pt /*pt*/
     ui_keyboard* zx = asStruct(z);
 
     zx->_vel = 0;
+
     zx->output();
     ws_redraw(z);
 }
@@ -229,11 +221,22 @@ UI_fun(ui_keyboard)::wx_mouseup_ext(t_object* z, t_object* /*view*/, t_pt /*pt*/
 UI_fun(ui_keyboard)::wx_mousedrag_ext(t_object* z, t_object* view, t_pt pt, long modifiers)
 {
     ui_keyboard* zx = asStruct(z);
+    int prev_pitch = zx->_pitch;
 
     wx_mousemove_ext(z, view, pt, modifiers);
 
-    if (zx->_pitch_prev != zx->_pitch) {
-        zx->_pitch_prev = zx->_pitch;
+    if (prev_pitch != zx->_pitch) {
+        int tmp_vel = zx->_vel;
+        int tmp_pitch = zx->_pitch;
+
+        // release previous note
+        zx->_vel = 0;
+        zx->_pitch = prev_pitch;
+        zx->output();
+
+        // press new note
+        zx->_vel = tmp_vel;
+        zx->_pitch = tmp_pitch;
         zx->output();
     }
 
@@ -266,8 +269,6 @@ static void ui_k_getdrawparams(ui_keyboard* x, t_object* /*patcherview*/, t_edra
     params->d_cornersize = 2;
     params->d_bordercolor = x->b_color_border;
 }
-
-#pragma mark -
 
 UI_fun(ui_keyboard)::init_ext(t_eclass* z)
 {
