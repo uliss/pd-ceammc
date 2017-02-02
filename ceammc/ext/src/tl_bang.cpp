@@ -11,8 +11,6 @@
 
 #include <iostream>
 
-//#include "tl_lib.hpp"
-
 #include "ceammc_gui.h"
 #include "ceammc_timeline.h"
 
@@ -20,11 +18,6 @@ using namespace ceammc_gui;
 using namespace ceammc::tl;
 
 namespace ceammc_gui {
-
-static t_symbol* FONT_FAMILY = gensym("Helvetica");
-static t_symbol* FONT_STYLE = gensym("roman");
-static t_symbol* FONT_WEIGHT = gensym("normal");
-static const int FONT_SIZE = 12;
 
 static t_symbol* FILL_COLOR = gensym("#F0F0F0");
 
@@ -37,21 +30,10 @@ struct tl_bang : public BaseGuiObject {
     t_rgba border_color;
     t_rgba bg_color;
 
-    t_object x_gui;
     t_outlet* out1;
 
     TimelineData* data;
 };
-
-static inline t_ebox* asBox(t_object* x)
-{
-    return reinterpret_cast<t_ebox*>(x);
-}
-
-static inline tl_bang* asBang(t_object* x)
-{
-    return reinterpret_cast<tl_bang*>(x);
-}
 
 static void tl_cue_ebox_move(t_ebox* x)
 {
@@ -76,7 +58,7 @@ static void tl_bang_getdrawparams(tl_bang* x, t_object* /*view*/, t_edrawparams*
 
 static void tl_bang_action(TimelineData* x)
 {
-    outlet_bang(asBang(x->object())->out1);
+    outlet_bang(reinterpret_cast<tl_bang*>(x->object())->out1);
 }
 
 static void tl_cue_displace(t_gobj* z, t_glist* /*glist*/, int dx, int dy)
@@ -117,7 +99,7 @@ UI_fun(tl_bang)::wx_paint(t_object* z, t_object* /*view*/)
 
     t_elayer* g = ebox_start_layer(asBox(z), BG_LAYER, rect.width, rect.height);
     if (g) {
-        tl_bang* zx = asBang(z);
+        tl_bang* zx = asStruct(z);
 
         egraphics_rectangle(g, 0, 0, rect.width, rect.height);
         egraphics_set_color_hex(g, FILL_COLOR);
@@ -142,7 +124,7 @@ UI_fun(tl_bang)::wx_oksize(t_object* /*z*/, t_rect* newrect)
 
 UI_fun(tl_bang)::new_ext(t_object* z, t_symbol* /*s*/, int /*argc*/, t_atom* /*argv*/)
 {
-    tl_bang* zx = asBang(z);
+    tl_bang* zx = asStruct(z);
     zx->canvas = canvas_getcurrent();
 
     zx->data = new TimelineData(zx->canvas, z);
@@ -180,7 +162,7 @@ UI_fun(tl_bang)::init_ext(t_eclass* z)
 
 UI_fun(tl_bang)::free_ext(t_object* x)
 {
-    tl_bang* zx = asBang(x);
+    tl_bang* zx = asStruct(x);
 
     // CICM cleanup
     etext_layout_destroy(zx->txt);
