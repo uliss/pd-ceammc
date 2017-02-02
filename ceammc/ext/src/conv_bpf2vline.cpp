@@ -16,53 +16,45 @@
 
 using namespace ceammc;
 
-class Bpf2Vline : public BaseObject
-{
+class Bpf2Vline : public BaseObject {
     vector<AtomList> vline;
-    
+
     SymbolEnumProperty* method_;
-    
-    
-    
+
 public:
     Bpf2Vline(const PdArgs& a)
-    : BaseObject(a)
-    
-    
+        : BaseObject(a)
+
     {
         createOutlet();
-        
+
         initProperties();
         // parse creation arguments and properties
         parseArguments();
     }
-    
+
     void onBang()
     {
-        for (int i = 0; i< this->vline.size(); i++)
-        {
+        for (int i = 0; i < this->vline.size(); i++) {
             listTo(0, this->vline.at(i));
         }
-        
     }
-    
+
     void onList(const AtomList& l)
     {
         BPF func;
         //temporary
         func.initRange();
-        
+
         func.setBPFList(l);
         this->vline = func.getVline();
-        
+
         onBang();
     }
-    
+
     void initProperties()
     {
-        
     }
-    
 };
 
 extern "C" void setup_conv0x2ebpf2vline()
