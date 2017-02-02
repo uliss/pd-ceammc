@@ -194,6 +194,12 @@ UI_fun(tl_cue)::wx_oksize(t_object* /*z*/, t_rect* newrect)
     newrect->height = 15;
 }
 
+UI_fun(tl_cue)::wx_attr_changed_ext(t_object* z, t_symbol* attr)
+{
+    if(attr == gensym("brcolor"))
+        ws_redraw(z);
+}
+
 UI_fun(tl_cue)::wx_paint(t_object* z, t_object* /*view*/)
 {
     t_rect rect;
