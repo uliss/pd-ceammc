@@ -79,11 +79,9 @@ static kRect get_white_key_r(int offset, int kWidth, int kHeight)
 static kRect get_key_r(int number, int kWidth, int kHeight)
 {
     int n_number = number % 12;
-    bool is_black = ((n_number - (n_number < 5)) % 2);
+    bool is_black = ((n_number - (n_number > 4 ? 1 : 0)) % 2) == 1;
 
-    kRect ret = (!is_black) ? get_black_key_r(number, kWidth, kHeight) : get_white_key_r(number, kWidth, kHeight);
-
-    return ret;
+    return is_black ? get_black_key_r(number, kWidth, kHeight) : get_white_key_r(number, kWidth, kHeight);
 }
 
 static bool mouse_in_rect(int x, int y, const kRect& kr)
