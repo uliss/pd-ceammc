@@ -305,19 +305,19 @@ public:
     {
         //float size;
         t_rect rect;
-        ebox_get_rect_for_view((t_ebox*)z, &rect);
+        ebox_get_rect_for_view(asBox(z), &rect);
 
-        t_elayer* g = ebox_start_layer((t_ebox*)z, BG_LAYER, rect.width, rect.height);
+        t_elayer* g = ebox_start_layer(asBox(z), BG_LAYER, rect.width, rect.height);
         if (g) {
             // EXAMPLE
             //            size = rect.width * 0.5;
             //            egraphics_set_color_hex(g, gensym("#00C0FF"));
             //            egraphics_circle(g, floor(size + 0.5), floor(size + 0.5), size * 0.9);
             //            egraphics_fill(g);
-            ebox_end_layer((t_ebox*)z, BG_LAYER);
+            ebox_end_layer(asBox(z), BG_LAYER);
         }
 
-        ebox_paint_layer((t_ebox*)z, BG_LAYER, 0., 0.);
+        ebox_paint_layer(asBox(z), BG_LAYER, 0., 0.);
     }
 
     /**
