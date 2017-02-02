@@ -14,17 +14,7 @@
 
 struct ui_knob : public ceammc_gui::BaseGuiObject
 {
-    t_ebox x_gui;
-    
-    float mouse_x;
-    float mouse_y;
-    int mouse_dn;
-    bool _selected;
-    
     t_outlet *out1;
-    
-    t_atom *val_list;
-    int val_list_size;
     
     float _value;
     
@@ -206,6 +196,7 @@ namespace ceammc_gui {
     
     UI_fun(ui_knob)::init_ext(t_eclass *z)
     {
+        // clang-format off
         CLASS_ATTR_DEFAULT (z, "size", 0, "60. 60.");
         
         CLASS_ATTR_FLOAT(z, "shift", 0, ui_knob, shift);
@@ -229,6 +220,7 @@ namespace ceammc_gui {
         CLASS_ATTR_ORDER                (z, "bdcolor", 0, "2");
         CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "bdcolor", 0, "0. 0. 0. 1.");
         CLASS_ATTR_STYLE                (z, "bdcolor", 0, "color");
+        // clang-format on
         
         eclass_addmethod(z, (method) ui_kn_getdrawparams,   "getdrawparams",    A_NULL, 0);
         
