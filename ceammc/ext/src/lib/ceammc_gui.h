@@ -239,15 +239,16 @@ public:
         t_object* z = reinterpret_cast<t_object*>(eobj_new(GuiFactory<U>::pd_class));
 
         t_binbuf* d = binbuf_via_atoms(argc, argv);
-        ebox_new(reinterpret_cast<t_ebox*>(z), 0 | EBOX_GROWINDI);
+        ebox_new(asBox(z), 0 | EBOX_GROWINDI);
 
         if (z && d) {
             //moved
-            GuiFactory<U>::new_ext(z, s, argc, argv);
+            new_ext(z, s, argc, argv);
 
             ebox_attrprocess_viabinbuf(z, d);
+            ebox_ready(asBox(z));
+            binbuf_free(d);
         }
-        ebox_ready(reinterpret_cast<t_ebox*>(z));
 
         return static_cast<void*>(z);
     }
@@ -258,8 +259,8 @@ public:
      */
     static void free_method(t_object* z)
     {
-        GuiFactory<U>::free_ext(z);
-        ebox_free(reinterpret_cast<t_ebox*>(z));
+        free_ext(z);
+        ebox_free(asBox(z));
     }
 
     /**
@@ -268,8 +269,8 @@ public:
      */
     static void free_dsp_method(t_object* x)
     {
-        GuiFactory<U>::free_ext(x);
-        eobj_dspfree(reinterpret_cast<t_ebox*>(x));
+        free_ext(x);
+        eobj_dspfree(x);
     }
 
 #pragma mark -
@@ -279,7 +280,7 @@ public:
      * @brief pd widget method: select
      * @param z: pd graphic object, glist: pd canvas, selected: flag
      */
-    static void w_select(t_gobj* z, t_glist* glist, int selected)
+    static void w_select(t_gobj* z, t_glist* /*glist*/, int selected)
     {
         U* zx = reinterpret_cast<U*>(z);
         zx->_selected = selected;
@@ -293,8 +294,8 @@ public:
      */
     static void ws_redraw(t_object* z)
     {
-        ebox_invalidate_layer(reinterpret_cast<t_ebox*>(z), BG_LAYER);
-        ebox_redraw(reinterpret_cast<t_ebox*>(z));
+        ebox_invalidate_layer(asBox(z), BG_LAYER);
+        ebox_redraw(asBox(z));
     }
 
     /**
@@ -397,7 +398,7 @@ public:
      */
     static void wx_mouseleave(t_object* z, t_object* view, t_pt pt, long modifiers)
     {
-        GuiFactory<U>::wx_mouseleave_ext(z, view, pt, modifiers);
+        wx_mouseleave_ext(z, view, pt, modifiers);
     }
 
     /**
@@ -406,7 +407,7 @@ public:
      */
     static void wx_mouseenter(t_object* z, t_object* view, t_pt pt, long modifiers)
     {
-        GuiFactory<U>::wx_mouseenter_ext(z, view, pt, modifiers);
+        wx_mouseenter_ext(z, view, pt, modifiers);
     }
 
 #pragma mark -
