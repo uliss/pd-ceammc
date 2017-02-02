@@ -43,11 +43,11 @@ static t_symbol* COLOR_KEY_BLACK = gensym("#505050");
 static t_symbol* COLOR_KEY_BORDER = gensym("#C0C0C0");
 
 struct kRect {
-    int x, y, w, h;
+    float x, y, w, h;
     bool is_black;
 };
 
-static kRect get_black_key_r(int offset, int kWidth, int kHeight)
+static kRect get_black_key_r(int offset, float kWidth, float kHeight)
 {
     kRect ret;
 
@@ -63,7 +63,7 @@ static kRect get_black_key_r(int offset, int kWidth, int kHeight)
     return ret;
 }
 
-static kRect get_white_key_r(int offset, int kWidth, int kHeight)
+static kRect get_white_key_r(int offset, float kWidth, float kHeight)
 {
     kRect ret;
 
@@ -79,7 +79,7 @@ static kRect get_white_key_r(int offset, int kWidth, int kHeight)
     return ret;
 }
 
-static kRect get_key_r(int number, int kWidth, int kHeight)
+static kRect get_key_r(int number, float kWidth, float kHeight)
 {
     int n_number = number % 12;
     bool is_black = ((n_number - (n_number > 4 ? 1 : 0)) % 2) == 1;
@@ -109,7 +109,7 @@ UI_fun(ui_keyboard)::wx_paint(t_object* z, t_object* /*view*/)
         if (zx->keys > 127)
             zx->keys = 127;
 
-        float kWidth = floorf(rect.width / zx->keys) * 0.9f; // weird
+        float kWidth = rect.width / zx->keys;
 
         // two pass draw
         // white keys first
@@ -171,7 +171,7 @@ UI_fun(ui_keyboard)::wx_mousemove_ext(t_object* z, t_object* /*view*/, t_pt /*pt
     t_rect rect;
     ebox_get_rect_for_view(asBox(z), &rect);
 
-    float kWidth = floorf(rect.width / zx->keys) * 0.9f;
+    float kWidth = rect.width / zx->keys;
 
     for (int i = 0; i < zx->keys; i++) {
         kRect k = get_key_r(i, kWidth, rect.height);
@@ -290,12 +290,6 @@ UI_fun(ui_keyboard)::init_ext(t_eclass* z)
     CLASS_ATTR_FILTER_CLIP          (z, "keys", 5, 88);
     CLASS_ATTR_STEP                 (z, "keys", 1);
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "keys", 0, "61");
-
-    //        CLASS_ATTR_RGBA                 (z, "bgcolor", 0, ui_keyboard, b_color_background);
-    //        CLASS_ATTR_LABEL                (z, "bgcolor", 0, "Background Color");
-    //        CLASS_ATTR_ORDER                (z, "bgcolor", 0, "1");
-    //        CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "bgcolor", 0, "0.93 0.93 0.93 1.");
-    //        CLASS_ATTR_STYLE                (z, "bgcolor", 0, "color");
 
     CLASS_ATTR_RGBA                (z, "bdcolor", 0, ui_keyboard, b_color_border);
     CLASS_ATTR_LABEL               (z, "bdcolor", 0, "Border Color");
