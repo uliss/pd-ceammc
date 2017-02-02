@@ -117,9 +117,10 @@ UI_fun(ui_knob)::wx_paint(t_object* z, t_object* view)
 
         etext_layout_set(zx->txt_max, c_max, zx->txt_font, rect.width - 3, rect.height - 12, rect.width, rect.height / 2, ETEXT_UP_RIGHT, ETEXT_JRIGHT, ETEXT_WRAP);
         etext_layout_draw(zx->txt_max, g);
+
+        ebox_end_layer((t_ebox*)z, bgl);
     }
 
-    ebox_end_layer((t_ebox*)z, bgl);
     ebox_paint_layer((t_ebox*)z, bgl, 0., 0.);
 }
 
@@ -221,7 +222,17 @@ UI_fun(ui_knob)::new_ext(t_object* x, t_symbol* s, int argcl, t_atom* argv)
 
     zx->txt_max = etext_layout_create();
     zx->txt_min = etext_layout_create();
-    zx->txt_font = efont_create(gensym("Helvetica"), gensym("light"), gensym("normal"), 8);
+    zx->txt_font = efont_create(FONT_FAMILY, FONT_STYLE, FONT_WEIGHT, 8);
+}
+
+UI_fun(ui_knob)::free_ext(t_object* z)
+{
+    ui_knob* zx = asStruct(z);
+    outlet_free(zx->out1);
+
+    etext_layout_destroy(zx->txt_max);
+    etext_layout_destroy(zx->txt_min);
+    efont_destroy(zx->txt_font);
 }
 }
 
