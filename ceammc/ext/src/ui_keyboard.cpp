@@ -238,9 +238,9 @@ UI_fun(ui_keyboard)::wx_mousedrag_ext(t_object* z, t_object* view, t_pt pt, long
         zx->_vel = tmp_vel;
         zx->_pitch = tmp_pitch;
         zx->output();
-    }
 
-    ws_redraw(z);
+        ws_redraw(z);
+    }
 }
 
 UI_fun(ui_keyboard)::wx_mouseleave_ext(t_object* z, t_object* /*view*/, t_pt /*pt*/, long /*modifiers*/)
@@ -250,24 +250,17 @@ UI_fun(ui_keyboard)::wx_mouseleave_ext(t_object* z, t_object* /*view*/, t_pt /*p
     ws_redraw(z);
 }
 
-// yet disabled
-
-//    UI_fun(ui_keyboard)::wx_oksize(t_object *z, t_rect *newrect)
-//    {
-//        ui_keyboard *zx = (ui_keyboard*)z;
-//
-//        float kWidth = floorf(newrect->width/zx->keys)*.9;
-//
-//        if (kWidth<3) kWidth = 3;
-//
-//        newrect->width = kWidth * zx->keys/.9;
-//    }
-
 static void ui_k_getdrawparams(ui_keyboard* x, t_object* /*patcherview*/, t_edrawparams* params)
 {
     params->d_borderthickness = 1;
     params->d_cornersize = 2;
     params->d_bordercolor = x->b_color_border;
+}
+
+UI_fun(ui_keyboard)::wx_attr_changed_ext(t_object* z, t_symbol* attr)
+{
+    if(attr == gensym("keys"))
+        ws_redraw(z);
 }
 
 UI_fun(ui_keyboard)::init_ext(t_eclass* z)
