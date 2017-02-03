@@ -67,7 +67,7 @@ static kRect get_black_key_r(int offset, float kWidth, float kHeight)
     int n_number = offset % 12;
     int n_octave = offset / 12;
 
-    ret.x = (offset + (n_number > 4) + 2 * n_octave) * kWidth + 0.5f * kWidth;
+    ret.x = (offset + (n_number > 4 ? 1 : 0) + 2 * n_octave) * kWidth + 0.5f * kWidth;
     ret.y = 0;
     ret.w = kWidth;
     ret.h = kHeight * 0.6f;
