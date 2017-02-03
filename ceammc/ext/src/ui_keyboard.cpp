@@ -12,8 +12,6 @@
 #include "ceammc_format.h"
 
 struct ui_keyboard : public ceammc_gui::BaseGuiObject {
-    t_ebox x_gui;
-
     t_outlet* out1;
     t_atom out_list[2];
 
