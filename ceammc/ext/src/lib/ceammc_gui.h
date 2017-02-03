@@ -227,6 +227,14 @@ public:
     {
     }
 
+    /**
+     * @brief "extension": attribute update event
+     * @param z: pd object, attr: attrobute name, attr_chage_type: type of change
+     */
+    static void wx_attr_changed_ext(t_object* /*z*/, t_symbol* /*attr*/)
+    {
+    }
+
 #pragma mark -
 #pragma mark pd object instance
 
@@ -410,30 +418,45 @@ public:
         wx_mouseenter_ext(z, view, pt, modifiers);
     }
 
+    /**
+     * @brief CICM widget method: notify on attr change
+     * @param x: pd pbject
+     */
+    static t_pd_err wx_notify(t_object* x, t_symbol* s, t_symbol* msg, void*, void*)
+    {
+        if (msg == s_attr_modified)
+            wx_attr_changed_ext(x, s);
+
+        return 0;
+    }
+
 #pragma mark -
 #pragma mark setup
 
 public:
     void setup_methods(t_eclass* cl)
     {
+        // clang-format off
         eclass_addmethod(cl, UI_METHOD_PTR(wx_paint), "paint", A_GIMME, 0);
 
-        eclass_addmethod(cl, UI_METHOD_PTR(wx_mousemove), "mousemove", A_GIMME, 0);
-        eclass_addmethod(cl, UI_METHOD_PTR(wx_mousedown), "mousedown", A_GIMME, 0);
-        eclass_addmethod(cl, UI_METHOD_PTR(wx_mouseup), "mouseup", A_GIMME, 0);
-        eclass_addmethod(cl, UI_METHOD_PTR(wx_mousedrag), "mousedrag", A_GIMME, 0);
+        eclass_addmethod(cl, UI_METHOD_PTR(wx_mousemove),  "mousemove", A_GIMME, 0);
+        eclass_addmethod(cl, UI_METHOD_PTR(wx_mousedown),  "mousedown", A_GIMME, 0);
+        eclass_addmethod(cl, UI_METHOD_PTR(wx_mouseup),    "mouseup",   A_GIMME, 0);
+        eclass_addmethod(cl, UI_METHOD_PTR(wx_mousedrag),  "mousedrag", A_GIMME, 0);
 
         eclass_addmethod(cl, UI_METHOD_PTR(wx_mouseenter), "mouseenter", A_GIMME, 0);
         eclass_addmethod(cl, UI_METHOD_PTR(wx_mouseleave), "mouseleave", A_GIMME, 0);
+        eclass_addmethod(cl, UI_METHOD_PTR(wx_notify),     "notify",     A_GIMME, 0);
 
-        eclass_addmethod(cl, UI_METHOD_PTR(wx_oksize), "oksize", A_GIMME, 0);
+        eclass_addmethod(cl, UI_METHOD_PTR(wx_oksize),     "oksize",   A_GIMME, 0);
 
-        eclass_addmethod(cl, UI_METHOD_PTR(m_bang), "bang", A_GIMME, 0);
-        eclass_addmethod(cl, UI_METHOD_PTR(m_float), "float", A_GIMME, 0);
-        eclass_addmethod(cl, UI_METHOD_PTR(m_list), "list", A_GIMME, 0);
-        eclass_addmethod(cl, UI_METHOD_PTR(m_anything), "anything", A_GIMME, 0);
+        eclass_addmethod(cl, UI_METHOD_PTR(m_bang),        "bang",     A_GIMME, 0);
+        eclass_addmethod(cl, UI_METHOD_PTR(m_float),       "float",    A_GIMME, 0);
+        eclass_addmethod(cl, UI_METHOD_PTR(m_list),        "list",     A_GIMME, 0);
+        eclass_addmethod(cl, UI_METHOD_PTR(m_anything),    "anything", A_GIMME, 0);
 
-        eclass_addmethod(cl, UI_METHOD_PTR(m_set), "set", A_GIMME, 0);
+        eclass_addmethod(cl, UI_METHOD_PTR(m_set),         "set", A_GIMME, 0);
+        // clang-format on
     }
 
     void setup_attributes(t_eclass* cl)

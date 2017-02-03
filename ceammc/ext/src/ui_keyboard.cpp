@@ -12,8 +12,6 @@
 #include "ceammc_format.h"
 
 struct ui_keyboard : public ceammc_gui::BaseGuiObject {
-    t_ebox x_gui;
-
     t_outlet* out1;
     t_atom out_list[2];
 
@@ -47,6 +45,19 @@ struct kRect {
     bool is_black;
 };
 
+static size_t white_keys(size_t num_keys)
+{
+    size_t n_octave = num_keys / 12;
+    size_t n_number = num_keys % 12;
+    size_t wk = (n_number + (n_number < 6 ? 1 : 2)) >> 1;
+    return n_octave * 7 + wk;
+}
+
+static float key_width(float keyboard_width, size_t num_keys)
+{
+    return keyboard_width / (white_keys(num_keys) * 2.f);
+}
+
 static kRect get_black_key_r(int offset, float kWidth, float kHeight)
 {
     kRect ret;
@@ -54,7 +65,7 @@ static kRect get_black_key_r(int offset, float kWidth, float kHeight)
     int n_number = offset % 12;
     int n_octave = offset / 12;
 
-    ret.x = (offset + (n_number > 4) + 2 * n_octave) * kWidth + 0.5f * kWidth;
+    ret.x = (offset + (n_number > 4 ? 1 : 0) + 2 * n_octave) * kWidth + 0.5f * kWidth;
     ret.y = 0;
     ret.w = kWidth;
     ret.h = kHeight * 0.6f;
@@ -109,7 +120,7 @@ UI_fun(ui_keyboard)::wx_paint(t_object* z, t_object* /*view*/)
         if (zx->keys > 127)
             zx->keys = 127;
 
-        float kWidth = rect.width / zx->keys;
+        float kWidth = key_width(rect.width, zx->keys);
 
         // two pass draw
         // white keys first
@@ -171,7 +182,7 @@ UI_fun(ui_keyboard)::wx_mousemove_ext(t_object* z, t_object* /*view*/, t_pt /*pt
     t_rect rect;
     ebox_get_rect_for_view(asBox(z), &rect);
 
-    float kWidth = rect.width / zx->keys;
+    float kWidth = key_width(rect.width, zx->keys);
 
     for (int i = 0; i < zx->keys; i++) {
         kRect k = get_key_r(i, kWidth, rect.height);
@@ -238,9 +249,9 @@ UI_fun(ui_keyboard)::wx_mousedrag_ext(t_object* z, t_object* view, t_pt pt, long
         zx->_vel = tmp_vel;
         zx->_pitch = tmp_pitch;
         zx->output();
-    }
 
-    ws_redraw(z);
+        ws_redraw(z);
+    }
 }
 
 UI_fun(ui_keyboard)::wx_mouseleave_ext(t_object* z, t_object* /*view*/, t_pt /*pt*/, long /*modifiers*/)
@@ -250,24 +261,17 @@ UI_fun(ui_keyboard)::wx_mouseleave_ext(t_object* z, t_object* /*view*/, t_pt /*p
     ws_redraw(z);
 }
 
-// yet disabled
-
-//    UI_fun(ui_keyboard)::wx_oksize(t_object *z, t_rect *newrect)
-//    {
-//        ui_keyboard *zx = (ui_keyboard*)z;
-//
-//        float kWidth = floorf(newrect->width/zx->keys)*.9;
-//
-//        if (kWidth<3) kWidth = 3;
-//
-//        newrect->width = kWidth * zx->keys/.9;
-//    }
-
 static void ui_k_getdrawparams(ui_keyboard* x, t_object* /*patcherview*/, t_edrawparams* params)
 {
     params->d_borderthickness = 1;
     params->d_cornersize = 2;
     params->d_bordercolor = x->b_color_border;
+}
+
+UI_fun(ui_keyboard)::wx_attr_changed_ext(t_object* z, t_symbol* attr)
+{
+    if (attr == gensym("keys"))
+        ws_redraw(z);
 }
 
 UI_fun(ui_keyboard)::init_ext(t_eclass* z)
