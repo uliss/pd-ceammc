@@ -140,7 +140,6 @@ UI_fun(ui_spectroscope)::wx_mousemove(t_object* z, t_object* view, t_pt pt, long
 UI_fun(ui_spectroscope)::wx_mousedrag(t_object* z, t_object* view, t_pt pt, long modifiers)
 {
 }
-}
 
 #pragma mark setup
 
@@ -176,6 +175,7 @@ UI_fun(ui_spectroscope)::init_ext(t_eclass* z)
     CLASS_ATTR_STYLE(z, "bdcolor", 0, "color");
 
     eclass_addmethod(z, (method)ui_sps_getdrawparams, "getdrawparams", A_NULL, 0);
+}
 }
 
 extern "C" void setup_ui0x2espectroscope()
