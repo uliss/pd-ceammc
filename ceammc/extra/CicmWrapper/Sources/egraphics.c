@@ -658,7 +658,7 @@ char* hsl_to_hex(t_hsl color)
     return rgb_to_hex(ncolor);
 }
 
-t_rgba hex_to_rgba(char* color)
+t_rgba hex_to_rgba(const char* color)
 {
     int hexvalue = (int)strtol(color+1, NULL, 16);
     t_rgba ncolor;
@@ -669,7 +669,7 @@ t_rgba hex_to_rgba(char* color)
     return ncolor;
 }
 
-t_rgb hex_to_rgb(char* color)
+t_rgb hex_to_rgb(const char* color)
 {
     int hexvalue = (int)strtol(color+1, NULL, 16);
     t_rgb ncolor;
