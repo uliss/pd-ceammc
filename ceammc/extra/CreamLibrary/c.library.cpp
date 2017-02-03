@@ -136,7 +136,7 @@ extern "C" void cream_setup(void)
 
 typedef t_object *(*t_returnnewmethod)(t_symbol *s);
 
-extern "C" void Cream_setup(void)
+extern "C" void creammc_setup(void)
 {
 	cream_setup();
 }

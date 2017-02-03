@@ -59,7 +59,7 @@ set_target_properties(cream_core PROPERTIES COMPILE_FLAGS "${CREAM_COMPILE_FLAGS
 
 #target_link_libraries(cream_core cicm_static)
 
-pd_add_extension(NAME cream
+pd_add_extension(NAME creammc
     FILES c.library.cpp
     INTERNAL True
     LIBRARY ceammc
