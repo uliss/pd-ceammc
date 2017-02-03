@@ -137,7 +137,6 @@ UI_fun(tl_bang)::new_ext(t_object* z, t_symbol* /*s*/, int /*argc*/, t_atom* /*a
     zx->txt = etext_layout_create();
 
     zx->fnt = efont_create(FONT_FAMILY, FONT_STYLE, FONT_WEIGHT, FONT_SIZE);
-
 }
 
 UI_fun(tl_bang)::init_ext(t_eclass* z)

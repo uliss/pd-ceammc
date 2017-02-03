@@ -137,6 +137,7 @@ ceammc_cxx_extension(conv env2bpf)
 ceammc_cxx_extension(conv list2bpf)
 ceammc_cxx_extension(conv vline2bpf)
 ceammc_cxx_extension(conv bpf2array)
+ceammc_cxx_extension(conv lin2lin)
 
 ###############################
 # JSON
@@ -147,6 +148,7 @@ ceammc_cxx_extension(local json)
 ###############################
 # EXPERIMENTAL
 ###############################
+if(APPLE)
 ceammc_cxx_extension(exp patchdata)
 
 ceammc_cxx_extension(ui ecanvas)
@@ -157,6 +159,7 @@ ceammc_cxx_extension(exp instance)
 ceammc_cxx_extension(exp method)
 ceammc_cxx_extension(exp aproperty)
 ceammc_cxx_extension(exp signal)
+endif()
 
 
 ###############################
@@ -206,8 +209,8 @@ ceammc_cxx_extension(local int)
 ceammc_cxx_extension(local float)
 
 ceammc_cxx_extension(prop get)
-pd_add_extension(NAME "msg" FILES "msg.cpp" INTERNAL True LIBRARY ceammc LINK ceammc_static cicm_static)
-pd_add_extension(NAME "m" FILES "msg.cpp" INTERNAL True LIBRARY ceammc LINK ceammc_static cicm_static)
+pd_add_extension(NAME "msg" FILES "msg.cpp" INTERNAL True LIBRARY ceammc LINK ceammc_static)
+add_custom_command(TARGET msg COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_SONAME_FILE:msg>" "m${PD_EXTERNAL_EXTENSION}")
 
 
 include(FindLibSndFile)

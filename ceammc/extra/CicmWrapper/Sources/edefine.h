@@ -145,11 +145,11 @@ typedef enum elayer_flags
 typedef enum etextanchor_flags
 {
     ETEXT_UP            = 0, /*!< Up and center. */
-    ETEXT_UP_LEFT       = 1, /*!< Up anfd left. */
-    ETEXT_UP_RIGHT      = 2, /*!< Up anfd right. */
+    ETEXT_UP_LEFT       = 1, /*!< Up and left. */
+    ETEXT_UP_RIGHT      = 2, /*!< Up and right. */
     ETEXT_DOWN          = 3, /*!< Down and center. */
-    ETEXT_DOWN_LEFT     = 4, /*!< Down anfd left. */
-    ETEXT_DOWN_RIGHT    = 5, /*!< Down anfd right. */
+    ETEXT_DOWN_LEFT     = 4, /*!< Down and left. */
+    ETEXT_DOWN_RIGHT    = 5, /*!< Down and right. */
     ETEXT_LEFT          = 6, /*!< Left. */
     ETEXT_RIGHT         = 7, /*!< Right. */
     ETEXT_CENTER        = 8  /*!< Center. */
