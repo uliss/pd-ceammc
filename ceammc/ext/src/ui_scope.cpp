@@ -7,8 +7,8 @@
 //
 
 #include <algorithm>
-#include <cstdio>
 #include <cassert>
+#include <cstdio>
 
 #include "lib/ceammc_gui.h"
 
@@ -17,7 +17,7 @@ static const size_t BUFSIZE = 8912;
 struct ui_scope : public ceammc_gui::BaseGuiObject {
     t_edspobj d_dsp;
     t_sample buf[BUFSIZE];
-    int counter;
+    size_t counter;
     int b_freeze;
     t_rgba b_color_background;
     t_rgba b_color_border;
@@ -39,8 +39,6 @@ namespace ceammc_gui {
 
 static t_symbol* HRULE_COLOR = gensym("#A0A0A0");
 static const float HRULE_LINE_WIDTH = 1.0f;
-
-static t_symbol* GRAPH_COLOR = gensym("#00C0FF");
 static const float GRAPH_LINE_WIDTH = 1.5f;
 
 static void ui_scope_freeze(ui_scope* x, t_floatarg f)
@@ -64,8 +62,12 @@ static void ui_scope_perform(ui_scope* x, t_object*,
     if (x->b_freeze)
         return;
 
+    const size_t idx = x->counter * sampleframes;
+    if (idx >= BUFSIZE)
+        return;
+
     t_sample* in = ins[0];
-    t_sample* out = &x->buf[x->counter * sampleframes];
+    t_sample* out = &x->buf[idx];
     std::copy(in, in + sampleframes, out);
 
     x->counter++;
@@ -82,11 +84,10 @@ static void ui_scope_dsp(ui_scope* x, t_object* dsp, short* /*count*/, double /*
 
 UI_fun(ui_scope)::wx_paint(t_object* z, t_object* /*view*/)
 {
-    t_symbol* bgl = gensym("background_layer");
     t_rect rect;
-    ebox_get_rect_for_view(reinterpret_cast<t_ebox*>(z), &rect);
+    ebox_get_rect_for_view(asBox(z), &rect);
 
-    t_elayer* g = ebox_start_layer(reinterpret_cast<t_ebox*>(z), bgl, rect.width, rect.height);
+    t_elayer* g = ebox_start_layer(asBox(z), BG_LAYER, rect.width, rect.height);
 
     if (g) {
         // draw hrules
@@ -98,8 +99,8 @@ UI_fun(ui_scope)::wx_paint(t_object* z, t_object* /*view*/)
         egraphics_stroke(g);
 
         egraphics_set_line_width(g, GRAPH_LINE_WIDTH);
-        egraphics_set_color_hex(g, GRAPH_COLOR);
-        ui_scope* zx = reinterpret_cast<ui_scope*>(z);
+        egraphics_set_color_hex(g, COLOR_ACTIVE);
+        ui_scope* zx = asStruct(z);
         egraphics_move_to(g, 0, zx->valueAt(0) * rect.height);
 
         for (size_t i = 0; i < 128; i++) {
@@ -109,10 +110,10 @@ UI_fun(ui_scope)::wx_paint(t_object* z, t_object* /*view*/)
         }
 
         egraphics_stroke(g);
+        ebox_end_layer(asBox(z), BG_LAYER);
     }
 
-    ebox_end_layer(reinterpret_cast<t_ebox*>(z), bgl);
-    ebox_paint_layer(reinterpret_cast<t_ebox*>(z), bgl, 0., 0.);
+    ebox_paint_layer(asBox(z), BG_LAYER, 0., 0.);
 }
 
 UI_fun(ui_scope)::new_ext(t_object* z, t_symbol*, int, t_atom*)
