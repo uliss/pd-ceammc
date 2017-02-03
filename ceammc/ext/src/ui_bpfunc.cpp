@@ -911,17 +911,17 @@ UI_fun(ui_bpfunc)::wx_mousedrag_ext(t_object* z, t_object* view, t_pt pt, long m
                 }
             }
         }
+    }
 
-        zx->_px = pt.x;
-        zx->_py = pt.y;
+    zx->_px = pt.x;
+    zx->_py = pt.y;
 
-        zx->x_bpf->_Sort();
+    zx->x_bpf->_Sort();
 
-        GuiFactory<BaseGuiObject>::ws_redraw(z);
+    GuiFactory<BaseGuiObject>::ws_redraw(z);
 
-        if (zx->auto_send) {
-            GuiFactory<ui_bpfunc>::m_bang(z);
-        }
+    if (zx->auto_send) {
+        GuiFactory<ui_bpfunc>::m_bang(z);
     }
 }
 
