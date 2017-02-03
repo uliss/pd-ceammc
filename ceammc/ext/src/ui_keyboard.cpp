@@ -47,6 +47,19 @@ struct kRect {
     bool is_black;
 };
 
+static size_t white_keys(size_t num_keys)
+{
+    size_t n_octave = num_keys / 12;
+    size_t n_number = num_keys % 12;
+    size_t wk = (n_number + (n_number < 6 ? 1 : 2)) >> 1;
+    return n_octave * 7 + wk;
+}
+
+static float key_width(float keyboard_width, size_t num_keys)
+{
+    return keyboard_width / (white_keys(num_keys) * 2.f);
+}
+
 static kRect get_black_key_r(int offset, float kWidth, float kHeight)
 {
     kRect ret;
@@ -109,7 +122,7 @@ UI_fun(ui_keyboard)::wx_paint(t_object* z, t_object* /*view*/)
         if (zx->keys > 127)
             zx->keys = 127;
 
-        float kWidth = rect.width / zx->keys;
+        float kWidth = key_width(rect.width, zx->keys);
 
         // two pass draw
         // white keys first
@@ -171,7 +184,7 @@ UI_fun(ui_keyboard)::wx_mousemove_ext(t_object* z, t_object* /*view*/, t_pt /*pt
     t_rect rect;
     ebox_get_rect_for_view(asBox(z), &rect);
 
-    float kWidth = rect.width / zx->keys;
+    float kWidth = key_width(rect.width, zx->keys);
 
     for (int i = 0; i < zx->keys; i++) {
         kRect k = get_key_r(i, kWidth, rect.height);
@@ -259,7 +272,7 @@ static void ui_k_getdrawparams(ui_keyboard* x, t_object* /*patcherview*/, t_edra
 
 UI_fun(ui_keyboard)::wx_attr_changed_ext(t_object* z, t_symbol* attr)
 {
-    if(attr == gensym("keys"))
+    if (attr == gensym("keys"))
         ws_redraw(z);
 }
 
