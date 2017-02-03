@@ -21,17 +21,13 @@ struct ui_scope : public ceammc_gui::BaseGuiObject {
     int b_freeze;
     t_rgba b_color_background;
     t_rgba b_color_border;
-
-    ui_scope()
-        : counter(0)
-        , b_freeze(0)
-    {
-    }
+    float xscale;
+    float yscale;
 
     inline t_sample valueAt(size_t i) const
     {
         assert(i < BUFSIZE);
-        return -buf[i] * 0.5f + 0.5f;
+        return -buf[i] * 0.5f * yscale + 0.5f;
     }
 };
 
@@ -104,7 +100,7 @@ UI_fun(ui_scope)::wx_paint(t_object* z, t_object* /*view*/)
         egraphics_move_to(g, 0, zx->valueAt(0) * rect.height);
 
         for (size_t i = 0; i < 128; i++) {
-            float xx = float(i + 1) / 128.0f * rect.width;
+            float xx = (i * rect.width) / 128.0f + 1.f;
             float yy = zx->valueAt(i) * rect.height;
             egraphics_line_to(g, xx, yy);
         }
@@ -119,6 +115,9 @@ UI_fun(ui_scope)::wx_paint(t_object* z, t_object* /*view*/)
 UI_fun(ui_scope)::new_ext(t_object* z, t_symbol*, int, t_atom*)
 {
     eobj_dspsetup(z, 1, 0);
+    ui_scope* zx = asStruct(z);
+    zx->b_freeze = 0;
+    zx->counter = 0;
 }
 
 UI_fun(ui_scope)::init_ext(t_eclass* z)
@@ -128,17 +127,25 @@ UI_fun(ui_scope)::init_ext(t_eclass* z)
     // clang-format off
     CLASS_ATTR_DEFAULT(z, "size", 0, "150. 100.");
 
-    CLASS_ATTR_RGBA(z,  "bgcolor", 0, ui_scope, b_color_background);
-    CLASS_ATTR_LABEL(z, "bgcolor", 0, "Background Color");
-    CLASS_ATTR_ORDER(z, "bgcolor", 0, "1");
-    CLASS_ATTR_STYLE(z, "bgcolor", 0, "color");
-    CLASS_ATTR_DEFAULT_SAVE_PAINT(z, "bgcolor", 0, "0.93 0.93 0.93 1.");
+    CLASS_ATTR_RGBA                 (z, "bgcolor", 0, ui_scope, b_color_background);
+    CLASS_ATTR_LABEL                (z, "bgcolor", 0, "Background Color");
+    CLASS_ATTR_ORDER                (z, "bgcolor", 0, "1");
+    CLASS_ATTR_STYLE                (z, "bgcolor", 0, "color");
+    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "bgcolor", 0, "0.93 0.93 0.93 1.");
 
-    CLASS_ATTR_RGBA(z,  "bdcolor", 0, ui_scope, b_color_border);
-    CLASS_ATTR_LABEL(z, "bdcolor", 0, "Border Color");
-    CLASS_ATTR_ORDER(z, "bdcolor", 0, "2");
-    CLASS_ATTR_STYLE(z, "bdcolor", 0, "color");
-    CLASS_ATTR_DEFAULT_SAVE_PAINT(z, "bdcolor", 0, "0. 0. 0. 1.");
+    CLASS_ATTR_RGBA                 (z, "bdcolor", 0, ui_scope, b_color_border);
+    CLASS_ATTR_LABEL                (z, "bdcolor", 0, "Border Color");
+    CLASS_ATTR_ORDER                (z, "bdcolor", 0, "2");
+    CLASS_ATTR_STYLE                (z, "bdcolor", 0, "color");
+    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "bdcolor", 0, "0. 0. 0. 1.");
+
+    CLASS_ATTR_FLOAT                (z, "yscale", 0, ui_scope, yscale);
+    CLASS_ATTR_DEFAULT              (z, "yscale", 0, "1");
+    CLASS_ATTR_LABEL                (z, "yscale", 0, "Y-scale");
+    CLASS_ATTR_STYLE                (z, "yscale", 0, "number");
+    CLASS_ATTR_FILTER_CLIP          (z, "yscale", 0.1f, 10.0f);
+    CLASS_ATTR_STEP                 (z, "yscale", 0.1);
+    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "yscale", 0, "1");
     // clang-format off
 
     eclass_addmethod(z, reinterpret_cast<method>(ui_s_getdrawparams), "getdrawparams", A_NULL, 0);

@@ -170,7 +170,7 @@ UI_fun(ui_knob)::m_float(t_object* z, t_float f)
     outlet_float(zx->out1, zx->realValue());
 }
 
-UI_fun(ui_knob)::m_bang(t_object* z, t_symbol*, int, t_atom*)
+UI_fun(ui_knob)::m_bang(t_object* z)
 {
     ui_knob* zx = asStruct(z);
     outlet_float(zx->out1, zx->realValue());

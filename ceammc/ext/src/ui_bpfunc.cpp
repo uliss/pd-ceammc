@@ -383,7 +383,7 @@ namespace ceammc_gui {
 #pragma mark messages
     
     //get list; scaled
-    UI_fun(ui_bpfunc)::m_bang(t_object *z, t_symbol *s, int argc, t_atom *argv)
+    UI_fun(ui_bpfunc)::m_bang(t_object *z)
     {
         
         ui_bpfunc *zx = (ui_bpfunc*)z;
@@ -949,7 +949,7 @@ namespace ceammc_gui {
         
         if (zx->auto_send)
         {
-            GuiFactory<ui_bpfunc>::m_bang(z, &s_bang, 0, NULL);
+            GuiFactory<ui_bpfunc>::m_bang(z);
         }
         
     }
