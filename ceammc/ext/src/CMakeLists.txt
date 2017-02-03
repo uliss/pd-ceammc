@@ -137,6 +137,7 @@ ceammc_cxx_extension(conv env2bpf)
 ceammc_cxx_extension(conv list2bpf)
 ceammc_cxx_extension(conv vline2bpf)
 ceammc_cxx_extension(conv bpf2array)
+ceammc_cxx_extension(conv lin2lin)
 
 ###############################
 # JSON
