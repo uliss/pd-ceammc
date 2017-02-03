@@ -104,7 +104,7 @@ cp $SRC_DIR/ceammc/ext/doc/*-help.pd $PD_EXTRA/ceammc
 chmod 0444 $PD_EXTRA/ceammc/*-help.pd
 
 echo "Copying CICM/Cream files:"
-cp $BUILD_DIR/ceammc/extra/CreamLibrary/cream.d_fat $PD_EXTRA/ceammc
+cp $BUILD_DIR/ceammc/extra/CreamLibrary/creammc.d_fat $PD_EXTRA/ceammc
 cp -R $SRC_DIR/ceammc/extra/CreamLibrary/Package/Cream/helps $PD_EXTRA/ceammc
 cp $SRC_DIR/ceammc/extra/CreamLibrary/Package/Cream/misc/* $PD_EXTRA/ceammc/helps
 
