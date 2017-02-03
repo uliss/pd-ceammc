@@ -7,8 +7,8 @@
 //
 
 #include <algorithm>
-#include <cstdio>
 #include <cassert>
+#include <cstdio>
 
 #include "lib/ceammc_gui.h"
 
@@ -48,13 +48,7 @@ static void ui_scope_freeze(ui_scope* x, t_floatarg f)
     x->b_freeze = static_cast<int>(f) == 0 ? 0 : 1;
 }
 
-static void ui_s_getdrawparams(ui_scope* x, t_object* /*patcherview*/, t_edrawparams* params)
-{
-    params->d_borderthickness = 1;
-    params->d_cornersize = 2;
-    params->d_bordercolor = x->b_color_border;
-    params->d_boxfillcolor = x->b_color_background;
-}
+#pragma mark dsp
 
 static void ui_scope_perform(ui_scope* x, t_object*,
     t_sample** ins, long,
@@ -79,6 +73,8 @@ static void ui_scope_dsp(ui_scope* x, t_object* dsp, short* /*count*/, double /*
 {
     object_method(dsp, gensym("dsp_add"), x, reinterpret_cast<method>(ui_scope_perform), 0, NULL);
 }
+
+#pragma mark ui
 
 UI_fun(ui_scope)::wx_paint(t_object* z, t_object* /*view*/)
 {
@@ -113,6 +109,33 @@ UI_fun(ui_scope)::wx_paint(t_object* z, t_object* /*view*/)
 
     ebox_end_layer(reinterpret_cast<t_ebox*>(z), bgl);
     ebox_paint_layer(reinterpret_cast<t_ebox*>(z), bgl, 0., 0.);
+}
+
+// these added as a quick fix
+UI_fun(ui_scope)::wx_mousedown(t_object* z, t_object* view, t_pt pt, long modifiers)
+{
+}
+
+UI_fun(ui_scope)::wx_mouseup(t_object* z, t_object* view, t_pt pt, long modifiers)
+{
+}
+
+UI_fun(ui_scope)::wx_mousemove(t_object* z, t_object* view, t_pt pt, long modifiers)
+{
+}
+
+UI_fun(ui_scope)::wx_mousedrag(t_object* z, t_object* view, t_pt pt, long modifiers)
+{
+}
+
+#pragma mark setup
+
+static void ui_s_getdrawparams(ui_scope* x, t_object* /*patcherview*/, t_edrawparams* params)
+{
+    params->d_borderthickness = 1;
+    params->d_cornersize = 2;
+    params->d_bordercolor = x->b_color_border;
+    params->d_boxfillcolor = x->b_color_background;
 }
 
 UI_fun(ui_scope)::new_ext(t_object* z, t_symbol*, int, t_atom*)
