@@ -33,7 +33,7 @@ matrix:
 before_install:
 ## install some dependencies
 - sudo apt-get install software-properties-common
-- sudo add-apt-repository ppa:george-edison55/cmake-3.x
+- sudo add-apt-repository ppa:george-edison55/cmake-3.x -y
 - sudo apt-get update
 - sudo apt-get cmake update
 - sudo apt-get install -qq libboost-dev libportmidi-dev libfftw3-dev libasound2-dev libjack-dev
