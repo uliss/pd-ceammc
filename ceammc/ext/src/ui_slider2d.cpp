@@ -15,13 +15,6 @@
 
 struct ui_slider2d : public ceammc_gui::BaseGuiObject
 {
-    t_ebox x_gui;
-    
-    float mouse_x;
-    float mouse_y;
-    int mouse_dn;
-    bool _selected;
-    
     t_outlet *out1;
     
     t_atom out_list[2];
@@ -98,13 +91,12 @@ namespace ceammc_gui {
             
             etext_layout_set(zx->txt_max, c_max, zx->txt_font, 3, 12, rect.width*2, rect.height/2, ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_WRAP);
             etext_layout_draw(zx->txt_max, g);
-            
-            
+            ebox_end_layer((t_ebox*)z, bgl);
         }
         
         
         
-        ebox_end_layer((t_ebox*)z, bgl);
+
         ebox_paint_layer((t_ebox *)z, bgl, 0., 0.);
     }
     
@@ -123,7 +115,7 @@ namespace ceammc_gui {
         if ( (zx->_posy) > (zx->shift_y+zx->range_y) ) zx->_posy = zx->shift_y+zx->range_y;
         if ( (zx->_posy) < (zx->shift_y) ) zx->_posy = zx->shift_y;
 
-        ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
+        ws_redraw(z);
         
         atom_setfloat(&((ui_slider2d*)z)->out_list[0], zx->_posx);
         atom_setfloat(&((ui_slider2d*)z)->out_list[1], zx->_posy);
@@ -148,7 +140,7 @@ namespace ceammc_gui {
         if ( (zx->_posy) < (zx->shift_y) ) zx->_posy = zx->shift_y;
         
         
-        ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
+        ws_redraw(z);
         
         atom_setfloat(&((ui_slider2d*)z)->out_list[0], zx->_posx);
         atom_setfloat(&((ui_slider2d*)z)->out_list[1], zx->_posy);
@@ -172,7 +164,7 @@ namespace ceammc_gui {
         if ( (zx->_posy) > (zx->shift_y+zx->range_y) ) zx->_posy = zx->shift_y+zx->range_y;
         if ( (zx->_posy) < (zx->shift_y) ) zx->_posy = zx->shift_y;
         
-        ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
+        ws_redraw(z);
         
         atom_setfloat(&((ui_slider2d*)z)->out_list[0], zx->_posx);
         atom_setfloat(&((ui_slider2d*)z)->out_list[1], zx->_posy);
@@ -225,8 +217,6 @@ namespace ceammc_gui {
         CLASS_ATTR_STYLE                (z, "bdcolor", 0, "color");
         
         eclass_addmethod(z, (method) ui_s2_getdrawparams,   "getdrawparams",    A_NULL, 0);
-        
-        
     }
     
     UI_fun(ui_slider2d)::new_ext(t_object *x, t_symbol *s, int argcl, t_atom *argv)
@@ -237,6 +227,16 @@ namespace ceammc_gui {
         zx->txt_max = etext_layout_create();
         zx->txt_min = etext_layout_create();
         zx->txt_font = efont_create(gensym("Helvetica"), gensym("light"), gensym("normal"), 8);
+    }
+
+    UI_fun(ui_slider2d)::free_ext(t_object *x)
+    {
+        ui_slider2d *zx = asStruct(x);
+        outlet_free(zx->out1);
+
+        etext_layout_destroy(zx->txt_max);
+        etext_layout_destroy(zx->txt_min);
+        efont_destroy(zx->txt_font);
     }
     
 }
