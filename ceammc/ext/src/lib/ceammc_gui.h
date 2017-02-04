@@ -65,6 +65,12 @@ struct BaseGuiObject {
     //    int oulet_count;
     //    t_atomtype *inlet_types;
     //    t_atomtype *outet_types;
+
+    t_rect rect() const { return b_box.b_rect; }
+    float x() const { return b_box.b_rect.x; }
+    float y() const { return b_box.b_rect.y; }
+    float width() const { return b_box.b_rect.width; }
+    float height() const { return b_box.b_rect.height; }
 };
 
 struct BaseSoundGuiStruct {

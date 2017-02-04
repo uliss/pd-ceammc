@@ -6,12 +6,19 @@
 //
 //
 
+#include <algorithm>
 #include <stdio.h>
 
 #include "ceammc_atomlist.h"
 #include "ceammc_format.h"
 
 #include "lib/ceammc_gui.h"
+
+template <typename T>
+static T clip(T min, T max, T v)
+{
+    return std::max(min, std::min(max, v));
+}
 
 struct ui_slider2d : public ceammc_gui::BaseGuiObject {
     t_outlet* out1;
@@ -36,10 +43,16 @@ struct ui_slider2d : public ceammc_gui::BaseGuiObject {
 public:
     void output()
     {
-        atom_setfloat(&out_list[0], _posx);
-        atom_setfloat(&out_list[1], _posy);
+        atom_setfloat(&out_list[0], _posx * range_x + shift_x);
+        atom_setfloat(&out_list[1], _posy * range_y + shift_y);
 
         outlet_list(out1, &s_list, 2, out_list);
+    }
+
+    void setPos(const t_pt& mousePos)
+    {
+        _posx = clip(0.f, 1.f, mousePos.x / width());
+        _posy = clip(0.f, 1.f, mousePos.y / height());
     }
 };
 
@@ -55,18 +68,12 @@ UI_fun(ui_slider2d)::wx_paint(t_object* z, t_object* view)
     if (g) {
         ui_slider2d* zx = asStruct(z);
 
-        float xx = zx->_posx * .5 + .5;
-        float yy = zx->_posy * .5 + .5;
+        float xx = zx->_posx;
+        float yy = zx->_posy;
         xx *= rect.width;
         yy *= rect.height;
 
-        float knobsize = (rect.width * 0.1);
-        if (knobsize > (rect.height * 0.1))
-            knobsize = rect.height * 0.1;
-        if (knobsize < 5)
-            knobsize = 5;
-        if (knobsize > 20)
-            knobsize = 20;
+        float knobsize = clip<float>(5.f, 20.f, std::min(rect.height, rect.width) * 0.1f);
 
         egraphics_set_line_width(g, 0.5);
         egraphics_set_color_hex(g, gensym("#00C0F0"));
@@ -106,48 +113,16 @@ UI_fun(ui_slider2d)::wx_paint(t_object* z, t_object* view)
 UI_fun(ui_slider2d)::wx_mousedrag_ext(t_object* z, t_object* view, t_pt pt, long modifiers)
 {
     ui_slider2d* zx = asStruct(z);
-
-    t_rect rect;
-    ebox_get_rect_for_view(asBox(z), &rect);
-
-    zx->_posx = (pt.x / rect.width) * 2.f - 1;
-    zx->_posy = (pt.y / rect.height) * 2.f - 1;
-
-    if ((zx->_posx) > (zx->shift_x + zx->range_x))
-        zx->_posx = zx->shift_x + zx->range_x;
-    if ((zx->_posx) < (zx->shift_x))
-        zx->_posx = zx->shift_x;
-    if ((zx->_posy) > (zx->shift_y + zx->range_y))
-        zx->_posy = zx->shift_y + zx->range_y;
-    if ((zx->_posy) < (zx->shift_y))
-        zx->_posy = zx->shift_y;
-
+    zx->setPos(pt);
     ws_redraw(z);
-
     zx->output();
 }
 
 UI_fun(ui_slider2d)::wx_mousedown_ext(t_object* z, t_object* view, t_pt pt, long modifiers)
 {
     ui_slider2d* zx = asStruct(z);
-
-    t_rect rect;
-    ebox_get_rect_for_view(asBox(z), &rect);
-
-    zx->_posx = (pt.x / rect.width) * 2.f - 1;
-    zx->_posy = (pt.y / rect.height) * 2.f - 1;
-
-    if ((zx->_posx) > (zx->shift_x + zx->range_x))
-        zx->_posx = zx->shift_x + zx->range_x;
-    if ((zx->_posx) < (zx->shift_x))
-        zx->_posx = zx->shift_x;
-    if ((zx->_posy) > (zx->shift_y + zx->range_y))
-        zx->_posy = zx->shift_y + zx->range_y;
-    if ((zx->_posy) < (zx->shift_y))
-        zx->_posy = zx->shift_y;
-
+    zx->setPos(pt);
     ws_redraw(z);
-
     zx->output();
 }
 
@@ -155,23 +130,8 @@ UI_fun(ui_slider2d)::wx_mouseup_ext(t_object* z, t_object*, t_pt pt, long)
 {
     ui_slider2d* zx = asStruct(z);
 
-    t_rect rect;
-    ebox_get_rect_for_view(asBox(z), &rect);
-
-    zx->_posx = (pt.x / rect.width) * 2.f - 1;
-    zx->_posy = (pt.y / rect.height) * 2.f - 1;
-
-    if ((zx->_posx) > (zx->shift_x + zx->range_x))
-        zx->_posx = zx->shift_x + zx->range_x;
-    if ((zx->_posx) < (zx->shift_x))
-        zx->_posx = zx->shift_x;
-    if ((zx->_posy) > (zx->shift_y + zx->range_y))
-        zx->_posy = zx->shift_y + zx->range_y;
-    if ((zx->_posy) < (zx->shift_y))
-        zx->_posy = zx->shift_y;
-
+    zx->setPos(pt);
     ws_redraw(z);
-
     zx->output();
 }
 
@@ -232,6 +192,10 @@ UI_fun(ui_slider2d)::new_ext(t_object* x, t_symbol*, int, t_atom*)
     zx->txt_max = etext_layout_create();
     zx->txt_min = etext_layout_create();
     zx->txt_font = efont_create(FONT_FAMILY, FONT_STYLE, FONT_WEIGHT, FONT_SIZE_SMALL);
+
+    // default position in center
+    zx->_posx = 0.5;
+    zx->_posy = 0.5;
 }
 
 UI_fun(ui_slider2d)::free_ext(t_object* x)
