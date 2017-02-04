@@ -14,8 +14,7 @@
 
 static const size_t BUFSIZE = 8912;
 
-struct ui_scope : public ceammc_gui::BaseGuiObject {
-    t_edspobj d_dsp;
+struct ui_scope : public ceammc_gui::BaseSoundGuiStruct {
     t_sample buf[BUFSIZE];
     size_t counter;
     int b_freeze;
@@ -106,23 +105,6 @@ UI_fun(ui_scope)::wx_paint(t_object* z, t_object* /*view*/)
     }
 
     ebox_paint_layer(asBox(z), BG_LAYER, 0., 0.);
-}
-
-// these added as a quick fix
-UI_fun(ui_scope)::wx_mousedown(t_object* z, t_object* view, t_pt pt, long modifiers)
-{
-}
-
-UI_fun(ui_scope)::wx_mouseup(t_object* z, t_object* view, t_pt pt, long modifiers)
-{
-}
-
-UI_fun(ui_scope)::wx_mousemove(t_object* z, t_object* view, t_pt pt, long modifiers)
-{
-}
-
-UI_fun(ui_scope)::wx_mousedrag(t_object* z, t_object* view, t_pt pt, long modifiers)
-{
 }
 
 #pragma mark setup

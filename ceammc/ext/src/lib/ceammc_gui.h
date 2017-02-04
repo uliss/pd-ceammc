@@ -67,6 +67,16 @@ struct BaseGuiObject {
     //    t_atomtype *outet_types;
 };
 
+struct BaseSoundGuiStruct {
+    t_edspbox j_box;
+
+    // basic mouse handling
+    float mouse_x;
+    float mouse_y;
+    int mouse_dn;
+    bool _selected;
+};
+
 /**
  * @brief The template class for GUI objects. Provides basic functionality with CICM Wrapper.
  * @details To create your own UI object:
