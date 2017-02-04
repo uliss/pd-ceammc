@@ -457,7 +457,7 @@ t_hsl rgb_to_hsl(t_rgb color);
  * \param color The hexadecimal color.
  * \return The t_rgba color.
  */
-t_rgba hex_to_rgba(char* color);
+t_rgba hex_to_rgba(const char* color);
 
 /*!
  * \fn          t_rgb hex_to_rgb(char* color)
@@ -465,7 +465,7 @@ t_rgba hex_to_rgba(char* color);
  * \param color The hexadecimal color.
  * \return The t_rgb color.
  */
-t_rgb hex_to_rgb(char* color);
+t_rgb hex_to_rgb(const char* color);
 
 /*!
  * \fn          t_rgba hsla_to_rgba(t_hsla color)

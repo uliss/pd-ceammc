@@ -6,6 +6,7 @@
 //
 //
 
+#include <algorithm>
 #include <cmath>
 #include <cstdio>
 
@@ -17,8 +18,6 @@
 using namespace ceammc;
 
 struct ui_display : public ceammc_gui::BaseGuiObject {
-    t_ebox x_gui;
-
     t_etext* txt_type;
     t_etext* txt_val;
     t_efont* txt_font;
@@ -43,7 +42,11 @@ namespace ceammc_gui {
 
 static t_symbol* COLOR_LIST_TYPE = gensym("#00A0C0");
 static t_symbol* COLOR_FLOAT_TYPE = gensym("#C000A0");
+static t_symbol* COLOR_SYMBOL_TYPE = gensym("#A0C000");
 static t_symbol* COLOR_DEFAULT_TYPE = gensym("#909090");
+static const int TYPE_WIDTH = 45;
+static const int TEXT_XPAD = 3;
+static const int TEXT_YPAD = 1;
 
 #pragma mark setup
 
@@ -51,12 +54,67 @@ static inline t_symbol* msg_color(t_symbol* s_type)
 {
     if (s_type == &s_list)
         return COLOR_LIST_TYPE;
-
-    if (s_type == &s_float)
+    else if (s_type == &s_float)
         return COLOR_FLOAT_TYPE;
-
-    return COLOR_DEFAULT_TYPE;
+    else if (s_type == &s_symbol)
+        return COLOR_SYMBOL_TYPE;
+    else
+        return COLOR_DEFAULT_TYPE;
 }
+
+static void draw_message_type(ui_display* zx, t_elayer* g, float x, float y, float width, float height)
+{
+    egraphics_set_color_hex(g, msg_color(zx->s_type));
+    egraphics_rectangle(g, x, y, width, height);
+    egraphics_fill(g);
+
+    etext_layout_set(zx->txt_type, zx->s_type->s_name, zx->txt_font,
+        x + TEXT_XPAD, y + TEXT_YPAD, width - TEXT_XPAD, height,
+        ETEXT_UP_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
+    etext_layout_draw(zx->txt_type, g);
+}
+
+
+#pragma mark ui
+static void draw_msg_value(ui_display* zx, t_elayer* g, float x, float y, float width, float height)
+{
+    if (zx->bang)
+        egraphics_set_color_hex(g, GuiFactory<BaseGuiObject>::COLOR_ACTIVE);
+    else
+        egraphics_set_color_rgba(g, &zx->b_color_background);
+
+    egraphics_rectangle(g, x, y, width, height);
+    egraphics_fill(g);
+
+    etext_layout_set(zx->txt_val, zx->s_value->c_str(), zx->txt_font,
+        x + TEXT_XPAD, y + TEXT_YPAD, width - TYPE_WIDTH - TEXT_XPAD, height,
+        ETEXT_UP_LEFT, ETEXT_JLEFT, ETEXT_WRAP);
+    etext_layout_draw(zx->txt_val, g);
+}
+
+UI_fun(ui_display)::wx_paint(t_object* z, t_object* /*view*/)
+{
+    t_rect rect;
+    ebox_get_rect_for_view(asBox(z), &rect);
+
+    t_elayer* g = ebox_start_layer(asBox(z), BG_LAYER, rect.width, rect.height);
+
+    if (g) {
+        ui_display* zx = asStruct(z);
+
+        if (zx->show_type) {
+            draw_message_type(zx, g, 0, 0, TYPE_WIDTH, rect.height);
+            draw_msg_value(zx, g, TYPE_WIDTH, 0, rect.width, rect.height);
+        } else {
+            draw_msg_value(zx, g, 0, 0, rect.width, rect.height);
+        }
+
+        ebox_end_layer(asBox(z), BG_LAYER);
+    }
+
+    ebox_paint_layer(asBox(z), BG_LAYER, 0., 0.);
+}
+
 
 UI_fun(ui_display)::m_anything(t_object* z, t_symbol* s, int argc, t_atom* argv)
 
@@ -71,12 +129,12 @@ UI_fun(ui_display)::m_anything(t_object* z, t_symbol* s, int argc, t_atom* argv)
     }
 
     if (zx->auto_size) {
-        float w = (*zx->s_value).size() * 8 + (zx->show_type * 50) + 7;
+        float w = zx->s_value->size() * 8 + (zx->show_type * 50) + 7;
         float h = int(w / 250) * 15 + 15;
-        w = (w > 250) ? 250 : w;
+        w = std::min(std::max(w, 20.f), 250.f); // 20 <= w <= 250
 
-        zx->x_gui.b_rect.width = w;
-        zx->x_gui.b_rect.height = h;
+        zx->b_box.b_rect.width = w;
+        zx->b_box.b_rect.height = h;
 
         AtomList argv;
         argv.append(Atom(w));
@@ -84,84 +142,37 @@ UI_fun(ui_display)::m_anything(t_object* z, t_symbol* s, int argc, t_atom* argv)
         eobj_attr_setvalueof(zx, gensym("size"), 2, argv.toPdData());
     }
 
-    ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
+    ws_redraw(z);
 }
 
-UI_fun(ui_display)::m_list(t_object* z, t_symbol* /*s*/, int argc, t_atom* argv)
+UI_fun(ui_display)::m_list(t_object* z, t_symbol*, int argc, t_atom* argv)
 {
-    ceammc_gui::GuiFactory<ui_display>::m_anything(z, &s_list, argc, argv);
+    m_anything(z, &s_list, argc, argv);
+}
+
+UI_fun(ui_display)::m_symbol(t_object* z, t_symbol* s)
+{
+    t_atom a;
+    atom_setsym(&a, s);
+    m_anything(z, &s_symbol, 1, &a);
 }
 
 UI_fun(ui_display)::m_float(t_object* z, t_float f)
 {
     AtomList list1 = AtomList(Atom(f));
-    ceammc_gui::GuiFactory<ui_display>::m_anything(z, &s_float, 1, list1.toPdData());
+    m_anything(z, &s_float, 1, list1.toPdData());
 }
 
-UI_fun(ui_display)::m_bang(t_object* z, t_symbol* /*s*/, int /*argc*/, t_atom* /*argv*/)
+UI_fun(ui_display)::m_bang(t_object* z)
 {
-    ceammc_gui::GuiFactory<ui_display>::m_anything(z, &s_bang, 0, 0);
-}
-
-#pragma mark ui
-
-UI_fun(ui_display)::wx_paint(t_object* z, t_object* /*view*/)
-{
-    t_symbol* bgl = BG_LAYER;
-
-    t_rect rect;
-    ebox_get_rect_for_view(asBox(z), &rect);
-
-    t_elayer* g = ebox_start_layer(asBox(z), bgl, rect.width, rect.height);
-
-    if (g) {
-        ui_display* zx = asStruct(z);
-
-        if (zx->show_type) {
-            egraphics_set_color_hex(g, msg_color(zx->s_type));
-
-            egraphics_rectangle(g, 0, 0, 45, rect.height);
-            egraphics_fill(g);
-
-            egraphics_set_color_rgba(g, &zx->b_color_background);
-            if (zx->bang)
-                egraphics_set_color_hex(g, COLOR_ACTIVE);
-            egraphics_rectangle(g, 45, 0, rect.width, rect.height);
-            egraphics_fill(g);
-
-            etext_layout_set(zx->txt_type, zx->s_type->s_name, zx->txt_font, 3, rect.height / 1, 45, rect.height, ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
-            etext_layout_set(zx->txt_val, zx->s_value->c_str(), zx->txt_font, 48, rect.height / 1, rect.width - 50, rect.height, ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_WRAP);
-            etext_layout_draw(zx->txt_type, g);
-            etext_layout_draw(zx->txt_val, g);
-        } else {
-            egraphics_set_color_rgba(g, &zx->b_color_background);
-            if (zx->bang)
-                egraphics_set_color_hex(g, COLOR_ACTIVE);
-            egraphics_rectangle(g, 0, 0, rect.width, rect.height);
-            egraphics_fill(g);
-
-            etext_layout_set(zx->txt_val, zx->s_value->c_str(), zx->txt_font, 3, rect.height / 1, rect.width - 5, rect.height, ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_WRAP);
-
-            etext_layout_draw(zx->txt_val, g);
-        }
-
-        ebox_end_layer(asBox(z), bgl);
-    }
-
-    ebox_paint_layer(asBox(z), bgl, 0., 0.);
-}
-
-UI_fun(ui_display)::wx_oksize(t_object* /*z*/, t_rect* newrect)
-{
-    newrect->height = floorf(newrect->height / 15.f) * 15.f;
-    newrect->height = (newrect->height > 15) ? newrect->height : 15;
+    m_anything(z, &s_bang, 0, 0);
 }
 
 void display_clock(t_object* z)
 {
     ui_display* zx = reinterpret_cast<ui_display*>(z);
     zx->bang = false;
-    ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
+    GuiFactory<BaseGuiObject>::ws_redraw(z);
 }
 
 #pragma mark setup
@@ -171,7 +182,7 @@ UI_fun(ui_display)::new_ext(t_object* z, t_symbol* /*s*/, int /*argcl*/, t_atom*
     ui_display* zx = asStruct(z);
 
     zx->s_value = new std::string;
-    zx->s_type = &s_anything;
+    zx->s_type = gensym("...");
 
     zx->txt_val = etext_layout_create();
     zx->txt_type = etext_layout_create();
@@ -204,6 +215,11 @@ static void ui_disp_getdrawparams(ui_display* x, t_object* /*patcherview*/, t_ed
     params->d_cornersize = 2;
     params->d_bordercolor = x->b_color_border;
     params->d_boxfillcolor = x->b_color_background;
+}
+
+UI_fun(ui_display)::wx_attr_changed_ext(t_object* z, t_symbol*)
+{
+    ws_redraw(z);
 }
 
 UI_fun(ui_display)::init_ext(t_eclass* z)

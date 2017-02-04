@@ -67,6 +67,16 @@ struct BaseGuiObject {
     //    t_atomtype *outet_types;
 };
 
+struct BaseSoundGuiStruct {
+    t_edspbox j_box;
+
+    // basic mouse handling
+    float mouse_x;
+    float mouse_y;
+    int mouse_dn;
+    bool _selected;
+};
+
 /**
  * @brief The template class for GUI objects. Provides basic functionality with CICM Wrapper.
  * @details To create your own UI object:
@@ -98,7 +108,7 @@ public:
      * @brief "extension": bang method
      * @param z: pd object, s: symbol ("bang"), argc: argument count (should be 0), argv: argument value
      */
-    static void m_bang(t_object* z, t_symbol* s, int argc, t_atom* argv)
+    static void m_bang(t_object* z)
     {
     }
 
@@ -122,7 +132,7 @@ public:
      * @brief "extension": symbol method
      * @param z: pd object, s: symbol (the symbol itself), argc: argument count, argv: argument value
      */
-    static void m_symbol(t_object* z, t_symbol* s, int argc, t_atom* argv)
+    static void m_symbol(t_object* z, t_symbol* s)
     {
     }
 
@@ -232,6 +242,10 @@ public:
      * @param z: pd object, attr: attrobute name, attr_chage_type: type of change
      */
     static void wx_attr_changed_ext(t_object* /*z*/, t_symbol* /*attr*/)
+    {
+    }
+
+    static void wx_mousewheel_ext(t_object* z, t_object* view, t_pt pt, long modifiers, double delta)
     {
     }
 
@@ -360,14 +374,13 @@ public:
      */
     static void wx_mousedown(t_object* z, t_object* view, t_pt pt, long modifiers)
     {
-        U* zx = reinterpret_cast<U*>(z);
-
+        U* zx = asStruct(z);
         zx->mouse_x = pt.x;
         zx->mouse_y = pt.y;
 
         zx->mouse_dn = 1;
 
-        GuiFactory<U>::wx_mousedown_ext(z, view, pt, modifiers);
+        wx_mousedown_ext(z, view, pt, modifiers);
     }
 
     /**
@@ -430,6 +443,11 @@ public:
         return 0;
     }
 
+    static void wx_mousewheel(t_object* z, t_object* view, t_pt pt, long modifiers, double delta)
+    {
+        wx_mousewheel_ext(z, view, pt, modifiers, delta);
+    }
+
 #pragma mark -
 #pragma mark setup
 
@@ -443,6 +461,7 @@ public:
         eclass_addmethod(cl, UI_METHOD_PTR(wx_mousedown),  "mousedown", A_GIMME, 0);
         eclass_addmethod(cl, UI_METHOD_PTR(wx_mouseup),    "mouseup",   A_GIMME, 0);
         eclass_addmethod(cl, UI_METHOD_PTR(wx_mousedrag),  "mousedrag", A_GIMME, 0);
+        eclass_addmethod(cl, UI_METHOD_PTR(wx_mousewheel), "mousewheel", A_GIMME, 0);
 
         eclass_addmethod(cl, UI_METHOD_PTR(wx_mouseenter), "mouseenter", A_GIMME, 0);
         eclass_addmethod(cl, UI_METHOD_PTR(wx_mouseleave), "mouseleave", A_GIMME, 0);
@@ -452,6 +471,7 @@ public:
 
         eclass_addmethod(cl, UI_METHOD_PTR(m_bang),        "bang",     A_GIMME, 0);
         eclass_addmethod(cl, UI_METHOD_PTR(m_float),       "float",    A_GIMME, 0);
+        eclass_addmethod(cl, UI_METHOD_PTR(m_symbol),      "symbol",   A_GIMME, 0);
         eclass_addmethod(cl, UI_METHOD_PTR(m_list),        "list",     A_GIMME, 0);
         eclass_addmethod(cl, UI_METHOD_PTR(m_anything),    "anything", A_GIMME, 0);
 

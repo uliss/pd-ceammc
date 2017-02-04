@@ -10,8 +10,7 @@
 
 #include "lib/ceammc_gui.h"
 
-struct ui_spectroscope : public ceammc_gui::BaseGuiObject {
-    t_edspobj d_dsp;
+struct ui_spectroscope : public ceammc_gui::BaseSoundGuiStruct {
 
     t_inlet* in1;
     t_sample input;
@@ -21,8 +20,8 @@ struct ui_spectroscope : public ceammc_gui::BaseGuiObject {
 
     t_rgba b_color_background;
     t_rgba b_color_border;
+};
 
-} _ui_spectroscope;
 
 namespace ceammc_gui {
 
@@ -55,32 +54,53 @@ void ui_spectroscope_dsp(ui_spectroscope* x, t_object* dsp, short* count, double
 
 UI_fun(ui_spectroscope)::wx_paint(t_object* z, t_object* view)
 {
+<<<<<<< HEAD
     t_symbol* bgl = gensym("background_layer");
     t_rect rect;
     ebox_get_rect_for_view((t_ebox*)z, &rect);
 
     t_elayer* g = ebox_start_layer((t_ebox*)z, bgl, rect.width, rect.height);
+=======
+    t_rect rect;
+    ebox_get_rect_for_view(asBox(z), &rect);
+
+    t_elayer* g = ebox_start_layer(asBox(z), BG_LAYER, rect.width, rect.height);
+>>>>>>> uliss/ceammc
 
     if (g) {
         egraphics_set_line_width(g, 1);
 
         egraphics_set_color_hex(g, gensym("#A0A0A0"));
         egraphics_line(g, 0, rect.height / 2, rect.width, rect.height / 2);
+<<<<<<< HEAD
         egraphics_line(g, 0, rect.height * .25, rect.width, rect.height * .25);
         egraphics_line(g, 0, rect.height * .75, rect.width, rect.height * .75);
+=======
+        egraphics_line(g, 0, rect.height * .25f, rect.width, rect.height * .25f);
+        egraphics_line(g, 0, rect.height * .75f, rect.width, rect.height * .75f);
+>>>>>>> uliss/ceammc
         egraphics_stroke(g);
 
         egraphics_set_line_width(g, 1);
 
         egraphics_set_color_hex(g, gensym("#00C0FF"));
 
+<<<<<<< HEAD
         t_sample* in1 = ((ui_spectroscope*)z)->buf;
+=======
+        ui_spectroscope* zx = asStruct(z);
+        t_sample* in1 = zx->buf;
+>>>>>>> uliss/ceammc
 
         t_sample zero[8192];
 
         t_sample* zero1 = zero;
 
+<<<<<<< HEAD
         int fft_size = 1024;
+=======
+        const int fft_size = 1024;
+>>>>>>> uliss/ceammc
 
         for (int i = 0; i < fft_size; i++) {
             zero[i] = 0;
@@ -104,9 +124,15 @@ UI_fun(ui_spectroscope)::wx_paint(t_object* z, t_object* view)
 
         } //
 
+<<<<<<< HEAD
         ((ui_spectroscope*)z)->buf[0] = 0;
         ; //    instead of windowind lol
         egraphics_move_to(g, 0, (1 - ((ui_spectroscope*)z)->buf[0]) * rect.height);
+=======
+        zx->buf[0] = 0;
+        //    instead of windowind lol
+        egraphics_move_to(g, 0, (1 - zx->buf[0]) * rect.height);
+>>>>>>> uliss/ceammc
 
         for (int i = 0; i < fft_size; i += 4) {
 
@@ -119,11 +145,27 @@ UI_fun(ui_spectroscope)::wx_paint(t_object* z, t_object* view)
         }
 
         egraphics_stroke(g);
+<<<<<<< HEAD
     }
 
     ebox_end_layer((t_ebox*)z, bgl);
     ebox_paint_layer((t_ebox*)z, bgl, 0., 0.);
 }
+=======
+        ebox_end_layer(asBox(z), BG_LAYER);
+    }
+
+    ebox_paint_layer(asBox(z), BG_LAYER, 0., 0.);
+}
+
+#pragma mark setup
+
+UI_fun(ui_spectroscope)::new_ext(t_object* z, t_symbol* s, int argcl, t_atom* argv)
+{
+    eobj_dspsetup(z, 1, 0);
+}
+
+>>>>>>> uliss/ceammc
 // these are added as a quick fix
 UI_fun(ui_spectroscope)::wx_mousedown(t_object* z, t_object* view, t_pt pt, long modifiers)
 {
@@ -139,6 +181,7 @@ UI_fun(ui_spectroscope)::wx_mousemove(t_object* z, t_object* view, t_pt pt, long
 
 UI_fun(ui_spectroscope)::wx_mousedrag(t_object* z, t_object* view, t_pt pt, long modifiers)
 {
+<<<<<<< HEAD
 }
 
 #pragma mark setup
@@ -147,6 +190,9 @@ UI_fun(ui_spectroscope)::new_ext(t_object* z, t_symbol* s, int argcl, t_atom* ar
 {
     eobj_dspsetup(z, 1, 0);
     printf("new ext \n");
+=======
+
+>>>>>>> uliss/ceammc
 }
 
 static void ui_sps_getdrawparams(ui_spectroscope* x, t_object* patcherview, t_edrawparams* params)
