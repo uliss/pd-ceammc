@@ -74,7 +74,6 @@ static void draw_message_type(ui_display* zx, t_elayer* g, float x, float y, flo
     etext_layout_draw(zx->txt_type, g);
 }
 
-
 #pragma mark ui
 static void draw_msg_value(ui_display* zx, t_elayer* g, float x, float y, float width, float height)
 {
@@ -114,7 +113,6 @@ UI_fun(ui_display)::wx_paint(t_object* z, t_object* /*view*/)
 
     ebox_paint_layer(asBox(z), BG_LAYER, 0., 0.);
 }
-
 
 UI_fun(ui_display)::m_anything(t_object* z, t_symbol* s, int argc, t_atom* argv)
 

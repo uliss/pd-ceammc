@@ -128,33 +128,6 @@ static void ui_s_getdrawparams(ui_scope* x, t_object* /*patcherview*/, t_edrawpa
     params->d_boxfillcolor = x->b_color_background;
 }
 
-// these added as a quick fix
-UI_fun(ui_scope)::wx_mousedown(t_object* z, t_object* view, t_pt pt, long modifiers)
-{
-}
-
-UI_fun(ui_scope)::wx_mouseup(t_object* z, t_object* view, t_pt pt, long modifiers)
-{
-}
-
-UI_fun(ui_scope)::wx_mousemove(t_object* z, t_object* view, t_pt pt, long modifiers)
-{
-}
-
-UI_fun(ui_scope)::wx_mousedrag(t_object* z, t_object* view, t_pt pt, long modifiers)
-{
-}
-
-#pragma mark setup
-
-static void ui_s_getdrawparams(ui_scope* x, t_object* /*patcherview*/, t_edrawparams* params)
-{
-    params->d_borderthickness = 1;
-    params->d_cornersize = 2;
-    params->d_bordercolor = x->b_color_border;
-    params->d_boxfillcolor = x->b_color_background;
-}
-
 UI_fun(ui_scope)::new_ext(t_object* z, t_symbol*, int, t_atom*)
 {
     eobj_dspsetup(z, 1, 0);
