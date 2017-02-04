@@ -205,6 +205,8 @@ static void ui_s2_getdrawparams(ui_slider2d* x, t_object* /*patcherview*/, t_edr
     params->d_boxfillcolor = x->b_color_background;
 }
 
+static void ui_slider2d_value(t_object* z, t_symbol* s, int argc, t_atom* argv);
+
 static void ui_slider2d_xpos(t_object* z, t_floatarg x)
 {
     ui_slider2d* zx = GuiFactory<ui_slider2d>::asStruct(z);
@@ -258,6 +260,7 @@ UI_fun(ui_slider2d)::init_ext(t_eclass* z)
     // clang-format on
 
     eclass_addmethod(z, reinterpret_cast<t_typ_method>(ui_s2_getdrawparams), "getdrawparams", A_NULL, 0);
+    eclass_addmethod(z, reinterpret_cast<t_typ_method>(ui_slider2d_value), "set_value", A_GIMME, 0);
     eclass_addmethod(z, reinterpret_cast<t_typ_method>(ui_slider2d_xpos), "set_x_value", A_DEFFLOAT, 0);
     eclass_addmethod(z, reinterpret_cast<t_typ_method>(ui_slider2d_ypos), "set_y_value", A_DEFFLOAT, 0);
 }
@@ -296,7 +299,7 @@ UI_fun(ui_slider2d)::wx_attr_changed_ext(t_object* z, t_symbol* attr)
     }
 }
 
-UI_fun(ui_slider2d)::m_list(t_object* z, t_symbol*, int argc, t_atom* argv)
+UI_fun(ui_slider2d)::m_list(t_object* z, t_symbol* s, int argc, t_atom* argv)
 {
     if (argc != 2) {
         pd_error(z, "[ui.slider2d] invalid list given: X, Y values are expected");
@@ -326,10 +329,15 @@ UI_fun(ui_slider2d)::m_bang(t_object* z)
     zx->output();
 }
 
-UI_fun(ui_slider2d)::m_anything(t_object* z, t_symbol* sel, int argc, t_atom* argv)
+UI_fun(ui_slider2d)::m_preset(t_object* z, t_binbuf* b)
 {
-    if (sel == gensym("set_value"))
-        m_list(z, sel, argc, argv);
+    ui_slider2d* zx = asStruct(z);
+    binbuf_addv(b, "sff", &s_list, zx->_posx, zx->_posy);
+}
+
+void ui_slider2d_value(t_object* z, t_symbol* s, int argc, t_atom* argv)
+{
+    GuiFactory<ui_slider2d>::m_list(z, s, argc, argv);
 }
 
 }

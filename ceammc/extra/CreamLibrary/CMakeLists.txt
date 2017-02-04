@@ -29,7 +29,7 @@ set(CREAM_SRC
 #    Sources/c.number.cpp
 #    Sources/c.number_tilde.cpp
 #    Sources/c.plane.cpp
-#    Sources/c.preset.cpp
+    Sources/c.preset.cpp
     Sources/c.radio.cpp
     Sources/c.rslider.cpp
     Sources/c.scope_tilde.cpp
