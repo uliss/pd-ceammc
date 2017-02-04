@@ -70,13 +70,22 @@ public:
         _posy = clip(0.f, 1.f, mousePos.y / height());
     }
 
-    void set(t_float xVal, t_float yVal)
+    void setX(t_float xVal)
     {
         if (range_x != 0.f && inXRange(xVal))
             _posx = (xVal - shift_x) / range_x;
+    }
 
+    void setY(t_float yVal)
+    {
         if (range_y != 0.f && inYRange(yVal))
             _posy = (yVal - shift_y) / range_y;
+    }
+
+    void set(t_float xVal, t_float yVal)
+    {
+        setX(xVal);
+        setY(yVal);
     }
 };
 
@@ -92,6 +101,10 @@ static t_symbol* KNOB_FILL_ACTIVE = gensym("#003070");
 static t_symbol* KNOB_BORDER_ACTIVE = gensym("#00C0FF");
 static const float GUIDE_LINE_WIDTH = 0.5f;
 static t_symbol* GUIDE_LINE_COLOR = gensym("#00C0F0");
+
+static t_symbol* SEL_POS = gensym("pos");
+static t_symbol* SEL_POS_X = gensym("x");
+static t_symbol* SEL_POS_Y = gensym("y");
 
 static t_symbol* knobBorderColor(int mouseState)
 {
@@ -192,6 +205,20 @@ static void ui_s2_getdrawparams(ui_slider2d* x, t_object* /*patcherview*/, t_edr
     params->d_boxfillcolor = x->b_color_background;
 }
 
+static void ui_slider2d_xpos(t_object* z, t_floatarg x)
+{
+    ui_slider2d* zx = GuiFactory<ui_slider2d>::asStruct(z);
+    zx->setX(x);
+    GuiFactory<ui_slider2d>::ws_redraw(z);
+}
+
+static void ui_slider2d_ypos(t_object* z, t_floatarg y)
+{
+    ui_slider2d* zx = GuiFactory<ui_slider2d>::asStruct(z);
+    zx->setY(y);
+    GuiFactory<ui_slider2d>::ws_redraw(z);
+}
+
 UI_fun(ui_slider2d)::init_ext(t_eclass* z)
 {
     // clang-format off
@@ -231,6 +258,8 @@ UI_fun(ui_slider2d)::init_ext(t_eclass* z)
     // clang-format on
 
     eclass_addmethod(z, reinterpret_cast<t_typ_method>(ui_s2_getdrawparams), "getdrawparams", A_NULL, 0);
+    eclass_addmethod(z, reinterpret_cast<t_typ_method>(ui_slider2d_xpos), "set_x_value", A_DEFFLOAT, 0);
+    eclass_addmethod(z, reinterpret_cast<t_typ_method>(ui_slider2d_ypos), "set_y_value", A_DEFFLOAT, 0);
 }
 
 UI_fun(ui_slider2d)::new_ext(t_object* x, t_symbol*, int, t_atom*)
@@ -296,6 +325,13 @@ UI_fun(ui_slider2d)::m_bang(t_object* z)
     ui_slider2d* zx = asStruct(z);
     zx->output();
 }
+
+UI_fun(ui_slider2d)::m_anything(t_object* z, t_symbol* sel, int argc, t_atom* argv)
+{
+    if (sel == gensym("set_value"))
+        m_list(z, sel, argc, argv);
+}
+
 }
 
 extern "C" void setup_ui0x2eslider2d()
