@@ -41,6 +41,11 @@ struct ui_slider2d : public ceammc_gui::BaseGuiObject {
     t_rgba b_color_border;
 
 public:
+    float left() const { return shift_x; }
+    float right() const { return shift_x + range_x; }
+    float top() const { return shift_y; }
+    float bottom() const { return shift_y + range_y; }
+
     void output()
     {
         atom_setfloat(&out_list[0], _posx * range_x + shift_x);
@@ -58,6 +63,27 @@ public:
 
 namespace ceammc_gui {
 
+static const float KNOB_MIN_SIZE = 5.f;
+static const float KNOB_MAX_SIZE = 20.f;
+static const float KNOB_RATIO = 0.1f;
+static const float KNOB_BORDER_WIDTH = 1.f;
+static t_symbol* KNOB_FILL = gensym("#C0C0C0");
+static t_symbol* KNOB_BORDER = gensym("#707070");
+static t_symbol* KNOB_FILL_ACTIVE = gensym("#003070");
+static t_symbol* KNOB_BORDER_ACTIVE = gensym("#00C0FF");
+static const float GUIDE_LINE_WIDTH = 0.5f;
+static t_symbol* GUIDE_LINE_COLOR = gensym("#00C0F0");
+
+static t_symbol* knobBorderColor(int mouseState)
+{
+    return mouseState == 0 ? KNOB_BORDER : KNOB_BORDER_ACTIVE;
+}
+
+static t_symbol* knobFillColor(int mouseState)
+{
+    return mouseState == 0 ? KNOB_FILL : KNOB_FILL_ACTIVE;
+}
+
 UI_fun(ui_slider2d)::wx_paint(t_object* z, t_object* view)
 {
     t_rect rect;
@@ -68,41 +94,45 @@ UI_fun(ui_slider2d)::wx_paint(t_object* z, t_object* view)
     if (g) {
         ui_slider2d* zx = asStruct(z);
 
-        float xx = zx->_posx;
-        float yy = zx->_posy;
-        xx *= rect.width;
-        yy *= rect.height;
+        const float xx = zx->_posx * rect.width;
+        const float yy = zx->_posy * rect.height;
 
-        float knobsize = clip<float>(5.f, 20.f, std::min(rect.height, rect.width) * 0.1f);
-
-        egraphics_set_line_width(g, 0.5);
-        egraphics_set_color_hex(g, gensym("#00C0F0"));
+        // draw lines guides
+        egraphics_set_line_width(g, GUIDE_LINE_WIDTH);
+        egraphics_set_color_hex(g, GUIDE_LINE_COLOR);
 
         egraphics_line(g, xx, 0, xx, rect.height);
         egraphics_line(g, 0, yy, rect.width, yy);
 
         egraphics_stroke(g);
 
-        egraphics_set_line_width(g, 1.);
-        egraphics_set_color_hex(g, gensym(zx->mouse_dn ? "#00C0FF" : "#707070")); //(UI_Pf("_mouse_dn")==1)
-        egraphics_rectangle(g, xx - 0.5 * knobsize, yy - 0.5 * knobsize, knobsize, knobsize);
+        // draw knob
+        const float knobsize = clip<float>(KNOB_MIN_SIZE, KNOB_MAX_SIZE,
+            std::min(rect.height, rect.width) * KNOB_RATIO);
+
+        // knob border
+        egraphics_set_line_width(g, KNOB_BORDER_WIDTH);
+
+        egraphics_rectangle(g, xx - 0.5f * knobsize, yy - 0.5f * knobsize, knobsize, knobsize);
+
+        egraphics_set_color_hex(g, knobFillColor(zx->mouse_dn));
+        egraphics_fill_preserve(g); // use path twice
+        egraphics_set_color_hex(g, knobBorderColor(zx->mouse_dn));
         egraphics_stroke(g);
 
-        egraphics_set_color_hex(g, gensym(zx->mouse_dn ? "#003070" : "#C0C0C0"));
-        egraphics_rectangle(g, xx - 0.5 * knobsize + 1, yy - 0.5 * knobsize + 1, knobsize - 1, knobsize - 1);
-        egraphics_fill(g);
+        char buf[30];
 
-        char c_min[30];
-        sprintf(c_min, "[%.2f..%.2f]", zx->shift_x, zx->range_x + zx->shift_x);
-
-        char c_max[30];
-        sprintf(c_max, "[%.2f..%.2f]", zx->shift_y, zx->range_y + zx->shift_y);
-
-        etext_layout_set(zx->txt_min, c_min, zx->txt_font, rect.width - 3, rect.height - 12, rect.width, rect.height / 2, ETEXT_UP_RIGHT, ETEXT_JRIGHT, ETEXT_WRAP);
-        etext_layout_draw(zx->txt_min, g);
-
-        etext_layout_set(zx->txt_max, c_max, zx->txt_font, 3, 12, rect.width * 2, rect.height / 2, ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_WRAP);
+        snprintf(buf, 30, "X: [%.3g..%.3g]", zx->left(), zx->right());
+        etext_layout_set(zx->txt_max, buf, zx->txt_font,
+            3, 12, rect.width * 2, rect.height / 2,
+            ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_WRAP);
         etext_layout_draw(zx->txt_max, g);
+
+        snprintf(buf, 30, "Y: [%.3g..%.3g]", zx->top(), zx->bottom());
+        etext_layout_set(zx->txt_min, buf, zx->txt_font,
+            rect.width - 3, rect.height - 12, rect.width, rect.height / 2,
+            ETEXT_UP_RIGHT, ETEXT_JRIGHT, ETEXT_NOWRAP);
+        etext_layout_draw(zx->txt_min, g);
 
         ebox_end_layer(asBox(z), BG_LAYER);
     }
