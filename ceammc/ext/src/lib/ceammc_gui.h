@@ -245,6 +245,10 @@ public:
     {
     }
 
+    static void wx_mousewheel_ext(t_object* z, t_object* view, t_pt pt, long modifiers, double delta)
+    {
+    }
+
 #pragma mark -
 #pragma mark pd object instance
 
@@ -439,6 +443,11 @@ public:
         return 0;
     }
 
+    static void wx_mousewheel(t_object* z, t_object* view, t_pt pt, long modifiers, double delta)
+    {
+        wx_mousewheel_ext(z, view, pt, modifiers, delta);
+    }
+
 #pragma mark -
 #pragma mark setup
 
@@ -452,6 +461,7 @@ public:
         eclass_addmethod(cl, UI_METHOD_PTR(wx_mousedown),  "mousedown", A_GIMME, 0);
         eclass_addmethod(cl, UI_METHOD_PTR(wx_mouseup),    "mouseup",   A_GIMME, 0);
         eclass_addmethod(cl, UI_METHOD_PTR(wx_mousedrag),  "mousedrag", A_GIMME, 0);
+        eclass_addmethod(cl, UI_METHOD_PTR(wx_mousewheel), "mousewheel", A_GIMME, 0);
 
         eclass_addmethod(cl, UI_METHOD_PTR(wx_mouseenter), "mouseenter", A_GIMME, 0);
         eclass_addmethod(cl, UI_METHOD_PTR(wx_mouseleave), "mouseleave", A_GIMME, 0);

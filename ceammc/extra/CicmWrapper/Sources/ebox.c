@@ -743,8 +743,8 @@ void ebox_mouse_dblclick(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
 void ebox_mouse_wheel(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
 {
     t_pt mouse;
-    float delta;
-    long modif  = modifier_wrapper((long)atom_getfloat(argv+2));
+    double delta;
+    long modif  = modifier_wrapper((long)atom_getfloat(argv+3));
     t_eclass *c = eobj_getclass(x);
     if(is_for_box(x, modif) && c->c_widget.w_mousewheel && !(x->b_flags & EBOX_IGNORELOCKCLICK))
     {
@@ -752,7 +752,7 @@ void ebox_mouse_wheel(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
         mouse.y = atom_getfloat(argv+1);
         delta   = atom_getfloat(argv+2);
         modif   = modifier_wrapper((long)atom_getfloat(argv+3));
-        c->c_widget.w_mousewheel(x, x->b_obj.o_canvas, mouse, modif, delta, delta);
+        c->c_widget.w_mousewheel(x, x->b_obj.o_canvas, mouse, modif, delta);
     }
 }
 

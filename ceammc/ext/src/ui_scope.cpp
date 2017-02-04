@@ -107,6 +107,17 @@ UI_fun(ui_scope)::wx_paint(t_object* z, t_object* /*view*/)
     ebox_paint_layer(asBox(z), BG_LAYER, 0., 0.);
 }
 
+UI_fun(ui_scope)::wx_mousewheel_ext(t_object* z, t_object*, t_pt, long modifiers, double delta)
+{
+    if (modifiers == EMOD_SHIFT) {
+        ui_scope* zx = asStruct(z);
+        float change = ((delta < 0) ? -1 : 1) * 0.1f;
+        float new_yscale = zx->yscale + change;
+        if (0.1f <= new_yscale && new_yscale <= 10.f)
+            zx->yscale = new_yscale;
+    }
+}
+
 #pragma mark setup
 
 static void ui_s_getdrawparams(ui_scope* x, t_object* /*patcherview*/, t_edrawparams* params)
