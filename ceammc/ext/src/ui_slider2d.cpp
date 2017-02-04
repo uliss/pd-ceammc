@@ -207,6 +207,16 @@ UI_fun(ui_slider2d)::free_ext(t_object* x)
     etext_layout_destroy(zx->txt_min);
     efont_destroy(zx->txt_font);
 }
+
+UI_fun(ui_slider2d)::wx_attr_changed_ext(t_object* z, t_symbol* attr)
+{
+    if (attr == gensym("range_x")
+        || attr == gensym("shift_x")
+        || attr == gensym("range_y")
+        || attr == gensym("shift_y")) {
+        ws_redraw(z);
+    }
+}
 }
 
 extern "C" void setup_ui0x2eslider2d()
