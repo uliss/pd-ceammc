@@ -32,23 +32,28 @@ struct ui_slider2d : public ceammc_gui::BaseGuiObject {
 
     t_rgba b_color_background;
     t_rgba b_color_border;
+
+public:
+    void output()
+    {
+        atom_setfloat(&out_list[0], _posx);
+        atom_setfloat(&out_list[1], _posy);
+
+        outlet_list(out1, &s_list, 2, out_list);
+    }
 };
 
 namespace ceammc_gui {
 
 UI_fun(ui_slider2d)::wx_paint(t_object* z, t_object* view)
 {
-    //        UI_Prop
-
-    t_symbol* bgl = gensym("background_layer");
     t_rect rect;
-    ebox_get_rect_for_view((t_ebox*)z, &rect);
+    ebox_get_rect_for_view(asBox(z), &rect);
 
-    t_elayer* g = ebox_start_layer((t_ebox*)z, bgl, rect.width, rect.height);
+    t_elayer* g = ebox_start_layer(asBox(z), BG_LAYER, rect.width, rect.height);
 
-    //ui_slider2d *zx = (ui_slider2d*)z;
     if (g) {
-        ui_slider2d* zx = (ui_slider2d*)z;
+        ui_slider2d* zx = asStruct(z);
 
         float xx = zx->_posx * .5 + .5;
         float yy = zx->_posy * .5 + .5;
@@ -91,21 +96,22 @@ UI_fun(ui_slider2d)::wx_paint(t_object* z, t_object* view)
 
         etext_layout_set(zx->txt_max, c_max, zx->txt_font, 3, 12, rect.width * 2, rect.height / 2, ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_WRAP);
         etext_layout_draw(zx->txt_max, g);
-        ebox_end_layer((t_ebox*)z, bgl);
+
+        ebox_end_layer(asBox(z), BG_LAYER);
     }
 
-    ebox_paint_layer((t_ebox*)z, bgl, 0., 0.);
+    ebox_paint_layer(asBox(z), BG_LAYER, 0, 0);
 }
 
 UI_fun(ui_slider2d)::wx_mousedrag_ext(t_object* z, t_object* view, t_pt pt, long modifiers)
 {
-    ui_slider2d* zx = (ui_slider2d*)z;
+    ui_slider2d* zx = asStruct(z);
 
     t_rect rect;
-    ebox_get_rect_for_view((t_ebox*)z, &rect);
+    ebox_get_rect_for_view(asBox(z), &rect);
 
-    zx->_posx = (pt.x / rect.width) * 2. - 1.;
-    zx->_posy = (pt.y / rect.height) * 2. - 1.;
+    zx->_posx = (pt.x / rect.width) * 2.f - 1;
+    zx->_posy = (pt.y / rect.height) * 2.f - 1;
 
     if ((zx->_posx) > (zx->shift_x + zx->range_x))
         zx->_posx = zx->shift_x + zx->range_x;
@@ -118,21 +124,18 @@ UI_fun(ui_slider2d)::wx_mousedrag_ext(t_object* z, t_object* view, t_pt pt, long
 
     ws_redraw(z);
 
-    atom_setfloat(&((ui_slider2d*)z)->out_list[0], zx->_posx);
-    atom_setfloat(&((ui_slider2d*)z)->out_list[1], zx->_posy);
-
-    outlet_list(((ui_slider2d*)z)->out1, &s_list, 2, ((ui_slider2d*)z)->out_list);
+    zx->output();
 }
 
 UI_fun(ui_slider2d)::wx_mousedown_ext(t_object* z, t_object* view, t_pt pt, long modifiers)
 {
-    ui_slider2d* zx = (ui_slider2d*)z;
+    ui_slider2d* zx = asStruct(z);
 
     t_rect rect;
-    ebox_get_rect_for_view((t_ebox*)z, &rect);
+    ebox_get_rect_for_view(asBox(z), &rect);
 
-    zx->_posx = (pt.x / rect.width) * 2. - 1.;
-    zx->_posy = (pt.y / rect.height) * 2. - 1.;
+    zx->_posx = (pt.x / rect.width) * 2.f - 1;
+    zx->_posy = (pt.y / rect.height) * 2.f - 1;
 
     if ((zx->_posx) > (zx->shift_x + zx->range_x))
         zx->_posx = zx->shift_x + zx->range_x;
@@ -145,22 +148,18 @@ UI_fun(ui_slider2d)::wx_mousedown_ext(t_object* z, t_object* view, t_pt pt, long
 
     ws_redraw(z);
 
-    atom_setfloat(&((ui_slider2d*)z)->out_list[0], zx->_posx);
-    atom_setfloat(&((ui_slider2d*)z)->out_list[1], zx->_posy);
-
-    outlet_list(((ui_slider2d*)z)->out1, &s_list, 2, ((ui_slider2d*)z)->out_list);
+    zx->output();
 }
 
-UI_fun(ui_slider2d)::wx_mouseup_ext(t_object* z, t_object* view, t_pt pt, long modifiers)
+UI_fun(ui_slider2d)::wx_mouseup_ext(t_object* z, t_object*, t_pt pt, long)
 {
-
-    ui_slider2d* zx = (ui_slider2d*)z;
+    ui_slider2d* zx = asStruct(z);
 
     t_rect rect;
-    ebox_get_rect_for_view((t_ebox*)z, &rect);
+    ebox_get_rect_for_view(asBox(z), &rect);
 
-    zx->_posx = (pt.x / rect.width) * 2. - 1.;
-    zx->_posy = (pt.y / rect.height) * 2. - 1.;
+    zx->_posx = (pt.x / rect.width) * 2.f - 1;
+    zx->_posy = (pt.y / rect.height) * 2.f - 1;
 
     if ((zx->_posx) > (zx->shift_x + zx->range_x))
         zx->_posx = zx->shift_x + zx->range_x;
@@ -173,13 +172,10 @@ UI_fun(ui_slider2d)::wx_mouseup_ext(t_object* z, t_object* view, t_pt pt, long m
 
     ws_redraw(z);
 
-    atom_setfloat(&((ui_slider2d*)z)->out_list[0], zx->_posx);
-    atom_setfloat(&((ui_slider2d*)z)->out_list[1], zx->_posy);
-
-    outlet_list(zx->out1, &s_list, 2, zx->out_list);
+    zx->output();
 }
 
-static void ui_s2_getdrawparams(ui_slider2d* x, t_object* patcherview, t_edrawparams* params)
+static void ui_s2_getdrawparams(ui_slider2d* x, t_object* /*patcherview*/, t_edrawparams* params)
 {
     params->d_borderthickness = 1;
     params->d_cornersize = 2;
@@ -189,51 +185,53 @@ static void ui_s2_getdrawparams(ui_slider2d* x, t_object* patcherview, t_edrawpa
 
 UI_fun(ui_slider2d)::init_ext(t_eclass* z)
 {
-    CLASS_ATTR_DEFAULT(z, "size", 0, "100. 100.");
+    // clang-format off
+    CLASS_ATTR_DEFAULT              (z, "size", 0, "100. 100.");
 
-    CLASS_ATTR_FLOAT(z, "shift_x", 0, ui_slider2d, shift_x);
-    CLASS_ATTR_DEFAULT(z, "shift_x", 0, "-1");
-    CLASS_ATTR_LABEL(z, "shift_x", 0, "shift_x");
-    CLASS_ATTR_DEFAULT_SAVE_PAINT(z, "shift_x", 0, "-1");
+    CLASS_ATTR_FLOAT                (z, "shift_x", 0, ui_slider2d, shift_x);
+    CLASS_ATTR_DEFAULT              (z, "shift_x", 0, "-1");
+    CLASS_ATTR_LABEL                (z, "shift_x", 0, "shift_x");
+    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "shift_x", 0, "-1");
 
-    CLASS_ATTR_FLOAT(z, "range_x", 0, ui_slider2d, range_x);
-    CLASS_ATTR_DEFAULT(z, "range_x", 0, "2");
-    CLASS_ATTR_LABEL(z, "range_x", 0, "range_x");
-    CLASS_ATTR_DEFAULT_SAVE_PAINT(z, "range_x", 0, "2");
+    CLASS_ATTR_FLOAT                (z, "range_x", 0, ui_slider2d, range_x);
+    CLASS_ATTR_DEFAULT              (z, "range_x", 0, "2");
+    CLASS_ATTR_LABEL                (z, "range_x", 0, "range_x");
+    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "range_x", 0, "2");
 
-    CLASS_ATTR_FLOAT(z, "shift_y", 0, ui_slider2d, shift_y);
-    CLASS_ATTR_DEFAULT(z, "shift_y", 0, "-1");
-    CLASS_ATTR_LABEL(z, "shift_y", 0, "shift_y");
-    CLASS_ATTR_DEFAULT_SAVE_PAINT(z, "shift_y", 0, "-1");
+    CLASS_ATTR_FLOAT                (z, "shift_y", 0, ui_slider2d, shift_y);
+    CLASS_ATTR_DEFAULT              (z, "shift_y", 0, "-1");
+    CLASS_ATTR_LABEL                (z, "shift_y", 0, "shift_y");
+    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "shift_y", 0, "-1");
 
-    CLASS_ATTR_FLOAT(z, "range_y", 0, ui_slider2d, range_y);
-    CLASS_ATTR_DEFAULT(z, "range_y", 0, "2");
-    CLASS_ATTR_LABEL(z, "range_y", 0, "range_y");
-    CLASS_ATTR_DEFAULT_SAVE_PAINT(z, "range_y", 0, "2");
+    CLASS_ATTR_FLOAT                (z, "range_y", 0, ui_slider2d, range_y);
+    CLASS_ATTR_DEFAULT              (z, "range_y", 0, "2");
+    CLASS_ATTR_LABEL                (z, "range_y", 0, "range_y");
+    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "range_y", 0, "2");
 
-    CLASS_ATTR_RGBA(z, "bgcolor", 0, ui_slider2d, b_color_background);
-    CLASS_ATTR_LABEL(z, "bgcolor", 0, "Background Color");
-    CLASS_ATTR_ORDER(z, "bgcolor", 0, "1");
-    CLASS_ATTR_DEFAULT_SAVE_PAINT(z, "bgcolor", 0, "0.93 0.93 0.93 1.");
-    CLASS_ATTR_STYLE(z, "bgcolor", 0, "color");
+    CLASS_ATTR_RGBA                 (z, "bgcolor", 0, ui_slider2d, b_color_background);
+    CLASS_ATTR_LABEL                (z, "bgcolor", 0, "Background Color");
+    CLASS_ATTR_ORDER                (z, "bgcolor", 0, "1");
+    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "bgcolor", 0, "0.93 0.93 0.93 1.");
+    CLASS_ATTR_STYLE                (z, "bgcolor", 0, "color");
 
-    CLASS_ATTR_RGBA(z, "bdcolor", 0, ui_slider2d, b_color_border);
-    CLASS_ATTR_LABEL(z, "bdcolor", 0, "Border Color");
-    CLASS_ATTR_ORDER(z, "bdcolor", 0, "2");
-    CLASS_ATTR_DEFAULT_SAVE_PAINT(z, "bdcolor", 0, "0. 0. 0. 1.");
-    CLASS_ATTR_STYLE(z, "bdcolor", 0, "color");
+    CLASS_ATTR_RGBA                 (z, "bdcolor", 0, ui_slider2d, b_color_border);
+    CLASS_ATTR_LABEL                (z, "bdcolor", 0, "Border Color");
+    CLASS_ATTR_ORDER                (z, "bdcolor", 0, "2");
+    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "bdcolor", 0, "0. 0. 0. 1.");
+    CLASS_ATTR_STYLE                (z, "bdcolor", 0, "color");
+    // clang-format on
 
-    eclass_addmethod(z, (method)ui_s2_getdrawparams, "getdrawparams", A_NULL, 0);
+    eclass_addmethod(z, reinterpret_cast<t_typ_method>(ui_s2_getdrawparams), "getdrawparams", A_NULL, 0);
 }
 
-UI_fun(ui_slider2d)::new_ext(t_object* x, t_symbol* s, int argcl, t_atom* argv)
+UI_fun(ui_slider2d)::new_ext(t_object* x, t_symbol*, int, t_atom*)
 {
-    ui_slider2d* zx = (ui_slider2d*)x;
+    ui_slider2d* zx = asStruct(x);
     zx->out1 = outlet_new(x, &s_list);
 
     zx->txt_max = etext_layout_create();
     zx->txt_min = etext_layout_create();
-    zx->txt_font = efont_create(gensym("Helvetica"), gensym("light"), gensym("normal"), 8);
+    zx->txt_font = efont_create(FONT_FAMILY, FONT_STYLE, FONT_WEIGHT, FONT_SIZE_SMALL);
 }
 
 UI_fun(ui_slider2d)::free_ext(t_object* x)

@@ -100,6 +100,7 @@ public:
     static t_symbol* FONT_WEIGHT;
     static t_symbol* COLOR_ACTIVE;
     static const int FONT_SIZE;
+    static const int FONT_SIZE_SMALL;
 #pragma mark -
 
 #pragma mark method 'extension' stubs
@@ -618,6 +619,8 @@ template <typename U>
 t_symbol* GuiFactory<U>::FONT_WEIGHT = gensym("normal");
 template <typename U>
 const int GuiFactory<U>::FONT_SIZE = 12;
+template <typename U>
+const int GuiFactory<U>::FONT_SIZE_SMALL = 8;
 template <typename U>
 t_symbol* GuiFactory<U>::COLOR_ACTIVE = gensym("#00C0FF");
 
