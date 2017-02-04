@@ -46,6 +46,16 @@ public:
     float top() const { return shift_y; }
     float bottom() const { return shift_y + range_y; }
 
+    bool inXRange(t_float v) const
+    {
+        return std::min(left(), right()) <= v && v <= std::max(left(), right());
+    }
+
+    bool inYRange(t_float v) const
+    {
+        return std::min(top(), bottom()) <= v && v <= std::max(top(), bottom());
+    }
+
     void output()
     {
         atom_setfloat(&out_list[0], _posx * range_x + shift_x);
@@ -58,6 +68,15 @@ public:
     {
         _posx = clip(0.f, 1.f, mousePos.x / width());
         _posy = clip(0.f, 1.f, mousePos.y / height());
+    }
+
+    void set(t_float xVal, t_float yVal)
+    {
+        if (range_x != 0.f && inXRange(xVal))
+            _posx = (xVal - shift_x) / range_x;
+
+        if (range_y != 0.f && inYRange(yVal))
+            _posy = (yVal - shift_y) / range_y;
     }
 };
 
@@ -246,6 +265,36 @@ UI_fun(ui_slider2d)::wx_attr_changed_ext(t_object* z, t_symbol* attr)
         || attr == gensym("shift_y")) {
         ws_redraw(z);
     }
+}
+
+UI_fun(ui_slider2d)::m_list(t_object* z, t_symbol*, int argc, t_atom* argv)
+{
+    if (argc != 2) {
+        pd_error(z, "[ui.slider2d] invalid list given: X, Y values are expected");
+        return;
+    }
+
+    ui_slider2d* zx = asStruct(z);
+    if (zx->range_x == 0.f || zx->range_y == 0.f) {
+        pd_error(z, "[ui.slider2d] invalid range values: %g - %g",
+            static_cast<double>(zx->range_x),
+            static_cast<double>(zx->range_y));
+
+        return;
+    }
+
+    t_float x = atom_getfloat(&argv[0]);
+    t_float y = atom_getfloat(&argv[1]);
+    zx->set(x, y);
+    zx->output();
+
+    ws_redraw(z);
+}
+
+UI_fun(ui_slider2d)::m_bang(t_object* z)
+{
+    ui_slider2d* zx = asStruct(z);
+    zx->output();
 }
 }
 
