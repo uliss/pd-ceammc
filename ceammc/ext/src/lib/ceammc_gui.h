@@ -71,6 +71,38 @@ struct BaseGuiObject {
     float y() const { return b_box.b_rect.y; }
     float width() const { return b_box.b_rect.width; }
     float height() const { return b_box.b_rect.height; }
+
+    void send(t_float f)
+    {
+        t_pd* send = ebox_getsender(&b_box);
+        if (send) {
+            pd_float(send, f);
+        }
+    }
+
+    void send(t_symbol* s)
+    {
+        t_pd* send = ebox_getsender(&b_box);
+        if (send) {
+            pd_symbol(send, s);
+        }
+    }
+
+    void send(int argc, t_atom* argv)
+    {
+        t_pd* send = ebox_getsender(&b_box);
+        if (send) {
+            pd_list(send, &s_list, argc, argv);
+        }
+    }
+
+    void send(t_symbol* s, int argc, t_atom* argv)
+    {
+        t_pd* send = ebox_getsender(&b_box);
+        if (send) {
+            pd_anything(send, s, argc, argv);
+        }
+    }
 };
 
 struct BaseSoundGuiStruct {
@@ -159,7 +191,7 @@ public:
     {
     }
 
-    static void m_preset(t_object* z, t_binbuf *b)
+    static void m_preset(t_object* z, t_binbuf* b)
     {
     }
 
