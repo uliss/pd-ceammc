@@ -349,7 +349,7 @@ extern "C" void setup_ui0x2eradio(void)
         CLASS_ATTR_INVISIBLE            (c, "fontweight", 1);
         CLASS_ATTR_INVISIBLE            (c, "fontslant", 1);
         CLASS_ATTR_INVISIBLE            (c, "fontsize", 1);
-        CLASS_ATTR_DEFAULT              (c, "size", 0, "15. 120.");
+        CLASS_ATTR_DEFAULT              (c, "size", 0, "120. 15.");
         
         CLASS_ATTR_INT                  (c, "nitems", 0, t_radio, f_nitems);
         CLASS_ATTR_LABEL                (c, "nitems", 0, "Number of Items");
@@ -365,14 +365,14 @@ extern "C" void setup_ui0x2eradio(void)
         CLASS_ATTR_ACCESSORS			(c, "mode", NULL, radio_mode_set);
         CLASS_ATTR_ORDER                (c, "mode", 0, "1");
         CLASS_ATTR_FILTER_CLIP          (c, "mode", 0, 1);
-        CLASS_ATTR_DEFAULT              (c, "mode", 0, "0");
+        CLASS_ATTR_DEFAULT              (c, "mode", 0, "1");
         CLASS_ATTR_SAVE                 (c, "mode", 1);
         CLASS_ATTR_STYLE                (c, "mode", 0, "onoff");
         
         CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_radio, f_color_background);
         CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
         CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.35 0.35 0.35 1.");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.6 0.6 0.6 1.");
         CLASS_ATTR_STYLE                (c, "bgcolor", 0, "color");
         
         CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_radio, f_color_border);
