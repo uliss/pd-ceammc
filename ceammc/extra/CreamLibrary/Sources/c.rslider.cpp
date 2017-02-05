@@ -410,7 +410,7 @@ extern "C" void setup_ui0x2erslider(void)
         CLASS_ATTR_RGBA                 (c, "kncolor", 0, t_rslider, f_color_knob);
         CLASS_ATTR_LABEL                (c, "kncolor", 0, "Knob Color");
         CLASS_ATTR_ORDER                (c, "kncolor", 0, "3");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "kncolor", 0, "0.5 0.5 0.5 1.");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "kncolor", 0, "0.0 0.75 1.0 1.");
         CLASS_ATTR_STYLE                (c, "kncolor", 0, "color");
         
         eclass_register(CLASS_BOX, c);
