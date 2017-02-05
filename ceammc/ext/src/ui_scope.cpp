@@ -147,6 +147,8 @@ UI_fun(ui_scope)::init_ext(t_eclass* z)
     eclass_addmethod(z, reinterpret_cast<method>(ui_scope_dsp), "dsp", A_CANT, 0);
 
     // clang-format off
+    CLASS_ATTR_INVISIBLE            (z, "send", 1);
+
     CLASS_ATTR_DEFAULT(z, "size", 0, "150. 100.");
 
     CLASS_ATTR_RGBA                 (z, "bgcolor", 0, ui_scope, b_color_background);
