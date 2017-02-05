@@ -348,7 +348,7 @@ static void rslider_mousedrag(t_rslider *x, t_object *patcherview, t_pt pt, long
     ebox_redraw((t_ebox *)x);
 }
 
-extern "C" void setup_c0x2erslider(void)
+extern "C" void setup_ui0x2erslider(void)
 {
 	t_eclass *c = eclass_new("ui.rslider", (method)rslider_new, (method)ebox_free, (short)sizeof(t_rslider), CLASS_NOINLET, A_GIMME, 0);
     
@@ -398,7 +398,7 @@ extern "C" void setup_c0x2erslider(void)
         CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_rslider, f_color_background);
         CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
         CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.87 0.87 0.87 1.");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.93 0.93 0.93 1.");
         CLASS_ATTR_STYLE                (c, "bgcolor", 0, "color");
         
         CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_rslider, f_color_border);

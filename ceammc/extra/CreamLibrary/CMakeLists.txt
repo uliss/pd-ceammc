@@ -29,24 +29,22 @@ set(CREAM_SRC
 #    Sources/c.number.cpp
 #    Sources/c.number_tilde.cpp
 #    Sources/c.plane.cpp
-    Sources/c.preset.cpp
+#    Sources/c.radio.cpp
+#    Sources/c.rslider.cpp
+#    Sources/c.scope_tilde.cpp
+#    Sources/c.slider.cpp
+#    Sources/c.tab.cpp
+#    Sources/c.wavesel.cpp
+
+    Sources/c.bang.cpp
+    Sources/c.number_tilde.cpp
+    Sources/c.number.cpp
     Sources/c.radio.cpp
     Sources/c.rslider.cpp
-    Sources/c.scope_tilde.cpp
     Sources/c.slider.cpp
     Sources/c.tab.cpp
     Sources/c.toggle.cpp
-#    Sources/c.wavesel.cpp
-
-    Sources/с.bang.cpp
-    Sources/с.number_tilde.cpp
-    Sources/с.number.cpp
-    Sources/с.preset.cpp
-    Sources/с.radio.cpp
-    Sources/с.rslider.cpp
-    Sources/с.slider.cpp
-    Sources/с.tab.cpp
-    Sources/с.toggle.cpp
+    Sources/c.preset.cpp
 )
 
 add_library(cream_core STATIC ${CREAM_SRC})
@@ -57,7 +55,7 @@ else()
 endif()
 set_target_properties(cream_core PROPERTIES COMPILE_FLAGS "${CREAM_COMPILE_FLAGS}")
 
-#target_link_libraries(cream_core cicm_static)
+target_link_libraries(cream_core cicm_static)
 
 pd_add_extension(NAME creammc
     FILES c.library.cpp

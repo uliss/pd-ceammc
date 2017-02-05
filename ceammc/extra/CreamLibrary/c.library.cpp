@@ -97,8 +97,8 @@ extern "C" void cream_setup(void)
     //setup_c0x2epreset();
     //setup_c0x2eradio();
     //setup_c0x2erslider();
-    setup_c0x2escope_tilde();
-    setup_c0x2eslider();
+//    setup_c0x2escope_tilde();
+//    setup_c0x2eslider();
     //setup_c0x2etab();
     //setup_c0x2etoggle();
     

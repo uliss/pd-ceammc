@@ -100,7 +100,7 @@ static void draw_background(t_number_tilde *x, t_object *view, t_rect *rect)
             etext_layout_settextcolor(jtl, &x->f_color_text);
             etext_layout_draw(jtl, g);
             
-            egraphics_set_line_width(g, 2);
+            egraphics_set_line_width(g, 1);     //Cream: 2
             egraphics_set_color_rgba(g, &x->f_color_border);
             egraphics_move_to(g, 0, 0);
             egraphics_line_to(g, sys_fontwidth(x->j_box.b_font.c_size) + 6,  rect->height / 2.);
@@ -216,7 +216,7 @@ static void *number_tilde_new(t_symbol *s, int argc, t_atom *argv)
     return (x);
 }
 
-extern "C" void setup_c0x2enumber_tilde(void)
+extern "C" void setup_ui0x2enumber_tilde(void)
 {
     t_eclass *c;
     
@@ -255,7 +255,7 @@ extern "C" void setup_c0x2enumber_tilde(void)
     CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_number_tilde, f_color_background);
     CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
     CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
-    CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.87 0.87 0.87 1.");
+    CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.93 0.93 0.93 1.");
     CLASS_ATTR_STYLE                (c, "bgcolor", 0, "color");
     
     CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_number_tilde, f_color_border);

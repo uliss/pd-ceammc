@@ -340,7 +340,7 @@ static void draw_background(t_preset *x, t_object *view, t_rect *rect)
                 color = rgba_addContrast(x->f_color_button_stored, -0.1);
 
             egraphics_set_color_rgba(g, &color);
-            if(x->f_binbuf_hover != i)
+//            if(x->f_binbuf_hover != i)
             {
                 egraphics_circle(g, xc, yc, x->f_point_size);
                 egraphics_fill(g);
@@ -583,6 +583,10 @@ extern "C" void setup_ui0x2epreset(void)
         eclass_addmethod(c, (method) preset_write,           "write",            A_GIMME,0);
         
         CLASS_ATTR_INVISIBLE            (c, "send", 1);
+        CLASS_ATTR_INVISIBLE            (c, "fontname", 1);
+        CLASS_ATTR_INVISIBLE            (c, "fontweight", 1);
+        CLASS_ATTR_INVISIBLE            (c, "fontslant", 1);
+        CLASS_ATTR_INVISIBLE            (c, "fontsize", 1);
         CLASS_ATTR_DEFAULT              (c, "size", 0, "102 34");
         CLASS_ATTR_DEFAULT              (c, "fontsize", 0, "10");
         
