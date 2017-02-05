@@ -250,6 +250,8 @@ static void *slider_new(t_symbol *s, int argc, t_atom *argv)
         ebox_attrprocess_viabinbuf(x, d);
         x->f_value = x->f_min;
         ebox_ready((t_ebox *)x);
+
+        binbuf_free(d);
         return x;
     }
     
