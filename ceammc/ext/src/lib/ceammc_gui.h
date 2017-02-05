@@ -159,6 +159,10 @@ public:
     {
     }
 
+    static void m_preset(t_object* z, t_binbuf *b)
+    {
+    }
+
 #pragma mark basic 'extension' stubs
 
     /**
@@ -481,6 +485,7 @@ public:
         eclass_addmethod(cl, UI_METHOD_PTR(m_symbol),      "symbol",   A_GIMME, 0);
         eclass_addmethod(cl, UI_METHOD_PTR(m_list),        "list",     A_GIMME, 0);
         eclass_addmethod(cl, UI_METHOD_PTR(m_anything),    "anything", A_GIMME, 0);
+        eclass_addmethod(cl, UI_METHOD_PTR(m_preset),      "preset",   A_NULL,  0);
 
         eclass_addmethod(cl, UI_METHOD_PTR(m_set),         "set", A_GIMME, 0);
         // clang-format on
