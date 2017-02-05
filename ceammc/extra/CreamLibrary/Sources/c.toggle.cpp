@@ -44,8 +44,8 @@ static void toggle_getdrawparams(t_toggle *x, t_object *patcherview, t_edrawpara
 
 static void toggle_oksize(t_toggle *x, t_rect *newrect)
 {
-    newrect->width = pd_clip_min(newrect->width, 15.);
-    newrect->height = pd_clip_min(newrect->height, 15.);
+    newrect->width = pd_clip_min(newrect->width, 10.);
+    newrect->height = pd_clip_min(newrect->height, 10.);
 }
 
 static void toggle_set(t_toggle *x, float f)
