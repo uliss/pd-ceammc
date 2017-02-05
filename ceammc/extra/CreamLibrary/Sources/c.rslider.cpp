@@ -329,7 +329,7 @@ extern "C" void setup_ui0x2erslider(void)
         CLASS_ATTR_INVISIBLE            (c, "fontweight", 1);
         CLASS_ATTR_INVISIBLE            (c, "fontslant", 1);
         CLASS_ATTR_INVISIBLE            (c, "fontsize", 1);
-        CLASS_ATTR_DEFAULT              (c, "size", 0, "15. 120.");
+        CLASS_ATTR_DEFAULT              (c, "size", 0, "120. 15.");
         
         CLASS_ATTR_LONG                 (c, "listmode", 0, t_rslider, f_mode);
         CLASS_ATTR_LABEL                (c, "listmode", 0, "List Mode");
