@@ -46,6 +46,8 @@ static void* rslider_new(t_symbol* s, int argc, t_atom* argv)
         x->f_value_low = x->f_min;
         ebox_ready((t_ebox*)x);
 
+        binbuf_free(d);
+
         return x;
     }
 
