@@ -107,6 +107,12 @@ UI_fun(ui_scope)::wx_paint(t_object* z, t_object* /*view*/)
     ebox_paint_layer(asBox(z), BG_LAYER, 0., 0.);
 }
 
+UI_fun(ui_scope)::wx_oksize(t_object*, t_rect* newrect)
+{
+    newrect->width = pd_clip_min(newrect->width, 30);
+    newrect->height = pd_clip_min(newrect->height, 30);
+}
+
 UI_fun(ui_scope)::wx_mousewheel_ext(t_object* z, t_object*, t_pt, long modifiers, double delta)
 {
     if (modifiers == EMOD_SHIFT) {
