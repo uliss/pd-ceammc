@@ -170,10 +170,15 @@ void display_clock(t_object* z)
     GuiFactory<BaseGuiObject>::ws_redraw(z);
 }
 
-UI_fun(ui_display)::wx_oksize(t_object* /*z*/, t_rect* newrect)
+UI_fun(ui_display)::wx_oksize(t_object* z, t_rect* newrect)
 {
-    newrect->height = floorf(newrect->height / 15.f) * 15.f;
-    newrect->height = (newrect->height > 15) ? newrect->height : 15;
+    ui_display* zx = asStruct(z);
+    float min_width = 40;
+    if (zx->show_type != 0)
+        min_width += TYPE_WIDTH;
+
+    newrect->width = pd_clip_min(newrect->width, min_width);
+    newrect->height = pd_clip_min(newrect->height, 15.);
 }
 
 UI_fun(ui_display)::new_ext(t_object* z, t_symbol* /*s*/, int /*argcl*/, t_atom* /*argv*/)
