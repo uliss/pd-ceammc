@@ -25,12 +25,15 @@ struct ui_keyboard : public ceammc_gui::BaseGuiObject {
 
 public:
     t_float realPitch() const { return _pitch + shift; }
+
     void output()
     {
         atom_setfloat(&out_list[0], realPitch());
         atom_setfloat(&out_list[1], _vel);
 
         outlet_list(out1, &s_list, 2, out_list);
+
+        send(2, out_list);
     }
 };
 
