@@ -257,6 +257,14 @@ UI_fun(ui_keyboard)::wx_mousedrag_ext(t_object* z, t_object* view, t_pt pt, long
     }
 }
 
+UI_fun(ui_keyboard)::wx_oksize(t_object* z, t_rect* newrect)
+{
+    ui_keyboard* zx = asStruct(z);
+    float min_width = white_keys(zx->keys) * 8;
+    newrect->width = pd_clip_min(newrect->width, min_width);
+    newrect->height = pd_clip_min(newrect->height, 40.);
+}
+
 UI_fun(ui_keyboard)::wx_mouseleave_ext(t_object* z, t_object* /*view*/, t_pt /*pt*/, long /*modifiers*/)
 {
     ui_keyboard* zx = asStruct(z);
