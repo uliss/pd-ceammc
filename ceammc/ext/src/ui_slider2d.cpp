@@ -231,22 +231,22 @@ UI_fun(ui_slider2d)::init_ext(t_eclass* z)
 
     CLASS_ATTR_FLOAT                (z, "shift_x", 0, ui_slider2d, shift_x);
     CLASS_ATTR_DEFAULT              (z, "shift_x", 0, "-1");
-    CLASS_ATTR_LABEL                (z, "shift_x", 0, "shift_x");
+    CLASS_ATTR_LABEL                (z, "shift_x", 0, "Leftmost value");
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "shift_x", 0, "-1");
 
     CLASS_ATTR_FLOAT                (z, "range_x", 0, ui_slider2d, range_x);
     CLASS_ATTR_DEFAULT              (z, "range_x", 0, "2");
-    CLASS_ATTR_LABEL                (z, "range_x", 0, "range_x");
+    CLASS_ATTR_LABEL                (z, "range_x", 0, "Horizontal range");
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "range_x", 0, "2");
 
     CLASS_ATTR_FLOAT                (z, "shift_y", 0, ui_slider2d, shift_y);
     CLASS_ATTR_DEFAULT              (z, "shift_y", 0, "-1");
-    CLASS_ATTR_LABEL                (z, "shift_y", 0, "shift_y");
+    CLASS_ATTR_LABEL                (z, "shift_y", 0, "Topmost value");
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "shift_y", 0, "-1");
 
     CLASS_ATTR_FLOAT                (z, "range_y", 0, ui_slider2d, range_y);
     CLASS_ATTR_DEFAULT              (z, "range_y", 0, "2");
-    CLASS_ATTR_LABEL                (z, "range_y", 0, "range_y");
+    CLASS_ATTR_LABEL                (z, "range_y", 0, "Vertical range");
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "range_y", 0, "2");
 
     CLASS_ATTR_RGBA                 (z, "bgcolor", 0, ui_slider2d, b_color_background);
@@ -346,6 +346,7 @@ void ui_slider2d_value(t_object* z, t_symbol* s, int argc, t_atom* argv)
 
 extern "C" void setup_ui0x2eslider2d()
 {
-    ceammc_gui::GuiFactory<ui_slider2d> class1;
-    class1.setup("ui.slider2d");
+    ceammc_gui::GuiFactory<ui_slider2d> c;
+    c.use_presets(true);
+    c.setup("ui.slider2d");
 }
