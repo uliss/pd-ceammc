@@ -256,7 +256,7 @@ static void *slider_new(t_symbol *s, int argc, t_atom *argv)
     return NULL;
 }
 
-extern "C" void setup_c0x2eslider(void)
+extern "C" void setup_ui0x2eslider(void)
 {
     t_eclass *c = eclass_new("ui.slider", (method)slider_new, (method)ebox_free, (short)sizeof(t_slider), 0L, A_GIMME, 0);
     if(c)
@@ -305,7 +305,7 @@ extern "C" void setup_c0x2eslider(void)
         CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_slider, f_color_background);
         CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
         CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.87 0.87 0.87 1.");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.93 0.93 0.93 1.");
         CLASS_ATTR_STYLE                (c, "bgcolor", 0, "color");
         
         CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_slider, f_color_border);
@@ -317,7 +317,7 @@ extern "C" void setup_c0x2eslider(void)
         CLASS_ATTR_RGBA                 (c, "kncolor", 0, t_slider, f_color_knob);
         CLASS_ATTR_LABEL                (c, "kncolor", 0, "Knob Color");
         CLASS_ATTR_ORDER                (c, "kncolor", 0, "3");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "kncolor", 0, "0.5 0.5 0.5 1.");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "kncolor", 0, "0. 0.75 1. 1.");
         CLASS_ATTR_STYLE                (c, "kncolor", 0, "color");
         
         eclass_register(CLASS_BOX, c);

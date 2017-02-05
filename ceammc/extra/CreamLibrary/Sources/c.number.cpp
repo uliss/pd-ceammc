@@ -137,7 +137,7 @@ static void draw_background(t_number *x, t_object *view, t_rect *rect)
             etext_layout_settextcolor(jtl, &x->f_color_text);
             etext_layout_draw(jtl, g);
             
-            egraphics_set_line_width(g, 2);
+            egraphics_set_line_width(g, 1);     //Cream: 2
             egraphics_set_color_rgba(g, &x->f_color_border);
             egraphics_move_to(g, width, 0);
             egraphics_line_to(g, width,  rect->height );
@@ -471,7 +471,7 @@ static void *number_new(t_symbol *s, int argc, t_atom *argv)
     return NULL;
 }
 
-extern "C" void setup_c0x2enumber(void)
+extern "C" void setup_ui0x2enumber(void)
 {
     t_eclass *c = eclass_new("ui.number", (method)number_new, (method)ebox_free, (short)sizeof(t_number), 0L, A_GIMME, 0);
     
@@ -516,7 +516,7 @@ extern "C" void setup_c0x2enumber(void)
         CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_number, f_color_background);
         CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
         CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.87 0.87 0.87 1.");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.93 0.93 0.93 1.");
         CLASS_ATTR_STYLE                (c, "bgcolor", 0, "color");
         
         CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_number, f_color_border);

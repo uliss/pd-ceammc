@@ -32,7 +32,6 @@ extern "C" void setup_c0x2emeter_tilde(void);
 extern "C" void setup_c0x2enumber(void);
 extern "C" void setup_c0x2enumber_tilde(void);
 extern "C" void setup_c0x2eplane(void);
-extern "C" void setup_c0x2epreset(void);
 extern "C" void setup_c0x2eradio(void);
 extern "C" void setup_c0x2erslider(void);
 extern "C" void setup_c0x2escope_tilde(void);

@@ -132,7 +132,7 @@ static void *toggle_new(t_symbol *s, int argc, t_atom *argv)
     return NULL;
 }
 
-extern "C" void setup_c0x2etoggle(void)
+extern "C" void setup_ui0x2etoggle(void)
 {
     t_eclass *c = eclass_new("ui.toggle", (method)toggle_new, (method)ebox_free, (short)sizeof(t_toggle), 0L, A_GIMME, 0);
     if(c)
@@ -169,7 +169,7 @@ extern "C" void setup_c0x2etoggle(void)
         CLASS_ATTR_RGBA                 (c, "crcolor", 0, t_toggle, f_color_cross);
         CLASS_ATTR_LABEL                (c, "crcolor", 0, "Cross Color");
         CLASS_ATTR_ORDER                (c, "crcolor", 0, "3");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "crcolor", 0, "0.5 0.5 0.5 1.");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "crcolor", 0, "0. 0.75 1. 1.");
         CLASS_ATTR_STYLE                (c, "crcolor", 0, "color");
         
         eclass_register(CLASS_BOX, c);

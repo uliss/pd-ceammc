@@ -402,7 +402,7 @@ static void *radio_new(t_symbol *s, int argc, t_atom *argv)
     return NULL;
 }
 
-extern "C" void setup_c0x2eradio(void)
+extern "C" void setup_ui0x2eradio(void)
 {
     t_eclass *c = eclass_new("ui.radio", (method)radio_new, (method)ebox_free, (short)sizeof(t_radio), 0L, A_GIMME, 0);
     if(c)
@@ -446,19 +446,19 @@ extern "C" void setup_c0x2eradio(void)
         CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_radio, f_color_background);
         CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
         CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.87 0.87 0.87 1.");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.35 0.35 0.35 1.");
         CLASS_ATTR_STYLE                (c, "bgcolor", 0, "color");
         
         CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_radio, f_color_border);
         CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Border Color");
         CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0. 0. 0. 1.");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0.87 0.87 0.87 1.");
         CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
         
         CLASS_ATTR_RGBA                 (c, "itcolor", 0, t_radio, f_color_item);
         CLASS_ATTR_LABEL                (c, "itcolor", 0, "Item Color");
         CLASS_ATTR_ORDER                (c, "itcolor", 0, "3");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "itcolor", 0, "0.5 0.5 0.5 1.");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "itcolor", 0, "0. 0.75 1. 1.");
         CLASS_ATTR_STYLE                (c, "itcolor", 0, "color");
         
         eclass_register(CLASS_BOX, c);

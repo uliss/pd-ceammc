@@ -56,10 +56,13 @@ public:
         return std::min(top(), bottom()) <= v && v <= std::max(top(), bottom());
     }
 
+    float xValue() const { return _posx * range_x + shift_x; }
+    float yValue() const { return _posy * range_y + shift_y; }
+
     void output()
     {
-        atom_setfloat(&out_list[0], _posx * range_x + shift_x);
-        atom_setfloat(&out_list[1], _posy * range_y + shift_y);
+        atom_setfloat(&out_list[0], xValue());
+        atom_setfloat(&out_list[1], yValue());
 
         outlet_list(out1, &s_list, 2, out_list);
     }
@@ -332,14 +335,13 @@ UI_fun(ui_slider2d)::m_bang(t_object* z)
 UI_fun(ui_slider2d)::m_preset(t_object* z, t_binbuf* b)
 {
     ui_slider2d* zx = asStruct(z);
-    binbuf_addv(b, "sff", &s_list, zx->_posx, zx->_posy);
+    binbuf_addv(b, "sff", &s_list, zx->xValue(), zx->yValue());
 }
 
 void ui_slider2d_value(t_object* z, t_symbol* s, int argc, t_atom* argv)
 {
     GuiFactory<ui_slider2d>::m_list(z, s, argc, argv);
 }
-
 }
 
 extern "C" void setup_ui0x2eslider2d()
