@@ -585,6 +585,11 @@ extern "C" void setup_c0x2epreset(void)
         CLASS_ATTR_INVISIBLE            (c, "send", 1);
         CLASS_ATTR_DEFAULT              (c, "size", 0, "102 34");
         CLASS_ATTR_DEFAULT              (c, "fontsize", 0, "10");
+
+        CLASS_ATTR_INVISIBLE            (c, "fontname", 1);
+        CLASS_ATTR_INVISIBLE            (c, "fontweight", 1);
+        CLASS_ATTR_INVISIBLE            (c, "fontslant", 1);
+        CLASS_ATTR_INVISIBLE            (c, "fontsize", 1);
         
         CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_preset, f_color_background);
         CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
