@@ -8,6 +8,8 @@
  * WARRANTIES, see the file, "LICENSE.txt," in this distribution.
  */
 
+#include <algorithm>
+
 #include "../c.library.hpp"
 
 typedef struct _rslider {
@@ -52,17 +54,23 @@ static void* rslider_new(t_symbol* s, int argc, t_atom* argv)
 
 static void rslider_output(t_rslider* x)
 {
+    t_float low = std::min(x->f_value_low, x->f_value_high);
+    t_float high = std::max(x->f_value_low, x->f_value_high);
+
     t_atom argv[2];
-    atom_setfloat(argv, x->f_value_low);
-    atom_setfloat(argv + 1, x->f_value_high);
+    atom_setfloat(&argv[0], low);
+    atom_setfloat(&argv[1], high);
+
     if (x->f_mode) {
         outlet_list(x->f_out_left, &s_list, 2, argv);
     } else {
-        outlet_float(x->f_out_left, (float)x->f_value_low);
-        outlet_float(x->f_out_right, (float)x->f_value_high);
+        outlet_float(x->f_out_left, low);
+        outlet_float(x->f_out_right, high);
     }
-    if (ebox_getsender((t_ebox*)x)) {
-        pd_list(ebox_getsender((t_ebox*)x), &s_list, 2, argv);
+
+    t_pd* send = ebox_getsender((t_ebox*)x);
+    if (send) {
+        pd_list(send, &s_list, 2, argv);
     }
 }
 
