@@ -184,14 +184,16 @@ static void draw_items(t_radio* x, t_object* view, t_rect* rect)
             if (x->f_direction) {
                 for (int i = 0; i < x->f_nitems; i++) {
                     if (x->f_items[i]) {
-                        egraphics_rectangle(g, i * (cell_size + 1) + cell_offset, cell_offset, knob_size, knob_size);
+                        float offset = i * (cell_size + 1) + cell_offset;
+                        egraphics_rectangle(g, offset, cell_offset, knob_size, knob_size);
                         egraphics_fill(g);
                     }
                 }
             } else {
                 for (int i = 0; i < x->f_nitems; i++) {
                     if (x->f_items[i]) {
-                        egraphics_rectangle(g, cell_offset, i * (cell_size + 1) + cell_offset, knob_size, knob_size);
+                        float offset = i * (cell_size + 1) + cell_offset;
+                        egraphics_rectangle(g, cell_offset, offset, knob_size, knob_size);
                         egraphics_fill(g);
                     }
                 }
@@ -200,14 +202,16 @@ static void draw_items(t_radio* x, t_object* view, t_rect* rect)
             if (x->f_direction) {
                 for (int i = 0; i < x->f_nitems; i++) {
                     if (x->f_items[i]) {
-                        egraphics_circle(g, (i + 0.5f) * cell_size, rect->height * 0.5f, rect->height * 0.35f);
+                        float offset = (i + 0.5f) * (cell_size + 1);
+                        egraphics_circle(g, offset, cell_size * 0.5f, cell_size * 0.35f);
                         egraphics_fill(g);
                     }
                 }
             } else {
                 for (int i = 0; i < x->f_nitems; i++) {
                     if (x->f_items[i]) {
-                        egraphics_circle(g, rect->width * 0.5f, (i + 0.5f) * cell_size, rect->width * 0.35f);
+                        float offset = (i + 0.5f) * (cell_size + 1);
+                        egraphics_circle(g, cell_size * 0.5f, offset, rect->width * 0.35f);
                         egraphics_fill(g);
                     }
                 }
