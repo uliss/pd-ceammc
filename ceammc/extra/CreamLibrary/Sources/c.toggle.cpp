@@ -182,7 +182,7 @@ extern "C" void setup_ui0x2etoggle(void)
         CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "crcolor", 0, DEFAULT_ACTIVE_COLOR);
         CLASS_ATTR_STYLE                (c, "crcolor", 0, "color");
 
-        CLASS_ATTR_FLOAT_VIRTUAL        (c,  "value", get_toggle_value, set_toggle_value);
+        CLASS_ATTR_VIRTUAL              (c,  "value", get_toggle_value, set_toggle_value);
 
         // clang-format on
         eclass_register(CLASS_BOX, c);

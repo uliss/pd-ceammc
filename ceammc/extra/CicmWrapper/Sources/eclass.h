@@ -337,7 +337,7 @@ eclass_new_attr_typed(c,name, "atom", calcoffset(struct,size), maxsize, flags, c
 
 //! CEAMMC
 //! Macros that creates virtual invisible attribute only with getter and setter access
-#define CLASS_ATTR_FLOAT_VIRTUAL(c, name, getter, setter) \
+#define CLASS_ATTR_VIRTUAL(c, name, getter, setter) \
     eclass_new_attr_typed(c, name, "float", 1, 0, 0, 0); \
     eclass_attr_invisible(c, name, 0);\
     eclass_attr_accessor(c, name, (t_err_method)getter, (t_err_method)setter)

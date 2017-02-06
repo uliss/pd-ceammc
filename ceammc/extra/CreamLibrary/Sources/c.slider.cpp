@@ -307,7 +307,7 @@ extern "C" void setup_ui0x2eslider(void)
         CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "kncolor", 0, DEFAULT_ACTIVE_COLOR);
         CLASS_ATTR_STYLE                (c, "kncolor", 0, "color");
 
-        CLASS_ATTR_FLOAT_VIRTUAL        (c, "value",   get_slider_value, set_slider_value);
+        CLASS_ATTR_VIRTUAL              (c, "value",   get_slider_value, set_slider_value);
         // clang-format on
 
         eclass_register(CLASS_BOX, c);

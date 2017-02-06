@@ -24,7 +24,6 @@ typedef struct _rslider {
     float f_max;
     float f_value_low;
     float f_value_high;
-    float fake_attr[2];
 } t_rslider;
 
 static t_eclass* rslider_class;
@@ -314,6 +313,54 @@ static void get_rslider_value(t_rslider* x, t_object* /*attr*/, long* ac, t_atom
     atom_setfloat(*av + 1, high);
 }
 
+static void get_rslider_minvalue(t_rslider* x, t_object* /*attr*/, long* ac, t_atom** av)
+{
+    *ac = 1;
+    *av = reinterpret_cast<t_atom*>(calloc(1, sizeof(t_atom)));
+    atom_setfloat(*av, std::min(x->f_value_low, x->f_value_high));
+}
+
+static void get_rslider_maxvalue(t_rslider* x, t_object* /*attr*/, long* ac, t_atom** av)
+{
+    *ac = 1;
+    *av = reinterpret_cast<t_atom*>(calloc(1, sizeof(t_atom)));
+    atom_setfloat(*av, std::max(x->f_value_low, x->f_value_high));
+}
+
+static t_pd_err set_rslider_value(t_rslider* x, t_object* /*attr*/, int ac, t_atom* av)
+{
+    if (ac > 0 && av) {
+        rslider_set(x, &s_list, ac, av);
+        return 0;
+    }
+
+    return 1;
+}
+
+static t_pd_err set_rslider_minvalue(t_rslider* x, t_object* /*attr*/, int ac, t_atom* av)
+{
+    if (ac > 0 && av) {
+        x->f_value_low = pd_clip_minmax(atom_getfloat(av), x->f_min, x->f_max);
+        ebox_invalidate_layer((t_ebox*)x, cream_sym_knob_layer);
+        ebox_redraw((t_ebox*)x);
+        return 0;
+    }
+
+    return 1;
+}
+
+static t_pd_err set_rslider_maxvalue(t_rslider* x, t_object* /*attr*/, int ac, t_atom* av)
+{
+    if (ac > 0 && av) {
+        x->f_value_high = pd_clip_minmax(atom_getfloat(av), x->f_min, x->f_max);
+        ebox_invalidate_layer((t_ebox*)x, cream_sym_knob_layer);
+        ebox_redraw((t_ebox*)x);
+        return 0;
+    }
+
+    return 1;
+}
+
 extern "C" void setup_ui0x2erslider(void)
 {
     t_eclass* c = eclass_new("ui.rslider", (method)rslider_new, (method)ebox_free, (short)sizeof(t_rslider), CLASS_NOINLET, A_GIMME, 0);
@@ -371,10 +418,9 @@ extern "C" void setup_ui0x2erslider(void)
         CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "kncolor", 0, DEFAULT_ACTIVE_COLOR);
         CLASS_ATTR_STYLE                (c, "kncolor", 0, "color");
 
-        CLASS_ATTR_FLOAT_ARRAY          (c, "value",   0, t_rslider, fake_attr, 2);
-        CLASS_ATTR_INVISIBLE            (c, "value",   0);
-        CLASS_ATTR_ACCESSORS            (c, "value",   get_rslider_value, NULL);
-
+        CLASS_ATTR_VIRTUAL              (c, "value",   get_rslider_value, set_rslider_value);
+        CLASS_ATTR_VIRTUAL              (c, "maxvalue", get_rslider_maxvalue, set_rslider_maxvalue);
+        CLASS_ATTR_VIRTUAL              (c, "minvalue", get_rslider_minvalue, set_rslider_minvalue);
         // clang-format on
 
         eclass_register(CLASS_BOX, c);
