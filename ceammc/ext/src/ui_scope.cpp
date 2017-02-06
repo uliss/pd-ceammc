@@ -107,6 +107,12 @@ UI_fun(ui_scope)::wx_paint(t_object* z, t_object* /*view*/)
     ebox_paint_layer(asBox(z), BG_LAYER, 0., 0.);
 }
 
+UI_fun(ui_scope)::wx_oksize(t_object*, t_rect* newrect)
+{
+    newrect->width = pd_clip_min(newrect->width, 30);
+    newrect->height = pd_clip_min(newrect->height, 30);
+}
+
 UI_fun(ui_scope)::wx_mousewheel_ext(t_object* z, t_object*, t_pt, long modifiers, double delta)
 {
     if (modifiers == EMOD_SHIFT) {
@@ -141,6 +147,8 @@ UI_fun(ui_scope)::init_ext(t_eclass* z)
     eclass_addmethod(z, reinterpret_cast<method>(ui_scope_dsp), "dsp", A_CANT, 0);
 
     // clang-format off
+    CLASS_ATTR_INVISIBLE            (z, "send", 1);
+
     CLASS_ATTR_DEFAULT(z, "size", 0, "150. 100.");
 
     CLASS_ATTR_RGBA                 (z, "bgcolor", 0, ui_scope, b_color_background);

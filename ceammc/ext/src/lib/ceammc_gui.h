@@ -128,6 +128,13 @@ struct BaseSoundGuiStruct {
  */
 template <typename U>
 class GuiFactory {
+    bool use_presets_;
+
+public:
+    GuiFactory()
+        : use_presets_(false)
+    {
+    }
 
 public:
 #pragma mark static - definitions
@@ -517,9 +524,13 @@ public:
         eclass_addmethod(cl, UI_METHOD_PTR(m_symbol),      "symbol",   A_GIMME, 0);
         eclass_addmethod(cl, UI_METHOD_PTR(m_list),        "list",     A_GIMME, 0);
         eclass_addmethod(cl, UI_METHOD_PTR(m_anything),    "anything", A_GIMME, 0);
-        eclass_addmethod(cl, UI_METHOD_PTR(m_preset),      "preset",   A_NULL,  0);
 
         eclass_addmethod(cl, UI_METHOD_PTR(m_set),         "set", A_GIMME, 0);
+
+        if(use_presets_) {
+            eclass_addmethod(cl, UI_METHOD_PTR(m_preset),   "preset", A_NULL, 0);
+        }
+
         // clang-format on
     }
 
@@ -628,13 +639,9 @@ public:
         }
     }
 
-    /**
-     * @brief temporary / stub
-     * @param _class_name: the class name, inlets/outlets arrays
-     */
-    void setup_io(const std::string& _class_name, t_atomtype* ins, t_atomtype* outs)
+    void use_presets(bool v = true)
     {
-        this->setup(_class_name);
+        use_presets_ = v;
     }
 
     static U* asStruct(t_object* x)
