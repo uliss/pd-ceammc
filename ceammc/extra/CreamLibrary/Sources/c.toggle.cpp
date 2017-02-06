@@ -125,6 +125,13 @@ static void* toggle_new(t_symbol* s, int argc, t_atom* argv)
     return NULL;
 }
 
+void get_toggle_state(t_toggle* x, t_object* /*attr*/, long* ac, t_atom** av)
+{
+    *ac = 1;
+    *av = reinterpret_cast<t_atom*>(calloc(1, sizeof(t_atom)));
+    atom_setfloat(*av, x->f_active);
+}
+
 extern "C" void setup_ui0x2etoggle(void)
 {
     t_eclass* c = eclass_new("ui.toggle", (method)toggle_new, (method)ebox_free, (short)sizeof(t_toggle), 0L, A_GIMME, 0);
@@ -158,6 +165,11 @@ extern "C" void setup_ui0x2etoggle(void)
         CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
         CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, DEFAULT_BORDER_COLOR);
         CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
+
+
+        CLASS_ATTR_INT                  (c, "state",   0, t_toggle, f_active);
+        CLASS_ATTR_INVISIBLE            (c, "state",   0);
+        CLASS_ATTR_ACCESSORS            (c, "state",   get_toggle_state, NULL);
 
         CLASS_ATTR_RGBA                 (c, "crcolor", 0, t_toggle, f_color_cross);
         CLASS_ATTR_LABEL                (c, "crcolor", 0, "Cross Color");
