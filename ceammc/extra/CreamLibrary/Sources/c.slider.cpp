@@ -24,7 +24,6 @@ typedef struct _slider {
     float f_value_ref;
     float f_value_last;
     long f_mode;
-    float f_fake_attr;
 } t_slider;
 
 static t_eclass* slider_class;
@@ -234,22 +233,32 @@ static void get_slider_value(t_slider* x, t_object* /*attr*/, long* ac, t_atom**
     atom_setfloat(*av, x->f_value);
 }
 
+static t_pd_err set_slider_value(t_slider* x, t_object* /*attr*/, int ac, t_atom* av)
+{
+    if (ac > 0 && av) {
+        slider_set(x, atom_getfloat(av));
+        return 0;
+    }
+
+    return 1;
+}
+
 extern "C" void setup_ui0x2eslider(void)
 {
     t_eclass* c = eclass_new("ui.slider", (method)slider_new, (method)ebox_free, (short)sizeof(t_slider), 0L, A_GIMME, 0);
     if (c) {
         eclass_guiinit(c, 0);
         // clang-format off
-        eclass_addmethod(c, (method)slider_paint, "paint", A_NULL, 0);
-        eclass_addmethod(c, (method)slider_notify, "notify", A_NULL, 0);
+        eclass_addmethod(c, (method)slider_paint,         "paint", A_NULL, 0);
+        eclass_addmethod(c, (method)slider_notify,        "notify", A_NULL, 0);
         eclass_addmethod(c, (method)slider_getdrawparams, "getdrawparams", A_NULL, 0);
-        eclass_addmethod(c, (method)slider_oksize, "oksize", A_NULL, 0);
-        eclass_addmethod(c, (method)slider_set, "set", A_FLOAT, 0);
-        eclass_addmethod(c, (method)slider_float, "float", A_FLOAT, 0);
-        eclass_addmethod(c, (method)slider_bang, "bang", A_NULL, 0);
-        eclass_addmethod(c, (method)slider_mousedown, "mousedown", A_NULL, 0);
-        eclass_addmethod(c, (method)slider_mousedrag, "mousedrag", A_NULL, 0);
-        eclass_addmethod(c, (method)slider_preset, "preset", A_NULL, 0);
+        eclass_addmethod(c, (method)slider_oksize,        "oksize", A_NULL, 0);
+        eclass_addmethod(c, (method)slider_set,           "set", A_FLOAT, 0);
+        eclass_addmethod(c, (method)slider_float,         "float", A_FLOAT, 0);
+        eclass_addmethod(c, (method)slider_bang,          "bang", A_NULL, 0);
+        eclass_addmethod(c, (method)slider_mousedown,     "m    ousedown", A_NULL, 0);
+        eclass_addmethod(c, (method)slider_mousedrag,     "mousedrag", A_NULL, 0);
+        eclass_addmethod(c, (method)slider_preset,        "preset", A_NULL, 0);
 
         CLASS_ATTR_INVISIBLE            (c, "fontname", 1);
         CLASS_ATTR_INVISIBLE            (c, "fontweight", 1);
@@ -298,10 +307,7 @@ extern "C" void setup_ui0x2eslider(void)
         CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "kncolor", 0, DEFAULT_ACTIVE_COLOR);
         CLASS_ATTR_STYLE                (c, "kncolor", 0, "color");
 
-        CLASS_ATTR_FLOAT                (c, "value",   0, t_slider, f_fake_attr);
-        CLASS_ATTR_INVISIBLE            (c, "value",   0);
-        CLASS_ATTR_ACCESSORS            (c, "value",   get_slider_value, NULL);
-
+        CLASS_ATTR_FLOAT_VIRTUAL        (c, "value",   get_slider_value, set_slider_value);
         // clang-format on
 
         eclass_register(CLASS_BOX, c);
