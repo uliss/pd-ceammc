@@ -736,7 +736,7 @@ void ebox_mouse_dblclick(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
     {
         mouse.x = atom_getfloat(argv);
         mouse.y = atom_getfloat(argv+1);
-        c->c_widget.w_dblclick(x, x->b_obj.o_canvas, mouse);
+        c->c_widget.w_dblclick(x, x->b_obj.o_canvas, mouse, modif);
     }
 }
 

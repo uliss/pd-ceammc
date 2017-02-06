@@ -332,6 +332,8 @@ static void *matrixctrl_new(t_symbol *s, int argc, t_atom *argv)
         
         ebox_attrprocess_viabinbuf(x, d);
         ebox_ready((t_ebox *)x);
+
+        binbuf_free(d);
         
         return x;
     }
@@ -391,13 +393,13 @@ extern "C" void setup_c0x2ematrix(void)
         CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_matrixctrl, f_color_border);
         CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Border Color");
         CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0. 0. 0. 1.");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0.8 0.8 0.8 1.");
         CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
         
         CLASS_ATTR_RGBA                 (c, "accolor", 0, t_matrixctrl, f_color_on);
         CLASS_ATTR_LABEL                (c, "accolor", 0, "Active Cell Color");
         CLASS_ATTR_ORDER                (c, "accolor", 0, "3");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "accolor", 0, "0.5 0.5 0.5 1.");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "accolor", 0, "0. 0.75 1.0 1.");
         CLASS_ATTR_STYLE                (c, "accolor", 0, "color");
         
         eclass_register(CLASS_BOX, c);

@@ -8,6 +8,8 @@
  * WARRANTIES, see the file, "LICENSE.txt," in this distribution.
  */
 
+#include <algorithm>
+
 #include "../c.library.hpp"
 
 typedef struct _radio {
@@ -34,23 +36,27 @@ static void radio_getdrawparams(t_radio* x, t_object* patcherview, t_edrawparams
 
 static void radio_oksize(t_radio* x, t_rect* newrect)
 {
-    newrect->width = pd_clip_min(newrect->width, 15.);
-    newrect->height = pd_clip_min(newrect->height, 15.);
     x->f_direction = (newrect->width > newrect->height) ? 1 : 0;
+
     if (x->f_direction) {
-        newrect->width = pd_clip_min(newrect->width, x->f_nitems * newrect->height);
+        float box_size = static_cast<int>(newrect->width / x->f_nitems);
+        box_size = pd_clip_min(box_size, 8);
+        newrect->width = x->f_nitems * (box_size + 1) - 1;
+        newrect->height = box_size;
     } else {
-        newrect->height = pd_clip_min(newrect->height, x->f_nitems * newrect->width);
+        float box_size = static_cast<int>(newrect->height / x->f_nitems);
+        box_size = pd_clip_min(box_size, 8);
+        newrect->height = x->f_nitems * (box_size + 1) - 1;
+        newrect->width = box_size;
     }
 }
 
 static void radio_output(t_radio* x)
 {
-    int i;
     t_atom av[CREAM_MAXITEMS];
     t_pd* send = ebox_getsender((t_ebox*)x);
     if (x->f_mode) {
-        for (i = 0; i < x->f_nitems; i++) {
+        for (int i = 0; i < x->f_nitems; i++) {
             atom_setfloat(av + i, (float)x->f_items[i]);
         }
         outlet_list(x->f_out, &s_list, (int)x->f_nitems, av);
@@ -58,7 +64,7 @@ static void radio_output(t_radio* x)
             pd_list(send, &s_list, (int)x->f_nitems, av);
         }
     } else {
-        for (i = 0; i < x->f_nitems; i++) {
+        for (int i = 0; i < x->f_nitems; i++) {
             if (x->f_items[i] != 0) {
                 outlet_float(x->f_out, (float)i);
                 if (send) {
@@ -141,40 +147,20 @@ static t_pd_err radio_notify(t_radio* x, t_symbol* s, t_symbol* msg, void* sende
 
 static void draw_background(t_radio* x, t_object* view, t_rect* rect)
 {
-    int i;
     t_elayer* g = ebox_start_layer((t_ebox*)x, cream_sym_background_layer, rect->width, rect->height);
 
     if (g) {
+        const float cell_size = x->f_direction ? rect->height : rect->width;
         egraphics_set_color_rgba(g, &x->f_color_border);
-        egraphics_set_line_width(g, 1);
-        egraphics_rectangle(g, 0, 0, rect->width, rect->height);
-        egraphics_fill(g);
-        egraphics_set_color_rgba(g, &x->f_color_background);
-        const float ratio = x->f_direction ? (rect->width / x->f_nitems) : rect->height / x->f_nitems;
-        if (x->f_mode) {
-            const float offset = x->f_direction ? (rect->height * 0.45) : rect->width * 0.45;
-            if (x->f_direction) {
-                for (i = 0; i < x->f_nitems; i++) {
-                    egraphics_rectangle(g, (i + 0.5) * ratio - offset, rect->height * 0.05, offset * 2., offset * 2.);
-                    egraphics_fill(g);
-                }
-            } else {
-                for (i = 0; i < x->f_nitems; i++) {
-                    egraphics_rectangle(g, rect->width * 0.05, (i + 0.5) * ratio - offset, offset * 2., offset * 2.);
-                    egraphics_fill(g);
-                }
+        if (x->f_direction) {
+            for (int i = 1; i < x->f_nitems; i++) {
+                float xPos = i * cell_size + i - 1;
+                egraphics_line_fast(g, xPos, 0, xPos, rect->height);
             }
         } else {
-            if (x->f_direction) {
-                for (i = 0; i < x->f_nitems; i++) {
-                    egraphics_circle(g, (i + 0.5) * ratio, rect->height * 0.5, rect->height * 0.45);
-                    egraphics_fill(g);
-                }
-            } else {
-                for (i = 0; i < x->f_nitems; i++) {
-                    egraphics_circle(g, rect->width * 0.5, (i + 0.5) * ratio, rect->width * 0.45);
-                    egraphics_fill(g);
-                }
+            for (int i = 1; i < x->f_nitems; i++) {
+                float yPos = i * cell_size + i - 1;
+                egraphics_line_fast(g, 0, yPos, rect->width, yPos);
             }
         }
 
@@ -185,41 +171,47 @@ static void draw_background(t_radio* x, t_object* view, t_rect* rect)
 
 static void draw_items(t_radio* x, t_object* view, t_rect* rect)
 {
-    int i;
     t_elayer* g = ebox_start_layer((t_ebox*)x, cream_sym_items_layer, rect->width, rect->height);
 
     if (g) {
         egraphics_set_color_rgba(g, &x->f_color_item);
-        const float ratio = x->f_direction ? (rect->width / x->f_nitems) : rect->height / x->f_nitems;
+        const int cell_size = x->f_direction ? rect->height : rect->width;
+        const int knob_offset = std::max((static_cast<int>(roundf(cell_size * 0.16f)) / 2) * 2, 2);
+        const int knob_size = cell_size - knob_offset * 2;
+        const float cell_offset = (cell_size - knob_size) / 2;
+
         if (x->f_mode) {
-            const float offset = x->f_direction ? (rect->height * 0.35) : rect->width * 0.35;
             if (x->f_direction) {
-                for (i = 0; i < x->f_nitems; i++) {
+                for (int i = 0; i < x->f_nitems; i++) {
                     if (x->f_items[i]) {
-                        egraphics_rectangle(g, (i + 0.5) * ratio - offset, rect->height * 0.15, offset * 2., offset * 2.);
+                        float offset = i * (cell_size + 1) + cell_offset;
+                        egraphics_rectangle(g, offset, cell_offset, knob_size, knob_size);
                         egraphics_fill(g);
                     }
                 }
             } else {
-                for (i = 0; i < x->f_nitems; i++) {
+                for (int i = 0; i < x->f_nitems; i++) {
                     if (x->f_items[i]) {
-                        egraphics_rectangle(g, rect->width * 0.15, (i + 0.5) * ratio - offset, offset * 2., offset * 2.);
+                        float offset = i * (cell_size + 1) + cell_offset;
+                        egraphics_rectangle(g, cell_offset, offset, knob_size, knob_size);
                         egraphics_fill(g);
                     }
                 }
             }
         } else {
             if (x->f_direction) {
-                for (i = 0; i < x->f_nitems; i++) {
+                for (int i = 0; i < x->f_nitems; i++) {
                     if (x->f_items[i]) {
-                        egraphics_circle(g, (i + 0.5) * ratio, rect->height * 0.5, rect->height * 0.35);
+                        float offset = (i + 0.5f) * (cell_size + 1);
+                        egraphics_circle(g, offset, cell_size * 0.5f, cell_size * 0.35f);
                         egraphics_fill(g);
                     }
                 }
             } else {
-                for (i = 0; i < x->f_nitems; i++) {
+                for (int i = 0; i < x->f_nitems; i++) {
                     if (x->f_items[i]) {
-                        egraphics_circle(g, rect->width * 0.5, (i + 0.5) * ratio, rect->width * 0.35);
+                        float offset = (i + 0.5f) * (cell_size + 1);
+                        egraphics_circle(g, cell_size * 0.5f, offset, rect->width * 0.35f);
                         egraphics_fill(g);
                     }
                 }
@@ -317,6 +309,7 @@ static void* radio_new(t_symbol* s, int argc, t_atom* argv)
     t_binbuf* d = binbuf_via_atoms(argc, argv);
 
     if (x && d) {
+        x->f_nitems = 8;
         ebox_new((t_ebox*)x, 0 | EBOX_GROWINDI);
         x->f_out = outlet_new((t_object*)x, &s_anything);
         binbuf_get_attribute_int(d, gensym("nitems"), &x->f_nitems);
@@ -349,7 +342,7 @@ extern "C" void setup_ui0x2eradio(void)
         CLASS_ATTR_INVISIBLE            (c, "fontweight", 1);
         CLASS_ATTR_INVISIBLE            (c, "fontslant", 1);
         CLASS_ATTR_INVISIBLE            (c, "fontsize", 1);
-        CLASS_ATTR_DEFAULT              (c, "size", 0, "120. 15.");
+        CLASS_ATTR_DEFAULT              (c, "size", 0, "127. 15.");
         
         CLASS_ATTR_INT                  (c, "nitems", 0, t_radio, f_nitems);
         CLASS_ATTR_LABEL                (c, "nitems", 0, "Number of Items");
@@ -372,13 +365,13 @@ extern "C" void setup_ui0x2eradio(void)
         CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_radio, f_color_background);
         CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
         CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.6 0.6 0.6 1.");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.93 0.93 0.93 1.");
         CLASS_ATTR_STYLE                (c, "bgcolor", 0, "color");
         
         CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_radio, f_color_border);
         CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Border Color");
         CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0.87 0.87 0.87 1.");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0. 0. 0. 1.");
         CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
         
         CLASS_ATTR_RGBA                 (c, "itcolor", 0, t_radio, f_color_item);

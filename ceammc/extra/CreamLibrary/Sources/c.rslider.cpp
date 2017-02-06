@@ -43,8 +43,12 @@ static void* rslider_new(t_symbol* s, int argc, t_atom* argv)
         x->f_out_right = outlet_new((t_object*)x, &s_float);
 
         ebox_attrprocess_viabinbuf(x, d);
-        x->f_value_low = x->f_min;
+        float range = x->f_max - x->f_min;
+        x->f_value_low = x->f_min + range * 0.4f;
+        x->f_value_high = x->f_min + range * 0.6f;
         ebox_ready((t_ebox*)x);
+
+        binbuf_free(d);
 
         return x;
     }
@@ -335,7 +339,7 @@ extern "C" void setup_ui0x2erslider(void)
         CLASS_ATTR_LABEL                (c, "listmode", 0, "List Mode");
         CLASS_ATTR_FILTER_CLIP          (c, "listmode", 0, 1);
         CLASS_ATTR_ORDER                (c, "listmode", 0, "1");
-        CLASS_ATTR_DEFAULT              (c, "listmode", 0, "0");
+        CLASS_ATTR_DEFAULT              (c, "listmode", 0, "1");
         CLASS_ATTR_SAVE                 (c, "listmode", 1);
         CLASS_ATTR_STYLE                (c, "listmode", 0, "onoff");
         
