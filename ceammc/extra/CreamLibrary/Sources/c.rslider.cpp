@@ -9,6 +9,7 @@
  */
 
 #include <algorithm>
+#include <cmath>
 
 #include "../c.library.hpp"
 
@@ -327,6 +328,13 @@ static void get_rslider_maxvalue(t_rslider* x, t_object* /*attr*/, long* ac, t_a
     atom_setfloat(*av, std::max(x->f_value_low, x->f_value_high));
 }
 
+static void get_rslider_range(t_rslider* x, t_object* /*attr*/, long* ac, t_atom** av)
+{
+    *ac = 1;
+    *av = reinterpret_cast<t_atom*>(calloc(1, sizeof(t_atom)));
+    atom_setfloat(*av, fabsf(x->f_value_low - x->f_value_high));
+}
+
 static t_pd_err set_rslider_value(t_rslider* x, t_object* /*attr*/, int ac, t_atom* av)
 {
     if (ac > 0 && av) {
@@ -358,6 +366,12 @@ static t_pd_err set_rslider_maxvalue(t_rslider* x, t_object* /*attr*/, int ac, t
         return 0;
     }
 
+    return 1;
+}
+
+static t_pd_err set_rslider_range(t_rslider* x, t_eattr* attr, int ac, t_atom* av)
+{
+    pd_error(x, "[%s] readonly property: @%s", eobj_getclassname(x)->s_name, attr->name->s_name);
     return 1;
 }
 
@@ -421,6 +435,7 @@ extern "C" void setup_ui0x2erslider(void)
         CLASS_ATTR_VIRTUAL              (c, "value",   get_rslider_value, set_rslider_value);
         CLASS_ATTR_VIRTUAL              (c, "maxvalue", get_rslider_maxvalue, set_rslider_maxvalue);
         CLASS_ATTR_VIRTUAL              (c, "minvalue", get_rslider_minvalue, set_rslider_minvalue);
+        CLASS_ATTR_VIRTUAL              (c, "range",    get_rslider_range, set_rslider_range);
         // clang-format on
 
         eclass_register(CLASS_BOX, c);
