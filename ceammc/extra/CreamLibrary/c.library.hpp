@@ -7,12 +7,13 @@
 #ifndef DEF_CREAM_LIBRARY
 #define DEF_CREAM_LIBRARY
 
-extern "C"
-{
+extern "C" {
 #include "cicm_wrapper.h"
 }
 
 #define CREAM_MAXITEMS 256
+
+// clang-format off
 
 extern "C" void cream_setup(void);
 extern "C" void Cream_setup(void);
@@ -135,5 +136,11 @@ static t_symbol* cream_sym_highkey              = gensym("highkey");
 static t_symbol* cream_sym_nothing              = gensym("''");
 static t_symbol* cream_sym_left_bracket         = gensym("[");
 static t_symbol* cream_sym_right_bracket        = gensym("]");
+
+// clang-format on
+
+static const char* DEFAULT_ACTIVE_COLOR = "0. 0.75 1. 1.";
+static const char* DEFAULT_BORDER_COLOR = "0.6 0.6 0.6 1.";
+static const char* DEFAULT_BACKGROUND_COLOR = "0.93 0.93 0.93 1.";
 
 #endif
