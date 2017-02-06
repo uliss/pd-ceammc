@@ -15,8 +15,6 @@
 typedef struct _rslider {
     t_ebox j_box;
     t_outlet* f_out_left;
-    t_outlet* f_out_right;
-    long f_mode;
     t_rgba f_color_background;
     t_rgba f_color_border;
     t_rgba f_color_knob;
@@ -26,6 +24,7 @@ typedef struct _rslider {
     float f_max;
     float f_value_low;
     float f_value_high;
+    float fake_attr[2];
 } t_rslider;
 
 static t_eclass* rslider_class;
@@ -40,7 +39,6 @@ static void* rslider_new(t_symbol* s, int argc, t_atom* argv)
         eobj_proxynew(x);
         eobj_proxynew(x);
         x->f_out_left = outlet_new((t_object*)x, &s_list);
-        x->f_out_right = outlet_new((t_object*)x, &s_float);
 
         ebox_attrprocess_viabinbuf(x, d);
         float range = x->f_max - x->f_min;
@@ -65,17 +63,11 @@ static void rslider_output(t_rslider* x)
     atom_setfloat(&argv[0], low);
     atom_setfloat(&argv[1], high);
 
-    if (x->f_mode) {
-        outlet_list(x->f_out_left, &s_list, 2, argv);
-    } else {
-        outlet_float(x->f_out_left, low);
-        outlet_float(x->f_out_right, high);
-    }
+    outlet_list(x->f_out_left, &s_list, 2, argv);
 
     t_pd* send = ebox_getsender((t_ebox*)x);
-    if (send) {
+    if (send)
         pd_list(send, &s_list, 2, argv);
-    }
 }
 
 static void rslider_set(t_rslider* x, t_symbol* s, int argc, t_atom* argv)
@@ -310,6 +302,18 @@ static void rslider_mousedrag(t_rslider* x, t_object* patcherview, t_pt pt, long
     ebox_redraw((t_ebox*)x);
 }
 
+static void get_rslider_value(t_rslider* x, t_object* /*attr*/, long* ac, t_atom** av)
+{
+    *ac = 2;
+    *av = reinterpret_cast<t_atom*>(calloc(2, sizeof(t_atom)));
+
+    t_float low = std::min(x->f_value_low, x->f_value_high);
+    t_float high = std::max(x->f_value_low, x->f_value_high);
+
+    atom_setfloat(*av, low);
+    atom_setfloat(*av + 1, high);
+}
+
 extern "C" void setup_ui0x2erslider(void)
 {
     t_eclass* c = eclass_new("ui.rslider", (method)rslider_new, (method)ebox_free, (short)sizeof(t_rslider), CLASS_NOINLET, A_GIMME, 0);
@@ -335,14 +339,6 @@ extern "C" void setup_ui0x2erslider(void)
         CLASS_ATTR_INVISIBLE            (c, "fontsize", 1);
         CLASS_ATTR_DEFAULT              (c, "size", 0, "120. 15.");
         
-        CLASS_ATTR_LONG                 (c, "listmode", 0, t_rslider, f_mode);
-        CLASS_ATTR_LABEL                (c, "listmode", 0, "List Mode");
-        CLASS_ATTR_FILTER_CLIP          (c, "listmode", 0, 1);
-        CLASS_ATTR_ORDER                (c, "listmode", 0, "1");
-        CLASS_ATTR_DEFAULT              (c, "listmode", 0, "1");
-        CLASS_ATTR_SAVE                 (c, "listmode", 1);
-        CLASS_ATTR_STYLE                (c, "listmode", 0, "onoff");
-        
         CLASS_ATTR_FLOAT                (c, "min", 0, t_rslider, f_min);
         CLASS_ATTR_LABEL                (c, "min", 0, "Minimum Value");
         CLASS_ATTR_ORDER                (c, "min", 0, "1");
@@ -360,32 +356,28 @@ extern "C" void setup_ui0x2erslider(void)
         CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_rslider, f_color_background);
         CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
         CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.93 0.93 0.93 1.");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, DEFAULT_BACKGROUND_COLOR);
         CLASS_ATTR_STYLE                (c, "bgcolor", 0, "color");
         
         CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_rslider, f_color_border);
         CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Border Color");
         CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0. 0. 0. 1.");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, DEFAULT_BORDER_COLOR);
         CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
         
         CLASS_ATTR_RGBA                 (c, "kncolor", 0, t_rslider, f_color_knob);
         CLASS_ATTR_LABEL                (c, "kncolor", 0, "Knob Color");
         CLASS_ATTR_ORDER                (c, "kncolor", 0, "3");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "kncolor", 0, "0.0 0.75 1.0 1.");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "kncolor", 0, DEFAULT_ACTIVE_COLOR);
         CLASS_ATTR_STYLE                (c, "kncolor", 0, "color");
-        
-        // clang-format off
+
+        CLASS_ATTR_FLOAT_ARRAY          (c, "value",   0, t_rslider, fake_attr, 2);
+        CLASS_ATTR_INVISIBLE            (c, "value",   0);
+        CLASS_ATTR_ACCESSORS            (c, "value",   get_rslider_value, NULL);
+
+        // clang-format on
 
         eclass_register(CLASS_BOX, c);
-        rslider_class = c;        
+        rslider_class = c;
     }
 }
-
-
-
-
-
-
-
-
