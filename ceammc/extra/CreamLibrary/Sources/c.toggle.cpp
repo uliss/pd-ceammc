@@ -16,6 +16,7 @@ typedef struct _toggle {
     t_rgba f_color_background;
     t_rgba f_color_border;
     t_rgba f_color_cross;
+    int fake_attr;
     char f_active;
 } t_toggle;
 
@@ -125,7 +126,7 @@ static void* toggle_new(t_symbol* s, int argc, t_atom* argv)
     return NULL;
 }
 
-void get_toggle_state(t_toggle* x, t_object* /*attr*/, long* ac, t_atom** av)
+static void get_toggle_value(t_toggle* x, t_object* /*attr*/, long* ac, t_atom** av)
 {
     *ac = 1;
     *av = reinterpret_cast<t_atom*>(calloc(1, sizeof(t_atom)));
@@ -166,10 +167,9 @@ extern "C" void setup_ui0x2etoggle(void)
         CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, DEFAULT_BORDER_COLOR);
         CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
 
-
-        CLASS_ATTR_INT                  (c, "state",   0, t_toggle, f_active);
-        CLASS_ATTR_INVISIBLE            (c, "state",   0);
-        CLASS_ATTR_ACCESSORS            (c, "state",   get_toggle_state, NULL);
+        CLASS_ATTR_INT                  (c, "value",   0, t_toggle, fake_attr);
+        CLASS_ATTR_INVISIBLE            (c, "value",   0);
+        CLASS_ATTR_ACCESSORS            (c, "value",   get_toggle_value, NULL);
 
         CLASS_ATTR_RGBA                 (c, "crcolor", 0, t_toggle, f_color_cross);
         CLASS_ATTR_LABEL                (c, "crcolor", 0, "Cross Color");

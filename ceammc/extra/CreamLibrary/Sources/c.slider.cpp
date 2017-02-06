@@ -24,6 +24,7 @@ typedef struct _slider {
     float f_value_ref;
     float f_value_last;
     long f_mode;
+    float f_fake_attr;
 } t_slider;
 
 static t_eclass* slider_class;
@@ -226,6 +227,13 @@ static void* slider_new(t_symbol* s, int argc, t_atom* argv)
     return NULL;
 }
 
+static void get_slider_value(t_slider* x, t_object* /*attr*/, long* ac, t_atom** av)
+{
+    *ac = 1;
+    *av = reinterpret_cast<t_atom*>(calloc(1, sizeof(t_atom)));
+    atom_setfloat(*av, x->f_value);
+}
+
 extern "C" void setup_ui0x2eslider(void)
 {
     t_eclass* c = eclass_new("ui.slider", (method)slider_new, (method)ebox_free, (short)sizeof(t_slider), 0L, A_GIMME, 0);
@@ -275,13 +283,13 @@ extern "C" void setup_ui0x2eslider(void)
         CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_slider, f_color_background);
         CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
         CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.93 0.93 0.93 1.");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, DEFAULT_BACKGROUND_COLOR);
         CLASS_ATTR_STYLE                (c, "bgcolor", 0, "color");
 
         CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_slider, f_color_border);
         CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Border Color");
         CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0. 0. 0. 1.");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, DEFAULT_BORDER_COLOR);
         CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
 
         CLASS_ATTR_RGBA                 (c, "kncolor", 0, t_slider, f_color_knob);
@@ -289,6 +297,10 @@ extern "C" void setup_ui0x2eslider(void)
         CLASS_ATTR_ORDER                (c, "kncolor", 0, "3");
         CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "kncolor", 0, DEFAULT_ACTIVE_COLOR);
         CLASS_ATTR_STYLE                (c, "kncolor", 0, "color");
+
+        CLASS_ATTR_FLOAT                (c, "value",   0, t_slider, f_fake_attr);
+        CLASS_ATTR_INVISIBLE            (c, "value",   0);
+        CLASS_ATTR_ACCESSORS            (c, "value",   get_slider_value, NULL);
 
         // clang-format on
 
