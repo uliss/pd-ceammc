@@ -10,6 +10,7 @@
 
 #include "../c.library.hpp"
 
+#include "../../../ext/src/lib/ceammc_atomlist.cpp"
 #include "../../../ext/src/lib/ceammc_atomlist.h"
 
 using namespace ceammc;
@@ -44,12 +45,12 @@ static t_symbol* atoms_getsymbol(int ac, t_atom* av)
     for (int i = 0; i < ac; i++) {
         if (atom_gettype(av + i) == A_SYMBOL) {
             const t_symbol* s = atom_getsymbol(av + i);
-            const int lenght = (int)strlen(s->s_name);
+            const int length = (int)strlen(s->s_name);
             int buflen = (int)strlen(buffer);
             if (buflen) {
                 buffer[buflen++] = ' ';
             }
-            for (int j = 0, k = buflen; j < lenght && k < MAXPDSTRING - 1; j++) {
+            for (int j = 0, k = buflen; j < length && k < MAXPDSTRING - 1; j++) {
                 if (s->s_name[j] != '"' && s->s_name[j] != '\'') {
                     buffer[k++] = s->s_name[j];
                 }
@@ -58,19 +59,19 @@ static t_symbol* atoms_getsymbol(int ac, t_atom* av)
         } else if (atom_gettype(av + i) == A_FLOAT) {
             char temp[MAXPDSTRING];
             sprintf(temp, "%f", atom_getfloat(av + i));
-            int lenght = (int)strlen(temp);
-            while (temp[lenght - 1] == '0') {
-                temp[lenght - 1] = '\0';
-                lenght--;
+            int length = (int)strlen(temp);
+            while (temp[length - 1] == '0') {
+                temp[length - 1] = '\0';
+                length--;
             }
-            if (temp[lenght - 1] == '.') {
-                temp[lenght - 1] = '\0';
-                lenght--;
+            if (temp[length - 1] == '.') {
+                temp[length - 1] = '\0';
+                length--;
             }
             if (buffer[0] != '\0') {
                 strncat(buffer, " ", (size_t)1);
             }
-            strncat(buffer, temp, (size_t)lenght);
+            strncat(buffer, temp, (size_t)length);
             memset(temp, '\0', MAXPDSTRING * sizeof(char));
         }
     }

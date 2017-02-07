@@ -42,7 +42,7 @@ set(CREAM_SRC
     Sources/c.radio.cpp
     Sources/c.rslider.cpp
     Sources/c.slider.cpp
-    Sources/c.tab.cpp
+#    Sources/c.tab.cpp
     Sources/c.toggle.cpp
     Sources/c.preset.cpp
 )
