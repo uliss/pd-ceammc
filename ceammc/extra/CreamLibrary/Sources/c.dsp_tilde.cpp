@@ -141,6 +141,13 @@ static void dsp_tilde_stop(t_dsp_tilde* x)
     ebox_redraw((t_ebox*)x);
 }
 
+static void dsp_tilde_dblclick(t_dsp_tilde* x, t_object*, t_pt, long modifiers)
+{
+    if (modifiers == EMOD_SHIFT) {
+        dsp_tilde_open(x);
+    }
+}
+
 static void dsp_tilde_mousedown(t_dsp_tilde* x, t_object* patcherview, t_pt pt, long modifiers)
 {
     if (canvas_dspstate) {
@@ -167,6 +174,8 @@ extern "C" void setup_ui0x2edsp_tilde(void)
     eclass_addmethod(c, (method) dsp_tilde_open,            "settings",         A_NULL, 0);
     eclass_addmethod(c, (method) dsp_tilde_start,           "start",            A_NULL, 0);
     eclass_addmethod(c, (method) dsp_tilde_stop,            "stop",             A_NULL, 0);
+
+    eclass_addmethod(c, (method) dsp_tilde_dblclick,        "dblclick",         A_NULL, 0);
     
     CLASS_ATTR_INVISIBLE            (c, "fontname", 1);
     CLASS_ATTR_INVISIBLE            (c, "fontweight", 1);
