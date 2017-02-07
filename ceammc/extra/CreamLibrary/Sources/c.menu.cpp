@@ -582,15 +582,3 @@ t_pd_err menu_items_set(t_menu* x, t_object* attr, int ac, t_atom* av)
     x->f_items_size = ac;
     return 0;
 }
-
-t_pd_err menu_items_get(t_menu* x, t_object* attr, long* ac, t_atom** av)
-{
-    *ac = x->f_items_size;
-    *av = (t_atom*)calloc((size_t)(*ac), sizeof(t_atom));
-
-    for (int i = 0; i < *ac; i++) {
-        atom_setsym(av[i], x->f_items[i]);
-    }
-
-    return 0;
-}
