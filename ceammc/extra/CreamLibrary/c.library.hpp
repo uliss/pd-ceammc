@@ -19,31 +19,25 @@ extern "C" void cream_setup(void);
 extern "C" void Cream_setup(void);
 extern "C" void libpd_loadcream(void);
 
-//extern "C" void setup_c0x2ebang(void);
 extern "C" void setup_c0x2eblackboard(void);
 extern "C" void setup_c0x2ebreakpoints(void);
 extern "C" void setup_c0x2ecolorpanel(void);
-extern "C" void setup_c0x2edsp_tilde(void);
 //extern "C" void setup_c0x2egain_tilde(void);
 extern "C" void setup_c0x2eincdec(void);
 extern "C" void setup_c0x2eknob(void);
-extern "C" void setup_c0x2ematrix(void);
-extern "C" void setup_c0x2emenu(void);
 extern "C" void setup_c0x2emeter_tilde(void);
-extern "C" void setup_c0x2enumber(void);
 extern "C" void setup_c0x2enumber_tilde(void);
 extern "C" void setup_c0x2eplane(void);
-extern "C" void setup_c0x2eradio(void);
-extern "C" void setup_c0x2erslider(void);
 extern "C" void setup_c0x2escope_tilde(void);
-extern "C" void setup_c0x2eslider(void);
-// TEMPORARY extern "C" void setup_c0x2etab(void);
-extern "C" void setup_c0x2etoggle(void);
+
 
 //CEAMMC
 extern "C" void setup_ui0x2ebang(void);
+extern "C" void setup_ui0x2edsp_tilde(void);
 extern "C" void setup_ui0x2enumber_tilde(void);
 extern "C" void setup_ui0x2enumber(void);
+extern "C" void setup_ui0x2ematrix(void);
+extern "C" void setup_ui0x2emenu(void);
 extern "C" void setup_ui0x2epreset(void);
 extern "C" void setup_ui0x2eradio(void);
 extern "C" void setup_ui0x2erslider(void);

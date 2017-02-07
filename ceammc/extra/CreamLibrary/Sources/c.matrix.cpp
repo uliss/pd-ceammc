@@ -309,7 +309,7 @@ static void matrixctrl_free(t_matrixctrl* x)
     free(x->f_values);
 }
 
-extern "C" void setup_c0x2ematrix(void)
+extern "C" void setup_ui0x2ematrix(void)
 {
     t_eclass* c = eclass_new("ui.matrix", (method)matrixctrl_new, (method)matrixctrl_free, (short)sizeof(t_matrixctrl), 0L, A_GIMME, 0);
 
