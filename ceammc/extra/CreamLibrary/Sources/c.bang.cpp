@@ -321,7 +321,6 @@ static void bang_oksize(t_bang *x, t_rect *newrect)
  */
 static void bang_paint(t_bang *x, t_object *view)
 {
-    float size;
     t_rect rect;
     // We defines a initialize a t_rect with the size of the t_ebox.
     ebox_get_rect_for_view((t_ebox *)x, &rect);
@@ -332,24 +331,34 @@ static void bang_paint(t_bang *x, t_object *view)
     // If it is a new t_elayer or if the layer has been ivalidated we can draw something in it, otherwise the pointer is NULL.
     if(g)
     {
-        size = rect.width * 0.5f;
+        const int box_center = static_cast<int>(floorf(rect.width * 0.5f));
+        int circle_radius = static_cast<int>(roundf(box_center * 0.9f));
+
+        // fix for small sizes
+        if(rect.width < 20)
+            circle_radius = box_center;
+
+        // align fix
+        if((box_center - circle_radius) % 2 == 1)
+            circle_radius--;
+
         // We set up the bang color is the t_bang is currently active.
         // Otherwise we use the background color.
         
         // We add a circle at the center the t_elayer.
-        egraphics_circle(g, floorf(size + 0.5f), floorf(size + 0.5f), size * 0.9f);
+        egraphics_circle(g, box_center, box_center, circle_radius);
         
         if(x->b_active)
         {
             egraphics_set_color_rgba(g, &x->b_color_bang);
             // We fill the t_elayer with the drawing.
-            egraphics_fill(g); 
+            egraphics_fill(g);
         }
         else
         {
             egraphics_set_color_rgba(g, &x->b_color_border);
             // We stroke the t_elayer with the drawing.
-            egraphics_fill(g);
+            egraphics_stroke(g);
         }
         // We mark the layer as ready to be painted.
         ebox_end_layer((t_ebox*)x, bang_sym_background_layer);
