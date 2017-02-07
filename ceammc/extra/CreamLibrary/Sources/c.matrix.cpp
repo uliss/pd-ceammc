@@ -187,7 +187,8 @@ static void matrixctrl_paint(t_matrixctrl* x, t_object* view)
                     egraphics_set_color_rgba(g, &x->f_color_on);
                     egraphics_fill_preserve(g);
                 }
-                egraphics_set_color_rgba(g, &x->f_color_border);
+                t_rgba bc = rgba_addContrast(x->f_color_background, -0.15);
+                egraphics_set_color_rgba(g, &bc);
                 egraphics_stroke(g);
             }
         }
