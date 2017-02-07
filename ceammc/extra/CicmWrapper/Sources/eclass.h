@@ -335,6 +335,13 @@ eclass_new_attr_typed(c,name, "symbol", calcoffset(struct,size), maxsize, flags,
 #define CLASS_ATTR_ATOM_VARSIZE(c,name,flags,struct, member, size, maxsize) \
 eclass_new_attr_typed(c,name, "atom", calcoffset(struct,size), maxsize, flags, calcoffset(struct,member))
 
+//! CEAMMC
+//! Macros that creates virtual invisible attribute only with getter and setter access
+#define CLASS_ATTR_VIRTUAL(c, name, getter, setter) \
+    eclass_new_attr_typed(c, name, "float", 1, 0, 0, 0); \
+    eclass_attr_invisible(c, name, 0);\
+    eclass_attr_accessor(c, name, (t_err_method)getter, (t_err_method)setter)
+
 //! Macros that define the category of the attributes
 #define CLASS_ATTR_CATEGORY(c,name,flags,categoryname)  eclass_attr_category(c,name,flags,categoryname)
 //! Macros that define the order of the attributes

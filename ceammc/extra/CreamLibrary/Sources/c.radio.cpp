@@ -75,6 +75,32 @@ static void radio_output(t_radio* x)
     }
 }
 
+static void radio_flip(t_radio* x)
+{
+    if (x->f_mode) {
+        for (int i = 0; i < x->f_nitems; i++)
+            x->f_items[i] = (x->f_items[i] == 0) ? 1 : 0;
+
+        ebox_invalidate_layer((t_ebox*)x, cream_sym_items_layer);
+        ebox_redraw((t_ebox*)x);
+        radio_output(x);
+    } else
+        pd_error(x, "[%s] flip acts only in list mode.", eobj_getclassname(x)->s_name);
+}
+
+static void radio_reset(t_radio* x)
+{
+    if (x->f_mode) {
+        for (int i = 0; i < x->f_nitems; i++)
+            x->f_items[i] = 0;
+
+        ebox_invalidate_layer((t_ebox*)x, cream_sym_items_layer);
+        ebox_redraw((t_ebox*)x);
+        radio_output(x);
+    } else
+        pd_error(x, "[%s] reset acts only in list mode.", eobj_getclassname(x)->s_name);
+}
+
 static void radio_set_one(t_radio* x, int f)
 {
     if (f >= 0 && f < x->f_nitems) {
@@ -181,6 +207,41 @@ static void draw_items(t_radio* x, t_object* view, t_rect* rect)
         const float cell_offset = (cell_size - knob_size) / 2;
 
         if (x->f_mode) {
+            egraphics_set_line_width(g, 2);
+            if (x->f_direction) {
+                for (int i = 0; i < x->f_nitems; i++) {
+                    if (x->f_items[i]) {
+                        const float offset = i * (cell_size + 1);
+
+                        const float x0 = offset + 1;
+                        const float y0 = 1;
+                        const float x1 = offset + cell_size - 1;
+                        const float y1 = cell_size - 1;
+
+                        // draw cross
+                        egraphics_line(g, x0, y0, x1, y1);
+                        egraphics_line(g, x0, y1, x1, y0);
+                        egraphics_stroke(g);
+                    }
+                }
+            } else {
+                for (int i = 0; i < x->f_nitems; i++) {
+                    if (x->f_items[i]) {
+                        const float offset = i * (cell_size + 1);
+
+                        const float x0 = 1;
+                        const float y0 = offset + 1;
+                        const float x1 = cell_size - 1;
+                        const float y1 = offset + cell_size - 1;
+
+                        // draw cross
+                        egraphics_line(g, x0, y0, x1, y1);
+                        egraphics_line(g, x0, y1, x1, y0);
+                        egraphics_stroke(g);
+                    }
+                }
+            }
+        } else {
             if (x->f_direction) {
                 for (int i = 0; i < x->f_nitems; i++) {
                     if (x->f_items[i]) {
@@ -193,25 +254,7 @@ static void draw_items(t_radio* x, t_object* view, t_rect* rect)
                 for (int i = 0; i < x->f_nitems; i++) {
                     if (x->f_items[i]) {
                         float offset = i * (cell_size + 1) + cell_offset;
-                        egraphics_rectangle(g, cell_offset, offset, knob_size, knob_size);
-                        egraphics_fill(g);
-                    }
-                }
-            }
-        } else {
-            if (x->f_direction) {
-                for (int i = 0; i < x->f_nitems; i++) {
-                    if (x->f_items[i]) {
-                        float offset = (i + 0.5f) * (cell_size + 1);
-                        egraphics_circle(g, offset, cell_size * 0.5f, cell_size * 0.35f);
-                        egraphics_fill(g);
-                    }
-                }
-            } else {
-                for (int i = 0; i < x->f_nitems; i++) {
-                    if (x->f_items[i]) {
-                        float offset = (i + 0.5f) * (cell_size + 1);
-                        egraphics_circle(g, cell_size * 0.5f, offset, rect->width * 0.35f);
+                        egraphics_rectangle(g, offset, cell_offset, knob_size, knob_size);
                         egraphics_fill(g);
                     }
                 }
@@ -316,6 +359,8 @@ static void* radio_new(t_symbol* s, int argc, t_atom* argv)
         ebox_attrprocess_viabinbuf(x, d);
         ebox_ready((t_ebox*)x);
 
+        binbuf_free(d);
+
         return x;
     }
     return NULL;
@@ -337,6 +382,8 @@ extern "C" void setup_ui0x2eradio(void)
         eclass_addmethod(c, (method) radio_output,          "bang",             A_NULL, 0);
         eclass_addmethod(c, (method) radio_mousedown,       "mousedown",        A_NULL, 0);
         eclass_addmethod(c, (method) radio_preset,          "preset",           A_NULL, 0);
+        eclass_addmethod(c, (method) radio_flip,            "flip",             A_NULL, 0);
+        eclass_addmethod(c, (method) radio_reset,           "reset",            A_NULL, 0);
         
         CLASS_ATTR_INVISIBLE            (c, "fontname", 1);
         CLASS_ATTR_INVISIBLE            (c, "fontweight", 1);
@@ -365,19 +412,19 @@ extern "C" void setup_ui0x2eradio(void)
         CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_radio, f_color_background);
         CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
         CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.93 0.93 0.93 1.");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, DEFAULT_BACKGROUND_COLOR);
         CLASS_ATTR_STYLE                (c, "bgcolor", 0, "color");
         
         CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_radio, f_color_border);
         CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Border Color");
         CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0. 0. 0. 1.");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, DEFAULT_BORDER_COLOR);
         CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
         
         CLASS_ATTR_RGBA                 (c, "itcolor", 0, t_radio, f_color_item);
         CLASS_ATTR_LABEL                (c, "itcolor", 0, "Item Color");
         CLASS_ATTR_ORDER                (c, "itcolor", 0, "3");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "itcolor", 0, "0. 0.75 1. 1.");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "itcolor", 0, DEFAULT_ACTIVE_COLOR);
         CLASS_ATTR_STYLE                (c, "itcolor", 0, "color");
         
         // clang-format off

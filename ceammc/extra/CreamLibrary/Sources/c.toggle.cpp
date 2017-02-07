@@ -16,7 +16,6 @@ typedef struct _toggle {
     t_rgba f_color_background;
     t_rgba f_color_border;
     t_rgba f_color_cross;
-    int fake_attr;
     char f_active;
 } t_toggle;
 
@@ -86,8 +85,8 @@ static void toggle_paint(t_toggle* x, t_object* view)
         if (x->f_active) {
             egraphics_set_color_rgba(g, &x->f_color_cross);
             egraphics_set_line_width(g, 2);
-            egraphics_line_fast(g, 0, 0, rect.width, rect.height);
-            egraphics_line_fast(g, 0, rect.height, rect.width, 0);
+            egraphics_line_fast(g, 1, 1, rect.width - 1, rect.height - 1);
+            egraphics_line_fast(g, 1, rect.height - 1, rect.width - 1, 1);
         }
         ebox_end_layer((t_ebox*)x, cream_sym_background_layer);
     }
@@ -133,6 +132,16 @@ static void get_toggle_value(t_toggle* x, t_object* /*attr*/, long* ac, t_atom**
     atom_setfloat(*av, x->f_active);
 }
 
+static t_pd_err set_toggle_value(t_toggle* x, t_object* /*attr*/, int ac, t_atom* av)
+{
+    if (ac > 0 && av) {
+        toggle_set(x, atom_getfloat(av));
+        return 0;
+    }
+
+    return 1;
+}
+
 extern "C" void setup_ui0x2etoggle(void)
 {
     t_eclass* c = eclass_new("ui.toggle", (method)toggle_new, (method)ebox_free, (short)sizeof(t_toggle), 0L, A_GIMME, 0);
@@ -167,15 +176,14 @@ extern "C" void setup_ui0x2etoggle(void)
         CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, DEFAULT_BORDER_COLOR);
         CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
 
-        CLASS_ATTR_INT                  (c, "value",   0, t_toggle, fake_attr);
-        CLASS_ATTR_INVISIBLE            (c, "value",   0);
-        CLASS_ATTR_ACCESSORS            (c, "value",   get_toggle_value, NULL);
-
         CLASS_ATTR_RGBA                 (c, "crcolor", 0, t_toggle, f_color_cross);
         CLASS_ATTR_LABEL                (c, "crcolor", 0, "Cross Color");
         CLASS_ATTR_ORDER                (c, "crcolor", 0, "3");
         CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "crcolor", 0, DEFAULT_ACTIVE_COLOR);
         CLASS_ATTR_STYLE                (c, "crcolor", 0, "color");
+
+        CLASS_ATTR_VIRTUAL              (c,  "value", get_toggle_value, set_toggle_value);
+
         // clang-format on
         eclass_register(CLASS_BOX, c);
         toggle_class = c;
