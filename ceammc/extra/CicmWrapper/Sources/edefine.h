@@ -188,7 +188,8 @@ typedef enum
 {
     E_GOBJ_INVALID           = 0,   /*!< This type is invalid. */
     E_GOBJ_PATH              = 1,   /*!< This is a path. */
-    E_GOBJ_TEXT              = 2    /*!< This is a text. */
+    E_GOBJ_TEXT              = 2,   /*!< This is a text. */
+    E_GOBJ_SHAPE             = 3    /*!< This is a shape. */
 } egraphics_types;
 
 /**
@@ -201,8 +202,19 @@ typedef enum
     E_PATH_MOVE    = 0,   /*!< This type is move. */
     E_PATH_LINE    = 1,   /*!< This type is line. */
     E_PATH_CURVE   = 2,   /*!< This type is curve. */
-    E_PATH_CLOSE   = 3    /*!< This type is close. */
+    E_PATH_CLOSE   = 3,   /*!< This type is close. */
+    E_PATH_CIRCLE  = 4
 } epath_types;
+
+/**
+ * @enum eshape_types
+ * @brief The types of shape.
+ * @details It define soem of the shape type.
+ */
+typedef enum
+{
+    E_SHAPE_OVAL = 0 /*!< This shape is oval. */
+} eshape_types;
 
 /**
  * @struct t_pt
