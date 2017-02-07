@@ -85,8 +85,8 @@ static void toggle_paint(t_toggle* x, t_object* view)
         if (x->f_active) {
             egraphics_set_color_rgba(g, &x->f_color_cross);
             egraphics_set_line_width(g, 2);
-            egraphics_line_fast(g, 0, 0, rect.width, rect.height);
-            egraphics_line_fast(g, 0, rect.height, rect.width, 0);
+            egraphics_line_fast(g, 1, 1, rect.width - 1, rect.height - 1);
+            egraphics_line_fast(g, 1, rect.height - 1, rect.width - 1, 1);
         }
         ebox_end_layer((t_ebox*)x, cream_sym_background_layer);
     }
