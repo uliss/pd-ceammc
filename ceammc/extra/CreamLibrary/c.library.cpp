@@ -89,7 +89,7 @@ extern "C" void cream_setup(void)
     setup_c0x2eincdec();
     setup_c0x2eknob();
     setup_c0x2ematrix();
-    setup_c0x2emenu();
+
     setup_c0x2emeter_tilde();
     //setup_c0x2enumber();
     //setup_c0x2enumber_tilde();
@@ -106,6 +106,7 @@ extern "C" void cream_setup(void)
     setup_ui0x2ebang();
     setup_ui0x2enumber_tilde();
     setup_ui0x2enumber();
+    setup_ui0x2emenu();
     setup_ui0x2epreset();
     setup_ui0x2eradio();
     setup_ui0x2erslider();

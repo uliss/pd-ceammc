@@ -14,6 +14,7 @@
 
 typedef struct  _menu
 {
+    // clang-format off
 	t_ebox      j_box;
 	
     t_outlet*   f_out_index;
@@ -33,6 +34,7 @@ typedef struct  _menu
 	t_rgba		f_color_background;
 	t_rgba		f_color_border;
 	t_rgba		f_color_text;
+    // clang-format on
 } t_menu;
 
 t_eclass *menu_class;
@@ -74,10 +76,11 @@ void menu_mousemove(t_menu *x, t_object *patcherview, t_pt pt, long modifiers);
 
 void menu_preset(t_menu *x, t_binbuf *b);
 
-extern "C" void setup_c0x2emenu(void)
+extern "C" void setup_ui0x2emenu(void)
 {
 	t_eclass *c;
     
+    // clang-format off
 	c = eclass_new("ui.menu", (method)menu_new, (method)menu_free, (short)sizeof(t_menu), 0L, A_GIMME, 0);
     
     eclass_guiinit(c, 0);
@@ -129,13 +132,13 @@ extern "C" void setup_c0x2emenu(void)
 	CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_menu, f_color_background);
 	CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
 	CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
-	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.93 0.93 0.93 1.");
+    CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, DEFAULT_BACKGROUND_COLOR);
     CLASS_ATTR_STYLE                (c, "bgcolor", 0, "color");
     
 	CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_menu, f_color_border);
 	CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Border Color");
 	CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
-	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0. 0. 0. 1.");
+    CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, DEFAULT_BORDER_COLOR);
 	CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
     
 	CLASS_ATTR_RGBA                 (c, "textcolor", 0, t_menu, f_color_text);
@@ -144,6 +147,8 @@ extern "C" void setup_c0x2emenu(void)
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "textcolor", 0, "0. 0. 0. 1.");
 	CLASS_ATTR_STYLE                (c, "textcolor", 0, "color");
     
+    // clang-format off
+
     eclass_register(CLASS_BOX, c);
 	menu_class = c;
 }
