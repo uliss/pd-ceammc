@@ -299,8 +299,8 @@ static void bang_getdrawparams(t_bang *x, t_object *view, t_edrawparams *params)
 static void bang_oksize(t_bang *x, t_rect *newrect)
 {
     // We defines a minimum height and width of 15 px.
-    newrect->width = pd_clip_min(newrect->width, 15.);
-    newrect->height = pd_clip_min(newrect->height, 15.);
+    newrect->width = pd_clip_min(newrect->width, 10.);
+    newrect->height = pd_clip_min(newrect->height, 10.);
     // We defines that the width and the height can't be an even number (to center the bang circle).
     if((int)newrect->width % 2 == 0)
         newrect->width++;
