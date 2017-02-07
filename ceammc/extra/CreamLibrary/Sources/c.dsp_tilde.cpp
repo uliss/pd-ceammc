@@ -150,11 +150,11 @@ static void dsp_tilde_mousedown(t_dsp_tilde* x, t_object* patcherview, t_pt pt, 
     }
 }
 
-extern "C" void setup_c0x2edsp_tilde(void)
+extern "C" void setup_ui0x2edsp_tilde(void)
 {
     t_eclass* c;
 
-    c = eclass_new("c.dsp~", (method)dsp_tilde_new, (method)dsp_tilde_free, (short)sizeof(t_dsp_tilde), CLASS_NOINLET, A_GIMME, 0);
+    c = eclass_new("ui.dsp~", (method)dsp_tilde_new, (method)dsp_tilde_free, (short)sizeof(t_dsp_tilde), CLASS_NOINLET, A_GIMME, 0);
 
     // clang-format off
     eclass_guiinit(c, 0);
