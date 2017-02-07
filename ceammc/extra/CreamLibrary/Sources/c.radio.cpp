@@ -181,12 +181,14 @@ static void draw_background(t_radio* x, t_object* view, t_rect* rect)
         if (x->f_direction) {
             for (int i = 1; i < x->f_nitems; i++) {
                 float xPos = i * cell_size + i - 1;
-                egraphics_line_fast(g, xPos, 0, xPos, rect->height);
+                // value: -1 used to fix line cap style
+                egraphics_line_fast(g, xPos, -1, xPos, rect->height);
             }
         } else {
             for (int i = 1; i < x->f_nitems; i++) {
                 float yPos = i * cell_size + i - 1;
-                egraphics_line_fast(g, 0, yPos, rect->width, yPos);
+                // value: -1 used to fix line cap style
+                egraphics_line_fast(g, -1, yPos, rect->width, yPos);
             }
         }
 
@@ -405,7 +407,7 @@ extern "C" void setup_ui0x2eradio(void)
         CLASS_ATTR_ACCESSORS			(c, "mode", NULL, radio_mode_set);
         CLASS_ATTR_ORDER                (c, "mode", 0, "1");
         CLASS_ATTR_FILTER_CLIP          (c, "mode", 0, 1);
-        CLASS_ATTR_DEFAULT              (c, "mode", 0, "1");
+        CLASS_ATTR_DEFAULT              (c, "mode", 0, "0");
         CLASS_ATTR_SAVE                 (c, "mode", 1);
         CLASS_ATTR_STYLE                (c, "mode", 0, "onoff");
         
