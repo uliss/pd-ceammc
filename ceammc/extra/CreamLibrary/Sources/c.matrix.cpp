@@ -145,8 +145,8 @@ static void matrixctrl_getdrawparams(t_matrixctrl* x, t_object* patcherview, t_e
 static void matrixctrl_oksize(t_matrixctrl* x, t_rect* newrect)
 {
     float ratio;
-    newrect->width = pd_clip_min(newrect->width, 30.);
-    newrect->height = pd_clip_min(newrect->height, 10.);
+    newrect->width = pd_clip_min(newrect->width, x->f_size[0] * 6);
+    newrect->height = pd_clip_min(newrect->height, x->f_size[1] * 6);
 
     ratio = (newrect->width - 1.) / (float)x->f_size[0];
     if (ratio - (int)ratio != 0) {
