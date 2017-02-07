@@ -22,7 +22,6 @@ typedef struct _number {
     float f_inc;
 
     char f_textvalue[CREAM_MAXITEMS];
-    long f_ndecimal;
     t_atom f_min;
     t_atom f_max;
 
@@ -112,22 +111,14 @@ static void draw_background(t_number* x, t_object* view, t_rect* rect)
 {
     t_elayer* g = ebox_start_layer((t_ebox*)x, cream_sym_background_layer, rect->width, rect->height);
     if (g) {
-        t_etext* jtl = etext_layout_create();
-        if (jtl) {
-            const float width = sys_fontwidth(ebox_getfontsize((t_ebox*)x)) + 6;
-            etext_layout_set(jtl, "©", &x->j_box.b_font, width * 0.5f, rect->height * 0.5f, width, rect->height, ETEXT_CENTER, ETEXT_JCENTER, ETEXT_NOWRAP);
-
-            etext_layout_settextcolor(jtl, &x->f_color_text);
-            etext_layout_draw(jtl, g);
-
-            egraphics_set_line_width(g, 1); //Cream: 2
-            egraphics_set_color_rgba(g, &x->f_color_border);
-            egraphics_move_to(g, width, 0);
-            egraphics_line_to(g, width, rect->height);
-            egraphics_stroke(g);
-            ebox_end_layer((t_ebox*)x, cream_sym_background_layer);
-            etext_layout_destroy(jtl);
-        }
+        const float width = rect->height * 0.4f;
+        egraphics_set_line_width(g, 1);
+        egraphics_set_color_rgba(g, &x->f_color_border);
+        egraphics_move_to(g, 0, 0);
+        egraphics_line_to(g, width, rect->height * 0.5f);
+        egraphics_line_to(g, 0, rect->height);
+        egraphics_stroke(g);
+        ebox_end_layer((t_ebox*)x, cream_sym_background_layer);
     }
     ebox_paint_layer((t_ebox*)x, cream_sym_background_layer, 0., 0.);
 }
@@ -138,7 +129,7 @@ static void draw_value_drag(t_number* x, t_object* view, t_rect* rect)
     if (g) {
         t_etext* jtl = etext_layout_create();
         if (jtl) {
-            const float width = sys_fontwidth(ebox_getfontsize((t_ebox*)x)) + 8;
+            const float width = rect->height * 0.45f + 2;
             char number[256];
             snprintf(number, 256, "%g", x->f_value);
             etext_layout_settextcolor(jtl, &x->f_color_text);
@@ -427,7 +418,6 @@ extern "C" void setup_ui0x2enumber(void)
         CLASS_ATTR_INVISIBLE            (c, "fontname", 1);
         CLASS_ATTR_INVISIBLE            (c, "fontweight", 1);
         CLASS_ATTR_INVISIBLE            (c, "fontslant", 1);
-        CLASS_ATTR_INVISIBLE            (c, "fontsize", 1);
 
         CLASS_ATTR_DEFAULT			    (c, "size", 0, "53 13");
         
@@ -437,15 +427,6 @@ extern "C" void setup_ui0x2enumber(void)
         CLASS_ATTR_DEFAULT              (c, "minmax", 0, "(null) (null)");
         CLASS_ATTR_ACCESSORS            (c, "minmax", NULL, number_minmax_set);
         CLASS_ATTR_SAVE                 (c, "minmax", 1);
-        
-        CLASS_ATTR_LONG                 (c, "decimal", 0, t_number, f_ndecimal);
-        CLASS_ATTR_ORDER                (c, "decimal", 0, "3");
-        CLASS_ATTR_LABEL                (c, "decimal", 0, "Number of decimal");
-        CLASS_ATTR_DEFAULT              (c, "decimal", 0, "6");
-        CLASS_ATTR_FILTER_MIN           (c, "decimal", 0);
-        CLASS_ATTR_FILTER_MAX           (c, "decimal", 6);
-        CLASS_ATTR_SAVE                 (c, "decimal", 1);
-        CLASS_ATTR_STYLE                (c, "decimal", 0, "number");
         
         CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_number, f_color_background);
         CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
