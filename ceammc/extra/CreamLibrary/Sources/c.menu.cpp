@@ -10,6 +10,8 @@
 
 #include "../c.library.hpp"
 
+#include <algorithm>
+
 #define MAXITEMS 100
 
 typedef struct _menu {
@@ -26,60 +28,56 @@ typedef struct _menu {
     long        f_item_selected;
     long        f_hover;
     
-    char        f_open;
     float       f_close_height;
-    float       f_open_height;
     
 	t_rgba		f_color_background;
 	t_rgba		f_color_border;
 	t_rgba		f_color_text;
+
+    char        f_open;
     // clang-format on
 } t_menu;
 
-t_eclass* menu_class;
+static t_eclass* menu_class;
 
-void* menu_new(t_symbol* s, int argc, t_atom* argv);
-void menu_free(t_menu* x);
-void menu_assist(t_menu* x, void* b, long m, long a, char* s);
+static void* menu_new(t_symbol* s, int argc, t_atom* argv);
+static void menu_free(t_menu* x);
+static void menu_assist(t_menu* x, void* b, long m, long a, char* s);
 
-t_pd_err menu_notify(t_menu* x, t_symbol* s, t_symbol* msg, void* sender, void* data);
-t_pd_err menu_states_set(t_menu* x, t_object* attr, int ac, t_atom* av);
-t_pd_err menu_states_get_nop(t_menu* x, t_object* attr, int ac, t_atom* av);
-t_pd_err menu_items_set(t_menu* x, t_object* attr, int ac, t_atom* av);
-t_pd_err menu_items_get(t_menu* x, t_object* attr, long* ac, t_atom** av);
+static t_pd_err menu_notify(t_menu* x, t_symbol* s, t_symbol* msg, void* sender, void* data);
+static t_pd_err menu_items_set(t_menu* x, t_object* attr, int ac, t_atom* av);
+static t_pd_err menu_items_get(t_menu* x, t_object* attr, long* ac, t_atom** av);
 
-void menu_append(t_menu* x, t_symbol* s, int argc, t_atom* argv);
-void menu_insert(t_menu* x, t_symbol* s, int argc, t_atom* argv);
-void menu_setitem(t_menu* x, t_symbol* s, int argc, t_atom* argv);
-void menu_delete(t_menu* x, t_symbol* s, int argc, t_atom* argv);
-void menu_clear(t_menu* x, t_symbol* s, int argc, t_atom* argv);
-void menu_state(t_menu* x, t_symbol* s, int argc, t_atom* argv);
-void menu_clean(t_menu* x);
+static void menu_append(t_menu* x, t_symbol* s, int argc, t_atom* argv);
+static void menu_insert(t_menu* x, t_symbol* s, int argc, t_atom* argv);
+static void menu_setitem(t_menu* x, t_symbol* s, int argc, t_atom* argv);
+static void menu_delete(t_menu* x, t_symbol* s, int argc, t_atom* argv);
+static void menu_clear(t_menu* x, t_symbol* s, int argc, t_atom* argv);
+static void menu_state(t_menu* x, t_symbol* s, int argc, t_atom* argv);
+static void menu_clean(t_menu* x);
 
-void menu_float(t_menu* x, t_floatarg f);
-void menu_symbol(t_menu* x, t_symbol* s, int argc, t_atom* argv);
-void menu_set(t_menu* x, t_symbol* s, int argc, t_atom* argv);
-void menu_output(t_menu* x);
+static void menu_float(t_menu* x, t_floatarg f);
+static void menu_symbol(t_menu* x, t_symbol* s, int argc, t_atom* argv);
+static void menu_set(t_menu* x, t_symbol* s, int argc, t_atom* argv);
+static void menu_output(t_menu* x);
 
-void menu_getdrawparams(t_menu* x, t_object* patcherview, t_edrawparams* params);
-void menu_oksize(t_menu* x, t_rect* newrect);
+static void menu_getdrawparams(t_menu* x, t_object* patcherview, t_edrawparams* params);
+static void menu_oksize(t_menu* x, t_rect* newrect);
 
-void menu_paint(t_menu* x, t_object* view);
-void draw_background(t_menu* x, t_object* view, t_rect* rect);
-void draw_selection(t_menu* x, t_object* view, t_rect* rect);
+static void menu_paint(t_menu* x, t_object* view);
+static void draw_background(t_menu* x, t_object* view, t_rect* rect);
+static void draw_selection(t_menu* x, t_object* view, t_rect* rect);
 
-void menu_mousedown(t_menu* x, t_object* patcherview, t_pt pt, long modifiers);
-void menu_mouseleave(t_menu* x, t_object* patcherview, t_pt pt, long modifiers);
-void menu_mousemove(t_menu* x, t_object* patcherview, t_pt pt, long modifiers);
+static void menu_mousedown(t_menu* x, t_object* patcherview, t_pt pt, long modifiers);
+static void menu_mouseleave(t_menu* x, t_object* patcherview, t_pt pt, long modifiers);
+static void menu_mousemove(t_menu* x, t_object* patcherview, t_pt pt, long modifiers);
 
-void menu_preset(t_menu* x, t_binbuf* b);
+static void menu_preset(t_menu* x, t_binbuf* b);
 
 extern "C" void setup_ui0x2emenu(void)
 {
-    t_eclass* c;
-
+    t_eclass* c = eclass_new("ui.menu", (method)menu_new, (method)menu_free, (short)sizeof(t_menu), 0L, A_GIMME, 0);
     // clang-format off
-	c = eclass_new("ui.menu", (method)menu_new, (method)menu_free, (short)sizeof(t_menu), 0L, A_GIMME, 0);
     
     eclass_guiinit(c, 0);
     eclass_addmethod(c, (method) menu_assist,          "assist",           A_NULL, 0);
@@ -105,6 +103,10 @@ extern "C" void setup_ui0x2emenu(void)
     eclass_addmethod(c, (method) menu_mouseleave,       "mouseleave",      A_NULL, 0);
     eclass_addmethod(c, (method) menu_preset,           "preset",          A_NULL, 0);
     
+    CLASS_ATTR_INVISIBLE            (c, "fontname", 1);
+    CLASS_ATTR_INVISIBLE            (c, "fontweight", 1);
+    CLASS_ATTR_INVISIBLE            (c, "fontslant", 1);
+
 	CLASS_ATTR_DEFAULT              (c, "size", 0, "100 13");
     
     CLASS_ATTR_LONG                 (c, "hover", 0, t_menu, f_hover);
@@ -116,16 +118,9 @@ extern "C" void setup_ui0x2emenu(void)
     
     CLASS_ATTR_SYMBOL_VARSIZE       (c, "items", 0, t_menu, f_items, f_items_size, MAXITEMS);
     CLASS_ATTR_LABEL                (c, "items", 0, "Items");
-    CLASS_ATTR_ACCESSORS            (c, "items", menu_items_get, menu_items_set);
+    CLASS_ATTR_ACCESSORS            (c, "items", NULL, menu_items_set);
     CLASS_ATTR_ORDER                (c, "items", 0, "1");
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "items", 0, "(null)");
-    
-//  caused crash, disabled
-//    CLASS_ATTR_LONG_VARSIZE         (c, "states", 0, t_menu, f_states, f_states_size, MAXITEMS);
-//    CLASS_ATTR_LABEL                (c, "states", 0, "Items Disable State");
-//    CLASS_ATTR_ACCESSORS            (c, "states", menu_states_get_nop, menu_states_set);
-//    CLASS_ATTR_ORDER                (c, "states", 0, "1");
-//    CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "states", 0, "0");
     
 	CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_menu, f_color_background);
 	CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
@@ -144,50 +139,46 @@ extern "C" void setup_ui0x2emenu(void)
 	CLASS_ATTR_ORDER                (c, "textcolor", 0, "3");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "textcolor", 0, "0. 0. 0. 1.");
 	CLASS_ATTR_STYLE                (c, "textcolor", 0, "color");
-    
-    // clang-format off
+
+    // clang-format on
 
     eclass_register(CLASS_BOX, c);
-	menu_class = c;
+    menu_class = c;
 }
 
-void *menu_new(t_symbol *s, int argc, t_atom *argv)
+static void* menu_new(t_symbol* s, int argc, t_atom* argv)
 {
-	t_menu *x =  NULL;
-	t_binbuf* d;
-    long flags;
-    
-	if (!(d = binbuf_via_atoms(argc,argv)))
-		return NULL;
-    
-	x = (t_menu *)eobj_new(menu_class);
-    
-    flags = 0
-    | EBOX_GROWINDI
-    ;
-    
-	ebox_new((t_ebox *)x, flags);
-    
-    x->f_out_index  = outlet_new((t_object *)x, &s_float);
-    x->f_out_item   = outlet_new((t_object *)x, &s_list);
-    x->f_item_selected = 0;
-    x->f_items_size = 0;
-    x->f_open       = 0;
-    
-	ebox_attrprocess_viabinbuf(x, d);
-	ebox_ready((t_ebox *)x);
-    
-	return (x);
+    t_menu* x = (t_menu*)eobj_new(menu_class);
+    t_binbuf* d = binbuf_via_atoms(argc, argv);
+
+    if (x && d) {
+        x->f_item_selected = 0;
+        x->f_items_size = 0;
+        x->f_open = 0;
+
+        ebox_new((t_ebox*)x, 0 | EBOX_GROWINDI);
+        x->f_out_index = outlet_new((t_object*)x, &s_float);
+        x->f_out_item = outlet_new((t_object*)x, &s_list);
+
+        ebox_attrprocess_viabinbuf(x, d);
+        ebox_ready((t_ebox*)x);
+
+        binbuf_free(d);
+
+        return x;
+    }
+    return NULL;
 }
 
-void menu_free(t_menu *x)
+static void menu_free(t_menu* x)
 {
-	ebox_free((t_ebox *)x);
+    outlet_free(x->f_out_index);
+    outlet_free(x->f_out_item);
+    ebox_free((t_ebox*)x);
 }
 
-void menu_assist(t_menu *x, void *b, long m, long a, char *s)
+static void menu_assist(t_menu* x, void* b, long m, long a, char* s)
 {
-	;
 }
 
 // MENU GESTION //
@@ -198,9 +189,8 @@ static t_symbol* menu_atoms_to_sym(t_atom* argv, long argc)
     char temp[MAXPDSTRING];
     char text[MAXPDSTRING];
     atom_string(argv, text, MAXPDSTRING);
-    for(int i = 1; i < argc; i++)
-    {
-        atom_string(argv+i, temp, MAXPDSTRING);
+    for (int i = 1; i < argc; i++) {
+        atom_string(argv + i, temp, MAXPDSTRING);
         length = strlen(temp);
         strncat(text, " ", 1);
         strncat(text, temp, length);
@@ -208,14 +198,12 @@ static t_symbol* menu_atoms_to_sym(t_atom* argv, long argc)
     return gensym(text);
 }
 
-static long menu_symbol_exist(t_menu *x, t_symbol* s)
+static long menu_symbol_exist(t_menu* x, t_symbol* s)
 {
     long i;
     long j = -1;
-    for(i = 0; i < x->f_items_size; i++)
-    {
-        if(!strcmp(s->s_name, x->f_items[i]->s_name))
-        {
+    for (i = 0; i < x->f_items_size; i++) {
+        if (!strcmp(s->s_name, x->f_items[i]->s_name)) {
             j = i;
             break;
         }
@@ -223,124 +211,113 @@ static long menu_symbol_exist(t_menu *x, t_symbol* s)
     return j;
 }
 
-void menu_append(t_menu *x, t_symbol *s, int argc, t_atom *argv)
+void menu_append(t_menu* x, t_symbol* s, int argc, t_atom* argv)
 {
     t_symbol* item = menu_atoms_to_sym(argv, argc);
-    
-    if(argc && argv && menu_symbol_exist(x, item) == -1)
-    {
+
+    if (argc && argv && menu_symbol_exist(x, item) == -1) {
         x->f_items[x->f_items_size] = item;
         x->f_items_size++;
-        
-        ebox_invalidate_layer((t_ebox *)x, gensym("list_layer"));
-        
-        ebox_invalidate_layer((t_ebox *)x, cream_sym_background_layer);
-        ebox_redraw((t_ebox *)x);
+
+        ebox_invalidate_layer((t_ebox*)x, gensym("list_layer"));
+
+        ebox_invalidate_layer((t_ebox*)x, cream_sym_background_layer);
+        ebox_redraw((t_ebox*)x);
     }
 }
 
-void menu_insert(t_menu *x, t_symbol *s, int argc, t_atom *argv)
+void menu_insert(t_menu* x, t_symbol* s, int argc, t_atom* argv)
 {
     int i;
-    t_symbol* item = menu_atoms_to_sym(argv+1, argc-1);
-    
-    if(argc > 1 && argv && atom_gettype(argv) == A_FLOAT && atom_getfloat(argv) >= 0 && menu_symbol_exist(x, item) == -1)
-    {
-        if(atom_getfloat(argv) >= x->f_items_size)
+    t_symbol* item = menu_atoms_to_sym(argv + 1, argc - 1);
+
+    if (argc > 1 && argv && atom_gettype(argv) == A_FLOAT && atom_getfloat(argv) >= 0 && menu_symbol_exist(x, item) == -1) {
+        if (atom_getfloat(argv) >= x->f_items_size)
             x->f_items[x->f_items_size] = item;
-        else
-        {
-            for(i = (int)x->f_items_size - 1; i >= atom_getfloat(argv); i--)
-                x->f_items[i+1] = x->f_items[i];
+        else {
+            for (i = (int)x->f_items_size - 1; i >= atom_getfloat(argv); i--)
+                x->f_items[i + 1] = x->f_items[i];
             x->f_items[atom_getint(argv)] = item;
         }
         x->f_items_size++;
-        
-        ebox_invalidate_layer((t_ebox *)x, gensym("list_layer"));
-        
-        ebox_invalidate_layer((t_ebox *)x, cream_sym_background_layer);
-        ebox_redraw((t_ebox *)x);
+
+        ebox_invalidate_layer((t_ebox*)x, gensym("list_layer"));
+
+        ebox_invalidate_layer((t_ebox*)x, cream_sym_background_layer);
+        ebox_redraw((t_ebox*)x);
     }
 }
 
-void menu_setitem(t_menu *x, t_symbol *s, int argc, t_atom *argv)
+void menu_setitem(t_menu* x, t_symbol* s, int argc, t_atom* argv)
 {
-    t_symbol* item = menu_atoms_to_sym(argv+1, argc-1);
-    if(argc > 1 && argv && atom_gettype(argv) == A_FLOAT && menu_symbol_exist(x, item) == -1)
-    {
-        if(atom_getfloat(argv) >= 0 && atom_getfloat(argv) < x->f_items_size)
+    t_symbol* item = menu_atoms_to_sym(argv + 1, argc - 1);
+    if (argc > 1 && argv && atom_gettype(argv) == A_FLOAT && menu_symbol_exist(x, item) == -1) {
+        if (atom_getfloat(argv) >= 0 && atom_getfloat(argv) < x->f_items_size)
             x->f_items[atom_getint(argv)] = item;
-        
-        ebox_invalidate_layer((t_ebox *)x, gensym("list_layer"));
-        
-        ebox_invalidate_layer((t_ebox *)x, cream_sym_background_layer);
-        ebox_redraw((t_ebox *)x);
+
+        ebox_invalidate_layer((t_ebox*)x, gensym("list_layer"));
+
+        ebox_invalidate_layer((t_ebox*)x, cream_sym_background_layer);
+        ebox_redraw((t_ebox*)x);
     }
 }
 
-void menu_delete(t_menu *x, t_symbol *s, int argc, t_atom *argv)
+void menu_delete(t_menu* x, t_symbol* s, int argc, t_atom* argv)
 {
     int i;
-    if(argc > 0 && argv && atom_gettype(argv) == A_FLOAT)
-    {
-        if(atom_getfloat(argv) >= 0 && atom_getfloat(argv) < x->f_items_size)
-        {
-            for(i = atom_getfloat(argv); i < x->f_items_size - 1; i++)
-                x->f_items[i] = x->f_items[i+1];
+    if (argc > 0 && argv && atom_gettype(argv) == A_FLOAT) {
+        if (atom_getfloat(argv) >= 0 && atom_getfloat(argv) < x->f_items_size) {
+            for (i = atom_getfloat(argv); i < x->f_items_size - 1; i++)
+                x->f_items[i] = x->f_items[i + 1];
             x->f_items_size--;
-            for(i = (int)x->f_items_size; i < MAXITEMS; i++)
+            for (i = (int)x->f_items_size; i < MAXITEMS; i++)
                 x->f_items[i] = s_null;
-            
-            ebox_invalidate_layer((t_ebox *)x, gensym("list_layer"));
-            
-            ebox_invalidate_layer((t_ebox *)x, cream_sym_background_layer);
-            ebox_redraw((t_ebox *)x);
+
+            ebox_invalidate_layer((t_ebox*)x, gensym("list_layer"));
+
+            ebox_invalidate_layer((t_ebox*)x, cream_sym_background_layer);
+            ebox_redraw((t_ebox*)x);
         }
     }
 }
 
-void menu_clear(t_menu *x, t_symbol *s, int argc, t_atom *argv)
+void menu_clear(t_menu* x, t_symbol* s, int argc, t_atom* argv)
 {
-    int i;
-    for(i = 0; i < MAXITEMS; i++)
-    {
+    for (int i = 0; i < MAXITEMS; i++) {
         x->f_items[i] = s_null;
     }
+
     x->f_items_size = 0;
-    ebox_invalidate_layer((t_ebox *)x, gensym("list_layer"));
-    
-    ebox_invalidate_layer((t_ebox *)x, cream_sym_background_layer);
-    ebox_redraw((t_ebox *)x);
+    ebox_invalidate_layer((t_ebox*)x, gensym("list_layer"));
+
+    ebox_invalidate_layer((t_ebox*)x, cream_sym_background_layer);
+    ebox_redraw((t_ebox*)x);
 }
 
-void menu_state(t_menu *x, t_symbol *s, int argc, t_atom *argv)
+void menu_state(t_menu* x, t_symbol* s, int argc, t_atom* argv)
 {
-    if(argc > 1 && argv && atom_gettype(argv) == A_FLOAT)
-    {
-        if(atom_getfloat(argv) >= 0 && atom_getfloat(argv) < x->f_items_size)
-        {
-            if(atom_gettype(argv+1) == A_FLOAT && atom_getfloat(argv+1) != 0)
+    if (argc > 1 && argv && atom_gettype(argv) == A_FLOAT) {
+        if (atom_getfloat(argv) >= 0 && atom_getfloat(argv) < x->f_items_size) {
+            if (atom_gettype(argv + 1) == A_FLOAT && atom_getfloat(argv + 1) != 0)
                 x->f_states[(int)atom_getfloat(argv)] = 1;
             else
                 x->f_states[(int)atom_getfloat(argv)] = 0;
-            
-            ebox_invalidate_layer((t_ebox *)x, gensym("list_layer"));
-            
-            ebox_invalidate_layer((t_ebox *)x, cream_sym_background_layer);
-            ebox_redraw((t_ebox *)x);
+
+            ebox_invalidate_layer((t_ebox*)x, gensym("list_layer"));
+
+            ebox_invalidate_layer((t_ebox*)x, cream_sym_background_layer);
+            ebox_redraw((t_ebox*)x);
         }
     }
 }
 
-void menu_clean(t_menu *x)
+void menu_clean(t_menu* x)
 {
     int i, j;
-    for(i = 0; i < x->f_items_size; i++)
-    {
-        if(x->f_items[i] == s_null)
-        {
-            for(j = i; j < x->f_items_size; j++)
-                x->f_items[j] = x->f_items[j+1];
+    for (i = 0; i < x->f_items_size; i++) {
+        if (x->f_items[i] == s_null) {
+            for (j = i; j < x->f_items_size; j++)
+                x->f_items[j] = x->f_items[j + 1];
             x->f_items_size--;
             i--;
         }
@@ -350,188 +327,172 @@ void menu_clean(t_menu *x)
 
 // MENU SELECTION AND OUTPUT
 
-static void menu_setfloat(t_menu *x, t_floatarg f)
+static void menu_setfloat(t_menu* x, t_floatarg f)
 {
-    if(f >= 0 && f < x->f_items_size)
-    {
+    if (f >= 0 && f < x->f_items_size) {
         x->f_item_selected = f;
-        ebox_invalidate_layer((t_ebox *)x, gensym("list_layer"));
-        
-        ebox_invalidate_layer((t_ebox *)x, cream_sym_background_layer);
-        ebox_redraw((t_ebox *)x);
+        ebox_invalidate_layer((t_ebox*)x, gensym("list_layer"));
+
+        ebox_invalidate_layer((t_ebox*)x, cream_sym_background_layer);
+        ebox_redraw((t_ebox*)x);
     }
 }
 
-static void menu_setsymbol(t_menu *x, t_symbol* s)
+static void menu_setsymbol(t_menu* x, t_symbol* s)
 {
     long i = menu_symbol_exist(x, s);
-    if(i != -1)
+    if (i != -1)
         x->f_item_selected = i;
-    ebox_invalidate_layer((t_ebox *)x, gensym("list_layer"));
-    
-    ebox_invalidate_layer((t_ebox *)x, cream_sym_background_layer);
-    ebox_redraw((t_ebox *)x);
+    ebox_invalidate_layer((t_ebox*)x, gensym("list_layer"));
+
+    ebox_invalidate_layer((t_ebox*)x, cream_sym_background_layer);
+    ebox_redraw((t_ebox*)x);
 }
 
-void menu_float(t_menu *x, t_floatarg f)
+void menu_float(t_menu* x, t_floatarg f)
 {
     menu_setfloat(x, f);
     menu_output(x);
 }
 
-void menu_symbol(t_menu *x, t_symbol *s, int argc, t_atom *argv)
+void menu_symbol(t_menu* x, t_symbol* s, int argc, t_atom* argv)
 {
     int i;
-    t_atom* av = (t_atom *)calloc((size_t)(argc + 1), sizeof(t_atom));
+    t_atom* av = (t_atom*)calloc((size_t)(argc + 1), sizeof(t_atom));
     atom_setsym(av, s);
-    for(i = 0; i < argc; i++)
-        av[i+1] = argv[i];
+    for (i = 0; i < argc; i++)
+        av[i + 1] = argv[i];
 
-    menu_setsymbol(x, menu_atoms_to_sym(av, argc+1));
+    menu_setsymbol(x, menu_atoms_to_sym(av, argc + 1));
     menu_output(x);
 }
 
-void menu_set(t_menu *x, t_symbol *s, int argc, t_atom *argv)
+void menu_set(t_menu* x, t_symbol* s, int argc, t_atom* argv)
 {
-    if(argc && argv)
-    {
-        if(atom_gettype(argv) == A_FLOAT)
+    if (argc && argv) {
+        if (atom_gettype(argv) == A_FLOAT)
             menu_setfloat(x, atom_getfloat(argv));
         else if (atom_gettype(argv) == A_SYMBOL)
             menu_setsymbol(x, menu_atoms_to_sym(argv, argc));
     }
 }
 
-void menu_output(t_menu *x)
+void menu_output(t_menu* x)
 {
-    if(x->f_items_size > 0)
-    {
+    if (x->f_items_size > 0) {
         outlet_float(x->f_out_index, x->f_item_selected);
-        if(ebox_getsender((t_ebox *) x))
-            pd_float(ebox_getsender((t_ebox *) x), (float)x->f_item_selected);
+        if (ebox_getsender((t_ebox*)x))
+            pd_float(ebox_getsender((t_ebox*)x), (float)x->f_item_selected);
         outlet_symbol(x->f_out_item, x->f_items[x->f_item_selected]);
     }
 }
 
 // MENU DRAW
 
-void menu_getdrawparams(t_menu *x, t_object *patcherview, t_edrawparams *params)
+void menu_getdrawparams(t_menu* x, t_object* patcherview, t_edrawparams* params)
 {
-	params->d_borderthickness   = 1;
-	params->d_cornersize        = 2;
-    params->d_bordercolor       = x->f_color_border;
-    params->d_boxfillcolor      = x->f_color_background;
+    params->d_borderthickness = 1;
+    params->d_cornersize = 2;
+    params->d_bordercolor = x->f_color_border;
+    params->d_boxfillcolor = x->f_color_background;
 }
 
-void menu_oksize(t_menu *x, t_rect *newrect)
+void menu_oksize(t_menu* x, t_rect* newrect)
 {
     newrect->width = pd_clip_min(newrect->width, sys_fontwidth(x->j_box.b_font.c_size) * 3 + 8);
     x->f_close_height = newrect->height = sys_fontheight(x->j_box.b_font.c_size) + 4;
-    if(newrect->width < newrect->height * 2)
+    if (newrect->width < newrect->height * 2)
         newrect->width = newrect->height * 2;
-    
-    if(x->f_open)
+
+    if (x->f_open)
         newrect->height *= (x->f_items_size + 1);
-    
 }
 
-t_pd_err menu_notify(t_menu *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
+t_pd_err menu_notify(t_menu* x, t_symbol* s, t_symbol* msg, void* sender, void* data)
 {
-	if (msg == cream_sym_attr_modified)
-	{
-		if(s == cream_sym_bgcolor || s == cream_sym_bdcolor || s == cream_sym_textcolor || s == cream_sym_fontsize || s == cream_sym_fontname || s == cream_sym_fontweight || s == cream_sym_fontslant || s == gensym("states"))
-		{
-            ebox_invalidate_layer((t_ebox *)x, gensym("list_layer"));
-			ebox_invalidate_layer((t_ebox *)x, cream_sym_background_layer);
-		}
-        if(s == cream_sym_fontsize || s == gensym("items"))
-        {
+    if (msg == cream_sym_attr_modified) {
+        if (s == cream_sym_bgcolor || s == cream_sym_bdcolor || s == cream_sym_textcolor || s == cream_sym_fontsize || s == cream_sym_fontname || s == cream_sym_fontweight || s == cream_sym_fontslant || s == gensym("states")) {
+            ebox_invalidate_layer((t_ebox*)x, gensym("list_layer"));
+            ebox_invalidate_layer((t_ebox*)x, cream_sym_background_layer);
+        }
+        if (s == cream_sym_fontsize || s == gensym("items")) {
             eobj_attr_setvalueof(x, gensym("size"), 0, NULL);
         }
-        ebox_redraw((t_ebox *)x);
-	}
-	return 0;
+        ebox_redraw((t_ebox*)x);
+    }
+    return 0;
 }
 
-void menu_paint(t_menu *x, t_object *view)
+void menu_paint(t_menu* x, t_object* view)
 {
-	t_rect rect;
-	ebox_get_rect_for_view((t_ebox *)x, &rect);
+    t_rect rect;
+    ebox_get_rect_for_view((t_ebox*)x, &rect);
     menu_clean(x);
- 
+
     draw_background(x, view, &rect);
-    if(x->f_open)
-    {
+    if (x->f_open) {
         draw_selection(x, view, &rect);
     }
-    
 }
 
-void draw_background(t_menu *x, t_object *view, t_rect *rect)
+void draw_background(t_menu* x, t_object* view, t_rect* rect)
 {
     float width;
-	t_elayer *g = ebox_start_layer((t_ebox *)x, cream_sym_background_layer, rect->width, rect->height);
-    t_etext *jtl = etext_layout_create();
-	if(g && jtl)
-	{
-        
-        if(x->f_items_size == 0 || (x->f_items_size == 1 && x->f_items[0] == s_null))
-        {
+    t_elayer* g = ebox_start_layer((t_ebox*)x, cream_sym_background_layer, rect->width, rect->height);
+    t_etext* jtl = etext_layout_create();
+    if (g && jtl) {
+
+        if (x->f_items_size == 0 || (x->f_items_size == 1 && x->f_items[0] == s_null)) {
             ;
-        }
-        else
-        {
+        } else {
             etext_layout_set(jtl, x->f_items[x->f_item_selected]->s_name, &x->j_box.b_font, 1.5, x->f_close_height / 2. + 1, rect->width, 0, ETEXT_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
             etext_layout_settextcolor(jtl, &x->f_color_text);
             etext_layout_draw(jtl, g);
         }
-        
+
         // Right - Erase text
         width = rect->width - x->f_close_height;
         egraphics_set_color_rgba(g, &x->f_color_background);
         egraphics_rectangle(g, width, 0., rect->width, x->f_close_height);
         egraphics_fill(g);
-        
+
         // Separation
         egraphics_set_color_rgba(g, &x->f_color_border);
-        egraphics_set_line_width(g, 1);     //Cream: 2
+        egraphics_set_line_width(g, 1); //Cream: 2
         egraphics_line_fast(g, width, 0., width, x->f_close_height);
-        
+
         // Arrow Up
         egraphics_move_to(g, width + x->f_close_height * 0.3 + 1, x->f_close_height * 0.4);
         egraphics_line_to(g, width + x->f_close_height * 0.7 + 1, x->f_close_height * 0.4);
         egraphics_line_to(g, width + x->f_close_height * 0.5 + 1, x->f_close_height * 0.1);
         egraphics_fill(g);
-        
+
         // Arrow Down
         egraphics_move_to(g, width + x->f_close_height * 0.3 + 1, x->f_close_height * 0.6);
         egraphics_line_to(g, width + x->f_close_height * 0.7 + 1, x->f_close_height * 0.6);
         egraphics_line_to(g, width + x->f_close_height * 0.5 + 1, x->f_close_height * 0.9);
         egraphics_fill(g);
-        
-		ebox_end_layer((t_ebox*)x, cream_sym_background_layer);
-	}
+
+        ebox_end_layer((t_ebox*)x, cream_sym_background_layer);
+    }
     etext_layout_destroy(jtl);
-	ebox_paint_layer((t_ebox *)x, cream_sym_background_layer,  0., 0.);
+    ebox_paint_layer((t_ebox*)x, cream_sym_background_layer, 0., 0.);
 }
 
-void draw_selection(t_menu *x, t_object *view, t_rect *rect)
+void draw_selection(t_menu* x, t_object* view, t_rect* rect)
 {
     int i;
     float width;
-    t_elayer *g = ebox_start_layer((t_ebox *)x, gensym("list_layer"), rect->width, rect->height);
-    t_etext *jtl = etext_layout_create();
-	if (g && jtl)
-	{
+    t_elayer* g = ebox_start_layer((t_ebox*)x, gensym("list_layer"), rect->width, rect->height);
+    t_etext* jtl = etext_layout_create();
+    if (g && jtl) {
         egraphics_set_color_rgba(g, &x->f_color_border);
         egraphics_set_line_width(g, 1);
-        
-        for(i = 0; i < x->f_items_size; i++)
-        {
+
+        for (i = 0; i < x->f_items_size; i++) {
             egraphics_line_fast(g, 0., x->f_close_height * (i + 1), rect->width - x->f_close_height, x->f_close_height * (i + 1));
-            if(x->f_items[i] != s_null)
-            {
-                if(x->f_states[i])
+            if (x->f_items[i] != s_null) {
+                if (x->f_states[i])
                     etext_layout_settextcolor(jtl, &x->f_color_border);
                 else
                     etext_layout_settextcolor(jtl, &x->f_color_text);
@@ -539,45 +500,40 @@ void draw_selection(t_menu *x, t_object *view, t_rect *rect)
                 etext_layout_draw(jtl, g);
             }
         }
-        
+
         egraphics_set_color_rgba(g, &x->f_color_background);
         width = rect->width - x->f_close_height;
         egraphics_rectangle(g, width, x->f_close_height, rect->width, rect->height);
         egraphics_fill(g);
-        
+
         egraphics_set_color_rgba(g, &x->f_color_border);
         egraphics_line_fast(g, width, 0., width, rect->height);
-        
+
         egraphics_set_line_width(g, 2);
         egraphics_line_fast(g, 0., x->f_close_height, rect->width, x->f_close_height);
-        
-        if(x->f_items_size > x->f_item_selected &&  x->f_items[x->f_item_selected] != s_null)
-        {
+
+        if (x->f_items_size > x->f_item_selected && x->f_items[x->f_item_selected] != s_null) {
             egraphics_circle(g, rect->width - x->f_close_height * 0.5 + 1.5, x->f_close_height * (x->f_item_selected + 1.5), x->f_close_height * 0.25);
             egraphics_stroke(g);
         }
-        
-		ebox_end_layer((t_ebox*)x, gensym("list_layer"));
-	}
-	ebox_paint_layer((t_ebox *)x, gensym("list_layer"), 0., 0.);
+
+        ebox_end_layer((t_ebox*)x, gensym("list_layer"));
+    }
+    ebox_paint_layer((t_ebox*)x, gensym("list_layer"), 0., 0.);
 }
 
-void menu_mousedown(t_menu *x, t_object *patcherview, t_pt pt, long modifiers)
+void menu_mousedown(t_menu* x, t_object* patcherview, t_pt pt, long modifiers)
 {
     int index;
     t_atom av[1];
-    if(x->f_open == 1 && pt.y > x->f_close_height)
-    {
+    if (x->f_open == 1 && pt.y > x->f_close_height) {
         index = (pt.y - x->f_close_height) / (x->f_close_height);
-        if(index >= 0 && index < x->f_items_size && x->f_states[index] == 0)
-        {
+        if (index >= 0 && index < x->f_items_size && x->f_states[index] == 0) {
             menu_float(x, index);
         }
-        
     }
-    if(!x->f_hover)
-    {
-        if(x->f_open)
+    if (!x->f_hover) {
+        if (x->f_open)
             x->f_open = 0;
         else
             x->f_open = 1;
@@ -586,7 +542,7 @@ void menu_mousedown(t_menu *x, t_object *patcherview, t_pt pt, long modifiers)
     }
 }
 
-void menu_mouseleave(t_menu *x, t_object *patcherview, t_pt pt, long modifiers)
+void menu_mouseleave(t_menu* x, t_object* patcherview, t_pt pt, long modifiers)
 {
     t_atom av[1];
     atom_setfloat(av, x->j_box.b_rect.width);
@@ -594,75 +550,47 @@ void menu_mouseleave(t_menu *x, t_object *patcherview, t_pt pt, long modifiers)
     eobj_attr_setvalueof(x, gensym("size"), 1, av);
 }
 
-void menu_mousemove(t_menu *x, t_object *patcherview, t_pt pt, long modifiers)
+void menu_mousemove(t_menu* x, t_object* patcherview, t_pt pt, long modifiers)
 {
     t_atom av[1];
-    if(x->f_hover && x->f_open != 1)
-    {
+    if (x->f_hover && x->f_open != 1) {
         atom_setfloat(av, x->j_box.b_rect.width);
         x->f_open = 1;
         eobj_attr_setvalueof(x, gensym("size"), 1, av);
     }
 }
 
-t_pd_err menu_states_get_nop(t_menu *x, t_object *attr, int ac, t_atom *av)
+void menu_preset(t_menu* x, t_binbuf* b)
 {
-    return 0;
+    binbuf_addv(b, (char*)"sf", gensym("float"), (float)x->f_item_selected);
 }
 
-t_pd_err menu_states_set(t_menu *x, t_object *attr, int ac, t_atom *av)
+t_pd_err menu_items_set(t_menu* x, t_object* attr, int ac, t_atom* av)
 {
-    int i;
-    if(ac && av)
-    {
-        x->f_states_size = x->f_items_size;
-        for(i = 0; i < ac && i < x->f_items_size; i++)
-        {
-            if(atom_gettype(av+i) == A_FLOAT && atom_getfloat(av+i) != 0)
-                x->f_states[i] = 1;
-            else
-                x->f_states[i] = 0;
-        }
-    }
-    return 0;
-}
+    ac = std::max(0, std::min(ac, MAXITEMS));
 
-void menu_preset(t_menu *x, t_binbuf *b)
-{
-    binbuf_addv(b, (char *)"sf", gensym("float"), (float)x->f_item_selected);
-}
-
-t_pd_err menu_items_set(t_menu *x, t_object *attr, int ac, t_atom *av)
-{
     char text[MAXPDSTRING];
     menu_clear(x, NULL, 0, NULL);
 
-    if(ac && av)
-    {
-        for(int i = 0; i < ac; i++)
-        {
-            atom_string(av+i, text, MAXPDSTRING);
+    if (ac && av) {
+        for (int i = 0; i < ac; i++) {
+            atom_string(av + i, text, MAXPDSTRING);
             x->f_items[i] = gensym(text);
         }
-        
     }
-    
+
     x->f_items_size = ac;
     return 0;
 }
 
-t_pd_err menu_items_get(t_menu *x, t_object *attr, long* ac, t_atom **av)
+t_pd_err menu_items_get(t_menu* x, t_object* attr, long* ac, t_atom** av)
 {
-    int i;
     *ac = x->f_items_size;
-    av[0] = (t_atom *)calloc((size_t)(*ac), sizeof(t_atom));
-    for(i = 0; i < *ac; i++)
-    {
-        atom_setsym(av[0]+i, x->f_items[i]);
+    *av = (t_atom*)calloc((size_t)(*ac), sizeof(t_atom));
+
+    for (int i = 0; i < *ac; i++) {
+        atom_setsym(av[i], x->f_items[i]);
     }
-    
+
     return 0;
 }
-
-
-
