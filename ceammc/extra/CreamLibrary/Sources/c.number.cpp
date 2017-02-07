@@ -431,11 +431,16 @@ extern "C" void setup_ui0x2enumber(void)
         eclass_addmethod(c, (method) number_dblclick,         "dblclick",        A_NULL, 0);
         eclass_addmethod(c, (method) number_key,              "key",             A_NULL, 0);
         eclass_addmethod(c, (method) number_keyfilter,        "keyfilter",       A_NULL, 0);
-        eclass_addmethod(c, (method) number_mouseleave,         "mouseleave",        A_NULL, 0);
+        eclass_addmethod(c, (method) number_mouseleave,       "mouseleave",      A_NULL, 0);
         
         eclass_addmethod(c, (method) number_preset,           "preset",          A_NULL, 0);
         
-        CLASS_ATTR_DEFAULT			(c, "size", 0, "53 13");
+        CLASS_ATTR_INVISIBLE            (c, "fontname", 1);
+        CLASS_ATTR_INVISIBLE            (c, "fontweight", 1);
+        CLASS_ATTR_INVISIBLE            (c, "fontslant", 1);
+        CLASS_ATTR_INVISIBLE            (c, "fontsize", 1);
+
+        CLASS_ATTR_DEFAULT			    (c, "size", 0, "53 13");
         
         CLASS_ATTR_ATOM_ARRAY           (c, "minmax", 0, t_number, f_min, 2);
         CLASS_ATTR_ORDER                (c, "minmax", 0, "3");
