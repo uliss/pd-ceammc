@@ -461,16 +461,26 @@ void draw_background(t_menu* x, t_object* view, t_rect* rect)
         egraphics_set_line_width(g, 1); //Cream: 2
         egraphics_line_fast(g, width, 0., width, x->f_close_height);
 
+        const int arrow_sect_x = width + x->f_close_height * 0.25f + 1;
+        const int arrow_height = x->f_close_height * 0.3f;
+        int arrow_width = x->f_close_height * 0.5f;
+        if (arrow_width % 2 == 1)
+            arrow_width++;
+
         // Arrow Up
-        egraphics_move_to(g, width + x->f_close_height * 0.3 + 1, x->f_close_height * 0.4);
-        egraphics_line_to(g, width + x->f_close_height * 0.7 + 1, x->f_close_height * 0.4);
-        egraphics_line_to(g, width + x->f_close_height * 0.5 + 1, x->f_close_height * 0.1);
+        const float arrow_up_y = x->f_close_height * 0.4f;
+        egraphics_move_to(g, arrow_sect_x, arrow_up_y);
+        egraphics_line_to(g, arrow_sect_x + arrow_width, arrow_up_y);
+        egraphics_line_to(g, arrow_sect_x + arrow_width / 2, arrow_up_y - arrow_height);
+        egraphics_line_to(g, arrow_sect_x, arrow_up_y);
         egraphics_fill(g);
 
         // Arrow Down
-        egraphics_move_to(g, width + x->f_close_height * 0.3 + 1, x->f_close_height * 0.6);
-        egraphics_line_to(g, width + x->f_close_height * 0.7 + 1, x->f_close_height * 0.6);
-        egraphics_line_to(g, width + x->f_close_height * 0.5 + 1, x->f_close_height * 0.9);
+        const float arrow_down_y = x->f_close_height * 0.6f;
+        egraphics_move_to(g, arrow_sect_x, arrow_down_y);
+        egraphics_line_to(g, arrow_sect_x + arrow_width, arrow_down_y);
+        egraphics_line_to(g, arrow_sect_x + arrow_width / 2, arrow_down_y + arrow_height);
+        egraphics_line_to(g, arrow_sect_x, arrow_down_y);
         egraphics_fill(g);
 
         ebox_end_layer((t_ebox*)x, cream_sym_background_layer);
