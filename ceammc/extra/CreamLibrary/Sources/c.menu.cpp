@@ -12,8 +12,7 @@
 
 #define MAXITEMS 100
 
-typedef struct  _menu
-{
+typedef struct _menu {
     // clang-format off
 	t_ebox      j_box;
 	
@@ -37,49 +36,48 @@ typedef struct  _menu
     // clang-format on
 } t_menu;
 
-t_eclass *menu_class;
+t_eclass* menu_class;
 
-void *menu_new(t_symbol *s, int argc, t_atom *argv);
-void menu_free(t_menu *x);
-void menu_assist(t_menu *x, void *b, long m, long a, char *s);
+void* menu_new(t_symbol* s, int argc, t_atom* argv);
+void menu_free(t_menu* x);
+void menu_assist(t_menu* x, void* b, long m, long a, char* s);
 
+t_pd_err menu_notify(t_menu* x, t_symbol* s, t_symbol* msg, void* sender, void* data);
+t_pd_err menu_states_set(t_menu* x, t_object* attr, int ac, t_atom* av);
+t_pd_err menu_states_get_nop(t_menu* x, t_object* attr, int ac, t_atom* av);
+t_pd_err menu_items_set(t_menu* x, t_object* attr, int ac, t_atom* av);
+t_pd_err menu_items_get(t_menu* x, t_object* attr, long* ac, t_atom** av);
 
-t_pd_err menu_notify(t_menu *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
-t_pd_err menu_states_set(t_menu *x, t_object *attr, int ac, t_atom *av);
-t_pd_err menu_states_get_nop(t_menu *x, t_object *attr, int ac, t_atom *av);
-t_pd_err menu_items_set(t_menu *x, t_object *attr, int ac, t_atom *av);
-t_pd_err menu_items_get(t_menu *x, t_object *attr, long* ac, t_atom **av);
+void menu_append(t_menu* x, t_symbol* s, int argc, t_atom* argv);
+void menu_insert(t_menu* x, t_symbol* s, int argc, t_atom* argv);
+void menu_setitem(t_menu* x, t_symbol* s, int argc, t_atom* argv);
+void menu_delete(t_menu* x, t_symbol* s, int argc, t_atom* argv);
+void menu_clear(t_menu* x, t_symbol* s, int argc, t_atom* argv);
+void menu_state(t_menu* x, t_symbol* s, int argc, t_atom* argv);
+void menu_clean(t_menu* x);
 
-void menu_append(t_menu *x, t_symbol *s, int argc, t_atom *argv);
-void menu_insert(t_menu *x, t_symbol *s, int argc, t_atom *argv);
-void menu_setitem(t_menu *x, t_symbol *s, int argc, t_atom *argv);
-void menu_delete(t_menu *x, t_symbol *s, int argc, t_atom *argv);
-void menu_clear(t_menu *x, t_symbol *s, int argc, t_atom *argv);
-void menu_state(t_menu *x, t_symbol *s, int argc, t_atom *argv);
-void menu_clean(t_menu *x);
+void menu_float(t_menu* x, t_floatarg f);
+void menu_symbol(t_menu* x, t_symbol* s, int argc, t_atom* argv);
+void menu_set(t_menu* x, t_symbol* s, int argc, t_atom* argv);
+void menu_output(t_menu* x);
 
-void menu_float(t_menu *x, t_floatarg f);
-void menu_symbol(t_menu *x, t_symbol *s, int argc, t_atom *argv);
-void menu_set(t_menu *x, t_symbol *s, int argc, t_atom *argv);
-void menu_output(t_menu *x);
+void menu_getdrawparams(t_menu* x, t_object* patcherview, t_edrawparams* params);
+void menu_oksize(t_menu* x, t_rect* newrect);
 
-void menu_getdrawparams(t_menu *x, t_object *patcherview, t_edrawparams *params);
-void menu_oksize(t_menu *x, t_rect *newrect);
+void menu_paint(t_menu* x, t_object* view);
+void draw_background(t_menu* x, t_object* view, t_rect* rect);
+void draw_selection(t_menu* x, t_object* view, t_rect* rect);
 
-void menu_paint(t_menu *x, t_object *view);
-void draw_background(t_menu *x, t_object *view, t_rect *rect);
-void draw_selection(t_menu *x, t_object *view, t_rect *rect);
+void menu_mousedown(t_menu* x, t_object* patcherview, t_pt pt, long modifiers);
+void menu_mouseleave(t_menu* x, t_object* patcherview, t_pt pt, long modifiers);
+void menu_mousemove(t_menu* x, t_object* patcherview, t_pt pt, long modifiers);
 
-void menu_mousedown(t_menu *x, t_object *patcherview, t_pt pt, long modifiers);
-void menu_mouseleave(t_menu *x, t_object *patcherview, t_pt pt, long modifiers);
-void menu_mousemove(t_menu *x, t_object *patcherview, t_pt pt, long modifiers);
-
-void menu_preset(t_menu *x, t_binbuf *b);
+void menu_preset(t_menu* x, t_binbuf* b);
 
 extern "C" void setup_ui0x2emenu(void)
 {
-	t_eclass *c;
-    
+    t_eclass* c;
+
     // clang-format off
 	c = eclass_new("ui.menu", (method)menu_new, (method)menu_free, (short)sizeof(t_menu), 0L, A_GIMME, 0);
     
@@ -196,12 +194,11 @@ void menu_assist(t_menu *x, void *b, long m, long a, char *s)
 
 static t_symbol* menu_atoms_to_sym(t_atom* argv, long argc)
 {
-    int i;
     size_t length;
     char temp[MAXPDSTRING];
     char text[MAXPDSTRING];
     atom_string(argv, text, MAXPDSTRING);
-    for(i = 1; i < argc; i++)
+    for(int i = 1; i < argc; i++)
     {
         atom_string(argv+i, temp, MAXPDSTRING);
         length = strlen(temp);
