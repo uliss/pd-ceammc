@@ -1453,7 +1453,7 @@ static void ebox_do_paint_oval(t_elayer* g, t_ebox *x, t_egobj const* gobj, floa
 
     if(gobj->e_filled)
     {
-        sys_vgui("-fill %s -width 0 -tags { %s %s }\n", gobj->e_color->s_name,  g->e_id->s_name, x->b_all_id->s_name);
+        sys_vgui("-fill %s -outline %s -width 1 -tags { %s %s }\n", gobj->e_color->s_name, gobj->e_color->s_name, g->e_id->s_name, x->b_all_id->s_name);
     }
     else
     {
