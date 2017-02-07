@@ -140,20 +140,7 @@ static void draw_value_drag(t_number* x, t_object* view, t_rect* rect)
         if (jtl) {
             const float width = sys_fontwidth(ebox_getfontsize((t_ebox*)x)) + 8;
             char number[256];
-            if (!x->f_ndecimal)
-                sprintf(number, "%i.", (int)x->f_value);
-            else if (x->f_ndecimal == 1)
-                sprintf(number, "%.1f", x->f_value);
-            else if (x->f_ndecimal == 2)
-                sprintf(number, "%.2f", x->f_value);
-            else if (x->f_ndecimal == 3)
-                sprintf(number, "%.3f", x->f_value);
-            else if (x->f_ndecimal == 4)
-                sprintf(number, "%.4f", x->f_value);
-            else if (x->f_ndecimal == 5)
-                sprintf(number, "%.5f", x->f_value);
-            else
-                sprintf(number, "%.6f", x->f_value);
+            snprintf(number, 256, "%g", x->f_value);
             etext_layout_settextcolor(jtl, &x->f_color_text);
             etext_layout_set(jtl, number, &x->j_box.b_font, width, rect->height * 0.5f, rect->width - width, rect->height, ETEXT_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
 
