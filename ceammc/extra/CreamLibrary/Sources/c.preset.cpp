@@ -531,7 +531,7 @@ extern "C" void setup_ui0x2epreset(void)
         CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_preset, f_color_border);
         CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Border Color");
         CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0. 0. 0. 1.");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, DEFAULT_BORDER_COLOR);
         CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
 
         CLASS_ATTR_RGBA                 (c, "textcolor", 0, t_preset, f_color_text);
@@ -555,7 +555,7 @@ extern "C" void setup_ui0x2epreset(void)
         CLASS_ATTR_RGBA                 (c, "secolor", 0, t_preset, f_color_button_selected);
         CLASS_ATTR_LABEL                (c, "secolor", 0, "Selected Button Color");
         CLASS_ATTR_ORDER                (c, "secolor", 0, "3");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "secolor", 0, "0. 0.75 1. 1.");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "secolor", 0, DEFAULT_ACTIVE_COLOR);
         CLASS_ATTR_STYLE                (c, "secolor", 0, "color");
 
         // clang-format on
