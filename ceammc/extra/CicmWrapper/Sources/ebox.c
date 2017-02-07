@@ -1461,6 +1461,25 @@ static void ebox_do_paint_oval(t_elayer* g, t_ebox *x, t_egobj const* gobj, floa
     }
 }
 
+static void ebox_do_paint_arc(t_elayer* g, t_ebox *x, t_egobj const* gobj, float x_p, float y_p)
+{
+    t_pt const* pt = gobj->e_points;
+
+    sys_vgui("%s create arc %d %d %d %d -extent %f -start %f ", x->b_drawing_id->s_name,
+             (int)(pt[1].x + x_p), (int)(pt[1].y + y_p),
+             (int)(pt[2].x + x_p), (int)(pt[2].y + y_p), pt[3].y,  pt[3].x);
+
+
+    if(gobj->e_filled)
+    {
+        sys_vgui("-style pieslice -fill %s -outline %s -width 1 -tags { %s %s }\n", gobj->e_color->s_name, gobj->e_color->s_name, g->e_id->s_name, x->b_all_id->s_name);
+    }
+    else
+    {
+        sys_vgui("-style arc -outline %s -width %f -tags { %s %s }\n", gobj->e_color->s_name, gobj->e_width, g->e_id->s_name, x->b_all_id->s_name);
+    }
+}
+
 t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
 {
 #ifndef JUCE_APP_VERSION
@@ -1561,6 +1580,10 @@ t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
                 if(gobj->e_points[0].x == E_SHAPE_OVAL)
                 {
                     ebox_do_paint_oval(g, x, gobj, x_p, y_p);
+                }
+                else if(gobj->e_points[0].x == E_SHAPE_ARC)
+                {
+                    ebox_do_paint_arc(g, x, gobj, x_p, y_p);
                 }
             }
             else
