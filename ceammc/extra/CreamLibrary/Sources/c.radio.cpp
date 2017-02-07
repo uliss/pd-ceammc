@@ -88,6 +88,19 @@ static void radio_flip(t_radio* x)
         pd_error(x, "[%s] flip acts only in list mode.", eobj_getclassname(x)->s_name);
 }
 
+static void radio_reset(t_radio* x)
+{
+    if (x->f_mode) {
+        for (int i = 0; i < x->f_nitems; i++)
+            x->f_items[i] = 0;
+
+        ebox_invalidate_layer((t_ebox*)x, cream_sym_items_layer);
+        ebox_redraw((t_ebox*)x);
+        radio_output(x);
+    } else
+        pd_error(x, "[%s] reset acts only in list mode.", eobj_getclassname(x)->s_name);
+}
+
 static void radio_set_one(t_radio* x, int f)
 {
     if (f >= 0 && f < x->f_nitems) {
@@ -369,7 +382,8 @@ extern "C" void setup_ui0x2eradio(void)
         eclass_addmethod(c, (method) radio_output,          "bang",             A_NULL, 0);
         eclass_addmethod(c, (method) radio_mousedown,       "mousedown",        A_NULL, 0);
         eclass_addmethod(c, (method) radio_preset,          "preset",           A_NULL, 0);
-        eclass_addmethod(c, (method) radio_flip,            "flip",             A_NULL,0);
+        eclass_addmethod(c, (method) radio_flip,            "flip",             A_NULL, 0);
+        eclass_addmethod(c, (method) radio_reset,           "reset",            A_NULL, 0);
         
         CLASS_ATTR_INVISIBLE            (c, "fontname", 1);
         CLASS_ATTR_INVISIBLE            (c, "fontweight", 1);
