@@ -316,6 +316,8 @@ static void* exp_this_new(t_symbol* id, int argc, t_atom* argv)
     if (x->instance) {
         char c1[] = "#00C0FF";
         x->e_box.b_boxparameters.d_bordercolor = hex_to_rgba(c1);
+
+        x->instance->addInstanceOut(x->out1);
     }
 
     return static_cast<void*>(x);
@@ -323,6 +325,7 @@ static void* exp_this_new(t_symbol* id, int argc, t_atom* argv)
 
 static void exp_this_free(t_exp_this* x)
 {
+    x->instance->freeInstanceOut(x->out1);
     exp_this_delete(x);
 }
 

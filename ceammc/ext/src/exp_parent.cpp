@@ -313,8 +313,14 @@ static void* exp_parent_new(t_symbol* id, int argc, t_atom* argv)
 
     //
     OPInstance* this_instance = OPInstance::findByCanvas(x->parent_canvas);
-    if (this_instance->parent)
-        x->instance = this_instance->parent;
+    if (this_instance) {
+        if (this_instance->parent) {
+            x->instance = this_instance->parent;
+
+            x->instance->addInstanceOut(x->out1);
+            post("parent instance ok");
+        }
+    }
 
     if (x->instance) {
         {
@@ -328,6 +334,7 @@ static void* exp_parent_new(t_symbol* id, int argc, t_atom* argv)
 
 static void exp_parent_free(t_exp_parent* x)
 {
+    x->instance->freeInstanceOut(x->out1);
     exp_parent_delete(x);
 }
 

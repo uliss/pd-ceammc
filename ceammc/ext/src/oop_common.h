@@ -263,13 +263,19 @@ public:
     static OPClass* findByCanvas(t_canvas* canvas)
     {
         OPClassByCanvas* ret = new OPClassByCanvas(to_string((long)canvas), "OOP.common");
-        return ret->ref();
+        if (ret)
+            return ret->ref();
+        else
+            return 0;
     }
 
     static OPClass* findBySymbol(t_symbol* symbol)
     {
         OPClassBySymbol* ret = new OPClassBySymbol(symbol->s_name, "OOP.common");
-        return ret->ref();
+        if (ret)
+            return ret->ref();
+        else
+            return 0;
     }
 
 #pragma mark parent
@@ -326,12 +332,20 @@ public:
     OPInstance(OPClass* _opclass)
 
     {
+        post("new instance");
+
         this->class_name = _opclass->class_name;
         this->symbol = gensym(to_string((long)this).c_str());
 
         // new canvas. only for canvas-based classes
         if (_opclass->canvas) {
             int dsp_state = canvas_suspend_dsp();
+
+            //parent
+            if (_opclass->getParentClass()) {
+                this->parent = new OPInstance(_opclass->getParentClass());
+                post("created parent class instance");
+            }
 
             this->canvas = (t_canvas*)subcanvas_new(gensym(_opclass->class_name.c_str()));
             this->canvas->gl_havewindow = 1;
@@ -405,11 +419,6 @@ public:
 
             if (dyn_pointer_out)
                 this->addMethodPointerOut(gensym(it->first.c_str()), dyn_pointer_out);
-        }
-
-        //parent
-        if (_opclass->getParentClass()) {
-            this->parent = new OPInstance(_opclass->getParentClass());
         }
     }
 

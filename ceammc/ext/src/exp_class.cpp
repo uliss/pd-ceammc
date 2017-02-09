@@ -140,10 +140,6 @@ static void* exp_class_new(t_symbol* id, int argc, t_atom* argv)
 
     //should be read only for others
     x->op_class = new OPClasses(a.asString(), OBJ_NAME);
-    if (argc > 1) {
-        Atom a2 = argv[1];
-        x->op_class->ref()->setParentClass(OPClass::findBySymbol(a2.asSymbol()));
-    }
 
     if (!x->op_class->ref() && a.asString() != "") {
         x->op_class->ref() = new OPClass(a.asString());
@@ -153,6 +149,20 @@ static void* exp_class_new(t_symbol* id, int argc, t_atom* argv)
         Atom a_class_name = Atom(gensym(class_name.c_str()));
         //TODO move to oop_common
         exp_class_read(x, 0, 1, AtomList(a_class_name).toPdData());
+
+        //create parent class
+        if (argc > 1) {
+            Atom a2 = argv[1];
+            if (a2.isSymbol()) {
+                OPClasses* par_classes = new OPClasses(a2.asString(), OBJ_NAME); //0; //OPClass::findBySymbol(a2.asSymbol());
+                if (par_classes) {
+                    if (par_classes->ref())
+                        x->op_class->ref()->setParentClass(par_classes->ref());
+                } else
+                    error("parent class %s not found!", a2.asString().c_str());
+            } else
+                error("bad parent class name");
+        }
 
     } else {
         post("empty class created");
