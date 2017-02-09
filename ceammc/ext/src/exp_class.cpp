@@ -34,7 +34,14 @@ static void exp_class_read(t_exp_class* x, t_symbol*, int argc, t_atom* argv)
 static void exp_class_write(t_exp_class* x, t_symbol*, int argc, t_atom* argv)
 {
     if (argc < 1) {
-        error("specify file name");
+        //error("specify file name");
+
+        if (x->op_class->ref()->canvas) {
+            std::string class_name = x->op_class->ref()->class_name + ".class.pd";
+            Atom a_class_name = Atom(gensym(class_name.c_str()));
+            exp_class_write(x, 0, 1, AtomList(a_class_name).toPdData());
+        }
+
         return;
     }
 
@@ -133,6 +140,10 @@ static void* exp_class_new(t_symbol* id, int argc, t_atom* argv)
 
     //should be read only for others
     x->op_class = new OPClasses(a.asString(), OBJ_NAME);
+    if (argc > 1) {
+        Atom a2 = argv[1];
+        x->op_class->ref()->setParentClass(OPClass::findBySymbol(a2.asSymbol()));
+    }
 
     if (!x->op_class->ref() && a.asString() != "") {
         x->op_class->ref() = new OPClass(a.asString());
@@ -140,6 +151,7 @@ static void* exp_class_new(t_symbol* id, int argc, t_atom* argv)
         //attempt to load file
         std::string class_name = a.asString() + ".class.pd";
         Atom a_class_name = Atom(gensym(class_name.c_str()));
+        //TODO move to oop_common
         exp_class_read(x, 0, 1, AtomList(a_class_name).toPdData());
 
     } else {

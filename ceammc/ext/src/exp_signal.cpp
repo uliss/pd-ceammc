@@ -15,12 +15,9 @@ struct t_exp_signal {
 
     OPInstance* instance;
 
-    //t_signal in_f;
-
     t_sample* buffer;
 
     t_inlet* in1;
-    //t_outlet *out1;
 };
 
 static void* exp_signal_new(t_symbol* id, int argc, t_atom* argv)
@@ -46,7 +43,6 @@ static void* exp_signal_new(t_symbol* id, int argc, t_atom* argv)
     x->instance = OPInstance::findByCanvas(x->parent_canvas);
     //        if (x->instance)
     //            x->instance->addMethod(x->sig_name, x->out1);
-    //
     x->in1 = inlet_new(&x->e_box.b_obj.o_obj, &x->e_box.b_obj.o_obj.ob_pd, &s_signal, &s_signal);
 
     ebox_ready((t_ebox*)x);
@@ -163,6 +159,9 @@ extern "C" void setup_exp0x2esignal()
         sizeof(t_exp_signal), CLASS_NOINLET, A_GIMME, 0);
 
     eclass_dspinit(exp_signal_class);
+
+    eclass_addmethod(exp_signal_class, (method)exp_signal_dsp, "dsp", A_NULL, 0);
+
     //CLASS_MAINSIGNALIN((t_class*)exp_signal_class, t_exp_signal, in_f);
 
     eclass_register(CLASS_OBJ, exp_signal_class);

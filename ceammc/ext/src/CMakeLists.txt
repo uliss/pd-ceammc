@@ -159,6 +159,8 @@ ceammc_cxx_extension(exp instance)
 ceammc_cxx_extension(exp method)
 ceammc_cxx_extension(exp aproperty)
 ceammc_cxx_extension(exp signal)
+ceammc_cxx_extension(exp this)
+ceammc_cxx_extension(exp parent)
 endif()
 
 

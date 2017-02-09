@@ -85,6 +85,8 @@ private:
     map<string, t_outlet*> methodOutlets; //todo OPOutputs
     map<string, t_outlet*> methodPointerOutlets; //todo OPOutputs
 
+    OPClass* parent;
+
 public:
     string class_name;
     t_canvas* canvas;
@@ -168,6 +170,13 @@ public:
             canvas_setcurrent(parent_canvas);
 
             post("loaded class: %s ", (char*)(fileName.c_str()));
+        }
+
+        //recursive
+
+        if (this->parent) {
+            //todo
+            //this->parent->readFile(this->parent-, struct _glist *parent_canvas)
         }
     }
 
@@ -262,6 +271,18 @@ public:
         OPClassBySymbol* ret = new OPClassBySymbol(symbol->s_name, "OOP.common");
         return ret->ref();
     }
+
+#pragma mark parent
+
+    void setParentClass(OPClass* p_class)
+    {
+        this->parent = p_class;
+    }
+
+    OPClass* getParentClass()
+    {
+        return this->parent;
+    }
 };
 
 typedef GlobalData<OPClass*> OPClasses; ///< class prototype
@@ -298,6 +319,9 @@ public:
     t_canvas* canvas;
 
     t_symbol* symbol;
+
+    //
+    OPInstance* parent;
 
     OPInstance(OPClass* _opclass)
 
@@ -381,6 +405,11 @@ public:
 
             if (dyn_pointer_out)
                 this->addMethodPointerOut(gensym(it->first.c_str()), dyn_pointer_out);
+        }
+
+        //parent
+        if (_opclass->getParentClass()) {
+            this->parent = new OPInstance(_opclass->getParentClass());
         }
     }
 
