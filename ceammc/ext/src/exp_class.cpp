@@ -34,7 +34,14 @@ static void exp_class_read(t_exp_class* x, t_symbol*, int argc, t_atom* argv)
 static void exp_class_write(t_exp_class* x, t_symbol*, int argc, t_atom* argv)
 {
     if (argc < 1) {
-        error("specify file name");
+        //error("specify file name");
+
+        if (x->op_class->ref()->canvas) {
+            std::string class_name = x->op_class->ref()->class_name + ".class.pd";
+            Atom a_class_name = Atom(gensym(class_name.c_str()));
+            exp_class_write(x, 0, 1, AtomList(a_class_name).toPdData());
+        }
+
         return;
     }
 
@@ -140,7 +147,22 @@ static void* exp_class_new(t_symbol* id, int argc, t_atom* argv)
         //attempt to load file
         std::string class_name = a.asString() + ".class.pd";
         Atom a_class_name = Atom(gensym(class_name.c_str()));
+        //TODO move to oop_common
         exp_class_read(x, 0, 1, AtomList(a_class_name).toPdData());
+
+        //create parent class
+        if (argc > 1) {
+            Atom a2 = argv[1];
+            if (a2.isSymbol()) {
+                OPClasses* par_classes = new OPClasses(a2.asString(), OBJ_NAME); //0; //OPClass::findBySymbol(a2.asSymbol());
+                if (par_classes) {
+                    if (par_classes->ref())
+                        x->op_class->ref()->setParentClass(par_classes->ref());
+                } else
+                    error("parent class %s not found!", a2.asString().c_str());
+            } else
+                error("bad parent class name");
+        }
 
     } else {
         post("empty class created");

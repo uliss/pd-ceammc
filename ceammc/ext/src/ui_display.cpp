@@ -48,6 +48,8 @@ static const int TYPE_WIDTH = 45;
 static const int TEXT_XPAD = 3;
 static const int TEXT_YPAD = 1;
 
+#pragma mark setup
+
 static inline t_symbol* msg_color(t_symbol* s_type)
 {
     if (s_type == &s_list)
@@ -72,6 +74,7 @@ static void draw_message_type(ui_display* zx, t_elayer* g, float x, float y, flo
     etext_layout_draw(zx->txt_type, g);
 }
 
+#pragma mark ui
 static void draw_msg_value(ui_display* zx, t_elayer* g, float x, float y, float width, float height)
 {
     if (zx->bang)
@@ -180,6 +183,8 @@ UI_fun(ui_display)::wx_oksize(t_object* z, t_rect* newrect)
     newrect->width = pd_clip_min(newrect->width, min_width);
     newrect->height = pd_clip_min(newrect->height, 15.);
 }
+
+#pragma mark setup
 
 UI_fun(ui_display)::new_ext(t_object* z, t_symbol* /*s*/, int /*argcl*/, t_atom* /*argv*/)
 {

@@ -14,13 +14,16 @@ extern "C" void libpd_loadcream(void)
     cream_setup();
 }
 
+
 static void* cream_new(t_symbol* s)
 {
     t_eobj* x = (t_eobj*)eobj_new(cream_class);
     if (x) {
+
         logpost(x, 3, "Cream Library by Pierre Guillot\n© 2013 - 2015  "
                       "CICM | Paris 8 University\nVersion %s (%s) for Pure Data %i.%i\n",
             creamversion, __DATE__, PD_MAJOR_VERSION, PD_MINOR_VERSION);
+
     }
     return (x);
 }
@@ -74,6 +77,7 @@ extern "C" void cream_setup(void)
     cream_class = eclass_new("Cream", (method)cream_new, (method)eobj_free, (short)sizeof(t_eobj), CLASS_PD, A_NULL, 0);
     t_eobj* obj = (t_eobj*)cream_new(NULL);
     if (!obj) {
+
         verbose(3, "Cream Library by Pierre Guillot\n© 2013 - 2015  CICM | "
                    "Paris 8 University\nVersion %s (%s) for Pure Data %i.%i\n",
             creamversion, __DATE__, PD_MAJOR_VERSION, PD_MINOR_VERSION);
@@ -81,6 +85,8 @@ extern "C" void cream_setup(void)
     }
 
     //epd_add_lib("cream");
+
+
 
     //setup_c0x2eblackboard();
     //setup_c0x2ebreakpoints();
@@ -90,6 +96,7 @@ extern "C" void cream_setup(void)
     setup_c0x2eknob();
 
     setup_c0x2emeter_tilde();
+
 
     //CEAMMC
     setup_ui0x2ebang();
@@ -102,7 +109,7 @@ extern "C" void cream_setup(void)
     setup_ui0x2eradio();
     setup_ui0x2erslider();
     setup_ui0x2eslider();
-    setup_ui0x2etab();
+    // TEMPORARY    setup_ui0x2etab();
     setup_ui0x2etoggle();
 
 #ifdef __APPLE__

@@ -11,6 +11,7 @@
 #include "lib/ceammc_gui.h"
 
 struct ui_spectroscope : public ceammc_gui::BaseSoundGuiStruct {
+
     t_inlet* in1;
     t_sample input;
     t_sample buf[8192];
@@ -144,7 +145,6 @@ UI_fun(ui_spectroscope)::wx_mousemove(t_object* z, t_object* view, t_pt pt, long
 
 UI_fun(ui_spectroscope)::wx_mousedrag(t_object* z, t_object* view, t_pt pt, long modifiers)
 {
-
 }
 
 static void ui_sps_getdrawparams(ui_spectroscope* x, t_object* patcherview, t_edrawparams* params)

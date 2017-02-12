@@ -85,6 +85,8 @@ private:
     map<string, t_outlet*> methodOutlets; //todo OPOutputs
     map<string, t_outlet*> methodPointerOutlets; //todo OPOutputs
 
+    OPClass* parent;
+
 public:
     string class_name;
     t_canvas* canvas;
@@ -168,6 +170,13 @@ public:
             canvas_setcurrent(parent_canvas);
 
             post("loaded class: %s ", (char*)(fileName.c_str()));
+        }
+
+        //recursive
+
+        if (this->parent) {
+            //todo
+            //this->parent->readFile(this->parent-, struct _glist *parent_canvas)
         }
     }
 
@@ -254,13 +263,31 @@ public:
     static OPClass* findByCanvas(t_canvas* canvas)
     {
         OPClassByCanvas* ret = new OPClassByCanvas(to_string((long)canvas), "OOP.common");
-        return ret->ref();
+        if (ret)
+            return ret->ref();
+        else
+            return 0;
     }
 
     static OPClass* findBySymbol(t_symbol* symbol)
     {
         OPClassBySymbol* ret = new OPClassBySymbol(symbol->s_name, "OOP.common");
-        return ret->ref();
+        if (ret)
+            return ret->ref();
+        else
+            return 0;
+    }
+
+#pragma mark parent
+
+    void setParentClass(OPClass* p_class)
+    {
+        this->parent = p_class;
+    }
+
+    OPClass* getParentClass()
+    {
+        return this->parent;
     }
 };
 
@@ -299,15 +326,26 @@ public:
 
     t_symbol* symbol;
 
+    //
+    OPInstance* parent;
+
     OPInstance(OPClass* _opclass)
 
     {
+        post("new instance");
+
         this->class_name = _opclass->class_name;
         this->symbol = gensym(to_string((long)this).c_str());
 
         // new canvas. only for canvas-based classes
         if (_opclass->canvas) {
             int dsp_state = canvas_suspend_dsp();
+
+            //parent
+            if (_opclass->getParentClass()) {
+                this->parent = new OPInstance(_opclass->getParentClass());
+                post("created parent class instance");
+            }
 
             this->canvas = (t_canvas*)subcanvas_new(gensym(_opclass->class_name.c_str()));
             this->canvas->gl_havewindow = 1;

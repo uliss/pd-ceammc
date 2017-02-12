@@ -420,7 +420,7 @@ extern "C" void setup_exp0x2einstance()
     eclass_addmethod(exp_instance_class, (t_typ_method)exp_instance_click, ("mousedown"), A_NULL, 0);
 
     //audio
-    //eclass_addmethod(exp_instance_class, (t_typ_method)exp_instance_dsp, ("dsp"), A_NULL, 0);
+    eclass_addmethod(exp_instance_class, (t_typ_method)exp_instance_dsp, ("dsp"), A_NULL, 0);
 
     eclass_register(CLASS_BOX, exp_instance_class);
 

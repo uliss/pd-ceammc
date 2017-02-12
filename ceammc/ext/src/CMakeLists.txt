@@ -159,6 +159,8 @@ ceammc_cxx_extension(exp instance)
 ceammc_cxx_extension(exp method)
 ceammc_cxx_extension(exp aproperty)
 ceammc_cxx_extension(exp signal)
+ceammc_cxx_extension(exp this)
+ceammc_cxx_extension(exp parent)
 endif()
 
 
@@ -211,6 +213,7 @@ ceammc_cxx_extension(local float)
 ceammc_cxx_extension(prop get)
 pd_add_extension(NAME "msg" FILES "msg.cpp" INTERNAL True LIBRARY ceammc LINK ceammc_static)
 add_custom_command(TARGET msg COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_SONAME_FILE:msg>" "m${PD_EXTERNAL_EXTENSION}")
+
 
 
 include(FindLibSndFile)
