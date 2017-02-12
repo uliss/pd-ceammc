@@ -1,0 +1,4 @@
+#N canvas 0 0 111 100 12;
+#X obj 20 63 osc~ 440;
+#X obj 20 106 ui.scope~;
+#X connect 0 0 1 0;

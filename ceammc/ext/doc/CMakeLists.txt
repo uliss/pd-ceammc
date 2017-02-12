@@ -110,16 +110,17 @@ set(DOC_FILES
     symbol.length
     system.memsize
     system.memused
+    ui.scope~
     vector.distance
     vector.dot
     vector.length
     vector.normalize
     )
 
-if(NOT PD_XML2PD)
-    message(STATUS "pd_xml2pd not found.")
+if(NOT PD_LIB2PD)
+    message(STATUS "pd_lib2pd not found.")
 else()
-    message(STATUS "pd_xml2pd found at: ${PD_XML2PD}")
+    message(STATUS "pd_lib2pd found at: ${PD_LIB2PD}")
     set(DOC_PD_FILES)
     set(DOC_XLET_DB_FILES)
     set(DOC_PDDOC_FILES)
