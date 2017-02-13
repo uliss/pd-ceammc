@@ -145,6 +145,9 @@ UI_fun(tl_bang)::init_ext(t_eclass* z)
     eclass_addmethod(z, reinterpret_cast<method>(tl_bang_getdrawparams), "getdrawparams", A_NULL, 0);
 
     // clang-format off
+    CLASS_ATTR_INVISIBLE            (z, "send", 0);
+    CLASS_ATTR_INVISIBLE            (z, "receive", 0);
+
     CLASS_ATTR_RGBA                 (z, "brcolor", 0, tl_bang, border_color);
     CLASS_ATTR_LABEL                (z, "brcolor", 0, "Border Color");
     CLASS_ATTR_ORDER                (z, "brcolor", 0, "3");
