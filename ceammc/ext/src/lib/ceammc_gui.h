@@ -39,6 +39,10 @@ void* ceammc_gui::GuiFactory<x>
 
 #pragma mark -
 
+static const char* DEFAULT_ACTIVE_COLOR = "0. 0.75 1. 1.";
+static const char* DEFAULT_BORDER_COLOR = "0.6 0.6 0.6 1.";
+static const char* DEFAULT_BACKGROUND_COLOR = "0.93 0.93 0.93 1.";
+
 /**
  * @brief Structure prototype for pd object (t_object).
  */
@@ -55,6 +59,9 @@ struct BaseGuiObject {
     float mouse_y;
     int mouse_dn;
     bool _selected;
+
+    t_rgba b_color_background;
+    t_rgba b_color_border;
 
     // this was prototype for dynamic I/O
     // todo merge with CICM functionality
@@ -113,6 +120,9 @@ struct BaseSoundGuiStruct {
     float mouse_y;
     int mouse_dn;
     bool _selected;
+
+    t_rgba b_color_background;
+    t_rgba b_color_border;
 };
 
 /**
@@ -536,6 +546,7 @@ public:
 
     void setup_attributes(t_eclass* cl)
     {
+        // clang-format off
         //hide standard CICM attributes
         CLASS_ATTR_INVISIBLE(cl, "fontname", 1);
         CLASS_ATTR_INVISIBLE(cl, "fontweight", 1);
@@ -543,20 +554,21 @@ public:
         CLASS_ATTR_INVISIBLE(cl, "fontsize", 1);
 
         // background / border color
-        CLASS_ATTR_LABEL(cl, "bgcolor", 0, "Background Color");
-        CLASS_ATTR_ORDER(cl, "bgcolor", 0, "1");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT(cl, "bgcolor", 0, "0.75 0.75 0.75 1.");
-        CLASS_ATTR_STYLE(cl, "bgcolor", 0, "color");
+        CLASS_ATTR_RGBA                 (cl, "bgcolor", 0, U, b_color_background);
+        CLASS_ATTR_LABEL                (cl, "bgcolor", 0, "Background Color");
+        CLASS_ATTR_ORDER                (cl, "bgcolor", 0, "1");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (cl, "bgcolor", 0, DEFAULT_BACKGROUND_COLOR);
+        CLASS_ATTR_STYLE                (cl, "bgcolor", 0, "color");
 
-        // TODO
-        // CLASS_ATTR_RGBA                 (cl, "bdcolor", 0, U, b_color_border);
-        // CLASS_ATTR_LABEL                (cl, "bdcolor", 0, "Border Color");
-        // CLASS_ATTR_ORDER                (cl, "bdcolor", 0, "2");
-        // CLASS_ATTR_DEFAULT_SAVE_PAINT   (cl, "bdcolor", 0, "0.5 0.5 0.5 1.");
-        // CLASS_ATTR_STYLE                (cl, "bdcolor", 0, "color");
+        CLASS_ATTR_RGBA                 (cl, "bdcolor", 0, U, b_color_border);
+        CLASS_ATTR_LABEL                (cl, "bdcolor", 0, "Border Color");
+        CLASS_ATTR_ORDER                (cl, "bdcolor", 0, "2");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (cl, "bdcolor", 0, DEFAULT_BORDER_COLOR);
+        CLASS_ATTR_STYLE                (cl, "bdcolor", 0, "color");
 
         // default
-        CLASS_ATTR_DEFAULT(cl, "size", 0, "45. 15.");
+        CLASS_ATTR_DEFAULT              (cl, "size", 0, "45. 15.");
+        // clang-format on
     }
 
     void do_setup(const std::string& cname, method new_method, method free_method, int flags, t_symbol* obj_class)

@@ -21,8 +21,6 @@ struct ui_keyboard : public ceammc_gui::BaseGuiObject {
     int _pitch;
     int _vel;
 
-    t_rgba b_color_border;
-
 public:
     t_float realPitch() const { return _pitch + shift; }
 
@@ -288,6 +286,7 @@ UI_fun(ui_keyboard)::wx_attr_changed_ext(t_object* z, t_symbol* attr)
 UI_fun(ui_keyboard)::init_ext(t_eclass* z)
 {
     // clang-format off
+    CLASS_ATTR_INVISIBLE            (z, "bgcolor", 0);
     CLASS_ATTR_DEFAULT              (z, "size", 0, "433. 60.");
 
     CLASS_ATTR_INT                  (z, "shift", 0, ui_keyboard, shift);
@@ -305,12 +304,6 @@ UI_fun(ui_keyboard)::init_ext(t_eclass* z)
     CLASS_ATTR_FILTER_CLIP          (z, "keys", 5, 88);
     CLASS_ATTR_STEP                 (z, "keys", 1);
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "keys", 0, "61");
-
-    CLASS_ATTR_RGBA                (z, "bdcolor", 0, ui_keyboard, b_color_border);
-    CLASS_ATTR_LABEL               (z, "bdcolor", 0, "Border Color");
-    CLASS_ATTR_ORDER               (z, "bdcolor", 0, "2");
-    CLASS_ATTR_DEFAULT_SAVE_PAINT  (z, "bdcolor", 0, "0. 0. 0. 1.");
-    CLASS_ATTR_STYLE               (z, "bdcolor", 0, "color");
     // clang-format on
 
     eclass_addmethod(z, reinterpret_cast<t_typ_method>(ui_k_getdrawparams), "getdrawparams", A_NULL, 0);

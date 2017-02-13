@@ -23,9 +23,6 @@ struct ui_knob : public ceammc_gui::BaseGuiObject {
     t_etext* txt_max;
     t_efont* txt_font;
 
-    t_rgba b_color_background;
-    t_rgba b_color_border;
-
 public:
     t_float realValue() const
     {
@@ -198,18 +195,6 @@ UI_fun(ui_knob)::init_ext(t_eclass* z)
     CLASS_ATTR_DEFAULT              (z, "range", 0, "127");
     CLASS_ATTR_LABEL                (z, "range", 0, "range");
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "range", 0, "127");
-
-    CLASS_ATTR_RGBA                 (z, "bgcolor", 0, ui_knob, b_color_background);
-    CLASS_ATTR_LABEL                (z, "bgcolor", 0, "Background Color");
-    CLASS_ATTR_ORDER                (z, "bgcolor", 0, "1");
-    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "bgcolor", 0, "0.93 0.93 0.93 1.");
-    CLASS_ATTR_STYLE                (z, "bgcolor", 0, "color");
-
-    CLASS_ATTR_RGBA                 (z, "bdcolor", 0, ui_knob, b_color_border);
-    CLASS_ATTR_LABEL                (z, "bdcolor", 0, "Border Color");
-    CLASS_ATTR_ORDER                (z, "bdcolor", 0, "2");
-    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "bdcolor", 0, "0. 0. 0. 1.");
-    CLASS_ATTR_STYLE                (z, "bdcolor", 0, "color");
     // clang-format on
 
     eclass_addmethod(z, reinterpret_cast<t_typ_method>(ui_kn_getdrawparams), "getdrawparams", A_NULL, 0);

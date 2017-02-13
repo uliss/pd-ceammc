@@ -99,6 +99,9 @@ UI_fun(ui_link)::free_ext(t_object* z)
 UI_fun(ui_link)::init_ext(t_eclass* z)
 {
     // clang-format off
+    CLASS_ATTR_INVISIBLE            (z, "bgcolor", 0);
+    CLASS_ATTR_INVISIBLE            (z, "bdcolor", 0);
+
     CLASS_ATTR_DEFAULT              (z, "size", 0, "120. 15.");
 
     CLASS_ATTR_SYMBOL               (z, "link", 0, ui_link, link);

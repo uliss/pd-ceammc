@@ -16,11 +16,6 @@ struct ui_sliders : public ceammc_gui::BaseGuiObject
 {
     t_ebox x_gui;
     
-    float mouse_x;
-    float mouse_y;
-    int mouse_dn;
-    bool _selected;
-    
     t_outlet *out1;
     
     t_atom *val_list;
@@ -42,9 +37,6 @@ struct ui_sliders : public ceammc_gui::BaseGuiObject
     t_etext *txt_min;
     t_etext *txt_max;
     t_efont *txt_font;
-    
-    t_rgba b_color_background;
-    t_rgba b_color_border;
 };
 
 namespace ceammc_gui {
@@ -353,18 +345,6 @@ namespace ceammc_gui {
         CLASS_ATTR_LABEL(z, "auto_range", 0, "auto_range");
         CLASS_ATTR_DEFAULT_SAVE_PAINT(z, "auto_range", 0, "0");
         
-        CLASS_ATTR_RGBA                 (z, "bgcolor", 0, ui_sliders, b_color_background);
-        CLASS_ATTR_LABEL                (z, "bgcolor", 0, "Background Color");
-        CLASS_ATTR_ORDER                (z, "bgcolor", 0, "1");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "bgcolor", 0, "0.93 0.93 0.93 1.");
-        CLASS_ATTR_STYLE                (z, "bgcolor", 0, "color");
-        
-        CLASS_ATTR_RGBA                 (z, "bdcolor", 0, ui_sliders, b_color_border);
-        CLASS_ATTR_LABEL                (z, "bdcolor", 0, "Border Color");
-        CLASS_ATTR_ORDER                (z, "bdcolor", 0, "2");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "bdcolor", 0, "0. 0. 0. 1.");
-        CLASS_ATTR_STYLE                (z, "bdcolor", 0, "color");
-        
         eclass_addmethod(z, (method)(sliders_m_range), ("range"), A_GIMME,0);
         eclass_addmethod(z, (method)(sliders_m_shift), ("shift"), A_GIMME,0);
         eclass_addmethod(z, (method)(sliders_m_select), ("select"), A_GIMME,0);
@@ -407,8 +387,6 @@ namespace ceammc_gui {
         zx->txt_max = etext_layout_create();
         zx->txt_min = etext_layout_create();
         zx->txt_font = efont_create(gensym("Helvetica"), gensym("light"), gensym("normal"), 8);
-        
-
     }
     
 }

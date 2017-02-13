@@ -37,9 +37,6 @@ struct ui_slider2d : public ceammc_gui::BaseGuiObject {
     t_etext* txt_max;
     t_efont* txt_font;
 
-    t_rgba b_color_background;
-    t_rgba b_color_border;
-
 public:
     float left() const { return shift_x; }
     float right() const { return shift_x + range_x; }
@@ -248,18 +245,6 @@ UI_fun(ui_slider2d)::init_ext(t_eclass* z)
     CLASS_ATTR_DEFAULT              (z, "range_y", 0, "2");
     CLASS_ATTR_LABEL                (z, "range_y", 0, "Vertical range");
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "range_y", 0, "2");
-
-    CLASS_ATTR_RGBA                 (z, "bgcolor", 0, ui_slider2d, b_color_background);
-    CLASS_ATTR_LABEL                (z, "bgcolor", 0, "Background Color");
-    CLASS_ATTR_ORDER                (z, "bgcolor", 0, "1");
-    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "bgcolor", 0, "0.93 0.93 0.93 1.");
-    CLASS_ATTR_STYLE                (z, "bgcolor", 0, "color");
-
-    CLASS_ATTR_RGBA                 (z, "bdcolor", 0, ui_slider2d, b_color_border);
-    CLASS_ATTR_LABEL                (z, "bdcolor", 0, "Border Color");
-    CLASS_ATTR_ORDER                (z, "bdcolor", 0, "2");
-    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "bdcolor", 0, "0. 0. 0. 1.");
-    CLASS_ATTR_STYLE                (z, "bdcolor", 0, "color");
     // clang-format on
 
     eclass_addmethod(z, reinterpret_cast<t_typ_method>(ui_s2_getdrawparams), "getdrawparams", A_NULL, 0);
