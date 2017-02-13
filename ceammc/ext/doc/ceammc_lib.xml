@@ -355,6 +355,9 @@
     <entry descr="Scope GUI object" name="ui.scope~" ref_view="link">
       <xi:include href="ui.scope~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="Spectroscope GUI object" name="ui.spectroscope~" ref_view="link">
+      <xi:include href="ui.spectroscope~.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="vector">
     <entry descr="returns euclidean distance between two points" name="vector.distance" ref_view="object">

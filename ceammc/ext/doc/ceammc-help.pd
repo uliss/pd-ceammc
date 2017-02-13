@@ -281,22 +281,25 @@ peak;
 #X obj 20 3794 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 3805 pddp/pddplink ui.scope~-help.pd -text [ui.scope~];
 #X text 150 3805 Scope GUI object;
-#X obj 20 3828 cnv 5 59 19 empty empty vector 0 17 0 17 -262144 -49933
+#X obj 30 3828 pddp/pddplink ui.spectroscope~-help.pd -text
+[ui.spectroscope~];
+#X text 150 3828 Spectroscope GUI object;
+#X obj 20 3851 cnv 5 59 19 empty empty vector 0 17 0 17 -262144 -49933
 0;
-#X obj 20 3857 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 3868 vector.distance;
-#X text 150 3868 returns euclidean distance between two points;
-#X obj 30 3895 vector.dot;
-#X text 150 3895 treats list of floats as vector \, returns the dot
+#X obj 20 3880 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 3891 vector.distance;
+#X text 150 3891 returns euclidean distance between two points;
+#X obj 30 3918 vector.dot;
+#X text 150 3918 treats list of floats as vector \, returns the dot
 product (sum of the elements of two lists with same indexes
 multiplied)\.;
-#X obj 30 3946 vector.length;
-#X text 150 3946 treats list of floats as vector \, returns vector
+#X obj 30 3969 vector.length;
+#X text 150 3969 treats list of floats as vector \, returns vector
 length: sqrt(element(1)^2 + \.\.\.element(n)^2)\.;
-#X obj 30 3983 vector.normalize;
-#X text 150 3983 returns normalized vector;
+#X obj 30 4006 vector.normalize;
+#X text 150 4006 returns normalized vector;
 #X obj 1 1 cnv 5 597 40 empty empty ceammc 20 20 0 20 -104026 -4096 0;
-#X obj 1 4010 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 4010 version: v0\.1 \, license: GPL3;
-#X obj 20 4026 pddp/pddplink https://github.com/uliss/pure-data -text
+#X obj 1 4033 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 4033 version: v0\.1 \, license: GPL3;
+#X obj 20 4049 pddp/pddplink https://github.com/uliss/pure-data -text
 https://github.com/uliss/pure-data;

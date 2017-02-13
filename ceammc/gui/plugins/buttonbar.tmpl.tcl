@@ -69,7 +69,7 @@ proc showhide_buttonbar {mytoplevel} {
         make_ceammc_button $mytoplevel bpfunc "Breakpoint function"
         make_ceammc_button $mytoplevel display "Display"
         make_ceammc_button_tilde $mytoplevel scope "Scope"
-        make_ceammc_button $mytoplevel spectroscope "Spectroscope"
+        make_ceammc_button_tilde $mytoplevel spectroscope "Spectroscope"
     }
     if {$::editmode($mytoplevel)} {
         set tkcanvas [tkcanvas_name $mytoplevel]

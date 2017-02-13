@@ -4,6 +4,9 @@
 #X obj 79 50 pddp/pddplink ceammc-help.pd -text ceammc;
 #X obj 30 113 pddp/pddplink ui.scope~-help.pd -text [ui.scope~];
 #X text 150 113 Scope GUI object;
+#X obj 30 136 pddp/pddplink ui.spectroscope~-help.pd -text
+[ui.spectroscope~];
+#X text 150 136 Spectroscope GUI object;
 #X obj 1 1 cnv 5 597 40 empty empty ceammc::ui 20 20 0 20 -104026
 -4096 0;
 #X obj 1 458 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;

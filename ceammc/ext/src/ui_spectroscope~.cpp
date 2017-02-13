@@ -176,8 +176,8 @@ UI_fun(ui_spectroscope)::init_ext(t_eclass* z)
 }
 }
 
-extern "C" void setup_ui0x2espectroscope()
+extern "C" void setup_ui0x2espectroscope_tilde()
 {
     ceammc_gui::GuiFactory<ui_spectroscope> class1;
-    class1.setup_dsp("ui.spectroscope");
+    class1.setup_dsp("ui.spectroscope~");
 }

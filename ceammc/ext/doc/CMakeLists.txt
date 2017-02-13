@@ -111,6 +111,7 @@ set(DOC_FILES
     system.memsize
     system.memused
     ui.scope~
+    ui.spectroscope~
     vector.distance
     vector.dot
     vector.length
