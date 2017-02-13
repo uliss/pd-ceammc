@@ -101,6 +101,8 @@ UI_fun(ui_link)::init_ext(t_eclass* z)
     // clang-format off
     CLASS_ATTR_INVISIBLE            (z, "bgcolor", 0);
     CLASS_ATTR_INVISIBLE            (z, "bdcolor", 0);
+    CLASS_ATTR_INVISIBLE            (z, "receive", 0);
+    CLASS_ATTR_INVISIBLE            (z, "send", 0);
 
     CLASS_ATTR_DEFAULT              (z, "size", 0, "120. 15.");
 
