@@ -12,7 +12,7 @@
 -1;
 #X msg 146 147 pop;
 #X obj 251 147 m append;
-#X msg 357 147 m insert 1;
+#X obj 357 147 m insert 1;
 #X obj 50 205 data.list 1 2 3;
 #X obj 50 234 m set;
 #X msg 50 262 ;
@@ -38,7 +38,7 @@
 #X text 230 457 inserts values to the specified position\. First
 argument is position \, others - element to insert;
 #X msg 125 494 pop;
-#X text 230 494 outputs and removes last list element;
+#X text 230 494 removes last list element;
 #X msg 125 521 set;
 #X text 230 521 sets new list without output;
 #X obj 20 558 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
