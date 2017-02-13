@@ -571,29 +571,15 @@ public:
         // clang-format on
     }
 
-    void do_setup(const std::string& cname, method new_method, method free_method, int flags, t_symbol* obj_class)
-    {
-        t_eclass* cl = eclass_new(cname.c_str(),
-            new_method,
-            free_method,
-            sizeof(U), flags, A_GIMME, 0);
-        if (cl) {
-            eclass_guiinit(cl, 0);
-            GuiFactory<U>::pd_class = cl;
-            GuiFactory<U>::init_ext(cl);
-            eclass_register(obj_class, cl);
-        }
-    }
-
     /**
      * @brief main setup routine
      * @details this methods creates new pd class with one inlet,
      * creates new default ui box attributes (CICM) then calls the 'init_ext' method
      * @param _class_name: the class name
      */
-    void setup(const std::string& _class_name)
+    void setup(const char* class_name)
     {
-        t_eclass* cl = eclass_new(_class_name.c_str(),
+        t_eclass* cl = eclass_new(class_name,
             UI_METHOD_PTR(new_method),
             UI_METHOD_PTR(free_method),
             sizeof(U), CLASS_PATCHABLE, A_GIMME, 0);
@@ -614,9 +600,9 @@ public:
      * creates new default ui box attributes (CICM) then calls the 'init_ext' method
      * @param _class_name: the class name
      */
-    void setup_dsp(const std::string& _class_name)
+    void setup_dsp(const char* class_name)
     {
-        t_eclass* cl = eclass_new(_class_name.c_str(),
+        t_eclass* cl = eclass_new(class_name,
             UI_METHOD_PTR(new_method),
             UI_METHOD_PTR(free_method),
             sizeof(U), CLASS_PATCHABLE, A_GIMME, 0);
@@ -633,9 +619,9 @@ public:
         }
     }
 
-    void setup_noin(const std::string& _class_name)
+    void setup_noin(const char* class_name)
     {
-        t_eclass* cl = eclass_new(_class_name.c_str(),
+        t_eclass* cl = eclass_new(class_name,
             UI_METHOD_PTR(new_method),
             UI_METHOD_PTR(free_method),
             sizeof(U), CLASS_NOINLET, A_GIMME, 0);
