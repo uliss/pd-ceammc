@@ -10,7 +10,7 @@ package require tooltip
 
 proc make_pd_button {mytoplevel name tooltip} {
     button $mytoplevel.buttonbar.$name -image buttonimage$name \
-        -relief solid -borderwidth 0 -highlightthickness 0 \
+        -relief flat -borderwidth 1 -highlightthickness 0 \
         -highlightcolor grey -highlightbackground grey -padx 1 -pady 1 \
         -command "menu_send_float \$::focused_window $name 0"
     pack $mytoplevel.buttonbar.$name -side left -padx 0 -pady 0
@@ -19,7 +19,7 @@ proc make_pd_button {mytoplevel name tooltip} {
 
 proc make_iemgui_button {mytoplevel name tooltip} {
     button $mytoplevel.buttonbar.$name -image buttonimage$name \
-        -relief solid -borderwidth 1 -highlightthickness 0 \
+        -relief flat -borderwidth 1 -highlightthickness 0 \
         -highlightcolor grey -highlightbackground grey -padx 1 -pady 1 \
         -command "menu_send \$::focused_window $name"
     pack $mytoplevel.buttonbar.$name -side left -padx 0 -pady 0
@@ -28,9 +28,18 @@ proc make_iemgui_button {mytoplevel name tooltip} {
 
 proc make_ceammc_button {mytoplevel name tooltip} {
     button $mytoplevel.buttonbar.$name -image buttonimage$name \
-        -relief solid -borderwidth 1 -highlightthickness 0 \
+        -relief flat -borderwidth 1 -highlightthickness 0 \
         -highlightcolor grey -highlightbackground grey -padx 1 -pady 1 \
         -command "menu_send \$::focused_window ui.$name"
+    pack $mytoplevel.buttonbar.$name -side left -padx 0 -pady 0
+    tooltip::tooltip $mytoplevel.buttonbar.$name $tooltip
+}
+
+proc make_ceammc_button_tilde {mytoplevel name tooltip} {
+    button $mytoplevel.buttonbar.$name -image buttonimage$name \
+        -relief flat -borderwidth 1 -highlightthickness 0 \
+        -highlightcolor grey -highlightbackground grey -padx 1 -pady 1 \
+        -command "menu_send \$::focused_window ui.$name~"
     pack $mytoplevel.buttonbar.$name -side left -padx 0 -pady 0
     tooltip::tooltip $mytoplevel.buttonbar.$name $tooltip
 }
@@ -59,7 +68,7 @@ proc showhide_buttonbar {mytoplevel} {
         make_ceammc_button $mytoplevel keyboard "Keyboard"
         make_ceammc_button $mytoplevel bpfunc "Breakpoint function"
         make_ceammc_button $mytoplevel display "Display"
-        make_ceammc_button $mytoplevel scope "Scope"
+        make_ceammc_button_tilde $mytoplevel scope "Scope"
         make_ceammc_button $mytoplevel spectroscope "Spectroscope"
     }
     if {$::editmode($mytoplevel)} {
