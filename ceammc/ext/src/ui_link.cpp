@@ -27,6 +27,11 @@ struct ui_link : public ceammc_gui::BaseGuiObject {
 
 namespace ceammc_gui {
 
+static const t_rgba LINK_COLOR = hex_to_rgba("#00A0C0");
+static const t_rgba LINK_COLOR_HOVER = hex_to_rgba("#FF0080");
+
+static t_symbol* LINK_FONT = gensym("Menlo");
+
 UI_fun(ui_link)::wx_paint(t_object* z, t_object*)
 {
     t_rect rect;
@@ -38,7 +43,9 @@ UI_fun(ui_link)::wx_paint(t_object* z, t_object*)
 
     if (g) {
         etext_layout_settextcolor(zx->t_e, &zx->link_color);
-        etext_layout_set(zx->t_e, zx->title->s_name, zx->t_ef, 3, rect.height, rect.width, rect.height, ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_WRAP);
+        etext_layout_set(zx->t_e, zx->title->s_name, zx->t_ef, 3,
+            rect.height, rect.width, rect.height,
+            ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
 
         etext_layout_draw(zx->t_e, g);
         ebox_end_layer(asBox(z), BG_LAYER);
@@ -56,14 +63,16 @@ UI_fun(ui_link)::wx_mousedown_ext(t_object* z, t_object*, t_pt, long)
 UI_fun(ui_link)::wx_mouseenter(t_object* z, t_object*, t_pt, long)
 {
     ui_link* zx = asStruct(z);
-    zx->t_ef->c_weight = gensym("bold");
+    zx->link_color = LINK_COLOR_HOVER;
+    ebox_invalidate_layer(asBox(z), BG_LAYER);
     ws_redraw(z);
 }
 
 UI_fun(ui_link)::wx_mouseleave(t_object* z, t_object*, t_pt, long)
 {
     ui_link* zx = asStruct(z);
-    zx->t_ef->c_weight = FONT_WEIGHT;
+    zx->link_color = LINK_COLOR;
+    ebox_invalidate_layer(asBox(z), BG_LAYER);
     ws_redraw(z);
 }
 
@@ -76,15 +85,51 @@ static void link_getdrawparams(t_object*, t_object*, t_edrawparams* params)
     params->d_cornersize = 0;
 }
 
+static size_t text_width(t_symbol* txt, int sz)
+{
+    const size_t len = strlen(txt->s_name);
+    const size_t char_wd = static_cast<size_t>(sys_zoomfontwidth(sz, 1, 0));
+    int corr = 0;
+
+#ifdef __APPLE__
+    if (len < 6)
+        corr = 3;
+    if (len > 16)
+        corr = -3;
+#endif
+
+    return char_wd * len + corr;
+}
+
+static size_t text_height(t_symbol*, int sz)
+{
+    return static_cast<size_t>(sys_zoomfontheight(sz, 1, 0));
+}
+
 UI_fun(ui_link)::new_ext(t_object* z, t_symbol*, int, t_atom*)
 {
     ui_link* zx = asStruct(z);
 
+    // fixed size
+    asBox(z)->b_flags = EBOX_GROWNO;
+
     zx->t_e = etext_layout_create();
-    zx->t_ef = efont_create(FONT_FAMILY, FONT_STYLE, FONT_WEIGHT, FONT_SIZE);
+    zx->t_ef = efont_create(LINK_FONT, FONT_STYLE, FONT_WEIGHT, FONT_SIZE);
 
     zx->x_canvas = canvas_getcurrent();
     zx->x_dirsym = canvas_getdir(zx->x_canvas);
+
+    if (zx->title) {
+        size_t w = text_width(zx->title, FONT_SIZE);
+        size_t h = text_height(zx->title, FONT_SIZE);
+        t_atom data[2];
+        atom_setfloat(&data[0], w);
+        atom_setfloat(&data[1], h);
+        asBox(z)->b_rect.width = w;
+        asBox(z)->b_rect.height = h;
+
+        eobj_attr_setvalueof(z, gensym("size"), 2, data);
+    }
 
     zx->link_color = hex_to_rgba("#00A0C0");
 }
@@ -123,6 +168,16 @@ UI_fun(ui_link)::init_ext(t_eclass* z)
 UI_fun(ui_link)::wx_attr_changed_ext(t_object* z, t_symbol* attr)
 {
     if (attr == gensym("title")) {
+        ui_link* zx = asStruct(z);
+        size_t w = text_width(zx->title, FONT_SIZE);
+        size_t h = text_height(zx->title, FONT_SIZE);
+        t_atom data[2];
+        atom_setfloat(&data[0], w);
+        atom_setfloat(&data[1], h);
+        asBox(z)->b_rect.width = w;
+        asBox(z)->b_rect.height = h;
+
+        eobj_attr_setvalueof(z, gensym("size"), 2, data);
 
         ws_redraw(z);
     }
