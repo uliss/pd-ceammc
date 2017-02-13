@@ -99,6 +99,8 @@ set(DOC_FILES
     math.tanh
     math.trunc
     msg
+    noise.pink~
+    noise.white~
     osc.impulse~
     osc.pulse~
     osc.saw~

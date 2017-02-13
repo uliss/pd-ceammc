@@ -94,6 +94,8 @@ math.tan		.		.
 math.tanh		.		.
 math.trunc		.		.
 msg,m		..		.
+noise.pink~		-		~
+noise.white~		-		~
 osc.impulse~		~		~
 osc.pulse~		~		~.
 osc.saw~		~		~

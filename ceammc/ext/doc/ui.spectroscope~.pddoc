@@ -27,7 +27,8 @@
 <![CDATA[
 [ui.dsp~]
 
-[noise~] [pink~]
+
+[noise~] [osc.saw~ 1000]
 |        |
 | [T]    | [T]
 | |.     | |.
