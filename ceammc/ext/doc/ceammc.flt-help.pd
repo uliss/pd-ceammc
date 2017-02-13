@@ -1,20 +1,20 @@
-#N canvas 0 0 600 500 12;
+#N canvas 0 0 630 500 12;
 #X obj 20 50 pddp/pddplink ../index-help.pd -text index;
 #X text 62 50 ::;
 #X obj 79 50 pddp/pddplink ceammc-help.pd -text ceammc;
 #X obj 30 113 flt.dcblock2~;
-#X text 150 113 stereo DC blocker;
+#X text 175 113 stereo DC blocker;
 #X obj 30 140 flt.dcblock~;
-#X text 150 140 mono DC blocker;
+#X text 175 140 mono DC blocker;
 #X obj 30 167 flt.eq_peak~;
-#X text 150 167 second order "peaking equalizer" section (gain boost
+#X text 175 167 second order "peaking equalizer" section (gain boost
 or cut near some frequency)\.  Also called a "parametric equalizer"
 section\.;
 #X obj 30 218 flt.highshelf~;
-#X text 150 218 gain boost|cut above some frequency;
+#X text 175 218 gain boost|cut above some frequency;
 #X obj 30 245 flt.lowshelf~;
-#X text 150 245 gain boost|cut below some frequency;
-#X obj 1 1 cnv 5 597 40 empty empty ceammc::flt 20 20 0 20 -104026
+#X text 175 245 gain boost|cut below some frequency;
+#X obj 1 1 cnv 5 627 40 empty empty ceammc::flt 20 20 0 20 -104026
 -4096 0;
-#X obj 1 458 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 458 cnv 5 627 40 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 20 468 library: ceammc;
