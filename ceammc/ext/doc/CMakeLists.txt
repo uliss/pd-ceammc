@@ -110,7 +110,7 @@ set(DOC_FILES
     symbol.length
     system.memsize
     system.memused
-    ui.scope
+    ui.scope~
     vector.distance
     vector.dot
     vector.length

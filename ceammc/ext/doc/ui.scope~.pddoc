@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pddoc version="1.0">
-    <object name="ui.scope" type="gui">
-        <title>ui.scope</title>
+    <object name="ui.scope~" type="gui">
+        <title>ui.scope~</title>
         <meta>
             <authors>
                 <author>Alex Nadzharov</author>
@@ -14,7 +14,7 @@
             <keywords>ui scope</keywords>
             <since>0.1</since>
             <also>
-                <see view="link">ui.spectroscope</see>
+                <see view="link">ui.spectroscope~</see>
             </also>
         </meta>
         <info>
@@ -36,7 +36,7 @@
 [osc~ 440]
 |
 |
-[ui.scope @size=200x150]
+[ui.scope~]
 ]]>
             </pdascii>
         </example>

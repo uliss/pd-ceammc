@@ -2,7 +2,7 @@
 #X obj 20 50 pddp/pddplink ../index-help.pd -text index;
 #X text 62 50 ::;
 #X obj 79 50 pddp/pddplink ceammc-help.pd -text ceammc;
-#X obj 30 113 pddp/pddplink ui.scope-help.pd -text [ui.scope];
+#X obj 30 113 pddp/pddplink ui.scope~-help.pd -text [ui.scope~];
 #X text 150 113 Scope GUI object;
 #X obj 1 1 cnv 5 597 40 empty empty ceammc::ui 20 20 0 20 -104026
 -4096 0;

@@ -279,7 +279,7 @@ round to float data type\.;
 peak;
 #X obj 20 3765 cnv 5 18 19 empty empty ui 0 17 0 17 -262144 -49933 0;
 #X obj 20 3794 cnv 1 576 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 3805 pddp/pddplink ui.scope-help.pd -text [ui.scope];
+#X obj 30 3805 pddp/pddplink ui.scope~-help.pd -text [ui.scope~];
 #X text 150 3805 Scope GUI object;
 #X obj 20 3828 cnv 5 59 19 empty empty vector 0 17 0 17 -262144 -49933
 0;

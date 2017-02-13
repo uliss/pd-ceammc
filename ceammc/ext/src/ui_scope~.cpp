@@ -177,8 +177,8 @@ UI_fun(ui_scope)::init_ext(t_eclass* z)
 }
 }
 
-extern "C" void setup_ui0x2escope()
+extern "C" void setup_ui0x2escope_tilde()
 {
     ceammc_gui::GuiFactory<ui_scope> class1;
-    class1.setup_dsp("ui.scope");
+    class1.setup_dsp("ui.scope~");
 }

@@ -1,7 +1,7 @@
 #N canvas 0 0 685 555 12;
 #X obj 544 50 cnv 1 121 21 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 544 50 Scope GUI object;
-#X obj 1 1 cnv 5 682 40 empty empty ui.scope 20 20 0 20 -104026 -4096
+#X obj 1 1 cnv 5 682 40 empty empty ui.scope~ 20 20 0 20 -104026 -4096
 0;
 #X obj 225 80 cnv 1 440 33 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 230 80 Shows waveform;
@@ -9,12 +9,12 @@
 #X msg 50 185 300;
 #X msg 107 185 660;
 #X obj 50 213 osc~ 440;
-#X obj 50 257 ui.scope @size 200 150;
-#X obj 20 429 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 434 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
+#X obj 50 257 ui.scope~ @size 150 100;
+#X obj 20 379 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 384 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
 0;
-#X text 125 439 1\.;
-#X text 230 439 signal input\. ;
+#X text 125 389 1\.;
+#X text 230 389 signal input\. ;
 #X obj 10 45 pddp/pddplink ../index-help.pd -text index;
 #X text 51 45 ::;
 #X obj 67 45 pddp/pddplink ceammc-help.pd -text ceammc;
@@ -22,9 +22,9 @@
 #X obj 131 45 pddp/pddplink ceammc.ui-help.pd -text ui;
 #X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 479 520 see also:;
-#X obj 549 520 pddp/pddplink ui.spectroscope-help.pd -text
-[ui.spectroscope];
+#X text 472 520 see also:;
+#X obj 542 520 pddp/pddplink ui.spectroscope~-help.pd -text
+[ui.spectroscope~];
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
@@ -32,7 +32,7 @@
 #X text 10 32 version:;
 #X text 120 32 0\.1;
 #X text 10 54 object:;
-#X text 120 54 ui\.scope;
+#X text 120 54 ui\.scope~;
 #X text 10 76 category:;
 #X text 120 76 ui;
 #X text 10 98 since:;

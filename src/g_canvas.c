@@ -1821,7 +1821,7 @@ void g_canvas_setup(void)
                     A_GIMME, A_NULL);
     class_addmethod(canvas_class, (t_method)canvas_display, gensym("ui.display"),
                     A_GIMME, A_NULL);
-    class_addmethod(canvas_class, (t_method)canvas_scope, gensym("ui.scope"),
+    class_addmethod(canvas_class, (t_method)canvas_scope, gensym("ui.scope~"),
                     A_GIMME, A_NULL);
     class_addmethod(canvas_class, (t_method)canvas_spectroscope, gensym("ui.spectroscope"),
                     A_GIMME, A_NULL);
