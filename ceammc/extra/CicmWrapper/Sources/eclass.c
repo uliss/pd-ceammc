@@ -31,8 +31,8 @@ t_eclass* eclass_new(const char *name, t_typ_method newm, t_typ_method freem, si
         c->c_dsp   = 0;
         c->c_box   = 0;
         c->c_attr  = NULL;
-        sprintf(help, "helps/%s", c->c_class.c_name->s_name);
-        class_sethelpsymbol((t_class *)c, gensym(help));
+//        sprintf(help, "%s-help", c->c_class.c_name->s_name);
+//        class_sethelpsymbol((t_class *)c, gensym(help));
     }
     else
     {
