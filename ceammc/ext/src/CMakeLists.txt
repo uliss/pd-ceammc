@@ -298,6 +298,8 @@ ceammc_faust_extension(dyn limit simple_pd_control_ext)
 ceammc_faust_extension(dyn limit2 simple_pd_control_ext)
 ceammc_faust_extension(dyn softclip simple_pd_control_ext)
 
+ceammc_faust_extension(noise white simple_pd_control_ext)
+
 ceammc_faust_extension(spat pan2 simple_pd_control_ext)
 ceammc_faust_extension(spat pan4 simple_pd_control_ext)
 
