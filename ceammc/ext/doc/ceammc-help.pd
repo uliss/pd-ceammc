@@ -286,28 +286,31 @@ round to float data type\.;
 peak;
 #X obj 20 3859 cnv 5 18 19 empty empty ui 0 17 0 17 -262144 -49933 0;
 #X obj 20 3888 cnv 1 606 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 3902 ui.link @title [ui.scope~] @link ui.scope~-help.pd
+#X obj 30 3902 ui.link @title [ui.bang] @link ui.bang-help.pd @size
+100 25;
+#X text 175 3899 A bang\.\.\. that's all;
+#X obj 30 3925 ui.link @title [ui.scope~] @link ui.scope~-help.pd
 @size 100 25;
-#X text 175 3899 Scope GUI object;
-#X obj 30 3925 ui.link @title [ui.spectroscope~] @link
+#X text 175 3922 Scope GUI object;
+#X obj 30 3948 ui.link @title [ui.spectroscope~] @link
 ui.spectroscope~-help.pd @size 100 25;
-#X text 175 3922 Spectroscope GUI object;
-#X obj 20 3945 cnv 5 59 19 empty empty vector 0 17 0 17 -262144 -49933
+#X text 175 3945 Spectroscope GUI object;
+#X obj 20 3968 cnv 5 59 19 empty empty vector 0 17 0 17 -262144 -49933
 0;
-#X obj 20 3974 cnv 1 606 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 3985 vector.distance;
-#X text 175 3985 returns euclidean distance between two points;
-#X obj 30 4012 vector.dot;
-#X text 175 4012 treats list of floats as vector \, returns the dot
+#X obj 20 3997 cnv 1 606 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 4008 vector.distance;
+#X text 175 4008 returns euclidean distance between two points;
+#X obj 30 4035 vector.dot;
+#X text 175 4035 treats list of floats as vector \, returns the dot
 product (sum of the elements of two lists with same indexes
 multiplied)\.;
-#X obj 30 4063 vector.length;
-#X text 175 4063 treats list of floats as vector \, returns vector
+#X obj 30 4086 vector.length;
+#X text 175 4086 treats list of floats as vector \, returns vector
 length: sqrt(element(1)^2 + \.\.\.element(n)^2)\.;
-#X obj 30 4100 vector.normalize;
-#X text 175 4100 returns normalized vector;
+#X obj 30 4123 vector.normalize;
+#X text 175 4123 returns normalized vector;
 #X obj 1 1 cnv 5 627 40 empty empty ceammc 20 20 0 20 -104026 -4096 0;
-#X obj 1 4127 cnv 5 627 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 4127 version: v0\.1 \, license: GPL3;
-#X obj 20 4146 ui.link @title https://github.com/uliss/pure-data @link
+#X obj 1 4150 cnv 5 627 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 4150 version: v0\.1 \, license: GPL3;
+#X obj 20 4169 ui.link @title https://github.com/uliss/pure-data @link
 https://github.com/uliss/pure-data @size 100 25;
