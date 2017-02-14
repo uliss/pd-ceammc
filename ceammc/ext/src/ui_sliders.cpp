@@ -41,6 +41,7 @@ struct ui_sliders : public ceammc_gui::BaseGuiObject {
 
     bool auto_range;
     bool _is_vertical;
+    bool show_range;
 
 public:
     void output()
@@ -126,7 +127,8 @@ UI_fun(ui_sliders)::wx_paint(t_object* z, t_object* view)
             egraphics_fill(g);
 
             if (i == zx->sel_idx) {
-                egraphics_rectangle(g, xx, yy, w, h);
+                egraphics_set_line_width(g, 1);
+                egraphics_rectangle(g, xx, yy, w - 1, h);
                 egraphics_set_color_rgba(g, &zx->b_color_border);
                 egraphics_stroke(g);
             }
@@ -229,28 +231,10 @@ UI_fun(ui_sliders)::wx_mousedown_ext(t_object* z, t_object* view, t_pt pt, long 
     wx_mousedrag_ext(z, view, pt, modifiers);
 }
 
-static void sliders_m_range(t_object* z, t_symbol* s, int argc, t_atom* argv)
-{
-    ui_sliders* zx = (ui_sliders*)z;
-    zx->range = argv[0].a_w.w_float;
-
-    //    GuiFactory<ui_sliders>::m_set(z, s, zx->val_list_size, zx->val_list);
-
-    GuiFactory<ui_sliders>::ws_redraw(z);
-}
-
-static void sliders_m_shift(t_object* z, t_symbol* s, int argc, t_atom* argv)
-{
-    ui_sliders* zx = (ui_sliders*)z;
-    zx->shift = argv[0].a_w.w_float;
-
-    GuiFactory<ui_sliders>::ws_redraw(z);
-}
-
 static void sliders_m_select(t_object* z, t_symbol* s, int argc, t_atom* argv)
 {
     ui_sliders* zx = (ui_sliders*)z;
-    zx->sel_idx = (int)argv[0].a_w.w_float;
+    zx->sel_idx = atom_getfloat(argv);
 
     GuiFactory<ui_sliders>::ws_redraw(z);
 }
@@ -360,11 +344,7 @@ UI_fun(ui_sliders)::init_ext(t_eclass* z)
     CLASS_ATTR_STYLE                (z, "auto_range", 0, "onoff");
     // clang-format on
 
-    eclass_addmethod(z, (method)(sliders_m_range), "range", A_GIMME, 0);
-    eclass_addmethod(z, (method)(sliders_m_shift), "shift", A_GIMME, 0);
     eclass_addmethod(z, (method)(sliders_m_select), "select", A_GIMME, 0);
-    eclass_addmethod(z, (method)(sliders_m_auto_range), "auto_range", A_DEFFLOAT, 0);
-
     eclass_addmethod(z, (method)ui_sl_getdrawparams, "getdrawparams", A_NULL, 0);
 }
 
@@ -377,7 +357,7 @@ UI_fun(ui_sliders)::new_ext(t_object* x, t_symbol* s, int argcl, t_atom* argv)
     zx->count = 8;
     zx->values_ = new AtomList();
     zx->values_->fill(0.f, zx->count);
-    zx->slider_color_select = hex_to_rgba("0x00CAF0");
+    zx->slider_color_select = hex_to_rgba("#00CAF0");
 
     zx->range = 1;
     zx->shift = 0;
