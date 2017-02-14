@@ -57,7 +57,7 @@ UI_fun(ui_link)::wx_paint(t_object* z, t_object*)
 UI_fun(ui_link)::wx_mousedown_ext(t_object* z, t_object*, t_pt, long)
 {
     ui_link* zx = asStruct(z);
-    sys_vgui("pddplink_open {%s} {%s}\n", zx->link->s_name, zx->x_dirsym);
+    sys_vgui("ceammclink_open {%s} {%s}\n", zx->link->s_name, zx->x_dirsym->s_name);
 }
 
 UI_fun(ui_link)::wx_mouseenter(t_object* z, t_object*, t_pt, long)
@@ -76,12 +76,11 @@ UI_fun(ui_link)::wx_mouseleave(t_object* z, t_object*, t_pt, long)
     ws_redraw(z);
 }
 
-static void link_getdrawparams(t_object*, t_object*, t_edrawparams* params)
+static void link_getdrawparams(ui_link* x, t_object*, t_edrawparams* params)
 {
     params->d_borderthickness = 1;
-    params->d_bordercolor.red = 1;
-    params->d_bordercolor.green = 1;
-    params->d_bordercolor.blue = 1;
+    params->d_bordercolor = x->b_color_background;
+    params->d_boxfillcolor = x->b_color_background;
     params->d_cornersize = 0;
 }
 
@@ -148,8 +147,10 @@ UI_fun(ui_link)::init_ext(t_eclass* z)
     CLASS_ATTR_INVISIBLE            (z, "bdcolor", 0);
     CLASS_ATTR_INVISIBLE            (z, "receive", 0);
     CLASS_ATTR_INVISIBLE            (z, "send", 0);
+    CLASS_ATTR_INVISIBLE            (z, "size", 0);
 
     CLASS_ATTR_DEFAULT              (z, "size", 0, "120. 15.");
+    CLASS_ATTR_DEFAULT              (z,  "bgcolor", 0, "1.0 1.0 1.0 1.0");
 
     CLASS_ATTR_SYMBOL               (z, "link", 0, ui_link, link);
     CLASS_ATTR_DEFAULT              (z, "link", 0, "<no link>");

@@ -286,10 +286,11 @@ round to float data type\.;
 peak;
 #X obj 20 3859 cnv 5 18 19 empty empty ui 0 17 0 17 -262144 -49933 0;
 #X obj 20 3888 cnv 1 606 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 3899 pddp/pddplink ui.scope~-help.pd -text [ui.scope~];
+#X obj 30 3902 ui.link @title [ui.scope~] @link ui.scope~-help.pd
+@size 100 25;
 #X text 175 3899 Scope GUI object;
-#X obj 30 3922 pddp/pddplink ui.spectroscope~-help.pd -text
-[ui.spectroscope~];
+#X obj 30 3925 ui.link @title [ui.spectroscope~] @link
+ui.spectroscope~-help.pd @size 100 25;
 #X text 175 3922 Spectroscope GUI object;
 #X obj 20 3945 cnv 5 59 19 empty empty vector 0 17 0 17 -262144 -49933
 0;
@@ -308,5 +309,5 @@ length: sqrt(element(1)^2 + \.\.\.element(n)^2)\.;
 #X obj 1 1 cnv 5 627 40 empty empty ceammc 20 20 0 20 -104026 -4096 0;
 #X obj 1 4127 cnv 5 627 40 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 20 4127 version: v0\.1 \, license: GPL3;
-#X obj 20 4143 pddp/pddplink https://github.com/uliss/pure-data -text
-https://github.com/uliss/pure-data;
+#X obj 20 4146 ui.link @title https://github.com/uliss/pure-data @link
+https://github.com/uliss/pure-data @size 100 25;

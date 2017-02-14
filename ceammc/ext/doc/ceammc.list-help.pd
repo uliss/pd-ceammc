@@ -1,86 +1,86 @@
 #N canvas 0 0 630 500 12;
-#X obj 20 50 pddp/pddplink ../index-help.pd -text index;
+#X obj 20 53 ui.link @title index @link ../index-help.pd @size 100 25;
 #X text 62 50 ::;
-#X obj 79 50 pddp/pddplink ceammc-help.pd -text ceammc;
+#X obj 79 53 ui.link @title ceammc @link ceammc-help.pd @size 100 25;
 #X obj 409 50 cnv 1 201 21 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 409 50  objects for list processing ;
-#X obj 30 113 list.apply_to;
-#X text 175 113 modifies list value at specified position \, filtering
+#X obj 30 116 list.apply_to;
+#X text 175 116 modifies list value at specified position \, filtering
 it via external object\.;
-#X obj 30 150 list.at;
-#X text 175 150 returns list element at given position;
-#X obj 30 177 list.choice;
-#X text 175 177 returns random element from list;
-#X obj 30 204 list.count;
-#X text 175 204 returns the number of items that equal to specified
+#X obj 30 153 list.at;
+#X text 175 153 returns list element at given position;
+#X obj 30 180 list.choice;
+#X text 175 180 returns random element from list;
+#X obj 30 207 list.count;
+#X text 175 207 returns the number of items that equal to specified
 value;
-#X obj 30 231 list.count_if;
-#X text 175 231 returns the number of items that satisfy to external
+#X obj 30 234 list.count_if;
+#X text 175 234 returns the number of items that satisfy to external
 predicate\.;
-#X obj 30 268 list.deinterleave;
-#X text 175 268 splits list to N lists \, each to separate output;
-#X obj 30 295 list.delta;
-#X text 175 295 returns the difference between the current list of
+#X obj 30 271 list.deinterleave;
+#X text 175 271 splits list to N lists \, each to separate output;
+#X obj 30 298 list.delta;
+#X text 175 298 returns the difference between the current list of
 floats and the previous one\.;
-#X obj 30 332 list.each;
-#X text 175 332 maps each list value via external object(s);
-#X obj 30 359 list.equal;
-#X text 175 359 checks if given lists are equal;
-#X obj 30 386 list.first;
-#X text 175 386 returns first list element;
-#X obj 30 413 list.gen;
-#X text 175 413 generates list of specified length via external
+#X obj 30 335 list.each;
+#X text 175 335 maps each list value via external object(s);
+#X obj 30 362 list.equal;
+#X text 175 362 checks if given lists are equal;
+#X obj 30 389 list.first;
+#X text 175 389 returns first list element;
+#X obj 30 416 list.gen;
+#X text 175 416 generates list of specified length via external
 generator;
-#X obj 30 440 list.integrator;
-#X text 175 440 returns the sum of the previously stored list and the
+#X obj 30 443 list.integrator;
+#X text 175 443 returns the sum of the previously stored list and the
 current one then stores this sum\.;
-#X obj 30 477 list.interleave;
-#X text 175 477 takes n lists from n inlets (specified by argument)
+#X obj 30 480 list.interleave;
+#X text 175 480 takes n lists from n inlets (specified by argument)
 and output their elements sequentially (list1-1 list2-1 list1-2
 list2-2 etc\.)\.;
-#X obj 30 528 list.last;
-#X text 175 528 returns last list element;
-#X obj 30 555 list.length;
-#X text 175 555 returns the number of atoms in the message;
-#X obj 30 582 list.max;
-#X text 175 582 returns largest element in the list;
-#X obj 30 609 list.mean;
-#X text 175 609 calculates average of list of floats;
-#X obj 30 636 list.min;
-#X text 175 636 returns smallest element in the list;
-#X obj 30 663 list.normalize;
-#X text 175 663 normalizes float list values to get their sum = 1\.0;
-#X obj 30 690 list.product;
-#X text 175 690 calculates product of floats in list;
-#X obj 30 717 list.range;
-#X text 175 717 returns list smallest and largest value;
-#X obj 30 744 list.reduce;
-#X text 175 744 apply function of two arguments cumulatively to the
+#X obj 30 531 list.last;
+#X text 175 531 returns last list element;
+#X obj 30 558 list.length;
+#X text 175 558 returns the number of atoms in the message;
+#X obj 30 585 list.max;
+#X text 175 585 returns largest element in the list;
+#X obj 30 612 list.mean;
+#X text 175 612 calculates average of list of floats;
+#X obj 30 639 list.min;
+#X text 175 639 returns smallest element in the list;
+#X obj 30 666 list.normalize;
+#X text 175 666 normalizes float list values to get their sum = 1\.0;
+#X obj 30 693 list.product;
+#X text 175 693 calculates product of floats in list;
+#X obj 30 720 list.range;
+#X text 175 720 returns list smallest and largest value;
+#X obj 30 747 list.reduce;
+#X text 175 747 apply function of two arguments cumulatively to the
 list;
-#X obj 30 771 list.resize;
-#X text 175 771 changes list size with;
-#X obj 30 798 list.reverse;
-#X text 175 798 reverses the order of the elements in the list;
-#X obj 30 825 list.seq;
-#X text 175 825 numeric sequence list generator;
-#X obj 30 852 list.shuffle;
-#X text 175 852 randomly rearranges elements in list;
-#X obj 30 879 list.sort;
-#X text 175 879 sorts list values by ascending order;
-#X obj 30 906 list.sum;
-#X text 175 906 calculates sum of floats in list;
-#X obj 30 933 list.unpack;
-#X text 175 933 sends list element one by one separately;
-#X obj 30 960 list.unwrap;
-#X text 175 960 gets list element on first input and list with count
+#X obj 30 774 list.resize;
+#X text 175 774 changes list size with;
+#X obj 30 801 list.reverse;
+#X text 175 801 reverses the order of the elements in the list;
+#X obj 30 828 list.seq;
+#X text 175 828 numeric sequence list generator;
+#X obj 30 855 list.shuffle;
+#X text 175 855 randomly rearranges elements in list;
+#X obj 30 882 list.sort;
+#X text 175 882 sorts list values by ascending order;
+#X obj 30 909 list.sum;
+#X text 175 909 calculates sum of floats in list;
+#X obj 30 936 list.unpack;
+#X text 175 936 sends list element one by one separately;
+#X obj 30 963 list.unwrap;
+#X text 175 963 gets list element on first input and list with count
 of each element on a second inlet\.;
-#X obj 30 997 list.walk;
-#X text 175 997 Walks thru the list;
-#X obj 30 1024 list.wrap;
-#X text 175 1024 filters repeated elements of the list and outputs
+#X obj 30 1000 list.walk;
+#X text 175 1000 Walks thru the list;
+#X obj 30 1027 list.wrap;
+#X text 175 1027 filters repeated elements of the list and outputs
 unique elements on first outlet \, outputs the count of elements on
 second\.;
 #X obj 1 1 cnv 5 627 40 empty empty ceammc::list 20 20 0 20 -104026
 -4096 0;
-#X obj 1 1075 cnv 5 627 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 1085 library: ceammc;
+#X obj 1 1078 cnv 5 627 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 1088 library: ceammc;

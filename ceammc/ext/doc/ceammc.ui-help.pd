@@ -1,12 +1,13 @@
 #N canvas 0 0 630 500 12;
-#X obj 20 50 pddp/pddplink ../index-help.pd -text index;
+#X obj 20 53 ui.link @title index @link ../index-help.pd @size 100 25;
 #X text 62 50 ::;
-#X obj 79 50 pddp/pddplink ceammc-help.pd -text ceammc;
-#X obj 30 113 pddp/pddplink ui.scope~-help.pd -text [ui.scope~];
-#X text 175 113 Scope GUI object;
-#X obj 30 136 pddp/pddplink ui.spectroscope~-help.pd -text
-[ui.spectroscope~];
-#X text 175 136 Spectroscope GUI object;
+#X obj 79 53 ui.link @title ceammc @link ceammc-help.pd @size 100 25;
+#X obj 30 119 ui.link @title [ui.scope~] @link ui.scope~-help.pd @size
+100 25;
+#X text 175 116 Scope GUI object;
+#X obj 30 142 ui.link @title [ui.spectroscope~] @link
+ui.spectroscope~-help.pd @size 100 25;
+#X text 175 139 Spectroscope GUI object;
 #X obj 1 1 cnv 5 627 40 empty empty ceammc::ui 20 20 0 20 -104026
 -4096 0;
 #X obj 1 458 cnv 5 627 40 empty empty empty 17 7 0 10 -203890 -1 0;

@@ -1,18 +1,18 @@
 #N canvas 0 0 630 500 12;
-#X obj 20 50 pddp/pddplink ../index-help.pd -text index;
+#X obj 20 53 ui.link @title index @link ../index-help.pd @size 100 25;
 #X text 62 50 ::;
-#X obj 79 50 pddp/pddplink ceammc-help.pd -text ceammc;
-#X obj 30 113 vector.distance;
-#X text 175 113 returns euclidean distance between two points;
-#X obj 30 140 vector.dot;
-#X text 175 140 treats list of floats as vector \, returns the dot
+#X obj 79 53 ui.link @title ceammc @link ceammc-help.pd @size 100 25;
+#X obj 30 116 vector.distance;
+#X text 175 116 returns euclidean distance between two points;
+#X obj 30 143 vector.dot;
+#X text 175 143 treats list of floats as vector \, returns the dot
 product (sum of the elements of two lists with same indexes
 multiplied)\.;
-#X obj 30 191 vector.length;
-#X text 175 191 treats list of floats as vector \, returns vector
+#X obj 30 194 vector.length;
+#X text 175 194 treats list of floats as vector \, returns vector
 length: sqrt(element(1)^2 + \.\.\.element(n)^2)\.;
-#X obj 30 228 vector.normalize;
-#X text 175 228 returns normalized vector;
+#X obj 30 231 vector.normalize;
+#X text 175 231 returns normalized vector;
 #X obj 1 1 cnv 5 627 40 empty empty ceammc::vector 20 20 0 20 -104026
 -4096 0;
 #X obj 1 458 cnv 5 627 40 empty empty empty 17 7 0 10 -203890 -1 0;

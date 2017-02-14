@@ -1,12 +1,12 @@
 #N canvas 0 0 630 500 12;
-#X obj 20 50 pddp/pddplink ../index-help.pd -text index;
+#X obj 20 53 ui.link @title index @link ../index-help.pd @size 100 25;
 #X text 62 50 ::;
-#X obj 79 50 pddp/pddplink ceammc-help.pd -text ceammc;
-#X obj 30 113 system.memsize;
-#X text 175 113 returns the size of physical memory (RAM) in bytes
+#X obj 79 53 ui.link @title ceammc @link ceammc-help.pd @size 100 25;
+#X obj 30 116 system.memsize;
+#X text 175 116 returns the size of physical memory (RAM) in bytes
 round to float data type\.;
-#X obj 30 150 system.memused;
-#X text 175 150 returns the process physical memory use - current and
+#X obj 30 153 system.memused;
+#X text 175 153 returns the process physical memory use - current and
 peak;
 #X obj 1 1 cnv 5 627 40 empty empty ceammc::system 20 20 0 20 -104026
 -4096 0;
