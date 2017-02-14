@@ -369,6 +369,9 @@
     <entry descr="Spectroscope GUI object" name="ui.spectroscope~" ref_view="link">
       <xi:include href="ui.spectroscope~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="modern toggle widget" name="ui.toggle" ref_view="link">
+      <xi:include href="ui.toggle.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="vector">
     <entry descr="returns euclidean distance between two points" name="vector.distance" ref_view="object">
@@ -388,6 +391,7 @@
     <version>0.1</version>
     <authors>
       <author>Alex Nadzharov</author>
+      <author>Pierre Guillot</author>
       <author>Serge Poltavsky</author>
     </authors>
     <xi:include href="ceammc_meta.xml" parse="xml"/>

@@ -11,6 +11,9 @@
 #X obj 30 165 ui.link @title [ui.spectroscope~] @link
 ui.spectroscope~-help.pd @size 100 25;
 #X text 175 162 Spectroscope GUI object;
+#X obj 30 188 ui.link @title [ui.toggle] @link ui.toggle-help.pd @size
+100 25;
+#X text 175 185 modern toggle widget;
 #X obj 1 1 cnv 5 627 40 empty empty ceammc::ui 20 20 0 20 -104026
 -4096 0;
 #X obj 1 458 cnv 5 627 40 empty empty empty 17 7 0 10 -203890 -1 0;

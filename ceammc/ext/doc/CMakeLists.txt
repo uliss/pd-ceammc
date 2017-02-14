@@ -117,6 +117,7 @@ set(DOC_FILES
     ui.bang
     ui.scope~
     ui.spectroscope~
+    ui.toggle
     vector.distance
     vector.dot
     vector.length
