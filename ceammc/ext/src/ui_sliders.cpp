@@ -38,13 +38,13 @@ namespace ceammc_gui {
 UI_fun(ui_sliders)::wx_paint(t_object* z, t_object* view)
 {
     t_rect rect;
-    ebox_get_rect_for_view((t_ebox*)z, &rect);
+    ebox_get_rect_for_view(asBox(z), &rect);
 
-    t_elayer* g = ebox_start_layer((t_ebox*)z, BG_LAYER, rect.width, rect.height);
-
-    ui_sliders* zx = asStruct(z);
+    t_elayer* g = ebox_start_layer(asBox(z), BG_LAYER, rect.width, rect.height);
 
     if (g) {
+        ui_sliders* zx = asStruct(z);
+
         if (zx->count < 1)
             zx->count = 1;
         if (zx->count > 1280)
@@ -62,14 +62,14 @@ UI_fun(ui_sliders)::wx_paint(t_object* z, t_object* view)
 
             if (zx->_is_vertical) {
                 xx = 0;
-                yy = i * rect.height / zx->count; //UI_Pf("count");
+                yy = i * rect.height / zx->count;
                 w = v * rect.width;
-                h = rect.height / zx->count - 1; //UI_Pf("count")-1;
+                h = rect.height / zx->count - 1;
             } else {
                 yy = rect.height - v * rect.height;
-                xx = i * rect.width / zx->count; //UI_Pf("count");
+                xx = i * rect.width / zx->count;
                 h = rect.height;
-                w = rect.width / zx->count - 1; //UI_Pf("count")-1;
+                w = rect.width / zx->count - 1;
             }
 
             egraphics_rectangle(g, xx, yy, w, h);
@@ -81,19 +81,23 @@ UI_fun(ui_sliders)::wx_paint(t_object* z, t_object* view)
                 egraphics_set_color_hex(g, gensym("#303030"));
                 egraphics_stroke(g);
             }
-
-            char c_min[10];
-            sprintf(c_min, "%.2f", zx->shift);
-
-            char c_max[10];
-            sprintf(c_max, "%.2f", zx->range + zx->shift);
-
-            etext_layout_set(zx->txt_min, c_min, zx->txt_font, 3, rect.height - 12, rect.width * 2, rect.height / 2, ETEXT_UP_LEFT, ETEXT_JLEFT, ETEXT_WRAP);
-            etext_layout_draw(zx->txt_min, g);
-
-            etext_layout_set(zx->txt_max, c_max, zx->txt_font, 3, 12, rect.width * 2, rect.height / 2, ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_WRAP);
-            etext_layout_draw(zx->txt_max, g);
         }
+
+        char c_min[10];
+        sprintf(c_min, "%.2f", zx->shift);
+
+        char c_max[10];
+        sprintf(c_max, "%.2f", zx->range + zx->shift);
+
+        etext_layout_set(zx->txt_min, c_min, zx->txt_font,
+            3, rect.height - 12, rect.width * 2, rect.height / 2,
+            ETEXT_UP_LEFT, ETEXT_JLEFT, ETEXT_WRAP);
+        etext_layout_draw(zx->txt_min, g);
+
+        etext_layout_set(zx->txt_max, c_max, zx->txt_font,
+            3, 12, rect.width * 2, rect.height / 2,
+            ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
+        etext_layout_draw(zx->txt_max, g);
 
         ebox_end_layer(asBox(z), BG_LAYER);
     }
@@ -103,7 +107,7 @@ UI_fun(ui_sliders)::wx_paint(t_object* z, t_object* view)
 
 UI_fun(ui_sliders)::m_set(t_object* z, t_symbol* s, int argc, t_atom* argv)
 {
-    ui_sliders* zx = (ui_sliders*)z;
+    ui_sliders* zx = asStruct(z);
 
     if (zx->val_list)
         free(zx->val_list);
@@ -151,19 +155,20 @@ UI_fun(ui_sliders)::m_set(t_object* z, t_symbol* s, int argc, t_atom* argv)
 UI_fun(ui_sliders)::m_list(t_object* z, t_symbol* s, int argc, t_atom* argv)
 {
     m_set(z, s, argc, argv);
+    ui_sliders* zx = asStruct(z);
 
-    outlet_list(((ui_sliders*)z)->out1, &s_list, ((ui_sliders*)z)->val_list_size, ((ui_sliders*)z)->val_list);
+    outlet_list(zx->out1, &s_list, zx->val_list_size, zx->val_list);
 }
 
 UI_fun(ui_sliders)::m_bang(t_object* z)
 {
-    outlet_list(((ui_sliders*)z)->out1, &s_list, ((ui_sliders*)z)->val_list_size, ((ui_sliders*)z)->val_list);
+    ui_sliders* zx = asStruct(z);
+    outlet_list(zx->out1, &s_list, zx->val_list_size, zx->val_list);
 }
 
 UI_fun(ui_sliders)::wx_oksize(t_object* z, t_rect* newrect)
 {
-    ui_sliders* zx = (ui_sliders*)z;
-
+    ui_sliders* zx = asStruct(z);
     zx->_is_vertical = newrect->width < newrect->height;
 }
 
@@ -175,7 +180,7 @@ UI_fun(ui_sliders)::wx_mousedrag_ext(t_object* z, t_object* view, t_pt pt, long 
     int numslider;
     float val;
 
-    ui_sliders* zx = (ui_sliders*)z;
+    ui_sliders* zx = asStruct(z);
 
     if (zx->val_list_size != zx->count) {
         if (zx->val_list)
@@ -205,11 +210,11 @@ UI_fun(ui_sliders)::wx_mousedrag_ext(t_object* z, t_object* view, t_pt pt, long 
     }
 
     if (zx->_is_vertical) {
-        numslider = floor(pt.y / rect.height * zx->val_list_size);
+        numslider = floorf(pt.y / rect.height * zx->val_list_size);
         val = pt.x / rect.width;
     } else {
 
-        numslider = floor(pt.x / rect.width * zx->val_list_size);
+        numslider = floorf(pt.x / rect.width * zx->val_list_size);
 
         val = 1. - pt.y / rect.height;
     }
@@ -224,7 +229,7 @@ UI_fun(ui_sliders)::wx_mousedrag_ext(t_object* z, t_object* view, t_pt pt, long 
 
     ws_redraw(z);
 
-    outlet_list(((ui_sliders*)z)->out1, &s_list, ((ui_sliders*)z)->val_list_size, ((ui_sliders*)z)->val_list);
+    outlet_list(zx->out1, &s_list, zx->val_list_size, zx->val_list);
 }
 
 UI_fun(ui_sliders)::wx_mousedown_ext(t_object* z, t_object* view, t_pt pt, long modifiers)
@@ -255,7 +260,7 @@ static void sliders_m_select(t_object* z, t_symbol* s, int argc, t_atom* argv)
     ui_sliders* zx = (ui_sliders*)z;
     zx->sel_idx = (int)argv[0].a_w.w_float;
 
-    ceammc_gui::GuiFactory<ceammc_gui::BaseGuiObject>::ws_redraw(z);
+    GuiFactory<ui_sliders>::ws_redraw(z);
 }
 
 static void sliders_m_auto_range(t_object* z, t_symbol* s, int argc, t_atom* argv)
@@ -278,11 +283,11 @@ static void ui_sl_getdrawparams(ui_sliders* x, t_object* patcherview, t_edrawpar
 UI_fun(ui_sliders)::init_ext(t_eclass* z)
 {
     // clang-format off
-    CLASS_ATTR_DEFAULT(z, "size", 0, "150. 100.");
+    CLASS_ATTR_DEFAULT              (z, "size", 0, "150. 100.");
 
     CLASS_ATTR_INT                  (z, "count", 0, ui_sliders, count);
     CLASS_ATTR_DEFAULT              (z, "count", 0, "8");
-    CLASS_ATTR_LABEL                (z, "count", 0, "count");
+    CLASS_ATTR_LABEL                (z, "count", 0, "Sliders count");
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "count", 0, "8");
 
     CLASS_ATTR_FLOAT                (z, "shift", 0, ui_sliders, shift);
@@ -338,6 +343,18 @@ UI_fun(ui_sliders)::new_ext(t_object* x, t_symbol* s, int argcl, t_atom* argv)
     zx->txt_max = etext_layout_create();
     zx->txt_min = etext_layout_create();
     zx->txt_font = efont_create(FONT_FAMILY, FONT_STYLE, FONT_WEIGHT, FONT_SIZE_SMALL);
+}
+
+UI_fun(ui_sliders)::free_ext(t_object* z)
+{
+    ui_sliders* zx = asStruct(z);
+    outlet_free(zx->out1);
+    free(zx->val_list);
+    free(zx->draw_list);
+
+    efont_destroy(zx->txt_font);
+    etext_layout_destroy(zx->txt_max);
+    etext_layout_destroy(zx->txt_min);
 }
 }
 
