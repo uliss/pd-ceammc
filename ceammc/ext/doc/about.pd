@@ -1,7 +1,7 @@
 #N canvas 155 51 686 596 12;
 #X obj 45 150 cnv 15 590 395 empty empty empty 20 12 0 14 -228856 -66577
 0;
-#X obj 285 316 ui.link @size 269 16 @fontname "Helvetica" @fontweight
+#X obj 285 316 ui.link @size 133 16 @fontname "Helvetica" @fontweight
 "normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
 @pinned 0 @bgcolor 1 1 1 1 @bdcolor 0.6 0.6 0.6 1 @link "@CEAMMC_LIB_HOME@"
 @title "@CEAMMC_LIB_HOME@";
@@ -43,16 +43,18 @@ GUI etc.;
 0;
 #X text 150 59 Additional info;
 #X text 150 104 Build date:;
-#X text 150 149 Distribution version:;
-#X text 150 164 ceammc version:;
-#X text 150 134 Git commit:;
+#X text 150 164 Distribution version:;
+#X text 150 179 ceammc version:;
+#X text 150 149 Git commit:;
 #X text 315 104 %BUILD_DATE%;
-#X text 315 134 %GIT_COMMIT%;
-#X text 315 119 %GIT_BRANCH%;
-#X text 150 119 Git branch:;
-#X text 315 149 @CEAMMC_DISTRIB_VERSION@;
-#X text 315 164 @CEAMMC_LIB_VERSION@;
-#X text 150 179 origin Pd version:;
-#X text 315 179 @PD_TEXT_VERSION_SHORT@;
+#X text 315 149 %GIT_COMMIT%;
+#X text 315 134 %GIT_BRANCH%;
+#X text 150 134 Git branch:;
+#X text 315 164 @CEAMMC_DISTRIB_VERSION@;
+#X text 315 179 @CEAMMC_LIB_VERSION@;
+#X text 150 194 origin Pd version:;
+#X text 315 194 @PD_TEXT_VERSION_SHORT@;
+#X text 150 119 Tcl/Tk version:;
+#X text 315 119 @TK_VERSION@;
 #X coords 0 -1 1 1 50 20 2 20 20;
 #X restore 585 150 pd info;
