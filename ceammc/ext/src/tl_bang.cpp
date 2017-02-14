@@ -27,9 +27,6 @@ struct tl_bang : public BaseGuiObject {
     t_etext* txt;
     t_efont* fnt;
 
-    t_rgba border_color;
-    t_rgba bg_color;
-
     t_outlet* out1;
 
     TimelineData* data;
@@ -52,8 +49,8 @@ static void tl_bang_getdrawparams(tl_bang* x, t_object* /*view*/, t_edrawparams*
 {
     params->d_borderthickness = 2;
     params->d_cornersize = 2;
-    params->d_bordercolor = x->border_color;
-    params->d_boxfillcolor = x->bg_color;
+    params->d_bordercolor = x->b_color_border;
+    params->d_boxfillcolor = x->b_color_background;
 }
 
 static void tl_bang_action(TimelineData* x)
@@ -101,10 +98,6 @@ UI_fun(tl_bang)::wx_paint(t_object* z, t_object* /*view*/)
     if (g) {
         tl_bang* zx = asStruct(z);
 
-        egraphics_rectangle(g, 0, 0, rect.width, rect.height);
-        egraphics_set_color_hex(g, FILL_COLOR);
-        egraphics_fill(g);
-
         etext_layout_set(zx->txt, "tl.bang", zx->fnt, 2, 15, rect.width, rect.height / 2,
             ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
         etext_layout_draw(zx->txt, g);
@@ -147,18 +140,9 @@ UI_fun(tl_bang)::init_ext(t_eclass* z)
     // clang-format off
     CLASS_ATTR_INVISIBLE            (z, "send", 0);
     CLASS_ATTR_INVISIBLE            (z, "receive", 0);
+    CLASS_ATTR_INVISIBLE            (z, "size", 0);
 
-    CLASS_ATTR_RGBA                 (z, "brcolor", 0, tl_bang, border_color);
-    CLASS_ATTR_LABEL                (z, "brcolor", 0, "Border Color");
-    CLASS_ATTR_ORDER                (z, "brcolor", 0, "3");
-    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "brcolor", 0, "0. 0.7 1. 1.");
-    CLASS_ATTR_STYLE                (z, "brcolor", 0, "color");
-
-    CLASS_ATTR_RGBA                 (z, "bgcolor", 0, tl_bang, bg_color);
-    CLASS_ATTR_LABEL                (z, "bgcolor", 0, "Background Color");
-    CLASS_ATTR_ORDER                (z, "bgcolor", 0, "3");
-    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "bgcolor", 0, ".7 .7 .7 1.");
-    CLASS_ATTR_STYLE                (z, "bgcolor", 0, "color");
+    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "bdcolor", 0, DEFAULT_ACTIVE_COLOR);
     // clang-format on
 }
 
