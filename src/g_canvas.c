@@ -1745,6 +1745,7 @@ extern void canvas_bpfunc(t_glist *gl, t_symbol *s, int argc, t_atom *argv);
 extern void canvas_display(t_glist *gl, t_symbol *s, int argc, t_atom *argv);
 extern void canvas_scope(t_glist *gl, t_symbol *s, int argc, t_atom *argv);
 extern void canvas_spectroscope(t_glist *gl, t_symbol *s, int argc, t_atom *argv);
+extern void canvas_preset(t_glist *gl, t_symbol *s, int argc, t_atom *argv);
 
 void g_graph_setup(void);
 void g_editor_setup(void);
@@ -1824,6 +1825,8 @@ void g_canvas_setup(void)
     class_addmethod(canvas_class, (t_method)canvas_scope, gensym("ui.scope~"),
                     A_GIMME, A_NULL);
     class_addmethod(canvas_class, (t_method)canvas_spectroscope, gensym("ui.spectroscope~"),
+                    A_GIMME, A_NULL);
+    class_addmethod(canvas_class, (t_method)canvas_preset, gensym("ui.preset"),
                     A_GIMME, A_NULL);
 
 /* ------------------------ gui stuff --------------------------- */

@@ -342,6 +342,11 @@ void canvas_spectroscope(t_glist *gl, t_symbol *s, int argc, t_atom *argv)
     canvas_ceammcgui(gl, gensym("ui.spectroscope~"));
 }
 
+void canvas_preset(t_glist *gl, t_symbol *s, int argc, t_atom *argv)
+{
+    canvas_ceammcgui(gl, gensym("ui.preset"));
+}
+
 
 /* iemlib */
 
