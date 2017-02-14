@@ -17,6 +17,10 @@ TK_PATH="${TK_PATH}"
 TCL_PATH="${TCL_PATH}"
 IS_SYSTEM_TK=${IS_SYSTEM_TK}
 
+CURRENT_DATE=$(LANG=C date -u '+%d %h %Y %Z %H:%M:%S')
+GIT_BRANCH=$(git --git-dir $SRC_DIR/.git symbolic-ref --short HEAD)
+GIT_COMMIT=$(git --git-dir $SRC_DIR/.git describe --tags)
+
 echo "$TK_PATH"
 echo "$TCL_PATH"
 
@@ -102,8 +106,12 @@ cp $SRC_DIR/ceammc/extra/hcs/*-help.pd $PD_EXTRA/ceammc
 echo "Copying CEAMMC help files:"
 cp $SRC_DIR/ceammc/ext/doc/*-help.pd $PD_EXTRA/ceammc
 chmod 0444 $PD_EXTRA/ceammc/*-help.pd
-cp $SRC_DIR/ceammc/ext/doc/index-help.pd $PD_EXTRA
-chmod 0444 $PD_EXTRA/index-help.pd
+
+echo "Copy about file..."
+cat $BUILD_DIR/ceammc/ext/doc/about.pd | sed "s/%GIT_BRANCH%/$GIT_BRANCH/g" | \
+   sed "s/%GIT_COMMIT%/$GIT_COMMIT/g" | \
+   sed "s/%BUILD_DATE%/$CURRENT_DATE/g" > $PD_EXTRA/ceammc/about.pd
+chmod 0444 $PD_EXTRA/ceammc/about.pd
 
 echo "Copying CICM/Cream files:"
 cp $BUILD_DIR/ceammc/extra/CreamLibrary/creammc.d_fat $PD_EXTRA/ceammc
