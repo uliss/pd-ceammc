@@ -38,10 +38,10 @@ struct ui_sliders : public ceammc_gui::BaseGuiObject {
     float shift;
 
     int sel_idx;
+    int auto_range;
+    int show_range;
 
-    bool auto_range;
     bool _is_vertical;
-    bool show_range;
 
 public:
     void output()
@@ -135,21 +135,23 @@ UI_fun(ui_sliders)::wx_paint(t_object* z, t_object* view)
         }
 
         // draw text
-        char c_min[10];
-        sprintf(c_min, "%g", zx->shift);
+        if (zx->show_range) {
+            char c_min[10];
+            sprintf(c_min, "%g", zx->shift);
 
-        char c_max[10];
-        sprintf(c_max, "%g", zx->range + zx->shift);
+            char c_max[10];
+            sprintf(c_max, "%g", zx->range + zx->shift);
 
-        etext_layout_set(zx->txt_min, c_min, zx->txt_font,
-            3, rect.height - 12, rect.width * 2, rect.height / 2,
-            ETEXT_UP_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
-        etext_layout_draw(zx->txt_min, g);
+            etext_layout_set(zx->txt_min, c_min, zx->txt_font,
+                3, rect.height - 12, rect.width * 2, rect.height / 2,
+                ETEXT_UP_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
+            etext_layout_draw(zx->txt_min, g);
 
-        etext_layout_set(zx->txt_max, c_max, zx->txt_font,
-            3, 12, rect.width * 2, rect.height / 2,
-            ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
-        etext_layout_draw(zx->txt_max, g);
+            etext_layout_set(zx->txt_max, c_max, zx->txt_font,
+                3, 12, rect.width * 2, rect.height / 2,
+                ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
+            etext_layout_draw(zx->txt_max, g);
+        }
 
         ebox_end_layer(asBox(z), BG_LAYER);
     }
@@ -342,6 +344,12 @@ UI_fun(ui_sliders)::init_ext(t_eclass* z)
     CLASS_ATTR_LABEL                (z, "auto_range", 0, "Auto range");
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "auto_range", 0, "0");
     CLASS_ATTR_STYLE                (z, "auto_range", 0, "onoff");
+
+    CLASS_ATTR_INT                  (z, "show_range", 0, ui_sliders, show_range);
+    CLASS_ATTR_DEFAULT              (z, "show_range", 0, "1");
+    CLASS_ATTR_LABEL                (z, "show_range", 0, "Show sliders range");
+    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "show_range", 0, "1");
+    CLASS_ATTR_STYLE                (z, "show_range", 0, "onoff");
     // clang-format on
 
     eclass_addmethod(z, (method)(sliders_m_select), "select", A_GIMME, 0);
