@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pddoc version="1.0">
-    <object name="ui.bpfunc">
-        <title>ui.bpfunc</title>
+    <object name="ui.spectroscope~" type="gui">
+        <title>ui.spectroscope~</title>
         <meta>
             <authors>
                 <author>Alex Nadzharov</author>
@@ -10,39 +10,33 @@
             <description>Spectroscope GUI object</description>
             <license>GPL3</license>
             <library>ceammc</library>
-            <category>list</category>
-            <keywords>list</keywords>
+            <category view="link">ui</category>
+            <keywords>ui spectroscope</keywords>
             <since>0.1</since>
             <also>
-                <see>ui.scope~</see>
+                <see view="link">ui.scope~</see>
             </also>
         </meta>
-        <arguments>
-            
-        </arguments>
-        <methods>
-            
-        </methods>
         <inlets>
-            <inlet>
-                <xinfo on="signal">signal input </xinfo>
-            </inlet>
-            
+            <inlet type="audio">
+                <xinfo>signal input</xinfo>
+            </inlet>    
         </inlets>
-        <outlets>
-            
-            
-        </outlets>
         <example>
             <pdascii>
-                <![CDATA[
+<![CDATA[
+[ui.dsp~]
 
-[noise~]
-|
-|
+
+[noise~] [osc.saw~ 1000]
+|        |
+| [T]    | [T]
+| |.     | |.
+[*~]     [*~]
+|        |
+|        |
 [ui.spectroscope~]
-
-                ]]>
+]]>
             </pdascii>
         </example>
     </object>

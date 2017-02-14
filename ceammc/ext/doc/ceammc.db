@@ -94,6 +94,8 @@ math.tan		.		.
 math.tanh		.		.
 math.trunc		.		.
 msg,m		..		.
+noise.pink~		-		~
+noise.white~		-		~
 osc.impulse~		~		~
 osc.pulse~		~		~.
 osc.saw~		~		~
@@ -106,6 +108,8 @@ pass.if		..		..
 symbol.length		.		.
 system.memsize		.		.
 system.memused		.		..
+ui.scope~		.		-
+ui.spectroscope~		~		-
 vector.distance		..		.
 vector.dot		..		.
 vector.length		.		.

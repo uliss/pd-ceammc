@@ -13,7 +13,7 @@
 
 typedef struct _preset {
     t_ebox j_box;
-    t_binbuf** f_binbuf;
+    t_binbuf* f_binbuf[CREAM_MAXITEMS];
     int f_binbuf_selected;
     int f_binbuf_hover;
     float f_point_size;
@@ -23,7 +23,6 @@ typedef struct _preset {
     t_rgba f_color_button_empty;
     t_rgba f_color_button_selected;
     t_rgba f_color_text;
-    static const int maxbinbufs = 1000;
 } t_preset;
 
 static t_eclass* preset_class;
@@ -283,24 +282,29 @@ static t_pd_err preset_notify(t_preset* x, t_symbol* s, t_symbol* msg, void* sen
 
 static void draw_background(t_preset* x, t_object* view, t_rect* rect)
 {
-    int i, xc, yc;
-    char number[256];
-    t_rgba color;
     t_elayer* g = ebox_start_layer((t_ebox*)x, cream_sym_background_layer, rect->width, rect->height);
     t_etext* jtl = etext_layout_create();
 
     if (g && jtl) {
-        for (xc = x->f_point_size * 1.25, yc = x->f_point_size * 1.25, i = 1; yc + x->f_point_size / 2. < rect->height;) {
+        char number[256];
+        t_rgba color;
+
+        int xc = x->f_point_size * 1.25f;
+        int yc = x->f_point_size * 1.25f;
+        for (int i = 1; i < CREAM_MAXITEMS; i++) {
+            if (yc + x->f_point_size / 2.f >= rect->height)
+                break;
+
             if (x->f_binbuf_selected == i - 1 && binbuf_getnatom(x->f_binbuf[i - 1])) {
-                color = rgba_addContrast(x->f_color_button_selected, 0.1);
+                color = rgba_addContrast(x->f_color_button_selected, 0.1f);
             } else if (!binbuf_getnatom(x->f_binbuf[i - 1]))
-                color = rgba_addContrast(x->f_color_button_empty, 0.1);
+                color = rgba_addContrast(x->f_color_button_empty, 0.1f);
             else if (binbuf_getnatom(x->f_binbuf[i - 1]))
-                color = rgba_addContrast(x->f_color_button_stored, -0.1);
+                color = rgba_addContrast(x->f_color_button_stored, -0.1f);
 
             // on mouse over
             if (x->f_binbuf_hover == i) {
-                color = rgba_addContrast(color, 0.08);
+                color = rgba_addContrast(color, 0.08f);
             }
 
             egraphics_set_color_rgba(g, &color);
@@ -312,12 +316,11 @@ static void draw_background(t_preset* x, t_object* view, t_rect* rect)
             etext_layout_settextcolor(jtl, &x->f_color_text);
             etext_layout_draw(jtl, g);
 
-            xc += x->f_point_size * 2.5;
-            if (xc + x->f_point_size / 2. > rect->width) {
-                xc = x->f_point_size * 1.25;
-                yc += x->f_point_size * 2.5;
+            xc += x->f_point_size * 2.5f;
+            if (xc + x->f_point_size / 2.f > rect->width) {
+                xc = x->f_point_size * 1.25f;
+                yc += x->f_point_size * 2.5f;
             }
-            i++;
         }
 
         ebox_end_layer((t_ebox*)x, cream_sym_background_layer);
@@ -347,10 +350,10 @@ static void preset_paint(t_preset* x, t_object* view)
 static void preset_mousemove(t_preset* x, t_object* patcherview, t_pt pt, long modifiers)
 {
     int index;
-    int n_row_button = (x->j_box.b_rect.width - x->f_point_size * 1.24) / (x->f_point_size * 2.5) + 1;
+    int n_row_button = (x->j_box.b_rect.width - x->f_point_size * 1.24f) / (x->f_point_size * 2.5f) + 1;
 
-    index = (int)((pt.y) / (x->f_point_size * 2.5)) * n_row_button;
-    index += pd_clip_max((pt.x) / (x->f_point_size * 2.5) + 1, n_row_button);
+    index = (int)((pt.y) / (x->f_point_size * 2.5f)) * n_row_button;
+    index += pd_clip_max((pt.x) / (x->f_point_size * 2.5f) + 1, n_row_button);
     x->f_binbuf_hover = index;
     ebox_invalidate_layer((t_ebox*)x, cream_sym_background_layer);
     ebox_redraw((t_ebox*)x);
@@ -359,9 +362,9 @@ static void preset_mousemove(t_preset* x, t_object* patcherview, t_pt pt, long m
 static void preset_mousedown(t_preset* x, t_object* patcherview, t_pt pt, long modifiers)
 {
     int index;
-    int n_row_button = (x->j_box.b_rect.width - x->f_point_size * 1.24) / (x->f_point_size * 2.5) + 1;
-    index = (int)((pt.y) / (x->f_point_size * 2.5)) * n_row_button;
-    index += pd_clip_max((pt.x) / (x->f_point_size * 2.5) + 1, n_row_button);
+    int n_row_button = (x->j_box.b_rect.width - x->f_point_size * 1.24f) / (x->f_point_size * 2.5f) + 1;
+    index = (int)((pt.y) / (x->f_point_size * 2.5f)) * n_row_button;
+    index += pd_clip_max((pt.x) / (x->f_point_size * 2.5f) + 1, n_row_button);
     x->f_binbuf_hover = index;
 
     if (modifiers == EMOD_ALT)
@@ -462,7 +465,6 @@ static void* preset_new(t_symbol* s, int argc, t_atom* argv)
     t_preset* x = (t_preset*)eobj_new(preset_class);
     t_binbuf* d = binbuf_via_atoms(argc, argv);
     if (x && d) {
-        x->f_binbuf = (t_binbuf**)malloc(CREAM_MAXITEMS * sizeof(t_binbuf*));
         for (int i = 0; i < CREAM_MAXITEMS; i++) {
             x->f_binbuf[i] = binbuf_new();
         }
@@ -474,6 +476,8 @@ static void* preset_new(t_symbol* s, int argc, t_atom* argv)
         preset_init(x, d);
         ebox_attrprocess_viabinbuf(x, d);
         ebox_ready((t_ebox*)x);
+
+        binbuf_free(d);
     }
 
     return (x);
@@ -484,7 +488,7 @@ static void preset_free(t_preset* x)
     for (int i = 0; i < CREAM_MAXITEMS; i++) {
         binbuf_free(x->f_binbuf[i]);
     }
-    free(x->f_binbuf);
+
     ebox_free((t_ebox*)x);
 }
 

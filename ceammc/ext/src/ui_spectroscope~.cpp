@@ -11,15 +11,11 @@
 #include "lib/ceammc_gui.h"
 
 struct ui_spectroscope : public ceammc_gui::BaseSoundGuiStruct {
-
     t_inlet* in1;
     t_sample input;
     t_sample buf[8192];
 
     int counter;
-
-    t_rgba b_color_background;
-    t_rgba b_color_border;
 };
 
 namespace ceammc_gui {
@@ -160,24 +156,12 @@ UI_fun(ui_spectroscope)::init_ext(t_eclass* z)
     eclass_addmethod(z, (method)ui_spectroscope_dsp, "dsp", A_CANT, 0);
     CLASS_ATTR_DEFAULT(z, "size", 0, "150. 100.");
 
-    CLASS_ATTR_RGBA(z, "bgcolor", 0, ui_spectroscope, b_color_background);
-    CLASS_ATTR_LABEL(z, "bgcolor", 0, "Background Color");
-    CLASS_ATTR_ORDER(z, "bgcolor", 0, "1");
-    CLASS_ATTR_DEFAULT_SAVE_PAINT(z, "bgcolor", 0, "0.93 0.93 0.93 1.");
-    CLASS_ATTR_STYLE(z, "bgcolor", 0, "color");
-
-    CLASS_ATTR_RGBA(z, "bdcolor", 0, ui_spectroscope, b_color_border);
-    CLASS_ATTR_LABEL(z, "bdcolor", 0, "Border Color");
-    CLASS_ATTR_ORDER(z, "bdcolor", 0, "2");
-    CLASS_ATTR_DEFAULT_SAVE_PAINT(z, "bdcolor", 0, "0. 0. 0. 1.");
-    CLASS_ATTR_STYLE(z, "bdcolor", 0, "color");
-
     eclass_addmethod(z, (method)ui_sps_getdrawparams, "getdrawparams", A_NULL, 0);
 }
 }
 
-extern "C" void setup_ui0x2espectroscope()
+extern "C" void setup_ui0x2espectroscope_tilde()
 {
     ceammc_gui::GuiFactory<ui_spectroscope> class1;
-    class1.setup_dsp("ui.spectroscope");
+    class1.setup_dsp("ui.spectroscope~");
 }

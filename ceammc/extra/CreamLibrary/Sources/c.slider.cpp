@@ -243,6 +243,39 @@ static t_pd_err set_slider_value(t_slider* x, t_object* /*attr*/, int ac, t_atom
     return 1;
 }
 
+static void slider_modify_single(t_slider* z, t_symbol* s, int argc, t_atom* argv)
+{
+    if (argc < 1 || !argv) {
+        pd_error(z, "[%s] %s: float argument required", eobj_getclassname(z)->s_name, s->s_name);
+        return;
+    }
+
+    if (s == gensym("+")) {
+        slider_set(z, z->f_value + atom_getfloat(argv));
+    } else if (s == gensym("-")) {
+        slider_set(z, z->f_value - atom_getfloat(argv));
+    } else if (s == gensym("*")) {
+        slider_set(z, z->f_value * atom_getfloat(argv));
+    } else if (s == gensym("/")) {
+        t_float v = atom_getfloat(argv);
+        if (v == 0.f) {
+            pd_error(z, "[%s] division by zero attempt.", eobj_getclassname(z)->s_name);
+            return;
+        }
+
+        slider_set(z, z->f_value / v);
+    }
+}
+
+static void slider_modify(t_slider* z, t_symbol* s)
+{
+    if (s == gensym("++")) {
+        slider_set(z, z->f_value + 1);
+    } else if (s == gensym("--")) {
+        slider_set(z, z->f_value - 1);
+    }
+}
+
 extern "C" void setup_ui0x2eslider(void)
 {
     t_eclass* c = eclass_new("ui.slider", (method)slider_new, (method)ebox_free, (short)sizeof(t_slider), 0L, A_GIMME, 0);
@@ -256,9 +289,15 @@ extern "C" void setup_ui0x2eslider(void)
         eclass_addmethod(c, (method)slider_set,           "set", A_FLOAT, 0);
         eclass_addmethod(c, (method)slider_float,         "float", A_FLOAT, 0);
         eclass_addmethod(c, (method)slider_bang,          "bang", A_NULL, 0);
-        eclass_addmethod(c, (method)slider_mousedown,     "m    ousedown", A_NULL, 0);
+        eclass_addmethod(c, (method)slider_mousedown,     "mousedown", A_NULL, 0);
         eclass_addmethod(c, (method)slider_mousedrag,     "mousedrag", A_NULL, 0);
         eclass_addmethod(c, (method)slider_preset,        "preset", A_NULL, 0);
+        eclass_addmethod(c, (method)slider_modify_single, "+", A_GIMME, 0);
+        eclass_addmethod(c, (method)slider_modify_single, "-", A_GIMME, 0);
+        eclass_addmethod(c, (method)slider_modify_single, "*", A_GIMME, 0);
+        eclass_addmethod(c, (method)slider_modify_single, "/", A_GIMME, 0);
+        eclass_addmethod(c, (method)slider_modify,        "++", A_GIMME, 0);
+        eclass_addmethod(c, (method)slider_modify,        "--", A_GIMME, 0);
 
         CLASS_ATTR_INVISIBLE            (c, "fontname", 1);
         CLASS_ATTR_INVISIBLE            (c, "fontweight", 1);

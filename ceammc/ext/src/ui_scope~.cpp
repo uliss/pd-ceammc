@@ -18,8 +18,6 @@ struct ui_scope : public ceammc_gui::BaseSoundGuiStruct {
     t_sample buf[BUFSIZE];
     size_t counter;
     int b_freeze;
-    t_rgba b_color_background;
-    t_rgba b_color_border;
     float xscale;
     float yscale;
 
@@ -151,18 +149,6 @@ UI_fun(ui_scope)::init_ext(t_eclass* z)
 
     CLASS_ATTR_DEFAULT(z, "size", 0, "150. 100.");
 
-    CLASS_ATTR_RGBA                 (z, "bgcolor", 0, ui_scope, b_color_background);
-    CLASS_ATTR_LABEL                (z, "bgcolor", 0, "Background Color");
-    CLASS_ATTR_ORDER                (z, "bgcolor", 0, "1");
-    CLASS_ATTR_STYLE                (z, "bgcolor", 0, "color");
-    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "bgcolor", 0, "0.93 0.93 0.93 1.");
-
-    CLASS_ATTR_RGBA                 (z, "bdcolor", 0, ui_scope, b_color_border);
-    CLASS_ATTR_LABEL                (z, "bdcolor", 0, "Border Color");
-    CLASS_ATTR_ORDER                (z, "bdcolor", 0, "2");
-    CLASS_ATTR_STYLE                (z, "bdcolor", 0, "color");
-    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "bdcolor", 0, "0. 0. 0. 1.");
-
     CLASS_ATTR_FLOAT                (z, "yscale", 0, ui_scope, yscale);
     CLASS_ATTR_DEFAULT              (z, "yscale", 0, "1");
     CLASS_ATTR_LABEL                (z, "yscale", 0, "Y-scale");
@@ -177,8 +163,8 @@ UI_fun(ui_scope)::init_ext(t_eclass* z)
 }
 }
 
-extern "C" void setup_ui0x2escope()
+extern "C" void setup_ui0x2escope_tilde()
 {
     ceammc_gui::GuiFactory<ui_scope> class1;
-    class1.setup_dsp("ui.scope");
+    class1.setup_dsp("ui.scope~");
 }

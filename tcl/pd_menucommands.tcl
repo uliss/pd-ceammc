@@ -218,33 +218,7 @@ proc ::pd_menucommands::set_filenewdir {mytoplevel} {
 
 # parse the textfile for the About Pd page
 proc ::pd_menucommands::menu_aboutpd {} {
-    set versionstring "Pd $::PD_MAJOR_VERSION.$::PD_MINOR_VERSION.$::PD_BUGFIX_VERSION$::PD_TEST_VERSION"
-    set filename "$::sys_libdir/doc/1.manual/1.introduction.txt"
-    if {[winfo exists .aboutpd]} {
-        wm deiconify .aboutpd
-        raise .aboutpd
-        focus .aboutpd
-    } else {
-        toplevel .aboutpd -class TextWindow
-        wm title .aboutpd [_ "About Pd"]
-        wm group .aboutpd .
-        .aboutpd configure -menu $::dialog_menubar
-        text .aboutpd.text -relief flat -borderwidth 0 -highlightthickness 0 \
-            -yscrollcommand ".aboutpd.scroll set" -background white
-        scrollbar .aboutpd.scroll -command ".aboutpd.text yview"
-        pack .aboutpd.scroll -side right -fill y
-        pack .aboutpd.text -side left -fill both -expand 1
-        bind .aboutpd <$::modifier-Key-w> "destroy .aboutpd"
-
-        set textfile [open $filename]
-        while {![eof $textfile]} {
-            set bigstring [read $textfile 1000]
-            regsub -all PD_BASEDIR $bigstring $::sys_guidir bigstring2
-            regsub -all PD_VERSION $bigstring2 $versionstring bigstring3
-            .aboutpd.text insert end $bigstring3
-        }
-        close $textfile
-    }
+    ::pd_menucommands::menu_doc_open "extra/ceammc" "about.pd"
 }
 
 # ------------------------------------------------------------------------------

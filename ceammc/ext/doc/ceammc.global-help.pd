@@ -1,14 +1,14 @@
-#N canvas 0 0 600 500 12;
-#X obj 20 50 pddp/pddplink ../index-help.pd -text index;
+#N canvas 0 0 630 500 12;
+#X obj 20 53 ui.link @title index @link ../index-help.pd @size 100 25;
 #X text 62 50 ::;
-#X obj 79 50 pddp/pddplink ceammc-help.pd -text ceammc;
-#X obj 30 113 global.float;
-#X text 150 113 global named float object;
-#X obj 30 140 global.int;
-#X text 150 140 global named integer object;
-#X obj 30 167 global.list;
-#X text 150 167 global named list object;
-#X obj 1 1 cnv 5 597 40 empty empty ceammc::global 20 20 0 20 -104026
+#X obj 79 53 ui.link @title ceammc @link ceammc-help.pd @size 100 25;
+#X obj 30 116 global.float;
+#X text 175 116 global named float object;
+#X obj 30 143 global.int;
+#X text 175 143 global named integer object;
+#X obj 30 170 global.list;
+#X text 175 170 global named list object;
+#X obj 1 1 cnv 5 627 40 empty empty ceammc::global 20 20 0 20 -104026
 -4096 0;
-#X obj 1 458 cnv 5 597 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 458 cnv 5 627 40 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 20 468 library: ceammc;

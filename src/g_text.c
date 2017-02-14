@@ -334,12 +334,17 @@ void canvas_display(t_glist *gl, t_symbol *s, int argc, t_atom *argv)
 
 void canvas_scope(t_glist *gl, t_symbol *s, int argc, t_atom *argv)
 {
-    canvas_ceammcgui(gl, gensym("ui.scope"));
+    canvas_ceammcgui(gl, gensym("ui.scope~"));
 }
 
 void canvas_spectroscope(t_glist *gl, t_symbol *s, int argc, t_atom *argv)
 {
-    canvas_ceammcgui(gl, gensym("ui.spectroscope"));
+    canvas_ceammcgui(gl, gensym("ui.spectroscope~"));
+}
+
+void canvas_preset(t_glist *gl, t_symbol *s, int argc, t_atom *argv)
+{
+    canvas_ceammcgui(gl, gensym("ui.preset"));
 }
 
 

@@ -3,6 +3,8 @@ find_program(PD_MAKELIB pd_makelibrary)
 find_program(PD_LIB2PD pd_lib2pd)
 find_program(PD_CAT2PD pd_cat2pd)
 
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/about.pd ${CMAKE_CURRENT_BINARY_DIR}/about.pd @ONLY)
+
 set(DOC_FILES
     data.fifo
     data.list
@@ -99,6 +101,8 @@ set(DOC_FILES
     math.tanh
     math.trunc
     msg
+    noise.pink~
+    noise.white~
     osc.impulse~
     osc.pulse~
     osc.saw~
@@ -110,16 +114,18 @@ set(DOC_FILES
     symbol.length
     system.memsize
     system.memused
+    ui.scope~
+    ui.spectroscope~
     vector.distance
     vector.dot
     vector.length
     vector.normalize
     )
 
-if(NOT PD_XML2PD)
-    message(STATUS "pd_xml2pd not found.")
+if(NOT PD_LIB2PD)
+    message(STATUS "pd_lib2pd not found.")
 else()
-    message(STATUS "pd_xml2pd found at: ${PD_XML2PD}")
+    message(STATUS "pd_lib2pd found at: ${PD_LIB2PD}")
     set(DOC_PD_FILES)
     set(DOC_XLET_DB_FILES)
     set(DOC_PDDOC_FILES)

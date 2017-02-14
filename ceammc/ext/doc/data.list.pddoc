@@ -25,7 +25,7 @@
             <method name="dump">dump object info to Pd window</method>
             <method name="flush">outputs and removes all list values</method>
             <method name="insert">inserts values to the specified position. First argument is position, others - element to insert</method>
-            <method name="pop">outputs and removes last list element</method>
+            <method name="pop">removes last list element</method>
             <method name="set">sets new list without output</method>
         </methods>
         <inlets>
@@ -45,7 +45,7 @@
 <![CDATA[
 [dump( [list a b c(  [F]        [10 11(
 |      |             |          |
-| [B]  |  [pop(      [m append] [m insert 1(
+| [B]  |  [pop(      [m append] [m insert 1]
 | |    |  |          |          |
 | |    |  |          |          |
 | |    |  |          |          |
