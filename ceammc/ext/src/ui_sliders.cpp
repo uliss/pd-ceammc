@@ -35,6 +35,8 @@ struct ui_sliders : public ceammc_gui::BaseGuiObject {
 
 namespace ceammc_gui {
 
+static const int MAX_SLIDERS_NUM = 1024;
+
 UI_fun(ui_sliders)::wx_paint(t_object* z, t_object* view)
 {
     t_rect rect;
@@ -287,8 +289,11 @@ UI_fun(ui_sliders)::init_ext(t_eclass* z)
 
     CLASS_ATTR_INT                  (z, "count", 0, ui_sliders, count);
     CLASS_ATTR_DEFAULT              (z, "count", 0, "8");
+    CLASS_ATTR_FILTER_MIN           (z, "count", 1);
+    CLASS_ATTR_FILTER_MAX           (z, "count", MAX_SLIDERS_NUM);
     CLASS_ATTR_LABEL                (z, "count", 0, "Sliders count");
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "count", 0, "8");
+    CLASS_ATTR_STYLE                (z, "count", 0, "number");
 
     CLASS_ATTR_FLOAT                (z, "shift", 0, ui_sliders, shift);
     CLASS_ATTR_DEFAULT              (z, "shift", 0, "0");
