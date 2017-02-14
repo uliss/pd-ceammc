@@ -16,7 +16,6 @@ using namespace ceammc::tl;
 
 namespace ceammc_gui {
 
-static t_symbol* FILL_COLOR = gensym("#F0F0F0");
 static const int LINE_WIDTH = 2;
 static const int LINE_BOTTOM_MARGIN = 5;
 
@@ -25,9 +24,6 @@ struct tl_cue : public BaseGuiObject {
 
     t_etext* txt;
     t_efont* fnt;
-
-    t_rgba border_color;
-    t_rgba bg_color;
 
     CueData* data;
 
@@ -61,7 +57,7 @@ static inline void vline_draw(t_ebox* x)
     int xx = x->b_rect.x - 1;
     sys_vgui("%s create line %d %d %d %d -width %d -fill %s -tags .x%lxVLINE\n",
         x->b_canvas_id->s_name, xx, 0, xx, height, LINE_WIDTH,
-        rgba_to_hex(asCue(x)->border_color), x);
+        rgba_to_hex(asCue(x)->b_color_border), x);
 }
 
 static inline void vline_delete(t_ebox* x)
@@ -80,8 +76,8 @@ static void tl_cue_getdrawparams(tl_cue* x, t_object* view, t_edrawparams* param
 {
     params->d_borderthickness = 2;
     params->d_cornersize = 2;
-    params->d_bordercolor = x->border_color;
-    params->d_boxfillcolor = x->bg_color;
+    params->d_bordercolor = x->b_color_border;
+    params->d_boxfillcolor = x->b_color_background;
 }
 
 static void tl_cue_ebox_move(t_ebox* x)
@@ -159,19 +155,13 @@ UI_fun(tl_cue)::new_ext(t_object* z, t_symbol* /*s*/, int /*argc*/, t_atom* /*ar
 UI_fun(tl_cue)::init_ext(t_eclass* z)
 {
     // clang-format off
-    CLASS_ATTR_DEFAULT (z, "size", 0, "200. 150.");
+    CLASS_ATTR_DEFAULT              (z, "size", 0, "45. 15.");
+    CLASS_ATTR_INVISIBLE            (z, "size", 0);
+    CLASS_ATTR_INVISIBLE            (z, "send", 0);
+    CLASS_ATTR_INVISIBLE            (z, "receive", 0);
 
-    CLASS_ATTR_RGBA                 (z, "brcolor", 0, tl_cue, border_color);
-    CLASS_ATTR_LABEL                (z, "brcolor", 0, "Border Color");
-    CLASS_ATTR_ORDER                (z, "brcolor", 0, "3");
-    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "brcolor", 0, "0. 0.7 1. 1.");
-    CLASS_ATTR_STYLE                (z, "brcolor", 0, "color");
-
-    CLASS_ATTR_RGBA                 (z, "bgcolor", 0, tl_cue, bg_color);
-    CLASS_ATTR_LABEL                (z, "bgcolor", 0, "Background Color");
-    CLASS_ATTR_ORDER                (z, "bgcolor", 0, "3");
-    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "bgcolor", 0, ".7 .7 .7 1.");
-    CLASS_ATTR_STYLE                (z, "bgcolor", 0, "color");
+    // change default border color
+    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "bdcolor", 0, DEFAULT_ACTIVE_COLOR);
     // clang-format on
 
     z->c_widget.w_displacefn = tl_cue_displace;
@@ -196,7 +186,7 @@ UI_fun(tl_cue)::wx_oksize(t_object* /*z*/, t_rect* newrect)
 
 UI_fun(tl_cue)::wx_attr_changed_ext(t_object* z, t_symbol* attr)
 {
-    if(attr == gensym("brcolor"))
+    if (attr == gensym("bdcolor"))
         ws_redraw(z);
 }
 
@@ -208,10 +198,6 @@ UI_fun(tl_cue)::wx_paint(t_object* z, t_object* /*view*/)
     t_elayer* g = ebox_start_layer(asBox(z), BG_LAYER, rect.width, rect.height);
     if (g) {
         tl_cue* zx = asStruct(z);
-
-        egraphics_rectangle(g, 0, 0, rect.width, rect.height);
-        egraphics_set_color_hex(g, FILL_COLOR);
-        egraphics_fill(g);
 
         bool pos_changed = zx->updatePos();
         etext_layout_set(zx->txt, zx->data->name().c_str(), zx->fnt, 2, 15, rect.width, rect.height / 2,
