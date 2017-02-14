@@ -1,0 +1,9 @@
+#N canvas 354 66 700 500 12;
+#X obj 352 187 ui.link @size 48 16 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@pinned 0 @bgcolor 1 1 1 1 @bdcolor 0.6 0.6 0.6 1 @link "ceammc/ceammc-help.pd"
+@title "ceammc";
+#X obj 351 119 ui.link @size 80 16 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@pinned 0 @bgcolor 1 1 1 1 @bdcolor 0.6 0.6 0.6 1 @link "../doc/5.reference/help-intro.pd"
+@title "pd_corelib";
