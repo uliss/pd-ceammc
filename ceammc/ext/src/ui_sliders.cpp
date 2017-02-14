@@ -265,12 +265,12 @@ static void sliders_m_select(t_object* z, t_symbol* s, int argc, t_atom* argv)
     GuiFactory<ui_sliders>::ws_redraw(z);
 }
 
-static void sliders_m_auto_range(t_object* z, t_symbol* s, int argc, t_atom* argv)
+static void sliders_m_auto_range(t_object* z, t_floatarg v)
 {
     ui_sliders* zx = (ui_sliders*)z;
-    zx->auto_range = (argv[0].a_w.w_float > 0);
+    zx->auto_range = (v != 0.f);
 
-    GuiFactory<ui_sliders>::m_set(z, s, zx->val_list_size, zx->val_list);
+    GuiFactory<ui_sliders>::m_set(z, &s_list, zx->val_list_size, zx->val_list);
     GuiFactory<ui_sliders>::ws_redraw(z);
 }
 
@@ -297,24 +297,27 @@ UI_fun(ui_sliders)::init_ext(t_eclass* z)
 
     CLASS_ATTR_FLOAT                (z, "shift", 0, ui_sliders, shift);
     CLASS_ATTR_DEFAULT              (z, "shift", 0, "0");
-    CLASS_ATTR_LABEL                (z, "shift", 0, "shift");
+    CLASS_ATTR_LABEL                (z, "shift", 0, "Value shift");
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "shift", 0, "0");
+    CLASS_ATTR_STYLE                (z, "shift", 0, "number");
 
     CLASS_ATTR_FLOAT                (z, "range", 0, ui_sliders, range);
     CLASS_ATTR_DEFAULT              (z, "range", 0, "1");
-    CLASS_ATTR_LABEL                (z, "range", 0, "range");
+    CLASS_ATTR_LABEL                (z, "range", 0, "Value range");
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "range", 0, "1");
+    CLASS_ATTR_STYLE                (z, "range", 0, "number");
 
     CLASS_ATTR_INT                  (z, "auto_range", 0, ui_sliders, auto_range);
     CLASS_ATTR_DEFAULT              (z, "auto_range", 0, "0");
-    CLASS_ATTR_LABEL                (z, "auto_range", 0, "auto_range");
+    CLASS_ATTR_LABEL                (z, "auto_range", 0, "Auto range");
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "auto_range", 0, "0");
+    CLASS_ATTR_STYLE                (z, "auto_range", 0, "onoff");
     // clang-format on
 
-    eclass_addmethod(z, (method)(sliders_m_range), ("range"), A_GIMME, 0);
-    eclass_addmethod(z, (method)(sliders_m_shift), ("shift"), A_GIMME, 0);
-    eclass_addmethod(z, (method)(sliders_m_select), ("select"), A_GIMME, 0);
-    eclass_addmethod(z, (method)(sliders_m_auto_range), ("auto_range"), A_GIMME, 0);
+    eclass_addmethod(z, (method)(sliders_m_range), "range", A_GIMME, 0);
+    eclass_addmethod(z, (method)(sliders_m_shift), "shift", A_GIMME, 0);
+    eclass_addmethod(z, (method)(sliders_m_select), "select", A_GIMME, 0);
+    eclass_addmethod(z, (method)(sliders_m_auto_range), "auto_range", A_DEFFLOAT, 0);
 
     eclass_addmethod(z, (method)ui_sl_getdrawparams, "getdrawparams", A_NULL, 0);
 }
