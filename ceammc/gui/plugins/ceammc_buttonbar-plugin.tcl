@@ -70,6 +70,7 @@ proc showhide_buttonbar {mytoplevel} {
         make_ceammc_button $mytoplevel display "Display"
         make_ceammc_button_tilde $mytoplevel scope "Scope"
         make_ceammc_button_tilde $mytoplevel spectroscope "Spectroscope"
+        make_ceammc_button $mytoplevel preset "Presets"
     }
     if {$::editmode($mytoplevel)} {
         set tkcanvas [tkcanvas_name $mytoplevel]
@@ -193,6 +194,21 @@ set objdata {R0lGODlhIAAgAPEDAAAAAAEBAYCAgP///yH5BAAAAAAALAAAAAAgACAAAAJInI+py+0
 AJyLI3QeCAQNkKGMerGKW8GIPH1r5tj4zkt6f6AZfrFTyogRDpQQJfNBnAETupCoKgJEp9yu9wsO
 iyMFADs=}
 image create photo buttonimageobj -data $objdata
+
+set presetdata {R0lGODlhIAAgAMZIAAAAAFgAPiw+fD5MkZFMLJFMPgB0v4NYa3xikZFia2trkaRrYqp0WHSDa3SD
+umuLkYuDmL+DALV8a7p8YrV8dHSRi3yRxL+LdMSLfJmZmZGekcmvg5G6xMS1tcS6uqrEus7E0uTE
+nszMzOjJpNLS5NbW1snb7LXk9Lrk9NLf7PDfur/o9OPj4+Tk5PTkuuTk7Ojk5OXl5cns9NLs9Ojo
+6Nfw9PDs6PTs3+Tw9Nv09PTw19/09PTw3/Hx8ej09PLy8vT05PD08PPz8/T06PD09PT07PT08PT0
+9P//////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////yH5
+BAEKAH8ALAAAAAAgACAAAAf+gEiCg4SFhoeIiYqLjI2Oj4wZAJOUGZaXmJmWiBkinjQ9QjQlnqUi
+JTRCPTSlGZyeLUeyR0Ixpi0/s0e2Iq6HnTG5uj+mwrM/Lb2cNLIqASizrCLMRxMJK9G+hhk9skYU
+0LI9nt1GLwcysz3ahRlCsxfhtJ7vRyMzukLshBnUurLS/P2jsW9QhhLGdJE69U+WkBIFBXXC9Y9Y
+qYRHfrBQ9qsUKFELTaFSJY3jNlMoU6qMiKSTypcpWbqcFmpUypGrWr0KVrFYxWQyS7zj4SHFrIUl
+ZpE4BnGZrAUfEET7NMuALoKc6oEIImGWEHpHhhQQUMOrzG5HGFRQoI7cLAc1utY5lQWDyNRpDQHK
+FEFxmM9hG/eKiDEsWakY9WQZFkwT5M1UOT3J1ES58iZImDNr3sx5cyAAOw==}
+image create photo buttonimagepreset -data $presetdata
 
 set scopedata {R0lGODlhIAAgAPcAAAAAAP///5mZmZiYmPLz9e/w8eXm5+Pk5c7x/+Dl59/k5nnb/4Tf/4bf/4HV
 9Kbn/6rp/7Xr/7vs/8rx/9/2/87h6On5//L6/XrZ+YHf/4LZ9oXa9ond943i/pHl/5Hj/5Di/ZLk
