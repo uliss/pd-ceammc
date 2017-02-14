@@ -256,7 +256,7 @@ extern "C" void setup_ui0x2eslider(void)
         eclass_addmethod(c, (method)slider_set,           "set", A_FLOAT, 0);
         eclass_addmethod(c, (method)slider_float,         "float", A_FLOAT, 0);
         eclass_addmethod(c, (method)slider_bang,          "bang", A_NULL, 0);
-        eclass_addmethod(c, (method)slider_mousedown,     "m    ousedown", A_NULL, 0);
+        eclass_addmethod(c, (method)slider_mousedown,     "mousedown", A_NULL, 0);
         eclass_addmethod(c, (method)slider_mousedrag,     "mousedrag", A_NULL, 0);
         eclass_addmethod(c, (method)slider_preset,        "preset", A_NULL, 0);
 
