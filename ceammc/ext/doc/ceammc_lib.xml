@@ -360,11 +360,17 @@
     </entry>
   </category>
   <category name="ui">
+    <entry descr="A bang... that's all" name="ui.bang" ref_view="link">
+      <xi:include href="ui.bang.pddoc" parse="xml"/>
+    </entry>
     <entry descr="Scope GUI object" name="ui.scope~" ref_view="link">
       <xi:include href="ui.scope~.pddoc" parse="xml"/>
     </entry>
     <entry descr="Spectroscope GUI object" name="ui.spectroscope~" ref_view="link">
       <xi:include href="ui.spectroscope~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="modern toggle widget" name="ui.toggle" ref_view="link">
+      <xi:include href="ui.toggle.pddoc" parse="xml"/>
     </entry>
   </category>
   <category name="vector">
@@ -385,6 +391,7 @@
     <version>0.1</version>
     <authors>
       <author>Alex Nadzharov</author>
+      <author>Pierre Guillot</author>
       <author>Serge Poltavsky</author>
     </authors>
     <xi:include href="ceammc_meta.xml" parse="xml"/>

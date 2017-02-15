@@ -114,8 +114,10 @@ set(DOC_FILES
     symbol.length
     system.memsize
     system.memused
+    ui.bang
     ui.scope~
     ui.spectroscope~
+    ui.toggle
     vector.distance
     vector.dot
     vector.length
