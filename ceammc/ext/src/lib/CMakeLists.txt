@@ -2,6 +2,10 @@ include_directories(${PROJECT_SOURCE_DIR}/src)
 include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra/CicmWrapper/Sources)
 
 set(FLAGS "${PD_EXTERNAL_CFLAGS}")
+if(WIN32)
+    set(FLAGS "${FLAGS} -lpsapi")
+endif()
+
 if(${WITH_COVERAGE})
     if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
         set(FLAGS "${FLAGS} --coverage")
@@ -24,6 +28,10 @@ add_library(ceammc_static STATIC ceammc.c
 
 set_target_properties(ceammc_static PROPERTIES
     COMPILE_FLAGS "${FLAGS}" LINK_FLAGS "${FLAGS}")
+
+if(WIN32)
+    target_link_libraries(ceammc_static psapi)
+endif()
 
 
 # timeline library

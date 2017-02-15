@@ -20,7 +20,7 @@ if(UNIX AND NOT APPLE)
 endif()
 
 
-if(MSYS)
+if(WIN32)
     find_program(WISH_PATH NAMES wish86.exe wish85.exe wish.exe)
     if(NOT WISH_PATH)
         message(FATAL_ERROR "wish.exe not found")
