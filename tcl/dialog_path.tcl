@@ -96,7 +96,7 @@ proc ::dialog_path::choosePath { currentpath title } {
 }
 
 proc ::dialog_path::add {} {
-    return [::dialog_path::choosePath "" [_ "Add a new path"]
+    return [::dialog_path::choosePath "" [_ "Add a new path"]]
 }
 
 proc ::dialog_path::edit { currentpath } {
