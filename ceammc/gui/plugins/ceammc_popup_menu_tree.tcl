@@ -34,6 +34,9 @@
     {audio_osc
         {osc.impulse~ osc.pulse~ osc.saw~ osc.sinfb~ osc.square~ osc.tri~}
     }
+    {audio_noise
+    	{noise.white~ noise.pink~}
+    }
     {audio_dynamics
         {dyn.comp~ dyn.comp2~ dyn.gate~ dyn.gate2~ dyn.limit~ dyn.limit2~ dyn.softclip~}}
     {audio_envelope
