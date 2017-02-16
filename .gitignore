@@ -50,3 +50,4 @@ ceammc/extra/m_pd_doc/doc
 *.pyc
 
 *.user
+build/
