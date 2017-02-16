@@ -1,9 +1,10 @@
 include_directories(${PROJECT_SOURCE_DIR}/src)
 include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra/CicmWrapper/Sources)
+remove_definitions(-DPD_INTERNAL)
 
 set(FLAGS "${PD_EXTERNAL_CFLAGS}")
 if(WIN32)
-    set(FLAGS "${FLAGS} -lpsapi")
+    set(FLAGS "${FLAGS} -lpsapi -static-libstdc++ -static-libgcc")
 endif()
 
 if(${WITH_COVERAGE})

@@ -22,7 +22,7 @@ endif()
 if(WIN32)
     set(PD_EXTERNAL_EXTENSION ".dll")
     set(PD_EXTERNAL_CFLAGS "-mms-bitfields")
-    set(PD_EXTERNAL_LDFLAGS "-s -shared -Wl,--enable-auto-import")
+    set(PD_EXTERNAL_LDFLAGS "-s -shared -Wl,--enable-auto-import -static-libgcc -static-libstdc++")
 endif()
 
 function(pd_add_extension)
