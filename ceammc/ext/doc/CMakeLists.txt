@@ -181,3 +181,9 @@ else()
         WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
 endif()
 
+if(WIN32)
+    foreach(_doc_file ${DOC_FILES})
+        install(FILES "${_doc_file}-help.pd" DESTINATION "extra/ceammc")
+    endforeach()
+endif()
+
