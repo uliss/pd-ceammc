@@ -19,10 +19,10 @@ if(LINUX)
 endif()
 
 
-if(MSYS)
+if(WIN32)
     set(PD_EXTERNAL_EXTENSION ".dll")
     set(PD_EXTERNAL_CFLAGS "-mms-bitfields")
-    set(PD_EXTERNAL_LDFLAGS "-s -shared -Wl,--enable-auto-import")
+    set(PD_EXTERNAL_LDFLAGS "-s -shared -Wl,--enable-auto-import -static-libgcc -static-libstdc++")
 endif()
 
 function(pd_add_extension)
@@ -64,7 +64,7 @@ function(pd_add_extension)
             LINK_FLAGS "${PD_EXTERNAL_LDFLAGS}"
             )
 
-        if(MSYS)
+        if(WIN32)
             list(APPEND _PD_EXT_LINK puredata-core)
         endif()
 
@@ -79,7 +79,7 @@ function(pd_add_extension)
         set(DEFAULT_DEST "lib/pd/extra")
     elseif(APPLE)
         set(DEFAULT_DEST "$ENV{HOME}/Library/Pd")
-    elseif(MSYS)
+    elseif(WIN32)
         set(DEFAULT_DEST "extra")
     endif()
 
@@ -126,7 +126,7 @@ function(pd_add_extension)
     endforeach()
 
     # install extension binary
-    if(MSYS)
+    if(WIN32)
         install(TARGETS ${_PD_EXT_NAME} DESTINATION "${INSTALL_DIR}")
     else()
         install(TARGETS ${_PD_EXT_NAME} LIBRARY DESTINATION "${INSTALL_DIR}")

@@ -81,5 +81,5 @@ macro(ceammc_cxx_tl_extension module name)
         FILES "${module}_${name}.cpp"
         INTERNAL TRUE
         LIBRARY ceammc
-        LINK ceammc_timeline ceammc_static)
+        LINK cicm_static ceammc_timeline ceammc_static)
 endmacro()
