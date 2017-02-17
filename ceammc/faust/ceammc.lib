@@ -14,3 +14,10 @@ duplicate(n, x) = x, duplicate(n-1, x);
 
 // range
 clip(lo, hi) = max(lo) : min(hi);
+
+// dry-wet
+fx_dry_wet(gain, fx) = _ <: wet, dry :> _
+with {
+    wet = (_ : fx *(gain));
+    dry = _ *(1 - gain);
+};

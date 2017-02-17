@@ -287,6 +287,8 @@ ceammc_faust_extension(flt highshelf simple_pd_control_ext)
 ceammc_faust_extension(flt lowshelf simple_pd_control_ext)
 ceammc_faust_extension(flt eq_peak simple_pd_control_ext)
 
+ceammc_faust_extension(fx freeverb simple_pd_control_ext)
+
 #ceammc_faust_extension(flt biquad simple_pd_control_ext)
 #ceammc_faust_extension(flt c_lpf simple_pd_control_ext)
 #ceammc_faust_extension(flt c_hpf simple_pd_control_ext)
