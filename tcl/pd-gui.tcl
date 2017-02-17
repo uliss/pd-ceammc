@@ -734,7 +734,7 @@ proc load_startup_plugins {} {
     load_plugin_script [file join $::sys_guidir pd_deken.tcl]
 
     # load other installed plugins
-    foreach pathdir [concat $::sys_searchpath $::sys_staticpath $::ceammc_libdir] {
+    foreach pathdir [concat $::sys_searchpath $::sys_staticpath [list $::ceammc_libdir]] {
         set dir [file normalize $pathdir]
         if { ! [file isdirectory $dir]} {continue}
         foreach filename [glob -directory $dir -nocomplain -types {f} -- \
