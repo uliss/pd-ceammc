@@ -35,9 +35,9 @@
 25;
 #X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 384 520 see also:;
-#X obj 454 520 osc.saw~;
-#X obj 528 520 osc.sqr~;
+#X text 362 520 see also:;
+#X obj 432 520 osc.saw~;
+#X obj 506 520 osc.square~;
 #X obj 602 520 lfo.tri~;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
