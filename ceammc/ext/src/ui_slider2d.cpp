@@ -37,6 +37,8 @@ struct ui_slider2d : public ceammc_gui::BaseGuiObject {
     t_etext* txt_max;
     t_efont* txt_font;
 
+    int show_range;
+
 public:
     float left() const { return shift_x; }
     float right() const { return shift_x + range_x; }
@@ -152,19 +154,21 @@ UI_fun(ui_slider2d)::wx_paint(t_object* z, t_object* view)
         egraphics_set_color_hex(g, knobBorderColor(zx->mouse_dn));
         egraphics_stroke(g);
 
-        char buf[30];
+        if(zx->show_range != 0) {
+            char buf[30];
 
-        snprintf(buf, 30, "X: [%.3g..%.3g]", zx->left(), zx->right());
-        etext_layout_set(zx->txt_max, buf, zx->txt_font,
-            3, 12, rect.width * 2, rect.height / 2,
-            ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_WRAP);
-        etext_layout_draw(zx->txt_max, g);
+            snprintf(buf, 30, "X: [%g..%g]", zx->left(), zx->right());
+            etext_layout_set(zx->txt_max, buf, zx->txt_font,
+                3, 12, rect.width * 2, rect.height / 2,
+                ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_WRAP);
+            etext_layout_draw(zx->txt_max, g);
 
-        snprintf(buf, 30, "Y: [%.3g..%.3g]", zx->top(), zx->bottom());
-        etext_layout_set(zx->txt_min, buf, zx->txt_font,
-            rect.width - 3, rect.height - 12, rect.width, rect.height / 2,
-            ETEXT_UP_RIGHT, ETEXT_JRIGHT, ETEXT_NOWRAP);
-        etext_layout_draw(zx->txt_min, g);
+            snprintf(buf, 30, "Y: [%g..%g]", zx->top(), zx->bottom());
+            etext_layout_set(zx->txt_min, buf, zx->txt_font,
+                rect.width - 3, rect.height - 12, rect.width, rect.height / 2,
+                ETEXT_UP_RIGHT, ETEXT_JRIGHT, ETEXT_NOWRAP);
+            etext_layout_draw(zx->txt_min, g);
+        }
 
         ebox_end_layer(asBox(z), BG_LAYER);
     }
@@ -226,25 +230,37 @@ UI_fun(ui_slider2d)::init_ext(t_eclass* z)
     // clang-format off
     CLASS_ATTR_DEFAULT              (z, "size", 0, "100. 100.");
 
+    CLASS_ATTR_INT                  (z, "show_range", 0, ui_slider2d, show_range);
+    CLASS_ATTR_DEFAULT              (z, "show_range", 0, "1");
+    CLASS_ATTR_LABEL                (z, "show_range", 0, "Show value range");
+    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "show_range", 0, "1");
+    CLASS_ATTR_STYLE                (z, "show_range", 0, "onoff");
+
     CLASS_ATTR_FLOAT                (z, "shift_x", 0, ui_slider2d, shift_x);
     CLASS_ATTR_DEFAULT              (z, "shift_x", 0, "-1");
     CLASS_ATTR_LABEL                (z, "shift_x", 0, "Leftmost value");
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "shift_x", 0, "-1");
+    CLASS_ATTR_STYLE                (z, "shift_x", 0, "number");
 
     CLASS_ATTR_FLOAT                (z, "range_x", 0, ui_slider2d, range_x);
     CLASS_ATTR_DEFAULT              (z, "range_x", 0, "2");
     CLASS_ATTR_LABEL                (z, "range_x", 0, "Horizontal range");
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "range_x", 0, "2");
+    CLASS_ATTR_STYLE                (z, "range_x", 0, "number");
+    CLASS_ATTR_FILTER_MIN           (z, "range_x", 0.0001f);
 
     CLASS_ATTR_FLOAT                (z, "shift_y", 0, ui_slider2d, shift_y);
     CLASS_ATTR_DEFAULT              (z, "shift_y", 0, "-1");
     CLASS_ATTR_LABEL                (z, "shift_y", 0, "Topmost value");
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "shift_y", 0, "-1");
+    CLASS_ATTR_STYLE                (z, "shift_y", 0, "number");
 
     CLASS_ATTR_FLOAT                (z, "range_y", 0, ui_slider2d, range_y);
     CLASS_ATTR_DEFAULT              (z, "range_y", 0, "2");
     CLASS_ATTR_LABEL                (z, "range_y", 0, "Vertical range");
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "range_y", 0, "2");
+    CLASS_ATTR_STYLE                (z, "range_y", 0, "number");
+    CLASS_ATTR_FILTER_MIN           (z, "range_y", 0.0001f);
     // clang-format on
 
     eclass_addmethod(z, reinterpret_cast<t_typ_method>(ui_s2_getdrawparams), "getdrawparams", A_NULL, 0);
@@ -277,14 +293,9 @@ UI_fun(ui_slider2d)::free_ext(t_object* x)
     efont_destroy(zx->txt_font);
 }
 
-UI_fun(ui_slider2d)::wx_attr_changed_ext(t_object* z, t_symbol* attr)
+UI_fun(ui_slider2d)::wx_attr_changed_ext(t_object* z, t_symbol*)
 {
-    if (attr == gensym("range_x")
-        || attr == gensym("shift_x")
-        || attr == gensym("range_y")
-        || attr == gensym("shift_y")) {
-        ws_redraw(z);
-    }
+    ws_redraw(z);
 }
 
 UI_fun(ui_slider2d)::m_list(t_object* z, t_symbol* s, int argc, t_atom* argv)
@@ -330,7 +341,6 @@ void ui_slider2d_value(t_object* z, t_symbol* s, int argc, t_atom* argv)
 
 UI_fun(ui_slider2d)::wx_oksize(t_object* z, t_rect* newrect)
 {
-    ui_slider2d* zx = asStruct(z);
     newrect->height = std::max(30.f, newrect->height);
     newrect->width = std::max(30.f, newrect->width);
 }

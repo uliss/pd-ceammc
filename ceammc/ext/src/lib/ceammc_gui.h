@@ -254,7 +254,6 @@ public:
      */
     static void wx_mousemove_ext(t_object* z, t_object* view, t_pt pt, long modifiers)
     {
-        GuiFactory<U>::ws_redraw(z);
     }
 
     /**

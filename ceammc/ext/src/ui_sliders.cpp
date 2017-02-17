@@ -347,7 +347,7 @@ UI_fun(ui_sliders)::init_ext(t_eclass* z)
 
     CLASS_ATTR_INT                  (z, "show_range", 0, ui_sliders, show_range);
     CLASS_ATTR_DEFAULT              (z, "show_range", 0, "1");
-    CLASS_ATTR_LABEL                (z, "show_range", 0, "Show sliders range");
+    CLASS_ATTR_LABEL                (z, "show_range", 0, "Show range");
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "show_range", 0, "1");
     CLASS_ATTR_STYLE                (z, "show_range", 0, "onoff");
     // clang-format on
