@@ -116,6 +116,11 @@ if(WITH_PORTAUDIO)
     list(APPEND PD_NEEDED_LIBS ${PORTAUDIO_LIBRARIES})
 endif()
 
+if(WITH_MMIO)
+    add_definitions(-DUSEAPI_MMIO)
+    list(APPEND S_SRC s_audio_mmio.c)
+endif()
+
 if(WITH_PORTMIDI)
     include_directories(${PROJECT_SOURCE_DIR}/portmidi/pm_common)
     include_directories(${PROJECT_SOURCE_DIR}/portmidi/porttime)
