@@ -56,6 +56,9 @@ if(WIN32)
     install(DIRECTORY "${WISH_BINDIR}/../lib/tcl8" DESTINATION "${PD_LIBTCL_INSTALL_PATH}")
     install(DIRECTORY "${WISH_BINDIR}/../lib/tcl8.6" DESTINATION "${PD_LIBTCL_INSTALL_PATH}")
     install(DIRECTORY "${WISH_BINDIR}/../lib/tk8.6" DESTINATION "${PD_LIBTCL_INSTALL_PATH}")
+    install(DIRECTORY "${WISH_BINDIR}/../lib/dde1.4" DESTINATION "${PD_LIBTCL_INSTALL_PATH}")
+    install(DIRECTORY "${WISH_BINDIR}/../lib/tcllib1.18" DESTINATION "${PD_LIBTCL_INSTALL_PATH}")
+    install(DIRECTORY "${WISH_BINDIR}/../lib/tklib0.5" DESTINATION "${PD_LIBTCL_INSTALL_PATH}")
     
     # pthreadGC-3.dll
     find_file(PTHREADGC_DLL NAMES pthreadGC-3.dll pthreadGC-2.dll PATHS /mingw/bin)
