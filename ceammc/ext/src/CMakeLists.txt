@@ -4,6 +4,8 @@ add_subdirectory(lib)
 include_directories(lib)
 include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra/CicmWrapper/Sources)
 add_subdirectory(tests)
+remove_definitions(-DPD_INTERNAL)
+add_definitions(-DPD)
 
 add_custom_target(ceammc_generate_math
     COMMAND ${CMAKE_SOURCE_DIR}/ceammc/py/generate_math.py
@@ -212,8 +214,12 @@ ceammc_cxx_extension(local float)
 
 ceammc_cxx_extension(prop get)
 pd_add_extension(NAME "msg" FILES "msg.cpp" INTERNAL True LIBRARY ceammc LINK ceammc_static)
-add_custom_command(TARGET msg COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_SONAME_FILE:msg>" "m${PD_EXTERNAL_EXTENSION}")
 
+if(UNIX)
+    add_custom_command(TARGET msg COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_SONAME_FILE:msg>" "m${PD_EXTERNAL_EXTENSION}")
+elseif(WIN32)
+#    add_custom_command(TARGET msg COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_DLLNAME_FILE:msg>" "m${PD_EXTERNAL_EXTENSION}")
+endif()
 
 
 include(FindLibSndFile)
@@ -262,8 +268,8 @@ if(GLIB_FOUND)
     ceammc_glib_extension__(is file)
 endif()
 
-ceammc_cxx_extension(system memsize)
-ceammc_cxx_extension(system memused)
+#ceammc_cxx_extension(system memsize)
+#ceammc_cxx_extension(system memused)
 
 ###############################
 # DSP

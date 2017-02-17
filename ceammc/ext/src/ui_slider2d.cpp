@@ -327,6 +327,13 @@ void ui_slider2d_value(t_object* z, t_symbol* s, int argc, t_atom* argv)
 {
     GuiFactory<ui_slider2d>::m_list(z, s, argc, argv);
 }
+
+UI_fun(ui_slider2d)::wx_oksize(t_object* z, t_rect* newrect)
+{
+    ui_slider2d* zx = asStruct(z);
+    newrect->height = std::max(30.f, newrect->height);
+    newrect->width = std::max(30.f, newrect->width);
+}
 }
 
 extern "C" void setup_ui0x2eslider2d()
