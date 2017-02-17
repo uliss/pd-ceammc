@@ -268,8 +268,8 @@ if(GLIB_FOUND)
     ceammc_glib_extension__(is file)
 endif()
 
-#ceammc_cxx_extension(system memsize)
-#ceammc_cxx_extension(system memused)
+ceammc_cxx_extension(system memsize)
+ceammc_cxx_extension(system memused)
 
 ###############################
 # DSP
