@@ -85,47 +85,44 @@ static void tl_cue_displace(t_gobj* z, t_glist* /*glist*/, int dx, int dy)
     ebox_get_rect_for_view(x, &rect);
 
     tl_bang* zx = (tl_bang*)z;
-    GuiFactory<tl_bang>::ws_redraw((t_object*)z);
+    GuiFactory<tl_bang>::ws_redraw(zx);
     zx->data->setXPos(zx->b_box.b_rect.x);
 }
 
-UI_fun(tl_bang)::wx_paint(t_object* z, t_object* /*view*/)
+UI_fun(tl_bang)::wx_paint(tl_bang* zx, t_object* /*view*/)
 {
     t_rect rect;
-    ebox_get_rect_for_view(asBox(z), &rect);
+    zx->getRect(&rect);
 
-    t_elayer* g = ebox_start_layer(asBox(z), BG_LAYER, rect.width, rect.height);
+    t_elayer* g = ebox_start_layer(asBox(zx), BG_LAYER, rect.width, rect.height);
     if (g) {
-        tl_bang* zx = asStruct(z);
-
         etext_layout_set(zx->txt, "tl.bang", zx->fnt, 2, 15, rect.width, rect.height / 2,
             ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
         etext_layout_draw(zx->txt, g);
 
         zx->data->setXPos(zx->b_box.b_rect.x);
-        ebox_end_layer(asBox(z), BG_LAYER);
+        ebox_end_layer(asBox(zx), BG_LAYER);
     }
 
-    ebox_paint_layer(asBox(z), BG_LAYER, 0., 0.);
+    ebox_paint_layer(asBox(zx), BG_LAYER, 0., 0.);
 }
 
-UI_fun(tl_bang)::wx_oksize(t_object* /*z*/, t_rect* newrect)
+UI_fun(tl_bang)::wx_oksize(tl_bang* /*z*/, t_rect* newrect)
 {
     newrect->width = 60;
     newrect->height = 15;
 }
 
-UI_fun(tl_bang)::new_ext(t_object* z, t_symbol* /*s*/, int /*argc*/, t_atom* /*argv*/)
+UI_fun(tl_bang)::new_ext(tl_bang* zx, t_symbol* /*s*/, int /*argc*/, t_atom* /*argv*/)
 {
-    tl_bang* zx = asStruct(z);
     zx->canvas = canvas_getcurrent();
 
-    zx->data = new TimelineData(zx->canvas, z);
+    zx->data = new TimelineData(zx->canvas, (t_object*)zx);
     zx->data->setXPos(zx->b_box.b_obj.o_obj.te_xpix);
     zx->data->setAction(&tl_bang_action);
     UIStorage::add(zx->data);
 
-    zx->out1 = outlet_new(z, &s_bang);
+    zx->out1 = create_outlet(zx, &s_bang);
 
     zx->txt = etext_layout_create();
 
@@ -146,10 +143,8 @@ UI_fun(tl_bang)::init_ext(t_eclass* z)
     // clang-format on
 }
 
-UI_fun(tl_bang)::free_ext(t_object* x)
+UI_fun(tl_bang)::free_ext(tl_bang* zx)
 {
-    tl_bang* zx = asStruct(x);
-
     // CICM cleanup
     etext_layout_destroy(zx->txt);
     efont_destroy(zx->fnt);

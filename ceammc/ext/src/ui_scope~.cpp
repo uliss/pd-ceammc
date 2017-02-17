@@ -60,7 +60,7 @@ static void ui_scope_perform(ui_scope* x, t_object*,
     x->counter++;
     if (x->counter == 32) {
         x->counter = 0;
-        ceammc_gui::GuiFactory<ui_scope>::ws_redraw(reinterpret_cast<t_object*>(x));
+        ceammc_gui::GuiFactory<ui_scope>::ws_redraw(x);
     }
 }
 
@@ -71,12 +71,12 @@ static void ui_scope_dsp(ui_scope* x, t_object* dsp, short* /*count*/, double /*
 
 #pragma mark ui
 
-UI_fun(ui_scope)::wx_paint(t_object* z, t_object* /*view*/)
+UI_fun(ui_scope)::wx_paint(ui_scope* zx, t_object* /*view*/)
 {
     t_rect rect;
-    ebox_get_rect_for_view(asBox(z), &rect);
+    zx->getRect(&rect);
 
-    t_elayer* g = ebox_start_layer(asBox(z), BG_LAYER, rect.width, rect.height);
+    t_elayer* g = ebox_start_layer(asBox(zx), BG_LAYER, rect.width, rect.height);
 
     if (g) {
         // draw hrules
@@ -89,7 +89,6 @@ UI_fun(ui_scope)::wx_paint(t_object* z, t_object* /*view*/)
 
         egraphics_set_line_width(g, GRAPH_LINE_WIDTH);
         egraphics_set_color_hex(g, COLOR_ACTIVE);
-        ui_scope* zx = asStruct(z);
         egraphics_move_to(g, 0, zx->valueAt(0) * rect.height);
 
         for (size_t i = 0; i < 128; i++) {
@@ -99,22 +98,21 @@ UI_fun(ui_scope)::wx_paint(t_object* z, t_object* /*view*/)
         }
 
         egraphics_stroke(g);
-        ebox_end_layer(asBox(z), BG_LAYER);
+        ebox_end_layer(asBox(zx), BG_LAYER);
     }
 
-    ebox_paint_layer(asBox(z), BG_LAYER, 0., 0.);
+    ebox_paint_layer(asBox(zx), BG_LAYER, 0., 0.);
 }
 
-UI_fun(ui_scope)::wx_oksize(t_object*, t_rect* newrect)
+UI_fun(ui_scope)::wx_oksize(ui_scope*, t_rect* newrect)
 {
     newrect->width = pd_clip_min(newrect->width, 30);
     newrect->height = pd_clip_min(newrect->height, 30);
 }
 
-UI_fun(ui_scope)::wx_mousewheel_ext(t_object* z, t_object*, t_pt, long modifiers, double delta)
+UI_fun(ui_scope)::wx_mousewheel_ext(ui_scope* zx, t_object*, t_pt, long modifiers, double delta)
 {
     if (modifiers == EMOD_SHIFT) {
-        ui_scope* zx = asStruct(z);
         float change = ((delta < 0) ? -1 : 1) * 0.1f;
         float new_yscale = zx->yscale + change;
         if (0.1f <= new_yscale && new_yscale <= 10.f)
@@ -132,10 +130,9 @@ static void ui_s_getdrawparams(ui_scope* x, t_object* /*patcherview*/, t_edrawpa
     params->d_boxfillcolor = x->b_color_background;
 }
 
-UI_fun(ui_scope)::new_ext(t_object* z, t_symbol*, int, t_atom*)
+UI_fun(ui_scope)::new_ext(ui_scope* zx, t_symbol*, int, t_atom*)
 {
-    eobj_dspsetup(z, 1, 0);
-    ui_scope* zx = asStruct(z);
+    eobj_dspsetup(zx, 1, 0);
     zx->b_freeze = 0;
     zx->counter = 0;
 }

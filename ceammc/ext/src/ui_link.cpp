@@ -32,14 +32,12 @@ static const t_rgba LINK_COLOR_HOVER = hex_to_rgba("#FF0080");
 
 static t_symbol* LINK_FONT = gensym("Menlo");
 
-UI_fun(ui_link)::wx_paint(t_object* z, t_object*)
+UI_fun(ui_link)::wx_paint(ui_link* zx, t_object*)
 {
     t_rect rect;
-    ebox_get_rect_for_view(asBox(z), &rect);
+    zx->getRect(&rect);
 
-    t_elayer* g = ebox_start_layer(asBox(z), BG_LAYER, rect.width, rect.height);
-
-    ui_link* zx = asStruct(z);
+    t_elayer* g = ebox_start_layer(asBox(zx), BG_LAYER, rect.width, rect.height);
 
     if (g) {
         etext_layout_settextcolor(zx->t_e, &zx->link_color);
@@ -48,32 +46,29 @@ UI_fun(ui_link)::wx_paint(t_object* z, t_object*)
             ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
 
         etext_layout_draw(zx->t_e, g);
-        ebox_end_layer(asBox(z), BG_LAYER);
+        ebox_end_layer(asBox(zx), BG_LAYER);
     }
 
-    ebox_paint_layer(asBox(z), BG_LAYER, 0., 0.);
+    ebox_paint_layer(asBox(zx), BG_LAYER, 0., 0.);
 }
 
-UI_fun(ui_link)::wx_mousedown_ext(t_object* z, t_object*, t_pt, long)
+UI_fun(ui_link)::wx_mousedown_ext(ui_link* zx, t_object*, t_pt, long)
 {
-    ui_link* zx = asStruct(z);
     sys_vgui("ceammclink_open {%s} {%s}\n", zx->link->s_name, zx->x_dirsym->s_name);
 }
 
-UI_fun(ui_link)::wx_mouseenter(t_object* z, t_object*, t_pt, long)
+UI_fun(ui_link)::wx_mouseenter_ext(ui_link* zx, t_object*, t_pt, long)
 {
-    ui_link* zx = asStruct(z);
     zx->link_color = LINK_COLOR_HOVER;
-    ebox_invalidate_layer(asBox(z), BG_LAYER);
-    ws_redraw(z);
+    ebox_invalidate_layer(asBox(zx), BG_LAYER);
+    ws_redraw(zx);
 }
 
-UI_fun(ui_link)::wx_mouseleave(t_object* z, t_object*, t_pt, long)
+UI_fun(ui_link)::wx_mouseleave_ext(ui_link* zx, t_object*, t_pt, long)
 {
-    ui_link* zx = asStruct(z);
     zx->link_color = LINK_COLOR;
-    ebox_invalidate_layer(asBox(z), BG_LAYER);
-    ws_redraw(z);
+    ebox_invalidate_layer(asBox(zx), BG_LAYER);
+    ws_redraw(zx);
 }
 
 static void link_getdrawparams(ui_link* x, t_object*, t_edrawparams* params)
@@ -105,12 +100,10 @@ static size_t text_height(t_symbol*, int sz)
     return static_cast<size_t>(sys_fontheight(sz));
 }
 
-UI_fun(ui_link)::new_ext(t_object* z, t_symbol*, int, t_atom*)
+UI_fun(ui_link)::new_ext(ui_link* zx, t_symbol*, int, t_atom*)
 {
-    ui_link* zx = asStruct(z);
-
     // fixed size
-    asBox(z)->b_flags = EBOX_GROWNO;
+    asBox(zx)->b_flags = EBOX_GROWNO;
 
     zx->t_e = etext_layout_create();
     zx->t_ef = efont_create(LINK_FONT, FONT_STYLE, FONT_WEIGHT, FONT_SIZE);
@@ -124,18 +117,17 @@ UI_fun(ui_link)::new_ext(t_object* z, t_symbol*, int, t_atom*)
         t_atom data[2];
         atom_setfloat(&data[0], w);
         atom_setfloat(&data[1], h);
-        asBox(z)->b_rect.width = w;
-        asBox(z)->b_rect.height = h;
+        asBox(zx)->b_rect.width = w;
+        asBox(zx)->b_rect.height = h;
 
-        eobj_attr_setvalueof(z, gensym("size"), 2, data);
+        eobj_attr_setvalueof(zx, gensym("size"), 2, data);
     }
 
     zx->link_color = hex_to_rgba("#00A0C0");
 }
 
-UI_fun(ui_link)::free_ext(t_object* z)
+UI_fun(ui_link)::free_ext(ui_link* zx)
 {
-    ui_link* zx = asStruct(z);
     etext_layout_destroy(zx->t_e);
     efont_destroy(zx->t_ef);
 }
@@ -166,21 +158,20 @@ UI_fun(ui_link)::init_ext(t_eclass* z)
     eclass_addmethod(z, (method)link_getdrawparams, "getdrawparams", A_NULL, 0);
 }
 
-UI_fun(ui_link)::wx_attr_changed_ext(t_object* z, t_symbol* attr)
+UI_fun(ui_link)::wx_attr_changed_ext(ui_link* zx, t_symbol* attr)
 {
     if (attr == gensym("title")) {
-        ui_link* zx = asStruct(z);
         size_t w = text_width(zx->title, FONT_SIZE);
         size_t h = text_height(zx->title, FONT_SIZE);
         t_atom data[2];
         atom_setfloat(&data[0], w);
         atom_setfloat(&data[1], h);
-        asBox(z)->b_rect.width = w;
-        asBox(z)->b_rect.height = h;
+        asBox(zx)->b_rect.width = w;
+        asBox(zx)->b_rect.height = h;
 
-        eobj_attr_setvalueof(z, gensym("size"), 2, data);
+        eobj_attr_setvalueof(zx, gensym("size"), 2, data);
 
-        ws_redraw(z);
+        ws_redraw(zx);
     }
 }
 

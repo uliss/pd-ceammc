@@ -104,18 +104,16 @@ static bool mouse_in_rect(int x, int y, const kRect& kr)
     return (x > kr.x) && x < (kr.x + kr.w) && y > (kr.y) && y < (kr.y + kr.h);
 }
 
-UI_fun(ui_keyboard)::wx_paint(t_object* z, t_object* /*view*/)
+UI_fun(ui_keyboard)::wx_paint(ui_keyboard* zx, t_object* /*view*/)
 {
     t_symbol* bgl = BG_LAYER;
 
     t_rect rect;
-    ebox_get_rect_for_view(asBox(z), &rect);
+    zx->getRect(&rect);
 
-    t_elayer* g = ebox_start_layer(asBox(z), bgl, rect.width, rect.height);
+    t_elayer* g = ebox_start_layer(asBox(zx), bgl, rect.width, rect.height);
 
     if (g) {
-        ui_keyboard* zx = asStruct(z);
-
         if (zx->keys < 3)
             zx->keys = 3; // rapper's piano meme
         if (zx->keys > 127)
@@ -170,18 +168,16 @@ UI_fun(ui_keyboard)::wx_paint(t_object* z, t_object* /*view*/)
             }
         }
 
-        ebox_end_layer(asBox(z), bgl);
+        ebox_end_layer(asBox(zx), bgl);
     }
 
-    ebox_paint_layer(asBox(z), bgl, 0., 0.);
+    ebox_paint_layer(asBox(zx), bgl, 0., 0.);
 }
 
-UI_fun(ui_keyboard)::wx_mousemove_ext(t_object* z, t_object* /*view*/, t_pt /*pt*/, long /*modifiers*/)
+UI_fun(ui_keyboard)::wx_mousemove_ext(ui_keyboard* zx, t_object* /*view*/, t_pt /*pt*/, long /*modifiers*/)
 {
-    ui_keyboard* zx = asStruct(z);
-
     t_rect rect;
-    ebox_get_rect_for_view(asBox(z), &rect);
+    ebox_get_rect_for_view(asBox(zx), &rect);
 
     float kWidth = key_width(rect.width, zx->keys);
 
@@ -206,36 +202,31 @@ UI_fun(ui_keyboard)::wx_mousemove_ext(t_object* z, t_object* /*view*/, t_pt /*pt
     }
 }
 
-UI_fun(ui_keyboard)::wx_mousedown_ext(t_object* z, t_object* /*view*/, t_pt pt, long /*modifiers*/)
+UI_fun(ui_keyboard)::wx_mousedown_ext(ui_keyboard* zx, t_object* /*view*/, t_pt pt, long /*modifiers*/)
 {
-    ui_keyboard* zx = asStruct(z);
-
     t_rect rect;
-    ebox_get_rect_for_view(asBox(z), &rect);
+    ebox_get_rect_for_view(asBox(zx), &rect);
 
     // calc velocity
     zx->_vel = int(pt.y / rect.height * 127.f);
 
     zx->output();
-    ws_redraw(z);
+    ws_redraw(zx);
 }
 
-UI_fun(ui_keyboard)::wx_mouseup_ext(t_object* z, t_object* /*view*/, t_pt /*pt*/, long /*modifiers*/)
+UI_fun(ui_keyboard)::wx_mouseup_ext(ui_keyboard* zx, t_object* /*view*/, t_pt /*pt*/, long /*modifiers*/)
 {
-    ui_keyboard* zx = asStruct(z);
-
     zx->_vel = 0;
 
     zx->output();
-    ws_redraw(z);
+    ws_redraw(zx);
 }
 
-UI_fun(ui_keyboard)::wx_mousedrag_ext(t_object* z, t_object* view, t_pt pt, long modifiers)
+UI_fun(ui_keyboard)::wx_mousedrag_ext(ui_keyboard* zx, t_object* view, t_pt pt, long modifiers)
 {
-    ui_keyboard* zx = asStruct(z);
     int prev_pitch = zx->_pitch;
 
-    wx_mousemove_ext(z, view, pt, modifiers);
+    wx_mousemove_ext(zx, view, pt, modifiers);
 
     if (prev_pitch != zx->_pitch) {
         int tmp_vel = zx->_vel;
@@ -251,23 +242,21 @@ UI_fun(ui_keyboard)::wx_mousedrag_ext(t_object* z, t_object* view, t_pt pt, long
         zx->_pitch = tmp_pitch;
         zx->output();
 
-        ws_redraw(z);
+        ws_redraw(zx);
     }
 }
 
-UI_fun(ui_keyboard)::wx_oksize(t_object* z, t_rect* newrect)
+UI_fun(ui_keyboard)::wx_oksize(ui_keyboard* zx, t_rect* newrect)
 {
-    ui_keyboard* zx = asStruct(z);
     float min_width = white_keys(zx->keys) * 8;
     newrect->width = pd_clip_min(newrect->width, min_width);
     newrect->height = pd_clip_min(newrect->height, 40.);
 }
 
-UI_fun(ui_keyboard)::wx_mouseleave_ext(t_object* z, t_object* /*view*/, t_pt /*pt*/, long /*modifiers*/)
+UI_fun(ui_keyboard)::wx_mouseleave_ext(ui_keyboard* zx, t_object* /*view*/, t_pt /*pt*/, long /*modifiers*/)
 {
-    ui_keyboard* zx = asStruct(z);
     zx->_pitch = -1;
-    ws_redraw(z);
+    ws_redraw(zx);
 }
 
 static void ui_k_getdrawparams(ui_keyboard* x, t_object* /*patcherview*/, t_edrawparams* params)
@@ -277,7 +266,7 @@ static void ui_k_getdrawparams(ui_keyboard* x, t_object* /*patcherview*/, t_edra
     params->d_bordercolor = x->b_color_border;
 }
 
-UI_fun(ui_keyboard)::wx_attr_changed_ext(t_object* z, t_symbol* attr)
+UI_fun(ui_keyboard)::wx_attr_changed_ext(ui_keyboard* z, t_symbol* attr)
 {
     if (attr == gensym("keys"))
         ws_redraw(z);
@@ -309,10 +298,9 @@ UI_fun(ui_keyboard)::init_ext(t_eclass* z)
     eclass_addmethod(z, reinterpret_cast<t_typ_method>(ui_k_getdrawparams), "getdrawparams", A_NULL, 0);
 }
 
-UI_fun(ui_keyboard)::new_ext(t_object* x, t_symbol* /*s*/, int /*argcl*/, t_atom* /*argv*/)
+UI_fun(ui_keyboard)::new_ext(ui_keyboard* zx, t_symbol* /*s*/, int /*argcl*/, t_atom* /*argv*/)
 {
-    ui_keyboard* zx = asStruct(x);
-    zx->out1 = outlet_new(x, &s_anything);
+    zx->out1 = create_outlet(zx);
 }
 }
 
