@@ -87,7 +87,7 @@ static void link_getdrawparams(ui_link* x, t_object*, t_edrawparams* params)
 static size_t text_width(t_symbol* txt, int sz)
 {
     const size_t len = strlen(txt->s_name);
-    const size_t char_wd = static_cast<size_t>(sys_zoomfontwidth(sz, 1, 0));
+    const size_t char_wd = static_cast<size_t>(sys_fontwidth(sz));
     int corr = 0;
 
 #ifdef __APPLE__
@@ -102,7 +102,7 @@ static size_t text_width(t_symbol* txt, int sz)
 
 static size_t text_height(t_symbol*, int sz)
 {
-    return static_cast<size_t>(sys_zoomfontheight(sz, 1, 0));
+    return static_cast<size_t>(sys_fontheight(sz));
 }
 
 UI_fun(ui_link)::new_ext(t_object* z, t_symbol*, int, t_atom*)
