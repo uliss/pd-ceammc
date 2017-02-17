@@ -109,7 +109,7 @@ extern "C" void cream_setup(void)
     setup_ui0x2eradio();
     setup_ui0x2erslider();
     setup_ui0x2eslider();
-    // TEMPORARY    setup_ui0x2etab();
+    setup_ui0x2etab();
     setup_ui0x2etoggle();
 
 #ifdef __APPLE__
