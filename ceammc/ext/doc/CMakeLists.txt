@@ -182,8 +182,21 @@ else()
 endif()
 
 if(WIN32)
+    set(DOC_INSTALL_PATH "extra/ceammc")
+
     foreach(_doc_file ${DOC_FILES})
-        install(FILES "${_doc_file}-help.pd" DESTINATION "extra/ceammc")
+        install(FILES "${_doc_file}-help.pd"
+            DESTINATION ${DOC_INSTALL_PATH}
+            PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
     endforeach()
+
+    install(FILES "about.pd" DESTINATION ${DOC_INSTALL_PATH}
+        PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
+
+    install(
+        CODE "file( GLOB _PD_CATEGORY_HELP_FILES \"${CMAKE_CURRENT_SOURCE_DIR}/ceammc*-help.pd\" )"
+        CODE "file( INSTALL \${_PD_CATEGORY_HELP_FILES}
+            DESTINATION \"${CMAKE_INSTALL_PREFIX}/${DOC_INSTALL_PATH}\")"
+    )
 endif()
 
