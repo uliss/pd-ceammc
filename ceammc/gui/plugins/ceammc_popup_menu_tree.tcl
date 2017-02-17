@@ -62,9 +62,6 @@
     {path
         {path.basename path.dirname path.exists path.home path.listdir}
     }
-    {string
-        {string.compare string.join string.length string.reverse string.slice string.split string.to_lower string.to_upper}
-    }
     {predicates
         {is_any is_bang is_even is_float is_list is_odd is_pointer is_symbol}
     }
