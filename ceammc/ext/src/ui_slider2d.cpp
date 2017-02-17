@@ -329,6 +329,12 @@ void ui_slider2d_value(t_object* z, t_symbol* s, int argc, t_atom* argv)
 }
 }
 
+UI_fun(ui_slider2d)::wx_oksize(t_object* z, t_rect* newrect)
+{
+    newrect->width = pd_clip_min(newrect->width, 60);
+    newrect->height = pd_clip_min(newrect->height, 60.);
+}
+
 extern "C" void setup_ui0x2eslider2d()
 {
     ceammc_gui::GuiFactory<ui_slider2d> c;
