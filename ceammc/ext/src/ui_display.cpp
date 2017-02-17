@@ -224,6 +224,7 @@ UI_fun(ui_display)::init_ext(t_eclass* z)
 {
     // clang-format off
     CLASS_ATTR_DEFAULT              (z, "size", 0, "150. 15.");
+    CLASS_ATTR_INVISIBLE            (z, "send", 0);
 
     CLASS_ATTR_INT                  (z, "display_events", 0, ui_display, show_bang);
     CLASS_ATTR_DEFAULT              (z, "display_events", 0, "1");
