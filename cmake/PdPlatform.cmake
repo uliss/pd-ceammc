@@ -20,17 +20,45 @@ if(UNIX AND NOT APPLE)
 endif()
 
 
-if(MSYS)
+if(WIN32)
     find_program(WISH_PATH NAMES wish86.exe wish85.exe wish.exe)
     if(NOT WISH_PATH)
         message(FATAL_ERROR "wish.exe not found")
     else()
         message(STATUS "wish found: ${WISH_PATH}")
         get_filename_component(WISHAPP ${WISH_PATH} NAME)
+        get_filename_component(WISH_BINDIR ${WISH_PATH} DIRECTORY)
     endif()
     
+    # install wish.exe to bin directory
     install(PROGRAMS ${WISH_PATH} DESTINATION ${PD_EXE_INSTALL_PATH})
     include(InstallRequiredSystemLibraries)
+
+    # install tcl.dll
+    find_file(TCLDLL_PATH NAMES tcl86.dll tcl85.dll PATHS ${WISH_BINDIR})
+    if(TCLDLL_PATH)
+        install(PROGRAMS ${TCLDLL_PATH} DESTINATION ${PD_EXE_INSTALL_PATH})
+    endif()
+
+    # install tk.dll
+    find_file(TKDLL_PATH NAMES tk86.dll tk85.dll PATHS ${WISH_BINDIR})
+    if(TKDLL_PATH)
+        install(PROGRAMS ${TKDLL_PATH} DESTINATION ${PD_EXE_INSTALL_PATH})
+    endif()
+
+    # install zlib.dll
+    find_file(ZLIBDLL_PATH NAMES zlib1.dll PATHS ${WISH_BINDIR})
+    if(ZLIBDLL_PATH)
+        install(PROGRAMS ${ZLIBDLL_PATH} DESTINATION ${PD_EXE_INSTALL_PATH})
+    endif()
+
+    # install tcl libs
+    install(DIRECTORY "${WISH_BINDIR}/../lib/tcl8" DESTINATION "${PD_LIBTCL_INSTALL_PATH}")
+    install(DIRECTORY "${WISH_BINDIR}/../lib/tcl8.6" DESTINATION "${PD_LIBTCL_INSTALL_PATH}")
+    install(DIRECTORY "${WISH_BINDIR}/../lib/tk8.6" DESTINATION "${PD_LIBTCL_INSTALL_PATH}")
+    install(DIRECTORY "${WISH_BINDIR}/../lib/dde1.4" DESTINATION "${PD_LIBTCL_INSTALL_PATH}")
+    install(DIRECTORY "${WISH_BINDIR}/../lib/tcllib1.18" DESTINATION "${PD_LIBTCL_INSTALL_PATH}")
+    install(DIRECTORY "${WISH_BINDIR}/../lib/tklib0.5" DESTINATION "${PD_LIBTCL_INSTALL_PATH}")
     
     # pthreadGC-3.dll
     find_file(PTHREADGC_DLL NAMES pthreadGC-3.dll pthreadGC-2.dll PATHS /mingw/bin)
@@ -53,11 +81,11 @@ if(MSYS)
     
     
     add_definitions(-DPD_INTERNAL -DWINVER=0x0502 -D_WIN32_WINNT=0x0502)
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mms-bitfields -g -O3 -funroll-loops -fomit-frame-pointer")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mms-bitfields -O2 -funroll-loops -fomit-frame-pointer -static-libgcc -static -lpthread ")
     list(APPEND PLATFORM_LINK_LIBRARIES ${CMAKE_THREAD_LIBS_INIT})
     list(APPEND PLATFORM_LINK_LIBRARIES "m" "wsock32" "ole32" "winmm")
-    set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--export-all-symbols -pthread")
-    set(CMAKE_EXE_LINKER_FLAGS "-static -pthread -lOle32 -lWinmm -static-libgcc")	
+    set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--export-all-symbols -lpthread")
+    set(CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static -lpthread -lOle32 -lWinmm")
 endif()
 
 if(APPLE)
