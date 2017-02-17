@@ -157,13 +157,13 @@ UI_fun(ui_slider2d)::wx_paint(t_object* z, t_object* view)
         if(zx->show_range != 0) {
             char buf[30];
 
-            snprintf(buf, 30, "X: [%.3g..%.3g]", zx->left(), zx->right());
+            snprintf(buf, 30, "X: [%g..%g]", zx->left(), zx->right());
             etext_layout_set(zx->txt_max, buf, zx->txt_font,
                 3, 12, rect.width * 2, rect.height / 2,
                 ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_WRAP);
             etext_layout_draw(zx->txt_max, g);
 
-            snprintf(buf, 30, "Y: [%.3g..%.3g]", zx->top(), zx->bottom());
+            snprintf(buf, 30, "Y: [%g..%g]", zx->top(), zx->bottom());
             etext_layout_set(zx->txt_min, buf, zx->txt_font,
                 rect.width - 3, rect.height - 12, rect.width, rect.height / 2,
                 ETEXT_UP_RIGHT, ETEXT_JRIGHT, ETEXT_NOWRAP);
@@ -247,6 +247,7 @@ UI_fun(ui_slider2d)::init_ext(t_eclass* z)
     CLASS_ATTR_LABEL                (z, "range_x", 0, "Horizontal range");
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "range_x", 0, "2");
     CLASS_ATTR_STYLE                (z, "range_x", 0, "number");
+    CLASS_ATTR_FILTER_MIN           (z, "range_x", 0.0001f);
 
     CLASS_ATTR_FLOAT                (z, "shift_y", 0, ui_slider2d, shift_y);
     CLASS_ATTR_DEFAULT              (z, "shift_y", 0, "-1");
@@ -259,6 +260,7 @@ UI_fun(ui_slider2d)::init_ext(t_eclass* z)
     CLASS_ATTR_LABEL                (z, "range_y", 0, "Vertical range");
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "range_y", 0, "2");
     CLASS_ATTR_STYLE                (z, "range_y", 0, "number");
+    CLASS_ATTR_FILTER_MIN           (z, "range_y", 0.0001f);
     // clang-format on
 
     eclass_addmethod(z, reinterpret_cast<t_typ_method>(ui_s2_getdrawparams), "getdrawparams", A_NULL, 0);
