@@ -62,9 +62,6 @@
     {path
         {path.basename path.dirname path.exists path.home path.listdir}
     }
-    {string
-        {string.compare string.join string.length string.reverse string.slice string.split string.to_lower string.to_upper}
-    }
     {predicates
         {is_any is_bang is_even is_float is_list is_odd is_pointer is_symbol}
     }
@@ -81,7 +78,7 @@
     	{conv.bpf2env conv.bpf2vline conv.bpf2list conv.bpf2array}
     }
     {ui
-        {ui.bang ui.toggle ui.slider ui.number ui.preset ui.tab ui.radio ui.rslider ui.number~ ui.radio ui.menu ui.matrix ui.meter~ ui.knob ui.keyboard ui.sliders ui.slider2d ui.bpfun ui.display ui.scope~ ui.spectroscope }
+        {ui.bang ui.toggle ui.slider ui.number ui.preset ui.tab ui.radio ui.rslider ui.number~ ui.radio ui.menu ui.matrix ui.meter~ ui.knob ui.keyboard ui.sliders ui.slider2d ui.bpfun ui.display ui.scope~ ui.spectroscope~ }
     }
     {experimental
         {exp.patchdata exp.class exp.instance exp.method exp.aproperty}

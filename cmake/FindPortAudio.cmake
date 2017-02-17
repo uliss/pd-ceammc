@@ -15,6 +15,7 @@ else (PORTAUDIO_LIBRARIES AND PORTAUDIO_INCLUDE_DIRS)
       /usr/local/include
       /opt/local/include
       /sw/include
+      /usr/local/mingw/i686-w64-mingw32
       C:/MinGW/msys/1.0/usr/lib
       C:/MinGW/msys/1.0/usr/local/lib
   )
@@ -27,6 +28,7 @@ else (PORTAUDIO_LIBRARIES AND PORTAUDIO_INCLUDE_DIRS)
       /usr/local/lib
       /opt/local/lib
       /sw/lib
+      /usr/local/mingw/i686-w64-mingw32
       C:/MinGW/msys/1.0/usr/lib
       C:/MinGW/msys/1.0/usr/local/lib
   )

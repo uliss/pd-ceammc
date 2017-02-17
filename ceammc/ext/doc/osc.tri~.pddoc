@@ -14,7 +14,7 @@
             <since>0.1</since>
             <also>
                 <see>osc.saw~</see>
-                <see>osc.sqr~</see>
+                <see>osc.square~</see>
                 <see>lfo.tri~</see>
             </also>
         </meta>

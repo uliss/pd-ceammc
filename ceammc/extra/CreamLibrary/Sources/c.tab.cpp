@@ -10,11 +10,6 @@
 
 #include "../c.library.hpp"
 
-#include "../../../ext/src/lib/ceammc_atomlist.cpp"
-#include "../../../ext/src/lib/ceammc_atomlist.h"
-
-using namespace ceammc;
-
 typedef struct _tab {
     t_ebox j_box;
 
@@ -22,7 +17,7 @@ typedef struct _tab {
     t_outlet* f_out_item;
     t_outlet* f_out_hover;
 
-    t_atom* f_items[CREAM_MAXITEMS];
+    t_symbol* f_items[CREAM_MAXITEMS];
     long f_nitems;
     long f_item_selected;
     long f_item_hover;
@@ -59,19 +54,19 @@ static t_symbol* atoms_getsymbol(int ac, t_atom* av)
         } else if (atom_gettype(av + i) == A_FLOAT) {
             char temp[MAXPDSTRING];
             sprintf(temp, "%f", atom_getfloat(av + i));
-            int length = (int)strlen(temp);
-            while (temp[length - 1] == '0') {
-                temp[length - 1] = '\0';
-                length--;
+            int lenght = (int)strlen(temp);
+            while (temp[lenght - 1] == '0') {
+                temp[lenght - 1] = '\0';
+                lenght--;
             }
-            if (temp[length - 1] == '.') {
-                temp[length - 1] = '\0';
-                length--;
+            if (temp[lenght - 1] == '.') {
+                temp[lenght - 1] = '\0';
+                lenght--;
             }
             if (buffer[0] != '\0') {
                 strncat(buffer, " ", (size_t)1);
             }
-            strncat(buffer, temp, (size_t)length);
+            strncat(buffer, temp, (size_t)lenght);
             memset(temp, '\0', MAXPDSTRING * sizeof(char));
         }
     }
@@ -82,7 +77,7 @@ static int tab_getindex(t_tab* x, t_symbol* s)
 {
     if (s) {
         for (int i = 0; i < x->f_nitems; i++) {
-            if (s == Atom(*x->f_items[i]).asSymbol()) {
+            if (s == x->f_items[i]) {
                 return i;
             }
         }
@@ -94,7 +89,7 @@ static void tab_append(t_tab* x, t_symbol* s, int argc, t_atom* argv)
 {
     t_symbol* item = atoms_getsymbol(argc, argv);
     if (item && tab_getindex(x, item) == -1) {
-        x->f_items[x->f_nitems] = AtomList(item).toPdData();
+        x->f_items[x->f_nitems] = item;
         x->f_nitems++;
 
         ebox_invalidate_layer((t_ebox*)x, cream_sym_text_layer);
@@ -114,7 +109,7 @@ static void tab_insert(t_tab* x, t_symbol* s, int argc, t_atom* argv)
                 for (int i = (int)x->f_nitems; i > index; i--) {
                     x->f_items[i] = x->f_items[i - 1];
                 }
-                x->f_items[index] = AtomList(item).toPdData();
+                x->f_items[index] = item;
                 x->f_nitems++;
 
                 ebox_invalidate_layer((t_ebox*)x, cream_sym_text_layer);
@@ -125,7 +120,7 @@ static void tab_insert(t_tab* x, t_symbol* s, int argc, t_atom* argv)
         } else if (index >= 0) {
             t_symbol* item = atoms_getsymbol(argc - 1, argv + 1);
             if (item && tab_getindex(x, item) == -1) {
-                x->f_items[x->f_nitems] = AtomList(item).toPdData();
+                x->f_items[x->f_nitems] = item;
                 x->f_nitems++;
 
                 ebox_invalidate_layer((t_ebox*)x, cream_sym_text_layer);
@@ -144,7 +139,7 @@ static void tab_setitem(t_tab* x, t_symbol* s, int argc, t_atom* argv)
         if (index >= 0 && index < x->f_nitems) {
             t_symbol* item = atoms_getsymbol(argc - 1, argv + 1);
             if (item && tab_getindex(x, item) == -1) {
-                x->f_items[index] = AtomList(item).toPdData();
+                x->f_items[index] = item;
                 ebox_invalidate_layer((t_ebox*)x, cream_sym_text_layer);
                 ebox_invalidate_layer((t_ebox*)x, cream_sym_selection_layer);
                 ebox_invalidate_layer((t_ebox*)x, cream_sym_background_layer);
@@ -206,7 +201,7 @@ static void tab_output(t_tab* x)
         t_pd* send = ebox_getsender((t_ebox*)x);
         outlet_float(x->f_out_index, x->f_item_selected);
         if (x->f_item_selected != -1) {
-            outlet_symbol(x->f_out_item, Atom(*x->f_items[x->f_item_selected]).asSymbol());
+            outlet_symbol(x->f_out_item, x->f_items[x->f_item_selected]);
         }
         outlet_float(x->f_out_hover, x->f_item_hover);
 
@@ -385,8 +380,8 @@ static void draw_text(t_tab* x, t_object* view, t_rect* rect)
             if (x->f_orientation) {
                 const float ratio = rect->height / (float)x->f_nitems;
                 for (i = 0; i < x->f_nitems; i++) {
-                    if (x->f_items[i] && *x->f_items[i] != A_NULL) {
-                        etext_layout_set(jtl, Atom(*x->f_items[i]).asSymbol()->s_name, &x->j_box.b_font,
+                    if (x->f_items[i] && x->f_items[i] != s_null) {
+                        etext_layout_set(jtl, x->f_items[i]->s_name, &x->j_box.b_font,
                             rect->width * 0.5,
                             ratio * (i + 0.5),
                             rect->width,
@@ -397,9 +392,9 @@ static void draw_text(t_tab* x, t_object* view, t_rect* rect)
             } else {
                 const float ratio = rect->width / (float)x->f_nitems;
                 for (i = 0; i < x->f_nitems; i++) {
-                    if (x->f_items[i] && *x->f_items[i] != A_NULL) {
+                    if (x->f_items[i] && x->f_items[i] != s_null) {
                         etext_layout_settextcolor(jtl, &x->f_color_text);
-                        etext_layout_set(jtl, Atom(*x->f_items[i]).asSymbol()->s_name, &x->j_box.b_font,
+                        etext_layout_set(jtl, x->f_items[i]->s_name, &x->j_box.b_font,
                             ratio * (i + 0.5),
                             rect->height * 0.5,
                             ratio - 2,
@@ -495,9 +490,10 @@ static void* tab_new(t_symbol* s, int argc, t_atom* argv)
         x->f_item_selected = -1;
         x->f_item_hover = -1;
         x->f_nitems = 0;
-
         ebox_attrprocess_viabinbuf(x, d);
         ebox_ready((t_ebox*)x);
+
+        binbuf_free(d);
     }
 
     return (x);
@@ -507,82 +503,86 @@ extern "C" void setup_ui0x2etab(void)
 {
     t_eclass* c = eclass_new("ui.tab", (method)tab_new, (method)ebox_free, (short)sizeof(t_tab), 0L, A_GIMME, 0);
 
-    if (c) {
+    // clang-format off
+    if(c) {
+
         eclass_guiinit(c, 0);
-        eclass_addmethod(c, (method)tab_paint, "paint", A_NULL, 0);
-        eclass_addmethod(c, (method)tab_notify, "notify", A_NULL, 0);
-        eclass_addmethod(c, (method)tab_getdrawparams, "getdrawparams", A_NULL, 0);
-        eclass_addmethod(c, (method)tab_oksize, "oksize", A_NULL, 0);
-
-        eclass_addmethod(c, (method)tab_append, "append", A_GIMME, 0);
-        eclass_addmethod(c, (method)tab_insert, "insert", A_GIMME, 0);
-        eclass_addmethod(c, (method)tab_setitem, "setitem", A_GIMME, 0);
-        eclass_addmethod(c, (method)tab_delete, "delete", A_GIMME, 0);
-        eclass_addmethod(c, (method)tab_clear, "clear", A_GIMME, 0);
-
-        eclass_addmethod(c, (method)tab_float, "float", A_FLOAT, 0);
-        eclass_addmethod(c, (method)tab_symbol, "anything", A_GIMME, 0);
-        eclass_addmethod(c, (method)tab_set, "set", A_GIMME, 0);
-        eclass_addmethod(c, (method)tab_output, "bang", A_NULL, 0);
-
-        eclass_addmethod(c, (method)tab_mousedown, "mousedown", A_NULL, 0);
-        eclass_addmethod(c, (method)tab_mouseup, "mouseup", A_NULL, 0);
-        eclass_addmethod(c, (method)tab_mousemove, "mousemove", A_NULL, 0);
-        eclass_addmethod(c, (method)tab_mouseleave, "mouseleave", A_NULL, 0);
-        eclass_addmethod(c, (method)tab_preset, "preset", A_NULL, 0);
-
-        CLASS_ATTR_DEFAULT(c, "size", 0, "100 20");
-
-        CLASS_ATTR_LONG(c, "orientation", 0, t_tab, f_orientation);
-        CLASS_ATTR_LABEL(c, "orientation", 0, "Vertical Orientation");
-        CLASS_ATTR_ORDER(c, "orientation", 0, "1");
-        CLASS_ATTR_FILTER_CLIP(c, "orientation", 0, 1);
-        CLASS_ATTR_DEFAULT_SAVE_PAINT(c, "orientation", 0, "0");
-        CLASS_ATTR_STYLE(c, "orientation", 0, "onoff");
-
-        CLASS_ATTR_LONG(c, "toggle", 0, t_tab, f_toggle);
-        CLASS_ATTR_LABEL(c, "toggle", 0, "Toggle Mode");
-        CLASS_ATTR_ORDER(c, "toggle", 0, "1");
-        CLASS_ATTR_FILTER_CLIP(c, "toggle", 0, 1);
-        CLASS_ATTR_DEFAULT_SAVE_PAINT(c, "toggle", 0, "0");
-        CLASS_ATTR_STYLE(c, "toggle", 0, "onoff");
-
-        CLASS_ATTR_ATOM_VARSIZE(c, "items", 0, t_tab, f_items, f_nitems, CREAM_MAXITEMS);
-        CLASS_ATTR_LABEL(c, "items", 0, "Items");
-        CLASS_ATTR_ORDER(c, "items", 0, "1");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT(c, "items", 0, "item1 item2 item3");
-
-        CLASS_ATTR_RGBA(c, "bgcolor", 0, t_tab, f_color_background);
-        CLASS_ATTR_LABEL(c, "bgcolor", 0, "Background Color");
-        CLASS_ATTR_ORDER(c, "bgcolor", 0, "1");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT(c, "bgcolor", 0, "0.93 0.93 0.93 1.");
-        CLASS_ATTR_STYLE(c, "bgcolor", 0, "color");
-
-        CLASS_ATTR_RGBA(c, "bdcolor", 0, t_tab, f_color_border);
-        CLASS_ATTR_LABEL(c, "bdcolor", 0, "Border Color");
-        CLASS_ATTR_ORDER(c, "bdcolor", 0, "2");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT(c, "bdcolor", 0, "0. 0. 0. 1.");
-        CLASS_ATTR_STYLE(c, "bdcolor", 0, "color");
-
-        CLASS_ATTR_RGBA(c, "textcolor", 0, t_tab, f_color_text);
-        CLASS_ATTR_LABEL(c, "textcolor", 0, "Text Color");
-        CLASS_ATTR_ORDER(c, "textcolor", 0, "3");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT(c, "textcolor", 0, "0. 0. 0. 1.");
-        CLASS_ATTR_STYLE(c, "textcolor", 0, "color");
-
-        CLASS_ATTR_RGBA(c, "hocolor", 0, t_tab, f_color_hover);
-        CLASS_ATTR_LABEL(c, "hocolor", 0, "Hover Color");
-        CLASS_ATTR_ORDER(c, "hocolor", 0, "4");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT(c, "hocolor", 0, "0.5 0.5 0.5 1.");
-        CLASS_ATTR_STYLE(c, "hocolor", 0, "color");
-
-        CLASS_ATTR_RGBA(c, "secolor", 0, t_tab, f_color_select);
-        CLASS_ATTR_LABEL(c, "secolor", 0, "Selection Color");
-        CLASS_ATTR_ORDER(c, "secolor", 0, "5");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT(c, "secolor", 0, "0. 0.75 1. 1.");
-        CLASS_ATTR_STYLE(c, "secolor", 0, "color");
-
+        eclass_addmethod(c, (method) tab_paint,           "paint",            A_NULL, 0);
+        eclass_addmethod(c, (method) tab_notify,          "notify",           A_NULL, 0);
+        eclass_addmethod(c, (method) tab_getdrawparams,   "getdrawparams",    A_NULL, 0);
+        eclass_addmethod(c, (method) tab_oksize,          "oksize",           A_NULL, 0);
+        
+        eclass_addmethod(c, (method) tab_append,          "append",           A_GIMME,0);
+        eclass_addmethod(c, (method) tab_insert,          "insert",           A_GIMME,0);
+        eclass_addmethod(c, (method) tab_setitem,         "setitem",          A_GIMME,0);
+        eclass_addmethod(c, (method) tab_delete,          "delete",           A_GIMME,0);
+        eclass_addmethod(c, (method) tab_clear,           "clear",            A_GIMME,0);
+        
+        eclass_addmethod(c, (method) tab_float,           "float",            A_FLOAT,0);
+        eclass_addmethod(c, (method) tab_symbol,          "anything",         A_GIMME,0);
+        eclass_addmethod(c, (method) tab_set,             "set",              A_GIMME,0);
+        eclass_addmethod(c, (method) tab_output,          "bang",             A_NULL, 0);
+        
+        eclass_addmethod(c, (method) tab_mousedown,        "mousedown",       A_NULL, 0);
+        eclass_addmethod(c, (method) tab_mouseup,          "mouseup",         A_NULL, 0);
+        eclass_addmethod(c, (method) tab_mousemove,        "mousemove",       A_NULL, 0);
+        eclass_addmethod(c, (method) tab_mouseleave,       "mouseleave",      A_NULL, 0);
+        eclass_addmethod(c, (method) tab_preset,           "preset",          A_NULL, 0);
+        
+        CLASS_ATTR_DEFAULT              (c, "size", 0, "100 13");
+        
+        CLASS_ATTR_LONG                 (c, "orientation", 0, t_tab, f_orientation);
+        CLASS_ATTR_LABEL                (c, "orientation", 0, "Vertical Orientation");
+        CLASS_ATTR_ORDER                (c, "orientation", 0, "1");
+        CLASS_ATTR_FILTER_CLIP          (c, "orientation", 0, 1);
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "orientation", 0, "0");
+        CLASS_ATTR_STYLE                (c, "orientation", 0, "onoff");
+        
+        CLASS_ATTR_LONG                 (c, "toggle", 0, t_tab, f_toggle);
+        CLASS_ATTR_LABEL                (c, "toggle", 0, "Toggle Mode");
+        CLASS_ATTR_ORDER                (c, "toggle", 0, "1");
+        CLASS_ATTR_FILTER_CLIP          (c, "toggle", 0, 1);
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "toggle", 0, "0");
+        CLASS_ATTR_STYLE                (c, "toggle", 0, "onoff");
+        
+        CLASS_ATTR_SYMBOL_VARSIZE       (c, "items", 0, t_tab, f_items, f_nitems, CREAM_MAXITEMS);
+        CLASS_ATTR_LABEL                (c, "items", 0, "Items");
+        CLASS_ATTR_ORDER                (c, "items", 0, "1");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "items", 0, "");
+        
+        CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_tab, f_color_background);
+        CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
+        CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, DEFAULT_BACKGROUND_COLOR);
+        CLASS_ATTR_STYLE                (c, "bgcolor", 0, "color");
+        
+        CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_tab, f_color_border);
+        CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Border Color");
+        CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, DEFAULT_BORDER_COLOR);
+        CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
+        
+        CLASS_ATTR_RGBA                 (c, "textcolor", 0, t_tab, f_color_text);
+        CLASS_ATTR_LABEL                (c, "textcolor", 0, "Text Color");
+        CLASS_ATTR_ORDER                (c, "textcolor", 0, "3");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "textcolor", 0, "0. 0. 0. 1.");
+        CLASS_ATTR_STYLE                (c, "textcolor", 0, "color");
+        
+        CLASS_ATTR_RGBA                 (c, "hocolor", 0, t_tab, f_color_hover);
+        CLASS_ATTR_LABEL                (c, "hocolor", 0, "Hover Color");
+        CLASS_ATTR_ORDER                (c, "hocolor", 0, "4");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "hocolor", 0, "0.5 0.5 0.5 1.");
+        CLASS_ATTR_STYLE                (c, "hocolor", 0, "color");
+        
+        CLASS_ATTR_RGBA                 (c, "secolor", 0, t_tab, f_color_select);
+        CLASS_ATTR_LABEL                (c, "secolor", 0, "Selection Color");
+        CLASS_ATTR_ORDER                (c, "secolor", 0, "5");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "secolor", 0, DEFAULT_ACTIVE_COLOR);
+        CLASS_ATTR_STYLE                (c, "secolor", 0, "color");
+        
         eclass_register(CLASS_BOX, c);
         tab_class = c;
+
+        // clang-format on
     }
 }

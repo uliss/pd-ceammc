@@ -65,17 +65,14 @@ void e_marc(t_elayer* g, float xc, float yc, float radius, float angle1, float a
     egraphics_arc_to(g, xc, yc, angle_l);
 }
 
-UI_fun(ui_knob)::wx_paint(t_object* z, t_object* view)
+UI_fun(ui_knob)::wx_paint(ui_knob* zx, t_object* view)
 {
     t_rect rect;
-    ebox_get_rect_for_view(asBox(z), &rect);
+    zx->getRect(&rect);
 
-    t_elayer* g = ebox_start_layer(asBox(z), BG_LAYER, rect.width, rect.height);
-
-    ui_knob* zx = asStruct(z);
+    t_elayer* g = ebox_start_layer(asBox(zx), BG_LAYER, rect.width, rect.height);
 
     if (g) {
-
         float rmin = 0.5f * rect.width * 0.7f - 2;
         float rmid = 0.5f * rect.width - 2;
         float rmax = 0.5f * rect.width - 2;
@@ -119,24 +116,22 @@ UI_fun(ui_knob)::wx_paint(t_object* z, t_object* view)
         etext_layout_set(zx->txt_max, c_max, zx->txt_font, rect.width - 3, rect.height - 12, rect.width, rect.height / 2, ETEXT_UP_RIGHT, ETEXT_JRIGHT, ETEXT_WRAP);
         etext_layout_draw(zx->txt_max, g);
 
-        ebox_end_layer(asBox(z), BG_LAYER);
+        ebox_end_layer(asBox(zx), BG_LAYER);
     }
 
-    ebox_paint_layer(asBox(z), BG_LAYER, 0., 0.);
+    ebox_paint_layer(asBox(zx), BG_LAYER, 0., 0.);
 }
 
-UI_fun(ui_knob)::wx_oksize(t_object*, t_rect* newrect)
+UI_fun(ui_knob)::wx_oksize(ui_knob*, t_rect* newrect)
 {
     newrect->width = floorf(newrect->width / 5.f) * 5;
     newrect->height = newrect->width;
 }
 
-UI_fun(ui_knob)::wx_mousedrag_ext(t_object* z, t_object*, t_pt pt, long)
+UI_fun(ui_knob)::wx_mousedrag_ext(ui_knob* zx, t_object*, t_pt pt, long)
 {
-    ui_knob* zx = asStruct(z);
-
     t_rect rect;
-    ebox_get_rect_for_view(asBox(z), &rect);
+    zx->getRect(&rect);
 
     float val;
     val = 1 - pt.y / rect.height;
@@ -148,28 +143,25 @@ UI_fun(ui_knob)::wx_mousedrag_ext(t_object* z, t_object*, t_pt pt, long)
 
     zx->_value = val;
 
-    ws_redraw(z);
+    ws_redraw(zx);
 
     outlet_float(zx->out1, (1 - val) * zx->range + zx->shift);
 }
 
-UI_fun(ui_knob)::wx_mousedown_ext(t_object* z, t_object* view, t_pt pt, long modifiers)
+UI_fun(ui_knob)::wx_mousedown_ext(ui_knob* zx, t_object* view, t_pt pt, long modifiers)
 {
-    wx_mousedrag_ext(z, view, pt, modifiers);
+    wx_mousedrag_ext(zx, view, pt, modifiers);
 }
 
-UI_fun(ui_knob)::m_float(t_object* z, t_float f)
+UI_fun(ui_knob)::m_float(ui_knob* zx, t_float f)
 {
-    ui_knob* zx = asStruct(z);
     zx->_value = 1.f - (f / 127.f);
-
-    ws_redraw(z);
+    ws_redraw(zx);
     outlet_float(zx->out1, zx->realValue());
 }
 
-UI_fun(ui_knob)::m_bang(t_object* z)
+UI_fun(ui_knob)::m_bang(ui_knob* zx)
 {
-    ui_knob* zx = asStruct(z);
     outlet_float(zx->out1, zx->realValue());
 }
 
@@ -200,10 +192,9 @@ UI_fun(ui_knob)::init_ext(t_eclass* z)
     eclass_addmethod(z, reinterpret_cast<t_typ_method>(ui_kn_getdrawparams), "getdrawparams", A_NULL, 0);
 }
 
-UI_fun(ui_knob)::new_ext(t_object* x, t_symbol*, int, t_atom*)
+UI_fun(ui_knob)::new_ext(ui_knob* zx, t_symbol*, int, t_atom*)
 {
-    ui_knob* zx = asStruct(x);
-    zx->out1 = outlet_new(x, &s_float);
+    zx->out1 = create_outlet(zx, &s_float);
     zx->_value = 1.f;
 
     zx->txt_max = etext_layout_create();
@@ -211,9 +202,8 @@ UI_fun(ui_knob)::new_ext(t_object* x, t_symbol*, int, t_atom*)
     zx->txt_font = efont_create(FONT_FAMILY, FONT_STYLE, FONT_WEIGHT, 8);
 }
 
-UI_fun(ui_knob)::free_ext(t_object* z)
+UI_fun(ui_knob)::free_ext(ui_knob* zx)
 {
-    ui_knob* zx = asStruct(z);
     outlet_free(zx->out1);
 
     etext_layout_destroy(zx->txt_max);

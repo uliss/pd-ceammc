@@ -118,16 +118,14 @@ static t_symbol* knobFillColor(int mouseState)
     return mouseState == 0 ? KNOB_FILL : KNOB_FILL_ACTIVE;
 }
 
-UI_fun(ui_slider2d)::wx_paint(t_object* z, t_object* view)
+UI_fun(ui_slider2d)::wx_paint(ui_slider2d* zx, t_object* view)
 {
     t_rect rect;
-    ebox_get_rect_for_view(asBox(z), &rect);
+    zx->getRect(&rect);
 
-    t_elayer* g = ebox_start_layer(asBox(z), BG_LAYER, rect.width, rect.height);
+    t_elayer* g = ebox_start_layer(asBox(zx), BG_LAYER, rect.width, rect.height);
 
     if (g) {
-        ui_slider2d* zx = asStruct(z);
-
         const float xx = zx->_posx * rect.width;
         const float yy = zx->_posy * rect.height;
 
@@ -170,34 +168,30 @@ UI_fun(ui_slider2d)::wx_paint(t_object* z, t_object* view)
             etext_layout_draw(zx->txt_min, g);
         }
 
-        ebox_end_layer(asBox(z), BG_LAYER);
+        ebox_end_layer(asBox(zx), BG_LAYER);
     }
 
-    ebox_paint_layer(asBox(z), BG_LAYER, 0, 0);
+    ebox_paint_layer(asBox(zx), BG_LAYER, 0, 0);
 }
 
-UI_fun(ui_slider2d)::wx_mousedrag_ext(t_object* z, t_object* view, t_pt pt, long modifiers)
+UI_fun(ui_slider2d)::wx_mousedrag_ext(ui_slider2d* zx, t_object* view, t_pt pt, long modifiers)
 {
-    ui_slider2d* zx = asStruct(z);
     zx->setPos(pt);
-    ws_redraw(z);
+    ws_redraw(zx);
     zx->output();
 }
 
-UI_fun(ui_slider2d)::wx_mousedown_ext(t_object* z, t_object* view, t_pt pt, long modifiers)
+UI_fun(ui_slider2d)::wx_mousedown_ext(ui_slider2d* zx, t_object* view, t_pt pt, long modifiers)
 {
-    ui_slider2d* zx = asStruct(z);
     zx->setPos(pt);
-    ws_redraw(z);
+    ws_redraw(zx);
     zx->output();
 }
 
-UI_fun(ui_slider2d)::wx_mouseup_ext(t_object* z, t_object*, t_pt pt, long)
+UI_fun(ui_slider2d)::wx_mouseup_ext(ui_slider2d* zx, t_object*, t_pt pt, long)
 {
-    ui_slider2d* zx = asStruct(z);
-
     zx->setPos(pt);
-    ws_redraw(z);
+    ws_redraw(zx);
     zx->output();
 }
 
@@ -209,19 +203,17 @@ static void ui_s2_getdrawparams(ui_slider2d* x, t_object* /*patcherview*/, t_edr
     params->d_boxfillcolor = x->b_color_background;
 }
 
-static void ui_slider2d_value(t_object* z, t_symbol* s, int argc, t_atom* argv);
+static void ui_slider2d_value(ui_slider2d* z, t_symbol* s, int argc, t_atom* argv);
 
-static void ui_slider2d_xpos(t_object* z, t_floatarg x)
+static void ui_slider2d_xpos(ui_slider2d* z, t_floatarg x)
 {
-    ui_slider2d* zx = GuiFactory<ui_slider2d>::asStruct(z);
-    zx->setX(x);
+    z->setX(x);
     GuiFactory<ui_slider2d>::ws_redraw(z);
 }
 
-static void ui_slider2d_ypos(t_object* z, t_floatarg y)
+static void ui_slider2d_ypos(ui_slider2d* z, t_floatarg y)
 {
-    ui_slider2d* zx = GuiFactory<ui_slider2d>::asStruct(z);
-    zx->setY(y);
+    z->setY(y);
     GuiFactory<ui_slider2d>::ws_redraw(z);
 }
 
@@ -269,10 +261,9 @@ UI_fun(ui_slider2d)::init_ext(t_eclass* z)
     eclass_addmethod(z, reinterpret_cast<t_typ_method>(ui_slider2d_ypos), "set_y_value", A_DEFFLOAT, 0);
 }
 
-UI_fun(ui_slider2d)::new_ext(t_object* x, t_symbol*, int, t_atom*)
+UI_fun(ui_slider2d)::new_ext(ui_slider2d* zx, t_symbol*, int, t_atom*)
 {
-    ui_slider2d* zx = asStruct(x);
-    zx->out1 = outlet_new(x, &s_list);
+    zx->out1 = create_outlet(zx, &s_list);
 
     zx->txt_max = etext_layout_create();
     zx->txt_min = etext_layout_create();
@@ -283,9 +274,8 @@ UI_fun(ui_slider2d)::new_ext(t_object* x, t_symbol*, int, t_atom*)
     zx->_posy = 0.5;
 }
 
-UI_fun(ui_slider2d)::free_ext(t_object* x)
+UI_fun(ui_slider2d)::free_ext(ui_slider2d* zx)
 {
-    ui_slider2d* zx = asStruct(x);
     outlet_free(zx->out1);
 
     etext_layout_destroy(zx->txt_max);
@@ -293,21 +283,20 @@ UI_fun(ui_slider2d)::free_ext(t_object* x)
     efont_destroy(zx->txt_font);
 }
 
-UI_fun(ui_slider2d)::wx_attr_changed_ext(t_object* z, t_symbol*)
+UI_fun(ui_slider2d)::wx_attr_changed_ext(ui_slider2d* z, t_symbol*)
 {
     ws_redraw(z);
 }
 
-UI_fun(ui_slider2d)::m_list(t_object* z, t_symbol* s, int argc, t_atom* argv)
+UI_fun(ui_slider2d)::m_list(ui_slider2d* zx, t_symbol* s, int argc, t_atom* argv)
 {
     if (argc != 2) {
-        pd_error(z, "[ui.slider2d] invalid list given: X, Y values are expected");
+        pd_error(zx, "[ui.slider2d] invalid list given: X, Y values are expected");
         return;
     }
 
-    ui_slider2d* zx = asStruct(z);
     if (zx->range_x == 0.f || zx->range_y == 0.f) {
-        pd_error(z, "[ui.slider2d] invalid range values: %g - %g",
+        pd_error(zx, "[ui.slider2d] invalid range values: %g - %g",
             static_cast<double>(zx->range_x),
             static_cast<double>(zx->range_y));
 
@@ -319,27 +308,25 @@ UI_fun(ui_slider2d)::m_list(t_object* z, t_symbol* s, int argc, t_atom* argv)
     zx->set(x, y);
     zx->output();
 
-    ws_redraw(z);
+    ws_redraw(zx);
 }
 
-UI_fun(ui_slider2d)::m_bang(t_object* z)
+UI_fun(ui_slider2d)::m_bang(ui_slider2d* zx)
 {
-    ui_slider2d* zx = asStruct(z);
     zx->output();
 }
 
-UI_fun(ui_slider2d)::m_preset(t_object* z, t_binbuf* b)
+UI_fun(ui_slider2d)::m_preset(ui_slider2d* zx, t_binbuf* b)
 {
-    ui_slider2d* zx = asStruct(z);
     binbuf_addv(b, "sff", &s_list, zx->xValue(), zx->yValue());
 }
 
-void ui_slider2d_value(t_object* z, t_symbol* s, int argc, t_atom* argv)
+void ui_slider2d_value(ui_slider2d* z, t_symbol* s, int argc, t_atom* argv)
 {
     GuiFactory<ui_slider2d>::m_list(z, s, argc, argv);
 }
 
-UI_fun(ui_slider2d)::wx_oksize(t_object* z, t_rect* newrect)
+UI_fun(ui_slider2d)::wx_oksize(ui_slider2d* z, t_rect* newrect)
 {
     newrect->height = std::max(30.f, newrect->height);
     newrect->width = std::max(30.f, newrect->width);

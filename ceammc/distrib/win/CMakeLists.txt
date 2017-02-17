@@ -1,3 +1,9 @@
+if(WINE_CROSSCOMPILE)
+    set(INSTALLED_BIN_DIR "Z:/${CMAKE_INSTALL_PREFIX}")
+else()
+    set(INSTALLED_BIN_DIR "${CMAKE_INSTALL_PREFIX}")
+endif()
+
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/pd.iss ${CMAKE_BINARY_DIR})
 
 find_program(ISCC_PATH ISCC.exe

@@ -88,16 +88,14 @@ static void draw_msg_value(ui_display* zx, t_elayer* g, float x, float y, float 
     etext_layout_draw(zx->txt_val, g);
 }
 
-UI_fun(ui_display)::wx_paint(t_object* z, t_object* /*view*/)
+UI_fun(ui_display)::wx_paint(ui_display* zx, t_object* /*view*/)
 {
     t_rect rect;
-    ebox_get_rect_for_view(asBox(z), &rect);
+    zx->getRect(&rect);
 
-    t_elayer* g = ebox_start_layer(asBox(z), BG_LAYER, rect.width, rect.height);
+    t_elayer* g = ebox_start_layer(asBox(zx), BG_LAYER, rect.width, rect.height);
 
     if (g) {
-        ui_display* zx = asStruct(z);
-
         if (zx->show_type) {
             draw_message_type(zx, g, 0, 0, TYPE_WIDTH, rect.height);
             draw_msg_value(zx, g, TYPE_WIDTH, 0, rect.width, rect.height);
@@ -105,16 +103,14 @@ UI_fun(ui_display)::wx_paint(t_object* z, t_object* /*view*/)
             draw_msg_value(zx, g, 0, 0, rect.width, rect.height);
         }
 
-        ebox_end_layer(asBox(z), BG_LAYER);
+        ebox_end_layer(asBox(zx), BG_LAYER);
     }
 
-    ebox_paint_layer(asBox(z), BG_LAYER, 0., 0.);
+    ebox_paint_layer(asBox(zx), BG_LAYER, 0., 0.);
 }
 
-UI_fun(ui_display)::m_anything(t_object* z, t_symbol* s, int argc, t_atom* argv)
-
+UI_fun(ui_display)::m_anything(ui_display* zx, t_symbol* s, int argc, t_atom* argv)
 {
-    ui_display* zx = asStruct(z);
     zx->s_type = s;
     (*zx->s_value) = to_string(AtomList(argc, argv));
 
@@ -137,28 +133,28 @@ UI_fun(ui_display)::m_anything(t_object* z, t_symbol* s, int argc, t_atom* argv)
         eobj_attr_setvalueof(zx, gensym("size"), 2, argv.toPdData());
     }
 
-    ws_redraw(z);
+    ws_redraw(zx);
 }
 
-UI_fun(ui_display)::m_list(t_object* z, t_symbol*, int argc, t_atom* argv)
+UI_fun(ui_display)::m_list(ui_display* z, t_symbol*, int argc, t_atom* argv)
 {
     m_anything(z, &s_list, argc, argv);
 }
 
-UI_fun(ui_display)::m_symbol(t_object* z, t_symbol* s)
+UI_fun(ui_display)::m_symbol(ui_display* z, t_symbol* s)
 {
     t_atom a;
     atom_setsym(&a, s);
     m_anything(z, &s_symbol, 1, &a);
 }
 
-UI_fun(ui_display)::m_float(t_object* z, t_float f)
+UI_fun(ui_display)::m_float(ui_display* z, t_float f)
 {
     AtomList list1 = AtomList(Atom(f));
     m_anything(z, &s_float, 1, list1.toPdData());
 }
 
-UI_fun(ui_display)::m_bang(t_object* z)
+UI_fun(ui_display)::m_bang(ui_display* z)
 {
     m_anything(z, &s_bang, 0, 0);
 }
@@ -167,12 +163,11 @@ void display_clock(t_object* z)
 {
     ui_display* zx = reinterpret_cast<ui_display*>(z);
     zx->bang = false;
-    GuiFactory<BaseGuiObject>::ws_redraw(z);
+    GuiFactory<BaseGuiObject>::ws_redraw(zx);
 }
 
-UI_fun(ui_display)::wx_oksize(t_object* z, t_rect* newrect)
+UI_fun(ui_display)::wx_oksize(ui_display* zx, t_rect* newrect)
 {
-    ui_display* zx = asStruct(z);
     float min_width = 40;
     if (zx->show_type != 0)
         min_width += TYPE_WIDTH;
@@ -183,10 +178,8 @@ UI_fun(ui_display)::wx_oksize(t_object* z, t_rect* newrect)
 
 #pragma mark setup
 
-UI_fun(ui_display)::new_ext(t_object* z, t_symbol* /*s*/, int /*argcl*/, t_atom* /*argv*/)
+UI_fun(ui_display)::new_ext(ui_display* zx, t_symbol* /*s*/, int /*argcl*/, t_atom* /*argv*/)
 {
-    ui_display* zx = asStruct(z);
-
     zx->s_value = new std::string;
     zx->s_type = gensym("...");
 
@@ -201,9 +194,8 @@ UI_fun(ui_display)::new_ext(t_object* z, t_symbol* /*s*/, int /*argcl*/, t_atom*
     zx->show_type = 0;
 }
 
-UI_fun(ui_display)::free_ext(t_object* z)
+UI_fun(ui_display)::free_ext(ui_display* zx)
 {
-    ui_display* zx = asStruct(z);
     delete zx->s_value;
 
     efont_destroy(zx->txt_font);
@@ -223,7 +215,7 @@ static void ui_disp_getdrawparams(ui_display* x, t_object* /*patcherview*/, t_ed
     params->d_boxfillcolor = x->b_color_background;
 }
 
-UI_fun(ui_display)::wx_attr_changed_ext(t_object* z, t_symbol*)
+UI_fun(ui_display)::wx_attr_changed_ext(ui_display* z, t_symbol*)
 {
     ws_redraw(z);
 }
@@ -232,6 +224,7 @@ UI_fun(ui_display)::init_ext(t_eclass* z)
 {
     // clang-format off
     CLASS_ATTR_DEFAULT              (z, "size", 0, "150. 15.");
+    CLASS_ATTR_INVISIBLE            (z, "send", 0);
 
     CLASS_ATTR_INT                  (z, "display_events", 0, ui_display, show_bang);
     CLASS_ATTR_DEFAULT              (z, "display_events", 0, "1");

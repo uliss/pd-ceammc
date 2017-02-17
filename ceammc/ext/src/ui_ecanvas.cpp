@@ -177,7 +177,7 @@ namespace ceammc_gui {
         int openWindow;
     };
     
-    UI_fun(eCanvas)::wx_paint(t_object* z, t_object* view)
+    UI_fun(eCanvas)::wx_paint(eCanvas* z, t_object* view)
     {
         t_symbol *bgl = gensym("background_layer");
         //float size;
@@ -340,7 +340,7 @@ namespace ceammc_gui {
     
     
     
-    UI_fun(eCanvas)::wx_mousedown_ext(t_object *z, t_object *view, t_pt pt, long modifiers)
+    UI_fun(eCanvas)::wx_mousedown_ext(eCanvas *z, t_object *view, t_pt pt, long modifiers)
     {
         printf("window\n");
         eCanvas *zx = (eCanvas*)z;
@@ -361,10 +361,8 @@ namespace ceammc_gui {
     }
     
     
-    UI_fun(eCanvas)::new_ext(t_object *z, t_symbol *s, int argc, t_atom *argv)
-    {
-        eCanvas *zx = (eCanvas*)z;
-        
+    UI_fun(eCanvas)::new_ext(eCanvas *zx, t_symbol *s, int argc, t_atom *argv)
+    {   
         t_canvas *zz = canvas_getcurrent();
         zx->root_canvas = zz;
         
@@ -385,9 +383,8 @@ namespace ceammc_gui {
         }
     }
     
-    UI_fun(eCanvas)::wx_oksize(t_object *z, t_rect *newrect)
+    UI_fun(eCanvas)::wx_oksize(eCanvas *zx, t_rect *newrect)
     {
-        eCanvas *zx = (eCanvas*)z;
         if (zx->canvas)
         {
             zx->canvas->gl_pixwidth = newrect->width;
