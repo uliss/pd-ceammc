@@ -25,6 +25,7 @@ set(DOC_FILES
     flt.eq_peak~
     fx.freqshift~
     fx.pitchshift~
+    fx.freeverb~
     global.float
     global.int
     global.list
