@@ -163,6 +163,8 @@ ceammc_cxx_extension(exp aproperty)
 ceammc_cxx_extension(exp signal)
 ceammc_cxx_extension(exp this)
 ceammc_cxx_extension(exp parent)
+
+ceammc_cxx_extension(exp vinstance)
 endif()
 
 

@@ -698,6 +698,7 @@ typedef struct t_edrawparams
     float       d_borderthickness;  /*!< The border size. */
     t_rgba      d_bordercolor;      /*!< The border color. */
     t_rgba      d_boxfillcolor;     /*!< The background color. */
+    int         d_hideiolets;       /*!< CEAMMC experimental: hide standard iolets. */
     
 } t_edrawparams;
 

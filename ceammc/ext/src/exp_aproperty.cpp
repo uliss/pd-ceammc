@@ -60,6 +60,13 @@ static void* exp_aproperty_new(t_symbol* id, int argc, t_atom* argv)
     if (x->instance) {
         x->instance->addProperty(x->property_name, x->out3, x->out2);
     }
+    
+    OPClass *this_class = OPClass::findByCanvas(x->parent_canvas);
+    if (this_class)
+    {
+        // TEMP
+        this_class->addProperty(x->property_name->s_name, "");
+    }
 
     ebox_ready((t_ebox*)x);
 

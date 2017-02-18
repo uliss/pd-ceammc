@@ -7,7 +7,7 @@
 //
 
 #include "ceammc.h"
-#include <m_pd.h>
+//#include "m_pd.h"
 #include <stdlib.h>
 
 #include "ceammc_atomlist.h"
@@ -289,6 +289,29 @@ public:
     {
         return this->parent;
     }
+#pragma mark info
+    AtomList getPropertyList()
+    {
+        AtomList ret;
+        
+        for (map<string, string>::iterator it = this->propertyNames.begin(); it != this->propertyNames.end(); ++it) {
+            ret.append(Atom(gensym(it->first.c_str())));
+        }
+        
+        return ret;
+    }
+    
+    AtomList getMethodList()
+    {
+        AtomList ret;
+        
+        for (map<string, string>::iterator it = this->methodNames.begin(); it != this->methodNames.end(); ++it) {
+            ret.append(Atom(gensym(it->first.c_str())));
+        }
+        
+        return ret;
+    }
+    
 };
 
 typedef GlobalData<OPClass*> OPClasses; ///< class prototype

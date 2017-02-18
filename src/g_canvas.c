@@ -288,6 +288,49 @@ t_outconnect *linetraverser_next(t_linetraverser *t)
             ((t->tr_x22 - t->tr_x21 - IOWIDTH) * t->tr_inno)/inplus +
                 IOMIDDLE;
         t->tr_ly2 = t->tr_y21;
+        
+        //CEAMMC EXPERIMENTAL
+        float y_offset;
+        
+        if (t->tr_inlet)
+           
+        {
+            y_offset = inlet_get_yoffset(t->tr_inlet);
+            if(y_offset!=0)
+            {
+                //post("yoffset");
+                t->tr_lx1 =t->tr_x11;
+                t->tr_lx2 = t->tr_x21;
+                t->tr_ly2 += y_offset;
+                
+                if (t->tr_outlet)
+                {
+                    y_offset = outlet_get_yoffset(t->tr_outlet);
+                    if(y_offset!=0)
+                    {
+                        t->tr_ly1 += y_offset;
+                        t->tr_lx1 = t->tr_x12;
+                    }
+                }
+                
+                
+            }
+        }
+            
+//        if (t->tr_outlet)
+//        {
+//            y_offset = outlet_get_yoffset(t->tr_outlet);
+//            if(y_offset>0)
+//            {
+//                //post("yoffset");
+//                t->tr_lx1 =t->tr_x22;
+//                t->tr_lx2 = t->tr_x21;
+//                t->tr_ly1 += y_offset;
+//            }
+//        }
+        
+            
+        
     }
     else
     {

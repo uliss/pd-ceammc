@@ -419,6 +419,12 @@ EXTERN t_inlet *floatinlet_new(t_object *owner, t_float *fp);
 EXTERN t_inlet *symbolinlet_new(t_object *owner, t_symbol **sp);
 EXTERN t_inlet *signalinlet_new(t_object *owner, t_float f);
 EXTERN void inlet_free(t_inlet *x);
+    
+    //CEAMMC EXPERIMENTAL
+EXTERN void inlet_set_yoffset(t_inlet* inlet, float y);
+EXTERN void outlet_set_yoffset(t_outlet* outlet, float y);
+    EXTERN float inlet_get_yoffset(t_inlet* inlet);
+    EXTERN float outlet_get_yoffset(t_outlet* outlet);
 
 EXTERN t_outlet *outlet_new(t_object *owner, t_symbol *s);
 EXTERN void outlet_bang(t_outlet *x);
