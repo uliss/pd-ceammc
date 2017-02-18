@@ -268,7 +268,7 @@ namespace faust {
             return;
 
         AtomList lst;
-        lst.append(atomFrom(label_));
+        lst.append(atomFrom(path_));
         lst.append(value());
         lst.append(init_);
         lst.append(min_);
