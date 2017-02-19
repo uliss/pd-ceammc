@@ -9,4 +9,4 @@ drywet = hslider("drywet", 0.33, 0.0, 1.0, 0.001) : si.smoo;
 
 fx = _ : rv.mono_freeverb(roomSize, fb2, damp, 0) : _;
 
-process = fx_dry_wet(drywet, fx);
+process = _ : fx_drywet(_, fx, drywet) : _;
