@@ -28,7 +28,7 @@ fx_drywet(in, fx, g) = IN <: dry(in, fx, g), wet(in, fx, g) :> OUT
 with {
     IN = bus(ba.count(in));
     OUT = IN;
-    dry(in, fx, g) = map(in, *(g));
-    wet(in, fx, g) = fx : map(in, *(1-g));
+    dry(in, fx, g) = map(in, *(1-g));
+    wet(in, fx, g) = fx : map(in, *(g));
 };
 
