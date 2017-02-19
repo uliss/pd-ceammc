@@ -930,6 +930,31 @@ static void ewidget_init(t_eclass* c)
 #define DIALOG_BACKGROUND " -background #ECECEC "
 #endif
 
+
+static const char* dialog_label_frame(int i) {
+    static char buf[100];
+    snprintf(buf, 100, "$id.top_frame.name%i", i);
+    return buf;
+}
+
+static const char* dialog_widget_frame(int i) {
+    static char buf[100];
+    snprintf(buf, 100, "$id.top_frame.sele%i", i);
+    return buf;
+}
+
+static const char* dialog_label_id(int i) {
+    static char buf[100];
+    snprintf(buf, 100, "$id.top_frame.name%i.name", i);
+    return buf;
+}
+
+static const char* dialog_widget_id(int i) {
+    static char buf[100];
+    snprintf(buf, 100, "$id.top_frame.sele%i.selec", i);
+    return buf;
+}
+
 //! Initialize the tcl/tk properties dialog window functions // PRIVATE
 /*
  \ @memberof            eclass
@@ -1032,69 +1057,70 @@ static void eclass_properties_dialog(t_eclass* c)
     {
         if(!c->c_attr[i]->invisible)
         {
-            sys_vgui("frame $id.top_frame.name%i \n", i+1);
-            sys_vgui("frame $id.top_frame.sele%i \n", i+1);
+            const char* LABEL_FRAME = dialog_label_frame(i+1);
+            const char* WIDGET_FRAME = dialog_widget_frame(i+1);
+            const char* LABEL_ID = dialog_label_id(i+1);
+            const char* WIDGET_ID = dialog_widget_id(i+1);
+
+            sys_vgui("frame %s\n", LABEL_FRAME);
+            sys_vgui("frame %s\n", WIDGET_FRAME);
 
             // ATTRIBUTES NAMES //
-            sys_vgui("ttk::label $id.top_frame.name%i.name "
-                     "-justify left "
-                     "-text \"%s :\"\n", i+1, c->c_attr[i]->label->s_name);
-            sys_vgui("pack $id.top_frame.name%i.name -side left\n", i+1);
+
+            sys_vgui("ttk::label %s -justify left -text \"%s :\"\n", LABEL_ID, c->c_attr[i]->label->s_name);
+            sys_vgui("pack %s -side left\n", LABEL_ID);
 
             // SELECTOR //
+
             if(c->c_attr[i]->style == gensym("checkbutton"))
             {
-                sys_vgui("ttk::checkbutton $id.top_frame.sele%i.selec "
-                         " -variable $var_%s "
-                         "-command  [concat pdtk_%s_dialog_apply_%s $id]\n", i+1, c->c_attr[i]->name->s_name, c->c_class.c_name->s_name, c->c_attr[i]->name->s_name);
-                sys_vgui("pack  $id.top_frame.sele%i.selec -side left\n", i+1);
+                sys_vgui("ttk::checkbutton %s -variable $var_%s "
+                         "-command  [concat pdtk_%s_dialog_apply_%s $id]\n", WIDGET_ID, c->c_attr[i]->name->s_name, c->c_class.c_name->s_name, c->c_attr[i]->name->s_name);
+                sys_vgui("pack %s -side left\n", WIDGET_ID);
             }
             else if(c->c_attr[i]->style == gensym("color"))
             {
                 sys_vgui("set color [eval eobj_rgba_to_hex $%s]\n", c->c_attr[i]->name->s_name);
-                sys_vgui("entry $id.top_frame.sele%i.selec -font {Helvetica 11} -width 10 -readonlybackground $color -state readonly\n", i+1);
-                sys_vgui("bind  $id.top_frame.sele%i.selec <Button> [concat pdtk_%s_picker_apply_%s $id $%s]\n", i+1, c->c_class.c_name->s_name, c->c_attr[i]->name->s_name, c->c_attr[i]->name->s_name);
-                sys_vgui("pack  $id.top_frame.sele%i.selec -side left\n", i+1);
+                sys_vgui("entry %s -font {Helvetica 11} -width 10 -readonlybackground $color -state readonly\n", WIDGET_ID);
+                sys_vgui("bind  %s <Button> [concat pdtk_%s_picker_apply_%s $id $%s]\n", WIDGET_ID, c->c_class.c_name->s_name, c->c_attr[i]->name->s_name, c->c_attr[i]->name->s_name);
+                sys_vgui("pack %s -side left\n", WIDGET_ID);
             }
             else if(c->c_attr[i]->style == gensym("number"))
             {
-                sys_vgui("ttk::spinbox $id.top_frame.sele%i.selec -width 18 -textvariable [string trim $var_%s] -increment %f \n", i+1, c->c_attr[i]->name->s_name, (float)c->c_attr[i]->step);
-                sys_vgui("$id.top_frame.sele%i.selec configure -command [concat pdtk_%s_dialog_apply_%s $id]\n", i+1, c->c_class.c_name->s_name,  c->c_attr[i]->name->s_name);
-                sys_vgui("$id.top_frame.sele%i.selec configure -from -9999999999999 -to 9999999999999\n", i+1, (float)c->c_attr[i]->maximum); // Should be enough
-                sys_vgui("$id.top_frame.sele%i.selec delete 0 end \n", i+1);
-                sys_vgui("$id.top_frame.sele%i.selec insert 0 $%s \n", i+1, c->c_attr[i]->name->s_name);
+                sys_vgui("ttk::spinbox %s -width 18 -textvariable [string trim $var_%s] -increment %f \n", WIDGET_ID, c->c_attr[i]->name->s_name, (float)c->c_attr[i]->step);
+                sys_vgui("%s configure -command [concat pdtk_%s_dialog_apply_%s $id]\n", WIDGET_ID, c->c_class.c_name->s_name,  c->c_attr[i]->name->s_name);
+                sys_vgui("%s configure -from -9999999999999 -to 9999999999999\n", WIDGET_ID, (float)c->c_attr[i]->maximum); // Should be enough
+                sys_vgui("%s delete 0 end \n", WIDGET_ID);
+                sys_vgui("%s insert 0 $%s \n", WIDGET_ID, c->c_attr[i]->name->s_name);
 
-                sys_vgui("bind $id.top_frame.sele%i.selec <KeyPress-Return> [concat pdtk_%s_dialog_apply_%s $id]\n", i+1, c->c_class.c_name->s_name,  c->c_attr[i]->name->s_name);
-                sys_vgui("pack $id.top_frame.sele%i.selec -side left\n", i+1);
+                sys_vgui("bind %s <KeyPress-Return> [concat pdtk_%s_dialog_apply_%s $id]\n", WIDGET_ID, c->c_class.c_name->s_name,  c->c_attr[i]->name->s_name);
+                sys_vgui("pack %s -side left\n", WIDGET_ID);
             }
             else if(c->c_attr[i]->style == gensym("menu"))
             {
-                sys_vgui("spinbox $id.top_frame.sele%i.selec  -background #C0C0C0 -font {Helvetica 12} -width 18 -textvariable [string trim $var_%s] -state readonly\n", i+1, c->c_attr[i]->name->s_name);
-                sys_vgui("$id.top_frame.sele%i.selec configure -command [concat pdtk_%s_dialog_apply_%s $id]\n", i+1, c->c_class.c_name->s_name,  c->c_attr[i]->name->s_name);
-                sys_vgui("$id.top_frame.sele%i.selec configure -value {", i+1);
-                for(j = 0; j < c->c_attr[i]->itemssize; j++)
-                {
+                sys_vgui("spinbox %s -background #C0C0C0 -font {Helvetica 12} -width 18 -textvariable [string trim $var_%s] -state readonly\n", WIDGET_ID, c->c_attr[i]->name->s_name);
+                sys_vgui("%s configure -command [concat pdtk_%s_dialog_apply_%s $id]\n", WIDGET_ID, c->c_class.c_name->s_name,  c->c_attr[i]->name->s_name);
+                sys_vgui("%s configure -value {", WIDGET_ID);
+                for(j = 0; j < c->c_attr[i]->itemssize; j++) {
                     sys_vgui("%s ", c->c_attr[i]->itemslist[c->c_attr[i]->itemssize - 1 - j]->s_name);
                 }
                 sys_vgui("}\n");
 
-                sys_vgui("bind $id.top_frame.sele%i.selec <KeyPress-Return> [concat pdtk_%s_dialog_apply_%s $id]\n", i+1, c->c_class.c_name->s_name,  c->c_attr[i]->name->s_name);
-                sys_vgui("pack $id.top_frame.sele%i.selec -side left\n", i+1);
-                sys_vgui("$id.top_frame.sele%i.selec set $%s \n", i+1, c->c_attr[i]->name->s_name);
+                sys_vgui("bind %s <KeyPress-Return> [concat pdtk_%s_dialog_apply_%s $id]\n", WIDGET_ID, c->c_class.c_name->s_name,  c->c_attr[i]->name->s_name);
+                sys_vgui("pack %s -side left\n", WIDGET_ID);
+                sys_vgui("%s set $%s \n", WIDGET_ID, c->c_attr[i]->name->s_name);
             }
             else
             {
-                sys_vgui("ttk::entry $id.top_frame.sele%i.selec "
-                         "-width 20 "
-                         "-textvariable [string trim $var_%s]\n", i+1, c->c_attr[i]->name->s_name);
-                sys_vgui("bind $id.top_frame.sele%i.selec <KeyPress-Return> [concat pdtk_%s_dialog_apply_%s $id]\n", i+1, c->c_class.c_name->s_name,  c->c_attr[i]->name->s_name);
-                sys_vgui("pack $id.top_frame.sele%i.selec -side left\n", i+1);
+                sys_vgui("ttk::entry %s -width 20 -textvariable [string trim $var_%s]\n", WIDGET_ID, c->c_attr[i]->name->s_name);
+                sys_vgui("bind %s <KeyPress-Return> [concat pdtk_%s_dialog_apply_%s $id]\n", WIDGET_ID, c->c_class.c_name->s_name,  c->c_attr[i]->name->s_name);
+                sys_vgui("pack %s -side left\n", WIDGET_ID);
             }
 
-            sys_vgui("grid config $id.top_frame.name%i -column 0 -row %i -sticky w"
-                     DIALOG_GRID_PADY "\n", i+1, i+1);
-            sys_vgui("grid config $id.top_frame.sele%i -column 1 -row %i -sticky w"
-                     DIALOG_GRID_PADY "\n", i+1, i+1);
+            sys_vgui("grid config %s -column 0 -row %i -sticky w"
+                     DIALOG_GRID_PADY "\n", LABEL_FRAME, i+1);
+            sys_vgui("grid config %s -column 1 -row %i -sticky w"
+                     DIALOG_GRID_PADY "\n", WIDGET_FRAME, i+1);
         }
     }
     sys_gui("}\n");
