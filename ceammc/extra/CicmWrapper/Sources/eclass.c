@@ -15,6 +15,8 @@
 #include "epopup.h"
 #include "egraphics.h"
 
+#define _(msg) msg
+
 static void eclass_properties_dialog(t_eclass* c);
 static void ewidget_init(t_eclass* c);
 static void eclass_attr_ceammc_setter(t_object* x, t_symbol *s, int argc, t_atom *argv);
@@ -64,32 +66,32 @@ void eclass_guiinit(t_eclass* c, long flags)
     CLASS_ATTR_FILTER_MIN   (c, "size", 4);
     CLASS_ATTR_SAVE         (c, "size", 0);
     CLASS_ATTR_PAINT        (c, "size", 0);
-    CLASS_ATTR_CATEGORY		(c, "size", 0, "Basic");
-    CLASS_ATTR_LABEL		(c, "size", 0, "Patching Size");
+    CLASS_ATTR_CATEGORY		(c, "size", 0, _("Basic"));
+    CLASS_ATTR_LABEL		(c, "size", 0, _("Patching Size"));
     CLASS_ATTR_ACCESSORS    (c, "size", NULL, (t_err_method)ebox_size_set);
 
     CLASS_ATTR_INT          (c, "pinned", 0, t_ebox, b_pinned);
     CLASS_ATTR_DEFAULT      (c, "pinned", 0, "0");
     CLASS_ATTR_FILTER_CLIP  (c, "pinned", 0, 1);
     CLASS_ATTR_SAVE         (c, "pinned", 0);
-    CLASS_ATTR_CATEGORY		(c, "pinned", 0, "Basic");
-    CLASS_ATTR_LABEL		(c, "pinned", 0, "Pinned");
+    CLASS_ATTR_CATEGORY		(c, "pinned", 0, _("Basic"));
+    CLASS_ATTR_LABEL		(c, "pinned", 0, _("Pinned"));
     CLASS_ATTR_STYLE        (c, "pinned", 0, "onoff");
 
     CLASS_ATTR_DEFAULT      (c, "fontname", 0, "Helvetica");
     CLASS_ATTR_SAVE         (c, "fontname", 0);
     CLASS_ATTR_PAINT        (c, "fontname", 0);
-    CLASS_ATTR_CATEGORY		(c, "fontname", 0, "Basic");
-    CLASS_ATTR_LABEL		(c, "fontname", 0, "Font Name");
+    CLASS_ATTR_CATEGORY		(c, "fontname", 0, _("Basic"));
+    CLASS_ATTR_LABEL		(c, "fontname", 0, _("Font Name"));
     CLASS_ATTR_ACCESSORS    (c, "fontname", NULL, (t_err_method)ebox_set_font);
     CLASS_ATTR_STYLE        (c, "fontname", 0, "menu");
     CLASS_ATTR_ITEMS        (c, "fontname", 0, "Helvetica Monaco Courier Times DejaVu");
 
-    CLASS_ATTR_DEFAULT      (c, "fontweight", 0, "normal");
+    CLASS_ATTR_DEFAULT      (c, "fontweight", 0, _("normal"));
     CLASS_ATTR_SAVE         (c, "fontweight", 0);
     CLASS_ATTR_PAINT        (c, "fontweight", 0);
-    CLASS_ATTR_CATEGORY		(c, "fontweight", 0, "Basic");
-    CLASS_ATTR_LABEL		(c, "fontweight", 0, "Font Weight");
+    CLASS_ATTR_CATEGORY		(c, "fontweight", 0, _("Basic"));
+    CLASS_ATTR_LABEL		(c, "fontweight", 0, _("Font Weight"));
     CLASS_ATTR_ACCESSORS    (c, "fontweight", NULL, (t_err_method)ebox_set_fontweight);
     CLASS_ATTR_STYLE        (c, "fontweight", 0, "menu");
     CLASS_ATTR_ITEMS        (c, "fontweight", 0, "normal bold");
@@ -97,8 +99,8 @@ void eclass_guiinit(t_eclass* c, long flags)
     CLASS_ATTR_DEFAULT      (c, "fontslant", 0, "roman");
     CLASS_ATTR_SAVE         (c, "fontslant", 0);
     CLASS_ATTR_PAINT        (c, "fontslant", 0);
-    CLASS_ATTR_CATEGORY		(c, "fontslant", 0, "Basic");
-    CLASS_ATTR_LABEL		(c, "fontslant", 0, "Font Slant");
+    CLASS_ATTR_CATEGORY		(c, "fontslant", 0, _("Basic"));
+    CLASS_ATTR_LABEL		(c, "fontslant", 0, _("Font Slant"));
     CLASS_ATTR_ACCESSORS    (c, "fontslant", NULL, (t_err_method)ebox_set_fontslant);
     CLASS_ATTR_STYLE        (c, "fontslant", 0, "menu");
     CLASS_ATTR_ITEMS        (c, "fontslant", 0, "roman italic");
@@ -107,22 +109,22 @@ void eclass_guiinit(t_eclass* c, long flags)
     CLASS_ATTR_FILTER_MIN   (c, "fontsize", 4);
     CLASS_ATTR_SAVE         (c, "fontsize", 0);
     CLASS_ATTR_PAINT        (c, "fontsize", 0);
-    CLASS_ATTR_CATEGORY		(c, "fontsize", 0, "Basic");
-    CLASS_ATTR_LABEL		(c, "fontsize", 0, "Font Size");
+    CLASS_ATTR_CATEGORY		(c, "fontsize", 0, _("Basic"));
+    CLASS_ATTR_LABEL		(c, "fontsize", 0, _("Font Size"));
     CLASS_ATTR_ACCESSORS    (c, "fontsize", NULL, ebox_set_fontsize);
     CLASS_ATTR_STYLE        (c, "fontsize", 0, "number");
 
     CLASS_ATTR_DEFAULT      (c, "receive", 0, "(null)");
     CLASS_ATTR_ACCESSORS    (c, "receive", NULL, ebox_set_receiveid);
     CLASS_ATTR_SAVE         (c, "receive", 0);
-    CLASS_ATTR_CATEGORY		(c, "receive", 0, "Basic");
-    CLASS_ATTR_LABEL		(c, "receive", 0, "Receive Symbol");
+    CLASS_ATTR_CATEGORY		(c, "receive", 0, _("Basic"));
+    CLASS_ATTR_LABEL		(c, "receive", 0, _("Receive Symbol"));
 
     CLASS_ATTR_DEFAULT      (c, "send", 0, "(null)");
     CLASS_ATTR_ACCESSORS    (c, "send", NULL, ebox_set_sendid);
     CLASS_ATTR_SAVE         (c, "send", 0);
-    CLASS_ATTR_CATEGORY		(c, "send", 0, "Basic");
-    CLASS_ATTR_LABEL		(c, "send", 0, "Send Symbol");
+    CLASS_ATTR_CATEGORY		(c, "send", 0, _("Basic"));
+    CLASS_ATTR_LABEL		(c, "send", 0, _("Send Symbol"));
 
     // GUI always need this methods //
     class_addmethod((t_class *)c, (t_method)ebox_attr_dump,         gensym("dump"),   A_NULL,  0);
