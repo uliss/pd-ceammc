@@ -954,7 +954,9 @@ static void eclass_properties_dialog(t_eclass* c)
             sys_gui("set col [format {%4.4x} $nR]\n");
             sys_gui("append col [format {%4.4x} $nG]\n");
             sys_gui("append col [format {%4.4x} $nB]\n");
-            sys_vgui("set color [tk_chooseColor -title {%s} -initialcolor #${col}]\n", c->c_attr[i]->label->s_name, c->c_attr[i]->name->s_name);
+            sys_vgui("wm attributes $id -topmost 0 \n");
+            sys_vgui("set color [tk_chooseColor -title {%s} -initialcolor #${col} -parent $id ]\n", c->c_attr[i]->label->s_name, c->c_attr[i]->name->s_name);
+            sys_vgui("wm attributes $id -topmost 1 \n");
             sys_gui("if {$color == \"\"} return \n");
             sys_gui("foreach {red2 green2 blue2} [winfo rgb . $color] {}\n");
             sys_gui("set nR2 [expr ( $red2 / 65025. )]\n");
@@ -1018,11 +1020,11 @@ static void eclass_properties_dialog(t_eclass* c)
     }
     sys_vgui("toplevel $id\n");
     sys_vgui("wm title $id {%s properties} \n", c->c_class.c_name->s_name);
-    sys_vgui("wm resizable $id 0 0\n", c->c_class.c_name->s_name);
-    sys_vgui("wm attributes $id -topmost 1 \n", c->c_class.c_name->s_name);
+    sys_vgui("wm resizable $id 0 0\n");
+    sys_vgui("wm attributes $id -topmost 1 \n");
 
     //CEAMMC
-    sys_vgui("$id configure " DIALOG_BACKGROUND DIALOG_WINDOW_PADX DIALOG_WINDOW_PADX "\n");
+    sys_vgui("$id configure " DIALOG_BACKGROUND DIALOG_WINDOW_PADX DIALOG_WINDOW_PADY "\n");
     sys_vgui("ttk::frame $id.top_frame\n");
     sys_vgui("grid $id.top_frame\n");
 
