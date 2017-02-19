@@ -13,6 +13,11 @@ extern "C" {
 
 #define CREAM_MAXITEMS 256
 
+// gettext extract
+#ifndef _
+#define _(msg) msg
+#endif
+
 // clang-format off
 
 extern "C" void cream_setup(void);
