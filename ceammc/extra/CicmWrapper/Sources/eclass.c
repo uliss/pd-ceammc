@@ -1081,45 +1081,45 @@ static void eclass_properties_dialog(t_eclass* c)
             if(c->c_attr[i]->style == gensym("checkbutton"))
             {
                 sys_vgui("ttk::checkbutton %s -variable $var_%s "
-                         "-command  [concat pdtk_%s_dialog_apply_%s $id]\n", WIDGET_ID, ATTR_NAME, c->c_class.c_name->s_name, ATTR_NAME);
+                         "-command  [concat pdtk_%s_dialog_apply_%s $id]\n", WIDGET_ID, ATTR_NAME, CLASS_NAME, ATTR_NAME);
                 sys_vgui("pack %s -side left\n", WIDGET_ID);
             }
             else if(c->c_attr[i]->style == gensym("color"))
             {
                 sys_vgui("set color [eval eobj_rgba_to_hex $%s]\n", ATTR_NAME);
                 sys_vgui("entry %s -font {Helvetica 11} -width 10 -readonlybackground $color -state readonly\n", WIDGET_ID);
-                sys_vgui("bind  %s <Button> [concat pdtk_%s_picker_apply_%s $id $%s]\n", WIDGET_ID, c->c_class.c_name->s_name, ATTR_NAME, ATTR_NAME);
+                sys_vgui("bind  %s <Button> [concat pdtk_%s_picker_apply_%s $id $%s]\n", WIDGET_ID, CLASS_NAME, ATTR_NAME, ATTR_NAME);
                 sys_vgui("pack %s -side left\n", WIDGET_ID);
             }
             else if(c->c_attr[i]->style == gensym("number"))
             {
                 sys_vgui("ttk::spinbox %s -width 18 -textvariable [string trim $var_%s] -increment %f \n", WIDGET_ID, ATTR_NAME, (float)c->c_attr[i]->step);
-                sys_vgui("%s configure -command [concat pdtk_%s_dialog_apply_%s $id]\n", WIDGET_ID, c->c_class.c_name->s_name,  ATTR_NAME);
+                sys_vgui("%s configure -command [concat pdtk_%s_dialog_apply_%s $id]\n", WIDGET_ID, CLASS_NAME,  ATTR_NAME);
                 sys_vgui("%s configure -from -9999999999999 -to 9999999999999\n", WIDGET_ID, (float)c->c_attr[i]->maximum); // Should be enough
                 sys_vgui("%s delete 0 end \n", WIDGET_ID);
                 sys_vgui("%s insert 0 $%s \n", WIDGET_ID, ATTR_NAME);
 
-                sys_vgui("bind %s <KeyPress-Return> [concat pdtk_%s_dialog_apply_%s $id]\n", WIDGET_ID, c->c_class.c_name->s_name,  ATTR_NAME);
+                sys_vgui("bind %s <KeyPress-Return> [concat pdtk_%s_dialog_apply_%s $id]\n", WIDGET_ID, CLASS_NAME,  ATTR_NAME);
                 sys_vgui("pack %s -side left\n", WIDGET_ID);
             }
             else if(c->c_attr[i]->style == gensym("menu"))
             {
                 sys_vgui("spinbox %s -background #C0C0C0 -font {Helvetica 12} -width 18 -textvariable [string trim $var_%s] -state readonly\n", WIDGET_ID, ATTR_NAME);
-                sys_vgui("%s configure -command [concat pdtk_%s_dialog_apply_%s $id]\n", WIDGET_ID, c->c_class.c_name->s_name,  ATTR_NAME);
+                sys_vgui("%s configure -command [concat pdtk_%s_dialog_apply_%s $id]\n", WIDGET_ID, CLASS_NAME,  ATTR_NAME);
                 sys_vgui("%s configure -value {", WIDGET_ID);
                 for(j = 0; j < c->c_attr[i]->itemssize; j++) {
                     sys_vgui("%s ", c->c_attr[i]->itemslist[c->c_attr[i]->itemssize - 1 - j]->s_name);
                 }
                 sys_vgui("}\n");
 
-                sys_vgui("bind %s <KeyPress-Return> [concat pdtk_%s_dialog_apply_%s $id]\n", WIDGET_ID, c->c_class.c_name->s_name,  ATTR_NAME);
+                sys_vgui("bind %s <KeyPress-Return> [concat pdtk_%s_dialog_apply_%s $id]\n", WIDGET_ID, CLASS_NAME,  ATTR_NAME);
                 sys_vgui("pack %s -side left\n", WIDGET_ID);
                 sys_vgui("%s set $%s \n", WIDGET_ID, ATTR_NAME);
             }
             else
             {
                 sys_vgui("ttk::entry %s -width 20 -textvariable [string trim $var_%s]\n", WIDGET_ID, ATTR_NAME);
-                sys_vgui("bind %s <KeyPress-Return> [concat pdtk_%s_dialog_apply_%s $id]\n", WIDGET_ID, c->c_class.c_name->s_name,  ATTR_NAME);
+                sys_vgui("bind %s <KeyPress-Return> [concat pdtk_%s_dialog_apply_%s $id]\n", WIDGET_ID, CLASS_NAME,  ATTR_NAME);
                 sys_vgui("pack %s -side left\n", WIDGET_ID);
             }
 
