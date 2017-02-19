@@ -6,7 +6,7 @@ add_subdirectory(gui)
 add_subdirectory(ext)
 add_subdirectory(distrib)
 
-set(POT_TEMPLATE "${CMAKE_CURRENT_SOURCE_DIR}/ceammc_template.pot")
+set(POT_TEMPLATE "${CMAKE_SOURCE_DIR}/po/template.pot")
 find_program(XGETTEXT xgettext)
 
 if(XGETTEXT)
