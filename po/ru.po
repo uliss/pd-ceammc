@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure\\ Data 0.47.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2017-02-20 03:23+0300\n"
+"POT-Creation-Date: 2017-02-20 03:32+0300\n"
 "PO-Revision-Date: 2017-02-19 23:39+0000\n"
 "Last-Translator: Serge Poltavski <serge.poltavski@gmail.com>\n"
 "Language-Team: Russian\n"
@@ -209,7 +209,6 @@ msgid "Auto range"
 msgstr "Автоматический диапазон"
 
 #: ../ceammc/ext/src/ui_display.cpp:243
-#, fuzzy
 msgid "Auto size"
 msgstr "Автоматический размер"
 
@@ -540,7 +539,7 @@ msgstr ""
 
 #: ../ceammc/ext/src/ui_slider2d.cpp:239
 msgid "Horizontal range"
-msgstr ""
+msgstr "Горизонтальный диапазон"
 
 #: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:572
 msgid "Hover Color"
@@ -592,7 +591,7 @@ msgstr "Элементы"
 
 #: ../tcl/dialog_iemgui.tcl:297 ../tcl/dialog_iemgui.tcl:634
 msgid "Jump on click"
-msgstr "Переход на клик"
+msgstr "Переход при клике"
 
 #: ../ceammc/ext/src/ui_keyboard.cpp:291
 msgid "Keys"
@@ -601,7 +600,7 @@ msgstr "Число клавиш"
 #: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:430
 #: ../ceammc/extra/CreamLibrary/Sources/c.slider.cpp:344
 msgid "Knob Color"
-msgstr "Цвет ручки"
+msgstr "Цвет ползунка"
 
 #: ../tcl/dialog_gatom.tcl:126 ../tcl/dialog_gatom.tcl:127
 #: ../tcl/dialog_iemgui.tcl:676 ../tcl/dialog_iemgui.tcl:728
@@ -1067,13 +1066,14 @@ msgstr "Смещение"
 msgid "Show all"
 msgstr "Показать все"
 
-#: ../ceammc/ext/src/ui_sliders.cpp:340
+#: ../ceammc/ext/src/ui_slider2d.cpp:227 ../ceammc/ext/src/ui_sliders.cpp:340
 msgid "Show range"
 msgstr "Показывать диапазон"
 
 #: ../ceammc/ext/src/ui_slider2d.cpp:227
+#, fuzzy
 msgid "Show value range"
-msgstr ""
+msgstr "Показывать диапазон"
 
 #: ../tcl/dialog_find.tcl:128
 #, tcl-format
@@ -1106,11 +1106,11 @@ msgstr "Запуск..."
 
 #: ../tcl/dialog_iemgui.tcl:300 ../tcl/dialog_iemgui.tcl:637
 msgid "Steady on click"
-msgstr ""
+msgstr "Не реагировать на клик"
 
 #: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:554
 msgid "Stored Button Color"
-msgstr ""
+msgstr "Цвет сохраненной ячейки"
 
 #: ../tcl/dialog_font.tcl:133
 msgid "Stretch"

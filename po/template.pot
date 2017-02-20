@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure\\ Data 0.47.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2017-02-20 03:23+0300\n"
+"POT-Creation-Date: 2017-02-20 03:32+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,6 +44,10 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
+#: ../ceammc/ext/src/ui_slider2d.cpp:227 ../ceammc/ext/src/ui_sliders.cpp:340
+msgid "Show range"
+msgstr ""
+
 #: ../ceammc/ext/src/ui_slider2d.cpp:227
 msgid "Show value range"
 msgstr ""
@@ -78,10 +82,6 @@ msgstr ""
 
 #: ../ceammc/ext/src/ui_sliders.cpp:334
 msgid "Auto range"
-msgstr ""
-
-#: ../ceammc/ext/src/ui_sliders.cpp:340
-msgid "Show range"
 msgstr ""
 
 #: ../ceammc/extra/CicmWrapper/Sources/eclass.c:69

@@ -224,7 +224,7 @@ UI_fun(ui_slider2d)::init_ext(t_eclass* z)
 
     CLASS_ATTR_INT                  (z, "show_range", 0, ui_slider2d, show_range);
     CLASS_ATTR_DEFAULT              (z, "show_range", 0, "1");
-    CLASS_ATTR_LABEL                (z, "show_range", 0, _("Show value range"));
+    CLASS_ATTR_LABEL                (z, "show_range", 0, _("Show range"));
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "show_range", 0, "1");
     CLASS_ATTR_STYLE                (z, "show_range", 0, "onoff");
 
