@@ -116,6 +116,7 @@ set(DOC_FILES
     system.memsize
     system.memused
     ui.bang
+    ui.bpfunc
     ui.scope~
     ui.spectroscope~
     ui.toggle
@@ -203,4 +204,7 @@ if(WIN32)
             DESTINATION \"${CMAKE_INSTALL_PREFIX}/${DOC_INSTALL_PATH}\")"
     )
 endif()
+
+file(GLOB _PDDOC_FILES "*.pddoc")
+add_custom_target(pddoc_files SOURCES ${_PDDOC_FILES})
 

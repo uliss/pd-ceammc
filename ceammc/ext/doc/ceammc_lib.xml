@@ -366,6 +366,9 @@
     <entry descr="A bang... that's all" name="ui.bang" ref_view="link">
       <xi:include href="ui.bang.pddoc" parse="xml"/>
     </entry>
+    <entry descr="Breakpoint function GUI object" name="ui.bpfunc" ref_view="link">
+      <xi:include href="ui.bpfunc.pddoc" parse="xml"/>
+    </entry>
     <entry descr="Scope GUI object" name="ui.scope~" ref_view="link">
       <xi:include href="ui.scope~.pddoc" parse="xml"/>
     </entry>

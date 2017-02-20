@@ -4,13 +4,15 @@
 #X obj 79 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 30 119 ui.link @title [ui.bang] @url ui.bang-help.pd;
 #X text 175 116 A bang\.\.\. that's all;
-#X obj 30 142 ui.link @title [ui.scope~] @url ui.scope~-help.pd;
-#X text 175 139 Scope GUI object;
-#X obj 30 165 ui.link @title [ui.spectroscope~] @url
+#X obj 30 142 ui.link @title [ui.bpfunc] @url ui.bpfunc-help.pd;
+#X text 175 139 Breakpoint function GUI object;
+#X obj 30 165 ui.link @title [ui.scope~] @url ui.scope~-help.pd;
+#X text 175 162 Scope GUI object;
+#X obj 30 188 ui.link @title [ui.spectroscope~] @url
 ui.spectroscope~-help.pd;
-#X text 175 162 Spectroscope GUI object;
-#X obj 30 188 ui.link @title [ui.toggle] @url ui.toggle-help.pd;
-#X text 175 185 modern toggle widget;
+#X text 175 185 Spectroscope GUI object;
+#X obj 30 211 ui.link @title [ui.toggle] @url ui.toggle-help.pd;
+#X text 175 208 modern toggle widget;
 #X obj 1 1 cnv 5 627 40 empty empty ceammc::ui 20 20 0 20 -104026
 -4096 0;
 #X obj 1 458 cnv 5 627 40 empty empty empty 17 7 0 10 -203890 -1 0;
