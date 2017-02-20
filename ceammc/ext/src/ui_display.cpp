@@ -43,7 +43,7 @@ static t_symbol* COLOR_SYMBOL_TYPE = gensym("#A0C000");
 static t_symbol* COLOR_DEFAULT_TYPE = gensym("#909090");
 static const int TYPE_WIDTH = 45;
 static const int TEXT_XPAD = 3;
-static const int TEXT_YPAD = 1;
+static const int TEXT_YPAD = 2;
 
 #pragma mark setup
 
@@ -72,6 +72,7 @@ static void draw_message_type(ui_display* zx, t_elayer* g, float x, float y, flo
 }
 
 #pragma mark ui
+
 static void draw_msg_value(ui_display* zx, t_elayer* g, float x, float y, float width, float height)
 {
     if (zx->bang)
@@ -83,7 +84,7 @@ static void draw_msg_value(ui_display* zx, t_elayer* g, float x, float y, float 
     egraphics_fill(g);
 
     etext_layout_set(zx->txt_val, zx->s_value->c_str(), zx->txt_font,
-        x + TEXT_XPAD, y + TEXT_YPAD, width - TYPE_WIDTH - TEXT_XPAD, height,
+        x + TEXT_XPAD, y + TEXT_YPAD, width - TEXT_XPAD, height,
         ETEXT_UP_LEFT, ETEXT_JLEFT, ETEXT_WRAP);
     etext_layout_draw(zx->txt_val, g);
 }
@@ -173,7 +174,7 @@ UI_fun(ui_display)::wx_oksize(ui_display* zx, t_rect* newrect)
         min_width += TYPE_WIDTH;
 
     newrect->width = pd_clip_min(newrect->width, min_width);
-    newrect->height = pd_clip_min(newrect->height, 15.);
+    newrect->height = pd_clip_min(newrect->height, 18);
 }
 
 #pragma mark setup
@@ -223,7 +224,7 @@ UI_fun(ui_display)::wx_attr_changed_ext(ui_display* z, t_symbol*)
 UI_fun(ui_display)::init_ext(t_eclass* z)
 {
     // clang-format off
-    CLASS_ATTR_DEFAULT              (z, "size", 0, "150. 15.");
+    CLASS_ATTR_DEFAULT              (z, "size", 0, "150. 18.");
     CLASS_ATTR_INVISIBLE            (z, "send", 0);
 
     CLASS_ATTR_INT                  (z, "display_events", 0, ui_display, show_bang);
