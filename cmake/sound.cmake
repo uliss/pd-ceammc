@@ -4,7 +4,12 @@ include(CheckIncludeFiles)
 option(WITH_ALSA "Use ALSA sound API" ON)
 cmake_dependent_option(WITH_ALSA_AUDIO "Use OSS audio API" ON "WITH_ALSA" OFF)
 cmake_dependent_option(WITH_ALSA_MIDI "Use OSS midi API" ON "WITH_ALSA" OFF)
-option(WITH_JACK "Use Jack sound API" ON)
+
+if(APPLE)
+    option(WITH_JACK "Use Jack sound API" OFF)
+else()
+    option(WITH_JACK "Use Jack sound API" ON)
+endif()
 
 option(WITH_OSS "Use OSS sound API" ON)
 cmake_dependent_option(WITH_OSS_AUDIO "Use OSS audio API" ON "WITH_OSS" OFF)
