@@ -1075,7 +1075,7 @@ static void eclass_properties_dialog(t_eclass* c)
 
             // ATTRIBUTES NAMES //
 
-            sys_vgui("ttk::label %s -justify left -text [string cat [_ \"%s\" ] \":\"]\n", LABEL_ID, c->c_attr[i]->label->s_name);
+            sys_vgui("ttk::label %s -justify left -text [join [list [_ \"%s\" ] {:}] {}]\n", LABEL_ID, c->c_attr[i]->label->s_name);
             sys_vgui("pack %s -side left\n", LABEL_ID);
 
             // SELECTOR //
