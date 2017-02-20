@@ -288,17 +288,14 @@ round to float data type\.;
 peak;
 #X obj 20 3886 cnv 5 18 19 empty empty ui 0 17 0 17 -262144 -49933 0;
 #X obj 20 3915 cnv 1 606 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 3929 ui.link @title [ui.bang] @link ui.bang-help.pd @size
-100 25;
+#X obj 30 3929 ui.link @title [ui.bang] @url ui.bang-help.pd;
 #X text 175 3926 A bang\.\.\. that's all;
-#X obj 30 3952 ui.link @title [ui.scope~] @link ui.scope~-help.pd
-@size 100 25;
+#X obj 30 3952 ui.link @title [ui.scope~] @url ui.scope~-help.pd;
 #X text 175 3949 Scope GUI object;
-#X obj 30 3975 ui.link @title [ui.spectroscope~] @link
-ui.spectroscope~-help.pd @size 100 25;
+#X obj 30 3975 ui.link @title [ui.spectroscope~] @url
+ui.spectroscope~-help.pd;
 #X text 175 3972 Spectroscope GUI object;
-#X obj 30 3998 ui.link @title [ui.toggle] @link ui.toggle-help.pd
-@size 100 25;
+#X obj 30 3998 ui.link @title [ui.toggle] @url ui.toggle-help.pd;
 #X text 175 3995 modern toggle widget;
 #X obj 20 4018 cnv 5 59 19 empty empty vector 0 17 0 17 -262144 -49933
 0;
@@ -317,5 +314,5 @@ length: sqrt(element(1)^2 + \.\.\.element(n)^2)\.;
 #X obj 1 1 cnv 5 627 40 empty empty ceammc 20 20 0 20 -104026 -4096 0;
 #X obj 1 4200 cnv 5 627 40 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 20 4200 version: v0\.1 \, license: GPL3;
-#X obj 20 4219 ui.link @title https://github.com/uliss/pure-data @link
-https://github.com/uliss/pure-data @size 100 25;
+#X obj 20 4219 ui.link @title https://github.com/uliss/pure-data @url
+https://github.com/uliss/pure-data;
