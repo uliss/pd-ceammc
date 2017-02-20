@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure\\ Data 0.47.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2017-02-20 03:43+0300\n"
+"POT-Creation-Date: 2017-02-20 14:25+0300\n"
 "PO-Revision-Date: 2017-02-19 23:39+0000\n"
 "Last-Translator: Serge Poltavski <serge.poltavski@gmail.com>\n"
 "Language-Team: Russian\n"
@@ -208,7 +208,11 @@ msgstr ""
 msgid "Auto range"
 msgstr "Автоматический диапазон"
 
-#: ../ceammc/ext/src/ui_display.cpp:243
+#: ../ceammc/ext/src/ui_bpfunc.cpp:956
+msgid "Auto send"
+msgstr "Отправлять при изменении"
+
+#: ../ceammc/ext/src/ui_display.cpp:243 ../ceammc/ext/src/ui_display.cpp:244
 msgid "Auto size"
 msgstr "Автоматический размер"
 
@@ -395,11 +399,11 @@ msgstr "Удалить array"
 msgid "Discard changes to '%s'?"
 msgstr ""
 
-#: ../ceammc/ext/src/ui_display.cpp:231
+#: ../ceammc/ext/src/ui_display.cpp:231 ../ceammc/ext/src/ui_display.cpp:232
 msgid "Display events"
 msgstr "Показывать события"
 
-#: ../ceammc/ext/src/ui_display.cpp:237
+#: ../ceammc/ext/src/ui_display.cpp:237 ../ceammc/ext/src/ui_display.cpp:238
 msgid "Display type"
 msgstr "Показывать тип сообщения"
 

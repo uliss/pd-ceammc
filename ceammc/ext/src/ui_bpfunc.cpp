@@ -953,7 +953,7 @@ UI_fun(ui_bpfunc)::init_ext(t_eclass* z)
 
     CLASS_ATTR_INT(z, "auto_send", 0, ui_bpfunc, auto_send);
     CLASS_ATTR_DEFAULT(z, "auto_send", 0, "1");
-    CLASS_ATTR_LABEL(z, "auto_send", 0, "auto_send");
+    CLASS_ATTR_LABEL(z, "auto_send", 0, _("Auto send"));
     CLASS_ATTR_DEFAULT_SAVE_PAINT(z, "auto_send", 0, "0");
     CLASS_ATTR_STYLE(z, "auto_send", 0, "onoff");
 
