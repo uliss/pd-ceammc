@@ -675,16 +675,33 @@ t_eclass* GuiFactory<U>::pd_class = 0;
 template <typename U>
 t_symbol* GuiFactory<U>::BG_LAYER = gensym("background_layer");
 
+#ifdef __APPLE__
 template <typename U>
 t_symbol* GuiFactory<U>::FONT_FAMILY = gensym("Helvetica");
-template <typename U>
-t_symbol* GuiFactory<U>::FONT_STYLE = gensym("roman");
-template <typename U>
-t_symbol* GuiFactory<U>::FONT_WEIGHT = gensym("normal");
 template <typename U>
 const int GuiFactory<U>::FONT_SIZE = 12;
 template <typename U>
 const int GuiFactory<U>::FONT_SIZE_SMALL = 8;
+#elif _WIN32
+template <typename U>
+t_symbol* GuiFactory<U>::FONT_FAMILY = gensym("Verdana");
+template <typename U>
+const int GuiFactory<U>::FONT_SIZE = 9;
+template <typename U>
+const int GuiFactory<U>::FONT_SIZE_SMALL = 6;
+#else
+template <typename U>
+t_symbol* GuiFactory<U>::FONT_FAMILY = gensym("OpenSans");
+template <typename U>
+const int GuiFactory<U>::FONT_SIZE = 10;
+template <typename U>
+const int GuiFactory<U>::FONT_SIZE_SMALL = 6;
+#endif
+
+template <typename U>
+t_symbol* GuiFactory<U>::FONT_STYLE = gensym("roman");
+template <typename U>
+t_symbol* GuiFactory<U>::FONT_WEIGHT = gensym("normal");
 template <typename U>
 t_symbol* GuiFactory<U>::COLOR_ACTIVE = gensym("#00C0FF");
 
