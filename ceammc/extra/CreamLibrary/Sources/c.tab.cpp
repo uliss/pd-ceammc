@@ -575,7 +575,7 @@ extern "C" void setup_ui0x2etab(void)
         CLASS_ATTR_STYLE                (c, "hocolor", 0, "color");
         
         CLASS_ATTR_RGBA                 (c, "secolor", 0, t_tab, f_color_select);
-        CLASS_ATTR_LABEL                (c, "secolor", 0, _("Selection Color"));
+        CLASS_ATTR_LABEL                (c, "secolor", 0, _("Active Color"));
         CLASS_ATTR_ORDER                (c, "secolor", 0, "5");
         CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "secolor", 0, DEFAULT_ACTIVE_COLOR);
         CLASS_ATTR_STYLE                (c, "secolor", 0, "color");

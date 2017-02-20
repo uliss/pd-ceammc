@@ -184,19 +184,19 @@ extern "C" void setup_ui0x2edsp_tilde(void)
     CLASS_ATTR_DEFAULT              (c, "size", 0, "30 30");
     
     CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_dsp_tilde, f_color_background);
-    CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
+    CLASS_ATTR_LABEL                (c, "bgcolor", 0, _("Background Color"));
     CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, DEFAULT_BACKGROUND_COLOR);
     CLASS_ATTR_STYLE                (c, "bgcolor", 0, "color");
     
     CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_dsp_tilde, f_color_border);
-    CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Border Color");
+    CLASS_ATTR_LABEL                (c, "bdcolor", 0, _("Border Color"));
     CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, DEFAULT_BORDER_COLOR);
     CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
     
     CLASS_ATTR_RGBA                 (c, "logocolor", 0, t_dsp_tilde, f_color_logo);
-    CLASS_ATTR_LABEL                (c, "logocolor", 0, "Logo Color");
+    CLASS_ATTR_LABEL                (c, "logocolor", 0, _("Active Color"));
     CLASS_ATTR_ORDER                (c, "logocolor", 0, "3");
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "logocolor", 0, DEFAULT_ACTIVE_COLOR);
     CLASS_ATTR_STYLE                (c, "logocolor", 0, "color");

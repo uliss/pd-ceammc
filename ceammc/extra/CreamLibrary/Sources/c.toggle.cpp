@@ -177,7 +177,7 @@ extern "C" void setup_ui0x2etoggle(void)
         CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
 
         CLASS_ATTR_RGBA                 (c, "crcolor", 0, t_toggle, f_color_cross);
-        CLASS_ATTR_LABEL                (c, "crcolor", 0, _("Cross Color"));
+        CLASS_ATTR_LABEL                (c, "crcolor", 0, _("Active Color"));
         CLASS_ATTR_ORDER                (c, "crcolor", 0, "3");
         CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "crcolor", 0, DEFAULT_ACTIVE_COLOR);
         CLASS_ATTR_STYLE                (c, "crcolor", 0, "color");

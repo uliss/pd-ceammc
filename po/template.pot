@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure\\ Data 0.47.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2017-02-20 01:57+0300\n"
+"POT-Creation-Date: 2017-02-20 03:06+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,6 +24,7 @@ msgstr ""
 #: ../ceammc/extra/CicmWrapper/Sources/eclass.c:112
 #: ../ceammc/extra/CicmWrapper/Sources/eclass.c:120
 #: ../ceammc/extra/CicmWrapper/Sources/eclass.c:126
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:279
 msgid "Basic"
 msgstr ""
 
@@ -63,10 +64,35 @@ msgstr ""
 msgid "Send Symbol"
 msgstr ""
 
-#: ../ceammc/extra/CreamLibrary/Sources/c.matrix.cpp:343
-msgid "Matrix Size"
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:280
+msgid "Preset Name"
 msgstr ""
 
+#: ../ceammc/extra/CreamLibrary/Sources/c.bang.cpp:157
+#: ../ceammc/extra/CreamLibrary/Sources/c.dsp_tilde.cpp:193
+#: ../ceammc/extra/CreamLibrary/Sources/c.matrix.cpp:356
+#: ../ceammc/extra/CreamLibrary/Sources/c.menu.cpp:132
+#: ../ceammc/extra/CreamLibrary/Sources/c.number.cpp:438
+#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:536
+#: ../ceammc/extra/CreamLibrary/Sources/c.radio.cpp:421
+#: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:424
+#: ../ceammc/extra/CreamLibrary/Sources/c.slider.cpp:338
+#: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:560
+#: ../ceammc/extra/CreamLibrary/Sources/c.toggle.cpp:174
+msgid "Border Color"
+msgstr ""
+
+#: ../ceammc/extra/CreamLibrary/Sources/c.bang.cpp:163
+#: ../ceammc/extra/CreamLibrary/Sources/c.dsp_tilde.cpp:199
+#: ../ceammc/extra/CreamLibrary/Sources/c.matrix.cpp:362
+#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:560
+#: ../ceammc/extra/CreamLibrary/Sources/c.radio.cpp:427
+#: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:578
+#: ../ceammc/extra/CreamLibrary/Sources/c.toggle.cpp:180
+msgid "Active Color"
+msgstr ""
+
+#: ../ceammc/extra/CreamLibrary/Sources/c.dsp_tilde.cpp:187
 #: ../ceammc/extra/CreamLibrary/Sources/c.matrix.cpp:350
 #: ../ceammc/extra/CreamLibrary/Sources/c.menu.cpp:126
 #: ../ceammc/extra/CreamLibrary/Sources/c.number.cpp:432
@@ -79,16 +105,8 @@ msgstr ""
 msgid "Background Color"
 msgstr ""
 
-#: ../ceammc/extra/CreamLibrary/Sources/c.matrix.cpp:356
-#: ../ceammc/extra/CreamLibrary/Sources/c.menu.cpp:132
-#: ../ceammc/extra/CreamLibrary/Sources/c.number.cpp:438
-#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:536
-#: ../ceammc/extra/CreamLibrary/Sources/c.radio.cpp:421
-#: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:424
-#: ../ceammc/extra/CreamLibrary/Sources/c.slider.cpp:338
-#: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:560
-#: ../ceammc/extra/CreamLibrary/Sources/c.toggle.cpp:174
-msgid "Border Color"
+#: ../ceammc/extra/CreamLibrary/Sources/c.matrix.cpp:343
+msgid "Matrix Size"
 msgstr ""
 
 #: ../ceammc/extra/CreamLibrary/Sources/c.matrix.cpp:362

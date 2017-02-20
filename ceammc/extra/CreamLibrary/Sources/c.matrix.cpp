@@ -359,7 +359,7 @@ extern "C" void setup_ui0x2ematrix(void)
         CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
         
         CLASS_ATTR_RGBA                 (c, "accolor", 0, t_matrixctrl, f_color_on);
-        CLASS_ATTR_LABEL                (c, "accolor", 0, _("Active Cell Color"));
+        CLASS_ATTR_LABEL                (c, "accolor", 0, _("Active Color"));
         CLASS_ATTR_ORDER                (c, "accolor", 0, "3");
         CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "accolor", 0, DEFAULT_ACTIVE_COLOR);
         CLASS_ATTR_STYLE                (c, "accolor", 0, "color");

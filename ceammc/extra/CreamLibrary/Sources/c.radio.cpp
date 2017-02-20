@@ -424,7 +424,7 @@ extern "C" void setup_ui0x2eradio(void)
         CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
         
         CLASS_ATTR_RGBA                 (c, "itcolor", 0, t_radio, f_color_item);
-        CLASS_ATTR_LABEL                (c, "itcolor", 0, _("Item Color"));
+        CLASS_ATTR_LABEL                (c, "itcolor", 0, _("Active Color"));
         CLASS_ATTR_ORDER                (c, "itcolor", 0, "3");
         CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "itcolor", 0, DEFAULT_ACTIVE_COLOR);
         CLASS_ATTR_STYLE                (c, "itcolor", 0, "color");

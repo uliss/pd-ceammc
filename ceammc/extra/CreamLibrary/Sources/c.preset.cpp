@@ -557,7 +557,7 @@ extern "C" void setup_ui0x2epreset(void)
         CLASS_ATTR_STYLE                (c, "stcolor", 0, "color");
 
         CLASS_ATTR_RGBA                 (c, "secolor", 0, t_preset, f_color_button_selected);
-        CLASS_ATTR_LABEL                (c, "secolor", 0, _("Selected Button Color"));
+        CLASS_ATTR_LABEL                (c, "secolor", 0, _("Active Color"));
         CLASS_ATTR_ORDER                (c, "secolor", 0, "3");
         CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "secolor", 0, DEFAULT_ACTIVE_COLOR);
         CLASS_ATTR_STYLE                (c, "secolor", 0, "color");

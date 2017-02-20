@@ -276,8 +276,8 @@ void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype 
         CLASS_ATTR_SYMBOL       (c, "presetname", 0, t_ebox, b_objpreset_id);
         CLASS_ATTR_DEFAULT      (c, "presetname", 0, "(null)");
         CLASS_ATTR_SAVE         (c, "presetname", 0);
-        CLASS_ATTR_CATEGORY		(c, "presetname", 0, "Basic");
-        CLASS_ATTR_LABEL		(c, "presetname", 0, "Preset Name");
+        CLASS_ATTR_CATEGORY		(c, "presetname", 0, _("Basic"));
+        CLASS_ATTR_LABEL		(c, "presetname", 0, _("Preset Name"));
         CLASS_ATTR_ACCESSORS    (c, "presetname", NULL, ebox_set_presetid);
         class_addmethod((t_class *)c, (t_method)m, gensym(name), type, 0);
     }
