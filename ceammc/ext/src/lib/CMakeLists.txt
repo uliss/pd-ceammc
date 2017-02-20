@@ -16,6 +16,7 @@ endif()
 # main static library
 add_library(ceammc_static STATIC ceammc.c
     ceammc.cpp
+    ceammc_gui.h
     ceammc_atom.cpp
     ceammc_atomlist.cpp
     ceammc_fn_list.cpp

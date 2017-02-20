@@ -28,6 +28,11 @@
 
 namespace ceammc_gui {
 
+//! Gettext extract message helper
+#ifndef _
+#define _(msg) msg
+#endif
+
 /** \deprecated this was a separate property handling, should be merged with existing CICM properties
      */
 #pragma mark UI defines
@@ -561,13 +566,13 @@ public:
 
         // background / border color
         CLASS_ATTR_RGBA                 (cl, "bgcolor", 0, U, b_color_background);
-        CLASS_ATTR_LABEL                (cl, "bgcolor", 0, "Background Color");
+        CLASS_ATTR_LABEL                (cl, "bgcolor", 0, _("Background Color"));
         CLASS_ATTR_ORDER                (cl, "bgcolor", 0, "1");
         CLASS_ATTR_DEFAULT_SAVE_PAINT   (cl, "bgcolor", 0, DEFAULT_BACKGROUND_COLOR);
         CLASS_ATTR_STYLE                (cl, "bgcolor", 0, "color");
 
         CLASS_ATTR_RGBA                 (cl, "bdcolor", 0, U, b_color_border);
-        CLASS_ATTR_LABEL                (cl, "bdcolor", 0, "Border Color");
+        CLASS_ATTR_LABEL                (cl, "bdcolor", 0, _("Border Color"));
         CLASS_ATTR_ORDER                (cl, "bdcolor", 0, "2");
         CLASS_ATTR_DEFAULT_SAVE_PAINT   (cl, "bdcolor", 0, DEFAULT_BORDER_COLOR);
         CLASS_ATTR_STYLE                (cl, "bdcolor", 0, "color");
@@ -670,16 +675,33 @@ t_eclass* GuiFactory<U>::pd_class = 0;
 template <typename U>
 t_symbol* GuiFactory<U>::BG_LAYER = gensym("background_layer");
 
+#ifdef __APPLE__
 template <typename U>
 t_symbol* GuiFactory<U>::FONT_FAMILY = gensym("Helvetica");
-template <typename U>
-t_symbol* GuiFactory<U>::FONT_STYLE = gensym("roman");
-template <typename U>
-t_symbol* GuiFactory<U>::FONT_WEIGHT = gensym("normal");
 template <typename U>
 const int GuiFactory<U>::FONT_SIZE = 12;
 template <typename U>
 const int GuiFactory<U>::FONT_SIZE_SMALL = 8;
+#elif _WIN32
+template <typename U>
+t_symbol* GuiFactory<U>::FONT_FAMILY = gensym("Verdana");
+template <typename U>
+const int GuiFactory<U>::FONT_SIZE = 9;
+template <typename U>
+const int GuiFactory<U>::FONT_SIZE_SMALL = 6;
+#else
+template <typename U>
+t_symbol* GuiFactory<U>::FONT_FAMILY = gensym("OpenSans");
+template <typename U>
+const int GuiFactory<U>::FONT_SIZE = 10;
+template <typename U>
+const int GuiFactory<U>::FONT_SIZE_SMALL = 6;
+#endif
+
+template <typename U>
+t_symbol* GuiFactory<U>::FONT_STYLE = gensym("roman");
+template <typename U>
+t_symbol* GuiFactory<U>::FONT_WEIGHT = gensym("normal");
 template <typename U>
 t_symbol* GuiFactory<U>::COLOR_ACTIVE = gensym("#00C0FF");
 

@@ -303,7 +303,7 @@ UI_fun(ui_sliders)::init_ext(t_eclass* z)
     CLASS_ATTR_DEFAULT              (z, "size", 0, "150. 100.");
 
     CLASS_ATTR_RGBA                 (z, "fgcolor", 0, ui_sliders, slider_color);
-    CLASS_ATTR_LABEL                (z, "fgcolor", 0, "Slider color");
+    CLASS_ATTR_LABEL                (z, "fgcolor", 0, _("Slider color"));
     CLASS_ATTR_STYLE                (z, "fgcolor", 0, "color");
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "fgcolor", 0, "0.75 0.75 0.75 1.0");
 
@@ -313,31 +313,31 @@ UI_fun(ui_sliders)::init_ext(t_eclass* z)
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "count", 0, "8");
     CLASS_ATTR_FILTER_MIN           (z, "count", 1);
     CLASS_ATTR_FILTER_MAX           (z, "count", MAX_SLIDERS_NUM);
-    CLASS_ATTR_LABEL                (z, "count", 0, "Sliders count");
+    CLASS_ATTR_LABEL                (z, "count", 0, _("Sliders count"));
     CLASS_ATTR_STYLE                (z, "count", 0, "number");
 
     CLASS_ATTR_FLOAT                (z, "shift", 0, ui_sliders, shift);
     CLASS_ATTR_DEFAULT              (z, "shift", 0, "0");
-    CLASS_ATTR_LABEL                (z, "shift", 0, "Value shift");
+    CLASS_ATTR_LABEL                (z, "shift", 0, _("Value shift"));
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "shift", 0, "0");
     CLASS_ATTR_STYLE                (z, "shift", 0, "number");
 
     CLASS_ATTR_FLOAT                (z, "range", 0, ui_sliders, range);
     CLASS_ATTR_DEFAULT              (z, "range", 0, "1");
     CLASS_ATTR_ACCESSORS            (z, "range", NULL, slider_range_set);
-    CLASS_ATTR_LABEL                (z, "range", 0, "Value range");
+    CLASS_ATTR_LABEL                (z, "range", 0, _("Value range"));
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "range", 0, "1");
     CLASS_ATTR_STYLE                (z, "range", 0, "number");
 
     CLASS_ATTR_INT                  (z, "auto_range", 0, ui_sliders, auto_range);
     CLASS_ATTR_DEFAULT              (z, "auto_range", 0, "0");
-    CLASS_ATTR_LABEL                (z, "auto_range", 0, "Auto range");
+    CLASS_ATTR_LABEL                (z, "auto_range", 0, _("Auto range"));
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "auto_range", 0, "0");
     CLASS_ATTR_STYLE                (z, "auto_range", 0, "onoff");
 
     CLASS_ATTR_INT                  (z, "show_range", 0, ui_sliders, show_range);
     CLASS_ATTR_DEFAULT              (z, "show_range", 0, "1");
-    CLASS_ATTR_LABEL                (z, "show_range", 0, "Show range");
+    CLASS_ATTR_LABEL                (z, "show_range", 0, _("Show range"));
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "show_range", 0, "1");
     CLASS_ATTR_STYLE                (z, "show_range", 0, "onoff");
     // clang-format on

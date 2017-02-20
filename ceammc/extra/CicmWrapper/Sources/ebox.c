@@ -1233,16 +1233,16 @@ void ebox_dialog(t_ebox *x, t_symbol *s, int argc, t_atom *argv)
                 if(ac && av) {
                     if(c->c_attr[attrindex]->style == gensym("checkbutton")) {
                         if(atom_getfloat(av) == 0)
-                            sys_vgui("%s.sele%i.selec deselect \n", atom_getsymbol(argv)->s_name, attrindex+1);
+                            sys_vgui("set %s.top_frame.sele%i.selec 0\n", atom_getsymbol(argv)->s_name, attrindex+1);
                         else
-                            sys_vgui("%s.sele%i.selec select \n", atom_getsymbol(argv)->s_name, attrindex+1);
+                            sys_vgui("set %s.top_frame.sele%i.selec 1\n", atom_getsymbol(argv)->s_name, attrindex+1);
                     }
                     else if(c->c_attr[attrindex]->style == gensym("color"))
                     {
                         color.red = atom_getfloat(av);
                         color.green = atom_getfloat(av+1);
                         color.blue = atom_getfloat(av+2);
-                        sys_vgui("%s.sele%i.selec configure -readonlybackground %s \n", atom_getsymbol(argv)->s_name, attrindex+1, rgb_to_hex(color));
+                        sys_vgui("%s.top_frame.sele%i.selec configure -readonlybackground %s \n", atom_getsymbol(argv)->s_name, attrindex+1, rgb_to_hex(color));
                     }
                     else if(c->c_attr[attrindex]->style == gensym("menu"))
                     {
@@ -1254,8 +1254,8 @@ void ebox_dialog(t_ebox *x, t_symbol *s, int argc, t_atom *argv)
                             strncat(buffer, " ", 1);
                             strncat(buffer, temp, lenght);
                         }
-                        sys_vgui("%s.sele%i.selec delete 0 end \n", atom_getsymbol(argv)->s_name, attrindex+1);
-                        sys_vgui("%s.sele%i.selec insert 0 \"%s\" \n", atom_getsymbol(argv)->s_name, attrindex+1, buffer);
+                        sys_vgui("%s.top_frame.sele%i.selec delete 0 end \n", atom_getsymbol(argv)->s_name, attrindex+1);
+                        sys_vgui("%s.top_frame.sele%i.selec insert 0 \"%s\" \n", atom_getsymbol(argv)->s_name, attrindex+1, buffer);
                     }
                     else
                     {
@@ -1267,8 +1267,8 @@ void ebox_dialog(t_ebox *x, t_symbol *s, int argc, t_atom *argv)
                             strncat(buffer, " ", 1);
                             strncat(buffer, temp, lenght);
                         }
-                        sys_vgui("%s.sele%i.selec delete 0 end \n", atom_getsymbol(argv)->s_name, attrindex+1);
-                        sys_vgui("%s.sele%i.selec insert 0 \"%s\" \n", atom_getsymbol(argv)->s_name, attrindex+1, buffer);
+                        sys_vgui("%s.top_frame.sele%i.selec delete 0 end \n", atom_getsymbol(argv)->s_name, attrindex+1);
+                        sys_vgui("%s.top_frame.sele%i.selec insert 0 \"%s\" \n", atom_getsymbol(argv)->s_name, attrindex+1, buffer);
 
                     }
 

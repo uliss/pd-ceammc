@@ -44,7 +44,7 @@ Source: "{#AppRoot}/tcl/*.tcl"; DestDir: "{app}/tcl"; Flags: ignoreversion recur
 Source: "{#AppRoot}/tcl/pd.ico"; DestDir: "{app}/tcl";
 Source: "{#AppRoot}/tcl/pd_ceammc.ico"; DestDir: "{app}/tcl";
 Source: "{#AppRoot}/lib/*"; DestDir: "{app}/lib"; Flags: ignoreversion recursesubdirs
-Source: "{#AppRoot}/extra/*"; DestDir: "{app}/extra"; Flags: ignoreversion recursesubdirs
+Source: "{#AppRoot}/extra/*"; Excludes: "*.a"; DestDir: "{app}/extra"; Flags: ignoreversion recursesubdirs
 Source: "{#AppRoot}/doc/*"; DestDir: "{app}/doc"; Flags: ignoreversion recursesubdirs
 Source: "{#AppRoot}/include/*.h"; DestDir: "{app}/include";
 ; Source: "DejaVuSerif.ttf"; DestDir: "{fonts}"; FontInstall: "DejaVu Serif"; Flags: onlyifdoesntexist uninsneveruninstall

@@ -1,4 +1,5 @@
 file(GLOB _PO_FILES "*.po")
+add_custom_target(po_files SOURCES ${_PO_FILES})
 
 foreach(_po_file ${_PO_FILES})
     get_filename_component(_locale ${_po_file} NAME_WE)

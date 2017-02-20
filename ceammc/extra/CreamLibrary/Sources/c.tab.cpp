@@ -532,50 +532,50 @@ extern "C" void setup_ui0x2etab(void)
         CLASS_ATTR_DEFAULT              (c, "size", 0, "100 13");
         
         CLASS_ATTR_LONG                 (c, "orientation", 0, t_tab, f_orientation);
-        CLASS_ATTR_LABEL                (c, "orientation", 0, "Vertical Orientation");
+        CLASS_ATTR_LABEL                (c, "orientation", 0, _("Vertical Orientation"));
         CLASS_ATTR_ORDER                (c, "orientation", 0, "1");
         CLASS_ATTR_FILTER_CLIP          (c, "orientation", 0, 1);
         CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "orientation", 0, "0");
         CLASS_ATTR_STYLE                (c, "orientation", 0, "onoff");
         
         CLASS_ATTR_LONG                 (c, "toggle", 0, t_tab, f_toggle);
-        CLASS_ATTR_LABEL                (c, "toggle", 0, "Toggle Mode");
+        CLASS_ATTR_LABEL                (c, "toggle", 0, _("Toggle Mode"));
         CLASS_ATTR_ORDER                (c, "toggle", 0, "1");
         CLASS_ATTR_FILTER_CLIP          (c, "toggle", 0, 1);
         CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "toggle", 0, "0");
         CLASS_ATTR_STYLE                (c, "toggle", 0, "onoff");
         
         CLASS_ATTR_SYMBOL_VARSIZE       (c, "items", 0, t_tab, f_items, f_nitems, CREAM_MAXITEMS);
-        CLASS_ATTR_LABEL                (c, "items", 0, "Items");
+        CLASS_ATTR_LABEL                (c, "items", 0, _("Items"));
         CLASS_ATTR_ORDER                (c, "items", 0, "1");
         CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "items", 0, "");
         
         CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_tab, f_color_background);
-        CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
+        CLASS_ATTR_LABEL                (c, "bgcolor", 0, _("Background Color"));
         CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
         CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, DEFAULT_BACKGROUND_COLOR);
         CLASS_ATTR_STYLE                (c, "bgcolor", 0, "color");
         
         CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_tab, f_color_border);
-        CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Border Color");
+        CLASS_ATTR_LABEL                (c, "bdcolor", 0, _("Border Color"));
         CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
         CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, DEFAULT_BORDER_COLOR);
         CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
         
         CLASS_ATTR_RGBA                 (c, "textcolor", 0, t_tab, f_color_text);
-        CLASS_ATTR_LABEL                (c, "textcolor", 0, "Text Color");
+        CLASS_ATTR_LABEL                (c, "textcolor", 0, _("Text Color"));
         CLASS_ATTR_ORDER                (c, "textcolor", 0, "3");
         CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "textcolor", 0, "0. 0. 0. 1.");
         CLASS_ATTR_STYLE                (c, "textcolor", 0, "color");
         
         CLASS_ATTR_RGBA                 (c, "hocolor", 0, t_tab, f_color_hover);
-        CLASS_ATTR_LABEL                (c, "hocolor", 0, "Hover Color");
+        CLASS_ATTR_LABEL                (c, "hocolor", 0, _("Hover Color"));
         CLASS_ATTR_ORDER                (c, "hocolor", 0, "4");
         CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "hocolor", 0, "0.5 0.5 0.5 1.");
         CLASS_ATTR_STYLE                (c, "hocolor", 0, "color");
         
         CLASS_ATTR_RGBA                 (c, "secolor", 0, t_tab, f_color_select);
-        CLASS_ATTR_LABEL                (c, "secolor", 0, "Selection Color");
+        CLASS_ATTR_LABEL                (c, "secolor", 0, _("Active Color"));
         CLASS_ATTR_ORDER                (c, "secolor", 0, "5");
         CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "secolor", 0, DEFAULT_ACTIVE_COLOR);
         CLASS_ATTR_STYLE                (c, "secolor", 0, "color");

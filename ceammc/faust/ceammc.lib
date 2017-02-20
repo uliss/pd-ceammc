@@ -1,6 +1,8 @@
 declare name "Ceammc PureData misc utils";
 declare version "0.1";
 
+ba = library("basic.lib");
+
 // in puredata 0db = 100db
 db_pd2faust(v) = (v - 100);
 db_faust2pd(v) = (v + 100);
@@ -15,9 +17,18 @@ duplicate(n, x) = x, duplicate(n-1, x);
 // range
 clip(lo, hi) = max(lo) : min(hi);
 
+// map
+map(xs, fx) = par(i, ba.count(xs), fx);
+
+// bus
+bus(n) = par(i, n, _);
+
 // dry-wet
-fx_dry_wet(gain, fx) = _ <: wet, dry :> _
+fx_drywet(in, fx, g) = IN <: dry(in, fx, g), wet(in, fx, g) :> OUT
 with {
-    wet = (_ : fx *(gain));
-    dry = _ *(1 - gain);
+    IN = bus(ba.count(in));
+    OUT = IN;
+    dry(in, fx, g) = map(in, *(1-g));
+    wet(in, fx, g) = fx : map(in, *(g));
 };
+

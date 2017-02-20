@@ -71,7 +71,7 @@ char sys_font[100] = "Monaco";
 char sys_fontweight[10] = "normal";
 #else
 char sys_font[100] = "DejaVu Sans Mono";
-char sys_fontweight[10] = "bold";
+char sys_fontweight[10] = "normal";
 #endif
 static int sys_main_srate;
 static int sys_main_advance;
@@ -193,7 +193,7 @@ int sys_fontheight(int fontsize)
 }
 
 int sys_defaultfont;
-#define DEFAULTFONT 10
+#define DEFAULTFONT 12
 
 static void openit(const char *dirname, const char *filename)
 {
