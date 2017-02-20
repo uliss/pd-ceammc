@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure\\ Data 0.47.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2017-02-20 03:21+0300\n"
+"POT-Creation-Date: 2017-02-20 03:23+0300\n"
 "PO-Revision-Date: 2017-02-19 23:39+0000\n"
 "Last-Translator: Serge Poltavski <serge.poltavski@gmail.com>\n"
 "Language-Team: Russian\n"
@@ -205,14 +205,13 @@ msgid "Audio off"
 msgstr ""
 
 #: ../ceammc/ext/src/ui_sliders.cpp:334
-#, fuzzy
 msgid "Auto range"
-msgstr "Диапазон значений"
+msgstr "Автоматический диапазон"
 
 #: ../ceammc/ext/src/ui_display.cpp:243
 #, fuzzy
 msgid "Auto size"
-msgstr "Размер блока:"
+msgstr "Автоматический размер"
 
 #: ../tcl/dialog_iemgui.tcl:724
 msgid "Background"
@@ -358,7 +357,7 @@ msgstr "Не удалось найти '%s' в %s"
 #: ../ceammc/extra/CreamLibrary/Sources/c.toggle.cpp:180
 #, fuzzy
 msgid "Cross Color"
-msgstr "Выбрать цвет"
+msgstr "Цвет ручки"
 
 #: ../tcl/pd_menus.tcl:165 ../tcl/pd_menus.tcl:168 ../tcl/pd_menus.tcl:174
 msgid "Cut"
@@ -399,11 +398,11 @@ msgstr ""
 
 #: ../ceammc/ext/src/ui_display.cpp:231
 msgid "Display events"
-msgstr ""
+msgstr "Показывать события"
 
 #: ../ceammc/ext/src/ui_display.cpp:237
 msgid "Display type"
-msgstr ""
+msgstr "Показывать тип сообщения"
 
 #: pd_dynamic_strings.tcl:10
 #, tcl-format
@@ -597,7 +596,7 @@ msgstr "Переход на клик"
 
 #: ../ceammc/ext/src/ui_keyboard.cpp:291
 msgid "Keys"
-msgstr ""
+msgstr "Число клавиш"
 
 #: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:430
 #: ../ceammc/extra/CreamLibrary/Sources/c.slider.cpp:344
@@ -623,7 +622,7 @@ msgstr "Слева"
 
 #: ../ceammc/ext/src/ui_slider2d.cpp:233
 msgid "Leftmost value"
-msgstr ""
+msgstr "Крайнее левое значение"
 
 #: ../tcl/dialog_gatom.tcl:113 ../tcl/dialog_gatom.tcl:114
 msgid "Limits"
@@ -1061,7 +1060,7 @@ msgstr "Настройки"
 
 #: ../ceammc/ext/src/ui_keyboard.cpp:283
 msgid "Shift"
-msgstr ""
+msgstr "Смещение"
 
 #: ../tcl/pd_deken.tcl:292 ../tcl/pd_deken.tcl:293 ../tcl/pd_deken.tcl:337
 #: ../tcl/pd_deken.tcl:342
@@ -1069,9 +1068,8 @@ msgid "Show all"
 msgstr "Показать все"
 
 #: ../ceammc/ext/src/ui_sliders.cpp:340
-#, fuzzy
 msgid "Show range"
-msgstr "Показать все"
+msgstr "Показывать диапазон"
 
 #: ../ceammc/ext/src/ui_slider2d.cpp:227
 msgid "Show value range"
@@ -1167,11 +1165,11 @@ msgstr "Сверху"
 
 #: ../ceammc/ext/src/ui_slider2d.cpp:246
 msgid "Topmost value"
-msgstr ""
+msgstr "Крайнее верхнее значение"
 
 #: ../ceammc/ext/src/ui_link.cpp:149
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: ../tcl/pd_menus.tcl:67 ../tcl/pd_menus.tcl:73 ../tcl/pd_menus.tcl:126
 #: ../tcl/pd_menus.tcl:128 ../tcl/pd_menus.tcl:134 ../tcl/pd_menus.tcl:160
@@ -1236,13 +1234,12 @@ msgid "VU Meter"
 msgstr ""
 
 #: ../ceammc/ext/src/ui_sliders.cpp:328
-#, fuzzy
 msgid "Value range"
-msgstr "Частота сэмплирования:"
+msgstr "Диапазон значений"
 
 #: ../ceammc/ext/src/ui_sliders.cpp:321
 msgid "Value shift"
-msgstr ""
+msgstr "Смещение"
 
 #: ../tcl/dialog_iemgui.tcl:526
 msgid "Value:"
@@ -1257,9 +1254,8 @@ msgid "Vertical Orientation"
 msgstr "Вертикально"
 
 #: ../ceammc/ext/src/ui_slider2d.cpp:252
-#, fuzzy
 msgid "Vertical range"
-msgstr "Вертикально"
+msgstr "Вертикальный диапазон"
 
 #: ../tcl/dialog_iemgui.tcl:566
 msgid "Visible Rectangle (pix)"
