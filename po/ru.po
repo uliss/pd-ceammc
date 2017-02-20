@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure\\ Data 0.47.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2017-02-20 03:06+0300\n"
+"POT-Creation-Date: 2017-02-20 03:21+0300\n"
 "PO-Revision-Date: 2017-02-19 23:39+0000\n"
 "Last-Translator: Serge Poltavski <serge.poltavski@gmail.com>\n"
 "Language-Team: Russian\n"
@@ -130,6 +130,11 @@ msgstr "настройки ALSA MIDI"
 msgid "About Pd"
 msgstr "О программе Pd"
 
+#: ../ceammc/extra/CreamLibrary/Sources/c.matrix.cpp:362
+#, fuzzy
+msgid "Active Cell Color"
+msgstr "Активный цвет"
+
 #: ../ceammc/extra/CreamLibrary/Sources/c.bang.cpp:163
 #: ../ceammc/extra/CreamLibrary/Sources/c.dsp_tilde.cpp:199
 #: ../ceammc/extra/CreamLibrary/Sources/c.matrix.cpp:362
@@ -198,6 +203,16 @@ msgstr "Настройки аудио..."
 #: ../tcl/pdwindow.tcl:344
 msgid "Audio off"
 msgstr ""
+
+#: ../ceammc/ext/src/ui_sliders.cpp:334
+#, fuzzy
+msgid "Auto range"
+msgstr "Диапазон значений"
+
+#: ../ceammc/ext/src/ui_display.cpp:243
+#, fuzzy
+msgid "Auto size"
+msgstr "Размер блока:"
 
 #: ../tcl/dialog_iemgui.tcl:724
 msgid "Background"
@@ -382,6 +397,14 @@ msgstr "Удалить array"
 msgid "Discard changes to '%s'?"
 msgstr ""
 
+#: ../ceammc/ext/src/ui_display.cpp:231
+msgid "Display events"
+msgstr ""
+
+#: ../ceammc/ext/src/ui_display.cpp:237
+msgid "Display type"
+msgstr ""
+
 #: pd_dynamic_strings.tcl:10
 #, tcl-format
 msgid "Do you want to save the changes you made in '%s'?"
@@ -516,6 +539,10 @@ msgstr "Скрыть имя объекта и аргументы"
 msgid "Hold:"
 msgstr ""
 
+#: ../ceammc/ext/src/ui_slider2d.cpp:239
+msgid "Horizontal range"
+msgstr ""
+
 #: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:572
 msgid "Hover Color"
 msgstr "Цвет наведения"
@@ -568,6 +595,10 @@ msgstr "Элементы"
 msgid "Jump on click"
 msgstr "Переход на клик"
 
+#: ../ceammc/ext/src/ui_keyboard.cpp:291
+msgid "Keys"
+msgstr ""
+
 #: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:430
 #: ../ceammc/extra/CreamLibrary/Sources/c.slider.cpp:344
 msgid "Knob Color"
@@ -589,6 +620,10 @@ msgstr "Последний graph"
 #: ../tcl/dialog_gatom.tcl:134 ../tcl/dialog_gatom.tcl:135
 msgid "Left   "
 msgstr "Слева"
+
+#: ../ceammc/ext/src/ui_slider2d.cpp:233
+msgid "Leftmost value"
+msgstr ""
 
 #: ../tcl/dialog_gatom.tcl:113 ../tcl/dialog_gatom.tcl:114
 msgid "Limits"
@@ -1024,10 +1059,23 @@ msgstr "Отправлять:"
 msgid "Settings"
 msgstr "Настройки"
 
+#: ../ceammc/ext/src/ui_keyboard.cpp:283
+msgid "Shift"
+msgstr ""
+
 #: ../tcl/pd_deken.tcl:292 ../tcl/pd_deken.tcl:293 ../tcl/pd_deken.tcl:337
 #: ../tcl/pd_deken.tcl:342
 msgid "Show all"
 msgstr "Показать все"
+
+#: ../ceammc/ext/src/ui_sliders.cpp:340
+#, fuzzy
+msgid "Show range"
+msgstr "Показать все"
+
+#: ../ceammc/ext/src/ui_slider2d.cpp:227
+msgid "Show value range"
+msgstr ""
 
 #: ../tcl/dialog_find.tcl:128
 #, tcl-format
@@ -1045,6 +1093,10 @@ msgstr ""
 #: ../tcl/dialog_iemgui.tcl:565 ../tcl/dialog_iemgui.tcl:699
 msgid "Size:"
 msgstr "Размер:"
+
+#: ../ceammc/ext/src/ui_sliders.cpp:316
+msgid "Sliders count"
+msgstr ""
 
 #: ../tcl/dialog_startup.tcl:93
 msgid "Startup flags:"
@@ -1096,6 +1148,10 @@ msgstr "Цвет текста"
 msgid "Tidy Up"
 msgstr "Расставить"
 
+#: ../ceammc/ext/src/ui_link.cpp:154
+msgid "Title"
+msgstr ""
+
 #: ../tcl/dialog_iemgui.tcl:523 ../tcl/pd_menus.tcl:225 ../tcl/pd_menus.tcl:228
 #: ../tcl/pd_menus.tcl:239
 msgid "Toggle"
@@ -1108,6 +1164,14 @@ msgstr "Режим переключателя"
 #: ../tcl/dialog_gatom.tcl:138 ../tcl/dialog_gatom.tcl:139
 msgid "Top"
 msgstr "Сверху"
+
+#: ../ceammc/ext/src/ui_slider2d.cpp:246
+msgid "Topmost value"
+msgstr ""
+
+#: ../ceammc/ext/src/ui_link.cpp:149
+msgid "URL"
+msgstr ""
 
 #: ../tcl/pd_menus.tcl:67 ../tcl/pd_menus.tcl:73 ../tcl/pd_menus.tcl:126
 #: ../tcl/pd_menus.tcl:128 ../tcl/pd_menus.tcl:134 ../tcl/pd_menus.tcl:160
@@ -1171,6 +1235,15 @@ msgstr "Использовать стандартные расширения"
 msgid "VU Meter"
 msgstr ""
 
+#: ../ceammc/ext/src/ui_sliders.cpp:328
+#, fuzzy
+msgid "Value range"
+msgstr "Частота сэмплирования:"
+
+#: ../ceammc/ext/src/ui_sliders.cpp:321
+msgid "Value shift"
+msgstr ""
+
 #: ../tcl/dialog_iemgui.tcl:526
 msgid "Value:"
 msgstr "Значение:"
@@ -1181,6 +1254,11 @@ msgstr "Подробный вывод"
 
 #: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:535
 msgid "Vertical Orientation"
+msgstr "Вертикально"
+
+#: ../ceammc/ext/src/ui_slider2d.cpp:252
+#, fuzzy
+msgid "Vertical range"
 msgstr "Вертикально"
 
 #: ../tcl/dialog_iemgui.tcl:566
