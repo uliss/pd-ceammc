@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pddoc version="1.0">
-    <object name="ui.bpfunc">
+    <object name="ui.bpfunc" type="gui">
         <title>ui.bpfunc</title>
         <meta>
             <authors>
@@ -10,16 +10,13 @@
             <description>Breakpoint function GUI object</description>
             <license>GPL3</license>
             <library>ceammc</library>
-            <category>list</category>
-            <keywords>list</keywords>
+            <category view="link">ui</category>
+            <keywords>ui env adsr breakpoint function</keywords>
             <since>0.1</since>
             <also>
-                <see>ui.sliders</see>
+                <see view="link">ui.sliders</see>
             </also>
         </meta>
-        <arguments>
-
-        </arguments>
         <methods>
             <!--generic-->
             <method name="clear">Clears everything and makes default breakpoint function.</method>
@@ -63,27 +60,20 @@
             <method name="lock_x">Needs point number and boolean value. If value is nonzero, prevents the change of x coordinate with a mouse</method>
             <method name="lock_y">Needs point number and boolean value. If value is nonzero, prevents the change of y coordinate with a mouse</method>
             <method name="join_next">Needs point number and boolean value. If value is nonzero, links y coordinate of specified and next point. Useful for AHR envelopes etc</method>
-
-
-
-
-
         </methods>
         <inlets>
             <inlet>
                 <xinfo on="list">Messages </xinfo>
             </inlet>
-
         </inlets>
         <outlets>
             <outlet>Breakpoint function points in various formats</outlet>
-
         </outlets>
         <example>
             <pdascii>
                 <![CDATA[
 
-[ui.bpf]
+[ui.bpfunc]
 
                 ]]>
             </pdascii>

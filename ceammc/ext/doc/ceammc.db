@@ -110,6 +110,7 @@ symbol.length		.		.
 system.memsize		.		.
 system.memused		.		..
 ui.bang		.		.
+ui.bpfunc		.		.
 ui.scope~		.		-
 ui.spectroscope~		~		-
 ui.toggle		.		.
