@@ -28,6 +28,11 @@
 
 namespace ceammc_gui {
 
+//! Gettext extract message helper
+#ifndef _
+#define _(msg) msg
+#endif
+
 /** \deprecated this was a separate property handling, should be merged with existing CICM properties
      */
 #pragma mark UI defines
@@ -561,13 +566,13 @@ public:
 
         // background / border color
         CLASS_ATTR_RGBA                 (cl, "bgcolor", 0, U, b_color_background);
-        CLASS_ATTR_LABEL                (cl, "bgcolor", 0, "Background Color");
+        CLASS_ATTR_LABEL                (cl, "bgcolor", 0, _("Background Color"));
         CLASS_ATTR_ORDER                (cl, "bgcolor", 0, "1");
         CLASS_ATTR_DEFAULT_SAVE_PAINT   (cl, "bgcolor", 0, DEFAULT_BACKGROUND_COLOR);
         CLASS_ATTR_STYLE                (cl, "bgcolor", 0, "color");
 
         CLASS_ATTR_RGBA                 (cl, "bdcolor", 0, U, b_color_border);
-        CLASS_ATTR_LABEL                (cl, "bdcolor", 0, "Border Color");
+        CLASS_ATTR_LABEL                (cl, "bdcolor", 0, _("Border Color"));
         CLASS_ATTR_ORDER                (cl, "bdcolor", 0, "2");
         CLASS_ATTR_DEFAULT_SAVE_PAINT   (cl, "bdcolor", 0, DEFAULT_BORDER_COLOR);
         CLASS_ATTR_STYLE                (cl, "bdcolor", 0, "color");

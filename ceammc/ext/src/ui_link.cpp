@@ -144,14 +144,14 @@ UI_fun(ui_link)::init_ext(t_eclass* z)
     CLASS_ATTR_DEFAULT              (z, "size", 0, "120. 15.");
     CLASS_ATTR_DEFAULT              (z,  "bgcolor", 0, "1.0 1.0 1.0 1.0");
 
-    CLASS_ATTR_SYMBOL               (z, "link", 0, ui_link, link);
-    CLASS_ATTR_DEFAULT              (z, "link", 0, "<no link>");
-    CLASS_ATTR_LABEL                (z, "link", 0, "Link");
-    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "link", 0, "<no link>");
+    CLASS_ATTR_SYMBOL               (z, "url", 0, ui_link, link);
+    CLASS_ATTR_DEFAULT              (z, "url", 0, "<no link>");
+    CLASS_ATTR_LABEL                (z, "url", 0, _("URL"));
+    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "url", 0, "<no link>");
 
     CLASS_ATTR_SYMBOL               (z, "title", 0, ui_link, title);
     CLASS_ATTR_DEFAULT              (z, "title", 0, "<no title>");
-    CLASS_ATTR_LABEL                (z, "title", 0, "Title");
+    CLASS_ATTR_LABEL                (z, "title", 0, _("Title"));
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "title", 0, "<no title>");
     // clang-format off
 

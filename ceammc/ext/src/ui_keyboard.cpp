@@ -280,7 +280,7 @@ UI_fun(ui_keyboard)::init_ext(t_eclass* z)
 
     CLASS_ATTR_INT                  (z, "shift", 0, ui_keyboard, shift);
     CLASS_ATTR_DEFAULT              (z, "shift", 0, "36");
-    CLASS_ATTR_LABEL                (z, "shift", 0, "shift");
+    CLASS_ATTR_LABEL                (z, "shift", 0, _("Shift"));
     CLASS_ATTR_STYLE                (z, "shift", 0, "number");
     CLASS_ATTR_FILTER_CLIP          (z, "shift", 0, 127);
     CLASS_ATTR_STEP                 (z, "shift", 1);
@@ -288,7 +288,7 @@ UI_fun(ui_keyboard)::init_ext(t_eclass* z)
 
     CLASS_ATTR_INT                  (z, "keys", 0, ui_keyboard, keys);
     CLASS_ATTR_DEFAULT              (z, "keys", 0, "61");
-    CLASS_ATTR_LABEL                (z, "keys", 0, "keys");
+    CLASS_ATTR_LABEL                (z, "keys", 0, _("Keys"));
     CLASS_ATTR_STYLE                (z, "keys", 0, "number");
     CLASS_ATTR_FILTER_CLIP          (z, "keys", 5, 88);
     CLASS_ATTR_STEP                 (z, "keys", 1);

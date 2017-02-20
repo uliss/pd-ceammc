@@ -224,32 +224,32 @@ UI_fun(ui_slider2d)::init_ext(t_eclass* z)
 
     CLASS_ATTR_INT                  (z, "show_range", 0, ui_slider2d, show_range);
     CLASS_ATTR_DEFAULT              (z, "show_range", 0, "1");
-    CLASS_ATTR_LABEL                (z, "show_range", 0, "Show value range");
+    CLASS_ATTR_LABEL                (z, "show_range", 0, _("Show value range"));
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "show_range", 0, "1");
     CLASS_ATTR_STYLE                (z, "show_range", 0, "onoff");
 
     CLASS_ATTR_FLOAT                (z, "shift_x", 0, ui_slider2d, shift_x);
     CLASS_ATTR_DEFAULT              (z, "shift_x", 0, "-1");
-    CLASS_ATTR_LABEL                (z, "shift_x", 0, "Leftmost value");
+    CLASS_ATTR_LABEL                (z, "shift_x", 0, _("Leftmost value"));
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "shift_x", 0, "-1");
     CLASS_ATTR_STYLE                (z, "shift_x", 0, "number");
 
     CLASS_ATTR_FLOAT                (z, "range_x", 0, ui_slider2d, range_x);
     CLASS_ATTR_DEFAULT              (z, "range_x", 0, "2");
-    CLASS_ATTR_LABEL                (z, "range_x", 0, "Horizontal range");
+    CLASS_ATTR_LABEL                (z, "range_x", 0, _("Horizontal range"));
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "range_x", 0, "2");
     CLASS_ATTR_STYLE                (z, "range_x", 0, "number");
     CLASS_ATTR_FILTER_MIN           (z, "range_x", 0.0001f);
 
     CLASS_ATTR_FLOAT                (z, "shift_y", 0, ui_slider2d, shift_y);
     CLASS_ATTR_DEFAULT              (z, "shift_y", 0, "-1");
-    CLASS_ATTR_LABEL                (z, "shift_y", 0, "Topmost value");
+    CLASS_ATTR_LABEL                (z, "shift_y", 0, _("Topmost value"));
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "shift_y", 0, "-1");
     CLASS_ATTR_STYLE                (z, "shift_y", 0, "number");
 
     CLASS_ATTR_FLOAT                (z, "range_y", 0, ui_slider2d, range_y);
     CLASS_ATTR_DEFAULT              (z, "range_y", 0, "2");
-    CLASS_ATTR_LABEL                (z, "range_y", 0, "Vertical range");
+    CLASS_ATTR_LABEL                (z, "range_y", 0, _("Vertical range"));
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "range_y", 0, "2");
     CLASS_ATTR_STYLE                (z, "range_y", 0, "number");
     CLASS_ATTR_FILTER_MIN           (z, "range_y", 0.0001f);
