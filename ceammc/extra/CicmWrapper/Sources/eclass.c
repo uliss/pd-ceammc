@@ -1121,6 +1121,8 @@ static void eclass_properties_dialog(t_eclass* c)
             else
             {
                 sys_vgui("ttk::entry %s -width 20 -textvariable [string trim $var_%s]\n", WIDGET_ID, ATTR_NAME);
+                sys_vgui("bind %s <FocusIn> { if { [%%W get] == {(null)} } { %%W delete 0 end } }\n", WIDGET_ID);
+                sys_vgui("bind %s <FocusOut> { if { [%%W get] == {} } { %%W insert 0 {(null)} } }\n", WIDGET_ID);
                 sys_vgui("bind %s <KeyPress-Return> [concat pdtk_%s_dialog_apply_%s $id]\n", WIDGET_ID, CLASS_NAME,  ATTR_NAME);
                 sys_vgui("pack %s -side left\n", WIDGET_ID);
             }
