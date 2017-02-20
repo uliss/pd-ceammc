@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure\\ Data 0.47.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2017-02-20 03:32+0300\n"
+"POT-Creation-Date: 2017-02-20 03:43+0300\n"
 "PO-Revision-Date: 2017-02-19 23:39+0000\n"
 "Last-Translator: Serge Poltavski <serge.poltavski@gmail.com>\n"
 "Language-Team: Russian\n"
@@ -619,6 +619,10 @@ msgstr "Последний graph"
 msgid "Left   "
 msgstr "Слева"
 
+#: ../ceammc/ext/src/ui_keyboard.cpp:283
+msgid "Leftmost MIDI note"
+msgstr "Начальная MIDI нота"
+
 #: ../ceammc/ext/src/ui_slider2d.cpp:233
 msgid "Leftmost value"
 msgstr "Крайнее левое значение"
@@ -885,7 +889,7 @@ msgstr "Настройки"
 
 #: ../ceammc/extra/CicmWrapper/Sources/eclass.c:280
 msgid "Preset Name"
-msgstr "Имя в пресете"
+msgstr "Имя для пресета"
 
 #: ../tcl/pd_menus.tcl:313 ../tcl/pd_menus.tcl:316 ../tcl/pd_menus.tcl:327
 msgid "Previous Window"
@@ -1092,9 +1096,13 @@ msgstr ""
 msgid "Size:"
 msgstr "Размер:"
 
+#: ../ceammc/ext/src/ui_sliders.cpp:306
+msgid "Slider color"
+msgstr "Цвет ползунков"
+
 #: ../ceammc/ext/src/ui_sliders.cpp:316
 msgid "Sliders count"
-msgstr ""
+msgstr "Число ползунков"
 
 #: ../tcl/dialog_startup.tcl:93
 msgid "Startup flags:"
@@ -1239,7 +1247,7 @@ msgstr "Диапазон значений"
 
 #: ../ceammc/ext/src/ui_sliders.cpp:321
 msgid "Value shift"
-msgstr "Смещение"
+msgstr "Смещение значения"
 
 #: ../tcl/dialog_iemgui.tcl:526
 msgid "Value:"

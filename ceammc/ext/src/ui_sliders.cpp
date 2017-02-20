@@ -303,7 +303,7 @@ UI_fun(ui_sliders)::init_ext(t_eclass* z)
     CLASS_ATTR_DEFAULT              (z, "size", 0, "150. 100.");
 
     CLASS_ATTR_RGBA                 (z, "fgcolor", 0, ui_sliders, slider_color);
-    CLASS_ATTR_LABEL                (z, "fgcolor", 0, "Slider color");
+    CLASS_ATTR_LABEL                (z, "fgcolor", 0, _("Slider color"));
     CLASS_ATTR_STYLE                (z, "fgcolor", 0, "color");
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "fgcolor", 0, "0.75 0.75 0.75 1.0");
 

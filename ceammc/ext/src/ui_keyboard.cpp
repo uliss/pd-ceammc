@@ -280,7 +280,7 @@ UI_fun(ui_keyboard)::init_ext(t_eclass* z)
 
     CLASS_ATTR_INT                  (z, "shift", 0, ui_keyboard, shift);
     CLASS_ATTR_DEFAULT              (z, "shift", 0, "36");
-    CLASS_ATTR_LABEL                (z, "shift", 0, _("Shift"));
+    CLASS_ATTR_LABEL                (z, "shift", 0, _("Leftmost MIDI note"));
     CLASS_ATTR_STYLE                (z, "shift", 0, "number");
     CLASS_ATTR_FILTER_CLIP          (z, "shift", 0, 127);
     CLASS_ATTR_STEP                 (z, "shift", 1);
