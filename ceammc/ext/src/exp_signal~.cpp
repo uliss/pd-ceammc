@@ -1,6 +1,6 @@
 #include "oop_common.h"
 
-#define OBJ_NAME "exp.signal"
+#define OBJ_NAME "exp.signal~"
 
 t_eclass* exp_signal_class;
 
@@ -41,8 +41,14 @@ static void* exp_signal_new(t_symbol* id, int argc, t_atom* argv)
     x->sig_name = a.asSymbol();
 
     x->instance = OPInstance::findByCanvas(x->parent_canvas);
-    //        if (x->instance)
-    //            x->instance->addMethod(x->sig_name, x->out1);
+    
+    OPClass *op_class = OPClass::findByCanvas(x->parent_canvas);
+    
+    if (op_class)
+    {
+        op_class->addSignal(a.asString(), "");
+    }
+    
     x->in1 = inlet_new(&x->e_box.b_obj.o_obj, &x->e_box.b_obj.o_obj.ob_pd, &s_signal, &s_signal);
 
     ebox_ready((t_ebox*)x);
@@ -59,6 +65,8 @@ static void exp_signal_free(t_exp_signal* x, t_symbol* id, int argc, t_atom* arg
 {
     if (x->instance)
         x->instance->freeSignal(x->sig_name);
+    //temp
+    x->buffer = 0;
 }
 
 #pragma mark -
@@ -70,16 +78,23 @@ static void exp_signal_perform(t_exp_signal* x, t_object*,
 {
 
     t_sample* in = ins[0];
-    std::copy(in, in + sampleframes, x->buffer);
+    
+    if (x->buffer)
+        std::copy(in, in + sampleframes, x->buffer);
 }
 
 static void exp_signal_dsp(t_exp_signal* x, t_object* dsp, short* /*count*/, double /*samplerate*/, long vec_size /*maxvectorsize*/, long /*flags*/)
 {
+    
     if (x->instance)
+    {
+        post("signal~ dsp new buffer: %i",(int)vec_size);
+        
         x->buffer = x->instance->getBufferFor(x->sig_name, (int)vec_size);
+    }
 
     if (!x->buffer) {
-        error("buffer error!");
+        error("signal~ buffer error!");
         x->buffer = new t_sample[vec_size];
     }
     object_method(dsp, gensym("dsp_add"), x, reinterpret_cast<method>(exp_signal_perform), 0, NULL);
@@ -150,7 +165,7 @@ static void exp_signal_dsp(t_exp_signal* x, t_object* dsp, short* /*count*/, dou
 
 #pragma mark -
 
-extern "C" void setup_exp0x2esignal()
+extern "C" void setup_exp0x2esignal_tilde()
 {
 
     exp_signal_class = eclass_new((OBJ_NAME),
@@ -160,7 +175,10 @@ extern "C" void setup_exp0x2esignal()
 
     eclass_dspinit(exp_signal_class);
 
-    eclass_addmethod(exp_signal_class, (method)exp_signal_dsp, "dsp", A_NULL, 0);
+    eclass_addmethod(exp_signal_class, (t_typ_method)exp_signal_dsp, "dsp", A_NULL, 0);
+    
+    //eclass_addmethod(exp_instance_class, (t_typ_method)exp_instance_dsp, ("dsp"), A_NULL, 0);
+
 
     //CLASS_MAINSIGNALIN((t_class*)exp_signal_class, t_exp_signal, in_f);
 

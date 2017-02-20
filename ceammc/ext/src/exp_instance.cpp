@@ -29,10 +29,20 @@ using namespace ceammc;
 static void exp_instance_delete(t_exp_instance* x)
 {
     if (x->instance) {
+        
+        
+        //temp
+        //delete x->buffer;
+        x->buffer=0;
+        
+        x->instance->freeSignal(gensym("out1"));
         x->instance->freeInstanceOut(x->out1);
-        x->instance->release();
+        x->instance->release(); //no delete
         x->instance = 0;
+        
     }
+    
+    
 }
 
 #pragma mark -
@@ -43,6 +53,7 @@ static void exp_instance_newinstance(t_exp_instance* x, t_symbol* id, int argc, 
         error("no class name provided!");
         return;
     }
+    
     Atom a = argv[0];
     if (!a.isSymbol()) {
         error("bad class name!");
@@ -51,11 +62,18 @@ static void exp_instance_newinstance(t_exp_instance* x, t_symbol* id, int argc, 
 
     x->op_class = new OPClasses(a.asString(), OBJ_NAME);
 
+    if (!x->op_class)
+    {
+        error("class not found!");
+        return;
+    }
     if (!x->op_class->ref()) {
         error("class not found!");
         return;
 
-    } else {
+    }
+    
+    {
         //x->op_class->ref()->class_name = a.asString();
 
         char c1[] = "#00C0FF";
@@ -64,8 +82,12 @@ static void exp_instance_newinstance(t_exp_instance* x, t_symbol* id, int argc, 
         canvas_setcurrent(x->parent_canvas);
 
         x->instance = new OPInstance(x->op_class->ref());
-        //if (x->instance)
-        x->instance->addInstanceOut(x->out1);
+        
+        if (x->instance) {
+            x->instance->addInstanceOut(x->out1);
+
+            x->buffer = x->instance->getBufferFor(gensym("out1"), x->vec_size);
+        }
 
         ebox_invalidate_layer((t_ebox*)x, gensym("background_layer"));
         ebox_redraw((t_ebox*)x);
@@ -130,10 +152,6 @@ static void exp_instance_setobject(t_exp_instance* x, t_symbol* s, int argc, t_a
 
             x->buffer = x->instance->getBufferFor(gensym("out1"), x->vec_size);
 
-            if (!x->buffer) {
-                error("buffer error!");
-                x->buffer = new t_sample[x->vec_size];
-            }
         } else {
             error("instance not found!");
 
@@ -217,22 +235,34 @@ static void exp_instance_setproperty(t_exp_instance* x, t_symbol* id, int argc, 
 //            sp[0]->s_vec, sp[1]->s_vec, sp[0]->s_n);
 //}
 
+//ui_scope_perform(ui_scope* x, t_object*,
+//                 t_sample** ins, long,
+//                 t_sample**, long,
+//                 long sampleframes, long, void*)
+
 static void exp_instance_perform(t_exp_instance* x, t_object*,
     t_sample** ins, long,
-    t_sample**, long,
+    t_sample** , long,
     long sampleframes, long, void*)
 {
 
-    //    t_sample* in = ins[0];
+        t_sample* in = ins[0];
     //    t_sample* out;
 
-    std::copy(x->buffer, x->buffer + sampleframes, ins[0]);
+    if (x->buffer)
+        std::copy(x->buffer, x->buffer +  64, in);
+    
+    //TODO check sampleframes!
+
+    //
+    //        std::copy(outs[0], outs[0] + sampleframes, x->buffer);
 }
 
 static void exp_instance_dsp(t_exp_instance* x, t_object* dsp, short* /*count*/, double /*samplerate*/, long vec_size /*maxvectorsize*/, long /*flags*/)
 {
-    x->vec_size = (int)vec_size;
+    //x->vec_size = (int)vec_size;
 
+    ((t_edsp*)dsp)->d_flags = E_NO_INPLACE;
     object_method(dsp, gensym("dsp_add"), x, reinterpret_cast<method>(exp_instance_perform), 0, NULL);
 }
 
@@ -337,7 +367,6 @@ static void exp_instance_vis(t_exp_instance* x, t_symbol*, int argc, t_atom* arg
 static void exp_instance_paint(t_object* z, t_object* view)
 {
     t_symbol* bgl = gensym("background_layer");
-    //float size;
     t_rect rect;
     ebox_get_rect_for_view((t_ebox*)z, &rect);
 
@@ -380,7 +409,7 @@ extern "C" void setup_exp0x2einstance()
         reinterpret_cast<t_typ_method>(0),
         sizeof(t_exp_instance), CLASS_PATCHABLE, A_GIMME, 0);
 
-    //eclass_dspinit(exp_instance_class);
+    eclass_dspinit(exp_instance_class);
     eclass_guiinit(exp_instance_class, 0);
 
     CLASS_ATTR_DEFAULT(exp_instance_class, "size", 0, "90. 15.");
@@ -420,7 +449,7 @@ extern "C" void setup_exp0x2einstance()
     eclass_addmethod(exp_instance_class, (t_typ_method)exp_instance_click, ("mousedown"), A_NULL, 0);
 
     //audio
-    eclass_addmethod(exp_instance_class, (t_typ_method)exp_instance_dsp, ("dsp"), A_NULL, 0);
+    //eclass_addmethod(exp_instance_class, (t_typ_method)exp_instance_dsp, ("dsp"), A_NULL, 0);
 
     eclass_register(CLASS_BOX, exp_instance_class);
 
