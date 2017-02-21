@@ -7,6 +7,8 @@ add_subdirectory(tests)
 remove_definitions(-DPD_INTERNAL)
 add_definitions(-DPD)
 
+add_subdirectory(noise)
+
 add_custom_target(ceammc_generate_math
     COMMAND ${CMAKE_SOURCE_DIR}/ceammc/py/generate_math.py
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
@@ -190,6 +192,13 @@ ceammc_cxx_extension__(is float)
 ceammc_cxx_extension__(is list)
 ceammc_cxx_extension__(is symbol)
 ceammc_cxx_extension__(is pointer)
+
+###############################
+# NOISE:A-CHAOS
+###############################
+
+
+
 
 ###############################
 # TIME
