@@ -19,7 +19,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-static const size_t TAG_MAX_SIZE = 32;
+#define TAG_MAX_SIZE 32
 
 struct pd_line {
     void* surface;
@@ -171,7 +171,7 @@ void pd_line_erase(t_pd_line* l)
 #if defined(__APPLE__)
         tcl_line_erase(l);
 #else
-        tcl_line_hide(l);
+        tcl_line_erase(l);
 #endif
     }
 }
