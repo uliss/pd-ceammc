@@ -417,9 +417,18 @@ static void ebox_create_window(t_ebox* x, t_glist* glist)
     x->b_have_window = 1;
 }
 
+static char is_platform_control(long mod)
+{
+#ifdef _WINDOWS
+    return mod & EMOD_CTRL;
+#else
+    return mod == EMOD_CMD;
+#endif
+}
+
 static char is_for_box(t_ebox* x, long mod)
 {
-    return (!x->b_obj.o_canvas->gl_edit || (x->b_obj.o_canvas->gl_edit && mod == EMOD_CMD));
+    return (!x->b_obj.o_canvas->gl_edit || (x->b_obj.o_canvas->gl_edit && is_platform_control(mod)));
 }
 
 static long modifier_wrapper(long mod)
