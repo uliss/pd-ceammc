@@ -1052,7 +1052,7 @@ static void eclass_properties_dialog(t_eclass* c)
     sys_vgui("toplevel $id\n");
     sys_vgui("wm title $id {%s properties} \n", c->c_class.c_name->s_name);
     sys_vgui("wm resizable $id 0 0\n");
-    sys_vgui("wm attributes $id -topmost 1 \n");
+    sys_vgui("raise [winfo toplevel $id]\n");
 
     //CEAMMC
     sys_vgui("$id configure " DIALOG_BACKGROUND DIALOG_WINDOW_PADX DIALOG_WINDOW_PADY "\n");
@@ -1073,12 +1073,12 @@ static void eclass_properties_dialog(t_eclass* c)
             sys_vgui("frame %s\n", LABEL_FRAME);
             sys_vgui("frame %s\n", WIDGET_FRAME);
 
-            // ATTRIBUTES NAMES //
+            /** ATTRIBUTES NAMES **/
 
             sys_vgui("ttk::label %s -justify left -text [join [list [_ \"%s\" ] {:}] {}]\n", LABEL_ID, c->c_attr[i]->label->s_name);
             sys_vgui("pack %s -side left\n", LABEL_ID);
 
-            // SELECTOR //
+            /** SELECTOR WIDGETS **/
 
             if(c->c_attr[i]->style == gensym("checkbutton"))
             {
@@ -1106,17 +1106,16 @@ static void eclass_properties_dialog(t_eclass* c)
             }
             else if(c->c_attr[i]->style == gensym("menu"))
             {
-                sys_vgui("spinbox %s -background #C0C0C0 -font {Helvetica 12} -width 18 -textvariable [string trim $var_%s] -state readonly\n", WIDGET_ID, ATTR_NAME);
-                sys_vgui("%s configure -command [concat pdtk_%s_dialog_apply_%s $id]\n", WIDGET_ID, CLASS_NAME,  ATTR_NAME);
-                sys_vgui("%s configure -value {", WIDGET_ID);
-                for(j = 0; j < c->c_attr[i]->itemssize; j++) {
+                sys_vgui("ttk::combobox %s -width 16 -state readonly -textvariable [string trim $var_%s]\n", WIDGET_ID, ATTR_NAME);
+                sys_vgui("%s configure -values { ", WIDGET_ID);
+                for(int j = 0; j < c->c_attr[i]->itemssize; j++) {
                     sys_vgui("%s ", c->c_attr[i]->itemslist[c->c_attr[i]->itemssize - 1 - j]->s_name);
                 }
                 sys_vgui("}\n");
 
-                sys_vgui("bind %s <KeyPress-Return> [concat pdtk_%s_dialog_apply_%s $id]\n", WIDGET_ID, CLASS_NAME,  ATTR_NAME);
+                sys_vgui("bind %s <<ComboboxSelected>> [concat pdtk_%s_dialog_apply_%s $id]\n", WIDGET_ID, CLASS_NAME,  ATTR_NAME);
                 sys_vgui("pack %s -side left\n", WIDGET_ID);
-                sys_vgui("%s set $%s \n", WIDGET_ID, ATTR_NAME);
+                sys_vgui("%s set [string trim $%s] \n", WIDGET_ID, ATTR_NAME);
             }
             else
             {
