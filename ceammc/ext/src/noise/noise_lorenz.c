@@ -1,7 +1,7 @@
 /*
 
-ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
-a - lorenz © andrŽ sier 20030914
+â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
+a - lorenz Â© andrÃ© sier 20030914
 		
 		lorenz chaos by heuns method
 		extra accuracy
@@ -12,13 +12,18 @@ for great work implementing non-linearity in max
 sigma replaced with a
 b replaced with c
 
-ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
+â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
 */
 
-#include "ext.h"
-#include "ext_common.h"
+//#include "ext.h"
+//#include "ext_common.h"
 
 //#include "math.h"
+
+#include "cicm_wrapper.h"
+
+#include <math.h>
+#include <stdbool.h>
 
 
 #define lorx(x, y, a) 		(a) * ((y) - (x));		
@@ -36,11 +41,11 @@ typedef struct
 	double		a, r, c, nx, ny, nz,dt; //eq variables
 	double		ainit, rinit, cinit, nxinit, nyinit, nzinit,dtinit; //init eq variables
 
-	Boolean om;
+	bool om;
 } lorenz;
 
 
-void *lorenz_new (Symbol *msg, short argc, Atom *argv);
+void *lorenz_new (t_symbol *msg, short argc, t_atom *argv);
 void lorenz_bang (lorenz *x);
 
 //user variables
@@ -60,19 +65,18 @@ void lorenz_float(lorenz *x, double n);
 
 //calc
 void lorenz_calc (lorenz *x);
-void lorenz_reset (lorenz *x, Symbol *msg, short argc, Atom *argv); 
-void lorenz_set (lorenz *x, Symbol *msg, short argc, Atom *argv) ; 
+void lorenz_reset (lorenz *x, t_symbol *msg, short argc, t_atom *argv); 
+void lorenz_set (lorenz *x, t_symbol *msg, short argc, t_atom *argv) ; 
 
-void lorenz_assist(lorenz *x, void *b, long m, long a, char *s);
-void *lorenz_class;
+t_eclass* lorenz_class;
 
 
-void *lorenz_new (Symbol *msg, short argc, Atom *argv) //input the args 
+void *lorenz_new (t_symbol *msg, short argc, t_atom *argv) //input the args 
 {
 	 lorenz *x;
-	 int i;
+	 //int i;
 	 
-	 x=(lorenz *)newobject(lorenz_class);
+	 x=(lorenz *)eobj_new(lorenz_class);
 
 	 x->c_out3=floatout(x);
 	 x->c_out2=floatout(x);
@@ -102,58 +106,60 @@ void *lorenz_new (Symbol *msg, short argc, Atom *argv) //input the args
 	 return(x);	
 }
 
+void lorenz_free(){}
+
 void lorenz_om(lorenz *x, int n)     { x->om = (n>0);}
 
 
-void lorenz_set (lorenz *x, Symbol *msg, short ac, Atom *av) //input the args 
+void lorenz_set (lorenz *x, t_symbol *msg, short ac, t_atom *av) //input the args 
 {
 	if (ac) {
 
 		if (ac > 6) {
 			if (av[6].a_type == A_LONG)
-				x->dtinit = (double)av[6].a_w.w_long;
+				x->dtinit = (double)av[6].a_w.w_float;
 			else if (av[6].a_type == A_FLOAT)
 				x->dtinit = av[6].a_w.w_float;
 			x->dt = x->dtinit;
 		}
 		if (ac > 5) {
 			if (av[5].a_type == A_LONG)
-				x->cinit = (double)av[5].a_w.w_long;
+				x->cinit = (double)av[5].a_w.w_float;
 			else if (av[5].a_type == A_FLOAT)
 				x->cinit = av[5].a_w.w_float;
 			x->c = x->cinit;
 		}
 		if (ac > 4) {
 			if (av[4].a_type == A_LONG)
-				x->rinit = (double)av[4].a_w.w_long;
+				x->rinit = (double)av[4].a_w.w_float;
 			else if (av[4].a_type == A_FLOAT)
 				x->rinit = av[4].a_w.w_float;
 			x->r = x->rinit;
 		}
 		if (ac > 3) {
 			if (av[3].a_type == A_LONG)
-				x->ainit = (double)av[3].a_w.w_long;
+				x->ainit = (double)av[3].a_w.w_float;
 			else if (av[3].a_type == A_FLOAT)
 				x->ainit = av[3].a_w.w_float;
 			x->a = x->ainit;
 		}
 		if (ac > 2) {
 			if (av[2].a_type == A_LONG)
-				x->nzinit = (double)av[2].a_w.w_long;
+				x->nzinit = (double)av[2].a_w.w_float;
 			else if (av[2].a_type == A_FLOAT)
 				x->nzinit = av[2].a_w.w_float;
 			x->nz = x->nzinit;
 		}
 		if (ac > 1) {
 			if (av[1].a_type == A_LONG)
-				x->nyinit = (double)av[1].a_w.w_long;
+				x->nyinit = (double)av[1].a_w.w_float;
 			else if (av[1].a_type == A_FLOAT)
 				x->nyinit = av[1].a_w.w_float;
 			x->ny = x->nyinit;
 		}	
 		if (ac > 0) {
 			if (av[0].a_type == A_LONG)
-				x->nxinit = (double)av[0].a_w.w_long;
+				x->nxinit = (double)av[0].a_w.w_float;
 			else if (av[0].a_type == A_FLOAT)
 				x->nxinit = av[0].a_w.w_float;
 			x->nx = x->nxinit;
@@ -164,7 +170,7 @@ void lorenz_set (lorenz *x, Symbol *msg, short ac, Atom *av) //input the args
 	} // end if args
 }
 
-void lorenz_reset (lorenz *x, Symbol *msg, short argc, Atom *argv)
+void lorenz_reset (lorenz *x, t_symbol *msg, short argc, t_atom *argv)
 {
 	x->nx = x->nxinit;
 	x->ny = x->nyinit;
@@ -285,41 +291,66 @@ void lorenz_bang (lorenz *x)
     
 }
 
-
-
-void main(void)
+void setup_noise0x2elorenz()
 {
- long int tick = gettime();
- setup((t_messlist**)&lorenz_class,(method)lorenz_new,0L,(short)sizeof(lorenz),0L,
- A_GIMME,0);
-
- addbang((method)lorenz_bang);
- addmess((method)lorenz_set,"set", A_GIMME, 0);
- addmess((method)lorenz_reset,"reset", A_GIMME, 0);
-
- addmess((method)lorenz_dt,"dt", A_DEFFLOAT, 0);
- addmess((method)lorenz_a,"a", A_DEFFLOAT, 0);
- addmess((method)lorenz_r,"r", A_DEFFLOAT, 0);
- addmess((method)lorenz_c,"c", A_DEFFLOAT, 0);
- addmess((method)lorenz_nx,"x", A_DEFFLOAT, 0);
- addmess((method)lorenz_ny,"y", A_DEFFLOAT, 0);
- addmess((method)lorenz_nz,"z", A_DEFFLOAT, 0);
- addint((method)lorenz_int);
- addfloat((method)lorenz_float);
- addmess((method)lorenz_om,"om", A_DEFLONG, 0);
-
- addmess((method)lorenz_assist,"assist", A_CANT, 0);
- post("A-Chaos Lib :: a-lorenz  " __DATE__" "__TIME__"                                   ©   a n d r Ž s i e r   2 0 0 4   all rights reserved",tick, 0);
+    
+    lorenz_class = eclass_new(("noise.lorenz"),
+                                          (t_typ_method)(lorenz_new),
+                                          (t_typ_method)(lorenz_free),
+                                          sizeof(lorenz), 0, A_GIMME, 0);
+    
+    //eclass_addmethod(lorenz_class, (method)baker_bang, "bang", A_GIMME, 0);
+    
+    eclass_addmethod(lorenz_class, (method)lorenz_bang, "bang", A_GIMME, 0);
+    eclass_addmethod(lorenz_class, (method)lorenz_set,"set", A_GIMME, 0);
+    eclass_addmethod(lorenz_class, (method)lorenz_reset,"reset", A_GIMME, 0);
+    //
+    eclass_addmethod(lorenz_class, (method)lorenz_dt,"dt", A_DEFFLOAT, 0);
+    eclass_addmethod(lorenz_class, (method)lorenz_a,"a", A_DEFFLOAT, 0);
+    eclass_addmethod(lorenz_class, (method)lorenz_r,"r", A_DEFFLOAT, 0);
+    eclass_addmethod(lorenz_class, (method)lorenz_c,"c", A_DEFFLOAT, 0);
+    eclass_addmethod(lorenz_class, (method)lorenz_nx,"x", A_DEFFLOAT, 0);
+    eclass_addmethod(lorenz_class, (method)lorenz_ny,"y", A_DEFFLOAT, 0);
+    eclass_addmethod(lorenz_class, (method)lorenz_nz,"z", A_DEFFLOAT, 0);
+    // addint((method)lorenz_int);
+    // addfloat((method)lorenz_float);
+    eclass_addmethod(lorenz_class, (method)lorenz_om,"om", A_DEFFLOAT, 0);
+    
+    
 }
-
-
-void lorenz_assist(lorenz *x, void *b, long m, long a, char *s)
-{
-    if (m==1) { sprintf(s,"bang, (int), (float), ·, ¶ª"); }   
-    else if (m==2&&a==0) { sprintf(s,"(float) x  l o r e n t z   e         c            h              o"); }
-    else if (m==2&&a==1) { sprintf(s,"(float) y  l o r e n t z   e         c            h              o"); }
-    else if (m==2&&a==2) { sprintf(s,"(float) z  l o r e n t z   e         c            h              o"); }
-//    else if (m==2&&a==1) { sprintf(s,"(lisy)       e             c                h                   o"); }
-}
+//void main(void)
+//{
+// long int tick = gettime();
+// setup((t_messlist**)&lorenz_class,(method)lorenz_new,0L,(short)sizeof(lorenz),0L,
+// A_GIMME,0);
+//
+// addbang((method)lorenz_bang);
+// addmess((method)lorenz_set,"set", A_GIMME, 0);
+// addmess((method)lorenz_reset,"reset", A_GIMME, 0);
+//
+// addmess((method)lorenz_dt,"dt", A_DEFFLOAT, 0);
+// addmess((method)lorenz_a,"a", A_DEFFLOAT, 0);
+// addmess((method)lorenz_r,"r", A_DEFFLOAT, 0);
+// addmess((method)lorenz_c,"c", A_DEFFLOAT, 0);
+// addmess((method)lorenz_nx,"x", A_DEFFLOAT, 0);
+// addmess((method)lorenz_ny,"y", A_DEFFLOAT, 0);
+// addmess((method)lorenz_nz,"z", A_DEFFLOAT, 0);
+// addint((method)lorenz_int);
+// addfloat((method)lorenz_float);
+// addmess((method)lorenz_om,"om", A_DEFLONG, 0);
+//
+// addmess((method)lorenz_assist,"assist", A_CANT, 0);
+// post("A-Chaos Lib :: a-lorenz  " __DATE__" "__TIME__"                                   Â©   a n d r Ã© s i e r   2 0 0 4   all rights reserved",tick, 0);
+//}
+//
+//
+//void lorenz_assist(lorenz *x, void *b, long m, long a, char *s)
+//{
+//    if (m==1) { sprintf(s,"bang, (int), (float), âˆ‘, âˆ‚â„¢"); }   
+//    else if (m==2&&a==0) { sprintf(s,"(float) x  l o r e n t z   e         c            h              o"); }
+//    else if (m==2&&a==1) { sprintf(s,"(float) y  l o r e n t z   e         c            h              o"); }
+//    else if (m==2&&a==2) { sprintf(s,"(float) z  l o r e n t z   e         c            h              o"); }
+////    else if (m==2&&a==1) { sprintf(s,"(lisy)       e             c                h                   o"); }
+//}
 
 
