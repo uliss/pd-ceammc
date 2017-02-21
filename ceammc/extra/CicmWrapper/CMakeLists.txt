@@ -1,3 +1,7 @@
+if(WIN32)
+    add_definitions("-D_WINDOWS=1")
+endif()
+
 set(CICM_SRC
     Sources/ebox.c
     Sources/eclass.c
