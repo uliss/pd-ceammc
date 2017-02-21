@@ -1044,9 +1044,9 @@ static void eclass_properties_dialog(t_eclass* c)
         const char* ATTR_NAME = c->c_attr[i]->name->s_name;
         if(!c->c_attr[i]->invisible)
         {
-            sys_vgui("set var_%s [concat %s_$vid]\n", ATTR_NAME, ATTR_NAME);
+            sys_vgui("set var_%s [string trim [concat %s_$vid]]\n", ATTR_NAME, ATTR_NAME);
             sys_vgui("global $var_%s \n", ATTR_NAME);
-            sys_vgui("set $var_%s $%s\n", ATTR_NAME, ATTR_NAME);
+            sys_vgui("set $var_%s [string trim $%s]\n", ATTR_NAME, ATTR_NAME);
         }
     }
     sys_vgui("toplevel $id\n");
@@ -1082,7 +1082,7 @@ static void eclass_properties_dialog(t_eclass* c)
 
             if(c->c_attr[i]->style == gensym("checkbutton"))
             {
-                sys_vgui("ttk::checkbutton %s -variable $var_%s "
+                sys_vgui("ttk::checkbutton %s -variable [string trim $var_%s] "
                          "-command  [concat pdtk_%s_dialog_apply_%s $id]\n", WIDGET_ID, ATTR_NAME, CLASS_NAME, ATTR_NAME);
                 sys_vgui("pack %s -side left\n", WIDGET_ID);
             }
@@ -1121,8 +1121,8 @@ static void eclass_properties_dialog(t_eclass* c)
             else
             {
                 sys_vgui("ttk::entry %s -width 20 -textvariable [string trim $var_%s]\n", WIDGET_ID, ATTR_NAME);
-                sys_vgui("bind %s <FocusIn> { if { [%%W get] == {(null)} } { %%W delete 0 end } }\n", WIDGET_ID);
-                sys_vgui("bind %s <FocusOut> { if { [%%W get] == {} } { %%W insert 0 {(null)} } }\n", WIDGET_ID);
+                sys_vgui("bind %s <FocusIn> { if { [string trim [%%W get]] == {(null)} } { %%W delete 0 end } }\n", WIDGET_ID);
+                sys_vgui("bind %s <FocusOut> { if { [string trim [%%W get]] == {} } { %%W insert 0 {(null)} } }\n", WIDGET_ID);
                 sys_vgui("bind %s <KeyPress-Return> [concat pdtk_%s_dialog_apply_%s $id]\n", WIDGET_ID, CLASS_NAME,  ATTR_NAME);
                 sys_vgui("pack %s -side left\n", WIDGET_ID);
             }

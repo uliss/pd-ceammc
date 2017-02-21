@@ -1241,10 +1241,12 @@ void ebox_dialog(t_ebox *x, t_symbol *s, int argc, t_atom *argv)
                 eobj_attr_getvalueof((t_object *)x, c->c_attr[attrindex]->name, &ac, &av);
                 if(ac && av) {
                     if(c->c_attr[attrindex]->style == gensym("checkbutton")) {
+                        post("%s state: %f", atom_getsymbol(argv)->s_name, atom_getfloat(av));
+
                         if(atom_getfloat(av) == 0)
-                            sys_vgui("set %s.top_frame.sele%i.selec 0\n", atom_getsymbol(argv)->s_name, attrindex+1);
+                            sys_vgui("%s.top_frame.sele%i.selec state !selected\n", atom_getsymbol(argv)->s_name, attrindex+1);
                         else
-                            sys_vgui("set %s.top_frame.sele%i.selec 1\n", atom_getsymbol(argv)->s_name, attrindex+1);
+                            sys_vgui("%s.top_frame.sele%i.selec state selected\n", atom_getsymbol(argv)->s_name, attrindex+1);
                     }
                     else if(c->c_attr[attrindex]->style == gensym("color"))
                     {
@@ -1277,7 +1279,7 @@ void ebox_dialog(t_ebox *x, t_symbol *s, int argc, t_atom *argv)
                             strncat(buffer, temp, lenght);
                         }
                         sys_vgui("%s.top_frame.sele%i.selec delete 0 end \n", atom_getsymbol(argv)->s_name, attrindex+1);
-                        sys_vgui("%s.top_frame.sele%i.selec insert 0 \"%s\" \n", atom_getsymbol(argv)->s_name, attrindex+1, buffer);
+                        sys_vgui("%s.top_frame.sele%i.selec insert 0 [string trim \"%s\"] \n", atom_getsymbol(argv)->s_name, attrindex+1, buffer);
 
                     }
 
