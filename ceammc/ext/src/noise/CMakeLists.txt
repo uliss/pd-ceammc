@@ -9,3 +9,4 @@ include(ceammc_pd.cmake)
 #include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra/CicmWrapper/Sources)
 
 ceammc_c_extension(noise baker)
+ceammc_c_extension(noise navier_stokes)
