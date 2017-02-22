@@ -24,7 +24,6 @@
 # - add user arguments (tabread $1 ...)
 
 
-package require Tcl 8.5
 namespace eval ::completion:: {
     variable ::completion::config
     variable external_filetype ""
@@ -40,11 +39,25 @@ rename ::dialog_font::ok ::dialog_font::ok_old
 
 # default
 set ::completion::config(save_mode) 1 ;# save keywords (s/r/array/table/...)
-set ::completion::config(lines) 7
+set ::completion::config(lines) 8
 set ::completion::config(font) "DejaVu Sans Mono"
-set ::completion::config(font_size) 9 ;# FIXME ???
+set ::completion::config(font_size) 10 ;# FIXME ???
 set ::completion::config(bg) "#418bd4"
 set ::completion::config(fg) white
+set ::completion::config(offset) 0
+
+set ::completion::config(border_width) 1
+switch -- $::windowingsystem {
+    "aqua"  {
+        set ::completion::config(border_width) 0
+        set ::completion::config(font) "Monaco"
+        set ::completion::config(font_size) 12
+    }
+    "win32" {
+        set ::completion::config(font_size) 10
+    }
+    "x11"   {  }
+}
 
 # private
 set ::toplevel ""
@@ -70,10 +83,10 @@ inlet~ int key keyname keyup line line~ list {list append} {list length} \
 makenote max max~ metro midiclkin midiin midiout midirealtimein min min~ mod \
 moses mtof mtof~ namecanvas nbx netreceive netsend noise~ notein noteout \
 openpanel osc~ outlet~ pack pgmin pgmout phasor~ pipe plot poly polytouchin \
-polytouchout pow powtodb powtodb~ pow~ print qlist random readsf realtime \
+polytouchout pow powtodb powtodb~ pow~ print qlist random readsf~ realtime \
 receive receive~ rfft~ rifft~ rmstodb rmstodb~ route rpole~ rsqrt~ rzero_rev~ \
 rzero~ samphold~ samplerate~ savepanel sel send send~ set setsize sig~ sin \
-snapshot~ soundfiler spigot sqrt sqrt~ stripnote struct sublist swap switch~ \
+snapshot~ soundfiler spigot sqrt sqrt~ stripnote struct swap switch~ \
 symbol sysexin table tabosc4~ tabplay~ tabread tabread4 tabread4~ tabread~ \
 tabwrite tabwrite~ tan template textfile tgl threshold~ throw~ timer toggle \
 touchin touchout trigger unpack until value vcf~ vd~ vline~ vradio vslider \
@@ -84,11 +97,11 @@ proc ::completion::init {} {
     variable external_filetype
     ::completion::read_config
     switch -- $::windowingsystem {
-        "aqua"  { set external_filetype *.pd_darwin }
+        "aqua"  { set external_filetype *.d_fat }
         "win32" { set external_filetype *.dll }
         "x11"   { set external_filetype *.pd_linux }
     }
-    bind all <Tab> {+::completion::trigger}
+    bind all <Tab> { ::completion::trigger }
     ::completion::add_user_externals
     ::completion::add_libraries_externals
     ::completion::add_user_objectlist
@@ -125,8 +138,7 @@ proc ::completion::add_user_externals {} {
     foreach pathdir [concat $::sys_searchpath $::sys_staticpath] {
         set dir [file normalize $pathdir]
         if { ! [file isdirectory $dir]} {continue}
-        foreach filename [glob -directory $dir -nocomplain -types {f} -- \
-                              $external_filetype] {
+        foreach filename [glob -directory $dir -nocomplain -types {f} -- $external_filetype] {
             set basename [file tail $filename]
             set name [file rootname $basename]
             lappend ::all_externals $name
@@ -174,8 +186,11 @@ proc ::completion::trigger {} {
             [$::current_canvas itemcget $::current_tag -text]
         ::completion::trimspaces
     }
+
+
     if {$::new_object && $::current_text ne ""} {
         bind $::current_canvas <KeyRelease> {::completion::text_keys %K}
+
         if {![winfo exists .pop]} {
             ::completion::popup_draw
             ::completion::search
@@ -184,7 +199,7 @@ proc ::completion::trigger {} {
             set first [lindex $::completions 0]
             if {[::completion::unique] } {
                 ::completion::replace_text $first
-                ::completion::popup_destroy
+                ::completion::popup_destroy 1
                 ::completion::disable
             }
         } {
@@ -305,7 +320,7 @@ proc ::completion_store {tag} {
 proc ::completion::choose_selected {} {
     if {[::completion::valid]} {
         set selected [.pop.f.lb curselection]
-        ::completion::popup_destroy
+        ::completion::popup_destroy 1
         ::completion::replace_text [lindex $::completions $selected]
         set ::current_text [lindex $::completions $selected]
         ::completion::disable
@@ -363,8 +378,9 @@ proc ::completion::erase_text {} {
     # simulate backspace keys
     set i [expr {[string length $::erase_text] + 2}] ;# FIXME
     while {--$i > 0} {
-        pdsend "$::toplevel key 1 8 0"
-        pdsend "$::toplevel key 0 8 0"
+        event generate $::toplevel [expr {"<BackSpace>"}]
+#        pdsend "$::toplevel key 1 8 0"
+#        pdsend "$::toplevel key 0 8 0"
         incr i -1
     }
 }
@@ -375,11 +391,17 @@ proc ::completion::replace_text {args} {
     ::completion::erase_text
     # in case of spaces
     foreach arg $args { set text [concat $text $arg] }
-    for {set i 0} {$i < [string length $text]} {incr i 1} {
-        set cha [string index $text $i]
-        scan $cha %c keynum
-        pdsend "pd key 1 $keynum 0"
+
+    foreach c [split $text ""] {
+        event generate $::toplevel [expr {$c eq " " ? "<space>": $c}]
     }
+#    for {set i 0} {$i < [string length $text]} {incr i 1} {
+#        set cha [string index $text $i]
+#        scan $cha %c keynum
+#        pdsend "pd key 1 $keynum 0"
+#        pdsend "pd key 0 $keynum 0"
+#    }
+
     # to be able to erase it later
     set ::erase_text $text
     # nasty hack: the widget does not update his text because we pretend
@@ -403,8 +425,9 @@ proc ::completion::text_unedit {} {
 }
 
 proc ::completion::chop {} {
-    pdsend "$::toplevel key 1 8 0" ;# BackSpace
-    pdsend "$::toplevel key 0 8 0"
+#    pdsend "$::toplevel key 1 8 0" ;# BackSpace
+#    pdsend "$::toplevel key 0 8 0"
+    event generate $::toplevel [expr {"<BackSpace>"}]
     set ::current_text [string replace $::current_text end end]
     ::completion::search $::current_text
     if {[winfo exists .pop]} {
@@ -424,8 +447,7 @@ proc ::completion::popup_draw {} {
         # fix weird bug on osx
         set decoLeft 0
         set decoTop 0
-        regexp -- {([0-9]+)x([0-9]+)\+([0-9]+)\+([0-9]+)} $geom -> \
-            width height decoLeft decoTop
+        regexp -- {([0-9]+)x([0-9]+)\+([0-9]+)\+([0-9]+)} $geom -> width height decoLeft decoTop
         set left [expr {$decoLeft + $::editx}]
         set top [expr {$decoTop + $::edity + $menuheight}]
 
@@ -433,10 +455,13 @@ proc ::completion::popup_draw {} {
         toplevel .pop
         wm overrideredirect .pop 1
         wm geometry .pop +$left+$top
+        raise .pop
+        wm attributes .pop -topmost 1
+
         frame .pop.f -takefocus 0
 
         pack configure .pop.f
-        .pop.f configure -relief solid -borderwidth 1 -background white
+        .pop.f configure -relief solid -borderwidth $::completion::config(border_width) -background gray
 
         listbox .pop.f.lb \
             -selectmode browse -height $::completion::config(lines) \
@@ -454,10 +479,9 @@ proc ::completion::popup_draw {} {
 
         pack .pop.f.lb [scrollbar ".pop.f.sb" -command [list .pop.f.lb yview] -takefocus 0] \
             -side left -fill y -anchor w
-        bind .pop.f.lb <Escape> \
-            {after idle { ::completion::popup_destroy 1 }}
-        bind .pop.f.lb <KeyRelease> {::completion::lb_keys %K}
-        bind .pop.f.lb <ButtonRelease> {after idle {::completion::choose_selected}}
+        bind .pop.f.lb <Escape> {after idle { ::completion::popup_destroy 1 }}
+        bind .pop.f.lb <KeyRelease> { ::completion::lb_keys %K }
+        bind .pop.f.lb <ButtonRelease> {after idle {::completion::choose_selected }}
         focus .pop.f.lb
         set ::focus "pop"
         .pop.f.lb selection set 0 0
@@ -498,8 +522,8 @@ proc pdtk_text_editing {mytoplevel tag editing} {
         selection clear $tkcanvas
         # completion
         ::completion::disable
+        ::completion::popup_destroy 1
         set ::completion_text_updated 0
-        catch { destroy .pop }
         # store keywords
         if {$::completion::config(save_mode)} {
             set text [$tkcanvas itemcget $::current_tag -text]
@@ -514,6 +538,7 @@ proc pdtk_text_editing {mytoplevel tag editing} {
             if {$tag ne $::current_tag} {
                 bind $::current_canvas <KeyRelease> {}
             }
+
             set ::current_tag $tag
         }
     }
@@ -527,7 +552,8 @@ proc ::dialog_font::ok {gfxstub} {
     apply $gfxstub $fontsize
     cancel $gfxstub
     # completion
-    set ::completion::config(font_size) [expr {$fontsize - 1}];# linux only ?
+    set ::completion::config(font_size) [expr {$fontsize}];
+    # linux only ?
 }
 
 ############################################################
