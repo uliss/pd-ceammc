@@ -22,15 +22,15 @@ typedef struct
 	void 		        *c_out;		
 	
 	double lambda, gamma, seed, seedinit; 
-	Boolean om;
+	bool om;
 } logistic1;
 
 
-void *logistic1_new (Symbol *msg, short argc, Atom *argv);
+void *logistic1_new (t_symbol *msg, short argc, t_atom *argv);
 void logistic1_bang (logistic1 *x);
 void logistic1_calc (logistic1 *x);
-void logistic1_set (logistic1 *x, Symbol *msg, short argc, Atom *argv);  
-void logistic1_reset(logistic1 *x, Symbol *msg, short argc, Atom *argv);
+void logistic1_set (logistic1 *x, t_symbol *msg, short argc, t_atom *argv);  
+void logistic1_reset(logistic1 *x, t_symbol *msg, short argc, t_atom *argv);
 
 void logistic1_echo (logistic1 *x, float echo);
 void logistic1_int(logistic1 *x, int n);
@@ -43,12 +43,12 @@ void logistic1_assist(logistic1 *x, void *b, long m, long a, char *s);
 void *logistic1_class;
 
 
-void *logistic1_new (Symbol *msg, short argc, Atom *argv) //input the args 
+void *logistic1_new (t_symbol *msg, short argc, t_atom *argv) //input the args 
 {
 	 logistic1 *x;
 	 int i;
 	 
-	 x=(logistic1 *)newobject(logistic1_class);
+	 x=(logistic1 *)eobj_new(logistic1_class);
 
 	 x->c_out=floatout(x);
 	 
@@ -63,7 +63,7 @@ void *logistic1_new (Symbol *msg, short argc, Atom *argv) //input the args
 	 return(x);	
 }
 
-void logistic1_set (logistic1 *x, Symbol *msg, short argc, Atom *argv) //input the args 
+void logistic1_set (logistic1 *x, t_symbol *msg, short argc, t_atom *argv) //input the args 
 {
 	
 	if (argc) {
@@ -71,20 +71,20 @@ void logistic1_set (logistic1 *x, Symbol *msg, short argc, Atom *argv) //input t
 		if (argc > 2) {
 			if (argv[2].a_type == A_FLOAT)
 				x->gamma = argv[2].a_w.w_float;
-			if (argv[2].a_type == A_LONG)
-				x->gamma = (double)argv[2].a_w.w_long;			
+			if (argv[2].a_type == A_FLOAT)
+				x->gamma = (double)argv[2].a_w.w_float;			
 		}
 		if (argc > 1) {
 			if (argv[1].a_type == A_FLOAT)
 				x->lambda = argv[1].a_w.w_float;
-			if (argv[1].a_type == A_LONG)
-				x->lambda = (double)argv[1].a_w.w_long;			
+			if (argv[1].a_type == A_FLOAT)
+				x->lambda = (double)argv[1].a_w.w_float;			
 		}
 		if (argc > 0) {
 			if (argv[0].a_type == A_FLOAT)
 				x->seedinit = argv[0].a_w.w_float;
-			if (argv[0].a_type == A_LONG)
-				x->seedinit = (double)argv[0].a_w.w_long;
+			if (argv[0].a_type == A_FLOAT)
+				x->seedinit = (double)argv[0].a_w.w_float;
 				
 			x->seed = x->seedinit;
 		}
@@ -92,7 +92,7 @@ void logistic1_set (logistic1 *x, Symbol *msg, short argc, Atom *argv) //input t
 	} //end if args
 }
 
-void  logistic1_reset (logistic1 *x, Symbol *msg, short argc, Atom *argv)
+void  logistic1_reset (logistic1 *x, t_symbol *msg, short argc, t_atom *argv)
 {	
 	x->seed = x->seedinit;
 }
@@ -152,32 +152,32 @@ void logistic1_seed (logistic1 *x, float echo)
 }
 
 
-void main(void)
-{
- long int tick = gettime();
- setup((t_messlist**)&logistic1_class,(method)logistic1_new,0L,(short)sizeof(logistic1),0L,
- A_GIMME,0);
-
- addbang((method)logistic1_bang);
- 
- addmess((method)logistic1_reset,"reset", A_GIMME, 0);
- addmess((method)logistic1_set,"set", A_GIMME, 0);
- addint((method)logistic1_int);
- addfloat((method)logistic1_float);
- addmess((method)logistic1_lambda,"lambda", A_DEFFLOAT, 0);
- addmess((method)logistic1_gamma,"gamma", A_DEFFLOAT, 0);
- addmess((method)logistic1_seed,"seed", A_DEFFLOAT, 0);
- addmess((method)logistic1_om,"om", A_DEFLONG, 0);
- 
- addmess((method)logistic1_assist,"assist", A_CANT, 0);
- post("A-Chaos Lib :: a-logistic1  " __DATE__" "__TIME__"                                   ©   a n d r Ž s i e r   2 0 0 4   all rights reserved",tick, 0);
-}
-
-
-void logistic1_assist(logistic1 *x, void *b, long m, long a, char *s)
-{
-    if (m==1) { sprintf(s,"bang, (int), (float)"); }   
-    else if (m==2&&a==0) { sprintf(s,"(float) l o j i s t i c    e         c            h              o"); }
-}
+//void main(void)
+//{
+// long int tick = gettime();
+// setup((t_messlist**)&logistic1_class,(method)logistic1_new,0L,(short)sizeof(logistic1),0L,
+// A_GIMME,0);
+//
+// addbang((method)logistic1_bang);
+// 
+// addmess((method)logistic1_reset,"reset", A_GIMME, 0);
+// addmess((method)logistic1_set,"set", A_GIMME, 0);
+// addint((method)logistic1_int);
+// addfloat((method)logistic1_float);
+// addmess((method)logistic1_lambda,"lambda", A_DEFFLOAT, 0);
+// addmess((method)logistic1_gamma,"gamma", A_DEFFLOAT, 0);
+// addmess((method)logistic1_seed,"seed", A_DEFFLOAT, 0);
+// addmess((method)logistic1_om,"om", A_DEFFLOAT, 0);
+// 
+// addmess((method)logistic1_assist,"assist", A_CANT, 0);
+// post("A-Chaos Lib :: a-logistic1  " __DATE__" "__TIME__"                                   ©   a n d r Ž s i e r   2 0 0 4   all rights reserved",tick, 0);
+//}
+//
+//
+//void logistic1_assist(logistic1 *x, void *b, long m, long a, char *s)
+//{
+//    if (m==1) { sprintf(s,"bang, (int), (float)"); }   
+//    else if (m==2&&a==0) { sprintf(s,"(float) l o j i s t i c    e         c            h              o"); }
+//}
 
 
