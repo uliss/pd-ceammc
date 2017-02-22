@@ -196,9 +196,9 @@ if(UNIX AND NOT APPLE)
     install(TARGETS pd-watchdog RUNTIME DESTINATION ${PD_WATCHDOG_INSTALL_PATH})
 
     # create symlinks in bin
-    install_symlink("${CMAKE_INSTALL_PREFIX}/${PD_EXE_INSTALL_PATH}/pd" ""${CMAKE_INSTALL_PREFIX}/bin/pd-ceammc")
-    install_symlink("${CMAKE_INSTALL_PREFIX}/${PD_SEND_INSTALL_PATH}/pdsend" ""${CMAKE_INSTALL_PREFIX}/bin/pdsend-ceammc")
-    install_symlink("${CMAKE_INSTALL_PREFIX}/${PD_RECEIVE_INSTALL_PATH}/pdreceive" ""${CMAKE_INSTALL_PREFIX}/bin/pdreceive-ceammc")
+    install_symlink("${CMAKE_INSTALL_PREFIX}/${PD_EXE_INSTALL_PATH}/pd" "${CMAKE_INSTALL_PREFIX}/bin/pd-ceammc")
+    install_symlink("${CMAKE_INSTALL_PREFIX}/${PD_SEND_INSTALL_PATH}/pdsend" "${CMAKE_INSTALL_PREFIX}/bin/pdsend-ceammc")
+    install_symlink("${CMAKE_INSTALL_PREFIX}/${PD_RECEIVE_INSTALL_PATH}/pdreceive" "${CMAKE_INSTALL_PREFIX}/bin/pdreceive-ceammc")
 endif()
 
 # install libs
