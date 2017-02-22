@@ -131,52 +131,29 @@ void logistic_seed(logistic* x, float echo)
         logistic_bang(x);
 }
 
-void logistic_free(){}
+void logistic_free() {}
 
 void setup_noise0x2elogistic()
 {
-    
+
     logistic_class = eclass_new(("noise.logistic"),
-                           (t_typ_method)(logistic_new),
-                           (t_typ_method)(logistic_free),
-                           sizeof(logistic), 0, A_GIMME, 0);
-    
+        (t_typ_method)(logistic_new),
+        (t_typ_method)(logistic_free),
+        sizeof(logistic), 0, A_GIMME, 0);
+
     //eclass_addmethod(lorenz_class, (method)baker_bang, "bang", A_GIMME, 0);
+
+    eclass_addmethod(logistic_class, (method)logistic_bang, "bang", A_GIMME, 0);
+
+    eclass_addmethod(logistic_class, (method)logistic_reset, "reset", A_GIMME, 0);
+    eclass_addmethod(logistic_class, (method)logistic_set, "set", A_GIMME, 0);
+    //eclass_addmethod(logistic_class, (method)logistic_int, "float", A_GIMME, 0);
+    eclass_addmethod(logistic_class, (method)logistic_float, "float", A_GIMME, 0);
+    eclass_addmethod(logistic_class, (method)logistic_lambda, "lambda", A_DEFFLOAT, 0);
+    eclass_addmethod(logistic_class, (method)logistic_seed, "seed", A_DEFFLOAT, 0);
+    eclass_addmethod(logistic_class, (method)logistic_om, "om", A_DEFFLOAT, 0);
     
-     eclass_addmethod(logistic_class, (method)logistic_bang, "bang", A_GIMME, 0);
-    
-     eclass_addmethod(logistic_class, (method)logistic_reset,"reset", A_GIMME, 0);
-     eclass_addmethod(logistic_class, (method)logistic_set,"set", A_GIMME, 0);
-     //eclass_addmethod(logistic_class, (method)logistic_int, "float", A_GIMME, 0);
-     eclass_addmethod(logistic_class, (method)logistic_float, "float", A_GIMME, 0);
-     eclass_addmethod(logistic_class, (method)logistic_lambda,"lambda", A_DEFFLOAT, 0);
-     eclass_addmethod(logistic_class, (method)logistic_seed,"seed", A_DEFFLOAT, 0);
-     eclass_addmethod(logistic_class, (method)logistic_om,"om", A_DEFFLOAT, 0);
+    post("noise.logistic: part of A-Chaos library, (C) 2004 André Sier");
 }
 
-//void main(void)
-//{
-// long int tick = gettime();
-// setup((t_messlist**)&logistic_class,(method)logistic_new,0L,(short)sizeof(logistic),0L,
-// A_GIMME,0);
-//
-// addbang((method)logistic_bang);
-//
-// addmess((method)logistic_reset,"reset", A_GIMME, 0);
-// addmess((method)logistic_set,"set", A_GIMME, 0);
-// addint((method)logistic_int);
-// addfloat((method)logistic_float);
-// addmess((method)logistic_lambda,"lambda", A_DEFFLOAT, 0);
-// addmess((method)logistic_seed,"seed", A_DEFFLOAT, 0);
-// addmess((method)logistic_om,"om", A_DEFFLOAT, 0);
-//
-// addmess((method)logistic_assist,"assist", A_CANT, 0);
-// post("A-Chaos Lib :: a-logistic  " __DATE__" "__TIME__"                                   ©   a n d r é s i e r   2 0 0 4   all rights reserved",tick, 0);
-//}
-//
-//
-//void logistic_assist(logistic *x, void *b, long m, long a, char *s)
-//{
-//    if (m==1) { sprintf(s,"bang, (int), (float)"); }
-//    else if (m==2&&a==0) { sprintf(s,"(float) l o j i s t i c    e         c            h              o"); }
-//}
+

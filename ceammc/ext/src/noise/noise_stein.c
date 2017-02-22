@@ -133,53 +133,29 @@ void stein_seed(stein* x, float echo)
         stein_bang(x);
 }
 
-void stein_free(){}
+void stein_free() {}
 
 void setup_noise0x2estein()
 {
-    
+
     stein_class = eclass_new(("noise.stein"),
-                           (t_typ_method)(stein_new),
-                           (t_typ_method)(stein_free),
-                           sizeof(stein), 0, A_GIMME, 0);
-    
+        (t_typ_method)(stein_new),
+        (t_typ_method)(stein_free),
+        sizeof(stein), 0, A_GIMME, 0);
+
     //eclass_addmethod(lorenz_class, (method)baker_bang, "bang", A_GIMME, 0);
+
+    eclass_addmethod(stein_class, (method)stein_bang, "bang", A_GIMME, 0);
+
+    eclass_addmethod(stein_class, (method)stein_reset, "reset", A_GIMME, 0);
+    eclass_addmethod(stein_class, (method)stein_set, "set", A_GIMME, 0);
+    //     eclass_addmethod(stein_class, (method)stein_int, "int", A_GIMME, 0);
+    eclass_addmethod(stein_class, (method)stein_float, "float", A_GIMME, 0);
+    eclass_addmethod(stein_class, (method)stein_lambda, "lambda", A_DEFFLOAT, 0);
+    eclass_addmethod(stein_class, (method)stein_seed, "seed", A_DEFFLOAT, 0);
+    eclass_addmethod(stein_class, (method)stein_om, "om", A_DEFFLOAT, 0);
     
-     eclass_addmethod(stein_class, (method)stein_bang, "bang", A_GIMME, 0);
-    
-     eclass_addmethod(stein_class, (method)stein_reset,"reset", A_GIMME, 0);
-     eclass_addmethod(stein_class, (method)stein_set,"set", A_GIMME, 0);
-//     eclass_addmethod(stein_class, (method)stein_int, "int", A_GIMME, 0);
-     eclass_addmethod(stein_class, (method)stein_float, "float", A_GIMME, 0);
-     eclass_addmethod(stein_class, (method)stein_lambda,"lambda", A_DEFFLOAT, 0);
-     eclass_addmethod(stein_class, (method)stein_seed,"seed", A_DEFFLOAT, 0);
-     eclass_addmethod(stein_class, (method)stein_om,"om", A_DEFFLOAT, 0);
-    
+    post("noise.stein: part of A-Chaos library, (C) 2004 André Sier");
 }
 
-//void main(void)
-//{
-// long int tick = gettime();
-// setup((t_messlist**)&stein_class,(method)stein_new,0L,(short)sizeof(stein),0L,
-// A_GIMME,0);
-//
-// addbang((method)stein_bang);
-//
-// addmess((method)stein_reset,"reset", A_GIMME, 0);
-// addmess((method)stein_set,"set", A_GIMME, 0);
-// addint((method)stein_int);
-// addfloat((method)stein_float);
-// addmess((method)stein_lambda,"lambda", A_DEFFLOAT, 0);
-// addmess((method)stein_seed,"seed", A_DEFFLOAT, 0);
-// addmess((method)stein_om,"om", A_DEFFLOAT, 0);
-//
-// addmess((method)stein_assist,"assist", A_CANT, 0);
-// post("A-Chaos Lib :: a-stein  " __DATE__" "__TIME__"                                   ©   a n d r é s i e r   2 0 0 4   all rights reserved",tick, 0);
-//}
-//
-//
-//void stein_assist(stein *x, void *b, long m, long a, char *s)
-//{
-//    if (m==1) { sprintf(s,"bang, (int), (float)"); }
-//    else if (m==2&&a==0) { sprintf(s,"(float) stein    e         c            h              o"); }
-//}
+

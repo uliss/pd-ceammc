@@ -122,23 +122,7 @@ void setup_noise0x2ecollatz()
     eclass_addmethod(atz_class, (method)atz_offset, "offset", A_DEFFLOAT, 0);
     eclass_addmethod(atz_class, (method)atz_mode, "mode", A_DEFFLOAT, 0);
     eclass_addmethod(atz_class, (method)atz_om, "om", A_DEFFLOAT, 0);
+    
+    post("noise.collatz: part of A-Chaos library, (C) 2004 André Sier");
 }
 
-//void main(void)
-//{
-//int tick = gettime();
-//setup((t_messlist**)&atz_class,(method)atz_new,0L,(short)sizeof(atz),0L, A_DEFFLOAT, A_DEFFLOAT, 0);
-// addbang((method)atz_bang);
-// addint((method)atz_int);
-// addmess((method)atz_offset,"offset", A_DEFFLOAT, 0);
-// addmess((method)atz_mode,"mode", A_DEFFLOAT, 0);
-// addmess((method)atz_om,"om", A_DEFFLOAT, 0);
-// addmess((method)atz_assist,"assist", A_CANT, 0);
-// post("A-Chaos Lib :: a-collatz  " __DATE__" "__TIME__"                                   ©   a n d r é s i e r   2 0 0 4   all rights reserved",tick, 0);
-//}
-
-//void atz_assist(atz *x, void *b, long m, long a, char *s)
-//{
-//    if (m==1) { sprintf(s,"bang, (int), offset"); }
-//    else if (m==2) { sprintf(s,"(int)"); }
-//}

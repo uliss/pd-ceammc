@@ -272,33 +272,8 @@ void setup_noise0x2eclifford()
     eclass_addmethod(clifford_class, (method)clifford_c, "c", A_DEFFLOAT, 0);
     eclass_addmethod(clifford_class, (method)clifford_d, "d", A_DEFFLOAT, 0);
     eclass_addmethod(clifford_class, (method)clifford_om, "om", A_DEFFLOAT, 0);
+    
+    post("noise.clifford: part of A-Chaos library, (C) 2004 André Sier");
 }
 
-//void main(void)
-//{
-//    long int tick = gettime();
-//    setup((t_messlist**)&clifford_class, (method)clifford_new, 0L, (short)sizeof(clifford), 0L,
-//        A_GIMME, 0);
-//
-//    addbang((method)clifford_bang);
-//    addmess((method)clifford_reset, "reset", A_GIMME, 0);
-//    addmess((method)clifford_set, "set", A_GIMME, 0);
-//    // addmess((method)clifford_info, "info", A_GIMME, 0);
-//    addmess((method)clifford_nx, "x", A_DEFFLOAT, 0);
-//    addmess((method)clifford_ny, "y", A_DEFFLOAT, 0);
-//    addmess((method)clifford_a, "a", A_DEFFLOAT, 0);
-//    addmess((method)clifford_b, "b", A_DEFFLOAT, 0);
-//    addmess((method)clifford_c, "c", A_DEFFLOAT, 0);
-//    addmess((method)clifford_d, "d", A_DEFFLOAT, 0);
-//    addmess((method)clifford_om, "om", A_DEFLONG, 0);
-//
-//    addmess((method)clifford_assist, "assist", A_CANT, 0);
-//    post("A-Chaos Lib :: a-clifford  " __DATE__ " " __TIME__ "                                   ©   a n d r é s i e r   2 0 0 4   all rights reserved", tick, 0);
-//}
 
-//void clifford_assist(clifford *x, void *b, long m, long a, char *s)
-//{
-//    if (m==1) { sprintf(s,"echo e   c  h   o"); }
-//    else if (m==2&&a==0) { sprintf(s,"(float) x clifford     e         c            h              o"); }
-//    else if (m==2&&a==1) { sprintf(s,"(float) y  clifford     e             c                h                   o"); }
-//}

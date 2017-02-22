@@ -432,30 +432,8 @@ void setup_noise0x2elyapunov()
     eclass_addmethod(lyapunov_class, (method)lyapunov_nx, "x", A_DEFFLOAT, 0);
     eclass_addmethod(lyapunov_class, (method)lyapunov_ny, "y", A_DEFFLOAT, 0);
     eclass_addmethod(lyapunov_class, (method)lyapunov_om, "om", A_DEFFLOAT, 0);
+    
+    post("noise.lyapunov: part of A-Chaos library, (C) 2004 André Sier");
 }
 
-//void main(void)
-//{
-// long int tick = gettime();
-// setup((t_messlist**)&lyapunov_class,(method)lyapunov_new,0L,(short)sizeof(lyapunov),0L,
-// A_GIMME,0);
-//
-// addbang((method)lyapunov_bang);
-// addmess((method)lyapunov_reset, "reset", A_GIMME, 0);
-// addmess((method)lyapunov_set, "set", A_GIMME, 0);
-// addmess((method)lyapunov_a, "a", A_GIMME, 0);
-// addmess((method)lyapunov_b, "b", A_GIMME, 0);
-// addmess((method)lyapunov_nx, "x", A_DEFFLOAT, 0);
-// addmess((method)lyapunov_ny, "y", A_DEFFLOAT, 0);
-// addmess((method)lyapunov_om, "om", A_DEFFLOAT, 0);
-// addmess((method)lyapunov_assist,"assist", A_CANT, 0);
-// post("A-Chaos Lib :: a-lyapunov  " __DATE__" "__TIME__"                                   ©   a n d r é s i e r   2 0 0 4   all rights reserved",tick, 0);
-//}
-//
-//
-//void lyapunov_assist(lyapunov *x, void *b, long m, long a, char *s)
-//{
-//    if (m==1) { sprintf(s,"echo e   c  h   o"); }
-//    else if (m==2&&a==0) { sprintf(s,"(float) x lyapunov     e         c            h              o"); }
-//    else if (m==2&&a==1) { sprintf(s,"(float) y  lyapunov     e             c                h                   o"); }
-//}
+

@@ -131,53 +131,29 @@ void verhulst_seed(verhulst* x, float echo)
         verhulst_bang(x);
 }
 
-void verhulst_free(){}
+void verhulst_free() {}
 
 void setup_noise0x2everhulst()
 {
-    
+
     verhulst_class = eclass_new(("noise.verhulst"),
-                           (t_typ_method)(verhulst_new),
-                           (t_typ_method)(verhulst_free),
-                           sizeof(verhulst), 0, A_GIMME, 0);
-    
+        (t_typ_method)(verhulst_new),
+        (t_typ_method)(verhulst_free),
+        sizeof(verhulst), 0, A_GIMME, 0);
+
     //eclass_addmethod(lorenz_class, (method)baker_bang, "bang", A_GIMME, 0);
+
+    eclass_addmethod(verhulst_class, (method)verhulst_bang, "bang", A_GIMME, 0);
+
+    eclass_addmethod(verhulst_class, (method)verhulst_reset, "reset", A_GIMME, 0);
+    eclass_addmethod(verhulst_class, (method)verhulst_set, "set", A_GIMME, 0);
+    eclass_addmethod(verhulst_class, (method)verhulst_int, "int", A_GIMME, 0);
+    eclass_addmethod(verhulst_class, (method)verhulst_float, "float", A_GIMME, 0);
+    eclass_addmethod(verhulst_class, (method)verhulst_lambda, "lambda", A_DEFFLOAT, 0);
+    eclass_addmethod(verhulst_class, (method)verhulst_seed, "seed", A_DEFFLOAT, 0);
+    eclass_addmethod(verhulst_class, (method)verhulst_om, "om", A_DEFFLOAT, 0);
     
-     eclass_addmethod(verhulst_class, (method)verhulst_bang, "bang", A_GIMME, 0);
-    
-     eclass_addmethod(verhulst_class, (method)verhulst_reset,"reset", A_GIMME, 0);
-     eclass_addmethod(verhulst_class, (method)verhulst_set,"set", A_GIMME, 0);
-     eclass_addmethod(verhulst_class, (method)verhulst_int, "int", A_GIMME, 0);
-     eclass_addmethod(verhulst_class, (method)verhulst_float, "float", A_GIMME, 0);
-     eclass_addmethod(verhulst_class, (method)verhulst_lambda,"lambda", A_DEFFLOAT, 0);
-     eclass_addmethod(verhulst_class, (method)verhulst_seed,"seed", A_DEFFLOAT, 0);
-     eclass_addmethod(verhulst_class, (method)verhulst_om,"om", A_DEFFLOAT, 0);
-    
+    post("noise.verhulst: part of A-Chaos library, (C) 2004 André Sier");
 }
 
-//void main(void)
-//{
-// long int tick = gettime();
-// setup((t_messlist**)&verhulst_class,(method)verhulst_new,0L,(short)sizeof(verhulst),0L,
-// A_GIMME,0);
-//
-// addbang((method)verhulst_bang);
-//
-// eclass_addmethod(verhulst_class, (method)verhulst_reset,"reset", A_GIMME, 0);
-// eclass_addmethod(verhulst_class, (method)verhulst_set,"set", A_GIMME, 0);
-// addint((method)verhulst_int);
-// addfloat((method)verhulst_float);
-// eclass_addmethod(verhulst_class, (method)verhulst_lambda,"lambda", A_DEFFLOAT, 0);
-// eclass_addmethod(verhulst_class, (method)verhulst_seed,"seed", A_DEFFLOAT, 0);
-// eclass_addmethod(verhulst_class, (method)verhulst_om,"om", A_DEFFLOAT, 0);
-//
-// eclass_addmethod(verhulst_class, (method)verhulst_assist,"assist", A_CANT, 0);
-// post("A-Chaos Lib :: a-verhulst  " __DATE__" "__TIME__"                                   ©   a n d r é s i e r   2 0 0 4   all rights reserved",tick, 0);
-//}
-//
-//
-//void verhulst_assist(verhulst *x, void *b, long m, long a, char *s)
-//{
-//    if (m==1) { sprintf(s,"bang, (int), (float)"); }
-//    else if (m==2&&a==0) { sprintf(s,"(float) verhulst    e         c            h              o"); }
-//}
+

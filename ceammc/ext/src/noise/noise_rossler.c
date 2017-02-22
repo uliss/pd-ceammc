@@ -247,62 +247,32 @@ void rossler_bang(rossler* x)
     rossler_calc(x); //next
 }
 
-void rossler_free(){}
+void rossler_free() {}
 
 void setup_noise0x2erossler()
 {
-    
+
     rossler_class = eclass_new(("noise.rossler"),
-                           (t_typ_method)(rossler_new),
-                           (t_typ_method)(rossler_free),
-                           sizeof(rossler), 0, A_GIMME, 0);
-    
+        (t_typ_method)(rossler_new),
+        (t_typ_method)(rossler_free),
+        sizeof(rossler), 0, A_GIMME, 0);
+
     //eclass_addmethod(lorenz_class, (method)baker_bang, "bang", A_GIMME, 0);
+
+    eclass_addmethod(rossler_class, (method)rossler_bang, "bang", A_GIMME, 0);
+    eclass_addmethod(rossler_class, (method)rossler_set, "set", A_GIMME, 0);
+    eclass_addmethod(rossler_class, (method)rossler_reset, "reset", A_GIMME, 0);
+
+    eclass_addmethod(rossler_class, (method)rossler_dt, "dt", A_DEFFLOAT, 0);
+    eclass_addmethod(rossler_class, (method)rossler_a, "a", A_DEFFLOAT, 0);
+    eclass_addmethod(rossler_class, (method)rossler_b, "b", A_DEFFLOAT, 0);
+    eclass_addmethod(rossler_class, (method)rossler_c, "c", A_DEFFLOAT, 0);
+    eclass_addmethod(rossler_class, (method)rossler_nx, "x", A_DEFFLOAT, 0);
+    eclass_addmethod(rossler_class, (method)rossler_ny, "y", A_DEFFLOAT, 0);
+    eclass_addmethod(rossler_class, (method)rossler_nz, "z", A_DEFFLOAT, 0);
+    eclass_addmethod(rossler_class, (method)rossler_om, "om", A_DEFFLOAT, 0);
     
-     eclass_addmethod(rossler_class, (method)rossler_bang, "bang", A_GIMME, 0);
-     eclass_addmethod(rossler_class, (method)rossler_set, "set", A_GIMME, 0);
-     eclass_addmethod(rossler_class, (method)rossler_reset,"reset", A_GIMME, 0);
-    
-     eclass_addmethod(rossler_class, (method)rossler_dt,"dt", A_DEFFLOAT, 0);
-     eclass_addmethod(rossler_class, (method)rossler_a,"a", A_DEFFLOAT, 0);
-     eclass_addmethod(rossler_class, (method)rossler_b,"b", A_DEFFLOAT, 0);
-     eclass_addmethod(rossler_class, (method)rossler_c,"c", A_DEFFLOAT, 0);
-     eclass_addmethod(rossler_class, (method)rossler_nx,"x", A_DEFFLOAT, 0);
-     eclass_addmethod(rossler_class, (method)rossler_ny,"y", A_DEFFLOAT, 0);
-     eclass_addmethod(rossler_class, (method)rossler_nz,"z", A_DEFFLOAT, 0);
-     eclass_addmethod(rossler_class, (method)rossler_om,"om", A_DEFFLOAT, 0);
-    
+    post("noise.rossler: part of A-Chaos library, (C) 2004 AndrŽ Sier");
 }
 
-//void main(void)
-//{
-// long int tick = gettime();
-// setup((t_messlist**)&rossler_class,(method)rossler_new,0L,(short)sizeof(rossler),0L,
-// A_GIMME,0);
-//
-// addbang((method)rossler_bang);
-// addmess((method)rossler_set,"set", A_GIMME, 0);
-// addmess((method)rossler_reset,"reset", A_GIMME, 0);
-//
-// addmess((method)rossler_dt,"dt", A_DEFFLOAT, 0);
-// addmess((method)rossler_a,"a", A_DEFFLOAT, 0);
-// addmess((method)rossler_b,"b", A_DEFFLOAT, 0);
-// addmess((method)rossler_c,"c", A_DEFFLOAT, 0);
-// addmess((method)rossler_nx,"x", A_DEFFLOAT, 0);
-// addmess((method)rossler_ny,"y", A_DEFFLOAT, 0);
-// addmess((method)rossler_nz,"z", A_DEFFLOAT, 0);
-// addmess((method)rossler_om,"om", A_DEFFLOAT, 0);
-//
-// addmess((method)rossler_assist,"assist", A_CANT, 0);
-// post("A-Chaos Lib :: a-rossler  " __DATE__" "__TIME__"                                   ©   a n d r Ž s i e r   2 0 0 4   all rights reserved",tick, 0);
-//}
-//
-//
-//void rossler_assist(rossler *x, void *b, long m, long a, char *s)
-//{
-//    if (m==1) { sprintf(s,"bang, (int), (float), ·, ¶ª"); }
-//    else if (m==2&&a==0) { sprintf(s,"(float) x  rossler   e         c            h              o"); }
-//    else if (m==2&&a==1) { sprintf(s,"(float) y  rossler   e         c            h              o"); }
-//    else if (m==2&&a==2) { sprintf(s,"(float) z  rossler   e         c            h              o"); }
-////    else if (m==2&&a==1) { sprintf(s,"(lisy)       e             c                h                   o"); }
-//}
+

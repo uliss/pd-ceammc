@@ -211,18 +211,18 @@ void henonf_dt(henonf* x, double max)
 
 void henonf_om(henonf* x, long max) { x->om = (max > 0); }
 
-void henonf_free(){}
+void henonf_free() {}
 
 void setup_noise0x2ehenonf()
 {
-    
+
     henonf_class = eclass_new(("noise.henonf"),
-                             (t_typ_method)(henonf_new),
-                             (t_typ_method)(henonf_free),
-                             sizeof(henonf), 0, A_GIMME, 0);
-    
+        (t_typ_method)(henonf_new),
+        (t_typ_method)(henonf_free),
+        sizeof(henonf), 0, A_GIMME, 0);
+
     //eclass_addmethod(lorenz_class, (method)baker_bang, "bang", A_GIMME, 0);
-    
+
     eclass_addmethod(henonf_class, (method)henonf_bang, "bang", A_GIMME, 0);
     eclass_addmethod(henonf_class, (method)henonf_set, "set", A_GIMME, 0);
     eclass_addmethod(henonf_class, (method)henonf_reset, "reset", A_GIMME, 0);
@@ -233,31 +233,7 @@ void setup_noise0x2ehenonf()
     eclass_addmethod(henonf_class, (method)henonf_ny, "dt", A_FLOAT, 0);
     eclass_addmethod(henonf_class, (method)henonf_om, "om", A_FLOAT, 0);
     
+    post("noise.henonf: part of A-Chaos library, (C) 2004 André Sier");
 }
 
-//void main(void)
-//{
-// long int tick = gettime();
-// setup((t_messlist**)&henonf_class,(method)henonf_new,0L,(short)sizeof(henonf),0L,
-// A_GIMME,0);
-//
-// addbang((method)henonf_bang);
-// addmess((method)henonf_set, "set", A_GIMME, 0);
-// addmess((method)henonf_reset, "reset", A_GIMME, 0);
-// addmess((method)henonf_a, "a", A_FLOAT, 0);
-// addmess((method)henonf_b, "b", A_FLOAT, 0);
-// addmess((method)henonf_nx, "x", A_FLOAT, 0);
-// addmess((method)henonf_ny, "y", A_FLOAT, 0);
-// addmess((method)henonf_dt, "dt", A_FLOAT, 0);
-// addmess((method)henonf_om, "om", A_DEFFLOAT, 0);
-// addmess((method)henonf_assist,"assist", A_CANT, 0);
-// post("A-Chaos Lib :: a-henonf  " __DATE__" "__TIME__"                                   ©   a n d r é s i e r   2 0 0 4   all rights reserved",tick, 0);
-//}
-//
-//
-//void henonf_assist(henonf *x, void *b, long m, long a, char *s)
-//{
-//    if (m==1) { sprintf(s,"echo e   c  h   o"); }
-//    else if (m==2&&a==0) { sprintf(s,"(float) x     e         c            h              o"); }
-//    else if (m==2&&a==1) { sprintf(s,"(float) y       e             c                h                   o"); }
-//}
+

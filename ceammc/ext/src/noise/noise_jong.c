@@ -233,59 +233,30 @@ void jong_reset(jong* x, t_symbol* msg, short argc, t_atom* argv)
     x->ny = x->nyinit;
 }
 
-void jong_free(){}
+void jong_free() {}
 
 void setup_noise0x2ejong()
 {
-    
+
     jong_class = eclass_new(("noise.jong"),
-                           (t_typ_method)(jong_new),
-                           (t_typ_method)(jong_free),
-                           sizeof(jong), 0, A_GIMME, 0);
-    
+        (t_typ_method)(jong_new),
+        (t_typ_method)(jong_free),
+        sizeof(jong), 0, A_GIMME, 0);
+
     //eclass_addmethod(lorenz_class, (method)baker_bang, "bang", A_GIMME, 0);
+
+    eclass_addmethod(jong_class, (method)jong_bang, "bang", A_GIMME, 0);
+    eclass_addmethod(jong_class, (method)jong_reset, "reset", A_GIMME, 0);
+    eclass_addmethod(jong_class, (method)jong_set, "set", A_GIMME, 0);
+    eclass_addmethod(jong_class, (method)jong_nx, "x", A_DEFFLOAT, 0);
+    eclass_addmethod(jong_class, (method)jong_ny, "y", A_DEFFLOAT, 0);
+    eclass_addmethod(jong_class, (method)jong_a, "a", A_DEFFLOAT, 0);
+    eclass_addmethod(jong_class, (method)jong_b, "b", A_DEFFLOAT, 0);
+    eclass_addmethod(jong_class, (method)jong_c, "c", A_DEFFLOAT, 0);
+    eclass_addmethod(jong_class, (method)jong_d, "d", A_DEFFLOAT, 0);
+    eclass_addmethod(jong_class, (method)jong_om, "om", A_DEFFLOAT, 0);
     
-     eclass_addmethod(jong_class, (method)jong_bang, "bang", A_GIMME, 0);
-     eclass_addmethod(jong_class, (method)jong_reset, "reset", A_GIMME, 0);
-     eclass_addmethod(jong_class, (method)jong_set, "set", A_GIMME, 0);
-     eclass_addmethod(jong_class, (method)jong_nx, "x", A_DEFFLOAT, 0);
-     eclass_addmethod(jong_class, (method)jong_ny, "y", A_DEFFLOAT, 0);
-     eclass_addmethod(jong_class, (method)jong_a, "a", A_DEFFLOAT, 0);
-     eclass_addmethod(jong_class, (method)jong_b, "b", A_DEFFLOAT, 0);
-     eclass_addmethod(jong_class, (method)jong_c, "c", A_DEFFLOAT, 0);
-     eclass_addmethod(jong_class, (method)jong_d, "d", A_DEFFLOAT, 0);
-     eclass_addmethod(jong_class, (method)jong_om, "om", A_DEFFLOAT, 0);
-    
+    post("noise.jong: part of A-Chaos library, (C) 2004 André Sier");
 }
 
-//void main(void)
-//{
-// long int tick = gettime();
-// setup((t_messlist**)&jong_class,(method)jong_new,0L,(short)sizeof(jong),0L,
-// A_GIMME,0);
-//
-// addbang((method)jong_bang);
-// addmess((method)jong_reset, "reset", A_GIMME, 0);
-// addmess((method)jong_set, "set", A_GIMME, 0);
-// addmess((method)jong_nx, "x", A_DEFFLOAT, 0);
-// addmess((method)jong_ny, "y", A_DEFFLOAT, 0);
-// addmess((method)jong_a, "a", A_DEFFLOAT, 0);
-// addmess((method)jong_b, "b", A_DEFFLOAT, 0);
-// addmess((method)jong_c, "c", A_DEFFLOAT, 0);
-// addmess((method)jong_d, "d", A_DEFFLOAT, 0);
-// addmess((method)jong_om, "om", A_DEFFLOAT, 0);
-//
-//
-//
-// addmess((method)jong_assist,"assist", A_CANT, 0);
-// post("A-Chaos Lib :: a-jong  " __DATE__" "__TIME__"                                   ©   a n d r é s i e r   2 0 0 4   all rights reserved",tick, 0);
-//}
-//
-//
-//
-//void jong_assist(jong *x, void *b, long m, long a, char *s)
-//{
-//    if (m==1) { sprintf(s,"echo e   c  h   o"); }
-//    else if (m==2&&a==0) { sprintf(s,"(float) x de Jong     e         c            h              o"); }
-//    else if (m==2&&a==1) { sprintf(s,"(float) y  de Jong     e             c                h                   o"); }
-//}
+

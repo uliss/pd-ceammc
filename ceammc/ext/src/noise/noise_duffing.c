@@ -217,50 +217,26 @@ void duffing_dt(duffing* x, double max)
 }
 void duffing_om(duffing* x, long max) { x->om = (max > 0); }
 
-void duffing_free(){}
+void duffing_free() {}
 
 void setup_noise0x2eduffing()
 {
-    
+
     duffing_class = eclass_new(("noise.duffing"),
-                           (t_typ_method)(duffing_new),
-                           (t_typ_method)(duffing_free),
-                           sizeof(duffing), 0, A_GIMME, 0);
+        (t_typ_method)(duffing_new),
+        (t_typ_method)(duffing_free),
+        sizeof(duffing), 0, A_GIMME, 0);
+
+    eclass_addmethod(duffing_class, (method)duffing_bang, "bang", A_GIMME, 0);
+    eclass_addmethod(duffing_class, (method)duffing_set, "set", A_GIMME, 0);
+    eclass_addmethod(duffing_class, (method)duffing_reset, "reset", A_GIMME, 0);
+    eclass_addmethod(duffing_class, (method)duffing_a, "a", A_FLOAT, 0);
+    eclass_addmethod(duffing_class, (method)duffing_b, "b", A_FLOAT, 0);
+    eclass_addmethod(duffing_class, (method)duffing_w, "w", A_FLOAT, 0);
+    eclass_addmethod(duffing_class, (method)duffing_dt, "dt", A_FLOAT, 0);
+    eclass_addmethod(duffing_class, (method)duffing_om, "om", A_DEFFLOAT, 0);
     
-     eclass_addmethod(duffing_class, (method)duffing_bang, "bang", A_GIMME, 0);
-     eclass_addmethod(duffing_class, (method)duffing_set, "set", A_GIMME, 0);
-     eclass_addmethod(duffing_class, (method)duffing_reset, "reset", A_GIMME, 0);
-     eclass_addmethod(duffing_class, (method)duffing_a, "a", A_FLOAT, 0);
-     eclass_addmethod(duffing_class, (method)duffing_b, "b", A_FLOAT, 0);
-     eclass_addmethod(duffing_class, (method)duffing_w, "w", A_FLOAT, 0);
-     eclass_addmethod(duffing_class, (method)duffing_dt, "dt", A_FLOAT, 0);
-     eclass_addmethod(duffing_class, (method)duffing_om, "om", A_DEFFLOAT, 0);
+    post("noise.duffing: part of A-Chaos library, (C) 2004 André Sier");
 }
 
-    //eclass_addmethod(lorenz_class, (method)baker_bang, "bang", A_GIMME, 0);
-//void main(void)
-//{
-// long int tick = gettime();
-// setup((t_messlist**)&duffing_class,(method)duffing_new,0L,(short)sizeof(duffing),0L,
-// A_GIMME,0);
-//
-// addbang((method)duffing_bang);
-// addmess((method)duffing_set, "set", A_GIMME, 0);
-// addmess((method)duffing_reset, "reset", A_GIMME, 0);
-// addmess((method)duffing_a, "a", A_FLOAT, 0);
-// addmess((method)duffing_b, "b", A_FLOAT, 0);
-// addmess((method)duffing_w, "w", A_FLOAT, 0);
-// addmess((method)duffing_dt, "dt", A_FLOAT, 0);
-// addmess((method)duffing_om, "om", A_DEFFLOAT, 0);
-//
-// addmess((method)duffing_assist,"assist", A_CANT, 0);
-// post("A-Chaos Lib :: a-duffing  " __DATE__" "__TIME__"                                   ©   a n d r é s i e r   2 0 0 4   all rights reserved",tick, 0);
-//}
-//
-//
-//void duffing_assist(duffing *x, void *b, long m, long a, char *s)
-//{
-//    if (m==1) { sprintf(s,"echo e   c  h   o"); }
-//    else if (m==2&&a==0) { sprintf(s,"(float) x de duffing     e         c            h              o"); }
-//    else if (m==2&&a==1) { sprintf(s,"(float) y  de duffing     e             c                h                   o"); }
-//}
+

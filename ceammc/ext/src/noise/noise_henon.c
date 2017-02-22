@@ -177,30 +177,8 @@ void setup_noise0x2ehenon()
     eclass_addmethod(henon_class, (method)henon_nx, "x", A_FLOAT, 0);
     eclass_addmethod(henon_class, (method)henon_ny, "y", A_FLOAT, 0);
     eclass_addmethod(henon_class, (method)henon_om, "om", A_FLOAT, 0);
+    
+    post("noise.henon: part of A-Chaos library, (C) 2004 André Sier");
 }
 
-//void main(void)
-//{
-// long int tick = gettime();
-// setup((t_messlist**)&henon_class,(method)henon_new,0L,(short)sizeof(henon),0L,
-// A_GIMME,0);
-//
-// addbang((method)henon_bang);
-// addmess((method)henon_set, "set", A_GIMME, 0);
-// addmess((method)henon_reset, "reset", A_GIMME, 0);
-// addmess((method)henon_a, "a", A_FLOAT, 0);
-// addmess((method)henon_b, "b", A_FLOAT, 0);
-// addmess((method)henon_nx, "x", A_FLOAT, 0);
-// addmess((method)henon_ny, "y", A_FLOAT, 0);
-// addmess((method)henon_om, "om", A_FLOAT, 0);
-// addmess((method)henon_assist,"assist", A_CANT, 0);
-// post("A-Chaos Lib :: a-henon  " __DATE__" "__TIME__"                                   ©   a n d r é s i e r   2 0 0 4   all rights reserved",tick, 0);
-//}
-//
-//
-//void henon_assist(henon *x, void *b, long m, long a, char *s)
-//{
-//    if (m==1) { sprintf(s,"echo e   c  h   o"); }
-//    else if (m==2&&a==0) { sprintf(s,"(float) x     e         c            h              o"); }
-//    else if (m==2&&a==1) { sprintf(s,"(float) y       e             c                h                   o"); }
-//}
+

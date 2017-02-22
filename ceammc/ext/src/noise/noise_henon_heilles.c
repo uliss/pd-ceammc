@@ -220,40 +220,7 @@ void setup_noise0x2ehenon_heilles()
     eclass_addmethod(henon_heilles_class, (method)henon_heilles_nydot, "y'", A_DEFFLOAT, 0);
     eclass_addmethod(henon_heilles_class, (method)henon_heilles_e, "e", A_DEFFLOAT, 0);
     eclass_addmethod(henon_heilles_class, (method)henon_heilles_dt, "dt", A_DEFFLOAT, 0);
+    
+    post("noise.henon_heilles: part of A-Chaos library, (C) 2004 André Sier");
 }
-//void main(void)
-//{
-//    long int tick = gettime();
-//    setup((t_messlist**)&henon_heilles_class, (method)henon_heilles_new, 0L, (short)sizeof(henon_heilles), 0L,
-//        A_GIMME, 0);
-//
-//    addbang((method)henon_heilles_bang);
-//    addmess((method)henon_heilles_reset, "reset", A_GIMME, 0);
-//    addmess((method)henon_heilles_set, "set", A_GIMME, 0);
-//    addmess((method)henon_heilles_nx, "x", A_DEFFLOAT, 0);
-//    addmess((method)henon_heilles_ny, "y", A_DEFFLOAT, 0);
-//    addmess((method)henon_heilles_nydot, "y'", A_DEFFLOAT, 0);
-//    addmess((method)henon_heilles_e, "e", A_DEFFLOAT, 0);
-//    addmess((method)henon_heilles_dt, "dt", A_DEFFLOAT, 0);
-//
-//    addmess((method)henon_heilles_om, "om", A_DEFFLOAT, 0);
-//
-//    addmess((method)henon_heilles_assist, "assist", A_CANT, 0);
-//    post("A-Chaos Lib :: a-henon_heilles  " __DATE__ " " __TIME__ "                                   ©   a n d r é s i e r   2 0 0 4   all rights reserved", tick, 0);
-//}
 
-//
-//void henon_heilles_assist(henon_heilles* x, void* b, long m, long a, char* s)
-//{
-//    if (m == 1) {
-//        sprintf(s, "echo e   c  h   o");
-//    } else if (m == 2 && a == 0) {
-//        sprintf(s, "(float) x  henon_heilles     e         c            h              o");
-//    } else if (m == 2 && a == 1) {
-//        sprintf(s, "(float) y  henon_heilles     e            c                h                   o");
-//    } else if (m == 2 && a == 2) {
-//        sprintf(s, "(float) x' henon_heilles     e           c                h                   o");
-//    } else if (m == 2 && a == 3) {
-//        sprintf(s, "(float) y' henon_heilles     e        c                h                   o");
-//    }
-//}

@@ -211,4 +211,5 @@ void setup_noise0x2ebaker()
     eclass_addmethod(noise_baker_class, (method)baker_fold_cut, "fold_cut", A_LONG, 0);
     eclass_addmethod(noise_baker_class, (method)baker_om, "om", A_LONG, 0);
     //    post("A-Chaos Lib :: a-baker  " __DATE__ " " __TIME__ "                                   ©   a n d r é s i e r   2 0 0 4   all rights reserved", tick, 0);
+    post("noise.baker: part of A-Chaos library, (C) 2004 André Sier");
 }

@@ -229,60 +229,31 @@ void ikeda_bang(ikeda* x)
     ikeda_calc(x); //next
 }
 
-void ikeda_free(){}
+void ikeda_free() {}
 
 void setup_noise0x2eikeda()
 {
-    
+
     ikeda_class = eclass_new(("noise.ikeda"),
-                           (t_typ_method)(ikeda_new),
-                           (t_typ_method)(ikeda_free),
-                           sizeof(ikeda), 0, A_GIMME, 0);
-    
+        (t_typ_method)(ikeda_new),
+        (t_typ_method)(ikeda_free),
+        sizeof(ikeda), 0, A_GIMME, 0);
+
     //eclass_addmethod(lorenz_class, (method)baker_bang, "bang", A_GIMME, 0);
+
+    eclass_addmethod(ikeda_class, (method)ikeda_bang, "bang", A_GIMME, 0);
+    eclass_addmethod(ikeda_class, (method)ikeda_set, "set", A_GIMME, 0);
+    eclass_addmethod(ikeda_class, (method)ikeda_reset, "reset", A_GIMME, 0);
+
+    eclass_addmethod(ikeda_class, (method)ikeda_nx, "x", A_DEFFLOAT, 0);
+    eclass_addmethod(ikeda_class, (method)ikeda_ny, "y", A_DEFFLOAT, 0);
+    eclass_addmethod(ikeda_class, (method)ikeda_a, "a", A_DEFFLOAT, 0);
+    eclass_addmethod(ikeda_class, (method)ikeda_b, "b", A_DEFFLOAT, 0);
+    eclass_addmethod(ikeda_class, (method)ikeda_k, "c", A_DEFFLOAT, 0);
+    eclass_addmethod(ikeda_class, (method)ikeda_p, "p", A_DEFFLOAT, 0);
+    eclass_addmethod(ikeda_class, (method)ikeda_om, "om", A_DEFFLOAT, 0);
     
-     eclass_addmethod(ikeda_class, (method)ikeda_bang, "bang", A_GIMME, 0);
-     eclass_addmethod(ikeda_class, (method)ikeda_set,"set", A_GIMME, 0);
-     eclass_addmethod(ikeda_class, (method)ikeda_reset,"reset", A_GIMME, 0);
-    
-     eclass_addmethod(ikeda_class, (method)ikeda_nx,"x", A_DEFFLOAT, 0);
-     eclass_addmethod(ikeda_class, (method)ikeda_ny,"y", A_DEFFLOAT, 0);
-     eclass_addmethod(ikeda_class, (method)ikeda_a,"a", A_DEFFLOAT, 0);
-     eclass_addmethod(ikeda_class, (method)ikeda_b,"b", A_DEFFLOAT, 0);
-     eclass_addmethod(ikeda_class, (method)ikeda_k,"c", A_DEFFLOAT, 0);
-     eclass_addmethod(ikeda_class, (method)ikeda_p,"p", A_DEFFLOAT, 0);
-     eclass_addmethod(ikeda_class, (method)ikeda_om,"om", A_DEFFLOAT, 0);
-    
+    post("noise.ikeda: part of A-Chaos library, (C) 2004 André Sier");
 }
 
-//void main(void)
-//{
-// long int tick = gettime();
-// setup((t_messlist**)&ikeda_class,(method)ikeda_new,0L,(short)sizeof(ikeda),0L,
-// A_GIMME,0);
-//
-// addbang((method)ikeda_bang);
-// eclass_addmethod(ikeda_class, (method)ikeda_set,"set", A_GIMME, 0);
-// addmess((method)ikeda_reset,"reset", A_GIMME, 0);
-//
-// addmess((method)ikeda_nx,"x", A_DEFFLOAT, 0);
-// addmess((method)ikeda_ny,"y", A_DEFFLOAT, 0);
-// addmess((method)ikeda_a,"a", A_DEFFLOAT, 0);
-// addmess((method)ikeda_b,"b", A_DEFFLOAT, 0);
-// addmess((method)ikeda_k,"c", A_DEFFLOAT, 0);
-// addmess((method)ikeda_p,"p", A_DEFFLOAT, 0);
-// addmess((method)ikeda_om,"om", A_DEFFLOAT, 0);
-//
-// addmess((method)ikeda_assist,"assist", A_CANT, 0);
-// post("A-Chaos Lib :: a-ikeda  " __DATE__" "__TIME__"                                   ©   a n d r é s i e r   2 0 0 4   all rights reserved",tick, 0);
-//}
-//
-//
-//void ikeda_assist(ikeda *x, void *b, long m, long a, char *s)
-//{
-//    if (m==1) { sprintf(s,"bang, set, "); }
-//    else if (m==2&&a==0) { sprintf(s,"(float) x  ikeda   e         c            h              o"); }
-//    else if (m==2&&a==1) { sprintf(s,"(float) y  ikeda   e         c            h              o"); }
-//    else if (m==2&&a==2) { sprintf(s,"(float) z  ikeda   e         c            h              o"); }
-////    else if (m==2&&a==1) { sprintf(s,"(lisy)       e             c                h                   o"); }
-//}
+

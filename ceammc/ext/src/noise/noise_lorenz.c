@@ -308,38 +308,7 @@ void setup_noise0x2elorenz()
     // addint((method)lorenz_int);
     // addfloat((method)lorenz_float);
     eclass_addmethod(lorenz_class, (method)lorenz_om, "om", A_DEFFLOAT, 0);
+    
+    post("noise.lorenz: part of A-Chaos library, (C) 2004 André Sier");
 }
-//void main(void)
-//{
-// long int tick = gettime();
-// setup((t_messlist**)&lorenz_class,(method)lorenz_new,0L,(short)sizeof(lorenz),0L,
-// A_GIMME,0);
-//
-// addbang((method)lorenz_bang);
-// addmess((method)lorenz_set,"set", A_GIMME, 0);
-// addmess((method)lorenz_reset,"reset", A_GIMME, 0);
-//
-// addmess((method)lorenz_dt,"dt", A_DEFFLOAT, 0);
-// addmess((method)lorenz_a,"a", A_DEFFLOAT, 0);
-// addmess((method)lorenz_r,"r", A_DEFFLOAT, 0);
-// addmess((method)lorenz_c,"c", A_DEFFLOAT, 0);
-// addmess((method)lorenz_nx,"x", A_DEFFLOAT, 0);
-// addmess((method)lorenz_ny,"y", A_DEFFLOAT, 0);
-// addmess((method)lorenz_nz,"z", A_DEFFLOAT, 0);
-// addint((method)lorenz_int);
-// addfloat((method)lorenz_float);
-// addmess((method)lorenz_om,"om", A_DEFLONG, 0);
-//
-// addmess((method)lorenz_assist,"assist", A_CANT, 0);
-// post("A-Chaos Lib :: a-lorenz  " __DATE__" "__TIME__"                                   ©   a n d r é s i e r   2 0 0 4   all rights reserved",tick, 0);
-//}
-//
-//
-//void lorenz_assist(lorenz *x, void *b, long m, long a, char *s)
-//{
-//    if (m==1) { sprintf(s,"bang, (int), (float), ∑, ∂™"); }
-//    else if (m==2&&a==0) { sprintf(s,"(float) x  l o r e n t z   e         c            h              o"); }
-//    else if (m==2&&a==1) { sprintf(s,"(float) y  l o r e n t z   e         c            h              o"); }
-//    else if (m==2&&a==2) { sprintf(s,"(float) z  l o r e n t z   e         c            h              o"); }
-////    else if (m==2&&a==1) { sprintf(s,"(lisy)       e             c                h                   o"); }
-//}
+

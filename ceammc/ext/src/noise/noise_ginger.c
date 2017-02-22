@@ -163,51 +163,28 @@ void ginger_om(ginger* x, long max)
     x->om = (max > 0);
 }
 
-void ginger_free(){}
+void ginger_free() {}
 
 void setup_noise0x2eginger()
 {
-    
+
     ginger_class = eclass_new(("noise.ginger"),
-                           (t_typ_method)(ginger_new),
-                           (t_typ_method)(ginger_free),
-                           sizeof(ginger), 0, A_GIMME, 0);
-    
+        (t_typ_method)(ginger_new),
+        (t_typ_method)(ginger_free),
+        sizeof(ginger), 0, A_GIMME, 0);
+
     //eclass_addmethod(lorenz_class, (method)baker_bang, "bang", A_GIMME, 0);
-    
+
     eclass_addmethod(ginger_class, (method)ginger_bang, "bang", A_GIMME, 0);
-     eclass_addmethod(ginger_class, (method)ginger_set, "set", A_GIMME, 0);
-     eclass_addmethod(ginger_class, (method)ginger_reset, "reset", A_GIMME, 0);
-     eclass_addmethod(ginger_class, (method)ginger_nx, "x", A_FLOAT, 0);
-     eclass_addmethod(ginger_class, (method)ginger_ny, "y", A_FLOAT, 0);
-     eclass_addmethod(ginger_class, (method)ginger_seed, "z", A_FLOAT, 0);
-     eclass_addmethod(ginger_class, (method)ginger_seed, "seed", A_FLOAT, 0);
-     eclass_addmethod(ginger_class, (method)ginger_om, "om", A_FLOAT, 0);
+    eclass_addmethod(ginger_class, (method)ginger_set, "set", A_GIMME, 0);
+    eclass_addmethod(ginger_class, (method)ginger_reset, "reset", A_GIMME, 0);
+    eclass_addmethod(ginger_class, (method)ginger_nx, "x", A_FLOAT, 0);
+    eclass_addmethod(ginger_class, (method)ginger_ny, "y", A_FLOAT, 0);
+    eclass_addmethod(ginger_class, (method)ginger_seed, "z", A_FLOAT, 0);
+    eclass_addmethod(ginger_class, (method)ginger_seed, "seed", A_FLOAT, 0);
+    eclass_addmethod(ginger_class, (method)ginger_om, "om", A_FLOAT, 0);
     
+    post("noise.ginger: part of A-Chaos library, (C) 2004 André Sier");
 }
 
-//void main(void)
-//{
-// long int tick = gettime();
-// setup((t_messlist**)&ginger_class,(method)ginger_new,0L,(short)sizeof(ginger),0L,
-// A_GIMME,0);
-//
-// addbang((method)ginger_bang);
-// addmess((method)ginger_set, "set", A_GIMME, 0);
-// addmess((method)ginger_reset, "reset", 0);
-// addmess((method)ginger_nx, "x", A_FLOAT, 0);
-// addmess((method)ginger_ny, "y", A_FLOAT, 0);
-// addmess((method)ginger_seed, "z", A_FLOAT, 0);
-// addmess((method)ginger_seed, "seed", A_FLOAT, 0);
-// addmess((method)ginger_om, "om", A_FLOAT, 0);
-// addmess((method)ginger_assist,"assist", A_CANT, 0);
-// post("A-Chaos Lib :: a-ginger  " __DATE__" "__TIME__"                                   ©   a n d r é s i e r   2 0 0 4   all rights reserved",tick, 0);
-//}
-//
-//
-//void ginger_assist(ginger *x, void *b, long m, long a, char *s)
-//{
-//    if (m==1) { sprintf(s,"A-Chaos Lib"); }
-//    else if (m==2&&a==0) { sprintf(s,"(float) x ginger     e         c            h              o"); }
-//    else if (m==2&&a==1) { sprintf(s,"(float) y ginger      e             c                h                   o"); }
-//}
+

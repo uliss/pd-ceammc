@@ -148,52 +148,28 @@ void torus_y0(torus* x, float echo)
         torus_bang(x);
 }
 
-void torus_free(){}
+void torus_free() {}
 
 void setup_noise0x2etorus()
 {
-    
+
     torus_class = eclass_new(("noise.torus"),
-                           (t_typ_method)(torus_new),
-                           (t_typ_method)(torus_free),
-                           sizeof(torus), 0, A_GIMME, 0);
-    
+        (t_typ_method)(torus_new),
+        (t_typ_method)(torus_free),
+        sizeof(torus), 0, A_GIMME, 0);
+
     //eclass_addmethod(lorenz_class, (method)baker_bang, "bang", A_GIMME, 0);
+
+    eclass_addmethod(torus_class, (method)torus_bang, "bang", A_GIMME, 0);
+
+    eclass_addmethod(torus_class, (method)torus_reset, "reset", A_GIMME, 0);
+    eclass_addmethod(torus_class, (method)torus_set, "set", A_GIMME, 0);
+    eclass_addmethod(torus_class, (method)torus_cr, "cr", A_DEFFLOAT, 0);
+    eclass_addmethod(torus_class, (method)torus_x0, "x", A_DEFFLOAT, 0);
+    eclass_addmethod(torus_class, (method)torus_y0, "y", A_DEFFLOAT, 0);
+    eclass_addmethod(torus_class, (method)torus_om, "om", A_DEFFLOAT, 0);
     
-     eclass_addmethod(torus_class, (method)torus_bang, "bang", A_GIMME, 0);
-    
-     eclass_addmethod(torus_class, (method)torus_reset,"reset", A_GIMME, 0);
-     eclass_addmethod(torus_class, (method)torus_set,"set", A_GIMME, 0);
-     eclass_addmethod(torus_class, (method)torus_cr,"cr", A_DEFFLOAT, 0);
-     eclass_addmethod(torus_class, (method)torus_x0,"x", A_DEFFLOAT, 0);
-     eclass_addmethod(torus_class, (method)torus_y0,"y", A_DEFFLOAT, 0);
-     eclass_addmethod(torus_class, (method)torus_om,"om", A_DEFFLOAT, 0);
-    
+    post("noise.torus: part of A-Chaos library, (C) 2004 André Sier");
 }
 
-//void main(void)
-//{
-// long int tick = gettime();
-// setup((t_messlist**)&torus_class,(method)torus_new,0L,(short)sizeof(torus),0L,
-// A_GIMME,0);
-//
-// addbang((method)torus_bang);
-//
-// addmess((method)torus_reset,"reset", A_GIMME, 0);
-// addmess((method)torus_set,"set", A_GIMME, 0);
-// addmess((method)torus_cr,"cr", A_DEFFLOAT, 0);
-// addmess((method)torus_x0,"x", A_DEFFLOAT, 0);
-// addmess((method)torus_y0,"y", A_DEFFLOAT, 0);
-// addmess((method)torus_om,"om", A_DEFFLOAT, 0);
-//
-// addmess((method)torus_assist,"assist", A_CANT, 0);
-// post("A-Chaos Lib :: a-torus  " __DATE__" "__TIME__"                                   ©   a n d r é s i e r   2 0 0 4   all rights reserved",tick, 0);
-//}
-//
-//
-//void torus_assist(torus *x, void *b, long m, long a, char *s)
-//{
-//    if (m==1) { sprintf(s,"bang, (int), (float)"); }
-//    else if (m==2&&a==0) { sprintf(s,"(float) x torus    e         c            h              o"); }
-//    else if (m==2&&a==1) { sprintf(s,"(float) y torus    e         c            h              o"); }
-//}
+
