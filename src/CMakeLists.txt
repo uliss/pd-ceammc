@@ -193,6 +193,25 @@ install(TARGETS pdreceive RUNTIME DESTINATION ${PD_RECEIVE_INSTALL_PATH})
 
 if(UNIX AND NOT APPLE)
     install(TARGETS pd-watchdog RUNTIME DESTINATION ${PD_WATCHDOG_INSTALL_PATH})
+
+    # create symlink in bin
+    install(CODE "execute_process( \
+        COMMAND ${CMAKE_COMMAND} -E create_symlink \
+        ${PD_EXE_INSTALL_PATH} \
+        ${bin}/pd-ceammc)"
+    )
+
+    install(CODE "execute_process( \
+        COMMAND ${CMAKE_COMMAND} -E create_symlink \
+        ${PD_SEND_INSTALL_PATH} \
+        ${bin}/pd-ceammc-send)"
+    )
+
+    install(CODE "execute_process( \
+        COMMAND ${CMAKE_COMMAND} -E create_symlink \
+        ${PD_RECEIVE_INSTALL_PATH} \
+        ${bin}/pd-ceammc-receive)"
+    )
 endif()
 
 # install libs
