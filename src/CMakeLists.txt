@@ -1,4 +1,5 @@
 add_definitions(-DPD)
+include(install_symlink)
 
 set(M_SRC m_atom.c
     m_binbuf.c
@@ -194,24 +195,10 @@ install(TARGETS pdreceive RUNTIME DESTINATION ${PD_RECEIVE_INSTALL_PATH})
 if(UNIX AND NOT APPLE)
     install(TARGETS pd-watchdog RUNTIME DESTINATION ${PD_WATCHDOG_INSTALL_PATH})
 
-    # create symlink in bin
-    install(CODE "execute_process( \
-        COMMAND ${CMAKE_COMMAND} -E create_symlink \
-        ${PD_EXE_INSTALL_PATH} \
-        ${bin}/pd-ceammc)"
-    )
-
-    install(CODE "execute_process( \
-        COMMAND ${CMAKE_COMMAND} -E create_symlink \
-        ${PD_SEND_INSTALL_PATH} \
-        ${bin}/pd-ceammc-send)"
-    )
-
-    install(CODE "execute_process( \
-        COMMAND ${CMAKE_COMMAND} -E create_symlink \
-        ${PD_RECEIVE_INSTALL_PATH} \
-        ${bin}/pd-ceammc-receive)"
-    )
+    # create symlinks in bin
+    install_symlink("${CMAKE_INSTALL_PREFIX}/${PD_EXE_INSTALL_PATH}/pd" ""${CMAKE_INSTALL_PREFIX}/bin/pd-ceammc")
+    install_symlink("${CMAKE_INSTALL_PREFIX}/${PD_SEND_INSTALL_PATH}/pdsend" ""${CMAKE_INSTALL_PREFIX}/bin/pdsend-ceammc")
+    install_symlink("${CMAKE_INSTALL_PREFIX}/${PD_RECEIVE_INSTALL_PATH}/pdreceive" ""${CMAKE_INSTALL_PREFIX}/bin/pdreceive-ceammc")
 endif()
 
 # install libs
