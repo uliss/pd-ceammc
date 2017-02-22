@@ -458,7 +458,9 @@ proc get_font_for_size {fsize} {
 # always do a good job of choosing in respect to Pd's needs.  So this chooses
 # from a list of fonts that are known to work well with Pd.
 proc find_default_font {} {
-    set testfonts {"DejaVu Sans Mono" "Bitstream Vera Sans Mono" \
+    # ceammc: real font settings lives in s_main.c. Here we just output to console
+    # if these fonts are found on system
+    set testfonts {"Monaco" "DejaVu Sans Mono" "Bitstream Vera Sans Mono" \
         "Inconsolata" "Courier 10 Pitch" "Andale Mono" "Droid Sans Mono"}
     foreach family $testfonts {
         if {[lsearch -exact -nocase [font families] $family] > -1} {
