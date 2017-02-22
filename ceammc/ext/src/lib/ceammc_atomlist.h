@@ -310,12 +310,12 @@ std::ostream& operator<<(std::ostream& os, const AtomList& l);
 void to_outlet(t_outlet* x, const AtomList& a);
 
 template <typename T>
-static Atom atomFrom(T v) { return Atom(v); }
+Atom atomFrom(T v) { return Atom(v); }
 
 Atom atomFrom(const std::string& v);
 
 template <typename T>
-static AtomList listFrom(T v)
+AtomList listFrom(T v)
 {
     AtomList res;
     res.append(atomFrom<T>(v));
