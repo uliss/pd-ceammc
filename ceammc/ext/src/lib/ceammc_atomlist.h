@@ -331,7 +331,7 @@ template <typename T>
 static T atomlistToValue(const AtomList&, const T& def) { return def; }
 
 template <>
-static bool atomlistToValue(const AtomList& l, const bool& def)
+bool atomlistToValue(const AtomList& l, const bool& def)
 {
     if (l.empty())
         return def;
@@ -346,7 +346,7 @@ static bool atomlistToValue(const AtomList& l, const bool& def)
 }
 
 template <>
-static float atomlistToValue(const AtomList& l, const float& def)
+float atomlistToValue(const AtomList& l, const float& def)
 {
     if (l.empty())
         return def;
@@ -355,7 +355,7 @@ static float atomlistToValue(const AtomList& l, const float& def)
 }
 
 template <>
-static double atomlistToValue(const AtomList& l, const double& def)
+double atomlistToValue(const AtomList& l, const double& def)
 {
     if (l.empty())
         return def;
@@ -364,7 +364,7 @@ static double atomlistToValue(const AtomList& l, const double& def)
 }
 
 template <>
-static int atomlistToValue(const AtomList& l, const int& def)
+int atomlistToValue(const AtomList& l, const int& def)
 {
     if (l.empty())
         return def;
@@ -373,7 +373,7 @@ static int atomlistToValue(const AtomList& l, const int& def)
 }
 
 template <>
-static size_t atomlistToValue(const AtomList& l, const size_t& def)
+size_t atomlistToValue(const AtomList& l, const size_t& def)
 {
     if (l.empty())
         return def;
@@ -389,7 +389,7 @@ static size_t atomlistToValue(const AtomList& l, const size_t& def)
 }
 
 template <>
-static t_symbol* atomlistToValue(const AtomList& l, t_symbol* const& def)
+t_symbol* atomlistToValue(const AtomList& l, t_symbol* const& def)
 {
     if (l.empty())
         return const_cast<t_symbol*>(def);
@@ -401,7 +401,7 @@ static t_symbol* atomlistToValue(const AtomList& l, t_symbol* const& def)
 }
 
 template <>
-static Atom atomlistToValue(const AtomList& l, const Atom& def)
+Atom atomlistToValue(const AtomList& l, const Atom& def)
 {
     if (l.empty())
         return def;
