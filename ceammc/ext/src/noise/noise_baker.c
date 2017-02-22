@@ -7,7 +7,7 @@ a port of Richard's chaos-baker from chaos collection
 ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
 */
 
-// CEAMMC pd library
+// CEAMMC pd library version
 
 //#include "ext.h"
 //#include "ext_common.h"
