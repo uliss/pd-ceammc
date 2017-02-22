@@ -1,6 +1,10 @@
 add_definitions(-DPD)
 include(install_symlink)
 
+if(UNIX)
+    add_definitions("-DINSTALL_PREFIX=\"${CMAKE_INSTALL_PREFIX}\"")
+endif()
+
 set(M_SRC m_atom.c
     m_binbuf.c
     m_class.c

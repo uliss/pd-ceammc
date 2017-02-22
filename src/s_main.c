@@ -545,7 +545,7 @@ void sys_findprogdir(char *progname)
 #else
     strncpy(sbuf, sbuf2, MAXPDSTRING-30);
     sbuf[MAXPDSTRING-30] = 0;
-    strcat(sbuf, "/lib/pd");
+    strcat(sbuf, "/lib/pd_ceammc");
     if (stat(sbuf, &statbuf) >= 0)
     {
             /* complicated layout: lib dir is the one we just stat-ed above */
