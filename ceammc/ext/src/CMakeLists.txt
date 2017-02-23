@@ -298,6 +298,12 @@ ceammc_faust_extension(flt dcblock2 simple_pd_control_ext)
 ceammc_faust_extension(flt highshelf simple_pd_control_ext)
 ceammc_faust_extension(flt lowshelf simple_pd_control_ext)
 ceammc_faust_extension(flt eq_peak simple_pd_control_ext)
+ceammc_faust_extension(flt lowpass12 simple_pd_control_ext)
+ceammc_faust_extension(flt lowpass24 simple_pd_control_ext)
+ceammc_faust_extension(flt highpass12 simple_pd_control_ext)
+ceammc_faust_extension(flt highpass24 simple_pd_control_ext)
+ceammc_faust_extension(flt bandpass12 simple_pd_control_ext)
+ceammc_faust_extension(flt bandpass24 simple_pd_control_ext)
 
 ceammc_faust_extension(fx freeverb simple_pd_control_ext)
 ceammc_faust_extension(fx freeverb2 simple_pd_control_ext)
@@ -309,6 +315,8 @@ ceammc_faust_extension(fx freeverb2 simple_pd_control_ext)
 #ceammc_faust_extension(flt c_peak simple_pd_control_ext)
 #ceammc_faust_extension(flt c_lowshelf simple_pd_control_ext)
 #ceammc_faust_extension(flt c_highshelf simple_pd_control_ext)
+
+
 
 
 ceammc_faust_extension(dyn comp simple_pd_control_ext)
