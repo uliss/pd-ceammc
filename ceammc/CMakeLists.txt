@@ -6,6 +6,7 @@ add_subdirectory(gui)
 add_subdirectory(ext)
 add_subdirectory(distrib)
 add_subdirectory(faust)
+add_subdirectory(py)
 
 set(POT_TEMPLATE "${CMAKE_SOURCE_DIR}/po/template.pot")
 find_program(XGETTEXT xgettext)
