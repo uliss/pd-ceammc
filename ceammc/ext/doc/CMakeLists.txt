@@ -115,8 +115,10 @@ set(DOC_FILES
     symbol.length
     system.memsize
     system.memused
+    system.screen_size
     ui.bang
     ui.bpfunc
+    ui.display
     ui.scope~
     ui.spectroscope~
     ui.toggle
