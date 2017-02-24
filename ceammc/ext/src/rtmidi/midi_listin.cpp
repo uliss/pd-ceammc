@@ -35,19 +35,20 @@ void mycallback(double deltatime, std::vector<unsigned char>* message, void* use
     }
 }
 
-class PdMidiIn : public BaseObject {
+class PdMidiListIn : public BaseObject {
     const size_t in_count_;
     const size_t out_count_;
     RtMidiIn* midiin;
+    
 
-    AtomProperty portName;
+   
 
 public:
-    PdMidiIn(const PdArgs& a)
+    PdMidiListIn(const PdArgs& a)
         : BaseObject(a)
         , in_count_(0)
         , out_count_(1)
-        , portName("port", Atom(gensym("")), 0)
+
     {
         createOutlet();
         midiInOutlets.push_back(this->outletAt(0));
@@ -58,62 +59,26 @@ public:
             error.printMessage();
             post("MIDI In error");
         }
+    }
+
+    void onBang()
+    {
+        AtomList list;
 
         if (this->midiin) {
             int nPorts = midiin->getPortCount();
 
-            post("MIDI In ports (%i) :", nPorts);
-
             for (unsigned int i = 0; i < nPorts; i++) {
                 // try/catch?
-                post(midiin->getPortName(i).c_str());
-            }
-
-            if (nPorts) {
-                midiin->openPort(0);
-                midiin->setCallback(&mycallback);
-                midiin->ignoreTypes(false, false, false);
+                list.append(Atom(gensym(midiin->getPortName(i).c_str())));
             }
         }
 
-        createProperty(&this->portName);
+        listTo(0, list);
     }
-
-    void onFloat(float f)
-    {
-        post("set port %i", int(f));
-    }
-
-    void onSymbol(t_symbol* s)
-    {
-        int p = searchPort(s);
-        if (p) {
-            if (midiin->isPortOpen())
-                midiin->closePort();
-            midiin->openPort(p);
-        }
-    }
-
-private:
-    int searchPort(t_symbol* s)
-    {
-        if (!s) return -1;
-        
-        if (this->midiin) {
-            int nPorts = midiin->getPortCount();
-            for (unsigned int i = 0; i < nPorts; i++) {
-                // try/catch?
-                if(midiin->getPortName(i) == s->s_name)
-                {return i;}
-            }
-            
-        }
-
-        return -1;
-    };
 };
 
-extern "C" void setup_midi0x2ein()
+extern "C" void setup_midi0x2elistin()
 {
-    ObjectFactory<PdMidiIn> obj("midi.in");
+    ObjectFactory<PdMidiListIn> obj("midi.listin");
 }

@@ -8,3 +8,6 @@ include(ceammc_pd.cmake)
 #include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra/CicmWrapper/Sources)
 
 ceammc_cxx_extension(midi in)
+ceammc_cxx_extension(midi out)
+ceammc_cxx_extension(midi listin)
+ceammc_cxx_extension(midi listout)
