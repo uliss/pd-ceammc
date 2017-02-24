@@ -54,7 +54,7 @@ static inline double clif_calc(double a, double b, double c, double d)
 static void* clifford_new(t_symbol* msg, int argc, t_atom* argv);
 static void clifford_calc(clifford* x);
 static void clifford_bang(clifford* x);
-static void clifford_set(clifford* x, t_symbol* msg, short argc, t_atom* argv);
+static void clifford_set(clifford* x, t_symbol* msg, int argc, t_atom* argv);
 static void clifford_reset(clifford* x);
 
 static void clifford_a(clifford* x, t_float max);
@@ -95,6 +95,7 @@ void* clifford_new(t_symbol* msg, int argc, t_atom* argv)
 
     if (argc)
         clifford_set(x, msg, argc, argv);
+
     return (x);
 }
 
@@ -104,7 +105,7 @@ void clifford_free(clifford* x)
     outlet_free(x->c_out2);
 }
 
-void clifford_set(clifford* x, t_symbol* msg, short argc, t_atom* argv) //input the args
+void clifford_set(clifford* x, t_symbol* msg, int argc, t_atom* argv) //input the args
 {
     //supa elegant xoaz set method
     if (argc) {
