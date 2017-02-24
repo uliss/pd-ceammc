@@ -270,6 +270,7 @@ endif()
 
 ceammc_cxx_extension(system memsize)
 ceammc_cxx_extension(system memused)
+ceammc_cxx_extension(system screen_size)
 
 ###############################
 # DSP

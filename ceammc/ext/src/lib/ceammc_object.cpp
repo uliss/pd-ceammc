@@ -13,8 +13,8 @@
  *****************************************************************************/
 
 #include "ceammc_object.h"
-#include "ceammc_log.h"
 #include "ceammc_format.h"
+#include "ceammc_log.h"
 
 #include <algorithm>
 #include <cstdarg>
@@ -260,12 +260,14 @@ t_inlet* BaseObject::createInlet()
 
 BaseObject::BaseObject(const PdArgs& args)
     : pd_(args)
+    , receive_from_(0)
 {
     createCbProperty("@*", &BaseObject::listAllProps);
 }
 
 BaseObject::~BaseObject()
 {
+    unbindReceive();
     freeInlets();
     freeOutlets();
     freeProps();
@@ -323,6 +325,33 @@ void BaseObject::anyDispatch(t_symbol* s, const AtomList& lst)
     onAny(s, lst);
 }
 
+void BaseObject::bindReceive(t_symbol* path)
+{
+    if (path == 0) {
+        OBJ_ERR << "attempt to receive from empty path";
+        return;
+    }
+
+    if (receive_from_ != path)
+        unbindReceive();
+
+    receive_from_ = path;
+    pd_bind(&owner()->te_g.g_pd, path);
+}
+
+void BaseObject::unbindReceive()
+{
+    if (receive_from_) {
+        pd_unbind(&owner()->te_g.g_pd, receive_from_);
+        receive_from_ = 0;
+    }
+}
+
+t_symbol* BaseObject::receive()
+{
+    return receive_from_;
+}
+
 t_symbol* BaseObject::tryGetPropKey(t_symbol* sel)
 {
     char buf[MAXPDSTRING] = { 0 };
@@ -337,5 +366,4 @@ t_symbol* BaseObject::tryGetPropKey(t_symbol* sel)
 
     return res;
 }
-
 }

@@ -50,6 +50,7 @@ class BaseObject {
     OutletList outlets_;
     SymbolList inlets_s_;
     Properties props_;
+    t_symbol* receive_from_;
 
 public:
     typedef AtomList (BaseObject::*GetterFn)() const;
@@ -190,6 +191,10 @@ public:
     virtual bool processAnyInlets(t_symbol* sel, const AtomList& lst);
     virtual bool processAnyProps(t_symbol* sel, const AtomList& lst);
     virtual void anyDispatch(t_symbol* s, const AtomList& lst);
+
+    void bindReceive(t_symbol* path);
+    void unbindReceive();
+    t_symbol* receive();
 
 public:
     static t_symbol* tryGetPropKey(t_symbol* sel);
