@@ -1,4 +1,4 @@
-#include "flt_highpass24.h"
+#include "flt_bpf12.h"
 
 static void* faust_new(t_symbol* s, int argc, t_atom* argv)
 {
@@ -8,8 +8,8 @@ static void* faust_new(t_symbol* s, int argc, t_atom* argv)
     return p.pd_obj();
 }
 
-extern "C" void setup_flt0x2ehighpass24_tilde()
+extern "C" void setup_flt0x2ebpf12_tilde()
 {
-    internal_setup(gensym("flt.highpass24~"));
+    internal_setup(gensym("flt.bpf12~"));
 }
 

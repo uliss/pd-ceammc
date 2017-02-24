@@ -1,4 +1,4 @@
-#include "flt_bandpass24.h"
+#include "flt_hpf24.h"
 
 static void* faust_new(t_symbol* s, int argc, t_atom* argv)
 {
@@ -8,8 +8,8 @@ static void* faust_new(t_symbol* s, int argc, t_atom* argv)
     return p.pd_obj();
 }
 
-extern "C" void setup_flt0x2ebandpass24_tilde()
+extern "C" void setup_flt0x2ehpf24_tilde()
 {
-    internal_setup(gensym("flt.bandpass24~"));
+    internal_setup(gensym("flt.hpf24~"));
 }
 

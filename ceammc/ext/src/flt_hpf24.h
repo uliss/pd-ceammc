@@ -472,7 +472,7 @@ inline const char* lopts(char* argv[], const char* name, const char* def)
 
 // clang-format off
 #ifndef FAUST_MACRO
-struct bandpass24 : public dsp {
+struct hpf24 : public dsp {
 };
 #endif
 // clang-format on
@@ -501,18 +501,18 @@ using namespace ceammc::faust;
 
 
 #ifndef FAUSTCLASS 
-#define FAUSTCLASS bandpass24
+#define FAUSTCLASS hpf24
 #endif
 
-class bandpass24 : public dsp {
+class hpf24 : public dsp {
   private:
 	FAUSTFLOAT 	fslider0;
 	float 	fRec1_perm[4];
 	FAUSTFLOAT 	fslider1;
-	float 	fRec2_perm[4];
-	float 	fConst0;
-	float 	fYec0_perm[4];
 	float 	fRec3_perm[4];
+	float 	fYec0_perm[4];
+	float 	fConst0;
+	float 	fRec2_perm[4];
 	float 	fRec0_perm[4];
 	int fSamplingFreq;
 
@@ -523,13 +523,13 @@ class bandpass24 : public dsp {
 		m->declare("maxmsp.lib/copyright", "GRAME");
 		m->declare("maxmsp.lib/version", "1.1");
 		m->declare("maxmsp.lib/license", "LGPL");
-		m->declare("signal.lib/name", "Faust Signal Routing Library");
-		m->declare("signal.lib/version", "0.0");
 		m->declare("math.lib/name", "Faust Math Library");
 		m->declare("math.lib/version", "2.0");
 		m->declare("math.lib/author", "GRAME");
 		m->declare("math.lib/copyright", "GRAME");
 		m->declare("math.lib/license", "LGPL with exception");
+		m->declare("signal.lib/name", "Faust Signal Routing Library");
+		m->declare("signal.lib/version", "0.0");
 		m->declare("filter.lib/name", "Faust Filter Library");
 		m->declare("filter.lib/version", "2.0");
 	}
@@ -544,13 +544,13 @@ class bandpass24 : public dsp {
 	}
 	virtual void instanceResetUserInterface() {
 		fslider0 = 1e+04f;
-		fslider1 = 0.0f;
+		fslider1 = 0.01f;
 	}
 	virtual void instanceClear() {
 		for (int i=0; i<4; i++) fRec1_perm[i]=0;
-		for (int i=0; i<4; i++) fRec2_perm[i]=0;
-		for (int i=0; i<4; i++) fYec0_perm[i]=0;
 		for (int i=0; i<4; i++) fRec3_perm[i]=0;
+		for (int i=0; i<4; i++) fYec0_perm[i]=0;
+		for (int i=0; i<4; i++) fRec2_perm[i]=0;
 		for (int i=0; i<4; i++) fRec0_perm[i]=0;
 	}
 	virtual void init(int samplingFreq) {
@@ -562,8 +562,8 @@ class bandpass24 : public dsp {
 		instanceResetUserInterface();
 		instanceClear();
 	}
-	virtual bandpass24* clone() {
-		return new bandpass24();
+	virtual hpf24* clone() {
+		return new hpf24();
 	}
 	virtual int getSampleRate() {
 		return fSamplingFreq;
@@ -571,12 +571,13 @@ class bandpass24 : public dsp {
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("0x00");
 		ui_interface->addHorizontalSlider("freq", &fslider0, 1e+04f, 2e+01f, 2e+04f, 0.1f);
-		ui_interface->addVerticalSlider("res", &fslider1, 0.0f, -15.0f, 15.0f, 0.1f);
+		ui_interface->addVerticalSlider("q", &fslider1, 0.01f, 0.01f, 15.0f, 0.1f);
 		ui_interface->closeBox();
 	}
 	virtual void compute (int count, FAUSTFLOAT** input, FAUSTFLOAT** output) {
 		float 	fRec1_tmp[64+4];
-		float 	fRec2_tmp[64+4];
+		float 	fRec3_tmp[64+4];
+		float 	fYec0_tmp[64+4];
 		float 	fZec0[64];
 		float 	fZec1[64];
 		float 	fZec2[64];
@@ -584,16 +585,15 @@ class bandpass24 : public dsp {
 		float 	fZec4[64];
 		float 	fZec5[64];
 		float 	fZec6[64];
-		float 	fYec0_tmp[64+4];
 		float 	fZec7[64];
-		float 	fRec3_tmp[64+4];
+		float 	fRec2_tmp[64+4];
 		float 	fRec0_tmp[64+4];
 		float 	fSlow0 = (0.001f * float(fslider0));
 		float* 	fRec1 = &fRec1_tmp[4];
 		float 	fSlow1 = (0.001f * float(fslider1));
-		float* 	fRec2 = &fRec2_tmp[4];
-		float* 	fYec0 = &fYec0_tmp[4];
 		float* 	fRec3 = &fRec3_tmp[4];
+		float* 	fYec0 = &fYec0_tmp[4];
+		float* 	fRec2 = &fRec2_tmp[4];
 		float* 	fRec0 = &fRec0_tmp[4];
 		int index;
 		int fullcount = count;
@@ -603,7 +603,7 @@ class bandpass24 : public dsp {
 			FAUSTFLOAT* input0 = &input[0][index];
 			FAUSTFLOAT* output0 = &output[0][index];
 			// SECTION : 1
-			// LOOP 0x7fd8e2f02df0
+			// LOOP 0x7ff1e0c4b080
 			// pre processing
 			for (int i=0; i<4; i++) fRec1_tmp[i]=fRec1_perm[i];
 			// exec code
@@ -614,63 +614,44 @@ class bandpass24 : public dsp {
 			for (int i=0; i<4; i++) fRec1_perm[i]=fRec1_tmp[count+i];
 			
 			// SECTION : 2
-			// LOOP 0x7fd8e2f03e30
+			// LOOP 0x7ff1e0c4c290
 			// pre processing
-			for (int i=0; i<4; i++) fRec2_tmp[i]=fRec2_perm[i];
+			for (int i=0; i<4; i++) fRec3_tmp[i]=fRec3_perm[i];
 			// exec code
 			for (int i=0; i<count; i++) {
-				fRec2[i] = (fSlow1 + (0.999f * fRec2[i-1]));
+				fRec3[i] = (fSlow1 + (0.999f * fRec3[i-1]));
 			}
 			// post processing
-			for (int i=0; i<4; i++) fRec2_perm[i]=fRec2_tmp[count+i];
+			for (int i=0; i<4; i++) fRec3_perm[i]=fRec3_tmp[count+i];
 			
-			// LOOP 0x7fd8e2f04ff0
+			// LOOP 0x7ff1e0c4d960
 			// exec code
 			for (int i=0; i<count; i++) {
 				fZec0[i] = (fConst0 * max((float)0, fRec1[i]));
 			}
 			
 			// SECTION : 3
-			// LOOP 0x7fd8e2f06130
+			// LOOP 0x7ff1e0c4fa30
 			// exec code
 			for (int i=0; i<count; i++) {
-				fZec1[i] = sinf(fZec0[i]);
-			}
-			
-			// LOOP 0x7fd8e2f06550
-			// exec code
-			for (int i=0; i<count; i++) {
-				fZec2[i] = max(0.001f, fRec2[i]);
+				fZec4[i] = (0.5f * (sinf(fZec0[i]) / max(0.001f, fRec3[i])));
 			}
 			
 			// SECTION : 4
-			// LOOP 0x7fd8e2f05ff0
+			// LOOP 0x7ff1e0c4d880
 			// exec code
 			for (int i=0; i<count; i++) {
-				fZec3[i] = (0.5f * (fZec1[i] / fZec2[i]));
+				fZec1[i] = cosf(fZec0[i]);
+			}
+			
+			// LOOP 0x7ff1e0c4f950
+			// exec code
+			for (int i=0; i<count; i++) {
+				fZec5[i] = (fZec4[i] + 1);
 			}
 			
 			// SECTION : 5
-			// LOOP 0x7fd8e2f05f10
-			// exec code
-			for (int i=0; i<count; i++) {
-				fZec4[i] = (fZec3[i] + 1);
-			}
-			
-			// SECTION : 6
-			// LOOP 0x7fd8e2f04d50
-			// exec code
-			for (int i=0; i<count; i++) {
-				fZec5[i] = (0 - ((0 - (2 * cosf(fZec0[i]))) / fZec4[i]));
-			}
-			
-			// LOOP 0x7fd8e2f07970
-			// exec code
-			for (int i=0; i<count; i++) {
-				fZec6[i] = (0 - ((1 - fZec3[i]) / fZec4[i]));
-			}
-			
-			// LOOP 0x7fd8e2f081e0
+			// LOOP 0x7ff1e0c4cd20
 			// pre processing
 			for (int i=0; i<4; i++) fYec0_tmp[i]=fYec0_perm[i];
 			// exec code
@@ -680,36 +661,54 @@ class bandpass24 : public dsp {
 			// post processing
 			for (int i=0; i<4; i++) fYec0_perm[i]=fYec0_tmp[count+i];
 			
-			// LOOP 0x7fd8e2f087f0
+			// LOOP 0x7ff1e0c4d630
 			// exec code
 			for (int i=0; i<count; i++) {
-				fZec7[i] = (0 - fZec3[i]);
+				fZec2[i] = (-1 - fZec1[i]);
 			}
 			
-			// SECTION : 7
-			// LOOP 0x7fd8e2f04c70
-			// pre processing
-			for (int i=0; i<4; i++) fRec3_tmp[i]=fRec3_perm[i];
+			// LOOP 0x7ff1e0c4ee70
 			// exec code
 			for (int i=0; i<count; i++) {
-				fRec3[i] = (((fZec5[i] * fRec3[i-1]) + (fZec6[i] * fRec3[i-2])) + (((fYec0[i-2] * fZec7[i]) + (0.5f * (((float)input0[i] * fZec1[i]) / fZec2[i]))) / fZec4[i]));
+				fZec3[i] = (fZec1[i] + 1);
+			}
+			
+			// LOOP 0x7ff1e0c50650
+			// exec code
+			for (int i=0; i<count; i++) {
+				fZec6[i] = (0 - ((0 - (2 * fZec1[i])) / fZec5[i]));
+			}
+			
+			// LOOP 0x7ff1e0c50fd0
+			// exec code
+			for (int i=0; i<count; i++) {
+				fZec7[i] = (0 - ((1 - fZec4[i]) / fZec5[i]));
+			}
+			
+			// SECTION : 6
+			// LOOP 0x7ff1e0c4c030
+			// pre processing
+			for (int i=0; i<4; i++) fRec2_tmp[i]=fRec2_perm[i];
+			// exec code
+			for (int i=0; i<count; i++) {
+				fRec2[i] = ((((fYec0[i-1] * fZec2[i]) + (0.5f * (fZec3[i] * (fYec0[i-2] + (float)input0[i])))) / fZec5[i]) + ((fRec2[i-1] * fZec6[i]) + (fZec7[i] * fRec2[i-2])));
 			}
 			// post processing
-			for (int i=0; i<4; i++) fRec3_perm[i]=fRec3_tmp[count+i];
+			for (int i=0; i<4; i++) fRec2_perm[i]=fRec2_tmp[count+i];
 			
-			// SECTION : 8
-			// LOOP 0x7fd8e2f02af0
+			// SECTION : 7
+			// LOOP 0x7ff1e0c4ad80
 			// pre processing
 			for (int i=0; i<4; i++) fRec0_tmp[i]=fRec0_perm[i];
 			// exec code
 			for (int i=0; i<count; i++) {
-				fRec0[i] = (((fRec0[i-1] * fZec5[i]) + (fRec0[i-2] * fZec6[i])) + (((fZec7[i] * fRec3[i-2]) + (0.5f * ((fZec1[i] * fRec3[i]) / fZec2[i]))) / fZec4[i]));
+				fRec0[i] = ((((fZec2[i] * fRec2[i-1]) + (0.5f * (fZec3[i] * (fRec2[i-2] + fRec2[i])))) / fZec5[i]) + ((fRec0[i-2] * fZec7[i]) + (fRec0[i-1] * fZec6[i])));
 			}
 			// post processing
 			for (int i=0; i<4; i++) fRec0_perm[i]=fRec0_tmp[count+i];
 			
-			// SECTION : 9
-			// LOOP 0x7fd8e2f02a10
+			// SECTION : 8
+			// LOOP 0x7ff1e0c4aca0
 			// exec code
 			for (int i=0; i<count; i++) {
 				output0[i] = (FAUSTFLOAT)fRec0[i];
@@ -722,7 +721,7 @@ class bandpass24 : public dsp {
 			FAUSTFLOAT* input0 = &input[0][index];
 			FAUSTFLOAT* output0 = &output[0][index];
 			// SECTION : 1
-			// LOOP 0x7fd8e2f02df0
+			// LOOP 0x7ff1e0c4b080
 			// pre processing
 			for (int i=0; i<4; i++) fRec1_tmp[i]=fRec1_perm[i];
 			// exec code
@@ -733,63 +732,44 @@ class bandpass24 : public dsp {
 			for (int i=0; i<4; i++) fRec1_perm[i]=fRec1_tmp[count+i];
 			
 			// SECTION : 2
-			// LOOP 0x7fd8e2f03e30
+			// LOOP 0x7ff1e0c4c290
 			// pre processing
-			for (int i=0; i<4; i++) fRec2_tmp[i]=fRec2_perm[i];
+			for (int i=0; i<4; i++) fRec3_tmp[i]=fRec3_perm[i];
 			// exec code
 			for (int i=0; i<count; i++) {
-				fRec2[i] = (fSlow1 + (0.999f * fRec2[i-1]));
+				fRec3[i] = (fSlow1 + (0.999f * fRec3[i-1]));
 			}
 			// post processing
-			for (int i=0; i<4; i++) fRec2_perm[i]=fRec2_tmp[count+i];
+			for (int i=0; i<4; i++) fRec3_perm[i]=fRec3_tmp[count+i];
 			
-			// LOOP 0x7fd8e2f04ff0
+			// LOOP 0x7ff1e0c4d960
 			// exec code
 			for (int i=0; i<count; i++) {
 				fZec0[i] = (fConst0 * max((float)0, fRec1[i]));
 			}
 			
 			// SECTION : 3
-			// LOOP 0x7fd8e2f06130
+			// LOOP 0x7ff1e0c4fa30
 			// exec code
 			for (int i=0; i<count; i++) {
-				fZec1[i] = sinf(fZec0[i]);
-			}
-			
-			// LOOP 0x7fd8e2f06550
-			// exec code
-			for (int i=0; i<count; i++) {
-				fZec2[i] = max(0.001f, fRec2[i]);
+				fZec4[i] = (0.5f * (sinf(fZec0[i]) / max(0.001f, fRec3[i])));
 			}
 			
 			// SECTION : 4
-			// LOOP 0x7fd8e2f05ff0
+			// LOOP 0x7ff1e0c4d880
 			// exec code
 			for (int i=0; i<count; i++) {
-				fZec3[i] = (0.5f * (fZec1[i] / fZec2[i]));
+				fZec1[i] = cosf(fZec0[i]);
+			}
+			
+			// LOOP 0x7ff1e0c4f950
+			// exec code
+			for (int i=0; i<count; i++) {
+				fZec5[i] = (fZec4[i] + 1);
 			}
 			
 			// SECTION : 5
-			// LOOP 0x7fd8e2f05f10
-			// exec code
-			for (int i=0; i<count; i++) {
-				fZec4[i] = (fZec3[i] + 1);
-			}
-			
-			// SECTION : 6
-			// LOOP 0x7fd8e2f04d50
-			// exec code
-			for (int i=0; i<count; i++) {
-				fZec5[i] = (0 - ((0 - (2 * cosf(fZec0[i]))) / fZec4[i]));
-			}
-			
-			// LOOP 0x7fd8e2f07970
-			// exec code
-			for (int i=0; i<count; i++) {
-				fZec6[i] = (0 - ((1 - fZec3[i]) / fZec4[i]));
-			}
-			
-			// LOOP 0x7fd8e2f081e0
+			// LOOP 0x7ff1e0c4cd20
 			// pre processing
 			for (int i=0; i<4; i++) fYec0_tmp[i]=fYec0_perm[i];
 			// exec code
@@ -799,36 +779,54 @@ class bandpass24 : public dsp {
 			// post processing
 			for (int i=0; i<4; i++) fYec0_perm[i]=fYec0_tmp[count+i];
 			
-			// LOOP 0x7fd8e2f087f0
+			// LOOP 0x7ff1e0c4d630
 			// exec code
 			for (int i=0; i<count; i++) {
-				fZec7[i] = (0 - fZec3[i]);
+				fZec2[i] = (-1 - fZec1[i]);
 			}
 			
-			// SECTION : 7
-			// LOOP 0x7fd8e2f04c70
-			// pre processing
-			for (int i=0; i<4; i++) fRec3_tmp[i]=fRec3_perm[i];
+			// LOOP 0x7ff1e0c4ee70
 			// exec code
 			for (int i=0; i<count; i++) {
-				fRec3[i] = (((fZec5[i] * fRec3[i-1]) + (fZec6[i] * fRec3[i-2])) + (((fYec0[i-2] * fZec7[i]) + (0.5f * (((float)input0[i] * fZec1[i]) / fZec2[i]))) / fZec4[i]));
+				fZec3[i] = (fZec1[i] + 1);
+			}
+			
+			// LOOP 0x7ff1e0c50650
+			// exec code
+			for (int i=0; i<count; i++) {
+				fZec6[i] = (0 - ((0 - (2 * fZec1[i])) / fZec5[i]));
+			}
+			
+			// LOOP 0x7ff1e0c50fd0
+			// exec code
+			for (int i=0; i<count; i++) {
+				fZec7[i] = (0 - ((1 - fZec4[i]) / fZec5[i]));
+			}
+			
+			// SECTION : 6
+			// LOOP 0x7ff1e0c4c030
+			// pre processing
+			for (int i=0; i<4; i++) fRec2_tmp[i]=fRec2_perm[i];
+			// exec code
+			for (int i=0; i<count; i++) {
+				fRec2[i] = ((((fYec0[i-1] * fZec2[i]) + (0.5f * (fZec3[i] * (fYec0[i-2] + (float)input0[i])))) / fZec5[i]) + ((fRec2[i-1] * fZec6[i]) + (fZec7[i] * fRec2[i-2])));
 			}
 			// post processing
-			for (int i=0; i<4; i++) fRec3_perm[i]=fRec3_tmp[count+i];
+			for (int i=0; i<4; i++) fRec2_perm[i]=fRec2_tmp[count+i];
 			
-			// SECTION : 8
-			// LOOP 0x7fd8e2f02af0
+			// SECTION : 7
+			// LOOP 0x7ff1e0c4ad80
 			// pre processing
 			for (int i=0; i<4; i++) fRec0_tmp[i]=fRec0_perm[i];
 			// exec code
 			for (int i=0; i<count; i++) {
-				fRec0[i] = (((fRec0[i-1] * fZec5[i]) + (fRec0[i-2] * fZec6[i])) + (((fZec7[i] * fRec3[i-2]) + (0.5f * ((fZec1[i] * fRec3[i]) / fZec2[i]))) / fZec4[i]));
+				fRec0[i] = ((((fZec2[i] * fRec2[i-1]) + (0.5f * (fZec3[i] * (fRec2[i-2] + fRec2[i])))) / fZec5[i]) + ((fRec0[i-2] * fZec7[i]) + (fRec0[i-1] * fZec6[i])));
 			}
 			// post processing
 			for (int i=0; i<4; i++) fRec0_perm[i]=fRec0_tmp[count+i];
 			
-			// SECTION : 9
-			// LOOP 0x7fd8e2f02a10
+			// SECTION : 8
+			// LOOP 0x7ff1e0c4aca0
 			// exec code
 			for (int i=0; i<count; i++) {
 				output0[i] = (FAUSTFLOAT)fRec0[i];
@@ -857,7 +855,7 @@ struct t_faust {
      to write past the end of x_obj on Windows. */
     int fence; /* dummy field (not used) */
 #endif
-    bandpass24* dsp;
+    hpf24* dsp;
     PdUI<UI>* ui;
     int active, xfade, n_xfade, rate, n_in, n_out;
     t_sample **inputs, **outputs, **buf;
@@ -1075,7 +1073,7 @@ static bool faust_init_inputs(t_faust* x)
         x->inputs = static_cast<t_sample**>(calloc(x->n_in, sizeof(t_sample*)));
 
         if (x->inputs == NULL) {
-            error("[%s] faust_init_inputs failed", sym(bandpass24));
+            error("[%s] faust_init_inputs failed", sym(hpf24));
             return false;
         }
     }
@@ -1098,13 +1096,13 @@ static bool faust_init_outputs(t_faust* x, bool info_outlet)
     if (x->n_out > 0) {
         x->outputs = static_cast<t_sample**>(calloc(x->n_out, sizeof(t_sample*)));
         if (x->outputs == NULL) {
-            error("[%s] faust_init_outputs failed", sym(bandpass24));
+            error("[%s] faust_init_outputs failed", sym(hpf24));
             return false;
         }
 
         x->buf = static_cast<t_sample**>(calloc(x->n_out, sizeof(t_sample*)));
         if (x->buf == NULL) {
-            error("[%s] faust_init_outputs failed", sym(bandpass24));
+            error("[%s] faust_init_outputs failed", sym(hpf24));
             faust_free_outputs(x);
             return false;
         }
@@ -1135,8 +1133,8 @@ static bool faust_new_internal(t_faust* x, const std::string& objId = "", bool i
     x->rate = sr;
     x->n_xfade = static_cast<int>(sr * XFADE_TIME / 64);
 
-    x->dsp = new bandpass24();
-    x->ui = new PdUI<UI>(sym(bandpass24), objId);
+    x->dsp = new hpf24();
+    x->ui = new PdUI<UI>(sym(hpf24), objId);
 
     if (!faust_init_inputs(x)) {
         faust_free(x);

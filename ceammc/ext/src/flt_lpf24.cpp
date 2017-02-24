@@ -1,4 +1,4 @@
-#include "flt_lowpass12.h"
+#include "flt_lpf24.h"
 
 static void* faust_new(t_symbol* s, int argc, t_atom* argv)
 {
@@ -8,8 +8,8 @@ static void* faust_new(t_symbol* s, int argc, t_atom* argv)
     return p.pd_obj();
 }
 
-extern "C" void setup_flt0x2elowpass12_tilde()
+extern "C" void setup_flt0x2elpf24_tilde()
 {
-    internal_setup(gensym("flt.lowpass12~"));
+    internal_setup(gensym("flt.lpf24~"));
 }
 

@@ -472,7 +472,7 @@ inline const char* lopts(char* argv[], const char* name, const char* def)
 
 // clang-format off
 #ifndef FAUST_MACRO
-struct lowpass24 : public dsp {
+struct lpf24 : public dsp {
 };
 #endif
 // clang-format on
@@ -501,10 +501,10 @@ using namespace ceammc::faust;
 
 
 #ifndef FAUSTCLASS 
-#define FAUSTCLASS lowpass24
+#define FAUSTCLASS lpf24
 #endif
 
-class lowpass24 : public dsp {
+class lpf24 : public dsp {
   private:
 	FAUSTFLOAT 	fslider0;
 	float 	fRec1_perm[4];
@@ -544,7 +544,7 @@ class lowpass24 : public dsp {
 	}
 	virtual void instanceResetUserInterface() {
 		fslider0 = 1e+04f;
-		fslider1 = 0.0f;
+		fslider1 = 0.01f;
 	}
 	virtual void instanceClear() {
 		for (int i=0; i<4; i++) fRec1_perm[i]=0;
@@ -562,8 +562,8 @@ class lowpass24 : public dsp {
 		instanceResetUserInterface();
 		instanceClear();
 	}
-	virtual lowpass24* clone() {
-		return new lowpass24();
+	virtual lpf24* clone() {
+		return new lpf24();
 	}
 	virtual int getSampleRate() {
 		return fSamplingFreq;
@@ -571,7 +571,7 @@ class lowpass24 : public dsp {
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("0x00");
 		ui_interface->addHorizontalSlider("freq", &fslider0, 1e+04f, 2e+01f, 2e+04f, 0.1f);
-		ui_interface->addVerticalSlider("res", &fslider1, 0.0f, -15.0f, 15.0f, 0.1f);
+		ui_interface->addVerticalSlider("q", &fslider1, 0.01f, 0.01f, 15.0f, 0.1f);
 		ui_interface->closeBox();
 	}
 	virtual void compute (int count, FAUSTFLOAT** input, FAUSTFLOAT** output) {
@@ -602,7 +602,7 @@ class lowpass24 : public dsp {
 			FAUSTFLOAT* input0 = &input[0][index];
 			FAUSTFLOAT* output0 = &output[0][index];
 			// SECTION : 1
-			// LOOP 0x7fdb81c95840
+			// LOOP 0x7fe5fb551820
 			// pre processing
 			for (int i=0; i<4; i++) fRec1_tmp[i]=fRec1_perm[i];
 			// exec code
@@ -613,7 +613,7 @@ class lowpass24 : public dsp {
 			for (int i=0; i<4; i++) fRec1_perm[i]=fRec1_tmp[count+i];
 			
 			// SECTION : 2
-			// LOOP 0x7fdb81c96820
+			// LOOP 0x7fe5fb552800
 			// pre processing
 			for (int i=0; i<4; i++) fRec2_tmp[i]=fRec2_perm[i];
 			// exec code
@@ -623,52 +623,52 @@ class lowpass24 : public dsp {
 			// post processing
 			for (int i=0; i<4; i++) fRec2_perm[i]=fRec2_tmp[count+i];
 			
-			// LOOP 0x7fdb81c97ac0
+			// LOOP 0x7fe5fb553aa0
 			// exec code
 			for (int i=0; i<count; i++) {
 				fZec0[i] = (fConst0 * max((float)0, fRec1[i]));
 			}
 			
 			// SECTION : 3
-			// LOOP 0x7fdb81c98c60
+			// LOOP 0x7fe5fb554c70
 			// exec code
 			for (int i=0; i<count; i++) {
 				fZec2[i] = (0.5f * (sinf(fZec0[i]) / max(0.001f, fRec2[i])));
 			}
 			
 			// SECTION : 4
-			// LOOP 0x7fdb81c979e0
+			// LOOP 0x7fe5fb5539c0
 			// exec code
 			for (int i=0; i<count; i++) {
 				fZec1[i] = cosf(fZec0[i]);
 			}
 			
-			// LOOP 0x7fdb81c98a10
+			// LOOP 0x7fe5fb554a20
 			// exec code
 			for (int i=0; i<count; i++) {
 				fZec3[i] = (fZec2[i] + 1);
 			}
 			
 			// SECTION : 5
-			// LOOP 0x7fdb81c97750
+			// LOOP 0x7fe5fb553730
 			// exec code
 			for (int i=0; i<count; i++) {
 				fZec4[i] = (0 - ((0 - (2 * fZec1[i])) / fZec3[i]));
 			}
 			
-			// LOOP 0x7fdb81c9a010
+			// LOOP 0x7fe5fb556000
 			// exec code
 			for (int i=0; i<count; i++) {
 				fZec5[i] = (0 - ((1 - fZec2[i]) / fZec3[i]));
 			}
 			
-			// LOOP 0x7fdb81c9a880
+			// LOOP 0x7fe5fb556860
 			// exec code
 			for (int i=0; i<count; i++) {
 				fZec6[i] = (1 - fZec1[i]);
 			}
 			
-			// LOOP 0x7fdb81c9ac80
+			// LOOP 0x7fe5fb556c60
 			// pre processing
 			for (int i=0; i<4; i++) fYec0_tmp[i]=fYec0_perm[i];
 			// exec code
@@ -679,7 +679,7 @@ class lowpass24 : public dsp {
 			for (int i=0; i<4; i++) fYec0_perm[i]=fYec0_tmp[count+i];
 			
 			// SECTION : 6
-			// LOOP 0x7fdb81c97670
+			// LOOP 0x7fe5fb553650
 			// pre processing
 			for (int i=0; i<4; i++) fRec3_tmp[i]=fRec3_perm[i];
 			// exec code
@@ -690,18 +690,18 @@ class lowpass24 : public dsp {
 			for (int i=0; i<4; i++) fRec3_perm[i]=fRec3_tmp[count+i];
 			
 			// SECTION : 7
-			// LOOP 0x7fdb81c95540
+			// LOOP 0x7fe5fb551520
 			// pre processing
 			for (int i=0; i<4; i++) fRec0_tmp[i]=fRec0_perm[i];
 			// exec code
 			for (int i=0; i<count; i++) {
-				fRec0[i] = (((fRec0[i-2] * fZec5[i]) + (fRec0[i-1] * fZec4[i])) + ((fZec6[i] * (fRec3[i-1] + (0.5f * (fRec3[i-2] + fRec3[i])))) / fZec3[i]));
+				fRec0[i] = (((fRec0[i-1] * fZec4[i]) + (fRec0[i-2] * fZec5[i])) + ((fZec6[i] * (fRec3[i-1] + (0.5f * (fRec3[i-2] + fRec3[i])))) / fZec3[i]));
 			}
 			// post processing
 			for (int i=0; i<4; i++) fRec0_perm[i]=fRec0_tmp[count+i];
 			
 			// SECTION : 8
-			// LOOP 0x7fdb81c95460
+			// LOOP 0x7fe5fb551440
 			// exec code
 			for (int i=0; i<count; i++) {
 				output0[i] = (FAUSTFLOAT)fRec0[i];
@@ -714,7 +714,7 @@ class lowpass24 : public dsp {
 			FAUSTFLOAT* input0 = &input[0][index];
 			FAUSTFLOAT* output0 = &output[0][index];
 			// SECTION : 1
-			// LOOP 0x7fdb81c95840
+			// LOOP 0x7fe5fb551820
 			// pre processing
 			for (int i=0; i<4; i++) fRec1_tmp[i]=fRec1_perm[i];
 			// exec code
@@ -725,7 +725,7 @@ class lowpass24 : public dsp {
 			for (int i=0; i<4; i++) fRec1_perm[i]=fRec1_tmp[count+i];
 			
 			// SECTION : 2
-			// LOOP 0x7fdb81c96820
+			// LOOP 0x7fe5fb552800
 			// pre processing
 			for (int i=0; i<4; i++) fRec2_tmp[i]=fRec2_perm[i];
 			// exec code
@@ -735,52 +735,52 @@ class lowpass24 : public dsp {
 			// post processing
 			for (int i=0; i<4; i++) fRec2_perm[i]=fRec2_tmp[count+i];
 			
-			// LOOP 0x7fdb81c97ac0
+			// LOOP 0x7fe5fb553aa0
 			// exec code
 			for (int i=0; i<count; i++) {
 				fZec0[i] = (fConst0 * max((float)0, fRec1[i]));
 			}
 			
 			// SECTION : 3
-			// LOOP 0x7fdb81c98c60
+			// LOOP 0x7fe5fb554c70
 			// exec code
 			for (int i=0; i<count; i++) {
 				fZec2[i] = (0.5f * (sinf(fZec0[i]) / max(0.001f, fRec2[i])));
 			}
 			
 			// SECTION : 4
-			// LOOP 0x7fdb81c979e0
+			// LOOP 0x7fe5fb5539c0
 			// exec code
 			for (int i=0; i<count; i++) {
 				fZec1[i] = cosf(fZec0[i]);
 			}
 			
-			// LOOP 0x7fdb81c98a10
+			// LOOP 0x7fe5fb554a20
 			// exec code
 			for (int i=0; i<count; i++) {
 				fZec3[i] = (fZec2[i] + 1);
 			}
 			
 			// SECTION : 5
-			// LOOP 0x7fdb81c97750
+			// LOOP 0x7fe5fb553730
 			// exec code
 			for (int i=0; i<count; i++) {
 				fZec4[i] = (0 - ((0 - (2 * fZec1[i])) / fZec3[i]));
 			}
 			
-			// LOOP 0x7fdb81c9a010
+			// LOOP 0x7fe5fb556000
 			// exec code
 			for (int i=0; i<count; i++) {
 				fZec5[i] = (0 - ((1 - fZec2[i]) / fZec3[i]));
 			}
 			
-			// LOOP 0x7fdb81c9a880
+			// LOOP 0x7fe5fb556860
 			// exec code
 			for (int i=0; i<count; i++) {
 				fZec6[i] = (1 - fZec1[i]);
 			}
 			
-			// LOOP 0x7fdb81c9ac80
+			// LOOP 0x7fe5fb556c60
 			// pre processing
 			for (int i=0; i<4; i++) fYec0_tmp[i]=fYec0_perm[i];
 			// exec code
@@ -791,7 +791,7 @@ class lowpass24 : public dsp {
 			for (int i=0; i<4; i++) fYec0_perm[i]=fYec0_tmp[count+i];
 			
 			// SECTION : 6
-			// LOOP 0x7fdb81c97670
+			// LOOP 0x7fe5fb553650
 			// pre processing
 			for (int i=0; i<4; i++) fRec3_tmp[i]=fRec3_perm[i];
 			// exec code
@@ -802,18 +802,18 @@ class lowpass24 : public dsp {
 			for (int i=0; i<4; i++) fRec3_perm[i]=fRec3_tmp[count+i];
 			
 			// SECTION : 7
-			// LOOP 0x7fdb81c95540
+			// LOOP 0x7fe5fb551520
 			// pre processing
 			for (int i=0; i<4; i++) fRec0_tmp[i]=fRec0_perm[i];
 			// exec code
 			for (int i=0; i<count; i++) {
-				fRec0[i] = (((fRec0[i-2] * fZec5[i]) + (fRec0[i-1] * fZec4[i])) + ((fZec6[i] * (fRec3[i-1] + (0.5f * (fRec3[i-2] + fRec3[i])))) / fZec3[i]));
+				fRec0[i] = (((fRec0[i-1] * fZec4[i]) + (fRec0[i-2] * fZec5[i])) + ((fZec6[i] * (fRec3[i-1] + (0.5f * (fRec3[i-2] + fRec3[i])))) / fZec3[i]));
 			}
 			// post processing
 			for (int i=0; i<4; i++) fRec0_perm[i]=fRec0_tmp[count+i];
 			
 			// SECTION : 8
-			// LOOP 0x7fdb81c95460
+			// LOOP 0x7fe5fb551440
 			// exec code
 			for (int i=0; i<count; i++) {
 				output0[i] = (FAUSTFLOAT)fRec0[i];
@@ -842,7 +842,7 @@ struct t_faust {
      to write past the end of x_obj on Windows. */
     int fence; /* dummy field (not used) */
 #endif
-    lowpass24* dsp;
+    lpf24* dsp;
     PdUI<UI>* ui;
     int active, xfade, n_xfade, rate, n_in, n_out;
     t_sample **inputs, **outputs, **buf;
@@ -1060,7 +1060,7 @@ static bool faust_init_inputs(t_faust* x)
         x->inputs = static_cast<t_sample**>(calloc(x->n_in, sizeof(t_sample*)));
 
         if (x->inputs == NULL) {
-            error("[%s] faust_init_inputs failed", sym(lowpass24));
+            error("[%s] faust_init_inputs failed", sym(lpf24));
             return false;
         }
     }
@@ -1083,13 +1083,13 @@ static bool faust_init_outputs(t_faust* x, bool info_outlet)
     if (x->n_out > 0) {
         x->outputs = static_cast<t_sample**>(calloc(x->n_out, sizeof(t_sample*)));
         if (x->outputs == NULL) {
-            error("[%s] faust_init_outputs failed", sym(lowpass24));
+            error("[%s] faust_init_outputs failed", sym(lpf24));
             return false;
         }
 
         x->buf = static_cast<t_sample**>(calloc(x->n_out, sizeof(t_sample*)));
         if (x->buf == NULL) {
-            error("[%s] faust_init_outputs failed", sym(lowpass24));
+            error("[%s] faust_init_outputs failed", sym(lpf24));
             faust_free_outputs(x);
             return false;
         }
@@ -1120,8 +1120,8 @@ static bool faust_new_internal(t_faust* x, const std::string& objId = "", bool i
     x->rate = sr;
     x->n_xfade = static_cast<int>(sr * XFADE_TIME / 64);
 
-    x->dsp = new lowpass24();
-    x->ui = new PdUI<UI>(sym(lowpass24), objId);
+    x->dsp = new lpf24();
+    x->ui = new PdUI<UI>(sym(lpf24), objId);
 
     if (!faust_init_inputs(x)) {
         faust_free(x);
