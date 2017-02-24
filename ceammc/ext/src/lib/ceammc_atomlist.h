@@ -46,103 +46,103 @@ public:
     bool empty() const;
 
     /**
-     * @brief returns reference to element at specified position
-     * @param pos - position (starting from 0)
-     * @return reference to element
-     * @throw exception if invalid position given
-     */
+         * @brief returns reference to element at specified position
+         * @param pos - position (starting from 0)
+         * @return reference to element
+         * @throw exception if invalid position given
+         */
     Atom& at(size_t pos);
     const Atom& at(size_t pos) const;
     Atom& operator[](size_t pos);
     const Atom& operator[](size_t pos) const;
 
     /**
-     * @brief returns pointer to element at specified relative position
-     * @param pos - positive value means position from the begining, negative position - from end.
-     * @example pos == -1 means last element (if exists)
-     * @return pointer to element, or NULL if no element at given position
-     */
+         * @brief returns pointer to element at specified relative position
+         * @param pos - positive value means position from the begining, negative position - from end.
+         * @example pos == -1 means last element (if exists)
+         * @return pointer to element, or NULL if no element at given position
+         */
     Atom* relativeAt(int pos);
     const Atom* relativeAt(int pos) const;
 
     /**
-     * Same as at(), but values for index greater than the size of the
-     * List will be clipped to the last index.
-     * @param pos - position index
-     * @return pointer to element, or NULL if empty
-     */
+         * Same as at(), but values for index greater than the size of the
+         * List will be clipped to the last index.
+         * @param pos - position index
+         * @return pointer to element, or NULL if empty
+         */
     Atom* clipAt(int pos);
     const Atom* clipAt(int pos) const;
 
     /**
-     * Same as at(), but values for index greater than the size of the
-     * List will be wrapped around to 0.
-     * @param pos - position index
-     * @return pointer to element, or NULL if empty
-     */
+         * Same as at(), but values for index greater than the size of the
+         * List will be wrapped around to 0.
+         * @param pos - position index
+         * @return pointer to element, or NULL if empty
+         */
     Atom* wrapAt(int pos);
     const Atom* wrapAt(int pos) const;
 
     /**
-     * Same as at(), but values for index greater than the size of the
-     * List will be folded back.
-     * @param pos - position index
-     * @return pointer to element, or NULL if empty
-     */
+         * Same as at(), but values for index greater than the size of the
+         * List will be folded back.
+         * @param pos - position index
+         * @return pointer to element, or NULL if empty
+         */
     Atom* foldAt(int pos);
     const Atom* foldAt(int pos) const;
 
     /**
-     * Resize list. If new size is less than current, last values are dropped.
-     * If new size is bigger - pad with given value
-     * @param n - new size
-     * @param v - pad value
-     */
+         * Resize list. If new size is less than current, last values are dropped.
+         * If new size is bigger - pad with given value
+         * @param n - new size
+         * @param v - pad value
+         */
     void resizePad(size_t n, const Atom& v);
 
     /**
-     * Resize list. If new size is less than current, last values are dropped.
-     * If new size is bigger - pad with last value
-     * @param n - new size
-     * @param v - pad value
-     * @note do nothing on empty list
-     */
+         * Resize list. If new size is less than current, last values are dropped.
+         * If new size is bigger - pad with last value
+         * @param n - new size
+         * @param v - pad value
+         * @note do nothing on empty list
+         */
     void resizeClip(size_t n);
 
     /**
-     * Resize list. If new size is less than current, last values are dropped.
-     * If new size is bigger - wrap with list values
-     * @param n - new size
-     * @param v - pad value
-     * @note do nothing on empty list
-     */
+         * Resize list. If new size is less than current, last values are dropped.
+         * If new size is bigger - wrap with list values
+         * @param n - new size
+         * @param v - pad value
+         * @note do nothing on empty list
+         */
     void resizeWrap(size_t n);
 
     /**
-     * Resize list. If new size is less than current, last values are dropped.
-     * If new size is bigger - fold with list values
-     * @param n - new size
-     * @param v - pad value
-     * @note do nothing on empty list
-     */
+         * Resize list. If new size is less than current, last values are dropped.
+         * If new size is bigger - fold with list values
+         * @param n - new size
+         * @param v - pad value
+         * @note do nothing on empty list
+         */
     void resizeFold(size_t n);
 
     /**
-     * Get property value from list
-     * @param name - property name with (starts with '@')
-     * @param dest - output destination
-     * @return true if property was found and it has value
-     */
+         * Get property value from list
+         * @param name - property name with (starts with '@')
+         * @param dest - output destination
+         * @return true if property was found and it has value
+         */
     bool property(const std::string& name, Atom* dest) const;
 
     /**
-     * Returns all properties and their values from list
-     */
+         * Returns all properties and their values from list
+         */
     std::deque<AtomList> properties() const;
 
     /**
-     * Checks is has property in list
-     */
+         * Checks is has property in list
+         */
     bool hasProperty(const std::string& name) const;
 
     AtomList slice(int start) const;
@@ -190,13 +190,13 @@ public:
     Atom* findLast(AtomPredicate pred);
 
     /**
-     * Returns sum of floats in list or 0 if empty
-     */
+         * Returns sum of floats in list or 0 if empty
+         */
     float sum() const;
 
     /**
-     * Returns product of floats in list or 0 if empty
-     */
+         * Returns product of floats in list or 0 if empty
+         */
     float product() const;
 
     bool contains(const Atom& a) const;
@@ -213,27 +213,27 @@ public:
     size_t asSizeT(size_t defaultValue = 0) const;
 
     /**
-     * @brief output list atoms separatly, one by one
-     * @param x - output outlet
-     */
+         * @brief output list atoms separatly, one by one
+         * @param x - output outlet
+         */
     void outputAtoms(t_outlet* x) const;
 
     /**
-      * Outputs list to given outlet
-      * @param x - pointer to outlet
-      */
+         * Outputs list to given outlet
+         * @param x - pointer to outlet
+         */
     void output(t_outlet* x) const;
 
     /**
-     * Outputs list content as any message. First list atom became selector
-     */
+         * Outputs list content as any message. First list atom became selector
+         */
     void outputAsAny(t_outlet* x) const;
 
     /**
-     * Outputs list content as any message.
-     * @param x - pointer to outlet
-     * @param s - any selector
-     */
+         * Outputs list content as any message.
+         * @param x - pointer to outlet
+         * @param s - any selector
+         */
     void outputAsAny(t_outlet* x, t_symbol* s) const;
 
     enum NonEqualLengthBehaivor {
@@ -257,25 +257,25 @@ public:
     static AtomList values(size_t n, ...);
 
     /**
-     * @brief returns new list that is a sum of original list values and new list ("l") values
-     * @param l - list
-     * @param b - behaivor flag, when lists are different lengths
-     * @return new list
-     */
+         * @brief returns new list that is a sum of original list values and new list ("l") values
+         * @param l - list
+         * @param b - behaivor flag, when lists are different lengths
+         * @return new list
+         */
     static AtomList add(const AtomList& a, const AtomList& b, NonEqualLengthBehaivor lb = MINSIZE);
 
     /**
-     * @brief returns new list that contains difference from given lists
-     * @param a - first list
-     * @param b - second list
-     * @param lb - behaivor flag, when lists are different lengths
-     * @return new list
-     */
+         * @brief returns new list that contains difference from given lists
+         * @param a - first list
+         * @param b - second list
+         * @param lb - behaivor flag, when lists are different lengths
+         * @return new list
+         */
     static AtomList sub(const AtomList& a, const AtomList& b, NonEqualLengthBehaivor lb = MINSIZE);
 
     /**
-      * arithmetic operators
-      */
+         * arithmetic operators
+         */
     AtomList& operator+=(double v);
     AtomList& operator-=(double v);
     AtomList& operator*=(double v);

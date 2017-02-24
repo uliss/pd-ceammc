@@ -8,6 +8,8 @@ remove_definitions(-DPD_INTERNAL)
 add_definitions(-DPD)
 add_subdirectory(rtmidi)
 
+add_subdirectory(noise)
+
 add_custom_target(ceammc_generate_math
     COMMAND ${CMAKE_SOURCE_DIR}/ceammc/py/generate_math.py
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
@@ -157,13 +159,16 @@ ceammc_cxx_extension(exp patchdata)
 ceammc_cxx_extension(ui ecanvas)
 
 ceammc_cxx_extension(exp recursion)
+
 ceammc_cxx_extension(exp class)
 ceammc_cxx_extension(exp instance)
 ceammc_cxx_extension(exp method)
 ceammc_cxx_extension(exp aproperty)
-ceammc_cxx_extension(exp signal)
+ceammc_cxx_extension(exp signal~)
 ceammc_cxx_extension(exp this)
 ceammc_cxx_extension(exp parent)
+ceammc_cxx_extension(exp vinstance)
+
 endif()
 
 
@@ -188,6 +193,13 @@ ceammc_cxx_extension__(is float)
 ceammc_cxx_extension__(is list)
 ceammc_cxx_extension__(is symbol)
 ceammc_cxx_extension__(is pointer)
+
+###############################
+# NOISE:A-CHAOS
+###############################
+
+
+
 
 ###############################
 # TIME
@@ -288,17 +300,25 @@ ceammc_faust_extension(flt dcblock2 simple_pd_control_ext)
 ceammc_faust_extension(flt highshelf simple_pd_control_ext)
 ceammc_faust_extension(flt lowshelf simple_pd_control_ext)
 ceammc_faust_extension(flt eq_peak simple_pd_control_ext)
+ceammc_faust_extension(flt lpf12 simple_pd_control_ext)
+ceammc_faust_extension(flt lpf24 simple_pd_control_ext)
+ceammc_faust_extension(flt hpf12 simple_pd_control_ext)
+ceammc_faust_extension(flt hpf24 simple_pd_control_ext)
+ceammc_faust_extension(flt bpf12 simple_pd_control_ext)
+ceammc_faust_extension(flt bpf24 simple_pd_control_ext)
 
 ceammc_faust_extension(fx freeverb simple_pd_control_ext)
 ceammc_faust_extension(fx freeverb2 simple_pd_control_ext)
 
-#ceammc_faust_extension(flt biquad simple_pd_control_ext)
-#ceammc_faust_extension(flt c_lpf simple_pd_control_ext)
-#ceammc_faust_extension(flt c_hpf simple_pd_control_ext)
-#ceammc_faust_extension(flt c_bpf simple_pd_control_ext)
-#ceammc_faust_extension(flt c_peak simple_pd_control_ext)
-#ceammc_faust_extension(flt c_lowshelf simple_pd_control_ext)
-#ceammc_faust_extension(flt c_highshelf simple_pd_control_ext)
+ceammc_faust_extension(flt biquad simple_pd_control_ext)
+ceammc_faust_extension(flt c_lpf simple_pd_control_ext)
+ceammc_faust_extension(flt c_hpf simple_pd_control_ext)
+ceammc_faust_extension(flt c_bpf simple_pd_control_ext)
+ceammc_faust_extension(flt c_peak simple_pd_control_ext)
+ceammc_faust_extension(flt c_lowshelf simple_pd_control_ext)
+ceammc_faust_extension(flt c_highshelf simple_pd_control_ext)
+
+
 
 
 ceammc_faust_extension(dyn comp simple_pd_control_ext)
@@ -311,6 +331,10 @@ ceammc_faust_extension(dyn softclip simple_pd_control_ext)
 
 ceammc_faust_extension(noise white simple_pd_control_ext)
 ceammc_faust_extension(noise pink simple_pd_control_ext)
+ceammc_faust_extension(noise lfreq simple_pd_control_ext)
+
+#test!
+#ceammc_faust_extension(noise lorenz simple_pd_control_ext)
 
 ceammc_faust_extension(spat pan2 simple_pd_control_ext)
 ceammc_faust_extension(spat pan4 simple_pd_control_ext)

@@ -304,9 +304,8 @@ static void* exp_parent_new(t_symbol* id, int argc, t_atom* argv)
     x->e_box.b_boxparameters.d_bordercolor = rgba_red;
 
     x->out1 = outlet_new((t_object*)x, &s_anything);
-    //x->out2 = outlet_new((t_object*)x, &s_signal);
-
-    //x->in2 = inlet_new(&x->e_box.b_obj.o_obj, &x->e_box.b_obj.o_obj.ob_pd, &s_signal, &s_signal);
+    // x->out2 = outlet_new((t_object*)x, &s_signal);
+    // x->in2 = inlet_new(&x->e_box.b_obj.o_obj, &x->e_box.b_obj.o_obj.ob_pd, &s_signal, &s_signal);
 
     x->vec_size = 64; //test
     x->instance = 0;

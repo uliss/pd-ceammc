@@ -90,6 +90,8 @@ public:
     }
 };
 
+#pragma mark -
+
 namespace ceammc_gui {
 
 static const int MAX_SLIDERS_NUM = 1024;
@@ -296,6 +298,8 @@ UI_fun(ui_sliders)::wx_attr_changed_ext(ui_sliders* z, t_symbol*)
 {
     ws_redraw(z);
 }
+    
+#pragma mark -
 
 UI_fun(ui_sliders)::init_ext(t_eclass* z)
 {

@@ -92,6 +92,8 @@ UI_fun(ui_spectroscope)::wx_paint(ui_spectroscope* zx, t_object* view)
             t_sample f_i = 1. / fft_size * in1[(int)floor(i2 / 2) + fft_size];
 
             out1[i2] = sqrtf(f_r * f_r + f_i * f_i);
+            
+            out1[i2] = log10f(128.*out1[i2]);
 
             i2++;
 

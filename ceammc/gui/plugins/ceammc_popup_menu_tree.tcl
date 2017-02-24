@@ -59,6 +59,9 @@
     {random
         {random.float random.gauss random.int}
     }
+    {noise
+    	{noise.baker noise.clifford noise.collatz noise.duffing noise.ginger noise.henon_heilles noise.henon_phase noise.henon noise.henonf noise.ikeda noise.jong noise.logistic noise.lorenz noise.lyapunov noise.navier_stokes noise.rossler noise.stein noise.torus noise.verhulst}
+    }
     {path
         {path.basename path.dirname path.exists path.home path.listdir}
     }
