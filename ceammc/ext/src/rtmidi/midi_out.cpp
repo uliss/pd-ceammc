@@ -71,7 +71,15 @@ public:
     
     void onFloat(float f)
     {
-        post("set port %i", int(f));
+        int i = int(f);
+        
+        int nPorts = midiout->getPortCount();
+        if (i<nPorts)
+        {
+            if (midiout->isPortOpen())
+                midiout->closePort();
+            midiout->openPort(i);
+        }
     }
     
     void onSymbol(t_symbol* s)
