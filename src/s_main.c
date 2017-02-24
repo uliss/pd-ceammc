@@ -71,7 +71,7 @@ char sys_font[100] = "Monaco";
 char sys_fontweight[10] = "normal";
 #else
 char sys_font[100] = "DejaVu Sans Mono";
-char sys_fontweight[10] = "bold";
+char sys_fontweight[10] = "normal";
 #endif
 static int sys_main_srate;
 static int sys_main_advance;
@@ -193,7 +193,7 @@ int sys_fontheight(int fontsize)
 }
 
 int sys_defaultfont;
-#define DEFAULTFONT 10
+#define DEFAULTFONT 12
 
 static void openit(const char *dirname, const char *filename)
 {
@@ -545,7 +545,7 @@ void sys_findprogdir(char *progname)
 #else
     strncpy(sbuf, sbuf2, MAXPDSTRING-30);
     sbuf[MAXPDSTRING-30] = 0;
-    strcat(sbuf, "/lib/pd");
+    strcat(sbuf, "/lib/pd_ceammc");
     if (stat(sbuf, &statbuf) >= 0)
     {
             /* complicated layout: lib dir is the one we just stat-ed above */

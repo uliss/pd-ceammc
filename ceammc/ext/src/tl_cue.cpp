@@ -94,16 +94,16 @@ static void tl_cue_ebox_move(t_ebox* x)
     }
 }
 
-static void redraw_canvas_cues(t_canvas* c, t_object* except = 0)
+static void redraw_canvas_cues(t_canvas* c, tl_cue* except = 0)
 {
     CueList* lst = CueStorage::cueList(c);
     if (lst == 0)
         return;
 
     for (size_t i = 0; i < lst->size(); i++) {
-        t_object* obj = lst->at(i)->object();
+        void* obj = lst->at(i)->object();
         if (obj != except) {
-            GuiFactory<tl_cue>::ws_redraw(obj);
+            GuiFactory<tl_cue>::ws_redraw(reinterpret_cast<tl_cue*>(obj));
         }
     }
 }
@@ -140,10 +140,8 @@ void tl_cue_displace(t_gobj* z, t_glist* glist, int dx, int /*dy*/)
     }
 }
 
-UI_fun(tl_cue)::new_ext(t_object* z, t_symbol* /*s*/, int /*argc*/, t_atom* /*argv*/)
+UI_fun(tl_cue)::new_ext(tl_cue* zx, t_symbol* /*s*/, int /*argc*/, t_atom* /*argv*/)
 {
-    tl_cue* zx = asStruct(z);
-
     zx->txt = etext_layout_create();
     zx->fnt = efont_create(FONT_FAMILY, FONT_STYLE, FONT_WEIGHT, FONT_SIZE);
     zx->canvas = canvas_getcurrent();
@@ -168,52 +166,49 @@ UI_fun(tl_cue)::init_ext(t_eclass* z)
     eclass_addmethod(z, reinterpret_cast<method>(tl_cue_getdrawparams), "getdrawparams", A_NULL, 0);
 }
 
-UI_fun(tl_cue)::free_ext(t_object* z)
+UI_fun(tl_cue)::free_ext(tl_cue* zx)
 {
-    tl_cue* zx = asStruct(z);
-    vline_delete(asBox(z));
+    vline_delete(asBox(zx));
     CueStorage::remove(zx->data);
     delete zx->data;
     etext_layout_destroy(zx->txt);
     efont_destroy(zx->fnt);
 }
 
-UI_fun(tl_cue)::wx_oksize(t_object* /*z*/, t_rect* newrect)
+UI_fun(tl_cue)::wx_oksize(tl_cue* /*z*/, t_rect* newrect)
 {
     newrect->width = 45;
     newrect->height = 15;
 }
 
-UI_fun(tl_cue)::wx_attr_changed_ext(t_object* z, t_symbol* attr)
+UI_fun(tl_cue)::wx_attr_changed_ext(tl_cue* z, t_symbol* attr)
 {
     if (attr == gensym("bdcolor"))
         ws_redraw(z);
 }
 
-UI_fun(tl_cue)::wx_paint(t_object* z, t_object* /*view*/)
+UI_fun(tl_cue)::wx_paint(tl_cue* zx, t_object* /*view*/)
 {
     t_rect rect;
-    ebox_get_rect_for_view(asBox(z), &rect);
+    zx->getRect(&rect);
 
-    t_elayer* g = ebox_start_layer(asBox(z), BG_LAYER, rect.width, rect.height);
+    t_elayer* g = ebox_start_layer(asBox(zx), BG_LAYER, rect.width, rect.height);
     if (g) {
-        tl_cue* zx = asStruct(z);
-
         bool pos_changed = zx->updatePos();
         etext_layout_set(zx->txt, zx->data->name().c_str(), zx->fnt, 2, 15, rect.width, rect.height / 2,
             ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
 
         etext_layout_draw(zx->txt, g);
-        ebox_end_layer(asBox(z), BG_LAYER);
+        ebox_end_layer(asBox(zx), BG_LAYER);
 
         if (pos_changed)
-            redraw_canvas_cues(zx->canvas, z);
+            redraw_canvas_cues(zx->canvas, zx);
 
-        vline_delete(asBox(z));
-        vline_draw(asBox(z));
+        vline_delete(asBox(zx));
+        vline_draw(asBox(zx));
     }
 
-    ebox_paint_layer(asBox(z), BG_LAYER, 0., 0.);
+    ebox_paint_layer(asBox(zx), BG_LAYER, 0., 0.);
 }
 }
 

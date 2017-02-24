@@ -394,7 +394,7 @@ extern "C" void setup_ui0x2eradio(void)
         CLASS_ATTR_DEFAULT              (c, "size", 0, "127. 15.");
         
         CLASS_ATTR_INT                  (c, "nitems", 0, t_radio, f_nitems);
-        CLASS_ATTR_LABEL                (c, "nitems", 0, "Number of Items");
+        CLASS_ATTR_LABEL                (c, "nitems", 0, _("Number of Items"));
         CLASS_ATTR_ACCESSORS			(c, "nitems", NULL, radio_nitems_set);
         CLASS_ATTR_ORDER                (c, "nitems", 0, "1");
         CLASS_ATTR_FILTER_CLIP          (c, "nitems", 1, CREAM_MAXITEMS);
@@ -403,7 +403,7 @@ extern "C" void setup_ui0x2eradio(void)
         CLASS_ATTR_STYLE                (c, "nitems", 0, "number");
         
         CLASS_ATTR_INT                  (c, "mode", 0, t_radio, f_mode);
-        CLASS_ATTR_LABEL                (c, "mode", 0, "Check List Mode");
+        CLASS_ATTR_LABEL                (c, "mode", 0, _("Check List Mode"));
         CLASS_ATTR_ACCESSORS			(c, "mode", NULL, radio_mode_set);
         CLASS_ATTR_ORDER                (c, "mode", 0, "1");
         CLASS_ATTR_FILTER_CLIP          (c, "mode", 0, 1);
@@ -412,19 +412,19 @@ extern "C" void setup_ui0x2eradio(void)
         CLASS_ATTR_STYLE                (c, "mode", 0, "onoff");
         
         CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_radio, f_color_background);
-        CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
+        CLASS_ATTR_LABEL                (c, "bgcolor", 0, _("Background Color"));
         CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
         CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, DEFAULT_BACKGROUND_COLOR);
         CLASS_ATTR_STYLE                (c, "bgcolor", 0, "color");
         
         CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_radio, f_color_border);
-        CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Border Color");
+        CLASS_ATTR_LABEL                (c, "bdcolor", 0, _("Border Color"));
         CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
         CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, DEFAULT_BORDER_COLOR);
         CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
         
         CLASS_ATTR_RGBA                 (c, "itcolor", 0, t_radio, f_color_item);
-        CLASS_ATTR_LABEL                (c, "itcolor", 0, "Item Color");
+        CLASS_ATTR_LABEL                (c, "itcolor", 0, _("Active Color"));
         CLASS_ATTR_ORDER                (c, "itcolor", 0, "3");
         CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "itcolor", 0, DEFAULT_ACTIVE_COLOR);
         CLASS_ATTR_STYLE                (c, "itcolor", 0, "color");

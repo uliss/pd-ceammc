@@ -1,7 +1,7 @@
 #N canvas 0 0 630 500 12;
-#X obj 20 53 ui.link @title index @link ../index-help.pd @size 100 25;
+#X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
-#X obj 79 53 ui.link @title ceammc @link ceammc-help.pd @size 100 25;
+#X obj 79 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 30 116 live.capture~;
 #X text 175 116 record up to 8s of sound and playback the recorded
 sound in loop;

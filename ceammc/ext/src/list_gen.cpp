@@ -10,11 +10,13 @@ static const int MAX_COUNT = 1024;
 class ListGenerate : public BaseObject {
     AtomList gen_values_;
     IntProperty* count_;
+    bool in_process_;
 
 public:
     ListGenerate(const PdArgs& a)
         : BaseObject(a)
         , count_(0)
+        , in_process_(false)
     {
         createInlet();
         createOutlet();
@@ -28,18 +30,34 @@ public:
             setCount(atomlistToValue<float>(args(), 0.f));
     }
 
+    bool loopbackDetected()
+    {
+        if (in_process_)
+            OBJ_ERR << "loopback detected... rejected";
+
+        return in_process_;
+    }
+
     void onBang()
     {
+        if (loopbackDetected())
+            return;
+
+        in_process_ = true;
         gen_values_.clear();
 
         for (int i = 0; i < count_->value(); i++)
             bangTo(1);
 
         listTo(0, gen_values_);
+        in_process_ = false;
     }
 
     void onFloat(float v)
     {
+        if (loopbackDetected())
+            return;
+
         if (!setCount(v))
             return;
 

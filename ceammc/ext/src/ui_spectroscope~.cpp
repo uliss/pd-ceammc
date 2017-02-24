@@ -36,7 +36,7 @@ static void ui_spectroscope_perform(ui_spectroscope* x, t_object* dsp64, t_sampl
     x->counter++;
     if (x->counter == 32) {
         x->counter = 0;
-        ceammc_gui::GuiFactory<ui_spectroscope>::ws_redraw(((t_object*)x));
+        GuiFactory<ui_spectroscope>::ws_redraw(x);
     }
 }
 
@@ -47,12 +47,12 @@ void ui_spectroscope_dsp(ui_spectroscope* x, t_object* dsp, short* count, double
 
 #pragma mark ui
 
-UI_fun(ui_spectroscope)::wx_paint(t_object* z, t_object* view)
+UI_fun(ui_spectroscope)::wx_paint(ui_spectroscope* zx, t_object* view)
 {
     t_rect rect;
-    ebox_get_rect_for_view(asBox(z), &rect);
+    zx->getRect(&rect);
 
-    t_elayer* g = ebox_start_layer(asBox(z), BG_LAYER, rect.width, rect.height);
+    t_elayer* g = ebox_start_layer(asBox(zx), BG_LAYER, rect.width, rect.height);
 
     if (g) {
         egraphics_set_line_width(g, 1);
@@ -67,7 +67,6 @@ UI_fun(ui_spectroscope)::wx_paint(t_object* z, t_object* view)
 
         egraphics_set_color_hex(g, gensym("#00C0FF"));
 
-        ui_spectroscope* zx = asStruct(z);
         t_sample* in1 = zx->buf;
 
         t_sample zero[8192];
@@ -113,34 +112,17 @@ UI_fun(ui_spectroscope)::wx_paint(t_object* z, t_object* view)
         }
 
         egraphics_stroke(g);
-        ebox_end_layer(asBox(z), BG_LAYER);
+        ebox_end_layer(asBox(zx), BG_LAYER);
     }
 
-    ebox_paint_layer(asBox(z), BG_LAYER, 0., 0.);
+    ebox_paint_layer(asBox(zx), BG_LAYER, 0., 0.);
 }
 
 #pragma mark setup
 
-UI_fun(ui_spectroscope)::new_ext(t_object* z, t_symbol* s, int argcl, t_atom* argv)
+UI_fun(ui_spectroscope)::new_ext(ui_spectroscope* z, t_symbol* s, int argcl, t_atom* argv)
 {
     eobj_dspsetup(z, 1, 0);
-}
-
-// these are added as a quick fix
-UI_fun(ui_spectroscope)::wx_mousedown(t_object* z, t_object* view, t_pt pt, long modifiers)
-{
-}
-
-UI_fun(ui_spectroscope)::wx_mouseup(t_object* z, t_object* view, t_pt pt, long modifiers)
-{
-}
-
-UI_fun(ui_spectroscope)::wx_mousemove(t_object* z, t_object* view, t_pt pt, long modifiers)
-{
-}
-
-UI_fun(ui_spectroscope)::wx_mousedrag(t_object* z, t_object* view, t_pt pt, long modifiers)
-{
 }
 
 static void ui_sps_getdrawparams(ui_spectroscope* x, t_object* patcherview, t_edrawparams* params)
@@ -154,9 +136,19 @@ static void ui_sps_getdrawparams(ui_spectroscope* x, t_object* patcherview, t_ed
 UI_fun(ui_spectroscope)::init_ext(t_eclass* z)
 {
     eclass_addmethod(z, (method)ui_spectroscope_dsp, "dsp", A_CANT, 0);
-    CLASS_ATTR_DEFAULT(z, "size", 0, "150. 100.");
+
+    // clang-format off
+    CLASS_ATTR_DEFAULT        (z, "size", 0, "150. 100.");
+    CLASS_ATTR_INVISIBLE      (z, "send", 0);
+    // clang-format on
 
     eclass_addmethod(z, (method)ui_sps_getdrawparams, "getdrawparams", A_NULL, 0);
+}
+
+UI_fun(ui_spectroscope)::wx_oksize(ui_spectroscope*, t_rect* newrect)
+{
+    newrect->width = pd_clip_min(newrect->width, 30);
+    newrect->height = pd_clip_min(newrect->height, 30);
 }
 }
 

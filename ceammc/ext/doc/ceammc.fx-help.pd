@@ -1,11 +1,13 @@
 #N canvas 0 0 630 500 12;
-#X obj 20 53 ui.link @title index @link ../index-help.pd @size 100 25;
+#X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
-#X obj 79 53 ui.link @title ceammc @link ceammc-help.pd @size 100 25;
-#X obj 30 116 fx.freqshift~;
-#X text 175 116 frequency shifter or single-sideband ring modulation;
-#X obj 30 143 fx.pitchshift~;
-#X text 175 143 simple pitch shifter based on 2 delay lines;
+#X obj 79 53 ui.link @title ceammc @url ceammc-help.pd;
+#X obj 30 116 fx.freeverb~;
+#X text 175 116 freeverb - common used open-source reverb;
+#X obj 30 143 fx.freqshift~;
+#X text 175 143 frequency shifter or single-sideband ring modulation;
+#X obj 30 170 fx.pitchshift~;
+#X text 175 170 simple pitch shifter based on 2 delay lines;
 #X obj 1 1 cnv 5 627 40 empty empty ceammc::fx 20 20 0 20 -104026
 -4096 0;
 #X obj 1 458 cnv 5 627 40 empty empty empty 17 7 0 10 -203890 -1 0;

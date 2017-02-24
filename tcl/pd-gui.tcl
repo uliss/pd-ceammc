@@ -458,7 +458,9 @@ proc get_font_for_size {fsize} {
 # always do a good job of choosing in respect to Pd's needs.  So this chooses
 # from a list of fonts that are known to work well with Pd.
 proc find_default_font {} {
-    set testfonts {"DejaVu Sans Mono" "Bitstream Vera Sans Mono" \
+    # ceammc: real font settings lives in s_main.c. Here we just output to console
+    # if these fonts are found on system
+    set testfonts {"Monaco" "DejaVu Sans Mono" "Bitstream Vera Sans Mono" \
         "Inconsolata" "Courier 10 Pitch" "Andale Mono" "Droid Sans Mono"}
     foreach family $testfonts {
         if {[lsearch -exact -nocase [font families] $family] > -1} {
@@ -734,7 +736,7 @@ proc load_startup_plugins {} {
     load_plugin_script [file join $::sys_guidir pd_deken.tcl]
 
     # load other installed plugins
-    foreach pathdir [concat $::sys_searchpath $::sys_staticpath $::ceammc_libdir] {
+    foreach pathdir [concat $::sys_searchpath $::sys_staticpath [list $::ceammc_libdir]] {
         set dir [file normalize $pathdir]
         if { ! [file isdirectory $dir]} {continue}
         foreach filename [glob -directory $dir -nocomplain -types {f} -- \

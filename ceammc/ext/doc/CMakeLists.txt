@@ -25,6 +25,7 @@ set(DOC_FILES
     flt.eq_peak~
     fx.freqshift~
     fx.pitchshift~
+    fx.freeverb~
     global.float
     global.int
     global.list
@@ -115,6 +116,7 @@ set(DOC_FILES
     system.memsize
     system.memused
     ui.bang
+    ui.bpfunc
     ui.scope~
     ui.spectroscope~
     ui.toggle
@@ -183,6 +185,9 @@ endif()
 
 if(WIN32)
     set(DOC_INSTALL_PATH "extra/ceammc")
+else()
+    set(DOC_INSTALL_PATH "${PD_DOC_INSTALL_PATH}/extra/ceammc")
+endif()
 
     foreach(_doc_file ${DOC_FILES})
         install(FILES "${_doc_file}-help.pd"
@@ -201,5 +206,8 @@ if(WIN32)
         CODE "file( INSTALL \${_PD_CATEGORY_HELP_FILES}
             DESTINATION \"${CMAKE_INSTALL_PREFIX}/${DOC_INSTALL_PATH}\")"
     )
-endif()
+
+
+file(GLOB _PDDOC_FILES "*.pddoc")
+add_custom_target(pddoc_files SOURCES ${_PDDOC_FILES})
 

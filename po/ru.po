@@ -1,24 +1,22 @@
-# SOME DESCRIPTIVE TITLE.
-# This file is put in the public domain.
-# Serge Poltavski <serge.poltavski@gmail.com>, 2016.
-#
+# Serge Poltavski <serge.poltavski@gmail.com>, 2016-2017.
 msgid ""
 msgstr ""
 "Project-Id-Version: Pure\\ Data 0.47.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2016-12-22 12:56+0300\n"
-"PO-Revision-Date: 2016-10-16 22:45+0300\n"
+"POT-Creation-Date: 2017-02-20 14:25+0300\n"
+"PO-Revision-Date: 2017-02-19 23:39+0000\n"
 "Last-Translator: Serge Poltavski <serge.poltavski@gmail.com>\n"
-"Language-Team: Russian <LL@li.org>\n"
+"Language-Team: Russian\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.9\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"X-Loco-Source-Locale: ru_RU\n"
 "X-Language: ru_RU\n"
 "X-Source-Language: C\n"
+"X-Loco-Parser: loco_parse_po\n"
 
 #: ../tcl/dialog_font.tcl:60
 #, tcl-format
@@ -85,51 +83,67 @@ msgstr ""
 #: ../tcl/dialog_audio.tcl:183 ../tcl/dialog_audio.tcl:248
 #: ../tcl/dialog_midi.tcl:133 ../tcl/dialog_midi.tcl:241
 msgid "1:"
-msgstr ""
+msgstr "1:"
 
 #: ../tcl/dialog_audio.tcl:197 ../tcl/dialog_audio.tcl:273
 #: ../tcl/dialog_midi.tcl:143 ../tcl/dialog_midi.tcl:251
 msgid "2:"
-msgstr ""
+msgstr "2:"
 
 #: ../tcl/dialog_audio.tcl:213 ../tcl/dialog_audio.tcl:289
 #: ../tcl/dialog_midi.tcl:155 ../tcl/dialog_midi.tcl:262
 msgid "3:"
-msgstr ""
+msgstr "3:"
 
 #: ../tcl/dialog_audio.tcl:229 ../tcl/dialog_audio.tcl:305
 #: ../tcl/dialog_midi.tcl:167 ../tcl/dialog_midi.tcl:273
 msgid "4:"
-msgstr ""
+msgstr "4:"
 
 #: ../tcl/dialog_midi.tcl:179 ../tcl/dialog_midi.tcl:284
 msgid "5:"
-msgstr ""
+msgstr "5:"
 
 #: ../tcl/dialog_midi.tcl:191 ../tcl/dialog_midi.tcl:295
 msgid "6:"
-msgstr ""
+msgstr "6:"
 
 #: ../tcl/dialog_midi.tcl:203 ../tcl/dialog_midi.tcl:306
 msgid "7:"
-msgstr ""
+msgstr "7:"
 
 #: ../tcl/dialog_midi.tcl:215 ../tcl/dialog_midi.tcl:317
 msgid "8:"
-msgstr ""
+msgstr "8:"
 
 #: ../tcl/dialog_midi.tcl:227 ../tcl/dialog_midi.tcl:328
 msgid "9:"
-msgstr ""
+msgstr "9:"
 
 #: ../tcl/dialog_midi.tcl:422
 msgid "ALSA MIDI Settings"
-msgstr ""
+msgstr "настройки ALSA MIDI"
 
 #: ../tcl/pd_menucommands.tcl:217 ../tcl/pd_menus.tcl:327
-#: ../tcl/pd_menus.tcl:330 ../tcl/pd_menus.tcl:532 ../tcl/pd_menus.tcl:539
+#: ../tcl/pd_menus.tcl:330 ../tcl/pd_menus.tcl:341 ../tcl/pd_menus.tcl:532
+#: ../tcl/pd_menus.tcl:539 ../tcl/pd_menus.tcl:550
 msgid "About Pd"
 msgstr "О программе Pd"
+
+#: ../ceammc/extra/CreamLibrary/Sources/c.matrix.cpp:362
+#, fuzzy
+msgid "Active Cell Color"
+msgstr "Активный цвет"
+
+#: ../ceammc/extra/CreamLibrary/Sources/c.bang.cpp:163
+#: ../ceammc/extra/CreamLibrary/Sources/c.dsp_tilde.cpp:199
+#: ../ceammc/extra/CreamLibrary/Sources/c.matrix.cpp:362
+#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:560
+#: ../ceammc/extra/CreamLibrary/Sources/c.radio.cpp:427
+#: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:578
+#: ../ceammc/extra/CreamLibrary/Sources/c.toggle.cpp:180
+msgid "Active Color"
+msgstr "Активный цвет"
 
 #: ../tcl/dialog_path.tcl:99
 msgid "Add a new path"
@@ -139,18 +153,24 @@ msgstr "Добавить новый путь"
 msgid "Add new library"
 msgstr "Добавить новую библиотеку"
 
+#: ../tcl/pd_menus.tcl:202
+msgid "Align To Grid"
+msgstr "Выровнять по сетке"
+
 #: ../tcl/dialog_canvas.tcl:163
 msgid "Appearance on parent patch"
 msgstr "Вид на родительском патче"
 
 #: ../tcl/dialog_array.tcl:325 ../tcl/dialog_audio.tcl:337
 #: ../tcl/dialog_canvas.tcl:213 ../tcl/dialog_gatom.tcl:167
-#: ../tcl/dialog_iemgui.tcl:793 ../tcl/dialog_midi.tcl:352
-#: ../tcl/dialog_midi.tcl:443 ../tcl/scrollboxwindow.tcl:90
+#: ../tcl/dialog_gatom.tcl:168 ../tcl/dialog_iemgui.tcl:793
+#: ../tcl/dialog_midi.tcl:352 ../tcl/dialog_midi.tcl:443
+#: ../tcl/scrollboxwindow.tcl:90
 msgid "Apply"
 msgstr "Применить"
 
 #: ../tcl/dialog_array.tcl:266 ../tcl/pd_menus.tcl:244 ../tcl/pd_menus.tcl:247
+#: ../tcl/pd_menus.tcl:258
 msgid "Array"
 msgstr ""
 
@@ -158,11 +178,12 @@ msgstr ""
 msgid "Array Properties"
 msgstr "Свойства Array"
 
-#: ../tcl/pd-gui.tcl:309 ../tcl/pd-gui.tcl:351 ../tcl/pd-gui.tcl:386
+#: ../tcl/pd-gui.tcl:305 ../tcl/pd-gui.tcl:309 ../tcl/pd-gui.tcl:347
+#: ../tcl/pd-gui.tcl:351 ../tcl/pd-gui.tcl:382 ../tcl/pd-gui.tcl:386
 msgid "Associated Files"
 msgstr "Все поддерживаемые форматы"
 
-#: ../tcl/dialog_gatom.tcl:99
+#: ../tcl/dialog_gatom.tcl:99 ../tcl/dialog_gatom.tcl:100
 msgid "Atom Box Properties"
 msgstr "Свойста AtomBox"
 
@@ -174,8 +195,8 @@ msgstr "Ошибка Audio I/O"
 msgid "Audio Settings"
 msgstr "Настройки аудио"
 
-#: ../tcl/pd_menus.tcl:290 ../tcl/pd_menus.tcl:293 ../tcl/pd_menus.tcl:513
-#: ../tcl/pd_menus.tcl:520
+#: ../tcl/pd_menus.tcl:290 ../tcl/pd_menus.tcl:293 ../tcl/pd_menus.tcl:304
+#: ../tcl/pd_menus.tcl:513 ../tcl/pd_menus.tcl:520 ../tcl/pd_menus.tcl:531
 msgid "Audio Settings..."
 msgstr "Настройки аудио..."
 
@@ -183,17 +204,55 @@ msgstr "Настройки аудио..."
 msgid "Audio off"
 msgstr ""
 
+#: ../ceammc/ext/src/ui_sliders.cpp:334
+msgid "Auto range"
+msgstr "Автоматический диапазон"
+
+#: ../ceammc/ext/src/ui_bpfunc.cpp:956
+msgid "Auto send"
+msgstr "Отправлять при изменении"
+
+#: ../ceammc/ext/src/ui_display.cpp:243 ../ceammc/ext/src/ui_display.cpp:244
+msgid "Auto size"
+msgstr "Автоматический размер"
+
 #: ../tcl/dialog_iemgui.tcl:724
 msgid "Background"
 msgstr "Фон"
+
+#: ../ceammc/extra/CreamLibrary/Sources/c.dsp_tilde.cpp:187
+#: ../ceammc/extra/CreamLibrary/Sources/c.matrix.cpp:350
+#: ../ceammc/extra/CreamLibrary/Sources/c.menu.cpp:126
+#: ../ceammc/extra/CreamLibrary/Sources/c.number.cpp:432
+#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:530
+#: ../ceammc/extra/CreamLibrary/Sources/c.radio.cpp:415
+#: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:418
+#: ../ceammc/extra/CreamLibrary/Sources/c.slider.cpp:332
+#: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:554
+#: ../ceammc/extra/CreamLibrary/Sources/c.toggle.cpp:168
+msgid "Background Color"
+msgstr "Цвет фона"
 
 #: ../tcl/dialog_iemgui.tcl:202
 msgid "Background color"
 msgstr "Цвет фона"
 
 #: ../tcl/dialog_iemgui.tcl:517 ../tcl/pd_menus.tcl:223 ../tcl/pd_menus.tcl:226
+#: ../tcl/pd_menus.tcl:237
 msgid "Bang"
-msgstr ""
+msgstr "Bang"
+
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:69
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:77
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:84
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:93
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:102
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:112
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:120
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:126
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:279
+msgid "Basic"
+msgstr "Базовые"
 
 #: ../tcl/dialog_array.tcl:292
 msgid "Bezier curve"
@@ -203,29 +262,45 @@ msgstr "Кривыми"
 msgid "Block size:"
 msgstr "Размер блока:"
 
-#: ../tcl/dialog_gatom.tcl:140
+#: ../ceammc/extra/CreamLibrary/Sources/c.bang.cpp:157
+#: ../ceammc/extra/CreamLibrary/Sources/c.dsp_tilde.cpp:193
+#: ../ceammc/extra/CreamLibrary/Sources/c.matrix.cpp:356
+#: ../ceammc/extra/CreamLibrary/Sources/c.menu.cpp:132
+#: ../ceammc/extra/CreamLibrary/Sources/c.number.cpp:438
+#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:536
+#: ../ceammc/extra/CreamLibrary/Sources/c.radio.cpp:421
+#: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:424
+#: ../ceammc/extra/CreamLibrary/Sources/c.slider.cpp:338
+#: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:560
+#: ../ceammc/extra/CreamLibrary/Sources/c.toggle.cpp:174
+msgid "Border Color"
+msgstr "Цвет границы"
+
+#: ../tcl/dialog_gatom.tcl:140 ../tcl/dialog_gatom.tcl:141
 msgid "Bottom"
 msgstr "Снизу"
 
-#: ../tcl/pd_menus.tcl:306 ../tcl/pd_menus.tcl:309
+#: ../tcl/pd_menus.tcl:306 ../tcl/pd_menus.tcl:309 ../tcl/pd_menus.tcl:320
 msgid "Bring All to Front"
 msgstr "Все окна - на передний план"
 
-#: ../tcl/pd_menus.tcl:105 ../tcl/pd_menus.tcl:341
+#: ../tcl/pd_menus.tcl:105 ../tcl/pd_menus.tcl:111 ../tcl/pd_menus.tcl:341
+#: ../tcl/pd_menus.tcl:352
 msgid "CEAMMC objects"
-msgstr ""
+msgstr "CEAMMC объекты"
 
 #: ../tcl/dialog_array.tcl:321 ../tcl/dialog_audio.tcl:333
 #: ../tcl/dialog_canvas.tcl:209 ../tcl/dialog_find.tcl:196
-#: ../tcl/dialog_gatom.tcl:163 ../tcl/dialog_iemgui.tcl:789
-#: ../tcl/dialog_midi.tcl:348 ../tcl/dialog_midi.tcl:441
-#: ../tcl/scrollboxwindow.tcl:86
+#: ../tcl/dialog_gatom.tcl:163 ../tcl/dialog_gatom.tcl:164
+#: ../tcl/dialog_iemgui.tcl:789 ../tcl/dialog_midi.tcl:348
+#: ../tcl/dialog_midi.tcl:441 ../tcl/scrollboxwindow.tcl:86
 msgid "Cancel"
 msgstr "Отмена"
 
 #: ../tcl/dialog_iemgui.tcl:564 ../tcl/pd_menus.tcl:239 ../tcl/pd_menus.tcl:242
+#: ../tcl/pd_menus.tcl:253
 msgid "Canvas"
-msgstr ""
+msgstr "Canvas"
 
 #: ../tcl/dialog_canvas.tcl:142
 msgid "Canvas Properties"
@@ -238,19 +313,25 @@ msgstr "Свойства Canvas"
 msgid "Channels:"
 msgstr "Каналы:"
 
-#: ../tcl/pd_menus.tcl:193 ../tcl/pd_menus.tcl:196
+#: ../ceammc/extra/CreamLibrary/Sources/c.radio.cpp:406
+msgid "Check List Mode"
+msgstr "Множественный выбор"
+
+#: ../tcl/pd_menus.tcl:193 ../tcl/pd_menus.tcl:196 ../tcl/pd_menus.tcl:204
 msgid "Clear Console"
 msgstr "Очистить консоль"
 
-#: ../tcl/pd_menus.tcl:391 ../tcl/pd_menus.tcl:398
+#: ../tcl/pd_menus.tcl:391 ../tcl/pd_menus.tcl:398 ../tcl/pd_menus.tcl:409
 msgid "Clear Menu"
 msgstr "Очистить меню"
 
-#: ../tcl/dialog_find.tcl:204 ../tcl/pd_menus.tcl:58 ../tcl/pd_menus.tcl:85
-#: ../tcl/pd_menus.tcl:86 ../tcl/pd_menus.tcl:116 ../tcl/pd_menus.tcl:118
-#: ../tcl/pd_menus.tcl:149 ../tcl/pd_menus.tcl:152 ../tcl/pd_menus.tcl:549
-#: ../tcl/pd_menus.tcl:556 ../tcl/pd_menus.tcl:589 ../tcl/pd_menus.tcl:598
-#: ../tcl/pd_menus.tcl:636 ../tcl/pd_menus.tcl:646
+#: ../tcl/dialog_find.tcl:204 ../tcl/pd_menus.tcl:58 ../tcl/pd_menus.tcl:64
+#: ../tcl/pd_menus.tcl:85 ../tcl/pd_menus.tcl:86 ../tcl/pd_menus.tcl:92
+#: ../tcl/pd_menus.tcl:116 ../tcl/pd_menus.tcl:118 ../tcl/pd_menus.tcl:124
+#: ../tcl/pd_menus.tcl:149 ../tcl/pd_menus.tcl:152 ../tcl/pd_menus.tcl:158
+#: ../tcl/pd_menus.tcl:549 ../tcl/pd_menus.tcl:556 ../tcl/pd_menus.tcl:567
+#: ../tcl/pd_menus.tcl:589 ../tcl/pd_menus.tcl:598 ../tcl/pd_menus.tcl:609
+#: ../tcl/pd_menus.tcl:636 ../tcl/pd_menus.tcl:646 ../tcl/pd_menus.tcl:657
 msgid "Close"
 msgstr "Закрыть"
 
@@ -258,7 +339,7 @@ msgstr "Закрыть"
 msgid "Colors"
 msgstr "Цвета"
 
-#: ../tcl/pd_menus.tcl:220 ../tcl/pd_menus.tcl:223
+#: ../tcl/pd_menus.tcl:220 ../tcl/pd_menus.tcl:223 ../tcl/pd_menus.tcl:234
 msgid "Comment"
 msgstr "Комментарий"
 
@@ -267,6 +348,7 @@ msgid "Compose color"
 msgstr "Выбрать цвет"
 
 #: ../tcl/dialog_array.tcl:113 ../tcl/pd_menus.tcl:167 ../tcl/pd_menus.tcl:170
+#: ../tcl/pd_menus.tcl:176
 msgid "Copy"
 msgstr "Копировать"
 
@@ -275,21 +357,26 @@ msgstr "Копировать"
 msgid "Couldn't find '%s' in %s"
 msgstr "Не удалось найти '%s' в %s"
 
-#: ../tcl/pd_menus.tcl:165 ../tcl/pd_menus.tcl:168
+#: ../ceammc/extra/CreamLibrary/Sources/c.toggle.cpp:180
+#, fuzzy
+msgid "Cross Color"
+msgstr "Цвет ручки"
+
+#: ../tcl/pd_menus.tcl:165 ../tcl/pd_menus.tcl:168 ../tcl/pd_menus.tcl:174
 msgid "Cut"
 msgstr "Вырезать"
 
 #: ../tcl/pdwindow.tcl:333
 msgid "DSP"
-msgstr ""
+msgstr "DSP"
 
-#: ../tcl/pd_menus.tcl:262 ../tcl/pd_menus.tcl:265
+#: ../tcl/pd_menus.tcl:262 ../tcl/pd_menus.tcl:265 ../tcl/pd_menus.tcl:276
 msgid "DSP Off"
-msgstr ""
+msgstr "Выключить звук"
 
-#: ../tcl/pd_menus.tcl:260 ../tcl/pd_menus.tcl:263
+#: ../tcl/pd_menus.tcl:260 ../tcl/pd_menus.tcl:263 ../tcl/pd_menus.tcl:274
 msgid "DSP On"
-msgstr ""
+msgstr "Включить звук"
 
 #: ../tcl/dialog_data.tcl:35
 msgid "Data Properties"
@@ -312,24 +399,39 @@ msgstr "Удалить array"
 msgid "Discard changes to '%s'?"
 msgstr ""
 
+#: ../ceammc/ext/src/ui_display.cpp:231 ../ceammc/ext/src/ui_display.cpp:232
+msgid "Display events"
+msgstr "Показывать события"
+
+#: ../ceammc/ext/src/ui_display.cpp:237 ../ceammc/ext/src/ui_display.cpp:238
+msgid "Display type"
+msgstr "Показывать тип сообщения"
+
 #: pd_dynamic_strings.tcl:10
 #, tcl-format
 msgid "Do you want to save the changes you made in '%s'?"
 msgstr "Сохранить изменения в '%s'?"
 
+#: ../tcl/pd_menus.tcl:211
+msgid "Draw Grid"
+msgstr "Показывать сетку"
+
 #: ../tcl/dialog_array.tcl:285
 msgid "Draw as:"
 msgstr "Рисовать:"
 
-#: ../tcl/pd_menus.tcl:60 ../tcl/pd_menus.tcl:87 ../tcl/pd_menus.tcl:88
-#: ../tcl/pd_menus.tcl:119 ../tcl/pd_menus.tcl:121 ../tcl/pd_menus.tcl:171
-#: ../tcl/pd_menus.tcl:174
+#: ../tcl/pd_menus.tcl:60 ../tcl/pd_menus.tcl:66 ../tcl/pd_menus.tcl:87
+#: ../tcl/pd_menus.tcl:88 ../tcl/pd_menus.tcl:94 ../tcl/pd_menus.tcl:119
+#: ../tcl/pd_menus.tcl:121 ../tcl/pd_menus.tcl:127 ../tcl/pd_menus.tcl:171
+#: ../tcl/pd_menus.tcl:174 ../tcl/pd_menus.tcl:180
 msgid "Duplicate"
 msgstr "Дублировать"
 
-#: ../tcl/pd_menus.tcl:64 ../tcl/pd_menus.tcl:91 ../tcl/pd_menus.tcl:92
-#: ../tcl/pd_menus.tcl:123 ../tcl/pd_menus.tcl:125 ../tcl/pd_menus.tcl:197
-#: ../tcl/pd_menus.tcl:200 ../tcl/pd_menus.tcl:613 ../tcl/pd_menus.tcl:622
+#: ../tcl/pd_menus.tcl:64 ../tcl/pd_menus.tcl:70 ../tcl/pd_menus.tcl:91
+#: ../tcl/pd_menus.tcl:92 ../tcl/pd_menus.tcl:98 ../tcl/pd_menus.tcl:123
+#: ../tcl/pd_menus.tcl:125 ../tcl/pd_menus.tcl:131 ../tcl/pd_menus.tcl:197
+#: ../tcl/pd_menus.tcl:200 ../tcl/pd_menus.tcl:208 ../tcl/pd_menus.tcl:613
+#: ../tcl/pd_menus.tcl:622 ../tcl/pd_menus.tcl:633
 msgid "Edit Mode"
 msgstr "Режим редактирования"
 
@@ -337,32 +439,36 @@ msgstr "Режим редактирования"
 msgid "Edit library"
 msgstr "Изменить библиотеку"
 
+#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:548
+msgid "Empty Button Color"
+msgstr "Цвет пустой ячейки"
+
 #: ../ceammc/gui/plugins/patch2svg-plugin.tcl:1680
 msgid "Export patch as SVG..."
 msgstr "Экспортировать патч в SVG..."
 
-#: ../tcl/pd_menus.tcl:331 ../tcl/pd_menus.tcl:334
+#: ../tcl/pd_menus.tcl:331 ../tcl/pd_menus.tcl:334 ../tcl/pd_menus.tcl:345
 msgid "FLOSS Manual..."
 msgstr "FLOSS руководство..."
 
 #: ../tcl/dialog_find.tcl:155 ../tcl/dialog_find.tcl:200
-#, fuzzy
 msgid "Find"
 msgstr "Найти"
 
-#: ../tcl/pd_menus.tcl:252 ../tcl/pd_menus.tcl:255
+#: ../tcl/pd_menus.tcl:252 ../tcl/pd_menus.tcl:255 ../tcl/pd_menus.tcl:266
 msgid "Find Again"
 msgstr "Найти далее"
 
-#: ../tcl/pd_menus.tcl:254 ../tcl/pd_menus.tcl:257
+#: ../tcl/pd_menus.tcl:254 ../tcl/pd_menus.tcl:257 ../tcl/pd_menus.tcl:268
 msgid "Find Last Error"
 msgstr "Найти последнюю ошибку"
 
-#: ../tcl/pd_deken.tcl:319 ../tcl/pd_deken.tcl:565 ../tcl/pd_deken.tcl:567
+#: ../tcl/pd_deken.tcl:319 ../tcl/pd_deken.tcl:324 ../tcl/pd_deken.tcl:565
+#: ../tcl/pd_deken.tcl:567 ../tcl/pd_deken.tcl:578 ../tcl/pd_deken.tcl:580
 msgid "Find externals"
 msgstr "Поиск расширений"
 
-#: ../tcl/pd_menus.tcl:250 ../tcl/pd_menus.tcl:253
+#: ../tcl/pd_menus.tcl:250 ../tcl/pd_menus.tcl:253 ../tcl/pd_menus.tcl:264
 msgid "Find..."
 msgstr "Найти..."
 
@@ -371,14 +477,27 @@ msgid "Flash Time (msec)"
 msgstr "Время индикации нажатия (мкс)"
 
 #: ../tcl/dialog_font.tcl:101 ../tcl/pd_menus.tcl:118 ../tcl/pd_menus.tcl:120
-#: ../tcl/pd_menus.tcl:179 ../tcl/pd_menus.tcl:182 ../tcl/pd_menus.tcl:184
-#: ../tcl/pd_menus.tcl:187
+#: ../tcl/pd_menus.tcl:126 ../tcl/pd_menus.tcl:179 ../tcl/pd_menus.tcl:182
+#: ../tcl/pd_menus.tcl:184 ../tcl/pd_menus.tcl:187 ../tcl/pd_menus.tcl:188
+#: ../tcl/pd_menus.tcl:193
 msgid "Font"
 msgstr "Шрифт"
 
-#: ../tcl/dialog_font.tcl:121
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:85
+msgid "Font Name"
+msgstr "Имя шрифта"
+
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:113 ../tcl/dialog_font.tcl:121
 msgid "Font Size"
 msgstr "Размер шрифта"
+
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:103
+msgid "Font Slant"
+msgstr "Начертание"
+
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:94
+msgid "Font Weight"
+msgstr "Жирность шрифта"
 
 #: ../tcl/dialog_iemgui.tcl:208
 msgid "Foreground color"
@@ -388,7 +507,7 @@ msgstr "Цвет переднего плана"
 msgid "Front"
 msgstr "Передний план"
 
-#: ../tcl/pd_menus.tcl:242 ../tcl/pd_menus.tcl:245
+#: ../tcl/pd_menus.tcl:242 ../tcl/pd_menus.tcl:245 ../tcl/pd_menus.tcl:256
 msgid "Graph"
 msgstr ""
 
@@ -396,7 +515,7 @@ msgstr ""
 msgid "Graph-On-Parent"
 msgstr ""
 
-#: ../tcl/pd_menus.tcl:329 ../tcl/pd_menus.tcl:332
+#: ../tcl/pd_menus.tcl:329 ../tcl/pd_menus.tcl:332 ../tcl/pd_menus.tcl:343
 msgid "HTML Manual..."
 msgstr "Руководство в формате HTML..."
 
@@ -406,11 +525,11 @@ msgstr "Руководство в формате HTML..."
 msgid "Height:"
 msgstr "Высота:"
 
-#: ../tcl/pdtk_canvas.tcl:223
+#: ../tcl/pdtk_canvas.tcl:223 ../tcl/pdtk_canvas.tcl:233
 msgid "Help"
 msgstr "Справка"
 
-#: ../tcl/helpbrowser.tcl:28
+#: ../tcl/helpbrowser.tcl:23 ../tcl/helpbrowser.tcl:28
 msgid "Help Browser"
 msgstr "Обзор справки"
 
@@ -422,11 +541,25 @@ msgstr "Скрыть имя объекта и аргументы"
 msgid "Hold:"
 msgstr ""
 
+#: ../ceammc/ext/src/ui_slider2d.cpp:239
+msgid "Horizontal range"
+msgstr "Горизонтальный диапазон"
+
+#: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:572
+msgid "Hover Color"
+msgstr "Цвет наведения"
+
+#: ../ceammc/extra/CreamLibrary/Sources/c.menu.cpp:113
+msgid "Hover Mode"
+msgstr "Режим наведения"
+
 #: ../tcl/dialog_iemgui.tcl:554 ../tcl/pd_menus.tcl:235 ../tcl/pd_menus.tcl:238
+#: ../tcl/pd_menus.tcl:249
 msgid "Hradio"
 msgstr ""
 
 #: ../tcl/dialog_iemgui.tcl:543 ../tcl/pd_menus.tcl:231 ../tcl/pd_menus.tcl:234
+#: ../tcl/pd_menus.tcl:245
 msgid "Hslider"
 msgstr ""
 
@@ -451,12 +584,30 @@ msgstr "Устройства ввода"
 msgid "Intrrpt:"
 msgstr ""
 
+#: ../ceammc/extra/CreamLibrary/Sources/c.radio.cpp:427
+msgid "Item Color"
+msgstr "Цвет элемента"
+
+#: ../ceammc/extra/CreamLibrary/Sources/c.menu.cpp:120
+#: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:549
+msgid "Items"
+msgstr "Элементы"
+
 #: ../tcl/dialog_iemgui.tcl:297 ../tcl/dialog_iemgui.tcl:634
 msgid "Jump on click"
-msgstr ""
+msgstr "Переход при клике"
 
-#: ../tcl/dialog_gatom.tcl:126 ../tcl/dialog_iemgui.tcl:676
-#: ../tcl/dialog_iemgui.tcl:728
+#: ../ceammc/ext/src/ui_keyboard.cpp:291
+msgid "Keys"
+msgstr "Число клавиш"
+
+#: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:430
+#: ../ceammc/extra/CreamLibrary/Sources/c.slider.cpp:344
+msgid "Knob Color"
+msgstr "Цвет ползунка"
+
+#: ../tcl/dialog_gatom.tcl:126 ../tcl/dialog_gatom.tcl:127
+#: ../tcl/dialog_iemgui.tcl:676 ../tcl/dialog_iemgui.tcl:728
 msgid "Label"
 msgstr "Ярлык"
 
@@ -468,21 +619,30 @@ msgstr "Ярлык"
 msgid "Last graph"
 msgstr "Последний graph"
 
-#: ../tcl/dialog_gatom.tcl:134
+#: ../tcl/dialog_gatom.tcl:134 ../tcl/dialog_gatom.tcl:135
 msgid "Left   "
 msgstr "Слева"
 
-#: ../tcl/dialog_gatom.tcl:113
+#: ../ceammc/ext/src/ui_keyboard.cpp:283
+msgid "Leftmost MIDI note"
+msgstr "Начальная MIDI нота"
+
+#: ../ceammc/ext/src/ui_slider2d.cpp:233
+msgid "Leftmost value"
+msgstr "Крайнее левое значение"
+
+#: ../tcl/dialog_gatom.tcl:113 ../tcl/dialog_gatom.tcl:114
 msgid "Limits"
 msgstr "Диапазон"
 
-#: ../tcl/pd_menus.tcl:76 ../tcl/pd_menus.tcl:103 ../tcl/pd_menus.tcl:104
-#: ../tcl/pd_menus.tcl:135 ../tcl/pd_menus.tcl:137 ../tcl/pd_menus.tcl:334
-#: ../tcl/pd_menus.tcl:339
+#: ../tcl/pd_menus.tcl:76 ../tcl/pd_menus.tcl:82 ../tcl/pd_menus.tcl:103
+#: ../tcl/pd_menus.tcl:104 ../tcl/pd_menus.tcl:110 ../tcl/pd_menus.tcl:135
+#: ../tcl/pd_menus.tcl:137 ../tcl/pd_menus.tcl:143 ../tcl/pd_menus.tcl:334
+#: ../tcl/pd_menus.tcl:339 ../tcl/pd_menus.tcl:350
 msgid "List of objects..."
 msgstr "Список объектов..."
 
-#: ../tcl/pd_menus.tcl:268 ../tcl/pd_menus.tcl:271
+#: ../tcl/pd_menus.tcl:268 ../tcl/pd_menus.tcl:271 ../tcl/pd_menus.tcl:282
 msgid "Load Meter"
 msgstr "Индикатор загрузки"
 
@@ -494,8 +654,9 @@ msgstr ""
 msgid "Log:"
 msgstr "Журнал:"
 
-#: ../tcl/dialog_gatom.tcl:117 ../tcl/dialog_iemgui.tcl:532
-#: ../tcl/dialog_iemgui.tcl:540 ../tcl/dialog_iemgui.tcl:547
+#: ../tcl/dialog_gatom.tcl:117 ../tcl/dialog_gatom.tcl:118
+#: ../tcl/dialog_iemgui.tcl:532 ../tcl/dialog_iemgui.tcl:540
+#: ../tcl/dialog_iemgui.tcl:547
 msgid "Lower:"
 msgstr "От:"
 
@@ -503,8 +664,8 @@ msgstr "От:"
 msgid "MIDI Settings"
 msgstr "Настройки MIDI"
 
-#: ../tcl/pd_menus.tcl:292 ../tcl/pd_menus.tcl:295 ../tcl/pd_menus.tcl:515
-#: ../tcl/pd_menus.tcl:522
+#: ../tcl/pd_menus.tcl:292 ../tcl/pd_menus.tcl:295 ../tcl/pd_menus.tcl:306
+#: ../tcl/pd_menus.tcl:515 ../tcl/pd_menus.tcl:522 ../tcl/pd_menus.tcl:533
 msgid "MIDI Settings..."
 msgstr "Настройки MIDI..."
 
@@ -516,47 +677,64 @@ msgstr "Отступ:"
 msgid "Match whole word only"
 msgstr "Только полное совпадение"
 
-#: ../tcl/pd-gui.tcl:311 ../tcl/pd-gui.tcl:388
+#: ../ceammc/extra/CreamLibrary/Sources/c.matrix.cpp:343
+msgid "Matrix Size"
+msgstr "Размер матрицы"
+
+#: ../tcl/pd-gui.tcl:307 ../tcl/pd-gui.tcl:311 ../tcl/pd-gui.tcl:384
+#: ../tcl/pd-gui.tcl:388
 msgid "Max Patch Files"
 msgstr ""
 
-#: ../tcl/pd-gui.tcl:353
+#: ../tcl/pd-gui.tcl:349 ../tcl/pd-gui.tcl:353
 msgid "Max Patch Files (.pat)"
 msgstr ""
 
-#: ../tcl/pd-gui.tcl:312 ../tcl/pd-gui.tcl:389
+#: ../tcl/pd-gui.tcl:308 ../tcl/pd-gui.tcl:312 ../tcl/pd-gui.tcl:385
+#: ../tcl/pd-gui.tcl:389
 msgid "Max Text Files"
 msgstr ""
 
-#: ../tcl/pd-gui.tcl:354
+#: ../tcl/pd-gui.tcl:350 ../tcl/pd-gui.tcl:354
 msgid "Max Text Files (.mxt)"
 msgstr ""
 
-#: ../tcl/pd_menus.tcl:214 ../tcl/pd_menus.tcl:217
+#: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:411
+msgid "Maximum Value"
+msgstr ""
+
+#: ../tcl/pd_menus.tcl:214 ../tcl/pd_menus.tcl:217 ../tcl/pd_menus.tcl:228
 msgid "Message"
 msgstr "Сообщение"
 
-#: ../tcl/pd_menus.tcl:150 ../tcl/pd_menus.tcl:153 ../tcl/pd_menus.tcl:555
-#: ../tcl/pd_menus.tcl:563 ../tcl/pd_menus.tcl:582 ../tcl/pd_menus.tcl:591
-#: ../tcl/pd_menus.tcl:629 ../tcl/pd_menus.tcl:639
+#: ../tcl/pd_menus.tcl:150 ../tcl/pd_menus.tcl:153 ../tcl/pd_menus.tcl:159
+#: ../tcl/pd_menus.tcl:555 ../tcl/pd_menus.tcl:563 ../tcl/pd_menus.tcl:574
+#: ../tcl/pd_menus.tcl:582 ../tcl/pd_menus.tcl:591 ../tcl/pd_menus.tcl:602
+#: ../tcl/pd_menus.tcl:629 ../tcl/pd_menus.tcl:639 ../tcl/pd_menus.tcl:650
 msgid "Message..."
 msgstr "Сообщение..."
 
-#: ../tcl/dialog_gatom.tcl:147 ../tcl/dialog_iemgui.tcl:648
+#: ../tcl/dialog_gatom.tcl:147 ../tcl/dialog_gatom.tcl:148
+#: ../tcl/dialog_iemgui.tcl:648
 msgid "Messages"
 msgstr "Сообщения"
 
-#: ../tcl/pd_menus.tcl:301 ../tcl/pd_menus.tcl:304
+#: ../tcl/pd_menus.tcl:301 ../tcl/pd_menus.tcl:304 ../tcl/pd_menus.tcl:315
 msgid "Minimize"
 msgstr "Свернуть"
+
+#: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:404
+msgid "Minimum Value"
+msgstr ""
 
 #: ../tcl/dialog_array.tcl:270
 msgid "Name:"
 msgstr "Имя:"
 
-#: ../tcl/pd_menus.tcl:144 ../tcl/pd_menus.tcl:146 ../tcl/pd_menus.tcl:543
-#: ../tcl/pd_menus.tcl:550 ../tcl/pd_menus.tcl:575 ../tcl/pd_menus.tcl:583
-#: ../tcl/pd_menus.tcl:622 ../tcl/pd_menus.tcl:631
+#: ../tcl/pd_menus.tcl:144 ../tcl/pd_menus.tcl:146 ../tcl/pd_menus.tcl:152
+#: ../tcl/pd_menus.tcl:543 ../tcl/pd_menus.tcl:550 ../tcl/pd_menus.tcl:561
+#: ../tcl/pd_menus.tcl:575 ../tcl/pd_menus.tcl:583 ../tcl/pd_menus.tcl:594
+#: ../tcl/pd_menus.tcl:622 ../tcl/pd_menus.tcl:631 ../tcl/pd_menus.tcl:642
 msgid "New"
 msgstr "Новый"
 
@@ -564,7 +742,7 @@ msgstr "Новый"
 msgid "New graph"
 msgstr "Новый graph"
 
-#: ../tcl/pd_menus.tcl:310 ../tcl/pd_menus.tcl:313
+#: ../tcl/pd_menus.tcl:310 ../tcl/pd_menus.tcl:313 ../tcl/pd_menus.tcl:324
 msgid "Next Window"
 msgstr "Следующее окно"
 
@@ -580,35 +758,45 @@ msgstr "Активное значение"
 msgid "Num cells:"
 msgstr "Число ячеек:"
 
-#: ../tcl/pd_menus.tcl:216 ../tcl/pd_menus.tcl:219
+#: ../tcl/pd_menus.tcl:216 ../tcl/pd_menus.tcl:219 ../tcl/pd_menus.tcl:230
 msgid "Number"
 msgstr "Число"
 
+#: ../ceammc/extra/CreamLibrary/Sources/c.radio.cpp:397
+msgid "Number of Items"
+msgstr "Число элементов"
+
 #: ../tcl/dialog_iemgui.tcl:528 ../tcl/pd_menus.tcl:227 ../tcl/pd_menus.tcl:230
+#: ../tcl/pd_menus.tcl:241
 msgid "Number2"
 msgstr ""
 
 #: ../tcl/dialog_array.tcl:329 ../tcl/dialog_audio.tcl:341
 #: ../tcl/dialog_canvas.tcl:217 ../tcl/dialog_font.tcl:117
-#: ../tcl/dialog_gatom.tcl:171 ../tcl/dialog_iemgui.tcl:797
-#: ../tcl/dialog_midi.tcl:356 ../tcl/dialog_midi.tcl:445
-#: ../tcl/dialog_startup.tcl:29 ../tcl/dialog_startup.tcl:30
-#: ../tcl/scrollboxwindow.tcl:94
+#: ../tcl/dialog_gatom.tcl:171 ../tcl/dialog_gatom.tcl:172
+#: ../tcl/dialog_iemgui.tcl:797 ../tcl/dialog_midi.tcl:356
+#: ../tcl/dialog_midi.tcl:445 ../tcl/dialog_startup.tcl:29
+#: ../tcl/dialog_startup.tcl:30 ../tcl/scrollboxwindow.tcl:94
 msgid "OK"
 msgstr ""
 
 #: ../ceammc/gui/plugins/buttonbar.tmpl.tcl:33
 #: ../ceammc/gui/plugins/buttonbar.tmpl.tcl:42
+#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl:51
 #: ../ceammc/gui/plugins/ceammc-buttonbar-plugin.tcl:42
-#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl:33 ../tcl/pd_menus.tcl:212
-#: ../tcl/pd_menus.tcl:215
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl:33
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl:51 ../tcl/pd_menus.tcl:212
+#: ../tcl/pd_menus.tcl:215 ../tcl/pd_menus.tcl:226
 msgid "Object"
 msgstr "Объект"
 
-#: ../tcl/pd_menus.tcl:145 ../tcl/pd_menus.tcl:147 ../tcl/pd_menus.tcl:544
-#: ../tcl/pd_menus.tcl:551 ../tcl/pd_menus.tcl:576 ../tcl/pd_menus.tcl:584
-#: ../tcl/pd_menus.tcl:623 ../tcl/pd_menus.tcl:632 ../tcl/pdtk_canvas.tcl:221
+#: ../tcl/pd_menus.tcl:145 ../tcl/pd_menus.tcl:147 ../tcl/pd_menus.tcl:153
+#: ../tcl/pd_menus.tcl:544 ../tcl/pd_menus.tcl:551 ../tcl/pd_menus.tcl:562
+#: ../tcl/pd_menus.tcl:576 ../tcl/pd_menus.tcl:584 ../tcl/pd_menus.tcl:595
+#: ../tcl/pd_menus.tcl:623 ../tcl/pd_menus.tcl:632 ../tcl/pd_menus.tcl:643
+#: ../tcl/pdtk_canvas.tcl:221 ../tcl/pdtk_canvas.tcl:231
 #: ../tcl/pdtk_canvas.tcl:241 ../tcl/pdtk_canvas.tcl:243
+#: ../tcl/pdtk_canvas.tcl:264 ../tcl/pdtk_canvas.tcl:266
 msgid "Open"
 msgstr "Открыть"
 
@@ -616,7 +804,7 @@ msgstr "Открыть"
 msgid "Open List View..."
 msgstr "Открыть в виде списка..."
 
-#: ../tcl/pd_menus.tcl:547 ../tcl/pd_menus.tcl:554
+#: ../tcl/pd_menus.tcl:547 ../tcl/pd_menus.tcl:554 ../tcl/pd_menus.tcl:565
 msgid "Open Recent"
 msgstr "Недавние файлы"
 
@@ -641,15 +829,20 @@ msgstr "Диапазон значений"
 msgid "Parameters"
 msgstr "Параметры"
 
-#: ../tcl/pd_menus.tcl:320 ../tcl/pd_menus.tcl:323
+#: ../tcl/pd_menus.tcl:320 ../tcl/pd_menus.tcl:323 ../tcl/pd_menus.tcl:334
 msgid "Parent Window"
 msgstr "Родительское окно"
 
 #: ../tcl/dialog_array.tcl:116 ../tcl/pd_menus.tcl:169 ../tcl/pd_menus.tcl:172
+#: ../tcl/pd_menus.tcl:178
 msgid "Paste"
 msgstr "Вставить"
 
-#: ../tcl/pd_menus.tcl:509 ../tcl/pd_menus.tcl:516
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:70
+msgid "Patching Size"
+msgstr "Размер"
+
+#: ../tcl/pd_menus.tcl:509 ../tcl/pd_menus.tcl:516 ../tcl/pd_menus.tcl:527
 msgid "Path..."
 msgstr "Пути..."
 
@@ -657,7 +850,8 @@ msgstr "Пути..."
 msgid "Pd"
 msgstr ""
 
-#: ../tcl/pd-gui.tcl:310 ../tcl/pd-gui.tcl:352 ../tcl/pd-gui.tcl:387
+#: ../tcl/pd-gui.tcl:306 ../tcl/pd-gui.tcl:310 ../tcl/pd-gui.tcl:348
+#: ../tcl/pd-gui.tcl:352 ../tcl/pd-gui.tcl:383 ../tcl/pd-gui.tcl:387
 msgid "Pd Files"
 msgstr "Файлы Pd"
 
@@ -669,12 +863,17 @@ msgstr "Библиотеки Pd, загружаемые при старте"
 msgid "Pd search path for objects, help, fonts, and other files"
 msgstr "Пути поиска для объектов, справки, шрифтов и других файлов"
 
-#: ../tcl/pd_menus.tcl:337
+#: ../tcl/pd_menus.tcl:337 ../tcl/pd_menus.tcl:348
 msgid "Pd tutorial by Johannes Kreidler"
-msgstr ""
+msgstr "Руководство по Pd от Johannes Kreidler"
 
 #: ../tcl/dialog_find.tcl:179 ../tcl/pd_menus.tcl:318 ../tcl/pd_menus.tcl:321
+#: ../tcl/pd_menus.tcl:332
 msgid "Pd window"
+msgstr ""
+
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:78
+msgid "Pinned"
 msgstr ""
 
 #: ../tcl/dialog_array.tcl:290
@@ -685,26 +884,34 @@ msgstr "Точками"
 msgid "Polygon"
 msgstr "Линиями"
 
-#: ../tcl/pd_menus.tcl:203 ../tcl/pd_menus.tcl:206 ../tcl/pd_menus.tcl:535
-#: ../tcl/pd_menus.tcl:542 ../tcl/pd_menus.tcl:584 ../tcl/pd_menus.tcl:593
-#: ../tcl/pd_menus.tcl:631 ../tcl/pd_menus.tcl:641
+#: ../tcl/pd_menus.tcl:203 ../tcl/pd_menus.tcl:206 ../tcl/pd_menus.tcl:217
+#: ../tcl/pd_menus.tcl:535 ../tcl/pd_menus.tcl:542 ../tcl/pd_menus.tcl:553
+#: ../tcl/pd_menus.tcl:584 ../tcl/pd_menus.tcl:593 ../tcl/pd_menus.tcl:604
+#: ../tcl/pd_menus.tcl:631 ../tcl/pd_menus.tcl:641 ../tcl/pd_menus.tcl:652
 msgid "Preferences"
 msgstr "Настройки"
 
-#: ../tcl/pd_menus.tcl:313 ../tcl/pd_menus.tcl:316
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:280
+msgid "Preset Name"
+msgstr "Имя для пресета"
+
+#: ../tcl/pd_menus.tcl:313 ../tcl/pd_menus.tcl:316 ../tcl/pd_menus.tcl:327
 msgid "Previous Window"
 msgstr "Предыдущее окно"
 
-#: ../tcl/pd_menus.tcl:57 ../tcl/pd_menus.tcl:84 ../tcl/pd_menus.tcl:85
-#: ../tcl/pd_menus.tcl:114 ../tcl/pd_menus.tcl:116 ../tcl/pd_menus.tcl:151
-#: ../tcl/pd_menus.tcl:154 ../tcl/pd_menus.tcl:557 ../tcl/pd_menus.tcl:565
-#: ../tcl/pd_menus.tcl:585 ../tcl/pd_menus.tcl:594 ../tcl/pd_menus.tcl:632
-#: ../tcl/pd_menus.tcl:642
+#: ../tcl/pd_menus.tcl:57 ../tcl/pd_menus.tcl:63 ../tcl/pd_menus.tcl:84
+#: ../tcl/pd_menus.tcl:85 ../tcl/pd_menus.tcl:91 ../tcl/pd_menus.tcl:114
+#: ../tcl/pd_menus.tcl:116 ../tcl/pd_menus.tcl:122 ../tcl/pd_menus.tcl:151
+#: ../tcl/pd_menus.tcl:154 ../tcl/pd_menus.tcl:160 ../tcl/pd_menus.tcl:557
+#: ../tcl/pd_menus.tcl:565 ../tcl/pd_menus.tcl:576 ../tcl/pd_menus.tcl:585
+#: ../tcl/pd_menus.tcl:594 ../tcl/pd_menus.tcl:605 ../tcl/pd_menus.tcl:632
+#: ../tcl/pd_menus.tcl:642 ../tcl/pd_menus.tcl:653
 msgid "Print..."
 msgstr "Печать..."
 
-#: ../tcl/pdtk_canvas.tcl:219 ../tcl/pdtk_canvas.tcl:236
-#: ../tcl/pdtk_canvas.tcl:238
+#: ../tcl/pdtk_canvas.tcl:219 ../tcl/pdtk_canvas.tcl:229
+#: ../tcl/pdtk_canvas.tcl:236 ../tcl/pdtk_canvas.tcl:238
+#: ../tcl/pdtk_canvas.tcl:259 ../tcl/pdtk_canvas.tcl:261
 msgid "Properties"
 msgstr "Свойства"
 
@@ -712,8 +919,8 @@ msgstr "Свойства"
 msgid "Put array into:"
 msgstr "Поместить array в:"
 
-#: ../tcl/pd_menus.tcl:590 ../tcl/pd_menus.tcl:599 ../tcl/pd_menus.tcl:637
-#: ../tcl/pd_menus.tcl:647
+#: ../tcl/pd_menus.tcl:590 ../tcl/pd_menus.tcl:599 ../tcl/pd_menus.tcl:610
+#: ../tcl/pd_menus.tcl:637 ../tcl/pd_menus.tcl:647 ../tcl/pd_menus.tcl:658
 msgid "Quit"
 msgstr "Выход"
 
@@ -721,13 +928,19 @@ msgstr "Выход"
 msgid "Range and size"
 msgstr "Диапазон и размер"
 
-#: ../tcl/dialog_gatom.tcl:157 ../tcl/dialog_iemgui.tcl:661
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:121
+msgid "Receive Symbol"
+msgstr "Получать из"
+
+#: ../tcl/dialog_gatom.tcl:157 ../tcl/dialog_gatom.tcl:158
+#: ../tcl/dialog_iemgui.tcl:661
 msgid "Receive symbol:"
 msgstr "Получать:"
 
-#: ../tcl/pd_menus.tcl:68 ../tcl/pd_menus.tcl:127 ../tcl/pd_menus.tcl:129
-#: ../tcl/pd_menus.tcl:162 ../tcl/pd_menus.tcl:165 ../tcl/pd_menus.tcl:358
-#: ../tcl/pd_menus.tcl:365
+#: ../tcl/pd_menus.tcl:68 ../tcl/pd_menus.tcl:74 ../tcl/pd_menus.tcl:127
+#: ../tcl/pd_menus.tcl:129 ../tcl/pd_menus.tcl:135 ../tcl/pd_menus.tcl:162
+#: ../tcl/pd_menus.tcl:165 ../tcl/pd_menus.tcl:171 ../tcl/pd_menus.tcl:358
+#: ../tcl/pd_menus.tcl:365 ../tcl/pd_menus.tcl:376
 msgid "Redo"
 msgstr "Повторить"
 
@@ -763,11 +976,11 @@ msgstr "Повторить вставку"
 msgid "Redo typing"
 msgstr "Повторить ввод"
 
-#: ../tcl/pd_menus.tcl:339 ../tcl/pd_menus.tcl:346
+#: ../tcl/pd_menus.tcl:339 ../tcl/pd_menus.tcl:346 ../tcl/pd_menus.tcl:357
 msgid "Report a bug"
 msgstr "Сообщить об ошибке"
 
-#: ../tcl/dialog_gatom.tcl:136
+#: ../tcl/dialog_gatom.tcl:136 ../tcl/dialog_gatom.tcl:137
 msgid "Right"
 msgstr "Справа"
 
@@ -775,26 +988,35 @@ msgstr "Справа"
 msgid "Sample rate:"
 msgstr "Частота сэмплирования:"
 
-#: ../tcl/pd_menus.tcl:55 ../tcl/pd_menus.tcl:82 ../tcl/pd_menus.tcl:112
-#: ../tcl/pd_menus.tcl:114 ../tcl/pd_menus.tcl:146 ../tcl/pd_menus.tcl:148
-#: ../tcl/pd_menus.tcl:550 ../tcl/pd_menus.tcl:557 ../tcl/pd_menus.tcl:578
-#: ../tcl/pd_menus.tcl:586 ../tcl/pd_menus.tcl:625 ../tcl/pd_menus.tcl:634
+#: ../tcl/pd_menus.tcl:55 ../tcl/pd_menus.tcl:61 ../tcl/pd_menus.tcl:82
+#: ../tcl/pd_menus.tcl:88 ../tcl/pd_menus.tcl:112 ../tcl/pd_menus.tcl:114
+#: ../tcl/pd_menus.tcl:120 ../tcl/pd_menus.tcl:146 ../tcl/pd_menus.tcl:148
+#: ../tcl/pd_menus.tcl:154 ../tcl/pd_menus.tcl:550 ../tcl/pd_menus.tcl:557
+#: ../tcl/pd_menus.tcl:568 ../tcl/pd_menus.tcl:578 ../tcl/pd_menus.tcl:586
+#: ../tcl/pd_menus.tcl:597 ../tcl/pd_menus.tcl:625 ../tcl/pd_menus.tcl:634
+#: ../tcl/pd_menus.tcl:645
 msgid "Save"
 msgstr "Сохранить"
 
 #: ../tcl/dialog_audio.tcl:326 ../tcl/pd_menus.tcl:521 ../tcl/pd_menus.tcl:528
+#: ../tcl/pd_menus.tcl:539
 msgid "Save All Settings"
 msgstr "Сохранить все"
 
-#: ../tcl/pd_menus.tcl:56 ../tcl/pd_menus.tcl:83 ../tcl/pd_menus.tcl:113
-#: ../tcl/pd_menus.tcl:115 ../tcl/pd_menus.tcl:147 ../tcl/pd_menus.tcl:149
-#: ../tcl/pd_menus.tcl:551 ../tcl/pd_menus.tcl:558 ../tcl/pd_menus.tcl:579
-#: ../tcl/pd_menus.tcl:587 ../tcl/pd_menus.tcl:626 ../tcl/pd_menus.tcl:635
+#: ../tcl/pd_menus.tcl:56 ../tcl/pd_menus.tcl:62 ../tcl/pd_menus.tcl:83
+#: ../tcl/pd_menus.tcl:89 ../tcl/pd_menus.tcl:113 ../tcl/pd_menus.tcl:115
+#: ../tcl/pd_menus.tcl:121 ../tcl/pd_menus.tcl:147 ../tcl/pd_menus.tcl:149
+#: ../tcl/pd_menus.tcl:155 ../tcl/pd_menus.tcl:551 ../tcl/pd_menus.tcl:558
+#: ../tcl/pd_menus.tcl:569 ../tcl/pd_menus.tcl:579 ../tcl/pd_menus.tcl:587
+#: ../tcl/pd_menus.tcl:598 ../tcl/pd_menus.tcl:626 ../tcl/pd_menus.tcl:635
+#: ../tcl/pd_menus.tcl:646
 msgid "Save As..."
 msgstr "Сохранить как..."
 
-#: ../tcl/pd_menus.tcl:84 ../tcl/pd_menus.tcl:150 ../tcl/pd_menus.tcl:559
-#: ../tcl/pd_menus.tcl:588 ../tcl/pd_menus.tcl:636
+#: ../tcl/pd_menus.tcl:84 ../tcl/pd_menus.tcl:90 ../tcl/pd_menus.tcl:150
+#: ../tcl/pd_menus.tcl:156 ../tcl/pd_menus.tcl:559 ../tcl/pd_menus.tcl:570
+#: ../tcl/pd_menus.tcl:588 ../tcl/pd_menus.tcl:599 ../tcl/pd_menus.tcl:636
+#: ../tcl/pd_menus.tcl:647
 msgid "Save Current Patch As..."
 msgstr "Сохранить текущий патч как..."
 
@@ -806,7 +1028,7 @@ msgstr "Сохранять содержимое"
 msgid "Scale"
 msgstr "Масштаб"
 
-#: ../tcl/pd_deken.tcl:294
+#: ../tcl/pd_deken.tcl:294 ../tcl/pd_deken.tcl:295
 msgid "Search"
 msgstr "Поиск"
 
@@ -814,15 +1036,28 @@ msgstr "Поиск"
 msgid "Search in"
 msgstr "Поиск в"
 
-#: ../tcl/pd_menus.tcl:173 ../tcl/pd_menus.tcl:176
+#: ../tcl/pd_menus.tcl:173 ../tcl/pd_menus.tcl:176 ../tcl/pd_menus.tcl:182
 msgid "Select All"
 msgstr "Выделить все"
+
+#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:560
+msgid "Selected Button Color"
+msgstr ""
+
+#: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:578
+msgid "Selection Color"
+msgstr "Цвет выделения"
+
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:127
+msgid "Send Symbol"
+msgstr "Отправлять"
 
 #: ../tcl/dialog_message.tcl:62
 msgid "Send a Pd message"
 msgstr "Отправить сообщение PureData"
 
-#: ../tcl/dialog_gatom.tcl:151 ../tcl/dialog_iemgui.tcl:652
+#: ../tcl/dialog_gatom.tcl:151 ../tcl/dialog_gatom.tcl:152
+#: ../tcl/dialog_iemgui.tcl:652
 msgid "Send symbol:"
 msgstr "Отправлять:"
 
@@ -830,9 +1065,23 @@ msgstr "Отправлять:"
 msgid "Settings"
 msgstr "Настройки"
 
-#: ../tcl/pd_deken.tcl:292 ../tcl/pd_deken.tcl:337
+#: ../ceammc/ext/src/ui_keyboard.cpp:283
+msgid "Shift"
+msgstr "Смещение"
+
+#: ../tcl/pd_deken.tcl:292 ../tcl/pd_deken.tcl:293 ../tcl/pd_deken.tcl:337
+#: ../tcl/pd_deken.tcl:342
 msgid "Show all"
 msgstr "Показать все"
+
+#: ../ceammc/ext/src/ui_slider2d.cpp:227 ../ceammc/ext/src/ui_sliders.cpp:340
+msgid "Show range"
+msgstr "Показывать диапазон"
+
+#: ../ceammc/ext/src/ui_slider2d.cpp:227
+#, fuzzy
+msgid "Show value range"
+msgstr "Показывать диапазон"
 
 #: ../tcl/dialog_find.tcl:128
 #, tcl-format
@@ -851,23 +1100,35 @@ msgstr ""
 msgid "Size:"
 msgstr "Размер:"
 
+#: ../ceammc/ext/src/ui_sliders.cpp:306
+msgid "Slider color"
+msgstr "Цвет ползунков"
+
+#: ../ceammc/ext/src/ui_sliders.cpp:316
+msgid "Sliders count"
+msgstr "Число ползунков"
+
 #: ../tcl/dialog_startup.tcl:93
 msgid "Startup flags:"
 msgstr "Флаги запуска:"
 
-#: ../tcl/pd_menus.tcl:511 ../tcl/pd_menus.tcl:518
+#: ../tcl/pd_menus.tcl:511 ../tcl/pd_menus.tcl:518 ../tcl/pd_menus.tcl:529
 msgid "Startup..."
 msgstr "Запуск..."
 
 #: ../tcl/dialog_iemgui.tcl:300 ../tcl/dialog_iemgui.tcl:637
 msgid "Steady on click"
-msgstr ""
+msgstr "Не реагировать на клик"
+
+#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:554
+msgid "Stored Button Color"
+msgstr "Цвет сохраненной ячейки"
 
 #: ../tcl/dialog_font.tcl:133
 msgid "Stretch"
 msgstr "Масштаб"
 
-#: ../tcl/pd_menus.tcl:218 ../tcl/pd_menus.tcl:221
+#: ../tcl/pd_menus.tcl:218 ../tcl/pd_menus.tcl:221 ../tcl/pd_menus.tcl:232
 msgid "Symbol"
 msgstr "Символ"
 
@@ -875,7 +1136,7 @@ msgstr "Символ"
 msgid "Tcl:"
 msgstr ""
 
-#: ../tcl/pd_menus.tcl:266 ../tcl/pd_menus.tcl:269
+#: ../tcl/pd_menus.tcl:266 ../tcl/pd_menus.tcl:269 ../tcl/pd_menus.tcl:280
 msgid "Test Audio and MIDI..."
 msgstr "Проверка аудио и MIDI..."
 
@@ -883,23 +1144,49 @@ msgstr "Проверка аудио и MIDI..."
 msgid "Test label"
 msgstr ""
 
-#: ../tcl/pd_menus.tcl:61 ../tcl/pd_menus.tcl:88 ../tcl/pd_menus.tcl:89
-#: ../tcl/pd_menus.tcl:120 ../tcl/pd_menus.tcl:122 ../tcl/pd_menus.tcl:191
-#: ../tcl/pd_menus.tcl:194
+#: ../ceammc/extra/CreamLibrary/Sources/c.menu.cpp:138
+#: ../ceammc/extra/CreamLibrary/Sources/c.number.cpp:444
+#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:542
+#: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:566
+msgid "Text Color"
+msgstr "Цвет текста"
+
+#: ../tcl/pd_menus.tcl:61 ../tcl/pd_menus.tcl:67 ../tcl/pd_menus.tcl:88
+#: ../tcl/pd_menus.tcl:89 ../tcl/pd_menus.tcl:95 ../tcl/pd_menus.tcl:120
+#: ../tcl/pd_menus.tcl:122 ../tcl/pd_menus.tcl:128 ../tcl/pd_menus.tcl:191
+#: ../tcl/pd_menus.tcl:194 ../tcl/pd_menus.tcl:200
 msgid "Tidy Up"
 msgstr "Расставить"
 
+#: ../ceammc/ext/src/ui_link.cpp:154
+msgid "Title"
+msgstr ""
+
 #: ../tcl/dialog_iemgui.tcl:523 ../tcl/pd_menus.tcl:225 ../tcl/pd_menus.tcl:228
+#: ../tcl/pd_menus.tcl:239
 msgid "Toggle"
 msgstr ""
 
-#: ../tcl/dialog_gatom.tcl:138
+#: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:542
+msgid "Toggle Mode"
+msgstr "Режим переключателя"
+
+#: ../tcl/dialog_gatom.tcl:138 ../tcl/dialog_gatom.tcl:139
 msgid "Top"
 msgstr "Сверху"
 
-#: ../tcl/pd_menus.tcl:67 ../tcl/pd_menus.tcl:126 ../tcl/pd_menus.tcl:128
-#: ../tcl/pd_menus.tcl:160 ../tcl/pd_menus.tcl:163 ../tcl/pd_menus.tcl:352
-#: ../tcl/pd_menus.tcl:359
+#: ../ceammc/ext/src/ui_slider2d.cpp:246
+msgid "Topmost value"
+msgstr "Крайнее верхнее значение"
+
+#: ../ceammc/ext/src/ui_link.cpp:149
+msgid "URL"
+msgstr "URL"
+
+#: ../tcl/pd_menus.tcl:67 ../tcl/pd_menus.tcl:73 ../tcl/pd_menus.tcl:126
+#: ../tcl/pd_menus.tcl:128 ../tcl/pd_menus.tcl:134 ../tcl/pd_menus.tcl:160
+#: ../tcl/pd_menus.tcl:163 ../tcl/pd_menus.tcl:169 ../tcl/pd_menus.tcl:352
+#: ../tcl/pd_menus.tcl:359 ../tcl/pd_menus.tcl:370
 msgid "Undo"
 msgstr "Отменить"
 
@@ -935,8 +1222,9 @@ msgstr "Отменить вставку"
 msgid "Undo typing"
 msgstr "Отменить ввод"
 
-#: ../tcl/dialog_gatom.tcl:122 ../tcl/dialog_iemgui.tcl:533
-#: ../tcl/dialog_iemgui.tcl:541 ../tcl/dialog_iemgui.tcl:548
+#: ../tcl/dialog_gatom.tcl:122 ../tcl/dialog_gatom.tcl:123
+#: ../tcl/dialog_iemgui.tcl:533 ../tcl/dialog_iemgui.tcl:541
+#: ../tcl/dialog_iemgui.tcl:548
 msgid "Upper:"
 msgstr "До:"
 
@@ -953,8 +1241,17 @@ msgid "Use standard extensions"
 msgstr "Использовать стандартные расширения"
 
 #: ../tcl/dialog_iemgui.tcl:558 ../tcl/pd_menus.tcl:237 ../tcl/pd_menus.tcl:240
+#: ../tcl/pd_menus.tcl:251
 msgid "VU Meter"
 msgstr ""
+
+#: ../ceammc/ext/src/ui_sliders.cpp:328
+msgid "Value range"
+msgstr "Диапазон значений"
+
+#: ../ceammc/ext/src/ui_sliders.cpp:321
+msgid "Value shift"
+msgstr "Смещение значения"
 
 #: ../tcl/dialog_iemgui.tcl:526
 msgid "Value:"
@@ -964,24 +1261,34 @@ msgstr "Значение:"
 msgid "Verbose"
 msgstr "Подробный вывод"
 
+#: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:535
+msgid "Vertical Orientation"
+msgstr "Вертикально"
+
+#: ../ceammc/ext/src/ui_slider2d.cpp:252
+msgid "Vertical range"
+msgstr "Вертикальный диапазон"
+
 #: ../tcl/dialog_iemgui.tcl:566
 msgid "Visible Rectangle (pix)"
 msgstr "Видимый размер (в пикселях)"
 
 #: ../tcl/dialog_iemgui.tcl:550 ../tcl/pd_menus.tcl:233 ../tcl/pd_menus.tcl:236
+#: ../tcl/pd_menus.tcl:247
 msgid "Vradio"
 msgstr ""
 
 #: ../tcl/dialog_iemgui.tcl:536 ../tcl/pd_menus.tcl:229 ../tcl/pd_menus.tcl:232
+#: ../tcl/pd_menus.tcl:243
 msgid "Vslider"
 msgstr "Vertial Slider"
 
-#: ../tcl/pd-gui.tcl:481
+#: ../tcl/pd-gui.tcl:477 ../tcl/pd-gui.tcl:481
 #, tcl-format
 msgid "WARNING: Font family '%s' not found, using default (%s)\n"
 msgstr ""
 
-#: ../tcl/pd-gui.tcl:489
+#: ../tcl/pd-gui.tcl:485 ../tcl/pd-gui.tcl:489
 #, tcl-format
 msgid "WARNING: Font weight '%s' not found, using default (%s)\n"
 msgstr ""
@@ -994,9 +1301,9 @@ msgstr ""
 msgid "Width (digits):"
 msgstr "Ширина в разрядах:"
 
-#: ../tcl/dialog_gatom.tcl:109 ../tcl/dialog_iemgui.tcl:537
-#: ../tcl/dialog_iemgui.tcl:544 ../tcl/dialog_iemgui.tcl:559
-#: ../tcl/dialog_iemgui.tcl:567
+#: ../tcl/dialog_gatom.tcl:109 ../tcl/dialog_gatom.tcl:110
+#: ../tcl/dialog_iemgui.tcl:537 ../tcl/dialog_iemgui.tcl:544
+#: ../tcl/dialog_iemgui.tcl:559 ../tcl/dialog_iemgui.tcl:567
 msgid "Width:"
 msgstr "Ширина:"
 
@@ -1036,23 +1343,25 @@ msgstr "Y диапазон: от"
 msgid "Y units per pixel:"
 msgstr "Y единиц на пиксель:"
 
-#: ../tcl/pd_menus.tcl:303 ../tcl/pd_menus.tcl:306
+#: ../tcl/pd_menus.tcl:303 ../tcl/pd_menus.tcl:306 ../tcl/pd_menus.tcl:317
 msgid "Zoom"
 msgstr "Раскрыть"
 
-#: ../tcl/pd_menus.tcl:62 ../tcl/pd_menus.tcl:89 ../tcl/pd_menus.tcl:90
-#: ../tcl/pd_menus.tcl:121 ../tcl/pd_menus.tcl:123 ../tcl/pd_menus.tcl:187
-#: ../tcl/pd_menus.tcl:190
+#: ../tcl/pd_menus.tcl:62 ../tcl/pd_menus.tcl:68 ../tcl/pd_menus.tcl:89
+#: ../tcl/pd_menus.tcl:90 ../tcl/pd_menus.tcl:96 ../tcl/pd_menus.tcl:121
+#: ../tcl/pd_menus.tcl:123 ../tcl/pd_menus.tcl:129 ../tcl/pd_menus.tcl:187
+#: ../tcl/pd_menus.tcl:190 ../tcl/pd_menus.tcl:196
 msgid "Zoom In"
 msgstr "Увеличить"
 
-#: ../tcl/pd_menus.tcl:63 ../tcl/pd_menus.tcl:90 ../tcl/pd_menus.tcl:91
-#: ../tcl/pd_menus.tcl:122 ../tcl/pd_menus.tcl:124 ../tcl/pd_menus.tcl:189
-#: ../tcl/pd_menus.tcl:192
+#: ../tcl/pd_menus.tcl:63 ../tcl/pd_menus.tcl:69 ../tcl/pd_menus.tcl:90
+#: ../tcl/pd_menus.tcl:91 ../tcl/pd_menus.tcl:97 ../tcl/pd_menus.tcl:122
+#: ../tcl/pd_menus.tcl:124 ../tcl/pd_menus.tcl:130 ../tcl/pd_menus.tcl:189
+#: ../tcl/pd_menus.tcl:192 ../tcl/pd_menus.tcl:198
 msgid "Zoom Out"
 msgstr "Уменьшить"
 
-#: ../tcl/pd_menus.tcl:517 ../tcl/pd_menus.tcl:524
+#: ../tcl/pd_menus.tcl:517 ../tcl/pd_menus.tcl:524 ../tcl/pd_menus.tcl:535
 msgid "Zoom new windows"
 msgstr "Увеличенный шрифт в новых окнах"
 
@@ -1116,11 +1425,11 @@ msgstr ""
 msgid "min:"
 msgstr ""
 
-#: ../tcl/pdwindow.tcl:366
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:90 ../tcl/pdwindow.tcl:366
 msgid "normal"
 msgstr "обычный"
 
-#: ../tcl/pd_menus.tcl:337 ../tcl/pd_menus.tcl:344
+#: ../tcl/pd_menus.tcl:337 ../tcl/pd_menus.tcl:344 ../tcl/pd_menus.tcl:355
 msgid "puredata.info"
 msgstr ""
 
@@ -1147,15 +1456,3 @@ msgstr "значение:"
 #: iemgui_dynamic_strings.tcl:34
 msgid "width:"
 msgstr "ширина:"
-
-#~ msgid "Browser..."
-#~ msgstr "Браузер..."
-
-#~ msgid "X range, from"
-#~ msgstr "X диапазон, от"
-
-#~ msgid "Y offset"
-#~ msgstr "Y-cмещение"
-
-#~ msgid "Y range, from"
-#~ msgstr "Y диапазон, от"

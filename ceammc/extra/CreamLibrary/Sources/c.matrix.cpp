@@ -340,26 +340,26 @@ extern "C" void setup_ui0x2ematrix(void)
         CLASS_ATTR_DEFAULT              (c, "size", 0, "105 53");
         
         CLASS_ATTR_INT_ARRAY            (c, "matrix", 0, t_matrixctrl, f_size, 2);
-        CLASS_ATTR_LABEL                (c, "matrix", 0, "Matrix Size");
+        CLASS_ATTR_LABEL                (c, "matrix", 0, _("Matrix Size"));
         CLASS_ATTR_ACCESSORS			(c, "matrix", NULL, matrixctrl_matrix_set);
         CLASS_ATTR_ORDER                (c, "matrix", 0, "1");
         CLASS_ATTR_DEFAULT              (c, "matrix", 0, "8 4");
         CLASS_ATTR_SAVE                 (c, "matrix", 0);
         
         CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_matrixctrl, f_color_background);
-        CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
+        CLASS_ATTR_LABEL                (c, "bgcolor", 0, _("Background Color"));
         CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
         CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, DEFAULT_BACKGROUND_COLOR);
         CLASS_ATTR_STYLE                (c, "bgcolor", 0, "color");
         
         CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_matrixctrl, f_color_border);
-        CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Border Color");
+        CLASS_ATTR_LABEL                (c, "bdcolor", 0, _("Border Color"));
         CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
         CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, DEFAULT_BORDER_COLOR);
         CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
         
         CLASS_ATTR_RGBA                 (c, "accolor", 0, t_matrixctrl, f_color_on);
-        CLASS_ATTR_LABEL                (c, "accolor", 0, "Active Cell Color");
+        CLASS_ATTR_LABEL                (c, "accolor", 0, _("Active Color"));
         CLASS_ATTR_ORDER                (c, "accolor", 0, "3");
         CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "accolor", 0, DEFAULT_ACTIVE_COLOR);
         CLASS_ATTR_STYLE                (c, "accolor", 0, "color");

@@ -3,3 +3,6 @@ install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     PATTERN "CMake*" EXCLUDE
     PATTERN "Make*" EXCLUDE
 )
+
+FILE(GLOB_RECURSE TCL_FILES "*.tcl")
+add_custom_target(tcl_files SOURCES ${TCL_FILES})

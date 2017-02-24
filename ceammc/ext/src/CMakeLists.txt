@@ -268,8 +268,8 @@ if(GLIB_FOUND)
     ceammc_glib_extension__(is file)
 endif()
 
-#ceammc_cxx_extension(system memsize)
-#ceammc_cxx_extension(system memused)
+ceammc_cxx_extension(system memsize)
+ceammc_cxx_extension(system memused)
 
 ###############################
 # DSP
@@ -286,6 +286,9 @@ ceammc_faust_extension(flt dcblock2 simple_pd_control_ext)
 ceammc_faust_extension(flt highshelf simple_pd_control_ext)
 ceammc_faust_extension(flt lowshelf simple_pd_control_ext)
 ceammc_faust_extension(flt eq_peak simple_pd_control_ext)
+
+ceammc_faust_extension(fx freeverb simple_pd_control_ext)
+ceammc_faust_extension(fx freeverb2 simple_pd_control_ext)
 
 #ceammc_faust_extension(flt biquad simple_pd_control_ext)
 #ceammc_faust_extension(flt c_lpf simple_pd_control_ext)

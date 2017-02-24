@@ -20,12 +20,18 @@
 #ifndef new_c_gui_h
 #define new_c_gui_h
 
+#include <cassert>
 #include <string>
 
 #include "cicm_wrapper.h"
 #include "m_pd.h"
 
 namespace ceammc_gui {
+
+//! Gettext extract message helper
+#ifndef _
+#define _(msg) msg
+#endif
 
 /** \deprecated this was a separate property handling, should be merged with existing CICM properties
      */
@@ -110,6 +116,12 @@ struct BaseGuiObject {
             pd_anything(send, s, argc, argv);
         }
     }
+
+    void getRect(t_rect* r)
+    {
+        assert(r);
+        ebox_get_rect_for_view(&b_box, r);
+    }
 };
 
 struct BaseSoundGuiStruct {
@@ -123,6 +135,12 @@ struct BaseSoundGuiStruct {
 
     t_rgba b_color_background;
     t_rgba b_color_border;
+
+    void getRect(t_rect* r)
+    {
+        assert(r);
+        ebox_get_rect_for_view(reinterpret_cast<t_ebox*>(this), r);
+    }
 };
 
 /**
@@ -164,7 +182,7 @@ public:
      * @brief "extension": bang method
      * @param z: pd object, s: symbol ("bang"), argc: argument count (should be 0), argv: argument value
      */
-    static void m_bang(t_object* z)
+    static void m_bang(U* z)
     {
     }
 
@@ -172,7 +190,7 @@ public:
      * @brief "extension": list method
      * @param z: pd object, s: symbol ("list"), argc: argument count , argv: argument value
      */
-    static void m_list(t_object* z, t_symbol* s, int argc, t_atom* argv)
+    static void m_list(U* z, t_symbol* s, int argc, t_atom* argv)
     {
     }
 
@@ -180,7 +198,7 @@ public:
      * @brief "extension": anything method
      * @param z: pd object, s: symbol (message name, first element), argc: argument count, argv: argument value
      */
-    static void m_anything(t_object* z, t_symbol* s, int argc, t_atom* argv)
+    static void m_anything(U* z, t_symbol* s, int argc, t_atom* argv)
     {
     }
 
@@ -188,7 +206,7 @@ public:
      * @brief "extension": symbol method
      * @param z: pd object, s: symbol (the symbol itself), argc: argument count, argv: argument value
      */
-    static void m_symbol(t_object* z, t_symbol* s)
+    static void m_symbol(U* z, t_symbol* s)
     {
     }
 
@@ -196,7 +214,7 @@ public:
      * @brief "extension": float method
      * @param z: pd object, f: float value
      */
-    static void m_float(t_object* z, t_float f)
+    static void m_float(U* z, t_float f)
     {
     }
 
@@ -204,11 +222,11 @@ public:
      * @brief "extension": set method
      * @param z: pd object, s: symbol ("set"), argc: argument count, argv: argument value
      */
-    static void m_set(t_object* z, t_symbol* s, int argc, t_atom* argv)
+    static void m_set(U* z, t_symbol* s, int argc, t_atom* argv)
     {
     }
 
-    static void m_preset(t_object* z, t_binbuf* b)
+    static void m_preset(U* z, t_binbuf* b)
     {
     }
 
@@ -226,15 +244,7 @@ public:
      * @brief "extension": pd object (instance) initialization
      * @param z: pd object, s: symbol ("set"), argc: argument count, argv: argument value
      */
-    static void new_ext(t_object* z, t_symbol* s, int argc, t_atom* argv)
-    {
-    }
-
-    /**
-     * @brief DEPRECATED "extension": properties load routine
-     * @param z: pd object
-     */
-    static void load_ext(t_object* z)
+    static void new_ext(U* z, t_symbol* s, int argc, t_atom* argv)
     {
     }
 
@@ -242,7 +252,7 @@ public:
      * @brief "extension": pd object (instance) free method.
      * @param z: pd object
      */
-    static void free_ext(t_object* z)
+    static void free_ext(U* z)
     {
     }
 
@@ -252,16 +262,15 @@ public:
      * @brief "extension": mouse move event
      * @param z: pd object, view: view, pt: mouse location, modifiers: modifiers
      */
-    static void wx_mousemove_ext(t_object* z, t_object* view, t_pt pt, long modifiers)
+    static void wx_mousemove_ext(U* z, t_object* view, t_pt pt, long modifiers)
     {
-        GuiFactory<U>::ws_redraw(z);
     }
 
     /**
      * @brief "extension": mouse down event
      * @param z: pd object, view: view, pt: mouse location, modifiers: modifiers
      */
-    static void wx_mousedown_ext(t_object* z, t_object* view, t_pt pt, long modifiers)
+    static void wx_mousedown_ext(U* z, t_object* view, t_pt pt, long modifiers)
     {
     }
 
@@ -269,7 +278,7 @@ public:
      * @brief "extension": mouse up event
      * @param z: pd object, view: view, pt: mouse location, modifiers: modifiers
      */
-    static void wx_mouseup_ext(t_object* z, t_object* view, t_pt pt, long modifiers)
+    static void wx_mouseup_ext(U* z, t_object* view, t_pt pt, long modifiers)
     {
     }
 
@@ -277,7 +286,7 @@ public:
      * @brief "extension": mouse drag event
      * @param z: pd object, view: view, pt: mouse location, modifiers: modifiers
      */
-    static void wx_mousedrag_ext(t_object* z, t_object* view, t_pt pt, long modifiers)
+    static void wx_mousedrag_ext(U* z, t_object* view, t_pt pt, long modifiers)
     {
     }
 
@@ -285,7 +294,7 @@ public:
      * @brief "extension": mouse leave event
      * @param z: pd object, view: view, pt: mouse location, modifiers: modifiers
      */
-    static void wx_mouseleave_ext(t_object* z, t_object* view, t_pt pt, long modifiers)
+    static void wx_mouseleave_ext(U* z, t_object* view, t_pt pt, long modifiers)
     {
     }
 
@@ -293,7 +302,7 @@ public:
      * @brief "extension": mouse leave event
      * @param z: pd object, view: view, pt: mouse location, modifiers: modifiers
      */
-    static void wx_mouseenter_ext(t_object* z, t_object* view, t_pt pt, long modifiers)
+    static void wx_mouseenter_ext(U* z, t_object* view, t_pt pt, long modifiers)
     {
     }
 
@@ -301,11 +310,11 @@ public:
      * @brief "extension": attribute update event
      * @param z: pd object, attr: attrobute name, attr_chage_type: type of change
      */
-    static void wx_attr_changed_ext(t_object* /*z*/, t_symbol* /*attr*/)
+    static void wx_attr_changed_ext(U* /*z*/, t_symbol* /*attr*/)
     {
     }
 
-    static void wx_mousewheel_ext(t_object* z, t_object* view, t_pt pt, long modifiers, double delta)
+    static void wx_mousewheel_ext(U* z, t_object* view, t_pt pt, long modifiers, double delta)
     {
     }
 
@@ -319,16 +328,17 @@ public:
     static void* new_method(t_symbol* s, int argc, t_atom* argv)
     {
         t_object* z = reinterpret_cast<t_object*>(eobj_new(GuiFactory<U>::pd_class));
+        t_ebox* box = reinterpret_cast<t_ebox*>(z);
 
         t_binbuf* d = binbuf_via_atoms(argc, argv);
-        ebox_new(asBox(z), 0 | EBOX_GROWINDI);
+        ebox_new(box, 0 | EBOX_GROWINDI);
 
         if (z && d) {
             //moved
-            new_ext(z, s, argc, argv);
+            new_ext(asStruct(z), s, argc, argv);
 
             ebox_attrprocess_viabinbuf(z, d);
-            ebox_ready(asBox(z));
+            ebox_ready(box);
             binbuf_free(d);
         }
 
@@ -341,18 +351,18 @@ public:
      */
     static void free_method(t_object* z)
     {
-        free_ext(z);
-        ebox_free(asBox(z));
+        free_ext(asStruct(z));
+        ebox_free(reinterpret_cast<t_ebox*>(z));
     }
 
     /**
      * @brief pd object dsp free method
      * @param z: pd object
      */
-    static void free_dsp_method(t_object* x)
+    static void free_dsp_method(t_object* z)
     {
-        free_ext(x);
-        eobj_dspfree(x);
+        free_ext(asStruct(z));
+        eobj_dspfree(z);
     }
 
 #pragma mark -
@@ -374,7 +384,7 @@ public:
      * @brief CICM widget method: redraw
      * @param z: pd object
      */
-    static void ws_redraw(t_object* z)
+    static void ws_redraw(U* z)
     {
         ebox_invalidate_layer(asBox(z), BG_LAYER);
         ebox_redraw(asBox(z));
@@ -384,11 +394,11 @@ public:
      * @brief CICM widget method: paint
      * @param z: pd object, view: canvas
      */
-    static void wx_paint(t_object* z, t_object* view)
+    static void wx_paint(U* z, t_object* view)
     {
         //float size;
         t_rect rect;
-        ebox_get_rect_for_view(asBox(z), &rect);
+        z->getRect(&rect);
 
         t_elayer* g = ebox_start_layer(asBox(z), BG_LAYER, rect.width, rect.height);
         if (g) {
@@ -408,7 +418,7 @@ public:
      * @details fix the object size in this method
      * @param z: pd object, newrect: object box rect
      */
-    static void wx_oksize(t_object* z, t_rect* newrect)
+    static void wx_oksize(U* z, t_rect* newrect)
     {
     }
 
@@ -420,12 +430,12 @@ public:
      */
     static void wx_mousemove(t_object* z, t_object* view, t_pt pt, long modifiers)
     {
-        U* zx = reinterpret_cast<U*>(z);
+        U* zx = asStruct(z);
 
         zx->mouse_x = pt.x;
         zx->mouse_y = pt.y;
 
-        GuiFactory<U>::wx_mousemove_ext(z, view, pt, modifiers);
+        wx_mousemove_ext(zx, view, pt, modifiers);
     }
 
     /**
@@ -435,12 +445,13 @@ public:
     static void wx_mousedown(t_object* z, t_object* view, t_pt pt, long modifiers)
     {
         U* zx = asStruct(z);
+
         zx->mouse_x = pt.x;
         zx->mouse_y = pt.y;
 
         zx->mouse_dn = 1;
 
-        wx_mousedown_ext(z, view, pt, modifiers);
+        wx_mousedown_ext(zx, view, pt, modifiers);
     }
 
     /**
@@ -449,14 +460,14 @@ public:
      */
     static void wx_mouseup(t_object* z, t_object* view, t_pt pt, long modifiers)
     {
-        U* zx = reinterpret_cast<U*>(z);
+        U* zx = asStruct(z);
 
         zx->mouse_x = pt.x;
         zx->mouse_y = pt.y;
 
         zx->mouse_dn = 0;
 
-        GuiFactory<U>::wx_mouseup_ext(z, view, pt, modifiers);
+        wx_mouseup_ext(zx, view, pt, modifiers);
     }
 
     /**
@@ -465,12 +476,12 @@ public:
      */
     static void wx_mousedrag(t_object* z, t_object* view, t_pt pt, long modifiers)
     {
-        U* zx = reinterpret_cast<U*>(z);
+        U* zx = asStruct(z);
 
         zx->mouse_x = pt.x;
         zx->mouse_y = pt.y;
 
-        GuiFactory<U>::wx_mousedrag_ext(z, view, pt, modifiers);
+        wx_mousedrag_ext(zx, view, pt, modifiers);
     }
 
     /**
@@ -479,7 +490,7 @@ public:
      */
     static void wx_mouseleave(t_object* z, t_object* view, t_pt pt, long modifiers)
     {
-        wx_mouseleave_ext(z, view, pt, modifiers);
+        wx_mouseleave_ext(asStruct(z), view, pt, modifiers);
     }
 
     /**
@@ -488,24 +499,24 @@ public:
      */
     static void wx_mouseenter(t_object* z, t_object* view, t_pt pt, long modifiers)
     {
-        wx_mouseenter_ext(z, view, pt, modifiers);
+        wx_mouseenter_ext(asStruct(z), view, pt, modifiers);
     }
 
     /**
      * @brief CICM widget method: notify on attr change
      * @param x: pd pbject
      */
-    static t_pd_err wx_notify(t_object* x, t_symbol* s, t_symbol* msg, void*, void*)
+    static t_pd_err wx_notify(t_object* z, t_symbol* s, t_symbol* msg, void*, void*)
     {
         if (msg == s_attr_modified)
-            wx_attr_changed_ext(x, s);
+            wx_attr_changed_ext(asStruct(z), s);
 
         return 0;
     }
 
     static void wx_mousewheel(t_object* z, t_object* view, t_pt pt, long modifiers, double delta)
     {
-        wx_mousewheel_ext(z, view, pt, modifiers, delta);
+        wx_mousewheel_ext(asStruct(z), view, pt, modifiers, delta);
     }
 
 #pragma mark -
@@ -555,13 +566,13 @@ public:
 
         // background / border color
         CLASS_ATTR_RGBA                 (cl, "bgcolor", 0, U, b_color_background);
-        CLASS_ATTR_LABEL                (cl, "bgcolor", 0, "Background Color");
+        CLASS_ATTR_LABEL                (cl, "bgcolor", 0, _("Background Color"));
         CLASS_ATTR_ORDER                (cl, "bgcolor", 0, "1");
         CLASS_ATTR_DEFAULT_SAVE_PAINT   (cl, "bgcolor", 0, DEFAULT_BACKGROUND_COLOR);
         CLASS_ATTR_STYLE                (cl, "bgcolor", 0, "color");
 
         CLASS_ATTR_RGBA                 (cl, "bdcolor", 0, U, b_color_border);
-        CLASS_ATTR_LABEL                (cl, "bdcolor", 0, "Border Color");
+        CLASS_ATTR_LABEL                (cl, "bdcolor", 0, _("Border Color"));
         CLASS_ATTR_ORDER                (cl, "bdcolor", 0, "2");
         CLASS_ATTR_DEFAULT_SAVE_PAINT   (cl, "bdcolor", 0, DEFAULT_BORDER_COLOR);
         CLASS_ATTR_STYLE                (cl, "bdcolor", 0, "color");
@@ -647,9 +658,14 @@ public:
         return reinterpret_cast<U*>(x);
     }
 
-    static t_ebox* asBox(t_object* x)
+    static t_ebox* asBox(U* x)
     {
         return reinterpret_cast<t_ebox*>(x);
+    }
+
+    static t_outlet* create_outlet(U* x, t_symbol* type = &s_anything)
+    {
+        return outlet_new(reinterpret_cast<t_object*>(x), type);
     }
 };
 
@@ -659,16 +675,33 @@ t_eclass* GuiFactory<U>::pd_class = 0;
 template <typename U>
 t_symbol* GuiFactory<U>::BG_LAYER = gensym("background_layer");
 
+#ifdef __APPLE__
 template <typename U>
 t_symbol* GuiFactory<U>::FONT_FAMILY = gensym("Helvetica");
-template <typename U>
-t_symbol* GuiFactory<U>::FONT_STYLE = gensym("roman");
-template <typename U>
-t_symbol* GuiFactory<U>::FONT_WEIGHT = gensym("normal");
 template <typename U>
 const int GuiFactory<U>::FONT_SIZE = 12;
 template <typename U>
 const int GuiFactory<U>::FONT_SIZE_SMALL = 8;
+#elif _WIN32
+template <typename U>
+t_symbol* GuiFactory<U>::FONT_FAMILY = gensym("Verdana");
+template <typename U>
+const int GuiFactory<U>::FONT_SIZE = 9;
+template <typename U>
+const int GuiFactory<U>::FONT_SIZE_SMALL = 6;
+#else
+template <typename U>
+t_symbol* GuiFactory<U>::FONT_FAMILY = gensym("OpenSans");
+template <typename U>
+const int GuiFactory<U>::FONT_SIZE = 10;
+template <typename U>
+const int GuiFactory<U>::FONT_SIZE_SMALL = 6;
+#endif
+
+template <typename U>
+t_symbol* GuiFactory<U>::FONT_STYLE = gensym("roman");
+template <typename U>
+t_symbol* GuiFactory<U>::FONT_WEIGHT = gensym("normal");
 template <typename U>
 t_symbol* GuiFactory<U>::COLOR_ACTIVE = gensym("#00C0FF");
 

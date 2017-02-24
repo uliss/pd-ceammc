@@ -154,13 +154,13 @@ extern "C" void setup_ui0x2ebang(void)
         CLASS_ATTR_STYLE                (c, "bgcolor", 0, "color");
         // We do the same thing for the border color and the bang color.
         CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_bang, b_color_border);
-        CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Border Color");
+        CLASS_ATTR_LABEL                (c, "bdcolor", 0, _("Border Color"));
         CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
         CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, DEFAULT_BORDER_COLOR);
         CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
         
         CLASS_ATTR_RGBA                 (c, "bacolor", 0, t_bang, b_color_bang);
-        CLASS_ATTR_LABEL                (c, "bacolor", 0, "Bang Color");
+        CLASS_ATTR_LABEL                (c, "bacolor", 0, _("Active Color"));
         CLASS_ATTR_ORDER                (c, "bacolor", 0, "3");
         CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bacolor", 0, DEFAULT_ACTIVE_COLOR);
         CLASS_ATTR_STYLE                (c, "bacolor", 0, "color");
@@ -182,7 +182,7 @@ extern "C" void setup_ui0x2ebang(void)
         CLASS_ATTR_FLOAT_ARRAY          (c, "labeloffset", 0, t_bang, f_labeloffset, 2);
         CLASS_ATTR_LABEL                (c, "labeloffset", 0, "Label Offset");
         CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "labeloffset", 0, "0 0");
-        CLASS_ATTR_INVISIBLE            (c, "labeltext", 0);
+        CLASS_ATTR_INVISIBLE            (c, "labeloffset", 0);
         
         // We register the class. This function is important it will set up some dsp members if needs and the properties window
         // if the class has attributes. The CLASS_BOX is for GUI otherwise use CLASS_OBJ this is pretty useless but it ensures

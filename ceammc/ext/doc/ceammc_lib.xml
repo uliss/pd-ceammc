@@ -60,6 +60,9 @@
     </entry>
   </category>
   <category name="fx">
+    <entry descr="freeverb - common used open-source reverb" name="fx.freeverb~" ref_view="object">
+      <xi:include href="fx.freeverb~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="frequency shifter or single-sideband ring modulation" name="fx.freqshift~" ref_view="object">
       <xi:include href="fx.freqshift~.pddoc" parse="xml"/>
     </entry>
@@ -362,6 +365,9 @@
   <category name="ui">
     <entry descr="A bang... that's all" name="ui.bang" ref_view="link">
       <xi:include href="ui.bang.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="Breakpoint function GUI object" name="ui.bpfunc" ref_view="link">
+      <xi:include href="ui.bpfunc.pddoc" parse="xml"/>
     </entry>
     <entry descr="Scope GUI object" name="ui.scope~" ref_view="link">
       <xi:include href="ui.scope~.pddoc" parse="xml"/>

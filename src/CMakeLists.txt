@@ -1,4 +1,9 @@
 add_definitions(-DPD)
+include(install_symlink)
+
+if(UNIX)
+    add_definitions("-DINSTALL_PREFIX=\"${CMAKE_INSTALL_PREFIX}\"")
+endif()
 
 set(M_SRC m_atom.c
     m_binbuf.c
@@ -32,6 +37,9 @@ set(G_SRC
     g_canvas.c
     g_clone.c
     g_editor.c
+    g_draw.h
+    g_draw.c
+    g_draw_tcl.c
     g_graph.c
     g_guiconnect.c
     g_hdial.c
@@ -116,6 +124,11 @@ if(WITH_PORTAUDIO)
     list(APPEND PD_NEEDED_LIBS ${PORTAUDIO_LIBRARIES})
 endif()
 
+if(WITH_MMIO)
+    add_definitions(-DUSEAPI_MMIO)
+    list(APPEND S_SRC s_audio_mmio.c)
+endif()
+
 if(WITH_PORTMIDI)
     include_directories(${PROJECT_SOURCE_DIR}/portmidi/pm_common)
     include_directories(${PROJECT_SOURCE_DIR}/portmidi/porttime)
@@ -185,6 +198,11 @@ install(TARGETS pdreceive RUNTIME DESTINATION ${PD_RECEIVE_INSTALL_PATH})
 
 if(UNIX AND NOT APPLE)
     install(TARGETS pd-watchdog RUNTIME DESTINATION ${PD_WATCHDOG_INSTALL_PATH})
+
+    # create symlinks in bin
+    install_symlink("${CMAKE_INSTALL_PREFIX}/${PD_EXE_INSTALL_PATH}/pd" "${CMAKE_INSTALL_PREFIX}/bin/pd-ceammc")
+    install_symlink("${CMAKE_INSTALL_PREFIX}/${PD_SEND_INSTALL_PATH}/pdsend" "${CMAKE_INSTALL_PREFIX}/bin/pdsend-ceammc")
+    install_symlink("${CMAKE_INSTALL_PREFIX}/${PD_RECEIVE_INSTALL_PATH}/pdreceive" "${CMAKE_INSTALL_PREFIX}/bin/pdreceive-ceammc")
 endif()
 
 # install libs

@@ -80,13 +80,12 @@ struct ui_bpfunc : public BaseGuiObject {
 
 #pragma mark -
 
-UI_fun(ui_bpfunc)::wx_paint(t_object* z, t_object* view)
+UI_fun(ui_bpfunc)::wx_paint(ui_bpfunc* z, t_object* view)
 {
-
     t_symbol* bgl = gensym("background_layer");
     //float size;
     t_rect rect;
-    ebox_get_rect_for_view((t_ebox*)z, &rect);
+    z->getRect(&rect);
 
     t_elayer* g = ebox_start_layer((t_ebox*)z, bgl, rect.width, rect.height);
 
@@ -229,14 +228,10 @@ UI_fun(ui_bpfunc)::wx_paint(t_object* z, t_object* view)
 #pragma mark -
 #pragma mark mouse
 
-UI_fun(ui_bpfunc)::wx_mousemove_ext(t_object* z, t_object* view, t_pt pt, long modifiers)
+UI_fun(ui_bpfunc)::wx_mousemove_ext(ui_bpfunc* zx, t_object* view, t_pt pt, long modifiers)
 {
-    //calc distances
-
-    ui_bpfunc* zx = (ui_bpfunc*)z;
-
     t_rect rect;
-    ebox_get_rect_for_view((t_ebox*)z, &rect);
+    ebox_get_rect_for_view(asBox(zx), &rect);
 
     float nx = pt.x / rect.width;
     float ny = pt.y / rect.height;
@@ -283,48 +278,40 @@ UI_fun(ui_bpfunc)::wx_mousemove_ext(t_object* z, t_object* view, t_pt pt, long m
         }
     }
 
-    GuiFactory<BaseGuiObject>::ws_redraw(z);
+    ws_redraw(zx);
 }
 
-UI_fun(ui_bpfunc)::wx_mouseleave_ext(t_object* z, t_object* view, t_pt pt, long modifiers)
+UI_fun(ui_bpfunc)::wx_mouseleave_ext(ui_bpfunc* zx, t_object* view, t_pt pt, long modifiers)
 {
-    ui_bpfunc* zx = (ui_bpfunc*)z;
-
     zx->addpos = -1;
 }
 
-UI_fun(ui_bpfunc)::wx_mousedown_ext(t_object* z, t_object* view, t_pt pt, long modifiers)
+UI_fun(ui_bpfunc)::wx_mousedown_ext(ui_bpfunc* zx, t_object* view, t_pt pt, long modifiers)
 {
-    ui_bpfunc* zx = (ui_bpfunc*)z;
-
     zx->_px = pt.x;
     zx->_py = pt.y;
 
     t_rect rect;
-    ebox_get_rect_for_view((t_ebox*)z, &rect);
+    ebox_get_rect_for_view(asBox(zx), &rect);
 
     if (modifiers == EMOD_SHIFT) {
         zx->x_bpf->addPointRaw(zx->addidx, pt.x / rect.width, 1 - (pt.y / rect.height));
-        GuiFactory<BaseGuiObject>::ws_redraw(z);
+        ws_redraw(zx);
     }
 
     if (modifiers == EMOD_ALT) {
         zx->x_bpf->deletePoint(zx->delidx);
-
-        GuiFactory<BaseGuiObject>::ws_redraw(z);
+        ws_redraw(zx);
     }
 
     if (modifiers == EMOD_CTRL) {
         zx->x_bpf->setSplit(zx->delidx);
-
-        GuiFactory<BaseGuiObject>::ws_redraw(z);
+        ws_redraw(zx);
     }
 }
 
-UI_fun(ui_bpfunc)::wx_mouseup_ext(t_object* z, t_object* view, t_pt pt, long modifiers)
+UI_fun(ui_bpfunc)::wx_mouseup_ext(ui_bpfunc* zx, t_object* view, t_pt pt, long modifiers)
 {
-    ui_bpfunc* zx = (ui_bpfunc*)z;
-
     zx->addpos = -1;
 }
 
@@ -332,7 +319,7 @@ UI_fun(ui_bpfunc)::wx_mouseup_ext(t_object* z, t_object* view, t_pt pt, long mod
 #pragma mark messages
 
 //get list; scaled
-UI_fun(ui_bpfunc)::m_bang(t_object* z)
+UI_fun(ui_bpfunc)::m_bang(ui_bpfunc* z)
 {
 
     ui_bpfunc* zx = (ui_bpfunc*)z;
@@ -374,40 +361,36 @@ void bpf_m_shift_y(t_object* z, t_symbol* s, int argc, t_atom* argv)
     zx->x_bpf->shift_y = argv[0].a_w.w_float;
 }
 
-void bpf_m_select(t_object* z, t_symbol* s, int argc, t_atom* argv)
+static void bpf_m_select(ui_bpfunc* zx, t_symbol* s, int argc, t_atom* argv)
 {
     if (argc < 1)
         return;
 
     if (argv->a_type == A_FLOAT) {
-        ui_bpfunc* zx = (ui_bpfunc*)z;
         zx->select_idx = (int)(argv[0].a_w.w_float);
     }
 
-    GuiFactory<BaseGuiObject>::ws_redraw(z);
+    GuiFactory<BaseGuiObject>::ws_redraw(zx);
 }
 
-void bpf_m_drag_limit(t_object* z, t_symbol* s, int argc, t_atom* argv)
+static void bpf_m_drag_limit(ui_bpfunc* zx, t_symbol* s, int argc, t_atom* argv)
 {
     if (argc < 1)
         return;
 
     if (argv->a_type == A_FLOAT) {
-        ui_bpfunc* zx = (ui_bpfunc*)z;
         zx->x_bpf->drag_limit = (int)(argv[0].a_w.w_float != 0);
     }
 
-    GuiFactory<BaseGuiObject>::ws_redraw(z);
+    GuiFactory<BaseGuiObject>::ws_redraw(zx);
 }
 
-void bpf_m_get(t_object* z, t_symbol* s, int argc, t_atom* argv)
+void bpf_m_get(ui_bpfunc* zx, t_symbol* s, int argc, t_atom* argv)
 {
     if (argc < 1)
         return;
     if (argv[0].a_type != A_FLOAT)
         return;
-
-    ui_bpfunc* zx = (ui_bpfunc*)z;
 
     int i = int(argv[0].a_w.w_float);
     if (i > zx->x_bpf->size() - 1)
@@ -419,14 +402,12 @@ void bpf_m_get(t_object* z, t_symbol* s, int argc, t_atom* argv)
     list.output(zx->out1);
 }
 
-void bpf_m_getraw(t_object* z, t_symbol* s, int argc, t_atom* argv)
+void bpf_m_getraw(ui_bpfunc* zx, t_symbol* s, int argc, t_atom* argv)
 {
     if (argc < 0)
         return;
     if (argv[0].a_type != A_FLOAT)
         return;
-
-    ui_bpfunc* zx = (ui_bpfunc*)z;
 
     int i = int(argv[0].a_w.w_float);
     if (i > zx->x_bpf->size() - 1)
@@ -438,14 +419,12 @@ void bpf_m_getraw(t_object* z, t_symbol* s, int argc, t_atom* argv)
     list.output(zx->out1);
 }
 
-void bpf_m_set(t_object* z, t_symbol* s, int argc, t_atom* argv)
+void bpf_m_set(ui_bpfunc* zx, t_symbol* s, int argc, t_atom* argv)
 {
     if (argc < 3)
         return;
     if (argv[0].a_type != A_FLOAT)
         return;
-
-    ui_bpfunc* zx = (ui_bpfunc*)z;
 
     int i = int(argv[0].a_w.w_float);
     if (i > zx->x_bpf->size() - 1)
@@ -458,17 +437,15 @@ void bpf_m_set(t_object* z, t_symbol* s, int argc, t_atom* argv)
 
     zx->x_bpf->setPoint(i, x, y);
 
-    GuiFactory<BaseGuiObject>::ws_redraw(z);
+    GuiFactory<BaseGuiObject>::ws_redraw(zx);
 }
 
-void bpf_m_set_raw(t_object* z, t_symbol* s, int argc, t_atom* argv)
+void bpf_m_set_raw(ui_bpfunc* zx, t_symbol* s, int argc, t_atom* argv)
 {
     if (argc < 3)
         return;
     if (argv[0].a_type != A_FLOAT)
         return;
-
-    ui_bpfunc* zx = (ui_bpfunc*)z;
 
     int i = int(argv[0].a_w.w_float);
     if (i > zx->x_bpf->size() - 1)
@@ -481,17 +458,15 @@ void bpf_m_set_raw(t_object* z, t_symbol* s, int argc, t_atom* argv)
 
     zx->x_bpf->setPointRaw(i, x, y);
 
-    GuiFactory<BaseGuiObject>::ws_redraw(z);
+    GuiFactory<BaseGuiObject>::ws_redraw(zx);
 }
 
-void bpf_m_end_seg(t_object* z, t_symbol* s, int argc, t_atom* argv)
+void bpf_m_end_seg(ui_bpfunc* zx, t_symbol* s, int argc, t_atom* argv)
 {
     if (argc < 2)
         return;
     if (argv[0].a_type != A_FLOAT)
         return;
-
-    ui_bpfunc* zx = (ui_bpfunc*)z;
 
     int idx = int(argv[0].a_w.w_float);
     if (idx > zx->x_bpf->size() - 1)
@@ -503,14 +478,11 @@ void bpf_m_end_seg(t_object* z, t_symbol* s, int argc, t_atom* argv)
 
     zx->x_bpf->setPointSeg(idx, b);
 
-    GuiFactory<BaseGuiObject>::ws_redraw(z);
+    GuiFactory<BaseGuiObject>::ws_redraw(zx);
 }
 
-void bpf_m_seg_count(t_object* z, t_symbol* s, int argc, t_atom* argv)
+void bpf_m_seg_count(ui_bpfunc* zx, t_symbol* s, int argc, t_atom* argv)
 {
-
-    ui_bpfunc* zx = (ui_bpfunc*)z;
-
     if (zx->out_list) {
         free(zx->out_list);
     }
@@ -522,62 +494,55 @@ void bpf_m_seg_count(t_object* z, t_symbol* s, int argc, t_atom* argv)
     outlet_list(zx->out1, &s_list, 1, zx->out_list);
 }
 
-void bpf_m_lock_x(t_object* z, t_symbol* s, int argc, t_atom* argv)
+void bpf_m_lock_x(ui_bpfunc* zx, t_symbol* s, int argc, t_atom* argv)
 {
     if (argc < 2)
         return;
 
     if (argv[0].a_type == A_FLOAT) {
-        ui_bpfunc* zx = (ui_bpfunc*)z;
         int idx = (int)(argv[0].a_w.w_float);
 
         zx->x_bpf->lockX(idx, (argv[1].a_w.w_float != 0));
     }
 
-    GuiFactory<BaseGuiObject>::ws_redraw(z);
+    GuiFactory<BaseGuiObject>::ws_redraw(zx);
 }
 
-void bpf_m_lock_y(t_object* z, t_symbol* s, int argc, t_atom* argv)
+void bpf_m_lock_y(ui_bpfunc* zx, t_symbol* s, int argc, t_atom* argv)
 {
     if (argc < 2)
         return;
 
     if (argv[0].a_type == A_FLOAT) {
-        ui_bpfunc* zx = (ui_bpfunc*)z;
         int idx = (int)(argv[0].a_w.w_float);
         zx->x_bpf->lockY(idx, (argv[1].a_w.w_float != 0));
     }
 
-    GuiFactory<BaseGuiObject>::ws_redraw(z);
+    GuiFactory<BaseGuiObject>::ws_redraw(zx);
 }
 
-void bpf_m_join_next(t_object* z, t_symbol* s, int argc, t_atom* argv)
+void bpf_m_join_next(ui_bpfunc* zx, t_symbol* s, int argc, t_atom* argv)
 {
     if (argc < 2)
         return;
 
     if (argv[0].a_type == A_FLOAT) {
-        ui_bpfunc* zx = (ui_bpfunc*)z;
         int idx = (int)(argv[0].a_w.w_float);
         zx->x_bpf->joinNext(idx, (argv[1].a_w.w_float != 0));
     }
 
-    GuiFactory<BaseGuiObject>::ws_redraw(z);
+    GuiFactory<BaseGuiObject>::ws_redraw(zx);
 }
 
-void bpf_m_clear(t_object* z, t_symbol* s, int argc, t_atom* argv)
+void bpf_m_clear(ui_bpfunc* zx, t_symbol* s, int argc, t_atom* argv)
 {
-
-    ui_bpfunc* zx = (ui_bpfunc*)z;
     zx->x_bpf->clear();
 
-    GuiFactory<BaseGuiObject>::ws_redraw(z);
+    GuiFactory<BaseGuiObject>::ws_redraw(zx);
 }
 
-void bpf_m_add(t_object* z, t_symbol* s, int argc, t_atom* argv)
+void bpf_m_add(ui_bpfunc* zx, t_symbol* s, int argc, t_atom* argv)
 {
-    ui_bpfunc* zx = (ui_bpfunc*)z;
-
     if (argc < 2)
         return;
     if ((argv[0].a_type != A_FLOAT) && (argv[1].a_type != A_FLOAT))
@@ -587,17 +552,15 @@ void bpf_m_add(t_object* z, t_symbol* s, int argc, t_atom* argv)
     float yy = argv[1].a_w.w_float;
 
     t_rect rect;
-    ebox_get_rect_for_view((t_ebox*)z, &rect);
+    zx->getRect(&rect);
 
     zx->x_bpf->addPoint(zx->addidx, xx, yy);
 
-    GuiFactory<BaseGuiObject>::ws_redraw(z);
+    GuiFactory<BaseGuiObject>::ws_redraw(zx);
 }
 
-void bpf_m_add_raw(t_object* z, t_symbol* s, int argc, t_atom* argv)
+void bpf_m_add_raw(ui_bpfunc* zx, t_symbol* s, int argc, t_atom* argv)
 {
-    ui_bpfunc* zx = (ui_bpfunc*)z;
-
     if (argc < 2)
         return;
     if ((argv[0].a_type != A_FLOAT) && (argv[1].a_type != A_FLOAT))
@@ -607,14 +570,14 @@ void bpf_m_add_raw(t_object* z, t_symbol* s, int argc, t_atom* argv)
     float yy = argv[1].a_w.w_float;
 
     t_rect rect;
-    ebox_get_rect_for_view((t_ebox*)z, &rect);
+    zx->getRect(&rect);
 
     zx->x_bpf->addPointRaw(zx->addidx, xx, yy);
 
-    GuiFactory<BaseGuiObject>::ws_redraw(z);
+    GuiFactory<BaseGuiObject>::ws_redraw(zx);
 }
 
-void bpf_m_del(t_object* z, t_symbol* s, int argc, t_atom* argv)
+void bpf_m_del(ui_bpfunc* zx, t_symbol* s, int argc, t_atom* argv)
 {
     if (argc < 1)
         return;
@@ -623,18 +586,13 @@ void bpf_m_del(t_object* z, t_symbol* s, int argc, t_atom* argv)
 
     int del_i = (int)argv[0].a_w.w_float;
 
-    ui_bpfunc* zx = (ui_bpfunc*)z;
-
     zx->x_bpf->deletePoint(del_i);
 
-    GuiFactory<BaseGuiObject>::ws_redraw(z);
+    GuiFactory<BaseGuiObject>::ws_redraw(zx);
 }
 
-void bpf_m_vline(t_object* z, t_symbol* s, int argc, t_atom* argv)
+void bpf_m_vline(ui_bpfunc* zx, t_symbol* s, int argc, t_atom* argv)
 {
-
-    ui_bpfunc* zx = (ui_bpfunc*)z;
-
     vector<AtomList> output = zx->x_bpf->getVline();
 
     for (int i = 0; i < output.size(); i++) {
@@ -642,7 +600,7 @@ void bpf_m_vline(t_object* z, t_symbol* s, int argc, t_atom* argv)
     }
 }
 
-void bpf_m_vline_seg(t_object* z, t_symbol* s, int argc, t_atom* argv)
+void bpf_m_vline_seg(ui_bpfunc* zx, t_symbol* s, int argc, t_atom* argv)
 {
     if (argc < 1)
         return;
@@ -651,8 +609,6 @@ void bpf_m_vline_seg(t_object* z, t_symbol* s, int argc, t_atom* argv)
     }
 
     int seg_number = int(argv[0].a_w.w_float);
-
-    ui_bpfunc* zx = (ui_bpfunc*)z;
 
     if (seg_number < 0) {
         error("segment number should be greater than zero");
@@ -670,7 +626,7 @@ void bpf_m_vline_seg(t_object* z, t_symbol* s, int argc, t_atom* argv)
     }
 }
 
-void bpf_m_vline_tgl(t_object* z, t_symbol* s, int argc, t_atom* argv)
+void bpf_m_vline_tgl(ui_bpfunc* zx, t_symbol* s, int argc, t_atom* argv)
 {
     if (argc < 1)
         return;
@@ -693,49 +649,44 @@ void bpf_m_vline_tgl(t_object* z, t_symbol* s, int argc, t_atom* argv)
     tgl.a_type = A_FLOAT;
     tgl.a_w.w_float = 1 - seg_number;
 
-    bpf_m_vline_seg(z, s, 1, &tgl);
+    bpf_m_vline_seg(zx, s, 1, &tgl);
 }
 
-void bpf_m_auto_send(t_object* z, t_symbol* s, int argc, t_atom* argv)
+void bpf_m_auto_send(ui_bpfunc* zx, t_symbol* s, int argc, t_atom* argv)
 {
     if (argc < 1)
         return;
 
     if (argv->a_type == A_FLOAT) {
-        ui_bpfunc* zx = (ui_bpfunc*)z;
         zx->auto_send = (argv[0].a_w.w_float > 0);
     }
 }
 
-void bpf_m_setbpf(t_object* z, t_symbol* s, int argc, t_atom* argv)
+void bpf_m_setbpf(ui_bpfunc* zx, t_symbol* s, int argc, t_atom* argv)
 {
     if (argc < 2)
         return;
-
-    ui_bpfunc* zx = (ui_bpfunc*)z;
 
     AtomList list = AtomList(argc, argv);
 
     zx->x_bpf->setBPFList(list);
 
-    GuiFactory<BaseGuiObject>::ws_redraw(z);
+    GuiFactory<BaseGuiObject>::ws_redraw(zx);
 }
 
-void bpf_m_setrawbpf(t_object* z, t_symbol* s, int argc, t_atom* argv)
+void bpf_m_setrawbpf(ui_bpfunc* zx, t_symbol* s, int argc, t_atom* argv)
 {
     if (argc < 2)
         return;
-
-    ui_bpfunc* zx = (ui_bpfunc*)z;
 
     AtomList list = AtomList(argc, argv);
 
     zx->x_bpf->setBPFListRaw(list);
 
-    GuiFactory<BaseGuiObject>::ws_redraw(z);
+    GuiFactory<BaseGuiObject>::ws_redraw(zx);
 }
 
-void bpf_m_set_object(t_object* z, t_symbol* s, int argc, t_atom* argv)
+void bpf_m_set_object(ui_bpfunc* zx, t_symbol* s, int argc, t_atom* argv)
 {
     //        ui_bpfunc *zx = (ui_bpfunc*)z;
     //
@@ -755,7 +706,7 @@ void bpf_m_set_object(t_object* z, t_symbol* s, int argc, t_atom* argv)
     a = Atom(x);       \
     list.append(a);
 
-void bpf_m_env(t_object* z, t_symbol* s, int argc, t_atom* argv)
+void bpf_m_env(ui_bpfunc* zx, t_symbol* s, int argc, t_atom* argv)
 {
     if (argc < 1) {
         error("bad argument");
@@ -784,26 +735,26 @@ void bpf_m_env(t_object* z, t_symbol* s, int argc, t_atom* argv)
 
         //todo cleanup
 
-        bpf_m_clear(z, 0, 0, 0);
+        bpf_m_clear(zx, 0, 0, 0);
 
         e_list_clear e_list_addf(1) e_list_addf(.25) e_list_addf(1)
-            bpf_m_set_raw(z, 0, (int)list.size(), list.toPdData());
+            bpf_m_set_raw(zx, 0, (int)list.size(), list.toPdData());
         e_list_clear e_list_addf(2) e_list_addf(.5) e_list_addf(.6)
-            bpf_m_set_raw(z, 0, (int)list.size(), list.toPdData());
+            bpf_m_set_raw(zx, 0, (int)list.size(), list.toPdData());
         e_list_clear e_list_addf(1) e_list_addf(0.)
-            bpf_m_add_raw(z, 0, (int)list.size(), list.toPdData());
+            bpf_m_add_raw(zx, 0, (int)list.size(), list.toPdData());
         e_list_clear e_list_addf(0.) e_list_addf(1)
-            bpf_m_lock_y(z, 0, (int)list.size(), list.toPdData());
+            bpf_m_lock_y(zx, 0, (int)list.size(), list.toPdData());
         e_list_clear e_list_addf(1.) e_list_addf(1)
-            bpf_m_lock_y(z, 0, (int)list.size(), list.toPdData());
+            bpf_m_lock_y(zx, 0, (int)list.size(), list.toPdData());
         e_list_clear e_list_addf(3.) e_list_addf(1)
-            bpf_m_lock_y(z, 0, (int)list.size(), list.toPdData());
+            bpf_m_lock_y(zx, 0, (int)list.size(), list.toPdData());
         e_list_clear e_list_addf(2) e_list_addf(1)
-            bpf_m_end_seg(z, 0, (int)list.size(), list.toPdData());
+            bpf_m_end_seg(zx, 0, (int)list.size(), list.toPdData());
         e_list_clear e_list_addf(1)
-            bpf_m_auto_send(z, 0, (int)list.size(), list.toPdData());
+            bpf_m_auto_send(zx, 0, (int)list.size(), list.toPdData());
         e_list_clear e_list_addf(1)
-            bpf_m_drag_limit(z, 0, (int)list.size(), list.toPdData());
+            bpf_m_drag_limit(zx, 0, (int)list.size(), list.toPdData());
 
     } else if (Atom(argv[0]).asString() == "ahr") {
         //            ;
@@ -822,26 +773,26 @@ void bpf_m_env(t_object* z, t_symbol* s, int argc, t_atom* argv)
         Atom a;
 
         //todo cleanup
-        bpf_m_clear(z, 0, 0, 0);
+        bpf_m_clear(zx, 0, 0, 0);
 
         e_list_clear e_list_addf(1) e_list_addf(.25) e_list_addf(.7)
-            bpf_m_set_raw(z, 0, (int)list.size(), list.toPdData());
+            bpf_m_set_raw(zx, 0, (int)list.size(), list.toPdData());
         e_list_clear e_list_addf(2) e_list_addf(.5) e_list_addf(.7)
-            bpf_m_set_raw(z, 0, (int)list.size(), list.toPdData());
+            bpf_m_set_raw(zx, 0, (int)list.size(), list.toPdData());
         e_list_clear e_list_addf(1) e_list_addf(0.)
-            bpf_m_add_raw(z, 0, (int)list.size(), list.toPdData());
+            bpf_m_add_raw(zx, 0, (int)list.size(), list.toPdData());
         e_list_clear e_list_addf(0.) e_list_addf(1)
-            bpf_m_lock_y(z, 0, (int)list.size(), list.toPdData());
+            bpf_m_lock_y(zx, 0, (int)list.size(), list.toPdData());
         e_list_clear e_list_addf(2.) e_list_addf(1)
-            bpf_m_lock_y(z, 0, (int)list.size(), list.toPdData());
+            bpf_m_lock_y(zx, 0, (int)list.size(), list.toPdData());
         e_list_clear e_list_addf(3.) e_list_addf(1)
-            bpf_m_lock_y(z, 0, (int)list.size(), list.toPdData());
+            bpf_m_lock_y(zx, 0, (int)list.size(), list.toPdData());
         e_list_clear e_list_addf(1.) e_list_addf(1)
-            bpf_m_join_next(z, 0, (int)list.size(), list.toPdData());
+            bpf_m_join_next(zx, 0, (int)list.size(), list.toPdData());
         e_list_clear e_list_addf(1)
-            bpf_m_auto_send(z, 0, (int)list.size(), list.toPdData());
+            bpf_m_auto_send(zx, 0, (int)list.size(), list.toPdData());
         e_list_clear e_list_addf(1)
-            bpf_m_drag_limit(z, 0, (int)list.size(), list.toPdData());
+            bpf_m_drag_limit(zx, 0, (int)list.size(), list.toPdData());
     } else {
         error("bad envelope type specified: %s", ceammc::Atom(argv[0]).asString().c_str());
     }
@@ -855,12 +806,10 @@ void bpf_m_env(t_object* z, t_symbol* s, int argc, t_atom* argv)
 
 #pragma mark -
 #pragma mark mouse+
-UI_fun(ui_bpfunc)::wx_mousedrag_ext(t_object* z, t_object* view, t_pt pt, long modifiers)
+UI_fun(ui_bpfunc)::wx_mousedrag_ext(ui_bpfunc* zx, t_object* view, t_pt pt, long modifiers)
 {
-    ui_bpfunc* zx = (ui_bpfunc*)z;
-
     t_rect rect;
-    ebox_get_rect_for_view((t_ebox*)z, &rect);
+    ebox_get_rect_for_view(asBox(zx), &rect);
 
     for (int i = 0; i < zx->x_bpf->size(); i++) {
         if (zx->x_bpf->getPointSel(i)) {
@@ -914,20 +863,17 @@ UI_fun(ui_bpfunc)::wx_mousedrag_ext(t_object* z, t_object* view, t_pt pt, long m
 
     zx->x_bpf->_Sort();
 
-    GuiFactory<BaseGuiObject>::ws_redraw(z);
+    ws_redraw(zx);
 
     if (zx->auto_send) {
-        GuiFactory<ui_bpfunc>::m_bang(z);
+        m_bang(zx);
     }
 }
 
 #pragma mark -
 
-UI_fun(ui_bpfunc)::new_ext(t_object* z, t_symbol* s, int argcl, t_atom* argv)
+UI_fun(ui_bpfunc)::new_ext(ui_bpfunc* zx, t_symbol* s, int argcl, t_atom* argv)
 {
-
-    ui_bpfunc* zx = (ui_bpfunc*)z;
-
     //        zx->g_bpf = new GlobalData<BPF>(to_string((unsigned long) z));
     //        zx->x_bpf = &zx->g_bpf->ref();
 
@@ -938,7 +884,7 @@ UI_fun(ui_bpfunc)::new_ext(t_object* z, t_symbol* s, int argcl, t_atom* argv)
     zx->_px = 0;
     zx->_py = 0;
 
-    zx->out1 = outlet_new(z, &s_list);
+    zx->out1 = create_outlet(zx, &s_list);
 
     zx->x_bpf->range_x = 1000;
     zx->x_bpf->range_y = 1;
@@ -958,12 +904,10 @@ UI_fun(ui_bpfunc)::new_ext(t_object* z, t_symbol* s, int argcl, t_atom* argv)
     zx->txt_font = efont_create(gensym("Helvetica"), gensym("light"), gensym("normal"), 8);
 }
 
-UI_fun(ui_bpfunc)::free_ext(t_object* z)
+UI_fun(ui_bpfunc)::free_ext(ui_bpfunc* zx)
 {
-    ui_bpfunc* zx = (ui_bpfunc*)z;
-
     //?
-    zx->g_bpf = new GlobalData<BPF>(to_string((unsigned long)z));
+    zx->g_bpf = new GlobalData<BPF>(to_string((unsigned long)zx));
     delete zx->g_bpf;
 }
 
@@ -1009,7 +953,7 @@ UI_fun(ui_bpfunc)::init_ext(t_eclass* z)
 
     CLASS_ATTR_INT(z, "auto_send", 0, ui_bpfunc, auto_send);
     CLASS_ATTR_DEFAULT(z, "auto_send", 0, "1");
-    CLASS_ATTR_LABEL(z, "auto_send", 0, "auto_send");
+    CLASS_ATTR_LABEL(z, "auto_send", 0, _("Auto send"));
     CLASS_ATTR_DEFAULT_SAVE_PAINT(z, "auto_send", 0, "0");
     CLASS_ATTR_STYLE(z, "auto_send", 0, "onoff");
 

@@ -15,6 +15,7 @@ flt.dcblock~		~		~
 flt.eq_peak~		~		~.
 flt.highshelf~		~		~.
 flt.lowshelf~		~		~.
+fx.freeverb~		~		~.
 fx.freqshift~		~~		~~.
 fx.pitchshift~		~~		~.
 fx.softclip~		~		~
@@ -109,6 +110,7 @@ symbol.length		.		.
 system.memsize		.		.
 system.memused		.		..
 ui.bang		.		.
+ui.bpfunc		.		.
 ui.scope~		.		-
 ui.spectroscope~		~		-
 ui.toggle		.		.

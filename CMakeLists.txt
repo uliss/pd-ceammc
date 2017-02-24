@@ -33,6 +33,7 @@ include(PdPlatform)
 find_package(Gettext)
 include(config)
 include(sound)
+include(cmake_uninstall)
 
 # FFTW3
 option(WITH_FFTW "Use fftw3 library (http://www.fftw.org/)" ON)
