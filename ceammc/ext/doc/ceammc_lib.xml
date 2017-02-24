@@ -361,6 +361,9 @@
     <entry descr="returns the process physical memory use - current and peak" name="system.memused" ref_view="object">
       <xi:include href="system.memused.pddoc" parse="xml"/>
     </entry>
+    <entry descr="returns current screen size in pixels" name="system.screen_size" ref_view="object">
+      <xi:include href="system.screen_size.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="ui">
     <entry descr="A bang... that's all" name="ui.bang" ref_view="link">
@@ -368,6 +371,9 @@
     </entry>
     <entry descr="Breakpoint function GUI object" name="ui.bpfunc" ref_view="link">
       <xi:include href="ui.bpfunc.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="Display GUI object" name="ui.display" ref_view="object">
+      <xi:include href="ui.display.pddoc" parse="xml"/>
     </entry>
     <entry descr="Scope GUI object" name="ui.scope~" ref_view="link">
       <xi:include href="ui.scope~.pddoc" parse="xml"/>
