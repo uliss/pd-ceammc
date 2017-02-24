@@ -51,7 +51,7 @@ static inline double clif_calc(double a, double b, double c, double d)
     return sin(a * b) + c * cos(a * d);
 }
 
-static void* clifford_new(t_symbol* msg, short argc, t_atom* argv);
+static void* clifford_new(t_symbol* msg, int argc, t_atom* argv);
 static void clifford_calc(clifford* x);
 static void clifford_bang(clifford* x);
 static void clifford_set(clifford* x, t_symbol* msg, short argc, t_atom* argv);
@@ -67,7 +67,7 @@ static void clifford_om(clifford* x, t_float max);
 
 static t_eclass* clifford_class;
 
-void* clifford_new(t_symbol* msg, short argc, t_atom* argv)
+void* clifford_new(t_symbol* msg, int argc, t_atom* argv)
 {
     clifford* x;
 
