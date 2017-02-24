@@ -1,10 +1,10 @@
 /*
 
-ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
-a-baker - © andrŽ sier 2004
+â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
+a-baker - Â© andrÃ© sier 2004
 	
 a port of Richard's chaos-baker from chaos collection
-ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
+â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
 */
 
 // CEAMMC pd library version
@@ -210,6 +210,6 @@ void setup_noise0x2ebaker()
     eclass_addmethod(noise_baker_class, (method)baker_cut, "cut", A_FLOAT, 0);
     eclass_addmethod(noise_baker_class, (method)baker_fold_cut, "fold_cut", A_LONG, 0);
     eclass_addmethod(noise_baker_class, (method)baker_om, "om", A_LONG, 0);
-    //    post("A-Chaos Lib :: a-baker  " __DATE__ " " __TIME__ "                                   ©   a n d r Ž s i e r   2 0 0 4   all rights reserved", tick, 0);
-    post("noise.baker: part of A-Chaos library, (C) 2004 AndrŽ Sier");
+    //    post("A-Chaos Lib :: a-baker  " __DATE__ " " __TIME__ "                                   Â©   a n d r Ã© s i e r   2 0 0 4   all rights reserved", tick, 0);
+    post("noise.baker: part of A-Chaos library, (C) 2004 AndrÃ© Sier");
 }

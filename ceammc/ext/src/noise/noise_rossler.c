@@ -272,7 +272,7 @@ void setup_noise0x2erossler()
     eclass_addmethod(rossler_class, (method)rossler_nz, "z", A_DEFFLOAT, 0);
     eclass_addmethod(rossler_class, (method)rossler_om, "om", A_DEFFLOAT, 0);
     
-    post("noise.rossler: part of A-Chaos library, (C) 2004 André Sier");
+    post("noise.rossler: part of A-Chaos library, (C) 2004 Andr√© Sier");
 }
 
 

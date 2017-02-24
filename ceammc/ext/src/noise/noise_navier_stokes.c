@@ -1,7 +1,7 @@
 /*
 
-ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
-a - navierstokes © andrŽ sier 20030914
+â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
+a - navierstokes Â© andrÃ© sier 20030914
 		
 a port from RD's navier-stokes
 
@@ -28,9 +28,9 @@ Where <reyn> is the Reynolds number,
 and exibits  an interesting variety of different behaviors for different 
 ranges of <reyn>. For the critical values of <reyn>, the most interesting
 feature is the stochastic behavior observed when  R1 < <reyn> < R2.
-With 28.73 < R1 > 29.0 and R2 ± = 33.43. 
+With 28.73 < R1 > 29.0 and R2 Â± = 33.43. 
 
-ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
+â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
 */
 
 // CEAMMC pd library
@@ -311,8 +311,8 @@ void setup_noise0x2enavier_stokes()
     eclass_addmethod(noise_navierstokes_class, (method)navierstokes_c, "c", A_DEFFLOAT, 0);
     eclass_addmethod(noise_navierstokes_class, (method)navierstokes_d, "d", A_DEFFLOAT, 0);
     eclass_addmethod(noise_navierstokes_class, (method)navierstokes_om, "om", A_DEFFLOAT, 0);
-    //    post("A-Chaos Lib :: a-baker  " __DATE__ " " __TIME__ "                                   ©   a n d r Ž s i e r   2 0 0 4   all rights reserved", tick, 0);
-    post("noise.navier_stokes: part of A-Chaos library, (C) 2004 AndrŽ Sier");
+    //    post("A-Chaos Lib :: a-baker  " __DATE__ " " __TIME__ "                                   Â©   a n d r Ã© s i e r   2 0 0 4   all rights reserved", tick, 0);
+    post("noise.navier_stokes: part of A-Chaos library, (C) 2004 AndrÃ© Sier");
 }
 
 

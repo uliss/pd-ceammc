@@ -1,9 +1,9 @@
 /*
 
-ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
-a-clifford - © andrŽ sier 2004
+â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
+a-clifford - Â© andrÃ© sier 2004
 	
-inspired by Paul Bourke, implementation by AndrŽ Sier	
+inspired by Paul Bourke, implementation by AndrÃ© Sier	
 		
 clifford Attractors
  Attributed to Cliff Pickover
@@ -27,7 +27,7 @@ clifford Attractors
  
  updated init variables & calc equation & set methods & reset & info
 
-ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
+â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
 */
 
 //#include "ext.h"
@@ -273,7 +273,7 @@ void setup_noise0x2eclifford()
     eclass_addmethod(clifford_class, (method)clifford_d, "d", A_DEFFLOAT, 0);
     eclass_addmethod(clifford_class, (method)clifford_om, "om", A_DEFFLOAT, 0);
     
-    post("noise.clifford: part of A-Chaos library, (C) 2004 AndrŽ Sier");
+    post("noise.clifford: part of A-Chaos library, (C) 2004 AndrÃ© Sier");
 }
 
 

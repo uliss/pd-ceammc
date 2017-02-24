@@ -1,9 +1,9 @@
 /*
 
-ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
-a-duffing - © andrŽ sier 2004
+â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
+a-duffing - Â© andrÃ© sier 2004
 	
-inspired by Paul Bourke, implementation by AndrŽ Sier	
+inspired by Paul Bourke, implementation by AndrÃ© Sier	
 		
 Duffing Attractor
  Written by Paul Bourke
@@ -20,7 +20,7 @@ Duffing Attractor
 
  The following shows a "typical" segment of (x,y) values.
 
-ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
+â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
 */
 
 // CEAMMC pd library version
@@ -236,7 +236,7 @@ void setup_noise0x2eduffing()
     eclass_addmethod(duffing_class, (method)duffing_dt, "dt", A_FLOAT, 0);
     eclass_addmethod(duffing_class, (method)duffing_om, "om", A_DEFFLOAT, 0);
     
-    post("noise.duffing: part of A-Chaos library, (C) 2004 AndrŽ Sier");
+    post("noise.duffing: part of A-Chaos library, (C) 2004 AndrÃ© Sier");
 }
 
 
