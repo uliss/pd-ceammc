@@ -71,6 +71,13 @@ static void* exp_method_new(t_symbol* id, int argc, t_atom* argv)
         x->out2 = outlet_new((t_object*)x, &s_anything);
         dyn_class->ref()->addMethodPointerOutlet(x->method_name->s_name, x->out2);
     }
+    
+    OPClass *this_class = OPClass::findByCanvas(x->parent_canvas);
+    if (this_class)
+    {
+        // TEMP
+        this_class->addMethod(x->method_name->s_name, "");
+    }
 
     return static_cast<void*>(x);
 }

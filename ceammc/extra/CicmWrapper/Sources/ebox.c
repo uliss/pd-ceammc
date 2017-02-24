@@ -1647,7 +1647,7 @@ static void ebox_draw_iolets(t_ebox* x)
     bdsize = x->b_boxparameters.d_borderthickness;
     g = ebox_start_layer(x, s_eboxio, x->b_rect.width, x->b_rect.height);
 
-    if(g)
+    if(g && !x->b_boxparameters.d_hideiolets)
     {
         egraphics_set_line_width(g, 1);
         for(i = 0; i < obj_ninlets((t_object *)x); i++)

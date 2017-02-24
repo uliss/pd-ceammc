@@ -7,7 +7,7 @@
 //
 
 #include "ceammc.h"
-#include <m_pd.h>
+//#include "m_pd.h"
 #include <stdlib.h>
 
 #include "ceammc_atomlist.h"
@@ -82,6 +82,8 @@ class OPClass {
 private:
     map<string, string> methodNames; // todo rename
     map<string, string> propertyNames;
+    map<string, string> signalNames;
+    
     map<string, t_outlet*> methodOutlets; //todo OPOutputs
     map<string, t_outlet*> methodPointerOutlets; //todo OPOutputs
 
@@ -289,9 +291,58 @@ public:
     {
         return this->parent;
     }
+    
+#pragma mark signal
+    
+    void addSignal(string signalName, string referenceName)
+    {
+        this->signalNames[signalName] = referenceName;
+    }
+    
+    void freeSignal(string signalName)
+    {
+        this->signalNames.erase(signalName);
+    }
+    
+#pragma mark info
+    AtomList getPropertyList()
+    {
+        AtomList ret;
+
+        for (map<string, string>::iterator it = this->propertyNames.begin(); it != this->propertyNames.end(); ++it) {
+            ret.append(Atom(gensym(it->first.c_str())));
+        }
+
+        return ret;
+    }
+
+    AtomList getMethodList()
+    {
+        AtomList ret;
+
+        for (map<string, string>::iterator it = this->methodNames.begin(); it != this->methodNames.end(); ++it) {
+            ret.append(Atom(gensym(it->first.c_str())));
+        }
+
+        return ret;
+    }
+    
+    AtomList getSignalList()
+    {
+        AtomList ret;
+        
+        for (map<string, string>::iterator it = this->signalNames.begin(); it != this->signalNames.end(); ++it) {
+            ret.append(Atom(gensym(it->first.c_str())));
+        }
+        
+        return ret;
+    
+    }
 };
 
 typedef GlobalData<OPClass*> OPClasses; ///< class prototype
+
+#pragma mark -
 
 //weird
 class OPInstance;
@@ -319,6 +370,10 @@ private:
 
     //
     map<t_symbol*, t_outlet*> _methodPointerOutputs; // todo OPOutputs
+    
+    OPInstanceByCanvas* canvasLink;
+    OPInstanceBySymbol* symbolLink;
+    
 
 public:
     string class_name;
@@ -332,7 +387,8 @@ public:
     OPInstance(OPClass* _opclass)
 
     {
-        post("new instance");
+        
+        printf("new instance\n");
 
         this->class_name = _opclass->class_name;
         this->symbol = gensym(to_string((long)this).c_str());
@@ -365,11 +421,11 @@ public:
 
             //this->canvas->gl_owner = 0;
 
-            OPInstanceByCanvas* link = new OPInstanceByCanvas(to_string((long)this->canvas), "OOP.common");
-            link->ref() = this;
+            this->canvasLink = new OPInstanceByCanvas(to_string((long)this->canvas), "OOP.common");
+            this->canvasLink->ref() = this;
 
-            OPInstanceBySymbol* link2 = new OPInstanceBySymbol(this->symbol->s_name, "OOP.common");
-            link2->ref() = this;
+            this->symbolLink = new OPInstanceBySymbol(this->symbol->s_name, "OOP.common");
+            this->symbolLink->ref() = this;
 
             //load
             t_binbuf* b1 = binbuf_new();
@@ -387,7 +443,7 @@ public:
 
             //todo bind symbols
 
-            printf("OPInstance\n");
+            printf("OPInstance + canvas\n");
             printf("canvas: %lu\n", (long)this->canvas);
 
             //todo cleanup?
@@ -428,12 +484,18 @@ public:
 
         printf("canvas: %lu\n", (long)this->canvas);
 
+        if (this->canvas)
+        {
         canvas_dirty(this->canvas, 0);
         canvas_takeofflist(this->canvas);
         canvas_free(this->canvas);
 
         this->canvas = 0;
+        }
 
+        delete this->canvasLink;
+        delete this->symbolLink;
+        
         canvas_resume_dsp(dsp_state);
 
         printf("~OPInstance\n");
@@ -471,7 +533,7 @@ public:
         if (!ret) {
             ret = new t_sample[vec_size];
             this->_signalBuffers[signalName] = ret;
-            printf("new buffer: %s %i\n", signalName->s_name, vec_size);
+            post("new buffer: %s %i\n", signalName->s_name, vec_size);
         }
 
         return ret;
@@ -480,9 +542,9 @@ public:
     void freeSignal(t_symbol* signalName)
     {
         //todo refcounter
-
-        //delete (this->_signalBuffers[signalName]);
-        //this->_signalBuffers.erase(signalName);
+        post("del buffer");
+        delete (this->_signalBuffers[signalName]);
+        this->_signalBuffers.erase(signalName);
     }
 
 #pragma mark properties

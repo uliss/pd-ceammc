@@ -674,6 +674,9 @@ struct _inlet
     t_pd *i_dest;
     t_symbol *i_symfrom;
     union inletunion i_un;
+    
+    //CEAMMC EXPERIMENTAL
+    float y_offset;
 };
 
 struct _outlet
@@ -682,6 +685,9 @@ struct _outlet
     struct _outlet *o_next;
     t_outconnect *o_connections;
     t_symbol *o_sym;
+    
+    //CEAMMC EXPERIMENTAL
+    float y_offset;
 };
 //! @endcond
 

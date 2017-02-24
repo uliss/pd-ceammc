@@ -50,7 +50,7 @@ public:
 
 struct _symbol;
 std::ostream& operator<<(std::ostream& os, _symbol*& s);
-std::ostream& operator<<(std::ostream& os, const _symbol* const & s);
+std::ostream& operator<<(std::ostream& os, const _symbol* const& s);
 
 template <typename T>
 static std::ostream& operator<<(std::ostream& os, const std::vector<T>& v)
