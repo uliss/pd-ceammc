@@ -1,8 +1,11 @@
+#include "ceammc.h"
 #include <m_pd.h>
 #include <math.h>
-#include "ceammc.h"
 
-t_class* math_ceil_class;
+#define OBJ_NAME "math.ceil"
+#define MSG_PREFIX "[" OBJ_NAME "]"
+
+static t_class* math_ceil_class;
 typedef struct math_ceil {
     t_object x_obj;
 } t_math_ceil;
@@ -38,7 +41,7 @@ static void* math_ceil_new()
 
 void setup_math0x2eceil()
 {
-    math_ceil_class = class_new(gensym("math.ceil"),
+    math_ceil_class = class_new(gensym(OBJ_NAME),
         (t_newmethod)math_ceil_new, (t_method)0,
         sizeof(t_math_ceil), 0, A_NULL);
     class_addfloat(math_ceil_class, math_ceil_float);

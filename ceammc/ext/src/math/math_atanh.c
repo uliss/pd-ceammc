@@ -1,8 +1,11 @@
+#include "ceammc.h"
 #include <m_pd.h>
 #include <math.h>
-#include "ceammc.h"
 
-t_class* math_atanh_class;
+#define OBJ_NAME "math.atanh"
+#define MSG_PREFIX "[" OBJ_NAME "]"
+
+static t_class* math_atanh_class;
 typedef struct math_atanh {
     t_object x_obj;
 } t_math_atanh;
@@ -38,7 +41,7 @@ static void* math_atanh_new()
 
 void setup_math0x2eatanh()
 {
-    math_atanh_class = class_new(gensym("math.atanh"),
+    math_atanh_class = class_new(gensym(OBJ_NAME),
         (t_newmethod)math_atanh_new, (t_method)0,
         sizeof(t_math_atanh), 0, A_NULL);
     class_addfloat(math_atanh_class, math_atanh_float);

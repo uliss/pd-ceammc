@@ -1,8 +1,11 @@
+#include "ceammc.h"
 #include <m_pd.h>
 #include <math.h>
-#include "ceammc.h"
 
-t_class* math_abs_class;
+#define OBJ_NAME "math.abs"
+#define MSG_PREFIX "[" OBJ_NAME "]"
+
+static t_class* math_abs_class;
 typedef struct math_abs {
     t_object x_obj;
 } t_math_abs;
@@ -38,7 +41,7 @@ static void* math_abs_new()
 
 void setup_math0x2eabs()
 {
-    math_abs_class = class_new(gensym("math.abs"),
+    math_abs_class = class_new(gensym(OBJ_NAME),
         (t_newmethod)math_abs_new, (t_method)0,
         sizeof(t_math_abs), 0, A_NULL);
     class_addfloat(math_abs_class, math_abs_float);

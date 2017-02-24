@@ -1,8 +1,11 @@
+#include "ceammc.h"
 #include <m_pd.h>
 #include <math.h>
-#include "ceammc.h"
 
-t_class* math_log10_class;
+#define OBJ_NAME "math.log10"
+#define MSG_PREFIX "[" OBJ_NAME "]"
+
+static t_class* math_log10_class;
 typedef struct math_log10 {
     t_object x_obj;
 } t_math_log10;
@@ -38,7 +41,7 @@ static void* math_log10_new()
 
 void setup_math0x2elog10()
 {
-    math_log10_class = class_new(gensym("math.log10"),
+    math_log10_class = class_new(gensym(OBJ_NAME),
         (t_newmethod)math_log10_new, (t_method)0,
         sizeof(t_math_log10), 0, A_NULL);
     class_addfloat(math_log10_class, math_log10_float);

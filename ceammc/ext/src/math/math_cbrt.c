@@ -1,8 +1,11 @@
+#include "ceammc.h"
 #include <m_pd.h>
 #include <math.h>
-#include "ceammc.h"
 
-t_class* math_cbrt_class;
+#define OBJ_NAME "math.cbrt"
+#define MSG_PREFIX "[" OBJ_NAME "]"
+
+static t_class* math_cbrt_class;
 typedef struct math_cbrt {
     t_object x_obj;
 } t_math_cbrt;
@@ -38,7 +41,7 @@ static void* math_cbrt_new()
 
 void setup_math0x2ecbrt()
 {
-    math_cbrt_class = class_new(gensym("math.cbrt"),
+    math_cbrt_class = class_new(gensym(OBJ_NAME),
         (t_newmethod)math_cbrt_new, (t_method)0,
         sizeof(t_math_cbrt), 0, A_NULL);
     class_addfloat(math_cbrt_class, math_cbrt_float);

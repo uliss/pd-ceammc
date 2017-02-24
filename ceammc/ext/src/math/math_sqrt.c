@@ -1,8 +1,11 @@
+#include "ceammc.h"
 #include <m_pd.h>
 #include <math.h>
-#include "ceammc.h"
 
-t_class* math_sqrt_class;
+#define OBJ_NAME "math.sqrt"
+#define MSG_PREFIX "[" OBJ_NAME "]"
+
+static t_class* math_sqrt_class;
 typedef struct math_sqrt {
     t_object x_obj;
 } t_math_sqrt;
@@ -38,7 +41,7 @@ static void* math_sqrt_new()
 
 void setup_math0x2esqrt()
 {
-    math_sqrt_class = class_new(gensym("math.sqrt"),
+    math_sqrt_class = class_new(gensym(OBJ_NAME),
         (t_newmethod)math_sqrt_new, (t_method)0,
         sizeof(t_math_sqrt), 0, A_NULL);
     class_addfloat(math_sqrt_class, math_sqrt_float);

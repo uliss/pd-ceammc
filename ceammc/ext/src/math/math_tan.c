@@ -1,8 +1,11 @@
+#include "ceammc.h"
 #include <m_pd.h>
 #include <math.h>
-#include "ceammc.h"
 
-t_class* math_tan_class;
+#define OBJ_NAME "math.tan"
+#define MSG_PREFIX "[" OBJ_NAME "]"
+
+static t_class* math_tan_class;
 typedef struct math_tan {
     t_object x_obj;
 } t_math_tan;
@@ -38,7 +41,7 @@ static void* math_tan_new()
 
 void setup_math0x2etan()
 {
-    math_tan_class = class_new(gensym("math.tan"),
+    math_tan_class = class_new(gensym(OBJ_NAME),
         (t_newmethod)math_tan_new, (t_method)0,
         sizeof(t_math_tan), 0, A_NULL);
     class_addfloat(math_tan_class, math_tan_float);

@@ -1,8 +1,11 @@
+#include "ceammc.h"
 #include <m_pd.h>
 #include <math.h>
-#include "ceammc.h"
 
-t_class* math_acos_class;
+#define OBJ_NAME "math.acos"
+#define MSG_PREFIX "[" OBJ_NAME "]"
+
+static t_class* math_acos_class;
 typedef struct math_acos {
     t_object x_obj;
 } t_math_acos;
@@ -38,7 +41,7 @@ static void* math_acos_new()
 
 void setup_math0x2eacos()
 {
-    math_acos_class = class_new(gensym("math.acos"),
+    math_acos_class = class_new(gensym(OBJ_NAME),
         (t_newmethod)math_acos_new, (t_method)0,
         sizeof(t_math_acos), 0, A_NULL);
     class_addfloat(math_acos_class, math_acos_float);

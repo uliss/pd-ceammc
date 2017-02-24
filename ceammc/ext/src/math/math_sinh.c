@@ -1,8 +1,11 @@
+#include "ceammc.h"
 #include <m_pd.h>
 #include <math.h>
-#include "ceammc.h"
 
-t_class* math_sinh_class;
+#define OBJ_NAME "math.sinh"
+#define MSG_PREFIX "[" OBJ_NAME "]"
+
+static t_class* math_sinh_class;
 typedef struct math_sinh {
     t_object x_obj;
 } t_math_sinh;
@@ -38,7 +41,7 @@ static void* math_sinh_new()
 
 void setup_math0x2esinh()
 {
-    math_sinh_class = class_new(gensym("math.sinh"),
+    math_sinh_class = class_new(gensym(OBJ_NAME),
         (t_newmethod)math_sinh_new, (t_method)0,
         sizeof(t_math_sinh), 0, A_NULL);
     class_addfloat(math_sinh_class, math_sinh_float);

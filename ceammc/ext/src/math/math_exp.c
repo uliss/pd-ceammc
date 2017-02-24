@@ -1,8 +1,11 @@
+#include "ceammc.h"
 #include <m_pd.h>
 #include <math.h>
-#include "ceammc.h"
 
-t_class* math_exp_class;
+#define OBJ_NAME "math.exp"
+#define MSG_PREFIX "[" OBJ_NAME "]"
+
+static t_class* math_exp_class;
 typedef struct math_exp {
     t_object x_obj;
 } t_math_exp;
@@ -38,7 +41,7 @@ static void* math_exp_new()
 
 void setup_math0x2eexp()
 {
-    math_exp_class = class_new(gensym("math.exp"),
+    math_exp_class = class_new(gensym(OBJ_NAME),
         (t_newmethod)math_exp_new, (t_method)0,
         sizeof(t_math_exp), 0, A_NULL);
     class_addfloat(math_exp_class, math_exp_float);

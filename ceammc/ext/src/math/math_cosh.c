@@ -1,8 +1,11 @@
+#include "ceammc.h"
 #include <m_pd.h>
 #include <math.h>
-#include "ceammc.h"
 
-t_class* math_cosh_class;
+#define OBJ_NAME "math.cosh"
+#define MSG_PREFIX "[" OBJ_NAME "]"
+
+static t_class* math_cosh_class;
 typedef struct math_cosh {
     t_object x_obj;
 } t_math_cosh;
@@ -38,7 +41,7 @@ static void* math_cosh_new()
 
 void setup_math0x2ecosh()
 {
-    math_cosh_class = class_new(gensym("math.cosh"),
+    math_cosh_class = class_new(gensym(OBJ_NAME),
         (t_newmethod)math_cosh_new, (t_method)0,
         sizeof(t_math_cosh), 0, A_NULL);
     class_addfloat(math_cosh_class, math_cosh_float);

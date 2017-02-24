@@ -1,8 +1,11 @@
+#include "ceammc.h"
 #include <m_pd.h>
 #include <math.h>
-#include "ceammc.h"
 
-t_class* math_trunc_class;
+#define OBJ_NAME "math.trunc"
+#define MSG_PREFIX "[" OBJ_NAME "]"
+
+static t_class* math_trunc_class;
 typedef struct math_trunc {
     t_object x_obj;
 } t_math_trunc;
@@ -38,7 +41,7 @@ static void* math_trunc_new()
 
 void setup_math0x2etrunc()
 {
-    math_trunc_class = class_new(gensym("math.trunc"),
+    math_trunc_class = class_new(gensym(OBJ_NAME),
         (t_newmethod)math_trunc_new, (t_method)0,
         sizeof(t_math_trunc), 0, A_NULL);
     class_addfloat(math_trunc_class, math_trunc_float);
