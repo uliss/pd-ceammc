@@ -46,24 +46,24 @@ typedef struct _clifford {
     bool om;
 } clifford;
 
-static float inline clif_calc(float a, float b, float c, float d)
+static inline double clif_calc(double a, double b, double c, double d)
 {
-    return sinf(a * b) + c * cosf(a * d);
+    return sin(a * b) + c * cos(a * d);
 }
 
 static void* clifford_new(t_symbol* msg, short argc, t_atom* argv);
 static void clifford_calc(clifford* x);
 static void clifford_bang(clifford* x);
 static void clifford_set(clifford* x, t_symbol* msg, short argc, t_atom* argv);
-static void clifford_reset(clifford* x, t_symbol* msg, short argc, t_atom* argv);
+static void clifford_reset(clifford* x);
 
-static void clifford_a(clifford* x, double max);
-static void clifford_b(clifford* x, double max);
-static void clifford_c(clifford* x, double max);
-static void clifford_d(clifford* x, double max);
-static void clifford_nx(clifford* x, double max);
-static void clifford_ny(clifford* x, double max);
-static void clifford_om(clifford* x, long max);
+static void clifford_a(clifford* x, t_float max);
+static void clifford_b(clifford* x, t_float max);
+static void clifford_c(clifford* x, t_float max);
+static void clifford_d(clifford* x, t_float max);
+static void clifford_nx(clifford* x, t_float max);
+static void clifford_ny(clifford* x, t_float max);
+static void clifford_om(clifford* x, t_float max);
 
 static t_eclass* clifford_class;
 
@@ -86,10 +86,10 @@ void* clifford_new(t_symbol* msg, short argc, t_atom* argv)
     x->d = 0.7;
     x->dinit = 0.7;
     // do not init x and y for more chaotic results
-    x->nx = 0.0;
-    x->nxinit = 0.0;
-    x->ny = 0.0;
-    x->nyinit = 0.0;
+    x->nx = 0;
+    x->nxinit = 0;
+    x->ny = 0;
+    x->nyinit = 0;
 
     x->om = 0;
 
@@ -110,37 +110,37 @@ void clifford_set(clifford* x, t_symbol* msg, short argc, t_atom* argv) //input 
     if (argc) {
         if (argc > 5) {
             if (argv[5].a_type == A_FLOAT)
-                x->nyinit = (double)argv[5].a_w.w_float;
+                x->nyinit = atom_getfloat(&argv[5]);
             x->ny = x->nyinit;
         }
 
         if (argc > 4) {
             if (argv[4].a_type == A_FLOAT)
-                x->nxinit = (double)argv[4].a_w.w_float;
+                x->nxinit = atom_getfloat(&argv[4]);
             x->nx = x->nxinit;
         }
 
         if (argc > 3) {
             if (argv[3].a_type == A_FLOAT)
-                x->dinit = (double)argv[3].a_w.w_float;
+                x->dinit = atom_getfloat(&argv[3]);
             x->d = x->dinit;
         }
 
         if (argc > 2) {
             if (argv[2].a_type == A_FLOAT)
-                x->cinit = (double)argv[2].a_w.w_float;
+                x->cinit = atom_getfloat(&argv[2]);
             x->c = x->cinit;
         }
 
         if (argc > 1) {
             if (argv[1].a_type == A_FLOAT)
-                x->binit = (double)argv[1].a_w.w_float;
+                x->binit = atom_getfloat(&argv[1]);
             x->b = x->binit;
         }
 
         if (argc > 0) {
             if (argv[0].a_type == A_FLOAT)
-                x->ainit = (double)argv[0].a_w.w_float;
+                x->ainit = atom_getfloat(&argv[0]);
             x->a = x->ainit;
         }
 
@@ -175,57 +175,60 @@ void clifford_bang(clifford* x) //important, first output values then calc next
     clifford_calc(x);
 }
 
-void clifford_nx(clifford* x, double max)
+void clifford_nx(clifford* x, t_float max)
 {
     x->nx = max;
-    //	x->nxinit = max;
+
     if (x->om)
         clifford_bang(x);
 }
 
-void clifford_ny(clifford* x, double max)
+void clifford_ny(clifford* x, t_float max)
 {
     x->ny = max;
-    //	x->nyinit = max;
+
     if (x->om)
         clifford_bang(x);
 }
 
-void clifford_a(clifford* x, double max)
+void clifford_a(clifford* x, t_float max)
 {
     x->a = max;
-    //	x->ainit = max;
+
     if (x->om)
         clifford_bang(x);
 }
 
-void clifford_b(clifford* x, double max)
+void clifford_b(clifford* x, t_float max)
 {
     x->b = max;
-    //	x->binit = max;
+
     if (x->om)
         clifford_bang(x);
 }
 
-void clifford_c(clifford* x, double max)
+void clifford_c(clifford* x, t_float max)
 {
     x->c = max;
-    //	x->cinit = max;
+
     if (x->om)
         clifford_bang(x);
 }
 
-void clifford_d(clifford* x, double max)
+void clifford_d(clifford* x, t_float max)
 {
     x->d = max;
-    //	x->dinit = max;
+
     if (x->om)
         clifford_bang(x);
 }
 
-void clifford_om(clifford* x, long max) { x->om = (max > 0); }
+void clifford_om(clifford* x, t_float max)
+{
+    x->om = (max > 0);
+}
 
-void clifford_reset(clifford* x, t_symbol* msg, short argc, t_atom* argv)
+void clifford_reset(clifford* x)
 {
     x->a = x->ainit;
     x->b = x->binit;
@@ -252,9 +255,8 @@ void setup_noise0x2eclifford()
         (t_typ_method)(clifford_free),
         sizeof(clifford), 0, A_GIMME, 0);
 
-    eclass_addmethod(clifford_class, (method)clifford_bang, "bang", A_GIMME, 0);
-
-    eclass_addmethod(clifford_class, (method)clifford_reset, "reset", A_GIMME, 0);
+    eclass_addmethod(clifford_class, (method)clifford_bang, "bang", A_NULL, 0);
+    eclass_addmethod(clifford_class, (method)clifford_reset, "reset", A_NULL, 0);
     eclass_addmethod(clifford_class, (method)clifford_set, "set", A_GIMME, 0);
     eclass_addmethod(clifford_class, (method)clifford_nx, "x", A_DEFFLOAT, 0);
     eclass_addmethod(clifford_class, (method)clifford_ny, "y", A_DEFFLOAT, 0);
