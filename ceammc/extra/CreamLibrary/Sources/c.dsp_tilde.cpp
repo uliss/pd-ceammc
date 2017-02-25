@@ -84,10 +84,10 @@ static void draw_background(t_dsp_tilde* x, t_object* view, t_rect* rect)
         egraphics_fill(g);
 
         egraphics_set_line_width(g, 2.);
-        egraphics_arc(g, center, center, roundf(rect->width * 0.25f - 0.5f), EPD_PI, EPD_2PI);
+        egraphics_arc(g, center, center, roundf(rect->width * 0.25f - 0.5f), 0, EPD_PI);
         egraphics_stroke(g);
 
-        egraphics_arc(g, center, center, roundf(rect->width * 0.35f - 0.5f), EPD_PI, EPD_2PI);
+        egraphics_arc(g, center, center, roundf(rect->width * 0.35f - 0.5f), 0, EPD_PI);
         egraphics_stroke(g);
 
         ebox_end_layer((t_ebox*)x, cream_sym_background_layer);
