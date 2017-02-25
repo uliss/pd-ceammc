@@ -92,7 +92,7 @@ extern "C" void cream_setup(void)
     //setup_c0x2ebreakpoints();
     setup_c0x2ecolorpanel();
     //setup_c0x2egain_tilde();
-    setup_c0x2eincdec();
+
     setup_c0x2eknob();
 
     setup_c0x2emeter_tilde();
@@ -101,6 +101,7 @@ extern "C" void cream_setup(void)
     //CEAMMC
     setup_ui0x2ebang();
     setup_ui0x2edsp_tilde();
+    setup_ui0x2eincdec();
     setup_ui0x2enumber_tilde();
     setup_ui0x2enumber();
     setup_ui0x2ematrix();
