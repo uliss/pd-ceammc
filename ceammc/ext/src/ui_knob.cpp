@@ -22,7 +22,7 @@ static T clip(T min, T max, T v)
 struct ui_knob : public ceammc_gui::BaseGuiObject {
     t_outlet* out1;
 
-    float _value;
+    float x_value;
 
     float range;
     float shift;
@@ -34,13 +34,13 @@ struct ui_knob : public ceammc_gui::BaseGuiObject {
     t_etext* txt_max;
     t_efont* txt_font;
 
-    t_rgba active_color;
+    t_rgba knob_color;
     t_rgba scale_color;
 
 public:
     t_float realValue() const
     {
-        return _value * range + shift;
+        return x_value * range + shift;
     }
 
     t_float minValue() const
@@ -56,7 +56,7 @@ public:
     void setValue(t_float v)
     {
         t_float f = clip(minValue(), maxValue(), v);
-        _value = (f - shift) / range;
+        x_value = (f - shift) / range;
     }
 };
 
@@ -78,7 +78,7 @@ void draw_knob_line(t_elayer* g, ui_knob* zx, float cx, float cy, float r, float
 {
     egraphics_set_line_width(g, width);
     egraphics_set_line_capstyle(g, ECAPSTYLE_ROUND);
-    egraphics_set_color_rgba(g, &zx->active_color);
+    egraphics_set_color_rgba(g, &zx->knob_color);
 
     const float lx = r * cosf(angle);
     const float ly = r * sinf(angle);
@@ -104,7 +104,7 @@ UI_fun(ui_knob)::wx_paint(ui_knob* zx, t_object* view)
         const float arc_angle_offset = -(EPD_PI2 + (1 - arc_scale) * EPD_PI);
         const float arc_begin = arc_angle_offset;
         const float arc_end = arc_full + arc_angle_offset;
-        const float value_angle = zx->_value * arc_full + arc_angle_offset;
+        const float value_angle = zx->x_value * arc_full + arc_angle_offset;
 
         // adjust knob
         float line_width = int(rect.height / 20) + 1;
@@ -114,7 +114,7 @@ UI_fun(ui_knob)::wx_paint(ui_knob* zx, t_object* view)
 
         if (zx->draw_active) {
             // draw active arc
-            draw_knob_arc(g, cx, cy, radius, arc_begin, value_angle, line_width, zx->active_color);
+            draw_knob_arc(g, cx, cy, radius, arc_begin, value_angle, line_width, zx->knob_color);
 
             // draw passive arc
             draw_knob_arc(g, cx, cy, radius, value_angle, arc_end, line_width, zx->scale_color);
@@ -163,7 +163,7 @@ UI_fun(ui_knob)::wx_mousedrag_ext(ui_knob* zx, t_object*, t_pt pt, long)
     if (val < 0)
         val = 0;
 
-    zx->_value = val;
+    zx->x_value = val;
 
     ws_redraw(zx);
 
@@ -200,15 +200,62 @@ static void ui_kn_getdrawparams(ui_knob* x, t_object*, t_edrawparams* params)
     params->d_boxfillcolor = x->b_color_background;
 }
 
+static void knob_get_value(ui_knob* x, t_object* /*attr*/, long* ac, t_atom** av)
+{
+    *ac = 1;
+    *av = reinterpret_cast<t_atom*>(calloc(1, sizeof(t_atom)));
+    atom_setfloat(*av, x->realValue());
+}
+
+static t_pd_err knob_set_value(ui_knob* x, t_object* /*attr*/, int ac, t_atom* av)
+{
+    if (ac > 0 && av) {
+        x->setValue(atom_getfloat(av));
+        return 0;
+    }
+
+    return 1;
+}
+
+static void knob_set(ui_knob* x, t_float f)
+{
+    x->setValue(f);
+    GuiFactory<ui_knob>::ws_redraw(x);
+}
+
+static void knob_modify(ui_knob* z, t_symbol* s, int argc, t_atom* argv)
+{
+    if (argc < 1 || !argv) {
+        pd_error(z, "[%s] %s: float argument required", eobj_getclassname(z)->s_name, s->s_name);
+        return;
+    }
+
+    if (s == gensym("+")) {
+        knob_set(z, z->realValue() + atom_getfloat(argv));
+    } else if (s == gensym("-")) {
+        knob_set(z, z->realValue() - atom_getfloat(argv));
+    } else if (s == gensym("*")) {
+        knob_set(z, z->realValue() * atom_getfloat(argv));
+    } else if (s == gensym("/")) {
+        t_float v = atom_getfloat(argv);
+        if (v == 0.f) {
+            pd_error(z, "[%s] division by zero attempt.", eobj_getclassname(z)->s_name);
+            return;
+        }
+
+        knob_set(z, z->realValue() / v);
+    }
+}
+
 UI_fun(ui_knob)::init_ext(t_eclass* z)
 {
     // clang-format off
     CLASS_ATTR_DEFAULT (z, "size", 0, "40. 40.");
 
-    CLASS_ATTR_RGBA                 (z, "fgcolor", 0, ui_knob, active_color);
-    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "fgcolor", 0, DEFAULT_ACTIVE_COLOR);
-    CLASS_ATTR_LABEL                (z, "fgcolor", 0, _("Active Color"));
-    CLASS_ATTR_STYLE                (z, "fgcolor", 0, "color");
+    CLASS_ATTR_RGBA                 (z, "knob_color", 0, ui_knob, knob_color);
+    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "knob_color", 0, DEFAULT_ACTIVE_COLOR);
+    CLASS_ATTR_LABEL                (z, "knob_color", 0, _("Knob Color"));
+    CLASS_ATTR_STYLE                (z, "knob_color", 0, "color");
 
     CLASS_ATTR_RGBA                 (z, "scale_color", 0, ui_knob, scale_color);
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "scale_color", 0, "0.6 0.6 0.6 1.0");
@@ -234,15 +281,22 @@ UI_fun(ui_knob)::init_ext(t_eclass* z)
     CLASS_ATTR_LABEL                (z, "range", 0, _("Value range"));
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "range", 0, "127");
     CLASS_ATTR_STYLE                (z, "range", 0, "number");
+
+    CLASS_ATTR_VIRTUAL              (z, "value",   knob_get_value, knob_set_value);
     // clang-format on
 
     eclass_addmethod(z, reinterpret_cast<t_typ_method>(ui_kn_getdrawparams), "getdrawparams", A_NULL, 0);
+    eclass_addmethod(z, reinterpret_cast<t_typ_method>(knob_set), "set", A_FLOAT, 0);
+    eclass_addmethod(z, reinterpret_cast<t_typ_method>(knob_modify), "+", A_GIMME, 0);
+    eclass_addmethod(z, reinterpret_cast<t_typ_method>(knob_modify), "-", A_GIMME, 0);
+    eclass_addmethod(z, reinterpret_cast<t_typ_method>(knob_modify), "*", A_GIMME, 0);
+    eclass_addmethod(z, reinterpret_cast<t_typ_method>(knob_modify), "/", A_GIMME, 0);
 }
 
 UI_fun(ui_knob)::new_ext(ui_knob* zx, t_symbol*, int, t_atom*)
 {
     zx->out1 = create_outlet(zx, &s_float);
-    zx->_value = 0.f;
+    zx->x_value = 0.f;
 
     zx->txt_max = etext_layout_create();
     zx->txt_min = etext_layout_create();
