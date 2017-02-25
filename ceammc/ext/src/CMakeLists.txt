@@ -284,8 +284,8 @@ ceammc_faust_extension(noise white simple_pd_control_ext)
 ceammc_faust_extension(noise pink simple_pd_control_ext)
 ceammc_faust_extension(noise lfreq simple_pd_control_ext)
 
-#test!
-#ceammc_faust_extension(noise lorenz simple_pd_control_ext)
+ceammc_faust_extension(noise lorenz simple_pd_control_ext)
+ceammc_faust_extension(noise navierstokes simple_pd_control_ext)
 
 ceammc_faust_extension(spat pan2 simple_pd_control_ext)
 ceammc_faust_extension(spat pan4 simple_pd_control_ext)
