@@ -1,7 +1,7 @@
 /*
 
-ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
-a-henonf - © andrŽ sier 2004
+â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
+a-henonf - Â© andrÃ© sier 2004
 
 
 basically, i dont know if this is the henon phase diagrams... i just
@@ -9,7 +9,7 @@ followed what seemed the proper way. this was inspired by paul bourke's
 henon phase, i had to make the obj calc henon and calc the previous result's
 phase, advancing it by an amount related to 'a' -- all in the calc method
 
-ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
+â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
 */
 
 // CEAMMC pd library version
@@ -233,7 +233,7 @@ void setup_noise0x2ehenonf()
     eclass_addmethod(henonf_class, (method)henonf_ny, "dt", A_FLOAT, 0);
     eclass_addmethod(henonf_class, (method)henonf_om, "om", A_FLOAT, 0);
     
-    post("noise.henonf: part of A-Chaos library, (C) 2004 AndrŽ Sier");
+    post("noise.henonf: part of A-Chaos library, (C) 2004 AndrÃ© Sier");
 }
 
 

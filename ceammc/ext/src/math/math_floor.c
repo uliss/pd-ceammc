@@ -1,8 +1,11 @@
+#include "ceammc.h"
 #include <m_pd.h>
 #include <math.h>
-#include "ceammc.h"
 
-t_class* math_floor_class;
+#define OBJ_NAME "math.floor"
+#define MSG_PREFIX "[" OBJ_NAME "]"
+
+static t_class* math_floor_class;
 typedef struct math_floor {
     t_object x_obj;
 } t_math_floor;
@@ -38,7 +41,7 @@ static void* math_floor_new()
 
 void setup_math0x2efloor()
 {
-    math_floor_class = class_new(gensym("math.floor"),
+    math_floor_class = class_new(gensym(OBJ_NAME),
         (t_newmethod)math_floor_new, (t_method)0,
         sizeof(t_math_floor), 0, A_NULL);
     class_addfloat(math_floor_class, math_floor_float);

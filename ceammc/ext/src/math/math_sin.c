@@ -1,8 +1,11 @@
+#include "ceammc.h"
 #include <m_pd.h>
 #include <math.h>
-#include "ceammc.h"
 
-t_class* math_sin_class;
+#define OBJ_NAME "math.sin"
+#define MSG_PREFIX "[" OBJ_NAME "]"
+
+static t_class* math_sin_class;
 typedef struct math_sin {
     t_object x_obj;
 } t_math_sin;
@@ -38,7 +41,7 @@ static void* math_sin_new()
 
 void setup_math0x2esin()
 {
-    math_sin_class = class_new(gensym("math.sin"),
+    math_sin_class = class_new(gensym(OBJ_NAME),
         (t_newmethod)math_sin_new, (t_method)0,
         sizeof(t_math_sin), 0, A_NULL);
     class_addfloat(math_sin_class, math_sin_float);

@@ -1,11 +1,11 @@
 /*
 
-ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
-a - verhulst © andrŽ sier 20030914
+â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
+a - verhulst Â© andrÃ© sier 20030914
 		
 		distribuicao verhulsta
 
-ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
+â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
 */
 
 // CEAMMC pd library version
@@ -153,7 +153,7 @@ void setup_noise0x2everhulst()
     eclass_addmethod(verhulst_class, (method)verhulst_seed, "seed", A_DEFFLOAT, 0);
     eclass_addmethod(verhulst_class, (method)verhulst_om, "om", A_DEFFLOAT, 0);
     
-    post("noise.verhulst: part of A-Chaos library, (C) 2004 AndrŽ Sier");
+    post("noise.verhulst: part of A-Chaos library, (C) 2004 AndrÃ© Sier");
 }
 
 

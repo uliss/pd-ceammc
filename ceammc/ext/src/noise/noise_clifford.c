@@ -1,9 +1,9 @@
 /*
 
-ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
-a-clifford - © andrŽ sier 2004
+â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
+a-clifford - Â© andrÃ© sier 2004
 	
-inspired by Paul Bourke, implementation by AndrŽ Sier	
+inspired by Paul Bourke, implementation by AndrÃ© Sier	
 		
 clifford Attractors
  Attributed to Cliff Pickover
@@ -27,11 +27,8 @@ clifford Attractors
  
  updated init variables & calc equation & set methods & reset & info
 
-ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
+â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
 */
-
-//#include "ext.h"
-//#include "ext_common.h"
 
 // CEAMMC pd library version
 
@@ -40,120 +37,111 @@ clifford Attractors
 #include <math.h>
 #include <stdbool.h>
 
-#define clif_calc(a, b, c, d) (sinf((a) * (b)) + (c)*cosf((a) * (d)))
-
 typedef struct _clifford {
     t_eobj c_ob;
-    void *c_out, *c_out2; // outlets
+    t_outlet *c_out1, *c_out2; // outlets
     double a, b, c, d, nx, ny;
     double ainit, binit, cinit, dinit, nxinit, nyinit;
 
     bool om;
 } clifford;
 
-void* clifford_new(t_symbol* msg, short argc, t_atom* argv);
-void clifford_calc(clifford* x);
-void clifford_bang(clifford* x);
-void clifford_set(clifford* x, t_symbol* msg, short argc, t_atom* argv);
-void clifford_reset(clifford* x, t_symbol* msg, short argc, t_atom* argv);
-void clifford_info(clifford* x, t_symbol* msg, short argc, t_atom* argv);
+static inline double clif_calc(double a, double b, double c, double d)
+{
+    return sin(a * b) + c * cos(a * d);
+}
 
-void clifford_a(clifford* x, double max);
-void clifford_b(clifford* x, double max);
-void clifford_c(clifford* x, double max);
-void clifford_d(clifford* x, double max);
-void clifford_nx(clifford* x, double max);
-void clifford_ny(clifford* x, double max);
-void clifford_om(clifford* x, long max);
+static void* clifford_new(t_symbol* msg, int argc, t_atom* argv);
+static void clifford_calc(clifford* x);
+static void clifford_bang(clifford* x);
+static void clifford_set(clifford* x, t_symbol* msg, int argc, t_atom* argv);
+static void clifford_reset(clifford* x);
 
-void clifford_assist(clifford* x, void* b, long m, long a, char* s);
-t_eclass* clifford_class;
+static void clifford_a(clifford* x, t_float max);
+static void clifford_b(clifford* x, t_float max);
+static void clifford_c(clifford* x, t_float max);
+static void clifford_d(clifford* x, t_float max);
+static void clifford_nx(clifford* x, t_float max);
+static void clifford_ny(clifford* x, t_float max);
+static void clifford_om(clifford* x, t_float max);
 
-void* clifford_new(t_symbol* msg, short argc, t_atom* argv)
+static t_eclass* clifford_class;
+
+void* clifford_new(t_symbol* msg, int argc, t_atom* argv)
 {
     clifford* x;
-    //int i;
 
     x = (clifford*)eobj_new(clifford_class);
 
     x->c_out2 = floatout(x);
-    x->c_out = floatout(x);
+    x->c_out1 = floatout(x);
 
     //init
-    x->a = -1.4f;
-    x->ainit = -1.4f;
-    x->b = 1.6f;
-    x->binit = 1.6f;
-    x->c = 1.0f;
-    x->cinit = 1.0f;
-    x->d = 0.7f;
-    x->dinit = 0.7f;
-    //do not init x and y for more chaotic results
-    x->nx = 0.0f;
-    x->nxinit = 0.0f;
-    x->ny = 0.0f;
-    x->nyinit = 0.0f;
+    x->a = -1.4;
+    x->ainit = -1.4;
+    x->b = 1.6;
+    x->binit = 1.6;
+    x->c = 1.0;
+    x->cinit = 1.0;
+    x->d = 0.7;
+    x->dinit = 0.7;
+    // do not init x and y for more chaotic results
+    x->nx = 0;
+    x->nxinit = 0;
+    x->ny = 0;
+    x->nyinit = 0;
 
     x->om = 0;
 
     if (argc)
         clifford_set(x, msg, argc, argv);
+
     return (x);
 }
 
-void clifford_free()
+void clifford_free(clifford* x)
 {
+    outlet_free(x->c_out1);
+    outlet_free(x->c_out2);
 }
 
-void clifford_set(clifford* x, t_symbol* msg, short argc, t_atom* argv) //input the args
+void clifford_set(clifford* x, t_symbol* msg, int argc, t_atom* argv) //input the args
 {
     //supa elegant xoaz set method
     if (argc) {
         if (argc > 5) {
             if (argv[5].a_type == A_FLOAT)
-                x->nyinit = (double)argv[5].a_w.w_float;
-            else if (argv[5].a_type == A_FLOAT)
-                x->nyinit = (double)argv[5].a_w.w_float;
+                x->nyinit = atom_getfloat(&argv[5]);
             x->ny = x->nyinit;
         }
 
         if (argc > 4) {
             if (argv[4].a_type == A_FLOAT)
-                x->nxinit = (double)argv[4].a_w.w_float;
-            else if (argv[4].a_type == A_FLOAT)
-                x->nyinit = (double)argv[4].a_w.w_float;
+                x->nxinit = atom_getfloat(&argv[4]);
             x->nx = x->nxinit;
         }
 
         if (argc > 3) {
             if (argv[3].a_type == A_FLOAT)
-                x->dinit = (double)argv[3].a_w.w_float;
-            else if (argv[3].a_type == A_FLOAT)
-                x->dinit = (double)argv[3].a_w.w_float;
+                x->dinit = atom_getfloat(&argv[3]);
             x->d = x->dinit;
         }
 
         if (argc > 2) {
             if (argv[2].a_type == A_FLOAT)
-                x->cinit = (double)argv[2].a_w.w_float;
-            else if (argv[2].a_type == A_FLOAT)
-                x->cinit = (double)argv[2].a_w.w_float;
+                x->cinit = atom_getfloat(&argv[2]);
             x->c = x->cinit;
         }
 
         if (argc > 1) {
             if (argv[1].a_type == A_FLOAT)
-                x->binit = (double)argv[1].a_w.w_float;
-            else if (argv[1].a_type == A_FLOAT)
-                x->binit = (double)argv[1].a_w.w_float;
+                x->binit = atom_getfloat(&argv[1]);
             x->b = x->binit;
         }
 
         if (argc > 0) {
             if (argv[0].a_type == A_FLOAT)
-                x->ainit = (double)argv[0].a_w.w_float;
-            else if (argv[0].a_type == A_FLOAT)
-                x->ainit = (double)argv[0].a_w.w_float;
+                x->ainit = atom_getfloat(&argv[0]);
             x->a = x->ainit;
         }
 
@@ -184,55 +172,64 @@ void clifford_calc(clifford* x)
 void clifford_bang(clifford* x) //important, first output values then calc next
 {
     outlet_float(x->c_out2, x->nx);
-    outlet_float(x->c_out, x->ny);
+    outlet_float(x->c_out1, x->ny);
     clifford_calc(x);
 }
 
-void clifford_nx(clifford* x, double max)
+void clifford_nx(clifford* x, t_float max)
 {
     x->nx = max;
-    //	x->nxinit = max;
+
     if (x->om)
         clifford_bang(x);
 }
-void clifford_ny(clifford* x, double max)
+
+void clifford_ny(clifford* x, t_float max)
 {
     x->ny = max;
-    //	x->nyinit = max;
+
     if (x->om)
         clifford_bang(x);
 }
-void clifford_a(clifford* x, double max)
+
+void clifford_a(clifford* x, t_float max)
 {
     x->a = max;
-    //	x->ainit = max;
+
     if (x->om)
         clifford_bang(x);
 }
-void clifford_b(clifford* x, double max)
+
+void clifford_b(clifford* x, t_float max)
 {
     x->b = max;
-    //	x->binit = max;
+
     if (x->om)
         clifford_bang(x);
 }
-void clifford_c(clifford* x, double max)
+
+void clifford_c(clifford* x, t_float max)
 {
     x->c = max;
-    //	x->cinit = max;
+
     if (x->om)
         clifford_bang(x);
 }
-void clifford_d(clifford* x, double max)
+
+void clifford_d(clifford* x, t_float max)
 {
     x->d = max;
-    //	x->dinit = max;
+
     if (x->om)
         clifford_bang(x);
 }
-void clifford_om(clifford* x, long max) { x->om = (max > 0); }
 
-void clifford_reset(clifford* x, t_symbol* msg, short argc, t_atom* argv)
+void clifford_om(clifford* x, t_float max)
+{
+    x->om = (max > 0);
+}
+
+void clifford_reset(clifford* x)
 {
     x->a = x->ainit;
     x->b = x->binit;
@@ -241,6 +238,7 @@ void clifford_reset(clifford* x, t_symbol* msg, short argc, t_atom* argv)
     x->nx = x->nxinit;
     x->ny = x->nyinit;
 }
+
 //void clifford_info(clifford* x, t_symbol* msg, short argc, t_atom* argv)
 //{
 //    post("__________________________________");
@@ -258,13 +256,9 @@ void setup_noise0x2eclifford()
         (t_typ_method)(clifford_free),
         sizeof(clifford), 0, A_GIMME, 0);
 
-    //eclass_addmethod(lorenz_class, (method)baker_bang, "bang", A_GIMME, 0);
-
-    eclass_addmethod(clifford_class, (method)clifford_bang, "bang", A_GIMME, 0);
-
-    eclass_addmethod(clifford_class, (method)clifford_reset, "reset", A_GIMME, 0);
+    eclass_addmethod(clifford_class, (method)clifford_bang, "bang", A_NULL, 0);
+    eclass_addmethod(clifford_class, (method)clifford_reset, "reset", A_NULL, 0);
     eclass_addmethod(clifford_class, (method)clifford_set, "set", A_GIMME, 0);
-    // eclass_addmethod(clifford_class(method)clifford_info, "info", A_GIMME, 0);
     eclass_addmethod(clifford_class, (method)clifford_nx, "x", A_DEFFLOAT, 0);
     eclass_addmethod(clifford_class, (method)clifford_ny, "y", A_DEFFLOAT, 0);
     eclass_addmethod(clifford_class, (method)clifford_a, "a", A_DEFFLOAT, 0);
@@ -272,8 +266,6 @@ void setup_noise0x2eclifford()
     eclass_addmethod(clifford_class, (method)clifford_c, "c", A_DEFFLOAT, 0);
     eclass_addmethod(clifford_class, (method)clifford_d, "d", A_DEFFLOAT, 0);
     eclass_addmethod(clifford_class, (method)clifford_om, "om", A_DEFFLOAT, 0);
-    
-    post("noise.clifford: part of A-Chaos library, (C) 2004 AndrŽ Sier");
+
+    post("noise.clifford: part of A-Chaos library, (C) 2004 AndrÃ© Sier");
 }
-
-

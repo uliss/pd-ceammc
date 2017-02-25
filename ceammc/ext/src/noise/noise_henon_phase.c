@@ -1,7 +1,7 @@
 /*
 
-ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
-a-henonphase - © andrŽ sier 2004
+â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
+a-henonphase - Â© andrÃ© sier 2004
 
 
 Henon Phase Diagrams
@@ -9,7 +9,7 @@ Henon Phase Diagrams
  January 1991
  xn+1 = xn cos(a) - (yn - xn2) sin(a) 
  yn+1 = xn sin(a) + (yn - xn2) cos(a)
-ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
+â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
 */
 
 //#include "ext.h"
@@ -250,7 +250,7 @@ void setup_noise0x2ehenon_phase()
     eclass_addmethod(henonphase_class, (method)henonphase_dt, "dt", A_FLOAT, 0);
     eclass_addmethod(henonphase_class, (method)henonphase_om, "om", A_FLOAT, 0);
     
-    post("noise.henon_phase: part of A-Chaos library, (C) 2004 AndrŽ Sier");
+    post("noise.henon_phase: part of A-Chaos library, (C) 2004 AndrÃ© Sier");
 }
 
 

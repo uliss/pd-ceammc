@@ -1,9 +1,9 @@
 /*
 
-ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
-a-lyapunov - © andrŽ sier 2004
+â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
+a-lyapunov - Â© andrÃ© sier 2004
 	
-inspired by Paul Bourke, implementation by AndrŽ Sier	
+inspired by Paul Bourke, implementation by AndrÃ© Sier	
 		
 lyapunov random attractors
 
@@ -39,7 +39,7 @@ References
 
  Peitgen, H., Jurgens, H., Saupe, D
  Lyapunov exponents and chaotic attractors in Choas and fractals - new frontiers of science. Springer, new York, 1992.
-ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
+â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
 */
 
 // CEAMMC pd library version
@@ -433,7 +433,7 @@ void setup_noise0x2elyapunov()
     eclass_addmethod(lyapunov_class, (method)lyapunov_ny, "y", A_DEFFLOAT, 0);
     eclass_addmethod(lyapunov_class, (method)lyapunov_om, "om", A_DEFFLOAT, 0);
     
-    post("noise.lyapunov: part of A-Chaos library, (C) 2004 AndrŽ Sier");
+    post("noise.lyapunov: part of A-Chaos library, (C) 2004 AndrÃ© Sier");
 }
 
 

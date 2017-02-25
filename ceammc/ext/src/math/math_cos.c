@@ -1,8 +1,11 @@
+#include "ceammc.h"
 #include <m_pd.h>
 #include <math.h>
-#include "ceammc.h"
 
-t_class* math_cos_class;
+#define OBJ_NAME "math.cos"
+#define MSG_PREFIX "[" OBJ_NAME "]"
+
+static t_class* math_cos_class;
 typedef struct math_cos {
     t_object x_obj;
 } t_math_cos;
@@ -38,7 +41,7 @@ static void* math_cos_new()
 
 void setup_math0x2ecos()
 {
-    math_cos_class = class_new(gensym("math.cos"),
+    math_cos_class = class_new(gensym(OBJ_NAME),
         (t_newmethod)math_cos_new, (t_method)0,
         sizeof(t_math_cos), 0, A_NULL);
     class_addfloat(math_cos_class, math_cos_float);

@@ -253,7 +253,7 @@ void setup_noise0x2eikeda()
     eclass_addmethod(ikeda_class, (method)ikeda_p, "p", A_DEFFLOAT, 0);
     eclass_addmethod(ikeda_class, (method)ikeda_om, "om", A_DEFFLOAT, 0);
     
-    post("noise.ikeda: part of A-Chaos library, (C) 2004 André Sier");
+    post("noise.ikeda: part of A-Chaos library, (C) 2004 Andr√© Sier");
 }
 
 
