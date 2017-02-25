@@ -174,6 +174,7 @@ public:
     static t_symbol* COLOR_ACTIVE;
     static const int FONT_SIZE;
     static const int FONT_SIZE_SMALL;
+    static long flags;
 #pragma mark -
 
 #pragma mark method 'extension' stubs
@@ -331,7 +332,7 @@ public:
         t_ebox* box = reinterpret_cast<t_ebox*>(z);
 
         t_binbuf* d = binbuf_via_atoms(argc, argv);
-        ebox_new(box, 0 | EBOX_GROWINDI);
+        ebox_new(box, GuiFactory<U>::flags);
 
         if (z && d) {
             //moved
@@ -588,7 +589,7 @@ public:
      * creates new default ui box attributes (CICM) then calls the 'init_ext' method
      * @param _class_name: the class name
      */
-    void setup(const char* class_name)
+    void setup(const char* class_name, long flags = EBOX_GROWINDI)
     {
         t_eclass* cl = eclass_new(class_name,
             UI_METHOD_PTR(new_method),
@@ -602,6 +603,7 @@ public:
             GuiFactory<U>::pd_class = cl;
             GuiFactory<U>::init_ext(cl);
             eclass_register(CLASS_BOX, cl);
+            GuiFactory<U>::flags = flags;
         }
     }
 
@@ -668,6 +670,9 @@ public:
         return outlet_new(reinterpret_cast<t_object*>(x), type);
     }
 };
+
+template <typename U>
+long GuiFactory<U>::flags = 0;
 
 template <typename U>
 t_eclass* GuiFactory<U>::pd_class = 0;
