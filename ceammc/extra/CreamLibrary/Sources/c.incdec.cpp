@@ -88,9 +88,9 @@ extern "C" void setup_ui0x2eincdec(void)
     CLASS_ATTR_STYLE                  (c, "bdcolor", 0, "color");
 
     CLASS_ATTR_RGBA                   (c, "arcolor", 0, t_incdec, f_color_arrow);
-    CLASS_ATTR_LABEL                  (c, "arcolor", 0, "Arrow Color");
+    CLASS_ATTR_LABEL                  (c, "arcolor", 0, _("Arrow Color"));
     CLASS_ATTR_ORDER                  (c, "arcolor", 0, "3");
-    CLASS_ATTR_DEFAULT_SAVE_PAINT     (c, "arcolor", 0, "0. 0. 0. 1.");
+    CLASS_ATTR_DEFAULT_SAVE_PAINT     (c, "arcolor", 0, DEFAULT_BORDER_COLOR);
     CLASS_ATTR_STYLE                  (c, "arcolor", 0, "color");
     // clang-format on
 
@@ -192,16 +192,17 @@ void incdec_paint(t_incdec* x, t_object* view)
 
 void draw_background(t_incdec* x, t_object* view, t_rect* rect)
 {
-    float height;
     t_elayer* g = ebox_start_layer((t_ebox*)x, cream_sym_background_layer, rect->width, rect->height);
 
     if (g) {
+        const float height = roundf(rect->height / 2.f);
+
         // Background //
         egraphics_set_color_rgba(g, &x->f_color_arrow);
         if (x->f_mouse_down == 1)
-            egraphics_rectangle(g, 0, 0, rect->width, rect->height / 2.);
+            egraphics_rectangle(g, 0, 0, rect->width, height);
         else if (x->f_mouse_down == -1)
-            egraphics_rectangle(g, 0, rect->height / 2., rect->width, rect->height);
+            egraphics_rectangle(g, 0, height, rect->width, rect->height);
         egraphics_fill(g);
 
         egraphics_set_color_rgba(g, &x->f_color_arrow);
@@ -211,58 +212,41 @@ void draw_background(t_incdec* x, t_object* view, t_rect* rect)
             egraphics_set_color_rgba(g, &x->f_color_background);
         else
             egraphics_set_color_rgba(g, &x->f_color_arrow);
-#ifdef __APPLE__
-        height = rect->height / 2. - 2;
-        egraphics_move_to(g, rect->width * 0.1, pd_clip_max(height * 0.9, height - 1));
-        egraphics_line_to(g, rect->width * 0.9, pd_clip_max(height * 0.9, height - 1));
-        egraphics_line_to(g, rect->width * 0.5, pd_clip_min(height * 0.1, 1));
+
+        const int arrow_p0_x = static_cast<int>(roundf(pd_clip_min(rect->width * 0.2f, 2)));
+        const int arrow_p1_x = rect->width - arrow_p0_x;
+        const int arrow_p2_x = static_cast<int>(roundf(rect->width * 0.5f));
+
+        const int arrow_p0_y = static_cast<int>(roundf(pd_clip_min(height * 0.2f, 2)));
+        const int arrow_p1_y = arrow_p0_y;
+        const int arrow_p2_y = height - arrow_p0_y;
+
+        egraphics_move_to(g, arrow_p0_x, height - arrow_p0_y);
+        egraphics_line_to(g, arrow_p1_x, height - arrow_p1_y);
+        egraphics_line_to(g, arrow_p2_x, arrow_p0_y);
+        egraphics_line_to(g, arrow_p0_x, height - arrow_p0_y);
         egraphics_fill(g);
-#elif _WINDOWS
-        height = rect->height / 2. - 2;
-        egraphics_move_to(g, rect->width * 0.1, pd_clip_max(height * 0.9, height - 1));
-        egraphics_line_to(g, rect->width * 0.9, pd_clip_max(height * 0.9, height - 1));
-        egraphics_line_to(g, rect->width * 0.5, pd_clip_min(height * 0.1, 1));
-        egraphics_fill(g);
-#else
-        height = rect->height / 2.;
-        egraphics_move_to(g, rect->width * 0.1, pd_clip_max(height * 0.9, height - 2));
-        egraphics_line_to(g, rect->width * 0.9, pd_clip_max(height * 0.9, height - 2));
-        egraphics_line_to(g, rect->width * 0.5, pd_clip_min(height * 0.1, 1));
-        egraphics_fill(g);
-#endif
 
         // Arrow Down //
         if (x->f_mouse_down == -1)
             egraphics_set_color_rgba(g, &x->f_color_background);
         else
             egraphics_set_color_rgba(g, &x->f_color_arrow);
-#ifdef __APPLE__
-        egraphics_move_to(g, rect->width * 0.1, pd_clip_min(height * 0.1 + rect->height / 2. + 2.5, rect->height / 2. + 2.5));
-        egraphics_line_to(g, rect->width * 0.9, pd_clip_min(height * 0.1 + rect->height / 2. + 2.5, rect->height / 2. + 2.5));
-        egraphics_line_to(g, rect->width * 0.5, pd_clip_max(height * 0.9 + rect->height / 2. + 2.5, rect->height - 1));
-        egraphics_fill(g);
 
-#elif _WINDOWS
-        egraphics_move_to(g, rect->width * 0.1, pd_clip_min(height * 0.1 + rect->height / 2. + 2.5, rect->height / 2. + 2.5));
-        egraphics_line_to(g, rect->width * 0.9, pd_clip_min(height * 0.1 + rect->height / 2. + 2.5, rect->height / 2. + 2.5));
-        egraphics_line_to(g, rect->width * 0.5, pd_clip_max(height * 0.9 + rect->height / 2. + 2.5, rect->height - 1));
+        egraphics_move_to(g, arrow_p0_x, height + arrow_p0_y);
+        egraphics_line_to(g, arrow_p1_x, height + arrow_p1_y);
+        egraphics_line_to(g, arrow_p2_x, height + arrow_p2_y);
+        egraphics_line_to(g, arrow_p0_x, height + arrow_p0_y);
         egraphics_fill(g);
-
-#else
-        egraphics_move_to(g, rect->width * 0.1, pd_clip_min(height * 0.1 + rect->height / 2. + 1, rect->height / 2. + 2.5));
-        egraphics_line_to(g, rect->width * 0.9, pd_clip_min(height * 0.1 + rect->height / 2. + 1, rect->height / 2. + 2.5));
-        egraphics_line_to(g, rect->width * 0.5, pd_clip_max(height * 0.9 + rect->height / 2. + 1, rect->height - 1));
-        egraphics_fill(g);
-#endif
 
         // Middle Line //
         egraphics_set_color_rgba(g, &x->f_color_border);
-        egraphics_set_line_width(g, 2);
-        egraphics_line_fast(g, 0., rect->height / 2. + 0.5, rect->width, rect->height / 2. + 0.5);
+        egraphics_set_line_width(g, 1);
+        egraphics_line_fast(g, 0, height, rect->width, height);
 
         ebox_end_layer((t_ebox*)x, cream_sym_background_layer);
     }
-    ebox_paint_layer((t_ebox*)x, cream_sym_background_layer, 0., 0.);
+    ebox_paint_layer((t_ebox*)x, cream_sym_background_layer, 0, 0);
 }
 
 void incdec_mousedown(t_incdec* x, t_object* patcherview, t_pt pt, long modifiers)
