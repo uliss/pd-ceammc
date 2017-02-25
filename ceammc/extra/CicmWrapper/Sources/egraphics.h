@@ -28,6 +28,14 @@
 void egraphics_set_line_width(t_elayer *g, float width);
 
 /*!
+ * \fn          void egraphics_set_line_capstyle(t_elayer *g, t_capstyle style)
+ * \brief       Sets the line capstyle that will be used by the t_elayer.
+ * \param g     The t_elayer pointer.
+ * \param style The t_capstyle value.
+ */
+void egraphics_set_line_capstyle(t_elayer *g, t_capstyle style);
+
+/*!
  * \fn          void egraphics_set_color_rgba(t_elayer *g, const t_rgba *rgba)
  * \brief       Sets the color in rgba that will be used by the t_elayer.
  * \param g     The t_elayer pointer.
