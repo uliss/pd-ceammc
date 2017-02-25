@@ -30,6 +30,11 @@ void egraphics_set_line_width(t_elayer *g, float width)
     g->e_line_width= (int)pd_clip_min(width, 0.);
 }
 
+void egraphics_set_line_capstyle(t_elayer *g, t_capstyle style)
+{
+    g->e_line_capstyle = style;
+}
+
 void egraphics_set_color_rgba(t_elayer *g, const t_rgba *rgba)
 {
     g->e_color = gensym(rgba_to_hex(*rgba));
@@ -89,6 +94,7 @@ static void egraphics_paint(t_elayer *g, int filled, int preserved)
             
             nobj->e_color = g->e_color;
             nobj->e_width = g->e_line_width;
+            nobj->e_capstyle = g->e_line_capstyle;
             nobj->e_text  = g->e_new_objects.e_text;
             
             egraphics_apply_matrix(g, nobj);
@@ -386,7 +392,7 @@ void egraphics_arc_oval(t_elayer *g, float xc, float yc, float radiusx, float ra
             g->e_new_objects.e_points[2].x  = xc + radiusx;
             g->e_new_objects.e_points[2].y  = yc + radiusy;
             g->e_new_objects.e_points[3].x  = (angle1 / EPD_PI) * 180.f;
-            g->e_new_objects.e_points[3].y  = ((angle1 - angle2) / EPD_PI) * 180.f;
+            g->e_new_objects.e_points[3].y  = ((angle2 - angle1) / EPD_PI) * 180.f;
             g->e_new_objects.e_npoints = 4;
         }
     }

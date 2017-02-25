@@ -306,6 +306,17 @@ typedef struct t_hsla
     float alpha;        /*!< The alpha value. */
 } t_hsla;
 
+/**
+ * @struct t_capstyle
+ * @brief A capstyle enum
+ */
+typedef enum t_capstyle
+{
+    ECAPSTYLE_BUTT = 0,  /*!< Default. A flat edge is added to each end of the line */
+    ECAPSTYLE_ROUND = 1, /*!< A rounded end cap is added to each end of the line */
+    ECAPSTYLE_SQUARE = 2 /*!< A square end cap is added to each end of the line */
+} t_capstyle;
+
 //! The pre-defined black t_rgba
 extern const t_rgba rgba_black;
 //! The pre-defined grey dark t_rgba
@@ -364,8 +375,9 @@ typedef struct t_egobj
     int             e_filled;       /*!< The filled state of the graphical object. */
     t_symbol*       e_color;        /*!< The color of the graphical object. */
     float           e_width;        /*!< The line width of the graphical object. */
-    
-	t_pt*           e_points;       /*!< The points of the graphical object. */
+    int             e_capstyle;     /*!< The line capstyle of the graphical object. */
+
+    t_pt*           e_points;       /*!< The points of the graphical object. */
     int             e_npoints;      /*!< The number of points of the graphical object. */
     t_efont         e_font;         /*!< The font of the graphical object. */
     t_symbol*       e_anchor;       /*!< The anchor of the graphical object. */
@@ -389,6 +401,7 @@ typedef struct t_elayer
     
     t_symbol*           e_color;            /*!< The layer color. */
     int                 e_line_width;       /*!< The layer line width. */
+    int                 e_line_capstyle;    /*!< The layer line capstyle. */
     t_matrix            e_matrix;           /*!< The layer matrix. */
     t_egobj             e_new_objects;      /*!< The layer new object. */
     t_egobj*            e_objects;          /*!< The layer objects. */

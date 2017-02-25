@@ -29,6 +29,13 @@ static const char *my_cursorlist[] =
     "xterm"
 };
 
+static const char *my_capstylelist[] =
+{
+    "butt",
+    "round",
+    "projecting"
+};
+
 static void ebox_create_window(t_ebox* x, t_glist* glist);
 static void ebox_invalidate_all(t_ebox *x);
 static void ebox_draw_border(t_ebox* x);
@@ -1329,12 +1336,13 @@ t_elayer* ebox_start_layer(t_ebox *x, t_symbol *name, float width, float height)
                 graphic->e_owner        = (t_object *)x;
 
                 egraphics_matrix_init(&graphic->e_matrix, 1., 0., 0., 1., 0., 0.);
-                graphic->e_line_width   = 1.f;
-                graphic->e_color        = gensym("#000000");
-                graphic->e_rect.x       = 0.f;
-                graphic->e_rect.y       = 0.f;
-                graphic->e_rect.height  = (float)pd_clip_min(height, 0.);
-                graphic->e_rect.width   = (float)pd_clip_min(width, 0.);
+                graphic->e_line_width    = 1.f;
+                graphic->e_line_capstyle = ECAPSTYLE_BUTT;
+                graphic->e_color         = gensym("#000000");
+                graphic->e_rect.x        = 0.f;
+                graphic->e_rect.y        = 0.f;
+                graphic->e_rect.height   = (float)pd_clip_min(height, 0.);
+                graphic->e_rect.width    = (float)pd_clip_min(width, 0.);
 
                 for(j = 0; j < graphic->e_number_objects; j++)
                 {
@@ -1388,12 +1396,13 @@ t_elayer* ebox_start_layer(t_ebox *x, t_symbol *name, float width, float height)
         graphic->e_owner        = (t_object *)x;
 
         egraphics_matrix_init(&graphic->e_matrix, 1., 0., 0., 1., 0., 0.);
-        graphic->e_line_width   = 1.f;
-        graphic->e_color        = gensym("#000000");
-        graphic->e_rect.x       = 0.f;
-        graphic->e_rect.y       = 0.f;
-        graphic->e_rect.height  = (float)pd_clip_min(height, 0.);
-        graphic->e_rect.width   = (float)pd_clip_min(width, 0.);
+        graphic->e_line_width    = 1.f;
+        graphic->e_line_capstyle = ECAPSTYLE_BUTT;
+        graphic->e_color         = gensym("#000000");
+        graphic->e_rect.x        = 0.f;
+        graphic->e_rect.y        = 0.f;
+        graphic->e_rect.height   = (float)pd_clip_min(height, 0.);
+        graphic->e_rect.width    = (float)pd_clip_min(width, 0.);
 
 
         graphic->e_number_objects  = 0;
@@ -1516,7 +1525,7 @@ t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
                 else
                 {
                     sprintf(header, "%s create line ", x->b_drawing_id->s_name);
-                    sprintf(bottom, "-smooth raw -splinesteps 100 -fill %s -width %f -tags { %s %s }\n", gobj->e_color->s_name, gobj->e_width, g->e_id->s_name, x->b_all_id->s_name);
+                    sprintf(bottom, "-smooth raw -splinesteps 100 -fill %s -width %f -capstyle %s -tags { %s %s }\n", gobj->e_color->s_name, gobj->e_width, my_capstylelist[gobj->e_capstyle], g->e_id->s_name, x->b_all_id->s_name);
                 }
 
                 for(j = 0; j < gobj->e_npoints; )
