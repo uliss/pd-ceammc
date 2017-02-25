@@ -34,7 +34,7 @@ struct ui_knob : public ceammc_gui::BaseGuiObject {
     t_etext* txt_max;
     t_efont* txt_font;
 
-    t_rgba active_color;
+    t_rgba knob_color;
     t_rgba scale_color;
 
 public:
@@ -78,7 +78,7 @@ void draw_knob_line(t_elayer* g, ui_knob* zx, float cx, float cy, float r, float
 {
     egraphics_set_line_width(g, width);
     egraphics_set_line_capstyle(g, ECAPSTYLE_ROUND);
-    egraphics_set_color_rgba(g, &zx->active_color);
+    egraphics_set_color_rgba(g, &zx->knob_color);
 
     const float lx = r * cosf(angle);
     const float ly = r * sinf(angle);
@@ -114,7 +114,7 @@ UI_fun(ui_knob)::wx_paint(ui_knob* zx, t_object* view)
 
         if (zx->draw_active) {
             // draw active arc
-            draw_knob_arc(g, cx, cy, radius, arc_begin, value_angle, line_width, zx->active_color);
+            draw_knob_arc(g, cx, cy, radius, arc_begin, value_angle, line_width, zx->knob_color);
 
             // draw passive arc
             draw_knob_arc(g, cx, cy, radius, value_angle, arc_end, line_width, zx->scale_color);
@@ -205,10 +205,10 @@ UI_fun(ui_knob)::init_ext(t_eclass* z)
     // clang-format off
     CLASS_ATTR_DEFAULT (z, "size", 0, "40. 40.");
 
-    CLASS_ATTR_RGBA                 (z, "fgcolor", 0, ui_knob, active_color);
-    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "fgcolor", 0, DEFAULT_ACTIVE_COLOR);
-    CLASS_ATTR_LABEL                (z, "fgcolor", 0, _("Active Color"));
-    CLASS_ATTR_STYLE                (z, "fgcolor", 0, "color");
+    CLASS_ATTR_RGBA                 (z, "knob_color", 0, ui_knob, knob_color);
+    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "knob_color", 0, DEFAULT_ACTIVE_COLOR);
+    CLASS_ATTR_LABEL                (z, "knob_color", 0, _("Knob Color"));
+    CLASS_ATTR_STYLE                (z, "knob_color", 0, "color");
 
     CLASS_ATTR_RGBA                 (z, "scale_color", 0, ui_knob, scale_color);
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "scale_color", 0, "0.6 0.6 0.6 1.0");
