@@ -257,10 +257,16 @@ UI_fun(ui_knob)::free_ext(ui_knob* zx)
     etext_layout_destroy(zx->txt_min);
     efont_destroy(zx->txt_font);
 }
+
+UI_fun(ui_knob)::m_preset(ui_knob* zx, t_binbuf* b)
+{
+    binbuf_addv(b, "sf", &s_float, zx->realValue());
+}
 }
 
 extern "C" void setup_ui0x2eknob()
 {
     ceammc_gui::GuiFactory<ui_knob> class1;
+    class1.use_presets(true);
     class1.setup("ui.knob", EBOX_GROWLINK);
 }
