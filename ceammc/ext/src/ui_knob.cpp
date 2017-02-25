@@ -6,10 +6,18 @@
 //
 //
 
+#include <algorithm>
+
 #include "lib/ceammc_gui.h"
 
 #include "ceammc_atomlist.h"
 #include "ceammc_format.h"
+
+template <typename T>
+static T clip(T min, T max, T v)
+{
+    return std::max(min, std::min(max, v));
+}
 
 struct ui_knob : public ceammc_gui::BaseGuiObject {
     t_outlet* out1;
@@ -33,6 +41,22 @@ public:
     t_float realValue() const
     {
         return _value * range + shift;
+    }
+
+    t_float minValue() const
+    {
+        return std::min(shift, range + shift);
+    }
+
+    t_float maxValue() const
+    {
+        return std::max(shift, range + shift);
+    }
+
+    void setValue(t_float v)
+    {
+        t_float f = clip(minValue(), maxValue(), v);
+        _value = (f - shift) / range;
     }
 };
 
@@ -75,41 +99,41 @@ UI_fun(ui_knob)::wx_paint(ui_knob* zx, t_object* view)
 
         float radius_scale = 0.85f;
         const float radius = cx * radius_scale;
-        const float circ_coeff = 0.78f;
-        const float angle_offset = -(EPD_PI2 + (1 - circ_coeff) * EPD_PI);
-        const float full_circle = -(EPD_2PI)*circ_coeff;
+        const float arc_scale = 0.78f;
+        const float arc_full = -(EPD_2PI)*arc_scale;
+        const float arc_angle_offset = -(EPD_PI2 + (1 - arc_scale) * EPD_PI);
+        const float arc_begin = arc_angle_offset;
+        const float arc_end = arc_full + arc_angle_offset;
+        const float value_angle = zx->_value * arc_full + arc_angle_offset;
 
-        float active_arc_begin = angle_offset;
-        float active_arc_end = zx->_value * full_circle + angle_offset;
-
-        float passive_arc_begin = active_arc_end;
-        float passive_arc_end = full_circle + angle_offset;
-
-        float line_width = 2;
-        if (rect.height < 40) {
-            radius_scale = 0.7f;
-            line_width = 2;
-        } else {
-            line_width = int(rect.height / 20) + 1;
+        // adjust knob
+        float line_width = int(rect.height / 20) + 1;
+        if (rect.height < 30) {
+            radius_scale = 0.55f;
         }
 
-        // draw active arc
-        draw_knob_arc(g, cx, cy, radius, active_arc_begin, active_arc_end, line_width, zx->active_color);
+        if (zx->draw_active) {
+            // draw active arc
+            draw_knob_arc(g, cx, cy, radius, arc_begin, value_angle, line_width, zx->active_color);
 
-        // draw passive arc
-        draw_knob_arc(g, cx, cy, radius, passive_arc_begin, passive_arc_end, line_width, zx->scale_color);
+            // draw passive arc
+            draw_knob_arc(g, cx, cy, radius, value_angle, arc_end, line_width, zx->scale_color);
+        } else {
+            // draw full arc
+            draw_knob_arc(g, cx, cy, radius, arc_begin, arc_end, line_width, zx->scale_color);
+        }
 
-        // draw line
-        draw_knob_line(g, zx, cx, cy, radius, active_arc_end, line_width);
+        // draw knob line
+        draw_knob_line(g, zx, cx, cy, radius, value_angle, line_width);
 
         if (zx->show_range) {
             char buf[10];
-            sprintf(buf, "%.2f", zx->shift);
+            sprintf(buf, "%g", zx->shift);
 
             etext_layout_set(zx->txt_min, buf, zx->txt_font, 3, rect.height - 12, rect.width * 2, rect.height / 2, ETEXT_UP_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
             etext_layout_draw(zx->txt_min, g);
 
-            sprintf(buf, "%.2f", zx->range + zx->shift);
+            sprintf(buf, "%g", zx->range + zx->shift);
             etext_layout_set(zx->txt_max, buf, zx->txt_font, rect.width - 3, rect.height - 12, rect.width, rect.height / 2, ETEXT_UP_RIGHT, ETEXT_JRIGHT, ETEXT_NOWRAP);
             etext_layout_draw(zx->txt_max, g);
         }
@@ -153,7 +177,7 @@ UI_fun(ui_knob)::wx_mousedown_ext(ui_knob* zx, t_object* view, t_pt pt, long mod
 
 UI_fun(ui_knob)::m_float(ui_knob* zx, t_float f)
 {
-    zx->_value = 1.f - (f / 127.f);
+    zx->setValue(f);
     ws_redraw(zx);
     outlet_float(zx->out1, zx->realValue());
 }
