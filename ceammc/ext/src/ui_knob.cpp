@@ -217,6 +217,36 @@ static t_pd_err knob_set_value(ui_knob* x, t_object* /*attr*/, int ac, t_atom* a
     return 1;
 }
 
+static void knob_set(ui_knob* x, t_float f)
+{
+    x->setValue(f);
+    GuiFactory<ui_knob>::ws_redraw(x);
+}
+
+static void knob_modify(ui_knob* z, t_symbol* s, int argc, t_atom* argv)
+{
+    if (argc < 1 || !argv) {
+        pd_error(z, "[%s] %s: float argument required", eobj_getclassname(z)->s_name, s->s_name);
+        return;
+    }
+
+    if (s == gensym("+")) {
+        knob_set(z, z->realValue() + atom_getfloat(argv));
+    } else if (s == gensym("-")) {
+        knob_set(z, z->realValue() - atom_getfloat(argv));
+    } else if (s == gensym("*")) {
+        knob_set(z, z->realValue() * atom_getfloat(argv));
+    } else if (s == gensym("/")) {
+        t_float v = atom_getfloat(argv);
+        if (v == 0.f) {
+            pd_error(z, "[%s] division by zero attempt.", eobj_getclassname(z)->s_name);
+            return;
+        }
+
+        knob_set(z, z->realValue() / v);
+    }
+}
+
 UI_fun(ui_knob)::init_ext(t_eclass* z)
 {
     // clang-format off
@@ -256,6 +286,11 @@ UI_fun(ui_knob)::init_ext(t_eclass* z)
     // clang-format on
 
     eclass_addmethod(z, reinterpret_cast<t_typ_method>(ui_kn_getdrawparams), "getdrawparams", A_NULL, 0);
+    eclass_addmethod(z, reinterpret_cast<t_typ_method>(knob_set), "set", A_FLOAT, 0);
+    eclass_addmethod(z, reinterpret_cast<t_typ_method>(knob_modify), "+", A_GIMME, 0);
+    eclass_addmethod(z, reinterpret_cast<t_typ_method>(knob_modify), "-", A_GIMME, 0);
+    eclass_addmethod(z, reinterpret_cast<t_typ_method>(knob_modify), "*", A_GIMME, 0);
+    eclass_addmethod(z, reinterpret_cast<t_typ_method>(knob_modify), "/", A_GIMME, 0);
 }
 
 UI_fun(ui_knob)::new_ext(ui_knob* zx, t_symbol*, int, t_atom*)
