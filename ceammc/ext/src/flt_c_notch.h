@@ -525,7 +525,7 @@ class c_notch : public dsp {
 		m->declare("math.lib/license", "LGPL with exception");
 	}
 
-	virtual int getNumInputs() { return 0; }
+	virtual int getNumInputs() { return 1; }
 	virtual int getNumOutputs() { return 5; }
 	static void classInit(int samplingFreq) {
 	}
