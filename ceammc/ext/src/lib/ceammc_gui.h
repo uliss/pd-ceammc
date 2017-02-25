@@ -598,12 +598,13 @@ public:
 
         if (cl) {
             eclass_guiinit(cl, 0);
+
             setup_methods(cl);
             setup_attributes(cl);
             GuiFactory<U>::pd_class = cl;
             GuiFactory<U>::init_ext(cl);
-            eclass_register(CLASS_BOX, cl);
             GuiFactory<U>::flags = flags;
+            eclass_register(CLASS_BOX, cl);
         }
     }
 
@@ -613,7 +614,7 @@ public:
      * creates new default ui box attributes (CICM) then calls the 'init_ext' method
      * @param _class_name: the class name
      */
-    void setup_dsp(const char* class_name)
+    void setup_dsp(const char* class_name, long flags = EBOX_GROWINDI)
     {
         t_eclass* cl = eclass_new(class_name,
             UI_METHOD_PTR(new_method),
@@ -628,11 +629,12 @@ public:
             setup_attributes(cl);
             GuiFactory<U>::pd_class = cl;
             GuiFactory<U>::init_ext(cl);
+            GuiFactory<U>::flags = flags;
             eclass_register(CLASS_OBJ, cl);
         }
     }
 
-    void setup_noin(const char* class_name)
+    void setup_noin(const char* class_name, long flags = EBOX_GROWINDI)
     {
         t_eclass* cl = eclass_new(class_name,
             UI_METHOD_PTR(new_method),
@@ -646,6 +648,7 @@ public:
             setup_attributes(cl);
             GuiFactory<U>::pd_class = cl;
             GuiFactory<U>::init_ext(cl);
+            GuiFactory<U>::flags = flags;
             eclass_register(CLASS_BOX, cl);
         }
     }
