@@ -487,6 +487,18 @@ t_propertiesfn class_getpropertiesfn(t_class *c)
 
 static t_symbol *symhash[HASHSIZE];
 
+// ceammc
+size_t pd_ceammc_gensym_hash_table_size()
+{
+    return HASHSIZE;
+}
+
+t_symbol** pd_ceammc_gensym_hash_table()
+{
+    return symhash;
+}
+// end ceammc
+
 t_symbol *dogensym(const char *s, t_symbol *oldsym)
 {
     t_symbol **sym1, *sym2;
