@@ -114,10 +114,7 @@ void* incdec_new(t_symbol* s, int argc, t_atom* argv)
 
 void incdec_getdrawparams(t_incdec* x, t_object* patcherview, t_edrawparams* params)
 {
-    params->d_borderthickness = 1;
-    params->d_cornersize = 2;
-    params->d_bordercolor = x->color_border;
-    params->d_boxfillcolor = x->color_background;
+    CREAM_DEFAULT_DRAW_PARAMS();
 }
 
 void incdec_oksize(t_incdec* x, t_rect* newrect)

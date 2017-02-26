@@ -281,10 +281,7 @@ static void tab_set(t_tab* x, t_symbol* s, int argc, t_atom* argv)
 
 static void tab_getdrawparams(t_tab* x, t_object* patcherview, t_edrawparams* params)
 {
-    params->d_borderthickness = 1;
-    params->d_cornersize = 2;
-    params->d_bordercolor = x->color_border;
-    params->d_boxfillcolor = x->color_background;
+    CREAM_DEFAULT_DRAW_PARAMS();
 }
 
 static void tab_oksize(t_tab* x, t_rect* newrect)

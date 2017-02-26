@@ -173,10 +173,7 @@ static void number_tilde_paint(t_number_tilde *x, t_object *view)
 
 static void number_tilde_getdrawparams(t_number_tilde *x, t_object *patcherview, t_edrawparams *params)
 {
-    params->d_borderthickness   = 1;
-    params->d_cornersize        = 2;
-    params->d_bordercolor       = x->color_border;
-    params->d_boxfillcolor      = x->color_background;
+    CREAM_DEFAULT_DRAW_PARAMS();
 }
 
 static void number_tilde_oksize(t_number_tilde *x, t_rect *newrect)

@@ -179,4 +179,11 @@ static const char* PROP_TEXT_COLOR = "text_color";
     CLASS_ATTR_STYLE                (c, PROP_TEXT_COLOR, 0, "color");\
 }
 
+#define CREAM_DEFAULT_DRAW_PARAMS() {\
+    params->d_borderthickness = 1;\
+    params->d_cornersize      = 0;\
+    params->d_bordercolor     = x->color_border;\
+    params->d_boxfillcolor    = x->color_background;\
+}
+
 #endif

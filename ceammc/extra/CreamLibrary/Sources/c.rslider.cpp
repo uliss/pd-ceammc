@@ -131,10 +131,7 @@ static void rslider_preset(t_rslider* x, t_binbuf* b)
 
 static void rslider_getdrawparams(t_rslider* x, t_object* patcherview, t_edrawparams* params)
 {
-    params->d_borderthickness = 1;
-    params->d_cornersize = 2;
-    params->d_bordercolor = x->color_border;
-    params->d_boxfillcolor = x->color_background;
+    CREAM_DEFAULT_DRAW_PARAMS();
 }
 
 static void rslider_oksize(t_rslider* x, t_rect* newrect)

@@ -43,7 +43,6 @@ static t_eclass *colorpanel_class;
 
 void *colorpanel_new(t_symbol *s, int argc, t_atom *argv);
 void colorpanel_free(t_colorpanel *x);
-void colorpanel_assist(t_colorpanel *x, void *b, long m, long a, char *s);
 
 void colorpanel_set(t_colorpanel *x, t_symbol *s, int ac, t_atom *av);
 void colorpanel_list(t_colorpanel *x, t_symbol *s, int ac, t_atom *av);
@@ -75,7 +74,6 @@ extern "C" void setup_ui0x2ecolorpanel(void)
 
     c = eclass_new("ui.colorpanel", (method)colorpanel_new, (method)colorpanel_free, (short)sizeof(t_colorpanel), 0L, A_GIMME, 0);
 	eclass_guiinit(c, 0);
-    eclass_addmethod(c, (method) colorpanel_assist,          "assist",           A_NULL, 0);
 	eclass_addmethod(c, (method) colorpanel_paint,           "paint",            A_NULL, 0);
 	eclass_addmethod(c, (method) colorpanel_notify,          "notify",           A_NULL, 0);
     eclass_addmethod(c, (method) colorpanel_getdrawparams,   "getdrawparams",    A_NULL, 0);
@@ -186,10 +184,7 @@ void *colorpanel_new(t_symbol *s, int argc, t_atom *argv)
 
 void colorpanel_getdrawparams(t_colorpanel *x, t_object *patcherview, t_edrawparams *params)
 {
-    params->d_borderthickness   = 1;
-	params->d_cornersize        = 2;
-    params->d_bordercolor       = x->color_border;
-    params->d_boxfillcolor      = x->color_background;
+    CREAM_DEFAULT_DRAW_PARAMS();
 }
 
 void colorpanel_oksize(t_colorpanel *x, t_rect *newrect)
@@ -276,11 +271,6 @@ void colorpanel_free(t_colorpanel *x)
         free(x->f_matrix_colorpanel[i]);
     }
     free(x->f_matrix_colorpanel);
-}
-
-void colorpanel_assist(t_colorpanel *x, void *b, long m, long a, char *s)
-{
-	;
 }
 
 t_pd_err colorpanel_notify(t_colorpanel *x, t_symbol *s, t_symbol *msg, void *sender, void *data)

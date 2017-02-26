@@ -136,10 +136,7 @@ static void matrixctrl_list(t_matrixctrl* x, t_symbol* s, int ac, t_atom* av)
 
 static void matrixctrl_getdrawparams(t_matrixctrl* x, t_object* patcherview, t_edrawparams* params)
 {
-    params->d_borderthickness = 1;
-    params->d_cornersize = 2;
-    params->d_bordercolor = x->color_border;
-    params->d_boxfillcolor = x->color_background;
+    CREAM_DEFAULT_DRAW_PARAMS();
 }
 
 static void matrixctrl_oksize(t_matrixctrl* x, t_rect* newrect)

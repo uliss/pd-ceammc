@@ -28,10 +28,7 @@ static t_eclass* radio_class;
 
 static void radio_getdrawparams(t_radio* x, t_object* patcherview, t_edrawparams* params)
 {
-    params->d_borderthickness = 1;
-    params->d_cornersize = 2;
-    params->d_bordercolor = x->color_border;
-    params->d_boxfillcolor = x->color_background;
+    CREAM_DEFAULT_DRAW_PARAMS();
 }
 
 static void radio_oksize(t_radio* x, t_rect* newrect)

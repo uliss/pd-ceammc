@@ -69,10 +69,7 @@ static void slider_set(t_slider* x, float f)
 
 static void slider_getdrawparams(t_slider* x, t_object* patcherview, t_edrawparams* params)
 {
-    params->d_borderthickness = 1;
-    params->d_cornersize = 2;
-    params->d_bordercolor = x->color_border;
-    params->d_boxfillcolor = x->color_background;
+    CREAM_DEFAULT_DRAW_PARAMS();
 }
 
 static void slider_oksize(t_slider* x, t_rect* newrect)

@@ -34,10 +34,7 @@ static void toggle_output(t_toggle* x)
 
 static void toggle_getdrawparams(t_toggle* x, t_object* patcherview, t_edrawparams* params)
 {
-    params->d_borderthickness = 1;
-    params->d_cornersize = 2;
-    params->d_bordercolor = x->color_border;
-    params->d_boxfillcolor = x->color_background;
+    CREAM_DEFAULT_DRAW_PARAMS();
 }
 
 static void toggle_oksize(t_toggle* x, t_rect* newrect)

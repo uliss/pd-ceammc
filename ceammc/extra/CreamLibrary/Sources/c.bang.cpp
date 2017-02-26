@@ -231,15 +231,7 @@ static void bang_free(t_bang *x)
  */
 static void bang_getdrawparams(t_bang *x, t_object *view, t_edrawparams *params)
 {
-    // We define a border size of 1 px.
-	params->d_borderthickness   = 1;
-    // We define a corner size of 2 px (dummy).
-	params->d_cornersize        = 2;
-    // We define the border color with our border attribute color.
-    params->d_bordercolor       = x->color_border;
-    // We define the background color with our border attribute color. The background color will be used when the
-    // t_bang is inactive to draw the circle.
-    params->d_boxfillcolor      = x->color_background;
+    CREAM_DEFAULT_DRAW_PARAMS();
 }
 
 // Defines and validates the size of a GUI.
