@@ -78,11 +78,11 @@ extern "C" void setup_ui0x2eincdec(void)
     ATTR_DEFAULT_COLOR_BORDER         (c, t_incdec);
     ATTR_DEFAULT_COLOR_BACKGROUND     (c, t_incdec);
 
-    CLASS_ATTR_RGBA                   (c, "arcolor", 0, t_incdec, f_color_arrow);
-    CLASS_ATTR_LABEL                  (c, "arcolor", 0, _("Arrow Color"));
-    CLASS_ATTR_ORDER                  (c, "arcolor", 0, "3");
-    CLASS_ATTR_DEFAULT_SAVE_PAINT     (c, "arcolor", 0, DEFAULT_BORDER_COLOR);
-    CLASS_ATTR_STYLE                  (c, "arcolor", 0, "color");
+    CLASS_ATTR_RGBA                   (c, "arrow_color", 0, t_incdec, f_color_arrow);
+    CLASS_ATTR_LABEL                  (c, "arrow_color", 0, _("Arrow Color"));
+    CLASS_ATTR_ORDER                  (c, "arrow_color", 0, "3");
+    CLASS_ATTR_DEFAULT_SAVE_PAINT     (c, "arrow_color", 0, DEFAULT_BORDER_COLOR);
+    CLASS_ATTR_STYLE                  (c, "arrow_color", 0, "color");
     // clang-format on
 
     eclass_register(CLASS_BOX, c);
