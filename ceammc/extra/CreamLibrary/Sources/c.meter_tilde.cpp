@@ -274,7 +274,7 @@ static void meter_free(t_meter *x)
 }
 
 
-extern "C" void setup_c0x2emeter_tilde(void)
+extern "C" void setup_ui0x2emeter_tilde(void)
 {
     t_eclass *c;
     

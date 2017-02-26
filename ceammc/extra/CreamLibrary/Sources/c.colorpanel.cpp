@@ -34,12 +34,12 @@ typedef struct  _colorpanel
     t_pt        f_color_picked;
     t_pt        f_color_hover;
 
-	t_rgba		f_color_background;
-	t_rgba		f_color_border;
+    t_rgba		color_background;
+    t_rgba		color_border;
 
 } t_colorpanel;
 
-t_eclass *colorpanel_class;
+static t_eclass *colorpanel_class;
 
 void *colorpanel_new(t_symbol *s, int argc, t_atom *argv);
 void colorpanel_free(t_colorpanel *x);
@@ -69,11 +69,11 @@ void colorpanel_mousedown(t_colorpanel *x, t_object *patcherview, t_pt pt, long 
 void colorpanel_mouseleave(t_colorpanel *x, t_object *patcherview, t_pt pt, long modifiers);
 void colorpanel_preset(t_colorpanel *x, t_binbuf *b);
 
-extern "C" void setup_c0x2ecolorpanel(void)
+extern "C" void setup_ui0x2ecolorpanel(void)
 {
 	t_eclass *c;
 
-	c = eclass_new("c.colorpanel", (method)colorpanel_new, (method)colorpanel_free, (short)sizeof(t_colorpanel), 0L, A_GIMME, 0);
+    c = eclass_new("ui.colorpanel", (method)colorpanel_new, (method)colorpanel_free, (short)sizeof(t_colorpanel), 0L, A_GIMME, 0);
 	eclass_guiinit(c, 0);
     eclass_addmethod(c, (method) colorpanel_assist,          "assist",           A_NULL, 0);
 	eclass_addmethod(c, (method) colorpanel_paint,           "paint",            A_NULL, 0);
@@ -140,17 +140,8 @@ extern "C" void setup_c0x2ecolorpanel(void)
     CLASS_ATTR_STYLE                (c, "lightness", 0, "number");
     CLASS_ATTR_STEP                 (c, "lightness", 0.1);
 
-    CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_colorpanel, f_color_background);
-	CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
-	CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
-	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.75 0.75 0.75 1.");
-    CLASS_ATTR_STYLE                (c, "bgcolor", 0, "color");
-
-	CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_colorpanel, f_color_border);
-	CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Border Color");
-	CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
-	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0.5 0.5 0.5 1.");
-	CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
+    ATTR_DEFAULT_COLOR_BORDER       (c, t_colorpanel);
+    ATTR_DEFAULT_COLOR_BACKGROUND   (c, t_colorpanel);
 
     eclass_register(CLASS_BOX, c);
 	colorpanel_class = c;
@@ -195,10 +186,10 @@ void *colorpanel_new(t_symbol *s, int argc, t_atom *argv)
 
 void colorpanel_getdrawparams(t_colorpanel *x, t_object *patcherview, t_edrawparams *params)
 {
-	params->d_borderthickness   = 2;
+    params->d_borderthickness   = 1;
 	params->d_cornersize        = 2;
-    params->d_bordercolor       = x->f_color_border;
-    params->d_boxfillcolor      = x->f_color_background;
+    params->d_bordercolor       = x->color_border;
+    params->d_boxfillcolor      = x->color_background;
 }
 
 void colorpanel_oksize(t_colorpanel *x, t_rect *newrect)
@@ -343,7 +334,7 @@ void draw_picked(t_colorpanel *x, t_object *view, t_rect *rect)
 	{
         if(x->f_color_picked.x >= 0 && x->f_color_picked.y >= 0)
         {
-            egraphics_set_color_rgba(g, &x->f_color_border);
+            egraphics_set_color_rgba(g, &x->color_border);
             egraphics_set_line_width(g, 2);
             egraphics_rectangle_rounded(g, (int)x->f_color_picked.x * block_width + 1, (int)x->f_color_picked.y * block_height +1, block_width-2, block_height-2, 1);
             egraphics_stroke(g);
