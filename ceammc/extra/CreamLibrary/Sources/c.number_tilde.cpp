@@ -22,7 +22,7 @@ typedef struct  _number_tilde
     int         f_max_decimal;
     t_rgba		color_background;
     t_rgba		color_border;
-	t_rgba		f_color_text;
+    t_rgba		color_text;
 
 } t_number_tilde;
 
@@ -97,7 +97,7 @@ static void draw_background(t_number_tilde *x, t_object *view, t_rect *rect)
         if(jtl)
         {
             etext_layout_set(jtl, "~", &x->j_box.b_font, 1, rect->height / 2., rect->width, 0, ETEXT_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
-            etext_layout_settextcolor(jtl, &x->f_color_text);
+            etext_layout_settextcolor(jtl, &x->color_text);
             etext_layout_draw(jtl, g);
             
             egraphics_set_line_width(g, 1);     //Cream: 2
@@ -137,7 +137,7 @@ static void draw_value(t_number_tilde *x, t_object *view, t_rect *rect)
                 sprintf(number, "%.5f", x->f_peak_value);
             else
                 sprintf(number, "%.6f", x->f_peak_value);
-            etext_layout_settextcolor(jtl, &x->f_color_text);
+            etext_layout_settextcolor(jtl, &x->color_text);
             etext_layout_set(jtl, number, &x->j_box.b_font, sys_fontwidth(x->j_box.b_font.c_size) + 8, rect->height / 2., rect->width - 3, 0, ETEXT_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
             
             etext_layout_draw(jtl, g);
@@ -254,12 +254,7 @@ extern "C" void setup_ui0x2enumber_tilde(void)
     
     ATTR_DEFAULT_COLOR_BORDER       (c, t_number_tilde);
     ATTR_DEFAULT_COLOR_BACKGROUND   (c, t_number_tilde);
-    
-    CLASS_ATTR_RGBA                 (c, "textcolor", 0, t_number_tilde, f_color_text);
-    CLASS_ATTR_LABEL                (c, "textcolor", 0, "Text Color");
-    CLASS_ATTR_ORDER                (c, "textcolor", 0, "3");
-    CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "textcolor", 0, "0. 0. 0. 1.");
-    CLASS_ATTR_STYLE                (c, "textcolor", 0, "color");
+    ATTR_DEFAULT_COLOR_TEXT         (c, t_number_tilde);
     
     eclass_register(CLASS_BOX, c);
     number_tilde_class = c;

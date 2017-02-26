@@ -27,7 +27,7 @@ typedef struct _number {
 
     t_rgba color_background;
     t_rgba color_border;
-    t_rgba f_color_text;
+    t_rgba color_text;
 } t_number;
 
 static t_eclass* number_class;
@@ -132,7 +132,7 @@ static void draw_value_drag(t_number* x, t_object* view, t_rect* rect)
             const float width = rect->height * 0.45f + 2;
             char number[256];
             snprintf(number, 256, "%g", x->f_value);
-            etext_layout_settextcolor(jtl, &x->f_color_text);
+            etext_layout_settextcolor(jtl, &x->color_text);
             etext_layout_set(jtl, number, &x->j_box.b_font, width, rect->height * 0.5f, rect->width - width, rect->height, ETEXT_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
 
             etext_layout_draw(jtl, g);
@@ -153,7 +153,7 @@ static void draw_value_text(t_number* x, t_object* view, t_rect* rect)
             char number[256];
 
             sprintf(number, "%s|", x->f_textvalue);
-            etext_layout_settextcolor(jtl, &x->f_color_text);
+            etext_layout_settextcolor(jtl, &x->color_text);
 
             etext_layout_set(jtl, number, &x->j_box.b_font, width, rect->height / 2., rect->width - 3, 0, ETEXT_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
 
@@ -430,12 +430,7 @@ extern "C" void setup_ui0x2enumber(void)
         
         ATTR_DEFAULT_COLOR_BORDER       (c, t_number);
         ATTR_DEFAULT_COLOR_BACKGROUND   (c, t_number);
-        
-        CLASS_ATTR_RGBA                 (c, "textcolor", 0, t_number, f_color_text);
-        CLASS_ATTR_LABEL                (c, "textcolor", 0, _("Text Color"));
-        CLASS_ATTR_ORDER                (c, "textcolor", 0, "3");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "textcolor", 0, "0. 0. 0. 1.");
-        CLASS_ATTR_STYLE                (c, "textcolor", 0, "color");
+        ATTR_DEFAULT_COLOR_TEXT         (c, t_number);
 
         // clang-format on
 
