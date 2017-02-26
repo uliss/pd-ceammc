@@ -135,4 +135,32 @@ static const char* DEFAULT_ACTIVE_COLOR = "0. 0.75 1. 1.";
 static const char* DEFAULT_BORDER_COLOR = "0.6 0.6 0.6 1.";
 static const char* DEFAULT_BACKGROUND_COLOR = "0.93 0.93 0.93 1.";
 
+static const char* PROP_ACTIVE_COLOR = "active_color";
+static const char* PROP_BACKGROUND_COLOR = "background_color";
+static const char* PROP_BORDER_COLOR = "border_color";
+
+#define ATTR_DEFAULT_COLOR_BORDER(c, struct_name) { \
+    CLASS_ATTR_RGBA                 (c, PROP_BORDER_COLOR, 0, struct_name, color_border);\
+    CLASS_ATTR_LABEL                (c, PROP_BORDER_COLOR, 0, _("Border Color"));\
+    CLASS_ATTR_ORDER                (c, PROP_BORDER_COLOR, 0, "1");\
+    CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, PROP_BORDER_COLOR, 0, DEFAULT_BORDER_COLOR);\
+    CLASS_ATTR_STYLE                (c, PROP_BORDER_COLOR, 0, "color");\
+}
+
+#define ATTR_DEFAULT_COLOR_BACKGROUND(c, struct_name) { \
+    CLASS_ATTR_RGBA                 (c, PROP_BACKGROUND_COLOR, 0, struct_name, color_background);\
+    CLASS_ATTR_LABEL                (c, PROP_BACKGROUND_COLOR, 0, _("Background Color"));\
+    CLASS_ATTR_ORDER                (c, PROP_BACKGROUND_COLOR, 0, "2");\
+    CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, PROP_BACKGROUND_COLOR, 0, DEFAULT_BACKGROUND_COLOR);\
+    CLASS_ATTR_STYLE                (c, PROP_BACKGROUND_COLOR, 0, "color");\
+}
+
+#define ATTR_DEFAULT_COLOR_ACTIVE(c, struct_name) { \
+    CLASS_ATTR_RGBA                 (c, PROP_ACTIVE_COLOR, 0, struct_name, color_active);\
+    CLASS_ATTR_LABEL                (c, PROP_ACTIVE_COLOR, 0, _("Active Color"));\
+    CLASS_ATTR_ORDER                (c, PROP_ACTIVE_COLOR, 0, "3");\
+    CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, PROP_ACTIVE_COLOR, 0, DEFAULT_ACTIVE_COLOR);\
+    CLASS_ATTR_STYLE                (c, PROP_ACTIVE_COLOR, 0, "color");\
+}
+
 #endif
