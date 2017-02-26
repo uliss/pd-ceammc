@@ -26,9 +26,9 @@ typedef struct _tab {
     long f_orientation;
     t_rgba color_background;
     t_rgba color_border;
-    t_rgba f_color_text;
+    t_rgba color_text;
+    t_rgba color_active;
     t_rgba f_color_hover;
-    t_rgba f_color_select;
 } t_tab;
 
 static t_eclass* tab_class;
@@ -348,7 +348,7 @@ static void draw_selection(t_tab* x, t_object* view, t_rect* rect)
                 egraphics_fill(g);
             }
             if (x->f_item_selected != -1) {
-                egraphics_set_color_rgba(g, &x->f_color_select);
+                egraphics_set_color_rgba(g, &x->color_active);
                 egraphics_rectangle(g, 0, ratio * x->f_item_selected, rect->width, ratio);
                 egraphics_fill(g);
             }
@@ -360,7 +360,7 @@ static void draw_selection(t_tab* x, t_object* view, t_rect* rect)
                 egraphics_fill(g);
             }
             if (x->f_item_selected != -1) {
-                egraphics_set_color_rgba(g, &x->f_color_select);
+                egraphics_set_color_rgba(g, &x->color_active);
                 egraphics_rectangle(g, ratio * x->f_item_selected, 0, ratio, rect->height);
                 egraphics_fill(g);
             }
@@ -393,7 +393,7 @@ static void draw_text(t_tab* x, t_object* view, t_rect* rect)
                 const float ratio = rect->width / (float)x->f_nitems;
                 for (i = 0; i < x->f_nitems; i++) {
                     if (x->f_items[i] && x->f_items[i] != s_null) {
-                        etext_layout_settextcolor(jtl, &x->f_color_text);
+                        etext_layout_settextcolor(jtl, &x->color_text);
                         etext_layout_set(jtl, x->f_items[i]->s_name, &x->j_box.b_font,
                             ratio * (i + 0.5),
                             rect->height * 0.5,
@@ -552,24 +552,14 @@ extern "C" void setup_ui0x2etab(void)
         
         ATTR_DEFAULT_COLOR_BORDER       (c, t_tab);
         ATTR_DEFAULT_COLOR_BACKGROUND   (c, t_tab);
-        
-        CLASS_ATTR_RGBA                 (c, "textcolor", 0, t_tab, f_color_text);
-        CLASS_ATTR_LABEL                (c, "textcolor", 0, _("Text Color"));
-        CLASS_ATTR_ORDER                (c, "textcolor", 0, "3");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "textcolor", 0, "0. 0. 0. 1.");
-        CLASS_ATTR_STYLE                (c, "textcolor", 0, "color");
-        
+        ATTR_DEFAULT_COLOR_ACTIVE       (c, t_tab);
+        ATTR_DEFAULT_COLOR_TEXT         (c, t_tab);
+
         CLASS_ATTR_RGBA                 (c, "hocolor", 0, t_tab, f_color_hover);
         CLASS_ATTR_LABEL                (c, "hocolor", 0, _("Hover Color"));
         CLASS_ATTR_ORDER                (c, "hocolor", 0, "4");
         CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "hocolor", 0, "0.5 0.5 0.5 1.");
         CLASS_ATTR_STYLE                (c, "hocolor", 0, "color");
-        
-        CLASS_ATTR_RGBA                 (c, "secolor", 0, t_tab, f_color_select);
-        CLASS_ATTR_LABEL                (c, "secolor", 0, _("Active Color"));
-        CLASS_ATTR_ORDER                (c, "secolor", 0, "5");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "secolor", 0, DEFAULT_ACTIVE_COLOR);
-        CLASS_ATTR_STYLE                (c, "secolor", 0, "color");
         
         eclass_register(CLASS_BOX, c);
         tab_class = c;
