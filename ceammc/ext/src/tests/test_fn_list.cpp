@@ -262,4 +262,24 @@ TEST_CASE("list functions", "[ceammc::list]")
         l.append(2.0);
         REQUIRE(list::average(l) == 1.5f);
     }
+
+    SECTION("count repeats")
+    {
+        REQUIRE(list::countRepeats(AtomList()) == AtomList());
+        REQUIRE(list::countRepeats(AtomList::ones(2)) == AtomList(1.f, 2.f));
+        REQUIRE(list::countRepeats(AtomList::zeroes(10)) == AtomList(0.f, 10.f));
+        AtomList hist = list::countRepeats(AtomList::values(4, 1.0, 2.0, 3.0, 1.0));
+        std::vector<AtomList> out(2, AtomList());
+
+        list::deinterleaveMinLength(hist, out);
+        REQUIRE(out.size() == 2);
+        AtomList elements = out[0];
+        elements.sort();
+        AtomList repeats = out[1];
+        repeats.sort();
+        REQUIRE(elements == AtomList::values(3, 1.0, 2.0, 3.0));
+        REQUIRE(repeats == AtomList::values(3, 1.0, 1.0, 2.0));
+
+        REQUIRE(list::countRepeats(AtomList(gensym("a"), gensym("a"))) == AtomList(gensym("a"), 2.f));
+    }
 }

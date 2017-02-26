@@ -40,6 +40,8 @@ namespace list {
     void deinterleavePadWith(const AtomList& in, const Atom& pad, std::vector<AtomList>& out);
 
     float average(const AtomList& l);
+
+    AtomList countRepeats(const AtomList& l);
 }
 }
 

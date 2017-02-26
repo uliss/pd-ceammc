@@ -14,6 +14,7 @@
 #include "ceammc_fn_list.h"
 
 #include <limits>
+#include <map>
 
 namespace ceammc {
 namespace list {
@@ -179,6 +180,23 @@ namespace list {
             return 0;
 
         return r.sum() / r.size();
+    }
+
+    AtomList countRepeats(const AtomList& l)
+    {
+        typedef std::map<Atom, int> AtomMap;
+        AtomMap hist_map;
+        for (size_t i = 0; i < l.size(); i++) {
+            hist_map[l.at(i)]++;
+        }
+
+        AtomList res;
+        for (AtomMap::iterator it = hist_map.begin(); it != hist_map.end(); ++it) {
+            res.append(it->first);
+            res.append(it->second);
+        }
+
+        return res;
     }
 }
 }
