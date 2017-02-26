@@ -57,14 +57,7 @@ typedef struct t_bang
     // The t_clock of the object.
     t_clock*    b_clock;            /*!< The t_clock of the object. */
     // If the object is performming a bang.
-    char        b_active;           /*!< If the object is performming a bang. */
-    
-    // ceammc
-    int         b_borderwidth;
-    t_atom*     f_labeltext;
-    int         f_nlabeltext;
-    float       f_labeloffset[2];
-    
+    char        b_active;           /*!< If the object is performming a bang. */   
 } t_bang;
 
 //! @cond
@@ -164,25 +157,6 @@ extern "C" void setup_ui0x2ebang(void)
         CLASS_ATTR_ORDER                (c, "bacolor", 0, "3");
         CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bacolor", 0, DEFAULT_ACTIVE_COLOR);
         CLASS_ATTR_STYLE                (c, "bacolor", 0, "color");
-        
-        
-        // CEAMMC
-        // compatibility with standard objects
-        
-        CLASS_ATTR_INT                  (c, "borderwidth", 0, t_bang, b_borderwidth);
-        CLASS_ATTR_LABEL                (c, "borderwidth", 0, "Border Width");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "borderwidth", 0, "1");
-        CLASS_ATTR_INVISIBLE            (c, "borderwidth", 0);
-        
-        CLASS_ATTR_SYMBOL_VARSIZE       (c, "labeltext", 0, t_bang, f_labeltext, f_nlabeltext, CREAM_MAXITEMS);
-        CLASS_ATTR_LABEL                (c, "labeltext", 0, "Label Text");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "labeltext", 0, "");
-        CLASS_ATTR_INVISIBLE            (c, "labeltext", 0);
-        
-        CLASS_ATTR_FLOAT_ARRAY          (c, "labeloffset", 0, t_bang, f_labeloffset, 2);
-        CLASS_ATTR_LABEL                (c, "labeloffset", 0, "Label Offset");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "labeloffset", 0, "0 0");
-        CLASS_ATTR_INVISIBLE            (c, "labeloffset", 0);
         
         // We register the class. This function is important it will set up some dsp members if needs and the properties window
         // if the class has attributes. The CLASS_BOX is for GUI otherwise use CLASS_OBJ this is pretty useless but it ensures
