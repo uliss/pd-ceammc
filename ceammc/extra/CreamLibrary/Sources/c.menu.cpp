@@ -32,7 +32,7 @@ typedef struct _menu {
     
     t_rgba		color_background;
     t_rgba		color_border;
-	t_rgba		f_color_text;
+    t_rgba		color_text;
 
     char        f_open;
     // clang-format on
@@ -124,12 +124,7 @@ extern "C" void setup_ui0x2emenu(void)
     
     ATTR_DEFAULT_COLOR_BORDER       (c, t_menu);
     ATTR_DEFAULT_COLOR_BACKGROUND   (c, t_menu);
-
-	CLASS_ATTR_RGBA                 (c, "textcolor", 0, t_menu, f_color_text);
-    CLASS_ATTR_LABEL                (c, "textcolor", 0, _("Text Color"));
-	CLASS_ATTR_ORDER                (c, "textcolor", 0, "3");
-	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "textcolor", 0, "0. 0. 0. 1.");
-	CLASS_ATTR_STYLE                (c, "textcolor", 0, "color");
+    ATTR_DEFAULT_COLOR_TEXT         (c, t_menu);
 
     // clang-format on
 
@@ -437,7 +432,7 @@ void draw_background(t_menu* x, t_object* view, t_rect* rect)
             ;
         } else {
             etext_layout_set(jtl, x->f_items[x->f_item_selected]->s_name, &x->j_box.b_font, 1.5, x->f_close_height / 2. + 1, rect->width, 0, ETEXT_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
-            etext_layout_settextcolor(jtl, &x->f_color_text);
+            etext_layout_settextcolor(jtl, &x->color_text);
             etext_layout_draw(jtl, g);
         }
 
@@ -496,7 +491,7 @@ void draw_selection(t_menu* x, t_object* view, t_rect* rect)
                 if (x->f_states[i])
                     etext_layout_settextcolor(jtl, &x->color_border);
                 else
-                    etext_layout_settextcolor(jtl, &x->f_color_text);
+                    etext_layout_settextcolor(jtl, &x->color_text);
                 etext_layout_set(jtl, x->f_items[i]->s_name, &x->j_box.b_font, 1.5, x->f_close_height / 2. + x->f_close_height * (i + 1) + 2, rect->width, 0, ETEXT_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
                 etext_layout_draw(jtl, g);
             }
