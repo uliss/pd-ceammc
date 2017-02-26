@@ -142,7 +142,7 @@ UI_fun(ui_link)::init_ext(t_eclass* z)
     CLASS_ATTR_INVISIBLE            (z, "size", 0);
 
     CLASS_ATTR_DEFAULT              (z, "size", 0, "120. 15.");
-    CLASS_ATTR_DEFAULT              (z,  "bgcolor", 0, "1.0 1.0 1.0 1.0");
+    CLASS_ATTR_DEFAULT              (z, "background_color", 0, "1.0 1.0 1.0 1.0");
 
     CLASS_ATTR_SYMBOL               (z, "url", 0, ui_link, link);
     CLASS_ATTR_DEFAULT              (z, "url", 0, "<no link>");

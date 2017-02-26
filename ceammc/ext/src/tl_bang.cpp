@@ -139,7 +139,7 @@ UI_fun(tl_bang)::init_ext(t_eclass* z)
     CLASS_ATTR_INVISIBLE            (z, "receive", 0);
     CLASS_ATTR_INVISIBLE            (z, "size", 0);
 
-    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "bdcolor", 0, DEFAULT_ACTIVE_COLOR);
+    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "border_color", 0, DEFAULT_ACTIVE_COLOR);
     // clang-format on
 }
 
