@@ -20,8 +20,8 @@ typedef struct  _number_tilde
     t_outlet*   f_peaks_outlet;
     float       f_peak_value;
     int         f_max_decimal;
-	t_rgba		f_color_background;
-	t_rgba		f_color_border;
+    t_rgba		color_background;
+    t_rgba		color_border;
 	t_rgba		f_color_text;
 
 } t_number_tilde;
@@ -101,7 +101,7 @@ static void draw_background(t_number_tilde *x, t_object *view, t_rect *rect)
             etext_layout_draw(jtl, g);
             
             egraphics_set_line_width(g, 1);     //Cream: 2
-            egraphics_set_color_rgba(g, &x->f_color_border);
+            egraphics_set_color_rgba(g, &x->color_border);
             egraphics_move_to(g, 0, 0);
             egraphics_line_to(g, sys_fontwidth(x->j_box.b_font.c_size) + 6,  rect->height / 2.);
             egraphics_line_to(g, 0, rect->height);
@@ -175,8 +175,8 @@ static void number_tilde_getdrawparams(t_number_tilde *x, t_object *patcherview,
 {
     params->d_borderthickness   = 1;
     params->d_cornersize        = 2;
-    params->d_bordercolor       = x->f_color_border;
-    params->d_boxfillcolor      = x->f_color_background;
+    params->d_bordercolor       = x->color_border;
+    params->d_boxfillcolor      = x->color_background;
 }
 
 static void number_tilde_oksize(t_number_tilde *x, t_rect *newrect)
@@ -233,7 +233,7 @@ extern "C" void setup_ui0x2enumber_tilde(void)
     eclass_addmethod(c, (method) number_tilde_oksize,          "oksize",           A_NULL, 0);
     eclass_addmethod(c, (method) number_tilde_output,          "bang",             A_NULL, 0);
     
-    CLASS_ATTR_DEFAULT              (c, "size", 0, "53 13");
+    CLASS_ATTR_DEFAULT              (c, "size", 0, "53 16");
     
     CLASS_ATTR_LONG                 (c, "interval", 0, t_number_tilde, f_interval);
     CLASS_ATTR_ORDER                (c, "interval", 0, "2");
@@ -252,17 +252,8 @@ extern "C" void setup_ui0x2enumber_tilde(void)
     CLASS_ATTR_SAVE                 (c, "decimal", 1);
     CLASS_ATTR_STYLE                (c, "decimal", 0, "number");
     
-    CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_number_tilde, f_color_background);
-    CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
-    CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
-    CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.93 0.93 0.93 1.");
-    CLASS_ATTR_STYLE                (c, "bgcolor", 0, "color");
-    
-    CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_number_tilde, f_color_border);
-    CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Border Color");
-    CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
-    CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0. 0. 0. 1.");
-    CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
+    ATTR_DEFAULT_COLOR_BORDER       (c, t_number_tilde);
+    ATTR_DEFAULT_COLOR_BACKGROUND   (c, t_number_tilde);
     
     CLASS_ATTR_RGBA                 (c, "textcolor", 0, t_number_tilde, f_color_text);
     CLASS_ATTR_LABEL                (c, "textcolor", 0, "Text Color");

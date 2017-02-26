@@ -15,9 +15,9 @@
 typedef struct _radio {
     t_ebox j_box;
     t_outlet* f_out;
-    t_rgba f_color_background;
-    t_rgba f_color_border;
-    t_rgba f_color_item;
+    t_rgba color_background;
+    t_rgba color_border;
+    t_rgba color_active;
     char f_direction;
     char f_items[CREAM_MAXITEMS];
     int f_nitems;
@@ -30,8 +30,8 @@ static void radio_getdrawparams(t_radio* x, t_object* patcherview, t_edrawparams
 {
     params->d_borderthickness = 1;
     params->d_cornersize = 2;
-    params->d_bordercolor = x->f_color_border;
-    params->d_boxfillcolor = x->f_color_background;
+    params->d_bordercolor = x->color_border;
+    params->d_boxfillcolor = x->color_background;
 }
 
 static void radio_oksize(t_radio* x, t_rect* newrect)
@@ -177,7 +177,7 @@ static void draw_background(t_radio* x, t_object* view, t_rect* rect)
 
     if (g) {
         const float cell_size = x->f_direction ? rect->height : rect->width;
-        egraphics_set_color_rgba(g, &x->f_color_border);
+        egraphics_set_color_rgba(g, &x->color_border);
         if (x->f_direction) {
             for (int i = 1; i < x->f_nitems; i++) {
                 float xPos = i * cell_size + i - 1;
@@ -202,7 +202,7 @@ static void draw_items(t_radio* x, t_object* view, t_rect* rect)
     t_elayer* g = ebox_start_layer((t_ebox*)x, cream_sym_items_layer, rect->width, rect->height);
 
     if (g) {
-        egraphics_set_color_rgba(g, &x->f_color_item);
+        egraphics_set_color_rgba(g, &x->color_active);
         const int cell_size = x->f_direction ? rect->height : rect->width;
         const int knob_offset = std::max((static_cast<int>(roundf(cell_size * 0.16f)) / 2) * 2, 2);
         const int knob_size = cell_size - knob_offset * 2;
@@ -410,25 +410,10 @@ extern "C" void setup_ui0x2eradio(void)
         CLASS_ATTR_DEFAULT              (c, "mode", 0, "0");
         CLASS_ATTR_SAVE                 (c, "mode", 1);
         CLASS_ATTR_STYLE                (c, "mode", 0, "onoff");
-        
-        CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_radio, f_color_background);
-        CLASS_ATTR_LABEL                (c, "bgcolor", 0, _("Background Color"));
-        CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, DEFAULT_BACKGROUND_COLOR);
-        CLASS_ATTR_STYLE                (c, "bgcolor", 0, "color");
-        
-        CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_radio, f_color_border);
-        CLASS_ATTR_LABEL                (c, "bdcolor", 0, _("Border Color"));
-        CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, DEFAULT_BORDER_COLOR);
-        CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
-        
-        CLASS_ATTR_RGBA                 (c, "itcolor", 0, t_radio, f_color_item);
-        CLASS_ATTR_LABEL                (c, "itcolor", 0, _("Active Color"));
-        CLASS_ATTR_ORDER                (c, "itcolor", 0, "3");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "itcolor", 0, DEFAULT_ACTIVE_COLOR);
-        CLASS_ATTR_STYLE                (c, "itcolor", 0, "color");
-        
+
+        ATTR_DEFAULT_COLOR_BORDER       (c, t_radio);
+        ATTR_DEFAULT_COLOR_BACKGROUND   (c, t_radio);
+        ATTR_DEFAULT_COLOR_ACTIVE       (c, t_radio);
         // clang-format off
 
         eclass_register(CLASS_BOX, c);

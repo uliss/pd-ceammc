@@ -30,8 +30,8 @@ typedef struct _menu {
     
     float       f_close_height;
     
-	t_rgba		f_color_background;
-	t_rgba		f_color_border;
+    t_rgba		color_background;
+    t_rgba		color_border;
 	t_rgba		f_color_text;
 
     char        f_open;
@@ -122,18 +122,9 @@ extern "C" void setup_ui0x2emenu(void)
     CLASS_ATTR_ORDER                (c, "items", 0, "1");
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "items", 0, "(null)");
     
-	CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_menu, f_color_background);
-    CLASS_ATTR_LABEL                (c, "bgcolor", 0, _("Background Color"));
-	CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
-    CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, DEFAULT_BACKGROUND_COLOR);
-    CLASS_ATTR_STYLE                (c, "bgcolor", 0, "color");
-    
-	CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_menu, f_color_border);
-    CLASS_ATTR_LABEL                (c, "bdcolor", 0, _("Border Color"));
-	CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
-    CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, DEFAULT_BORDER_COLOR);
-	CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
-    
+    ATTR_DEFAULT_COLOR_BORDER       (c, t_menu);
+    ATTR_DEFAULT_COLOR_BACKGROUND   (c, t_menu);
+
 	CLASS_ATTR_RGBA                 (c, "textcolor", 0, t_menu, f_color_text);
     CLASS_ATTR_LABEL                (c, "textcolor", 0, _("Text Color"));
 	CLASS_ATTR_ORDER                (c, "textcolor", 0, "3");
@@ -393,8 +384,8 @@ void menu_getdrawparams(t_menu* x, t_object* patcherview, t_edrawparams* params)
 {
     params->d_borderthickness = 1;
     params->d_cornersize = 2;
-    params->d_bordercolor = x->f_color_border;
-    params->d_boxfillcolor = x->f_color_background;
+    params->d_bordercolor = x->color_border;
+    params->d_boxfillcolor = x->color_background;
 }
 
 void menu_oksize(t_menu* x, t_rect* newrect)
@@ -452,12 +443,12 @@ void draw_background(t_menu* x, t_object* view, t_rect* rect)
 
         // Right - Erase text
         width = rect->width - x->f_close_height;
-        egraphics_set_color_rgba(g, &x->f_color_background);
+        egraphics_set_color_rgba(g, &x->color_background);
         egraphics_rectangle(g, width, 0., rect->width, x->f_close_height);
         egraphics_fill(g);
 
         // Separation
-        egraphics_set_color_rgba(g, &x->f_color_border);
+        egraphics_set_color_rgba(g, &x->color_border);
         egraphics_set_line_width(g, 1); //Cream: 2
         egraphics_line_fast(g, width, 0., width, x->f_close_height);
 
@@ -496,14 +487,14 @@ void draw_selection(t_menu* x, t_object* view, t_rect* rect)
     t_elayer* g = ebox_start_layer((t_ebox*)x, gensym("list_layer"), rect->width, rect->height);
     t_etext* jtl = etext_layout_create();
     if (g && jtl) {
-        egraphics_set_color_rgba(g, &x->f_color_border);
+        egraphics_set_color_rgba(g, &x->color_border);
         egraphics_set_line_width(g, 1);
 
         for (i = 0; i < x->f_items_size; i++) {
             egraphics_line_fast(g, 0., x->f_close_height * (i + 1), rect->width - x->f_close_height, x->f_close_height * (i + 1));
             if (x->f_items[i] != s_null) {
                 if (x->f_states[i])
-                    etext_layout_settextcolor(jtl, &x->f_color_border);
+                    etext_layout_settextcolor(jtl, &x->color_border);
                 else
                     etext_layout_settextcolor(jtl, &x->f_color_text);
                 etext_layout_set(jtl, x->f_items[i]->s_name, &x->j_box.b_font, 1.5, x->f_close_height / 2. + x->f_close_height * (i + 1) + 2, rect->width, 0, ETEXT_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
@@ -511,12 +502,12 @@ void draw_selection(t_menu* x, t_object* view, t_rect* rect)
             }
         }
 
-        egraphics_set_color_rgba(g, &x->f_color_background);
+        egraphics_set_color_rgba(g, &x->color_background);
         width = rect->width - x->f_close_height;
         egraphics_rectangle(g, width, x->f_close_height, rect->width, rect->height);
         egraphics_fill(g);
 
-        egraphics_set_color_rgba(g, &x->f_color_border);
+        egraphics_set_color_rgba(g, &x->color_border);
         egraphics_line_fast(g, width, 0., width, rect->height);
 
         egraphics_set_line_width(g, 2);

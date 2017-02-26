@@ -16,9 +16,9 @@
 typedef struct _rslider {
     t_ebox j_box;
     t_outlet* f_out_left;
-    t_rgba f_color_background;
-    t_rgba f_color_border;
-    t_rgba f_color_knob;
+    t_rgba color_background;
+    t_rgba color_border;
+    t_rgba color_knob;
     char f_direction;
     char f_loworhigh;
     float f_min;
@@ -133,8 +133,8 @@ static void rslider_getdrawparams(t_rslider* x, t_object* patcherview, t_edrawpa
 {
     params->d_borderthickness = 1;
     params->d_cornersize = 2;
-    params->d_bordercolor = x->f_color_border;
-    params->d_boxfillcolor = x->f_color_background;
+    params->d_bordercolor = x->color_border;
+    params->d_boxfillcolor = x->color_background;
 }
 
 static void rslider_oksize(t_rslider* x, t_rect* newrect)
@@ -163,7 +163,7 @@ static void draw_background(t_rslider* x, t_object* view, t_rect* rect)
     t_elayer* g = ebox_start_layer((t_ebox*)x, cream_sym_background_layer, rect->width, rect->height);
 
     if (g) {
-        egraphics_set_color_rgba(g, &x->f_color_border);
+        egraphics_set_color_rgba(g, &x->color_border);
         egraphics_set_line_width(g, 2);
         if (x->f_direction) {
             egraphics_line_fast(g, -2, rect->height * 0.5, rect->width + 4, rect->height * 0.5);
@@ -184,9 +184,9 @@ static void draw_knob(t_rslider* x, t_object* view, t_rect* rect)
     if (g) {
         float value_low = (x->f_value_low - x->f_min) / (x->f_max - x->f_min);
         float value_high = (x->f_value_high - x->f_min) / (x->f_max - x->f_min);
-        rgba_set(&rectcolor, (x->f_color_background.red + x->f_color_knob.red) * 0.5, (x->f_color_background.green + x->f_color_knob.green) * 0.5, (x->f_color_background.blue + x->f_color_knob.blue) * 0.5, 1.);
+        rgba_set(&rectcolor, (x->color_background.red + x->color_knob.red) * 0.5, (x->color_background.green + x->color_knob.green) * 0.5, (x->color_background.blue + x->color_knob.blue) * 0.5, 1.);
 
-        rgba_set(&linecolor, (x->f_color_border.red + x->f_color_knob.red) * 0.5, (x->f_color_border.green + x->f_color_border.green) * 0.5, (x->f_color_border.blue + x->f_color_knob.blue) * 0.5, 1.);
+        rgba_set(&linecolor, (x->color_border.red + x->color_knob.red) * 0.5, (x->color_border.green + x->color_border.green) * 0.5, (x->color_border.blue + x->color_knob.blue) * 0.5, 1.);
 
         egraphics_set_line_width(g, 2);
         if (x->f_direction) {
@@ -197,7 +197,7 @@ static void draw_knob(t_rslider* x, t_object* view, t_rect* rect)
             egraphics_set_color_rgba(g, &linecolor);
             egraphics_line_fast(g, value_low * rect->width, rect->height * 0.5, value_high * rect->width, rect->height * 0.5);
 
-            egraphics_set_color_rgba(g, &x->f_color_knob);
+            egraphics_set_color_rgba(g, &x->color_knob);
             egraphics_line_fast(g, value_low * rect->width, -2, value_low * rect->width, rect->height + 4);
             egraphics_line_fast(g, value_high * rect->width, -2, value_high * rect->width, rect->height + 4);
         } else {
@@ -208,7 +208,7 @@ static void draw_knob(t_rslider* x, t_object* view, t_rect* rect)
             egraphics_set_color_rgba(g, &linecolor);
             egraphics_line_fast(g, rect->width * 0.5, value_low * rect->height, rect->width * 0.5, value_high * rect->height);
 
-            egraphics_set_color_rgba(g, &x->f_color_knob);
+            egraphics_set_color_rgba(g, &x->color_knob);
             egraphics_line_fast(g, -2, value_low * rect->height, rect->width + 4, value_low * rect->height);
             egraphics_line_fast(g, -2, value_high * rect->height, rect->width + 4, value_high * rect->height);
         }
@@ -413,24 +413,15 @@ extern "C" void setup_ui0x2erslider(void)
         CLASS_ATTR_DEFAULT              (c, "max", 0, "1.");
         CLASS_ATTR_SAVE                 (c, "max", 1);
         CLASS_ATTR_STYLE                (c, "max", 0, "number");
-        
-        CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_rslider, f_color_background);
-        CLASS_ATTR_LABEL                (c, "bgcolor", 0, _("Background Color"));
-        CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, DEFAULT_BACKGROUND_COLOR);
-        CLASS_ATTR_STYLE                (c, "bgcolor", 0, "color");
-        
-        CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_rslider, f_color_border);
-        CLASS_ATTR_LABEL                (c, "bdcolor", 0, _("Border Color"));
-        CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, DEFAULT_BORDER_COLOR);
-        CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
-        
-        CLASS_ATTR_RGBA                 (c, "kncolor", 0, t_rslider, f_color_knob);
-        CLASS_ATTR_LABEL                (c, "kncolor", 0, _("Knob Color"));
-        CLASS_ATTR_ORDER                (c, "kncolor", 0, "3");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "kncolor", 0, DEFAULT_ACTIVE_COLOR);
-        CLASS_ATTR_STYLE                (c, "kncolor", 0, "color");
+
+        ATTR_DEFAULT_COLOR_BORDER       (c, t_rslider);
+        ATTR_DEFAULT_COLOR_BACKGROUND   (c, t_rslider);
+
+        CLASS_ATTR_RGBA                 (c, "knob_color", 0, t_rslider, color_knob);
+        CLASS_ATTR_LABEL                (c, "knob_color", 0, _("Knob Color"));
+        CLASS_ATTR_ORDER                (c, "knob_color", 0, "3");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "knob_color", 0, DEFAULT_ACTIVE_COLOR);
+        CLASS_ATTR_STYLE                (c, "knob_color", 0, "color");
 
         CLASS_ATTR_VIRTUAL              (c, "value",   get_rslider_value, set_rslider_value);
         CLASS_ATTR_VIRTUAL              (c, "maxvalue", get_rslider_maxvalue, set_rslider_maxvalue);

@@ -16,9 +16,9 @@ typedef struct _dsp_tilde {
     t_ebox j_box;
     char f_state;
     char f_init;
-    t_rgba f_color_background;
-    t_rgba f_color_border;
-    t_rgba f_color_logo;
+    t_rgba color_background;
+    t_rgba color_border;
+    t_rgba color_active;
 
 } t_dsp_tilde;
 
@@ -52,8 +52,8 @@ static void dsp_tilde_getdrawparams(t_dsp_tilde* x, t_object* patcherview, t_edr
 {
     params->d_borderthickness = 1.;
     params->d_cornersize = 2.;
-    params->d_bordercolor = x->f_color_border;
-    params->d_boxfillcolor = x->f_color_background;
+    params->d_bordercolor = x->color_border;
+    params->d_boxfillcolor = x->color_background;
 }
 
 static void dsp_tilde_oksize(t_dsp_tilde* x, t_rect* newrect)
@@ -74,9 +74,9 @@ static void draw_background(t_dsp_tilde* x, t_object* view, t_rect* rect)
 
     if (g) {
         if (x->f_state) {
-            egraphics_set_color_rgba(g, &x->f_color_logo);
+            egraphics_set_color_rgba(g, &x->color_active);
         } else {
-            egraphics_set_color_rgba(g, &x->f_color_border);
+            egraphics_set_color_rgba(g, &x->color_border);
         }
 
         const float center = roundf(rect->width * 0.5f - 0.5f);
@@ -182,25 +182,11 @@ extern "C" void setup_ui0x2edsp_tilde(void)
     CLASS_ATTR_INVISIBLE            (c, "fontslant", 1);
     CLASS_ATTR_INVISIBLE            (c, "fontsize", 1);
     CLASS_ATTR_DEFAULT              (c, "size", 0, "30 30");
-    
-    CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_dsp_tilde, f_color_background);
-    CLASS_ATTR_LABEL                (c, "bgcolor", 0, _("Background Color"));
-    CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
-    CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, DEFAULT_BACKGROUND_COLOR);
-    CLASS_ATTR_STYLE                (c, "bgcolor", 0, "color");
-    
-    CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_dsp_tilde, f_color_border);
-    CLASS_ATTR_LABEL                (c, "bdcolor", 0, _("Border Color"));
-    CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
-    CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, DEFAULT_BORDER_COLOR);
-    CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
-    
-    CLASS_ATTR_RGBA                 (c, "logocolor", 0, t_dsp_tilde, f_color_logo);
-    CLASS_ATTR_LABEL                (c, "logocolor", 0, _("Active Color"));
-    CLASS_ATTR_ORDER                (c, "logocolor", 0, "3");
-    CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "logocolor", 0, DEFAULT_ACTIVE_COLOR);
-    CLASS_ATTR_STYLE                (c, "logocolor", 0, "color");
 
+    ATTR_DEFAULT_COLOR_BORDER       (c, t_dsp_tilde);
+    ATTR_DEFAULT_COLOR_BACKGROUND   (c, t_dsp_tilde);
+    ATTR_DEFAULT_COLOR_ACTIVE       (c, t_dsp_tilde);
+    
     // clang-format on
     eclass_register(CLASS_BOX, c);
     dsp_tildeclass = c;

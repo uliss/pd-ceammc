@@ -20,8 +20,8 @@ typedef struct  _meter
     float       f_peak;
 	char        f_direction;
     long		f_overled;
-	t_rgba		f_color_background;
-	t_rgba		f_color_border;
+    t_rgba		color_background;
+    t_rgba		color_border;
 	t_rgba		f_color_signal_cold;
 	t_rgba		f_color_signal_tepid;
 	t_rgba		f_color_signal_warm;
@@ -104,8 +104,8 @@ static void meter_getdrawparams(t_meter *x, t_object *patcherview, t_edrawparams
 {
     params->d_borderthickness   = 1.;
     params->d_cornersize        = 2.;
-    params->d_bordercolor       = x->f_color_border;
-    params->d_boxfillcolor      = x->f_color_background;
+    params->d_bordercolor       = x->color_border;
+    params->d_boxfillcolor      = x->color_background;
 }
 
 static t_pd_err meter_notify(t_meter *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
@@ -150,7 +150,7 @@ static void draw_background(t_meter *x,  t_object *view, t_rect *rect)
     t_elayer *g = ebox_start_layer((t_ebox *)x, cream_sym_background_layer, rect->width, rect->height);
     if (g)
     {
-        egraphics_set_color_rgba(g, &x->f_color_border);
+        egraphics_set_color_rgba(g, &x->color_border);
         if(!x->f_direction)
         {
             float ratio = rect->height / 13.f;
@@ -302,18 +302,9 @@ extern "C" void setup_c0x2emeter_tilde(void)
     CLASS_ATTR_DEFAULT              (c, "interval", 0, "50");
     CLASS_ATTR_SAVE                 (c, "interval", 1);
     CLASS_ATTR_STYLE                (c, "interval", 0, "number");
-    
-    CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_meter, f_color_background);
-    CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
-    CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
-    CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.93 0.93 0.93 1.");
-    CLASS_ATTR_STYLE                (c, "bgcolor", 0, "color");
-    
-    CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_meter, f_color_border);
-    CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Border Color");
-    CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
-    CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0. 0. 0. 1.");
-    CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
+
+    ATTR_DEFAULT_COLOR_BORDER       (c, t_meter);
+    ATTR_DEFAULT_COLOR_BACKGROUND   (c, t_meter);
     
     CLASS_ATTR_RGBA                 (c, "coldcolor", 0, t_meter, f_color_signal_cold);
     CLASS_ATTR_LABEL                (c, "coldcolor", 0, "Cold Signal Color");
