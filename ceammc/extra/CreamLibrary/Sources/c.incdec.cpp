@@ -43,6 +43,23 @@ static void draw_background(t_incdec* x, t_object* view, t_rect* rect);
 static void incdec_mousedown(t_incdec* x, t_object* patcherview, t_pt pt, long modifiers);
 static void incdec_mouseup(t_incdec* x, t_object* patcherview, t_pt pt, long modifiers);
 
+static void incdec_get_value(t_incdec* x, t_object* /*attr*/, long* ac, t_atom** av)
+{
+    *ac = 1;
+    *av = reinterpret_cast<t_atom*>(calloc(1, sizeof(t_atom)));
+    atom_setfloat(*av, x->f_value);
+}
+
+static t_pd_err incdec_set_value(t_incdec* x, t_object* /*attr*/, int ac, t_atom* av)
+{
+    if (ac > 0 && av) {
+        incdec_set(x, atom_getfloat(av));
+        return 0;
+    }
+
+    return 1;
+}
+
 extern "C" void setup_ui0x2eincdec(void)
 {
     t_eclass* c = eclass_new("ui.incdec", (method)incdec_new, (method)incdec_free, sizeof(t_incdec), 0L, A_GIMME, 0);
@@ -84,6 +101,9 @@ extern "C" void setup_ui0x2eincdec(void)
     CLASS_ATTR_DEFAULT_SAVE_PAINT     (c, "arrow_color", 0, DEFAULT_BORDER_COLOR);
     CLASS_ATTR_STYLE                  (c, "arrow_color", 0, "color");
     // clang-format on
+
+    CLASS_ATTR_VIRTUAL              (c,  "value", incdec_get_value, incdec_set_value);
+
 
     eclass_register(CLASS_BOX, c);
     incdec_class = c;
