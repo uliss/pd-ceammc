@@ -16,6 +16,8 @@ add_subdirectory(noise)
 ceammc_cxx_extension(data fifo)
 ceammc_cxx_extension(data list)
 
+ceammc_cxx_extension(debug gensym)
+
 ###############################
 # LIST
 ###############################

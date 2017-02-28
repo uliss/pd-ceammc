@@ -13,7 +13,7 @@
  *****************************************************************************/
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
-#include "x_ceammc.h"
+#include "ceammc.h"
 
 #include <stdio.h>
 
@@ -21,20 +21,27 @@ TEST_CASE("PD", "[PureData]")
 {
     SECTION("hash table size")
     {
-        REQUIRE(pd_ceammc_gensym_hash_table() != 0);
-        REQUIRE(pd_ceammc_gensym_hash_table_size() == 1024);
-        REQUIRE(pd_ceammc_gensym_hash_size() == 0);
+        t_ceammc_gensym_info info;
+        ceammc_gensym_info(&info);
+
+        REQUIRE(info.table_size == 1024);
+
+        REQUIRE(info.symbol_count == 0);
 
         gensym("test");
-        REQUIRE(pd_ceammc_gensym_hash_size() == 1);
-        REQUIRE(pd_ceammc_gensym_hash_max_chain() == 1);
+        ceammc_gensym_info(&info);
+        REQUIRE(info.symbol_count == 1);
+        REQUIRE(info.max_chain == 1);
+        REQUIRE(info.memory_size == 5);
 
         char buf[20];
         for (int i = 0; i < 20000; i++) {
             sprintf(buf, "%d", i);
             gensym(buf);
         }
-        REQUIRE(pd_ceammc_gensym_hash_size() == 20001);
-        REQUIRE(pd_ceammc_gensym_hash_max_chain() == 38);
+
+        ceammc_gensym_info(&info);
+        REQUIRE(info.symbol_count == 20001);
+        REQUIRE(info.max_chain == 38);
     }
 }

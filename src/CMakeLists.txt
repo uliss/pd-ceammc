@@ -78,7 +78,6 @@ set(X_SRC
     x_acoustics.c
     x_arithmetic.c
     x_array.c
-    x_ceammc.c
     x_connective.c
     x_gui.c
     x_interface.c

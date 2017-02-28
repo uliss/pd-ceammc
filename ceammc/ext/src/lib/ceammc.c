@@ -1,9 +1,12 @@
 #include "ceammc.h"
-#include "memsize.h"
+#include "x_ceammc.h"
+
 #include "memrss.h"
-#include <string.h>
-#include <math.h>
+#include "memsize.h"
+
 #include <float.h>
+#include <math.h>
+#include <string.h>
 
 t_atom* ceammc_atoms_alloc(size_t n)
 {
@@ -39,7 +42,7 @@ void ceammc_atoms_map_float(size_t n, t_atom* a, ceammc_float_unary_func func)
 
 void ceammc_atoms_map_float_to_outlet(t_outlet* o, t_symbol* s, int n, t_atom* a, ceammc_float_unary_func func)
 {
-    t_atom * lst = ceammc_atoms_alloc_copy(n, a);
+    t_atom* lst = ceammc_atoms_alloc_copy(n, a);
     ceammc_atoms_map_float(n, lst, func);
     outlet_list(o, s, n, lst);
     ceammc_atoms_free(lst, n);
@@ -56,25 +59,28 @@ t_float ceammc_atoms_reduce_float(size_t n, t_atom* a, t_float init, ceammc_floa
 
 int ceammc_atoms_compare(const t_atom* a1, const t_atom* a2)
 {
-    if(a1->a_type == a2->a_type) {
-        switch(a1->a_type) {
-            case A_FLOAT:
-                if(a1->a_w.w_float < a2->a_w.w_float)
-                    return -1;
-                if(a1->a_w.w_float > a2->a_w.w_float)
-                    return 1;
-                else
-                    return 0;
-            case A_SYMBOL:
-            case A_DEFSYMBOL: {
-                int r = strcmp(a1->a_w.w_symbol->s_name, a2->a_w.w_symbol->s_name);
-                if(r < 0) return -1;
-                if(r > 0) return 1;
-                else return 0;
-                return r;
-            }
-            default:
+    if (a1->a_type == a2->a_type) {
+        switch (a1->a_type) {
+        case A_FLOAT:
+            if (a1->a_w.w_float < a2->a_w.w_float)
+                return -1;
+            if (a1->a_w.w_float > a2->a_w.w_float)
+                return 1;
+            else
                 return 0;
+        case A_SYMBOL:
+        case A_DEFSYMBOL: {
+            int r = strcmp(a1->a_w.w_symbol->s_name, a2->a_w.w_symbol->s_name);
+            if (r < 0)
+                return -1;
+            if (r > 0)
+                return 1;
+            else
+                return 0;
+            return r;
+        }
+        default:
+            return 0;
         }
     }
 
@@ -83,18 +89,19 @@ int ceammc_atoms_compare(const t_atom* a1, const t_atom* a2)
 
 void output_atom(t_outlet* out, t_atom* atom)
 {
-    if(!out || !atom) return;
-    switch(atom->a_type) {
-        case A_FLOAT:
-            outlet_float(out, atom->a_w.w_float);
+    if (!out || !atom)
+        return;
+    switch (atom->a_type) {
+    case A_FLOAT:
+        outlet_float(out, atom->a_w.w_float);
         break;
-        case A_SYMBOL:
-            outlet_symbol(out, atom->a_w.w_symbol);
+    case A_SYMBOL:
+        outlet_symbol(out, atom->a_w.w_symbol);
         break;
-        case A_POINTER:
-            outlet_pointer(out, atom->a_w.w_gpointer);
+    case A_POINTER:
+        outlet_pointer(out, atom->a_w.w_gpointer);
         break;
-        default:
+    default:
         break;
     }
 }
@@ -133,3 +140,40 @@ int ceammc_floats_equal(float a, float b)
     return 0;
 }
 
+void ceammc_gensym_info(t_ceammc_gensym_info* info)
+{
+    t_symbol** table = pd_ceammc_gensym_hash_table();
+    const size_t sz = pd_ceammc_gensym_hash_table_size();
+
+    info->table_size = sz;
+    info->max_chain = 0;
+    info->memory_size = 0;
+    info->symbol_count = 0;
+
+    size_t max_chain_size = 0;
+
+    for (size_t i = 0; i < sz; i++) {
+        t_symbol* s = table[i];
+        if (!s)
+            continue;
+
+        info->symbol_count++;
+        info->memory_size += strlen(s->s_name) + 1;
+
+        size_t chain_size = 1;
+
+        t_symbol* next = s->s_next;
+        while (next) {
+            info->symbol_count++;
+            info->memory_size += strlen(next->s_name) + 1;
+            chain_size++;
+
+            next = next->s_next;
+        }
+
+        if (chain_size > max_chain_size)
+            max_chain_size = chain_size;
+    }
+
+    info->max_chain = max_chain_size;
+}

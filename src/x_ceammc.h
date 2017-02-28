@@ -15,18 +15,14 @@
 #ifndef PD_X_CEAMMCH_
 #define PD_X_CEAMMCH_
 
-#include <stdlib.h>
-
-#include "m_pd.h"
-
 #if defined(__cplusplus)
 extern "C" {
 #endif
 
-size_t pd_ceammc_gensym_hash_size();
-size_t pd_ceammc_gensym_hash_max_chain();
-t_symbol** pd_ceammc_gensym_hash_table();
-size_t pd_ceammc_gensym_hash_table_size();
+#include "m_pd.h"
+
+EXTERN t_symbol** pd_ceammc_gensym_hash_table(void);
+EXTERN size_t pd_ceammc_gensym_hash_table_size(void);
 
 #if defined(__cplusplus)
 }
