@@ -99,7 +99,7 @@ static void number_getdrawparams(t_number* x, t_object* patcherview, t_edrawpara
 
 static void number_oksize(t_number* x, t_rect* newrect)
 {
-    const float size = ebox_getfontsize((t_ebox*)x);
+    const float size = ebox_getzoomfontsize((t_ebox*)x);
     newrect->width = pd_clip_min(newrect->width, sys_fontwidth(size) * 3 + 8);
     newrect->height = size + 4;
 }
@@ -146,7 +146,7 @@ static void draw_value_text(t_number* x, t_object* view, t_rect* rect)
     if (g) {
         t_etext* jtl = etext_layout_create();
         if (jtl) {
-            const float width = sys_fontwidth(ebox_getfontsize((t_ebox*)x)) + 8;
+            const float width = sys_fontwidth(ebox_getzoomfontsize((t_ebox*)x)) + 8;
             char number[256];
 
             sprintf(number, "%s|", x->f_textvalue);
@@ -176,7 +176,7 @@ static void number_paint(t_number* x, t_object* view)
 
 void number_mousedown(t_number* x, t_object* patcherview, t_pt pt, long modifiers)
 {
-    float text_width = sys_fontwidth(x->j_box.b_font.c_size);
+    float text_width = sys_fontwidth(ebox_getzoomfontsize((t_ebox*)x));
     x->f_mode = 0;
     if (pt.x >= text_width + 6) {
         int i = 1;

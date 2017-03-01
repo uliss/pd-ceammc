@@ -334,7 +334,7 @@ static void preset_paint(t_preset* x, t_object* view)
     x->j_box.b_font.c_size -= 2;
 #endif
     ebox_get_rect_for_view((t_ebox*)x, &rect);
-    x->f_point_size = ebox_getfontsize((t_ebox*)x);
+    x->f_point_size = ebox_getzoomfontsize((t_ebox*)x);
     draw_background(x, view, &rect);
 
 #ifdef __APPLE__

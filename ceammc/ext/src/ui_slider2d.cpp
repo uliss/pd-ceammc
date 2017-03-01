@@ -155,15 +155,18 @@ UI_fun(ui_slider2d)::wx_paint(ui_slider2d* zx, t_object* view)
         if(zx->show_range != 0) {
             char buf[30];
 
+            const float xoff = 3 * ebox_getzoom(asBox(zx));
+            const float yoff = 12 * ebox_getzoom(asBox(zx));
+
             snprintf(buf, 30, "X: [%g..%g]", zx->left(), zx->right());
             etext_layout_set(zx->txt_max, buf, zx->txt_font,
-                3, 12, rect.width * 2, rect.height / 2,
+                xoff, yoff, rect.width * 2, rect.height / 2,
                 ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_WRAP);
             etext_layout_draw(zx->txt_max, g);
 
             snprintf(buf, 30, "Y: [%g..%g]", zx->top(), zx->bottom());
             etext_layout_set(zx->txt_min, buf, zx->txt_font,
-                rect.width - 3, rect.height - 12, rect.width, rect.height / 2,
+                rect.width - xoff, rect.height - yoff, rect.width, rect.height / 2,
                 ETEXT_UP_RIGHT, ETEXT_JRIGHT, ETEXT_NOWRAP);
             etext_layout_draw(zx->txt_min, g);
         }

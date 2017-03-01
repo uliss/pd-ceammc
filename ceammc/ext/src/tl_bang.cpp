@@ -96,7 +96,10 @@ UI_fun(tl_bang)::wx_paint(tl_bang* zx, t_object* /*view*/)
 
     t_elayer* g = ebox_start_layer(asBox(zx), BG_LAYER, rect.width, rect.height);
     if (g) {
-        etext_layout_set(zx->txt, "tl.bang", zx->fnt, 2, 15, rect.width, rect.height / 2,
+        const float xoff = 2 * ebox_getzoom(asBox(zx));
+        const float yoff = (FONT_SIZE + 2) * ebox_getzoom(asBox(zx));
+
+        etext_layout_set(zx->txt, "tl.bang", zx->fnt, xoff, yoff, rect.width, rect.height / 2,
             ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
         etext_layout_draw(zx->txt, g);
 
@@ -104,13 +107,14 @@ UI_fun(tl_bang)::wx_paint(tl_bang* zx, t_object* /*view*/)
         ebox_end_layer(asBox(zx), BG_LAYER);
     }
 
-    ebox_paint_layer(asBox(zx), BG_LAYER, 0., 0.);
+    ebox_paint_layer(asBox(zx), BG_LAYER, 0, 0);
 }
 
-UI_fun(tl_bang)::wx_oksize(tl_bang* /*z*/, t_rect* newrect)
+UI_fun(tl_bang)::wx_oksize(tl_bang* z, t_rect* newrect)
 {
-    newrect->width = 60;
-    newrect->height = 15;
+    const float zoom = ebox_getzoom(asBox(z));
+    newrect->width = 60 * zoom;
+    newrect->height = ebox_getzoomfontsize(asBox(z)) + 3 * zoom;
 }
 
 UI_fun(tl_bang)::new_ext(tl_bang* zx, t_symbol* /*s*/, int /*argc*/, t_atom* /*argv*/)
