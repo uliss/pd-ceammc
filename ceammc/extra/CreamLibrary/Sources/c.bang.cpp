@@ -133,7 +133,7 @@ extern "C" void setup_ui0x2ebang(void)
         CLASS_ATTR_INVISIBLE            (c, "fontslant", 1);
         CLASS_ATTR_INVISIBLE            (c, "fontsize", 1);
         // All the GUI classes has a size attribute, we just set up the default value.
-        CLASS_ATTR_DEFAULT              (c, "size", 0, "16. 16.");
+        CLASS_ATTR_DEFAULT              (c, "size", 0, "16 16");
 
         ATTR_DEFAULT_COLOR_BORDER       (c, t_bang);
         ATTR_DEFAULT_COLOR_BACKGROUND   (c, t_bang);

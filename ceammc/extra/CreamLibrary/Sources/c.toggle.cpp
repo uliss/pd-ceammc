@@ -159,7 +159,7 @@ extern "C" void setup_ui0x2etoggle(void)
         CLASS_ATTR_INVISIBLE            (c, "fontweight", 1);
         CLASS_ATTR_INVISIBLE            (c, "fontslant", 1);
         CLASS_ATTR_INVISIBLE            (c, "fontsize", 1);
-        CLASS_ATTR_DEFAULT              (c, "size", 0, "15. 15.");
+        CLASS_ATTR_DEFAULT              (c, "size", 0, "16. 16.");
 
         ATTR_DEFAULT_COLOR_BORDER       (c, t_toggle);
         ATTR_DEFAULT_COLOR_BACKGROUND   (c, t_toggle);

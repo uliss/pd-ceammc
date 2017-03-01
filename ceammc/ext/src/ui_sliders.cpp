@@ -136,6 +136,9 @@ UI_fun(ui_sliders)::wx_paint(ui_sliders* zx, t_object* view)
 
         // draw text
         if (zx->show_range) {
+            const float xoff = 3 * ebox_getzoom(asBox(zx));
+            const float yoff = 12 * ebox_getzoom(asBox(zx));
+
             char c_min[10];
             sprintf(c_min, "%g", zx->shift);
 
@@ -143,12 +146,12 @@ UI_fun(ui_sliders)::wx_paint(ui_sliders* zx, t_object* view)
             sprintf(c_max, "%g", zx->range + zx->shift);
 
             etext_layout_set(zx->txt_min, c_min, zx->txt_font,
-                3, rect.height - 12, rect.width * 2, rect.height / 2,
+                xoff, rect.height - yoff, rect.width * 2, rect.height / 2,
                 ETEXT_UP_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
             etext_layout_draw(zx->txt_min, g);
 
             etext_layout_set(zx->txt_max, c_max, zx->txt_font,
-                3, 12, rect.width * 2, rect.height / 2,
+                xoff, yoff, rect.width * 2, rect.height / 2,
                 ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
             etext_layout_draw(zx->txt_max, g);
         }

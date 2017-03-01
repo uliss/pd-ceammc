@@ -85,6 +85,14 @@ t_symbol* ebox_getfontweight(t_ebox* x);
 float ebox_getfontsize(t_ebox* x);
 
 /*!
+ * \fn          float ebox_getzoomfontsize(t_ebox* x)
+ * \brief       Retrieves the zoomed size of the font of the t_ebox.
+ * \param x     The t_ebox pointer.
+ * \return      The font size.
+ */
+float ebox_getzoomfontsize(t_ebox* x);
+
+/*!
  * \fn          t_pd* ebox_getsender(t_ebox* x)
  * \brief       Retrieves the link list of object binded to the t_ebox.
  * \param x     The t_ebox pointer.
@@ -453,6 +461,8 @@ void ebox_wdelete(t_gobj *z,      t_glist *glist);
 // ceammc
 float ebox_getzoom(t_ebox* x);
 void ebox_setzoom(t_ebox* x, float f);
+float ebox_fontwidth(t_ebox* x);
+float ebox_fontheight(t_ebox* x);
 
 #endif
 

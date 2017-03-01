@@ -175,10 +175,11 @@ UI_fun(tl_cue)::free_ext(tl_cue* zx)
     efont_destroy(zx->fnt);
 }
 
-UI_fun(tl_cue)::wx_oksize(tl_cue* /*z*/, t_rect* newrect)
+UI_fun(tl_cue)::wx_oksize(tl_cue* z, t_rect* newrect)
 {
-    newrect->width = 45;
-    newrect->height = 15;
+    const float zoom = ebox_getzoom(asBox(z));
+    newrect->width = 50 * zoom;
+    newrect->height = ebox_getzoomfontsize(asBox(z)) + 3 * zoom;
 }
 
 UI_fun(tl_cue)::wx_attr_changed_ext(tl_cue* z, t_symbol* attr)

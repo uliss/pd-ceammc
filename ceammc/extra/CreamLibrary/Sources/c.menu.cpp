@@ -107,7 +107,7 @@ extern "C" void setup_ui0x2emenu(void)
     CLASS_ATTR_INVISIBLE            (c, "fontweight", 1);
     CLASS_ATTR_INVISIBLE            (c, "fontslant", 1);
 
-	CLASS_ATTR_DEFAULT              (c, "size", 0, "100 13");
+    CLASS_ATTR_DEFAULT              (c, "size", 0, "100 16");
     
     CLASS_ATTR_LONG                 (c, "hover", 0, t_menu, f_hover);
     CLASS_ATTR_LABEL                (c, "hover", 0, _("Hover Mode"));
@@ -382,8 +382,8 @@ void menu_getdrawparams(t_menu* x, t_object* patcherview, t_edrawparams* params)
 
 void menu_oksize(t_menu* x, t_rect* newrect)
 {
-    newrect->width = pd_clip_min(newrect->width, sys_fontwidth(x->j_box.b_font.c_size) * 3 + 8);
-    x->f_close_height = newrect->height = sys_fontheight(x->j_box.b_font.c_size) + 4;
+    newrect->width = pd_clip_min(newrect->width, ebox_fontwidth((t_ebox*)x) * 3 + 8);
+    x->f_close_height = newrect->height = ebox_fontheight((t_ebox*)x) + 4;
     if (newrect->width < newrect->height * 2)
         newrect->width = newrect->height * 2;
 

@@ -59,6 +59,7 @@ void ebox_new(t_ebox *x, long flags)
     x->b_send_id            = s_null;
     x->b_objpreset_id       = s_null;
     x->b_visible            = 1;
+    x->b_zoom               = 1;
     eobj_getclass(x)->c_widget.w_dosave = (t_typ_method)ebox_dosave;
     ebox_attrprocess_default(x);
 }
@@ -71,6 +72,7 @@ void ebox_ready(t_ebox *x)
     x->b_selected_inlet = -1;
     x->b_selected_outlet= -1;
     x->b_mouse_down     = 0;
+    x->b_zoom           = 1;
 
     x->b_boxparameters.d_bordercolor = rgba_black;
     x->b_boxparameters.d_borderthickness = 1;
@@ -1581,7 +1583,7 @@ t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
             }
             else if(gobj->e_type == E_GOBJ_TEXT)
             {
-
+                int zoom = ebox_getzoom(x);
                 sys_vgui("%s create text %d %d -text {%s} -anchor %s -justify %s -font {%s %d %s %s} -fill %s -width %d -tags { %s %s }\n",
                          x->b_drawing_id->s_name,
                          (int)(gobj->e_points[0].x + x_p),
@@ -1589,7 +1591,10 @@ t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
                          gobj->e_text->s_name,
                          gobj->e_anchor->s_name,
                          gobj->e_justify->s_name,
-                         gobj->e_font.c_family->s_name, (int)gobj->e_font.c_size, gobj->e_font.c_weight->s_name, gobj->e_font.c_slant->s_name,
+                         gobj->e_font.c_family->s_name,
+                         (int)gobj->e_font.c_size * zoom,
+                         gobj->e_font.c_weight->s_name,
+                         gobj->e_font.c_slant->s_name,
                          gobj->e_color->s_name,
                          (int)(gobj->e_points[1].x),
                          g->e_id->s_name,
@@ -1759,6 +1764,7 @@ void ebox_setzoom(t_ebox* x, float f)
     eobj_attr_getvalueof(x, gensym("size"), &argc, &argv);
 
     if(argc == 2) {
+        x->b_zoom = f;
         float w = atom_getfloat(&argv[0]) / oldzoom * f;
         float h = atom_getfloat(&argv[1]) / oldzoom * f;
         atom_setfloat(&argv[0], w);
@@ -1767,6 +1773,7 @@ void ebox_setzoom(t_ebox* x, float f)
     }
 
     free(argv);
+    ebox_redraw(x);
 }
 
 static void ebox_newzoom(t_ebox *x)
@@ -1777,13 +1784,30 @@ static void ebox_newzoom(t_ebox *x)
     if (c && c->gl_zoom != 1)
     {
         int newzoom = c->gl_zoom;
+        c->gl_zoom = 1;
         x->b_rect.width *= newzoom;
         x->b_rect.height *= newzoom;
+        c->gl_zoom = newzoom;
+        x->b_zoom = newzoom;
     }
 }
 
 float ebox_getzoom(t_ebox* x)
 {
-    //    glist_getcanvas(x->b_obj.o_canvas ??
-    return eobj_getcanvas(&x->b_obj)->gl_zoom;
+    return x->b_zoom;
+}
+
+float ebox_getzoomfontsize(t_ebox* x)
+{
+    return x->b_font.c_size * ebox_getzoom(x);
+}
+
+float ebox_fontwidth(t_ebox* x)
+{
+    return sys_zoomfontwidth(ebox_getfontsize(x), ebox_getzoom(x), 0);
+}
+
+float ebox_fontheight(t_ebox* x)
+{
+    return sys_zoomfontheight(ebox_getfontsize(x), ebox_getzoom(x), 1);
 }

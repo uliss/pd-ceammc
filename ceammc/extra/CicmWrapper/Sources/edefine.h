@@ -743,6 +743,7 @@ typedef struct t_ebox
     int                 b_selected_item;    /*!< The items selected. */
     int                 b_selected_inlet;   /*!< The inlet selected. */
     int                 b_selected_outlet;  /*!< The outlet selected. */
+    float               b_zoom;
     
     char                b_mouse_down;       /*!< The mouse state. */
     

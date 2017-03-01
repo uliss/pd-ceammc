@@ -127,14 +127,17 @@ UI_fun(ui_knob)::wx_paint(ui_knob* zx, t_object* view)
         draw_knob_line(g, zx, cx, cy, radius, value_angle, line_width);
 
         if (zx->show_range) {
+            const float xoff = 3 * ebox_getzoom(asBox(zx));
+            const float yoff = 12 * ebox_getzoom(asBox(zx));
+
             char buf[10];
             sprintf(buf, "%g", zx->shift);
 
-            etext_layout_set(zx->txt_min, buf, zx->txt_font, 3, rect.height - 12, rect.width * 2, rect.height / 2, ETEXT_UP_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
+            etext_layout_set(zx->txt_min, buf, zx->txt_font, xoff, rect.height - yoff, rect.width * 2, rect.height / 2, ETEXT_UP_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
             etext_layout_draw(zx->txt_min, g);
 
             sprintf(buf, "%g", zx->range + zx->shift);
-            etext_layout_set(zx->txt_max, buf, zx->txt_font, rect.width - 3, rect.height - 12, rect.width, rect.height / 2, ETEXT_UP_RIGHT, ETEXT_JRIGHT, ETEXT_NOWRAP);
+            etext_layout_set(zx->txt_max, buf, zx->txt_font, rect.width - xoff, rect.height - yoff, rect.width, rect.height / 2, ETEXT_UP_RIGHT, ETEXT_JRIGHT, ETEXT_NOWRAP);
             etext_layout_draw(zx->txt_max, g);
         }
 
