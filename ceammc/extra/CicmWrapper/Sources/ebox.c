@@ -58,6 +58,7 @@ void ebox_new(t_ebox *x, long flags)
     x->b_send_id            = s_null;
     x->b_objpreset_id       = s_null;
     x->b_visible            = 1;
+    x->b_scale              = 1;
     eobj_getclass(x)->c_widget.w_dosave = (t_typ_method)ebox_dosave;
     ebox_attrprocess_default(x);
 }
@@ -1745,10 +1746,9 @@ static void ebox_move(t_ebox* x)
     canvas_fixlinesfor(glist_getcanvas(x->b_obj.o_canvas), (t_text*)x);
 }
 
-
-
-
-
-
-
-
+void ebox_zoom(t_ebox* x, float f)
+{
+    post("zoom: %f", f);
+    x->b_scale = f;
+    ebox_redraw(x);
+}

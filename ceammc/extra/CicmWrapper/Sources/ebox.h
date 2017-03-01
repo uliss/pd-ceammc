@@ -450,6 +450,8 @@ void ebox_wselect(t_gobj *z,      t_glist *glist, int selected);
 void ebox_wdelete(t_gobj *z,      t_glist *glist);
 //! @endcond
 
+// ceammc
+void ebox_zoom(t_ebox* x, float f);
 
 #endif
 
