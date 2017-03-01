@@ -244,7 +244,7 @@ void BaseObject::freeInlets()
 
 size_t BaseObject::numInlets() const
 {
-    return static_cast<size_t>(obj_ninlets(pd_.owner));
+    return pd_.owner ? static_cast<size_t>(obj_ninlets(pd_.owner)) : 0;
 }
 
 t_inlet* BaseObject::createInlet()

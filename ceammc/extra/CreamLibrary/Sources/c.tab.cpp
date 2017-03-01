@@ -526,7 +526,7 @@ extern "C" void setup_ui0x2etab(void)
         eclass_addmethod(c, (method) tab_mouseleave,       "mouseleave",      A_NULL, 0);
         eclass_addmethod(c, (method) tab_preset,           "preset",          A_NULL, 0);
         
-        CLASS_ATTR_DEFAULT              (c, "size", 0, "100 13");
+        CLASS_ATTR_DEFAULT              (c, "size", 0, "100 16");
         
         CLASS_ATTR_LONG                 (c, "orientation", 0, t_tab, f_orientation);
         CLASS_ATTR_LABEL                (c, "orientation", 0, _("Vertical Orientation"));

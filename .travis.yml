@@ -7,7 +7,7 @@
 #     note that there is a rate-limit for code-analysis.
 #   https://scan.coverity.com/projects/pure-data-pure-data
 
-language: c
+language: cpp
 
 env:
   global:

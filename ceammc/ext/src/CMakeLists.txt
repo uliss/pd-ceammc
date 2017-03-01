@@ -10,6 +10,7 @@ add_subdirectory(rtmidi)
 
 add_subdirectory(math)
 add_subdirectory(noise)
+add_subdirectory(list)
 
 ###############################
 # DATA
@@ -20,58 +21,12 @@ ceammc_cxx_extension(data list)
 ceammc_cxx_extension(debug gensym)
 
 ###############################
-# LIST
+# VECTOR
 ###############################
-ceammc_cxx_extension(list at)
-ceammc_cxx_extension(list apply_to)
-ceammc_cxx_extension(list choice)
-ceammc_cxx_extension(list count)
-ceammc_cxx_extension(list count_if)
-ceammc_cxx_extension(list delta)
-ceammc_cxx_extension(list distribution)
-ceammc_cxx_extension(list each)
-ceammc_cxx_extension(list equal)
-ceammc_cxx_extension(list first)
-ceammc_cxx_extension(list gen)
-ceammc_cxx_extension(list last)
-ceammc_cxx_extension(list length)
-ceammc_cxx_extension(list max)
-ceammc_cxx_extension(list mean)
-ceammc_cxx_extension(list min)
-ceammc_cxx_extension(list normalize)
-ceammc_cxx_extension(list product)
-ceammc_cxx_extension(list range)
-ceammc_cxx_extension(list reduce)
-ceammc_cxx_extension(list repeat)
-ceammc_cxx_extension(list resize)
-ceammc_cxx_extension(list reverse)
-ceammc_cxx_extension(list rotate)
-ceammc_cxx_extension(list seq)
-ceammc_cxx_extension(list shuffle)
-ceammc_cxx_extension(list sort)
-ceammc_cxx_extension(list sum)
-ceammc_cxx_extension(list unique)
-ceammc_cxx_extension(list walk)
-ceammc_cxx_extension(list zip)
-
-ceammc_cxx_extension(list integrator)
-ceammc_cxx_extension(list stretch)
-ceammc_cxx_extension(list shift)
-
-ceammc_cxx_extension(list unwrap)
-ceammc_cxx_extension(list wrap)
-
-ceammc_cxx_extension(list interleave)
-ceammc_cxx_extension(list deinterleave)
-ceammc_cxx_extension(list split)
-
 ceammc_cxx_extension(vector length)
 ceammc_cxx_extension(vector normalize)
 ceammc_cxx_extension(vector distance)
 ceammc_cxx_extension(vector dot)
-
-ceammc_cxx_extension(list repack)
-ceammc_cxx_extension(list unpack)
 
 ###############################
 # TIMELINE

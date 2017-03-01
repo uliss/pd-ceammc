@@ -16,6 +16,8 @@
  *****************************************************************************/
 
 #include "ceammc.hpp"
+#include "x_ceammc.h"
+
 #include <algorithm>
 #include <cassert>
 #include <cstring>
@@ -81,6 +83,44 @@ namespace pd {
             }
         }
         return true;
+    }
+
+    void gensym_info(t_ceammc_gensym_info* info)
+    {
+        t_symbol** table = pd_ceammc_gensym_hash_table();
+        const size_t sz = pd_ceammc_gensym_hash_table_size();
+
+        info->table_size = sz;
+        info->max_chain = 0;
+        info->memory_size = 0;
+        info->symbol_count = 0;
+
+        size_t max_chain_size = 0;
+
+        for (size_t i = 0; i < sz; i++) {
+            t_symbol* s = table[i];
+            if (!s)
+                continue;
+
+            info->symbol_count++;
+            info->memory_size += strlen(s->s_name) + 1;
+
+            size_t chain_size = 1;
+
+            t_symbol* next = s->s_next;
+            while (next) {
+                info->symbol_count++;
+                info->memory_size += strlen(next->s_name) + 1;
+                chain_size++;
+
+                next = next->s_next;
+            }
+
+            if (chain_size > max_chain_size)
+                max_chain_size = chain_size;
+        }
+
+        info->max_chain = max_chain_size;
     }
 }
 }

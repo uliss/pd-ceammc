@@ -1,4 +1,4 @@
-#include "ceammc.h"
+#include "ceammc.hpp"
 #include "ceammc_factory.h"
 #include "ceammc_object.h"
 
@@ -31,19 +31,18 @@ public:
     {
         BaseObject::dump();
 
-        t_ceammc_gensym_info info;
-        ceammc_gensym_info(&info);
+        update();
 
-        OBJ_DBG << "hash table size:            " << info.table_size;
-        OBJ_DBG << "number of t_symbols:        " << info.symbol_count;
-        OBJ_DBG << "max t_symbol chain length:  " << info.max_chain;
-        OBJ_DBG << "memory used:                " << info.memory_size;
+        OBJ_DBG << "hash table size:            " << info_.table_size;
+        OBJ_DBG << "number of t_symbols:        " << info_.symbol_count;
+        OBJ_DBG << "max t_symbol chain length:  " << info_.max_chain;
+        OBJ_DBG << "memory used:                " << info_.memory_size;
     }
 
 private:
     void update() const
     {
-        ceammc_gensym_info(&info_);
+        pd::gensym_info(&info_);
     }
 
     AtomList getMemSize() const

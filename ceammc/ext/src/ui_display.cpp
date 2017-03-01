@@ -98,8 +98,9 @@ UI_fun(ui_display)::wx_paint(ui_display* zx, t_object* /*view*/)
 
     if (g) {
         if (zx->show_type) {
-            draw_message_type(zx, g, 0, 0, TYPE_WIDTH, rect.height);
-            draw_msg_value(zx, g, TYPE_WIDTH, 0, rect.width, rect.height);
+            int zoom = ebox_getzoom(asBox(zx));
+            draw_message_type(zx, g, 0, 0, TYPE_WIDTH * zoom, rect.height);
+            draw_msg_value(zx, g, TYPE_WIDTH * zoom, 0, rect.width, rect.height);
         } else {
             draw_msg_value(zx, g, 0, 0, rect.width, rect.height);
         }
@@ -125,12 +126,10 @@ UI_fun(ui_display)::m_anything(ui_display* zx, t_symbol* s, int argc, t_atom* ar
         float h = int(w / 250) * 15 + 15;
         w = std::min(std::max(w, 20.f), 250.f); // 20 <= w <= 250
 
-        zx->b_box.b_rect.width = w;
-        zx->b_box.b_rect.height = h;
+        h *= ebox_getzoom(asBox(zx));
+        w *= ebox_getzoom(asBox(zx));
 
-        AtomList argv;
-        argv.append(Atom(w));
-        argv.append(Atom(h));
+        AtomList argv(w, h);
         eobj_attr_setvalueof(zx, gensym("size"), 2, argv.toPdData());
     }
 

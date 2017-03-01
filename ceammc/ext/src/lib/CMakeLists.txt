@@ -14,11 +14,15 @@ if(${WITH_COVERAGE})
 endif()
 
 # main static library
-add_library(ceammc_static STATIC ceammc.c
+add_library(ceammc_static STATIC
+    ceammc.h
+    ceammc.hpp
+    ceammc.c
     ceammc.cpp
     ceammc_gui.h
     ceammc_atom.cpp
     ceammc_atomlist.cpp
+    ceammc_factory.h
     ceammc_fn_list.cpp
     ceammc_fn_vector.cpp
     ceammc_log.cpp
