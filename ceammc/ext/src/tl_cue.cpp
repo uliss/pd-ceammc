@@ -147,6 +147,7 @@ UI_fun(tl_cue)::new_ext(tl_cue* zx, t_symbol* /*s*/, int /*argc*/, t_atom* /*arg
     zx->canvas = canvas_getcurrent();
 
     zx->data = new CueData(zx->canvas, zx->asObj());
+
     CueStorage::add(zx->data);
 }
 
@@ -194,8 +195,11 @@ UI_fun(tl_cue)::wx_paint(tl_cue* zx, t_object* /*view*/)
 
     t_elayer* g = ebox_start_layer(asBox(zx), BG_LAYER, rect.width, rect.height);
     if (g) {
+        const float xoff = 2 * ebox_getzoom(asBox(zx));
+        const float yoff = (FONT_SIZE + 2) * ebox_getzoom(asBox(zx));
         bool pos_changed = zx->updatePos();
-        etext_layout_set(zx->txt, zx->data->name().c_str(), zx->fnt, 2, 15, rect.width, rect.height / 2,
+
+        etext_layout_set(zx->txt, zx->data->name().c_str(), zx->fnt, xoff, yoff, rect.width, rect.height / 2,
             ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
 
         etext_layout_draw(zx->txt, g);
