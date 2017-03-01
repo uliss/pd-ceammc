@@ -49,11 +49,11 @@ typedef struct t_bang
     // The t_outlet of the object.
     t_outlet*   b_out;              /*!< The t_outlet of the object. */
     // The struture for the t_eattr background color.
-	t_rgba		b_color_background; /*!< The struture for the t_eattr background color. */
+    t_rgba		color_background; /*!< The struture for the t_eattr background color. */
     // The struture for the t_eattr border color.
-	t_rgba		b_color_border;     /*!< The struture for the t_eattr border color. */
+    t_rgba		color_border;     /*!< The struture for the t_eattr border color. */
     // The struture for the t_eattr bang color.
-	t_rgba		b_color_bang;       /*!< The struture for the t_eattr bang color. */
+    t_rgba		color_active;       /*!< The struture for the t_eattr bang color. */
     // The t_clock of the object.
     t_clock*    b_clock;            /*!< The t_clock of the object. */
     // If the object is performming a bang.
@@ -134,29 +134,10 @@ extern "C" void setup_ui0x2ebang(void)
         CLASS_ATTR_INVISIBLE            (c, "fontsize", 1);
         // All the GUI classes has a size attribute, we just set up the default value.
         CLASS_ATTR_DEFAULT              (c, "size", 0, "16. 16.");
-        // We create a new t_rgba attribute that refers to the b_color_background member of the t_bang and that will match to
-        // "bgcolor". The user will be able to change the background color with the "bgcolor" message.
-        CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_bang, b_color_background);
-        // We set up the label that will be displayed in the properties window of the object for the attribute.
-        CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
-        // We set up the order of the attribute in the properties window (this is unused for the moment).
-        CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
-        // We set up the the default value of the color. This macro also defines that the attribute will automatically call ebox_redraw when its value has changed and that its value will be saved with the patcher.
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, DEFAULT_BACKGROUND_COLOR);
-        // We set up the that the attribute should be displayed as a color slector in the properties window.
-        CLASS_ATTR_STYLE                (c, "bgcolor", 0, "color");
-        // We do the same thing for the border color and the bang color.
-        CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_bang, b_color_border);
-        CLASS_ATTR_LABEL                (c, "bdcolor", 0, _("Border Color"));
-        CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, DEFAULT_BORDER_COLOR);
-        CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
-        
-        CLASS_ATTR_RGBA                 (c, "bacolor", 0, t_bang, b_color_bang);
-        CLASS_ATTR_LABEL                (c, "bacolor", 0, _("Active Color"));
-        CLASS_ATTR_ORDER                (c, "bacolor", 0, "3");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bacolor", 0, DEFAULT_ACTIVE_COLOR);
-        CLASS_ATTR_STYLE                (c, "bacolor", 0, "color");
+
+        ATTR_DEFAULT_COLOR_BORDER       (c, t_bang);
+        ATTR_DEFAULT_COLOR_BACKGROUND   (c, t_bang);
+        ATTR_DEFAULT_COLOR_ACTIVE       (c, t_bang);
         
         // We register the class. This function is important it will set up some dsp members if needs and the properties window
         // if the class has attributes. The CLASS_BOX is for GUI otherwise use CLASS_OBJ this is pretty useless but it ensures
@@ -250,15 +231,7 @@ static void bang_free(t_bang *x)
  */
 static void bang_getdrawparams(t_bang *x, t_object *view, t_edrawparams *params)
 {
-    // We define a border size of 1 px.
-	params->d_borderthickness   = 1;
-    // We define a corner size of 2 px (dummy).
-	params->d_cornersize        = 2;
-    // We define the border color with our border attribute color.
-    params->d_bordercolor       = x->b_color_border;
-    // We define the background color with our border attribute color. The background color will be used when the
-    // t_bang is inactive to draw the circle.
-    params->d_boxfillcolor      = x->b_color_background;
+    CREAM_DEFAULT_DRAW_PARAMS();
 }
 
 // Defines and validates the size of a GUI.
@@ -324,13 +297,13 @@ static void bang_paint(t_bang *x, t_object *view)
         
         if(x->b_active)
         {
-            egraphics_set_color_rgba(g, &x->b_color_bang);
+            egraphics_set_color_rgba(g, &x->color_active);
             // We fill the t_elayer with the drawing.
             egraphics_fill(g);
         }
         else
         {
-            egraphics_set_color_rgba(g, &x->b_color_border);
+            egraphics_set_color_rgba(g, &x->color_border);
             // We stroke the t_elayer with the drawing.
             egraphics_stroke(g);
         }

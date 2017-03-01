@@ -16,8 +16,8 @@ typedef struct _incdec {
     t_outlet* f_out;
     float f_increment;
     float f_value;
-    t_rgba f_color_background;
-    t_rgba f_color_border;
+    t_rgba color_background;
+    t_rgba color_border;
     t_rgba f_color_arrow;
     int f_mouse_down;
     char f_setted;
@@ -42,6 +42,23 @@ static void incdec_paint(t_incdec* x, t_object* view);
 static void draw_background(t_incdec* x, t_object* view, t_rect* rect);
 static void incdec_mousedown(t_incdec* x, t_object* patcherview, t_pt pt, long modifiers);
 static void incdec_mouseup(t_incdec* x, t_object* patcherview, t_pt pt, long modifiers);
+
+static void incdec_get_value(t_incdec* x, t_object* /*attr*/, long* ac, t_atom** av)
+{
+    *ac = 1;
+    *av = reinterpret_cast<t_atom*>(calloc(1, sizeof(t_atom)));
+    atom_setfloat(*av, x->f_value);
+}
+
+static t_pd_err incdec_set_value(t_incdec* x, t_object* /*attr*/, int ac, t_atom* av)
+{
+    if (ac > 0 && av) {
+        incdec_set(x, atom_getfloat(av));
+        return 0;
+    }
+
+    return 1;
+}
 
 extern "C" void setup_ui0x2eincdec(void)
 {
@@ -75,24 +92,18 @@ extern "C" void setup_ui0x2eincdec(void)
     CLASS_ATTR_STYLE                  (c, "step", 0, "number");
     CLASS_ATTR_STEP                   (c, "step", 0.1);
 
-    CLASS_ATTR_RGBA                   (c, "bgcolor", 0, t_incdec, f_color_background);
-    CLASS_ATTR_LABEL                  (c, "bgcolor", 0, _("Background Color"));
-    CLASS_ATTR_ORDER                  (c, "bgcolor", 0, "1");
-    CLASS_ATTR_DEFAULT_SAVE_PAINT     (c, "bgcolor", 0, DEFAULT_BACKGROUND_COLOR);
-    CLASS_ATTR_STYLE                  (c, "bgcolor", 0, "color");
+    ATTR_DEFAULT_COLOR_BORDER         (c, t_incdec);
+    ATTR_DEFAULT_COLOR_BACKGROUND     (c, t_incdec);
 
-    CLASS_ATTR_RGBA                   (c, "bdcolor", 0, t_incdec, f_color_border);
-    CLASS_ATTR_LABEL                  (c, "bdcolor", 0, _("Border Color"));
-    CLASS_ATTR_ORDER                  (c, "bdcolor", 0, "2");
-    CLASS_ATTR_DEFAULT_SAVE_PAINT     (c, "bdcolor", 0, DEFAULT_BORDER_COLOR);
-    CLASS_ATTR_STYLE                  (c, "bdcolor", 0, "color");
-
-    CLASS_ATTR_RGBA                   (c, "arcolor", 0, t_incdec, f_color_arrow);
-    CLASS_ATTR_LABEL                  (c, "arcolor", 0, _("Arrow Color"));
-    CLASS_ATTR_ORDER                  (c, "arcolor", 0, "3");
-    CLASS_ATTR_DEFAULT_SAVE_PAINT     (c, "arcolor", 0, DEFAULT_BORDER_COLOR);
-    CLASS_ATTR_STYLE                  (c, "arcolor", 0, "color");
+    CLASS_ATTR_RGBA                   (c, "arrow_color", 0, t_incdec, f_color_arrow);
+    CLASS_ATTR_LABEL                  (c, "arrow_color", 0, _("Arrow Color"));
+    CLASS_ATTR_ORDER                  (c, "arrow_color", 0, "3");
+    CLASS_ATTR_DEFAULT_SAVE_PAINT     (c, "arrow_color", 0, DEFAULT_BORDER_COLOR);
+    CLASS_ATTR_STYLE                  (c, "arrow_color", 0, "color");
     // clang-format on
+
+    CLASS_ATTR_VIRTUAL              (c,  "value", incdec_get_value, incdec_set_value);
+
 
     eclass_register(CLASS_BOX, c);
     incdec_class = c;
@@ -123,10 +134,7 @@ void* incdec_new(t_symbol* s, int argc, t_atom* argv)
 
 void incdec_getdrawparams(t_incdec* x, t_object* patcherview, t_edrawparams* params)
 {
-    params->d_borderthickness = 1;
-    params->d_cornersize = 2;
-    params->d_bordercolor = x->f_color_border;
-    params->d_boxfillcolor = x->f_color_background;
+    CREAM_DEFAULT_DRAW_PARAMS();
 }
 
 void incdec_oksize(t_incdec* x, t_rect* newrect)
@@ -209,7 +217,7 @@ void draw_background(t_incdec* x, t_object* view, t_rect* rect)
 
         // Arrow Up //
         if (x->f_mouse_down == 1)
-            egraphics_set_color_rgba(g, &x->f_color_background);
+            egraphics_set_color_rgba(g, &x->color_background);
         else
             egraphics_set_color_rgba(g, &x->f_color_arrow);
 
@@ -229,7 +237,7 @@ void draw_background(t_incdec* x, t_object* view, t_rect* rect)
 
         // Arrow Down //
         if (x->f_mouse_down == -1)
-            egraphics_set_color_rgba(g, &x->f_color_background);
+            egraphics_set_color_rgba(g, &x->color_background);
         else
             egraphics_set_color_rgba(g, &x->f_color_arrow);
 
@@ -240,7 +248,7 @@ void draw_background(t_incdec* x, t_object* view, t_rect* rect)
         egraphics_fill(g);
 
         // Middle Line //
-        egraphics_set_color_rgba(g, &x->f_color_border);
+        egraphics_set_color_rgba(g, &x->color_border);
         egraphics_set_line_width(g, 1);
         egraphics_line_fast(g, 0, height, rect->width, height);
 

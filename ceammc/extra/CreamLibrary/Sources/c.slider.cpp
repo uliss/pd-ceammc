@@ -14,9 +14,9 @@ typedef struct _slider {
     t_ebox j_box;
 
     t_outlet* f_out;
-    t_rgba f_color_background;
-    t_rgba f_color_border;
-    t_rgba f_color_knob;
+    t_rgba color_background;
+    t_rgba color_border;
+    t_rgba color_knob;
     char f_direction;
     float f_min;
     float f_max;
@@ -69,10 +69,7 @@ static void slider_set(t_slider* x, float f)
 
 static void slider_getdrawparams(t_slider* x, t_object* patcherview, t_edrawparams* params)
 {
-    params->d_borderthickness = 1;
-    params->d_cornersize = 2;
-    params->d_bordercolor = x->f_color_border;
-    params->d_boxfillcolor = x->f_color_background;
+    CREAM_DEFAULT_DRAW_PARAMS();
 }
 
 static void slider_oksize(t_slider* x, t_rect* newrect)
@@ -106,7 +103,7 @@ static void slider_paint(t_slider* x, t_object* view)
 
     if (g) {
         const float value = (x->f_value - x->f_min) / (x->f_max - x->f_min);
-        egraphics_set_color_rgba(g, &x->f_color_knob);
+        egraphics_set_color_rgba(g, &x->color_knob);
         egraphics_set_line_width(g, 2);
         if (x->f_direction) {
             egraphics_line_fast(g, value * rect.width, 0, value * rect.width, rect.height);
@@ -328,23 +325,14 @@ extern "C" void setup_ui0x2eslider(void)
         CLASS_ATTR_SAVE                 (c, "max", 1);
         CLASS_ATTR_STYLE                (c, "max", 0, "number");
 
-        CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_slider, f_color_background);
-        CLASS_ATTR_LABEL                (c, "bgcolor", 0, _("Background Color"));
-        CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, DEFAULT_BACKGROUND_COLOR);
-        CLASS_ATTR_STYLE                (c, "bgcolor", 0, "color");
+        ATTR_DEFAULT_COLOR_BORDER       (c, t_slider);
+        ATTR_DEFAULT_COLOR_BACKGROUND   (c, t_slider);
 
-        CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_slider, f_color_border);
-        CLASS_ATTR_LABEL                (c, "bdcolor", 0, _("Border Color"));
-        CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, DEFAULT_BORDER_COLOR);
-        CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
-
-        CLASS_ATTR_RGBA                 (c, "kncolor", 0, t_slider, f_color_knob);
-        CLASS_ATTR_LABEL                (c, "kncolor", 0, _("Knob Color"));
-        CLASS_ATTR_ORDER                (c, "kncolor", 0, "3");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "kncolor", 0, DEFAULT_ACTIVE_COLOR);
-        CLASS_ATTR_STYLE                (c, "kncolor", 0, "color");
+        CLASS_ATTR_RGBA                 (c, "knob_color", 0, t_slider, color_knob);
+        CLASS_ATTR_LABEL                (c, "knob_color", 0, _("Knob Color"));
+        CLASS_ATTR_ORDER                (c, "knob_color", 0, "3");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "knob_color", 0, DEFAULT_ACTIVE_COLOR);
+        CLASS_ATTR_STYLE                (c, "knob_color", 0, "color");
 
         CLASS_ATTR_VIRTUAL              (c, "value",   get_slider_value, set_slider_value);
         // clang-format on

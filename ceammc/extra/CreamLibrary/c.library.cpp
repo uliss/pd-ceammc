@@ -85,27 +85,23 @@ extern "C" void cream_setup(void)
     }
 
     //epd_add_lib("cream");
-
-
-
     //setup_c0x2eblackboard();
     //setup_c0x2ebreakpoints();
-    setup_c0x2ecolorpanel();
     //setup_c0x2egain_tilde();
 
     setup_c0x2eknob();
 
-    setup_c0x2emeter_tilde();
-
 
     //CEAMMC
     setup_ui0x2ebang();
+    setup_ui0x2ecolorpanel();
     setup_ui0x2edsp_tilde();
     setup_ui0x2eincdec();
     setup_ui0x2enumber_tilde();
     setup_ui0x2enumber();
     setup_ui0x2ematrix();
     setup_ui0x2emenu();
+    setup_ui0x2emeter_tilde();
     setup_ui0x2epreset();
     setup_ui0x2eradio();
     setup_ui0x2erslider();

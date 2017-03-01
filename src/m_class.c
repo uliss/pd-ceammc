@@ -6,6 +6,7 @@
 #include "m_pd.h"
 #include "m_imp.h"
 #include "s_stuff.h"
+#include "x_ceammc.h"
 #include <stdlib.h>
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
@@ -486,6 +487,19 @@ t_propertiesfn class_getpropertiesfn(t_class *c)
 #define HASHSIZE 1024
 
 static t_symbol *symhash[HASHSIZE];
+
+// ceammc
+size_t pd_ceammc_gensym_hash_table_size()
+{
+    return HASHSIZE;
+}
+
+t_symbol** pd_ceammc_gensym_hash_table()
+{
+    return symhash;
+}
+
+// end ceammc
 
 t_symbol *dogensym(const char *s, t_symbol *oldsym)
 {

@@ -159,7 +159,7 @@ UI_fun(tl_cue)::init_ext(t_eclass* z)
     CLASS_ATTR_INVISIBLE            (z, "receive", 0);
 
     // change default border color
-    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "bdcolor", 0, DEFAULT_ACTIVE_COLOR);
+    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, PROP_BORDER_COLOR, 0, DEFAULT_ACTIVE_COLOR);
     // clang-format on
 
     z->c_widget.w_displacefn = tl_cue_displace;
@@ -183,8 +183,7 @@ UI_fun(tl_cue)::wx_oksize(tl_cue* /*z*/, t_rect* newrect)
 
 UI_fun(tl_cue)::wx_attr_changed_ext(tl_cue* z, t_symbol* attr)
 {
-    if (attr == gensym("bdcolor"))
-        ws_redraw(z);
+    ws_redraw(z);
 }
 
 UI_fun(tl_cue)::wx_paint(tl_cue* zx, t_object* /*view*/)

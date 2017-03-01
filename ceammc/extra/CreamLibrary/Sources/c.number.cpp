@@ -25,9 +25,9 @@ typedef struct _number {
     t_atom f_min;
     t_atom f_max;
 
-    t_rgba f_color_background;
-    t_rgba f_color_border;
-    t_rgba f_color_text;
+    t_rgba color_background;
+    t_rgba color_border;
+    t_rgba color_text;
 } t_number;
 
 static t_eclass* number_class;
@@ -94,10 +94,7 @@ static t_pd_err number_notify(t_number* x, t_symbol* s, t_symbol* msg, void* sen
 
 static void number_getdrawparams(t_number* x, t_object* patcherview, t_edrawparams* params)
 {
-    params->d_borderthickness = 1;
-    params->d_cornersize = 2;
-    params->d_bordercolor = x->f_color_border;
-    params->d_boxfillcolor = x->f_color_background;
+    CREAM_DEFAULT_DRAW_PARAMS();
 }
 
 static void number_oksize(t_number* x, t_rect* newrect)
@@ -113,7 +110,7 @@ static void draw_background(t_number* x, t_object* view, t_rect* rect)
     if (g) {
         const float width = rect->height * 0.4f;
         egraphics_set_line_width(g, 1);
-        egraphics_set_color_rgba(g, &x->f_color_border);
+        egraphics_set_color_rgba(g, &x->color_border);
         egraphics_move_to(g, 0, 0);
         egraphics_line_to(g, width, rect->height * 0.5f);
         egraphics_line_to(g, 0, rect->height);
@@ -132,7 +129,7 @@ static void draw_value_drag(t_number* x, t_object* view, t_rect* rect)
             const float width = rect->height * 0.45f + 2;
             char number[256];
             snprintf(number, 256, "%g", x->f_value);
-            etext_layout_settextcolor(jtl, &x->f_color_text);
+            etext_layout_settextcolor(jtl, &x->color_text);
             etext_layout_set(jtl, number, &x->j_box.b_font, width, rect->height * 0.5f, rect->width - width, rect->height, ETEXT_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
 
             etext_layout_draw(jtl, g);
@@ -153,7 +150,7 @@ static void draw_value_text(t_number* x, t_object* view, t_rect* rect)
             char number[256];
 
             sprintf(number, "%s|", x->f_textvalue);
-            etext_layout_settextcolor(jtl, &x->f_color_text);
+            etext_layout_settextcolor(jtl, &x->color_text);
 
             etext_layout_set(jtl, number, &x->j_box.b_font, width, rect->height / 2., rect->width - 3, 0, ETEXT_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
 
@@ -419,7 +416,7 @@ extern "C" void setup_ui0x2enumber(void)
         CLASS_ATTR_INVISIBLE            (c, "fontweight", 1);
         CLASS_ATTR_INVISIBLE            (c, "fontslant", 1);
 
-        CLASS_ATTR_DEFAULT			    (c, "size", 0, "53 13");
+        CLASS_ATTR_DEFAULT			    (c, "size", 0, "53 16");
         
         CLASS_ATTR_ATOM_ARRAY           (c, "minmax", 0, t_number, f_min, 2);
         CLASS_ATTR_ORDER                (c, "minmax", 0, "3");
@@ -428,23 +425,9 @@ extern "C" void setup_ui0x2enumber(void)
         CLASS_ATTR_ACCESSORS            (c, "minmax", NULL, number_minmax_set);
         CLASS_ATTR_SAVE                 (c, "minmax", 1);
         
-        CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_number, f_color_background);
-        CLASS_ATTR_LABEL                (c, "bgcolor", 0, _("Background Color"));
-        CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, DEFAULT_BACKGROUND_COLOR);
-        CLASS_ATTR_STYLE                (c, "bgcolor", 0, "color");
-        
-        CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_number, f_color_border);
-        CLASS_ATTR_LABEL                (c, "bdcolor", 0, _("Border Color"));
-        CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, DEFAULT_BORDER_COLOR);
-        CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
-        
-        CLASS_ATTR_RGBA                 (c, "textcolor", 0, t_number, f_color_text);
-        CLASS_ATTR_LABEL                (c, "textcolor", 0, _("Text Color"));
-        CLASS_ATTR_ORDER                (c, "textcolor", 0, "3");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "textcolor", 0, "0. 0. 0. 1.");
-        CLASS_ATTR_STYLE                (c, "textcolor", 0, "color");
+        ATTR_DEFAULT_COLOR_BORDER       (c, t_number);
+        ATTR_DEFAULT_COLOR_BACKGROUND   (c, t_number);
+        ATTR_DEFAULT_COLOR_TEXT         (c, t_number);
 
         // clang-format on
 

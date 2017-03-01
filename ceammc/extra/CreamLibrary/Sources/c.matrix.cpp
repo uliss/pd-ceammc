@@ -18,9 +18,9 @@ typedef struct _matrixctrl {
     char** f_values;
     int f_size[2];
     int f_selected[2];
-    t_rgba f_color_background;
-    t_rgba f_color_border;
-    t_rgba f_color_on;
+    t_rgba color_background;
+    t_rgba color_border;
+    t_rgba color_active;
 
 } t_matrixctrl;
 
@@ -136,10 +136,7 @@ static void matrixctrl_list(t_matrixctrl* x, t_symbol* s, int ac, t_atom* av)
 
 static void matrixctrl_getdrawparams(t_matrixctrl* x, t_object* patcherview, t_edrawparams* params)
 {
-    params->d_borderthickness = 1;
-    params->d_cornersize = 2;
-    params->d_bordercolor = x->f_color_border;
-    params->d_boxfillcolor = x->f_color_background;
+    CREAM_DEFAULT_DRAW_PARAMS();
 }
 
 static void matrixctrl_oksize(t_matrixctrl* x, t_rect* newrect)
@@ -184,10 +181,10 @@ static void matrixctrl_paint(t_matrixctrl* x, t_object* view)
             for (int incY = 0, j = 0; j < x->f_size[1]; j++, incY += block_height) {
                 egraphics_rectangle_rounded(g, incx + 1.f, incY + 1.f, block_width - 2.f, block_height - 2.f, 1.f);
                 if (x->f_values[i][j]) {
-                    egraphics_set_color_rgba(g, &x->f_color_on);
+                    egraphics_set_color_rgba(g, &x->color_active);
                     egraphics_fill_preserve(g);
                 }
-                t_rgba bc = rgba_addContrast(x->f_color_background, -0.15);
+                t_rgba bc = rgba_addContrast(x->color_background, -0.15);
                 egraphics_set_color_rgba(g, &bc);
                 egraphics_stroke(g);
             }
@@ -346,23 +343,9 @@ extern "C" void setup_ui0x2ematrix(void)
         CLASS_ATTR_DEFAULT              (c, "matrix", 0, "8 4");
         CLASS_ATTR_SAVE                 (c, "matrix", 0);
         
-        CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_matrixctrl, f_color_background);
-        CLASS_ATTR_LABEL                (c, "bgcolor", 0, _("Background Color"));
-        CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, DEFAULT_BACKGROUND_COLOR);
-        CLASS_ATTR_STYLE                (c, "bgcolor", 0, "color");
-        
-        CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_matrixctrl, f_color_border);
-        CLASS_ATTR_LABEL                (c, "bdcolor", 0, _("Border Color"));
-        CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, DEFAULT_BORDER_COLOR);
-        CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
-        
-        CLASS_ATTR_RGBA                 (c, "accolor", 0, t_matrixctrl, f_color_on);
-        CLASS_ATTR_LABEL                (c, "accolor", 0, _("Active Color"));
-        CLASS_ATTR_ORDER                (c, "accolor", 0, "3");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "accolor", 0, DEFAULT_ACTIVE_COLOR);
-        CLASS_ATTR_STYLE                (c, "accolor", 0, "color");
+        ATTR_DEFAULT_COLOR_BORDER       (c, t_matrixctrl);
+        ATTR_DEFAULT_COLOR_BACKGROUND   (c, t_matrixctrl);
+        ATTR_DEFAULT_COLOR_ACTIVE       (c, t_matrixctrl);
 
         // clang-format on
         eclass_register(CLASS_BOX, c);

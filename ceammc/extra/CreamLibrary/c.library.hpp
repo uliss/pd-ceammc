@@ -24,25 +24,24 @@ extern "C" void cream_setup(void);
 extern "C" void Cream_setup(void);
 extern "C" void libpd_loadcream(void);
 
-extern "C" void setup_c0x2eblackboard(void);
-extern "C" void setup_c0x2ebreakpoints(void);
-extern "C" void setup_c0x2ecolorpanel(void);
+//extern "C" void setup_c0x2eblackboard(void);
+//extern "C" void setup_c0x2ebreakpoints(void);
 //extern "C" void setup_c0x2egain_tilde(void);
 extern "C" void setup_c0x2eknob(void);
-extern "C" void setup_c0x2emeter_tilde(void);
-extern "C" void setup_c0x2enumber_tilde(void);
-extern "C" void setup_c0x2eplane(void);
-extern "C" void setup_c0x2escope_tilde(void);
+//extern "C" void setup_c0x2eplane(void);
+//extern "C" void setup_c0x2escope_tilde(void);
 
 
 //CEAMMC
 extern "C" void setup_ui0x2ebang(void);
+extern "C" void setup_ui0x2ecolorpanel(void);
 extern "C" void setup_ui0x2edsp_tilde(void);
 extern "C" void setup_ui0x2eincdec(void);
 extern "C" void setup_ui0x2enumber_tilde(void);
 extern "C" void setup_ui0x2enumber(void);
 extern "C" void setup_ui0x2ematrix(void);
 extern "C" void setup_ui0x2emenu(void);
+extern "C" void setup_ui0x2emeter_tilde(void);
 extern "C" void setup_ui0x2epreset(void);
 extern "C" void setup_ui0x2eradio(void);
 extern "C" void setup_ui0x2erslider(void);
@@ -134,5 +133,57 @@ static t_symbol* cream_sym_right_bracket        = gensym("]");
 static const char* DEFAULT_ACTIVE_COLOR = "0. 0.75 1. 1.";
 static const char* DEFAULT_BORDER_COLOR = "0.6 0.6 0.6 1.";
 static const char* DEFAULT_BACKGROUND_COLOR = "0.93 0.93 0.93 1.";
+static const char* DEFAULT_TEXT_COLOR = "0. 0. 0. 1.";
+
+static const char* PROP_ACTIVE_COLOR = "active_color";
+static const char* PROP_BACKGROUND_COLOR = "background_color";
+static const char* PROP_BORDER_COLOR = "border_color";
+static const char* PROP_TEXT_COLOR = "text_color";
+
+#define ATTR_DEFAULT_COLOR_BORDER(c, struct_name) { \
+    CLASS_ATTR_RGBA                 (c, PROP_BORDER_COLOR, 0, struct_name, color_border);\
+    CLASS_ATTR_LABEL                (c, PROP_BORDER_COLOR, 0, _("Border Color"));\
+    CLASS_ATTR_ORDER                (c, PROP_BORDER_COLOR, 0, "1");\
+    CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, PROP_BORDER_COLOR, 0, DEFAULT_BORDER_COLOR);\
+    CLASS_ATTR_STYLE                (c, PROP_BORDER_COLOR, 0, "color");\
+}
+
+#define ATTR_DEFAULT_COLOR_BACKGROUND(c, struct_name) { \
+    CLASS_ATTR_RGBA                 (c, PROP_BACKGROUND_COLOR, 0, struct_name, color_background);\
+    CLASS_ATTR_LABEL                (c, PROP_BACKGROUND_COLOR, 0, _("Background Color"));\
+    CLASS_ATTR_ORDER                (c, PROP_BACKGROUND_COLOR, 0, "2");\
+    CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, PROP_BACKGROUND_COLOR, 0, DEFAULT_BACKGROUND_COLOR);\
+    CLASS_ATTR_STYLE                (c, PROP_BACKGROUND_COLOR, 0, "color");\
+}
+
+#define ATTR_DEFAULT_COLOR_ACTIVE(c, struct_name) { \
+    CLASS_ATTR_RGBA                 (c, PROP_ACTIVE_COLOR, 0, struct_name, color_active);\
+    CLASS_ATTR_LABEL                (c, PROP_ACTIVE_COLOR, 0, _("Active Color"));\
+    CLASS_ATTR_ORDER                (c, PROP_ACTIVE_COLOR, 0, "3");\
+    CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, PROP_ACTIVE_COLOR, 0, DEFAULT_ACTIVE_COLOR);\
+    CLASS_ATTR_STYLE                (c, PROP_ACTIVE_COLOR, 0, "color");\
+}
+
+#define ATTR_DEFAULT_COLOR_ACTIVE(c, struct_name) { \
+    CLASS_ATTR_RGBA                 (c, PROP_ACTIVE_COLOR, 0, struct_name, color_active);\
+    CLASS_ATTR_LABEL                (c, PROP_ACTIVE_COLOR, 0, _("Active Color"));\
+    CLASS_ATTR_ORDER                (c, PROP_ACTIVE_COLOR, 0, "3");\
+    CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, PROP_ACTIVE_COLOR, 0, DEFAULT_ACTIVE_COLOR);\
+    CLASS_ATTR_STYLE                (c, PROP_ACTIVE_COLOR, 0, "color");\
+}
+
+#define ATTR_DEFAULT_COLOR_TEXT(c, struct_name) { \
+    CLASS_ATTR_RGBA                 (c, PROP_TEXT_COLOR, 0, struct_name, color_text);\
+    CLASS_ATTR_LABEL                (c, PROP_TEXT_COLOR, 0, _("Text Color"));\
+    CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, PROP_TEXT_COLOR, 0, DEFAULT_TEXT_COLOR);\
+    CLASS_ATTR_STYLE                (c, PROP_TEXT_COLOR, 0, "color");\
+}
+
+#define CREAM_DEFAULT_DRAW_PARAMS() {\
+    params->d_borderthickness = 1;\
+    params->d_cornersize      = 0;\
+    params->d_bordercolor     = x->color_border;\
+    params->d_boxfillcolor    = x->color_background;\
+}
 
 #endif

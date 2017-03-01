@@ -13,9 +13,9 @@
 typedef struct _toggle {
     t_ebox j_box;
     t_outlet* f_out;
-    t_rgba f_color_background;
-    t_rgba f_color_border;
-    t_rgba f_color_cross;
+    t_rgba color_background;
+    t_rgba color_border;
+    t_rgba color_active;
     char f_active;
 } t_toggle;
 
@@ -34,10 +34,7 @@ static void toggle_output(t_toggle* x)
 
 static void toggle_getdrawparams(t_toggle* x, t_object* patcherview, t_edrawparams* params)
 {
-    params->d_borderthickness = 1;
-    params->d_cornersize = 2;
-    params->d_bordercolor = x->f_color_border;
-    params->d_boxfillcolor = x->f_color_background;
+    CREAM_DEFAULT_DRAW_PARAMS();
 }
 
 static void toggle_oksize(t_toggle* x, t_rect* newrect)
@@ -83,7 +80,7 @@ static void toggle_paint(t_toggle* x, t_object* view)
     g = ebox_start_layer((t_ebox*)x, cream_sym_background_layer, rect.width, rect.height);
     if (g) {
         if (x->f_active) {
-            egraphics_set_color_rgba(g, &x->f_color_cross);
+            egraphics_set_color_rgba(g, &x->color_active);
             egraphics_set_line_width(g, 2);
             egraphics_line_fast(g, 1, 1, rect.width - 1, rect.height - 1);
             egraphics_line_fast(g, 1, rect.height - 1, rect.width - 1, 1);
@@ -164,23 +161,9 @@ extern "C" void setup_ui0x2etoggle(void)
         CLASS_ATTR_INVISIBLE            (c, "fontsize", 1);
         CLASS_ATTR_DEFAULT              (c, "size", 0, "15. 15.");
 
-        CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_toggle, f_color_background);
-        CLASS_ATTR_LABEL                (c, "bgcolor", 0, _("Background Color"));
-        CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, DEFAULT_BACKGROUND_COLOR);
-        CLASS_ATTR_STYLE                (c, "bgcolor", 0, "color");
-
-        CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_toggle, f_color_border);
-        CLASS_ATTR_LABEL                (c, "bdcolor", 0, _("Border Color"));
-        CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, DEFAULT_BORDER_COLOR);
-        CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
-
-        CLASS_ATTR_RGBA                 (c, "crcolor", 0, t_toggle, f_color_cross);
-        CLASS_ATTR_LABEL                (c, "crcolor", 0, _("Active Color"));
-        CLASS_ATTR_ORDER                (c, "crcolor", 0, "3");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "crcolor", 0, DEFAULT_ACTIVE_COLOR);
-        CLASS_ATTR_STYLE                (c, "crcolor", 0, "color");
+        ATTR_DEFAULT_COLOR_BORDER       (c, t_toggle);
+        ATTR_DEFAULT_COLOR_BACKGROUND   (c, t_toggle);
+        ATTR_DEFAULT_COLOR_ACTIVE       (c, t_toggle);
 
         CLASS_ATTR_VIRTUAL              (c,  "value", get_toggle_value, set_toggle_value);
 

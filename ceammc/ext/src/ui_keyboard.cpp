@@ -275,7 +275,7 @@ UI_fun(ui_keyboard)::wx_attr_changed_ext(ui_keyboard* z, t_symbol* attr)
 UI_fun(ui_keyboard)::init_ext(t_eclass* z)
 {
     // clang-format off
-    CLASS_ATTR_INVISIBLE            (z, "bgcolor", 0);
+    CLASS_ATTR_INVISIBLE            (z, PROP_BACKGROUND_COLOR, 0);
     CLASS_ATTR_DEFAULT              (z, "size", 0, "433. 60.");
 
     CLASS_ATTR_INT                  (z, "shift", 0, ui_keyboard, shift);

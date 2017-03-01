@@ -17,8 +17,8 @@ typedef struct _preset {
     int f_binbuf_selected;
     int f_binbuf_hover;
     float f_point_size;
-    t_rgba f_color_background;
-    t_rgba f_color_border;
+    t_rgba color_background;
+    t_rgba color_border;
     t_rgba f_color_button_stored;
     t_rgba f_color_button_empty;
     t_rgba f_color_button_selected;
@@ -247,10 +247,7 @@ static void preset_clearall(t_preset* x)
 
 static void preset_getdrawparams(t_preset* x, t_object* patcherview, t_edrawparams* params)
 {
-    params->d_borderthickness = 1;
-    params->d_cornersize = 2;
-    params->d_bordercolor = x->f_color_border;
-    params->d_boxfillcolor = x->f_color_background;
+    CREAM_DEFAULT_DRAW_PARAMS();
 }
 
 static void preset_oksize(t_preset* x, t_rect* newrect)
@@ -526,17 +523,13 @@ extern "C" void setup_ui0x2epreset(void)
         CLASS_ATTR_DEFAULT              (c, "size", 0, "102 42");
         CLASS_ATTR_DEFAULT              (c, "fontsize", 0, "11");
 
-        CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_preset, f_color_background);
+        CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_preset, color_background);
         CLASS_ATTR_LABEL                (c, "bgcolor", 0, _("Background Color"));
         CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
         CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.8 0.8 0.8 1.");
         CLASS_ATTR_STYLE                (c, "bgcolor", 0, "color");
 
-        CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_preset, f_color_border);
-        CLASS_ATTR_LABEL                (c, "bdcolor", 0, _("Border Color"));
-        CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, DEFAULT_BORDER_COLOR);
-        CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
+        ATTR_DEFAULT_COLOR_BORDER       (c, t_preset);
 
         CLASS_ATTR_RGBA                 (c, "textcolor", 0, t_preset, f_color_text);
         CLASS_ATTR_LABEL                (c, "textcolor", 0, _("Text Color"));

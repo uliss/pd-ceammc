@@ -48,6 +48,19 @@ void* ceammc_gui::GuiFactory<x>
 static const char* DEFAULT_ACTIVE_COLOR = "0. 0.75 1. 1.";
 static const char* DEFAULT_BORDER_COLOR = "0.6 0.6 0.6 1.";
 static const char* DEFAULT_BACKGROUND_COLOR = "0.93 0.93 0.93 1.";
+static const char* DEFAULT_TEXT_COLOR = "0. 0. 0. 1.";
+
+static const char* PROP_ACTIVE_COLOR = "active_color";
+static const char* PROP_BACKGROUND_COLOR = "background_color";
+static const char* PROP_BORDER_COLOR = "border_color";
+static const char* PROP_TEXT_COLOR = "text_color";
+
+#define HIDE_FONT_PROPS(cl) {\
+    CLASS_ATTR_INVISIBLE(cl, "fontname", 1);\
+    CLASS_ATTR_INVISIBLE(cl, "fontweight", 1);\
+    CLASS_ATTR_INVISIBLE(cl, "fontslant", 1);\
+    CLASS_ATTR_INVISIBLE(cl, "fontsize", 1);\
+}
 
 /**
  * @brief Structure prototype for pd object (t_object).
@@ -560,23 +573,20 @@ public:
     {
         // clang-format off
         //hide standard CICM attributes
-        CLASS_ATTR_INVISIBLE(cl, "fontname", 1);
-        CLASS_ATTR_INVISIBLE(cl, "fontweight", 1);
-        CLASS_ATTR_INVISIBLE(cl, "fontslant", 1);
-        CLASS_ATTR_INVISIBLE(cl, "fontsize", 1);
+        HIDE_FONT_PROPS(cl);
 
         // background / border color
-        CLASS_ATTR_RGBA                 (cl, "bgcolor", 0, U, b_color_background);
-        CLASS_ATTR_LABEL                (cl, "bgcolor", 0, _("Background Color"));
-        CLASS_ATTR_ORDER                (cl, "bgcolor", 0, "1");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (cl, "bgcolor", 0, DEFAULT_BACKGROUND_COLOR);
-        CLASS_ATTR_STYLE                (cl, "bgcolor", 0, "color");
+        CLASS_ATTR_RGBA                 (cl, PROP_BACKGROUND_COLOR, 0, U, b_color_background);
+        CLASS_ATTR_LABEL                (cl, PROP_BACKGROUND_COLOR, 0, _("Background Color"));
+        CLASS_ATTR_ORDER                (cl, PROP_BACKGROUND_COLOR, 0, "1");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (cl, PROP_BACKGROUND_COLOR, 0, DEFAULT_BACKGROUND_COLOR);
+        CLASS_ATTR_STYLE                (cl, PROP_BACKGROUND_COLOR, 0, "color");
 
-        CLASS_ATTR_RGBA                 (cl, "bdcolor", 0, U, b_color_border);
-        CLASS_ATTR_LABEL                (cl, "bdcolor", 0, _("Border Color"));
-        CLASS_ATTR_ORDER                (cl, "bdcolor", 0, "2");
-        CLASS_ATTR_DEFAULT_SAVE_PAINT   (cl, "bdcolor", 0, DEFAULT_BORDER_COLOR);
-        CLASS_ATTR_STYLE                (cl, "bdcolor", 0, "color");
+        CLASS_ATTR_RGBA                 (cl, PROP_BORDER_COLOR, 0, U, b_color_border);
+        CLASS_ATTR_LABEL                (cl, PROP_BORDER_COLOR, 0, _("Border Color"));
+        CLASS_ATTR_ORDER                (cl, PROP_BORDER_COLOR, 0, "2");
+        CLASS_ATTR_DEFAULT_SAVE_PAINT   (cl, PROP_BORDER_COLOR, 0, DEFAULT_BORDER_COLOR);
+        CLASS_ATTR_STYLE                (cl, PROP_BORDER_COLOR, 0, "color");
 
         // default
         CLASS_ATTR_DEFAULT              (cl, "size", 0, "45. 15.");
