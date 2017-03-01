@@ -451,7 +451,8 @@ void ebox_wdelete(t_gobj *z,      t_glist *glist);
 //! @endcond
 
 // ceammc
-void ebox_zoom(t_ebox* x, float f);
+float ebox_getzoom(t_ebox* x);
+void ebox_setzoom(t_ebox* x, float f);
 
 #endif
 

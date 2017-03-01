@@ -754,7 +754,6 @@ typedef struct t_ebox
     
     t_elayer*           b_layers;           /*!< The ebox layers. */
     long                b_number_of_layers; /*!< The ebox number of layers. */
-    float               b_scale;
 }t_ebox;
 
 /** @} */

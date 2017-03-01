@@ -45,6 +45,7 @@ static void ebox_erase(t_ebox* x);
 static void ebox_select(t_ebox* x);
 static void ebox_move(t_ebox* x);
 static void ebox_attrprocess_default(void *x);
+static void ebox_newzoom(t_ebox *x);
 
 void ebox_new(t_ebox *x, long flags)
 {
@@ -58,7 +59,6 @@ void ebox_new(t_ebox *x, long flags)
     x->b_send_id            = s_null;
     x->b_objpreset_id       = s_null;
     x->b_visible            = 1;
-    x->b_scale              = 1;
     eobj_getclass(x)->c_widget.w_dosave = (t_typ_method)ebox_dosave;
     ebox_attrprocess_default(x);
 }
@@ -79,6 +79,8 @@ void ebox_ready(t_ebox *x)
     if(c->c_widget.w_getdrawparameters)
         c->c_widget.w_getdrawparameters(x, NULL, &x->b_boxparameters);
     x->b_ready_to_draw = 1;
+
+    ebox_newzoom(x);
 }
 
 void ebox_free(t_ebox* x)
@@ -853,7 +855,7 @@ void ebox_dosave(t_ebox* x, t_binbuf *b)
                 eobj_attr_getvalueof(x, c->c_attr[i]->name, &argc, &argv);
                 if(argc && argv) {
                     snprintf(attr_name, MAXPDSTRING, "@%s", c->c_attr[i]->name->s_name);
-                    binbuf_append_attribute(b, gensym(attr_name), argc, argv); 
+                    binbuf_append_attribute(b, gensym(attr_name), argc, argv);
                     free(argv);
                 }
             }
@@ -1326,7 +1328,7 @@ t_elayer* ebox_start_layer(t_ebox *x, t_symbol *name, float width, float height)
 {
     int i, j;
     char text[MAXPDSTRING];
-	t_elayer *temp, *graphic;
+    t_elayer *temp, *graphic;
     for(i = 0; i < x->b_number_of_layers; i++)
     {
         graphic = &x->b_layers[i];
@@ -1360,14 +1362,14 @@ t_elayer* ebox_start_layer(t_ebox *x, t_symbol *name, float width, float height)
                     graphic->e_objects = NULL;
                 }
                 graphic->e_number_objects  = 0;
-                
+
                 if(graphic->e_new_objects.e_points)
                 {
                     free(graphic->e_new_objects.e_points);
                 }
                 graphic->e_new_objects.e_points = NULL;
                 graphic->e_new_objects.e_npoints = 0;
-                
+
                 sprintf(text, "%s%ld", name->s_name, (long)x);
                 graphic->e_id          = gensym(text);
 
@@ -1746,9 +1748,42 @@ static void ebox_move(t_ebox* x)
     canvas_fixlinesfor(glist_getcanvas(x->b_obj.o_canvas), (t_text*)x);
 }
 
-void ebox_zoom(t_ebox* x, float f)
+void ebox_setzoom(t_ebox* x, float f)
 {
-    post("zoom: %f", f);
-    x->b_scale = f;
-    ebox_redraw(x);
+    float oldzoom = ebox_getzoom(x);
+    if (oldzoom < 1)
+        oldzoom = 1;
+
+    int argc = 0;
+    t_atom* argv = NULL;
+    eobj_attr_getvalueof(x, gensym("size"), &argc, &argv);
+
+    if(argc == 2) {
+        float w = atom_getfloat(&argv[0]) / oldzoom * f;
+        float h = atom_getfloat(&argv[1]) / oldzoom * f;
+        atom_setfloat(&argv[0], w);
+        atom_setfloat(&argv[1], h);
+        eobj_attr_setvalueof(x, gensym("size"), argc, argv);
+    }
+
+    free(argv);
+}
+
+static void ebox_newzoom(t_ebox *x)
+{
+    //    glist_getcanvas(x->b_obj.o_canvas ??
+    t_canvas* c = eobj_getcanvas(&x->b_obj);
+
+    if (c && c->gl_zoom != 1)
+    {
+        int newzoom = c->gl_zoom;
+        x->b_rect.width *= newzoom;
+        x->b_rect.height *= newzoom;
+    }
+}
+
+float ebox_getzoom(t_ebox* x)
+{
+    //    glist_getcanvas(x->b_obj.o_canvas ??
+    return eobj_getcanvas(&x->b_obj)->gl_zoom;
 }
