@@ -79,8 +79,6 @@ typedef struct t_ceammc_gensym_info {
     size_t memory_size;
 } t_ceammc_gensym_info;
 
-void ceammc_gensym_info(t_ceammc_gensym_info* info);
-
 #ifdef __cplusplus
 }
 #endif

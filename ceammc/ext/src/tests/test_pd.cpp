@@ -13,23 +13,25 @@
  *****************************************************************************/
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
-#include "ceammc.h"
+#include "ceammc.hpp"
 
 #include <stdio.h>
+
+using namespace ceammc::pd;
 
 TEST_CASE("PD", "[PureData]")
 {
     SECTION("hash table size")
     {
         t_ceammc_gensym_info info;
-        ceammc_gensym_info(&info);
+        gensym_info(&info);
 
         REQUIRE(info.table_size == 1024);
 
         REQUIRE(info.symbol_count == 0);
 
         gensym("test");
-        ceammc_gensym_info(&info);
+        gensym_info(&info);
         REQUIRE(info.symbol_count == 1);
         REQUIRE(info.max_chain == 1);
         REQUIRE(info.memory_size == 5);
@@ -40,7 +42,7 @@ TEST_CASE("PD", "[PureData]")
             gensym(buf);
         }
 
-        ceammc_gensym_info(&info);
+        gensym_info(&info);
         REQUIRE(info.symbol_count == 20001);
         REQUIRE(info.max_chain == 38);
     }
