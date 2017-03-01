@@ -33,6 +33,7 @@ typedef struct _menu {
     t_rgba		color_background;
     t_rgba		color_border;
     t_rgba		color_text;
+    t_rgba		color_active;
 
     char        f_open;
     // clang-format on
@@ -125,6 +126,7 @@ extern "C" void setup_ui0x2emenu(void)
     ATTR_DEFAULT_COLOR_BORDER       (c, t_menu);
     ATTR_DEFAULT_COLOR_BACKGROUND   (c, t_menu);
     ATTR_DEFAULT_COLOR_TEXT         (c, t_menu);
+    ATTR_DEFAULT_COLOR_ACTIVE       (c, t_menu);
 
     // clang-format on
 
@@ -474,31 +476,43 @@ void draw_background(t_menu* x, t_object* view, t_rect* rect)
 
 void draw_selection(t_menu* x, t_object* view, t_rect* rect)
 {
-    int i;
-    float width;
     t_elayer* g = ebox_start_layer((t_ebox*)x, gensym("list_layer"), rect->width, rect->height);
     t_etext* jtl = etext_layout_create();
     if (g && jtl) {
         egraphics_set_color_rgba(g, &x->color_border);
         egraphics_set_line_width(g, 1);
 
-        for (i = 0; i < x->f_items_size; i++) {
-            egraphics_line_fast(g, 0., x->f_close_height * (i + 1), rect->width - x->f_close_height, x->f_close_height * (i + 1));
+        const float item_width = rect->width - x->f_close_height;
+        const float item_height = x->f_close_height;
+
+        // draw items
+        for (int i = 0; i < x->f_items_size; i++) {
+            const float item_top = x->f_close_height * (i + 1);
+
+            // draw separator line
+            egraphics_line_fast(g, 0, item_top, item_width, item_top);
+
             if (x->f_items[i] != s_null) {
+                if(i == x->f_item_selected) {
+                    egraphics_set_color_rgba(g, &x->color_active);
+                    egraphics_rectangle(g, 0, item_top, item_width, item_height);
+                    egraphics_fill(g);
+                }
+
                 if (x->f_states[i])
                     etext_layout_settextcolor(jtl, &x->color_border);
                 else
                     etext_layout_settextcolor(jtl, &x->color_text);
-                etext_layout_set(jtl, x->f_items[i]->s_name, &x->j_box.b_font, 1.5, x->f_close_height / 2. + x->f_close_height * (i + 1) + 2, rect->width, 0, ETEXT_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
+
+                etext_layout_set(jtl, x->f_items[i]->s_name, &x->j_box.b_font,
+                                 1.5, item_top + item_height / 2. + 2, item_width, 0,
+                                 ETEXT_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
                 etext_layout_draw(jtl, g);
             }
         }
 
-        egraphics_set_color_rgba(g, &x->color_background);
-        width = rect->width - x->f_close_height;
-        egraphics_rectangle(g, width, x->f_close_height, rect->width, rect->height);
-        egraphics_fill(g);
-
+        // draw separator
+        float width = rect->width - x->f_close_height;
         egraphics_set_color_rgba(g, &x->color_border);
         egraphics_line_fast(g, width, 0., width, rect->height);
 
