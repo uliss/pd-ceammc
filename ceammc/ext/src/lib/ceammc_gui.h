@@ -332,6 +332,10 @@ public:
     {
     }
 
+    static void wx_ready(U*)
+    {
+    }
+
 #pragma mark -
 #pragma mark pd object instance
 
@@ -353,6 +357,7 @@ public:
 
             ebox_attrprocess_viabinbuf(z, d);
             ebox_ready(box);
+            wx_ready(asStruct(z));
             binbuf_free(d);
         }
 
