@@ -95,11 +95,6 @@ static size_t text_width(t_symbol* txt, int sz)
     return char_wd * len + corr;
 }
 
-static size_t text_height(t_symbol*, int sz)
-{
-    return static_cast<size_t>(sys_fontheight(sz));
-}
-
 UI_fun(ui_link)::new_ext(ui_link* zx, t_symbol*, int, t_atom*)
 {
     // fixed size
@@ -112,14 +107,11 @@ UI_fun(ui_link)::new_ext(ui_link* zx, t_symbol*, int, t_atom*)
     zx->x_dirsym = canvas_getdir(zx->x_canvas);
 
     if (zx->title) {
-        size_t w = text_width(zx->title, FONT_SIZE);
-        size_t h = text_height(zx->title, FONT_SIZE);
+        size_t w = text_width(zx->title, FONT_SIZE) * ebox_getzoom(asBox(zx));
         t_atom data[2];
         atom_setfloat(&data[0], w);
-        atom_setfloat(&data[1], h);
-        asBox(zx)->b_rect.width = w;
-        asBox(zx)->b_rect.height = h;
-
+        atom_setfloat(&data[1], 0);
+        zx->b_box.b_rect.width = w;
         eobj_attr_setvalueof(zx, gensym("size"), 2, data);
     }
 
@@ -130,6 +122,16 @@ UI_fun(ui_link)::free_ext(ui_link* zx)
 {
     etext_layout_destroy(zx->t_e);
     efont_destroy(zx->t_ef);
+}
+
+UI_fun(ui_link)::wx_oksize(ui_link* zx, t_rect* newrect)
+{
+    float w = 40;
+    if(zx->title)
+        w = text_width(zx->title, FONT_SIZE) * ebox_getzoom(asBox(zx));
+
+    newrect->width = pd_clip_min(w, 20);
+    newrect->height = ebox_fontheight(asBox(zx));
 }
 
 UI_fun(ui_link)::init_ext(t_eclass* z)
@@ -161,16 +163,13 @@ UI_fun(ui_link)::init_ext(t_eclass* z)
 UI_fun(ui_link)::wx_attr_changed_ext(ui_link* zx, t_symbol* attr)
 {
     if (attr == gensym("title")) {
-        size_t w = text_width(zx->title, FONT_SIZE);
-        size_t h = text_height(zx->title, FONT_SIZE);
+        size_t w = text_width(zx->title, FONT_SIZE) * ebox_getzoom(asBox(zx));
         t_atom data[2];
         atom_setfloat(&data[0], w);
-        atom_setfloat(&data[1], h);
-        asBox(zx)->b_rect.width = w;
-        asBox(zx)->b_rect.height = h;
+        atom_setfloat(&data[1], 0);
 
+        zx->b_box.b_rect.width = w;
         eobj_attr_setvalueof(zx, gensym("size"), 2, data);
-
         ws_redraw(zx);
     }
 }
