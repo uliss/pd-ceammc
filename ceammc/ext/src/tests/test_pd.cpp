@@ -46,4 +46,9 @@ TEST_CASE("PD", "[PureData]")
         REQUIRE(info.symbol_count == 20001);
         REQUIRE(info.max_chain == 38);
     }
+
+    SECTION("memsize") {
+        REQUIRE(ceammc_memory_current_rss() != 0);
+        REQUIRE(ceammc_memory_peak_rss() != 0);
+    }
 }

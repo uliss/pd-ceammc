@@ -10,9 +10,11 @@ endmacro()
 
 if(${WITH_COVERAGE})
     find_program(LCOV NAMES lcov PATHS /usr/bin /usr/local/bin)
-    if(LCOV)
+    find_program (GCOV NAMES gcov-5 gcov-6 gcov PATHS /usr/bin /usr/local/bin)
+
+    if(LCOV AND GCOV)
         message(STATUS "lcov found: ${LCOV}")
-        set(GCOV "/usr/local/bin/gcov-6")
+        message(STATUS "gcov found: ${GCOV}")
         add_custom_target(coverage
             COMMAND ${LCOV}
                 --gcov-tool=${GCOV}
@@ -20,7 +22,7 @@ if(${WITH_COVERAGE})
                 --capture
                 --output-file coverage.info
             COMMAND ${LCOV}
-                --remove coverage.info 'tests/Catch/*' '/usr/*' 'src/m_pd.h'
+                --remove coverage.info 'tests/Catch/*' '/usr/*' '/Applications/Xcode.app/*' 'src/m_pd.h'
                 --output-file coverage.info
             COMMAND ${LCOV}
                 --list coverage.info)
