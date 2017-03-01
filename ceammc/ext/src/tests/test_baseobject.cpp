@@ -28,4 +28,15 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
         REQUIRE(BaseObject::tryGetPropKey(gensym("@a?")) == gensym("@a"));
         REQUIRE(BaseObject::tryGetPropKey(gensym("@?")) == gensym("@"));
     }
+
+    SECTION("test construct")
+    {
+        BaseObject b(PdArgs(AtomList(), gensym("testname"), 0));
+        REQUIRE(b.owner() == 0);
+        REQUIRE(b.className() == "testname");
+        REQUIRE(b.receive() == 0);
+        REQUIRE(b.numOutlets() == 0);
+        REQUIRE(b.numInlets() == 0);
+        REQUIRE_FALSE(b.hasProperty(gensym("@?")));
+    }
 }
