@@ -7,13 +7,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure\\ Data 0.47.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2017-02-20 14:25+0300\n"
+"POT-Creation-Date: 2017-03-02 22:17+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../ceammc/ext/src/ui_bpfunc.cpp:956
@@ -804,8 +804,12 @@ msgstr ""
 msgid "Send a Pd message"
 msgstr ""
 
-#: ../tcl/dialog_message.tcl:81
+#: ../tcl/dialog_message.tcl:75 ../tcl/dialog_message.tcl:81
 msgid "(use arrow keys for history)"
+msgstr ""
+
+#: ../tcl/dialog_message.tcl:75
+msgid "(use arrow keys ↑↓ for history)"
 msgstr ""
 
 #: ../tcl/dialog_midi.tcl:115
@@ -912,12 +916,12 @@ msgstr ""
 msgid "Max Text Files (.mxt)"
 msgstr ""
 
-#: ../tcl/pd-gui.tcl:477 ../tcl/pd-gui.tcl:481
+#: ../tcl/pd-gui.tcl:477 ../tcl/pd-gui.tcl:479 ../tcl/pd-gui.tcl:481
 #, tcl-format
 msgid "WARNING: Font family '%s' not found, using default (%s)\n"
 msgstr ""
 
-#: ../tcl/pd-gui.tcl:485 ../tcl/pd-gui.tcl:489
+#: ../tcl/pd-gui.tcl:485 ../tcl/pd-gui.tcl:487 ../tcl/pd-gui.tcl:489
 #, tcl-format
 msgid "WARNING: Font weight '%s' not found, using default (%s)\n"
 msgstr ""
@@ -934,18 +938,99 @@ msgstr ""
 msgid "(Tcl) UNHANDLED ERROR: "
 msgstr ""
 
-#: ../tcl/pd_deken.tcl:292 ../tcl/pd_deken.tcl:293 ../tcl/pd_deken.tcl:337
-#: ../tcl/pd_deken.tcl:342
+#: ../tcl/pd_deken.tcl:283
+msgid "Install libraries to directory:"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl:292 ../tcl/pd_deken.tcl:293 ../tcl/pd_deken.tcl:294
+#: ../tcl/pd_deken.tcl:337 ../tcl/pd_deken.tcl:342 ../tcl/pd_deken.tcl:349
+#: ../tcl/pd_deken.tcl:350
 msgid "Show all"
 msgstr ""
 
-#: ../tcl/pd_deken.tcl:294 ../tcl/pd_deken.tcl:295
+#: ../tcl/pd_deken.tcl:294 ../tcl/pd_deken.tcl:295 ../tcl/pd_deken.tcl:296
 msgid "Search"
 msgstr ""
 
-#: ../tcl/pd_deken.tcl:319 ../tcl/pd_deken.tcl:324 ../tcl/pd_deken.tcl:565
-#: ../tcl/pd_deken.tcl:567 ../tcl/pd_deken.tcl:578 ../tcl/pd_deken.tcl:580
+#: ../tcl/pd_deken.tcl:317 ../tcl/pd_deken.tcl:318
+msgid "To get a list of all available externals, try an empty search."
+msgstr ""
+
+#: ../tcl/pd_deken.tcl:319 ../tcl/pd_deken.tcl:324 ../tcl/pd_deken.tcl:331
+#: ../tcl/pd_deken.tcl:332 ../tcl/pd_deken.tcl:565 ../tcl/pd_deken.tcl:567
+#: ../tcl/pd_deken.tcl:578 ../tcl/pd_deken.tcl:580 ../tcl/pd_deken.tcl:590
+#: ../tcl/pd_deken.tcl:591 ../tcl/pd_deken.tcl:592 ../tcl/pd_deken.tcl:593
 msgid "Find externals"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl:354 ../tcl/pd_deken.tcl:355
+msgid "Only install externals uploaded by people you trust."
+msgstr ""
+
+#: ../tcl/pd_deken.tcl:385 ../tcl/pd_deken.tcl:386
+msgid "Searching for externals..."
+msgstr ""
+
+#: ../tcl/pd_deken.tcl:392 ../tcl/pd_deken.tcl:393
+msgid "Unable to perform search. Are you online?"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl:409 ../tcl/pd_deken.tcl:410
+msgid "No matching externals found. Try using the full name e.g. 'freeverb'."
+msgstr ""
+
+#: ../tcl/pd_deken.tcl:452
+msgid "No writeable directory found in:"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl:454
+msgid "Cannot download/install libraries!"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl:458
+#, tcl-format
+msgid "Install to directory %s?"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl:469
+#, tcl-format
+msgid ""
+"Commencing downloading of:\n"
+"%s\n"
+"Into %s..."
+msgstr ""
+
+#: ../tcl/pd_deken.tcl:491
+#, tcl-format
+msgid "Successfully unzipped %s into %s.\n"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl:495 ../tcl/pd_deken.tcl:496
+msgid "Unable to extract package automatically."
+msgstr ""
+
+#: ../tcl/pd_deken.tcl:496 ../tcl/pd_deken.tcl:497
+msgid "Please perform the following steps manually:"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl:498
+#, tcl-format
+msgid "1. Unzip %s."
+msgstr ""
+
+#: ../tcl/pd_deken.tcl:500
+#, tcl-format
+msgid "2. Copy the contents into %s.\n"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl:579
+#, tcl-format
+msgid "searching for '%s'"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl:672
+#, tcl-format
+msgid "Uploaded by %s @ %s"
 msgstr ""
 
 #: ../tcl/pd_menucommands.tcl:217 ../tcl/pd_menus.tcl:327

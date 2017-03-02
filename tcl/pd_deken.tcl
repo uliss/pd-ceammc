@@ -278,8 +278,9 @@ proc ::deken::highlightable_posttag {tag} {
     # make sure that the 'highlight' tag is topmost
     $mytoplevelref.results tag raise highlight
 }
+
 proc ::deken::prompt_installdir {} {
-    set installdir [tk_chooseDirectory -title "Install libraries to directory:"]
+    set installdir [tk_chooseDirectory -title [_ "Install libraries to directory:"] ]
     if { "$installdir" != "" } {
         set ::deken::installpath $installdir
         return 1
@@ -314,7 +315,14 @@ proc ::deken::open_searchui {mytoplevel} {
         $mytoplevel.results tag configure archmatch
         $mytoplevel.results tag configure noarchmatch -foreground grey
     }
-    ::deken::post "To get a list of all available externals, try an empty search." info
+    ::deken::post [ _ "To get a list of all available externals, try an empty search." ] info
+}
+
+proc ::deken::makeReadOnly {textwidget} {
+    foreach event {<KeyPress> <<PasteSelection>>} {
+        bind $textwidget $event break
+    }
+    bind $textwidget <Control-c> {event generate %W <<Copy>>}
 }
 
 # build the externals search dialog window
@@ -334,27 +342,32 @@ proc ::deken::create_dialog {mytoplevel} {
     frame $mytoplevel.searchbit
     pack $mytoplevel.searchbit -side top -fill x
 
-    entry $mytoplevel.searchbit.entry -font 18 -relief sunken -highlightthickness 1 -highlightcolor blue
+    ttk::entry $mytoplevel.searchbit.entry
     pack $mytoplevel.searchbit.entry -side left -padx 6 -fill x -expand true
     bind $mytoplevel.searchbit.entry <Key-Return> "::deken::initiate_search $mytoplevel"
     bind $mytoplevel.searchbit.entry <KeyRelease> "::deken::update_searchbutton $mytoplevel"
     focus $mytoplevel.searchbit.entry
-    button $mytoplevel.searchbit.button -text [_ "Show all"] -default active -width 9 -command "::deken::initiate_search $mytoplevel"
+    ttk::button $mytoplevel.searchbit.button -text [_ "Show all"] -default active -command "::deken::initiate_search $mytoplevel"
     pack $mytoplevel.searchbit.button -side right -padx 6 -pady 3
 
     frame $mytoplevel.warning
     pack $mytoplevel.warning -side top -fill x
-    label $mytoplevel.warning.label -text "Only install externals uploaded by people you trust."
+    ttk::label $mytoplevel.warning.label -text [_ "Only install externals uploaded by people you trust."]
     pack $mytoplevel.warning.label -side left -padx 6
 
     frame $mytoplevel.status
     pack $mytoplevel.status -side bottom -fill x
-    label $mytoplevel.status.label -textvariable ::deken::statustext
+    ttk::label $mytoplevel.status.label -textvariable ::deken::statustext
     pack $mytoplevel.status.label -side left -padx 6
 
-    text $mytoplevel.results -takefocus 0 -cursor hand2 -height 100 -yscrollcommand "$mytoplevel.results.ys set"
-    scrollbar $mytoplevel.results.ys -orient vertical -command "$mytoplevel.results yview"
-    pack $mytoplevel.results.ys -side right -fill y
+    text $mytoplevel.results -takefocus 0 -padx 2 -pady 2 -bd 1 -highlightcolor grey \
+        -font {Helvetica 12} \
+        -highlightthickness 1 -cursor hand2 -height 100 -yscrollcommand "$mytoplevel.results.ys set"
+    ::deken::makeReadOnly $mytoplevel.results
+
+    ttk::scrollbar $mytoplevel.results.ys -orient vertical -command "$mytoplevel.results yview"
+
+    pack $mytoplevel.results.ys -side right -fill y -padx 0 -pady 0
     pack $mytoplevel.results -side top -padx 6 -pady 3 -fill both -expand true
 
     if { [ catch {
@@ -370,14 +383,14 @@ proc ::deken::create_dialog {mytoplevel} {
 proc ::deken::initiate_search {mytoplevel} {
     # let the user know what we're doing
     ::deken::clearpost
-    ::deken::post "Searching for externals..."
+    ::deken::post [_ "Searching for externals..." ]
     set ::deken::progressvar 0
     # make the ajax call
     if { [ catch {
         set results [::deken::search_for [$mytoplevel.searchbit.entry get]]
     } stdout ] } {
         ::pdwindow::debug "\[deken\]: online? $stdout\n"
-        ::deken::status "Unable to perform search. Are you online?"
+        ::deken::status [ _ "Unable to perform search. Are you online?" ]
     } else {
     # delete all text in the results
     ::deken::clearpost
@@ -394,7 +407,7 @@ proc ::deken::initiate_search {mytoplevel} {
         }
 	::deken::scrollup
     } else {
-        ::deken::post "No matching externals found. Try using the full name e.g. 'freeverb'."
+        ::deken::post [_ "No matching externals found. Try using the full name e.g. 'freeverb'."]
     }
 }}
 
@@ -436,13 +449,13 @@ proc ::deken::clicked_link {URL filename} {
     }
     if { "$installdir" == "" } {
         #::deken::clearpost
-        ::deken::post "No writeable directory found in:" warn
+        ::deken::post [_ "No writeable directory found in:"] warn
         foreach p $::sys_staticpath { ::deken::post "\t- $p" warn }
-        ::deken::post "Cannot download/install libraries!" warn
+        ::deken::post [_ "Cannot download/install libraries!"] warn
         return
     }
     switch -- [tk_messageBox -message \
-                   "Install to directory $installdir?" \
+                   [format [_ "Install to directory %s?"] $installdir] \
                    -type yesnocancel -default "yes" \
                    -icon question] {
                        no {set installdir ""
@@ -453,7 +466,7 @@ proc ::deken::clicked_link {URL filename} {
 
     set fullpkgfile "$installdir/$filename"
     ::deken::clearpost
-    ::deken::post "Commencing downloading of:\n$URL\nInto $installdir..."
+    ::deken::post [format [_ "Commencing downloading of:\n%s\nInto %s..." ] $URL $installdir]
     ::deken::download_file $URL $fullpkgfile
     set PWD [ pwd ]
     cd $installdir
@@ -475,16 +488,16 @@ proc ::deken::clicked_link {URL filename} {
     }
     cd $PWD
     if { $success > 0 } {
-        ::deken::post "Successfully unzipped $filename into $installdir.\n"
+        ::deken::post [format [_ "Successfully unzipped %s into %s.\n"] $filename $installdir]
         catch { exec rm $fullpkgfile }
     } else {
         # Open both the fullpkgfile folder and the zipfile itself
         # NOTE: in tcl 8.6 it should be possible to use the zlib interface to actually do the unzip
-        ::deken::post "Unable to extract package automatically." warn
-        ::deken::post "Please perform the following steps manually:"
-        ::deken::post "1. Unzip $fullpkgfile."
+        ::deken::post [_ "Unable to extract package automatically."] warn
+        ::deken::post [_ "Please perform the following steps manually:"]
+        ::deken::post [format [_ "1. Unzip %s."] $fullpkgfile]
         pd_menucommands::menu_openfile $fullpkgfile
-        ::deken::post "2. Copy the contents into $installdir.\n"
+        ::deken::post [format [_ "2. Copy the contents into %s.\n"] $installdir]
         pd_menucommands::menu_openfile $installdir
     }
 }
@@ -563,7 +576,7 @@ proc ::deken::architecture_match {archs} {
 }
 
 proc ::deken::search_for {term} {
-    ::deken::status "searching for '$term'"
+    ::deken::status [format [_ "searching for '%s'"] $term]
 
     set result [list]
     foreach searcher $::deken::backends {
@@ -656,7 +669,7 @@ proc ::deken::search::puredata.info {term} {
 
             set match [::deken::architecture_match "$archs" ]
 
-            set comment "Uploaded by $creator @ $date"
+            set comment [format [ _ "Uploaded by %s @ %s" ] $creator $date]
             set status $URL
             set sortname [lindex $pkgverarch 0]--[lindex $pkgverarch 1]--$date
             set res [list $name $cmd $match $comment $status $filename]
