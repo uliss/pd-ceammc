@@ -72,7 +72,7 @@ proc ::dialog_message::create_dialog {mytoplevel} {
     ttk::label .message.f.pad.semicolon -text ";"
     ttk::entry .message.f.pad.entry -width 50
     focus .message.f.pad.entry
-    ttk::label .message.f.pad.label -text [_ "(use arrow keys for history)"]
+    ttk::label .message.f.pad.label -text [_ "(use arrow keys ↑↓ for history)"]
 
     grid .message.f -row 0 -column 0
     grid .message.f.pad -row 0 -column 0 -padx 10 -pady 10
