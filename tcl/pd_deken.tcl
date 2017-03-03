@@ -322,7 +322,11 @@ proc ::deken::makeReadOnly {textwidget} {
     foreach event {<KeyPress> <<PasteSelection>>} {
         bind $textwidget $event break
     }
-    bind $textwidget <Control-c> {event generate %W <<Copy>>}
+    bind $textwidget <$::modifier-Key-c> {event generate %W <<Copy>>}
+}
+
+proc ::deken::cancel {mytoplevel} {
+    destroy $mytoplevel
 }
 
 # build the externals search dialog window
@@ -334,6 +338,9 @@ proc ::deken::create_dialog {mytoplevel} {
     wm minsize $mytoplevel 230 360
     wm transient $mytoplevel
     $mytoplevel configure -padx 10 -pady 5
+
+    bind $mytoplevel <KeyPress-Escape>   "::deken::cancel $mytoplevel"
+    bind $mytoplevel <$::modifier-Key-w> "::deken::cancel $mytoplevel"
 
     if {$::windowingsystem eq "aqua"} {
         $mytoplevel configure -menu $::dialog_menubar
