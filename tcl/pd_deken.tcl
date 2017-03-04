@@ -10,7 +10,7 @@
 # The minimum version of TCL that allows the plugin to run
 package require Tcl 8.4
 # If Tk or Ttk is needed
-#package require Ttk
+package require Ttk
 # Any elements of the Pd GUI that are required
 # + require everything and all your script needs.
 #   If a requirement is missing,
@@ -21,6 +21,16 @@ package require pd_menucommands 0.1
 
 namespace eval ::deken:: {
     variable version
+    variable normal_font
+    variable bold_font
+}
+
+if {$::windowingsystem eq "aqua"} {
+    set ::deken::normal_font [list TkDefaultFont 12]
+    set ::deken::bold_font [list TkDefaultFont 12 bold]
+} else {
+    set ::deken::normal_font [list TkDefaultFont 9]
+    set ::deken::bold_font [list TkDefaultFont 9 bold]
 }
 
 ## only register this plugin if there isn't any newer version already registered
@@ -314,6 +324,8 @@ proc ::deken::open_searchui {mytoplevel} {
         $mytoplevel.bg.results tag configure highlight -foreground blue -background "#F0F0F0"
         $mytoplevel.bg.results tag configure archmatch
         $mytoplevel.bg.results tag configure noarchmatch -foreground grey
+        $mytoplevel.bg.results tag configure titlematch -foreground black -font $::deken::bold_font
+        $mytoplevel.bg.results tag configure notitlematch -foreground "#A0A0A0" -font $::deken::bold_font
     }
     ::deken::post [ _ "To get a list of all available externals, try an empty search." ] info
 }
@@ -371,7 +383,7 @@ proc ::deken::create_dialog {mytoplevel} {
     pack $mytoplevel.bg.status.label -side left -padx 0
 
     text $mytoplevel.bg.results -takefocus 0 -padx 2 -pady 2 -bd 1 -highlightcolor grey \
-        -font {Helvetica 12} -bg white \
+        -font $::deken::normal_font -bg white \
         -highlightthickness 1 -cursor hand2 -height 100 -yscrollcommand "$mytoplevel.bg.ys set"
     ::deken::makeReadOnly $mytoplevel.bg.results
 
@@ -428,9 +440,11 @@ proc ::deken::show_result {mytoplevel counter result showmatches} {
     set tag ch$counter
     #if { [ ($match) ] } { set matchtag archmatch } { set matchtag noarchmatch }
     set matchtag [expr $match?"archmatch":"noarchmatch" ]
+    set titletag [expr $match?"titlematch":"notitlematch" ]
     if {($match == $showmatches)} {
         set comment [string map {"\n" "\n\t"} $comment]
-        ::deken::post "$title\n\t$comment\n" [list $tag $matchtag]
+        ::deken::post "$title\n" [list $tag $titletag]
+        ::deken::post "\t$comment\n" [list $tag $matchtag]
         ::deken::highlightable_posttag $tag
         ::deken::bind_posttag $tag <Enter> "+::deken::status $status"
         ::deken::bind_posttag $tag <1> "$cmd"
