@@ -290,10 +290,10 @@ proc ::deken::prompt_installdir {} {
 
 
 proc ::deken::update_searchbutton {mytoplevel} {
-    if { [$mytoplevel.searchbit.entry get] == "" } {
-        $mytoplevel.searchbit.button configure -text [_ "Show all" ]
+    if { [$mytoplevel.bg.searchbit.entry get] == "" } {
+        $mytoplevel.bg.searchbit.button configure -text [_ "Show all" ]
     } {
-        $mytoplevel.searchbit.button configure -text [_ "Search" ]
+        $mytoplevel.bg.searchbit.button configure -text [_ "Search" ]
     }
 }
 
@@ -308,12 +308,12 @@ proc ::deken::open_searchui {mytoplevel} {
         raise $mytoplevel
     } else {
         ::deken::create_dialog $mytoplevel
-        $mytoplevel.results tag configure error -foreground red
-        $mytoplevel.results tag configure warn -foreground orange
-        $mytoplevel.results tag configure info -foreground grey
-        $mytoplevel.results tag configure highlight -foreground blue
-        $mytoplevel.results tag configure archmatch
-        $mytoplevel.results tag configure noarchmatch -foreground grey
+        $mytoplevel.bg.results tag configure error -foreground red
+        $mytoplevel.bg.results tag configure warn -foreground orange
+        $mytoplevel.bg.results tag configure info -foreground grey
+        $mytoplevel.bg.results tag configure highlight -foreground blue -background "#F0F0F0"
+        $mytoplevel.bg.results tag configure archmatch
+        $mytoplevel.bg.results tag configure noarchmatch -foreground grey
     }
     ::deken::post [ _ "To get a list of all available externals, try an empty search." ] info
 }
@@ -332,12 +332,12 @@ proc ::deken::cancel {mytoplevel} {
 # build the externals search dialog window
 proc ::deken::create_dialog {mytoplevel} {
     toplevel $mytoplevel -class DialogWindow
-    variable mytoplevelref $mytoplevel
+    variable mytoplevelref $mytoplevel.bg
     wm title $mytoplevel [_ "Find externals"]
     wm geometry $mytoplevel 670x550
     wm minsize $mytoplevel 230 360
     wm transient $mytoplevel
-    $mytoplevel configure -padx 10 -pady 5
+    $mytoplevel configure -padx 0 -pady 0
 
     bind $mytoplevel <KeyPress-Escape>   "::deken::cancel $mytoplevel"
     bind $mytoplevel <$::modifier-Key-w> "::deken::cancel $mytoplevel"
@@ -346,41 +346,44 @@ proc ::deken::create_dialog {mytoplevel} {
         $mytoplevel configure -menu $::dialog_menubar
     }
 
-    frame $mytoplevel.searchbit
-    pack $mytoplevel.searchbit -side top -fill x
+    ttk::frame $mytoplevel.bg -padding 15
+    pack $mytoplevel.bg -fill both -expand true
 
-    ttk::entry $mytoplevel.searchbit.entry
-    pack $mytoplevel.searchbit.entry -side left -padx 6 -fill x -expand true
-    bind $mytoplevel.searchbit.entry <Key-Return> "::deken::initiate_search $mytoplevel"
-    bind $mytoplevel.searchbit.entry <KeyRelease> "::deken::update_searchbutton $mytoplevel"
-    focus $mytoplevel.searchbit.entry
-    ttk::button $mytoplevel.searchbit.button -text [_ "Show all"] -default active -command "::deken::initiate_search $mytoplevel"
-    pack $mytoplevel.searchbit.button -side right -padx 6 -pady 3
+    ttk::frame $mytoplevel.bg.searchbit
+    pack $mytoplevel.bg.searchbit -side top -fill x
 
-    frame $mytoplevel.warning
-    pack $mytoplevel.warning -side top -fill x
-    ttk::label $mytoplevel.warning.label -text [_ "Only install externals uploaded by people you trust."]
-    pack $mytoplevel.warning.label -side left -padx 6
+    ttk::entry $mytoplevel.bg.searchbit.entry
+    pack $mytoplevel.bg.searchbit.entry -side left -padx 0 -fill x -expand true
+    bind $mytoplevel.bg.searchbit.entry <Key-Return> "::deken::initiate_search $mytoplevel"
+    bind $mytoplevel.bg.searchbit.entry <KeyRelease> "::deken::update_searchbutton $mytoplevel"
+    focus $mytoplevel.bg.searchbit.entry
+    ttk::button $mytoplevel.bg.searchbit.button -text [_ "Show all"] -default active -command "::deken::initiate_search $mytoplevel"
+    pack $mytoplevel.bg.searchbit.button -side right -padx 10 -pady 0
 
-    frame $mytoplevel.status
-    pack $mytoplevel.status -side bottom -fill x
-    ttk::label $mytoplevel.status.label -textvariable ::deken::statustext
-    pack $mytoplevel.status.label -side left -padx 6
+    ttk::frame $mytoplevel.bg.warning
+    pack $mytoplevel.bg.warning -side top -fill x -pady 5
+    ttk::label $mytoplevel.bg.warning.label -takefocus 0 -text [_ "Only install externals uploaded by people you trust."]
+    pack $mytoplevel.bg.warning.label -side left -padx 10
 
-    text $mytoplevel.results -takefocus 0 -padx 2 -pady 2 -bd 1 -highlightcolor grey \
-        -font {Helvetica 12} \
-        -highlightthickness 1 -cursor hand2 -height 100 -yscrollcommand "$mytoplevel.results.ys set"
-    ::deken::makeReadOnly $mytoplevel.results
+    ttk::frame $mytoplevel.bg.status
+    pack $mytoplevel.bg.status -side bottom -fill x
+    ttk::label $mytoplevel.bg.status.label -textvariable ::deken::statustext -takefocus 0
+    pack $mytoplevel.bg.status.label -side left -padx 0
 
-    ttk::scrollbar $mytoplevel.results.ys -orient vertical -command "$mytoplevel.results yview"
+    text $mytoplevel.bg.results -takefocus 0 -padx 2 -pady 2 -bd 1 -highlightcolor grey \
+        -font {Helvetica 12} -bg white \
+        -highlightthickness 1 -cursor hand2 -height 100 -yscrollcommand "$mytoplevel.bg.ys set"
+    ::deken::makeReadOnly $mytoplevel.bg.results
 
-    pack $mytoplevel.results.ys -side right -fill y -padx 0 -pady 0
-    pack $mytoplevel.results -side top -padx 6 -pady 3 -fill both -expand true
+    ttk::scrollbar $mytoplevel.bg.ys -orient vertical -command "$mytoplevel.bg.results yview"
+
+    pack $mytoplevel.bg.ys -side right -fill y -padx 0 -pady 0
+    pack $mytoplevel.bg.results -side top -padx 0 -pady 0 -fill both -expand true
 
     if { [ catch {
-        ttk::progressbar $mytoplevel.progress -orient horizontal -length 640 -maximum 100 -mode determinate -variable ::deken::progressvar } stdout ] } {
+        ttk::progressbar $mytoplevel.bg.progress -takefocus 0 -orient horizontal -length 640 -maximum 100 -mode determinate -variable ::deken::progressvar } stdout ] } {
     } {
-        pack $mytoplevel.progress -side bottom
+        pack $mytoplevel.bg.progress -side bottom -pady 5
         proc ::deken::progress {x} {
             set ::deken::progressvar $x
         }
@@ -394,7 +397,7 @@ proc ::deken::initiate_search {mytoplevel} {
     set ::deken::progressvar 0
     # make the ajax call
     if { [ catch {
-        set results [::deken::search_for [$mytoplevel.searchbit.entry get]]
+        set results [::deken::search_for [$mytoplevel.bg.searchbit.entry get]]
     } stdout ] } {
         ::pdwindow::debug "\[deken\]: online? $stdout\n"
         ::deken::status [ _ "Unable to perform search. Are you online?" ]
