@@ -42,7 +42,7 @@
 #X text 125 513 5\.;
 #X text 150 513 property;
 #X obj 231 514 cnv 1 45 18 empty empty empty 17 7 0 10 -237308 -1 0;
-#X text 230 513 @loop: alias for "@mode wrap" property\.\. ;
+#X text 230 513 @loop: alias for "@mode loop" property\.\. ;
 #X text 125 531 6\.;
 #X text 150 531 property;
 #X obj 231 532 cnv 1 45 18 empty empty empty 17 7 0 10 -237308 -1 0;

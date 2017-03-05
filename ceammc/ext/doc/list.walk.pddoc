@@ -23,7 +23,7 @@
             "clip", "wrap" or "fold".</argument>
             <argument type="property" name="@single">alias for "@mode single" property.</argument>
             <argument type="property" name="@clip">alias for "@mode clip" property.</argument>
-            <argument type="property" name="@loop">alias for "@mode wrap" property.</argument>
+            <argument type="property" name="@loop">alias for "@mode loop" property.</argument>
             <argument type="property" name="@wrap">alias for "@mode wrap" property.</argument>
             <argument type="property" name="@fold">alias for "@mode fold" property.</argument>
         </arguments>
