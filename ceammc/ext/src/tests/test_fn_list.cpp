@@ -396,6 +396,22 @@ TEST_CASE("list functions", "[ceammc::list]")
         REQUIRE(idx == 0);
         REQUIRE(list::calcFoldIndex(-3, 2, &idx));
         REQUIRE(idx == 1);
+
+        // positive even
+        REQUIRE(list::calcFoldIndex(0, 4, &idx));
+        REQUIRE(idx == 0);
+        REQUIRE(list::calcFoldIndex(1, 4, &idx));
+        REQUIRE(idx == 1);
+        REQUIRE(list::calcFoldIndex(2, 4, &idx));
+        REQUIRE(idx == 2);
+        REQUIRE(list::calcFoldIndex(3, 4, &idx));
+        REQUIRE(idx == 3);
+        REQUIRE(list::calcFoldIndex(4, 4, &idx));
+        REQUIRE(idx == 2);
+        REQUIRE(list::calcFoldIndex(5, 4, &idx));
+        REQUIRE(idx == 1);
+        REQUIRE(list::calcFoldIndex(6, 4, &idx));
+        REQUIRE(idx == 0);
     }
 
     SECTION("slice wrap")

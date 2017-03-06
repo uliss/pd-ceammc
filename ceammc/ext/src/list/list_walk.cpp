@@ -1,7 +1,11 @@
 #include "ceammc_factory.h"
+#include "ceammc_fn_list.h"
 #include "ceammc_object.h"
 
 using namespace ceammc;
+using namespace ceammc::list;
+
+static const int FLOOR_IDX = -1;
 
 class ListWalk : public BaseObject {
     AtomList lst_;
@@ -11,7 +15,9 @@ class ListWalk : public BaseObject {
     t_symbol* m_wrap_;
     t_symbol* m_fold_;
     int current_pos_;
+    int length_;
     bool forward_;
+    bool single_done_;
 
 public:
     ListWalk(const PdArgs& a)
@@ -21,14 +27,18 @@ public:
         , m_clip_(gensym("clip"))
         , m_wrap_(gensym("wrap"))
         , m_fold_(gensym("fold"))
-        , current_pos_(0)
+        , current_pos_(FLOOR_IDX)
+        , length_(1)
         , forward_(true)
+        , single_done_(false)
     {
         createOutlet();
 
         createProperty(new PointerProperty<bool>("@direction", &forward_, false));
         createProperty(new PointerProperty<int>("@index", &current_pos_, false));
+        createProperty(new PointerProperty<int>("@length", &length_, false));
         createProperty(new PointerProperty<AtomList>("@value", &lst_));
+
         walk_mode_ = new SymbolEnumProperty("@mode", "single");
         walk_mode_->appendEnum("wrap");
         walk_mode_->appendEnum("clip");
@@ -42,6 +52,8 @@ public:
         createProperty(new SymbolEnumAlias("@clip", walk_mode_, gensym("clip")));
         createProperty(new SymbolEnumAlias("@fold", walk_mode_, gensym("fold")));
 
+        createCbProperty("@size", &ListWalk::p_size);
+
         parseArguments();
         lst_ = args();
     }
@@ -54,64 +66,107 @@ public:
         current_pos_ = 0;
     }
 
+    void m_current(t_symbol*, const AtomList&) { current(); }
     void m_next(t_symbol*, const AtomList& l) { next(atomlistToValue<int>(l, 1)); }
     void m_prev(t_symbol*, const AtomList& l) { prev(atomlistToValue<int>(l, 1)); }
-    void m_reset(t_symbol*, const AtomList& l) { current_pos_ = 0; }
+
+    void m_reset(t_symbol*, const AtomList&)
+    {
+        current_pos_ = FLOOR_IDX;
+        single_done_ = true;
+    }
+
+    AtomList p_size() const { return AtomList(lst_.size()); }
 
 private:
     void next(int step = 1)
     {
         if (forward_) {
-            go_to(current_pos_);
-            current_pos_ += step;
+            toPosition(current_pos_ + step);
+            current();
         } else {
-            go_to(current_pos_);
-            current_pos_ -= step;
+            toPosition(current_pos_ - step);
+            current();
         }
     }
 
     void prev(int step = 1)
     {
         if (forward_) {
-            go_to(current_pos_);
-            current_pos_ -= step;
+            toPosition(current_pos_ - step);
+            current();
         } else {
-            go_to(current_pos_);
-            current_pos_ += step;
+            toPosition(current_pos_ + step);
+            current();
         }
     }
 
-    void go_to(int pos)
+    void toPosition(int pos)
     {
-        Atom* a = 0;
+        if (lst_.empty()) {
+            OBJ_ERR << "list is empty";
+            return;
+        }
+
+        size_t idx = 0;
 
         if (walk_mode_->value() == m_single_) {
-            if (pos < 0 || pos >= lst_.size())
+            if (pos < 0) {
+                current_pos_ = 0;
+                single_done_ = true;
+            } else if (pos < lst_.size()) {
+                current_pos_ = pos;
+                single_done_ = false;
+            } else {
+                current_pos_ = lst_.size() - 1;
+                single_done_ = true;
+            }
+        } else if (walk_mode_->value() == m_wrap_) {
+            if (calcWrapIndex(pos, lst_.size(), &idx))
+                current_pos_ = idx;
+        } else if (walk_mode_->value() == m_clip_) {
+            if (calcClipIndex(pos, lst_.size(), &idx))
+                current_pos_ = idx;
+        } else if (walk_mode_->value() == m_fold_) {
+            current_pos_ = abs(pos) % static_cast<int>(lst_.size() * 2);
+        } else {
+            OBJ_ERR << "unsupported list mode: " << walk_mode_->value()->s_name;
+        }
+    }
+
+    void current()
+    {
+        if (length_ < 1) {
+            OBJ_ERR << "output list length should be greater then zero: " << length_;
+            return;
+        }
+
+        //! single
+        if (walk_mode_->value() == m_single_) {
+            if (single_done_)
                 return;
 
-            a = &lst_[pos];
+            listTo(0, lst_.slice(current_pos_, current_pos_ + length_));
         }
-
+        //! clip
         else if (walk_mode_->value() == m_clip_) {
-            a = lst_.clipAt(pos);
+            listTo(0, list::sliceClip(lst_, current_pos_, length_));
         }
-
+        //! wrap/loop
         else if (walk_mode_->value() == m_wrap_) {
-            a = lst_.wrapAt(pos);
+            listTo(0, list::sliceWrap(lst_, current_pos_, length_));
         }
-
+        //! fold
         else if (walk_mode_->value() == m_fold_) {
-            a = lst_.foldAt(pos);
+            listTo(0, list::sliceFold(lst_, current_pos_, length_));
         }
-
-        if (a != 0)
-            atomTo(0, *a);
     }
 };
 
 extern "C" void setup_list0x2ewalk()
 {
     ObjectFactory<ListWalk> obj("list.walk");
+    obj.addMethod("current", &ListWalk::m_current);
     obj.addMethod("next", &ListWalk::m_next);
     obj.addMethod("prev", &ListWalk::m_prev);
     obj.addMethod("reset", &ListWalk::m_reset);
