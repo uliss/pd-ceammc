@@ -307,6 +307,38 @@ TEST_CASE("list functions", "[ceammc::list]")
         REQUIRE(idx == 2);
     }
 
+    SECTION("calc wrap index")
+    {
+        REQUIRE_FALSE(list::calcWrapIndex(10, 4, 0));
+        REQUIRE_FALSE(list::calcWrapIndex(10, 0, 0));
+
+        size_t idx = 100;
+        REQUIRE_FALSE(list::calcWrapIndex(10, 0, &idx));
+        REQUIRE(list::calcWrapIndex(10, 1, &idx));
+        REQUIRE(idx == 0);
+        idx = 100;
+        REQUIRE(list::calcWrapIndex(0, 3, &idx));
+        REQUIRE(idx == 0);
+        REQUIRE(list::calcWrapIndex(1, 3, &idx));
+        REQUIRE(idx == 1);
+        REQUIRE(list::calcWrapIndex(2, 3, &idx));
+        REQUIRE(idx == 2);
+        REQUIRE(list::calcWrapIndex(3, 3, &idx));
+        REQUIRE(idx == 0);
+        REQUIRE(list::calcWrapIndex(4, 3, &idx));
+        REQUIRE(idx == 1);
+        REQUIRE(list::calcWrapIndex(5, 3, &idx));
+        REQUIRE(idx == 2);
+        REQUIRE(list::calcWrapIndex(-1, 3, &idx));
+        REQUIRE(idx == 2);
+        REQUIRE(list::calcWrapIndex(-2, 3, &idx));
+        REQUIRE(idx == 1);
+        REQUIRE(list::calcWrapIndex(-3, 3, &idx));
+        REQUIRE(idx == 0);
+        REQUIRE(list::calcWrapIndex(-4, 3, &idx));
+        REQUIRE(idx == 2);
+    }
+
     SECTION("slice wrap")
     {
         REQUIRE(list::sliceWrap(AtomList(1, 2), 0, 0) == AtomList());

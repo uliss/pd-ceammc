@@ -237,5 +237,19 @@ namespace list {
         *idx = std::max<long>(0, std::min<long>(pos, len - 1));
         return true;
     }
+
+    bool calcWrapIndex(int pos, size_t len, size_t* idx)
+    {
+        if (len == 0 || idx == 0)
+            return false;
+
+        pos %= static_cast<int>(len);
+        if (pos < 0)
+            pos += len;
+
+        *idx = pos;
+
+        return true;
+    }
 }
 }

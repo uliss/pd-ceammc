@@ -48,6 +48,7 @@ namespace list {
     AtomList sliceFold(const AtomList& l, int pos, size_t len);
 
     bool calcClipIndex(int pos, size_t len, size_t* idx);
+    bool calcWrapIndex(int pos, size_t len, size_t* idx);
 }
 }
 
