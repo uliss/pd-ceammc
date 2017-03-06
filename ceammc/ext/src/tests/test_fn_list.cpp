@@ -339,6 +339,65 @@ TEST_CASE("list functions", "[ceammc::list]")
         REQUIRE(idx == 2);
     }
 
+    SECTION("calc fold index")
+    {
+        REQUIRE_FALSE(list::calcFoldIndex(10, 4, 0));
+        REQUIRE_FALSE(list::calcFoldIndex(10, 0, 0));
+
+        size_t idx = 100;
+        REQUIRE_FALSE(list::calcFoldIndex(10, 0, &idx));
+        REQUIRE(list::calcFoldIndex(10, 1, &idx));
+        REQUIRE(idx == 0);
+        idx = 100;
+
+        // positive odd
+        REQUIRE(list::calcFoldIndex(0, 3, &idx));
+        REQUIRE(idx == 0);
+        REQUIRE(list::calcFoldIndex(1, 3, &idx));
+        REQUIRE(idx == 1);
+        REQUIRE(list::calcFoldIndex(2, 3, &idx));
+        REQUIRE(idx == 2);
+        REQUIRE(list::calcFoldIndex(3, 3, &idx));
+        REQUIRE(idx == 1);
+        REQUIRE(list::calcFoldIndex(4, 3, &idx));
+        REQUIRE(idx == 0);
+        REQUIRE(list::calcFoldIndex(5, 3, &idx));
+        REQUIRE(idx == 1);
+        REQUIRE(list::calcFoldIndex(6, 3, &idx));
+
+        // negative odd
+        REQUIRE(list::calcFoldIndex(0, 3, &idx));
+        REQUIRE(idx == 0);
+        REQUIRE(list::calcFoldIndex(-1, 3, &idx));
+        REQUIRE(idx == 1);
+        REQUIRE(list::calcFoldIndex(-2, 3, &idx));
+        REQUIRE(idx == 2);
+        REQUIRE(list::calcFoldIndex(-3, 3, &idx));
+        REQUIRE(idx == 1);
+        REQUIRE(list::calcFoldIndex(-4, 3, &idx));
+        REQUIRE(idx == 0);
+
+        // positive even
+        REQUIRE(list::calcFoldIndex(0, 2, &idx));
+        REQUIRE(idx == 0);
+        REQUIRE(list::calcFoldIndex(1, 2, &idx));
+        REQUIRE(idx == 1);
+        REQUIRE(list::calcFoldIndex(2, 2, &idx));
+        REQUIRE(idx == 0);
+        REQUIRE(list::calcFoldIndex(3, 2, &idx));
+        REQUIRE(idx == 1);
+
+        // negative even
+        REQUIRE(list::calcFoldIndex(0, 2, &idx));
+        REQUIRE(idx == 0);
+        REQUIRE(list::calcFoldIndex(-1, 2, &idx));
+        REQUIRE(idx == 1);
+        REQUIRE(list::calcFoldIndex(-2, 2, &idx));
+        REQUIRE(idx == 0);
+        REQUIRE(list::calcFoldIndex(-3, 2, &idx));
+        REQUIRE(idx == 1);
+    }
+
     SECTION("slice wrap")
     {
         REQUIRE(list::sliceWrap(AtomList(1, 2), 0, 0) == AtomList());

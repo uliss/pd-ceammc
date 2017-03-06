@@ -49,6 +49,7 @@ namespace list {
 
     bool calcClipIndex(int pos, size_t len, size_t* idx);
     bool calcWrapIndex(int pos, size_t len, size_t* idx);
+    bool calcFoldIndex(int pos, size_t len, size_t* idx);
 }
 }
 

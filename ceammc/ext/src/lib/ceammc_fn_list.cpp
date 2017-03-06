@@ -251,5 +251,21 @@ namespace list {
 
         return true;
     }
+
+    bool calcFoldIndex(int pos, size_t len, size_t* idx)
+    {
+        if (len == 0 || idx == 0)
+            return false;
+
+        if (len == 1) {
+            *idx = 0;
+            return true;
+        }
+
+        const size_t a = len - 1;
+        const size_t b = static_cast<size_t>(abs(pos)) % (a * 2);
+        *idx = std::min(b, a * 2 - b);
+        return true;
+    }
 }
 }
