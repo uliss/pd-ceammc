@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "ceammc_fn_list.h"
 
+#include <cstdlib>
 #include <limits>
 #include <map>
 
