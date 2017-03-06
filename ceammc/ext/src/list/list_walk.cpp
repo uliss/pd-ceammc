@@ -27,8 +27,8 @@ public:
         createOutlet();
 
         createProperty(new PointerProperty<bool>("@direction", &forward_, false));
-        createProperty(new PointerProperty<int>("@current_pos", &current_pos_, false));
-        createProperty(new PointerProperty<AtomList>("@current_list", &lst_));
+        createProperty(new PointerProperty<int>("@index", &current_pos_, false));
+        createProperty(new PointerProperty<AtomList>("@value", &lst_));
         walk_mode_ = new SymbolEnumProperty("@mode", "single");
         walk_mode_->appendEnum("wrap");
         walk_mode_->appendEnum("clip");
@@ -56,6 +56,7 @@ public:
 
     void m_next(t_symbol*, const AtomList& l) { next(atomlistToValue<int>(l, 1)); }
     void m_prev(t_symbol*, const AtomList& l) { prev(atomlistToValue<int>(l, 1)); }
+    void m_reset(t_symbol*, const AtomList& l) { current_pos_ = 0; }
 
 private:
     void next(int step = 1)
@@ -113,4 +114,5 @@ extern "C" void setup_list0x2ewalk()
     ObjectFactory<ListWalk> obj("list.walk");
     obj.addMethod("next", &ListWalk::m_next);
     obj.addMethod("prev", &ListWalk::m_prev);
+    obj.addMethod("reset", &ListWalk::m_reset);
 }

@@ -61,10 +61,10 @@
 #X msg 125 641 @direction;
 #X text 230 641 set walking direction property\. "1" - forwards \, "0"
 - backwards\.;
-#X msg 125 678 @current_list?;
+#X msg 125 678 @value?;
 #X text 230 678 get current list;
-#X msg 125 705 @current_pos?;
-#X text 230 705 get current list position;
+#X msg 125 705 @index?;
+#X text 230 705 get current position;
 #X msg 125 732 next;
 #X text 230 732 outputs current element and moves to next with given
 step\. By default = 1;
