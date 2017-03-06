@@ -347,5 +347,29 @@ TEST_CASE("list.walk", "[PureData]")
             CALL(t, prev);
             REQUIRE_LIST_MSG(t, AtomList(1));
         }
+
+        SECTION("step 2")
+        {
+            AtomList args(gensym("@clip"));
+            ListWalkTest t("list.walk", args);
+
+            t.sendList(AtomList::values(3, 1.0, 2.0, 3.0));
+
+            CALL(t, current);
+            REQUIRE_LIST_MSG(t, AtomList(1));
+
+            CALL1(t, next, 2);
+            REQUIRE_LIST_MSG(t, AtomList(3));
+            CALL1(t, next, 2);
+            REQUIRE_LIST_MSG(t, AtomList(3));
+            CALL1(t, next, 2);
+            REQUIRE_LIST_MSG(t, AtomList(3));
+
+            CALL1(t, prev, 2);
+            REQUIRE_LIST_MSG(t, AtomList(1));
+
+            CALL1(t, prev, 4);
+            REQUIRE_LIST_MSG(t, AtomList(1));
+        }
     }
 }
