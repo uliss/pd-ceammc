@@ -48,7 +48,8 @@ void ListWalk::onBang() { next(); }
 void ListWalk::onList(const AtomList& l)
 {
     lst_ = l;
-    current_pos_ = 0;
+    current_pos_ = FLOOR_IDX;
+    single_done_ = false;
 }
 
 void ListWalk::m_current(t_symbol*, const AtomList&) { current(); }
@@ -58,7 +59,7 @@ void ListWalk::m_prev(t_symbol*, const AtomList& l) { prev(atomlistToValue<int>(
 void ListWalk::m_reset(t_symbol*, const AtomList&)
 {
     current_pos_ = FLOOR_IDX;
-    single_done_ = true;
+    single_done_ = false;
 }
 
 AtomList ListWalk::p_size() const { return AtomList(lst_.size()); }
