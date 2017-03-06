@@ -11,7 +11,7 @@ endmacro()
 macro(ceammc_add_extension_test name extpath)
     add_executable("test_${name}" "test_${name}.cpp" ${extpath})
     target_link_libraries("test_${name}" ceammc_static puredata-core ceammc_timeline)
-    add_test("Extension test: ${name}" ${name})
+    add_test("Extension::${name}" "test_${name}")
 
     if(${WITH_COVERAGE})
         set_target_properties(${name} PROPERTIES COMPILE_FLAGS "--coverage" LINK_FLAGS "--coverage")
