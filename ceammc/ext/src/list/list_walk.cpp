@@ -1,5 +1,7 @@
 #include "list_walk.h"
 
+#include <cstdlib>
+
 using namespace ceammc;
 using namespace ceammc::list;
 
