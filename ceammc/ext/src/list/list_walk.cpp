@@ -3,8 +3,6 @@
 using namespace ceammc;
 using namespace ceammc::list;
 
-static const int FLOOR_IDX = -1;
-
 ListWalk::ListWalk(const PdArgs& a)
     : BaseObject(a)
     , walk_mode_(0)
@@ -12,7 +10,7 @@ ListWalk::ListWalk(const PdArgs& a)
     , m_clip_(gensym("clip"))
     , m_wrap_(gensym("wrap"))
     , m_fold_(gensym("fold"))
-    , current_pos_(FLOOR_IDX)
+    , current_pos_(0)
     , length_(1)
     , forward_(true)
     , single_done_(false)
@@ -48,7 +46,7 @@ void ListWalk::onBang() { next(); }
 void ListWalk::onList(const AtomList& l)
 {
     lst_ = l;
-    current_pos_ = FLOOR_IDX;
+    current_pos_ = 0;
     single_done_ = false;
 }
 
@@ -58,7 +56,7 @@ void ListWalk::m_prev(t_symbol*, const AtomList& l) { prev(atomlistToValue<int>(
 
 void ListWalk::m_reset(t_symbol*, const AtomList&)
 {
-    current_pos_ = FLOOR_IDX;
+    current_pos_ = 0;
     single_done_ = false;
 }
 
