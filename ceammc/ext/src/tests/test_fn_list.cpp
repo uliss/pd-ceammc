@@ -282,4 +282,43 @@ TEST_CASE("list functions", "[ceammc::list]")
 
         REQUIRE(list::countRepeats(AtomList(gensym("a"), gensym("a"))) == AtomList(gensym("a"), 2.f));
     }
+
+    SECTION("calc clip index")
+    {
+        REQUIRE_FALSE(list::calcClipIndex(10, 4, 0));
+        REQUIRE_FALSE(list::calcClipIndex(10, 0, 0));
+
+        size_t idx = 100;
+        REQUIRE_FALSE(list::calcClipIndex(10, 0, &idx));
+        REQUIRE(list::calcClipIndex(10, 1, &idx));
+        REQUIRE(idx == 0);
+        idx = 100;
+        REQUIRE(list::calcClipIndex(-1, 1, &idx));
+        REQUIRE(idx == 0);
+        REQUIRE(list::calcClipIndex(-1, 2, &idx));
+        REQUIRE(idx == 0);
+        REQUIRE(list::calcClipIndex(0, 2, &idx));
+        REQUIRE(idx == 0);
+        REQUIRE(list::calcClipIndex(1, 2, &idx));
+        REQUIRE(idx == 1);
+        REQUIRE(list::calcClipIndex(2, 2, &idx));
+        REQUIRE(idx == 1);
+        REQUIRE(list::calcClipIndex(2, 3, &idx));
+        REQUIRE(idx == 2);
+    }
+
+    SECTION("slice wrap")
+    {
+        REQUIRE(list::sliceWrap(AtomList(1, 2), 0, 0) == AtomList());
+        REQUIRE(list::sliceWrap(AtomList(1, 2), 0, 1) == AtomList(1));
+        REQUIRE(list::sliceWrap(AtomList(1, 2), 0, 2) == AtomList(1, 2));
+
+        REQUIRE(list::sliceWrap(AtomList(1, 2), 1, 0) == AtomList());
+        REQUIRE(list::sliceWrap(AtomList(1, 2), 1, 1) == AtomList(2));
+        REQUIRE(list::sliceWrap(AtomList(1, 2), 1, 2) == AtomList(2, 1));
+
+        REQUIRE(list::sliceWrap(AtomList(1, 2), 2, 0) == AtomList());
+        REQUIRE(list::sliceWrap(AtomList(1, 2), 2, 1) == AtomList(1));
+        REQUIRE(list::sliceWrap(AtomList(1, 2), 2, 2) == AtomList(1, 2));
+    }
 }

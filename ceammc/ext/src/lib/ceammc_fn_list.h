@@ -42,6 +42,12 @@ namespace list {
     float average(const AtomList& l);
 
     AtomList countRepeats(const AtomList& l);
+
+    AtomList sliceWrap(const AtomList& l, int pos, size_t len);
+    AtomList sliceClip(const AtomList& l, int pos, size_t len);
+    AtomList sliceFold(const AtomList& l, int pos, size_t len);
+
+    bool calcClipIndex(int pos, size_t len, size_t* idx);
 }
 }
 

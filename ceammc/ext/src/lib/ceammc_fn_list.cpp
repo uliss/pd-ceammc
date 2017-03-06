@@ -198,5 +198,44 @@ namespace list {
 
         return res;
     }
+
+    AtomList sliceWrap(const AtomList& l, int pos, size_t len)
+    {
+        AtomList res;
+
+        for (int i = pos; i < pos + len; i++)
+            res.append(*l.wrapAt(i));
+
+        return res;
+    }
+
+    AtomList sliceClip(const AtomList& l, int pos, size_t len)
+    {
+        AtomList res;
+
+        for (int i = pos; i < pos + len; i++)
+            res.append(*l.clipAt(i));
+
+        return res;
+    }
+
+    AtomList sliceFold(const AtomList& l, int pos, size_t len)
+    {
+        AtomList res;
+
+        for (int i = pos; i < pos + len; i++)
+            res.append(*l.foldAt(i));
+
+        return res;
+    }
+
+    bool calcClipIndex(int pos, size_t len, size_t* idx)
+    {
+        if (len == 0 || idx == 0)
+            return false;
+
+        *idx = std::max<long>(0, std::min<long>(pos, len - 1));
+        return true;
+    }
 }
 }
