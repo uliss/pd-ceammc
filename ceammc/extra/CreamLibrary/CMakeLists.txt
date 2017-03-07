@@ -5,7 +5,6 @@ include_directories(${PROJECT_SOURCE_DIR}/src)
 include_directories(../CicmWrapper/Sources)
 
 set(CREAM_SRC
-
     Deprecated/c.loadmess.cpp
     Deprecated/c.prepend.cpp
     Deprecated/c.pak.cpp
@@ -14,8 +13,8 @@ set(CREAM_SRC
     Deprecated/c.patchermess.cpp
 #    Deprecated/c.prepend.cpp
 #    Sources/c.bang.cpp
-    Sources/c.blackboard.cpp
-    Sources/c.breakpoints.cpp
+#    Sources/c.blackboard.cpp
+#    Sources/c.breakpoints.cpp
 #    Sources/c.camomile.cpp
     Sources/c.colorpanel.cpp
     Sources/c.dsp_tilde.cpp
@@ -47,6 +46,10 @@ set(CREAM_SRC
     Sources/c.preset.cpp
 )
 
+set(CREAM_COMPLETION "ceammc_objects.txt")
+add_custom_target(cream_completion SOURCES ${CREAM_COMPLETION})
+install(FILES ${CREAM_COMPLETION} DESTINATION ${PD_GUI_PLUGINS_PATH}/ceammc)
+
 add_library(cream_core STATIC ${CREAM_SRC})
 set(CREAM_COMPILE_FLAGS "")
 if(UNIX)
@@ -62,3 +65,5 @@ pd_add_extension(NAME creammc
     INTERNAL True
     LIBRARY ceammc
     LINK cicm_static cream_core)
+
+

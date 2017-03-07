@@ -8,6 +8,7 @@ PD_CONTENT=$BUILD_DIR/dist/$PD_APP/Contents
 PD_RESOURCES=$PD_CONTENT/Resources
 PD_EXTRA=$PD_RESOURCES/extra
 PD_BIN=$PD_RESOURCES/bin
+PD_TCL=$PD_RESOURCES/tcl
 
 PD_INFO="$BUILD_DIR/dist/Info.plist"
 PD_ICON="$SRC_DIR/ceammc/gui/icons/pd_ceammc.icns"
@@ -121,6 +122,7 @@ echo "Copying CICM/Cream files:"
 cp $BUILD_DIR/ceammc/extra/CreamLibrary/creammc.d_fat $PD_EXTRA/ceammc
 cp -R $SRC_DIR/ceammc/extra/CreamLibrary/Package/Cream/helps $PD_EXTRA/ceammc
 cp $SRC_DIR/ceammc/extra/CreamLibrary/Package/Cream/misc/* $PD_EXTRA/ceammc/helps
+cp $SRC_DIR/ceammc/extra/CreamLibrary/ceammc_objects.txt $PD_TCL/ceammc
 
 echo "Copying license..."
 cp $SRC_DIR/License.txt Scripts

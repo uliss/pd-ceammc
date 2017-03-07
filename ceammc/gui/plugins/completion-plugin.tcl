@@ -105,6 +105,7 @@ proc ::completion::init {} {
     ::completion::add_user_externals
     ::completion::add_libraries_externals
     ::completion::add_user_objectlist
+    ::completion::add_ceammc_externals
     set ::all_externals [lsort $::all_externals]
 }
 
@@ -155,6 +156,11 @@ proc ::completion::add_libraries_externals {} {
         set filename [file join $::current_plugin_loadpath "extra_objects" $lib]
         ::completion::read_objectlist_file [format "%s.txt" $filename]
     }
+}
+
+proc ::completion::add_ceammc_externals {} {
+    set filename [file join $::current_plugin_loadpath "ceammc_objects"]
+    ::completion::read_objectlist_file [format "%s.txt" $filename]
 }
 
 proc ::completion::add_user_objectlist {} {
