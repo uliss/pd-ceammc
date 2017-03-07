@@ -44,6 +44,7 @@ public:
     void m_reset(t_symbol*, const AtomList&);
 
     AtomList p_size() const;
+    AtomList p_index() const;
 
 private:
     void next(int step = 1);

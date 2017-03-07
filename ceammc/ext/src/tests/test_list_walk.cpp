@@ -41,6 +41,13 @@ typedef TestExtension<ListWalk> ListWalkTest;
         REQUIRE(obj.lastMessage().listValue() == lst); \
     }
 
+#define REQUIRE_PROP(obj, name, val)                      \
+    {                                                     \
+        Property* p = obj.getProperty(gensym("@" #name)); \
+        REQUIRE(p != 0);                                  \
+        REQUIRE(p->get() == val);                         \
+    }
+
 #define REQUIRE_NO_MSG(obj) REQUIRE_FALSE(obj.hasNewMessages())
 
 TEST_CASE("list.walk", "[PureData]")
@@ -366,6 +373,103 @@ TEST_CASE("list.walk", "[PureData]")
             REQUIRE_LIST_MSG(t, AtomList(3));
 
             CALL1(t, prev, 2);
+            REQUIRE_LIST_MSG(t, AtomList(1));
+
+            CALL1(t, prev, 4);
+            REQUIRE_LIST_MSG(t, AtomList(1));
+        }
+
+        SECTION("length 2")
+        {
+            AtomList args(gensym("@clip"));
+            args.append(AtomList(gensym("@length"), 2));
+            ListWalkTest t("list.walk", args);
+
+            t.sendList(AtomList::values(5, 1.0, 2.0, 3.0, 4.0, 5.0));
+
+            CALL(t, current);
+            REQUIRE_LIST_MSG(t, AtomList(1, 2));
+
+            CALL1(t, next, 2);
+            REQUIRE_LIST_MSG(t, AtomList(3, 4));
+            CALL1(t, next, 2);
+            REQUIRE_LIST_MSG(t, AtomList(5, 5));
+            CALL1(t, next, 2);
+            REQUIRE_LIST_MSG(t, AtomList(5, 5));
+
+            CALL1(t, prev, 3);
+            REQUIRE_LIST_MSG(t, AtomList(2, 3));
+            CALL1(t, prev, 3);
+            REQUIRE_LIST_MSG(t, AtomList(1, 2));
+        }
+    }
+
+    SECTION("test fold")
+    {
+        SECTION("basic")
+        {
+            AtomList args(gensym("@fold"));
+            ListWalkTest t("list.walk", args);
+
+            t.sendList(AtomList::values(3, 1.0, 2.0, 3.0));
+            REQUIRE_PROP(t, index, AtomList(0.f));
+
+            CALL(t, current);
+            REQUIRE_LIST_MSG(t, AtomList(1));
+
+            CALL(t, next);
+            REQUIRE_LIST_MSG(t, AtomList(2));
+            REQUIRE_PROP(t, index, AtomList(1));
+            CALL(t, next);
+            REQUIRE_LIST_MSG(t, AtomList(3));
+            CALL(t, next);
+            REQUIRE_LIST_MSG(t, AtomList(2));
+            CALL(t, next);
+            REQUIRE_LIST_MSG(t, AtomList(1));
+            CALL(t, next);
+            REQUIRE_LIST_MSG(t, AtomList(2));
+
+            CALL(t, prev);
+            REQUIRE_LIST_MSG(t, AtomList(1));
+            CALL(t, prev);
+            REQUIRE_LIST_MSG(t, AtomList(2));
+            CALL(t, prev);
+            REQUIRE_LIST_MSG(t, AtomList(3));
+            CALL(t, prev);
+            REQUIRE_LIST_MSG(t, AtomList(2));
+
+            CALL(t, reset);
+            REQUIRE_PROP(t, index, AtomList(0.f));
+            CALL(t, prev);
+            REQUIRE_PROP(t, index, AtomList(1));
+            REQUIRE_LIST_MSG(t, AtomList(2));
+            CALL(t, prev);
+            REQUIRE_LIST_MSG(t, AtomList(3));
+            CALL(t, prev);
+            REQUIRE_LIST_MSG(t, AtomList(2));
+            CALL(t, prev);
+            REQUIRE_LIST_MSG(t, AtomList(1));
+        }
+
+        SECTION("step 2")
+        {
+            AtomList args(gensym("@fold"));
+            ListWalkTest t("list.walk", args);
+
+            t.sendList(AtomList::values(3, 1.0, 2.0, 3.0));
+
+            CALL(t, current);
+            REQUIRE_LIST_MSG(t, AtomList(1));
+
+            // 1 2 3 2 1 2 3 2 1
+            CALL1(t, next, 2);
+            REQUIRE_LIST_MSG(t, AtomList(3));
+            CALL1(t, next, 2);
+            REQUIRE_LIST_MSG(t, AtomList(1));
+            CALL1(t, next, 3);
+            REQUIRE_LIST_MSG(t, AtomList(2));
+
+            CALL1(t, prev, 3);
             REQUIRE_LIST_MSG(t, AtomList(1));
 
             CALL1(t, prev, 4);

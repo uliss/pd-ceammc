@@ -20,7 +20,6 @@ ListWalk::ListWalk(const PdArgs& a)
     createOutlet();
 
     createProperty(new PointerProperty<bool>("@direction", &forward_, false));
-    createProperty(new PointerProperty<int>("@index", &current_pos_, false));
     createProperty(new PointerProperty<int>("@length", &length_, false));
     createProperty(new PointerProperty<AtomList>("@value", &lst_));
 
@@ -38,6 +37,7 @@ ListWalk::ListWalk(const PdArgs& a)
     createProperty(new SymbolEnumAlias("@fold", walk_mode_, gensym("fold")));
 
     createCbProperty("@size", &ListWalk::p_size);
+    createCbProperty("@index", &ListWalk::p_index);
 
     parseArguments();
     lst_ = args();
@@ -63,6 +63,14 @@ void ListWalk::m_reset(t_symbol*, const AtomList&)
 }
 
 AtomList ListWalk::p_size() const { return AtomList(lst_.size()); }
+
+AtomList ListWalk::p_index() const
+{
+    if (walk_mode_->value() != m_fold_)
+        return AtomList(current_pos_);
+    else
+        return AtomList(abs(current_pos_) % int((lst_.size() - 1) * 2));
+}
 
 void ListWalk::next(int step)
 {
@@ -113,7 +121,7 @@ void ListWalk::toPosition(int pos)
         if (calcClipIndex(pos, lst_.size(), &idx))
             current_pos_ = idx;
     } else if (walk_mode_->value() == m_fold_) {
-        current_pos_ = abs(pos) % static_cast<int>(lst_.size() * 2);
+        current_pos_ = pos;
     } else {
         OBJ_ERR << "unsupported list mode: " << walk_mode_->value()->s_name;
     }
