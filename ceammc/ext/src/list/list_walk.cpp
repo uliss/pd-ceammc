@@ -96,10 +96,8 @@ void ListWalk::prev(int step)
 
 void ListWalk::toPosition(int pos)
 {
-    if (lst_.empty()) {
-        OBJ_ERR << "list is empty";
+    if (lst_.empty()) // error message in current()
         return;
-    }
 
     size_t idx = 0;
 
