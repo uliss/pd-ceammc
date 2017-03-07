@@ -37,6 +37,12 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
         REQUIRE(b.receive() == 0);
         REQUIRE(b.numOutlets() == 0);
         REQUIRE(b.numInlets() == 0);
+
         REQUIRE_FALSE(b.hasProperty(gensym("@?")));
+        REQUIRE(b.getProperty(gensym("@?")) == 0);
+
+        b.createProperty(new IntProperty("@int"));
+        REQUIRE(b.hasProperty(gensym("@int")));
+        REQUIRE(b.getProperty(gensym("@int")) != 0);
     }
 }

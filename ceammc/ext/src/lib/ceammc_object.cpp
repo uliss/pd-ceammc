@@ -54,6 +54,12 @@ bool BaseObject::hasProperty(t_symbol* key) const
     return props_.find(key) != props_.end();
 }
 
+Property* BaseObject::getProperty(t_symbol* key)
+{
+    Properties::iterator it = props_.find(key);
+    return it == props_.end() ? 0 : it->second;
+}
+
 void BaseObject::bangTo(size_t n)
 {
     if (n >= outlets_.size()) {
