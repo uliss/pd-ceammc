@@ -203,6 +203,8 @@ namespace list {
     AtomList sliceWrap(const AtomList& l, int pos, size_t len)
     {
         AtomList res;
+        if (l.empty())
+            return res;
 
         for (int i = pos; i < pos + int(len); i++)
             res.append(*l.wrapAt(i));
@@ -213,6 +215,8 @@ namespace list {
     AtomList sliceClip(const AtomList& l, int pos, size_t len)
     {
         AtomList res;
+        if (l.empty())
+            return res;
 
         for (int i = pos; i < pos + int(len); i++)
             res.append(*l.clipAt(i));
@@ -223,6 +227,8 @@ namespace list {
     AtomList sliceFold(const AtomList& l, int pos, size_t len)
     {
         AtomList res;
+        if (l.empty())
+            return res;
 
         for (int i = pos; i < pos + int(len); i++)
             res.append(*l.foldAt(i));

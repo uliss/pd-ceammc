@@ -416,6 +416,8 @@ TEST_CASE("list functions", "[ceammc::list]")
 
     SECTION("slice wrap")
     {
+        REQUIRE(list::sliceWrap(AtomList(), 10, 20) == AtomList());
+
         REQUIRE(list::sliceWrap(AtomList(1, 2), 0, 0) == AtomList());
         REQUIRE(list::sliceWrap(AtomList(1, 2), 0, 1) == AtomList(1));
         REQUIRE(list::sliceWrap(AtomList(1, 2), 0, 2) == AtomList(1, 2));
@@ -440,6 +442,8 @@ TEST_CASE("list functions", "[ceammc::list]")
 
     SECTION("slice clip")
     {
+        REQUIRE(list::sliceClip(AtomList(), 10, 20) == AtomList());
+
         SECTION("positive")
         {
             const AtomList LST = AtomList::values(3, 1.0, 2.0, 3.0);
@@ -475,6 +479,8 @@ TEST_CASE("list functions", "[ceammc::list]")
 
     SECTION("slice fold")
     {
+        REQUIRE(list::sliceFold(AtomList(), 10, 20) == AtomList());
+
         SECTION("odd")
         {
             SECTION("positive")

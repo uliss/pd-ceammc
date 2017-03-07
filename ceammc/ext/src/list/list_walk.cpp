@@ -134,6 +134,11 @@ void ListWalk::current()
         return;
     }
 
+    if(lst_.empty()) {
+        OBJ_ERR << "empty list";
+        return;
+    }
+
     //! single
     if (walk_mode_->value() == m_single_) {
         if (single_done_)
