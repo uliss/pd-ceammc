@@ -101,11 +101,15 @@ proc ::completion::init {} {
         "win32" { set external_filetype *.dll }
         "x11"   { set external_filetype *.pd_linux }
     }
-    bind all <Tab> { ::completion::trigger }
+
     ::completion::add_user_externals
     ::completion::add_libraries_externals
     ::completion::add_user_objectlist
     set ::all_externals [lsort $::all_externals]
+}
+
+proc ::completion::loaded {mytoplevel} {
+    bind ${mytoplevel} <Tab> {+::completion::trigger }
 }
 
 # taken from kiosk-plugin.tcl by Iohannes
@@ -599,3 +603,5 @@ bind all <$::modifier-Key-Return> {pdsend "$::focused_window reselect"}
 # main
 
 ::completion::init
+
+bind PatchWindow <<Loaded>> {+::completion::loaded %W}
