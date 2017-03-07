@@ -204,7 +204,7 @@ namespace list {
     {
         AtomList res;
 
-        for (int i = pos; i < pos + len; i++)
+        for (int i = pos; i < pos + int(len); i++)
             res.append(*l.wrapAt(i));
 
         return res;
@@ -214,7 +214,7 @@ namespace list {
     {
         AtomList res;
 
-        for (int i = pos; i < pos + len; i++)
+        for (int i = pos; i < pos + int(len); i++)
             res.append(*l.clipAt(i));
 
         return res;
@@ -224,7 +224,7 @@ namespace list {
     {
         AtomList res;
 
-        for (int i = pos; i < pos + len; i++)
+        for (int i = pos; i < pos + int(len); i++)
             res.append(*l.foldAt(i));
 
         return res;
