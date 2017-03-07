@@ -591,7 +591,7 @@ size_t AtomList::count(AtomPredicate pred) const
     return std::count_if(atoms_.begin(), atoms_.end(), pred);
 }
 
-bool AtomList::allOff(AtomPredicate pred) const
+bool AtomList::allOf(AtomPredicate pred) const
 {
     if (empty())
         return false;
@@ -606,7 +606,7 @@ bool AtomList::allOff(AtomPredicate pred) const
     return true;
 }
 
-bool AtomList::anyOff(AtomPredicate pred) const
+bool AtomList::anyOf(AtomPredicate pred) const
 {
     const_atom_iterator first = atoms_.begin();
     const_atom_iterator last = atoms_.end();
@@ -619,7 +619,7 @@ bool AtomList::anyOff(AtomPredicate pred) const
     return false;
 }
 
-bool AtomList::noneOff(AtomPredicate pred) const
+bool AtomList::noneOf(AtomPredicate pred) const
 {
     const_atom_iterator first = atoms_.begin();
     const_atom_iterator last = atoms_.end();

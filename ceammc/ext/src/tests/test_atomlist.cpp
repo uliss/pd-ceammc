@@ -326,33 +326,33 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         REQUIRE(l2.size() == 10);
     }
 
-    SECTION("allOff")
+    SECTION("allOf")
     {
         AtomList l;
-        REQUIRE_FALSE(l.allOff(isFloat));
+        REQUIRE_FALSE(l.allOf(isFloat));
         l.fill(1.f, 10);
-        REQUIRE(l.allOff(isFloat));
-        REQUIRE_FALSE(l.allOff(isSymbol));
+        REQUIRE(l.allOf(isFloat));
+        REQUIRE_FALSE(l.allOf(isSymbol));
     }
 
-    SECTION("anyOff")
+    SECTION("anyOf")
     {
         AtomList l;
-        REQUIRE_FALSE(l.anyOff(isFloat));
+        REQUIRE_FALSE(l.anyOf(isFloat));
         l.fill(1.f, 10);
-        REQUIRE(l.anyOff(isFloat));
-        REQUIRE_FALSE(l.anyOff(isSymbol));
+        REQUIRE(l.anyOf(isFloat));
+        REQUIRE_FALSE(l.anyOf(isSymbol));
         l.append(gensym("test"));
-        REQUIRE(l.anyOff(isSymbol));
+        REQUIRE(l.anyOf(isSymbol));
     }
 
-    SECTION("noneOff")
+    SECTION("noneOf")
     {
         AtomList l;
-        REQUIRE(l.noneOff(isFloat));
+        REQUIRE(l.noneOf(isFloat));
         l.fill(1.f, 10);
-        REQUIRE_FALSE(l.noneOff(isFloat));
-        REQUIRE(l.noneOff(isSymbol));
+        REQUIRE_FALSE(l.noneOf(isFloat));
+        REQUIRE(l.noneOf(isSymbol));
     }
 
     SECTION("shuffle")
@@ -425,7 +425,7 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
 
         l.replaceAll(isFloat, gensym("x"));
         REQUIRE(l.count(isSymbol) == 3);
-        REQUIRE(l.allOff(isSymbol));
+        REQUIRE(l.allOf(isSymbol));
     }
 
     SECTION("contains")
