@@ -282,4 +282,319 @@ TEST_CASE("list functions", "[ceammc::list]")
 
         REQUIRE(list::countRepeats(AtomList(gensym("a"), gensym("a"))) == AtomList(gensym("a"), 2.f));
     }
+
+    SECTION("calc clip index")
+    {
+        REQUIRE_FALSE(list::calcClipIndex(10, 4, 0));
+        REQUIRE_FALSE(list::calcClipIndex(10, 0, 0));
+
+        size_t idx = 100;
+        REQUIRE_FALSE(list::calcClipIndex(10, 0, &idx));
+        REQUIRE(list::calcClipIndex(10, 1, &idx));
+        REQUIRE(idx == 0);
+        idx = 100;
+        REQUIRE(list::calcClipIndex(-1, 1, &idx));
+        REQUIRE(idx == 0);
+        REQUIRE(list::calcClipIndex(-1, 2, &idx));
+        REQUIRE(idx == 0);
+        REQUIRE(list::calcClipIndex(0, 2, &idx));
+        REQUIRE(idx == 0);
+        REQUIRE(list::calcClipIndex(1, 2, &idx));
+        REQUIRE(idx == 1);
+        REQUIRE(list::calcClipIndex(2, 2, &idx));
+        REQUIRE(idx == 1);
+        REQUIRE(list::calcClipIndex(2, 3, &idx));
+        REQUIRE(idx == 2);
+    }
+
+    SECTION("calc wrap index")
+    {
+        REQUIRE_FALSE(list::calcWrapIndex(10, 4, 0));
+        REQUIRE_FALSE(list::calcWrapIndex(10, 0, 0));
+
+        size_t idx = 100;
+        REQUIRE_FALSE(list::calcWrapIndex(10, 0, &idx));
+        REQUIRE(list::calcWrapIndex(10, 1, &idx));
+        REQUIRE(idx == 0);
+        idx = 100;
+        REQUIRE(list::calcWrapIndex(0, 3, &idx));
+        REQUIRE(idx == 0);
+        REQUIRE(list::calcWrapIndex(1, 3, &idx));
+        REQUIRE(idx == 1);
+        REQUIRE(list::calcWrapIndex(2, 3, &idx));
+        REQUIRE(idx == 2);
+        REQUIRE(list::calcWrapIndex(3, 3, &idx));
+        REQUIRE(idx == 0);
+        REQUIRE(list::calcWrapIndex(4, 3, &idx));
+        REQUIRE(idx == 1);
+        REQUIRE(list::calcWrapIndex(5, 3, &idx));
+        REQUIRE(idx == 2);
+        REQUIRE(list::calcWrapIndex(-1, 3, &idx));
+        REQUIRE(idx == 2);
+        REQUIRE(list::calcWrapIndex(-2, 3, &idx));
+        REQUIRE(idx == 1);
+        REQUIRE(list::calcWrapIndex(-3, 3, &idx));
+        REQUIRE(idx == 0);
+        REQUIRE(list::calcWrapIndex(-4, 3, &idx));
+        REQUIRE(idx == 2);
+    }
+
+    SECTION("calc fold index")
+    {
+        REQUIRE_FALSE(list::calcFoldIndex(10, 4, 0));
+        REQUIRE_FALSE(list::calcFoldIndex(10, 0, 0));
+
+        size_t idx = 100;
+        REQUIRE_FALSE(list::calcFoldIndex(10, 0, &idx));
+        REQUIRE(list::calcFoldIndex(10, 1, &idx));
+        REQUIRE(idx == 0);
+        idx = 100;
+
+        // positive odd
+        REQUIRE(list::calcFoldIndex(0, 3, &idx));
+        REQUIRE(idx == 0);
+        REQUIRE(list::calcFoldIndex(1, 3, &idx));
+        REQUIRE(idx == 1);
+        REQUIRE(list::calcFoldIndex(2, 3, &idx));
+        REQUIRE(idx == 2);
+        REQUIRE(list::calcFoldIndex(3, 3, &idx));
+        REQUIRE(idx == 1);
+        REQUIRE(list::calcFoldIndex(4, 3, &idx));
+        REQUIRE(idx == 0);
+        REQUIRE(list::calcFoldIndex(5, 3, &idx));
+        REQUIRE(idx == 1);
+        REQUIRE(list::calcFoldIndex(6, 3, &idx));
+
+        // negative odd
+        REQUIRE(list::calcFoldIndex(0, 3, &idx));
+        REQUIRE(idx == 0);
+        REQUIRE(list::calcFoldIndex(-1, 3, &idx));
+        REQUIRE(idx == 1);
+        REQUIRE(list::calcFoldIndex(-2, 3, &idx));
+        REQUIRE(idx == 2);
+        REQUIRE(list::calcFoldIndex(-3, 3, &idx));
+        REQUIRE(idx == 1);
+        REQUIRE(list::calcFoldIndex(-4, 3, &idx));
+        REQUIRE(idx == 0);
+
+        // positive even
+        REQUIRE(list::calcFoldIndex(0, 2, &idx));
+        REQUIRE(idx == 0);
+        REQUIRE(list::calcFoldIndex(1, 2, &idx));
+        REQUIRE(idx == 1);
+        REQUIRE(list::calcFoldIndex(2, 2, &idx));
+        REQUIRE(idx == 0);
+        REQUIRE(list::calcFoldIndex(3, 2, &idx));
+        REQUIRE(idx == 1);
+
+        // negative even
+        REQUIRE(list::calcFoldIndex(0, 2, &idx));
+        REQUIRE(idx == 0);
+        REQUIRE(list::calcFoldIndex(-1, 2, &idx));
+        REQUIRE(idx == 1);
+        REQUIRE(list::calcFoldIndex(-2, 2, &idx));
+        REQUIRE(idx == 0);
+        REQUIRE(list::calcFoldIndex(-3, 2, &idx));
+        REQUIRE(idx == 1);
+
+        // positive even
+        REQUIRE(list::calcFoldIndex(0, 4, &idx));
+        REQUIRE(idx == 0);
+        REQUIRE(list::calcFoldIndex(1, 4, &idx));
+        REQUIRE(idx == 1);
+        REQUIRE(list::calcFoldIndex(2, 4, &idx));
+        REQUIRE(idx == 2);
+        REQUIRE(list::calcFoldIndex(3, 4, &idx));
+        REQUIRE(idx == 3);
+        REQUIRE(list::calcFoldIndex(4, 4, &idx));
+        REQUIRE(idx == 2);
+        REQUIRE(list::calcFoldIndex(5, 4, &idx));
+        REQUIRE(idx == 1);
+        REQUIRE(list::calcFoldIndex(6, 4, &idx));
+        REQUIRE(idx == 0);
+    }
+
+    SECTION("slice wrap")
+    {
+        REQUIRE(list::sliceWrap(AtomList(), 10, 20) == AtomList());
+
+        REQUIRE(list::sliceWrap(AtomList(1, 2), 0, 0) == AtomList());
+        REQUIRE(list::sliceWrap(AtomList(1, 2), 0, 1) == AtomList(1));
+        REQUIRE(list::sliceWrap(AtomList(1, 2), 0, 2) == AtomList(1, 2));
+
+        REQUIRE(list::sliceWrap(AtomList(1, 2), 1, 0) == AtomList());
+        REQUIRE(list::sliceWrap(AtomList(1, 2), 1, 1) == AtomList(2));
+        REQUIRE(list::sliceWrap(AtomList(1, 2), 1, 2) == AtomList(2, 1));
+
+        REQUIRE(list::sliceWrap(AtomList(1, 2), 2, 0) == AtomList());
+        REQUIRE(list::sliceWrap(AtomList(1, 2), 2, 1) == AtomList(1));
+        REQUIRE(list::sliceWrap(AtomList(1, 2), 2, 2) == AtomList(1, 2));
+
+        SECTION("slice wrap negative")
+        {
+            REQUIRE(list::sliceWrap(AtomList(1, 2), -1, 0) == AtomList());
+            REQUIRE(list::sliceWrap(AtomList(1, 2), -1, 1) == AtomList(2));
+            REQUIRE(list::sliceWrap(AtomList(1, 2), -2, 1) == AtomList(1));
+            REQUIRE(list::sliceWrap(AtomList(1, 2), -1, 2) == AtomList(2, 1));
+            REQUIRE(list::sliceWrap(AtomList(1, 2), -1, 5) == AtomList::values(5, 2.0, 1.0, 2.0, 1.0, 2.0));
+        }
+    }
+
+    SECTION("slice clip")
+    {
+        REQUIRE(list::sliceClip(AtomList(), 10, 20) == AtomList());
+
+        SECTION("positive")
+        {
+            const AtomList LST = AtomList::values(3, 1.0, 2.0, 3.0);
+
+            REQUIRE(list::sliceClip(LST, 0, 0) == AtomList());
+            REQUIRE(list::sliceClip(LST, 0, 1) == AtomList(1));
+            REQUIRE(list::sliceClip(LST, 0, 2) == AtomList(1, 2));
+
+            REQUIRE(list::sliceClip(LST, 1, 0) == AtomList());
+            REQUIRE(list::sliceClip(LST, 1, 1) == AtomList(2));
+            REQUIRE(list::sliceClip(LST, 1, 2) == AtomList(2, 3));
+
+            REQUIRE(list::sliceClip(LST, 2, 0) == AtomList());
+            REQUIRE(list::sliceClip(LST, 2, 1) == AtomList(3));
+            REQUIRE(list::sliceClip(LST, 2, 2) == AtomList(3, 3));
+
+            REQUIRE(list::sliceClip(LST, 3, 0) == AtomList());
+            REQUIRE(list::sliceClip(LST, 3, 1) == AtomList(3));
+            REQUIRE(list::sliceClip(LST, 3, 2) == AtomList(3, 3));
+        }
+
+        SECTION("negative")
+        {
+            const AtomList LST = AtomList::values(3, 1.0, 2.0, 3.0);
+
+            REQUIRE(list::sliceClip(LST, -1, 0) == AtomList());
+            REQUIRE(list::sliceClip(LST, -1, 1) == AtomList(1));
+            REQUIRE(list::sliceClip(LST, -2, 1) == AtomList(1));
+            REQUIRE(list::sliceClip(LST, -1, 2) == AtomList(1, 1));
+            REQUIRE(list::sliceClip(LST, -2, 6) == AtomList::values(6, 1.0, 1.0, 1.0, 2.0, 3.0, 3.0));
+        }
+    }
+
+    SECTION("slice fold")
+    {
+        REQUIRE(list::sliceFold(AtomList(), 10, 20) == AtomList());
+
+        SECTION("odd")
+        {
+            SECTION("positive")
+            {
+                const AtomList LST = AtomList::values(3, 1.0, 2.0, 3.0);
+
+                REQUIRE(list::sliceFold(LST, 0, 0) == AtomList());
+                REQUIRE(list::sliceFold(LST, 0, 1) == AtomList(1));
+                REQUIRE(list::sliceFold(LST, 0, 2) == AtomList(1, 2));
+                REQUIRE(list::sliceFold(LST, 0, 3) == AtomList::values(3, 1., 2., 3.));
+                REQUIRE(list::sliceFold(LST, 0, 4) == AtomList::values(4, 1., 2., 3., 2.));
+                REQUIRE(list::sliceFold(LST, 0, 5) == AtomList::values(5, 1., 2., 3., 2., 1.));
+                REQUIRE(list::sliceFold(LST, 0, 6) == AtomList::values(6, 1., 2., 3., 2., 1., 2.));
+
+                REQUIRE(list::sliceFold(LST, 1, 0) == AtomList());
+                REQUIRE(list::sliceFold(LST, 1, 1) == AtomList(2));
+                REQUIRE(list::sliceFold(LST, 1, 2) == AtomList(2, 3));
+                REQUIRE(list::sliceFold(LST, 1, 3) == AtomList::values(3, 2., 3., 2.));
+                REQUIRE(list::sliceFold(LST, 1, 4) == AtomList::values(4, 2., 3., 2., 1.));
+                REQUIRE(list::sliceFold(LST, 1, 5) == AtomList::values(5, 2., 3., 2., 1., 2.));
+                REQUIRE(list::sliceFold(LST, 1, 6) == AtomList::values(6, 2., 3., 2., 1., 2., 3.));
+
+                REQUIRE(list::sliceFold(LST, 2, 0) == AtomList());
+                REQUIRE(list::sliceFold(LST, 2, 1) == AtomList(3));
+                REQUIRE(list::sliceFold(LST, 2, 2) == AtomList(3, 2));
+                REQUIRE(list::sliceFold(LST, 2, 3) == AtomList::values(3, 3., 2., 1.));
+                REQUIRE(list::sliceFold(LST, 2, 4) == AtomList::values(4, 3., 2., 1., 2.));
+                REQUIRE(list::sliceFold(LST, 2, 5) == AtomList::values(5, 3., 2., 1., 2., 3.));
+                REQUIRE(list::sliceFold(LST, 2, 6) == AtomList::values(6, 3., 2., 1., 2., 3., 2.));
+
+                REQUIRE(list::sliceFold(LST, 3, 0) == AtomList());
+                REQUIRE(list::sliceFold(LST, 3, 1) == AtomList(2));
+                REQUIRE(list::sliceFold(LST, 3, 2) == AtomList(2, 1));
+                REQUIRE(list::sliceFold(LST, 3, 3) == AtomList::values(3, 2., 1., 2.));
+                REQUIRE(list::sliceFold(LST, 3, 4) == AtomList::values(4, 2., 1., 2., 3.));
+                REQUIRE(list::sliceFold(LST, 3, 5) == AtomList::values(5, 2., 1., 2., 3., 2.));
+                REQUIRE(list::sliceFold(LST, 3, 6) == AtomList::values(6, 2., 1., 2., 3., 2., 1.));
+            }
+
+            SECTION("negative")
+            {
+                const AtomList LST = AtomList::values(3, 1.0, 2.0, 3.0);
+
+                REQUIRE(list::sliceFold(LST, -1, 0) == AtomList());
+                REQUIRE(list::sliceFold(LST, -1, 1) == AtomList(2));
+                REQUIRE(list::sliceFold(LST, -1, 2) == AtomList(2, 1));
+                REQUIRE(list::sliceFold(LST, -1, 3) == AtomList::values(3, 2., 1., 2.));
+                REQUIRE(list::sliceFold(LST, -1, 4) == AtomList::values(4, 2., 1., 2., 3.));
+                REQUIRE(list::sliceFold(LST, -1, 5) == AtomList::values(5, 2., 1., 2., 3., 2.));
+                REQUIRE(list::sliceFold(LST, -1, 6) == AtomList::values(6, 2., 1., 2., 3., 2., 1.));
+
+                REQUIRE(list::sliceFold(LST, -2, 0) == AtomList());
+                REQUIRE(list::sliceFold(LST, -2, 1) == AtomList(3));
+                REQUIRE(list::sliceFold(LST, -2, 2) == AtomList(3, 2));
+                REQUIRE(list::sliceFold(LST, -2, 3) == AtomList::values(3, 3., 2., 1.));
+                REQUIRE(list::sliceFold(LST, -2, 4) == AtomList::values(4, 3., 2., 1., 2.));
+                REQUIRE(list::sliceFold(LST, -2, 5) == AtomList::values(5, 3., 2., 1., 2., 3.));
+                REQUIRE(list::sliceFold(LST, -2, 6) == AtomList::values(6, 3., 2., 1., 2., 3., 2.));
+            }
+        }
+
+        SECTION("even")
+        {
+            SECTION("positive")
+            {
+                const AtomList LST = AtomList::values(2, 1.0, 2.0);
+
+                REQUIRE(list::sliceFold(LST, 0, 0) == AtomList());
+                REQUIRE(list::sliceFold(LST, 0, 1) == AtomList(1));
+                REQUIRE(list::sliceFold(LST, 0, 2) == AtomList(1, 2));
+                REQUIRE(list::sliceFold(LST, 0, 3) == AtomList::values(3, 1., 2., 1.));
+                REQUIRE(list::sliceFold(LST, 0, 4) == AtomList::values(4, 1., 2., 1., 2.));
+                REQUIRE(list::sliceFold(LST, 0, 5) == AtomList::values(5, 1., 2., 1., 2., 1.));
+
+                REQUIRE(list::sliceFold(LST, 1, 0) == AtomList());
+                REQUIRE(list::sliceFold(LST, 1, 1) == AtomList(2));
+                REQUIRE(list::sliceFold(LST, 1, 2) == AtomList(2, 1));
+                REQUIRE(list::sliceFold(LST, 1, 3) == AtomList::values(3, 2., 1., 2.));
+                REQUIRE(list::sliceFold(LST, 1, 4) == AtomList::values(4, 2., 1., 2., 1.));
+                REQUIRE(list::sliceFold(LST, 1, 5) == AtomList::values(5, 2., 1., 2., 1., 2.));
+
+                REQUIRE(list::sliceFold(LST, 2, 0) == AtomList());
+                REQUIRE(list::sliceFold(LST, 2, 1) == AtomList(1));
+                REQUIRE(list::sliceFold(LST, 2, 2) == AtomList(1, 2));
+                REQUIRE(list::sliceFold(LST, 2, 3) == AtomList::values(3, 1., 2., 1.));
+                REQUIRE(list::sliceFold(LST, 2, 4) == AtomList::values(4, 1., 2., 1., 2.));
+                REQUIRE(list::sliceFold(LST, 2, 5) == AtomList::values(5, 1., 2., 1., 2., 1.));
+            }
+
+            SECTION("negative")
+            {
+                const AtomList LST = AtomList::values(2, 1.0, 2.0);
+
+                REQUIRE(list::sliceFold(LST, -1, 0) == AtomList());
+                REQUIRE(list::sliceFold(LST, -1, 1) == AtomList(2));
+                REQUIRE(list::sliceFold(LST, -1, 2) == AtomList(2, 1));
+                REQUIRE(list::sliceFold(LST, -1, 3) == AtomList::values(3, 2., 1., 2.));
+                REQUIRE(list::sliceFold(LST, -1, 4) == AtomList::values(4, 2., 1., 2., 1.));
+                REQUIRE(list::sliceFold(LST, -1, 5) == AtomList::values(5, 2., 1., 2., 1., 2.));
+
+                REQUIRE(list::sliceFold(LST, -2, 0) == AtomList());
+                REQUIRE(list::sliceFold(LST, -2, 1) == AtomList(1));
+                REQUIRE(list::sliceFold(LST, -2, 2) == AtomList(1, 2));
+                REQUIRE(list::sliceFold(LST, -2, 3) == AtomList::values(3, 1., 2., 1.));
+                REQUIRE(list::sliceFold(LST, -2, 4) == AtomList::values(4, 1., 2., 1., 2.));
+                REQUIRE(list::sliceFold(LST, -2, 5) == AtomList::values(5, 1., 2., 1., 2., 1.));
+
+                REQUIRE(list::sliceFold(LST, -3, 0) == AtomList());
+                REQUIRE(list::sliceFold(LST, -3, 1) == AtomList(2));
+                REQUIRE(list::sliceFold(LST, -3, 2) == AtomList(2, 1));
+                REQUIRE(list::sliceFold(LST, -3, 3) == AtomList::values(3, 2., 1., 2.));
+                REQUIRE(list::sliceFold(LST, -3, 4) == AtomList::values(4, 2., 1., 2., 1.));
+                REQUIRE(list::sliceFold(LST, -3, 5) == AtomList::values(5, 2., 1., 2., 1., 2.));
+            }
+        }
+    }
 }

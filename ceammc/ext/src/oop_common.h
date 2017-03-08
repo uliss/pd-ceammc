@@ -609,8 +609,7 @@ public:
     {
         t_symbol* method_name = list[0].asSymbol();
 
-        AtomList subList = list.subList(1, (int)list.size());
-        ;
+        AtomList subList = list.slice(1, (int)list.size());
 
         OPOutputs* out1 = &this->_methodOutputs[method_name];
 

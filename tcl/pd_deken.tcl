@@ -10,7 +10,7 @@
 # The minimum version of TCL that allows the plugin to run
 package require Tcl 8.4
 # If Tk or Ttk is needed
-#package require Ttk
+package require Ttk
 # Any elements of the Pd GUI that are required
 # + require everything and all your script needs.
 #   If a requirement is missing,
@@ -21,6 +21,16 @@ package require pd_menucommands 0.1
 
 namespace eval ::deken:: {
     variable version
+    variable normal_font
+    variable bold_font
+}
+
+if {$::windowingsystem eq "aqua"} {
+    set ::deken::normal_font [list TkDefaultFont 12]
+    set ::deken::bold_font [list TkDefaultFont 12 bold]
+} else {
+    set ::deken::normal_font [list TkDefaultFont 9]
+    set ::deken::bold_font [list TkDefaultFont 9 bold]
 }
 
 ## only register this plugin if there isn't any newer version already registered
@@ -278,8 +288,9 @@ proc ::deken::highlightable_posttag {tag} {
     # make sure that the 'highlight' tag is topmost
     $mytoplevelref.results tag raise highlight
 }
+
 proc ::deken::prompt_installdir {} {
-    set installdir [tk_chooseDirectory -title "Install libraries to directory:"]
+    set installdir [tk_chooseDirectory -title [_ "Install libraries to directory:"] ]
     if { "$installdir" != "" } {
         set ::deken::installpath $installdir
         return 1
@@ -289,10 +300,10 @@ proc ::deken::prompt_installdir {} {
 
 
 proc ::deken::update_searchbutton {mytoplevel} {
-    if { [$mytoplevel.searchbit.entry get] == "" } {
-        $mytoplevel.searchbit.button configure -text [_ "Show all" ]
+    if { [$mytoplevel.bg.searchbit.entry get] == "" } {
+        $mytoplevel.bg.searchbit.button configure -text [_ "Show all" ]
     } {
-        $mytoplevel.searchbit.button configure -text [_ "Search" ]
+        $mytoplevel.bg.searchbit.button configure -text [_ "Search" ]
     }
 }
 
@@ -307,60 +318,84 @@ proc ::deken::open_searchui {mytoplevel} {
         raise $mytoplevel
     } else {
         ::deken::create_dialog $mytoplevel
-        $mytoplevel.results tag configure error -foreground red
-        $mytoplevel.results tag configure warn -foreground orange
-        $mytoplevel.results tag configure info -foreground grey
-        $mytoplevel.results tag configure highlight -foreground blue
-        $mytoplevel.results tag configure archmatch
-        $mytoplevel.results tag configure noarchmatch -foreground grey
+        $mytoplevel.bg.results tag configure error -foreground red
+        $mytoplevel.bg.results tag configure warn -foreground orange
+        $mytoplevel.bg.results tag configure info -foreground grey
+        $mytoplevel.bg.results tag configure highlight -foreground blue -background "#F0F0F0"
+        $mytoplevel.bg.results tag configure archmatch
+        $mytoplevel.bg.results tag configure noarchmatch -foreground grey
+        $mytoplevel.bg.results tag configure titlematch -foreground black -font $::deken::bold_font
+        $mytoplevel.bg.results tag configure notitlematch -foreground "#A0A0A0" -font $::deken::bold_font
     }
-    ::deken::post "To get a list of all available externals, try an empty search." info
+    ::deken::post [ _ "To get a list of all available externals, try an empty search." ] info
+}
+
+proc ::deken::makeReadOnly {textwidget} {
+    foreach event {<KeyPress> <<PasteSelection>>} {
+        bind $textwidget $event break
+    }
+    bind $textwidget <$::modifier-Key-c> {event generate %W <<Copy>>}
+}
+
+proc ::deken::cancel {mytoplevel} {
+    destroy $mytoplevel
 }
 
 # build the externals search dialog window
 proc ::deken::create_dialog {mytoplevel} {
     toplevel $mytoplevel -class DialogWindow
-    variable mytoplevelref $mytoplevel
+    variable mytoplevelref $mytoplevel.bg
     wm title $mytoplevel [_ "Find externals"]
     wm geometry $mytoplevel 670x550
     wm minsize $mytoplevel 230 360
     wm transient $mytoplevel
-    $mytoplevel configure -padx 10 -pady 5
+    $mytoplevel configure -padx 0 -pady 0
+
+    bind $mytoplevel <KeyPress-Escape>   "::deken::cancel $mytoplevel"
+    bind $mytoplevel <$::modifier-Key-w> "::deken::cancel $mytoplevel"
 
     if {$::windowingsystem eq "aqua"} {
         $mytoplevel configure -menu $::dialog_menubar
     }
 
-    frame $mytoplevel.searchbit
-    pack $mytoplevel.searchbit -side top -fill x
+    ttk::frame $mytoplevel.bg -padding 15
+    pack $mytoplevel.bg -fill both -expand true
 
-    entry $mytoplevel.searchbit.entry -font 18 -relief sunken -highlightthickness 1 -highlightcolor blue
-    pack $mytoplevel.searchbit.entry -side left -padx 6 -fill x -expand true
-    bind $mytoplevel.searchbit.entry <Key-Return> "::deken::initiate_search $mytoplevel"
-    bind $mytoplevel.searchbit.entry <KeyRelease> "::deken::update_searchbutton $mytoplevel"
-    focus $mytoplevel.searchbit.entry
-    button $mytoplevel.searchbit.button -text [_ "Show all"] -default active -width 9 -command "::deken::initiate_search $mytoplevel"
-    pack $mytoplevel.searchbit.button -side right -padx 6 -pady 3
+    ttk::frame $mytoplevel.bg.searchbit
+    pack $mytoplevel.bg.searchbit -side top -fill x
 
-    frame $mytoplevel.warning
-    pack $mytoplevel.warning -side top -fill x
-    label $mytoplevel.warning.label -text "Only install externals uploaded by people you trust."
-    pack $mytoplevel.warning.label -side left -padx 6
+    ttk::entry $mytoplevel.bg.searchbit.entry
+    pack $mytoplevel.bg.searchbit.entry -side left -padx 0 -fill x -expand true
+    bind $mytoplevel.bg.searchbit.entry <Key-Return> "::deken::initiate_search $mytoplevel"
+    bind $mytoplevel.bg.searchbit.entry <KeyRelease> "::deken::update_searchbutton $mytoplevel"
+    focus $mytoplevel.bg.searchbit.entry
+    ttk::button $mytoplevel.bg.searchbit.button -text [_ "Show all"] -default active -command "::deken::initiate_search $mytoplevel"
+    pack $mytoplevel.bg.searchbit.button -side right -padx 10 -pady 0
 
-    frame $mytoplevel.status
-    pack $mytoplevel.status -side bottom -fill x
-    label $mytoplevel.status.label -textvariable ::deken::statustext
-    pack $mytoplevel.status.label -side left -padx 6
+    ttk::frame $mytoplevel.bg.warning
+    pack $mytoplevel.bg.warning -side top -fill x -pady 5
+    ttk::label $mytoplevel.bg.warning.label -takefocus 0 -text [_ "Only install externals uploaded by people you trust."]
+    pack $mytoplevel.bg.warning.label -side left -padx 10
 
-    text $mytoplevel.results -takefocus 0 -cursor hand2 -height 100 -yscrollcommand "$mytoplevel.results.ys set"
-    scrollbar $mytoplevel.results.ys -orient vertical -command "$mytoplevel.results yview"
-    pack $mytoplevel.results.ys -side right -fill y
-    pack $mytoplevel.results -side top -padx 6 -pady 3 -fill both -expand true
+    ttk::frame $mytoplevel.bg.status
+    pack $mytoplevel.bg.status -side bottom -fill x
+    ttk::label $mytoplevel.bg.status.label -textvariable ::deken::statustext -takefocus 0
+    pack $mytoplevel.bg.status.label -side left -padx 0
+
+    text $mytoplevel.bg.results -takefocus 0 -padx 2 -pady 2 -bd 1 -highlightcolor grey \
+        -font $::deken::normal_font -bg white \
+        -highlightthickness 1 -cursor hand2 -height 100 -yscrollcommand "$mytoplevel.bg.ys set"
+    ::deken::makeReadOnly $mytoplevel.bg.results
+
+    ttk::scrollbar $mytoplevel.bg.ys -orient vertical -command "$mytoplevel.bg.results yview"
+
+    pack $mytoplevel.bg.ys -side right -fill y -padx 0 -pady 0
+    pack $mytoplevel.bg.results -side top -padx 0 -pady 0 -fill both -expand true
 
     if { [ catch {
-        ttk::progressbar $mytoplevel.progress -orient horizontal -length 640 -maximum 100 -mode determinate -variable ::deken::progressvar } stdout ] } {
+        ttk::progressbar $mytoplevel.bg.progress -takefocus 0 -orient horizontal -length 640 -maximum 100 -mode determinate -variable ::deken::progressvar } stdout ] } {
     } {
-        pack $mytoplevel.progress -side bottom
+        pack $mytoplevel.bg.progress -side bottom -pady 5
         proc ::deken::progress {x} {
             set ::deken::progressvar $x
         }
@@ -370,14 +405,14 @@ proc ::deken::create_dialog {mytoplevel} {
 proc ::deken::initiate_search {mytoplevel} {
     # let the user know what we're doing
     ::deken::clearpost
-    ::deken::post "Searching for externals..."
+    ::deken::post [_ "Searching for externals..." ]
     set ::deken::progressvar 0
     # make the ajax call
     if { [ catch {
-        set results [::deken::search_for [$mytoplevel.searchbit.entry get]]
+        set results [::deken::search_for [$mytoplevel.bg.searchbit.entry get]]
     } stdout ] } {
         ::pdwindow::debug "\[deken\]: online? $stdout\n"
-        ::deken::status "Unable to perform search. Are you online?"
+        ::deken::status [ _ "Unable to perform search. Are you online?" ]
     } else {
     # delete all text in the results
     ::deken::clearpost
@@ -394,7 +429,7 @@ proc ::deken::initiate_search {mytoplevel} {
         }
 	::deken::scrollup
     } else {
-        ::deken::post "No matching externals found. Try using the full name e.g. 'freeverb'."
+        ::deken::post [_ "No matching externals found. Try using the full name e.g. 'freeverb'."]
     }
 }}
 
@@ -405,9 +440,11 @@ proc ::deken::show_result {mytoplevel counter result showmatches} {
     set tag ch$counter
     #if { [ ($match) ] } { set matchtag archmatch } { set matchtag noarchmatch }
     set matchtag [expr $match?"archmatch":"noarchmatch" ]
+    set titletag [expr $match?"titlematch":"notitlematch" ]
     if {($match == $showmatches)} {
         set comment [string map {"\n" "\n\t"} $comment]
-        ::deken::post "$title\n\t$comment\n" [list $tag $matchtag]
+        ::deken::post "$title\n" [list $tag $titletag]
+        ::deken::post "\t$comment\n" [list $tag $matchtag]
         ::deken::highlightable_posttag $tag
         ::deken::bind_posttag $tag <Enter> "+::deken::status $status"
         ::deken::bind_posttag $tag <1> "$cmd"
@@ -436,13 +473,13 @@ proc ::deken::clicked_link {URL filename} {
     }
     if { "$installdir" == "" } {
         #::deken::clearpost
-        ::deken::post "No writeable directory found in:" warn
+        ::deken::post [_ "No writeable directory found in:"] warn
         foreach p $::sys_staticpath { ::deken::post "\t- $p" warn }
-        ::deken::post "Cannot download/install libraries!" warn
+        ::deken::post [_ "Cannot download/install libraries!"] warn
         return
     }
     switch -- [tk_messageBox -message \
-                   "Install to directory $installdir?" \
+                   [format [_ "Install to directory %s?"] $installdir] \
                    -type yesnocancel -default "yes" \
                    -icon question] {
                        no {set installdir ""
@@ -453,7 +490,7 @@ proc ::deken::clicked_link {URL filename} {
 
     set fullpkgfile "$installdir/$filename"
     ::deken::clearpost
-    ::deken::post "Commencing downloading of:\n$URL\nInto $installdir..."
+    ::deken::post [format [_ "Commencing downloading of:\n%s\nInto %s..." ] $URL $installdir]
     ::deken::download_file $URL $fullpkgfile
     set PWD [ pwd ]
     cd $installdir
@@ -475,16 +512,16 @@ proc ::deken::clicked_link {URL filename} {
     }
     cd $PWD
     if { $success > 0 } {
-        ::deken::post "Successfully unzipped $filename into $installdir.\n"
+        ::deken::post [format [_ "Successfully unzipped %s into %s.\n"] $filename $installdir]
         catch { exec rm $fullpkgfile }
     } else {
         # Open both the fullpkgfile folder and the zipfile itself
         # NOTE: in tcl 8.6 it should be possible to use the zlib interface to actually do the unzip
-        ::deken::post "Unable to extract package automatically." warn
-        ::deken::post "Please perform the following steps manually:"
-        ::deken::post "1. Unzip $fullpkgfile."
+        ::deken::post [_ "Unable to extract package automatically."] warn
+        ::deken::post [_ "Please perform the following steps manually:"]
+        ::deken::post [format [_ "1. Unzip %s."] $fullpkgfile]
         pd_menucommands::menu_openfile $fullpkgfile
-        ::deken::post "2. Copy the contents into $installdir.\n"
+        ::deken::post [format [_ "2. Copy the contents into %s.\n"] $installdir]
         pd_menucommands::menu_openfile $installdir
     }
 }
@@ -563,7 +600,7 @@ proc ::deken::architecture_match {archs} {
 }
 
 proc ::deken::search_for {term} {
-    ::deken::status "searching for '$term'"
+    ::deken::status [format [_ "searching for '%s'"] $term]
 
     set result [list]
     foreach searcher $::deken::backends {
@@ -656,7 +693,7 @@ proc ::deken::search::puredata.info {term} {
 
             set match [::deken::architecture_match "$archs" ]
 
-            set comment "Uploaded by $creator @ $date"
+            set comment [format [ _ "Uploaded by %s @ %s" ] $creator $date]
             set status $URL
             set sortname [lindex $pkgverarch 0]--[lindex $pkgverarch 1]--$date
             set res [list $name $cmd $match $comment $status $filename]

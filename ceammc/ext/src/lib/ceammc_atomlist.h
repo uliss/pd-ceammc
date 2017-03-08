@@ -172,7 +172,6 @@ public:
     void shuffle();
     void reverse();
 
-    AtomList subList(int begin, int end);
     AtomList filtered(AtomPredicate pred) const;
 
     const Atom* min() const;
@@ -205,9 +204,9 @@ public:
     size_t count(const Atom& a) const;
     size_t count(AtomPredicate pred) const;
 
-    bool allOff(AtomPredicate pred) const;
-    bool anyOff(AtomPredicate pred) const;
-    bool noneOff(AtomPredicate pred) const;
+    bool allOf(AtomPredicate pred) const;
+    bool anyOf(AtomPredicate pred) const;
+    bool noneOf(AtomPredicate pred) const;
 
     FloatList asFloats() const;
     size_t asSizeT(size_t defaultValue = 0) const;

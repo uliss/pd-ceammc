@@ -23,7 +23,7 @@
             "clip", "wrap" or "fold".</argument>
             <argument type="property" name="@single">alias for "@mode single" property.</argument>
             <argument type="property" name="@clip">alias for "@mode clip" property.</argument>
-            <argument type="property" name="@loop">alias for "@mode wrap" property.</argument>
+            <argument type="property" name="@loop">alias for "@mode loop" property.</argument>
             <argument type="property" name="@wrap">alias for "@mode wrap" property.</argument>
             <argument type="property" name="@fold">alias for "@mode fold" property.</argument>
         </arguments>
@@ -31,8 +31,8 @@
             <method name="dump">dump internal object state to Pd console window</method>
             <method name="@direction?">get walking direction property.</method>
             <method name="@direction">set walking direction property. "1" - forwards, "0" - backwards.</method>
-            <method name="@current_list?">get current list</method>
-            <method name="@current_pos?">get current list position</method>
+            <method name="@value?">get current list</method>
+            <method name="@index?">get current position</method>
             <method name="next">outputs current element and moves to next with given step. By default = 1</method>
             <method name="prev">outputs current element and moves to previous with given step. By default = 1</method>
         </methods>

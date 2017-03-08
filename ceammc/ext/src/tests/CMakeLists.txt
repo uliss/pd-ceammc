@@ -16,6 +16,8 @@ ceammc_add_test("ceammc::vector" test_fn_vector)
 ceammc_add_test("ceammc::faust" test_faust)
 ceammc_add_test("ceammc::pd" test_pd)
 
+ceammc_add_extension_test("list_walk" "../list/list_walk.cpp")
+
 if(APPLE)
     ceammc_add_test("ceammc::timeline" test_timeline)
 endif()

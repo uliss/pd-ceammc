@@ -54,6 +54,36 @@ bool BaseObject::hasProperty(t_symbol* key) const
     return props_.find(key) != props_.end();
 }
 
+bool BaseObject::hasProperty(const char* key) const
+{
+    return hasProperty(gensym(key));
+}
+
+Property* BaseObject::property(t_symbol* key)
+{
+    Properties::iterator it = props_.find(key);
+    return it == props_.end() ? 0 : it->second;
+}
+
+Property* BaseObject::property(const char* key)
+{
+    return property(gensym(key));
+}
+
+bool BaseObject::setProperty(t_symbol* key, const AtomList& v)
+{
+    Property* p = property(key);
+    if (p == 0 || p->readonly())
+        return false;
+
+    return p->set(v);
+}
+
+bool BaseObject::setProperty(const char* key, const AtomList& v)
+{
+    return setProperty(gensym(key), v);
+}
+
 void BaseObject::bangTo(size_t n)
 {
     if (n >= outlets_.size()) {

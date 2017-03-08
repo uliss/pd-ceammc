@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure\\ Data 0.47.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2017-02-20 14:25+0300\n"
-"PO-Revision-Date: 2017-02-19 23:39+0000\n"
+"POT-Creation-Date: 2017-03-02 22:17+0300\n"
+"PO-Revision-Date: 2017-03-02 22:22+0300\n"
 "Last-Translator: Serge Poltavski <serge.poltavski@gmail.com>\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
@@ -12,11 +12,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Loco-Source-Locale: ru_RU\n"
 "X-Language: ru_RU\n"
 "X-Source-Language: C\n"
 "X-Loco-Parser: loco_parse_po\n"
+"X-Generator: Poedit 1.8.11\n"
 
 #: ../tcl/dialog_font.tcl:60
 #, tcl-format
@@ -48,9 +49,13 @@ msgstr ""
 msgid "(same as input device)..."
 msgstr ""
 
-#: ../tcl/dialog_message.tcl:81
+#: ../tcl/dialog_message.tcl:75 ../tcl/dialog_message.tcl:81
 msgid "(use arrow keys for history)"
 msgstr ""
+
+#: ../tcl/dialog_message.tcl:75
+msgid "(use arrow keys ↑↓ for history)"
+msgstr "(используйте стрелки ↑↓ для навигации по истории)"
 
 #: iemgui_dynamic_strings.tcl:15
 msgid "-----------output-range:-----------"
@@ -80,10 +85,20 @@ msgstr ""
 msgid "------visible_rectangle(pix)(pix):------"
 msgstr ""
 
+#: ../tcl/pd_deken.tcl:498
+#, tcl-format
+msgid "1. Unzip %s."
+msgstr ""
+
 #: ../tcl/dialog_audio.tcl:183 ../tcl/dialog_audio.tcl:248
 #: ../tcl/dialog_midi.tcl:133 ../tcl/dialog_midi.tcl:241
 msgid "1:"
 msgstr "1:"
+
+#: ../tcl/pd_deken.tcl:500
+#, tcl-format
+msgid "2. Copy the contents into %s.\n"
+msgstr ""
 
 #: ../tcl/dialog_audio.tcl:197 ../tcl/dialog_audio.tcl:273
 #: ../tcl/dialog_midi.tcl:143 ../tcl/dialog_midi.tcl:251
@@ -131,9 +146,8 @@ msgid "About Pd"
 msgstr "О программе Pd"
 
 #: ../ceammc/extra/CreamLibrary/Sources/c.matrix.cpp:362
-#, fuzzy
 msgid "Active Cell Color"
-msgstr "Активный цвет"
+msgstr "Цвет активной ячейки"
 
 #: ../ceammc/extra/CreamLibrary/Sources/c.bang.cpp:163
 #: ../ceammc/extra/CreamLibrary/Sources/c.dsp_tilde.cpp:199
@@ -202,7 +216,7 @@ msgstr "Настройки аудио..."
 
 #: ../tcl/pdwindow.tcl:344
 msgid "Audio off"
-msgstr ""
+msgstr "Выключить звук"
 
 #: ../ceammc/ext/src/ui_sliders.cpp:334
 msgid "Auto range"
@@ -297,6 +311,10 @@ msgstr "CEAMMC объекты"
 msgid "Cancel"
 msgstr "Отмена"
 
+#: ../tcl/pd_deken.tcl:454
+msgid "Cannot download/install libraries!"
+msgstr "Невозможно загрузить/установить библиотеки!"
+
 #: ../tcl/dialog_iemgui.tcl:564 ../tcl/pd_menus.tcl:239 ../tcl/pd_menus.tcl:242
 #: ../tcl/pd_menus.tcl:253
 msgid "Canvas"
@@ -339,6 +357,14 @@ msgstr "Закрыть"
 msgid "Colors"
 msgstr "Цвета"
 
+#: ../tcl/pd_deken.tcl:469
+#, tcl-format
+msgid ""
+"Commencing downloading of:\n"
+"%s\n"
+"Into %s..."
+msgstr ""
+
 #: ../tcl/pd_menus.tcl:220 ../tcl/pd_menus.tcl:223 ../tcl/pd_menus.tcl:234
 msgid "Comment"
 msgstr "Комментарий"
@@ -358,9 +384,8 @@ msgid "Couldn't find '%s' in %s"
 msgstr "Не удалось найти '%s' в %s"
 
 #: ../ceammc/extra/CreamLibrary/Sources/c.toggle.cpp:180
-#, fuzzy
 msgid "Cross Color"
-msgstr "Цвет ручки"
+msgstr ""
 
 #: ../tcl/pd_menus.tcl:165 ../tcl/pd_menus.tcl:168 ../tcl/pd_menus.tcl:174
 msgid "Cut"
@@ -463,8 +488,10 @@ msgstr "Найти далее"
 msgid "Find Last Error"
 msgstr "Найти последнюю ошибку"
 
-#: ../tcl/pd_deken.tcl:319 ../tcl/pd_deken.tcl:324 ../tcl/pd_deken.tcl:565
-#: ../tcl/pd_deken.tcl:567 ../tcl/pd_deken.tcl:578 ../tcl/pd_deken.tcl:580
+#: ../tcl/pd_deken.tcl:319 ../tcl/pd_deken.tcl:324 ../tcl/pd_deken.tcl:331
+#: ../tcl/pd_deken.tcl:332 ../tcl/pd_deken.tcl:565 ../tcl/pd_deken.tcl:567
+#: ../tcl/pd_deken.tcl:578 ../tcl/pd_deken.tcl:580 ../tcl/pd_deken.tcl:590
+#: ../tcl/pd_deken.tcl:591 ../tcl/pd_deken.tcl:592 ../tcl/pd_deken.tcl:593
 msgid "Find externals"
 msgstr "Поиск расширений"
 
@@ -570,7 +597,7 @@ msgstr ""
 
 #: ../tcl/dialog_midi.tcl:430
 msgid "In Ports:"
-msgstr ""
+msgstr "Порты ввода:"
 
 #: ../tcl/dialog_iemgui.tcl:282 ../tcl/dialog_iemgui.tcl:625
 msgid "Init"
@@ -579,6 +606,15 @@ msgstr ""
 #: ../tcl/dialog_audio.tcl:175 ../tcl/dialog_midi.tcl:126
 msgid "Input Devices"
 msgstr "Устройства ввода"
+
+#: ../tcl/pd_deken.tcl:283
+msgid "Install libraries to directory:"
+msgstr "Установить в директорию:"
+
+#: ../tcl/pd_deken.tcl:458
+#, tcl-format
+msgid "Install to directory %s?"
+msgstr "Установить в директорию «%s»?"
 
 #: ../tcl/dialog_iemgui.tcl:520
 msgid "Intrrpt:"
@@ -701,7 +737,7 @@ msgstr ""
 
 #: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:411
 msgid "Maximum Value"
-msgstr ""
+msgstr "Максимальное значение"
 
 #: ../tcl/pd_menus.tcl:214 ../tcl/pd_menus.tcl:217 ../tcl/pd_menus.tcl:228
 msgid "Message"
@@ -725,7 +761,7 @@ msgstr "Свернуть"
 
 #: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:404
 msgid "Minimum Value"
-msgstr ""
+msgstr "Минимальное значение"
 
 #: ../tcl/dialog_array.tcl:270
 msgid "Name:"
@@ -749,6 +785,16 @@ msgstr "Следующее окно"
 #: ../tcl/dialog_iemgui.tcl:285 ../tcl/dialog_iemgui.tcl:622
 msgid "No init"
 msgstr ""
+
+#: ../tcl/pd_deken.tcl:409 ../tcl/pd_deken.tcl:410
+msgid "No matching externals found. Try using the full name e.g. 'freeverb'."
+msgstr ""
+"Расширение не найдено. Попробуйте использовать полное имя, например "
+"‘freeverb’."
+
+#: ../tcl/pd_deken.tcl:452
+msgid "No writeable directory found in:"
+msgstr "Не найдена директория доступная для записи среди:"
 
 #: ../tcl/dialog_iemgui.tcl:525
 msgid "Non Zero Value"
@@ -790,6 +836,10 @@ msgstr ""
 msgid "Object"
 msgstr "Объект"
 
+#: ../tcl/pd_deken.tcl:354 ../tcl/pd_deken.tcl:355
+msgid "Only install externals uploaded by people you trust."
+msgstr "Устанавливайте расширения только от людей, которым вы доверяете."
+
 #: ../tcl/pd_menus.tcl:145 ../tcl/pd_menus.tcl:147 ../tcl/pd_menus.tcl:153
 #: ../tcl/pd_menus.tcl:544 ../tcl/pd_menus.tcl:551 ../tcl/pd_menus.tcl:562
 #: ../tcl/pd_menus.tcl:576 ../tcl/pd_menus.tcl:584 ../tcl/pd_menus.tcl:595
@@ -814,7 +864,7 @@ msgstr "Опции"
 
 #: ../tcl/dialog_midi.tcl:433
 msgid "Out Ports:"
-msgstr ""
+msgstr "Порты вывода:"
 
 #: ../tcl/dialog_audio.tcl:240 ../tcl/dialog_midi.tcl:235
 msgid "Output Devices"
@@ -875,6 +925,10 @@ msgstr ""
 #: ../ceammc/extra/CicmWrapper/Sources/eclass.c:78
 msgid "Pinned"
 msgstr ""
+
+#: ../tcl/pd_deken.tcl:496 ../tcl/pd_deken.tcl:497
+msgid "Please perform the following steps manually:"
+msgstr "Пожалуйста, сделайте вручную следующие шаги:"
 
 #: ../tcl/dialog_array.tcl:290
 msgid "Points"
@@ -1028,13 +1082,17 @@ msgstr "Сохранять содержимое"
 msgid "Scale"
 msgstr "Масштаб"
 
-#: ../tcl/pd_deken.tcl:294 ../tcl/pd_deken.tcl:295
+#: ../tcl/pd_deken.tcl:294 ../tcl/pd_deken.tcl:295 ../tcl/pd_deken.tcl:296
 msgid "Search"
 msgstr "Поиск"
 
 #: ../tcl/dialog_find.tcl:114 ../tcl/dialog_find.tcl:179
 msgid "Search in"
 msgstr "Поиск в"
+
+#: ../tcl/pd_deken.tcl:385 ../tcl/pd_deken.tcl:386
+msgid "Searching for externals..."
+msgstr "…Поиск расширений"
 
 #: ../tcl/pd_menus.tcl:173 ../tcl/pd_menus.tcl:176 ../tcl/pd_menus.tcl:182
 msgid "Select All"
@@ -1069,8 +1127,9 @@ msgstr "Настройки"
 msgid "Shift"
 msgstr "Смещение"
 
-#: ../tcl/pd_deken.tcl:292 ../tcl/pd_deken.tcl:293 ../tcl/pd_deken.tcl:337
-#: ../tcl/pd_deken.tcl:342
+#: ../tcl/pd_deken.tcl:292 ../tcl/pd_deken.tcl:293 ../tcl/pd_deken.tcl:294
+#: ../tcl/pd_deken.tcl:337 ../tcl/pd_deken.tcl:342 ../tcl/pd_deken.tcl:349
+#: ../tcl/pd_deken.tcl:350
 msgid "Show all"
 msgstr "Показать все"
 
@@ -1079,9 +1138,8 @@ msgid "Show range"
 msgstr "Показывать диапазон"
 
 #: ../ceammc/ext/src/ui_slider2d.cpp:227
-#, fuzzy
 msgid "Show value range"
-msgstr "Показывать диапазон"
+msgstr "Показывать диапазон значений"
 
 #: ../tcl/dialog_find.tcl:128
 #, tcl-format
@@ -1128,6 +1186,11 @@ msgstr "Цвет сохраненной ячейки"
 msgid "Stretch"
 msgstr "Масштаб"
 
+#: ../tcl/pd_deken.tcl:491
+#, tcl-format
+msgid "Successfully unzipped %s into %s.\n"
+msgstr "Успешно распакован файл %s в директорию %s.\n"
+
 #: ../tcl/pd_menus.tcl:218 ../tcl/pd_menus.tcl:221 ../tcl/pd_menus.tcl:232
 msgid "Symbol"
 msgstr "Символ"
@@ -1160,7 +1223,12 @@ msgstr "Расставить"
 
 #: ../ceammc/ext/src/ui_link.cpp:154
 msgid "Title"
+msgstr "Текст"
+
+#: ../tcl/pd_deken.tcl:317 ../tcl/pd_deken.tcl:318
+msgid "To get a list of all available externals, try an empty search."
 msgstr ""
+"Чтобы получить список всех доступных расширений используйте пустой запрос."
 
 #: ../tcl/dialog_iemgui.tcl:523 ../tcl/pd_menus.tcl:225 ../tcl/pd_menus.tcl:228
 #: ../tcl/pd_menus.tcl:239
@@ -1182,6 +1250,14 @@ msgstr "Крайнее верхнее значение"
 #: ../ceammc/ext/src/ui_link.cpp:149
 msgid "URL"
 msgstr "URL"
+
+#: ../tcl/pd_deken.tcl:495 ../tcl/pd_deken.tcl:496
+msgid "Unable to extract package automatically."
+msgstr "Невозможно распаковать пакет автоматически."
+
+#: ../tcl/pd_deken.tcl:392 ../tcl/pd_deken.tcl:393
+msgid "Unable to perform search. Are you online?"
+msgstr "Невозможно выполнить поиск. Вы онлайн?"
 
 #: ../tcl/pd_menus.tcl:67 ../tcl/pd_menus.tcl:73 ../tcl/pd_menus.tcl:126
 #: ../tcl/pd_menus.tcl:128 ../tcl/pd_menus.tcl:134 ../tcl/pd_menus.tcl:160
@@ -1221,6 +1297,11 @@ msgstr "Отменить вставку"
 #: pd_dynamic_strings.tcl:20
 msgid "Undo typing"
 msgstr "Отменить ввод"
+
+#: ../tcl/pd_deken.tcl:672
+#, tcl-format
+msgid "Uploaded by %s @ %s"
+msgstr "Добавлено пользователем %s @ %s"
 
 #: ../tcl/dialog_gatom.tcl:122 ../tcl/dialog_gatom.tcl:123
 #: ../tcl/dialog_iemgui.tcl:533 ../tcl/dialog_iemgui.tcl:541
@@ -1283,12 +1364,12 @@ msgstr ""
 msgid "Vslider"
 msgstr "Vertial Slider"
 
-#: ../tcl/pd-gui.tcl:477 ../tcl/pd-gui.tcl:481
+#: ../tcl/pd-gui.tcl:477 ../tcl/pd-gui.tcl:479 ../tcl/pd-gui.tcl:481
 #, tcl-format
 msgid "WARNING: Font family '%s' not found, using default (%s)\n"
 msgstr ""
 
-#: ../tcl/pd-gui.tcl:485 ../tcl/pd-gui.tcl:489
+#: ../tcl/pd-gui.tcl:485 ../tcl/pd-gui.tcl:487 ../tcl/pd-gui.tcl:489
 #, tcl-format
 msgid "WARNING: Font weight '%s' not found, using default (%s)\n"
 msgstr ""
@@ -1436,6 +1517,11 @@ msgstr ""
 #: iemgui_dynamic_strings.tcl:30
 msgid "right:"
 msgstr ""
+
+#: ../tcl/pd_deken.tcl:579
+#, tcl-format
+msgid "searching for '%s'"
+msgstr "поиск «%s»"
 
 #: iemgui_dynamic_strings.tcl:31
 msgid "size:"

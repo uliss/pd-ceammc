@@ -42,7 +42,7 @@
 #X text 125 513 5\.;
 #X text 150 513 property;
 #X obj 231 514 cnv 1 45 18 empty empty empty 17 7 0 10 -237308 -1 0;
-#X text 230 513 @loop: alias for "@mode wrap" property\.\. ;
+#X text 230 513 @loop: alias for "@mode loop" property\.\. ;
 #X text 125 531 6\.;
 #X text 150 531 property;
 #X obj 231 532 cnv 1 45 18 empty empty empty 17 7 0 10 -237308 -1 0;
@@ -61,10 +61,10 @@
 #X msg 125 641 @direction;
 #X text 230 641 set walking direction property\. "1" - forwards \, "0"
 - backwards\.;
-#X msg 125 678 @current_list?;
+#X msg 125 678 @value?;
 #X text 230 678 get current list;
-#X msg 125 705 @current_pos?;
-#X text 230 705 get current list position;
+#X msg 125 705 @index?;
+#X text 230 705 get current position;
 #X msg 125 732 next;
 #X text 230 732 outputs current element and moves to next with given
 step\. By default = 1;

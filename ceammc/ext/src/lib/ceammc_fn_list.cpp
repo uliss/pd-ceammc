@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "ceammc_fn_list.h"
 
+#include <cstdlib>
 #include <limits>
 #include <map>
 
@@ -197,6 +198,81 @@ namespace list {
         }
 
         return res;
+    }
+
+    AtomList sliceWrap(const AtomList& l, int pos, size_t len)
+    {
+        AtomList res;
+        if (l.empty())
+            return res;
+
+        for (int i = pos; i < pos + int(len); i++)
+            res.append(*l.wrapAt(i));
+
+        return res;
+    }
+
+    AtomList sliceClip(const AtomList& l, int pos, size_t len)
+    {
+        AtomList res;
+        if (l.empty())
+            return res;
+
+        for (int i = pos; i < pos + int(len); i++)
+            res.append(*l.clipAt(i));
+
+        return res;
+    }
+
+    AtomList sliceFold(const AtomList& l, int pos, size_t len)
+    {
+        AtomList res;
+        if (l.empty())
+            return res;
+
+        for (int i = pos; i < pos + int(len); i++)
+            res.append(*l.foldAt(i));
+
+        return res;
+    }
+
+    bool calcClipIndex(int pos, size_t len, size_t* idx)
+    {
+        if (len == 0 || idx == 0)
+            return false;
+
+        *idx = std::max<long>(0, std::min<long>(pos, len - 1));
+        return true;
+    }
+
+    bool calcWrapIndex(int pos, size_t len, size_t* idx)
+    {
+        if (len == 0 || idx == 0)
+            return false;
+
+        pos %= static_cast<int>(len);
+        if (pos < 0)
+            pos += len;
+
+        *idx = pos;
+
+        return true;
+    }
+
+    bool calcFoldIndex(int pos, size_t len, size_t* idx)
+    {
+        if (len == 0 || idx == 0)
+            return false;
+
+        if (len == 1) {
+            *idx = 0;
+            return true;
+        }
+
+        const size_t a = len - 1;
+        const size_t b = static_cast<size_t>(abs(pos)) % (a * 2);
+        *idx = std::min(b, a * 2 - b);
+        return true;
     }
 }
 }

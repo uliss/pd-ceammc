@@ -144,47 +144,52 @@ public:
         createProperty(p);
     }
     bool hasProperty(t_symbol* key) const;
+    bool hasProperty(const char* key) const;
+    Property* property(t_symbol* key);
+    Property* property(const char* key);
+    bool setProperty(t_symbol* key, const AtomList& v);
+    bool setProperty(const char* key, const AtomList& v);
 
     /**
      * Outputs atom to specified outlet
      * @param n - outlet number
      * @param a - atom value
      */
-    void atomTo(size_t n, const Atom& a);
+    virtual void atomTo(size_t n, const Atom& a);
 
     /**
      * Outputs bang to specified outlet
      * @param n - outlet number
      */
-    void bangTo(size_t n);
+    virtual void bangTo(size_t n);
 
     /**
      * Outputs float value to specified outlet
      * @param n - outlet number
      * @param v - float value
      */
-    void floatTo(size_t n, float v);
+    virtual void floatTo(size_t n, float v);
 
     /**
      * Outputs symbol value to specified outlet
      * @param n - outlet number
      * @param s - symbol value
      */
-    void symbolTo(size_t n, t_symbol* s);
+    virtual void symbolTo(size_t n, t_symbol* s);
 
     /**
      * Outputs list to specified outlet
      * @param n - outlet number
      * @param l - list value
      */
-    void listTo(size_t n, const AtomList& l);
+    virtual void listTo(size_t n, const AtomList& l);
 
     /**
      * Outputs message to specified outlet
      * @param n - outlet number
      * @param msg - message value
      */
-    void messageTo(size_t n, const Message& msg);
+    virtual void messageTo(size_t n, const Message& msg);
     void anyTo(size_t n, t_symbol* s, const Atom& a);
     void anyTo(size_t n, t_symbol* s, const AtomList& l);
 
@@ -199,7 +204,7 @@ public:
 public:
     static t_symbol* tryGetPropKey(t_symbol* sel);
 
-private:
+protected:
     void freeInlets();
     void freeOutlets();
     void freeProps();

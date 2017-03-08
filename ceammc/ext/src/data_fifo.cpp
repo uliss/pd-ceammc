@@ -26,6 +26,7 @@ public:
         size_ = args.args.asSizeT(DEFAULT_SIZE);
 
         createOutlet();
+        createCbProperty("@empty", &DataFifo::p_empty);
         createCbProperty("@filled", &DataFifo::p_size);
         createCbProperty("@size", &DataFifo::p_max_size);
         createCbProperty("@free", &DataFifo::p_free);
@@ -51,6 +52,7 @@ public:
         resize(static_cast<size_t>(sz));
     }
 
+    AtomList p_empty() const { return listFrom(fifo_.empty() ? 1 : 0); }
     AtomList p_size() const { return listFrom(fifo_.size()); }
     AtomList p_max_size() const { return listFrom(size_); }
     AtomList p_free() const { return listFrom(size_ - fifo_.size()); }
