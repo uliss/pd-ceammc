@@ -68,8 +68,11 @@ AtomList ListWalk::p_index() const
 {
     if (walk_mode_->value() != m_fold_)
         return AtomList(current_pos_);
-    else
-        return AtomList(abs(current_pos_) % int((lst_.size() - 1) * 2));
+    else {
+        size_t idx = 0;
+        list::calcFoldIndex(current_pos_, lst_.size(), &idx);
+        return AtomList(idx);
+    }
 }
 
 void ListWalk::next(int step)
