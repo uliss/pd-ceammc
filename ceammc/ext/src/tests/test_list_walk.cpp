@@ -637,4 +637,13 @@ TEST_CASE("list.walk", "[PureData]")
         CALL(t, current);
         REQUIRE_NO_MSG(t);
     }
+
+    SECTION("test @size")
+    {
+        ListWalkTest t("list.walk", AtomList());
+        REQUIRE_PROP(t, size, AtomList(0.f));
+
+        t.sendList(AtomList::values(2, 1.0, 2.0));
+        REQUIRE_PROP(t, size, AtomList(2));
+    }
 }
