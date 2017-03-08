@@ -238,6 +238,7 @@ TEST_CASE("list.walk", "[PureData]")
 
             CALL(t, current);
             REQUIRE_NO_MSG(t);
+            REQUIRE_INDEX(t, 0);
             CALL(t, next);
             REQUIRE_NO_MSG(t);
 
@@ -245,17 +246,23 @@ TEST_CASE("list.walk", "[PureData]")
 
             CALL(t, current);
             REQUIRE_LIST_MSG(t, AtomList(1));
+            REQUIRE_INDEX(t, 0);
 
             CALL(t, next);
             REQUIRE_LIST_MSG(t, AtomList(2));
+            REQUIRE_INDEX(t, 1);
             CALL(t, next);
             REQUIRE_LIST_MSG(t, AtomList(3));
+            REQUIRE_INDEX(t, 2);
             CALL(t, next);
             REQUIRE_LIST_MSG(t, AtomList(1));
+            REQUIRE_INDEX(t, 0);
             CALL(t, next);
             REQUIRE_LIST_MSG(t, AtomList(2));
+            REQUIRE_INDEX(t, 1);
             CALL(t, next);
             REQUIRE_LIST_MSG(t, AtomList(3));
+            REQUIRE_INDEX(t, 2);
 
             CALL(t, prev);
             REQUIRE_LIST_MSG(t, AtomList(2));
@@ -289,19 +296,25 @@ TEST_CASE("list.walk", "[PureData]")
 
             CALL(t, current);
             REQUIRE_LIST_MSG(t, AtomList(1));
+            REQUIRE_INDEX(t, 0);
 
             CALL1(t, next, 2);
             REQUIRE_LIST_MSG(t, AtomList(3));
+            REQUIRE_INDEX(t, 2);
             CALL1(t, next, 2);
             REQUIRE_LIST_MSG(t, AtomList(2));
+            REQUIRE_INDEX(t, 1);
             CALL1(t, next, 2);
             REQUIRE_LIST_MSG(t, AtomList(1));
+            REQUIRE_INDEX(t, 0);
 
             CALL1(t, prev, 3);
             REQUIRE_LIST_MSG(t, AtomList(1));
+            REQUIRE_INDEX(t, 0);
 
             CALL1(t, prev, 4);
             REQUIRE_LIST_MSG(t, AtomList(3));
+            REQUIRE_INDEX(t, 2);
         }
 
         SECTION("length 2")
@@ -319,18 +332,24 @@ TEST_CASE("list.walk", "[PureData]")
 
             CALL(t, current);
             REQUIRE_LIST_MSG(t, AtomList(1, 2));
+            REQUIRE_INDEX(t, 0);
 
             CALL1(t, next, 2);
             REQUIRE_LIST_MSG(t, AtomList(3, 4));
+            REQUIRE_INDEX(t, 2);
             CALL1(t, next, 2);
             REQUIRE_LIST_MSG(t, AtomList(5, 1));
+            REQUIRE_INDEX(t, 4);
             CALL1(t, next, 2);
             REQUIRE_LIST_MSG(t, AtomList(2, 3));
+            REQUIRE_INDEX(t, 1);
 
             CALL1(t, prev, 3);
             REQUIRE_LIST_MSG(t, AtomList(4, 5));
+            REQUIRE_INDEX(t, 3);
             CALL1(t, prev, 3);
             REQUIRE_LIST_MSG(t, AtomList(1, 2));
+            REQUIRE_INDEX(t, 0);
         }
     }
 
