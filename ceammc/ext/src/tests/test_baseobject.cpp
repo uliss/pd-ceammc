@@ -38,11 +38,19 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
         REQUIRE(b.numOutlets() == 0);
         REQUIRE(b.numInlets() == 0);
 
-        REQUIRE_FALSE(b.hasProperty(gensym("@?")));
-        REQUIRE(b.getProperty(gensym("@?")) == 0);
+        REQUIRE_FALSE(b.hasProperty("@?"));
+        REQUIRE(b.property("@?") == 0);
 
         b.createProperty(new IntProperty("@int"));
-        REQUIRE(b.hasProperty(gensym("@int")));
-        REQUIRE(b.getProperty(gensym("@int")) != 0);
+        REQUIRE(b.hasProperty("@int"));
+        REQUIRE(b.property("@int") != 0);
+        REQUIRE(b.setProperty("@int", AtomList(2)));
+        REQUIRE(b.property("@int")->get() == AtomList(2));
+
+        b.createProperty(new IntProperty("@int_ro", -10, true));
+        REQUIRE(b.hasProperty("@int_ro"));
+        REQUIRE(b.property("@int_ro") != 0);
+        REQUIRE(b.property("@int_ro")->readonly());
+        REQUIRE_FALSE(b.setProperty("@int_ro", AtomList(2)));
     }
 }

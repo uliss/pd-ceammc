@@ -144,7 +144,11 @@ public:
         createProperty(p);
     }
     bool hasProperty(t_symbol* key) const;
-    Property* getProperty(t_symbol* key);
+    bool hasProperty(const char* key) const;
+    Property* property(t_symbol* key);
+    Property* property(const char* key);
+    bool setProperty(t_symbol* key, const AtomList& v);
+    bool setProperty(const char* key, const AtomList& v);
 
     /**
      * Outputs atom to specified outlet
