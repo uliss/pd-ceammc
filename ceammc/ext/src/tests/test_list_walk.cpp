@@ -48,6 +48,11 @@ typedef TestExtension<ListWalk> ListWalkTest;
         REQUIRE(p->get() == val);                         \
     }
 
+#define REQUIRE_INDEX(obj, idx)                  \
+    {                                            \
+        REQUIRE(obj.p_index() == AtomList(idx)); \
+    }
+
 #define REQUIRE_NO_MSG(obj) REQUIRE_FALSE(obj.hasNewMessages())
 
 TEST_CASE("list.walk", "[PureData]")
@@ -518,7 +523,7 @@ TEST_CASE("list.walk", "[PureData]")
 
         SECTION("length 2")
         {
-            AtomList args(gensym("@clip"));
+            AtomList args(gensym("@fold"));
             args.append(AtomList(gensym("@length"), 2));
             ListWalkTest t("list.walk", args);
 
@@ -532,17 +537,21 @@ TEST_CASE("list.walk", "[PureData]")
             CALL(t, current);
             REQUIRE_LIST_MSG(t, AtomList(1, 2));
 
+            // 1 2 3 4 5 4 3 2 1 2 3 4 5 4 3 2 1
             CALL1(t, next, 2);
             REQUIRE_LIST_MSG(t, AtomList(3, 4));
             CALL1(t, next, 2);
-            REQUIRE_LIST_MSG(t, AtomList(5, 5));
+            REQUIRE_LIST_MSG(t, AtomList(5, 4));
             CALL1(t, next, 2);
-            REQUIRE_LIST_MSG(t, AtomList(5, 5));
+            REQUIRE_LIST_MSG(t, AtomList(3, 2));
 
             CALL1(t, prev, 3);
-            REQUIRE_LIST_MSG(t, AtomList(2, 3));
+            REQUIRE_LIST_MSG(t, AtomList(4, 5));
             CALL1(t, prev, 3);
             REQUIRE_LIST_MSG(t, AtomList(1, 2));
+            CALL1(t, prev, 3);
+            REQUIRE_LIST_MSG(t, AtomList(4, 3));
+
         }
     }
 }
