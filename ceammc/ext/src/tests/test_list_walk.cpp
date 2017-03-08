@@ -48,9 +48,9 @@ typedef TestExtension<ListWalk> ListWalkTest;
         REQUIRE(p->get() == val);                         \
     }
 
-#define REQUIRE_INDEX(obj, idx)                  \
-    {                                            \
-        REQUIRE(obj.p_index() == AtomList(idx)); \
+#define REQUIRE_INDEX(obj, idx)                         \
+    {                                                   \
+        REQUIRE(obj.p_index() == AtomList(float(idx))); \
     }
 
 #define REQUIRE_NO_MSG(obj) REQUIRE_FALSE(obj.hasNewMessages())
@@ -343,6 +343,7 @@ TEST_CASE("list.walk", "[PureData]")
 
             CALL(t, current);
             REQUIRE_NO_MSG(t);
+            REQUIRE_INDEX(t, 0);
             CALL(t, next);
             REQUIRE_NO_MSG(t);
 
@@ -350,26 +351,35 @@ TEST_CASE("list.walk", "[PureData]")
 
             CALL(t, current);
             REQUIRE_LIST_MSG(t, AtomList(1));
+            REQUIRE_INDEX(t, 0);
 
             CALL(t, next);
             REQUIRE_LIST_MSG(t, AtomList(2));
+            REQUIRE_INDEX(t, 1);
             CALL(t, next);
             REQUIRE_LIST_MSG(t, AtomList(3));
+            REQUIRE_INDEX(t, 2);
             CALL(t, next);
             REQUIRE_LIST_MSG(t, AtomList(3));
+            REQUIRE_INDEX(t, 2);
             CALL(t, next);
             REQUIRE_LIST_MSG(t, AtomList(3));
+            REQUIRE_INDEX(t, 2);
             CALL(t, next);
             REQUIRE_LIST_MSG(t, AtomList(3));
+            REQUIRE_INDEX(t, 2);
 
             CALL(t, prev);
             REQUIRE_LIST_MSG(t, AtomList(2));
             CALL(t, prev);
             REQUIRE_LIST_MSG(t, AtomList(1));
+            REQUIRE_INDEX(t, 0);
             CALL(t, prev);
             REQUIRE_LIST_MSG(t, AtomList(1));
+            REQUIRE_INDEX(t, 0);
             CALL(t, prev);
             REQUIRE_LIST_MSG(t, AtomList(1));
+            REQUIRE_INDEX(t, 0);
 
             CALL(t, reset);
             CALL(t, prev);
@@ -401,12 +411,14 @@ TEST_CASE("list.walk", "[PureData]")
             REQUIRE_LIST_MSG(t, AtomList(3));
             CALL1(t, next, 2);
             REQUIRE_LIST_MSG(t, AtomList(3));
+            REQUIRE_INDEX(t, 2);
 
             CALL1(t, prev, 2);
             REQUIRE_LIST_MSG(t, AtomList(1));
 
             CALL1(t, prev, 4);
             REQUIRE_LIST_MSG(t, AtomList(1));
+            REQUIRE_INDEX(t, 0);
         }
 
         SECTION("length 2")
@@ -431,11 +443,13 @@ TEST_CASE("list.walk", "[PureData]")
             REQUIRE_LIST_MSG(t, AtomList(5, 5));
             CALL1(t, next, 2);
             REQUIRE_LIST_MSG(t, AtomList(5, 5));
+            REQUIRE_INDEX(t, 4);
 
             CALL1(t, prev, 3);
             REQUIRE_LIST_MSG(t, AtomList(2, 3));
             CALL1(t, prev, 3);
             REQUIRE_LIST_MSG(t, AtomList(1, 2));
+            REQUIRE_INDEX(t, 0);
         }
     }
 
@@ -551,7 +565,6 @@ TEST_CASE("list.walk", "[PureData]")
             REQUIRE_LIST_MSG(t, AtomList(1, 2));
             CALL1(t, prev, 3);
             REQUIRE_LIST_MSG(t, AtomList(4, 3));
-
         }
     }
 }
