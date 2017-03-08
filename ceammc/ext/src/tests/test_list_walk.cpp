@@ -646,4 +646,19 @@ TEST_CASE("list.walk", "[PureData]")
         t.sendList(AtomList::values(2, 1.0, 2.0));
         REQUIRE_PROP(t, size, AtomList(2));
     }
+
+    SECTION("test bang")
+    {
+        ListWalkTest t("list.walk", AtomList(1, 2));
+        REQUIRE(t.property("@mode")->get() == AtomList(gensym("single")));
+        REQUIRE(t.setProperty("@loop", AtomList()));
+        REQUIRE(t.property("@mode")->get() == AtomList(gensym("wrap")));
+
+        t.sendBang();
+        REQUIRE_LIST_MSG(t, AtomList(2));
+        t.sendBang();
+        REQUIRE_LIST_MSG(t, AtomList(1));
+        t.sendBang();
+        REQUIRE_LIST_MSG(t, AtomList(2));
+    }
 }
