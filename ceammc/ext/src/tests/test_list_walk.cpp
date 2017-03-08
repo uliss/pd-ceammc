@@ -43,7 +43,7 @@ typedef TestExtension<ListWalk> ListWalkTest;
 
 #define REQUIRE_PROP(obj, name, val)                      \
     {                                                     \
-        Property* p = obj.getProperty(gensym("@" #name)); \
+        Property* p = obj.property(gensym("@" #name)); \
         REQUIRE(p != 0);                                  \
         REQUIRE(p->get() == val);                         \
     }
@@ -64,17 +64,19 @@ TEST_CASE("list.walk", "[PureData]")
 
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
-        REQUIRE(t.hasProperty(gensym("@direction")));
-        REQUIRE(t.hasProperty(gensym("@index")));
-        REQUIRE(t.hasProperty(gensym("@value")));
-        REQUIRE(t.hasProperty(gensym("@mode")));
-        REQUIRE(t.hasProperty(gensym("@length")));
-        REQUIRE(t.hasProperty(gensym("@single")));
-        REQUIRE(t.hasProperty(gensym("@loop")));
-        REQUIRE(t.hasProperty(gensym("@wrap")));
-        REQUIRE(t.hasProperty(gensym("@clip")));
-        REQUIRE(t.hasProperty(gensym("@fold")));
-        REQUIRE(t.hasProperty(gensym("@size")));
+        REQUIRE(t.hasProperty("@direction"));
+        REQUIRE(t.hasProperty("@index"));
+        REQUIRE(t.hasProperty("@value"));
+        REQUIRE(t.hasProperty("@mode"));
+        REQUIRE(t.hasProperty("@length"));
+        REQUIRE(t.hasProperty("@single"));
+        REQUIRE(t.hasProperty("@loop"));
+        REQUIRE(t.hasProperty("@wrap"));
+        REQUIRE(t.hasProperty("@clip"));
+        REQUIRE(t.hasProperty("@fold"));
+        REQUIRE(t.hasProperty("@size"));
+        REQUIRE(t.property("@size")->readonly());
+        REQUIRE(t.property("@index")->readonly());
 
         REQUIRE(t.messageCount() == 0);
 
@@ -616,5 +618,23 @@ TEST_CASE("list.walk", "[PureData]")
             CALL1(t, prev, 3);
             REQUIRE_LIST_MSG(t, AtomList(4, 3));
         }
+    }
+
+    SECTION("test length < 1")
+    {
+        ListWalkTest t("list.walk", AtomList());
+        REQUIRE(t.setProperty("@length", AtomList(0.f)));
+
+        CALL(t, current);
+        REQUIRE_NO_MSG(t);
+
+        t.sendList(AtomList::values(2, 1.0, 2.0));
+        CALL(t, current);
+        REQUIRE_NO_MSG(t);
+
+        REQUIRE(t.setProperty("@length", AtomList(-10)));
+
+        CALL(t, current);
+        REQUIRE_NO_MSG(t);
     }
 }
