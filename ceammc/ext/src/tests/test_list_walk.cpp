@@ -76,7 +76,7 @@ TEST_CASE("list.walk", "[PureData]")
         REQUIRE(t.hasProperty("@fold"));
         REQUIRE(t.hasProperty("@size"));
         REQUIRE(t.property("@size")->readonly());
-        REQUIRE(t.property("@index")->readonly());
+        REQUIRE(!t.property("@index")->readonly());
 
         REQUIRE(t.messageCount() == 0);
 
@@ -749,5 +749,34 @@ TEST_CASE("list.walk", "[PureData]")
             CALL(t, current);
             REQUIRE_LIST_MSG(t, AtomList(3));
         }
+    }
+
+    SECTION("test set index")
+    {
+        ListWalkTest t("list.walk", AtomList());
+        t.p_set_index(AtomList(2));
+        REQUIRE_PROP(t, index, AtomList(0.0f));
+
+        t.sendList(AtomList(2, 3));
+        t.p_set_index(AtomList(0.0f));
+        REQUIRE_PROP(t, index, AtomList(0.0f));
+        t.p_set_index(AtomList(1.0f));
+        REQUIRE_PROP(t, index, AtomList(1.0f));
+        t.p_set_index(AtomList(2.0f));
+        REQUIRE_PROP(t, index, AtomList(1.0f));
+        t.p_set_index(AtomList(3.0f));
+        REQUIRE_PROP(t, index, AtomList(1.0f));
+        t.p_set_index(AtomList(4.0f));
+        REQUIRE_PROP(t, index, AtomList(1.0f));
+
+        t.p_set_index(AtomList(-1.0f));
+        REQUIRE_PROP(t, index, AtomList(1.0f));
+        t.p_set_index(AtomList(-2.0f));
+        REQUIRE_PROP(t, index, AtomList(0.0f));
+        t.p_set_index(AtomList(-3.0f));
+        REQUIRE_PROP(t, index, AtomList(0.0f));
+        t.p_set_index(AtomList(-4.0f));
+        REQUIRE_PROP(t, index, AtomList(0.0f));
+
     }
 }

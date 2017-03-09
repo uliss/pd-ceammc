@@ -46,6 +46,7 @@ public:
 
     AtomList p_size() const;
     AtomList p_index() const;
+    void p_set_index(const AtomList& l);
 
 private:
     void next(int step = 1);
