@@ -691,94 +691,94 @@ TEST_CASE("list.walk", "[PureData]")
         REQUIRE_LIST_MSG(t, AtomList(3));
     }
 
-    SECTION("test float")
-    {
-        SECTION("forward")
-        {
-            ListWalkTest t("list.walk", AtomList::values(5, 1.0, 2.0, 3.0, 4.0, 5.0));
-            REQUIRE_PROP(t, direction, AtomList(1.f));
-            REQUIRE(t.setProperty("@loop", AtomList()));
+//    SECTION("test float")
+//    {
+//        SECTION("forward")
+//        {
+//            ListWalkTest t("list.walk", AtomList::values(5, 1.0, 2.0, 3.0, 4.0, 5.0));
+//            REQUIRE_PROP(t, direction, AtomList(1.f));
+//            REQUIRE(t.setProperty("@loop", AtomList()));
 
-            t.sendFloat(1);
-            REQUIRE_LIST_MSG(t, AtomList(1));
-            CALL(t, current);
-            REQUIRE_LIST_MSG(t, AtomList(2));
-            t.sendFloat(0);
-            REQUIRE_LIST_MSG(t, AtomList(2));
+//            t.sendFloat(1);
+//            REQUIRE_LIST_MSG(t, AtomList(1));
+//            CALL(t, current);
+//            REQUIRE_LIST_MSG(t, AtomList(2));
+//            t.sendFloat(0);
+//            REQUIRE_LIST_MSG(t, AtomList(2));
 
-            t.sendFloat(2);
-            REQUIRE_LIST_MSG(t, AtomList(2));
-            CALL(t, current);
-            REQUIRE_LIST_MSG(t, AtomList(4));
+//            t.sendFloat(2);
+//            REQUIRE_LIST_MSG(t, AtomList(2));
+//            CALL(t, current);
+//            REQUIRE_LIST_MSG(t, AtomList(4));
 
-            t.sendFloat(-4);
-            REQUIRE_LIST_MSG(t, AtomList(4));
-            CALL(t, current);
-            REQUIRE_LIST_MSG(t, AtomList(5));
+//            t.sendFloat(-4);
+//            REQUIRE_LIST_MSG(t, AtomList(4));
+//            CALL(t, current);
+//            REQUIRE_LIST_MSG(t, AtomList(5));
 
-            t.sendFloat(-1);
-            REQUIRE_LIST_MSG(t, AtomList(5));
-            CALL(t, current);
-            REQUIRE_LIST_MSG(t, AtomList(4));
-        }
+//            t.sendFloat(-1);
+//            REQUIRE_LIST_MSG(t, AtomList(5));
+//            CALL(t, current);
+//            REQUIRE_LIST_MSG(t, AtomList(4));
+//        }
 
-        SECTION("backward")
-        {
-            ListWalkTest t("list.walk", AtomList::values(5, 1.0, 2.0, 3.0, 4.0, 5.0));
-            REQUIRE_PROP(t, direction, AtomList(1.f));
-            REQUIRE(t.setProperty("@direction", AtomList(0.f)));
-            REQUIRE(t.setProperty("@loop", AtomList()));
+//        SECTION("backward")
+//        {
+//            ListWalkTest t("list.walk", AtomList::values(5, 1.0, 2.0, 3.0, 4.0, 5.0));
+//            REQUIRE_PROP(t, direction, AtomList(1.f));
+//            REQUIRE(t.setProperty("@direction", AtomList(0.f)));
+//            REQUIRE(t.setProperty("@loop", AtomList()));
 
-            t.sendFloat(1);
-            REQUIRE_LIST_MSG(t, AtomList(1));
-            CALL(t, current);
-            REQUIRE_LIST_MSG(t, AtomList(5));
+//            t.sendFloat(1);
+//            REQUIRE_LIST_MSG(t, AtomList(1));
+//            CALL(t, current);
+//            REQUIRE_LIST_MSG(t, AtomList(5));
 
-            t.sendFloat(2);
-            REQUIRE_LIST_MSG(t, AtomList(5));
-            CALL(t, current);
-            REQUIRE_LIST_MSG(t, AtomList(3));
+//            t.sendFloat(2);
+//            REQUIRE_LIST_MSG(t, AtomList(5));
+//            CALL(t, current);
+//            REQUIRE_LIST_MSG(t, AtomList(3));
 
-            t.sendFloat(-4);
-            REQUIRE_LIST_MSG(t, AtomList(3));
-            CALL(t, current);
-            REQUIRE_LIST_MSG(t, AtomList(2));
+//            t.sendFloat(-4);
+//            REQUIRE_LIST_MSG(t, AtomList(3));
+//            CALL(t, current);
+//            REQUIRE_LIST_MSG(t, AtomList(2));
 
-            t.sendFloat(-1);
-            REQUIRE_LIST_MSG(t, AtomList(2));
-            CALL(t, current);
-            REQUIRE_LIST_MSG(t, AtomList(3));
-        }
-    }
+//            t.sendFloat(-1);
+//            REQUIRE_LIST_MSG(t, AtomList(2));
+//            CALL(t, current);
+//            REQUIRE_LIST_MSG(t, AtomList(3));
+//        }
+//    }
 
-    SECTION("test set index")
-    {
-        ListWalkTest t("list.walk", AtomList());
-        t.p_set_index(AtomList(2));
-        REQUIRE_PROP(t, index, AtomList(0.0f));
-        t.p_set_index(AtomList(-2));
-        REQUIRE(t.p_index() == AtomList(0.0f));
+//    SECTION("test set index")
+//    {
+//        ListWalkTest t("list.walk", AtomList());
+//        t.p_set_index(AtomList(2));
+//        REQUIRE_PROP(t, index, AtomList(0.0f));
+//        t.p_set_index(AtomList(-2));
+//        REQUIRE(t.p_index() == AtomList(0.0f));
 
-        t.sendList(AtomList(2, 3));
-        t.p_set_index(AtomList(0.0f));
-        REQUIRE_PROP(t, index, AtomList(0.0f));
-        t.p_set_index(AtomList(1.0f));
-        REQUIRE_PROP(t, index, AtomList(1.0f));
-        t.p_set_index(AtomList(2.0f));
-        REQUIRE_PROP(t, index, AtomList(1.0f));
-        t.p_set_index(AtomList(3.0f));
-        REQUIRE_PROP(t, index, AtomList(1.0f));
-        t.p_set_index(AtomList(4.0f));
-        REQUIRE_PROP(t, index, AtomList(1.0f));
+//        t.sendList(AtomList(2, 3));
+//        t.p_set_index(AtomList(0.0f));
+//        REQUIRE_PROP(t, index, AtomList(0.0f));
+//        t.p_set_index(AtomList(1.0f));
+//        REQUIRE_PROP(t, index, AtomList(1.0f));
+//        t.p_set_index(AtomList(2.0f));
+//        REQUIRE_PROP(t, index, AtomList(1.0f));
+//        t.p_set_index(AtomList(3.0f));
+//        REQUIRE_PROP(t, index, AtomList(1.0f));
+//        t.p_set_index(AtomList(4.0f));
+//        REQUIRE_PROP(t, index, AtomList(1.0f));
 
-        t.p_set_index(AtomList(-1.0f));
-        REQUIRE_PROP(t, index, AtomList(1.0f));
-        t.p_set_index(AtomList(-2.0f));
-        REQUIRE_PROP(t, index, AtomList(0.0f));
-        t.p_set_index(AtomList(-3.0f));
-        REQUIRE_PROP(t, index, AtomList(0.0f));
-        t.p_set_index(AtomList(-4.0f));
-        REQUIRE_PROP(t, index, AtomList(0.0f));
+//        t.p_set_index(AtomList(-1.0f));
+//        REQUIRE_PROP(t, index, AtomList(1.0f));
+//        t.p_set_index(AtomList(-2.0f));
+//        REQUIRE_PROP(t, index, AtomList(0.0f));
+//        t.p_set_index(AtomList(-3.0f));
+//        REQUIRE_PROP(t, index, AtomList(0.0f));
+//        t.p_set_index(AtomList(-4.0f));
+//        REQUIRE_PROP(t, index, AtomList(0.0f));
 
-    }
+//    }
 }
