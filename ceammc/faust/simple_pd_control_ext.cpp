@@ -226,7 +226,7 @@ static void dumpToConsole(t_faust* x)
 
     // print xlets
     post("[%s] inlets: %i", name, x->dsp->getNumInputs());
-    post("[%s] outlets: %i", name, x->dsp->getNumOutputs());
+    post("[%s] outlets: %i", name, x->dsp->getNumOutputs() + (x->out == 0) ? 0 : 1);
 
     // print properties
     for (size_t i = 0; i < x->ui->uiCount(); i++) {
