@@ -36,6 +36,7 @@ public:
     ListWalk(const PdArgs& a);
 
     void onBang();
+    void onFloat(float v);
     void onList(const AtomList& l);
 
     void m_current(t_symbol*, const AtomList&);
@@ -45,6 +46,7 @@ public:
 
     AtomList p_size() const;
     AtomList p_index() const;
+    void p_set_index(const AtomList& l);
 
 private:
     void next(int step = 1);

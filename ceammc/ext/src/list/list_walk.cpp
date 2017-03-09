@@ -37,13 +37,27 @@ ListWalk::ListWalk(const PdArgs& a)
     createProperty(new SymbolEnumAlias("@fold", walk_mode_, gensym("fold")));
 
     createCbProperty("@size", &ListWalk::p_size);
-    createCbProperty("@index", &ListWalk::p_index);
+    createCbProperty("@index", &ListWalk::p_index, &ListWalk::p_set_index);
 
     parseArguments();
     lst_ = args();
 }
 
-void ListWalk::onBang() { next(); }
+void ListWalk::onBang() { onFloat(1); }
+
+void ListWalk::onFloat(float v)
+{
+    int step = static_cast<int>(v);
+
+    current();
+    if (step == 0)
+        return;
+
+    if (forward_)
+        toPosition(current_pos_ + step);
+    else
+        toPosition(current_pos_ - step);
+}
 
 void ListWalk::onList(const AtomList& l)
 {
@@ -73,6 +87,15 @@ AtomList ListWalk::p_index() const
         list::calcFoldIndex(current_pos_, lst_.size(), &idx);
         return AtomList(idx);
     }
+}
+
+void ListWalk::p_set_index(const AtomList& l)
+{
+    int idx = atomlistToValue<int>(l, 0);
+    if (idx < 0)
+        idx += lst_.size();
+
+    current_pos_ = std::max(0, std::min<int>(idx, lst_.size() - 1));
 }
 
 void ListWalk::next(int step)
@@ -135,7 +158,7 @@ void ListWalk::current()
         return;
     }
 
-    if(lst_.empty()) {
+    if (lst_.empty()) {
         OBJ_ERR << "empty list";
         return;
     }

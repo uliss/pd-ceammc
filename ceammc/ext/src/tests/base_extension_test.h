@@ -60,7 +60,7 @@ public:
         if (inlet == 0)
             T::onFloat(f);
         else
-            T::onInlet(inlet, f);
+            T::onInlet(inlet, AtomList(f));
     }
 
     void sendList(const AtomList& lst, int inlet = 0)
