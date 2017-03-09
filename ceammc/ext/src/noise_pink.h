@@ -479,7 +479,6 @@ struct pink : public dsp {
 #include "ceammc_faust.h"
 using namespace ceammc::faust;
 
-
 /******************************************************************************
 *******************************************************************************
 
@@ -511,15 +510,15 @@ class pink : public dsp {
 
   public:
 	virtual void metadata(Meta* m) { 
+		m->declare("noise.lib/name", "Faust Noise Generator Library");
+		m->declare("noise.lib/version", "0.0");
+		m->declare("filter.lib/name", "Faust Filter Library");
+		m->declare("filter.lib/version", "2.0");
 		m->declare("math.lib/name", "Faust Math Library");
 		m->declare("math.lib/version", "2.0");
 		m->declare("math.lib/author", "GRAME");
 		m->declare("math.lib/copyright", "GRAME");
 		m->declare("math.lib/license", "LGPL with exception");
-		m->declare("noise.lib/name", "Faust Noise Generator Library");
-		m->declare("noise.lib/version", "0.0");
-		m->declare("filter.lib/name", "Faust Filter Library");
-		m->declare("filter.lib/version", "2.0");
 	}
 
 	virtual int getNumInputs() { return 0; }
@@ -558,7 +557,7 @@ class pink : public dsp {
 		FAUSTFLOAT* output0 = output[0];
 		for (int i=0; i<count; i++) {
 			iRec1[0] = ((1103515245 * iRec1[1]) + 12345);
-			fRec0[0] = ((((2.494956f * fRec0[1]) + (0.5221894f * fRec0[3])) + (4.656613e-10f * iRec1[0])) - (2.0172658f * fRec0[2]));
+			fRec0[0] = (((4.656613e-10f * iRec1[0]) + ((0.5221894f * fRec0[3]) + (2.494956f * fRec0[1]))) - (2.0172658f * fRec0[2]));
 			output0[i] = (FAUSTFLOAT)(((0.049922034f * fRec0[0]) + (0.0506127f * fRec0[2])) - ((0.095993534f * fRec0[1]) + (0.004408786f * fRec0[3])));
 			// post processing
 			for (int i=3; i>0; i--) fRec0[i] = fRec0[i-1];
@@ -699,6 +698,24 @@ static void faust_dsp(t_faust* x, t_signal** sp)
                 break;
             }
         }
+    }
+}
+
+static void dumpToConsole(t_faust* x)
+{
+    t_object* xobj = &x->x_obj;
+    t_class* xc = xobj->te_pd;
+    const char* name = class_getname(xc);
+
+    // print xlets
+    post("[%s] inlets: %i", name, x->dsp->getNumInputs());
+    int info_outlet = (x->out == 0) ? 0 : 1;
+    post("[%s] outlets: %i", name, x->dsp->getNumOutputs() + info_outlet);
+
+    // print properties
+    for (size_t i = 0; i < x->ui->uiCount(); i++) {
+        UIElement* el = x->ui->uiAt(i);
+        post("[%s] property: %s = %g", name, el->setPropertySym()->s_name, static_cast<double>(el->value()));
     }
 }
 
@@ -1053,6 +1070,7 @@ static void internal_setup(t_symbol* s)
         A_GIMME, A_NULL);
     class_addmethod(faust_class, nullfn, &s_signal, A_NULL);
     class_addmethod(faust_class, reinterpret_cast<t_method>(faust_dsp), gensym("dsp"), A_NULL);
+    class_addmethod(faust_class, reinterpret_cast<t_method>(dumpToConsole), gensym("dump"), A_NULL);
     CLASS_MAINSIGNALIN(faust_class, t_faust, f);
     class_addanything(faust_class, faust_any);
 }
