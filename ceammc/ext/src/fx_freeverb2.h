@@ -480,7 +480,6 @@ struct freeverb2 : public dsp {
 #include "ceammc_faust.h"
 using namespace ceammc::faust;
 
-
 /******************************************************************************
 *******************************************************************************
 
@@ -636,14 +635,14 @@ class freeverb2 : public dsp {
 	virtual void instanceConstants(int samplingFreq) {
 		fSamplingFreq = samplingFreq;
 		fConst0 = min(1.92e+05f, max(1.0f, (float)fSamplingFreq));
-		iConst1 = int((0.036666665f * fConst0));
-		iConst2 = int((0.035306122f * fConst0));
-		iConst3 = int((0.033809524f * fConst0));
-		iConst4 = int((0.0322449f * fConst0));
-		iConst5 = int((0.030748298f * fConst0));
-		iConst6 = int((0.028956916f * fConst0));
-		iConst7 = int((0.026938776f * fConst0));
-		iConst8 = int((0.025306122f * fConst0));
+		iConst1 = int((0.025306122f * fConst0));
+		iConst2 = int((0.026938776f * fConst0));
+		iConst3 = int((0.028956916f * fConst0));
+		iConst4 = int((0.030748298f * fConst0));
+		iConst5 = int((0.0322449f * fConst0));
+		iConst6 = int((0.033809524f * fConst0));
+		iConst7 = int((0.035306122f * fConst0));
+		iConst8 = int((0.036666665f * fConst0));
 		iConst9 = int((0.0126077095f * fConst0));
 		iConst10 = int((int((iConst9 + -1)) & 1023));
 		iConst11 = int((0.01f * fConst0));
@@ -652,14 +651,14 @@ class freeverb2 : public dsp {
 		iConst14 = int((int((iConst13 + -1)) & 1023));
 		iConst15 = int((0.0051020407f * fConst0));
 		iConst16 = int((int((iConst15 + -1)) & 1023));
-		iConst17 = int((iConst1 + 22));
-		iConst18 = int((iConst2 + 22));
-		iConst19 = int((iConst3 + 22));
-		iConst20 = int((iConst4 + 22));
-		iConst21 = int((iConst5 + 22));
-		iConst22 = int((iConst6 + 22));
-		iConst23 = int((iConst7 + 22));
-		iConst24 = int((iConst8 + 22));
+		iConst17 = int((iConst4 + 22));
+		iConst18 = int((iConst5 + 22));
+		iConst19 = int((iConst6 + 22));
+		iConst20 = int((iConst7 + 22));
+		iConst21 = int((iConst8 + 22));
+		iConst22 = int((iConst3 + 22));
+		iConst23 = int((iConst2 + 22));
+		iConst24 = int((iConst1 + 22));
 		iConst25 = int((int((iConst9 + 21)) & 1023));
 		iConst26 = int((int((iConst11 + 21)) & 1023));
 		iConst27 = int((int((iConst13 + 21)) & 1023));
@@ -801,7 +800,7 @@ class freeverb2 : public dsp {
 			fVec6[IOTA&8191] = (fTemp3 + (fRec10[0] * fRec24[0]));
 			fRec23[0] = fVec6[(IOTA-iConst7)&8191];
 			fRec26[0] = ((fRec26[1] * fRec12[0]) + (fRec25[1] * fTemp4));
-			fVec7[IOTA&8191] = (fTemp3 + (fRec26[0] * fRec10[0]));
+			fVec7[IOTA&8191] = (fTemp3 + (fRec10[0] * fRec26[0]));
 			fRec25[0] = fVec7[(IOTA-iConst8)&8191];
 			float fTemp5 = (fRec9[0] + (fRec13[0] + (fRec15[0] + (fRec17[0] + (fRec19[0] + (fRec21[0] + (fRec23[0] + ((0.5f * fRec7[1]) + fRec25[0]))))))));
 			fVec8[IOTA&1023] = fTemp5;
@@ -844,7 +843,7 @@ class freeverb2 : public dsp {
 			fRec50[0] = ((fRec12[0] * fRec50[1]) + (fTemp4 * fRec49[1]));
 			fVec19[IOTA&8191] = (fTemp3 + (fRec10[0] * fRec50[0]));
 			fRec49[0] = fVec19[(IOTA-iConst24)&8191];
-			float fTemp9 = (fRec35[0] + (fRec37[0] + (fRec39[0] + (fRec41[0] + (fRec43[0] + (fRec45[0] + (fRec47[0] + ((0.5f * fRec33[1]) + fRec49[0]))))))));
+			float fTemp9 = ((((fRec35[0] + (fRec37[0] + (fRec39[0] + (fRec41[0] + ((0.5f * fRec33[1]) + fRec43[0]))))) + fRec45[0]) + fRec47[0]) + fRec49[0]);
 			fVec20[IOTA&1023] = fTemp9;
 			fRec33[0] = fVec20[(IOTA-iConst25)&1023];
 			float 	fRec34 = (0 - (0.5f * fVec20[IOTA&1023]));
@@ -1045,6 +1044,24 @@ static void faust_dsp(t_faust* x, t_signal** sp)
     }
 }
 
+static void dumpToConsole(t_faust* x)
+{
+    t_object* xobj = &x->x_obj;
+    t_class* xc = xobj->te_pd;
+    const char* name = class_getname(xc);
+
+    // print xlets
+    post("[%s] inlets: %i", name, x->dsp->getNumInputs());
+    int info_outlet = (x->out == 0) ? 0 : 1;
+    post("[%s] outlets: %i", name, x->dsp->getNumOutputs() + info_outlet);
+
+    // print properties
+    for (size_t i = 0; i < x->ui->uiCount(); i++) {
+        UIElement* el = x->ui->uiAt(i);
+        post("[%s] property: %s = %g", name, el->setPropertySym()->s_name, static_cast<double>(el->value()));
+    }
+}
+
 static void faust_any(t_faust* x, t_symbol* s, int argc, t_atom* argv)
 {
     if (!x->dsp)
@@ -1057,6 +1074,8 @@ static void faust_any(t_faust* x, t_symbol* s, int argc, t_atom* argv)
         ui->outputAllProperties(x->out);
     } else if (isGetProperty(s)) {
         ui->outputProperty(s, x->out);
+    } else if (isSetProperty(s)) {
+        ui->setProperty(s, argc, argv);
     } else {
         const char* label = s->s_name;
         int count = 0;
@@ -1396,6 +1415,7 @@ static void internal_setup(t_symbol* s)
         A_GIMME, A_NULL);
     class_addmethod(faust_class, nullfn, &s_signal, A_NULL);
     class_addmethod(faust_class, reinterpret_cast<t_method>(faust_dsp), gensym("dsp"), A_NULL);
+    class_addmethod(faust_class, reinterpret_cast<t_method>(dumpToConsole), gensym("dump"), A_NULL);
     CLASS_MAINSIGNALIN(faust_class, t_faust, f);
     class_addanything(faust_class, faust_any);
 }
