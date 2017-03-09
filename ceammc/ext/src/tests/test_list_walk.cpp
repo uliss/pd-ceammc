@@ -655,11 +655,11 @@ TEST_CASE("list.walk", "[PureData]")
         REQUIRE(t.property("@mode")->get() == AtomList(gensym("wrap")));
 
         t.sendBang();
-        REQUIRE_LIST_MSG(t, AtomList(2));
-        t.sendBang();
         REQUIRE_LIST_MSG(t, AtomList(1));
         t.sendBang();
         REQUIRE_LIST_MSG(t, AtomList(2));
+        t.sendBang();
+        REQUIRE_LIST_MSG(t, AtomList(1));
     }
 
     SECTION("test @direction")
@@ -670,11 +670,11 @@ TEST_CASE("list.walk", "[PureData]")
         REQUIRE(t.setProperty("@loop", AtomList()));
 
         t.sendBang();
+        REQUIRE_LIST_MSG(t, AtomList(1));
+        t.sendBang();
         REQUIRE_LIST_MSG(t, AtomList(3));
         t.sendBang();
         REQUIRE_LIST_MSG(t, AtomList(2));
-        t.sendBang();
-        REQUIRE_LIST_MSG(t, AtomList(1));
         CALL(t, prev);
         REQUIRE_LIST_MSG(t, AtomList(2));
         CALL(t, next);
@@ -682,9 +682,9 @@ TEST_CASE("list.walk", "[PureData]")
 
         REQUIRE(t.setProperty("@direction", AtomList(1.f)));
         t.sendBang();
-        REQUIRE_LIST_MSG(t, AtomList(2));
+        REQUIRE_LIST_MSG(t, AtomList(1));
         t.sendBang();
-        REQUIRE_LIST_MSG(t, AtomList(3));
+        REQUIRE_LIST_MSG(t, AtomList(2));
         CALL(t, prev);
         REQUIRE_LIST_MSG(t, AtomList(2));
         CALL(t, next);

@@ -43,7 +43,7 @@ ListWalk::ListWalk(const PdArgs& a)
     lst_ = args();
 }
 
-void ListWalk::onBang() { next(); }
+void ListWalk::onBang() { onFloat(1); }
 
 void ListWalk::onFloat(float v)
 {
