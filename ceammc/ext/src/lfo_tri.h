@@ -511,13 +511,13 @@ class tri : public dsp {
 
   public:
 	virtual void metadata(Meta* m) { 
-		m->declare("miscoscillator.lib/name", "Faust Oscillator Library");
-		m->declare("miscoscillator.lib/version", "0.0");
 		m->declare("math.lib/name", "Faust Math Library");
 		m->declare("math.lib/version", "2.0");
 		m->declare("math.lib/author", "GRAME");
 		m->declare("math.lib/copyright", "GRAME");
 		m->declare("math.lib/license", "LGPL with exception");
+		m->declare("miscoscillator.lib/name", "Faust Oscillator Library");
+		m->declare("miscoscillator.lib/version", "0.0");
 	}
 
 	virtual int getNumInputs() { return 1; }
@@ -708,7 +708,8 @@ static void dumpToConsole(t_faust* x)
 
     // print xlets
     post("[%s] inlets: %i", name, x->dsp->getNumInputs());
-    post("[%s] outlets: %i", name, x->dsp->getNumOutputs() + (x->out == 0) ? 0 : 1);
+    int info_outlet = (x->out == 0) ? 0 : 1;
+    post("[%s] outlets: %i", name, x->dsp->getNumOutputs() + info_outlet);
 
     // print properties
     for (size_t i = 0; i < x->ui->uiCount(); i++) {
