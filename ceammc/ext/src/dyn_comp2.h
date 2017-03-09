@@ -525,6 +525,8 @@ class comp2 : public dsp {
 		m->declare("ceammc.lib/version", "0.1");
 		m->declare("analyzer.lib/name", "Faust Analyzer Library");
 		m->declare("analyzer.lib/version", "0.0");
+		m->declare("signal.lib/name", "Faust Signal Routing Library");
+		m->declare("signal.lib/version", "0.0");
 		m->declare("basic.lib/name", "Faust Basic Element Library");
 		m->declare("basic.lib/version", "0.0");
 		m->declare("math.lib/name", "Faust Math Library");
@@ -532,8 +534,6 @@ class comp2 : public dsp {
 		m->declare("math.lib/author", "GRAME");
 		m->declare("math.lib/copyright", "GRAME");
 		m->declare("math.lib/license", "LGPL with exception");
-		m->declare("signal.lib/name", "Faust Signal Routing Library");
-		m->declare("signal.lib/version", "0.0");
 	}
 
 	virtual int getNumInputs() { return 2; }
@@ -775,6 +775,8 @@ static void faust_any(t_faust* x, t_symbol* s, int argc, t_atom* argv)
         ui->outputAllProperties(x->out);
     } else if (isGetProperty(s)) {
         ui->outputProperty(s, x->out);
+    } else if (isSetProperty(s)) {
+        ui->setProperty(s, argc, argv);
     } else {
         const char* label = s->s_name;
         int count = 0;

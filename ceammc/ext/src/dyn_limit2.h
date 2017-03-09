@@ -517,14 +517,14 @@ class limit2 : public dsp {
 
   public:
 	virtual void metadata(Meta* m) { 
-		m->declare("compressor.lib/name", "Faust Compressor Effect Library");
-		m->declare("compressor.lib/version", "0.0");
-		m->declare("analyzer.lib/name", "Faust Analyzer Library");
 		m->declare("analyzer.lib/version", "0.0");
 		m->declare("signal.lib/name", "Faust Signal Routing Library");
 		m->declare("signal.lib/version", "0.0");
 		m->declare("basic.lib/name", "Faust Basic Element Library");
 		m->declare("basic.lib/version", "0.0");
+		m->declare("compressor.lib/name", "Faust Compressor Effect Library");
+		m->declare("compressor.lib/version", "0.0");
+		m->declare("analyzer.lib/name", "Faust Analyzer Library");
 		m->declare("math.lib/name", "Faust Math Library");
 		m->declare("math.lib/version", "2.0");
 		m->declare("math.lib/author", "GRAME");
@@ -580,7 +580,7 @@ class limit2 : public dsp {
 			float fTemp1 = (float)input1[i];
 			float fTemp2 = fabsf((fabsf(fTemp0) + fabsf(fTemp1)));
 			float fTemp3 = ((int((fRec1[1] > fTemp2)))?fConst3:fConst4);
-			fRec2[0] = ((fTemp2 * (1.0f - fTemp3)) + (fRec2[1] * fTemp3));
+			fRec2[0] = ((fTemp2 * (1.0f - fTemp3)) + (fTemp3 * fRec2[1]));
 			fRec1[0] = fRec2[0];
 			fRec0[0] = ((fConst1 * fRec0[1]) + (fConst2 * (0 - (0.75f * max(((20 * log10f(fRec1[0])) + 6), 0.0f)))));
 			float fTemp4 = powf(10,(0.05f * fRec0[0]));
@@ -759,6 +759,8 @@ static void faust_any(t_faust* x, t_symbol* s, int argc, t_atom* argv)
         ui->outputAllProperties(x->out);
     } else if (isGetProperty(s)) {
         ui->outputProperty(s, x->out);
+    } else if (isSetProperty(s)) {
+        ui->setProperty(s, argc, argv);
     } else {
         const char* label = s->s_name;
         int count = 0;

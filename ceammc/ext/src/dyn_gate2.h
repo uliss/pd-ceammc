@@ -523,8 +523,6 @@ class gate2 : public dsp {
 
   public:
 	virtual void metadata(Meta* m) { 
-		m->declare("basic.lib/name", "Faust Basic Element Library");
-		m->declare("basic.lib/version", "0.0");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
 		m->declare("ceammc.lib/version", "0.1");
 		m->declare("misceffect.lib/name", "Faust Math Library");
@@ -533,6 +531,8 @@ class gate2 : public dsp {
 		m->declare("signal.lib/version", "0.0");
 		m->declare("analyzer.lib/name", "Faust Analyzer Library");
 		m->declare("analyzer.lib/version", "0.0");
+		m->declare("basic.lib/name", "Faust Basic Element Library");
+		m->declare("basic.lib/version", "0.0");
 		m->declare("math.lib/name", "Faust Math Library");
 		m->declare("math.lib/version", "2.0");
 		m->declare("math.lib/author", "GRAME");
@@ -612,7 +612,7 @@ class gate2 : public dsp {
 			iRec5[0] = max((int)(iSlow5 * (iVec0[0] < iVec0[1])), (int)(iRec5[1] + -1));
 			float fTemp3 = fabsf(max(float(iVec0[0]), (float)(iRec5[0] > 0)));
 			float fTemp4 = ((int((fRec0[1] > fTemp3)))?fSlow6:fSlow7);
-			fRec1[0] = ((fTemp3 * (1.0f - fTemp4)) + (fRec1[1] * fTemp4));
+			fRec1[0] = ((fRec1[1] * fTemp4) + (fTemp3 * (1.0f - fTemp4)));
 			fRec0[0] = fRec1[0];
 			output0[i] = (FAUSTFLOAT)(fTemp0 * fRec0[0]);
 			output1[i] = (FAUSTFLOAT)(fTemp1 * fRec0[0]);
@@ -792,6 +792,8 @@ static void faust_any(t_faust* x, t_symbol* s, int argc, t_atom* argv)
         ui->outputAllProperties(x->out);
     } else if (isGetProperty(s)) {
         ui->outputProperty(s, x->out);
+    } else if (isSetProperty(s)) {
+        ui->setProperty(s, argc, argv);
     } else {
         const char* label = s->s_name;
         int count = 0;
