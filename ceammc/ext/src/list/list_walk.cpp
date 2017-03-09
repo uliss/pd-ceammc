@@ -45,6 +45,20 @@ ListWalk::ListWalk(const PdArgs& a)
 
 void ListWalk::onBang() { next(); }
 
+void ListWalk::onFloat(float v)
+{
+    int step = static_cast<int>(v);
+
+    current();
+    if (step == 0)
+        return;
+
+    if (forward_)
+        toPosition(current_pos_ + step);
+    else
+        toPosition(current_pos_ - step);
+}
+
 void ListWalk::onList(const AtomList& l)
 {
     lst_ = l;
@@ -135,7 +149,7 @@ void ListWalk::current()
         return;
     }
 
-    if(lst_.empty()) {
+    if (lst_.empty()) {
         OBJ_ERR << "empty list";
         return;
     }

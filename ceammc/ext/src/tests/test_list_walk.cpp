@@ -41,11 +41,11 @@ typedef TestExtension<ListWalk> ListWalkTest;
         REQUIRE(obj.lastMessage().listValue() == lst); \
     }
 
-#define REQUIRE_PROP(obj, name, val)                      \
-    {                                                     \
+#define REQUIRE_PROP(obj, name, val)                   \
+    {                                                  \
         Property* p = obj.property(gensym("@" #name)); \
-        REQUIRE(p != 0);                                  \
-        REQUIRE(p->get() == val);                         \
+        REQUIRE(p != 0);                               \
+        REQUIRE(p->get() == val);                      \
     }
 
 #define REQUIRE_INDEX(obj, idx)                         \
@@ -689,5 +689,65 @@ TEST_CASE("list.walk", "[PureData]")
         REQUIRE_LIST_MSG(t, AtomList(2));
         CALL(t, next);
         REQUIRE_LIST_MSG(t, AtomList(3));
+    }
+
+    SECTION("test float")
+    {
+        SECTION("forward")
+        {
+            ListWalkTest t("list.walk", AtomList::values(5, 1.0, 2.0, 3.0, 4.0, 5.0));
+            REQUIRE_PROP(t, direction, AtomList(1.f));
+            REQUIRE(t.setProperty("@loop", AtomList()));
+
+            t.sendFloat(1);
+            REQUIRE_LIST_MSG(t, AtomList(1));
+            CALL(t, current);
+            REQUIRE_LIST_MSG(t, AtomList(2));
+            t.sendFloat(0);
+            REQUIRE_LIST_MSG(t, AtomList(2));
+
+            t.sendFloat(2);
+            REQUIRE_LIST_MSG(t, AtomList(2));
+            CALL(t, current);
+            REQUIRE_LIST_MSG(t, AtomList(4));
+
+            t.sendFloat(-4);
+            REQUIRE_LIST_MSG(t, AtomList(4));
+            CALL(t, current);
+            REQUIRE_LIST_MSG(t, AtomList(5));
+
+            t.sendFloat(-1);
+            REQUIRE_LIST_MSG(t, AtomList(5));
+            CALL(t, current);
+            REQUIRE_LIST_MSG(t, AtomList(4));
+        }
+
+        SECTION("backward")
+        {
+            ListWalkTest t("list.walk", AtomList::values(5, 1.0, 2.0, 3.0, 4.0, 5.0));
+            REQUIRE_PROP(t, direction, AtomList(1.f));
+            REQUIRE(t.setProperty("@direction", AtomList(0.f)));
+            REQUIRE(t.setProperty("@loop", AtomList()));
+
+            t.sendFloat(1);
+            REQUIRE_LIST_MSG(t, AtomList(1));
+            CALL(t, current);
+            REQUIRE_LIST_MSG(t, AtomList(5));
+
+            t.sendFloat(2);
+            REQUIRE_LIST_MSG(t, AtomList(5));
+            CALL(t, current);
+            REQUIRE_LIST_MSG(t, AtomList(3));
+
+            t.sendFloat(-4);
+            REQUIRE_LIST_MSG(t, AtomList(3));
+            CALL(t, current);
+            REQUIRE_LIST_MSG(t, AtomList(2));
+
+            t.sendFloat(-1);
+            REQUIRE_LIST_MSG(t, AtomList(2));
+            CALL(t, current);
+            REQUIRE_LIST_MSG(t, AtomList(3));
+        }
     }
 }

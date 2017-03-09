@@ -36,6 +36,7 @@ public:
     ListWalk(const PdArgs& a);
 
     void onBang();
+    void onFloat(float v);
     void onList(const AtomList& l);
 
     void m_current(t_symbol*, const AtomList&);
