@@ -479,7 +479,6 @@ struct white : public dsp {
 #include "ceammc_faust.h"
 using namespace ceammc::faust;
 
-
 /******************************************************************************
 *******************************************************************************
 
@@ -688,6 +687,24 @@ static void faust_dsp(t_faust* x, t_signal** sp)
                 break;
             }
         }
+    }
+}
+
+static void dumpToConsole(t_faust* x)
+{
+    t_object* xobj = &x->x_obj;
+    t_class* xc = xobj->te_pd;
+    const char* name = class_getname(xc);
+
+    // print xlets
+    post("[%s] inlets: %i", name, x->dsp->getNumInputs());
+    int info_outlet = (x->out == 0) ? 0 : 1;
+    post("[%s] outlets: %i", name, x->dsp->getNumOutputs() + info_outlet);
+
+    // print properties
+    for (size_t i = 0; i < x->ui->uiCount(); i++) {
+        UIElement* el = x->ui->uiAt(i);
+        post("[%s] property: %s = %g", name, el->setPropertySym()->s_name, static_cast<double>(el->value()));
     }
 }
 
@@ -1042,6 +1059,7 @@ static void internal_setup(t_symbol* s)
         A_GIMME, A_NULL);
     class_addmethod(faust_class, nullfn, &s_signal, A_NULL);
     class_addmethod(faust_class, reinterpret_cast<t_method>(faust_dsp), gensym("dsp"), A_NULL);
+    class_addmethod(faust_class, reinterpret_cast<t_method>(dumpToConsole), gensym("dump"), A_NULL);
     CLASS_MAINSIGNALIN(faust_class, t_faust, f);
     class_addanything(faust_class, faust_any);
 }

@@ -480,7 +480,6 @@ struct freeverb : public dsp {
 #include "ceammc_faust.h"
 using namespace ceammc::faust;
 
-
 /******************************************************************************
 *******************************************************************************
 
@@ -568,17 +567,17 @@ class freeverb : public dsp {
 		m->declare("signal.lib/version", "0.0");
 		m->declare("reverb.lib/name", "Faust Reverb Library");
 		m->declare("reverb.lib/version", "0.0");
-		m->declare("filter.lib/name", "Faust Filter Library");
-		m->declare("filter.lib/version", "2.0");
-		m->declare("basic.lib/name", "Faust Basic Element Library");
-		m->declare("basic.lib/version", "0.0");
 		m->declare("math.lib/name", "Faust Math Library");
 		m->declare("math.lib/version", "2.0");
 		m->declare("math.lib/author", "GRAME");
 		m->declare("math.lib/copyright", "GRAME");
 		m->declare("math.lib/license", "LGPL with exception");
+		m->declare("filter.lib/name", "Faust Filter Library");
+		m->declare("filter.lib/version", "2.0");
 		m->declare("delay.lib/name", "Faust Delay Library");
 		m->declare("delay.lib/version", "0.0");
+		m->declare("basic.lib/name", "Faust Basic Element Library");
+		m->declare("basic.lib/version", "0.0");
 	}
 
 	virtual int getNumInputs() { return 1; }
@@ -883,6 +882,24 @@ static void faust_dsp(t_faust* x, t_signal** sp)
     }
 }
 
+static void dumpToConsole(t_faust* x)
+{
+    t_object* xobj = &x->x_obj;
+    t_class* xc = xobj->te_pd;
+    const char* name = class_getname(xc);
+
+    // print xlets
+    post("[%s] inlets: %i", name, x->dsp->getNumInputs());
+    int info_outlet = (x->out == 0) ? 0 : 1;
+    post("[%s] outlets: %i", name, x->dsp->getNumOutputs() + info_outlet);
+
+    // print properties
+    for (size_t i = 0; i < x->ui->uiCount(); i++) {
+        UIElement* el = x->ui->uiAt(i);
+        post("[%s] property: %s = %g", name, el->setPropertySym()->s_name, static_cast<double>(el->value()));
+    }
+}
+
 static void faust_any(t_faust* x, t_symbol* s, int argc, t_atom* argv)
 {
     if (!x->dsp)
@@ -895,6 +912,8 @@ static void faust_any(t_faust* x, t_symbol* s, int argc, t_atom* argv)
         ui->outputAllProperties(x->out);
     } else if (isGetProperty(s)) {
         ui->outputProperty(s, x->out);
+    } else if (isSetProperty(s)) {
+        ui->setProperty(s, argc, argv);
     } else {
         const char* label = s->s_name;
         int count = 0;
@@ -1234,6 +1253,7 @@ static void internal_setup(t_symbol* s)
         A_GIMME, A_NULL);
     class_addmethod(faust_class, nullfn, &s_signal, A_NULL);
     class_addmethod(faust_class, reinterpret_cast<t_method>(faust_dsp), gensym("dsp"), A_NULL);
+    class_addmethod(faust_class, reinterpret_cast<t_method>(dumpToConsole), gensym("dump"), A_NULL);
     CLASS_MAINSIGNALIN(faust_class, t_faust, f);
     class_addanything(faust_class, faust_any);
 }

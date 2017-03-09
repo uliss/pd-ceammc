@@ -481,7 +481,6 @@ struct freqshift : public dsp {
 #include "ceammc_faust.h"
 using namespace ceammc::faust;
 
-
 /******************************************************************************
 *******************************************************************************
 
@@ -574,21 +573,21 @@ class freqshift : public dsp {
 		for (int i=0; i<count; i++) {
 			float fTemp0 = (float)input0[i];
 			fVec0[0] = fTemp0;
-			fRec3[0] = ((0.479401f * (fVec0[1] + fRec3[2])) - fVec0[3]);
-			fRec2[0] = ((0.876218f * (fRec2[2] + fRec3[0])) - fRec3[2]);
-			fRec1[0] = ((0.976599f * (fRec1[2] + fRec2[0])) - fRec2[2]);
-			fRec0[0] = ((0.9975f * (fRec1[0] + fRec0[2])) - fRec1[2]);
+			fRec3[0] = ((0.161758f * (fVec0[0] + fRec3[2])) - fVec0[2]);
+			fRec2[0] = ((0.733029f * (fRec2[2] + fRec3[0])) - fRec3[2]);
+			fRec1[0] = ((0.94535f * (fRec1[2] + fRec2[0])) - fRec2[2]);
+			fRec0[0] = ((0.990598f * (fRec0[2] + fRec1[0])) - fRec1[2]);
 			float fTemp1 = (float)input1[i];
 			iRec4[0] = (iRec4[1] + 1);
 			float fTemp2 = (fConst0 * (fTemp1 * fmodf(iRec4[0],(float(fSamplingFreq) / fTemp1))));
-			float fTemp3 = (fRec0[0] * cosf(fTemp2));
-			fRec8[0] = ((0.161758f * (fVec0[0] + fRec8[2])) - fVec0[2]);
-			fRec7[0] = ((0.733029f * (fRec7[2] + fRec8[0])) - fRec8[2]);
-			fRec6[0] = ((0.94535f * (fRec6[2] + fRec7[0])) - fRec7[2]);
-			fRec5[0] = ((0.990598f * (fRec5[2] + fRec6[0])) - fRec6[2]);
-			float fTemp4 = (fRec5[0] * sinf(fTemp2));
+			float fTemp3 = (fRec0[0] * sinf(fTemp2));
+			fRec8[0] = ((0.479401f * (fVec0[1] + fRec8[2])) - fVec0[3]);
+			fRec7[0] = ((0.876218f * (fRec7[2] + fRec8[0])) - fRec8[2]);
+			fRec6[0] = ((0.976599f * (fRec6[2] + fRec7[0])) - fRec7[2]);
+			fRec5[0] = ((0.9975f * (fRec5[2] + fRec6[0])) - fRec6[2]);
+			float fTemp4 = (fRec5[0] * cosf(fTemp2));
 			output0[i] = (FAUSTFLOAT)(fTemp3 + fTemp4);
-			output1[i] = (FAUSTFLOAT)(fTemp4 - fTemp3);
+			output1[i] = (FAUSTFLOAT)(fTemp3 - fTemp4);
 			// post processing
 			fRec5[2] = fRec5[1]; fRec5[1] = fRec5[0];
 			fRec6[2] = fRec6[1]; fRec6[1] = fRec6[0];
@@ -739,6 +738,24 @@ static void faust_dsp(t_faust* x, t_signal** sp)
     }
 }
 
+static void dumpToConsole(t_faust* x)
+{
+    t_object* xobj = &x->x_obj;
+    t_class* xc = xobj->te_pd;
+    const char* name = class_getname(xc);
+
+    // print xlets
+    post("[%s] inlets: %i", name, x->dsp->getNumInputs());
+    int info_outlet = (x->out == 0) ? 0 : 1;
+    post("[%s] outlets: %i", name, x->dsp->getNumOutputs() + info_outlet);
+
+    // print properties
+    for (size_t i = 0; i < x->ui->uiCount(); i++) {
+        UIElement* el = x->ui->uiAt(i);
+        post("[%s] property: %s = %g", name, el->setPropertySym()->s_name, static_cast<double>(el->value()));
+    }
+}
+
 static void faust_any(t_faust* x, t_symbol* s, int argc, t_atom* argv)
 {
     if (!x->dsp)
@@ -751,6 +768,8 @@ static void faust_any(t_faust* x, t_symbol* s, int argc, t_atom* argv)
         ui->outputAllProperties(x->out);
     } else if (isGetProperty(s)) {
         ui->outputProperty(s, x->out);
+    } else if (isSetProperty(s)) {
+        ui->setProperty(s, argc, argv);
     } else {
         const char* label = s->s_name;
         int count = 0;
@@ -1090,6 +1109,7 @@ static void internal_setup(t_symbol* s)
         A_GIMME, A_NULL);
     class_addmethod(faust_class, nullfn, &s_signal, A_NULL);
     class_addmethod(faust_class, reinterpret_cast<t_method>(faust_dsp), gensym("dsp"), A_NULL);
+    class_addmethod(faust_class, reinterpret_cast<t_method>(dumpToConsole), gensym("dump"), A_NULL);
     CLASS_MAINSIGNALIN(faust_class, t_faust, f);
     class_addanything(faust_class, faust_any);
 }

@@ -299,6 +299,18 @@ namespace faust {
         return s->s_name[len - 1] == '?';
     }
 
+    static bool isSetProperty(t_symbol* s)
+    {
+        size_t len = strlen(s->s_name);
+        if (len < 1)
+            return false;
+
+        if (s->s_name[0] != '@')
+            return false;
+
+        return s->s_name[len - 1] != '?';
+    }
+
     static bool skipOscSegment(const std::string& s)
     {
         if (s.empty())
@@ -376,6 +388,7 @@ namespace faust {
         void dumpUI(t_outlet* out);
         void outputAllProperties(t_outlet* out);
         void outputProperty(t_symbol* s, t_outlet* out);
+        void setProperty(t_symbol* s, int argc, t_atom* argv);
 
         std::vector<FAUSTFLOAT> uiValues() const;
         void setUIValues(const std::vector<FAUSTFLOAT>& v);
@@ -561,6 +574,24 @@ namespace faust {
             if (ui_elements_[i]->getPropertySym() == s)
                 ui_elements_[i]->outputProperty(out);
         }
+    }
+
+    template <typename T>
+    void PdUI<T>::setProperty(t_symbol* s, int argc, t_atom* argv)
+    {
+        for (size_t i = 0; i < uiCount(); i++) {
+            if (ui_elements_[i]->setPropertySym() == s) {
+                if ((argc < 1) && argv[0].a_type == A_FLOAT) {
+                    pd_error(0, "[%s] %s: float value required", name_.c_str(), s->s_name);
+                    return;
+                }
+
+                ui_elements_[i]->setValue(atom_getfloat(argv));
+                return;
+            }
+        }
+
+        pd_error(0, "[%s] unknown property: %s", name_.c_str(), s->s_name);
     }
 
     template <typename T>
