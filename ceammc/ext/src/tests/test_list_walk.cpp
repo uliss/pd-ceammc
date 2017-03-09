@@ -756,6 +756,8 @@ TEST_CASE("list.walk", "[PureData]")
         ListWalkTest t("list.walk", AtomList());
         t.p_set_index(AtomList(2));
         REQUIRE_PROP(t, index, AtomList(0.0f));
+        t.p_set_index(AtomList(-2));
+        REQUIRE(t.p_index() == AtomList(0.0f));
 
         t.sendList(AtomList(2, 3));
         t.p_set_index(AtomList(0.0f));

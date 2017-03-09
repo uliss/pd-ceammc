@@ -91,9 +91,6 @@ AtomList ListWalk::p_index() const
 
 void ListWalk::p_set_index(const AtomList& l)
 {
-    if (l.empty())
-        return;
-
     int idx = atomlistToValue<int>(l, 0);
     if (idx < 0)
         idx += lst_.size();
