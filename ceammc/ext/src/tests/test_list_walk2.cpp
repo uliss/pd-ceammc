@@ -57,6 +57,59 @@ typedef TestExtension<ListWalk> ListWalkTest;
 
 TEST_CASE("list.walk 2", "[PureData]")
 {
+    SECTION("test @size")
+    {
+        ListWalkTest t("list.walk", AtomList());
+        REQUIRE_PROP(t, size, AtomList(0.f));
+
+        t.sendList(AtomList::values(2, 1.0, 2.0));
+        REQUIRE_PROP(t, size, AtomList(2));
+    }
+
+    SECTION("test bang")
+    {
+        ListWalkTest t("list.walk", AtomList(1, 2));
+        REQUIRE(t.property("@mode")->get() == AtomList(gensym("single")));
+        REQUIRE(t.setProperty("@loop", AtomList()));
+        REQUIRE(t.property("@mode")->get() == AtomList(gensym("wrap")));
+
+        t.sendBang();
+        REQUIRE_LIST_MSG(t, AtomList(1));
+        t.sendBang();
+        REQUIRE_LIST_MSG(t, AtomList(2));
+        t.sendBang();
+        REQUIRE_LIST_MSG(t, AtomList(1));
+    }
+
+    SECTION("test @direction")
+    {
+        ListWalkTest t("list.walk", AtomList::values(3, 1.0, 2.0, 3.0));
+        REQUIRE_PROP(t, direction, AtomList(1.f));
+        REQUIRE(t.setProperty("@direction", AtomList(0.f)));
+        REQUIRE(t.setProperty("@loop", AtomList()));
+
+        t.sendBang();
+        REQUIRE_LIST_MSG(t, AtomList(1));
+        t.sendBang();
+        REQUIRE_LIST_MSG(t, AtomList(3));
+        t.sendBang();
+        REQUIRE_LIST_MSG(t, AtomList(2));
+        CALL(t, prev);
+        REQUIRE_LIST_MSG(t, AtomList(2));
+        CALL(t, next);
+        REQUIRE_LIST_MSG(t, AtomList(1));
+
+        REQUIRE(t.setProperty("@direction", AtomList(1.f)));
+        t.sendBang();
+        REQUIRE_LIST_MSG(t, AtomList(1));
+        t.sendBang();
+        REQUIRE_LIST_MSG(t, AtomList(2));
+        CALL(t, prev);
+        REQUIRE_LIST_MSG(t, AtomList(2));
+        CALL(t, next);
+        REQUIRE_LIST_MSG(t, AtomList(3));
+    }
+
     SECTION("test float")
     {
         SECTION("forward")
