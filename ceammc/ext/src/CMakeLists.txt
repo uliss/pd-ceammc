@@ -225,6 +225,7 @@ ceammc_faust_extension(flt c_bpf simple_pd_control_ext)
 ceammc_faust_extension(flt c_peak simple_pd_control_ext)
 ceammc_faust_extension(flt c_lowshelf simple_pd_control_ext)
 ceammc_faust_extension(flt c_highshelf simple_pd_control_ext)
+ceammc_faust_extension(flt c_notch simple_pd_control_ext)
 
 
 
