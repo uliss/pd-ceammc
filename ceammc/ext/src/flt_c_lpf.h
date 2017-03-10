@@ -507,7 +507,9 @@ class c_lpf : public dsp {
   private:
 	float 	fConst0;
 	FAUSTFLOAT 	fslider0;
+	float 	fRec0[2];
 	FAUSTFLOAT 	fslider1;
+	float 	fRec1[2];
 	int fSamplingFreq;
 
   public:
@@ -517,6 +519,8 @@ class c_lpf : public dsp {
 		m->declare("maxmsp.lib/copyright", "GRAME");
 		m->declare("maxmsp.lib/version", "1.1");
 		m->declare("maxmsp.lib/license", "LGPL");
+		m->declare("signal.lib/name", "Faust Signal Routing Library");
+		m->declare("signal.lib/version", "0.0");
 		m->declare("math.lib/name", "Faust Math Library");
 		m->declare("math.lib/version", "2.0");
 		m->declare("math.lib/author", "GRAME");
@@ -524,7 +528,7 @@ class c_lpf : public dsp {
 		m->declare("math.lib/license", "LGPL with exception");
 	}
 
-	virtual int getNumInputs() { return 0; }
+	virtual int getNumInputs() { return 1; }
 	virtual int getNumOutputs() { return 5; }
 	static void classInit(int samplingFreq) {
 	}
@@ -537,6 +541,8 @@ class c_lpf : public dsp {
 		fslider1 = 1.0f;
 	}
 	virtual void instanceClear() {
+		for (int i=0; i<2; i++) fRec0[i] = 0;
+		for (int i=0; i<2; i++) fRec1[i] = 0;
 	}
 	virtual void init(int samplingFreq) {
 		classInit(samplingFreq);
@@ -560,25 +566,31 @@ class c_lpf : public dsp {
 		ui_interface->closeBox();
 	}
 	virtual void compute (int count, FAUSTFLOAT** input, FAUSTFLOAT** output) {
-		float 	fSlow0 = (fConst0 * max((float)0, float(fslider0)));
-		float 	fSlow1 = cosf(fSlow0);
-		float 	fSlow2 = (0.5f * (sinf(fSlow0) / max(0.001f, float(fslider1))));
-		float 	fSlow3 = (fSlow2 + 1);
-		float 	fSlow4 = ((1 - fSlow1) / fSlow3);
-		float 	fSlow5 = (0.5f * fSlow4);
-		float 	fSlow6 = ((0 - (2 * fSlow1)) / fSlow3);
-		float 	fSlow7 = ((1 - fSlow2) / fSlow3);
+		float 	fSlow0 = (0.001f * float(fslider0));
+		float 	fSlow1 = (0.001f * float(fslider1));
+		FAUSTFLOAT* input0 = input[0];
 		FAUSTFLOAT* output0 = output[0];
 		FAUSTFLOAT* output1 = output[1];
 		FAUSTFLOAT* output2 = output[2];
 		FAUSTFLOAT* output3 = output[3];
 		FAUSTFLOAT* output4 = output[4];
 		for (int i=0; i<count; i++) {
-			output0[i] = (FAUSTFLOAT)fSlow5;
-			output1[i] = (FAUSTFLOAT)fSlow4;
-			output2[i] = (FAUSTFLOAT)fSlow5;
-			output3[i] = (FAUSTFLOAT)fSlow6;
-			output4[i] = (FAUSTFLOAT)fSlow7;
+			fRec0[0] = (fSlow0 + (0.999f * fRec0[1]));
+			float fTemp0 = (fConst0 * max((float)0, fRec0[0]));
+			float fTemp1 = cosf(fTemp0);
+			fRec1[0] = (fSlow1 + (0.999f * fRec1[1]));
+			float fTemp2 = (0.5f * (sinf(fTemp0) / max(0.001f, fRec1[0])));
+			float fTemp3 = (fTemp2 + 1);
+			float fTemp4 = ((1 - fTemp1) / fTemp3);
+			float fTemp5 = (0.5f * fTemp4);
+			output0[i] = (FAUSTFLOAT)fTemp5;
+			output1[i] = (FAUSTFLOAT)fTemp4;
+			output2[i] = (FAUSTFLOAT)fTemp5;
+			output3[i] = (FAUSTFLOAT)((0 - (2 * fTemp1)) / fTemp3);
+			output4[i] = (FAUSTFLOAT)((1 - fTemp2) / fTemp3);
+			// post processing
+			fRec1[1] = fRec1[0];
+			fRec0[1] = fRec0[0];
 		}
 	}
 };
