@@ -372,7 +372,7 @@ class DecoratorUI : public UI
 struct Meta
 {
     virtual void declare(const char* key, const char* value) = 0;
-    virtual ~Meta() {};
+    virtual ~Meta() {}
 };
 
 #endif
@@ -480,7 +480,6 @@ struct c_lpf : public dsp {
 #include "ceammc_faust.h"
 using namespace ceammc::faust;
 
-
 /******************************************************************************
 *******************************************************************************
 
@@ -569,89 +568,17 @@ class c_lpf : public dsp {
 		float 	fSlow5 = (0.5f * fSlow4);
 		float 	fSlow6 = ((0 - (2 * fSlow1)) / fSlow3);
 		float 	fSlow7 = ((1 - fSlow2) / fSlow3);
-		int index;
-		int fullcount = count;
-		for (index = 0; index <= fullcount - 64; index += 64) {
-			// compute by blocks of 64 samples
-			const int count = 64;
-			FAUSTFLOAT* output0 = &output[0][index];
-			FAUSTFLOAT* output1 = &output[1][index];
-			FAUSTFLOAT* output2 = &output[2][index];
-			FAUSTFLOAT* output3 = &output[3][index];
-			FAUSTFLOAT* output4 = &output[4][index];
-			// SECTION : 1
-			// LOOP 0x7fa982c0ee90
-			// exec code
-			for (int i=0; i<count; i++) {
-				output0[i] = (FAUSTFLOAT)fSlow5;
-			}
-			
-			// SECTION : 2
-			// LOOP 0x7fa982c10cc0
-			// exec code
-			for (int i=0; i<count; i++) {
-				output1[i] = (FAUSTFLOAT)fSlow4;
-			}
-			
-			// LOOP 0x7fa982c10ec0
-			// exec code
-			for (int i=0; i<count; i++) {
-				output2[i] = (FAUSTFLOAT)fSlow5;
-			}
-			
-			// LOOP 0x7fa982c11070
-			// exec code
-			for (int i=0; i<count; i++) {
-				output3[i] = (FAUSTFLOAT)fSlow6;
-			}
-			
-			// LOOP 0x7fa982c11630
-			// exec code
-			for (int i=0; i<count; i++) {
-				output4[i] = (FAUSTFLOAT)fSlow7;
-			}
-			
-		}
-		if (index < fullcount) {
-			// compute the remaining samples if any
-			int count = fullcount-index;
-			FAUSTFLOAT* output0 = &output[0][index];
-			FAUSTFLOAT* output1 = &output[1][index];
-			FAUSTFLOAT* output2 = &output[2][index];
-			FAUSTFLOAT* output3 = &output[3][index];
-			FAUSTFLOAT* output4 = &output[4][index];
-			// SECTION : 1
-			// LOOP 0x7fa982c0ee90
-			// exec code
-			for (int i=0; i<count; i++) {
-				output0[i] = (FAUSTFLOAT)fSlow5;
-			}
-			
-			// SECTION : 2
-			// LOOP 0x7fa982c10cc0
-			// exec code
-			for (int i=0; i<count; i++) {
-				output1[i] = (FAUSTFLOAT)fSlow4;
-			}
-			
-			// LOOP 0x7fa982c10ec0
-			// exec code
-			for (int i=0; i<count; i++) {
-				output2[i] = (FAUSTFLOAT)fSlow5;
-			}
-			
-			// LOOP 0x7fa982c11070
-			// exec code
-			for (int i=0; i<count; i++) {
-				output3[i] = (FAUSTFLOAT)fSlow6;
-			}
-			
-			// LOOP 0x7fa982c11630
-			// exec code
-			for (int i=0; i<count; i++) {
-				output4[i] = (FAUSTFLOAT)fSlow7;
-			}
-			
+		FAUSTFLOAT* output0 = output[0];
+		FAUSTFLOAT* output1 = output[1];
+		FAUSTFLOAT* output2 = output[2];
+		FAUSTFLOAT* output3 = output[3];
+		FAUSTFLOAT* output4 = output[4];
+		for (int i=0; i<count; i++) {
+			output0[i] = (FAUSTFLOAT)fSlow5;
+			output1[i] = (FAUSTFLOAT)fSlow4;
+			output2[i] = (FAUSTFLOAT)fSlow5;
+			output3[i] = (FAUSTFLOAT)fSlow6;
+			output4[i] = (FAUSTFLOAT)fSlow7;
 		}
 	}
 };
@@ -791,6 +718,24 @@ static void faust_dsp(t_faust* x, t_signal** sp)
     }
 }
 
+static void dumpToConsole(t_faust* x)
+{
+    t_object* xobj = &x->x_obj;
+    t_class* xc = xobj->te_pd;
+    const char* name = class_getname(xc);
+
+    // print xlets
+    post("[%s] inlets: %i", name, x->dsp->getNumInputs());
+    int info_outlet = (x->out == 0) ? 0 : 1;
+    post("[%s] outlets: %i", name, x->dsp->getNumOutputs() + info_outlet);
+
+    // print properties
+    for (size_t i = 0; i < x->ui->uiCount(); i++) {
+        UIElement* el = x->ui->uiAt(i);
+        post("[%s] property: %s = %g", name, el->setPropertySym()->s_name, static_cast<double>(el->value()));
+    }
+}
+
 static void faust_any(t_faust* x, t_symbol* s, int argc, t_atom* argv)
 {
     if (!x->dsp)
@@ -803,6 +748,8 @@ static void faust_any(t_faust* x, t_symbol* s, int argc, t_atom* argv)
         ui->outputAllProperties(x->out);
     } else if (isGetProperty(s)) {
         ui->outputProperty(s, x->out);
+    } else if (isSetProperty(s)) {
+        ui->setProperty(s, argc, argv);
     } else {
         const char* label = s->s_name;
         int count = 0;
@@ -1142,6 +1089,7 @@ static void internal_setup(t_symbol* s)
         A_GIMME, A_NULL);
     class_addmethod(faust_class, nullfn, &s_signal, A_NULL);
     class_addmethod(faust_class, reinterpret_cast<t_method>(faust_dsp), gensym("dsp"), A_NULL);
+    class_addmethod(faust_class, reinterpret_cast<t_method>(dumpToConsole), gensym("dump"), A_NULL);
     CLASS_MAINSIGNALIN(faust_class, t_faust, f);
     class_addanything(faust_class, faust_any);
 }
