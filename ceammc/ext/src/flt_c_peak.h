@@ -507,25 +507,30 @@ class c_peak : public dsp {
   private:
 	float 	fConst0;
 	FAUSTFLOAT 	fslider0;
+	float 	fRec0[2];
 	FAUSTFLOAT 	fslider1;
+	float 	fRec1[2];
 	FAUSTFLOAT 	fslider2;
+	float 	fRec2[2];
 	int fSamplingFreq;
 
   public:
 	virtual void metadata(Meta* m) { 
+		m->declare("maxmsp.lib/name", "MaxMSP compatibility Library");
+		m->declare("maxmsp.lib/author", "GRAME");
 		m->declare("maxmsp.lib/copyright", "GRAME");
 		m->declare("maxmsp.lib/version", "1.1");
 		m->declare("maxmsp.lib/license", "LGPL");
+		m->declare("signal.lib/name", "Faust Signal Routing Library");
+		m->declare("signal.lib/version", "0.0");
 		m->declare("math.lib/name", "Faust Math Library");
 		m->declare("math.lib/version", "2.0");
 		m->declare("math.lib/author", "GRAME");
 		m->declare("math.lib/copyright", "GRAME");
 		m->declare("math.lib/license", "LGPL with exception");
-		m->declare("maxmsp.lib/name", "MaxMSP compatibility Library");
-		m->declare("maxmsp.lib/author", "GRAME");
 	}
 
-	virtual int getNumInputs() { return 0; }
+	virtual int getNumInputs() { return 1; }
 	virtual int getNumOutputs() { return 5; }
 	static void classInit(int samplingFreq) {
 	}
@@ -539,6 +544,9 @@ class c_peak : public dsp {
 		fslider2 = 1.0f;
 	}
 	virtual void instanceClear() {
+		for (int i=0; i<2; i++) fRec0[i] = 0;
+		for (int i=0; i<2; i++) fRec1[i] = 0;
+		for (int i=0; i<2; i++) fRec2[i] = 0;
 	}
 	virtual void init(int samplingFreq) {
 		classInit(samplingFreq);
@@ -563,28 +571,36 @@ class c_peak : public dsp {
 		ui_interface->closeBox();
 	}
 	virtual void compute (int count, FAUSTFLOAT** input, FAUSTFLOAT** output) {
-		float 	fSlow0 = (fConst0 * max((float)0, float(fslider0)));
-		float 	fSlow1 = sinf(fSlow0);
-		float 	fSlow2 = powf(10,(0.025f * float(fslider1)));
-		float 	fSlow3 = max(0.001f, float(fslider2));
-		float 	fSlow4 = (0.5f * ((fSlow1 * fSlow2) / fSlow3));
-		float 	fSlow5 = (0.5f * (fSlow1 / (fSlow3 * fSlow2)));
-		float 	fSlow6 = (fSlow5 + 1);
-		float 	fSlow7 = ((fSlow4 + 1) / fSlow6);
-		float 	fSlow8 = ((0 - (2 * cosf(fSlow0))) / fSlow6);
-		float 	fSlow9 = ((1 - fSlow4) / fSlow6);
-		float 	fSlow10 = ((1 - fSlow5) / fSlow6);
+		float 	fSlow0 = (0.001f * float(fslider0));
+		float 	fSlow1 = (0.001f * float(fslider1));
+		float 	fSlow2 = (0.001f * float(fslider2));
+		FAUSTFLOAT* input0 = input[0];
 		FAUSTFLOAT* output0 = output[0];
 		FAUSTFLOAT* output1 = output[1];
 		FAUSTFLOAT* output2 = output[2];
 		FAUSTFLOAT* output3 = output[3];
 		FAUSTFLOAT* output4 = output[4];
 		for (int i=0; i<count; i++) {
-			output0[i] = (FAUSTFLOAT)fSlow7;
-			output1[i] = (FAUSTFLOAT)fSlow8;
-			output2[i] = (FAUSTFLOAT)fSlow9;
-			output3[i] = (FAUSTFLOAT)fSlow8;
-			output4[i] = (FAUSTFLOAT)fSlow10;
+			fRec0[0] = (fSlow0 + (0.999f * fRec0[1]));
+			float fTemp0 = (fConst0 * max((float)0, fRec0[0]));
+			float fTemp1 = sinf(fTemp0);
+			fRec1[0] = (fSlow1 + (0.999f * fRec1[1]));
+			float fTemp2 = powf(10,(0.025f * fRec1[0]));
+			fRec2[0] = (fSlow2 + (0.999f * fRec2[1]));
+			float fTemp3 = max(0.001f, fRec2[0]);
+			float fTemp4 = (0.5f * ((fTemp1 * fTemp2) / fTemp3));
+			float fTemp5 = (0.5f * (fTemp1 / (fTemp2 * fTemp3)));
+			float fTemp6 = (fTemp5 + 1);
+			output0[i] = (FAUSTFLOAT)((fTemp4 + 1) / fTemp6);
+			float fTemp7 = ((0 - (2 * cosf(fTemp0))) / fTemp6);
+			output1[i] = (FAUSTFLOAT)fTemp7;
+			output2[i] = (FAUSTFLOAT)((1 - fTemp4) / fTemp6);
+			output3[i] = (FAUSTFLOAT)fTemp7;
+			output4[i] = (FAUSTFLOAT)((1 - fTemp5) / fTemp6);
+			// post processing
+			fRec2[1] = fRec2[0];
+			fRec1[1] = fRec1[0];
+			fRec0[1] = fRec0[0];
 		}
 	}
 };
