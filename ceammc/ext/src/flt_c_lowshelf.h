@@ -506,9 +506,12 @@ using namespace ceammc::faust;
 class c_lowshelf : public dsp {
   private:
 	FAUSTFLOAT 	fslider0;
+	float 	fRec0[2];
 	float 	fConst0;
 	FAUSTFLOAT 	fslider1;
+	float 	fRec1[2];
 	FAUSTFLOAT 	fslider2;
+	float 	fRec2[2];
 	int fSamplingFreq;
 
   public:
@@ -518,6 +521,8 @@ class c_lowshelf : public dsp {
 		m->declare("maxmsp.lib/copyright", "GRAME");
 		m->declare("maxmsp.lib/version", "1.1");
 		m->declare("maxmsp.lib/license", "LGPL");
+		m->declare("signal.lib/name", "Faust Signal Routing Library");
+		m->declare("signal.lib/version", "0.0");
 		m->declare("math.lib/name", "Faust Math Library");
 		m->declare("math.lib/version", "2.0");
 		m->declare("math.lib/author", "GRAME");
@@ -525,7 +530,7 @@ class c_lowshelf : public dsp {
 		m->declare("math.lib/license", "LGPL with exception");
 	}
 
-	virtual int getNumInputs() { return 0; }
+	virtual int getNumInputs() { return 1; }
 	virtual int getNumOutputs() { return 5; }
 	static void classInit(int samplingFreq) {
 	}
@@ -539,6 +544,9 @@ class c_lowshelf : public dsp {
 		fslider2 = 1.0f;
 	}
 	virtual void instanceClear() {
+		for (int i=0; i<2; i++) fRec0[i] = 0;
+		for (int i=0; i<2; i++) fRec1[i] = 0;
+		for (int i=0; i<2; i++) fRec2[i] = 0;
 	}
 	virtual void init(int samplingFreq) {
 		classInit(samplingFreq);
@@ -558,35 +566,41 @@ class c_lowshelf : public dsp {
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("0x00");
 		ui_interface->addHorizontalSlider("freq", &fslider1, 1e+03f, 2e+01f, 2e+04f, 0.1f);
-		ui_interface->addVerticalSlider("gain", &fslider0, 0.0f, -9e+01f, 1e+01f, 0.1f);
-		ui_interface->addHorizontalSlider("q", &fslider2, 1.0f, 0.1f, 1e+02f, 0.1f);
+		ui_interface->addHorizontalSlider("gain", &fslider0, 0.0f, -15.0f, 15.0f, 0.1f);
+		ui_interface->addHorizontalSlider("q", &fslider2, 1.0f, 0.5f, 2.0f, 0.1f);
 		ui_interface->closeBox();
 	}
 	virtual void compute (int count, FAUSTFLOAT** input, FAUSTFLOAT** output) {
-		float 	fSlow0 = powf(10,(0.025f * float(fslider0)));
-		float 	fSlow1 = (fConst0 * max((float)0, float(fslider1)));
-		float 	fSlow2 = ((sqrtf(fSlow0) * sinf(fSlow1)) / max(0.001f, float(fslider2)));
-		float 	fSlow3 = cosf(fSlow1);
-		float 	fSlow4 = ((fSlow0 + -1) * fSlow3);
-		float 	fSlow5 = (fSlow0 + fSlow4);
-		float 	fSlow6 = ((fSlow5 + fSlow2) + 1);
-		float 	fSlow7 = ((fSlow0 * ((fSlow0 + fSlow2) + (1 - fSlow4))) / fSlow6);
-		float 	fSlow8 = ((fSlow0 + 1) * fSlow3);
-		float 	fSlow9 = (2 * ((fSlow0 * (fSlow0 + (-1 - fSlow8))) / fSlow6));
-		float 	fSlow10 = ((fSlow0 * (fSlow0 + (1 - (fSlow4 + fSlow2)))) / fSlow6);
-		float 	fSlow11 = ((0 - (2 * ((fSlow0 + fSlow8) + -1))) / fSlow6);
-		float 	fSlow12 = ((fSlow5 + (1 - fSlow2)) / fSlow6);
+		float 	fSlow0 = (0.001f * float(fslider0));
+		float 	fSlow1 = (0.001f * float(fslider1));
+		float 	fSlow2 = (0.001f * float(fslider2));
+		FAUSTFLOAT* input0 = input[0];
 		FAUSTFLOAT* output0 = output[0];
 		FAUSTFLOAT* output1 = output[1];
 		FAUSTFLOAT* output2 = output[2];
 		FAUSTFLOAT* output3 = output[3];
 		FAUSTFLOAT* output4 = output[4];
 		for (int i=0; i<count; i++) {
-			output0[i] = (FAUSTFLOAT)fSlow7;
-			output1[i] = (FAUSTFLOAT)fSlow9;
-			output2[i] = (FAUSTFLOAT)fSlow10;
-			output3[i] = (FAUSTFLOAT)fSlow11;
-			output4[i] = (FAUSTFLOAT)fSlow12;
+			fRec0[0] = (fSlow0 + (0.999f * fRec0[1]));
+			float fTemp0 = powf(10,(0.025f * fRec0[0]));
+			fRec1[0] = (fSlow1 + (0.999f * fRec1[1]));
+			float fTemp1 = (fConst0 * max((float)0, fRec1[0]));
+			fRec2[0] = (fSlow2 + (0.999f * fRec2[1]));
+			float fTemp2 = ((sqrtf(fTemp0) * sinf(fTemp1)) / max(0.001f, fRec2[0]));
+			float fTemp3 = (fTemp0 + fTemp2);
+			float fTemp4 = cosf(fTemp1);
+			float fTemp5 = ((fTemp0 + -1) * fTemp4);
+			float fTemp6 = ((fTemp3 + fTemp5) + 1);
+			output0[i] = (FAUSTFLOAT)((fTemp0 * (fTemp3 + (1 - fTemp5))) / fTemp6);
+			float fTemp7 = (fTemp4 * (fTemp0 + 1));
+			output1[i] = (FAUSTFLOAT)(2 * ((fTemp0 * (fTemp0 + (-1 - fTemp7))) / fTemp6));
+			output2[i] = (FAUSTFLOAT)((fTemp0 * (fTemp0 + (1 - (fTemp2 + fTemp5)))) / fTemp6);
+			output3[i] = (FAUSTFLOAT)((0 - (2 * ((fTemp0 + fTemp7) + -1))) / fTemp6);
+			output4[i] = (FAUSTFLOAT)(((fTemp0 + fTemp5) + (1 - fTemp2)) / fTemp6);
+			// post processing
+			fRec2[1] = fRec2[0];
+			fRec1[1] = fRec1[0];
+			fRec0[1] = fRec0[0];
 		}
 	}
 };
