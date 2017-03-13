@@ -105,10 +105,13 @@ public:
         Atom prop_offset;
         if (lst.property("@offset", &prop_offset)) {
             offset = prop_offset.asInt(0);
-            if (offset >= ptr->sampleCount()) {
+            if (offset >= long(ptr->sampleCount())) {
                 OBJ_ERR << "invalid offset specified: " << offset;
                 OBJ_ERR << "should be less then " << ptr->sampleCount() << ". setting to 0.";
                 offset = 0;
+            } else if (offset < 0) {
+                offset = std::max<long>(0, long(ptr->sampleCount()) + offset);
+                OBJ_DBG << "offset from file end: " << offset;
             }
         }
 

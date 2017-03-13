@@ -152,7 +152,7 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
         LibSndFile sf(TEST_DATA_DIR "/test_data0.wav");
 
         t_word buf[1024];
-        REQUIRE(sf.read(buf, 1024, 0) == 441);
+        REQUIRE(sf.read(buf, 1024, 0, 0) == 441);
         REQUIRE(sf.read(buf, 1024, 1) == -1);
         for (int i = 0; i < 441; i++) {
             REQUIRE(buf[i].w_float == Approx((10.f * i) / 32767.f));
@@ -162,5 +162,7 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
         for (int i = 0; i < 341; i++) {
             REQUIRE(buf[i].w_float == Approx((10.f * (i + 100)) / 32767.f));
         }
+
+        REQUIRE(sf.read(buf, 1024, 0, -100) == -1);
     }
 }

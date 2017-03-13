@@ -69,7 +69,9 @@ namespace sound {
         float frame_buf[buf_size];
 
         // move to beginning
-        handle_.seek(offset, SEEK_SET);
+        if (handle_.seek(offset, SEEK_SET) == -1)
+            return -1;
+
         // read frames
         sf_count_t frames_read = 0;
         sf_count_t frames_read_total = 0;
