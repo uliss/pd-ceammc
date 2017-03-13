@@ -25,15 +25,14 @@ namespace sound {
         std::string fname_;
 
     public:
-        LibSndFile(const std::string& fname, sf_mode = SF_READ);
+        LibSndFile(const std::string& fname);
         size_t sampleCount() const;
         size_t sampleRate() const;
         size_t channels() const;
         bool isOpened() const;
         bool close();
 
-        bool read(float* dest, size_t sz, size_t channel);
-        bool write(const float* src, size_t sz, size_t channel);
+        long read(t_word* dest, size_t sz, size_t channel, jobPercentCallback cb = 0);
 
     public:
         static StringList supportedFormats();

@@ -24,6 +24,12 @@
 
 using namespace ceammc::sound;
 
+static int load_perc = 0;
+static void perc_done(int p)
+{
+    load_perc = p;
+}
+
 TEST_CASE("ceammc::libsndfile", "sndfile")
 {
     SECTION("supported formats")
@@ -31,12 +37,13 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
         StringList fmt(LibSndFile::supportedFormats());
         REQUIRE(!fmt.empty());
 
-        for (size_t i = 0; i < fmt.size(); i++) {
-            std::cerr << fmt[i] << "\n";
-        }
-
         LibSndFile sf("not-exists");
         REQUIRE(!sf.isOpened());
+        REQUIRE(sf.sampleCount() == 0);
+        REQUIRE(sf.sampleRate() == 0);
+        REQUIRE(sf.channels() == 0);
+        REQUIRE(sf.filename() == "not-exists");
+        REQUIRE(sf.read(0, 100, 1) == -1);
     }
 
     SECTION("test 48k wav mono")
@@ -45,7 +52,15 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
         REQUIRE(sf.isOpened());
         REQUIRE(sf.channels() == 1);
         REQUIRE(sf.sampleRate() == 48000);
-        REQUIRE(sf.sampleCount() == 48000);
+        REQUIRE(sf.sampleCount() == 4800);
+        // invalid channel number
+        REQUIRE(sf.read(0, 100, 1) == -1);
+
+        t_word buf[1024];
+        REQUIRE(sf.read(buf, 1024, 0) == 1024);
+        for (size_t i = 0; i < 1024; i++) {
+            REQUIRE(buf[i].w_float == Approx(0.03125f));
+        }
     }
 
     SECTION("test 48k wav stereo")
@@ -54,7 +69,17 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
         REQUIRE(sf.isOpened());
         REQUIRE(sf.channels() == 2);
         REQUIRE(sf.sampleRate() == 48000);
-        REQUIRE(sf.sampleCount() == 48000);
+        REQUIRE(sf.sampleCount() == 4800);
+
+        t_word buf_left[1024];
+        t_word buf_right[1024];
+        REQUIRE(sf.read(buf_left, 441, 0) == 441);
+        REQUIRE(sf.read(buf_right, 441, 1) == 441);
+
+        for (size_t i = 0; i < 441; i++) {
+            REQUIRE(buf_left[i].w_float == Approx(0.03125f));
+            REQUIRE(buf_right[i].w_float == Approx(-0.03125f));
+        }
     }
 
     SECTION("test 48k flac mono")
@@ -63,7 +88,7 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
         REQUIRE(sf.isOpened());
         REQUIRE(sf.channels() == 1);
         REQUIRE(sf.sampleRate() == 48000);
-        REQUIRE(sf.sampleCount() == 48000);
+        REQUIRE(sf.sampleCount() == 4800);
     }
 
     SECTION("test 48k flac stereo")
@@ -72,7 +97,7 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
         REQUIRE(sf.isOpened());
         REQUIRE(sf.channels() == 2);
         REQUIRE(sf.sampleRate() == 48000);
-        REQUIRE(sf.sampleCount() == 48000);
+        REQUIRE(sf.sampleCount() == 4800);
     }
 
     SECTION("test 44.1k ogg mono")
@@ -91,5 +116,41 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
         REQUIRE(sf.channels() == 2);
         REQUIRE(sf.sampleRate() == 44100);
         REQUIRE(sf.sampleCount() == 44100);
+    }
+
+    SECTION("test line mono")
+    {
+        LibSndFile sf(TEST_DATA_DIR "/test_data0.wav");
+        REQUIRE(sf.isOpened());
+        REQUIRE(sf.channels() == 1);
+        REQUIRE(sf.sampleRate() == 44100);
+        REQUIRE(sf.sampleCount() == 441);
+
+        t_word buf[1024];
+        load_perc = 0;
+        REQUIRE(sf.read(buf, 1024, 0, perc_done) == 441);
+        REQUIRE(load_perc == 100);
+        for (int i = 0; i < 441; i++) {
+            REQUIRE(buf[i].w_float == Approx(10.f * i / 32767.f));
+        }
+    }
+
+    SECTION("test line stereo")
+    {
+        LibSndFile sf(TEST_DATA_DIR "/test_data1.wav");
+        REQUIRE(sf.isOpened());
+        REQUIRE(sf.channels() == 2);
+        REQUIRE(sf.sampleRate() == 44100);
+        REQUIRE(sf.sampleCount() == 441);
+
+        t_word left_buf[1024];
+        t_word right_buf[1024];
+        REQUIRE(sf.read(left_buf, 1024, 0) == 441);
+        REQUIRE(sf.read(right_buf, 1024, 1) == 441);
+
+        for (int i = 0; i < 441; i++) {
+            REQUIRE(left_buf[i].w_float == Approx(10 * i / 32767.0));
+            REQUIRE(right_buf[i].w_float == Approx(10 * i / -32767.0));
+        }
     }
 }

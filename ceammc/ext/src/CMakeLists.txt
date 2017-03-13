@@ -255,3 +255,12 @@ ceammc_faust_extension(env follow simple_pd_control_ext)
 ceammc_faust_extension(live capture simple_pd_control_ext)
 
 ceammc_cxx_extension(test prop)
+
+if(TARGET ceammc_sound)
+    pd_add_extension(NAME "snd.load"
+        FILES "snd_load.cpp"
+        INTERNAL True
+        LIBRARY ceammc
+        LINK ceammc_sound ceammc_static)
+#    ceammc_cxx_extension(snd load)
+endif()

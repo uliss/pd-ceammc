@@ -24,18 +24,13 @@ namespace sound {
     typedef std::vector<std::string> StringList;
     class SoundFile;
     typedef boost::shared_ptr<SoundFile> SoundFilePtr;
-
-    enum sf_mode {
-        SF_READ = 0,
-        SF_WRITE = 1
-    };
+    typedef void (*jobPercentCallback)(int p);
 
     class SoundFile {
         std::string fname_;
-        sf_mode mode_;
 
     public:
-        SoundFile(const std::string& fname, sf_mode = SF_READ);
+        SoundFile(const std::string& fname);
         virtual ~SoundFile();
 
         virtual std::string filename();
@@ -56,17 +51,14 @@ namespace sound {
          * @param dest - pointer to destination
          * @return
          */
-        virtual bool read(float* dest, size_t sz, size_t channel) = 0;
-
-        virtual bool write(const float* src, size_t sz, size_t channel) = 0;
+        virtual long read(t_word* dest, size_t sz, size_t channel, jobPercentCallback cb = 0) = 0;
 
         virtual bool isOpened() const = 0;
     };
 
     class SoundFileLoader {
     public:
-        static StringList supportedReadFormats();
-        static StringList supportedWriteFormats();
+        static StringList supportedFormats();
         static bool isSupported(const std::string& format);
 
         static SoundFilePtr open(const std::string& path);

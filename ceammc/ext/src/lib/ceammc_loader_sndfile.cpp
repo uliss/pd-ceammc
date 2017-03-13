@@ -19,20 +19,13 @@ namespace ceammc {
 
 namespace sound {
 
-    int toEnum(sf_mode mode)
+    LibSndFile::LibSndFile(const std::string& fname)
+        : SoundFile(fname)
+        , handle_(fname, SFM_READ, 0, 0, 0)
     {
-        switch (mode) {
-        case SF_READ:
-            return SFM_READ;
-        case SF_WRITE:
-            return SFM_WRITE;
+        if (handle_.rawHandle() == 0) {
+            std::cerr << "[SNDFILE] error while opening \"" << fname << "\": " << sf_strerror(0) << "\n";
         }
-    }
-
-    LibSndFile::LibSndFile(const std::string& fname, sf_mode mode)
-        : SoundFile(fname, mode)
-        , handle_(fname, toEnum(mode), 0, 0, 0)
-    {
     }
 
     size_t LibSndFile::sampleCount() const
@@ -61,31 +54,70 @@ namespace sound {
         return true;
     }
 
-    bool LibSndFile::read(float* dest, size_t sz, size_t ch)
+    long LibSndFile::read(t_word* dest, size_t sz, size_t ch, jobPercentCallback cb)
     {
         if (!handle_)
-            return false;
+            return -1;
 
-        if (ch > channels())
-            return false;
+        if (ch >= channels())
+            return -1;
 
-        if (ch == channels())
-            return handle_.readf(dest, sz) == sz;
-        else {
-            return false;
+        t_word* x = dest;
+        const sf_count_t frame_count = 256;
+        const int n = channels();
+        const sf_count_t buf_size = frame_count * n;
+        float frame_buf[buf_size];
+
+        // job percent send
+        if (cb)
+            cb(0);
+
+        // move to beginning
+        handle_.seek(0, SEEK_SET);
+        // read frames
+        sf_count_t err = 0;
+        sf_count_t frames_read = 0;
+        sf_count_t frames_read_total = 0;
+        const sf_count_t steps = sf_count_t(sz) / frame_count;
+        // read full buffers
+        for (sf_count_t i = 0; i < steps; i++) {
+            frames_read = handle_.readf(frame_buf, frame_count);
+            if (frames_read == 0)
+                break;
+
+            frames_read_total += frames_read;
+
+            // write channel data to destination
+            for (sf_count_t j = 0; j < frames_read; j++) {
+                x->w_float = frame_buf[j * n + ch];
+                x++;
+            }
+
+            // percent done
+            if (cb)
+                cb((100 * i) / (steps - 1));
+
+            // seek to next
+            if (handle_.seek(frames_read_total, SEEK_SET) == -1)
+                break;
         }
-    }
 
-    bool LibSndFile::write(const float* src, size_t sz, size_t ch)
-    {
-        if (!handle_)
-            return false;
+        // read remaining
+        if (sf_count_t(sz) % frame_count != 0) {
+            frames_read = handle_.readf(frame_buf, sf_count_t(sz) % frame_count);
+            frames_read_total += frames_read;
 
-        if (ch > channels())
-            return false;
+            // write channel data to destination
+            for (sf_count_t j = 0; j < frames_read; j++) {
+                x->w_float = frame_buf[j * n + ch];
+                x++;
+            }
+        }
 
-        handle_.writef(src, sz);
-        return true;
+        if (cb)
+            cb(100);
+
+        return frames_read_total;
     }
 
     StringList LibSndFile::supportedFormats()

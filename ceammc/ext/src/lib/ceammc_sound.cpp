@@ -14,11 +14,12 @@
 
 #include "ceammc_sound.h"
 
+#include "ceammc_loader_sndfile.h"
+
 namespace ceammc {
 namespace sound {
-    SoundFile::SoundFile(const std::string& fname, sf_mode mode)
+    SoundFile::SoundFile(const std::string& fname)
         : fname_(fname)
-        , mode_(mode)
     {
     }
 
@@ -26,12 +27,7 @@ namespace sound {
     {
     }
 
-    StringList SoundFileLoader::supportedReadFormats()
-    {
-        return StringList();
-    }
-
-    StringList SoundFileLoader::supportedWriteFormats()
+    StringList SoundFileLoader::supportedFormats()
     {
         return StringList();
     }
@@ -43,7 +39,7 @@ namespace sound {
 
     SoundFilePtr SoundFileLoader::open(const std::string& path)
     {
-        return SoundFilePtr();
+        return SoundFilePtr(new LibSndFile(path));
     }
 
     std::string SoundFile::filename()

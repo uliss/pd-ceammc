@@ -29,3 +29,5 @@ if(LIBSNDFILE_FOUND)
     include_directories(${LIBSNDFILE_INCLUDE_DIRS})
     ceammc_add_test_linked(TITLE "ceammc::libsndfile" NAME test_libsndfile LINK ${LIBSNDFILE_LIBRARIES} ceammc_sound)
 endif()
+
+add_custom_target(test_src SOURCES gen_test_wav.py)
