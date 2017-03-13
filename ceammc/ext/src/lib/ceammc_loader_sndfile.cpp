@@ -69,6 +69,7 @@ namespace sound {
         float frame_buf[buf_size];
 
         // job percent send
+        float percent_done = 0.0f;
         if (cb)
             cb(0);
 
@@ -94,8 +95,13 @@ namespace sound {
             }
 
             // percent done
-            if (cb)
-                cb((100 * i) / (steps - 1));
+            if (cb && steps > 1000) {
+                float job_state = (100.f * i) / (steps - 1);
+                if (int(percent_done) - int(job_state) != 0)
+                    cb(static_cast<int>(percent_done));
+
+                percent_done = job_state;
+            }
 
             // seek to next
             if (handle_.seek(frames_read_total, SEEK_SET) == -1)

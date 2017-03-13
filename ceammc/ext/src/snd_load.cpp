@@ -6,14 +6,13 @@ using namespace ceammc;
 using namespace ceammc::sound;
 
 class SndLoad : public BaseObject {
+private:
     t_symbol* array_;
 
 public:
     SndLoad(const PdArgs& a)
         : BaseObject(a)
     {
-        // createInlet();
-
         createOutlet();
 
         if (!a.args.empty()) {
@@ -50,9 +49,15 @@ public:
         t_word* vecs;
         if (!garray_getfloatwords(arr, &vecsize, &vecs)) {
             OBJ_ERR << "bad template for tabwrite: " << array_->s_name;
+            return;
         }
 
         long samples_in_file = ptr->sampleCount();
+        if (samples_in_file < 1) {
+            OBJ_ERR << "no data in " << fname->s_name;
+            return;
+        }
+
         bool resize = true;
         if (resize && (vecsize != samples_in_file)) {
             garray_resize_long(arr, samples_in_file);
@@ -68,10 +73,11 @@ public:
             }
         }
 
-        ptr->read(vecs, vecsize, 0);
+        long read = ptr->read(vecs, vecsize, 0);
+
         garray_redraw(arr);
 
-        floatTo(0, vecsize);
+        floatTo(0, read);
     }
 
     void m_info(t_symbol* sel, const AtomList& lst)
