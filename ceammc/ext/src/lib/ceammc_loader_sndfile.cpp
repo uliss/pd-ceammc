@@ -54,7 +54,7 @@ namespace sound {
         return true;
     }
 
-    long LibSndFile::read(t_word* dest, size_t sz, size_t ch, jobPercentCallback cb)
+    long LibSndFile::read(t_word* dest, size_t sz, size_t ch, long offset)
     {
         if (!handle_)
             return -1;
@@ -68,15 +68,9 @@ namespace sound {
         const sf_count_t buf_size = frame_count * n;
         float frame_buf[buf_size];
 
-        // job percent send
-        float percent_done = 0.0f;
-        if (cb)
-            cb(0);
-
         // move to beginning
-        handle_.seek(0, SEEK_SET);
+        handle_.seek(offset, SEEK_SET);
         // read frames
-        sf_count_t err = 0;
         sf_count_t frames_read = 0;
         sf_count_t frames_read_total = 0;
         const sf_count_t steps = sf_count_t(sz) / frame_count;
@@ -94,17 +88,8 @@ namespace sound {
                 x++;
             }
 
-            // percent done
-            if (cb && steps > 1000) {
-                float job_state = (100.f * i) / (steps - 1);
-                if (int(percent_done) - int(job_state) != 0)
-                    cb(static_cast<int>(percent_done));
-
-                percent_done = job_state;
-            }
-
             // seek to next
-            if (handle_.seek(frames_read_total, SEEK_SET) == -1)
+            if (handle_.seek(offset + frames_read_total, SEEK_SET) == -1)
                 break;
         }
 
@@ -119,9 +104,6 @@ namespace sound {
                 x++;
             }
         }
-
-        if (cb)
-            cb(100);
 
         return frames_read_total;
     }

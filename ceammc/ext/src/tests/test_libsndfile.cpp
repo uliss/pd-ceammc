@@ -24,12 +24,6 @@
 
 using namespace ceammc::sound;
 
-static int load_perc = 0;
-static void perc_done(int p)
-{
-    load_perc = p;
-}
-
 TEST_CASE("ceammc::libsndfile", "sndfile")
 {
     SECTION("supported formats")
@@ -127,11 +121,9 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
         REQUIRE(sf.sampleCount() == 441);
 
         t_word buf[1024];
-        load_perc = 0;
-        REQUIRE(sf.read(buf, 1024, 0, perc_done) == 441);
-        REQUIRE(load_perc == 100);
+        REQUIRE(sf.read(buf, 1024, 0) == 441);
         for (int i = 0; i < 441; i++) {
-            REQUIRE(buf[i].w_float == Approx(10.f * i / 32767.f));
+            REQUIRE(buf[i].w_float == Approx((10.f * i) / 32767.f));
         }
     }
 
@@ -147,10 +139,28 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
         t_word right_buf[1024];
         REQUIRE(sf.read(left_buf, 1024, 0) == 441);
         REQUIRE(sf.read(right_buf, 1024, 1) == 441);
+        REQUIRE(sf.read(right_buf, 1024, 2) == -1);
 
         for (int i = 0; i < 441; i++) {
             REQUIRE(left_buf[i].w_float == Approx(10 * i / 32767.0));
             REQUIRE(right_buf[i].w_float == Approx(10 * i / -32767.0));
+        }
+    }
+
+    SECTION("test offset")
+    {
+        LibSndFile sf(TEST_DATA_DIR "/test_data0.wav");
+
+        t_word buf[1024];
+        REQUIRE(sf.read(buf, 1024, 0) == 441);
+        REQUIRE(sf.read(buf, 1024, 1) == -1);
+        for (int i = 0; i < 441; i++) {
+            REQUIRE(buf[i].w_float == Approx((10.f * i) / 32767.f));
+        }
+
+        REQUIRE(sf.read(buf, 1024, 0, 100) == 341);
+        for (int i = 0; i < 341; i++) {
+            REQUIRE(buf[i].w_float == Approx((10.f * (i + 100)) / 32767.f));
         }
     }
 }

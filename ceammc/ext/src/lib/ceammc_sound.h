@@ -24,7 +24,6 @@ namespace sound {
     typedef std::vector<std::string> StringList;
     class SoundFile;
     typedef boost::shared_ptr<SoundFile> SoundFilePtr;
-    typedef void (*jobPercentCallback)(int p);
 
     class SoundFile {
         std::string fname_;
@@ -51,7 +50,7 @@ namespace sound {
          * @param dest - pointer to destination
          * @return
          */
-        virtual long read(t_word* dest, size_t sz, size_t channel, jobPercentCallback cb = 0) = 0;
+        virtual long read(t_word* dest, size_t sz, size_t channel, long offset = 0) = 0;
 
         virtual bool isOpened() const = 0;
     };
