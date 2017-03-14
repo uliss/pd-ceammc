@@ -28,6 +28,7 @@ public:
             return post_load_usage();
         }
 
+        // getting filename
         if (!lst.first()->isSymbol()) {
             OBJ_ERR << "filename required";
             return post_load_usage();
@@ -35,6 +36,7 @@ public:
 
         t_symbol* fname = lst.first()->asSymbol();
 
+        // getting array names
         Atom array_name;
         if (!lst.property("@to", &array_name)) {
             OBJ_ERR << "array name is not specified";
