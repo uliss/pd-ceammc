@@ -19,9 +19,9 @@
 
 using namespace ceammc;
 
-class SndLoad : public ceammc::BaseObject {
+class SndFile : public ceammc::BaseObject {
 public:
-    SndLoad(const PdArgs& a);
+    SndFile(const PdArgs& a);
 
 public:
     void m_load(t_symbol* sel, const AtomList& lst);

@@ -10,20 +10,13 @@
 using namespace ceammc;
 using namespace ceammc::sound;
 
-SndLoad::SndLoad(const PdArgs& a)
+SndFile::SndFile(const PdArgs& a)
     : BaseObject(a)
 {
     createOutlet();
-
-    //        if (!a.args.empty()) {
-    //            const Atom* array = a.args.find(isSymbol);
-    //            if (array)
-    //                array_ = array->asSymbol();
-    //        }
-    // parseArguments();
 }
 
-void SndLoad::m_load(t_symbol* sel, const AtomList& lst)
+void SndFile::m_load(t_symbol* sel, const AtomList& lst)
 {
     if (lst.empty()) {
         OBJ_ERR << "arguments required";
@@ -132,16 +125,16 @@ void SndLoad::m_load(t_symbol* sel, const AtomList& lst)
     floatTo(0, bytes);
 }
 
-void SndLoad::m_info(t_symbol* sel, const AtomList& lst)
+void SndFile::m_info(t_symbol* sel, const AtomList& lst)
 {
 }
 
-void SndLoad::postLoadUsage()
+void SndFile::postLoadUsage()
 {
     OBJ_DBG << "usage: load FILENAME @to ARRAY1 [ARRAY2] [@resize] [@channel value1 [value2]] [@offset value]";
 }
 
-t_garray* SndLoad::findArray(const Atom& name)
+t_garray* SndFile::findArray(const Atom& name)
 {
     if (!name.isSymbol())
         return 0;
@@ -150,7 +143,7 @@ t_garray* SndLoad::findArray(const Atom& name)
     return reinterpret_cast<t_garray*>(pd_findbyclass(array, garray_class));
 }
 
-bool SndLoad::checkArray(const Atom& name)
+bool SndFile::checkArray(const Atom& name)
 {
     t_garray* arr = findArray(name);
     if (!arr) {
@@ -168,7 +161,7 @@ bool SndLoad::checkArray(const Atom& name)
     return true;
 }
 
-bool SndLoad::resizeArray(const Atom& name, long newSize)
+bool SndFile::resizeArray(const Atom& name, long newSize)
 {
     t_garray* arr = findArray(name);
     if (!arr) {
@@ -198,7 +191,7 @@ bool SndLoad::resizeArray(const Atom& name, long newSize)
     return true;
 }
 
-long SndLoad::loadArray(SoundFilePtr file, const Atom& name, size_t channel, long offset)
+long SndFile::loadArray(SoundFilePtr file, const Atom& name, size_t channel, long offset)
 {
     if (!file) {
         OBJ_ERR << "invalid file: " << file->filename();
@@ -228,9 +221,9 @@ long SndLoad::loadArray(SoundFilePtr file, const Atom& name, size_t channel, lon
     return read;
 }
 
-extern "C" void setup_snd0x2eload()
+extern "C" void setup_snd0x2efile()
 {
-    ObjectFactory<SndLoad> obj("snd.load");
-    obj.addMethod("load", &SndLoad::m_load);
-    obj.addMethod("info", &SndLoad::m_info);
+    ObjectFactory<SndFile> obj("snd.file");
+    obj.addMethod("load", &SndFile::m_load);
+    obj.addMethod("info", &SndFile::m_info);
 }
