@@ -798,7 +798,7 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
     SECTION("property")
     {
         AtomList l;
-        REQUIRE_FALSE(l.property("@test", 0));
+        REQUIRE_FALSE(l.property("@test", (Atom*)0));
         REQUIRE_FALSE(l.hasProperty("@test"));
 
         Atom p1;
