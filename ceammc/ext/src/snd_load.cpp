@@ -63,13 +63,13 @@ public:
         SoundFilePtr ptr = SoundFileLoader::open(fname->s_name);
 
         if (!ptr) {
-            OBJ_ERR << "can't load this format: " << fname->s_name;
+            OBJ_ERR << "can't load file: " << fname->s_name;
             return;
         }
 
         long samples_in_file = ptr->sampleCount();
         if (samples_in_file < 1) {
-            OBJ_ERR << "no data in " << fname->s_name;
+            OBJ_ERR << "can't load file: " << fname->s_name;
             return;
         }
 
