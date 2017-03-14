@@ -42,7 +42,7 @@ public:
         // getting array names
         AtomList array_names;
         lst.property("@to", &array_names);
-        if (!array_names.empty()) {
+        if (array_names.empty()) {
             OBJ_ERR << "destination arrays are not specified";
             return postLoadUsage();
         }
