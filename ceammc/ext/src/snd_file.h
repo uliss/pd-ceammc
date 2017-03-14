@@ -25,17 +25,13 @@ public:
 
 public:
     void m_load(t_symbol* sel, const AtomList& lst);
-
     void m_info(t_symbol* sel, const AtomList& lst);
 
 private:
     void postLoadUsage();
     t_garray* findArray(const Atom& name);
-
     bool checkArray(const Atom& name);
-
     bool resizeArray(const Atom& name, long newSize);
-
     long loadArray(sound::SoundFilePtr file, const Atom& name, size_t channel, long offset);
 };
 
