@@ -163,6 +163,7 @@ TEST_CASE("snd.file", "[PureData]")
         REQUIRE(sf.loadArray_(file, S(unknown), 0, 0) == -1);
         REQUIRE(file->sampleCount() == 441);
         // invalid offset
+        REQUIRE(sf.loadArray_(file, S(array1), 0, -1) == -1);
         REQUIRE(sf.loadArray_(file, S(array1), 0, 1024) == -1);
         // invalid channel
         REQUIRE(sf.loadArray_(file, S(array1), 10, 0) == -1);
