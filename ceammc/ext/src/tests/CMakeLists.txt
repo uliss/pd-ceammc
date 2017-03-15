@@ -19,6 +19,7 @@ ceammc_add_test("ceammc::pd" test_pd)
 
 ceammc_add_extension_test("list_walk" "../list/list_walk.cpp")
 ceammc_add_extension_test("list_walk2" "../list/list_walk.cpp")
+ceammc_add_extension_test("snd_file" "../snd_file.cpp")
 
 if(APPLE)
     ceammc_add_test("ceammc::timeline" test_timeline)

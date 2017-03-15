@@ -27,7 +27,7 @@ public:
     void m_load(t_symbol* sel, const AtomList& lst);
     void m_info(t_symbol* sel, const AtomList& lst);
 
-private:
+protected:
     void postLoadUsage();
     t_garray* findArray(const Atom& name);
     bool checkArray(const Atom& name);

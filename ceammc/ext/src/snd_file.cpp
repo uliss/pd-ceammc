@@ -163,6 +163,11 @@ bool SndFile::checkArray(const Atom& name)
 
 bool SndFile::resizeArray(const Atom& name, long newSize)
 {
+    if (newSize < 1) {
+        OBJ_ERR << "invalid array size: " << newSize;
+        return false;
+    }
+
     t_garray* arr = findArray(name);
     if (!arr) {
         OBJ_ERR << "no such array: " << to_string(name);
@@ -193,7 +198,7 @@ bool SndFile::resizeArray(const Atom& name, long newSize)
 
 long SndFile::loadArray(SoundFilePtr file, const Atom& name, size_t channel, long offset)
 {
-    if (!file) {
+    if (!file->isOpened()) {
         OBJ_ERR << "invalid file: " << file->filename();
         return -1;
     }
