@@ -48,7 +48,7 @@ void SndFile::m_load(t_symbol* sel, const AtomList& lst)
     // try to open file
     SoundFilePtr ptr = SoundFileLoader::open(fname->s_name);
 
-    if (!ptr) {
+    if (!ptr || !ptr->isOpened()) {
         OBJ_ERR << "can't load file: " << fname->s_name;
         return;
     }
@@ -198,7 +198,7 @@ bool SndFile::resizeArray(const Atom& name, long newSize)
 
 long SndFile::loadArray(SoundFilePtr file, const Atom& name, size_t channel, long offset)
 {
-    if (!file->isOpened()) {
+    if (!file || !file->isOpened()) {
         OBJ_ERR << "invalid file: " << file->filename();
         return -1;
     }

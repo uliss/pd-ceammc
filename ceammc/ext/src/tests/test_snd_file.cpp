@@ -25,6 +25,17 @@
 #define TEST_DATA_DIR "."
 #endif
 
+void array_zero(t_garray* a)
+{
+    int sz = 0;
+    t_word* vec = 0;
+    if (!garray_getfloatwords(a, &sz, &vec))
+        return;
+
+    for (int i = 0; i < sz; i++)
+        vec[i].w_float = 0.f;
+}
+
 class SndFileTest : public TestExtension<SndFile> {
 public:
     SndFileTest(const char* name, const AtomList& args)
@@ -58,6 +69,7 @@ public:
 
 #define SA(txt) Atom(gensym(#txt))
 #define S(txt) gensym(#txt)
+#define F(n) Atom(float(n))
 
 #define REQUIRE_ARRAY_SIZE(array, size)                       \
     {                                                         \
@@ -66,6 +78,16 @@ public:
         REQUIRE(garray_getfloatwords(array, &sz, &vec) == 1); \
         REQUIRE(size == sz);                                  \
         REQUIRE(vec != 0);                                    \
+    }
+
+#define REQUIRE_ARRAY_ZERO(array)                             \
+    {                                                         \
+        int sz = 0;                                           \
+        t_word* vec = 0;                                      \
+        REQUIRE(garray_getfloatwords(array, &sz, &vec) == 1); \
+        for (int i = 0; i < sz; i++) {                        \
+            REQUIRE(vec[i].w_float == 0.f);                   \
+        }                                                     \
     }
 
 #define CALL(obj, method)                            \
@@ -123,6 +145,9 @@ TEST_CASE("snd.file", "[PureData]")
         REQUIRE(sf.numOutlets() == 1);
         REQUIRE(sf.findArray_(SA("unknown")) == 0);
 
+        sf.storeMessageCount();
+        REQUIRE_NO_MSG(sf);
+
         t_atom cnv_args[6];
         SETFLOAT(&cnv_args[0], 10);
         SETFLOAT(&cnv_args[1], 10);
@@ -133,28 +158,30 @@ TEST_CASE("snd.file", "[PureData]")
         t_canvas* cnv = canvas_new(0, S(canvas), 6, cnv_args);
         REQUIRE(cnv != 0);
 
-        t_garray* ga = graph_array(canvas_getcurrent(), gensym("array1"), &s_float, 100, 0);
-        REQUIRE(ga != 0);
+        t_garray* array1 = graph_array(canvas_getcurrent(), gensym("array1"), &s_float, 100, 0);
+        REQUIRE(array1 != 0);
 
         REQUIRE(sf.findArray_(Atom(100)) == 0);
         REQUIRE(sf.findArray_(S(unknown)) == 0);
-        REQUIRE(sf.findArray_(S(array1)) == ga);
+        REQUIRE(sf.findArray_(S(array1)) == array1);
 
         REQUIRE_FALSE(sf.checkArray_(S(unknown)));
         REQUIRE(sf.checkArray_(S(array1)));
 
         REQUIRE_FALSE(sf.resizeArray_(S(unknown), 100));
         REQUIRE(sf.resizeArray_(S(array1), 100));
-        REQUIRE_ARRAY_SIZE(ga, 100);
+        REQUIRE_ARRAY_SIZE(array1, 100);
 
         // negative array size
         REQUIRE_FALSE(sf.resizeArray_(S(array1), 0));
         REQUIRE_FALSE(sf.resizeArray_(S(array1), -100));
         // check nothing changes
-        REQUIRE_ARRAY_SIZE(ga, 100);
+        REQUIRE_ARRAY_SIZE(array1, 100);
 
         REQUIRE(sf.resizeArray_(S(array1), 111));
-        REQUIRE_ARRAY_SIZE(ga, 111);
+        REQUIRE_ARRAY_SIZE(array1, 111);
+
+        REQUIRE_NO_MSG(sf);
 
         sound::SoundFilePtr file = SF(TEST_DATA_DIR "/test_data1.wav");
         REQUIRE(file->isOpened());
@@ -168,11 +195,13 @@ TEST_CASE("snd.file", "[PureData]")
         // invalid channel
         REQUIRE(sf.loadArray_(file, S(array1), 10, 0) == -1);
 
+        REQUIRE_NO_MSG(sf);
+
         // load left channel
         REQUIRE(sf.loadArray_(file, S(array1), 0, 0) == 111);
         int sz = 0;
         t_word* vec = 0;
-        garray_getfloatwords(ga, &sz, &vec);
+        garray_getfloatwords(array1, &sz, &vec);
         for (int i = 0; i < sz; i++) {
             REQUIRE(vec[i].w_float == Approx(i * 10 / 32768.f));
         }
@@ -180,23 +209,97 @@ TEST_CASE("snd.file", "[PureData]")
         // load left channel with offset
         const long offset = 11;
         REQUIRE(sf.loadArray_(file, S(array1), 0, offset) == 111);
-        garray_getfloatwords(ga, &sz, &vec);
+        garray_getfloatwords(array1, &sz, &vec);
         for (int i = 0; i < sz; i++) {
             REQUIRE(vec[i].w_float == Approx((i + offset) * 10 / 32768.f));
         }
 
         // load right channel
         REQUIRE(sf.loadArray_(file, S(array1), 1, 0) == 111);
-        garray_getfloatwords(ga, &sz, &vec);
+        garray_getfloatwords(array1, &sz, &vec);
         for (int i = 0; i < sz; i++) {
             REQUIRE(vec[i].w_float == Approx(i * 10 / -32767.f));
         }
 
         // load right channel with offset
         REQUIRE(sf.loadArray_(file, S(array1), 1, offset) == 111);
-        garray_getfloatwords(ga, &sz, &vec);
+        garray_getfloatwords(array1, &sz, &vec);
         for (int i = 0; i < sz; i++) {
             REQUIRE(vec[i].w_float == Approx((i + offset) * 10 / -32767.f));
         }
+
+        REQUIRE_NO_MSG(sf);
+
+        args.clear();
+        sf.m_load(S(load), args);
+
+        // invalid float argument
+        args.append(1000);
+        sf.m_load(S(load), args);
+        args.clear();
+
+        // do destination argument
+        args.append(S(unknown)); //filename
+        sf.m_load(S(load), args);
+        args.clear();
+
+        // invalid destination
+        args.append(S(unknown)); //filename
+        args.append(S(@to));
+        args.append(S(arrayX));
+        sf.m_load(S(load), args);
+        args.clear();
+
+        /// create "array2"
+        t_garray* array2 = graph_array(canvas_getcurrent(), gensym("array2"), &s_float, 10, 0);
+        REQUIRE(array2 != 0);
+
+        // invalid filename
+        args.append(S(unknown)); //filename
+        args.append(S(@to));
+        args.append(S(array2));
+        sf.m_load(S(load), args);
+        args.clear();
+        REQUIRE_NO_MSG(sf);
+
+        REQUIRE(sf.resizeArray_(S(array1), 20));
+        REQUIRE(sf.resizeArray_(S(array2), 25));
+        array_zero(array1);
+        array_zero(array2);
+        // first load success
+
+        // valid filename
+        args.append(gensym(TEST_DATA_DIR "/test_data1.wav")); //filename
+        args.append(S(@to));
+        args.append(S(array1));
+        sf.m_load(S(load), args);
+        args.clear();
+
+        REQUIRE_ARRAY_SIZE(array1, 20);
+        REQUIRE_ARRAY_SIZE(array2, 25);
+        garray_getfloatwords(array1, &sz, &vec);
+        for (int i = 0; i < sz; i++) {
+            REQUIRE(vec[i].w_float == Approx(i * 10 / 32768.f));
+        }
+
+        REQUIRE_ARRAY_ZERO(array2);
+
+        // load channel 1
+        args.append(gensym(TEST_DATA_DIR "/test_data1.wav")); //filename
+        args.append(S(@to));
+        args.append(S(array1));
+        args.append(S(@channel));
+        args.append(F(1));
+        sf.m_load(S(load), args);
+        args.clear();
+
+        REQUIRE_ARRAY_SIZE(array1, 20);
+        REQUIRE_ARRAY_SIZE(array2, 25);
+        garray_getfloatwords(array1, &sz, &vec);
+        for (int i = 0; i < sz; i++) {
+            REQUIRE(vec[i].w_float == Approx(i * 10 / -32767.f));
+        }
+
+        REQUIRE_ARRAY_ZERO(array2);
     }
 }
