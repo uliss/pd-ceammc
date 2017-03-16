@@ -523,11 +523,12 @@ TEST_CASE("snd.file", "[PureData]")
         }
 
         // load @to array1, array2 with @resize with huge @offset
+        // that became 0
         {
             array_zero(array1);
             args.append(gensym(TEST_DATA_DIR "/test_data1.wav")); //filename
             ARG_S2(@to, array1, array2);
-            ARG_F1(@offset, 10000);
+            ARG_F1(@offset, 10000); // became 0
             ARG(@resize);
             sf.m_load(S(load), args);
             args.clear();
