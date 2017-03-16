@@ -32,7 +32,7 @@ matrix:
 
 before_install:
 ## install some dependencies
-- sudo apt-get install -qq libboost-dev libportmidi-dev libfftw3-dev libasound2-dev libjack-dev
+- sudo apt-get install -qq libboost-dev libsndfile-dev libportmidi-dev libfftw3-dev libasound2-dev libjack-dev
 - pip install --user cpp-coveralls
 
 
