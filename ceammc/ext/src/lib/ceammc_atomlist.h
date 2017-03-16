@@ -136,6 +136,14 @@ public:
     bool property(const std::string& name, Atom* dest) const;
 
     /**
+         * Get property value from list
+         * @param name - property name with (starts with '@')
+         * @param dest - output destination
+         * @return true if property was found and it has value
+         */
+    bool property(const std::string& name, AtomList* dest) const;
+
+    /**
          * Returns all properties and their values from list
          */
     std::deque<AtomList> properties() const;

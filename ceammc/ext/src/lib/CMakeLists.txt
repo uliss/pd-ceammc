@@ -50,3 +50,28 @@ target_link_libraries(ceammc_timeline ceammc_static)
 set_target_properties(ceammc_timeline PROPERTIES
     COMPILE_FLAGS "${FLAGS}" LINK_FLAGS "${FLAGS}")
 
+# loaders
+
+# we need 1.47.0 for boost random uniform distribution
+find_package(Boost 1.47.0)
+if(Boost_FOUND)
+    include_directories(${Boost_INCLUDE_DIRS})
+endif()
+
+set(CEAMMC_LOAD_SRC ceammc_sound.h ceammc_sound.cpp)
+set(CEAMMC_LOAD_DEFS "")
+
+include(FindLibSndFile)
+if(LIBSNDFILE_FOUND)
+    list(APPEND CEAMMC_LOAD_DEFS "-DWITH_LIBSOUNDFILE")
+    include_directories(${LIBSNDFILE_INCLUDE_DIRS})
+endif()
+
+if(LIBSNDFILE_FOUND)
+    list(APPEND CEAMMC_LOAD_SRC ceammc_loader_sndfile.cpp)
+endif()
+
+add_library(ceammc_sound STATIC ${CEAMMC_LOAD_SRC})
+target_compile_definitions(ceammc_sound PUBLIC ${CEAMMC_LOAD_DEFS})
+target_link_libraries(ceammc_sound ${LIBSNDFILE_LIBRARIES})
+

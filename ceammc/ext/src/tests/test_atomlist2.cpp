@@ -17,6 +17,9 @@
 
 using namespace ceammc;
 
+#define P(str) Atom(gensym(#str))
+#define F(n)   Atom(float(n))
+
 TEST_CASE("AtomList2", "[ceammc::AtomList]")
 {
     SECTION("resize")
@@ -291,5 +294,47 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
             REQUIRE(l[0] == 14.0);
             REQUIRE(l[1] == gensym("a"));
         }
+    }
+
+    SECTION("property get atomlist")
+    {
+        // empty data
+        REQUIRE_FALSE(AtomList().property("@a", static_cast<AtomList*>(0)));
+
+        AtomList plist;
+        REQUIRE_FALSE(AtomList().property("@a", &plist));
+        REQUIRE(plist.empty());
+
+        REQUIRE_FALSE(AtomList(gensym("@b")).property("@a", &plist));
+
+        // test for empty property
+        plist.append(23);
+        REQUIRE(AtomList(gensym("value"), gensym("@a")).property("@a", &plist));
+        REQUIRE(plist.empty());
+
+        AtomList lst;
+        lst.append(F(2));
+        lst.append(P(@a));
+        lst.append(P(@b));
+        lst.append(F(3));
+        lst.append(F(4));
+        lst.append(F(5));
+        lst.append(P(@c));
+        lst.append(F(6));
+
+        REQUIRE(lst.property("@a", &plist));
+        REQUIRE(plist == AtomList());
+
+        REQUIRE(lst.property("@b", &plist));
+        REQUIRE(plist == AtomList::values(3, 3.0, 4.0, 5.0));
+
+        REQUIRE(lst.property("@a", &plist));
+        REQUIRE(plist == AtomList());
+
+        REQUIRE(lst.property("@c", &plist));
+        REQUIRE(plist == AtomList(F(6)));
+
+        REQUIRE_FALSE(lst.property("@d", &plist));
+        REQUIRE(plist == AtomList(F(6)));
     }
 }
