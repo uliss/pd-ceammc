@@ -47,10 +47,10 @@ namespace sound {
     {
         if (std::find(loaders().begin(), loaders().end(), l) == loaders().end()) {
             loaders().push_back(l);
-            LIB_DBG << "register loader: " << l.name;
+            std::cerr << "register loader: " << l.name;
             return true;
         } else {
-            LIB_ERR << "loader already registered: " << l.name;
+            std::cerr << "loader already registered: " << l.name;
             return false;
         }
     }
@@ -68,7 +68,7 @@ namespace sound {
     SoundFilePtr SoundFileLoader::open(const std::string& path)
     {
         if (loaders().empty()) {
-            LIB_ERR << "no loaders registered";
+            std::cerr << "no loaders registered";
             return SoundFilePtr();
         }
 
