@@ -74,7 +74,9 @@ if(LIBSNDFILE_FOUND)
 endif()
 
 add_library(ceammc_sound STATIC ${CEAMMC_LOAD_SRC})
-target_compile_definitions(ceammc_sound PUBLIC ${CEAMMC_LOAD_DEFS})
+set_target_properties(ceammc_sound
+            PROPERTIES
+            COMPILE_DEFINITIONS ${CEAMMC_LOAD_DEFS})
 target_link_libraries(ceammc_sound ${CEAMMC_LOAD_LIBS})
 
 
