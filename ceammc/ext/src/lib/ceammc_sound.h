@@ -55,12 +55,29 @@ namespace sound {
         virtual bool isOpened() const = 0;
     };
 
+    typedef SoundFilePtr (*loadFunc)(const std::string& path);
+    struct LoaderDescr {
+        LoaderDescr(const std::string& n, loadFunc f)
+            : name(n)
+            , func(f)
+        {
+        }
+        std::string name;
+        loadFunc func;
+        bool operator==(const LoaderDescr& l);
+    };
+
     class SoundFileLoader {
     public:
+        static bool registerLoader(const LoaderDescr& l);
         static StringList supportedFormats();
         static bool isSupported(const std::string& format);
 
         static SoundFilePtr open(const std::string& path);
+
+    private:
+        typedef std::vector<LoaderDescr> LoaderList;
+        static LoaderList& loaders(); // singleton
     };
 }
 }

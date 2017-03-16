@@ -13,11 +13,27 @@
  *****************************************************************************/
 
 #include "ceammc_sound.h"
-
+#include "ceammc_log.h"
+#ifdef WITH_LIBSOUNDFILE
 #include "ceammc_loader_sndfile.h"
+#endif
+
+#include <algorithm>
+#include <iostream>
 
 namespace ceammc {
 namespace sound {
+
+#ifdef WITH_LIBSOUNDFILE
+    static SoundFilePtr libsndfile_load_func(const std::string& path)
+    {
+        return SoundFilePtr(new LibSndFile(path));
+    }
+
+    static const bool libsndfile_register = SoundFileLoader::registerLoader(
+        LoaderDescr("libsndfile", &libsndfile_load_func));
+#endif
+
     SoundFile::SoundFile(const std::string& fname)
         : fname_(fname)
     {
@@ -25,6 +41,18 @@ namespace sound {
 
     SoundFile::~SoundFile()
     {
+    }
+
+    bool SoundFileLoader::registerLoader(const LoaderDescr& l)
+    {
+        if (std::find(loaders().begin(), loaders().end(), l) == loaders().end()) {
+            loaders().push_back(l);
+            LIB_DBG << "register loader: " << l.name;
+            return true;
+        } else {
+            LIB_ERR << "loader already registered: " << l.name;
+            return false;
+        }
     }
 
     StringList SoundFileLoader::supportedFormats()
@@ -39,12 +67,28 @@ namespace sound {
 
     SoundFilePtr SoundFileLoader::open(const std::string& path)
     {
-        return SoundFilePtr(new LibSndFile(path));
+        if (loaders().empty()) {
+            LIB_ERR << "no loaders registered";
+            return SoundFilePtr();
+        }
+
+        return loaders().front().func(path);
+    }
+
+    SoundFileLoader::LoaderList& SoundFileLoader::loaders()
+    {
+        static SoundFileLoader::LoaderList loaders;
+        return loaders;
     }
 
     std::string SoundFile::filename()
     {
         return fname_;
+    }
+
+    bool LoaderDescr::operator==(const LoaderDescr& l)
+    {
+        return l.func == func;
     }
 }
 }

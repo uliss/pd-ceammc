@@ -215,6 +215,7 @@ TEST_CASE("snd.file", "[PureData]")
         REQUIRE_NO_MSG(sf);
 
         sound::SoundFilePtr file = SF(TEST_DATA_DIR "/test_data1.wav");
+        REQUIRE(file);
         REQUIRE(file->isOpened());
 
         REQUIRE(sf.loadArray_(SF("not-exists"), S(array1), 0, 0) == -1);
