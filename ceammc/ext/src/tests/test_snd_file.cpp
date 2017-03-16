@@ -71,6 +71,37 @@ public:
 #define S(txt) gensym(#txt)
 #define F(n) Atom(float(n))
 
+#define ARG_F1(name, value)    \
+    {                          \
+        args.append(S(name));  \
+        args.append(F(value)); \
+    }
+
+#define ARG_F2(name, f1, f2)  \
+    {                         \
+        args.append(S(name)); \
+        args.append(F(f1));   \
+        args.append(F(f2));   \
+    }
+
+#define ARG_S1(name, value)    \
+    {                          \
+        args.append(S(name));  \
+        args.append(S(value)); \
+    }
+
+#define ARG_S2(name, s1, s2)  \
+    {                         \
+        args.append(S(name)); \
+        args.append(S(s1));   \
+        args.append(S(s2));   \
+    }
+
+#define ARG(name)             \
+    {                         \
+        args.append(S(name)); \
+    }
+
 #define REQUIRE_ARRAY_SIZE(array, size)                       \
     {                                                         \
         int sz = 0;                                           \
@@ -301,5 +332,217 @@ TEST_CASE("snd.file", "[PureData]")
         }
 
         REQUIRE_ARRAY_ZERO(array2);
+
+        // load channel 1 with resize
+        array_zero(array1);
+        args.append(gensym(TEST_DATA_DIR "/test_data1.wav")); //filename
+        args.append(S(@to));
+        args.append(S(array1));
+        args.append(S(@channel));
+        args.append(F(1));
+        args.append(S(@resize));
+        sf.m_load(S(load), args);
+        args.clear();
+
+        REQUIRE_ARRAY_SIZE(array1, 441);
+        REQUIRE_ARRAY_SIZE(array2, 25);
+        garray_getfloatwords(array1, &sz, &vec);
+        for (int i = 0; i < sz; i++) {
+            REQUIRE(vec[i].w_float == Approx(i * 10 / -32767.f));
+        }
+
+        REQUIRE_ARRAY_ZERO(array2);
+
+        // load channel 1 with resize and offset
+        {
+            array_zero(array1);
+            args.append(gensym(TEST_DATA_DIR "/test_data1.wav")); //filename
+            args.append(S(@to));
+            args.append(S(array1));
+            args.append(S(@channel));
+            args.append(F(1));
+            args.append(S(@resize));
+            args.append(S(@offset));
+            args.append(F(100));
+            sf.m_load(S(load), args);
+            args.clear();
+
+            int offset = 100;
+            REQUIRE_ARRAY_SIZE(array1, 441 - offset);
+            REQUIRE_ARRAY_SIZE(array2, 25);
+            garray_getfloatwords(array1, &sz, &vec);
+            for (int i = 0; i < sz; i++) {
+                REQUIRE(vec[i].w_float == Approx((i + offset) * 10 / -32767.f));
+            }
+
+            REQUIRE_ARRAY_ZERO(array2);
+        }
+        // load @to array1, array2 with @resize with default channels
+        {
+            array_zero(array1);
+            args.append(gensym(TEST_DATA_DIR "/test_data1.wav")); //filename
+            args.append(S(@to));
+            args.append(S(array1));
+            args.append(S(array2));
+            args.append(S(@resize));
+            sf.m_load(S(load), args);
+            args.clear();
+
+            REQUIRE_ARRAY_SIZE(array1, 441);
+            REQUIRE_ARRAY_SIZE(array2, 441);
+            garray_getfloatwords(array1, &sz, &vec);
+            for (int i = 0; i < sz; i++) {
+                REQUIRE(vec[i].w_float == Approx(i * 10 / 32768.f));
+            }
+
+            garray_getfloatwords(array2, &sz, &vec);
+            for (int i = 0; i < sz; i++) {
+                REQUIRE(vec[i].w_float == Approx(i * 10 / -32767.f));
+            }
+        }
+
+        // load @to array2, array1 with @resize with default channels
+        {
+            array_zero(array1);
+            args.append(gensym(TEST_DATA_DIR "/test_data1.wav")); //filename
+            args.append(S(@to));
+            args.append(S(array2));
+            args.append(S(array1));
+            args.append(S(@resize));
+            sf.m_load(S(load), args);
+            args.clear();
+
+            REQUIRE_ARRAY_SIZE(array1, 441);
+            REQUIRE_ARRAY_SIZE(array2, 441);
+            garray_getfloatwords(array2, &sz, &vec);
+            for (int i = 0; i < sz; i++) {
+                REQUIRE(vec[i].w_float == Approx(i * 10 / 32768.f));
+            }
+
+            garray_getfloatwords(array1, &sz, &vec);
+            for (int i = 0; i < sz; i++) {
+                REQUIRE(vec[i].w_float == Approx(i * 10 / -32767.f));
+            }
+        }
+
+        // load @to array2, array1 with @resize with empty @channels all 0
+        {
+            array_zero(array1);
+            args.append(gensym(TEST_DATA_DIR "/test_data1.wav")); //filename
+            ARG_S2(@to, array1, array2);
+            ARG_F1(@channel, 1);
+            ARG(@resize);
+            // final @channel = [1, 0]
+            // so ch1 loaded to array1, ch0 - to array2
+            sf.m_load(S(load), args);
+            args.clear();
+
+            REQUIRE_ARRAY_SIZE(array1, 441);
+            REQUIRE_ARRAY_SIZE(array2, 441);
+            garray_getfloatwords(array2, &sz, &vec);
+            for (int i = 0; i < sz; i++) {
+                REQUIRE(vec[i].w_float == Approx(i * 10 / 32768.f));
+            }
+
+            garray_getfloatwords(array1, &sz, &vec);
+            for (int i = 0; i < sz; i++) {
+                REQUIRE(vec[i].w_float == Approx(i * 10 / -32767.f));
+            }
+        }
+
+        // load @to array2, array1 with @resize with invalid @channels
+        {
+            array_zero(array1);
+            args.append(gensym(TEST_DATA_DIR "/test_data1.wav")); //filename
+            ARG_S2(@to, array1, array2);
+            ARG(@resize);
+            ARG_F2(@channel, 100, -12);
+            // final @channel = [0, 0]
+            // so ch0 loaded to array1 and array2
+            sf.m_load(S(load), args);
+            args.clear();
+
+            REQUIRE_ARRAY_SIZE(array1, 441);
+            REQUIRE_ARRAY_SIZE(array2, 441);
+            garray_getfloatwords(array1, &sz, &vec);
+            for (int i = 0; i < sz; i++) {
+                REQUIRE(vec[i].w_float == Approx(i * 10 / 32768.f));
+            }
+
+            garray_getfloatwords(array2, &sz, &vec);
+            for (int i = 0; i < sz; i++) {
+                REQUIRE(vec[i].w_float == Approx(i * 10 / 32768.f));
+            }
+        }
+
+        // load @to array1, array2 with @resize with @channels and @offset
+        {
+            array_zero(array1);
+            args.append(gensym(TEST_DATA_DIR "/test_data1.wav")); //filename
+            ARG_S2(@to, array1, array2);
+            ARG(@resize);
+            ARG_F1(@offset, 400);
+            ARG_F2(@channel, 0, 1);
+            sf.m_load(S(load), args);
+            args.clear();
+
+            REQUIRE_ARRAY_SIZE(array1, 41);
+            REQUIRE_ARRAY_SIZE(array2, 41);
+            garray_getfloatwords(array1, &sz, &vec);
+            for (int i = 0; i < sz; i++) {
+                REQUIRE(vec[i].w_float == Approx((i + 400) * 10 / 32768.f));
+            }
+
+            garray_getfloatwords(array2, &sz, &vec);
+            for (int i = 0; i < sz; i++) {
+                REQUIRE(vec[i].w_float == Approx((i + 400) * 10 / -32767.f));
+            }
+        }
+
+        // load @to array1, array2 with @resize with negative @offset
+        {
+            array_zero(array1);
+            args.append(gensym(TEST_DATA_DIR "/test_data1.wav")); //filename
+            ARG_S2(@to, array1, array2);
+            ARG_F1(@offset, -41);
+            ARG(@resize);
+            sf.m_load(S(load), args);
+            args.clear();
+
+            REQUIRE_ARRAY_SIZE(array1, 41);
+            REQUIRE_ARRAY_SIZE(array2, 41);
+            garray_getfloatwords(array1, &sz, &vec);
+            for (int i = 0; i < sz; i++) {
+                REQUIRE(vec[i].w_float == Approx((i + 400) * 10 / 32768.f));
+            }
+
+            garray_getfloatwords(array2, &sz, &vec);
+            for (int i = 0; i < sz; i++) {
+                REQUIRE(vec[i].w_float == Approx((i + 400) * 10 / -32767.f));
+            }
+        }
+
+        // load @to array1, array2 with @resize with huge @offset
+        {
+            array_zero(array1);
+            args.append(gensym(TEST_DATA_DIR "/test_data1.wav")); //filename
+            ARG_S2(@to, array1, array2);
+            ARG_F1(@offset, 10000);
+            ARG(@resize);
+            sf.m_load(S(load), args);
+            args.clear();
+
+            REQUIRE_ARRAY_SIZE(array1, 441);
+            REQUIRE_ARRAY_SIZE(array2, 441);
+            garray_getfloatwords(array1, &sz, &vec);
+            for (int i = 0; i < sz; i++) {
+                REQUIRE(vec[i].w_float == Approx(i * 10 / 32768.f));
+            }
+
+            garray_getfloatwords(array2, &sz, &vec);
+            for (int i = 0; i < sz; i++) {
+                REQUIRE(vec[i].w_float == Approx(i * 10 / -32767.f));
+            }
+        }
     }
 }

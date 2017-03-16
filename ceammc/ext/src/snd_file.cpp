@@ -59,15 +59,6 @@ void SndFile::m_load(t_symbol* sel, const AtomList& lst)
         return;
     }
 
-    const bool resize = lst.hasProperty("@resize");
-    // resize all arrays
-    if (resize) {
-        for (size_t i = 0; i < array_names.size(); i++) {
-            if (!resizeArray(array_names[i], samples_in_file))
-                return;
-        }
-    }
-
     // channel property
     // filled with zeroes
     std::vector<size_t> channels(array_names.size(), 0);
@@ -89,7 +80,7 @@ void SndFile::m_load(t_symbol* sel, const AtomList& lst)
 
         size_t total = std::min(array_names.size(), prop_chan.size());
         for (size_t i = 0; i < total; i++) {
-            size_t chan = prop_chan.asSizeT(0);
+            size_t chan = prop_chan[i].asSizeT(0);
             if (chan >= ptr->channels()) {
                 OBJ_ERR << "invalid channel specified: " << chan << ". Skipping...";
                 continue;
@@ -111,6 +102,15 @@ void SndFile::m_load(t_symbol* sel, const AtomList& lst)
         } else if (offset < 0) {
             offset = std::max<long>(0, long(ptr->sampleCount()) + offset);
             OBJ_DBG << "offset from file end: " << offset;
+        }
+    }
+
+    const bool resize = lst.hasProperty("@resize");
+    // resize all arrays
+    if (resize) {
+        for (size_t i = 0; i < array_names.size(); i++) {
+            if (!resizeArray(array_names[i], samples_in_file - offset))
+                return;
         }
     }
 
