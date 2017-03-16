@@ -18,7 +18,7 @@ macro(ceammc_add_test_linked)
     set(name ${_TEST_NAME})
     set(title ${_TEST_TITLE})
     add_executable(${name} "${name}.cpp")
-    target_link_libraries(${name} ceammc_static puredata-core ceammc_timeline ${_TEST_LINK})
+    target_link_libraries(${name} puredata-core ceammc_static puredata-core ceammc_timeline ${_TEST_LINK})
     add_test(${title} ${name})
 
     if(${WITH_COVERAGE})
