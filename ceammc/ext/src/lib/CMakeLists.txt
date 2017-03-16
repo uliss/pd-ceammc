@@ -59,8 +59,7 @@ if(Boost_FOUND)
 endif()
 
 set(CEAMMC_LOAD_SRC ceammc_sound.h ceammc_sound.cpp)
-set(CEAMMC_LOAD_DEFS "WITH_SND_DUMMY=1")
-set(CEAMMC_LOAD_LIBS "")
+set(CEAMMC_LOAD_LIBS "WITH_SND_DUMMY")
 
 include(FindLibSndFile)
 if(LIBSNDFILE_FOUND)
@@ -77,6 +76,9 @@ add_library(ceammc_sound STATIC ${CEAMMC_LOAD_SRC})
 set_target_properties(ceammc_sound
             PROPERTIES
             COMPILE_DEFINITIONS ${CEAMMC_LOAD_DEFS})
+set_target_properties(ceammc_sound
+    PROPERTIES
+    COMPILE_FLAGS "-fPIC")
 target_link_libraries(ceammc_sound ${CEAMMC_LOAD_LIBS})
 
 
