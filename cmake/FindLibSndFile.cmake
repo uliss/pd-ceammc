@@ -27,6 +27,8 @@ find_library(LIBSNDFILE_LIBRARY
         /usr/lib
         /usr/local/lib
         /opt/local/lib
+        /usr/lib/x86_64-linux-gnu
+        /usr/lib/i386-linux-gnu
 )
 
 find_package(PackageHandleStandardArgs)
