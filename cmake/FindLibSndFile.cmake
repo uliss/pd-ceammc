@@ -17,6 +17,8 @@ find_path(LIBSNDFILE_INCLUDE_DIR
 	PATHS ${LIBSNDFILE_PKGCONF_INCLUDE_DIRS}
 )
 
+message(STATUS "pkgconfig: ${LIBSNDFILE_PKGCONF_LIBRARY_DIRS}")
+
 # Library
 find_library(LIBSNDFILE_LIBRARY
 	NAMES sndfile libsndfile-1
