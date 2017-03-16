@@ -8,10 +8,28 @@ macro(ceammc_add_test title name)
     endif()
 endmacro()
 
+macro(ceammc_add_test_linked)
+    set(_OPTIONS_ARGS)
+    set(_ONE_VALUE_ARGS TITLE NAME)
+    set(_MULTI_VALUE_ARGS LINK)
+
+    cmake_parse_arguments(_TEST "${_OPTIONS_ARGS}" "${_ONE_VALUE_ARGS}" "${_MULTI_VALUE_ARGS}" ${ARGN})
+
+    set(name ${_TEST_NAME})
+    set(title ${_TEST_TITLE})
+    add_executable(${name} "${name}.cpp")
+    target_link_libraries(${name} puredata-core ceammc_static puredata-core ceammc_timeline ${_TEST_LINK})
+    add_test(${title} ${name})
+
+    if(${WITH_COVERAGE})
+        set_target_properties(${name} PROPERTIES COMPILE_FLAGS "--coverage" LINK_FLAGS "--coverage")
+    endif()
+endmacro()
+
 macro(ceammc_add_extension_test name extpath)
     set(_target "test_${name}")
     add_executable(${_target} "${_target}.cpp" ${extpath})
-    target_link_libraries(${_target} ceammc_static puredata-core ceammc_timeline)
+    target_link_libraries(${_target} puredata-core ceammc_static puredata-core ceammc_timeline ceammc_sound)
     add_test("Extension::${name}" ${_target})
 
     if(${WITH_COVERAGE})

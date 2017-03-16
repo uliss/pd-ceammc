@@ -728,6 +728,8 @@ static void faust_any(t_faust* x, t_symbol* s, int argc, t_atom* argv)
         ui->outputAllProperties(x->out);
     } else if (isGetProperty(s)) {
         ui->outputProperty(s, x->out);
+    } else if (isSetProperty(s)) {
+        ui->setProperty(s, argc, argv);
     } else {
         const char* label = s->s_name;
         int count = 0;

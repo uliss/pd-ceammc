@@ -252,6 +252,36 @@ bool AtomList::property(const std::string& name, Atom* dest) const
     return false;
 }
 
+bool AtomList::property(const std::string& name, AtomList* dest) const
+{
+    if (!dest)
+        return false;
+
+    bool found = false;
+    AtomList res;
+
+    for (size_t i = 0; i < atoms_.size(); i++) {
+        if (atoms_[i].isProperty()) {
+            // if next property found
+            if (found)
+                break;
+
+            // prop found
+            if (name == atoms_[i].asSymbol()->s_name)
+                found = true;
+        } else {
+            // value
+            if (found)
+                res.append(atoms_[i]);
+        }
+    }
+
+    if (found)
+        *dest = res;
+
+    return found;
+}
+
 std::deque<AtomList> AtomList::properties() const
 {
     std::deque<AtomList> res;

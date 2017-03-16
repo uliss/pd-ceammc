@@ -372,7 +372,7 @@ class DecoratorUI : public UI
 struct Meta
 {
     virtual void declare(const char* key, const char* value) = 0;
-    virtual ~Meta() {};
+    virtual ~Meta() {}
 };
 
 #endif
@@ -480,7 +480,6 @@ struct c_bpf : public dsp {
 #include "ceammc_faust.h"
 using namespace ceammc::faust;
 
-
 /******************************************************************************
 *******************************************************************************
 
@@ -508,7 +507,9 @@ class c_bpf : public dsp {
   private:
 	float 	fConst0;
 	FAUSTFLOAT 	fslider0;
+	float 	fRec0[2];
 	FAUSTFLOAT 	fslider1;
+	float 	fRec1[2];
 	int fSamplingFreq;
 
   public:
@@ -518,6 +519,8 @@ class c_bpf : public dsp {
 		m->declare("maxmsp.lib/copyright", "GRAME");
 		m->declare("maxmsp.lib/version", "1.1");
 		m->declare("maxmsp.lib/license", "LGPL");
+		m->declare("signal.lib/name", "Faust Signal Routing Library");
+		m->declare("signal.lib/version", "0.0");
 		m->declare("math.lib/name", "Faust Math Library");
 		m->declare("math.lib/version", "2.0");
 		m->declare("math.lib/author", "GRAME");
@@ -538,6 +541,8 @@ class c_bpf : public dsp {
 		fslider1 = 1.0f;
 	}
 	virtual void instanceClear() {
+		for (int i=0; i<2; i++) fRec0[i] = 0;
+		for (int i=0; i<2; i++) fRec1[i] = 0;
 	}
 	virtual void init(int samplingFreq) {
 		classInit(samplingFreq);
@@ -561,98 +566,30 @@ class c_bpf : public dsp {
 		ui_interface->closeBox();
 	}
 	virtual void compute (int count, FAUSTFLOAT** input, FAUSTFLOAT** output) {
-		float 	fSlow0 = (fConst0 * max((float)0, float(fslider0)));
-		float 	fSlow1 = sinf(fSlow0);
-		float 	fSlow2 = max(0.001f, float(fslider1));
-		float 	fSlow3 = (0.5f * (fSlow1 / fSlow2));
-		float 	fSlow4 = (fSlow3 + 1);
-		float 	fSlow5 = (0.5f * (fSlow1 / (fSlow2 * fSlow4)));
-		float 	fSlow6 = ((0 - fSlow3) / fSlow4);
-		float 	fSlow7 = ((0 - (2 * cosf(fSlow0))) / fSlow4);
-		float 	fSlow8 = ((1 - fSlow3) / fSlow4);
-		int index;
-		int fullcount = count;
-		for (index = 0; index <= fullcount - 64; index += 64) {
-			// compute by blocks of 64 samples
-			const int count = 64;
-			FAUSTFLOAT* output0 = &output[0][index];
-			FAUSTFLOAT* output1 = &output[1][index];
-			FAUSTFLOAT* output2 = &output[2][index];
-			FAUSTFLOAT* output3 = &output[3][index];
-			FAUSTFLOAT* output4 = &output[4][index];
-			// SECTION : 1
-			// LOOP 0x7f89d050e510
-			// exec code
-			for (int i=0; i<count; i++) {
-				output1[i] = (FAUSTFLOAT)0;
-			}
-			
-			// SECTION : 2
-			// LOOP 0x7f89d050c7b0
-			// exec code
-			for (int i=0; i<count; i++) {
-				output0[i] = (FAUSTFLOAT)fSlow5;
-			}
-			
-			// LOOP 0x7f89d050e6b0
-			// exec code
-			for (int i=0; i<count; i++) {
-				output2[i] = (FAUSTFLOAT)fSlow6;
-			}
-			
-			// LOOP 0x7f89d050eae0
-			// exec code
-			for (int i=0; i<count; i++) {
-				output3[i] = (FAUSTFLOAT)fSlow7;
-			}
-			
-			// LOOP 0x7f89d050f230
-			// exec code
-			for (int i=0; i<count; i++) {
-				output4[i] = (FAUSTFLOAT)fSlow8;
-			}
-			
-		}
-		if (index < fullcount) {
-			// compute the remaining samples if any
-			int count = fullcount-index;
-			FAUSTFLOAT* output0 = &output[0][index];
-			FAUSTFLOAT* output1 = &output[1][index];
-			FAUSTFLOAT* output2 = &output[2][index];
-			FAUSTFLOAT* output3 = &output[3][index];
-			FAUSTFLOAT* output4 = &output[4][index];
-			// SECTION : 1
-			// LOOP 0x7f89d050e510
-			// exec code
-			for (int i=0; i<count; i++) {
-				output1[i] = (FAUSTFLOAT)0;
-			}
-			
-			// SECTION : 2
-			// LOOP 0x7f89d050c7b0
-			// exec code
-			for (int i=0; i<count; i++) {
-				output0[i] = (FAUSTFLOAT)fSlow5;
-			}
-			
-			// LOOP 0x7f89d050e6b0
-			// exec code
-			for (int i=0; i<count; i++) {
-				output2[i] = (FAUSTFLOAT)fSlow6;
-			}
-			
-			// LOOP 0x7f89d050eae0
-			// exec code
-			for (int i=0; i<count; i++) {
-				output3[i] = (FAUSTFLOAT)fSlow7;
-			}
-			
-			// LOOP 0x7f89d050f230
-			// exec code
-			for (int i=0; i<count; i++) {
-				output4[i] = (FAUSTFLOAT)fSlow8;
-			}
-			
+		float 	fSlow0 = (0.001f * float(fslider0));
+		float 	fSlow1 = (0.001f * float(fslider1));
+		FAUSTFLOAT* input0 = input[0];
+		FAUSTFLOAT* output0 = output[0];
+		FAUSTFLOAT* output1 = output[1];
+		FAUSTFLOAT* output2 = output[2];
+		FAUSTFLOAT* output3 = output[3];
+		FAUSTFLOAT* output4 = output[4];
+		for (int i=0; i<count; i++) {
+			fRec0[0] = (fSlow0 + (0.999f * fRec0[1]));
+			float fTemp0 = (fConst0 * max((float)0, fRec0[0]));
+			float fTemp1 = sinf(fTemp0);
+			fRec1[0] = (fSlow1 + (0.999f * fRec1[1]));
+			float fTemp2 = max(0.001f, fRec1[0]);
+			float fTemp3 = (0.5f * (fTemp1 / fTemp2));
+			float fTemp4 = (fTemp3 + 1);
+			output0[i] = (FAUSTFLOAT)(0.5f * (fTemp1 / (fTemp2 * fTemp4)));
+			output1[i] = (FAUSTFLOAT)0;
+			output2[i] = (FAUSTFLOAT)((0 - fTemp3) / fTemp4);
+			output3[i] = (FAUSTFLOAT)((0 - (2 * cosf(fTemp0))) / fTemp4);
+			output4[i] = (FAUSTFLOAT)((1 - fTemp3) / fTemp4);
+			// post processing
+			fRec1[1] = fRec1[0];
+			fRec0[1] = fRec0[0];
 		}
 	}
 };
@@ -792,6 +729,24 @@ static void faust_dsp(t_faust* x, t_signal** sp)
     }
 }
 
+static void dumpToConsole(t_faust* x)
+{
+    t_object* xobj = &x->x_obj;
+    t_class* xc = xobj->te_pd;
+    const char* name = class_getname(xc);
+
+    // print xlets
+    post("[%s] inlets: %i", name, x->dsp->getNumInputs());
+    int info_outlet = (x->out == 0) ? 0 : 1;
+    post("[%s] outlets: %i", name, x->dsp->getNumOutputs() + info_outlet);
+
+    // print properties
+    for (size_t i = 0; i < x->ui->uiCount(); i++) {
+        UIElement* el = x->ui->uiAt(i);
+        post("[%s] property: %s = %g", name, el->setPropertySym()->s_name, static_cast<double>(el->value()));
+    }
+}
+
 static void faust_any(t_faust* x, t_symbol* s, int argc, t_atom* argv)
 {
     if (!x->dsp)
@@ -804,6 +759,8 @@ static void faust_any(t_faust* x, t_symbol* s, int argc, t_atom* argv)
         ui->outputAllProperties(x->out);
     } else if (isGetProperty(s)) {
         ui->outputProperty(s, x->out);
+    } else if (isSetProperty(s)) {
+        ui->setProperty(s, argc, argv);
     } else {
         const char* label = s->s_name;
         int count = 0;
@@ -1143,6 +1100,7 @@ static void internal_setup(t_symbol* s)
         A_GIMME, A_NULL);
     class_addmethod(faust_class, nullfn, &s_signal, A_NULL);
     class_addmethod(faust_class, reinterpret_cast<t_method>(faust_dsp), gensym("dsp"), A_NULL);
+    class_addmethod(faust_class, reinterpret_cast<t_method>(dumpToConsole), gensym("dump"), A_NULL);
     CLASS_MAINSIGNALIN(faust_class, t_faust, f);
     class_addanything(faust_class, faust_any);
 }

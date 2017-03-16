@@ -372,7 +372,7 @@ class DecoratorUI : public UI
 struct Meta
 {
     virtual void declare(const char* key, const char* value) = 0;
-    virtual ~Meta() {};
+    virtual ~Meta() {}
 };
 
 #endif
@@ -480,7 +480,6 @@ struct bpf12 : public dsp {
 #include "ceammc_faust.h"
 using namespace ceammc::faust;
 
-
 /******************************************************************************
 *******************************************************************************
 
@@ -506,31 +505,31 @@ using namespace ceammc::faust;
 
 class bpf12 : public dsp {
   private:
-	FAUSTFLOAT 	fslider0;
-	float 	fRec1_perm[4];
-	FAUSTFLOAT 	fslider1;
-	float 	fRec2_perm[4];
 	float 	fConst0;
-	float 	fYec0_perm[4];
-	float 	fRec0_perm[4];
+	FAUSTFLOAT 	fslider0;
+	float 	fRec1[2];
+	FAUSTFLOAT 	fslider1;
+	float 	fRec2[2];
+	float 	fVec0[3];
+	float 	fRec0[3];
 	int fSamplingFreq;
 
   public:
 	virtual void metadata(Meta* m) { 
+		m->declare("signal.lib/name", "Faust Signal Routing Library");
+		m->declare("signal.lib/version", "0.0");
+		m->declare("filter.lib/name", "Faust Filter Library");
+		m->declare("filter.lib/version", "2.0");
 		m->declare("maxmsp.lib/name", "MaxMSP compatibility Library");
 		m->declare("maxmsp.lib/author", "GRAME");
 		m->declare("maxmsp.lib/copyright", "GRAME");
 		m->declare("maxmsp.lib/version", "1.1");
 		m->declare("maxmsp.lib/license", "LGPL");
-		m->declare("signal.lib/name", "Faust Signal Routing Library");
-		m->declare("signal.lib/version", "0.0");
 		m->declare("math.lib/name", "Faust Math Library");
 		m->declare("math.lib/version", "2.0");
 		m->declare("math.lib/author", "GRAME");
 		m->declare("math.lib/copyright", "GRAME");
 		m->declare("math.lib/license", "LGPL with exception");
-		m->declare("filter.lib/name", "Faust Filter Library");
-		m->declare("filter.lib/version", "2.0");
 	}
 
 	virtual int getNumInputs() { return 1; }
@@ -546,10 +545,10 @@ class bpf12 : public dsp {
 		fslider1 = 0.01f;
 	}
 	virtual void instanceClear() {
-		for (int i=0; i<4; i++) fRec1_perm[i]=0;
-		for (int i=0; i<4; i++) fRec2_perm[i]=0;
-		for (int i=0; i<4; i++) fYec0_perm[i]=0;
-		for (int i=0; i<4; i++) fRec0_perm[i]=0;
+		for (int i=0; i<2; i++) fRec1[i] = 0;
+		for (int i=0; i<2; i++) fRec2[i] = 0;
+		for (int i=0; i<3; i++) fVec0[i] = 0;
+		for (int i=0; i<3; i++) fRec0[i] = 0;
 	}
 	virtual void init(int samplingFreq) {
 		classInit(samplingFreq);
@@ -573,200 +572,27 @@ class bpf12 : public dsp {
 		ui_interface->closeBox();
 	}
 	virtual void compute (int count, FAUSTFLOAT** input, FAUSTFLOAT** output) {
-		float 	fRec1_tmp[64+4];
-		float 	fRec2_tmp[64+4];
-		float 	fZec0[64];
-		float 	fZec1[64];
-		float 	fZec2[64];
-		float 	fZec3[64];
-		float 	fZec4[64];
-		float 	fYec0_tmp[64+4];
-		float 	fRec0_tmp[64+4];
 		float 	fSlow0 = (0.001f * float(fslider0));
-		float* 	fRec1 = &fRec1_tmp[4];
 		float 	fSlow1 = (0.001f * float(fslider1));
-		float* 	fRec2 = &fRec2_tmp[4];
-		float* 	fYec0 = &fYec0_tmp[4];
-		float* 	fRec0 = &fRec0_tmp[4];
-		int index;
-		int fullcount = count;
-		for (index = 0; index <= fullcount - 64; index += 64) {
-			// compute by blocks of 64 samples
-			const int count = 64;
-			FAUSTFLOAT* input0 = &input[0][index];
-			FAUSTFLOAT* output0 = &output[0][index];
-			// SECTION : 1
-			// LOOP 0x7fb992f4d7a0
-			// pre processing
-			for (int i=0; i<4; i++) fRec1_tmp[i]=fRec1_perm[i];
-			// exec code
-			for (int i=0; i<count; i++) {
-				fRec1[i] = (fSlow0 + (0.999f * fRec1[i-1]));
-			}
+		FAUSTFLOAT* input0 = input[0];
+		FAUSTFLOAT* output0 = output[0];
+		for (int i=0; i<count; i++) {
+			fRec1[0] = (fSlow0 + (0.999f * fRec1[1]));
+			float fTemp0 = (fConst0 * max((float)0, fRec1[0]));
+			float fTemp1 = sinf(fTemp0);
+			fRec2[0] = (fSlow1 + (0.999f * fRec2[1]));
+			float fTemp2 = max(0.001f, fRec2[0]);
+			float fTemp3 = (0.5f * (fTemp1 / fTemp2));
+			float fTemp4 = (fTemp3 + 1);
+			float fTemp5 = (float)input0[i];
+			fVec0[0] = fTemp5;
+			fRec0[0] = (((fRec0[1] * (0 - ((0 - (2 * cosf(fTemp0))) / fTemp4))) + (fRec0[2] * (0 - ((1 - fTemp3) / fTemp4)))) + (((fVec0[2] * (0 - fTemp3)) + (0.5f * ((fVec0[0] * fTemp1) / fTemp2))) / fTemp4));
+			output0[i] = (FAUSTFLOAT)fRec0[0];
 			// post processing
-			for (int i=0; i<4; i++) fRec1_perm[i]=fRec1_tmp[count+i];
-			
-			// SECTION : 2
-			// LOOP 0x7fb992f4e780
-			// pre processing
-			for (int i=0; i<4; i++) fRec2_tmp[i]=fRec2_perm[i];
-			// exec code
-			for (int i=0; i<count; i++) {
-				fRec2[i] = (fSlow1 + (0.999f * fRec2[i-1]));
-			}
-			// post processing
-			for (int i=0; i<4; i++) fRec2_perm[i]=fRec2_tmp[count+i];
-			
-			// LOOP 0x7fb992f4f750
-			// exec code
-			for (int i=0; i<count; i++) {
-				fZec0[i] = (fConst0 * max((float)0, fRec1[i]));
-			}
-			
-			// SECTION : 3
-			// LOOP 0x7fb992f50870
-			// exec code
-			for (int i=0; i<count; i++) {
-				fZec1[i] = sinf(fZec0[i]);
-			}
-			
-			// LOOP 0x7fb992f50c90
-			// exec code
-			for (int i=0; i<count; i++) {
-				fZec2[i] = max(0.001f, fRec2[i]);
-			}
-			
-			// SECTION : 4
-			// LOOP 0x7fb992f50730
-			// exec code
-			for (int i=0; i<count; i++) {
-				fZec3[i] = (0.5f * (fZec1[i] / fZec2[i]));
-			}
-			
-			// SECTION : 5
-			// LOOP 0x7fb992f50650
-			// exec code
-			for (int i=0; i<count; i++) {
-				fZec4[i] = (fZec3[i] + 1);
-			}
-			
-			// LOOP 0x7fb992f52410
-			// pre processing
-			for (int i=0; i<4; i++) fYec0_tmp[i]=fYec0_perm[i];
-			// exec code
-			for (int i=0; i<count; i++) {
-				fYec0[i] = (float)input0[i];
-			}
-			// post processing
-			for (int i=0; i<4; i++) fYec0_perm[i]=fYec0_tmp[count+i];
-			
-			// SECTION : 6
-			// LOOP 0x7fb992f4d4a0
-			// pre processing
-			for (int i=0; i<4; i++) fRec0_tmp[i]=fRec0_perm[i];
-			// exec code
-			for (int i=0; i<count; i++) {
-				fRec0[i] = (((fRec0[i-1] * (0 - ((0 - (2 * cosf(fZec0[i]))) / fZec4[i]))) + (fRec0[i-2] * (0 - ((1 - fZec3[i]) / fZec4[i])))) + (((fYec0[i-2] * (0 - fZec3[i])) + (0.5f * (((float)input0[i] * fZec1[i]) / fZec2[i]))) / fZec4[i]));
-			}
-			// post processing
-			for (int i=0; i<4; i++) fRec0_perm[i]=fRec0_tmp[count+i];
-			
-			// SECTION : 7
-			// LOOP 0x7fb992f4d3c0
-			// exec code
-			for (int i=0; i<count; i++) {
-				output0[i] = (FAUSTFLOAT)fRec0[i];
-			}
-			
-		}
-		if (index < fullcount) {
-			// compute the remaining samples if any
-			int count = fullcount-index;
-			FAUSTFLOAT* input0 = &input[0][index];
-			FAUSTFLOAT* output0 = &output[0][index];
-			// SECTION : 1
-			// LOOP 0x7fb992f4d7a0
-			// pre processing
-			for (int i=0; i<4; i++) fRec1_tmp[i]=fRec1_perm[i];
-			// exec code
-			for (int i=0; i<count; i++) {
-				fRec1[i] = (fSlow0 + (0.999f * fRec1[i-1]));
-			}
-			// post processing
-			for (int i=0; i<4; i++) fRec1_perm[i]=fRec1_tmp[count+i];
-			
-			// SECTION : 2
-			// LOOP 0x7fb992f4e780
-			// pre processing
-			for (int i=0; i<4; i++) fRec2_tmp[i]=fRec2_perm[i];
-			// exec code
-			for (int i=0; i<count; i++) {
-				fRec2[i] = (fSlow1 + (0.999f * fRec2[i-1]));
-			}
-			// post processing
-			for (int i=0; i<4; i++) fRec2_perm[i]=fRec2_tmp[count+i];
-			
-			// LOOP 0x7fb992f4f750
-			// exec code
-			for (int i=0; i<count; i++) {
-				fZec0[i] = (fConst0 * max((float)0, fRec1[i]));
-			}
-			
-			// SECTION : 3
-			// LOOP 0x7fb992f50870
-			// exec code
-			for (int i=0; i<count; i++) {
-				fZec1[i] = sinf(fZec0[i]);
-			}
-			
-			// LOOP 0x7fb992f50c90
-			// exec code
-			for (int i=0; i<count; i++) {
-				fZec2[i] = max(0.001f, fRec2[i]);
-			}
-			
-			// SECTION : 4
-			// LOOP 0x7fb992f50730
-			// exec code
-			for (int i=0; i<count; i++) {
-				fZec3[i] = (0.5f * (fZec1[i] / fZec2[i]));
-			}
-			
-			// SECTION : 5
-			// LOOP 0x7fb992f50650
-			// exec code
-			for (int i=0; i<count; i++) {
-				fZec4[i] = (fZec3[i] + 1);
-			}
-			
-			// LOOP 0x7fb992f52410
-			// pre processing
-			for (int i=0; i<4; i++) fYec0_tmp[i]=fYec0_perm[i];
-			// exec code
-			for (int i=0; i<count; i++) {
-				fYec0[i] = (float)input0[i];
-			}
-			// post processing
-			for (int i=0; i<4; i++) fYec0_perm[i]=fYec0_tmp[count+i];
-			
-			// SECTION : 6
-			// LOOP 0x7fb992f4d4a0
-			// pre processing
-			for (int i=0; i<4; i++) fRec0_tmp[i]=fRec0_perm[i];
-			// exec code
-			for (int i=0; i<count; i++) {
-				fRec0[i] = (((fRec0[i-1] * (0 - ((0 - (2 * cosf(fZec0[i]))) / fZec4[i]))) + (fRec0[i-2] * (0 - ((1 - fZec3[i]) / fZec4[i])))) + (((fYec0[i-2] * (0 - fZec3[i])) + (0.5f * (((float)input0[i] * fZec1[i]) / fZec2[i]))) / fZec4[i]));
-			}
-			// post processing
-			for (int i=0; i<4; i++) fRec0_perm[i]=fRec0_tmp[count+i];
-			
-			// SECTION : 7
-			// LOOP 0x7fb992f4d3c0
-			// exec code
-			for (int i=0; i<count; i++) {
-				output0[i] = (FAUSTFLOAT)fRec0[i];
-			}
-			
+			fRec0[2] = fRec0[1]; fRec0[1] = fRec0[0];
+			fVec0[2] = fVec0[1]; fVec0[1] = fVec0[0];
+			fRec2[1] = fRec2[0];
+			fRec1[1] = fRec1[0];
 		}
 	}
 };
@@ -906,6 +732,24 @@ static void faust_dsp(t_faust* x, t_signal** sp)
     }
 }
 
+static void dumpToConsole(t_faust* x)
+{
+    t_object* xobj = &x->x_obj;
+    t_class* xc = xobj->te_pd;
+    const char* name = class_getname(xc);
+
+    // print xlets
+    post("[%s] inlets: %i", name, x->dsp->getNumInputs());
+    int info_outlet = (x->out == 0) ? 0 : 1;
+    post("[%s] outlets: %i", name, x->dsp->getNumOutputs() + info_outlet);
+
+    // print properties
+    for (size_t i = 0; i < x->ui->uiCount(); i++) {
+        UIElement* el = x->ui->uiAt(i);
+        post("[%s] property: %s = %g", name, el->setPropertySym()->s_name, static_cast<double>(el->value()));
+    }
+}
+
 static void faust_any(t_faust* x, t_symbol* s, int argc, t_atom* argv)
 {
     if (!x->dsp)
@@ -918,6 +762,8 @@ static void faust_any(t_faust* x, t_symbol* s, int argc, t_atom* argv)
         ui->outputAllProperties(x->out);
     } else if (isGetProperty(s)) {
         ui->outputProperty(s, x->out);
+    } else if (isSetProperty(s)) {
+        ui->setProperty(s, argc, argv);
     } else {
         const char* label = s->s_name;
         int count = 0;
@@ -1257,6 +1103,7 @@ static void internal_setup(t_symbol* s)
         A_GIMME, A_NULL);
     class_addmethod(faust_class, nullfn, &s_signal, A_NULL);
     class_addmethod(faust_class, reinterpret_cast<t_method>(faust_dsp), gensym("dsp"), A_NULL);
+    class_addmethod(faust_class, reinterpret_cast<t_method>(dumpToConsole), gensym("dump"), A_NULL);
     CLASS_MAINSIGNALIN(faust_class, t_faust, f);
     class_addanything(faust_class, faust_any);
 }

@@ -1,8 +1,8 @@
 import("maxmsp.lib");
+si = library("signal.lib");
 
+freq = hslider("freq", 10000, 20, 20000, 0.1) : si.smoo;
+gain = hslider("gain", 0, -15, 15, 0.1) : si.smoo;
+q = hslider("q", 1, 0.5, 2, 0.1) : si.smoo;
 
-freq = hslider("freq", 10000, 20, 20000, 0.1);
-gain = hslider("gain", 0, -15, 15, 0.1);
-q = hslider("q", 1, 0.5, 2, 0.1);
-
-process = filtercoeff(freq, gain, q).highShelf;
+process(in) = filtercoeff(freq, gain, q).highShelf;

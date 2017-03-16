@@ -577,10 +577,10 @@ class limit : public dsp {
 			float fTemp0 = (float)input0[i];
 			float fTemp1 = fabsf(fTemp0);
 			float fTemp2 = ((int((fRec1[1] > fTemp1)))?fConst3:fConst4);
-			fRec2[0] = (((1.0f - fTemp2) * fTemp1) + (fTemp2 * fRec2[1]));
+			fRec2[0] = ((fTemp1 * (1.0f - fTemp2)) + (fTemp2 * fRec2[1]));
 			fRec1[0] = fRec2[0];
 			fRec0[0] = ((fConst1 * fRec0[1]) + (fConst2 * (0 - (0.75f * max(((20 * log10f(fRec1[0])) + 6), 0.0f)))));
-			output0[i] = (FAUSTFLOAT)(powf(10,(0.05f * fRec0[0])) * fTemp0);
+			output0[i] = (FAUSTFLOAT)(fTemp0 * powf(10,(0.05f * fRec0[0])));
 			// post processing
 			fRec0[1] = fRec0[0];
 			fRec1[1] = fRec1[0];
@@ -754,6 +754,8 @@ static void faust_any(t_faust* x, t_symbol* s, int argc, t_atom* argv)
         ui->outputAllProperties(x->out);
     } else if (isGetProperty(s)) {
         ui->outputProperty(s, x->out);
+    } else if (isSetProperty(s)) {
+        ui->setProperty(s, argc, argv);
     } else {
         const char* label = s->s_name;
         int count = 0;

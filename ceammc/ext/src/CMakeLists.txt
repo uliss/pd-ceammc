@@ -143,14 +143,6 @@ elseif(WIN32)
 #    add_custom_command(TARGET msg COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_DLLNAME_FILE:msg>" "m${PD_EXTERNAL_EXTENSION}")
 endif()
 
-
-include(FindLibSndFile)
-if(LIBSNDFILE_FOUND)
-    include_directories(${LIBSNDFILE_INCLUDE_DIRS})
-#    pd_add_extension(NAME ffmpeg FILES ffmpeg.cpp
-#    INTERNAL True LINK ceammc_static ${LIBSNDFILE_LIBRARIES})
-endif()
-
 # we need 1.47.0 for boost random uniform distribution
 find_package(Boost 1.47.0)
 if(Boost_FOUND)
@@ -226,6 +218,7 @@ ceammc_faust_extension(flt c_bpf simple_pd_control_ext)
 ceammc_faust_extension(flt c_peak simple_pd_control_ext)
 ceammc_faust_extension(flt c_lowshelf simple_pd_control_ext)
 ceammc_faust_extension(flt c_highshelf simple_pd_control_ext)
+ceammc_faust_extension(flt c_notch simple_pd_control_ext)
 
 
 
@@ -263,3 +256,11 @@ ceammc_faust_extension(env follow simple_pd_control_ext)
 ceammc_faust_extension(live capture simple_pd_control_ext)
 
 ceammc_cxx_extension(test prop)
+
+if(TARGET ceammc_sound)
+    pd_add_extension(NAME "snd.load"
+        FILES "snd_file.cpp"
+        INTERNAL True
+        LIBRARY ceammc
+        LINK ceammc_sound ceammc_static)
+endif()
