@@ -68,8 +68,11 @@ target_link_libraries(ceammc_sound ${CEAMMC_LOAD_LIBS})
 
 # install
 if(WIN32)
-    install(TARGETS ceammc_core RUNTIME DESTINATION ${PD_INTERNAL_EXT_INSTALL_PATH}/ceammc)
+    install(TARGETS ceammc_core  RUNTIME DESTINATION ${PD_INTERNAL_EXT_INSTALL_PATH}/ceammc)
     install(TARGETS ceammc_sound RUNTIME DESTINATION ${PD_INTERNAL_EXT_INSTALL_PATH}/ceammc)
+else()
+    install(TARGETS ceammc_core  LIBRARY DESTINATION ${PDCORE_LIB_INSTALL_PATH})
+    install(TARGETS ceammc_sound LIBRARY DESTINATION ${PDCORE_LIB_INSTALL_PATH})
 endif()
 
 
