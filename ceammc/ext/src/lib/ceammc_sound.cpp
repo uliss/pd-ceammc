@@ -13,13 +13,14 @@
  *****************************************************************************/
 
 #include "ceammc_sound.h"
-#include "ceammc_log.h"
 #ifdef WITH_LIBSOUNDFILE
 #include "ceammc_loader_sndfile.h"
 #endif
 
 #include <algorithm>
 #include <iostream>
+
+using namespace std;
 
 namespace ceammc {
 namespace sound {

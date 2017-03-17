@@ -1,5 +1,9 @@
 include(faust)
 include(ceammc_pd.cmake)
+# we need 1.47.0 for boost random uniform distribution
+find_package(Boost 1.47.0 REQUIRED)
+include_directories(${Boost_INCLUDE_DIRS})
+
 add_subdirectory(lib)
 include_directories(lib)
 include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra/CicmWrapper/Sources)
@@ -134,7 +138,7 @@ ceammc_cxx_extension(local int)
 ceammc_cxx_extension(local float)
 
 ceammc_cxx_extension(prop get)
-pd_add_extension(NAME "msg" FILES "msg.cpp" INTERNAL True LIBRARY ceammc LINK ceammc_static)
+pd_add_extension(NAME "msg" FILES "msg.cpp" INTERNAL True LIBRARY ceammc LINK ceammc_core)
 
 if(UNIX)
     add_custom_command(TARGET msg COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_SONAME_FILE:msg>" "m${PD_EXTERNAL_EXTENSION}")
@@ -142,21 +146,14 @@ elseif(WIN32)
 #    add_custom_command(TARGET msg COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_DLLNAME_FILE:msg>" "m${PD_EXTERNAL_EXTENSION}")
 endif()
 
-# we need 1.47.0 for boost random uniform distribution
-find_package(Boost 1.47.0)
-if(Boost_FOUND)
-    include_directories(${Boost_INCLUDE_DIRS})
-    ceammc_cxx_extension(math prime)
-    pd_add_extension(NAME test.data   FILES test_data.cpp   INTERNAL True LINK ceammc_static)
-    pd_add_extension(NAME test.expect FILES test_expect.cpp INTERNAL True LINK ceammc_static)
-    ceammc_cxx_extension(random float)
-    ceammc_cxx_extension(random int)
-    ceammc_cxx_extension(random gauss)
-
-    # symbol
-    ceammc_cxx_extension(symbol ends_with)
-#    ceammc_cxx_extension(symbol to_upper)
-endif()
+ceammc_cxx_extension(math prime)
+pd_add_extension(NAME test.data   FILES test_data.cpp   INTERNAL True LINK ceammc_core)
+pd_add_extension(NAME test.expect FILES test_expect.cpp INTERNAL True LINK ceammc_core)
+ceammc_cxx_extension(random float)
+ceammc_cxx_extension(random int)
+ceammc_cxx_extension(random gauss)
+# symbol
+ceammc_cxx_extension(symbol ends_with)
 
 
 find_package(GLIB)
@@ -257,9 +254,9 @@ ceammc_faust_extension(live capture simple_pd_control_ext)
 ceammc_cxx_extension(test prop)
 
 if(TARGET ceammc_sound)
-    pd_add_extension(NAME "snd.load"
+    pd_add_extension(NAME "snd.file"
         FILES "snd_file.cpp"
         INTERNAL True
         LIBRARY ceammc
-        LINK ceammc_sound ceammc_static)
+        LINK ceammc_sound ceammc_core)
 endif()

@@ -18,11 +18,10 @@ if(LINUX)
     set(PD_EXTERNAL_LDFLAGS "-Wl,--export-dynamic -shared -fPIC")
 endif()
 
-
 if(WIN32)
     set(PD_EXTERNAL_EXTENSION ".dll")
     set(PD_EXTERNAL_CFLAGS "-mms-bitfields")
-    set(PD_EXTERNAL_LDFLAGS "-s -shared -Wl,--enable-auto-import -static-libgcc -static-libstdc++")
+    set(PD_EXTERNAL_LDFLAGS "-shared -Wl,--enable-auto-import")
 endif()
 
 function(pd_add_extension)
