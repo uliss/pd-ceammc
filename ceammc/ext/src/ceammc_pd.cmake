@@ -3,8 +3,7 @@ macro(ceammc_extension_sep module name ext separator)
         FILES "${module}_${name}.${ext}"
         INTERNAL True
         LIBRARY ceammc
-        COMPILE_FLAGS "-std=c++0x"
-        LINK ceammc_static cicm_static)
+        LINK cicm_static ceammc_core)
 endmacro()
 
 # adds .dotted. extension on C language: MODULE.NAME
@@ -40,7 +39,7 @@ macro(ceammc_glib_extension_sep module name separator)
     pd_add_extension(NAME "${module}${separator}${name}"
         FILES "${module}_${name}.cpp"
         INTERNAL True
-        LINK ${GLIB_LIBRARIES} ceammc_static)
+        LINK ${GLIB_LIBRARIES} ceammc_core)
 
     ceammc_link_fix_sep(${module} ${name} ${separator})
 endmacro()
@@ -67,7 +66,7 @@ macro(ceammc_faust_extension module name ext)
             -o ${CMAKE_CURRENT_SOURCE_DIR}/${module}_${name}.h)
 
     pd_add_extension(NAME "${module}.${name}~"
-        FILES "${module}_${name}.cpp" INTERNAL TRUE LINK ceammc_static)
+        FILES "${module}_${name}.cpp" INTERNAL TRUE LINK ceammc_core)
     set_target_properties("${module}.${name}~" PROPERTIES COMPILE_FLAGS "-DFAUST_MACRO")
 endmacro()
 
@@ -81,5 +80,5 @@ macro(ceammc_cxx_tl_extension module name)
         FILES "${module}_${name}.cpp"
         INTERNAL TRUE
         LIBRARY ceammc
-        LINK cicm_static ceammc_timeline ceammc_static)
+        LINK cicm_static ceammc_core)
 endmacro()
