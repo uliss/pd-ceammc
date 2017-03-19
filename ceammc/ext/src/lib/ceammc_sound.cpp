@@ -32,7 +32,7 @@ namespace sound {
     }
 
     static const bool libsndfile_register = SoundFileLoader::registerLoader(
-        LoaderDescr("libsndfile", &libsndfile_load_func));
+        LoaderDescr("libsndfile", &libsndfile_load_func, LibSndFile::supportedFormats));
 #endif
 
     SoundFile::SoundFile(const std::string& fname)
@@ -58,7 +58,17 @@ namespace sound {
 
     StringList SoundFileLoader::supportedFormats()
     {
-        return StringList();
+        StringList res;
+
+        if (loaders().empty())
+            return res;
+
+        for (size_t i = 0; i < loaders().size(); i++) {
+            StringList fmt = loaders().at(i).formats();
+            res.insert(res.end(), fmt.begin(), fmt.end());
+        }
+
+        return res;
     }
 
     bool SoundFileLoader::isSupported(const std::string& format)

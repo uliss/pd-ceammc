@@ -26,6 +26,7 @@ public:
 public:
     void m_load(t_symbol* sel, const AtomList& lst);
     void m_info(t_symbol* sel, const AtomList& lst);
+    void dump() const;
 
 protected:
     void postLoadUsage();

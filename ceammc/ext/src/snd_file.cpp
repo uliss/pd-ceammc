@@ -129,6 +129,18 @@ void SndFile::m_info(t_symbol* sel, const AtomList& lst)
 {
 }
 
+void SndFile::dump() const
+{
+    BaseObject::dump();
+
+    StringList lst = SoundFileLoader::supportedFormats();
+
+    OBJ_DBG << "Supported formats:";
+    for (size_t i = 0; i < lst.size(); i++) {
+        OBJ_DBG << "  - " << lst[i];
+    }
+}
+
 void SndFile::postLoadUsage()
 {
     OBJ_DBG << "usage: load FILENAME @to ARRAY1 [ARRAY2] [@resize] [@channel value1 [value2]] [@offset value]";
