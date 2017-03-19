@@ -14,9 +14,15 @@ otool_lx() {
 
 glib_fix() {
     DEP_LIB=$1
-    GLIB=$2
+    _TARGET=$2
 
-    echo "FIX dependency: \"$DEP_LIB\" in \"$GLIB\""
+    echo "FIX dependency: \"$DEP_LIB\" in \"${_TARGET}\""
+
+    if [ ! -f ${DEP_LIB} ]
+    then
+        echo "    file not found: ${DEP_LIB}. skipping..."
+        return
+    fi
 
     LIB_IN_BUNDLE=${BINDIR}/$(basename $DEP_LIB)
     if [ ! -f ${LIB_IN_BUNDLE} ]
@@ -29,10 +35,16 @@ glib_fix() {
     LIB_OLD_ID=$(otool_dx $DEP_LIB)
     LIB_NEW_ID=@loader_path/$(basename $DEP_LIB)
 
-    echo "    change \"${LIB_OLD_ID}\" to \"${LIB_NEW_ID}\" in \"${GLIB}\""
+    if [ -z ${LIB_OLD_ID} ]
+    then
+        echo "    already done. skipping..."
+        return
+    fi
+
+    echo "    change \"${LIB_OLD_ID}\" to \"${LIB_NEW_ID}\" in \"${_TARGET}\""
 
     install_name_tool -id $LIB_NEW_ID ${LIB_IN_BUNDLE}
-    install_name_tool -change $LIB_OLD_ID $LIB_NEW_ID ${GLIB}
+    install_name_tool -change $LIB_OLD_ID $LIB_NEW_ID ${_TARGET}
 }
 
 otool_lx "$TARGET" | grep glib | while read shlib

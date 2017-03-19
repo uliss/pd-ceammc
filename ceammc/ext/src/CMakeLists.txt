@@ -260,3 +260,6 @@ if(TARGET ceammc_sound)
         LIBRARY ceammc
         LINK ceammc_sound ceammc_core)
 endif()
+
+file(GLOB ceammc_ext_h *.h)
+add_custom_target(ceammc_lib_src SOURCES apple_poco_path_fix.sh ${ceammc_ext_h})
