@@ -29,7 +29,7 @@ endmacro()
 macro(ceammc_link_fix_sep module name separator)
     if(APPLE)
         add_custom_command(TARGET "${module}${separator}${name}" POST_BUILD
-            COMMAND bash ${CMAKE_CURRENT_SOURCE_DIR}/apple_poco_path_fix.sh
+            COMMAND bash ${CMAKE_CURRENT_SOURCE_DIR}/apple_rpath_fix.sh
                     $<TARGET_FILE:${module}${separator}${name}>
                     ${CMAKE_CURRENT_BINARY_DIR})
     endif()
