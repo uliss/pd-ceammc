@@ -77,4 +77,30 @@ do
     do
         rpath_fix ${dep} ${LIBSNDFILE}
     done
+
+    otool_lx ${LIBSNDFILE} | grep libvorbis\\. | while read dep
+    do
+        rpath_fix ${dep} ${LIBSNDFILE}
+
+        if [ -f ${dep} ]
+        then
+            otool_lx ${dep} | grep ogg | while read dep2
+            do
+                rpath_fix ${dep2} "${BINDIR}/$(basename $dep)"
+            done
+        fi
+    done
+
+    otool_lx ${LIBSNDFILE} | grep libvorbisenc | while read dep
+    do
+        rpath_fix ${dep} ${LIBSNDFILE}
+
+        if [ -f ${dep} ]
+        then
+            otool_lx ${dep} | grep ogg | while read dep2
+            do
+                rpath_fix ${dep2} "${BINDIR}/$(basename $dep)"
+            done
+        fi
+    done
 done
