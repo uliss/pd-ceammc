@@ -5,6 +5,10 @@ include(tests.cmake)
 add_definitions("-DTEST_DATA_DIR=\"${CMAKE_CURRENT_SOURCE_DIR}\"")
 #remove_definitions(-DPD_INTERNAL)
 
+if(APPLE)
+    set(CMAKE_INSTALL_RPATH "@loader_path/../lib")
+endif()
+
 ceammc_add_test("ceammc::Atom" test_atom)
 ceammc_add_test("ceammc::AtomList" test_atomlist)
 ceammc_add_test("ceammc::AtomList2" test_atomlist2)

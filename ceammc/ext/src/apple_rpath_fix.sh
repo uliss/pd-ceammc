@@ -12,7 +12,7 @@ otool_lx() {
     ${OTOOL} -LX "$1" | sed -n /^$'\t'/p | cut -f2 | cut -d ' ' -f1
 }
 
-glib_fix() {
+rpath_fix() {
     DEP_LIB=$1
     _TARGET=$2
 
@@ -50,15 +50,31 @@ glib_fix() {
 otool_lx "$TARGET" | grep glib | while read shlib
 do
     GLIB=${BINDIR}/$(basename $shlib)
-    glib_fix ${shlib} ${TARGET}
+    rpath_fix ${shlib} ${TARGET}
 
     otool_lx ${GLIB} | grep pcre | while read dep
     do
-        glib_fix ${dep} ${GLIB}
+        rpath_fix ${dep} ${GLIB}
     done
 
     otool_lx ${GLIB} | grep libintl | while read dep
     do
-        glib_fix ${dep} ${GLIB}
+        rpath_fix ${dep} ${GLIB}
+    done
+done
+
+otool_lx "$TARGET" | grep libsndfile | while read shlib
+do
+    LIBSNDFILE=${BINDIR}/$(basename $shlib)
+    rpath_fix ${shlib} ${TARGET}
+
+    otool_lx ${LIBSNDFILE} | grep FLAC | while read dep
+    do
+        rpath_fix ${dep} ${LIBSNDFILE}
+    done
+
+    otool_lx ${LIBSNDFILE} | grep ogg | while read dep
+    do
+        rpath_fix ${dep} ${LIBSNDFILE}
     done
 done

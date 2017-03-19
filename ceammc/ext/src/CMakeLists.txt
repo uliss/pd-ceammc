@@ -262,4 +262,4 @@ if(TARGET ceammc_sound)
 endif()
 
 file(GLOB ceammc_ext_h *.h)
-add_custom_target(ceammc_lib_src SOURCES apple_poco_path_fix.sh ${ceammc_ext_h})
+add_custom_target(ceammc_lib_src SOURCES apple_rpath_fix.sh ${ceammc_ext_h})

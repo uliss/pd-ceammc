@@ -53,11 +53,9 @@ include(FindLibSndFile)
 if(LIBSNDFILE_FOUND)
     list(APPEND CEAMMC_LOAD_DEFS "-DWITH_LIBSOUNDFILE")
     list(APPEND CEAMMC_LOAD_LIBS ${LIBSNDFILE_LIBRARIES})
-    include_directories(${LIBSNDFILE_INCLUDE_DIRS})
-endif()
-
-if(LIBSNDFILE_FOUND)
     list(APPEND CEAMMC_LOAD_SRC ceammc_loader_sndfile.cpp)
+
+    include_directories(${LIBSNDFILE_INCLUDE_DIRS})
 endif()
 
 add_library(ceammc_sound SHARED ${CEAMMC_LOAD_SRC})
@@ -65,6 +63,14 @@ set_target_properties(ceammc_sound PROPERTIES
     COMPILE_FLAGS "${FLAGS} ${CEAMMC_LOAD_DEFS}"
     LINK_FLAGS "${FLAGS} ${PD_EXTERNAL_LDFLAGS}")
 target_link_libraries(ceammc_sound ${CEAMMC_LOAD_LIBS})
+if(LIBSNDFILE_FOUND)
+    if(APPLE)
+        add_custom_command(TARGET ceammc_sound POST_BUILD
+            COMMAND bash ${CMAKE_CURRENT_SOURCE_DIR}/../apple_rpath_fix.sh
+                    $<TARGET_FILE:ceammc_sound>
+                    ${CMAKE_CURRENT_BINARY_DIR})
+    endif()
+endif()
 
 # install
 if(WIN32)
