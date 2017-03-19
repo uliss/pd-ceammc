@@ -19,9 +19,17 @@ else()
 endif()
 set(CMAKE_OSX_SYSROOT macosx10.11)
 set(CMAKE_OSX_DEPLOYMENT_TARGET "10.6")
-#set(CMAKE_SKIP_RPATH True)
-set(CMAKE_MACOSX_RPATH 1)
-SET(CMAKE_SKIP_BUILD_RPATH  FALSE)
+
+# @rpath on macosx
+if(APPLE)
+    # set(CMAKE_SKIP_RPATH True)
+    set(CMAKE_MACOSX_RPATH TRUE)
+    set(CMAKE_SKIP_BUILD_RPATH FALSE)
+    set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
+    set(CMAKE_INSTALL_RPATH "@loader_path")
+    set(CMAKE_INSTALL_RPATH_USE_LINK_PATH FALSE)
+endif()
+
 project(puredata)
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu99")
