@@ -63,6 +63,19 @@ public:
             T::onInlet(inlet, AtomList(f));
     }
 
+    void sendSymbol(t_symbol* s, int inlet = 0)
+    {
+        if (inlet == 0)
+            T::onSymbol(s);
+        else
+            T::onInlet(inlet, AtomList(s));
+    }
+
+    void sendSymbol(const char* s, int inlet = 0)
+    {
+        sendSymbol(gensym(s), inlet);
+    }
+
     void sendList(const AtomList& lst, int inlet = 0)
     {
         if (inlet == 0)

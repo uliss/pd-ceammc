@@ -11,9 +11,7 @@ else()
     option(WITH_JACK "Use Jack sound API" ON)
 endif()
 
-option(WITH_OSS "Use OSS sound API" ON)
-cmake_dependent_option(WITH_OSS_AUDIO "Use OSS audio API" ON "WITH_OSS" OFF)
-cmake_dependent_option(WITH_OSS_MIDI "Use OSS midi API" ON "WITH_OSS" OFF)
+option(WITH_OSS "Use OSS sound API" OFF)
 
 option(WITH_PORTAUDIO "Use PortAudio sound API" ON)
 option(WITH_PORTMIDI "Use PortMidi sound API" ON)
@@ -56,14 +54,14 @@ if(WITH_JACK)
 endif()
 
 # OSS
-if(WITH_OSS_AUDIO OR WITH_OSS_MIDI)
+if(WITH_OSS)
     check_include_files(sys/soundcard.h HAVE_SYS_SOUNDCARD_H)
-    if(HAVE_SYS_SOUNDCARD_H)
+    find_library(OSS_LIB ossaudio)
+
+    if(HAVE_SYS_SOUNDCARD_H AND OSS_LIB)
         add_definitions(-DUSEAPI_OSS)
     else()
         set(WITH_OSS OFF CACHE BOOL "" FORCE)
-        set(WITH_OSS_AUDIO OFF CACHE BOOL "" FORCE)
-        set(WITH_OSS_MIDI OFF CACHE BOOL "" FORCE)
     endif()
 endif()
 
@@ -85,7 +83,7 @@ endif()
 
 if(NOT WITH_ALSA_AUDIO AND
         NOT WITH_JACK AND
-        NOT WITH_OSS_AUDIO AND
+        NOT WITH_OSS AND
         NOT WITH_PORTAUDIO AND
         NOT WITH_MMIO AND
         NOT WITH_DUMMY_AUDIO)
@@ -94,7 +92,7 @@ if(NOT WITH_ALSA_AUDIO AND
 endif()
 
 if(NOT WITH_ALSA_MIDI AND
-        NOT WITH_OSS_MIDI AND
+        NOT WITH_OSS AND
         NOT WITH_PORTMIDI AND
         NOT WITH_DUMMY_MIDI)
     message(FATAL_ERROR "At least one midi module required! See `cmake -L` for available config options.

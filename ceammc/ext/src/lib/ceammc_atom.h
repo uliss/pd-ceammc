@@ -93,9 +93,6 @@ public:
     size_t asSizeT(size_t def = 0) const;
     t_symbol* asSymbol() const;
     std::string asString() const;
-    //
-    // added range check and clipping
-    t_float asFloatInRange(float min, float max) const;
 
     bool operator<(const Atom& a) const;
 

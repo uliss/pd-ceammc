@@ -26,6 +26,7 @@ public:
 public:
     void m_load(t_symbol* sel, const AtomList& lst);
     void m_info(t_symbol* sel, const AtomList& lst);
+    void dump() const;
 
 protected:
     void postLoadUsage();
@@ -33,6 +34,7 @@ protected:
     bool checkArray(const Atom& name);
     bool resizeArray(const Atom& name, long newSize);
     long loadArray(sound::SoundFilePtr file, const Atom& name, size_t channel, long offset);
+    void outputInfo(sound::SoundFilePtr file);
 };
 
 #endif // SND_FILE_H

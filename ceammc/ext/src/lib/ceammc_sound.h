@@ -56,14 +56,17 @@ namespace sound {
     };
 
     typedef SoundFilePtr (*loadFunc)(const std::string& path);
+    typedef StringList (*formatFunc)();
     struct LoaderDescr {
-        LoaderDescr(const std::string& n, loadFunc f)
+        LoaderDescr(const std::string& n, loadFunc f, formatFunc ff)
             : name(n)
             , func(f)
+            , formats(ff)
         {
         }
         std::string name;
         loadFunc func;
+        formatFunc formats;
         bool operator==(const LoaderDescr& l);
     };
 
@@ -71,7 +74,6 @@ namespace sound {
     public:
         static bool registerLoader(const LoaderDescr& l);
         static StringList supportedFormats();
-        static bool isSupported(const std::string& format);
 
         static SoundFilePtr open(const std::string& path);
 

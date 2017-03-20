@@ -3,6 +3,11 @@ include_directories(../lib)
 include_directories(${PROJECT_SOURCE_DIR}/src)
 include(tests.cmake)
 add_definitions("-DTEST_DATA_DIR=\"${CMAKE_CURRENT_SOURCE_DIR}\"")
+#remove_definitions(-DPD_INTERNAL)
+
+if(APPLE)
+    set(CMAKE_INSTALL_RPATH "@loader_path/../lib")
+endif()
 
 ceammc_add_test("ceammc::Atom" test_atom)
 ceammc_add_test("ceammc::AtomList" test_atomlist)
@@ -16,19 +21,25 @@ ceammc_add_test("ceammc::list" test_fn_list)
 ceammc_add_test("ceammc::vector" test_fn_vector)
 ceammc_add_test("ceammc::faust" test_faust)
 ceammc_add_test("ceammc::pd" test_pd)
+ceammc_add_test("ceammc::timeline" test_timeline)
 
 ceammc_add_extension_test("list_walk" "../list/list_walk.cpp")
 ceammc_add_extension_test("list_walk2" "../list/list_walk.cpp")
 ceammc_add_extension_test("snd_file" "../snd_file.cpp")
 
-if(APPLE)
-    ceammc_add_test("ceammc::timeline" test_timeline)
-endif()
 
 include(FindLibSndFile)
 if(LIBSNDFILE_FOUND)
     include_directories(${LIBSNDFILE_INCLUDE_DIRS})
-    ceammc_add_test_linked(TITLE "ceammc::libsndfile" NAME test_libsndfile LINK ${LIBSNDFILE_LIBRARIES} ceammc_sound puredata-core)
+    ceammc_add_test_linked(
+        TITLE "ceammc::libsndfile"
+        NAME test_libsndfile
+        LINK ceammc_sound)
+
+    ceammc_add_test_linked(
+        TITLE "ceammc::sound"
+        NAME test_sound
+        LINK ceammc_sound)
 endif()
 
 add_custom_target(test_src SOURCES gen_test_wav.py)

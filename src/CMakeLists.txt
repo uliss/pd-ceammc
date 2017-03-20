@@ -137,19 +137,13 @@ if(WITH_PORTMIDI)
 endif()
 
 if(WISHAPP)
-	add_definitions(-DWISHAPP="${WISHAPP}")
+    add_definitions(-DWISHAPP="${WISHAPP}")
 endif()
 
-if(WITH_OSS_AUDIO)
+if(WITH_OSS)
     list(APPEND S_SRC s_audio_oss.c)
-    find_library(OSSLIB ossaudio)
-    if(OSSLIB)
-        list(APPEND PD_NEEDED_LIBS ${OSSLIB})
-    endif()
-endif()
-
-if(WITH_OSS_MIDI)
     list(APPEND S_SRC s_midi_oss.c)
+    list(APPEND PD_NEEDED_LIBS ${OSSLIB})
 endif()
 
 # Dummy
@@ -194,7 +188,7 @@ target_link_libraries(pdreceive ${PLATFORM_LINK_LIBRARIES})
 # exe install
 install(TARGETS pd         RUNTIME DESTINATION ${PD_EXE_INSTALL_PATH})
 install(TARGETS pdsend     RUNTIME DESTINATION ${PD_SEND_INSTALL_PATH})
-install(TARGETS pdreceive RUNTIME DESTINATION ${PD_RECEIVE_INSTALL_PATH})
+install(TARGETS pdreceive  RUNTIME DESTINATION ${PD_RECEIVE_INSTALL_PATH})
 
 if(UNIX AND NOT APPLE)
     install(TARGETS pd-watchdog RUNTIME DESTINATION ${PD_WATCHDOG_INSTALL_PATH})

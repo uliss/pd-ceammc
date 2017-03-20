@@ -89,14 +89,19 @@ do
 #    cp -R "$ext_dir" extra
 done
 
-echo "Copying CEAMMC extension:"
+# CEAMMC staff
 mkdir -p $PD_EXTRA/ceammc
+
+echo "Copying CEAMMC dll:"
+cp $CEAMMC_EXT_BIN_DIR/lib/libceammc*.dylib $PD_EXTRA/ceammc
+cp $CEAMMC_EXT_BIN_DIR/*.dylib $PD_EXTRA/ceammc
+
+echo "Copying CEAMMC extension:"
 extension_files $CEAMMC_EXT_BIN_DIR | while read f
 do
     echo "\t$(basename $f)"
     cp "$f" $PD_EXTRA/ceammc
 done
-cp $CEAMMC_EXT_BIN_DIR/*.dylib $PD_EXTRA/ceammc
 
 echo "Copying Additional extra:"
 cp $BUILD_DIR/ceammc/extra/comport/system.serial.d_fat $PD_EXTRA/ceammc

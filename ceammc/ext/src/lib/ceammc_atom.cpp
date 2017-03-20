@@ -159,18 +159,6 @@ size_t Atom::asSizeT(size_t def) const
     return (v < 0) ? def : static_cast<size_t>(v);
 }
 
-t_float Atom::asFloatInRange(float min, float max) const
-{
-    if (!isFloat())
-        return 0;
-    t_float ret = a_w.w_float;
-    if (ret < min)
-        ret = min;
-    if (ret > max)
-        ret = max;
-    return ret;
-}
-
 t_symbol* Atom::asSymbol() const
 {
     return a_w.w_symbol;

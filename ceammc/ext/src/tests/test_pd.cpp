@@ -47,8 +47,14 @@ TEST_CASE("PD", "[PureData]")
         REQUIRE(info.max_chain == 38);
     }
 
-    SECTION("memsize") {
+    SECTION("memrss") {
+#if !defined(__FreeBSD__)
         REQUIRE(ceammc_memory_current_rss() != 0);
         REQUIRE(ceammc_memory_peak_rss() != 0);
+#endif
+    }
+
+    SECTION("memsize") {
+        REQUIRE(ceammc_memory_size() != 0);
     }
 }

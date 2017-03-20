@@ -13,13 +13,14 @@
  *****************************************************************************/
 
 #include "ceammc_sound.h"
-#include "ceammc_log.h"
 #ifdef WITH_LIBSOUNDFILE
 #include "ceammc_loader_sndfile.h"
 #endif
 
 #include <algorithm>
 #include <iostream>
+
+using namespace std;
 
 namespace ceammc {
 namespace sound {
@@ -31,7 +32,7 @@ namespace sound {
     }
 
     static const bool libsndfile_register = SoundFileLoader::registerLoader(
-        LoaderDescr("libsndfile", &libsndfile_load_func));
+        LoaderDescr("libsndfile", &libsndfile_load_func, LibSndFile::supportedFormats));
 #endif
 
     SoundFile::SoundFile(const std::string& fname)
@@ -57,12 +58,17 @@ namespace sound {
 
     StringList SoundFileLoader::supportedFormats()
     {
-        return StringList();
-    }
+        StringList res;
 
-    bool SoundFileLoader::isSupported(const std::string& format)
-    {
-        return false;
+        if (loaders().empty())
+            return res;
+
+        for (size_t i = 0; i < loaders().size(); i++) {
+            StringList fmt = loaders().at(i).formats();
+            res.insert(res.end(), fmt.begin(), fmt.end());
+        }
+
+        return res;
     }
 
     SoundFilePtr SoundFileLoader::open(const std::string& path)
