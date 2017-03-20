@@ -74,7 +74,6 @@ namespace sound {
     public:
         static bool registerLoader(const LoaderDescr& l);
         static StringList supportedFormats();
-        static bool isSupported(const std::string& format);
 
         static SoundFilePtr open(const std::string& path);
 

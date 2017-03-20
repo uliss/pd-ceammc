@@ -22,6 +22,16 @@ using namespace ceammc::sound;
 #define TEST_DATA_DIR "."
 #endif
 
+SoundFilePtr testLoadFunc(const std::string& path)
+{
+    return SoundFilePtr();
+}
+
+StringList testFormatFunc()
+{
+    return StringList();
+}
+
 TEST_CASE("ceammc_sound", "[ceammc_sound]")
 {
     SECTION("supportedFormats")
@@ -36,5 +46,13 @@ TEST_CASE("ceammc_sound", "[ceammc_sound]")
         SoundFilePtr ptr = SoundFileLoader::open(TEST_DATA_DIR "/test_data1.wav");
         REQUIRE(ptr);
         REQUIRE(ptr->isOpened());
+    }
+
+    SECTION("register")
+    {
+        LoaderDescr ld("test_loader", testLoadFunc, testFormatFunc);
+        REQUIRE(SoundFileLoader::registerLoader(ld));
+        // double register
+        REQUIRE_FALSE(SoundFileLoader::registerLoader(ld));
     }
 }

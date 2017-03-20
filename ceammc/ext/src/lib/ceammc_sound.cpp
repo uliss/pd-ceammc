@@ -71,11 +71,6 @@ namespace sound {
         return res;
     }
 
-    bool SoundFileLoader::isSupported(const std::string& format)
-    {
-        return false;
-    }
-
     SoundFilePtr SoundFileLoader::open(const std::string& path)
     {
         if (loaders().empty()) {
