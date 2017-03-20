@@ -173,7 +173,7 @@ TEST_CASE("snd.file", "[PureData]")
         AtomList args;
         SndFileTest sf("snd.file", args);
         REQUIRE(sf.numInlets() == 1);
-        REQUIRE(sf.numOutlets() == 1);
+        REQUIRE(sf.numOutlets() == 2);
         REQUIRE(sf.findArray_(SA("unknown")) == 0);
 
         sf.storeMessageCount();
@@ -546,5 +546,39 @@ TEST_CASE("snd.file", "[PureData]")
                 REQUIRE(vec[i].w_float == Approx(i * 10 / -32767.f));
             }
         }
+    }
+
+    SECTION("test info")
+    {
+        AtomList args;
+        SndFileTest sf("snd.file", args);
+        REQUIRE(sf.numInlets() == 1);
+        REQUIRE(sf.numOutlets() == 2);
+
+        sf.storeMessageCount(1);
+        REQUIRE_FALSE(sf.hasNewMessages(1));
+
+        CALL(sf, info);
+        REQUIRE_FALSE(sf.hasNewMessages(1));
+
+        CALL1(sf, info, F(123));
+        REQUIRE_FALSE(sf.hasNewMessages(1));
+
+        CALL1(sf, info, gensym("unknown"));
+        REQUIRE_FALSE(sf.hasNewMessages(1));
+
+        CALL1(sf, info, gensym(TEST_DATA_DIR "/test_data1.wav"));
+        REQUIRE(sf.hasNewMessages(1));
+        AtomList info = sf.lastMessage(1).listValue();
+        AtomList prop;
+        REQUIRE(info.property("@channels", &prop));
+        REQUIRE(prop.asSizeT() == 2);
+        REQUIRE(info.property("@samplerate", &prop));
+        REQUIRE(prop.asSizeT() == 44100);
+        REQUIRE(info.property("@samples", &prop));
+        REQUIRE(prop.asSizeT() == 441);
+
+        REQUIRE(info.property("@duration", &prop));
+        REQUIRE(prop.at(0).asFloat() == 0.01f);
     }
 }

@@ -14,6 +14,7 @@ SndFile::SndFile(const PdArgs& a)
     : BaseObject(a)
 {
     createOutlet();
+    createOutlet();
 }
 
 void SndFile::m_load(t_symbol* sel, const AtomList& lst)
@@ -52,6 +53,9 @@ void SndFile::m_load(t_symbol* sel, const AtomList& lst)
         OBJ_ERR << "can't load file: " << fname->s_name;
         return;
     }
+
+    // output file info
+    outputInfo(ptr);
 
     long samples_in_file = ptr->sampleCount();
     if (samples_in_file < 1) {
@@ -127,6 +131,28 @@ void SndFile::m_load(t_symbol* sel, const AtomList& lst)
 
 void SndFile::m_info(t_symbol* sel, const AtomList& lst)
 {
+    if (lst.empty()) {
+        OBJ_ERR << "arguments required";
+        return postLoadUsage();
+    }
+
+    // getting filename
+    if (!lst.first()->isSymbol()) {
+        OBJ_ERR << "filename required";
+        return postLoadUsage();
+    }
+
+    t_symbol* fname = lst.first()->asSymbol();
+
+    // try to open file
+    SoundFilePtr ptr = SoundFileLoader::open(fname->s_name);
+
+    if (!ptr || !ptr->isOpened()) {
+        OBJ_ERR << "can't load file: " << fname->s_name;
+        return;
+    }
+
+    outputInfo(ptr);
 }
 
 void SndFile::dump() const
@@ -236,6 +262,21 @@ long SndFile::loadArray(SoundFilePtr file, const Atom& name, size_t channel, lon
     garray_redraw(arr);
 
     return read;
+}
+
+void SndFile::outputInfo(SoundFilePtr file)
+{
+    AtomList info;
+    info.append(gensym("@channels"));
+    info.append(file->channels());
+    info.append(gensym("@samplerate"));
+    info.append(file->sampleRate());
+    info.append(gensym("@samples"));
+    info.append(file->sampleCount());
+    info.append(gensym("@duration"));
+    info.append(float(double(file->sampleCount()) / file->sampleRate()));
+
+    listTo(1, info);
 }
 
 extern "C" void setup_snd0x2efile()
