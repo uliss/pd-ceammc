@@ -18,7 +18,7 @@ else()
     set(CMAKE_OSX_ARCHITECTURES "x86_64;i386")
 endif()
 set(CMAKE_OSX_SYSROOT macosx10.11)
-set(CMAKE_OSX_DEPLOYMENT_TARGET "10.6")
+#set(CMAKE_OSX_DEPLOYMENT_TARGET "10.6")
 
 # @rpath on macosx
 if(APPLE)
