@@ -90,3 +90,24 @@ make install
 cd ..
 
 ```
+
+then configure cmake for crosscompiling:
+
+```sh
+mkdir build
+cp ceammc/distrib/win/Toolchain-mingw32.cmake build
+cd build
+cmake -DCMAKE_TOOLCHAIN_FILE=Toolchain-mingw32.cmake ..
+make
+make install
+```
+
+to make installer you have to install InnoSetup with wine.
+```sh 
+brew install wine
+```
+
+after that you can do *(after make install step):*
+```sh
+wine PATH_TO_ISCC.exe pd.iss
+```
