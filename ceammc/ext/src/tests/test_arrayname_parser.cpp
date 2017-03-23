@@ -133,6 +133,9 @@ TEST_CASE("arrayname_parser", "[arrayname_parser]")
         res = array_pattern_names("bad pattern: [");
         REQUIRE(res.empty());
 
+        res = array_pattern_names("");
+        REQUIRE(res.empty());
+
         res = array_pattern_names("bad pattern: ]");
         REQUIRE(res.empty());
 
