@@ -1,3 +1,4 @@
+#include "array_load_pattern.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
 #include "ceammc_object.h"
@@ -6,6 +7,7 @@
 #include "snd_file.h"
 
 #include <cassert>
+#include <cctype>
 
 using namespace ceammc;
 using namespace ceammc::sound;
@@ -40,10 +42,20 @@ void SndFile::m_load(t_symbol* sel, const AtomList& lst)
         return postLoadUsage();
     }
 
-    // check arrays exists
-    for (size_t i = 0; i < array_names.size(); i++) {
-        if (!checkArray(array_names[i]))
+    std::string first_array_name = array_names[0].asString();
+    if (arrayNameContainsPattern(first_array_name)) {
+        // check if pattern arrays are exist and valid
+        array_names = findPatternArrays(first_array_name);
+        if (array_names.empty()) {
+            OBJ_ERR << "no arrays found matching given pattern: " << first_array_name;
             return;
+        }
+    } else {
+        // check if specified arrays are exist
+        for (size_t i = 0; i < array_names.size(); i++) {
+            if (!checkArray(array_names[i]))
+                return;
+        }
     }
 
     // try to open file
@@ -172,7 +184,7 @@ void SndFile::postLoadUsage()
     OBJ_DBG << "usage: load FILENAME @to ARRAY1 [ARRAY2] [@resize] [@channel value1 [value2]] [@offset value]";
 }
 
-t_garray* SndFile::findArray(const Atom& name)
+t_garray* SndFile::findArray(const Atom& name) const
 {
     if (!name.isSymbol())
         return 0;
@@ -277,6 +289,54 @@ void SndFile::outputInfo(SoundFilePtr file)
     info.append(float(double(file->sampleCount()) / file->sampleRate()));
 
     listTo(1, info);
+}
+
+bool SndFile::arrayNameContainsPattern(const std::string& name) const
+{
+    if (name.empty())
+        return false;
+
+    // find open bracket [
+    std::string::size_type open_bracket_pos = name.find_first_of('[', 0);
+    if (open_bracket_pos == std::string::npos)
+        return false;
+
+    // find close bracket ]
+    std::string::size_type close_bracket_pos = name.find_first_of(']', open_bracket_pos + 1);
+    if (close_bracket_pos == std::string::npos)
+        return false;
+
+    return true;
+}
+
+AtomList SndFile::findPatternArrays(const std::string& pattern) const
+{
+    using namespace std;
+    AtomList res;
+    if (pattern.empty())
+        return res;
+
+    std::vector<std::string> names = array_pattern_names(pattern);
+    if (names.empty())
+        return res;
+
+    for (size_t i = 0; i < names.size(); i++) {
+        // find array by name
+        t_symbol* arr_sname = gensym(names[i].c_str());
+        t_garray* arr = findArray(arr_sname);
+        if (!arr)
+            continue;
+
+        // check array type
+        int vecsize = 0;
+        t_word* vecs;
+        if (!garray_getfloatwords(arr, &vecsize, &vecs))
+            continue;
+
+        res.append(arr_sname);
+    }
+
+    return res;
 }
 
 extern "C" void setup_snd0x2efile()

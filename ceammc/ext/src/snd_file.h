@@ -30,11 +30,13 @@ public:
 
 protected:
     void postLoadUsage();
-    t_garray* findArray(const Atom& name);
+    t_garray* findArray(const Atom& name) const;
     bool checkArray(const Atom& name);
     bool resizeArray(const Atom& name, long newSize);
     long loadArray(sound::SoundFilePtr file, const Atom& name, size_t channel, long offset);
     void outputInfo(sound::SoundFilePtr file);
+    bool arrayNameContainsPattern(const std::string& name) const;
+    AtomList findPatternArrays(const std::string& pattern) const;
 };
 
 #endif // SND_FILE_H

@@ -22,6 +22,8 @@ using namespace ceammc::sound;
 #define TEST_DATA_DIR "."
 #endif
 
+extern "C" int* array_load_parse(const char* input);
+
 SoundFilePtr testLoadFunc(const std::string& path)
 {
     return SoundFilePtr();
