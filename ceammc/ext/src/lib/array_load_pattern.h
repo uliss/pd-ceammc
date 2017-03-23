@@ -18,6 +18,7 @@
 #define CEAMMC_ARRAY_LOAD_PATTERN_H
 
 #include <string>
+#include <vector>
 
 /**
  * @brief array_load_parse - parses given string and returns array of indexes
@@ -28,6 +29,8 @@
  * @example "1,2,30" - returns pointer to array of three integers: 1, 2 and 30
  * @example "1-20,7"
  */
-bool array_load_parse(const char* str, size_t* count, std::string** vec);
+bool array_load_parse(const std::string& str, size_t* count, std::string** vec);
+
+std::vector<std::string> array_pattern_names(const std::string& pattern);
 
 #endif // CEAMMC_ARRAY_LOAD_PATTERN_H

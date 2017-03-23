@@ -1,5 +1,6 @@
 #include "array_load_pattern.h"
 
+#include <cassert>
 #include <cstdio>
 #include <cstring>
 #include <iostream>
@@ -147,15 +148,15 @@ static bool runTransition(transitionFn fn, char ch)
     return true;
 }
 
-static bool parserError(const char* str, size_t* count, std::string** vec)
+static bool parserError(const std::string& str, size_t* count, std::string** vec)
 {
     *count = 0;
     *vec = vars;
-    printf("[array_pattern] parse error: '%s'\n", str);
+    std::cerr << "[array_pattern] parse error: '" << str << "'\n";
     return false;
 }
 
-bool array_load_parse(const char* str, size_t* count, std::string** vec)
+bool array_load_parse(const std::string& str, size_t* count, std::string** vec)
 {
     // FSM transition table
     // clang-format off
@@ -169,7 +170,7 @@ bool array_load_parse(const char* str, size_t* count, std::string** vec)
     };
     // clang-format on
 
-    if (strlen(str) == 0) {
+    if (str.empty()) {
         *count = 0;
         *vec = vars;
         return true;
@@ -180,7 +181,7 @@ bool array_load_parse(const char* str, size_t* count, std::string** vec)
 
     // init
     state_t s = ST_INIT;
-    const char* c = str;
+    const char* c = str.c_str();
     transitionFn fn = 0;
 
     // run machine
@@ -204,4 +205,53 @@ bool array_load_parse(const char* str, size_t* count, std::string** vec)
     *vec = vars;
 
     return true;
+}
+
+std::vector<std::string> array_pattern_names(const std::string& str)
+{
+    using namespace std;
+    std::vector<std::string> res;
+    if (str.empty())
+        return res;
+
+    // find open bracket [
+    string::size_type open_bracket_pos = str.find_first_of('[', 0);
+    if (open_bracket_pos == string::npos)
+        return res;
+
+    // find close bracket ]
+    string::size_type close_bracket_pos = str.find_first_of(']', open_bracket_pos);
+    if (close_bracket_pos == string::npos)
+        return res;
+
+    assert(open_bracket_pos < close_bracket_pos);
+    assert(close_bracket_pos < str.size());
+
+    std::string prefix = str.substr(0, open_bracket_pos);
+    std::string suffix = str.substr(close_bracket_pos + 1, std::string::npos);
+
+    string pattern = str.substr(open_bracket_pos + 1, (close_bracket_pos - 1) - open_bracket_pos);
+    if (pattern.empty()) {
+        for (size_t i = 1; i <= 8; i++) {
+            res.push_back("");
+            res.back().append(prefix);
+            res.back().append(1, static_cast<char>(48 + i));
+            res.back().append(suffix);
+        }
+    } else {
+        size_t pat_count = 0;
+        std::string* patterns = 0;
+
+        if (!array_load_parse(pattern, &pat_count, &patterns))
+            return res;
+
+        for (size_t i = 0; i < pat_count; i++) {
+            res.push_back("");
+            res.back().append(prefix);
+            res.back().append(patterns[i]);
+            res.back().append(suffix);
+        }
+    }
+
+    return res;
 }

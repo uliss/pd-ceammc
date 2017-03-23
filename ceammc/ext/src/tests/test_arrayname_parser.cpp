@@ -123,4 +123,107 @@ TEST_CASE("arrayname_parser", "[arrayname_parser]")
             REQUIRE(argv[i] == buf);
         }
     }
+
+    SECTION("array_guess")
+    {
+        std::vector<std::string> res;
+        res = array_pattern_names("no-pattern");
+        REQUIRE(res.empty());
+
+        res = array_pattern_names("bad pattern: [");
+        REQUIRE(res.empty());
+
+        res = array_pattern_names("bad pattern: ]");
+        REQUIRE(res.empty());
+
+        res = array_pattern_names("bad pattern: ][");
+        REQUIRE(res.empty());
+
+        res = array_pattern_names("][ bad pattern");
+        REQUIRE(res.empty());
+
+        res = array_pattern_names("[1,,]");
+        REQUIRE(res.empty());
+
+        res = array_pattern_names("[1,2,]");
+        REQUIRE(res.empty());
+
+        res = array_pattern_names("[-30]");
+        REQUIRE(res.empty());
+
+        res = array_pattern_names("[a-z]");
+        REQUIRE(res.empty());
+
+        res = array_pattern_names("[-z]");
+        REQUIRE(res.empty());
+        res = array_pattern_names("[1-z]");
+        REQUIRE(res.empty());
+
+        res = array_pattern_names("[x-]");
+        REQUIRE(res.empty());
+        res = array_pattern_names("[x-1]");
+        REQUIRE(res.empty());
+
+        res = array_pattern_names("[,]");
+        REQUIRE(res.empty());
+
+        res = array_pattern_names("[]");
+        REQUIRE(res.size() == 8);
+        REQUIRE(res[0] == "1");
+        REQUIRE(res[1] == "2");
+        REQUIRE(res[2] == "3");
+        REQUIRE(res[3] == "4");
+        REQUIRE(res[4] == "5");
+        REQUIRE(res[5] == "6");
+        REQUIRE(res[6] == "7");
+        REQUIRE(res[7] == "8");
+
+        res = array_pattern_names("pref_[]_suf");
+        REQUIRE(res.size() == 8);
+        REQUIRE(res[0] == "pref_1_suf");
+        REQUIRE(res[1] == "pref_2_suf");
+        REQUIRE(res[2] == "pref_3_suf");
+        REQUIRE(res[3] == "pref_4_suf");
+        REQUIRE(res[4] == "pref_5_suf");
+        REQUIRE(res[5] == "pref_6_suf");
+        REQUIRE(res[6] == "pref_7_suf");
+        REQUIRE(res[7] == "pref_8_suf");
+
+        res = array_pattern_names("array[1,2]");
+        REQUIRE(res.size() == 2);
+        REQUIRE(res[0] == "array1");
+        REQUIRE(res[1] == "array2");
+
+        res = array_pattern_names("array[L,R,C]");
+        REQUIRE(res.size() == 3);
+        REQUIRE(res[0] == "arrayL");
+        REQUIRE(res[1] == "arrayR");
+        REQUIRE(res[2] == "arrayC");
+
+        res = array_pattern_names("array[10-12]");
+        REQUIRE(res.size() == 3);
+        REQUIRE(res[0] == "array10");
+        REQUIRE(res[1] == "array11");
+        REQUIRE(res[2] == "array12");
+
+        res = array_pattern_names("array[12-10]");
+        REQUIRE(res.size() == 3);
+        REQUIRE(res[0] == "array12");
+        REQUIRE(res[1] == "array11");
+        REQUIRE(res[2] == "array10");
+
+        res = array_pattern_names("array[0]");
+        REQUIRE(res[0] == "array0");
+        REQUIRE(res.size() == 1);
+
+        res = array_pattern_names("array[0-1]");
+        REQUIRE(res.size() == 2);
+        REQUIRE(res[0] == "array0");
+        REQUIRE(res[1] == "array1");
+
+        res = array_pattern_names("array[1-0]");
+        REQUIRE(res.size() == 2);
+        REQUIRE(res[0] == "array1");
+        REQUIRE(res[1] == "array0");
+    }
 }
