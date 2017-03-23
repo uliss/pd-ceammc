@@ -246,10 +246,10 @@ std::vector<std::string> array_pattern_names(const std::string& str)
             return res;
 
         for (size_t i = 0; i < pat_count; i++) {
-            res.push_back("");
-            res.back().append(prefix);
-            res.back().append(patterns[i]);
-            res.back().append(suffix);
+            std::string p(prefix);
+            p.append(patterns[i]);
+            p.append(suffix);
+            res.push_back(p);
         }
     }
 
