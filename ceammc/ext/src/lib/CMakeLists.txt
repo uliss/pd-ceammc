@@ -44,7 +44,11 @@ endif()
 #
 # sound library
 #
-set(CEAMMC_LOAD_SRC ceammc_sound.h ceammc_sound.cpp)
+set(CEAMMC_LOAD_SRC
+    ceammc_sound.h
+    ceammc_sound.cpp
+    array_load_pattern.h
+    array_load_pattern.cpp)
 set(CEAMMC_LOAD_LIBS "")
 set(CEAMMC_LOAD_DEFS "")
 

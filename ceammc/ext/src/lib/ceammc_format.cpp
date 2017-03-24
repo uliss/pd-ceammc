@@ -30,6 +30,9 @@ static inline T clip(T v, T min, T max)
 
 std::string to_string(const Atom& a)
 {
+    if(a.isSymbol())
+        return std::string(a.asSymbol()->s_name);
+
     std::ostringstream ss;
     ss << a;
     return ss.str();
