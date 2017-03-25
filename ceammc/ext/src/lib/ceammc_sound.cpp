@@ -48,10 +48,10 @@ namespace sound {
     {
         if (std::find(loaders().begin(), loaders().end(), l) == loaders().end()) {
             loaders().push_back(l);
-            std::cerr << "register loader: " << l.name;
+            std::cerr << "register loader: " << l.name << std::endl;
             return true;
         } else {
-            std::cerr << "loader already registered: " << l.name;
+            std::cerr << "loader already registered: " << l.name << std::endl;
             return false;
         }
     }
