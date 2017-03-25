@@ -14,6 +14,7 @@
 #ifndef CEAMMC_LOADER_COREAUDIO_IMPL_H
 #define CEAMMC_LOADER_COREAUDIO_IMPL_H
 
+#include <stdint.h>
 #include <stdlib.h>
 
 #if defined(__cplusplus)
@@ -26,7 +27,16 @@ typedef struct audio_fileinfo_ {
     size_t sampleCount;
 } audiofile_info_t;
 
+enum ceammc_coreaudio_error {
+    INVALID_ARGS = -1,
+    FILEOPEN_ERR = -2,
+    FILEINFO_ERR = -3,
+    PROPERTY_ERR = -4,
+    INVALID_CHAN = -5
+};
+
 int ceammc_coreaudio_getinfo(const char* path, audiofile_info_t* info);
+int64_t ceammc_coreaudio_load(const char* path, size_t channel, size_t offset, size_t count, float* buf);
 
 #if defined(__cplusplus)
 }

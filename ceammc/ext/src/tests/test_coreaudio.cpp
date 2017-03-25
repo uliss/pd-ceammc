@@ -49,4 +49,12 @@ TEST_CASE("CoreAudio", "[ceammc::ceammc_loader_coreaudio]")
         REQUIRE(fi.channels == 1);
         REQUIRE(fi.sampleCount == 0);
     }
+
+    SECTION("impl load")
+    {
+        REQUIRE(ceammc_coreaudio_load(TEST_DATA_DIR "/test_data0.wav", 0, 0, 0, NULL) == INVALID_ARGS);
+
+        float buf[1024];
+        REQUIRE(ceammc_coreaudio_load(TEST_DATA_DIR "/test_data0.wav", 10, 0, 1024, buf) == INVALID_CHAN);
+    }
 }

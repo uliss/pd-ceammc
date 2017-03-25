@@ -12,13 +12,13 @@
  * this file belongs to.
  *****************************************************************************/
 
+#include "ceammc_loader_coreaudio_impl.h"
+
 #import <AudioToolBox/AudioToolbox.h>
 #import <Foundation/Foundation.h>
 
 #include <ctype.h>
 #include <stdio.h>
-
-#include "ceammc_loader_coreaudio_impl.h"
 
 typedef struct convert_settings_t {
     AudioFileID inputFile;
@@ -47,32 +47,91 @@ int checkError(OSStatus error, const char* op)
     return -1;
 }
 
-int ceammc_coreaudio_getinfo(const char* path, audiofile_info_t* info)
+static Boolean getASBD(AudioFileID file, AudioStreamBasicDescription* asbd)
 {
-    AudioFileID in_file;
-    AudioStreamBasicDescription asbd;
-    OSStatus err = 0;
+    UInt32 propSize = sizeof(AudioStreamBasicDescription);
+    OSStatus err = AudioFileGetProperty(file, kAudioFilePropertyDataFormat, &propSize, asbd);
+
+    if (err == noErr)
+        return true;
+
+    checkError(err, "error: can't get AudioStreamBasicDescription from file");
+    return false;
+}
+
+static Boolean openAudiofile(const char* path, AudioFileID* file)
+{
     CFStringRef name = CFStringCreateWithCString(kCFAllocatorDefault, path, kCFStringEncodingUTF8);
     CFURLRef url = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, name, kCFURLPOSIXPathStyle, false);
-
-    err = AudioFileOpenURL(url, kAudioFileReadPermission, 0, &in_file);
+    OSStatus err = AudioFileOpenURL(url, kAudioFileReadPermission, 0, file);
 
     CFRelease(url);
     CFRelease(name);
 
-    if (err != noErr)
-        return checkError(err, "error: AudioFileOpenURL");
+    if (err == noErr)
+        return true;
 
-    UInt32 propSize = sizeof(asbd);
-    err = AudioFileGetProperty(in_file, kAudioFilePropertyDataFormat, &propSize, &asbd);
-    if (err != noErr) {
+    checkError(err, "error: AudioFileOpenURL");
+    return false;
+}
+
+static Boolean openConverter(const char* path, ExtAudioFileRef* file)
+{
+    CFStringRef name = CFStringCreateWithCString(kCFAllocatorDefault, path, kCFStringEncodingUTF8);
+    CFURLRef url = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, name, kCFURLPOSIXPathStyle, false);
+    OSStatus err = ExtAudioFileOpenURL(url, file);
+
+    CFRelease(url);
+    CFRelease(name);
+
+    if (err == noErr)
+        return true;
+
+    checkError(err, "error: AudioFileOpenURL");
+    return false;
+}
+
+static void fillOutputASBD(AudioStreamBasicDescription* out, const AudioStreamBasicDescription* in)
+{
+    out->mSampleRate = in->mSampleRate;
+    out->mFormatID = kAudioFormatLinearPCM;
+    out->mFormatFlags = kLinearPCMFormatFlagIsFloat | kAudioFormatFlagsNativeFloatPacked;
+    out->mBitsPerChannel = sizeof(Float32) * 8;
+    out->mChannelsPerFrame = in->mChannelsPerFrame;
+    out->mBytesPerFrame = out->mChannelsPerFrame * sizeof(Float32);
+    out->mFramesPerPacket = 1;
+    out->mBytesPerPacket = out->mFramesPerPacket * out->mBytesPerFrame;
+}
+
+static Boolean setOutputFormat(ExtAudioFileRef file, AudioStreamBasicDescription* format)
+{
+    OSStatus err = ExtAudioFileSetProperty(file,
+        kExtAudioFileProperty_ClientDataFormat,
+        sizeof(AudioStreamBasicDescription),
+        format);
+
+    if (err == noErr)
+        return true;
+
+    checkError(err, "error: ExtAudioFileSetProperty");
+    return false;
+}
+
+int ceammc_coreaudio_getinfo(const char* path, audiofile_info_t* info)
+{
+    AudioFileID in_file;
+    if (!openAudiofile(path, &in_file))
+        return -1;
+
+    AudioStreamBasicDescription asbd;
+    if (!getASBD(in_file, &asbd)) {
         AudioFileClose(in_file);
-        return checkError(err, "error: can't get data format in file");
+        return -1;
     }
 
     UInt64 packetCount = 0;
-    propSize = sizeof(packetCount);
-    err = AudioFileGetProperty(in_file, kAudioFilePropertyAudioDataPacketCount, &propSize, &packetCount);
+    UInt32 propSize = sizeof(packetCount);
+    OSStatus err = AudioFileGetProperty(in_file, kAudioFilePropertyAudioDataPacketCount, &propSize, &packetCount);
     if (err != noErr) {
         AudioFileClose(in_file);
         return checkError(err, "error: can't get data format in file");
@@ -91,73 +150,75 @@ int ceammc_coreaudio_getinfo(const char* path, audiofile_info_t* info)
     return 0;
 }
 
-void convert(convert_settings* s)
+int64_t ceammc_coreaudio_load(const char* path, size_t channel, size_t offset, size_t count, float* buf)
 {
-    OSStatus err = 0;
-    //    UInt32 outputBufferSize = 32 * 1024;
-    //    UInt32 sizePerPacket = s->outputFormat.mBytesPerPacket;
-    //    UInt32 packetsPerBuffer = outputBufferSize / sizePerPacket;
-    //    float* buf = (float*)malloc(sizeof(float) * outputBufferSize);
-    //    UInt32 outputFilePacketPosition = 0;
+    if (count == 0 || buf == 0)
+        return INVALID_ARGS;
 
-    //    while (1) {
-    //        AudioBufferList convertedData;
-    //        convertedData.mNumberBuffers = 1;
-    //        convertedData.mBuffers[0].mNumberChannels = s->outputFormat.mChannelsPerFrame;
-    //        convertedData.mBuffers[0].mDataByteSize = outputBufferSize;
-    //        convertedData.mBuffers[0].mData = buf;
+    AudioFileID in_file;
+    if (!openAudiofile(path, &in_file))
+        return FILEOPEN_ERR;
 
-    //        UInt32 frameCount = packetsPerBuffer;
-    //        err = ExtAudioFileRead(s->inputFile, &frameCount, &convertedData);
-    //        if (err != noErr) {
-    //            checkError(err, "error: ExtAudioFileRead");
-    //            return;
-    //        }
+    AudioStreamBasicDescription asbd;
+    if (!getASBD(in_file, &asbd)) {
+        AudioFileClose(in_file);
+        return FILEINFO_ERR;
+    }
 
-    //        if (frameCount == 0)
-    //            return;
-    //    }
-}
+    if(channel > asbd.mChannelsPerFrame) {
+        AudioFileClose(in_file);
+        return INVALID_CHAN;
+    }
 
-void openFile(const char* path)
-{
-    //    AudioFileID playbackFile = 0;
-    //    OSStatus err;
+    ExtAudioFileRef converter;
+    if (!openConverter(path, &converter)) {
+        AudioFileClose(in_file);
+        return FILEINFO_ERR;
+    }
 
-    //    convert_settings s = { 0 };
+    AudioStreamBasicDescription audioFormat;
+    fillOutputASBD(&audioFormat, &asbd);
 
-    //    CFStringRef name = CFStringCreateWithCString(kCFAllocatorDefault, path, kCFStringEncodingUTF8);
-    //    CFURLRef url = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, name, kCFURLPOSIXPathStyle, false);
+    if (!setOutputFormat(converter, &audioFormat)) {
+        AudioFileClose(in_file);
+        return PROPERTY_ERR;
+    }
 
-    //    err = ExtAudioFileOpenURL(url, &s.inputFile);
-    //    CFRelease(name);
-    //    CFRelease(url);
+    UInt32 numSamples = 1024; //How many samples to read in at a time
+    UInt32 sizePerPacket = audioFormat.mBytesPerPacket; // = sizeof(Float32) = 32bytes
+    UInt32 packetsPerBuffer = numSamples;
+    UInt32 outputBufferSize = packetsPerBuffer * sizePerPacket;
 
-    //    if (checkError(err, "error: ExtAudioFileOpenURL") != 0)
-    //        return 0;
+    // So the lvalue of outputBuffer is the memory location where we have reserved space
+    UInt8* outputBuffer = (UInt8*)malloc(sizeof(UInt8*) * outputBufferSize);
 
-    //    s.outputFormat.mSampleRate = 44100.0;
-    //    s.outputFormat.mFormatID = kAudioFormatLinearPCM | kAudioFormatFlagIsFloat;
-    //    s.outputFormat.mChannelsPerFrame = 1;
-    //    //    s.outputFormat.mBitsPerChannel = 16;
-    //    //    s.out
+    AudioBufferList convertedData;
 
-    //    err = ExtAudioFileSetProperty(s.inputFile, kExtAudioFileProperty_ClientDataFormat,
-    //        sizeof(AudioStreamBasicDescription), &s.outputFormat);
+    convertedData.mNumberBuffers = audioFormat.mChannelsPerFrame;
+    convertedData.mBuffers[0].mNumberChannels = audioFormat.mChannelsPerFrame;
+    convertedData.mBuffers[0].mDataByteSize = outputBufferSize;
+    convertedData.mBuffers[0].mData = outputBuffer;
 
-    //    if (checkError(err, "error: ExtAudioFileOpenURL") != 0)
-    //        return 0;
+    UInt32 frameCount = numSamples;
+    float* samplesAsCArray;
+    size_t j = 0;
 
-    //    convert(&s);
+    while (frameCount > 0) {
+        ExtAudioFileRead(converter, &frameCount, &convertedData);
 
-    //    ExtAudioFileDispose(s.inputFile);
+        if (frameCount > 0) {
+            AudioBuffer audioBuffer = convertedData.mBuffers[0];
+            samplesAsCArray = (float*)audioBuffer.mData;
 
-    //    AudioStreamBasicDescription dataFormat;
-    //    UInt32 propSize = sizeof(dataFormat);
+            for (UInt32 i = 0; i < numSamples && (j < count); i++) {
+                buf[j] = samplesAsCArray[i];
+                j++;
+            }
+        }
+    }
 
-    //    err = AudioFileGetProperty(playbackFile, kAudioFilePropertyDataFormat, &propSize, &dataFormat);
-    //    if (checkError(err, "error: ExtAudioFileOpenURL") != 0)
-    //        return 0;
+    ExtAudioFileDispose(converter);
+    AudioFileClose(in_file);
 
-    //    return playbackFile;
+    return j;
 }
