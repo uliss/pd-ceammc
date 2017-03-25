@@ -32,7 +32,8 @@ enum ceammc_coreaudio_error {
     FILEOPEN_ERR = -2,
     FILEINFO_ERR = -3,
     PROPERTY_ERR = -4,
-    INVALID_CHAN = -5
+    INVALID_CHAN = -5,
+    OFFSET_ERR = -6
 };
 
 int ceammc_coreaudio_getinfo(const char* path, audiofile_info_t* info);

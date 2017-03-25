@@ -165,7 +165,7 @@ int64_t ceammc_coreaudio_load(const char* path, size_t channel, size_t offset, s
         return FILEINFO_ERR;
     }
 
-    if(channel > asbd.mChannelsPerFrame) {
+    if (channel >= asbd.mChannelsPerFrame) {
         AudioFileClose(in_file);
         return INVALID_CHAN;
     }
@@ -180,38 +180,43 @@ int64_t ceammc_coreaudio_load(const char* path, size_t channel, size_t offset, s
     fillOutputASBD(&audioFormat, &asbd);
 
     if (!setOutputFormat(converter, &audioFormat)) {
+        ExtAudioFileDispose(converter);
         AudioFileClose(in_file);
         return PROPERTY_ERR;
     }
 
     UInt32 numSamples = 1024; //How many samples to read in at a time
-    UInt32 sizePerPacket = audioFormat.mBytesPerPacket; // = sizeof(Float32) = 32bytes
+    UInt32 sizePerPacket = audioFormat.mBytesPerPacket;
     UInt32 packetsPerBuffer = numSamples;
     UInt32 outputBufferSize = packetsPerBuffer * sizePerPacket;
-
-    // So the lvalue of outputBuffer is the memory location where we have reserved space
-    UInt8* outputBuffer = (UInt8*)malloc(sizeof(UInt8*) * outputBufferSize);
+    UInt8* outputBuffer = (UInt8*)malloc(sizeof(UInt8) * outputBufferSize);
 
     AudioBufferList convertedData;
 
-    convertedData.mNumberBuffers = audioFormat.mChannelsPerFrame;
+    convertedData.mNumberBuffers = 1;
     convertedData.mBuffers[0].mNumberChannels = audioFormat.mChannelsPerFrame;
     convertedData.mBuffers[0].mDataByteSize = outputBufferSize;
     convertedData.mBuffers[0].mData = outputBuffer;
 
     UInt32 frameCount = numSamples;
-    float* samplesAsCArray;
     size_t j = 0;
+
+    OSStatus err = ExtAudioFileSeek(converter, offset);
+    if (err != noErr) {
+        ExtAudioFileDispose(converter);
+        AudioFileClose(in_file);
+        return OFFSET_ERR;
+    }
 
     while (frameCount > 0) {
         ExtAudioFileRead(converter, &frameCount, &convertedData);
 
         if (frameCount > 0) {
             AudioBuffer audioBuffer = convertedData.mBuffers[0];
-            samplesAsCArray = (float*)audioBuffer.mData;
+            float* data = (float*)audioBuffer.mData;
 
-            for (UInt32 i = 0; i < numSamples && (j < count); i++) {
-                buf[j] = samplesAsCArray[i];
+            for (UInt32 i = 0; i < frameCount && (j < count); i++) {
+                buf[j] = data[audioFormat.mChannelsPerFrame * i + channel];
                 j++;
             }
         }
