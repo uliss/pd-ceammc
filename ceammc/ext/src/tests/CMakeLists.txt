@@ -47,4 +47,11 @@ ceammc_add_test_linked(
     NAME test_arrayname_parser
     LINK ceammc_sound)
 
+if(APPLE)
+    ceammc_add_test_linked(
+        TITLE "ceammc::coreaudio_loader"
+        NAME test_coreaudio
+        LINK ceammc_sound)
+endif()
+
 add_custom_target(test_src SOURCES gen_test_wav.py)
