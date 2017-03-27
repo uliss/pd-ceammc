@@ -258,7 +258,7 @@ int64_t ceammc_coreaudio_load(const char* path, size_t channel, size_t offset, s
     convertedData.mBuffers[0].mData = outputBuffer;
 
     UInt32 frameCount = numSamples;
-    size_t j = 0, k = 0;
+    size_t frameIdx = 0, k = 0;
 
     OSStatus err = ExtAudioFileSeek(converter, offset);
     if (err != noErr) {
@@ -279,9 +279,9 @@ int64_t ceammc_coreaudio_load(const char* path, size_t channel, size_t offset, s
             AudioBuffer audioBuffer = convertedData.mBuffers[0];
             float* data = (float*)audioBuffer.mData;
 
-            for (UInt32 i = 0; i < frameCount && (j < count); i++) {
-                buf[i].w_float = data[audioFormat.mChannelsPerFrame * i + channel];
-                j++;
+            for (UInt32 i = 0; i < frameCount && (frameIdx < count); i++) {
+                buf[frameIdx].w_float = data[audioFormat.mChannelsPerFrame * i + channel];
+                frameIdx++;
             }
 
             k += frameCount;
