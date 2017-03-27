@@ -29,7 +29,7 @@ endmacro()
 macro(ceammc_add_extension_test name extpath)
     set(_target "test_${name}")
     add_executable(${_target} "${_target}.cpp" ${extpath})
-    target_link_libraries(${_target} puredata-core ceammc_core puredata-core ceammc_sound)
+    target_link_libraries(${_target} tests_main_lib puredata-core ceammc_core puredata-core ceammc_sound)
     add_test("Extension::${name}" ${_target})
 
     if(${WITH_COVERAGE})
