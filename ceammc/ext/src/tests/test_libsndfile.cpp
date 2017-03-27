@@ -15,7 +15,6 @@
 #define TEST_DATA_DIR "."
 #endif
 
-#define CATCH_CONFIG_MAIN
 #include "catch.hpp"
 
 #include "ceammc_loader_sndfile.h"

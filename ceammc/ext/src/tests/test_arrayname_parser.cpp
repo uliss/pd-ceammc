@@ -11,9 +11,10 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#define CATCH_CONFIG_MAIN
 #include "array_load_pattern.h"
 #include "catch.hpp"
+
+#include <cstdio>
 
 TEST_CASE("arrayname_parser", "[arrayname_parser]")
 {

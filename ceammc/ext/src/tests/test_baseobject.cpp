@@ -12,7 +12,6 @@
  * this file belongs to.
  *****************************************************************************/
 
-#define CATCH_CONFIG_MAIN
 #include "catch.hpp"
 #include "ceammc_object.h"
 

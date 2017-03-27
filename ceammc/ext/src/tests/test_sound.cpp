@@ -11,7 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#define CATCH_CONFIG_MAIN
+
 #include "catch.hpp"
 #include "ceammc_sound.h"
 

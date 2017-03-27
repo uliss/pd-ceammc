@@ -12,7 +12,6 @@
  * this file belongs to.
  *****************************************************************************/
 
-#define CATCH_CONFIG_MAIN
 #include "../list/list_walk.h"
 #include "base_extension_test.h"
 #include "catch.hpp"
