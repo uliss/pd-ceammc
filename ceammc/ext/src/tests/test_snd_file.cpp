@@ -670,7 +670,7 @@ TEST_CASE("snd.file", "[PureData]")
         REQUIRE(sf.findPatternArrays_("array[1-5]") == lst3);
     }
 
-#ifdef __APPLE__
+#if defined(__APPLE__) && defined(__clang__)
     SECTION("coreaudio tests")
     {
         AtomList args;
