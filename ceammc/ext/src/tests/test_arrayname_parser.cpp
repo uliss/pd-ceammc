@@ -14,6 +14,8 @@
 #include "array_load_pattern.h"
 #include "catch.hpp"
 
+#include <cstdio>
+
 TEST_CASE("arrayname_parser", "[arrayname_parser]")
 {
     SECTION("arrayname_parser")
