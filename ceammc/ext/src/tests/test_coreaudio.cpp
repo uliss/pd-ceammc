@@ -19,6 +19,8 @@
 #define TEST_DATA_DIR "."
 #endif
 
+#include <cstring>
+
 using namespace ceammc;
 
 TEST_CASE("CoreAudio", "[ceammc::ceammc_loader_coreaudio]")

@@ -18,7 +18,7 @@ macro(ceammc_add_test_linked)
     set(name ${_TEST_NAME})
     set(title ${_TEST_TITLE})
     add_executable(${name} "${name}.cpp")
-    target_link_libraries(${name} ${_TEST_LINK})
+    target_link_libraries(${name} ${_TEST_LINK} tests_main_lib)
     add_test(${title} ${name})
 
     if(${WITH_COVERAGE})
