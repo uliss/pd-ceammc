@@ -11,7 +11,6 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#define CATCH_CONFIG_MAIN
 #include "../snd_file.h"
 #include "base_extension_test.h"
 #include "catch.hpp"
@@ -670,4 +669,52 @@ TEST_CASE("snd.file", "[PureData]")
         REQUIRE(sf.findPatternArrays_("array[1-3]") == lst3);
         REQUIRE(sf.findPatternArrays_("array[1-5]") == lst3);
     }
+
+#ifdef __APPLE__
+    SECTION("coreaudio tests")
+    {
+        AtomList args;
+        SndFileTest sf("snd.file", args);
+
+        sf.storeMessageCount(1);
+        REQUIRE_FALSE(sf.hasNewMessages(1));
+
+        CALL(sf, info);
+        REQUIRE_FALSE(sf.hasNewMessages(1));
+
+        CALL1(sf, info, F(123));
+        REQUIRE_FALSE(sf.hasNewMessages(1));
+
+        CALL1(sf, info, gensym("unknown"));
+        REQUIRE_FALSE(sf.hasNewMessages(1));
+
+        CALL1(sf, info, gensym(TEST_DATA_DIR "/test_data0.mp3"));
+        REQUIRE(sf.hasNewMessages(1));
+        AtomList info = sf.lastMessage(1).listValue();
+        AtomList prop;
+        REQUIRE(info.property("@channels", &prop));
+        REQUIRE(prop.asSizeT() == 1);
+        REQUIRE(info.property("@samplerate", &prop));
+        REQUIRE(prop.asSizeT() == 44100);
+        REQUIRE(info.property("@samples", &prop));
+        REQUIRE(prop.asSizeT() == 441);
+
+        REQUIRE(info.property("@duration", &prop));
+        REQUIRE(prop.at(0).asFloat() == 0.01f);
+
+        sf.cleanMessages(1);
+        sf.storeMessageCount(1);
+        REQUIRE_FALSE(sf.hasNewMessages(1));
+        CALL1(sf, info, gensym(TEST_DATA_DIR "/test_data0.m4a"));
+        REQUIRE(sf.hasNewMessages(1));
+        info = sf.lastMessage(1).listValue();
+        prop.clear();
+        REQUIRE(info.property("@channels", &prop));
+        REQUIRE(prop.asSizeT() == 1);
+        REQUIRE(info.property("@samplerate", &prop));
+        REQUIRE(prop.asSizeT() == 44100);
+        REQUIRE(info.property("@samples", &prop));
+        REQUIRE(prop.asSizeT() == 441);
+    }
+#endif
 }

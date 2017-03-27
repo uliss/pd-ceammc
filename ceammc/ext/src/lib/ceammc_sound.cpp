@@ -13,8 +13,13 @@
  *****************************************************************************/
 
 #include "ceammc_sound.h"
+
 #ifdef WITH_LIBSOUNDFILE
 #include "ceammc_loader_sndfile.h"
+#endif
+
+#if defined(__APPLE__) && defined(__clang__)
+#include "ceammc_loader_coreaudio.h"
 #endif
 
 #include <algorithm>
@@ -35,6 +40,16 @@ namespace sound {
         LoaderDescr("libsndfile", &libsndfile_load_func, LibSndFile::supportedFormats));
 #endif
 
+#if defined(__APPLE__) && defined(__clang__)
+    static SoundFilePtr coreaudio_load_func(const std::string& path)
+    {
+        return SoundFilePtr(new CoreAudioFile(path));
+    }
+
+    static const bool coreaudio_register = SoundFileLoader::registerLoader(
+        LoaderDescr("coreaudio", &coreaudio_load_func, CoreAudioFile::supportedFormats));
+#endif
+
     SoundFile::SoundFile(const std::string& fname)
         : fname_(fname)
     {
@@ -48,10 +63,10 @@ namespace sound {
     {
         if (std::find(loaders().begin(), loaders().end(), l) == loaders().end()) {
             loaders().push_back(l);
-            std::cerr << "register loader: " << l.name;
+            std::cerr << "register loader: " << l.name << std::endl;
             return true;
         } else {
-            std::cerr << "loader already registered: " << l.name;
+            std::cerr << "loader already registered: " << l.name << std::endl;
             return false;
         }
     }
@@ -73,12 +88,21 @@ namespace sound {
 
     SoundFilePtr SoundFileLoader::open(const std::string& path)
     {
+        SoundFilePtr ptr;
+
         if (loaders().empty()) {
             std::cerr << "no loaders registered";
-            return SoundFilePtr();
+            return ptr;
         }
 
-        return loaders().front().func(path);
+        for (size_t i = 0; i < loaders().size(); i++) {
+            ptr = loaders().at(i).func(path);
+            if (ptr && ptr->isOpened()) {
+                return ptr;
+            }
+        }
+
+        return ptr;
     }
 
     SoundFileLoader::LoaderList& SoundFileLoader::loaders()
