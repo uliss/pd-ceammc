@@ -59,10 +59,10 @@ static void fillOutputASBD(AudioStreamBasicDescription* out, const AudioStreamBa
     out->mBytesPerPacket = out->mFramesPerPacket * out->mBytesPerFrame;
 }
 
-static Boolean getASBD(AudioFileID file, AudioStreamBasicDescription* asbd)
+static Boolean getASBD(ExtAudioFileRef file, AudioStreamBasicDescription* asbd)
 {
-    UInt32 propSize = sizeof(AudioStreamBasicDescription);
-    OSStatus err = AudioFileGetProperty(file, kAudioFilePropertyDataFormat, &propSize, asbd);
+    UInt32 size = sizeof(AudioStreamBasicDescription);
+    OSStatus err = ExtAudioFileGetProperty(file, kExtAudioFileProperty_FileDataFormat, &size, asbd);
 
     if (err == noErr)
         return true;
@@ -194,21 +194,18 @@ int ceammc_coreaudio_getinfo(const char* path, audiofile_info_t* info)
     if (!openConverter(path, &converter))
         return FILEOPEN_ERR;
 
-    AudioStreamBasicDescription asbd;
-    UInt32 size = sizeof(asbd);
-    OSStatus err = ExtAudioFileGetProperty(converter, kExtAudioFileProperty_FileDataFormat, &size, &asbd);
-    if (err != noErr) {
-        ExtAudioFileDispose(converter);
+    AudioStreamBasicDescription asbd = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+    if (!getASBD(converter, &asbd))
         return FILEINFO_ERR;
-    }
 
     info->sampleRate = asbd.mSampleRate;
     info->channels = asbd.mChannelsPerFrame;
 
     SInt64 totalFrameCount;
-    size = sizeof(totalFrameCount);
-    err = ExtAudioFileGetProperty(converter, kExtAudioFileProperty_FileLengthFrames, &size, &totalFrameCount);
+    UInt32 size = sizeof(totalFrameCount);
+    OSStatus err = ExtAudioFileGetProperty(converter, kExtAudioFileProperty_FileLengthFrames, &size, &totalFrameCount);
     if (err != noErr) {
+        checkError(err, "error: kExtAudioFileProperty_FileLengthFrames");
         ExtAudioFileDispose(converter);
         return FILEINFO_ERR;
     }
@@ -223,25 +220,20 @@ int64_t ceammc_coreaudio_load(const char* path, size_t channel, size_t offset, s
     if (count == 0 || buf == 0)
         return INVALID_ARGS;
 
-    AudioFileID in_file;
-    if (!openAudiofile(path, &in_file))
+    ExtAudioFileRef converter;
+    if (!openConverter(path, &converter)) {
         return FILEOPEN_ERR;
+    }
 
     AudioStreamBasicDescription asbd;
-    if (!getASBD(in_file, &asbd)) {
-        AudioFileClose(in_file);
+    if (!getASBD(converter, &asbd)) {
+        ExtAudioFileDispose(converter);
         return FILEINFO_ERR;
     }
 
     if (channel >= asbd.mChannelsPerFrame) {
-        AudioFileClose(in_file);
+        ExtAudioFileDispose(converter);
         return INVALID_CHAN;
-    }
-
-    ExtAudioFileRef converter;
-    if (!openConverter(path, &converter)) {
-        AudioFileClose(in_file);
-        return FILEINFO_ERR;
     }
 
     AudioStreamBasicDescription audioFormat;
@@ -249,7 +241,6 @@ int64_t ceammc_coreaudio_load(const char* path, size_t channel, size_t offset, s
 
     if (!setOutputFormat(converter, &audioFormat)) {
         ExtAudioFileDispose(converter);
-        AudioFileClose(in_file);
         return PROPERTY_ERR;
     }
 
@@ -271,16 +262,16 @@ int64_t ceammc_coreaudio_load(const char* path, size_t channel, size_t offset, s
 
     OSStatus err = ExtAudioFileSeek(converter, offset);
     if (err != noErr) {
+        checkError(err, "error: ExtAudioFileSeek");
         ExtAudioFileDispose(converter);
-        AudioFileClose(in_file);
         return OFFSET_ERR;
     }
 
     while (frameCount > 0) {
         err = ExtAudioFileRead(converter, &frameCount, &convertedData);
         if (err != noErr) {
+            checkError(err, "error: ExtAudioFileRead");
             ExtAudioFileDispose(converter);
-            AudioFileClose(in_file);
             return OFFSET_ERR;
         }
 
@@ -298,7 +289,6 @@ int64_t ceammc_coreaudio_load(const char* path, size_t channel, size_t offset, s
     }
 
     ExtAudioFileDispose(converter);
-    AudioFileClose(in_file);
 
     return k;
 }
