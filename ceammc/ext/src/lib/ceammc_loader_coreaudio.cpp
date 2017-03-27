@@ -60,7 +60,8 @@ bool CoreAudioFile::close()
 
 long CoreAudioFile::read(t_word* dest, size_t sz, size_t channel, long offset)
 {
-    return ceammc_coreaudio_load(filename().c_str(), channel, offset, sz, dest);
+    int64_t res = ceammc_coreaudio_load(filename().c_str(), channel, offset, sz, dest);
+    return res < 0 ? -1 : res;
 }
 
 StringList CoreAudioFile::supportedFormats()

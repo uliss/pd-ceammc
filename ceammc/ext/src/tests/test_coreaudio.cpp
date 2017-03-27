@@ -112,4 +112,32 @@ TEST_CASE("CoreAudio", "[ceammc::ceammc_loader_coreaudio]")
             }
         }
     }
+
+    SECTION("offset")
+    {
+        sound::CoreAudioFile sf(TEST_DATA_DIR "/test_data0.wav");
+
+        t_word buf[1024];
+        REQUIRE(sf.read(buf, 1024, 0, 0) == 441);
+        REQUIRE(sf.read(buf, 1024, 1) == -1);
+        for (int i = 0; i < 441; i++) {
+            REQUIRE(buf[i].w_float == Approx((10.f * i) / 32767.f));
+        }
+
+        REQUIRE(sf.read(buf, 1024, 0, 100) == 341);
+        for (int i = 0; i < 341; i++) {
+            REQUIRE(buf[i].w_float == Approx((10.f * (i + 100)) / 32767.f));
+        }
+
+        REQUIRE(sf.read(buf, 1024, 0, -100) == -1);
+
+        sound::CoreAudioFile sf2(TEST_DATA_DIR "/test_data0.mp3");
+        REQUIRE(sf2.read(buf, 1024, 0, 100) == 341);
+
+        sound::CoreAudioFile sf3(TEST_DATA_DIR "/test_data0.m4a");
+        REQUIRE(sf3.read(buf, 1024, 0, 100) == 341);
+
+        t_word buf2[10];
+        REQUIRE(sf3.read(buf2, 10, 0, 100) == 341);
+    }
 }
