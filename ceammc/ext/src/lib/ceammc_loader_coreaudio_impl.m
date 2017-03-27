@@ -14,8 +14,8 @@
 
 #include "ceammc_loader_coreaudio_impl.h"
 
-#import <AudioToolBox/AudioToolbox.h>
-#import <Foundation/Foundation.h>
+#include <AudioToolBox/AudioToolbox.h>
+#include <CoreFoundation/CoreFoundation.h>
 
 #include <ctype.h>
 #include <stdio.h>
