@@ -22,9 +22,12 @@ CoreAudioFile::CoreAudioFile(const std::string& fname)
     , sample_rate_(0)
     , channels_(0)
     , sample_count_(0)
+    , is_opened_(false)
 {
     audiofile_info_t fi = { 0 };
-    ceammc_coreaudio_getinfo(fname.c_str(), &fi);
+    if (ceammc_coreaudio_getinfo(fname.c_str(), &fi) == 0)
+        is_opened_ = true;
+
     sample_rate_ = fi.sampleRate;
     sample_count_ = fi.sampleCount;
     channels_ = fi.channels;
@@ -47,14 +50,17 @@ size_t CoreAudioFile::channels() const
 
 bool CoreAudioFile::isOpened() const
 {
+    return is_opened_;
 }
 
 bool CoreAudioFile::close()
 {
+    return true;
 }
 
 long CoreAudioFile::read(t_word* dest, size_t sz, size_t channel, long offset)
 {
+    return ceammc_coreaudio_load(filename().c_str(), channel, offset, sz, dest);
 }
 
 StringList CoreAudioFile::supportedFormats()

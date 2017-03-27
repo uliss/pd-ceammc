@@ -5,6 +5,8 @@ include(tests.cmake)
 add_definitions("-DTEST_DATA_DIR=\"${CMAKE_CURRENT_SOURCE_DIR}\"")
 #remove_definitions(-DPD_INTERNAL)
 
+add_library(tests_main_lib STATIC tests_main.cpp)
+
 if(APPLE)
     set(CMAKE_INSTALL_RPATH "@loader_path/../lib")
 endif()
@@ -51,7 +53,7 @@ if(APPLE)
     ceammc_add_test_linked(
         TITLE "ceammc::coreaudio_loader"
         NAME test_coreaudio
-        LINK ceammc_sound)
+        LINK tests_main_lib ceammc_sound)
 endif()
 
 add_custom_target(test_src SOURCES gen_test_wav.py)

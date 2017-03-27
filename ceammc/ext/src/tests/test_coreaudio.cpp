@@ -11,7 +11,6 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#define CATCH_CONFIG_MAIN
 #include "catch.hpp"
 #include "ceammc_loader_coreaudio.h"
 #include "ceammc_loader_coreaudio_impl.h"
@@ -36,27 +35,42 @@ TEST_CASE("CoreAudio", "[ceammc::ceammc_loader_coreaudio]")
             REQUIRE(fi.channels == 1);
             REQUIRE(fi.sampleCount == 441);
 
+            memset(&fi, 0, sizeof(fi));
+
             REQUIRE(ceammc_coreaudio_getinfo(TEST_DATA_DIR "/test_data1.wav", &fi) == 0);
             REQUIRE(fi.sampleRate == 44100);
             REQUIRE(fi.channels == 2);
             REQUIRE(fi.sampleCount == 441);
 
+            memset(&fi, 0, sizeof(fi));
+
             REQUIRE(ceammc_coreaudio_getinfo(TEST_DATA_DIR "/test_data0.mp3", &fi) == 0);
             REQUIRE(fi.sampleRate == 44100);
             REQUIRE(fi.channels == 1);
-            REQUIRE(fi.sampleCount == 0);
+            REQUIRE(fi.sampleCount == 441);
 
-            REQUIRE(ceammc_coreaudio_getinfo(TEST_DATA_DIR "/test_data0.aac", &fi) == 0);
+            memset(&fi, 0, sizeof(fi));
+
+            REQUIRE(ceammc_coreaudio_getinfo(TEST_DATA_DIR "/test_data0_vbr.mp3", &fi) == 0);
             REQUIRE(fi.sampleRate == 44100);
             REQUIRE(fi.channels == 1);
-            REQUIRE(fi.sampleCount == 0);
+            REQUIRE(fi.sampleCount == 441);
+
+            memset(&fi, 0, sizeof(fi));
+
+            REQUIRE(ceammc_coreaudio_getinfo(TEST_DATA_DIR "/test_data0.m4a", &fi) == 0);
+            REQUIRE(fi.sampleRate == 44100);
+            REQUIRE(fi.channels == 1);
+            REQUIRE(fi.sampleCount == 441);
+
+            memset(&fi, 0, sizeof(fi));
         }
 
         SECTION("impl load")
         {
             SECTION("WAV mono")
             {
-                float buf[1024];
+                t_word buf[1024];
 
                 REQUIRE(ceammc_coreaudio_load(TEST_DATA_DIR "/test_data0.wav", 0, 0, 0, NULL) == INVALID_ARGS);
                 REQUIRE(ceammc_coreaudio_load(TEST_DATA_DIR "/test_data0.wav", 10, 0, 1024, buf) == INVALID_CHAN);
@@ -65,31 +79,35 @@ TEST_CASE("CoreAudio", "[ceammc::ceammc_loader_coreaudio]")
 
                 REQUIRE(ceammc_coreaudio_load(TEST_DATA_DIR "/test_data0.wav", 0, 0, 1024, buf) == 441);
                 for (int i = 0; i < 441; i++) {
-                    REQUIRE(buf[i] == Approx((10.f * i) / 32767.f));
+                    REQUIRE(buf[i].w_float == Approx((10.f * i) / 32767.f));
                 }
+            }
+
+            SECTION("MP3 mono")
+            {
+                t_word buf[1024];
+                REQUIRE(ceammc_coreaudio_load(TEST_DATA_DIR "/test_data0.mp3", 0, 0, 1024, buf) == 441);
+                REQUIRE(ceammc_coreaudio_load(TEST_DATA_DIR "/test_data0_vbr.mp3", 0, 0, 1024, buf) == 441);
             }
 
             SECTION("AAC mono")
             {
-                float buf[1024];
-                REQUIRE(ceammc_coreaudio_load(TEST_DATA_DIR "/test_data0.aac", 0, 0, 1024, buf) == 1024);
-                for (int i = 0; i < 441; i++) {
-                    //                    REQUIRE(buf[i] == Approx((10.f * i) / 32767.f));
-                }
+                t_word buf[1024];
+                REQUIRE(ceammc_coreaudio_load(TEST_DATA_DIR "/test_data0.m4a", 0, 0, 1024, buf) == 441);
             }
 
             SECTION("stereo")
             {
-                float buf[1024];
+                t_word buf[1024];
 
                 REQUIRE(ceammc_coreaudio_load(TEST_DATA_DIR "/test_data1.wav", 0, 0, 1024, buf) == 441);
                 for (int i = 0; i < 441; i++) {
-                    REQUIRE(buf[i] == Approx((10.f * i) / 32767.f));
+                    REQUIRE(buf[i].w_float == Approx((10.f * i) / 32767.f));
                 }
 
                 REQUIRE(ceammc_coreaudio_load(TEST_DATA_DIR "/test_data1.wav", 1, 0, 1024, buf) == 441);
                 for (int i = 0; i < 441; i++) {
-                    REQUIRE(buf[i] == Approx((10.f * i) / -32767.f));
+                    REQUIRE(buf[i].w_float == Approx((10.f * i) / -32767.f));
                 }
             }
         }

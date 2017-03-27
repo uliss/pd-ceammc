@@ -14,6 +14,7 @@
 #ifndef CEAMMC_LOADER_COREAUDIO_IMPL_H
 #define CEAMMC_LOADER_COREAUDIO_IMPL_H
 
+#include <m_pd.h>
 #include <stdint.h>
 #include <stdlib.h>
 
@@ -33,11 +34,13 @@ enum ceammc_coreaudio_error {
     FILEINFO_ERR = -3,
     PROPERTY_ERR = -4,
     INVALID_CHAN = -5,
-    OFFSET_ERR = -6
+    OFFSET_ERR = -6,
+    READ_ERR = -7,
+    CONVERTER_ERR = -8
 };
 
 int ceammc_coreaudio_getinfo(const char* path, audiofile_info_t* info);
-int64_t ceammc_coreaudio_load(const char* path, size_t channel, size_t offset, size_t count, float* buf);
+int64_t ceammc_coreaudio_load(const char* path, size_t channel, size_t offset, size_t count, t_word* buf);
 
 #if defined(__cplusplus)
 }

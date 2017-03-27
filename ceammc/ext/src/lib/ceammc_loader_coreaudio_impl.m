@@ -25,7 +25,7 @@ typedef struct convert_settings_t {
     AudioStreamBasicDescription inputFormat;
 } convert_settings;
 
-int checkError(OSStatus error, const char* op)
+static int checkError(OSStatus error, const char* op)
 {
     if (error == noErr)
         return 0;
@@ -47,6 +47,18 @@ int checkError(OSStatus error, const char* op)
     return -1;
 }
 
+static void fillOutputASBD(AudioStreamBasicDescription* out, const AudioStreamBasicDescription* in)
+{
+    out->mSampleRate = in->mSampleRate;
+    out->mFormatID = kAudioFormatLinearPCM;
+    out->mFormatFlags = kLinearPCMFormatFlagIsFloat | kAudioFormatFlagsNativeFloatPacked;
+    out->mBitsPerChannel = sizeof(Float32) * 8;
+    out->mChannelsPerFrame = in->mChannelsPerFrame;
+    out->mBytesPerFrame = out->mChannelsPerFrame * sizeof(Float32);
+    out->mFramesPerPacket = 1;
+    out->mBytesPerPacket = out->mFramesPerPacket * out->mBytesPerFrame;
+}
+
 static Boolean getASBD(AudioFileID file, AudioStreamBasicDescription* asbd)
 {
     UInt32 propSize = sizeof(AudioStreamBasicDescription);
@@ -57,6 +69,77 @@ static Boolean getASBD(AudioFileID file, AudioStreamBasicDescription* asbd)
 
     checkError(err, "error: can't get AudioStreamBasicDescription from file");
     return false;
+}
+
+static Boolean getPacketCount(AudioFileID file, UInt64* packetCount)
+{
+    UInt32 propSize = sizeof(UInt64);
+    OSStatus err = AudioFileGetProperty(file, kAudioFilePropertyAudioDataPacketCount, &propSize, packetCount);
+    if (err == noErr)
+        return true;
+
+    checkError(err, "error: can't get packet count");
+    return false;
+}
+
+static Boolean getMaxPacketSize(AudioFileID file, UInt32* maxPacketSize)
+{
+    UInt32 propSize = sizeof(UInt32);
+    OSStatus err = AudioFileGetProperty(file, kAudioFilePropertyMaximumPacketSize, &propSize, maxPacketSize);
+    if (err == noErr)
+        return true;
+
+    checkError(err, "error: can't get max packet size");
+    return false;
+}
+
+static Boolean getPacketTableInfo(AudioFileID file, AudioFilePacketTableInfo* info)
+{
+    UInt32 propSize = sizeof(AudioFilePacketTableInfo);
+    OSStatus err = AudioFileGetProperty(file, kAudioFilePropertyPacketTableInfo, &propSize, &info);
+
+    if (err == noErr)
+        return true;
+
+    checkError(err, "error: can't get packet table info");
+    return false;
+}
+
+static Boolean getVBRPacketBufferSize(AudioStreamBasicDescription* in_asbd, UInt32* out_bufsize)
+{
+    AudioStreamBasicDescription out_asbd;
+    fillOutputASBD(&out_asbd, in_asbd);
+
+    AudioConverterRef converter;
+    OSStatus err = AudioConverterNew(in_asbd, &out_asbd, &converter);
+    if (err != noErr) {
+        checkError(err, "AudioConverterNew");
+        return false;
+    }
+
+    UInt32 sizePerPacket = in_asbd->mBytesPerPacket;
+    UInt32 outputBufferSize = 1024;
+
+    Boolean isCompressed = (sizePerPacket == 0);
+    if (isCompressed) {
+        UInt32 sizePerPacket;
+        UInt32 size = sizeof(UInt32);
+        OSStatus err = AudioConverterGetProperty(converter,
+            kAudioConverterPropertyMaximumOutputPacketSize,
+            &size, &sizePerPacket);
+
+        if (err != noErr) {
+            checkError(err, "error: kAudioConverterPropertyMaximumOutputPacketSize");
+            return false;
+        }
+
+        if (sizePerPacket > outputBufferSize)
+            outputBufferSize = sizePerPacket;
+    }
+
+    *out_bufsize = outputBufferSize;
+
+    return true;
 }
 
 static Boolean openAudiofile(const char* path, AudioFileID* file)
@@ -91,18 +174,6 @@ static Boolean openConverter(const char* path, ExtAudioFileRef* file)
     return false;
 }
 
-static void fillOutputASBD(AudioStreamBasicDescription* out, const AudioStreamBasicDescription* in)
-{
-    out->mSampleRate = in->mSampleRate;
-    out->mFormatID = kAudioFormatLinearPCM;
-    out->mFormatFlags = kLinearPCMFormatFlagIsFloat | kAudioFormatFlagsNativeFloatPacked;
-    out->mBitsPerChannel = sizeof(Float32) * 8;
-    out->mChannelsPerFrame = in->mChannelsPerFrame;
-    out->mBytesPerFrame = out->mChannelsPerFrame * sizeof(Float32);
-    out->mFramesPerPacket = 1;
-    out->mBytesPerPacket = out->mFramesPerPacket * out->mBytesPerFrame;
-}
-
 static Boolean setOutputFormat(ExtAudioFileRef file, AudioStreamBasicDescription* format)
 {
     OSStatus err = ExtAudioFileSetProperty(file,
@@ -119,38 +190,37 @@ static Boolean setOutputFormat(ExtAudioFileRef file, AudioStreamBasicDescription
 
 int ceammc_coreaudio_getinfo(const char* path, audiofile_info_t* info)
 {
-    AudioFileID in_file;
-    if (!openAudiofile(path, &in_file))
-        return -1;
-
-    AudioStreamBasicDescription asbd;
-    if (!getASBD(in_file, &asbd)) {
-        AudioFileClose(in_file);
-        return -1;
+    ExtAudioFileRef converter;
+    if (!openConverter(path, &converter)) {
+        return FILEOPEN_ERR;
     }
 
-    UInt64 packetCount = 0;
-    UInt32 propSize = sizeof(packetCount);
-    OSStatus err = AudioFileGetProperty(in_file, kAudioFilePropertyAudioDataPacketCount, &propSize, &packetCount);
+    AudioStreamBasicDescription asbd;
+    UInt32 size = sizeof(asbd);
+    OSStatus err = ExtAudioFileGetProperty(converter, kExtAudioFileProperty_FileDataFormat, &size, &asbd);
     if (err != noErr) {
-        AudioFileClose(in_file);
-        return checkError(err, "error: can't get data format in file");
+        ExtAudioFileDispose(converter);
+        return FILEINFO_ERR;
     }
 
     info->sampleRate = asbd.mSampleRate;
     info->channels = asbd.mChannelsPerFrame;
 
-    if (asbd.mBytesPerPacket)
-        info->sampleCount = packetCount * asbd.mFramesPerPacket;
-    else
-        info->sampleCount = 0;
+    //get the total length in frames of the audio file - copypasta: http://discussions.apple.com/thread.jspa?threadID=2364583&tstart=47
+    UInt32 dataSize;
+    SInt64 totalFrameCount;
+    dataSize = sizeof(totalFrameCount); //XXX: This looks sketchy to me - Albert
+    err = ExtAudioFileGetProperty(converter, kExtAudioFileProperty_FileLengthFrames, &dataSize, &totalFrameCount);
+    if (err != noErr) {
+        ExtAudioFileDispose(converter);
+        return FILEINFO_ERR;
+    }
 
-    AudioFileClose(in_file);
-
+    info->sampleCount = totalFrameCount;
     return 0;
 }
 
-int64_t ceammc_coreaudio_load(const char* path, size_t channel, size_t offset, size_t count, float* buf)
+int64_t ceammc_coreaudio_load(const char* path, size_t channel, size_t offset, size_t count, t_word* buf)
 {
     if (count == 0 || buf == 0)
         return INVALID_ARGS;
@@ -199,7 +269,7 @@ int64_t ceammc_coreaudio_load(const char* path, size_t channel, size_t offset, s
     convertedData.mBuffers[0].mData = outputBuffer;
 
     UInt32 frameCount = numSamples;
-    size_t j = 0;
+    size_t j = 0, k = 0;
 
     OSStatus err = ExtAudioFileSeek(converter, offset);
     if (err != noErr) {
@@ -209,21 +279,28 @@ int64_t ceammc_coreaudio_load(const char* path, size_t channel, size_t offset, s
     }
 
     while (frameCount > 0) {
-        ExtAudioFileRead(converter, &frameCount, &convertedData);
+        err = ExtAudioFileRead(converter, &frameCount, &convertedData);
+        if (err != noErr) {
+            ExtAudioFileDispose(converter);
+            AudioFileClose(in_file);
+            return OFFSET_ERR;
+        }
 
         if (frameCount > 0) {
             AudioBuffer audioBuffer = convertedData.mBuffers[0];
             float* data = (float*)audioBuffer.mData;
 
             for (UInt32 i = 0; i < frameCount && (j < count); i++) {
-                buf[j] = data[audioFormat.mChannelsPerFrame * i + channel];
+                buf[i].w_float = data[audioFormat.mChannelsPerFrame * i + channel];
                 j++;
             }
+
+            k += frameCount;
         }
     }
 
     ExtAudioFileDispose(converter);
     AudioFileClose(in_file);
 
-    return j;
+    return k;
 }

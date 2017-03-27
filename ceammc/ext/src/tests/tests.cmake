@@ -1,6 +1,6 @@
 macro(ceammc_add_test title name)
     add_executable(${name} "${name}.cpp")
-    target_link_libraries(${name} ceammc_core puredata-core)
+    target_link_libraries(${name} tests_main_lib ceammc_core puredata-core)
     add_test(${title} ${name})
 
     if(${WITH_COVERAGE})

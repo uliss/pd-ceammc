@@ -13,8 +13,13 @@
  *****************************************************************************/
 
 #include "ceammc_sound.h"
+
 #ifdef WITH_LIBSOUNDFILE
 #include "ceammc_loader_sndfile.h"
+#endif
+
+#if defined(__APPLE__) && defined(__clang__)
+#include "ceammc_loader_coreaudio.h"
 #endif
 
 #include <algorithm>
@@ -33,6 +38,16 @@ namespace sound {
 
     static const bool libsndfile_register = SoundFileLoader::registerLoader(
         LoaderDescr("libsndfile", &libsndfile_load_func, LibSndFile::supportedFormats));
+#endif
+
+#if defined(__APPLE__) && defined(__clang__)
+    static SoundFilePtr coreaudio_load_func(const std::string& path)
+    {
+        return SoundFilePtr(new CoreAudioFile(path));
+    }
+
+    static const bool coreaudio_register = SoundFileLoader::registerLoader(
+        LoaderDescr("coreaudio", &coreaudio_load_func, CoreAudioFile::supportedFormats));
 #endif
 
     SoundFile::SoundFile(const std::string& fname)
@@ -73,12 +88,21 @@ namespace sound {
 
     SoundFilePtr SoundFileLoader::open(const std::string& path)
     {
+        SoundFilePtr ptr;
+
         if (loaders().empty()) {
             std::cerr << "no loaders registered";
-            return SoundFilePtr();
+            return ptr;
         }
 
-        return loaders().front().func(path);
+        for (size_t i = 0; i < loaders().size(); i++) {
+            ptr = loaders().at(i).func(path);
+            if (ptr && ptr->isOpened()) {
+                return ptr;
+            }
+        }
+
+        return ptr;
     }
 
     SoundFileLoader::LoaderList& SoundFileLoader::loaders()
