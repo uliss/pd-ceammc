@@ -191,9 +191,8 @@ static Boolean setOutputFormat(ExtAudioFileRef file, AudioStreamBasicDescription
 int ceammc_coreaudio_getinfo(const char* path, audiofile_info_t* info)
 {
     ExtAudioFileRef converter;
-    if (!openConverter(path, &converter)) {
+    if (!openConverter(path, &converter))
         return FILEOPEN_ERR;
-    }
 
     AudioStreamBasicDescription asbd;
     UInt32 size = sizeof(asbd);
@@ -206,17 +205,16 @@ int ceammc_coreaudio_getinfo(const char* path, audiofile_info_t* info)
     info->sampleRate = asbd.mSampleRate;
     info->channels = asbd.mChannelsPerFrame;
 
-    //get the total length in frames of the audio file - copypasta: http://discussions.apple.com/thread.jspa?threadID=2364583&tstart=47
-    UInt32 dataSize;
     SInt64 totalFrameCount;
-    dataSize = sizeof(totalFrameCount); //XXX: This looks sketchy to me - Albert
-    err = ExtAudioFileGetProperty(converter, kExtAudioFileProperty_FileLengthFrames, &dataSize, &totalFrameCount);
+    size = sizeof(totalFrameCount);
+    err = ExtAudioFileGetProperty(converter, kExtAudioFileProperty_FileLengthFrames, &size, &totalFrameCount);
     if (err != noErr) {
         ExtAudioFileDispose(converter);
         return FILEINFO_ERR;
     }
 
     info->sampleCount = totalFrameCount;
+    ExtAudioFileDispose(converter);
     return 0;
 }
 
