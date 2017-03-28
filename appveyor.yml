@@ -10,7 +10,7 @@ environment:
     - MINGW_DIR: mingw
 
 before_build:
-- set Path=%CD%\Min\bin;%Path%
+- set Path=%CD%\%MINGW_DIR%\bin;%Path%
 #- mingw32-make --version
 - cmake --version
 - echo "NUMBER_OF_PROCESSORS=%NUMBER_OF_PROCESSORS%"
