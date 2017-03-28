@@ -35,7 +35,7 @@ install:
     - set TCLDIR=../../tcl-release
     - nmake -nologo -f makefile.vc all install
     - cd ../..
-    #- dir C:\Tcl
+    - dir C:\Tcl\bin
 
 before_build:
     - dir
@@ -45,7 +45,7 @@ before_build:
     - ps: Get-Command sh.exe -All | Remove-Item
     - set PATH=%PATH:C:\Program Files (x86)\Git\bin;=%
     - set PATH=%PATH:C:\Program Files\Git\usr\bin;=%
-    - set PATH=C:\MinGW\bin:%PATH%
+    - set PATH=C:\%MINGW_DIR%\bin:%PATH%
     - echo %PATH%
     - cmake --version
     - echo "NUMBER_OF_PROCESSORS=%NUMBER_OF_PROCESSORS%"

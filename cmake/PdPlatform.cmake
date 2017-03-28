@@ -21,7 +21,10 @@ endif()
 
 
 if(WIN32)
-    find_program(WISH_PATH NAMES wish86.exe wish85.exe wish.exe)
+    find_program(WISH_PATH
+        NAMES wish86.exe wish85.exe wish.exe wish86t.exe
+        PATHS C:/Tcl/bin)
+
     if(NOT WISH_PATH)
         message(FATAL_ERROR "wish.exe not found")
     else()
