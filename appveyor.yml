@@ -25,7 +25,7 @@ install:
     - 7z x -y "%TK_ARCHIVE%" > nul
     - cd tcl-release
     - cd win
-    - dir C:%MINGW_DIR%\bin
+    - dir C:\%MINGW_DIR%\bin
     - set PATH=C:\%MINGW_DIR%\bin;%PATH%
     - sh configure --prefix=C:/tcl
     - mingw32-make
