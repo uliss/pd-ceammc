@@ -2,7 +2,7 @@ os: Visual Studio 2015
 
 version: '{build}'
 
-clone_depth: 5
+#clone_depth: 5
 
 cache:
 - tcl-latest.zip
@@ -36,12 +36,12 @@ install:
     #- if not %SYMBOLS%.==. set OPTS=symbols,static,msvcrt
     #- nmake -nologo -f makefile.vc shell OPTS=%OPTS% install
     - cd ../..
-    - dir C:\Tcl
+    #- dir C:\Tcl
 
 before_build:
     - dir
-    - sh git submodule init
-    - sh git submodule update 
+    - git submodule init
+    - git submodule update 
     # CMake refuses to generate MinGW Makefiles if sh.exe is in the Path
     - ps: Get-Command sh.exe -All | Remove-Item
     - set PATH=%PATH:C:\Program Files (x86)\Git\bin;=%
