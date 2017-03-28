@@ -122,6 +122,13 @@ endif()
 if(WITH_PORTAUDIO)
     list(APPEND S_SRC s_audio_pa.c)
     list(APPEND PD_NEEDED_LIBS ${PORTAUDIO_LIBRARIES})
+    if(MINGW)
+        # this is a link fix when portaudio was build with ASIO support.
+        # and it requires C++ linking
+        # we are making empty C++ file, so cmake automatically uses c++ linker
+        file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/asio_dummy.cpp "")
+        list(APPEND S_SRC ${CMAKE_CURRENT_BINARY_DIR}/asio_dummy.cpp)
+    endif()
 endif()
 
 if(WITH_MMIO)
