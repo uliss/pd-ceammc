@@ -123,7 +123,7 @@ static bool endFn(int)
 
 static state_t getState(int c)
 {
-    if (c == ',')
+    if (c == '|')
         return ST_COMMA;
     else if (c == '-')
         return ST_RANGE;

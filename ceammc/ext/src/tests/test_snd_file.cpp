@@ -611,9 +611,9 @@ TEST_CASE("snd.file", "[PureData]")
         REQUIRE_FALSE(sf.arrayNameContainsPattern_("test_]["));
         REQUIRE_FALSE(sf.arrayNameContainsPattern_("]...["));
         REQUIRE(sf.arrayNameContainsPattern_("test_[]_extra"));
-        REQUIRE(sf.arrayNameContainsPattern_("array_ch[1,2,4]_extra"));
+        REQUIRE(sf.arrayNameContainsPattern_("array_ch[1|2|4]_extra"));
         REQUIRE(sf.arrayNameContainsPattern_("array_ch[2]_test"));
-        REQUIRE(sf.arrayNameContainsPattern_("array_ch[1..3]"));
+        REQUIRE(sf.arrayNameContainsPattern_("array_ch[1-3]"));
     }
 
     SECTION("test pattern find")
@@ -629,7 +629,7 @@ TEST_CASE("snd.file", "[PureData]")
         REQUIRE(sf.findPatternArrays_("invalid_][pattern").empty());
         REQUIRE(sf.findPatternArrays_("[]").empty());
         REQUIRE(sf.findPatternArrays_("[?]").empty());
-        REQUIRE(sf.findPatternArrays_("[12.,123]").empty());
+        REQUIRE(sf.findPatternArrays_("[12.|123]").empty());
 
         t_canvas* cnv = make_canvas();
         REQUIRE(cnv != 0);
@@ -639,11 +639,11 @@ TEST_CASE("snd.file", "[PureData]")
 
         REQUIRE(sf.findPatternArrays_("array[]") == AtomList(S(array1)));
         REQUIRE(sf.findPatternArrays_("array[1]") == AtomList(S(array1)));
-        REQUIRE(sf.findPatternArrays_("array[,1]") == AtomList());
-        REQUIRE(sf.findPatternArrays_("array[1,]") == AtomList());
-        REQUIRE(sf.findPatternArrays_("array[,1,]") == AtomList());
+        REQUIRE(sf.findPatternArrays_("array[|1]") == AtomList());
+        REQUIRE(sf.findPatternArrays_("array[1|]") == AtomList());
+        REQUIRE(sf.findPatternArrays_("array[|1|]") == AtomList());
         REQUIRE(sf.findPatternArrays_("array[2]") == AtomList()); // not exists yet
-        REQUIRE(sf.findPatternArrays_("array[1,2]") == AtomList(S(array1))); // not exists yet
+        REQUIRE(sf.findPatternArrays_("array[1|2]") == AtomList(S(array1))); // not exists yet
 
         t_garray* array2 = graph_array(canvas_getcurrent(), gensym("array2"), &s_float, 100, 0);
         REQUIRE(array2 != 0);
@@ -651,13 +651,13 @@ TEST_CASE("snd.file", "[PureData]")
         REQUIRE(sf.findPatternArrays_("array[]") == AtomList(S(array1), S(array2)));
         REQUIRE(sf.findPatternArrays_("array[1]") == AtomList(S(array1)));
         REQUIRE(sf.findPatternArrays_("array[2]") == AtomList(S(array2)));
-        REQUIRE(sf.findPatternArrays_("array[1,2]") == AtomList(S(array1), S(array2)));
+        REQUIRE(sf.findPatternArrays_("array[1|2]") == AtomList(S(array1), S(array2)));
         REQUIRE(sf.findPatternArrays_("array[0-10]") == AtomList(S(array1), S(array2)));
         REQUIRE(sf.findPatternArrays_("array[10-0]") == AtomList(S(array2), S(array1)));
-        REQUIRE(sf.findPatternArrays_("array[,1,2]") == AtomList());
-        REQUIRE(sf.findPatternArrays_("array[1,2,]") == AtomList());
-        REQUIRE(sf.findPatternArrays_("array[,,,,1,2,]") == AtomList());
-        REQUIRE(sf.findPatternArrays_("array[2,1]") == AtomList(S(array2), S(array1)));
+        REQUIRE(sf.findPatternArrays_("array[|1|2]") == AtomList());
+        REQUIRE(sf.findPatternArrays_("array[1|2|]") == AtomList());
+        REQUIRE(sf.findPatternArrays_("array[||||1|2|]") == AtomList());
+        REQUIRE(sf.findPatternArrays_("array[2|1]") == AtomList(S(array2), S(array1)));
 
         t_garray* array3 = graph_array(canvas_getcurrent(), gensym("array3"), &s_float, 100, 0);
         REQUIRE(array3 != 0);
