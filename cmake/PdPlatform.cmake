@@ -21,6 +21,13 @@ endif()
 
 
 if(WIN32)
+    include(FindWindowsSDK)
+
+    if(WINDOWSSDK_FOUND)
+        get_windowssdk_library_dirs(WINDOWSSDK_DIRS _win_sdk_dir)
+        link_directories(${_win_sdk_dir})
+    endif()
+
     find_program(WISH_PATH
         NAMES wish86.exe wish85.exe wish.exe wish86t.exe
         PATHS C:/Tcl/bin)
@@ -92,7 +99,13 @@ if(WIN32)
         DESTINATION
             ${CMAKE_INSTALL_PREFIX})
     
-    
+    if(${CMAKE_SYSTEM_NAME} STREQUAL "WindowsStore")
+        message("Building for UWP")
+        set(FIPS_UWP 1)
+    else()
+        set(FIPS_UWP 0)
+    endif()
+
     add_definitions(-DPD_INTERNAL -DWINVER=0x0502 -D_WIN32_WINNT=0x0502)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mms-bitfields -O2 -funroll-loops -fomit-frame-pointer -lpthread ")
     set(CMAKE_CXX_FLAGS "-mms-bitfields -O2 -funroll-loops -fomit-frame-pointer -lpthread")
