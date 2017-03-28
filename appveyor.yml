@@ -16,6 +16,7 @@ environment:
     TK_URL: "https://github.com/tcltk/tk/archive/release.zip"
     TK_ARCHIVE: "tk-latest.zip"
     TCL_INSTALL_DIR: "C:/Tcl"
+    BOOST_ROOT: "C:/Libraries/boost_1_63_0")
     matrix:
     - MINGW_DIR: mingw
 
@@ -52,7 +53,7 @@ before_build:
     - if "%APPVEYOR_REPO_TAG%"=="true" (set CMAKE_BUILD_TYPE=Release) else (set CMAKE_BUILD_TYPE=Debug)
     - mkdir build
     - cd build
-    - cmake -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=%CMAKE_BUILD_TYPE% ..
+    - cmake -G "MinGW Makefiles" -DBOOST_ROOT=%BOOST_ROOT% -DCMAKE_BUILD_TYPE=%CMAKE_BUILD_TYPE% ..
 
 build_script:
     - cmake --build . --use-stderr --target all -- -j%NUMBER_OF_PROCESSORS%
