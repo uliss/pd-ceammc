@@ -10,6 +10,7 @@ cache:
 
 environment:
     CTEST_OUTPUT_ON_FAILURE: 1
+    VCVARS: "C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VC\\bin\\vcvars32.bat"
     TCL_URL: "https://github.com/tcltk/tcl/archive/release.zip"
     TCL_ARCHIVE: "tcl-latest.zip"
     matrix:
@@ -20,6 +21,7 @@ install:
     - 7z x -y "%TCL_ARCHIVE%" > nul
     - cd tcl-release
     - cd win
+    cmd: CALL "%VCVARS%"
     - buildall.vc.bat
     - cd ../..
     # CMake refuses to generate MinGW Makefiles if sh.exe is in the Path
