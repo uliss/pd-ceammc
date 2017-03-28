@@ -56,5 +56,6 @@ before_build:
     - cmake -G "MinGW Makefiles" -DBOOST_ROOT=%BOOST_ROOT% -DCMAKE_BUILD_TYPE=%CMAKE_BUILD_TYPE% ..
 
 build_script:
+    - set VERBOSE=1
     - cmake --build . --use-stderr --target all -- -j%NUMBER_OF_PROCESSORS%
 
