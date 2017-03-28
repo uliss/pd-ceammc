@@ -30,7 +30,7 @@ if(WIN32)
         link_directories(${WINSDK_LIB_DIRS})
     endif()
 
-    link_directories("C:\Program Files (x86)\Windows Kits\8.0\lib\win8\um\x64")
+    link_directories("C:/Program Files (x86)/Windows Kits/8.0/lib/win8/um/x64")
 
     find_program(WISH_PATH
         NAMES wish86.exe wish85.exe wish.exe wish86t.exe
