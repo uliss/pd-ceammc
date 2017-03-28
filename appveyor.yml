@@ -1,8 +1,5 @@
 version: '{build}'
 
-branches:
-    - /ceammc/    
-
 clone_depth: 5
 
 cache:
