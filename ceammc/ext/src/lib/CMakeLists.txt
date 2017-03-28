@@ -1,14 +1,16 @@
 include_directories(${PROJECT_SOURCE_DIR}/src)
 include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra/CicmWrapper/Sources)
 
-set(FLAGS "${PD_EXTERNAL_CFLAGS}")
+set(LIBCEAMMC_COMPILE_FLAGS "${PD_EXTERNAL_CFLAGS}")
+set(LIBCEAMMC_LINK_FLAGS ${PD_EXTERNAL_LDFLAGS})
 if(WIN32)
-    set(FLAGS "${FLAGS} -lpsapi")
+    set(LIBCEAMMC_LINK_FLAGS "")
+    set(LIBCEAMMC_COMPILE_FLAGS "-lpsapi")
 endif()
 
 if(${WITH_COVERAGE})
     if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-        set(FLAGS "${FLAGS} --coverage")
+        set(LIBCEAMMC_LINK_FLAGS "${LIBCEAMMC_LINK_FLAGS} --coverage")
     endif()
 endif()
 
@@ -34,8 +36,8 @@ add_library(ceammc_core SHARED
     ceammc_timeline.cpp)
 
 set_target_properties(ceammc_core PROPERTIES
-    COMPILE_FLAGS "${FLAGS} ${PD_EXTERNAL_CFLAGS}"
-    LINK_FLAGS    "${FLAGS} ${PD_EXTERNAL_LDFLAGS}")
+    COMPILE_FLAGS "${LIBCEAMMC_COMPILE_FLAGS}"
+    LINK_FLAGS    "${LIBCEAMMC_LINK_FLAGS}")
 
 if(WIN32)
     target_link_libraries(ceammc_core psapi puredata-core)
@@ -76,8 +78,8 @@ endif()
 
 add_library(ceammc_sound SHARED ${CEAMMC_LOAD_SRC})
 set_target_properties(ceammc_sound PROPERTIES
-    COMPILE_FLAGS "${FLAGS} ${CEAMMC_LOAD_DEFS}"
-    LINK_FLAGS "${FLAGS} ${PD_EXTERNAL_LDFLAGS}")
+    COMPILE_FLAGS "${LIBCEAMMC_COMPILE_FLAGS} ${CEAMMC_LOAD_DEFS}"
+    LINK_FLAGS    "${LIBCEAMMC_LINK_FLAGS}")
 target_link_libraries(ceammc_sound ${CEAMMC_LOAD_LIBS})
 if(LIBSNDFILE_FOUND)
     if(APPLE)

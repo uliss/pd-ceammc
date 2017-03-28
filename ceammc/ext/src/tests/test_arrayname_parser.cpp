@@ -38,13 +38,13 @@ TEST_CASE("arrayname_parser", "[arrayname_parser]")
         REQUIRE(argc == 1);
         REQUIRE(argv[0] == "100000");
 
-        REQUIRE(array_load_parse("1,2,3", &argc, &argv));
+        REQUIRE(array_load_parse("1|2|3", &argc, &argv));
         REQUIRE(argc == 3);
         REQUIRE(argv[0] == "1");
         REQUIRE(argv[1] == "2");
         REQUIRE(argv[2] == "3");
 
-        REQUIRE(array_load_parse("word1,word2,word3", &argc, &argv));
+        REQUIRE(array_load_parse("word1|word2|word3", &argc, &argv));
         REQUIRE(argc == 3);
         REQUIRE(argv[0] == "word1");
         REQUIRE(argv[1] == "word2");
@@ -75,14 +75,14 @@ TEST_CASE("arrayname_parser", "[arrayname_parser]")
         REQUIRE_FALSE(array_load_parse("Z-X", &argc, &argv));
         REQUIRE(argc == 0);
 
-        REQUIRE(array_load_parse("1,30-32", &argc, &argv));
+        REQUIRE(array_load_parse("1|30-32", &argc, &argv));
         REQUIRE(argc == 4);
         REQUIRE(argv[0] == "1");
         REQUIRE(argv[1] == "30");
         REQUIRE(argv[2] == "31");
         REQUIRE(argv[3] == "32");
 
-        REQUIRE(array_load_parse("1,3-5,6", &argc, &argv));
+        REQUIRE(array_load_parse("1|3-5|6", &argc, &argv));
         REQUIRE(argc == 5);
         REQUIRE(argv[0] == "1");
         REQUIRE(argv[1] == "3");
@@ -90,7 +90,7 @@ TEST_CASE("arrayname_parser", "[arrayname_parser]")
         REQUIRE(argv[3] == "5");
         REQUIRE(argv[4] == "6");
 
-        REQUIRE(array_load_parse("1,5-3,6", &argc, &argv));
+        REQUIRE(array_load_parse("1|5-3|6", &argc, &argv));
         REQUIRE(argc == 5);
         REQUIRE(argv[0] == "1");
         REQUIRE(argv[1] == "5");
@@ -98,14 +98,14 @@ TEST_CASE("arrayname_parser", "[arrayname_parser]")
         REQUIRE(argv[3] == "3");
         REQUIRE(argv[4] == "6");
 
-        REQUIRE_FALSE(array_load_parse("1,,3", &argc, &argv));
-        REQUIRE_FALSE(array_load_parse(",3", &argc, &argv));
-        REQUIRE_FALSE(array_load_parse("3,", &argc, &argv));
+        REQUIRE_FALSE(array_load_parse("1||3", &argc, &argv));
+        REQUIRE_FALSE(array_load_parse("|3", &argc, &argv));
+        REQUIRE_FALSE(array_load_parse("3|", &argc, &argv));
         REQUIRE_FALSE(array_load_parse("-3", &argc, &argv));
         REQUIRE_FALSE(array_load_parse("3-", &argc, &argv));
         REQUIRE_FALSE(array_load_parse("3--56", &argc, &argv));
 
-        REQUIRE(array_load_parse("1,22-24,155,101-103", &argc, &argv));
+        REQUIRE(array_load_parse("1|22-24|155|101-103", &argc, &argv));
         REQUIRE(argc == 8);
         REQUIRE(argv[0] == "1");
         REQUIRE(argv[1] == "22");
@@ -146,10 +146,10 @@ TEST_CASE("arrayname_parser", "[arrayname_parser]")
         res = array_pattern_names("][ bad pattern");
         REQUIRE(res.empty());
 
-        res = array_pattern_names("[1,,]");
+        res = array_pattern_names("[1||]");
         REQUIRE(res.empty());
 
-        res = array_pattern_names("[1,2,]");
+        res = array_pattern_names("[1|2|]");
         REQUIRE(res.empty());
 
         res = array_pattern_names("[-30]");
@@ -168,7 +168,7 @@ TEST_CASE("arrayname_parser", "[arrayname_parser]")
         res = array_pattern_names("[x-1]");
         REQUIRE(res.empty());
 
-        res = array_pattern_names("[,]");
+        res = array_pattern_names("[|]");
         REQUIRE(res.empty());
 
         res = array_pattern_names("[]");
@@ -193,12 +193,12 @@ TEST_CASE("arrayname_parser", "[arrayname_parser]")
         REQUIRE(res[6] == "pref_7_suf");
         REQUIRE(res[7] == "pref_8_suf");
 
-        res = array_pattern_names("array[1,2]");
+        res = array_pattern_names("array[1|2]");
         REQUIRE(res.size() == 2);
         REQUIRE(res[0] == "array1");
         REQUIRE(res[1] == "array2");
 
-        res = array_pattern_names("array[L,R,C]");
+        res = array_pattern_names("array[L|R|C]");
         REQUIRE(res.size() == 3);
         REQUIRE(res[0] == "arrayL");
         REQUIRE(res[1] == "arrayR");

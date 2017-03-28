@@ -349,6 +349,11 @@
       <xi:include href="is_symbol.pddoc" parse="xml"/>
     </entry>
   </category>
+  <category name="snd">
+    <entry descr="Sound file loader on steroids" name="snd.file" ref_view="object">
+      <xi:include href="snd.file.pddoc" parse="xml"/>
+    </entry>
+  </category>
   <category name="symbol">
     <entry descr="length of symbol (unicode supported)" name="symbol.length" ref_view="object">
       <xi:include href="symbol.length.pddoc" parse="xml"/>
