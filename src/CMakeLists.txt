@@ -126,8 +126,11 @@ if(WITH_PORTAUDIO)
         # this is a link fix when portaudio was build with ASIO support.
         # and it requires C++ linking
         # we are making empty C++ file, so cmake automatically uses c++ linker
-        file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/asio_dummy.cpp "")
-        list(APPEND S_SRC ${CMAKE_CURRENT_BINARY_DIR}/asio_dummy.cpp)
+        set(_asio_link_fix ${CMAKE_CURRENT_BINARY_DIR}/asio_link_fix.cpp)
+        if(NOT EXISTS ${_asio_link_fix})
+            file(WRITE ${_asio_link_fix} "")
+        endif()
+        list(APPEND S_SRC ${_asio_link_fix})
     endif()
 endif()
 
