@@ -35,15 +35,15 @@ install:
     #- set OPTS=static,msvcrt
     #- if not %SYMBOLS%.==. set OPTS=symbols,static,msvcrt
     #- nmake -nologo -f makefile.vc shell OPTS=%OPTS% install
-    # CMake refuses to generate MinGW Makefiles if sh.exe is in the Path
-    - ps: Get-Command sh.exe -All | Remove-Item
     - cd ../..
     - dir C:\Tcl
 
 before_build:
     - dir
-    - git submodule init
-    - git submodule update 
+    - sh git submodule init
+    - sh git submodule update 
+    # CMake refuses to generate MinGW Makefiles if sh.exe is in the Path
+    - ps: Get-Command sh.exe -All | Remove-Item
     - set PATH=%PATH:C:\Program Files (x86)\Git\bin;=%
     - set PATH=%PATH:C:\Program Files\Git\usr\bin;=%
     - cmake --version
