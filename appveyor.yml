@@ -1,4 +1,4 @@
-os: Visual Studio 2013
+os: Visual Studio 2015
 
 version: '{build}'
 
@@ -9,7 +9,6 @@ environment:
 
 before_build:
 - set Path=%CD%\%MINGW_DIR%\bin;%Path%
-- cwd
 #- g++ --version
 #- mingw32-make --version
 - cmake --version
