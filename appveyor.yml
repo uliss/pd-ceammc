@@ -10,13 +10,15 @@ environment:
     - MINGW_DIR: mingw
 
 before_build:
-- set Path=%CD%\%MINGW_DIR%\bin;%Path%
-#- mingw32-make --version
-- cmake --version
-- echo "NUMBER_OF_PROCESSORS=%NUMBER_OF_PROCESSORS%"
-- if "%APPVEYOR_REPO_TAG%"=="true" (set CMAKE_BUILD_TYPE=Release) else (set CMAKE_BUILD_TYPE=Debug)
-- cmake -H. -Bbuild\mingw -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=%CMAKE_BUILD_TYPE% 
+    - set PATH=%PATH:C:\Program Files (x86)\Git\bin;=%
+    - set PATH=%CD%\%MINGW_DIR%\bin;%PATH%
+    - cmake --version
+    - echo "NUMBER_OF_PROCESSORS=%NUMBER_OF_PROCESSORS%"
+    - if "%APPVEYOR_REPO_TAG%"=="true" (set CMAKE_BUILD_TYPE=Release) else (set CMAKE_BUILD_TYPE=Debug)
+    - mkdir build
+    - cd build
+    - cmake -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=%CMAKE_BUILD_TYPE% ..
 
 build_script:
-- cmake --build build\mingw --use-stderr --target all --
+    - cmake --build . --use-stderr --target all -- -j%NUMBER_OF_PROCESSORS%
 
