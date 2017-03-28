@@ -22,7 +22,7 @@ install:
     - ps: Get-Command sh.exe -All | Remove-Item
 
 before_build:
-    - 
+    - dir
     - set PATH=%PATH:C:\Program Files (x86)\Git\bin;=%
     - set PATH=%PATH:C:\Program Files\Git\usr\bin;=%
     - set PATH=C:\%MINGW_DIR%\bin;%PATH%
