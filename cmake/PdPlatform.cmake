@@ -62,10 +62,19 @@ if(WIN32)
     install(DIRECTORY "${WISH_BINDIR}/../lib/reg1.3" DESTINATION "${PD_LIBTCL_INSTALL_PATH}")
     
     # pthreadGC-3.dll
-    find_file(PTHREADGC_DLL NAMES pthreadGC-3.dll pthreadGC-2.dll PATHS /mingw/bin)
+    find_file(PTHREADGC_DLL
+        NAMES pthreadGC-3.dll pthreadGC-2.dll winpthread-1.dll libwinpthread-1.dll
+        PATHS /mingw/bin /mingw/i686-w64-mingw32/bin)
     if(PTHREADGC_DLL)
+        message(STATUS "found thread lib: ${PTHREADGC_DLL}")
         install(FILES ${PTHREADGC_DLL} DESTINATION ${PD_EXE_INSTALL_PATH})
     endif()
+
+    # mingw runtime libs
+    get_filename_component(_MINGW_PATH ${CMAKE_CXX_COMPILER} PATH)
+    set(_MINGW_BIN ${_MINGW_PATH}/../i686-w64-mingw32/bin)
+    set(CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS ${_MINGW_BIN}/libgcc_s_dw2-1.dll ${_MINGW_BIN}/libstdc++-6.dll )
+    include(InstallRequiredSystemLibraries)
     
     # libportaudio-2.dll
     find_file(LIBPORTAUDIO_DLL NAMES libportaudio-2.dll PATHS /usr/bin /usr/local/bin)
@@ -82,11 +91,12 @@ if(WIN32)
     
     
     add_definitions(-DPD_INTERNAL -DWINVER=0x0502 -D_WIN32_WINNT=0x0502)
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mms-bitfields -O2 -funroll-loops -fomit-frame-pointer -static-libgcc -static -lpthread ")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mms-bitfields -O2 -funroll-loops -fomit-frame-pointer -lpthread ")
+    set(CMAKE_CXX_FLAGS "-mms-bitfields -O2 -funroll-loops -fomit-frame-pointer -lpthread")
     list(APPEND PLATFORM_LINK_LIBRARIES ${CMAKE_THREAD_LIBS_INIT})
     list(APPEND PLATFORM_LINK_LIBRARIES "m" "wsock32" "ole32" "winmm")
     set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--export-all-symbols -lpthread")
-    set(CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static -lpthread -lOle32 -lWinmm")
+    set(CMAKE_EXE_LINKER_FLAGS "-static -static-libgcc -static-libstdc++ -lpthread -lOle32 -lWinmm")
 endif()
 
 if(APPLE)
