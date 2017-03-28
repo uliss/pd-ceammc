@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pddoc version="1.0">
+    <object name="snd.file">
+        <title>snd.file</title>
+        <meta>
+            <authors>
+                <author>Pierre Guillot</author>
+            </authors>
+            <description>Sound file loader on steroids</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>snd</category>
+            <keywords>soundfiler</keywords>
+            <since>0.1</since>
+        </meta>
+        <info>
+            <par>Loads sound files to arrays. Various formats are supoorted.</par>
+        </info>
+        <methods>
+            <method name="load">Loads sound file</method>
+        </methods>
+        <inlets>
+            <inlet>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>loaded samples</outlet>
+            <outlet>information output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]
+|
+[openpanel]
+|
+[load $1 @to array1 @resize(
+|
+[snd.file]
+|
+[F size=10]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
+

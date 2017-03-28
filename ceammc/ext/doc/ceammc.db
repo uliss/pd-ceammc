@@ -106,6 +106,7 @@ osc.square~		~		~
 osc.tri~		~		~
 pass.changed		.		.
 pass.if		..		..
+snd.file		.		..
 symbol.length		.		.
 system.memsize		.		.
 system.memused		.		..

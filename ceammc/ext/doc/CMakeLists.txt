@@ -112,6 +112,7 @@ set(DOC_FILES
     osc.tri~
     pass.changed
     pass.if
+    snd.file
     symbol.length
     system.memsize
     system.memused
