@@ -57,5 +57,5 @@ before_build:
 
 build_script:
     - set VERBOSE=1
-    - cmake --build . --use-stderr --target all -- -j%NUMBER_OF_PROCESSORS%
+    - cmake --build . --use-stderr --target all -- 
 
