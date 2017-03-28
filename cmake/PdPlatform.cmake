@@ -24,7 +24,7 @@ if(WIN32)
     include(FindWindowsSDK)
 
     if(WINDOWSSDK_FOUND)
-        get_windowssdk_library_dirs(WINDOWSSDK_DIRS _win_sdk_dir)
+        get_windowssdk_library_dirs(${WINDOWSSDK_DIRS} _win_sdk_dir)
         link_directories(${_win_sdk_dir})
     endif()
 
