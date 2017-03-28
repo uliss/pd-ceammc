@@ -26,10 +26,11 @@ install:
     - cd tcl-release
     - cd win
     - call "%VCVARS%"
-    - nmake -nologo -f makefile.vc release install
-    - set OPTS=static,msvcrt
-    - if not %SYMBOLS%.==. set OPTS=symbols,static,msvcrt
-    - nmake -nologo -f makefile.vc shell OPTS=%OPTS% install
+    - set INSTALLDIR=C:\Tcl
+    - nmake -nologo -f makefile.vc all install
+    #- set OPTS=static,msvcrt
+    #- if not %SYMBOLS%.==. set OPTS=symbols,static,msvcrt
+    #- nmake -nologo -f makefile.vc shell OPTS=%OPTS% install
     # CMake refuses to generate MinGW Makefiles if sh.exe is in the Path
     - ps: Get-Command sh.exe -All | Remove-Item
     - cd ../..
