@@ -15,6 +15,7 @@ environment:
     TCL_ARCHIVE: "tcl-latest.zip"
     TK_URL: "https://github.com/tcltk/tk/archive/release.zip"
     TK_ARCHIVE: "tk-latest.zip"
+    TCLDIR: "C:/Tcl"
     matrix:
     - MINGW_DIR: mingw
 
@@ -25,7 +26,7 @@ install:
     - 7z x -y "%TK_ARCHIVE%" > nul
     - cd tcl-release/win
     - call "%VCVARS%"
-    - set INSTALLDIR=C:\Tcl
+    - set INSTALLDIR=%TCLDIR%
     - nmake -nologo -f makefile.vc all install
     - cd ../..
     - cd tk-release/win
@@ -40,6 +41,8 @@ install:
 
 before_build:
     - dir
+    - git submodule init
+    - git submodule update 
     - set PATH=%PATH:C:\Program Files (x86)\Git\bin;=%
     - set PATH=%PATH:C:\Program Files\Git\usr\bin;=%
     - cmake --version
