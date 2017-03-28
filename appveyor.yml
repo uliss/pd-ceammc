@@ -30,7 +30,7 @@ install:
     - nmake -nologo -f makefile.vc all install
     - cd ../..
     - cd tk-release/win
-    - set TCLDIR=../tcl-release
+    - set TCLDIR=../../tcl-release
     - nmake -nologo -f makefile.vc all install
     #- set OPTS=static,msvcrt
     #- if not %SYMBOLS%.==. set OPTS=symbols,static,msvcrt
