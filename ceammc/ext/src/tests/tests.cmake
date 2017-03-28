@@ -1,11 +1,22 @@
+find_program(WINE_EXE NAMES wine PATHS /usr/bin /usr/local/bin)
+if(WINE_EXE)
+    message(STATUS "WINE found: ${WINE_EXE}")
+endif()
+
 macro(ceammc_add_test title name)
     add_executable(${name} "${name}.cpp")
     target_link_libraries(${name} tests_main_lib ceammc_core puredata-core)
-    add_test(${title} ${name})
+    set(_exec_cmd ${name})
 
     if(${WITH_COVERAGE})
         set_target_properties(${name} PROPERTIES COMPILE_FLAGS "--coverage" LINK_FLAGS "--coverage")
     endif()
+
+    if(MINGW AND WINE_EXE)
+        set(_exec_cmd ${WINE_EXE} ${name})
+    endif()
+
+    add_test(NAME ${title} COMMAND ${_exec_cmd})
 endmacro()
 
 macro(ceammc_add_test_linked)
