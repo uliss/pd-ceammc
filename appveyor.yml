@@ -15,7 +15,7 @@ environment:
     TCL_ARCHIVE: "tcl-latest.zip"
     TK_URL: "https://github.com/tcltk/tk/archive/release.zip"
     TK_ARCHIVE: "tk-latest.zip"
-    TCLDIR: "C:/Tcl"
+    TCL_INSTALL_DIR: "C:/Tcl"
     matrix:
     - MINGW_DIR: mingw
 
@@ -26,10 +26,11 @@ install:
     - 7z x -y "%TK_ARCHIVE%" > nul
     - cd tcl-release/win
     - call "%VCVARS%"
-    - set INSTALLDIR=%TCLDIR%
+    - set INSTALLDIR=%TCL_INSTALL_DIR%
     - nmake -nologo -f makefile.vc all install
     - cd ../..
     - cd tk-release/win
+    - set TCLDIR=../tcl-release
     - nmake -nologo -f makefile.vc all install
     #- set OPTS=static,msvcrt
     #- if not %SYMBOLS%.==. set OPTS=symbols,static,msvcrt
