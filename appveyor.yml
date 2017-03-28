@@ -27,8 +27,8 @@ install:
     - cd win
     - CALL "%VCVARS%"
     - sh configure --prefix=C:/tcl
-    - sh nmake
-    - sh nmake install
+    - nmake
+    - nmake install
     - cd ../..
     # CMake refuses to generate MinGW Makefiles if sh.exe is in the Path
     - ps: Get-Command sh.exe -All | Remove-Item
