@@ -83,7 +83,7 @@ else(UNIX)
         set(WINSRC pmwin pmwinmm)
         prepend_path(LIBSRC ../pm_win/ ${WINSRC})
         list(APPEND LIBSRC ../porttime/ptwinmm)
-        set(PM_NEEDED_LIBS winmm.lib)
+        set(PM_NEEDED_LIBS winmm)
     endif()
 endif()
 
