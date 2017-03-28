@@ -11,6 +11,7 @@ environment:
 
 before_build:
     - set PATH=%PATH:C:\Program Files (x86)\Git\bin;=%
+    - set PATH=%PATH:C:\Program Files\Git\usr\bin;=%
     - set PATH=C:\%MINGW_DIR%\bin;%PATH%
     - cmake --version
     - echo "NUMBER_OF_PROCESSORS=%NUMBER_OF_PROCESSORS%"
