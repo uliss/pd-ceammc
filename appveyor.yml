@@ -24,17 +24,16 @@ install:
     - if not exist "%TK_ARCHIVE%" appveyor DownloadFile "%TK_URL%" -FileName "%TK_ARCHIVE%"
     - 7z x -y "%TCL_ARCHIVE%" > nul
     - 7z x -y "%TK_ARCHIVE%" > nul
+    # install TCL
     - cd tcl-release/win
     - call "%VCVARS%"
     - set INSTALLDIR=%TCL_INSTALL_DIR%
     - nmake -nologo -f makefile.vc all install
     - cd ../..
+    # install Tk
     - cd tk-release/win
     - set TCLDIR=../../tcl-release
     - nmake -nologo -f makefile.vc all install
-    #- set OPTS=static,msvcrt
-    #- if not %SYMBOLS%.==. set OPTS=symbols,static,msvcrt
-    #- nmake -nologo -f makefile.vc shell OPTS=%OPTS% install
     - cd ../..
     #- dir C:\Tcl
 
@@ -46,12 +45,13 @@ before_build:
     - ps: Get-Command sh.exe -All | Remove-Item
     - set PATH=%PATH:C:\Program Files (x86)\Git\bin;=%
     - set PATH=%PATH:C:\Program Files\Git\usr\bin;=%
+    - echo %PATH%
     - cmake --version
     - echo "NUMBER_OF_PROCESSORS=%NUMBER_OF_PROCESSORS%"
     - if "%APPVEYOR_REPO_TAG%"=="true" (set CMAKE_BUILD_TYPE=Release) else (set CMAKE_BUILD_TYPE=Debug)
     - mkdir build
     - cd build
-    - cmake -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=%CMAKE_BUILD_TYPE% ..
+    - cmake -G "MSYS Makefiles" -DCMAKE_BUILD_TYPE=%CMAKE_BUILD_TYPE% ..
 
 build_script:
     - cmake --build . --use-stderr --target all -- -j%NUMBER_OF_PROCESSORS%
