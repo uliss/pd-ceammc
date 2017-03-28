@@ -4,12 +4,24 @@ version: '{build}'
 
 clone_depth: 5
 
+cache:
+- tcl8.6.6-src.tar.gz
+
 environment:
     CTEST_OUTPUT_ON_FAILURE: 1
+    TCL_URL: "ftp://ftp.tcl.tk/pub/tcl/tcl8_6/tcl8.6.6-src.tar.gz"
+    TCL_ARCHIVE: "tcl8.6.6-src.tar.gz"
     matrix:
     - MINGW_DIR: mingw
 
+install:
+    - if not exist "%TCL_ARCHIVE%" appveyor DownloadFile "%TCL_URL%" -FileName "%TCL_ARCHIVE%"
+    - 7z x -y "%TCL_ARCHIVE%" > nul
+    # CMake refuses to generate MinGW Makefiles if sh.exe is in the Path
+    - ps: Get-Command sh.exe -All | Remove-Item
+
 before_build:
+    - 
     - set PATH=%PATH:C:\Program Files (x86)\Git\bin;=%
     - set PATH=%PATH:C:\Program Files\Git\usr\bin;=%
     - set PATH=C:\%MINGW_DIR%\bin;%PATH%
