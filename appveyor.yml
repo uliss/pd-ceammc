@@ -25,7 +25,7 @@ install:
     - 7z x -y "%TK_ARCHIVE%" > nul
     - cd tcl-release
     - cd win
-    - call %VCVARS%
+    - call "%VCVARS%"
     - nmake -nologo -f makefile.vc release install
     - set OPTS=static,msvcrt
     - if not %SYMBOLS%.==. set OPTS=symbols,static,msvcrt
