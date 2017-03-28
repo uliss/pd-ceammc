@@ -45,13 +45,14 @@ before_build:
     - ps: Get-Command sh.exe -All | Remove-Item
     - set PATH=%PATH:C:\Program Files (x86)\Git\bin;=%
     - set PATH=%PATH:C:\Program Files\Git\usr\bin;=%
+    - set PATH=C:\MinGW\bin:%PATH%
     - echo %PATH%
     - cmake --version
     - echo "NUMBER_OF_PROCESSORS=%NUMBER_OF_PROCESSORS%"
     - if "%APPVEYOR_REPO_TAG%"=="true" (set CMAKE_BUILD_TYPE=Release) else (set CMAKE_BUILD_TYPE=Debug)
     - mkdir build
     - cd build
-    - cmake -G "MSYS Makefiles" -DCMAKE_BUILD_TYPE=%CMAKE_BUILD_TYPE% ..
+    - cmake -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=%CMAKE_BUILD_TYPE% ..
 
 build_script:
     - cmake --build . --use-stderr --target all -- -j%NUMBER_OF_PROCESSORS%
