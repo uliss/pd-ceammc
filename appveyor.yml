@@ -23,10 +23,12 @@ install:
     - if not exist "%TK_ARCHIVE%" appveyor DownloadFile "%TK_URL%" -FileName "%TK_ARCHIVE%"
     - 7z x -y "%TCL_ARCHIVE%" > nul
     - 7z x -y "%TK_ARCHIVE%" > nul
-    - cd tcl-release
-    - cd win
+    - cd tcl-release/win
     - call "%VCVARS%"
     - set INSTALLDIR=C:\Tcl
+    - nmake -nologo -f makefile.vc all install
+    - cd ../..
+    - cd tk-release/win
     - nmake -nologo -f makefile.vc all install
     #- set OPTS=static,msvcrt
     #- if not %SYMBOLS%.==. set OPTS=symbols,static,msvcrt
@@ -34,6 +36,7 @@ install:
     # CMake refuses to generate MinGW Makefiles if sh.exe is in the Path
     - ps: Get-Command sh.exe -All | Remove-Item
     - cd ../..
+    - dir C:\Tcl
 
 before_build:
     - dir
