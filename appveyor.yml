@@ -25,8 +25,7 @@ install:
     - 7z x -y "%TK_ARCHIVE%" > nul
     - cd tcl-release
     - cd win
-    #- CALL "%VCVARS%"
-    #- buildall.vc.bat
+    - CALL "%VCVARS%"
     - sh configure --prefix=C:/tcl
     - sh make
     - sh install
