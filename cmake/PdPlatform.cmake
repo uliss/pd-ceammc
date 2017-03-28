@@ -30,6 +30,8 @@ if(WIN32)
         link_directories(${WINSDK_LIB_DIRS})
     endif()
 
+    link_directories("C:\Program Files (x86)\Windows Kits\8.0\lib\win8\um\x64")
+
     find_program(WISH_PATH
         NAMES wish86.exe wish85.exe wish.exe wish86t.exe
         PATHS C:/Tcl/bin)
@@ -110,7 +112,7 @@ if(WIN32)
 
     add_definitions(-DPD_INTERNAL -DWINVER=0x0502 -D_WIN32_WINNT=0x0502)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mms-bitfields -O2 -funroll-loops -fomit-frame-pointer -lpthread -mwindows ")
-    set(CMAKE_CXX_FLAGS "-mms-bitfields -O2 -funroll-loops -fomit-frame-pointer -lpthread -mwindows")
+    set(CMAKE_CXX_FLAGS "-mms-bitfields -O2 -funroll-loops -fomit-frame-pointer -lpthread")
     list(APPEND PLATFORM_LINK_LIBRARIES ${CMAKE_THREAD_LIBS_INIT})
     list(APPEND PLATFORM_LINK_LIBRARIES "m" "wsock32" "ole32" "winmm")
     set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--export-all-symbols -lpthread")
