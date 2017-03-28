@@ -5,12 +5,13 @@ version: '{build}'
 clone_depth: 5
 
 cache:
-- tcl8.6.6-src.tar.gz
+- tcl-latest.zip
+- tk-latest.zip
 
 environment:
     CTEST_OUTPUT_ON_FAILURE: 1
-    TCL_URL: "ftp://ftp.tcl.tk/pub/tcl/tcl8_6/tcl8.6.6-src.tar.gz"
-    TCL_ARCHIVE: "tcl8.6.6-src.tar.gz"
+    TCL_URL: "https://github.com/tcltk/tcl/archive/release.zip"
+    TCL_ARCHIVE: "tcl-latest.zip"
     matrix:
     - MINGW_DIR: mingw
 
