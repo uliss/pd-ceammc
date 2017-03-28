@@ -25,13 +25,13 @@ install:
     - 7z x -y "%TK_ARCHIVE%" > nul
     - cd tcl-release
     - cd win
-    - dir C:\%MINGW_DIR%\bin
-    - set PATH=C:\%MINGW_DIR%\bin;%PATH%
-    - sh configure --prefix=C:/tcl
+    - call %VCVARS%
+    - nmake -nologo -f makefile.vc release install
+    - set OPTS=static,msvcrt
+    - if not %SYMBOLS%.==. set OPTS=symbols,static,msvcrt
+    - nmake -nologo -f makefile.vc shell OPTS=%OPTS% install
     # CMake refuses to generate MinGW Makefiles if sh.exe is in the Path
     - ps: Get-Command sh.exe -All | Remove-Item
-    - mingw32-make
-    - mingw32-make install
     - cd ../..
 
 before_build:
