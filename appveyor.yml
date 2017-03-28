@@ -28,11 +28,11 @@ install:
     - dir C:\%MINGW_DIR%\bin
     - set PATH=C:\%MINGW_DIR%\bin;%PATH%
     - sh configure --prefix=C:/tcl
-    - sh mingw32-make
-    - sh mingw32-make install
-    - cd ../..
     # CMake refuses to generate MinGW Makefiles if sh.exe is in the Path
     - ps: Get-Command sh.exe -All | Remove-Item
+    - mingw32-make
+    - mingw32-make install
+    - cd ../..
 
 before_build:
     - dir
