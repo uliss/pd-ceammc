@@ -25,8 +25,11 @@ install:
     - 7z x -y "%TK_ARCHIVE%" > nul
     - cd tcl-release
     - cd win
-    - CALL "%VCVARS%"
-    - buildall.vc.bat
+    #- CALL "%VCVARS%"
+    #- buildall.vc.bat
+    - sh configure --prefix=C:/tcl
+    - sh make
+    - sh install
     - cd ../..
     # CMake refuses to generate MinGW Makefiles if sh.exe is in the Path
     - ps: Get-Command sh.exe -All | Remove-Item
