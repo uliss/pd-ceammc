@@ -11,7 +11,7 @@ environment:
 
 before_build:
     - set PATH=%PATH:C:\Program Files (x86)\Git\bin;=%
-    - set PATH=%CD%\%MINGW_DIR%\bin;%PATH%
+    - set PATH=C:\%MINGW_DIR%\bin;%PATH%
     - cmake --version
     - echo "NUMBER_OF_PROCESSORS=%NUMBER_OF_PROCESSORS%"
     - if "%APPVEYOR_REPO_TAG%"=="true" (set CMAKE_BUILD_TYPE=Release) else (set CMAKE_BUILD_TYPE=Debug)
