@@ -16,7 +16,7 @@ environment:
     TK_URL: "https://github.com/tcltk/tk/archive/release.zip"
     TK_ARCHIVE: "tk-latest.zip"
     TCL_INSTALL_DIR: "C:/Tcl"
-    BOOST_ROOT: "C:/Libraries/boost_1_63_0")
+    BOOST_ROOT: "C:/Libraries/boost_1_63_0"
     matrix:
     - MINGW_DIR: mingw
 
