@@ -23,9 +23,11 @@ endif()
 if(WIN32)
     include(FindWindowsSDK)
 
-    if(WINDOWSSDK_FOUND)
-        get_windowssdk_library_dirs(${WINDOWSSDK_DIRS} _win_sdk_dir)
-        link_directories(${_win_sdk_dir})
+    if (WINDOWSSDK_FOUND)
+        get_windowssdk_library_dirs(${WINDOWSSDK_PREFERRED_DIR} WINSDK_LIB_DIRS)
+        get_windowssdk_include_dirs(${WINDOWSSDK_PREFERRED_DIR} WINSDK_INCLUDE_DIRS)
+
+        link_directories(${WINSDK_LIB_DIRS})
     endif()
 
     find_program(WISH_PATH
