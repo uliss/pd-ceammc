@@ -13,12 +13,16 @@ environment:
     VCVARS: "C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VC\\bin\\vcvars32.bat"
     TCL_URL: "https://github.com/tcltk/tcl/archive/release.zip"
     TCL_ARCHIVE: "tcl-latest.zip"
+    TK_URL: "https://github.com/tcltk/tk/archive/release.zip"
+    TK_ARCHIVE: "tk-latest.zip"
     matrix:
     - MINGW_DIR: mingw
 
 install:
     - if not exist "%TCL_ARCHIVE%" appveyor DownloadFile "%TCL_URL%" -FileName "%TCL_ARCHIVE%"
+    - if not exist "%TK_ARCHIVE%" appveyor DownloadFile "%TK_URL%" -FileName "%TK_ARCHIVE%"
     - 7z x -y "%TCL_ARCHIVE%" > nul
+    - 7z x -y "%TK_ARCHIVE%" > nul
     - cd tcl-release
     - cd win
     - CALL "%VCVARS%"
