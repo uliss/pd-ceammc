@@ -81,6 +81,9 @@
     {pass/reject
         {pass.changed reject.if reject.this}
     }
+    {snd
+    	{snd.file}
+    }
     {converters
     	{conv.bpf2env conv.bpf2vline conv.bpf2list conv.bpf2array}
     }
