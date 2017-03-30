@@ -21,7 +21,19 @@ endif()
 
 
 if(WIN32)
-    find_program(WISH_PATH NAMES wish86.exe wish85.exe wish.exe)
+    include(FindWindowsSDK)
+
+    if (WINDOWSSDK_FOUND)
+        get_windowssdk_library_dirs(${WINDOWSSDK_PREFERRED_DIR} WINSDK_LIB_DIRS)
+        get_windowssdk_include_dirs(${WINDOWSSDK_PREFERRED_DIR} WINSDK_INCLUDE_DIRS)
+
+        link_directories(${WINSDK_LIB_DIRS})
+    endif()
+
+    find_program(WISH_PATH
+        NAMES wish86.exe wish85.exe wish.exe wish86t.exe
+        PATHS C:/Tcl/bin)
+
     if(NOT WISH_PATH)
         message(FATAL_ERROR "wish.exe not found")
     else()
@@ -89,14 +101,27 @@ if(WIN32)
         DESTINATION
             ${CMAKE_INSTALL_PREFIX})
     
-    
+    if(${CMAKE_SYSTEM_NAME} STREQUAL "WindowsStore")
+        message("Building for UWP")
+        set(FIPS_UWP 1)
+    else()
+        set(FIPS_UWP 0)
+    endif()
+
+    if (FIPS_UWP)
+        set(CMAKE_CXX_STANDARD_LIBRARIES "WindowsApp.lib")
+        set(CMAKE_C_STANDARD_LIBRARIES "WindowsApp.lib")
+    else()
+        set(CMAKE_CXX_STANDARD_LIBRARIES "-lkernel32 -lgdi32 -lole32 -lwinmm -luuid -lwsock32 -lws2_32")
+        set(CMAKE_C_STANDARD_LIBRARIES ${CMAKE_CXX_STANDARD_LIBRARIES})
+    endif()
+
     add_definitions(-DPD_INTERNAL -DWINVER=0x0502 -D_WIN32_WINNT=0x0502)
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mms-bitfields -O2 -funroll-loops -fomit-frame-pointer -lpthread ")
-    set(CMAKE_CXX_FLAGS "-mms-bitfields -O2 -funroll-loops -fomit-frame-pointer -lpthread")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mms-bitfields -O2 -funroll-loops -fomit-frame-pointer")
+    set(CMAKE_CXX_FLAGS "-mms-bitfields -O2 -funroll-loops -fomit-frame-pointer")
     list(APPEND PLATFORM_LINK_LIBRARIES ${CMAKE_THREAD_LIBS_INIT})
-    list(APPEND PLATFORM_LINK_LIBRARIES "m" "wsock32" "ole32" "winmm")
     set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--export-all-symbols -lpthread")
-    set(CMAKE_EXE_LINKER_FLAGS "-static -static-libgcc -static-libstdc++ -lpthread -lOle32 -lWinmm")
+    set(CMAKE_EXE_LINKER_FLAGS "-static -static-libgcc -static-libstdc++ -lpthread")
 endif()
 
 if(APPLE)

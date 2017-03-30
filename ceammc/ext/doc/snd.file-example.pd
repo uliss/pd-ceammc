@@ -1,11 +1,36 @@
-#N canvas 0 0 237 173 12;
+#N canvas 0 0 592 288 12;
 #X obj 20 48 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
+#N canvas 0 22 450 300 (subpatch) 0;
+#X array array1 100 float 0;
+#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X coords 0 1 100 -1 120 80 1;
+#X restore 452 48 graph;
 #X obj 20 77 openpanel;
-#X msg 20 106 load \$1 @to array1 @resize;
-#X obj 20 135 snd.file;
-#X floatatom 20 164 5 0 0 0 - - -;
-#X connect 3 0 4 0;
-#X connect 0 0 1 0;
-#X connect 1 0 2 0;
-#X connect 2 0 3 0;
+#X obj 173 92 hradio 15 1 0 4 empty empty empty 17 7 0 10 -262144 -1
+-1 0;
+#X obj 20 120 demux . . . .;
+#X msg 20 149 load \$1 @to array1 @resize;
+#X msg 68 178 load \$1 @to array[1-2] @resize;
+#N canvas 0 22 450 300 (subpatch) 0;
+#X array array2 100 float 0;
+#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X coords 0 1 100 -1 120 80 1;
+#X restore 452 178 graph;
+#X msg 116 207 load \$1 @to array[] @resize;
+#X obj 20 250 snd.file;
+#X floatatom 20 279 5 0 0 0 - - -;
+#X connect 4 1 6 0;
+#X connect 2 0 4 0;
+#X connect 8 0 9 0;
+#X connect 3 0 4 1;
+#X connect 6 0 9 0;
+#X connect 9 0 10 0;
+#X connect 5 0 9 0;
+#X connect 4 2 8 0;
+#X connect 4 0 5 0;
+#X connect 0 0 2 0;
