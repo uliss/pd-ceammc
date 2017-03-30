@@ -17,11 +17,20 @@
             <par>Loads sound files to arrays. Various formats are supoorted.</par>
         </info>
         <methods>
-            <method name="load">Loads sound file</method>
+            <method name="load">Loads sound file.
+                <param type="symbol" required="true" name="PATH">path to soundfile</param>
+                <param type="symbol" required="true" name="@to ARRAY_NAME">destination array name or pattern. Array patterns specified in square braces: array_[1-4] means - array_1, array_2, array_3, array_4.
+                array_[left|right] means array_left and array_right</param>
+                <param type="property" name="@resize">resize array to feet loaded file</param>
+                <param type="property" name="@offset SAMPLES">offset in samples from beginning of file</param>
+                <param type="symbol" name="@channel N1, N2..">channels to load</param>
+            </method>
+            <method name="info">Outputs info about sound file
+                <param type="symbol" required="true" name="PATH">path to soundfile</param>
+            </method>
         </methods>
         <inlets>
-            <inlet>
-            </inlet>
+            <inlet type="control"><xinfo>input inlet</xinfo></inlet>
         </inlets>
         <outlets>
             <outlet>loaded samples</outlet>
@@ -30,15 +39,26 @@
         <example>
             <pdascii>
 <![CDATA[
-[B]
+[B]                                          [A array1 w=120 h=80]
 |
 [openpanel]
+|               [HR number=4]
+|               |.
+[demux . . . . #d]
 |
 [load $1 @to array1 @resize(
 |
-[snd.file]
+|    [load $1 @to array[1-2] @resize #m1(    [A array2 w=120 h=80]
+|    |
+|    |    [load $1 @to array[] @resize #m2(
+|    |    |
+|    |    |
+[snd.file  ]
 |
 [F size=10]
+
+[X d:1->m1]
+[X d:2->m2]
 ]]>
             </pdascii>
         </example>
