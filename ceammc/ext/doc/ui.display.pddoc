@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pddoc version="1.0">
-    <object name="ui.display">
+    <object name="ui.display" type="gui">
         <title>ui.display</title>
         <meta>
             <authors>
@@ -10,7 +10,7 @@
             <description>Display GUI object</description>
             <license>GPL3</license>
             <library>ceammc</library>
-            <category>ui</category>
+            <category view="link">ui</category>
             <keywords>display</keywords>
             <since>0.1</since>
             <also>

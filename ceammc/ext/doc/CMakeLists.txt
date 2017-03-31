@@ -178,11 +178,11 @@ else()
         COMMAND ${CMAKE_COMMAND} -E copy_if_different "ceammc-help.pd" ${CMAKE_CURRENT_SOURCE_DIR})
 
     add_custom_target(ceammc_pddoc
-        DEPENDS ${DOC_PD_FILES} "ceammc.db" ceammc_pddoc_cat "ceammc_lib.xml" "ceammc-help.pd")
+        DEPENDS ${DOC_PD_FILES} "ceammc.db" "ceammc_lib.xml" ceammc_pddoc_cat "ceammc-help.pd")
 
     add_custom_target(ceammc_pddoc_cat
         DEPENDS ${DOC_PD_FILES} "ceammc_lib.xml"
-        COMMAND pd_cat2pd "ceammc_lib.xml"
+        COMMAND ${PD_CAT2PD} "ceammc_lib.xml"
         WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
 endif()
 

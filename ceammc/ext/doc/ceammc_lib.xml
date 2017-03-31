@@ -377,7 +377,7 @@
     <entry descr="Breakpoint function GUI object" name="ui.bpfunc" ref_view="link">
       <xi:include href="ui.bpfunc.pddoc" parse="xml"/>
     </entry>
-    <entry descr="Display GUI object" name="ui.display" ref_view="object">
+    <entry descr="Display GUI object" name="ui.display" ref_view="link">
       <xi:include href="ui.display.pddoc" parse="xml"/>
     </entry>
     <entry descr="Scope GUI object" name="ui.scope~" ref_view="link">
