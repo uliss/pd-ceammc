@@ -1,10 +1,10 @@
-#N canvas 0 0 685 555 12;
-#X obj 492 50 cnv 1 173 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 492 50 A bang\.\.\. that's all;
-#X obj 1 1 cnv 5 682 40 empty empty ui.bang 20 20 0 20 -104026 -4096
+#N canvas 0 0 715 555 12;
+#X obj 522 50 cnv 1 173 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 522 50 A bang\.\.\. that's all;
+#X obj 1 1 cnv 5 712 40 empty empty ui.bang 20 20 0 20 -104026 -4096
 0;
-#X obj 225 80 cnv 1 440 33 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 230 80 do nothing more than vanilla bang for the moment\.\.\.;
+#X obj 235 80 cnv 1 460 33 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 80 do nothing more than vanilla bang for the moment\.\.\.;
 #X msg 50 141 dump;
 #X obj 50 170 ui.bang @receive b_in @size 40 40 @send b_out;
 #X obj 117 199 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
@@ -12,37 +12,37 @@
 #X obj 50 228 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 117 228 s b_in;
-#X obj 20 267 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 267 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 272 cnv 5 63 16 empty empty methods: 0 14 0 14 -262144
 -49933 0;
-#X msg 125 277 dump;
-#X text 230 277 dumps all object info to Pd console window\.;
-#X obj 20 314 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 319 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
+#X msg 120 277 dump;
+#X text 240 277 dumps all object info to Pd console window\.;
+#X obj 20 319 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 324 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
 0;
-#X text 125 324 1\.;
-#X text 150 324 *bang*;
-#X text 230 324 outputs bang\. ;
-#X text 150 342 *float*;
-#X text 230 342 outputs bang\. ;
-#X text 150 360 *symbol*;
-#X text 230 360 outputs bang\. ;
-#X text 150 378 *list*;
-#X text 230 378 outputs bang\. ;
-#X obj 20 406 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 411 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
+#X text 120 329 1\.;
+#X text 150 329 *bang*;
+#X text 240 329 outputs bang\. ;
+#X text 150 347 *float*;
+#X text 240 347 outputs bang\. ;
+#X text 150 365 *symbol*;
+#X text 240 365 outputs bang\. ;
+#X text 150 383 *list*;
+#X text 240 383 outputs bang\. ;
+#X obj 20 411 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 416 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;
-#X text 125 416 1\.;
-#X text 230 416 bang output;
+#X text 120 421 1\.;
+#X text 240 421 bang output;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 522 520 see also:;
-#X obj 592 523 ui.link @title [ui.toggle] @bgcolor 0.78431 0.78431
+#X text 552 520 see also:;
+#X obj 622 523 ui.link @title [ui.toggle] @bgcolor 0.78431 0.78431
 0.78431 @url ui.toggle-help.pd;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;

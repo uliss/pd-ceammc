@@ -1,9 +1,9 @@
-#N canvas 0 0 685 555 12;
-#X obj 544 50 cnv 1 121 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 544 50 soft signal clip;
-#X obj 1 1 cnv 5 682 40 empty empty dyn.softclip~ 20 20 0 20 -104026
+#N canvas 0 0 715 555 12;
+#X obj 574 50 cnv 1 121 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 574 50 soft signal clip;
+#X obj 1 1 cnv 5 712 40 empty empty dyn.softclip~ 20 20 0 20 -104026
 -4096 0;
-#X obj 562 11 dyn.softclip~;
+#X obj 592 11 dyn.softclip~;
 #X obj 50 118 osc~ 220;
 #X floatatom 155 118 5 0 0 0 - - -;
 #X obj 242 118 osc~ 220;
@@ -18,22 +18,22 @@
 #X obj 242 219 *~;
 #X obj 50 248 dac~;
 #X obj 242 248 dac~;
-#X obj 20 287 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 287 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 292 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
 0;
-#X text 125 297 1\.;
-#X text 230 297 input signal\. ;
-#X obj 20 325 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 297 1\.;
+#X text 240 297 input signal\. ;
+#X obj 20 325 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 330 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;
-#X text 125 335 1\.;
-#X text 230 335 output signal;
+#X text 120 335 1\.;
+#X text 240 335 output signal;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title dyn @url ceammc.dyn-help.pd;
-#X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;

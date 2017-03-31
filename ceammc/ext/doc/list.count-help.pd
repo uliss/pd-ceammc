@@ -1,10 +1,10 @@
-#N canvas 0 0 685 555 12;
-#X obj 248 50 cnv 1 417 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 248 50 returns the number of items that equal to specified
+#N canvas 0 0 715 555 12;
+#X obj 278 50 cnv 1 417 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 278 50 returns the number of items that equal to specified
 value;
-#X obj 1 1 cnv 5 682 40 empty empty list.count 20 20 0 20 -104026
+#X obj 1 1 cnv 5 712 40 empty empty list.count 20 20 0 20 -104026
 -4096 0;
-#X obj 585 11 list.count;
+#X obj 615 11 list.count;
 #X msg 146 118 pattern c;
 #X msg 280 118 list a b c c;
 #X msg 50 147 1 2 3 1;
@@ -12,40 +12,42 @@ value;
 #X obj 50 176 list.count a;
 #X floatatom 50 205 5 0 0 0 - - -;
 #X obj 136 205 print;
-#X obj 20 244 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 244 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 249 cnv 5 80 16 empty empty arguments: 0 14 0 14 -262144
 -49933 0;
-#X text 125 254 1\.;
+#X text 120 254 1\.;
 #X text 150 254 any;
-#X obj 231 255 cnv 1 58 18 empty empty empty 17 7 0 10 -237308 -1 0;
-#X text 230 254 pattern: count pattern value\. ;
-#X obj 20 282 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 241 255 cnv 1 58 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 254 pattern: count pattern value\. ;
+#X obj 20 282 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 287 cnv 5 63 16 empty empty methods: 0 14 0 14 -262144
 -49933 0;
-#X msg 125 292 pattern X;
-#X text 230 292 new pattern value\. ;
-#X obj 20 329 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 334 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
+#X msg 120 292 pattern;
+#X text 240 292  Arguments are: ;
+#X obj 240 320 cnv 1 59 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 320 [anonym]: new pattern value;
+#X obj 20 358 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 363 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
 0;
-#X text 125 339 1\.;
-#X text 150 339 *list*;
-#X text 230 339 Input list\. ;
-#X text 125 357 2\.;
-#X text 230 357 change pattern value\. ;
-#X obj 20 385 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 390 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
+#X text 120 368 1\.;
+#X text 150 368 *list*;
+#X text 240 368 Input list\. ;
+#X text 120 386 2\.;
+#X text 240 386 change pattern value\. ;
+#X obj 20 414 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 419 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;
-#X text 125 395 1\.;
-#X text 230 395 count of found elements;
+#X text 120 424 1\.;
+#X text 240 424 count of found elements;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 496 520 see also:;
-#X obj 566 520 list.count_if;
+#X text 526 520 see also:;
+#X obj 596 520 list.count_if;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

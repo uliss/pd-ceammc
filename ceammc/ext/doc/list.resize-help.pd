@@ -1,9 +1,9 @@
-#N canvas 0 0 685 555 12;
-#X obj 501 50 cnv 1 164 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 501 50 changes list size with;
-#X obj 1 1 cnv 5 682 40 empty empty list.resize 20 20 0 20 -104026
+#N canvas 0 0 715 555 12;
+#X obj 531 50 cnv 1 164 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 531 50 changes list size with;
+#X obj 1 1 cnv 5 712 40 empty empty list.resize 20 20 0 20 -104026
 -4096 0;
-#X obj 578 11 list.resize;
+#X obj 608 11 list.resize;
 #X msg 50 118 1 2 3 4 5 6 7 8 9 10 11;
 #X msg 69 147 1 2 3;
 #X msg 88 176 @wrap;
@@ -14,66 +14,66 @@
 #X obj 50 234 list.resize 8;
 #X obj 50 262 prepend set;
 #X msg 50 291 ;
-#X obj 20 330 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 330 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 335 cnv 5 80 16 empty empty arguments: 0 14 0 14 -262144
 -49933 0;
-#X text 125 340 1\.;
+#X text 120 340 1\.;
 #X text 150 340 int;
-#X obj 231 341 cnv 1 37 18 empty empty empty 17 7 0 10 -237308 -1 0;
-#X text 230 340 SIZE: desired list size\. Min: 0;
-#X text 125 358 2\.;
+#X obj 241 341 cnv 1 37 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 340 SIZE: desired list size\. Min: 0;
+#X text 120 358 2\.;
 #X text 150 358 int;
-#X obj 231 359 cnv 1 74 18 empty empty empty 17 7 0 10 -237308 -1 0;
-#X text 230 358 @size INT: desired list size\. Min: 0;
-#X text 125 376 3\.;
+#X obj 241 359 cnv 1 74 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 358 @size INT: desired list size\. Min: 0;
+#X text 120 376 3\.;
 #X text 150 376 property;
-#X obj 231 377 cnv 1 95 18 empty empty empty 17 7 0 10 -237308 -1 0;
-#X text 230 376 @method ENUM: method of resizing \, if new size is
+#X obj 241 377 cnv 1 95 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 376 @method ENUM: method of resizing \, if new size is
 longer then current\.  Possible values are: pad \, clip \, wrap \,
 fold\.\. ;
-#X text 125 422 4\.;
+#X text 120 422 4\.;
 #X text 150 422 float;
-#X obj 231 423 cnv 1 81 18 empty empty empty 17 7 0 10 -237308 -1 0;
-#X text 230 422 @pad VALUE: set pad value for pad method of
+#X obj 241 423 cnv 1 81 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 422 @pad VALUE: set pad value for pad method of
 resizing\.\. ;
-#X text 125 440 5\.;
+#X text 120 440 5\.;
 #X text 150 440 property;
-#X obj 231 441 cnv 1 45 18 empty empty empty 17 7 0 10 -237308 -1 0;
-#X text 230 440 @clip: pad with last values\. ;
-#X text 125 458 6\.;
+#X obj 241 441 cnv 1 45 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 440 @clip: pad with last values\. ;
+#X text 120 458 6\.;
 #X text 150 458 property;
-#X obj 231 459 cnv 1 45 18 empty empty empty 17 7 0 10 -237308 -1 0;
-#X text 230 458 @wrap: wrap list values\. ;
-#X text 125 476 7\.;
+#X obj 241 459 cnv 1 45 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 458 @wrap: wrap list values\. ;
+#X text 120 476 7\.;
 #X text 150 476 property;
-#X obj 231 477 cnv 1 45 18 empty empty empty 17 7 0 10 -237308 -1 0;
-#X text 230 476 @fold: fold list values\. ;
-#X obj 20 504 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 241 477 cnv 1 45 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 476 @fold: fold list values\. ;
+#X obj 20 504 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 509 cnv 5 63 16 empty empty methods: 0 14 0 14 -262144
 -49933 0;
-#X msg 125 514 @size?;
-#X text 230 514 output current size;
-#X obj 20 551 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 556 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
+#X msg 120 514 @size?;
+#X text 240 514 output current size\.;
+#X obj 20 556 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 561 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
 0;
-#X text 125 561 1\.;
-#X text 150 561 *list*;
-#X text 230 561 input list\. ;
-#X obj 20 589 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 594 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
+#X text 120 566 1\.;
+#X text 150 566 *list*;
+#X text 240 566 input list\. ;
+#X obj 20 594 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 599 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;
-#X text 125 599 1\.;
-#X text 230 599 resized list;
+#X text 120 604 1\.;
+#X text 240 604 resized list;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 647 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 650 library: ceammc v0\.1;
-#X text 511 662 see also:;
-#X obj 581 662 list.length;
-#N canvas 10 669 400 250 info 0;
+#X obj 1 652 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 655 library: ceammc v0\.1;
+#X text 541 667 see also:;
+#X obj 611 667 list.length;
+#N canvas 10 674 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -96,7 +96,7 @@ resizing\.\. ;
 https://github.com/uliss/pure-data;
 #X obj 120 228 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 228 generated by pddoc;
-#X restore 10 669 pd info;
+#X restore 10 674 pd info;
 #X connect 8 0 11 0;
 #X connect 9 0 11 0;
 #X connect 4 0 11 0;

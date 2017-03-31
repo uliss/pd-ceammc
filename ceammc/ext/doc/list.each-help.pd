@@ -1,38 +1,38 @@
-#N canvas 0 0 685 555 12;
-#X obj 350 50 cnv 1 315 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 350 50 maps each list value via external object(s);
-#X obj 1 1 cnv 5 682 40 empty empty list.each 20 20 0 20 -104026 -4096
+#N canvas 0 0 715 555 12;
+#X obj 380 50 cnv 1 315 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 380 50 maps each list value via external object(s);
+#X obj 1 1 cnv 5 712 40 empty empty list.each 20 20 0 20 -104026 -4096
 0;
-#X obj 592 11 list.each;
+#X obj 622 11 list.each;
 #X msg 50 118 1 2 3 4 5 6 7 8 9;
 #X obj 50 147 list.each;
 #X obj 184 147 pow 2;
 #X obj 50 176 prepend set;
 #X msg 50 205 ;
-#X obj 20 244 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 244 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 249 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
 0;
-#X text 125 254 1\.;
+#X text 120 254 1\.;
 #X text 150 254 *list*;
-#X text 230 254 Input list\. ;
-#X text 125 272 2\.;
-#X text 230 272 New modified value from applied object\.\. ;
-#X obj 20 300 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 254 Input list\. ;
+#X text 120 272 2\.;
+#X text 240 272 New modified value from applied object\.\. ;
+#X obj 20 300 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 305 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;
-#X text 125 310 1\.;
-#X text 230 310 New modified list;
-#X text 125 328 2\.;
-#X text 230 328 Single list element;
+#X text 120 310 1\.;
+#X text 240 310 New modified list;
+#X text 120 328 2\.;
+#X text 240 328 Single list element;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 496 520 see also:;
-#X obj 566 520 list.apply_to;
+#X text 526 520 see also:;
+#X obj 596 520 list.apply_to;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

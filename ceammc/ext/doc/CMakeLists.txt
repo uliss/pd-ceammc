@@ -137,29 +137,29 @@ else()
     set(DOC_XLET_DB_FILES)
     set(DOC_PDDOC_FILES)
     foreach(f ${DOC_FILES})
-        set(fname "${CMAKE_CURRENT_SOURCE_DIR}/${f}-help.pd")
-        set(fname_xlet "${CMAKE_CURRENT_SOURCE_DIR}/${f}-xlet_db.txt")
+        set(fname "${CMAKE_CURRENT_BINARY_DIR}/${f}-help.pd")
+        set(fname_xlet "${CMAKE_CURRENT_BINARY_DIR}/${f}-xlet_db.txt")
         set(fname_pddoc "${CMAKE_CURRENT_SOURCE_DIR}/${f}.pddoc")
         list(APPEND DOC_PD_FILES ${fname})
         list(APPEND DOC_XLET_DB_FILES ${fname_xlet})
         list(APPEND DOC_PDDOC_FILES ${fname_pddoc})
         add_custom_command(
             OUTPUT ${fname}
-            DEPENDS "${f}.pddoc"
+            DEPENDS ${fname_pddoc}
             COMMAND ${PD_DOC2PD}
                  --force
                  --version "${CEAMMC_LIB_VERSION}"
                  --website "${CEAMMC_LIB_HOME}"
-                 --xlet-db "ceammc.db"
-                "${f}.pddoc" ${fname}
-            WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
+                 --xlet-db "${CMAKE_CURRENT_SOURCE_DIR}/ceammc.db"
+                "${fname_pddoc}" ${fname}
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${fname} ${CMAKE_CURRENT_SOURCE_DIR})
     endforeach()
 
     add_custom_command(
         OUTPUT "ceammc.db"
         DEPENDS ${DOC_XLET_DB_FILES}
         COMMAND cat "*-xlet_db.txt" | sort > ceammc.db
-        WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different ceammc.db ${CMAKE_CURRENT_SOURCE_DIR})
 
     add_custom_command(
         OUTPUT "ceammc_lib.xml"
@@ -167,18 +167,18 @@ else()
         COMMAND ${PD_MAKELIB}
             --library ceammc
             --version "${CEAMMC_LIB_VERSION}"
-            --output "ceammc_lib.xml" ${DOC_PDDOC_FILES}
-        WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
+            --output ceammc_lib.xml ${DOC_PDDOC_FILES}
+            --search-path ${CMAKE_CURRENT_SOURCE_DIR}
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different ceammc_lib.xml ${CMAKE_CURRENT_SOURCE_DIR})
 
     add_custom_command(
         OUTPUT "ceammc-help.pd"
-        DEPENDS "ceammc_lib.xml"
-        COMMAND ${PD_LIB2PD} "ceammc_lib.xml"
-        WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
+        DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/ceammc_lib.xml"
+        COMMAND ${PD_LIB2PD} "${CMAKE_CURRENT_SOURCE_DIR}/ceammc_lib.xml"
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different "ceammc-help.pd" ${CMAKE_CURRENT_SOURCE_DIR})
 
     add_custom_target(ceammc_pddoc
-        DEPENDS ${DOC_PD_FILES} "ceammc.db" ceammc_pddoc_cat "ceammc_lib.xml" "ceammc-help.pd"
-        WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
+        DEPENDS ${DOC_PD_FILES} "ceammc.db" ceammc_pddoc_cat "ceammc_lib.xml" "ceammc-help.pd")
 
     add_custom_target(ceammc_pddoc_cat
         DEPENDS ${DOC_PD_FILES} "ceammc_lib.xml"
@@ -212,5 +212,6 @@ endif()
 
 
 file(GLOB _PDDOC_FILES "*.pddoc")
-add_custom_target(pddoc_files SOURCES ${_PDDOC_FILES})
+file(GLOB _PDDOC_XML_FILES "*.xml")
+add_custom_target(pddoc_files SOURCES ${_PDDOC_FILES} ${_PDDOC_XML_FILES})
 

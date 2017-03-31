@@ -1,37 +1,37 @@
-#N canvas 0 0 685 555 12;
-#X obj 264 50 cnv 1 401 35 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 264 50 treats list of floats as vector \, returns vector
+#N canvas 0 0 715 555 12;
+#X obj 294 50 cnv 1 401 35 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 294 50 treats list of floats as vector \, returns vector
 length: sqrt(element(1)^2 + \.\.\.element(n)^2)\.;
-#X obj 1 1 cnv 5 682 40 empty empty vector.length 20 20 0 20 -104026
+#X obj 1 1 cnv 5 712 40 empty empty vector.length 20 20 0 20 -104026
 -4096 0;
-#X obj 563 11 vector.length;
+#X obj 593 11 vector.length;
 #X msg 50 118 1 0 0;
 #X msg 126 118 3 4;
 #X msg 184 118 1 2 3 4;
 #X obj 50 176 vector.length;
 #X floatatom 50 205 5 0 0 0 - - -;
-#X obj 20 244 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 244 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 249 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
 0;
-#X text 125 254 1\.;
+#X text 120 254 1\.;
 #X text 150 254 *list*;
-#X text 230 254 Input list of floats\.\. ;
-#X obj 20 282 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 254 Input list of floats\.\. ;
+#X obj 20 282 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 287 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;
-#X text 125 292 1\.;
-#X text 230 292 Vector length (float);
+#X text 120 292 1\.;
+#X text 240 292 Vector length (float);
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title vector @url ceammc.vector-help.pd;
-#X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 263 520 see also:;
-#X obj 333 520 vector.normalize;
-#X obj 464 520 vector.distance;
-#X obj 588 520 vector.dot;
+#X text 293 520 see also:;
+#X obj 363 520 vector.normalize;
+#X obj 494 520 vector.distance;
+#X obj 618 520 vector.dot;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

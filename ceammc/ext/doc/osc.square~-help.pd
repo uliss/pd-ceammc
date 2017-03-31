@@ -1,43 +1,43 @@
-#N canvas 0 0 685 555 12;
-#X obj 413 50 cnv 1 252 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 413 50 Bandlimited square wave oscillator;
-#X obj 1 1 cnv 5 682 40 empty empty osc.square~ 20 20 0 20 -104026
+#N canvas 0 0 715 555 12;
+#X obj 443 50 cnv 1 252 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 443 50 Bandlimited square wave oscillator;
+#X obj 1 1 cnv 5 712 40 empty empty osc.square~ 20 20 0 20 -104026
 -4096 0;
-#X obj 576 11 osc.square~;
+#X obj 606 11 osc.square~;
 #X floatatom 50 118 5 0 0 0 - - -;
 #X obj 50 147 osc.square~ 200;
 #X obj 194 162 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 50 190 *~;
 #X obj 50 219 dac~;
-#X obj 20 258 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 258 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 263 cnv 5 80 16 empty empty arguments: 0 14 0 14 -262144
 -49933 0;
-#X text 125 268 1\.;
+#X text 120 268 1\.;
 #X text 150 268 float;
-#X obj 231 269 cnv 1 65 18 empty empty empty 17 7 0 10 -237308 -1 0;
-#X text 230 268 freq(Hz): frequency\. ;
-#X obj 20 296 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 241 269 cnv 1 65 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 268 freq(Hz): frequency\. ;
+#X obj 20 296 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 301 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
 0;
-#X text 125 306 1\.;
+#X text 120 306 1\.;
 #X text 150 306 *float*;
-#X text 230 306 frequency in Hz\. ;
-#X obj 20 334 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 306 frequency in Hz\. ;
+#X obj 20 334 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 339 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;
-#X text 125 344 1\.;
-#X text 230 344 output signal;
+#X text 120 344 1\.;
+#X text 240 344 output signal;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title osc @url ceammc.osc-help.pd;
-#X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 362 520 see also:;
-#X obj 432 520 osc.saw~;
-#X obj 506 520 osc.tri~;
-#X obj 580 520 lfo.square~;
+#X text 392 520 see also:;
+#X obj 462 520 osc.saw~;
+#X obj 536 520 osc.tri~;
+#X obj 610 520 lfo.square~;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

@@ -1,15 +1,15 @@
-#N canvas 0 0 630 500 12;
+#N canvas 0 0 715 500 12;
 #X text 30 50 General purpose Pd library used for work and education
 purposes in centre of electroacoustic music of Moscow Conservatory
 (CEAMMC) and ZIL-electro studio\. ;
 #X obj 20 101 cnv 5 38 19 empty empty data 0 17 0 17 -262144 -49933 0;
-#X obj 20 130 cnv 1 606 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 130 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 141 data.fifo;
 #X text 175 141 First-In-First-Out (FIFO) queue data container;
 #X obj 30 168 data.list;
 #X text 175 168 list container;
 #X obj 20 195 cnv 5 28 19 empty empty dyn 0 17 0 17 -262144 -49933 0;
-#X obj 20 224 cnv 1 606 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 224 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 235 dyn.comp2~;
 #X text 175 235 stereo dynamic range compressor;
 #X obj 30 262 dyn.comp~;
@@ -25,7 +25,7 @@ purposes in centre of electroacoustic music of Moscow Conservatory
 #X obj 30 397 dyn.softclip~;
 #X text 175 397 soft signal clip;
 #X obj 20 424 cnv 5 28 19 empty empty env 0 17 0 17 -262144 -49933 0;
-#X obj 20 453 cnv 1 606 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 453 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 464 env.adsr~;
 #X text 175 464 ADSR (Attack \, Decay \, Sustain \, Release) envelope
 generator;
@@ -36,7 +36,7 @@ create percussion envelopes)\.;
 #X text 175 528 Envelope follower with independent attack and release
 times\.;
 #X obj 20 565 cnv 5 27 19 empty empty flt 0 17 0 17 -262144 -49933 0;
-#X obj 20 594 cnv 1 606 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 594 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 605 flt.dcblock2~;
 #X text 175 605 stereo DC blocker;
 #X obj 30 632 flt.dcblock~;
@@ -50,7 +50,7 @@ section\.;
 #X obj 30 737 flt.lowshelf~;
 #X text 175 737 gain boost|cut below some frequency;
 #X obj 20 764 cnv 5 18 19 empty empty fx 0 17 0 17 -262144 -49933 0;
-#X obj 20 793 cnv 1 606 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 793 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 804 fx.freeverb~;
 #X text 175 804 freeverb - common used open-source reverb;
 #X obj 30 831 fx.freqshift~;
@@ -59,7 +59,7 @@ section\.;
 #X text 175 858 simple pitch shifter based on 2 delay lines;
 #X obj 20 885 cnv 5 59 19 empty empty global 0 17 0 17 -262144 -49933
 0;
-#X obj 20 914 cnv 1 606 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 914 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 925 global.float;
 #X text 175 925 global named float object;
 #X obj 30 952 global.int;
@@ -67,7 +67,7 @@ section\.;
 #X obj 30 979 global.list;
 #X text 175 979 global named list object;
 #X obj 20 1006 cnv 5 27 19 empty empty lfo 0 17 0 17 -262144 -49933 0;
-#X obj 20 1035 cnv 1 606 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1035 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 1046 lfo.impulse~;
 #X text 175 1046 Unit-amplitude low-frequency impulse train;
 #X obj 30 1073 lfo.square~;
@@ -76,7 +76,7 @@ section\.;
 #X text 175 1100 Positive unit-amplitude low frequency triangle wave;
 #X obj 20 1127 cnv 5 37 19 empty empty list 0 17 0 17 -262144 -49933
 0;
-#X obj 20 1156 cnv 1 606 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1156 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 1167 list.apply_to;
 #X text 175 1167 modifies list value at specified position \,
 filtering it via external object\.;
@@ -155,13 +155,13 @@ unique elements on first outlet \, outputs the count of elements on
 second\.;
 #X obj 20 2129 cnv 5 38 19 empty empty live 0 17 0 17 -262144 -49933
 0;
-#X obj 20 2158 cnv 1 606 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2158 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 2169 live.capture~;
 #X text 175 2169 record up to 8s of sound and playback the recorded
 sound in loop;
 #X obj 20 2206 cnv 5 38 19 empty empty math 0 17 0 17 -262144 -49933
 0;
-#X obj 20 2235 cnv 1 606 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2235 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 2246 math.abs;
 #X text 175 2246 absolute value function;
 #X obj 30 2273 math.acos;
@@ -222,18 +222,18 @@ direction;
 #X obj 30 2975 math.trunc;
 #X text 175 2975 truncate to integer value;
 #X obj 20 3002 cnv 5 28 19 empty empty msg 0 17 0 17 -262144 -49933 0;
-#X obj 20 3031 cnv 1 606 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 3031 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 3042 msg;
 #X text 175 3042 message constructor;
 #X obj 20 3069 cnv 5 48 19 empty empty noise 0 17 0 17 -262144 -49933
 0;
-#X obj 20 3098 cnv 1 606 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 3098 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 3109 noise.pink~;
 #X text 175 3109 Pink noise generator;
 #X obj 30 3136 noise.white~;
 #X text 175 3136 White noise generator;
 #X obj 20 3163 cnv 5 28 19 empty empty osc 0 17 0 17 -262144 -49933 0;
-#X obj 20 3192 cnv 1 606 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 3192 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 3203 osc.impulse~;
 #X text 175 3203 Bandlimited impulse train generator;
 #X obj 30 3230 osc.pulse~;
@@ -248,14 +248,14 @@ direction;
 #X text 175 3338 Bandlimited triangle wave oscillator;
 #X obj 20 3365 cnv 5 37 19 empty empty pass 0 17 0 17 -262144 -49933
 0;
-#X obj 20 3394 cnv 1 606 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 3394 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 3405 pass.changed;
 #X text 175 3405 rejects redundant input values;
 #X obj 30 3432 pass.if;
 #X text 175 3432 pass values that accepted by predicate object;
 #X obj 20 3459 cnv 5 99 19 empty empty predicates 0 17 0 17 -262144
 -49933 0;
-#X obj 20 3488 cnv 1 606 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 3488 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 3499 is_any;
 #X text 175 3499 checks if input data has *any* type;
 #X obj 30 3526 is_bang;
@@ -273,17 +273,17 @@ direction;
 #X obj 30 3688 is_symbol;
 #X text 175 3688 checks if input data has *symbol* type;
 #X obj 20 3715 cnv 5 27 19 empty empty snd 0 17 0 17 -262144 -49933 0;
-#X obj 20 3744 cnv 1 606 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 3744 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 3755 snd.file;
 #X text 175 3755 Sound file loader on steroids;
 #X obj 20 3782 cnv 5 58 19 empty empty symbol 0 17 0 17 -262144 -49933
 0;
-#X obj 20 3811 cnv 1 606 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 3811 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 3822 symbol.length;
 #X text 175 3822 length of symbol (unicode supported);
 #X obj 20 3849 cnv 5 58 19 empty empty system 0 17 0 17 -262144 -49933
 0;
-#X obj 20 3878 cnv 1 606 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 3878 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 3889 system.memsize;
 #X text 175 3889 returns the size of physical memory (RAM) in bytes
 round to float data type\.;
@@ -293,7 +293,7 @@ peak;
 #X obj 30 3953 system.screen_size;
 #X text 175 3953 returns current screen size in pixels;
 #X obj 20 3980 cnv 5 18 19 empty empty ui 0 17 0 17 -262144 -49933 0;
-#X obj 20 4009 cnv 1 606 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 4009 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 4023 ui.link @title [ui.bang] @url ui.bang-help.pd;
 #X text 175 4020 A bang\.\.\. that's all;
 #X obj 30 4046 ui.link @title [ui.bpfunc] @url ui.bpfunc-help.pd;
@@ -309,7 +309,7 @@ ui.spectroscope~-help.pd;
 #X text 175 4139 modern toggle widget;
 #X obj 20 4162 cnv 5 59 19 empty empty vector 0 17 0 17 -262144 -49933
 0;
-#X obj 20 4191 cnv 1 606 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 4191 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 4202 vector.distance;
 #X text 175 4202 returns euclidean distance between two points;
 #X obj 30 4229 vector.dot;
@@ -321,8 +321,8 @@ multiplied)\.;
 length: sqrt(element(1)^2 + \.\.\.element(n)^2)\.;
 #X obj 30 4317 vector.normalize;
 #X text 175 4317 returns normalized vector;
-#X obj 1 1 cnv 5 627 40 empty empty ceammc 20 20 0 20 -104026 -4096 0;
-#X obj 1 4344 cnv 5 627 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 1 cnv 5 712 40 empty empty ceammc 20 20 0 20 -104026 -4096 0;
+#X obj 1 4344 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 20 4344 version: v0\.1 \, license: GPL3;
 #X obj 20 4363 ui.link @title https://github.com/uliss/pure-data @url
 https://github.com/uliss/pure-data;

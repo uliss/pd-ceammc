@@ -1,9 +1,9 @@
-#N canvas 0 0 685 555 12;
-#X obj 471 50 cnv 1 194 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 471 50 stereo 1176LN Peak Limiter;
-#X obj 1 1 cnv 5 682 40 empty empty dyn.limit2~ 20 20 0 20 -104026
+#N canvas 0 0 715 555 12;
+#X obj 501 50 cnv 1 194 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 501 50 stereo 1176LN Peak Limiter;
+#X obj 1 1 cnv 5 712 40 empty empty dyn.limit2~ 20 20 0 20 -104026
 -4096 0;
-#X obj 576 11 dyn.limit2~;
+#X obj 606 11 dyn.limit2~;
 #X obj 50 118 osc~ 440;
 #X floatatom 165 118 5 0 0 0 - - -;
 #X obj 50 147 *~;
@@ -14,30 +14,30 @@
 #X obj 184 262 env~;
 #X floatatom 50 291 5 0 0 0 - - -;
 #X floatatom 184 291 5 0 0 0 - - -;
-#X obj 20 330 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 330 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 335 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
 0;
-#X text 125 340 1\.;
-#X text 230 340 left input signal\. ;
-#X text 125 358 2\.;
-#X text 230 358 right input signal\. ;
-#X obj 20 386 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 340 1\.;
+#X text 240 340 left input signal\. ;
+#X text 120 358 2\.;
+#X text 240 358 right input signal\. ;
+#X obj 20 386 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 391 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;
-#X text 125 396 1\.;
-#X text 230 396 left output signal;
-#X text 125 414 2\.;
-#X text 230 414 right output signal;
+#X text 120 396 1\.;
+#X text 240 396 left output signal;
+#X text 120 414 2\.;
+#X text 240 414 right output signal;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title dyn @url ceammc.dyn-help.pd;
-#X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 436 520 see also:;
-#X obj 506 520 dyn.limit~;
-#X obj 594 520 dyn.comp~;
+#X text 466 520 see also:;
+#X obj 536 520 dyn.limit~;
+#X obj 624 520 dyn.comp~;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

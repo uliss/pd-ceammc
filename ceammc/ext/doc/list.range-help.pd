@@ -1,11 +1,11 @@
-#N canvas 0 0 685 555 12;
-#X obj 379 50 cnv 1 286 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 379 50 returns list smallest and largest value;
-#X obj 1 1 cnv 5 682 40 empty empty list.range 20 20 0 20 -104026
+#N canvas 0 0 715 555 12;
+#X obj 409 50 cnv 1 286 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 409 50 returns list smallest and largest value;
+#X obj 1 1 cnv 5 712 40 empty empty list.range 20 20 0 20 -104026
 -4096 0;
-#X obj 585 11 list.range;
-#X obj 225 80 cnv 1 440 33 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 230 80 Note: numbers are smaller then symbols;
+#X obj 615 11 list.range;
+#X obj 235 80 cnv 1 460 33 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 80 Note: numbers are smaller then symbols;
 #X msg 50 141 list a b z;
 #X msg 174 141 1 2 b c;
 #X floatatom 69 170 5 0 0 0 - - -;
@@ -17,28 +17,28 @@
 #X obj 347 228 !-;
 #X msg 50 257 ;
 #X floatatom 347 257 5 0 0 0 - - -;
-#X obj 20 296 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 296 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 301 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
 0;
-#X text 125 306 1\.;
+#X text 120 306 1\.;
 #X text 150 306 *list*;
-#X text 230 306 input list\. ;
-#X obj 20 334 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 306 input list\. ;
+#X obj 20 334 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 339 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;
-#X text 125 344 1\.;
-#X text 230 344 list of two elements: first is a smallest values \,
+#X text 120 344 1\.;
+#X text 240 344 list of two elements: first is a smallest values \,
 second - largest;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 460 520 see also:;
-#X obj 530 520 list.min;
-#X obj 602 520 list.max;
+#X text 490 520 see also:;
+#X obj 560 520 list.min;
+#X obj 632 520 list.max;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

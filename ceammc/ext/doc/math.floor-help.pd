@@ -1,40 +1,40 @@
-#N canvas 0 0 685 555 12;
-#X obj 299 50 cnv 1 366 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 299 50 round to largest integral value not greater than x;
-#X obj 1 1 cnv 5 682 40 empty empty math.floor 20 20 0 20 -104026
+#N canvas 0 0 715 555 12;
+#X obj 329 50 cnv 1 366 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 329 50 round to largest integral value not greater than x;
+#X obj 1 1 cnv 5 712 40 empty empty math.floor 20 20 0 20 -104026
 -4096 0;
-#X obj 584 11 math.floor;
-#X obj 225 80 cnv 1 440 116 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 230 80 The floor() functions return the largest integral value
+#X obj 614 11 math.floor;
+#X obj 235 80 cnv 1 460 116 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 80 The floor() functions return the largest integral value
 less than or equal to x\. ;
-#X text 230 117 Special values:;
-#X text 230 140 floor(+-0) returns +-0\.;
-#X text 230 163 floor(+-infinity) returns +-infinity\. ;
+#X text 240 117 Special values:;
+#X text 240 140 floor(+-0) returns +-0\.;
+#X text 240 163 floor(+-infinity) returns +-infinity\. ;
 #X floatatom 50 224 5 0 0 0 - - -;
 #X obj 50 253 math.floor;
 #X floatatom 50 282 5 0 0 0 - - -;
-#X obj 20 321 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 321 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 326 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
 0;
-#X text 125 331 1\.;
+#X text 120 331 1\.;
 #X text 150 331 *float*;
-#X text 230 331 input value\. ;
-#X obj 20 359 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 331 input value\. ;
+#X obj 20 359 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 364 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;
-#X text 125 369 1\.;
-#X text 230 369 result value;
+#X text 120 369 1\.;
+#X text 240 369 result value;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title math @url ceammc.math-help.pd;
-#X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 349 520 see also:;
-#X obj 419 520 math.ceil;
-#X obj 500 520 math.round;
-#X obj 587 520 math.trunc;
+#X text 379 520 see also:;
+#X obj 449 520 math.ceil;
+#X obj 530 520 math.round;
+#X obj 617 520 math.trunc;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

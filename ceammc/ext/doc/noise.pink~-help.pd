@@ -1,35 +1,35 @@
-#N canvas 0 0 685 555 12;
-#X obj 515 50 cnv 1 150 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 515 50 Pink noise generator;
-#X obj 1 1 cnv 5 682 40 empty empty noise.pink~ 20 20 0 20 -104026
+#N canvas 0 0 715 555 12;
+#X obj 545 50 cnv 1 150 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 545 50 Pink noise generator;
+#X obj 1 1 cnv 5 712 40 empty empty noise.pink~ 20 20 0 20 -104026
 -4096 0;
-#X obj 577 11 noise.pink~;
-#X obj 225 80 cnv 1 440 149 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 230 80 Pink noise or 1/f noise is a signal or process with a
+#X obj 607 11 noise.pink~;
+#X obj 235 80 cnv 1 460 149 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 80 Pink noise or 1/f noise is a signal or process with a
 frequency spectrum such that the power spectral density (energy or
 power per frequency interval) is inversely proportional to the
 frequency of the signal\.;
-#X text 230 145 In pink noise \, each octave (halving/doubling in
+#X text 240 145 In pink noise \, each octave (halving/doubling in
 frequency) carries an equal amount of noise energy\.;
-#X text 230 182 The name arises from the pink appearance of visible
+#X text 240 182 The name arises from the pink appearance of visible
 light with this power spectrum\.;
 #X obj 50 257 ui.dsp~;
 #X obj 50 301 noise.pink~;
 #X obj 50 358 ui.scope~ @size 150 100;
-#X obj 20 480 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 480 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 485 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;
-#X text 125 490 1\.;
-#X text 230 490 output signal;
+#X text 120 490 1\.;
+#X text 240 490 output signal;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title noise @url ceammc.noise-help.pd;
-#X obj 1 538 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 538 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 541 library: ceammc v0\.1;
-#X text 503 553 see also:;
-#X obj 573 553 noise.white~;
+#X text 533 553 see also:;
+#X obj 603 553 noise.white~;
 #N canvas 10 560 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

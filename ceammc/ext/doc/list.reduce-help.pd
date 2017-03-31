@@ -1,15 +1,15 @@
-#N canvas 0 0 685 555 12;
-#X obj 255 50 cnv 1 410 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 255 50 apply function of two arguments cumulatively to the
+#N canvas 0 0 715 555 12;
+#X obj 285 50 cnv 1 410 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 285 50 apply function of two arguments cumulatively to the
 list;
-#X obj 1 1 cnv 5 682 40 empty empty list.reduce 20 20 0 20 -104026
+#X obj 1 1 cnv 5 712 40 empty empty list.reduce 20 20 0 20 -104026
 -4096 0;
-#X obj 578 11 list.reduce;
-#X obj 225 80 cnv 1 440 112 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 230 80 Apply function of two arguments cumulatively to the
+#X obj 608 11 list.reduce;
+#X obj 235 80 cnv 1 460 112 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 80 Apply function of two arguments cumulatively to the
 list \, from left to right \, so as to reduce the list to a single
 value\.;
-#X text 230 131 You can imaging this process as a space replacement
+#X text 240 131 You can imaging this process as a space replacement
 between elements with binary function \,  for example: 1 2 3 4 5
 becames ((((1+2)+3)+4)+5) after reducing with "+"\.;
 #X msg 50 220 1 2 3 4;
@@ -38,31 +38,31 @@ becames ((((1+2)+3)+4)+5) after reducing with "+"\.;
 #X obj 424 494 max;
 #X floatatom 50 523 5 0 0 0 - - -;
 #X floatatom 270 523 5 0 0 0 - - -;
-#X obj 20 562 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 562 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 567 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
 0;
-#X text 125 572 1\.;
+#X text 120 572 1\.;
 #X text 150 572 *list*;
-#X text 230 572 input list\. ;
-#X text 125 590 2\.;
+#X text 240 572 input list\. ;
+#X text 120 590 2\.;
 #X text 150 590 *any*;
-#X text 230 590 value from binary function\. ;
-#X obj 20 618 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 590 value from binary function\. ;
+#X obj 20 618 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 623 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;
-#X text 125 628 1\.;
-#X text 230 628 output value;
-#X text 125 646 2\.;
-#X text 230 646 pair value to binary function;
+#X text 120 628 1\.;
+#X text 240 628 output value;
+#X text 120 646 2\.;
+#X text 240 646 pair value to binary function;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 694 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 694 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 697 library: ceammc v0\.1;
-#X text 532 709 see also:;
-#X obj 602 709 list.max;
+#X text 562 709 see also:;
+#X obj 632 709 list.max;
 #N canvas 10 716 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

@@ -1,9 +1,9 @@
-#N canvas 0 0 685 555 12;
-#X obj 529 50 cnv 1 136 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 529 50 Display GUI object;
-#X obj 1 1 cnv 5 682 40 empty empty ui.display 20 20 0 20 -104026
+#N canvas 0 0 715 555 12;
+#X obj 559 50 cnv 1 136 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 559 50 Display GUI object;
+#X obj 1 1 cnv 5 712 40 empty empty ui.display 20 20 0 20 -104026
 -4096 0;
-#X obj 584 11 ui.display;
+#X obj 614 11 ui.display;
 #X msg 50 133 list a b c;
 #X msg 174 133 1;
 #X msg 213 133 symbol X;
@@ -15,21 +15,21 @@
 #X msg 213 262 symbol X;
 #X msg 318 262 any msg;
 #X obj 50 320 ui.display @display_type 1;
-#X obj 20 344 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 344 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 349 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
 0;
-#X text 125 354 1\.;
+#X text 120 354 1\.;
 #X text 150 354 *list*;
-#X text 230 354 accepts any messages and displays it\. \. ;
+#X text 240 354 accepts any messages and displays it\. \. ;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 568 520 see also:;
-#X obj 638 520 msg;
+#X text 598 520 see also:;
+#X obj 668 520 msg;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
