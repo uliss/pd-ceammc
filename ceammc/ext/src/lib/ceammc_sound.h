@@ -18,10 +18,12 @@
 #include <m_pd.h>
 #include <string>
 #include <vector>
+#include <utility>
 
 namespace ceammc {
 namespace sound {
-    typedef std::vector<std::string> StringList;
+    typedef std::pair<std::string, std::string> FormatDescription;
+    typedef std::vector<FormatDescription> FormatList;
     class SoundFile;
     typedef boost::shared_ptr<SoundFile> SoundFilePtr;
 
@@ -56,7 +58,7 @@ namespace sound {
     };
 
     typedef SoundFilePtr (*loadFunc)(const std::string& path);
-    typedef StringList (*formatFunc)();
+    typedef FormatList (*formatFunc)();
     struct LoaderDescr {
         LoaderDescr(const std::string& n, loadFunc f, formatFunc ff)
             : name(n)
@@ -73,7 +75,7 @@ namespace sound {
     class SoundFileLoader {
     public:
         static bool registerLoader(const LoaderDescr& l);
-        static StringList supportedFormats();
+        static FormatList supportedFormats();
 
         static SoundFilePtr open(const std::string& path);
 

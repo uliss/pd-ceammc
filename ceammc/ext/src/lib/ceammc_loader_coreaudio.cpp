@@ -64,7 +64,7 @@ long CoreAudioFile::read(t_word* dest, size_t sz, size_t channel, long offset)
     return res < 0 ? -1 : res;
 }
 
-StringList CoreAudioFile::supportedFormats()
+FormatList CoreAudioFile::supportedFormats()
 {
-    return StringList();
+    return FormatList();
 }

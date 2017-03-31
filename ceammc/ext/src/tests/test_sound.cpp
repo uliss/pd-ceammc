@@ -29,16 +29,16 @@ SoundFilePtr testLoadFunc(const std::string& path)
     return SoundFilePtr();
 }
 
-StringList testFormatFunc()
+FormatList testFormatFunc()
 {
-    return StringList();
+    return FormatList();
 }
 
 TEST_CASE("ceammc_sound", "[ceammc_sound]")
 {
     SECTION("supportedFormats")
     {
-        StringList lst = SoundFileLoader::supportedFormats();
+        FormatList lst = SoundFileLoader::supportedFormats();
 
         REQUIRE(lst.size() > 0);
     }

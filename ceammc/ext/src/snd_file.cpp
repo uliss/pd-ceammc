@@ -173,20 +173,20 @@ void SndFile::dump() const
 {
     BaseObject::dump();
 
-    StringList lst = SoundFileLoader::supportedFormats();
+    FormatList lst = SoundFileLoader::supportedFormats();
 
     OBJ_DBG << "Supported formats:";
     for (size_t i = 0; i < lst.size(); i++) {
-        OBJ_DBG << "  - " << lst[i];
+        OBJ_DBG << "  - " << lst[i].first << ' ' << lst[i].second;
     }
 }
 
 AtomList SndFile::supportedFormats() const
 {
     AtomList res;
-    StringList lst = SoundFileLoader::supportedFormats();
+    FormatList lst = SoundFileLoader::supportedFormats();
     for (size_t i = 0; i < lst.size(); i++)
-        res.append(Atom(gensym(lst[i].c_str())));
+        res.append(Atom(gensym(lst[i].first.c_str())));
 
     return res;
 }

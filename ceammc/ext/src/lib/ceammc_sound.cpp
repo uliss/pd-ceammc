@@ -71,15 +71,15 @@ namespace sound {
         }
     }
 
-    StringList SoundFileLoader::supportedFormats()
+    FormatList SoundFileLoader::supportedFormats()
     {
-        StringList res;
+        FormatList res;
 
         if (loaders().empty())
             return res;
 
         for (size_t i = 0; i < loaders().size(); i++) {
-            StringList fmt = loaders().at(i).formats();
+            FormatList fmt = loaders().at(i).formats();
             res.insert(res.end(), fmt.begin(), fmt.end());
         }
 
