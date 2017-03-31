@@ -349,6 +349,11 @@
       <xi:include href="is_symbol.pddoc" parse="xml"/>
     </entry>
   </category>
+  <category name="property">
+    <entry descr="Property getter" name="prop-&gt;" ref_view="object">
+      <xi:include href="prop.get.pddoc" parse="xml"/>
+    </entry>
+  </category>
   <category name="snd">
     <entry descr="Sound file loader on steroids" name="snd.file" ref_view="object">
       <xi:include href="snd.file.pddoc" parse="xml"/>

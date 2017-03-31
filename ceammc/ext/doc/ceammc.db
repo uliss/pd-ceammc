@@ -104,6 +104,7 @@ osc.square~		~		~
 osc.tri~		~		~
 pass.changed		.		.
 pass.if		..		..
+prop->		.		?
 snd.file		.		..
 symbol.length		.		.
 system.memsize		.		.

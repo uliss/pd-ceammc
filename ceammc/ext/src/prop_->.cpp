@@ -87,4 +87,5 @@ extern "C" void setup_prop0x2d0x3e()
         sizeof(t_prop), 0, A_GIMME, A_NULL);
     class_addanything(prop_get_class, prop_get_anything);
     class_addmethod(prop_get_class, reinterpret_cast<t_method>(prop_get_dump), gensym("dump"), A_NULL);
+    class_sethelpsymbol(prop_get_class, gensym("prop.get"));
 }

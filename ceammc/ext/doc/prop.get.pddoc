@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pddoc version="1.0">
+    <object name="prop->">
+        <title>prop-&gt;</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Property getter</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>property</category>
+            <keywords>property</keywords>
+            <since>0.1</since>
+            <also>
+<!--                <see>prop&lt;-</see>-->
+            </also>
+        </meta>
+        <info>
+            <par>empty</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo on="any">input values</xinfo>
+            </inlet>
+        </inlets>
+        <outlets dynamic="true">
+            <outlet>passed values</outlet>
+            <outlet>output to predicate object</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]   [@prop1 a b c(
+|     |
+[prop->]
+|     ^|
+[F]   [ui.display]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
+
