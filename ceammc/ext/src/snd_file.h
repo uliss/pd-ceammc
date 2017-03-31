@@ -28,6 +28,8 @@ public:
     void m_info(t_symbol* sel, const AtomList& lst);
     void dump() const;
 
+    AtomList supportedFormats() const;
+
 protected:
     void postLoadUsage();
     t_garray* findArray(const Atom& name) const;

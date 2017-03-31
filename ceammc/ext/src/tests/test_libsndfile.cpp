@@ -27,7 +27,7 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
 {
     SECTION("supported formats")
     {
-        StringList fmt(LibSndFile::supportedFormats());
+        FormatList fmt(LibSndFile::supportedFormats());
         REQUIRE(!fmt.empty());
 
         LibSndFile sf("not-exists");

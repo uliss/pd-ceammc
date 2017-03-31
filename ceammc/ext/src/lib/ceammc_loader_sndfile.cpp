@@ -110,9 +110,9 @@ namespace sound {
         return frames_read_total;
     }
 
-    StringList LibSndFile::supportedFormats()
+    FormatList LibSndFile::supportedFormats()
     {
-        StringList res;
+        FormatList res;
 
         SF_FORMAT_INFO format_info;
         int count;
@@ -121,7 +121,12 @@ namespace sound {
         for (int k = 0; k < count; k++) {
             format_info.format = k;
             sf_command(0, SFC_GET_FORMAT_MAJOR, &format_info, sizeof(format_info));
-            res.push_back(format_info.name);
+
+            std::string finfo(format_info.name);
+            std::string::size_type space_pos = finfo.find(' ', 0);
+            std::string name = finfo.substr(0, space_pos);
+            std::string desc = finfo.substr(space_pos + 0, std::string::npos);
+            res.push_back(std::make_pair(name, desc));
         };
 
         return res;

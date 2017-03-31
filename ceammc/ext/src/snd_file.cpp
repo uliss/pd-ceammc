@@ -17,6 +17,8 @@ SndFile::SndFile(const PdArgs& a)
 {
     createOutlet();
     createOutlet();
+
+    createCbProperty("@formats", &SndFile::supportedFormats);
 }
 
 void SndFile::m_load(t_symbol* sel, const AtomList& lst)
@@ -171,12 +173,22 @@ void SndFile::dump() const
 {
     BaseObject::dump();
 
-    StringList lst = SoundFileLoader::supportedFormats();
+    FormatList lst = SoundFileLoader::supportedFormats();
 
     OBJ_DBG << "Supported formats:";
     for (size_t i = 0; i < lst.size(); i++) {
-        OBJ_DBG << "  - " << lst[i];
+        OBJ_DBG << "  - " << lst[i].first << ' ' << lst[i].second;
     }
+}
+
+AtomList SndFile::supportedFormats() const
+{
+    AtomList res;
+    FormatList lst = SoundFileLoader::supportedFormats();
+    for (size_t i = 0; i < lst.size(); i++)
+        res.append(Atom(gensym(lst[i].first.c_str())));
+
+    return res;
 }
 
 void SndFile::postLoadUsage()

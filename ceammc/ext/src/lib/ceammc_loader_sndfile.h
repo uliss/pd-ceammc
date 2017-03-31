@@ -35,7 +35,7 @@ namespace sound {
         long read(t_word* dest, size_t sz, size_t channel, long offset = 0);
 
     public:
-        static StringList supportedFormats();
+        static FormatList supportedFormats();
     };
 }
 }
