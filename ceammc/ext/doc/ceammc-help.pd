@@ -276,7 +276,7 @@ direction;
 -49933 0;
 #X obj 20 3744 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 3755 prop->;
-#X text 175 3755 Property getter;
+#X text 175 3755 Property extractor;
 #X obj 20 3782 cnv 5 27 19 empty empty snd 0 17 0 17 -262144 -49933 0;
 #X obj 20 3811 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 3822 snd.file;

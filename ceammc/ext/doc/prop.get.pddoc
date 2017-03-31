@@ -6,18 +6,18 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>Property getter</description>
+            <description>Property extractor</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>property</category>
             <keywords>property</keywords>
             <since>0.1</since>
             <also>
-<!--                <see>prop&lt;-</see>-->
+                <see>prop&lt;-</see>
             </also>
         </meta>
         <info>
-            <par>empty</par>
+            <par>Extracts properties from data stream with matching. Non property values are passed untouched.</par>
         </info>
         <inlets>
             <inlet>
@@ -26,16 +26,28 @@
         </inlets>
         <outlets dynamic="true">
             <outlet>passed values</outlet>
-            <outlet>output to predicate object</outlet>
+            <outlet>first matched property output</outlet>
+            <outlet number="...">others matched property output</outlet>
+            <outlet number="n">unmatched property output</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[F]   [@prop1 a b c(
+          [any value(
+          |
+[F]       |   [@prop1 a b c(   [@oth 1 2 3 4(
+|         |   |                |
+|  [B]    |   | [@prop1 2(     |
+|  |      |   | |              |
+|  |      |   | |              |
+|  |      |   | |              |
+[prop-> @prop1                  ]
+|     ^|   ^^|
+|     |      [ui.display @display_type 1]
 |     |
-[prop->]
-|     ^|
-[F]   [ui.display]
+|    [ui.display @display_type 1]
+|
+[ui.display @display_type 1]
 ]]>
             </pdascii>
         </example>
