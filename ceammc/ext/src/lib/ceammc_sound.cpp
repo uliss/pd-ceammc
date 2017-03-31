@@ -71,6 +71,21 @@ namespace sound {
         }
     }
 
+    static bool hasFormatInList(const std::string& fmt, const FormatList& lst)
+    {
+        for (size_t i = 0; i < lst.size(); i++) {
+            if (lst[i].first == fmt)
+                return true;
+        }
+
+        return false;
+    }
+
+    static bool compareFmt(const FormatDescription& d1, const FormatDescription& d2)
+    {
+        return d1.first.compare(d2.first) < 0;
+    }
+
     FormatList SoundFileLoader::supportedFormats()
     {
         FormatList res;
@@ -79,9 +94,16 @@ namespace sound {
             return res;
 
         for (size_t i = 0; i < loaders().size(); i++) {
-            FormatList fmt = loaders().at(i).formats();
-            res.insert(res.end(), fmt.begin(), fmt.end());
+            FormatList formats = loaders().at(i).formats();
+            for (size_t j = 0; j < formats.size(); j++) {
+                FormatDescription fd = formats[j];
+
+                if (!hasFormatInList(fd.first, res))
+                    res.push_back(fd);
+            }
         }
+
+        std::sort(res.begin(), res.end(), compareFmt);
 
         return res;
     }

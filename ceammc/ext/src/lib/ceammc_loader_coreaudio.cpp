@@ -66,5 +66,16 @@ long CoreAudioFile::read(t_word* dest, size_t sz, size_t channel, long offset)
 
 FormatList CoreAudioFile::supportedFormats()
 {
-    return FormatList();
+    FormatList fmts;
+    fmts.push_back(std::make_pair<std::string>("AIFF", "Audio Interchange File Format"));
+    fmts.push_back(std::make_pair<std::string>("ALAC", "AppleLossless"));
+    fmts.push_back(std::make_pair<std::string>("AAC",  "MPEG 4 Audio - AAC"));
+    fmts.push_back(std::make_pair<std::string>("CAF", "Apple Core Audio Format"));
+    fmts.push_back(std::make_pair<std::string>("MP3", "MPEG Layer 3"));
+    fmts.push_back(std::make_pair<std::string>("MP4", "MPEG 4 Audio"));
+    fmts.push_back(std::make_pair<std::string>("SD2", "Sound Designer II"));
+    fmts.push_back(std::make_pair<std::string>("MACE3:1", "Macintosh Audio Compression/Expansion"));
+    fmts.push_back(std::make_pair<std::string>("MACE6:1", "Macintosh Audio Compression/Expansion"));
+    fmts.push_back(std::make_pair<std::string>("WAV", "Waveform Audio File Format "));
+    return fmts;
 }
