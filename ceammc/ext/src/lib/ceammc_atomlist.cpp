@@ -1040,7 +1040,7 @@ void to_outlet(t_outlet* x, const AtomList& a)
     else
         sel = &s_list;
 
-    outlet_list(x, sel, static_cast<int>(a.size()), a.toPdData());
+    outlet_anything(x, sel, static_cast<int>(a.size()), a.toPdData());
 }
 
 std::ostream& operator<<(std::ostream& os, const AtomList& l)
