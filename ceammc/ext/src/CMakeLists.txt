@@ -137,7 +137,6 @@ ceammc_cxx_extension(local list)
 ceammc_cxx_extension(local int)
 ceammc_cxx_extension(local float)
 
-ceammc_cxx_extension(prop get)
 ceammc_extension_sep(prop "<-" cpp "")
 ceammc_extension_sep(prop "->" cpp "")
 pd_add_extension(NAME "msg" FILES "msg.cpp" INTERNAL True LIBRARY ceammc LINK ceammc_core)
