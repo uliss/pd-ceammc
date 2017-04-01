@@ -353,6 +353,9 @@
     <entry descr="Property extractor" name="prop-&gt;" ref_view="object">
       <xi:include href="prop.get.pddoc" parse="xml"/>
     </entry>
+    <entry descr="Property injector" name="prop&lt;-" ref_view="object">
+      <xi:include href="prop.set.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="snd">
     <entry descr="Sound file loader on steroids" name="snd.file" ref_view="object">
