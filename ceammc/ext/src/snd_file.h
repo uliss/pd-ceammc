@@ -31,6 +31,7 @@ public:
     AtomList supportedFormats() const;
 
 protected:
+    void postInfoUsage();
     void postLoadUsage();
     t_garray* findArray(const Atom& name) const;
     bool checkArray(const Atom& name);
