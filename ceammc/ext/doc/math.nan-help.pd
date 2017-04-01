@@ -1,11 +1,11 @@
-#N canvas 0 0 685 555 12;
-#X obj 405 50 cnv 1 260 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 405 50 Not a Number \, unrepresentable value;
-#X obj 1 1 cnv 5 682 40 empty empty math.nan 20 20 0 20 -104026 -4096
+#N canvas 0 0 715 555 12;
+#X obj 435 50 cnv 1 260 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 435 50 Not a Number \, unrepresentable value;
+#X obj 1 1 cnv 5 712 40 empty empty math.nan 20 20 0 20 -104026 -4096
 0;
-#X obj 599 11 math.nan;
-#X obj 225 80 cnv 1 440 117 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 230 80 In computing \, NaN \, standing for not a number \, is
+#X obj 629 11 math.nan;
+#X obj 235 80 cnv 1 460 117 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 80 In computing \, NaN \, standing for not a number \, is
 a numeric data type value representing an undefined or unrepresentable
 value \, especially in floating-point calculations\.  Systematic use
 of NaNs was introduced by the IEEE 754 floating-point standard in 1985
@@ -15,26 +15,26 @@ infinities\.;
 -1;
 #X obj 50 254 math.nan;
 #X floatatom 50 283 5 0 0 0 - - -;
-#X obj 20 322 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 322 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 327 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
 0;
-#X text 125 332 1\.;
+#X text 120 332 1\.;
 #X text 150 332 *bang*;
-#X text 230 332 outputs value\. ;
-#X obj 20 360 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 332 outputs value\. ;
+#X obj 20 360 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 365 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;
-#X text 125 370 1\.;
-#X text 230 370 output value;
+#X text 120 370 1\.;
+#X text 240 370 output value;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title math @url ceammc.math-help.pd;
-#X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 532 520 see also:;
-#X obj 602 520 math.inf;
+#X text 562 520 see also:;
+#X obj 632 520 math.inf;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

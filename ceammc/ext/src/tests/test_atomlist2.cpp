@@ -17,7 +17,7 @@
 using namespace ceammc;
 
 #define P(str) Atom(gensym(#str))
-#define F(n)   Atom(float(n))
+#define F(n) Atom(float(n))
 
 TEST_CASE("AtomList2", "[ceammc::AtomList]")
 {
@@ -335,5 +335,65 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
 
         REQUIRE_FALSE(lst.property("@d", &plist));
         REQUIRE(plist == AtomList(F(6)));
+    }
+
+    SECTION("test is*")
+    {
+        SECTION("isBang")
+        {
+            REQUIRE(AtomList().isBang());
+            REQUIRE_FALSE(AtomList(1).isBang());
+        }
+
+        SECTION("isFloat")
+        {
+            REQUIRE_FALSE(AtomList().isFloat());
+            REQUIRE_FALSE(AtomList(1, 2).isFloat());
+            REQUIRE_FALSE(AtomList(gensym("s")).isFloat());
+            REQUIRE(AtomList(Atom(1)).isFloat());
+        }
+
+        SECTION("isSymbol")
+        {
+            REQUIRE_FALSE(AtomList().isSymbol());
+            REQUIRE_FALSE(AtomList(1).isSymbol());
+            REQUIRE_FALSE(AtomList(gensym("a"), gensym("b")).isSymbol());
+            REQUIRE_FALSE(AtomList(gensym("a")).isProperty());
+            REQUIRE(AtomList(gensym("a")).isSymbol());
+        }
+
+        SECTION("isProperty")
+        {
+            REQUIRE_FALSE(AtomList().isProperty());
+            REQUIRE_FALSE(AtomList(1).isProperty());
+            REQUIRE_FALSE(AtomList(gensym("@a"), gensym("@b")).isProperty());
+            REQUIRE_FALSE(AtomList(gensym("a")).isProperty());
+            REQUIRE(AtomList(gensym("@a")).isProperty());
+            REQUIRE(AtomList(gensym("@a")).isSymbol());
+        }
+
+        SECTION("isList")
+        {
+            REQUIRE_FALSE(AtomList().isList());
+            REQUIRE_FALSE(AtomList(1).isList());
+            REQUIRE_FALSE(AtomList(gensym("a")).isList());
+            REQUIRE(AtomList(1, 2).isList());
+        }
+
+        SECTION("all")
+        {
+            AtomList bng;
+            AtomList flt(1);
+            AtomList sym(gensym("a"));
+            AtomList prop(gensym("@prop"));
+            AtomList lst(1, 2);
+
+            REQUIRE(bng.isBang());
+            REQUIRE(flt.isFloat());
+            REQUIRE(sym.isSymbol());
+            REQUIRE(prop.isSymbol());
+            REQUIRE(prop.isProperty());
+            REQUIRE(lst.isList());
+        }
     }
 }

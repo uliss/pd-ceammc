@@ -1,11 +1,11 @@
-#N canvas 0 0 685 555 12;
-#X obj 486 50 cnv 1 179 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 486 50 global named list object;
-#X obj 1 1 cnv 5 682 40 empty empty global.list 20 20 0 20 -104026
+#N canvas 0 0 715 555 12;
+#X obj 516 50 cnv 1 179 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 516 50 global named list object;
+#X obj 1 1 cnv 5 712 40 empty empty global.list 20 20 0 20 -104026
 -4096 0;
-#X obj 577 11 global.list;
-#X obj 225 80 cnv 1 440 33 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 230 80 Defines global scope list variable \, accessed by ID
+#X obj 607 11 global.list;
+#X obj 235 80 cnv 1 460 33 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 80 Defines global scope list variable \, accessed by ID
 name\.;
 #X msg 50 141 list a b c;
 #X msg 184 141 set 3 2 1;
@@ -18,41 +18,41 @@ name\.;
 #X obj 309 228 msg set;
 #X msg 50 257 ;
 #X msg 309 257 ;
-#X obj 20 296 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 296 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 301 cnv 5 80 16 empty empty arguments: 0 14 0 14 -262144
 -49933 0;
-#X text 125 306 1\.;
+#X text 120 306 1\.;
 #X text 150 306 symbol;
-#X obj 231 307 cnv 1 22 18 empty empty empty 17 7 0 10 -237308 -1 0;
-#X text 230 306 ID: object ID\. ;
-#X obj 20 334 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 241 307 cnv 1 22 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 306 ID: object ID\. ;
+#X obj 20 334 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 339 cnv 5 63 16 empty empty methods: 0 14 0 14 -262144
 -49933 0;
-#X msg 125 344 set;
-#X text 230 344 set list content without output;
-#X obj 20 381 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 386 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
+#X msg 120 344 set;
+#X text 240 344 set list content without output\.;
+#X obj 20 386 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 391 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
 0;
-#X text 125 391 1\.;
-#X text 150 391 *bang*;
-#X text 230 391 output list content\. ;
-#X text 150 409 *list*;
-#X text 230 409 set new list content and output\. ;
-#X obj 20 437 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 442 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
+#X text 120 396 1\.;
+#X text 150 396 *bang*;
+#X text 240 396 output list content\. ;
+#X text 150 414 *list*;
+#X text 240 414 set new list content and output\. ;
+#X obj 20 442 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 447 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;
-#X text 125 447 1\.;
-#X text 230 447 list output;
+#X text 120 452 1\.;
+#X text 240 452 list output;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title global @url ceammc.global-help.pd;
-#X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 416 520 see also:;
-#X obj 486 520 global.float;
-#X obj 588 520 global.int;
+#X text 446 520 see also:;
+#X obj 516 520 global.float;
+#X obj 618 520 global.int;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

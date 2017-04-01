@@ -1,37 +1,37 @@
-#N canvas 0 0 685 555 12;
-#X obj 400 50 cnv 1 265 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 400 50 calculates product of floats in list;
-#X obj 1 1 cnv 5 682 40 empty empty list.product 20 20 0 20 -104026
+#N canvas 0 0 715 555 12;
+#X obj 430 50 cnv 1 265 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 430 50 calculates product of floats in list;
+#X obj 1 1 cnv 5 712 40 empty empty list.product 20 20 0 20 -104026
 -4096 0;
-#X obj 571 11 list.product;
-#X obj 225 80 cnv 1 440 47 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 230 80 Note: symbol values are treated as 0\.  So if list
+#X obj 601 11 list.product;
+#X obj 235 80 cnv 1 460 47 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 80 Note: symbol values are treated as 0\.  So if list
 contains at least one symbol \, product will be always equal to zero;
 #X msg 50 155 1 2 3 4 5 -6;
 #X msg 213 155 1 2 a b c;
 #X msg 78 184 1 2 3;
 #X obj 50 227 list.product;
 #X floatatom 50 256 5 0 0 0 - - -;
-#X obj 20 295 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 295 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 300 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
 0;
-#X text 125 305 1\.;
+#X text 120 305 1\.;
 #X text 150 305 *list*;
-#X text 230 305 input list\. ;
-#X obj 20 333 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 305 input list\. ;
+#X obj 20 333 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 338 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;
-#X text 125 343 1\.;
-#X text 230 343 float list product;
+#X text 120 343 1\.;
+#X text 240 343 float list product;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 532 520 see also:;
-#X obj 602 520 list.sum;
+#X text 562 520 see also:;
+#X obj 632 520 list.sum;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

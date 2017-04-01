@@ -1,38 +1,38 @@
-#N canvas 0 0 685 555 12;
-#X obj 530 50 cnv 1 135 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 530 50 cube root function;
-#X obj 1 1 cnv 5 682 40 empty empty math.cbrt 20 20 0 20 -104026 -4096
+#N canvas 0 0 715 555 12;
+#X obj 560 50 cnv 1 135 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 560 50 cube root function;
+#X obj 1 1 cnv 5 712 40 empty empty math.cbrt 20 20 0 20 -104026 -4096
 0;
-#X obj 592 11 math.cbrt;
-#X obj 225 80 cnv 1 440 102 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 230 80 The cbrt() function computes the cube root of input
+#X obj 622 11 math.cbrt;
+#X obj 235 80 cnv 1 460 102 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 80 The cbrt() function computes the cube root of input
 value\.;
-#X text 230 103 Special values:;
-#X text 230 126 cbrt(+-0) returns +-0\.;
-#X text 230 149 cbrt(+-infinity) returns +-infinity\. ;
+#X text 240 103 Special values:;
+#X text 240 126 cbrt(+-0) returns +-0\.;
+#X text 240 149 cbrt(+-infinity) returns +-infinity\. ;
 #X floatatom 50 210 5 0 0 0 - - -;
 #X obj 50 239 math.cbrt;
 #X floatatom 50 268 5 0 0 0 - - -;
-#X obj 20 307 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 307 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 312 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
 0;
-#X text 125 317 1\.;
+#X text 120 317 1\.;
 #X text 150 317 *float*;
-#X text 230 317 input value\. ;
-#X obj 20 345 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 317 input value\. ;
+#X obj 20 345 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 350 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;
-#X text 125 355 1\.;
-#X text 230 355 result value;
+#X text 120 355 1\.;
+#X text 240 355 result value;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title math @url ceammc.math-help.pd;
-#X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 525 520 see also:;
-#X obj 595 520 math.sqrt;
+#X text 555 520 see also:;
+#X obj 625 520 math.sqrt;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

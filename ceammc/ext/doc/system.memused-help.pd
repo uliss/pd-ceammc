@@ -1,10 +1,10 @@
-#N canvas 0 0 685 555 12;
-#X obj 241 50 cnv 1 424 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 241 50 returns the process physical memory use - current and
+#N canvas 0 0 715 555 12;
+#X obj 271 50 cnv 1 424 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 271 50 returns the process physical memory use - current and
 peak;
-#X obj 1 1 cnv 5 682 40 empty empty system.memused 20 20 0 20 -104026
+#X obj 1 1 cnv 5 712 40 empty empty system.memused 20 20 0 20 -104026
 -4096 0;
-#X obj 556 11 system.memused;
+#X obj 586 11 system.memused;
 #X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 50 147 system.memused;
@@ -12,30 +12,30 @@ peak;
 #X obj 50 190 / 1024;
 #X floatatom 50 219 12 0 0 0 - - -;
 #X floatatom 261 219 12 0 0 0 - - -;
-#X obj 20 258 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 258 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 263 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
 0;
-#X text 125 268 1\.;
+#X text 120 268 1\.;
 #X text 150 268 *bang*;
-#X text 230 268 outputs memory use\. ;
-#X obj 20 296 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 268 outputs memory use\. ;
+#X obj 20 296 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 301 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;
-#X text 125 306 1\.;
-#X text 230 306 current physical memory use measured in bytes \,  or
+#X text 120 306 1\.;
+#X text 240 306 current physical memory use measured in bytes \,  or
 zero if the value cannot be determined on this OS\.;
-#X text 125 338 2\.;
-#X text 230 338 peak (maximum so far) physical memory use measured in
+#X text 120 338 2\.;
+#X text 240 338 peak (maximum so far) physical memory use measured in
 bytes \,  or zero if the value cannot be determined on this OS\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title system @url ceammc.system-help.pd;
-#X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 489 520 see also:;
-#X obj 559 520 system.memsize;
+#X text 519 520 see also:;
+#X obj 589 520 system.memsize;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

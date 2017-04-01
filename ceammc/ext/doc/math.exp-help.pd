@@ -1,45 +1,45 @@
-#N canvas 0 0 685 555 12;
-#X obj 508 50 cnv 1 157 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 508 50 exponential functions;
-#X obj 1 1 cnv 5 682 40 empty empty math.exp 20 20 0 20 -104026 -4096
+#N canvas 0 0 715 555 12;
+#X obj 538 50 cnv 1 157 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 538 50 exponential functions;
+#X obj 1 1 cnv 5 712 40 empty empty math.exp 20 20 0 20 -104026 -4096
 0;
-#X obj 599 11 math.exp;
-#X obj 225 80 cnv 1 440 227 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 230 80 The exp() function computes e**x \, the base-e
+#X obj 629 11 math.exp;
+#X obj 235 80 cnv 1 460 227 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 80 The exp() function computes e**x \, the base-e
 exponential of x\.;
-#X text 230 117 If x is nearly zero \, then the common expression
+#X text 240 117 If x is nearly zero \, then the common expression
 exp(x) - 1\.0 will suffer from catastrophic cancellation and the
 result will have little or no precision\.;
-#X text 230 168 Special values:;
-#X text 230 191 exp(+-0) return 1\.;
-#X text 230 214 exp(-infinity) return +0\.;
-#X text 230 237 exp(+infinity) return +infinity\.;
-#X text 230 260 For all these functions \, a range error occurs if the
+#X text 240 168 Special values:;
+#X text 240 191 exp(+-0) return 1\.;
+#X text 240 214 exp(-infinity) return +0\.;
+#X text 240 237 exp(+infinity) return +infinity\.;
+#X text 240 260 For all these functions \, a range error occurs if the
 magnitude of x is too large\.;
 #X floatatom 50 335 5 0 0 0 - - -;
 #X obj 50 364 math.exp;
 #X floatatom 50 393 5 0 0 0 - - -;
-#X obj 20 432 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 432 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 437 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
 0;
-#X text 125 442 1\.;
+#X text 120 442 1\.;
 #X text 150 442 *float*;
-#X text 230 442 input value\. ;
-#X obj 20 470 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 442 input value\. ;
+#X obj 20 470 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 475 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;
-#X text 125 480 1\.;
-#X text 230 480 result value;
+#X text 120 480 1\.;
+#X text 240 480 result value;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title math @url ceammc.math-help.pd;
-#X obj 1 528 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 528 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 531 library: ceammc v0\.1;
-#X text 452 543 see also:;
-#X obj 522 543 math.log;
-#X obj 595 543 math.exp2;
+#X text 482 543 see also:;
+#X obj 552 543 math.log;
+#X obj 625 543 math.exp2;
 #N canvas 10 550 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

@@ -1,33 +1,33 @@
-#N canvas 0 0 685 555 12;
-#X obj 429 50 cnv 1 236 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 429 50 calculates sum of floats in list;
-#X obj 1 1 cnv 5 682 40 empty empty list.sum 20 20 0 20 -104026 -4096
+#N canvas 0 0 715 555 12;
+#X obj 459 50 cnv 1 236 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 459 50 calculates sum of floats in list;
+#X obj 1 1 cnv 5 712 40 empty empty list.sum 20 20 0 20 -104026 -4096
 0;
-#X obj 599 11 list.sum;
+#X obj 629 11 list.sum;
 #X msg 50 118 1 2 3 a b -1.1;
 #X msg 213 118 list a b c;
 #X obj 50 147 list.sum;
 #X floatatom 50 176 5 0 0 0 - - -;
-#X obj 20 215 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 215 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 220 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
 0;
-#X text 125 225 1\.;
+#X text 120 225 1\.;
 #X text 150 225 *list*;
-#X text 230 225 input list\. ;
-#X obj 20 253 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 225 input list\. ;
+#X obj 20 253 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 258 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;
-#X text 125 263 1\.;
-#X text 230 263 float list sum;
+#X text 120 263 1\.;
+#X text 240 263 float list sum;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 504 520 see also:;
-#X obj 574 520 list.product;
+#X text 534 520 see also:;
+#X obj 604 520 list.product;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

@@ -1,42 +1,42 @@
-#N canvas 0 0 685 555 12;
-#X obj 486 50 cnv 1 179 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 486 50 hyperbolic sine function;
-#X obj 1 1 cnv 5 682 40 empty empty math.sinh 20 20 0 20 -104026 -4096
+#N canvas 0 0 715 555 12;
+#X obj 516 50 cnv 1 179 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 516 50 hyperbolic sine function;
+#X obj 1 1 cnv 5 712 40 empty empty math.sinh 20 20 0 20 -104026 -4096
 0;
-#X obj 592 11 math.sinh;
-#X obj 225 80 cnv 1 440 102 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 230 80 The sinh() function computes the hyperbolic sine of x\.
+#X obj 622 11 math.sinh;
+#X obj 235 80 cnv 1 460 102 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 80 The sinh() function computes the hyperbolic sine of x\.
 ;
-#X text 230 103 Special values:;
-#X text 230 126 sinh(+-0) returns +-0\.;
-#X text 230 149 sinh(+-infinity) returns +-infinity\. ;
+#X text 240 103 Special values:;
+#X text 240 126 sinh(+-0) returns +-0\.;
+#X text 240 149 sinh(+-infinity) returns +-infinity\. ;
 #X floatatom 50 210 5 0 0 0 - - -;
 #X obj 50 239 math.sinh;
 #X floatatom 50 268 5 0 0 0 - - -;
-#X obj 20 307 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 307 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 312 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
 0;
-#X text 125 317 1\.;
+#X text 120 317 1\.;
 #X text 150 317 *float*;
-#X text 230 317 input value\. ;
+#X text 240 317 input value\. ;
 #X text 150 335 *list*;
-#X text 230 335 apply to all numeric values\. ;
-#X obj 20 363 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 335 apply to all numeric values\. ;
+#X obj 20 363 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 368 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;
-#X text 125 373 1\.;
-#X text 230 373 result value;
+#X text 120 373 1\.;
+#X text 240 373 result value;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title math @url ceammc.math-help.pd;
-#X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 365 520 see also:;
-#X obj 435 520 math.acos;
-#X obj 515 520 math.asin;
-#X obj 595 520 math.atan;
+#X text 395 520 see also:;
+#X obj 465 520 math.acos;
+#X obj 545 520 math.asin;
+#X obj 625 520 math.atan;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

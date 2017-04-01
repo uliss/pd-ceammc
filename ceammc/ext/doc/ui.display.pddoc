@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pddoc version="1.0">
-    <object name="ui.display">
+    <object name="ui.display" type="gui">
         <title>ui.display</title>
         <meta>
             <authors>
@@ -10,7 +10,7 @@
             <description>Display GUI object</description>
             <license>GPL3</license>
             <library>ceammc</library>
-            <category>ui</category>
+            <category view="link">ui</category>
             <keywords>display</keywords>
             <since>0.1</since>
             <also>
@@ -22,24 +22,30 @@
                 <xinfo on="list">accepts any messages and displays it.  </xinfo>
             </inlet>
         </inlets>
+        <properties>
+            <property name="@auto_size" type="int" default="1" enum="0 1">flag if automatically resize contents to feet incoming message</property>
+            <property name="@display_type" type="int" default="0" enum="0 1">flag for displaying incomming message type</property>
+            <property name="@display_events" type="int" default="0" enum="0 1">flag for blinking on incoming messages</property>
+        </properties>
         <example>
             <pdascii>
 <![CDATA[
 
-[list a b c( [1( [symbol X( [any msg(
-|            |   |          |
-|            |   |          |
-|            |   |          |
-[ui.display                 ]
+[list a b c( [1( [symbol X( [any msg( [bang(
+|            |   |          |         |
+|            |   |          |         |
+|            |   |          |         |
+[ui.display                           ]
 
 
 /* display message type */
 
-[list a b c( [1( [symbol X( [any msg(
-|            |   |          |
-|            |   |          |
-|            |   |          |
-[ui.display  @display_type 1]
+[list a b c( [1( [symbol X( [any msg( [bang(
+|            |   |          |         |
+|            |   |          |         |
+|            |   |          |         |
+[ui.display            @display_type 1]
+
 
 ]]>
             </pdascii>

@@ -1,7 +1,7 @@
-#N canvas 0 0 685 555 12;
-#X obj 493 50 cnv 1 172 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 493 50 Spectroscope GUI object;
-#X obj 1 1 cnv 5 682 40 empty empty ui.spectroscope~ 20 20 0 20
+#N canvas 0 0 715 555 12;
+#X obj 523 50 cnv 1 172 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 523 50 Spectroscope GUI object;
+#X obj 1 1 cnv 5 712 40 empty empty ui.spectroscope~ 20 20 0 20
 -104026 -4096 0;
 #X obj 50 118 ui.dsp~;
 #X obj 50 162 noise~;
@@ -11,20 +11,20 @@
 #X obj 50 219 *~;
 #X obj 136 219 *~;
 #X obj 50 262 ui.spectroscope~ @size 150 100;
-#X obj 20 384 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 384 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 389 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
 0;
-#X text 125 394 1\.;
-#X text 230 394 signal input\. ;
+#X text 120 394 1\.;
+#X text 240 394 signal input\. ;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 522 520 see also:;
-#X obj 592 523 ui.link @title [ui.scope~] @bgcolor 0.78431 0.78431
+#X text 552 520 see also:;
+#X obj 622 523 ui.link @title [ui.scope~] @bgcolor 0.78431 0.78431
 0.78431 @url ui.scope~-help.pd;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;

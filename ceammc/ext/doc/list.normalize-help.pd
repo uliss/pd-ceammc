@@ -1,9 +1,9 @@
-#N canvas 0 0 685 555 12;
-#X obj 284 50 cnv 1 381 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 284 50 normalizes float list values to get their sum = 1\.0;
-#X obj 1 1 cnv 5 682 40 empty empty list.normalize 20 20 0 20 -104026
+#N canvas 0 0 715 555 12;
+#X obj 314 50 cnv 1 381 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 314 50 normalizes float list values to get their sum = 1\.0;
+#X obj 1 1 cnv 5 712 40 empty empty list.normalize 20 20 0 20 -104026
 -4096 0;
-#X obj 556 11 list.normalize;
+#X obj 586 11 list.normalize;
 #X msg 50 118 1 2 3 4;
 #X msg 78 147 1 2 a b c d;
 #X obj 50 176 list.normalize;
@@ -12,24 +12,24 @@
 #X msg 50 262 ;
 #X obj 50 291 list.sum;
 #X floatatom 50 320 5 0 0 0 - - -;
-#X obj 20 359 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 359 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 364 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
 0;
-#X text 125 369 1\.;
+#X text 120 369 1\.;
 #X text 150 369 *list*;
-#X text 230 369 input list of floats\. Non float values are rejected\.
+#X text 240 369 input list of floats\. Non float values are rejected\.
 ;
-#X obj 20 397 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 397 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 402 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;
-#X text 125 407 1\.;
-#X text 230 407 output list;
+#X text 120 407 1\.;
+#X text 240 407 output list;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;

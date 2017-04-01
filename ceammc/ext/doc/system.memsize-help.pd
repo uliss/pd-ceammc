@@ -1,10 +1,10 @@
-#N canvas 0 0 685 555 12;
-#X obj 234 50 cnv 1 431 35 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 234 50 returns the size of physical memory (RAM) in bytes
+#N canvas 0 0 715 555 12;
+#X obj 264 50 cnv 1 431 35 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 264 50 returns the size of physical memory (RAM) in bytes
 round to float data type\.;
-#X obj 1 1 cnv 5 682 40 empty empty system.memsize 20 20 0 20 -104026
+#X obj 1 1 cnv 5 712 40 empty empty system.memsize 20 20 0 20 -104026
 -4096 0;
-#X obj 556 11 system.memsize;
+#X obj 586 11 system.memsize;
 #X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 50 147 system.memsize;
@@ -12,26 +12,26 @@ round to float data type\.;
 #X obj 50 205 / 1024;
 #X text 136 205  in Mbytes ;
 #X floatatom 50 234 12 0 0 0 - - -;
-#X obj 20 273 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 273 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 278 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
 0;
-#X text 125 283 1\.;
+#X text 120 283 1\.;
 #X text 150 283 *bang*;
-#X text 230 283 outputs memory size\. ;
-#X obj 20 311 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 283 outputs memory size\. ;
+#X obj 20 311 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 316 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;
-#X text 125 321 1\.;
-#X text 230 321 physical memory (RAM) size in bytes;
+#X text 120 321 1\.;
+#X text 240 321 physical memory (RAM) size in bytes;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title system @url ceammc.system-help.pd;
-#X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 489 520 see also:;
-#X obj 559 520 system.memused;
+#X text 519 520 see also:;
+#X obj 589 520 system.memused;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

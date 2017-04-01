@@ -18,7 +18,6 @@ flt.lowshelf~		~		~.
 fx.freeverb~		~		~.
 fx.freqshift~		~~		~~.
 fx.pitchshift~		~~		~.
-fx.softclip~		~		~
 global.float		.		.
 global.int		.		.
 global.list		.		.
@@ -100,12 +99,13 @@ noise.white~		-		~
 osc.impulse~		~		~
 osc.pulse~		~		~.
 osc.saw~		~		~
-osc.sibfb~		~		~
 osc.sinfb~		~		~.
 osc.square~		~		~
 osc.tri~		~		~
 pass.changed		.		.
 pass.if		..		..
+prop->		.		?
+prop<-		?		.
 snd.file		.		..
 symbol.length		.		.
 system.memsize		.		.

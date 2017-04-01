@@ -176,6 +176,12 @@ public:
     const Atom* first() const;
     const Atom* last() const;
 
+    bool isBang() const;
+    bool isFloat() const;
+    bool isSymbol() const;
+    bool isProperty() const;
+    bool isList() const;
+
     void sort();
     void shuffle();
     void reverse();

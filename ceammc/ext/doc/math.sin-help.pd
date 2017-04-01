@@ -1,44 +1,44 @@
-#N canvas 0 0 685 555 12;
-#X obj 566 50 cnv 1 99 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 566 50 sine function;
-#X obj 1 1 cnv 5 682 40 empty empty math.sin 20 20 0 20 -104026 -4096
+#N canvas 0 0 715 555 12;
+#X obj 596 50 cnv 1 99 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 596 50 sine function;
+#X obj 1 1 cnv 5 712 40 empty empty math.sin 20 20 0 20 -104026 -4096
 0;
-#X obj 599 11 math.sin;
-#X obj 225 80 cnv 1 440 116 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 230 80 The sin() function computes the sine of input value
+#X obj 629 11 math.sin;
+#X obj 235 80 cnv 1 460 116 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 80 The sin() function computes the sine of input value
 (measured in radians)\. ;
-#X text 230 117 Special values:;
-#X text 230 140 sin(+-0) returns +-0\.;
-#X text 230 163 sin(+-infinity) returns a NaN\.;
+#X text 240 117 Special values:;
+#X text 240 140 sin(+-0) returns +-0\.;
+#X text 240 163 sin(+-infinity) returns a NaN\.;
 #X floatatom 50 224 5 0 0 0 - - -;
 #X msg 98 224 1 2 3;
 #X obj 50 253 math.sin;
 #X obj 50 282 prepend set;
 #X msg 50 311 ;
-#X obj 20 350 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 350 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 355 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
 0;
-#X text 125 360 1\.;
+#X text 120 360 1\.;
 #X text 150 360 *float*;
-#X text 230 360 input value\. ;
+#X text 240 360 input value\. ;
 #X text 150 378 *list*;
-#X text 230 378 apply to all numeric values\. ;
-#X obj 20 406 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 378 apply to all numeric values\. ;
+#X obj 20 406 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 411 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;
-#X text 125 416 1\.;
-#X text 230 416 result value;
+#X text 120 416 1\.;
+#X text 240 416 result value;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title math @url ceammc.math-help.pd;
-#X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 365 520 see also:;
-#X obj 435 520 math.acos;
-#X obj 515 520 math.asin;
-#X obj 595 520 math.atan;
+#X text 395 520 see also:;
+#X obj 465 520 math.acos;
+#X obj 545 520 math.asin;
+#X obj 625 520 math.atan;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

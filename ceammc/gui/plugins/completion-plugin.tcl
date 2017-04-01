@@ -208,7 +208,7 @@ proc ::completion::trigger {} {
             ::completion::update_gui
             set first [lindex $::completions 0]
             if {[::completion::unique] } {
-                ::completion::replace_text $first
+                ::completion::replace_text ${first}
                 ::completion::popup_destroy 1
                 ::completion::disable
             }
@@ -403,7 +403,14 @@ proc ::completion::replace_text {args} {
     foreach arg $args { set text [concat $text $arg] }
 
     foreach c [split $text ""] {
-        event generate $::toplevel [expr {$c eq " " ? "<space>": $c}]
+        event generate $::toplevel [switch $c {
+                " " { expr {"<space>"} }
+                "-" { expr {"<minus>"} }
+                "<" { expr {"<less>"} }
+                ">" { expr {"<more>"} }
+                default { expr {$c} }
+            }
+        ]
     }
 #    for {set i 0} {$i < [string length $text]} {incr i 1} {
 #        set cha [string index $text $i]

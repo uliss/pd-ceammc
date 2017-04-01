@@ -1,9 +1,9 @@
-#N canvas 0 0 685 555 12;
-#X obj 399 50 cnv 1 266 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 399 50 checks if input data has *list* type;
-#X obj 1 1 cnv 5 682 40 empty empty is_list 20 20 0 20 -104026 -4096
+#N canvas 0 0 715 555 12;
+#X obj 429 50 cnv 1 266 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 429 50 checks if input data has *list* type;
+#X obj 1 1 cnv 5 712 40 empty empty is_list 20 20 0 20 -104026 -4096
 0;
-#X obj 607 11 is_list;
+#X obj 637 11 is_list;
 #X msg 50 118 100;
 #X msg 117 118 any;
 #X msg 174 118 symbol a;
@@ -12,32 +12,32 @@
 #X obj 50 147 is_list;
 #X obj 50 176 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 117 176 print passed;
-#X obj 20 215 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 215 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 220 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
 0;
-#X text 125 225 1\.;
+#X text 120 225 1\.;
 #X text 150 225 *list*;
-#X text 230 225 outputs '1' to 1st outlet \, otherwise '0'\. ;
-#X obj 20 253 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 225 outputs '1' to 1st outlet \, otherwise '0'\. ;
+#X obj 20 253 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 258 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;
-#X text 125 263 1\.;
-#X text 230 263 0 or 1;
-#X text 125 281 2\.;
-#X text 230 281 passes *list* message;
+#X text 120 263 1\.;
+#X text 240 263 0 or 1;
+#X text 120 281 2\.;
+#X text 240 281 passes *list* message;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title predicates @url ceammc.predicates-
 help.pd;
-#X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 330 520 see also:;
-#X obj 400 520 is_any;
-#X obj 458 520 is_bang;
-#X obj 523 520 is_symbol;
-#X obj 603 520 is_float;
+#X text 360 520 see also:;
+#X obj 430 520 is_any;
+#X obj 488 520 is_bang;
+#X obj 553 520 is_symbol;
+#X obj 633 520 is_float;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

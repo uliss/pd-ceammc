@@ -1,41 +1,41 @@
-#N canvas 0 0 685 555 12;
-#X obj 515 50 cnv 1 150 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 515 50 arc tangent function;
-#X obj 1 1 cnv 5 682 40 empty empty math.atan 20 20 0 20 -104026 -4096
+#N canvas 0 0 715 555 12;
+#X obj 545 50 cnv 1 150 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 545 50 arc tangent function;
+#X obj 1 1 cnv 5 712 40 empty empty math.atan 20 20 0 20 -104026 -4096
 0;
-#X obj 592 11 math.atan;
-#X obj 225 80 cnv 1 440 130 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 230 80 The atan() function computes the principal value of the
+#X obj 622 11 math.atan;
+#X obj 235 80 cnv 1 460 130 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 80 The atan() function computes the principal value of the
 arc tangent of input value\. The result is in the range [-pi/2 \,
 +pi/2]\.;
-#X text 230 131 Special values:;
-#X text 230 154 atan(+-0) returns +-0\.;
-#X text 230 177 atan(+-infinity) returns +-pi/2 ;
+#X text 240 131 Special values:;
+#X text 240 154 atan(+-0) returns +-0\.;
+#X text 240 177 atan(+-infinity) returns +-pi/2 ;
 #X floatatom 50 238 5 0 0 0 - - -;
 #X obj 50 267 math.atan;
 #X floatatom 50 296 5 0 0 0 - - -;
-#X obj 20 335 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 335 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 340 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
 0;
-#X text 125 345 1\.;
+#X text 120 345 1\.;
 #X text 150 345 *float*;
-#X text 230 345 input value\. ;
-#X obj 20 373 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 345 input value\. ;
+#X obj 20 373 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 378 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;
-#X text 125 383 1\.;
-#X text 230 383 result value;
+#X text 120 383 1\.;
+#X text 240 383 result value;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title math @url ceammc.math-help.pd;
-#X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 372 520 see also:;
-#X obj 442 520 math.acos;
-#X obj 522 520 math.asin;
-#X obj 602 520 math.cos;
+#X text 402 520 see also:;
+#X obj 472 520 math.acos;
+#X obj 552 520 math.asin;
+#X obj 632 520 math.cos;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

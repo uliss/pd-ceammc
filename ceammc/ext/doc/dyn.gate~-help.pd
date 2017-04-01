@@ -1,9 +1,9 @@
-#N canvas 0 0 685 555 12;
-#X obj 543 50 cnv 1 122 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 543 50 mono signal gate;
-#X obj 1 1 cnv 5 682 40 empty empty dyn.gate~ 20 20 0 20 -104026 -4096
+#N canvas 0 0 715 555 12;
+#X obj 573 50 cnv 1 122 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 573 50 mono signal gate;
+#X obj 1 1 cnv 5 712 40 empty empty dyn.gate~ 20 20 0 20 -104026 -4096
 0;
-#X obj 591 11 dyn.gate~;
+#X obj 621 11 dyn.gate~;
 #X obj 50 118 osc~ 440;
 #X floatatom 155 118 5 0 0 0 - - -;
 #X obj 107 147 dbtorms;
@@ -15,71 +15,79 @@
 #X obj 50 219 dyn.gate~ 90 id;
 #X obj 50 248 dac~;
 #X obj 146 248 print;
-#X obj 20 287 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 287 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 292 cnv 5 80 16 empty empty arguments: 0 14 0 14 -262144
 -49933 0;
-#X text 125 297 1\.;
+#X text 120 297 1\.;
 #X text 150 297 float;
-#X obj 231 298 cnv 1 102 18 empty empty empty 17 7 0 10 -237308 -1 0;
-#X text 230 297 threshold(db):   dB level threshold above which gate
+#X obj 241 298 cnv 1 102 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 297 threshold(db):   dB level threshold above which gate
 opens (e\.g\. \, 40 dB)\. ;
-#X text 125 329 2\.;
+#X text 120 329 2\.;
 #X text 150 329 float;
-#X obj 231 330 cnv 1 80 18 empty empty empty 17 7 0 10 -237308 -1 0;
-#X text 230 329 attack(ms):   attack time = time constant (ms) for
+#X obj 241 330 cnv 1 80 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 329 attack(ms):   attack time = time constant (ms) for
 gate to open\. ;
-#X text 125 361 3\.;
+#X text 120 361 3\.;
 #X text 150 361 float;
-#X obj 231 362 cnv 1 65 18 empty empty empty 17 7 0 10 -237308 -1 0;
-#X text 230 361 hold(ms):   hold time = time (ms) gate stays open
+#X obj 241 362 cnv 1 65 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 361 hold(ms):   hold time = time (ms) gate stays open
 after signal level < threshold\. ;
-#X text 125 393 4\.;
+#X text 120 393 4\.;
 #X text 150 393 float;
-#X obj 231 394 cnv 1 86 18 empty empty empty 17 7 0 10 -237308 -1 0;
-#X text 230 393 release(ms):   release time = time constant (ms) for
+#X obj 241 394 cnv 1 86 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 393 release(ms):   release time = time constant (ms) for
 gate to close\. ;
-#X text 125 425 5\.;
+#X text 120 425 5\.;
 #X text 150 425 symbol;
-#X obj 231 426 cnv 1 22 18 empty empty empty 17 7 0 10 -237308 -1 0;
-#X text 230 425 ID: object ID for OSC control path\. ;
-#X obj 20 453 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 241 426 cnv 1 22 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 425 ID: object ID for OSC control path\. ;
+#X obj 20 453 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 458 cnv 5 63 16 empty empty methods: 0 14 0 14 -262144
 -49933 0;
-#X msg 125 463 threshold DB;
-#X text 230 463 dB level threshold above which gate opens (e\.g\. \,
-40 dB)\. ;
-#X msg 125 490 attack MS;
-#X text 230 490 attack time = time constant (ms) for gate to open\. ;
-#X msg 125 517 hold MS;
-#X text 230 517 hold time = time (ms) gate stays open after signal
-level < threshold\. ;
-#X msg 125 554 release MS;
-#X text 230 554 release time = time constant (ms) for gate to close\.
-;
-#X obj 20 591 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 596 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
+#X msg 120 463 threshold;
+#X text 240 463  Arguments are: ;
+#X obj 240 491 cnv 1 21 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 491 DB: dB level threshold above which gate opens (e\.g\.
+\, 40 dB);
+#X msg 120 533 attack;
+#X text 240 533  Arguments are: ;
+#X obj 240 561 cnv 1 21 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 561 MS: attack time = time constant (ms) for gate to open;
+#X msg 120 589 hold;
+#X text 240 589  Arguments are: ;
+#X obj 240 617 cnv 1 21 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 617 MS: hold time = time (ms) gate stays open after signal
+level < threshold;
+#X msg 120 659 release;
+#X text 240 659  Arguments are: ;
+#X obj 240 687 cnv 1 21 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 687 MS: release time = time constant (ms) for gate to
+close;
+#X obj 20 725 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 730 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
 0;
-#X text 125 601 1\.;
-#X text 230 601 input signal\. ;
-#X text 150 619 *bang*;
-#X text 230 619 outputs object internal state to rightmost outlet\. ;
-#X obj 20 647 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 652 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
+#X text 120 735 1\.;
+#X text 240 735 input signal\. ;
+#X text 150 753 *bang*;
+#X text 240 753 outputs object internal state to rightmost outlet\. ;
+#X obj 20 781 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 786 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;
-#X text 125 657 1\.;
-#X text 230 657 output signal;
-#X text 125 675 2\.;
-#X text 230 675 information output;
+#X text 120 791 1\.;
+#X text 240 791 output signal;
+#X text 120 809 2\.;
+#X text 240 809 information output;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title dyn @url ceammc.dyn-help.pd;
-#X obj 1 723 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 726 library: ceammc v0\.1;
-#X text 517 738 see also:;
-#X obj 587 738 dyn.gate2~;
-#N canvas 10 745 400 250 info 0;
+#X obj 1 857 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 860 library: ceammc v0\.1;
+#X text 547 872 see also:;
+#X obj 617 872 dyn.gate2~;
+#N canvas 10 879 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -102,7 +110,7 @@ level < threshold\. ;
 https://github.com/uliss/pure-data;
 #X obj 120 228 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 228 generated by pddoc;
-#X restore 10 745 pd info;
+#X restore 10 879 pd info;
 #X connect 8 0 11 0;
 #X connect 9 0 11 0;
 #X connect 7 0 10 0;

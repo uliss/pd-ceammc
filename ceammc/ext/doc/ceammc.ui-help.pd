@@ -1,4 +1,4 @@
-#N canvas 0 0 630 500 12;
+#N canvas 0 0 715 500 12;
 #X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
 #X obj 79 53 ui.link @title ceammc @url ceammc-help.pd;
@@ -6,16 +6,16 @@
 #X text 175 116 A bang\.\.\. that's all;
 #X obj 30 142 ui.link @title [ui.bpfunc] @url ui.bpfunc-help.pd;
 #X text 175 139 Breakpoint function GUI object;
-#X obj 30 162 ui.display;
+#X obj 30 165 ui.link @title [ui.display] @url ui.display-help.pd;
 #X text 175 162 Display GUI object;
-#X obj 30 192 ui.link @title [ui.scope~] @url ui.scope~-help.pd;
-#X text 175 189 Scope GUI object;
-#X obj 30 215 ui.link @title [ui.spectroscope~] @url
+#X obj 30 188 ui.link @title [ui.scope~] @url ui.scope~-help.pd;
+#X text 175 185 Scope GUI object;
+#X obj 30 211 ui.link @title [ui.spectroscope~] @url
 ui.spectroscope~-help.pd;
-#X text 175 212 Spectroscope GUI object;
-#X obj 30 238 ui.link @title [ui.toggle] @url ui.toggle-help.pd;
-#X text 175 235 modern toggle widget;
-#X obj 1 1 cnv 5 627 40 empty empty ceammc::ui 20 20 0 20 -104026
+#X text 175 208 Spectroscope GUI object;
+#X obj 30 234 ui.link @title [ui.toggle] @url ui.toggle-help.pd;
+#X text 175 231 modern toggle widget;
+#X obj 1 1 cnv 5 712 40 empty empty ceammc::ui 20 20 0 20 -104026
 -4096 0;
-#X obj 1 458 cnv 5 627 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 458 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 20 468 library: ceammc;

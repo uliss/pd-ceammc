@@ -1,11 +1,11 @@
-#N canvas 0 0 685 555 12;
-#X obj 479 50 cnv 1 186 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 479 50 returns normalized vector;
-#X obj 1 1 cnv 5 682 40 empty empty vector.normalize 20 20 0 20
+#N canvas 0 0 715 555 12;
+#X obj 509 50 cnv 1 186 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 509 50 returns normalized vector;
+#X obj 1 1 cnv 5 712 40 empty empty vector.normalize 20 20 0 20
 -104026 -4096 0;
-#X obj 541 11 vector.normalize;
-#X obj 225 80 cnv 1 440 61 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 230 80 Treats list of floats as vector \, divides the vector
+#X obj 571 11 vector.normalize;
+#X obj 235 80 cnv 1 460 61 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 80 Treats list of floats as vector \, divides the vector
 elements by its magnitude\.  Note: returns 0 vector if vector length
 (magnitude) is 0\.;
 #X msg 50 169 1 2 3;
@@ -13,28 +13,28 @@ elements by its magnitude\.  Note: returns 0 vector if vector length
 #X obj 50 213 vector.normalize;
 #X obj 50 241 msg set;
 #X msg 50 270 ;
-#X obj 20 309 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 309 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 314 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
 0;
-#X text 125 319 1\.;
+#X text 120 319 1\.;
 #X text 150 319 *list*;
-#X text 230 319 input list of floats\. ;
-#X obj 20 347 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 319 input list of floats\. ;
+#X obj 20 347 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 352 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;
-#X text 125 357 1\.;
-#X text 230 357 normalized vector - list of floats;
+#X text 120 357 1\.;
+#X text 240 357 normalized vector - list of floats;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title vector @url ceammc.vector-help.pd;
-#X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 285 520 see also:;
-#X obj 355 520 vector.length;
-#X obj 464 520 vector.distance;
-#X obj 588 520 vector.dot;
+#X text 315 520 see also:;
+#X obj 385 520 vector.length;
+#X obj 494 520 vector.distance;
+#X obj 618 520 vector.dot;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

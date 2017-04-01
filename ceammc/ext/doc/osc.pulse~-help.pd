@@ -1,9 +1,9 @@
-#N canvas 0 0 685 555 12;
-#X obj 401 50 cnv 1 264 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 401 50 Bandlimited pulse train oscillator\. ;
-#X obj 1 1 cnv 5 682 40 empty empty osc.pulse~ 20 20 0 20 -104026
+#N canvas 0 0 715 555 12;
+#X obj 431 50 cnv 1 264 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 431 50 Bandlimited pulse train oscillator\. ;
+#X obj 1 1 cnv 5 712 40 empty empty osc.pulse~ 20 20 0 20 -104026
 -4096 0;
-#X obj 584 11 osc.pulse~;
+#X obj 614 11 osc.pulse~;
 #X floatatom 50 118 5 0 0 0 - - -;
 #X floatatom 117 118 5 0 0 0 - - -;
 #X obj 78 147 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
@@ -14,45 +14,45 @@
 #X obj 203 205 print;
 #X obj 50 234 *~;
 #X obj 50 262 dac~;
-#X obj 20 301 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 301 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 306 cnv 5 80 16 empty empty arguments: 0 14 0 14 -262144
 -49933 0;
-#X text 125 311 1\.;
+#X text 120 311 1\.;
 #X text 150 311 float;
-#X obj 231 312 cnv 1 65 18 empty empty empty 17 7 0 10 -237308 -1 0;
-#X text 230 311 freq(Hz): frequency\. Min: 20;
-#X text 125 329 2\.;
+#X obj 241 312 cnv 1 65 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 311 freq(Hz): frequency\. Min: 20;
+#X text 120 329 2\.;
 #X text 150 329 float;
-#X obj 231 330 cnv 1 37 18 empty empty empty 17 7 0 10 -237308 -1 0;
-#X text 230 329 duty: duty cycle\. Range: 0\.\.\.1;
-#X text 125 347 3\.;
+#X obj 241 330 cnv 1 37 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 329 duty: duty cycle\. Range: 0\.\.\.1;
+#X text 120 347 3\.;
 #X text 150 347 symbol;
-#X obj 231 348 cnv 1 22 18 empty empty empty 17 7 0 10 -237308 -1 0;
-#X text 230 347 ID: object ID for OSC control\. ;
-#X obj 20 375 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 241 348 cnv 1 22 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 347 ID: object ID for OSC control\. ;
+#X obj 20 375 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 380 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
 0;
-#X text 125 385 1\.;
+#X text 120 385 1\.;
 #X text 150 385 *float*;
-#X text 230 385 frequency in Hz\. Min: 20;
+#X text 240 385 frequency in Hz\. Min: 20;
 #X text 150 403 *bang*;
-#X text 230 403 outputs object internal state to rightmost outlet\. ;
-#X obj 20 431 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 403 outputs object internal state to rightmost outlet\. ;
+#X obj 20 431 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 436 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;
-#X text 125 441 1\.;
-#X text 230 441 output signal;
-#X text 125 459 2\.;
-#X text 230 459 information output;
+#X text 120 441 1\.;
+#X text 240 441 output signal;
+#X text 120 459 2\.;
+#X text 240 459 information output;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title osc @url ceammc.osc-help.pd;
-#X obj 1 507 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 507 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 510 library: ceammc v0\.1;
-#X text 502 522 see also:;
-#X obj 572 522 osc.impulse~;
+#X text 532 522 see also:;
+#X obj 602 522 osc.impulse~;
 #N canvas 10 529 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

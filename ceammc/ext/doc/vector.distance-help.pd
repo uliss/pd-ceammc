@@ -1,40 +1,40 @@
-#N canvas 0 0 685 555 12;
-#X obj 336 50 cnv 1 329 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 336 50 returns euclidean distance between two points;
-#X obj 1 1 cnv 5 682 40 empty empty vector.distance 20 20 0 20 -104026
+#N canvas 0 0 715 555 12;
+#X obj 366 50 cnv 1 329 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 366 50 returns euclidean distance between two points;
+#X obj 1 1 cnv 5 712 40 empty empty vector.distance 20 20 0 20 -104026
 -4096 0;
-#X obj 548 11 vector.distance;
+#X obj 578 11 vector.distance;
 #X msg 50 133 1 0 0;
 #X msg 126 133 dump;
 #X msg 203 133 3 0 0;
 #X obj 50 176 vector.distance;
 #X floatatom 50 205 5 0 0 0 - - -;
-#X obj 20 229 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 229 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 234 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
 0;
-#X text 125 239 1\.;
+#X text 120 239 1\.;
 #X text 150 239 *list*;
-#X text 230 239 First list of coords (float)\. ;
-#X text 125 257 2\.;
+#X text 240 239 First list of coords (float)\. ;
+#X text 120 257 2\.;
 #X text 150 257 *list*;
-#X text 230 257 Second list of coords (float)\. ;
-#X obj 20 285 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 257 Second list of coords (float)\. ;
+#X obj 20 285 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 290 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;
-#X text 125 295 1\.;
-#X text 230 295 returns length of (list2-list1) \, float \, always >=
+#X text 120 295 1\.;
+#X text 240 295 returns length of (list2-list1) \, float \, always >=
 0 ;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title vector @url ceammc.vector-help.pd;
-#X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 278 520 see also:;
-#X obj 348 520 vector.normalize;
-#X obj 479 520 vector.length;
-#X obj 588 520 vector.dot;
+#X text 308 520 see also:;
+#X obj 378 520 vector.normalize;
+#X obj 509 520 vector.length;
+#X obj 618 520 vector.dot;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

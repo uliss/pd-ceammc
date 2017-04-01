@@ -1,11 +1,11 @@
-#N canvas 0 0 685 555 12;
-#X obj 233 50 cnv 1 432 49 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 233 50 takes n lists from n inlets (specified by argument) and
+#N canvas 0 0 715 555 12;
+#X obj 263 50 cnv 1 432 49 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 263 50 takes n lists from n inlets (specified by argument) and
 output their elements sequentially (list1-1 list2-1 list1-2 list2-2
 etc\.)\.;
-#X obj 1 1 cnv 5 682 40 empty empty list.interleave 20 20 0 20 -104026
+#X obj 1 1 cnv 5 712 40 empty empty list.interleave 20 20 0 20 -104026
 -4096 0;
-#X obj 549 11 list.interleave;
+#X obj 579 11 list.interleave;
 #X msg 50 118 10 20 30;
 #X msg 165 118 list a b;
 #X msg 270 118 1 2 3 4 5;
@@ -16,33 +16,33 @@ etc\.)\.;
 #X obj 50 190 list.interleave 3 @min;
 #X obj 50 219 prepend set;
 #X msg 50 248 ;
-#X obj 20 287 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 287 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 292 cnv 5 80 16 empty empty arguments: 0 14 0 14 -262144
 -49933 0;
-#X text 125 297 1\.;
+#X text 120 297 1\.;
 #X text 150 297 int;
-#X obj 231 298 cnv 1 16 18 empty empty empty 17 7 0 10 -237308 -1 0;
-#X text 230 297 N: number of inputs\. Min: 2;
-#X obj 20 325 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 241 298 cnv 1 16 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 297 N: number of inputs\. Min: 2;
+#X obj 20 325 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 330 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
 0;
-#X text 125 335 1\.;
+#X text 120 335 1\.;
 #X text 150 335 *list*;
-#X text 230 335 input list\. ;
-#X obj 20 363 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 335 input list\. ;
+#X obj 20 363 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 368 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;
-#X text 125 373 1\.;
-#X text 230 373 interleaved list;
+#X text 120 373 1\.;
+#X text 240 373 interleaved list;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 467 520 see also:;
-#X obj 537 520 list.deinterleave;
+#X text 497 520 see also:;
+#X obj 567 520 list.deinterleave;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

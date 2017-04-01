@@ -1,10 +1,10 @@
-#N canvas 0 0 685 555 12;
-#X obj 285 50 cnv 1 380 35 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 285 50 returns the number of items that satisfy to external
+#N canvas 0 0 715 555 12;
+#X obj 315 50 cnv 1 380 35 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 315 50 returns the number of items that satisfy to external
 predicate\.;
-#X obj 1 1 cnv 5 682 40 empty empty list.count_if 20 20 0 20 -104026
+#X obj 1 1 cnv 5 712 40 empty empty list.count_if 20 20 0 20 -104026
 -4096 0;
-#X obj 563 11 list.count_if;
+#X obj 593 11 list.count_if;
 #X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 50 147 list.gen 10;
@@ -15,32 +15,32 @@ predicate\.;
 #X obj 50 262 list.count_if;
 #X obj 222 262 > 10;
 #X floatatom 50 291 5 0 0 0 - - -;
-#X obj 20 330 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 330 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 335 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
 0;
-#X text 125 340 1\.;
+#X text 120 340 1\.;
 #X text 150 340 *list*;
-#X text 230 340 Input list\. ;
-#X text 125 358 2\.;
+#X text 240 340 Input list\. ;
+#X text 120 358 2\.;
 #X text 150 358 *float*;
-#X text 230 358 input value from predicate\.  "1" means accepped\. "0"
+#X text 240 358 input value from predicate\.  "1" means accepped\. "0"
 means reject\.\. Range: 0\.\.\.1;
-#X obj 20 400 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 400 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 405 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;
-#X text 125 410 1\.;
-#X text 230 410 count of elements;
-#X text 125 428 2\.;
-#X text 230 428 element output to predicate;
+#X text 120 410 1\.;
+#X text 240 410 count of elements;
+#X text 120 428 2\.;
+#X text 240 428 element output to predicate;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 518 520 see also:;
-#X obj 588 520 list.count;
+#X text 548 520 see also:;
+#X obj 618 520 list.count;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

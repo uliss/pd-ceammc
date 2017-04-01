@@ -2,8 +2,9 @@
 #include <m_pd.h>
 #include <map>
 #include <string>
+#include <vector>
 
-#define OBJ_NAME "prop.get"
+#define OBJ_NAME "prop->"
 #define MSG_PREFIX "[" OBJ_NAME "] "
 
 using namespace ceammc;
@@ -37,6 +38,7 @@ static inline t_outlet* get_prop_outlet(t_prop* x, t_symbol* sel)
 
 static void prop_get_anything(t_prop* x, t_symbol* s, int argc, t_atom* argv)
 {
+    // pass thru non-properties
     if (s->s_name[0] != '@') {
         outlet_anything(x->x_obj.te_outlet, s, argc, argv);
         return;
@@ -44,20 +46,14 @@ static void prop_get_anything(t_prop* x, t_symbol* s, int argc, t_atom* argv)
 
     AtomList args(argc, argv);
 
-    // if get all properties
-    if (x->all_prop != 0) {
-        args.insert(0, Atom(s));
-        args.output(x->all_prop);
-        return;
-    }
-
+    // get mapped to property outlet
     t_outlet* prop_out = get_prop_outlet(x, s);
+
     if (prop_out != 0) {
         args.output(prop_out);
-        return;
+    } else {
+        args.outputAsAny(x->all_prop, s);
     }
-
-    args.outputAsAny(x->x_obj.te_outlet, s);
 }
 
 static void* prop_get_new(t_symbol*, int argc, t_atom* argv)
@@ -71,10 +67,7 @@ static void* prop_get_new(t_symbol*, int argc, t_atom* argv)
     for (size_t i = 0; i < args.size(); i++)
         add_prop_map(x, args.at(i).asSymbol());
 
-    x->all_prop = 0;
-    if (args.empty())
-        x->all_prop = outlet_new(&x->x_obj, &s_anything);
-
+    x->all_prop = outlet_new(&x->x_obj, &s_anything);
     return static_cast<void*>(x);
 }
 
@@ -86,7 +79,7 @@ static void prop_get_free(t_prop* x)
         outlet_free(x->all_prop);
 }
 
-extern "C" void setup_prop0x2eget()
+extern "C" void setup_prop0x2d0x3e()
 {
     prop_get_class = class_new(gensym(OBJ_NAME),
         reinterpret_cast<t_newmethod>(prop_get_new),
@@ -94,4 +87,5 @@ extern "C" void setup_prop0x2eget()
         sizeof(t_prop), 0, A_GIMME, A_NULL);
     class_addanything(prop_get_class, prop_get_anything);
     class_addmethod(prop_get_class, reinterpret_cast<t_method>(prop_get_dump), gensym("dump"), A_NULL);
+    class_sethelpsymbol(prop_get_class, gensym("prop.get"));
 }

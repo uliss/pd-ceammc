@@ -825,6 +825,19 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         p1 = p2; // reset
         REQUIRE(l.property("@test", &p1));
         REQUIRE(p1.asFloat() == 3.f);
+
+        l.clear();
+        l.append(gensym("@a"));
+        l.append(gensym("@b"));
+        l.append(gensym("@c"));
+
+        p1 = Atom();
+        REQUIRE_FALSE(l.property("@a", &p1));
+        REQUIRE(p1.isNone());
+        REQUIRE_FALSE(l.property("@b", &p1));
+        REQUIRE(p1.isNone());
+        REQUIRE_FALSE(l.property("@c", &p1));
+        REQUIRE(p1.isNone());
     }
 
     SECTION("test values")

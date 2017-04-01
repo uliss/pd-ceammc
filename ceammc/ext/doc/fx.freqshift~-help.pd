@@ -1,9 +1,9 @@
-#N canvas 0 0 685 555 12;
-#X obj 284 50 cnv 1 381 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 284 50 frequency shifter or single-sideband ring modulation;
-#X obj 1 1 cnv 5 682 40 empty empty fx.freqshift~ 20 20 0 20 -104026
+#N canvas 0 0 715 555 12;
+#X obj 314 50 cnv 1 381 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 314 50 frequency shifter or single-sideband ring modulation;
+#X obj 1 1 cnv 5 712 40 empty empty fx.freqshift~ 20 20 0 20 -104026
 -4096 0;
-#X obj 562 11 fx.freqshift~;
+#X obj 592 11 fx.freqshift~;
 #X floatatom 50 118 5 0 0 0 - - -;
 #X obj 50 147 osc.tri~ 300;
 #X floatatom 194 147 5 0 0 0 - - -;
@@ -13,35 +13,35 @@
 #X obj 50 234 fx.freqshift~ id;
 #X obj 50 262 dac~;
 #X obj 213 262 print;
-#X obj 20 301 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 301 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 306 cnv 5 80 16 empty empty arguments: 0 14 0 14 -262144
 -49933 0;
-#X text 125 311 1\.;
+#X text 120 311 1\.;
 #X text 150 311 symbol;
-#X obj 231 312 cnv 1 22 18 empty empty empty 17 7 0 10 -237308 -1 0;
-#X text 230 311 ID: object ID for OSC control path\. ;
-#X obj 20 339 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 241 312 cnv 1 22 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 311 ID: object ID for OSC control path\. ;
+#X obj 20 339 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 344 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
 0;
-#X text 125 349 1\.;
-#X text 230 349 input signal\. ;
-#X text 125 367 2\.;
-#X text 230 367 frequency shift in Hertz\. Range: -10000\.\.\.10000;
-#X obj 20 395 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 349 1\.;
+#X text 240 349 input signal\. ;
+#X text 120 367 2\.;
+#X text 240 367 frequency shift in Hertz\. Range: -10000\.\.\.10000;
+#X obj 20 395 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 400 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;
-#X text 125 405 1\.;
-#X text 230 405 output signal;
-#X text 125 423 2\.;
-#X text 230 423 output signal;
-#X text 125 441 3\.;
-#X text 230 441 information output;
+#X text 120 405 1\.;
+#X text 240 405 output signal;
+#X text 120 423 2\.;
+#X text 240 423 output signal;
+#X text 120 441 3\.;
+#X text 240 441 information output;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;

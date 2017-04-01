@@ -1,35 +1,35 @@
-#N canvas 0 0 685 555 12;
-#X obj 328 50 cnv 1 337 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 328 50 reverses the order of the elements in the list;
-#X obj 1 1 cnv 5 682 40 empty empty list.reverse 20 20 0 20 -104026
+#N canvas 0 0 715 555 12;
+#X obj 358 50 cnv 1 337 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 358 50 reverses the order of the elements in the list;
+#X obj 1 1 cnv 5 712 40 empty empty list.reverse 20 20 0 20 -104026
 -4096 0;
-#X obj 570 11 list.reverse;
+#X obj 600 11 list.reverse;
 #X msg 50 118 1 2 3 4 5;
 #X msg 174 118 list a b c d e;
 #X obj 50 147 list.reverse;
 #X obj 50 176 prepend set;
 #X msg 50 205 ;
-#X obj 20 244 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 244 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 249 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
 0;
-#X text 125 254 1\.;
+#X text 120 254 1\.;
 #X text 150 254 *list*;
-#X text 230 254 input list\. ;
-#X obj 20 282 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 254 input list\. ;
+#X obj 20 282 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 287 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;
-#X text 125 292 1\.;
-#X text 230 292 reversed list;
+#X text 120 292 1\.;
+#X text 240 292 reversed list;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 424 520 see also:;
-#X obj 494 520 list.sort;
-#X obj 573 520 list.shuffle;
+#X text 454 520 see also:;
+#X obj 524 520 list.sort;
+#X obj 603 520 list.shuffle;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

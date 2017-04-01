@@ -1,10 +1,10 @@
-#N canvas 0 0 685 555 12;
-#X obj 234 50 cnv 1 431 35 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 234 50 record up to 8s of sound and playback the recorded
+#N canvas 0 0 715 555 12;
+#X obj 264 50 cnv 1 431 35 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 264 50 record up to 8s of sound and playback the recorded
 sound in loop;
-#X obj 1 1 cnv 5 682 40 empty empty live.capture~ 20 20 0 20 -104026
+#X obj 1 1 cnv 5 712 40 empty empty live.capture~ 20 20 0 20 -104026
 -4096 0;
-#X obj 563 11 live.capture~;
+#X obj 593 11 live.capture~;
 #X obj 50 118 adc~;
 #X obj 146 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 78 147 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
@@ -13,38 +13,41 @@ sound in loop;
 #X obj 50 176 live.capture~ id;
 #X obj 50 205 dac~;
 #X obj 203 205 print;
-#X obj 20 244 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 244 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 249 cnv 5 80 16 empty empty arguments: 0 14 0 14 -262144
 -49933 0;
-#X text 125 254 1\.;
+#X text 120 254 1\.;
 #X text 150 254 symbol;
-#X obj 231 255 cnv 1 22 18 empty empty empty 17 7 0 10 -237308 -1 0;
-#X text 230 254 ID: object ID for OSC control path\. ;
-#X obj 20 282 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 241 255 cnv 1 22 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 254 ID: object ID for OSC control path\. ;
+#X obj 20 282 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 287 cnv 5 63 16 empty empty methods: 0 14 0 14 -262144
 -49933 0;
-#X msg 125 292 record X;
-#X text 230 292 capture sound while = 1 \, play sound while = 0\. ;
-#X obj 20 329 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 334 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
+#X msg 120 292 record;
+#X text 240 292  Arguments are: ;
+#X obj 240 320 cnv 1 59 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 320 [anonym]: capture sound while = 1 \, play sound while
+= 0;
+#X obj 20 358 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 363 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
 0;
-#X text 125 339 1\.;
-#X text 230 339 source signal\. ;
-#X text 150 357 *bang*;
-#X text 230 357 outputs object internal state to rightmost outlet\. ;
-#X obj 20 385 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 390 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
+#X text 120 368 1\.;
+#X text 240 368 source signal\. ;
+#X text 150 386 *bang*;
+#X text 240 386 outputs object internal state to rightmost outlet\. ;
+#X obj 20 414 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 419 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;
-#X text 125 395 1\.;
-#X text 230 395 recorded signal;
-#X text 125 413 2\.;
-#X text 230 413 information output;
+#X text 120 424 1\.;
+#X text 240 424 recorded signal;
+#X text 120 442 2\.;
+#X text 240 442 information output;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title live @url ceammc.live-help.pd;
-#X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;

@@ -1,10 +1,10 @@
-#N canvas 0 0 685 555 12;
-#X obj 450 50 cnv 1 215 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 450 50 Sound file loader on steroids;
-#X obj 1 1 cnv 5 682 40 empty empty snd.file 20 20 0 20 -104026 -4096
+#N canvas 0 0 715 555 12;
+#X obj 480 50 cnv 1 215 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 480 50 Sound file loader on steroids;
+#X obj 1 1 cnv 5 712 40 empty empty snd.file 20 20 0 20 -104026 -4096
 0;
-#X obj 599 11 snd.file;
-#X obj 235 80 cnv 1 430 47 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 629 11 snd.file;
+#X obj 235 80 cnv 1 460 47 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 240 80 Loads sound files to arrays\. Various formats are
 supoorted\.;
 #X obj 50 155 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
@@ -17,7 +17,7 @@ supoorted\.;
 #X coords 0 1 100 -1 120 80 1;
 #X restore 482 155 graph;
 #X obj 50 184 openpanel;
-#X obj 203 199 hradio 15 1 0 4 empty empty empty 17 7 0 10 -262144 -1
+#X obj 203 199 hradio 15 1 0 3 empty empty empty 17 7 0 10 -262144 -1
 -1 0;
 #X obj 50 227 demux . . . .;
 #X msg 50 256 load \$1 @to array1 @resize;
@@ -31,50 +31,57 @@ supoorted\.;
 #X restore 482 285 graph;
 #X msg 146 314 load \$1 @to array[] @resize;
 #X obj 50 357 snd.file;
-#X floatatom 50 386 5 0 0 0 - - -;
-#X obj 20 425 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 430 cnv 5 63 16 empty empty methods: 0 14 0 14 -262144
+#X obj 50 386 prop->;
+#X floatatom 50 415 5 0 0 0 - - -;
+#X obj 184 415 ui.display;
+#X obj 20 454 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 459 cnv 5 88 16 empty empty properties: 0 14 0 14 -262144
 -49933 0;
-#X msg 120 435 load;
-#X text 240 435 Loads sound file\. Arguments are: ;
-#X obj 240 463 cnv 1 34 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 463 PATH: path to soundfile;
-#X obj 240 491 cnv 1 108 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 491 @to ARRAY_NAME: destination array name or pattern\.
+#X msg 120 464 @formats;
+#X text 240 464 (readonly) Get list of supported formats\. Type: list;
+#X obj 20 501 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 506 cnv 5 63 16 empty empty methods: 0 14 0 14 -262144
+-49933 0;
+#X msg 120 511 load;
+#X text 240 511 Loads sound file\. Arguments are: ;
+#X obj 240 539 cnv 1 34 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 539 PATH: path to soundfile;
+#X obj 240 567 cnv 1 108 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 567 @to ARRAY_NAME: destination array name or pattern\.
 Array patterns specified in square braces: array_[1-4] means - array_1
 \, array_2 \, array_3 \, array_4\.  array_[left|right] means
 array_left and array_right;
-#X obj 240 561 cnv 1 66 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 561 [@resize]: resize array to feet loaded file;
-#X obj 240 589 cnv 1 124 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 589 [@offset SAMPLES]: offset in samples from beginning of
+#X obj 240 637 cnv 1 66 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 637 [@resize]: resize array to feet loaded file;
+#X obj 240 665 cnv 1 124 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 665 [@offset SAMPLES]: offset in samples from beginning of
 file;
-#X obj 240 617 cnv 1 153 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 617 [@channel N1 \, N2\.\.]: channels to load;
-#X msg 120 645 info;
-#X text 240 645 Outputs info about sound file\. Arguments are: ;
-#X obj 240 673 cnv 1 34 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 673 PATH: path to soundfile;
-#X obj 20 711 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 716 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
+#X obj 240 693 cnv 1 153 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 693 [@channel N1 \, N2\.\.]: channels to load;
+#X msg 120 721 info;
+#X text 240 721 Outputs info about sound file\. Arguments are: ;
+#X obj 240 749 cnv 1 34 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 749 PATH: path to soundfile;
+#X obj 20 787 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 792 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
 0;
-#X text 120 721 1\.;
-#X text 240 721 input inlet\. ;
-#X obj 20 749 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 754 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
+#X text 120 797 1\.;
+#X text 240 797 input inlet\. ;
+#X obj 20 825 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 830 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;
-#X text 120 759 1\.;
-#X text 240 759 loaded samples;
-#X text 120 777 2\.;
-#X text 240 777 information output;
+#X text 120 835 1\.;
+#X text 240 835 loaded samples;
+#X text 120 853 2\.;
+#X text 240 853 information output;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title snd @url ceammc.snd-help.pd;
-#X obj 1 825 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 828 library: ceammc v0\.1;
-#N canvas 10 847 400 250 info 0;
+#X obj 1 901 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 904 library: ceammc v0\.1;
+#N canvas 10 923 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -97,7 +104,7 @@ file;
 https://github.com/uliss/pure-data;
 #X obj 120 228 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 228 generated by pddoc;
-#X restore 10 847 pd info;
+#X restore 10 923 pd info;
 #X connect 10 1 12 0;
 #X connect 12 0 15 0;
 #X connect 14 0 15 0;
@@ -107,4 +114,3 @@ https://github.com/uliss/pure-data;
 #X connect 6 0 8 0;
 #X connect 10 0 11 0;
 #X connect 9 0 10 1;
-#X connect 15 0 16 0;

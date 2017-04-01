@@ -1,45 +1,45 @@
-#N canvas 0 0 685 555 12;
-#X obj 522 50 cnv 1 143 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 522 50 arc cosine function;
-#X obj 1 1 cnv 5 682 40 empty empty math.acos 20 20 0 20 -104026 -4096
+#N canvas 0 0 715 555 12;
+#X obj 552 50 cnv 1 143 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 552 50 arc cosine function;
+#X obj 1 1 cnv 5 712 40 empty empty math.acos 20 20 0 20 -104026 -4096
 0;
-#X obj 592 11 math.acos;
-#X obj 225 80 cnv 1 440 116 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 230 80 The acos() function computes the principle value of the
+#X obj 622 11 math.acos;
+#X obj 235 80 cnv 1 460 116 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 80 The acos() function computes the principle value of the
 arc cosine of input value\. The result is in the range [0 \, pi]\.;
-#X text 230 117 Special values:;
-#X text 230 140 acos(1) returns +0\.;
-#X text 230 163 acos(x) returns a NAN\.;
+#X text 240 117 Special values:;
+#X text 240 140 acos(1) returns +0\.;
+#X text 240 163 acos(x) returns a NAN\.;
 #X floatatom 50 224 5 0 0 0 - - -;
 #X msg 117 224 1 2 d b;
 #X obj 50 253 math.acos;
 #X obj 50 282 prepend set;
 #X msg 50 311 ;
-#X obj 20 350 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 350 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 355 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
 0;
-#X text 125 360 1\.;
+#X text 120 360 1\.;
 #X text 150 360 *float*;
-#X text 230 360 input value\. ;
+#X text 240 360 input value\. ;
 #X text 150 378 *list*;
-#X text 230 378 apply to all numeric values\. ;
-#X obj 20 406 cnv 1 661 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 378 apply to all numeric values\. ;
+#X obj 20 406 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 411 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;
-#X text 125 416 1\.;
-#X text 230 416 result value;
+#X text 120 416 1\.;
+#X text 240 416 result value;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title math @url ceammc.math-help.pd;
-#X obj 1 505 cnv 5 682 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0\.1;
-#X text 306 520 see also:;
-#X obj 376 520 math.sin;
-#X obj 449 520 math.cos;
-#X obj 522 520 math.tan;
-#X obj 595 520 math.asin;
+#X text 336 520 see also:;
+#X obj 406 520 math.sin;
+#X obj 479 520 math.cos;
+#X obj 552 520 math.tan;
+#X obj 625 520 math.asin;
 #N canvas 10 527 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
