@@ -91,10 +91,18 @@ public:
             T::onInlet(inlet, lst);
     }
 
-    void sendAny(const char* name, const AtomList& args = AtomList(), int inlet = 0)
+    void sendAny(const char* name, const AtomList& args = AtomList())
     {
-        if (inlet == 0)
-            T::onAny(gensym(name), args);
+        T::onAny(gensym(name), args);
+    }
+
+    void sendAny(const AtomList& args)
+    {
+        if (args.empty() || (!args[0].isSymbol()))
+            return;
+
+        Atom name = args[0];
+        T::onAny(name.asSymbol(), args.slice(1));
     }
 
     virtual void bangTo(size_t n)
@@ -219,6 +227,13 @@ public:
         REQUIRE(obj.lastMessage(outlet).atomValue() == Atom(gensym(s))); \
     }
 
+#define REQUIRE_ANY_AT_OUTLET(outlet, obj, anyLst)             \
+    {                                                          \
+        REQUIRE(obj.hasNewMessages(outlet));                   \
+        REQUIRE(obj.lastMessage(outlet).isAny());              \
+        REQUIRE(obj.lastMessage(outlet).anyValue() == anyLst); \
+    }
+
 #define REQUIRE_PROP(obj, name, val)                   \
     {                                                  \
         Property* p = obj.property(gensym("@" #name)); \
@@ -302,6 +317,20 @@ AtomList test_list_wrap(const Atom& a1, const Atom& a2, const Atom& a3, const At
 #define L8(v1, v2, v3, v4, v5, v6, v7, v8) test_list_wrap(test_atom_wrap(v1), test_atom_wrap(v2),       \
     test_atom_wrap(v3), test_atom_wrap(v4), test_atom_wrap(v5), test_atom_wrap(v6), test_atom_wrap(v7), \
     test_atom_wrap(v8))
+
+template <class T>
+void WHEN_SEND_ANY_TO(T& obj, const AtomList& lst)
+{
+    obj.storeAllMessageCount();
+    obj.sendAny(lst);
+}
+
+template <class T>
+void WHEN_SEND_ANY_TO(T& obj, const char* name, const AtomList& lst)
+{
+    obj.storeAllMessageCount();
+    obj.sendAny(name, lst);
+}
 
 template <class T>
 void WHEN_SEND_LIST_TO(size_t inlet, T& obj, const AtomList& lst)

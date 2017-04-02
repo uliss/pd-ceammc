@@ -29,6 +29,25 @@ void Replace::onInlet(size_t n, const AtomList& l)
         to_ = l.empty() ? Atom() : l[0];
 }
 
+void Replace::onAny(t_symbol* sel, const AtomList& l)
+{
+    if (validateArgs()) {
+        AtomList res(sel);
+        res.append(l);
+        if (!to_.isNone())
+            res.replaceAll(from_, to_);
+        else
+            res.removeAll(from_);
+
+        if (!res[0].isSymbol())
+            res.insert(0, &s_list);
+
+        anyTo(0, res);
+    } else {
+        anyTo(0, sel, l);
+    }
+}
+
 void Replace::onList(const AtomList& l)
 {
     if (validateArgs()) {

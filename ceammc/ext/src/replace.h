@@ -26,6 +26,7 @@ public:
     Replace(const PdArgs& a);
 
     void onInlet(size_t n, const AtomList& l);
+    void onAny(t_symbol* sel, const AtomList& l);
     void onList(const AtomList& l);
     void onFloat(float v);
     void onSymbol(t_symbol* s);
