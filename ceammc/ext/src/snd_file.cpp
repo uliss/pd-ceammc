@@ -304,7 +304,7 @@ void SndFile::outputInfo(SoundFilePtr file)
     info.append(gensym("@duration"));
     info.append(float(double(file->sampleCount()) / file->sampleRate()));
 
-    info.outputAsAny(outletAt(0));
+    anyTo(0, info);
 }
 
 bool SndFile::arrayNameContainsPattern(const std::string& name) const

@@ -194,7 +194,7 @@ TEST_CASE("snd.file", "[PureData]")
         AtomList args;
         SndFileTest sf("snd.file", args);
         REQUIRE(sf.numInlets() == 1);
-        REQUIRE(sf.numOutlets() == 2);
+        REQUIRE(sf.numOutlets() == 1);
         REQUIRE(sf.findArray_(SA("unknown")) == 0);
 
         sf.storeMessageCount();
@@ -569,23 +569,23 @@ TEST_CASE("snd.file", "[PureData]")
         AtomList args;
         SndFileTest sf("snd.file", args);
         REQUIRE(sf.numInlets() == 1);
-        REQUIRE(sf.numOutlets() == 2);
+        REQUIRE(sf.numOutlets() == 1);
 
-        sf.storeMessageCount(1);
-        REQUIRE_FALSE(sf.hasNewMessages(1));
+        sf.storeMessageCount();
+        REQUIRE_FALSE(sf.hasNewMessages());
 
         CALL(sf, info);
-        REQUIRE_FALSE(sf.hasNewMessages(1));
+        REQUIRE_FALSE(sf.hasNewMessages());
 
         CALL1(sf, info, F(123));
-        REQUIRE_FALSE(sf.hasNewMessages(1));
+        REQUIRE_FALSE(sf.hasNewMessages());
 
         CALL1(sf, info, gensym("unknown"));
-        REQUIRE_FALSE(sf.hasNewMessages(1));
+        REQUIRE_FALSE(sf.hasNewMessages());
 
         CALL1(sf, info, gensym(TEST_DATA_DIR "/test_data1.wav"));
-        REQUIRE(sf.hasNewMessages(1));
-        AtomList info = sf.lastMessage(1).listValue();
+        REQUIRE(sf.hasNewMessages());
+        AtomList info = sf.lastMessage().anyValue();
         AtomList prop;
         REQUIRE(info.property("@channels", &prop));
         REQUIRE(prop.asSizeT() == 2);
@@ -676,21 +676,22 @@ TEST_CASE("snd.file", "[PureData]")
         AtomList args;
         SndFileTest sf("snd.file", args);
 
-        sf.storeMessageCount(1);
-        REQUIRE_FALSE(sf.hasNewMessages(1));
+        sf.storeMessageCount();
+        REQUIRE_FALSE(sf.hasNewMessages());
 
         CALL(sf, info);
-        REQUIRE_FALSE(sf.hasNewMessages(1));
+        REQUIRE_FALSE(sf.hasNewMessages());
 
         CALL1(sf, info, F(123));
-        REQUIRE_FALSE(sf.hasNewMessages(1));
+        REQUIRE_FALSE(sf.hasNewMessages());
 
         CALL1(sf, info, gensym("unknown"));
-        REQUIRE_FALSE(sf.hasNewMessages(1));
+        REQUIRE_FALSE(sf.hasNewMessages());
 
+        sf.storeMessageCount();
         CALL1(sf, info, gensym(TEST_DATA_DIR "/test_data0.mp3"));
-        REQUIRE(sf.hasNewMessages(1));
-        AtomList info = sf.lastMessage(1).listValue();
+        REQUIRE(sf.hasNewMessages());
+        AtomList info = sf.lastMessage().anyValue();
         AtomList prop;
         REQUIRE(info.property("@channels", &prop));
         REQUIRE(prop.asSizeT() == 1);
@@ -702,12 +703,12 @@ TEST_CASE("snd.file", "[PureData]")
         REQUIRE(info.property("@duration", &prop));
         REQUIRE(prop.at(0).asFloat() == 0.01f);
 
-        sf.cleanMessages(1);
-        sf.storeMessageCount(1);
-        REQUIRE_FALSE(sf.hasNewMessages(1));
+        sf.cleanMessages();
+        sf.storeMessageCount(0);
+        REQUIRE_FALSE(sf.hasNewMessages(0));
         CALL1(sf, info, gensym(TEST_DATA_DIR "/test_data0.m4a"));
-        REQUIRE(sf.hasNewMessages(1));
-        info = sf.lastMessage(1).listValue();
+        REQUIRE(sf.hasNewMessages(0));
+        info = sf.lastMessage().anyValue();
         prop.clear();
         REQUIRE(info.property("@channels", &prop));
         REQUIRE(prop.asSizeT() == 1);

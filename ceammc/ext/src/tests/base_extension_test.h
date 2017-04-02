@@ -98,6 +98,26 @@ public:
         msg_[n].push_back(Message(lst));
     }
 
+    virtual void symbolTo(size_t n, t_symbol* s)
+    {
+        msg_[n].push_back(Message(s));
+    }
+
+    virtual void atomTo(size_t n, const Atom& a)
+    {
+        msg_[n].push_back(Message(a));
+    }
+
+    virtual void anyTo(size_t n, const AtomList& lst)
+    {
+        msg_[n].push_back(Message(lst.at(0).asSymbol(), lst.slice(1)));
+    }
+
+    virtual void anyTo(size_t n, t_symbol* sel, const AtomList& lst)
+    {
+        msg_[n].push_back(Message(sel, lst));
+    }
+
 public:
     void storeMessageCount(size_t outlet = 0)
     {
