@@ -23,13 +23,10 @@ Replace::Replace(const PdArgs& a)
 
 void Replace::onInlet(size_t n, const AtomList& l)
 {
-    if (l.empty())
-        return;
-
     if (n == 1)
-        from_ = l[0];
+        from_ = l.empty() ? Atom() : l[0];
     else if (n == 2)
-        to_ = l[0];
+        to_ = l.empty() ? Atom() : l[0];
 }
 
 void Replace::onList(const AtomList& l)
@@ -50,9 +47,10 @@ void Replace::onList(const AtomList& l)
 
 void Replace::onFloat(float v)
 {
-    if (validateArgs() && Atom(v) == from_)
-        atomTo(0, to_);
-    else
+    if (validateArgs() && Atom(v) == from_) {
+        if (!to_.isNone())
+            atomTo(0, to_);
+    } else
         floatTo(0, v);
 }
 
@@ -66,7 +64,7 @@ void Replace::onSymbol(t_symbol* s)
 
 bool Replace::validateArgs() const
 {
-    return !from_.isNone();
+    return !from_.isNone() && from_ != to_;
 }
 
 extern "C" void replace_setup()

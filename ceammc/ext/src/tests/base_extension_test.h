@@ -87,6 +87,8 @@ public:
     {
         if (inlet == 0)
             T::onList(lst);
+        else
+            T::onInlet(inlet, lst);
     }
 
     void sendAny(const char* name, const AtomList& args = AtomList(), int inlet = 0)
@@ -224,12 +226,29 @@ public:
         REQUIRE(p->get() == val);                      \
     }
 
+#define REQUIRE_PROPERTY(obj, name, val)           \
+    {                                              \
+        Property* p = obj.property(gensym(#name)); \
+        REQUIRE(p != 0);                           \
+        REQUIRE(p->get() == val);                  \
+    }
+
+#define REQUIRE_PROPERTY_NONE(obj, name)           \
+    {                                              \
+        Property* p = obj.property(gensym(#name)); \
+        REQUIRE(p != 0);                           \
+        REQUIRE_FALSE(p->get().empty());           \
+        REQUIRE(p->get()[0].isNone());             \
+    }
+
 #define REQUIRE_INDEX(obj, idx)                         \
     {                                                   \
         REQUIRE(obj.p_index() == AtomList(float(idx))); \
     }
 
 #define REQUIRE_NO_MSG(obj) REQUIRE_FALSE(obj.hasNewMessages())
+
+#define REQUIRE_NO_MESSAGES_AT_OUTLET(outlet, obj) REQUIRE_FALSE(obj.hasNewMessages(outlet))
 
 #define S(v) Atom(gensym(v))
 #define F(v) Atom(float(v))
