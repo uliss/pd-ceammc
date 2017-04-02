@@ -76,39 +76,35 @@ public:
 
 #define SF(path) sound::SoundFileLoader::open(path)
 
-#define SA(txt) Atom(gensym(#txt))
-#define S(txt) gensym(#txt)
-#define F(n) Atom(float(n))
-
 #define ARG_F1(name, value)    \
     {                          \
-        args.append(S(name));  \
+        args.append(S(#name));  \
         args.append(F(value)); \
     }
 
 #define ARG_F2(name, f1, f2)  \
     {                         \
-        args.append(S(name)); \
+        args.append(S(#name)); \
         args.append(F(f1));   \
         args.append(F(f2));   \
     }
 
 #define ARG_S1(name, value)    \
     {                          \
-        args.append(S(name));  \
-        args.append(S(value)); \
+        args.append(S(#name));  \
+        args.append(S(#value)); \
     }
 
 #define ARG_S2(name, s1, s2)  \
     {                         \
-        args.append(S(name)); \
-        args.append(S(s1));   \
-        args.append(S(s2));   \
+        args.append(S(#name)); \
+        args.append(S(#s1));   \
+        args.append(S(#s2));   \
     }
 
 #define ARG(name)             \
     {                         \
-        args.append(S(name)); \
+        args.append(S(#name)); \
     }
 
 #define REQUIRE_ARRAY_SIZE(array, size)                       \
@@ -172,9 +168,9 @@ t_canvas* make_canvas(int w = 300, int h = 200, int x = 0, int y = 0)
     SETFLOAT(&cnv_args[1], y);
     SETFLOAT(&cnv_args[2], w);
     SETFLOAT(&cnv_args[3], h);
-    SETSYMBOL(&cnv_args[4], S(test));
+    SETSYMBOL(&cnv_args[4], gensym("test"));
     SETFLOAT(&cnv_args[5], 0);
-    return canvas_new(0, S(canvas), 6, cnv_args);
+    return canvas_new(0, gensym("canvas"), 6, cnv_args);
 }
 
 class PdInit {
@@ -195,7 +191,7 @@ TEST_CASE("snd.file", "[PureData]")
         SndFileTest sf("snd.file", args);
         REQUIRE(sf.numInlets() == 1);
         REQUIRE(sf.numOutlets() == 1);
-        REQUIRE(sf.findArray_(SA("unknown")) == 0);
+        REQUIRE(sf.findArray_(S("unknown")) == 0);
 
         sf.storeMessageCount();
         REQUIRE_NO_MSG(sf);
@@ -207,23 +203,23 @@ TEST_CASE("snd.file", "[PureData]")
         REQUIRE(array1 != 0);
 
         REQUIRE(sf.findArray_(Atom(100)) == 0);
-        REQUIRE(sf.findArray_(S(unknown)) == 0);
-        REQUIRE(sf.findArray_(S(array1)) == array1);
+        REQUIRE(sf.findArray_(S("unknown")) == 0);
+        REQUIRE(sf.findArray_(S("array1")) == array1);
 
-        REQUIRE_FALSE(sf.checkArray_(S(unknown)));
-        REQUIRE(sf.checkArray_(S(array1)));
+        REQUIRE_FALSE(sf.checkArray_(S("unknown")));
+        REQUIRE(sf.checkArray_(S("array1")));
 
-        REQUIRE_FALSE(sf.resizeArray_(S(unknown), 100));
-        REQUIRE(sf.resizeArray_(S(array1), 100));
+        REQUIRE_FALSE(sf.resizeArray_(S("unknown"), 100));
+        REQUIRE(sf.resizeArray_(S("array1"), 100));
         REQUIRE_ARRAY_SIZE(array1, 100);
 
         // negative array size
-        REQUIRE_FALSE(sf.resizeArray_(S(array1), 0));
-        REQUIRE_FALSE(sf.resizeArray_(S(array1), -100));
+        REQUIRE_FALSE(sf.resizeArray_(S("array1"), 0));
+        REQUIRE_FALSE(sf.resizeArray_(S("array1"), -100));
         // check nothing changes
         REQUIRE_ARRAY_SIZE(array1, 100);
 
-        REQUIRE(sf.resizeArray_(S(array1), 111));
+        REQUIRE(sf.resizeArray_(S("array1"), 111));
         REQUIRE_ARRAY_SIZE(array1, 111);
 
         REQUIRE_NO_MSG(sf);
@@ -232,19 +228,19 @@ TEST_CASE("snd.file", "[PureData]")
         REQUIRE(file);
         REQUIRE(file->isOpened());
 
-        REQUIRE(sf.loadArray_(SF("not-exists"), S(array1), 0, 0) == -1);
-        REQUIRE(sf.loadArray_(file, S(unknown), 0, 0) == -1);
+        REQUIRE(sf.loadArray_(SF("not-exists"), S("array1"), 0, 0) == -1);
+        REQUIRE(sf.loadArray_(file, S("unknown"), 0, 0) == -1);
         REQUIRE(file->sampleCount() == 441);
         // invalid offset
-        REQUIRE(sf.loadArray_(file, S(array1), 0, -1) == -1);
-        REQUIRE(sf.loadArray_(file, S(array1), 0, 1024) == -1);
+        REQUIRE(sf.loadArray_(file, S("array1"), 0, -1) == -1);
+        REQUIRE(sf.loadArray_(file, S("array1"), 0, 1024) == -1);
         // invalid channel
-        REQUIRE(sf.loadArray_(file, S(array1), 10, 0) == -1);
+        REQUIRE(sf.loadArray_(file, S("array1"), 10, 0) == -1);
 
         REQUIRE_NO_MSG(sf);
 
         // load left channel
-        REQUIRE(sf.loadArray_(file, S(array1), 0, 0) == 111);
+        REQUIRE(sf.loadArray_(file, S("array1"), 0, 0) == 111);
         int sz = 0;
         t_word* vec = 0;
         garray_getfloatwords(array1, &sz, &vec);
@@ -254,21 +250,21 @@ TEST_CASE("snd.file", "[PureData]")
 
         // load left channel with offset
         const long offset = 11;
-        REQUIRE(sf.loadArray_(file, S(array1), 0, offset) == 111);
+        REQUIRE(sf.loadArray_(file, S("array1"), 0, offset) == 111);
         garray_getfloatwords(array1, &sz, &vec);
         for (int i = 0; i < sz; i++) {
             REQUIRE(vec[i].w_float == Approx((i + offset) * 10 / 32768.f));
         }
 
         // load right channel
-        REQUIRE(sf.loadArray_(file, S(array1), 1, 0) == 111);
+        REQUIRE(sf.loadArray_(file, S("array1"), 1, 0) == 111);
         garray_getfloatwords(array1, &sz, &vec);
         for (int i = 0; i < sz; i++) {
             REQUIRE(vec[i].w_float == Approx(i * 10 / -32767.f));
         }
 
         // load right channel with offset
-        REQUIRE(sf.loadArray_(file, S(array1), 1, offset) == 111);
+        REQUIRE(sf.loadArray_(file, S("array1"), 1, offset) == 111);
         garray_getfloatwords(array1, &sz, &vec);
         for (int i = 0; i < sz; i++) {
             REQUIRE(vec[i].w_float == Approx((i + offset) * 10 / -32767.f));
@@ -277,23 +273,23 @@ TEST_CASE("snd.file", "[PureData]")
         REQUIRE_NO_MSG(sf);
 
         args.clear();
-        sf.m_load(S(load), args);
+        sf.m_load(gensym("load"), args);
 
         // invalid float argument
         args.append(1000);
-        sf.m_load(S(load), args);
+        sf.m_load(gensym("load"), args);
         args.clear();
 
         // do destination argument
-        args.append(S(unknown)); //filename
-        sf.m_load(S(load), args);
+        args.append(S("unknown")); //filename
+        sf.m_load(gensym("load"), args);
         args.clear();
 
         // invalid destination
-        args.append(S(unknown)); //filename
-        args.append(S(@to));
-        args.append(S(arrayX));
-        sf.m_load(S(load), args);
+        args.append(S("unknown")); //filename
+        args.append(S("@to"));
+        args.append(S("arrayX"));
+        sf.m_load(gensym("load"), args);
         args.clear();
 
         /// create "array2"
@@ -301,24 +297,24 @@ TEST_CASE("snd.file", "[PureData]")
         REQUIRE(array2 != 0);
 
         // invalid filename
-        args.append(S(unknown)); //filename
-        args.append(S(@to));
-        args.append(S(array2));
-        sf.m_load(S(load), args);
+        args.append(S("unknown")); //filename
+        args.append(S("@to"));
+        args.append(S("array2"));
+        sf.m_load(gensym("load"), args);
         args.clear();
         REQUIRE_NO_MSG(sf);
 
-        REQUIRE(sf.resizeArray_(S(array1), 20));
-        REQUIRE(sf.resizeArray_(S(array2), 25));
+        REQUIRE(sf.resizeArray_(S("array1"), 20));
+        REQUIRE(sf.resizeArray_(S("array2"), 25));
         array_zero(array1);
         array_zero(array2);
         // first load success
 
         // valid filename
         args.append(gensym(TEST_DATA_DIR "/test_data1.wav")); //filename
-        args.append(S(@to));
-        args.append(S(array1));
-        sf.m_load(S(load), args);
+        args.append(S("@to"));
+        args.append(S("array1"));
+        sf.m_load(gensym("load"), args);
         args.clear();
 
         REQUIRE_ARRAY_SIZE(array1, 20);
@@ -332,11 +328,11 @@ TEST_CASE("snd.file", "[PureData]")
 
         // load channel 1
         args.append(gensym(TEST_DATA_DIR "/test_data1.wav")); //filename
-        args.append(S(@to));
-        args.append(S(array1));
-        args.append(S(@channel));
+        args.append(S("@to"));
+        args.append(S("array1"));
+        args.append(S("@channel"));
         args.append(F(1));
-        sf.m_load(S(load), args);
+        sf.m_load(gensym("load"), args);
         args.clear();
 
         REQUIRE_ARRAY_SIZE(array1, 20);
@@ -351,12 +347,12 @@ TEST_CASE("snd.file", "[PureData]")
         // load channel 1 with resize
         array_zero(array1);
         args.append(gensym(TEST_DATA_DIR "/test_data1.wav")); //filename
-        args.append(S(@to));
-        args.append(S(array1));
-        args.append(S(@channel));
+        args.append(S("@to"));
+        args.append(S("array1"));
+        args.append(S("@channel"));
         args.append(F(1));
-        args.append(S(@resize));
-        sf.m_load(S(load), args);
+        args.append(S("@resize"));
+        sf.m_load(gensym("load"), args);
         args.clear();
 
         REQUIRE_ARRAY_SIZE(array1, 441);
@@ -372,14 +368,14 @@ TEST_CASE("snd.file", "[PureData]")
         {
             array_zero(array1);
             args.append(gensym(TEST_DATA_DIR "/test_data1.wav")); //filename
-            args.append(S(@to));
-            args.append(S(array1));
-            args.append(S(@channel));
+            args.append(S("@to"));
+            args.append(S("array1"));
+            args.append(S("@channel"));
             args.append(F(1));
-            args.append(S(@resize));
-            args.append(S(@offset));
+            args.append(S("@resize"));
+            args.append(S("@offset"));
             args.append(F(100));
-            sf.m_load(S(load), args);
+            sf.m_load(gensym("load"), args);
             args.clear();
 
             int offset = 100;
@@ -396,11 +392,11 @@ TEST_CASE("snd.file", "[PureData]")
         {
             array_zero(array1);
             args.append(gensym(TEST_DATA_DIR "/test_data1.wav")); //filename
-            args.append(S(@to));
-            args.append(S(array1));
-            args.append(S(array2));
-            args.append(S(@resize));
-            sf.m_load(S(load), args);
+            args.append(S("@to"));
+            args.append(S("array1"));
+            args.append(S("array2"));
+            args.append(S("@resize"));
+            sf.m_load(gensym("load"), args);
             args.clear();
 
             REQUIRE_ARRAY_SIZE(array1, 441);
@@ -420,11 +416,11 @@ TEST_CASE("snd.file", "[PureData]")
         {
             array_zero(array1);
             args.append(gensym(TEST_DATA_DIR "/test_data1.wav")); //filename
-            args.append(S(@to));
-            args.append(S(array2));
-            args.append(S(array1));
-            args.append(S(@resize));
-            sf.m_load(S(load), args);
+            args.append(S("@to"));
+            args.append(S("array2"));
+            args.append(S("array1"));
+            args.append(S("@resize"));
+            sf.m_load(gensym("load"), args);
             args.clear();
 
             REQUIRE_ARRAY_SIZE(array1, 441);
@@ -449,7 +445,7 @@ TEST_CASE("snd.file", "[PureData]")
             ARG(@resize);
             // final @channel = [1, 0]
             // so ch1 loaded to array1, ch0 - to array2
-            sf.m_load(S(load), args);
+            sf.m_load(gensym("load"), args);
             args.clear();
 
             REQUIRE_ARRAY_SIZE(array1, 441);
@@ -474,7 +470,7 @@ TEST_CASE("snd.file", "[PureData]")
             ARG_F2(@channel, 100, -12);
             // final @channel = [0, 0]
             // so ch0 loaded to array1 and array2
-            sf.m_load(S(load), args);
+            sf.m_load(gensym("load"), args);
             args.clear();
 
             REQUIRE_ARRAY_SIZE(array1, 441);
@@ -498,7 +494,7 @@ TEST_CASE("snd.file", "[PureData]")
             ARG(@resize);
             ARG_F1(@offset, 400);
             ARG_F2(@channel, 0, 1);
-            sf.m_load(S(load), args);
+            sf.m_load(gensym("load"), args);
             args.clear();
 
             REQUIRE_ARRAY_SIZE(array1, 41);
@@ -521,7 +517,7 @@ TEST_CASE("snd.file", "[PureData]")
             ARG_S2(@to, array1, array2);
             ARG_F1(@offset, -41);
             ARG(@resize);
-            sf.m_load(S(load), args);
+            sf.m_load(gensym("load"), args);
             args.clear();
 
             REQUIRE_ARRAY_SIZE(array1, 41);
@@ -545,7 +541,7 @@ TEST_CASE("snd.file", "[PureData]")
             ARG_S2(@to, array1, array2);
             ARG_F1(@offset, 10000); // became 0
             ARG(@resize);
-            sf.m_load(S(load), args);
+            sf.m_load(gensym("load"), args);
             args.clear();
 
             REQUIRE_ARRAY_SIZE(array1, 441);
@@ -637,37 +633,33 @@ TEST_CASE("snd.file", "[PureData]")
         t_garray* array1 = graph_array(canvas_getcurrent(), gensym("array1"), &s_float, 100, 0);
         REQUIRE(array1 != 0);
 
-        REQUIRE(sf.findPatternArrays_("array[]") == AtomList(S(array1)));
-        REQUIRE(sf.findPatternArrays_("array[1]") == AtomList(S(array1)));
+        REQUIRE(sf.findPatternArrays_("array[]") == L1("array1"));
+        REQUIRE(sf.findPatternArrays_("array[1]") == L1("array1"));
         REQUIRE(sf.findPatternArrays_("array[|1]") == AtomList());
         REQUIRE(sf.findPatternArrays_("array[1|]") == AtomList());
         REQUIRE(sf.findPatternArrays_("array[|1|]") == AtomList());
         REQUIRE(sf.findPatternArrays_("array[2]") == AtomList()); // not exists yet
-        REQUIRE(sf.findPatternArrays_("array[1|2]") == AtomList(S(array1))); // not exists yet
+        REQUIRE(sf.findPatternArrays_("array[1|2]") == L1("array1")); // not exists yet
 
         t_garray* array2 = graph_array(canvas_getcurrent(), gensym("array2"), &s_float, 100, 0);
         REQUIRE(array2 != 0);
 
-        REQUIRE(sf.findPatternArrays_("array[]") == AtomList(S(array1), S(array2)));
-        REQUIRE(sf.findPatternArrays_("array[1]") == AtomList(S(array1)));
-        REQUIRE(sf.findPatternArrays_("array[2]") == AtomList(S(array2)));
-        REQUIRE(sf.findPatternArrays_("array[1|2]") == AtomList(S(array1), S(array2)));
-        REQUIRE(sf.findPatternArrays_("array[0-10]") == AtomList(S(array1), S(array2)));
-        REQUIRE(sf.findPatternArrays_("array[10-0]") == AtomList(S(array2), S(array1)));
+        REQUIRE(sf.findPatternArrays_("array[]") == L2("array1", "array2"));
+        REQUIRE(sf.findPatternArrays_("array[1]") == L1("array1"));
+        REQUIRE(sf.findPatternArrays_("array[2]") == L1("array2"));
+        REQUIRE(sf.findPatternArrays_("array[1|2]") == L2("array1", "array2"));
+        REQUIRE(sf.findPatternArrays_("array[0-10]") == L2("array1", "array2"));
+        REQUIRE(sf.findPatternArrays_("array[10-0]") == L2("array2", "array1"));
         REQUIRE(sf.findPatternArrays_("array[|1|2]") == AtomList());
         REQUIRE(sf.findPatternArrays_("array[1|2|]") == AtomList());
         REQUIRE(sf.findPatternArrays_("array[||||1|2|]") == AtomList());
-        REQUIRE(sf.findPatternArrays_("array[2|1]") == AtomList(S(array2), S(array1)));
+        REQUIRE(sf.findPatternArrays_("array[2|1]") == L2("array2", "array1"));
 
         t_garray* array3 = graph_array(canvas_getcurrent(), gensym("array3"), &s_float, 100, 0);
         REQUIRE(array3 != 0);
 
-        AtomList lst3;
-        lst3.append(S(array1));
-        lst3.append(S(array2));
-        lst3.append(S(array3));
-        REQUIRE(sf.findPatternArrays_("array[1-3]") == lst3);
-        REQUIRE(sf.findPatternArrays_("array[1-5]") == lst3);
+        REQUIRE(sf.findPatternArrays_("array[1-3]") == L3("array1", "array2", "array3"));
+        REQUIRE(sf.findPatternArrays_("array[1-5]") == L3("array1", "array2", "array3"));
     }
 
 #if defined(__APPLE__) && defined(__clang__)
