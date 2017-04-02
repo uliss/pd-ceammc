@@ -179,5 +179,60 @@ TEST_CASE("replace", "[PureData]")
                 REQUIRE_FLOAT_AT_OUTLET(0, t, i);
             }
         }
+
+        SECTION("symbol")
+        {
+            AtomList args;
+            ReplaceTest t("replace", args);
+
+            WHEN_SEND_SYMBOL_TO(0, t, "a");
+            REQUIRE_SYMBOL_AT_OUTLET(0, t, "a");
+
+            // remove mode
+            t.setProperty("@from", S("b"));
+
+            WHEN_SEND_SYMBOL_TO(0, t, "a");
+            REQUIRE_SYMBOL_AT_OUTLET(0, t, "a");
+
+            WHEN_SEND_SYMBOL_TO(0, t, "b");
+            REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+
+            // replace mode
+            t.setProperty("@from", S("b"));
+            t.setProperty("@to", S("c"));
+
+            WHEN_SEND_SYMBOL_TO(0, t, "a");
+            REQUIRE_SYMBOL_AT_OUTLET(0, t, "a");
+
+            WHEN_SEND_SYMBOL_TO(0, t, "b");
+            REQUIRE_SYMBOL_AT_OUTLET(0, t, "c");
+
+            // self-replace
+            t.setProperty("@from", S("b"));
+            t.setProperty("@to", S("b"));
+
+            WHEN_SEND_SYMBOL_TO(0, t, "a");
+            REQUIRE_SYMBOL_AT_OUTLET(0, t, "a");
+
+            WHEN_SEND_SYMBOL_TO(0, t, "b");
+            REQUIRE_SYMBOL_AT_OUTLET(0, t, "b");
+
+            // replace to other type
+            t.setProperty("@from", S("b"));
+            t.setProperty("@to", F(999));
+
+            WHEN_SEND_SYMBOL_TO(0, t, "a");
+            REQUIRE_SYMBOL_AT_OUTLET(0, t, "a");
+
+            WHEN_SEND_SYMBOL_TO(0, t, "b");
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 999);
+
+            // replace other types
+            t.setProperty("@from", F(9));
+            t.setProperty("@to", F(999));
+
+            WHEN_SEND_SYMBOL_TO(0, t, "a");
+            REQUIRE_SYMBOL_AT_OUTLET(0, t, "a");
+        }
     }
 }

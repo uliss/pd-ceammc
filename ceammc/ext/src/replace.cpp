@@ -56,9 +56,10 @@ void Replace::onFloat(float v)
 
 void Replace::onSymbol(t_symbol* s)
 {
-    if (validateArgs() && Atom(s) == from_)
-        atomTo(0, to_);
-    else
+    if (validateArgs() && Atom(s) == from_) {
+        if (!to_.isNone())
+            atomTo(0, to_);
+    } else
         symbolTo(0, s);
 }
 
