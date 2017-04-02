@@ -115,4 +115,14 @@ TEST_CASE("Message", "[ceammc::Message]")
         v1.setAtom(Atom(gensym("a")));
         REQUIRE(v1.isSymbol());
     }
+
+    SECTION("test any value")
+    {
+        AtomList ref(gensym("a"));
+        ref.append(1);
+        ref.append(2);
+
+        Message msg(gensym("a"), AtomList(1, 2));
+        REQUIRE(msg.anyValue() == ref);
+    }
 }

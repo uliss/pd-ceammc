@@ -7,10 +7,10 @@
 #X obj 30 143 vector.dot;
 #X text 175 143 treats list of floats as vector \, returns the dot
 product (sum of the elements of two lists with same indexes
-multiplied)\.;
+multiplied).;
 #X obj 30 194 vector.length;
 #X text 175 194 treats list of floats as vector \, returns vector
-length: sqrt(element(1)^2 + \.\.\.element(n)^2)\.;
+length: sqrt(element(1)^2 + ...element(n)^2).;
 #X obj 30 231 vector.normalize;
 #X text 175 231 returns normalized vector;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::vector 20 20 0 20 -104026

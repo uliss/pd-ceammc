@@ -14,18 +14,22 @@
             <since>0.1</since>
         </meta>
         <info>
-            <par>Loads sound files to arrays. Various formats are supoorted.</par>
+            <par>Deal with sound files: gets files info and loads them into arrays. Various formats are supported.
+            Supports array name patterns.</par>
         </info>
         <methods>
-            <method name="load">Loads sound file.
+            <method name="load">Loads sound file. Outputs info properties and number of loaded samples after load.
                 <param type="symbol" required="true" name="PATH">path to soundfile</param>
-                <param type="symbol" required="true" name="@to ARRAY_NAME">destination array name or pattern. Array patterns specified in square braces: array_[1-4] means - array_1, array_2, array_3, array_4.
+                <param type="symbol" required="true" name="@to ARRAY_NAME">destination array name or pattern.
+                Array patterns specified in square braces: array_[1-4] means - array_1, array_2, array_3, array_4.
                 array_[left|right] means array_left and array_right</param>
                 <param type="property" name="@resize">resize array to feet loaded file</param>
                 <param type="property" name="@offset SAMPLES">offset in samples from beginning of file</param>
-                <param type="symbol" name="@channel N1, N2..">channels to load</param>
+                <param type="symbol" name="@channel N1 N2..">channels to load</param>
             </method>
-            <method name="info">Outputs info about sound file
+            <method name="info">Outputs info about sound file as properties:
+                @channels - number of channels, @samples - number of samples, @samplerate - sound file samplerate,
+                @duration - file duration in seconds.
                 <param type="symbol" required="true" name="PATH">path to soundfile</param>
             </method>
         </methods>
@@ -36,34 +40,34 @@
             <inlet type="control"><xinfo>input inlet</xinfo></inlet>
         </inlets>
         <outlets>
-            <outlet>loaded samples</outlet>
-            <outlet>information output</outlet>
+            <outlet>number of loaded samples or file info properties</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[B]                                          [A array1 w=120 h=80]
+[B] /*open file*/
 |
-[openpanel]
-|               [HR number=3]
-|               |.
-[demux . . . . #d]
+[openpanel]                               [A array1 w=120 h=80]
 |
-[load $1 @to array1 @resize(
+[load $1 @to array[] @resize #m2(
 |
-|    [load $1 @to array[1-2] @resize #m1(    [A array2 w=120 h=80]
-|    |
-|    |    [load $1 @to array[] @resize #m2(
-|    |    |
-|    |    |
 [snd.file  ]
 |
-[prop->     ]
-|             |
-[F size=10]   [ui.display]
+[prop-> @channels     ]
+|            ^|     ^^|
+[F digits=8] [F]    [print]               [A array2 w=120 h=80]
 
-[X d:1->m1]
-[X d:2->m2]
+/* play */
+
+[bang #play(  [stop #stop(
+|             |
+|             |
+[tabplay~ array1]   [tabplay~ array2 #a2]
+|                   |.
+[dac~               ]
+
+[X play->a2]
+[X stop->a2]
 ]]>
             </pdascii>
         </example>

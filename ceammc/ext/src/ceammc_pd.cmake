@@ -26,6 +26,11 @@ macro(ceammc_cxx_extension__ module name)
     ceammc_extension_sep(${module} ${name} cpp "_")
 endmacro()
 
+# adds simple C++ extension
+macro(ceammc_cxx_extension_simple name)
+    pd_add_extension(NAME "${name}" FILES "${name}.cpp" INTERNAL True LIBRARY ceammc LINK ceammc_core)
+endmacro()
+
 macro(ceammc_link_fix_sep module name separator)
     if(APPLE)
         add_custom_command(TARGET "${module}${separator}${name}" POST_BUILD

@@ -1,4 +1,6 @@
 #include "ceammc_atomlist.h"
+#include "ceammc_log.h"
+
 #include <m_pd.h>
 #include <map>
 #include <string>
@@ -45,15 +47,21 @@ static void prop_get_anything(t_prop* x, t_symbol* s, int argc, t_atom* argv)
     }
 
     AtomList args(argc, argv);
+    args.insert(0, s);
+    AtomList unmatched;
 
-    // get mapped to property outlet
-    t_outlet* prop_out = get_prop_outlet(x, s);
-
-    if (prop_out != 0) {
-        args.output(prop_out);
-    } else {
-        args.outputAsAny(x->all_prop, s);
+    std::deque<AtomList> props = args.properties();
+    for (size_t i = 0; i < props.size(); i++) {
+        // get mapped to property outlet
+        t_outlet* prop_out = get_prop_outlet(x, props[i].first()->asSymbol());
+        if (prop_out != 0) {
+            props[i].slice(1).output(prop_out);
+        } else
+            unmatched.append(props[i]);
     }
+
+    if (!unmatched.empty())
+        unmatched.outputAsAny(x->all_prop);
 }
 
 static void* prop_get_new(t_symbol*, int argc, t_atom* argv)

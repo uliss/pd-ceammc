@@ -70,6 +70,12 @@ public:
 
     inline const Atom& atomValue() const { return value_; }
     inline const AtomList& listValue() const { return v_list_; }
+    inline AtomList anyValue() const
+    {
+        AtomList res(v_list_);
+        res.insert(0, value_);
+        return res;
+    }
 };
 
 bool operator==(const Message& c1, const Message& c2);

@@ -8,8 +8,8 @@
 #X text 175 143 mono DC blocker;
 #X obj 30 170 flt.eq_peak~;
 #X text 175 170 second order "peaking equalizer" section (gain boost
-or cut near some frequency)\.  Also called a "parametric equalizer"
-section\.;
+or cut near some frequency).  Also called a "parametric equalizer"
+section.;
 #X obj 30 221 flt.highshelf~;
 #X text 175 221 gain boost|cut above some frequency;
 #X obj 30 248 flt.lowshelf~;

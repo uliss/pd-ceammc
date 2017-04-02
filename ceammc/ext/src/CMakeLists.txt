@@ -102,6 +102,8 @@ ceammc_cxx_extension(pass if)
 ceammc_cxx_extension(pass changed)
 ceammc_cxx_extension(pass this)
 
+ceammc_cxx_extension_simple(replace)
+
 ###############################
 # IS
 ###############################

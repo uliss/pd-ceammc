@@ -6,7 +6,7 @@
 #X text 494 50  objects for list processing ;
 #X obj 30 116 list.apply_to;
 #X text 175 116 modifies list value at specified position \, filtering
-it via external object\.;
+it via external object.;
 #X obj 30 153 list.at;
 #X text 175 153 returns list element at given position;
 #X obj 30 180 list.choice;
@@ -16,12 +16,12 @@ it via external object\.;
 value;
 #X obj 30 234 list.count_if;
 #X text 175 234 returns the number of items that satisfy to external
-predicate\.;
+predicate.;
 #X obj 30 271 list.deinterleave;
 #X text 175 271 splits list to N lists \, each to separate output;
 #X obj 30 298 list.delta;
 #X text 175 298 returns the difference between the current list of
-floats and the previous one\.;
+floats and the previous one.;
 #X obj 30 335 list.each;
 #X text 175 335 maps each list value via external object(s);
 #X obj 30 362 list.equal;
@@ -33,11 +33,11 @@ floats and the previous one\.;
 generator;
 #X obj 30 443 list.integrator;
 #X text 175 443 returns the sum of the previously stored list and the
-current one then stores this sum\.;
+current one then stores this sum.;
 #X obj 30 480 list.interleave;
 #X text 175 480 takes n lists from n inlets (specified by argument)
 and output their elements sequentially (list1-1 list2-1 list1-2
-list2-2 etc\.)\.;
+list2-2 etc.).;
 #X obj 30 531 list.last;
 #X text 175 531 returns last list element;
 #X obj 30 558 list.length;
@@ -49,7 +49,7 @@ list2-2 etc\.)\.;
 #X obj 30 639 list.min;
 #X text 175 639 returns smallest element in the list;
 #X obj 30 666 list.normalize;
-#X text 175 666 normalizes float list values to get their sum = 1\.0;
+#X text 175 666 normalizes float list values to get their sum = 1.0;
 #X obj 30 693 list.product;
 #X text 175 693 calculates product of floats in list;
 #X obj 30 720 list.range;
@@ -73,13 +73,13 @@ list;
 #X text 175 936 sends list element one by one separately;
 #X obj 30 963 list.unwrap;
 #X text 175 963 gets list element on first input and list with count
-of each element on a second inlet\.;
+of each element on a second inlet.;
 #X obj 30 1000 list.walk;
 #X text 175 1000 Walks thru the list;
 #X obj 30 1027 list.wrap;
 #X text 175 1027 filters repeated elements of the list and outputs
 unique elements on first outlet \, outputs the count of elements on
-second\.;
+second.;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::list 20 20 0 20 -104026
 -4096 0;
 #X obj 1 1078 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;

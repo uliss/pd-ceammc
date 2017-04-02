@@ -114,6 +114,7 @@ set(DOC_FILES
     pass.if
     prop.get
     prop.set
+    replace
     snd.file
     symbol.length
     system.memsize

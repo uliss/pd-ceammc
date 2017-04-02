@@ -42,6 +42,11 @@
       <xi:include href="env.follow~.pddoc" parse="xml"/>
     </entry>
   </category>
+  <category name="flow">
+    <entry descr="Replace atoms in data stream" name="replace" ref_view="object">
+      <xi:include href="replace.pddoc" parse="xml"/>
+    </entry>
+  </category>
   <category name="flt">
     <entry descr="stereo DC blocker" name="flt.dcblock2~" ref_view="object">
       <xi:include href="flt.dcblock2~.pddoc" parse="xml"/>

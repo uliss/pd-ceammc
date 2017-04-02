@@ -16,7 +16,6 @@ SndFile::SndFile(const PdArgs& a)
     : BaseObject(a)
 {
     createOutlet();
-    createOutlet();
 
     createCbProperty("@formats", &SndFile::supportedFormats);
 }
@@ -86,7 +85,7 @@ void SndFile::m_load(t_symbol* sel, const AtomList& lst)
     // if no @channel specified
     if (prop_chan.empty()) {
         // fill with ascending values: 0, 1, 2, etc.
-        for (size_t i = 0; i < array_names.size(); i++) {
+        for (size_t i = 0; i < array_names.size() && i < ptr->channels(); i++) {
             channels[i] = i;
         }
     } else {
@@ -147,13 +146,13 @@ void SndFile::m_info(t_symbol* sel, const AtomList& lst)
 {
     if (lst.empty()) {
         OBJ_ERR << "arguments required";
-        return postLoadUsage();
+        return postInfoUsage();
     }
 
     // getting filename
     if (!lst.first()->isSymbol()) {
         OBJ_ERR << "filename required";
-        return postLoadUsage();
+        return postInfoUsage();
     }
 
     t_symbol* fname = lst.first()->asSymbol();
@@ -177,7 +176,7 @@ void SndFile::dump() const
 
     OBJ_DBG << "Supported formats:";
     for (size_t i = 0; i < lst.size(); i++) {
-        OBJ_DBG << "  - " << lst[i].first << ' ' << lst[i].second;
+        OBJ_DBG << " - " << lst[i].first << ' ' << lst[i].second;
     }
 }
 
@@ -189,6 +188,11 @@ AtomList SndFile::supportedFormats() const
         res.append(Atom(gensym(lst[i].first.c_str())));
 
     return res;
+}
+
+void SndFile::postInfoUsage()
+{
+    OBJ_DBG << "usage: info FILENAME";
 }
 
 void SndFile::postLoadUsage()
@@ -300,7 +304,7 @@ void SndFile::outputInfo(SoundFilePtr file)
     info.append(gensym("@duration"));
     info.append(float(double(file->sampleCount()) / file->sampleRate()));
 
-    listTo(1, info);
+    anyTo(0, info);
 }
 
 bool SndFile::arrayNameContainsPattern(const std::string& name) const

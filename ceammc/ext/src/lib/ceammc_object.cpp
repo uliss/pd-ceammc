@@ -141,6 +141,16 @@ void BaseObject::messageTo(size_t n, const Message& msg)
     msg.output(outlets_[n]);
 }
 
+void BaseObject::anyTo(size_t n, const AtomList& l)
+{
+    if (n >= outlets_.size()) {
+        OBJ_ERR << "invalid outlet index: " << n;
+        return;
+    }
+
+    l.outputAsAny(outlets_[n]);
+}
+
 void BaseObject::anyTo(size_t n, t_symbol* s, const Atom& a)
 {
     if (n >= outlets_.size()) {
