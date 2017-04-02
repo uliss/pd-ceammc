@@ -126,39 +126,6 @@ public:
         }                                                     \
     }
 
-#define CALL(obj, method)                            \
-    {                                                \
-        obj.storeMessageCount();                     \
-        obj.m_##method(gensym(#method), AtomList()); \
-    }
-
-#define CALL1(obj, method, arg1)                         \
-    {                                                    \
-        obj.storeMessageCount();                         \
-        obj.m_##method(gensym(#method), AtomList(arg1)); \
-    }
-
-#define REQUIRE_LIST_MSG(obj, lst)                     \
-    {                                                  \
-        REQUIRE(obj.hasNewMessages());                 \
-        REQUIRE(obj.lastMessage().isList());           \
-        REQUIRE(obj.lastMessage().listValue() == lst); \
-    }
-
-#define REQUIRE_PROP(obj, name, val)                   \
-    {                                                  \
-        Property* p = obj.property(gensym("@" #name)); \
-        REQUIRE(p != 0);                               \
-        REQUIRE(p->get() == val);                      \
-    }
-
-#define REQUIRE_INDEX(obj, idx)                         \
-    {                                                   \
-        REQUIRE(obj.p_index() == AtomList(float(idx))); \
-    }
-
-#define REQUIRE_NO_MSG(obj) REQUIRE_FALSE(obj.hasNewMessages())
-
 extern "C" void pd_init();
 
 t_canvas* make_canvas(int w = 300, int h = 200, int x = 0, int y = 0)
@@ -194,7 +161,7 @@ TEST_CASE("snd.file", "[PureData]")
         REQUIRE(sf.findArray_(S("unknown")) == 0);
 
         sf.storeMessageCount();
-        REQUIRE_NO_MSG(sf);
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, sf);
 
         t_canvas* cnv = make_canvas();
         REQUIRE(cnv != 0);
@@ -222,7 +189,7 @@ TEST_CASE("snd.file", "[PureData]")
         REQUIRE(sf.resizeArray_(S("array1"), 111));
         REQUIRE_ARRAY_SIZE(array1, 111);
 
-        REQUIRE_NO_MSG(sf);
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, sf);
 
         sound::SoundFilePtr file = SF(TEST_DATA_DIR "/test_data1.wav");
         REQUIRE(file);
@@ -237,7 +204,7 @@ TEST_CASE("snd.file", "[PureData]")
         // invalid channel
         REQUIRE(sf.loadArray_(file, S("array1"), 10, 0) == -1);
 
-        REQUIRE_NO_MSG(sf);
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, sf);
 
         // load left channel
         REQUIRE(sf.loadArray_(file, S("array1"), 0, 0) == 111);
@@ -270,7 +237,7 @@ TEST_CASE("snd.file", "[PureData]")
             REQUIRE(vec[i].w_float == Approx((i + offset) * 10 / -32767.f));
         }
 
-        REQUIRE_NO_MSG(sf);
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, sf);
 
         args.clear();
         sf.m_load(gensym("load"), args);
@@ -302,7 +269,7 @@ TEST_CASE("snd.file", "[PureData]")
         args.append(S("array2"));
         sf.m_load(gensym("load"), args);
         args.clear();
-        REQUIRE_NO_MSG(sf);
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, sf);
 
         REQUIRE(sf.resizeArray_(S("array1"), 20));
         REQUIRE(sf.resizeArray_(S("array2"), 25));
