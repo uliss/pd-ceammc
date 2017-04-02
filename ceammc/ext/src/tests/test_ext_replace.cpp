@@ -234,5 +234,49 @@ TEST_CASE("replace", "[PureData]")
             WHEN_SEND_SYMBOL_TO(0, t, "a");
             REQUIRE_SYMBOL_AT_OUTLET(0, t, "a");
         }
+
+        SECTION("list")
+        {
+            AtomList args;
+            ReplaceTest t("replace", args);
+
+            WHEN_SEND_LIST_TO(0, t, L5(1, 2, 3, 4, 5));
+            REQUIRE_LIST_AT_OUTLET(0, t, L5(1, 2, 3, 4, 5));
+
+            // remove mode
+            t.setProperty("@from", F(3));
+            WHEN_SEND_LIST_TO(0, t, L5(1, 2, 3, 4, 5));
+            REQUIRE_LIST_AT_OUTLET(0, t, L4(1, 2, 4, 5));
+
+            WHEN_SEND_LIST_TO(0, t, L3(3, 3, 4));
+            REQUIRE_LIST_AT_OUTLET(0, t, L1(4));
+
+            // replace mode
+            t.setProperty("@from", F(3));
+            t.setProperty("@to", F(-3));
+
+            WHEN_SEND_LIST_TO(0, t, L5(1, 2, 3, 4, 5));
+            REQUIRE_LIST_AT_OUTLET(0, t, L5(1, 2, -3, 4, 5));
+            WHEN_SEND_LIST_TO(0, t, L3(3, 3, 4));
+            REQUIRE_LIST_AT_OUTLET(0, t, L3(-3, -3, 4));
+
+            // self-replace mode
+            t.setProperty("@from", F(3));
+            t.setProperty("@to", F(3));
+
+            WHEN_SEND_LIST_TO(0, t, L5(1, 2, 3, 4, 5));
+            REQUIRE_LIST_AT_OUTLET(0, t, L5(1, 2, 3, 4, 5));
+            WHEN_SEND_LIST_TO(0, t, L3(3, 3, 4));
+            REQUIRE_LIST_AT_OUTLET(0, t, L3(3, 3, 4));
+
+            // replace to other type
+            t.setProperty("@from", F(3));
+            t.setProperty("@to", S("???"));
+
+            WHEN_SEND_LIST_TO(0, t, L5(1, 2, 3, 4, 5));
+            REQUIRE_LIST_AT_OUTLET(0, t, L5(1, 2, "???", 4, 5));
+            WHEN_SEND_LIST_TO(0, t, L3(3, 3, 4));
+            REQUIRE_LIST_AT_OUTLET(0, t, L3("???", "???", 4));
+        }
     }
 }

@@ -254,6 +254,55 @@ public:
 #define F(v) Atom(float(v))
 #define P(v) Atom(gensym(v))
 
+// clang-format off
+Atom test_atom_wrap(const char* v) { return Atom(gensym(v)); }
+Atom test_atom_wrap(t_symbol* v) { return Atom(v); }
+Atom test_atom_wrap(float v) { return Atom(v); }
+Atom test_atom_wrap(const Atom& v) { return v; }
+
+AtomList test_list_wrap(const Atom& a1) { return AtomList(a1); }
+AtomList test_list_wrap(const Atom& a1, const Atom& a2) { return AtomList(a1, a2); }
+AtomList test_list_wrap(const Atom& a1, const Atom& a2, const Atom& a3) {
+    AtomList res(a1, a2); res.append(a3); return res;
+}
+AtomList test_list_wrap(const Atom& a1, const Atom& a2, const Atom& a3, const Atom& a4) {
+    AtomList res(a1, a2); res.append(a3); res.append(a4); return res;
+}
+AtomList test_list_wrap(const Atom& a1, const Atom& a2, const Atom& a3, const Atom& a4,
+                        const Atom& a5) {
+    AtomList res(a1, a2); res.append(a3); res.append(a4); res.append(a5); return res;
+}
+AtomList test_list_wrap(const Atom& a1, const Atom& a2, const Atom& a3, const Atom& a4,
+                        const Atom& a5, const Atom& a6) {
+    AtomList res(a1, a2); res.append(a3); res.append(a4); res.append(a5); res.append(a6); return res;
+}
+AtomList test_list_wrap(const Atom& a1, const Atom& a2, const Atom& a3, const Atom& a4,
+                        const Atom& a5, const Atom& a6, const Atom& a7) {
+    AtomList res(a1, a2); res.append(a3); res.append(a4);
+    res.append(a5); res.append(a6); res.append(a7); return res;
+}
+AtomList test_list_wrap(const Atom& a1, const Atom& a2, const Atom& a3, const Atom& a4,
+                        const Atom& a5, const Atom& a6, const Atom& a7, const Atom& a8) {
+    AtomList res(a1, a2); res.append(a3); res.append(a4);
+    res.append(a5); res.append(a6); res.append(a7); res.append(a8); return res;
+}
+// clang-format on
+
+#define L1(v) test_list_wrap(test_atom_wrap(v))
+#define L2(v1, v2) test_list_wrap(test_atom_wrap(v1), test_atom_wrap(v2))
+#define L3(v1, v2, v3) test_list_wrap(test_atom_wrap(v1), test_atom_wrap(v2), test_atom_wrap(v3))
+#define L4(v1, v2, v3, v4) test_list_wrap(test_atom_wrap(v1), test_atom_wrap(v2), \
+    test_atom_wrap(v3), test_atom_wrap(v4))
+#define L5(v1, v2, v3, v4, v5) test_list_wrap(test_atom_wrap(v1), test_atom_wrap(v2), \
+    test_atom_wrap(v3), test_atom_wrap(v4), test_atom_wrap(v5))
+#define L6(v1, v2, v3, v4, v5, v6) test_list_wrap(test_atom_wrap(v1), test_atom_wrap(v2), \
+    test_atom_wrap(v3), test_atom_wrap(v4), test_atom_wrap(v5), test_atom_wrap(v6))
+#define L7(v1, v2, v3, v4, v5, v6, v7) test_list_wrap(test_atom_wrap(v1), test_atom_wrap(v2), \
+    test_atom_wrap(v3), test_atom_wrap(v4), test_atom_wrap(v5), test_atom_wrap(v6), test_atom_wrap(v7))
+#define L8(v1, v2, v3, v4, v5, v6, v7, v8) test_list_wrap(test_atom_wrap(v1), test_atom_wrap(v2),       \
+    test_atom_wrap(v3), test_atom_wrap(v4), test_atom_wrap(v5), test_atom_wrap(v6), test_atom_wrap(v7), \
+    test_atom_wrap(v8))
+
 template <class T>
 void WHEN_SEND_LIST_TO(size_t inlet, T& obj, const AtomList& lst)
 {
