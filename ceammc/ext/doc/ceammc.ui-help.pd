@@ -3,7 +3,7 @@
 #X text 62 50 ::;
 #X obj 79 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 30 119 ui.link @title [ui.bang] @url ui.bang-help.pd;
-#X text 175 116 A bang\.\.\. that's all;
+#X text 175 116 A bang... that's all;
 #X obj 30 142 ui.link @title [ui.bpfunc] @url ui.bpfunc-help.pd;
 #X text 175 139 Breakpoint function GUI object;
 #X obj 30 165 ui.link @title [ui.display] @url ui.display-help.pd;
