@@ -2,11 +2,6 @@
 
 using namespace ceammc;
 
-extern "C" void replace_setup()
-{
-    ObjectFactory<Replace> obj("replace");
-}
-
 Replace::Replace(const PdArgs& a)
     : BaseObject(a)
 {
@@ -39,25 +34,23 @@ void Replace::onInlet(size_t n, const AtomList& l)
 
 void Replace::onList(const AtomList& l)
 {
-    if (!validateArgs())
-        return;
+    if (validateArgs()) {
+        AtomList res(l);
 
-    AtomList res(l);
+        if (!to_.isNone())
+            res.replaceAll(from_, to_);
+        else
+            res.removeAll(from_);
 
-    if (!to_.isNone())
-        res.replaceAll(from_, to_);
-    else
-        res.removeAll(from_);
-
-    listTo(0, res);
+        listTo(0, res);
+    } else {
+        listTo(0, l);
+    }
 }
 
 void Replace::onFloat(float v)
 {
-    if (!validateArgs())
-        return;
-
-    if (Atom(v) == from_)
+    if (validateArgs() && Atom(v) == from_)
         atomTo(0, to_);
     else
         floatTo(0, v);
@@ -65,10 +58,7 @@ void Replace::onFloat(float v)
 
 void Replace::onSymbol(t_symbol* s)
 {
-    if (!validateArgs())
-        return;
-
-    if (Atom(s) == from_)
+    if (validateArgs() && Atom(s) == from_)
         atomTo(0, to_);
     else
         symbolTo(0, s);
@@ -76,10 +66,10 @@ void Replace::onSymbol(t_symbol* s)
 
 bool Replace::validateArgs() const
 {
-    if (from_.isNone()) {
-        OBJ_ERR << "replace subject is not specified...";
-        return false;
-    }
+    return !from_.isNone();
+}
 
-    return true;
+extern "C" void replace_setup()
+{
+    ObjectFactory<Replace> obj("replace");
 }
