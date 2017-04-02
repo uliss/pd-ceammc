@@ -106,6 +106,7 @@ pass.changed		.		.
 pass.if		..		..
 prop->		.		?
 prop<-		?		.
+replace		...		.
 snd.file		.		.
 symbol.length		.		.
 system.memsize		.		.
