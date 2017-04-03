@@ -265,6 +265,8 @@ public:
 
 #define REQUIRE_NO_MESSAGES_AT_OUTLET(outlet, obj) REQUIRE_FALSE(obj.hasNewMessages(outlet))
 
+#define REQUIRE_NEW_MESSAGES_AT_OUTLET(outlet, obj) REQUIRE(obj.hasNewMessages(outlet))
+
 #define S(v) Atom(gensym(v))
 #define F(v) Atom(float(v))
 #define P(v) Atom(gensym(v))
@@ -317,6 +319,60 @@ AtomList test_list_wrap(const Atom& a1, const Atom& a2, const Atom& a3, const At
 #define L8(v1, v2, v3, v4, v5, v6, v7, v8) test_list_wrap(test_atom_wrap(v1), test_atom_wrap(v2),       \
     test_atom_wrap(v3), test_atom_wrap(v4), test_atom_wrap(v5), test_atom_wrap(v6), test_atom_wrap(v7), \
     test_atom_wrap(v8))
+
+#define WHEN_CALL(obj, method)                       \
+    {                                                \
+        obj.storeAllMessageCount();                  \
+        obj.m_##method(gensym(#method), AtomList()); \
+    }
+
+#define WHEN_CALL_1(obj, method, a1)             \
+    {                                            \
+        obj.storeAllMessageCount();              \
+        obj.m_##method(gensym(#method), L1(a1)); \
+    }
+
+#define WHEN_CALL_2(obj, method, a1, a2)             \
+    {                                                \
+        obj.storeAllMessageCount();                  \
+        obj.m_##method(gensym(#method), L2(a1, a2)); \
+    }
+
+#define WHEN_CALL_3(obj, method, a1, a2, a3)             \
+    {                                                    \
+        obj.storeAllMessageCount();                      \
+        obj.m_##method(gensym(#method), L3(a1, a2, a3)); \
+    }
+
+#define WHEN_CALL_4(obj, method, a1, a2, a3, a4)             \
+    {                                                        \
+        obj.storeAllMessageCount();                          \
+        obj.m_##method(gensym(#method), L4(a1, a2, a3, a4)); \
+    }
+
+#define WHEN_CALL_5(obj, method, a1, a2, a3, a4, a5)             \
+    {                                                            \
+        obj.storeAllMessageCount();                              \
+        obj.m_##method(gensym(#method), L5(a1, a2, a3, a4, a5)); \
+    }
+
+#define WHEN_CALL_6(obj, method, a1, a2, a3, a4, a5, a6)             \
+    {                                                                \
+        obj.storeAllMessageCount();                                  \
+        obj.m_##method(gensym(#method), L6(a1, a2, a3, a4, a5, a6)); \
+    }
+
+#define WHEN_CALL_7(obj, method, a1, a2, a3, a4, a5, a6, a7)             \
+    {                                                                    \
+        obj.storeAllMessageCount();                                      \
+        obj.m_##method(gensym(#method), L7(a1, a2, a3, a4, a5, a6, a7)); \
+    }
+
+#define WHEN_CALL_8(obj, method, a1, a2, a3, a4, a5, a6, a7, a8)             \
+    {                                                                        \
+        obj.storeAllMessageCount();                                          \
+        obj.m_##method(gensym(#method), L8(a1, a2, a3, a4, a5, a6, a7, a8)); \
+    }
 
 template <class T>
 void WHEN_SEND_ANY_TO(T& obj, const AtomList& lst)

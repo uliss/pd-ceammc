@@ -78,32 +78,32 @@ public:
 
 #define ARG_F1(name, value)    \
     {                          \
-        args.append(S(#name));  \
+        args.append(S(#name)); \
         args.append(F(value)); \
     }
 
-#define ARG_F2(name, f1, f2)  \
-    {                         \
+#define ARG_F2(name, f1, f2)   \
+    {                          \
         args.append(S(#name)); \
-        args.append(F(f1));   \
-        args.append(F(f2));   \
+        args.append(F(f1));    \
+        args.append(F(f2));    \
     }
 
-#define ARG_S1(name, value)    \
-    {                          \
+#define ARG_S1(name, value)     \
+    {                           \
         args.append(S(#name));  \
         args.append(S(#value)); \
     }
 
-#define ARG_S2(name, s1, s2)  \
-    {                         \
+#define ARG_S2(name, s1, s2)   \
+    {                          \
         args.append(S(#name)); \
         args.append(S(#s1));   \
         args.append(S(#s2));   \
     }
 
-#define ARG(name)             \
-    {                         \
+#define ARG(name)              \
+    {                          \
         args.append(S(#name)); \
     }
 
@@ -239,36 +239,27 @@ TEST_CASE("snd.file", "[PureData]")
 
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, sf);
 
-        args.clear();
-        sf.m_load(gensym("load"), args);
+        WHEN_CALL(sf, load);
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, sf);
 
         // invalid float argument
-        args.append(1000);
-        sf.m_load(gensym("load"), args);
-        args.clear();
+        WHEN_CALL_1(sf, load, 1000);
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, sf);
 
         // do destination argument
-        args.append(S("unknown")); //filename
-        sf.m_load(gensym("load"), args);
-        args.clear();
+        WHEN_CALL_1(sf, load, "unknown");
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, sf);
 
         // invalid destination
-        args.append(S("unknown")); //filename
-        args.append(S("@to"));
-        args.append(S("arrayX"));
-        sf.m_load(gensym("load"), args);
-        args.clear();
+        WHEN_CALL_3(sf, load, "unknown", "@to", "arrayX");
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, sf);
 
         /// create "array2"
         t_garray* array2 = graph_array(canvas_getcurrent(), gensym("array2"), &s_float, 10, 0);
         REQUIRE(array2 != 0);
 
         // invalid filename
-        args.append(S("unknown")); //filename
-        args.append(S("@to"));
-        args.append(S("array2"));
-        sf.m_load(gensym("load"), args);
-        args.clear();
+        WHEN_CALL_3(sf, load, "unknown", "@to", "array2");
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, sf);
 
         REQUIRE(sf.resizeArray_(S("array1"), 20));
@@ -278,11 +269,8 @@ TEST_CASE("snd.file", "[PureData]")
         // first load success
 
         // valid filename
-        args.append(gensym(TEST_DATA_DIR "/test_data1.wav")); //filename
-        args.append(S("@to"));
-        args.append(S("array1"));
-        sf.m_load(gensym("load"), args);
-        args.clear();
+        WHEN_CALL_3(sf, load, TEST_DATA_DIR "/test_data1.wav", "@to", "array1");
+        REQUIRE_NEW_MESSAGES_AT_OUTLET(0, sf);
 
         REQUIRE_ARRAY_SIZE(array1, 20);
         REQUIRE_ARRAY_SIZE(array2, 25);
@@ -294,13 +282,8 @@ TEST_CASE("snd.file", "[PureData]")
         REQUIRE_ARRAY_ZERO(array2);
 
         // load channel 1
-        args.append(gensym(TEST_DATA_DIR "/test_data1.wav")); //filename
-        args.append(S("@to"));
-        args.append(S("array1"));
-        args.append(S("@channel"));
-        args.append(F(1));
-        sf.m_load(gensym("load"), args);
-        args.clear();
+        WHEN_CALL_5(sf, load, TEST_DATA_DIR "/test_data1.wav", "@to", "array1", "@channel", 1);
+        REQUIRE_NEW_MESSAGES_AT_OUTLET(0, sf);
 
         REQUIRE_ARRAY_SIZE(array1, 20);
         REQUIRE_ARRAY_SIZE(array2, 25);
@@ -312,15 +295,8 @@ TEST_CASE("snd.file", "[PureData]")
         REQUIRE_ARRAY_ZERO(array2);
 
         // load channel 1 with resize
-        array_zero(array1);
-        args.append(gensym(TEST_DATA_DIR "/test_data1.wav")); //filename
-        args.append(S("@to"));
-        args.append(S("array1"));
-        args.append(S("@channel"));
-        args.append(F(1));
-        args.append(S("@resize"));
-        sf.m_load(gensym("load"), args);
-        args.clear();
+        WHEN_CALL_6(sf, load, TEST_DATA_DIR "/test_data1.wav", "@to", "array1", "@channel", 1, "@resize");
+        REQUIRE_NEW_MESSAGES_AT_OUTLET(0, sf);
 
         REQUIRE_ARRAY_SIZE(array1, 441);
         REQUIRE_ARRAY_SIZE(array2, 25);
@@ -333,17 +309,9 @@ TEST_CASE("snd.file", "[PureData]")
 
         // load channel 1 with resize and offset
         {
-            array_zero(array1);
-            args.append(gensym(TEST_DATA_DIR "/test_data1.wav")); //filename
-            args.append(S("@to"));
-            args.append(S("array1"));
-            args.append(S("@channel"));
-            args.append(F(1));
-            args.append(S("@resize"));
-            args.append(S("@offset"));
-            args.append(F(100));
-            sf.m_load(gensym("load"), args);
-            args.clear();
+            WHEN_CALL_8(sf, load, TEST_DATA_DIR "/test_data1.wav", "@to", "array1",
+                "@channel", 1, "@resize", "@offset", 100);
+            REQUIRE_NEW_MESSAGES_AT_OUTLET(0, sf);
 
             int offset = 100;
             REQUIRE_ARRAY_SIZE(array1, 441 - offset);
@@ -355,16 +323,11 @@ TEST_CASE("snd.file", "[PureData]")
 
             REQUIRE_ARRAY_ZERO(array2);
         }
+
         // load @to array1, array2 with @resize with default channels
         {
-            array_zero(array1);
-            args.append(gensym(TEST_DATA_DIR "/test_data1.wav")); //filename
-            args.append(S("@to"));
-            args.append(S("array1"));
-            args.append(S("array2"));
-            args.append(S("@resize"));
-            sf.m_load(gensym("load"), args);
-            args.clear();
+            WHEN_CALL_5(sf, load, TEST_DATA_DIR "/test_data1.wav", "@to", "array1", "array2", "@resize");
+            REQUIRE_NEW_MESSAGES_AT_OUTLET(0, sf);
 
             REQUIRE_ARRAY_SIZE(array1, 441);
             REQUIRE_ARRAY_SIZE(array2, 441);
@@ -381,14 +344,8 @@ TEST_CASE("snd.file", "[PureData]")
 
         // load @to array2, array1 with @resize with default channels
         {
-            array_zero(array1);
-            args.append(gensym(TEST_DATA_DIR "/test_data1.wav")); //filename
-            args.append(S("@to"));
-            args.append(S("array2"));
-            args.append(S("array1"));
-            args.append(S("@resize"));
-            sf.m_load(gensym("load"), args);
-            args.clear();
+            WHEN_CALL_5(sf, load, TEST_DATA_DIR "/test_data1.wav", "@to", "array2", "array1", "@resize");
+            REQUIRE_NEW_MESSAGES_AT_OUTLET(0, sf);
 
             REQUIRE_ARRAY_SIZE(array1, 441);
             REQUIRE_ARRAY_SIZE(array2, 441);
@@ -405,15 +362,9 @@ TEST_CASE("snd.file", "[PureData]")
 
         // load @to array2, array1 with @resize with empty @channels all 0
         {
-            array_zero(array1);
-            args.append(gensym(TEST_DATA_DIR "/test_data1.wav")); //filename
-            ARG_S2(@to, array1, array2);
-            ARG_F1(@channel, 1);
-            ARG(@resize);
-            // final @channel = [1, 0]
-            // so ch1 loaded to array1, ch0 - to array2
-            sf.m_load(gensym("load"), args);
-            args.clear();
+            WHEN_CALL_7(sf, load, TEST_DATA_DIR "/test_data1.wav", "@to", "array1", "array2",
+                "@channel", 1, "@resize");
+            REQUIRE_NEW_MESSAGES_AT_OUTLET(0, sf);
 
             REQUIRE_ARRAY_SIZE(array1, 441);
             REQUIRE_ARRAY_SIZE(array2, 441);
@@ -430,15 +381,11 @@ TEST_CASE("snd.file", "[PureData]")
 
         // load @to array2, array1 with @resize with invalid @channels
         {
-            array_zero(array1);
-            args.append(gensym(TEST_DATA_DIR "/test_data1.wav")); //filename
-            ARG_S2(@to, array1, array2);
-            ARG(@resize);
-            ARG_F2(@channel, 100, -12);
+            WHEN_CALL_8(sf, load, TEST_DATA_DIR "/test_data1.wav", "@to", "array1", "array2",
+                "@resize", "@channel", 100, -12);
             // final @channel = [0, 0]
             // so ch0 loaded to array1 and array2
-            sf.m_load(gensym("load"), args);
-            args.clear();
+            REQUIRE_NEW_MESSAGES_AT_OUTLET(0, sf);
 
             REQUIRE_ARRAY_SIZE(array1, 441);
             REQUIRE_ARRAY_SIZE(array2, 441);
@@ -535,16 +482,16 @@ TEST_CASE("snd.file", "[PureData]")
         REQUIRE(sf.numOutlets() == 1);
 
         sf.storeMessageCount();
-        REQUIRE_FALSE(sf.hasNewMessages());
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, sf);
 
         CALL(sf, info);
-        REQUIRE_FALSE(sf.hasNewMessages());
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, sf);
 
         CALL1(sf, info, F(123));
-        REQUIRE_FALSE(sf.hasNewMessages());
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, sf);
 
         CALL1(sf, info, gensym("unknown"));
-        REQUIRE_FALSE(sf.hasNewMessages());
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, sf);
 
         CALL1(sf, info, gensym(TEST_DATA_DIR "/test_data1.wav"));
         REQUIRE(sf.hasNewMessages());
@@ -636,16 +583,16 @@ TEST_CASE("snd.file", "[PureData]")
         SndFileTest sf("snd.file", args);
 
         sf.storeMessageCount();
-        REQUIRE_FALSE(sf.hasNewMessages());
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, sf);
 
         CALL(sf, info);
-        REQUIRE_FALSE(sf.hasNewMessages());
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, sf);
 
         CALL1(sf, info, F(123));
-        REQUIRE_FALSE(sf.hasNewMessages());
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, sf);
 
         CALL1(sf, info, gensym("unknown"));
-        REQUIRE_FALSE(sf.hasNewMessages());
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, sf);
 
         sf.storeMessageCount();
         CALL1(sf, info, gensym(TEST_DATA_DIR "/test_data0.mp3"));
@@ -664,7 +611,7 @@ TEST_CASE("snd.file", "[PureData]")
 
         sf.cleanMessages();
         sf.storeMessageCount(0);
-        REQUIRE_FALSE(sf.hasNewMessages(0));
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, sf);
         CALL1(sf, info, gensym(TEST_DATA_DIR "/test_data0.m4a"));
         REQUIRE(sf.hasNewMessages(0));
         info = sf.lastMessage().anyValue();
