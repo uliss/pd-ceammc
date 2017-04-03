@@ -21,39 +21,6 @@
 
 typedef TestExtension<ListWalk> ListWalkTest;
 
-#define CALL(obj, method)                            \
-    {                                                \
-        obj.storeMessageCount();                     \
-        obj.m_##method(gensym(#method), AtomList()); \
-    }
-
-#define CALL1(obj, method, arg1)                         \
-    {                                                    \
-        obj.storeMessageCount();                         \
-        obj.m_##method(gensym(#method), AtomList(arg1)); \
-    }
-
-#define REQUIRE_LIST_MSG(obj, lst)                     \
-    {                                                  \
-        REQUIRE(obj.hasNewMessages());                 \
-        REQUIRE(obj.lastMessage().isList());           \
-        REQUIRE(obj.lastMessage().listValue() == lst); \
-    }
-
-#define REQUIRE_PROP(obj, name, val)                   \
-    {                                                  \
-        Property* p = obj.property(gensym("@" #name)); \
-        REQUIRE(p != 0);                               \
-        REQUIRE(p->get() == val);                      \
-    }
-
-#define REQUIRE_INDEX(obj, idx)                         \
-    {                                                   \
-        REQUIRE(obj.p_index() == AtomList(float(idx))); \
-    }
-
-#define REQUIRE_NO_MSG(obj) REQUIRE_FALSE(obj.hasNewMessages())
-
 TEST_CASE("list.walk", "[PureData]")
 {
     SECTION("test single")
