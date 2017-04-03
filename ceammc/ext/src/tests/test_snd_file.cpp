@@ -76,37 +76,6 @@ public:
 
 #define SF(path) sound::SoundFileLoader::open(path)
 
-#define ARG_F1(name, value)    \
-    {                          \
-        args.append(S(#name)); \
-        args.append(F(value)); \
-    }
-
-#define ARG_F2(name, f1, f2)   \
-    {                          \
-        args.append(S(#name)); \
-        args.append(F(f1));    \
-        args.append(F(f2));    \
-    }
-
-#define ARG_S1(name, value)     \
-    {                           \
-        args.append(S(#name));  \
-        args.append(S(#value)); \
-    }
-
-#define ARG_S2(name, s1, s2)   \
-    {                          \
-        args.append(S(#name)); \
-        args.append(S(#s1));   \
-        args.append(S(#s2));   \
-    }
-
-#define ARG(name)              \
-    {                          \
-        args.append(S(#name)); \
-    }
-
 #define REQUIRE_ARRAY_SIZE(array, size)                       \
     {                                                         \
         int sz = 0;                                           \
@@ -281,6 +250,9 @@ TEST_CASE("snd.file", "[PureData]")
 
         REQUIRE_ARRAY_ZERO(array2);
 
+        array_zero(array1);
+        array_zero(array2);
+
         // load channel 1
         WHEN_CALL_5(sf, load, TEST_DATA_DIR "/test_data1.wav", "@to", "array1", "@channel", 1);
         REQUIRE_NEW_MESSAGES_AT_OUTLET(0, sf);
@@ -293,6 +265,9 @@ TEST_CASE("snd.file", "[PureData]")
         }
 
         REQUIRE_ARRAY_ZERO(array2);
+
+        array_zero(array1);
+        array_zero(array2);
 
         // load channel 1 with resize
         WHEN_CALL_6(sf, load, TEST_DATA_DIR "/test_data1.wav", "@to", "array1", "@channel", 1, "@resize");
@@ -307,8 +282,14 @@ TEST_CASE("snd.file", "[PureData]")
 
         REQUIRE_ARRAY_ZERO(array2);
 
+        array_zero(array1);
+        array_zero(array2);
+
         // load channel 1 with resize and offset
         {
+            array_zero(array1);
+            array_zero(array2);
+
             WHEN_CALL_8(sf, load, TEST_DATA_DIR "/test_data1.wav", "@to", "array1",
                 "@channel", 1, "@resize", "@offset", 100);
             REQUIRE_NEW_MESSAGES_AT_OUTLET(0, sf);
@@ -326,6 +307,9 @@ TEST_CASE("snd.file", "[PureData]")
 
         // load @to array1, array2 with @resize with default channels
         {
+            array_zero(array1);
+            array_zero(array2);
+
             WHEN_CALL_5(sf, load, TEST_DATA_DIR "/test_data1.wav", "@to", "array1", "array2", "@resize");
             REQUIRE_NEW_MESSAGES_AT_OUTLET(0, sf);
 
@@ -344,6 +328,9 @@ TEST_CASE("snd.file", "[PureData]")
 
         // load @to array2, array1 with @resize with default channels
         {
+            array_zero(array1);
+            array_zero(array2);
+
             WHEN_CALL_5(sf, load, TEST_DATA_DIR "/test_data1.wav", "@to", "array2", "array1", "@resize");
             REQUIRE_NEW_MESSAGES_AT_OUTLET(0, sf);
 
@@ -362,6 +349,9 @@ TEST_CASE("snd.file", "[PureData]")
 
         // load @to array2, array1 with @resize with empty @channels all 0
         {
+            array_zero(array1);
+            array_zero(array2);
+
             WHEN_CALL_7(sf, load, TEST_DATA_DIR "/test_data1.wav", "@to", "array1", "array2",
                 "@channel", 1, "@resize");
             REQUIRE_NEW_MESSAGES_AT_OUTLET(0, sf);
@@ -381,6 +371,9 @@ TEST_CASE("snd.file", "[PureData]")
 
         // load @to array2, array1 with @resize with invalid @channels
         {
+            array_zero(array1);
+            array_zero(array2);
+
             WHEN_CALL_8(sf, load, TEST_DATA_DIR "/test_data1.wav", "@to", "array1", "array2",
                 "@resize", "@channel", 100, -12);
             // final @channel = [0, 0]
@@ -403,13 +396,14 @@ TEST_CASE("snd.file", "[PureData]")
         // load @to array1, array2 with @resize with @channels and @offset
         {
             array_zero(array1);
-            args.append(gensym(TEST_DATA_DIR "/test_data1.wav")); //filename
-            ARG_S2(@to, array1, array2);
-            ARG(@resize);
-            ARG_F1(@offset, 400);
-            ARG_F2(@channel, 0, 1);
+            array_zero(array2);
+
+            args = L7(TEST_DATA_DIR "/test_data1.wav", "@to", "array1", "array2", "@resize", "@offset", 400);
+            args.append(L3("@channel", 0.f, 1));
+            sf.storeAllMessageCount();
             sf.m_load(gensym("load"), args);
             args.clear();
+            REQUIRE_NEW_MESSAGES_AT_OUTLET(0, sf);
 
             REQUIRE_ARRAY_SIZE(array1, 41);
             REQUIRE_ARRAY_SIZE(array2, 41);
@@ -427,12 +421,11 @@ TEST_CASE("snd.file", "[PureData]")
         // load @to array1, array2 with @resize with negative @offset
         {
             array_zero(array1);
-            args.append(gensym(TEST_DATA_DIR "/test_data1.wav")); //filename
-            ARG_S2(@to, array1, array2);
-            ARG_F1(@offset, -41);
-            ARG(@resize);
-            sf.m_load(gensym("load"), args);
-            args.clear();
+            array_zero(array2);
+
+            WHEN_CALL_7(sf, load, TEST_DATA_DIR "/test_data1.wav", "@to", "array1", "array2",
+                "@resize", "@offset", -41);
+            REQUIRE_NEW_MESSAGES_AT_OUTLET(0, sf);
 
             REQUIRE_ARRAY_SIZE(array1, 41);
             REQUIRE_ARRAY_SIZE(array2, 41);
@@ -451,12 +444,11 @@ TEST_CASE("snd.file", "[PureData]")
         // that became 0
         {
             array_zero(array1);
-            args.append(gensym(TEST_DATA_DIR "/test_data1.wav")); //filename
-            ARG_S2(@to, array1, array2);
-            ARG_F1(@offset, 10000); // became 0
-            ARG(@resize);
-            sf.m_load(gensym("load"), args);
-            args.clear();
+            array_zero(array2);
+
+            WHEN_CALL_7(sf, load, TEST_DATA_DIR "/test_data1.wav", "@to", "array1", "array2",
+                "@resize", "@offset", 10000);
+            REQUIRE_NEW_MESSAGES_AT_OUTLET(0, sf);
 
             REQUIRE_ARRAY_SIZE(array1, 441);
             REQUIRE_ARRAY_SIZE(array2, 441);
