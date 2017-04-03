@@ -35,16 +35,20 @@
         {osc.impulse~ osc.pulse~ osc.saw~ osc.sinfb~ osc.square~ osc.tri~}
     }
     {audio_noise
-    	{noise.white~ noise.pink~}
+    	{noise.white~ noise.pink~ noise.lfreq~ noise.lorenz~ noise.navierstokes~}
     }
     {audio_dynamics
-        {dyn.comp~ dyn.comp2~ dyn.gate~ dyn.gate2~ dyn.limit~ dyn.limit2~ dyn.softclip~}}
+        {dyn.comp~ dyn.comp2~ dyn.gate~ dyn.gate2~ dyn.limit~ dyn.limit2~ dyn.softclip~}
+    }
     {audio_envelope
-        {env.adsr~ env.ar~ env.follow~}}
+        {env.adsr~ env.ar~ env.follow~}
+    }
     {audio_filters
-        {flt.highshelf~ flt.lowshelf~ flt.eq_peak~ flt.dcblock~ flt.dcblock2~ flt.c_lpf~ flt.c_bpf~ flt.c_hpf~ flt.c_lowshelf~ flt.c_highshelf~ flt.biquad~}}
+        {flt.highshelf~ flt.lowshelf~ flt.eq_peak~ flt.dcblock~ flt.dcblock2~ flt.c_lpf~ flt.c_bpf~ flt.c_hpf~ flt.c_lowshelf~ flt.c_highshelf~ flt.biquad~ flt.lpf12~ flt.lpf24~ flt.hpf12~ flt.hpf24~ flt.bpf12~ flt.bpf24~}
+    }
     {audio_fx
-        {fx.freqshift~ fx.pitchshift~}}
+        {fx.freqshift~ fx.pitchshift~}
+    }
     {audio_spat
     	{spat.pan2~ spat.pan4~}
     }
@@ -77,14 +81,20 @@
     {pass/reject
         {pass.changed reject.if reject.this}
     }
+    {snd
+    	{snd.file}
+    }
     {converters
     	{conv.bpf2env conv.bpf2vline conv.bpf2list conv.bpf2array}
     }
     {ui
         {ui.bang ui.toggle ui.slider ui.number ui.preset ui.tab ui.radio ui.rslider ui.number~ ui.radio ui.menu ui.matrix ui.meter~ ui.knob ui.keyboard ui.sliders ui.slider2d ui.bpfun ui.display ui.scope~ ui.spectroscope~ }
     }
+    {system
+    	{system.colorpanel system.cursor system.getenv system.hostname system.memsize system.memused system.screen_size system.serial}
+    }
     {experimental
-        {exp.patchdata exp.class exp.instance exp.method exp.aproperty}
+        {exp.patchdata exp.class exp.instance exp.method exp.aproperty exp.this exp.parent exp.vinstance}
     }
     {timeline
     	{tl.transport tl.cue tl.bang}
