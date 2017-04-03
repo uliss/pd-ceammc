@@ -129,8 +129,10 @@ UI_fun(ui_display)::m_anything(ui_display* zx, t_symbol* s, int argc, t_atom* ar
         h *= ebox_getzoom(asBox(zx));
         w *= ebox_getzoom(asBox(zx));
 
-        AtomList argv(w, h);
-        eobj_attr_setvalueof(zx, gensym("size"), 2, argv.toPdData());
+        zx->b_box.b_rect.width = w;
+        zx->b_box.b_rect.height = h;
+
+        ebox_notify(asBox(zx), s_size, 0, 0, 0);
     }
 
     ws_redraw(zx);
