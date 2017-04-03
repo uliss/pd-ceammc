@@ -476,16 +476,16 @@ TEST_CASE("snd.file", "[PureData]")
         sf.storeMessageCount();
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, sf);
 
-        CALL(sf, info);
+        WHEN_CALL(sf, info);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, sf);
 
-        CALL1(sf, info, F(123));
+        WHEN_CALL_1(sf, info, 123);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, sf);
 
-        CALL1(sf, info, gensym("unknown"));
+        WHEN_CALL_1(sf, info, "unknown");
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, sf);
 
-        CALL1(sf, info, gensym(TEST_DATA_DIR "/test_data1.wav"));
+        WHEN_CALL_1(sf, info, TEST_DATA_DIR "/test_data1.wav");
         REQUIRE(sf.hasNewMessages());
         AtomList info = sf.lastMessage().anyValue();
         AtomList prop;
@@ -577,17 +577,17 @@ TEST_CASE("snd.file", "[PureData]")
         sf.storeMessageCount();
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, sf);
 
-        CALL(sf, info);
+        WHEN_CALL(sf, info);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, sf);
 
-        CALL1(sf, info, F(123));
+        WHEN_CALL_1(sf, info, 123);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, sf);
 
-        CALL1(sf, info, gensym("unknown"));
+        WHEN_CALL_1(sf, info, "unknown");
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, sf);
 
         sf.storeMessageCount();
-        CALL1(sf, info, gensym(TEST_DATA_DIR "/test_data0.mp3"));
+        WHEN_CALL_1(sf, info, TEST_DATA_DIR "/test_data0.mp3");
         REQUIRE(sf.hasNewMessages());
         AtomList info = sf.lastMessage().anyValue();
         AtomList prop;
@@ -604,7 +604,7 @@ TEST_CASE("snd.file", "[PureData]")
         sf.cleanMessages();
         sf.storeMessageCount(0);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, sf);
-        CALL1(sf, info, gensym(TEST_DATA_DIR "/test_data0.m4a"));
+        WHEN_CALL_1(sf, info, TEST_DATA_DIR "/test_data0.m4a");
         REQUIRE(sf.hasNewMessages(0));
         info = sf.lastMessage().anyValue();
         prop.clear();
