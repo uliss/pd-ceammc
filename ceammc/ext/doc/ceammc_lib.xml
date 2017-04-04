@@ -393,6 +393,9 @@
     <entry descr="Display GUI object" name="ui.display" ref_view="link">
       <xi:include href="ui.display.pddoc" parse="xml"/>
     </entry>
+    <entry descr="knob widget" name="ui.knob" ref_view="link">
+      <xi:include href="ui.knob.pddoc" parse="xml"/>
+    </entry>
     <entry descr="The matrix of toggles has you." name="ui.matrix" ref_view="link">
       <xi:include href="ui.matrix.pddoc" parse="xml"/>
     </entry>

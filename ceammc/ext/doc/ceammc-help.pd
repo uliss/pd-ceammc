@@ -311,31 +311,33 @@ peak;
 #X text 175 4204 Breakpoint function GUI object;
 #X obj 30 4230 ui.link @title [ui.display] @url ui.display-help.pd;
 #X text 175 4227 Display GUI object;
-#X obj 30 4253 ui.link @title [ui.matrix] @url ui.matrix-help.pd;
-#X text 175 4250 The matrix of toggles has you.;
-#X obj 30 4276 ui.link @title [ui.scope~] @url ui.scope~-help.pd;
-#X text 175 4273 Scope GUI object;
-#X obj 30 4299 ui.link @title [ui.spectroscope~] @url
+#X obj 30 4253 ui.link @title [ui.knob] @url ui.knob-help.pd;
+#X text 175 4250 knob widget;
+#X obj 30 4276 ui.link @title [ui.matrix] @url ui.matrix-help.pd;
+#X text 175 4273 The matrix of toggles has you.;
+#X obj 30 4299 ui.link @title [ui.scope~] @url ui.scope~-help.pd;
+#X text 175 4296 Scope GUI object;
+#X obj 30 4322 ui.link @title [ui.spectroscope~] @url
 ui.spectroscope~-help.pd;
-#X text 175 4296 Spectroscope GUI object;
-#X obj 30 4322 ui.link @title [ui.toggle] @url ui.toggle-help.pd;
-#X text 175 4319 modern toggle widget;
-#X obj 20 4342 cnv 5 59 19 empty empty vector 0 17 0 17 -262144 -49933
+#X text 175 4319 Spectroscope GUI object;
+#X obj 30 4345 ui.link @title [ui.toggle] @url ui.toggle-help.pd;
+#X text 175 4342 modern toggle widget;
+#X obj 20 4365 cnv 5 59 19 empty empty vector 0 17 0 17 -262144 -49933
 0;
-#X obj 20 4371 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 4382 vector.distance;
-#X text 175 4382 returns euclidean distance between two points;
-#X obj 30 4409 vector.dot;
-#X text 175 4409 treats list of floats as vector \, returns the dot
+#X obj 20 4394 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 4405 vector.distance;
+#X text 175 4405 returns euclidean distance between two points;
+#X obj 30 4432 vector.dot;
+#X text 175 4432 treats list of floats as vector \, returns the dot
 product (sum of the elements of two lists with same indexes
 multiplied).;
-#X obj 30 4460 vector.length;
-#X text 175 4460 treats list of floats as vector \, returns vector
+#X obj 30 4483 vector.length;
+#X text 175 4483 treats list of floats as vector \, returns vector
 length: sqrt(element(1)^2 + ...element(n)^2).;
-#X obj 30 4497 vector.normalize;
-#X text 175 4497 returns normalized vector;
+#X obj 30 4520 vector.normalize;
+#X text 175 4520 returns normalized vector;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc 20 20 0 20 -104026 -4096 0;
-#X obj 1 4524 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 4524 version: v0.1 \, license: GPL3;
-#X obj 20 4543 ui.link @title https://github.com/uliss/pure-data @url
+#X obj 1 4547 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 4547 version: v0.1 \, license: GPL3;
+#X obj 20 4566 ui.link @title https://github.com/uliss/pure-data @url
 https://github.com/uliss/pure-data;
