@@ -140,6 +140,32 @@ static void matrixctrl_getcolumn(t_matrixctrl* x, float f)
     }
 }
 
+static void matrixctrl_get_cell(t_matrixctrl* x, t_symbol* /*s*/, int ac, t_atom* av)
+{
+    if (ac > 1 && av) {
+        t_int row = atom_getint(av);
+        t_int col = atom_getint(av + 1);
+        matrixctrl_output(x, row, col);
+    } else {
+        pd_error(x, "[%s] getcell usage: ROW COL", eobj_getclassname(x)->s_name);
+    }
+}
+
+static void matrixctrl_set_cell(t_matrixctrl* x, t_symbol* s, int ac, t_atom* av)
+{
+    if (ac > 2 && av) {
+        t_int row = atom_getint(av);
+        t_int col = atom_getint(av + 1);
+        t_int val = atom_getint(av + 2);
+        x->setValue(row, col, val);
+
+        ebox_invalidate_layer(EBOX(x), cream_sym_background_layer);
+        ebox_redraw(EBOX(x));
+    } else {
+        pd_error(x, "[%s] setcell usage: ROW COL VALUE", eobj_getclassname(x)->s_name);
+    }
+}
+
 static void matrixctrl_set_column(t_matrixctrl* x, t_symbol* s, int ac, t_atom* av)
 {
     if (ac > 2 && av) {
@@ -416,6 +442,8 @@ extern "C" void setup_ui0x2ematrix(void)
         eclass_addmethod(c, (method) matrixctrl_set_row,         "setrow",           A_GIMME,0);
         eclass_addmethod(c, (method) matrixctrl_getcolumn,       "getcolumn",        A_FLOAT,0);
         eclass_addmethod(c, (method) matrixctrl_set_column,      "setcolumn",        A_GIMME,0);
+        eclass_addmethod(c, (method) matrixctrl_get_cell,        "getcell",          A_GIMME,0);
+        eclass_addmethod(c, (method) matrixctrl_set_cell,        "setcell",          A_GIMME,0);
         
         eclass_addmethod(c, (method) matrixctrl_mousedown,       "mousedown",        A_NULL, 0);
         eclass_addmethod(c, (method) matrixctrl_mousedrag,       "mousedrag",        A_NULL, 0);

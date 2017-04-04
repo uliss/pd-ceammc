@@ -27,10 +27,21 @@
             <property name="@receive" type="symbol">receive source</property>
         </properties>
         <methods>
+            <method name="getcell">
+                outputs cell value as [cell( message
+                <param name="ROW" type="int" minvalue="0" required="true">cell row</param>
+                <param name="COL" type="int" minvalue="0" required="true">cell column</param>
+            </method>
+            <method name="setcell">
+                sets cell value without outputting it
+                <param name="ROW" type="int" minvalue="0" required="true">cell row</param>
+                <param name="COL" type="int" minvalue="0" required="true">cell column</param>
+                <param name="VALUE" type="int" enum="0 1" required="true">value</param>
+            </method>
             <method name="clear">clears all matrix cells and outputs cells that were changed</method>
             <method name="dump">dumps all object info to Pd console window.</method>
             <method name="getcolumn">
-                outputs list of column values as *col* message
+                outputs list of column values as [col( message
                 <param name="NUM" type="int" minvalue="0" required="true">Column index</param>
             </method>
             <method name="setcolumn">
@@ -39,7 +50,7 @@
                 <param name="VALUES" type="list" required="true">cells values, for ex.: 1 0 1 1</param>
             </method>
             <method name="getrow">
-                outputs list of row values as *row* message
+                outputs list of row values as [row( message
                 <param name="NUM" type="int" minvalue="0" required="true">row index</param>
             </method>
             <method name="setrow">
@@ -54,7 +65,7 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">outputs matrix state as separate messages in format: ROW COL VALUE</xinfo>
+                <xinfo on="bang">outputs matrix state as separate messages in format: [cell ROW COL VALUE(</xinfo>
                 <xinfo on="list">sets matrix state and outputs values.
                 List values format: ROW COL VALUE [, ROW COL VALUE].
                 VALUE should be 1 or 0.</xinfo>
