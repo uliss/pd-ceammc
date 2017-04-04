@@ -18,6 +18,7 @@ typedef std::bitset<BITSET_SIZE> BitMatrix;
 
 static t_symbol* s_matrix_row = gensym("row");
 static t_symbol* s_matrix_col = gensym("col");
+static t_symbol* s_matrix_cell = gensym("cell");
 
 struct t_matrixctrl {
     t_ebox j_box;
@@ -79,11 +80,11 @@ static void matrixctrl_output(t_matrixctrl* x, size_t row, size_t col)
         atom_setfloat(av + 1, col);
         atom_setfloat(av + 2, x->value(row, col));
 
-        outlet_list(x->f_out, &s_list, 3, av);
+        outlet_anything(x->f_out, s_matrix_cell, 3, av);
 
         t_pd* send = ebox_getsender(EBOX(x));
         if (send) {
-            pd_list(ebox_getsender(EBOX(x)), &s_list, 3, av);
+            pd_typedmess(ebox_getsender(EBOX(x)), s_matrix_cell, 3, av);
         }
     }
 }

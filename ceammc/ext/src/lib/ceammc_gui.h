@@ -126,7 +126,7 @@ struct BaseGuiObject {
     {
         t_pd* send = ebox_getsender(&b_box);
         if (send) {
-            pd_anything(send, s, argc, argv);
+            pd_typedmess(send, s, argc, argv);
         }
     }
 

@@ -40,15 +40,15 @@
             </method>
             <method name="getrow">
                 outputs list of row values as *row* message
-                <param name="NUM" type="int" minvalue="0" required="true">Row index</param>
+                <param name="NUM" type="int" minvalue="0" required="true">row index</param>
             </method>
             <method name="setrow">
                 sets row values without outputting them
-                <param name="ROW" type="int" required="true" minvalue="0">Row index</param>
+                <param name="ROW" type="int" required="true" minvalue="0">row index</param>
                 <param name="VALUES" type="list" required="true">cells values, for ex.: 1 0 1 1</param>
             </method>
             <method name="set">silently sets matrix state.
-                <param name="VALUES" type="list" required="true">List values in format: ROW COL VALUE [, ROW COL VALUE].
+                <param name="VALUES" type="list" required="true">list values in format: ROW COL VALUE [, ROW COL VALUE].
                 VALUE should be 1 or 0.</param>
             </method>
         </methods>
@@ -78,13 +78,13 @@
 |
 |
 |
-[route row col]
+[route cell row col]
 |    ^|  ^^|
-|     |    [ui.display @size=120x18]
+|     |    [ui.display @size=60x18]
 |     |
-|     [ui.display @size=120x18]
+|     [ui.display @size=60x18]
 |
-[ui.display @size=120x18]
+[ui.display @size=60x18]
 ]]>
             </pdascii>
         </example>

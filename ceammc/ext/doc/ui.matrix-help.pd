@@ -14,10 +14,10 @@ operations have following cell address format - ROW COL.;
 #X msg 69 199 clear;
 #X msg 165 213 bang;
 #X obj 50 256 ui.matrix @rows 4 @cols 8 @size 105 53;
-#X obj 50 328 route row col;
-#X obj 155 357 ui.display @size=120x18;
-#X obj 107 386 ui.display @size=120x18;
-#X obj 50 415 ui.display @size=120x18;
+#X obj 50 328 route cell row col;
+#X obj 155 357 ui.display @size=60x18;
+#X obj 107 386 ui.display @size=60x18;
+#X obj 50 415 ui.display @size=60x18;
 #X obj 20 454 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 459 cnv 5 88 16 empty empty properties: 0 14 0 14 -262144
 -49933 0;
@@ -55,18 +55,18 @@ are: ;
 #X text 240 820 outputs list of row values as *row* message. Arguments
 are: ;
 #X obj 240 848 cnv 1 28 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 848 NUM: Row index. Min: 0;
+#X text 240 848 NUM: row index. Min: 0;
 #X msg 120 876 setrow;
 #X text 240 876 sets row values without outputting them. Arguments
 are: ;
 #X obj 240 904 cnv 1 28 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 904 ROW: Row index. Min: 0;
+#X text 240 904 ROW: row index. Min: 0;
 #X obj 240 932 cnv 1 50 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 240 932 VALUES: cells values \, for ex.: 1 0 1 1;
 #X msg 120 960 set;
 #X text 240 960 silently sets matrix state. Arguments are: ;
 #X obj 240 988 cnv 1 50 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 988 VALUES: List values in format: ROW COL VALUE [ \, ROW
+#X text 240 988 VALUES: list values in format: ROW COL VALUE [ \, ROW
 COL VALUE].  VALUE should be 1 or 0\.;
 #X obj 20 1040 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1045 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144
