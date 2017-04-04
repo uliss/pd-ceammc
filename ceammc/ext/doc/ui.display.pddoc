@@ -26,6 +26,7 @@
             <property name="@auto_size" type="int" default="1" enum="0 1">flag if automatically resize contents to feet incoming message</property>
             <property name="@display_type" type="int" default="0" enum="0 1">flag for displaying incomming message type</property>
             <property name="@display_events" type="int" default="0" enum="0 1">flag for blinking on incoming messages</property>
+            <property name="@receive" type="symbol">receive source</property>
         </properties>
         <example>
             <pdascii>

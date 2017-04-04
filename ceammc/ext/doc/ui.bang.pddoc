@@ -22,6 +22,10 @@
         <methods>
             <method name="dump">dumps all object info to Pd console window.</method>
         </methods>
+        <properties>
+            <property name="@send" type="symbol">send destination</property>
+            <property name="@receive" type="symbol">receive source</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="bang">outputs bang</xinfo>
