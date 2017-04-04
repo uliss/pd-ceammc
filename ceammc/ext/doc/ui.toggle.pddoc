@@ -20,6 +20,10 @@
         <info>
             <par>This is the ceammc counterpart of the vanilla toggle, based on Cream library.</par>
         </info>
+        <properties>
+            <property name="@send" type="symbol">send destination</property>
+            <property name="@receive" type="symbol">receive source</property>
+        </properties>
         <methods>
             <method name="dump">dumps all object info to Pd console window</method>
             <method name="set">sets toggle state without output</method>
