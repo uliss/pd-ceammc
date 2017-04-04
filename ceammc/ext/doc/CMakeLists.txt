@@ -123,6 +123,7 @@ set(DOC_FILES
     ui.bang
     ui.bpfunc
     ui.display
+    ui.matrix
     ui.scope~
     ui.spectroscope~
     ui.toggle
