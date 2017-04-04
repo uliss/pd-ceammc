@@ -393,7 +393,7 @@
     <entry descr="Display GUI object" name="ui.display" ref_view="link">
       <xi:include href="ui.display.pddoc" parse="xml"/>
     </entry>
-    <entry descr="The matrix has you." name="ui.matrix" ref_view="link">
+    <entry descr="The matrix of toggles has you." name="ui.matrix" ref_view="link">
       <xi:include href="ui.matrix.pddoc" parse="xml"/>
     </entry>
     <entry descr="Scope GUI object" name="ui.scope~" ref_view="link">

@@ -312,7 +312,7 @@ peak;
 #X obj 30 4230 ui.link @title [ui.display] @url ui.display-help.pd;
 #X text 175 4227 Display GUI object;
 #X obj 30 4253 ui.link @title [ui.matrix] @url ui.matrix-help.pd;
-#X text 175 4250 The matrix has you.;
+#X text 175 4250 The matrix of toggles has you.;
 #X obj 30 4276 ui.link @title [ui.scope~] @url ui.scope~-help.pd;
 #X text 175 4273 Scope GUI object;
 #X obj 30 4299 ui.link @title [ui.spectroscope~] @url
