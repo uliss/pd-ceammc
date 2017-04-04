@@ -132,6 +132,8 @@ UI_fun(ui_display)::m_anything(ui_display* zx, t_symbol* s, int argc, t_atom* ar
         zx->b_box.b_rect.width = w;
         zx->b_box.b_rect.height = h;
 
+        ebox_invalidate_layer(asBox(zx), BG_LAYER);
+        ebox_redraw(asBox(zx));
         ebox_notify(asBox(zx), s_size, 0, 0, 0);
     }
 
