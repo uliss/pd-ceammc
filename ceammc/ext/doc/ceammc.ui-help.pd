@@ -9,7 +9,7 @@
 #X obj 30 165 ui.link @title [ui.display] @url ui.display-help.pd;
 #X text 175 162 Display GUI object;
 #X obj 30 188 ui.link @title [ui.matrix] @url ui.matrix-help.pd;
-#X text 175 185 The matrix has you.;
+#X text 175 185 The matrix of toggles has you.;
 #X obj 30 211 ui.link @title [ui.scope~] @url ui.scope~-help.pd;
 #X text 175 208 Scope GUI object;
 #X obj 30 234 ui.link @title [ui.spectroscope~] @url

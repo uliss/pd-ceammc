@@ -18,7 +18,7 @@
         </meta>
         <info>
             <par>Rectangle matrix of toggles.
-            Note all matrix operations have following cell address format: ROW COL.</par>
+            Note: all matrix operations have following cell address format - ROW COL.</par>
         </info>
         <properties>
             <property name="@rows" type="int" minvalue="1">number of matrix rows</property>
@@ -36,11 +36,16 @@
             <method name="setcolumn">
                 sets column values without outputting them
                 <param name="COL" type="int" required="true" minvalue="0">Columns index</param>
-                <param name="VALUES" type="list" required="true">Column values, for ex. 1 0 1 1</param>
+                <param name="VALUES" type="list" required="true">cells values, for ex.: 1 0 1 1</param>
             </method>
             <method name="getrow">
                 outputs list of row values as *row* message
                 <param name="NUM" type="int" minvalue="0" required="true">Row index</param>
+            </method>
+            <method name="setrow">
+                sets row values without outputting them
+                <param name="ROW" type="int" required="true" minvalue="0">Row index</param>
+                <param name="VALUES" type="list" required="true">cells values, for ex.: 1 0 1 1</param>
             </method>
             <method name="set">silently sets matrix state.
                 <param name="VALUES" type="list" required="true">List values in format: ROW COL VALUE [, ROW COL VALUE].

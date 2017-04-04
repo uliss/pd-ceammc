@@ -154,6 +154,21 @@ static void matrixctrl_set_column(t_matrixctrl* x, t_symbol* s, int ac, t_atom* 
     }
 }
 
+static void matrixctrl_set_row(t_matrixctrl* x, t_symbol* s, int ac, t_atom* av)
+{
+    if (ac > 2 && av) {
+        t_int row = atom_getint(av);
+        for (size_t i = 0; i < x->numCols() && i < (ac - 1); i++) {
+            x->setValue(row, i, atom_getfloat(av + i + 1));
+        }
+
+        ebox_invalidate_layer(EBOX(x), cream_sym_background_layer);
+        ebox_redraw(EBOX(x));
+    } else {
+        pd_error(x, "[%s] setrow usage: ROW_INDEX col1 col2 col3 col4 etc.", eobj_getclassname(x)->s_name);
+    }
+}
+
 static void matrixctrl_set(t_matrixctrl* x, t_symbol* s, int ac, t_atom* av)
 {
     if (ac && av) {
@@ -397,6 +412,7 @@ extern "C" void setup_ui0x2ematrix(void)
         eclass_addmethod(c, (method) matrixctrl_bang,            "bang",             A_NULL, 0);
         eclass_addmethod(c, (method) matrixctrl_clear,           "clear",            A_NULL, 0);
         eclass_addmethod(c, (method) matrixctrl_getrow,          "getrow",           A_FLOAT,0);
+        eclass_addmethod(c, (method) matrixctrl_set_row,         "setrow",           A_GIMME,0);
         eclass_addmethod(c, (method) matrixctrl_getcolumn,       "getcolumn",        A_FLOAT,0);
         eclass_addmethod(c, (method) matrixctrl_set_column,      "setcolumn",        A_GIMME,0);
         
