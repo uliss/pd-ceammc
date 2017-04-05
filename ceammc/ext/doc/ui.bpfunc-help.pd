@@ -3,117 +3,124 @@
 #X text 473 50 Breakpoint function GUI object;
 #X obj 1 1 cnv 5 712 40 empty empty ui.bpfunc 20 20 0 20 -104026 -4096
 0;
-#X obj 50 133 ui.bpfunc @size 200 150;
-#X obj 20 290 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 295 cnv 5 63 16 empty empty methods: 0 14 0 14 -262144
+#X obj 242 133 ui.toggle @size 17 17;
+#X msg 155 162 vline;
+#X msg 251 162 vline_tgl \$1;
+#X obj 50 219 osc~ 440;
+#X obj 155 219 ui.bpfunc @size 120 60;
+#X obj 155 291 vline~;
+#X obj 50 320 *~;
+#X obj 50 349 dac~;
+#X obj 20 373 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 378 cnv 5 63 16 empty empty methods: 0 14 0 14 -262144
 -49933 0;
-#X msg 120 300 clear;
-#X text 240 300 Clears everything and makes default breakpoint
-function\.;
-#X msg 120 332 drag_limit;
-#X text 240 332 If not zero \, each point in bpf cannot be dragged
-beyond neighbors - useful for standard envelopes (boolean)\.;
-#X msg 120 374 auto_send;
-#X text 240 374 If not zero \, always sends message when edited\.;
-#X msg 120 406 bang;
-#X text 240 406 Outputs list of x y pairs for each point in specified
-ranges for x and y\.;
-#X msg 120 448 raw;
-#X text 240 448 Outputs list of x y pairs for each point \, in 0\.\.1
-range\.;
-#X msg 120 480 vline;
-#X text 240 480 Outputs messages for vline~ object\. Ignores special
-envelope flags (segments) and outputs full graph\.;
-#X msg 120 522 vline_seg;
-#X text 240 522 Outputs specified segment of breakpoint function in
-the format suited for vline~ object\.;
-#X msg 120 564 vline_tgl;
-#X text 240 564 Outputs first segment for argument 1 and second for 0
-- this can be used to drive standard envelopes with a toggle\.;
-#X msg 120 620 seg_count;
-#X text 240 620 Returns the number of segments in a breakpoint
-function\.;
-#X msg 120 652 set_rawbpf;
-#X text 240 652 Replaces all values with the supplied pairs of x y
-values in 0\.\.1 range\.;
-#X msg 120 694 range_x;
-#X text 240 694 output range of x coordinate of the point (float)\.;
-#X msg 120 726 range_y;
-#X text 240 726 output range of y coordinate of the point (float)\.;
-#X msg 120 758 shift_x;
-#X text 240 758 output shift of x coordinate of the point (float)\.;
-#X msg 120 790 shift_y;
-#X text 240 790 output shift of y coordinate of the point (float)\.;
-#X msg 120 822 sel;
-#X text 240 822 marks a point specified by index (integer number)\.;
-#X msg 120 854 set;
-#X text 240 854 Takes three arguments \, sets point with the index of
+#X msg 120 383 clear;
+#X text 240 383 Clears everything and makes default breakpoint
+function.;
+#X msg 120 415 drag_limit;
+#X text 240 415 If not zero \, each point in bpf cannot be dragged
+beyond neighbors - useful for standard envelopes (boolean).;
+#X msg 120 457 auto_send;
+#X text 240 457 If not zero \, always sends message when edited.;
+#X msg 120 489 bang;
+#X text 240 489 Outputs list of x y pairs for each point in specified
+ranges for x and y.;
+#X msg 120 531 raw;
+#X text 240 531 Outputs list of x y pairs for each point \, in 0\..1
+range.;
+#X msg 120 563 vline;
+#X text 240 563 Outputs messages for vline~ object. Ignores special
+envelope flags (segments) and outputs full graph.;
+#X msg 120 605 vline_seg;
+#X text 240 605 Outputs specified segment of breakpoint function in
+the format suited for vline~ object.;
+#X msg 120 647 vline_tgl;
+#X text 240 647 Outputs first segment for argument 1 and second for 0
+- this can be used to drive standard envelopes with a toggle.;
+#X msg 120 689 seg_count;
+#X text 240 689 Returns the number of segments in a breakpoint
+function.;
+#X msg 120 721 set_rawbpf;
+#X text 240 721 Replaces all values with the supplied pairs of x y
+values in 0\..1 range.;
+#X msg 120 763 range_x;
+#X text 240 763 output range of x coordinate of the point (float).;
+#X msg 120 795 range_y;
+#X text 240 795 output range of y coordinate of the point (float).;
+#X msg 120 827 shift_x;
+#X text 240 827 output shift of x coordinate of the point (float).;
+#X msg 120 859 shift_y;
+#X text 240 859 output shift of y coordinate of the point (float).;
+#X msg 120 891 sel;
+#X text 240 891 marks a point specified by index (integer number).;
+#X msg 120 923 set;
+#X text 240 923 Takes three arguments \, sets point with the index of
 the first argument value with the value of arguments #2 and #3\. X and
-y values should be specified in the current range of bpfunc object\.;
-#X msg 120 924 set_raw;
-#X text 240 924 Takes three arguments \, sets point with the index of
+y values should be specified in the current range of bpfunc object.;
+#X msg 120 993 set_raw;
+#X text 240 993 Takes three arguments \, sets point with the index of
 the first argument value with the value of arguments #2 and #3\. X and
-y values should be specified in range 0\.\.1\.;
-#X msg 120 980 get;
-#X text 240 980 Get point coordinates for specified index (integer
-number) \, returns scaled values\.;
-#X msg 120 1022 get_raw;
-#X text 240 1022 Get point coordinates for specified index (integer
-number) \, returns values in range 0\.\.1\.;
-#X msg 120 1064 add;
-#X text 240 1064 Adds new point to the specified coordinates\. X and y
-values should be specified in current ranges\.;
-#X msg 120 1106 add_raw;
-#X text 240 1106 Adds new point to the specified coordinates\. X and y
-values should be specified in 0\.\.1 range\.;
-#X msg 120 1148 del;
-#X text 240 1148 Deletes the point with the specified index\.;
-#X msg 120 1180 end_seg;
-#X text 240 1180 Needs point number and boolean value\. Marks the end
-of segment\. Useful for complex envelopes with sustain etc\.;
-#X msg 120 1222 lock_x;
-#X text 240 1222 Needs point number and boolean value\. If value is
-nonzero \, prevents the change of x coordinate with a mouse\.;
-#X msg 120 1264 lock_y;
-#X text 240 1264 Needs point number and boolean value\. If value is
-nonzero \, prevents the change of y coordinate with a mouse\.;
-#X msg 120 1306 join_next;
-#X text 240 1306 Needs point number and boolean value\. If value is
-nonzero \, links y coordinate of specified and next point\. Useful for
-AHR envelopes etc\.;
-#X obj 20 1372 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1377 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144
+y values should be specified in range 0\..1\.;
+#X msg 120 1049 get;
+#X text 240 1049 Get point coordinates for specified index (integer
+number) \, returns scaled values.;
+#X msg 120 1091 get_raw;
+#X text 240 1091 Get point coordinates for specified index (integer
+number) \, returns values in range 0\..1\.;
+#X msg 120 1133 add;
+#X text 240 1133 Adds new point to the specified coordinates. X and y
+values should be specified in current ranges.;
+#X msg 120 1175 add_raw;
+#X text 240 1175 Adds new point to the specified coordinates. X and y
+values should be specified in 0\..1 range.;
+#X msg 120 1217 del;
+#X text 240 1217 Deletes the point with the specified index.;
+#X msg 120 1249 end_seg;
+#X text 240 1249 Needs point number and boolean value. Marks the end
+of segment. Useful for complex envelopes with sustain etc.;
+#X msg 120 1291 lock_x;
+#X text 240 1291 Needs point number and boolean value. If value is
+nonzero \, prevents the change of x coordinate with a mouse.;
+#X msg 120 1333 lock_y;
+#X text 240 1333 Needs point number and boolean value. If value is
+nonzero \, prevents the change of y coordinate with a mouse.;
+#X msg 120 1375 join_next;
+#X text 240 1375 Needs point number and boolean value. If value is
+nonzero \, links y coordinate of specified and next point. Useful for
+AHR envelopes etc.;
+#X obj 20 1441 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1446 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144
 -49933 0;
-#X text 120 1382 1\.;
-#X text 150 1382 *list*;
-#X text 240 1382 Messages \. ;
-#X obj 20 1410 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1415 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
+#X text 120 1451 1\.;
+#X text 150 1451 *list*;
+#X text 240 1451 Messages . ;
+#X obj 20 1479 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1484 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;
-#X text 120 1420 1\.;
-#X text 240 1420 Breakpoint function points in various formats;
+#X text 120 1489 1\.;
+#X text 240 1489 Breakpoint function points in various formats;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 1468 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1471 library: ceammc v0\.1;
-#X text 545 1483 see also:;
-#X obj 615 1486 ui.link @title [ui.sliders] @bgcolor 0.78431 0.78431
+#X obj 1 1537 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1540 library: ceammc v0.1;
+#X text 545 1552 see also:;
+#X obj 615 1555 ui.link @title [ui.sliders] @bgcolor 0.78431 0.78431
 0.78431 @url ui.sliders-help.pd;
-#N canvas 10 1490 400 250 info 0;
+#N canvas 10 1559 400 250 info 0;
 #X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0\.1;
+#X text 120 32 0.1;
 #X text 10 54 object:;
-#X text 120 54 ui\.bpfunc;
+#X text 120 54 ui.bpfunc;
 #X text 10 76 category:;
 #X text 120 76 ui;
 #X text 10 98 since:;
-#X text 120 98 0\.1;
+#X text 120 98 0.1;
 #X text 10 120 authors:;
 #X text 120 120 Alex Nadzharov \, Serge Poltavsky;
 #X text 10 142 license:;
@@ -125,4 +132,12 @@ AHR envelopes etc\.;
 https://github.com/uliss/pure-data;
 #X obj 120 228 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 228 generated by pddoc;
-#X restore 10 1490 pd info;
+#X restore 10 1559 pd info;
+#X connect 5 0 7 0;
+#X connect 7 0 8 0;
+#X connect 8 0 9 1;
+#X connect 4 0 7 0;
+#X connect 6 0 9 0;
+#X connect 9 0 10 0;
+#X connect 9 0 10 1;
+#X connect 3 0 5 0;

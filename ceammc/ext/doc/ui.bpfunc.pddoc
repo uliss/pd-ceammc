@@ -71,11 +71,25 @@
         </outlets>
         <example>
             <pdascii>
-                <![CDATA[
+<![CDATA[
 
-[ui.bpfunc]
-
-                ]]>
+                    [ui.toggle]
+                    |
+           [vline(   [vline_tgl $1(
+           |         |
+           |         |
+           |         |
+[osc~ 440] [ui.bpfunc @size=120x60]
+|          |
+|          |
+|          |
+|          |
+|          [vline~  ]
+|          |.
+[*~        ]
+|  \
+[dac~]
+]]>
             </pdascii>
         </example>
     </object>
