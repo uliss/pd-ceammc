@@ -1,12 +1,12 @@
+include_directories(${CMAKE_SOURCE_DIR}/src)
+
 set(NOISE_SOURCES "")
 macro(ceammc_noise_extension name)
     list(APPEND NOISE_SOURCES "noise_${name}.c")
-    ceammc_c_extension(noise ${name})
 endmacro()
 
 macro(ceammc_faust_noise_extension name)
     list(APPEND NOISE_SOURCES "noise_${name}.cpp")
-    ceammc_faust_extension(noise ${name} simple_pd_control_ext)
 endmacro()
 
 ceammc_noise_extension(baker)
