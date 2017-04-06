@@ -509,23 +509,23 @@ class lpf24 : public dsp {
 	FAUSTFLOAT 	fslider0;
 	float 	fRec1[2];
 	FAUSTFLOAT 	fslider1;
-	float 	fRec3[2];
+	float 	fRec2[2];
 	float 	fVec0[3];
-	float 	fRec2[3];
+	float 	fRec3[3];
 	float 	fRec0[3];
 	int fSamplingFreq;
 
   public:
 	virtual void metadata(Meta* m) { 
-		m->declare("signal.lib/name", "Faust Signal Routing Library");
-		m->declare("signal.lib/version", "0.0");
-		m->declare("filter.lib/name", "Faust Filter Library");
-		m->declare("filter.lib/version", "2.0");
 		m->declare("maxmsp.lib/name", "MaxMSP compatibility Library");
 		m->declare("maxmsp.lib/author", "GRAME");
 		m->declare("maxmsp.lib/copyright", "GRAME");
 		m->declare("maxmsp.lib/version", "1.1");
 		m->declare("maxmsp.lib/license", "LGPL");
+		m->declare("signal.lib/name", "Faust Signal Routing Library");
+		m->declare("signal.lib/version", "0.0");
+		m->declare("filter.lib/name", "Faust Filter Library");
+		m->declare("filter.lib/version", "2.0");
 		m->declare("math.lib/name", "Faust Math Library");
 		m->declare("math.lib/version", "2.0");
 		m->declare("math.lib/author", "GRAME");
@@ -547,9 +547,9 @@ class lpf24 : public dsp {
 	}
 	virtual void instanceClear() {
 		for (int i=0; i<2; i++) fRec1[i] = 0;
-		for (int i=0; i<2; i++) fRec3[i] = 0;
+		for (int i=0; i<2; i++) fRec2[i] = 0;
 		for (int i=0; i<3; i++) fVec0[i] = 0;
-		for (int i=0; i<3; i++) fRec2[i] = 0;
+		for (int i=0; i<3; i++) fRec3[i] = 0;
 		for (int i=0; i<3; i++) fRec0[i] = 0;
 	}
 	virtual void init(int samplingFreq) {
@@ -581,23 +581,23 @@ class lpf24 : public dsp {
 		for (int i=0; i<count; i++) {
 			fRec1[0] = (fSlow0 + (0.999f * fRec1[1]));
 			float fTemp0 = (fConst0 * max((float)0, fRec1[0]));
-			float fTemp1 = cosf(fTemp0);
-			float fTemp2 = (1 - fTemp1);
-			fRec3[0] = (fSlow1 + (0.999f * fRec3[1]));
-			float fTemp3 = (0.5f * (sinf(fTemp0) / max(0.001f, fRec3[0])));
-			float fTemp4 = (fTemp3 + 1);
-			float fTemp5 = (0 - ((0 - (2 * fTemp1)) / fTemp4));
-			float fTemp6 = (0 - ((1 - fTemp3) / fTemp4));
+			fRec2[0] = (fSlow1 + (0.999f * fRec2[1]));
+			float fTemp1 = (0.5f * (sinf(fTemp0) / max(0.001f, fRec2[0])));
+			float fTemp2 = (fTemp1 + 1);
+			float fTemp3 = (0 - ((1 - fTemp1) / fTemp2));
+			float fTemp4 = cosf(fTemp0);
+			float fTemp5 = (0 - ((0 - (2 * fTemp4)) / fTemp2));
+			float fTemp6 = (1 - fTemp4);
 			float fTemp7 = (float)input0[i];
 			fVec0[0] = fTemp7;
-			fRec2[0] = (((fRec2[1] * fTemp5) + (fRec2[2] * fTemp6)) + ((fTemp2 * ((0.5f * (fVec0[0] + fVec0[2])) + fVec0[1])) / fTemp4));
-			fRec0[0] = (((fTemp2 * (fRec2[1] + (0.5f * (fRec2[2] + fRec2[0])))) / fTemp4) + ((fRec0[1] * fTemp5) + (fRec0[2] * fTemp6)));
+			fRec3[0] = (((fTemp5 * fRec3[1]) + (fTemp3 * fRec3[2])) + ((fTemp6 * (fVec0[1] + (0.5f * (fVec0[0] + fVec0[2])))) / fTemp2));
+			fRec0[0] = (((fRec0[2] * fTemp3) + (fRec0[1] * fTemp5)) + ((fTemp6 * (fRec3[1] + (0.5f * (fRec3[2] + fRec3[0])))) / fTemp2));
 			output0[i] = (FAUSTFLOAT)fRec0[0];
 			// post processing
 			fRec0[2] = fRec0[1]; fRec0[1] = fRec0[0];
-			fRec2[2] = fRec2[1]; fRec2[1] = fRec2[0];
+			fRec3[2] = fRec3[1]; fRec3[1] = fRec3[0];
 			fVec0[2] = fVec0[1]; fVec0[1] = fVec0[0];
-			fRec3[1] = fRec3[0];
+			fRec2[1] = fRec2[0];
 			fRec1[1] = fRec1[0];
 		}
 	}
@@ -612,10 +612,12 @@ class lpf24 : public dsp {
 #define xfaust_setup(name) name##_tilde_setup(void)
 // time for "active" toggle xfades in secs
 #define XFADE_TIME 0.1f
-static t_class* faust_class;
+static t_class* lpf24_faust_class;
+#define FAUST_EXT t_faust_lpf24
+#define FAUST_EXT_CLASS lpf24_faust_class
 // clang-format on
 
-struct t_faust {
+struct t_faust_lpf24 {
     t_object x_obj;
 #ifdef __MINGW32__
     /* This seems to be necessary as some as yet undetermined Pd routine seems
@@ -650,7 +652,7 @@ static inline void copy_samples(int k, int n, t_sample** out, t_sample** in)
 
 static t_int* faust_perform(t_int* w)
 {
-    t_faust* x = reinterpret_cast<t_faust*>(w[1]);
+    t_faust_lpf24* x = reinterpret_cast<t_faust_lpf24*>(w[1]);
     int n = static_cast<int>(w[2]);
     if (!x->dsp || !x->buf)
         return (w + 3);
@@ -699,7 +701,7 @@ static t_int* faust_perform(t_int* w)
     return (w + 3);
 }
 
-static void faust_dsp(t_faust* x, t_signal** sp)
+static void lpf24_faust_dsp(t_faust_lpf24* x, t_signal** sp)
 {
     const int n = sp[0]->s_n;
     const int sr = static_cast<int>(sp[0]->s_sr);
@@ -738,7 +740,7 @@ static void faust_dsp(t_faust* x, t_signal** sp)
     }
 }
 
-static void dumpToConsole(t_faust* x)
+static void lpf24_dump_to_console(t_faust_lpf24* x)
 {
     t_object* xobj = &x->x_obj;
     t_class* xc = xobj->te_pd;
@@ -756,7 +758,7 @@ static void dumpToConsole(t_faust* x)
     }
 }
 
-static void faust_any(t_faust* x, t_symbol* s, int argc, t_atom* argv)
+static void lpf24_faust_any(t_faust_lpf24* x, t_symbol* s, int argc, t_atom* argv)
 {
     if (!x->dsp)
         return;
@@ -804,33 +806,33 @@ static void faust_any(t_faust* x, t_symbol* s, int argc, t_atom* argv)
     }
 }
 
-static void faust_free_dsp(t_faust* x)
+static void faust_free_dsp(t_faust_lpf24* x)
 {
     delete x->dsp;
     x->dsp = NULL;
 }
 
-static void faust_free_ui(t_faust* x)
+static void faust_free_ui(t_faust_lpf24* x)
 {
     delete x->ui;
     x->ui = NULL;
 }
 
-static void faust_free_inputs(t_faust* x)
+static void faust_free_inputs(t_faust_lpf24* x)
 {
     if (x->inputs)
         free(x->inputs);
     x->inputs = NULL;
 }
 
-static void faust_free_outputs(t_faust* x)
+static void faust_free_outputs(t_faust_lpf24* x)
 {
     if (x->outputs)
         free(x->outputs);
     x->outputs = NULL;
 }
 
-static void faust_free_buf(t_faust* x)
+static void faust_free_buf(t_faust_lpf24* x)
 {
     if (x->buf) {
         for (int i = 0; i < x->n_out; i++) {
@@ -842,7 +844,7 @@ static void faust_free_buf(t_faust* x)
     }
 }
 
-static void faust_free(t_faust* x)
+static void lpf24_faust_free(t_faust_lpf24* x)
 {
     faust_free_dsp(x);
     faust_free_ui(x);
@@ -851,7 +853,7 @@ static void faust_free(t_faust* x)
     faust_free_buf(x);
 }
 
-static bool faust_init_inputs(t_faust* x)
+static bool faust_init_inputs(t_faust_lpf24* x)
 {
     x->inputs = NULL;
     x->n_in = x->dsp->getNumInputs();
@@ -873,7 +875,7 @@ static bool faust_init_inputs(t_faust* x)
     return true;
 }
 
-static bool faust_init_outputs(t_faust* x, bool info_outlet)
+static bool faust_init_outputs(t_faust_lpf24* x, bool info_outlet)
 {
     x->outputs = NULL;
     x->buf = NULL;
@@ -912,7 +914,7 @@ static bool faust_init_outputs(t_faust* x, bool info_outlet)
     return true;
 }
 
-static bool faust_new_internal(t_faust* x, const std::string& objId = "", bool info_outlet = true)
+static bool faust_new_internal(t_faust_lpf24* x, const std::string& objId = "", bool info_outlet = true)
 {
     int sr = 44100;
     x->active = 1;
@@ -924,12 +926,12 @@ static bool faust_new_internal(t_faust* x, const std::string& objId = "", bool i
     x->ui = new PdUI<UI>(sym(lpf24), objId);
 
     if (!faust_init_inputs(x)) {
-        faust_free(x);
+        lpf24_faust_free(x);
         return false;
     }
 
     if (!faust_init_outputs(x, info_outlet)) {
-        faust_free(x);
+        lpf24_faust_free(x);
         return false;
     }
 
@@ -1029,7 +1031,7 @@ static bool get_nth_symbol_arg(int argc, t_atom* argv, int nth, const char** des
 }
 
 class PdArgParser {
-    t_faust* x_;
+    t_faust_lpf24* x_;
     int argc_;
     t_atom* argv_;
     bool control_outlet_;
@@ -1041,7 +1043,7 @@ public:
      * @param argc arguments count
      * @param argv pointer to argument vector
      */
-    PdArgParser(t_faust* x, int argc, t_atom* argv, bool info_outlet = true)
+    PdArgParser(t_faust_lpf24* x, int argc, t_atom* argv, bool info_outlet = true)
         : x_(x)
         , argc_(argc)
         , argv_(argv)
@@ -1092,24 +1094,44 @@ public:
             pd_float(reinterpret_cast<t_pd*>(this->x_), arg);
     }
 
-    t_faust* pd_obj()
+    t_faust_lpf24* pd_obj()
     {
         return this->x_;
     }
 };
 
-static void* faust_new(t_symbol* s, int argc, t_atom* argv);
+static void* lpf24_faust_new(t_symbol* s, int argc, t_atom* argv);
 
 static void internal_setup(t_symbol* s)
 {
-    faust_class = class_new(s, reinterpret_cast<t_newmethod>(faust_new),
-        reinterpret_cast<t_method>(faust_free),
-        sizeof(t_faust),
+    lpf24_faust_class = class_new(s, reinterpret_cast<t_newmethod>(lpf24_faust_new),
+        reinterpret_cast<t_method>(lpf24_faust_free),
+        sizeof(t_faust_lpf24),
         CLASS_DEFAULT,
         A_GIMME, A_NULL);
-    class_addmethod(faust_class, nullfn, &s_signal, A_NULL);
-    class_addmethod(faust_class, reinterpret_cast<t_method>(faust_dsp), gensym("dsp"), A_NULL);
-    class_addmethod(faust_class, reinterpret_cast<t_method>(dumpToConsole), gensym("dump"), A_NULL);
-    CLASS_MAINSIGNALIN(faust_class, t_faust, f);
-    class_addanything(faust_class, faust_any);
+    class_addmethod(lpf24_faust_class, nullfn, &s_signal, A_NULL);
+    class_addmethod(lpf24_faust_class, reinterpret_cast<t_method>(lpf24_faust_dsp), gensym("dsp"), A_NULL);
+    class_addmethod(lpf24_faust_class, reinterpret_cast<t_method>(lpf24_dump_to_console), gensym("dump"), A_NULL);
+    CLASS_MAINSIGNALIN(lpf24_faust_class, t_faust_lpf24, f);
+    class_addanything(lpf24_faust_class, lpf24_faust_any);
 }
+
+#define EXTERNAL_NEW void* lpf24_faust_new(t_symbol*, int argc, t_atom* argv)
+
+#define EXTERNAL_SIMPLE_NEW()                                                           \
+    static void* lpf24_faust_new(t_symbol*, int argc, t_atom* argv)                     \
+    {                                                                                   \
+        t_faust_lpf24* x = reinterpret_cast<t_faust_lpf24*>(pd_new(lpf24_faust_class)); \
+        PdArgParser p(x, argc, argv, false);                                            \
+        return p.pd_obj();                                                              \
+    }
+
+#define EXTERNAL_SETUP(MOD)                        \
+    extern "C" void setup_##MOD##0x2elpf24_tilde() \
+    {                                              \
+        internal_setup(gensym(#MOD ".lpf24~"));    \
+    }
+
+#define SIMPLE_EXTERNAL(MOD) \
+    EXTERNAL_SIMPLE_NEW();   \
+    EXTERNAL_SETUP(MOD);

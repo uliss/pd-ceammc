@@ -4,7 +4,6 @@
 //----------------------------------------------------------
 
 /* link with  */
-#include <math.h>
 /************************************************************************
  ************************************************************************
     FAUST Architecture File
@@ -472,7 +471,7 @@ inline const char* lopts(char* argv[], const char* name, const char* def)
 
 // clang-format off
 #ifndef FAUST_MACRO
-struct lfreq : public dsp {
+struct white : public dsp {
 };
 #endif
 // clang-format on
@@ -500,45 +499,18 @@ using namespace ceammc::faust;
 
 
 #ifndef FAUSTCLASS 
-#define FAUSTCLASS lfreq
+#define FAUSTCLASS white
 #endif
 
-class lfreq : public dsp {
+class white : public dsp {
   private:
-	int 	iVec0[2];
-	float 	fConst0;
-	float 	fConst1;
-	FAUSTFLOAT 	fslider0;
-	float 	fRec1[2];
-	float 	fConst2;
-	float 	fRec7[2];
-	float 	fRec8[2];
-	int 	iRec9[2];
-	float 	fRec6[2];
-	float 	fRec5[2];
-	float 	fRec4[2];
-	float 	fRec3[2];
-	float 	fRec2[2];
-	float 	fRec0[2];
+	int 	iRec0[2];
 	int fSamplingFreq;
 
   public:
 	virtual void metadata(Meta* m) { 
 		m->declare("noise.lib/name", "Faust Noise Generator Library");
 		m->declare("noise.lib/version", "0.0");
-		m->declare("signal.lib/name", "Faust Signal Routing Library");
-		m->declare("signal.lib/version", "0.0");
-		m->declare("filter.lib/name", "Faust Filter Library");
-		m->declare("filter.lib/version", "2.0");
-		m->declare("basic.lib/name", "Faust Basic Element Library");
-		m->declare("basic.lib/version", "0.0");
-		m->declare("miscoscillator.lib/name", "Faust Oscillator Library");
-		m->declare("miscoscillator.lib/version", "0.0");
-		m->declare("math.lib/name", "Faust Math Library");
-		m->declare("math.lib/version", "2.0");
-		m->declare("math.lib/author", "GRAME");
-		m->declare("math.lib/copyright", "GRAME");
-		m->declare("math.lib/license", "LGPL with exception");
 	}
 
 	virtual int getNumInputs() { return 0; }
@@ -547,25 +519,11 @@ class lfreq : public dsp {
 	}
 	virtual void instanceConstants(int samplingFreq) {
 		fSamplingFreq = samplingFreq;
-		fConst0 = min(1.92e+05f, max(1.0f, (float)fSamplingFreq));
-		fConst1 = (3.1415927f / fConst0);
-		fConst2 = (6.2831855f / fConst0);
 	}
 	virtual void instanceResetUserInterface() {
-		fslider0 = 1e+04f;
 	}
 	virtual void instanceClear() {
-		for (int i=0; i<2; i++) iVec0[i] = 0;
-		for (int i=0; i<2; i++) fRec1[i] = 0;
-		for (int i=0; i<2; i++) fRec7[i] = 0;
-		for (int i=0; i<2; i++) fRec8[i] = 0;
-		for (int i=0; i<2; i++) iRec9[i] = 0;
-		for (int i=0; i<2; i++) fRec6[i] = 0;
-		for (int i=0; i<2; i++) fRec5[i] = 0;
-		for (int i=0; i<2; i++) fRec4[i] = 0;
-		for (int i=0; i<2; i++) fRec3[i] = 0;
-		for (int i=0; i<2; i++) fRec2[i] = 0;
-		for (int i=0; i<2; i++) fRec0[i] = 0;
+		for (int i=0; i<2; i++) iRec0[i] = 0;
 	}
 	virtual void init(int samplingFreq) {
 		classInit(samplingFreq);
@@ -576,52 +534,23 @@ class lfreq : public dsp {
 		instanceResetUserInterface();
 		instanceClear();
 	}
-	virtual lfreq* clone() {
-		return new lfreq();
+	virtual white* clone() {
+		return new white();
 	}
 	virtual int getSampleRate() {
 		return fSamplingFreq;
 	}
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("0x00");
-		ui_interface->addHorizontalSlider("freq", &fslider0, 1e+04f, 2e+01f, 2e+04f, 0.1f);
 		ui_interface->closeBox();
 	}
 	virtual void compute (int count, FAUSTFLOAT** input, FAUSTFLOAT** output) {
-		float 	fSlow0 = (0.001f * float(fslider0));
 		FAUSTFLOAT* output0 = output[0];
 		for (int i=0; i<count; i++) {
-			iVec0[0] = 1;
-			fRec1[0] = (fSlow0 + (0.999f * fRec1[1]));
-			float fTemp0 = (1.0f / tanf((fConst1 * fRec1[0])));
-			float fTemp1 = (fTemp0 + 1);
-			float fTemp2 = (0 - ((1 - fTemp0) / fTemp1));
-			float fTemp3 = (fConst2 * fRec1[0]);
-			float fTemp4 = sinf(fTemp3);
-			float fTemp5 = cosf(fTemp3);
-			fRec7[0] = ((fRec8[1] * fTemp4) + (fRec7[1] * fTemp5));
-			fRec8[0] = (((fRec8[1] * fTemp5) + (fRec7[1] * (0 - fTemp4))) + (1 - iVec0[1]));
-			int iTemp6 = ((fRec7[1] <= 0) & (fRec7[0] > 0));
-			iRec9[0] = ((1103515245 * iRec9[1]) + 12345);
-			fRec6[0] = ((fRec6[1] * (1 - iTemp6)) + (4.656613e-10f * (iTemp6 * iRec9[0])));
-			fRec5[0] = ((fTemp2 * fRec5[1]) + ((fRec6[1] + fRec6[0]) / fTemp1));
-			fRec4[0] = ((fTemp2 * fRec4[1]) + ((fRec5[1] + fRec5[0]) / fTemp1));
-			fRec3[0] = ((fTemp2 * fRec3[1]) + ((fRec4[1] + fRec4[0]) / fTemp1));
-			fRec2[0] = ((fTemp2 * fRec2[1]) + ((fRec3[1] + fRec3[0]) / fTemp1));
-			fRec0[0] = ((fRec0[1] * fTemp2) + ((fRec2[1] + fRec2[0]) / fTemp1));
-			output0[i] = (FAUSTFLOAT)fRec0[0];
+			iRec0[0] = ((1103515245 * iRec0[1]) + 12345);
+			output0[i] = (FAUSTFLOAT)(4.656613e-10f * iRec0[0]);
 			// post processing
-			fRec0[1] = fRec0[0];
-			fRec2[1] = fRec2[0];
-			fRec3[1] = fRec3[0];
-			fRec4[1] = fRec4[0];
-			fRec5[1] = fRec5[0];
-			fRec6[1] = fRec6[0];
-			iRec9[1] = iRec9[0];
-			fRec8[1] = fRec8[0];
-			fRec7[1] = fRec7[0];
-			fRec1[1] = fRec1[0];
-			iVec0[1] = iVec0[0];
+			iRec0[1] = iRec0[0];
 		}
 	}
 };
@@ -635,17 +564,19 @@ class lfreq : public dsp {
 #define xfaust_setup(name) name##_tilde_setup(void)
 // time for "active" toggle xfades in secs
 #define XFADE_TIME 0.1f
-static t_class* faust_class;
+static t_class* white_faust_class;
+#define FAUST_EXT t_faust_white
+#define FAUST_EXT_CLASS white_faust_class
 // clang-format on
 
-struct t_faust {
+struct t_faust_white {
     t_object x_obj;
 #ifdef __MINGW32__
     /* This seems to be necessary as some as yet undetermined Pd routine seems
      to write past the end of x_obj on Windows. */
     int fence; /* dummy field (not used) */
 #endif
-    lfreq* dsp;
+    white* dsp;
     PdUI<UI>* ui;
     int active, xfade, n_xfade, rate, n_in, n_out;
     t_sample **inputs, **outputs, **buf;
@@ -673,7 +604,7 @@ static inline void copy_samples(int k, int n, t_sample** out, t_sample** in)
 
 static t_int* faust_perform(t_int* w)
 {
-    t_faust* x = reinterpret_cast<t_faust*>(w[1]);
+    t_faust_white* x = reinterpret_cast<t_faust_white*>(w[1]);
     int n = static_cast<int>(w[2]);
     if (!x->dsp || !x->buf)
         return (w + 3);
@@ -722,7 +653,7 @@ static t_int* faust_perform(t_int* w)
     return (w + 3);
 }
 
-static void faust_dsp(t_faust* x, t_signal** sp)
+static void white_faust_dsp(t_faust_white* x, t_signal** sp)
 {
     const int n = sp[0]->s_n;
     const int sr = static_cast<int>(sp[0]->s_sr);
@@ -761,7 +692,7 @@ static void faust_dsp(t_faust* x, t_signal** sp)
     }
 }
 
-static void dumpToConsole(t_faust* x)
+static void white_dump_to_console(t_faust_white* x)
 {
     t_object* xobj = &x->x_obj;
     t_class* xc = xobj->te_pd;
@@ -779,7 +710,7 @@ static void dumpToConsole(t_faust* x)
     }
 }
 
-static void faust_any(t_faust* x, t_symbol* s, int argc, t_atom* argv)
+static void white_faust_any(t_faust_white* x, t_symbol* s, int argc, t_atom* argv)
 {
     if (!x->dsp)
         return;
@@ -791,6 +722,8 @@ static void faust_any(t_faust* x, t_symbol* s, int argc, t_atom* argv)
         ui->outputAllProperties(x->out);
     } else if (isGetProperty(s)) {
         ui->outputProperty(s, x->out);
+    } else if (isSetProperty(s)) {
+        ui->setProperty(s, argc, argv);
     } else {
         const char* label = s->s_name;
         int count = 0;
@@ -825,33 +758,33 @@ static void faust_any(t_faust* x, t_symbol* s, int argc, t_atom* argv)
     }
 }
 
-static void faust_free_dsp(t_faust* x)
+static void faust_free_dsp(t_faust_white* x)
 {
     delete x->dsp;
     x->dsp = NULL;
 }
 
-static void faust_free_ui(t_faust* x)
+static void faust_free_ui(t_faust_white* x)
 {
     delete x->ui;
     x->ui = NULL;
 }
 
-static void faust_free_inputs(t_faust* x)
+static void faust_free_inputs(t_faust_white* x)
 {
     if (x->inputs)
         free(x->inputs);
     x->inputs = NULL;
 }
 
-static void faust_free_outputs(t_faust* x)
+static void faust_free_outputs(t_faust_white* x)
 {
     if (x->outputs)
         free(x->outputs);
     x->outputs = NULL;
 }
 
-static void faust_free_buf(t_faust* x)
+static void faust_free_buf(t_faust_white* x)
 {
     if (x->buf) {
         for (int i = 0; i < x->n_out; i++) {
@@ -863,7 +796,7 @@ static void faust_free_buf(t_faust* x)
     }
 }
 
-static void faust_free(t_faust* x)
+static void white_faust_free(t_faust_white* x)
 {
     faust_free_dsp(x);
     faust_free_ui(x);
@@ -872,7 +805,7 @@ static void faust_free(t_faust* x)
     faust_free_buf(x);
 }
 
-static bool faust_init_inputs(t_faust* x)
+static bool faust_init_inputs(t_faust_white* x)
 {
     x->inputs = NULL;
     x->n_in = x->dsp->getNumInputs();
@@ -881,7 +814,7 @@ static bool faust_init_inputs(t_faust* x)
         x->inputs = static_cast<t_sample**>(calloc(x->n_in, sizeof(t_sample*)));
 
         if (x->inputs == NULL) {
-            error("[%s] faust_init_inputs failed", sym(lfreq));
+            error("[%s] faust_init_inputs failed", sym(white));
             return false;
         }
     }
@@ -894,7 +827,7 @@ static bool faust_init_inputs(t_faust* x)
     return true;
 }
 
-static bool faust_init_outputs(t_faust* x, bool info_outlet)
+static bool faust_init_outputs(t_faust_white* x, bool info_outlet)
 {
     x->outputs = NULL;
     x->buf = NULL;
@@ -904,13 +837,13 @@ static bool faust_init_outputs(t_faust* x, bool info_outlet)
     if (x->n_out > 0) {
         x->outputs = static_cast<t_sample**>(calloc(x->n_out, sizeof(t_sample*)));
         if (x->outputs == NULL) {
-            error("[%s] faust_init_outputs failed", sym(lfreq));
+            error("[%s] faust_init_outputs failed", sym(white));
             return false;
         }
 
         x->buf = static_cast<t_sample**>(calloc(x->n_out, sizeof(t_sample*)));
         if (x->buf == NULL) {
-            error("[%s] faust_init_outputs failed", sym(lfreq));
+            error("[%s] faust_init_outputs failed", sym(white));
             faust_free_outputs(x);
             return false;
         }
@@ -933,7 +866,7 @@ static bool faust_init_outputs(t_faust* x, bool info_outlet)
     return true;
 }
 
-static bool faust_new_internal(t_faust* x, const std::string& objId = "", bool info_outlet = true)
+static bool faust_new_internal(t_faust_white* x, const std::string& objId = "", bool info_outlet = true)
 {
     int sr = 44100;
     x->active = 1;
@@ -941,16 +874,16 @@ static bool faust_new_internal(t_faust* x, const std::string& objId = "", bool i
     x->rate = sr;
     x->n_xfade = static_cast<int>(sr * XFADE_TIME / 64);
 
-    x->dsp = new lfreq();
-    x->ui = new PdUI<UI>(sym(lfreq), objId);
+    x->dsp = new white();
+    x->ui = new PdUI<UI>(sym(white), objId);
 
     if (!faust_init_inputs(x)) {
-        faust_free(x);
+        white_faust_free(x);
         return false;
     }
 
     if (!faust_init_outputs(x, info_outlet)) {
-        faust_free(x);
+        white_faust_free(x);
         return false;
     }
 
@@ -1050,7 +983,7 @@ static bool get_nth_symbol_arg(int argc, t_atom* argv, int nth, const char** des
 }
 
 class PdArgParser {
-    t_faust* x_;
+    t_faust_white* x_;
     int argc_;
     t_atom* argv_;
     bool control_outlet_;
@@ -1062,7 +995,7 @@ public:
      * @param argc arguments count
      * @param argv pointer to argument vector
      */
-    PdArgParser(t_faust* x, int argc, t_atom* argv, bool info_outlet = true)
+    PdArgParser(t_faust_white* x, int argc, t_atom* argv, bool info_outlet = true)
         : x_(x)
         , argc_(argc)
         , argv_(argv)
@@ -1113,24 +1046,44 @@ public:
             pd_float(reinterpret_cast<t_pd*>(this->x_), arg);
     }
 
-    t_faust* pd_obj()
+    t_faust_white* pd_obj()
     {
         return this->x_;
     }
 };
 
-static void* faust_new(t_symbol* s, int argc, t_atom* argv);
+static void* white_faust_new(t_symbol* s, int argc, t_atom* argv);
 
 static void internal_setup(t_symbol* s)
 {
-    faust_class = class_new(s, reinterpret_cast<t_newmethod>(faust_new),
-        reinterpret_cast<t_method>(faust_free),
-        sizeof(t_faust),
+    white_faust_class = class_new(s, reinterpret_cast<t_newmethod>(white_faust_new),
+        reinterpret_cast<t_method>(white_faust_free),
+        sizeof(t_faust_white),
         CLASS_DEFAULT,
         A_GIMME, A_NULL);
-    class_addmethod(faust_class, nullfn, &s_signal, A_NULL);
-    class_addmethod(faust_class, reinterpret_cast<t_method>(faust_dsp), gensym("dsp"), A_NULL);
-    class_addmethod(faust_class, reinterpret_cast<t_method>(dumpToConsole), gensym("dump"), A_NULL);
-    CLASS_MAINSIGNALIN(faust_class, t_faust, f);
-    class_addanything(faust_class, faust_any);
+    class_addmethod(white_faust_class, nullfn, &s_signal, A_NULL);
+    class_addmethod(white_faust_class, reinterpret_cast<t_method>(white_faust_dsp), gensym("dsp"), A_NULL);
+    class_addmethod(white_faust_class, reinterpret_cast<t_method>(white_dump_to_console), gensym("dump"), A_NULL);
+    CLASS_MAINSIGNALIN(white_faust_class, t_faust_white, f);
+    class_addanything(white_faust_class, white_faust_any);
 }
+
+#define EXTERNAL_NEW void* white_faust_new(t_symbol*, int argc, t_atom* argv)
+
+#define EXTERNAL_SIMPLE_NEW()                                                           \
+    static void* white_faust_new(t_symbol*, int argc, t_atom* argv)                     \
+    {                                                                                   \
+        t_faust_white* x = reinterpret_cast<t_faust_white*>(pd_new(white_faust_class)); \
+        PdArgParser p(x, argc, argv, false);                                            \
+        return p.pd_obj();                                                              \
+    }
+
+#define EXTERNAL_SETUP(MOD)                        \
+    extern "C" void setup_##MOD##0x2ewhite_tilde() \
+    {                                              \
+        internal_setup(gensym(#MOD ".white~"));    \
+    }
+
+#define SIMPLE_EXTERNAL(MOD) \
+    EXTERNAL_SIMPLE_NEW();   \
+    EXTERNAL_SETUP(MOD);

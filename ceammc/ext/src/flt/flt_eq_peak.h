@@ -520,30 +520,30 @@ class eq_peak : public dsp {
 	float 	fConst0;
 	float 	fConst1;
 	FAUSTFLOAT 	fslider0;
-	float 	fRec0[2];
-	FAUSTFLOAT 	fslider1;
 	float 	fRec1[2];
+	FAUSTFLOAT 	fslider1;
+	float 	fRec2[2];
 	float 	fConst2;
 	float 	fConst3;
 	FAUSTFLOAT 	fslider2;
-	float 	fRec2[2];
+	float 	fRec3[2];
 	float 	fConst4;
-	float 	fRec3[3];
+	float 	fRec0[3];
 	int fSamplingFreq;
 
   public:
 	virtual void metadata(Meta* m) { 
+		m->declare("signal.lib/name", "Faust Signal Routing Library");
+		m->declare("signal.lib/version", "0.0");
 		m->declare("math.lib/name", "Faust Math Library");
 		m->declare("math.lib/version", "2.0");
 		m->declare("math.lib/author", "GRAME");
 		m->declare("math.lib/copyright", "GRAME");
 		m->declare("math.lib/license", "LGPL with exception");
-		m->declare("basic.lib/name", "Faust Basic Element Library");
-		m->declare("basic.lib/version", "0.0");
 		m->declare("filter.lib/name", "Faust Filter Library");
 		m->declare("filter.lib/version", "2.0");
-		m->declare("signal.lib/name", "Faust Signal Routing Library");
-		m->declare("signal.lib/version", "0.0");
+		m->declare("basic.lib/name", "Faust Basic Element Library");
+		m->declare("basic.lib/version", "0.0");
 	}
 
 	virtual int getNumInputs() { return 1; }
@@ -564,10 +564,10 @@ class eq_peak : public dsp {
 		fslider2 = 1e+02f;
 	}
 	virtual void instanceClear() {
-		for (int i=0; i<2; i++) fRec0[i] = 0;
 		for (int i=0; i<2; i++) fRec1[i] = 0;
 		for (int i=0; i<2; i++) fRec2[i] = 0;
-		for (int i=0; i<3; i++) fRec3[i] = 0;
+		for (int i=0; i<2; i++) fRec3[i] = 0;
+		for (int i=0; i<3; i++) fRec0[i] = 0;
 	}
 	virtual void init(int samplingFreq) {
 		classInit(samplingFreq);
@@ -598,26 +598,26 @@ class eq_peak : public dsp {
 		FAUSTFLOAT* input0 = input[0];
 		FAUSTFLOAT* output0 = output[0];
 		for (int i=0; i<count; i++) {
-			fRec0[0] = (fSlow0 + (0.999f * fRec0[1]));
-			float fTemp0 = tanf((fConst1 * fRec0[0]));
-			float fTemp1 = (1.0f / fTemp0);
-			fRec1[0] = (fSlow1 + (0.999f * fRec1[1]));
-			int iTemp2 = int((fRec1[0] > 0));
-			fRec2[0] = (fSlow2 + (0.999f * fRec2[1]));
-			float fTemp3 = sinf((fConst4 * fRec0[0]));
-			float fTemp4 = (fConst3 * ((fRec2[0] * powf(10,(0.05f * fabsf(fRec1[0])))) / fTemp3));
-			float fTemp5 = (fConst3 * (fRec2[0] / fTemp3));
-			float fTemp6 = ((iTemp2)?fTemp4:fTemp5);
-			float fTemp7 = ((iTemp2)?fTemp5:fTemp4);
-			float fTemp8 = (2 * (fRec3[1] * (1 - (1.0f / faustpower<2>(fTemp0)))));
-			float fTemp9 = (((fTemp1 + fTemp7) / fTemp0) + 1);
-			fRec3[0] = ((float)input0[i] - (((fRec3[2] * (((fTemp1 - fTemp7) / fTemp0) + 1)) + fTemp8) / fTemp9));
-			output0[i] = (FAUSTFLOAT)(((((((fTemp1 + fTemp6) / fTemp0) + 1) * fRec3[0]) + fTemp8) + (fRec3[2] * (1 - ((fTemp6 - fTemp1) / fTemp0)))) / fTemp9);
+			fRec1[0] = (fSlow0 + (0.999f * fRec1[1]));
+			float fTemp0 = tanf((fConst1 * fRec1[0]));
+			float fTemp1 = (2 * (fRec0[1] * (1 - (1.0f / faustpower<2>(fTemp0)))));
+			float fTemp2 = (1.0f / fTemp0);
+			fRec2[0] = (fSlow1 + (0.999f * fRec2[1]));
+			int iTemp3 = int((fRec2[0] > 0));
+			fRec3[0] = (fSlow2 + (0.999f * fRec3[1]));
+			float fTemp4 = sinf((fConst4 * fRec1[0]));
+			float fTemp5 = (fConst3 * (fRec3[0] / fTemp4));
+			float fTemp6 = (fConst3 * ((fRec3[0] * powf(10,(0.05f * fabsf(fRec2[0])))) / fTemp4));
+			float fTemp7 = ((iTemp3)?fTemp5:fTemp6);
+			float fTemp8 = (((fTemp2 + fTemp7) / fTemp0) + 1);
+			fRec0[0] = ((float)input0[i] - ((fTemp1 + (fRec0[2] * (((fTemp2 - fTemp7) / fTemp0) + 1))) / fTemp8));
+			float fTemp9 = ((iTemp3)?fTemp6:fTemp5);
+			output0[i] = (FAUSTFLOAT)(((fTemp1 + ((((fTemp9 + fTemp2) / fTemp0) + 1) * fRec0[0])) + (fRec0[2] * (1 - ((fTemp9 - fTemp2) / fTemp0)))) / fTemp8);
 			// post processing
-			fRec3[2] = fRec3[1]; fRec3[1] = fRec3[0];
+			fRec0[2] = fRec0[1]; fRec0[1] = fRec0[0];
+			fRec3[1] = fRec3[0];
 			fRec2[1] = fRec2[0];
 			fRec1[1] = fRec1[0];
-			fRec0[1] = fRec0[0];
 		}
 	}
 };
@@ -631,10 +631,12 @@ class eq_peak : public dsp {
 #define xfaust_setup(name) name##_tilde_setup(void)
 // time for "active" toggle xfades in secs
 #define XFADE_TIME 0.1f
-static t_class* faust_class;
+static t_class* eq_peak_faust_class;
+#define FAUST_EXT t_faust_eq_peak
+#define FAUST_EXT_CLASS eq_peak_faust_class
 // clang-format on
 
-struct t_faust {
+struct t_faust_eq_peak {
     t_object x_obj;
 #ifdef __MINGW32__
     /* This seems to be necessary as some as yet undetermined Pd routine seems
@@ -669,7 +671,7 @@ static inline void copy_samples(int k, int n, t_sample** out, t_sample** in)
 
 static t_int* faust_perform(t_int* w)
 {
-    t_faust* x = reinterpret_cast<t_faust*>(w[1]);
+    t_faust_eq_peak* x = reinterpret_cast<t_faust_eq_peak*>(w[1]);
     int n = static_cast<int>(w[2]);
     if (!x->dsp || !x->buf)
         return (w + 3);
@@ -718,7 +720,7 @@ static t_int* faust_perform(t_int* w)
     return (w + 3);
 }
 
-static void faust_dsp(t_faust* x, t_signal** sp)
+static void eq_peak_faust_dsp(t_faust_eq_peak* x, t_signal** sp)
 {
     const int n = sp[0]->s_n;
     const int sr = static_cast<int>(sp[0]->s_sr);
@@ -757,7 +759,7 @@ static void faust_dsp(t_faust* x, t_signal** sp)
     }
 }
 
-static void dumpToConsole(t_faust* x)
+static void eq_peak_dump_to_console(t_faust_eq_peak* x)
 {
     t_object* xobj = &x->x_obj;
     t_class* xc = xobj->te_pd;
@@ -775,7 +777,7 @@ static void dumpToConsole(t_faust* x)
     }
 }
 
-static void faust_any(t_faust* x, t_symbol* s, int argc, t_atom* argv)
+static void eq_peak_faust_any(t_faust_eq_peak* x, t_symbol* s, int argc, t_atom* argv)
 {
     if (!x->dsp)
         return;
@@ -823,33 +825,33 @@ static void faust_any(t_faust* x, t_symbol* s, int argc, t_atom* argv)
     }
 }
 
-static void faust_free_dsp(t_faust* x)
+static void faust_free_dsp(t_faust_eq_peak* x)
 {
     delete x->dsp;
     x->dsp = NULL;
 }
 
-static void faust_free_ui(t_faust* x)
+static void faust_free_ui(t_faust_eq_peak* x)
 {
     delete x->ui;
     x->ui = NULL;
 }
 
-static void faust_free_inputs(t_faust* x)
+static void faust_free_inputs(t_faust_eq_peak* x)
 {
     if (x->inputs)
         free(x->inputs);
     x->inputs = NULL;
 }
 
-static void faust_free_outputs(t_faust* x)
+static void faust_free_outputs(t_faust_eq_peak* x)
 {
     if (x->outputs)
         free(x->outputs);
     x->outputs = NULL;
 }
 
-static void faust_free_buf(t_faust* x)
+static void faust_free_buf(t_faust_eq_peak* x)
 {
     if (x->buf) {
         for (int i = 0; i < x->n_out; i++) {
@@ -861,7 +863,7 @@ static void faust_free_buf(t_faust* x)
     }
 }
 
-static void faust_free(t_faust* x)
+static void eq_peak_faust_free(t_faust_eq_peak* x)
 {
     faust_free_dsp(x);
     faust_free_ui(x);
@@ -870,7 +872,7 @@ static void faust_free(t_faust* x)
     faust_free_buf(x);
 }
 
-static bool faust_init_inputs(t_faust* x)
+static bool faust_init_inputs(t_faust_eq_peak* x)
 {
     x->inputs = NULL;
     x->n_in = x->dsp->getNumInputs();
@@ -892,7 +894,7 @@ static bool faust_init_inputs(t_faust* x)
     return true;
 }
 
-static bool faust_init_outputs(t_faust* x, bool info_outlet)
+static bool faust_init_outputs(t_faust_eq_peak* x, bool info_outlet)
 {
     x->outputs = NULL;
     x->buf = NULL;
@@ -931,7 +933,7 @@ static bool faust_init_outputs(t_faust* x, bool info_outlet)
     return true;
 }
 
-static bool faust_new_internal(t_faust* x, const std::string& objId = "", bool info_outlet = true)
+static bool faust_new_internal(t_faust_eq_peak* x, const std::string& objId = "", bool info_outlet = true)
 {
     int sr = 44100;
     x->active = 1;
@@ -943,12 +945,12 @@ static bool faust_new_internal(t_faust* x, const std::string& objId = "", bool i
     x->ui = new PdUI<UI>(sym(eq_peak), objId);
 
     if (!faust_init_inputs(x)) {
-        faust_free(x);
+        eq_peak_faust_free(x);
         return false;
     }
 
     if (!faust_init_outputs(x, info_outlet)) {
-        faust_free(x);
+        eq_peak_faust_free(x);
         return false;
     }
 
@@ -1048,7 +1050,7 @@ static bool get_nth_symbol_arg(int argc, t_atom* argv, int nth, const char** des
 }
 
 class PdArgParser {
-    t_faust* x_;
+    t_faust_eq_peak* x_;
     int argc_;
     t_atom* argv_;
     bool control_outlet_;
@@ -1060,7 +1062,7 @@ public:
      * @param argc arguments count
      * @param argv pointer to argument vector
      */
-    PdArgParser(t_faust* x, int argc, t_atom* argv, bool info_outlet = true)
+    PdArgParser(t_faust_eq_peak* x, int argc, t_atom* argv, bool info_outlet = true)
         : x_(x)
         , argc_(argc)
         , argv_(argv)
@@ -1111,24 +1113,44 @@ public:
             pd_float(reinterpret_cast<t_pd*>(this->x_), arg);
     }
 
-    t_faust* pd_obj()
+    t_faust_eq_peak* pd_obj()
     {
         return this->x_;
     }
 };
 
-static void* faust_new(t_symbol* s, int argc, t_atom* argv);
+static void* eq_peak_faust_new(t_symbol* s, int argc, t_atom* argv);
 
 static void internal_setup(t_symbol* s)
 {
-    faust_class = class_new(s, reinterpret_cast<t_newmethod>(faust_new),
-        reinterpret_cast<t_method>(faust_free),
-        sizeof(t_faust),
+    eq_peak_faust_class = class_new(s, reinterpret_cast<t_newmethod>(eq_peak_faust_new),
+        reinterpret_cast<t_method>(eq_peak_faust_free),
+        sizeof(t_faust_eq_peak),
         CLASS_DEFAULT,
         A_GIMME, A_NULL);
-    class_addmethod(faust_class, nullfn, &s_signal, A_NULL);
-    class_addmethod(faust_class, reinterpret_cast<t_method>(faust_dsp), gensym("dsp"), A_NULL);
-    class_addmethod(faust_class, reinterpret_cast<t_method>(dumpToConsole), gensym("dump"), A_NULL);
-    CLASS_MAINSIGNALIN(faust_class, t_faust, f);
-    class_addanything(faust_class, faust_any);
+    class_addmethod(eq_peak_faust_class, nullfn, &s_signal, A_NULL);
+    class_addmethod(eq_peak_faust_class, reinterpret_cast<t_method>(eq_peak_faust_dsp), gensym("dsp"), A_NULL);
+    class_addmethod(eq_peak_faust_class, reinterpret_cast<t_method>(eq_peak_dump_to_console), gensym("dump"), A_NULL);
+    CLASS_MAINSIGNALIN(eq_peak_faust_class, t_faust_eq_peak, f);
+    class_addanything(eq_peak_faust_class, eq_peak_faust_any);
 }
+
+#define EXTERNAL_NEW void* eq_peak_faust_new(t_symbol*, int argc, t_atom* argv)
+
+#define EXTERNAL_SIMPLE_NEW()                                                           \
+    static void* eq_peak_faust_new(t_symbol*, int argc, t_atom* argv)                     \
+    {                                                                                   \
+        t_faust_eq_peak* x = reinterpret_cast<t_faust_eq_peak*>(pd_new(eq_peak_faust_class)); \
+        PdArgParser p(x, argc, argv, false);                                            \
+        return p.pd_obj();                                                              \
+    }
+
+#define EXTERNAL_SETUP(MOD)                        \
+    extern "C" void setup_##MOD##0x2eeq_peak_tilde() \
+    {                                              \
+        internal_setup(gensym(#MOD ".eq_peak~"));    \
+    }
+
+#define SIMPLE_EXTERNAL(MOD) \
+    EXTERNAL_SIMPLE_NEW();   \
+    EXTERNAL_SETUP(MOD);

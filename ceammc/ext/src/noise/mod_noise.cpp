@@ -1,5 +1,8 @@
 #include "mod_noise.h"
 
+extern "C" void setup_noise0x2elfreq_tilde();
+extern "C" void setup_noise0x2epink_tilde();
+extern "C" void setup_noise0x2ewhite_tilde();
 extern "C" void setup_noise0x2ebaker();
 extern "C" void setup_noise0x2eclifford();
 extern "C" void setup_noise0x2ecollatz();
@@ -21,6 +24,9 @@ extern "C" void setup_noise0x2etorus();
 extern "C" void setup_noise0x2everhulst();
 
 void ceammc_noise_setup() {
+     setup_noise0x2elfreq_tilde();
+     setup_noise0x2epink_tilde();
+     setup_noise0x2ewhite_tilde();
      setup_noise0x2ebaker();
      setup_noise0x2eclifford();
      setup_noise0x2ecollatz();
