@@ -11,6 +11,7 @@ add_subdirectory(tests)
 remove_definitions(-DPD_INTERNAL)
 add_definitions(-DPD)
 
+add_subdirectory(data)
 add_subdirectory(dyn)
 add_subdirectory(flt)
 add_subdirectory(fx)
@@ -24,13 +25,8 @@ pd_add_extension(NAME ceammc
     FILES ceammc.cpp
     INTERNAL True
     LIBRARY ceammc
-    LINK ceammc_dyn ceammc_flt ceammc_fx ceammc_list ceammc_math ceammc_noise ceammc_osc cicm_static ceammc_core)
-
-###############################
-# DATA
-###############################
-ceammc_cxx_extension(data fifo)
-ceammc_cxx_extension(data list)
+    LINK ceammc_data ceammc_dyn ceammc_flt ceammc_fx ceammc_list
+    ceammc_math ceammc_noise ceammc_osc cicm_static ceammc_core)
 
 ceammc_cxx_extension(debug gensym)
 
@@ -73,12 +69,6 @@ ceammc_cxx_extension(conv list2bpf)
 ceammc_cxx_extension(conv vline2bpf)
 ceammc_cxx_extension(conv bpf2array)
 ceammc_cxx_extension(conv lin2lin)
-
-###############################
-# JSON
-###############################
-ceammc_cxx_extension(global json)
-ceammc_cxx_extension(local json)
 
 ###############################
 # EXPERIMENTAL
@@ -138,17 +128,6 @@ ceammc_cxx_extension__(is pointer)
 ###############################
 # PATH
 ###############################
-
-###############################
-# GLOBAL / LOCAL
-###############################
-ceammc_cxx_extension(global int)
-ceammc_cxx_extension(global float)
-ceammc_cxx_extension(global list)
-
-ceammc_cxx_extension(local list)
-ceammc_cxx_extension(local int)
-ceammc_cxx_extension(local float)
 
 ceammc_extension_sep(prop "<-" cpp "")
 ceammc_extension_sep(prop "->" cpp "")

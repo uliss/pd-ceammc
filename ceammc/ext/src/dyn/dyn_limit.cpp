@@ -1,3 +1,3 @@
 #include "dyn_limit.h"
 
-SIMPLE_EXTERNAL(fx);
+SIMPLE_EXTERNAL(dyn);

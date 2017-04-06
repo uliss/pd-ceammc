@@ -11,11 +11,11 @@
 
 #define MIN(a, b) (((a) < (b)) ? (a) : (b))
 
-#define OBJ_NAME "local.json"
+#define OBJ_NAME "global.json"
 
 typedef ceammc::GlobalData<Document> GlobalJSON;
 
-t_class* json_object_class;
+static t_class* json_global_object_class;
 
 struct t_json_object {
     t_object x_obj;
@@ -230,7 +230,7 @@ static void json_object_write(t_json_object* x, t_symbol* s, int argc, t_atom* a
 
 static void* json_object_new(t_symbol* s, int argc, t_atom* argv)
 {
-    t_json_object* x = reinterpret_cast<t_json_object*>(pd_new(json_object_class));
+    t_json_object* x = reinterpret_cast<t_json_object*>(pd_new(json_global_object_class));
 
     x->outlet1 = outlet_new(&x->x_obj, &s_list);
     x->outlet2 = outlet_new(&x->x_obj, &s_list);
@@ -243,14 +243,7 @@ static void* json_object_new(t_symbol* s, int argc, t_atom* argv)
             id = gensym(a.asString().c_str());
         }
 
-        //TODO fix
-        char buf[16];
-        sprintf(buf, "%lu", (long)x->canvas);
-
-        std::string name = id->s_name;
-        name += buf;
-
-        x->json_global = new GlobalJSON(name.c_str(), OBJ_NAME);
+        x->json_global = new GlobalJSON(id->s_name, OBJ_NAME);
         x->json_local = &x->json_global->ref();
     } else {
         x->json_local = new Document;
@@ -268,22 +261,22 @@ static void json_object_free(t_json_object* x)
     delete x->json_global;
 }
 
-extern "C" void setup_local0x2ejson()
+extern "C" void setup_global0x2ejson()
 {
-    json_object_class = class_new(gensym(OBJ_NAME),
+    json_global_object_class = class_new(gensym(OBJ_NAME),
         reinterpret_cast<t_newmethod>(json_object_new),
         reinterpret_cast<t_method>(json_object_free),
         sizeof(t_json_object), CLASS_PATCHABLE, A_GIMME, 0);
-    class_addanything(json_object_class, json_object_anything);
+    class_addanything(json_global_object_class, json_object_anything);
 
-    class_addmethod(json_object_class, reinterpret_cast<t_method>(json_object_clear), gensym("clear"), A_NULL);
-    class_addmethod(json_object_class, reinterpret_cast<t_method>(json_object_dump), gensym("dump"), A_NULL);
+    class_addmethod(json_global_object_class, reinterpret_cast<t_method>(json_object_clear), gensym("clear"), A_NULL);
+    class_addmethod(json_global_object_class, reinterpret_cast<t_method>(json_object_dump), gensym("dump"), A_NULL);
 
-    class_addmethod(json_object_class, reinterpret_cast<t_method>(json_object_getobject), gensym("getobject"), A_NULL);
-    class_addmethod(json_object_class, reinterpret_cast<t_method>(json_object_setobject), gensym("setobject"), A_GIMME);
+    class_addmethod(json_global_object_class, reinterpret_cast<t_method>(json_object_getobject), gensym("getobject"), A_NULL);
+    class_addmethod(json_global_object_class, reinterpret_cast<t_method>(json_object_setobject), gensym("setobject"), A_GIMME);
 
-    class_addmethod(json_object_class, reinterpret_cast<t_method>(json_object_read), gensym("read"), A_GIMME);
-    class_addmethod(json_object_class, reinterpret_cast<t_method>(json_object_write), gensym("write"), A_GIMME);
+    class_addmethod(json_global_object_class, reinterpret_cast<t_method>(json_object_read), gensym("read"), A_GIMME);
+    class_addmethod(json_global_object_class, reinterpret_cast<t_method>(json_object_write), gensym("write"), A_GIMME);
 
-    //    class_addmethod(json_object_class, reinterpret_cast<t_method>(json_object_objectlist), gensym("objectlist"), A_GIMME);
+    //    class_addmethod(json_global_object_class, reinterpret_cast<t_method>(json_object_objectlist), gensym("objectlist"), A_GIMME);
 }

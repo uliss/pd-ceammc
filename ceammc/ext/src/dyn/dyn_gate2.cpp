@@ -12,4 +12,4 @@ EXTERNAL_NEW
     return p.pd_obj();
 }
 
-EXTERNAL_SETUP(fx);
+EXTERNAL_SETUP(dyn);

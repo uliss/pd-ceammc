@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 
+#include "data/mod_data.h"
 #include "dyn/mod_dyn.h"
 #include "flt/mod_flt.h"
 #include "fx/mod_fx.h"
@@ -43,6 +44,7 @@ extern "C" void ceammc_setup()
 
     ceammc_new(NULL);
 
+    ceammc_data_setup();
     ceammc_dyn_setup();
     ceammc_flt_setup();
     ceammc_fx_setup();
