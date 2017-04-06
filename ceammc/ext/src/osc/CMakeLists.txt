@@ -1,7 +1,9 @@
+include_directories(${CMAKE_SOURCE_DIR}/src)
+
 set(OSC_SOURCES "")
 macro(ceammc_osc_extension name)
     list(APPEND OSC_SOURCES "osc_${name}.cpp")
-    ceammc_faust_extension(osc ${name} simple_pd_control_ext)
+    ceammc_faust_gen(osc ${name} simple_pd_control_ext)
 endmacro()
 
 ceammc_osc_extension(impulse)
