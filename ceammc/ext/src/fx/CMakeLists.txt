@@ -1,5 +1,3 @@
-include_directories(${CMAKE_SOURCE_DIR}/src)
-
 set(FX_SOURCES "")
 macro(ceammc_fx_extension name)
     list(APPEND FX_SOURCES "fx_${name}.cpp")

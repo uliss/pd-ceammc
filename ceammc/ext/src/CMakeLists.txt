@@ -7,6 +7,8 @@ include_directories(${Boost_INCLUDE_DIRS})
 add_subdirectory(lib)
 include_directories(lib)
 include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra/CicmWrapper/Sources)
+include_directories(${CMAKE_SOURCE_DIR}/src)
+
 add_subdirectory(tests)
 remove_definitions(-DPD_INTERNAL)
 add_definitions(-DPD)
@@ -17,6 +19,7 @@ add_subdirectory(data)
 add_subdirectory(dyn)
 add_subdirectory(flt)
 add_subdirectory(fx)
+add_subdirectory(lfo)
 add_subdirectory(list)
 add_subdirectory(math)
 add_subdirectory(noise)
@@ -113,10 +116,6 @@ ceammc_cxx_extension(system screen_size)
 ###############################
 # DSP
 ###############################
-ceammc_faust_extension(lfo impulse simple_pd_control_ext)
-ceammc_faust_extension(lfo tri simple_pd_control_ext)
-ceammc_faust_extension(lfo square simple_pd_control_ext)
-
 ceammc_faust_extension(spat pan2 simple_pd_control_ext)
 ceammc_faust_extension(spat pan4 simple_pd_control_ext)
 
