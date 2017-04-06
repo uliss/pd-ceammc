@@ -1,7 +1,7 @@
+include_directories(${CMAKE_SOURCE_DIR}/src)
 set(LIST_SOURCES "")
 macro(ceammc_list_extension name)
     list(APPEND LIST_SOURCES "list_${name}.cpp")
-    ceammc_cxx_extension(list ${name})
 endmacro()
 
 ceammc_list_extension(at)
