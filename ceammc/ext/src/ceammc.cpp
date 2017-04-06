@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 
+#include "base/mod_base.h"
 #include "conv/mod_conv.h"
 #include "data/mod_data.h"
 #include "dyn/mod_dyn.h"
@@ -21,6 +22,7 @@
 #include "math/mod_math.h"
 #include "noise/mod_noise.h"
 #include "osc/mod_osc.h"
+#include "ui/mod_ui.h"
 
 #include "m_pd.h"
 
@@ -45,6 +47,7 @@ extern "C" void ceammc_setup()
 
     ceammc_new(NULL);
 
+    ceammc_base_setup();
     ceammc_conv_setup();
     ceammc_data_setup();
     ceammc_dyn_setup();
@@ -54,6 +57,7 @@ extern "C" void ceammc_setup()
     ceammc_math_setup();
     ceammc_noise_setup();
     ceammc_osc_setup();
+    ceammc_ui_setup();
 }
 
 extern "C" int sys_zoomfontwidth(int fontsize, int, int)
