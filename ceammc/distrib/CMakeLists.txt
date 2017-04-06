@@ -1,3 +1,16 @@
 if(WIN32 OR MSYS)
     add_subdirectory(win)
 endif()
+
+set(MAKELIB_SCRIPT "")
+
+if(APPLE)
+    set(MAKELIB_SCRIPT "${CMAKE_CURRENT_SOURCE_DIR}/make_lib_mac.sh")
+endif()
+
+if(MAKELIB_SCRIPT)
+    add_custom_target(ceammc_lib
+        COMMAND "${MAKELIB_SCRIPT}"
+            "${CMAKE_CURRENT_BINARY_DIR}/.." "${CMAKE_BINARY_DIR}/dist" "${CEAMMC_LIB_VERSION}"
+        SOURCES "${MAKELIB_SCRIPT}")
+endif()
