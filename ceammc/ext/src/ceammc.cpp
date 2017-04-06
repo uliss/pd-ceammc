@@ -13,6 +13,7 @@
  *****************************************************************************/
 
 #include "list/mod_list.h"
+#include "math/mod_math.h"
 #include "noise/mod_noise.h"
 
 #include "m_pd.h"
@@ -39,6 +40,7 @@ extern "C" void ceammc_setup()
     ceammc_new(NULL);
 
     ceammc_list_setup();
+    ceammc_math_setup();
     ceammc_noise_setup();
 }
 

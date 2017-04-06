@@ -19,7 +19,7 @@ pd_add_extension(NAME ceammc
     FILES ceammc.cpp
     INTERNAL True
     LIBRARY ceammc
-    LINK ceammc_list ceammc_noise cicm_static ceammc_core)
+    LINK ceammc_list ceammc_math ceammc_noise cicm_static ceammc_core)
 
 ###############################
 # DATA
