@@ -137,6 +137,11 @@ public:
         methods_[s] = fn;
     }
 
+    void addAlias(const char* name)
+    {
+        class_addcreator(reinterpret_cast<t_newmethod>(object_new), gensym(name), A_GIMME, A_NULL);
+    }
+
     static void* object_new(t_symbol*, int argc, t_atom* argv)
     {
         ObjectProxy* x = reinterpret_cast<ObjectProxy*>(pd_new(class_));
