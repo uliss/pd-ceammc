@@ -1,7 +1,9 @@
+include_directories(${CMAKE_SOURCE_DIR}/src)
+
 set(DYN_SOURCES "")
 macro(ceammc_dyn_extension name)
     list(APPEND DYN_SOURCES "dyn_${name}.cpp")
-    ceammc_faust_extension(dyn ${name} simple_pd_control_ext)
+    ceammc_faust_gen(dyn ${name})
 endmacro()
 
 ceammc_dyn_extension(comp)
