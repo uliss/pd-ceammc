@@ -1,8 +1,9 @@
+include_directories(${CMAKE_SOURCE_DIR}/src)
+
 set(CONV_SOURCES "")
 
 macro(ceammc_conv_extension name)
     list(APPEND CONV_SOURCES "conv_${name}.cpp")
-    ceammc_cxx_extension(conv ${name})
 endmacro()
 
 # BPF CONVERTERS
