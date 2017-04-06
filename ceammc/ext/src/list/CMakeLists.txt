@@ -1,7 +1,3 @@
-###############################
-# LIST
-###############################
-
 set(LIST_SOURCES "")
 macro(ceammc_list_extension name)
     list(APPEND LIST_SOURCES "list_${name}.cpp")

@@ -13,6 +13,7 @@
  *****************************************************************************/
 
 #include "list/mod_list.h"
+#include "noise/mod_noise.h"
 
 #include "m_pd.h"
 
@@ -36,7 +37,9 @@ extern "C" void ceammc_setup()
         sizeof(t_object), CLASS_PD, A_NULL, 0);
 
     ceammc_new(NULL);
+
     ceammc_list_setup();
+    ceammc_noise_setup();
 }
 
 extern "C" int sys_zoomfontwidth(int fontsize, int, int)

@@ -19,7 +19,7 @@ pd_add_extension(NAME ceammc
     FILES ceammc.cpp
     INTERNAL True
     LIBRARY ceammc
-    LINK ceammc_list cicm_static ceammc_core)
+    LINK ceammc_list ceammc_noise cicm_static ceammc_core)
 
 ###############################
 # DATA
@@ -271,4 +271,4 @@ if(TARGET ceammc_sound)
 endif()
 
 file(GLOB ceammc_ext_h *.h)
-add_custom_target(ceammc_lib_src SOURCES apple_rpath_fix.sh ${ceammc_ext_h})
+add_custom_target(ceammc_lib_src SOURCES apple_rpath_fix.sh gen_lib.sh ${ceammc_ext_h})
