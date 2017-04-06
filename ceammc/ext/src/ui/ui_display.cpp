@@ -13,7 +13,7 @@
 #include "ceammc_atomlist.h"
 #include "ceammc_format.h"
 
-#include "lib/ceammc_gui.h"
+#include "ceammc_gui.h"
 
 using namespace ceammc;
 

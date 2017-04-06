@@ -11,6 +11,7 @@ add_subdirectory(tests)
 remove_definitions(-DPD_INTERNAL)
 add_definitions(-DPD)
 
+add_subdirectory(base)
 add_subdirectory(conv)
 add_subdirectory(data)
 add_subdirectory(dyn)
@@ -20,14 +21,15 @@ add_subdirectory(list)
 add_subdirectory(math)
 add_subdirectory(noise)
 add_subdirectory(osc)
+add_subdirectory(ui)
 
 
 pd_add_extension(NAME ceammc
     FILES ceammc.cpp
     INTERNAL True
     LIBRARY ceammc
-    LINK ceammc_conv ceammc_data ceammc_dyn ceammc_flt ceammc_fx ceammc_list
-    ceammc_math ceammc_noise ceammc_osc cicm_static ceammc_core)
+    LINK ceammc_base ceammc_conv ceammc_data ceammc_dyn ceammc_flt ceammc_fx ceammc_list
+    ceammc_math ceammc_noise ceammc_osc ceammc_ui cicm_static ceammc_core)
 
 ceammc_cxx_extension(debug gensym)
 
@@ -45,19 +47,6 @@ ceammc_cxx_extension(vector dot)
 ceammc_cxx_tl_extension(tl transport)
 ceammc_cxx_tl_extension(tl bang)
 ceammc_cxx_tl_extension(tl cue)
-
-###############################
-# GUI
-###############################
-ceammc_cxx_extension(ui keyboard)
-ceammc_cxx_extension(ui slider2d)
-ceammc_cxx_extension(ui sliders)
-ceammc_cxx_extension(ui knob)
-ceammc_cxx_extension(ui scope~)
-ceammc_cxx_extension(ui spectroscope~)
-ceammc_cxx_extension(ui bpfunc)
-ceammc_cxx_extension(ui display)
-ceammc_cxx_extension(ui link)
 
 ###############################
 # EXPERIMENTAL
@@ -120,13 +109,6 @@ ceammc_cxx_extension__(is pointer)
 
 ceammc_extension_sep(prop "<-" cpp "")
 ceammc_extension_sep(prop "->" cpp "")
-pd_add_extension(NAME "msg" FILES "msg.cpp" INTERNAL True LIBRARY ceammc LINK ceammc_core)
-
-if(UNIX)
-    add_custom_command(TARGET msg COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_SONAME_FILE:msg>" "m${PD_EXTERNAL_EXTENSION}")
-elseif(WIN32)
-#    add_custom_command(TARGET msg COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_DLLNAME_FILE:msg>" "m${PD_EXTERNAL_EXTENSION}")
-endif()
 
 pd_add_extension(NAME test.data   FILES test_data.cpp   INTERNAL True LINK ceammc_core)
 pd_add_extension(NAME test.expect FILES test_expect.cpp INTERNAL True LINK ceammc_core)

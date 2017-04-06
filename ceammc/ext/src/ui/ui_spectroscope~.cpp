@@ -8,7 +8,7 @@
 
 #include <stdio.h>
 
-#include "lib/ceammc_gui.h"
+#include "ceammc_gui.h"
 
 struct ui_spectroscope : public ceammc_gui::BaseSoundGuiStruct {
     t_inlet* in1;

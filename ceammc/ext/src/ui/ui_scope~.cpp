@@ -10,7 +10,7 @@
 #include <cassert>
 #include <cstdio>
 
-#include "lib/ceammc_gui.h"
+#include "ceammc_gui.h"
 
 static const size_t BUFSIZE = 8912;
 

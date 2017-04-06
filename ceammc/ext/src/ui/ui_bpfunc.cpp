@@ -8,7 +8,7 @@
 
 #include <stdio.h>
 
-#include "lib/ceammc_gui.h"
+#include "ceammc_gui.h"
 
 #include "ceammc_atomlist.h"
 
@@ -17,7 +17,7 @@
 
 #include <vector>
 
-#include "lib/ceammc_bpf.h"
+#include "ceammc_bpf.h"
 
 #include "ceammc_globaldata.h"
 

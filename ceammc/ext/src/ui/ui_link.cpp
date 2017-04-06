@@ -8,7 +8,7 @@
 
 #include <stdio.h>
 
-#include "lib/ceammc_gui.h"
+#include "ceammc_gui.h"
 
 #include "m_imp.h" /* FIXME need access to c_externdir... */
 
