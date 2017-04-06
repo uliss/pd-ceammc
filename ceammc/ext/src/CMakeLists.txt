@@ -15,6 +15,12 @@ add_subdirectory(math)
 add_subdirectory(noise)
 add_subdirectory(list)
 
+pd_add_extension(NAME ceammc
+    FILES ceammc.cpp
+    INTERNAL True
+    LIBRARY ceammc
+    LINK ceammc_list cicm_static ceammc_core)
+
 ###############################
 # DATA
 ###############################
