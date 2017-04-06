@@ -11,6 +11,7 @@ add_subdirectory(tests)
 remove_definitions(-DPD_INTERNAL)
 add_definitions(-DPD)
 
+add_subdirectory(conv)
 add_subdirectory(data)
 add_subdirectory(dyn)
 add_subdirectory(flt)
@@ -25,7 +26,7 @@ pd_add_extension(NAME ceammc
     FILES ceammc.cpp
     INTERNAL True
     LIBRARY ceammc
-    LINK ceammc_data ceammc_dyn ceammc_flt ceammc_fx ceammc_list
+    LINK ceammc_conv ceammc_data ceammc_dyn ceammc_flt ceammc_fx ceammc_list
     ceammc_math ceammc_noise ceammc_osc cicm_static ceammc_core)
 
 ceammc_cxx_extension(debug gensym)
@@ -57,18 +58,6 @@ ceammc_cxx_extension(ui spectroscope~)
 ceammc_cxx_extension(ui bpfunc)
 ceammc_cxx_extension(ui display)
 ceammc_cxx_extension(ui link)
-
-###############################
-# BPF CONVERTERS
-###############################
-ceammc_cxx_extension(conv bpf2env)
-ceammc_cxx_extension(conv bpf2list)
-ceammc_cxx_extension(conv bpf2vline)
-ceammc_cxx_extension(conv env2bpf)
-ceammc_cxx_extension(conv list2bpf)
-ceammc_cxx_extension(conv vline2bpf)
-ceammc_cxx_extension(conv bpf2array)
-ceammc_cxx_extension(conv lin2lin)
 
 ###############################
 # EXPERIMENTAL
