@@ -3,7 +3,6 @@
 extern "C" void is_any_setup();
 extern "C" void is_bang_setup();
 extern "C" void is_even_setup();
-extern "C" void is_file_setup();
 extern "C" void is_float_setup();
 extern "C" void is_list_setup();
 extern "C" void is_odd_setup();
@@ -20,7 +19,6 @@ void ceammc_base_setup() {
      is_any_setup();
      is_bang_setup();
      is_even_setup();
-     is_file_setup();
      is_float_setup();
      is_list_setup();
      is_odd_setup();
