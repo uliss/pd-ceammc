@@ -1,5 +1,3 @@
-include_directories(${CMAKE_SOURCE_DIR}/src)
-
 set(UI_SOURCES "")
 macro(ceammc_ui_extension name)
     list(APPEND UI_SOURCES "ui_${name}.cpp")

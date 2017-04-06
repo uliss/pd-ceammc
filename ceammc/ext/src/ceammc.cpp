@@ -24,6 +24,7 @@
 #include "noise/mod_noise.h"
 #include "osc/mod_osc.h"
 #include "ui/mod_ui.h"
+#include "vector/mod_vector.h"
 
 #include "m_pd.h"
 
@@ -60,6 +61,7 @@ extern "C" void ceammc_setup()
     ceammc_noise_setup();
     ceammc_osc_setup();
     ceammc_ui_setup();
+    ceammc_vector_setup();
 }
 
 extern "C" int sys_zoomfontwidth(int fontsize, int, int)
