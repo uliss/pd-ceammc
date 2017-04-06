@@ -139,7 +139,6 @@ elseif(WIN32)
 #    add_custom_command(TARGET msg COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_DLLNAME_FILE:msg>" "m${PD_EXTERNAL_EXTENSION}")
 endif()
 
-ceammc_cxx_extension(math prime)
 pd_add_extension(NAME test.data   FILES test_data.cpp   INTERNAL True LINK ceammc_core)
 pd_add_extension(NAME test.expect FILES test_expect.cpp INTERNAL True LINK ceammc_core)
 ceammc_cxx_extension(random float)
