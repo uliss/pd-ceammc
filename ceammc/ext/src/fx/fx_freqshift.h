@@ -612,10 +612,12 @@ class freqshift : public dsp {
 #define xfaust_setup(name) name##_tilde_setup(void)
 // time for "active" toggle xfades in secs
 #define XFADE_TIME 0.1f
-static t_class* faust_class;
+static t_class* freqshift_faust_class;
+#define FAUST_EXT t_faust_freqshift
+#define FAUST_EXT_CLASS freqshift_faust_class
 // clang-format on
 
-struct t_faust {
+struct t_faust_freqshift {
     t_object x_obj;
 #ifdef __MINGW32__
     /* This seems to be necessary as some as yet undetermined Pd routine seems
@@ -650,7 +652,7 @@ static inline void copy_samples(int k, int n, t_sample** out, t_sample** in)
 
 static t_int* faust_perform(t_int* w)
 {
-    t_faust* x = reinterpret_cast<t_faust*>(w[1]);
+    t_faust_freqshift* x = reinterpret_cast<t_faust_freqshift*>(w[1]);
     int n = static_cast<int>(w[2]);
     if (!x->dsp || !x->buf)
         return (w + 3);
@@ -699,7 +701,7 @@ static t_int* faust_perform(t_int* w)
     return (w + 3);
 }
 
-static void faust_dsp(t_faust* x, t_signal** sp)
+static void freqshift_faust_dsp(t_faust_freqshift* x, t_signal** sp)
 {
     const int n = sp[0]->s_n;
     const int sr = static_cast<int>(sp[0]->s_sr);
@@ -738,7 +740,7 @@ static void faust_dsp(t_faust* x, t_signal** sp)
     }
 }
 
-static void dumpToConsole(t_faust* x)
+static void freqshift_dump_to_console(t_faust_freqshift* x)
 {
     t_object* xobj = &x->x_obj;
     t_class* xc = xobj->te_pd;
@@ -756,7 +758,7 @@ static void dumpToConsole(t_faust* x)
     }
 }
 
-static void faust_any(t_faust* x, t_symbol* s, int argc, t_atom* argv)
+static void freqshift_faust_any(t_faust_freqshift* x, t_symbol* s, int argc, t_atom* argv)
 {
     if (!x->dsp)
         return;
@@ -804,33 +806,33 @@ static void faust_any(t_faust* x, t_symbol* s, int argc, t_atom* argv)
     }
 }
 
-static void faust_free_dsp(t_faust* x)
+static void faust_free_dsp(t_faust_freqshift* x)
 {
     delete x->dsp;
     x->dsp = NULL;
 }
 
-static void faust_free_ui(t_faust* x)
+static void faust_free_ui(t_faust_freqshift* x)
 {
     delete x->ui;
     x->ui = NULL;
 }
 
-static void faust_free_inputs(t_faust* x)
+static void faust_free_inputs(t_faust_freqshift* x)
 {
     if (x->inputs)
         free(x->inputs);
     x->inputs = NULL;
 }
 
-static void faust_free_outputs(t_faust* x)
+static void faust_free_outputs(t_faust_freqshift* x)
 {
     if (x->outputs)
         free(x->outputs);
     x->outputs = NULL;
 }
 
-static void faust_free_buf(t_faust* x)
+static void faust_free_buf(t_faust_freqshift* x)
 {
     if (x->buf) {
         for (int i = 0; i < x->n_out; i++) {
@@ -842,7 +844,7 @@ static void faust_free_buf(t_faust* x)
     }
 }
 
-static void faust_free(t_faust* x)
+static void freqshift_faust_free(t_faust_freqshift* x)
 {
     faust_free_dsp(x);
     faust_free_ui(x);
@@ -851,7 +853,7 @@ static void faust_free(t_faust* x)
     faust_free_buf(x);
 }
 
-static bool faust_init_inputs(t_faust* x)
+static bool faust_init_inputs(t_faust_freqshift* x)
 {
     x->inputs = NULL;
     x->n_in = x->dsp->getNumInputs();
@@ -873,7 +875,7 @@ static bool faust_init_inputs(t_faust* x)
     return true;
 }
 
-static bool faust_init_outputs(t_faust* x, bool info_outlet)
+static bool faust_init_outputs(t_faust_freqshift* x, bool info_outlet)
 {
     x->outputs = NULL;
     x->buf = NULL;
@@ -912,7 +914,7 @@ static bool faust_init_outputs(t_faust* x, bool info_outlet)
     return true;
 }
 
-static bool faust_new_internal(t_faust* x, const std::string& objId = "", bool info_outlet = true)
+static bool faust_new_internal(t_faust_freqshift* x, const std::string& objId = "", bool info_outlet = true)
 {
     int sr = 44100;
     x->active = 1;
@@ -924,12 +926,12 @@ static bool faust_new_internal(t_faust* x, const std::string& objId = "", bool i
     x->ui = new PdUI<UI>(sym(freqshift), objId);
 
     if (!faust_init_inputs(x)) {
-        faust_free(x);
+        freqshift_faust_free(x);
         return false;
     }
 
     if (!faust_init_outputs(x, info_outlet)) {
-        faust_free(x);
+        freqshift_faust_free(x);
         return false;
     }
 
@@ -1029,7 +1031,7 @@ static bool get_nth_symbol_arg(int argc, t_atom* argv, int nth, const char** des
 }
 
 class PdArgParser {
-    t_faust* x_;
+    t_faust_freqshift* x_;
     int argc_;
     t_atom* argv_;
     bool control_outlet_;
@@ -1041,7 +1043,7 @@ public:
      * @param argc arguments count
      * @param argv pointer to argument vector
      */
-    PdArgParser(t_faust* x, int argc, t_atom* argv, bool info_outlet = true)
+    PdArgParser(t_faust_freqshift* x, int argc, t_atom* argv, bool info_outlet = true)
         : x_(x)
         , argc_(argc)
         , argv_(argv)
@@ -1092,24 +1094,44 @@ public:
             pd_float(reinterpret_cast<t_pd*>(this->x_), arg);
     }
 
-    t_faust* pd_obj()
+    t_faust_freqshift* pd_obj()
     {
         return this->x_;
     }
 };
 
-static void* faust_new(t_symbol* s, int argc, t_atom* argv);
+static void* freqshift_faust_new(t_symbol* s, int argc, t_atom* argv);
 
 static void internal_setup(t_symbol* s)
 {
-    faust_class = class_new(s, reinterpret_cast<t_newmethod>(faust_new),
-        reinterpret_cast<t_method>(faust_free),
-        sizeof(t_faust),
+    freqshift_faust_class = class_new(s, reinterpret_cast<t_newmethod>(freqshift_faust_new),
+        reinterpret_cast<t_method>(freqshift_faust_free),
+        sizeof(t_faust_freqshift),
         CLASS_DEFAULT,
         A_GIMME, A_NULL);
-    class_addmethod(faust_class, nullfn, &s_signal, A_NULL);
-    class_addmethod(faust_class, reinterpret_cast<t_method>(faust_dsp), gensym("dsp"), A_NULL);
-    class_addmethod(faust_class, reinterpret_cast<t_method>(dumpToConsole), gensym("dump"), A_NULL);
-    CLASS_MAINSIGNALIN(faust_class, t_faust, f);
-    class_addanything(faust_class, faust_any);
+    class_addmethod(freqshift_faust_class, nullfn, &s_signal, A_NULL);
+    class_addmethod(freqshift_faust_class, reinterpret_cast<t_method>(freqshift_faust_dsp), gensym("dsp"), A_NULL);
+    class_addmethod(freqshift_faust_class, reinterpret_cast<t_method>(freqshift_dump_to_console), gensym("dump"), A_NULL);
+    CLASS_MAINSIGNALIN(freqshift_faust_class, t_faust_freqshift, f);
+    class_addanything(freqshift_faust_class, freqshift_faust_any);
 }
+
+#define EXTERNAL_NEW void* freqshift_faust_new(t_symbol*, int argc, t_atom* argv)
+
+#define EXTERNAL_SIMPLE_NEW()                                                           \
+    static void* freqshift_faust_new(t_symbol*, int argc, t_atom* argv)                     \
+    {                                                                                   \
+        t_faust_freqshift* x = reinterpret_cast<t_faust_freqshift*>(pd_new(freqshift_faust_class)); \
+        PdArgParser p(x, argc, argv, false);                                            \
+        return p.pd_obj();                                                              \
+    }
+
+#define EXTERNAL_SETUP(MOD)                        \
+    extern "C" void setup_##MOD##0x2efreqshift_tilde() \
+    {                                              \
+        internal_setup(gensym(#MOD ".freqshift~"));    \
+    }
+
+#define SIMPLE_EXTERNAL(MOD) \
+    EXTERNAL_SIMPLE_NEW();   \
+    EXTERNAL_SETUP(MOD);
