@@ -31,8 +31,8 @@ pd_add_extension(NAME ceammc
     FILES ceammc.cpp
     INTERNAL True
     LIBRARY ceammc
-    LINK ceammc_base ceammc_conv ceammc_data ceammc_dyn ceammc_flt ceammc_fx ceammc_list
-    ceammc_math ceammc_noise ceammc_osc ceammc_ui cicm_static ceammc_core)
+    LINK ceammc_base ceammc_conv ceammc_data ceammc_dyn ceammc_flt ceammc_fx ceammc_lfo
+    ceammc_list ceammc_math ceammc_noise ceammc_osc ceammc_ui cicm_static ceammc_core)
 
 ceammc_cxx_extension(debug gensym)
 

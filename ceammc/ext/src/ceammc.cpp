@@ -18,6 +18,7 @@
 #include "dyn/mod_dyn.h"
 #include "flt/mod_flt.h"
 #include "fx/mod_fx.h"
+#include "lfo/mod_lfo.h"
 #include "list/mod_list.h"
 #include "math/mod_math.h"
 #include "noise/mod_noise.h"
@@ -53,6 +54,7 @@ extern "C" void ceammc_setup()
     ceammc_dyn_setup();
     ceammc_flt_setup();
     ceammc_fx_setup();
+    ceammc_lfo_setup();
     ceammc_list_setup();
     ceammc_math_setup();
     ceammc_noise_setup();
