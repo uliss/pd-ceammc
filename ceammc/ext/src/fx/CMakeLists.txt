@@ -1,7 +1,9 @@
+include_directories(${CMAKE_SOURCE_DIR}/src)
+
 set(FX_SOURCES "")
 macro(ceammc_fx_extension name)
     list(APPEND FX_SOURCES "fx_${name}.cpp")
-    ceammc_faust_extension(fx ${name} simple_pd_control_ext)
+    ceammc_faust_gen(fx ${name})
 endmacro()
 
 ceammc_fx_extension(freqshift)
