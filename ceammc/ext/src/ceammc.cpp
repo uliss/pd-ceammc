@@ -12,10 +12,11 @@
  * this file belongs to.
  *****************************************************************************/
 
+#include "dyn/mod_dyn.h"
+#include "flt/mod_flt.h"
 #include "list/mod_list.h"
 #include "math/mod_math.h"
 #include "noise/mod_noise.h"
-#include "flt/mod_flt.h"
 
 #include "m_pd.h"
 
@@ -40,6 +41,7 @@ extern "C" void ceammc_setup()
 
     ceammc_new(NULL);
 
+    ceammc_dyn_setup();
     ceammc_flt_setup();
     ceammc_list_setup();
     ceammc_math_setup();

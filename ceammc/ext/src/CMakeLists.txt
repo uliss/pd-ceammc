@@ -15,12 +15,13 @@ add_subdirectory(math)
 add_subdirectory(noise)
 add_subdirectory(list)
 add_subdirectory(flt)
+add_subdirectory(dyn)
 
 pd_add_extension(NAME ceammc
     FILES ceammc.cpp
     INTERNAL True
     LIBRARY ceammc
-    LINK ceammc_flt ceammc_list ceammc_math ceammc_noise cicm_static ceammc_core)
+    LINK ceammc_dyn ceammc_flt ceammc_list ceammc_math ceammc_noise cicm_static ceammc_core)
 
 ###############################
 # DATA
@@ -203,14 +204,6 @@ ceammc_faust_extension(fx freqshift simple_pd_control_ext)
 ceammc_faust_extension(fx pitchshift simple_pd_control_ext)
 ceammc_faust_extension(fx freeverb simple_pd_control_ext)
 ceammc_faust_extension(fx freeverb2 simple_pd_control_ext)
-
-ceammc_faust_extension(dyn comp simple_pd_control_ext)
-ceammc_faust_extension(dyn comp2 simple_pd_control_ext)
-ceammc_faust_extension(dyn gate  simple_pd_control_ext)
-ceammc_faust_extension(dyn gate2 simple_pd_control_ext)
-ceammc_faust_extension(dyn limit simple_pd_control_ext)
-ceammc_faust_extension(dyn limit2 simple_pd_control_ext)
-ceammc_faust_extension(dyn softclip simple_pd_control_ext)
 
 ceammc_faust_extension(spat pan2 simple_pd_control_ext)
 ceammc_faust_extension(spat pan4 simple_pd_control_ext)
