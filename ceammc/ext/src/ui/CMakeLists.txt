@@ -1,7 +1,8 @@
+include_directories(${CMAKE_SOURCE_DIR}/src)
+
 set(UI_SOURCES "")
 macro(ceammc_ui_extension name)
     list(APPEND UI_SOURCES "ui_${name}.cpp")
-    ceammc_cxx_extension(ui ${name})
 endmacro()
 
 ceammc_ui_extension(keyboard)
