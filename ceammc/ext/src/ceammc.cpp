@@ -18,6 +18,7 @@
 #include "list/mod_list.h"
 #include "math/mod_math.h"
 #include "noise/mod_noise.h"
+#include "osc/mod_osc.h"
 
 #include "m_pd.h"
 
@@ -48,6 +49,7 @@ extern "C" void ceammc_setup()
     ceammc_list_setup();
     ceammc_math_setup();
     ceammc_noise_setup();
+    ceammc_osc_setup();
 }
 
 extern "C" int sys_zoomfontwidth(int fontsize, int, int)

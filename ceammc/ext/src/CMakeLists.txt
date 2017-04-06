@@ -11,18 +11,20 @@ add_subdirectory(tests)
 remove_definitions(-DPD_INTERNAL)
 add_definitions(-DPD)
 
-add_subdirectory(math)
-add_subdirectory(noise)
-add_subdirectory(list)
+add_subdirectory(dyn)
 add_subdirectory(flt)
 add_subdirectory(fx)
-add_subdirectory(dyn)
+add_subdirectory(list)
+add_subdirectory(math)
+add_subdirectory(noise)
+add_subdirectory(osc)
+
 
 pd_add_extension(NAME ceammc
     FILES ceammc.cpp
     INTERNAL True
     LIBRARY ceammc
-    LINK ceammc_dyn ceammc_flt ceammc_fx ceammc_list ceammc_math ceammc_noise cicm_static ceammc_core)
+    LINK ceammc_dyn ceammc_flt ceammc_fx ceammc_list ceammc_math ceammc_noise ceammc_osc cicm_static ceammc_core)
 
 ###############################
 # DATA
@@ -203,13 +205,6 @@ ceammc_faust_extension(lfo square simple_pd_control_ext)
 
 ceammc_faust_extension(spat pan2 simple_pd_control_ext)
 ceammc_faust_extension(spat pan4 simple_pd_control_ext)
-
-ceammc_faust_extension(osc impulse simple_pd_control_ext)
-ceammc_faust_extension(osc pulse simple_pd_control_ext)
-ceammc_faust_extension(osc saw simple_pd_control_ext)
-ceammc_faust_extension(osc sinfb simple_pd_control_ext)
-ceammc_faust_extension(osc square simple_pd_control_ext)
-ceammc_faust_extension(osc tri simple_pd_control_ext)
 
 ceammc_faust_extension(env adsr simple_pd_control_ext)
 ceammc_faust_extension(env ar simple_pd_control_ext)
