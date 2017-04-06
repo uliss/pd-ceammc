@@ -1,4 +1,4 @@
-set(BASE_SOURCES msg.cpp)
+set(BASE_SOURCES msg.cpp prop.get prop.set)
 
 pd_add_extension(NAME "msg" FILES "msg.cpp" INTERNAL True LIBRARY ceammc LINK ceammc_core)
 

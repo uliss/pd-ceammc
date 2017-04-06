@@ -99,17 +99,6 @@ ceammc_cxx_extension__(is pointer)
 ###############################
 # ceammc_cxx_extension(time current)
 
-###############################
-# STRING
-###############################
-
-###############################
-# PATH
-###############################
-
-ceammc_extension_sep(prop "<-" cpp "")
-ceammc_extension_sep(prop "->" cpp "")
-
 pd_add_extension(NAME test.data   FILES test_data.cpp   INTERNAL True LINK ceammc_core)
 pd_add_extension(NAME test.expect FILES test_expect.cpp INTERNAL True LINK ceammc_core)
 ceammc_cxx_extension(random float)

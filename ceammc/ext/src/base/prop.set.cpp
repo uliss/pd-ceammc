@@ -4,8 +4,7 @@
 #include <string>
 #include <vector>
 
-#define OBJ_NAME "prop<-"
-#define MSG_PREFIX "[" OBJ_NAME "] "
+#define MSG_PREFIX "[prop<-] "
 
 using namespace ceammc;
 typedef std::map<t_symbol*, t_inlet*> InletIndexMap;
@@ -53,12 +52,13 @@ static void prop_set_free(t_prop* x)
     delete x->prop_map;
 }
 
-extern "C" void setup_prop0x3c0x2d()
+extern "C" void setup_prop0x2eset()
 {
-    prop_set_class = class_new(gensym(OBJ_NAME),
+    prop_set_class = class_new(gensym("prop.set"),
         reinterpret_cast<t_newmethod>(prop_set_new),
         reinterpret_cast<t_method>(prop_set_free),
         sizeof(t_prop), 0, A_GIMME, A_NULL);
+    class_addcreator(reinterpret_cast<t_newmethod>(prop_set_new), gensym("prop<-"), A_GIMME, A_NULL);
     class_addanything(prop_set_class, pass_any);
     class_addmethod(prop_set_class, reinterpret_cast<t_method>(prop_set_dump), gensym("dump"), A_NULL);
     class_sethelpsymbol(prop_set_class, gensym("prop.set"));
