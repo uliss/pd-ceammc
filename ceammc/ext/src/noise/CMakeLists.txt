@@ -7,6 +7,7 @@ endmacro()
 
 macro(ceammc_faust_noise_extension name)
     list(APPEND NOISE_SOURCES "noise_${name}.cpp")
+    ceammc_faust_gen(noise ${name})
 endmacro()
 
 ceammc_noise_extension(baker)

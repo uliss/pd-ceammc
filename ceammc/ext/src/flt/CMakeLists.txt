@@ -1,7 +1,9 @@
 set(FLT_SOURCES "")
+include_directories(${CMAKE_SOURCE_DIR}/src)
+
 macro(ceammc_flt_extension name)
     list(APPEND FLT_SOURCES "flt_${name}.h" "flt_${name}.cpp")
-    ceammc_faust_extension(flt ${name} simple_pd_control_ext)
+    ceammc_faust_gen(flt ${name})
 endmacro()
 
 ceammc_flt_extension(dcblock)
