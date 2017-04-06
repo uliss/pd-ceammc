@@ -17,10 +17,25 @@
 #include "m_pd.h"
 
 static const char* ceammc_version = "0.1";
+static t_class* ceammc_class;
+
+static void* ceammc_new(t_symbol*)
+{
+    t_object* x = reinterpret_cast<t_object*>(pd_new(ceammc_class));
+    if (x)
+        post("CEAMMC extension library: %s. Build date: %s\n", ceammc_version, __DATE__);
+
+    return x;
+}
 
 extern "C" void ceammc_setup()
 {
-    verbose(3, "CEAMMC extension library: %s %s\n", ceammc_version, __DATE__);
+    ceammc_class = class_new(gensym("ceammc"),
+        reinterpret_cast<t_newmethod>(ceammc_new),
+        reinterpret_cast<t_method>(pd_free),
+        sizeof(t_object), CLASS_PD, A_NULL, 0);
+
+    ceammc_new(NULL);
     ceammc_list_setup();
 }
 
