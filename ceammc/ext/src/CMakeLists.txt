@@ -14,12 +14,13 @@ add_definitions(-DPD)
 add_subdirectory(math)
 add_subdirectory(noise)
 add_subdirectory(list)
+add_subdirectory(flt)
 
 pd_add_extension(NAME ceammc
     FILES ceammc.cpp
     INTERNAL True
     LIBRARY ceammc
-    LINK ceammc_list ceammc_math ceammc_noise cicm_static ceammc_core)
+    LINK ceammc_flt ceammc_list ceammc_math ceammc_noise cicm_static ceammc_core)
 
 ###############################
 # DATA
@@ -200,33 +201,8 @@ ceammc_faust_extension(lfo square simple_pd_control_ext)
 
 ceammc_faust_extension(fx freqshift simple_pd_control_ext)
 ceammc_faust_extension(fx pitchshift simple_pd_control_ext)
-
-ceammc_faust_extension(flt dcblock simple_pd_control_ext)
-ceammc_faust_extension(flt dcblock2 simple_pd_control_ext)
-ceammc_faust_extension(flt highshelf simple_pd_control_ext)
-ceammc_faust_extension(flt lowshelf simple_pd_control_ext)
-ceammc_faust_extension(flt eq_peak simple_pd_control_ext)
-ceammc_faust_extension(flt lpf12 simple_pd_control_ext)
-ceammc_faust_extension(flt lpf24 simple_pd_control_ext)
-ceammc_faust_extension(flt hpf12 simple_pd_control_ext)
-ceammc_faust_extension(flt hpf24 simple_pd_control_ext)
-ceammc_faust_extension(flt bpf12 simple_pd_control_ext)
-ceammc_faust_extension(flt bpf24 simple_pd_control_ext)
-
 ceammc_faust_extension(fx freeverb simple_pd_control_ext)
 ceammc_faust_extension(fx freeverb2 simple_pd_control_ext)
-
-ceammc_faust_extension(flt biquad simple_pd_control_ext)
-ceammc_faust_extension(flt c_lpf simple_pd_control_ext)
-ceammc_faust_extension(flt c_hpf simple_pd_control_ext)
-ceammc_faust_extension(flt c_bpf simple_pd_control_ext)
-ceammc_faust_extension(flt c_peak simple_pd_control_ext)
-ceammc_faust_extension(flt c_lowshelf simple_pd_control_ext)
-ceammc_faust_extension(flt c_highshelf simple_pd_control_ext)
-ceammc_faust_extension(flt c_notch simple_pd_control_ext)
-
-
-
 
 ceammc_faust_extension(dyn comp simple_pd_control_ext)
 ceammc_faust_extension(dyn comp2 simple_pd_control_ext)

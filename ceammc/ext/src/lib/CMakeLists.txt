@@ -24,7 +24,7 @@ add_library(ceammc_core SHARED
     ceammc_atom.cpp
     ceammc_atomlist.cpp
     ceammc_factory.h
-    ceammc_faust.h
+    ceammc_faust.cpp
     ceammc_fn_list.cpp
     ceammc_fn_vector.cpp
     ceammc_log.cpp
