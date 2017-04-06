@@ -71,28 +71,6 @@ endif()
 
 
 ###############################
-# STREAM
-###############################
-ceammc_cxx_extension(reject if)
-ceammc_cxx_extension(reject this)
-
-ceammc_cxx_extension(pass if)
-ceammc_cxx_extension(pass changed)
-ceammc_cxx_extension(pass this)
-
-###############################
-# IS
-###############################
-ceammc_cxx_extension__(is even)
-ceammc_cxx_extension__(is odd)
-ceammc_cxx_extension__(is any)
-ceammc_cxx_extension__(is bang)
-ceammc_cxx_extension__(is float)
-ceammc_cxx_extension__(is list)
-ceammc_cxx_extension__(is symbol)
-ceammc_cxx_extension__(is pointer)
-
-###############################
 # TIME
 ###############################
 # ceammc_cxx_extension(time current)
