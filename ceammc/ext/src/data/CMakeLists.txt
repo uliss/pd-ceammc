@@ -1,8 +1,9 @@
+include_directories(${CMAKE_SOURCE_DIR}/src)
+
 set(DATA_SOURCES "")
 
 macro(ceammc_data_extension mod name)
     list(APPEND DATA_SOURCES "${mod}_${name}.cpp")
-    ceammc_cxx_extension(${mod} ${name})
 endmacro()
 
 ceammc_data_extension(data fifo)
