@@ -123,8 +123,6 @@ namespace pd {
             return atom_equals(a, b);
         }
     };
-
-    void gensym_info(t_ceammc_gensym_info* info);
 }
 }
 

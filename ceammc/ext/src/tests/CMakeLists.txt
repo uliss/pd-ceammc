@@ -22,13 +22,14 @@ ceammc_add_test("ceammc::BaseObject" test_baseobject)
 ceammc_add_test("ceammc::list" test_fn_list)
 ceammc_add_test("ceammc::vector" test_fn_vector)
 ceammc_add_test("ceammc::faust" test_faust)
-ceammc_add_test("ceammc::pd" test_pd)
 ceammc_add_test("ceammc::timeline" test_timeline)
 
 ceammc_add_extension_test("list_walk" "../list/list_walk.cpp")
 ceammc_add_extension_test("list_walk2" "../list/list_walk.cpp")
 ceammc_add_extension_test("snd_file" "../snd_file.cpp")
 ceammc_add_extension_test("ext_replace" "../replace.cpp")
+
+ceammc_add_test_linked(TITLE "ceammc::pd" NAME test_pd SRC "../debug_gensym.cpp" LINK ceammc_core puredata-core)
 
 
 include(FindLibSndFile)

@@ -14,10 +14,11 @@
 
 #include "catch.hpp"
 #include "ceammc.hpp"
+#include "../debug_gensym.h"
 
 #include <stdio.h>
 
-using namespace ceammc::pd;
+using namespace pd;
 
 TEST_CASE("PD", "[PureData]")
 {
