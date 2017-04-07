@@ -26,6 +26,7 @@
 #include "osc/mod_osc.h"
 #include "path/mod_path.h"
 #include "random/mod_random.h"
+#include "symbol/mod_symbol.h"
 #include "spat/mod_spat.h"
 #include "system/mod_system.h"
 #include "tl/mod_tl.h"
@@ -70,6 +71,7 @@ extern "C" void ceammc_setup()
     ceammc_osc_setup();
     ceammc_random_setup();
     ceammc_spat_setup();
+    ceammc_symbol_setup();
     ceammc_system_setup();
     ceammc_tl_setup();
     ceammc_ui_setup();

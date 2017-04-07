@@ -30,6 +30,7 @@ add_subdirectory(osc)
 add_subdirectory(path)
 add_subdirectory(random)
 add_subdirectory(spat)
+add_subdirectory(symbol)
 add_subdirectory(system)
 add_subdirectory(tl)
 add_subdirectory(ui)
@@ -46,26 +47,12 @@ pd_add_extension(NAME ceammc
     INTERNAL True
     LIBRARY ceammc
     LINK ceammc_base ceammc_conv ceammc_data ceammc_dyn ceammc_env ceammc_flt ceammc_fx ceammc_lfo
-    ceammc_list ceammc_math ceammc_noise ceammc_osc ceammc_path ceammc_random ceammc_system ceammc_tl
-    ceammc_ui ceammc_vector ceammc_spat cicm_static ceammc_core ceammc_sound ${EXTRA_LIB})
+    ceammc_list ceammc_math ceammc_noise ceammc_osc ceammc_path ceammc_random ceammc_spat
+    ceammc_symbol ceammc_system ceammc_tl ceammc_ui ceammc_vector
+    cicm_static ceammc_core ceammc_sound ${EXTRA_LIB})
 
 ceammc_link_fix(ceammc)
 
-# symbol
-ceammc_cxx_extension(symbol ends_with)
-
-if(GLIB_FOUND)
-    include_directories(${GLIB_INCLUDE_DIRS})
-    ceammc_glib_extension(symbol length)
-
-    ceammc_glib_extension(string join)
-    ceammc_glib_extension(string slice)
-    ceammc_glib_extension(string compare)
-    ceammc_glib_extension(string split)
-endif()
-
-
 ceammc_faust_extension(live capture simple_pd_control_ext)
 
-file(GLOB ceammc_ext_h *.h)
-add_custom_target(ceammc_lib_src SOURCES apple_rpath_fix.sh gen_lib.sh ${ceammc_ext_h})
+add_custom_target(ceammc_lib_src SOURCES apple_rpath_fix.sh gen_lib.sh)

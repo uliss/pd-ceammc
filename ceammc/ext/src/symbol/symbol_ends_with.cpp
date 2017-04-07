@@ -3,7 +3,7 @@
 #include <m_pd.h>
 #include <string>
 
-t_class* symbol_ends_with_class;
+static t_class* symbol_ends_with_class;
 struct t_symbol_ends_with {
     t_object x_obj;
     t_symbol* suffix;
