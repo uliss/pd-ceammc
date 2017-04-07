@@ -28,6 +28,7 @@ add_subdirectory(math)
 add_subdirectory(noise)
 add_subdirectory(osc)
 add_subdirectory(random)
+add_subdirectory(spat)
 add_subdirectory(system)
 add_subdirectory(tl)
 add_subdirectory(ui)
@@ -45,7 +46,7 @@ pd_add_extension(NAME ceammc
     LIBRARY ceammc
     LINK ceammc_base ceammc_conv ceammc_data ceammc_dyn ceammc_env ceammc_flt ceammc_fx ceammc_lfo
     ceammc_list ceammc_math ceammc_noise ceammc_osc ceammc_random ceammc_system ceammc_tl
-    ceammc_ui ceammc_vector cicm_static ceammc_core ceammc_sound ${EXTRA_LIB})
+    ceammc_ui ceammc_vector ceammc_spat cicm_static ceammc_core ceammc_sound ${EXTRA_LIB})
 
 ceammc_link_fix(ceammc)
 
@@ -69,11 +70,6 @@ if(GLIB_FOUND)
     ceammc_glib_extension(string split)
 endif()
 
-###############################
-# DSP
-###############################
-ceammc_faust_extension(spat pan2 simple_pd_control_ext)
-ceammc_faust_extension(spat pan4 simple_pd_control_ext)
 
 ceammc_faust_extension(live capture simple_pd_control_ext)
 
