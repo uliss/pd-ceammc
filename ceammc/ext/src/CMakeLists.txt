@@ -17,6 +17,7 @@ add_subdirectory(base)
 add_subdirectory(conv)
 add_subdirectory(data)
 add_subdirectory(dyn)
+add_subdirectory(exp)
 add_subdirectory(flt)
 add_subdirectory(fx)
 add_subdirectory(lfo)
@@ -40,28 +41,6 @@ pd_add_extension(NAME ceammc
 ceammc_link_fix(ceammc)
 
 ceammc_cxx_extension(debug gensym)
-
-###############################
-# EXPERIMENTAL
-###############################
-if(APPLE)
-ceammc_cxx_extension(exp patchdata)
-
-ceammc_cxx_extension(ui ecanvas)
-
-ceammc_cxx_extension(exp recursion)
-
-ceammc_cxx_extension(exp class)
-ceammc_cxx_extension(exp instance)
-ceammc_cxx_extension(exp method)
-ceammc_cxx_extension(exp aproperty)
-ceammc_cxx_extension(exp signal~)
-ceammc_cxx_extension(exp this)
-ceammc_cxx_extension(exp parent)
-ceammc_cxx_extension(exp vinstance)
-
-endif()
-
 
 ###############################
 # TIME

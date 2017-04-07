@@ -9,7 +9,7 @@
 
 
 
-#include "lib/ceammc_gui.h"
+#include "ceammc_gui.h"
 
 
 using namespace ceammc_gui;
