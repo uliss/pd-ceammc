@@ -28,6 +28,11 @@ list(APPEND BASE_SOURCES
     reject_if.cpp
     reject_this.cpp)
 
+if(TARGET ceammc_sound)
+    list(APPEND BASE_SOURCES
+        snd_file.cpp)
+endif()
+
 add_library(ceammc_base STATIC mod_base.cpp ${BASE_SOURCES})
 if(UNIX)
     set_target_properties(ceammc_base PROPERTIES COMPILE_FLAGS "-fPIC")

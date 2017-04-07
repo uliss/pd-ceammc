@@ -31,6 +31,15 @@ macro(ceammc_cxx_extension_simple name)
     pd_add_extension(NAME "${name}" FILES "${name}.cpp" INTERNAL True LIBRARY ceammc LINK ceammc_core)
 endmacro()
 
+macro(ceammc_link_fix target)
+    if(APPLE)
+        add_custom_command(TARGET ${target} POST_BUILD
+            COMMAND bash ${CMAKE_CURRENT_SOURCE_DIR}/apple_rpath_fix.sh
+                    $<TARGET_FILE:${target}>
+                    ${CMAKE_CURRENT_BINARY_DIR})
+    endif()
+endmacro()
+
 macro(ceammc_link_fix_sep module name separator)
     if(APPLE)
         add_custom_command(TARGET "${module}${separator}${name}" POST_BUILD

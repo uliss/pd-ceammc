@@ -34,7 +34,9 @@ pd_add_extension(NAME ceammc
     LIBRARY ceammc
     LINK ceammc_base ceammc_conv ceammc_data ceammc_dyn ceammc_flt ceammc_fx ceammc_lfo
     ceammc_list ceammc_math ceammc_noise ceammc_osc ceammc_ui ceammc_vector
-    cicm_static ceammc_core)
+    cicm_static ceammc_core ceammc_sound)
+
+ceammc_link_fix(ceammc)
 
 ceammc_cxx_extension(debug gensym)
 
@@ -121,14 +123,6 @@ ceammc_faust_extension(env follow simple_pd_control_ext)
 ceammc_faust_extension(live capture simple_pd_control_ext)
 
 ceammc_cxx_extension(test prop)
-
-if(TARGET ceammc_sound)
-    pd_add_extension(NAME "snd.file"
-        FILES "snd_file.cpp"
-        INTERNAL True
-        LIBRARY ceammc
-        LINK ceammc_sound ceammc_core)
-endif()
 
 file(GLOB ceammc_ext_h *.h)
 add_custom_target(ceammc_lib_src SOURCES apple_rpath_fix.sh gen_lib.sh ${ceammc_ext_h})
