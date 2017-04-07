@@ -27,6 +27,7 @@ add_subdirectory(list)
 add_subdirectory(math)
 add_subdirectory(noise)
 add_subdirectory(osc)
+add_subdirectory(random)
 add_subdirectory(system)
 add_subdirectory(tl)
 add_subdirectory(ui)
@@ -43,21 +44,14 @@ pd_add_extension(NAME ceammc
     INTERNAL True
     LIBRARY ceammc
     LINK ceammc_base ceammc_conv ceammc_data ceammc_dyn ceammc_env ceammc_flt ceammc_fx ceammc_lfo
-    ceammc_list ceammc_math ceammc_noise ceammc_osc ceammc_system ceammc_tl ceammc_ui ceammc_vector
-    cicm_static ceammc_core ceammc_sound ${EXTRA_LIB})
+    ceammc_list ceammc_math ceammc_noise ceammc_osc ceammc_random ceammc_system ceammc_tl
+    ceammc_ui ceammc_vector cicm_static ceammc_core ceammc_sound ${EXTRA_LIB})
 
 ceammc_link_fix(ceammc)
 
-###############################
-# TIME
-###############################
-# ceammc_cxx_extension(time current)
-
 pd_add_extension(NAME test.data   FILES test_data.cpp   INTERNAL True LINK ceammc_core)
 pd_add_extension(NAME test.expect FILES test_expect.cpp INTERNAL True LINK ceammc_core)
-ceammc_cxx_extension(random float)
-ceammc_cxx_extension(random int)
-ceammc_cxx_extension(random gauss)
+
 # symbol
 ceammc_cxx_extension(symbol ends_with)
 

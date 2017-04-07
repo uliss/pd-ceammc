@@ -24,6 +24,7 @@
 #include "math/mod_math.h"
 #include "noise/mod_noise.h"
 #include "osc/mod_osc.h"
+#include "random/mod_random.h"
 #include "system/mod_system.h"
 #include "tl/mod_tl.h"
 #include "ui/mod_ui.h"
@@ -64,6 +65,7 @@ extern "C" void ceammc_setup()
     ceammc_math_setup();
     ceammc_noise_setup();
     ceammc_osc_setup();
+    ceammc_random_setup();
     ceammc_system_setup();
     ceammc_tl_setup();
     ceammc_ui_setup();

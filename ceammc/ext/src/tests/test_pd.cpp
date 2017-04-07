@@ -14,7 +14,7 @@
 
 #include "catch.hpp"
 #include "ceammc.hpp"
-#include "../debug_gensym.h"
+#include "../base/debug_gensym.h"
 
 #include <stdio.h>
 
