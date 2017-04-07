@@ -24,27 +24,29 @@ TEST_CASE("PD", "[PureData]")
 {
     SECTION("hash table size")
     {
+        const int OFFSET = 7;
+
         t_ceammc_gensym_info info;
         gensym_info(&info);
 
         REQUIRE(info.table_size == 1024);
 
-        REQUIRE(info.symbol_count == 0);
+        REQUIRE(info.symbol_count == 0 + OFFSET);
 
         gensym("test");
         gensym_info(&info);
-        REQUIRE(info.symbol_count == 1);
+        REQUIRE(info.symbol_count == 1 + OFFSET);
         REQUIRE(info.max_chain == 1);
-        REQUIRE(info.memory_size == 5);
+        REQUIRE(info.memory_size == 64);
 
         char buf[20];
         for (int i = 0; i < 20000; i++) {
-            sprintf(buf, "%d", i);
+            sprintf(buf, "%d", i + OFFSET);
             gensym(buf);
         }
 
         gensym_info(&info);
-        REQUIRE(info.symbol_count == 20001);
+        REQUIRE(info.symbol_count == 20001 + OFFSET);
         REQUIRE(info.max_chain == 38);
     }
 
