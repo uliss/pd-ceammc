@@ -29,7 +29,7 @@ ceammc_add_extension_test("list_walk2" "../list/list_walk.cpp")
 ceammc_add_extension_test("snd_file" "../base/snd_file.cpp")
 ceammc_add_extension_test("ext_replace" "../base/replace.cpp")
 
-ceammc_add_test_linked(TITLE "ceammc::pd" NAME test_pd SRC "../debug_gensym.cpp" LINK ceammc_core puredata-core)
+ceammc_add_test_linked(TITLE "ceammc::pd" NAME test_pd SRC "../base/debug_gensym.cpp" LINK ceammc_core puredata-core)
 
 
 include(FindLibSndFile)

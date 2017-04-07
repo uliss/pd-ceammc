@@ -48,8 +48,6 @@ pd_add_extension(NAME ceammc
 
 ceammc_link_fix(ceammc)
 
-ceammc_cxx_extension(debug gensym)
-
 ###############################
 # TIME
 ###############################

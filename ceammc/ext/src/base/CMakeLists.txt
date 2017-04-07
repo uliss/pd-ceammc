@@ -34,3 +34,7 @@ add_library(ceammc_base STATIC mod_base.cpp ${BASE_SOURCES})
 if(UNIX)
     set_target_properties(ceammc_base PROPERTIES COMPILE_FLAGS "-fPIC")
 endif()
+
+# separate extension:
+# becaust it use CEAMMC Pd API
+ceammc_cxx_extension(debug gensym)
