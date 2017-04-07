@@ -2,6 +2,7 @@ include(faust)
 include(ceammc_pd.cmake)
 # we need 1.47.0 for boost random uniform distribution
 find_package(Boost 1.47.0 REQUIRED)
+find_package(GLIB)
 include_directories(${Boost_INCLUDE_DIRS})
 
 add_subdirectory(lib)
@@ -26,9 +27,15 @@ add_subdirectory(list)
 add_subdirectory(math)
 add_subdirectory(noise)
 add_subdirectory(osc)
+add_subdirectory(system)
 add_subdirectory(tl)
 add_subdirectory(ui)
 add_subdirectory(vector)
+
+set(EXTRA_LIB "")
+if(GLIB_FOUND)
+    list(APPEND EXTRA_LIB ${GLIB_LIBRARIES})
+endif()
 
 
 pd_add_extension(NAME ceammc
@@ -36,8 +43,8 @@ pd_add_extension(NAME ceammc
     INTERNAL True
     LIBRARY ceammc
     LINK ceammc_base ceammc_conv ceammc_data ceammc_dyn ceammc_env ceammc_flt ceammc_fx ceammc_lfo
-    ceammc_list ceammc_math ceammc_noise ceammc_osc ceammc_tl ceammc_ui ceammc_vector
-    cicm_static ceammc_core ceammc_sound)
+    ceammc_list ceammc_math ceammc_noise ceammc_osc ceammc_system ceammc_tl ceammc_ui ceammc_vector
+    cicm_static ceammc_core ceammc_sound ${EXTRA_LIB})
 
 ceammc_link_fix(ceammc)
 
@@ -56,8 +63,6 @@ ceammc_cxx_extension(random gauss)
 # symbol
 ceammc_cxx_extension(symbol ends_with)
 
-
-find_package(GLIB)
 if(GLIB_FOUND)
     include_directories(${GLIB_INCLUDE_DIRS})
 
@@ -74,14 +79,8 @@ if(GLIB_FOUND)
     ceammc_glib_extension(string compare)
     ceammc_glib_extension(string split)
 
-    ceammc_glib_extension(system hostname)
-    ceammc_glib_extension(system getenv)
     ceammc_glib_extension__(is file)
 endif()
-
-ceammc_cxx_extension(system memsize)
-ceammc_cxx_extension(system memused)
-ceammc_cxx_extension(system screen_size)
 
 ###############################
 # DSP

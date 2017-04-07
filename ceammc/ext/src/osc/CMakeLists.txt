@@ -1,5 +1,3 @@
-include_directories(${CMAKE_SOURCE_DIR}/src)
-
 set(OSC_SOURCES "")
 macro(ceammc_osc_extension name)
     list(APPEND OSC_SOURCES "osc_${name}.cpp")
