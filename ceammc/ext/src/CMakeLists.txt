@@ -49,9 +49,6 @@ pd_add_extension(NAME ceammc
 
 ceammc_link_fix(ceammc)
 
-pd_add_extension(NAME test.data   FILES test_data.cpp   INTERNAL True LINK ceammc_core)
-pd_add_extension(NAME test.expect FILES test_expect.cpp INTERNAL True LINK ceammc_core)
-
 # symbol
 ceammc_cxx_extension(symbol ends_with)
 
@@ -81,8 +78,6 @@ ceammc_faust_extension(spat pan2 simple_pd_control_ext)
 ceammc_faust_extension(spat pan4 simple_pd_control_ext)
 
 ceammc_faust_extension(live capture simple_pd_control_ext)
-
-ceammc_cxx_extension(test prop)
 
 file(GLOB ceammc_ext_h *.h)
 add_custom_target(ceammc_lib_src SOURCES apple_rpath_fix.sh gen_lib.sh ${ceammc_ext_h})

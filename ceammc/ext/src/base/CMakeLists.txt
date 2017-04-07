@@ -26,7 +26,13 @@ list(APPEND BASE_SOURCES
     reject_if.cpp
     reject_this.cpp)
 
+# test
+list(APPEND BASE_SOURCES
+    test_data.cpp
+    test_expect.cpp)
+
 if(TARGET ceammc_sound)
+    add_definitions(-DWITH_SND_FILE)
     list(APPEND BASE_SOURCES snd_file.cpp)
 endif()
 
