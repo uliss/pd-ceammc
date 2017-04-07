@@ -2,7 +2,7 @@
 #include <glib.h>
 #include <m_pd.h>
 
-t_class* is_file_class;
+static t_class* is_file_class;
 struct t_is_file {
     t_object x_obj;
     t_outlet* out_pass;

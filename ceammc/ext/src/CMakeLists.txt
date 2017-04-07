@@ -67,8 +67,6 @@ if(GLIB_FOUND)
     ceammc_glib_extension(string slice)
     ceammc_glib_extension(string compare)
     ceammc_glib_extension(string split)
-
-    ceammc_glib_extension__(is file)
 endif()
 
 ###############################

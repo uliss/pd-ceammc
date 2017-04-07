@@ -36,6 +36,12 @@ if(TARGET ceammc_sound)
     list(APPEND BASE_SOURCES snd_file.cpp)
 endif()
 
+if(GLIB_FOUND)
+    add_definitions(-DWITH_GLIB)
+    include_directories(${GLIB_INCLUDE_DIRS})
+    list(APPEND BASE_SOURCES is_file.cpp)
+endif()
+
 add_library(ceammc_base STATIC mod_base.cpp ${BASE_SOURCES})
 if(UNIX)
     set_target_properties(ceammc_base PROPERTIES COMPILE_FLAGS "-fPIC")
