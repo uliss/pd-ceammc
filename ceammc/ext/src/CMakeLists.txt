@@ -24,6 +24,7 @@ add_subdirectory(list)
 add_subdirectory(math)
 add_subdirectory(noise)
 add_subdirectory(osc)
+add_subdirectory(tl)
 add_subdirectory(ui)
 add_subdirectory(vector)
 
@@ -33,19 +34,12 @@ pd_add_extension(NAME ceammc
     INTERNAL True
     LIBRARY ceammc
     LINK ceammc_base ceammc_conv ceammc_data ceammc_dyn ceammc_flt ceammc_fx ceammc_lfo
-    ceammc_list ceammc_math ceammc_noise ceammc_osc ceammc_ui ceammc_vector
+    ceammc_list ceammc_math ceammc_noise ceammc_osc ceammc_tl ceammc_ui ceammc_vector
     cicm_static ceammc_core ceammc_sound)
 
 ceammc_link_fix(ceammc)
 
 ceammc_cxx_extension(debug gensym)
-
-###############################
-# TIMELINE
-###############################
-ceammc_cxx_tl_extension(tl transport)
-ceammc_cxx_tl_extension(tl bang)
-ceammc_cxx_tl_extension(tl cue)
 
 ###############################
 # EXPERIMENTAL

@@ -1,5 +1,3 @@
-include_directories(${CMAKE_SOURCE_DIR}/src)
-
 set(BASE_SOURCES
     msg.cpp
     prop.get
