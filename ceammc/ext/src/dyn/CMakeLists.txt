@@ -1,5 +1,3 @@
-include_directories(${CMAKE_SOURCE_DIR}/src)
-
 set(DYN_SOURCES "")
 macro(ceammc_dyn_extension name)
     list(APPEND DYN_SOURCES "dyn_${name}.cpp")

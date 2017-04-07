@@ -16,6 +16,7 @@
 #include "conv/mod_conv.h"
 #include "data/mod_data.h"
 #include "dyn/mod_dyn.h"
+#include "env/mod_env.h"
 #include "flt/mod_flt.h"
 #include "fx/mod_fx.h"
 #include "lfo/mod_lfo.h"
@@ -54,6 +55,7 @@ extern "C" void ceammc_setup()
     ceammc_conv_setup();
     ceammc_data_setup();
     ceammc_dyn_setup();
+    ceammc_env_setup();
     ceammc_flt_setup();
     ceammc_fx_setup();
     ceammc_lfo_setup();

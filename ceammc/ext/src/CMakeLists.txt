@@ -17,6 +17,7 @@ add_subdirectory(base)
 add_subdirectory(conv)
 add_subdirectory(data)
 add_subdirectory(dyn)
+add_subdirectory(env)
 add_subdirectory(exp)
 add_subdirectory(flt)
 add_subdirectory(fx)
@@ -34,7 +35,7 @@ pd_add_extension(NAME ceammc
     FILES ceammc.cpp
     INTERNAL True
     LIBRARY ceammc
-    LINK ceammc_base ceammc_conv ceammc_data ceammc_dyn ceammc_flt ceammc_fx ceammc_lfo
+    LINK ceammc_base ceammc_conv ceammc_data ceammc_dyn ceammc_env ceammc_flt ceammc_fx ceammc_lfo
     ceammc_list ceammc_math ceammc_noise ceammc_osc ceammc_tl ceammc_ui ceammc_vector
     cicm_static ceammc_core ceammc_sound)
 
@@ -87,11 +88,6 @@ ceammc_cxx_extension(system screen_size)
 ###############################
 ceammc_faust_extension(spat pan2 simple_pd_control_ext)
 ceammc_faust_extension(spat pan4 simple_pd_control_ext)
-
-ceammc_faust_extension(env adsr simple_pd_control_ext)
-ceammc_faust_extension(env ar simple_pd_control_ext)
-ceammc_faust_extension(env follow simple_pd_control_ext)
-
 
 ceammc_faust_extension(live capture simple_pd_control_ext)
 
