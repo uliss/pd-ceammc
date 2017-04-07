@@ -2,7 +2,7 @@
 #include <m_pd.h>
 #include <glib.h>
 
-t_class* path_basename_class;
+static t_class* path_basename_class;
 
 struct t_path_basename {
     t_object x_ob;
@@ -28,7 +28,7 @@ static void path_basename_symbol(t_path_basename* x, t_symbol* s)
     g_free(bn);
 }
 
-extern "C" void CEAMMC_DOT_MODULE(path, basename)
+extern "C" void setup_path0x2ebasename()
 {
     path_basename_class = class_new(CEAMMC_PATH_GENSYM(basename),
         (t_newmethod)path_basename_new, (t_method)path_basename_free,

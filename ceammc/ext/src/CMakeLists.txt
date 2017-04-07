@@ -27,6 +27,7 @@ add_subdirectory(list)
 add_subdirectory(math)
 add_subdirectory(noise)
 add_subdirectory(osc)
+add_subdirectory(path)
 add_subdirectory(random)
 add_subdirectory(spat)
 add_subdirectory(system)
@@ -45,7 +46,7 @@ pd_add_extension(NAME ceammc
     INTERNAL True
     LIBRARY ceammc
     LINK ceammc_base ceammc_conv ceammc_data ceammc_dyn ceammc_env ceammc_flt ceammc_fx ceammc_lfo
-    ceammc_list ceammc_math ceammc_noise ceammc_osc ceammc_random ceammc_system ceammc_tl
+    ceammc_list ceammc_math ceammc_noise ceammc_osc ceammc_path ceammc_random ceammc_system ceammc_tl
     ceammc_ui ceammc_vector ceammc_spat cicm_static ceammc_core ceammc_sound ${EXTRA_LIB})
 
 ceammc_link_fix(ceammc)
@@ -55,13 +56,6 @@ ceammc_cxx_extension(symbol ends_with)
 
 if(GLIB_FOUND)
     include_directories(${GLIB_INCLUDE_DIRS})
-
-    ceammc_glib_extension(path basename)
-    ceammc_glib_extension(path dirname)
-    ceammc_glib_extension(path exists)
-    ceammc_glib_extension(path home)
-    ceammc_glib_extension(path listdir)
-
     ceammc_glib_extension(symbol length)
 
     ceammc_glib_extension(string join)
