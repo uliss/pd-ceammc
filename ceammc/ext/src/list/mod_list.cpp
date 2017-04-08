@@ -15,6 +15,7 @@ extern "C" void setup_list0x2egen();
 extern "C" void setup_list0x2eintegrator();
 extern "C" void setup_list0x2einterleave();
 extern "C" void setup_list0x2elast();
+extern "C" void setup_list0x2elength();
 extern "C" void setup_list0x2emax();
 extern "C" void setup_list0x2emean();
 extern "C" void setup_list0x2emin();
@@ -57,6 +58,7 @@ void ceammc_list_setup() {
      setup_list0x2eintegrator();
      setup_list0x2einterleave();
      setup_list0x2elast();
+     setup_list0x2elength();
      setup_list0x2emax();
      setup_list0x2emean();
      setup_list0x2emin();
