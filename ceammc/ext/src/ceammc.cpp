@@ -72,7 +72,7 @@ extern "C" void ceammc_setup()
     ceammc_path_setup();
     ceammc_osc_setup();
     ceammc_random_setup();
-    ceammc_spat_setup();
+//    ceammc_spat_setup();
     ceammc_symbol_setup();
     ceammc_system_setup();
     ceammc_tl_setup();

@@ -1,6 +1,6 @@
 import("spat.lib");
 
-angle = vslider("angle",0,180,10,0.1);
-dist = vslider("dist",0,1,10,0.1);
+angle = vslider("angle", 0, -1, 1, 0.001) : _ + 1 : _ * 0.5 : si.smoo;
+dist = vslider("dist", 1, 0, 1, 0.001) : si.smoo;
 
-process =  _ : spat(2,angle/(180),dist) : _,_;
+process(in) =  in : spat(2, angle, dist);

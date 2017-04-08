@@ -505,9 +505,11 @@ using namespace ceammc::faust;
 class pan2 : public dsp {
   private:
 	FAUSTFLOAT 	fslider0;
-	FAUSTFLOAT 	fslider1;
-	float 	fRec0[2];
 	float 	fRec1[2];
+	FAUSTFLOAT 	fslider1;
+	float 	fRec2[2];
+	float 	fRec0[2];
+	float 	fRec3[2];
 	int fSamplingFreq;
 
   public:
@@ -526,12 +528,14 @@ class pan2 : public dsp {
 		fSamplingFreq = samplingFreq;
 	}
 	virtual void instanceResetUserInterface() {
-		fslider0 = 0.0f;
+		fslider0 = 1.0f;
 		fslider1 = 0.0f;
 	}
 	virtual void instanceClear() {
-		for (int i=0; i<2; i++) fRec0[i] = 0;
 		for (int i=0; i<2; i++) fRec1[i] = 0;
+		for (int i=0; i<2; i++) fRec2[i] = 0;
+		for (int i=0; i<2; i++) fRec0[i] = 0;
+		for (int i=0; i<2; i++) fRec3[i] = 0;
 	}
 	virtual void init(int samplingFreq) {
 		classInit(samplingFreq);
@@ -550,28 +554,30 @@ class pan2 : public dsp {
 	}
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("0x00");
-		ui_interface->addVerticalSlider("angle", &fslider1, 0.0f, 1.8e+02f, 1e+01f, 0.1f);
-		ui_interface->addVerticalSlider("dist", &fslider0, 0.0f, 1.0f, 1e+01f, 0.1f);
+		ui_interface->addVerticalSlider("angle", &fslider1, 0.0f, -1.0f, 1.0f, 0.001f);
+		ui_interface->addVerticalSlider("dist", &fslider0, 1.0f, 0.0f, 1.0f, 0.001f);
 		ui_interface->closeBox();
 	}
 	virtual void compute (int count, FAUSTFLOAT** input, FAUSTFLOAT** output) {
-		float 	fSlow0 = float(fslider0);
-		float 	fSlow1 = (fSlow0 + 1.0f);
-		float 	fSlow2 = (0.0055555557f * float(fslider1));
-		float 	fSlow3 = (5e-05f * (fSlow1 * sqrtf(max(0.0f, (1.0f - (2 * (fSlow0 * fabsf((fmodf((fSlow2 + 1.5f),1.0f) + -0.5f)))))))));
-		float 	fSlow4 = (5e-05f * (fSlow1 * sqrtf(max(0.0f, (1.0f - (2 * (fSlow0 * fabsf((fmodf((fSlow2 + 1.0f),1.0f) + -0.5f)))))))));
+		float 	fSlow0 = (0.001f * float(fslider0));
+		float 	fSlow1 = (0.0005f * (float(fslider1) + 1));
 		FAUSTFLOAT* input0 = input[0];
 		FAUSTFLOAT* output0 = output[0];
 		FAUSTFLOAT* output1 = output[1];
 		for (int i=0; i<count; i++) {
 			float fTemp0 = (float)input0[i];
-			fRec0[0] = (fSlow3 + (0.9999f * fRec0[1]));
+			fRec1[0] = (fSlow0 + (0.999f * fRec1[1]));
+			float fTemp1 = (fRec1[0] + 1.0f);
+			fRec2[0] = (fSlow1 + (0.999f * fRec2[1]));
+			fRec0[0] = ((0.9999f * fRec0[1]) + (5e-05f * (fTemp1 * sqrtf(max(0.0f, (1.0f - (2 * (fRec1[0] * fabsf((fmodf((fRec2[0] + 1.5f),1.0f) + -0.5f))))))))));
 			output0[i] = (FAUSTFLOAT)(fTemp0 * fRec0[0]);
-			fRec1[0] = (fSlow4 + (0.9999f * fRec1[1]));
-			output1[i] = (FAUSTFLOAT)(fTemp0 * fRec1[0]);
+			fRec3[0] = ((0.9999f * fRec3[1]) + (5e-05f * (fTemp1 * sqrtf(max(0.0f, (1.0f - (2 * (fRec1[0] * fabsf((fmodf((fRec2[0] + 1.0f),1.0f) + -0.5f))))))))));
+			output1[i] = (FAUSTFLOAT)(fTemp0 * fRec3[0]);
 			// post processing
-			fRec1[1] = fRec1[0];
+			fRec3[1] = fRec3[0];
 			fRec0[1] = fRec0[0];
+			fRec2[1] = fRec2[0];
+			fRec1[1] = fRec1[0];
 		}
 	}
 };
