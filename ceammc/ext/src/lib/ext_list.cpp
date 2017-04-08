@@ -15,6 +15,7 @@
 #include <algorithm>
 #include <cstdlib>
 #include <iostream>
+#include <iterator>
 #include <set>
 
 #include "m_pd.h"

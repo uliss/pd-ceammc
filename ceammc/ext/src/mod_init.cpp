@@ -36,6 +36,7 @@
 #include "ui/mod_ui.h"
 #include "vector/mod_vector.h"
 
+#include <algorithm>
 #include <set>
 #include <string>
 #include <vector>
