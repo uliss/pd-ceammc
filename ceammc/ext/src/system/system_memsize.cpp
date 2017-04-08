@@ -1,7 +1,7 @@
 #include "ceammc.h"
 #include <m_pd.h>
 
-t_class* system_memsize_class;
+static t_class* system_memsize_class;
 struct t_system_memsize {
     t_object x_obj;
 };

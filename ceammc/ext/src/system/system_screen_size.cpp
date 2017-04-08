@@ -25,7 +25,7 @@ public:
         createOutlet();
 
         char buf[MAXPDSTRING];
-        sprintf(buf, "#%lx", owner());
+        sprintf(buf, "#%p", static_cast<void*>(owner()));
         bindReceive(gensym(buf));
     }
 

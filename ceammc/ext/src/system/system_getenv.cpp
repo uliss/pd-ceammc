@@ -2,7 +2,7 @@
 #include <glib.h>
 #include <m_pd.h>
 
-t_class* system_getenv_class;
+static t_class* system_getenv_class;
 struct t_system_getenv {
     t_object x_obj;
 };

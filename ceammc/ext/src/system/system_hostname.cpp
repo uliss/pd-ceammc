@@ -2,7 +2,7 @@
 #include <glib.h>
 #include "ceammc.h"
 
-t_class* system_hostname_class;
+static t_class* system_hostname_class;
 struct t_system_hostname {
     t_object x_obj;
 };

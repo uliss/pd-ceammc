@@ -1,7 +1,7 @@
 #include "ceammc.h"
 #include <m_pd.h>
 
-t_class* system_memused_class;
+static t_class* system_memused_class;
 struct t_system_memused {
     t_object x_obj;
     t_outlet* x_peak;
