@@ -99,5 +99,5 @@ else()
     install(TARGETS ceammc_sound LIBRARY DESTINATION ${PDCORE_LIB_INSTALL_PATH})
 endif()
 
-
-
+add_executable(ext_list ext_list.cpp ../mod_init.cpp)
+target_link_libraries(ext_list puredata-core ${CEAMMC_EXT_LINK_LIBRARIES})

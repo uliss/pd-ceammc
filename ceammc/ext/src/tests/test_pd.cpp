@@ -12,11 +12,14 @@
  * this file belongs to.
  *****************************************************************************/
 
+#include "../base/debug_gensym.h"
 #include "catch.hpp"
 #include "ceammc.hpp"
-#include "../base/debug_gensym.h"
+
+extern "C" void pd_init();
 
 #include <stdio.h>
+#include <set>
 
 using namespace pd;
 
@@ -50,14 +53,34 @@ TEST_CASE("PD", "[PureData]")
         REQUIRE(info.max_chain == 38);
     }
 
-    SECTION("memrss") {
+    SECTION("memrss")
+    {
 #if !defined(__FreeBSD__)
         REQUIRE(ceammc_memory_current_rss() != 0);
         REQUIRE(ceammc_memory_peak_rss() != 0);
 #endif
     }
 
-    SECTION("memsize") {
+    SECTION("memsize")
+    {
         REQUIRE(ceammc_memory_size() != 0);
+    }
+
+    SECTION("test current object list")
+    {
+        pd_init();
+
+        using namespace ceammc;
+        typedef std::vector<std::string> slist;
+        typedef std::set<std::string> sset;
+        slist l = currentExtensionList();
+        REQUIRE(l.size() > 0);
+
+        sset s(l.begin(), l.end());
+        REQUIRE(s.count("unknown") == 0);
+        REQUIRE(s.count("osc~") == 1);
+        REQUIRE(s.count("unpack") == 1);
+        REQUIRE(s.count("pack") == 1);
+        REQUIRE(s.count("list.each") == 0);
     }
 }

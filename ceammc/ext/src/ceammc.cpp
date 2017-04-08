@@ -13,28 +13,7 @@
  *****************************************************************************/
 
 #include "ceammc_config.h"
-
-#include "base/mod_base.h"
-#include "conv/mod_conv.h"
-#include "data/mod_data.h"
-#include "dyn/mod_dyn.h"
-#include "env/mod_env.h"
-#include "flt/mod_flt.h"
-#include "fx/mod_fx.h"
-#include "lfo/mod_lfo.h"
-#include "list/mod_list.h"
-#include "math/mod_math.h"
-#include "misc/mod_misc.h"
-#include "noise/mod_noise.h"
-#include "osc/mod_osc.h"
-#include "path/mod_path.h"
-#include "random/mod_random.h"
-#include "spat/mod_spat.h"
-#include "symbol/mod_symbol.h"
-#include "system/mod_system.h"
-#include "tl/mod_tl.h"
-#include "ui/mod_ui.h"
-#include "vector/mod_vector.h"
+#include "mod_init.h"
 
 #include "m_pd.h"
 
@@ -65,28 +44,7 @@ extern "C" void ceammc_setup()
         sizeof(t_object), CLASS_PD, A_NULL, 0);
 
     ceammc_new(NULL);
-
-    ceammc_base_setup();
-    ceammc_conv_setup();
-    ceammc_data_setup();
-    ceammc_dyn_setup();
-    ceammc_env_setup();
-    ceammc_flt_setup();
-    ceammc_fx_setup();
-    ceammc_lfo_setup();
-    ceammc_list_setup();
-    ceammc_math_setup();
-    ceammc_misc_setup();
-    ceammc_noise_setup();
-    ceammc_path_setup();
-    ceammc_osc_setup();
-    ceammc_random_setup();
-    //    ceammc_spat_setup();
-    ceammc_symbol_setup();
-    ceammc_system_setup();
-    ceammc_tl_setup();
-    ceammc_ui_setup();
-    ceammc_vector_setup();
+    ceammc_init();
 }
 
 extern "C" int sys_zoomfontwidth(int fontsize, int, int)

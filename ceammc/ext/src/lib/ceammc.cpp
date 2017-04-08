@@ -16,7 +16,8 @@
  *****************************************************************************/
 
 #include "ceammc.hpp"
-#include "x_ceammc.h"
+
+#include "m_imp.h"
 
 #include <algorithm>
 #include <cassert>
@@ -24,6 +25,20 @@
 #include <limits>
 
 namespace ceammc {
+
+std::vector<std::string> currentExtensionList()
+{
+    std::vector<std::string> res;
+    t_methodentry* m = pd_objectmaker->c_methods;
+    if (!m)
+        return res;
+
+    for (int i = 0; i < pd_objectmaker->c_nmethod; i++)
+        res.push_back(m[i].me_name->s_name);
+
+    return res;
+}
+
 namespace pd {
 
     bool atoms_minmax(const atom_list& lst, t_float* min, t_float* max)

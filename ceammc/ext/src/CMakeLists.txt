@@ -5,6 +5,15 @@ find_package(Boost 1.47.0 REQUIRED)
 find_package(GLIB)
 include_directories(${Boost_INCLUDE_DIRS})
 
+set(CEAMMC_EXT_LINK_LIBRARIES ceammc_base ceammc_conv ceammc_data ceammc_dyn ceammc_env ceammc_flt ceammc_fx ceammc_lfo
+    ceammc_list ceammc_math ceammc_misc ceammc_noise ceammc_osc ceammc_path ceammc_random ceammc_spat
+    ceammc_symbol ceammc_system ceammc_tl ceammc_ui ceammc_vector
+    cicm_static ceammc_core ceammc_sound)
+
+if(GLIB_FOUND)
+    list(APPEND CEAMMC_EXT_LINK_LIBRARIES ${GLIB_LIBRARIES})
+endif()
+
 add_subdirectory(lib)
 include_directories(lib)
 include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra/CicmWrapper/Sources)
@@ -37,20 +46,11 @@ add_subdirectory(tl)
 add_subdirectory(ui)
 add_subdirectory(vector)
 
-set(EXTRA_LIB "")
-if(GLIB_FOUND)
-    list(APPEND EXTRA_LIB ${GLIB_LIBRARIES})
-endif()
-
-
 pd_add_extension(NAME ceammc
-    FILES ceammc.cpp
+    FILES ceammc.cpp mod_init.cpp
     INTERNAL True
     LIBRARY ceammc
-    LINK ceammc_base ceammc_conv ceammc_data ceammc_dyn ceammc_env ceammc_flt ceammc_fx ceammc_lfo
-    ceammc_list ceammc_math ceammc_misc ceammc_noise ceammc_osc ceammc_path ceammc_random ceammc_spat
-    ceammc_symbol ceammc_system ceammc_tl ceammc_ui ceammc_vector
-    cicm_static ceammc_core ceammc_sound ${EXTRA_LIB})
+    LINK ${CEAMMC_EXT_LINK_LIBRARIES})
 
 ceammc_link_fix(ceammc)
 

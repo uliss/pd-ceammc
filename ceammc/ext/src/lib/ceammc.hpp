@@ -6,8 +6,12 @@
 #include <cstring>
 #include <functional>
 #include <vector>
+#include <string>
 
 namespace ceammc {
+
+std::vector<std::string> currentExtensionList();
+
 namespace math {
     template <class T>
     static inline T ceil(T v);
