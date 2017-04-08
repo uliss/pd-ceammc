@@ -51,7 +51,7 @@ void ikeda_reset(ikeda* x, t_symbol* msg, short argc, t_atom* argv);
 void ikeda_set(ikeda* x, t_symbol* msg, short argc, t_atom* argv);
 
 void ikeda_assist(ikeda* x, void* b, long m, long a, char* s);
-void* ikeda_class;
+static t_eclass* ikeda_class;
 
 void* ikeda_new(t_symbol* msg, short argc, t_atom* argv) //input the args
 {

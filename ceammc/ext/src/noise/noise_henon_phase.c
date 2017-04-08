@@ -44,7 +44,7 @@ void henonphase_b(henonphase* x, double max);
 void henonphase_om(henonphase* x, long max);
 
 void henonphase_assist(henonphase* x, void* b, long m, long a, char* s);
-void* henonphase_class;
+static t_eclass* henonphase_class;
 
 void* henonphase_new(t_symbol* msg, short argc, t_atom* argv) //input the args
 {
