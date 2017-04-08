@@ -22,6 +22,7 @@
 #include "lfo/mod_lfo.h"
 #include "list/mod_list.h"
 #include "math/mod_math.h"
+#include "misc/mod_misc.h"
 #include "noise/mod_noise.h"
 #include "osc/mod_osc.h"
 #include "path/mod_path.h"
@@ -66,6 +67,7 @@ extern "C" void ceammc_setup()
     ceammc_lfo_setup();
     ceammc_list_setup();
     ceammc_math_setup();
+    ceammc_misc_setup();
     ceammc_noise_setup();
     ceammc_path_setup();
     ceammc_osc_setup();

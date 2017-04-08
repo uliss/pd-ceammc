@@ -25,6 +25,7 @@ add_subdirectory(fx)
 add_subdirectory(lfo)
 add_subdirectory(list)
 add_subdirectory(math)
+add_subdirectory(misc)
 add_subdirectory(noise)
 add_subdirectory(osc)
 add_subdirectory(path)
@@ -47,12 +48,10 @@ pd_add_extension(NAME ceammc
     INTERNAL True
     LIBRARY ceammc
     LINK ceammc_base ceammc_conv ceammc_data ceammc_dyn ceammc_env ceammc_flt ceammc_fx ceammc_lfo
-    ceammc_list ceammc_math ceammc_noise ceammc_osc ceammc_path ceammc_random ceammc_spat
+    ceammc_list ceammc_math ceammc_misc ceammc_noise ceammc_osc ceammc_path ceammc_random ceammc_spat
     ceammc_symbol ceammc_system ceammc_tl ceammc_ui ceammc_vector
     cicm_static ceammc_core ceammc_sound ${EXTRA_LIB})
 
 ceammc_link_fix(ceammc)
-
-ceammc_faust_extension(live capture simple_pd_control_ext)
 
 add_custom_target(ceammc_lib_src SOURCES apple_rpath_fix.sh gen_lib.sh)
