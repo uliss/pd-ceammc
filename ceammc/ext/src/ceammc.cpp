@@ -12,6 +12,8 @@
  * this file belongs to.
  *****************************************************************************/
 
+#include "ceammc_config.h"
+
 #include "base/mod_base.h"
 #include "conv/mod_conv.h"
 #include "data/mod_data.h"
@@ -27,8 +29,8 @@
 #include "osc/mod_osc.h"
 #include "path/mod_path.h"
 #include "random/mod_random.h"
-#include "symbol/mod_symbol.h"
 #include "spat/mod_spat.h"
+#include "symbol/mod_symbol.h"
 #include "system/mod_system.h"
 #include "tl/mod_tl.h"
 #include "ui/mod_ui.h"
@@ -36,14 +38,21 @@
 
 #include "m_pd.h"
 
-static const char* ceammc_version = "0.1";
 static t_class* ceammc_class;
 
 static void* ceammc_new(t_symbol*)
 {
     t_object* x = reinterpret_cast<t_object*>(pd_new(ceammc_class));
-    if (x)
-        post("CEAMMC extension library: %s. Build date: %s\n", ceammc_version, __DATE__);
+    if (x) {
+        post("CEAMMC extension library\n"
+             "       © 2016-2017 Serge Poltavsky and Alex Nadzharov.\n"
+             "       version: %s\n"
+             "       url: %s\n"
+             "       license: GPL-3\n"
+             "       build date: '%s'\n"
+             "       contains code from CICM-Wrapper",
+            CEAMMC_LIB_VERSION, CEAMMC_LIB_HOME, __DATE__);
+    }
 
     return x;
 }
@@ -72,7 +81,7 @@ extern "C" void ceammc_setup()
     ceammc_path_setup();
     ceammc_osc_setup();
     ceammc_random_setup();
-//    ceammc_spat_setup();
+    //    ceammc_spat_setup();
     ceammc_symbol_setup();
     ceammc_system_setup();
     ceammc_tl_setup();
