@@ -31,9 +31,6 @@ A-Chaos Lib
 #include <math.h>
 #include <stdbool.h>
 
-#define ABS(a) ((a) > 0) ? (a) : (-a)
-//#include <math.h>
-
 typedef struct _ginger {
     t_object c_ob;
     void *c_out, *c_out2; // 2 outlets
@@ -54,7 +51,7 @@ void ginger_ny(ginger* x, double max);
 void ginger_om(ginger* x, long max);
 
 void ginger_assist(ginger* x, void* b, long m, long a, char* s);
-t_eclass* ginger_class;
+static t_eclass* ginger_class;
 
 void* ginger_new(t_symbol* s, int ac, t_atom* av) //input the args
 {
@@ -173,8 +170,6 @@ void setup_noise0x2eginger()
         (t_typ_method)(ginger_free),
         sizeof(ginger), 0, A_GIMME, 0);
 
-    //eclass_addmethod(lorenz_class, (method)baker_bang, "bang", A_GIMME, 0);
-
     eclass_addmethod(ginger_class, (method)ginger_bang, "bang", A_GIMME, 0);
     eclass_addmethod(ginger_class, (method)ginger_set, "set", A_GIMME, 0);
     eclass_addmethod(ginger_class, (method)ginger_reset, "reset", A_GIMME, 0);
@@ -183,8 +178,6 @@ void setup_noise0x2eginger()
     eclass_addmethod(ginger_class, (method)ginger_seed, "z", A_FLOAT, 0);
     eclass_addmethod(ginger_class, (method)ginger_seed, "seed", A_FLOAT, 0);
     eclass_addmethod(ginger_class, (method)ginger_om, "om", A_FLOAT, 0);
-    
-    post("noise.ginger: part of A-Chaos library, (C) 2004 André Sier");
 }
 
 

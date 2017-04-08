@@ -266,6 +266,4 @@ void setup_noise0x2eclifford()
     eclass_addmethod(clifford_class, (method)clifford_c, "c", A_DEFFLOAT, 0);
     eclass_addmethod(clifford_class, (method)clifford_d, "d", A_DEFFLOAT, 0);
     eclass_addmethod(clifford_class, (method)clifford_om, "om", A_DEFFLOAT, 0);
-
-    post("noise.clifford: part of A-Chaos library, (C) 2004 André Sier");
 }

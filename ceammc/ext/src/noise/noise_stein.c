@@ -40,7 +40,7 @@ void stein_lambda(stein* x, float echo);
 void stein_seed(stein* x, float echo);
 
 void stein_assist(stein* x, void* b, long m, long a, char* s);
-void* stein_class;
+static t_eclass* stein_class;
 
 void* stein_new(t_symbol* msg, short argc, t_atom* argv) //input the args
 {
@@ -137,13 +137,10 @@ void stein_free() {}
 
 void setup_noise0x2estein()
 {
-
     stein_class = eclass_new(("noise.stein"),
         (t_typ_method)(stein_new),
         (t_typ_method)(stein_free),
         sizeof(stein), 0, A_GIMME, 0);
-
-    //eclass_addmethod(lorenz_class, (method)baker_bang, "bang", A_GIMME, 0);
 
     eclass_addmethod(stein_class, (method)stein_bang, "bang", A_GIMME, 0);
 
@@ -154,8 +151,6 @@ void setup_noise0x2estein()
     eclass_addmethod(stein_class, (method)stein_lambda, "lambda", A_DEFFLOAT, 0);
     eclass_addmethod(stein_class, (method)stein_seed, "seed", A_DEFFLOAT, 0);
     eclass_addmethod(stein_class, (method)stein_om, "om", A_DEFFLOAT, 0);
-    
-    post("noise.stein: part of A-Chaos library, (C) 2004 André Sier");
 }
 
 

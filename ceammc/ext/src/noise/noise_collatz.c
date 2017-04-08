@@ -139,6 +139,4 @@ void setup_noise0x2ecollatz()
     eclass_addmethod(atz_class, (method)atz_offset, "offset", A_DEFFLOAT, 0);
     eclass_addmethod(atz_class, (method)atz_mode, "mode", A_DEFFLOAT, 0);
     eclass_addmethod(atz_class, (method)atz_om, "om", A_DEFFLOAT, 0);
-
-    post("noise.collatz: part of A-Chaos library, (C) 2004 André Sier");
 }

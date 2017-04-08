@@ -15,10 +15,6 @@ b replaced with c
 ————————————————————————————————————————————————————————————————
 */
 
-//#include "ext.h"
-//#include "ext_common.h"
-
-//#include "math.h"
 
 // CEAMMC pd library version
 
@@ -67,7 +63,7 @@ void lorenz_calc(lorenz* x);
 void lorenz_reset(lorenz* x, t_symbol* msg, short argc, t_atom* argv);
 void lorenz_set(lorenz* x, t_symbol* msg, short argc, t_atom* argv);
 
-t_eclass* lorenz_class;
+static t_eclass* lorenz_class;
 
 void* lorenz_new(t_symbol* msg, short argc, t_atom* argv) //input the args
 {
@@ -292,8 +288,6 @@ void setup_noise0x2elorenz()
         (t_typ_method)(lorenz_free),
         sizeof(lorenz), 0, A_GIMME, 0);
 
-    //eclass_addmethod(lorenz_class, (method)baker_bang, "bang", A_GIMME, 0);
-
     eclass_addmethod(lorenz_class, (method)lorenz_bang, "bang", A_GIMME, 0);
     eclass_addmethod(lorenz_class, (method)lorenz_set, "set", A_GIMME, 0);
     eclass_addmethod(lorenz_class, (method)lorenz_reset, "reset", A_GIMME, 0);
@@ -308,7 +302,5 @@ void setup_noise0x2elorenz()
     // addint((method)lorenz_int);
     // addfloat((method)lorenz_float);
     eclass_addmethod(lorenz_class, (method)lorenz_om, "om", A_DEFFLOAT, 0);
-    
-    post("noise.lorenz: part of A-Chaos library, (C) 2004 André Sier");
 }
 

@@ -1,4 +1,5 @@
 #include "mod_noise.h"
+#include "m_pd.h"
 
 extern "C" void setup_noise0x2elfreq_tilde();
 extern "C" void setup_noise0x2epink_tilde();
@@ -46,4 +47,6 @@ void ceammc_noise_setup() {
      setup_noise0x2estein();
      setup_noise0x2etorus();
      setup_noise0x2everhulst();
+
+     post("CEAMMC: using code from of A-Chaos library, (c) 2004 André Sier");
 }

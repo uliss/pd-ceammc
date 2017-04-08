@@ -34,7 +34,7 @@ void henon_b(henon* x, double max);
 void henon_om(henon* x, long max);
 
 void henon_assist(henon* x, void* b, long m, long a, char* s);
-t_eclass* henon_class;
+static t_eclass* henon_class;
 
 void* henon_new(t_symbol* msg, short argc, t_atom* argv) //input the args
 {
@@ -167,8 +167,6 @@ void setup_noise0x2ehenon()
         (t_typ_method)(henon_free),
         sizeof(henon), 0, A_GIMME, 0);
 
-    //eclass_addmethod(lorenz_class, (method)baker_bang, "bang", A_GIMME, 0);
-
     eclass_addmethod(henon_class, (method)henon_bang, "bang", A_GIMME, 0);
     eclass_addmethod(henon_class, (method)henon_set, "set", A_GIMME, 0);
     eclass_addmethod(henon_class, (method)henon_reset, "reset", A_GIMME, 0);
@@ -177,8 +175,6 @@ void setup_noise0x2ehenon()
     eclass_addmethod(henon_class, (method)henon_nx, "x", A_FLOAT, 0);
     eclass_addmethod(henon_class, (method)henon_ny, "y", A_FLOAT, 0);
     eclass_addmethod(henon_class, (method)henon_om, "om", A_FLOAT, 0);
-    
-    post("noise.henon: part of A-Chaos library, (C) 2004 André Sier");
 }
 
 
