@@ -55,3 +55,8 @@ pd_add_extension(NAME ceammc
 ceammc_link_fix(ceammc)
 
 add_custom_target(ceammc_lib_src SOURCES apple_rpath_fix.sh gen_lib.sh)
+
+
+set(CEAMMC_COMPLETION "${CMAKE_CURRENT_SOURCE_DIR}/ceammc_completion.txt")
+add_custom_target(ceammc_completion
+    COMMAND ${CMAKE_CURRENT_BINARY_DIR}/lib/ext_list > ${CEAMMC_COMPLETION})
