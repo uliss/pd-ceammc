@@ -46,7 +46,7 @@ set(CREAM_SRC
     Sources/c.preset.cpp
 )
 
-set(CREAM_COMPLETION "ceammc_objects.txt")
+set(CREAM_COMPLETION "cream_objects.txt")
 add_custom_target(cream_completion SOURCES ${CREAM_COMPLETION})
 install(FILES ${CREAM_COMPLETION} DESTINATION ${PD_GUI_PLUGINS_PATH}/ceammc)
 
