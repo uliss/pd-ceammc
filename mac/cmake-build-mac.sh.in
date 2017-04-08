@@ -116,6 +116,7 @@ rm $PD_EXTRA/ceammc/index-help.pd
 chmod 0444 $PD_EXTRA/ceammc/*-help.pd
 cp $SRC_DIR/ceammc/ext/doc/index-help.pd $PD_EXTRA
 chmod 0444 $PD_EXTRA/index-help.pd
+cp $SRC_DIR/ceammc/ext/ceammc_objects.txt $PD_TCL/ceammc
 
 echo "Copy about file..."
 cat $BUILD_DIR/ceammc/ext/doc/about.pd | sed "s/%GIT_BRANCH%/$GIT_BRANCH/g" | \
@@ -127,7 +128,7 @@ echo "Copying CICM/Cream files:"
 cp $BUILD_DIR/ceammc/extra/CreamLibrary/creammc.d_fat $PD_EXTRA/ceammc
 cp -R $SRC_DIR/ceammc/extra/CreamLibrary/Package/Cream/helps $PD_EXTRA/ceammc
 cp $SRC_DIR/ceammc/extra/CreamLibrary/Package/Cream/misc/* $PD_EXTRA/ceammc/helps
-cp $SRC_DIR/ceammc/extra/CreamLibrary/ceammc_objects.txt $PD_TCL/ceammc
+cp $SRC_DIR/ceammc/extra/CreamLibrary/cream_objects.txt $PD_TCL/ceammc
 
 echo "Copying license..."
 cp $SRC_DIR/License.txt Scripts
