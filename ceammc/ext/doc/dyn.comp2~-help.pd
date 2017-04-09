@@ -1,6 +1,7 @@
 #N canvas 0 0 715 555 12;
-#X obj 465 50 cnv 1 230 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 465 50 stereo dynamic range compressor;
+#X declare -lib ceammc -lib creammc;
+#X obj 443 50 cnv 1 252 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 443 50 stereo dynamic range compressor;
 #X obj 1 1 cnv 5 712 40 empty empty dyn.comp2~ 20 20 0 20 -104026
 -4096 0;
 #X obj 614 11 dyn.comp2~;
@@ -16,93 +17,94 @@
 #X obj 50 262 dac~;
 #X obj 194 262 print;
 #X obj 20 301 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 306 cnv 5 80 16 empty empty arguments: 0 14 0 14 -262144
+#X obj 20 306 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 311 1\.;
 #X text 150 311 float;
-#X obj 241 312 cnv 1 43 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 241 312 cnv 1 47 18 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 240 311 ratio:   compression ratio (1 = no compression \, >1
-means compression)\. Min: 1;
+means compression). Min value: 1;
 #X text 120 343 2\.;
 #X text 150 343 float;
-#X obj 241 344 cnv 1 102 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 241 344 cnv 1 112 18 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 240 343 threshold(db):   level threshold above which
-compression kicks in (100 dB = max level)\. Range: 0\.\.\.100;
+compression kicks in (100 dB = max level). Range: 0\...100;
 #X text 120 375 3\.;
 #X text 150 375 float;
-#X obj 241 376 cnv 1 80 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 241 376 cnv 1 88 18 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 240 375 attack(ms):   attack time = time constant when level &
-compression going up\. ;
+compression going up. ;
 #X text 120 407 4\.;
 #X text 150 407 float;
-#X obj 241 408 cnv 1 86 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 241 408 cnv 1 94 18 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 240 407 release(ms):   release time = time constant coming out
-of compression\. ;
+of compression. ;
 #X text 120 439 5\.;
 #X text 150 439 symbol;
-#X obj 241 440 cnv 1 22 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 439 ID: object ID for OSC control path\. ;
+#X obj 241 440 cnv 1 24 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 439 ID: object ID for OSC control path. ;
 #X obj 20 467 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 472 cnv 5 63 16 empty empty methods: 0 14 0 14 -262144
+#X obj 20 472 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 477 ratio;
 #X text 240 477  Arguments are: ;
-#X obj 240 505 cnv 1 59 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 505 [anonym]: compression ratio (1 = no compression \, >1
-means compression);
+#X obj 250 505 cnv 1 64 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 505 [anonym]: compression ratio (1 = no compression \, >1
+means compression). Type: float. ;
 #X msg 120 547 threshold;
 #X text 240 547  Arguments are: ;
-#X obj 240 575 cnv 1 21 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 575 DB: level threshold above which compression kicks in
-(100 dB = max level);
+#X obj 250 575 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 575 DB: level threshold above which compression kicks in
+(100 dB = max level). Type: float. ;
 #X msg 120 617 attack;
 #X text 240 617  Arguments are: ;
-#X obj 240 645 cnv 1 21 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 645 MS: time constant when level & compression going up;
-#X msg 120 673 release;
-#X text 240 673  Arguments are: ;
-#X obj 240 701 cnv 1 21 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 701 MS: release time = time constant coming out of
-compression;
-#X obj 20 739 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 744 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
+#X obj 250 645 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 645 MS: time constant when level & compression going up.
+Type: float. ;
+#X msg 120 687 release;
+#X text 240 687  Arguments are: ;
+#X obj 250 715 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 715 MS: release time = time constant coming out of
+compression. Type: float. ;
+#X obj 20 767 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 772 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 749 1\.;
-#X text 240 749 left input signal\. ;
-#X text 150 767 *bang*;
-#X text 240 767 outputs object internal state to rightmost outlet\. ;
-#X text 120 785 2\.;
-#X text 240 785 right input signal\. ;
-#X obj 20 813 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 818 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
+#X text 120 777 1\.;
+#X text 240 777 left input signal. ;
+#X text 150 795 *bang*;
+#X text 240 795 outputs object internal state to rightmost outlet. ;
+#X text 120 813 2\.;
+#X text 240 813 right input signal. ;
+#X obj 20 841 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 846 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 823 1\.;
-#X text 240 823 left output signal;
-#X text 120 841 2\.;
-#X text 240 841 right output signal;
-#X text 120 859 3\.;
-#X text 240 859 information output;
+#X text 120 851 1\.;
+#X text 240 851 left output signal;
+#X text 120 869 2\.;
+#X text 240 869 right output signal;
+#X text 120 887 3\.;
+#X text 240 887 information output;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title dyn @url ceammc.dyn-help.pd;
-#X obj 1 907 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 910 library: ceammc v0\.1;
-#X text 554 922 see also:;
-#X obj 624 922 dyn.comp~;
-#N canvas 10 929 400 250 info 0;
-#X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
+#X obj 1 935 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 938 library: ceammc v0.1;
+#X text 548 950 see also:;
+#X obj 624 950 dyn.comp~;
+#N canvas 10 957 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0\.1;
+#X text 120 32 0.1;
 #X text 10 54 object:;
-#X text 120 54 dyn\.comp2~;
+#X text 120 54 dyn.comp2~;
 #X text 10 76 category:;
 #X text 120 76 dyn;
 #X text 10 98 since:;
-#X text 120 98 0\.1;
+#X text 120 98 0.1;
 #X text 10 120 authors:;
 #X text 120 120 Alex Nadzharov \, Serge Poltavsky;
 #X text 10 142 license:;
@@ -112,9 +114,10 @@ compression;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pure-data @url
 https://github.com/uliss/pure-data;
-#X obj 120 228 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 120 228 generated by pddoc;
-#X restore 10 929 pd info;
+#X obj 120 208 declare -lib ceammc -lib creammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 generated by pddoc;
+#X restore 10 957 pd info;
 #X connect 8 0 11 0;
 #X connect 9 0 11 0;
 #X connect 5 0 7 0;

@@ -1,6 +1,7 @@
 #N canvas 0 0 715 555 12;
-#X obj 531 50 cnv 1 164 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 531 50 changes list size with;
+#X declare -lib ceammc -lib creammc;
+#X obj 515 50 cnv 1 180 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 515 50 changes list size with;
 #X obj 1 1 cnv 5 712 40 empty empty list.resize 20 20 0 20 -104026
 -4096 0;
 #X obj 608 11 list.resize;
@@ -15,76 +16,76 @@
 #X obj 50 262 prepend set;
 #X msg 50 291 ;
 #X obj 20 330 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 335 cnv 5 80 16 empty empty arguments: 0 14 0 14 -262144
+#X obj 20 335 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 340 1\.;
 #X text 150 340 int;
-#X obj 241 341 cnv 1 37 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 340 SIZE: desired list size\. Min: 0;
+#X obj 241 341 cnv 1 40 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 340 SIZE: desired list size. Min value: 0;
 #X text 120 358 2\.;
 #X text 150 358 int;
-#X obj 241 359 cnv 1 74 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 358 @size INT: desired list size\. Min: 0;
+#X obj 241 359 cnv 1 81 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 358 @size INT: desired list size. Min value: 0;
 #X text 120 376 3\.;
 #X text 150 376 property;
-#X obj 241 377 cnv 1 95 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 241 377 cnv 1 104 18 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 240 376 @method ENUM: method of resizing \, if new size is
-longer then current\.  Possible values are: pad \, clip \, wrap \,
-fold\.\. ;
-#X text 120 422 4\.;
-#X text 150 422 float;
-#X obj 241 423 cnv 1 81 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 422 @pad VALUE: set pad value for pad method of
-resizing\.\. ;
-#X text 120 440 5\.;
-#X text 150 440 property;
-#X obj 241 441 cnv 1 45 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 440 @clip: pad with last values\. ;
-#X text 120 458 6\.;
-#X text 150 458 property;
-#X obj 241 459 cnv 1 45 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 458 @wrap: wrap list values\. ;
-#X text 120 476 7\.;
-#X text 150 476 property;
-#X obj 241 477 cnv 1 45 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 476 @fold: fold list values\. ;
-#X obj 20 504 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 509 cnv 5 63 16 empty empty methods: 0 14 0 14 -262144
+longer then current.  Possible values are: pad \, clip \, wrap \,
+fold.. ;
+#X text 120 408 4\.;
+#X text 150 408 float;
+#X obj 241 409 cnv 1 89 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 408 @pad VALUE: set pad value for pad method of resizing..
+;
+#X text 120 426 5\.;
+#X text 150 426 property;
+#X obj 241 427 cnv 1 49 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 426 @clip: pad with last values. ;
+#X text 120 444 6\.;
+#X text 150 444 property;
+#X obj 241 445 cnv 1 49 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 444 @wrap: wrap list values. ;
+#X text 120 462 7\.;
+#X text 150 462 property;
+#X obj 241 463 cnv 1 49 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 462 @fold: fold list values. ;
+#X obj 20 490 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 495 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 514 @size?;
-#X text 240 514 output current size\.;
-#X obj 20 556 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 561 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
+#X msg 120 500 @size?;
+#X text 240 500 output current size.;
+#X obj 20 542 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 547 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 566 1\.;
-#X text 150 566 *list*;
-#X text 240 566 input list\. ;
-#X obj 20 594 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 599 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
+#X text 120 552 1\.;
+#X text 150 552 *list*;
+#X text 240 552 input list. ;
+#X obj 20 580 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 585 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 604 1\.;
-#X text 240 604 resized list;
+#X text 120 590 1\.;
+#X text 240 590 resized list;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 652 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 655 library: ceammc v0\.1;
-#X text 541 667 see also:;
-#X obj 611 667 list.length;
-#N canvas 10 674 400 250 info 0;
-#X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
+#X obj 1 638 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 641 library: ceammc v0.1;
+#X text 535 653 see also:;
+#X obj 611 653 list.length;
+#N canvas 10 660 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0\.1;
+#X text 120 32 0.1;
 #X text 10 54 object:;
-#X text 120 54 list\.resize;
+#X text 120 54 list.resize;
 #X text 10 76 category:;
 #X text 120 76 list;
 #X text 10 98 since:;
-#X text 120 98 0\.1;
+#X text 120 98 0.1;
 #X text 10 120 authors:;
 #X text 120 120 Serge Poltavsky;
 #X text 10 142 license:;
@@ -94,9 +95,10 @@ resizing\.\. ;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pure-data @url
 https://github.com/uliss/pure-data;
-#X obj 120 228 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 120 228 generated by pddoc;
-#X restore 10 674 pd info;
+#X obj 120 208 declare -lib ceammc -lib creammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 generated by pddoc;
+#X restore 10 660 pd info;
 #X connect 8 0 11 0;
 #X connect 9 0 11 0;
 #X connect 4 0 11 0;

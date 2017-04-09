@@ -2,8 +2,8 @@
 #X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
 #X obj 79 53 ui.link @title ceammc @url ceammc-help.pd;
-#X obj 494 50 cnv 1 201 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 494 50  objects for list processing ;
+#X obj 475 50 cnv 1 220 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 475 50  objects for list processing ;
 #X obj 30 116 list.apply_to;
 #X text 175 116 modifies list value at specified position \, filtering
 it via external object.;

@@ -1,14 +1,15 @@
 #N canvas 0 0 715 555 12;
-#X obj 431 50 cnv 1 264 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 431 50 returns smallest element in the list;
+#X declare -lib ceammc -lib creammc;
+#X obj 405 50 cnv 1 290 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 405 50 returns smallest element in the list;
 #X obj 1 1 cnv 5 712 40 empty empty list.min 20 20 0 20 -104026 -4096
 0;
 #X obj 630 11 list.min;
-#X obj 235 80 cnv 1 460 84 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 240 80 By default returns smallest float in list \, this equal
-to using @float property\.;
-#X text 240 117 Also you can choose smallest symbol from list by using
-@symbol property\.;
+#X obj 205 80 cnv 1 490 84 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 210 80 By default returns smallest float in list \, this equal
+to using @float property.;
+#X text 210 117 Also you can choose smallest symbol from list by using
+@symbol property.;
 #X msg 50 192 1 2 3 a b;
 #X msg 174 192 list a b c;
 #X msg 309 192 1 2 3 a b;
@@ -24,40 +25,40 @@ to using @float property\.;
 #X obj 50 365 prepend set;
 #X msg 50 394 ;
 #X obj 20 433 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 438 cnv 5 80 16 empty empty arguments: 0 14 0 14 -262144
+#X obj 20 438 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 443 1\.;
 #X text 150 443 property;
-#X obj 241 444 cnv 1 45 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 443 @type: type of smallest element\. Possible values are:
-float (default) \, symbol \, any\. ;
+#X obj 241 444 cnv 1 49 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 443 @type: type of smallest element. Possible values are:
+float (default) \, symbol \, any. ;
 #X text 120 475 2\.;
 #X text 150 475 property;
-#X obj 241 476 cnv 1 52 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 475 @float: alias for @type float\. Find min float element
-in list\. ;
+#X obj 241 476 cnv 1 57 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 475 @float: alias for @type float. Find min float element
+in list. ;
 #X text 120 507 3\.;
 #X text 150 507 property;
-#X obj 241 508 cnv 1 59 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 507 @symbol: alias for @type symbol\. Find smallest symbol
-element\. ;
+#X obj 241 508 cnv 1 65 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 507 @symbol: alias for @type symbol. Find smallest symbol
+element. ;
 #X text 120 539 4\.;
 #X text 150 539 property;
-#X obj 241 540 cnv 1 38 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 539 @any: alias for @type any\. Find smallest atom of any
-type\.  Note: numbers are smaller then symbols\. ;
+#X obj 241 540 cnv 1 41 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 539 @any: alias for @type any. Find smallest atom of any
+type.  Note: numbers are smaller then symbols. ;
 #X obj 20 581 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 586 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
+#X obj 20 586 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 591 1\.;
 #X text 150 591 *list*;
-#X text 240 591 input list\. ;
+#X text 240 591 input list. ;
 #X text 150 609 *float*;
-#X text 240 609 passed thru in @float or @any mode\. ;
+#X text 240 609 passed thru in @float or @any mode. ;
 #X text 150 627 *symbol*;
-#X text 240 627 passed thru in @symbol or @any mode\. ;
+#X text 240 627 passed thru in @symbol or @any mode. ;
 #X obj 20 655 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 660 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
+#X obj 20 660 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 665 1\.;
 #X text 240 665 smallest element;
@@ -67,22 +68,22 @@ type\.  Note: numbers are smaller then symbols\. ;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
 #X obj 1 713 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 716 library: ceammc v0\.1;
-#X text 475 728 see also:;
+#X text 10 716 library: ceammc v0.1;
+#X text 469 728 see also:;
 #X obj 545 728 list.max;
 #X obj 618 728 list.range;
-#N canvas 10 735 400 250 info 0;
-#X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
+#N canvas 10 735 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0\.1;
+#X text 120 32 0.1;
 #X text 10 54 object:;
-#X text 120 54 list\.min;
+#X text 120 54 list.min;
 #X text 10 76 category:;
 #X text 120 76 list;
 #X text 10 98 since:;
-#X text 120 98 0\.1;
+#X text 120 98 0.1;
 #X text 10 120 authors:;
 #X text 120 120 Serge Poltavsky;
 #X text 10 142 license:;
@@ -92,8 +93,9 @@ type\.  Note: numbers are smaller then symbols\. ;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pure-data @url
 https://github.com/uliss/pure-data;
-#X obj 120 228 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 120 228 generated by pddoc;
+#X obj 120 208 declare -lib ceammc -lib creammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 generated by pddoc;
 #X restore 10 735 pd info;
 #X connect 11 0 13 0;
 #X connect 8 0 11 0;

@@ -1,7 +1,8 @@
 #N canvas 0 0 715 555 12;
-#X obj 279 50 cnv 1 416 35 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 279 50 returns the difference between the current list of
-floats and the previous one\.;
+#X declare -lib ceammc -lib creammc;
+#X obj 238 50 cnv 1 457 35 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 238 50 returns the difference between the current list of
+floats and the previous one.;
 #X obj 1 1 cnv 5 712 40 empty empty list.delta 20 20 0 20 -104026
 -4096 0;
 #X obj 615 11 list.delta;
@@ -28,58 +29,58 @@ floats and the previous one\.;
 #X obj 50 349 prepend set;
 #X msg 50 378 ;
 #X obj 20 417 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 422 cnv 5 80 16 empty empty arguments: 0 14 0 14 -262144
+#X obj 20 422 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 427 1\.;
 #X text 150 427 symbol;
-#X obj 241 428 cnv 1 74 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 241 428 cnv 1 81 18 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 240 427 @oversize: Specifies behavior \, if list have
-different sizes\.  Possible values are: min \, padz \, clip \, wrap
-and fold\. Default value: padz\.\. ;
+different sizes.  Possible values are: min \, padz \, clip \, wrap and
+fold. Default value: padz.. ;
 #X text 120 473 2\.;
 #X text 150 473 symbol;
-#X obj 241 474 cnv 1 38 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 473 @min: alias for "@oversize min" property\.  Truncates
-lists to minimal common size\.\. ;
+#X obj 241 474 cnv 1 41 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 473 @min: alias for "@oversize min" property.  Truncates
+lists to minimal common size.. ;
 #X text 120 505 3\.;
 #X text 150 505 symbol;
-#X obj 241 506 cnv 1 45 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 505 @clip: alias for "@oversize min" property\.  Truncates
-lists to minimal common size\.\. ;
+#X obj 241 506 cnv 1 49 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 505 @clip: alias for "@oversize min" property.  Truncates
+lists to minimal common size.. ;
 #X text 120 537 4\.;
 #X text 150 537 symbol;
-#X obj 241 538 cnv 1 45 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 537 @padz: alias for "@oversize padz" property\.  Pad
-shortest list with zeroes\.\. ;
+#X obj 241 538 cnv 1 49 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 537 @padz: alias for "@oversize padz" property.  Pad
+shortest list with zeroes.. ;
 #X text 120 569 5\.;
 #X text 150 569 symbol;
-#X obj 241 570 cnv 1 45 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 569 @clip: alias for "@oversize clip" property\.  Pad
-shortest list with last element to conform longest list\. ;
+#X obj 241 570 cnv 1 49 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 569 @clip: alias for "@oversize clip" property.  Pad
+shortest list with last element to conform longest list. ;
 #X text 120 601 6\.;
 #X text 150 601 symbol;
-#X obj 241 602 cnv 1 45 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 601 @wrap: alias for "@oversize wrap" property\.  Pad
-shortest list with repeated values from the beginning\.\. ;
+#X obj 241 602 cnv 1 49 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 601 @wrap: alias for "@oversize wrap" property.  Pad
+shortest list with repeated values from the beginning.. ;
 #X text 120 633 7\.;
 #X text 150 633 symbol;
-#X obj 241 634 cnv 1 45 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 633 @fold: alias for "@oversize fold" property\.  Pad
+#X obj 241 634 cnv 1 49 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 633 @fold: alias for "@oversize fold" property.  Pad
 shortest list with repeated values from the end to the beginning \,
-then back and so on\.\. ;
+then back and so on.. ;
 #X obj 20 689 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 694 cnv 5 63 16 empty empty methods: 0 14 0 14 -262144
+#X obj 20 694 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 699 clear;
-#X text 240 699 sets to empty list current state\.;
+#X text 240 699 sets to empty list current state.;
 #X obj 20 741 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 746 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
+#X obj 20 746 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 751 1\.;
 #X text 150 751 *list*;
-#X text 240 751 Input float list\. ;
+#X text 240 751 Input float list. ;
 #X obj 20 779 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 784 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
+#X obj 20 784 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 789 1\.;
 #X text 240 789 delta list;
@@ -89,21 +90,21 @@ then back and so on\.\. ;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
 #X obj 1 837 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 840 library: ceammc v0\.1;
-#X text 511 852 see also:;
+#X text 10 840 library: ceammc v0.1;
+#X text 505 852 see also:;
 #X obj 581 852 list.integrator;
-#N canvas 10 859 400 250 info 0;
-#X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
+#N canvas 10 859 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0\.1;
+#X text 120 32 0.1;
 #X text 10 54 object:;
-#X text 120 54 list\.delta;
+#X text 120 54 list.delta;
 #X text 10 76 category:;
 #X text 120 76 list;
 #X text 10 98 since:;
-#X text 120 98 0\.1;
+#X text 120 98 0.1;
 #X text 10 120 authors:;
 #X text 120 120 Alex Nadzharov \, Serge Poltavsky;
 #X text 10 142 license:;
@@ -113,8 +114,9 @@ then back and so on\.\. ;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pure-data @url
 https://github.com/uliss/pure-data;
-#X obj 120 228 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 120 228 generated by pddoc;
+#X obj 120 208 declare -lib ceammc -lib creammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 generated by pddoc;
 #X restore 10 859 pd info;
 #X connect 19 0 22 0;
 #X connect 8 0 14 0;

@@ -1,84 +1,84 @@
 #N canvas 0 0 715 555 12;
-#X obj 416 50 cnv 1 279 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 416 50 returns list element at given position;
+#X declare -lib ceammc -lib creammc;
+#X obj 389 50 cnv 1 306 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 389 50 returns list element at given position;
 #X obj 1 1 cnv 5 712 40 empty empty list.at 20 20 0 20 -104026 -4096
 0;
 #X obj 637 11 list.at;
-#X obj 235 80 cnv 1 460 214 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 240 80 Returns the element at the given index position in the
-list\.;
-#X text 240 117 @rel property allows to acess elements in range
-(-LIST_SIZE \, LIST_SIZE)\. Negative index means position from the end
-of the list\. For example: -1 returns last element\.;
-#X text 240 182 @clip property: if element index < 0 - first element
-returned\. If element index >= LIST_SIZE last element returned\.;
-#X text 240 233 @wrap property: in range [0 \, LIST_SIZE) ordinal
-elements are returned\. Other indexes are wrapped by modulo
-division\.;
-#X msg 50 322 1 2 3 4 5;
-#X floatatom 165 322 5 0 0 0 - - -;
-#X msg 213 322 1 2 3 4 5;
-#X floatatom 328 322 5 0 0 0 - - -;
-#X obj 50 351 list.at -1;
-#X obj 213 351 list.at @clip;
-#X floatatom 50 380 5 0 0 0 - - -;
-#X floatatom 213 380 5 0 0 0 - - -;
-#X msg 50 423 1 2 3 4 5;
-#X floatatom 165 423 5 0 0 0 - - -;
-#X msg 213 423 1 2 3 4 5;
-#X floatatom 328 423 5 0 0 0 - - -;
-#X obj 50 452 list.at @wrap;
-#X obj 213 452 list.at @fold;
-#X floatatom 50 481 5 0 0 0 - - -;
-#X floatatom 213 481 5 0 0 0 - - -;
-#X obj 20 520 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 525 cnv 5 80 16 empty empty arguments: 0 14 0 14 -262144
+#X obj 205 80 cnv 1 490 186 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 210 80 Returns the element at the given index position in the
+list.;
+#X text 210 117 @rel property allows to acess elements in range
+(-LIST_SIZE \, LIST_SIZE). Negative index means position from the end
+of the list. For example: -1 returns last element.;
+#X text 210 168 @clip property: if element index < 0 - first element
+returned. If element index >= LIST_SIZE last element returned.;
+#X text 210 219 @wrap property: in range [0 \, LIST_SIZE) ordinal
+elements are returned. Other indexes are wrapped by modulo division.;
+#X msg 50 294 1 2 3 4 5;
+#X floatatom 165 294 5 0 0 0 - - -;
+#X msg 213 294 1 2 3 4 5;
+#X floatatom 328 294 5 0 0 0 - - -;
+#X obj 50 323 list.at -1;
+#X obj 213 323 list.at @clip;
+#X floatatom 50 352 5 0 0 0 - - -;
+#X floatatom 213 352 5 0 0 0 - - -;
+#X msg 50 395 1 2 3 4 5;
+#X floatatom 165 395 5 0 0 0 - - -;
+#X msg 213 395 1 2 3 4 5;
+#X floatatom 328 395 5 0 0 0 - - -;
+#X obj 50 424 list.at @wrap;
+#X obj 213 424 list.at @fold;
+#X floatatom 50 453 5 0 0 0 - - -;
+#X floatatom 213 453 5 0 0 0 - - -;
+#X obj 20 492 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 497 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 120 530 1\.;
-#X text 150 530 int;
-#X obj 241 531 cnv 1 66 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 530 position: position\. ;
-#X text 120 548 2\.;
-#X text 150 548 symbol;
-#X obj 241 549 cnv 1 52 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 548 method: @rel(default) \, @clip \, @fold or @wrap\.
+#X text 120 502 1\.;
+#X text 150 502 int;
+#X obj 241 503 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 502 position: position. ;
+#X text 120 520 2\.;
+#X text 150 520 symbol;
+#X obj 241 521 cnv 1 56 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 520 method: @rel(default) \, @clip \, @fold or @wrap.
 They are aliases for property: @method rel \, @method clip \, @method
-fold and @method wrap\. ;
-#X obj 20 604 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 609 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
+fold and @method wrap. ;
+#X obj 20 576 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 581 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 614 1\.;
-#X text 150 614 *list*;
-#X text 240 614 Input list\. ;
-#X text 120 632 2\.;
-#X text 150 632 *int*;
-#X text 240 632 position\. ;
-#X obj 20 660 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 665 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
+#X text 120 586 1\.;
+#X text 150 586 *list*;
+#X text 240 586 Input list. ;
+#X text 120 604 2\.;
+#X text 150 604 *int*;
+#X text 240 604 position. ;
+#X obj 20 632 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 637 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 670 1\.;
-#X text 240 670 element at the given index position;
+#X text 120 642 1\.;
+#X text 240 642 element at the given index position;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 718 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 721 library: ceammc v0\.1;
-#X text 526 733 see also:;
-#X obj 596 733 list.apply_to;
-#N canvas 10 740 400 250 info 0;
-#X obj 1 1 cnv 1 107 247 empty empty empty 17 7 0 10 -183085 -1 0;
+#X obj 1 690 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 693 library: ceammc v0.1;
+#X text 520 705 see also:;
+#X obj 596 705 list.apply_to;
+#N canvas 10 712 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0\.1;
+#X text 120 32 0.1;
 #X text 10 54 object:;
-#X text 120 54 list\.at;
+#X text 120 54 list.at;
 #X text 10 76 category:;
 #X text 120 76 list;
 #X text 10 98 since:;
-#X text 120 98 0\.1;
+#X text 120 98 0.1;
 #X text 10 120 authors:;
 #X text 120 120 Serge Poltavsky;
 #X text 10 142 license:;
@@ -88,9 +88,10 @@ fold and @method wrap\. ;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pure-data @url
 https://github.com/uliss/pure-data;
-#X obj 120 228 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 120 228 generated by pddoc;
-#X restore 10 740 pd info;
+#X obj 120 208 declare -lib ceammc -lib creammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 generated by pddoc;
+#X restore 10 712 pd info;
 #X connect 19 0 22 0;
 #X connect 11 0 14 0;
 #X connect 20 0 22 1;
