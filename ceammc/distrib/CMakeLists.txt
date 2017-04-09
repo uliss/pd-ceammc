@@ -11,6 +11,9 @@ endif()
 if(MAKELIB_SCRIPT)
     add_custom_target(ceammc_lib
         COMMAND "${MAKELIB_SCRIPT}"
-            "${CMAKE_CURRENT_BINARY_DIR}/.." "${CMAKE_BINARY_DIR}/dist" "${CEAMMC_LIB_VERSION}"
+            "${CMAKE_CURRENT_SOURCE_DIR}/.."
+            "${CMAKE_CURRENT_BINARY_DIR}/.."
+            "${CMAKE_BINARY_DIR}/dist"
+            "${CEAMMC_LIB_VERSION}"
         SOURCES "${MAKELIB_SCRIPT}")
 endif()

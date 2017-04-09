@@ -54,4 +54,10 @@ pd_add_extension(NAME ceammc
 
 ceammc_link_fix(ceammc)
 
+pd_add_extension(NAME ceammc_compat
+    FILES compat.cpp
+    INTERNAL True
+    LIBRARY ceammc
+    LINK ceammc)
+
 add_custom_target(ceammc_lib_src SOURCES apple_rpath_fix.sh gen_lib.sh)

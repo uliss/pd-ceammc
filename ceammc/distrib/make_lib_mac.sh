@@ -2,12 +2,13 @@
 
 if [ $# -ne 3 ]
 then
-    echo "Usage: $0 INDIR OUTDIR VERSION"
+    echo "Usage: $0 SRCDIR BINDIR OUTDIR VERSION"
 fi
 
-DIR="$1"
-VERSION="$3"
-OUTDIR="$2/pd_ceammclib-$VERSION"
+SRCDIR="$1"
+BINDIR="$2"
+VERSION="$4"
+OUTDIR="$3/pd_ceammclib-$VERSION"
 
 
 function skip_ext {
@@ -21,12 +22,12 @@ function skip_ext {
     fi
 }
 
-echo "Making CEAMMC library from build directory: $DIR"
+echo "Making CEAMMC library from build directory: $BINDIR"
 mkdir -p "${OUTDIR}"
 rm "${OUTDIR}/*"
 
 echo "Copying libraries to ${OUTDIR} ..."
-find "${DIR}" -name *.dylib -print0 | while read -r -d '' file
+find "${BINDIR}" -name *.dylib -print0 | while read -r -d '' file
 do
     cp "$file" "${OUTDIR}"
     echo "+ Lib:  $(basename $file)"
@@ -34,7 +35,7 @@ done
 
 
 echo "Copying extension files to ${OUTDIR} ..."
-find "${DIR}" -name *.d_fat -print0 | while read -r -d '' file
+find "${BINDIR}" -name *.d_fat -print0 | while read -r -d '' file
 do
     ext_name=$(basename $file)
     cp_ext_name="${ext_name%.d_fat}.pd_darwin"
@@ -49,11 +50,22 @@ do
     echo "+ Copy: '$ext_name' as '$cp_ext_name'"
 done
 
+ceammc_lib=$(find "${BINDIR}" -name ceammc\\.d_fat)
+cp $ceammc_lib "${OUTDIR}"
+
+ceammc_compat=$(find "${BINDIR}" -name ceammc_compat.d_fat)
+cp $ceammc_compat "${OUTDIR}/ceammc.pd_darwin"
+rm "${OUTDIR}/ceammc_compat.pd_darwin"
+
 echo "Copying help files to ${OUTDIR} ..."
-find "${DIR}/ext/doc" -name *-help\\.pd | while read file
+find "${SRCDIR}/ext/doc" -name *-help\\.pd | while read file
 do
     help=$(basename $file)
-    cp "$file" "${OUTDIR}"
+    cat "$file" |
+        sed 's/ui\.link @title \([^ ]*\) @url \([^; ]*\)/pddplink \2 -text \1/' |
+        sed 's/\.\.\/index-help\.pd/index-help.pd/' > "${OUTDIR}/${help}"
     echo "+ Copy: '$help'"
 done
+
+
 
