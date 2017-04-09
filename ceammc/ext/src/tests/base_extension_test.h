@@ -26,6 +26,7 @@ using namespace ceammc;
 
 typedef std::vector<Message> MessageList;
 extern "C" void obj_init();
+extern "C" void pd_init();
 
 template <class T>
 static t_object* make_owner(const char* name)

@@ -59,7 +59,7 @@ void jong_ny(jong* x, double max);
 void jong_om(jong* x, long max);
 
 void jong_assist(jong* x, void* b, long m, long a, char* s);
-void* jong_class;
+static t_eclass* jong_class;
 
 void* jong_new(t_symbol* msg, short argc, t_atom* argv) //input the args
 {
@@ -243,8 +243,6 @@ void setup_noise0x2ejong()
         (t_typ_method)(jong_free),
         sizeof(jong), 0, A_GIMME, 0);
 
-    //eclass_addmethod(lorenz_class, (method)baker_bang, "bang", A_GIMME, 0);
-
     eclass_addmethod(jong_class, (method)jong_bang, "bang", A_GIMME, 0);
     eclass_addmethod(jong_class, (method)jong_reset, "reset", A_GIMME, 0);
     eclass_addmethod(jong_class, (method)jong_set, "set", A_GIMME, 0);
@@ -255,8 +253,6 @@ void setup_noise0x2ejong()
     eclass_addmethod(jong_class, (method)jong_c, "c", A_DEFFLOAT, 0);
     eclass_addmethod(jong_class, (method)jong_d, "d", A_DEFFLOAT, 0);
     eclass_addmethod(jong_class, (method)jong_om, "om", A_DEFFLOAT, 0);
-    
-    post("noise.jong: part of A-Chaos library, (C) 2004 André Sier");
 }
 
 

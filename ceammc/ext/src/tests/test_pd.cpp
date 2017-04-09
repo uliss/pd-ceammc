@@ -12,49 +12,75 @@
  * this file belongs to.
  *****************************************************************************/
 
+#include "../base/debug_gensym.h"
 #include "catch.hpp"
 #include "ceammc.hpp"
 
-#include <stdio.h>
+extern "C" void pd_init();
 
-using namespace ceammc::pd;
+#include <stdio.h>
+#include <set>
+
+using namespace pd;
 
 TEST_CASE("PD", "[PureData]")
 {
     SECTION("hash table size")
     {
+        const int OFFSET = 7;
+
         t_ceammc_gensym_info info;
         gensym_info(&info);
 
         REQUIRE(info.table_size == 1024);
 
-        REQUIRE(info.symbol_count == 0);
+        REQUIRE(info.symbol_count == 0 + OFFSET);
 
         gensym("test");
         gensym_info(&info);
-        REQUIRE(info.symbol_count == 1);
+        REQUIRE(info.symbol_count == 1 + OFFSET);
         REQUIRE(info.max_chain == 1);
-        REQUIRE(info.memory_size == 5);
+        REQUIRE(info.memory_size == 64);
 
         char buf[20];
         for (int i = 0; i < 20000; i++) {
-            sprintf(buf, "%d", i);
+            sprintf(buf, "%d", i + OFFSET);
             gensym(buf);
         }
 
         gensym_info(&info);
-        REQUIRE(info.symbol_count == 20001);
+        REQUIRE(info.symbol_count == 20001 + OFFSET);
         REQUIRE(info.max_chain == 38);
     }
 
-    SECTION("memrss") {
+    SECTION("memrss")
+    {
 #if !defined(__FreeBSD__)
         REQUIRE(ceammc_memory_current_rss() != 0);
         REQUIRE(ceammc_memory_peak_rss() != 0);
 #endif
     }
 
-    SECTION("memsize") {
+    SECTION("memsize")
+    {
         REQUIRE(ceammc_memory_size() != 0);
+    }
+
+    SECTION("test current object list")
+    {
+        pd_init();
+
+        using namespace ceammc;
+        typedef std::vector<std::string> slist;
+        typedef std::set<std::string> sset;
+        slist l = currentExtensionList();
+        REQUIRE(l.size() > 0);
+
+        sset s(l.begin(), l.end());
+        REQUIRE(s.count("unknown") == 0);
+        REQUIRE(s.count("osc~") == 1);
+        REQUIRE(s.count("unpack") == 1);
+        REQUIRE(s.count("pack") == 1);
+        REQUIRE(s.count("list.each") == 0);
     }
 }

@@ -161,6 +161,9 @@ proc ::completion::add_libraries_externals {} {
 proc ::completion::add_ceammc_externals {} {
     set filename [file join $::current_plugin_loadpath "ceammc_objects"]
     ::completion::read_objectlist_file [format "%s.txt" $filename]
+
+    set filename [file join $::current_plugin_loadpath "cream_objects"]
+    ::completion::read_objectlist_file [format "%s.txt" $filename]
 }
 
 proc ::completion::add_user_objectlist {} {

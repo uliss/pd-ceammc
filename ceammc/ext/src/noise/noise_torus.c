@@ -42,7 +42,7 @@ void torus_y0(torus* x, float echo);
 void torus_cr(torus* x, float echo);
 
 void torus_assist(torus* x, void* b, long m, long a, char* s);
-void* torus_class;
+static t_eclass* torus_class;
 
 void* torus_new(t_symbol* msg, short argc, t_atom* argv)
 {
@@ -158,8 +158,6 @@ void setup_noise0x2etorus()
         (t_typ_method)(torus_free),
         sizeof(torus), 0, A_GIMME, 0);
 
-    //eclass_addmethod(lorenz_class, (method)baker_bang, "bang", A_GIMME, 0);
-
     eclass_addmethod(torus_class, (method)torus_bang, "bang", A_GIMME, 0);
 
     eclass_addmethod(torus_class, (method)torus_reset, "reset", A_GIMME, 0);
@@ -168,8 +166,6 @@ void setup_noise0x2etorus()
     eclass_addmethod(torus_class, (method)torus_x0, "x", A_DEFFLOAT, 0);
     eclass_addmethod(torus_class, (method)torus_y0, "y", A_DEFFLOAT, 0);
     eclass_addmethod(torus_class, (method)torus_om, "om", A_DEFFLOAT, 0);
-    
-    post("noise.torus: part of A-Chaos library, (C) 2004 André Sier");
 }
 
 

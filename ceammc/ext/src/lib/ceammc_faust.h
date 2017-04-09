@@ -32,8 +32,6 @@
 namespace ceammc {
 namespace faust {
 
-    static int spathcmp(const char* s, const char* t);
-
     enum UIElementType {
         UI_BUTTON,
         UI_CHECK_BUTTON,
@@ -89,146 +87,38 @@ namespace faust {
         static t_symbol *s_button, *s_checkbox, *s_vslider, *s_hslider, *s_nentry, *s_vbargraph, *s_hbargraph;
     };
 
-    t_symbol* UIElement::s_button = gensym("button");
-    t_symbol* UIElement::s_checkbox = gensym("checkbox");
-    t_symbol* UIElement::s_vslider = gensym("vslider");
-    t_symbol* UIElement::s_hslider = gensym("hslider");
-    t_symbol* UIElement::s_nentry = gensym("nentry");
-    t_symbol* UIElement::s_vbargraph = gensym("vbargraph");
-    t_symbol* UIElement::s_hbargraph = gensym("hbargraph");
-
-    UIElement::UIElement(UIElementType t, const std::string& path, const std::string& label)
-        : type_(t)
-        , path_(path)
-        , label_(label)
-        , init_(0)
-        , min_(0)
-        , max_(1)
-        , step_(0)
-        , zone_(0)
-        , set_prop_symbol_(0)
-        , get_prop_symbol_(0)
-    {
-        initProperty(label);
-    }
-
-    const std::string& UIElement::label() const
+    inline const std::string& UIElement::label() const
     {
         return label_;
     }
 
-    const std::string& UIElement::path() const
+    inline const std::string& UIElement::path() const
     {
         return path_;
     }
 
-    t_symbol* UIElement::typeSymbol() const
-    {
-        switch (type_) {
-        case UI_BUTTON:
-            return s_button;
-        case UI_CHECK_BUTTON:
-            return s_checkbox;
-        case UI_V_SLIDER:
-            return s_vslider;
-        case UI_H_SLIDER:
-            return s_hslider;
-        case UI_NUM_ENTRY:
-            return s_nentry;
-        case UI_V_BARGRAPH:
-            return s_vbargraph;
-        case UI_H_BARGRAPH:
-            return s_hbargraph;
-        default:
-            return 0;
-        }
-    }
-
-    UIElementType UIElement::type() const
+    inline UIElementType UIElement::type() const
     {
         return type_;
     }
 
-    void UIElement::initProperty(const std::string& name)
-    {
-        char buf[MAXPDSTRING];
-        sprintf(buf, "@%s", name.c_str());
-        set_prop_symbol_ = gensym(buf);
-        sprintf(buf, "@%s?", name.c_str());
-        get_prop_symbol_ = gensym(buf);
-    }
-
-    t_symbol* UIElement::getPropertySym()
+    inline t_symbol* UIElement::getPropertySym()
     {
         return get_prop_symbol_;
     }
 
-    t_symbol* UIElement::setPropertySym()
+    inline t_symbol* UIElement::setPropertySym()
     {
         return set_prop_symbol_;
     }
 
-    void UIElement::outputProperty(t_outlet* out)
-    {
-        if (!out)
-            return;
-
-        ceammc::Atom a;
-
-        if (zone_)
-            a.setFloat(*zone_, true);
-        else
-            a.setSymbol(gensym("?"), true);
-
-        a.outputAsAny(out, set_prop_symbol_);
-    }
-
-    void UIElement::outputValue(t_outlet* out)
-    {
-        if (!out || !zone_)
-            return;
-
-        Atom a(value());
-        a.outputAsAny(out, gensym(path_.c_str()));
-    }
-
-    FAUSTFLOAT UIElement::value(FAUSTFLOAT def) const
-    {
-        if (!zone_)
-            return std::min(max_, std::max(min_, def));
-
-        return std::min(max_, std::max(min_, *zone_));
-    }
-
-    void UIElement::setValue(FAUSTFLOAT v, bool clip)
-    {
-        if (!zone_)
-            return;
-
-        if (v < min_) {
-            if (clip)
-                *zone_ = min_;
-
-            return;
-        }
-
-        if (v > max_) {
-            if (clip)
-                *zone_ = max_;
-
-            return;
-        }
-
-        *zone_ = v;
-    }
-
-    void UIElement::setValuePtr(FAUSTFLOAT* vPtr)
+    inline void UIElement::setValuePtr(FAUSTFLOAT* vPtr)
     {
         zone_ = vPtr;
         *zone_ = init_;
     }
 
-    void UIElement::setContraints(FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step)
+    inline void UIElement::setContraints(FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step)
     {
         assert(min <= init && init <= max);
 
@@ -238,112 +128,13 @@ namespace faust {
         step_ = step;
     }
 
-    bool UIElement::pathcmp(const std::string& path) const
-    {
-        size_t n = path_.size();
-        size_t m = path.size();
-
-        if (n == 0 || m == 0)
-            return false;
-
-        // full path check
-        if (path[0] == '/')
-            return path_ == path;
-
-        if (m < n && path_[n - m - 1] != '/')
-            return path_.compare(n - m - 1, std::string::npos, path) == 0;
-
-        return path_.compare(n - m, std::string::npos, path) == 0;
-    }
-
-    void UIElement::dump(t_outlet* out)
-    {
-        if (!out)
-            return;
-
-        if (!zone_)
-            return;
-
-        t_symbol* sel = typeSymbol();
-        if (!sel)
-            return;
-
-        AtomList lst;
-        lst.append(atomFrom(path_));
-        lst.append(value());
-        lst.append(init_);
-        lst.append(min_);
-        lst.append(max_);
-        lst.append(step_);
-
-        lst.outputAsAny(out, sel);
-    }
-
-    static bool isGetAllProperties(t_symbol* s)
-    {
-        size_t len = strlen(s->s_name);
-        if (len < 2)
-            return false;
-
-        return s->s_name[0] == '@' && s->s_name[1] == '*';
-    }
-
-    static bool isGetProperty(t_symbol* s)
-    {
-        size_t len = strlen(s->s_name);
-        if (len < 1)
-            return false;
-
-        if (s->s_name[0] != '@')
-            return false;
-
-        return s->s_name[len - 1] == '?';
-    }
-
-    static bool isSetProperty(t_symbol* s)
-    {
-        size_t len = strlen(s->s_name);
-        if (len < 1)
-            return false;
-
-        if (s->s_name[0] != '@')
-            return false;
-
-        return s->s_name[len - 1] != '?';
-    }
-
-    static bool skipOscSegment(const std::string& s)
-    {
-        if (s.empty())
-            return true;
-
-        if (s == "0x00")
-            return true;
-
-        return false;
-    }
-
-    static bool invalidOscChar(char c) { return isalnum(c) == 0; }
-
-    static std::string escapeOscSegment(const std::string& s)
-    {
-        std::string res;
-        std::remove_copy_if(s.begin(), s.end(), std::back_inserter(res), &invalidOscChar);
-        return res;
-    }
-
-    static std::vector<std::string> filterOscSegment(const std::vector<std::string>& osc)
-    {
-        std::vector<std::string> res;
-        res.reserve(osc.size());
-        for (size_t i = 0; i < osc.size(); i++) {
-            if (skipOscSegment(osc[i]))
-                continue;
-
-            res.push_back(escapeOscSegment(osc[i]));
-        }
-        return res;
-    }
+    bool isGetAllProperties(t_symbol* s);
+    bool isGetProperty(t_symbol* s);
+    bool isSetProperty(t_symbol* s);
+    bool skipOscSegment(const std::string& s);
+    bool invalidOscChar(char c);
+    std::string escapeOscSegment(const std::string& s);
+    std::vector<std::string> filterOscSegment(const std::vector<std::string>& osc);
 
     template <typename T>
     class PdUI : public T {

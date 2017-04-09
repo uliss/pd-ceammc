@@ -6,8 +6,12 @@
 #include <cstring>
 #include <functional>
 #include <vector>
+#include <string>
 
 namespace ceammc {
+
+std::vector<std::string> currentExtensionList();
+
 namespace math {
     template <class T>
     static inline T ceil(T v);
@@ -123,8 +127,6 @@ namespace pd {
             return atom_equals(a, b);
         }
     };
-
-    void gensym_info(t_ceammc_gensym_info* info);
 }
 }
 

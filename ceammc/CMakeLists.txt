@@ -1,6 +1,9 @@
 set(CEAMMC_LIB_VERSION "0.1")
 set(CEAMMC_LIB_HOME "https://github.com/uliss/pure-data")
 
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/ceammc_config.h.in ${CMAKE_CURRENT_BINARY_DIR}/ceammc_config.h)
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
+
 add_subdirectory(extra)
 add_subdirectory(gui)
 add_subdirectory(ext)

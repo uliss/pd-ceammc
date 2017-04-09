@@ -14,7 +14,6 @@ extern "C" void libpd_loadcream(void)
     cream_setup();
 }
 
-
 static void* cream_new(t_symbol* s)
 {
     t_eobj* x = (t_eobj*)eobj_new(cream_class);
@@ -23,7 +22,6 @@ static void* cream_new(t_symbol* s)
         logpost(x, 3, "Cream Library by Pierre Guillot\n© 2013 - 2015  "
                       "CICM | Paris 8 University\nVersion %s (%s) for Pure Data %i.%i\n",
             creamversion, __DATE__, PD_MAJOR_VERSION, PD_MINOR_VERSION);
-
     }
     return (x);
 }
@@ -85,12 +83,7 @@ extern "C" void cream_setup(void)
     }
 
     //epd_add_lib("cream");
-    //setup_c0x2eblackboard();
-    //setup_c0x2ebreakpoints();
-    //setup_c0x2egain_tilde();
-
-    setup_c0x2eknob();
-
+    //    setup_c0x2egain_tilde();
 
     //CEAMMC
     setup_ui0x2ebang();
@@ -110,21 +103,8 @@ extern "C" void cream_setup(void)
     setup_ui0x2etoggle();
 
 #ifdef __APPLE__
-//    setup_c0x2ekeyboard();
 //    setup_c0x2ecamomile();
-//    setup_c0x2ewavesel();
 #endif
-
-    // Deprecated
-    //    setup_c0x2econvolve_tilde();
-    //    setup_c0x2efreeverb_tilde();
-    setup_c0x2epak();
-    setup_c0x2epatcherargs();
-    setup_c0x2epatcherinfos();
-    setup_c0x2epatchermess();
-    setup_c0x2eloadmess();
-    setup_c0x2eprepend();
-
     epd_add_folder("Cream", "misc");
     epd_add_folder("Cream", "helps");
 }

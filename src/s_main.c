@@ -246,6 +246,10 @@ void glob_initfromgui(void *dummy, t_symbol *s, int argc, t_atom *argv)
         if (!sys_load_lib(0, nl->nl_string))
             post("%s: can't load library", nl->nl_string);
 
+    // load main CEAMMC library
+    if(!sys_load_lib(0, "ceammc"))
+        post("ceammc: can't load library");
+
     // load cream GUI library
     if(!sys_load_lib(0, "creammc"))
         post("creammc: can't load library");

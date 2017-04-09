@@ -36,7 +36,7 @@ void henon_heilles_dt(henon_heilles* x, double max);
 void henon_heilles_om(henon_heilles* x, long max);
 
 void henon_heilles_assist(henon_heilles* x, void* b, long m, long a, char* s);
-t_eclass* henon_heilles_class;
+static t_eclass* henon_heilles_class;
 
 void* henon_heilles_new(t_symbol* msg, short argc, t_atom* argv) //input the args
 {
@@ -210,8 +210,6 @@ void setup_noise0x2ehenon_heilles()
         (t_typ_method)(henon_heilles_free),
         sizeof(henon_heilles), 0, A_GIMME, 0);
 
-    //eclass_addmethod(lorenz_class, (method)baker_bang, "bang", A_GIMME, 0);
-
     eclass_addmethod(henon_heilles_class, (method)henon_heilles_bang, "bang", A_GIMME, 0);
     eclass_addmethod(henon_heilles_class, (method)henon_heilles_reset, "reset", A_GIMME, 0);
     eclass_addmethod(henon_heilles_class, (method)henon_heilles_set, "set", A_GIMME, 0);
@@ -220,7 +218,5 @@ void setup_noise0x2ehenon_heilles()
     eclass_addmethod(henon_heilles_class, (method)henon_heilles_nydot, "y'", A_DEFFLOAT, 0);
     eclass_addmethod(henon_heilles_class, (method)henon_heilles_e, "e", A_DEFFLOAT, 0);
     eclass_addmethod(henon_heilles_class, (method)henon_heilles_dt, "dt", A_DEFFLOAT, 0);
-    
-    post("noise.henon_heilles: part of A-Chaos library, (C) 2004 André Sier");
 }
 

@@ -8,8 +8,6 @@
 #include <math.h>
 #include <stdbool.h>
 
-//#include "math.h"
-
 #define rosx(y, z) -((y) + (z))
 #define rosy(x, y, a) (x) + ((a) * (y))
 #define rosz(x, z, b, c) (b) + ((x) * (z)) - ((c) * (z))
@@ -45,7 +43,7 @@ void rossler_reset(rossler* x, t_symbol* msg, short argc, t_atom* argv);
 void rossler_set(rossler* x, t_symbol* msg, short argc, t_atom* argv);
 
 void rossler_assist(rossler* x, void* b, long m, long a, char* s);
-void* rossler_class;
+static t_eclass* rossler_class;
 
 void* rossler_new(t_symbol* msg, short argc, t_atom* argv) //input the args
 {
@@ -257,8 +255,6 @@ void setup_noise0x2erossler()
         (t_typ_method)(rossler_free),
         sizeof(rossler), 0, A_GIMME, 0);
 
-    //eclass_addmethod(lorenz_class, (method)baker_bang, "bang", A_GIMME, 0);
-
     eclass_addmethod(rossler_class, (method)rossler_bang, "bang", A_GIMME, 0);
     eclass_addmethod(rossler_class, (method)rossler_set, "set", A_GIMME, 0);
     eclass_addmethod(rossler_class, (method)rossler_reset, "reset", A_GIMME, 0);
@@ -271,8 +267,6 @@ void setup_noise0x2erossler()
     eclass_addmethod(rossler_class, (method)rossler_ny, "y", A_DEFFLOAT, 0);
     eclass_addmethod(rossler_class, (method)rossler_nz, "z", A_DEFFLOAT, 0);
     eclass_addmethod(rossler_class, (method)rossler_om, "om", A_DEFFLOAT, 0);
-    
-    post("noise.rossler: part of A-Chaos library, (C) 2004 André Sier");
 }
 
 

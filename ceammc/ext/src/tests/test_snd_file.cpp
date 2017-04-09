@@ -11,7 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../snd_file.h"
+#include "../base/snd_file.h"
 #include "base_extension_test.h"
 #include "catch.hpp"
 #include "ceammc_sound.h"

@@ -72,13 +72,6 @@ size_t ceammc_memory_size();
 size_t ceammc_memory_current_rss();
 size_t ceammc_memory_peak_rss();
 
-typedef struct t_ceammc_gensym_info {
-    size_t table_size;
-    size_t symbol_count;
-    size_t max_chain;
-    size_t memory_size;
-} t_ceammc_gensym_info;
-
 #ifdef __cplusplus
 }
 #endif

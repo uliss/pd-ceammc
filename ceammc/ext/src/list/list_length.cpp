@@ -24,7 +24,7 @@ static void* length_new()
     return reinterpret_cast<void*>(x);
 }
 
-extern "C" void CEAMMC_LIST_MODULE(length)
+extern "C" void setup_list0x2elength()
 {
     length_class = class_new(CEAMMC_LIST_GENSYM(length),
         reinterpret_cast<t_newmethod>(length_new), 0, sizeof(t_length), 0, A_NULL);

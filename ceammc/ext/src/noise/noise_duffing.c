@@ -237,6 +237,4 @@ void setup_noise0x2eduffing()
     eclass_addmethod(duffing_class, (method)duffing_w, "w", A_FLOAT, 0);
     eclass_addmethod(duffing_class, (method)duffing_dt, "dt", A_FLOAT, 0);
     eclass_addmethod(duffing_class, (method)duffing_om, "om", A_DEFFLOAT, 0);
-
-    post("noise.duffing: part of A-Chaos library, (C) 2004 André Sier");
 }
