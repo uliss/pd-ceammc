@@ -28,7 +28,7 @@
 #X obj 20 354 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 359 1\.;
-#X text 240 359 output signal;
+#X text 240 359 triangle wave in [0-1] range;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
