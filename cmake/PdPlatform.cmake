@@ -82,6 +82,12 @@ if(WIN32)
         install(FILES ${PTHREADGC_DLL} DESTINATION ${PD_EXE_INSTALL_PATH})
     endif()
 
+    # install libsndfile-1.dll
+    find_file(SNDFILEDLL_PATH NAMES libsndfile-1.dll PATHS ${WISH_BINDIR})
+    if(SNDFILEDLL_PATH)
+        install(PROGRAMS ${SNDFILEDLL_PATH} DESTINATION ${PD_EXE_INSTALL_PATH})
+    endif()
+
     # mingw runtime libs
     get_filename_component(_MINGW_PATH ${CMAKE_CXX_COMPILER} PATH)
     set(_MINGW_BIN ${_MINGW_PATH}/../i686-w64-mingw32/bin)
