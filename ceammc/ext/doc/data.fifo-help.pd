@@ -6,8 +6,8 @@
 #X obj 622 11 data.fifo;
 #X obj 235 80 cnv 1 460 61 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 240 80 If size argument specified - creates queue with fixed
-size\.  When count of values exceed this limit \, outputs and removes
-first value in queue\.  ;
+size.  When count of values exceed this limit \, outputs and removes
+first value in queue.  ;
 #X floatatom 213 169 5 0 0 0 - - -;
 #X msg 88 198 pop;
 #X msg 155 198 1 2;
@@ -21,7 +21,7 @@ first value in queue\.  ;
 #X msg 174 227 clear;
 #X msg 270 227 flush;
 #X obj 50 256 data.fifo 5;
-#X obj 50 285 prepend set;
+#X obj 50 285 msg set;
 #X obj 213 285 print;
 #X msg 50 313 ;
 #X obj 20 352 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -30,28 +30,28 @@ first value in queue\.  ;
 #X text 120 362 1\.;
 #X text 150 362 int;
 #X obj 241 363 cnv 1 36 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 362 size: if specified \, creates fixed-size queue\.
-Value '0' means default size (1024)\. Min: 0;
+#X text 240 362 size: if specified \, creates fixed-size queue.  Value
+'0' means default size (1024). Min value: 0;
 #X obj 20 404 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 409 cnv 5 63 16 empty empty methods: 0 14 0 14 -262144
 -49933 0;
 #X msg 120 414 clear;
-#X text 240 414 removes all queue values\.;
+#X text 240 414 removes all queue values.;
 #X msg 120 446 flush;
-#X text 240 446 outputs and removes all queue values\.;
+#X text 240 446 outputs and removes all queue values.;
 #X msg 120 478 pop;
-#X text 240 478 outputs and removes first values in queue\.;
+#X text 240 478 outputs and removes first values in queue.;
 #X msg 120 510 resize;
 #X text 240 510  Arguments are: ;
-#X obj 240 538 cnv 1 59 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 538 [anonym]: changes queue size\.  All previous values
-(if any) are silently removed\. Min: 0;
+#X obj 250 538 cnv 1 59 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 538 [anonym]: changes queue size.  All previous values (if
+any) are silently removed. Type: int. Min value: 0;
 #X obj 20 590 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 595 cnv 5 54 16 empty empty inlets: 0 14 0 14 -262144 -49933
 0;
 #X text 120 600 1\.;
 #X text 150 600 *bang*;
-#X text 240 600 same as *flush* message\. ;
+#X text 240 600 same as *flush* message. ;
 #X obj 20 628 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 633 cnv 5 63 16 empty empty outlets: 0 14 0 14 -262144
 -49933 0;
@@ -63,7 +63,7 @@ Value '0' means default size (1024)\. Min: 0;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title data @url ceammc.data-help.pd;
 #X obj 1 686 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 689 library: ceammc v0\.1;
+#X text 10 689 library: ceammc v0.1;
 #X text 547 701 see also:;
 #X obj 617 701 data.stack;
 #N canvas 10 708 400 250 info 0;
@@ -71,13 +71,13 @@ Value '0' means default size (1024)\. Min: 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0\.1;
+#X text 120 32 0.1;
 #X text 10 54 object:;
-#X text 120 54 data\.fifo;
+#X text 120 54 data.fifo;
 #X text 10 76 category:;
 #X text 120 76 data;
 #X text 10 98 since:;
-#X text 120 98 0\.1;
+#X text 120 98 0.1;
 #X text 10 120 authors:;
 #X text 120 120 Serge Poltavsky;
 #X text 10 142 license:;

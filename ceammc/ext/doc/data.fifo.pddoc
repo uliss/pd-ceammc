@@ -53,7 +53,7 @@
 |   |  |   | |       | |       |       |        |
 [data.fifo                                     5]
 |                |
-[prepend set]    [print]
+[msg set]        [print]
 |
 [ (
 ]]>
