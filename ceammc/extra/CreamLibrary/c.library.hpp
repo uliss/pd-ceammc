@@ -24,12 +24,7 @@ extern "C" void cream_setup(void);
 extern "C" void Cream_setup(void);
 extern "C" void libpd_loadcream(void);
 
-//extern "C" void setup_c0x2eblackboard(void);
-//extern "C" void setup_c0x2ebreakpoints(void);
 //extern "C" void setup_c0x2egain_tilde(void);
-extern "C" void setup_c0x2eknob(void);
-//extern "C" void setup_c0x2eplane(void);
-//extern "C" void setup_c0x2escope_tilde(void);
 
 
 //CEAMMC
@@ -48,16 +43,6 @@ extern "C" void setup_ui0x2erslider(void);
 extern "C" void setup_ui0x2eslider(void);
 extern "C" void setup_ui0x2etab(void);
 extern "C" void setup_ui0x2etoggle(void);
-
-// Deprecated
-extern "C" void setup_c0x2econvolve_tilde(void);
-extern "C" void setup_c0x2efreeverb_tilde(void);
-extern "C" void setup_c0x2epak(void);
-extern "C" void setup_c0x2eloadmess(void);
-extern "C" void setup_c0x2eprepend(void);
-extern "C" void setup_c0x2epatcherargs(void);
-extern "C" void setup_c0x2epatcherinfos(void);
-extern "C" void setup_c0x2epatchermess(void);
 
 static t_symbol* cream_sym_goppos               = gensym("goppos");
 static t_symbol* cream_sym_gopsize              = gensym("gopsize");
@@ -80,8 +65,8 @@ static t_symbol* cream_sym_needle_layer         = gensym("needle_layer");
 
 static t_symbol* cream_sym_bacolor              = gensym("bacolor");
 static t_symbol* cream_sym_bgcolor              = gensym("bgcolor");
-static t_symbol* cream_sym_bdcolor 				= gensym("bdcolor");
-static t_symbol* cream_sym_crcolor 				= gensym("crcolor");
+static t_symbol* cream_sym_bdcolor 		= gensym("bdcolor");
+static t_symbol* cream_sym_crcolor 		= gensym("crcolor");
 static t_symbol* cream_sym_btcolor              = gensym("btcolor");
 static t_symbol* cream_sym_textcolor            = gensym("textcolor");
 static t_symbol* cream_sym_ptcolor              = gensym("ptcolor");
