@@ -2,7 +2,7 @@
 #X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
 #X obj 79 53 ui.link @title ceammc @url ceammc-help.pd;
-#X obj 30 116 prop->;
+#X obj 30 116 prop.get;
 #X text 175 116 Property extractor;
 #X obj 30 143 prop<-;
 #X text 175 143 Property injector;

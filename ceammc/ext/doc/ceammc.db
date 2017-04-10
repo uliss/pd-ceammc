@@ -104,7 +104,8 @@ osc.square~		~		~
 osc.tri~		~		~
 pass.changed		.		.
 pass.if		..		..
-prop->		.		?
+prop->,prop->		.		?
+prop.get,prop->		.		?
 prop<-		?		.
 replace		...		.
 snd.file		.		.

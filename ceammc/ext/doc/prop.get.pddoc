@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pddoc version="1.0">
-    <object name="prop->">
-        <title>prop-&gt;</title>
+    <object name="prop.get">
+        <title>prop.get</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
@@ -12,6 +12,7 @@
             <category>property</category>
             <keywords>property</keywords>
             <since>0.1</since>
+            <aliases><alias>prop-&gt;</alias></aliases>
             <also>
                 <see>prop&lt;-</see>
             </also>
