@@ -358,7 +358,7 @@
     <entry descr="Property extractor" name="prop.get" ref_view="object">
       <xi:include href="prop.get.pddoc" parse="xml"/>
     </entry>
-    <entry descr="Property injector" name="prop&lt;-" ref_view="object">
+    <entry descr="Property injector" name="prop.set" ref_view="object">
       <xi:include href="prop.set.pddoc" parse="xml"/>
     </entry>
   </category>

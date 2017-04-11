@@ -4,7 +4,7 @@
 #X obj 79 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 30 116 prop.get;
 #X text 175 116 Property extractor;
-#X obj 30 143 prop<-;
+#X obj 30 143 prop.set;
 #X text 175 143 Property injector;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::property 20 20 0 20
 -104026 -4096 0;
