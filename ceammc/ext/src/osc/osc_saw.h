@@ -531,6 +531,8 @@ class saw : public dsp {
 	virtual void metadata(Meta* m) { 
 		m->declare("miscoscillator.lib/name", "Faust Oscillator Library");
 		m->declare("miscoscillator.lib/version", "0.0");
+		m->declare("basic.lib/name", "Faust Basic Element Library");
+		m->declare("basic.lib/version", "0.0");
 		m->declare("math.lib/name", "Faust Math Library");
 		m->declare("math.lib/version", "2.0");
 		m->declare("math.lib/author", "GRAME");
@@ -580,18 +582,19 @@ class saw : public dsp {
 		FAUSTFLOAT* input0 = input[0];
 		FAUSTFLOAT* output0 = output[0];
 		for (int i=0; i<count; i++) {
+			float fTemp0 = (float)input0[i];
 			iVec0[0] = 1;
-			float fTemp0 = max(2e+01f, fabsf(max((float)30, (float)input0[i])));
-			float fTemp1 = ((fConst2 * fTemp0) + fRec0[1]);
-			fRec0[0] = (fTemp1 - floorf(fTemp1));
-			float fTemp2 = faustpower<2>(((2 * fRec0[0]) + -1));
-			float fTemp3 = (fTemp2 * (fTemp2 + -2.0f));
-			fVec1[0] = fTemp3;
-			float fTemp4 = ((fVec1[0] - fVec1[1]) / fTemp0);
-			fVec2[0] = fTemp4;
-			float fTemp5 = ((fVec2[0] - fVec2[1]) / fTemp0);
-			fVec3[0] = fTemp5;
-			output0[i] = (FAUSTFLOAT)(fConst1 * ((iVec0[3] * (fVec3[0] - fVec3[1])) / fTemp0));
+			float fTemp1 = max(2e+01f, fabsf(max((float)30, fTemp0)));
+			float fTemp2 = ((fConst2 * fTemp1) + fRec0[1]);
+			fRec0[0] = (fTemp2 - floorf(fTemp2));
+			float fTemp3 = faustpower<2>(((2 * fRec0[0]) + -1));
+			float fTemp4 = (fTemp3 * (fTemp3 + -2.0f));
+			fVec1[0] = fTemp4;
+			float fTemp5 = ((fVec1[0] - fVec1[1]) / fTemp1);
+			fVec2[0] = fTemp5;
+			float fTemp6 = ((fVec2[0] - fVec2[1]) / fTemp1);
+			fVec3[0] = fTemp6;
+			output0[i] = (FAUSTFLOAT)((int((fTemp0 == 0)))?0:(fConst1 * ((iVec0[3] * (fVec3[0] - fVec3[1])) / fTemp1)));
 			// post processing
 			fVec3[1] = fVec3[0];
 			fVec2[1] = fVec2[0];
