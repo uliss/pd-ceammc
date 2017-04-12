@@ -531,6 +531,8 @@ class square : public dsp {
 
   public:
 	virtual void metadata(Meta* m) { 
+		m->declare("basic.lib/name", "Faust Basic Element Library");
+		m->declare("basic.lib/version", "0.0");
 		m->declare("miscoscillator.lib/name", "Faust Oscillator Library");
 		m->declare("miscoscillator.lib/version", "0.0");
 		m->declare("math.lib/name", "Faust Math Library");
@@ -584,19 +586,20 @@ class square : public dsp {
 		FAUSTFLOAT* input0 = input[0];
 		FAUSTFLOAT* output0 = output[0];
 		for (int i=0; i<count; i++) {
+			float fTemp0 = (float)input0[i];
 			iVec0[0] = 1;
-			float fTemp0 = max((float)input0[i], 23.44895f);
-			float fTemp1 = max(2e+01f, fabsf(fTemp0));
-			float fTemp2 = ((fConst3 * fTemp1) + fRec0[1]);
-			fRec0[0] = (fTemp2 - floorf(fTemp2));
-			float fTemp3 = faustpower<2>(((2 * fRec0[0]) + -1));
-			fVec1[0] = fTemp3;
-			float fTemp4 = ((iVec0[1] * (fVec1[0] - fVec1[1])) / fTemp1);
-			fVec2[IOTA&4095] = fTemp4;
-			float fTemp5 = max((float)0, min((float)2047, (fConst4 / fTemp0)));
-			float fTemp6 = floorf(fTemp5);
-			int iTemp7 = int(fTemp5);
-			output0[i] = (FAUSTFLOAT)(fConst2 * (fVec2[IOTA&4095] - (((fTemp5 - fTemp6) * fVec2[(IOTA-int((iTemp7 + 1)))&4095]) + ((fTemp6 + (1 - fTemp5)) * fVec2[(IOTA-iTemp7)&4095]))));
+			float fTemp1 = max(fTemp0, 23.44895f);
+			float fTemp2 = max(2e+01f, fabsf(fTemp1));
+			float fTemp3 = (fRec0[1] + (fConst3 * fTemp2));
+			fRec0[0] = (fTemp3 - floorf(fTemp3));
+			float fTemp4 = faustpower<2>(((2 * fRec0[0]) + -1));
+			fVec1[0] = fTemp4;
+			float fTemp5 = (((fVec1[0] - fVec1[1]) * iVec0[1]) / fTemp2);
+			fVec2[IOTA&4095] = fTemp5;
+			float fTemp6 = max((float)0, min((float)2047, (fConst4 / fTemp1)));
+			float fTemp7 = floorf(fTemp6);
+			int iTemp8 = int(fTemp6);
+			output0[i] = (FAUSTFLOAT)((int((fTemp0 == 0)))?0:(fConst2 * (fVec2[IOTA&4095] - (((fTemp6 - fTemp7) * fVec2[(IOTA-int((iTemp8 + 1)))&4095]) + ((fTemp7 + (1 - fTemp6)) * fVec2[(IOTA-iTemp8)&4095])))));
 			// post processing
 			IOTA = IOTA+1;
 			fVec1[1] = fVec1[0];
