@@ -66,6 +66,9 @@
     <entry descr="band-rejection filter" name="flt.notch~" ref_view="object">
       <xi:include href="flt.notch~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="Simple resonant bandpass filter" name="flt.resonbp~" ref_view="object">
+      <xi:include href="flt.resonbp~.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="fx">
     <entry descr="freeverb - common used open-source reverb" name="fx.freeverb~" ref_view="object">

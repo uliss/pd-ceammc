@@ -16,6 +16,7 @@ flt.eq_peak~		~		~.
 flt.highshelf~		~		~.
 flt.lowshelf~		~		~.
 flt.notch~		~		~.
+flt.resonbp~		~		~.
 fx.freeverb~		~		~.
 fx.freqshift~		~~		~~.
 fx.pitchshift~		~~		~.

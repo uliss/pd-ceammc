@@ -1,41 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pddoc version="1.0">
-    <object name="flt.notch~">
-        <title>flt.notch~</title>
+    <object name="flt.resonbp~">
+        <title>flt.resonbp~</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>band-rejection filter</description>
+            <description>Simple resonant bandpass filter</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>flt</category>
-            <keywords>filter lowshelf</keywords>
+            <keywords>filter resonant</keywords>
             <since>0.1</since>
             <also>
                 <see>flt.bpf12~</see>
             </also>
         </meta>
-        <info>
-            <par>filter that passes most frequencies unaltered,
-            but attenuates those in a specific range to very low levels.
-            It is the opposite of a band-pass filter.</par>
-        </info>
         <methods>
             <method name="freq">
-                <param type="float" units="herz" default="10000">center frequency</param>
+                <param type="float" units="herz">center frequency</param>
             </method>
-            <method name="width">
-                <param type="float" units="herz" default="50">band width (approximate)</param>
+            <method name="q">
+                <param type="float">Q</param>
             </method>
         </methods>
         <arguments>
             <argument name="freq" type="float" units="herz">
                 center frequency
             </argument>
-            <argument name="width" type="float" units="herz">
-                band width (approximate)
-            </argument>
+            <argument name="q" type="float">Q</argument>
             <argument name="ID" type="symbol">object ID for OSC control</argument>
         </arguments>
         <inlets>
@@ -51,13 +44,13 @@
         <example>
         <pdascii>
 <![CDATA[
-[osc~ 1000]
+[lfo.impulse~ 2]
 |
-|  [@freq?(  [@width?( [F]
-|  |         |         |
-|  |         |         [freq $1(
-|  |         |         |
-[flt.notch~ 1000 10 id    ]
+|  [F]        [F]
+|  |          |
+|  [freq $1(  [q $1(  [@freq?(
+|  |          |       |
+[flt.resonbp~ 1000 100 id ]
 |\                      ^|
 [dac~]                 [ui.display]
 ]]>

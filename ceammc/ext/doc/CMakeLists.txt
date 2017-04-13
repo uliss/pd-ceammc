@@ -23,6 +23,7 @@ set(DOC_FILES
     flt.highshelf~
     flt.lowshelf~
     flt.notch~
+    flt.resonbp~
     flt.eq_peak~
     fx.freqshift~
     fx.pitchshift~
