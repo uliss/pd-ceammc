@@ -54,6 +54,9 @@
     <entry descr="BPF coefficent calculator for biquad filter" name="flt.c_bpf~" ref_view="object">
       <xi:include href="flt.c_bpf~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="HPF coefficent calculator for biquad filter" name="flt.c_hpf~" ref_view="object">
+      <xi:include href="flt.c_hpf~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="LPF coefficent calculator for biquad filter" name="flt.c_lpf~" ref_view="object">
       <xi:include href="flt.c_lpf~.pddoc" parse="xml"/>
     </entry>

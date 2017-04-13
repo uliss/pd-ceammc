@@ -1,10 +1,10 @@
 #N canvas 0 0 715 555 12;
 #X declare -lib ceammc -lib creammc;
-#X obj 348 50 cnv 1 347 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 348 50 LPF coefficent calculator for biquad filter;
-#X obj 1 1 cnv 5 712 40 empty empty flt.c_lpf~ 20 20 0 20 -104026
+#X obj 347 50 cnv 1 348 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 347 50 HPF coefficent calculator for biquad filter;
+#X obj 1 1 cnv 5 712 40 empty empty flt.c_hpf~ 20 20 0 20 -104026
 -4096 0;
-#X obj 614 11 flt.c_lpf~;
+#X obj 614 11 flt.c_hpf~;
 #X obj 50 133 noise.pink~;
 #X obj 184 133 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X floatatom 222 133 5 0 0 0 - - -;
@@ -12,7 +12,7 @@
 #X obj 50 162 *~;
 #X msg 222 162 freq \$1;
 #X msg 318 162 q \$1;
-#X obj 222 190 flt.c_lpf~ 1000 100;
+#X obj 222 190 flt.c_hpf~ 5000 60;
 #X obj 50 262 flt.biquad~;
 #X obj 50 291 dac~;
 #X obj 20 315 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -76,7 +76,7 @@
 #X text 10 32 version:;
 #X text 120 32 0.1;
 #X text 10 54 object:;
-#X text 120 54 flt.c_lpf~;
+#X text 120 54 flt.c_hpf~;
 #X text 10 76 category:;
 #X text 120 76 flt;
 #X text 10 98 since:;
@@ -86,7 +86,7 @@
 #X text 10 142 license:;
 #X text 120 142 GPL3;
 #X text 10 164 keywords:;
-#X text 120 164 filter \, biquad \, lowpass;
+#X text 120 164 filter \, biquad \, highpass;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pure-data @url
 https://github.com/uliss/pure-data;
