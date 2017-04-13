@@ -51,141 +51,37 @@ class TestExtension : public T {
     std::vector<long> msg_count_;
 
 public:
-    TestExtension(const char* name, const AtomList& args)
-        : T(PdArgs(args, gensym(name), make_owner<T>(name)))
-    {
-        msg_.assign(T::numOutlets(), MessageList());
-        msg_count_.assign(T::numOutlets(), -1);
-    }
+    TestExtension(const char* name, const AtomList& args);
 
-    void sendBang()
-    {
-        T::onBang();
-    }
+    /** send functions */
+    void sendBang();
+    void sendFloat(float f, int inlet = 0);
+    void sendSymbol(t_symbol* s, int inlet = 0);
+    void sendSymbol(const char* s, int inlet = 0);
+    void sendList(const AtomList& lst, int inlet = 0);
+    void sendAny(const char* name, const AtomList& args = AtomList());
+    void sendAny(const AtomList& args);
 
-    void sendFloat(float f, int inlet = 0)
-    {
-        if (inlet == 0)
-            T::onFloat(f);
-        else
-            T::onInlet(inlet, AtomList(f));
-    }
+    /** overloaded */
+    virtual void bangTo(size_t n);
+    virtual void listTo(size_t n, const AtomList& lst);
+    virtual void symbolTo(size_t n, t_symbol* s);
+    virtual void floatTo(size_t n, float f);
+    virtual void atomTo(size_t n, const Atom& a);
+    virtual void anyTo(size_t n, const AtomList& lst);
+    virtual void anyTo(size_t n, t_symbol* sel, const AtomList& lst);
 
-    void sendSymbol(t_symbol* s, int inlet = 0)
-    {
-        if (inlet == 0)
-            T::onSymbol(s);
-        else
-            T::onInlet(inlet, AtomList(s));
-    }
-
-    void sendSymbol(const char* s, int inlet = 0)
-    {
-        sendSymbol(gensym(s), inlet);
-    }
-
-    void sendList(const AtomList& lst, int inlet = 0)
-    {
-        if (inlet == 0)
-            T::onList(lst);
-        else
-            T::onInlet(inlet, lst);
-    }
-
-    void sendAny(const char* name, const AtomList& args = AtomList())
-    {
-        T::onAny(gensym(name), args);
-    }
-
-    void sendAny(const AtomList& args)
-    {
-        if (args.empty() || (!args[0].isSymbol()))
-            return;
-
-        Atom name = args[0];
-        T::onAny(name.asSymbol(), args.slice(1));
-    }
-
-    virtual void bangTo(size_t n)
-    {
-        msg_[n].push_back(Message(&s_bang));
-    }
-
-    virtual void listTo(size_t n, const AtomList& lst)
-    {
-        msg_[n].push_back(Message(lst));
-    }
-
-    virtual void symbolTo(size_t n, t_symbol* s)
-    {
-        msg_[n].push_back(Message(s));
-    }
-
-    virtual void floatTo(size_t n, float f)
-    {
-        msg_[n].push_back(Message(f));
-    }
-
-    virtual void atomTo(size_t n, const Atom& a)
-    {
-        msg_[n].push_back(Message(a));
-    }
-
-    virtual void anyTo(size_t n, const AtomList& lst)
-    {
-        msg_[n].push_back(Message(lst.at(0).asSymbol(), lst.slice(1)));
-    }
-
-    virtual void anyTo(size_t n, t_symbol* sel, const AtomList& lst)
-    {
-        msg_[n].push_back(Message(sel, lst));
-    }
-
+    /** messages methods */
 public:
-    void storeMessageCount(size_t outlet = 0)
-    {
-        msg_count_[outlet] = msg_[outlet].size();
-    }
-
-    void storeAllMessageCount()
-    {
-        for (size_t i = 0; i < msg_.size() && i < msg_count_.size(); i++)
-            msg_count_[i] = msg_[i].size();
-    }
-
-    bool hasNewMessages(size_t outlet = 0)
-    {
-        return msg_count_[outlet] != msg_[outlet].size();
-    }
-
-    size_t messageCount(size_t outlet = 0) const
-    {
-        return msg_[outlet].size();
-    }
-
-    const Message& lastMessage(size_t outlet = 0) const
-    {
-        return msg_[outlet].back();
-    }
-
-    bool lastMessageIsBang(size_t outlet = 0) const
-    {
-        if (msg_[outlet].empty())
-            return false;
-
-        return msg_[outlet].back().isList();
-    }
-
-    void cleanMessages(size_t outlet = 0)
-    {
-        msg_[outlet].clear();
-    }
-
-    void cleanAllMessages()
-    {
-        for (size_t i = 0; i < msg_.size(); i++)
-            cleanMessages(i);
-    }
+    void storeMessageCount(size_t outlet = 0);
+    void storeAllMessageCount();
+    bool hasNewMessages(size_t outlet = 0);
+    size_t messageCount(size_t outlet = 0) const;
+    const Message& lastMessage(size_t outlet = 0) const;
+    const Message& messageAt(size_t idx, size_t outlet) const;
+    bool lastMessageIsBang(size_t outlet = 0) const;
+    void cleanMessages(size_t outlet = 0);
+    void cleanAllMessages();
 };
 
 #define CALL(obj, method)                            \
@@ -415,6 +311,170 @@ void WHEN_SEND_BANG_TO(size_t inlet, T& obj)
 {
     obj.storeAllMessageCount();
     obj.sendBang(inlet);
+}
+
+template <class T>
+TestExtension<T>::TestExtension(const char* name, const AtomList& args)
+    : T(PdArgs(args, gensym(name), make_owner<T>(name)))
+{
+    msg_.assign(T::numOutlets(), MessageList());
+    msg_count_.assign(T::numOutlets(), -1);
+}
+
+template <class T>
+void TestExtension<T>::sendBang()
+{
+    T::onBang();
+}
+
+template <class T>
+void TestExtension<T>::sendFloat(float f, int inlet)
+{
+    if (inlet == 0)
+        T::onFloat(f);
+    else
+        T::onInlet(inlet, AtomList(f));
+}
+
+template <class T>
+void TestExtension<T>::sendSymbol(t_symbol* s, int inlet)
+{
+    if (inlet == 0)
+        T::onSymbol(s);
+    else
+        T::onInlet(inlet, AtomList(s));
+}
+
+template <class T>
+void TestExtension<T>::sendSymbol(const char* s, int inlet)
+{
+    sendSymbol(gensym(s), inlet);
+}
+
+template <class T>
+void TestExtension<T>::sendList(const AtomList& lst, int inlet)
+{
+    if (inlet == 0)
+        T::onList(lst);
+    else
+        T::onInlet(inlet, lst);
+}
+
+template <class T>
+void TestExtension<T>::sendAny(const char* name, const AtomList& args)
+{
+    T::onAny(gensym(name), args);
+}
+
+template <class T>
+void TestExtension<T>::sendAny(const AtomList& args)
+{
+    if (args.empty() || (!args[0].isSymbol()))
+        return;
+
+    Atom name = args[0];
+    T::onAny(name.asSymbol(), args.slice(1));
+}
+
+template <class T>
+void TestExtension<T>::bangTo(size_t n)
+{
+    msg_[n].push_back(Message(&s_bang));
+}
+
+template <class T>
+void TestExtension<T>::listTo(size_t n, const AtomList& lst)
+{
+    msg_[n].push_back(Message(lst));
+}
+
+template <class T>
+void TestExtension<T>::symbolTo(size_t n, t_symbol* s)
+{
+    msg_[n].push_back(Message(s));
+}
+
+template <class T>
+void TestExtension<T>::floatTo(size_t n, float f)
+{
+    msg_[n].push_back(Message(f));
+}
+
+template <class T>
+void TestExtension<T>::atomTo(size_t n, const Atom& a)
+{
+    msg_[n].push_back(Message(a));
+}
+
+template <class T>
+void TestExtension<T>::anyTo(size_t n, const AtomList& lst)
+{
+    msg_[n].push_back(Message(lst.at(0).asSymbol(), lst.slice(1)));
+}
+
+template <class T>
+void TestExtension<T>::anyTo(size_t n, t_symbol* sel, const AtomList& lst)
+{
+    msg_[n].push_back(Message(sel, lst));
+}
+
+template <class T>
+void TestExtension<T>::storeMessageCount(size_t outlet)
+{
+    msg_count_[outlet] = msg_[outlet].size();
+}
+
+template <class T>
+void TestExtension<T>::storeAllMessageCount()
+{
+    for (size_t i = 0; i < msg_.size() && i < msg_count_.size(); i++)
+        msg_count_[i] = msg_[i].size();
+}
+
+template <class T>
+bool TestExtension<T>::hasNewMessages(size_t outlet)
+{
+    return msg_count_[outlet] != msg_[outlet].size();
+}
+
+template <class T>
+size_t TestExtension<T>::messageCount(size_t outlet) const
+{
+    return msg_[outlet].size();
+}
+
+template <class T>
+const Message& TestExtension<T>::lastMessage(size_t outlet) const
+{
+    return msg_[outlet].back();
+}
+
+template <class T>
+const Message& TestExtension<T>::messageAt(size_t idx, size_t outlet) const
+{
+    return msg_[outlet].at(idx);
+}
+
+template <class T>
+bool TestExtension<T>::lastMessageIsBang(size_t outlet) const
+{
+    if (msg_[outlet].empty())
+        return false;
+
+    return msg_[outlet].back().isList();
+}
+
+template <class T>
+void TestExtension<T>::cleanMessages(size_t outlet)
+{
+    msg_[outlet].clear();
+}
+
+template <class T>
+void TestExtension<T>::cleanAllMessages()
+{
+    for (size_t i = 0; i < msg_.size(); i++)
+        cleanMessages(i);
 }
 
 #endif // BASE_EXTENSION_TEST_H
