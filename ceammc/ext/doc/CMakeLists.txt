@@ -18,8 +18,10 @@ set(DOC_FILES
     env.ar~
     env.adsr~
     env.follow~
+    flt.c_bpf~
     flt.dcblock~
     flt.dcblock2~
+    flt.biquad~
     flt.highshelf~
     flt.lowshelf~
     flt.notch~

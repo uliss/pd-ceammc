@@ -1,0 +1,7 @@
+declare name "CEAMMC faust default UI elements";
+declare version "0.1";
+
+si = library("signals.lib");
+
+freq(f) = vslider("freq [unit:Hz]", f, 20, 20000, 0.1) : si.smoo;
+q(v) = vslider("q", v, 0.01, 100, 0.1) : si.smoo;

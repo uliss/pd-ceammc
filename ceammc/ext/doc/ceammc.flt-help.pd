@@ -2,22 +2,26 @@
 #X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
 #X obj 79 53 ui.link @title ceammc @url ceammc-help.pd;
-#X obj 30 116 flt.dcblock2~;
-#X text 175 116 stereo DC blocker;
-#X obj 30 143 flt.dcblock~;
-#X text 175 143 mono DC blocker;
-#X obj 30 170 flt.eq_peak~;
-#X text 175 170 second order "peaking equalizer" section (gain boost
+#X obj 30 116 flt.biquad~;
+#X text 175 116 second order IIR filter.;
+#X obj 30 143 flt.c_bpf~;
+#X text 175 143 BPF coefficent calculator for biquad filter;
+#X obj 30 170 flt.dcblock2~;
+#X text 175 170 stereo DC blocker;
+#X obj 30 197 flt.dcblock~;
+#X text 175 197 mono DC blocker;
+#X obj 30 224 flt.eq_peak~;
+#X text 175 224 second order "peaking equalizer" section (gain boost
 or cut near some frequency).  Also called a "parametric equalizer"
 section.;
-#X obj 30 221 flt.highshelf~;
-#X text 175 221 gain boost|cut above some frequency;
-#X obj 30 248 flt.lowshelf~;
-#X text 175 248 gain boost|cut below some frequency;
-#X obj 30 275 flt.notch~;
-#X text 175 275 band-rejection filter;
-#X obj 30 302 flt.resonbp~;
-#X text 175 302 Simple resonant bandpass filter;
+#X obj 30 275 flt.highshelf~;
+#X text 175 275 gain boost|cut above some frequency;
+#X obj 30 302 flt.lowshelf~;
+#X text 175 302 gain boost|cut below some frequency;
+#X obj 30 329 flt.notch~;
+#X text 175 329 band-rejection filter;
+#X obj 30 356 flt.resonbp~;
+#X text 175 356 Simple resonant bandpass filter;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::flt 20 20 0 20 -104026
 -4096 0;
 #X obj 1 458 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;

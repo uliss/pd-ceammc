@@ -1,7 +1,8 @@
 declare name "Ceammc PureData misc utils";
 declare version "0.1";
 
-ba = library("basic.lib");
+ba = library("basics.lib");
+si = library("signals.lib");
 
 // in puredata 0db = 100db
 db_pd2faust(v) = (v - 100);
@@ -31,4 +32,3 @@ with {
     dry(in, fx, g) = map(in, *(1-g));
     wet(in, fx, g) = fx : map(in, *(g));
 };
-

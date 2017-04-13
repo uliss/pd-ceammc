@@ -1,6 +1,7 @@
 //----------------------------------------------------------
+// name: "flt_biquad"
 //
-// Code generated with Faust 0.9.92 (http://faust.grame.fr)
+// Code generated with Faust 0.9.96 (http://faust.grame.fr)
 //----------------------------------------------------------
 
 /* link with  */
@@ -116,9 +117,9 @@ class dsp {
         /* Returns the sample rate currently used by the instance */
         virtual int getSampleRate() = 0;
     
-        /** Global init, calls the following methods :
-         * - static class 'classInit' : static table initialisation
-         * - 'instanceInit' : constants and instance table initialisation
+        /** Global init, calls the following methods:
+         * - static class 'classInit': static table initialisation
+         * - 'instanceInit': constants and instance table initialisation
          *
          * @param samplingRate - the sampling rate in Herz
          */
@@ -160,19 +161,19 @@ class dsp {
          * DSP instance computation, to be called with sucessive in/out audio buffers.
          *
          * @param count - the nomber of frames to compute
-         * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, doucbe or quad)
-         * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, doucbe or quad)
+         * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
+         * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
          *
          */
         virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) = 0;
     
         /**
-         * DSP instance computation : alternative method to be used by subclasses.
+         * DSP instance computation: alternative method to be used by subclasses.
          *
          * @param date_usec - the timestamp in microsec given by audio driver.
          * @param count - the nomber of frames to compute
-         * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, doucbe or quad)
-         * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, doucbe or quad)
+         * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
+         * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
          *
          */
         virtual void compute(double date_usec, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { compute(count, inputs, outputs); }
@@ -205,6 +206,7 @@ class decorator_dsp : public dsp {
         virtual void instanceClear() { fDSP->instanceClear(); }
         virtual decorator_dsp* clone() { return new decorator_dsp(fDSP->clone()); }
         virtual void metadata(Meta* m) { return fDSP->metadata(m); }
+        // Beware: subclasses usually have to overload the two 'compute' methods
         virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(count, inputs, outputs); }
         virtual void compute(double date_usec, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(date_usec, count, inputs, outputs); }
        
@@ -229,7 +231,7 @@ class decorator_dsp : public dsp {
 #endif
 /************************************************************************
     FAUST Architecture File
-    Copyright (C) 2003-2016 GRAME, Centre National de Creation Musicale
+    Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
     ---------------------------------------------------------------------
     This Architecture section is free software; you can redistribute it
     and/or modify it under the terms of the GNU General Public License
@@ -252,7 +254,7 @@ class decorator_dsp : public dsp {
 
  ************************************************************************
  ************************************************************************/
- 
+
 #ifndef FAUST_UI_H
 #define FAUST_UI_H
 
@@ -261,9 +263,10 @@ class decorator_dsp : public dsp {
 #endif
 
 /*******************************************************************************
- * UI : Faust User Interface
- * This abstract class contains only the method that the faust compiler can
- * generate to describe a DSP interface.
+ * UI : Faust DSP User Interface
+ * User Interface as expected by the buildUserInterface() method of a DSP.
+ * This abstract class contains only the method that the Faust compiler can
+ * generate to describe a DSP user interface.
  ******************************************************************************/
 
 class UI
@@ -300,49 +303,6 @@ class UI
         virtual void declare(FAUSTFLOAT*, const char*, const char*) {}
 };
 
-//----------------------------------------------------------------
-//  Generic decorator
-//----------------------------------------------------------------
-
-class DecoratorUI : public UI
-{
-    protected:
-    
-        UI* fUI;
-
-    public:
-    
-        DecoratorUI(UI* ui = 0):fUI(ui)
-        {}
-
-        virtual ~DecoratorUI() { delete fUI; }
-
-        // -- widget's layouts
-        virtual void openTabBox(const char* label)          { fUI->openTabBox(label); }
-        virtual void openHorizontalBox(const char* label)   { fUI->openHorizontalBox(label); }
-        virtual void openVerticalBox(const char* label)     { fUI->openVerticalBox(label); }
-        virtual void closeBox()                             { fUI->closeBox(); }
-
-        // -- active widgets
-        virtual void addButton(const char* label, FAUSTFLOAT* zone)         { fUI->addButton(label, zone); }
-        virtual void addCheckButton(const char* label, FAUSTFLOAT* zone)    { fUI->addCheckButton(label, zone); }
-        virtual void addVerticalSlider(const char* label, FAUSTFLOAT* zone, FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step)
-            { fUI->addVerticalSlider(label, zone, init, min, max, step); }
-        virtual void addHorizontalSlider(const char* label, FAUSTFLOAT* zone, FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step) 	
-            { fUI->addHorizontalSlider(label, zone, init, min, max, step); }
-        virtual void addNumEntry(const char* label, FAUSTFLOAT* zone, FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step) 			
-            { fUI->addNumEntry(label, zone, init, min, max, step); }
-
-        // -- passive widgets	
-        virtual void addHorizontalBargraph(const char* label, FAUSTFLOAT* zone, FAUSTFLOAT min, FAUSTFLOAT max) 
-            { fUI->addHorizontalBargraph(label, zone, min, max); }
-        virtual void addVerticalBargraph(const char* label, FAUSTFLOAT* zone, FAUSTFLOAT min, FAUSTFLOAT max)
-            { fUI->addVerticalBargraph(label, zone, min, max); }
-
-        virtual void declare(FAUSTFLOAT* zone, const char* key, const char* val) { fUI->declare(zone, key, val); }
-
-};
-
 #endif
 /************************************************************************
  ************************************************************************
@@ -371,7 +331,7 @@ class DecoratorUI : public UI
 struct Meta
 {
     virtual void declare(const char* key, const char* value) = 0;
-    virtual ~Meta() {}
+    virtual ~Meta() {};
 };
 
 #endif
@@ -510,8 +470,9 @@ class biquad : public dsp {
 
   public:
 	virtual void metadata(Meta* m) { 
-		m->declare("filter.lib/name", "Faust Filter Library");
-		m->declare("filter.lib/version", "2.0");
+		m->declare("name", "flt_biquad");
+		m->declare("filters.lib/name", "Faust Filters Library");
+		m->declare("filters.lib/version", "0.0");
 	}
 
 	virtual int getNumInputs() { return 6; }
@@ -1036,8 +997,15 @@ public:
             return;
 
         t_float v = 0.0;
-        if (get_nth_float_arg(this->argc_, this->argv_, pos, &v))
-            this->x_->ui->setElementValue(name, v);
+        if (get_nth_float_arg(this->argc_, this->argv_, pos, &v)) {
+            UIElement* el = this->x_->ui->findElementByLabel(name);
+            if (!el) {
+                post("invalid UI element name: %s", name);
+                return;
+            }
+
+            el->setValue(v, true);
+        }
     }
 
     /**

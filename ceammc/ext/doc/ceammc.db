@@ -10,6 +10,8 @@ dyn.softclip~		~		~
 env.adsr~		~		~.
 env.ar~		~		~.
 env.follow~		~		~.
+flt.biquad~		~~~~~~		~
+flt.c_bpf~		~		~~~~~
 flt.dcblock2~		~~		~~
 flt.dcblock~		~		~
 flt.eq_peak~		~		~.

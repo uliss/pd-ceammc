@@ -48,6 +48,12 @@
     </entry>
   </category>
   <category name="flt">
+    <entry descr="second order IIR filter." name="flt.biquad~" ref_view="object">
+      <xi:include href="flt.biquad~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="BPF coefficent calculator for biquad filter" name="flt.c_bpf~" ref_view="object">
+      <xi:include href="flt.c_bpf~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="stereo DC blocker" name="flt.dcblock2~" ref_view="object">
       <xi:include href="flt.dcblock2~.pddoc" parse="xml"/>
     </entry>
