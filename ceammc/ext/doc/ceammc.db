@@ -14,6 +14,7 @@ flt.biquad~		~~~~~~		~
 flt.c_bpf~		~		~~~~~
 flt.c_hpf~		~		~~~~~
 flt.c_lpf~		~		~~~~~
+flt.c_notch~		~		~~~~~
 flt.dcblock2~		~~		~~
 flt.dcblock~		~		~
 flt.eq_peak~		~		~.

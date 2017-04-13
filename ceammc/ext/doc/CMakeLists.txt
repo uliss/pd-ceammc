@@ -21,6 +21,7 @@ set(DOC_FILES
     flt.c_bpf~
     flt.c_hpf~
     flt.c_lpf~
+    flt.c_notch~
     flt.dcblock~
     flt.dcblock2~
     flt.biquad~

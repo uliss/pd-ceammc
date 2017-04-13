@@ -1,18 +1,18 @@
 #N canvas 0 0 715 555 12;
 #X declare -lib ceammc -lib creammc;
-#X obj 347 50 cnv 1 348 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 347 50 BPF coefficent calculator for biquad filter;
-#X obj 1 1 cnv 5 712 40 empty empty flt.c_bpf~ 20 20 0 20 -104026
+#X obj 284 50 cnv 1 411 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 284 50 Band-reject coefficent calculator for biquad filter;
+#X obj 1 1 cnv 5 712 40 empty empty flt.c_notch~ 20 20 0 20 -104026
 -4096 0;
-#X obj 614 11 flt.c_bpf~;
-#X obj 50 133 noise.pink~;
-#X obj 184 133 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X floatatom 222 133 5 0 0 0 - - -;
-#X floatatom 318 133 5 0 0 0 - - -;
+#X obj 600 11 flt.c_notch~;
+#X obj 50 133 osc~ 300;
+#X obj 194 133 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X floatatom 232 133 5 0 0 0 - - -;
+#X floatatom 328 133 5 0 0 0 - - -;
 #X obj 50 162 *~;
-#X msg 222 162 freq \$1;
-#X msg 318 162 q \$1;
-#X obj 222 190 flt.c_bpf~ 1000 100;
+#X msg 232 162 freq \$1;
+#X msg 328 162 q \$1;
+#X obj 232 190 flt.c_notch~ 300 20;
 #X obj 50 262 flt.biquad~;
 #X obj 50 291 dac~;
 #X obj 20 315 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -67,10 +67,10 @@
 #X obj 131 48 ui.link @title flt @url ceammc.flt-help.pd;
 #X obj 1 689 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 692 library: ceammc v0.1;
-#X text 344 704 see also:;
-#X obj 420 704 flt.biquad~;
-#X obj 515 704 flt.bpf12~;
-#X obj 603 704 flt.c_notch~;
+#X text 358 704 see also:;
+#X obj 434 704 flt.c_bpf~;
+#X obj 522 704 flt.notch~;
+#X obj 610 704 flt.biquad~;
 #N canvas 10 711 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
@@ -78,7 +78,7 @@
 #X text 10 32 version:;
 #X text 120 32 0.1;
 #X text 10 54 object:;
-#X text 120 54 flt.c_bpf~;
+#X text 120 54 flt.c_notch~;
 #X text 10 76 category:;
 #X text 120 76 flt;
 #X text 10 98 since:;
@@ -88,7 +88,7 @@
 #X text 10 142 license:;
 #X text 120 142 GPL3;
 #X text 10 164 keywords:;
-#X text 120 164 filter \, biquad \, bpf;
+#X text 120 164 filter \, biquad \, notch \, reject;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pure-data @url
 https://github.com/uliss/pure-data;

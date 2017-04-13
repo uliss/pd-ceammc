@@ -7,24 +7,10 @@ logging.addLevelName(logging.WARNING, "\033[1;31m%s\033[1;0m" % logging.getLevel
 logging.addLevelName(logging.ERROR, "\033[1;41m%s\033[1;0m" % logging.getLevelName(logging.ERROR))
 
 def src_in_project():
-    r1 = re.compile(r'ceammc_[a-z_]+[a-z]\((.+)\)')
-    r2 = re.compile(r'ceammc_\w+\((.+)\)')
     res = set()
-    with open("../src/CMakeLists.txt", "r") as f:
+    with open("../ceammc_objects.txt", "r") as f:
         for l in f.readlines():
-            m = r1.match(l)
-            if not m:
-                m = r2.match(l)
-                if not m:
-                    continue
-                el = '_'.join(m.group(1).split(' ')[:2])
-                res.add(el)
-                continue
-
-            el = '.'.join(m.group(1).split(' ')[:2])
-            if "faust_" in l:
-                el += "~"
-            res.add(el)
+            res.add(l.strip())
 
     return res
 

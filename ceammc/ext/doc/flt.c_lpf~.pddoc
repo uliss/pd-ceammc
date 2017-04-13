@@ -15,6 +15,7 @@
             <since>0.1</since>
             <also>
                 <see>flt.biquad~</see>
+                <see>flt.lpf12~</see>
             </also>
         </meta>
         <methods>
