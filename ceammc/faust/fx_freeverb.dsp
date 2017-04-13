@@ -1,12 +1,12 @@
-si = library("signal.lib");
-rv = library("reverb.lib");
-import("ceammc.lib");
+si = library("signals.lib");
+rv = library("reverbs.lib");
+cm = library("ceammc.lib");
 
-roomSize = hslider("roomsize", 0.5, 0.0, 1.0, 0.001) : si.smoo;
+ui_roomSize = hslider("roomsize", 0.5, 0.0, 1.0, 0.001) : si.smoo;
 fb2 = 0.5;
-damp = hslider("damp", 0.5, 0.0, 1.0, 0.001) : si.smoo;
-drywet = hslider("drywet", 0.33, 0.0, 1.0, 0.001) : si.smoo;
+ui_damp = hslider("damp", 0.5, 0.0, 1.0, 0.001) : si.smoo;
+ui_drywet = hslider("drywet", 0.33, 0.0, 1.0, 0.001) : si.smoo;
 
-fx = _ : rv.mono_freeverb(roomSize, fb2, damp, 0) : _;
+fx = _ : rv.mono_freeverb(ui_roomSize, fb2, ui_damp, 0) : _;
 
-process = _ : fx_drywet(_, fx, drywet) : _;
+process = _ : cm.fx_drywet(_, fx, ui_drywet) : _;

@@ -12,6 +12,9 @@
             <category>fx</category>
             <keywords>fx reverb</keywords>
             <since>0.2</since>
+            <also>
+                <see>fx.freeverb2~</see>
+            </also>
         </meta>
         <info>
             <par>
@@ -44,17 +47,15 @@ A simple Schroeder reverberator primarily developed by "Jezar at Dreampoint" tha
         <example>
         <pdascii>
 <![CDATA[
-[ui.dsp~]
-
-
 [F]
 |                [F]           [F]         [F]
 [lfo.impulse~ 2] |             |           |
 |                [/ 100]       [/ 100]     [/ 100]
-|                |             |           |
-| [B]            [roomsize $1( [drywet $1( [damp $1(
-| |              |             |           |
-| |              |             |           |
+|  [T]           |             |           |
+|  |.            |             |           |
+[*~ ]            |             |           |
+|                [roomsize $1( [drywet $1( [damp $1(
+| [B]            |             |           |
 | |              |             |           |
 [fx.freeverb~ id                            ]
 |  |.         ^|
