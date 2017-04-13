@@ -1,7 +1,4 @@
-import("maxmsp.lib");
-si = library("signal.lib");
+msp = library("maxmsp.lib");
+ui = library("ceammc_ui.lib");
 
-freq = hslider("freq", 10000, 20, 20000, 0.1) : si.smoo;
-gain = vslider("gain", 0, -15, 15, 0.1) : si.smoo;
-
-process(x) = lowShelf(x, freq, gain, 1);
+process(x) = msp.lowShelf(x, ui.freq(1000), ui.gain_db(0), 1);

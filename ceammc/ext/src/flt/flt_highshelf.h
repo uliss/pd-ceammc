@@ -475,14 +475,12 @@ class highshelf : public dsp {
 
   public:
 	virtual void metadata(Meta* m) { 
+		m->declare("name", "flt_highshelf");
 		m->declare("maxmsp.lib/name", "MaxMSP compatibility Library");
 		m->declare("maxmsp.lib/author", "GRAME");
 		m->declare("maxmsp.lib/copyright", "GRAME");
 		m->declare("maxmsp.lib/version", "1.1");
 		m->declare("maxmsp.lib/license", "LGPL");
-		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
-		m->declare("ceammc_ui.lib/version", "0.1");
-		m->declare("name", "flt_highshelf");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
 		m->declare("signals.lib/version", "0.0");
 		m->declare("maths.lib/name", "Faust Math Library");
@@ -490,6 +488,8 @@ class highshelf : public dsp {
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
+		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
+		m->declare("ceammc_ui.lib/version", "0.1");
 	}
 
 	virtual int getNumInputs() { return 1; }
@@ -543,13 +543,13 @@ class highshelf : public dsp {
 			fRec2[0] = (fSlow1 + (0.999f * fRec2[1]));
 			float fTemp1 = (fConst0 * max((float)0, fRec2[0]));
 			float fTemp2 = cosf(fTemp1);
-			float fTemp3 = ((fTemp0 + -1) * fTemp2);
-			float fTemp4 = (sqrtf(fTemp0) * sinf(fTemp1));
-			float fTemp5 = (fTemp2 * (fTemp0 + 1));
-			float fTemp6 = ((fTemp0 + fTemp4) + (1 - fTemp3));
-			fRec0[0] = ((float)input0[i] - (((fRec0[2] * (fTemp0 + (1 - (fTemp3 + fTemp4)))) + (2 * (fRec0[1] * (fTemp0 + (-1 - fTemp5))))) / fTemp6));
-			float fTemp7 = (fTemp0 + fTemp3);
-			output0[i] = (FAUSTFLOAT)((((fRec0[1] * (0 - (2 * fTemp0))) * ((fTemp0 + fTemp5) + -1)) + (fTemp0 * (((fTemp7 + (1 - fTemp4)) * fRec0[2]) + (fRec0[0] * ((fTemp7 + fTemp4) + 1))))) / fTemp6);
+			float fTemp3 = ((fTemp0 + 1) * fTemp2);
+			float fTemp4 = ((fTemp0 + -1) * fTemp2);
+			float fTemp5 = (sqrtf(fTemp0) * sinf(fTemp1));
+			float fTemp6 = ((fTemp0 + fTemp5) + (1 - fTemp4));
+			fRec0[0] = ((float)input0[i] - (((2 * (fRec0[1] * (fTemp0 + (-1 - fTemp3)))) + (fRec0[2] * (fTemp0 + (1 - (fTemp4 + fTemp5))))) / fTemp6));
+			float fTemp7 = (fTemp0 + fTemp4);
+			output0[i] = (FAUSTFLOAT)((((fRec0[1] * (0 - (2 * fTemp0))) * ((fTemp3 + fTemp0) + -1)) + (fTemp0 * ((fRec0[0] * ((fTemp7 + fTemp5) + 1)) + (fRec0[2] * (fTemp7 + (1 - fTemp5)))))) / fTemp6);
 			// post processing
 			fRec0[2] = fRec0[1]; fRec0[1] = fRec0[0];
 			fRec2[1] = fRec2[0];
