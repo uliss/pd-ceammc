@@ -67,8 +67,9 @@
 #X obj 131 48 ui.link @title flt @url ceammc.flt-help.pd;
 #X obj 1 689 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 692 library: ceammc v0.1;
-#X text 534 704 see also:;
-#X obj 610 704 flt.biquad~;
+#X text 446 704 see also:;
+#X obj 522 704 flt.biquad~;
+#X obj 617 704 flt.lpf12~;
 #N canvas 10 711 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
