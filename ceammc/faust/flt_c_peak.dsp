@@ -1,8 +1,5 @@
-import("maxmsp.lib");
-si = library("signal.lib");
+msp = library("maxmsp.lib");
+si = library("signals.lib");
+ui = library("ceammc_ui.lib");
 
-freq = hslider("freq", 1000, 20, 20000, 0.1) : si.smoo;
-q = hslider("q", 1, 0.1, 100, 0.1) : si.smoo;
-gain = vslider("gain", 0, -90, 10, 0.1) : si.smoo;
-
-process(in) = filtercoeff(freq, gain, q).peakingEQ;
+process(in) = msp.filtercoeff(ui.freq(1000), ui.gain_db(0), ui.q(1)).peakingEQ;

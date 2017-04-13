@@ -26,6 +26,7 @@ set(DOC_FILES
     flt.c_lowshelf~
     flt.c_lpf~
     flt.c_notch~
+    flt.c_peak~
     flt.dcblock~
     flt.dcblock2~
     flt.biquad~

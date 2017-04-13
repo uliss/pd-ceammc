@@ -75,6 +75,9 @@
     <entry descr="Band-reject coefficent calculator for biquad filter" name="flt.c_notch~" ref_view="object">
       <xi:include href="flt.c_notch~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="Peaking equalizer calculator for biquad." name="flt.c_peak~" ref_view="object">
+      <xi:include href="flt.c_peak~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="stereo DC blocker" name="flt.dcblock2~" ref_view="object">
       <xi:include href="flt.dcblock2~.pddoc" parse="xml"/>
     </entry>
