@@ -30,6 +30,7 @@ set(DOC_FILES
     flt.highshelf~
     flt.lowshelf~
     flt.lpf12~
+    flt.lpf24~
     flt.notch~
     flt.resonbp~
     flt.eq_peak~

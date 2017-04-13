@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pddoc version="1.0">
-    <object name="flt.lpf12~">
-        <title>flt.lpf12~</title>
+    <object name="flt.lpf24~">
+        <title>flt.lpf24~</title>
         <meta>
             <authors>
                 <author>Alex Nadzharov</author>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>Low-pass filter with 12/db per octave slope</description>
+            <description>Low-pass filter with 24/db per octave slope</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>flt</category>
             <keywords>filter lowpass</keywords>
             <since>0.1</since>
             <also>
-                <see>flt.lpf24~</see>
+                <see>flt.lpf12~</see>
                 <see>flt.hpf12~</see>
                 <see>flt.c_lpf~</see>
             </also>
@@ -50,17 +50,19 @@
         <pdascii>
 <![CDATA[
 [F]
-|               [T]
-[phasor~ 100]   |
-|               [metro 200]
-|  [T]          |
-|  |.           [random.int 100 5000]
-[*~ ]           |
-|         [F]   |   [F]
-|         |     |   |
-[*~ 0.15] [freq $1( [q $1(
-|         |         |
-[flt.lpf12~  4000 5 ]
+|             [T]
+[phasor~ 100] |
+|             [metro 200]
+|  [T]        |
+|  |.         [random.int 20 1200]
+[*~ ]         |
+|             |
+|             [F]    [F]
+|             |      |
+[*~ 0.15] [freq $1(  [q $1(
+|         |          |
+[flt.lpf24~    4000 3]
+|         |
 |         |.
 [dyn.limit2~]
 |  ^|.
