@@ -5,3 +5,4 @@ si = library("signals.lib");
 
 freq(f) = vslider("freq [unit:Hz]", f, 20, 20000, 0.1) : si.smoo;
 q(v) = vslider("q", v, 0.01, 100, 0.1) : si.smoo;
+gain_db(f) = vslider("gain [unit:db]", f, -15, 15, 0.1) : si.smoo;
