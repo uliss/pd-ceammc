@@ -19,6 +19,7 @@ set(DOC_FILES
     env.adsr~
     env.follow~
     flt.bpf12~
+    flt.bpf24~
     flt.c_bpf~
     flt.c_hpf~
     flt.c_lpf~
