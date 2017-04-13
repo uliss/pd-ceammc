@@ -81,6 +81,9 @@
     <entry descr="gain boost|cut above some frequency" name="flt.highshelf~" ref_view="object">
       <xi:include href="flt.highshelf~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="High-pass filter with 24/db per octave slope" name="flt.hpf24~" ref_view="object">
+      <xi:include href="flt.hpf24~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="gain boost|cut below some frequency" name="flt.lowshelf~" ref_view="object">
       <xi:include href="flt.lowshelf~.pddoc" parse="xml"/>
     </entry>

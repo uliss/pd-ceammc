@@ -21,6 +21,7 @@ flt.dcblock2~		~~		~~
 flt.dcblock~		~		~
 flt.eq_peak~		~		~.
 flt.highshelf~		~		~.
+flt.hpf24~		~		~.
 flt.lowshelf~		~		~.
 flt.lpf12~		~		~.
 flt.lpf24~		~		~.

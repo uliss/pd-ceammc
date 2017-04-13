@@ -28,6 +28,7 @@ set(DOC_FILES
     flt.dcblock2~
     flt.biquad~
     flt.highshelf~
+    flt.hpf24~
     flt.lowshelf~
     flt.lpf12~
     flt.lpf24~
