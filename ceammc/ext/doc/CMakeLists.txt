@@ -19,6 +19,7 @@ set(DOC_FILES
     env.adsr~
     env.follow~
     flt.c_bpf~
+    flt.c_lpf~
     flt.dcblock~
     flt.dcblock2~
     flt.biquad~

@@ -12,6 +12,7 @@ env.ar~		~		~.
 env.follow~		~		~.
 flt.biquad~		~~~~~~		~
 flt.c_bpf~		~		~~~~~
+flt.c_lpf~		~		~~~~~
 flt.dcblock2~		~~		~~
 flt.dcblock~		~		~
 flt.eq_peak~		~		~.

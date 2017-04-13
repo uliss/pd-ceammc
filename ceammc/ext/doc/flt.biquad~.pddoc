@@ -14,8 +14,8 @@
             <keywords>filter biquad</keywords>
             <since>0.1</since>
             <also>
-                <see>flt.c_bpf12~</see>
-                <see>flt.c_hpf12~</see>
+                <see>flt.c_bpf~</see>
+                <see>flt.c_hpf~</see>
             </also>
         </meta>
         <info>
