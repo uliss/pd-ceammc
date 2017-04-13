@@ -21,6 +21,7 @@ set(DOC_FILES
     flt.bpf12~
     flt.bpf24~
     flt.c_bpf~
+    flt.c_highshelf~
     flt.c_hpf~
     flt.c_lpf~
     flt.c_notch~
@@ -28,6 +29,7 @@ set(DOC_FILES
     flt.dcblock2~
     flt.biquad~
     flt.highshelf~
+    flt.hpf12~
     flt.hpf24~
     flt.lowshelf~
     flt.lpf12~
