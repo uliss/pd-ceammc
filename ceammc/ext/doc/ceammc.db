@@ -121,6 +121,7 @@ osc.square~		~		~
 osc.tri~		~		~
 pass.changed		.		.
 pass.if		..		..
+pass.this		.		.
 prop->,prop->		.		?
 prop.get,prop->		.		?
 prop.set,prop<-		?		.

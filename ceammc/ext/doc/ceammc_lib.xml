@@ -378,6 +378,9 @@
     <entry descr="pass values that accepted by predicate object" name="pass.if" ref_view="object">
       <xi:include href="pass.if.pddoc" parse="xml"/>
     </entry>
+    <entry descr="pass only specified values" name="pass.this" ref_view="object">
+      <xi:include href="pass.this.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="predicates">
     <entry descr="checks if input data has *any* type" name="is_any" ref_view="object">

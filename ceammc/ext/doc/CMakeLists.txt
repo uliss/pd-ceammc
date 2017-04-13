@@ -129,6 +129,7 @@ set(DOC_FILES
     osc.tri~
     pass.changed
     pass.if
+    pass.this
     prop.get
     prop.set
     random.int

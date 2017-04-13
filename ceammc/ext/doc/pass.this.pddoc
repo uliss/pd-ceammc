@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pddoc version="1.0">
+    <object name="pass.this">
+        <title>pass.this</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>pass only specified values</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>pass</category>
+            <keywords>pass functional</keywords>
+            <since>0.1</since>
+            <also>
+                <see>pass.if</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument type="atom">atoms to pass</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo>input value</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>passed values</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]    [S]    [list 1 2 9 10(
+|      |      |
+|      |      |
+[pass.this 1 10 100 a z]
+|
+[msg set]
+|
+[ (
+
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
+
