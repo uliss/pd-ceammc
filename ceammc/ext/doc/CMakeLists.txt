@@ -138,6 +138,7 @@ set(DOC_FILES
     replace
     snd.file
     symbol.length
+    system.hostname
     system.memsize
     system.memused
     system.screen_size

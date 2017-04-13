@@ -440,6 +440,9 @@
     </entry>
   </category>
   <category name="system">
+    <entry descr="outputs system hostname" name="system.hostname" ref_view="object">
+      <xi:include href="system.hostname.pddoc" parse="xml"/>
+    </entry>
     <entry descr="returns the size of physical memory (RAM) in bytes round to float data type." name="system.memsize" ref_view="object">
       <xi:include href="system.memsize.pddoc" parse="xml"/>
     </entry>

@@ -132,6 +132,7 @@ reject.this		.		.
 replace		...		.
 snd.file		.		.
 symbol.length		.		.
+system.hostname		.		.
 system.memsize		.		.
 system.memused		.		..
 system.screen_size		.		.
