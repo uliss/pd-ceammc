@@ -452,6 +452,9 @@
     </entry>
   </category>
   <category name="system">
+    <entry descr="Get system environment variables" name="system.getenv" ref_view="object">
+      <xi:include href="system.getenv.pddoc" parse="xml"/>
+    </entry>
     <entry descr="outputs system hostname" name="system.hostname" ref_view="object">
       <xi:include href="system.hostname.pddoc" parse="xml"/>
     </entry>

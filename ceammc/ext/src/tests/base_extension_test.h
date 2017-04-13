@@ -54,7 +54,7 @@ public:
     TestExtension(const char* name, const AtomList& args);
 
     /** send functions */
-    void sendBang();
+    void sendBang(int inlet = 0);
     void sendFloat(float f, int inlet = 0);
     void sendSymbol(t_symbol* s, int inlet = 0);
     void sendSymbol(const char* s, int inlet = 0);
@@ -322,9 +322,12 @@ TestExtension<T>::TestExtension(const char* name, const AtomList& args)
 }
 
 template <class T>
-void TestExtension<T>::sendBang()
+void TestExtension<T>::sendBang(int inlet)
 {
-    T::onBang();
+    if (inlet == 0)
+        T::onBang();
+    else
+        T::onInlet(inlet, AtomList());
 }
 
 template <class T>

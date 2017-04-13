@@ -142,6 +142,7 @@ set(DOC_FILES
     replace
     snd.file
     symbol.length
+    system.getenv
     system.hostname
     system.memsize
     system.memused
