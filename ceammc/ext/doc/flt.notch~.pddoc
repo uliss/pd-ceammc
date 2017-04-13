@@ -51,7 +51,9 @@
         <example>
         <pdascii>
 <![CDATA[
-[osc~ 1000]
+[osc~ 1000] [T]
+|  .________/
+[*~]
 |
 |  [@freq?(  [@width?( [F]
 |  |         |         |
@@ -59,7 +61,9 @@
 |  |         |         |
 [flt.notch~ 1000 10 id    ]
 |\                      ^|
-[dac~]                 [ui.display]
+[dac~]                 [route @freq @width]
+                       |       ^|
+                       [F]     [F]
 ]]>
         </pdascii>
         </example>
