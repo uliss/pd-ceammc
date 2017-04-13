@@ -421,6 +421,11 @@
       <xi:include href="random.int.pddoc" parse="xml"/>
     </entry>
   </category>
+  <category name="reject">
+    <entry descr="reject only specified values" name="reject.this" ref_view="object">
+      <xi:include href="reject.this.pddoc" parse="xml"/>
+    </entry>
+  </category>
   <category name="snd">
     <entry descr="Sound file loader on steroids" name="snd.file" ref_view="object">
       <xi:include href="snd.file.pddoc" parse="xml"/>

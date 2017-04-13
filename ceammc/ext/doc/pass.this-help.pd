@@ -16,8 +16,8 @@
 -49933 0;
 #X text 120 268 1\.;
 #X text 150 268 atom;
-#X obj 241 269 cnv 1 57 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 268 Values: atoms to pass. ;
+#X obj 241 269 cnv 1 56 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 268 values: atoms to pass. ;
 #X obj 20 296 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 301 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
@@ -35,8 +35,9 @@
 #X obj 131 48 ui.link @title pass @url ceammc.pass-help.pd;
 #X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.1;
-#X text 564 520 see also:;
-#X obj 640 520 pass.if;
+#X text 471 520 see also:;
+#X obj 547 520 pass.if;
+#X obj 612 520 reject.this;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
