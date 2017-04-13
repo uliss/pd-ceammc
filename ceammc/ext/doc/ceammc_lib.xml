@@ -337,6 +337,9 @@
     <entry descr="square root function" name="math.sqrt" ref_view="object">
       <xi:include href="math.sqrt.pddoc" parse="xml"/>
     </entry>
+    <entry descr="value square" name="math.squared" ref_view="object">
+      <xi:include href="math.squared.pddoc" parse="xml"/>
+    </entry>
     <entry descr="tangent function" name="math.tan" ref_view="object">
       <xi:include href="math.tan.pddoc" parse="xml"/>
     </entry>

@@ -118,6 +118,7 @@ set(DOC_FILES
     math.sin
     math.sinh
     math.sqrt
+    math.squared
     math.tan
     math.tanh
     math.trunc

@@ -110,6 +110,7 @@ math.sign		.		.
 math.sin		.		.
 math.sinh		.		.
 math.sqrt		.		.
+math.squared		.		.
 math.tan		.		.
 math.tanh		.		.
 math.trunc		.		.
