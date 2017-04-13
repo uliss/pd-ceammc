@@ -1,8 +1,7 @@
-import("filter.lib");
-si = library("signal.lib");
+fi = library("filters.lib");
+si = library("signals.lib");
+ui = library("ceammc_ui.lib");
 
-freq = vslider("freq", 1000, 20, 20000, 0.1) : si.smoo;
-gain = vslider("gain", 0, -20, 20, 0.1) : si.smoo;
 bw = vslider("bandwidth", 100, 1, 5000, 0.1) : si.smoo;
 
-process = peak_eq(gain, freq, bw);
+process = fi.peak_eq(ui.gain_db(0), ui.freq(1000), bw);

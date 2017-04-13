@@ -49,9 +49,11 @@
         <example>
         <pdascii>
 <![CDATA[
-[noise~] [_]  [F]       [F]       [F]
-|  ._____/    |         |         |
-[*~]      [B] [freq $1( [gain $1( [bandwidth $1(
+[noise~] [_]
+|  ._____/
+[*~]          [F]       [F]       [F]
+|             |         |         |
+[*~ 0.1]  [B] [freq $1( [gain $1( [bandwidth $1(
 |         |   |         |         |
 [flt.eq_peak~ 3000 20 400 id      ]
 |\                      ^|
