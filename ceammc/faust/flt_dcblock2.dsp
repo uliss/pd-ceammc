@@ -1,4 +1,4 @@
-import("filter.lib");
-import("ceammc.lib");
+fi = library("filters.lib");
+cm = library("ceammc.lib");
 
-process = duplicate(2, dcblocker);
+process = cm.duplicate(2, fi.dcblocker);

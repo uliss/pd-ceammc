@@ -1,3 +1,3 @@
-import("filter.lib");
+import("filters.lib");
 
 process = dcblocker;
