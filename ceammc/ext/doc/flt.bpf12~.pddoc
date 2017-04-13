@@ -1,24 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pddoc version="1.0">
-    <object name="flt.c_bpf~">
-        <title>flt.c_bpf~</title>
+    <object name="flt.bpf12~">
+        <title>flt.bpf12~</title>
         <meta>
             <authors>
                 <author>Alex Nadzharov</author>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>BPF coefficent calculator for biquad filter</description>
+            <description>Band-pass filter with 12/db per octave slope</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>flt</category>
             <keywords>filter biquad bpf</keywords>
             <since>0.1</since>
             <also>
-                <see>flt.biquad~</see>
-                <see>flt.bpf12~</see>
-                <see>flt.c_notch~</see>
+                <see>flt.bpf24~</see>
+                <see>flt.c_bpf~</see>
             </also>
         </meta>
+        <info>
+            <par>Band-pass filter passes frequencies within a certain range
+            and rejects frequencies outside that range.
+            </par>
+        </info>
         <methods>
             <method name="freq">
                 <param type="float" units="herz">center frequency</param>
@@ -36,26 +40,22 @@
             <inlet type="audio"><xinfo>input signal</xinfo></inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">b0</outlet>
-            <outlet type="audio">b1</outlet>
-            <outlet type="audio">b2</outlet>
-            <outlet type="audio">a1</outlet>
-            <outlet type="audio">a2</outlet>
+            <outlet type="audio">filtered signal</outlet>
+            <outlet>information output</outlet>
         </outlets>
         <example>
         <pdascii>
 <![CDATA[
 
-[noise.pink~] [T] [F]       [F]
-|        .____/   |         |
-[*~      ]        [freq $1( [q $1(
-|                 |         |
-|                 [flt.c_bpf~ 1000 100]
-|                 | ^| ^^| ^^^| ^^^^|
-|                 |  |   |    |     |
-|                 |  |   |    |     |
-|                 |. |.. |... |.... |.....
-[flt.biquad~                              ]
+[noise.pink~] [T]
+|        .____/
+[*~      ]
+|
+|        [F]       [F]
+|        |         |
+|        [freq $1( [q $1(
+|        |         |
+[flt.bpf12~  1000 5 ]
 |\
 [dac~]
 

@@ -11,6 +11,7 @@ env.adsr~		~		~.
 env.ar~		~		~.
 env.follow~		~		~.
 flt.biquad~		~~~~~~		~
+flt.bpf12~		~		~.
 flt.c_bpf~		~		~~~~~
 flt.c_hpf~		~		~~~~~
 flt.c_lpf~		~		~~~~~

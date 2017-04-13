@@ -51,6 +51,9 @@
     <entry descr="second order IIR filter." name="flt.biquad~" ref_view="object">
       <xi:include href="flt.biquad~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="Band-pass filter with 12/db per octave slope" name="flt.bpf12~" ref_view="object">
+      <xi:include href="flt.bpf12~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="BPF coefficent calculator for biquad filter" name="flt.c_bpf~" ref_view="object">
       <xi:include href="flt.c_bpf~.pddoc" parse="xml"/>
     </entry>
