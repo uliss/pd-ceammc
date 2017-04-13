@@ -1,10 +1,7 @@
-fl = library("filter.lib");
+fl = library("filters.lib");
 ms = library("maxmsp.lib");
-si = library("signal.lib");
+ui = library("ceammc_ui.lib");
 
-freq = hslider("freq", 10000, 20, 20000, 0.1) : si.smoo;
-q = vslider("q", 0.01, 0.01, 15, 0.1) : si.smoo;
-
-stage12 = (ms.filtercoeff(freq,0,q).HPF, _) : fl.tf21;
+stage12 = (ms.filtercoeff(ui.freq(10000), 0, ui.q(0.01)).HPF, _) : fl.tf22;
 
 process = stage12;
