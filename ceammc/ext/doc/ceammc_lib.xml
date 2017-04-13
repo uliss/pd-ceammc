@@ -460,6 +460,9 @@
     <entry descr="Display GUI object" name="ui.display" ref_view="link">
       <xi:include href="ui.display.pddoc" parse="xml"/>
     </entry>
+    <entry descr="keyboard widget" name="ui.keyboard" ref_view="link">
+      <xi:include href="ui.keyboard.pddoc" parse="xml"/>
+    </entry>
     <entry descr="knob widget" name="ui.knob" ref_view="link">
       <xi:include href="ui.knob.pddoc" parse="xml"/>
     </entry>

@@ -144,6 +144,7 @@ set(DOC_FILES
     ui.bang
     ui.bpfunc
     ui.display
+    ui.keyboard
     ui.knob
     ui.matrix
     ui.scope~

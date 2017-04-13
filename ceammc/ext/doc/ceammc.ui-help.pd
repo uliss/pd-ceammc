@@ -8,17 +8,19 @@
 #X text 175 139 Breakpoint function GUI object;
 #X obj 30 165 ui.link @title [ui.display] @url ui.display-help.pd;
 #X text 175 162 Display GUI object;
-#X obj 30 188 ui.link @title [ui.knob] @url ui.knob-help.pd;
-#X text 175 185 knob widget;
-#X obj 30 211 ui.link @title [ui.matrix] @url ui.matrix-help.pd;
-#X text 175 208 The matrix of toggles has you.;
-#X obj 30 234 ui.link @title [ui.scope~] @url ui.scope~-help.pd;
-#X text 175 231 Scope GUI object;
-#X obj 30 257 ui.link @title [ui.spectroscope~] @url
+#X obj 30 188 ui.link @title [ui.keyboard] @url ui.keyboard-help.pd;
+#X text 175 185 keyboard widget;
+#X obj 30 211 ui.link @title [ui.knob] @url ui.knob-help.pd;
+#X text 175 208 knob widget;
+#X obj 30 234 ui.link @title [ui.matrix] @url ui.matrix-help.pd;
+#X text 175 231 The matrix of toggles has you.;
+#X obj 30 257 ui.link @title [ui.scope~] @url ui.scope~-help.pd;
+#X text 175 254 Scope GUI object;
+#X obj 30 280 ui.link @title [ui.spectroscope~] @url
 ui.spectroscope~-help.pd;
-#X text 175 254 Spectroscope GUI object;
-#X obj 30 280 ui.link @title [ui.toggle] @url ui.toggle-help.pd;
-#X text 175 277 modern toggle widget;
+#X text 175 277 Spectroscope GUI object;
+#X obj 30 303 ui.link @title [ui.toggle] @url ui.toggle-help.pd;
+#X text 175 300 modern toggle widget;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::ui 20 20 0 20 -104026
 -4096 0;
 #X obj 1 458 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;

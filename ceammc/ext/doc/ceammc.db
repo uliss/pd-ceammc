@@ -138,6 +138,7 @@ system.screen_size		.		.
 ui.bang		.		.
 ui.bpfunc		.		.
 ui.display		.		-
+ui.keyboard		.		.
 ui.knob		.		.
 ui.matrix		.		.
 ui.scope~		.		-

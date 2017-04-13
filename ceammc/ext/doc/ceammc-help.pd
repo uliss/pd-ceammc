@@ -359,33 +359,35 @@ peak;
 #X text 175 5127 Breakpoint function GUI object;
 #X obj 30 5153 ui.link @title [ui.display] @url ui.display-help.pd;
 #X text 175 5150 Display GUI object;
-#X obj 30 5176 ui.link @title [ui.knob] @url ui.knob-help.pd;
-#X text 175 5173 knob widget;
-#X obj 30 5199 ui.link @title [ui.matrix] @url ui.matrix-help.pd;
-#X text 175 5196 The matrix of toggles has you.;
-#X obj 30 5222 ui.link @title [ui.scope~] @url ui.scope~-help.pd;
-#X text 175 5219 Scope GUI object;
-#X obj 30 5245 ui.link @title [ui.spectroscope~] @url
+#X obj 30 5176 ui.link @title [ui.keyboard] @url ui.keyboard-help.pd;
+#X text 175 5173 keyboard widget;
+#X obj 30 5199 ui.link @title [ui.knob] @url ui.knob-help.pd;
+#X text 175 5196 knob widget;
+#X obj 30 5222 ui.link @title [ui.matrix] @url ui.matrix-help.pd;
+#X text 175 5219 The matrix of toggles has you.;
+#X obj 30 5245 ui.link @title [ui.scope~] @url ui.scope~-help.pd;
+#X text 175 5242 Scope GUI object;
+#X obj 30 5268 ui.link @title [ui.spectroscope~] @url
 ui.spectroscope~-help.pd;
-#X text 175 5242 Spectroscope GUI object;
-#X obj 30 5268 ui.link @title [ui.toggle] @url ui.toggle-help.pd;
-#X text 175 5265 modern toggle widget;
-#X obj 20 5288 cnv 5 69 31 empty empty vector 4 13 0 17 -262144 -49933
+#X text 175 5265 Spectroscope GUI object;
+#X obj 30 5291 ui.link @title [ui.toggle] @url ui.toggle-help.pd;
+#X text 175 5288 modern toggle widget;
+#X obj 20 5311 cnv 5 69 31 empty empty vector 4 13 0 17 -262144 -49933
 0;
-#X obj 20 5329 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 5340 vector.distance;
-#X text 175 5340 returns euclidean distance between two points;
-#X obj 30 5367 vector.dot;
-#X text 175 5367 treats list of floats as vector \, returns the dot
+#X obj 20 5352 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 5363 vector.distance;
+#X text 175 5363 returns euclidean distance between two points;
+#X obj 30 5390 vector.dot;
+#X text 175 5390 treats list of floats as vector \, returns the dot
 product (sum of the elements of two lists with same indexes
 multiplied).;
-#X obj 30 5418 vector.length;
-#X text 175 5418 treats list of floats as vector \, returns vector
+#X obj 30 5441 vector.length;
+#X text 175 5441 treats list of floats as vector \, returns vector
 length: sqrt(element(1)^2 + ...element(n)^2).;
-#X obj 30 5455 vector.normalize;
-#X text 175 5455 returns normalized vector;
+#X obj 30 5478 vector.normalize;
+#X text 175 5478 returns normalized vector;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc 20 20 0 20 -104026 -4096 0;
-#X obj 1 5482 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 5482 version: v0.1 \, license: GPL3;
-#X obj 20 5501 ui.link @title https://github.com/uliss/pure-data @url
+#X obj 1 5505 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 5505 version: v0.1 \, license: GPL3;
+#X obj 20 5524 ui.link @title https://github.com/uliss/pure-data @url
 https://github.com/uliss/pure-data;
