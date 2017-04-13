@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pddoc version="1.0">
-    <object name="flt.c_highshelf~">
-        <title>flt.c_highshelf~</title>
+    <object name="flt.c_lowshelf~">
+        <title>flt.c_lowshelf~</title>
         <meta>
             <authors>
                 <author>Alex Nadzharov</author>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>Highshelf filter coefficent calculator for biquad</description>
+            <description>Lowshelf filter coefficent calculator for biquad</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>flt</category>
-            <keywords>filter highshelf</keywords>
+            <keywords>filter lowshelf</keywords>
             <since>0.1</since>
             <also>
-                <see>flt.highshelf~</see>
+                <see>flt.lowshelf~</see>
                 <see>flt.biquad~</see>
             </also>
         </meta>
         <info>
-            <par>gain boost|cut above some frequency</par>
+            <par>gain boost|cut below some frequency</par>
         </info>
         <methods>
             <method name="freq">
-                <param type="float" units="herz" default="10000">cutoff frequency</param>
+                <param type="float" units="herz" default="1000">cutoff frequency</param>
             </method>
             <method name="gain">
-                <param type="float" name="X" minvalue="-15" maxvalue="+15" default="0" units="decibel">filter gain</param>
+                <param type="float" units="decibel" name="X" minvalue="-15" maxvalue="+15" default="0">filter gain</param>
             </method>
         </methods>
         <arguments>
             <argument name="freq" type="float" units="herz">cutoff frequency</argument>
-            <argument name="gain" type="float" minvalue="-15" maxvalue="+15" units="decibel">quality factory</argument>
+            <argument name="gain" type="float" minvalue="-15" maxvalue="+15" units="decibel">filter gain</argument>
             <argument name="ID" type="symbol">object ID for OSC control</argument>
         </arguments>
         <inlets>

@@ -23,6 +23,7 @@ set(DOC_FILES
     flt.c_bpf~
     flt.c_highshelf~
     flt.c_hpf~
+    flt.c_lowshelf~
     flt.c_lpf~
     flt.c_notch~
     flt.dcblock~

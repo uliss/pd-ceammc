@@ -1,12 +1,12 @@
 #N canvas 0 0 715 555 12;
 #X declare -lib ceammc -lib creammc;
-#X obj 300 50 cnv 1 395 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 300 50 Highshelf filter coefficent calculator for biquad;
-#X obj 1 1 cnv 5 712 40 empty empty flt.c_highshelf~ 20 20 0 20
--104026 -4096 0;
-#X obj 571 11 flt.c_highshelf~;
+#X obj 309 50 cnv 1 386 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 309 50 Lowshelf filter coefficent calculator for biquad;
+#X obj 1 1 cnv 5 712 40 empty empty flt.c_lowshelf~ 20 20 0 20 -104026
+-4096 0;
+#X obj 578 11 flt.c_lowshelf~;
 #X obj 205 80 cnv 1 490 33 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80 gain boost|cut above some frequency;
+#X text 210 80 gain boost|cut below some frequency;
 #X obj 50 141 noise.pink~;
 #X obj 78 170 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 50 199 *~;
@@ -27,7 +27,7 @@
 #X text 120 424 2\.;
 #X text 150 424 float;
 #X obj 241 425 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 424 gain(db): quality factory. Range: -15\...+15;
+#X text 240 424 gain(db): filter gain. Range: -15\...+15;
 #X text 120 442 3\.;
 #X text 150 442 symbol;
 #X obj 241 443 cnv 1 24 18 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -68,8 +68,8 @@
 #X obj 131 48 ui.link @title flt @url ceammc.flt-help.pd;
 #X obj 1 770 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 773 library: ceammc v0.1;
-#X text 417 785 see also:;
-#X obj 493 785 flt.highshelf~;
+#X text 424 785 see also:;
+#X obj 500 785 flt.lowshelf~;
 #X obj 610 785 flt.biquad~;
 #N canvas 10 792 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
@@ -78,7 +78,7 @@
 #X text 10 32 version:;
 #X text 120 32 0.1;
 #X text 10 54 object:;
-#X text 120 54 flt.c_highshelf~;
+#X text 120 54 flt.c_lowshelf~;
 #X text 10 76 category:;
 #X text 120 76 flt;
 #X text 10 98 since:;
@@ -88,7 +88,7 @@
 #X text 10 142 license:;
 #X text 120 142 GPL3;
 #X text 10 164 keywords:;
-#X text 120 164 filter \, highshelf;
+#X text 120 164 filter \, lowshelf;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pure-data @url
 https://github.com/uliss/pure-data;
