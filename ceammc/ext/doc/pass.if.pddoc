@@ -19,7 +19,7 @@
         <info>
             <par>conditional value pass according to *predicate* object.
             *predicate* should accept value and ouput 0 or 1, for value passing.</par>
-            <par>[is_even] [is_list] - examples of predicates.</par>
+            <par>[&gt;=] [is_even] [is_list] - examples of predicates.</par>
         </info>
         <inlets>
             <inlet>

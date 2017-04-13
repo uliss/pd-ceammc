@@ -133,6 +133,7 @@ set(DOC_FILES
     prop.get
     prop.set
     random.int
+    reject.if
     reject.this
     replace
     snd.file

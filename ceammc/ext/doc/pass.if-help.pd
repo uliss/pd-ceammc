@@ -9,7 +9,7 @@
 #X text 210 80 conditional value pass according to *predicate* object.
 *predicate* should accept value and ouput 0 or 1 \, for value
 passing.;
-#X text 210 131 [is_even] [is_list] - examples of predicates.;
+#X text 210 131 [>=] [is_even] [is_list] - examples of predicates.;
 #X floatatom 50 192 5 0 0 0 - - -;
 #X msg 107 192 1 2 3 4 5;
 #X floatatom 290 192 5 0 0 0 - - -;

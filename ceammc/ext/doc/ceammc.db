@@ -127,6 +127,7 @@ prop.get,prop->		.		?
 prop.set,prop<-		?		.
 prop<-		?		.
 random.int		.		.
+reject.if		..		..
 reject.this		.		.
 replace		...		.
 snd.file		.		.
