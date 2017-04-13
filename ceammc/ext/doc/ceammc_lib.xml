@@ -313,6 +313,9 @@
     <entry descr="Not a Number, unrepresentable value" name="math.nan" ref_view="object">
       <xi:include href="math.nan.pddoc" parse="xml"/>
     </entry>
+    <entry descr="negate function" name="math.neg" ref_view="object">
+      <xi:include href="math.neg.pddoc" parse="xml"/>
+    </entry>
     <entry descr="mathematical constant" name="math.pi" ref_view="object">
       <xi:include href="math.pi.pddoc" parse="xml"/>
     </entry>

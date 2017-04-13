@@ -110,6 +110,7 @@ set(DOC_FILES
     math.log10
     math.log2
     math.nan
+    math.neg
     math.pi
     math.reciprocal
     math.round
