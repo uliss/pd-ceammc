@@ -84,6 +84,9 @@
     <entry descr="gain boost|cut below some frequency" name="flt.lowshelf~" ref_view="object">
       <xi:include href="flt.lowshelf~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="Low-pass filter with 12/db per octave slope" name="flt.lpf12~" ref_view="object">
+      <xi:include href="flt.lpf12~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="band-rejection filter" name="flt.notch~" ref_view="object">
       <xi:include href="flt.notch~.pddoc" parse="xml"/>
     </entry>
@@ -390,6 +393,11 @@
     </entry>
     <entry descr="Property injector" name="prop.set" ref_view="object">
       <xi:include href="prop.set.pddoc" parse="xml"/>
+    </entry>
+  </category>
+  <category name="random">
+    <entry descr="Random integer generator in specified range" name="random.int" ref_view="object">
+      <xi:include href="random.int.pddoc" parse="xml"/>
     </entry>
   </category>
   <category name="snd">

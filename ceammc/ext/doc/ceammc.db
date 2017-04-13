@@ -22,6 +22,7 @@ flt.dcblock~		~		~
 flt.eq_peak~		~		~.
 flt.highshelf~		~		~.
 flt.lowshelf~		~		~.
+flt.lpf12~		~		~.
 flt.notch~		~		~.
 flt.resonbp~		~		~.
 fx.freeverb2~		~~		~~.
@@ -118,6 +119,7 @@ prop->,prop->		.		?
 prop.get,prop->		.		?
 prop.set,prop<-		?		.
 prop<-		?		.
+random.int		.		.
 replace		...		.
 snd.file		.		.
 symbol.length		.		.

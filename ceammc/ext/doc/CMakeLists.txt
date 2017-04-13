@@ -29,6 +29,7 @@ set(DOC_FILES
     flt.biquad~
     flt.highshelf~
     flt.lowshelf~
+    flt.lpf12~
     flt.notch~
     flt.resonbp~
     flt.eq_peak~
@@ -124,6 +125,7 @@ set(DOC_FILES
     pass.if
     prop.get
     prop.set
+    random.int
     replace
     snd.file
     symbol.length
