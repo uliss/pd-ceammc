@@ -103,6 +103,7 @@ math.log10		.		.
 math.log2		.		.
 math.nan		.		.
 math.pi		.		.
+math.reciprocal		.		.
 math.round		.		.
 math.sin		.		.
 math.sinh		.		.

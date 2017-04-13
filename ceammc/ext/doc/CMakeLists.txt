@@ -111,6 +111,7 @@ set(DOC_FILES
     math.log2
     math.nan
     math.pi
+    math.reciprocal
     math.round
     math.sin
     math.sinh

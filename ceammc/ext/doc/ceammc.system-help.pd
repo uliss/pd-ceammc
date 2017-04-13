@@ -3,7 +3,7 @@
 #X text 62 50 ::;
 #X obj 79 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 30 116 system.hostname;
-#X text 175 116 outpus system hostname;
+#X text 175 116 outputs system hostname;
 #X obj 30 143 system.memsize;
 #X text 175 143 returns the size of physical memory (RAM) in bytes
 round to float data type.;
