@@ -86,6 +86,9 @@
     </entry>
   </category>
   <category name="fx">
+    <entry descr="freeverb2 - stereo version of freeverb" name="fx.freeverb2~" ref_view="object">
+      <xi:include href="fx.freeverb2~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="freeverb - common used open-source reverb" name="fx.freeverb~" ref_view="object">
       <xi:include href="fx.freeverb~.pddoc" parse="xml"/>
     </entry>

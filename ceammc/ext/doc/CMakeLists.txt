@@ -33,6 +33,7 @@ set(DOC_FILES
     fx.freqshift~
     fx.pitchshift~
     fx.freeverb~
+    fx.freeverb2~
     global.float
     global.int
     global.list
