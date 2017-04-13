@@ -14,6 +14,8 @@ section.;
 #X text 175 221 gain boost|cut above some frequency;
 #X obj 30 248 flt.lowshelf~;
 #X text 175 248 gain boost|cut below some frequency;
+#X obj 30 275 flt.notch~;
+#X text 175 275 band-rejection filter;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::flt 20 20 0 20 -104026
 -4096 0;
 #X obj 1 458 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;

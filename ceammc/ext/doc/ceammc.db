@@ -15,6 +15,7 @@ flt.dcblock~		~		~
 flt.eq_peak~		~		~.
 flt.highshelf~		~		~.
 flt.lowshelf~		~		~.
+flt.notch~		~		~.
 fx.freeverb~		~		~.
 fx.freqshift~		~~		~~.
 fx.pitchshift~		~~		~.

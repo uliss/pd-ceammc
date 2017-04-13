@@ -19,6 +19,7 @@ extern "C" void setup_flt0x2ehpf24_tilde();
 extern "C" void setup_flt0x2elowshelf_tilde();
 extern "C" void setup_flt0x2elpf12_tilde();
 extern "C" void setup_flt0x2elpf24_tilde();
+extern "C" void setup_flt0x2enotch_tilde();
 
 void ceammc_flt_setup() {
      setup_flt0x2ebiquad_tilde();
@@ -40,4 +41,5 @@ void ceammc_flt_setup() {
      setup_flt0x2elowshelf_tilde();
      setup_flt0x2elpf12_tilde();
      setup_flt0x2elpf24_tilde();
+     setup_flt0x2enotch_tilde();
 }

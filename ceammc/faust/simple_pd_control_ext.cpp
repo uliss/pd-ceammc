@@ -553,8 +553,15 @@ public:
             return;
 
         t_float v = 0.0;
-        if (get_nth_float_arg(this->argc_, this->argv_, pos, &v))
-            this->x_->ui->setElementValue(name, v);
+        if (get_nth_float_arg(this->argc_, this->argv_, pos, &v)) {
+            UIElement* el = this->x_->ui->findElementByLabel(name);
+            if (!el) {
+                post("invalid UI element name: %s", name);
+                return;
+            }
+
+            el->setValue(v, true);
+        }
     }
 
     /**

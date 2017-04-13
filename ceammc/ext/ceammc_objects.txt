@@ -37,6 +37,7 @@ flt.hpf24~
 flt.lowshelf~
 flt.lpf12~
 flt.lpf24~
+flt.notch~
 fx.freeverb2~
 fx.freeverb~
 fx.freqshift~

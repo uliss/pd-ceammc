@@ -22,6 +22,7 @@ set(DOC_FILES
     flt.dcblock2~
     flt.highshelf~
     flt.lowshelf~
+    flt.notch~
     flt.eq_peak~
     fx.freqshift~
     fx.pitchshift~

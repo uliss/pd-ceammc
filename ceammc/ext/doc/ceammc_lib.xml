@@ -63,6 +63,9 @@
     <entry descr="gain boost|cut below some frequency" name="flt.lowshelf~" ref_view="object">
       <xi:include href="flt.lowshelf~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="band-rejection filter" name="flt.notch~" ref_view="object">
+      <xi:include href="flt.notch~.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="fx">
     <entry descr="freeverb - common used open-source reverb" name="fx.freeverb~" ref_view="object">
