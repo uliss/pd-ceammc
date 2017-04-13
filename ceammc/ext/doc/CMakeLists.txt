@@ -113,6 +113,7 @@ set(DOC_FILES
     math.pi
     math.reciprocal
     math.round
+    math.sign
     math.sin
     math.sinh
     math.sqrt
