@@ -16,11 +16,13 @@
 #X text 175 231 The matrix of toggles has you.;
 #X obj 30 257 ui.link @title [ui.scope~] @url ui.scope~-help.pd;
 #X text 175 254 Scope GUI object;
-#X obj 30 280 ui.link @title [ui.spectroscope~] @url
+#X obj 30 280 ui.link @title [ui.slider2d] @url ui.slider2d-help.pd;
+#X text 175 277 2D slider widget;
+#X obj 30 303 ui.link @title [ui.spectroscope~] @url
 ui.spectroscope~-help.pd;
-#X text 175 277 Spectroscope GUI object;
-#X obj 30 303 ui.link @title [ui.toggle] @url ui.toggle-help.pd;
-#X text 175 300 modern toggle widget;
+#X text 175 300 Spectroscope GUI object;
+#X obj 30 326 ui.link @title [ui.toggle] @url ui.toggle-help.pd;
+#X text 175 323 modern toggle widget;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::ui 20 20 0 20 -104026
 -4096 0;
 #X obj 1 458 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;

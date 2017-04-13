@@ -147,6 +147,7 @@ ui.keyboard		.		.
 ui.knob		.		.
 ui.matrix		.		.
 ui.scope~		.		-
+ui.slider2d		.		.
 ui.spectroscope~		~		-
 ui.toggle		.		.
 vector.distance		..		.
