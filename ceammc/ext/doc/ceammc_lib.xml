@@ -394,6 +394,11 @@
       <xi:include href="pass.this.pddoc" parse="xml"/>
     </entry>
   </category>
+  <category name="path">
+    <entry descr="outputs filename portion of pathname" name="path.basename" ref_view="object">
+      <xi:include href="path.basename.pddoc" parse="xml"/>
+    </entry>
+  </category>
   <category name="predicates">
     <entry descr="checks if input data has *any* type" name="is_any" ref_view="object">
       <xi:include href="is_any.pddoc" parse="xml"/>

@@ -126,6 +126,7 @@ osc.tri~		~		~
 pass.changed		.		.
 pass.if		..		..
 pass.this		.		.
+path.basename		.		.
 prop->,prop->		.		?
 prop.get,prop->		.		?
 prop.set,prop<-		?		.

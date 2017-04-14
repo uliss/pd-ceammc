@@ -134,6 +134,7 @@ set(DOC_FILES
     pass.changed
     pass.if
     pass.this
+    path.basename
     prop.get
     prop.set
     random.int
