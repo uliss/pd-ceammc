@@ -34,9 +34,9 @@
 |               |           |        |         |
 |               [symbol                        ]
 |               |
-|               |     [.(  [..(
-|               |     |    |
-|               |     [symbol]
+|               |     [.(  [..( [C://file.txt(
+|               |     |    |    |
+|               |     [symbol   ]
 |               |     |
 [path.basename        ]
 |
