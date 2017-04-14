@@ -238,6 +238,21 @@ static void sliders_m_select(ui_sliders* zx, t_symbol* s, int argc, t_atom* argv
     GuiFactory<ui_sliders>::ws_redraw(zx);
 }
 
+static void sliders_m_set_at(ui_sliders* zx, t_symbol* s, int argc, t_atom* argv)
+{
+    if (argc < 2)
+        return;
+
+    if (argv[0].a_type != A_FLOAT || argv[1].a_type != A_FLOAT)
+        return;
+
+    size_t pos = atom_getfloat(&argv[0]);
+    t_float v = atom_getfloat(&argv[1]);
+
+    zx->setValueAt(pos, v);
+    GuiFactory<ui_sliders>::ws_redraw(zx);
+}
+
 static void sliders_m_auto_range(ui_sliders* z, t_floatarg v)
 {
     z->auto_range = (v != 0.f);
@@ -301,7 +316,7 @@ UI_fun(ui_sliders)::wx_attr_changed_ext(ui_sliders* z, t_symbol*)
 {
     ws_redraw(z);
 }
-    
+
 #pragma mark -
 
 UI_fun(ui_sliders)::init_ext(t_eclass* z)
@@ -350,6 +365,7 @@ UI_fun(ui_sliders)::init_ext(t_eclass* z)
     // clang-format on
 
     eclass_addmethod(z, (method)(sliders_m_select), "select", A_GIMME, 0);
+    eclass_addmethod(z, (method)(sliders_m_set_at), "set_at", A_GIMME, 0);
     eclass_addmethod(z, (method)ui_sl_getdrawparams, "getdrawparams", A_NULL, 0);
 }
 
