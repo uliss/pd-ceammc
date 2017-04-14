@@ -26,7 +26,7 @@
             <property name="@range_y" type="float" default="2">y-value range</property>
             <property name="@shift_x" type="float" default="-1">x-value offset</property>
             <property name="@shift_y" type="float" default="-1">y-value offset</property>
-            <property name="@preset" type="symbol">preset name for using with [ui.preset]</property>
+            <property name="@presetname" type="symbol">preset name for using with [ui.preset]</property>
             <property name="@send" type="symbol">send destination</property>
             <property name="@receive" type="symbol">receive source</property>
             <property name="@show_range" type="int" enum="0 1">if show slider range</property>
@@ -58,7 +58,7 @@
 <![CDATA[
 [set 0 0(  [set_x 0.5( [set_y 0.1(
 |          |           |
-[ui.slider2d @size=60x60]
+[ui.slider2d @presetname=s2d-help]
 |
 |
 |
@@ -66,9 +66,12 @@
 |
 |
 |
-[msg set]
-|
-[ (
+[ui.display @display_type=1]
+
+/*[Shift+click] to save, [Alt+click] to remove, [click] to activate*/
+
+
+[ui.preset]
 ]]>
             </pdascii>
         </example>

@@ -498,6 +498,9 @@
     <entry descr="2D slider widget" name="ui.slider2d" ref_view="link">
       <xi:include href="ui.slider2d.pddoc" parse="xml"/>
     </entry>
+    <entry descr="Multiple slider widget" name="ui.sliders" ref_view="link">
+      <xi:include href="ui.sliders.pddoc" parse="xml"/>
+    </entry>
     <entry descr="Spectroscope GUI object" name="ui.spectroscope~" ref_view="link">
       <xi:include href="ui.spectroscope~.pddoc" parse="xml"/>
     </entry>

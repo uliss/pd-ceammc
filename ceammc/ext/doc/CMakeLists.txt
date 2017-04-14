@@ -156,6 +156,7 @@ set(DOC_FILES
     ui.matrix
     ui.scope~
     ui.slider2d
+    ui.sliders
     ui.spectroscope~
     ui.toggle
     vector.distance
