@@ -11,44 +11,32 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#ifndef MSG_H
+#define MSG_H
 
-#include "system_getenv.h"
+#include "ceammc_factory.h"
+#include "ceammc_log.h"
+#include "ceammc_object.h"
 
-#include <glib.h>
-#include <string.h>
+using namespace ceammc;
 
-extern "C" void setup_system0x2egetenv()
-{
-    ObjectFactory<SystemGetEnv> obj("system.getenv");
-}
+class Msg : public BaseObject {
+    AtomList prefix_;
+    AtomList data_;
 
-SystemGetEnv::SystemGetEnv(const PdArgs& a)
-    : BaseObject(a)
-    , var_name_(0)
-{
-    createOutlet();
+public:
+    Msg(const PdArgs& a);
+    void onBang();
+    void onFloat(float v);
+    void onSymbol(t_symbol* s);
+    void onList(const AtomList& l);
+    void onAny(t_symbol* sel, const AtomList& l);
+    void onInlet(size_t n, const AtomList& l);
+    bool processAnyProps(t_symbol*, const AtomList&);
 
-    if (!a.args.empty() && a.args[0].isSymbol())
-        var_name_ = a.args[0].asSymbol();
-}
+private:
+    void setMethod(const AtomList& l);
+    void output();
+};
 
-void SystemGetEnv::onBang()
-{
-    if (!var_name_) {
-        OBJ_ERR << "no variable name given";
-        return;
-    }
-
-    const gchar* v = g_getenv(var_name_->s_name);
-
-    if (v != NULL && strlen(v) > 0)
-        symbolTo(0, gensym(v));
-    else
-        listTo(0, AtomList());
-}
-
-void SystemGetEnv::onSymbol(t_symbol* s)
-{
-    var_name_ = s;
-    onBang();
-}
+#endif // MSG_H
