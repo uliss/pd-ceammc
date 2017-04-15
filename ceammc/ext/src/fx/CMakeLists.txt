@@ -4,11 +4,12 @@ macro(ceammc_fx_extension name)
     ceammc_faust_gen(fx ${name})
 endmacro()
 
-ceammc_fx_extension(freqshift)
-ceammc_fx_extension(pitchshift)
+ceammc_fx_extension(distortion)
+ceammc_fx_extension(flanger)
 ceammc_fx_extension(freeverb)
 ceammc_fx_extension(freeverb2)
-ceammc_fx_extension(distortion)
+ceammc_fx_extension(freqshift)
+ceammc_fx_extension(pitchshift)
 
 
 add_library(ceammc_fx STATIC mod_fx.cpp ${FX_SOURCES})
