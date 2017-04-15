@@ -40,6 +40,7 @@ set(DOC_FILES
     flt.resonbp~
     flt.eq_peak~
     fx.freqshift~
+    fx.distortion~
     fx.pitchshift~
     fx.freeverb~
     fx.freeverb2~

@@ -2,14 +2,16 @@
 #X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
 #X obj 79 53 ui.link @title ceammc @url ceammc-help.pd;
-#X obj 30 116 fx.freeverb2~;
-#X text 175 116 freeverb2 - stereo version of freeverb;
-#X obj 30 143 fx.freeverb~;
-#X text 175 143 freeverb - common used open-source reverb;
-#X obj 30 170 fx.freqshift~;
-#X text 175 170 frequency shifter or single-sideband ring modulation;
-#X obj 30 197 fx.pitchshift~;
-#X text 175 197 simple pitch shifter based on 2 delay lines;
+#X obj 30 116 fx.distortion~;
+#X text 175 116 cubic nonlinearity distortion;
+#X obj 30 143 fx.freeverb2~;
+#X text 175 143 freeverb2 - stereo version of freeverb;
+#X obj 30 170 fx.freeverb~;
+#X text 175 170 freeverb - common used open-source reverb;
+#X obj 30 197 fx.freqshift~;
+#X text 175 197 frequency shifter or single-sideband ring modulation;
+#X obj 30 224 fx.pitchshift~;
+#X text 175 224 simple pitch shifter based on 2 delay lines;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::fx 20 20 0 20 -104026
 -4096 0;
 #X obj 1 458 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;

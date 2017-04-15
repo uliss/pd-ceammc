@@ -113,6 +113,9 @@
     </entry>
   </category>
   <category name="fx">
+    <entry descr="cubic nonlinearity distortion" name="fx.distortion~" ref_view="object">
+      <xi:include href="fx.distortion~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="freeverb2 - stereo version of freeverb" name="fx.freeverb2~" ref_view="object">
       <xi:include href="fx.freeverb2~.pddoc" parse="xml"/>
     </entry>
