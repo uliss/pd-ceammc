@@ -10,6 +10,7 @@ ceammc_fx_extension(freeverb)
 ceammc_fx_extension(freeverb2)
 ceammc_fx_extension(freqshift)
 ceammc_fx_extension(pitchshift)
+ceammc_fx_extension(zita_rev1)
 
 
 add_library(ceammc_fx STATIC mod_fx.cpp ${FX_SOURCES})
