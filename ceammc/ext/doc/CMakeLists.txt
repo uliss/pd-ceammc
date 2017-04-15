@@ -39,6 +39,7 @@ set(DOC_FILES
     flt.notch~
     flt.resonbp~
     flt.eq_peak~
+    fx.flanger~
     fx.freqshift~
     fx.distortion~
     fx.pitchshift~

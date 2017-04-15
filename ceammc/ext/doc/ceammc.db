@@ -32,6 +32,7 @@ flt.lpf24~		~		~.
 flt.notch~		~		~.
 flt.resonbp~		~		~.
 fx.distortion~		~		~.
+fx.flanger~		~		~.
 fx.freeverb2~		~~		~~.
 fx.freeverb~		~		~.
 fx.freqshift~		~~		~~.
