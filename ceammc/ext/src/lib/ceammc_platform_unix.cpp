@@ -13,7 +13,23 @@
  *****************************************************************************/
 #include "ceammc_platform_unix.h"
 
+#include <cstdlib>
+#include <cstring>
+#include <libgen.h>
+
 bool ceammc::platform_unix::is_path_relative(const char* path)
 {
     return path[0] != '/';
+}
+
+std::string ceammc::platform_unix::basename(const char* path)
+{
+    char* p = strdup(path);
+    char* bn = ::basename(p);
+    if (!bn)
+        return "";
+
+    std::string res(bn);
+    free(p);
+    return res;
 }

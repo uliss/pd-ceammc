@@ -14,14 +14,18 @@
 #ifndef CEAMMC_PLATFORM_H
 #define CEAMMC_PLATFORM_H
 
+#include <string>
+
 /**
- * Platform dependet function realization
+ * Platform dependent function realization
  */
 
 namespace ceammc {
 namespace platform {
     const char* platform_name();
     bool is_path_relative(const char* path);
+
+    std::string basename(const char* path);
 }
 }
 

@@ -14,9 +14,12 @@
 #ifndef CEAMMC_PLATFORM_WIN_H
 #define CEAMMC_PLATFORM_WIN_H
 
+#include <string>
+
 namespace ceammc {
 namespace platform_win {
     bool is_path_relative(const char* path);
+    std::string basename(const char* path);
 }
 }
 

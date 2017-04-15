@@ -14,6 +14,8 @@
 #include "ceammc_platform_win.h"
 
 #include <Shlwapi.h>
+#include <cstdlib>
+#include <cstring>
 
 namespace ceammc {
 namespace platform_win {
@@ -21,6 +23,15 @@ namespace platform_win {
     bool is_path_relative(const char* path)
     {
         return PathIsRelative(path) == 1;
+    }
+
+    std::string basename(const char* path)
+    {
+        char* buf = strdup(path);
+        PathStripPath(buf);
+        std::string res(buf);
+        free(buf);
+        return res;
     }
 }
 }

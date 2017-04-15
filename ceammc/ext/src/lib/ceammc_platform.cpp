@@ -49,5 +49,10 @@ namespace platform {
         return "???";
 #endif
     }
+
+    std::string basename(const char* path)
+    {
+        return NS::basename(path);
+    }
 }
 }

@@ -72,4 +72,33 @@ TEST_CASE("ceammc::platform", "[ceammc::lib]")
         REQUIRE(is_path_relative("./test"));
 #endif
     }
+
+    SECTION("basename")
+    {
+        REQUIRE(basename("test.pd") == "test.pd");
+        REQUIRE(basename("/test.pd") == "test.pd");
+        REQUIRE(basename("./test.pd") == "test.pd");
+        REQUIRE(basename("../test.pd") == "test.pd");
+        REQUIRE(basename("lib/test.pd") == "test.pd");
+        REQUIRE(basename("/lib/test.pd") == "test.pd");
+
+        REQUIRE(basename("//dir") == "dir");
+        REQUIRE(basename("..") == "..");
+        REQUIRE(basename(".") == ".");
+
+#ifdef __WIN32
+        REQUIRE(basename("c:\\dir\\file.txt") == "file.txt");
+        REQUIRE(basename("c:/dir/file.txt") == "file.txt");
+        REQUIRE(basename("c:/dir1/dir2") == "dir2");
+        REQUIRE(basename("c:\\dir1\\dir2") == "dir2");
+        REQUIRE(basename("C:/dir/") == "dir/");
+        REQUIRE(basename("C:\\") == "C:\\");
+        REQUIRE(basename("C:/") == "C:/");
+        REQUIRE(basename("A:") == "A:");
+#else
+        REQUIRE(basename("/////") == "/");
+        REQUIRE(basename("/dir/") == "dir");
+        REQUIRE(basename("") == ".");
+#endif
+    }
 }
