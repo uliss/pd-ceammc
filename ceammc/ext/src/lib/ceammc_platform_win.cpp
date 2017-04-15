@@ -17,6 +17,12 @@
 #include <cstdlib>
 #include <cstring>
 
+#include "config.h"
+
+#ifdef HAVE_LIBGEN_H
+#include <libgen.h>
+#endif
+
 namespace ceammc {
 namespace platform_win {
 
@@ -27,11 +33,42 @@ namespace platform_win {
 
     std::string basename(const char* path)
     {
+#ifdef HAVE_LIBGEN_H
+        char* p = strdup(path);
+        char* bn = ::basename(p);
+        if (!bn)
+            return "";
+
+        std::string res(bn);
+        free(p);
+        return res;
+#else
         char* buf = strdup(path);
         PathStripPath(buf);
         std::string res(buf);
         free(buf);
         return res;
+#endif
+    }
+
+    std::string dirname(const char* path)
+    {
+#ifdef HAVE_LIBGEN_H
+        char* p = strdup(path);
+        char* dir = ::dirname(p);
+        if (!dir)
+            return "";
+
+        std::string res(dir);
+        free(p);
+        return res;
+#else
+        char* buf = strdup(path);
+        PathRemoveFileSpec(buf);
+        std::string res(buf);
+        free(buf);
+        return res;
+#endif
     }
 }
 }

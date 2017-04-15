@@ -54,5 +54,10 @@ namespace platform {
     {
         return NS::basename(path);
     }
+
+    std::string dirname(const char* path)
+    {
+        return NS::dirname(path);
+    }
 }
 }

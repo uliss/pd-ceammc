@@ -91,14 +91,43 @@ TEST_CASE("ceammc::platform", "[ceammc::lib]")
         REQUIRE(basename("c:/dir/file.txt") == "file.txt");
         REQUIRE(basename("c:/dir1/dir2") == "dir2");
         REQUIRE(basename("c:\\dir1\\dir2") == "dir2");
+#if defined(__MINGW32__)
+        REQUIRE(basename("C:/dir/") == "dir");
+        REQUIRE(basename("C:\\") == "/");
+        REQUIRE(basename("C:/") == "/");
+        REQUIRE(basename("A:") == ".");
+#else
         REQUIRE(basename("C:/dir/") == "dir/");
         REQUIRE(basename("C:\\") == "C:\\");
         REQUIRE(basename("C:/") == "C:/");
         REQUIRE(basename("A:") == "A:");
+#endif
 #else
         REQUIRE(basename("/////") == "/");
         REQUIRE(basename("/dir/") == "dir");
         REQUIRE(basename("") == ".");
+#endif
+    }
+
+    SECTION("dirname")
+    {
+        REQUIRE(dirname("lib/test.pd") == "lib");
+        REQUIRE(dirname("/lib/test.pd") == "/lib");
+        REQUIRE(dirname("") == ".");
+        REQUIRE(dirname("/") == "/");
+        REQUIRE(dirname("/dir") == "/");
+        REQUIRE(dirname("/dir/") == "/");
+        REQUIRE(dirname("/dir////") == "/");
+
+#if defined(__WIN32) && !defined(__MINGW32__)
+        REQUIRE(dirname("test.pd") == "");
+        REQUIRE(dirname("/test.pd") == "");
+        REQUIRE(dirname("\\test.pd") == "\\");
+#else
+        REQUIRE(dirname("test.pd") == ".");
+        REQUIRE(dirname("/test.pd") == "/");
+        REQUIRE(dirname("./test.pd") == ".");
+        REQUIRE(dirname("../test.pd") == "..");
 #endif
     }
 }

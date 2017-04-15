@@ -20,6 +20,7 @@ namespace ceammc {
 namespace platform_unix {
     bool is_path_relative(const char* path);
     std::string basename(const char* path);
+    std::string dirname(const char* path);
 }
 }
 

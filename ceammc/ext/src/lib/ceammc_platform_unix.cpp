@@ -33,3 +33,15 @@ std::string ceammc::platform_unix::basename(const char* path)
     free(p);
     return res;
 }
+
+std::string ceammc::platform_unix::dirname(const char* path)
+{
+    char* p = strdup(path);
+    char* dir = ::dirname(p);
+    if (!dir)
+        return "";
+
+    std::string res(dir);
+    free(p);
+    return res;
+}
