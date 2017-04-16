@@ -1,6 +1,7 @@
 include_directories(Catch/single_include)
 include_directories(../lib)
 include_directories(${PROJECT_SOURCE_DIR}/src)
+include_directories(${CMAKE_BINARY_DIR}) # for config.h
 include(tests.cmake)
 add_definitions("-DTEST_DATA_DIR=\"${CMAKE_CURRENT_SOURCE_DIR}\"")
 #remove_definitions(-DPD_INTERNAL)
