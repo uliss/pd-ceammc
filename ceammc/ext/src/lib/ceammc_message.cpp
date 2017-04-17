@@ -164,6 +164,12 @@ void Message::output(t_outlet* x) const
     }
 }
 
+bool Message::isBang() const
+{
+    // NB: this is only for testing purposes now
+    return (type_ == SYMBOL && value_.asSymbol() == &s_bang);
+}
+
 bool operator==(const Message& c1, const Message& c2)
 {
     return c1.isEqual(c2);

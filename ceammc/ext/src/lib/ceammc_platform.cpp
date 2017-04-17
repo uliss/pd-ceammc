@@ -94,6 +94,8 @@ namespace platform {
         std::string res;
 
         while (findEnvVar(s, pos, &varname, &at1, &at2)) {
+            res += s.substr(pos, at1 - pos);
+
             char* var = getenv(varname.c_str());
             // if env var not found
             if (!var) {

@@ -18,8 +18,8 @@
 
 extern "C" void pd_init();
 
-#include <stdio.h>
 #include <set>
+#include <stdio.h>
 
 using namespace pd;
 
@@ -82,5 +82,12 @@ TEST_CASE("PD", "[PureData]")
         REQUIRE(s.count("unpack") == 1);
         REQUIRE(s.count("pack") == 1);
         REQUIRE(s.count("list.each") == 0);
+    }
+
+    SECTION("env")
+    {
+        REQUIRE(ceammc::get_env("TEST") == "");
+        ceammc::set_env("TEST", "VALUE");
+        REQUIRE(ceammc::get_env("TEST") == "VALUE");
     }
 }

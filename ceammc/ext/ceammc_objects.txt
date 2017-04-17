@@ -18,6 +18,7 @@ dyn.softclip~
 env.adsr~
 env.ar~
 env.follow~
+expand_env
 flt.biquad~
 flt.bpf12~
 flt.bpf24~

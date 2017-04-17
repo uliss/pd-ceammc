@@ -110,6 +110,12 @@ public:
         REQUIRE(obj.lastMessage(outlet).listValue() == lst); \
     }
 
+#define REQUIRE_BANG_AT_OUTLET(outlet, obj)        \
+    {                                              \
+        REQUIRE(obj.hasNewMessages(outlet));       \
+        REQUIRE(obj.lastMessage(outlet).isBang()); \
+    }
+
 #define REQUIRE_FLOAT_AT_OUTLET(outlet, obj, v)                         \
     {                                                                   \
         REQUIRE(obj.hasNewMessages(outlet));                            \

@@ -160,8 +160,11 @@ TEST_CASE("ceammc::platform", "[ceammc::lib]")
         REQUIRE(expandenv("%TEST%/file.txt") == "/some/path/file.txt");
         REQUIRE(expandenv("%TEST%%VAR%") == "/some/path%VAR%");
         REQUIRE(expandenv("%TEST%%") == "/some/path%");
+        REQUIRE(expandenv("%TEST% ...") == "/some/path ...");
+        REQUIRE(expandenv(".. %TEST% ...") == ".. /some/path ...");
 
         setEnvVar("VAR", "!!!!");
         REQUIRE(expandenv("%TEST%%VAR%") == "/some/path!!!!");
+        REQUIRE(expandenv(",, %TEST% - %VAR% ...") == ",, /some/path - !!!! ...");
     }
 }

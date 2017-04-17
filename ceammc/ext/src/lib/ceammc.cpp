@@ -16,11 +16,13 @@
  *****************************************************************************/
 
 #include "ceammc.hpp"
+#include "config.h"
 
 #include "m_imp.h"
 
 #include <algorithm>
 #include <cassert>
+#include <cstdlib>
 #include <cstring>
 #include <limits>
 
@@ -37,6 +39,28 @@ std::vector<std::string> currentExtensionList()
         res.push_back(m[i].me_name->s_name);
 
     return res;
+}
+
+std::string get_env(const char* varname)
+{
+    std::string res;
+    char* env = ::getenv(varname);
+    if (env)
+        res = env;
+
+    return res;
+}
+
+void set_env(const char* varname, const char* val)
+{
+#ifdef HAVE_SETENV
+    ::setenv(varname, val, 1);
+#else
+    std::string str(varname);
+    str += '=';
+    str += val;
+    ::putenv(str.c_str());
+#endif
 }
 
 namespace pd {

@@ -12,8 +12,51 @@
  * this file belongs to.
  *****************************************************************************/
 #include "expand_env.h"
+#include "ceammc_platform.h"
 
-expand_env::expand_env()
+extern "C" void expand_env_setup()
 {
+    ObjectFactory<ExpandEnv> obj("expand_env");
+}
 
+static t_symbol* expandEnv(t_symbol* s)
+{
+    return gensym(platform::expandenv(s->s_name).c_str());
+}
+
+ExpandEnv::ExpandEnv(const PdArgs& a)
+    : BaseObject(a)
+    , expand_any_(0)
+{
+    createOutlet();
+
+    expand_any_ = new FlagProperty("@any");
+    createProperty(expand_any_);
+
+    parseArguments();
+}
+
+void ExpandEnv::onBang()
+{
+    bangTo(0);
+}
+
+void ExpandEnv::onFloat(float v)
+{
+    floatTo(0, v);
+}
+
+void ExpandEnv::onSymbol(t_symbol* s)
+{
+    symbolTo(0, expandEnv(s));
+}
+
+void ExpandEnv::onList(const AtomList& l)
+{
+    listTo(0, l.map(&expandEnv));
+}
+
+void ExpandEnv::onAny(t_symbol* sel, const AtomList& l)
+{
+    anyTo(0, expand_any_->value() ? expandEnv(sel) : sel, l.map(&expandEnv));
 }

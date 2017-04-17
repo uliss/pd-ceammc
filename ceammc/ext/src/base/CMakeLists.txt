@@ -1,6 +1,7 @@
 include_directories(${CMAKE_BINARY_DIR}) # for config.h
 
 set(BASE_SOURCES
+    expand_env.cpp
     msg.cpp
     prop.get
     prop.set
