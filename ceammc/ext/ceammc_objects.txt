@@ -40,10 +40,12 @@ flt.lpf24~
 flt.notch~
 flt.resonbp~
 fx.distortion~
+fx.flanger~
 fx.freeverb2~
 fx.freeverb~
 fx.freqshift~
 fx.pitchshift~
+fx.zita_rev1~
 global.float
 global.int
 global.json
