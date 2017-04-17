@@ -40,6 +40,9 @@ protected:
     void outputInfo(sound::SoundFilePtr file);
     bool arrayNameContainsPattern(const std::string& name) const;
     AtomList findPatternArrays(const std::string& pattern) const;
+
+private:
+    t_symbol* patch_dir_;
 };
 
 #endif // SND_FILE_H

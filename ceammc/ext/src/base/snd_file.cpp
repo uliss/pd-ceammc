@@ -4,6 +4,7 @@
 #include "ceammc_object.h"
 #include "ceammc_sound.h"
 
+#include "s_stuff.h"
 #include "snd_file.h"
 
 #include <cassert>
@@ -14,10 +15,13 @@ using namespace ceammc::sound;
 
 SndFile::SndFile(const PdArgs& a)
     : BaseObject(a)
+    , patch_dir_(0)
 {
     createOutlet();
 
     createCbProperty("@formats", &SndFile::supportedFormats);
+
+    patch_dir_ = canvas_getcurrentdir();
 }
 
 void SndFile::m_load(t_symbol* sel, const AtomList& lst)
@@ -33,7 +37,20 @@ void SndFile::m_load(t_symbol* sel, const AtomList& lst)
         return postLoadUsage();
     }
 
-    t_symbol* fname = lst.first()->asSymbol();
+    std::string path = lst.first()->asString();
+    char dirname[MAXPDSTRING], *filename;
+    int fd = open_via_path(patch_dir_->s_name, path.c_str(), "", dirname, &filename, MAXPDSTRING, 1);
+    if (fd < 0) {
+        OBJ_ERR << "file not found: " << path.c_str();
+        return;
+    }
+
+    close(fd);
+
+    std::string full_path(dirname);
+    full_path += '/';
+    full_path += filename;
+    t_symbol* fname = gensym(full_path.c_str());
 
     // getting array names
     AtomList array_names;
