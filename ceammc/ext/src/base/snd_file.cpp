@@ -7,6 +7,14 @@
 #include "g_canvas.h"
 #include "s_stuff.h"
 #include "snd_file.h"
+#include "config.h"
+
+#ifdef HAVE_UNISTD_H
+#include <unistd.h>
+#else
+#include <io.h>
+#define close(fd) _close(fd)
+#endif
 
 #include <cassert>
 #include <cctype>
