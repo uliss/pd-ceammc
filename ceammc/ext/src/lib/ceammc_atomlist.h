@@ -24,7 +24,6 @@ namespace ceammc {
 typedef std::vector<t_float> FloatList;
 typedef bool (*AtomPredicate)(const Atom& a);
 typedef Atom (*AtomGenerator)();
-typedef Atom (*AtomMapFunction)(const Atom& a);
 
 class AtomList {
     std::vector<Atom> atoms_;
@@ -43,6 +42,7 @@ public:
     AtomList(size_t n, t_atom* lst);
     explicit AtomList(int n, t_atom* lst);
     size_t size() const;
+    void reserve(size_t n);
     bool empty() const;
 
     /**
@@ -152,6 +152,10 @@ public:
          * Checks is has property in list
          */
     bool hasProperty(const std::string& name) const;
+
+    AtomList map(AtomMapFunction f) const;
+    AtomList map(AtomFloatMapFunction f) const;
+    AtomList map(AtomSymbolMapFunction f) const;
 
     AtomList slice(int start) const;
     AtomList slice(int start, int end, size_t step = 1) const;

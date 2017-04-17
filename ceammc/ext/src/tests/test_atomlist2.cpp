@@ -12,12 +12,44 @@
  * this file belongs to.
  *****************************************************************************/
 #include "catch.hpp"
+
+#include "base_extension_test.h"
 #include "ceammc_atomlist.h"
 
-using namespace ceammc;
+#include <algorithm>
+#include <cctype>
 
-#define P(str) Atom(gensym(#str))
-#define F(n) Atom(float(n))
+static t_float mul10(t_float v)
+{
+    return v * 10;
+}
+
+static t_float neg(t_float v)
+{
+    return -v;
+}
+
+static t_symbol* toUpper(t_symbol* s)
+{
+    std::string str(s->s_name);
+    std::transform(str.begin(), str.end(), str.begin(), ::toupper);
+    return gensym(str.c_str());
+}
+
+static Atom testMap1(const Atom& a)
+{
+    Atom res(a);
+
+    if (a.isFloat())
+        res.setFloat(a.asFloat() * 100);
+
+    if (a.isSymbol())
+        res.setSymbol(toUpper(a.asSymbol()));
+
+    return res;
+}
+
+using namespace ceammc;
 
 TEST_CASE("AtomList2", "[ceammc::AtomList]")
 {
@@ -313,12 +345,12 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
 
         AtomList lst;
         lst.append(F(2));
-        lst.append(P(@a));
-        lst.append(P(@b));
+        lst.append(P("@a"));
+        lst.append(P("@b"));
         lst.append(F(3));
         lst.append(F(4));
         lst.append(F(5));
-        lst.append(P(@c));
+        lst.append(P("@c"));
         lst.append(F(6));
 
         REQUIRE(lst.property("@a", &plist));
@@ -394,6 +426,31 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
             REQUIRE(prop.isSymbol());
             REQUIRE(prop.isProperty());
             REQUIRE(lst.isList());
+        }
+    }
+
+    SECTION("test map")
+    {
+        SECTION("float")
+        {
+            REQUIRE(L3(1, 2, 3).map(&mul10) == L3(10, 20, 30));
+            REQUIRE(L3("a", "b", "@c").map(&neg) == L3("a", "b", "@c"));
+            REQUIRE(L3("a", 100, "c").map(&neg) == L3("a", -100, "c"));
+        }
+
+        SECTION("symbol")
+        {
+            REQUIRE(L3(1, 2, 3).map(&toUpper) == L3(1, 2, 3));
+            REQUIRE(L3("a", "b", "c").map(&toUpper) == L3("A", "B", "C"));
+            REQUIRE(L3("@a", "b", "c").map(&toUpper) == L3("@A", "B", "C"));
+            REQUIRE(L3("A", "B", "C").map(&toUpper) == L3("A", "B", "C"));
+            REQUIRE(L3("a", 100, "c").map(&toUpper) == L3("A", 100, "C"));
+        }
+
+        SECTION("atom")
+        {
+            REQUIRE(L3(1, 2, 3).map(&testMap1) == L3(100, 200, 300));
+            REQUIRE(L3("a", 0.01f, "@c").map(&testMap1) == L3("A", 1, "@C"));
         }
     }
 }
