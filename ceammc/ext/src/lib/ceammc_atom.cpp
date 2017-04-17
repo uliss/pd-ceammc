@@ -264,6 +264,18 @@ Atom Atom::operator/(double v) const
     return Atom(*this) /= v;
 }
 
+void Atom::apply(AtomFloatMapFunction f)
+{
+    if (isFloat())
+        a_w.w_float = f(a_w.w_float);
+}
+
+void Atom::apply(AtomSymbolMapFunction f)
+{
+    if (a_type == A_SYMBOL)
+        a_w.w_symbol = f(a_w.w_symbol);
+}
+
 void Atom::outputAsAny(t_outlet* x, t_symbol* sel) const
 {
     outlet_anything(x, sel, 1, const_cast<t_atom*>(static_cast<const t_atom*>(this)));

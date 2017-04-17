@@ -13,7 +13,12 @@
  *****************************************************************************/
 #include "catch.hpp"
 #include "ceammc_atom.h"
+
+#include <algorithm>
+#include <cctype>
+#include <cmath>
 #include <sstream>
+#include <string>
 
 using namespace ceammc;
 
@@ -23,6 +28,13 @@ struct _outlet {
     t_outconnect* o_connections;
     t_symbol* o_sym;
 };
+
+t_symbol* toUpper(t_symbol* s)
+{
+    std::string str(s->s_name);
+    std::transform(str.begin(), str.end(), str.begin(), ::toupper);
+    return gensym(str.c_str());
+}
 
 TEST_CASE("Atom", "[ceammc::Atom]")
 {
@@ -349,6 +361,41 @@ TEST_CASE("Atom", "[ceammc::Atom]")
             REQUIRE((b *= 10.0) == c);
             REQUIRE((b /= 3.0) == c);
             REQUIRE((b /= 0.0) == c);
+        }
+    }
+
+    SECTION("test apply")
+    {
+        SECTION("float")
+        {
+            Atom a;
+            a.apply(&cosf);
+            REQUIRE(a.isNone());
+
+            a.setFloat(0, true);
+            a.apply(&cosf);
+            REQUIRE(a.asFloat() == 1);
+
+            a.setSymbol(gensym("a"), true);
+            a.apply(&cosf);
+            REQUIRE(a.isSymbol());
+            REQUIRE(a.asSymbol() == gensym("a"));
+        }
+
+        SECTION("symbol")
+        {
+            Atom a;
+            a.apply(&toUpper);
+            REQUIRE(a.isNone());
+
+            a.setSymbol(gensym("a"), true);
+            a.apply(&toUpper);
+            REQUIRE(a.isSymbol());
+            REQUIRE(a.asSymbol() == gensym("A"));
+
+            a.setFloat(123, true);
+            a.apply(&toUpper);
+            REQUIRE(a.asFloat() == 123);
         }
     }
 }
