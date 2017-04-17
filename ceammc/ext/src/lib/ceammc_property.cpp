@@ -228,4 +228,18 @@ AtomList SizeTProperty::get() const
 {
     return AtomList::filled(static_cast<float>(v_), 1);
 }
+
+FlagProperty::FlagProperty(const std::string& name)
+    : Property(name, false)
+    , v_(false)
+{
+}
+
+AtomList FlagProperty::get() const { return listFrom(v_); }
+
+bool FlagProperty::set(const AtomList&)
+{
+    v_ = true;
+    return true;
+}
 }

@@ -200,6 +200,16 @@ public:
     }
 };
 
+class FlagProperty : public Property {
+    bool v_;
+
+public:
+    FlagProperty(const std::string& name);
+    bool value() const { return v_; }
+    AtomList get() const;
+    bool set(const AtomList&);
+};
+
 template <typename T, typename V>
 class AliasProperty : public Property {
     T* ptr_;
@@ -218,6 +228,7 @@ public:
         ptr_->setValue(val_);
         return true;
     }
+
     AtomList get() const { return listFrom(bool(ptr_->value() == val_)); }
 };
 
@@ -362,7 +373,7 @@ public:
 
     bool set(const AtomList& lst)
     {
-        if(!emptyValueCheck(lst))
+        if (!emptyValueCheck(lst))
             return false;
 
         if (!check_fn_(atomlistToValue<V>(lst, def_))) {
