@@ -4,6 +4,7 @@
 #include "ceammc_object.h"
 #include "ceammc_sound.h"
 
+#include "g_canvas.h"
 #include "s_stuff.h"
 #include "snd_file.h"
 
@@ -20,8 +21,6 @@ SndFile::SndFile(const PdArgs& a)
     createOutlet();
 
     createCbProperty("@formats", &SndFile::supportedFormats);
-
-    patch_dir_ = canvas_getcurrentdir();
 }
 
 void SndFile::m_load(t_symbol* sel, const AtomList& lst)
@@ -37,9 +36,15 @@ void SndFile::m_load(t_symbol* sel, const AtomList& lst)
         return postLoadUsage();
     }
 
+    const char* patch_dir = "";
+    t_canvas* cnv = canvas_getcurrent();
+    if (cnv->gl_env) {
+        patch_dir = canvas_getdir(cnv)->s_name;
+    }
+
     std::string path = lst.first()->asString();
     char dirname[MAXPDSTRING], *filename;
-    int fd = open_via_path(patch_dir_->s_name, path.c_str(), "", dirname, &filename, MAXPDSTRING, 1);
+    int fd = open_via_path(patch_dir, path.c_str(), "", dirname, &filename, MAXPDSTRING, 1);
     if (fd < 0) {
         OBJ_ERR << "file not found: " << path.c_str();
         return;
