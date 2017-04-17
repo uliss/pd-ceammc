@@ -13,27 +13,15 @@
  *****************************************************************************/
 
 #include "catch.hpp"
-#include "ceammc_platform.h"
-
-#include "config.h"
 #include "m_pd.h"
+
+#include "ceammc.hpp"
+#include "ceammc_platform.h"
 
 #include <cstdlib>
 #include <string>
 
 using namespace ceammc::platform;
-
-static void setEnvVar(const char* name, const char* value)
-{
-#ifdef HAVE_SETENV
-    setenv(name, value, 1);
-#else
-    std::string v(name);
-    v += '=';
-    v += value;
-    putenv(v.c_str());
-#endif
-}
 
 TEST_CASE("ceammc::platform", "[ceammc::lib]")
 {
@@ -156,14 +144,14 @@ TEST_CASE("ceammc::platform", "[ceammc::lib]")
         REQUIRE(expandenv("%%") == "%%");
         REQUIRE(expandenv("%A%") == "%A%");
 
-        setEnvVar("TEST", "/some/path");
+        ceammc::set_env("TEST", "/some/path");
         REQUIRE(expandenv("%TEST%/file.txt") == "/some/path/file.txt");
         REQUIRE(expandenv("%TEST%%VAR%") == "/some/path%VAR%");
         REQUIRE(expandenv("%TEST%%") == "/some/path%");
         REQUIRE(expandenv("%TEST% ...") == "/some/path ...");
         REQUIRE(expandenv(".. %TEST% ...") == ".. /some/path ...");
 
-        setEnvVar("VAR", "!!!!");
+        ceammc::set_env("VAR", "!!!!");
         REQUIRE(expandenv("%TEST%%VAR%") == "/some/path!!!!");
         REQUIRE(expandenv(",, %TEST% - %VAR% ...") == ",, /some/path - !!!! ...");
     }
