@@ -89,6 +89,8 @@ TEST_CASE("convert", "[PureData]")
                 REQUIRE(str2sec("111:111:111", INV) == INV);
                 REQUIRE(str2sec("1111:999", INV) == INV);
                 REQUIRE(str2sec("00:00.999999", INV) == INV);
+                REQUIRE(str2sec("1:22:33:44", INV) == INV);
+                REQUIRE(str2sec("11:22:33:44.555", INV) == INV);
             }
         }
     }

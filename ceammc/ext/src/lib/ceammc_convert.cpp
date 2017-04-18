@@ -82,6 +82,9 @@ public:
 
     bool read(int ch)
     {
+        if (stack_.size() > (has_ms_ ? 4 : 3))
+            return false;
+
         state_t next_state;
         if (::isdigit(ch))
             next_state = DIGIT;
@@ -140,33 +143,6 @@ public:
             h = stack_[idx];
 
         return sign_ * (h * 3600 + m * 60 + s + ms / 1000.f);
-    }
-
-    int ms() const
-    {
-        size_t l = stack_.size();
-        if (l < 1)
-            return 0;
-
-        return has_ms_ ? stack_.back() : 0;
-    }
-
-    int sec() const
-    {
-        long idx = stack_.size() + (has_ms_ ? -2 : -1);
-        return (idx < 0) ? 0 : stack_[idx];
-    }
-
-    int min() const
-    {
-        long idx = stack_.size() + (has_ms_ ? -3 : -2);
-        return (idx < 0) ? 0 : stack_[idx];
-    }
-
-    int hour() const
-    {
-        long idx = stack_.size() + (has_ms_ ? -4 : -3);
-        return (idx < 0) ? 0 : stack_[idx];
     }
 
 private:
