@@ -1,3 +1,5 @@
+conv.sec2str,sec->str		.		.
+conv.str2sec,str->sec		.		.
 data.fifo		.		.
 data.list		..		.
 dyn.comp2~		~~		~~.

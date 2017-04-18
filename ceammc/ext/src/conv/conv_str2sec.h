@@ -25,6 +25,7 @@ class StrToSec : public BaseObject {
 public:
     StrToSec(const PdArgs& a);
     void onSymbol(t_symbol* s);
+    void onAny(t_symbol* s, const AtomList& v);
 };
 
 #endif // CONV_STR2SEC_H

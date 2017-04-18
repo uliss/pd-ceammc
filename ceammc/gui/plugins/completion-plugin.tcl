@@ -410,7 +410,7 @@ proc ::completion::replace_text {args} {
                 " " { expr {"<space>"} }
                 "-" { expr {"<minus>"} }
                 "<" { expr {"<less>"} }
-                ">" { expr {"<more>"} }
+                ">" { expr {"<greater>"} }
                 default { expr {$c} }
             }
         ]

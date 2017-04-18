@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pddoc version="1.0">
+    <object name="conv.str2sec">
+        <title>conv.str2sec</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>converts formatted time to float value in seconds</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>conv</category>
+            <keywords>conv time</keywords>
+            <also>
+                <see>conv.sec2str</see>
+            </also>
+            <since>0.1</since>
+            <aliases>
+                <alias>str-&gt;sec</alias>
+            </aliases>
+        </meta>
+        <properties>
+            <property name="@on_err" type="float" default="-1">
+                value returned when unrecognized symbol given
+            </property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="symbol">Time in format: "HH:MM::SS[.XXX]"</xinfo>
+                <xinfo on="any">Time in format: "HH:MM::SS[.XXX]"</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>time in seconds</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[0:59(  [2:01( [0:01.5( [1:03:45(
+|       |      |        |
+|       |      |        |
+|       |      |        |
+[str->sec   @on_err -100]
+|
+[F]
+|
+[sec->str]
+|
+[S digits=12]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
+

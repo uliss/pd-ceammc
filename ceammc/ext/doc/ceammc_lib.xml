@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library xmlns:xi="http://www.w3.org/2001/XInclude" name="ceammc" version="1.0">
+  <category name="conv">
+    <entry descr="converts float time in seconds to formated symbol" name="conv.sec2str" ref_view="object">
+      <xi:include href="conv.sec2str.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="converts formatted time to float value in seconds" name="conv.str2sec" ref_view="object">
+      <xi:include href="conv.str2sec.pddoc" parse="xml"/>
+    </entry>
+  </category>
   <category name="data">
     <entry descr="First-In-First-Out (FIFO) queue data container" name="data.fifo" ref_view="object">
       <xi:include href="data.fifo.pddoc" parse="xml"/>
