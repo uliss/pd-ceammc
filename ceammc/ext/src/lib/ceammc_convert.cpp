@@ -32,3 +32,4 @@ std::string ceammc::convert::time::sec2str(int sec)
     snprintf(buf_ptr, 18, "%02d:%02d:%02d", h, m, s);
     return buf;
 }
+

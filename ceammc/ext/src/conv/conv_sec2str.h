@@ -11,20 +11,18 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef CEAMMC_CONVERT_H
-#define CEAMMC_CONVERT_H
+#ifndef TIME_SEC2STR_H
+#define TIME_SEC2STR_H
 
-#include <string>
+#include "ceammc_factory.h"
+#include "ceammc_object.h"
 
-namespace ceammc {
-namespace convert {
-    namespace time {
-        /**
-         * @brief converts time in seconds to formatted time string: "00:00:00"
-         */
-        std::string sec2str(int sec);
-    }
-}
-}
+using namespace ceammc;
 
-#endif // CEAMMC_CONVERT_H
+class SecToStr : public BaseObject {
+public:
+    SecToStr(const PdArgs& a);
+    void onFloat(t_float v);
+};
+
+#endif // TIME_SEC2STR_H
