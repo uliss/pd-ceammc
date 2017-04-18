@@ -17,12 +17,12 @@
 #include <cstring>
 #include <libgen.h>
 
-bool ceammc::platform_unix::is_path_relative(const char* path)
+bool ceammc::unix_is_path_relative(const char* path)
 {
     return path[0] != '/';
 }
 
-std::string ceammc::platform_unix::basename(const char* path)
+std::string ceammc::unix_basename(const char* path)
 {
     char* p = strdup(path);
     char* bn = ::basename(p);
@@ -34,7 +34,7 @@ std::string ceammc::platform_unix::basename(const char* path)
     return res;
 }
 
-std::string ceammc::platform_unix::dirname(const char* path)
+std::string ceammc::unix_dirname(const char* path)
 {
     char* p = strdup(path);
     char* dir = ::dirname(p);

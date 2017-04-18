@@ -16,10 +16,10 @@
 #include <cstdlib>
 
 #ifdef __WIN32
-#define NS ceammc::platform_win
+#define NS(f) win_##f
 #include "ceammc_platform_win.h"
 #else
-#define NS ceammc::platform_unix
+#define NS(f) unix_##f
 #include "ceammc_platform_unix.h"
 #endif
 
@@ -28,7 +28,7 @@ namespace platform {
 
     bool is_path_relative(const char* path)
     {
-        return NS::is_path_relative(path);
+        return NS(is_path_relative(path));
     }
 
     const char* platform_name()
@@ -54,12 +54,12 @@ namespace platform {
 
     std::string basename(const char* path)
     {
-        return NS::basename(path);
+        return NS(basename(path));
     }
 
     std::string dirname(const char* path)
     {
-        return NS::dirname(path);
+        return NS(dirname(path));
     }
 
     static bool findEnvVar(const std::string& str, std::string::size_type from,

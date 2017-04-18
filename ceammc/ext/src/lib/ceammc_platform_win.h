@@ -17,11 +17,9 @@
 #include <string>
 
 namespace ceammc {
-namespace platform_win {
-    bool is_path_relative(const char* path);
-    std::string basename(const char* path);
-    std::string dirname(const char* path);
-}
+bool win_is_path_relative(const char* path);
+std::string win_basename(const char* path);
+std::string win_dirname(const char* path);
 }
 
 #endif // CEAMMC_PLATFORM_WIN_H
