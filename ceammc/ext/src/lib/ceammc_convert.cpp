@@ -14,6 +14,7 @@
 #include "ceammc_convert.h"
 
 #include <cstdlib>
+#include <cstdio>
 
 std::string ceammc::convert::time::sec2str(int sec)
 {
