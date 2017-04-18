@@ -26,20 +26,70 @@ TEST_CASE("convert", "[PureData]")
 {
     SECTION("time")
     {
-        using namespace time;
-        REQUIRE(sec2str(0) == "00:00:00");
-        REQUIRE(sec2str(1) == "00:00:01");
-        REQUIRE(sec2str(59) == "00:00:59");
-        REQUIRE(sec2str(60) == "00:01:00");
-        REQUIRE(sec2str(61) == "00:01:01");
-        REQUIRE(sec2str(601) == "00:10:01");
-        REQUIRE(sec2str(3599) == "00:59:59");
-        REQUIRE(sec2str(3600) == "01:00:00");
-        REQUIRE(sec2str(3601) == "01:00:01");
-        REQUIRE(sec2str(3661) == "01:01:01");
-        REQUIRE(sec2str(3600 * 12) == "12:00:00");
-        REQUIRE(sec2str(3600 * 24 + 60 * 3 + 1) == "00:03:01");
+        SECTION("sec2str")
+        {
+            using namespace time;
+            REQUIRE(sec2str(0) == "00:00:00");
+            REQUIRE(sec2str(1) == "00:00:01");
+            REQUIRE(sec2str(59) == "00:00:59");
+            REQUIRE(sec2str(60) == "00:01:00");
+            REQUIRE(sec2str(61) == "00:01:01");
+            REQUIRE(sec2str(601) == "00:10:01");
+            REQUIRE(sec2str(3599) == "00:59:59");
+            REQUIRE(sec2str(3600) == "01:00:00");
+            REQUIRE(sec2str(3601) == "01:00:01");
+            REQUIRE(sec2str(3661) == "01:01:01");
+            REQUIRE(sec2str(3600 * 12) == "12:00:00");
+            REQUIRE(sec2str(3600 * 24 + 60 * 3 + 1) == "00:03:01");
+            REQUIRE(sec2str(-59) == "-00:00:59");
+        }
 
-        REQUIRE(sec2str(-59) == "-00:00:59");
+        SECTION("str2sec")
+        {
+            using namespace time;
+            REQUIRE(str2sec("00:00:00") == 0.f);
+            REQUIRE(str2sec("00:00") == 0.f);
+            REQUIRE(str2sec("0") == 0.f);
+            REQUIRE(str2sec("1") == 1.f);
+            REQUIRE(str2sec("01") == 1.f);
+            REQUIRE(str2sec("0:01") == 1.f);
+            REQUIRE(str2sec("0:01") == 1.f);
+            REQUIRE(str2sec("00:01") == 1.f);
+            REQUIRE(str2sec("0:00:01") == 1.f);
+            REQUIRE(str2sec("00:00:01") == 1.f);
+            REQUIRE(str2sec("00:10:01") == 601.f);
+            REQUIRE(str2sec("1:00:01") == 3601.f);
+
+            REQUIRE(str2sec("-1") == -1.f);
+            REQUIRE(str2sec("-0:01") == -1.f);
+            REQUIRE(str2sec("-0:01") == -1.f);
+
+            REQUIRE(str2sec("1.999") == Approx(1.999));
+            REQUIRE(str2sec("01.999") == Approx(1.999));
+            REQUIRE(str2sec("0:01.999") == Approx(1.999));
+            REQUIRE(str2sec("00:01.999") == Approx(1.999));
+            REQUIRE(str2sec("0:00:01.999") == Approx(1.999));
+            REQUIRE(str2sec("00:00:01.999") == Approx(1.999));
+
+            REQUIRE(str2sec("-01.999") == Approx(-1.999));
+            REQUIRE(str2sec("-0:01.999") == Approx(-1.999));
+            REQUIRE(str2sec("-00:01.999") == Approx(-1.999));
+            REQUIRE(str2sec("-0:00:01.999") == Approx(-1.999));
+            REQUIRE(str2sec("-00:00:01.999") == Approx(-1.999));
+
+            for (int i = -100; i < 3600 * 24; i += 24) {
+                REQUIRE(str2sec(sec2str(i)) == Approx(i));
+            }
+
+            SECTION("invalid")
+            {
+                float INV = -1.f;
+                REQUIRE(str2sec("invalid", INV) == INV);
+                REQUIRE(str2sec(".123", INV) == INV);
+                REQUIRE(str2sec("111:111:111", INV) == INV);
+                REQUIRE(str2sec("1111:999", INV) == INV);
+                REQUIRE(str2sec("00:00.999999", INV) == INV);
+            }
+        }
     }
 }
