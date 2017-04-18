@@ -46,7 +46,7 @@ void SndFile::m_load(t_symbol* sel, const AtomList& lst)
 
     const char* patch_dir = "";
     t_canvas* cnv = canvas_getcurrent();
-    if (cnv->gl_env) {
+    if (cnv && cnv->gl_env) {
         patch_dir = canvas_getdir(cnv)->s_name;
     }
 
