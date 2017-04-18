@@ -31,6 +31,11 @@ void StrToSec::onSymbol(t_symbol* s)
     floatTo(0, convert::time::str2sec(s->s_name, on_err_->value()));
 }
 
+void StrToSec::onAny(t_symbol* s, const AtomList& v)
+{
+    floatTo(0, convert::time::str2sec(s->s_name, on_err_->value()));
+}
+
 extern "C" void setup_conv0x2estr2sec()
 {
     ObjectFactory<StrToSec> obj("conv.str2sec");
