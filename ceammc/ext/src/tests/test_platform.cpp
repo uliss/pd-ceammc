@@ -23,6 +23,9 @@
 
 using namespace ceammc::platform;
 
+#define basename_(str) ceammc::platform::basename(str)
+#define dirname_(str) ceammc::platform::dirname(str)
+
 TEST_CASE("ceammc::platform", "[ceammc::lib]")
 {
     // strange link fix: do not remove!
@@ -77,59 +80,59 @@ TEST_CASE("ceammc::platform", "[ceammc::lib]")
 
     SECTION("basename")
     {
-        REQUIRE(basename("test.pd") == "test.pd");
-        REQUIRE(basename("/test.pd") == "test.pd");
-        REQUIRE(basename("./test.pd") == "test.pd");
-        REQUIRE(basename("../test.pd") == "test.pd");
-        REQUIRE(basename("lib/test.pd") == "test.pd");
-        REQUIRE(basename("/lib/test.pd") == "test.pd");
+        REQUIRE(basename_("test.pd") == "test.pd");
+        REQUIRE(basename_("/test.pd") == "test.pd");
+        REQUIRE(basename_("./test.pd") == "test.pd");
+        REQUIRE(basename_("../test.pd") == "test.pd");
+        REQUIRE(basename_("lib/test.pd") == "test.pd");
+        REQUIRE(basename_("/lib/test.pd") == "test.pd");
 
-        REQUIRE(basename("//dir") == "dir");
-        REQUIRE(basename("..") == "..");
-        REQUIRE(basename(".") == ".");
+        REQUIRE(basename_("//dir") == "dir");
+        REQUIRE(basename_("..") == "..");
+        REQUIRE(basename_(".") == ".");
 
 #ifdef __WIN32
-        REQUIRE(basename("c:\\dir\\file.txt") == "file.txt");
-        REQUIRE(basename("c:/dir/file.txt") == "file.txt");
-        REQUIRE(basename("c:/dir1/dir2") == "dir2");
-        REQUIRE(basename("c:\\dir1\\dir2") == "dir2");
+        REQUIRE(basename_("c:\\dir\\file.txt") == "file.txt");
+        REQUIRE(basename_("c:/dir/file.txt") == "file.txt");
+        REQUIRE(basename_("c:/dir1/dir2") == "dir2");
+        REQUIRE(basename_("c:\\dir1\\dir2") == "dir2");
 #if defined(__MINGW32__)
-        REQUIRE(basename("C:/dir/") == "dir");
-        REQUIRE(basename("C:\\") == "/");
-        REQUIRE(basename("C:/") == "/");
-        REQUIRE(basename("A:") == ".");
+        REQUIRE(basename_("C:/dir/") == "dir");
+        REQUIRE(basename_("C:\\") == "/");
+        REQUIRE(basename_("C:/") == "/");
+        REQUIRE(basename_("A:") == ".");
 #else
-        REQUIRE(basename("C:/dir/") == "dir/");
-        REQUIRE(basename("C:\\") == "C:\\");
-        REQUIRE(basename("C:/") == "C:/");
-        REQUIRE(basename("A:") == "A:");
+        REQUIRE(basename_("C:/dir/") == "dir/");
+        REQUIRE(basename_("C:\\") == "C:\\");
+        REQUIRE(basename_("C:/") == "C:/");
+        REQUIRE(basename_("A:") == "A:");
 #endif
 #else
-        REQUIRE(basename("/////") == "/");
-        REQUIRE(basename("/dir/") == "dir");
-        REQUIRE(basename("") == ".");
+        REQUIRE(basename_("/////") == "/");
+        REQUIRE(basename_("/dir/") == "dir");
+        REQUIRE(basename_("") == ".");
 #endif
     }
 
     SECTION("dirname")
     {
-        REQUIRE(dirname("lib/test.pd") == "lib");
-        REQUIRE(dirname("/lib/test.pd") == "/lib");
-        REQUIRE(dirname("") == ".");
-        REQUIRE(dirname("/") == "/");
-        REQUIRE(dirname("/dir") == "/");
-        REQUIRE(dirname("/dir/") == "/");
-        REQUIRE(dirname("/dir////") == "/");
+        REQUIRE(dirname_("lib/test.pd") == "lib");
+        REQUIRE(dirname_("/lib/test.pd") == "/lib");
+        REQUIRE(dirname_("") == ".");
+        REQUIRE(dirname_("/") == "/");
+        REQUIRE(dirname_("/dir") == "/");
+        REQUIRE(dirname_("/dir/") == "/");
+        REQUIRE(dirname_("/dir////") == "/");
 
 #if defined(__WIN32) && !defined(__MINGW32__)
-        REQUIRE(dirname("test.pd") == "");
-        REQUIRE(dirname("/test.pd") == "");
-        REQUIRE(dirname("\\test.pd") == "\\");
+        REQUIRE(dirname_("test.pd") == "");
+        REQUIRE(dirname_("/test.pd") == "");
+        REQUIRE(dirname_("\\test.pd") == "\\");
 #else
-        REQUIRE(dirname("test.pd") == ".");
-        REQUIRE(dirname("/test.pd") == "/");
-        REQUIRE(dirname("./test.pd") == ".");
-        REQUIRE(dirname("../test.pd") == "..");
+        REQUIRE(dirname_("test.pd") == ".");
+        REQUIRE(dirname_("/test.pd") == "/");
+        REQUIRE(dirname_("./test.pd") == ".");
+        REQUIRE(dirname_("../test.pd") == "..");
 #endif
     }
 
