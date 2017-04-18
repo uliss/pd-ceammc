@@ -275,7 +275,7 @@ static void slider_modify(t_slider* z, t_symbol* s)
 
 extern "C" void setup_ui0x2eslider(void)
 {
-    t_eclass* c = eclass_new("ui.slider", (method)slider_new, (method)ebox_free, (short)sizeof(t_slider), 0L, A_GIMME, 0);
+    t_eclass* c = eclass_new("ui.slider", (method)slider_new, (method)ebox_free, sizeof(t_slider), 0L, A_GIMME, 0);
     if (c) {
         eclass_guiinit(c, 0);
         // clang-format off

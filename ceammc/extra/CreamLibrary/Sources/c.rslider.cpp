@@ -25,6 +25,8 @@ typedef struct _rslider {
     float f_max;
     float f_value_low;
     float f_value_high;
+
+    t_atom out_list[2];
 } t_rslider;
 
 static t_eclass* rslider_class;
@@ -36,8 +38,6 @@ static void* rslider_new(t_symbol* s, int argc, t_atom* argv)
 
     if (x && d) {
         ebox_new((t_ebox*)x, 0 | EBOX_GROWINDI);
-        eobj_proxynew(x);
-        eobj_proxynew(x);
         x->f_out_left = outlet_new((t_object*)x, &s_list);
 
         ebox_attrprocess_viabinbuf(x, d);
@@ -59,15 +59,14 @@ static void rslider_output(t_rslider* x)
     t_float low = std::min(x->f_value_low, x->f_value_high);
     t_float high = std::max(x->f_value_low, x->f_value_high);
 
-    t_atom argv[2];
-    atom_setfloat(&argv[0], low);
-    atom_setfloat(&argv[1], high);
+    atom_setfloat(&x->out_list[0], low);
+    atom_setfloat(&x->out_list[1], high);
 
-    outlet_list(x->f_out_left, &s_list, 2, argv);
+    outlet_list(x->f_out_left, &s_list, 2, x->out_list);
 
     t_pd* send = ebox_getsender((t_ebox*)x);
     if (send)
-        pd_list(send, &s_list, 2, argv);
+        pd_list(send, &s_list, 2, x->out_list);
 }
 
 static void rslider_set(t_rslider* x, t_symbol* s, int argc, t_atom* argv)
@@ -374,7 +373,7 @@ static t_pd_err set_rslider_range(t_rslider* x, t_eattr* attr, int ac, t_atom* a
 
 extern "C" void setup_ui0x2erslider(void)
 {
-    t_eclass* c = eclass_new("ui.rslider", (method)rslider_new, (method)ebox_free, (short)sizeof(t_rslider), CLASS_NOINLET, A_GIMME, 0);
+    t_eclass* c = eclass_new("ui.rslider", (method)rslider_new, (method)ebox_free, sizeof(t_rslider), 0L, A_GIMME, 0);
 
     if (c) {
         eclass_guiinit(c, 0);
