@@ -1,6 +1,7 @@
 #include "mod_conv.h"
 
 extern "C" void setup_conv0x2esec2str();
+extern "C" void setup_conv0x2estr2sec();
 extern "C" void setup_conv0x2ebpf2array();
 extern "C" void setup_conv0x2ebpf2env();
 extern "C" void setup_conv0x2ebpf2list();
@@ -12,6 +13,7 @@ extern "C" void setup_conv0x2evline2bpf();
 
 void ceammc_conv_setup() {
      setup_conv0x2esec2str();
+     setup_conv0x2estr2sec();
      setup_conv0x2ebpf2array();
      setup_conv0x2ebpf2env();
      setup_conv0x2ebpf2list();

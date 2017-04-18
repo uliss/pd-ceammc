@@ -50,6 +50,9 @@ std::set<std::string>& ceammc_ext_list()
 
 static void setup_env_doc_path()
 {
+    if (!sys_libdir)
+        return;
+
     std::string path(sys_libdir->s_name);
     path += "/doc";
     ceammc::set_env("DOC", path.c_str());
@@ -57,6 +60,9 @@ static void setup_env_doc_path()
 
 static void setup_env_ceammc_doc_path()
 {
+    if (!sys_libdir)
+        return;
+
     std::string path(sys_libdir->s_name);
     path += "/extra/ceammc";
     ceammc::set_env("CEAMMC", path.c_str());

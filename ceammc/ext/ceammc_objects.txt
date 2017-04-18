@@ -5,6 +5,8 @@ conv.bpf2vline
 conv.env2bpf
 conv.lin2lin
 conv.list2bpf
+conv.sec2str
+conv.str2sec
 conv.vline2bpf
 data.fifo
 data.list
@@ -188,7 +190,9 @@ random.int
 reject.if
 reject.this
 replace
+sec->str
 snd.file
+str->sec
 string.compare
 symbol.ends_with
 symbol.length
