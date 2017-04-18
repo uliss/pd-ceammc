@@ -22,6 +22,7 @@ set(CEAMMC_LIB_SOURCES ceammc.h
     ceammc_gui.h
     ceammc_atom.cpp
     ceammc_atomlist.cpp
+    ceammc_convert.cpp
     ceammc_factory.h
     ceammc_faust.cpp
     ceammc_fn_list.cpp

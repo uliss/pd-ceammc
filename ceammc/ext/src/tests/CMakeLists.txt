@@ -25,6 +25,7 @@ ceammc_add_test("ceammc::vector" test_fn_vector)
 ceammc_add_test("ceammc::faust" test_faust)
 ceammc_add_test("ceammc::timeline" test_timeline)
 ceammc_add_test("ceammc::platform" test_platform)
+ceammc_add_test("ceammc::convert" test_convert)
 
 ceammc_add_extension_test("list_walk" "../list/list_walk.cpp")
 ceammc_add_extension_test("list_walk2" "../list/list_walk.cpp")
