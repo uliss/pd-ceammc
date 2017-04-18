@@ -43,6 +43,9 @@
     </entry>
   </category>
   <category name="flow">
+    <entry descr="Substitute enviroment variables in data stream" name="expand_env" ref_view="object">
+      <xi:include href="expand_env.pddoc" parse="xml"/>
+    </entry>
     <entry descr="Replace atoms in data stream" name="replace" ref_view="object">
       <xi:include href="replace.pddoc" parse="xml"/>
     </entry>
@@ -130,6 +133,9 @@
     </entry>
     <entry descr="simple pitch shifter based on 2 delay lines" name="fx.pitchshift~" ref_view="object">
       <xi:include href="fx.pitchshift~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="Zita stereo reverb" name="fx.zita_rev1~" ref_view="object">
+      <xi:include href="fx.zita_rev1~.pddoc" parse="xml"/>
     </entry>
   </category>
   <category name="global">

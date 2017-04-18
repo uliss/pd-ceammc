@@ -10,6 +10,7 @@ dyn.softclip~		~		~
 env.adsr~		~		~.
 env.ar~		~		~.
 env.follow~		~		~.
+expand_env		.		.
 flt.biquad~		~~~~~~		~
 flt.bpf12~		~		~.
 flt.bpf24~		~		~.
@@ -37,6 +38,7 @@ fx.freeverb2~		~~		~~.
 fx.freeverb~		~		~.
 fx.freqshift~		~~		~~.
 fx.pitchshift~		~~		~.
+fx.zita_rev1~		~~		~~.
 global.float		.		.
 global.int		.		.
 global.list		.		.

@@ -18,6 +18,7 @@ set(DOC_FILES
     env.ar~
     env.adsr~
     env.follow~
+    expand_env
     flt.bpf12~
     flt.bpf24~
     flt.c_bpf~
@@ -45,6 +46,7 @@ set(DOC_FILES
     fx.pitchshift~
     fx.freeverb~
     fx.freeverb2~
+    fx.zita_rev1~
     global.float
     global.int
     global.list
