@@ -14,15 +14,21 @@
 #include "ceammc_convert.h"
 
 #include <cctype>
+#include <cmath>
 #include <cstdio>
 #include <cstdlib>
 #include <vector>
 
-std::string ceammc::convert::time::sec2str(int sec)
+std::string ceammc::convert::time::sec2str(float sec, bool ms)
 {
-    int psec = abs(sec);
+    float isec = 0;
+    int fraq = abs(static_cast<int>(modff(sec, &isec) * 1000));
+    int psec = abs(static_cast<int>(sec));
 
-    char buf[20];
+    const int BUFSIZE = 30;
+    char buf[BUFSIZE];
+    char ms_buf[5];
+
     char* buf_ptr = buf;
     if (sec < 0) {
         buf_ptr[0] = '-';
@@ -32,7 +38,11 @@ std::string ceammc::convert::time::sec2str(int sec)
     int h = (psec % (3600 * 24)) / 3600;
     int m = (psec % 3600) / 60;
     int s = psec % 60;
-    snprintf(buf_ptr, 18, "%02d:%02d:%02d", h, m, s);
+    if (ms) {
+        snprintf(ms_buf, sizeof(ms_buf), ".%03d", fraq);
+    }
+
+    snprintf(buf_ptr, BUFSIZE - 2, "%02d:%02d:%02d%s", h, m, s, ms ? ms_buf : "");
     return buf;
 }
 

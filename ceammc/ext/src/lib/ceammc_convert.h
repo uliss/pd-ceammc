@@ -22,7 +22,7 @@ namespace convert {
         /**
          * @brief converts time in seconds to formatted time string: "00:00:00"
          */
-        std::string sec2str(int sec);
+        std::string sec2str(float sec, bool ms = false);
 
         float str2sec(const std::string& str, float def = 0.f);
     }

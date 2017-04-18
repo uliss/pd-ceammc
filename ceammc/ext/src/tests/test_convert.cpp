@@ -42,6 +42,12 @@ TEST_CASE("convert", "[PureData]")
             REQUIRE(sec2str(3600 * 12) == "12:00:00");
             REQUIRE(sec2str(3600 * 24 + 60 * 3 + 1) == "00:03:01");
             REQUIRE(sec2str(-59) == "-00:00:59");
+
+            REQUIRE(sec2str(0.5, true) == "00:00:00.500");
+            REQUIRE(sec2str(-0.5, true) == "-00:00:00.500");
+            REQUIRE(sec2str(0.999f, true) == "00:00:00.999");
+            REQUIRE(sec2str(0.1111f, true) == "00:00:00.111");
+            REQUIRE(sec2str(0, true) == "00:00:00.000");
         }
 
         SECTION("str2sec")

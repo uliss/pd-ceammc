@@ -20,6 +20,8 @@
 using namespace ceammc;
 
 class SecToStr : public BaseObject {
+    FlagProperty* ms_flag_;
+
 public:
     SecToStr(const PdArgs& a);
     void onFloat(t_float v);

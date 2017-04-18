@@ -18,15 +18,19 @@ using namespace ceammc;
 
 SecToStr::SecToStr(const PdArgs& a)
     : BaseObject(a)
+    , ms_flag_(0)
 {
     createOutlet();
+
+    ms_flag_ = new FlagProperty("@ms");
+    createProperty(ms_flag_);
+
     parseArguments();
 }
 
 void SecToStr::onFloat(t_float v)
 {
-    int sec = static_cast<int>(v);
-    symbolTo(0, gensym(convert::time::sec2str(sec).c_str()));
+    symbolTo(0, gensym(convert::time::sec2str(v, ms_flag_->value()).c_str()));
 }
 
 extern "C" void setup_conv0x2esec2str()
