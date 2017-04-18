@@ -15,6 +15,7 @@
 #include "lib/ceammc.hpp"
 #include "s_stuff.h"
 
+#include "array/mod_array.h"
 #include "base/mod_base.h"
 #include "conv/mod_conv.h"
 #include "data/mod_data.h"
@@ -80,6 +81,7 @@ void ceammc_init()
     vector<string> l = ceammc::currentExtensionList();
     set<string> vanilla_set(l.begin(), l.end());
 
+    ceammc_array_setup();
     ceammc_base_setup();
     ceammc_conv_setup();
     ceammc_data_setup();
