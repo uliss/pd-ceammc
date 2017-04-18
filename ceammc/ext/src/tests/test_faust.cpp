@@ -153,7 +153,6 @@ TEST_CASE("Faust", "[ceammc::faust]")
             REQUIRE(invalidOscChar('<'));
             REQUIRE(invalidOscChar(':'));
             REQUIRE(invalidOscChar('-'));
-            REQUIRE(invalidOscChar('_'));
             REQUIRE(invalidOscChar('!'));
             REQUIRE(invalidOscChar('@'));
             REQUIRE(invalidOscChar('#'));
@@ -164,6 +163,7 @@ TEST_CASE("Faust", "[ceammc::faust]")
             REQUIRE(invalidOscChar('*'));
             REQUIRE(invalidOscChar('('));
             REQUIRE(invalidOscChar(')'));
+            REQUIRE_FALSE(invalidOscChar('_'));
             REQUIRE_FALSE(invalidOscChar('1'));
             REQUIRE_FALSE(invalidOscChar('2'));
             REQUIRE_FALSE(invalidOscChar('a'));
@@ -175,6 +175,7 @@ TEST_CASE("Faust", "[ceammc::faust]")
         {
             REQUIRE(escapeOscSegment("") == "");
             REQUIRE(escapeOscSegment("abc") == "abc");
+            REQUIRE(escapeOscSegment("ab_c") == "ab_c");
             REQUIRE(escapeOscSegment("1 2 3 4 5") == "12345");
             REQUIRE(escapeOscSegment("!№%:,.;()") == "");
         }
@@ -232,6 +233,11 @@ TEST_CASE("Faust", "[ceammc::faust]")
             REQUIRE(b.fullName() == "osc.tri~");
             REQUIRE(b.uiCount() == 0);
             REQUIRE(b.oscPath("freq") == "/osctri/freq");
+
+            UI c("osc.tri_c~", "");
+            REQUIRE(c.fullName() == "osc.tri_c~");
+            REQUIRE(c.uiCount() == 0);
+            REQUIRE(c.oscPath("freq") == "/osctri_c/freq");
         }
 
         SECTION("uiAt")

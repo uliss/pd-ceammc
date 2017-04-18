@@ -209,7 +209,7 @@ namespace faust {
         return false;
     }
 
-    bool invalidOscChar(char c) { return isalnum(c) == 0; }
+    bool invalidOscChar(char c) { return isalnum(c) == 0 && c != '_'; }
 
     std::string escapeOscSegment(const std::string& s)
     {
