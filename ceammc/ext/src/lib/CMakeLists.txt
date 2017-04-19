@@ -83,13 +83,11 @@ endif()
 # coreaudio backend
 if(APPLE AND CMAKE_CXX_COMPILER_ID MATCHES "Clang")
     list(APPEND CEAMMC_LOAD_SRC ceammc_loader_coreaudio.cpp ceammc_loader_coreaudio_impl.m)
-#    list(APPEND CEAMMC_LOAD_DEFS "-framework CoreFoundation")
     find_library(FOUNDATION_LIBRARY Foundation)
     find_library(QUICKTIME_LIBRARY QuickTime)
     find_library(APP_SERVICES_LIBRARY ApplicationServices)
 
     list(APPEND CEAMMC_LOAD_LIBS ${FOUNDATION_LIBRARY})
-#    set_source_files_properties(ceammc_loader_coreaudio_impl.m PROPERTIES COMPILE_FLAGS)
 endif()
 
 add_library(ceammc_sound SHARED ${CEAMMC_LOAD_SRC})
@@ -97,14 +95,6 @@ set_target_properties(ceammc_sound PROPERTIES
     COMPILE_FLAGS "${LIBCEAMMC_COMPILE_FLAGS} ${CEAMMC_LOAD_DEFS}"
     LINK_FLAGS    "${LIBCEAMMC_LINK_FLAGS}")
 target_link_libraries(ceammc_sound ${CEAMMC_LOAD_LIBS})
-if(LIBSNDFILE_FOUND)
-    if(APPLE)
-        add_custom_command(TARGET ceammc_sound POST_BUILD
-            COMMAND bash ${CMAKE_CURRENT_SOURCE_DIR}/../apple_rpath_fix.sh
-                    $<TARGET_FILE:ceammc_sound>
-                    ${CMAKE_CURRENT_BINARY_DIR})
-    endif()
-endif()
 
 # install
 if(WIN32)
