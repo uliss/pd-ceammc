@@ -15,13 +15,12 @@
 
 ArrayBase::ArrayBase(const PdArgs& a)
     : BaseObject(a)
+    , name_(0)
 {
     if (!a.args.empty()) {
         const Atom& first = a.args[0];
         if (first.isSymbol())
             name_ = first.asSymbol();
-
-        array_ = findArray(name_);
     }
 }
 
@@ -54,15 +53,13 @@ int ArrayBase::arraySize()
     }
 
     // try to find array
-    if (!array_) {
-        array_ = findArray(name_);
-        if (!array_)
-            return -1;
-    }
+    t_garray* a = findArray(name_);
+    if (!a)
+        return -1;
 
     int vecsize = 0;
     t_word* vecs;
-    if (!garray_getfloatwords(array_, &vecsize, &vecs)) {
+    if (!garray_getfloatwords(a, &vecsize, &vecs)) {
         OBJ_ERR << "invalid array template: " << name_->s_name;
         return -1;
     }

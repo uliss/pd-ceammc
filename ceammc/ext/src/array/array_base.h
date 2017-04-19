@@ -25,7 +25,6 @@ public:
 
 protected:
     t_symbol* name_;
-    t_garray* array_;
     t_garray* findArray(t_symbol* s);
     int arraySize();
 };
