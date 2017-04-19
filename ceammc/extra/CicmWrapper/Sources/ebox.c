@@ -1309,13 +1309,13 @@ void ebox_redraw(t_ebox *x)
         ebox_invalidate_layer(x, s_eboxio);
         ebox_paint(x);
     }
-    t_symbol* s = canvas_realizedollar(eobj_getcanvas(x), gensym("$0-camomile"));
-    if(s->s_thing)
-    {
-        t_atom av;
-        atom_setfloat(&av, (float)((long)x));
-        pd_typedmess(s->s_thing, gensym("redraw"), 1, &av);
-    }
+//    t_symbol* s = canvas_realizedollar(eobj_getcanvas(x), gensym("$0-camomile"));
+//    if(s->s_thing)
+//    {
+//        t_atom av;
+//        atom_setfloat(&av, (float)((long)x));
+//        pd_typedmess(s->s_thing, gensym("redraw"), 1, &av);
+//    }
 }
 
 void ebox_get_rect_for_view(t_ebox *x, t_rect *rect)
@@ -1343,7 +1343,7 @@ t_elayer* ebox_start_layer(t_ebox *x, t_symbol *name, float width, float height)
                 egraphics_matrix_init(&graphic->e_matrix, 1., 0., 0., 1., 0., 0.);
                 graphic->e_line_width    = 1.f;
                 graphic->e_line_capstyle = ECAPSTYLE_BUTT;
-                graphic->e_color         = gensym("#000000");
+                graphic->e_color         = s_color_black_hex;
                 graphic->e_rect.x        = 0.f;
                 graphic->e_rect.y        = 0.f;
                 graphic->e_rect.height   = (float)pd_clip_min(height, 0.);
@@ -1403,7 +1403,7 @@ t_elayer* ebox_start_layer(t_ebox *x, t_symbol *name, float width, float height)
         egraphics_matrix_init(&graphic->e_matrix, 1., 0., 0., 1., 0., 0.);
         graphic->e_line_width    = 1.f;
         graphic->e_line_capstyle = ECAPSTYLE_BUTT;
-        graphic->e_color         = gensym("#000000");
+        graphic->e_color         = s_color_black_hex;
         graphic->e_rect.x        = 0.f;
         graphic->e_rect.y        = 0.f;
         graphic->e_rect.height   = (float)pd_clip_min(height, 0.);
