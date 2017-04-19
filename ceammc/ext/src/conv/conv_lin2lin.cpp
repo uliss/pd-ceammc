@@ -81,10 +81,15 @@ public:
 
     void initProperties()
     {
-        this->input_min = new FloatProperty("input_min");
-        this->input_max = new FloatProperty("input_max");
-        this->output_min = new FloatProperty("output_min");
-        this->output_max = new FloatProperty("output_max");
+        input_min = new FloatProperty("@input_min", 0);
+        input_max = new FloatProperty("@input_max", 127);
+        output_min = new FloatProperty("@output_min", 0);
+        output_max = new FloatProperty("@output_max", 1);
+
+        createProperty(input_min);
+        createProperty(input_max);
+        createProperty(output_min);
+        createProperty(output_max);
     }
 };
 
