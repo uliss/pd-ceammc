@@ -31,6 +31,7 @@ find "${BINDIR}" -name *.dylib -print0 | while read -r -d '' file
 do
     cp "$file" "${OUTDIR}"
     echo "+ Lib:  $(basename $file)"
+#    dylibbundler -x ${OUTDIR}/$(basename $file) -b -d ${OUTDIR} -p @loader_path/ -of
 done
 
 
@@ -48,6 +49,7 @@ do
 
     cp "$file" "${OUTDIR}/${ext_name%.d_fat}.pd_darwin"
     echo "+ Copy: '$ext_name' as '$cp_ext_name'"
+    dylibbundler -x ${OUTDIR}/$cp_ext_name -b -d ${OUTDIR} -p @loader_path/ -of
 done
 
 ceammc_lib=$(find "${BINDIR}" -name ceammc\\.d_fat)
@@ -55,6 +57,7 @@ cp $ceammc_lib "${OUTDIR}"
 
 ceammc_compat=$(find "${BINDIR}" -name ceammc_compat.d_fat)
 cp $ceammc_compat "${OUTDIR}/ceammc.pd_darwin"
+dylibbundler -x ${OUTDIR}/ceammc.pd_darwin -b -d ${OUTDIR} -p @loader_path/ -of
 rm "${OUTDIR}/ceammc_compat.pd_darwin"
 
 echo "Copying help files to ${OUTDIR} ..."
