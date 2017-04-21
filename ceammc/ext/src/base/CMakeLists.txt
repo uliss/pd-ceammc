@@ -5,7 +5,8 @@ set(BASE_SOURCES
     msg.cpp
     prop.get
     prop.set
-    replace.cpp)
+    replace.cpp
+    mul_samplerate.cpp)
 
 # predicates
 list(APPEND BASE_SOURCES

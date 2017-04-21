@@ -23,6 +23,8 @@ extern "C" void setup_snd0x2efile();
 extern "C" void setup_test0x2edata();
 extern "C" void setup_test0x2eexpect();
 
+extern "C" void setup_0x2aSR();
+
 void ceammc_base_setup()
 {
     expand_env_setup();
@@ -55,4 +57,6 @@ void ceammc_base_setup()
 
     setup_test0x2edata();
     setup_test0x2eexpect();
+
+    setup_0x2aSR();
 }

@@ -14,4 +14,50 @@
 #ifndef CEAMMC_PROXY_H
 #define CEAMMC_PROXY_H
 
+#include "m_pd.h"
+
+namespace ceammc {
+
+template <class Owner>
+struct PdProxy {
+    t_object obj;
+    Owner* owner;
+
+    static t_class* proxy_class;
+
+    static PdProxy* proxy_new()
+    {
+        PdProxy* x = reinterpret_cast<PdProxy*>(pd_new(PdProxy<Owner>::proxy_class));
+        x->owner = 0;
+        return x;
+    }
+
+    void free()
+    {
+        pd_free(&obj.te_g.g_pd);
+    }
+};
+
+template <class Owner>
+t_class* PdProxy<Owner>::proxy_class = 0;
+
+template <class Owner>
+struct PdFloatProxy : public PdProxy<Owner> {
+    static PdFloatProxy* proxy_new()
+    {
+        return static_cast<PdFloatProxy<Owner>*>(PdProxy<Owner>::proxy_new());
+    }
+
+    typedef void (*FloatMethod)(PdFloatProxy* x, t_float v);
+    static void class_init(const char* name, FloatMethod func)
+    {
+        PdProxy<Owner>::proxy_class = class_new(gensym(name),
+            reinterpret_cast<t_newmethod>(PdFloatProxy<Owner>::proxy_new),
+            0, sizeof(PdFloatProxy<Owner>), CLASS_PD, A_NULL);
+
+        class_addfloat(PdProxy<Owner>::proxy_class, func);
+    }
+};
+}
+
 #endif // CEAMMC_PROXY_H
