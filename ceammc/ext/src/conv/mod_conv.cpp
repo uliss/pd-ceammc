@@ -15,6 +15,8 @@ extern "C" void setup_conv0x2ecc2amp();
 
 extern "C" void setup_conv0x2esamp2sec();
 extern "C" void setup_conv0x2esec2samp();
+extern "C" void setup_conv0x2ebpm2ms();
+extern "C" void setup_conv0x2ebpm2sec();
 
 void ceammc_conv_setup()
 {
@@ -33,4 +35,6 @@ void ceammc_conv_setup()
 
     setup_conv0x2esamp2sec();
     setup_conv0x2esec2samp();
+    setup_conv0x2ebpm2ms();
+    setup_conv0x2ebpm2sec();
 }

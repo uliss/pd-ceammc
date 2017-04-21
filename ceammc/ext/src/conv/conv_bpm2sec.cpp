@@ -11,22 +11,22 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef ARRAY_P2S_H
-#define ARRAY_P2S_H
+#include "conv_bpm2sec.h"
+#include "ceammc_factory.h"
 
-#include "array_base.h"
+BpmToSec::BpmToSec(const PdArgs& a)
+    : BaseObject(a)
+{
+    createOutlet();
+}
 
-class ArrayPhaseToSample : public ArrayBase {
-public:
-    ArrayPhaseToSample(const PdArgs& a);
+void BpmToSec::onFloat(t_float v)
+{
+    floatTo(0, 60 / v);
+}
 
-    /**
-     * @brief converts float value of phase to array sample position
-     * @param phase - in range 0..1
-     */
-    void onFloat(t_float phase);
-
-    void onList(const AtomList& lst);
-};
-
-#endif // ARRAY_P2S_H
+extern "C" void setup_conv0x2ebpm2sec()
+{
+    ObjectFactory<BpmToSec> obj("conv.bpm2sec");
+    obj.addAlias("bpm->sec");
+}

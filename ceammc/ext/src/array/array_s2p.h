@@ -25,6 +25,8 @@ public:
      * @param sample position
      */
     void onFloat(t_float sample);
+    void onList(const AtomList& lst);
+
 private:
     t_object* sr_;
 };

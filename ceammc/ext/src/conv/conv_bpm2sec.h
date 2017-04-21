@@ -11,22 +11,17 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef ARRAY_P2S_H
-#define ARRAY_P2S_H
+#ifndef CONV_BPM2SEC_H
+#define CONV_BPM2SEC_H
 
-#include "array_base.h"
+#include "ceammc_object.h"
 
-class ArrayPhaseToSample : public ArrayBase {
+using namespace ceammc;
+
+class BpmToSec : public BaseObject {
 public:
-    ArrayPhaseToSample(const PdArgs& a);
-
-    /**
-     * @brief converts float value of phase to array sample position
-     * @param phase - in range 0..1
-     */
-    void onFloat(t_float phase);
-
-    void onList(const AtomList& lst);
+    BpmToSec(const PdArgs& a);
+    void onFloat(t_float v);
 };
 
-#endif // ARRAY_P2S_H
+#endif // CONV_BPM2SEC_H

@@ -25,6 +25,11 @@ void ArraySampleToPhase::onFloat(t_float sample)
     floatTo(0, sample / arraySize());
 }
 
+void ArraySampleToPhase::onList(const AtomList& lst)
+{
+    listTo(0, lst.filtered(isFloat) * arraySize());
+}
+
 extern "C" void setup_array0x2es2p()
 {
     ObjectFactory<ArraySampleToPhase> obj("array.s2p");
