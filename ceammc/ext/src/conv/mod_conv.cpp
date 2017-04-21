@@ -11,6 +11,8 @@ extern "C" void setup_conv0x2elin2lin();
 extern "C" void setup_conv0x2elist2bpf();
 extern "C" void setup_conv0x2evline2bpf();
 
+extern "C" void setup_conv0x2ecc2amp();
+
 void ceammc_conv_setup() {
      setup_conv0x2esec2str();
      setup_conv0x2estr2sec();
@@ -22,4 +24,6 @@ void ceammc_conv_setup() {
      setup_conv0x2elin2lin();
      setup_conv0x2elist2bpf();
      setup_conv0x2evline2bpf();
+
+     setup_conv0x2ecc2amp();
 }

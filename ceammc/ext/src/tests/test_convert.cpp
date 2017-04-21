@@ -100,4 +100,45 @@ TEST_CASE("convert", "[PureData]")
             }
         }
     }
+
+    SECTION("lin2lin")
+    {
+        REQUIRE(lin2lin<float>(0, 0, 1, 0, 127) == 0.f);
+        REQUIRE(lin2lin<float>(0, 1, 0, 127, 0) == 0.f);
+        REQUIRE(lin2lin<float>(1, 1, 0, 127, 0) == 127.f);
+        REQUIRE(lin2lin<float>(1, 0, 1, 0, 127) == 127.f);
+        REQUIRE(lin2lin<float>(0.5, 0, 1, 0, 127) == 63.5f);
+        REQUIRE(lin2lin<float>(0.5, 1, 0, 0, 127) == 63.5f);
+        REQUIRE(lin2lin<float>(0.5, 0, 1, 127, 0) == 63.5f);
+        REQUIRE(lin2lin<float>(0.5, 1, 0, 127, 0) == 63.5f);
+
+        REQUIRE(lin2lin<float>(0, 1, 0, 0, 127) == 127.f);
+        REQUIRE(lin2lin<float>(1, 1, 0, 0, 127) == 0.f);
+        REQUIRE(lin2lin<float>(-1, -1, 1, 0, 10) == 0.f);
+        REQUIRE(lin2lin<float>(1, -1, 1, 0, 10) == 10.f);
+        REQUIRE(lin2lin<float>(0, -1, 1, 0, 10) == 5.f);
+        REQUIRE(lin2lin<float>(0, -1, 1, -10, 10) == 0.f);
+        REQUIRE(lin2lin<float>(0, 0, 1, -10, 10) == -10.f);
+        REQUIRE(lin2lin<float>(0, 1, -1, -10, 10) == 0.f);
+        REQUIRE(lin2lin<float>(1, 1, -1, -10, 10) == -10.f);
+        REQUIRE(lin2lin<float>(-1, 1, -1, -10, 10) == 10.f);
+        REQUIRE(lin2lin<float>(-2, -1, -3, -2, -6) == -4.f);
+
+        REQUIRE(lin2lin<float>(1, 10, 1, 20, 0) == 0.f);
+
+        REQUIRE(lin2lin<float>(0.5, 0, 1, 1, 11) == 6.f);
+        REQUIRE(lin2lin<float>(0.5, 1, 0, 1, 11) == 6.f);
+        REQUIRE(lin2lin<float>(0.5, 0, 1, 11, 1) == 6.f);
+        REQUIRE(lin2lin<float>(0.5, 1, 0, 11, 1) == 6.f);
+
+        REQUIRE(lin2lin<float>(0.5, 0, 1, -1, -11) == -6.f);
+        REQUIRE(lin2lin<float>(0.5, 1, 0, -1, -11) == -6.f);
+        REQUIRE(lin2lin<float>(0.5, 0, 1, -11, -1) == -6.f);
+        REQUIRE(lin2lin<float>(0.5, 1, 0, -11, -1) == -6.f);
+
+        REQUIRE(lin2lin<float>(0.5, 0, 1, 0, -10) == -5.f);
+        REQUIRE(lin2lin<float>(0.5, 1, 0, 0, -10) == -5.f);
+        REQUIRE(lin2lin<float>(0.5, 0, 1, -10, 0) == -5.f);
+        REQUIRE(lin2lin<float>(0.5, 1, 0, -10, 0) == -5.f);
+    }
 }

@@ -11,36 +11,25 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef CEAMMC_CONVERT_H
-#define CEAMMC_CONVERT_H
+#ifndef CONV_CC2AMP_H
+#define CONV_CC2AMP_H
 
-#include <cmath>
-#include <string>
+#include "ceammc_factory.h"
+#include "ceammc_object.h"
 
-namespace ceammc {
+using namespace ceammc;
 
-template <class T>
-T clip(T v, T min, T max)
-{
-    return std::min(max, std::max(v, min));
-}
+class CC2Amp : public BaseObject {
+    FloatProperty* v0_;
+    FloatProperty* v1_;
+    BoolProperty* clip_;
 
-namespace convert {
-    namespace time {
-        /**
-         * @brief converts time in seconds to formatted time string: "00:00:00"
-         */
-        std::string sec2str(float sec, bool ms = false);
+public:
+    CC2Amp(const PdArgs& a);
+    void onFloat(t_float v);
 
-        float str2sec(const std::string& str, float def = 0.f);
-    }
+private:
+    t_float convert(t_float v);
+};
 
-    template <class T>
-    T lin2lin(T v, T x0, T x1, T y0, T y1)
-    {
-        return std::abs(v - x0) / std::abs(x0 - x1) * (y1 - y0) + y0;
-    }
-}
-}
-
-#endif // CEAMMC_CONVERT_H
+#endif // CONV_CC2AMP_H

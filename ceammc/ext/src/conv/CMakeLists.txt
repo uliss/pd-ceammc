@@ -6,6 +6,9 @@ macro(ceammc_conv_extension name)
     list(APPEND CONV_SOURCES "conv_${name}.cpp")
 endmacro()
 
+# MIDI
+ceammc_conv_extension(cc2amp)
+
 # BPF CONVERTERS
 ceammc_conv_extension(bpf2env)
 ceammc_conv_extension(bpf2list)
