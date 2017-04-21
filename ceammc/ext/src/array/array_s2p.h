@@ -11,22 +11,22 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef ARRAY_BASE_H
-#define ARRAY_BASE_H
+#ifndef ARRAY_S2P_H
+#define ARRAY_S2P_H
 
-#include "ceammc_factory.h"
-#include "ceammc_object.h"
+#include "array_base.h"
 
-using namespace ceammc;
-
-class ArrayBase : public BaseObject {
+class ArraySampleToPhase : public ArrayBase {
 public:
-    ArrayBase(const PdArgs& a);
+    ArraySampleToPhase(const PdArgs& a);
 
-protected:
-    t_symbol* name_;
-    t_garray* findArray(t_symbol* s) const;
-    long arraySize() const;
+    /**
+     * @brief converts sample position to phase [0..1]
+     * @param sample position
+     */
+    void onFloat(t_float sample);
+private:
+    t_object* sr_;
 };
 
-#endif // ARRAY_BASE_H
+#endif // ARRAY_S2P_H

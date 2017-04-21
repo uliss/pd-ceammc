@@ -21,10 +21,12 @@ ArrayBase::ArrayBase(const PdArgs& a)
         const Atom& first = a.args[0];
         if (first.isSymbol())
             name_ = first.asSymbol();
+        else
+            OBJ_ERR << "array name is not specified";
     }
 }
 
-t_garray* ArrayBase::findArray(t_symbol* s)
+t_garray* ArrayBase::findArray(t_symbol* s) const
 {
     if (!s)
         return 0;
@@ -45,7 +47,7 @@ t_garray* ArrayBase::findArray(t_symbol* s)
     return arr;
 }
 
-int ArrayBase::arraySize()
+long ArrayBase::arraySize() const
 {
     if (!name_) {
         OBJ_ERR << "array name is not specified.";
