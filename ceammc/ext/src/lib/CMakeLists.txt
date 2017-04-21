@@ -32,6 +32,7 @@ set(CEAMMC_LIB_SOURCES ceammc.h
     ceammc_format.cpp
     ceammc_object.cpp
     ceammc_impl.cpp
+    ceammc_pd.cpp
     ceammc_platform.cpp
     ceammc_property.cpp
     ceammc_timeline.cpp)

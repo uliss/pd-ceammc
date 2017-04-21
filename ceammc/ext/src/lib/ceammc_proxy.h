@@ -36,6 +36,11 @@ struct PdProxy {
     {
         pd_free(&obj.te_g.g_pd);
     }
+
+    t_object* object()
+    {
+        return &obj;
+    }
 };
 
 template <class Owner>
