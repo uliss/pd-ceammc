@@ -29,6 +29,10 @@ list(APPEND BASE_SOURCES
     reject_if.cpp
     reject_this.cpp)
 
+# flow
+list(APPEND BASE_SOURCES
+    flow_sync.cpp)
+
 # test
 list(APPEND BASE_SOURCES
     test_data.cpp
