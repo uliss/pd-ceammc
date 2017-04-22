@@ -26,6 +26,8 @@ ceammc_conv_extension(str2sec)
 
 ceammc_conv_extension(bpm2ms)
 ceammc_conv_extension(bpm2sec)
+ceammc_conv_extension(bpm2hz)
+
 
 add_library(ceammc_conv STATIC mod_conv.h mod_conv.cpp ${CONV_SOURCES})
 if(UNIX)

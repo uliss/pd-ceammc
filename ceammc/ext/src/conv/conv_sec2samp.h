@@ -22,6 +22,7 @@ class SecondToSample : public BaseObject {
 public:
     SecondToSample(const PdArgs& a);
     void onFloat(t_float v);
+    void onList(const AtomList& lst);
 };
 
 #endif // CONV_SEC2SAMP_H

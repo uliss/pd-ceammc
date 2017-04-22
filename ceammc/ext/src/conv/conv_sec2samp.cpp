@@ -25,6 +25,11 @@ void SecondToSample::onFloat(t_float v)
     floatTo(0, v * sys_getsr());
 }
 
+void SecondToSample::onList(const AtomList& lst)
+{
+    listTo(0, lst * sys_getsr());
+}
+
 extern "C" void setup_conv0x2esec2samp()
 {
     ObjectFactory<SecondToSample> obj("conv.sec2samp");

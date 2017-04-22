@@ -11,18 +11,17 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef CONV_BPM2SEC_H
-#define CONV_BPM2SEC_H
+#ifndef CONV_BPM2HZ_H
+#define CONV_BPM2HZ_H
 
 #include "ceammc_object.h"
 
 using namespace ceammc;
 
-class BpmToSec : public BaseObject {
+class BpmToHz : public BaseObject {
 public:
-    BpmToSec(const PdArgs& a);
+    BpmToHz(const PdArgs& a);
     void onFloat(t_float v);
     void onList(const AtomList& lst);
 };
-
-#endif // CONV_BPM2SEC_H
+#endif // CONV_BPM2HZ_H

@@ -22,6 +22,7 @@ class SampleToSec : public BaseObject {
 public:
     SampleToSec(const PdArgs& a);
     void onFloat(t_float v);
+    void onList(const AtomList& lst);
 };
 
 #endif // CONV_SAMP2SEC_H

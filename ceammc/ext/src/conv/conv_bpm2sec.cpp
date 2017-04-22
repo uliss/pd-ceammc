@@ -14,6 +14,11 @@
 #include "conv_bpm2sec.h"
 #include "ceammc_factory.h"
 
+static t_float bpm2sec(t_float v)
+{
+    return 60 / v;
+}
+
 BpmToSec::BpmToSec(const PdArgs& a)
     : BaseObject(a)
 {
@@ -22,7 +27,12 @@ BpmToSec::BpmToSec(const PdArgs& a)
 
 void BpmToSec::onFloat(t_float v)
 {
-    floatTo(0, 60 / v);
+    floatTo(0, bpm2sec(v));
+}
+
+void BpmToSec::onList(const AtomList& lst)
+{
+    listTo(0, lst.map(bpm2sec));
 }
 
 extern "C" void setup_conv0x2ebpm2sec()

@@ -22,6 +22,7 @@ class BpmToMs : public BaseObject {
 public:
     BpmToMs(const PdArgs& a);
     void onFloat(t_float v);
+    void onList(const AtomList& lst);
 };
 
 #endif // CONV_BPM2MS_H
