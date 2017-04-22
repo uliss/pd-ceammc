@@ -68,7 +68,7 @@ static std::ostream& operator<<(std::ostream& os, const std::vector<T>& v)
 }
 
 template <>
-std::ostream& operator<<(std::ostream& os, const std::vector<_symbol*>& v)
+static std::ostream& operator<<(std::ostream& os, const std::vector<_symbol*>& v)
 {
     os << '[';
     std::vector<_symbol*>::const_iterator it;
