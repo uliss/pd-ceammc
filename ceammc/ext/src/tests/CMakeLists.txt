@@ -34,6 +34,7 @@ ceammc_add_extension_test("ext_replace" "../base/replace.cpp")
 ceammc_add_extension_test("ext_expand_env" "../base/expand_env.cpp")
 ceammc_add_extension_test("ext_msg" "../base/msg.cpp")
 ceammc_add_extension_test("ext_list_each" "../list/list_each.cpp")
+ceammc_add_extension_test("ext_path_lsdir" "../path/path_listdir.cpp")
 
 if(GLIB_FOUND)
     include_directories(${GLIB_INCLUDE_DIRS})
