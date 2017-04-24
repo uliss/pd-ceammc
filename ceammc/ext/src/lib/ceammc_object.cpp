@@ -412,7 +412,7 @@ bool BaseObject::checkArgs(const AtomList& lst, ArgumentType a1, t_symbol* metho
 bool BaseObject::checkArgs(const AtomList& lst, BaseObject::ArgumentType a1,
     BaseObject::ArgumentType a2, t_symbol* method) const
 {
-    if (lst.size() < 1
+    if (lst.size() < 2
         || !checkArg(lst[0], a1, 0)
         || !checkArg(lst[1], a2, 1)) {
 
@@ -430,7 +430,7 @@ bool BaseObject::checkArgs(const AtomList& lst, BaseObject::ArgumentType a1,
 bool BaseObject::checkArgs(const AtomList& lst, BaseObject::ArgumentType a1,
     BaseObject::ArgumentType a2, BaseObject::ArgumentType a3, t_symbol* method) const
 {
-    if (lst.size() < 1
+    if (lst.size() < 3
         || !checkArg(lst[0], a1, 0)
         || !checkArg(lst[1], a2, 1)
         || !checkArg(lst[2], a3, 2)) {
@@ -452,7 +452,7 @@ bool BaseObject::checkArgs(const AtomList& lst, BaseObject::ArgumentType a1,
     BaseObject::ArgumentType a4, t_symbol* method) const
 {
 
-    if (lst.size() < 1
+    if (lst.size() < 4
         || !checkArg(lst[0], a1, 0)
         || !checkArg(lst[1], a2, 1)
         || !checkArg(lst[2], a3, 2)
