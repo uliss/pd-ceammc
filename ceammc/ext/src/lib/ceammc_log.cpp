@@ -27,7 +27,7 @@ Error::Error(const BaseObject* obj)
 Error::~Error()
 {
     if (obj_ != 0)
-        pd_error(static_cast<void*>(const_cast<BaseObject*>(obj_)), "[%s] %s", obj_->className().c_str(), str().c_str());
+        pd_error(static_cast<void*>(obj_->owner()), "[%s] %s", obj_->className().c_str(), str().c_str());
     else
         pd_error(0, "[ceammc] %s", str().c_str());
 }

@@ -90,7 +90,7 @@ public:
     /**
      * Returns pointer to pd object struct, if you need manually call pd fuctions.
      */
-    inline t_object* owner() { return pd_.owner; }
+    inline t_object* owner() const { return pd_.owner; }
 
     /**
      * Dumps object info to Pd window
