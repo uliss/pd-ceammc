@@ -111,5 +111,10 @@ namespace platform {
         res += s.substr(pos, std::string::npos);
         return res;
     }
+
+    bool fnmatch(const char* pattern, const char* str)
+    {
+        return NS(fnmatch)(pattern, str);
+    }
 }
 }

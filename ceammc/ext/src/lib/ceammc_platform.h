@@ -28,6 +28,8 @@ namespace platform {
     std::string basename(const char* path);
     std::string dirname(const char* path);
     std::string expandenv(const char* str);
+
+    bool fnmatch(const char* pattern, const char* str);
 }
 }
 

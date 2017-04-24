@@ -158,4 +158,29 @@ TEST_CASE("ceammc::platform", "[ceammc::lib]")
         REQUIRE(expandenv("%TEST%%VAR%") == "/some/path!!!!");
         REQUIRE(expandenv(",, %TEST% - %VAR% ...") == ",, /some/path - !!!! ...");
     }
+
+    SECTION("fnmatch")
+    {
+        using namespace ceammc::platform;
+
+        REQUIRE(fnmatch("*", "test.txt"));
+        REQUIRE(fnmatch("*.txt", "test.txt"));
+        REQUIRE(fnmatch("*", ".."));
+        REQUIRE(fnmatch("*.wav", "test.wav"));
+        REQUIRE_FALSE(fnmatch("*.wav", "a.mp3"));
+
+        REQUIRE(fnmatch("????.wav", "test.wav"));
+        REQUIRE(fnmatch("????.wav", "fest.wav"));
+        REQUIRE_FALSE(fnmatch("???.wav", "test.wav"));
+
+#ifndef __WIN32
+        REQUIRE_FALSE(fnmatch("[abcd].wav", "a.mp3"));
+        REQUIRE(fnmatch("[abc].mp3", "a.mp3"));
+        REQUIRE(fnmatch("[abc].mp3", "b.mp3"));
+        REQUIRE(fnmatch("[abc].mp3", "c.mp3"));
+        REQUIRE(fnmatch("[!d].mp3", "a.mp3"));
+        REQUIRE_FALSE(fnmatch("[abc].mp3", "d.mp3"));
+        REQUIRE_FALSE(fnmatch("[!d].mp3", "d.mp3"));
+#endif
+    }
 }

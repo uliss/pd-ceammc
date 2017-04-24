@@ -15,6 +15,7 @@
 
 #include <cstdlib>
 #include <cstring>
+#include <fnmatch.h>
 #include <libgen.h>
 
 bool ceammc::unix_is_path_relative(const char* path)
@@ -44,4 +45,9 @@ std::string ceammc::unix_dirname(const char* path)
     std::string res(dir);
     free(p);
     return res;
+}
+
+bool ceammc::unix_fnmatch(const char* pattern, const char* str)
+{
+    return ::fnmatch(pattern, str, 0) == 0;
 }

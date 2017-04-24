@@ -14,8 +14,10 @@
 #include "ceammc_platform_win.h"
 
 #include <Shlwapi.h>
+#include <Stringapiset.h>
 #include <cstdlib>
 #include <cstring>
+#include <iostream>
 
 #include "config.h"
 
@@ -68,5 +70,37 @@ std::string win_dirname(const char* path)
     free(buf);
     return res;
 #endif
+}
+
+static bool mb_to_wch(const char* str, wchar_t** res)
+{
+    int str_len = strlen(str) + 1;
+    int wstr_len = MultiByteToWideChar(CP_ACP, 0, str, str_len, 0, 0);
+    if (wstr_len == 0)
+        return false;
+
+    wchar_t* wstr = static_cast<wchar_t*>(malloc(sizeof(wchar_t) * wstr_len));
+    int rc = MultiByteToWideChar(CP_ACP, 0, str, str_len, wstr, wstr_len);
+    if (rc == 0) {
+        free(wstr);
+        return false;
+    } else {
+        *res = wstr;
+        return true;
+    }
+}
+
+bool win_fnmatch(const char* pattern, const char* str)
+{
+    wchar_t* wstr = 0;
+    wchar_t* wpattern = 0;
+
+    if (!mb_to_wch(str, &wstr) || !mb_to_wch(pattern, &wpattern))
+        return false;
+
+    BOOL res = PathMatchSpecW(wstr, wpattern);
+    free(wstr);
+    free(wpattern);
+    return res;
 }
 }
