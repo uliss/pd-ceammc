@@ -208,6 +208,7 @@ AtomList test_list_wrap(const Atom& a1, const Atom& a2, const Atom& a3, const At
 }
 // clang-format on
 
+#define A(v) test_atom_wrap(v)
 #define L1(v) test_list_wrap(test_atom_wrap(v))
 #define L2(v1, v2) test_list_wrap(test_atom_wrap(v1), test_atom_wrap(v2))
 #define L3(v1, v2, v3) test_list_wrap(test_atom_wrap(v1), test_atom_wrap(v2), test_atom_wrap(v3))
