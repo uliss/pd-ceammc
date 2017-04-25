@@ -17,14 +17,28 @@
 
 #include "ceammc.hpp"
 #include "ceammc_platform.h"
+#include "config.h"
 
 #include <cstdlib>
+#include <cwchar>
 #include <string>
+
+#ifdef __WIN32
+#include "ceammc_platform_win.h"
+#endif
+
+#ifdef HAVE_UNISTD_H
+#include <unistd.h>
+#endif
 
 using namespace ceammc::platform;
 
 #define basename_(str) ceammc::platform::basename(str)
 #define dirname_(str) ceammc::platform::dirname(str)
+
+#ifndef TEST_DATA_DIR
+#define TEST_DATA_DIR "."
+#endif
 
 TEST_CASE("ceammc::platform", "[ceammc::lib]")
 {
@@ -181,6 +195,47 @@ TEST_CASE("ceammc::platform", "[ceammc::lib]")
         REQUIRE(fnmatch("[!d].mp3", "a.mp3"));
         REQUIRE_FALSE(fnmatch("[abc].mp3", "d.mp3"));
         REQUIRE_FALSE(fnmatch("[!d].mp3", "d.mp3"));
+#endif
+    }
+
+    SECTION("mb_to_wch")
+    {
+#ifdef __WIN32
+        wchar_t* wstr = 0;
+        // ANSI
+        REQUIRE(ceammc::mb_to_wch("test", &wstr));
+        REQUIRE(wstr != 0);
+        REQUIRE(wcscmp(wstr, L"test") == 0);
+        free(wstr);
+        // UTF-8
+        wstr = 0;
+        REQUIRE(ceammc::mb_to_wch("тест", &wstr));
+        REQUIRE(wstr != 0);
+        REQUIRE(wcscmp(wstr, L"тест") == 0);
+        free(wstr);
+#endif
+    }
+
+    SECTION("path_exists")
+    {
+        using namespace ceammc::platform;
+        REQUIRE(path_exists(__FILE__));
+        REQUIRE(path_exists(TEST_DATA_DIR));
+        REQUIRE_FALSE(path_exists(TEST_DATA_DIR "not-exists"));
+
+#ifdef __APPLE__
+        REQUIRE_FALSE(path_exists("/var/root"));
+#endif
+
+#ifdef __WIN32
+        ceammc::platform::mkdir("platform_test");
+        REQUIRE(path_exists("platform_test"));
+        ceammc::platform::rmdir("platform_test");
+
+        // UTF-8 test
+        ceammc::platform::mkdir("тест");
+        REQUIRE(path_exists("тест"));
+        ceammc::platform::rmdir("тест");
 #endif
     }
 }

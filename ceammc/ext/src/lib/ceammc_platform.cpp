@@ -116,5 +116,20 @@ namespace platform {
     {
         return NS(fnmatch)(pattern, str);
     }
+
+    bool path_exists(const char* path)
+    {
+        return NS(path_exists)(path);
+    }
+
+    bool mkdir(const char* path, int flags)
+    {
+        return NS(mkdir)(path, flags);
+    }
+
+    bool rmdir(const char* path)
+    {
+        return NS(rmdir)(path);
+    }
 }
 }

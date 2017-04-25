@@ -17,6 +17,8 @@
 #include <cstring>
 #include <fnmatch.h>
 #include <libgen.h>
+#include <sys/stat.h>
+#include <unistd.h>
 
 bool ceammc::unix_is_path_relative(const char* path)
 {
@@ -50,4 +52,22 @@ std::string ceammc::unix_dirname(const char* path)
 bool ceammc::unix_fnmatch(const char* pattern, const char* str)
 {
     return ::fnmatch(pattern, str, 0) == 0;
+}
+
+bool ceammc::unix_path_exists(const char* path)
+{
+    return access(path, R_OK) == 0;
+}
+
+bool ceammc::unix_mkdir(const char* path, int flags)
+{
+    if (flags < 0)
+        flags = S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH;
+
+    return mkdir(path, static_cast<mode_t>(flags)) == 0;
+}
+
+bool ceammc::unix_rmdir(const char* path)
+{
+    return rmdir(path) == 0;
 }

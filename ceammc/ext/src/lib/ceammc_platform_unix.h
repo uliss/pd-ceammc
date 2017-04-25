@@ -21,6 +21,9 @@ bool unix_is_path_relative(const char* path);
 std::string unix_basename(const char* path);
 std::string unix_dirname(const char* path);
 bool unix_fnmatch(const char* pattern, const char* str);
+bool unix_path_exists(const char* path);
+bool unix_mkdir(const char* path, int flags = -1);
+bool unix_rmdir(const char* path);
 }
 
 #endif // CEAMMC_PLATFORM_UNIX_H

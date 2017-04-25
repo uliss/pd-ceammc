@@ -30,6 +30,14 @@ namespace platform {
     std::string expandenv(const char* str);
 
     bool fnmatch(const char* pattern, const char* str);
+
+    /**
+     * @brief returns true if given path (file or directory) exists
+     */
+    bool path_exists(const char* path);
+
+    bool mkdir(const char* path, int flags = -1);
+    bool rmdir(const char* path);
 }
 }
 

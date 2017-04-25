@@ -17,6 +17,7 @@
 #include <Stringapiset.h>
 #include <cstdlib>
 #include <cstring>
+#include <io.h>
 #include <iostream>
 
 #include "config.h"
@@ -72,15 +73,15 @@ std::string win_dirname(const char* path)
 #endif
 }
 
-static bool mb_to_wch(const char* str, wchar_t** res)
+bool mb_to_wch(const char* str, wchar_t** res)
 {
     int str_len = strlen(str) + 1;
-    int wstr_len = MultiByteToWideChar(CP_ACP, 0, str, str_len, 0, 0);
+    int wstr_len = MultiByteToWideChar(CP_UTF8, 0, str, str_len, 0, 0);
     if (wstr_len == 0)
         return false;
 
     wchar_t* wstr = static_cast<wchar_t*>(malloc(sizeof(wchar_t) * wstr_len));
-    int rc = MultiByteToWideChar(CP_ACP, 0, str, str_len, wstr, wstr_len);
+    int rc = MultiByteToWideChar(CP_UTF8, 0, str, str_len, wstr, wstr_len);
     if (rc == 0) {
         free(wstr);
         return false;
@@ -102,5 +103,38 @@ bool win_fnmatch(const char* pattern, const char* str)
     free(wstr);
     free(wpattern);
     return res;
+}
+
+bool win_path_exists(const char* path)
+{
+    wchar_t* wpath = 0;
+    if (!mb_to_wch(path, &wpath))
+        return false;
+
+    BOOL res = PathFileExistsW(wpath);
+    free(wpath);
+    return res;
+}
+
+bool win_mkdir(const char* path, int flags)
+{
+    wchar_t* wpath = 0;
+    if (!mb_to_wch(path, &wpath))
+        return false;
+
+    int err = _wmkdir(wpath);
+    free(wpath);
+    return err == 0;
+}
+
+bool win_rmdir(const char* path)
+{
+    wchar_t* wpath = 0;
+    if (!mb_to_wch(path, &wpath))
+        return false;
+
+    int err = _wrmdir(wpath);
+    free(wpath);
+    return err == 0;
 }
 }
