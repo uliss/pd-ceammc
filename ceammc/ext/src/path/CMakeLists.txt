@@ -1,5 +1,6 @@
 include_directories(${CMAKE_BINARY_DIR})
 set(PATH_SOURCES "")
+
 macro(ceammc_path_extension name)
     list(APPEND PATH_SOURCES "path_${name}.cpp")
 endmacro()
