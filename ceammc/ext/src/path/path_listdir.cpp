@@ -3,6 +3,7 @@
 #include "ceammc_platform.h"
 #include "config.h"
 
+#include <cerrno>
 #include <cstring>
 
 #ifdef HAVE_DIRENT_H

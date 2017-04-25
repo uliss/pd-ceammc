@@ -21,12 +21,15 @@ static const int MIN_INLETS = 2;
 static const int MAX_INLETS = 16;
 static const int DEFAULT_INLETS = MIN_INLETS;
 
+static int iround(float v) { return static_cast<int>(lroundf(v)); }
+static int iround(double v) { return static_cast<int>(lround(v)); }
+
 FlowSync::FlowSync(const PdArgs& a)
     : BaseObject(a)
 {
     int num = DEFAULT_INLETS;
     if (a.args.size() > 0)
-        num = std::lround(clip<t_float>(a.args[0].asFloat(DEFAULT_INLETS), MIN_INLETS, MAX_INLETS));
+        num = iround(clip<t_float>(a.args[0].asFloat(DEFAULT_INLETS), MIN_INLETS, MAX_INLETS));
 
     for (int i = 0; i < num; i++) {
         if (i > 0)
