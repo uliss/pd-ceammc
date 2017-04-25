@@ -48,11 +48,16 @@ void PathListDir::m_match(t_symbol*, const AtomList& lst)
 
 void PathListDir::readDirList()
 {
+    ls_.clear();
+
     std::string path = path_;
 
     if (!sys_isabsolutepath(path.c_str())) {
-        t_symbol* canvas_dir = canvas_getdir(cnv_);
-        path = std::string(canvas_dir->s_name) + "/" + path;
+        if (cnv_) {
+            t_symbol* canvas_dir = canvas_getdir(cnv_);
+            if (canvas_dir)
+                path = std::string(canvas_dir->s_name) + "/" + path;
+        }
     }
 
     DIR* dir = opendir(path.c_str());
@@ -60,8 +65,6 @@ void PathListDir::readDirList()
         OBJ_ERR << "can't read directory: '" << path << "'. Error: " << strerror(errno);
         return;
     }
-
-    ls_.clear();
 
     struct dirent* p_dirent;
     while ((p_dirent = readdir(dir)) != NULL) {

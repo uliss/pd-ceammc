@@ -63,6 +63,22 @@ TEST_CASE("path.lsdir", "[externals]")
 
             WHEN_CALL(t, match);
             REQUIRE_PROPERTY_NONE(t, @match);
+
+            WHEN_SEND_SYMBOL_TO(0, t, TEST_DATA_DIR "non-exists");
+            REQUIRE_LIST_AT_OUTLET(0, t, AtomList());
         }
+    }
+
+    SECTION("test errors")
+    {
+        ListDirTest t("path.ls", AtomList());
+
+        WHEN_SEND_SYMBOL_TO(0, t, TEST_DATA_DIR "non-exists");
+        REQUIRE_LIST_AT_OUTLET(0, t, AtomList());
+
+        WHEN_SEND_SYMBOL_TO(0, t, ".");
+        REQUIRE(t.hasNewMessages(0));
+        REQUIRE(t.lastMessage(0).isList());
+        REQUIRE(t.lastMessage(0).listValue().size() > 0);
     }
 }
