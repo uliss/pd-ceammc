@@ -9,7 +9,6 @@ if(GLIB_FOUND)
     add_definitions(-DWITH_GLIB)
 
     ceammc_path_extension(exists)
-    ceammc_path_extension(home)
 endif()
 
 ceammc_path_extension(dirname)
