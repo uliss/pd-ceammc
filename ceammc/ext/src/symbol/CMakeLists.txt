@@ -4,6 +4,7 @@ macro(ceammc_symbol_extension name)
 endmacro()
 
 ceammc_symbol_extension(ends_with)
+ceammc_symbol_extension(num_compare)
 
 if(GLIB_FOUND)
     include_directories(${GLIB_INCLUDE_DIRS})

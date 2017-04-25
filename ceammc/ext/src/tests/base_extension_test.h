@@ -148,7 +148,7 @@ public:
     {                                              \
         Property* p = obj.property(gensym(#name)); \
         REQUIRE(p != 0);                           \
-        REQUIRE(p->get() == val);                  \
+        REQUIRE(p->get() == test_atom_wrap(val));                  \
     }
 
 #define REQUIRE_PROPERTY_NONE(obj, name)           \
