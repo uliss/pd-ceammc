@@ -352,27 +352,35 @@ bool BaseObject::checkArg(const Atom& atom, BaseObject::ArgumentType type, int p
     switch (type) {
     case ARG_FLOAT:
         if (!atom.isFloat())
-            ARG_ERROR("float argument expected");
+            ARG_ERROR("float expected");
         break;
     case ARG_SYMBOL:
         if (!atom.isSymbol())
-            ARG_ERROR("symbol argument expected");
+            ARG_ERROR("symbol expected");
         break;
     case ARG_PROPERTY:
         if (!atom.isProperty())
-            ARG_ERROR("property argument expected");
+            ARG_ERROR("property expected");
         break;
     case ARG_SNONPROPERTY:
         if (!atom.isSymbol() || atom.isProperty())
-            ARG_ERROR("symbol and non property argument expected");
+            ARG_ERROR("symbol and non property expected");
         break;
     case ARG_INT:
         if (!atom.isInteger())
-            ARG_ERROR("integer argument expected");
+            ARG_ERROR("integer expected");
         break;
     case ARG_NATURAL:
         if (!atom.isNatural())
-            ARG_ERROR("natural argument expected");
+            ARG_ERROR("natural expected");
+        break;
+    case ARG_BOOL:
+        if (!atom.isFloat())
+            ARG_ERROR("boolean expected");
+
+        if (atom.asFloat() != 0.f && atom.asFloat() != 1.f)
+            ARG_ERROR("only 1 or 0 accepted");
+
         break;
     }
 
@@ -389,7 +397,8 @@ static const char* to_string(BaseObject::ArgumentType a)
         "natural",
         "symbol",
         "property",
-        "non-property symbol"
+        "non-property symbol",
+        "bool"
     };
 
     return names[a];

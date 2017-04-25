@@ -65,7 +65,8 @@ public:
         ARG_NATURAL,
         ARG_SYMBOL,
         ARG_PROPERTY,
-        ARG_SNONPROPERTY
+        ARG_SNONPROPERTY,
+        ARG_BOOL
     };
 
 public:

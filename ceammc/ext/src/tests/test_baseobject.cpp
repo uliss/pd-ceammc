@@ -62,9 +62,13 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
             REQUIRE(b.checkArg(A(10), BaseObject::ARG_FLOAT));
             REQUIRE(b.checkArg(A(10), BaseObject::ARG_INT));
             REQUIRE(b.checkArg(A(10), BaseObject::ARG_NATURAL));
+            REQUIRE(b.checkArg(A(1), BaseObject::ARG_BOOL));
+            REQUIRE(b.checkArg(A(0.0f), BaseObject::ARG_BOOL));
             REQUIRE_FALSE(b.checkArg(A(10), BaseObject::ARG_SYMBOL));
             REQUIRE_FALSE(b.checkArg(A(10), BaseObject::ARG_PROPERTY));
             REQUIRE_FALSE(b.checkArg(A(10), BaseObject::ARG_SNONPROPERTY));
+            REQUIRE_FALSE(b.checkArg(A(10), BaseObject::ARG_BOOL));
+            REQUIRE_FALSE(b.checkArg(A(0.1), BaseObject::ARG_BOOL));
 
             REQUIRE(b.checkArg(A(1.1f), BaseObject::ARG_FLOAT));
             REQUIRE_FALSE(b.checkArg(A(1.1f), BaseObject::ARG_INT));
