@@ -12,8 +12,9 @@ if(GLIB_FOUND)
     ceammc_path_extension(dirname)
     ceammc_path_extension(exists)
     ceammc_path_extension(home)
-    ceammc_path_extension(listdir)
 endif()
+
+ceammc_path_extension(listdir)
 
 add_library(ceammc_path STATIC mod_path.cpp ${PATH_SOURCES})
 if(UNIX)
