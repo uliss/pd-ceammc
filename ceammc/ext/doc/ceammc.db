@@ -133,6 +133,7 @@ pass.changed		.		.
 pass.if		..		..
 pass.this		.		.
 path.basename		.		.
+path.dirname		.		.
 prop->,prop->		.		?
 prop.get,prop->		.		?
 prop.set,prop<-		?		.

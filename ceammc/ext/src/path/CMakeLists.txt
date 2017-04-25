@@ -8,11 +8,11 @@ if(GLIB_FOUND)
     include_directories(${GLIB_INCLUDE_DIRS})
     add_definitions(-DWITH_GLIB)
 
-    ceammc_path_extension(dirname)
     ceammc_path_extension(exists)
     ceammc_path_extension(home)
 endif()
 
+ceammc_path_extension(dirname)
 ceammc_path_extension(basename)
 ceammc_path_extension(listdir)
 

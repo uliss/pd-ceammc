@@ -141,6 +141,7 @@ set(DOC_FILES
     pass.if
     pass.this
     path.basename
+    path.dirname
     prop.get
     prop.set
     random.int

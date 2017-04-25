@@ -418,6 +418,9 @@
     <entry descr="outputs filename portion of pathname" name="path.basename" ref_view="object">
       <xi:include href="path.basename.pddoc" parse="xml"/>
     </entry>
+    <entry descr="outputs directory portion of pathname" name="path.dirname" ref_view="object">
+      <xi:include href="path.dirname.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="predicates">
     <entry descr="checks if input data has *any* type" name="is_any" ref_view="object">
