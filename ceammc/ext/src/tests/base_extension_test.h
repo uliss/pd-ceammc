@@ -137,13 +137,6 @@ public:
         REQUIRE(obj.lastMessage(outlet).anyValue() == anyLst); \
     }
 
-#define REQUIRE_PROP(obj, name, val)                   \
-    {                                                  \
-        Property* p = obj.property(gensym("@" #name)); \
-        REQUIRE(p != 0);                               \
-        REQUIRE(p->get() == val);                      \
-    }
-
 #define REQUIRE_PROPERTY(obj, name, val)           \
     {                                              \
         Property* p = obj.property(gensym(#name)); \
