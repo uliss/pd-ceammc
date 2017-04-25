@@ -4,6 +4,7 @@ array.phase->sample
 array.s->p
 array.s2p
 array.sample->phase
+bpm->hz
 bpm->ms
 bpm->sec
 cc->amp
@@ -11,6 +12,7 @@ conv.bpf2array
 conv.bpf2env
 conv.bpf2list
 conv.bpf2vline
+conv.bpm2hz
 conv.bpm2ms
 conv.bpm2sec
 conv.cc2amp
@@ -112,6 +114,7 @@ list.seq
 list.shift
 list.shuffle
 list.sort
+list.sort_with
 list.split
 list.stretch
 list.sum
@@ -194,7 +197,8 @@ pass.this
 path.basename
 path.dirname
 path.home
-path.listdir
+path.ls
+path.lsdir
 prop->
 prop.get
 prop.set
@@ -213,6 +217,7 @@ str->sec
 string.compare
 symbol.ends_with
 symbol.length
+symbol.num_compare
 system.getenv
 system.hostname
 system.memsize
