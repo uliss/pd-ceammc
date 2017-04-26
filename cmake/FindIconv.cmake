@@ -13,36 +13,36 @@
 #  ICONV_SECOND_ARGUMENT_IS_CONST - the second argument for iconv() is const
 #  ICONV_VERSION - Iconv version string
 
-if (ICONV_INCLUDE_DIR AND ICONV_LIBRARIES)
+if(ICONV_INCLUDE_DIR AND ICONV_LIBRARIES)
   # Already in cache, be silent
   set(ICONV_FIND_QUIETLY TRUE)
-endif (ICONV_INCLUDE_DIR AND ICONV_LIBRARIES)
+endif()
 
 find_path(ICONV_INCLUDE_DIR iconv.h)
 
-IF(CMAKE_SYSTEM_NAME MATCHES "SunOS")
+if(CMAKE_SYSTEM_NAME MATCHES "SunOS")
   # There is some libiconv.so in  /usr/local that must
   # be avoided, iconv routines are in libc  
-ELSEIF(APPLE)
+elseif(APPLE)
   find_library(ICONV_LIBRARIES NAMES iconv libiconv PATHS
                /usr/lib/
                NO_CMAKE_SYSTEM_PATH)
-    SET(ICONV_EXTERNAL TRUE)
-ELSE()
+    set(ICONV_EXTERNAL TRUE)
+else()
   find_library(ICONV_LIBRARIES NAMES iconv libiconv libiconv-2)
-  IF(ICONV_LIBRARIES)
-    SET(ICONV_EXTERNAL TRUE)
-  ENDIF()
-ENDIF()
+  if(ICONV_LIBRARIES)
+    set(ICONV_EXTERNAL TRUE)
+  endif()
+endif()
 
-if (ICONV_INCLUDE_DIR AND ICONV_LIBRARIES)
-   set (ICONV_FOUND TRUE)
-endif (ICONV_INCLUDE_DIR AND ICONV_LIBRARIES)
+if(ICONV_INCLUDE_DIR)
+   set(ICONV_FOUND TRUE)
+endif()
 
 set(CMAKE_REQUIRED_INCLUDES ${ICONV_INCLUDE_DIR})
-IF(ICONV_EXTERNAL)
+if(ICONV_EXTERNAL)
   set(CMAKE_REQUIRED_LIBRARIES ${ICONV_LIBRARIES})
-ENDIF()
+endif()
 
 if (ICONV_FOUND)
   include(CheckCSourceCompiles)
@@ -58,22 +58,22 @@ if (ICONV_FOUND)
     return 0;
   }
 " ICONV_SECOND_ARGUMENT_IS_CONST )
-endif (ICONV_FOUND)
+endif()
 
-set (CMAKE_REQUIRED_INCLUDES)
-set (CMAKE_REQUIRED_LIBRARIES)
+set(CMAKE_REQUIRED_INCLUDES)
+set(CMAKE_REQUIRED_LIBRARIES)
 
 if (ICONV_FOUND)
-  if (NOT ICONV_FIND_QUIETLY)
-    message (STATUS "Found Iconv: ${ICONV_LIBRARIES}")
-  endif (NOT ICONV_FIND_QUIETLY)
-else (ICONV_FOUND)
+  if(NOT ICONV_FIND_QUIETLY)
+    message(STATUS "Found Iconv: ${ICONV_LIBRARIES}")
+  endif()
+else(ICONV_FOUND)
   if (Iconv_FIND_REQUIRED)
     message (FATAL_ERROR "Could not find Iconv")
-  endif (Iconv_FIND_REQUIRED)
-endif (ICONV_FOUND)
+  endif()
+endif()
 
-MARK_AS_ADVANCED(
+mark_as_advanced(
   ICONV_INCLUDE_DIR
   ICONV_LIBRARIES
   ICONV_EXTERNAL
