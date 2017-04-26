@@ -67,7 +67,7 @@ if(WIN32)
             "${CMAKE_CURRENT_BINARY_DIR}/../tests")
 endif()
 
-if(${ICONV_FOUND} AND ${ICONV_EXTERNAL})
+if(ICONV_FOUND)
     target_link_libraries(ceammc_core ${ICONV_LIBRARIES})
 endif()
 

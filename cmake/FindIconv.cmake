@@ -6,12 +6,13 @@
 #  BSD license.
 #  For details see the  COPYING-CMAKE-SCRIPTS file.
 #
-#  ICONV_EXTERNAL - Iconv is an external library (not libc)
 #  ICONV_FOUND - system has Iconv
 #  ICONV_INCLUDE_DIR - the Iconv include directory
 #  ICONV_LIBRARIES - Link these to use Iconv
 #  ICONV_SECOND_ARGUMENT_IS_CONST - the second argument for iconv() is const
 #  ICONV_VERSION - Iconv version string
+
+include(CheckFunctionExists)
 
 if(ICONV_INCLUDE_DIR AND ICONV_LIBRARIES)
   # Already in cache, be silent
@@ -22,27 +23,27 @@ find_path(ICONV_INCLUDE_DIR iconv.h)
 
 if(CMAKE_SYSTEM_NAME MATCHES "SunOS")
   # There is some libiconv.so in  /usr/local that must
-  # be avoided, iconv routines are in libc  
+  # be avoided, iconv routines are in libc
 elseif(APPLE)
   find_library(ICONV_LIBRARIES NAMES iconv libiconv PATHS
                /usr/lib/
                NO_CMAKE_SYSTEM_PATH)
-    set(ICONV_EXTERNAL TRUE)
 else()
   find_library(ICONV_LIBRARIES NAMES iconv libiconv libiconv-2)
-  if(ICONV_LIBRARIES)
-    set(ICONV_EXTERNAL TRUE)
-  endif()
 endif()
 
-if(ICONV_INCLUDE_DIR)
-   set(ICONV_FOUND TRUE)
+check_function_exists(iconv HAVE_ICONV_IN_LIBC)
+if(ICONV_INCLUDE_DIR AND HAVE_ICONV_IN_LIBC)
+  set(ICONV_FOUND TRUE)
+  set(ICONV_LIBRARY CACHE TYPE STRING FORCE)
+endif()
+
+if(ICONV_INCLUDE_DIR AND ICONV_LIBRARY)
+    set(ICONV_FOUND TRUE)
 endif()
 
 set(CMAKE_REQUIRED_INCLUDES ${ICONV_INCLUDE_DIR})
-if(ICONV_EXTERNAL)
-  set(CMAKE_REQUIRED_LIBRARIES ${ICONV_LIBRARIES})
-endif()
+set(CMAKE_REQUIRED_LIBRARIES ${ICONV_LIBRARIES})
 
 if (ICONV_FOUND)
   include(CheckCSourceCompiles)
