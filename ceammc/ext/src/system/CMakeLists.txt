@@ -6,12 +6,12 @@ endmacro()
 ceammc_system_extension(memsize)
 ceammc_system_extension(memused)
 ceammc_system_extension(screen_size)
+ceammc_system_extension(getenv)
 
 if(GLIB_FOUND)
     include_directories(${GLIB_INCLUDE_DIRS})
     add_definitions(-DWITH_GLIB)
     ceammc_system_extension(hostname)
-    ceammc_system_extension(getenv)
 endif()
 
 add_library(ceammc_system STATIC mod_system.cpp ${SYSTEM_SOURCES})
