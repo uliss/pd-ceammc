@@ -2,6 +2,8 @@ include_directories(${CMAKE_BINARY_DIR}) # for config.h
 include_directories(${PROJECT_SOURCE_DIR}/src)
 include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra/CicmWrapper/Sources)
 
+find_package(Iconv)
+
 set(LIBCEAMMC_COMPILE_FLAGS "${PD_EXTERNAL_CFLAGS}")
 set(LIBCEAMMC_LINK_FLAGS ${PD_EXTERNAL_LDFLAGS})
 if(WIN32)
@@ -35,12 +37,17 @@ set(CEAMMC_LIB_SOURCES ceammc.h
     ceammc_pd.cpp
     ceammc_platform.cpp
     ceammc_property.cpp
+    ceammc_string.cpp
     ceammc_timeline.cpp)
 
 if(UNIX)
     list(APPEND CEAMMC_LIB_SOURCES ceammc_platform_unix.cpp)
+    if(ICONV_FOUND)
+        include_directories(${ICONV_INCLUDE_DIR})
+        list(APPEND CEAMMC_LIB_SOURCES ceammc_string_iconv.cpp)
+    endif()
 elseif(WIN32)
-    list(APPEND CEAMMC_LIB_SOURCES ceammc_platform_win.cpp)
+    list(APPEND CEAMMC_LIB_SOURCES ceammc_string_win.cpp ceammc_platform_win.cpp)
 endif()
 
 # main shared library
@@ -58,6 +65,10 @@ if(WIN32)
         COMMAND ${CMAKE_COMMAND} -E copy_if_different
             "$<TARGET_FILE:ceammc_core>"
             "${CMAKE_CURRENT_BINARY_DIR}/../tests")
+endif()
+
+if(${ICONV_FOUND} AND ${ICONV_EXTERNAL})
+    target_link_libraries(ceammc_core ${ICONV_LIBRARIES})
 endif()
 
 #
