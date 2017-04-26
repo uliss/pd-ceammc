@@ -1,40 +1,39 @@
-#include "ceammc.h"
-#include <glib.h>
-#include <m_pd.h>
+#include "ceammc_factory.h"
+#include "ceammc_object.h"
 
-static t_class* is_file_class;
-struct t_is_file {
-    t_object x_obj;
-    t_outlet* out_pass;
-};
+#include <fstream>
 
-static void is_file_symbol(t_is_file* x, t_symbol* s)
-{
-    gboolean r = g_file_test(s->s_name, G_FILE_TEST_IS_REGULAR);
-    outlet_float(x->x_obj.ob_outlet, r ? 1 : 0);
-    if (r) {
-        outlet_symbol(x->out_pass, s);
+using namespace ceammc;
+
+class IsFile : public BaseObject {
+    t_canvas* cnv_;
+
+public:
+    IsFile(const PdArgs& a)
+        : BaseObject(a)
+        , cnv_(canvas_getcurrent())
+    {
+        createOutlet();
     }
-}
 
-static void* is_file_new()
-{
-    t_is_file* x = reinterpret_cast<t_is_file*>(pd_new(is_file_class));
-    outlet_new(&x->x_obj, &s_float);
-    x->out_pass = outlet_new(&x->x_obj, &s_symbol);
-    return static_cast<void*>(x);
-}
+    void onSymbol(t_symbol* s)
+    {
+        std::string path = s->s_name;
 
-static void is_file_free(t_is_file* x)
-{
-    outlet_free(x->out_pass);
-}
+        if (!sys_isabsolutepath(path.c_str())) {
+            if (cnv_) {
+                t_symbol* canvas_dir = canvas_getdir(cnv_);
+                if (canvas_dir)
+                    path = std::string(canvas_dir->s_name) + "/" + path;
+            }
+        }
+
+        std::ifstream f(path.c_str());
+        floatTo(0, f.is_open() ? 1 : 0);
+    }
+};
 
 extern "C" void is_file_setup()
 {
-    is_file_class = class_new(gensym("is_file"),
-        reinterpret_cast<t_newmethod>(is_file_new),
-        reinterpret_cast<t_method>(is_file_free),
-        sizeof(t_is_file), 0, A_NULL);
-    class_addsymbol(is_file_class, is_file_symbol);
+    ObjectFactory<IsFile> obj("is_file");
 }

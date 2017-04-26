@@ -32,11 +32,7 @@ void ceammc_base_setup()
     is_any_setup();
     is_bang_setup();
     is_even_setup();
-
-#ifdef WITH_GLIB
     is_file_setup();
-#endif
-
     is_float_setup();
     is_list_setup();
     is_odd_setup();
