@@ -73,7 +73,6 @@ global.list
 is_any
 is_bang
 is_even
-is_file
 is_float
 is_list
 is_odd
@@ -196,7 +195,7 @@ pass.if
 pass.this
 path.basename
 path.dirname
-path.home
+path.exists
 path.ls
 path.lsdir
 prop->
@@ -214,8 +213,8 @@ sec->samp
 sec->str
 snd.file
 str->sec
-string.compare
 symbol.ends_with
+symbol.equal
 symbol.length
 symbol.num_compare
 system.getenv
