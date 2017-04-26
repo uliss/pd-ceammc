@@ -1,31 +1,45 @@
-#include <m_pd.h>
-#include <glib.h>
-#include "ceammc.h"
+#include "ceammc_factory.h"
+#include "ceammc_object.h"
+#include "config.h"
 
-static t_class* system_hostname_class;
-struct t_system_hostname {
-    t_object x_obj;
+#ifdef HAVE_UNISTD_H
+#include <unistd.h>
+#endif
+
+#ifdef __WIN32
+#include <windows.h>
+#endif
+
+using namespace ceammc;
+
+class SystemHostname : public BaseObject {
+public:
+    SystemHostname(const PdArgs& a)
+        : BaseObject(a)
+    {
+        createOutlet();
+    }
+
+    void onBang()
+    {
+#ifdef __WIN32
+        char buf[MAX_COMPUTERNAME_LENGTH + 1];
+        DWORD sz = MAX_COMPUTERNAME_LENGTH + 1;
+        if (GetComputerNameA(buf, &sz))
+            symbolTo(0, gensym(buf));
+        else
+            OBJ_ERR << "can't get hostname";
+#else
+        char buf[1000];
+        if (gethostname(buf, 1000) == 0)
+            symbolTo(0, gensym(buf));
+        else
+            OBJ_ERR << "can't get hostname";
+#endif
+    }
 };
-
-static void system_hostname_bang(t_system_hostname* x)
-{
-    outlet_symbol(x->x_obj.te_outlet, gensym(g_get_host_name()));
-}
-
-static void* system_hostname_new()
-{
-    t_system_hostname* x = reinterpret_cast<t_system_hostname*>(pd_new(system_hostname_class));
-    outlet_new(&x->x_obj, &s_float);
-    
-    return static_cast<void*>(x);
-}
 
 extern "C" void setup_system0x2ehostname()
 {
-    system_hostname_class = class_new(gensym("system.hostname"),
-        reinterpret_cast<t_newmethod>(system_hostname_new),
-        reinterpret_cast<t_method>(0),
-        sizeof(t_system_hostname), 0, A_NULL);
-    class_addbang(system_hostname_class, system_hostname_bang);
+    ObjectFactory<SystemHostname> obj("system.hostname");
 }
-

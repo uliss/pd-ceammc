@@ -26,23 +26,6 @@ macro(ceammc_cxx_extension_simple name)
     pd_add_extension(NAME "${name}" FILES "${name}.cpp" INTERNAL True LIBRARY ceammc LINK ceammc_core)
 endmacro()
 
-macro(ceammc_glib_extension_sep module name separator)
-    pd_add_extension(NAME "${module}${separator}${name}"
-        FILES "${module}_${name}.cpp"
-        INTERNAL True
-        LINK ${GLIB_LIBRARIES} ceammc_core)
-endmacro()
-
-# adds .dotted. *glib linked* module: MODULE.NAME
-macro(ceammc_glib_extension module name)
-    ceammc_glib_extension_sep(${module} ${name} ".")
-endmacro()
-
-# adds _underscored_ target linked with *glib* library: MODULE_NAME
-macro(ceammc_glib_extension__ module name)
-    ceammc_glib_extension_sep(${module} ${name} "_")
-endmacro()
-
 # adds _underscored_ target linked with *glib* library: MODULE_NAME
 macro(ceammc_faust_gen module name)
     add_custom_target("faust_${module}_${name}"

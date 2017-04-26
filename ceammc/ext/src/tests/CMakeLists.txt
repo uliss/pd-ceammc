@@ -37,15 +37,9 @@ ceammc_add_extension_test("ext_msg" "../base/msg.cpp")
 ceammc_add_extension_test("ext_list_each" "../list/list_each.cpp")
 ceammc_add_extension_test("ext_path_lsdir" "../path/path_listdir.cpp")
 ceammc_add_extension_test("ext_symbol_num_compare" "../symbol/symbol_num_compare.cpp")
-
-if(GLIB_FOUND)
-    include_directories(${GLIB_INCLUDE_DIRS})
-    ceammc_add_extension_test("ext_system_getenv" "../system/system_getenv.cpp")
-    target_link_libraries(test_ext_system_getenv ${GLIB_LIBRARIES})
-endif()
+ceammc_add_extension_test("ext_system_getenv" "../system/system_getenv.cpp")
 
 ceammc_add_test_linked(TITLE "ceammc::pd" NAME test_pd SRC "../base/debug_gensym.cpp" LINK ceammc_core puredata-core)
-
 
 include(FindLibSndFile)
 if(LIBSNDFILE_FOUND)
