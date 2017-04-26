@@ -6,6 +6,8 @@ include(tests.cmake)
 add_definitions("-DTEST_DATA_DIR=\"${CMAKE_CURRENT_SOURCE_DIR}\"")
 #remove_definitions(-DPD_INTERNAL)
 
+find_package(Iconv)
+
 add_library(tests_main_lib STATIC tests_main.cpp)
 
 if(APPLE)
@@ -27,6 +29,9 @@ ceammc_add_test("ceammc::timeline" test_timeline)
 ceammc_add_test("ceammc::platform" test_platform)
 ceammc_add_test("ceammc::convert" test_convert)
 ceammc_add_test("ceammc::string" test_string)
+if(ICONV_FOUND)
+    target_link_libraries(test_string ${ICONV_LIBRARIES})
+endif()
 
 ceammc_add_extension_test("list_walk" "../list/list_walk.cpp")
 ceammc_add_extension_test("list_walk2" "../list/list_walk.cpp")
