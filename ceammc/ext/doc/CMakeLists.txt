@@ -149,6 +149,7 @@ set(DOC_FILES
     reject.this
     replace
     snd.file
+    symbol.equal
     symbol.length
     system.getenv
     system.hostname

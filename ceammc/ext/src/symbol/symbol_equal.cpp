@@ -34,5 +34,4 @@ void SymbolEqual::onSymbol(t_symbol* s)
 extern "C" void setup_symbol0x2eequal()
 {
     ObjectFactory<SymbolEqual> obj("symbol.equal");
-    obj.addAlias("symbol.==");
 }

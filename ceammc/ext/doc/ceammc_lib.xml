@@ -475,7 +475,10 @@
     </entry>
   </category>
   <category name="symbol">
-    <entry descr="length of symbol (unicode supported)" name="symbol.length" ref_view="object">
+    <entry descr="check symbols for equality" name="symbol.equal" ref_view="object">
+      <xi:include href="symbol.equal.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="number of characters in symbol (unicode supported)" name="symbol.length" ref_view="object">
       <xi:include href="symbol.length.pddoc" parse="xml"/>
     </entry>
   </category>
