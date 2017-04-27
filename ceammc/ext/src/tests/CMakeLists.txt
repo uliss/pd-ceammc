@@ -46,7 +46,10 @@ ceammc_add_extension_test("ext_system_getenv" "../system/system_getenv.cpp")
 
 ceammc_add_test_linked(TITLE "ceammc::pd" NAME test_pd SRC "../base/debug_gensym.cpp" LINK ceammc_core puredata-core)
 
-include(FindLibSndFile)
+if(WITH_LIBSNDFILE)
+    include(FindLibSndFile)
+endif()
+
 if(LIBSNDFILE_FOUND)
     include_directories(${LIBSNDFILE_INCLUDE_DIRS})
     ceammc_add_test_linked(

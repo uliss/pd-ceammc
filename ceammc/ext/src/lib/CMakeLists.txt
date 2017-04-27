@@ -83,7 +83,10 @@ set(CEAMMC_LOAD_LIBS "")
 set(CEAMMC_LOAD_DEFS "")
 
 # libsndfile backend
-include(FindLibSndFile)
+if(WITH_LIBSNDFILE)
+    include(FindLibSndFile)
+endif()
+
 if(LIBSNDFILE_FOUND)
     list(APPEND CEAMMC_LOAD_DEFS "-DWITH_LIBSOUNDFILE")
     list(APPEND CEAMMC_LOAD_LIBS ${LIBSNDFILE_LIBRARIES})
