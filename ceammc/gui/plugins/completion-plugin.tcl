@@ -73,24 +73,33 @@ set ::focus ""
 set ::completion_text_updated 0
 
 # all pd internals (hopefully)
-set ::all_externals {abs abs~ adc~ append atan atan2 bag bang bang~ bendin \
-bendout biquad~ block bng bp~ canvas catch~ change clip clip~ cos cos~ cpole~ \
-cputime ctlin ctlout curve czero_rev~ czero~ dac~ dbtopow dbtopow~ dbtorms \
-dbtorms~ declare delay delread~ delwrite~ div drawnumber drawpolygon env~ exp \
-exp~ fft~ float framp~ ftom ftom~ get getsize hip~ hradio hslider ifft~ inlet \
-inlet~ int key keyname keyup line line~ list {list append} {list length} \
-{list prepend} {list split} {list trim} loadbang log log~ lop~ makefilename \
-makenote max max~ metro midiclkin midiin midiout midirealtimein min min~ mod \
-moses mtof mtof~ namecanvas nbx netreceive netsend noise~ notein noteout \
-openpanel osc~ outlet~ pack pgmin pgmout phasor~ pipe plot poly polytouchin \
-polytouchout pow powtodb powtodb~ pow~ print qlist random readsf~ realtime \
-receive receive~ rfft~ rifft~ rmstodb rmstodb~ route rpole~ rsqrt~ rzero_rev~ \
-rzero~ samphold~ samplerate~ savepanel sel send send~ set setsize sig~ sin \
-snapshot~ soundfiler spigot sqrt sqrt~ stripnote struct swap switch~ \
-symbol sysexin table tabosc4~ tabplay~ tabread tabread4 tabread4~ tabread~ \
-tabwrite tabwrite~ tan template textfile tgl threshold~ throw~ timer toggle \
-touchin touchout trigger unpack until value vcf~ vd~ vline~ vradio vslider \
-vsnapshot~ vu wrap wrap~ writesf~}
+set ::all_externals {abs abs~ adc~ append array {array get} {array max} {array min} \
+{array quantile} {array random} {array set} {array size} {array sum} \
+atan atan2 bag bang~ bendin bendout biquad~ block~ bng bob~ bonk~ \
+bp~ catch~ change choice clip clip~ clone cnv cos cos~ cpole~ cputime \
+ctlin ctlout czero_rev~ czero~ dac~ dbtopow dbtopow~ dbtorms dbtorms~ \
+declare del delay delread4~ delread~ delwrite~ div drawcurve drawnumber \
+drawpolygon drawsymbol drawtext element env~ exp expr expr~ exp~ fexpr~ \
+fft~ fiddle~ filledcurve filledpolygon framp~ fswap ftom ftom~ get getsize \
+hdl hip~ hradio hsl hslider ifft~ inlet inlet~ int key keyname keyup \
+line line~ {list append} {list fromsymbol} {list length} {list prepend} \
+{list split} {list tosymbol} {list trim} loadbang log log~ loop~ lop~ \
+lrshift~ makefilename makenote max max~ metro midiclkin midiin midiout \
+midirealtimein min min~ mod moses mtof mtof~ \
+namecanvas nbx netreceive netsend noise~ notein noteout openpanel \
+oscformat oscparse osc~ outlet outlet~ pack page pd~ pgmin pgmout phasor~ \
+pipe pique plot pointer poly polytouchin polytouchout pow powtodb powtodb~ \
+pow~ print print~ q8_rsqrt~ q8_sqrt~ qlist radiobut radiobutton random \
+rdb readsf~ realtime receive receive~ rfft~ rifft~ rmstodb rmstodb~ \
+route rpole~ rsqrt~ rzero_rev~ rzero~ samphold~ samplerate~ savepanel \
+scalar sel select send send~ set setsize sigmund~ sig~ sin snapshot~ \
+soundfiler spigot sqrt sqrt~ stdout stripnote struct swap switch~ \
+sysexin table tabosc4~ tabplay~ tabread tabread4 tabread4~ tabread~ \
+tabreceive~ tabsend~ tabwrite tabwrite~ tan template text {text define} \
+{text delete} {text fromlist} {text get} {text search} {text sequence} \
+{text set} {text size} {text tolist} textfile tgl threshold~ throw~ \
+timer toggle touchin touchout trigger unpack until value vcf~ vdl vd~ \
+vline~ vradio vsl vslider vsnapshot~ wrap wrap~ writesf~}
 
 
 proc ::completion::init {} {
