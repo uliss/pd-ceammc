@@ -52,6 +52,7 @@ Roadmap v0.15:
    - new audio objects: filter coefficient calculations, biquad filter, lp/hp/bp 2- and 4-pole filters
    - snd.file - object for importing sound files
 
+
 Roadmap v0.2:
 -------------
    - Windows version
