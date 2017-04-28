@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure\\ Data 0.47.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2017-03-02 22:17+0300\n"
+"POT-Creation-Date: 2017-04-28 04:33+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -105,6 +105,7 @@ msgstr ""
 #: ../ceammc/extra/CicmWrapper/Sources/eclass.c:120
 #: ../ceammc/extra/CicmWrapper/Sources/eclass.c:126
 #: ../ceammc/extra/CicmWrapper/Sources/eclass.c:279
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:280
 msgid "Basic"
 msgstr ""
 
@@ -145,6 +146,7 @@ msgid "Send Symbol"
 msgstr ""
 
 #: ../ceammc/extra/CicmWrapper/Sources/eclass.c:280
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:281
 msgid "Preset Name"
 msgstr ""
 
@@ -165,6 +167,7 @@ msgstr ""
 #: ../ceammc/extra/CreamLibrary/Sources/c.bang.cpp:163
 #: ../ceammc/extra/CreamLibrary/Sources/c.dsp_tilde.cpp:199
 #: ../ceammc/extra/CreamLibrary/Sources/c.matrix.cpp:362
+#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:553
 #: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:560
 #: ../ceammc/extra/CreamLibrary/Sources/c.radio.cpp:427
 #: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:578
@@ -176,6 +179,7 @@ msgstr ""
 #: ../ceammc/extra/CreamLibrary/Sources/c.matrix.cpp:350
 #: ../ceammc/extra/CreamLibrary/Sources/c.menu.cpp:126
 #: ../ceammc/extra/CreamLibrary/Sources/c.number.cpp:432
+#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:527
 #: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:530
 #: ../ceammc/extra/CreamLibrary/Sources/c.radio.cpp:415
 #: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:418
@@ -183,6 +187,14 @@ msgstr ""
 #: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:554
 #: ../ceammc/extra/CreamLibrary/Sources/c.toggle.cpp:168
 msgid "Background Color"
+msgstr ""
+
+#: ../ceammc/extra/CreamLibrary/Sources/c.incdec.cpp:88
+msgid "Step increment"
+msgstr ""
+
+#: ../ceammc/extra/CreamLibrary/Sources/c.incdec.cpp:99
+msgid "Arrow Color"
 msgstr ""
 
 #: ../ceammc/extra/CreamLibrary/Sources/c.matrix.cpp:343
@@ -193,26 +205,40 @@ msgstr ""
 msgid "Active Cell Color"
 msgstr ""
 
+#: ../ceammc/extra/CreamLibrary/Sources/c.matrix.cpp:465
+msgid "Rows"
+msgstr ""
+
+#: ../ceammc/extra/CreamLibrary/Sources/c.matrix.cpp:474
+msgid "Columns"
+msgstr ""
+
 #: ../ceammc/extra/CreamLibrary/Sources/c.menu.cpp:113
+#: ../ceammc/extra/CreamLibrary/Sources/c.menu.cpp:114
 msgid "Hover Mode"
 msgstr ""
 
 #: ../ceammc/extra/CreamLibrary/Sources/c.menu.cpp:120
+#: ../ceammc/extra/CreamLibrary/Sources/c.menu.cpp:121
+#: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:546
 #: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:549
 msgid "Items"
 msgstr ""
 
 #: ../ceammc/extra/CreamLibrary/Sources/c.menu.cpp:138
 #: ../ceammc/extra/CreamLibrary/Sources/c.number.cpp:444
+#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:535
 #: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:542
 #: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:566
 msgid "Text Color"
 msgstr ""
 
+#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:541
 #: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:548
 msgid "Empty Button Color"
 msgstr ""
 
+#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:547
 #: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:554
 msgid "Stored Button Color"
 msgstr ""
@@ -221,10 +247,12 @@ msgstr ""
 msgid "Selected Button Color"
 msgstr ""
 
+#: ../ceammc/extra/CreamLibrary/Sources/c.radio.cpp:394
 #: ../ceammc/extra/CreamLibrary/Sources/c.radio.cpp:397
 msgid "Number of Items"
 msgstr ""
 
+#: ../ceammc/extra/CreamLibrary/Sources/c.radio.cpp:403
 #: ../ceammc/extra/CreamLibrary/Sources/c.radio.cpp:406
 msgid "Check List Mode"
 msgstr ""
@@ -233,27 +261,34 @@ msgstr ""
 msgid "Item Color"
 msgstr ""
 
+#: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:400
 #: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:404
 msgid "Minimum Value"
 msgstr ""
 
+#: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:407
 #: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:411
 msgid "Maximum Value"
 msgstr ""
 
+#: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:417
 #: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:430
+#: ../ceammc/extra/CreamLibrary/Sources/c.slider.cpp:332
 #: ../ceammc/extra/CreamLibrary/Sources/c.slider.cpp:344
 msgid "Knob Color"
 msgstr ""
 
+#: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:532
 #: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:535
 msgid "Vertical Orientation"
 msgstr ""
 
+#: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:539
 #: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:542
 msgid "Toggle Mode"
 msgstr ""
 
+#: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:556
 #: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:572
 msgid "Hover Color"
 msgstr ""
