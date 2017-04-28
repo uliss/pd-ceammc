@@ -4,10 +4,12 @@
 #X obj 79 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 30 116 conv.bpm2hz;
 #X text 175 116 converts BPM to frequency in herz;
-#X obj 30 143 conv.sec2str;
-#X text 175 143 converts float time in seconds to formated symbol;
-#X obj 30 170 conv.str2sec;
-#X text 175 170 converts formatted time to float value in seconds;
+#X obj 30 143 conv.bpm2ms;
+#X text 175 143 convert frequency in BPM to period in milliseconds;
+#X obj 30 170 conv.sec2str;
+#X text 175 170 converts float time in seconds to formated symbol;
+#X obj 30 197 conv.str2sec;
+#X text 175 197 converts formatted time to float value in seconds;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::conv 20 20 0 20 -104026
 -4096 0;
 #X obj 1 458 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
