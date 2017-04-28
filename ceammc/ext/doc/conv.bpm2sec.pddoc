@@ -17,7 +17,7 @@
             </also>
             <since>0.1</since>
             <aliases>
-                <alias>bpm-&gt;ms</alias>
+                <alias>bpm-&gt;sec</alias>
             </aliases>
         </meta>
         <info>

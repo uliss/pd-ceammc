@@ -4,7 +4,7 @@
 #X text 332 50 convert frequency in BPM to period in seconds;
 #X obj 1 1 cnv 5 712 40 empty empty conv.bpm2sec 20 20 0 20 -104026
 -4096 0;
-#X obj 525 11 bpm->ms;
+#X obj 517 11 bpm->sec;
 #X obj 600 11 conv.bpm2sec;
 #X obj 205 80 cnv 1 490 47 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 210 80   Convert frequency from BPM (beats per minute) to

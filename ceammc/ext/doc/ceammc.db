@@ -1,6 +1,6 @@
 conv.bpm2hz,bpm->hz		.		.
 conv.bpm2ms,bpm->ms		.		.
-conv.bpm2sec,bpm->ms		.		.
+conv.bpm2sec,bpm->sec		.		.
 conv.sec2str,sec->str		.		.
 conv.str2sec,str->sec		.		.
 data.fifo		.		.
