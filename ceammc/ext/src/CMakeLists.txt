@@ -4,6 +4,15 @@ include(ceammc_pd.cmake)
 find_package(Boost 1.47.0 REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 
+if(WITH_COVERAGE)
+    if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} --coverage")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage")
+        set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} --coverage")
+        set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --coverage")
+    endif()
+endif()
+
 set(CEAMMC_EXT_LINK_LIBRARIES ceammc_array ceammc_base ceammc_conv ceammc_data ceammc_dyn ceammc_env ceammc_flt
     ceammc_fx ceammc_lfo ceammc_list ceammc_math ceammc_misc ceammc_noise ceammc_osc ceammc_path
     ceammc_random ceammc_spat ceammc_symbol ceammc_system ceammc_tl ceammc_ui ceammc_vector

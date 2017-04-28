@@ -11,12 +11,6 @@ if(WIN32)
     set(LIBCEAMMC_COMPILE_FLAGS "-lpsapi")
 endif()
 
-if(${WITH_COVERAGE})
-    if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-        set(LIBCEAMMC_LINK_FLAGS "${LIBCEAMMC_LINK_FLAGS} --coverage")
-    endif()
-endif()
-
 set(CEAMMC_LIB_SOURCES ceammc.h
     ceammc.hpp
     ceammc.c
