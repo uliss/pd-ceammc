@@ -5,8 +5,7 @@
 #X obj 30 116 expand_env;
 #X text 175 116 Substitute enviroment variables in data stream;
 #X obj 30 143 flow.sync;
-#X text 175 143 outputs all outlets values on input message on any
-inlet;
+#X text 175 143 bus with only hot inlets;
 #X obj 30 170 replace;
 #X text 175 170 Replace atoms in data stream;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::flow 20 20 0 20 -104026

@@ -1,3 +1,4 @@
+conv.bpm2hz,bpm->hz		.		.
 conv.sec2str,sec->str		.		.
 conv.str2sec,str->sec		.		.
 data.fifo		.		.
@@ -135,10 +136,8 @@ pass.if		..		..
 pass.this		.		.
 path.basename		.		.
 path.dirname		.		.
-prop->,prop->		.		?
 prop.get,prop->		.		?
 prop.set,prop<-		?		.
-prop<-		?		.
 random.int		.		.
 reject.if		..		..
 reject.this		.		.
