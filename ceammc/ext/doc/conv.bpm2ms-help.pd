@@ -8,7 +8,7 @@
 #X obj 608 11 conv.bpm2ms;
 #X obj 205 80 cnv 1 490 47 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 210 80   Converts frequency from BPM (beats per minute) to
-perioud in ms.  It is simple as (60 / f) * 1000 \, but more readable.;
+period in ms.  It is simple as (60 / f) * 1000 \, but more readable.;
 #X floatatom 126 155 5 0 0 0 - - -;
 #X text 184 155  tempo ;
 #X obj 126 184 * 8;
@@ -41,7 +41,8 @@ perioud in ms.  It is simple as (60 / f) * 1000 \, but more readable.;
 #X obj 131 48 ui.link @title conv @url ceammc.conv-help.pd;
 #X obj 1 578 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 581 library: ceammc v0.1;
-#X text 535 593 see also:;
+#X text 433 593 see also:;
+#X obj 509 593 conv.bpm2sec;
 #X obj 611 593 conv.bpm2hz;
 #N canvas 10 600 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

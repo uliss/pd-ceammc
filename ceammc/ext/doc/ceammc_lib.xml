@@ -7,6 +7,9 @@
     <entry descr="convert frequency in BPM to period in milliseconds" name="conv.bpm2ms" ref_view="object">
       <xi:include href="conv.bpm2ms.pddoc" parse="xml"/>
     </entry>
+    <entry descr="convert frequency in BPM to period in seconds" name="conv.bpm2sec" ref_view="object">
+      <xi:include href="conv.bpm2sec.pddoc" parse="xml"/>
+    </entry>
     <entry descr="converts float time in seconds to formated symbol" name="conv.sec2str" ref_view="object">
       <xi:include href="conv.sec2str.pddoc" parse="xml"/>
     </entry>
