@@ -21,6 +21,7 @@ set(DOC_FILES
     env.adsr~
     env.follow~
     expand_env
+    flow.sync
     flt.bpf12~
     flt.bpf24~
     flt.c_bpf~

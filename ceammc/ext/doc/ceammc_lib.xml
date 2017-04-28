@@ -54,6 +54,9 @@
     <entry descr="Substitute enviroment variables in data stream" name="expand_env" ref_view="object">
       <xi:include href="expand_env.pddoc" parse="xml"/>
     </entry>
+    <entry descr="bus with only hot inlets" name="flow.sync" ref_view="object">
+      <xi:include href="flow.sync.pddoc" parse="xml"/>
+    </entry>
     <entry descr="Replace atoms in data stream" name="replace" ref_view="object">
       <xi:include href="replace.pddoc" parse="xml"/>
     </entry>

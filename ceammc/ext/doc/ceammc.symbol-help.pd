@@ -3,7 +3,7 @@
 #X text 62 50 ::;
 #X obj 79 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 30 116 symbol.equal;
-#X text 175 116 compare symbols;
+#X text 175 116 check symbols for equality;
 #X obj 30 143 symbol.length;
 #X text 175 143 number of characters in symbol (unicode supported);
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::symbol 20 20 0 20 -104026
