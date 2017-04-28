@@ -85,6 +85,11 @@ size_t AtomList::size() const
     return atoms_.size();
 }
 
+void AtomList::reserve(size_t n)
+{
+    atoms_.reserve(n);
+}
+
 bool AtomList::empty() const
 {
     return atoms_.empty();
@@ -309,6 +314,36 @@ bool AtomList::hasProperty(const std::string& name) const
             return true;
     }
     return false;
+}
+
+AtomList AtomList::map(AtomFloatMapFunction f) const
+{
+    AtomList res(*this);
+
+    for (size_t i = 0; i < res.size(); i++)
+        res[i].apply(f);
+
+    return res;
+}
+
+AtomList AtomList::map(AtomSymbolMapFunction f) const
+{
+    AtomList res(*this);
+
+    for (size_t i = 0; i < res.size(); i++)
+        res[i].apply(f);
+
+    return res;
+}
+
+AtomList AtomList::map(AtomMapFunction f) const
+{
+    AtomList res(*this);
+
+    for (size_t i = 0; i < res.size(); i++)
+        res[i] = f(res[i]);
+
+    return res;
 }
 
 AtomList AtomList::slice(int start) const

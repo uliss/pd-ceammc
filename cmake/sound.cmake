@@ -98,3 +98,5 @@ if(NOT WITH_ALSA_MIDI AND
     message(FATAL_ERROR "At least one midi module required! See `cmake -L` for available config options.
         You can build with dummy midi with cmake -DWITH_DUMMY_MIDI=ON option.")
 endif()
+
+option(WITH_LIBSNDFILE "Build with libsndfile" ON)

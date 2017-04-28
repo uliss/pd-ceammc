@@ -20,6 +20,11 @@
 
 namespace ceammc {
 
+class Atom;
+typedef Atom (*AtomMapFunction)(const Atom& a);
+typedef t_float (*AtomFloatMapFunction)(t_float f);
+typedef t_symbol* (*AtomSymbolMapFunction)(t_symbol* s);
+
 class Atom : t_atom {
 public:
     /**
@@ -116,6 +121,12 @@ public:
     Atom operator-(double v) const;
     Atom operator*(double v) const;
     Atom operator/(double v) const;
+
+    /**
+      * Apply function
+      */
+    void apply(AtomFloatMapFunction f);
+    void apply(AtomSymbolMapFunction f);
 
 public:
     friend bool operator==(const Atom& a1, const Atom& a2);

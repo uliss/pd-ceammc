@@ -6,6 +6,7 @@ a - navierstokes © andré sier 20030914
 a port from RD's navier-stokes
 
 his INFO!
+*/
 /* chaos collection - 1996, Richard Dudas, IRCAM */
 /* updated summer 96 for CodeWarrior PPC/68k */
 /* navier-stokes equation solved using heuns' method */

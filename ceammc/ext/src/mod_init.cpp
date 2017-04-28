@@ -13,7 +13,9 @@
  *****************************************************************************/
 #include "mod_init.h"
 #include "lib/ceammc.hpp"
+#include "s_stuff.h"
 
+#include "array/mod_array.h"
 #include "base/mod_base.h"
 #include "conv/mod_conv.h"
 #include "data/mod_data.h"
@@ -47,14 +49,39 @@ std::set<std::string>& ceammc_ext_list()
     return instance_;
 }
 
+static void setup_env_doc_path()
+{
+    if (!sys_libdir)
+        return;
+
+    std::string path(sys_libdir->s_name);
+    path += "/doc";
+    ceammc::set_env("DOC", path.c_str());
+}
+
+static void setup_env_ceammc_doc_path()
+{
+    if (!sys_libdir)
+        return;
+
+    std::string path(sys_libdir->s_name);
+    path += "/extra/ceammc";
+    ceammc::set_env("CEAMMC", path.c_str());
+}
+
 using namespace std;
 
 void ceammc_init()
 {
+    // setup env variables
+    setup_env_doc_path();
+    setup_env_ceammc_doc_path();
+
     // save vanilla extension list
     vector<string> l = ceammc::currentExtensionList();
     set<string> vanilla_set(l.begin(), l.end());
 
+    ceammc_array_setup();
     ceammc_base_setup();
     ceammc_conv_setup();
     ceammc_data_setup();

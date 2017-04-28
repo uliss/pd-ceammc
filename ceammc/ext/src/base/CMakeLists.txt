@@ -1,4 +1,7 @@
+include_directories(${CMAKE_BINARY_DIR}) # for config.h
+
 set(BASE_SOURCES
+    expand_env.cpp
     msg.cpp
     prop.get
     prop.set
@@ -10,6 +13,7 @@ list(APPEND BASE_SOURCES
     is_bang.cpp
     is_even.cpp
     is_float.cpp
+    is_file.cpp
     is_list.cpp
     is_odd.cpp
     is_pointer.cpp
@@ -26,6 +30,10 @@ list(APPEND BASE_SOURCES
     reject_if.cpp
     reject_this.cpp)
 
+# flow
+list(APPEND BASE_SOURCES
+    flow_sync.cpp)
+
 # test
 list(APPEND BASE_SOURCES
     test_data.cpp
@@ -34,12 +42,6 @@ list(APPEND BASE_SOURCES
 if(TARGET ceammc_sound)
     add_definitions(-DWITH_SND_FILE)
     list(APPEND BASE_SOURCES snd_file.cpp)
-endif()
-
-if(GLIB_FOUND)
-    add_definitions(-DWITH_GLIB)
-    include_directories(${GLIB_INCLUDE_DIRS})
-    list(APPEND BASE_SOURCES is_file.cpp)
 endif()
 
 add_library(ceammc_base STATIC mod_base.cpp ${BASE_SOURCES})

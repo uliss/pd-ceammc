@@ -5,12 +5,15 @@
 #include <cmath>
 #include <cstring>
 #include <functional>
-#include <vector>
 #include <string>
+#include <vector>
 
 namespace ceammc {
 
 std::vector<std::string> currentExtensionList();
+
+std::string get_env(const char* varname);
+void set_env(const char* varname, const char* val);
 
 namespace math {
     template <class T>

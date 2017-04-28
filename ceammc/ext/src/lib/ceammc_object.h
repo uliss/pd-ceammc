@@ -56,6 +56,19 @@ public:
     typedef AtomList (BaseObject::*GetterFn)() const;
     typedef void (BaseObject::*SetterFn)(const AtomList&);
 
+    /**
+     * @note if adding new type: see static to_string in ceammc_object.cpp
+     */
+    enum ArgumentType {
+        ARG_FLOAT = 0,
+        ARG_INT,
+        ARG_NATURAL,
+        ARG_SYMBOL,
+        ARG_PROPERTY,
+        ARG_SNONPROPERTY,
+        ARG_BOOL
+    };
+
 public:
     BaseObject(const PdArgs& args);
     virtual ~BaseObject();
@@ -63,6 +76,12 @@ public:
     inline AtomList& args() { return pd_.args; }
     inline const AtomList& args() const { return pd_.args; }
     void parseArguments();
+
+    bool checkArg(const Atom& atom, ArgumentType type, int pos = -1) const;
+    bool checkArgs(const AtomList& lst, ArgumentType a1, t_symbol* method = 0) const;
+    bool checkArgs(const AtomList& lst, ArgumentType a1, ArgumentType a2, t_symbol* method = 0) const;
+    bool checkArgs(const AtomList& lst, ArgumentType a1, ArgumentType a2, ArgumentType a3, t_symbol* method = 0) const;
+    bool checkArgs(const AtomList& lst, ArgumentType a1, ArgumentType a2, ArgumentType a3, ArgumentType a4, t_symbol* method = 0) const;
 
     /**
      * Returns object class name as string.
@@ -72,7 +91,7 @@ public:
     /**
      * Returns pointer to pd object struct, if you need manually call pd fuctions.
      */
-    inline t_object* owner() { return pd_.owner; }
+    inline t_object* owner() const { return pd_.owner; }
 
     /**
      * Dumps object info to Pd window

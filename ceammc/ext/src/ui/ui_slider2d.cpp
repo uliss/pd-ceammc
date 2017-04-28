@@ -64,6 +64,7 @@ public:
         atom_setfloat(&out_list[1], yValue());
 
         outlet_list(out1, &s_list, 2, out_list);
+        send(2, out_list);
     }
 
     void setPos(const t_pt& mousePos)

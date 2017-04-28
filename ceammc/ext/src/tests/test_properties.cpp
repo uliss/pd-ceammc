@@ -376,4 +376,14 @@ TEST_CASE("Properties", "[ceammc::properties]")
         REQUIRE_FALSE(ro.set(AtomList(15)));
         REQUIRE(v == 20);
     }
+
+    SECTION("flag property")
+    {
+        FlagProperty fl("flag");
+        REQUIRE(fl.value() == false);
+
+        fl.set(AtomList(0.f));
+        REQUIRE(fl.value() == true);
+        REQUIRE(fl.get() == AtomList(1));
+    }
 }

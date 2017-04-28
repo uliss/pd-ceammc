@@ -50,14 +50,10 @@ TEST_CASE("replace", "[PureData]")
 
         SECTION("properties")
         {
-            AtomList args;
-            args.append(AtomList(gensym("@from"), 1));
-            args.append(AtomList(gensym("@to"), 1000));
+            ReplaceTest t("replace", L4("@from", 1, "@to", 1000));
 
-            ReplaceTest t("replace", args);
-
-            REQUIRE_PROP(t, from, Atom(1));
-            REQUIRE_PROP(t, to, Atom(1000));
+            REQUIRE_PROPERTY(t, @from, 1);
+            REQUIRE_PROPERTY(t, @to, 1000);
 
             WHEN_SEND_FLOAT_TO(0, t, 12);
             REQUIRE_FLOAT_AT_OUTLET(0, t, 12);
@@ -74,11 +70,10 @@ TEST_CASE("replace", "[PureData]")
 
         SECTION("positional arguments")
         {
-            AtomList args(gensym("a"), gensym("b"));
-            ReplaceTest t("replace", args);
+            ReplaceTest t("replace", L2("a", "b"));
 
-            REQUIRE_PROP(t, from, S("a"));
-            REQUIRE_PROP(t, to, S("b"));
+            REQUIRE_PROPERTY(t, @from, "a");
+            REQUIRE_PROPERTY(t, @to, "b");
 
             WHEN_SEND_SYMBOL_TO(0, t, "a");
             REQUIRE_SYMBOL_AT_OUTLET(0, t, "b");

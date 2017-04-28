@@ -158,30 +158,30 @@ void henonphase_calc(henonphase* x)
     x->ny = nx * sin(a) - (ny - nx * nx) * cos(a);
 
     /*
-	//henon calc
+
+    //henon calc
 	lx1 = (ny + 1) - (a * (nx*nx));
 	ly1 = b * nx;
 
-	//advance 'a' by dt _AFTER_ calculating henon
+    //advance 'a' by dt _AFTER_ calculating henon
 	x->t += dt;
 	a *= x->t;
 
-	//henon phase
+    //henon phase
 	px = nx*cos(a) - (ny -(nx*nx))*sin(a);
 	py = nx*sin(a) - (ny -(nx*nx))*cos(a);
 
 
-/*
-	// henonphase attractor
+    // henonphase attractor
 
 	lx1 = nx*cos (a) - (ny - (nx*nx))*sin(a);
 	ly1 = nx*sin(a) - (ny - (nx*nx))*cos(a);
-*/
 
-    /*
 	x->nx = lx1;
 	x->ny = ly1;
-*/
+
+    */
+
     x->px = px;
     x->py = py;
 }
@@ -248,5 +248,3 @@ void setup_noise0x2ehenon_phase()
     eclass_addmethod(henonphase_class, (method)henonphase_dt, "dt", A_FLOAT, 0);
     eclass_addmethod(henonphase_class, (method)henonphase_om, "om", A_FLOAT, 0);
 }
-
-

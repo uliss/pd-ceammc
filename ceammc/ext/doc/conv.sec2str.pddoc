@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pddoc version="1.0">
+    <object name="conv.sec2str">
+        <title>conv.sec2str</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>converts float time in seconds to formated symbol</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>conv</category>
+            <keywords>conv time</keywords>
+            <also>
+                <see>conv.str2sec</see>
+            </also>
+            <since>0.1</since>
+            <aliases>
+                <alias>sec-&gt;str</alias>
+            </aliases>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="float">converts float value in seconds to formatted symbol</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>time in format "HH:MM::SS"</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[T]                   [F]
+|                     |
+[metro 1000]          [sec->str]
+|                     |
+[f] X [+ 1]           [S digits=12]
+|                     |
+[sec->str]            [str->sec]
+|                     |
+[S digits=12]         [F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
+

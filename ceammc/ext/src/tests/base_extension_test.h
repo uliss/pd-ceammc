@@ -110,6 +110,12 @@ public:
         REQUIRE(obj.lastMessage(outlet).listValue() == lst); \
     }
 
+#define REQUIRE_BANG_AT_OUTLET(outlet, obj)        \
+    {                                              \
+        REQUIRE(obj.hasNewMessages(outlet));       \
+        REQUIRE(obj.lastMessage(outlet).isBang()); \
+    }
+
 #define REQUIRE_FLOAT_AT_OUTLET(outlet, obj, v)                         \
     {                                                                   \
         REQUIRE(obj.hasNewMessages(outlet));                            \
@@ -131,18 +137,11 @@ public:
         REQUIRE(obj.lastMessage(outlet).anyValue() == anyLst); \
     }
 
-#define REQUIRE_PROP(obj, name, val)                   \
-    {                                                  \
-        Property* p = obj.property(gensym("@" #name)); \
-        REQUIRE(p != 0);                               \
-        REQUIRE(p->get() == val);                      \
-    }
-
 #define REQUIRE_PROPERTY(obj, name, val)           \
     {                                              \
         Property* p = obj.property(gensym(#name)); \
         REQUIRE(p != 0);                           \
-        REQUIRE(p->get() == val);                  \
+        REQUIRE(p->get() == test_atom_wrap(val));                  \
     }
 
 #define REQUIRE_PROPERTY_NONE(obj, name)           \
@@ -202,6 +201,7 @@ AtomList test_list_wrap(const Atom& a1, const Atom& a2, const Atom& a3, const At
 }
 // clang-format on
 
+#define A(v) test_atom_wrap(v)
 #define L1(v) test_list_wrap(test_atom_wrap(v))
 #define L2(v1, v2) test_list_wrap(test_atom_wrap(v1), test_atom_wrap(v2))
 #define L3(v1, v2, v3) test_list_wrap(test_atom_wrap(v1), test_atom_wrap(v2), test_atom_wrap(v3))

@@ -1,7 +1,6 @@
 #include "ceammc_factory.h"
 #include "ceammc_object.h"
-
-#include <glib.h>
+#include "ceammc_string.h"
 
 using namespace ceammc;
 
@@ -15,8 +14,7 @@ public:
 
     void onSymbol(t_symbol* s)
     {
-        glong len = g_utf8_strlen(s->s_name, -1);
-        floatTo(0, len);
+        floatTo(0, string::utf8_strlen(s->s_name));
     }
 };
 

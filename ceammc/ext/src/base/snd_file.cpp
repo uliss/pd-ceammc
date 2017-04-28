@@ -4,7 +4,17 @@
 #include "ceammc_object.h"
 #include "ceammc_sound.h"
 
+#include "config.h"
+#include "g_canvas.h"
+#include "s_stuff.h"
 #include "snd_file.h"
+
+#ifdef HAVE_UNISTD_H
+#include <unistd.h>
+#else
+#include <io.h>
+#define close(fd) _close(fd)
+#endif
 
 #include <cassert>
 #include <cctype>
@@ -14,6 +24,7 @@ using namespace ceammc::sound;
 
 SndFile::SndFile(const PdArgs& a)
     : BaseObject(a)
+    , cnv_(canvas_getcurrent())
 {
     createOutlet();
 
@@ -33,7 +44,25 @@ void SndFile::m_load(t_symbol* sel, const AtomList& lst)
         return postLoadUsage();
     }
 
-    t_symbol* fname = lst.first()->asSymbol();
+    const char* patch_dir = "";
+    if (cnv_ && cnv_->gl_env) {
+        patch_dir = canvas_getdir(cnv_)->s_name;
+    }
+
+    std::string path = lst.first()->asString();
+    char dirname[MAXPDSTRING], *filename;
+    int fd = open_via_path(patch_dir, path.c_str(), "", dirname, &filename, MAXPDSTRING, 1);
+    if (fd < 0) {
+        OBJ_ERR << "file not found: " << path.c_str();
+        return;
+    }
+
+    close(fd);
+
+    std::string full_path(dirname);
+    full_path += '/';
+    full_path += filename;
+    t_symbol* fname = gensym(full_path.c_str());
 
     // getting array names
     AtomList array_names;

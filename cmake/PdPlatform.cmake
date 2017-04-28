@@ -155,7 +155,7 @@ if(WIN32)
 endif()
 
 if(APPLE)
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -O3 -funroll-loops -fomit-frame-pointer")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -funroll-loops -fomit-frame-pointer")
 
     set(BUNDLE "Pd-${PD_MACOSX_BUNDLE_SUFFIX}.app")
     set(BUNDLE_FULL_PATH "${PROJECT_BINARY_DIR}/dist/${BUNDLE}")

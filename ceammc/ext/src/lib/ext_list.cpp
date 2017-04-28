@@ -17,19 +17,31 @@
 #include <iostream>
 #include <iterator>
 #include <set>
+#include <string>
+#include <vector>
 
 #include "m_pd.h"
 
 #include "../mod_init.h"
+#include "ceammc.hpp"
 
-t_symbol* any = &s_anything;
+static t_symbol* any = &s_anything;
 extern "C" void pd_init();
 
 using namespace std;
 
-int main(int, char* [])
+int main(int argc, char* argv[])
 {
     pd_init();
+
+    bool vanilla = argc > 1 && string(argv[1]) == "-v";
+    if (vanilla) {
+        vector<string> l = ceammc::currentExtensionList();
+        set<string> vanilla_set(l.begin(), l.end());
+        copy(vanilla_set.begin(), vanilla_set.end(), ostream_iterator<string>(cout, "\n"));
+        return EXIT_SUCCESS;
+    }
+
     ceammc_init();
 
     set<string> ceammc_set = ceammc_ext_list();

@@ -8,10 +8,6 @@ macro(ceammc_add_test title name)
     target_link_libraries(${name} tests_main_lib ceammc_core puredata-core)
     set(_exec_cmd ${name})
 
-    if(${WITH_COVERAGE})
-        set_target_properties(${name} PROPERTIES COMPILE_FLAGS "--coverage" LINK_FLAGS "--coverage")
-    endif()
-
     if(MINGW AND WINE_EXE)
         set(_exec_cmd ${WINE_EXE} ${name})
     endif()
@@ -32,10 +28,6 @@ macro(ceammc_add_test_linked)
     target_link_libraries(${name} ${_TEST_LINK} tests_main_lib)
     set(_exec_cmd ${name})
 
-    if(${WITH_COVERAGE})
-        set_target_properties(${name} PROPERTIES COMPILE_FLAGS "--coverage" LINK_FLAGS "--coverage")
-    endif()
-
     if(MINGW AND WINE_EXE)
         set(_exec_cmd ${WINE_EXE} ${name})
     endif()
@@ -47,10 +39,6 @@ macro(ceammc_add_extension_test name extpath)
     add_executable(${_target} "${_target}.cpp" ${extpath})
     target_link_libraries(${_target} tests_main_lib puredata-core ceammc_core puredata-core ceammc_sound)
     set(_exec_cmd ${_target})
-
-    if(${WITH_COVERAGE})
-        set_target_properties(${_target} PROPERTIES COMPILE_FLAGS "--coverage" LINK_FLAGS "--coverage")
-    endif()
 
     if(MINGW AND WINE_EXE)
         set(_exec_cmd ${WINE_EXE} ${_target})
@@ -68,11 +56,11 @@ if(${WITH_COVERAGE})
         add_custom_target(coverage
             COMMAND ${LCOV}
                 --gcov-tool=${GCOV}
-                --directory "${CMAKE_CURRENT_BINARY_DIR}/.."
+                --directory "${CMAKE_CURRENT_BINARY_DIR}/../lib"
                 --capture
                 --output-file coverage.info
             COMMAND ${LCOV}
-                --remove coverage.info 'tests/Catch/*' '/usr/*' '/Applications/Xcode.app/*' 'src/m_pd.h'
+                --remove coverage.info 'ceammc/ext/src/tests/Catch/*' '/usr/*' '/Applications/Xcode.app/*' 'src/m_pd.h'
                 --output-file coverage.info
             COMMAND ${LCOV}
                 --list coverage.info)

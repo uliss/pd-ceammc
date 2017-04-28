@@ -1,5 +1,7 @@
 #include "mod_base.h"
 
+extern "C" void expand_env_setup();
+extern "C" void setup_flow0x2esync();
 extern "C" void is_any_setup();
 extern "C" void is_bang_setup();
 extern "C" void is_even_setup();
@@ -24,14 +26,13 @@ extern "C" void setup_test0x2eexpect();
 
 void ceammc_base_setup()
 {
+    setup_flow0x2esync();
+
+    expand_env_setup();
     is_any_setup();
     is_bang_setup();
     is_even_setup();
-
-#ifdef WITH_GLIB
     is_file_setup();
-#endif
-
     is_float_setup();
     is_list_setup();
     is_odd_setup();

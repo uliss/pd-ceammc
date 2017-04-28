@@ -6,6 +6,11 @@ find_program(PD_CAT2PD pd_cat2pd)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/about.pd ${CMAKE_CURRENT_BINARY_DIR}/about.pd @ONLY)
 
 set(DOC_FILES
+    conv.bpm2hz
+    conv.bpm2ms
+    conv.bpm2sec
+    conv.sec2str
+    conv.str2sec
     data.fifo
     data.list
     dyn.comp~
@@ -18,6 +23,8 @@ set(DOC_FILES
     env.ar~
     env.adsr~
     env.follow~
+    expand_env
+    flow.sync
     flt.bpf12~
     flt.bpf24~
     flt.c_bpf~
@@ -39,10 +46,13 @@ set(DOC_FILES
     flt.notch~
     flt.resonbp~
     flt.eq_peak~
+    fx.flanger~
     fx.freqshift~
+    fx.distortion~
     fx.pitchshift~
     fx.freeverb~
     fx.freeverb2~
+    fx.zita_rev1~
     global.float
     global.int
     global.list
@@ -135,6 +145,7 @@ set(DOC_FILES
     pass.if
     pass.this
     path.basename
+    path.dirname
     prop.get
     prop.set
     random.int
@@ -142,6 +153,7 @@ set(DOC_FILES
     reject.this
     replace
     snd.file
+    symbol.equal
     symbol.length
     system.getenv
     system.hostname

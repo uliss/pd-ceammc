@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 
+#include "base_extension_test.h"
 #include "catch.hpp"
 #include "ceammc_object.h"
 
@@ -51,5 +52,76 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
         REQUIRE(b.property("@int_ro") != 0);
         REQUIRE(b.property("@int_ro")->readonly());
         REQUIRE_FALSE(b.setProperty("@int_ro", AtomList(2)));
+    }
+
+    SECTION("test check args")
+    {
+        SECTION("single")
+        {
+            BaseObject b(PdArgs(AtomList(), gensym("testname"), 0));
+            REQUIRE(b.checkArg(A(10), BaseObject::ARG_FLOAT));
+            REQUIRE(b.checkArg(A(10), BaseObject::ARG_INT));
+            REQUIRE(b.checkArg(A(10), BaseObject::ARG_NATURAL));
+            REQUIRE(b.checkArg(A(1), BaseObject::ARG_BOOL));
+            REQUIRE(b.checkArg(A(0.0f), BaseObject::ARG_BOOL));
+            REQUIRE_FALSE(b.checkArg(A(10), BaseObject::ARG_SYMBOL));
+            REQUIRE_FALSE(b.checkArg(A(10), BaseObject::ARG_PROPERTY));
+            REQUIRE_FALSE(b.checkArg(A(10), BaseObject::ARG_SNONPROPERTY));
+            REQUIRE_FALSE(b.checkArg(A(10), BaseObject::ARG_BOOL));
+            REQUIRE_FALSE(b.checkArg(A(0.1), BaseObject::ARG_BOOL));
+
+            REQUIRE(b.checkArg(A(1.1f), BaseObject::ARG_FLOAT));
+            REQUIRE_FALSE(b.checkArg(A(1.1f), BaseObject::ARG_INT));
+            REQUIRE_FALSE(b.checkArg(A(1.1f), BaseObject::ARG_NATURAL));
+            REQUIRE_FALSE(b.checkArg(A(1.1f), BaseObject::ARG_SYMBOL));
+            REQUIRE_FALSE(b.checkArg(A(1.1f), BaseObject::ARG_PROPERTY));
+            REQUIRE_FALSE(b.checkArg(A(1.1f), BaseObject::ARG_SNONPROPERTY));
+
+            REQUIRE(b.checkArg(A(-10), BaseObject::ARG_FLOAT));
+            REQUIRE(b.checkArg(A(-10), BaseObject::ARG_INT));
+            REQUIRE_FALSE(b.checkArg(A(-10), BaseObject::ARG_NATURAL));
+            REQUIRE_FALSE(b.checkArg(A(-10), BaseObject::ARG_SYMBOL));
+            REQUIRE_FALSE(b.checkArg(A(-10), BaseObject::ARG_PROPERTY));
+            REQUIRE_FALSE(b.checkArg(A(-10), BaseObject::ARG_SNONPROPERTY));
+
+            REQUIRE_FALSE(b.checkArg(A("a"), BaseObject::ARG_FLOAT));
+            REQUIRE_FALSE(b.checkArg(A("a"), BaseObject::ARG_INT));
+            REQUIRE_FALSE(b.checkArg(A("a"), BaseObject::ARG_NATURAL));
+            REQUIRE(b.checkArg(A("a"), BaseObject::ARG_SYMBOL));
+            REQUIRE_FALSE(b.checkArg(A("a"), BaseObject::ARG_PROPERTY));
+            REQUIRE(b.checkArg(A("a"), BaseObject::ARG_SNONPROPERTY));
+
+            REQUIRE_FALSE(b.checkArg(A("@a"), BaseObject::ARG_FLOAT));
+            REQUIRE_FALSE(b.checkArg(A("@a"), BaseObject::ARG_INT));
+            REQUIRE_FALSE(b.checkArg(A("@a"), BaseObject::ARG_NATURAL));
+            REQUIRE(b.checkArg(A("@a"), BaseObject::ARG_SYMBOL));
+            REQUIRE(b.checkArg(A("@a"), BaseObject::ARG_PROPERTY));
+            REQUIRE_FALSE(b.checkArg(A("@a"), BaseObject::ARG_SNONPROPERTY));
+        }
+
+        SECTION("lists")
+        {
+            BaseObject b(PdArgs(AtomList(), gensym("testname"), 0));
+            REQUIRE(b.checkArgs(L1(2), BaseObject::ARG_FLOAT));
+            REQUIRE(b.checkArgs(L1("a"), BaseObject::ARG_SYMBOL));
+            REQUIRE_FALSE(b.checkArgs(L1(2), BaseObject::ARG_SYMBOL));
+            REQUIRE_FALSE(b.checkArgs(L1("a"), BaseObject::ARG_FLOAT));
+
+            REQUIRE(b.checkArgs(L2(2, 2), BaseObject::ARG_FLOAT, BaseObject::ARG_FLOAT));
+            REQUIRE(b.checkArgs(L2(2, "a"), BaseObject::ARG_FLOAT, BaseObject::ARG_SYMBOL));
+            REQUIRE(b.checkArgs(L3(2, "a", "@a"), BaseObject::ARG_FLOAT,
+                BaseObject::ARG_SYMBOL, BaseObject::ARG_PROPERTY));
+            REQUIRE(b.checkArgs(L4(-22, "a", "@a", 100), BaseObject::ARG_FLOAT,
+                BaseObject::ARG_SYMBOL, BaseObject::ARG_PROPERTY, BaseObject::ARG_NATURAL));
+
+            REQUIRE_FALSE(b.checkArgs(L4(-2, "a", "@a", 100.1f), BaseObject::ARG_NATURAL,
+                BaseObject::ARG_SYMBOL, BaseObject::ARG_PROPERTY, BaseObject::ARG_FLOAT));
+            REQUIRE_FALSE(b.checkArgs(L4(-2, "a", "@a", 100.1f), BaseObject::ARG_INT,
+                BaseObject::ARG_INT, BaseObject::ARG_PROPERTY, BaseObject::ARG_FLOAT));
+            REQUIRE_FALSE(b.checkArgs(L4(-2, "a", "@a", 100.1f), BaseObject::ARG_INT,
+                BaseObject::ARG_SYMBOL, BaseObject::ARG_INT, BaseObject::ARG_FLOAT));
+            REQUIRE_FALSE(b.checkArgs(L4(-2, "a", "@a", 100.1f), BaseObject::ARG_INT,
+                BaseObject::ARG_INT, BaseObject::ARG_SNONPROPERTY, BaseObject::ARG_NATURAL));
+        }
     }
 }

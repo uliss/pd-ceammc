@@ -17,6 +17,11 @@
                 <see>list.seq</see>
             </also>
         </meta>
+        <info>
+            <par>Universal list walker. If you want to output current element and when move to next - use [1( message,
+                Otherwise -  use [next( if you want first move to next position and then output it.
+            </par>
+        </info>
         <arguments>
             <argument type="list" name="INIT">initial list</argument>
         </arguments>
@@ -48,6 +53,7 @@
         <inlets>
             <inlet>
                 <xinfo on="bang">outputs current element and moves to next</xinfo>
+                <xinfo on="float">outputs current element and moves by specified position</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -62,9 +68,9 @@
 |           |          |
 |           | [@clip(  | [@single( [@loop( [@fold(
 |           | |        | |         |       |
-|           | |        | |         |       |
-|           | |        | |         |       |
-[list.walk 1 3 6 8                     @fold]
+|   [-1(    | |  [1(   | |         |       | [prev( [next(
+|   |       | |  |     | |         |       | |      |
+[list.walk 1 3 6 8                             @fold]
 |
 [+ 60]
 |

@@ -1,6 +1,7 @@
-os = library("miscoscillator.lib");
-si = library("signal.lib");
+os = library("oscillators.lib");
+si = library("signals.lib");
+ba = library("basics.lib");
 
 duty = hslider("duty", 0.5, 0, 1.0, 0.001) : si.smoo;
 
-process(freq) = os.pulsetrain(freq, duty);
+process(freq) = ba.if(freq == 0, 0, os.pulsetrain(freq, duty));

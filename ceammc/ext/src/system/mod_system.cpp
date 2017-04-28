@@ -8,12 +8,8 @@ extern "C" void setup_system0x2escreen_size();
 
 void ceammc_system_setup()
 {
-
-#ifdef WITH_GLIB
     setup_system0x2egetenv();
     setup_system0x2ehostname();
-#endif
-
     setup_system0x2ememsize();
     setup_system0x2ememused();
     setup_system0x2escreen_size();

@@ -39,27 +39,9 @@ else()
 endif()
 
 if( FFTW_ROOT )
-
-  #find libs
-  find_library(
-    FFTW_LIB
-    NAMES "fftw3"
-    PATHS ${FFTW_ROOT}
-    PATH_SUFFIXES "lib" "lib64"
-    NO_DEFAULT_PATH
-  )
-
   find_library(
     FFTWF_LIB
     NAMES "fftw3f"
-    PATHS ${FFTW_ROOT}
-    PATH_SUFFIXES "lib" "lib64"
-    NO_DEFAULT_PATH
-  )
-
-  find_library(
-    FFTWL_LIB
-    NAMES "fftw3l"
     PATHS ${FFTW_ROOT}
     PATH_SUFFIXES "lib" "lib64"
     NO_DEFAULT_PATH
@@ -77,29 +59,8 @@ if( FFTW_ROOT )
 else()
 
   find_library(
-    FFTW_LIB
-    NAMES "fftw3"
-    PATHS ${PKG_FFTW_LIBRARY_DIRS} 
-        ${LIB_INSTALL_DIR}
-        /usr/local/lib
-        C:/MinGW/msys/1.0/lib
-        C:/MinGW/msys/1.0/local/lib
-  )
-
-  find_library(
     FFTWF_LIB
     NAMES "fftw3f"
-    PATHS ${PKG_FFTW_LIBRARY_DIRS} 
-        ${LIB_INSTALL_DIR}
-        /usr/local/lib
-        C:/MinGW/msys/1.0/lib
-        C:/MinGW/msys/1.0/local/lib
-  )
-
-
-  find_library(
-    FFTWL_LIB
-    NAMES "fftw3l"
     PATHS ${PKG_FFTW_LIBRARY_DIRS} 
         ${LIB_INSTALL_DIR}
         /usr/local/lib

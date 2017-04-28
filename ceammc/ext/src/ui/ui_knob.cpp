@@ -58,6 +58,12 @@ public:
         t_float f = clip(minValue(), maxValue(), v);
         x_value = (f - shift) / range;
     }
+
+    void output()
+    {
+        outlet_float(out1, realValue());
+        send(realValue());
+    }
 };
 
 namespace ceammc_gui {
@@ -170,7 +176,7 @@ UI_fun(ui_knob)::wx_mousedrag_ext(ui_knob* zx, t_object*, t_pt pt, long)
 
     ws_redraw(zx);
 
-    outlet_float(zx->out1, zx->realValue());
+    zx->output();
 }
 
 UI_fun(ui_knob)::wx_mousedown_ext(ui_knob* zx, t_object* view, t_pt pt, long modifiers)
@@ -182,12 +188,12 @@ UI_fun(ui_knob)::m_float(ui_knob* zx, t_float f)
 {
     zx->setValue(f);
     ws_redraw(zx);
-    outlet_float(zx->out1, zx->realValue());
+    zx->output();
 }
 
 UI_fun(ui_knob)::m_bang(ui_knob* zx)
 {
-    outlet_float(zx->out1, zx->realValue());
+    zx->output();
 }
 
 UI_fun(ui_knob)::wx_attr_changed_ext(ui_knob* z, t_symbol*)

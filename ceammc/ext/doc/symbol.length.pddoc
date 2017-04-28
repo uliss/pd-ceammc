@@ -7,7 +7,7 @@
                 <author>Alex Nadzharov</author>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>length of symbol (unicode supported)</description>
+            <description>number of characters in symbol (unicode supported)</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>symbol</category>

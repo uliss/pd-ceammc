@@ -101,6 +101,7 @@ extension_files $CEAMMC_EXT_BIN_DIR | while read f
 do
     echo "\t$(basename $f)"
     cp "$f" $PD_EXTRA/ceammc
+    dylibbundler -x $PD_EXTRA/ceammc/$(basename $f) -b -cd -d $PD_EXTRA/ceammc -p @loader_path/ -of
 done
 
 echo "Copying Additional extra:"
@@ -142,36 +143,7 @@ cd ..
 mkdir -p Frameworks
 mkdir -p $LIBDIR
 
-otool_id() {
-    /usr/bin/otool -DX "$1" | tail -1
-}
-
-otool_deps() {
-    /usr/bin/otool -LX "$1" | sed -n /^$'\t'/p | cut -f2 | cut -d ' ' -f1
-}
-
-dep_fix() {
-    echo "FIX dependency: \"$1\" in \"$2\""
-    DEP_PATH_IN_BUNDLE=$LIBDIR/$(basename $1)
-    # copy in bundle
-    cp "$1" $DEP_PATH_IN_BUNDLE
-    chown $(whoami) $DEP_PATH_IN_BUNDLE
-    chmod +w $DEP_PATH_IN_BUNDLE
-
-    # get dep lib old id
-    DEP_ORIG_ID=$(otool_id $DEP_PATH_IN_BUNDLE)
-    DEP_NEW_ID="@executable_path/../lib/$(basename $1)"
-    echo "    change \"$DEP_ORIG_ID\" to \"$DEP_NEW_ID\" in \"$2\""
-    # change in dep
-    install_name_tool -id $DEP_NEW_ID $DEP_PATH_IN_BUNDLE
-    # change in exec
-    install_name_tool -change $DEP_ORIG_ID $DEP_NEW_ID $2
-}
-
-otool_deps "$EXECFILE" | grep -v portmidi | grep -v libSystem | grep -v /System/Library | grep -v CoreFoundation | while read shlib
-do
-    dep_fix $shlib $EXECFILE
-done
+dylibbundler -x $EXECFILE -b -cd -d $LIBDIR -p $NEWLIBPATH -of
 
 #copy Tcl${TK_VERSION}
 if [ $IS_SYSTEM_TK -eq 0 ]

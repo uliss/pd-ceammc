@@ -14,8 +14,8 @@
 
 #include "system_getenv.h"
 
-#include <glib.h>
-#include <string.h>
+#include <cstdlib>
+#include <cstring>
 
 extern "C" void setup_system0x2egetenv()
 {
@@ -39,7 +39,7 @@ void SystemGetEnv::onBang()
         return;
     }
 
-    const gchar* v = g_getenv(var_name_->s_name);
+    const char* v = getenv(var_name_->s_name);
 
     if (v != NULL && strlen(v) > 0)
         symbolTo(0, gensym(v));
