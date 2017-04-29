@@ -22,21 +22,13 @@ CC2Amp::CC2Amp(const PdArgs& a)
 {
     createOutlet();
 
-    v0_ = new FloatProperty("@v0", 0);
-    v1_ = new FloatProperty("@v1", 1);
+    v0_ = new FloatProperty("@v0", positionalFloatArgument(0, 0));
+    v1_ = new FloatProperty("@v1", positionalFloatArgument(1, 1));
     clip_ = new BoolProperty("@clip", true);
 
     createProperty(v0_);
     createProperty(v1_);
     createProperty(clip_);
-
-    parseArguments();
-    if (args().size() == 2) {
-        if (!a.args.hasProperty("@v0") && !a.args.hasProperty("@v1")) {
-            v0_->setValue(args()[0].asFloat(0));
-            v1_->setValue(args()[1].asFloat(1));
-        }
-    }
 }
 
 void CC2Amp::onFloat(t_float v)
