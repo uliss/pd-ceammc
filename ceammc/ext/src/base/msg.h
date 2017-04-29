@@ -33,6 +33,7 @@ public:
     void onAny(t_symbol* sel, const AtomList& l);
     void onInlet(size_t n, const AtomList& l);
     bool processAnyProps(t_symbol*, const AtomList&);
+    void parseProperties();
 
 private:
     void setMethod(const AtomList& l);

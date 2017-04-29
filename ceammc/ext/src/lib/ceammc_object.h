@@ -78,7 +78,7 @@ public:
     t_float positionalFloatArgument(size_t pos, t_float def = 0.f) const;
     t_symbol* positionalSymbolArgument(size_t pos, t_symbol* def = 0) const;
     inline const AtomList& positionalArguments() const { return positional_args_; }
-    void parseArguments();
+    virtual void parseProperties();
 
     bool checkArg(const Atom& atom, ArgumentType type, int pos = -1) const;
     bool checkArgs(const AtomList& lst, ArgumentType a1, t_symbol* method = 0) const;

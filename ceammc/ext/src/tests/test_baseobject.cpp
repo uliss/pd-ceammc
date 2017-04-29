@@ -143,7 +143,7 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
         }
     }
 
-    SECTION("parseArguments")
+    SECTION("parseProperties")
     {
         SECTION("only props")
         {
@@ -153,7 +153,7 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
             b.createProperty(new FloatProperty("@p1", -1));
             b.createProperty(new ListProperty("@p2"));
             b.createProperty(new FloatProperty("@p3", -1));
-            b.parseArguments();
+            b.parseProperties();
 
             REQUIRE_PROPERTY(b, @p1, 1);
             REQUIRE(b.hasProperty(gensym("@p2")));
@@ -171,7 +171,7 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
             b.createProperty(new FloatProperty("@p1", -1));
             b.createProperty(new ListProperty("@p2"));
             b.createProperty(new FloatProperty("@p3", -1));
-            b.parseArguments();
+            b.parseProperties();
 
             REQUIRE_PROPERTY(b, @p1, -1);
             REQUIRE(b.hasProperty(gensym("@p2")));
@@ -186,7 +186,7 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
             BaseObject b(PdArgs(L5(1, 2, "@p1", "@p2", "c"), gensym("testname"), 0));
             b.createProperty(new FloatProperty("@p1", -1));
             b.createProperty(new ListProperty("@p2"));
-            b.parseArguments();
+            b.parseProperties();
 
             REQUIRE_PROPERTY(b, @p1, -1);
             REQUIRE(b.hasProperty(gensym("@p2")));
@@ -194,7 +194,7 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
 
             REQUIRE(b.positionalArguments() == L2(1, 2));
 
-            b.parseArguments();
+            b.parseProperties();
             REQUIRE(b.positionalArguments() == L2(1, 2));
         }
     }
@@ -203,7 +203,7 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
     {
         {
             EXT_B b(PdArgs(AtomList(), gensym("ext.b"), 0));
-            b.parseArguments();
+            b.parseProperties();
             REQUIRE_PROPERTY(b, @a, -1);
             REQUIRE_PROPERTY(b, @b, -2);
 
@@ -220,7 +220,7 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
 
         {
             EXT_B b(PdArgs(L2("@a", 100), gensym("ext.b"), 0));
-            b.parseArguments();
+            b.parseProperties();
             REQUIRE_PROPERTY(b, @a, 100);
             REQUIRE_PROPERTY(b, @b, -2);
 
@@ -237,7 +237,7 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
 
         {
             EXT_B b(PdArgs(L2("@b", 200), gensym("ext.b"), 0));
-            b.parseArguments();
+            b.parseProperties();
             REQUIRE_PROPERTY(b, @a, -1);
             REQUIRE_PROPERTY(b, @b, 200);
 
@@ -254,7 +254,7 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
 
         {
             EXT_B b(PdArgs(L4("@b", 200, "@a", -100), gensym("ext.b"), 0));
-            b.parseArguments();
+            b.parseProperties();
             REQUIRE_PROPERTY(b, @a, -100);
             REQUIRE_PROPERTY(b, @b, 200);
 
@@ -271,7 +271,7 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
 
         {
             EXT_B b(PdArgs(L6(1, 2, "@b", 200, "@a", -100), gensym("ext.b"), 0));
-            b.parseArguments();
+            b.parseProperties();
             REQUIRE_PROPERTY(b, @a, -100);
             REQUIRE_PROPERTY(b, @b, 200);
 
@@ -297,7 +297,7 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
 
         {
             EXT_B b(PdArgs(L6("first", "second", "@b", 200, "@a", -100), gensym("ext.b"), 0));
-            b.parseArguments();
+            b.parseProperties();
             REQUIRE_PROPERTY(b, @a, -100);
             REQUIRE_PROPERTY(b, @b, 200);
 

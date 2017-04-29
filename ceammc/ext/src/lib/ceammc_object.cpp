@@ -342,7 +342,7 @@ t_symbol* BaseObject::positionalSymbolArgument(size_t pos, t_symbol* def) const
     return positional_args_[pos].isSymbol() ? positional_args_[pos].asSymbol() : def;
 }
 
-void BaseObject::parseArguments()
+void BaseObject::parseProperties()
 {
     std::deque<AtomList> p = pd_.args.properties();
     for (size_t i = 0; i < p.size(); i++) {

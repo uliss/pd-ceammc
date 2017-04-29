@@ -150,7 +150,7 @@ public:
         try {
             x = reinterpret_cast<ObjectProxy*>(pd_new(class_));
             x->impl = new T(PdArgs(AtomList(argc, argv), class_name_, &x->pd_obj));
-            x->impl->parseArguments();
+            x->impl->parseProperties();
         } catch (std::exception& e) {
             x->impl = 0;
             pd_free(&x->pd_obj.te_g.g_pd);

@@ -63,6 +63,10 @@ bool Msg::processAnyProps(t_symbol* s, const AtomList&)
     return false;
 }
 
+void Msg::parseProperties()
+{
+}
+
 void Msg::setMethod(const AtomList& l)
 {
     if (l.empty())
