@@ -41,6 +41,7 @@ public:
     TestClass(const PdArgs& a)
         : BaseObject(a)
     {
+        createProperty(new FloatProperty("@test_prop", -1));
     }
 
     ~TestClass()
@@ -78,7 +79,8 @@ TEST_CASE("ceammc_factory", "[PureData]")
         REQUIRE(ext->impl != 0);
         REQUIRE(ext->impl->owner() == &ext->pd_obj);
         REQUIRE(ext->impl->className() == "test.new");
-        REQUIRE(ext->impl->args() == L2(2, "a"));
+        REQUIRE(ext->impl->positionalArguments() == L2(2, "a"));
+        REQUIRE_PROPERTY((*ext->impl), @test_prop, -1);
 
         pd_free(&ext->pd_obj.te_g.g_pd);
 
@@ -97,6 +99,34 @@ TEST_CASE("ceammc_factory", "[PureData]")
         REQUIRE_THROWS(test_throw());
         PdExternal* ext = reinterpret_cast<PdExternal*>(f.object_new(name, 0, 0));
         REQUIRE(ext == 0);
+        REQUIRE(destructor_called);
+    }
+
+    SECTION("arguments")
+    {
+
+        typedef PdObject<TestClass> PdExternal;
+
+        test_reset();
+        ObjectFactory<TestClass> f("test.new");
+
+        t_atom args[4];
+        SETFLOAT(&args[0], 2);
+        SETSYMBOL(&args[1], gensym("a"));
+        SETSYMBOL(&args[2], gensym("@test_prop"));
+        SETFLOAT(&args[3], 33);
+
+        PdExternal* ext = reinterpret_cast<PdExternal*>(f.object_new(gensym("test.new"), 4, args));
+
+        REQUIRE(ext != 0);
+        REQUIRE(ext->impl != 0);
+        REQUIRE(ext->impl->owner() == &ext->pd_obj);
+        REQUIRE(ext->impl->className() == "test.new");
+        REQUIRE(ext->impl->positionalArguments() == L2(2, "a"));
+        REQUIRE_PROPERTY((*ext->impl), @test_prop, 33);
+
+        pd_free(&ext->pd_obj.te_g.g_pd);
+
         REQUIRE(destructor_called);
     }
 }

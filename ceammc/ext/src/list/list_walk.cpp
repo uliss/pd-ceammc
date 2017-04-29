@@ -39,8 +39,7 @@ ListWalk::ListWalk(const PdArgs& a)
     createCbProperty("@size", &ListWalk::p_size);
     createCbProperty("@index", &ListWalk::p_index, &ListWalk::p_set_index);
 
-    parseArguments();
-    lst_ = args();
+    lst_ = positionalArguments();
 }
 
 void ListWalk::onBang() { onFloat(1); }

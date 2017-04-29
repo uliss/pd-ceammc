@@ -41,7 +41,7 @@ public:
 };
 
 class BaseObject {
-    PdArgs pd_;
+    const PdArgs pd_;
     typedef std::vector<t_inlet*> InletList;
     typedef std::vector<t_outlet*> OutletList;
     typedef std::vector<t_symbol*> SymbolList;
@@ -50,6 +50,7 @@ class BaseObject {
     OutletList outlets_;
     SymbolList inlets_s_;
     Properties props_;
+    AtomList positional_args_;
     t_symbol* receive_from_;
 
 public:
@@ -73,8 +74,7 @@ public:
     BaseObject(const PdArgs& args);
     virtual ~BaseObject();
 
-    inline AtomList& args() { return pd_.args; }
-    inline const AtomList& args() const { return pd_.args; }
+    inline const AtomList& positionalArguments() const { return positional_args_; }
     void parseArguments();
 
     bool checkArg(const Atom& atom, ArgumentType type, int pos = -1) const;
@@ -232,6 +232,10 @@ protected:
     AtomList propNumInlets();
     AtomList propNumOutlets();
     AtomList listAllProps() const;
+    const AtomList& args() const { return pd_.args; }
+
+private:
+    void extractPositionalArguments();
 };
 }
 

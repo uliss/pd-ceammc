@@ -20,10 +20,9 @@ ListEach::ListEach(const PdArgs& a)
     step_prop_ = new StepProperty("@step", 1, is_valid_step);
     createProperty(step_prop_);
 
-    parseArguments();
     // if we have positional step argument without @step
-    AtomList& args = this->args();
-    if (!args.empty() && args.at(0).isFloat()) {
+    const AtomList& args = positionalArguments();
+    if (checkArgs(args, ARG_INT)) {
         int v = args[0].asInt();
         if (v > 1)
             step_prop_->setValue(v);

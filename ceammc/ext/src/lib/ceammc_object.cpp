@@ -247,6 +247,15 @@ AtomList BaseObject::listAllProps() const
     return res;
 }
 
+void BaseObject::extractPositionalArguments()
+{
+    int idx = pd_.args.findPos(isProperty);
+    if (idx < 0)
+        idx = pd_.args.size();
+
+    positional_args_ = pd_.args.slice(0, idx);
+}
+
 t_outlet* BaseObject::createOutlet(bool signal)
 {
     t_outlet* out = outlet_new(pd_.owner, signal ? &s_signal : &s_anything);
@@ -303,6 +312,8 @@ BaseObject::BaseObject(const PdArgs& args)
     , receive_from_(0)
 {
     createCbProperty("@*", &BaseObject::listAllProps);
+
+    extractPositionalArguments();
 }
 
 BaseObject::~BaseObject()
@@ -329,12 +340,6 @@ void BaseObject::parseArguments()
 
         props_[pname]->set(p[i].slice(1));
     }
-
-    int idx = pd_.args.findPos(isProperty);
-    if (idx < 0)
-        return;
-
-    pd_.args = pd_.args.slice(0, idx);
 }
 
 bool BaseObject::checkArg(const Atom& atom, BaseObject::ArgumentType type, int pos) const

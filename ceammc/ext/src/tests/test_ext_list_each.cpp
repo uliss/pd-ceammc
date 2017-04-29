@@ -76,12 +76,12 @@ TEST_CASE("list.each", "[externals]")
 
         SECTION("positional arguments and props mixed")
         {
-            ListEachTest t("list.each", L3(12, "@prop", 4));
+            ListEachTest t("list.each", L3(12, "@step", 4));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 2);
 
-            // positional arguments have priority
-            REQUIRE_PROPERTY(t, @step, 12);
+            // property arguments have priority
+            REQUIRE_PROPERTY(t, @step, 4);
         }
 
         SECTION("invalid args")

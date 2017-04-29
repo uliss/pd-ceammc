@@ -319,6 +319,7 @@ TestExtension<T>::TestExtension(const char* name, const AtomList& args)
 {
     msg_.assign(T::numOutlets(), MessageList());
     msg_count_.assign(T::numOutlets(), -1);
+    T::parseArguments();
 }
 
 template <class T>

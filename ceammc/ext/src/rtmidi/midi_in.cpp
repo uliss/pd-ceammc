@@ -38,7 +38,6 @@ PdMidiIn::PdMidiIn(const PdArgs& a)
 
     createCbProperty("@port", &PdMidiIn::p_getPort, &PdMidiIn::p_setPort);
     createCbProperty("@device", &PdMidiIn::p_getDevice, &PdMidiIn::p_setDevice);
-    parseArguments();
 }
 
 int PdMidiIn::port() const

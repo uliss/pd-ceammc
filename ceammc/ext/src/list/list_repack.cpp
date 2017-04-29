@@ -27,9 +27,8 @@ public:
         group_size_ = new SizeTPropertyClosedRange("@size", MIN_GROUP_SIZE, MIN_GROUP_SIZE, MAX_GROUP_SIZE);
         createProperty(group_size_);
 
-        parseArguments();
-        if (!args().empty())
-            group_size_->set(args());
+        if (checkArgs(positionalArguments(), ARG_FLOAT))
+            group_size_->set(positionalArguments());
     }
 
     void onList(const AtomList& l)

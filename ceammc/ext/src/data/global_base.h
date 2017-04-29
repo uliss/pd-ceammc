@@ -31,7 +31,7 @@ public:
         : BaseObject(a)
         , data_(a.args.empty() ? "default" : to_string(a.args[0]), extName)
     {
-        if (args().empty())
+        if (positionalArguments().empty())
             OBJ_ERR << "global object ID required! Using default: " << data_.name();
 
         createOutlet();
