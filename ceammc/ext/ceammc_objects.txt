@@ -73,6 +73,7 @@ global.list
 is_any
 is_bang
 is_even
+is_file
 is_float
 is_list
 is_odd
@@ -81,6 +82,7 @@ is_symbol
 lfo.impulse~
 lfo.square~
 lfo.tri~
+lin->lin
 list.apply_to
 list.at
 list.choice

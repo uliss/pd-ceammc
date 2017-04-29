@@ -6,28 +6,23 @@
 //
 //
 
-#include "ceammc.hpp"
+#include "ceammc_convert.h"
 #include "ceammc_factory.h"
-//#include "ceammc_fn_list.h"
 #include "ceammc_log.h"
 #include "ceammc_object.h"
 
 using namespace ceammc;
 
 class Lin2lin : public BaseObject {
-    AtomList out_list_;
-
-    FloatProperty* input_min;
-    FloatProperty* input_max;
-    FloatProperty* output_min;
-    FloatProperty* output_max;
-
-    SymbolEnumProperty* method_;
+    FloatProperty* input_from_;
+    FloatProperty* input_to_;
+    FloatProperty* output_from_;
+    FloatProperty* output_to_;
+    BoolProperty* clip_;
 
 public:
     Lin2lin(const PdArgs& a)
         : BaseObject(a)
-
     {
         createInlet();
         createInlet();
@@ -36,62 +31,59 @@ public:
 
         createOutlet();
 
-        initProperties();
-    }
+        input_from_ = new FloatProperty("@in_from", positionalFloatArgument(0, 0));
+        input_to_ = new FloatProperty("@in_to", positionalFloatArgument(1, 127));
+        output_from_ = new FloatProperty("@out_from", positionalFloatArgument(2, 0));
+        output_to_ = new FloatProperty("@out_to", positionalFloatArgument(3, 1));
+        clip_ = new BoolProperty("@clip", true);
 
-    void onBang()
-    {
-        listTo(0, out_list_);
+        createProperty(input_from_);
+        createProperty(input_to_);
+        createProperty(output_from_);
+        createProperty(output_to_);
+        createProperty(clip_);
     }
 
     void onFloat(float value)
     {
+        if (clip_->value()) {
+            value = clip<t_float>(value, std::min(input_from_->value(), input_to_->value()),
+                std::max(input_from_->value(), input_to_->value()));
+        }
 
-        float input_range = (this->input_max->value() - this->input_min->value());
-        float output_range = (this->output_max->value() - this->output_min->value());
+        if (input_from_->value() == input_to_->value()) {
+            OBJ_ERR << "invalid input range: " << input_from_->value() << '-' << input_to_->value();
+            return;
+        }
 
-        value = (input_range == 0) ? 0 : (value - this->input_min->value()) / input_range;
-        value = value * output_range + output_min->value();
-
-        out_list_ = AtomList(Atom(value));
-
-        onBang();
+        floatTo(0, convert::lin2lin<t_float>(value, input_from_->value(), input_to_->value(), output_from_->value(), output_to_->value()));
     }
 
     void onInlet(size_t n, const AtomList& l)
     {
-        if (n == 1) { /*input range min*/
-            this->input_min->setValue(l.at(0).asFloat());
+        if (l.empty())
+            return;
+
+        if (n == 1) { /*input range from*/
+            this->input_from_->setValue(l.at(0).asFloat());
         }
 
-        if (n == 2) { /*input range max*/
-            this->input_max->setValue(l.at(0).asFloat());
+        if (n == 2) { /*input range to*/
+            this->input_to_->setValue(l.at(0).asFloat());
         }
 
-        if (n == 3) { /*output range min*/
-            this->output_min->setValue(l.at(0).asFloat());
+        if (n == 3) { /*output range from*/
+            this->output_from_->setValue(l.at(0).asFloat());
         }
 
-        if (n == 4) { /*output range max*/
-            this->output_max->setValue(l.at(0).asFloat());
+        if (n == 4) { /*output range to*/
+            this->output_to_->setValue(l.at(0).asFloat());
         }
-    }
-
-    void initProperties()
-    {
-        input_min = new FloatProperty("@input_min", 0);
-        input_max = new FloatProperty("@input_max", 127);
-        output_min = new FloatProperty("@output_min", 0);
-        output_max = new FloatProperty("@output_max", 1);
-
-        createProperty(input_min);
-        createProperty(input_max);
-        createProperty(output_min);
-        createProperty(output_max);
     }
 };
 
 extern "C" void setup_conv0x2elin2lin()
 {
     ObjectFactory<Lin2lin> obj("conv.lin2lin");
+    obj.addAlias("lin->lin");
 }

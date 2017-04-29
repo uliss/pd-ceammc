@@ -140,5 +140,35 @@ TEST_CASE("convert", "[PureData]")
         REQUIRE(lin2lin<float>(0.5, 1, 0, 0, -10) == -5.f);
         REQUIRE(lin2lin<float>(0.5, 0, 1, -10, 0) == -5.f);
         REQUIRE(lin2lin<float>(0.5, 1, 0, -10, 0) == -5.f);
+
+        {
+            REQUIRE(lin2lin<float>(0, 0, 1, 100, 200) == 100.f);
+            REQUIRE(lin2lin<float>(1, 0, 1, 100, 200) == 200.f);
+            REQUIRE(lin2lin<float>(0.3f, 0, 1, 100, 200) == 130.f);
+
+            REQUIRE(lin2lin<float>(0, -1, 0, 100, 200) == 200.f);
+            REQUIRE(lin2lin<float>(-1, -1, 0, 100, 200) == 100.f);
+            REQUIRE(lin2lin<float>(-0.2f, -1, 0, 100, 200) == 180.f);
+
+            REQUIRE(lin2lin<float>(-1, -1, 1, 100, 200) == 100.f);
+            REQUIRE(lin2lin<float>(0, -1, 1, 100, 200) == 150.f);
+            REQUIRE(lin2lin<float>(1, -1, 1, 100, 200) == 200.f);
+
+            REQUIRE(lin2lin<float>(-1, -1, 1, 100, 200) == 100.f);
+            REQUIRE(lin2lin<float>(0, -1, 1, 100, 200) == 150.f);
+            REQUIRE(lin2lin<float>(1, -1, 1, 100, 200) == 200.f);
+
+            REQUIRE(lin2lin<float>(-1, -2, -1, 100, 200) == 200.f);
+            REQUIRE(lin2lin<float>(-1.7f, -2, -1, 100, 200) == 130.f);
+            REQUIRE(lin2lin<float>(-2, -2, -1, 100, 200) == 100.f);
+
+            REQUIRE(lin2lin<float>(0, 0, 1, 200, 100) == 200.f);
+            REQUIRE(lin2lin<float>(1, 0, 1, 200, 100) == 100.f);
+            REQUIRE(lin2lin<float>(0.3f, 0, 1, 200, 100) == 170.f);
+
+            REQUIRE(lin2lin<float>(0, 1, 0, 200, 100) == 100.f);
+            REQUIRE(lin2lin<float>(1, 1, 0, 200, 100) == 200.f);
+            REQUIRE(lin2lin<float>(0.3f, 1, 0, 200, 100) == 130.f);
+        }
     }
 }

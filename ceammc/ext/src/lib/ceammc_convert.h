@@ -38,7 +38,7 @@ namespace convert {
     template <class T>
     T lin2lin(T v, T x0, T x1, T y0, T y1)
     {
-        return std::abs(v - x0) / std::abs(x0 - x1) * (y1 - y0) + y0;
+        return (v - x0) / (x1 - x0) * (y1 - y0) + y0;
     }
 }
 }
