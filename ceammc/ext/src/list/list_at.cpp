@@ -1,67 +1,56 @@
+#include "list_at.h"
 #include "ceammc_factory.h"
 #include "ceammc_log.h"
-#include "ceammc_object.h"
 
-using namespace ceammc;
+ListAt::ListAt(const PdArgs& a)
+    : BaseObject(a)
+{
+    createInlet();
+    createOutlet();
 
-class ListAt : public BaseObject {
-    IntProperty* pos_;
-    SymbolEnumProperty* at_method_;
+    pos_ = new IntProperty("@index", int(positionalFloatArgument(0, 0)));
+    createProperty(pos_);
 
-public:
-    ListAt(const PdArgs& a)
-        : BaseObject(a)
-    {
-        createInlet();
-        createOutlet();
+    at_method_ = new SymbolEnumProperty("@method", "rel");
+    at_method_->appendEnum("clip");
+    at_method_->appendEnum("wrap");
+    at_method_->appendEnum("fold");
+    createProperty(at_method_);
 
-        pos_ = new IntProperty("@index", 0);
-        createProperty(pos_);
+    createProperty(new SymbolEnumAlias("@rel", at_method_, gensym("rel")));
+    createProperty(new SymbolEnumAlias("@clip", at_method_, gensym("clip")));
+    createProperty(new SymbolEnumAlias("@wrap", at_method_, gensym("wrap")));
+    createProperty(new SymbolEnumAlias("@fold", at_method_, gensym("fold")));
+}
 
-        at_method_ = new SymbolEnumProperty("@method", "rel");
-        at_method_->appendEnum("clip");
-        at_method_->appendEnum("wrap");
-        at_method_->appendEnum("fold");
-        createProperty(at_method_);
+void ListAt::onInlet(size_t idx, const AtomList& l)
+{
+    if (idx != 1)
+        return;
 
-        createProperty(new SymbolEnumAlias("@rel", at_method_, gensym("rel")));
-        createProperty(new SymbolEnumAlias("@clip", at_method_, gensym("clip")));
-        createProperty(new SymbolEnumAlias("@wrap", at_method_, gensym("wrap")));
-        createProperty(new SymbolEnumAlias("@fold", at_method_, gensym("fold")));
+    pos_->setValue(atomlistToValue<int>(l, 0));
+}
 
-        parseArguments();
-        pos_->setValue(atomlistToValue<int>(args(), 0));
+void ListAt::onList(const AtomList& l)
+{
+    const Atom* a;
+
+    if (at_method_->is("clip"))
+        a = l.clipAt(pos_->value());
+    else if (at_method_->is("wrap"))
+        a = l.wrapAt(pos_->value());
+    else if (at_method_->is("fold"))
+        a = l.foldAt(pos_->value());
+    else
+        a = l.relativeAt(pos_->value());
+
+    if (a == 0) {
+        OBJ_ERR << "invalid index value: " << pos_->value();
+        return;
     }
 
-    void onInlet(size_t idx, const AtomList& l)
-    {
-        if (idx != 1)
-            return;
-
-        pos_->setValue(atomlistToValue<int>(l, 0));
-    }
-
-    void onList(const AtomList& l)
-    {
-        const Atom* a;
-
-        if (at_method_->is("clip"))
-            a = l.clipAt(pos_->value());
-        else if (at_method_->is("wrap"))
-            a = l.wrapAt(pos_->value());
-        else if (at_method_->is("fold"))
-            a = l.foldAt(pos_->value());
-        else
-            a = l.relativeAt(pos_->value());
-
-        if (a == 0) {
-            OBJ_ERR << "invalid index value: " << pos_->value();
-            return;
-        }
-
-        atomTo(0, *a);
-    }
-};
+    atomTo(0, *a);
+}
 
 extern "C" void setup_list0x2eat()
 {
