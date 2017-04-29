@@ -453,4 +453,13 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
             REQUIRE(L3("a", 0.01f, "@c").map(&testMap1) == L3("A", 1, "@C"));
         }
     }
+
+    SECTION("operators")
+    {
+        AtomList lst = L3(10, -12, "a");
+        REQUIRE(lst + 10 == L3(20, -2, "a"));
+        REQUIRE(lst - 9 == L3(1, -21, "a"));
+        REQUIRE(lst * 10 == L3(100, -120, "a"));
+        REQUIRE(lst / 10 == L3(1, -1.2f, "a"));
+    }
 }
