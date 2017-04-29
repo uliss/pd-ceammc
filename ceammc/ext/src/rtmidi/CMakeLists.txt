@@ -14,6 +14,10 @@ if(APPLE AND CMAKE_CXX_COMPILER_ID MATCHES "Clang")
     ceammc_midi_external(midi listin)
     ceammc_midi_external(midi listout)
 
-    ceammc_midi_external(midiin cc)
+    pd_add_extension(NAME midi.ctlin
+        FILES midiin_cc.cpp midi_in.cpp
+        INTERNAL True
+        LIBRARY ceammc
+        LINK ceammc_core rtmidi)
 endif()
 

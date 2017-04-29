@@ -9,11 +9,6 @@
 #include "ceammc_factory.h"
 #include "ceammc_log.h"
 
-extern "C" void setup_midi0x2ein()
-{
-    ObjectFactory<PdMidiIn> obj("midi.in");
-}
-
 PdMidiIn::PdMidiIn(const PdArgs& a)
     : BaseObject(a)
     , device_(0)
@@ -37,7 +32,7 @@ PdMidiIn::PdMidiIn(const PdArgs& a)
     }
 
     createCbProperty("@port", &PdMidiIn::p_getPort, &PdMidiIn::p_setPort);
-    createCbProperty("@device", &PdMidiIn::p_getDevice, &PdMidiIn::p_setDevice);
+    createCbProperty("@dev", &PdMidiIn::p_getDevice, &PdMidiIn::p_setDevice);
 }
 
 int PdMidiIn::port() const
@@ -149,7 +144,7 @@ void PdMidiIn::openPort(unsigned int n)
         midiin_->closePort();
 
     midiin_->openPort(n);
-    midiin_->setCallback(&midiCallback, this);
+    midiin_->setCallback(callback_, this);
     midiin_->ignoreTypes(false, false, false);
     device_ = gensym(midiin_->getPortName(n).c_str());
     OBJ_DBG << "open device: [" << n << "] " << device_->s_name;
@@ -168,4 +163,9 @@ int PdMidiIn::searchPort(const std::__1::string& name)
     }
 
     return -1;
+}
+
+extern "C" void setup_midi0x2ein()
+{
+    ObjectFactory<PdMidiIn> obj("midi.in");
 }
