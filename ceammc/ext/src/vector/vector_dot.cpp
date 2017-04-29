@@ -18,8 +18,7 @@ public:
         createInlet();
         createOutlet();
 
-        parseArguments();
-        b_ = args();
+        b_ = positionalArguments();
     }
 
     void onBang()

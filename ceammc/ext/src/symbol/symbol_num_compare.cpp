@@ -25,10 +25,7 @@ SymbolNumCompare::SymbolNumCompare(const PdArgs& a)
     createOutlet();
 
     createProperty(new PointerProperty<t_symbol*>("@with", &cmp_with_, false));
-
-    parseArguments();
-    if (args().size() > 0)
-        args()[0].getSymbol(&cmp_with_);
+    cmp_with_ = positionalSymbolArgument(0, 0);
 }
 
 void SymbolNumCompare::onSymbol(t_symbol* s)
