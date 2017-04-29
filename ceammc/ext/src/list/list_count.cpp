@@ -15,9 +15,7 @@ public:
         createOutlet();
 
         createCbProperty("@pattern", &ListCount::pattern);
-
-        if (!args().empty())
-            pattern_ = args().at(0);
+        pattern_ = positionalArgument(0);
     }
 
     void onList(const AtomList& l)

@@ -37,11 +37,6 @@ public:
         createProperty(new SymbolEnumAlias("@clip", wrap_method_, gclip_));
         createProperty(new SymbolEnumAlias("@wrap", wrap_method_, gwrap_));
         createProperty(new SymbolEnumAlias("@fold", wrap_method_, gfold_));
-
-        parseArguments();
-        if (args().size() > 2) {
-            OBJ_ERR << "only one optional argument accepted: oversize method";
-        }
     }
 
     AtomList::NonEqualLengthBehaivor symbolToWrap(t_symbol* s)
