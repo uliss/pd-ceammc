@@ -8,9 +8,7 @@
 
 #include <stdio.h>
 
-//TODO proper build
-#define __MACOSX_CORE__
-#include "RtMidi.cpp"
+#include "RtMidi.h"
 
 #include "ceammc.hpp"
 #include "ceammc_factory.h"
@@ -24,7 +22,6 @@ class PdMidiListOut : public BaseObject {
     const size_t in_count_;
     const size_t out_count_;
     RtMidiOut* midiout;
-    
 
 public:
     PdMidiListOut(const PdArgs& a)
@@ -34,30 +31,28 @@ public:
     {
 
         createOutlet();
-        
+
         try {
             this->midiout = new RtMidiOut();
         } catch (RtMidiError& error) {
             error.printMessage();
             post("MIDI Out error");
         }
-
-        
     }
-    
+
     void onBang()
     {
         AtomList list;
-        
+
         if (this->midiout) {
             int nPorts = midiout->getPortCount();
-            
+
             for (unsigned int i = 0; i < nPorts; i++) {
                 // try/catch?
                 list.append(Atom(gensym(midiout->getPortName(i).c_str())));
             }
         }
-        
+
         listTo(0, list);
     }
 };

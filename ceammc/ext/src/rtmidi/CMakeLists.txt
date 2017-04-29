@@ -1,15 +1,17 @@
-include(ceammc_pd.cmake)
-
-#add_subdirectory(${PROJECT_SOURCE_DIR}/src/lib)
-#include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra/CicmWrapper/Sources)
-
-#add_subdirectory(../lib)
-#include_directories(../lib)
-#include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra/CicmWrapper/Sources)
+macro(ceammc_midi_external name)
+    pd_add_extension(NAME "midi.${name}"
+        FILES "midi_${name}.cpp"
+        INTERNAL True
+        LIBRARY ceammc
+        LINK ceammc_core rtmidi)
+endmacro()
 
 if(APPLE)
-ceammc_cxx_extension(midi in)
-ceammc_cxx_extension(midi out)
-ceammc_cxx_extension(midi listin)
-ceammc_cxx_extension(midi listout)
+    add_definitions(-D__MACOSX_CORE__)
+    add_library(rtmidi STATIC RtMidi.cpp)
+
+    ceammc_midi_external(in)
+    ceammc_midi_external(out)
+    ceammc_midi_external(listin)
+    ceammc_midi_external(listout)
 endif()

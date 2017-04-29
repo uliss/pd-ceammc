@@ -8,9 +8,7 @@
 
 #include <stdio.h>
 
-//TODO proper build
-#define __MACOSX_CORE__
-#include "RtMidi.cpp"
+#include "RtMidi.h"
 
 #include "ceammc.hpp"
 #include "ceammc_factory.h"
@@ -39,9 +37,6 @@ class PdMidiListIn : public BaseObject {
     const size_t in_count_;
     const size_t out_count_;
     RtMidiIn* midiin;
-    
-
-   
 
 public:
     PdMidiListIn(const PdArgs& a)

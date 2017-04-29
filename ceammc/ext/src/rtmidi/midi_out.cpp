@@ -8,9 +8,7 @@
 
 #include <stdio.h>
 
-//TODO proper build
-#define __MACOSX_CORE__
-#include "RtMidi.cpp"
+#include "RtMidi.h"
 
 #include "ceammc.hpp"
 #include "ceammc_factory.h"
@@ -25,7 +23,6 @@ class PdMidiOut : public BaseObject {
     const size_t out_count_;
 
     RtMidiOut* midiout;
-
 
 public:
     PdMidiOut(const PdArgs& a)
@@ -50,38 +47,35 @@ public:
                 // try/catch?
                 post(midiout->getPortName(i).c_str());
             }
-            
+
             if (nPorts) {
                 midiout->openPort(0);
             }
         }
     }
-    
+
     void onList(const AtomList& l)
     {
         std::vector<unsigned char> msg;
-        for (int i = 0; i<l.size();i++)
-        {
+        for (int i = 0; i < l.size(); i++) {
             msg.push_back(int(l.at(i).asFloat()));
         }
-        
+
         midiout->sendMessage(&msg);
-        
     }
-    
+
     void onFloat(float f)
     {
         int i = int(f);
-        
+
         int nPorts = midiout->getPortCount();
-        if (i<nPorts)
-        {
+        if (i < nPorts) {
             if (midiout->isPortOpen())
                 midiout->closePort();
             midiout->openPort(i);
         }
     }
-    
+
     void onSymbol(t_symbol* s)
     {
         int p = searchPort(s);
@@ -91,22 +85,23 @@ public:
             midiout->openPort(p);
         }
     }
-    
+
 private:
     int searchPort(t_symbol* s)
     {
-        if (!s) return -1;
-        
+        if (!s)
+            return -1;
+
         if (this->midiout) {
             int nPorts = midiout->getPortCount();
             for (unsigned int i = 0; i < nPorts; i++) {
                 // try/catch?
-                if(midiout->getPortName(i) == s->s_name)
-                {return i;}
+                if (midiout->getPortName(i) == s->s_name) {
+                    return i;
+                }
             }
-            
         }
-        
+
         return -1;
     };
 };
