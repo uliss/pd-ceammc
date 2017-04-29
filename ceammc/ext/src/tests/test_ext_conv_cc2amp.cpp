@@ -60,4 +60,30 @@ TEST_CASE("conv.cc2amp", "[externals]")
             REQUIRE_PROPERTY(t, @v1, -1);
         }
     }
+
+    SECTION("convert")
+    {
+        SECTION("default")
+        {
+            CC2AmpTest t("conv.cc2amp", AtomList());
+
+            WHEN_SEND_FLOAT_TO(0, t, 0);
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 0.f);
+
+            WHEN_SEND_FLOAT_TO(0, t, 127);
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 1.f);
+
+            WHEN_SEND_FLOAT_TO(0, t, 63.5);
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 0.5f);
+
+            WHEN_SEND_FLOAT_TO(0, t, -100);
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 0.f);
+
+            WHEN_SEND_FLOAT_TO(0, t, 128);
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 1.f);
+
+            WHEN_SEND_FLOAT_TO(0, t, 1000);
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 1.f);
+        }
+    }
 }
