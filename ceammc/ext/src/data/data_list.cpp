@@ -1,115 +1,110 @@
+#include "data_list.h"
 #include "ceammc_factory.h"
-#include "ceammc_object.h"
 
-using namespace ceammc;
+DataList::DataList(const PdArgs& a)
+    : BaseObject(a)
+{
+    createInlet();
+    createOutlet();
 
-class DataList : public BaseObject {
-    AtomList list_;
+    createCbProperty("@size", &DataList::getSize);
 
-public:
-    DataList(const PdArgs& a)
-        : BaseObject(a)
-    {
-        createInlet();
-        createOutlet();
+    list_ = positionalArguments();
+}
 
-        createCbProperty("@size", &DataList::getSize);
+void DataList::onFloat(float f)
+{
+    if (list_.empty())
+        return;
 
-        parseArguments();
-        list_ = args();
+    if (f < 0)
+        return;
+
+    size_t idx = static_cast<size_t>(f);
+    if (idx >= list_.size())
+        return;
+
+    atomTo(0, list_[idx]);
+}
+
+void DataList::onList(const AtomList& l)
+{
+    list_ = l;
+    onBang();
+}
+
+void DataList::onBang()
+{
+    listTo(0, list_);
+}
+
+void DataList::onInlet(size_t n, const AtomList& l)
+{
+    if (n != 1)
+        return;
+
+    list_ = l;
+}
+
+void DataList::m_clear(t_symbol*, const AtomList&) { list_.clear(); }
+
+void DataList::m_append(t_symbol*, const AtomList& l) { list_.append(l); }
+
+void DataList::m_set(t_symbol*, const AtomList& l) { list_ = l; }
+
+void DataList::m_remove(t_symbol* s, const AtomList& l)
+{
+    if (!checkArgs(l, ARG_NATURAL, s))
+        return;
+
+    if (!list_.remove(l[0].asSizeT(size_t(-1))))
+        METHOD_ERR(s) << "invalid index: " << l;
+}
+
+void DataList::m_pop(t_symbol* s, const AtomList&)
+{
+    if (list_.empty()) {
+        METHOD_ERR(s) << "empty list";
+        return;
     }
 
-    void onFloat(float f)
-    {
-        if (list_.empty())
-            return;
+    list_.remove(list_.size() - 1);
+}
 
-        if (f < 0)
-            return;
+void DataList::m_fill(t_symbol*, const AtomList& l)
+{
+    if (!l.empty())
+        list_.fill(l[0]);
+}
 
-        size_t idx = static_cast<size_t>(f);
-        if (idx >= list_.size())
-            return;
-
-        atomTo(0, list_[idx]);
+void DataList::m_insert(t_symbol* s, const AtomList& l)
+{
+    if (l.size() < 2) {
+        METHOD_ERR(s) << "invalid arguments. Insert position and value expected";
+        return;
     }
 
-    void onList(const AtomList& l)
-    {
-        list_ = l;
-        onBang();
-    }
+    size_t pos = l[0].asSizeT(0);
+    if (!list_.insert(pos, l.slice(1)))
+        METHOD_ERR(s) << "invalid index: " << pos;
+}
 
-    void onBang()
-    {
-        listTo(0, list_);
-    }
+void DataList::m_flush(t_symbol* s, const AtomList& l)
+{
+    onBang();
+    m_clear(s, l);
+}
 
-    void onInlet(size_t n, const AtomList& l)
-    {
-        if (n != 1)
-            return;
+void DataList::dump() const
+{
+    BaseObject::dump();
+    OBJ_DBG << list_;
+}
 
-        list_ = l;
-    }
-
-    void m_clear(t_symbol*, const AtomList&) { list_.clear(); }
-    void m_append(t_symbol*, const AtomList& l) { list_.append(l); }
-    void m_set(t_symbol*, const AtomList& l) { list_ = l; }
-
-    void m_remove(t_symbol* s, const AtomList& l)
-    {
-        const size_t idx = atomlistToValue<size_t>(l, list_.size()); // on error returns invalid index
-        if (!list_.remove(idx))
-            METHOD_ERR(s) << "invalid index: " << l;
-    }
-
-    void m_pop(t_symbol* s, const AtomList&)
-    {
-        if (list_.empty()) {
-            METHOD_ERR(s) << "empty list";
-            return;
-        }
-
-        list_.remove(list_.size() - 1);
-    }
-
-    void m_fill(t_symbol*, const AtomList& l)
-    {
-        if (!l.empty())
-            list_.fill(l[0]);
-    }
-
-    void m_insert(t_symbol* s, const AtomList& l)
-    {
-        if (l.size() < 2) {
-            METHOD_ERR(s) << "invalid arguments. Insert position and value expected";
-            return;
-        }
-
-        size_t pos = l[0].asSizeT(0);
-        if (!list_.insert(pos, l.slice(1)))
-            METHOD_ERR(s) << "invalid index: " << pos;
-    }
-
-    void m_flush(t_symbol* s, const AtomList& l)
-    {
-        onBang();
-        m_clear(s, l);
-    }
-
-    void dump() const
-    {
-        BaseObject::dump();
-        OBJ_DBG << list_;
-    }
-
-private:
-    AtomList getSize() const
-    {
-        return listFrom(list_.size());
-    }
-};
+AtomList DataList::getSize() const
+{
+    return listFrom(list_.size());
+}
 
 extern "C" void setup_data0x2elist()
 {
