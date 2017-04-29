@@ -1941,6 +1941,7 @@ void MidiOutAlsa ::sendMessage(std::vector<unsigned char>* message)
 // time values.
 
 // Windows MM MIDI header files.
+#include <WinDef.h>
 #include <mmsystem.h>
 #include <windows.h>
 

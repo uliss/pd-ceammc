@@ -9,6 +9,8 @@
 #include "ceammc_factory.h"
 #include "ceammc_log.h"
 
+#include <string>
+
 PdMidiIn::PdMidiIn(const PdArgs& a)
     : BaseObject(a)
     , device_(0)
@@ -150,7 +152,7 @@ void PdMidiIn::openPort(unsigned int n)
     OBJ_DBG << "open device: [" << n << "] " << device_->s_name;
 }
 
-int PdMidiIn::searchPort(const std::__1::string& name)
+int PdMidiIn::searchPort(const std::string& name)
 {
     if (!midiin_)
         return -1;
