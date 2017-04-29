@@ -12,13 +12,8 @@ Replace::Replace(const PdArgs& a)
     createProperty(new PointerProperty<Atom>("@from", &from_, false));
     createProperty(new PointerProperty<Atom>("@to", &to_, false));
 
-    parseArguments();
-
-    if (from_.isNone() && args().size() > 0)
-        from_ = args()[0];
-
-    if (to_.isNone() && args().size() > 1)
-        to_ = args()[1];
+    from_ = positionalArgument(0);
+    to_ = positionalArgument(1);
 }
 
 void Replace::onInlet(size_t n, const AtomList& l)

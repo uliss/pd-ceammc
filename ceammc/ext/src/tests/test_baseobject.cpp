@@ -206,7 +206,16 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
             b.parseArguments();
             REQUIRE_PROPERTY(b, @a, -1);
             REQUIRE_PROPERTY(b, @b, -2);
+
             REQUIRE(b.positionalArguments().empty());
+
+            REQUIRE(b.positionalFloatArgument(0, -1) == -1);
+            REQUIRE(b.positionalFloatArgument(100, -1) == -1);
+            REQUIRE(b.positionalFloatArgument(-100, -1) == -1);
+
+            REQUIRE(b.positionalSymbolArgument(0, 0) == 0);
+            REQUIRE(b.positionalSymbolArgument(10, 0) == 0);
+            REQUIRE(b.positionalSymbolArgument(-10, 0) == 0);
         }
 
         {
@@ -214,7 +223,16 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
             b.parseArguments();
             REQUIRE_PROPERTY(b, @a, 100);
             REQUIRE_PROPERTY(b, @b, -2);
+
             REQUIRE(b.positionalArguments().empty());
+
+            REQUIRE(b.positionalFloatArgument(0, -1) == -1);
+            REQUIRE(b.positionalFloatArgument(100, -1) == -1);
+            REQUIRE(b.positionalFloatArgument(-100, -1) == -1);
+
+            REQUIRE(b.positionalSymbolArgument(0, 0) == 0);
+            REQUIRE(b.positionalSymbolArgument(10, 0) == 0);
+            REQUIRE(b.positionalSymbolArgument(-10, 0) == 0);
         }
 
         {
@@ -222,7 +240,16 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
             b.parseArguments();
             REQUIRE_PROPERTY(b, @a, -1);
             REQUIRE_PROPERTY(b, @b, 200);
+
             REQUIRE(b.positionalArguments().empty());
+
+            REQUIRE(b.positionalFloatArgument(0, -1) == -1);
+            REQUIRE(b.positionalFloatArgument(100, -1) == -1);
+            REQUIRE(b.positionalFloatArgument(-100, -1) == -1);
+
+            REQUIRE(b.positionalSymbolArgument(0, 0) == 0);
+            REQUIRE(b.positionalSymbolArgument(10, 0) == 0);
+            REQUIRE(b.positionalSymbolArgument(-10, 0) == 0);
         }
 
         {
@@ -230,7 +257,16 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
             b.parseArguments();
             REQUIRE_PROPERTY(b, @a, -100);
             REQUIRE_PROPERTY(b, @b, 200);
+
             REQUIRE(b.positionalArguments().empty());
+
+            REQUIRE(b.positionalFloatArgument(0, -1) == -1);
+            REQUIRE(b.positionalFloatArgument(100, -1) == -1);
+            REQUIRE(b.positionalFloatArgument(-100, -1) == -1);
+
+            REQUIRE(b.positionalSymbolArgument(0, 0) == 0);
+            REQUIRE(b.positionalSymbolArgument(10, 0) == 0);
+            REQUIRE(b.positionalSymbolArgument(-10, 0) == 0);
         }
 
         {
@@ -238,7 +274,40 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
             b.parseArguments();
             REQUIRE_PROPERTY(b, @a, -100);
             REQUIRE_PROPERTY(b, @b, 200);
+
             REQUIRE(b.positionalArguments() == L2(1, 2));
+
+            REQUIRE(b.positionalFloatArgument(0, -1) == 1);
+            REQUIRE(b.positionalFloatArgument(1, -1) == 2);
+            REQUIRE(b.positionalFloatArgument(2, -1) == -1);
+            REQUIRE(b.positionalFloatArgument(-1, -100) == -100);
+
+            REQUIRE(b.positionalSymbolArgument(0, 0) == 0);
+            REQUIRE(b.positionalSymbolArgument(10, 0) == 0);
+            REQUIRE(b.positionalSymbolArgument(-10, 0) == 0);
+
+            REQUIRE(b.positionalArgument(0) == A(1));
+            REQUIRE(b.positionalArgument(1) == A(2));
+            REQUIRE(b.positionalArgument(2).isNone());
+            REQUIRE(b.positionalArgument(3).isNone());
+
+            REQUIRE(b.positionalSymbolArgument(10, 0) == 0);
+            REQUIRE(b.positionalSymbolArgument(-10, 0) == 0);
+        }
+
+        {
+            EXT_B b(PdArgs(L6("first", "second", "@b", 200, "@a", -100), gensym("ext.b"), 0));
+            b.parseArguments();
+            REQUIRE_PROPERTY(b, @a, -100);
+            REQUIRE_PROPERTY(b, @b, 200);
+
+            REQUIRE(b.positionalFloatArgument(0) == 0.f);
+            REQUIRE(b.positionalFloatArgument(1) == 0.f);
+            REQUIRE(b.positionalFloatArgument(2) == 0.f);
+
+            REQUIRE(b.positionalSymbolArgument(0, 0) == S("first"));
+            REQUIRE(b.positionalSymbolArgument(1, 0) == S("second"));
+            REQUIRE(b.positionalSymbolArgument(2, 0) == 0);
         }
     }
 }

@@ -324,6 +324,24 @@ BaseObject::~BaseObject()
     freeProps();
 }
 
+Atom BaseObject::positionalArgument(size_t pos, const Atom& def) const
+{
+    return pos < positional_args_.size() ? positional_args_[pos] : def;
+}
+
+t_float BaseObject::positionalFloatArgument(size_t pos, t_float def) const
+{
+    return pos < positional_args_.size() ? positional_args_[pos].asFloat(def) : def;
+}
+
+t_symbol* BaseObject::positionalSymbolArgument(size_t pos, t_symbol* def) const
+{
+    if (pos >= positional_args_.size())
+        return def;
+
+    return positional_args_[pos].isSymbol() ? positional_args_[pos].asSymbol() : def;
+}
+
 void BaseObject::parseArguments()
 {
     std::deque<AtomList> p = pd_.args.properties();
