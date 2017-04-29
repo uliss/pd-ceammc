@@ -20,12 +20,14 @@ typedef boost::scoped_ptr<RtMidiIn> SharedMidiIn;
 
 class PdMidiIn : public BaseObject {
     SharedMidiIn midiin_;
-    AtomProperty* port_name_;
+    float port_;
+    t_symbol* device_;
 
 public:
     PdMidiIn(const PdArgs& a)
         : BaseObject(a)
-        , port_name_(0)
+        , port_(0)
+        , device_(0)
     {
         createOutlet();
 
@@ -43,36 +45,79 @@ public:
             OBJ_ERR << "MIDI In error: " << error.what();
         }
 
-        port_name_ = new AtomProperty("@port", Atom(0.f));
-        createProperty(port_name_);
+        createCbProperty("@port", &PdMidiIn::p_getPort, &PdMidiIn::p_setPort);
+        createCbProperty("@device", &PdMidiIn::p_getDevice, &PdMidiIn::p_setDevice);
         parseArguments();
-
-        if (midiin_) {
-            if (port_name_->value().isFloat())
-                onFloat(port_name_->value().asFloat(0));
-
-            if (port_name_->value().isSymbol())
-                onSymbol(port_name_->value().asSymbol());
-        }
     }
 
     void onFloat(float f)
     {
-        int p = int(f);
-        unsigned int nPorts = midiin_->getPortCount();
-        if (p >= 0 && p < nPorts)
-            openPort(p);
-        else
-            OBJ_ERR << "can't open MIDI port: " << p;
+        port_ = f;
+        connectByPort();
     }
 
     void onSymbol(t_symbol* s)
     {
-        int p = searchPort(s);
-        if (p >= 0)
-            openPort(p);
+        device_ = s;
+        connectByDevice();
+    }
+
+    AtomList p_getPort() const
+    {
+        return Atom(port_);
+    }
+
+    void p_setPort(const AtomList& lst)
+    {
+        if (!checkArgs(lst, ARG_FLOAT)) {
+            OBJ_ERR << "MIDI port (int) required.";
+            return;
+        }
+
+        port_ = lst[0].asFloat(0);
+        connectByPort();
+    }
+
+    AtomList p_getDevice() const
+    {
+        return device_ ? AtomList(device_) : Atom();
+    }
+
+    void p_setDevice(const AtomList& lst)
+    {
+        if (!checkArgs(lst, ARG_SYMBOL)) {
+            OBJ_ERR << "device name required";
+            return;
+        }
+
+        device_ = lst[0].asSymbol();
+        connectByDevice();
+    }
+
+    void connectByPort()
+    {
+        int n = int(port_);
+        unsigned int nPorts = midiin_->getPortCount();
+        if (n >= 0 && n < nPorts)
+            openPort(n);
         else
-            OBJ_ERR << "can't open MIDI port: " << p;
+            OBJ_ERR << "can't open MIDI port: " << n;
+    }
+
+    void connectByDevice()
+    {
+        if (!device_)
+            return;
+
+        std::string name(device_->s_name);
+        int p = searchPort(name);
+        if (p < 0) {
+            OBJ_ERR << "can't open MIDI device: " << name;
+            return;
+        }
+
+        port_ = p;
+        connectByPort();
     }
 
 public:
@@ -95,18 +140,16 @@ private:
         midiin_->openPort(n);
         midiin_->setCallback(&midiCallback, this);
         midiin_->ignoreTypes(false, false, false);
-        OBJ_DBG << "open device: [" << n << "] " << midiin_->getPortName(n);
+        device_ = gensym(midiin_->getPortName(n).c_str());
+        OBJ_DBG << "open device: [" << n << "] " << device_->s_name;
     }
 
-    int searchPort(t_symbol* s)
+    int searchPort(const std::string& name)
     {
-        if (!s)
-            return -1;
-
         if (midiin_) {
             unsigned int nPorts = midiin_->getPortCount();
             for (unsigned int idx = 0; idx < nPorts; idx++) {
-                if (midiin_->getPortName(idx) == s->s_name) {
+                if (midiin_->getPortName(idx).substr(0, name.size()) == name) {
                     return idx;
                 }
             }
