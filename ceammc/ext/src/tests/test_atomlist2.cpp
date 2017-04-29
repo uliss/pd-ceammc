@@ -478,4 +478,60 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
         v.push_back("c");
         REQUIRE(listFrom(v) == L2("a", "c"));
     }
+
+    SECTION("listTo")
+    {
+        SECTION("bool")
+        {
+            REQUIRE(atomlistToValue<bool>(AtomList(), false) == false);
+            REQUIRE(atomlistToValue<bool>(AtomList(), true) == true);
+            REQUIRE(atomlistToValue<bool>(L1(1), false) == true);
+            REQUIRE(atomlistToValue<bool>(L1(100), false) == true);
+            REQUIRE(atomlistToValue<bool>(L1(-100), false) == true);
+            REQUIRE(atomlistToValue<bool>(L1(0.f), false) == false);
+
+            REQUIRE(atomlistToValue<bool>(L1("true"), false) == true);
+            REQUIRE(atomlistToValue<bool>(L1("TRUE"), false) == false);
+            REQUIRE(atomlistToValue<bool>(L1("false"), false) == false);
+            REQUIRE(atomlistToValue<bool>(L1("abc"), false) == false);
+        }
+
+        SECTION("int")
+        {
+            REQUIRE(atomlistToValue<int>(AtomList(), -1) == -1);
+            REQUIRE(atomlistToValue<int>(L1(123), -1) == 123);
+            REQUIRE(atomlistToValue<int>(L2(123, 124), -1) == 123);
+
+            REQUIRE(atomlistToValue<int>(L1("a"), -1) == -1);
+            REQUIRE(atomlistToValue<int>(L2("a", 123), -1) == -1);
+        }
+
+        SECTION("size")
+        {
+            REQUIRE(atomlistToValue<size_t>(AtomList(), 0) == 0);
+            REQUIRE(atomlistToValue<size_t>(L1(123), 0) == 123);
+            REQUIRE(atomlistToValue<size_t>(L1(-123), 0) == 0);
+            REQUIRE(atomlistToValue<size_t>(L2(123, 124), 0) == 123);
+
+            REQUIRE(atomlistToValue<size_t>(L1("a"), 0) == 0);
+            REQUIRE(atomlistToValue<size_t>(L2("a", 123), 0) == 0);
+        }
+
+        SECTION("float")
+        {
+            REQUIRE(atomlistToValue<float>(AtomList(), -1) == -1.f);
+            REQUIRE(atomlistToValue<float>(L1(123), -1) == 123.f);
+            REQUIRE(atomlistToValue<float>(L2(123, 124), -1) == 123.f);
+
+            REQUIRE(atomlistToValue<float>(L1("a"), -1) == -1);
+            REQUIRE(atomlistToValue<float>(L2("a", 123), -1) == -1);
+        }
+
+        SECTION("Atom")
+        {
+            REQUIRE(atomlistToValue<Atom>(AtomList(), Atom()).isNone());
+            REQUIRE(atomlistToValue<Atom>(L1(123), Atom()) == Atom(123));
+            REQUIRE(atomlistToValue<Atom>(L2("a", 124), Atom()) == Atom(gensym("a")));
+        }
+    }
 }
