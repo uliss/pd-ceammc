@@ -134,6 +134,9 @@ public:
 private:
     void openPort(unsigned int n)
     {
+        if (!midiin_)
+            return;
+
         if (midiin_->isPortOpen())
             midiin_->closePort();
 
@@ -146,12 +149,13 @@ private:
 
     int searchPort(const std::string& name)
     {
-        if (midiin_) {
-            unsigned int nPorts = midiin_->getPortCount();
-            for (unsigned int idx = 0; idx < nPorts; idx++) {
-                if (midiin_->getPortName(idx).substr(0, name.size()) == name) {
-                    return idx;
-                }
+        if (!midiin_)
+            return -1;
+
+        unsigned int nPorts = midiin_->getPortCount();
+        for (unsigned int idx = 0; idx < nPorts; idx++) {
+            if (midiin_->getPortName(idx).substr(0, name.size()) == name) {
+                return idx;
             }
         }
 
