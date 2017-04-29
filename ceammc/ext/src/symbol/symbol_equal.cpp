@@ -21,14 +21,31 @@ SymbolEqual::SymbolEqual(const PdArgs& a)
     createInlet(&pattern_);
     createOutlet();
 
-    parseArguments();
-    if (args().size() > 0)
-        args()[0].getSymbol(&pattern_);
+    pattern_ = positionalSymbolArgument(0, 0);
 }
 
 void SymbolEqual::onSymbol(t_symbol* s)
 {
     floatTo(0, s == pattern_);
+}
+
+void SymbolEqual::onList(const AtomList& l)
+{
+    if (l.size() < 1)
+        return;
+
+    t_symbol* s = l[0].asSymbol();
+    if (l.size() > 1) {
+        if (!l[1].getSymbol(&pattern_))
+            pattern_ = 0;
+    }
+
+    floatTo(0, s == pattern_);
+}
+
+t_symbol* SymbolEqual::pattern() const
+{
+    return pattern_;
 }
 
 extern "C" void setup_symbol0x2eequal()

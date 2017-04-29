@@ -24,6 +24,9 @@ class SymbolEqual : public BaseObject {
 public:
     SymbolEqual(const PdArgs& a);
     void onSymbol(t_symbol* s);
+    void onList(const AtomList& l);
+
+    t_symbol* pattern() const;
 };
 
 #endif // SYMBOL_EQUAL_H

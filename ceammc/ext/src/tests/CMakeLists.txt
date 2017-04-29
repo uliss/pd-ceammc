@@ -46,6 +46,7 @@ ceammc_add_extension_test("ext_list_at" "../list/list_at.cpp")
 ceammc_add_extension_test("ext_list_each" "../list/list_each.cpp")
 ceammc_add_extension_test("ext_list_gen" "../list/list_gen.cpp")
 ceammc_add_extension_test("ext_path_lsdir" "../path/path_listdir.cpp")
+ceammc_add_extension_test("ext_symbol_equal" "../symbol/symbol_equal.cpp")
 ceammc_add_extension_test("ext_symbol_num_compare" "../symbol/symbol_num_compare.cpp")
 ceammc_add_extension_test("ext_system_getenv" "../system/system_getenv.cpp")
 
