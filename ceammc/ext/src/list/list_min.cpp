@@ -27,8 +27,6 @@ public:
         createProperty(new SymbolEnumAlias("@float", type_, alias_float_));
         createProperty(new SymbolEnumAlias("@symbol", type_, alias_symbol_));
         createProperty(new SymbolEnumAlias("@any", type_, alias_any_));
-
-        parseArguments();
     }
 
     void onList(const AtomList& l)

@@ -46,8 +46,6 @@ public:
         initInlets();
         createOutlet();
         initProperties();
-        // parse creation arguments and properties
-        parseArguments();
     }
 
     void onBang()

@@ -24,8 +24,6 @@ SecToStr::SecToStr(const PdArgs& a)
 
     ms_flag_ = new FlagProperty("@ms");
     createProperty(ms_flag_);
-
-    parseArguments();
 }
 
 void SecToStr::onFloat(t_float v)

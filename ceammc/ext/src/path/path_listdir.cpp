@@ -20,7 +20,6 @@ PathListDir::PathListDir(const PdArgs& a)
     createOutlet();
 
     createProperty(new PointerProperty<t_symbol*>("@match", &match_, false));
-    parseArguments();
 }
 
 void PathListDir::onBang()

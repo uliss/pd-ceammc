@@ -39,7 +39,6 @@ public:
     {
         initOutlets();
         initProperties();
-        parseArguments();
     }
 
     void onBang()

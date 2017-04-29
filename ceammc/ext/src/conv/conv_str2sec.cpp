@@ -23,7 +23,6 @@ StrToSec::StrToSec(const PdArgs& a)
 
     on_err_ = new FloatProperty("@on_err", -1.f);
     createProperty(on_err_);
-    parseArguments();
 }
 
 void StrToSec::onSymbol(t_symbol* s)

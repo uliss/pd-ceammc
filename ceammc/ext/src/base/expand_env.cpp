@@ -32,8 +32,6 @@ ExpandEnv::ExpandEnv(const PdArgs& a)
 
     expand_any_ = new FlagProperty("@any");
     createProperty(expand_any_);
-
-    parseArguments();
 }
 
 void ExpandEnv::onBang()
