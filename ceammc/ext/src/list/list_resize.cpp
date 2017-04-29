@@ -3,6 +3,8 @@
 
 using namespace ceammc;
 
+static const size_t MAX_SIZE = 1024;
+
 class ListResize : public BaseObject {
     SizeTProperty* size_;
     SymbolEnumProperty* method_;
@@ -27,7 +29,6 @@ public:
         createOutlet();
 
         initProperties();
-        initArguments();
     }
 
     void onInlet(size_t n, const AtomList& l)
@@ -43,6 +44,11 @@ public:
         AtomList tmp(l);
         const t_symbol* m = method_->value();
         const size_t n = size_->value();
+
+        if (n > MAX_SIZE) {
+            OBJ_ERR << "size is too big: " << n;
+            return;
+        }
 
         if (m == gpad_) {
             tmp.resizePad(n, pad_);
@@ -60,7 +66,7 @@ public:
 private:
     void initProperties()
     {
-        size_ = new SizeTProperty("@size", 0, false);
+        size_ = new SizeTProperty("@size", size_t(positionalFloatArgument(0, 0)), false);
         createProperty(size_);
 
         // resize methods:
@@ -81,16 +87,6 @@ private:
         createProperty(new SymbolEnumAlias("@fold", method_, gfold_));
 
         createCbProperty("@pad", &ListResize::getPadValue, &ListResize::setPadValue);
-    }
-
-    void initArguments()
-    {
-        // parse creation arguments and properties
-        parseArguments();
-
-        // use first non property argument for new size, if not set before
-        if (size_->value() == 0 && args().size() > 0)
-            size_->setValue(args().first()->asSizeT(0));
     }
 
     AtomList getPadValue() const { return listFrom(pad_); }
