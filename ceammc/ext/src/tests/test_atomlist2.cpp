@@ -462,4 +462,20 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
         REQUIRE(lst * 10 == L3(100, -120, "a"));
         REQUIRE(lst / 10 == L3(1, -1.2f, "a"));
     }
+
+    SECTION("listFrom")
+    {
+        REQUIRE(listFrom(true) == L1(1.0f));
+        REQUIRE(listFrom(false) == L1(0.0f));
+        REQUIRE(listFrom(std::string("string")) == L1("string"));
+        REQUIRE(listFrom(23) == L1(23));
+        REQUIRE(listFrom(L3("a", "b", 3)) == L3("a", "b", 3));
+        REQUIRE(listFrom(Atom(1)) == L1(1));
+
+        using namespace std;
+        vector<string> v;
+        v.push_back("a");
+        v.push_back("c");
+        REQUIRE(listFrom(v) == L2("a", "c"));
+    }
 }
