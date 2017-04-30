@@ -41,7 +41,7 @@
 |    |
 [math.sin]
 |
-[prepend set]
+[msg set]
 |
 [  (
 ]]>

@@ -28,6 +28,7 @@
         <inlets>
             <inlet>
                 <xinfo on="float">input value</xinfo>
+                <xinfo on="list">apply to all numeric values</xinfo>
             </inlet>
         </inlets>
         <outlets>

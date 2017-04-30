@@ -22,11 +22,13 @@ floating-point exception for |x| > 1\. ;
 #X text 120 359 1\.;
 #X text 150 359 *float*;
 #X text 240 359 input value. ;
-#X obj 20 387 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 392 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 150 377 *list*;
+#X text 240 377 apply to all numeric values. ;
+#X obj 20 405 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 410 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 397 1\.;
-#X text 240 397 result value;
+#X text 120 415 1\.;
+#X text 240 415 result value;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

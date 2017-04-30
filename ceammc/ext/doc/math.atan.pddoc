@@ -29,6 +29,7 @@ The result is in the range [-pi/2, +pi/2].</par>
         <inlets>
             <inlet>
                 <xinfo on="float">input value</xinfo>
+                 <xinfo on="list">apply to all numeric values</xinfo>
             </inlet>
         </inlets>
         <outlets>

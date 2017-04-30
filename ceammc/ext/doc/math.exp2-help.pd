@@ -23,11 +23,13 @@ magnitude of x is too large.;
 #X text 120 391 1\.;
 #X text 150 391 *float*;
 #X text 240 391 input value. ;
-#X obj 20 419 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 424 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 150 409 *list*;
+#X text 240 409 apply to all numeric values. ;
+#X obj 20 437 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 442 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 429 1\.;
-#X text 240 429 result value;
+#X text 120 447 1\.;
+#X text 240 447 result value;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

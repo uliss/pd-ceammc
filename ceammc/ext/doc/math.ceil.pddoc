@@ -29,6 +29,7 @@ equal to input value.</par>
         <inlets>
             <inlet>
                 <xinfo on="float">input value</xinfo>
+                <xinfo on="list">apply to all numeric values</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -37,8 +38,8 @@ equal to input value.</par>
         <example>
             <pdascii>
 <![CDATA[
-[F]
-|
+[F]    [2.3 3.8 5.5 -2.3 -3.8 -5.5(
+|      |
 [math.ceil]
 |
 [F]

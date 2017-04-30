@@ -30,6 +30,7 @@ equal to x.
         <inlets>
             <inlet>
                 <xinfo on="float">input value</xinfo>
+                <xinfo on="list">apply to all numeric values</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -38,11 +39,13 @@ equal to x.
         <example>
             <pdascii>
 <![CDATA[
-[F]
-|
+[F]    [2.3 3.8 5.5 -2.3 -3.8 -5.5(
+|      |
 [math.floor]
 |
-[F]
+[msg set]
+|
+[  (
 ]]>
             </pdascii>
         </example>

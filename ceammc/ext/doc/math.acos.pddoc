@@ -42,7 +42,7 @@ The result is in the range [0, pi].</par>
 |      |
 [math.acos]
 |
-[prepend set]
+[msg set]
 |
 [  (
 ]]>
