@@ -41,7 +41,7 @@
 |        |       |.
 [vector.dot  1 2 3]
 |
-[prepend set]
+[msg set]
 |
 [ (
 ]]>
