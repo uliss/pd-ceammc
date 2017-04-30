@@ -22,59 +22,59 @@
 #X text 120 311 1\.;
 #X text 150 311 float;
 #X obj 241 312 cnv 1 47 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 311 ratio:   compression ratio (1 = no compression \, >1
+#X text 240 311 ratio: compression ratio (1 = no compression \, >1
 means compression). Min value: 1;
 #X text 120 343 2\.;
 #X text 150 343 float;
 #X obj 241 344 cnv 1 112 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 343 threshold(db):   level threshold above which
-compression kicks in (100 dB = max level). Range: 0\...100;
+#X text 240 343 threshold(db): level threshold above which compression
+kicks in (100 dB = max level). Range: 0\...100;
 #X text 120 375 3\.;
 #X text 150 375 float;
 #X obj 241 376 cnv 1 88 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 375 attack(ms):   attack time = time constant when level &
-compression going up. ;
+#X text 240 375 attack(ms): attack time = time constant when level &
+compression going up.;
 #X text 120 407 4\.;
 #X text 150 407 float;
 #X obj 241 408 cnv 1 94 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 407 release(ms):   release time = time constant coming out
-of compression. ;
+#X text 240 407 release(ms): release time = time constant coming out
+of compression.;
 #X text 120 439 5\.;
 #X text 150 439 symbol;
 #X obj 241 440 cnv 1 24 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 439 ID: object ID for OSC control path. ;
+#X text 240 439 ID: object ID for OSC control path.;
 #X obj 20 467 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 472 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 477 ratio;
-#X text 240 477  Arguments are: ;
+#X text 240 477 Arguments are:;
 #X obj 250 505 cnv 1 64 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 505 [anonym]: compression ratio (1 = no compression \, >1
-means compression). Type: float. ;
+means compression). Type: float.;
 #X msg 120 547 threshold;
-#X text 240 547  Arguments are: ;
+#X text 240 547 Arguments are:;
 #X obj 250 575 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 575 DB: level threshold above which compression kicks in
-(100 dB = max level). Type: float. ;
+(100 dB = max level). Type: float.;
 #X msg 120 617 attack;
-#X text 240 617  Arguments are: ;
+#X text 240 617 Arguments are:;
 #X obj 250 645 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 645 MS: time constant when level & compression going up.
-Type: float. ;
+Type: float.;
 #X msg 120 687 release;
-#X text 240 687  Arguments are: ;
+#X text 240 687 Arguments are:;
 #X obj 250 715 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 715 MS: release time = time constant coming out of
-compression. Type: float. ;
+compression. Type: float.;
 #X obj 20 767 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 772 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 777 1\.;
-#X text 240 777 left input signal. ;
+#X text 240 777 left input signal.;
 #X text 150 795 *bang*;
-#X text 240 795 outputs object internal state to rightmost outlet. ;
+#X text 240 795 outputs object internal state to rightmost outlet.;
 #X text 120 813 2\.;
-#X text 240 813 right input signal. ;
+#X text 240 813 right input signal.;
 #X obj 20 841 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 846 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

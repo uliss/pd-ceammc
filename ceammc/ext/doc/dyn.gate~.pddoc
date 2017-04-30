@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="dyn.gate~">
         <title>dyn.gate~</title>
@@ -19,39 +19,31 @@
         </meta>
         <methods>
             <method name="threshold">
-                <param type="float" units="decibel">
-                dB level threshold above which gate opens (e.g., 40 dB)
-                </param>
+                <param type="float" units="decibel">dB level threshold above which gate opens
+                (e.g., 40 dB)</param>
             </method>
             <method name="attack">
-                <param type="float" units="millisecond">
-                attack time = time constant (ms) for gate to open
-                </param>
+                <param type="float" units="millisecond">attack time = time constant (ms) for gate
+                to open</param>
             </method>
             <method name="hold">
-                <param type="float" units="millisecond">
-                hold time = time (ms) gate stays open after signal level &lt; threshold
-                </param>
+                <param type="float" units="millisecond">hold time = time (ms) gate stays open after
+                signal level &lt; threshold</param>
             </method>
             <method name="release">
-                <param type="float" units="millisecond">
-                release time = time constant (ms) for gate to close
-                </param>
+                <param type="float" units="millisecond">release time = time constant (ms) for gate
+                to close</param>
             </method>
         </methods>
         <arguments>
-            <argument name="threshold" type="float" units="decibel">
-                dB level threshold above which gate opens (e.g., 40 dB)
-            </argument>
-            <argument name="attack" type="float" units="millisecond">
-                attack time = time constant (ms) for gate to open
-            </argument>
-            <argument name="hold" type="float" units="millisecond">
-                hold time = time (ms) gate stays open after signal level &lt; threshold
-            </argument>
-            <argument name="release" type="float" units="millisecond">
-                release time = time constant (ms) for gate to close
-            </argument>
+            <argument name="threshold" type="float" units="decibel">dB level threshold above which
+            gate opens (e.g., 40 dB)</argument>
+            <argument name="attack" type="float" units="millisecond">attack time = time constant
+            (ms) for gate to open</argument>
+            <argument name="hold" type="float" units="millisecond">hold time = time (ms) gate stays
+            open after signal level &lt; threshold</argument>
+            <argument name="release" type="float" units="millisecond">release time = time constant
+            (ms) for gate to close</argument>
             <argument name="ID" type="symbol">object ID for OSC control path</argument>
         </arguments>
         <inlets>
@@ -65,7 +57,7 @@
             <outlet type="control">information output</outlet>
         </outlets>
         <example>
-        <pdascii>
+            <pdascii>
 <![CDATA[
 [osc~ 440] [F]
 |          |
@@ -78,8 +70,7 @@
 |\        ^|
 [dac~]    [print]
 ]]>
-        </pdascii>
+            </pdascii>
         </example>
     </object>
 </pddoc>
-

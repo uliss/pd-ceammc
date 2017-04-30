@@ -22,57 +22,57 @@
 #X text 120 297 1\.;
 #X text 150 297 float;
 #X obj 241 298 cnv 1 112 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 297 threshold(db):   dB level threshold above which gate
-opens (e.g. \, 40 dB). ;
+#X text 240 297 threshold(db): dB level threshold above which gate
+opens (e.g. \, 40 dB).;
 #X text 120 329 2\.;
 #X text 150 329 float;
 #X obj 241 330 cnv 1 88 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 329 attack(ms):   attack time = time constant (ms) for
-gate to open. ;
+#X text 240 329 attack(ms): attack time = time constant (ms) for gate
+to open.;
 #X text 120 361 3\.;
 #X text 150 361 float;
 #X obj 241 362 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 361 hold(ms):   hold time = time (ms) gate stays open
-after signal level < threshold. ;
+#X text 240 361 hold(ms): hold time = time (ms) gate stays open after
+signal level < threshold.;
 #X text 120 393 4\.;
 #X text 150 393 float;
 #X obj 241 394 cnv 1 94 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 393 release(ms):   release time = time constant (ms) for
-gate to close. ;
+#X text 240 393 release(ms): release time = time constant (ms) for
+gate to close.;
 #X text 120 425 5\.;
 #X text 150 425 symbol;
 #X obj 241 426 cnv 1 24 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 425 ID: object ID for OSC control path. ;
+#X text 240 425 ID: object ID for OSC control path.;
 #X obj 20 453 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 458 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 463 threshold;
-#X text 240 463  Arguments are: ;
+#X text 240 463 Arguments are:;
 #X obj 250 491 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 491 DB: dB level threshold above which gate opens (e.g. \,
-40 dB). Type: float. ;
+40 dB). Type: float.;
 #X msg 120 533 attack;
-#X text 240 533  Arguments are: ;
+#X text 240 533 Arguments are:;
 #X obj 250 561 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 561 MS: attack time = time constant (ms) for gate to open.
-Type: float. ;
+Type: float.;
 #X msg 120 603 hold;
-#X text 240 603  Arguments are: ;
+#X text 240 603 Arguments are:;
 #X obj 250 631 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 631 MS: hold time = time (ms) gate stays open after signal
-level < threshold. Type: float. ;
+level < threshold. Type: float.;
 #X msg 120 673 release;
-#X text 240 673  Arguments are: ;
+#X text 240 673 Arguments are:;
 #X obj 250 701 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 701 MS: release time = time constant (ms) for gate to
-close. Type: float. ;
+close. Type: float.;
 #X obj 20 753 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 758 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 763 1\.;
-#X text 240 763 input signal. ;
+#X text 240 763 input signal.;
 #X text 150 781 *bang*;
-#X text 240 781 outputs object internal state to rightmost outlet. ;
+#X text 240 781 outputs object internal state to rightmost outlet.;
 #X obj 20 809 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 814 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

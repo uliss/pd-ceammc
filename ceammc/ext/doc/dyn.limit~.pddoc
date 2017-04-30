@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="dyn.limit~">
         <title>dyn.limit~</title>
@@ -27,7 +27,7 @@
             <outlet type="audio">output signal</outlet>
         </outlets>
         <example>
-        <pdascii>
+            <pdascii>
 <![CDATA[
 [osc~ 440]  [floatatom]
 |           |.
@@ -43,8 +43,7 @@
 |
 [floatatom]
 ]]>
-        </pdascii>
+            </pdascii>
         </example>
     </object>
 </pddoc>
-

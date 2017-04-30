@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="dyn.softclip~">
         <title>dyn.softclip~</title>
@@ -22,7 +22,7 @@
             <outlet type="audio">output signal</outlet>
         </outlets>
         <example>
-        <pdascii>
+            <pdascii>
 <![CDATA[
 [osc~ 220] [F]      [osc~ 220] [F]
 |  ._______/        |  ._______/
@@ -35,8 +35,7 @@
 |\                  |\
 [dac~]              [dac~]
 ]]>
-        </pdascii>
+            </pdascii>
         </example>
     </object>
 </pddoc>
-

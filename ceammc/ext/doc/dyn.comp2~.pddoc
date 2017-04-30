@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="dyn.comp2~">
         <title>dyn.comp2~</title>
@@ -19,37 +19,31 @@
         </meta>
         <methods>
             <method name="ratio">
-                <param type="float">compression ratio (1 = no compression, >1 means compression)</param>
+                <param type="float">compression ratio (1 = no compression, &gt;1 means
+                compression)</param>
             </method>
             <method name="threshold">
-                <param type="float" units="decibel">
-                level threshold above which compression kicks in (100 dB = max level)
-                </param>
+                <param type="float" units="decibel">level threshold above which compression kicks
+                in (100 dB = max level)</param>
             </method>
             <method name="attack">
-                <param type="float" units="millisecond">
-                time constant when level &amp; compression going up
-                </param>
+                <param type="float" units="millisecond">time constant when level &amp; compression
+                going up</param>
             </method>
             <method name="release">
-                <param type="float" units="millisecond">
-                release time = time constant coming out of compression
-                </param>
+                <param type="float" units="millisecond">release time = time constant coming out of
+                compression</param>
             </method>
         </methods>
         <arguments>
-            <argument name="ratio" type="float" minvalue="1">
-                compression ratio (1 = no compression, >1 means compression)
-            </argument>
+            <argument name="ratio" type="float" minvalue="1">compression ratio (1 = no compression,
+            &gt;1 means compression)</argument>
             <argument name="threshold" type="float" minvalue="0" maxvalue="100" units="decibel">
-                level threshold above which compression kicks in (100 dB = max level)
-            </argument>
-            <argument name="attack" type="float" units="millisecond">
-                attack time = time constant when level &amp; compression going up
-            </argument>
-            <argument name="release" type="float" units="millisecond">
-                release time = time constant coming out of compression
-            </argument>
+            level threshold above which compression kicks in (100 dB = max level)</argument>
+            <argument name="attack" type="float" units="millisecond">attack time = time constant
+            when level &amp; compression going up</argument>
+            <argument name="release" type="float" units="millisecond">release time = time constant
+            coming out of compression</argument>
             <argument name="ID" type="symbol">object ID for OSC control path</argument>
         </arguments>
         <inlets>
@@ -85,4 +79,3 @@
         </example>
     </object>
 </pddoc>
-
