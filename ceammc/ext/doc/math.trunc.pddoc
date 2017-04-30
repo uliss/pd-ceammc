@@ -40,11 +40,13 @@ in magnitude than x.
         <example>
             <pdascii>
 <![CDATA[
-[F]
-|
+[F]  [2.3 3.8 5.5 -2.3 -3.8 -5.5(
+|    |
 [math.trunc]
 |
-[F]
+[msg set]
+|
+[  (
 ]]>
             </pdascii>
         </example>
