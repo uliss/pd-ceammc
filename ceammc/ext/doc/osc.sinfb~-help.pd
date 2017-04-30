@@ -21,21 +21,21 @@
 #X text 120 311 1\.;
 #X text 150 311 float;
 #X obj 241 312 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 311 freq(Hz):   initial frequence. Range: 0\...20000;
+#X text 240 311 freq(Hz): initial frequence. Range: 0\...20000;
 #X text 120 329 2\.;
 #X text 150 329 float;
 #X obj 241 330 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 329 feedback:   oscillator feedback coefficent. Range:
+#X text 240 329 feedback: oscillator feedback coefficent. Range:
 0\...16;
 #X text 120 347 3\.;
 #X text 150 347 symbol;
 #X obj 241 348 cnv 1 24 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 347 ID: object ID for OSC control path. ;
+#X text 240 347 ID: object ID for OSC control path.;
 #X obj 20 375 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 380 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 385 feedback;
-#X text 240 385  Arguments are: ;
+#X text 240 385 Arguments are:;
 #X obj 250 413 cnv 1 64 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 413 [anonym]: oscillator feedback coefficent. Type: float.
 Range: 0\...16;
@@ -43,11 +43,11 @@ Range: 0\...16;
 #X obj 20 470 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 475 1\.;
-#X text 240 475 frequency. ;
+#X text 240 475 frequency.;
 #X text 150 493 *float*;
-#X text 240 493 frequency. ;
+#X text 240 493 frequency.;
 #X text 150 511 *bang*;
-#X text 240 511 outputs object internal state to rightmost outlet. ;
+#X text 240 511 outputs object internal state to rightmost outlet.;
 #X obj 20 539 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 544 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

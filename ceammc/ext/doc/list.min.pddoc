@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="list.min">
         <title>list.min</title>
@@ -18,15 +18,19 @@
             </also>
         </meta>
         <info>
-            <par>By default returns smallest float in list, this equal to using @float property.</par>
+            <par>By default returns smallest float in list, this equal to using @float
+            property.</par>
             <par>Also you can choose smallest symbol from list by using @symbol property.</par>
         </info>
         <arguments>
-            <argument name="@type" type="property">type of smallest element. Possible values are: float (default), symbol, any</argument>
-            <argument name="@float" type="property">alias for @type float. Find min float element in list</argument>
-            <argument name="@symbol" type="property">alias for @type symbol. Find smallest symbol element</argument>
-            <argument name="@any" type="property">alias for @type any. Find smallest atom of any type.
-            Note: numbers are smaller then symbols</argument>
+            <argument name="@type" type="property">type of smallest element. Possible values are:
+            float (default), symbol, any</argument>
+            <argument name="@float" type="property">alias for @type float. Find min float element
+            in list</argument>
+            <argument name="@symbol" type="property">alias for @type symbol. Find smallest symbol
+            element</argument>
+            <argument name="@any" type="property">alias for @type any. Find smallest atom of any
+            type. Note: numbers are smaller then symbols</argument>
         </arguments>
         <inlets>
             <inlet>

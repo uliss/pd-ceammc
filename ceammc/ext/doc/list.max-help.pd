@@ -31,32 +31,32 @@ to using @float property.;
 #X text 150 443 property;
 #X obj 241 444 cnv 1 49 18 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 240 443 @type: type of largest element. Possible values are:
-float (default) \, symbol \, any. ;
+float (default) \, symbol \, any.;
 #X text 120 475 2\.;
 #X text 150 475 property;
 #X obj 241 476 cnv 1 57 18 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 240 475 @float: alias for @type float. Find max float element
-in list. ;
+in list.;
 #X text 120 507 3\.;
 #X text 150 507 property;
 #X obj 241 508 cnv 1 65 18 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 240 507 @symbol: alias for @type symbol. Find greatest symbol
-element. ;
+element.;
 #X text 120 539 4\.;
 #X text 150 539 property;
 #X obj 241 540 cnv 1 41 18 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 240 539 @any: alias for @type any. Find greatest atom of any
-type.  Note: symbols are greater then numbers. ;
+type. Note: symbols are greater then numbers.;
 #X obj 20 581 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 586 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 591 1\.;
 #X text 150 591 *list*;
-#X text 240 591 input list. ;
+#X text 240 591 input list.;
 #X text 150 609 *float*;
-#X text 240 609 passed thru in @float or @any mode. ;
+#X text 240 609 passed thru in @float or @any mode.;
 #X text 150 627 *symbol*;
-#X text 240 627 passed thru in @symbol or @any mode. ;
+#X text 240 627 passed thru in @symbol or @any mode.;
 #X obj 20 655 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 660 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

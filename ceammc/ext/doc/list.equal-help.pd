@@ -20,7 +20,7 @@
 #X text 120 297 1\.;
 #X text 150 297 list;
 #X obj 241 298 cnv 1 40 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 297 LIST: initial value. ;
+#X text 240 297 LIST: initial value.;
 #X obj 20 325 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 330 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -33,10 +33,10 @@
 0;
 #X text 120 419 1\.;
 #X text 150 419 *list*;
-#X text 240 419 First list. ;
+#X text 240 419 First list.;
 #X text 120 437 2\.;
 #X text 150 437 *list*;
-#X text 240 437 Second list. ;
+#X text 240 437 Second list.;
 #X obj 20 465 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 470 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

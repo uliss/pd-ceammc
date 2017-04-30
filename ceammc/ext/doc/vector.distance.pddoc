@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="vector.distance">
         <title>vector.distance</title>
@@ -28,11 +28,10 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>returns length of (list2-list1), float, always >= 0 </outlet>
+            <outlet>returns length of (list2-list1), float, always &gt;= 0</outlet>
         </outlets>
         <example>
             <pdascii>
-
 <![CDATA[
 [1 0 0( [dump(  [3 0 0(
 |       |       |

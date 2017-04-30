@@ -21,10 +21,10 @@ predicate.;
 0;
 #X text 120 340 1\.;
 #X text 150 340 *list*;
-#X text 240 340 Input list. ;
+#X text 240 340 Input list.;
 #X text 120 358 2\.;
 #X text 150 358 *float*;
-#X text 240 358 input value from predicate.  "1" means accepped. "0"
+#X text 240 358 input value from predicate. "1" means accepped. "0"
 means reject.. Range: 0\...1;
 #X obj 20 400 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 405 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144

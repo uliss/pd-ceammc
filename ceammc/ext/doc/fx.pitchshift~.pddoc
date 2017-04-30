@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="fx.pitchshift~">
         <title>fx.pitchshift~</title>
@@ -16,19 +16,19 @@
         </meta>
         <arguments>
             <argument name="window" type="float" units="millisecond" minvalue="10" maxvalue="2000">
-                the window size
-            </argument>
+            the window size</argument>
             <argument name="fade" type="float" units="millisecond" minvalue="0" maxvalue="1000">
-                crossfade duration
-            </argument>
+            crossfade duration</argument>
             <argument name="ID" type="symbol">object ID for OSC control path</argument>
         </arguments>
         <methods>
             <method name="window">
-                <param type="float" units="millisecond" minvalue="10" maxvalue="2000">the window size</param>
+                <param type="float" units="millisecond" minvalue="10" maxvalue="2000">the window
+                size</param>
             </method>
             <method name="fade">
-                <param type="float" units="millisecond" minvalue="0" maxvalue="1000">crossfade duration</param>
+                <param type="float" units="millisecond" minvalue="0" maxvalue="1000">crossfade
+                duration</param>
             </method>
         </methods>
         <inlets>
@@ -44,7 +44,7 @@
             <outlet type="control">information output</outlet>
         </outlets>
         <example>
-        <pdascii>
+            <pdascii>
 <![CDATA[
 [F]
 |
@@ -54,8 +54,7 @@
 |\                  ^|
 [dac~]              [print]
 ]]>
-        </pdascii>
+            </pdascii>
         </example>
     </object>
 </pddoc>
-

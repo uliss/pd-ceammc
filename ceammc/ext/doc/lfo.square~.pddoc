@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="lfo.square~">
         <title>lfo.square~</title>
@@ -29,7 +29,7 @@
             <outlet type="audio">output signal</outlet>
         </outlets>
         <example>
-        <pdascii>
+            <pdascii>
 <![CDATA[
 [phasor~ 200] [floatatom]
 |             |
@@ -41,8 +41,7 @@
 |\
 [dac~]
 ]]>
-        </pdascii>
+            </pdascii>
         </example>
     </object>
 </pddoc>
-

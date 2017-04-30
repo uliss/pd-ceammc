@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="prop.get">
         <title>prop.get</title>
@@ -12,13 +12,16 @@
             <category>property</category>
             <keywords>property</keywords>
             <since>0.1</since>
-            <aliases><alias>prop-&gt;</alias></aliases>
+            <aliases>
+                <alias>prop-&gt;</alias>
+            </aliases>
             <also>
                 <see>prop&lt;-</see>
             </also>
         </meta>
         <info>
-            <par>Extracts properties from data stream with matching. Non property values are passed untouched.</par>
+            <par>Extracts properties from data stream with matching. Non property values are passed
+            untouched.</par>
         </info>
         <inlets>
             <inlet>
@@ -54,4 +57,3 @@
         </example>
     </object>
 </pddoc>
-

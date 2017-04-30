@@ -7,7 +7,7 @@
 #X obj 629 11 snd.file;
 #X obj 205 80 cnv 1 490 61 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 210 80 Deal with sound files: gets files info and loads them
-into arrays. Various formats are supported.  Supports array name
+into arrays. Various formats are supported. Supports array name
 patterns.;
 #X obj 50 169 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
@@ -33,7 +33,7 @@ patterns.;
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
 #X coords 0 1 100 -1 120 80 1;
 #X restore 453 313 graph;
-#X text 50 342  play ;
+#X text 50 342 play;
 #X msg 50 371 bang;
 #X msg 184 371 stop;
 #X obj 50 414 tabplay~ array1;
@@ -49,34 +49,34 @@ patterns.;
 -49933 0;
 #X msg 120 539 load;
 #X text 240 539 Loads sound file. Outputs info properties and number
-of loaded samples after load. Arguments are: ;
+of loaded samples after load. Arguments are:;
 #X obj 250 581 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 581 PATH: path to soundfile. Type: symbol. ;
+#X text 250 581 PATH: path to soundfile. Type: symbol.;
 #X obj 250 609 cnv 1 118 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 609 @to ARRAY_NAME: destination array name or pattern.
 Array patterns specified in square braces: array_[1-4] means - array_1
-\, array_2 \, array_3 \, array_4\.  array_[left|right] means
-array_left and array_right. Type: symbol. ;
+\, array_2 \, array_3 \, array_4\. array_[left|right] means array_left
+and array_right. Type: symbol.;
 #X obj 250 679 cnv 1 72 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 679 [@resize]: resize array to feet loaded file. Type:
-property. ;
+property.;
 #X obj 250 721 cnv 1 136 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 721 [@offset SAMPLES]: offset in samples from beginning of
-file. Type: property. ;
+file. Type: property.;
 #X obj 250 763 cnv 1 152 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 763 [@channel N1 N2\..]: channels to load. Type: symbol. ;
+#X text 250 763 [@channel N1 N2\..]: channels to load. Type: symbol.;
 #X msg 120 791 info;
-#X text 240 791 Outputs info about sound file as properties:
-@channels - number of channels \, @samples - number of samples \,
-@samplerate - sound file samplerate \,   @duration - file duration in
-seconds. Arguments are: ;
+#X text 240 791 Outputs info about sound file as properties: @channels
+- number of channels \, @samples - number of samples \, @samplerate -
+sound file samplerate \, @duration - file duration in seconds.
+Arguments are:;
 #X obj 250 861 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 861 PATH: path to soundfile. Type: symbol. ;
+#X text 250 861 PATH: path to soundfile. Type: symbol.;
 #X obj 20 899 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 904 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 909 1\.;
-#X text 240 909 input inlet. ;
+#X text 240 909 input inlet.;
 #X obj 20 937 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 942 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

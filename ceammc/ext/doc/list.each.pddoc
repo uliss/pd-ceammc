@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="list.each">
         <title>list.each</title>
@@ -17,17 +17,17 @@
             </also>
         </meta>
         <info>
-            <par>Each @step elements are passed via righmost outlet to extenal object, that suppose to
-            return it back to rightmost inlet. So various mapping and filtering are possible.
-            </par>
+            <par>Each @step elements are passed via righmost outlet to extenal object, that suppose
+            to return it back to rightmost inlet. So various mapping and filtering are
+            possible.</par>
         </info>
         <arguments>
-            <argument name="step" type="int" minvalue="1" maxvalue="1024">see @step property</argument>
+            <argument name="step" type="int" minvalue="1" maxvalue="1024">see @step
+            property</argument>
         </arguments>
         <properties>
-            <property name="@step" type="int" minvalue="1" maxvalue="1024" default="1">
-            number of elements outputted to rightmost outlet on each iteration
-            </property>
+            <property name="@step" type="int" minvalue="1" maxvalue="1024" default="1">number of
+            elements outputted to rightmost outlet on each iteration</property>
         </properties>
         <inlets>
             <inlet>
@@ -70,4 +70,3 @@
         </example>
     </object>
 </pddoc>
-

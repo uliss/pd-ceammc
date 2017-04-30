@@ -21,7 +21,7 @@
 #X text 120 325 1\.;
 #X text 150 325 float;
 #X obj 241 326 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 325 freq(Hz): center frequency. ;
+#X text 240 325 freq(Hz): center frequency.;
 #X text 120 343 2\.;
 #X text 150 343 float;
 #X obj 241 344 cnv 1 16 18 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -29,16 +29,16 @@
 #X text 120 361 3\.;
 #X text 150 361 symbol;
 #X obj 241 362 cnv 1 24 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 361 ID: object ID for OSC control. ;
+#X text 240 361 ID: object ID for OSC control.;
 #X obj 20 389 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 394 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 399 freq;
-#X text 240 399  Arguments are: ;
+#X text 240 399 Arguments are:;
 #X obj 250 427 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 427 HZ: center frequency. Type: float. ;
+#X text 250 427 HZ: center frequency. Type: float.;
 #X msg 120 455 q;
-#X text 240 455  Arguments are: ;
+#X text 240 455 Arguments are:;
 #X obj 250 483 cnv 1 64 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 483 [Q=0.01]: quality factor. Type: float. Range:
 0.01\...100;
@@ -46,7 +46,7 @@
 #X obj 20 526 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 531 1\.;
-#X text 240 531 input signal. ;
+#X text 240 531 input signal.;
 #X obj 20 559 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 564 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

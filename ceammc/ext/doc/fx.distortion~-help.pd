@@ -32,49 +32,49 @@
 #X text 120 358 2\.;
 #X text 150 358 float;
 #X obj 241 359 cnv 1 56 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 358 offset:   constant added before nonlinearity to give
+#X text 240 358 offset: constant added before nonlinearity to give
 even harmonics. Range: 0\...1;
 #X text 120 390 3\.;
 #X text 150 390 symbol;
 #X obj 241 391 cnv 1 24 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 390 ID: object ID for OSC control path. ;
+#X text 240 390 ID: object ID for OSC control path.;
 #X obj 20 418 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 423 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 428 @drive;
-#X text 240 428 Get/Set   distortion amount. Type: float. Default
-value: 0.5\. Value range: 0-1;
+#X text 240 428 Get/Set distortion amount. Type: float. Default value:
+0.5\. Value range: 0-1;
 #X msg 120 465 @drywet;
-#X text 240 465 Get/Set   proportion of mix between the original (dry)
-and 'effected' (wet) signals.  0 - dry signal \, 1 - wet. Type: float.
+#X text 240 465 Get/Set proportion of mix between the original (dry)
+and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
 Default value: 1\. Value range: 0-1;
 #X msg 120 516 offset;
-#X text 240 516 Get/Set   constant added before nonlinearity to give
+#X text 240 516 Get/Set constant added before nonlinearity to give
 even harmonics. Type: float. Default value: 0\. Value range: 0-1;
 #X msg 120 553 @bypass;
-#X text 240 553 Get/Set   if set to 1 - bypass 'effected' signal.
-Type: int. Default value: 0\. Allowed values: 0 \, 1;
+#X text 240 553 Get/Set if set to 1 - bypass 'effected' signal. Type:
+int. Default value: 0\. Allowed values: 0 \, 1;
 #X obj 20 600 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 605 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 610 drive;
-#X text 240 610  Arguments are: ;
+#X text 240 610 Arguments are:;
 #X obj 250 638 cnv 1 64 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 638 [anonym]: distortion amount. Type: float. Range:
 0\...1;
 #X msg 120 666 offset;
-#X text 240 666  Arguments are: ;
+#X text 240 666 Arguments are:;
 #X obj 250 694 cnv 1 64 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 694 [anonym]: constant added before nonlinearity to give
 even harmonics. Type: float. Range: 0\...1;
 #X msg 120 736 drywet;
-#X text 240 736  Arguments are: ;
+#X text 240 736 Arguments are:;
 #X obj 250 764 cnv 1 64 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 764 [anonym]: proportion of mix between the original (dry)
-and 'effected' (wet) signals.  0 - dry signal \, 1 - wet. Type: float.
+and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
 Range: 0\...1;
 #X msg 120 820 bypass;
-#X text 240 820  Arguments are: ;
+#X text 240 820 Arguments are:;
 #X obj 250 848 cnv 1 48 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 848 [BOOL]: bypass effect. Type: int. Allowed values: 0 \,
 1\.;
@@ -82,7 +82,7 @@ Range: 0\...1;
 #X obj 20 891 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 896 1\.;
-#X text 240 896 input signal. ;
+#X text 240 896 input signal.;
 #X obj 20 924 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 929 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

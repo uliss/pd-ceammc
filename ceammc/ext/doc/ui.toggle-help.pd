@@ -36,10 +36,10 @@ based on Cream library.;
 0;
 #X text 120 506 1\.;
 #X text 150 506 *bang*;
-#X text 240 506 change toggle state. ;
+#X text 240 506 change toggle state.;
 #X text 150 524 *float*;
 #X text 240 524 if *0* given \, sets state to unchecked and outputs
-0\.  On any other number sets to checked state and outputs 1\.. ;
+0\. On any other number sets to checked state and outputs 1\..;
 #X obj 20 566 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 571 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

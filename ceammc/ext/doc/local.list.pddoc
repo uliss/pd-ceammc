@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="local.list">
         <title>local.list</title>
@@ -18,7 +18,8 @@
             </also>
         </meta>
         <info>
-            <par>Defines local scope list variable, accessed by ID name and available only within its patch (canvas).</par>
+            <par>Defines local scope list variable, accessed by ID name and available only within
+            its patch (canvas).</par>
         </info>
         <arguments>
             <argument name="ID" type="symbol">object ID</argument>

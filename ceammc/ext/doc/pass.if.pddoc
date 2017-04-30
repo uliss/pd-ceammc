@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="pass.if">
         <title>pass.if</title>
@@ -17,8 +17,8 @@
             </also>
         </meta>
         <info>
-            <par>conditional value pass according to *predicate* object.
-            *predicate* should accept value and ouput 0 or 1, for value passing.</par>
+            <par>conditional value pass according to *predicate* object. *predicate* should accept
+            value and ouput 0 or 1, for value passing.</par>
             <par>[&gt;=] [is_even] [is_list] - examples of predicates.</par>
         </info>
         <inlets>
@@ -26,7 +26,8 @@
                 <xinfo>input value</xinfo>
             </inlet>
             <inlet>
-                <xinfo on="int" minvalue="0" maxvalue="1">conditional output from predicate object. '1' means pass, '0' means reject</xinfo>
+                <xinfo on="int" minvalue="0" maxvalue="1">conditional output from predicate object.
+                '1' means pass, '0' means reject</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -49,4 +50,3 @@
         </example>
     </object>
 </pddoc>
-

@@ -40,43 +40,43 @@
 #X text 120 527 1\.;
 #X text 150 527 symbol;
 #X obj 241 528 cnv 1 24 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 527 ID: object ID for OSC control path. ;
+#X text 240 527 ID: object ID for OSC control path.;
 #X obj 20 555 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 560 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 565 delay;
-#X text 240 565  Arguments are: ;
+#X text 240 565 Arguments are:;
 #X obj 250 593 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 593 MS: A delay of 20 to 100 ms operating on the 'wet'
-signal.  Large values will provide the impression of a larger room.
+signal. Large values will provide the impression of a larger room.
 Type: float. Range: 20\...100;
 #X msg 120 649 freq_low;
-#X text 240 649  Arguments are: ;
+#X text 240 649 Arguments are:;
 #X obj 250 677 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 677 HZ: Crossover frequency (Hz) separating low and middle
 frequencies. Type: float. Range: 50\...1000;
 #X msg 120 719 dump_hf;
-#X text 240 719  Arguments are: ;
+#X text 240 719 Arguments are:;
 #X obj 250 747 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 747 HZ: Frequency (Hz) at which the high-frequency T60 is
 half the middle-band's T60\. Type: float. Range: 1500\...20000;
 #X msg 120 789 decay_low;
-#X text 240 789  Arguments are: ;
+#X text 240 789 Arguments are:;
 #X obj 250 817 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 817 SEC: time (in seconds) to decay 60dB in low-frequency
 band. Type: float. Range: 1\...8;
 #X msg 120 859 decay_mid;
-#X text 240 859  Arguments are: ;
+#X text 240 859 Arguments are:;
 #X obj 250 887 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 887 SEC: time (in seconds) to decay 60dB in low-frequency
 band. Type: float. Range: 1\...8;
 #X msg 120 929 drywet;
-#X text 240 929  Arguments are: ;
+#X text 240 929 Arguments are:;
 #X obj 250 957 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 957 X: Ratio between processed signal (wet) and source
 signal. Type: float. Range: 0\...1;
 #X msg 120 999 bypass;
-#X text 240 999 bypass effect. Arguments are: ;
+#X text 240 999 bypass effect. Arguments are:;
 #X obj 250 1027 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 1027 X: if set to 1 - bypass 'effected' signal. Type: int.
 Allowed values: 0 \, 1\.;
@@ -84,9 +84,9 @@ Allowed values: 0 \, 1\.;
 #X obj 20 1084 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 1089 1\.;
-#X text 240 1089 left channel. ;
+#X text 240 1089 left channel.;
 #X text 120 1107 2\.;
-#X text 240 1107 right channel. ;
+#X text 240 1107 right channel.;
 #X obj 20 1135 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1140 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

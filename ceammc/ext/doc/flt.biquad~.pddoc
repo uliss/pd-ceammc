@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="flt.biquad~">
         <title>flt.biquad~</title>
@@ -19,22 +19,34 @@
             </also>
         </meta>
         <info>
-            <par>Digital biquad filter is a second-order recursive linear filter,
-            containing two poles and two zeros.</par>
+            <par>Digital biquad filter is a second-order recursive linear filter, containing two
+            poles and two zeros.</par>
         </info>
         <inlets>
-            <inlet type="audio"><xinfo>input signal</xinfo></inlet>
-            <inlet type="audio"><xinfo>b0</xinfo></inlet>
-            <inlet type="audio"><xinfo>b1</xinfo></inlet>
-            <inlet type="audio"><xinfo>b2</xinfo></inlet>
-            <inlet type="audio"><xinfo>a1</xinfo></inlet>
-            <inlet type="audio"><xinfo>a2</xinfo></inlet>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+            <inlet type="audio">
+                <xinfo>b0</xinfo>
+            </inlet>
+            <inlet type="audio">
+                <xinfo>b1</xinfo>
+            </inlet>
+            <inlet type="audio">
+                <xinfo>b2</xinfo>
+            </inlet>
+            <inlet type="audio">
+                <xinfo>a1</xinfo>
+            </inlet>
+            <inlet type="audio">
+                <xinfo>a2</xinfo>
+            </inlet>
         </inlets>
         <outlets>
             <outlet type="audio">filtered signal</outlet>
         </outlets>
         <example>
-        <pdascii>
+            <pdascii>
 <![CDATA[
 
 [noise.pink~] [T] [F]       [F]
@@ -51,8 +63,7 @@
 [dac~]
 
 ]]>
-        </pdascii>
+            </pdascii>
         </example>
     </object>
 </pddoc>
-

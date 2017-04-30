@@ -23,36 +23,35 @@
 #X text 120 254 1\.;
 #X text 150 254 float;
 #X obj 241 255 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 254 freq(Hz):   corner frequency for the shelf. ;
+#X text 240 254 freq(Hz): corner frequency for the shelf.;
 #X text 120 272 2\.;
 #X text 150 272 float;
 #X obj 241 273 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 272 gain(db):   amount of boost or cut apply to the
-signal. ;
+#X text 240 272 gain(db): amount of boost or cut apply to the signal.;
 #X text 120 290 3\.;
 #X text 150 290 symbol;
 #X obj 241 291 cnv 1 24 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 290 ID: object ID for OSC control. ;
+#X text 240 290 ID: object ID for OSC control.;
 #X obj 20 318 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 323 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 328 freq;
-#X text 240 328  Arguments are: ;
+#X text 240 328 Arguments are:;
 #X obj 250 356 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 356 HZ: corner frequency for the shelf (e.g. \, 100 Hz).
-Type: float. ;
+Type: float.;
 #X msg 120 398 gain;
-#X text 240 398  Arguments are: ;
+#X text 240 398 Arguments are:;
 #X obj 250 426 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 426 DB: amount of boost or cut apply to the signal (e.g.
-\, -10 db). Type: float. ;
+\, -10 db). Type: float.;
 #X obj 20 478 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 483 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 488 1\.;
-#X text 240 488 input signal. ;
+#X text 240 488 input signal.;
 #X text 150 506 *bang*;
-#X text 240 506 outputs object internal state to rightmost outlet. ;
+#X text 240 506 outputs object internal state to rightmost outlet.;
 #X obj 20 534 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 539 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

@@ -30,64 +30,64 @@
 #X text 120 398 1\.;
 #X text 150 398 symbol;
 #X obj 241 399 cnv 1 24 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 398 ID: object ID for OSC control path. ;
+#X text 240 398 ID: object ID for OSC control path.;
 #X obj 20 426 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 431 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 436 @delay;
-#X text 240 436 Get/Set   flange delay. Type: float. Units: ms.
-Default value: 10\. Value range: 0-20;
+#X text 240 436 Get/Set flange delay. Type: float. Units: ms. Default
+value: 10\. Value range: 0-20;
 #X msg 120 473 @offset;
-#X text 240 473 Get/Set   flange delay offset. Type: float. Units: ms.
+#X text 240 473 Get/Set flange delay offset. Type: float. Units: ms.
 Default value: 1\. Value range: 0-20;
 #X msg 120 510 @speed;
-#X text 240 510 Get/Set   flanger frequency. Type: float. Units: Hz.
+#X text 240 510 Get/Set flanger frequency. Type: float. Units: Hz.
 Default value: 0.5\. Value range: 0-10;
 #X msg 120 547 @feedback;
-#X text 240 547 Get/Set   feedback gain. Type: float. Default value:
-0\. Value range: 0-1;
+#X text 240 547 Get/Set feedback gain. Type: float. Default value: 0\.
+Value range: 0-1;
 #X msg 120 584 @invert;
-#X text 240 584 Get/Set   0 for normal \, 1 to invert sign of flanging
+#X text 240 584 Get/Set 0 for normal \, 1 to invert sign of flanging
 sum. Type: int. Default value: 0\. Allowed values: 0 \, 1;
 #X msg 120 621 @drywet;
-#X text 240 621 Get/Set   proportion of mix between the original (dry)
-and 'effected' (wet) signals.  0 - dry signal \, 1 - wet. Type: float.
+#X text 240 621 Get/Set proportion of mix between the original (dry)
+and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
 Default value: 1\. Value range: 0-1;
 #X msg 120 672 @bypass;
-#X text 240 672 Get/Set   if set to 1 - bypass 'effected' signal.
-Type: int. Default value: 0\. Allowed values: 0 \, 1;
+#X text 240 672 Get/Set if set to 1 - bypass 'effected' signal. Type:
+int. Default value: 0\. Allowed values: 0 \, 1;
 #X obj 20 719 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 724 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 729 delay;
-#X text 240 729 set flange delay. Arguments are: ;
+#X text 240 729 set flange delay. Arguments are:;
 #X obj 250 757 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 757 MS. Type: float. Range: 0\...20;
 #X msg 120 785 offset;
-#X text 240 785 set flange delay offset. Arguments are: ;
+#X text 240 785 set flange delay offset. Arguments are:;
 #X obj 250 813 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 813 MS. Type: float. Range: 0\...20;
 #X msg 120 841 speed;
-#X text 240 841 set flanger frequency. Arguments are: ;
+#X text 240 841 set flanger frequency. Arguments are:;
 #X obj 250 869 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 869 HZ. Type: float. Range: 0\...10;
 #X msg 120 897 feedback;
-#X text 240 897 set feedback gain. Arguments are: ;
+#X text 240 897 set feedback gain. Arguments are:;
 #X obj 250 925 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 925 X. Type: float. Range: 0\...1;
 #X msg 120 953 invert;
-#X text 240 953 set sign of flanging sum. Arguments are: ;
+#X text 240 953 set sign of flanging sum. Arguments are:;
 #X obj 250 981 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 981 X: 0 for normal \, 1 to invert sign of flanging sum.
 Type: int. Allowed values: 0 \, 1\.;
 #X msg 120 1023 drywet;
 #X text 240 1023 set proportion of mix between the original (dry) and
-'effected' (wet) signals. Arguments are: ;
+'effected' (wet) signals. Arguments are:;
 #X obj 250 1065 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 1065 X: 0 - dry signal \, 1 - wet. Type: float. Range:
 0\...1;
 #X msg 120 1093 bypass;
-#X text 240 1093 bypass effect. Arguments are: ;
+#X text 240 1093 bypass effect. Arguments are:;
 #X obj 250 1121 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 1121 X: if set to 1 - bypass 'effected' signal. Type: int.
 Allowed values: 0 \, 1\.;
@@ -95,7 +95,7 @@ Allowed values: 0 \, 1\.;
 #X obj 20 1178 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 1183 1\.;
-#X text 240 1183 input signal. ;
+#X text 240 1183 input signal.;
 #X obj 20 1211 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1216 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

@@ -16,7 +16,7 @@
 #X obj 20 389 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 394 1\.;
-#X text 240 394 signal input. ;
+#X text 240 394 signal input.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

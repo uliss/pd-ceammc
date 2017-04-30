@@ -54,27 +54,27 @@ values: 0 \, 1;
 #X text 240 799 dumps all object info to Pd console window.;
 #X msg 120 831 select;
 #X text 240 831 draws specified slider with select color. Arguments
-are: ;
+are:;
 #X obj 250 859 cnv 1 14 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 859 N: slider index \, starting from 0\. Type: int. Min
 value: 0;
 #X msg 120 887 set;
 #X text 240 887 sets sliders value without output.;
 #X msg 120 919 set_at;
-#X text 240 919 sets specified slider value. Arguments are: ;
+#X text 240 919 sets specified slider value. Arguments are:;
 #X obj 250 947 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 947 IDX: slider position \, starting from 0\. Type: int.
 Min value: 0;
 #X obj 250 989 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 989 VAL: slider value. Type: float. ;
+#X text 250 989 VAL: slider value. Type: float.;
 #X obj 20 1027 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1032 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 1037 1\.;
 #X text 150 1037 *bang*;
-#X text 240 1037 outputs sliders position. ;
+#X text 240 1037 outputs sliders position.;
 #X text 150 1055 *list*;
-#X text 240 1055 sets slider values and outputs it. ;
+#X text 240 1055 sets slider values and outputs it.;
 #X obj 20 1083 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1088 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

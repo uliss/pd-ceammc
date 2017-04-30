@@ -25,7 +25,7 @@ name.;
 #X text 120 306 1\.;
 #X text 150 306 symbol;
 #X obj 241 307 cnv 1 24 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 306 ID: object ID. ;
+#X text 240 306 ID: object ID.;
 #X obj 20 334 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 339 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -36,9 +36,9 @@ name.;
 0;
 #X text 120 396 1\.;
 #X text 150 396 *bang*;
-#X text 240 396 output list content. ;
+#X text 240 396 output list content.;
 #X text 150 414 *list*;
-#X text 240 414 set new list content and output. ;
+#X text 240 414 set new list content and output.;
 #X obj 20 442 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 447 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

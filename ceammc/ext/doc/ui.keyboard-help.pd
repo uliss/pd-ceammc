@@ -40,7 +40,7 @@ symbol;
 #X obj 20 628 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 633 1\.;
-#X text 240 633 control inlet. ;
+#X text 240 633 control inlet.;
 #X obj 20 661 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 666 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

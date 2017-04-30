@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="fx.distortion~">
         <title>fx.distortion~</title>
@@ -14,46 +14,37 @@
             <since>0.2</since>
         </meta>
         <arguments>
-            <argument name="drive" type="float" minvalue="0" maxvalue="1">distortion amount</argument>
-            <argument name="offset" type="float" minvalue="0" maxvalue="1">
-                constant added before nonlinearity to give even harmonics
-            </argument>
+            <argument name="drive" type="float" minvalue="0" maxvalue="1">distortion
+            amount</argument>
+            <argument name="offset" type="float" minvalue="0" maxvalue="1">constant added before
+            nonlinearity to give even harmonics</argument>
             <argument name="ID" type="symbol">object ID for OSC control path</argument>
         </arguments>
         <properties>
-            <property name="@drive" type="float" minvalue="0" maxvalue="1" default="0.5">
-                distortion amount
-            </property>
-            <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">
-                proportion of mix between the original (dry) and 'effected' (wet) signals.
-                0 - dry signal, 1 - wet.
-            </property>
-            <property name="offset" type="float" minvalue="0" maxvalue="1" default="0">
-                constant added before nonlinearity to give even harmonics
-            </property>
-            <property name="@bypass" type="int" enum="0 1" default="0">
-                if set to 1 - bypass 'effected' signal.
-            </property>
+            <property name="@drive" type="float" minvalue="0" maxvalue="1" default="0.5">distortion
+            amount</property>
+            <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">proportion
+            of mix between the original (dry) and 'effected' (wet) signals. 0 - dry signal, 1 -
+            wet.</property>
+            <property name="offset" type="float" minvalue="0" maxvalue="1" default="0">constant
+            added before nonlinearity to give even harmonics</property>
+            <property name="@bypass" type="int" enum="0 1" default="0">if set to 1 - bypass
+            'effected' signal.</property>
         </properties>
         <methods>
             <method name="drive">
                 <param type="float" minvalue="0" maxvalue="1">distortion amount</param>
             </method>
             <method name="offset">
-                <param type="float" minvalue="0" maxvalue="1">
-                    constant added before nonlinearity to give even harmonics
-                </param>
+                <param type="float" minvalue="0" maxvalue="1">constant added before nonlinearity to
+                give even harmonics</param>
             </method>
             <method name="drywet">
-                <param type="float" minvalue="0" maxvalue="1">
-                    proportion of mix between the original (dry) and 'effected' (wet) signals.
-                    0 - dry signal, 1 - wet.
-                </param>
+                <param type="float" minvalue="0" maxvalue="1">proportion of mix between the
+                original (dry) and 'effected' (wet) signals. 0 - dry signal, 1 - wet.</param>
             </method>
             <method name="bypass">
-                <param name="BOOL" type="int" enum="0 1">
-                    bypass effect
-                </param>
+                <param name="BOOL" type="int" enum="0 1">bypass effect</param>
             </method>
         </methods>
         <inlets>
@@ -66,7 +57,7 @@
             <outlet type="control">information output</outlet>
         </outlets>
         <example>
-        <pdascii>
+            <pdascii>
 <![CDATA[
 [F]
 |           [F]         [F]
@@ -83,7 +74,7 @@
 [dac~]
 
 ]]>
-        </pdascii>
+            </pdascii>
         </example>
     </object>
 </pddoc>

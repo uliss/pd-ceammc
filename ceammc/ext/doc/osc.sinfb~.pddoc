@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="osc.sinfb~">
         <title>osc.sinfb~</title>
@@ -14,17 +14,16 @@
             <since>0.1</since>
         </meta>
         <arguments>
-            <argument name="freq" type="float" minvalue="0" maxvalue="20000" units="herz">
-                initial frequence
-            </argument>
-            <argument name="feedback" type="float" minvalue="0" maxvalue="16">
-                oscillator feedback coefficent
-            </argument>
+            <argument name="freq" type="float" minvalue="0" maxvalue="20000" units="herz">initial
+            frequence</argument>
+            <argument name="feedback" type="float" minvalue="0" maxvalue="16">oscillator feedback
+            coefficent</argument>
             <argument name="ID" type="symbol">object ID for OSC control path</argument>
         </arguments>
         <methods>
             <method name="feedback">
-                <param type="float" minvalue="0" maxvalue="16">oscillator feedback coefficent</param>
+                <param type="float" minvalue="0" maxvalue="16">oscillator feedback
+                coefficent</param>
             </method>
         </methods>
         <inlets>
@@ -40,7 +39,7 @@
         </outlets>
         <example>
             <pdascii>
-                <![CDATA[
+<![CDATA[
 [F]     [F]
 |       |
 | [B]   [feedback $1(
@@ -57,4 +56,3 @@
         </example>
     </object>
 </pddoc>
-

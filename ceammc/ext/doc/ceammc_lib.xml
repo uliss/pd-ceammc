@@ -113,7 +113,7 @@
     <entry descr="mono DC blocker" name="flt.dcblock~" ref_view="object">
       <xi:include href="flt.dcblock~.pddoc" parse="xml"/>
     </entry>
-    <entry descr="second order &quot;peaking equalizer&quot; section (gain boost or cut near some frequency).&#10;            Also called a &quot;parametric equalizer&quot; section." name="flt.eq_peak~" ref_view="object">
+    <entry descr="second order &quot;peaking equalizer&quot; section (gain boost or cut near some frequency). Also called a &quot;parametric equalizer&quot; section." name="flt.eq_peak~" ref_view="object">
       <xi:include href="flt.eq_peak~.pddoc" parse="xml"/>
     </entry>
     <entry descr="gain boost|cut above some frequency" name="flt.highshelf~" ref_view="object">
@@ -387,6 +387,7 @@
     <entry descr="truncate to integer value" name="math.trunc" ref_view="object">
       <xi:include href="math.trunc.pddoc" parse="xml"/>
     </entry>
+    <xi:include href="ceammc_category_math.xml" parse="xml"/>
   </category>
   <category name="msg">
     <entry descr="message constructor" name="msg" ref_view="object">
@@ -405,7 +406,7 @@
     <entry descr="Bandlimited impulse train generator" name="osc.impulse~" ref_view="object">
       <xi:include href="osc.impulse~.pddoc" parse="xml"/>
     </entry>
-    <entry descr="Bandlimited pulse train oscillator. " name="osc.pulse~" ref_view="object">
+    <entry descr="Bandlimited pulse train oscillator." name="osc.pulse~" ref_view="object">
       <xi:include href="osc.pulse~.pddoc" parse="xml"/>
     </entry>
     <entry descr="Bandlimited saw wave oscillator" name="osc.saw~" ref_view="object">

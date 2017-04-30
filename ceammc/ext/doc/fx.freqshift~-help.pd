@@ -8,7 +8,7 @@
 #X floatatom 50 118 5 0 0 0 - - -;
 #X obj 50 147 osc.tri~ 300;
 #X floatatom 194 147 5 0 0 0 - - -;
-#X text 251 147  frequency shift ;
+#X text 251 147 frequency shift;
 #X obj 194 176 sig~;
 #X obj 194 205 lop~ 10;
 #X obj 50 234 fx.freqshift~ id;
@@ -20,12 +20,12 @@
 #X text 120 311 1\.;
 #X text 150 311 symbol;
 #X obj 241 312 cnv 1 24 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 311 ID: object ID for OSC control path. ;
+#X text 240 311 ID: object ID for OSC control path.;
 #X obj 20 339 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 344 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 349 1\.;
-#X text 240 349 input signal. ;
+#X text 240 349 input signal.;
 #X text 120 367 2\.;
 #X text 240 367 frequency shift in Hertz. Range: -10000\...10000;
 #X obj 20 395 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;

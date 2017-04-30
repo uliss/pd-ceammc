@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="ui.keyboard" type="gui">
         <title>ui.keyboard</title>
@@ -23,7 +23,8 @@
         <properties>
             <property name="@keys" type="float" default="61">number of keys</property>
             <property name="@shift" type="float" default="31">MIDI pitch of lefmost key</property>
-            <property name="@preset" type="symbol">preset name for using with [ui.preset]</property>
+            <property name="@preset" type="symbol">preset name for using with
+            [ui.preset]</property>
             <property name="@send" type="symbol">send destination</property>
             <property name="@receive" type="symbol">receive source</property>
         </properties>
@@ -31,10 +32,13 @@
             <method name="dump">dumps all object info to Pd console window</method>
         </methods>
         <inlets>
-            <inlet><xinfo>control inlet</xinfo></inlet>
+            <inlet>
+                <xinfo>control inlet</xinfo>
+            </inlet>
         </inlets>
         <outlets>
-            <outlet>list from two elements: MIDI pitch, MIDI velocity. Velocity depends from key press position.</outlet>
+            <outlet>list from two elements: MIDI pitch, MIDI velocity. Velocity depends from key
+            press position.</outlet>
         </outlets>
         <example>
             <pdascii>
@@ -60,4 +64,3 @@
         </example>
     </object>
 </pddoc>
-

@@ -7,7 +7,7 @@
 #X obj 623 11 reject.if;
 #X obj 205 80 cnv 1 490 84 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 210 80 conditional value reject according to *predicate*
-object.  *predicate* should accept value and ouput 0 or 1 \, for value
+object. *predicate* should accept value and ouput 0 or 1 \, for value
 passing.;
 #X text 210 131 [<] [is_even] [is_list] - examples of predicates.;
 #X floatatom 50 192 5 0 0 0 - - -;
@@ -20,11 +20,11 @@ passing.;
 #X obj 20 352 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 357 1\.;
-#X text 240 357 input value. ;
+#X text 240 357 input value.;
 #X text 120 375 2\.;
 #X text 150 375 *int*;
 #X text 240 375 value from predicate (0 or 1). If *1* reject value \,
-if *0* - pass.. ;
+if *0* - pass..;
 #X obj 20 417 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 422 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

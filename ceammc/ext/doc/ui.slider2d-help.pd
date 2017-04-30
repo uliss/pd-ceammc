@@ -43,29 +43,27 @@ values: 0 \, 1;
 #X msg 120 687 dump;
 #X text 240 687 dumps all object info to Pd console window.;
 #X msg 120 719 set;
-#X text 240 719 sets slider position without output. Arguments are: ;
+#X text 240 719 sets slider position without output. Arguments are:;
 #X obj 250 747 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 747 X: x-position. Type: float. ;
+#X text 250 747 X: x-position. Type: float.;
 #X obj 250 775 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 775 Y: y-position. Type: float. ;
+#X text 250 775 Y: y-position. Type: float.;
 #X msg 120 803 set_x;
-#X text 240 803 sets X-slider position without output. Arguments are:
-;
+#X text 240 803 sets X-slider position without output. Arguments are:;
 #X obj 250 831 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 831 X: x-position. Type: float. ;
+#X text 250 831 X: x-position. Type: float.;
 #X msg 120 859 set_y;
-#X text 240 859 sets Y-slider position without output. Arguments are:
-;
+#X text 240 859 sets Y-slider position without output. Arguments are:;
 #X obj 250 887 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 887 Y: y-position. Type: float. ;
+#X text 250 887 Y: y-position. Type: float.;
 #X obj 20 925 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 930 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 935 1\.;
 #X text 150 935 *bang*;
-#X text 240 935 outputs slider position. ;
+#X text 240 935 outputs slider position.;
 #X text 150 953 *list*;
-#X text 240 953 sets slider position and outputs it. ;
+#X text 240 953 sets slider position and outputs it.;
 #X obj 20 981 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 986 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

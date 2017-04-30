@@ -7,8 +7,8 @@
 #X obj 622 11 list.each;
 #X obj 205 80 cnv 1 490 61 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 210 80 Each @step elements are passed via righmost outlet to
-extenal object \, that suppose to  return it back to rightmost inlet.
-So various mapping and filtering are possible.  ;
+extenal object \, that suppose to return it back to rightmost inlet.
+So various mapping and filtering are possible.;
 #X msg 50 169 1 2 3 4 5 6 7 8 9;
 #X msg 261 169 1 2 3 4 5 6 7 8 9;
 #X obj 50 198 list.each;
@@ -19,8 +19,8 @@ So various mapping and filtering are possible.  ;
 #X obj 261 227 msg set;
 #X msg 50 256 ;
 #X msg 261 256 ;
-#X text 50 285  more complex example: multiply by three element in
-list ;
+#X text 50 285 more complex example: multiply by three element in
+list;
 #X msg 50 313 1 2 3 4 5 6 7 8 9;
 #X obj 78 342 hradio 15 1 0 8 empty empty empty 17 7 0 10 -262144 -1
 -1 0;
@@ -41,7 +41,7 @@ list ;
 #X obj 20 539 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 544 @step;
-#X text 240 544 Get/Set   number of elements outputted to rightmost
+#X text 240 544 Get/Set number of elements outputted to rightmost
 outlet on each iteration. Type: int. Default value: 1\. Value range:
 1-1024;
 #X obj 20 605 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -49,9 +49,9 @@ outlet on each iteration. Type: int. Default value: 1\. Value range:
 0;
 #X text 120 615 1\.;
 #X text 150 615 *list*;
-#X text 240 615 Input list. ;
+#X text 240 615 Input list.;
 #X text 120 633 2\.;
-#X text 240 633 New modified value from applied object.. ;
+#X text 240 633 New modified value from applied object..;
 #X obj 20 661 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 666 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

@@ -19,16 +19,16 @@ multiplied).;
 #X text 120 268 1\.;
 #X text 150 268 list;
 #X obj 241 269 cnv 1 40 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 268 LIST: initial second list value. ;
+#X text 240 268 LIST: initial second list value.;
 #X obj 20 296 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 301 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 306 1\.;
 #X text 150 306 *list*;
-#X text 240 306 First list of floats. ;
+#X text 240 306 First list of floats.;
 #X text 120 324 2\.;
 #X text 150 324 *list*;
-#X text 240 324 Second list of floats. ;
+#X text 240 324 Second list of floats.;
 #X obj 20 352 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 357 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

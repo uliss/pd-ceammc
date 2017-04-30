@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="flt.notch~">
         <title>flt.notch~</title>
@@ -17,9 +17,8 @@
             </also>
         </meta>
         <info>
-            <par>filter that passes most frequencies unaltered,
-            but attenuates those in a specific range to very low levels.
-            It is the opposite of a band-pass filter.</par>
+            <par>filter that passes most frequencies unaltered, but attenuates those in a specific
+            range to very low levels. It is the opposite of a band-pass filter.</par>
         </info>
         <methods>
             <method name="freq">
@@ -30,12 +29,8 @@
             </method>
         </methods>
         <arguments>
-            <argument name="freq" type="float" units="herz">
-                center frequency
-            </argument>
-            <argument name="width" type="float" units="herz">
-                band width (approximate)
-            </argument>
+            <argument name="freq" type="float" units="herz">center frequency</argument>
+            <argument name="width" type="float" units="herz">band width (approximate)</argument>
             <argument name="ID" type="symbol">object ID for OSC control</argument>
         </arguments>
         <inlets>
@@ -49,7 +44,7 @@
             <outlet type="control">information output</outlet>
         </outlets>
         <example>
-        <pdascii>
+            <pdascii>
 <![CDATA[
 [osc~ 1000] [T]
 |  .________/
@@ -65,8 +60,7 @@
                        |       ^|
                        [F]     [F]
 ]]>
-        </pdascii>
+            </pdascii>
         </example>
     </object>
 </pddoc>
-

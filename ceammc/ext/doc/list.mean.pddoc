@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="list.mean">
         <title>list.mean</title>
@@ -38,4 +38,3 @@
         </example>
     </object>
 </pddoc>
-

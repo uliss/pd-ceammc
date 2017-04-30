@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="is_any">
         <title>is_any</title>
@@ -30,7 +30,7 @@
         </outlets>
         <example>
             <pdascii>
-                <![CDATA[
+<![CDATA[
 [message( [1( [symbol a( [list a b c(
 |         |   |        ___/
 [is_any                ]
@@ -42,4 +42,3 @@
         </example>
     </object>
 </pddoc>
-

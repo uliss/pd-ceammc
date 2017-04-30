@@ -5,26 +5,26 @@
 #X obj 1 1 cnv 5 712 40 empty empty vector.distance 20 20 0 20 -104026
 -4096 0;
 #X obj 578 11 vector.distance;
-#X msg 50 133 1 0 0;
-#X msg 126 133 dump;
-#X msg 203 133 3 0 0;
-#X obj 50 176 vector.distance;
-#X floatatom 50 205 5 0 0 0 - - -;
+#X msg 50 118 1 0 0;
+#X msg 126 118 dump;
+#X msg 203 118 3 0 0;
+#X obj 50 162 vector.distance;
+#X floatatom 50 190 5 0 0 0 - - -;
 #X obj 20 229 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 234 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 239 1\.;
 #X text 150 239 *list*;
-#X text 240 239 First list of coords (float). ;
+#X text 240 239 First list of coords (float).;
 #X text 120 257 2\.;
 #X text 150 257 *list*;
-#X text 240 257 Second list of coords (float). ;
+#X text 240 257 Second list of coords (float).;
 #X obj 20 285 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 290 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 295 1\.;
 #X text 240 295 returns length of (list2-list1) \, float \, always >=
-0 ;
+0;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

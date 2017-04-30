@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="global.int">
         <title>global.int</title>
@@ -29,7 +29,8 @@
             <inlet>
                 <xinfo on="bang">outputs variable</xinfo>
                 <xinfo on="int">set variable to given integer and outputs new value</xinfo>
-                <xinfo on="float">first float variable is converted to int, then set and outputs new value</xinfo>
+                <xinfo on="float">first float variable is converted to int, then set and outputs
+                new value</xinfo>
                 <xinfo on="list">set variable to first value in list</xinfo>
             </inlet>
         </inlets>
@@ -51,4 +52,3 @@
         </example>
     </object>
 </pddoc>
-

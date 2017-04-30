@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="flow.sync">
         <title>flow.sync</title>
@@ -14,20 +14,25 @@
             <since>0.1</since>
         </meta>
         <info>
-            <par>Sync inlets data. All inlets are 'hot'.
-            When float, symbol or list arrives to inlet, it's value stored.
-            Then output all stored values from all inlets from rightmost to leftmost.
-            The main usage is to escape 'trigger hell' when using many UI controls.</par>
+            <par>Sync inlets data. All inlets are 'hot'. When float, symbol or list arrives to
+            inlet, it's value stored. Then output all stored values from all inlets from rightmost
+            to leftmost. The main usage is to escape 'trigger hell' when using many UI
+            controls.</par>
         </info>
         <arguments>
-            <argument type="int" minvalue="1" maxvalue="16" name="N">
-                Number of input/outputs
-            </argument>
+            <argument type="int" minvalue="1" maxvalue="16" name="N">Number of
+            input/outputs</argument>
         </arguments>
         <inlets dynamic="true">
-            <inlet><xinfo>first inlet</xinfo></inlet>
-            <inlet number="..."><xinfo>...</xinfo></inlet>
-            <inlet number="n"><xinfo>Nth inlet</xinfo></inlet>
+            <inlet>
+                <xinfo>first inlet</xinfo>
+            </inlet>
+            <inlet number="...">
+                <xinfo>...</xinfo>
+            </inlet>
+            <inlet number="n">
+                <xinfo>Nth inlet</xinfo>
+            </inlet>
         </inlets>
         <outlets dynamic="true">
             <outlet>first outlet</outlet>
@@ -35,7 +40,7 @@
             <outlet number="n">Nth outlet</outlet>
         </outlets>
         <example>
-        <pdascii>
+            <pdascii>
 <![CDATA[
 [HS]
 |
@@ -52,8 +57,7 @@
 |
 [F digits=10]
 ]]>
-        </pdascii>
+            </pdascii>
         </example>
     </object>
 </pddoc>
-

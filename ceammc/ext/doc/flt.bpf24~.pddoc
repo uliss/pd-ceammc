@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="flt.bpf24~">
         <title>flt.bpf24~</title>
@@ -18,32 +18,35 @@
             </also>
         </meta>
         <info>
-            <par>Band-pass filter passes frequencies within a certain range
-            and rejects frequencies outside that range.
-            </par>
+            <par>Band-pass filter passes frequencies within a certain range and rejects frequencies
+            outside that range.</par>
         </info>
         <methods>
             <method name="freq">
                 <param type="float" units="herz">center frequency</param>
             </method>
             <method name="q">
-                <param type="float" name="Q" minvalue="0.01" maxvalue="100" default="0.01">quality factor</param>
+                <param type="float" name="Q" minvalue="0.01" maxvalue="100" default="0.01">quality
+                factor</param>
             </method>
         </methods>
         <arguments>
             <argument name="freq" type="float" units="herz">center frequency</argument>
-            <argument name="q" type="float" minvalue="0.01" maxvalue="100">quality factory</argument>
+            <argument name="q" type="float" minvalue="0.01" maxvalue="100">quality
+            factory</argument>
             <argument name="ID" type="symbol">object ID for OSC control</argument>
         </arguments>
         <inlets>
-            <inlet type="audio"><xinfo>input signal</xinfo></inlet>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
         </inlets>
         <outlets>
             <outlet type="audio">filtered signal</outlet>
             <outlet>information output</outlet>
         </outlets>
         <example>
-        <pdascii>
+            <pdascii>
 <![CDATA[
 
 [noise.pink~] [T]
@@ -59,8 +62,7 @@
 [dac~]
 
 ]]>
-        </pdascii>
+            </pdascii>
         </example>
     </object>
 </pddoc>
-

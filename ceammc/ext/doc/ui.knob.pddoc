@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="ui.knob" type="gui">
         <title>ui.knob</title>
@@ -20,12 +20,14 @@
         </meta>
         <info>
             <par>Simple knob widget with default range 0-127.</par>
-            <par>Leftmost position outputs @offset property value, rightmost - @offset + @range</par>
+            <par>Leftmost position outputs @offset property value, rightmost - @offset +
+            @range</par>
         </info>
         <properties>
             <property name="@offset" type="float" default="0">value offset</property>
             <property name="@range" type="float" default="127">value range</property>
-            <property name="@preset" type="symbol">preset name for using with [ui.preset]</property>
+            <property name="@preset" type="symbol">preset name for using with
+            [ui.preset]</property>
             <property name="@send" type="symbol">send destination</property>
             <property name="@receive" type="symbol">receive source</property>
         </properties>
@@ -57,4 +59,3 @@
         </example>
     </object>
 </pddoc>
-

@@ -7,7 +7,7 @@
 #X obj 571 11 vector.normalize;
 #X obj 205 80 cnv 1 490 61 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 210 80 Treats list of floats as vector \, divides the vector
-elements by its magnitude.  Note: returns 0 vector if vector length
+elements by its magnitude. Note: returns 0 vector if vector length
 (magnitude) is 0\.;
 #X msg 50 169 1 2 3;
 #X msg 126 169 0 0 0;
@@ -19,7 +19,7 @@ elements by its magnitude.  Note: returns 0 vector if vector length
 0;
 #X text 120 319 1\.;
 #X text 150 319 *list*;
-#X text 240 319 input list of floats. ;
+#X text 240 319 input list of floats.;
 #X obj 20 347 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 352 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

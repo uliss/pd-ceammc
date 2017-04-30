@@ -5,7 +5,7 @@
 #X obj 1 1 cnv 5 712 40 empty empty ui.matrix 20 20 0 20 -104026 -4096
 0;
 #X obj 205 80 cnv 1 490 47 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80 Rectangle matrix of toggles.  Note: all matrix
+#X text 210 80 Rectangle matrix of toggles. Note: all matrix
 operations have following cell address format - ROW COL.;
 #X floatatom 146 155 5 0 0 0 - - -;
 #X floatatom 261 155 5 0 0 0 - - -;
@@ -36,14 +36,13 @@ value: 1;
 #X obj 20 588 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 593 getcell;
-#X text 240 593 outputs cell value as [cell( message. Arguments are: ;
+#X text 240 593 outputs cell value as [cell( message. Arguments are:;
 #X obj 250 621 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 621 ROW: cell row. Type: int. Min value: 0;
 #X obj 250 649 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 649 COL: cell column. Type: int. Min value: 0;
 #X msg 120 677 setcell;
-#X text 240 677 sets cell value without outputting it. Arguments are:
-;
+#X text 240 677 sets cell value without outputting it. Arguments are:;
 #X obj 250 705 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 705 ROW: cell row. Type: int. Min value: 0;
 #X obj 250 733 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -57,46 +56,45 @@ changed.;
 #X text 240 831 dumps all object info to Pd console window.;
 #X msg 120 863 getcolumn;
 #X text 240 863 outputs list of column values as [col( message.
-Arguments are: ;
+Arguments are:;
 #X obj 250 905 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 905 NUM: Column index. Type: int. Min value: 0;
 #X msg 120 933 setcolumn;
 #X text 240 933 sets column values without outputting them. Arguments
-are: ;
+are:;
 #X obj 250 961 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 961 COL: Columns index. Type: int. Min value: 0;
 #X obj 250 989 cnv 1 54 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 989 VALUES: cells values \, for ex.: 1 0 1 1\. Type: list.
-;
+#X text 250 989 VALUES: cells values \, for ex.: 1 0 1 1\. Type:
+list.;
 #X msg 120 1017 getrow;
 #X text 240 1017 outputs list of row values as [row( message.
-Arguments are: ;
+Arguments are:;
 #X obj 250 1045 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 1045 NUM: row index. Type: int. Min value: 0;
 #X msg 120 1073 setrow;
 #X text 240 1073 sets row values without outputting them. Arguments
-are: ;
+are:;
 #X obj 250 1101 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 1101 ROW: row index. Type: int. Min value: 0;
 #X obj 250 1129 cnv 1 54 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 1129 VALUES: cells values \, for ex.: 1 0 1 1\. Type:
-list. ;
+list.;
 #X msg 120 1157 set;
-#X text 240 1157 silently sets matrix state. Arguments are: ;
+#X text 240 1157 silently sets matrix state. Arguments are:;
 #X obj 250 1185 cnv 1 54 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 1185 VALUES: list values in format: ROW COL VALUE [ \, ROW
-COL VALUE].  VALUE should be 1 or 0\. Type: list. ;
+COL VALUE]. VALUE should be 1 or 0\. Type: list.;
 #X obj 20 1237 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1242 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 1247 1\.;
 #X text 150 1247 *bang*;
 #X text 240 1247 outputs matrix state as separate messages in format:
-[cell ROW COL VALUE(. ;
+[cell ROW COL VALUE(.;
 #X text 150 1279 *list*;
-#X text 240 1279 sets matrix state and outputs values.  List values
-format: ROW COL VALUE [ \, ROW COL VALUE].  VALUE should be 1 or 0\..
-;
+#X text 240 1279 sets matrix state and outputs values. List values
+format: ROW COL VALUE [ \, ROW COL VALUE]. VALUE should be 1 or 0\..;
 #X obj 20 1321 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1326 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

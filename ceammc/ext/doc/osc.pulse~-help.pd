@@ -1,7 +1,7 @@
 #N canvas 0 0 715 555 12;
 #X declare -lib ceammc -lib creammc;
 #X obj 414 50 cnv 1 281 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 414 50 Bandlimited pulse train oscillator. ;
+#X text 414 50 Bandlimited pulse train oscillator.;
 #X obj 1 1 cnv 5 712 40 empty empty osc.pulse~ 20 20 0 20 -104026
 -4096 0;
 #X obj 614 11 osc.pulse~;
@@ -29,7 +29,7 @@
 #X text 120 347 3\.;
 #X text 150 347 symbol;
 #X obj 241 348 cnv 1 24 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 347 ID: object ID for OSC control. ;
+#X text 240 347 ID: object ID for OSC control.;
 #X obj 20 375 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 380 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
@@ -37,7 +37,7 @@
 #X text 150 385 *float*;
 #X text 240 385 frequency in Hz. Min value: 20;
 #X text 150 403 *bang*;
-#X text 240 403 outputs object internal state to rightmost outlet. ;
+#X text 240 403 outputs object internal state to rightmost outlet.;
 #X obj 20 431 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 436 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

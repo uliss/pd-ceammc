@@ -35,39 +35,39 @@ floats and the previous one.;
 #X text 150 427 symbol;
 #X obj 241 428 cnv 1 81 18 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 240 427 @oversize: Specifies behavior \, if list have
-different sizes.  Possible values are: min \, padz \, clip \, wrap and
-fold. Default value: padz.. ;
+different sizes. Possible values are: min \, padz \, clip \, wrap and
+fold. Default value: padz..;
 #X text 120 473 2\.;
 #X text 150 473 symbol;
 #X obj 241 474 cnv 1 41 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 473 @min: alias for "@oversize min" property.  Truncates
-lists to minimal common size.. ;
+#X text 240 473 @min: alias for "@oversize min" property. Truncates
+lists to minimal common size..;
 #X text 120 505 3\.;
 #X text 150 505 symbol;
 #X obj 241 506 cnv 1 49 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 505 @clip: alias for "@oversize min" property.  Truncates
-lists to minimal common size.. ;
+#X text 240 505 @clip: alias for "@oversize min" property. Truncates
+lists to minimal common size..;
 #X text 120 537 4\.;
 #X text 150 537 symbol;
 #X obj 241 538 cnv 1 49 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 537 @padz: alias for "@oversize padz" property.  Pad
-shortest list with zeroes.. ;
+#X text 240 537 @padz: alias for "@oversize padz" property. Pad
+shortest list with zeroes..;
 #X text 120 569 5\.;
 #X text 150 569 symbol;
 #X obj 241 570 cnv 1 49 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 569 @clip: alias for "@oversize clip" property.  Pad
-shortest list with last element to conform longest list. ;
+#X text 240 569 @clip: alias for "@oversize clip" property. Pad
+shortest list with last element to conform longest list.;
 #X text 120 601 6\.;
 #X text 150 601 symbol;
 #X obj 241 602 cnv 1 49 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 601 @wrap: alias for "@oversize wrap" property.  Pad
-shortest list with repeated values from the beginning.. ;
+#X text 240 601 @wrap: alias for "@oversize wrap" property. Pad
+shortest list with repeated values from the beginning..;
 #X text 120 633 7\.;
 #X text 150 633 symbol;
 #X obj 241 634 cnv 1 49 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 633 @fold: alias for "@oversize fold" property.  Pad
+#X text 240 633 @fold: alias for "@oversize fold" property. Pad
 shortest list with repeated values from the end to the beginning \,
-then back and so on.. ;
+then back and so on..;
 #X obj 20 689 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 694 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -78,7 +78,7 @@ then back and so on.. ;
 0;
 #X text 120 751 1\.;
 #X text 150 751 *list*;
-#X text 240 751 Input float list. ;
+#X text 240 751 Input float list.;
 #X obj 20 779 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 784 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

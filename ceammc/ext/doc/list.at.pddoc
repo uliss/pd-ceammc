@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="list.at">
         <title>list.at</title>
@@ -18,16 +18,19 @@
         </meta>
         <info>
             <par>Returns the element at the given index position in the list.</par>
-            <par>@rel property allows to acess elements in range (-LIST_SIZE, LIST_SIZE).
-Negative index means position from the end of the list. For example: -1 returns last element.</par>
-            <par>@clip property: if element index &lt; 0 - first element returned. If element index &gt;= LIST_SIZE
-last element returned.</par>
-            <par>@wrap property: in range [0, LIST_SIZE) ordinal elements are returned. Other indexes are wrapped by modulo division.</par>
+            <par>@rel property allows to acess elements in range (-LIST_SIZE, LIST_SIZE). Negative
+            index means position from the end of the list. For example: -1 returns last
+            element.</par>
+            <par>@clip property: if element index &lt; 0 - first element returned. If element index
+            &gt;= LIST_SIZE last element returned.</par>
+            <par>@wrap property: in range [0, LIST_SIZE) ordinal elements are returned. Other
+            indexes are wrapped by modulo division.</par>
         </info>
         <arguments>
             <argument name="position" type="int">position</argument>
-            <argument name="method" type="symbol">@rel(default), @clip, @fold or @wrap.
-            They are aliases for property: @method rel, @method clip, @method fold and @method wrap</argument>
+            <argument name="method" type="symbol">@rel(default), @clip, @fold or @wrap. They are
+            aliases for property: @method rel, @method clip, @method fold and @method
+            wrap</argument>
         </arguments>
         <inlets>
             <inlet>
@@ -60,4 +63,3 @@ last element returned.</par>
         </example>
     </object>
 </pddoc>
-

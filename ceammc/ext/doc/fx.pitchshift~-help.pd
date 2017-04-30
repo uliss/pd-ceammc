@@ -10,7 +10,7 @@
 #X obj 184 147 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X floatatom 242 147 5 0 0 0 - - -;
-#X text 299 147  transposition ;
+#X text 299 147 transposition;
 #X obj 50 176 fx.pitchshift~ 200 100 id;
 #X obj 50 205 dac~;
 #X obj 242 205 print;
@@ -20,31 +20,31 @@
 #X text 120 254 1\.;
 #X text 150 254 float;
 #X obj 241 255 cnv 1 89 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 254 window(ms):   the window size. Range: 10\...2000;
+#X text 240 254 window(ms): the window size. Range: 10\...2000;
 #X text 120 272 2\.;
 #X text 150 272 float;
 #X obj 241 273 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 272 fade(ms):   crossfade duration. Range: 0\...1000;
+#X text 240 272 fade(ms): crossfade duration. Range: 0\...1000;
 #X text 120 290 3\.;
 #X text 150 290 symbol;
 #X obj 241 291 cnv 1 24 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 290 ID: object ID for OSC control path. ;
+#X text 240 290 ID: object ID for OSC control path.;
 #X obj 20 318 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 323 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 328 window;
-#X text 240 328  Arguments are: ;
+#X text 240 328 Arguments are:;
 #X obj 250 356 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 356 MS: the window size. Type: float. Range: 10\...2000;
 #X msg 120 384 fade;
-#X text 240 384  Arguments are: ;
+#X text 240 384 Arguments are:;
 #X obj 250 412 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 412 MS: crossfade duration. Type: float. Range: 0\...1000;
 #X obj 20 450 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 455 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 460 1\.;
-#X text 240 460 input signal. ;
+#X text 240 460 input signal.;
 #X text 120 478 2\.;
 #X text 240 478 pitch shift in semitones. Range: -38\...60;
 #X obj 20 506 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;

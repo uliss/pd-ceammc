@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="list.stretch">
         <title>list.stretch</title>
@@ -18,11 +18,12 @@
             </also>
         </meta>
         <arguments>
-            <argument name="stretch" type="float">New size of output list. Input list will be stretched to the new size with linear interpolation</argument>
+            <argument name="stretch" type="float">New size of output list. Input list will be
+            stretched to the new size with linear interpolation</argument>
         </arguments>
         <inlets>
             <inlet>
-                <xinfo on="list">Input list. </xinfo>
+                <xinfo on="list">Input list.</xinfo>
             </inlet>
             <inlet>
                 <xinfo>New length of output list</xinfo>
@@ -46,4 +47,3 @@
         </example>
     </object>
 </pddoc>
-

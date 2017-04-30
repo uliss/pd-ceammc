@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="live.capture~">
         <title>live.capture~</title>
@@ -6,7 +6,8 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>record up to 8s of sound and playback the recorded sound in loop</description>
+            <description>record up to 8s of sound and playback the recorded sound in
+            loop</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>live</category>
@@ -32,7 +33,7 @@
             <outlet type="control">information output</outlet>
         </outlets>
         <example>
-        <pdascii>
+            <pdascii>
 <![CDATA[
 [adc~]    [_]
 |         |
@@ -42,8 +43,7 @@
 |\              ^|
 [dac~]          [print]
 ]]>
-        </pdascii>
+            </pdascii>
         </example>
     </object>
 </pddoc>
-

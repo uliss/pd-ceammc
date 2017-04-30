@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="expand_env">
         <title>expand_env</title>
@@ -17,13 +17,14 @@
             </also>
         </meta>
         <info>
-            <par>Environment variable %HOME% will be replaced by home user directory under UNIX</par>
-            <par>Some special variables defined:
-            %DOC% - path to PureData doc directory, %CEAMMC% - path to ceammc library directory
-            </par>
+            <par>Environment variable %HOME% will be replaced by home user directory under
+            UNIX</par>
+            <par>Some special variables defined: %DOC% - path to PureData doc directory, %CEAMMC% -
+            path to ceammc library directory</par>
         </info>
         <arguments>
-            <argument name="@any" type="property">if specified - also do substitution in message selector</argument>
+            <argument name="@any" type="property">if specified - also do substitution in message
+            selector</argument>
         </arguments>
         <inlets>
             <inlet>
@@ -31,9 +32,8 @@
                 <xinfo on="float">passed</xinfo>
                 <xinfo on="symbol">expand variable inside symbol string</xinfo>
                 <xinfo on="list">expand variables inside each list symbol</xinfo>
-                <xinfo on="any">
-                expand variables inside each list symbol, more over,
-                if @any argument was used - expand in message selector</xinfo>
+                <xinfo on="any">expand variables inside each list symbol, more over, if @any
+                argument was used - expand in message selector</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -69,4 +69,3 @@
         </example>
     </object>
 </pddoc>
-

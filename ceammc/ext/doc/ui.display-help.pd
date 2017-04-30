@@ -10,7 +10,7 @@
 #X msg 318 133 any msg;
 #X msg 414 133 bang;
 #X obj 50 190 ui.display @size 150 18;
-#X text 50 234  display message type ;
+#X text 50 234 display message type;
 #X msg 50 262 list a b c;
 #X msg 174 262 1;
 #X msg 213 262 symbol X;
@@ -37,7 +37,7 @@ int. Default value: 0\. Allowed values: 0 \, 1;
 0;
 #X text 120 527 1\.;
 #X text 150 527 *list*;
-#X text 240 527 accepts any messages and displays it. . ;
+#X text 240 527 accepts any messages and displays it..;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

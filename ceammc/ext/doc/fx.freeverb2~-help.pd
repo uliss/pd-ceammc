@@ -29,21 +29,21 @@
 #X text 120 354 1\.;
 #X text 150 354 symbol;
 #X obj 241 355 cnv 1 24 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 354 ID: object ID for OSC control path. ;
+#X text 240 354 ID: object ID for OSC control path.;
 #X obj 20 382 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 387 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 392 roomsize;
-#X text 240 392  Arguments are: ;
+#X text 240 392 Arguments are:;
 #X obj 250 420 cnv 1 64 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 420 [anonym]: Room size. Type: float. Range: 0\...1;
 #X msg 120 448 damp;
-#X text 240 448  Arguments are: ;
+#X text 240 448 Arguments are:;
 #X obj 250 476 cnv 1 64 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 476 [anonym]: Damping of the lowpass comb filter. Type:
 float. Range: 0\...1;
 #X msg 120 518 drywet;
-#X text 240 518  Arguments are: ;
+#X text 240 518 Arguments are:;
 #X obj 250 546 cnv 1 64 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 546 [anonym]: Ratio between processed signal (wet) and
 source signal. Type: float. Range: 0\...1;
@@ -51,9 +51,9 @@ source signal. Type: float. Range: 0\...1;
 #X obj 20 603 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 608 1\.;
-#X text 240 608 left channel. ;
+#X text 240 608 left channel.;
 #X text 120 626 2\.;
-#X text 240 626 right channel. ;
+#X text 240 626 right channel.;
 #X obj 20 654 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 659 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

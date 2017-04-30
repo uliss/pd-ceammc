@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="list.split">
         <title>list.split</title>
@@ -7,7 +7,8 @@
                 <author>Alex Nadzharov</author>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>splits list into two parts, the length of first list is specified by the argument.</description>
+            <description>splits list into two parts, the length of first list is specified by the
+            argument.</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>list</category>
@@ -18,11 +19,12 @@
             </also>
         </meta>
         <arguments>
-            <argument name="split" type="int">size of first list. The size of the list on the second output is the size of input list - this value</argument>
+            <argument name="split" type="int">size of first list. The size of the list on the
+            second output is the size of input list - this value</argument>
         </arguments>
         <inlets>
             <inlet>
-                <xinfo on="list">Input list. </xinfo>
+                <xinfo on="list">Input list.</xinfo>
             </inlet>
             <inlet>
                 <xinfo>New split point value.</xinfo>
@@ -34,7 +36,7 @@
         </outlets>
         <example>
             <pdascii>
-                <![CDATA[
+<![CDATA[
 [1 2 3 4 5(  [3 (
 |            |.
 [list.split      2]
@@ -47,4 +49,3 @@
         </example>
     </object>
 </pddoc>
-

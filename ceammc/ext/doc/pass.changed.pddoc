@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="pass.changed">
         <title>pass.changed</title>
@@ -17,13 +17,9 @@
             </also>
         </meta>
         <info>
-            <par>
-            The pass.changed object outputs its input only when it changed.
-            You can "set" the current value, or bang to force output.
-            </par>
-            <par>
-            Note: [list a b c( and [a b c( are different values!
-            </par>
+            <par>The pass.changed object outputs its input only when it changed. You can "set" the
+            current value, or bang to force output.</par>
+            <par>Note: [list a b c( and [a b c( are different values!</par>
         </info>
         <methods>
             <method name="reset">resets state</method>
@@ -54,4 +50,3 @@
         </example>
     </object>
 </pddoc>
-

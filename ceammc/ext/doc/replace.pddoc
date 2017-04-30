@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="replace">
         <title>replace</title>
@@ -17,7 +17,8 @@
             </also>
         </meta>
         <info>
-            <par>From/to values can be specified both as @from/@to properties or first and second arguments.</par>
+            <par>From/to values can be specified both as @from/@to properties or first and second
+            arguments.</par>
         </info>
         <arguments>
             <argument name="FROM" type="atom">replace subject</argument>
@@ -60,4 +61,3 @@
         </example>
     </object>
 </pddoc>
-

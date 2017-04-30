@@ -8,9 +8,8 @@
 #X obj 205 80 cnv 1 490 84 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 210 80 Environment variable %HOME% will be replaced by home
 user directory under UNIX;
-#X text 210 117 Some special variables defined:  %DOC% - path to
-PureData doc directory \, %CEAMMC% - path to ceammc library directory
-;
+#X text 210 117 Some special variables defined: %DOC% - path to
+PureData doc directory \, %CEAMMC% - path to ceammc library directory;
 #X obj 50 192 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X floatatom 88 192 5 0 0 0 - - -;
@@ -34,22 +33,22 @@ PureData doc directory \, %CEAMMC% - path to ceammc library directory
 #X text 150 544 property;
 #X obj 241 545 cnv 1 41 18 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 240 544 @any: if specified - also do substitution in message
-selector. ;
+selector.;
 #X obj 20 586 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 591 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 596 1\.;
 #X text 150 596 *bang*;
-#X text 240 596 passed. ;
+#X text 240 596 passed.;
 #X text 150 614 *float*;
-#X text 240 614 passed. ;
+#X text 240 614 passed.;
 #X text 150 632 *symbol*;
-#X text 240 632 expand variable inside symbol string. ;
+#X text 240 632 expand variable inside symbol string.;
 #X text 150 650 *list*;
-#X text 240 650 expand variables inside each list symbol. ;
+#X text 240 650 expand variables inside each list symbol.;
 #X text 150 668 *any*;
-#X text 240 668   expand variables inside each list symbol \, more
-over \,   if @any argument was used - expand in message selector. ;
+#X text 240 668 expand variables inside each list symbol \, more over
+\, if @any argument was used - expand in message selector.;
 #X obj 20 710 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 715 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

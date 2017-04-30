@@ -20,22 +20,22 @@ sound in loop;
 #X text 120 254 1\.;
 #X text 150 254 symbol;
 #X obj 241 255 cnv 1 24 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 254 ID: object ID for OSC control path. ;
+#X text 240 254 ID: object ID for OSC control path.;
 #X obj 20 282 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 287 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 292 record;
-#X text 240 292  Arguments are: ;
+#X text 240 292 Arguments are:;
 #X obj 250 320 cnv 1 64 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 320 [anonym]: capture sound while = 1 \, play sound while
-= 0\. Type: int. ;
+= 0\. Type: int.;
 #X obj 20 372 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 377 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 382 1\.;
-#X text 240 382 source signal. ;
+#X text 240 382 source signal.;
 #X text 150 400 *bang*;
-#X text 240 400 outputs object internal state to rightmost outlet. ;
+#X text 240 400 outputs object internal state to rightmost outlet.;
 #X obj 20 428 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 433 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

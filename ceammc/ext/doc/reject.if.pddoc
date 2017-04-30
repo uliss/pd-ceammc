@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="reject.if">
         <title>reject.if</title>
@@ -19,13 +19,18 @@
             </also>
         </meta>
         <info>
-            <par>conditional value reject according to *predicate* object.
-            *predicate* should accept value and ouput 0 or 1, for value passing.</par>
+            <par>conditional value reject according to *predicate* object. *predicate* should
+            accept value and ouput 0 or 1, for value passing.</par>
             <par>[&lt;] [is_even] [is_list] - examples of predicates.</par>
         </info>
         <inlets>
-            <inlet><xinfo>input value</xinfo></inlet>
-            <inlet><xinfo on="int">value from predicate (0 or 1). If *1* reject value, if *0* - pass.</xinfo></inlet>
+            <inlet>
+                <xinfo>input value</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="int">value from predicate (0 or 1). If *1* reject value, if *0* -
+                pass.</xinfo>
+            </inlet>
         </inlets>
         <outlets>
             <outlet>passed values</outlet>
@@ -48,4 +53,3 @@
         </example>
     </object>
 </pddoc>
-

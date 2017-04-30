@@ -2,6 +2,8 @@
 #X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
 #X obj 79 53 ui.link @title ceammc @url ceammc-help.pd;
+#X obj 318 50 cnv 1 377 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 318 50 math objects. can operate with list of numbers.;
 #X obj 30 116 math.abs;
 #X text 175 116 absolute value function;
 #X obj 30 143 math.acos;

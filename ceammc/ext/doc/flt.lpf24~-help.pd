@@ -7,9 +7,9 @@
 #X obj 614 11 flt.lpf24~;
 #X obj 205 80 cnv 1 490 89 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 210 80 A low-pass filter is a filter that passes signals with
-a frequency  lower than a certain cutoff frequency and attenuates
-signals with frequencies  higher than the cutoff frequency.  A low-
-pass filter is the complement of a high-pass filter.  ;
+a frequency lower than a certain cutoff frequency and attenuates
+signals with frequencies higher than the cutoff frequency. A low-pass
+filter is the complement of a high-pass filter.;
 #X floatatom 50 197 5 0 0 0 - - -;
 #X obj 184 212 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 50 226 phasor~ 100;
@@ -31,7 +31,7 @@ pass filter is the complement of a high-pass filter.  ;
 #X text 120 491 1\.;
 #X text 150 491 float;
 #X obj 241 492 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 491 freq(Hz): cutoff frequency. ;
+#X text 240 491 freq(Hz): cutoff frequency.;
 #X text 120 509 2\.;
 #X text 150 509 float;
 #X obj 241 510 cnv 1 16 18 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -39,16 +39,16 @@ pass filter is the complement of a high-pass filter.  ;
 #X text 120 527 3\.;
 #X text 150 527 symbol;
 #X obj 241 528 cnv 1 24 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 527 ID: object ID for OSC control. ;
+#X text 240 527 ID: object ID for OSC control.;
 #X obj 20 555 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 560 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 565 freq;
-#X text 240 565  Arguments are: ;
+#X text 240 565 Arguments are:;
 #X obj 250 593 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 593 HZ: cutoff frequency. Type: float. ;
+#X text 250 593 HZ: cutoff frequency. Type: float.;
 #X msg 120 621 q;
-#X text 240 621  Arguments are: ;
+#X text 240 621 Arguments are:;
 #X obj 250 649 cnv 1 64 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 649 [Q=0.01]: quality factor. Type: float. Range:
 0.01\...100;
@@ -56,7 +56,7 @@ pass filter is the complement of a high-pass filter.  ;
 #X obj 20 692 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 697 1\.;
-#X text 240 697 input signal. ;
+#X text 240 697 input signal.;
 #X obj 20 725 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 730 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

@@ -6,8 +6,8 @@
 -4096 0;
 #X obj 614 11 flt.notch~;
 #X obj 205 80 cnv 1 490 61 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80 filter that passes most frequencies unaltered \,   but
-attenuates those in a specific range to very low levels.  It is the
+#X text 210 80 filter that passes most frequencies unaltered \, but
+attenuates those in a specific range to very low levels. It is the
 opposite of a band-pass filter.;
 #X obj 50 169 osc~ 1000;
 #X obj 165 169 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
@@ -27,33 +27,33 @@ opposite of a band-pass filter.;
 #X text 120 391 1\.;
 #X text 150 391 float;
 #X obj 241 392 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 391 freq(Hz):   center frequency. ;
+#X text 240 391 freq(Hz): center frequency.;
 #X text 120 409 2\.;
 #X text 150 409 float;
 #X obj 241 410 cnv 1 81 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 409 width(Hz):   band width (approximate). ;
+#X text 240 409 width(Hz): band width (approximate).;
 #X text 120 427 3\.;
 #X text 150 427 symbol;
 #X obj 241 428 cnv 1 24 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 427 ID: object ID for OSC control. ;
+#X text 240 427 ID: object ID for OSC control.;
 #X obj 20 455 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 460 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 465 freq;
-#X text 240 465  Arguments are: ;
+#X text 240 465 Arguments are:;
 #X obj 250 493 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 493 HZ: center frequency. Type: float. ;
+#X text 250 493 HZ: center frequency. Type: float.;
 #X msg 120 521 width;
-#X text 240 521  Arguments are: ;
+#X text 240 521 Arguments are:;
 #X obj 250 549 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 549 HZ: band width (approximate). Type: float. ;
+#X text 250 549 HZ: band width (approximate). Type: float.;
 #X obj 20 587 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 592 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 597 1\.;
-#X text 240 597 input signal. ;
+#X text 240 597 input signal.;
 #X text 150 615 *bang*;
-#X text 240 615 outputs object internal state to rightmost outlet. ;
+#X text 240 615 outputs object internal state to rightmost outlet.;
 #X obj 20 643 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 648 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

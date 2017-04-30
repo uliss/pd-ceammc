@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="flt.eq_peak~">
         <title>flt.eq_peak~</title>
@@ -7,8 +7,8 @@
                 <author>Alex Nadzharov</author>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>second order "peaking equalizer" section (gain boost or cut near some frequency).
-            Also called a "parametric equalizer" section.</description>
+            <description>second order "peaking equalizer" section (gain boost or cut near some
+            frequency). Also called a "parametric equalizer" section.</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>flt</category>
@@ -24,7 +24,8 @@
                 <param type="float" units="herz">peak frequency</param>
             </method>
             <method name="gain">
-                <param type="float" units="decibel">level at fx (boost if &gt;0 or cut if &lt;0)</param>
+                <param type="float" units="decibel">level at fx (boost if &gt;0 or cut if
+                &lt;0)</param>
             </method>
             <method name="bandwidth">
                 <param type="float" units="herz">bandwidth of peak</param>
@@ -32,7 +33,8 @@
         </methods>
         <arguments>
             <argument name="freq" type="float" units="herz">peak frequency</argument>
-            <argument name="gain" type="float" units="decibel">level at fx (boost if &gt;0 or cut if &lt;0)</argument>
+            <argument name="gain" type="float" units="decibel">level at fx (boost if &gt;0 or cut
+            if &lt;0)</argument>
             <argument name="bandwidth" type="float" units="herz">bandwidth of peak</argument>
             <argument name="ID" type="symbol">object ID for OSC control</argument>
         </arguments>
@@ -47,7 +49,7 @@
             <outlet type="control">information output</outlet>
         </outlets>
         <example>
-        <pdascii>
+            <pdascii>
 <![CDATA[
 [noise~] [_]
 |  ._____/
@@ -59,8 +61,7 @@
 |\                      ^|
 [dac~]                 [print]
 ]]>
-        </pdascii>
+            </pdascii>
         </example>
     </object>
 </pddoc>
-

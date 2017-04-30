@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="list.max">
         <title>list.max</title>
@@ -17,15 +17,19 @@
             </also>
         </meta>
         <info>
-            <par>By default returns largest float in list, this equal to using @float property.</par>
+            <par>By default returns largest float in list, this equal to using @float
+            property.</par>
             <par>Also you can choose largest symbol from list, using @symbol property.</par>
         </info>
         <arguments>
-            <argument name="@type" type="property">type of largest element. Possible values are: float (default), symbol, any</argument>
-            <argument name="@float" type="property">alias for @type float. Find max float element in list</argument>
-            <argument name="@symbol" type="property">alias for @type symbol. Find greatest symbol element</argument>
-            <argument name="@any" type="property">alias for @type any. Find greatest atom of any type.
-            Note: symbols are greater then numbers</argument>
+            <argument name="@type" type="property">type of largest element. Possible values are:
+            float (default), symbol, any</argument>
+            <argument name="@float" type="property">alias for @type float. Find max float element
+            in list</argument>
+            <argument name="@symbol" type="property">alias for @type symbol. Find greatest symbol
+            element</argument>
+            <argument name="@any" type="property">alias for @type any. Find greatest atom of any
+            type. Note: symbols are greater then numbers</argument>
         </arguments>
         <inlets>
             <inlet>
@@ -60,4 +64,3 @@
         </example>
     </object>
 </pddoc>
-

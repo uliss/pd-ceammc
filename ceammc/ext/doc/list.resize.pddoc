@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="list.resize">
         <title>list.resize</title>
@@ -19,9 +19,10 @@
         <arguments>
             <argument name="SIZE" type="int" minvalue="0">desired list size</argument>
             <argument name="@size INT" type="int" minvalue="0">desired list size</argument>
-            <argument name="@method ENUM" type="property">method of resizing, if new size is longer then current.
-            Possible values are: pad, clip, wrap, fold.</argument>
-            <argument name="@pad VALUE" type="float">set pad value for pad method of resizing.</argument>
+            <argument name="@method ENUM" type="property">method of resizing, if new size is longer
+            then current. Possible values are: pad, clip, wrap, fold.</argument>
+            <argument name="@pad VALUE" type="float">set pad value for pad method of
+            resizing.</argument>
             <argument name="@clip" type="property">pad with last values</argument>
             <argument name="@wrap" type="property">wrap list values</argument>
             <argument name="@fold" type="property">fold list values</argument>
@@ -58,4 +59,3 @@
         </example>
     </object>
 </pddoc>
-

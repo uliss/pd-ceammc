@@ -7,7 +7,7 @@
 #X obj 607 11 flt.biquad~;
 #X obj 205 80 cnv 1 490 47 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 210 80 Digital biquad filter is a second-order recursive
-linear filter \,   containing two poles and two zeros.;
+linear filter \, containing two poles and two zeros.;
 #X obj 50 170 noise.pink~;
 #X obj 184 170 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X floatatom 222 170 5 0 0 0 - - -;
@@ -22,17 +22,17 @@ linear filter \,   containing two poles and two zeros.;
 #X obj 20 357 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 362 1\.;
-#X text 240 362 input signal. ;
+#X text 240 362 input signal.;
 #X text 120 380 2\.;
-#X text 240 380 b0\. ;
+#X text 240 380 b0\.;
 #X text 120 398 3\.;
-#X text 240 398 b1\. ;
+#X text 240 398 b1\.;
 #X text 120 416 4\.;
-#X text 240 416 b2\. ;
+#X text 240 416 b2\.;
 #X text 120 434 5\.;
-#X text 240 434 a1\. ;
+#X text 240 434 a1\.;
 #X text 120 452 6\.;
-#X text 240 452 a2\. ;
+#X text 240 452 a2\.;
 #X obj 20 480 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 485 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

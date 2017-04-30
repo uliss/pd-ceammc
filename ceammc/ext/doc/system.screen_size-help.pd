@@ -14,7 +14,7 @@
 0;
 #X text 120 240 1\.;
 #X text 150 240 *bang*;
-#X text 240 240 outputs screen size in pixels. ;
+#X text 240 240 outputs screen size in pixels.;
 #X obj 20 268 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 273 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

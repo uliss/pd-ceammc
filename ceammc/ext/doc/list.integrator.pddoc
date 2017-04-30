@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="list.integrator">
         <title>list.integrator</title>
@@ -7,7 +7,8 @@
                 <author>Alex Nadzharov</author>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>returns the sum of the previously stored list and the current one then stores this sum.</description>
+            <description>returns the sum of the previously stored list and the current one then
+            stores this sum.</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>list</category>
@@ -42,4 +43,3 @@
         </example>
     </object>
 </pddoc>
-

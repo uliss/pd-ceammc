@@ -8,12 +8,12 @@
 #X obj 205 80 cnv 1 490 33 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 210 80 Defines global scope float variable \, accessed by ID
 name.;
-#X text 50 141  set value ;
+#X text 50 141 set value;
 #X floatatom 50 170 5 0 0 0 - - -;
 #X msg 107 170 set 1.1;
 #X obj 232 170 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X text 299 170  get value ;
+#X text 299 170 get value;
 #X obj 50 199 global.float id;
 #X obj 232 199 global.float id;
 #X floatatom 50 228 5 0 0 0 - - -;
@@ -24,7 +24,7 @@ name.;
 #X text 120 277 1\.;
 #X text 150 277 symbol;
 #X obj 241 278 cnv 1 24 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 277 ID: object ID. ;
+#X text 240 277 ID: object ID.;
 #X obj 20 305 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 310 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -35,11 +35,11 @@ name.;
 0;
 #X text 120 367 1\.;
 #X text 150 367 *bang*;
-#X text 240 367 outputs variable. ;
+#X text 240 367 outputs variable.;
 #X text 150 385 *float*;
-#X text 240 385 set variable to given float and outputs new value. ;
+#X text 240 385 set variable to given float and outputs new value.;
 #X text 150 403 *list*;
-#X text 240 403 set variable to first value in list. ;
+#X text 240 403 set variable to first value in list.;
 #X obj 20 431 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 436 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="list.walk">
         <title>list.walk</title>
@@ -18,24 +18,30 @@
             </also>
         </meta>
         <info>
-            <par>Universal list walker. If you want to output current element and when move to next - use [1( message,
-                Otherwise -  use [next( if you want first move to next position and then output it.
-            </par>
+            <par>Universal list walker. If you want to output current element and when move to next
+            - use [1( message, Otherwise - use [next( if you want first move to next position and
+            then output it.</par>
         </info>
         <arguments>
             <argument type="list" name="INIT">initial list</argument>
         </arguments>
         <properties>
-            <property name="@mode" type="symbol" enum="single clip wrap fold">pass mode. See properties below for detailed information.</property>
-            <property name="@clip" type="int">clipped pass mode. When the list bounds are reached - min/max value repeats perpetually.</property>
-            <property name="@single" type="int">single pass mode. When the list bounds are reached - no output any more until reset.</property>
+            <property name="@mode" type="symbol" enum="single clip wrap fold">pass mode. See
+            properties below for detailed information.</property>
+            <property name="@clip" type="int">clipped pass mode. When the list bounds are reached -
+            min/max value repeats perpetually.</property>
+            <property name="@single" type="int">single pass mode. When the list bounds are reached
+            - no output any more until reset.</property>
             <property name="@loop" type="int">@wrap alias</property>
-            <property name="@wrap" type="int">wrap pass mode. List values are repeated in a loop</property>
-            <property name="@fold" type="int">fold pass mode. List values are repeated in a loop with folding</property>
-
-            <property name="@direction" type="int" default="1" enum="0 1">walking direction. "1" - forwards, "0" - backwards.</property>
+            <property name="@wrap" type="int">wrap pass mode. List values are repeated in a
+            loop</property>
+            <property name="@fold" type="int">fold pass mode. List values are repeated in a loop
+            with folding</property>
+            <property name="@direction" type="int" default="1" enum="0 1">walking direction. "1" -
+            forwards, "0" - backwards.</property>
             <property name="@index" type="int" minvalue="0" default="0">current position</property>
-            <property name="@length" type="int" minvalue="1" default="1">output list length</property>
+            <property name="@length" type="int" minvalue="1" default="1">output list
+            length</property>
             <property name="@size" type="int" readonly="true">current list size</property>
             <property name="@value" type="list" default="[]">current list</property>
         </properties>
@@ -43,10 +49,12 @@
             <method name="current">outputs current element</method>
             <method name="dump">dump internal object state to Pd console window</method>
             <method name="next">
-                <param type="int" default="1" name="STEP">moves to next element with optional given step and outputs it</param>
+                <param type="int" default="1" name="STEP">moves to next element with optional given
+                step and outputs it</param>
             </method>
             <method name="prev">
-                <param type="int" default="1" name="STEP">moves to previous element with optional given step and outputs it</param>
+                <param type="int" default="1" name="STEP">moves to previous element with optional
+                given step and outputs it</param>
             </method>
             <method name="reset">sets current position to 0</method>
         </methods>
@@ -86,4 +94,3 @@
         </example>
     </object>
 </pddoc>
-

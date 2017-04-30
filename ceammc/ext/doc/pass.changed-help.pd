@@ -6,11 +6,9 @@
 -4096 0;
 #X obj 601 11 pass.changed;
 #X obj 205 80 cnv 1 490 84 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80   The pass.changed object outputs its input only when
-it changed.  You can "set" the current value \, or bang to force
-output.  ;
-#X text 210 131   Note: [list a b c( and [a b c( are different values!
-;
+#X text 210 80 The pass.changed object outputs its input only when it
+changed. You can "set" the current value \, or bang to force output.;
+#X text 210 131 Note: [list a b c( and [a b c( are different values!;
 #X msg 88 192 1 2;
 #X msg 146 192 3 4;
 #X msg 203 192 list a b;
@@ -36,7 +34,7 @@ output.  ;
 0;
 #X text 120 441 1\.;
 #X text 150 441 *bang*;
-#X text 240 441 force output current value. ;
+#X text 240 441 force output current value.;
 #X obj 20 469 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 474 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

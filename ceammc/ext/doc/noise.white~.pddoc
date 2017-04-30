@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="noise.white~">
         <title>noise.white~</title>
@@ -23,7 +23,7 @@
             <outlet type="audio">output signal</outlet>
         </outlets>
         <example>
-        <pdascii>
+            <pdascii>
 <![CDATA[
 [ui.dsp~]
 
@@ -34,8 +34,7 @@
 |
 [ui.scope~]
 ]]>
-        </pdascii>
+            </pdascii>
         </example>
     </object>
 </pddoc>
-

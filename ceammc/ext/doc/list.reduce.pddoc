@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="list.reduce">
         <title>list.reduce</title>
@@ -17,9 +17,11 @@
             </also>
         </meta>
         <info>
-            <par>Apply function of two arguments cumulatively to the list, from left to right, so as to reduce the list to a single value.</par>
-            <par>You can imaging this process as a space replacement between elements with binary function,
-            for example: 1 2 3 4 5 becames ((((1+2)+3)+4)+5) after reducing with "+".</par>
+            <par>Apply function of two arguments cumulatively to the list, from left to right, so
+            as to reduce the list to a single value.</par>
+            <par>You can imaging this process as a space replacement between elements with binary
+            function, for example: 1 2 3 4 5 becames ((((1+2)+3)+4)+5) after reducing with
+            "+".</par>
         </info>
         <inlets>
             <inlet>
@@ -63,4 +65,3 @@
         </example>
     </object>
 </pddoc>
-

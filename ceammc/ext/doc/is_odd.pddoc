@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="is_odd">
         <title>is_odd</title>
@@ -18,8 +18,10 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="int">outputs '1' if number is not a multiple of two, otherwise outputs '0'.</xinfo>
-                <xinfo on="float">first value converted to integer, then the check is performed</xinfo>
+                <xinfo on="int">outputs '1' if number is not a multiple of two, otherwise outputs
+                '0'.</xinfo>
+                <xinfo on="float">first value converted to integer, then the check is
+                performed</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -39,4 +41,3 @@
         </example>
     </object>
 </pddoc>
-

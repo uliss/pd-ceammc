@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="list.product">
         <title>list.product</title>
@@ -17,8 +17,8 @@
             </also>
         </meta>
         <info>
-            <par>Note: symbol values are treated as 0.
-            So if list contains at least one symbol, product will be always equal to zero</par>
+            <par>Note: symbol values are treated as 0. So if list contains at least one symbol,
+            product will be always equal to zero</par>
         </info>
         <inlets>
             <inlet>
@@ -44,4 +44,3 @@
         </example>
     </object>
 </pddoc>
-

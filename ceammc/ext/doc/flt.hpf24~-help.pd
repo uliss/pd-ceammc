@@ -7,9 +7,8 @@
 #X obj 614 11 flt.hpf24~;
 #X obj 205 80 cnv 1 490 75 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 210 80 A high-pass filter is an electronic filter that passes
-signals with  a frequency higher than a certain cutoff frequency and
-attenuates signals  with frequencies lower than the cutoff frequency.
-;
+signals with a frequency higher than a certain cutoff frequency and
+attenuates signals with frequencies lower than the cutoff frequency.;
 #X floatatom 50 183 5 0 0 0 - - -;
 #X obj 194 198 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 50 212 osc.saw~ 200;
@@ -31,7 +30,7 @@ attenuates signals  with frequencies lower than the cutoff frequency.
 #X text 120 477 1\.;
 #X text 150 477 float;
 #X obj 241 478 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 477 freq(Hz): cutoff frequency. ;
+#X text 240 477 freq(Hz): cutoff frequency.;
 #X text 120 495 2\.;
 #X text 150 495 float;
 #X obj 241 496 cnv 1 16 18 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -39,16 +38,16 @@ attenuates signals  with frequencies lower than the cutoff frequency.
 #X text 120 513 3\.;
 #X text 150 513 symbol;
 #X obj 241 514 cnv 1 24 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 513 ID: object ID for OSC control. ;
+#X text 240 513 ID: object ID for OSC control.;
 #X obj 20 541 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 546 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 551 freq;
-#X text 240 551  Arguments are: ;
+#X text 240 551 Arguments are:;
 #X obj 250 579 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 579 HZ: cutoff frequency. Type: float. ;
+#X text 250 579 HZ: cutoff frequency. Type: float.;
 #X msg 120 607 q;
-#X text 240 607  Arguments are: ;
+#X text 240 607 Arguments are:;
 #X obj 250 635 cnv 1 64 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 635 [Q=0.01]: quality factor. Type: float. Range:
 0.01\...100;
@@ -56,7 +55,7 @@ attenuates signals  with frequencies lower than the cutoff frequency.
 #X obj 20 678 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 683 1\.;
-#X text 240 683 input signal. ;
+#X text 240 683 input signal.;
 #X obj 20 711 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 716 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

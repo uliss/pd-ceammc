@@ -30,25 +30,25 @@
 #X text 150 376 property;
 #X obj 241 377 cnv 1 104 18 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 240 376 @method ENUM: method of resizing \, if new size is
-longer then current.  Possible values are: pad \, clip \, wrap \,
-fold.. ;
+longer then current. Possible values are: pad \, clip \, wrap \,
+fold..;
 #X text 120 408 4\.;
 #X text 150 408 float;
 #X obj 241 409 cnv 1 89 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 408 @pad VALUE: set pad value for pad method of resizing..
-;
+#X text 240 408 @pad VALUE: set pad value for pad method of
+resizing..;
 #X text 120 426 5\.;
 #X text 150 426 property;
 #X obj 241 427 cnv 1 49 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 426 @clip: pad with last values. ;
+#X text 240 426 @clip: pad with last values.;
 #X text 120 444 6\.;
 #X text 150 444 property;
 #X obj 241 445 cnv 1 49 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 444 @wrap: wrap list values. ;
+#X text 240 444 @wrap: wrap list values.;
 #X text 120 462 7\.;
 #X text 150 462 property;
 #X obj 241 463 cnv 1 49 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 462 @fold: fold list values. ;
+#X text 240 462 @fold: fold list values.;
 #X obj 20 490 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 495 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -59,7 +59,7 @@ fold.. ;
 0;
 #X text 120 552 1\.;
 #X text 150 552 *list*;
-#X text 240 552 input list. ;
+#X text 240 552 input list.;
 #X obj 20 580 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 585 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

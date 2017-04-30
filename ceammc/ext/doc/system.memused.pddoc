@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="system.memused">
         <title>system.memused</title>
@@ -22,14 +22,14 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>current physical memory use measured in bytes,
-            or zero if the value cannot be determined on this OS.</outlet>
-            <outlet>peak (maximum so far) physical memory use measured in bytes,
-            or zero if the value cannot be determined on this OS.</outlet>
+            <outlet>current physical memory use measured in bytes, or zero if the value cannot be
+            determined on this OS.</outlet>
+            <outlet>peak (maximum so far) physical memory use measured in bytes, or zero if the
+            value cannot be determined on this OS.</outlet>
         </outlets>
         <example>
             <pdascii>
-                <![CDATA[
+<![CDATA[
 [bng]
 |
 [system.memused]
@@ -44,4 +44,3 @@
         </example>
     </object>
 </pddoc>
-

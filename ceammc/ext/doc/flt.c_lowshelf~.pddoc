@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="flt.c_lowshelf~">
         <title>flt.c_lowshelf~</title>
@@ -26,16 +26,20 @@
                 <param type="float" units="herz" default="1000">cutoff frequency</param>
             </method>
             <method name="gain">
-                <param type="float" units="decibel" name="X" minvalue="-15" maxvalue="+15" default="0">filter gain</param>
+                <param type="float" units="decibel" name="X" minvalue="-15" maxvalue="+15"
+                default="0">filter gain</param>
             </method>
         </methods>
         <arguments>
             <argument name="freq" type="float" units="herz">cutoff frequency</argument>
-            <argument name="gain" type="float" minvalue="-15" maxvalue="+15" units="decibel">filter gain</argument>
+            <argument name="gain" type="float" minvalue="-15" maxvalue="+15" units="decibel">filter
+            gain</argument>
             <argument name="ID" type="symbol">object ID for OSC control</argument>
         </arguments>
         <inlets>
-            <inlet><xinfo>control input</xinfo></inlet>
+            <inlet>
+                <xinfo>control input</xinfo>
+            </inlet>
         </inlets>
         <outlets>
             <outlet type="audio">b0</outlet>
@@ -46,7 +50,7 @@
             <outlet type="control">information output</outlet>
         </outlets>
         <example>
-        <pdascii>
+            <pdascii>
 <![CDATA[
 [noise.pink~]
 |
@@ -66,8 +70,7 @@
 [dac~]
 
 ]]>
-        </pdascii>
+            </pdascii>
         </example>
     </object>
 </pddoc>
-

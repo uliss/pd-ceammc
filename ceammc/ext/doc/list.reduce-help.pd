@@ -11,7 +11,7 @@ list;
 list \, from left to right \, so as to reduce the list to a single
 value.;
 #X text 210 131 You can imaging this process as a space replacement
-between elements with binary function \,   for example: 1 2 3 4 5
+between elements with binary function \, for example: 1 2 3 4 5
 becames ((((1+2)+3)+4)+5) after reducing with "+".;
 #X msg 50 220 1 2 3 4;
 #X msg 270 220 1 2 3 4;
@@ -44,10 +44,10 @@ becames ((((1+2)+3)+4)+5) after reducing with "+".;
 0;
 #X text 120 572 1\.;
 #X text 150 572 *list*;
-#X text 240 572 input list. ;
+#X text 240 572 input list.;
 #X text 120 590 2\.;
 #X text 150 590 *any*;
-#X text 240 590 value from binary function. ;
+#X text 240 590 value from binary function.;
 #X obj 20 618 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 623 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

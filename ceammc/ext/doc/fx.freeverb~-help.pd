@@ -6,11 +6,11 @@
 -4096 0;
 #X obj 600 11 fx.freeverb~;
 #X obj 205 80 cnv 1 490 103 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80  A simple Schroeder reverberator primarily developed by
+#X text 210 80 A simple Schroeder reverberator primarily developed by
 "Jezar at Dreampoint" that is extensively used in the free-software
 world. It uses four Schroeder allpasses in series and eight parallel
 Schroeder-Moorer filtered-feedback comb-filters for each audio channel
-\, and is said to be especially well tuned.  ;
+\, and is said to be especially well tuned.;
 #X floatatom 50 211 5 0 0 0 - - -;
 #X floatatom 213 226 5 0 0 0 - - -;
 #X floatatom 347 226 5 0 0 0 - - -;
@@ -35,21 +35,21 @@ Schroeder-Moorer filtered-feedback comb-filters for each audio channel
 #X text 120 433 1\.;
 #X text 150 433 symbol;
 #X obj 241 434 cnv 1 24 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 433 ID: object ID for OSC control path. ;
+#X text 240 433 ID: object ID for OSC control path.;
 #X obj 20 461 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 466 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 471 roomsize;
-#X text 240 471  Arguments are: ;
+#X text 240 471 Arguments are:;
 #X obj 250 499 cnv 1 64 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 499 [anonym]: Room size. Type: float. Range: 0\...1;
 #X msg 120 527 damp;
-#X text 240 527  Arguments are: ;
+#X text 240 527 Arguments are:;
 #X obj 250 555 cnv 1 64 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 555 [anonym]: Damping of the lowpass comb filter. Type:
 float. Range: 0\...1;
 #X msg 120 597 drywet;
-#X text 240 597  Arguments are: ;
+#X text 240 597 Arguments are:;
 #X obj 250 625 cnv 1 64 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 625 [anonym]: Ratio between processed signal (wet) and
 source signal. Type: float. Range: 0\...1;
@@ -57,7 +57,7 @@ source signal. Type: float. Range: 0\...1;
 #X obj 20 682 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 687 1\.;
-#X text 240 687 input signal. ;
+#X text 240 687 input signal.;
 #X obj 20 715 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 720 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

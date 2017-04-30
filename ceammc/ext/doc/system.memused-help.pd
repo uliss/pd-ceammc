@@ -9,7 +9,7 @@ peak;
 #X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 50 147 system.memused;
-#X text 174 176  in Kbytes ;
+#X text 174 176 in Kbytes;
 #X obj 50 190 / 1024;
 #X floatatom 50 219 12 0 0 0 - - -;
 #X floatatom 261 219 12 0 0 0 - - -;
@@ -18,16 +18,16 @@ peak;
 0;
 #X text 120 268 1\.;
 #X text 150 268 *bang*;
-#X text 240 268 outputs memory use. ;
+#X text 240 268 outputs memory use.;
 #X obj 20 296 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 301 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 306 1\.;
-#X text 240 306 current physical memory use measured in bytes \,   or
+#X text 240 306 current physical memory use measured in bytes \, or
 zero if the value cannot be determined on this OS.;
 #X text 120 338 2\.;
 #X text 240 338 peak (maximum so far) physical memory use measured in
-bytes \,   or zero if the value cannot be determined on this OS.;
+bytes \, or zero if the value cannot be determined on this OS.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

@@ -6,9 +6,9 @@
 0;
 #X obj 622 11 flow.sync;
 #X obj 205 80 cnv 1 490 89 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80 Sync inlets data. All inlets are 'hot'.  When float \,
-symbol or list arrives to inlet \, it's value stored.  Then output all
-stored values from all inlets from rightmost to leftmost.  The main
+#X text 210 80 Sync inlets data. All inlets are 'hot'. When float \,
+symbol or list arrives to inlet \, it's value stored. Then output all
+stored values from all inlets from rightmost to leftmost. The main
 usage is to escape 'trigger hell' when using many UI controls.;
 #X obj 50 197 hslider 128 15 0.0 127.0 0 0 empty empty empty 17 7 0 10
 -262144 -1 -1 0 0;
@@ -26,16 +26,16 @@ usage is to escape 'trigger hell' when using many UI controls.;
 #X text 120 433 1\.;
 #X text 150 433 int;
 #X obj 241 434 cnv 1 17 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 433 N:   Number of input/outputs. Range: 1\...16;
+#X text 240 433 N: Number of input/outputs. Range: 1\...16;
 #X obj 20 461 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 466 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 471 1\.;
-#X text 240 471 first inlet. ;
+#X text 240 471 first inlet.;
 #X text 120 489 ....;
-#X text 240 489 .... ;
+#X text 240 489 ....;
 #X text 120 507 n.;
-#X text 240 507 Nth inlet. ;
+#X text 240 507 Nth inlet.;
 #X obj 20 535 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 540 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

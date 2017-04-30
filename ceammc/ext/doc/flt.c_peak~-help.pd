@@ -22,7 +22,7 @@
 #X text 120 383 1\.;
 #X text 150 383 float;
 #X obj 241 384 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 383 freq(Hz): peak frequency. ;
+#X text 240 383 freq(Hz): peak frequency.;
 #X text 120 401 2\.;
 #X text 150 401 float;
 #X obj 241 402 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -31,34 +31,34 @@ Range: -15\...+15;
 #X text 120 433 3\.;
 #X text 150 433 float;
 #X obj 241 434 cnv 1 16 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 433 q: quality factory. ;
+#X text 240 433 q: quality factory.;
 #X text 120 451 4\.;
 #X text 150 451 symbol;
 #X obj 241 452 cnv 1 24 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 451 ID: object ID for OSC control. ;
+#X text 240 451 ID: object ID for OSC control.;
 #X obj 20 479 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 484 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 489 freq;
-#X text 240 489  Arguments are: ;
+#X text 240 489 Arguments are:;
 #X obj 250 517 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 517 HZ: peak frequency. Type: float. ;
+#X text 250 517 HZ: peak frequency. Type: float.;
 #X msg 120 545 gain;
-#X text 240 545  Arguments are: ;
+#X text 240 545 Arguments are:;
 #X obj 250 573 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 573 DB: level at fx (boost if >0 or cut if <0). Type:
 float. Range: -15\...+15;
 #X msg 120 615 q;
-#X text 240 615  Arguments are: ;
+#X text 240 615 Arguments are:;
 #X obj 250 643 cnv 1 64 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 643 [anonym]: quality factor. Type: float. ;
+#X text 250 643 [anonym]: quality factor. Type: float.;
 #X obj 20 681 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 686 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 691 1\.;
-#X text 240 691 input signal. ;
+#X text 240 691 input signal.;
 #X text 150 709 *bang*;
-#X text 240 709 outputs object internal state to rightmost outlet. ;
+#X text 240 709 outputs object internal state to rightmost outlet.;
 #X obj 20 737 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 742 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

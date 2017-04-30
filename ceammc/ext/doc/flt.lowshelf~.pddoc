@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="flt.lowshelf~">
         <title>flt.lowshelf~</title>
@@ -20,23 +20,19 @@
         </meta>
         <methods>
             <method name="freq">
-                <param type="float" units="herz">
-                corner frequency for the shelf (e.g., 100 Hz)
-                </param>
+                <param type="float" units="herz">corner frequency for the shelf (e.g., 100
+                Hz)</param>
             </method>
             <method name="gain">
-                <param type="float" units="decibel">
-                amount of boost or cut apply to the signal (e.g., -10 db)
-                </param>
+                <param type="float" units="decibel">amount of boost or cut apply to the signal
+                (e.g., -10 db)</param>
             </method>
         </methods>
         <arguments>
-            <argument name="freq" type="float" units="herz">
-                corner frequency for the shelf
-            </argument>
-            <argument name="gain" type="float" units="decibel">
-                amount of boost or cut apply to the signal
-            </argument>
+            <argument name="freq" type="float" units="herz">corner frequency for the
+            shelf</argument>
+            <argument name="gain" type="float" units="decibel">amount of boost or cut apply to the
+            signal</argument>
             <argument name="ID" type="symbol">object ID for OSC control</argument>
         </arguments>
         <inlets>
@@ -50,7 +46,7 @@
             <outlet type="control">information output</outlet>
         </outlets>
         <example>
-        <pdascii>
+            <pdascii>
 <![CDATA[
 [noise~] [tgl]  [floatatom] [floatatom]
 |  ._____/      |           |
@@ -60,8 +56,7 @@
 |\                      ^|
 [dac~]                 [print]
 ]]>
-        </pdascii>
+            </pdascii>
         </example>
     </object>
 </pddoc>
-

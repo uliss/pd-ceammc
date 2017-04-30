@@ -37,22 +37,22 @@ elements are returned. Other indexes are wrapped by modulo division.;
 #X text 120 502 1\.;
 #X text 150 502 int;
 #X obj 241 503 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 502 position: position. ;
+#X text 240 502 position: position.;
 #X text 120 520 2\.;
 #X text 150 520 symbol;
 #X obj 241 521 cnv 1 56 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 520 method: @rel(default) \, @clip \, @fold or @wrap.
-They are aliases for property: @method rel \, @method clip \, @method
-fold and @method wrap. ;
+#X text 240 520 method: @rel(default) \, @clip \, @fold or @wrap. They
+are aliases for property: @method rel \, @method clip \, @method fold
+and @method wrap.;
 #X obj 20 576 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 581 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 586 1\.;
 #X text 150 586 *list*;
-#X text 240 586 Input list. ;
+#X text 240 586 Input list.;
 #X text 120 604 2\.;
 #X text 150 604 *int*;
-#X text 240 604 position. ;
+#X text 240 604 position.;
 #X obj 20 632 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 637 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

@@ -11,14 +11,14 @@ round to float data type.;
 #X obj 50 147 system.memsize;
 #X obj 50 176 / 1024;
 #X obj 50 205 / 1024;
-#X text 136 205  in Mbytes ;
+#X text 136 205 in Mbytes;
 #X floatatom 50 234 12 0 0 0 - - -;
 #X obj 20 273 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 278 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 283 1\.;
 #X text 150 283 *bang*;
-#X text 240 283 outputs memory size. ;
+#X text 240 283 outputs memory size.;
 #X obj 20 311 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 316 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

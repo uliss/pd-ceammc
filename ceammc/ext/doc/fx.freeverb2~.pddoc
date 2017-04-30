@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="fx.freeverb2~">
         <title>fx.freeverb2~</title>
@@ -21,15 +21,21 @@
                 <param type="float" minvalue="0" maxvalue="1">Room size</param>
             </method>
             <method name="damp">
-                <param type="float" minvalue="0" maxvalue="1">Damping of the lowpass comb filter</param>
+                <param type="float" minvalue="0" maxvalue="1">Damping of the lowpass comb
+                filter</param>
             </method>
             <method name="drywet">
-                <param type="float" minvalue="0" maxvalue="1">Ratio between processed signal (wet) and source signal</param>
+                <param type="float" minvalue="0" maxvalue="1">Ratio between processed signal (wet)
+                and source signal</param>
             </method>
         </methods>
         <inlets>
-            <inlet type="audio"><xinfo>left channel</xinfo></inlet>
-            <inlet type="audio"><xinfo>right channel</xinfo></inlet>
+            <inlet type="audio">
+                <xinfo>left channel</xinfo>
+            </inlet>
+            <inlet type="audio">
+                <xinfo>right channel</xinfo>
+            </inlet>
         </inlets>
         <outlets>
             <outlet type="audio">output left</outlet>
@@ -37,7 +43,7 @@
             <outlet type="control">information output</outlet>
         </outlets>
         <example>
-        <pdascii>
+            <pdascii>
 <![CDATA[
 
 [F]
@@ -56,7 +62,7 @@
 [dac~]
 
 ]]>
-        </pdascii>
+            </pdascii>
         </example>
     </object>
 </pddoc>

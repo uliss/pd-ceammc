@@ -20,16 +20,16 @@
 #X text 120 297 1\.;
 #X text 150 297 symbol;
 #X obj 241 298 cnv 1 33 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 297 VAR: environment variable name. ;
+#X text 240 297 VAR: environment variable name.;
 #X obj 20 325 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 330 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 335 1\.;
 #X text 150 335 *bang*;
-#X text 240 335 outputs variable value. ;
+#X text 240 335 outputs variable value.;
 #X text 150 353 *symbol*;
 #X text 240 353 sets name of environment variable and outputs it
-value. ;
+value.;
 #X obj 20 381 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 386 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

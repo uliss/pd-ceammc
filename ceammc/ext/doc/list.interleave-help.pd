@@ -29,7 +29,7 @@ etc.).;
 0;
 #X text 120 335 1\.;
 #X text 150 335 *list*;
-#X text 240 335 input list. ;
+#X text 240 335 input list.;
 #X obj 20 363 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 368 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

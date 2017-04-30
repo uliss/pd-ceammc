@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="list.unwrap">
         <title>list.unwrap</title>
@@ -7,19 +7,17 @@
                 <author>Alex Nadzharov</author>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>gets list element on first input and list with count of each element on a second inlet.</description>
+            <description>gets list element on first input and list with count of each element on a
+            second inlet.</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>list</category>
-
             <keywords>list unwrap</keywords>
-
             <since>0.1</since>
             <also>
                 <see>list.unwrap</see>
             </also>
         </meta>
-
         <inlets>
             <inlet>
                 <xinfo on="list">First list - single elements</xinfo>
@@ -29,7 +27,8 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>result - elements repeated n times specified by corresponding values in second list</outlet>
+            <outlet>result - elements repeated n times specified by corresponding values in second
+            list</outlet>
         </outlets>
         <example>
             <pdascii>

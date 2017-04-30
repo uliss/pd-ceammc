@@ -7,26 +7,26 @@ second.;
 #X obj 1 1 cnv 5 712 40 empty empty list.wrap 20 20 0 20 -104026 -4096
 0;
 #X obj 622 11 list.wrap;
-#X msg 50 147 1 1 2 2 2 1 1;
-#X obj 50 176 list.wrap;
-#X obj 50 205 msg set;
-#X obj 194 205 msg set;
-#X msg 50 234 ;
-#X msg 194 234 ;
-#X obj 20 244 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 249 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 50 133 1 1 2 2 2 1 1;
+#X obj 50 162 list.wrap;
+#X obj 50 190 msg set;
+#X obj 194 190 msg set;
+#X msg 50 219 ;
+#X msg 194 219 ;
+#X obj 20 243 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 248 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 254 1\.;
-#X text 150 254 *list*;
-#X text 240 254 Input list. ;
-#X obj 20 282 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 287 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 120 253 1\.;
+#X text 150 253 *list*;
+#X text 240 253 Input list.;
+#X obj 20 281 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 286 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 292 1\.;
-#X text 240 292 First list: list entries without repetitions. For
-example 1 1 2 2 2 1 1 becomes 1 2 1 ;
-#X text 120 324 2\.;
-#X text 240 324 Second list: count of entries.;
+#X text 120 291 1\.;
+#X text 240 291 First list: list entries without repetitions. For
+example 1 1 2 2 2 1 1 becomes 1 2 1;
+#X text 120 323 2\.;
+#X text 240 323 Second list: count of entries.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

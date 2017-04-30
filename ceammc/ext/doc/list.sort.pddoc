@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="list.sort">
         <title>list.sort</title>
@@ -27,7 +27,7 @@
         </outlets>
         <example>
             <pdascii>
-                <![CDATA[
+<![CDATA[
 [2 -2 4 1 2.0( [1 a -2 b 4 1 2.0(
 |              |
 [list.sort     ]
@@ -40,4 +40,3 @@
         </example>
     </object>
 </pddoc>
-
