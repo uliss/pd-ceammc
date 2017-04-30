@@ -26,7 +26,7 @@ floats and the previous one.;
 #X msg 491 262 @wrap;
 #X msg 69 277 clear;
 #X obj 50 320 list.delta @clip;
-#X obj 50 349 prepend set;
+#X obj 50 349 msg set;
 #X msg 50 378 ;
 #X obj 20 417 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 422 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144

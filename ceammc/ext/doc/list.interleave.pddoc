@@ -38,7 +38,7 @@
 |  |        |. |       |..  |       |
 [list.interleave               3 @min]
 |
-[prepend set]
+[msg set]
 |
 [ (
 ]]>

@@ -39,7 +39,7 @@
 |
 [list.apply_to 1] X [mtof]
 |
-[prepend set]
+[msg set]
 |
 [ (
                 ]]>

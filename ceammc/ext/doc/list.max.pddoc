@@ -52,7 +52,7 @@
 |             |      |
 [list.max @any       ]
 |
-[prepend set]
+[msg set]
 |
 [ (
 ]]>

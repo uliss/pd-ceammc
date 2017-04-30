@@ -15,7 +15,7 @@ etc.).;
 #X msg 318 147 @wrap;
 #X msg 395 147 @fold;
 #X obj 50 190 list.interleave 3 @min;
-#X obj 50 219 prepend set;
+#X obj 50 219 msg set;
 #X msg 50 248 ;
 #X obj 20 287 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 292 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144

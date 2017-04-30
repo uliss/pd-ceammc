@@ -32,7 +32,7 @@
 |            |
 [list.reverse]
 |
-[prepend set]
+[msg set]
 |
 [ (
 ]]>

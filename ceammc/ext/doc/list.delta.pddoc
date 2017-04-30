@@ -63,7 +63,7 @@
 | |       |  | |      |       |       |       |
 [list.delta                                   @clip]
 |
-[prepend set]
+[msg set]
 |
 [ (
 ]]>

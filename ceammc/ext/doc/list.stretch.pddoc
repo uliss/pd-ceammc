@@ -33,15 +33,15 @@
         </outlets>
         <example>
             <pdascii>
-                <![CDATA[
+<![CDATA[
 [1 2 3 4 5(  [10 (
 |            |.
 [list.stretch 8]
 |
-[prepend set]
+[msg set]
 |
 [ (
-                ]]>
+]]>
             </pdascii>
         </example>
     </object>

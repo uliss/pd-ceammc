@@ -14,7 +14,7 @@
 #X msg 347 170 -3 0 10 2 -5 11;
 #X obj 50 199 list.range;
 #X obj 347 199 list.range;
-#X obj 50 228 prepend set;
+#X obj 50 228 msg set;
 #X obj 347 228 !-;
 #X msg 50 257 ;
 #X floatatom 347 257 5 0 0 0 - - -;

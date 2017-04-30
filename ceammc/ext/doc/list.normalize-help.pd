@@ -9,7 +9,7 @@
 #X msg 78 147 1 2 a b c d;
 #X obj 50 176 list.normalize;
 #X obj 50 205 t b a;
-#X obj 98 234 prepend set;
+#X obj 98 234 msg set;
 #X msg 50 262 ;
 #X obj 50 291 list.sum;
 #X floatatom 50 320 5 0 0 0 - - -;

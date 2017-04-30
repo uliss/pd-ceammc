@@ -53,7 +53,7 @@
 |             |      |
 [list.min @any       ]
 |
-[prepend set]
+[msg set]
 |
 [ (
 ]]>

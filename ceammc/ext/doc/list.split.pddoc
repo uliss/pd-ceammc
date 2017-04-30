@@ -39,7 +39,7 @@
 |            |.
 [list.split      2]
 |              ^|
-[prepend set]   [prepend set]
+[msg set]       [msg set]
 |               |
 [ (             [ (
                 ]]>

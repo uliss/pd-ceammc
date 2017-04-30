@@ -50,7 +50,7 @@
 | | |       |       |       |         |
 [list.resize                          8]
 |
-[prepend set]
+[msg set]
 |
 [ (
 ]]>
