@@ -54,9 +54,9 @@
         <example>
             <pdascii>
 <![CDATA[
-[1 2 3 4 5( [B]             [F]         [T]
+[1 2 3 4 5( [0 30(          [F]         [T]
 |           |               |           |
-|  [B]      [list.seq 1 30] [@count $1( [@auto_range $1(
+|  [B]      [list.seq]      [@count $1( [@auto_range $1(
 |  |        |               |           |
 |  |        | [F]           |           |
 |  |        | |             |           |   [select 4(

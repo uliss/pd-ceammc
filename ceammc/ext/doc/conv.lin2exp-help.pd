@@ -9,8 +9,7 @@
 #X obj 205 80 cnv 1 490 47 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 210 80 The output range must not include zero. If the input
 exceeds the input range \, by default clip is applied.;
-#X obj 50 155 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
--1;
+#X msg 50 155 0 1001;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array array1 1000 float 0;
 #A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
@@ -43,8 +42,8 @@ exceeds the input range \, by default clip is applied.;
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
 #X coords 0 1 1000 0 200 140 1;
-#X restore 347 155 graph;
-#X obj 50 184 list.seq 0 1001;
+#X restore 395 155 graph;
+#X obj 50 184 list.seq;
 #X obj 50 213 list.unpack;
 #X obj 50 242 lin->exp 0 1001 0.01 1;
 #X obj 50 271 tabwrite array1;

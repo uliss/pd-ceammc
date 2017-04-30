@@ -52,9 +52,9 @@
         <example>
             <pdascii>
 <![CDATA[
-[B]                            [array array1 size=1000 yr=0..1]
+[0 1001(                            [array array1 size=1000 yr=0..1]
 |
-[list.seq 0 1001]
+[list.seq]
 |
 [list.unpack              ]
 |                         |
