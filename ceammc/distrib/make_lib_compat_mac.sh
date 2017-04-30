@@ -8,9 +8,9 @@ fi
 SRCDIR="$1"
 BINDIR="$2"
 VERSION="$4"
-OUTDIR="$3/ceammclib"
+OUTDIR="$3/ceammclib_compat"
 SYSVER=$(sw_vers | grep ProductVersion | cut -f2 | cut -f1,2 -d.)
-OUTFILE="ceammclib-${VERSION}-macosx-${SYSVER}-vanilla-0.47.tar.gz"
+OUTFILE="ceammclib-${VERSION}-macosx-${SYSVER}-compat.tar.gz"
 
 
 function skip_ext {
@@ -41,6 +41,7 @@ echo "Copying extension files to ${OUTDIR} ..."
 find "${BINDIR}" -name *.d_fat -print0 | while read -r -d '' file
 do
     ext_name=$(basename $file)
+    cp_ext_name="${ext_name%.d_fat}.pd_darwin"
     skip_ext $file
     if [ $? -eq 1 ]
     then
@@ -48,20 +49,25 @@ do
         continue
     fi
 
-    cp "$file" "${OUTDIR}/${ext_name}"
-    echo "+ Copy: '$ext_name'"
-    dylibbundler -x ${OUTDIR}/$ext_name -b -d ${OUTDIR} -p @loader_path/ -of
+    cp "$file" "${OUTDIR}/${ext_name%.d_fat}.pd_darwin"
+    echo "+ Copy: '$ext_name' as '$cp_ext_name'"
+    dylibbundler -x ${OUTDIR}/$cp_ext_name -b -d ${OUTDIR} -p @loader_path/ -of
 done
 
 ceammc_lib=$(find "${BINDIR}" -name ceammc\\.d_fat)
 cp $ceammc_lib "${OUTDIR}"
-dylibbundler -x ${OUTDIR}/ceammc.d_fat -b -d ${OUTDIR} -p @loader_path/ -of
+
+ceammc_compat=$(find "${BINDIR}" -name ceammc_compat.d_fat)
+cp $ceammc_compat "${OUTDIR}/ceammc.pd_darwin"
+dylibbundler -x ${OUTDIR}/ceammc.pd_darwin -b -d ${OUTDIR} -p @loader_path/ -of
+rm "${OUTDIR}/ceammc_compat.pd_darwin"
 
 echo "Copying help files to ${OUTDIR} ..."
 find "${SRCDIR}/ext/doc" -name *-help\\.pd | while read file
 do
     help=$(basename $file)
     cat "$file" |
+        sed 's/ui\.link @title \([^ ]*\) @url \([^; ]*\)/pddplink \2 -text \1/' |
         sed 's/\.\.\/index-help\.pd/index-help.pd/' > "${OUTDIR}/${help}"
     echo "+ Copy: '$help'"
 done
