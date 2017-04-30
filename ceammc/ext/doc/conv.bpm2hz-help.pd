@@ -7,8 +7,8 @@
 #X obj 533 11 bpm->hz;
 #X obj 608 11 conv.bpm2hz;
 #X obj 205 80 cnv 1 490 47 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80   Converts frequency from BPM (beats per minute) to
-herz.  It is simple as /60 \, but more readable.;
+#X text 210 80 Converts frequency from BPM (beats per minute) to herz.
+It is simple as /60 \, but more readable.;
 #X msg 50 155 120;
 #X floatatom 50 184 5 0 0 0 - - -;
 #X text 98 184 simple metronome;
@@ -23,7 +23,7 @@ herz.  It is simple as /60 \, but more readable.;
 0;
 #X text 120 406 1\.;
 #X text 150 406 *float*;
-#X text 240 406 frequency in BPM. ;
+#X text 240 406 frequency in BPM.;
 #X obj 20 434 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 439 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

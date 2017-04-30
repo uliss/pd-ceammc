@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="conv.bpm2sec">
         <title>conv.bpm2sec</title>
@@ -21,9 +21,8 @@
             </aliases>
         </meta>
         <info>
-            <par>
-                Convert frequency from BPM (beats per minute) to period in seconds.
-                It's simple as 60/f, but more readable.</par>
+            <par>Convert frequency from BPM (beats per minute) to period in seconds. It's simple as
+            60/f, but more readable.</par>
         </info>
         <inlets>
             <inlet>
@@ -35,4 +34,3 @@
         </outlets>
     </object>
 </pddoc>
-

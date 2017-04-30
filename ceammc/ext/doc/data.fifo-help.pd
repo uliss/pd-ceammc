@@ -7,8 +7,8 @@
 #X obj 622 11 data.fifo;
 #X obj 205 80 cnv 1 490 61 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 210 80 If size argument specified - creates queue with fixed
-size.  When count of values exceed this limit \, outputs and removes
-first value in queue.  ;
+size. When count of values exceed this limit \, outputs and removes
+first value in queue.;
 #X floatatom 213 169 5 0 0 0 - - -;
 #X msg 88 198 pop;
 #X msg 155 198 1 2;
@@ -31,7 +31,7 @@ first value in queue.  ;
 #X text 120 362 1\.;
 #X text 150 362 int;
 #X obj 241 363 cnv 1 40 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 362 size: if specified \, creates fixed-size queue.  Value
+#X text 240 362 size: if specified \, creates fixed-size queue. Value
 '0' means default size (1024). Min value: 0;
 #X obj 20 404 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 409 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
@@ -43,16 +43,16 @@ first value in queue.  ;
 #X msg 120 478 pop;
 #X text 240 478 outputs and removes first values in queue.;
 #X msg 120 510 resize;
-#X text 240 510  Arguments are: ;
+#X text 240 510 Arguments are:;
 #X obj 250 538 cnv 1 64 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 538 [anonym]: changes queue size.  All previous values (if
+#X text 250 538 [anonym]: changes queue size. All previous values (if
 any) are silently removed. Type: int. Min value: 0;
 #X obj 20 590 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 595 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 600 1\.;
 #X text 150 600 *bang*;
-#X text 240 600 same as *flush* message. ;
+#X text 240 600 same as *flush* message.;
 #X obj 20 628 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 633 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

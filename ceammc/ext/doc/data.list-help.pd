@@ -23,7 +23,7 @@
 #X text 120 311 1\.;
 #X text 150 311 any;
 #X obj 241 312 cnv 1 17 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 311 X: initial list values. ;
+#X text 240 311 X: initial list values.;
 #X obj 20 339 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 344 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -47,12 +47,12 @@ argument is position \, others - element to insert.;
 0;
 #X text 120 603 1\.;
 #X text 150 603 *bang*;
-#X text 240 603 same as *flush* message. ;
+#X text 240 603 same as *flush* message.;
 #X text 150 621 *list*;
-#X text 240 621 sets new list and output it. ;
+#X text 240 621 sets new list and output it.;
 #X text 120 639 2\.;
 #X text 150 639 *list*;
-#X text 240 639 sets new list without output. ;
+#X text 240 639 sets new list without output.;
 #X obj 20 667 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 672 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="conv.lin2exp">
         <title>conv.lin2exp</title>
@@ -20,27 +20,16 @@
             </aliases>
         </meta>
         <info>
-            <par>
-                 The output range must not include zero.
-                 If the input exceeds the input range, by default clip is applied.
-            </par>
+            <par>The output range must not include zero. If the input exceeds the input range, by
+            default clip is applied.</par>
         </info>
         <properties>
-            <property name="@in_from" type="float" default="0">
-                begin of input range
-            </property>
-            <property name="@in_to" type="float" default="127">
-                end of input range
-            </property>
-            <property name="@out_from" type="float" default="0">
-                begin of output range
-            </property>
-            <property name="@out_to" type="float" default="1">
-                end of output range
-            </property>
-            <property name="@clip" type="int" default="1" enum="0 1">
-                if true, restrict input value in input range
-            </property>
+            <property name="@in_from" type="float" default="0">begin of input range</property>
+            <property name="@in_to" type="float" default="127">end of input range</property>
+            <property name="@out_from" type="float" default="0">begin of output range</property>
+            <property name="@out_to" type="float" default="1">end of output range</property>
+            <property name="@clip" type="int" default="1" enum="0 1">if true, restrict input value
+            in input range</property>
         </properties>
         <arguments>
             <argument name="FROM" type="float">begin of input range</argument>
@@ -79,4 +68,3 @@
         </example>
     </object>
 </pddoc>
-

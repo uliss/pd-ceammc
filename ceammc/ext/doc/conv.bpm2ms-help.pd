@@ -7,12 +7,12 @@
 #X obj 533 11 bpm->ms;
 #X obj 608 11 conv.bpm2ms;
 #X obj 205 80 cnv 1 490 47 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80   Converts frequency from BPM (beats per minute) to
-period in ms.  It is simple as (60 / f) * 1000 \, but more readable.;
+#X text 210 80 Converts frequency from BPM (beats per minute) to
+period in ms. It is simple as (60 / f) * 1000 \, but more readable.;
 #X floatatom 126 155 5 0 0 0 - - -;
-#X text 184 155  tempo ;
+#X text 184 155 tempo;
 #X obj 126 184 * 8;
-#X text 184 184  32nds ;
+#X text 184 184 32nds;
 #X obj 50 213 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 126 213 bpm->ms;
 #X obj 50 242 metro 80;
@@ -28,7 +28,7 @@ period in ms.  It is simple as (60 / f) * 1000 \, but more readable.;
 0;
 #X text 120 492 1\.;
 #X text 150 492 *float*;
-#X text 240 492 frequency in BPM. ;
+#X text 240 492 frequency in BPM.;
 #X obj 20 520 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 525 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

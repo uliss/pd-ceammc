@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="data.list">
         <title>data.list</title>
@@ -24,7 +24,8 @@
             <method name="clear">removes all list values</method>
             <method name="dump">dump object info to Pd window</method>
             <method name="flush">outputs and removes all list values</method>
-            <method name="insert">inserts values to the specified position. First argument is position, others - element to insert</method>
+            <method name="insert">inserts values to the specified position. First argument is
+            position, others - element to insert</method>
             <method name="pop">removes last list element</method>
             <method name="set">sets new list without output</method>
         </methods>
@@ -59,4 +60,3 @@
         </example>
     </object>
 </pddoc>
-

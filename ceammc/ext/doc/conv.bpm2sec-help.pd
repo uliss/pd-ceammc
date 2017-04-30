@@ -7,14 +7,14 @@
 #X obj 517 11 bpm->sec;
 #X obj 600 11 conv.bpm2sec;
 #X obj 205 80 cnv 1 490 47 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80   Convert frequency from BPM (beats per minute) to
-period in seconds.  It's simple as 60/f \, but more readable.;
+#X text 210 80 Convert frequency from BPM (beats per minute) to period
+in seconds. It's simple as 60/f \, but more readable.;
 #X obj 20 107 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 112 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 117 1\.;
 #X text 150 117 *float*;
-#X text 240 117 frequency in BPM. ;
+#X text 240 117 frequency in BPM.;
 #X obj 20 145 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 150 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
