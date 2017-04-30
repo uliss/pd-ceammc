@@ -46,7 +46,7 @@
 |   | |   | |   |          |     |
 [pass.changed                    ]
 |                 |
-[prepend set]     [print passed]
+[msg set]         [print passed]
 |
 [ (
 ]]>

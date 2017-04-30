@@ -35,15 +35,15 @@
         </outlets>
         <example>
             <pdascii>
-                <![CDATA[
+<![CDATA[
 [1 60 120(
 |
 [list.apply_to 1] X [mtof]
 |
-[prepend set]
+[msg set]
 |
 [ (
-                ]]>
+]]>
             </pdascii>
         </example>
     </object>

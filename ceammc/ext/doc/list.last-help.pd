@@ -9,7 +9,7 @@
 #X msg 203 118 list a b;
 #X floatatom 309 118 5 0 0 0 - - -;
 #X obj 50 147 list.last;
-#X obj 50 176 prepend set;
+#X obj 50 176 msg set;
 #X msg 50 205 ;
 #X obj 20 244 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 249 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933

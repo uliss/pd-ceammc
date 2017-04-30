@@ -42,9 +42,9 @@
 |             |
 |  [1 2 3(    |            [bng]
 |  |          |            |
-[local.list id]           [local.list id]
+[local.list id]            [local.list id]
 |                          |
-[prepend set]              [prepend set]
+[msg set]                  [msg set]
 |                          |
 [ (                        [ (
 ]]>

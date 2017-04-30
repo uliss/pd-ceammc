@@ -41,7 +41,7 @@
 [pass.if] X [is_even]    [pass.if] X [is_list]
 |       \________        |
 |               |        |
-[prepend set]   [print]  [prepend set]
+[msg set]       [print]  [msg set]
 |                        |
 [ (                      [ (
 ]]>
