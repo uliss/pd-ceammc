@@ -5,15 +5,15 @@
 0;
 #X obj 87 165 ui.link @size 48 16 @fontname "Helvetica" @fontweight
 "normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
-@pinned 0 @bgcolor 1 1 1 1 @bdcolor 0.6 0.6 0.6 1 @link "ceammc/ceammc-help.pd"
+@pinned 0 @bgcolor 1 1 1 1 @bdcolor 0.6 0.6 0.6 1 @url "ceammc/ceammc-help.pd"
 @title "ceammc library";
 #X obj 88 102 ui.link @size 157 16 @fontname "Helvetica" @fontweight
 "normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
-@pinned 0 @bgcolor 1 1 1 1 @bdcolor 0.6 0.6 0.6 1 @link "../doc/5.reference/help-intro.pd"
+@pinned 0 @bgcolor 1 1 1 1 @bdcolor 0.6 0.6 0.6 1 @url "../doc/5.reference/help-intro.pd"
 @title "vanilla core library";
 #X obj 87 272 ui.link @size 269 16 @fontname "Helvetica" @fontweight
 "normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
-@pinned 0 @bgcolor 1 1 1 1 @bdcolor 0.6 0.6 0.6 1 @link "http://www.pd-tutorial.com/english/"
+@pinned 0 @bgcolor 1 1 1 1 @bdcolor 0.6 0.6 0.6 1 @url "http://www.pd-tutorial.com/english/"
 @title "Programming Electronic Music in Pd";
 #X text 86 80 PureData core libary object list:;
 #X text 86 141 CEAMMC standart library documentation:;

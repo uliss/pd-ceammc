@@ -3,12 +3,12 @@
 0;
 #X obj 285 316 ui.link @size 133 16 @fontname "Helvetica" @fontweight
 "normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
-@pinned 0 @bgcolor 1 1 1 1 @bdcolor 0.6 0.6 0.6 1 @link "@CEAMMC_LIB_HOME@"
+@pinned 0 @bgcolor 1 1 1 1 @bdcolor 0.6 0.6 0.6 1 @url "@CEAMMC_LIB_HOME@"
 @title "@CEAMMC_LIB_HOME@";
 #X text 60 314 The source code available at:;
 #X obj 60 481 ui.link @size 80 16 @fontname "Helvetica" @fontweight
 "normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
-@pinned 0 @bgcolor 1 1 1 1 @bdcolor 0.6 0.6 0.6 1 @link "ceammc-help.pd"
+@pinned 0 @bgcolor 1 1 1 1 @bdcolor 0.6 0.6 0.6 1 @url "ceammc-help.pd"
 @title "ceammc:doc";
 #X obj 585 525 cnv 15 50 20 empty empty empty 20 12 0 14 -99865 -66577
 0;
