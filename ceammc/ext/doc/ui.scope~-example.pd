@@ -1,9 +1,0 @@
-#N canvas 0 0 190 256 12;
-#X obj 20 48 ui.dsp~ @size=40x40;
-#X msg 20 92 300;
-#X msg 77 92 660;
-#X obj 20 120 osc~ 440;
-#X obj 20 164 ui.scope~ @size 150 100;
-#X connect 2 0 3 0;
-#X connect 3 0 4 0;
-#X connect 1 0 3 0;

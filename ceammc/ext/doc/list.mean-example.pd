@@ -1,8 +1,0 @@
-#N canvas 0 0 229 129 12;
-#X msg 20 48 1 2 3 4 5;
-#X msg 135 48 1 2 a b c;
-#X obj 20 92 list.mean;
-#X floatatom 20 120 5 0 0 0 - - -;
-#X connect 1 0 2 0;
-#X connect 0 0 2 0;
-#X connect 2 0 3 0;

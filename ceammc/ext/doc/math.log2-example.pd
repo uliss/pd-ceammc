@@ -1,6 +1,0 @@
-#N canvas 0 0 110 115 12;
-#X floatatom 20 48 5 0 0 0 - - -;
-#X obj 20 77 math.log2;
-#X floatatom 20 106 5 0 0 0 - - -;
-#X connect 0 0 1 0;
-#X connect 1 0 2 0;

@@ -1,2 +1,0 @@
-#N canvas 0 0 240 190 12;
-#X obj 20 63 ui.bpfunc @size 200 150;

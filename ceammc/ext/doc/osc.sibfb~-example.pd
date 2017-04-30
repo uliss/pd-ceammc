@@ -1,8 +1,0 @@
-#N canvas 0 0 314 144 12;
-#X floatatom 20 48 5 0 0 0 - - -;
-;
-#X obj 173 77 prepend feedback;
-#X obj 20 106 osc.sinfb~ 440 2;
-#X obj 20 135 dac~;
-#X obj 135 135 print;
-#X connect 1 0 2 0;
