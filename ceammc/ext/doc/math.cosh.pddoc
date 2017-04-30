@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="math.cosh">
         <title>math.cosh</title>
@@ -22,8 +22,7 @@
             <par>The coshf() function computes the hyperbolic cosine of input value.</par>
             <par>Special values:</par>
             <par>cosh(+-0) returns 1.</par>
-            <par>cosh(+-infinity) returns +infinity.
-</par>
+            <par>cosh(+-infinity) returns +infinity.</par>
         </info>
         <inlets>
             <inlet>

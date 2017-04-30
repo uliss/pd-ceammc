@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="math.atan">
         <title>math.atan</title>
@@ -19,17 +19,16 @@
             <since>0.1</since>
         </meta>
         <info>
-            <par>The atan() function computes the principal value of the arc tangent of input value.
-The result is in the range [-pi/2, +pi/2].</par>
+            <par>The atan() function computes the principal value of the arc tangent of input
+            value. The result is in the range [-pi/2, +pi/2].</par>
             <par>Special values:</par>
             <par>atan(+-0) returns +-0.</par>
-            <par>atan(+-infinity) returns +-pi/2
-</par>
+            <par>atan(+-infinity) returns +-pi/2</par>
         </info>
         <inlets>
             <inlet>
                 <xinfo on="float">input value</xinfo>
-                 <xinfo on="list">apply to all numeric values</xinfo>
+                <xinfo on="list">apply to all numeric values</xinfo>
             </inlet>
         </inlets>
         <outlets>

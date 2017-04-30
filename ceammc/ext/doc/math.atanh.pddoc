@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="math.atanh">
         <title>math.atanh</title>
@@ -19,21 +19,19 @@
             <since>0.1</since>
         </meta>
         <info>
-            <par>The atanh() function computes the inverse hyperbolic tangent of the real
-argument input value.
-</par>
+            <par>The atanh() function computes the inverse hyperbolic tangent of the real argument
+            input value.</par>
             <par>Special values:</par>
             <par>atanh(+-0) returns +-0.</par>
-            <par>atanh(+-1) returns +-infinity and raises the &#34;divide-by-zero&#34; floating-
-point exception.</par>
-            <par>atanh(x) returns a NaN and raises the &#34;invalid&#34; floating-point exception
-for |x| &gt; 1.
-</par>
+            <par>atanh(+-1) returns +-infinity and raises the "divide-by-zero" floating- point
+            exception.</par>
+            <par>atanh(x) returns a NaN and raises the "invalid" floating-point exception for |x|
+            &gt; 1.</par>
         </info>
         <inlets>
             <inlet>
                 <xinfo on="float">input value</xinfo>
-                 <xinfo on="list">apply to all numeric values</xinfo>
+                <xinfo on="list">apply to all numeric values</xinfo>
             </inlet>
         </inlets>
         <outlets>

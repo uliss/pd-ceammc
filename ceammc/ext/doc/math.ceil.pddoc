@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="math.ceil">
         <title>math.ceil</title>
@@ -19,12 +19,11 @@
             <since>0.1</since>
         </meta>
         <info>
-            <par>The ceil() function return the smallest integral value greater than or
-equal to input value.</par>
+            <par>The ceil() function return the smallest integral value greater than or equal to
+            input value.</par>
             <par>Special values:</par>
             <par>ceil(+-0) returns +-0.</par>
-            <par>ceil(+-infinity) returns +-infinity.
-</par>
+            <par>ceil(+-infinity) returns +-infinity.</par>
         </info>
         <inlets>
             <inlet>

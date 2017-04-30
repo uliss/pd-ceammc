@@ -7,12 +7,11 @@
 #X obj 622 11 math.asin;
 #X obj 205 80 cnv 1 490 144 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 210 80 The asin() function computes the principal value of the
-arc sine of input value. The result is in the range [-pi/2 \, +pi/2].
-;
+arc sine of input value. The result is in the range [-pi/2 \, +pi/2].;
 #X text 210 131 Special values:;
 #X text 210 154 asin(+-0) returns +-0\.;
 #X text 210 177 asin(x) returns a NAN and raises the "invalid"
-floating-point exception for |x| > 1\. ;
+floating-point exception for |x| > 1\.;
 #X floatatom 50 252 5 0 0 0 - - -;
 #X obj 50 281 math.asin;
 #X floatatom 50 310 5 0 0 0 - - -;
@@ -21,9 +20,9 @@ floating-point exception for |x| > 1\. ;
 0;
 #X text 120 359 1\.;
 #X text 150 359 *float*;
-#X text 240 359 input value. ;
+#X text 240 359 input value.;
 #X text 150 377 *list*;
-#X text 240 377 apply to all numeric values. ;
+#X text 240 377 apply to all numeric values.;
 #X obj 20 405 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 410 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

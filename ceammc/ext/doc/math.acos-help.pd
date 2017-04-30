@@ -21,9 +21,9 @@ arc cosine of input value. The result is in the range [0 \, pi].;
 0;
 #X text 120 360 1\.;
 #X text 150 360 *float*;
-#X text 240 360 input value. ;
+#X text 240 360 input value.;
 #X text 150 378 *list*;
-#X text 240 378 apply to all numeric values. ;
+#X text 240 378 apply to all numeric values.;
 #X obj 20 406 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 411 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

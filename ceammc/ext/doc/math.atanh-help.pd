@@ -7,13 +7,13 @@
 #X obj 614 11 math.atanh;
 #X obj 205 80 cnv 1 490 167 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 210 80 The atanh() function computes the inverse hyperbolic
-tangent of the real argument input value. ;
+tangent of the real argument input value.;
 #X text 210 117 Special values:;
 #X text 210 140 atanh(+-0) returns +-0\.;
 #X text 210 163 atanh(+-1) returns +-infinity and raises the "divide-
 by-zero" floating- point exception.;
 #X text 210 200 atanh(x) returns a NaN and raises the "invalid"
-floating-point exception for |x| > 1\. ;
+floating-point exception for |x| > 1\.;
 #X floatatom 50 275 5 0 0 0 - - -;
 #X obj 50 304 math.atanh;
 #X floatatom 50 333 5 0 0 0 - - -;
@@ -22,9 +22,9 @@ floating-point exception for |x| > 1\. ;
 0;
 #X text 120 382 1\.;
 #X text 150 382 *float*;
-#X text 240 382 input value. ;
+#X text 240 382 input value.;
 #X text 150 400 *list*;
-#X text 240 400 apply to all numeric values. ;
+#X text 240 400 apply to all numeric values.;
 #X obj 20 428 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 433 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

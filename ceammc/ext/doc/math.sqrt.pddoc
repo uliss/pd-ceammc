@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="math.sqrt">
         <title>math.sqrt</title>
@@ -17,12 +17,10 @@
             <since>0.1</since>
         </meta>
         <info>
-            <par>The sqrt() function compute the non-negative square root of x.
-</par>
+            <par>The sqrt() function compute the non-negative square root of x.</par>
             <par>Special values:</par>
             <par>sqrt(-0) returns -0.</par>
-            <par>sqrt(x) returns a NaN and generates a domain error for x &lt; 0.
-</par>
+            <par>sqrt(x) returns a NaN and generates a domain error for x &lt; 0.</par>
         </info>
         <inlets>
             <inlet>

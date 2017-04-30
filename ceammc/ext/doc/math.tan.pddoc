@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="math.tan">
         <title>math.tan</title>
@@ -19,13 +19,11 @@
             <since>0.1</since>
         </meta>
         <info>
-            <par>The tan() function computes the tangent of x (measured in radians).
-</par>
+            <par>The tan() function computes the tangent of x (measured in radians).</par>
             <par>Special values:</par>
             <par>tan(+-0) returns +-0.</par>
-            <par>tan(+-infinity) returns a NaN and raises the &#34;invalid&#34; floating-point
-exception.
-</par>
+            <par>tan(+-infinity) returns a NaN and raises the "invalid" floating-point
+            exception.</par>
         </info>
         <inlets>
             <inlet>

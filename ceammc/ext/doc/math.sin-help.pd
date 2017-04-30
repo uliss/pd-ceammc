@@ -7,7 +7,7 @@
 #X obj 629 11 math.sin;
 #X obj 205 80 cnv 1 490 116 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 210 80 The sin() function computes the sine of input value
-(measured in radians). ;
+(measured in radians).;
 #X text 210 117 Special values:;
 #X text 210 140 sin(+-0) returns +-0\.;
 #X text 210 163 sin(+-infinity) returns a NaN.;
@@ -21,9 +21,9 @@
 0;
 #X text 120 360 1\.;
 #X text 150 360 *float*;
-#X text 240 360 input value. ;
+#X text 240 360 input value.;
 #X text 150 378 *list*;
-#X text 240 378 apply to all numeric values. ;
+#X text 240 378 apply to all numeric values.;
 #X obj 20 406 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 411 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

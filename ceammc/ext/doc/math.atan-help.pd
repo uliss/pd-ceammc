@@ -11,7 +11,7 @@ arc tangent of input value. The result is in the range [-pi/2 \,
 +pi/2].;
 #X text 210 131 Special values:;
 #X text 210 154 atan(+-0) returns +-0\.;
-#X text 210 177 atan(+-infinity) returns +-pi/2 ;
+#X text 210 177 atan(+-infinity) returns +-pi/2;
 #X floatatom 50 238 5 0 0 0 - - -;
 #X obj 50 267 math.atan;
 #X floatatom 50 296 5 0 0 0 - - -;
@@ -20,9 +20,9 @@ arc tangent of input value. The result is in the range [-pi/2 \,
 0;
 #X text 120 345 1\.;
 #X text 150 345 *float*;
-#X text 240 345 input value. ;
+#X text 240 345 input value.;
 #X text 150 363 *list*;
-#X text 240 363 apply to all numeric values. ;
+#X text 240 363 apply to all numeric values.;
 #X obj 20 391 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 396 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

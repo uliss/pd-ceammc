@@ -7,12 +7,12 @@
 #X obj 614 11 math.acosh;
 #X obj 205 80 cnv 1 490 153 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 210 80 The acosh() function computes the principle value of
-the inverse hyperbolic cosine of input value.  The result is in the
+the inverse hyperbolic cosine of input value. The result is in the
 range [0 \, +infinity].;
 #X text 210 131 Special values:;
 #X text 210 154 acosh(1) returns +0\.;
 #X text 210 177 acosh(x) returns a NAN.;
-#X text 210 200 acosh(+infinity) returns +infinity. ;
+#X text 210 200 acosh(+infinity) returns +infinity.;
 #X floatatom 50 261 5 0 0 0 - - -;
 #X msg 117 261 1 2 d b;
 #X obj 50 290 math.acosh;
@@ -23,9 +23,9 @@ range [0 \, +infinity].;
 0;
 #X text 120 397 1\.;
 #X text 150 397 *float*;
-#X text 240 397 input value. ;
+#X text 240 397 input value.;
 #X text 150 415 *list*;
-#X text 240 415 apply to all numeric values. ;
+#X text 240 415 apply to all numeric values.;
 #X obj 20 443 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 448 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

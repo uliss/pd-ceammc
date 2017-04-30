@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="math.floor">
         <title>math.floor</title>
@@ -19,13 +19,11 @@
             <since>0.1</since>
         </meta>
         <info>
-            <par>The floor() functions return the largest integral value less than or
-equal to x.
-</par>
+            <par>The floor() functions return the largest integral value less than or equal to
+            x.</par>
             <par>Special values:</par>
             <par>floor(+-0) returns +-0.</par>
-            <par>floor(+-infinity) returns +-infinity.
-</par>
+            <par>floor(+-infinity) returns +-infinity.</par>
         </info>
         <inlets>
             <inlet>

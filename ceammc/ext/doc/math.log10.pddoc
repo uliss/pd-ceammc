@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="math.log10">
         <title>math.log10</title>
@@ -17,8 +17,8 @@
             <since>0.1</since>
         </meta>
         <info>
-            <par>The log10() function computes the value of the logarithm of argument x to
-base 10.</par>
+            <par>The log10() function computes the value of the logarithm of argument x to base
+            10.</par>
             <par>Special values:</par>
             <par>log10(+-0) return -infinity</par>
             <par>log10(1) return +0.</par>

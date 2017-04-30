@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="math.acosh">
         <title>math.acosh</title>
@@ -19,13 +19,12 @@
             <since>0.1</since>
         </meta>
         <info>
-            <par>The acosh() function computes the principle value of the inverse hyperbolic cosine of input value.
-            The result is in the range [0, +infinity].</par>
+            <par>The acosh() function computes the principle value of the inverse hyperbolic cosine
+            of input value. The result is in the range [0, +infinity].</par>
             <par>Special values:</par>
             <par>acosh(1) returns +0.</par>
             <par>acosh(x) returns a NAN.</par>
-            <par>acosh(+infinity) returns +infinity.
-</par>
+            <par>acosh(+infinity) returns +infinity.</par>
         </info>
         <inlets>
             <inlet>

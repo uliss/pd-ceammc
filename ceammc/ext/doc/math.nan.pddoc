@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="math.nan">
         <title>math.nan</title>
@@ -17,8 +17,11 @@
             <since>0.1</since>
         </meta>
         <info>
-            <par>In computing, NaN, standing for not a number, is a numeric data type value representing an undefined or unrepresentable value, especially in floating-point calculations.
-            Systematic use of NaNs was introduced by the IEEE 754 floating-point standard in 1985, along with the representation of other non-finite quantities like infinities.</par>
+            <par>In computing, NaN, standing for not a number, is a numeric data type value
+            representing an undefined or unrepresentable value, especially in floating-point
+            calculations. Systematic use of NaNs was introduced by the IEEE 754 floating-point
+            standard in 1985, along with the representation of other non-finite quantities like
+            infinities.</par>
         </info>
         <inlets>
             <inlet>

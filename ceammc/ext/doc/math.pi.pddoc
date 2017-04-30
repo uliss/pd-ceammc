@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="math.pi">
         <title>math.pi</title>
@@ -17,8 +17,8 @@
             <since>0.1</since>
         </meta>
         <info>
-            <par>The number PI is a mathematical constant, the ratio of a circle's circumference to its diameter,
-            commonly approximated as 3.14159.</par>
+            <par>The number PI is a mathematical constant, the ratio of a circle's circumference to
+            its diameter, commonly approximated as 3.14159.</par>
         </info>
         <inlets>
             <inlet>

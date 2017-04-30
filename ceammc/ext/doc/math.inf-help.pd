@@ -7,7 +7,7 @@
 #X obj 629 11 math.inf;
 #X obj 205 80 cnv 1 490 75 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 210 80 IEEE 754 floating point numbers can represent positive
-or negative infinity \, and NaN (not a number).  These three values
+or negative infinity \, and NaN (not a number). These three values
 arise from calculations whose result is undefined or cannot be
 represented accurately.;
 #X obj 50 183 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
@@ -19,7 +19,7 @@ represented accurately.;
 0;
 #X text 120 290 1\.;
 #X text 150 290 *bang*;
-#X text 240 290 outputs *inf* value. ;
+#X text 240 290 outputs *inf* value.;
 #X obj 20 318 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 323 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

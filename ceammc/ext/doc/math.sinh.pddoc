@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="math.sinh">
         <title>math.sinh</title>
@@ -19,12 +19,10 @@
             <since>0.1</since>
         </meta>
         <info>
-            <par>The sinh() function computes the hyperbolic sine of x.
-</par>
+            <par>The sinh() function computes the hyperbolic sine of x.</par>
             <par>Special values:</par>
             <par>sinh(+-0) returns +-0.</par>
-            <par>sinh(+-infinity) returns +-infinity.
-</par>
+            <par>sinh(+-infinity) returns +-infinity.</par>
         </info>
         <inlets>
             <inlet>

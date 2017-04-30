@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="math.cbrt">
         <title>math.cbrt</title>
@@ -20,13 +20,12 @@
             <par>The cbrt() function computes the cube root of input value.</par>
             <par>Special values:</par>
             <par>cbrt(+-0) returns +-0.</par>
-            <par>cbrt(+-infinity) returns +-infinity.
-</par>
+            <par>cbrt(+-infinity) returns +-infinity.</par>
         </info>
         <inlets>
             <inlet>
                 <xinfo on="float">input value</xinfo>
-                 <xinfo on="list">apply to all numeric values</xinfo>
+                <xinfo on="list">apply to all numeric values</xinfo>
             </inlet>
         </inlets>
         <outlets>

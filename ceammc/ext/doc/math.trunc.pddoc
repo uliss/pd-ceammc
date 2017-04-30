@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="math.trunc">
         <title>math.trunc</title>
@@ -20,13 +20,11 @@
             <since>0.1</since>
         </meta>
         <info>
-            <par>The trunc() functions return the integral value nearest to but no larger
-in magnitude than x.
-</par>
+            <par>The trunc() functions return the integral value nearest to but no larger in
+            magnitude than x.</par>
             <par>Special values:</par>
             <par>trunc(+-0) returns +-0.</par>
-            <par>trunc(+-infinity) returns +-infinity.
-</par>
+            <par>trunc(+-infinity) returns +-infinity.</par>
         </info>
         <inlets>
             <inlet>

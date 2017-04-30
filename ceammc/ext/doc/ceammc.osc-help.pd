@@ -5,7 +5,7 @@
 #X obj 30 116 osc.impulse~;
 #X text 175 116 Bandlimited impulse train generator;
 #X obj 30 143 osc.pulse~;
-#X text 175 143 Bandlimited pulse train oscillator. ;
+#X text 175 143 Bandlimited pulse train oscillator.;
 #X obj 30 170 osc.saw~;
 #X text 175 170 Bandlimited saw wave oscillator;
 #X obj 30 197 osc.sinfb~;

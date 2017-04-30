@@ -8,7 +8,7 @@
 #X obj 205 80 cnv 1 490 117 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 210 80 In computing \, NaN \, standing for not a number \, is
 a numeric data type value representing an undefined or unrepresentable
-value \, especially in floating-point calculations.  Systematic use of
+value \, especially in floating-point calculations. Systematic use of
 NaNs was introduced by the IEEE 754 floating-point standard in 1985 \,
 along with the representation of other non-finite quantities like
 infinities.;
@@ -21,7 +21,7 @@ infinities.;
 0;
 #X text 120 332 1\.;
 #X text 150 332 *bang*;
-#X text 240 332 outputs value. ;
+#X text 240 332 outputs value.;
 #X obj 20 360 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 365 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

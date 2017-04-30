@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="math.tanh">
         <title>math.tanh</title>
@@ -19,12 +19,10 @@
             <since>0.1</since>
         </meta>
         <info>
-            <par>The tanh() function computes the hyperbolic tangent of x.
-</par>
+            <par>The tanh() function computes the hyperbolic tangent of x.</par>
             <par>Special values:</par>
             <par>tanh(+-0) returns +-0.</par>
-            <par>tanh(+-infinity) returns +-1.
-</par>
+            <par>tanh(+-infinity) returns +-1.</par>
         </info>
         <inlets>
             <inlet>
