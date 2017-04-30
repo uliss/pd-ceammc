@@ -74,7 +74,7 @@ public:
     // output all, remove all
     void flush()
     {
-        for (MessageFifo::iterator it = fifo_.begin(); it != fifo_.end(); it++)
+        for (MessageFifo::iterator it = fifo_.begin(); it != fifo_.end(); ++it)
             messageTo(0, *it);
 
         fifo_.clear();
@@ -101,7 +101,7 @@ public:
         BaseObject::dump();
 
         post("values:");
-        for (MessageFifo::const_reverse_iterator it = fifo_.rbegin(); it != fifo_.rend(); it++) {
+        for (MessageFifo::const_reverse_iterator it = fifo_.rbegin(); it != fifo_.rend(); ++it) {
             post("    %s", to_string(*it).c_str());
         }
     }
