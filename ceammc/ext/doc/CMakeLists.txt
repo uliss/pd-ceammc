@@ -2,6 +2,7 @@ find_program(PD_DOC2PD pd_doc2pd)
 find_program(PD_MAKELIB pd_makelibrary)
 find_program(PD_LIB2PD pd_lib2pd)
 find_program(PD_CAT2PD pd_cat2pd)
+find_program(TIDY tidy)
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/about.pd ${CMAKE_CURRENT_BINARY_DIR}/about.pd @ONLY)
 
@@ -254,6 +255,13 @@ endif()
         CODE "file( INSTALL \${_PD_CATEGORY_HELP_FILES}
             DESTINATION \"${CMAKE_INSTALL_PREFIX}/${DOC_INSTALL_PATH}\")"
     )
+
+if(TIDY)
+    message(STATUS "HTMLtidy found: ${TIDY}. The 'ceammc_pddoc_format' target available.")
+    add_custom_target(ceammc_pddoc_format
+        COMMAND ${TIDY} -m -errors -quiet -xml --indent auto --indent-spaces 4 --wrap 100 --wrap-sections no *.pddoc
+        WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
+endif()
 
 
 file(GLOB _PDDOC_FILES "*.pddoc")
