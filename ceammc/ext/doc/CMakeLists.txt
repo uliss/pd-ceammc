@@ -259,7 +259,7 @@ endif()
 if(TIDY)
     message(STATUS "HTMLtidy found: ${TIDY}. The 'ceammc_pddoc_format' target available.")
     add_custom_target(ceammc_pddoc_format
-        COMMAND ${TIDY} -m -errors -quiet -xml --indent auto --indent-spaces 4 --wrap 100 --wrap-sections no *.pddoc
+        COMMAND ${TIDY} -m -quiet -xml --indent auto --indent-spaces 4 --wrap 100 --wrap-sections no *.pddoc
         WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
 endif()
 

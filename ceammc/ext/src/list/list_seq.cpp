@@ -1,74 +1,102 @@
+#include <algorithm>
+
+#include "ceammc_factory.h"
+#include "list_seq.h"
+
 #include "ceammc.hpp"
 #include <m_pd.h>
 
-t_class* list_seq_class;
-struct t_list_seq {
-    t_object x_obj;
-    t_inlet* i_times;
-    t_inlet* i_step;
-    t_float start;
-    t_float times;
-    t_float step;
-};
-
-static void list_seq_bang(t_list_seq* x)
+ListSeq::ListSeq(const PdArgs& a)
+    : BaseObject(a)
+    , from_(0)
+    , to_(0)
+    , step_(0)
 {
-    if (!ceammc::math::is_natural(x->times)) {
-        pd_error(x, "sequence length should be natural number. %f", x->times);
-        return;
+    createOutlet();
+
+    from_ = new FloatProperty("@from", 0);
+    to_ = new FloatProperty("@to", 1);
+    step_ = new FloatProperty("@step", 0);
+
+    createProperty(from_);
+    createProperty(to_);
+    createProperty(step_);
+
+    if (positionalArguments().size() == 1) {
+        from_->setValue(0);
+        to_->setValue(positionalFloatArgument(0, 0));
+        step_->setValue(to_->value() > 0 ? 1 : -1);
     }
 
-    if (x->times < 1)
-        return;
-
-    ceammc::pd::atom_list lst;
-    lst.reserve(x->times);
-
-    for (int i = 0; i < x->times; i++) {
-        t_float item = x->start + i * x->step;
-        t_atom v;
-        SETFLOAT(&v, item);
-        lst.push_back(v);
+    if (positionalArguments().size() == 2) {
+        from_->setValue(positionalFloatArgument(0, 0));
+        to_->setValue(positionalFloatArgument(1, 0));
+        step_->setValue(from_->value() > to_->value() ? -1 : 1);
     }
 
-    ceammc::pd::output(x->x_obj.te_outlet, lst);
+    if (positionalArguments().size() == 3) {
+        from_->setValue(positionalFloatArgument(0, 0));
+        to_->setValue(positionalFloatArgument(1, 0));
+        step_->setValue(positionalFloatArgument(2, 0));
+    }
 }
 
-static void list_seq_list(t_list_seq* x, t_symbol* s, int argc, t_atom* argv)
+void ListSeq::onBang()
 {
-}
+    AtomList res;
+    const t_float from = from_->value();
+    const t_float to = to_->value();
+    const t_float step = step_->value();
 
-static void list_seq_free(t_list_seq* x)
-{
-    inlet_free(x->i_step);
-    inlet_free(x->i_times);
-}
-
-static void* list_seq_new(t_floatarg start, t_floatarg num, t_floatarg step)
-{
-    t_list_seq* x = reinterpret_cast<t_list_seq*>(pd_new(list_seq_class));
-    outlet_new(&x->x_obj, &s_list);
-    x->i_times = floatinlet_new(&x->x_obj, &x->times);
-    x->i_step = floatinlet_new(&x->x_obj, &x->step);
-
-    // one argument [list.seq 100]
-    if (num == 0.0 && step == 0 && start > 0) {
-        std::swap(start, num);
-        step = 1;
+    if (from < to && step > 0) {
+        for (t_float i = from; i < to; i += step)
+            res.append(i);
+    } else if (from > to && step < 0) {
+        for (t_float i = from; i > to; i += step)
+            res.append(i);
+    } else {
+        OBJ_ERR << "invalid sequence args: @from " << from << " @to " << to << ", @step " << step;
     }
 
-    x->start = start;
-    x->times = num;
-    x->step = (step == 0) ? 1 : step;
-    return static_cast<void*>(x);
+    listTo(0, res);
+}
+
+void ListSeq::onFloat(float f)
+{
+    from_->setValue(0);
+    to_->setValue(f);
+    step_->setValue(f >= 0 ? 1 : -1);
+    onBang();
+}
+
+void ListSeq::onList(const AtomList& lst)
+{
+    switch (lst.size()) {
+    case 1: {
+        from_->setValue(0);
+        to_->setValue(lst[0].asFloat(0));
+        step_->setValue(to_->value() >= 0 ? 1 : -1);
+        onBang();
+    } break;
+    case 2: {
+        from_->setValue(lst[0].asFloat(0));
+        to_->setValue(lst[1].asFloat(0));
+        step_->setValue(from_->value() <= to_->value() ? 1 : -1);
+        onBang();
+    } break;
+    case 3: {
+        from_->setValue(lst[0].asFloat(0));
+        to_->setValue(lst[1].asFloat(0));
+        step_->setValue(lst[2].asFloat(0));
+        onBang();
+    } break;
+    default:
+        OBJ_ERR << "wrong arguments. FROM, TO, STEP expected";
+        break;
+    }
 }
 
 extern "C" void setup_list0x2eseq()
 {
-    list_seq_class = class_new(gensym("list.seq"),
-        reinterpret_cast<t_newmethod>(list_seq_new),
-        reinterpret_cast<t_method>(list_seq_free),
-        sizeof(t_list_seq), 0, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
-    class_addbang(list_seq_class, list_seq_bang);
-    class_addlist(list_seq_class, list_seq_list);
+    ObjectFactory<ListSeq> obj("list.seq");
 }

@@ -18,19 +18,24 @@
             </also>
         </meta>
         <arguments>
-            <argument name="START" type="float">start value</argument>
-            <argument name="N" type="int" minvalue="1">number of elements in sequence</argument>
+            <argument name="FROM" type="float">start value</argument>
+            <argument name="TO" type="float">end value</argument>
             <argument name="STEP" type="float">sequence step</argument>
         </arguments>
+        <properties>
+            <property name="@from" type="float" default="0">start value</property>
+            <property name="@to" type="float" default="1">end value</property>
+            <property name="@step" type="float" default="0">sequence step</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="bang">outputs generated list</xinfo>
-            </inlet>
-            <inlet>
-                <xinfo on="float">sequence length</xinfo>
-            </inlet>
-            <inlet>
-                <xinfo on="float">sequence step</xinfo>
+                <xinfo on="float">sets @f rom=0, @to=X and outputs generated sequence</xinfo>
+                <xinfo on="list">if 3 arg uments are given: they are set to @from, @to and @step
+                accordingly. If 2 args are given: they are set to @from, @to and @step is set to
+                *1* or *-1* depending of sequence direction. If 1 arg given, @from is set to 0, @to
+                sets to given value and @step is set to *1* or *-1* depending of sequence
+                direction.</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -39,9 +44,10 @@
         <example>
             <pdascii>
 <![CDATA[
-[B]   [F]    [F]
-|     |      |
-|     |.     |..
+[B]            [1 -1 0.1(
+|       [2 10( |
+|  [F]  |      |
+|  |    |      |
 [list.seq 3 10 2]
 |
 [m set]
