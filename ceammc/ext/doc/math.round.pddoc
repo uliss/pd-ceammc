@@ -24,12 +24,11 @@ half-way cases away from zero, regardless of the current rounding direction.</pa
             <par>Special values:</par>
             <par>round(+-0) returns +-0.</par>
             <par>round(+-infinity) returns +-infinity.</par>
-            <par>The round() functions may, but are not required to, raise the &#34;inexact&#34;
-floating-point exception for non-integer numeric arguments.</par>
         </info>
         <inlets>
             <inlet>
                 <xinfo on="float">input value</xinfo>
+                <xinfo on="list">apply to all numeric values</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -38,11 +37,13 @@ floating-point exception for non-integer numeric arguments.</par>
         <example>
             <pdascii>
 <![CDATA[
-[F]
-|
+[F]  [2.3 3.8 5.5 -2.3 -3.8 -5.5(
+|    |
 [math.round]
 |
-[F]
+[msg set]
+|
+[  (
 ]]>
             </pdascii>
         </example>
