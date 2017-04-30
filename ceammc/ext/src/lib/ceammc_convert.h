@@ -40,6 +40,8 @@ namespace convert {
     {
         return (v - x0) / (x1 - x0) * (y1 - y0) + y0;
     }
+
+    float lin2exp(float x, float x0, float x1, float y0, float y1);
 }
 }
 

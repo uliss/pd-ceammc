@@ -171,4 +171,22 @@ TEST_CASE("convert", "[PureData]")
             REQUIRE(lin2lin<float>(0.3f, 1, 0, 200, 100) == 130.f);
         }
     }
+
+    SECTION("lin2exp")
+    {
+        REQUIRE(lin2exp(0, 0, 1, 0.01f, 1) == 0.01f);
+        REQUIRE(lin2exp(1, 0, 1, 0.01f, 1) == 1);
+
+        REQUIRE(lin2exp(0.0f, 0, 1, 0.01f, 1) == Approx(0.01));
+        REQUIRE(lin2exp(0.1f, 0, 1, 0.01f, 1) == Approx(0.0158489));
+        REQUIRE(lin2exp(0.2f, 0, 1, 0.01f, 1) == Approx(0.0251188));
+        REQUIRE(lin2exp(0.3f, 0, 1, 0.01f, 1) == Approx(0.03981071));
+        REQUIRE(lin2exp(0.4f, 0, 1, 0.01f, 1) == Approx(0.06309573));
+        REQUIRE(lin2exp(0.5f, 0, 1, 0.01f, 1) == Approx(0.1));
+        REQUIRE(lin2exp(0.6f, 0, 1, 0.01f, 1) == Approx(0.1584893));
+        REQUIRE(lin2exp(0.7f, 0, 1, 0.01f, 1) == Approx(0.2511886));
+        REQUIRE(lin2exp(0.8f, 0, 1, 0.01f, 1) == Approx(0.39810717));
+        REQUIRE(lin2exp(0.9f, 0, 1, 0.01f, 1) == Approx(0.63095734));
+        REQUIRE(lin2exp(1, 0, 1, 0.01f, 1) == Approx(1));
+    }
 }

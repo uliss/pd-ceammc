@@ -1,0 +1,145 @@
+#N canvas 0 0 715 555 12;
+#X declare -lib ceammc -lib creammc;
+#X obj 387 50 cnv 1 308 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 387 50 maps linear range to exponential range;
+#X obj 1 1 cnv 5 712 40 empty empty conv.lin2exp 20 20 0 20 -104026
+-4096 0;
+#X obj 517 11 lin->exp;
+#X obj 600 11 conv.lin2exp;
+#X obj 205 80 cnv 1 490 47 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 210 80   The output range must not include zero.  If the input
+exceeds the input range \, by default clip is applied.  ;
+#X obj 50 155 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#N canvas 0 22 450 300 (subpatch) 0;
+#X array array1 1000 float 0;
+#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X coords 0 1 1000 0 200 140 1;
+#X restore 347 155 graph;
+#X obj 50 184 list.seq 0 1001;
+#X obj 50 213 list.unpack;
+#X obj 50 242 lin->exp 0 1001 0.01 1;
+#X obj 50 271 tabwrite array1;
+#X obj 20 317 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 322 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+-49933 0;
+#X text 120 327 1\.;
+#X text 150 327 float;
+#X obj 241 328 cnv 1 40 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 327 FROM: begin of input range. ;
+#X text 120 345 2\.;
+#X text 150 345 float;
+#X obj 241 346 cnv 1 25 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 345 TO: end of input range. ;
+#X text 120 363 3\.;
+#X text 150 363 float;
+#X obj 241 364 cnv 1 40 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 363 FROM: begin of output range. ;
+#X text 120 381 4\.;
+#X text 150 381 float;
+#X obj 241 382 cnv 1 25 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 381 TO: end of input output. ;
+#X obj 20 409 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 414 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+-49933 0;
+#X msg 120 419 @in_from;
+#X text 240 419 Get/Set   begin of input range. Type: float. Default
+value: 0;
+#X msg 120 456 @in_to;
+#X text 240 456 Get/Set   end of input range. Type: float. Default
+value: 127;
+#X msg 120 493 @out_from;
+#X text 240 493 Get/Set   begin of output range. Type: float. Default
+value: 0;
+#X msg 120 530 @out_to;
+#X text 240 530 Get/Set   end of output range. Type: float. Default
+value: 1;
+#X msg 120 557 @clip;
+#X text 240 557 Get/Set   if true \, restrict input value in input
+range. Type: int. Default value: 1\. Allowed values: 0 \, 1;
+#X obj 20 604 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 609 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+0;
+#X text 120 614 1\.;
+#X text 150 614 *float*;
+#X text 240 614 intput value. ;
+#X text 150 632 *float*;
+#X text 240 632 input range begin. ;
+#X text 150 650 *float*;
+#X text 240 650 input range end. ;
+#X text 150 668 *float*;
+#X text 240 668 output range begin. ;
+#X text 150 686 *float*;
+#X text 240 686 output range end. ;
+#X obj 20 714 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 719 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+-49933 0;
+#X text 120 724 1\.;
+#X text 240 724 converted value;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 115 45 ::;
+#X obj 131 48 ui.link @title conv @url ceammc.conv-help.pd;
+#X obj 1 772 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 775 library: ceammc v0.1;
+#X text 528 787 see also:;
+#X obj 604 787 conv.lin2lin;
+#N canvas 10 794 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 library:;
+#X text 120 10 ceammc;
+#X text 10 32 version:;
+#X text 120 32 0.1;
+#X text 10 54 object:;
+#X text 120 54 conv.lin2exp;
+#X text 10 76 category:;
+#X text 120 76 conv;
+#X text 10 98 since:;
+#X text 120 98 0.1;
+#X text 10 120 authors:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 license:;
+#X text 120 142 GPL3;
+#X text 10 164 keywords:;
+#X text 120 164 convert \, exponential;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pure-data @url
+https://github.com/uliss/pure-data;
+#X obj 120 208 declare -lib ceammc -lib creammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 generated by pddoc;
+#X restore 10 794 pd info;
+#X connect 10 0 12 1;
+#X connect 10 0 11 0;
+#X connect 11 0 12 0;
+#X connect 9 0 10 0;
+#X connect 7 0 9 0;

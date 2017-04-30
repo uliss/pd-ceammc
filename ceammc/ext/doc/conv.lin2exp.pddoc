@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pddoc version="1.0">
+    <object name="conv.lin2exp">
+        <title>conv.lin2exp</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>maps linear range to exponential range</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>conv</category>
+            <keywords>convert exponential</keywords>
+            <also>
+                <see>conv.lin2lin</see>
+            </also>
+            <since>0.1</since>
+            <aliases>
+                <alias>lin-&gt;exp</alias>
+            </aliases>
+        </meta>
+        <info>
+            <par>
+                 The output range must not include zero.
+                 If the input exceeds the input range, by default clip is applied.
+            </par>
+        </info>
+        <properties>
+            <property name="@in_from" type="float" default="0">
+                begin of input range
+            </property>
+            <property name="@in_to" type="float" default="127">
+                end of input range
+            </property>
+            <property name="@out_from" type="float" default="0">
+                begin of output range
+            </property>
+            <property name="@out_to" type="float" default="1">
+                end of output range
+            </property>
+            <property name="@clip" type="int" default="1" enum="0 1">
+                if true, restrict input value in input range
+            </property>
+        </properties>
+        <arguments>
+            <argument name="FROM" type="float">begin of input range</argument>
+            <argument name="TO" type="float">end of input range</argument>
+            <argument name="FROM" type="float">begin of output range</argument>
+            <argument name="TO" type="float">end of input output</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="float">intput value</xinfo>
+                <xinfo on="float">input range begin</xinfo>
+                <xinfo on="float">input range end</xinfo>
+                <xinfo on="float">output range begin</xinfo>
+                <xinfo on="float">output range end</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>converted value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]                            [array array1 size=1000 yr=0..1]
+|
+[list.seq 0 1001]
+|
+[list.unpack              ]
+|                         |
+[lin->exp 0 1001 0.01 1]  |
+|                         |.
+[tabwrite            array1]
+
+
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
+

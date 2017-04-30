@@ -10,6 +10,7 @@ set(DOC_FILES
     conv.bpm2ms
     conv.bpm2sec
     conv.lin2lin
+    conv.lin2exp
     conv.sec2str
     conv.str2sec
     data.fifo

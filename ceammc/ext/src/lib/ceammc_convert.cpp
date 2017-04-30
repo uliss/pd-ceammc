@@ -179,3 +179,10 @@ float ceammc::convert::time::str2sec(const std::string& str, float def)
 
     return fsm.get_time();
 }
+
+float ceammc::convert::lin2exp(float x, float x0, float x1, float y0, float y1)
+{
+    const float b = logf(y0 / y1) / (x0 - x1);
+    const float c = y0 / expf(b * x0);
+    return c * expf(b * x);
+}

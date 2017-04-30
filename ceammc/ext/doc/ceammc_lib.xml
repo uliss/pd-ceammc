@@ -10,6 +10,9 @@
     <entry descr="convert frequency in BPM to period in seconds" name="conv.bpm2sec" ref_view="object">
       <xi:include href="conv.bpm2sec.pddoc" parse="xml"/>
     </entry>
+    <entry descr="maps linear range to exponential range" name="conv.lin2exp" ref_view="object">
+      <xi:include href="conv.lin2exp.pddoc" parse="xml"/>
+    </entry>
     <entry descr="convert from one linear range to another" name="conv.lin2lin" ref_view="object">
       <xi:include href="conv.lin2lin.pddoc" parse="xml"/>
     </entry>
