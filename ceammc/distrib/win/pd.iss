@@ -23,7 +23,7 @@ AppUpdatesURL={#MyAppURL}
 DefaultDirName={pf}\{#MyAppName}
 DisableProgramGroupPage=yes
 OutputDir=inno
-OutputBaseFilename=Pd-setup
+OutputBaseFilename={#MyAppName}-{#MyAppVersion}-setup
 Compression=lzma
 SolidCompression=yes
 
@@ -37,7 +37,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 [Files]
 Source: "{#AppRoot}/bin/*.exe"; DestDir: "{app}/bin"; Flags: ignoreversion
 Source: "{#AppRoot}/bin/*.dll"; DestDir: "{app}/bin"; Flags: ignoreversion
-Source: "{#AppRoot}/README.txt"; DestDir: "{app}"; Flags: isreadme
+Source: "{#AppRoot}/README.txt"; DestDir: "{app}";
 Source: "{#AppRoot}/LICENSE.txt"; DestDir: "{app}";
 Source: "{#AppRoot}/po/*.msg"; DestDir: "{app}/po";
 Source: "{#AppRoot}/tcl/*.tcl"; DestDir: "{app}/tcl"; Flags: ignoreversion recursesubdirs
@@ -60,4 +60,4 @@ Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: 
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
-
+Filename: "{app}\README.TXT"; Description: "View the README file"; Flags: postinstall shellexec skipifsilent unchecked
