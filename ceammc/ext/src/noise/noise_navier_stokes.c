@@ -297,17 +297,16 @@ void setup_noise0x2enavier_stokes()
         (t_typ_method)(navierstokes_free),
         sizeof(navierstokes), 0, A_GIMME, 0);
 
-    eclass_addmethod(noise_navierstokes_class, (method)navierstokes_bang, "bang", A_GIMME, 0);
-    eclass_addmethod(noise_navierstokes_class, (method)navierstokes_set, "set", A_GIMME, 0);
+    eclass_addmethod(noise_navierstokes_class, (method)navierstokes_bang,  "bang",  A_GIMME, 0);
+    eclass_addmethod(noise_navierstokes_class, (method)navierstokes_set,   "set",   A_GIMME, 0);
     eclass_addmethod(noise_navierstokes_class, (method)navierstokes_reset, "reset", A_GIMME, 0);
 
     eclass_addmethod(noise_navierstokes_class, (method)navierstokes_dt, "dt", A_DEFFLOAT, 0);
-    eclass_addmethod(noise_navierstokes_class, (method)navierstokes_a, "a", A_DEFFLOAT, 0);
-    eclass_addmethod(noise_navierstokes_class, (method)navierstokes_r, "r", A_DEFFLOAT, 0);
-    eclass_addmethod(noise_navierstokes_class, (method)navierstokes_c, "c", A_DEFFLOAT, 0);
-    eclass_addmethod(noise_navierstokes_class, (method)navierstokes_b, "b", A_DEFFLOAT, 0);
-    eclass_addmethod(noise_navierstokes_class, (method)navierstokes_c, "c", A_DEFFLOAT, 0);
-    eclass_addmethod(noise_navierstokes_class, (method)navierstokes_d, "d", A_DEFFLOAT, 0);
+    eclass_addmethod(noise_navierstokes_class, (method)navierstokes_a,  "a",  A_DEFFLOAT, 0);
+    eclass_addmethod(noise_navierstokes_class, (method)navierstokes_r,  "r",  A_DEFFLOAT, 0);
+    eclass_addmethod(noise_navierstokes_class, (method)navierstokes_c,  "c",  A_DEFFLOAT, 0);
+    eclass_addmethod(noise_navierstokes_class, (method)navierstokes_b,  "b",  A_DEFFLOAT, 0);
+    eclass_addmethod(noise_navierstokes_class, (method)navierstokes_d,  "d",  A_DEFFLOAT, 0);
     eclass_addmethod(noise_navierstokes_class, (method)navierstokes_om, "om", A_DEFFLOAT, 0);
 }
 
