@@ -8,7 +8,9 @@ fi
 SRCDIR="$1"
 BINDIR="$2"
 VERSION="$4"
-OUTDIR="$3/pd_ceammclib-$VERSION"
+OUTDIR="$3/ceammclib"
+SYSVER=$(sw_vers | grep ProductV | cut -f2 | cut -f1,2 -d.)
+OUTFILE="ceammclib-${VERSION}-macosx-${SYSVER}.tar.gz"
 
 
 function skip_ext {
@@ -69,6 +71,10 @@ do
         sed 's/\.\.\/index-help\.pd/index-help.pd/' > "${OUTDIR}/${help}"
     echo "+ Copy: '$help'"
 done
+
+cd "$3"
+tar cfvz "${OUTFILE}" $(basename $OUTDIR)
+mv "${OUTFILE}" ..
 
 
 
