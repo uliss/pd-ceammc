@@ -44,41 +44,36 @@
     {audio_filters
         {flt.highshelf~ flt.lowshelf~ flt.eq_peak~ flt.dcblock~ flt.dcblock2~ flt.c_lpf~ flt.c_bpf~ flt.c_hpf~ flt.c_lowshelf~ flt.c_highshelf~ flt.biquad~}}
     {audio_fx
-        {fx.freqshift~ fx.pitchshift~}}
-    {audio_spat
-    	{spat.pan2~ spat.pan4~}
-    }
+        {fx.distortion~ fx.flanger~ freqshift~ fx.pitchshift~ fx.zita_rev1~ fx.freeverb~ fx.freeverb2~}}
     {list
-        {list.apply_to list.at list.each list.length list.sort list.count list.delta list.equal list.gen list.integrator list.last list.max list.mean list.min list.choice list.normalize list.pack list.product list.repeat list.reverse list.rotate list.seq list.shift list.shuffle list.sort list.stretch list.sum list.zip list.wrap list.unwrap list.interleave list.deinterleave list.split}}
+        {list.apply_to list.at list.choice list.count list.count_if list.each list.length list.sort list.count list.delta list.equal list.filter list.gen list.integrator list.last list.max list.mean list.min list.normalize list.pack list.product list.repeat list.reverse list.rotate list.seq list.shift list.shuffle list.sort list.stretch list.sum list.zip list.wrap list.unwrap list.interleave list.deinterleave list.split}}
     {vector
-    	{vector.length vector.normalize vector.dot vector.distance}
-    }
+    	{vector.length vector.normalize vector.dot vector.distance}}
     {math
         {math.abs math.acos math.acosh math.asin math.asinh math.atan math.atanh math.cbrt math.ceil math.cos math.cosh math.e math.exp math.exp2 math.floor math.inf math.lof math.log10 math.log2 math.nan math.pi math.round math.sin math.sinh math.sqrt math.tan math.tanh math.trunc}
     }
     {random
-        {random.float random.gauss random.int}
-    }
+        {random.float random.gauss random.int}}
     {noise
     	{noise.baker noise.clifford noise.collatz noise.duffing noise.ginger noise.henon_heilles noise.henon_phase noise.henon noise.henonf noise.ikeda noise.jong noise.logistic noise.lorenz noise.lyapunov noise.navier_stokes noise.rossler noise.stein noise.torus noise.verhulst}
     }
     {path
-        {path.basename path.dirname path.exists path.home path.listdir}
+        {path.basename path.dirname path.exists path.listdir}
     }
     {predicates
         {is_any is_bang is_even is_float is_list is_odd is_pointer is_symbol}
     }
     {data
-        {data.fifo}
+        {data.fifo data.list}
     }
     {global/local
         {global.list global.float global.int global.json local.list local.float local.int local.json}
     }
     {pass/reject
-        {pass.changed reject.if reject.this}
+        {pass.changed pass.if pass.this reject.if reject.this}
     }
     {converters
-    	{conv.bpf2env conv.bpf2vline conv.bpf2list conv.bpf2array}
+        {conv.bpf2env conv.bpf2vline conv.bpf2list conv.bpf2array conv.lin2lin conv.lin2exp conv.lin2curve}
     }
     {ui
         {ui.bang ui.toggle ui.slider ui.number ui.preset ui.tab ui.radio ui.rslider ui.number~ ui.radio ui.menu ui.matrix ui.meter~ ui.knob ui.keyboard ui.sliders ui.slider2d ui.bpfun ui.display ui.scope~ ui.spectroscope~ }
