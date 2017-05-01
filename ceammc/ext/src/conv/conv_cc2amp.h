@@ -20,9 +20,8 @@
 using namespace ceammc;
 
 class CC2Amp : public BaseObject {
-    FloatProperty* v0_;
-    FloatProperty* v1_;
-    BoolProperty* clip_;
+    FloatProperty* from_;
+    FloatProperty* to_;
 
 public:
     CC2Amp(const PdArgs& a);

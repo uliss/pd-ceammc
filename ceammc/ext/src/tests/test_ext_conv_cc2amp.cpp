@@ -31,59 +31,78 @@ TEST_CASE("conv.cc2amp", "[externals]")
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
 
-            REQUIRE_PROPERTY(t, @v0, 0.f);
-            REQUIRE_PROPERTY(t, @v1, 1.f);
-            REQUIRE_PROPERTY(t, @clip, 1.f);
+            REQUIRE_PROPERTY(t, @from, 0.f);
+            REQUIRE_PROPERTY(t, @to, 1.f);
         }
 
         SECTION("property arguments")
         {
-            CC2AmpTest t("conv.cc2amp", L4("@v0", 10, "@v1", 100));
+            CC2AmpTest t("conv.cc2amp", L4("@from", 10, "@to", 100));
 
-            REQUIRE_PROPERTY(t, @v0, 10);
-            REQUIRE_PROPERTY(t, @v1, 100);
+            REQUIRE_PROPERTY(t, @from, 10);
+            REQUIRE_PROPERTY(t, @to, 100);
         }
 
         SECTION("positional arguments")
         {
             CC2AmpTest t("conv.cc2amp", L2(20, 40));
 
-            REQUIRE_PROPERTY(t, @v0, 20);
-            REQUIRE_PROPERTY(t, @v1, 40);
+            REQUIRE_PROPERTY(t, @from, 20);
+            REQUIRE_PROPERTY(t, @to, 40);
         }
 
         SECTION("mixed arguments")
         {
-            CC2AmpTest t("conv.cc2amp", L6(20, 40, "@v0", 1, "@v1", -1));
+            CC2AmpTest t("conv.cc2amp", L6(20, 40, "@from", 1, "@to", -1));
 
-            REQUIRE_PROPERTY(t, @v0, 1);
-            REQUIRE_PROPERTY(t, @v1, -1);
+            REQUIRE_PROPERTY(t, @from, 1);
+            REQUIRE_PROPERTY(t, @to, -1);
         }
     }
 
     SECTION("convert")
     {
+#define C2A(obj, in, out)                             \
+    {                                                 \
+        WHEN_SEND_FLOAT_TO(0, obj, float(in));        \
+        REQUIRE_FLOAT_AT_OUTLET(0, obj, double(out)); \
+    }
+
         SECTION("default")
         {
             CC2AmpTest t("conv.cc2amp", AtomList());
+            REQUIRE_PROPERTY(t, @from, 0.f);
+            REQUIRE_PROPERTY(t, @to, 1.f);
 
-            WHEN_SEND_FLOAT_TO(0, t, 0);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 0.f);
+            C2A(t, 0, 0);
+            C2A(t, 127, 1);
+            C2A(t, 63.5, 0.5);
 
-            WHEN_SEND_FLOAT_TO(0, t, 127);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 1.f);
+            // clip
+            C2A(t, -100, 0);
+            C2A(t, 128, 1);
+            C2A(t, 128, 1);
+        }
 
-            WHEN_SEND_FLOAT_TO(0, t, 63.5);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 0.5f);
+        SECTION("default")
+        {
+            CC2AmpTest t("conv.cc2amp", L2(-1, 1));
 
-            WHEN_SEND_FLOAT_TO(0, t, -100);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 0.f);
+            C2A(t, 0, -1);
+            C2A(t, 127, 1);
+            C2A(t, 63.5, 0);
 
-            WHEN_SEND_FLOAT_TO(0, t, 128);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 1.f);
-
-            WHEN_SEND_FLOAT_TO(0, t, 1000);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 1.f);
+            C2A(t, 60, -0.0551181);
+            C2A(t, 61, -0.0393700);
+            C2A(t, 62, -0.0236220);
+            C2A(t, 63, -0.0078740);
+            C2A(t, 64, +0.0078740);
+            C2A(t, 65, +0.0236220);
+            C2A(t, 66, +0.0393700);
+            C2A(t, 67, +0.0551181);
+            C2A(t, 68, +0.0708661);
+            C2A(t, 69, +0.0866141);
+            C2A(t, 70, +0.1023622);
         }
     }
 }

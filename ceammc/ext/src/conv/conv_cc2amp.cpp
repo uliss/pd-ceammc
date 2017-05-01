@@ -16,19 +16,16 @@
 
 CC2Amp::CC2Amp(const PdArgs& a)
     : BaseObject(a)
-    , v0_(0)
-    , v1_(0)
-    , clip_(0)
+    , from_(0)
+    , to_(0)
 {
     createOutlet();
 
-    v0_ = new FloatProperty("@v0", positionalFloatArgument(0, 0));
-    v1_ = new FloatProperty("@v1", positionalFloatArgument(1, 1));
-    clip_ = new BoolProperty("@clip", true);
+    from_ = new FloatProperty("@from", positionalFloatArgument(0, 0));
+    to_ = new FloatProperty("@to", positionalFloatArgument(1, 1));
 
-    createProperty(v0_);
-    createProperty(v1_);
-    createProperty(clip_);
+    createProperty(from_);
+    createProperty(to_);
 }
 
 void CC2Amp::onFloat(t_float v)
@@ -38,9 +35,13 @@ void CC2Amp::onFloat(t_float v)
 
 t_float CC2Amp::convert(t_float v)
 {
-    if (clip_->value())
-        v = clip<t_float>(v, 0, 127);
-    return convert::lin2lin<t_float>(v, 0, 127, v0_->value(), v1_->value());
+    if (v <= 0)
+        return from_->value();
+
+    if (v >= 127)
+        return to_->value();
+
+    return convert::lin2lin<t_float>(v, 0, 127, from_->value(), to_->value());
 }
 
 extern "C" void setup_conv0x2ecc2amp()

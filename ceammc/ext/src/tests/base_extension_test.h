@@ -116,11 +116,11 @@ public:
         REQUIRE(obj.lastMessage(outlet).isBang()); \
     }
 
-#define REQUIRE_FLOAT_AT_OUTLET(outlet, obj, v)                         \
-    {                                                                   \
-        REQUIRE(obj.hasNewMessages(outlet));                            \
-        REQUIRE(obj.lastMessage(outlet).isFloat());                     \
-        REQUIRE(obj.lastMessage(outlet).atomValue() == Atom(float(v))); \
+#define REQUIRE_FLOAT_AT_OUTLET(outlet, obj, v)                                      \
+    {                                                                                \
+        REQUIRE(obj.hasNewMessages(outlet));                                         \
+        REQUIRE(obj.lastMessage(outlet).isFloat());                                  \
+        REQUIRE(double(obj.lastMessage(outlet).atomValue().asFloat()) == Approx(v)); \
     }
 
 #define REQUIRE_SYMBOL_AT_OUTLET(outlet, obj, s)                         \
@@ -141,7 +141,7 @@ public:
     {                                              \
         Property* p = obj.property(gensym(#name)); \
         REQUIRE(p != 0);                           \
-        REQUIRE(p->get() == test_atom_wrap(val));                  \
+        REQUIRE(p->get() == test_atom_wrap(val));  \
     }
 
 #define REQUIRE_PROPERTY_NONE(obj, name)           \
