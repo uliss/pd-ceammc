@@ -54,6 +54,7 @@ def main():
             replace_url = True;
 
     lines = sys.stdin.read()
+    lines += '\n'
 
     for found in lines_re.finditer(lines):
         ln = found.group(1)
