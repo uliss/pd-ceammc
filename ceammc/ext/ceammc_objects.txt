@@ -110,6 +110,7 @@ list.normalize
 list.product
 list.range
 list.reduce
+list.remove_if
 list.repack
 list.repeat
 list.resize

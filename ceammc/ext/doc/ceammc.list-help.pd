@@ -57,30 +57,32 @@ list2-2 etc.).;
 #X obj 30 747 list.reduce;
 #X text 175 747 apply function of two arguments cumulatively to the
 list;
-#X obj 30 774 list.resize;
-#X text 175 774 changes list size with;
-#X obj 30 801 list.reverse;
-#X text 175 801 reverses the order of the elements in the list;
-#X obj 30 828 list.seq;
-#X text 175 828 numeric sequence list generator;
-#X obj 30 855 list.shuffle;
-#X text 175 855 randomly rearranges elements in list;
-#X obj 30 882 list.sort;
-#X text 175 882 sorts list values by ascending order;
-#X obj 30 909 list.sum;
-#X text 175 909 calculates sum of floats in list;
-#X obj 30 936 list.unpack;
-#X text 175 936 sends list element one by one separately;
-#X obj 30 963 list.unwrap;
-#X text 175 963 gets list element on first input and list with count
+#X obj 30 774 list.remove_if;
+#X text 175 774 remove elements by predicate;
+#X obj 30 801 list.resize;
+#X text 175 801 changes list size with;
+#X obj 30 828 list.reverse;
+#X text 175 828 reverses the order of the elements in the list;
+#X obj 30 855 list.seq;
+#X text 175 855 numeric sequence list generator;
+#X obj 30 882 list.shuffle;
+#X text 175 882 randomly rearranges elements in list;
+#X obj 30 909 list.sort;
+#X text 175 909 sorts list values by ascending order;
+#X obj 30 936 list.sum;
+#X text 175 936 calculates sum of floats in list;
+#X obj 30 963 list.unpack;
+#X text 175 963 sends list element one by one separately;
+#X obj 30 990 list.unwrap;
+#X text 175 990 gets list element on first input and list with count
 of each element on a second inlet.;
-#X obj 30 1000 list.walk;
-#X text 175 1000 Walks thru the list;
-#X obj 30 1027 list.wrap;
-#X text 175 1027 filters repeated elements of the list and outputs
+#X obj 30 1027 list.walk;
+#X text 175 1027 Walks thru the list;
+#X obj 30 1054 list.wrap;
+#X text 175 1054 filters repeated elements of the list and outputs
 unique elements on first outlet \, outputs the count of elements on
 second.;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::list 20 20 0 20 -104026
 -4096 0;
-#X obj 1 1078 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 1088 library: ceammc;
+#X obj 1 1105 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 1115 library: ceammc;

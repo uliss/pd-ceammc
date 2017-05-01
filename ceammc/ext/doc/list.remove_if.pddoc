@@ -34,15 +34,15 @@
         <example>
             <pdascii>
 <![CDATA[
-[10(
-|
-[list.seq]
-|
-[list.remove_if] X [is_odd]
-|
-[msg set]
-|
-[  (
+[10(                          [10(
+|                             |
+[list.seq]                    [list.seq]
+|                             |
+[list.remove_if] X [is_odd]   [list.remove_if] X [> 5]
+|                             |
+[msg set]                     [msg set]
+|                             |
+[  (                          [  (
 ]]>
             </pdascii>
         </example>
