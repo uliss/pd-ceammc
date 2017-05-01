@@ -4,7 +4,7 @@
     {flow
         { route select spigot moses until change print swap }}
     {math
-        {+ - !- * / == !/ abs pow expr mod div sin cos tan atan atan2 sqrt log exp}}
+        {+ - * / == abs pow expr mod div sin cos tan atan atan2 sqrt log exp}}
     {compare
         {< > <= == >= max min moses}}
     {convert
