@@ -67,8 +67,10 @@ find "${SRCDIR}/ext/doc" -name *-help\\.pd | while read file
 do
     help=$(basename $file)
     cat "$file" |
-        sed 's/ui\.link @title \([^ ]*\) @url \([^; ]*\)/pddplink \2 -text \1/' |
-        sed 's/\.\.\/index-help\.pd/index-help.pd/' > "${OUTDIR}/${help}"
+        "${SRCDIR}/distrib/ceammc_pddoc_link_fix.py" \
+            -surl ../index-help.pd ceammc/ceammc-help.pd \
+            -durl index-help.pd ceammc-help.pd \
+            > "${OUTDIR}/${help}"
     echo "+ Copy: '$help'"
 done
 

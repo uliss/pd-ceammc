@@ -29,3 +29,5 @@ if(MAKELIB_COMPAT_SCRIPT)
             "${CEAMMC_LIB_VERSION}"
         SOURCES "${MAKELIB_COMPAT_SCRIPT}")
 endif()
+
+add_custom_target(distrib_sources SOURCES ceammc_pddoc_link_fix.py)
