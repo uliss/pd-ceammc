@@ -12,7 +12,7 @@
 #include "ceammc_log.h"
 
 Lin2Lin::Lin2Lin(const PdArgs& a)
-    : BaseRangeConverter(a)
+    : BaseRangeConverter(a, 0, 127, 0, 1)
 {
     createInlet();
     createInlet();

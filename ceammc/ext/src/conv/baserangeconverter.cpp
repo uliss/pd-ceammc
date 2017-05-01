@@ -13,7 +13,8 @@
  *****************************************************************************/
 #include "baserangeconverter.h"
 
-BaseRangeConverter::BaseRangeConverter(const PdArgs& a)
+BaseRangeConverter::BaseRangeConverter(const PdArgs& a,
+    t_float iMin, t_float iMax, t_float oMin, t_float oMax)
     : BaseObject(a)
     , input_from_(0)
     , input_to_(0)
@@ -25,10 +26,10 @@ BaseRangeConverter::BaseRangeConverter(const PdArgs& a)
     , clip_max_(gensym("max"))
     , clip_minmax_(gensym("minmax"))
 {
-    input_from_ = new FloatProperty("@in_from", positionalFloatArgument(0, 0));
-    input_to_ = new FloatProperty("@in_to", positionalFloatArgument(1, 127));
-    output_from_ = new FloatProperty("@out_from", positionalFloatArgument(2, 0.01));
-    output_to_ = new FloatProperty("@out_to", positionalFloatArgument(3, 1));
+    input_from_ = new FloatProperty("@in_from", positionalFloatArgument(0, iMin));
+    input_to_ = new FloatProperty("@in_to", positionalFloatArgument(1, iMax));
+    output_from_ = new FloatProperty("@out_from", positionalFloatArgument(2, oMin));
+    output_to_ = new FloatProperty("@out_to", positionalFloatArgument(3, oMax));
 
     clip_ = new SymbolEnumProperty("@clip", "minmax");
     clip_->appendEnum("noclip");
