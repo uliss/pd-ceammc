@@ -199,3 +199,26 @@ double ceammc::convert::exp2lin(double x, double x0, double x1, double y0, doubl
 {
     return y0 + (y1 - y0) * log(x / x0) / log(x1 / x0);
 }
+
+float ceammc::convert::lin2curve(float x, float x0, float x1, float y0, float y1, float curve)
+{
+    return float(lin2curve(double(x), double(x0), double(x1), double(y0), double(y1), double(curve)));
+}
+
+double ceammc::convert::lin2curve(double x, double x0, double x1, double y0, double y1, double curve)
+{
+    // code from SuperCollider
+    if (fabs(curve) < 0.001) {
+        // If the value should be clipped, it has already been clipped (above).
+        // If we got this far, then linlin does not need to do any clipping.
+        // Inlining the formula here makes it even faster.
+        return (x - x0) / (x1 - x0) * (y1 - y0) + y0;
+    };
+
+    const double grow = exp(curve);
+    const double a = (y1 - y0) / (1.0 - grow);
+    const double b = y0 + a;
+    const double scaled = (x - x0) / (x1 - x0);
+
+    return b - (a * pow(grow, scaled));
+}
