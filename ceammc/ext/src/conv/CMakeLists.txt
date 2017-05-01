@@ -18,6 +18,7 @@ ceammc_conv_extension(list2bpf)
 ceammc_conv_extension(vline2bpf)
 ceammc_conv_extension(bpf2array)
 
+ceammc_conv_extension(lin2curve)
 ceammc_conv_extension(lin2exp)
 ceammc_conv_extension(lin2lin)
 
