@@ -182,7 +182,20 @@ float ceammc::convert::time::str2sec(const std::string& str, float def)
 
 float ceammc::convert::lin2exp(float x, float x0, float x1, float y0, float y1)
 {
-    const float b = logf(y0 / y1) / (x0 - x1);
-    const float c = y0 / expf(b * x0);
-    return c * expf(b * x);
+    return float(lin2exp(double(x), double(x0), double(x1), double(y0), double(y1)));
+}
+
+double ceammc::convert::lin2exp(double x, double x0, double x1, double y0, double y1)
+{
+    return y0 * pow(y1 / y0, (x - x0) / (x1 - x0));
+}
+
+float ceammc::convert::exp2lin(float x, float x0, float x1, float y0, float y1)
+{
+    return float(exp2lin(double(x), double(x0), double(x1), double(y0), double(y1)));
+}
+
+double ceammc::convert::exp2lin(double x, double x0, double x1, double y0, double y1)
+{
+    return y0 + (y1 - y0) * log(x / x0) / log(x1 / x0);
 }

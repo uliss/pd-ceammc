@@ -42,6 +42,9 @@ namespace convert {
     }
 
     float lin2exp(float x, float x0, float x1, float y0, float y1);
+    double lin2exp(double x, double x0, double x1, double y0, double y1);
+    float exp2lin(float x, float x0, float x1, float y0, float y1);
+    double exp2lin(double x, double x0, double x1, double y0, double y1);
 }
 }
 
