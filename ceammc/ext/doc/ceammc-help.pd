@@ -143,306 +143,308 @@ section.;
 #X obj 20 2152 cnv 5 47 31 empty empty list 4 13 0 17 -262144 -49933
 0;
 #X obj 20 2193 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 2204 list.apply_to;
-#X text 175 2204 modifies list value at specified position \,
+#X obj 30 2204 list.all_of;
+#X text 175 2204 checks if all list atoms accepted by predicate;
+#X obj 30 2231 list.apply_to;
+#X text 175 2231 modifies list value at specified position \,
 filtering it via external object.;
-#X obj 30 2241 list.at;
-#X text 175 2241 returns list element at given position;
-#X obj 30 2268 list.choice;
-#X text 175 2268 returns random element from list;
-#X obj 30 2295 list.count;
-#X text 175 2295 returns the number of items that equal to specified
+#X obj 30 2268 list.at;
+#X text 175 2268 returns list element at given position;
+#X obj 30 2295 list.choice;
+#X text 175 2295 returns random element from list;
+#X obj 30 2322 list.count;
+#X text 175 2322 returns the number of items that equal to specified
 value;
-#X obj 30 2322 list.count_if;
-#X text 175 2322 returns the number of items that satisfy to external
+#X obj 30 2349 list.count_if;
+#X text 175 2349 returns the number of items that satisfy to external
 predicate.;
-#X obj 30 2359 list.deinterleave;
-#X text 175 2359 splits list to N lists \, each to separate output;
-#X obj 30 2386 list.delta;
-#X text 175 2386 returns the difference between the current list of
+#X obj 30 2386 list.deinterleave;
+#X text 175 2386 splits list to N lists \, each to separate output;
+#X obj 30 2413 list.delta;
+#X text 175 2413 returns the difference between the current list of
 floats and the previous one.;
-#X obj 30 2423 list.each;
-#X text 175 2423 maps each list value via external object(s);
-#X obj 30 2450 list.equal;
-#X text 175 2450 checks if given lists are equal;
-#X obj 30 2477 list.first;
-#X text 175 2477 returns first list element;
-#X obj 30 2504 list.gen;
-#X text 175 2504 generates list of specified length via external
+#X obj 30 2450 list.each;
+#X text 175 2450 maps each list value via external object(s);
+#X obj 30 2477 list.equal;
+#X text 175 2477 checks if given lists are equal;
+#X obj 30 2504 list.first;
+#X text 175 2504 returns first list element;
+#X obj 30 2531 list.gen;
+#X text 175 2531 generates list of specified length via external
 generator;
-#X obj 30 2531 list.integrator;
-#X text 175 2531 returns the sum of the previously stored list and the
+#X obj 30 2558 list.integrator;
+#X text 175 2558 returns the sum of the previously stored list and the
 current one then stores this sum.;
-#X obj 30 2568 list.interleave;
-#X text 175 2568 takes n lists from n inlets (specified by argument)
+#X obj 30 2595 list.interleave;
+#X text 175 2595 takes n lists from n inlets (specified by argument)
 and output their elements sequentially (list1-1 list2-1 list1-2
 list2-2 etc.).;
-#X obj 30 2619 list.last;
-#X text 175 2619 returns last list element;
-#X obj 30 2646 list.length;
-#X text 175 2646 returns the number of atoms in the message;
-#X obj 30 2673 list.max;
-#X text 175 2673 returns largest element in the list;
-#X obj 30 2700 list.mean;
-#X text 175 2700 calculates average of list of floats;
-#X obj 30 2727 list.min;
-#X text 175 2727 returns smallest element in the list;
-#X obj 30 2754 list.normalize;
-#X text 175 2754 normalizes float list values to get their sum = 1.0;
-#X obj 30 2781 list.product;
-#X text 175 2781 calculates product of floats in list;
-#X obj 30 2808 list.range;
-#X text 175 2808 returns list smallest and largest value;
-#X obj 30 2835 list.reduce;
-#X text 175 2835 apply function of two arguments cumulatively to the
+#X obj 30 2646 list.last;
+#X text 175 2646 returns last list element;
+#X obj 30 2673 list.length;
+#X text 175 2673 returns the number of atoms in the message;
+#X obj 30 2700 list.max;
+#X text 175 2700 returns largest element in the list;
+#X obj 30 2727 list.mean;
+#X text 175 2727 calculates average of list of floats;
+#X obj 30 2754 list.min;
+#X text 175 2754 returns smallest element in the list;
+#X obj 30 2781 list.normalize;
+#X text 175 2781 normalizes float list values to get their sum = 1.0;
+#X obj 30 2808 list.product;
+#X text 175 2808 calculates product of floats in list;
+#X obj 30 2835 list.range;
+#X text 175 2835 returns list smallest and largest value;
+#X obj 30 2862 list.reduce;
+#X text 175 2862 apply function of two arguments cumulatively to the
 list;
-#X obj 30 2862 list.remove_if;
-#X text 175 2862 remove elements by predicate;
-#X obj 30 2889 list.resize;
-#X text 175 2889 changes list size with;
-#X obj 30 2916 list.reverse;
-#X text 175 2916 reverses the order of the elements in the list;
-#X obj 30 2943 list.seq;
-#X text 175 2943 numeric sequence list generator;
-#X obj 30 2970 list.shuffle;
-#X text 175 2970 randomly rearranges elements in list;
-#X obj 30 2997 list.sort;
-#X text 175 2997 sorts list values by ascending order;
-#X obj 30 3024 list.sum;
-#X text 175 3024 calculates sum of floats in list;
-#X obj 30 3051 list.unpack;
-#X text 175 3051 sends list element one by one separately;
-#X obj 30 3078 list.unwrap;
-#X text 175 3078 gets list element on first input and list with count
+#X obj 30 2889 list.remove_if;
+#X text 175 2889 remove elements by predicate;
+#X obj 30 2916 list.resize;
+#X text 175 2916 changes list size with;
+#X obj 30 2943 list.reverse;
+#X text 175 2943 reverses the order of the elements in the list;
+#X obj 30 2970 list.seq;
+#X text 175 2970 numeric sequence list generator;
+#X obj 30 2997 list.shuffle;
+#X text 175 2997 randomly rearranges elements in list;
+#X obj 30 3024 list.sort;
+#X text 175 3024 sorts list values by ascending order;
+#X obj 30 3051 list.sum;
+#X text 175 3051 calculates sum of floats in list;
+#X obj 30 3078 list.unpack;
+#X text 175 3078 sends list element one by one separately;
+#X obj 30 3105 list.unwrap;
+#X text 175 3105 gets list element on first input and list with count
 of each element on a second inlet.;
-#X obj 30 3115 list.walk;
-#X text 175 3115 Walks thru the list;
-#X obj 30 3142 list.wrap;
-#X text 175 3142 filters repeated elements of the list and outputs
+#X obj 30 3142 list.walk;
+#X text 175 3142 Walks thru the list;
+#X obj 30 3169 list.wrap;
+#X text 175 3169 filters repeated elements of the list and outputs
 unique elements on first outlet \, outputs the count of elements on
 second.;
-#X obj 20 3193 cnv 5 48 31 empty empty live 4 13 0 17 -262144 -49933
+#X obj 20 3220 cnv 5 48 31 empty empty live 4 13 0 17 -262144 -49933
 0;
-#X obj 20 3234 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 3245 live.capture~;
-#X text 175 3245 record up to 8s of sound and playback the recorded
+#X obj 20 3261 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 3272 live.capture~;
+#X text 175 3272 record up to 8s of sound and playback the recorded
 sound in loop;
-#X obj 20 3282 cnv 5 48 31 empty empty math 4 13 0 17 -262144 -49933
+#X obj 20 3309 cnv 5 48 31 empty empty math 4 13 0 17 -262144 -49933
 0;
-#X obj 20 3323 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 3334 math.abs;
-#X text 175 3334 absolute value function;
-#X obj 30 3361 math.acos;
-#X text 175 3361 arc cosine function;
-#X obj 30 3388 math.acosh;
-#X text 175 3388 inverse hyperbolic cosine function;
-#X obj 30 3415 math.asin;
-#X text 175 3415 arc sine function;
-#X obj 30 3442 math.asinh;
-#X text 175 3442 inverse hyperbolic sine function;
-#X obj 30 3469 math.atan;
-#X text 175 3469 arc tangent function;
-#X obj 30 3496 math.atanh;
-#X text 175 3496 inverse hyperbolic tangent function;
-#X obj 30 3523 math.cbrt;
-#X text 175 3523 cube root function;
-#X obj 30 3550 math.ceil;
-#X text 175 3550 round to smallest integral value not less than input
+#X obj 20 3350 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 3361 math.abs;
+#X text 175 3361 absolute value function;
+#X obj 30 3388 math.acos;
+#X text 175 3388 arc cosine function;
+#X obj 30 3415 math.acosh;
+#X text 175 3415 inverse hyperbolic cosine function;
+#X obj 30 3442 math.asin;
+#X text 175 3442 arc sine function;
+#X obj 30 3469 math.asinh;
+#X text 175 3469 inverse hyperbolic sine function;
+#X obj 30 3496 math.atan;
+#X text 175 3496 arc tangent function;
+#X obj 30 3523 math.atanh;
+#X text 175 3523 inverse hyperbolic tangent function;
+#X obj 30 3550 math.cbrt;
+#X text 175 3550 cube root function;
+#X obj 30 3577 math.ceil;
+#X text 175 3577 round to smallest integral value not less than input
 value;
-#X obj 30 3577 math.cos;
-#X text 175 3577 cosine function;
-#X obj 30 3604 math.cosh;
-#X text 175 3604 hyperbolic cosine function;
-#X obj 30 3631 math.e;
-#X text 175 3631 mathematical constant \, base of the natural
+#X obj 30 3604 math.cos;
+#X text 175 3604 cosine function;
+#X obj 30 3631 math.cosh;
+#X text 175 3631 hyperbolic cosine function;
+#X obj 30 3658 math.e;
+#X text 175 3658 mathematical constant \, base of the natural
 logarithm;
-#X obj 30 3658 math.exp;
-#X text 175 3658 exponential functions;
-#X obj 30 3685 math.exp2;
+#X obj 30 3685 math.exp;
 #X text 175 3685 exponential functions;
-#X obj 30 3712 math.floor;
-#X text 175 3712 round to largest integral value not greater than x;
-#X obj 30 3739 math.inf;
-#X text 175 3739 infinity value that cannot be represented accurately;
-#X obj 30 3766 math.log;
-#X text 175 3766 logarithm functions;
-#X obj 30 3793 math.log10;
+#X obj 30 3712 math.exp2;
+#X text 175 3712 exponential functions;
+#X obj 30 3739 math.floor;
+#X text 175 3739 round to largest integral value not greater than x;
+#X obj 30 3766 math.inf;
+#X text 175 3766 infinity value that cannot be represented accurately;
+#X obj 30 3793 math.log;
 #X text 175 3793 logarithm functions;
-#X obj 30 3820 math.log2;
+#X obj 30 3820 math.log10;
 #X text 175 3820 logarithm functions;
-#X obj 30 3847 math.nan;
-#X text 175 3847 Not a Number \, unrepresentable value;
-#X obj 30 3874 math.neg;
-#X text 175 3874 negate function;
-#X obj 30 3901 math.pi;
-#X text 175 3901 mathematical constant;
-#X obj 30 3928 math.reciprocal;
-#X text 175 3928 calculate reciprocal number;
-#X obj 30 3955 math.round;
-#X text 175 3955 round to integral value \, regardless of rounding
+#X obj 30 3847 math.log2;
+#X text 175 3847 logarithm functions;
+#X obj 30 3874 math.nan;
+#X text 175 3874 Not a Number \, unrepresentable value;
+#X obj 30 3901 math.neg;
+#X text 175 3901 negate function;
+#X obj 30 3928 math.pi;
+#X text 175 3928 mathematical constant;
+#X obj 30 3955 math.reciprocal;
+#X text 175 3955 calculate reciprocal number;
+#X obj 30 3982 math.round;
+#X text 175 3982 round to integral value \, regardless of rounding
 direction;
-#X obj 30 3982 math.sign;
-#X text 175 3982 sign function;
-#X obj 30 4009 math.sin;
-#X text 175 4009 sine function;
-#X obj 30 4036 math.sinh;
-#X text 175 4036 hyperbolic sine function;
-#X obj 30 4063 math.sqrt;
-#X text 175 4063 square root function;
-#X obj 30 4090 math.squared;
-#X text 175 4090 value square;
-#X obj 30 4117 math.tan;
-#X text 175 4117 tangent function;
-#X obj 30 4144 math.tanh;
-#X text 175 4144 hyperbolic tangent function;
-#X obj 30 4171 math.trunc;
-#X text 175 4171 truncate to integer value;
-#X obj 20 4198 cnv 5 38 31 empty empty msg 4 13 0 17 -262144 -49933 0;
-#X obj 20 4239 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 4250 msg;
-#X text 175 4250 message constructor;
-#X obj 20 4277 cnv 5 58 31 empty empty noise 4 13 0 17 -262144 -49933
+#X obj 30 4009 math.sign;
+#X text 175 4009 sign function;
+#X obj 30 4036 math.sin;
+#X text 175 4036 sine function;
+#X obj 30 4063 math.sinh;
+#X text 175 4063 hyperbolic sine function;
+#X obj 30 4090 math.sqrt;
+#X text 175 4090 square root function;
+#X obj 30 4117 math.squared;
+#X text 175 4117 value square;
+#X obj 30 4144 math.tan;
+#X text 175 4144 tangent function;
+#X obj 30 4171 math.tanh;
+#X text 175 4171 hyperbolic tangent function;
+#X obj 30 4198 math.trunc;
+#X text 175 4198 truncate to integer value;
+#X obj 20 4225 cnv 5 38 31 empty empty msg 4 13 0 17 -262144 -49933 0;
+#X obj 20 4266 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 4277 msg;
+#X text 175 4277 message constructor;
+#X obj 20 4304 cnv 5 58 31 empty empty noise 4 13 0 17 -262144 -49933
 0;
-#X obj 20 4318 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 4329 noise.pink~;
-#X text 175 4329 Pink noise generator;
-#X obj 30 4356 noise.white~;
-#X text 175 4356 White noise generator;
-#X obj 20 4383 cnv 5 38 31 empty empty osc 4 13 0 17 -262144 -49933 0;
-#X obj 20 4424 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 4435 osc.impulse~;
-#X text 175 4435 Bandlimited impulse train generator;
-#X obj 30 4462 osc.pulse~;
-#X text 175 4462 Bandlimited pulse train oscillator.;
-#X obj 30 4489 osc.saw~;
-#X text 175 4489 Bandlimited saw wave oscillator;
-#X obj 30 4516 osc.sinfb~;
-#X text 175 4516 sine oscilator with feedback;
-#X obj 30 4543 osc.square~;
-#X text 175 4543 Bandlimited square wave oscillator;
-#X obj 30 4570 osc.tri~;
-#X text 175 4570 Bandlimited triangle wave oscillator;
-#X obj 20 4597 cnv 5 47 31 empty empty pass 4 13 0 17 -262144 -49933
+#X obj 20 4345 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 4356 noise.pink~;
+#X text 175 4356 Pink noise generator;
+#X obj 30 4383 noise.white~;
+#X text 175 4383 White noise generator;
+#X obj 20 4410 cnv 5 38 31 empty empty osc 4 13 0 17 -262144 -49933 0;
+#X obj 20 4451 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 4462 osc.impulse~;
+#X text 175 4462 Bandlimited impulse train generator;
+#X obj 30 4489 osc.pulse~;
+#X text 175 4489 Bandlimited pulse train oscillator.;
+#X obj 30 4516 osc.saw~;
+#X text 175 4516 Bandlimited saw wave oscillator;
+#X obj 30 4543 osc.sinfb~;
+#X text 175 4543 sine oscilator with feedback;
+#X obj 30 4570 osc.square~;
+#X text 175 4570 Bandlimited square wave oscillator;
+#X obj 30 4597 osc.tri~;
+#X text 175 4597 Bandlimited triangle wave oscillator;
+#X obj 20 4624 cnv 5 47 31 empty empty pass 4 13 0 17 -262144 -49933
 0;
-#X obj 20 4638 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 4649 pass.changed;
-#X text 175 4649 rejects redundant input values;
-#X obj 30 4676 pass.if;
-#X text 175 4676 pass values that accepted by predicate object;
-#X obj 30 4703 pass.this;
-#X text 175 4703 pass only specified values;
-#X obj 20 4730 cnv 5 47 31 empty empty path 4 13 0 17 -262144 -49933
+#X obj 20 4665 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 4676 pass.changed;
+#X text 175 4676 rejects redundant input values;
+#X obj 30 4703 pass.if;
+#X text 175 4703 pass values that accepted by predicate object;
+#X obj 30 4730 pass.this;
+#X text 175 4730 pass only specified values;
+#X obj 20 4757 cnv 5 47 31 empty empty path 4 13 0 17 -262144 -49933
 0;
-#X obj 20 4771 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 4782 path.basename;
-#X text 175 4782 outputs filename portion of pathname;
-#X obj 30 4809 path.dirname;
-#X text 175 4809 outputs directory portion of pathname;
-#X obj 20 4836 cnv 5 109 31 empty empty predicates 4 13 0 17 -262144
+#X obj 20 4798 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 4809 path.basename;
+#X text 175 4809 outputs filename portion of pathname;
+#X obj 30 4836 path.dirname;
+#X text 175 4836 outputs directory portion of pathname;
+#X obj 20 4863 cnv 5 109 31 empty empty predicates 4 13 0 17 -262144
 -49933 0;
-#X obj 20 4877 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 4888 is_any;
-#X text 175 4888 checks if input data has *any* type;
-#X obj 30 4915 is_bang;
-#X text 175 4915 checks if input data has *bang* type;
-#X obj 30 4942 is_even;
-#X text 175 4942 checks if input number is even;
-#X obj 30 4969 is_float;
-#X text 175 4969 checks if input data has *float* type;
-#X obj 30 4996 is_list;
-#X text 175 4996 checks if input data has *list* type;
-#X obj 30 5023 is_odd;
-#X text 175 5023 checks if input number is odd;
-#X obj 30 5050 is_pointer;
-#X text 175 5050 checks if input data has *pointer* type;
-#X obj 30 5077 is_symbol;
-#X text 175 5077 checks if input data has *symbol* type;
-#X obj 20 5104 cnv 5 89 31 empty empty property 4 13 0 17 -262144
+#X obj 20 4904 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 4915 is_any;
+#X text 175 4915 checks if input data has *any* type;
+#X obj 30 4942 is_bang;
+#X text 175 4942 checks if input data has *bang* type;
+#X obj 30 4969 is_even;
+#X text 175 4969 checks if input number is even;
+#X obj 30 4996 is_float;
+#X text 175 4996 checks if input data has *float* type;
+#X obj 30 5023 is_list;
+#X text 175 5023 checks if input data has *list* type;
+#X obj 30 5050 is_odd;
+#X text 175 5050 checks if input number is odd;
+#X obj 30 5077 is_pointer;
+#X text 175 5077 checks if input data has *pointer* type;
+#X obj 30 5104 is_symbol;
+#X text 175 5104 checks if input data has *symbol* type;
+#X obj 20 5131 cnv 5 89 31 empty empty property 4 13 0 17 -262144
 -49933 0;
-#X obj 20 5145 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 5156 prop.get;
-#X text 175 5156 Property extractor;
-#X obj 30 5183 prop.set;
-#X text 175 5183 Property injector;
-#X obj 20 5210 cnv 5 67 31 empty empty random 4 13 0 17 -262144 -49933
+#X obj 20 5172 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 5183 prop.get;
+#X text 175 5183 Property extractor;
+#X obj 30 5210 prop.set;
+#X text 175 5210 Property injector;
+#X obj 20 5237 cnv 5 67 31 empty empty random 4 13 0 17 -262144 -49933
 0;
-#X obj 20 5251 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 5262 random.int;
-#X text 175 5262 Random integer generator in specified range;
-#X obj 20 5289 cnv 5 66 31 empty empty reject 4 13 0 17 -262144 -49933
+#X obj 20 5278 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 5289 random.int;
+#X text 175 5289 Random integer generator in specified range;
+#X obj 20 5316 cnv 5 66 31 empty empty reject 4 13 0 17 -262144 -49933
 0;
-#X obj 20 5330 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 5341 reject.if;
-#X text 175 5341 reject values by predicate;
-#X obj 30 5368 reject.this;
-#X text 175 5368 reject only specified values;
-#X obj 20 5395 cnv 5 37 31 empty empty snd 4 13 0 17 -262144 -49933 0;
-#X obj 20 5436 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 5447 snd.file;
-#X text 175 5447 Sound file loader on steroids;
-#X obj 20 5474 cnv 5 68 31 empty empty symbol 4 13 0 17 -262144 -49933
+#X obj 20 5357 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 5368 reject.if;
+#X text 175 5368 reject values by predicate;
+#X obj 30 5395 reject.this;
+#X text 175 5395 reject only specified values;
+#X obj 20 5422 cnv 5 37 31 empty empty snd 4 13 0 17 -262144 -49933 0;
+#X obj 20 5463 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 5474 snd.file;
+#X text 175 5474 Sound file loader on steroids;
+#X obj 20 5501 cnv 5 68 31 empty empty symbol 4 13 0 17 -262144 -49933
 0;
-#X obj 20 5515 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 5526 symbol.equal;
-#X text 175 5526 check symbols for equality;
-#X obj 30 5553 symbol.length;
-#X text 175 5553 number of characters in symbol (unicode supported);
-#X obj 20 5580 cnv 5 68 31 empty empty system 4 13 0 17 -262144 -49933
+#X obj 20 5542 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 5553 symbol.equal;
+#X text 175 5553 check symbols for equality;
+#X obj 30 5580 symbol.length;
+#X text 175 5580 number of characters in symbol (unicode supported);
+#X obj 20 5607 cnv 5 68 31 empty empty system 4 13 0 17 -262144 -49933
 0;
-#X obj 20 5621 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 5632 system.getenv;
-#X text 175 5632 Get system environment variables;
-#X obj 30 5659 system.hostname;
-#X text 175 5659 outputs system hostname;
-#X obj 30 5686 system.memsize;
-#X text 175 5686 returns the size of physical memory (RAM) in bytes
+#X obj 20 5648 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 5659 system.getenv;
+#X text 175 5659 Get system environment variables;
+#X obj 30 5686 system.hostname;
+#X text 175 5686 outputs system hostname;
+#X obj 30 5713 system.memsize;
+#X text 175 5713 returns the size of physical memory (RAM) in bytes
 round to float data type.;
-#X obj 30 5723 system.memused;
-#X text 175 5723 returns the process physical memory use - current and
+#X obj 30 5750 system.memused;
+#X text 175 5750 returns the process physical memory use - current and
 peak;
-#X obj 30 5750 system.screen_size;
-#X text 175 5750 returns current screen size in pixels;
-#X obj 20 5777 cnv 5 28 31 empty empty ui 4 13 0 17 -262144 -49933 0;
-#X obj 20 5818 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 5832 ui.link @title [ui.bang] @url ui.bang-help.pd;
-#X text 175 5829 A bang... that's all;
-#X obj 30 5855 ui.link @title [ui.bpfunc] @url ui.bpfunc-help.pd;
-#X text 175 5852 Breakpoint function GUI object;
-#X obj 30 5878 ui.link @title [ui.display] @url ui.display-help.pd;
-#X text 175 5875 Display GUI object;
-#X obj 30 5901 ui.link @title [ui.keyboard] @url ui.keyboard-help.pd;
-#X text 175 5898 keyboard widget;
-#X obj 30 5924 ui.link @title [ui.knob] @url ui.knob-help.pd;
-#X text 175 5921 knob widget;
-#X obj 30 5947 ui.link @title [ui.matrix] @url ui.matrix-help.pd;
-#X text 175 5944 The matrix of toggles has you.;
-#X obj 30 5970 ui.link @title [ui.scope~] @url ui.scope~-help.pd;
-#X text 175 5967 Scope GUI object;
-#X obj 30 5993 ui.link @title [ui.slider2d] @url ui.slider2d-help.pd;
-#X text 175 5990 2D slider widget;
-#X obj 30 6016 ui.link @title [ui.sliders] @url ui.sliders-help.pd;
-#X text 175 6013 Multiple slider widget;
-#X obj 30 6039 ui.link @title [ui.spectroscope~] @url
+#X obj 30 5777 system.screen_size;
+#X text 175 5777 returns current screen size in pixels;
+#X obj 20 5804 cnv 5 28 31 empty empty ui 4 13 0 17 -262144 -49933 0;
+#X obj 20 5845 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 5859 ui.link @title [ui.bang] @url ui.bang-help.pd;
+#X text 175 5856 A bang... that's all;
+#X obj 30 5882 ui.link @title [ui.bpfunc] @url ui.bpfunc-help.pd;
+#X text 175 5879 Breakpoint function GUI object;
+#X obj 30 5905 ui.link @title [ui.display] @url ui.display-help.pd;
+#X text 175 5902 Display GUI object;
+#X obj 30 5928 ui.link @title [ui.keyboard] @url ui.keyboard-help.pd;
+#X text 175 5925 keyboard widget;
+#X obj 30 5951 ui.link @title [ui.knob] @url ui.knob-help.pd;
+#X text 175 5948 knob widget;
+#X obj 30 5974 ui.link @title [ui.matrix] @url ui.matrix-help.pd;
+#X text 175 5971 The matrix of toggles has you.;
+#X obj 30 5997 ui.link @title [ui.scope~] @url ui.scope~-help.pd;
+#X text 175 5994 Scope GUI object;
+#X obj 30 6020 ui.link @title [ui.slider2d] @url ui.slider2d-help.pd;
+#X text 175 6017 2D slider widget;
+#X obj 30 6043 ui.link @title [ui.sliders] @url ui.sliders-help.pd;
+#X text 175 6040 Multiple slider widget;
+#X obj 30 6066 ui.link @title [ui.spectroscope~] @url
 ui.spectroscope~-help.pd;
-#X text 175 6036 Spectroscope GUI object;
-#X obj 30 6062 ui.link @title [ui.toggle] @url ui.toggle-help.pd;
-#X text 175 6059 modern toggle widget;
-#X obj 20 6082 cnv 5 69 31 empty empty vector 4 13 0 17 -262144 -49933
+#X text 175 6063 Spectroscope GUI object;
+#X obj 30 6089 ui.link @title [ui.toggle] @url ui.toggle-help.pd;
+#X text 175 6086 modern toggle widget;
+#X obj 20 6109 cnv 5 69 31 empty empty vector 4 13 0 17 -262144 -49933
 0;
-#X obj 20 6123 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 6134 vector.distance;
-#X text 175 6134 returns euclidean distance between two points;
-#X obj 30 6161 vector.dot;
-#X text 175 6161 treats list of floats as vector \, returns the dot
+#X obj 20 6150 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 6161 vector.distance;
+#X text 175 6161 returns euclidean distance between two points;
+#X obj 30 6188 vector.dot;
+#X text 175 6188 treats list of floats as vector \, returns the dot
 product (sum of the elements of two lists with same indexes
 multiplied).;
-#X obj 30 6212 vector.length;
-#X text 175 6212 treats list of floats as vector \, returns vector
+#X obj 30 6239 vector.length;
+#X text 175 6239 treats list of floats as vector \, returns vector
 length: sqrt(element(1)^2 + ...element(n)^2).;
-#X obj 30 6249 vector.normalize;
-#X text 175 6249 returns normalized vector;
+#X obj 30 6276 vector.normalize;
+#X text 175 6276 returns normalized vector;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc 20 20 0 20 -104026 -4096 0;
-#X obj 1 6276 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 6276 version: v0.1 \, license: GPL3;
-#X obj 20 6295 ui.link @title https://github.com/uliss/pure-data @url
+#X obj 1 6303 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 6303 version: v0.1 \, license: GPL3;
+#X obj 20 6322 ui.link @title https://github.com/uliss/pure-data @url
 https://github.com/uliss/pure-data;

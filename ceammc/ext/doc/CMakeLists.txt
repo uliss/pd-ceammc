@@ -69,6 +69,7 @@ set(DOC_FILES
     is_list
     is_even
     live.capture~
+    list.all_of
     list.apply_to
     list.at
     list.choice

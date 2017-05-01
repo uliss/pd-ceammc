@@ -4,6 +4,7 @@ macro(ceammc_list_extension name)
     list(APPEND LIST_SOURCES "list_${name}.cpp")
 endmacro()
 
+ceammc_list_extension(all_of)
 ceammc_list_extension(at)
 ceammc_list_extension(apply_to)
 ceammc_list_extension(choice)

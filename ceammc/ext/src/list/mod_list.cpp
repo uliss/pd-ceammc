@@ -1,5 +1,6 @@
 #include "mod_list.h"
 
+extern "C" void setup_list0x2eall_of();
 extern "C" void setup_list0x2eapply_to();
 extern "C" void setup_list0x2eat();
 extern "C" void setup_list0x2echoice();
@@ -46,6 +47,7 @@ extern "C" void setup_list0x2ezip();
 
 void ceammc_list_setup()
 {
+    setup_list0x2eall_of();
     setup_list0x2eapply_to();
     setup_list0x2eat();
     setup_list0x2echoice();

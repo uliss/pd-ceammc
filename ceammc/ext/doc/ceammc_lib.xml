@@ -190,6 +190,9 @@
     </entry>
   </category>
   <category name="list">
+    <entry descr="checks if all list atoms accepted by predicate" name="list.all_of" ref_view="object">
+      <xi:include href="list.all_of.pddoc" parse="xml"/>
+    </entry>
     <entry descr="modifies list value at specified position, filtering it via external object." name="list.apply_to" ref_view="object">
       <xi:include href="list.apply_to.pddoc" parse="xml"/>
     </entry>
