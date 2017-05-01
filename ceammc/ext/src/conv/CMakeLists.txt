@@ -1,6 +1,6 @@
 include_directories(${CMAKE_SOURCE_DIR}/src)
 
-set(CONV_SOURCES "")
+set(CONV_SOURCES "baserangeconverter.cpp")
 
 macro(ceammc_conv_extension name)
     list(APPEND CONV_SOURCES "conv_${name}.cpp")

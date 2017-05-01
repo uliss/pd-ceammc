@@ -14,25 +14,14 @@
 #ifndef CONV_LIN2EXP_H
 #define CONV_LIN2EXP_H
 
-#include "ceammc_object.h"
+#include "baserangeconverter.h"
 
 using namespace ceammc;
 
-class Lin2Exp : public BaseObject {
-    FloatProperty* input_from_;
-    FloatProperty* input_to_;
-    FloatProperty* output_from_;
-    FloatProperty* output_to_;
-    SymbolEnumProperty* clip_;
-    t_symbol* no_clip_;
-    t_symbol* clip_min_;
-    t_symbol* clip_max_;
-    t_symbol* clip_minmax_;
-
+class Lin2Exp : public BaseRangeConverter {
 public:
     Lin2Exp(const PdArgs& a);
     void onFloat(float value);
-    void onInlet(size_t n, const AtomList& l);
 };
 
 #endif // CONV_LIN2EXP_H

@@ -46,6 +46,21 @@ macro(ceammc_add_extension_test name extpath)
     add_test(NAME "Extension::${name}" COMMAND ${_exec_cmd})
 endmacro()
 
+macro(ceammc_external_test external name)
+    set(_target "test_ext_${external}_${name}")
+    add_executable(${_target} "${_target}.cpp")
+    # library repeats are done to make mingw linker happy
+    target_link_libraries(${_target}
+        tests_main_lib puredata-core ceammc_core puredata-core
+        ceammc_sound "ceammc_${external}" ceammc_core)
+    set(_exec_cmd ${_target})
+
+    if(MINGW AND WINE_EXE)
+        set(_exec_cmd ${WINE_EXE} ${_target})
+    endif()
+    add_test(NAME "[${external}.${name}]" COMMAND ${_exec_cmd})
+endmacro()
+
 if(${WITH_COVERAGE})
     find_program(LCOV NAMES lcov PATHS /usr/bin /usr/local/bin)
     find_program (GCOV NAMES gcov-5 gcov-6 gcov PATHS /usr/bin /usr/local/bin)
