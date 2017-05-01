@@ -8,14 +8,16 @@
 #X text 175 143 convert frequency in BPM to period in milliseconds;
 #X obj 30 170 conv.bpm2sec;
 #X text 175 170 convert frequency in BPM to period in seconds;
-#X obj 30 197 conv.lin2exp;
-#X text 175 197 maps linear range to exponential range;
-#X obj 30 224 conv.lin2lin;
-#X text 175 224 convert from one linear range to another;
-#X obj 30 251 conv.sec2str;
-#X text 175 251 converts float time in seconds to formated symbol;
-#X obj 30 278 conv.str2sec;
-#X text 175 278 converts formatted time to float value in seconds;
+#X obj 30 197 conv.lin2curve;
+#X text 175 197 map linear to exponential range with 0 allowed.;
+#X obj 30 224 conv.lin2exp;
+#X text 175 224 maps linear range to exponential range;
+#X obj 30 251 conv.lin2lin;
+#X text 175 251 convert from one linear range to another;
+#X obj 30 278 conv.sec2str;
+#X text 175 278 converts float time in seconds to formated symbol;
+#X obj 30 305 conv.str2sec;
+#X text 175 305 converts formatted time to float value in seconds;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::conv 20 20 0 20 -104026
 -4096 0;
 #X obj 1 458 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;

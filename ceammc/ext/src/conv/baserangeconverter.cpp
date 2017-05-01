@@ -48,28 +48,6 @@ BaseRangeConverter::BaseRangeConverter(const PdArgs& a,
     createProperty(new SymbolEnumAlias("@minmax", clip_, clip_minmax_));
 }
 
-void BaseRangeConverter::onInlet(size_t n, const AtomList& l)
-{
-    if (l.empty())
-        return;
-
-    if (n == 1) { /*input range from*/
-        input_from_->setValue(l.at(0).asFloat());
-    }
-
-    if (n == 2) { /*input range to*/
-        input_to_->setValue(l.at(0).asFloat());
-    }
-
-    if (n == 3) { /*output range from*/
-        output_from_->setValue(l.at(0).asFloat());
-    }
-
-    if (n == 4) { /*output range to*/
-        output_to_->setValue(l.at(0).asFloat());
-    }
-}
-
 bool BaseRangeConverter::doClip(t_float& v) const
 {
     if (clipMinMax()) {

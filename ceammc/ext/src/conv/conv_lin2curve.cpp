@@ -21,12 +21,6 @@ Lin2Curve::Lin2Curve(const PdArgs& a)
     : BaseRangeConverter(a)
     , curve_(0)
 {
-    createInlet();
-    createInlet();
-    createInlet();
-    createInlet();
-    createInlet();
-
     createOutlet();
 
     curve_ = new FloatProperty("@curve", positionalFloatArgument(4, -4));

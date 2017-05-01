@@ -10,6 +10,7 @@ set(DOC_FILES
     conv.bpm2hz
     conv.bpm2ms
     conv.bpm2sec
+    conv.lin2curve
     conv.lin2lin
     conv.lin2exp
     conv.sec2str
@@ -259,7 +260,14 @@ endif()
 if(TIDY)
     message(STATUS "HTMLtidy found: ${TIDY}. The 'ceammc_pddoc_format' target available.")
     add_custom_target(ceammc_pddoc_format
-        COMMAND ${TIDY} -m -quiet -xml --indent auto --indent-spaces 4 --wrap 100 --wrap-sections no *.pddoc
+        COMMAND ls *.pddoc | while read f\;
+        do
+            ${TIDY} -quiet -xml --indent auto
+            --indent-spaces 4 --wrap 100 --wrap-sections no $$f > "${CMAKE_CURRENT_BINARY_DIR}/$$f" \;
+            ${CMAKE_COMMAND} -E copy_if_different
+                "${CMAKE_CURRENT_BINARY_DIR}/$$f" . \;
+            echo "Format pddoc file: $$f" \;
+        done
         WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
 endif()
 

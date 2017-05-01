@@ -31,7 +31,6 @@ class BaseRangeConverter : public BaseObject {
 
 public:
     BaseRangeConverter(const PdArgs& a, t_float iMin = 0, t_float iMax = 127, t_float oMin = 0, t_float oMax = 1);
-    void onInlet(size_t n, const AtomList& l);
 
     inline t_float in_from() const { return input_from_->value(); }
     inline t_float in_to() const { return input_to_->value(); }

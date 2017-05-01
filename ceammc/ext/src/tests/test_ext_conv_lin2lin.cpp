@@ -26,7 +26,7 @@ TEST_CASE("conv.lin2lin", "[externals]")
         SECTION("empty arguments")
         {
             Lin2LinTest t("conv.lin2lin", AtomList());
-            REQUIRE(t.numInlets() == 5);
+            REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
 
             REQUIRE_PROPERTY(t, @in_from, 0.f);

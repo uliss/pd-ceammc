@@ -17,6 +17,8 @@ conv.bpm2ms
 conv.bpm2sec
 conv.cc2amp
 conv.env2bpf
+conv.lin2curve
+conv.lin2exp
 conv.lin2lin
 conv.list2bpf
 conv.samp2sec
@@ -82,6 +84,8 @@ is_symbol
 lfo.impulse~
 lfo.square~
 lfo.tri~
+lin->curve
+lin->exp
 lin->lin
 list.apply_to
 list.at

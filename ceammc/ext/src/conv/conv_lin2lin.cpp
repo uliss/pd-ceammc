@@ -14,11 +14,6 @@
 Lin2Lin::Lin2Lin(const PdArgs& a)
     : BaseRangeConverter(a, 0, 127, 0, 1)
 {
-    createInlet();
-    createInlet();
-    createInlet();
-    createInlet();
-
     createOutlet();
 }
 

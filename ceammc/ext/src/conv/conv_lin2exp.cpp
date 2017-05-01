@@ -14,11 +14,6 @@
 Lin2Exp::Lin2Exp(const PdArgs& a)
     : BaseRangeConverter(a, 0, 127, 0.01f, 1)
 {
-    createInlet();
-    createInlet();
-    createInlet();
-    createInlet();
-
     createOutlet();
 }
 
