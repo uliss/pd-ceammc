@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="list.remove_if">
+        <title>list.remove_if</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>remove elements by predicate</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>list</category>
+            <keywords>list remove predicate</keywords>
+            <since>0.1</since>
+            <also>
+                <see>list.count_if</see>
+            </also>
+        </meta>
+        <info>
+            <par>Predicate object should accept atom and output 0 (leave element) or 1 (remove).</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo on="list">input list</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float">value from predicate</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output list with some removed elements</outlet>
+            <outlet>atom to predicate</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[10(
+|
+[list.seq]
+|
+[list.remove_if] X [is_odd]
+|
+[msg set]
+|
+[  (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -256,6 +256,9 @@
     <entry descr="apply function of two arguments cumulatively to the list" name="list.reduce" ref_view="object">
       <xi:include href="list.reduce.pddoc" parse="xml"/>
     </entry>
+    <entry descr="remove elements by predicate" name="list.remove_if" ref_view="object">
+      <xi:include href="list.remove_if.pddoc" parse="xml"/>
+    </entry>
     <entry descr="changes list size with" name="list.resize" ref_view="object">
       <xi:include href="list.resize.pddoc" parse="xml"/>
     </entry>

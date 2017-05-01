@@ -91,6 +91,7 @@ set(DOC_FILES
     list.product
     list.range
     list.reduce
+    list.remove_if
     list.resize
     list.reverse
     list.seq
