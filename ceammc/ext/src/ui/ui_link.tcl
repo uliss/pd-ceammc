@@ -19,7 +19,7 @@ proc ceammclink_open {filename dir} {
         set filename [file tail $fullpath]
         menu_doc_open $dir $filename
     } else {
-        bell ;# beep on error to provide instant feedback
+        bell ; # beep on error to provide instant feedback
         pdtk_post "\[ui.link\] ERROR file not found: $filename at $dir\n"
     }
 }

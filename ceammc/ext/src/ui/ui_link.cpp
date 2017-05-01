@@ -9,6 +9,7 @@
 #include <stdio.h>
 
 #include "ceammc_gui.h"
+#include "ui_link_tcl.h"
 
 #include "m_imp.h" /* FIXME need access to c_externdir... */
 
@@ -127,7 +128,7 @@ UI_fun(ui_link)::free_ext(ui_link* zx)
 UI_fun(ui_link)::wx_oksize(ui_link* zx, t_rect* newrect)
 {
     float w = 40;
-    if(zx->title)
+    if (zx->title)
         w = text_width(zx->title, FONT_SIZE) * ebox_getzoom(asBox(zx));
 
     newrect->width = pd_clip_min(w, 20);
@@ -178,6 +179,7 @@ UI_fun(ui_link)::wx_attr_changed_ext(ui_link* zx, t_symbol* attr)
 
 extern "C" void setup_ui0x2elink()
 {
+    uilink_tcl_init();
     ceammc_gui::GuiFactory<ui_link> class1;
     class1.setup_noin("ui.link");
 }

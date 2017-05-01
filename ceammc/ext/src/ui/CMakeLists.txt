@@ -1,4 +1,13 @@
 set(UI_SOURCES "")
+
+set(UILINK_TCL ui_link.tcl)
+
+add_custom_target(uilink_tcl
+    DEPENDS ${UILINK_TCL}
+    SOURCES ${UILINK_TCL} ui_link_tcl.h
+    COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/tcl_to_c.sh ${UILINK_TCL} uilink_tcl_init > ui_link_tcl.h
+    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
+
 macro(ceammc_ui_extension name)
     list(APPEND UI_SOURCES "ui_${name}.cpp")
 endmacro()
