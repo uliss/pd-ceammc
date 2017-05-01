@@ -68,3 +68,30 @@ void BaseRangeConverter::onInlet(size_t n, const AtomList& l)
         output_to_->setValue(l.at(0).asFloat());
     }
 }
+
+bool BaseRangeConverter::doClip(t_float& v) const
+{
+    if (clipMinMax()) {
+        if (v <= in_from()) {
+            v = out_from();
+            return true;
+        }
+
+        if (v >= in_to()) {
+            v = out_to();
+            return true;
+        }
+    }
+
+    if (clipMin() && v <= in_from()) {
+        v = out_from();
+        return true;
+    }
+
+    if (clipMax() && v >= in_to()) {
+        v = out_to();
+        return true;
+    }
+
+    return false;
+}

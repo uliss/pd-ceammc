@@ -29,18 +29,8 @@ void Lin2Exp::onFloat(float value)
     const t_float y0 = out_from();
     const t_float y1 = out_to();
 
-    if (clipMinMax()) {
-        if (value <= x0)
-            return floatTo(0, y0);
-        if (value >= x1)
-            return floatTo(0, y1);
-    }
-
-    if (clipMin() && value < x0)
-        return floatTo(0, y0);
-
-    if (clipMax() && value >= x1)
-        return floatTo(0, y1);
+    if (doClip(value))
+        return floatTo(0, value);
 
     if (x0 == x1) {
         OBJ_ERR << "invalid input range: " << x0 << ".." << x1;

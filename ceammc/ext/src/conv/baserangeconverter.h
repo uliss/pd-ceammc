@@ -42,6 +42,8 @@ public:
     inline bool clipMax() const { return clip_->value() == clip_max_; }
     inline bool clipMinMax() const { return clip_->value() == clip_minmax_; }
     inline bool noClip() const { return clip_->value() == no_clip_; }
+
+    bool doClip(t_float& v) const;
 };
 
 #endif // BASERANGECONVERTER_H
