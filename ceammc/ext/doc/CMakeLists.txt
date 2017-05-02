@@ -89,6 +89,7 @@ set(DOC_FILES
     list.max
     list.mean
     list.min
+    list.none_of
     list.normalize
     list.product
     list.range

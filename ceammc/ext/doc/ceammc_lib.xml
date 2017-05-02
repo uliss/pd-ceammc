@@ -250,6 +250,9 @@
     <entry descr="returns smallest element in the list" name="list.min" ref_view="object">
       <xi:include href="list.min.pddoc" parse="xml"/>
     </entry>
+    <entry descr="checks if none of list atoms is accepted by predicate" name="list.none_of" ref_view="object">
+      <xi:include href="list.none_of.pddoc" parse="xml"/>
+    </entry>
     <entry descr="normalizes float list values to get their sum = 1.0" name="list.normalize" ref_view="object">
       <xi:include href="list.normalize.pddoc" parse="xml"/>
     </entry>
