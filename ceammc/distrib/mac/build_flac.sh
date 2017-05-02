@@ -1,6 +1,6 @@
 #!/bin/sh
 
-export CFLAGS='-arch x86_64 -arch i686 -O2'
+export CFLAGS='-arch x86_64 -arch i386 -O2'
 PREFIX=`pwd`/../build
 export PKG_CONFIG_PATH="${PREFIX}/lib/pkgconfig"
 
@@ -15,7 +15,3 @@ cd flac-*
 
 make
 make install
-
-#LFLAC="libFLAC.8.dylib"
-#install_name_tool -id "@loader_path/${LFLAC}" "${PREFIX}/lib/${LFLAC}"
-

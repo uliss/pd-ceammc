@@ -1,6 +1,6 @@
 #!/bin/sh
 
-export CFLAGS='-arch x86_64 -arch i686 -O2'
+export CFLAGS='-arch x86_64 -arch i386 -O2'
 PREFIX=`pwd`/../build
 export PKG_CONFIG_PATH="${PREFIX}/lib/pkgconfig"
 
@@ -14,7 +14,3 @@ cd opus-*
 
 make
 make install
-
-LOPUS="libopus.0.dylib"
-#install_name_tool -id "@loader_path/${LOPUS}" "${PREFIX}/lib/${LOPUS}"
-
