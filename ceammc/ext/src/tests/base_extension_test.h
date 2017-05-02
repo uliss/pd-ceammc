@@ -51,7 +51,7 @@ class TestExtension : public T {
     std::vector<long> msg_count_;
 
 public:
-    TestExtension(const char* name, const AtomList& args);
+    TestExtension(const char* name, const AtomList& args = AtomList());
 
     /** send functions */
     void sendBang(int inlet = 0);
