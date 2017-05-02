@@ -5,6 +5,7 @@ macro(ceammc_list_extension name)
 endmacro()
 
 ceammc_list_extension(all_of)
+ceammc_list_extension(any_of)
 ceammc_list_extension(at)
 ceammc_list_extension(apply_to)
 ceammc_list_extension(choice)
