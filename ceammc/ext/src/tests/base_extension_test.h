@@ -82,6 +82,13 @@ public:
     bool lastMessageIsBang(size_t outlet = 0) const;
     void cleanMessages(size_t outlet = 0);
     void cleanAllMessages();
+
+public:
+    typedef void (*sendAtomCallback)(TestExtension* obj, size_t outn, const Atom& a);
+    void setSendAtomCallback(sendAtomCallback cb) { atom_cb_ = cb; }
+
+private:
+    sendAtomCallback atom_cb_;
 };
 
 #define CALL(obj, method)                            \
@@ -316,6 +323,7 @@ void WHEN_SEND_BANG_TO(size_t inlet, T& obj)
 template <class T>
 TestExtension<T>::TestExtension(const char* name, const AtomList& args)
     : T(PdArgs(args, gensym(name), make_owner<T>(name)))
+    , atom_cb_(0)
 {
     msg_.assign(T::numOutlets(), MessageList());
     msg_count_.assign(T::numOutlets(), -1);
@@ -408,6 +416,9 @@ template <class T>
 void TestExtension<T>::atomTo(size_t n, const Atom& a)
 {
     msg_[n].push_back(Message(a));
+
+    if(atom_cb_)
+        atom_cb_(this, n, a);
 }
 
 template <class T>

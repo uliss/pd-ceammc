@@ -27,7 +27,7 @@ ListAllOf::ListAllOf(const PdArgs& a)
 void ListAllOf::onList(const AtomList& l)
 {
     if (l.empty())
-        return floatTo(0, 0);
+        return floatTo(0, 1);
 
     all_ = true;
 
