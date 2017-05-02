@@ -39,6 +39,7 @@ ceammc_external_test(conv lin2exp)
 ceammc_external_test(conv lin2lin)
 
 ceammc_external_test(list all_of)
+ceammc_external_test(list any_of)
 
 ceammc_add_extension_test("list_walk" "../list/list_walk.cpp")
 ceammc_add_extension_test("list_walk2" "../list/list_walk.cpp")
