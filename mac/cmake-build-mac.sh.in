@@ -2,6 +2,7 @@
 SRC_DIR=${PROJECT_SOURCE_DIR}
 BUILD_DIR=${PROJECT_BINARY_DIR}
 WISH=wish-shell.tgz
+DYLIBBUNDLER="${DYLIBBUNDLER}"
 
 PD_APP=$(basename ${BUNDLE})
 PD_CONTENT=$BUILD_DIR/dist/$PD_APP/Contents
@@ -101,7 +102,7 @@ extension_files $CEAMMC_EXT_BIN_DIR | while read f
 do
     echo "\t$(basename $f)"
     cp "$f" $PD_EXTRA/ceammc
-    dylibbundler -x $PD_EXTRA/ceammc/$(basename $f) -b -cd -d $PD_EXTRA/ceammc -p @loader_path/ -of
+    $DYLIBBUNDLER -x $PD_EXTRA/ceammc/$(basename $f) -b -cd -d $PD_EXTRA/ceammc -p @loader_path/ -of
 done
 
 echo "Copying Additional extra:"
@@ -143,7 +144,7 @@ cd ..
 mkdir -p Frameworks
 mkdir -p $LIBDIR
 
-dylibbundler -x $EXECFILE -b -cd -d $LIBDIR -p $NEWLIBPATH -of
+$DYLIBBUNDLER -x $EXECFILE -b -cd -d $LIBDIR -p $NEWLIBPATH -of
 
 #copy Tcl${TK_VERSION}
 if [ $IS_SYSTEM_TK -eq 0 ]
