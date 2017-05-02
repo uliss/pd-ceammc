@@ -70,6 +70,7 @@ set(DOC_FILES
     is_even
     live.capture~
     list.all_of
+    list.any_of
     list.apply_to
     list.at
     list.choice

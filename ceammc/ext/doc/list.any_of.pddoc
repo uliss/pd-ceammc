@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="list.any_of">
+        <title>list.any_of</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>checks if at least one list element is accepted by predicate</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>list</category>
+            <keywords>list predicate any</keywords>
+            <since>0.1</since>
+            <also>
+                <see>list.all_of</see>
+                <see>list.none_of</see>
+            </also>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="list">Input list</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float" minvalue="0" maxvalue="1">input value from predicate. "1" means
+                accepped. "0" means reject.</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>1 - if predicate object returns true for all the elements or list is empty or 0
+            otherwise.</outlet>
+            <outlet>atom to predicate</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[1 2( [1 2 3( [1 2 3 4(
+|     |       |
+|     |       |
+|     |       |
+[list.any_of  ] X [> 3]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

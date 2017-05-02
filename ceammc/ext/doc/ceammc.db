@@ -63,6 +63,7 @@ lfo.impulse~		~		~
 lfo.square~		~		~
 lfo.tri~		~		~
 list.all_of		..		..
+list.any_of		..		..
 list.apply_to		..		..
 list.at		..		.
 list.choice		.		.
