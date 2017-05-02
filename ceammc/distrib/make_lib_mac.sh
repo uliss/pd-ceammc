@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ $# -ne 3 ]
+if [ $# -ne 4 ]
 then
     echo "Usage: $0 SRCDIR BINDIR OUTDIR VERSION"
 fi
@@ -11,6 +11,7 @@ VERSION="$4"
 OUTDIR="$3/ceammclib"
 SYSVER=$(sw_vers | grep ProductVersion | cut -f2 | cut -f1,2 -d.)
 OUTFILE="ceammclib-${VERSION}-macosx-${SYSVER}-vanilla-0.47.tar.gz"
+DYLIBBUNDLER="@DYLIBBUNDLER@"
 
 
 function skip_ext {
@@ -33,7 +34,6 @@ find "${BINDIR}" -name *.dylib -print0 | while read -r -d '' file
 do
     cp "$file" "${OUTDIR}"
     echo "+ Lib:  $(basename $file)"
-#    dylibbundler -x ${OUTDIR}/$(basename $file) -b -d ${OUTDIR} -p @loader_path/ -of
 done
 
 
@@ -50,12 +50,12 @@ do
 
     cp "$file" "${OUTDIR}/${ext_name}"
     echo "+ Copy: '$ext_name'"
-    dylibbundler -x ${OUTDIR}/$ext_name -b -d ${OUTDIR} -p @loader_path/ -of
+    ${DYLIBBUNDLER} -x ${OUTDIR}/$ext_name -b -d ${OUTDIR} -p @loader_path/ -of
 done
 
 ceammc_lib=$(find "${BINDIR}" -name ceammc\\.d_fat)
 cp $ceammc_lib "${OUTDIR}"
-dylibbundler -x ${OUTDIR}/ceammc.d_fat -b -d ${OUTDIR} -p @loader_path/ -of
+${DYLIBBUNDLER} -x ${OUTDIR}/ceammc.d_fat -b -d ${OUTDIR} -p @loader_path/ -of
 
 echo "Copying help files to ${OUTDIR} ..."
 find "${SRCDIR}/ext/doc" -name *-help\\.pd | while read file

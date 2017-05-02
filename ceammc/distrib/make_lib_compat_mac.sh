@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ $# -ne 3 ]
+if [ $# -ne 4 ]
 then
     echo "Usage: $0 SRCDIR BINDIR OUTDIR VERSION"
 fi
@@ -11,6 +11,7 @@ VERSION="$4"
 OUTDIR="$3/ceammclib_compat"
 SYSVER=$(sw_vers | grep ProductVersion | cut -f2 | cut -f1,2 -d.)
 OUTFILE="ceammclib-${VERSION}-macosx-${SYSVER}-compat.tar.gz"
+DYLIBBUNDLER="@DYLIBBUNDLER@"
 
 
 function skip_ext {
@@ -33,7 +34,6 @@ find "${BINDIR}" -name *.dylib -print0 | while read -r -d '' file
 do
     cp "$file" "${OUTDIR}"
     echo "+ Lib:  $(basename $file)"
-#    dylibbundler -x ${OUTDIR}/$(basename $file) -b -d ${OUTDIR} -p @loader_path/ -of
 done
 
 
@@ -51,7 +51,7 @@ do
 
     cp "$file" "${OUTDIR}/${ext_name%.d_fat}.pd_darwin"
     echo "+ Copy: '$ext_name' as '$cp_ext_name'"
-    dylibbundler -x ${OUTDIR}/$cp_ext_name -b -d ${OUTDIR} -p @loader_path/ -of
+    ${DYLIBBUNDLER} -x ${OUTDIR}/$cp_ext_name -b -d ${OUTDIR} -p @loader_path/ -of
 done
 
 ceammc_lib=$(find "${BINDIR}" -name ceammc\\.d_fat)
@@ -59,7 +59,7 @@ cp $ceammc_lib "${OUTDIR}"
 
 ceammc_compat=$(find "${BINDIR}" -name ceammc_compat.d_fat)
 cp $ceammc_compat "${OUTDIR}/ceammc.pd_darwin"
-dylibbundler -x ${OUTDIR}/ceammc.pd_darwin -b -d ${OUTDIR} -p @loader_path/ -of
+${DYLIBBUNDLER} -x ${OUTDIR}/ceammc.pd_darwin -b -d ${OUTDIR} -p @loader_path/ -of
 rm "${OUTDIR}/ceammc_compat.pd_darwin"
 
 echo "Copying help files to ${OUTDIR} ..."

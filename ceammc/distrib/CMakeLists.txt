@@ -10,8 +10,15 @@ set(MAKELIB_SCRIPT "")
 set(MAKELIB_COMPAT_SCRIPT "")
 
 if(APPLE)
-    set(MAKELIB_SCRIPT "${CMAKE_CURRENT_SOURCE_DIR}/make_lib_mac.sh")
-    set(MAKELIB_COMPAT_SCRIPT "${CMAKE_CURRENT_SOURCE_DIR}/make_lib_compat_mac.sh")
+    set(DYLIBBUNDLER "${CMAKE_CURRENT_BINARY_DIR}/mac/dylibbundler")
+    set(MAKELIB_SCRIPT "${CMAKE_CURRENT_BINARY_DIR}/make_lib_mac.sh")
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/make_lib_mac.sh
+                   ${CMAKE_CURRENT_BINARY_DIR}/make_lib_mac.sh @ONLY)
+
+    set(MAKELIB_COMPAT_SCRIPT "${CMAKE_CURRENT_BINARY_DIR}/make_lib_compat_mac.sh")
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/make_lib_compat_mac.sh
+                   ${CMAKE_CURRENT_BINARY_DIR}/make_lib_compat_mac.sh @ONLY)
+
 endif()
 
 if(MAKELIB_SCRIPT)
@@ -21,7 +28,7 @@ if(MAKELIB_SCRIPT)
             "${CMAKE_CURRENT_BINARY_DIR}/.."
             "${CMAKE_BINARY_DIR}/dist"
             "${CEAMMC_LIB_VERSION}"
-        SOURCES "${MAKELIB_SCRIPT}")
+        SOURCES make_lib_mac.sh)
 endif()
 
 if(MAKELIB_COMPAT_SCRIPT)
@@ -31,7 +38,7 @@ if(MAKELIB_COMPAT_SCRIPT)
             "${CMAKE_CURRENT_BINARY_DIR}/.."
             "${CMAKE_BINARY_DIR}/dist"
             "${CEAMMC_LIB_VERSION}"
-        SOURCES "${MAKELIB_COMPAT_SCRIPT}")
+        SOURCES make_lib_compat_mac.sh)
 endif()
 
 add_custom_target(distrib_sources SOURCES ceammc_pddoc_link_fix.py)
