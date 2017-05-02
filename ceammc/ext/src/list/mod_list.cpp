@@ -21,6 +21,7 @@ extern "C" void setup_list0x2elength();
 extern "C" void setup_list0x2emax();
 extern "C" void setup_list0x2emean();
 extern "C" void setup_list0x2emin();
+extern "C" void setup_list0x2enone_of();
 extern "C" void setup_list0x2enormalize();
 extern "C" void setup_list0x2eproduct();
 extern "C" void setup_list0x2erange();
@@ -69,6 +70,7 @@ void ceammc_list_setup()
     setup_list0x2emax();
     setup_list0x2emean();
     setup_list0x2emin();
+    setup_list0x2enone_of();
     setup_list0x2enormalize();
     setup_list0x2eproduct();
     setup_list0x2erange();
