@@ -53,41 +53,43 @@ list2-2 etc.).;
 #X text 175 676 calculates average of list of floats;
 #X obj 30 703 list.min;
 #X text 175 703 returns smallest element in the list;
-#X obj 30 730 list.normalize;
-#X text 175 730 normalizes float list values to get their sum = 1.0;
-#X obj 30 757 list.product;
-#X text 175 757 calculates product of floats in list;
-#X obj 30 784 list.range;
-#X text 175 784 returns list smallest and largest value;
-#X obj 30 811 list.reduce;
-#X text 175 811 apply function of two arguments cumulatively to the
+#X obj 30 730 list.none_of;
+#X text 175 730 checks if none of list atoms is accepted by predicate;
+#X obj 30 757 list.normalize;
+#X text 175 757 normalizes float list values to get their sum = 1.0;
+#X obj 30 784 list.product;
+#X text 175 784 calculates product of floats in list;
+#X obj 30 811 list.range;
+#X text 175 811 returns list smallest and largest value;
+#X obj 30 838 list.reduce;
+#X text 175 838 apply function of two arguments cumulatively to the
 list;
-#X obj 30 838 list.remove_if;
-#X text 175 838 remove elements by predicate;
-#X obj 30 865 list.resize;
-#X text 175 865 changes list size with;
-#X obj 30 892 list.reverse;
-#X text 175 892 reverses the order of the elements in the list;
-#X obj 30 919 list.seq;
-#X text 175 919 numeric sequence list generator;
-#X obj 30 946 list.shuffle;
-#X text 175 946 randomly rearranges elements in list;
-#X obj 30 973 list.sort;
-#X text 175 973 sorts list values by ascending order;
-#X obj 30 1000 list.sum;
-#X text 175 1000 calculates sum of floats in list;
-#X obj 30 1027 list.unpack;
-#X text 175 1027 sends list element one by one separately;
-#X obj 30 1054 list.unwrap;
-#X text 175 1054 gets list element on first input and list with count
+#X obj 30 865 list.remove_if;
+#X text 175 865 remove elements by predicate;
+#X obj 30 892 list.resize;
+#X text 175 892 changes list size with;
+#X obj 30 919 list.reverse;
+#X text 175 919 reverses the order of the elements in the list;
+#X obj 30 946 list.seq;
+#X text 175 946 numeric sequence list generator;
+#X obj 30 973 list.shuffle;
+#X text 175 973 randomly rearranges elements in list;
+#X obj 30 1000 list.sort;
+#X text 175 1000 sorts list values by ascending order;
+#X obj 30 1027 list.sum;
+#X text 175 1027 calculates sum of floats in list;
+#X obj 30 1054 list.unpack;
+#X text 175 1054 sends list element one by one separately;
+#X obj 30 1081 list.unwrap;
+#X text 175 1081 gets list element on first input and list with count
 of each element on a second inlet.;
-#X obj 30 1091 list.walk;
-#X text 175 1091 Walks thru the list;
-#X obj 30 1118 list.wrap;
-#X text 175 1118 filters repeated elements of the list and outputs
+#X obj 30 1118 list.walk;
+#X text 175 1118 Walks thru the list;
+#X obj 30 1145 list.wrap;
+#X text 175 1145 filters repeated elements of the list and outputs
 unique elements on first outlet \, outputs the count of elements on
 second.;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::list 20 20 0 20 -104026
 -4096 0;
-#X obj 1 1169 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 1179 library: ceammc;
+#X obj 1 1196 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 1206 library: ceammc;
