@@ -16,6 +16,7 @@
 
 ListAllOf::ListAllOf(const PdArgs& a)
     : BaseObject(a)
+    , all_(false)
 {
     createOutlet();
     createOutlet();
@@ -31,8 +32,10 @@ void ListAllOf::onList(const AtomList& l)
     all_ = true;
 
     for (size_t i = 0; i < l.size(); i++) {
-        if (all_)
-            atomTo(1, l[i]);
+        if (!all_)
+            break;
+
+        atomTo(1, l[i]);
     }
 
     floatTo(0, all_ ? 1 : 0);
