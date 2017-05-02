@@ -1,7 +1,7 @@
 #!/bin/sh
 
 export CFLAGS='-arch x86_64 -arch i386 -O2'
-PREFIX=`pwd`/../build
+PREFIX="$BUILD_DIR"
 export PKG_CONFIG_PATH="${PREFIX}/lib/pkgconfig"
 
 rm -rf opus-*

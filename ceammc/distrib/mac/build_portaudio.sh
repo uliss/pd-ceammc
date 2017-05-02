@@ -1,6 +1,6 @@
 #!/bin/sh
 
-PREFIX=`pwd`/../build
+PREFIX="$BUILD_DIR"
 
 rm -rf portaudio-*
 brew unpack portaudio
