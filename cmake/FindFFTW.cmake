@@ -37,15 +37,11 @@ if(FFTW_ROOT)
         PATH_SUFFIXES "lib" "lib64"
         NO_DEFAULT_PATH)
 
-elseif(PKGCONFIG_FFTW_FOUND)
-
-    set(FFTW_INCLUDE_DIR ${PKGCONFIG_FFTW_INCLUDE_DIRS})
-    set(FFTW_FLOAT_LIBRARY ${PKGCONFIG_FFTW_LIBRARIES})
-
 else()
 
     find_path(FFTW_INCLUDE_DIR
         NAMES "fftw3.h"
+        HINTS ${PKGCONFIG_FFTW_INCLUDEDIR} ${PKGCONFIG_FFTW_INCLUDE_DIRS}
         PATHS
            ${INCLUDE_INSTALL_DIR}
            /usr/include
@@ -58,6 +54,7 @@ else()
 
     find_library(FFTW_FLOAT_LIBRARY
         NAMES "fftw3f"
+        HINTS ${PKGCONFIG_FFTW_LIBDIR} ${PKGCONFIG_FFTW_LIBRARY_DIRS}
         PATHS
           ${LIB_INSTALL_DIR}
           /usr/lib
