@@ -49,20 +49,19 @@ else()
             /sw/include
             /usr/local/mingw/i686-w64-mingw32
             C:/MinGW/msys/1.0/usr/lib
-            C:/MinGW/msys/1.0/usr/local/lib
-      )
+            C:/MinGW/msys/1.0/usr/local/lib)
 
-      find_library(PORTAUDIO_LIBRARY
-        NAMES portaudio
-        PATHS
-            /usr/lib
-            /usr/local/lib
-            /opt/local/lib
-            /sw/lib
-            /usr/local/mingw/i686-w64-mingw32
-            C:/MinGW/msys/1.0/usr/lib
-            C:/MinGW/msys/1.0/usr/local/lib
-      )
+    find_library(PORTAUDIO_LIBRARY
+      NAMES portaudio
+      PATHS
+          /usr/lib
+          /usr/local/lib
+          /opt/local/lib
+          /sw/lib
+          /usr/local/mingw/i686-w64-mingw32
+          C:/MinGW/msys/1.0/usr/lib
+          C:/MinGW/msys/1.0/usr/local/lib)
+
 endif()
 
 find_package(PackageHandleStandardArgs)

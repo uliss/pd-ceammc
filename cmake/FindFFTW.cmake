@@ -29,15 +29,13 @@ if(FFTW_ROOT)
         NAMES "fftw3.h"
         PATHS ${FFTW_ROOT}
         PATH_SUFFIXES "include"
-        NO_DEFAULT_PATH
-    )
+        NO_DEFAULT_PATH)
 
     find_library(FFTW_FLOAT_LIBRARY
         NAMES "fftw3f"
         PATHS ${FFTW_ROOT}
         PATH_SUFFIXES "lib" "lib64"
-        NO_DEFAULT_PATH
-    )
+        NO_DEFAULT_PATH)
 
 elseif(PKGCONFIG_FFTW_FOUND)
 
@@ -51,8 +49,7 @@ else()
         PATHS
             ${INCLUDE_INSTALL_DIR}
             C:/MinGW/msys/1.0/include
-            C:/MinGW/msys/1.0/local/include
-    )
+            C:/MinGW/msys/1.0/local/include)
 
     find_library(FFTW_FLOAT_LIBRARY
         NAMES "fftw3f"
@@ -60,8 +57,7 @@ else()
             ${LIB_INSTALL_DIR}
             /usr/local/lib
             C:/MinGW/msys/1.0/lib
-            C:/MinGW/msys/1.0/local/lib
-    )
+            C:/MinGW/msys/1.0/local/lib)
 
 endif()
 
