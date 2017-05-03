@@ -96,7 +96,7 @@ size_t getCurrentRSS( )
 
 #elif defined(__APPLE__) && defined(__MACH__)
     /* OSX ------------------------------------------------------ */
-    #if MAC_OS_X_VERSION_MIN_REQUIRED < 101100
+    #if MAC_OS_X_VERSION_MIN_REQUIRED < 101000
         return (size_t)0L;
     #else
         struct mach_task_basic_info info;
