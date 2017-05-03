@@ -280,10 +280,10 @@ extern "C" void setup_local0x2ejson()
     class_addmethod(json_local_object_class, reinterpret_cast<t_method>(json_object_dump), gensym("dump"), A_NULL);
 
     class_addmethod(json_local_object_class, reinterpret_cast<t_method>(json_object_getobject), gensym("getobject"), A_NULL);
-    class_addmethod(json_local_object_class, reinterpret_cast<t_method>(json_object_setobject), gensym("setobject"), A_GIMME);
+    class_addmethod(json_local_object_class, reinterpret_cast<t_method>(json_object_setobject), gensym("setobject"), A_GIMME, A_NULL);
 
-    class_addmethod(json_local_object_class, reinterpret_cast<t_method>(json_object_read), gensym("read"), A_GIMME);
-    class_addmethod(json_local_object_class, reinterpret_cast<t_method>(json_object_write), gensym("write"), A_GIMME);
+    class_addmethod(json_local_object_class, reinterpret_cast<t_method>(json_object_read), gensym("read"), A_GIMME, A_NULL);
+    class_addmethod(json_local_object_class, reinterpret_cast<t_method>(json_object_write), gensym("write"), A_GIMME, A_NULL);
 
     //    class_addmethod(json_local_object_class, reinterpret_cast<t_method>(json_object_objectlist), gensym("objectlist"), A_GIMME);
 }
