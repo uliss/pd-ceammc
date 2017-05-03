@@ -18,7 +18,7 @@ if(NOT FFTW_ROOT AND ENV{FFTWDIR})
 endif()
 
 # Check if we can use PkgConfig
-find_package(PkgConfig)
+find_package(PkgConfig QUIET)
 if(PKG_CONFIG_FOUND)
     pkg_check_modules(PKGCONFIG_FFTW "fftw3")
 endif()
