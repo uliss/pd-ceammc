@@ -20,18 +20,18 @@
 
 using namespace ceammc;
 
-class MathBool : public BaseObject {
+class MathBoolOp : public BaseObject {
 public:
     static const size_t MIN_ARGS = 3;
     static const size_t MAX_ARGS = 16;
 
 public:
-    MathBool(const PdArgs& a);
+    MathBoolOp(const PdArgs& a);
     void onFloat(t_float f);
     void onInlet(size_t n, const AtomList& l);
 
     void m_reset(t_symbol* m, const AtomList&);
-    virtual int check() const;
+    virtual int operate() const;
 
 private:
     AtomList p_state() const;

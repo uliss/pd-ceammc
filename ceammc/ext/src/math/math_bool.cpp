@@ -17,7 +17,7 @@
 
 #include <algorithm>
 
-MathBool::MathBool(const PdArgs& a)
+MathBoolOp::MathBoolOp(const PdArgs& a)
     : BaseObject(a)
     , sync_(0)
     , arg_num_(MIN_ARGS)
@@ -27,7 +27,7 @@ MathBool::MathBool(const PdArgs& a)
 
     sync_ = new FlagProperty("@sync");
     createProperty(sync_);
-    createCbProperty("@state", &MathBool::p_state);
+    createCbProperty("@state", &MathBoolOp::p_state);
 
     for (size_t i = 1; i < arg_num_; i++)
         createInlet();
@@ -35,13 +35,13 @@ MathBool::MathBool(const PdArgs& a)
     createOutlet();
 }
 
-void MathBool::onFloat(t_float f)
+void MathBoolOp::onFloat(t_float f)
 {
     vars_[0] = (f == 1.f);
-    floatTo(0, check());
+    floatTo(0, operate());
 }
 
-void MathBool::onInlet(size_t n, const AtomList& l)
+void MathBoolOp::onInlet(size_t n, const AtomList& l)
 {
     if (l.empty())
         return;
@@ -50,20 +50,20 @@ void MathBool::onInlet(size_t n, const AtomList& l)
         vars_[n] = l[0].asSizeT(0) != 0;
 
     if (sync_->value())
-        floatTo(0, check());
+        floatTo(0, operate());
 }
 
-void MathBool::m_reset(t_symbol* m, const AtomList&)
+void MathBoolOp::m_reset(t_symbol* m, const AtomList&)
 {
     vars_.assign(arg_num_, false);
 }
 
-int MathBool::check() const
+int MathBoolOp::operate() const
 {
     return (std::find(vars_.begin(), vars_.begin() + long(arg_num_), false) == vars_.end()) ? 1 : 0;
 }
 
-AtomList MathBool::p_state() const
+AtomList MathBoolOp::p_state() const
 {
     AtomList res;
     res.reserve(arg_num_);

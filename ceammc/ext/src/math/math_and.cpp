@@ -17,11 +17,11 @@
 #include <algorithm>
 
 MathAnd::MathAnd(const PdArgs& a)
-    : MathBool(a)
+    : MathBoolOp(a)
 {
 }
 
-int MathAnd::check() const
+int MathAnd::operate() const
 {
     return (std::find(vars_.begin(), vars_.begin() + long(arg_num_), false) == vars_.end()) ? 1 : 0;
 }

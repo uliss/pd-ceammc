@@ -16,10 +16,10 @@
 
 #include "math_bool.h"
 
-class MathAnd : public MathBool {
+class MathAnd : public MathBoolOp {
 public:
     MathAnd(const PdArgs& a);
-    int check() const;
+    int operate() const;
 };
 
 #endif // MATH_AND_H

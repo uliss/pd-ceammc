@@ -16,12 +16,12 @@
 
 #include "math_bool.h"
 
-class MathOr : public MathBool {
+class MathOr : public MathBoolOp {
 public:
     MathOr(const PdArgs& a);
 
 private:
-    int check() const;
+    int operate() const;
 };
 
 #endif // MATH_OR_H

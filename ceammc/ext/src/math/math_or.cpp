@@ -17,11 +17,11 @@
 #include <algorithm>
 
 MathOr::MathOr(const PdArgs& a)
-    : MathBool(a)
+    : MathBoolOp(a)
 {
 }
 
-int MathOr::check() const
+int MathOr::operate() const
 {
     return (std::find(vars_.begin(), vars_.begin() + long(arg_num_), true) == vars_.end()) ? 0 : 1;
 }
