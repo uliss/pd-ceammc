@@ -4,6 +4,7 @@ SCRIPT_DIR="$(dirname $0)"
 DIR=`pwd`
 export BUILD_DIR="`pwd`/build/deps"
 export PKG_CONFIG_PATH="${BUILD_DIR}/lib/pkgconfig"
+export PKG_CONFIG_LIBDIR=${PKG_CONFIG_PATH}
 rm -rf "$BUILD_DIR"
 mkdir -p "$BUILD_DIR/src"
 
@@ -24,27 +25,8 @@ build vorbis
 build sndfile
 build portaudio
 
-cd "${BUILD_DIR}/.."
+export BUILD_DIR="${DIR}/build/pd"
+build pd
 
-echo "Building PureData ..."
-rm -rf pd
-mkdir pd
-cd pd
-
-cmake -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_C_FLAGS='-O2' \
-    -DCMAKE_CXX_FLAGS='-O2' \
-    -DARCH='x86_64;i386' \
-    -DFFTW_ROOT="${BUILD_DIR}" \
-    "${DIR}"
-
-cmake "${DIR}"
-make
-make test
-make app
-make dmg
-make ceammc_lib
-make ceammc_lib_compat
-
-
-
+mv "${DIR}/build/pd/*.dmg" "${DIR}/build"
+mv "${DIR}/build/pd/ceammclib-*tar.gz" "${DIR}/build"

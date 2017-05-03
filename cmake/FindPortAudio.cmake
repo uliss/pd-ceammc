@@ -20,6 +20,7 @@ endif()
 
 # portaudio source root specified
 if(PORTAUDIO_ROOT)
+    message(STATUS "PortAudio root: ${PORTAUDIO_ROOT}")
 
     find_path(PORTAUDIO_INCLUDE_DIR
         NAMES portaudio.h
@@ -33,15 +34,11 @@ if(PORTAUDIO_ROOT)
         PATH_SUFFIXES "lib" "lib64"
         NO_DEFAULT_PATH)
 
-elseif(PKGCONFIG_PORTAUDIO_FOUND)
-
-    set(PORTAUDIO_INCLUDE_DIR ${PKGCONFIG_PORTAUDIO_INCLUDE_DIRS})
-    set(PORTAUDIO_LIBRARY ${PKGCONFIG_PORTAUDIO_LIBRARIES})
-
 else()
 
     find_path(PORTAUDIO_INCLUDE_DIR
         NAMES portaudio.h
+        HINTS ${PKGCONFIG_PORTAUDIO_INCLUDEDIR} ${PKGCONFIG_PORTAUDIO_INCLUDE_DIRS}
         PATHS
           /usr/include
           /usr/local/include
@@ -53,6 +50,7 @@ else()
 
     find_library(PORTAUDIO_LIBRARY
         NAMES portaudio
+        HINTS ${PKGCONFIG_PORTAUDIO_LIBDIR} ${PKGCONFIG_PORTAUDIO_LIBRARY_DIRS}
         PATHS
           /usr/lib
           /usr/local/lib
