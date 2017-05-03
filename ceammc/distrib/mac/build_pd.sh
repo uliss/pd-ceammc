@@ -29,15 +29,18 @@ fi
 mkdir -p ${PREFIX}
 cd ${PREFIX}
 PD_SRC_DIR="${PREFIX}/../.."
+DEPS_ROOT="${PREFIX}/../deps"
 
 export PKG_CONFIG_LIBDIR="${PREFIX}/lib/pkgconfig"
 cmake -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_C_FLAGS='-O2' \
     -DCMAKE_CXX_FLAGS='-O2' \
     -DARCH='x86_64;i386' \
-    -DFFTW_ROOT="${PREFIX}/../deps" \
     ${C_COMPILER} \
     ${CXX_COMPILER} \
+    -DFFTW_ROOT="${DEPS_ROOT}/" \
+    -DLIBSNDILE_ROOT="${DEPS_ROOT}" \
+    -DPORTAUDIO_ROOT="${DEPS_ROOT}" \
     ${PD_SRC_DIR}
 
 cmake ${PD_SRC_DIR}

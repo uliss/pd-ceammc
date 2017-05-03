@@ -20,6 +20,7 @@ endif()
 
 # portaudio source root specified
 if(PORTAUDIO_ROOT)
+    message(STATUS "PortAudio root: ${PORTAUDIO_ROOT}")
 
     find_path(PORTAUDIO_INCLUDE_DIR
         NAMES portaudio.h
