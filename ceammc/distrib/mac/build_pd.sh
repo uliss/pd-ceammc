@@ -39,7 +39,7 @@ cmake -DCMAKE_BUILD_TYPE=Release \
     ${C_COMPILER} \
     ${CXX_COMPILER} \
     -DFFTW_ROOT="${DEPS_ROOT}/" \
-    -DLIBSNDILE_ROOT="${DEPS_ROOT}" \
+    -DLIBSNDFILE_ROOT="${DEPS_ROOT}" \
     -DPORTAUDIO_ROOT="${DEPS_ROOT}" \
     ${PD_SRC_DIR}
 
