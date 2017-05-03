@@ -13,6 +13,12 @@ fi
 
 export CFLAGS='-arch x86_64 -arch i386 -O2'
 PREFIX="$BUILD_DIR"
+
+if [ -z "$PREFIX" ]
+then
+    PREFIX=`pwd`/build/deps
+fi
+
 export PKG_CONFIG_PATH="${PREFIX}/lib/pkgconfig"
 
 rm -rf flac-*
