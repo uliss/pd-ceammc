@@ -42,15 +42,25 @@ else()
         NAMES sndfile.h
         PATHS
           ${INCLUDE_INSTALL_DIR}
-          C:/MinGW/msys/1.0/usr/lib
-          C:/MinGW/msys/1.0/usr/local/lib)
+          /usr/include
+          /usr/local/include
+          /opt/local/include
+          /sw/include
+          /usr/local/mingw/i686-w64-mingw32/include
+          C:/MinGW/msys/1.0/usr/include
+          C:/MinGW/msys/1.0/usr/local/include)
 
     find_library(LIBSNDFILE_LIBRARY
-          NAMES sndfile libsndfile-1
-          PATHS
-            ${LIB_INSTALL_DIR}
-            C:/MinGW/msys/1.0/usr/lib
-            C:/MinGW/msys/1.0/usr/local/lib)
+        NAMES sndfile libsndfile-1
+        PATHS
+          ${LIB_INSTALL_DIR}
+          /usr/lib
+          /usr/local/lib
+          /opt/local/lib
+          /sw/lib
+          /usr/local/mingw/i686-w64-mingw32/lib
+          C:/MinGW/msys/1.0/usr/lib
+          C:/MinGW/msys/1.0/usr/local/lib)
 
 endif()
 

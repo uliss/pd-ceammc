@@ -20,7 +20,7 @@ endif()
 # Check if we can use PkgConfig
 find_package(PkgConfig QUIET)
 if(PKG_CONFIG_FOUND)
-    pkg_check_modules(PKGCONFIG_FFTW "fftw3" "fftw3f")
+    pkg_check_modules(PKGCONFIG_FFTW "fftw3f")
 endif()
 
 if(FFTW_ROOT)
@@ -48,16 +48,25 @@ else()
         NAMES "fftw3.h"
         PATHS
            ${INCLUDE_INSTALL_DIR}
-           C:/MinGW/msys/1.0/include
-           C:/MinGW/msys/1.0/local/include)
+           /usr/include
+           /usr/local/include
+           /opt/local/include
+           /sw/include
+           /usr/local/mingw/i686-w64-mingw32/include
+           C:/MinGW/msys/1.0/usr/include
+           C:/MinGW/msys/1.0/usr/local/include)
 
     find_library(FFTW_FLOAT_LIBRARY
         NAMES "fftw3f"
         PATHS
           ${LIB_INSTALL_DIR}
+          /usr/lib
           /usr/local/lib
-          C:/MinGW/msys/1.0/lib
-          C:/MinGW/msys/1.0/local/lib)
+          /opt/local/lib
+          /sw/lib
+          /usr/local/mingw/i686-w64-mingw32/lib
+          C:/MinGW/msys/1.0/usr/lib
+          C:/MinGW/msys/1.0/usr/local/lib)
 
 endif()
 
