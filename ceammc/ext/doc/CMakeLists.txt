@@ -112,6 +112,7 @@ set(DOC_FILES
     math.abs
     math.acos
     math.acosh
+    math.and
     math.asin
     math.asinh
     math.atan

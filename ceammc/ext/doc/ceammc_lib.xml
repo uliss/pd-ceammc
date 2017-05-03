@@ -320,6 +320,9 @@
     <entry descr="inverse hyperbolic cosine function" name="math.acosh" ref_view="object">
       <xi:include href="math.acosh.pddoc" parse="xml"/>
     </entry>
+    <entry descr="operation AND for multiple arguments" name="math.and" ref_view="object">
+      <xi:include href="math.and.pddoc" parse="xml"/>
+    </entry>
     <entry descr="arc sine function" name="math.asin" ref_view="object">
       <xi:include href="math.asin.pddoc" parse="xml"/>
     </entry>

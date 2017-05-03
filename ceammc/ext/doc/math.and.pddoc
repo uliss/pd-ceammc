@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.and">
+        <title>math.and</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>operation AND for multiple arguments</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math and</keywords>
+            <also>
+                <see>math.or</see>
+            </also>
+            <since>0.2</since>
+        </meta>
+        <arguments>
+            <argument name="NUM" type="int" minvalue="3" maxvalue="16">number of
+            arguments</argument>
+        </arguments>
+        <properties>
+            <property name="@sync" type="int">if specified - all inlets are 'hot'</property>
+            <property name="@state" type="int">internal logic state as list of 1 and 0</property>
+        </properties>
+        <inlets dynamic="true">
+            <inlet>
+                <xinfo on="float">1 or 0</xinfo>
+            </inlet>
+            <inlet number="...">
+                <xinfo on="float">1 or 0</xinfo>
+            </inlet>
+            <inlet number="n">
+                <xinfo on="float">1 or 0</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>1 - if all input values are true (1), 0 - otherwise</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[HS]
+|
+[> 50]  [HS]
+|       |
+|       [> 50] [HS]
+|       |      |
+|       |      [< 50]
+|       |.     |..
+[math.and       3 @sync]
+|
+[F]
+|
+[B]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
