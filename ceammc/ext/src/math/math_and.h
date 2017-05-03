@@ -14,7 +14,7 @@
 #ifndef MATH_AND_H
 #define MATH_AND_H
 
-#include "math_bool.h"
+#include "math_bool_op.h"
 
 class MathAnd : public MathBoolOp {
 public:

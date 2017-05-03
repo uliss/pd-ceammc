@@ -11,8 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef MATH_BOOL_H
-#define MATH_BOOL_H
+#ifndef MATH_BOOL_OP_H
+#define MATH_BOOL_OP_H
 
 #include "ceammc_object.h"
 
@@ -42,4 +42,4 @@ protected:
     std::vector<bool> vars_;
 };
 
-#endif // MATH_BOOL_H
+#endif // MATH_BOOL_OP_H

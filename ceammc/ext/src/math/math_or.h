@@ -14,7 +14,7 @@
 #ifndef MATH_OR_H
 #define MATH_OR_H
 
-#include "math_bool.h"
+#include "math_bool_op.h"
 
 class MathOr : public MathBoolOp {
 public:

@@ -11,7 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "math_bool.h"
+#include "math_bool_op.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 
