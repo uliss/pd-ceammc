@@ -20,11 +20,10 @@ then
         echo "MacOSX 10.$MACOSX_MINOR found..."
         echo ""
         CONF_FLAGS="${CONF_FLAGS} --disable-asm-optimizations --disable-dependency-tracking"
-        gcc=$(ls -1 /usr/local/bin/gcc-*  | cut -f2 -d- | sort | grep '\d' | sort | tail -1)
-        gxx=$(ls -1 /usr/local/bin/g++-*  | cut -f2 -d- | sort | grep '\d' | sort | tail -1)
-        export CC=$gcc
-        C_COMPILER="-DCMAKE_C_COMPILER=$gcc"
-        CXX_COMPILER="-DCMAKE_CXX_COMPILER=$gxx"
+        ver=$(ls -1 /usr/local/bin/gcc-*  | cut -f2 -d- | sort | grep '\d' | sort | tail -1)
+        C_COMPILER="-DCMAKE_C_COMPILER=/usr/local/bin/gcc-$ver"
+        export CC="/usr/local/bin/gcc-$ver"
+        CXX_COMPILER="-DCMAKE_CXX_COMPILER=/usr/local/bin/g++-$ver"
 fi
 
 mkdir -p ${PREFIX}
