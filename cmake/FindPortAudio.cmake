@@ -15,7 +15,7 @@
 # Check if we can use PkgConfig
 find_package(PkgConfig)
 if(PKG_CONFIG_FOUND)
-    pkg_check_modules(PKGCONFIG_PORTAUDIO "portaudio-2.0")
+    pkg_check_modules(PKGCONFIG_PORTAUDIO "portaudio" "portaudio-2.0")
 endif()
 
 # portaudio source root specified
