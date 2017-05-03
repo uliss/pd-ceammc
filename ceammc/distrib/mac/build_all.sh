@@ -16,7 +16,7 @@ function build {
     $SHELL "${DIR}/${SCRIPT_DIR}/build_$1.sh"
 }
 
-#build fftw
+build fftw
 build ogg
 #build opus
 #build speex

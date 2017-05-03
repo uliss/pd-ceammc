@@ -31,7 +31,7 @@ cd ${PREFIX}
 PD_SRC_DIR="${PREFIX}/../.."
 DEPS_ROOT="${PREFIX}/../deps"
 
-export PKG_CONFIG_LIBDIR="${PREFIX}/lib/pkgconfig"
+export PKG_CONFIG_LIBDIR="${DEPS_ROOT}/lib/pkgconfig"
 cmake -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_C_FLAGS='-O2' \
     -DCMAKE_CXX_FLAGS='-O2' \
