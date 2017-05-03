@@ -124,4 +124,14 @@ TEST_CASE("math.and", "[externals]")
         REQUIRE_AND_SYNC(t, 1, 0, false);
         REQUIRE_AND_SYNC(t, 1, 1, true);
     }
+
+    SECTION("reset")
+    {
+        MathAndTest t("math.and", L1(3));
+        WHEN_SEND_FLOAT_TO(0, t, 1);
+        WHEN_SEND_FLOAT_TO(1, t, 1);
+        REQUIRE_PROPERTY_LIST(t, @state, L3(1, 1, .0f));
+        CALL(t, reset);
+        REQUIRE_PROPERTY_LIST(t, @state, L3(0.f, 0.f, .0f));
+    }
 }

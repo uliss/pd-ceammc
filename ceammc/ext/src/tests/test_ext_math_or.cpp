@@ -125,4 +125,14 @@ TEST_CASE("math.or", "[externals]")
         REQUIRE_OR_SYNC(t, 0, 0, true); // [0, 1, 1]
         REQUIRE_OR_SYNC(t, 2, 0, false); // [0, 0, 0]
     }
+
+    SECTION("reset")
+    {
+        MathOrTest t("math.or", L1(3));
+        WHEN_SEND_FLOAT_TO(0, t, 1);
+        WHEN_SEND_FLOAT_TO(1, t, 1);
+        REQUIRE_PROPERTY_LIST(t, @state, L3(1, 1, .0f));
+        CALL(t, reset);
+        REQUIRE_PROPERTY_LIST(t, @state, L3(0.f, 0.f, .0f));
+    }
 }
