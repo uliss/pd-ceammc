@@ -1,10 +1,22 @@
-#  PORTAUDIO_FOUND - system has libportaudio
-#  PORTAUDIO_INCLUDE_DIRS - the libportaudio include directory
-#  PORTAUDIO_LIBRARIES - Link these to use libportaudio
-#  PORTAUDIO_ROOT - manually set where portaudio exists
+# - Find the PortAudio library
+#
+# Usage:
+#   find_package(PORTAUDIO [REQUIRED] [QUIET])
+#
+# It sets the following variables:
+#   PORTAUDIO_FOUND               ... true if portaudio is found on the system
+#   PORTAUDIO_LIBRARIES           ... full path to portaudio library
+#   PORTAUDIO_INCLUDE_DIRS        ... portaudio include directory
+#
+# The following variables will be checked by the function
+#   PORTAUDIO_ROOT               ... if set, the libraries are exclusively searched
+#                               under this path
 
 # Check if we can use PkgConfig
 find_package(PkgConfig)
+if(PKG_CONFIG_FOUND)
+    pkg_check_modules(PKGCONFIG_PORTAUDIO "portaudio-2.0")
+endif()
 
 # portaudio source root specified
 if(PORTAUDIO_ROOT)
@@ -21,14 +33,10 @@ if(PORTAUDIO_ROOT)
         PATH_SUFFIXES "lib" "lib64"
         NO_DEFAULT_PATH)
 
-elseif(PKG_CONFIG_FOUND)
+elseif(PKGCONFIG_PORTAUDIO_FOUND)
 
-    pkg_check_modules(PKGCONFIG_PORTAUDIO portaudio-2.0)
-
-    if(PKGCONFIG_PORTAUDIO_FOUND)
-        set(PORTAUDIO_INCLUDE_DIR ${PKGCONFIG_PORTAUDIO_INCLUDE_DIRS})
-        set(PORTAUDIO_LIBRARY ${PKGCONFIG_PORTAUDIO_LIBRARIES})
-    endif()
+    set(PORTAUDIO_INCLUDE_DIR ${PKGCONFIG_PORTAUDIO_INCLUDE_DIRS})
+    set(PORTAUDIO_LIBRARY ${PKGCONFIG_PORTAUDIO_LIBRARIES})
 
 else()
 
