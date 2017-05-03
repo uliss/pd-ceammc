@@ -44,6 +44,8 @@ ceammc_external_test(list all_of)
 ceammc_external_test(list any_of)
 ceammc_external_test(list none_of)
 
+ceammc_external_test(math and)
+
 ceammc_add_extension_test("list_walk" "../list/list_walk.cpp")
 ceammc_add_extension_test("list_walk2" "../list/list_walk.cpp")
 ceammc_add_extension_test("snd_file" "../base/snd_file.cpp")

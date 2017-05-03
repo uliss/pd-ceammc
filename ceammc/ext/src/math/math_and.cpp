@@ -1,0 +1,80 @@
+/*****************************************************************************
+ * Copyright 2017 Serge Poltavsky. All rights reserved.
+ *
+ * This file may be distributed under the terms of GNU Public License version
+ * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
+ * license should have been included with this file, or the project in which
+ * this file belongs to. You may also find the details of GPL v3 at:
+ * http://www.gnu.org/licenses/gpl-3.0.txt
+ *
+ * If you have any questions regarding the use of this file, feel free to
+ * contact the author of this file, or the owner of the project in which
+ * this file belongs to.
+ *****************************************************************************/
+#include "math_and.h"
+#include "ceammc_convert.h"
+#include "ceammc_factory.h"
+
+#include <algorithm>
+
+MathAnd::MathAnd(const PdArgs& a)
+    : BaseObject(a)
+    , sync_(0)
+    , arg_num_(MIN_ARGS)
+{
+    arg_num_ = size_t(clip<int>(positionalFloatArgument(0, MIN_ARGS), MIN_ARGS, MAX_ARGS));
+    vars_.assign(arg_num_, false);
+
+    sync_ = new FlagProperty("@sync");
+    createProperty(sync_);
+    createCbProperty("@state", &MathAnd::p_state);
+
+    for (size_t i = 1; i < arg_num_; i++)
+        createInlet();
+
+    createOutlet();
+}
+
+void MathAnd::onFloat(t_float f)
+{
+    vars_[0] = (f == 1.f);
+    floatTo(0, check());
+}
+
+void MathAnd::onInlet(size_t n, const AtomList& l)
+{
+    if (l.empty())
+        return;
+
+    if (n < arg_num_)
+        vars_[n] = l[0].asSizeT(0) != 0;
+
+    if (sync_->value())
+        floatTo(0, check());
+}
+
+void MathAnd::m_reset(t_symbol* m, const AtomList&)
+{
+    vars_.assign(arg_num_, false);
+}
+
+int MathAnd::check() const
+{
+    return (std::find(vars_.begin(), vars_.begin() + long(arg_num_), false) == vars_.end()) ? 1 : 0;
+}
+
+AtomList MathAnd::p_state() const
+{
+    AtomList res;
+    res.reserve(arg_num_);
+    for (size_t i = 0; i < arg_num_; i++)
+        res.append(Atom(vars_[i] ? 1 : 0));
+
+    return res;
+}
+
+extern "C" void setup_math0x2eand()
+{
+    ObjectFactory<MathAnd> obj("math.and");
+    obj.addAlias("and");
+}

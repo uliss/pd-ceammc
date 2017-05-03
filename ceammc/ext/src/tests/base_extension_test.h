@@ -151,6 +151,13 @@ private:
         REQUIRE(p->get() == test_atom_wrap(val));  \
     }
 
+#define REQUIRE_PROPERTY_LIST(obj, name, lst)      \
+    {                                              \
+        Property* p = obj.property(gensym(#name)); \
+        REQUIRE(p != 0);                           \
+        REQUIRE(p->get() == lst);                  \
+    }
+
 #define REQUIRE_PROPERTY_NONE(obj, name)           \
     {                                              \
         Property* p = obj.property(gensym(#name)); \
@@ -417,7 +424,7 @@ void TestExtension<T>::atomTo(size_t n, const Atom& a)
 {
     msg_[n].push_back(Message(a));
 
-    if(atom_cb_)
+    if (atom_cb_)
         atom_cb_(this, n, a);
 }
 

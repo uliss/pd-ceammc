@@ -47,6 +47,7 @@ ceammc_math_extension(sign)
 ceammc_math_extension(neg)
 ceammc_math_extension(squared)
 
+ceammc_mathxx_extension(and)
 ceammc_mathxx_extension(prime)
 
 add_library(ceammc_math STATIC mod_math.h mod_math.cpp ${MATH_SOURCES})
