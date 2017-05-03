@@ -32,7 +32,7 @@ matrix:
 
 before_install:
 ## install some dependencies
-- sudo apt-get install -qq libboost1.48-dev libsndfile1 libsndfile-dev libportmidi-dev libfftw3-dev libasound2-dev libjack-dev
+- sudo apt-get install -qq libboost1.48-dev libsndfile1 libsndfile-dev libportaudio-dev libfftw3-dev libasound2-dev libjack-dev
 - pip install --user cpp-coveralls
 
 
@@ -42,7 +42,7 @@ before_script:
   - gcov --version
   - mkdir bin
   - cd bin
-  - cmake -DWITH_ALSA_MIDI=ON -DWITH_PORTMIDI=ON -DWITH_COVERAGE=ON ..
+  - cmake -DWITH_ALSA_MIDI=ON -DWITH_PORTMIDI=ON -DWITH_PORTAUDIO=ON -DWITH_COVERAGE=ON ..
   ## check whether we want to use coverity.scan and haven't met the quota yet.
   ## if so, build and submit. (else we skip to the ordinary build)
   # (implement Coverity Scan with before_script instead of addons.coverity_scan
