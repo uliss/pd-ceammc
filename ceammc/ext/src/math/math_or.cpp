@@ -11,24 +11,24 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "math_and.h"
+#include "math_or.h"
 #include "ceammc_factory.h"
 
 #include <algorithm>
 
-MathAnd::MathAnd(const PdArgs& a)
+MathOr::MathOr(const PdArgs& a)
     : MathBool(a)
 {
 }
 
-int MathAnd::check() const
+int MathOr::check() const
 {
-    return (std::find(vars_.begin(), vars_.begin() + long(arg_num_), false) == vars_.end()) ? 1 : 0;
+    return (std::find(vars_.begin(), vars_.begin() + long(arg_num_), true) == vars_.end()) ? 0 : 1;
 }
 
-extern "C" void setup_math0x2eand()
+extern "C" void setup_math0x2eor()
 {
-    ObjectFactory<MathAnd> obj("math.and");
-    obj.addAlias("and");
-    obj.addMethod("reset", &MathAnd::m_reset);
+    ObjectFactory<MathOr> obj("math.or");
+    obj.addAlias("or");
+    obj.addMethod("reset", &MathOr::m_reset);
 }

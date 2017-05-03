@@ -14,32 +14,12 @@
 #ifndef MATH_AND_H
 #define MATH_AND_H
 
-#include "ceammc_object.h"
+#include "math_bool.h"
 
-#include <vector>
-
-using namespace ceammc;
-
-class MathAnd : public BaseObject {
-public:
-    static const size_t MIN_ARGS = 3;
-    static const size_t MAX_ARGS = 16;
-
+class MathAnd : public MathBool {
 public:
     MathAnd(const PdArgs& a);
-    void onFloat(t_float f);
-    void onInlet(size_t n, const AtomList& l);
-
-    void m_reset(t_symbol* m, const AtomList&);
-
-private:
     int check() const;
-    AtomList p_state() const;
-
-private:
-    FlagProperty* sync_;
-    size_t arg_num_;
-    std::vector<bool> vars_;
 };
 
 #endif // MATH_AND_H

@@ -11,24 +11,35 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "math_and.h"
-#include "ceammc_factory.h"
+#ifndef MATH_BOOL_H
+#define MATH_BOOL_H
 
-#include <algorithm>
+#include "ceammc_object.h"
 
-MathAnd::MathAnd(const PdArgs& a)
-    : MathBool(a)
-{
-}
+#include <vector>
 
-int MathAnd::check() const
-{
-    return (std::find(vars_.begin(), vars_.begin() + long(arg_num_), false) == vars_.end()) ? 1 : 0;
-}
+using namespace ceammc;
 
-extern "C" void setup_math0x2eand()
-{
-    ObjectFactory<MathAnd> obj("math.and");
-    obj.addAlias("and");
-    obj.addMethod("reset", &MathAnd::m_reset);
-}
+class MathBool : public BaseObject {
+public:
+    static const size_t MIN_ARGS = 3;
+    static const size_t MAX_ARGS = 16;
+
+public:
+    MathBool(const PdArgs& a);
+    void onFloat(t_float f);
+    void onInlet(size_t n, const AtomList& l);
+
+    void m_reset(t_symbol* m, const AtomList&);
+    virtual int check() const;
+
+private:
+    AtomList p_state() const;
+
+protected:
+    FlagProperty* sync_;
+    size_t arg_num_;
+    std::vector<bool> vars_;
+};
+
+#endif // MATH_BOOL_H
