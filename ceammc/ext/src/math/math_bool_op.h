@@ -11,22 +11,35 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef APPROX_H
-#define APPROX_H
+#ifndef MATH_BOOL_OP_H
+#define MATH_BOOL_OP_H
 
 #include "ceammc_object.h"
 
+#include <vector>
+
 using namespace ceammc;
 
-class BaseApprox : public BaseObject {
-    FloatProperty* value_;
-    FloatProperty* epsilon_;
+class MathBoolOp : public BaseObject {
+public:
+    static const size_t MIN_ARGS = 3;
+    static const size_t MAX_ARGS = 16;
 
 public:
-    BaseApprox(const PdArgs& a);
-    void onFloat(float v);
-    void onList(const AtomList& l);
+    MathBoolOp(const PdArgs& a);
+    void onFloat(t_float f);
     void onInlet(size_t n, const AtomList& l);
+
+    void m_reset(t_symbol* m, const AtomList&);
+    virtual int operate() const;
+
+private:
+    AtomList p_state() const;
+
+protected:
+    FlagProperty* sync_;
+    size_t arg_num_;
+    std::vector<bool> vars_;
 };
 
-#endif // APPROX_H
+#endif // MATH_BOOL_OP_H

@@ -11,13 +11,13 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../base/approx.h"
+#include "../math/math_approx.h"
 #include "base_extension_test.h"
 #include "catch.hpp"
 
 #include <stdio.h>
 
-typedef TestExtension<BaseApprox> ApproxTest;
+typedef TestExtension<MathApprox> ApproxTest;
 
 #define REQUIRE_APPROX(obj, v)            \
     {                                     \
