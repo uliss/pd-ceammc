@@ -35,6 +35,7 @@ extern "C" void setup_math0x2etrunc();
 
 extern "C" void setup_math0x2eand();
 extern "C" void setup_math0x2eor();
+extern "C" void setup_math0x2eaapprox();
 
 void ceammc_math_setup()
 {
@@ -73,4 +74,5 @@ void ceammc_math_setup()
 
     setup_math0x2eand();
     setup_math0x2eor();
+    setup_math0x2eaapprox();
 }

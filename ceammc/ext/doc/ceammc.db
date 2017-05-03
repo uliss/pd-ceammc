@@ -1,4 +1,3 @@
-approx		...		.
 conv.bpm2hz,bpm->hz		.		.
 conv.bpm2ms,bpm->ms		.		.
 conv.bpm2sec,bpm->sec		.		.
@@ -104,6 +103,7 @@ math.abs		.		.
 math.acos		.		.
 math.acosh		.		.
 math.and		?		.
+math.approx,approx		...		.
 math.asin		.		.
 math.asinh		.		.
 math.atan		.		.

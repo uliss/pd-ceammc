@@ -11,12 +11,12 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "approx.h"
+#include "math_approx.h"
 #include "ceammc_factory.h"
 
 #include <cmath>
 
-BaseApprox::BaseApprox(const PdArgs& a)
+MathApprox::MathApprox(const PdArgs& a)
     : BaseObject(a)
     , value_(0)
     , epsilon_(0)
@@ -32,14 +32,14 @@ BaseApprox::BaseApprox(const PdArgs& a)
     createProperty(epsilon_);
 }
 
-void BaseApprox::onFloat(float f)
+void MathApprox::onFloat(float f)
 {
     const t_float v = value_->value();
     const t_float e = epsilon_->value();
     floatTo(0, fabsf(f - v) <= fabsf(e) ? 1 : 0);
 }
 
-void BaseApprox::onList(const AtomList& l)
+void MathApprox::onList(const AtomList& l)
 {
     if (l.size() == 3) {
         value_->set(l[1]);
@@ -53,7 +53,7 @@ void BaseApprox::onList(const AtomList& l)
     }
 }
 
-void BaseApprox::onInlet(size_t n, const AtomList& l)
+void MathApprox::onInlet(size_t n, const AtomList& l)
 {
     switch (n) {
     case 1:
@@ -65,7 +65,8 @@ void BaseApprox::onInlet(size_t n, const AtomList& l)
     }
 }
 
-extern "C" void approx_setup()
+extern "C" void setup_math0x2eaapprox()
 {
-    ObjectFactory<BaseApprox> obj("approx");
+    ObjectFactory<MathApprox> obj("math.approx");
+    obj.addAlias("approx");
 }

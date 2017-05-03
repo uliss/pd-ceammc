@@ -11,22 +11,22 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef APPROX_H
-#define APPROX_H
+#ifndef MATH_APPROX_H
+#define MATH_APPROX_H
 
 #include "ceammc_object.h"
 
 using namespace ceammc;
 
-class BaseApprox : public BaseObject {
+class MathApprox : public BaseObject {
     FloatProperty* value_;
     FloatProperty* epsilon_;
 
 public:
-    BaseApprox(const PdArgs& a);
+    MathApprox(const PdArgs& a);
     void onFloat(float v);
     void onList(const AtomList& l);
     void onInlet(size_t n, const AtomList& l);
 };
 
-#endif // APPROX_H
+#endif // MATH_APPROX_H

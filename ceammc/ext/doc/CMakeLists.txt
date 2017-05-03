@@ -7,7 +7,6 @@ find_program(TIDY tidy)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/about.pd ${CMAKE_CURRENT_BINARY_DIR}/about.pd @ONLY)
 
 set(DOC_FILES
-    approx
     conv.bpm2hz
     conv.bpm2ms
     conv.bpm2sec
@@ -113,6 +112,7 @@ set(DOC_FILES
     math.acos
     math.acosh
     math.and
+    math.approx
     math.asin
     math.asinh
     math.atan
@@ -280,5 +280,5 @@ endif()
 
 file(GLOB _PDDOC_FILES "*.pddoc")
 file(GLOB _PDDOC_XML_FILES "*.xml")
-add_custom_target(pddoc_files SOURCES ${_PDDOC_FILES} ${_PDDOC_XML_FILES})
+add_custom_target(pddoc_files SOURCES ${_PDDOC_FILES} ${_PDDOC_XML_FILES} ceammc.db)
 

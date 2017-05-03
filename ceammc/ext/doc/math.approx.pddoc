@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="approx">
-        <title>approx</title>
+    <object name="math.approx">
+        <title>math.approx</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
@@ -9,9 +9,12 @@
             <description>check if input value approximately equal to pattern</description>
             <license>GPL3</license>
             <library>ceammc</library>
-            <category>base</category>
-            <keywords>base equal compare approx</keywords>
+            <category>math</category>
+            <keywords>equal compare approx</keywords>
             <since>0.1</since>
+            <aliases>
+                <alias>approx</alias>
+            </aliases>
         </meta>
         <info>
             <par>checks is |x - pattern| &lt;= |epsilon|</par>
@@ -49,7 +52,7 @@
 |   |
 [F] |
 |   |
-[approx 50 10] /* 40 <= x <= 60 */
+[math.approx 50 10] /* 40 <= x <= 60 */
 |
 [F]
 ]]>
