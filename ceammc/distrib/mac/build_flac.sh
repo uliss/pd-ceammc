@@ -1,6 +1,5 @@
 #!/bin/sh
 
-#CC=gcc ./configure --prefix=`pwd`/../.. --disable-cpplibs --disable-dependency-tracking --disable-sse --disable-avx --disable-asm-optimizations
 CONF_FLAGS=""
 
 MACOSX_MINOR=$(sw_vers | grep ProductVersion | cut -f2 | cut -d. -f2)
