@@ -47,17 +47,17 @@ else()
     find_path(FFTW_INCLUDE_DIR
         NAMES "fftw3.h"
         PATHS
-            ${INCLUDE_INSTALL_DIR}
-            C:/MinGW/msys/1.0/include
-            C:/MinGW/msys/1.0/local/include)
+           ${INCLUDE_INSTALL_DIR}
+           C:/MinGW/msys/1.0/include
+           C:/MinGW/msys/1.0/local/include)
 
     find_library(FFTW_FLOAT_LIBRARY
         NAMES "fftw3f"
         PATHS
-            ${LIB_INSTALL_DIR}
-            /usr/local/lib
-            C:/MinGW/msys/1.0/lib
-            C:/MinGW/msys/1.0/local/lib)
+          ${LIB_INSTALL_DIR}
+          /usr/local/lib
+          C:/MinGW/msys/1.0/lib
+          C:/MinGW/msys/1.0/local/lib)
 
 endif()
 

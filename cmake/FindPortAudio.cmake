@@ -15,7 +15,7 @@
 # Check if we can use PkgConfig
 find_package(PkgConfig)
 if(PKG_CONFIG_FOUND)
-    pkg_check_modules(PKGCONFIG_PORTAUDIO "portaudio" "portaudio-2.0")
+    pkg_check_modules(PKGCONFIG_PORTAUDIO "portaudio-2.0")
 endif()
 
 # portaudio source root specified
@@ -43,17 +43,17 @@ else()
     find_path(PORTAUDIO_INCLUDE_DIR
         NAMES portaudio.h
         PATHS
-            /usr/include
-            /usr/local/include
-            /opt/local/include
-            /sw/include
-            /usr/local/mingw/i686-w64-mingw32
-            C:/MinGW/msys/1.0/usr/lib
-            C:/MinGW/msys/1.0/usr/local/lib)
+          /usr/include
+          /usr/local/include
+          /opt/local/include
+          /sw/include
+          /usr/local/mingw/i686-w64-mingw32
+          C:/MinGW/msys/1.0/usr/lib
+          C:/MinGW/msys/1.0/usr/local/lib)
 
     find_library(PORTAUDIO_LIBRARY
-      NAMES portaudio
-      PATHS
+        NAMES portaudio
+        PATHS
           /usr/lib
           /usr/local/lib
           /opt/local/lib
