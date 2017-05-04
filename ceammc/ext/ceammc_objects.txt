@@ -145,6 +145,7 @@ math.abs
 math.acos
 math.acosh
 math.and
+math.approx
 math.asin
 math.asinh
 math.atan
