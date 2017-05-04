@@ -12,6 +12,8 @@ Visit http://www.gnu.org/licenses/gpl-3.0.txt for more information."
 HELP="Usage:
   $0 [options...] bundle_path"
 
+GIT="/usr/local/bin/git"
+
 ARG_DIR=`pwd`
 ARG_ICON=
 ARG_BACKGROUND=
@@ -114,7 +116,7 @@ echo "done!"
 TMP_INFO_PLIST="${TMP_DIR}/${APP_BUNDLE_NAME}/Contents/Info.plist"
 BUNDLE_VERSION=`/usr/libexec/PlistBuddy -c "Print :CFBundleDisplayName" "${TMP_INFO_PLIST}"`
 echo "Bundle version: ${BUNDLE_VERSION}"
-GIT_HASH=$(git -C "${SRC_PATH}" log -1 --pretty=format:%h)
+GIT_HASH=$(${GIT} -C "${SRC_PATH}" log -1 --pretty=format:%h)
 echo "Build git hash: ${GIT_HASH}"
 BUNDLE_VERSION="${BUNDLE_VERSION} ${GIT_HASH}"
 echo "New bundle version: ${BUNDLE_VERSION}"

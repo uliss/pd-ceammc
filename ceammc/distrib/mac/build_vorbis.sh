@@ -15,6 +15,7 @@ brew unpack libvorbis
 cd libvorbis-*
 ./configure --enable-shared=yes \
     --enable-static=no \
+    --disable-dependency-tracking \
     --with-sysroot=${PREFIX} \
     --with-ogg=${PREFIX} \
     --prefix=${PREFIX}

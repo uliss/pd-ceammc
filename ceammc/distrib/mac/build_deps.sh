@@ -47,13 +47,13 @@ function install_libmodplug() {
     rm -rf libmodplug*
 
     banner "Downloading ${pkg}"
-    wget https://codeload.github.com/Konstanty/libmodplug/zip/master -O libmodplug.zip
+    curl https://codeload.github.com/Konstanty/libmodplug/zip/master -o libmodplug.zip
     unzip -o libmodplug.zip
     cd libmodplug-*
 
     banner "Configure ${pkg}"
     autoreconf -fi
-    export CXXFLAGS='-arch x86_64 -arch i386 -O2'
+    export CXXFLAGS="$CFLAGS"
     ./configure --enable-static=no \
         --enable-shared=yes \
         --prefix=${PREFIX}
@@ -77,6 +77,11 @@ function install_sndfile() {
     cd libsndfile*
 
     banner "Configure ${pkg}"
+
+    if [ $OSX_OLD ]; then
+        export CC=/usr/local/bin/gcc-5
+    fi
+
     CFLAGS="${CFLAGS} -I${PREFIX}/include" ./configure --enable-static=yes \
         --enable-shared=yes \
         --prefix=${PREFIX}
@@ -227,7 +232,7 @@ function install_tcl() {
     banner "Downloading ${pkg}"
     if [ ! -f "tcl-release.zip" ]
     then
-        wget "https://github.com/tcltk/tcl/archive/core_8_6_6.zip" -O "tcl-release.zip"
+        curl "https://github.com/tcltk/tcl/archive/core_8_6_6.zip" -o "tcl-release.zip"
     fi
 
     unzip -o  "tcl-release.zip"

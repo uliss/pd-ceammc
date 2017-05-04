@@ -16,6 +16,8 @@ CXX_COMPILER=""
 C_COMPILER=""
 
 MACOSX_MINOR=$(sw_vers | grep ProductVersion | cut -f2 | cut -d. -f2)
+ARCH='x86_64;i386'
+
 if [ ${MACOSX_MINOR} -le 7 ]
 then
         echo "MacOSX 10.$MACOSX_MINOR found..."
@@ -25,6 +27,7 @@ then
         C_COMPILER="-DCMAKE_C_COMPILER=/usr/local/bin/gcc-$ver"
         export CC="/usr/local/bin/gcc-$ver"
         CXX_COMPILER="-DCMAKE_CXX_COMPILER=/usr/local/bin/g++-$ver"
+        ARCH='i386'
 fi
 
 
@@ -34,7 +37,7 @@ export PKG_CONFIG_PATH="${PREFIX}/lib/pkgconfig"
 cmake -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_C_FLAGS='-O2' \
     -DCMAKE_CXX_FLAGS='-O2' \
-    -DARCH='x86_64;i386' \
+    -DARCH=$ARCH \
     -DLEAPMOTION_ROOT="${HOME}/work/misc/LeapMotionSDK/LeapSDK" \
     ${C_COMPILER} \
     ${CXX_COMPILER} \

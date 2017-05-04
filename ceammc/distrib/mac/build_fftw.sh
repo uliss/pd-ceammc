@@ -7,6 +7,14 @@ then
     PREFIX=`pwd`/build/deps
 fi
 
+CONF_FLAGS="--disable-fortran --disable-dependency-tracking"
+MV=$(sw_vers -productVersion | cut -d. -f2)
+if [ $MV -ge 9 ]
+then
+    echo "AVX support ON"
+    CONF_FLAGS="$CONF_FLAGS --enable-avx"
+fi
+
 export PKG_CONFIG_PATH="${PREFIX}/lib/pkgconfig"
 
 rm -rf fftw-*
@@ -15,8 +23,7 @@ cd fftw-*
 ./configure --enable-shared=yes \
     --enable-static=no \
     --enable-single \
-    --enable-avx \
-    --disable-fortran \
+    ${CONF_FLAGS} \
     --prefix=${PREFIX}
 
 make

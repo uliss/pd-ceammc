@@ -9,7 +9,14 @@ fi
 
 export PKG_CONFIG_PATH=${PREFIX}/lib/pkgconfig
 export CFLAGS="${CFLAGS} -I${PREFIX}/include"
-#export PKG_CONFIG_LIBDIR=${PKG_CONFIG_PATH}
+
+
+MV=$(sw_vers -productVersion | cut -d. -f2)
+if [ $MV -eq 7 ]
+then
+    echo "Mac 10.7 found..."
+    export CC=cc
+fi
 
 rm -rf libsndfile-*
 brew unpack libsndfile
