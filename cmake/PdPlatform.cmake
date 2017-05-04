@@ -239,7 +239,7 @@ if(APPLE)
         COMMAND
             sh ${PROJECT_SOURCE_DIR}/mac/dmg.sh
             ${BUNDLE_FULL_PATH}
-            ${PD_MACOSX_BUNDLE_SUFFIX}
+            "${PD_MACOSX_BUNDLE_SUFFIX}-macosx-${MACOSX_VERSION}"
             ${PROJECT_SOURCE_DIR}
         WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
         DEPENDS app)
