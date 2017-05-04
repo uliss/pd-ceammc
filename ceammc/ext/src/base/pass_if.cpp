@@ -14,7 +14,7 @@ static void pass_if_float(t_pass_if* x, t_floatarg f)
 {
     outlet_float(x->out_pred, f);
 
-    if (x->do_pass != 0.0)
+    if (x->do_pass != 0)
         outlet_float(x->x_obj.te_outlet, f);
 }
 
@@ -22,7 +22,7 @@ static void pass_if_list(t_pass_if* x, t_symbol* s, int argc, t_atom* argv)
 {
     outlet_list(x->out_pred, s, argc, argv);
 
-    if (x->do_pass != 0.0)
+    if (x->do_pass != 0)
         outlet_list(x->x_obj.te_outlet, s, argc, argv);
 }
 
@@ -30,8 +30,16 @@ static void pass_if_symbol(t_pass_if* x, t_symbol* s)
 {
     outlet_symbol(x->out_pred, s);
 
-    if (x->do_pass != 0.0)
+    if (x->do_pass != 0)
         outlet_symbol(x->x_obj.te_outlet, s);
+}
+
+static void pass_if_any(t_pass_if* x, t_symbol* s, int argc, t_atom* argv)
+{
+    outlet_anything(x->out_pred, s, argc, argv);
+
+    if (x->do_pass != 0)
+        outlet_anything(x->x_obj.te_outlet, s, argc, argv);
 }
 
 static void* pass_if_new()
@@ -59,4 +67,5 @@ extern "C" void setup_pass0x2eif()
     class_addfloat(pass_if_class, pass_if_float);
     class_addlist(pass_if_class, pass_if_list);
     class_addsymbol(pass_if_class, pass_if_symbol);
+    class_addanything(pass_if_class, pass_if_any);
 }
