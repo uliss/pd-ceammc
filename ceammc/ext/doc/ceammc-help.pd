@@ -455,6 +455,6 @@ length: sqrt(element(1)^2 + ...element(n)^2).;
 #X text 175 6394 returns normalized vector;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc 20 20 0 20 -104026 -4096 0;
 #X obj 1 6421 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 6421 version: v0.1 \, license: GPL3;
+#X text 20 6421 version: v0.2 \, license: GPL3;
 #X obj 20 6440 ui.link @title https://github.com/uliss/pure-data @url
 https://github.com/uliss/pure-data;
