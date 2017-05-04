@@ -26,8 +26,16 @@ void MathRoundTilde::processBlock(const t_sample** in, t_sample** out)
 {
     const size_t bs = blockSize();
 
-    for (size_t i = 0; i < bs; i++)
+    for (size_t i = 0; i < bs; i += 8) {
         out[0][i] = roundf(in[0][i]);
+        out[0][i + 1] = roundf(in[0][i + 1]);
+        out[0][i + 2] = roundf(in[0][i + 2]);
+        out[0][i + 3] = roundf(in[0][i + 3]);
+        out[0][i + 4] = roundf(in[0][i + 4]);
+        out[0][i + 5] = roundf(in[0][i + 5]);
+        out[0][i + 6] = roundf(in[0][i + 6]);
+        out[0][i + 7] = roundf(in[0][i + 7]);
+    }
 }
 
 extern "C" void setup_math0x2eround_tilde()
