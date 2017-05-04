@@ -1,3 +1,4 @@
+and
 approx
 array.p->s
 array.p2s
@@ -143,6 +144,8 @@ m
 math.abs
 math.acos
 math.acosh
+math.and
+math.approx
 math.asin
 math.asinh
 math.atan
@@ -161,6 +164,7 @@ math.log10
 math.log2
 math.nan
 math.neg
+math.or
 math.pi
 math.reciprocal
 math.round
@@ -195,6 +199,7 @@ noise.stein
 noise.torus
 noise.verhulst
 noise.white~
+or
 osc.impulse~
 osc.pulse~
 osc.saw~
