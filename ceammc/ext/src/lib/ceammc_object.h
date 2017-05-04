@@ -139,10 +139,9 @@ public:
     size_t numInlets() const;
 
     /**
-     * Creates outlet
-     * @param signal - if true create signal outlet
+     * Creates control outlet
      */
-    t_outlet* createOutlet(bool signal = false);
+    t_outlet* createOutlet();
 
     /**
      * Returns pointer to outlet specified by given index
@@ -236,9 +235,57 @@ protected:
     AtomList propNumOutlets();
     AtomList listAllProps() const;
     const AtomList& args() const { return pd_.args; }
+    void appendInlet(t_inlet* in);
+    void appendOutlet(t_outlet* out);
 
 private:
     void extractPositionalArguments();
+};
+
+class SoundExternal : public BaseObject {
+    const static size_t MAX_SIG_NUM = 16;
+
+private:
+    size_t block_size_;
+    size_t n_in_;
+    size_t n_out_;
+    size_t sample_rate_;
+    t_sample* in_[MAX_SIG_NUM];
+    t_sample* out_[MAX_SIG_NUM];
+
+public:
+    SoundExternal(const PdArgs& a);
+    void setupDSP(t_signal** sp);
+
+    t_inlet* createSignalInlet();
+    t_outlet* createSignalOutlet();
+
+    size_t blockSize() const { return block_size_; }
+    size_t numInputChannels() const { return n_in_; }
+    size_t numOutputChannels() const { return n_out_; }
+
+    static bool bindDSP() { return true; }
+    static bool bindFloat() { return false; }
+    static bool bindMainSignalInlet() { return true; }
+
+    virtual void processBlock(const t_sample** in, t_sample** out) = 0;
+
+private:
+    inline void _processBlock()
+    {
+        processBlock((const t_sample**)in_, out_);
+    }
+
+    inline static t_int* dspPerform(t_int* w)
+    {
+        SoundExternal* ext = reinterpret_cast<SoundExternal*>(w[1]);
+        ext->_processBlock();
+        return (w + 2);
+    }
+
+protected:
+    /* only for testing! */
+    void setBlockSize(size_t s) { block_size_ = s; }
 };
 }
 

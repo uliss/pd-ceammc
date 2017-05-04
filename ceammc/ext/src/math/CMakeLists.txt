@@ -54,6 +54,8 @@ ceammc_mathxx_extension(and)
 ceammc_mathxx_extension(or)
 ceammc_mathxx_extension(prime)
 
+ceammc_mathxx_extension(round_tilde)
+
 add_library(ceammc_math STATIC mod_math.h mod_math.cpp ${MATH_SOURCES})
 if(UNIX)
     set_target_properties(ceammc_math PROPERTIES COMPILE_FLAGS "-fPIC")

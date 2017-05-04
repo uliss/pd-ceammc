@@ -45,6 +45,7 @@ ceammc_external_test(list none_of)
 ceammc_external_test(math approx)
 ceammc_external_test(math and)
 ceammc_external_test(math or)
+ceammc_external_test(math round_tilde)
 
 ceammc_add_extension_test("list_walk" "../list/list_walk.cpp")
 ceammc_add_extension_test("list_walk2" "../list/list_walk.cpp")

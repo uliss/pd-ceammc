@@ -91,6 +91,16 @@ private:
     sendAtomCallback atom_cb_;
 };
 
+template <class T>
+class TestSoundExtension : public TestExtension<T> {
+public:
+    TestSoundExtension(const char* name, const AtomList& args = AtomList())
+        : TestExtension<T>(name, args)
+    {
+        T::setBlockSize(64);
+    }
+};
+
 #define CALL(obj, method)                            \
     {                                                \
         obj.storeMessageCount();                     \
