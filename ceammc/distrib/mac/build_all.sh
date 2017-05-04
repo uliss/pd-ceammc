@@ -28,5 +28,5 @@ build portaudio
 export BUILD_DIR="${DIR}/build/pd"
 build pd
 
-mv "${DIR}/build/pd/*.dmg" "${DIR}/build"
-mv "${DIR}/build/pd/ceammclib-*tar.gz" "${DIR}/build"
+mv ${DIR}/build/pd/*.dmg "${DIR}/build"
+mv ${DIR}/build/pd/ceammclib-*tar.gz "${DIR}/build"
