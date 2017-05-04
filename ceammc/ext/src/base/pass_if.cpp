@@ -1,7 +1,7 @@
 #include "ceammc.hpp"
 #include <m_pd.h>
 
-t_class* pass_if_class;
+static t_class* pass_if_class;
 struct t_pass_if {
     t_object x_obj;
     t_inlet* in_pred;
