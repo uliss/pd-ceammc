@@ -17,7 +17,7 @@ Key concepts
    - Inclusion of some modern techniques. Library v0.1 includes comprehensive set of objects that work with lists and include some concepts from functional programming.
 
 
-Features: v0.1
+Features: v0.2
 --------------
 
  * Core objects:
@@ -31,10 +31,13 @@ Features: v0.1
    - random number generators
    - property concept: non-UI objects may have properties that can be accessed after object creation. This includes special message and prop.get object for handling
  * Audio objects:
-         - dynamics: compressor, limiter, soft clip
-         - envelope generators (ar, adsr) and follower
-         - filters: eq peak and shelf filters, dc block
-         - oscillators and LFO with different waveforms
+   - dynamics: compressor, limiter, soft clip
+   - envelope generators (ar, adsr) and follower
+   - filters: eq peak and shelf filters, dc block
+   - oscillators and LFO with different waveforms
+   - filter coefficient calculations, biquad filter, lp/hp/bp 2- and 4-pole filters
+   - some basic effects - pitch/frequency shift, flanger, distortion
+   - snd.file - object for importing sound files
  * GUI objects:
    - 8 new objects: knob, multiple slider box, 2d slider, keyboard, message display, scope and oscilloscope
    - breakpoint function object, working with envelope objects
@@ -46,16 +49,6 @@ Features: v0.1
    - Multiple undo (beta)
    - Grid / Align to grid (beta)
 
-Roadmap v0.15:
---------------
-   - separate library release
-   - new audio objects: filter coefficient calculations, biquad filter, lp/hp/bp 2- and 4-pole filters
-   - snd.file - object for importing sound files
-
-
-Roadmap v0.2:
--------------
-   - Windows version
 
 Roadmap v0.3+:
 -------------
