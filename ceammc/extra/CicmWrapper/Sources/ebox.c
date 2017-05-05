@@ -47,7 +47,7 @@ static void ebox_move(t_ebox* x);
 static void ebox_attrprocess_default(void *x);
 static void ebox_newzoom(t_ebox *x);
 
-const char* egraphics_smooth();
+int egraphics_smooth();
 
 void ebox_new(t_ebox *x, long flags)
 {
@@ -1529,13 +1529,13 @@ t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
                 {
                     sprintf(header, "%s create polygon ", x->b_drawing_id->s_name);
                     sprintf(bottom, "-smooth %s -splinesteps 100 -fill %s -width 0 -tags { %s %s }\n",
-                            x->b_smooth_method, gobj->e_color->s_name,  g->e_id->s_name, x->b_all_id->s_name);
+                            x->b_smooth_method ? "raw" : "true", gobj->e_color->s_name,  g->e_id->s_name, x->b_all_id->s_name);
                 }
                 else
                 {
                     sprintf(header, "%s create line ", x->b_drawing_id->s_name);
                     sprintf(bottom, "-smooth %s -splinesteps 100 -fill %s -width %f -capstyle %s -tags { %s %s }\n",
-                            x->b_smooth_method, gobj->e_color->s_name, gobj->e_width, my_capstylelist[gobj->e_capstyle], g->e_id->s_name, x->b_all_id->s_name);
+                            x->b_smooth_method ? "raw" : "true", gobj->e_color->s_name, gobj->e_width, my_capstylelist[gobj->e_capstyle], g->e_id->s_name, x->b_all_id->s_name);
                 }
 
                 for(j = 0; j < gobj->e_npoints; )

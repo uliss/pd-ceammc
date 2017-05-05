@@ -39,14 +39,14 @@ t_tcl_version* tcl_version_new() {
     return x;
 }
 
-const char* egraphics_smooth() {
+int egraphics_smooth() {
     if(!tcl_version_class || !tcl_version_instance)
-        return "true";
+        return 0;
 
     if(tcl_version_instance->major == 8 && tcl_version_instance->minor == 6)
-        return "raw";
+        return 1;
     else
-        return "true";
+        return 0;
 }
 
 void tcl_version_set(t_tcl_version * x, t_float v) {
