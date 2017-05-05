@@ -50,3 +50,11 @@ if(DPKG_FOUND AND NOT WIN32)
 endif()
 
 include(CPack)
+
+add_custom_target(src-zip
+    COMMAND "${CMAKE_SOURCE_DIR}/ceammc/distrib/git-archive-all/git_archive_all.py"
+            "pd-ceammc-${CEAMMC_DISTRIB_VERSION}.zip")
+
+add_custom_target(src-tar
+    COMMAND "${CMAKE_SOURCE_DIR}/ceammc/distrib/git-archive-all/git_archive_all.py"
+            "pd-ceammc-${CEAMMC_DISTRIB_VERSION}.tar.gz")
