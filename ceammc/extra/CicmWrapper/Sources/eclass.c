@@ -54,10 +54,9 @@ void tcl_version_set(t_tcl_version * x, t_float v) {
     float frac_part = modff(v, &int_part);
 
     x->major = (char) int_part;
-    x->minor = (char) (frac_part * 10);
+    x->minor = (char) roundf(frac_part * 10);
 
-    if(x->major == 8 && x->minor < 6)
-        pd_error(0, "[ceammc] TCL/Tk version is: %d.%d. GUI objects are not supported.", x->major, x->minor);
+    post(0, "[ceammc] TCL/Tk version is: %d.%d", x->major, x->minor);
 }
 
 void tcl_version_init() {
