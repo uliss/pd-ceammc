@@ -14,31 +14,31 @@ static void reject_if_float(t_reject_if* x, t_floatarg f)
 {
     outlet_float(x->out_pred, f);
 
-    if (x->do_reject == 0.0)
+    if (x->do_reject == 0)
         outlet_float(x->x_obj.te_outlet, f);
 }
 
 static void reject_if_list(t_reject_if* x, t_symbol* s, int argc, t_atom* argv)
 {
-    ceammc::pd::atom_list lst;
-    lst.reserve(argc);
+    outlet_list(x->out_pred, s, argc, argv);
 
-    for (int i = 0; i < argc; i++) {
-        t_atom* a = argv + i;
-        output_atom(x->out_pred, a);
+    if (x->do_reject == 0)
+        outlet_list(x->x_obj.te_outlet, s, argc, argv);
+}
 
-        if (x->do_reject == 0.0)
-            lst.push_back(*a);
-    }
+static void reject_if_any(t_reject_if* x, t_symbol* s, int argc, t_atom* argv)
+{
+    outlet_anything(x->out_pred, s, argc, argv);
 
-    ceammc::pd::output(x->x_obj.te_outlet, lst);
+    if (x->do_reject == 0)
+        outlet_anything(x->x_obj.te_outlet, s, argc, argv);
 }
 
 static void reject_if_symbol(t_reject_if* x, t_symbol* s)
 {
     outlet_symbol(x->out_pred, s);
 
-    if (x->do_reject == 0.0)
+    if (x->do_reject == 0)
         outlet_symbol(x->x_obj.te_outlet, s);
 }
 
@@ -67,4 +67,5 @@ extern "C" void setup_reject0x2eif()
     class_addfloat(reject_if_class, reject_if_float);
     class_addlist(reject_if_class, reject_if_list);
     class_addsymbol(reject_if_class, reject_if_symbol);
+    class_addanything(reject_if_class, reject_if_any);
 }
