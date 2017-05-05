@@ -1,3 +1,6 @@
 [submodule "ceammc/ext/src/tests/Catch"]
 	path = ceammc/ext/src/tests/Catch
 	url = https://github.com/philsquared/Catch.git
+[submodule "ceammc/distrib/git-archive-all"]
+	path = ceammc/distrib/git-archive-all
+	url = https://github.com/Kentzo/git-archive-all.git
