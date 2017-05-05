@@ -757,6 +757,7 @@ typedef struct t_ebox
     
     t_elayer*           b_layers;           /*!< The ebox layers. */
     long                b_number_of_layers; /*!< The ebox number of layers. */
+    const char*         b_smooth_method;
 }t_ebox;
 
 /** @} */
