@@ -31,6 +31,19 @@ static void* ceammc_new(t_symbol*)
              "       build date: '%s'\n"
              "       contains code from CICM-Wrapper",
             CEAMMC_LIB_VERSION, CEAMMC_LIB_HOME, __DATE__);
+
+        int major, minor, fix;
+        sys_getversion(&major, &minor, &fix);
+        int runtime_version = 10000 * major + 100 * minor + fix;
+
+        int compiled_version = 10000 * PD_MAJOR_VERSION + 100 * PD_MINOR_VERSION + PD_BUGFIX_VERSION;
+
+        if (runtime_version < compiled_version) {
+            pd_error(0, "[ceammc] WARNING: running on Pd version (%d.%d.%d) "
+                        "that is older then compiled (%d.%d.%d). "
+                        "Not all featers can be supported.",
+                major, minor, fix, PD_MAJOR_VERSION, PD_MINOR_VERSION, PD_BUGFIX_VERSION);
+        }
     }
 
     return x;
