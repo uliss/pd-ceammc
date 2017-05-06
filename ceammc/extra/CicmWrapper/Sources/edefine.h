@@ -747,6 +747,7 @@ typedef struct t_ebox
     int                 b_selected_outlet;  /*!< The outlet selected. */
     float               b_zoom;
     
+    char                b_smooth_method;    /*!< Tk canvas line smooth method */
     char                b_mouse_down;       /*!< The mouse state. */
     
     char                b_visible;          /*!< The visible state. */

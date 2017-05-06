@@ -21,6 +21,59 @@ static void eclass_properties_dialog(t_eclass* c);
 static void ewidget_init(t_eclass* c);
 static void eclass_attr_ceammc_setter(t_object* x, t_symbol *s, int argc, t_atom *argv);
 
+static t_class* tcl_version_class = 0;
+typedef struct tcl_version {
+    t_object x_obj;
+    char minor;
+    char major;
+} t_tcl_version;
+
+t_tcl_version* tcl_version_instance;
+t_tcl_version* tcl_version_new() {
+    t_tcl_version* x = (t_tcl_version*)pd_new(tcl_version_class);
+    if(x) {
+        x->minor = 0;
+        x->major = 0;
+    }
+
+    return x;
+}
+
+int egraphics_smooth() {
+    if(!tcl_version_class || !tcl_version_instance)
+        return 0;
+
+    if(tcl_version_instance->major == 8 && tcl_version_instance->minor == 6)
+        return 1;
+    else
+        return 0;
+}
+
+void tcl_version_set(t_tcl_version * x, t_float v) {
+    float int_part;
+    float frac_part = modff(v, &int_part);
+
+    x->major = (char) int_part;
+    x->minor = (char) roundf(frac_part * 10);
+
+    if(x->minor != 6)
+        post("[ceammc] TCL/Tk version is: %d.%d", x->major, x->minor);
+}
+
+void tcl_version_init() {
+    if(tcl_version_class == 0) {
+        tcl_version_class = class_new(gensym("_tcl.version"),
+            (t_newmethod)tcl_version_new, 0,
+            sizeof(t_tcl_version), 0, A_NULL);
+
+        class_addmethod(tcl_version_class, (t_method)&tcl_version_set,
+                        gensym("tcl_version"), A_DEFFLOAT, A_NULL);
+        pd_bind(&tcl_version_class, gensym("tcl_version"));
+        tcl_version_instance = tcl_version_new();
+        sys_gui("pdsend \"tcl_version tcl_version $tk_version\"\n");
+    }
+}
+
 t_eclass* eclass_new(const char *name, t_typ_method newm, t_typ_method freem, size_t size, int flags, t_atomtype arg1, int arg2)
 {
     char help[MAXPDSTRING];
@@ -28,6 +81,7 @@ t_eclass* eclass_new(const char *name, t_typ_method newm, t_typ_method freem, si
     t_eclass* c  = (t_eclass *)resizebytes(pd, sizeof(*pd), sizeof(*c));
     if(c)
     {
+        tcl_version_init();
         epd_init();
         c->c_nattr = 0;
         c->c_dsp   = 0;

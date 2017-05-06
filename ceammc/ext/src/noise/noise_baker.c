@@ -35,17 +35,19 @@ void* baker_new(t_symbol* msg, int argc, t_atom* argv) //input the args
 {
     baker* x = (baker*)eobj_new(noise_baker_class);
 
-    x->c_out = floatout(x);
+    if (x) {
+        x->c_out = floatout(x);
 
-    //init
-    x->init = 0.85;
-    x->eval = 0.85;
-    x->fold_cut = 0;
-    x->om = 0;
+        //init
+        x->init = 0.85;
+        x->eval = 0.85;
+        x->fold_cut = 0;
+        x->om = 0;
 
-    baker_set(x, msg, argc, argv); // & pass them
+        baker_set(x, msg, argc, argv); // & pass them
+    }
 
-    return (x);
+    return x;
 }
 
 void baker_free(baker* x)
