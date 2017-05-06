@@ -33,9 +33,9 @@ Features: v0.2
  * Audio objects:
    - dynamics: compressor, limiter, soft clip
    - envelope generators (ar, adsr) and follower
-   - filters: eq peak and shelf filters, dc block
-   - oscillators and LFO with different waveforms
-   - filter coefficient calculations, biquad filter, lp/hp/bp 2- and 4-pole filters
+   - filters: eq peak and shelf filters, dc block, lp/hp/bp in 2- and 4-pole versions
+   - filter coefficient calculations and biquad filter object with audio-rate control
+   - oscillators and LFO with different waveforms. including sine oscillator with feedback
    - some basic effects - pitch/frequency shift, flanger, distortion
    - snd.file - object for importing sound files
  * GUI objects:
@@ -56,7 +56,6 @@ Roadmap v0.3+:
  * Core objects:
    - objects working with strings and string data type
    - math.* - add functions with multiple arguments
-   - Audio filters: biquad coefficients generators
  * GUI
    - new completely rewritten Qt-based GUI with MVC architecture
    - simplified object set
