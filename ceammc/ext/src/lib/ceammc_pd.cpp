@@ -12,10 +12,17 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_pd.h"
+#include "ceammc_atomlist.h"
+
+#include "m_pd.h"
 
 extern "C" {
+#include "g_canvas.h"
 #include "m_imp.h"
+void pd_init();
 }
+
+#include <iostream>
 
 typedef t_object* (*t_newgimme)(t_symbol* s, int argc, t_atom* argv);
 
@@ -67,4 +74,40 @@ void pd::External::bang()
         return;
 
     pd_bang(&obj_->te_g.g_pd);
+}
+
+PureData::PureData()
+{
+    pd_init();
+}
+
+CanvasPtr PureData::createTopCanvas(const char* name)
+{
+    CanvasPtr ptr;
+
+    CanvasMap::iterator it = canvas_map_.find(name);
+    if (it != canvas_map_.end()) {
+        std::cerr << "Canvas exist's: " << name << "\n";
+        return it->second;
+    }
+
+    AtomList l(0.f, 0.f); // x, y
+    l.append(600); // width
+    l.append(400); // height
+    l.append(10); // font size
+
+    t_canvas* cnv = canvas_new(0, gensym(name), l.size(), l.toPdData());
+
+    if (!cnv)
+        return ptr;
+
+    ptr.reset(new Canvas(cnv));
+    canvas_map_[name] = ptr;
+    return ptr;
+}
+
+PureData& PureData::instance()
+{
+    static PureData pd;
+    return pd;
 }

@@ -11,50 +11,32 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef CEAMMC_PD_H
-#define CEAMMC_PD_H
+#ifndef CEAMMC_CANVAS_H
+#define CEAMMC_CANVAS_H
 
-#include "ceammc_canvas.h"
+#include "ceammc_array.h"
 
 #include <boost/shared_ptr.hpp>
 #include <map>
 #include <string>
 
-struct _text;
-typedef struct _text p_object;
+struct _glist;
+struct _symbol;
 
 namespace ceammc {
-namespace pd {
-    class External {
-    private:
-        p_object* obj_;
 
-    public:
-        External(const char* name);
-        ~External();
+typedef boost::shared_ptr<Array> ArrayPtr;
+typedef std::map<_symbol*, ArrayPtr> ArrayMap;
 
-        bool isNull() const;
-        bool connectTo(int outn, p_object* dest, int inln);
-
-        p_object* object();
-
-        void bang();
-    };
-}
-
-typedef boost::shared_ptr<Canvas> CanvasPtr;
-typedef std::map<std::string, CanvasPtr> CanvasMap;
-
-class PureData {
-    CanvasMap canvas_map_;
+class Canvas {
+    ArrayMap array_list_;
+    _glist* canvas_;
 
 public:
-    static PureData& instance();
-    CanvasPtr createTopCanvas(const char* name);
+    Canvas(_glist* t);
 
-private:
-    PureData();
+    ArrayPtr createArray(const char* name, size_t n);
 };
 }
 
-#endif // CEAMMC_PD_H
+#endif // CEAMMC_CANVAS_H

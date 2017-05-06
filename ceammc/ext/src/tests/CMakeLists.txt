@@ -14,6 +14,7 @@ if(APPLE)
     set(CMAKE_INSTALL_RPATH "@loader_path/../lib")
 endif()
 
+ceammc_add_test("ceammc::Array" test_array)
 ceammc_add_test("ceammc::Atom" test_atom)
 ceammc_add_test("ceammc::AtomList" test_atomlist)
 ceammc_add_test("ceammc::AtomList2" test_atomlist2)

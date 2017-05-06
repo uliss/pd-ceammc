@@ -16,8 +16,10 @@ set(CEAMMC_LIB_SOURCES ceammc.h
     ceammc.c
     ceammc.cpp
     ceammc_gui.h
+    ceammc_array.cpp
     ceammc_atom.cpp
     ceammc_atomlist.cpp
+    ceammc_canvas.cpp
     ceammc_convert.cpp
     ceammc_factory.h
     ceammc_faust.cpp
