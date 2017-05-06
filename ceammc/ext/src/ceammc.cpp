@@ -40,7 +40,7 @@ static void* ceammc_new(t_symbol*)
 
         if (runtime_version < compiled_version) {
             pd_error(0, "[ceammc] WARNING: running on Pd version (%d.%d.%d) "
-                        "that is older then compiled (%d.%d.%d). "
+                        "that is older then ceammc library was compiled for (%d.%d.%d). "
                         "Not all featers can be supported.",
                 major, minor, fix, PD_MAJOR_VERSION, PD_MINOR_VERSION, PD_BUGFIX_VERSION);
         }
