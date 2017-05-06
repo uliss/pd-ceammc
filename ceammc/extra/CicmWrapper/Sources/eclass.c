@@ -21,7 +21,7 @@ static void eclass_properties_dialog(t_eclass* c);
 static void ewidget_init(t_eclass* c);
 static void eclass_attr_ceammc_setter(t_object* x, t_symbol *s, int argc, t_atom *argv);
 
-static t_class* tcl_version_class;
+static t_class* tcl_version_class = 0;
 typedef struct tcl_version {
     t_object x_obj;
     char minor;
@@ -56,7 +56,8 @@ void tcl_version_set(t_tcl_version * x, t_float v) {
     x->major = (char) int_part;
     x->minor = (char) roundf(frac_part * 10);
 
-    post(0, "[ceammc] TCL/Tk version is: %d.%d", x->major, x->minor);
+    if(x->minor != 6)
+        post("[ceammc] TCL/Tk version is: %d.%d", x->major, x->minor);
 }
 
 void tcl_version_init() {
