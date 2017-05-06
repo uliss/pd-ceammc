@@ -267,7 +267,9 @@ ArrayIterator::difference_type ArrayIterator::operator-(const ArrayIterator& it)
     return data_ - it.data_;
 }
 
-ArrayIterator ceammc::operator+(ArrayIterator::difference_type v, const ArrayIterator& it)
+namespace ceammc {
+ArrayIterator operator+(ArrayIterator::difference_type v, const ArrayIterator& it)
 {
     return ArrayIterator(v + it.data_);
+}
 }

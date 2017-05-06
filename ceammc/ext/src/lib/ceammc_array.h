@@ -58,6 +58,8 @@ public:
     friend ArrayIterator operator+(difference_type, const ArrayIterator& it);
 };
 
+ArrayIterator operator+(ArrayIterator::difference_type, const ArrayIterator& it);
+
 typedef float (*FloatValueGenerator)(size_t n);
 
 class Array {
