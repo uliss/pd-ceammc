@@ -16,7 +16,6 @@
 
 ArraySampleToPhase::ArraySampleToPhase(const PdArgs& a)
     : ArrayBase(a)
-    , sr_(0)
 {
     createOutlet();
 }

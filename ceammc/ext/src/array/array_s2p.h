@@ -26,9 +26,6 @@ public:
      */
     void onFloat(t_float sample);
     void onList(const AtomList& lst);
-
-private:
-    t_object* sr_;
 };
 
 #endif // ARRAY_S2P_H
