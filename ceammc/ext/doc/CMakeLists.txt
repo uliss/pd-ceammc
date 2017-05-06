@@ -8,6 +8,7 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/about.pd ${CMAKE_CURRENT_BINARY_DIR}/
 
 set(DOC_FILES
     array.p2s
+    array.s2p
     conv.bpm2hz
     conv.bpm2ms
     conv.bpm2sec

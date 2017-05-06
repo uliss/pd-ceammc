@@ -36,6 +36,7 @@ if(ICONV_FOUND)
 endif()
 
 ceammc_external_test(array p2s)
+ceammc_external_test(array s2p)
 
 ceammc_external_test(conv cc2amp)
 ceammc_external_test(conv lin2exp)

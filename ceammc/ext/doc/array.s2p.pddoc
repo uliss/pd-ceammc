@@ -1,59 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="array.p2s">
-        <title>array.p2s</title>
+    <object name="array.s2p">
+        <title>array.s2p</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>convert array phase [0..1] to sample position</description>
+            <description>convert array sample position to relative phase position [0..1]</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>conv</category>
             <keywords>array phase sample</keywords>
             <also>
-                <see>array.s2p</see>
+                <see>array.p2s</see>
             </also>
             <since>0.2</since>
             <aliases>
-                <alias>array.p-&gt;s</alias>
-                <alias>array.phase-&gt;sample</alias>
+                <alias>array.s-&gt;p</alias>
+                <alias>array.sample-&gt;phase</alias>
             </aliases>
         </meta>
         <info>
-            <par>this object allows to do relative access to array</par>
+            <par>with this object we can get relative position in array</par>
         </info>
         <arguments>
             <argument name="NAME" type="symbol">array name</argument>
         </arguments>
         <inlets>
             <inlet>
-                <xinfo on="float">value between 0 and 1, where 0 maps to begin of array, 1 - to end</xinfo>
+                <xinfo on="float">array sample number</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>sample number</outlet>
+            <outlet>relative position (non-clipped)</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[HS min=0 max=1]       [array array1 size=100 w=200 h=150]
+[HS min=0 max=100]       [array array1 size=100 w=100 h=70]
+|
+[F]
+|
+[array.s->p array1]
 |
 [F]
 |
 [array.p->s array1]
 |
 [F]
-|
-[tabread array1]
-|
-[F]
-
-[loadbang]
-|
-[sinesum 100 0.5 0.2 0.1 0.3(
-|
-[s array1]
 ]]>
             </pdascii>
         </example>

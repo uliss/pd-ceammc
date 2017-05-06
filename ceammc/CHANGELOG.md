@@ -5,4 +5,4 @@
 - array.phase->sample fix with lists argument
 - array.phase->sample clip phase to [0, 1] range
 - array.phase->sample help file added
-
+- array.sample->phase help file added
