@@ -72,6 +72,14 @@ bool Array::update()
     return open(name_);
 }
 
+void Array::redraw()
+{
+    if (!isValid())
+        return;
+
+    garray_redraw(array_);
+}
+
 bool Array::isValid() const
 {
     return array_ != 0;

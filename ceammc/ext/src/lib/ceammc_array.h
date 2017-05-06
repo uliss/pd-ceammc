@@ -89,6 +89,11 @@ public:
      */
     bool update();
 
+    /**
+     * You should call this function after all array operation, to update array graphics view
+     */
+    void redraw();
+
     bool isValid() const;
     bool open(_symbol* name);
     bool open(const char* name);
