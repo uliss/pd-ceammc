@@ -64,6 +64,14 @@ const Array::iterator Array::end() const
     return ArrayIterator(data_ + size_);
 }
 
+bool Array::update()
+{
+    if (!name_)
+        return false;
+
+    return open(name_);
+}
+
 bool Array::isValid() const
 {
     return array_ != 0;

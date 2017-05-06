@@ -14,7 +14,7 @@
 #ifndef ARRAY_BASE_H
 #define ARRAY_BASE_H
 
-#include "ceammc_factory.h"
+#include "ceammc_array.h"
 #include "ceammc_object.h"
 
 using namespace ceammc;
@@ -24,9 +24,7 @@ public:
     ArrayBase(const PdArgs& a);
 
 protected:
-    t_symbol* name_;
-    t_garray* findArray(t_symbol* s) const;
-    long arraySize() const;
+    Array array_;
 };
 
 #endif // ARRAY_BASE_H

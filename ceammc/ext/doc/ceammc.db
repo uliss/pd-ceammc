@@ -1,3 +1,4 @@
+array.p2s,array.p->s,array.phase->sample		.		.
 conv.bpm2hz,bpm->hz		.		.
 conv.bpm2ms,bpm->ms		.		.
 conv.bpm2sec,bpm->sec		.		.

@@ -12,6 +12,13 @@
  * this file belongs to.
  *****************************************************************************/
 #include "array_p2s.h"
+#include "ceammc_convert.h"
+#include "ceammc_factory.h"
+
+static t_float phaseClipMinMax(t_float v)
+{
+    return clip<t_float>(v, 0, 1);
+}
 
 ArrayPhaseToSample::ArrayPhaseToSample(const PdArgs& a)
     : ArrayBase(a)
@@ -21,12 +28,14 @@ ArrayPhaseToSample::ArrayPhaseToSample(const PdArgs& a)
 
 void ArrayPhaseToSample::onFloat(t_float phase)
 {
-    floatTo(0, phase * arraySize());
+    array_.update();
+    floatTo(0, phaseClipMinMax(phase) * array_.size());
 }
 
 void ArrayPhaseToSample::onList(const AtomList& lst)
 {
-    listTo(0, lst.filtered(isFloat) * arraySize());
+    array_.update();
+    listTo(0, lst.filtered(isFloat).map(phaseClipMinMax) * array_.size());
 }
 
 extern "C" void setup_array0x2ep2s()

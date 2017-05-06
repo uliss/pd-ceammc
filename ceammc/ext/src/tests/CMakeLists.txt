@@ -35,6 +35,8 @@ if(ICONV_FOUND)
     target_link_libraries(test_string ${ICONV_LIBRARIES})
 endif()
 
+ceammc_external_test(array p2s)
+
 ceammc_external_test(conv cc2amp)
 ceammc_external_test(conv lin2exp)
 ceammc_external_test(conv lin2lin)

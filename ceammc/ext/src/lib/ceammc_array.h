@@ -81,6 +81,12 @@ public:
     iterator end();
     const iterator end() const;
 
+    /**
+     * You should call this function every time before other function, to assure that array was not
+     * resized or deleted.
+     */
+    bool update();
+
     bool isValid() const;
     bool open(_symbol* name);
     bool open(const char* name);
