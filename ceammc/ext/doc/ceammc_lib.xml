@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library xmlns:xi="http://www.w3.org/2001/XInclude" name="ceammc" version="1.0">
+  <category name="array">
+    <entry descr="process each array elements via side-chain" name="array.each" ref_view="object">
+      <xi:include href="array.each.pddoc" parse="xml"/>
+    </entry>
+  </category>
   <category name="conv">
     <entry descr="convert array phase [0..1] to sample position" name="array.p2s" ref_view="object">
       <xi:include href="array.p2s.pddoc" parse="xml"/>
