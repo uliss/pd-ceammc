@@ -7,6 +7,7 @@ macro(ceammc_array_extension name)
 endmacro()
 
 ceammc_array_extension(each)
+ceammc_array_extension(fill)
 ceammc_array_extension(p2s)
 ceammc_array_extension(s2p)
 
