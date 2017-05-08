@@ -12,10 +12,15 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_canvas.h"
+#include "ceammc_object.h"
 
 #include "m_pd.h"
 
+extern "C" {
 #include "g_canvas.h"
+#include "m_imp.h"
+void pd_init();
+}
 
 using namespace ceammc;
 
@@ -37,4 +42,18 @@ ArrayPtr Canvas::createArray(const char* name, size_t n)
 
     ptr.reset(new Array(name));
     return ptr;
+}
+
+bool Canvas::connect(t_object* src, size_t nout, t_object* dest, size_t ninl)
+{
+    if (!src || !dest)
+        return false;
+
+    t_outconnect* c = obj_connect(src, nout, dest, ninl);
+    return c != 0;
+}
+
+bool Canvas::connect(const BaseObject& src, size_t nout, BaseObject& dest, size_t ninl)
+{
+    return connect(src.owner(), nout, dest.owner(), ninl);
 }

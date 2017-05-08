@@ -22,9 +22,12 @@
 
 struct _glist;
 struct _symbol;
+struct _text;
+typedef struct _text t_object;
 
 namespace ceammc {
 
+class BaseObject;
 typedef boost::shared_ptr<Array> ArrayPtr;
 typedef std::map<_symbol*, ArrayPtr> ArrayMap;
 
@@ -36,6 +39,9 @@ public:
     Canvas(_glist* t);
 
     ArrayPtr createArray(const char* name, size_t n);
+
+    static bool connect(t_object* src, size_t nout, t_object* dest, size_t ninl);
+    static bool connect(const BaseObject& src, size_t nout, BaseObject& dest, size_t ninl);
 };
 }
 

@@ -28,14 +28,16 @@ typedef t_object* (*t_newgimme)(t_symbol* s, int argc, t_atom* argv);
 
 using namespace ceammc;
 
-pd::External::External(const char* name)
+pd::External::External(const char* name, const AtomList& lst)
     : obj_(0)
 {
     t_symbol* OBJ_NAME = gensym(name);
     t_methodentry* m = pd_objectmaker->c_methods;
     for (int i = 0; i < pd_objectmaker->c_nmethod; i++) {
-        if (m[i].me_name == OBJ_NAME)
-            obj_ = (*((t_newgimme)(m[i].me_fun)))(OBJ_NAME, 0, 0);
+        if (m[i].me_name == OBJ_NAME) {
+            t_atom* al = lst.toPdData();
+            obj_ = (*((t_newgimme)(m[i].me_fun)))(OBJ_NAME, lst.size(), al);
+        }
     }
 }
 

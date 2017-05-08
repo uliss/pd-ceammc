@@ -35,6 +35,7 @@ if(ICONV_FOUND)
     target_link_libraries(test_string ${ICONV_LIBRARIES})
 endif()
 
+ceammc_external_test(array each)
 ceammc_external_test(array p2s)
 ceammc_external_test(array s2p)
 

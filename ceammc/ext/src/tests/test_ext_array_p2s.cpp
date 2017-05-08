@@ -47,6 +47,7 @@ TEST_CASE("array.p2s", "[externals]")
             ArrayPhaseToSampleTest t("array.p2s");
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
+            REQUIRE_PROPERTY_NONE(t, @array);
 
             ON_FLOAT_REQUIRE(0, t, 0);
             ON_FLOAT_REQUIRE(0.5, t, 0);
@@ -58,6 +59,8 @@ TEST_CASE("array.p2s", "[externals]")
         SECTION("symbol arguments")
         {
             ArrayPhaseToSampleTest t("array.p2s", A("array1"));
+            REQUIRE_PROPERTY(t, @array, "array1");
+
             ON_FLOAT_REQUIRE(0, t, 0);
             ON_FLOAT_REQUIRE(0.5, t, 5);
             ON_FLOAT_REQUIRE(1, t, 10);

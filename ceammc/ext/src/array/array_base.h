@@ -20,11 +20,28 @@
 using namespace ceammc;
 
 class ArrayBase : public BaseObject {
+    t_symbol* array_name_;
+
 public:
     ArrayBase(const PdArgs& a);
 
+    bool setArray(t_symbol* s);
+    bool check();
+
 protected:
     Array array_;
+
+private:
+    AtomList propArray() const;
+    void propSetArray(const AtomList& l);
+};
+
+class ArrayMod : public ArrayBase {
+    BoolProperty* redraw_;
+
+public:
+    ArrayMod(const PdArgs& a);
+    bool shouldRedraw() const;
 };
 
 #endif // ARRAY_BASE_H

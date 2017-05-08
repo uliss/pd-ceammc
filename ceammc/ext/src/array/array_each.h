@@ -17,7 +17,7 @@
 #include "array_base.h"
 #include "ceammc_object.h"
 
-class ArrayEach : public ArrayBase {
+class ArrayEach : public ArrayMod {
     size_t idx_;
 
 public:

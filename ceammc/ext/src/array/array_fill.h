@@ -18,14 +18,13 @@
 
 using namespace ceammc;
 
-class ArrayFill : public ArrayBase {
+class ArrayFill : public ArrayMod {
     size_t idx_;
 
 public:
     ArrayFill(const PdArgs& a);
     void onBang();
     void onSymbol(t_symbol* s);
-
     void onInlet(size_t n, const AtomList& lst);
 
 private:

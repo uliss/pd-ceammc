@@ -14,6 +14,7 @@
 #ifndef CEAMMC_PD_H
 #define CEAMMC_PD_H
 
+#include "ceammc_atomlist.h"
 #include "ceammc_canvas.h"
 
 #include <boost/shared_ptr.hpp>
@@ -21,22 +22,24 @@
 #include <string>
 
 struct _text;
-typedef struct _text p_object;
+typedef struct _text t_object;
 
 namespace ceammc {
 namespace pd {
     class External {
     private:
-        p_object* obj_;
+        t_object* obj_;
 
     public:
-        External(const char* name);
+        External(const char* name, const AtomList& lst = AtomList());
         ~External();
 
         bool isNull() const;
-        bool connectTo(int outn, p_object* dest, int inln);
 
-        p_object* object();
+        // connect this object outlet to external object ilnet
+        bool connectTo(int outn, t_object* dest, int inln);
+
+        t_object* object();
 
         void bang();
     };

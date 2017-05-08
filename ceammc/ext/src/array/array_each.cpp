@@ -15,7 +15,7 @@
 #include "ceammc_factory.h"
 
 ArrayEach::ArrayEach(const PdArgs& a)
-    : ArrayBase(a)
+    : ArrayMod(a)
     , idx_(0)
 {
     createInlet();
@@ -25,10 +25,8 @@ ArrayEach::ArrayEach(const PdArgs& a)
 
 void ArrayEach::onBang()
 {
-    if (!array_.update()) {
-        OBJ_ERR << "invalid array: " << array_.name();
+    if (!check())
         return;
-    }
 
     outputEach();
     finish();
@@ -36,10 +34,8 @@ void ArrayEach::onBang()
 
 void ArrayEach::onSymbol(t_symbol* s)
 {
-    if (!array_.open(s)) {
-        OBJ_ERR << "invalid array: " << s->s_name;
+    if (!setArray(s))
         return;
-    }
 
     outputEach();
     finish();
@@ -61,6 +57,7 @@ void ArrayEach::outputEach()
 
 void ArrayEach::finish()
 {
+
     array_.redraw();
     bangTo(0);
 }

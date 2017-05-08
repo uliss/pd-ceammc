@@ -15,7 +15,7 @@
 #include "ceammc_factory.h"
 
 ArrayFill::ArrayFill(const PdArgs& a)
-    : ArrayBase(a)
+    : ArrayMod(a)
     , idx_(0)
 {
     createInlet();
@@ -25,10 +25,8 @@ ArrayFill::ArrayFill(const PdArgs& a)
 
 void ArrayFill::onBang()
 {
-    if (!array_.update()) {
-        OBJ_ERR << "invalid array: " << array_.name();
+    if (!check())
         return;
-    }
 
     outputIndexes();
     finish();
@@ -36,10 +34,8 @@ void ArrayFill::onBang()
 
 void ArrayFill::onSymbol(t_symbol* s)
 {
-    if (!array_.open(s)) {
-        OBJ_ERR << "invalid array: " << s->s_name;
+    if (!setArray(s))
         return;
-    }
 
     outputIndexes();
     finish();
@@ -62,7 +58,9 @@ void ArrayFill::outputIndexes()
 
 void ArrayFill::finish()
 {
-    array_.redraw();
+    if (shouldRedraw())
+        array_.redraw();
+
     bangTo(0);
 }
 
