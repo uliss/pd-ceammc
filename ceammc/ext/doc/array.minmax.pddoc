@@ -29,7 +29,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[B]                            [array array1 size=100 w=130 h=100]
+[B]                            [array array1 size=100 w=180 h=130]
 |
 [array.minmax array1]
 |                ^|

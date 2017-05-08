@@ -4,6 +4,8 @@
 #X obj 79 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 30 116 array.each;
 #X text 175 116 process each array elements via side-chain;
+#X obj 30 143 array.minmax;
+#X text 175 143 find array min and max element value;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::array 20 20 0 20 -104026
 -4096 0;
 #X obj 1 458 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
