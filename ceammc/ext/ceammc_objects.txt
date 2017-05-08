@@ -1,5 +1,8 @@
+_tcl.version
 and
 approx
+array.each
+array.fill
 array.p->s
 array.p2s
 array.phase->sample

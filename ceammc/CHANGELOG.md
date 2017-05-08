@@ -9,3 +9,4 @@
 - array.phase->sample help file added
 - array.sample->phase help file added
 - array.each added
+- array.fill added
