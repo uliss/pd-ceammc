@@ -29,6 +29,7 @@
         <inlets>
             <inlet>
                 <xinfo on="float">value between 0 and 1, where 0 maps to begin of array, 1 - to end</xinfo>
+                <xinfo on="list">list of phases</xinfo>
             </inlet>
         </inlets>
         <outlets>

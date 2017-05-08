@@ -29,6 +29,7 @@
         <inlets>
             <inlet>
                 <xinfo on="float">array sample number</xinfo>
+                <xinfo on="list">list of sample numbers</xinfo>
             </inlet>
         </inlets>
         <outlets>
