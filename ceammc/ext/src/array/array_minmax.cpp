@@ -20,6 +20,7 @@ ArrayMinMax::ArrayMinMax(const PdArgs& a)
     : ArrayBase(a)
 {
     createOutlet();
+    createOutlet();
 }
 
 void ArrayMinMax::onBang()
@@ -32,7 +33,12 @@ void ArrayMinMax::onBang()
     if (minmax.first == array_.end())
         return;
 
+    listTo(1, AtomList(minmax.first - array_.begin(), minmax.second - array_.begin()));
     listTo(0, AtomList(*minmax.first, *minmax.second));
+}
+
+void ArrayMinMax::onSymbol(t_symbol* s)
+{
 }
 
 extern "C" void setup_array0x2eminmax()

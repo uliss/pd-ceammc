@@ -37,6 +37,7 @@ endif()
 
 ceammc_external_test(array each)
 ceammc_external_test(array fill)
+ceammc_external_test(array minmax)
 ceammc_external_test(array p2s)
 ceammc_external_test(array s2p)
 

@@ -10,3 +10,4 @@
 - array.sample->phase help file added
 - array.each added
 - array.fill added
+- array.minmax added

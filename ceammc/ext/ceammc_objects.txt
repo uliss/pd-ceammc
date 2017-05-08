@@ -3,6 +3,7 @@ and
 approx
 array.each
 array.fill
+array.minmax
 array.p->s
 array.p2s
 array.phase->sample

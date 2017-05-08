@@ -4,6 +4,9 @@
     <entry descr="process each array elements via side-chain" name="array.each" ref_view="object">
       <xi:include href="array.each.pddoc" parse="xml"/>
     </entry>
+    <entry descr="find array min and max element value" name="array.minmax" ref_view="object">
+      <xi:include href="array.minmax.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="conv">
     <entry descr="convert array phase [0..1] to sample position" name="array.p2s" ref_view="object">

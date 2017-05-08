@@ -22,6 +22,7 @@ class ArrayMinMax : public ArrayBase {
 public:
     ArrayMinMax(const PdArgs& a);
     void onBang();
+    void onSymbol(t_symbol* s);
 };
 
 #endif // ARRAY_MINMAX_H
