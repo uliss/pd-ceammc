@@ -23,6 +23,9 @@ public:
     ArrayMinMax(const PdArgs& a);
     void onBang();
     void onSymbol(t_symbol* s);
+
+private:
+    void perform();
 };
 
 #endif // ARRAY_MINMAX_H

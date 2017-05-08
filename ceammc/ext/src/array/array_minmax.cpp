@@ -28,6 +28,19 @@ void ArrayMinMax::onBang()
     if (!check())
         return;
 
+    perform();
+}
+
+void ArrayMinMax::onSymbol(t_symbol* s)
+{
+    if (!setArray(s))
+        return;
+
+    perform();
+}
+
+void ArrayMinMax::perform()
+{
     std::pair<ArrayIterator, ArrayIterator> minmax = boost::minmax_element(array_.begin(), array_.end());
 
     if (minmax.first == array_.end())
@@ -35,10 +48,6 @@ void ArrayMinMax::onBang()
 
     listTo(1, AtomList(minmax.first - array_.begin(), minmax.second - array_.begin()));
     listTo(0, AtomList(*minmax.first, *minmax.second));
-}
-
-void ArrayMinMax::onSymbol(t_symbol* s)
-{
 }
 
 extern "C" void setup_array0x2eminmax()
