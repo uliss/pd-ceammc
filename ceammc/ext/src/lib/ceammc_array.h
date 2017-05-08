@@ -43,6 +43,7 @@ public:
     bool operator<=(const ArrayIterator& it) const { return data_ <= it.data_; }
 
     float& operator*();
+    const float& operator*() const;
     float& operator[](const size_t n);
 
     ArrayIterator& operator++();

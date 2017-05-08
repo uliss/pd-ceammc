@@ -217,6 +217,11 @@ float& ArrayIterator::operator*()
     return data_->w_float;
 }
 
+const float& ArrayIterator::operator*() const
+{
+    return data_->w_float;
+}
+
 float& ArrayIterator::operator[](const size_t n)
 {
     return data_[n].w_float;
