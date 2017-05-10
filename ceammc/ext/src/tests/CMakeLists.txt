@@ -35,6 +35,7 @@ if(ICONV_FOUND)
     target_link_libraries(test_string ${ICONV_LIBRARIES})
 endif()
 
+ceammc_external_test(array copy)
 ceammc_external_test(array each)
 ceammc_external_test(array fill)
 ceammc_external_test(array minmax)

@@ -6,6 +6,7 @@ macro(ceammc_array_extension name)
     list(APPEND ARRAY_SOURCES "array_${name}.cpp")
 endmacro()
 
+ceammc_array_extension(copy)
 ceammc_array_extension(each)
 ceammc_array_extension(fill)
 ceammc_array_extension(minmax)

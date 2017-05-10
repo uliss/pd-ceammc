@@ -160,8 +160,7 @@ bool Array::resize(size_t n)
         return false;
 
     garray_resize_long(array_, n);
-    size_ = n;
-    return true;
+    return update();
 }
 
 void Array::copyFrom(const float* src, size_t n)
