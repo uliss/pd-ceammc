@@ -103,7 +103,7 @@ void ArrayCopy::copyRange(t_symbol* src, const Range& range, t_symbol* dest, siz
         return;
 
     // invalid from position
-    if (range.from >= in.size()) {
+    if (range.from >= in.size() || !range.isValid()) {
         OBJ_ERR << "invalid range: " << range.from << '-' << range.to;
         return;
     }
@@ -118,9 +118,12 @@ void ArrayCopy::copyRange(t_symbol* src, const Range& range, t_symbol* dest, siz
             return;
         }
 
-        Range out_range = Range(destpos, destpos + clip_in_range.length()).clip(out.size());
-        Range in_range = Range(range.from, range.from + out_range.length());
-        std::copy(in.begin() + in_range.from, in.begin() + in_range.to, out.begin() + destpos);
+        Range in_range = range.clip(in.size());
+        Range out_range = Range(destpos, destpos + in_range.length()).clip(out.size());
+        ArrayIterator in_from = in.begin() + in_range.from;
+        ArrayIterator in_to = in_from + out_range.length();
+        ArrayIterator out_from = out.begin() + destpos;
+        std::copy(in_from, in_to, out_from);
     } else {
         Range out_range = Range(destpos, destpos + clip_in_range.length());
         if (out_range.to >= out.size())

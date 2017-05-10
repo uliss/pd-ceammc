@@ -24,6 +24,17 @@ using namespace ceammc;
 
 static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
 
+#define RESET_DATA() \
+    b.resize(3);     \
+    a[0] = 1;        \
+    a[1] = 2;        \
+    a[2] = 3;        \
+    a[3] = 4;        \
+    a[4] = 5;        \
+    b[0] = 20;       \
+    b[1] = 19;       \
+    b[2] = 18;
+
 TEST_CASE("array.copy", "[externals]")
 {
     SECTION("empty")
@@ -110,5 +121,142 @@ TEST_CASE("array.copy", "[externals]")
         REQUIRE(b[2] == 3.f);
         REQUIRE(b[3] == 4.f);
         REQUIRE(b[4] == 5.f);
+    }
+
+    SECTION("range copy 4 args")
+    {
+        SECTION("invalid arrays")
+        {
+            ArrayCopyTest t("array.copy");
+            WHEN_CALL_4(t, copy, "a", 0.f, 4, "???");
+            REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+
+            WHEN_CALL_4(t, copy, "???", 0.f, 4, "???");
+            REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+
+            WHEN_CALL_4(t, copy, "???", 0.f, 4, "b");
+            REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+        }
+
+        SECTION("invalid range")
+        {
+            ArrayCopyTest t("array.copy");
+            WHEN_CALL_4(t, copy, "a", 5, 6, "b");
+            REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+
+            WHEN_CALL_4(t, copy, "a", 3, 2, "b");
+            REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+        }
+
+        SECTION("no resize")
+        {
+            ArrayCopyTest t("array.copy");
+            Array a("a");
+            Array b("b");
+
+            RESET_DATA();
+
+            WHEN_CALL_4(t, copy, "a", 0.f, 4, "b");
+            REQUIRE_BANG_AT_OUTLET(0, t);
+
+            REQUIRE(b.size() == 3);
+            REQUIRE(b[0] == 1.f);
+            REQUIRE(b[1] == 2.f);
+            REQUIRE(b[2] == 3.f);
+
+            WHEN_CALL_4(t, copy, "a", 2, 4, "b");
+            REQUIRE_BANG_AT_OUTLET(0, t);
+
+            REQUIRE(b.size() == 3);
+            REQUIRE(b[0] == 3.f); // changed
+            REQUIRE(b[1] == 4.f);
+            REQUIRE(b[2] == 3.f); // same
+
+            RESET_DATA();
+            WHEN_CALL_4(t, copy, "a", 2, 16, "b");
+            REQUIRE_BANG_AT_OUTLET(0, t);
+
+            REQUIRE(b.size() == 3);
+            REQUIRE(b[0] == 3.f); // changed
+            REQUIRE(b[1] == 4.f);
+            REQUIRE(b[2] == 5.f);
+        }
+    }
+
+    SECTION("range copy 5 args")
+    {
+        SECTION("invalid arrays")
+        {
+            ArrayCopyTest t("array.copy");
+            WHEN_CALL_5(t, copy, "a", 0.f, 4, "???", 1);
+            REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+
+            WHEN_CALL_5(t, copy, "???", 0.f, 4, "???", 1);
+            REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+
+            WHEN_CALL_5(t, copy, "???", 0.f, 4, "b", 1);
+            REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+        }
+
+        SECTION("invalid range")
+        {
+            ArrayCopyTest t("array.copy");
+
+            // wrong src
+            WHEN_CALL_5(t, copy, "a", 5, 6, "b", 2);
+            REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+
+            // negative range
+            WHEN_CALL_5(t, copy, "a", 3, 2, "b", 2);
+            REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+
+            // wrong dest
+            WHEN_CALL_5(t, copy, "a", 1, 5, "b", 3);
+            REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+        }
+
+        SECTION("no resize")
+        {
+            ArrayCopyTest t("array.copy");
+            Array a("a");
+            Array b("b");
+
+            RESET_DATA();
+
+            WHEN_CALL_5(t, copy, "a", 0.f, 4, "b", 1);
+            REQUIRE_BANG_AT_OUTLET(0, t);
+
+            REQUIRE(b.size() == 3);
+            REQUIRE(b[0] == 20.f);
+            REQUIRE(b[1] == 1.f);
+            REQUIRE(b[2] == 2.f);
+
+            RESET_DATA();
+            WHEN_CALL_5(t, copy, "a", 0.f, 16, "b", 2);
+            REQUIRE_BANG_AT_OUTLET(0, t);
+
+            REQUIRE(b.size() == 3);
+            REQUIRE(b[0] == 20.f);
+            REQUIRE(b[1] == 19.f);
+            REQUIRE(b[2] == 1.f);
+
+            RESET_DATA();
+            WHEN_CALL_5(t, copy, "a", 4, 16, "b", 1);
+            REQUIRE_BANG_AT_OUTLET(0, t);
+
+            REQUIRE(b.size() == 3);
+            REQUIRE(b[0] == 20.f);
+            REQUIRE(b[1] == 5.f);
+            REQUIRE(b[2] == 18.f);
+
+            RESET_DATA();
+            WHEN_CALL_5(t, copy, "a", 0.f, 5, "b", 0.f);
+            REQUIRE_BANG_AT_OUTLET(0, t);
+
+            REQUIRE(b.size() == 3);
+            REQUIRE(b[0] == 1.f);
+            REQUIRE(b[1] == 2.f);
+            REQUIRE(b[2] == 3.f);
+        }
     }
 }
