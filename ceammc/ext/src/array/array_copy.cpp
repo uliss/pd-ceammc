@@ -17,6 +17,7 @@
 
 #include <algorithm>
 #include <cassert>
+#include <limits>
 
 ArrayCopy::ArrayCopy(const PdArgs& a)
     : BaseObject(a)
@@ -50,6 +51,15 @@ void ArrayCopy::m_copy(t_symbol*, const AtomList& lst)
         && lst[3].isSymbol()) {
         Range in_range(lst[1].asInt(), lst[2].asInt());
         return copyRange(lst[0].asSymbol(), in_range, lst[3].asSymbol(), 0);
+    }
+
+    /// copy array1 0 array2
+    if (lst.size() == 3
+        && lst[0].isSymbol()
+        && lst[1].isFloat()
+        && lst[2].isSymbol()) {
+        Range in_range(lst[1].asInt(), std::numeric_limits<size_t>::max());
+        return copyRange(lst[0].asSymbol(), in_range, lst[2].asSymbol(), 0);
     }
 
     if (lst.size() == 5

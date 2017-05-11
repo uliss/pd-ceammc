@@ -312,4 +312,29 @@ TEST_CASE("array.copy", "[externals]")
             REQUIRE(b[5] == 3.f);
         }
     }
+
+    SECTION("range copy 3 args")
+    {
+        ArrayCopyTest t("array.copy");
+        Array a("a");
+        Array b("b");
+
+        RESET_DATA();
+
+        WHEN_CALL_3(t, copy, "a", 3, "b");
+        b.update();
+        REQUIRE(b.size() == 3);
+        REQUIRE(b[0] == 4.f);
+        REQUIRE(b[1] == 5.f);
+        REQUIRE(b[2] == 18.f);
+
+        RESET_DATA();
+
+        WHEN_CALL_3(t, copy, "a", 1, "b");
+        b.update();
+        REQUIRE(b.size() == 3);
+        REQUIRE(b[0] == 2.f);
+        REQUIRE(b[1] == 3.f);
+        REQUIRE(b[2] == 4.f);
+    }
 }
