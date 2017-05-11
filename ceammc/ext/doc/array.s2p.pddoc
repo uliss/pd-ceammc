@@ -6,7 +6,8 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>convert array sample position to relative phase position [0..1]</description>
+            <description>convert array sample position to relative phase position
+            [0..1]</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>conv</category>

@@ -1,3 +1,4 @@
+array.copy		.		.
 array.each		..		..
 array.minmax		.		..
 array.p2s,array.p->s,array.phase->sample		.		.

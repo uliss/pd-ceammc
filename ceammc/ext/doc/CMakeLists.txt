@@ -7,6 +7,7 @@ find_program(TIDY tidy)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/about.pd ${CMAKE_CURRENT_BINARY_DIR}/about.pd @ONLY)
 
 set(DOC_FILES
+    array.copy
     array.each
     array.minmax
     array.p2s

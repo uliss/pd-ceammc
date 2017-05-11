@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="array.copy">
+        <title>array.copy</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>copy samples from one array to another</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>array</category>
+            <keywords>array copy</keywords>
+            <also>
+                <see>array.each</see>
+            </also>
+            <since>0.3</since>
+        </meta>
+        <properties>
+            <property name="@resize" type="int" enum="1 0" default="0">resize of destination array
+            on overflow</property>
+        </properties>
+        <methods>
+            <method name="copy">copy whole array content 
+            <param name="SRC" type="symbol" required="true">name of source array</param>
+            <param name="DEST" type="symbol" required="true">name of destination
+            array</param></method>
+            <method name="copy">copy array content from specified position till end 
+            <param name="SRC" type="symbol" required="true">name of source array</param>
+            <param name="FROM" type="int" required="true">source start position</param>
+            <param name="DEST" type="symbol" required="true">name of destination
+            array</param></method>
+            <method name="copy">copy array content from specified range 
+            <param name="SRC" type="symbol" required="true">name of source array</param>
+            <param name="FROM" type="int" required="true">source start range</param>
+            <param name="TO" type="int" required="true">source end range</param>
+            <param name="DEST" type="symbol" required="true">name of destination
+            array</param></method>
+            <method name="copy">copy array content from specified range and to specified
+            destination position 
+            <param name="SRC" type="symbol" required="true">name of source array</param>
+            <param name="FROM" type="int" required="true">source start range</param>
+            <param name="TO" type="int" required="true">source end range</param>
+            <param name="DEST" type="symbol" required="true">name of destination array</param>
+            <param name="DEST_FROM" type="int" required="true">destination start
+            position</param></method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="list">FROM, TO - copy data from one array to another</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>bang on finish</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[array A1 size=100 w=130 h=100] [array A2 size=20 w=130 h=100]
+
+
+
+
+
+
+
+              [copy A1 10 20 A2( [copy A1 5 20 A2 15(
+              |                  |
+[copy A1 A2(  |  [copy A1 40 A2( |
+|             |  |               |
+[array.copy                      ]
+|
+[B]
+
+[loadbang]
+|
+[sinesum 100 0.5 0.2 0 0.1 0.4(
+|
+[s A1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
