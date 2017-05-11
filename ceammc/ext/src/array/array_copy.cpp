@@ -125,11 +125,21 @@ void ArrayCopy::copyRange(t_symbol* src, const Range& range, t_symbol* dest, siz
         ArrayIterator out_from = out.begin() + destpos;
         std::copy(in_from, in_to, out_from);
     } else {
-        Range out_range = Range(destpos, destpos + clip_in_range.length());
+        if (destpos > out.size()) {
+            OBJ_ERR << "invalid destination position: " << destpos;
+            return;
+        }
+
+        Range in_range = range.clip(in.size());
+        Range out_range = Range(destpos, destpos + in_range.length());
         if (out_range.to >= out.size())
             out.resize(out_range.to);
 
-        std::copy(in.begin() + clip_in_range.from, in.begin() + clip_in_range.to, out.begin() + destpos);
+        ArrayIterator in_from = in.begin() + in_range.from;
+        ArrayIterator in_to = in_from + out_range.length();
+        ArrayIterator out_from = out.begin() + destpos;
+
+        std::copy(in_from, in_to, out_from);
     }
 
     out.redraw();

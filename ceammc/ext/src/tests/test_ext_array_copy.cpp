@@ -159,6 +159,7 @@ TEST_CASE("array.copy", "[externals]")
             WHEN_CALL_4(t, copy, "a", 0.f, 4, "b");
             REQUIRE_BANG_AT_OUTLET(0, t);
 
+            b.update();
             REQUIRE(b.size() == 3);
             REQUIRE(b[0] == 1.f);
             REQUIRE(b[1] == 2.f);
@@ -167,6 +168,7 @@ TEST_CASE("array.copy", "[externals]")
             WHEN_CALL_4(t, copy, "a", 2, 4, "b");
             REQUIRE_BANG_AT_OUTLET(0, t);
 
+            b.update();
             REQUIRE(b.size() == 3);
             REQUIRE(b[0] == 3.f); // changed
             REQUIRE(b[1] == 4.f);
@@ -176,10 +178,33 @@ TEST_CASE("array.copy", "[externals]")
             WHEN_CALL_4(t, copy, "a", 2, 16, "b");
             REQUIRE_BANG_AT_OUTLET(0, t);
 
+            b.update();
             REQUIRE(b.size() == 3);
             REQUIRE(b[0] == 3.f); // changed
             REQUIRE(b[1] == 4.f);
             REQUIRE(b[2] == 5.f);
+        }
+
+        SECTION("resize")
+        {
+            ArrayCopyTest t("array.copy", L1("@resize"));
+            Array a("a");
+            Array b("b");
+
+            RESET_DATA();
+
+            WHEN_CALL_4(t, copy, "a", 0.f, 10, "b");
+            REQUIRE_BANG_AT_OUTLET(0, t);
+
+            b.update();
+            REQUIRE(b.size() == 5);
+            REQUIRE(b[0] == 1.f);
+            REQUIRE(b[1] == 2.f);
+            REQUIRE(b[2] == 3.f);
+            REQUIRE(b[3] == 4.f);
+            REQUIRE(b[4] == 5.f);
+
+            RESET_DATA();
         }
     }
 
@@ -226,6 +251,7 @@ TEST_CASE("array.copy", "[externals]")
             WHEN_CALL_5(t, copy, "a", 0.f, 4, "b", 1);
             REQUIRE_BANG_AT_OUTLET(0, t);
 
+            b.update();
             REQUIRE(b.size() == 3);
             REQUIRE(b[0] == 20.f);
             REQUIRE(b[1] == 1.f);
@@ -235,6 +261,7 @@ TEST_CASE("array.copy", "[externals]")
             WHEN_CALL_5(t, copy, "a", 0.f, 16, "b", 2);
             REQUIRE_BANG_AT_OUTLET(0, t);
 
+            b.update();
             REQUIRE(b.size() == 3);
             REQUIRE(b[0] == 20.f);
             REQUIRE(b[1] == 19.f);
@@ -244,6 +271,7 @@ TEST_CASE("array.copy", "[externals]")
             WHEN_CALL_5(t, copy, "a", 4, 16, "b", 1);
             REQUIRE_BANG_AT_OUTLET(0, t);
 
+            b.update();
             REQUIRE(b.size() == 3);
             REQUIRE(b[0] == 20.f);
             REQUIRE(b[1] == 5.f);
@@ -253,10 +281,35 @@ TEST_CASE("array.copy", "[externals]")
             WHEN_CALL_5(t, copy, "a", 0.f, 5, "b", 0.f);
             REQUIRE_BANG_AT_OUTLET(0, t);
 
+            b.update();
             REQUIRE(b.size() == 3);
             REQUIRE(b[0] == 1.f);
             REQUIRE(b[1] == 2.f);
             REQUIRE(b[2] == 3.f);
+        }
+
+        SECTION("resize")
+        {
+            ArrayCopyTest t("array.copy", L1("@resize"));
+            Array a("a");
+            Array b("b");
+
+            RESET_DATA();
+
+            WHEN_CALL_5(t, copy, "a", 0.f, 4, "b", 4);
+            REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+
+            WHEN_CALL_5(t, copy, "a", 0.f, 3, "b", 3);
+            REQUIRE_BANG_AT_OUTLET(0, t);
+
+            b.update();
+            REQUIRE(b.size() == 6);
+            REQUIRE(b[0] == 20.f);
+            REQUIRE(b[1] == 19.f);
+            REQUIRE(b[2] == 18.f);
+            REQUIRE(b[3] == 1.f);
+            REQUIRE(b[4] == 2.f);
+            REQUIRE(b[5] == 3.f);
         }
     }
 }
