@@ -11,3 +11,4 @@
 - array.each added
 - array.fill added
 - array.minmax added
+- array.copy added
