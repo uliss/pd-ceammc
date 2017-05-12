@@ -57,7 +57,6 @@ void ArrayFill::m_fill(t_symbol* m, const AtomList& l)
     }
 
     fill_range(0, array_.size(), l);
-    finish();
 }
 
 void ArrayFill::m_range(t_symbol* m, const AtomList& l)
@@ -76,7 +75,6 @@ void ArrayFill::m_range(t_symbol* m, const AtomList& l)
     }
 
     fill_range(from, to, values);
-    finish();
 }
 
 void ArrayFill::fill_range(size_t from, size_t to, const AtomList& l)
