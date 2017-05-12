@@ -23,8 +23,13 @@
         </properties>
         <methods>
             <method name="fill">fill all array with specified value or pattern 
+            <param name="@from" type="int">fill range begin index. If not specified set to
+            0.</param>
+            <param name="@to" type="int">fill range end index. Can be negative - to address from
+            array end. For example: -1 means till last element (not including). If not specified
+            set to array length.</param>
             <param name="VAL1" type="float" required="true">value 1</param>
-            <param name="VALw" type="float">other values..</param></method>
+            <param name="VAL..." type="float">other values..</param></method>
         </methods>
         <inlets>
             <inlet>
@@ -47,8 +52,11 @@
 
 [fill 0.1(  [fill -0.2 0 1 0.5 0.6(
 |           |
-|           |
-[array.fill A1]
+|           | [fill @from 50 0.5 0.6 0.7 0.7 0.8(
+|           | |
+|           | | [fill @from 20 @to -10 -0.5(
+|           | | |
+[array.fill   A1]
 |
 [B]
 ]]>
