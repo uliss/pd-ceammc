@@ -46,24 +46,6 @@ void ArrayFill::m_fill(t_symbol* m, const AtomList& l)
     if (!check())
         return;
 
-    if (l.empty()) {
-        OBJ_ERR << "fill value required";
-        return;
-    }
-
-    if (!l.allOf(isFloat)) {
-        OBJ_ERR << "only float fill values are supported.";
-        return;
-    }
-
-    fill_range(0, array_.size(), l);
-}
-
-void ArrayFill::m_range(t_symbol* m, const AtomList& l)
-{
-    if (!check())
-        return;
-
     size_t from = 0;
     size_t to = 0;
     AtomList values = parseRange(l, &from, &to);
@@ -73,10 +55,10 @@ void ArrayFill::m_range(t_symbol* m, const AtomList& l)
         return;
     }
 
-    fill_range(from, to, values);
+    fillRange(from, to, values);
 }
 
-void ArrayFill::fill_range(size_t from, size_t to, const AtomList& l)
+void ArrayFill::fillRange(size_t from, size_t to, const AtomList& l)
 {
     size_t step = l.size();
     for (size_t i = from; i < to; i++)
@@ -168,6 +150,5 @@ AtomList ArrayFill::parseRange(const AtomList& args, size_t* from, size_t* to) c
 extern "C" void setup_array0x2efill()
 {
     ObjectFactory<ArrayFill> obj("array.fill");
-    obj.addMethod("range", &ArrayFill::m_range);
     obj.addMethod("fill", &ArrayFill::m_fill);
 }

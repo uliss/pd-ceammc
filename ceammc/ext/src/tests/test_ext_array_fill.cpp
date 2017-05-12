@@ -134,55 +134,63 @@ TEST_CASE("array.fill", "[externals]")
         a.resize(5);
         a.fillWith(0.f);
 
-        WHEN_CALL_1(t, range, 1);
+        WHEN_CALL_1(t, fill, 1);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-        WHEN_CALL_2(t, range, 1, 2);
+        WHEN_CALL_2(t, fill, 1, 2);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
         WHEN_SEND_SYMBOL_TO(0, t, "array1");
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
         REQUIRE_PROPERTY(t, @array, A("array1"));
 
+        WHEN_CALL_5(t, fill, "@from", 2, "@to", 3, 10);
+        REQUIRE_BANG_AT_OUTLET(0, t);
+        a.update();
+        REQUIRE(a[0] == 0.f);
+        REQUIRE(a[1] == 0.f);
+        REQUIRE(a[2] == 10.f);
+        REQUIRE(a[3] == 0.f);
+        REQUIRE(a[4] == 0.f);
+
+        WHEN_CALL_1(t, fill, 1);
+        REQUIRE_BANG_AT_OUTLET(0, t);
+        REQUIRE(a[0] == 1.f);
+        REQUIRE(a[1] == 1.f);
+        REQUIRE(a[2] == 1.f);
+        REQUIRE(a[3] == 1.f);
+        REQUIRE(a[4] == 1.f);
         a.fillWith(0.f);
-        WHEN_CALL_5(t, range, "@from", 2, "@to", 3, 10);
+
+        WHEN_CALL_5(t, fill, "@to", 2, "@from", 0.f, 20);
         REQUIRE_BANG_AT_OUTLET(0, t);
+        WHEN_CALL_5(t, fill, "@from", 2, "@to", 3, 10);
 
         a.update();
-        REQUIRE(a[0] == 0);
-        REQUIRE(a[1] == 0);
-        REQUIRE(a[2] == 10);
-        REQUIRE(a[3] == 0);
-        REQUIRE(a[4] == 0);
+        REQUIRE(a[0] == 20.f);
+        REQUIRE(a[1] == 20.f);
+        REQUIRE(a[2] == 10.f);
+        REQUIRE(a[3] == 0.f);
+        REQUIRE(a[4] == 0.f);
 
-        WHEN_CALL_5(t, range, "@to", 2, "@from", 0.f, 20);
-        REQUIRE_BANG_AT_OUTLET(0, t);
-
-        a.update();
-        REQUIRE(a[0] == 20);
-        REQUIRE(a[1] == 20);
-        REQUIRE(a[2] == 10);
-        REQUIRE(a[3] == 0);
-        REQUIRE(a[4] == 0);
-
-        WHEN_CALL_5(t, range, "@from", 4, "@to", 2333, 44);
+        WHEN_CALL_5(t, fill, "@from", 4, "@to", 2333, 44);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-        WHEN_CALL_5(t, range, "@from", 3, "@to", -1, 25);
+        WHEN_CALL_5(t, fill, "@from", 3, "@to", -1, 25);
         REQUIRE_BANG_AT_OUTLET(0, t);
-        REQUIRE(a[0] == 20);
-        REQUIRE(a[0] == 20);
-        REQUIRE(a[2] == 10);
-        REQUIRE(a[3] == 25);
-        REQUIRE(a[4] == 0);
+        REQUIRE(a[0] == 20.f);
+        REQUIRE(a[0] == 20.f);
+        REQUIRE(a[2] == 10.f);
+        REQUIRE(a[3] == 25.f);
+        REQUIRE(a[4] == 0.f);
 
-        WHEN_CALL_5(t, range, "@from", 2, "@to", -2, 24);
+        WHEN_CALL_5(t, fill, "@from", 2, "@to", -2, 24);
         REQUIRE_BANG_AT_OUTLET(0, t);
-        REQUIRE(a[0] == 20);
-        REQUIRE(a[1] == 20);
-        REQUIRE(a[2] == 24);
-        REQUIRE(a[3] == 25);
-        REQUIRE(a[4] == 0);
+        REQUIRE(a[0] == 20.f);
+        REQUIRE(a[1] == 20.f);
+        REQUIRE(a[2] == 24.f);
+        REQUIRE(a[3] == 25.f);
+        REQUIRE(a[4] == 0.f);
     }
 
     SECTION("fill float")
@@ -225,11 +233,11 @@ TEST_CASE("array.fill", "[externals]")
         WHEN_SEND_LIST_TO(0, t, L2(1, 2));
         REQUIRE_BANG_AT_OUTLET(0, t);
 
-        REQUIRE(a[0] == 1);
-        REQUIRE(a[1] == 2);
-        REQUIRE(a[2] == 1);
-        REQUIRE(a[3] == 2);
-        REQUIRE(a[4] == 1);
+        REQUIRE(a[0] == 1.f);
+        REQUIRE(a[1] == 2.f);
+        REQUIRE(a[2] == 1.f);
+        REQUIRE(a[3] == 2.f);
+        REQUIRE(a[4] == 1.f);
     }
 
     SECTION("parse range arguments")
