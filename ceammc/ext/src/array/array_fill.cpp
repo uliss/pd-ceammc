@@ -25,6 +25,22 @@ void ArrayFill::onSymbol(t_symbol* s)
     setArray(s);
 }
 
+void ArrayFill::onFloat(float f)
+{
+    if (!check())
+        return;
+
+    for (size_t i = 0; i < array_.size(); i++)
+        array_[i] = f;
+
+    finish();
+}
+
+void ArrayFill::onList(const AtomList& l)
+{
+    m_fill(gensym("fill"), l);
+}
+
 void ArrayFill::m_fill(t_symbol* m, const AtomList& l)
 {
     if (!check())
@@ -48,8 +64,37 @@ void ArrayFill::m_fill(t_symbol* m, const AtomList& l)
     finish();
 }
 
-void ArrayFill::m_range(t_symbol* m, const AtomList& lst)
+void ArrayFill::m_range(t_symbol* m, const AtomList& l)
 {
+    if (!check())
+        return;
+
+    if (l.empty()) {
+        OBJ_ERR << "usage: " << m->s_name << " FROM TO VALUES...";
+        return;
+    }
+
+    if (!l.allOf(isFloat)) {
+        OBJ_ERR << "only float fill values are supported.";
+        return;
+    }
+
+    size_t from = l[0].asSizeT();
+    ssize_t to = l[1].asInt();
+    if (to < 0)
+        to = array_.size() - to;
+
+    if (from >= to || from >= array_.size()) {
+        OBJ_ERR << "invalid range: " << from << '-' << to;
+        return;
+    }
+
+    size_t step = l.size() - 2;
+    for (size_t i = from; i < to; i++) {
+        array_[i] = l[i % step].asFloat();
+    }
+
+    finish();
 }
 
 void ArrayFill::finish()

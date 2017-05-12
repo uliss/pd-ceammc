@@ -119,4 +119,52 @@ TEST_CASE("array.fill", "[externals]")
         REQUIRE_BANG_AT_OUTLET(0, t);
         REQUIRE(aptr->at(0) == 3.f);
     }
+
+    SECTION("range")
+    {
+    }
+
+    SECTION("fill float")
+    {
+        ArrayFillTest t("array.fill", L1("array2"));
+
+        WHEN_SEND_FLOAT_TO(0, t, 0.1f);
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+
+        WHEN_SEND_SYMBOL_TO(0, t, "array1");
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+
+        Array a("array1");
+        a.resize(5);
+
+        WHEN_SEND_FLOAT_TO(0, t, 0.1f);
+        REQUIRE_BANG_AT_OUTLET(0, t);
+
+        for (size_t i = 0; i < a.size(); i++) {
+            REQUIRE(a[i] == 0.1f);
+        }
+    }
+
+    SECTION("fill list")
+    {
+        ArrayFillTest t("array.fill", L1("array2"));
+
+        WHEN_SEND_LIST_TO(0, t, L2(1, 2));
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+
+        WHEN_SEND_SYMBOL_TO(0, t, "array1");
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+
+        Array a("array1");
+        a.resize(5);
+
+        WHEN_SEND_LIST_TO(0, t, L2(1, 2));
+        REQUIRE_BANG_AT_OUTLET(0, t);
+
+        REQUIRE(a[0] == 1);
+        REQUIRE(a[1] == 2);
+        REQUIRE(a[2] == 1);
+        REQUIRE(a[3] == 2);
+        REQUIRE(a[4] == 1);
+    }
 }

@@ -23,12 +23,13 @@ class ArrayFill : public ArrayMod {
 public:
     ArrayFill(const PdArgs& a);
     void onSymbol(t_symbol* s);
+    void onFloat(float f);
+    void onList(const AtomList& l);
 
     void m_fill(t_symbol* m, const AtomList& l);
-    void m_range(t_symbol* m, const AtomList& lst);
+    void m_range(t_symbol* m, const AtomList& l);
 
 private:
-    void outputIndexes();
     void finish();
 };
 
