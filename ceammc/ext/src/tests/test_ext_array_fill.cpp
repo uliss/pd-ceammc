@@ -71,6 +71,9 @@ TEST_CASE("array.fill", "[externals]")
         for (size_t i = 0; i < aptr->size(); i++)
             REQUIRE(aptr->at(i) == Approx(0.1));
 
+        WHEN_SEND_LIST_TO(0, t, AtomList());
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+
         // pattern
         WHEN_CALL_2(t, fill, 0.1f, 0.2f);
         REQUIRE_BANG_AT_OUTLET(0, t);
@@ -157,6 +160,9 @@ TEST_CASE("array.fill", "[externals]")
 
         Array a("array1");
         a.resize(5);
+
+        WHEN_SEND_LIST_TO(0, t, AtomList());
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
         WHEN_SEND_LIST_TO(0, t, L2(1, 2));
         REQUIRE_BANG_AT_OUTLET(0, t);
