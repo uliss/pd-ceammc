@@ -56,11 +56,7 @@ void ArrayFill::m_fill(t_symbol* m, const AtomList& l)
         return;
     }
 
-    size_t step = l.size();
-    for (size_t i = 0; i < array_.size(); i++) {
-        array_[i] = l[i % step].asFloat();
-    }
-
+    fill_range(0, array_.size(), l);
     finish();
 }
 
@@ -69,30 +65,25 @@ void ArrayFill::m_range(t_symbol* m, const AtomList& l)
     if (!check())
         return;
 
-    if (l.empty()) {
-        OBJ_ERR << "usage: " << m->s_name << " FROM TO VALUES...";
+    size_t from = 0;
+    size_t to = 0;
+    AtomList values = parseRange(l, &from, &to);
+
+    if (values.empty()) {
+        METHOD_ERR(m) << "missing values";
+        METHOD_ERR(m) << "usage: [@from N] [@to N] VALUES...";
         return;
     }
 
-    if (!l.allOf(isFloat)) {
-        OBJ_ERR << "only float fill values are supported.";
-        return;
-    }
+    fill_range(from, to, values);
+    finish();
+}
 
-    size_t from = l[0].asSizeT();
-    ssize_t to = l[1].asInt();
-    if (to < 0)
-        to = array_.size() - to;
-
-    if (from >= to || from >= array_.size()) {
-        OBJ_ERR << "invalid range: " << from << '-' << to;
-        return;
-    }
-
-    size_t step = l.size() - 2;
-    for (size_t i = from; i < to; i++) {
+void ArrayFill::fill_range(size_t from, size_t to, const AtomList& l)
+{
+    size_t step = l.size();
+    for (size_t i = from; i < to; i++)
         array_[i] = l[i % step].asFloat();
-    }
 
     finish();
 }
@@ -103,6 +94,76 @@ void ArrayFill::finish()
         array_.redraw();
 
     bangTo(0);
+}
+
+AtomList ArrayFill::parseRange(const AtomList& args, size_t* from, size_t* to) const
+{
+    AtomList res;
+
+    Atom p_from;
+    Atom p_to;
+
+    size_t num_props = 0;
+
+    if (args.hasProperty("@from")) {
+
+        num_props++;
+
+        if (args.property("@from", &p_from))
+            num_props++;
+    }
+
+    if (args.hasProperty("@to")) {
+
+        num_props++;
+
+        if (args.property("@to", &p_to))
+            num_props++;
+    }
+
+    int n_from = p_from.asInt(0);
+    int n_to = p_to.asInt(array_.size());
+
+    if (n_from < 0) {
+        OBJ_ERR << "@from should be >= 0";
+        return res;
+    }
+
+    if (n_from >= array_.size()) {
+        OBJ_ERR << "@from should be < " << array_.size();
+        return res;
+    }
+
+    if (n_to < 0) {
+        n_to += array_.size();
+        if (n_to < 0) {
+            OBJ_ERR << "invalid @to range";
+            return res;
+        }
+    }
+
+    if (n_to > array_.size()) {
+        OBJ_ERR << "invalid @to range: " << n_to;
+        return res;
+    }
+
+    if (n_from >= n_to) {
+        OBJ_ERR << "invalid range: " << n_from << '-' << n_to;
+        return res;
+    }
+
+    res = args.slice(num_props);
+
+    if (res.empty())
+        return res;
+
+    if (from)
+        *from = size_t(n_from);
+
+    if (to)
+        *to = size_t(n_to);
+
+    return res;
 }
 
 extern "C" void setup_array0x2efill()

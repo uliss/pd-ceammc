@@ -29,7 +29,10 @@ public:
     void m_fill(t_symbol* m, const AtomList& l);
     void m_range(t_symbol* m, const AtomList& l);
 
+    AtomList parseRange(const AtomList& args, size_t* from, size_t* to) const;
+
 private:
+    void fill_range(size_t from, size_t to, const AtomList& l);
     void finish();
 };
 
