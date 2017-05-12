@@ -31,75 +31,92 @@ TEST_CASE("array.fill", "[externals]")
     SECTION("empty")
     {
         ArrayFillTest t("array.fill");
-        REQUIRE(t.numInlets() == 2);
-        REQUIRE(t.numOutlets() == 2);
+        REQUIRE(t.numInlets() == 1);
+        REQUIRE(t.numOutlets() == 1);
         REQUIRE_PROPERTY_NONE(t, @array);
         REQUIRE_PROPERTY(t, @redraw, 1);
 
         WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_NO_MESSAGES_AT_OUTLET(1, t);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
     }
 
     SECTION("invalid")
     {
         ArrayFillTest t("array.fill", L1("non-exists"));
-        REQUIRE(t.numInlets() == 2);
-        REQUIRE(t.numOutlets() == 2);
+        REQUIRE(t.numInlets() == 1);
+        REQUIRE(t.numOutlets() == 1);
         REQUIRE_PROPERTY(t, @array, "non-exists");
         REQUIRE_PROPERTY(t, @redraw, 1);
 
         WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_NO_MESSAGES_AT_OUTLET(1, t);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
     }
 
-    SECTION("array1")
+    SECTION("fill")
     {
         ArrayFillTest t("array.fill", L1("array1"));
 
         // no array yet
-        WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_NO_MESSAGES_AT_OUTLET(1, t);
+        WHEN_CALL_1(t, fill, 0.1f);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
         ArrayPtr aptr = cnv->createArray("array1", 10);
-        aptr->fillWith(-10);
 
         // array created
-        WHEN_SEND_BANG_TO(0, t);
-        for (size_t i = 0; i < aptr->size(); i++) {
-            REQUIRE(t.messageAt(i, 1).isFloat());
-            REQUIRE(t.messageAt(i, 1).atomValue() == A(i));
-        }
+        WHEN_CALL_1(t, fill, 0.1f);
         REQUIRE_BANG_AT_OUTLET(0, t);
-    }
+        aptr->update();
+        REQUIRE(aptr->size() == 10);
 
-    SECTION("array1 connected")
-    {
-        ObjectFactory<ArrayFill> obj("array.fill");
+        for (size_t i = 0; i < aptr->size(); i++)
+            REQUIRE(aptr->at(i) == Approx(0.1));
 
-        t_atom argv;
-        SETSYMBOL(&argv, gensym("array1"));
-        void* x = ObjectFactory<ArrayFill>::object_new(0, 1, &argv);
+        // pattern
+        WHEN_CALL_2(t, fill, 0.1f, 0.2f);
+        REQUIRE_BANG_AT_OUTLET(0, t);
+        aptr->update();
+        REQUIRE(aptr->size() == 10);
 
-        ObjectFactory<ArrayFill>::ObjectProxy* p = (ObjectFactory<ArrayFill>::ObjectProxy*)x;
-        REQUIRE(p->impl->numInlets() == 2);
-        REQUIRE(p->impl->property("@array")->get() == L1("array1"));
-
-        Array a("array1");
-        a.fillWith(4);
-
-        pd::External mul("sqrt");
-        REQUIRE(!mul.isNull());
-
-        REQUIRE(Canvas::connect(&p->pd_obj, 1, mul.object(), 0));
-        REQUIRE(mul.connectTo(0, &p->pd_obj, 1));
-
-        // real bang
-        pd_bang(&p->pd_obj.te_g.g_pd);
-        for (size_t i = 0; i < a.size(); i++) {
-            REQUIRE(a[i] == Approx(sqrt(i)));
+        for (size_t i = 0; i < aptr->size(); i++) {
+            REQUIRE(aptr->at(i) == Approx(i % 2 == 0 ? 0.1 : 0.2));
         }
+
+        aptr->update();
+        REQUIRE(aptr->size() == 10);
+
+        // pattern
+        WHEN_CALL_3(t, fill, 0.1f, 0.2f, 0.3f);
+        REQUIRE_BANG_AT_OUTLET(0, t);
+        aptr->update();
+        REQUIRE(aptr->size() == 10);
+
+        for (size_t i = 0; i < aptr->size(); i++) {
+            double v = 0.1;
+            if (i % 3 == 1)
+                v = 0.2;
+            if (i % 3 == 2)
+                v = 0.3;
+
+            REQUIRE(aptr->at(i) == Approx(v));
+        }
+
+        REQUIRE(aptr->at(9) == 0.1f);
+
+        // pattern
+        WHEN_CALL_1(t, fill, 0.1f);
+        REQUIRE_BANG_AT_OUTLET(0, t);
+
+        aptr->resize(2);
+        // pattern
+        WHEN_CALL_3(t, fill, 1, 2, 3);
+        REQUIRE_BANG_AT_OUTLET(0, t);
+        REQUIRE(aptr->at(0) == 1.f);
+        REQUIRE(aptr->at(1) == 2.f);
+
+        aptr->resize(1);
+        // pattern
+        WHEN_CALL_3(t, fill, 3, 4, 5);
+        REQUIRE_BANG_AT_OUTLET(0, t);
+        REQUIRE(aptr->at(0) == 3.f);
     }
 }

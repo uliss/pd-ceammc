@@ -16,44 +16,40 @@
 
 ArrayFill::ArrayFill(const PdArgs& a)
     : ArrayMod(a)
-    , idx_(0)
 {
-    createInlet();
     createOutlet();
-    createOutlet();
-}
-
-void ArrayFill::onBang()
-{
-    if (!check())
-        return;
-
-    outputIndexes();
-    finish();
 }
 
 void ArrayFill::onSymbol(t_symbol* s)
 {
-    if (!setArray(s))
+    setArray(s);
+}
+
+void ArrayFill::m_fill(t_symbol* m, const AtomList& l)
+{
+    if (!check())
         return;
 
-    outputIndexes();
+    if (l.empty()) {
+        OBJ_ERR << "fill value required";
+        return;
+    }
+
+    if (!l.allOf(isFloat)) {
+        OBJ_ERR << "only float fill values are supported.";
+        return;
+    }
+
+    size_t step = l.size();
+    for (size_t i = 0; i < array_.size(); i++) {
+        array_[i] = l[i % step].asFloat();
+    }
+
     finish();
 }
 
-void ArrayFill::onInlet(size_t n, const AtomList& lst)
+void ArrayFill::m_range(t_symbol* m, const AtomList& lst)
 {
-    if (n != 1 || lst.empty())
-        return;
-
-    t_float v = lst[0].asFloat();
-    array_[idx_] = v;
-}
-
-void ArrayFill::outputIndexes()
-{
-    for (idx_ = 0; idx_ < array_.size(); idx_++)
-        floatTo(1, idx_);
 }
 
 void ArrayFill::finish()
@@ -67,4 +63,6 @@ void ArrayFill::finish()
 extern "C" void setup_array0x2efill()
 {
     ObjectFactory<ArrayFill> obj("array.fill");
+    obj.addMethod("range", &ArrayFill::m_range);
+    obj.addMethod("fill", &ArrayFill::m_fill);
 }
