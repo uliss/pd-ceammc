@@ -69,7 +69,6 @@ void ArrayFill::m_range(t_symbol* m, const AtomList& l)
     AtomList values = parseRange(l, &from, &to);
 
     if (values.empty()) {
-        METHOD_ERR(m) << "missing values";
         METHOD_ERR(m) << "usage: [@from N] [@to N] VALUES...";
         return;
     }
@@ -152,8 +151,10 @@ AtomList ArrayFill::parseRange(const AtomList& args, size_t* from, size_t* to) c
 
     res = args.slice(num_props);
 
-    if (res.empty())
+    if (res.empty()) {
+        OBJ_ERR << "fill values are required";
         return res;
+    }
 
     if (from)
         *from = size_t(n_from);
