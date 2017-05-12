@@ -7,6 +7,9 @@
     <entry descr="process each array elements via side-chain" name="array.each" ref_view="object">
       <xi:include href="array.each.pddoc" parse="xml"/>
     </entry>
+    <entry descr="fill array with single value or pattern" name="array.fill" ref_view="object">
+      <xi:include href="array.fill.pddoc" parse="xml"/>
+    </entry>
     <entry descr="find array min and max element value" name="array.minmax" ref_view="object">
       <xi:include href="array.minmax.pddoc" parse="xml"/>
     </entry>

@@ -9,6 +9,7 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/about.pd ${CMAKE_CURRENT_BINARY_DIR}/
 set(DOC_FILES
     array.copy
     array.each
+    array.fill
     array.minmax
     array.p2s
     array.s2p
