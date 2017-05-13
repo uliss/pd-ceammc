@@ -71,7 +71,7 @@ if(${WITH_COVERAGE})
         add_custom_target(coverage
             COMMAND ${LCOV}
                 --gcov-tool=${GCOV}
-                --directory "${CMAKE_CURRENT_BINARY_DIR}/../lib"
+                --directory "${CMAKE_CURRENT_BINARY_DIR}/.."
                 --capture
                 --output-file coverage.info
             COMMAND ${LCOV}
