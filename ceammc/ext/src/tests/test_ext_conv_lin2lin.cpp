@@ -216,5 +216,21 @@ TEST_CASE("conv.lin2lin", "[externals]")
             REQUIRE_L2E(t, +4, 1.9);
             REQUIRE_L2E(t, +5, 2);
         }
+
+        SECTION("invalid range")
+        {
+            Lin2LinTest t("conv.lin2lin", L5(2, 2, 1, 100, "@noclip"));
+
+            REQUIRE_PROPERTY(t, @clip, S("noclip"));
+            REQUIRE_PROPERTY(t, @in_from, 2);
+            REQUIRE_PROPERTY(t, @in_to, 2);
+
+            WHEN_SEND_FLOAT_TO(0, t, 1);
+            REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+            WHEN_SEND_FLOAT_TO(0, t, 2);
+            REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+            WHEN_SEND_FLOAT_TO(0, t, -1);
+            REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+        }
     }
 }
