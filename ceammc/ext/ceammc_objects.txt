@@ -2,6 +2,7 @@ _tcl.version
 and
 approx
 array.copy
+array.do
 array.each
 array.fill
 array.minmax
@@ -129,6 +130,7 @@ list.rotate
 list.seq
 list.shift
 list.shuffle
+list.slice
 list.sort
 list.sort_with
 list.split
