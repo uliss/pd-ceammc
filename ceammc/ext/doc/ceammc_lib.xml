@@ -4,6 +4,9 @@
     <entry descr="copy samples from one array to another" name="array.copy" ref_view="object">
       <xi:include href="array.copy.pddoc" parse="xml"/>
     </entry>
+    <entry descr="iterate and modify array content via side-chain" name="array.do" ref_view="object">
+      <xi:include href="array.do.pddoc" parse="xml"/>
+    </entry>
     <entry descr="process each array elements via side-chain" name="array.each" ref_view="object">
       <xi:include href="array.each.pddoc" parse="xml"/>
     </entry>

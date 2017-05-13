@@ -1,4 +1,5 @@
 array.copy		.		.
+array.do		..		..
 array.each		..		..
 array.fill		.		.
 array.minmax		.		..

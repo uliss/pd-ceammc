@@ -12,3 +12,5 @@
 - array.fill added
 - array.minmax added
 - array.copy added
+- array.do added
+- list.slice added
