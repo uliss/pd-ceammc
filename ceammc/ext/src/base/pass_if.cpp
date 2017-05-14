@@ -58,9 +58,9 @@ static void pass_if_free(t_pass_if* x)
     outlet_free(x->out_pred);
 }
 
-extern "C" void setup_pass0x2eif()
+extern "C" void pass_if_setup()
 {
-    pass_if_class = class_new(gensym("pass.if"),
+    pass_if_class = class_new(gensym("pass_if"),
         reinterpret_cast<t_newmethod>(pass_if_new),
         reinterpret_cast<t_method>(pass_if_free),
         sizeof(t_pass_if), 0, A_NULL);

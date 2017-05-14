@@ -470,11 +470,11 @@
     <entry descr="rejects redundant input values" name="pass.changed" ref_view="object">
       <xi:include href="pass.changed.pddoc" parse="xml"/>
     </entry>
-    <entry descr="pass values that accepted by predicate object" name="pass.if" ref_view="object">
-      <xi:include href="pass.if.pddoc" parse="xml"/>
-    </entry>
     <entry descr="pass only specified values" name="pass.this" ref_view="object">
       <xi:include href="pass.this.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="pass values that accepted by predicate object" name="pass_if" ref_view="object">
+      <xi:include href="pass_if.pddoc" parse="xml"/>
     </entry>
   </category>
   <category name="path">

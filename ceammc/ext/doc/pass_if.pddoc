@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="pass.if">
-        <title>pass.if</title>
+    <object name="pass_if">
+        <title>pass_if</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
@@ -39,7 +39,7 @@
 <![CDATA[
 [F]   [1 2 3 4 5(        [F]   [1 2 3 4 5(
 |     |                  |     |
-[pass.if] X [is_even]    [pass.if] X [is_list]
+[pass_if] X [is_even]    [pass_if] X [is_list]
 |       \________        |
 |               |        |
 [msg set]       [print]  [msg set]

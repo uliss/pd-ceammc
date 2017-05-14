@@ -13,8 +13,8 @@ extern "C" void is_pointer_setup();
 extern "C" void is_symbol_setup();
 extern "C" void msg_setup();
 extern "C" void replace_setup();
+extern "C" void pass_if_setup();
 extern "C" void setup_pass0x2echanged();
-extern "C" void setup_pass0x2eif();
 extern "C" void setup_pass0x2ethis();
 extern "C" void setup_prop0x2eget();
 extern "C" void setup_prop0x2eset();
@@ -41,7 +41,7 @@ void ceammc_base_setup()
     msg_setup();
     replace_setup();
     setup_pass0x2echanged();
-    setup_pass0x2eif();
+    pass_if_setup();
     setup_pass0x2ethis();
     setup_prop0x2eget();
     setup_prop0x2eset();

@@ -2,9 +2,9 @@
 #X declare -lib ceammc -lib creammc;
 #X obj 332 50 cnv 1 363 21 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 332 50 pass values that accepted by predicate object;
-#X obj 1 1 cnv 5 712 40 empty empty pass.if 20 20 0 20 -104026 -4096
+#X obj 1 1 cnv 5 712 40 empty empty pass_if 20 20 0 20 -104026 -4096
 0;
-#X obj 637 11 pass.if;
+#X obj 637 11 pass_if;
 #X obj 205 80 cnv 1 490 84 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 210 80 conditional value pass according to *predicate* object.
 *predicate* should accept value and ouput 0 or 1 \, for value
@@ -14,9 +14,9 @@ passing.;
 #X msg 107 192 1 2 3 4 5;
 #X floatatom 290 192 5 0 0 0 - - -;
 #X msg 347 192 1 2 3 4 5;
-#X obj 50 221 pass.if;
+#X obj 50 221 pass_if;
 #X obj 165 221 is_even;
-#X obj 290 221 pass.if;
+#X obj 290 221 pass_if;
 #X obj 405 221 is_list;
 #X obj 50 264 msg set;
 #X obj 203 264 print;
@@ -55,7 +55,7 @@ pass \, '0' means reject. Range: 0\...1;
 #X text 10 32 version:;
 #X text 120 32 0.2;
 #X text 10 54 object:;
-#X text 120 54 pass.if;
+#X text 120 54 pass_if;
 #X text 10 76 category:;
 #X text 120 76 pass;
 #X text 10 98 since:;

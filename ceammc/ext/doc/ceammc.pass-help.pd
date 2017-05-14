@@ -4,10 +4,10 @@
 #X obj 79 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 30 116 pass.changed;
 #X text 175 116 rejects redundant input values;
-#X obj 30 143 pass.if;
-#X text 175 143 pass values that accepted by predicate object;
-#X obj 30 170 pass.this;
-#X text 175 170 pass only specified values;
+#X obj 30 143 pass.this;
+#X text 175 143 pass only specified values;
+#X obj 30 170 pass_if;
+#X text 175 170 pass values that accepted by predicate object;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::pass 20 20 0 20 -104026
 -4096 0;
 #X obj 1 458 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;

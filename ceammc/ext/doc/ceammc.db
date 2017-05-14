@@ -152,6 +152,7 @@ osc.tri~		~		~
 pass.changed		.		.
 pass.if		..		..
 pass.this		.		.
+pass_if		..		..
 path.basename		.		.
 path.dirname		.		.
 prop.get,prop->		.		?

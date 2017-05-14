@@ -358,10 +358,10 @@ direction;
 #X obj 20 5034 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 5045 pass.changed;
 #X text 175 5045 rejects redundant input values;
-#X obj 30 5072 pass.if;
-#X text 175 5072 pass values that accepted by predicate object;
-#X obj 30 5099 pass.this;
-#X text 175 5099 pass only specified values;
+#X obj 30 5072 pass.this;
+#X text 175 5072 pass only specified values;
+#X obj 30 5099 pass_if;
+#X text 175 5099 pass values that accepted by predicate object;
 #X obj 20 5126 cnv 5 47 31 empty empty path 4 13 0 17 -262144 -49933
 0;
 #X obj 20 5167 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;

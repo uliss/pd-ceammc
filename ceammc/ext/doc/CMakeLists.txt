@@ -159,7 +159,7 @@ set(DOC_FILES
     osc.square~
     osc.tri~
     pass.changed
-    pass.if
+    pass_if
     pass.this
     path.basename
     path.dirname
