@@ -98,8 +98,17 @@
     <entry descr="bus with only hot inlets" name="flow.sync" ref_view="object">
       <xi:include href="flow.sync.pddoc" parse="xml"/>
     </entry>
+    <entry descr="rejects redundant input values" name="pass.changed" ref_view="object">
+      <xi:include href="pass.changed.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="pass only specified values" name="pass.this" ref_view="object">
+      <xi:include href="pass.this.pddoc" parse="xml"/>
+    </entry>
     <entry descr="pass values that accepted by predicate object" name="pass_if" ref_view="object">
       <xi:include href="pass_if.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="reject only specified values" name="reject.this" ref_view="object">
+      <xi:include href="reject.this.pddoc" parse="xml"/>
     </entry>
     <entry descr="reject values by predicate" name="reject_if" ref_view="object">
       <xi:include href="reject_if.pddoc" parse="xml"/>
@@ -472,14 +481,6 @@
       <xi:include href="osc.tri~.pddoc" parse="xml"/>
     </entry>
   </category>
-  <category name="pass">
-    <entry descr="rejects redundant input values" name="pass.changed" ref_view="object">
-      <xi:include href="pass.changed.pddoc" parse="xml"/>
-    </entry>
-    <entry descr="pass only specified values" name="pass.this" ref_view="object">
-      <xi:include href="pass.this.pddoc" parse="xml"/>
-    </entry>
-  </category>
   <category name="path">
     <entry descr="outputs filename portion of pathname" name="path.basename" ref_view="object">
       <xi:include href="path.basename.pddoc" parse="xml"/>
@@ -525,11 +526,6 @@
   <category name="random">
     <entry descr="Random integer generator in specified range" name="random.int" ref_view="object">
       <xi:include href="random.int.pddoc" parse="xml"/>
-    </entry>
-  </category>
-  <category name="reject">
-    <entry descr="reject only specified values" name="reject.this" ref_view="object">
-      <xi:include href="reject.this.pddoc" parse="xml"/>
     </entry>
   </category>
   <category name="snd">

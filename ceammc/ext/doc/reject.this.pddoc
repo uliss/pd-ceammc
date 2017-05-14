@@ -9,7 +9,7 @@
             <description>reject only specified values</description>
             <license>GPL3</license>
             <library>ceammc</library>
-            <category>reject</category>
+            <category>flow</category>
             <keywords>reject functional</keywords>
             <since>0.1</since>
             <also>

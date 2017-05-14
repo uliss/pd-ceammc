@@ -9,7 +9,7 @@
             <description>rejects redundant input values</description>
             <license>GPL3</license>
             <library>ceammc</library>
-            <category>pass</category>
+            <category>flow</category>
             <keywords>pass change</keywords>
             <since>0.1</since>
             <also>

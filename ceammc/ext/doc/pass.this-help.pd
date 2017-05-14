@@ -32,7 +32,7 @@
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
-#X obj 131 48 ui.link @title pass @url ceammc.pass-help.pd;
+#X obj 131 48 ui.link @title flow @url ceammc.flow-help.pd;
 #X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.2;
 #X text 471 520 see also:;
@@ -47,7 +47,7 @@
 #X text 10 54 object:;
 #X text 120 54 pass.this;
 #X text 10 76 category:;
-#X text 120 76 pass;
+#X text 120 76 flow;
 #X text 10 98 since:;
 #X text 120 98 0.1;
 #X text 10 120 authors:;

@@ -6,12 +6,18 @@
 #X text 175 116 Substitute enviroment variables in data stream;
 #X obj 30 143 flow.sync;
 #X text 175 143 bus with only hot inlets;
-#X obj 30 170 pass_if;
-#X text 175 170 pass values that accepted by predicate object;
-#X obj 30 197 reject_if;
-#X text 175 197 reject values by predicate;
-#X obj 30 224 replace;
-#X text 175 224 Replace atoms in data stream;
+#X obj 30 170 pass.changed;
+#X text 175 170 rejects redundant input values;
+#X obj 30 197 pass.this;
+#X text 175 197 pass only specified values;
+#X obj 30 224 pass_if;
+#X text 175 224 pass values that accepted by predicate object;
+#X obj 30 251 reject.this;
+#X text 175 251 reject only specified values;
+#X obj 30 278 reject_if;
+#X text 175 278 reject values by predicate;
+#X obj 30 305 replace;
+#X text 175 305 Replace atoms in data stream;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::flow 20 20 0 20 -104026
 -4096 0;
 #X obj 1 458 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
