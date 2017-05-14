@@ -9,7 +9,7 @@
             <description>pass values that accepted by predicate object</description>
             <license>GPL3</license>
             <library>ceammc</library>
-            <category>pass</category>
+            <category>flow</category>
             <keywords>pass functional</keywords>
             <since>0.1</since>
             <also>

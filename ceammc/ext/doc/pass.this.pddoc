@@ -13,7 +13,7 @@
             <keywords>pass functional</keywords>
             <since>0.1</since>
             <also>
-                <see>pass.if</see>
+                <see>pass_if</see>
                 <see>reject.this</see>
             </also>
         </meta>

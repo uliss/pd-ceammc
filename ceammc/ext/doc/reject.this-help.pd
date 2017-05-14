@@ -35,7 +35,7 @@
 #X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.2;
 #X text 470 520 see also:;
-#X obj 546 520 reject.if;
+#X obj 546 520 reject_if;
 #X obj 625 520 pass.this;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

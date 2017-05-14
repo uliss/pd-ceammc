@@ -150,7 +150,6 @@ osc.sinfb~		~		~.
 osc.square~		~		~
 osc.tri~		~		~
 pass.changed		.		.
-pass.if		..		..
 pass.this		.		.
 pass_if		..		..
 path.basename		.		.
@@ -158,7 +157,6 @@ path.dirname		.		.
 prop.get,prop->		.		?
 prop.set,prop<-		?		.
 random.int		.		.
-reject.if		..		..
 reject.this		.		.
 reject_if		..		..
 replace		...		.
