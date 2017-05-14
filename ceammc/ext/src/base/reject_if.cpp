@@ -1,7 +1,6 @@
-#include "ceammc.hpp"
 #include <m_pd.h>
 
-t_class* reject_if_class;
+static t_class* reject_if_class;
 struct t_reject_if {
     t_object x_obj;
     t_inlet* in_pred;
@@ -58,9 +57,9 @@ static void reject_if_free(t_reject_if* x)
     outlet_free(x->out_pred);
 }
 
-extern "C" void setup_reject0x2eif()
+extern "C" void reject_if_setup()
 {
-    reject_if_class = class_new(gensym("reject.if"),
+    reject_if_class = class_new(gensym("reject_if"),
         reinterpret_cast<t_newmethod>(reject_if_new),
         reinterpret_cast<t_method>(reject_if_free),
         sizeof(t_reject_if), 0, A_NULL);

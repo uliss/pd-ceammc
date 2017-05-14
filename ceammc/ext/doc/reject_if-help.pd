@@ -2,9 +2,9 @@
 #X declare -lib ceammc -lib creammc;
 #X obj 484 50 cnv 1 211 21 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 484 50 reject values by predicate;
-#X obj 1 1 cnv 5 712 40 empty empty reject.if 20 20 0 20 -104026 -4096
+#X obj 1 1 cnv 5 712 40 empty empty reject_if 20 20 0 20 -104026 -4096
 0;
-#X obj 623 11 reject.if;
+#X obj 623 11 reject_if;
 #X obj 205 80 cnv 1 490 84 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 210 80 conditional value reject according to *predicate*
 object. *predicate* should accept value and ouput 0 or 1 \, for value
@@ -12,7 +12,7 @@ passing.;
 #X text 210 131 [<] [is_even] [is_list] - examples of predicates.;
 #X floatatom 50 192 5 0 0 0 - - -;
 #X msg 98 192 8 9 10 11 12;
-#X obj 50 250 reject.if;
+#X obj 50 250 reject_if;
 #X obj 184 250 < 10;
 #X obj 50 279 msg set;
 #X msg 50 308 ;
@@ -40,7 +40,7 @@ if *0* - pass..;
 #X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.2;
 #X text 406 520 see also:;
-#X obj 482 520 pass.if;
+#X obj 482 520 pass_if;
 #X obj 547 520 reject.this;
 #X obj 640 520 is_even;
 #N canvas 10 527 400 290 info 0;
@@ -50,7 +50,7 @@ if *0* - pass..;
 #X text 10 32 version:;
 #X text 120 32 0.2;
 #X text 10 54 object:;
-#X text 120 54 reject.if;
+#X text 120 54 reject_if;
 #X text 10 76 category:;
 #X text 120 76 reject;
 #X text 10 98 since:;

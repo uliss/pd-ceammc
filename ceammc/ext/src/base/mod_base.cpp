@@ -14,6 +14,7 @@ extern "C" void is_symbol_setup();
 extern "C" void msg_setup();
 extern "C" void replace_setup();
 extern "C" void pass_if_setup();
+extern "C" void reject_if_setup();
 extern "C" void setup_pass0x2echanged();
 extern "C" void setup_pass0x2ethis();
 extern "C" void setup_prop0x2eget();
@@ -42,10 +43,10 @@ void ceammc_base_setup()
     replace_setup();
     setup_pass0x2echanged();
     pass_if_setup();
+    reject_if_setup();
     setup_pass0x2ethis();
     setup_prop0x2eget();
     setup_prop0x2eset();
-    setup_reject0x2eif();
     setup_reject0x2ethis();
 
 #ifdef WITH_SND_FILE

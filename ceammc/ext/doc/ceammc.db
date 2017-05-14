@@ -160,6 +160,7 @@ prop.set,prop<-		?		.
 random.int		.		.
 reject.if		..		..
 reject.this		.		.
+reject_if		..		..
 replace		...		.
 snd.file		.		.
 symbol.equal		..		.

@@ -17,3 +17,4 @@
 
 ### Changed:
 - pass.if renamed to pass_if
+- reject.if renamed to reject_if

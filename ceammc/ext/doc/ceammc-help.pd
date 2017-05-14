@@ -403,10 +403,10 @@ direction;
 #X obj 20 5685 cnv 5 66 31 empty empty reject 4 13 0 17 -262144 -49933
 0;
 #X obj 20 5726 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 5737 reject.if;
-#X text 175 5737 reject values by predicate;
-#X obj 30 5764 reject.this;
-#X text 175 5764 reject only specified values;
+#X obj 30 5737 reject.this;
+#X text 175 5737 reject only specified values;
+#X obj 30 5764 reject_if;
+#X text 175 5764 reject values by predicate;
 #X obj 20 5791 cnv 5 37 31 empty empty snd 4 13 0 17 -262144 -49933 0;
 #X obj 20 5832 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 5843 snd.file;

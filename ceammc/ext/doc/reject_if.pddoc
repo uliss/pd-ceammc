@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="reject.if">
-        <title>reject.if</title>
+    <object name="reject_if">
+        <title>reject_if</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
@@ -13,7 +13,7 @@
             <keywords>reject functional</keywords>
             <since>0.1</since>
             <also>
-                <see>pass.if</see>
+                <see>pass_if</see>
                 <see>reject.this</see>
                 <see>is_even</see>
             </also>
@@ -43,7 +43,7 @@
 |    |
 |    |
 |    |
-[reject.if] X [< 10]
+[reject_if] X [< 10]
 |
 [msg set]
 |

@@ -228,8 +228,8 @@ prop<-
 random.float
 random.gauss
 random.int
-reject.if
 reject.this
+reject_if
 replace
 samp->sec
 sec->samp

@@ -525,11 +525,11 @@
     </entry>
   </category>
   <category name="reject">
-    <entry descr="reject values by predicate" name="reject.if" ref_view="object">
-      <xi:include href="reject.if.pddoc" parse="xml"/>
-    </entry>
     <entry descr="reject only specified values" name="reject.this" ref_view="object">
       <xi:include href="reject.this.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="reject values by predicate" name="reject_if" ref_view="object">
+      <xi:include href="reject_if.pddoc" parse="xml"/>
     </entry>
   </category>
   <category name="snd">
