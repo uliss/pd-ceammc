@@ -49,6 +49,7 @@ env.follow~
 expand_env
 flow.pass
 flow.reject
+flow.split
 flow.sync
 flt.biquad~
 flt.bpf12~
@@ -237,6 +238,7 @@ samp->sec
 sec->samp
 sec->str
 snd.file
+split
 str->sec
 symbol.ends_with
 symbol.equal

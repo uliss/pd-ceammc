@@ -38,6 +38,7 @@ set(DOC_FILES
     flow.sync
     flow.reject
     flow.pass
+    flow.split
     flt.bpf12~
     flt.bpf24~
     flt.c_bpf~

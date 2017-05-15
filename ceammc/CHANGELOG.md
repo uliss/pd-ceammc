@@ -14,6 +14,7 @@
 - array.copy added
 - array.do added
 - list.slice added
+- flow.split added
 
 ### Changed:
 - pass.if renamed to pass_if

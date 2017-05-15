@@ -28,6 +28,7 @@ env.follow~		~		~.
 expand_env		.		.
 flow.pass,pass		.		.
 flow.reject,reject		.		.
+flow.split,split		..		...
 flow.sync		?		?
 flt.biquad~		~~~~~~		~
 flt.bpf12~		~		~.
