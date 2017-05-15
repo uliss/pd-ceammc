@@ -36,6 +36,7 @@ set(DOC_FILES
     env.follow~
     expand_env
     flow.sync
+    flow.reject
     flt.bpf12~
     flt.bpf24~
     flt.c_bpf~
@@ -167,7 +168,6 @@ set(DOC_FILES
     prop.set
     random.int
     reject_if
-    reject.this
     replace
     snd.file
     symbol.equal

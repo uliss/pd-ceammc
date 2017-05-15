@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="reject.this">
-        <title>reject.this</title>
+    <object name="flow.reject">
+        <title>flow.reject</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>reject only specified values</description>
+            <description>reject specified values</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>flow</category>
             <keywords>reject functional</keywords>
-            <since>0.1</since>
+            <since>0.3</since>
+            <aliases>
+                <alias>reject</alias>
+            </aliases>
             <also>
-                <see>reject_if</see>
-                <see>pass.this</see>
+                <see>flow.reject_if</see>
+                <see>flow.pass</see>
             </also>
         </meta>
         <arguments>
@@ -22,7 +25,12 @@
         </arguments>
         <inlets>
             <inlet>
-                <xinfo>input value</xinfo>
+                <xinfo on="bang">pass</xinfo>
+                <xinfo on="float">reject if this float is found in reject list</xinfo>
+                <xinfo on="symbol">reject if this float is found in reject list</xinfo>
+                <xinfo on="list">pass any list. If you want to do conditional list reject use
+                [flow.reject_if]</xinfo>
+                <xinfo on="any">reject if message selector is found in reject list</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -33,7 +41,7 @@
 <![CDATA[
 [F]
 |
-[reject.this 0]
+[flow.reject 0]
 |
 [swap 1]
 |   ^|.

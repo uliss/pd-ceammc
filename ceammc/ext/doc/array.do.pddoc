@@ -32,7 +32,8 @@
         </inlets>
         <outlets>
             <outlet>bang on finish</outlet>
-            <outlet>for each array sample outputs list: SAMPLE_VALUE, SAMPLE_POS, TOTAL_SAMPLES</outlet>
+            <outlet>for each array sample outputs list: SAMPLE_VALUE, SAMPLE_POS,
+            TOTAL_SAMPLES</outlet>
         </outlets>
         <example>
             <pdascii>

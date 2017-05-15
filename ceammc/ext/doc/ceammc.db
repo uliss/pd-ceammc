@@ -26,6 +26,7 @@ env.adsr~		~		~.
 env.ar~		~		~.
 env.follow~		~		~.
 expand_env		.		.
+flow.reject,reject		.		.
 flow.sync		?		?
 flt.biquad~		~~~~~~		~
 flt.bpf12~		~		~.
@@ -157,7 +158,6 @@ path.dirname		.		.
 prop.get,prop->		.		?
 prop.set,prop<-		?		.
 random.int		.		.
-reject.this		.		.
 reject_if		..		..
 replace		...		.
 snd.file		.		.

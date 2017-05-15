@@ -95,6 +95,9 @@
     <entry descr="Substitute enviroment variables in data stream" name="expand_env" ref_view="object">
       <xi:include href="expand_env.pddoc" parse="xml"/>
     </entry>
+    <entry descr="reject specified values" name="flow.reject" ref_view="object">
+      <xi:include href="flow.reject.pddoc" parse="xml"/>
+    </entry>
     <entry descr="bus with only hot inlets" name="flow.sync" ref_view="object">
       <xi:include href="flow.sync.pddoc" parse="xml"/>
     </entry>
@@ -106,9 +109,6 @@
     </entry>
     <entry descr="pass values that accepted by predicate object" name="pass_if" ref_view="object">
       <xi:include href="pass_if.pddoc" parse="xml"/>
-    </entry>
-    <entry descr="reject only specified values" name="reject.this" ref_view="object">
-      <xi:include href="reject.this.pddoc" parse="xml"/>
     </entry>
     <entry descr="reject values by predicate" name="reject_if" ref_view="object">
       <xi:include href="reject_if.pddoc" parse="xml"/>
