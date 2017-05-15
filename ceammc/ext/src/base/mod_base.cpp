@@ -1,5 +1,8 @@
 #include "mod_base.h"
 
+#include "function.h"
+#include "function_call.h"
+
 extern "C" void expand_env_setup();
 extern "C" void is_any_setup();
 extern "C" void is_bang_setup();
@@ -32,6 +35,8 @@ void ceammc_base_setup()
     is_pointer_setup();
     is_symbol_setup();
     msg_setup();
+    function_setup();
+    function_call_setup();
     replace_setup();
     setup_prop0x2eget();
     setup_prop0x2eset();
