@@ -18,7 +18,6 @@ extern "C" void replace_setup();
 extern "C" void pass_if_setup();
 extern "C" void reject_if_setup();
 extern "C" void setup_pass0x2echanged();
-extern "C" void setup_pass0x2ethis();
 extern "C" void setup_prop0x2eget();
 extern "C" void setup_prop0x2eset();
 extern "C" void setup_reject0x2eif();
@@ -47,7 +46,6 @@ void ceammc_base_setup()
     setup_pass0x2echanged();
     pass_if_setup();
     reject_if_setup();
-    setup_pass0x2ethis();
     setup_prop0x2eget();
     setup_prop0x2eset();
 

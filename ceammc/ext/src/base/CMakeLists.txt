@@ -23,7 +23,6 @@ list(APPEND BASE_SOURCES
 list(APPEND BASE_SOURCES
     pass_changed.cpp
     pass_if.cpp
-    pass_this.cpp
     flow_pass.cpp
     flow_reject.cpp)
 
