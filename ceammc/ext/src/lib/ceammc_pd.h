@@ -42,6 +42,7 @@ namespace pd {
         t_object* object();
 
         void bang();
+        void sendFloat(t_float v);
     };
 }
 

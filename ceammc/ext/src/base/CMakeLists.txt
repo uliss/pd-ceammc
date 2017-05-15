@@ -24,12 +24,12 @@ list(APPEND BASE_SOURCES
     pass_changed.cpp
     pass_if.cpp
     pass_this.cpp
-    flow_pass.cpp)
+    flow_pass.cpp
+    flow_reject.cpp)
 
 # reject
 list(APPEND BASE_SOURCES
-    reject_if.cpp
-    reject_this.cpp)
+    reject_if.cpp)
 
 # flow
 list(APPEND BASE_SOURCES

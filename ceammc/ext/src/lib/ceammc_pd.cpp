@@ -78,6 +78,14 @@ void pd::External::bang()
     pd_bang(&obj_->te_g.g_pd);
 }
 
+void pd::External::sendFloat(t_float v)
+{
+    if (!obj_)
+        return;
+
+    pd_float(&obj_->te_g.g_pd, v);
+}
+
 PureData::PureData()
 {
     pd_init();

@@ -2,6 +2,7 @@
 
 extern "C" void expand_env_setup();
 extern "C" void setup_flow0x2epass();
+extern "C" void setup_flow0x2ereject();
 extern "C" void setup_flow0x2esync();
 extern "C" void is_any_setup();
 extern "C" void is_bang_setup();
@@ -21,7 +22,6 @@ extern "C" void setup_pass0x2ethis();
 extern "C" void setup_prop0x2eget();
 extern "C" void setup_prop0x2eset();
 extern "C" void setup_reject0x2eif();
-extern "C" void setup_reject0x2ethis();
 extern "C" void setup_snd0x2efile();
 extern "C" void setup_test0x2edata();
 extern "C" void setup_test0x2eexpect();
@@ -29,6 +29,7 @@ extern "C" void setup_test0x2eexpect();
 void ceammc_base_setup()
 {
     setup_flow0x2epass();
+    setup_flow0x2ereject();
     setup_flow0x2esync();
 
     expand_env_setup();
@@ -49,7 +50,6 @@ void ceammc_base_setup()
     setup_pass0x2ethis();
     setup_prop0x2eget();
     setup_prop0x2eset();
-    setup_reject0x2ethis();
 
 #ifdef WITH_SND_FILE
     setup_snd0x2efile();
