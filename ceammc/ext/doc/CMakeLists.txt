@@ -37,6 +37,7 @@ set(DOC_FILES
     expand_env
     flow.sync
     flow.reject
+    flow.pass
     flt.bpf12~
     flt.bpf24~
     flt.c_bpf~
@@ -161,7 +162,6 @@ set(DOC_FILES
     osc.tri~
     pass.changed
     pass_if
-    pass.this
     path.basename
     path.dirname
     prop.get

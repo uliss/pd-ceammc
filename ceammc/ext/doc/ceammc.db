@@ -26,6 +26,7 @@ env.adsr~		~		~.
 env.ar~		~		~.
 env.follow~		~		~.
 expand_env		.		.
+flow.pass,pass		.		.
 flow.reject,reject		.		.
 flow.sync		?		?
 flt.biquad~		~~~~~~		~
@@ -151,7 +152,6 @@ osc.sinfb~		~		~.
 osc.square~		~		~
 osc.tri~		~		~
 pass.changed		.		.
-pass.this		.		.
 pass_if		..		..
 path.basename		.		.
 path.dirname		.		.

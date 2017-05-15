@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="pass.this">
-        <title>pass.this</title>
+    <object name="flow.pass">
+        <title>flow.pass</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>pass only specified values</description>
+            <description>pass specified values</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>flow</category>
             <keywords>pass functional</keywords>
-            <since>0.1</since>
+            <since>0.3</since>
+            <aliases>
+                <alias>pass</alias>
+            </aliases>
             <also>
-                <see>pass_if</see>
-                <see>reject.this</see>
+                <see>flow.pass_if</see>
+                <see>flow.reject</see>
             </also>
         </meta>
         <arguments>
@@ -22,7 +25,12 @@
         </arguments>
         <inlets>
             <inlet>
-                <xinfo>input value</xinfo>
+                <xinfo on="bang">pass</xinfo>
+                <xinfo on="float">pass if float is found in pass list</xinfo>
+                <xinfo on="symbol">pass if symbol is found in pass list</xinfo>
+                <xinfo on="list">pass. If you want to do conditional list pass, use
+                [flow.pass_if]</xinfo>
+                <xinfo on="any">pass if message selector is found in pass list</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -32,9 +40,9 @@
             <pdascii>
 <![CDATA[
 [F]    [S]    [list 1 2 9 10(
-|      |      |
-|      |      |
-[pass.this 1 10 100 a z]
+|  [B] |      |
+|  |   |      |
+[flow.pass 1 10 100 a z]
 |
 [msg set]
 |
