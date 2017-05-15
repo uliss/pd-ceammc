@@ -70,6 +70,7 @@ public:
     virtual void atomTo(size_t n, const Atom& a);
     virtual void anyTo(size_t n, const AtomList& lst);
     virtual void anyTo(size_t n, t_symbol* sel, const AtomList& lst);
+    virtual void messageTo(size_t n, const Message& m);
 
     /** messages methods */
 public:
@@ -438,6 +439,12 @@ template <class T>
 void TestExtension<T>::anyTo(size_t n, t_symbol* sel, const AtomList& lst)
 {
     msg_[n].push_back(Message(sel, lst));
+}
+
+template <class T>
+void TestExtension<T>::messageTo(size_t n, const Message& m)
+{
+    msg_[n].push_back(m);
 }
 
 template <class T>

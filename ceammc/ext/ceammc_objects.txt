@@ -47,6 +47,7 @@ env.adsr~
 env.ar~
 env.follow~
 expand_env
+flow.change
 flow.pass
 flow.pass_if
 flow.reject
@@ -219,7 +220,6 @@ osc.sinfb~
 osc.square~
 osc.tri~
 pass
-pass.changed
 pass_if
 path.basename
 path.dirname

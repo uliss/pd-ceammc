@@ -25,6 +25,7 @@ list(APPEND BASE_SOURCES
 
 # flow
 list(APPEND BASE_SOURCES
+    flow_change.cpp
     flow_pass.cpp
     flow_pass_if.cpp
     flow_reject.cpp
