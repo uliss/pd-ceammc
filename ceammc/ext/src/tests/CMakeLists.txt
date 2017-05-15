@@ -35,8 +35,6 @@ if(ICONV_FOUND)
     target_link_libraries(test_string ${ICONV_LIBRARIES})
 endif()
 
-ceammc_external_test(base reject)
-
 ceammc_external_test(array copy)
 ceammc_external_test(array do)
 ceammc_external_test(array each)
@@ -44,6 +42,9 @@ ceammc_external_test(array fill)
 ceammc_external_test(array minmax)
 ceammc_external_test(array p2s)
 ceammc_external_test(array s2p)
+
+ceammc_external_test(base pass)
+ceammc_external_test(base reject)
 
 ceammc_external_test(conv cc2amp)
 ceammc_external_test(conv lin2exp)

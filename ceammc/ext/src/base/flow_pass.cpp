@@ -19,8 +19,14 @@ FlowPass::FlowPass(const PdArgs& a)
     , values_(0)
 {
     createOutlet();
-    values_ = new ListProperty("@values", positionalArguments());
+
+    values_ = new ListProperty("@values", a.args);
     createProperty(values_);
+}
+
+void FlowPass::onBang()
+{
+    bangTo(0);
 }
 
 void FlowPass::onFloat(float v)
@@ -35,10 +41,37 @@ void FlowPass::onSymbol(t_symbol* s)
         symbolTo(0, s);
 }
 
+void FlowPass::onList(const AtomList& l)
+{
+    listTo(0, l);
+}
+
 void FlowPass::onAny(t_symbol* s, const AtomList& lst)
 {
     if (values_->value().contains(s))
         anyTo(0, s, lst);
+}
+
+void FlowPass::parseProperties()
+{
+}
+
+bool FlowPass::processAnyProps(t_symbol* sel, const AtomList& lst)
+{
+    static t_symbol* s_prop_values = gensym("@values");
+    static t_symbol* s_get_values = gensym("@values?");
+
+    if (sel == s_get_values) {
+        anyTo(0, s_prop_values, values_->value());
+        return true;
+    }
+
+    if (sel == s_prop_values) {
+        values_->set(lst);
+        return true;
+    }
+
+    return false;
 }
 
 extern "C" void setup_flow0x2epass()

@@ -23,9 +23,16 @@ class FlowPass : public BaseObject {
 
 public:
     FlowPass(const PdArgs& a);
+    void onBang();
     void onFloat(float v);
     void onSymbol(t_symbol* s);
+    void onList(const AtomList& l);
     void onAny(t_symbol* s, const AtomList& lst);
+
+    void parseProperties();
+    bool processAnyProps(t_symbol* sel, const AtomList& lst);
 };
+
+extern "C" void setup_flow0x2epass();
 
 #endif // FLOW_PASS_H
