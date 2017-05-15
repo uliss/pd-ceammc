@@ -92,6 +92,16 @@ AtomList ListProperty::get() const
     return lst_;
 }
 
+const AtomList& ListProperty::value() const
+{
+    return lst_;
+}
+
+AtomList& ListProperty::value()
+{
+    return lst_;
+}
+
 FloatProperty::FloatProperty(const std::string& name, float init, bool readonly)
     : Property(name, readonly)
     , v_(init)

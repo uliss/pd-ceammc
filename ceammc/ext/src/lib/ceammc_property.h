@@ -65,6 +65,9 @@ public:
     ListProperty(const std::string& name, const AtomList& l = AtomList(), bool readonly = false);
     bool set(const AtomList& lst);
     AtomList get() const;
+
+    const AtomList& value() const;
+    AtomList& value();
 };
 
 class FloatProperty : public Property {

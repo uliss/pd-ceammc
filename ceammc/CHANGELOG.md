@@ -18,3 +18,5 @@
 ### Changed:
 - pass.if renamed to pass_if
 - reject.if renamed to reject_if
+- pass.this renamed to flow.pass (with pass alias)
+- reject.this renamed to flow.reject (with reject alias)
