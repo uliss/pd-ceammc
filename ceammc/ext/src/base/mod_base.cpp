@@ -1,13 +1,6 @@
 #include "mod_base.h"
 
 extern "C" void expand_env_setup();
-extern "C" void setup_flow0x2echange();
-extern "C" void setup_flow0x2epass();
-extern "C" void setup_flow0x2epass_if();
-extern "C" void setup_flow0x2ereject();
-extern "C" void setup_flow0x2ereject_if();
-extern "C" void setup_flow0x2esplit();
-extern "C" void setup_flow0x2esync();
 extern "C" void is_any_setup();
 extern "C" void is_bang_setup();
 extern "C" void is_even_setup();
@@ -28,15 +21,6 @@ extern "C" void setup_test0x2eexpect();
 
 void ceammc_base_setup()
 {
-    setup_flow0x2echange();
-    setup_flow0x2epass();
-    setup_flow0x2epass_if();
-    setup_flow0x2ereject();
-    setup_flow0x2ereject_if();
-
-    setup_flow0x2esplit();
-    setup_flow0x2esync();
-
     expand_env_setup();
     is_any_setup();
     is_bang_setup();

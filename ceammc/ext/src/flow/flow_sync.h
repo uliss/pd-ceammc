@@ -37,4 +37,6 @@ private:
     void sync();
 };
 
+extern "C" void setup_flow0x2esync();
+
 #endif // FLOW_SYNC_H

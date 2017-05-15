@@ -11,7 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../base/flow_split.h"
+#include "../flow/flow_split.h"
 #include "base_extension_test.h"
 #include "catch.hpp"
 #include "ceammc_pd.h"

@@ -19,16 +19,6 @@ list(APPEND BASE_SOURCES
     is_pointer.cpp
     is_symbol.cpp)
 
-# flow
-list(APPEND BASE_SOURCES
-    flow_change.cpp
-    flow_pass.cpp
-    flow_pass_if.cpp
-    flow_reject.cpp
-    flow_reject_if.cpp
-    flow_split.cpp
-    flow_sync.cpp)
-
 # test
 list(APPEND BASE_SOURCES
     test_data.cpp
