@@ -95,6 +95,9 @@
     <entry descr="Substitute enviroment variables in data stream" name="expand_env" ref_view="object">
       <xi:include href="expand_env.pddoc" parse="xml"/>
     </entry>
+    <entry descr="rejects redundant input values" name="flow.change" ref_view="object">
+      <xi:include href="flow.change.pddoc" parse="xml"/>
+    </entry>
     <entry descr="pass specified values" name="flow.pass" ref_view="object">
       <xi:include href="flow.pass.pddoc" parse="xml"/>
     </entry>
@@ -112,9 +115,6 @@
     </entry>
     <entry descr="bus with only hot inlets" name="flow.sync" ref_view="object">
       <xi:include href="flow.sync.pddoc" parse="xml"/>
-    </entry>
-    <entry descr="rejects redundant input values" name="pass.changed" ref_view="object">
-      <xi:include href="pass.changed.pddoc" parse="xml"/>
     </entry>
     <entry descr="Replace atoms in data stream" name="replace" ref_view="object">
       <xi:include href="replace.pddoc" parse="xml"/>

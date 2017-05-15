@@ -26,6 +26,7 @@ env.adsr~		~		~.
 env.ar~		~		~.
 env.follow~		~		~.
 expand_env		.		.
+flow.change		.		.
 flow.pass,pass		.		.
 flow.pass_if,pass_if		..		..
 flow.reject,reject		.		.
@@ -154,7 +155,6 @@ osc.saw~		~		~
 osc.sinfb~		~		~.
 osc.square~		~		~
 osc.tri~		~		~
-pass.changed		.		.
 path.basename		.		.
 path.dirname		.		.
 prop.get,prop->		.		?

@@ -19,10 +19,6 @@ list(APPEND BASE_SOURCES
     is_pointer.cpp
     is_symbol.cpp)
 
-# pass
-list(APPEND BASE_SOURCES
-    pass_changed.cpp)
-
 # flow
 list(APPEND BASE_SOURCES
     flow_change.cpp

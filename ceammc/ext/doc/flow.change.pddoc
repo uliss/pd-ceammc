@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="pass.changed">
-        <title>pass.changed</title>
+    <object name="flow.change">
+        <title>flow.change</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
@@ -10,14 +10,14 @@
             <license>GPL3</license>
             <library>ceammc</library>
             <category>flow</category>
-            <keywords>pass change</keywords>
-            <since>0.1</since>
+            <keywords>flow change</keywords>
+            <since>0.3</since>
             <also>
                 <see>change</see>
             </also>
         </meta>
         <info>
-            <par>The pass.changed object outputs its input only when it changed. You can "set" the
+            <par>The object passes input values only when it's changed. You can "set" the
             current value, or bang to force output.</par>
             <par>Note: [list a b c( and [a b c( are different values!</par>
         </info>

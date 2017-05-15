@@ -35,6 +35,7 @@ set(DOC_FILES
     env.adsr~
     env.follow~
     expand_env
+    flow.change
     flow.sync
     flow.reject
     flow.reject_if
@@ -163,7 +164,6 @@ set(DOC_FILES
     osc.sinfb~
     osc.square~
     osc.tri~
-    pass.changed
     path.basename
     path.dirname
     prop.get
