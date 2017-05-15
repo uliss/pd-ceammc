@@ -24,6 +24,8 @@ void pd_init();
 
 #include <iostream>
 
+typedef t_object* (*t_newempty)();
+typedef t_object* (*t_newfloat)(t_float);
 typedef t_object* (*t_newgimme)(t_symbol* s, int argc, t_atom* argv);
 
 using namespace ceammc;
@@ -35,8 +37,29 @@ pd::External::External(const char* name, const AtomList& lst)
     t_methodentry* m = pd_objectmaker->c_methods;
     for (int i = 0; i < pd_objectmaker->c_nmethod; i++) {
         if (m[i].me_name == OBJ_NAME) {
-            t_atom* al = lst.toPdData();
-            obj_ = (*((t_newgimme)(m[i].me_fun)))(OBJ_NAME, lst.size(), al);
+            if (m[i].me_arg[0] == A_GIMME) {
+                t_newgimme new_fn = (t_newgimme)m[i].me_fun;
+                t_atom* al = lst.toPdData();
+                obj_ = (*new_fn)(OBJ_NAME, lst.size(), al);
+                break;
+            }
+
+            if (lst.size() > 5) {
+                break;
+            }
+
+            if (m[i].me_arg[0] == A_NULL) {
+                t_newempty new_fn = (t_newempty)m[i].me_fun;
+                obj_ = (*new_fn)();
+                break;
+            }
+
+            if (m[i].me_arg[0] == A_DEFFLOAT) {
+                t_newfloat new_fn = (t_newfloat)m[i].me_fun;
+                t_float f = lst.empty() ? 0 : lst[0].asFloat(0);
+                obj_ = (*new_fn)(f);
+                break;
+            }
         }
     }
 }

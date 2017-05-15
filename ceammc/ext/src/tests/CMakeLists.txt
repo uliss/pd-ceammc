@@ -8,7 +8,7 @@ add_definitions("-DTEST_DATA_DIR=\"${CMAKE_CURRENT_SOURCE_DIR}\"")
 
 find_package(Iconv)
 
-add_library(tests_main_lib STATIC tests_main.cpp)
+add_library(tests_main_lib STATIC tests_main.cpp test_external)
 
 if(APPLE)
     set(CMAKE_INSTALL_RPATH "@loader_path/../lib")

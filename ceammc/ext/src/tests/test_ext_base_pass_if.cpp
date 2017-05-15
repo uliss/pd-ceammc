@@ -15,6 +15,7 @@
 #include "base_extension_test.h"
 #include "catch.hpp"
 #include "ceammc_pd.h"
+#include "test_external.h"
 
 #include <stdio.h>
 
@@ -85,6 +86,19 @@ TEST_CASE("flow.pass_if", "[externals]")
         flow_pass_if.connectTo(1, x1.object(), 0);
         x1.connectTo(0, flow_pass_if.object(), 1);
 
-        flow_pass_if.sendFloat(4);
+        ExternalOutput x2;
+        flow_pass_if.connectTo(0, x2.object(), 0);
+
+        flow_pass_if.sendFloat(14);
+        REQUIRE(x2.msg().isFloat());
+        REQUIRE(x2.msg().atomValue() == A(14));
+
+        x2.reset();
+        flow_pass_if.sendFloat(10);
+        REQUIRE(x2.msg().isNone());
+
+        flow_pass_if.sendFloat(11);
+        REQUIRE(x2.msg().isFloat());
+        REQUIRE(x2.msg().atomValue() == A(11));
     }
 }
