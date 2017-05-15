@@ -217,7 +217,6 @@ osc.square~
 osc.tri~
 pass
 pass.changed
-pass.this
 pass_if
 path.basename
 path.dirname
