@@ -37,6 +37,7 @@ set(DOC_FILES
     expand_env
     flow.sync
     flow.reject
+    flow.reject_if
     flow.pass
     flow.pass_if
     flow.split
@@ -168,7 +169,6 @@ set(DOC_FILES
     prop.get
     prop.set
     random.int
-    reject_if
     replace
     snd.file
     symbol.equal

@@ -29,6 +29,7 @@ expand_env		.		.
 flow.pass,pass		.		.
 flow.pass_if,pass_if		..		..
 flow.reject,reject		.		.
+flow.reject_if,reject_if		..		..
 flow.split,split		..		...
 flow.sync		?		?
 flt.biquad~		~~~~~~		~
@@ -159,7 +160,6 @@ path.dirname		.		.
 prop.get,prop->		.		?
 prop.set,prop<-		?		.
 random.int		.		.
-reject_if		..		..
 replace		...		.
 snd.file		.		.
 symbol.equal		..		.

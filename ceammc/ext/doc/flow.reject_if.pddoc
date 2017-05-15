@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="reject_if">
-        <title>reject_if</title>
+    <object name="flow.reject_if">
+        <title>flow.reject_if</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
@@ -11,10 +11,13 @@
             <library>ceammc</library>
             <category>flow</category>
             <keywords>reject functional</keywords>
-            <since>0.1</since>
+            <since>0.3</since>
+            <aliases>
+                <alias>reject_if</alias>
+            </aliases>
             <also>
-                <see>pass_if</see>
-                <see>reject.this</see>
+                <see>flow.pass_if</see>
+                <see>flow.reject</see>
                 <see>is_even</see>
             </also>
         </meta>
@@ -39,15 +42,11 @@
         <example>
             <pdascii>
 <![CDATA[
-[F]  [8 9 10 11 12(
-|    |
-|    |
-|    |
-[reject_if] X [< 10]
+[F]
 |
-[msg set]
+[flow.reject_if] X [< 10]
 |
-[ (
+[F]
 ]]>
             </pdascii>
         </example>

@@ -50,6 +50,7 @@ expand_env
 flow.pass
 flow.pass_if
 flow.reject
+flow.reject_if
 flow.split
 flow.sync
 flt.biquad~

@@ -104,6 +104,9 @@
     <entry descr="reject specified values" name="flow.reject" ref_view="object">
       <xi:include href="flow.reject.pddoc" parse="xml"/>
     </entry>
+    <entry descr="reject values by predicate" name="flow.reject_if" ref_view="object">
+      <xi:include href="flow.reject_if.pddoc" parse="xml"/>
+    </entry>
     <entry descr="split data flow by external side-chain predicate" name="flow.split" ref_view="object">
       <xi:include href="flow.split.pddoc" parse="xml"/>
     </entry>
@@ -112,9 +115,6 @@
     </entry>
     <entry descr="rejects redundant input values" name="pass.changed" ref_view="object">
       <xi:include href="pass.changed.pddoc" parse="xml"/>
-    </entry>
-    <entry descr="reject values by predicate" name="reject_if" ref_view="object">
-      <xi:include href="reject_if.pddoc" parse="xml"/>
     </entry>
     <entry descr="Replace atoms in data stream" name="replace" ref_view="object">
       <xi:include href="replace.pddoc" parse="xml"/>

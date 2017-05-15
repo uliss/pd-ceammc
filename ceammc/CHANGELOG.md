@@ -17,7 +17,7 @@
 - flow.split added
 
 ### Changed:
-- pass.if renamed to pass_if
-- reject.if renamed to reject_if
+- pass.if renamed to flow.pass_if (with pass_if alias)
+- reject.if renamed to flow.reject_if (with reject_if alias)
 - pass.this renamed to flow.pass (with pass alias)
 - reject.this renamed to flow.reject (with reject alias)
