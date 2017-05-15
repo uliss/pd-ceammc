@@ -21,8 +21,7 @@ list(APPEND BASE_SOURCES
 
 # pass
 list(APPEND BASE_SOURCES
-    pass_changed.cpp
-    pass_if.cpp)
+    pass_changed.cpp)
 
 # reject
 list(APPEND BASE_SOURCES
@@ -31,6 +30,7 @@ list(APPEND BASE_SOURCES
 # flow
 list(APPEND BASE_SOURCES
     flow_pass.cpp
+    flow_pass_if.cpp
     flow_reject.cpp
     flow_split.cpp
     flow_sync.cpp)

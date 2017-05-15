@@ -48,6 +48,7 @@ env.ar~
 env.follow~
 expand_env
 flow.pass
+flow.pass_if
 flow.reject
 flow.split
 flow.sync

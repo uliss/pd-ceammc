@@ -2,6 +2,7 @@
 
 extern "C" void expand_env_setup();
 extern "C" void setup_flow0x2epass();
+extern "C" void setup_flow0x2epass_if();
 extern "C" void setup_flow0x2ereject();
 extern "C" void setup_flow0x2esplit();
 extern "C" void setup_flow0x2esync();
@@ -16,7 +17,6 @@ extern "C" void is_pointer_setup();
 extern "C" void is_symbol_setup();
 extern "C" void msg_setup();
 extern "C" void replace_setup();
-extern "C" void pass_if_setup();
 extern "C" void reject_if_setup();
 extern "C" void setup_pass0x2echanged();
 extern "C" void setup_prop0x2eget();
@@ -29,6 +29,7 @@ extern "C" void setup_test0x2eexpect();
 void ceammc_base_setup()
 {
     setup_flow0x2epass();
+    setup_flow0x2epass_if();
     setup_flow0x2ereject();
     setup_flow0x2esplit();
     setup_flow0x2esync();
@@ -46,7 +47,6 @@ void ceammc_base_setup()
     msg_setup();
     replace_setup();
     setup_pass0x2echanged();
-    pass_if_setup();
     reject_if_setup();
     setup_prop0x2eget();
     setup_prop0x2eset();

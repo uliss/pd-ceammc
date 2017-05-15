@@ -27,6 +27,7 @@ env.ar~		~		~.
 env.follow~		~		~.
 expand_env		.		.
 flow.pass,pass		.		.
+flow.pass_if,pass_if		..		..
 flow.reject,reject		.		.
 flow.split,split		..		...
 flow.sync		?		?
@@ -153,7 +154,6 @@ osc.sinfb~		~		~.
 osc.square~		~		~
 osc.tri~		~		~
 pass.changed		.		.
-pass_if		..		..
 path.basename		.		.
 path.dirname		.		.
 prop.get,prop->		.		?

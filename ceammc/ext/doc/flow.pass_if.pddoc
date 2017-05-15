@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="pass_if">
-        <title>pass_if</title>
+    <object name="flow.pass_if">
+        <title>flow.pass_if</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
@@ -11,14 +11,17 @@
             <library>ceammc</library>
             <category>flow</category>
             <keywords>pass functional</keywords>
-            <since>0.1</since>
+            <since>0.3</since>
+            <aliases>
+                <alias>pass_if</alias>
+            </aliases>
             <also>
-                <see>pass.this</see>
+                <see>flow.pass</see>
             </also>
         </meta>
         <info>
-            <par>conditional value pass according to *predicate* object. *predicate* should accept
-            value and ouput 0 or 1, for value passing.</par>
+            <par>conditional value pass according to *predicate* side-chain. *predicate* should
+            accept value and ouput 0 or 1, for value passing.</par>
             <par>[&gt;=] [is_even] [is_list] - examples of predicates.</par>
         </info>
         <inlets>
@@ -32,19 +35,19 @@
         </inlets>
         <outlets>
             <outlet>passed values</outlet>
-            <outlet>output to predicate object</outlet>
+            <outlet>output to predicate side-chain</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[F]   [1 2 3 4 5(        [F]   [1 2 3 4 5(
-|     |                  |     |
-[pass_if] X [is_even]    [pass_if] X [is_list]
-|       \________        |
-|               |        |
-[msg set]       [print]  [msg set]
-|                        |
-[ (                      [ (
+[F]                  [F]  [B] [1 2 3 4 5(
+|                    |    |   |
+[pass_if]X[is_even]  [pass_if ]X[is_list]
+|                    |
+|                    |
+[msg set]            [msg set]
+|                    |
+[ (                  [ (
 ]]>
             </pdascii>
         </example>

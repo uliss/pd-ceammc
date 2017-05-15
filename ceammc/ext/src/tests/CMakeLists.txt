@@ -44,6 +44,7 @@ ceammc_external_test(array p2s)
 ceammc_external_test(array s2p)
 
 ceammc_external_test(base pass)
+ceammc_external_test(base pass_if)
 ceammc_external_test(base reject)
 ceammc_external_test(base split)
 
