@@ -21,3 +21,4 @@
 - reject.if renamed to flow.reject_if (with reject_if alias)
 - pass.this renamed to flow.pass (with pass alias)
 - reject.this renamed to flow.reject (with reject alias)
+- pass.changed renamed to flow.change
