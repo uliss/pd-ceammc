@@ -40,7 +40,7 @@
     |     |     |          |     |
 [F] | [B] | [S] |          |     |
 |   | |   | |   |          |     |
-[pass.changed                    ]
+[flow.change                     ]
 |                 |
 [msg set]         [print passed]
 |

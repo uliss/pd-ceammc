@@ -18,7 +18,7 @@ You can "set" the current value \, or bang to force output.;
 #X obj 107 207 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X symbolatom 165 207 5 0 0 0 - - -;
-#X obj 50 236 pass.changed;
+#X obj 50 236 flow.change;
 #X obj 50 265 msg set;
 #X obj 222 265 print passed;
 #X msg 50 294 ;
