@@ -75,6 +75,10 @@ flt.lpf12~
 flt.lpf24~
 flt.notch~
 flt.resonbp~
+func
+func.call
+function
+function.call
 fx.distortion~
 fx.flanger~
 fx.freeverb2~

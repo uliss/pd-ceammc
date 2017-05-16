@@ -16,12 +16,9 @@
 
 #include "ceammc_object.h"
 
-#include <boost/shared_ptr.hpp>
-
 using namespace ceammc;
 
 class Function;
-typedef boost::shared_ptr<Function> FunctionPtr;
 
 class Function : public BaseObject {
     t_symbol* name_;
