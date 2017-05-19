@@ -48,6 +48,28 @@ namespace window {
 
         return 1 - fabsf(float(2 * idx) / float(n - 1) - 1);
     }
+
+    template <class T>
+    T welch(size_t idx, size_t n)
+    {
+        if (idx >= n || n < 2)
+            return 0.f;
+
+        T x = (T(2 * idx) / T(n - 1) - 1);
+        return 1 - x * x;
+    }
+
+    template <class T>
+    T hann(size_t idx, size_t n);
+
+    template <>
+    float hann<float>(size_t idx, size_t n)
+    {
+        if (idx >= n || n < 2)
+            return 0.f;
+
+        return 0.5f * (1 - cosf(float(2.0 * M_PI * idx) / (n - 1)));
+    }
 }
 }
 
