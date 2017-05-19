@@ -63,6 +63,8 @@ set(DOC_FILES
     flt.notch~
     flt.resonbp~
     flt.eq_peak~
+    function
+    function.call
     fx.flanger~
     fx.freqshift~
     fx.distortion~

@@ -15,6 +15,8 @@
 - array.do added
 - list.slice added
 - flow.split added
+- function (func) added
+- function.call (func.call) added
 
 ### Changed:
 - pass.if renamed to flow.pass_if (with pass_if alias)

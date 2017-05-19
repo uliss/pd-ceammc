@@ -17,6 +17,14 @@
       <xi:include href="array.minmax.pddoc" parse="xml"/>
     </entry>
   </category>
+  <category name="base">
+    <entry descr="named function" name="function" ref_view="object">
+      <xi:include href="function.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="call named function" name="function.call" ref_view="object">
+      <xi:include href="function.call.pddoc" parse="xml"/>
+    </entry>
+  </category>
   <category name="conv">
     <entry descr="convert array phase [0..1] to sample position" name="array.p2s" ref_view="object">
       <xi:include href="array.p2s.pddoc" parse="xml"/>
