@@ -75,6 +75,7 @@ Function::Function(const PdArgs& a)
 
     createInlet();
     createOutlet();
+    createOutlet();
 
     OBJ_DBG << "function '" << name_->s_name << "' created.";
 }
@@ -82,7 +83,7 @@ Function::Function(const PdArgs& a)
 Function::~Function()
 {
     FunctionMap::instance().remove(name_);
-    OBJ_DBG << "destroy";
+    OBJ_DBG << "function '" << name_->s_name << "' removed.";
 }
 
 void Function::onBang()
@@ -93,17 +94,17 @@ void Function::onBang()
 void Function::onFloat(float f)
 {
     result_ = Message();
-    floatTo(0, f);
+    floatTo(1, f);
 }
 
 void Function::onList(const AtomList& l)
 {
-    listTo(0, l);
+    listTo(1, l);
 }
 
 void Function::onSymbol(t_symbol* s)
 {
-    symbolTo(0, s);
+    symbolTo(1, s);
 }
 
 void Function::onInlet(size_t n, const AtomList& l)
@@ -112,6 +113,7 @@ void Function::onInlet(size_t n, const AtomList& l)
         return;
 
     result_ = l;
+    listTo(0, l);
 }
 
 Message& Function::result()

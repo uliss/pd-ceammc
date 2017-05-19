@@ -38,6 +38,7 @@ namespace pd {
 
         // connect this object outlet to external object ilnet
         bool connectTo(int outn, t_object* dest, int inln);
+        bool connectTo(int outn, External& ext, int inln);
 
         t_object* object();
 

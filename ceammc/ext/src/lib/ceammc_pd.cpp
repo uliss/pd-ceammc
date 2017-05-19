@@ -22,6 +22,7 @@ extern "C" {
 void pd_init();
 }
 
+#include <exception>
 #include <iostream>
 
 typedef t_object* (*t_newempty)();
@@ -35,32 +36,37 @@ pd::External::External(const char* name, const AtomList& lst)
 {
     t_symbol* OBJ_NAME = gensym(name);
     t_methodentry* m = pd_objectmaker->c_methods;
-    for (int i = 0; i < pd_objectmaker->c_nmethod; i++) {
-        if (m[i].me_name == OBJ_NAME) {
-            if (m[i].me_arg[0] == A_GIMME) {
-                t_newgimme new_fn = (t_newgimme)m[i].me_fun;
-                t_atom* al = lst.toPdData();
-                obj_ = (*new_fn)(OBJ_NAME, lst.size(), al);
-                break;
-            }
+    try {
+        for (int i = 0; i < pd_objectmaker->c_nmethod; i++) {
+            if (m[i].me_name == OBJ_NAME) {
+                if (m[i].me_arg[0] == A_GIMME) {
+                    t_newgimme new_fn = (t_newgimme)m[i].me_fun;
+                    t_atom* al = lst.toPdData();
+                    obj_ = (*new_fn)(OBJ_NAME, lst.size(), al);
+                    break;
+                }
 
-            if (lst.size() > 5) {
-                break;
-            }
+                if (lst.size() > 5) {
+                    break;
+                }
 
-            if (m[i].me_arg[0] == A_NULL) {
-                t_newempty new_fn = (t_newempty)m[i].me_fun;
-                obj_ = (*new_fn)();
-                break;
-            }
+                if (m[i].me_arg[0] == A_NULL) {
+                    t_newempty new_fn = (t_newempty)m[i].me_fun;
+                    obj_ = (*new_fn)();
+                    break;
+                }
 
-            if (m[i].me_arg[0] == A_DEFFLOAT) {
-                t_newfloat new_fn = (t_newfloat)m[i].me_fun;
-                t_float f = lst.empty() ? 0 : lst[0].asFloat(0);
-                obj_ = (*new_fn)(f);
-                break;
+                if (m[i].me_arg[0] == A_DEFFLOAT) {
+                    t_newfloat new_fn = (t_newfloat)m[i].me_fun;
+                    t_float f = lst.empty() ? 0 : lst[0].asFloat(0);
+                    obj_ = (*new_fn)(f);
+                    break;
+                }
             }
         }
+    } catch (std::exception& e) {
+        std::cerr << "error: " << e.what() << std::endl;
+        obj_ = 0;
     }
 }
 
@@ -86,6 +92,11 @@ bool pd::External::connectTo(int outn, t_object* dest, int inln)
 
     obj_connect(obj_, outn, dest, inln);
     return true;
+}
+
+bool pd::External::connectTo(int outn, pd::External& ext, int inln)
+{
+    return connectTo(outn, ext.object(), inln);
 }
 
 t_object* pd::External::object()
