@@ -15,7 +15,7 @@
                 <alias>func.call</alias>
             </aliases>
             <also>
-                <see>function</see>
+                <see view="link">function</see>
             </also>
             <since>0.3</since>
         </meta>
@@ -36,11 +36,15 @@
         <example>
             <pdascii>
 <![CDATA[
-[function $0-f1 #f1]              [F]
-|                              |
-[expr sqrt($f1 * $f1 - 1) #e1] [func.call $0-f1]
-                               |
-[X e1->f1:1]                   [F]
+[function f1]X[sin]
+
+[function f2]X[sqrt]
+
+[F]   [symbol f1( [symbol f2(
+|     |.             |.
+[func.call          f1]
+|
+[F]
 ]]>
             </pdascii>
         </example>

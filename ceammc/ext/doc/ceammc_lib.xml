@@ -18,7 +18,7 @@
     </entry>
   </category>
   <category name="base">
-    <entry descr="named function" name="function" ref_view="object">
+    <entry descr="named function" name="function" ref_view="link">
       <xi:include href="function.pddoc" parse="xml"/>
     </entry>
     <entry descr="call named function" name="function.call" ref_view="object">

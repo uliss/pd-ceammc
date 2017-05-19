@@ -54,7 +54,7 @@ flt.lpf12~		~		~.
 flt.lpf24~		~		~.
 flt.notch~		~		~.
 flt.resonbp~		~		~.
-function,func		..		.
+function,func		..		..
 function.call,func.call		..		.
 fx.distortion~		~		~.
 fx.flanger~		~		~.
