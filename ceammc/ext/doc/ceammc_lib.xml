@@ -406,6 +406,9 @@
     <entry descr="round to largest integral value not greater than x" name="math.floor" ref_view="object">
       <xi:include href="math.floor.pddoc" parse="xml"/>
     </entry>
+    <entry descr="calculate greatest common divisor" name="math.gcd" ref_view="object">
+      <xi:include href="math.gcd.pddoc" parse="xml"/>
+    </entry>
     <entry descr="infinity value that cannot be represented accurately" name="math.inf" ref_view="object">
       <xi:include href="math.inf.pddoc" parse="xml"/>
     </entry>

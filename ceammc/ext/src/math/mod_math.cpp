@@ -1,5 +1,7 @@
 #include "mod_math.h"
 
+#include "math_gcd.h"
+
 extern "C" void setup_math0x2eabs();
 extern "C" void setup_math0x2eacos();
 extern "C" void setup_math0x2eacosh();
@@ -75,4 +77,6 @@ void ceammc_math_setup()
     setup_math0x2eand();
     setup_math0x2eor();
     setup_math0x2eaapprox();
+
+    setup_math0x2egcd();
 }
