@@ -18,8 +18,6 @@
 
 const DataType DataString::dataType = 1;
 
-static const bool registerType = BaseData::registerData(DataString::dataType);
-
 DataString::DataString(t_symbol* s)
 {
     str_ = s->s_name;

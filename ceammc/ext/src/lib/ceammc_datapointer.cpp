@@ -12,9 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_datapointer.h"
-#include "ceammc_datastorage.h"
 
-#include <boost/make_shared.hpp>
 #include <limits>
 
 using namespace ceammc;
@@ -31,90 +29,25 @@ static const data_id_type ID_MASK = (std::numeric_limits<data_id_type>::max() >>
 static const data_id_type TYPE_MASK = ~(DATA_MAGIC | ID_MASK);
 static const unsigned int TYPE_SHIFT = std::numeric_limits<data_id_type>::digits - MASK_BITS;
 
-Data::Data()
-    : id_(0)
-    , data_(0)
-{
-}
+BaseData::~BaseData() {}
 
-Data::Data(BaseData* d)
-    : id_(0)
-    , data_(d)
-{
-    if (data_) {
-        id_ = DataStorage::instance().generateId(type());
-        DataStorage::instance().add(type(), id_, this);
-    }
-}
-
-Data::~Data()
-{
-    if (data_) {
-        DataStorage::instance().remove(type(), id_);
-        delete data_;
-    }
-}
-
-Atom Data::toAtom() const
-{
-    Atom res;
-    if (isNull())
-        return res;
-
-    res.setFloat(0, true);
-    t_atom* a = reinterpret_cast<t_atom*>(&res);
-
-    data_id_type id = id_ & ID_MASK;
-    data_id_type t = (type() << TYPE_SHIFT);
-    data_id_type value = DATA_MAGIC | t | id;
-
-    a->a_w.w_index = value;
-    return res;
-}
-
-DataPtr Data::fromAtom(const Atom& a)
-{
-    DataHandle dh = unpackAtom(a);
-    if (!dh.first)
-        return DataPtr();
-
-    Data* ptr = DataStorage::instance().get(dh.first, dh.second);
-    if (!ptr)
-        return DataPtr();
-
-    return DataPtr(ptr->clone());
-}
-
-
-
-bool Data::isData(const Atom& a)
+AtomDataInfo data::toData(const Atom& a)
 {
     if (!a.isFloat())
-        return false;
-
-    const t_atom* atom = reinterpret_cast<const t_atom*>(&a);
-    data_id_type value = static_cast<data_id_type>(atom->a_w.w_index);
-
-    return DATA_MAGIC & value;
-}
-
-DataHandle Data::unpackAtom(const Atom& a)
-{
-    if (!a.isFloat())
-        return DataHandle(0, 0);
+        return AtomDataInfo(0, 0);
 
     const t_atom* atom = reinterpret_cast<const t_atom*>(&a);
     data_id_type value = static_cast<data_id_type>(atom->a_w.w_index);
 
     if (!(DATA_MAGIC & value))
-        return DataHandle(0, 0);
+        return AtomDataInfo(0, 0);
 
     DataType t = (value & TYPE_MASK) >> TYPE_SHIFT;
     DataId id = value & ID_MASK;
-    return DataHandle(t, id);
+    return AtomDataInfo(t, id);
 }
 
-Atom Data::packAtom(const DataHandle& v)
+Atom data::toAtom(const AtomDataInfo& v)
 {
     Atom res(0.f);
     t_atom* a = reinterpret_cast<t_atom*>(&res);
@@ -126,21 +59,3 @@ Atom Data::packAtom(const DataHandle& v)
     return res;
 }
 
-Data* Data::clone() const
-{
-    if (isNull())
-        return 0;
-
-    Data* ptr = new Data();
-    ptr->data_ = data_->clone();
-    ptr->id_ = DataStorage::instance().generateId(type());
-    DataStorage::instance().add(type(), ptr->id_, ptr);
-    return ptr;
-}
-
-BaseData::~BaseData() {}
-
-bool BaseData::registerData(DataType type)
-{
-    return DataStorage::instance().addNewType(type);
-}

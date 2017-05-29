@@ -14,35 +14,113 @@
 #ifndef CEAMMC_DATASTORAGE_H
 #define CEAMMC_DATASTORAGE_H
 
+#include <algorithm>
 #include <boost/unordered_map.hpp>
 
 #include "ceammc_datapointer.h"
 
 namespace ceammc {
 
-typedef boost::unordered_map<DataId, Data*> TypedDataPointerMap;
-typedef boost::unordered_map<DataType, TypedDataPointerMap*> DataPointerMap;
+template <class T>
+class Data;
 
+template <class T>
 class DataStorage {
-    DataPointerMap storage_;
-    DataStorage();
+public:
+    typedef Data<T>* DataPtr;
+    typedef boost::unordered_map<DataId, DataPtr> Map;
 
 public:
     static DataStorage& instance();
 
 public:
-    DataId generateId(DataType type);
-    Data* get(DataType type, DataId id);
-    bool add(DataType type, DataId id, Data* ptr);
-    bool remove(DataType type, DataId id);
+    DataId generateId();
+    Data<T>* get(DataId id);
+    bool add(DataId id, Data<T>* ptr);
+    bool remove(DataId id);
 
-    bool addNewType(DataType type);
-
-    size_t count(DataType type);
+    size_t count();
 
 private:
-    TypedDataPointerMap* typeStorage(DataType type);
+    DataStorage() {}
+
+private:
+    Map storage_;
 };
+
+template <class T>
+DataStorage<T>& DataStorage<T>::instance()
+{
+    static DataStorage ds;
+    return ds;
+}
+
+template <class T>
+size_t DataStorage<T>::count()
+{
+    return storage_.size();
+}
+
+template <class T>
+static inline bool key_compare(
+    const typename DataStorage<T>::Map::value_type& a,
+    const typename DataStorage<T>::Map::value_type& b)
+{
+    return a.first < b.first;
+}
+
+template <class T>
+DataId DataStorage<T>::generateId()
+{
+    if (storage_.empty())
+        return 1;
+
+    DataId max = std::max_element(storage_.begin(), storage_.end(), key_compare<T>)->first;
+    const size_t sz = storage_.size();
+
+    if (max == sz)
+        return max + 1;
+
+    // we have gaps
+    if (max < sz) {
+        for (DataId i = 1; i <= sz; i++) {
+            if (storage_.find(i) == storage_.end())
+                return i;
+        }
+    }
+
+    // should never happen
+    return static_cast<DataId>(-1);
+}
+
+template <class T>
+Data<T>* DataStorage<T>::get(DataId id)
+{
+    typename Map::iterator it = storage_.find(id);
+    return it == storage_.end() ? 0 : it->second;
+}
+
+template <class T>
+bool DataStorage<T>::add(DataId id, Data<T>* ptr)
+{
+    typename Map::iterator it = storage_.find(id);
+    if (it != storage_.end())
+        return false;
+
+    storage_.insert(std::make_pair(id, ptr));
+    return true;
+}
+
+template <class T>
+bool DataStorage<T>::remove(DataId id)
+{
+    typename Map::iterator it = storage_.find(id);
+    if (it == storage_.end())
+        return false;
+
+    storage_.erase(it);
+    return true;
+}
 }
 
 #endif // CEAMMC_DATASTORAGE_H

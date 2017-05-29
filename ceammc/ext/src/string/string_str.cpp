@@ -17,22 +17,22 @@
 
 StringStr::StringStr(const PdArgs& a)
     : BaseObject(a)
-    , data_(new Data(new DataString(positionalArguments())))
+    , str_(new String(new DataString(positionalArguments())))
 {
     createOutlet();
 }
 
 void StringStr::onBang()
 {
-    if (!data_)
+    if (!str_)
         return;
 
-    listTo(0, data_->toAtom());
+    listTo(0, str_->toAtom());
 }
 
 void StringStr::onSymbol(t_symbol* s)
 {
-    data_->as<DataString>()->str() = s->s_name;
+    str_->data()->str() = s->s_name;
     onBang();
 }
 
@@ -41,23 +41,24 @@ void StringStr::onList(const AtomList& l)
     if (l.empty())
         return;
 
-    DataPtr p = Data::fromAtom(l[0]);
+    StringPtr p = String::fromAtom(l[0]);
     if (!p)
         return;
 
-    data_ = p;
+    str_ = p;
     onBang();
 }
 
 void StringStr::dump() const
 {
     BaseObject::dump();
-    OBJ_DBG << data_->as<DataString>()->str();
+    OBJ_DBG << "id: " << str_->id();
+    OBJ_DBG << str_->data()->str();
 }
 
 void StringStr::m_append(t_symbol* s, const AtomList& lst)
 {
-    data_->as<DataString>()->str() += to_string(lst, " ");
+    str_->data()->str() += to_string(lst, " ");
 }
 
 void string_setup()

@@ -16,13 +16,22 @@
 
 #include "ceammc_atom.h"
 
+namespace ceammc {
+typedef unsigned int DataId;
+typedef unsigned short DataType;
+}
+
+#include "ceammc_datastorage.h"
+
 #include <boost/shared_ptr.hpp>
 
 namespace ceammc {
+typedef std::pair<DataType, DataId> AtomDataInfo;
 
-typedef unsigned int DataId;
-typedef unsigned short DataType;
-typedef std::pair<DataType, DataId> DataHandle;
+namespace data {
+    AtomDataInfo toData(const Atom& a);
+    Atom toAtom(const AtomDataInfo& v);
+}
 
 class BaseData {
 public:
@@ -30,70 +39,107 @@ public:
     virtual void dump() {}
     virtual BaseData* clone() const = 0;
     virtual DataType type() const = 0;
-
-public:
-    static bool registerData(DataType type);
 };
 
-class Data;
-
-typedef boost::shared_ptr<Data> DataPtr;
-
+template <class T>
 class Data {
     DataId id_;
-    BaseData* data_;
+    T* data_;
+
+public:
+    typedef boost::shared_ptr<Data<T> > DataPtr;
 
 public:
     Data();
-    Data(BaseData* d);
+    Data(T* d);
+
     ~Data();
 
     Atom toAtom() const;
-    static DataPtr fromAtom(const Atom& a);
 
-    BaseData* data() { return data_; }
-    const BaseData* data() const { return data_; }
+    T* data() { return data_; }
+    const T* data() const { return data_; }
 
-    bool isNull() const { return id_ == 0; }
+    bool isNull() const { return id_ == 0 || data_ == 0; }
     DataId id() const { return id_; }
     DataType type() const;
 
-    template <class T>
-    T* as();
-    template <class T>
-    const T* as() const;
-
-    static bool isData(const Atom& a);
-    static DataHandle unpackAtom(const Atom& a);
-    static Atom packAtom(const DataHandle& v);
+public:
+    static DataPtr fromAtom(const Atom& a);
 
 private:
-    Data* clone() const;
+    Data<T>* clone() const;
     Data(const Data& d);
     void operator=(const Data& d);
 };
 
-DataType Data::type() const
+template <class T>
+Data<T>::Data()
+    : id_(0)
+    , data_(0)
+{
+}
+
+template <class T>
+Data<T>::Data(T* d)
+    : id_(0)
+    , data_(d)
+{
+    if (data_) {
+        id_ = DataStorage<T>::instance().generateId();
+        DataStorage<T>::instance().add(id_, this);
+    }
+}
+
+template <class T>
+Data<T>::~Data()
+{
+    if (data_) {
+        DataStorage<T>::instance().remove(id_);
+        delete data_;
+    }
+}
+
+template <class T>
+Atom Data<T>::toAtom() const
+{
+    if (isNull())
+        return Atom();
+
+    return data::toAtom(AtomDataInfo(type(), id_));
+}
+
+template <class T>
+typename Data<T>::DataPtr Data<T>::fromAtom(const Atom& a)
+{
+    AtomDataInfo info = data::toData(a);
+    if ((info.first == 0) || (info.first != T::dataType))
+        return DataPtr();
+
+    Data* ptr = DataStorage<T>::instance().get(info.second);
+    if (!ptr)
+        return DataPtr();
+
+    return DataPtr(ptr->clone());
+}
+
+template <class T>
+DataType Data<T>::type() const
 {
     return data_ ? data_->type() : 0;
 }
 
 template <class T>
-T* Data::as()
+Data<T>* Data<T>::clone() const
 {
-    if (data_ == 0)
+    if (isNull())
         return 0;
 
-    return (T::dataType == data_->type()) ? static_cast<T*>(data_) : 0;
-}
-
-template <class T>
-const T* Data::as() const
-{
-    if (data_ == 0)
-        return 0;
-
-    return (T::dataType == data_->type()) ? static_cast<T*>(data_) : 0;
+    Data<T>* ptr = new Data<T>();
+    ptr->data_ = data_->clone();
+    ptr->id_ = DataStorage<T>::instance().generateId();
+    DataStorage<T>::instance().add(ptr->id_, ptr);
+    return ptr;
 }
 }
 
