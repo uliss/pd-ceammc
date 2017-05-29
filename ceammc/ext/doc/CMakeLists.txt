@@ -142,6 +142,7 @@ set(DOC_FILES
     math.floor
     math.gcd
     math.inf
+    math.lcm
     math.log
     math.log10
     math.log2

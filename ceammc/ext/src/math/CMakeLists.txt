@@ -50,6 +50,7 @@ ceammc_math_extension(neg)
 ceammc_math_extension(squared)
 ceammc_mathxx_extension(approx)
 ceammc_mathxx_extension(gcd)
+ceammc_mathxx_extension(lcm)
 
 ceammc_mathxx_extension(and)
 ceammc_mathxx_extension(or)

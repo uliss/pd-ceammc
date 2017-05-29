@@ -64,6 +64,7 @@ ceammc_external_test(list slice)
 ceammc_external_test(math approx)
 ceammc_external_test(math and)
 ceammc_external_test(math gcd)
+ceammc_external_test(math lcm)
 ceammc_external_test(math or)
 
 ceammc_add_extension_test("list_walk" "../list/list_walk.cpp")

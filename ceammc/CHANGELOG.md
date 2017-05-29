@@ -18,6 +18,7 @@
 - function (func) added
 - function.call (func.call) added
 - math.gcd (Greatest Common Divisor) added
+- math.lcm (Least Common Multiple) added
 
 ### Changed:
 - pass.if renamed to flow.pass_if (with pass_if alias)
