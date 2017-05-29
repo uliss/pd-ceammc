@@ -37,6 +37,7 @@ class DataPointer {
     int* ref_count_;
 
 public:
+    DataPointer();
     DataPointer(Data* d);
     ~DataPointer();
 
@@ -53,11 +54,26 @@ public:
     const Data* data() const;
 
     DataId id() const;
+    DataType type() const;
+
+    template <class T>
+    T* as();
+
+    static bool isData(const Atom& a);
 
 private:
     void acquire();
     void release();
 };
+
+template <class T>
+T* DataPointer::as()
+{
+    if (data_ == 0)
+        return 0;
+
+    return (T::dataType == data_->type()) ? static_cast<T*>(data_) : 0;
+}
 }
 
 #endif // CEAMMC_DATAPOINTER_H

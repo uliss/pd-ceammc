@@ -40,18 +40,18 @@ DataId DataStorage::generateId(DataType type)
     if (!t)
         return static_cast<DataId>(-1);
 
-    TypedDataPointerMap::iterator it = std::max_element(t->begin(), t->end(), key_compare);
-    if (it == t->end())
+    if (t->empty())
         return 1;
 
+    DataId max = std::max_element(t->begin(), t->end(), key_compare)->first;
     const size_t sz = t->size();
 
-    if (it->first == sz)
-        return it->first + 1;
+    if (max == sz)
+        return max + 1;
 
     // we have gaps
-    if (it->first < sz) {
-        for (DataId i = 1; i < sz; i++) {
+    if (max < sz) {
+        for (DataId i = 1; i <= sz; i++) {
             if (t->find(i) == t->end())
                 return i;
         }
@@ -98,6 +98,12 @@ bool DataStorage::addNewType(DataType type)
     }
 
     return false;
+}
+
+size_t DataStorage::count(DataType type)
+{
+    TypedDataPointerMap* tmap = typeStorage(type);
+    return tmap == 0 ? 0 : tmap->size();
 }
 
 DataPointer* DataStorage::get(DataType type, DataId id)

@@ -38,6 +38,8 @@ public:
 
     bool addNewType(DataType type);
 
+    size_t count(DataType type);
+
 private:
     TypedDataPointerMap* typeStorage(DataType type);
 };
