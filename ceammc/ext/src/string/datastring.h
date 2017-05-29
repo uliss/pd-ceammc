@@ -11,38 +11,35 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef CEAMMC_DATASTORAGE_H
-#define CEAMMC_DATASTORAGE_H
+#ifndef DATASTRING_H
+#define DATASTRING_H
 
-#include <boost/unordered_map.hpp>
-
+#include "ceammc_atomlist.h"
 #include "ceammc_datapointer.h"
 
-namespace ceammc {
+#include <string>
 
-typedef boost::unordered_map<DataId, Data*> TypedDataPointerMap;
-typedef boost::unordered_map<DataType, TypedDataPointerMap*> DataPointerMap;
+using namespace ceammc;
 
-class DataStorage {
-    DataPointerMap storage_;
-    DataStorage();
+class DataString : public BaseData {
+    std::string str_;
 
 public:
-    static DataStorage& instance();
+    DataString(t_symbol* s);
+    DataString(const Atom& a);
+    DataString(const AtomList& l);
+    DataString(const char* str);
+    DataString(const std::string& str);
+    ~DataString();
+
+    std::string& str() { return str_; }
+    const std::string& str() const { return str_; }
+
+    DataType type() const;
+    DataString* clone() const;
 
 public:
-    DataId generateId(DataType type);
-    Data* get(DataType type, DataId id);
-    bool add(DataType type, DataId id, Data* ptr);
-    bool remove(DataType type, DataId id);
-
-    bool addNewType(DataType type);
-
-    size_t count(DataType type);
-
-private:
-    TypedDataPointerMap* typeStorage(DataType type);
+    static const DataType dataType;
 };
-}
 
-#endif // CEAMMC_DATASTORAGE_H
+#endif // DATASTRING_H

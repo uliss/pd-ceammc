@@ -33,6 +33,7 @@
 #include "path/mod_path.h"
 #include "random/mod_random.h"
 #include "spat/mod_spat.h"
+#include "string/mod_string.h"
 #include "symbol/mod_symbol.h"
 #include "system/mod_system.h"
 #include "tl/mod_tl.h"
@@ -101,6 +102,7 @@ void ceammc_init()
     ceammc_osc_setup();
     ceammc_random_setup();
     //    ceammc_spat_setup();
+    ceammc_string_setup();
     ceammc_symbol_setup();
     ceammc_system_setup();
     ceammc_tl_setup();

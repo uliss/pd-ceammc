@@ -16,58 +16,79 @@
 
 #include "ceammc_atom.h"
 
+#include <boost/shared_ptr.hpp>
+
 namespace ceammc {
 
 typedef unsigned int DataId;
 typedef unsigned short DataType;
+typedef std::pair<DataType, DataId> DataHandle;
 
-class Data {
+class BaseData {
 public:
-    virtual ~Data() {}
-    virtual DataType type() const { return 0; }
+    virtual ~BaseData();
+    virtual void dump() {}
+    virtual BaseData* clone() const = 0;
+    virtual DataType type() const = 0;
 
 public:
     static bool registerData(DataType type);
 };
 
-class DataPointer {
-    DataType type_;
+class Data;
+
+typedef boost::shared_ptr<Data> DataPtr;
+
+class Data {
     DataId id_;
-    Data* data_;
-    int* ref_count_;
+    BaseData* data_;
 
 public:
-    DataPointer();
-    DataPointer(Data* d);
-    ~DataPointer();
-
-    DataPointer(const DataPointer& d);
-    DataPointer& operator=(const DataPointer& d);
-
-    bool isNull() const { return id_ == 0; }
+    Data();
+    Data(BaseData* d);
+    ~Data();
 
     Atom toAtom() const;
-    static DataPointer fromAtom(const Atom& a);
+    static DataPtr fromAtom(const Atom& a);
 
-    int refCount() const;
-    Data* data();
-    const Data* data() const;
+    BaseData* data() { return data_; }
+    const BaseData* data() const { return data_; }
 
-    DataId id() const;
+    bool isNull() const { return id_ == 0; }
+    DataId id() const { return id_; }
     DataType type() const;
 
     template <class T>
     T* as();
+    template <class T>
+    const T* as() const;
 
     static bool isData(const Atom& a);
+    static DataHandle unpackAtom(const Atom& a);
+    static Atom packAtom(const DataHandle& v);
 
 private:
-    void acquire();
-    void release();
+    Data* clone() const;
+    Data(const Data& d);
+    void operator=(const Data& d);
 };
 
+DataType Data::type() const
+{
+    return data_ ? data_->type() : 0;
+}
+
 template <class T>
-T* DataPointer::as()
+T* Data::as()
+{
+    if (data_ == 0)
+        return 0;
+
+    return (T::dataType == data_->type()) ? static_cast<T*>(data_) : 0;
+}
+
+template <class T>
+const T* Data::as() const
 {
     if (data_ == 0)
         return 0;

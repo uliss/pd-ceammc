@@ -61,7 +61,7 @@ DataId DataStorage::generateId(DataType type)
     return static_cast<DataId>(-1);
 }
 
-bool DataStorage::add(DataType type, DataId id, DataPointer* ptr)
+bool DataStorage::add(DataType type, DataId id, Data* ptr)
 {
     TypedDataPointerMap* tmap = typeStorage(type);
     if (!tmap)
@@ -106,7 +106,7 @@ size_t DataStorage::count(DataType type)
     return tmap == 0 ? 0 : tmap->size();
 }
 
-DataPointer* DataStorage::get(DataType type, DataId id)
+Data* DataStorage::get(DataType type, DataId id)
 {
     TypedDataPointerMap* tmap = typeStorage(type);
     if (!tmap)

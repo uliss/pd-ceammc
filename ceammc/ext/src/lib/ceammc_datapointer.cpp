@@ -14,6 +14,7 @@
 #include "ceammc_datapointer.h"
 #include "ceammc_datastorage.h"
 
+#include <boost/make_shared.hpp>
 #include <limits>
 
 using namespace ceammc;
@@ -30,118 +31,63 @@ static const data_id_type ID_MASK = (std::numeric_limits<data_id_type>::max() >>
 static const data_id_type TYPE_MASK = ~(DATA_MAGIC | ID_MASK);
 static const unsigned int TYPE_SHIFT = std::numeric_limits<data_id_type>::digits - MASK_BITS;
 
-DataPointer::DataPointer()
-    : type_(0)
-    , id_(0)
+Data::Data()
+    : id_(0)
     , data_(0)
-    , ref_count_(0)
 {
 }
 
-DataPointer::DataPointer(Data* d)
-    : type_(d->type())
-    , id_(0)
+Data::Data(BaseData* d)
+    : id_(0)
     , data_(d)
-    , ref_count_(new int(0))
 {
-    id_ = DataStorage::instance().generateId(type_);
-    acquire();
+    if (data_) {
+        id_ = DataStorage::instance().generateId(type());
+        DataStorage::instance().add(type(), id_, this);
+    }
 }
 
-DataPointer::DataPointer(const DataPointer& d)
-    : type_(d.type_)
-    , id_(d.id_)
-    , data_(d.data_)
-    , ref_count_(d.ref_count_)
+Data::~Data()
 {
-    // self assignment check
-    if (&d == this)
-        return;
-
-    acquire();
+    if (data_) {
+        DataStorage::instance().remove(type(), id_);
+        delete data_;
+    }
 }
 
-DataPointer& DataPointer::operator=(const DataPointer& d)
-{
-    // self assignment check
-    if (&d == this)
-        return *this;
-
-    if (d.type_ != type_)
-        return *this;
-
-    release();
-
-    id_ = d.id_;
-    data_ = d.data_;
-    ref_count_ = d.ref_count_;
-    acquire();
-    return *this;
-}
-
-DataPointer::~DataPointer()
-{
-    release();
-}
-
-Atom DataPointer::toAtom() const
+Atom Data::toAtom() const
 {
     Atom res;
+    if (isNull())
+        return res;
+
     res.setFloat(0, true);
     t_atom* a = reinterpret_cast<t_atom*>(&res);
 
     data_id_type id = id_ & ID_MASK;
-    data_id_type type = (type_ << TYPE_SHIFT);
-    data_id_type value = DATA_MAGIC | type | id;
+    data_id_type t = (type() << TYPE_SHIFT);
+    data_id_type value = DATA_MAGIC | t | id;
 
     a->a_w.w_index = value;
     return res;
 }
 
-DataPointer DataPointer::fromAtom(const Atom& a)
+DataPtr Data::fromAtom(const Atom& a)
 {
-    if (!isData(a))
-        return DataPointer();
+    DataHandle dh = unpackAtom(a);
+    if (!dh.first)
+        return DataPtr();
 
-    const t_atom* atom = reinterpret_cast<const t_atom*>(&a);
-    data_id_type value = static_cast<data_id_type>(atom->a_w.w_index);
+    Data* ptr = DataStorage::instance().get(dh.first, dh.second);
+    if (!ptr)
+        return DataPtr();
 
-    DataType t = (value & TYPE_MASK) >> TYPE_SHIFT;
-    DataId id = value & ID_MASK;
-
-    DataPointer* ptr = DataStorage::instance().get(t, id);
-    return ptr == 0 ? DataPointer() : *ptr;
+    return DataPtr(ptr->clone());
 }
 
-int DataPointer::refCount() const
-{
-    if (!ref_count_)
-        return 0;
 
-    return *ref_count_;
-}
 
-Data* DataPointer::data()
-{
-    return data_;
-}
-
-const Data* DataPointer::data() const
-{
-    return data_;
-}
-
-DataId DataPointer::id() const
-{
-    return id_;
-}
-
-DataType DataPointer::type() const
-{
-    return type_;
-}
-
-bool DataPointer::isData(const Atom& a)
+bool Data::isData(const Atom& a)
 {
     if (!a.isFloat())
         return false;
@@ -152,39 +98,49 @@ bool DataPointer::isData(const Atom& a)
     return DATA_MAGIC & value;
 }
 
-void DataPointer::acquire()
+DataHandle Data::unpackAtom(const Atom& a)
 {
-    if (!ref_count_)
-        return;
+    if (!a.isFloat())
+        return DataHandle(0, 0);
 
-    if ((*ref_count_) == 0) {
-        if (!DataStorage::instance().add(type_, id_, this)) {
-            std::cerr << "invalid add\n";
-            return;
-        }
-    }
+    const t_atom* atom = reinterpret_cast<const t_atom*>(&a);
+    data_id_type value = static_cast<data_id_type>(atom->a_w.w_index);
 
-    (*ref_count_)++;
+    if (!(DATA_MAGIC & value))
+        return DataHandle(0, 0);
+
+    DataType t = (value & TYPE_MASK) >> TYPE_SHIFT;
+    DataId id = value & ID_MASK;
+    return DataHandle(t, id);
 }
 
-void DataPointer::release()
+Atom Data::packAtom(const DataHandle& v)
 {
-    if (!ref_count_)
-        return;
+    Atom res(0.f);
+    t_atom* a = reinterpret_cast<t_atom*>(&res);
 
-    (*ref_count_)--;
-
-    if ((*ref_count_) == 0) {
-        delete data_;
-        delete ref_count_;
-        data_ = 0;
-        if (!DataStorage::instance().remove(type_, id_)) {
-            std::cerr << "can not remove data:\n";
-        }
-    }
+    data_id_type t = static_cast<unsigned int>(v.first) << TYPE_SHIFT;
+    data_id_type id = v.second & ID_MASK;
+    data_id_type value = DATA_MAGIC | t | id;
+    a->a_w.w_index = value;
+    return res;
 }
 
-bool Data::registerData(DataType type)
+Data* Data::clone() const
+{
+    if (isNull())
+        return 0;
+
+    Data* ptr = new Data();
+    ptr->data_ = data_->clone();
+    ptr->id_ = DataStorage::instance().generateId(type());
+    DataStorage::instance().add(type(), ptr->id_, ptr);
+    return ptr;
+}
+
+BaseData::~BaseData() {}
+
+bool BaseData::registerData(DataType type)
 {
     return DataStorage::instance().addNewType(type);
 }
