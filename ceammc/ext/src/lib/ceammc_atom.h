@@ -14,9 +14,11 @@
 #ifndef CEAMMC_ATOM_H
 #define CEAMMC_ATOM_H
 
-#include <iostream>
 #include <m_pd.h>
+
+#include <iostream>
 #include <string>
+#include <utility>
 
 namespace ceammc {
 
@@ -24,6 +26,20 @@ class Atom;
 typedef Atom (*AtomMapFunction)(const Atom& a);
 typedef t_float (*AtomFloatMapFunction)(t_float f);
 typedef t_symbol* (*AtomSymbolMapFunction)(t_symbol* s);
+
+typedef unsigned int DataId;
+typedef unsigned short DataType;
+
+struct DataDesc {
+    DataType type;
+    DataId id;
+
+    DataDesc(DataType t, DataId i)
+        : type(t)
+        , id(i)
+    {
+    }
+};
 
 class Atom : t_atom {
 public:
@@ -128,6 +144,38 @@ public:
     void apply(AtomFloatMapFunction f);
     void apply(AtomSymbolMapFunction f);
 
+    /**
+      * Data functions
+      */
+
+    /**
+     * @brief dataType
+     * @return data type or 0 on error
+     */
+    DataType dataType() const;
+
+    /**
+     * @brief dataId
+     * @return data id or 0 on error
+     */
+    DataId dataId() const;
+
+    DataDesc getData() const;
+    void setData(const DataDesc& d);
+
+    /**
+     * @returns true if atom may be pointer to data structure
+     * @returns false if atom definitely is not pointer to data
+     */
+    bool maybeData() const;
+
+    /**
+     * @param type - data type
+     * @returns true if atom may be pointer to data structure of specified type
+     * @returns false if atom definitely is not pointer to data of specified type
+     */
+    bool maybeDataType(DataType type) const;
+
 public:
     friend bool operator==(const Atom& a1, const Atom& a2);
     friend bool operator!=(const Atom& a1, const Atom& a2);
@@ -145,6 +193,7 @@ static inline bool isProperty(const Atom& a) { return a.isProperty(); }
 static inline bool notFloat(const Atom& a) { return !a.isFloat(); }
 static inline bool notSymbol(const Atom& a) { return !a.isSymbol(); }
 static inline bool notProperty(const Atom& a) { return !a.isProperty(); }
+static inline bool maybeData(const Atom& a) { return a.maybeData(); }
 }
 
 #endif // CEAMMC_ATOM_H

@@ -95,11 +95,12 @@ TEST_CASE("datapointer", "[PureData]")
 
     SECTION("data<->atom")
     {
-        Atom a = data::toAtom(AtomDataInfo(12, 35));
+        Atom a;
+        a.setData(DataDesc(12, 35));
         REQUIRE(a.isFloat());
-        AtomDataInfo i = data::toData(a);
-        REQUIRE(i.first == 12);
-        REQUIRE(i.second == 35);
+        DataDesc i = a.getData();
+        REQUIRE(i.type == 12);
+        REQUIRE(i.id == 35);
     }
 
     SECTION("atoms")

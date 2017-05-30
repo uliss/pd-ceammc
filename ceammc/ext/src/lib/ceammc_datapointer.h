@@ -15,23 +15,11 @@
 #define CEAMMC_DATAPOINTER_H
 
 #include "ceammc_atom.h"
-
-namespace ceammc {
-typedef unsigned int DataId;
-typedef unsigned short DataType;
-}
-
 #include "ceammc_datastorage.h"
 
 #include <boost/shared_ptr.hpp>
 
 namespace ceammc {
-typedef std::pair<DataType, DataId> AtomDataInfo;
-
-namespace data {
-    AtomDataInfo toData(const Atom& a);
-    Atom toAtom(const AtomDataInfo& v);
-}
 
 class BaseData {
 public:
@@ -52,7 +40,6 @@ public:
 public:
     Data();
     Data(T* d);
-
     ~Data();
 
     Atom toAtom() const;
@@ -61,8 +48,10 @@ public:
     const T* data() const { return data_; }
 
     bool isNull() const { return id_ == 0 || data_ == 0; }
+
     DataId id() const { return id_; }
     DataType type() const;
+    DataDesc desc() const;
 
 public:
     static DataPtr fromAtom(const Atom& a);
@@ -103,20 +92,23 @@ Data<T>::~Data()
 template <class T>
 Atom Data<T>::toAtom() const
 {
+    Atom res;
     if (isNull())
-        return Atom();
+        return res;
 
-    return data::toAtom(AtomDataInfo(type(), id_));
+    res.setData(desc());
+    return res;
 }
 
 template <class T>
 typename Data<T>::DataPtr Data<T>::fromAtom(const Atom& a)
 {
-    AtomDataInfo info = data::toData(a);
-    if ((info.first == 0) || (info.first != T::dataType))
+    DataDesc desc = a.getData();
+
+    if (desc.type != T::dataType)
         return DataPtr();
 
-    Data* ptr = DataStorage<T>::instance().get(info.second);
+    Data* ptr = DataStorage<T>::instance().get(desc.id);
     if (!ptr)
         return DataPtr();
 
@@ -127,6 +119,12 @@ template <class T>
 DataType Data<T>::type() const
 {
     return data_ ? data_->type() : 0;
+}
+
+template <class T>
+DataDesc Data<T>::desc() const
+{
+    return DataDesc(type(), id_);
 }
 
 template <class T>

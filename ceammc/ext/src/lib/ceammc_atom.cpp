@@ -16,7 +16,20 @@
 #include <cmath>
 #include <cstring>
 #include <iostream>
+#include <limits>
 #include <sstream>
+
+typedef unsigned int data_id_type;
+static const unsigned int MASK_BITS = 12;
+static const unsigned int DATA_MAGIC = (data_id_type(2) << (std::numeric_limits<data_id_type>::digits - 2));
+
+// on 32-bit uint - use 2**20 unique object id
+// on 64-bit uint - use 2**52 unique object id
+static const data_id_type ID_MASK = (std::numeric_limits<data_id_type>::max() >> MASK_BITS);
+
+// use 2**12 unique data types
+static const data_id_type TYPE_MASK = ~(DATA_MAGIC | ID_MASK);
+static const unsigned int TYPE_SHIFT = std::numeric_limits<data_id_type>::digits - MASK_BITS;
 
 namespace ceammc {
 
@@ -72,6 +85,29 @@ bool Atom::isInteger() const
 bool Atom::isNatural() const
 {
     return isInteger() && a_w.w_float >= 0.f;
+}
+
+bool Atom::maybeData() const
+{
+    if (a_type != A_FLOAT)
+        return false;
+
+    data_id_type value = static_cast<data_id_type>(a_w.w_index);
+    return !(DATA_MAGIC & value);
+}
+
+bool Atom::maybeDataType(DataType type) const
+{
+    if (a_type != A_FLOAT)
+        return false;
+
+    data_id_type value = static_cast<data_id_type>(a_w.w_index);
+
+    if (!(DATA_MAGIC & value))
+        return false;
+
+    DataType t = (value & TYPE_MASK) >> TYPE_SHIFT;
+    return t == type;
 }
 
 Atom::Type Atom::type() const
@@ -274,6 +310,40 @@ void Atom::apply(AtomSymbolMapFunction f)
 {
     if (a_type == A_SYMBOL)
         a_w.w_symbol = f(a_w.w_symbol);
+}
+
+DataType Atom::dataType() const
+{
+    return getData().type;
+}
+
+DataId Atom::dataId() const
+{
+    return getData().id;
+}
+
+DataDesc Atom::getData() const
+{
+    if (a_type != A_FLOAT)
+        return DataDesc(0, 0);
+
+    data_id_type value = static_cast<data_id_type>(a_w.w_index);
+
+    if (!(DATA_MAGIC & value))
+        return DataDesc(0, 0);
+
+    DataType t = (value & TYPE_MASK) >> TYPE_SHIFT;
+    DataId id = value & ID_MASK;
+    return DataDesc(t, id);
+}
+
+void Atom::setData(const DataDesc& d)
+{
+    a_type = A_FLOAT;
+    data_id_type t = static_cast<unsigned int>(d.type) << TYPE_SHIFT;
+    data_id_type id = d.id & ID_MASK;
+    data_id_type value = DATA_MAGIC | t | id;
+    a_w.w_index = value;
 }
 
 void Atom::outputAsAny(t_outlet* x, t_symbol* sel) const
