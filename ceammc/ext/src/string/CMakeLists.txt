@@ -4,6 +4,8 @@ macro(ceammc_string_extension name)
 endmacro()
 
 ceammc_string_extension(str)
+ceammc_string_extension(format)
+ceammc_string_extension(to_symbol)
 
 add_library(ceammc_string STATIC mod_string.cpp ${STRING_SOURCES})
 if(UNIX)
