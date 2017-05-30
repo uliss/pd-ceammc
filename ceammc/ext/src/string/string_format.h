@@ -23,8 +23,9 @@ class StringFormat : public BaseObject {
     typedef Data<DataString> String;
     typedef String::DataPtr StringPtr;
 
-    StringPtr str_;
-    StringPtr str_formatted_;
+    AtomList fmt_atoms_;
+    std::string fmt_str_;
+    StringPtr fmt_result_;
 
 public:
     StringFormat(const PdArgs& a);
@@ -33,6 +34,9 @@ public:
     void onFloat(float v);
     void onSymbol(t_symbol* s);
     void onList(const AtomList& lst);
+
+    AtomList propGetFormat() const;
+    void propSetFormat(const AtomList& lst);
 };
 
 extern "C" void setup_string0x2eformat();

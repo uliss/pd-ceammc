@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "string_format.h"
+#include "ceammc_format.h"
 #include "data_string_factory.h"
 
 #include <sstream>
@@ -27,32 +28,38 @@
 
 StringFormat::StringFormat(const PdArgs& a)
     : BaseObject(a)
-    , str_(new String(new DataString(positionalArguments())))
-    , str_formatted_(new String(new DataString("")))
+    , fmt_result_(new String(new DataString("")))
 {
     createOutlet();
-}
 
-void StringFormat::onData(const DataString& d)
-{
+    propSetFormat(positionalArguments());
+    createCbProperty("@format", &StringFormat::propGetFormat, &StringFormat::propSetFormat);
 }
 
 void StringFormat::onBang()
 {
-    if (!str_formatted_)
+    if (!fmt_result_)
         return;
 
-    atomTo(0, str_formatted_->toAtom());
+    atomTo(0, fmt_result_->toAtom());
+}
+
+void StringFormat::onData(const DataString& d)
+{
+    try {
+        fmt_result_->data()->str() = tfm::format(fmt_str_.c_str(), d.str());
+    } catch (std::exception& e) {
+        OBJ_ERR << e.what();
+        return;
+    }
+
+    onBang();
 }
 
 void StringFormat::onFloat(float v)
 {
-    if (!str_)
-        return;
-
     try {
-        const char* format = str_->data()->str().c_str();
-        str_formatted_->data()->str() = tfm::format(format, v);
+        fmt_result_->data()->str() = tfm::format(fmt_str_.c_str(), v);
     } catch (std::exception& e) {
         OBJ_ERR << e.what();
         return;
@@ -63,12 +70,8 @@ void StringFormat::onFloat(float v)
 
 void StringFormat::onSymbol(t_symbol* s)
 {
-    if (!str_)
-        return;
-
     try {
-        const char* format = str_->data()->str().c_str();
-        str_formatted_->data()->str() = tfm::format(format, s->s_name);
+        fmt_result_->data()->str() = tfm::format(fmt_str_.c_str(), s->s_name);
     } catch (std::exception& e) {
         OBJ_ERR << e.what();
         return;
@@ -93,16 +96,26 @@ void StringFormat::onList(const AtomList& lst)
     }
 
     try {
-        const char* format = str_->data()->str().c_str();
         std::ostringstream buf;
-        tfm::vformat(buf, format, args);
-        str_formatted_->data()->str() = buf.str();
+        tfm::vformat(buf, fmt_str_.c_str(), args);
+        fmt_result_->data()->str() = buf.str();
     } catch (std::exception& e) {
         OBJ_ERR << e.what();
         return;
     }
 
     onBang();
+}
+
+AtomList StringFormat::propGetFormat() const
+{
+    return fmt_atoms_;
+}
+
+void StringFormat::propSetFormat(const AtomList& lst)
+{
+    fmt_atoms_ = lst;
+    fmt_str_ = to_string(lst, " ");
 }
 
 extern "C" void setup_string0x2eformat()
