@@ -70,6 +70,7 @@ ceammc_external_test(math lcm)
 ceammc_external_test(math or)
 
 ceammc_external_test(string str)
+ceammc_external_test(string to_symbol)
 
 ceammc_add_extension_test("list_walk" "../list/list_walk.cpp")
 ceammc_add_extension_test("list_walk2" "../list/list_walk.cpp")
