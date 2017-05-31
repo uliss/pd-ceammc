@@ -43,6 +43,8 @@ Message::Message(const Atom& a)
         type_ = FLOAT;
     if (value_.isSymbol())
         type_ = SYMBOL;
+    if (value_.isData())
+        type_ = DATA;
 }
 
 Message::Message(const AtomList& l)
@@ -80,6 +82,8 @@ void Message::setAtom(const Atom& a)
         type_ = FLOAT;
     if (a.isSymbol())
         type_ = SYMBOL;
+    if (a.isData())
+        type_ = DATA;
 }
 
 void Message::setFloat(t_float v)

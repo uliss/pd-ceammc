@@ -34,11 +34,9 @@ struct DataDesc {
     DataType type;
     DataId id;
 
-    DataDesc(DataType t, DataId i)
-        : type(t)
-        , id(i)
-    {
-    }
+    DataDesc(DataType t, DataId i);
+    bool operator==(const DataDesc& d) const;
+    bool operator!=(const DataDesc& d) const;
 };
 
 class Atom : t_atom {
@@ -50,7 +48,8 @@ public:
         NONE,
         FLOAT,
         SYMBOL,
-        PROPERTY
+        PROPERTY,
+        DATA
     };
 
     static const char PROP_PREFIX = '@';
@@ -60,6 +59,7 @@ public:
     Atom(const t_atom& a);
     Atom(t_float v);
     Atom(t_symbol* s);
+    Atom(const DataDesc& d);
 
     /**
      * @returns true if atom has logical type Atom::FLOAT
@@ -164,17 +164,14 @@ public:
     void setData(const DataDesc& d);
 
     /**
-     * @returns true if atom may be pointer to data structure
-     * @returns false if atom definitely is not pointer to data
+     * @returns true if atom is a data structure
      */
-    bool maybeData() const;
+    bool isData() const;
 
     /**
-     * @param type - data type
-     * @returns true if atom may be pointer to data structure of specified type
-     * @returns false if atom definitely is not pointer to data of specified type
+     * @returns true if atom is a data structure of specified type
      */
-    bool maybeDataType(DataType type) const;
+    bool isDataType(DataType type) const;
 
 public:
     friend bool operator==(const Atom& a1, const Atom& a2);
@@ -193,7 +190,7 @@ static inline bool isProperty(const Atom& a) { return a.isProperty(); }
 static inline bool notFloat(const Atom& a) { return !a.isFloat(); }
 static inline bool notSymbol(const Atom& a) { return !a.isSymbol(); }
 static inline bool notProperty(const Atom& a) { return !a.isProperty(); }
-static inline bool maybeData(const Atom& a) { return a.maybeData(); }
+static inline bool isData(const Atom& a) { return a.isData(); }
 }
 
 #endif // CEAMMC_ATOM_H

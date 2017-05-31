@@ -18,6 +18,7 @@
 #include "ceammc_datastorage.h"
 
 #include <boost/shared_ptr.hpp>
+#include <map>
 
 namespace ceammc {
 
@@ -27,6 +28,21 @@ public:
     virtual void dump() {}
     virtual BaseData* clone() const = 0;
     virtual DataType type() const = 0;
+    virtual std::string toString() const;
+};
+
+typedef BaseData* (*RawDataPointerFn)(DataId id);
+
+class DataFactory {
+    typedef std::map<DataType, RawDataPointerFn> DataFnMap;
+    DataFnMap fn_;
+    DataFactory();
+
+public:
+    static DataFactory& instance();
+    void add(DataType type, RawDataPointerFn fn);
+    BaseData* rawData(const DataDesc& d);
+    BaseData* rawData(DataType type, DataId id);
 };
 
 template <class T>
@@ -55,6 +71,8 @@ public:
 
 public:
     static DataPtr fromAtom(const Atom& a);
+    static T* getRawDataPointer(DataId id);
+    static bool registerCreator();
 
 private:
     Data<T>* clone() const;
@@ -116,6 +134,13 @@ typename Data<T>::DataPtr Data<T>::fromAtom(const Atom& a)
 }
 
 template <class T>
+T* Data<T>::getRawDataPointer(DataId id)
+{
+    Data* ptr = DataStorage<T>::instance().get(id);
+    return ptr ? ptr->data() : 0;
+}
+
+template <class T>
 DataType Data<T>::type() const
 {
     return data_ ? data_->type() : 0;
@@ -138,6 +163,13 @@ Data<T>* Data<T>::clone() const
     ptr->id_ = DataStorage<T>::instance().generateId();
     DataStorage<T>::instance().add(ptr->id_, ptr);
     return ptr;
+}
+
+template <class T>
+bool Data<T>::registerCreator()
+{
+    DataFactory::instance().add(T::dataType, reinterpret_cast<RawDataPointerFn>(getRawDataPointer));
+    return true;
 }
 }
 

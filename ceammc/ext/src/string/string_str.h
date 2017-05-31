@@ -29,11 +29,15 @@ class StringStr : public BaseObject {
 public:
     StringStr(const PdArgs& a);
     void onBang();
+    void onFloat(float f);
     void onSymbol(t_symbol* s);
     void onList(const AtomList& l);
+    void onData(const BaseData& d);
     void dump() const;
 
-    void m_append(t_symbol* s, const AtomList& lst);
+    void m_append(t_symbol*, const AtomList& lst);
+    void m_set(t_symbol*, const AtomList& lst);
+    void m_clear(t_symbol*, const AtomList& lst);
 };
 
 extern "C" void string_setup();

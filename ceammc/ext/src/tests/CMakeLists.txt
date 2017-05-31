@@ -16,6 +16,7 @@ endif()
 
 ceammc_add_test("ceammc::Array" test_array)
 ceammc_add_test("ceammc::Atom" test_atom)
+ceammc_add_test("ceammc::Atom2" test_atom2)
 ceammc_add_test("ceammc::AtomList" test_atomlist)
 ceammc_add_test("ceammc::AtomList2" test_atomlist2)
 ceammc_add_test("ceammc::ControlValue" test_message)
@@ -67,6 +68,8 @@ ceammc_external_test(math and)
 ceammc_external_test(math gcd)
 ceammc_external_test(math lcm)
 ceammc_external_test(math or)
+
+ceammc_external_test(string str)
 
 ceammc_add_extension_test("list_walk" "../list/list_walk.cpp")
 ceammc_add_extension_test("list_walk2" "../list/list_walk.cpp")

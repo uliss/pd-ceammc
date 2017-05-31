@@ -97,7 +97,8 @@ TEST_CASE("datapointer", "[PureData]")
     {
         Atom a;
         a.setData(DataDesc(12, 35));
-        REQUIRE(a.isFloat());
+        REQUIRE(a.isData());
+        REQUIRE(a.isDataType(12));
         DataDesc i = a.getData();
         REQUIRE(i.type == 12);
         REQUIRE(i.id == 35);
@@ -112,7 +113,8 @@ TEST_CASE("datapointer", "[PureData]")
         REQUIRE(dp.id() == 1);
 
         Atom a = dp.toAtom();
-        REQUIRE(a.isFloat());
+        REQUIRE(a.isData());
+        REQUIRE(a.isDataType(DTYPE));
 
         REQUIRE(TestStorage::instance().get(1));
 
@@ -177,13 +179,14 @@ TEST_CASE("datapointer", "[PureData]")
             REQUIRE(p1->data() == data[1]->data());
 
             TestData::DataPtr dp(TestData::fromAtom(lst[5]));
-            REQUIRE(dp->type() == 123);
+            REQUIRE(dp->type() == DTYPE);
             REQUIRE(dp->data()->value() == 5);
 
             REQUIRE(lst.size() == 15);
             for (size_t i = 0; i < 10; i++) {
                 Atom a = lst[i];
-                REQUIRE(a.isFloat());
+                REQUIRE(a.isData());
+                REQUIRE(a.isDataType(DTYPE));
                 TestData::DataPtr dp = TestData::fromAtom(lst[i]);
                 REQUIRE(dp);
                 REQUIRE(dp->type() == DTYPE);

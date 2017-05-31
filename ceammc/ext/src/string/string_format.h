@@ -34,6 +34,7 @@ public:
     void onFloat(float v);
     void onSymbol(t_symbol* s);
     void onList(const AtomList& lst);
+    void onAny(t_symbol* s, const AtomList& lst);
 
     AtomList propGetFormat() const;
     void propSetFormat(const AtomList& lst);

@@ -17,6 +17,7 @@
 #include "ceammc_log.h"
 
 const DataType DataString::dataType = 1;
+static const bool r = Data<DataString>::registerCreator();
 
 DataString::DataString(t_symbol* s)
 {
@@ -53,6 +54,11 @@ DataString::~DataString()
     LIB_DBG << "string destructed: " << str_;
 }
 
+void DataString::clear()
+{
+    str_.clear();
+}
+
 DataType DataString::type() const
 {
     return dataType;
@@ -61,4 +67,9 @@ DataType DataString::type() const
 DataString* DataString::clone() const
 {
     return new DataString(str_);
+}
+
+std::string DataString::toString() const
+{
+    return str();
 }

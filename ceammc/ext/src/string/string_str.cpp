@@ -12,8 +12,23 @@
  * this file belongs to.
  *****************************************************************************/
 #include "string_str.h"
-#include "ceammc_factory.h"
 #include "ceammc_format.h"
+#include "data_string_factory.h"
+
+#include <cstdio>
+
+static std::string toString(const AtomList& l, const std::string& sep = " ")
+{
+    std::string res;
+    for (size_t i = 0; i < l.size(); i++) {
+        if (i != 0)
+            res += sep;
+
+        res += to_string(l[i]);
+    }
+
+    return res;
+}
 
 StringStr::StringStr(const PdArgs& a)
     : BaseObject(a)
@@ -27,7 +42,15 @@ void StringStr::onBang()
     if (!str_)
         return;
 
-    listTo(0, str_->toAtom());
+    dataTo(0, str_->toAtom());
+}
+
+void StringStr::onFloat(float f)
+{
+    char buf[20];
+    sprintf(buf, "%g", f);
+    str_->data()->str() = buf;
+    onBang();
 }
 
 void StringStr::onSymbol(t_symbol* s)
@@ -38,33 +61,46 @@ void StringStr::onSymbol(t_symbol* s)
 
 void StringStr::onList(const AtomList& l)
 {
-    if (l.empty())
-        return;
+    str_->data()->str() = toString(l);
+    onBang();
+}
 
-    StringPtr p = String::fromAtom(l[0]);
-    if (!p)
-        return;
-
-    str_ = p;
+void StringStr::onData(const BaseData& d)
+{
+    str_->data()->str() = d.toString();
     onBang();
 }
 
 void StringStr::dump() const
 {
+    OBJ_DBG << "DATA: STRING";
     BaseObject::dump();
+    OBJ_DBG << "total strings allocated:" << DataStorage<DataString>::instance().count();
     OBJ_DBG << "id: " << str_->id();
-    OBJ_DBG << str_->data()->str();
+    OBJ_DBG << "content: " << str_->data()->str();
 }
 
-void StringStr::m_append(t_symbol* s, const AtomList& lst)
+void StringStr::m_append(t_symbol*, const AtomList& lst)
 {
-    str_->data()->str() += to_string(lst, " ");
+    str_->data()->str() += toString(lst);
+}
+
+void StringStr::m_set(t_symbol*, const AtomList& lst)
+{
+    str_->data()->str() = toString(lst);
+}
+
+void StringStr::m_clear(t_symbol*, const AtomList&)
+{
+    str_->data()->clear();
 }
 
 void string_setup()
 {
-    ObjectFactory<StringStr> obj("string");
-    obj.mapFloatToList();
+    DataStringFactory<StringStr, DataString> obj("string");
+    obj.processAnyData();
     obj.addAlias("str");
     obj.addMethod("append", &StringStr::m_append);
+    obj.addMethod("set", &StringStr::m_set);
+    obj.addMethod("clear", &StringStr::m_clear);
 }

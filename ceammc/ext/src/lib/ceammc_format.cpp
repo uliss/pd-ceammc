@@ -14,7 +14,9 @@
 #include "ceammc_format.h"
 #include "ceammc_atom.h"
 #include "ceammc_atomlist.h"
+#include "ceammc_datapointer.h"
 #include "ceammc_message.h"
+
 #include <algorithm>
 #include <iomanip>
 #include <iostream>
@@ -30,8 +32,16 @@ static inline T clip(T v, T min, T max)
 
 std::string to_string(const Atom& a)
 {
-    if(a.isSymbol())
+    if (a.isSymbol())
         return std::string(a.asSymbol()->s_name);
+
+    if (a.isData()) {
+        BaseData* p = DataFactory::instance().rawData(a.getData());
+        if (!p)
+            return "???";
+        else
+            return p->toString();
+    }
 
     std::ostringstream ss;
     ss << a;

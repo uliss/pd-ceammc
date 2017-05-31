@@ -19,12 +19,16 @@
 #include "ceammc_message.h"
 #include "ceammc_object.h"
 
+#include <boost/shared_ptr.hpp>
 #include <cassert>
 #include <vector>
 
 using namespace ceammc;
 
 typedef std::vector<Message> MessageList;
+typedef boost::shared_ptr<BaseData> BaseDataPtr;
+typedef std::vector<BaseDataPtr> DataPtrList;
+
 extern "C" void obj_init();
 extern "C" void pd_init();
 
@@ -49,6 +53,7 @@ template <class T>
 class TestExtension : public T {
     std::vector<MessageList> msg_;
     std::vector<long> msg_count_;
+    std::vector<DataPtrList> data_;
 
 public:
     TestExtension(const char* name, const AtomList& args = AtomList());
@@ -61,6 +66,7 @@ public:
     void sendList(const AtomList& lst, int inlet = 0);
     void sendAny(const char* name, const AtomList& args = AtomList());
     void sendAny(const AtomList& args);
+    void sendData(const BaseData& d, int inlet = 0);
 
     /** overloaded */
     virtual void bangTo(size_t n);
@@ -71,6 +77,7 @@ public:
     virtual void anyTo(size_t n, const AtomList& lst);
     virtual void anyTo(size_t n, t_symbol* sel, const AtomList& lst);
     virtual void messageTo(size_t n, const Message& m);
+    virtual void dataTo(size_t n, const Atom& d);
 
     /** messages methods */
 public:
@@ -80,9 +87,17 @@ public:
     size_t messageCount(size_t outlet = 0) const;
     const Message& lastMessage(size_t outlet = 0) const;
     const Message& messageAt(size_t idx, size_t outlet) const;
+    BaseDataPtr dataAt(size_t idx, size_t outlet) const;
+    const BaseDataPtr& lastData(size_t outlet = 0) const;
     bool lastMessageIsBang(size_t outlet = 0) const;
     void cleanMessages(size_t outlet = 0);
     void cleanAllMessages();
+
+    template <class DataT>
+    DataT* typedDataAt(size_t idx, size_t outlet);
+
+    template <class DataT>
+    DataT* typedLastDataAt(size_t outlet);
 
 public:
     typedef void (*sendAtomCallback)(TestExtension* obj, size_t outn, const Atom& a);
@@ -145,6 +160,13 @@ private:
         REQUIRE(obj.lastMessage(outlet).anyValue() == anyLst); \
     }
 
+#define REQUIRE_DATA_AT_OUTLET(outlet, obj, data)             \
+    {                                                         \
+        REQUIRE(obj.hasNewMessages(outlet));                  \
+        REQUIRE(obj.lastMessage(outlet).isData());            \
+        REQUIRE(obj.lastMessage(outlet).atomValue() == data); \
+    }
+
 #define REQUIRE_PROPERTY(obj, name, val)           \
     {                                              \
         Property* p = obj.property(gensym(#name)); \
@@ -177,6 +199,12 @@ private:
 #define REQUIRE_NO_MESSAGES_AT_OUTLET(outlet, obj) REQUIRE_FALSE(obj.hasNewMessages(outlet))
 
 #define REQUIRE_NEW_MESSAGES_AT_OUTLET(outlet, obj) REQUIRE(obj.hasNewMessages(outlet))
+
+#define REQUIRE_NEW_DATA_AT_OUTLET(outlet, obj)    \
+    {                                              \
+        REQUIRE(obj.hasNewMessages(outlet));       \
+        REQUIRE(obj.lastMessage(outlet).isData()); \
+    }
 
 #define S(v) Atom(gensym(v))
 #define F(v) Atom(float(v))
@@ -286,6 +314,11 @@ AtomList test_list_wrap(const Atom& a1, const Atom& a2, const Atom& a3, const At
         obj.m_##method(gensym(#method), L8(a1, a2, a3, a4, a5, a6, a7, a8)); \
     }
 
+static Atom D(DataType t, DataId id)
+{
+    return Atom(DataDesc(t, id));
+}
+
 template <class T>
 void WHEN_SEND_ANY_TO(T& obj, const AtomList& lst)
 {
@@ -314,6 +347,13 @@ void WHEN_SEND_FLOAT_TO(size_t inlet, T& obj, float v)
     obj.sendFloat(v, inlet);
 }
 
+template <class T, class D>
+void WHEN_SEND_DATA_TO(size_t inlet, T& obj, const D& d)
+{
+    obj.storeAllMessageCount();
+    obj.sendData(d, inlet);
+}
+
 template <class T>
 void WHEN_SEND_SYMBOL_TO(size_t inlet, T& obj, const char* sym)
 {
@@ -333,8 +373,10 @@ TestExtension<T>::TestExtension(const char* name, const AtomList& args)
     : T(PdArgs(args, gensym(name), make_owner<T>(name)))
     , atom_cb_(0)
 {
-    msg_.assign(T::numOutlets(), MessageList());
-    msg_count_.assign(T::numOutlets(), -1);
+    const size_t N = T::numOutlets();
+    msg_.assign(N, MessageList());
+    msg_count_.assign(N, -1);
+    data_.assign(N, DataPtrList());
     T::parseProperties();
 }
 
@@ -397,6 +439,12 @@ void TestExtension<T>::sendAny(const AtomList& args)
 }
 
 template <class T>
+void TestExtension<T>::sendData(const BaseData& d, int inlet)
+{
+    T::onData(d);
+}
+
+template <class T>
 void TestExtension<T>::bangTo(size_t n)
 {
     msg_[n].push_back(Message(&s_bang));
@@ -448,6 +496,14 @@ void TestExtension<T>::messageTo(size_t n, const Message& m)
 }
 
 template <class T>
+void TestExtension<T>::dataTo(size_t n, const Atom& d)
+{
+    msg_[n].push_back(d);
+    BaseData* p = DataFactory::instance().rawData(d.getData());
+    data_[n].push_back(BaseDataPtr(p ? p->clone() : 0));
+}
+
+template <class T>
 void TestExtension<T>::storeMessageCount(size_t outlet)
 {
     msg_count_[outlet] = msg_[outlet].size();
@@ -485,6 +541,18 @@ const Message& TestExtension<T>::messageAt(size_t idx, size_t outlet) const
 }
 
 template <class T>
+BaseDataPtr TestExtension<T>::dataAt(size_t idx, size_t outlet) const
+{
+    return data_[outlet].at(idx);
+}
+
+template <class T>
+const BaseDataPtr& TestExtension<T>::lastData(size_t outlet) const
+{
+    return data_[outlet].back();
+}
+
+template <class T>
 bool TestExtension<T>::lastMessageIsBang(size_t outlet) const
 {
     if (msg_[outlet].empty())
@@ -497,6 +565,7 @@ template <class T>
 void TestExtension<T>::cleanMessages(size_t outlet)
 {
     msg_[outlet].clear();
+    data_[outlet].clear();
 }
 
 template <class T>
@@ -504,6 +573,28 @@ void TestExtension<T>::cleanAllMessages()
 {
     for (size_t i = 0; i < msg_.size(); i++)
         cleanMessages(i);
+}
+
+template <class T>
+template <class DataT>
+DataT* TestExtension<T>::typedDataAt(size_t idx, size_t outlet)
+{
+    BaseDataPtr p = dataAt(idx, outlet);
+    if (p && p->type() == DataT::dataType) {
+        return static_cast<DataT*>(p.get());
+    } else
+        return 0;
+}
+
+template <class T>
+template <class DataT>
+DataT* TestExtension<T>::typedLastDataAt(size_t outlet)
+{
+    BaseDataPtr p = lastData(outlet);
+    if (p && p->type() == DataT::dataType) {
+        return static_cast<DataT*>(p.get());
+    } else
+        return 0;
 }
 
 #endif // BASE_EXTENSION_TEST_H

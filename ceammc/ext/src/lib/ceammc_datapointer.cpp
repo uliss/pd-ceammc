@@ -12,7 +12,49 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_datapointer.h"
+#include "ceammc_log.h"
+
+#include <cstdio>
+#include <typeinfo>
 
 using namespace ceammc;
 
 BaseData::~BaseData() {}
+
+std::string BaseData::toString() const
+{
+    char buf[120];
+    sprintf(buf, "[Data %s id: %i]", typeid(*this).name(), type());
+    return buf;
+}
+
+DataFactory::DataFactory()
+{
+}
+
+DataFactory& DataFactory::instance()
+{
+    static DataFactory fact;
+    return fact;
+}
+
+void DataFactory::add(DataType type, RawDataPointerFn fn)
+{
+    LIB_DBG << "registered data type: " << type;
+    fn_[type] = fn;
+}
+
+BaseData* DataFactory::rawData(const DataDesc& d)
+{
+    DataFnMap::iterator it = fn_.find(d.type);
+    if (it == fn_.end()) {
+        LIB_ERR << "type not found: " << d.type;
+        return 0;
+    } else
+        return it->second(d.id);
+}
+
+BaseData* DataFactory::rawData(DataType type, DataId id)
+{
+    return rawData(DataDesc(type, id));
+}

@@ -32,11 +32,14 @@ public:
     DataString(const std::string& str);
     ~DataString();
 
+    void clear();
+
     std::string& str() { return str_; }
     const std::string& str() const { return str_; }
 
     DataType type() const;
     DataString* clone() const;
+    std::string toString() const;
 
 public:
     static const DataType dataType;

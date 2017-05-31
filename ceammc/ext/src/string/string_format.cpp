@@ -86,6 +86,15 @@ void StringFormat::onList(const AtomList& lst)
     for (size_t i = 0; i < lst.size(); i++) {
         switch (lst[i].type()) {
         case Atom::FLOAT:
+            if (lst[i].isData()) {
+                OBJ_DBG << "maybe Data found";
+                OBJ_DBG << "id=" << lst[i].dataId() << ", type=" << lst[i].dataType();
+                BaseData* p = DataFactory::instance().rawData(lst[i].getData());
+                if (p) {
+                    args.add(p->toString());
+                    break;
+                }
+            } // fall down
             args.add(lst[i].asFloat());
             break;
         case Atom::SYMBOL:
@@ -105,6 +114,11 @@ void StringFormat::onList(const AtomList& lst)
     }
 
     onBang();
+}
+
+void StringFormat::onAny(t_symbol* s, const AtomList& lst)
+{
+    OBJ_ERR << "any";
 }
 
 AtomList StringFormat::propGetFormat() const
