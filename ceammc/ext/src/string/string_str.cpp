@@ -17,19 +17,6 @@
 
 #include <cstdio>
 
-static std::string toString(const AtomList& l, const std::string& sep = " ")
-{
-    std::string res;
-    for (size_t i = 0; i < l.size(); i++) {
-        if (i != 0)
-            res += sep;
-
-        res += to_string(l[i]);
-    }
-
-    return res;
-}
-
 StringStr::StringStr(const PdArgs& a)
     : BaseObject(a)
     , str_(new String(new DataString(positionalArguments())))
@@ -61,7 +48,7 @@ void StringStr::onSymbol(t_symbol* s)
 
 void StringStr::onList(const AtomList& l)
 {
-    str_->data()->str() = toString(l);
+    str_->data()->str() = to_string(l);
     onBang();
 }
 
@@ -82,12 +69,12 @@ void StringStr::dump() const
 
 void StringStr::m_append(t_symbol*, const AtomList& lst)
 {
-    str_->data()->str() += toString(lst);
+    str_->data()->str() += to_string(lst);
 }
 
 void StringStr::m_set(t_symbol*, const AtomList& lst)
 {
-    str_->data()->str() = toString(lst);
+    str_->data()->str() = to_string(lst);
 }
 
 void StringStr::m_clear(t_symbol*, const AtomList&)

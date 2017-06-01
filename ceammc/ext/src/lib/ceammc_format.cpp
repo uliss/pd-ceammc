@@ -88,7 +88,7 @@ std::string to_string(const AtomList& a, const std::string& separator)
         if (i != 0)
             ss << separator;
 
-        ss << a[i];
+        ss << to_string(a[i]);
     }
     return ss.str();
 }
