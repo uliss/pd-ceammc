@@ -37,9 +37,11 @@ struct ui_display : public ceammc_gui::BaseGuiObject {
 
 namespace ceammc_gui {
 
+static t_symbol* SDATA_TYPE = gensym("#data");
 static t_symbol* COLOR_LIST_TYPE = gensym("#00A0C0");
 static t_symbol* COLOR_FLOAT_TYPE = gensym("#C000A0");
 static t_symbol* COLOR_SYMBOL_TYPE = gensym("#A0C000");
+static t_symbol* COLOR_DATA_TYPE = gensym("#F0A000");
 static t_symbol* COLOR_DEFAULT_TYPE = gensym("#909090");
 static const int TYPE_WIDTH = 45;
 static const int TEXT_XPAD = 3;
@@ -55,6 +57,8 @@ static inline t_symbol* msg_color(t_symbol* s_type)
         return COLOR_FLOAT_TYPE;
     else if (s_type == &s_symbol)
         return COLOR_SYMBOL_TYPE;
+    else if (s_type == SDATA_TYPE)
+        return COLOR_DATA_TYPE;
     else
         return COLOR_DEFAULT_TYPE;
 }
@@ -114,6 +118,9 @@ UI_fun(ui_display)::wx_paint(ui_display* zx, t_object* /*view*/)
 UI_fun(ui_display)::m_anything(ui_display* zx, t_symbol* s, int argc, t_atom* argv)
 {
     zx->s_type = s;
+    if (argc == 1 && Atom(argv[0]).isData())
+        zx->s_type = SDATA_TYPE;
+
     (*zx->s_value) = to_string(AtomList(argc, argv));
 
     if (zx->show_bang) {
