@@ -29,12 +29,13 @@ class StringFormat : public BaseObject {
 
 public:
     StringFormat(const PdArgs& a);
-    void onData(const DataString& d);
+    void onData(const BaseData& d);
     void onBang();
     void onFloat(float v);
     void onSymbol(t_symbol* s);
     void onList(const AtomList& lst);
-    void onAny(t_symbol* s, const AtomList& lst);
+
+    void dump() const;
 
     AtomList propGetFormat() const;
     void propSetFormat(const AtomList& lst);

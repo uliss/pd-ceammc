@@ -80,10 +80,8 @@ DataId DataStorage<T>::generateId()
 
     if (max == sz)
         return max + 1;
-
-    // we have gaps
-    if (max < sz) {
-        for (DataId i = 1; i <= sz; i++) {
+    else {
+        for (DataId i = 1; i < std::max<DataId>(sz, max); i++) {
             if (storage_.find(i) == storage_.end())
                 return i;
         }

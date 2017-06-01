@@ -41,13 +41,13 @@ void StringFormat::onBang()
     if (!fmt_result_)
         return;
 
-    atomTo(0, fmt_result_->toAtom());
+    dataTo(0, fmt_result_->toAtom());
 }
 
-void StringFormat::onData(const DataString& d)
+void StringFormat::onData(const BaseData& d)
 {
     try {
-        fmt_result_->data()->str() = tfm::format(fmt_str_.c_str(), d.str());
+        fmt_result_->data()->str() = tfm::format(fmt_str_.c_str(), d.toString());
     } catch (std::exception& e) {
         OBJ_ERR << e.what();
         return;
@@ -86,20 +86,14 @@ void StringFormat::onList(const AtomList& lst)
     for (size_t i = 0; i < lst.size(); i++) {
         switch (lst[i].type()) {
         case Atom::FLOAT:
-            if (lst[i].isData()) {
-                OBJ_DBG << "maybe Data found";
-                OBJ_DBG << "id=" << lst[i].dataId() << ", type=" << lst[i].dataType();
-                BaseData* p = DataFactory::instance().rawData(lst[i].getData());
-                if (p) {
-                    args.add(p->toString());
-                    break;
-                }
-            } // fall down
             args.add(lst[i].asFloat());
             break;
         case Atom::SYMBOL:
         case Atom::PROPERTY:
             args.add(std::string(lst[i].asSymbol()->s_name));
+            break;
+        case Atom::DATA:
+            args.add(DataFactory::instance().rawData(lst[i].getData())->toString());
             break;
         }
     }
@@ -116,9 +110,11 @@ void StringFormat::onList(const AtomList& lst)
     onBang();
 }
 
-void StringFormat::onAny(t_symbol* s, const AtomList& lst)
+void StringFormat::dump() const
 {
-    OBJ_ERR << "any";
+    BaseObject::dump();
+    OBJ_DBG << "formated value: " << fmt_result_->data()->toString();
+    OBJ_DBG << "id: " << fmt_result_->id();
 }
 
 AtomList StringFormat::propGetFormat() const
@@ -134,6 +130,6 @@ void StringFormat::propSetFormat(const AtomList& lst)
 
 extern "C" void setup_string0x2eformat()
 {
-    DataStringFactory<StringFormat, DataString> obj("string.format");
+    DataStringFactory<StringFormat> obj("string.format");
     obj.addAlias("str.format");
 }

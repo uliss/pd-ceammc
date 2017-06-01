@@ -19,31 +19,32 @@
 
 using namespace ceammc;
 
-template <class External, class CustomData>
+template <class External>
 class DataStringFactory : public ObjectFactory<External> {
-public:
-    typedef typename Data<CustomData>::DataPtr DataPtr;
-
 public:
     DataStringFactory(const char* name, int flags = 0)
         : ObjectFactory<External>(name, flags)
     {
-        ObjectFactory<External>::setListFn(processTypedData);
-    }
-
-    void processAnyData()
-    {
         ObjectFactory<External>::setListFn(processAnyData);
     }
 
+    template <class T>
+    void processDataT()
+    {
+        ObjectFactory<External>::setListFn(processTypedData<T>);
+    }
+
+    template <class T>
     static void processTypedData(typename ObjectFactory<External>::ObjectProxy* x,
         t_symbol*, int argc, t_atom* argv)
     {
+        typedef typename Data<T>::DataPtr DataPtr;
+
         AtomList l(argc, argv);
         if (l.size() == 1 && l[0].isData()) {
-            DataPtr ptr = Data<CustomData>::fromAtom(l[0]);
+            DataPtr ptr = Data<T>::fromAtom(l[0]);
             if (ptr) {
-                x->impl->onData(*ptr->data());
+                x->impl->onDataT(*ptr->data());
             } else {
                 DataDesc d = l[0].getData();
                 LIB_ERR << "can't get data with type=" << d.type << " and id=" << d.id;
@@ -59,6 +60,8 @@ public:
         AtomList l(argc, argv);
         if (l.size() == 1 && l[0].isData()) {
             DataDesc desc = l[0].getData();
+            LIB_DBG << "D: data id=" << desc.id << "; type=" << desc.type;
+
             BaseData* ptr = DataFactory::instance().rawData(desc);
             if (ptr) {
                 x->impl->onData(*ptr);

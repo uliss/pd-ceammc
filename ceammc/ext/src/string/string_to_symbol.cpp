@@ -27,7 +27,6 @@ void StringToSymbol::onData(const BaseData& d)
 
 extern "C" void setup_string0x2eto_symbol()
 {
-    DataStringFactory<StringToSymbol, DataString> obj("string->symbol");
-    obj.processAnyData();
+    DataStringFactory<StringToSymbol> obj("string->symbol");
     obj.addAlias("str->sym");
 }

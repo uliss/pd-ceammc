@@ -97,8 +97,7 @@ void StringStr::m_clear(t_symbol*, const AtomList&)
 
 void string_setup()
 {
-    DataStringFactory<StringStr, DataString> obj("string");
-    obj.processAnyData();
+    DataStringFactory<StringStr> obj("string");
     obj.addAlias("str");
     obj.addMethod("append", &StringStr::m_append);
     obj.addMethod("set", &StringStr::m_set);
