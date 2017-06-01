@@ -37,7 +37,7 @@ struct ui_display : public ceammc_gui::BaseGuiObject {
 
 namespace ceammc_gui {
 
-static t_symbol* SDATA_TYPE = gensym("#data");
+static t_symbol* SDATA_TYPE = gensym("data");
 static t_symbol* COLOR_LIST_TYPE = gensym("#00A0C0");
 static t_symbol* COLOR_FLOAT_TYPE = gensym("#C000A0");
 static t_symbol* COLOR_SYMBOL_TYPE = gensym("#A0C000");
