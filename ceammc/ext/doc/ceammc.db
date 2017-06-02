@@ -166,6 +166,8 @@ prop.set,prop<-		?		.
 random.int		.		.
 replace		...		.
 snd.file		.		.
+string,str		.		.
+string2symbol,str->sym		.		.
 symbol.equal		..		.
 symbol.length		.		.
 system.getenv		.		.

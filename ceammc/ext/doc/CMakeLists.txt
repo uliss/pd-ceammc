@@ -175,6 +175,8 @@ set(DOC_FILES
     random.int
     replace
     snd.file
+    string
+    string2symbol
     symbol.equal
     symbol.length
     system.getenv

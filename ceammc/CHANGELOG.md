@@ -20,8 +20,8 @@
 - math.gcd (Greatest Common Divisor) added
 - math.lcm (Least Common Multiple) added
 - string supported added and this objects:
-    - string.str (str)
-    - string->symbol (str->sym)
+    - string (str)
+    - string2symbol (str->sym)
     - string.format (str.format)
     - string.join (str.join)
 

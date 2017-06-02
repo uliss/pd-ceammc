@@ -550,6 +550,14 @@
       <xi:include href="snd.file.pddoc" parse="xml"/>
     </entry>
   </category>
+  <category name="string">
+    <entry descr="string constructor" name="string" ref_view="object">
+      <xi:include href="string.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="string constructor" name="string2symbol" ref_view="object">
+      <xi:include href="string2symbol.pddoc" parse="xml"/>
+    </entry>
+  </category>
   <category name="symbol">
     <entry descr="check symbols for equality" name="symbol.equal" ref_view="object">
       <xi:include href="symbol.equal.pddoc" parse="xml"/>

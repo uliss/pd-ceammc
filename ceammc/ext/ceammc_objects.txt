@@ -247,7 +247,15 @@ sec->samp
 sec->str
 snd.file
 split
+str
 str->sec
+str->sym
+str.format
+str.join
+string
+string.format
+string.join
+string2symbol
 symbol.ends_with
 symbol.equal
 symbol.length
