@@ -3,6 +3,7 @@ macro(ceammc_string_extension name)
     list(APPEND STRING_SOURCES "string_${name}.cpp")
 endmacro()
 
+ceammc_string_extension(join)
 ceammc_string_extension(str)
 ceammc_string_extension(format)
 ceammc_string_extension(to_symbol)

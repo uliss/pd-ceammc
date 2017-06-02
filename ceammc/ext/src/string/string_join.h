@@ -11,41 +11,33 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef DATASTRING_H
-#define DATASTRING_H
+#ifndef STRING_JOIN_H
+#define STRING_JOIN_H
 
-#include "ceammc_atomlist.h"
-#include "ceammc_datapointer.h"
-
-#include <string>
+#include "ceammc_object.h"
+#include "datastring.h"
 
 using namespace ceammc;
 
-class DataString : public BaseData {
-    std::string str_;
+class StringJoin : public BaseObject {
+    Data<DataString> str_;
+    std::string sep_;
 
 public:
-    DataString(t_symbol* s);
-    DataString(const Atom& a);
-    DataString(const AtomList& l);
-    DataString(const char* str);
-    DataString(const std::string& str);
-    ~DataString();
+    StringJoin(const PdArgs& a);
+    void onBang();
+    void onFloat(float f);
+    void onSymbol(t_symbol* s);
+    void onData(const BaseData& d);
+    void onList(const AtomList& l);
 
-    void clear();
+    AtomList propGetSeparator() const;
+    void propSetSeparator(const AtomList& l);
 
-    std::string& str() { return str_; }
-    const std::string& str() const { return str_; }
-
-    DataType type() const;
-    DataString* clone() const;
-    std::string toString() const;
-
-    void set(float f);
-    void set(t_symbol* s);
-
-public:
-    static const DataType dataType;
+private:
+    void parseArgs();
 };
 
-#endif // DATASTRING_H
+extern "C" void setup_string0x2ejoin();
+
+#endif // STRING_JOIN_H

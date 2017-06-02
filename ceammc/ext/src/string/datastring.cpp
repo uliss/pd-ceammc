@@ -16,6 +16,9 @@
 #include "ceammc_format.h"
 #include "ceammc_log.h"
 
+#include <iostream>
+#include <sstream>
+
 const DataType DataString::dataType = 1;
 static const bool r = Data<DataString>::registerCreator();
 
@@ -72,4 +75,16 @@ DataString* DataString::clone() const
 std::string DataString::toString() const
 {
     return str();
+}
+
+void DataString::set(float f)
+{
+    std::ostringstream os;
+    os << f;
+    str_ = os.str();
+}
+
+void DataString::set(t_symbol* s)
+{
+    str_ = s->s_name;
 }

@@ -19,6 +19,11 @@
 - function.call (func.call) added
 - math.gcd (Greatest Common Divisor) added
 - math.lcm (Least Common Multiple) added
+- string supported added and this objects:
+    - string.str (str)
+    - string->symbol (str->sym)
+    - string.format (str.format)
+    - string.join (str.join)
 
 ### Changed:
 - pass.if renamed to flow.pass_if (with pass_if alias)
