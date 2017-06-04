@@ -93,7 +93,7 @@ void StringFormat::onList(const AtomList& lst)
             args.add(std::string(lst[i].asSymbol()->s_name));
             break;
         case Atom::DATA:
-            args.add(DataFactory::instance().rawData(lst[i].getData())->toString());
+            args.add(DataManager::instance().rawData(lst[i].getData())->toString());
             break;
         }
     }

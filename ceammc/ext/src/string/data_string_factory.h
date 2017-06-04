@@ -62,7 +62,7 @@ public:
             DataDesc desc = l[0].getData();
             LIB_DBG << "D: data id=" << desc.id << "; type=" << desc.type;
 
-            BaseData* ptr = DataFactory::instance().rawData(desc);
+            BaseData* ptr = DataManager::instance().rawData(desc);
             if (ptr) {
                 x->impl->onData(*ptr);
             } else {

@@ -499,7 +499,7 @@ template <class T>
 void TestExtension<T>::dataTo(size_t n, const Atom& d)
 {
     msg_[n].push_back(d);
-    BaseData* p = DataFactory::instance().rawData(d.getData());
+    BaseData* p = DataManager::instance().rawData(d.getData());
     data_[n].push_back(BaseDataPtr(p ? p->clone() : 0));
 }
 

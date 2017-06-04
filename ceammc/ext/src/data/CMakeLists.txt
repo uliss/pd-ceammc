@@ -1,4 +1,4 @@
-set(DATA_SOURCES "")
+set(DATA_SOURCES "datatype_set.cpp")
 
 macro(ceammc_data_extension mod name)
     list(APPEND DATA_SOURCES "${mod}_${name}.cpp")
@@ -6,6 +6,7 @@ endmacro()
 
 ceammc_data_extension(data fifo)
 ceammc_data_extension(data list)
+ceammc_data_extension(data set)
 
 ceammc_data_extension(global int)
 ceammc_data_extension(global float)

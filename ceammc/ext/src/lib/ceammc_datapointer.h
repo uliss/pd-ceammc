@@ -29,18 +29,28 @@ public:
     virtual BaseData* clone() const = 0;
     virtual DataType type() const = 0;
     virtual std::string toString() const;
+    virtual bool isEqual(const BaseData* d) const;
 };
 
-typedef BaseData* (*RawDataPointerFn)(DataId id);
+template <class T>
+class Data;
 
-class DataFactory {
-    typedef std::map<DataType, RawDataPointerFn> DataFnMap;
-    DataFnMap fn_;
-    DataFactory();
+typedef Data<BaseData>* (*GetDataFn)(DataId id);
+typedef Data<BaseData>* (*CloneDataFn)(DataId id);
+
+class DataManager {
+    typedef std::map<DataType, GetDataFn> GetFnMap;
+    typedef std::map<DataType, CloneDataFn> CloneFnMap;
+    GetFnMap fn_;
+    CloneFnMap fn_clone_;
+    DataManager();
 
 public:
-    static DataFactory& instance();
-    void add(DataType type, RawDataPointerFn fn);
+    static DataManager& instance();
+    void addGetFn(DataType type, GetDataFn fn);
+    void addCloneFn(DataType type, CloneDataFn fn);
+    Data<BaseData>* clone(const DataDesc& d);
+    Data<BaseData>* get(const DataDesc& d);
     BaseData* rawData(const DataDesc& d);
     BaseData* rawData(DataType type, DataId id);
 };
@@ -69,9 +79,12 @@ public:
     DataType type() const;
     DataDesc desc() const;
 
+    bool isEqual(const Data<T>& d) const;
+
 public:
     static DataPtr fromAtom(const Atom& a);
-    static T* getRawDataPointer(DataId id);
+    static Data<T>* getDataPointer(DataId id);
+    static Data<T>* cloneData(DataId id);
     static bool registerCreator();
 
 private:
@@ -79,6 +92,12 @@ private:
     Data(const Data& d);
     void operator=(const Data& d);
 };
+
+template <class T>
+bool operator==(const Data<T>& d1, const Data<T>& d2)
+{
+    return d1.isEqual(d2);
+}
 
 template <class T>
 Data<T>::Data()
@@ -134,10 +153,17 @@ typename Data<T>::DataPtr Data<T>::fromAtom(const Atom& a)
 }
 
 template <class T>
-T* Data<T>::getRawDataPointer(DataId id)
+Data<T>* Data<T>::getDataPointer(DataId id)
 {
     Data* ptr = DataStorage<T>::instance().get(id);
-    return ptr ? ptr->data() : 0;
+    return ptr ? ptr : 0;
+}
+
+template <class T>
+Data<T>* Data<T>::cloneData(DataId id)
+{
+    Data* ptr = DataStorage<T>::instance().get(id);
+    return ptr ? ptr->clone() : 0;
 }
 
 template <class T>
@@ -153,13 +179,22 @@ DataDesc Data<T>::desc() const
 }
 
 template <class T>
+bool Data<T>::isEqual(const Data<T>& d) const
+{
+    if (!data_ || !d.data_)
+        return false;
+
+    return data_->isEqual(d.data_);
+}
+
+template <class T>
 Data<T>* Data<T>::clone() const
 {
     if (isNull())
         return 0;
 
     Data<T>* ptr = new Data<T>();
-    ptr->data_ = data_->clone();
+    ptr->data_ = static_cast<T*>(data_->clone());
     ptr->id_ = DataStorage<T>::instance().generateId();
     DataStorage<T>::instance().add(ptr->id_, ptr);
     return ptr;
@@ -168,7 +203,8 @@ Data<T>* Data<T>::clone() const
 template <class T>
 bool Data<T>::registerCreator()
 {
-    DataFactory::instance().add(T::dataType, reinterpret_cast<RawDataPointerFn>(getRawDataPointer));
+    DataManager::instance().addGetFn(T::dataType, reinterpret_cast<GetDataFn>(Data<T>::getDataPointer));
+    DataManager::instance().addCloneFn(T::dataType, reinterpret_cast<CloneDataFn>(Data<T>::cloneData));
     return true;
 }
 }

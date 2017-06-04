@@ -28,25 +28,38 @@ std::string BaseData::toString() const
     return buf;
 }
 
-DataFactory::DataFactory()
+bool BaseData::isEqual(const BaseData* d) const
+{
+    if (type() != d->type())
+        return false;
+
+    return this == d;
+}
+
+DataManager::DataManager()
 {
 }
 
-DataFactory& DataFactory::instance()
+DataManager& DataManager::instance()
 {
-    static DataFactory fact;
+    static DataManager fact;
     return fact;
 }
 
-void DataFactory::add(DataType type, RawDataPointerFn fn)
+void DataManager::addGetFn(DataType type, GetDataFn fn)
 {
     LIB_DBG << "registered data type: " << type;
     fn_[type] = fn;
 }
 
-BaseData* DataFactory::rawData(const DataDesc& d)
+void DataManager::addCloneFn(DataType type, CloneDataFn fn)
 {
-    DataFnMap::iterator it = fn_.find(d.type);
+    fn_clone_[type] = fn;
+}
+
+Data<BaseData>* DataManager::clone(const DataDesc& d)
+{
+    CloneFnMap::iterator it = fn_clone_.find(d.type);
     if (it == fn_.end()) {
         LIB_ERR << "type not found: " << d.type;
         return 0;
@@ -54,7 +67,23 @@ BaseData* DataFactory::rawData(const DataDesc& d)
         return it->second(d.id);
 }
 
-BaseData* DataFactory::rawData(DataType type, DataId id)
+Data<BaseData>* DataManager::get(const DataDesc& d)
+{
+    GetFnMap::iterator it = fn_.find(d.type);
+    if (it == fn_.end()) {
+        LIB_ERR << "type not found: " << d.type;
+        return 0;
+    } else
+        return it->second(d.id);
+}
+
+BaseData* DataManager::rawData(const DataDesc& d)
+{
+    Data<BaseData>* data = get(d);
+    return data == 0 ? 0 : data->data();
+}
+
+BaseData* DataManager::rawData(DataType type, DataId id)
 {
     return rawData(DataDesc(type, id));
 }

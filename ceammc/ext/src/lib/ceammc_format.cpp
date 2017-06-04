@@ -36,7 +36,7 @@ std::string to_string(const Atom& a)
         return std::string(a.asSymbol()->s_name);
 
     if (a.isData()) {
-        BaseData* p = DataFactory::instance().rawData(a.getData());
+        BaseData* p = DataManager::instance().rawData(a.getData());
         if (!p)
             return "???";
         else
