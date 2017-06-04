@@ -16,6 +16,8 @@
 #include "ceammc_format.h"
 #include "ceammc_log.h"
 
+#include <algorithm>
+#include <boost/algorithm/string.hpp>
 #include <iostream>
 #include <sstream>
 
@@ -87,4 +89,42 @@ void DataString::set(float f)
 void DataString::set(t_symbol* s)
 {
     str_ = s->s_name;
+}
+
+void DataString::set(const std::string& s)
+{
+    str_ = s;
+}
+
+void DataString::split(std::vector<std::string>& res, const std::string& sep) const
+{
+    if (sep.empty())
+        splitEveryChar(res);
+    else
+        splitBySep(res, sep);
+}
+
+void DataString::splitEveryChar(std::vector<std::string>& res) const
+{
+    res.clear();
+    res.reserve(str_.size());
+
+    for (size_t i = 0; i < str_.size(); i++)
+        res.push_back(std::string(1, str_[i]));
+}
+
+static bool is_empty(const std::string& s)
+{
+    return s.empty();
+}
+
+void DataString::splitBySep(std::vector<std::string>& res, const std::string& sep) const
+{
+    res.clear();
+    if (str_.empty())
+        return;
+
+    boost::algorithm::split(res, str_, boost::is_any_of(sep), boost::token_compress_on);
+    // remove all empty elements
+    res.erase(std::remove_if(res.begin(), res.end(), is_empty), res.end());
 }

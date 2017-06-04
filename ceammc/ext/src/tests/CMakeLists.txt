@@ -72,6 +72,7 @@ ceammc_external_test(math or)
 
 ceammc_external_test(string format)
 ceammc_external_test(string str)
+ceammc_external_test(string split)
 ceammc_external_test(string to_symbol)
 
 ceammc_add_extension_test("list_walk" "../list/list_walk.cpp")
@@ -91,6 +92,11 @@ ceammc_add_extension_test("ext_symbol_num_compare" "../symbol/symbol_num_compare
 ceammc_add_extension_test("ext_system_getenv" "../system/system_getenv.cpp")
 
 ceammc_add_test_linked(TITLE "ceammc::pd" NAME test_pd SRC "../base/debug_gensym.cpp" LINK ceammc_core puredata-core)
+ceammc_add_test_linked(TITLE "ceammc::DataString"
+    NAME test_data_string
+    SRC "test_data_string.cpp"
+    LINK ceammc_core ceammc_string puredata-core)
+
 
 if(WITH_LIBSNDFILE)
     include(FindLibSndFile)

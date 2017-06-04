@@ -18,6 +18,7 @@
 #include "ceammc_datapointer.h"
 
 #include <string>
+#include <vector>
 
 using namespace ceammc;
 
@@ -43,9 +44,16 @@ public:
 
     void set(float f);
     void set(t_symbol* s);
+    void set(const std::string& s);
+
+    void split(std::vector<std::string>& res, const std::string& sep = "") const;
 
 public:
     static const DataType dataType;
+
+private:
+    void splitEveryChar(std::vector<std::string>& res) const;
+    void splitBySep(std::vector<std::string>& res, const std::string& sep) const;
 };
 
 #endif // DATASTRING_H

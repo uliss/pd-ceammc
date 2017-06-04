@@ -3,6 +3,7 @@
 #include "string_join.h"
 #include "string_str.h"
 #include "string_to_symbol.h"
+#include "string_split.h"
 
 void ceammc_string_setup()
 {
@@ -10,4 +11,5 @@ void ceammc_string_setup()
     setup_string0x2eto_symbol();
     setup_string0x2eformat();
     setup_string0x2ejoin();
+    setup_string0x2esplit();
 }
