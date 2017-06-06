@@ -67,6 +67,9 @@
     <entry descr="container that store unique elements" name="data.set" ref_view="object">
       <xi:include href="data.set.pddoc" parse="xml"/>
     </entry>
+    <entry descr="get number of elements in set" name="set.size" ref_view="object">
+      <xi:include href="set.size.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="dyn">
     <entry descr="stereo dynamic range compressor" name="dyn.comp2~" ref_view="object">

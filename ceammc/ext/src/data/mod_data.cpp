@@ -1,6 +1,7 @@
 #include "mod_data.h"
 #include "data_set.h"
 #include "set_contains.h"
+#include "set_size.h"
 
 extern "C" void setup_data0x2efifo();
 extern "C" void setup_data0x2elist();
@@ -27,4 +28,5 @@ void ceammc_data_setup()
     setup_local0x2elist();
     setup_data0x2eset();
     setup_set0x2econtains();
+    setup_set0x2esize();
 }

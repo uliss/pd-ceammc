@@ -166,6 +166,7 @@ prop.get,prop->		.		?
 prop.set,prop<-		?		.
 random.int		.		.
 replace		...		.
+set.size		.		.
 snd.file		.		.
 string,str		.		.
 string.format,str.format		.		.
