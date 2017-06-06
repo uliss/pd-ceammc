@@ -207,4 +207,23 @@ TEST_CASE("datapointer", "[PureData]")
             REQUIRE_FALSE(dp);
         }
     }
+
+    SECTION("fromAtom")
+    {
+        TestData d(new TestIntData(199));
+        Atom a0 = d.toAtom();
+        REQUIRE(a0.isData());
+        TestData::DataPtr d2 = TestData::fromAtom(a0);
+
+        REQUIRE(d2->data()->value() == 199);
+        REQUIRE(d2.get() != &d);
+        d2->data()->setValue(2000);
+        REQUIRE(d2->data()->value() == 2000);
+        REQUIRE(d.data()->value() == 199);
+
+        Atom a1 = d2->toAtom();
+
+        REQUIRE(a0 != a1);
+        REQUIRE(a0.dataId() != a1.dataId());
+    }
 }

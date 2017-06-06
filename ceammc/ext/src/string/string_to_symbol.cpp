@@ -20,9 +20,9 @@ StringToSymbol::StringToSymbol(const PdArgs& a)
     createOutlet();
 }
 
-void StringToSymbol::onData(const BaseData& d)
+void StringToSymbol::onData(const BaseData* d)
 {
-    symbolTo(0, gensym(d.toString().c_str()));
+    symbolTo(0, gensym(d->toString().c_str()));
 }
 
 extern "C" void setup_string0x2eto_symbol()

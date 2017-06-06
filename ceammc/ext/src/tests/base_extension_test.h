@@ -15,6 +15,7 @@
 #define BASE_EXTENSION_TEST_H
 
 #include "catch.hpp"
+#include "ceammc_datamanager.h"
 #include "ceammc_factory.h"
 #include "ceammc_message.h"
 #include "ceammc_object.h"
@@ -26,7 +27,7 @@
 using namespace ceammc;
 
 typedef std::vector<Message> MessageList;
-typedef boost::shared_ptr<BaseData> BaseDataPtr;
+typedef boost::shared_ptr<Data<BaseData> > BaseDataPtr;
 typedef std::vector<BaseDataPtr> DataPtrList;
 
 extern "C" void obj_init();
@@ -66,7 +67,7 @@ public:
     void sendList(const AtomList& lst, int inlet = 0);
     void sendAny(const char* name, const AtomList& args = AtomList());
     void sendAny(const AtomList& args);
-    void sendData(const BaseData& d, int inlet = 0);
+    void sendData(const BaseData* d, int inlet = 0);
 
     /** overloaded */
     virtual void bangTo(size_t n);
@@ -348,10 +349,16 @@ void WHEN_SEND_FLOAT_TO(size_t inlet, T& obj, float v)
 }
 
 template <class T, class D>
-void WHEN_SEND_DATA_TO(size_t inlet, T& obj, const D& d)
+void WHEN_SEND_DATA_TO(size_t inlet, T& obj, const D* d)
 {
     obj.storeAllMessageCount();
     obj.sendData(d, inlet);
+}
+
+template <class T, class D>
+void WHEN_SEND_DATA_TO(size_t inlet, T& obj, const D& d)
+{
+    WHEN_SEND_DATA_TO(inlet, obj, &d);
 }
 
 template <class T>
@@ -439,7 +446,7 @@ void TestExtension<T>::sendAny(const AtomList& args)
 }
 
 template <class T>
-void TestExtension<T>::sendData(const BaseData& d, int inlet)
+void TestExtension<T>::sendData(const BaseData* d, int inlet)
 {
     T::onData(d);
 }
@@ -499,8 +506,8 @@ template <class T>
 void TestExtension<T>::dataTo(size_t n, const Atom& d)
 {
     msg_[n].push_back(d);
-    BaseData* p = DataManager::instance().rawData(d.getData());
-    data_[n].push_back(BaseDataPtr(p ? p->clone() : 0));
+    Data<BaseData>* p = DataManager::instance().clone(d.getData());
+    data_[n].push_back(Data<BaseData>::DataPtr(p));
 }
 
 template <class T>
@@ -592,7 +599,7 @@ DataT* TestExtension<T>::typedLastDataAt(size_t outlet)
 {
     BaseDataPtr p = lastData(outlet);
     if (p && p->type() == DataT::dataType) {
-        return static_cast<DataT*>(p.get());
+        return static_cast<DataT*>(p->data());
     } else
         return 0;
 }

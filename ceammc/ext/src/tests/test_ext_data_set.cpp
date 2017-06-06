@@ -21,44 +21,6 @@ typedef TestExtension<DataSet> DataSetTest;
 
 TEST_CASE("data.set", "[externals]")
 {
-    SECTION("DataAtom")
-    {
-        SECTION("create")
-        {
-            DataAtom a(1.2f);
-            REQUIRE(a.isAtom());
-            REQUIRE(!a.isData());
-
-            DataAtom b(1.2f);
-            REQUIRE(a == b);
-            b.set(S("ABC"));
-            REQUIRE_FALSE(a == b);
-
-            Data<DataTypeSet> set(new DataTypeSet());
-            set.data()->add(12);
-            REQUIRE(set.data()->toString() == "Set 12");
-
-            b.set(set.toAtom());
-            REQUIRE(b.isData());
-            REQUIRE(b.data() != set.data());
-            REQUIRE(b.data()->type() == set.data()->type());
-            REQUIRE(b.data()->toString() == set.data()->toString());
-            REQUIRE(b.data()->isEqual(set.data()));
-            REQUIRE(set.data()->isEqual(b.data()));
-
-            Atom aa = set.toAtom();
-            Atom bb = b.toAtom();
-
-            REQUIRE(aa.dataType() == bb.dataType());
-            REQUIRE(aa != bb);
-
-            Data<DataTypeSet>* aptr = DataStorage<DataTypeSet>::instance().get(b.dataPtr()->id());
-            Data<DataTypeSet>* bptr = DataStorage<DataTypeSet>::instance().get(set.id());
-
-            REQUIRE(aptr != bptr);
-        }
-    }
-
     SECTION("DataTypeSet")
     {
         SECTION("create")

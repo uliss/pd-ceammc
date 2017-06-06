@@ -31,15 +31,43 @@ public:
     typedef boost::unordered_map<DataId, DataPtr> Map;
 
 public:
+    /**
+     * Singleton pattern
+     */
     static DataStorage& instance();
 
 public:
+    /**
+     * @return new generated (not used) ID
+     */
     DataId generateId();
+
+    /**
+     * get data from storage by ID
+     * @param id - data id
+     * @return pointer to data on success, or 0-pointer if data is not found for given ID
+     */
     Data<T>* get(DataId id);
+
+    /**
+     * adds new created data pointer to storage
+     * @param id - data id
+     * @param ptr - pointer to data
+     * @return true on success, false if data with given ID already exists
+     */
     bool add(DataId id, Data<T>* ptr);
+
+    /**
+     * removes data from storage
+     * @param id - data id
+     * @return true on success, false on error
+     */
     bool remove(DataId id);
 
-    size_t count();
+    /**
+     * Returns number of data pointers in storage
+     */
+    size_t count() const;
 
 private:
     DataStorage() {}
@@ -56,7 +84,7 @@ DataStorage<T>& DataStorage<T>::instance()
 }
 
 template <class T>
-size_t DataStorage<T>::count()
+size_t DataStorage<T>::count() const
 {
     return storage_.size();
 }

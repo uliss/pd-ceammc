@@ -14,6 +14,7 @@
 #ifndef DATA_STRING_FACTORY_H
 #define DATA_STRING_FACTORY_H
 
+#include "ceammc_datamanager.h"
 #include "ceammc_datapointer.h"
 #include "ceammc_factory.h"
 
@@ -62,9 +63,9 @@ public:
             DataDesc desc = l[0].getData();
             LIB_DBG << "D: data id=" << desc.id << "; type=" << desc.type;
 
-            BaseData* ptr = DataManager::instance().rawData(desc);
+            Data<BaseData>* ptr = DataManager::instance().get(desc);
             if (ptr) {
-                x->impl->onData(*ptr);
+                x->impl->onData(ptr->data());
             } else {
                 LIB_ERR << "can't get data with type=" << desc.type << " and id=" << desc.id;
             }

@@ -33,29 +33,6 @@ public:
 };
 
 template <class T>
-class Data;
-
-typedef Data<BaseData>* (*GetDataFn)(DataId id);
-typedef Data<BaseData>* (*CloneDataFn)(DataId id);
-
-class DataManager {
-    typedef std::map<DataType, GetDataFn> GetFnMap;
-    typedef std::map<DataType, CloneDataFn> CloneFnMap;
-    GetFnMap fn_;
-    CloneFnMap fn_clone_;
-    DataManager();
-
-public:
-    static DataManager& instance();
-    void addGetFn(DataType type, GetDataFn fn);
-    void addCloneFn(DataType type, CloneDataFn fn);
-    Data<BaseData>* clone(const DataDesc& d);
-    Data<BaseData>* get(const DataDesc& d);
-    BaseData* rawData(const DataDesc& d);
-    BaseData* rawData(DataType type, DataId id);
-};
-
-template <class T>
 class Data {
     DataId id_;
     T* data_;
@@ -83,9 +60,8 @@ public:
 
 public:
     static DataPtr fromAtom(const Atom& a);
-    static Data<T>* getDataPointer(DataId id);
+    static Data<T>* getData(DataId id);
     static Data<T>* cloneData(DataId id);
-    static bool registerCreator();
 
 private:
     Data<T>* clone() const;
@@ -153,7 +129,7 @@ typename Data<T>::DataPtr Data<T>::fromAtom(const Atom& a)
 }
 
 template <class T>
-Data<T>* Data<T>::getDataPointer(DataId id)
+Data<T>* Data<T>::getData(DataId id)
 {
     Data* ptr = DataStorage<T>::instance().get(id);
     return ptr ? ptr : 0;
@@ -198,14 +174,6 @@ Data<T>* Data<T>::clone() const
     ptr->id_ = DataStorage<T>::instance().generateId();
     DataStorage<T>::instance().add(ptr->id_, ptr);
     return ptr;
-}
-
-template <class T>
-bool Data<T>::registerCreator()
-{
-    DataManager::instance().addGetFn(T::dataType, reinterpret_cast<GetDataFn>(Data<T>::getDataPointer));
-    DataManager::instance().addCloneFn(T::dataType, reinterpret_cast<CloneDataFn>(Data<T>::cloneData));
-    return true;
 }
 }
 

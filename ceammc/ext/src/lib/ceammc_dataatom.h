@@ -11,48 +11,44 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef DATATYPE_SET_H
-#define DATATYPE_SET_H
+#ifndef CEAMMC_DATAATOM_H
+#define CEAMMC_DATAATOM_H
 
-#include "ceammc_atomlist.h"
-#include "ceammc_dataatom.h"
+#include "ceammc_atom.h"
 #include "ceammc_datapointer.h"
 
 #include <boost/functional/hash.hpp>
 #include <boost/scoped_ptr.hpp>
-#include <boost/unordered_set.hpp>
 
-using namespace ceammc;
+namespace ceammc {
 
-class DataTypeSet : public BaseData {
-private:
-    typedef boost::unordered_set<DataAtom> DataSet;
-    DataSet data_;
-
-public:
-    DataTypeSet();
-    ~DataTypeSet();
-    void add(const Atom& a);
-    void add(const AtomList& l);
-    void remove(const Atom& a);
-    void remove(const AtomList& l);
-    void clear();
-    size_t size() const;
-
-    bool contains(const Atom& a) const;
-    bool contains(const DataAtom& a) const;
-    std::string toString() const;
-    DataType type() const;
-    bool isEqual(const BaseData* d) const;
-    AtomList toList() const;
-
-    BaseData* clone() const;
+/**
+ * @brief The DataAtom class - Atom that can contain Data pointer or simple Atom value
+ */
+class DataAtom {
+    typedef boost::scoped_ptr<Data<BaseData> > DataPtr;
+    DataPtr data_;
+    Atom atom_;
 
 public:
-    static const DataType dataType;
+    DataAtom(const Atom& a);
+    DataAtom(const DataAtom& d);
+    void set(const Atom& a);
+    Atom toAtom() const;
+    bool isAtom() const;
+    bool isData() const;
+    bool isEqual(const Atom& a) const;
 
-private:
-    DataTypeSet(const DataTypeSet& ds);
+    bool operator==(const DataAtom& d) const;
+
+    BaseData* data();
+    Data<BaseData>* dataPtr();
+
+public:
+    friend size_t hash_value(const DataAtom& d);
 };
 
-#endif // DATATYPE_SET_H
+size_t hash_value(const DataAtom& d);
+}
+
+#endif // CEAMMC_DATAATOM_H

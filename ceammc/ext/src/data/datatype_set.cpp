@@ -12,11 +12,12 @@
  * this file belongs to.
  *****************************************************************************/
 #include "datatype_set.h"
+#include "ceammc_datamanager.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
 
 const DataType DataTypeSet::dataType = 2;
-static const bool r = Data<DataTypeSet>::registerCreator();
+static const bool r = data::registerData<DataTypeSet>();
 
 DataTypeSet::DataTypeSet()
 {
@@ -120,109 +121,4 @@ BaseData* DataTypeSet::clone() const
 DataTypeSet::DataTypeSet(const DataTypeSet& ds)
     : data_(ds.data_)
 {
-}
-
-DataAtom::DataAtom(const Atom& a)
-{
-    set(a);
-}
-
-DataAtom::DataAtom(const DataAtom& d)
-    : atom_(d.atom_)
-{
-    set(d.toAtom());
-}
-
-void DataAtom::set(const Atom& a)
-{
-    if (a.isData()) {
-        Data<BaseData>* p = DataManager::instance().clone(a.getData());
-        if (p != 0 && !p->isNull()) {
-            std::cerr << "orig>>>>>> id: " << a.dataId() << "\n";
-            data_.reset(p);
-            std::cerr << "clone>>>>> id: " << p->id() << "\n";
-        } else {
-            LIB_ERR << "invalid data: " << a;
-            data_.reset();
-            atom_ = Atom();
-        }
-    } else {
-        atom_ = a;
-        data_.reset();
-    }
-}
-
-Atom DataAtom::toAtom() const
-{
-    return data_ ? data_->toAtom() : atom_;
-}
-
-bool DataAtom::isAtom() const
-{
-    return !data_;
-}
-
-bool DataAtom::isData() const
-{
-    return bool(data_);
-}
-
-bool DataAtom::isEqual(const Atom& a) const
-{
-    if (isAtom())
-        return atom_ == a;
-
-    if (isData() && a.isData()) {
-        BaseData* p = DataManager::instance().rawData(a.getData());
-        if (p == 0 || data_->data() == 0)
-            return false;
-
-        return data_->data()->isEqual(p);
-    }
-
-    return false;
-}
-
-bool DataAtom::operator==(const DataAtom& d) const
-{
-    if (this == &d)
-        return true;
-
-    if (isAtom() && d.isAtom())
-        return atom_ == d.atom_;
-
-    if (isData() && d.isData())
-        return data_->isEqual(d.data_->data());
-
-    return false;
-}
-
-BaseData* DataAtom::data()
-{
-    return isAtom() ? 0 : data_->data();
-}
-
-Data<BaseData>* DataAtom::dataPtr()
-{
-    return isAtom() ? 0 : data_.get();
-}
-
-size_t hash_value(const DataAtom& d)
-{
-    size_t hash = 0;
-    boost::hash_combine(hash, boost::hash_value(d.isAtom()));
-    boost::hash_combine(hash, boost::hash_value(d.isData()));
-    Atom a = d.toAtom();
-    if (a.isData()) {
-        boost::hash_combine(hash, boost::hash_value(a.dataId()));
-        boost::hash_combine(hash, boost::hash_value(a.dataType()));
-    }
-
-    if (a.isFloat())
-        boost::hash_combine(hash, boost::hash_value(a.asFloat()));
-
-    if (a.isSymbol())
-        boost::hash_combine(hash, boost::hash_value(a.asSymbol()->s_name));
-
-    return hash;
 }

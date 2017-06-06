@@ -44,10 +44,10 @@ void StringFormat::onBang()
     dataTo(0, fmt_result_->toAtom());
 }
 
-void StringFormat::onData(const BaseData& d)
+void StringFormat::onData(const BaseData* d)
 {
     try {
-        fmt_result_->data()->str() = tfm::format(fmt_str_.c_str(), d.toString());
+        fmt_result_->data()->str() = tfm::format(fmt_str_.c_str(), d->toString());
     } catch (std::exception& e) {
         OBJ_ERR << e.what();
         return;
@@ -84,18 +84,7 @@ void StringFormat::onList(const AtomList& lst)
 {
     VFormatList args;
     for (size_t i = 0; i < lst.size(); i++) {
-        switch (lst[i].type()) {
-        case Atom::FLOAT:
-            args.add(lst[i].asFloat());
-            break;
-        case Atom::SYMBOL:
-        case Atom::PROPERTY:
-            args.add(std::string(lst[i].asSymbol()->s_name));
-            break;
-        case Atom::DATA:
-            args.add(DataManager::instance().rawData(lst[i].getData())->toString());
-            break;
-        }
+        args.add(to_string(lst[i]));
     }
 
     try {

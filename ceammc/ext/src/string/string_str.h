@@ -32,7 +32,7 @@ public:
     void onFloat(float f);
     void onSymbol(t_symbol* s);
     void onList(const AtomList& l);
-    void onData(const BaseData& d);
+    void onData(const BaseData* d);
     void dump() const;
 
     void m_append(t_symbol*, const AtomList& lst);
