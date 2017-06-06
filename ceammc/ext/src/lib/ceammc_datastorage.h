@@ -24,6 +24,11 @@ namespace ceammc {
 template <class T>
 class Data;
 
+/**
+ * Typed data storage. For each data type it stores mapping between DataId and pointer
+ * to data itself.
+ * Mainly for internal use. But if you know data type, you can access data by its DataId.
+ */
 template <class T>
 class DataStorage {
 public:

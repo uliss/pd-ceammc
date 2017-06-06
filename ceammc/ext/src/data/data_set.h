@@ -31,6 +31,7 @@ public:
     void onBang();
     void onFloat(float f);
     void onSymbol(t_symbol* s);
+    void onData(const BaseData* d);
     void onList(const AtomList& l);
 
     void m_toList(t_symbol*, const AtomList&);

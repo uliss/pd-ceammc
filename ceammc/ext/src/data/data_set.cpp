@@ -44,6 +44,15 @@ void DataSet::onSymbol(t_symbol* s)
     set_.data()->add(Atom(s));
 }
 
+void DataSet::onData(const BaseData* d)
+{
+    DataTypeSet* ds = d->cloneT<DataTypeSet>();
+    if (ds) {
+        set_.set(*ds);
+    } else {
+    }
+}
+
 void DataSet::onList(const AtomList& l)
 {
     set_.data()->add(l);
