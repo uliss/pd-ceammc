@@ -98,7 +98,7 @@ ceammc_add_test_linked(TITLE "ceammc::pd" NAME test_pd SRC "../base/debug_gensym
 ceammc_add_test_linked(TITLE "ceammc::DataString"
     NAME test_data_string
     SRC "test_data_string.cpp"
-    LINK ceammc_core ceammc_string puredata-core)
+    LINK ceammc_core ceammc_string puredata-core ceammc_core)
 
 
 if(WITH_LIBSNDFILE)
