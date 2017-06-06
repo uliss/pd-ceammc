@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "../string/string_split.h"
 #include "base_extension_test.h"
+#include "ceammc_format.h"
 
 #include "catch.hpp"
 
@@ -44,11 +45,26 @@ TEST_CASE("string.split", "[external]")
         REQUIRE_NO_MSG(t);
 
         REQUIRE_PROPERTY(t, @sep, "");
+
+        WHEN_SEND_TDATA_TO(0, t, DataTypeString("abcde"));
+        REQUIRE(t.hasNewMessages(0));
+        REQUIRE(t.lastMessage(0).isList());
+        REQUIRE(to_string(t.lastMessage(0).listValue()) == "a b c d e");
     }
 
     SECTION("data")
     {
         StringSplitTest t("str.split", L1(":"));
         REQUIRE_PROPERTY(t, @sep, ":");
+
+        WHEN_SEND_TDATA_TO(0, t, DataTypeString("ab:cde:"));
+        REQUIRE(t.hasNewMessages(0));
+        REQUIRE(t.lastMessage(0).isList());
+        REQUIRE(to_string(t.lastMessage(0).listValue()) == "ab cde");
+
+        WHEN_SEND_TDATA_TO(0, t, DataTypeString("ab:cde:"));
+        REQUIRE(t.hasNewMessages(0));
+        REQUIRE(t.lastMessage(0).isList());
+        REQUIRE(to_string(t.lastMessage(0).listValue()) == "ab cde");
     }
 }

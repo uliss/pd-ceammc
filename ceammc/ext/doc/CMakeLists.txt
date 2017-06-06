@@ -176,6 +176,7 @@ set(DOC_FILES
     replace
     snd.file
     string
+    string.split
     string2symbol
     symbol.equal
     symbol.length

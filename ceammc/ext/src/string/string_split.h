@@ -32,7 +32,6 @@ class StringSplit : public BaseObject {
 public:
     StringSplit(const PdArgs& a);
     void onSymbol(t_symbol* s);
-    void onData(const AbstractData* d);
     void onDataT(const DataTypeString& s);
 
     AtomList propGetSeparator() const;

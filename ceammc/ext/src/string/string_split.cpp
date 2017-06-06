@@ -12,8 +12,8 @@
  * this file belongs to.
  *****************************************************************************/
 #include "string_split.h"
-#include "ceammc_format.h"
 #include "ceammc_factory.h"
+#include "ceammc_format.h"
 
 #include <boost/algorithm/string.hpp>
 
@@ -32,10 +32,6 @@ void StringSplit::onSymbol(t_symbol* s)
     output();
 }
 
-void StringSplit::onData(const AbstractData* d)
-{
-}
-
 void StringSplit::onDataT(const DataTypeString& s)
 {
     split(s);
@@ -44,6 +40,7 @@ void StringSplit::onDataT(const DataTypeString& s)
 
 void StringSplit::split(const DataTypeString& s)
 {
+    tokens_.clear();
     std::vector<std::string> tokens;
     s.split(tokens, sep_);
 
