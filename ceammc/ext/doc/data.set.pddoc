@@ -43,10 +43,10 @@
 <![CDATA[
 [dump(
 |
-| [B] [to_list( [remove a(
+| [B] [add a(   [remove a(
 | |   |         |
-| |   | [add a( |
-| |   | |       |
+| |   |         |
+| |   |         |
 [data.set a b c  d]
 |
 [str->sym]
