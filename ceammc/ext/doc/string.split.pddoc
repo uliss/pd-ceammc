@@ -21,8 +21,8 @@
             </also>
         </meta>
         <arguments>
-            <argument name="SEP" type="atom">separator. If nonspecified - separate by every char. To
-            separate by space - use ' ' argument</argument>
+            <argument name="SEP" type="atom">separator. If nonspecified - separate by every char.
+            To separate by space - use ' ' argument</argument>
         </arguments>
         <properties>
             <property name="@sep" type="atom">separator</property>

@@ -167,6 +167,7 @@ random.int		.		.
 replace		...		.
 snd.file		.		.
 string,str		.		.
+string.format,str.format		.		.
 string.join,str.join		.		.
 string.split,str.split		.		.
 string2symbol,str->sym		.		.

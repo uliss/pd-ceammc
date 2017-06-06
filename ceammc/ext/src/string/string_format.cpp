@@ -56,10 +56,19 @@ void StringFormat::onData(const AbstractData* d)
     onBang();
 }
 
+static bool isInteger(float v)
+{
+    return int(v) == v;
+}
+
 void StringFormat::onFloat(float v)
 {
     try {
-        fmt_result_->str() = tfm::format(fmt_str_.c_str(), v);
+        if (isInteger(v)) {
+            fmt_result_->str() = tfm::format(fmt_str_.c_str(), int(v));
+        } else {
+            fmt_result_->str() = tfm::format(fmt_str_.c_str(), v);
+        }
     } catch (std::exception& e) {
         OBJ_ERR << e.what();
         return;
@@ -84,7 +93,13 @@ void StringFormat::onList(const AtomList& lst)
 {
     VFormatList args;
     for (size_t i = 0; i < lst.size(); i++) {
-        args.add(to_string(lst[i]));
+        if (lst[i].isFloat()) {
+            if (lst[i].isInteger())
+                args.add(lst[i].asInt());
+            else
+                args.add(lst[i].asFloat());
+        } else
+            args.add(to_string(lst[i]));
     }
 
     try {

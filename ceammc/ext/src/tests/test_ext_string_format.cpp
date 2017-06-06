@@ -39,12 +39,12 @@ public:
     }
 };
 
-#define REQUIRE_STRING_OUTPUT(t, str_)                        \
-    {                                                         \
-        REQUIRE_NEW_DATA_AT_OUTLET(0, t);                     \
+#define REQUIRE_STRING_OUTPUT(t, str_)                            \
+    {                                                             \
+        REQUIRE_NEW_DATA_AT_OUTLET(0, t);                         \
         DataTypeString* s = t.typedLastDataAt<DataTypeString>(0); \
-        REQUIRE(s != 0);                                      \
-        REQUIRE(s->str() == str_);                            \
+        REQUIRE(s != 0);                                          \
+        REQUIRE(s->str() == str_);                                \
     }
 
 #define NO_DATA(t) REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
@@ -165,5 +165,73 @@ TEST_CASE("string.format", "[external]")
             WHEN_SEND_FLOAT_TO(0, t, -22);
             REQUIRE_STRING_OUTPUT(t, "-22");
         }
+
+        SECTION("format: %o")
+        {
+            StringFormatTest t("string.format", L1("%o"));
+
+            WHEN_SEND_FLOAT_TO(0, t, 64);
+            REQUIRE_STRING_OUTPUT(t, "100");
+
+            WHEN_SEND_FLOAT_TO(0, t, 8);
+            REQUIRE_STRING_OUTPUT(t, "10");
+
+            WHEN_SEND_LIST_TO(0, t, L1(15));
+            REQUIRE_STRING_OUTPUT(t, "17");
+        }
+
+        SECTION("format: %x")
+        {
+            StringFormatTest t("string.format", L1("%x"));
+
+            WHEN_SEND_FLOAT_TO(0, t, 15);
+            REQUIRE_STRING_OUTPUT(t, "f");
+
+            WHEN_SEND_FLOAT_TO(0, t, 255);
+            REQUIRE_STRING_OUTPUT(t, "ff");
+
+            WHEN_SEND_LIST_TO(0, t, L1(32));
+            REQUIRE_STRING_OUTPUT(t, "20");
+        }
+
+        SECTION("format: %x")
+        {
+            StringFormatTest t("string.format", L1("0x%X"));
+
+            WHEN_SEND_FLOAT_TO(0, t, 15);
+            REQUIRE_STRING_OUTPUT(t, "0xF");
+
+            WHEN_SEND_FLOAT_TO(0, t, 255);
+            REQUIRE_STRING_OUTPUT(t, "0xFF");
+
+            WHEN_SEND_LIST_TO(0, t, L1(32));
+            REQUIRE_STRING_OUTPUT(t, "0x20");
+        }
+    }
+
+    SECTION("invalid args")
+    {
+        StringFormatTest t("string.format", L1("%d-%d-%d"));
+        WHEN_SEND_FLOAT_TO(0, t, 15);
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+
+        WHEN_SEND_LIST_TO(0, t, L2(1, 2));
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+
+        WHEN_SEND_LIST_TO(0, t, L3(1, 2, 3));
+        REQUIRE_STRING_OUTPUT(t, "1-2-3");
+
+        WHEN_SEND_LIST_TO(0, t, L4(1, 2, 3, 4));
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+    }
+
+    SECTION("data")
+    {
+        Data d(new IntData(158));
+
+        StringFormatTest t("string.format", L1("DATA-%s"));
+
+        WHEN_SEND_DATA_TO<StringFormatTest, AbstractData>(0, t, d.data());
+        REQUIRE_STRING_OUTPUT(t, "DATA-158");
     }
 }

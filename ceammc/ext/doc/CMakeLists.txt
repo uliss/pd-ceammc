@@ -177,6 +177,7 @@ set(DOC_FILES
     snd.file
     string
     string.join
+    string.format
     string.split
     string2symbol
     symbol.equal
