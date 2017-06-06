@@ -112,6 +112,14 @@ TEST_CASE("data.set", "[externals]")
             REQUIRE_FALSE(a0.isEqual(0));
             REQUIRE(a1.isEqual(&a0));
             REQUIRE(a0.isEqual(&a1));
+
+            Data data1(new IntData(101));
+
+            a0.add(4);
+            a1.add(data1.toAtom());
+            REQUIRE(a0.size() == a1.size());
+            REQUIRE_FALSE(a1.isEqual(&a0));
+            REQUIRE_FALSE(a0.isEqual(&a1));
         }
 
         SECTION("toString")
