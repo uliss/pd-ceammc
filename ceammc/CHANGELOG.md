@@ -24,6 +24,11 @@
     - string2symbol (str->sym)
     - string.format (str.format)
     - string.join (str.join)
+    - string.split (str.split)
+- set type added with this obbjects:
+    - data.set
+    - set.size
+    - set.contains
 
 ### Changed:
 - pass.if renamed to flow.pass_if (with pass_if alias)

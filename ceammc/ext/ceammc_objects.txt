@@ -36,6 +36,7 @@ conv.str2sec
 conv.vline2bpf
 data.fifo
 data.list
+data.set
 dyn.comp2~
 dyn.comp~
 dyn.gate2~
@@ -245,6 +246,7 @@ replace
 samp->sec
 sec->samp
 sec->str
+set.contains
 snd.file
 split
 str
@@ -252,9 +254,11 @@ str->sec
 str->sym
 str.format
 str.join
+str.split
 string
 string.format
 string.join
+string.split
 string2symbol
 symbol.ends_with
 symbol.equal

@@ -30,6 +30,8 @@ private:
 
 public:
     DataTypeSet();
+    DataTypeSet(const Atom& a);
+    DataTypeSet(const AtomList& l);
     ~DataTypeSet();
     void add(const Atom& a);
     void add(const AtomList& l);
@@ -54,6 +56,7 @@ public:
 
 public:
     static const DataType dataType;
+    static DataTypeSet intersection(const DataTypeSet& s0, const DataTypeSet& s1);
 
 private:
     DataTypeSet(const DataTypeSet& ds);

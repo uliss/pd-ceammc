@@ -16,16 +16,26 @@
 #include "ceammc_format.h"
 #include "ceammc_log.h"
 
+#include <algorithm>
+
 const DataType DataTypeSet::dataType = ceammc::data::DATA_SET;
 
 DataTypeSet::DataTypeSet()
 {
-    LIB_DBG << "set created";
+}
+
+DataTypeSet::DataTypeSet(const Atom& a)
+{
+    add(a);
+}
+
+DataTypeSet::DataTypeSet(const AtomList& l)
+{
+    add(l);
 }
 
 DataTypeSet::~DataTypeSet()
 {
-    LIB_DBG << "set destroyed";
 }
 
 void DataTypeSet::add(const Atom& a)
@@ -137,6 +147,21 @@ AtomList DataTypeSet::toList() const
 AbstractData* DataTypeSet::clone() const
 {
     return new DataTypeSet(*this);
+}
+
+DataTypeSet DataTypeSet::intersection(const DataTypeSet& s0, const DataTypeSet& s1)
+{
+    if (s0.size() > s1.size())
+        return intersection(s1, s0);
+
+    DataTypeSet out;
+    for (DataSet::const_iterator it = s0.data_.begin(); it != s0.data_.end(); ++it) {
+        DataAtom elem(it->toAtom());
+        if (s1.data_.find(elem) != s0.data_.end())
+            out.data_.insert(elem);
+    }
+
+    return out;
 }
 
 DataTypeSet::DataTypeSet(const DataTypeSet& ds)
