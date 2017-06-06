@@ -12,10 +12,11 @@
  * this file belongs to.
  *****************************************************************************/
 #include "datatype_set.h"
+#include "ceammc_datatypes.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
 
-const DataType DataTypeSet::dataType = 2;
+const DataType DataTypeSet::dataType = ceammc::data::DATA_SET;
 
 DataTypeSet::DataTypeSet()
 {

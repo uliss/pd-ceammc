@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "datastring.h"
 #include "ceammc_atomlist.h"
+#include "ceammc_datatypes.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
 
@@ -21,7 +22,7 @@
 #include <iostream>
 #include <sstream>
 
-const DataType DataString::dataType = 1;
+const DataType DataString::dataType = ceammc::data::DATA_STRING;
 
 DataString::DataString(t_symbol* s)
 {
