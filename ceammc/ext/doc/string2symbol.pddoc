@@ -6,7 +6,7 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>string constructor</description>
+            <description>converts string to symbol</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>string</category>
@@ -27,8 +27,8 @@
         <example>
             <pdascii>
 <![CDATA[
-[B]
-|
+[B] [F]    [symbol test(
+|   |      |
 [string A B C]
 |
 [str->sym]

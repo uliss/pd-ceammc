@@ -13,12 +13,16 @@
             <category>string</category>
             <keywords>split</keywords>
             <since>0.3</since>
+            <aliases>
+                <alias>str.split</alias>
+            </aliases>
             <also>
                 <see>string.join</see>
             </also>
         </meta>
         <arguments>
-            <argument name="SEP" type="atom">separator</argument>
+            <argument name="SEP" type="atom">separator. If nonspecified - separate by every char. To
+            separate by space - use " " argument</argument>
         </arguments>
         <properties>
             <property name="@sep" type="atom">separator</property>
@@ -34,13 +38,27 @@
         <example>
             <pdascii>
 <![CDATA[
-[symbol A/B/C/D/E/F(
-|
-[string]
-|
-[string.split /]
-|
-[ui.display]
+[symbol A/B/C #s1(  [symbol Sample #s2( [bang #s3(
+|                   |                   |
+[string]            [string]            [string AB CD]
+|                   |                   |
+[string.split /]    [string.split]      [string.split " "]
+|                   |                   |
+[list.each]         [list.each]         [list.each]
+^|                  ^|                  ^|
+[str->sym]          [str->sym]          [str->sym]
+|                   |                   |
+[append $1( [b #b1] [append $1( [b #b2] [append $1( [b #b3]
+|                   |                   |
+[data.list #l1]     [data.list #l2]     [data.list #l3]
+|                   |                   |
+[msg set]           [msg set]           [msg set]
+|                   |                   |
+[ (                 [ (                 [ (
+
+[X b1->l1] [X s1->b1]
+[X b2->l2] [X s2->b2]
+[X b3->l3] [X s3->b3]
 ]]>
             </pdascii>
         </example>

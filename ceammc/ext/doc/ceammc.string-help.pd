@@ -7,7 +7,7 @@
 #X obj 30 143 string.split;
 #X text 175 143 split string by separator;
 #X obj 30 170 string2symbol;
-#X text 175 170 string constructor;
+#X text 175 170 converts string to symbol;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::string 20 20 0 20 -104026
 -4096 0;
 #X obj 1 458 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;

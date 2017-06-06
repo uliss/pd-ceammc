@@ -557,7 +557,7 @@
     <entry descr="split string by separator" name="string.split" ref_view="object">
       <xi:include href="string.split.pddoc" parse="xml"/>
     </entry>
-    <entry descr="string constructor" name="string2symbol" ref_view="object">
+    <entry descr="converts string to symbol" name="string2symbol" ref_view="object">
       <xi:include href="string2symbol.pddoc" parse="xml"/>
     </entry>
   </category>
