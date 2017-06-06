@@ -21,8 +21,11 @@
             </also>
         </meta>
         <arguments>
-            <argument name="SEP" type="atom">separator. For space use " ".</argument>
+            <argument name="SEP" type="atom">separator. For space use ' '.</argument>
         </arguments>
+        <properties>
+            <property name="@sep" type="atom">separator</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="list">list of strings</xinfo>
@@ -34,9 +37,13 @@
         <example>
             <pdascii>
 <![CDATA[
-[1 60 120(
+[bang(
 |
-[list.apply_to 1] X [mtof]
+[string TEST]
+|
+[string.split]
+|
+[string.join ' ']
 |
 [msg set]
 |

@@ -22,7 +22,7 @@
         </meta>
         <arguments>
             <argument name="SEP" type="atom">separator. If nonspecified - separate by every char. To
-            separate by space - use " " argument</argument>
+            separate by space - use ' ' argument</argument>
         </arguments>
         <properties>
             <property name="@sep" type="atom">separator</property>
@@ -42,9 +42,9 @@
 |                   |                   |
 [string]            [string]            [string AB CD]
 |                   |                   |
-[string.split /]    [string.split]      [string.split " "]
+[string.split /]    [string.split]      [string.split ' ']
 |                   |                   |
-[string.join " "]   [string.join *]     [string.join -]
+[string.join ' ']   [string.join *]     [string.join -]
 |                   |                   |
 [str->sym]          [str->sym]          [str->sym]
 |                   |                   |
