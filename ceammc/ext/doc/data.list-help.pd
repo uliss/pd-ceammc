@@ -66,7 +66,7 @@ argument is position \, others - element to insert.;
 #X obj 1 725 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 728 library: ceammc v0.2;
 #X text 549 740 see also:;
-#X obj 625 740 data.list;
+#X obj 625 740 data.fifo;
 #N canvas 10 747 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

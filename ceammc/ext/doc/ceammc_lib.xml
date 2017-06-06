@@ -64,6 +64,9 @@
     <entry descr="list container" name="data.list" ref_view="object">
       <xi:include href="data.list.pddoc" parse="xml"/>
     </entry>
+    <entry descr="container that store unique elements" name="data.set" ref_view="object">
+      <xi:include href="data.set.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="dyn">
     <entry descr="stereo dynamic range compressor" name="dyn.comp2~" ref_view="object">
