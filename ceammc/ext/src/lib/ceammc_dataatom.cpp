@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_dataatom.h"
-#include "ceammc_datamanager.h"
+#include "ceammc_datastorage.h"
 #include "ceammc_log.h"
 
 namespace ceammc {
@@ -31,9 +31,9 @@ DataAtom::DataAtom(const DataAtom& d)
 void DataAtom::set(const Atom& a)
 {
     if (a.isData()) {
-        Data<AbstractData>* p = DataManager::instance().clone(a.getData());
+        Data* p = DataStorage::instance().get(a.getData());
         if (p != 0 && !p->isNull()) {
-            data_.reset(p);
+            data_.reset(p->clone());
             atom_ = data_->toAtom();
         } else {
             LIB_ERR << "invalid data: " << a;
@@ -67,7 +67,7 @@ bool DataAtom::isEqual(const Atom& a) const
         return atom_ == a;
 
     if (isData() && a.isData()) {
-        Data<AbstractData>* p = DataManager::instance().get(a.getData());
+        Data* p = DataStorage::instance().get(a.getData());
         if (p == 0 || data_->data() == 0)
             return false;
 
@@ -96,7 +96,7 @@ AbstractData* DataAtom::data()
     return isAtom() ? 0 : data_->data();
 }
 
-Data<AbstractData>* DataAtom::dataPtr()
+Data* DataAtom::dataPtr()
 {
     return isAtom() ? 0 : data_.get();
 }

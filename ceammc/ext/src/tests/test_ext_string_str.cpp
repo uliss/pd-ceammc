@@ -94,7 +94,7 @@ TEST_CASE("string.str", "[external]")
         WHEN_SEND_LIST_TO(0, t, L3(1, 2, 3));
         REQUIRE_STRING_OUTPUT(t, "1 2 3");
 
-        Data<DataString> p(new DataString("a b c"));
+        Data p(new DataString("a b c"));
         Atom a = p.toAtom();
 
         WHEN_SEND_LIST_TO(0, t, L3(1, a, 3));
@@ -140,7 +140,7 @@ TEST_CASE("string.str", "[external]")
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_STRING_OUTPUT(t, "a b ???");
 
-        Data<DataString> p(new DataString("STRING"));
+        Data p(new DataString("STRING"));
 
         WHEN_CALL_3(t, set, "a", "b", p.toAtom());
         WHEN_SEND_BANG_TO(0, t);
@@ -179,7 +179,7 @@ TEST_CASE("string.str", "[external]")
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_STRING_OUTPUT(t, "10002000a b???");
 
-        Data<DataString> p(new DataString("STRING"));
+        Data p(new DataString("STRING"));
         WHEN_CALL_1(t, append, p.toAtom());
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_STRING_OUTPUT(t, "10002000a b???STRING");

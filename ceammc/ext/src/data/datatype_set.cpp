@@ -12,12 +12,10 @@
  * this file belongs to.
  *****************************************************************************/
 #include "datatype_set.h"
-#include "ceammc_datamanager.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
 
 const DataType DataTypeSet::dataType = 2;
-static const bool r = data::registerData<DataTypeSet>();
 
 DataTypeSet::DataTypeSet()
 {

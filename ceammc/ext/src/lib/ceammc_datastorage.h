@@ -21,19 +21,14 @@
 
 namespace ceammc {
 
-template <class T>
-class Data;
-
 /**
  * Typed data storage. For each data type it stores mapping between DataId and pointer
  * to data itself.
  * Mainly for internal use. But if you know data type, you can access data by its DataId.
  */
-template <class T>
 class DataStorage {
 public:
-    typedef Data<T>* DataPtr;
-    typedef boost::unordered_map<DataId, DataPtr> Map;
+    typedef boost::unordered_map<DataDesc, Data*> Map;
 
 public:
     /**
@@ -48,11 +43,16 @@ public:
     DataId generateId();
 
     /**
+     * Generates new atom descriptor (not used)
+     */
+    DataDesc generateNewDesc(AbstractData* d);
+
+    /**
      * get data from storage by ID
-     * @param id - data id
+     * @param id - data descriptor
      * @return pointer to data on success, or 0-pointer if data is not found for given ID
      */
-    Data<T>* get(DataId id);
+    Data* get(const DataDesc& d);
 
     /**
      * adds new created data pointer to storage
@@ -60,14 +60,14 @@ public:
      * @param ptr - pointer to data
      * @return true on success, false if data with given ID already exists
      */
-    bool add(DataId id, Data<T>* ptr);
+    bool add(const DataDesc& d, Data* ptr);
 
     /**
      * removes data from storage
      * @param id - data id
      * @return true on success, false on error
      */
-    bool remove(DataId id);
+    bool remove(const DataDesc& d);
 
     /**
      * Returns number of data pointers in storage
@@ -80,78 +80,6 @@ private:
 private:
     Map storage_;
 };
-
-template <class T>
-DataStorage<T>& DataStorage<T>::instance()
-{
-    static DataStorage ds;
-    return ds;
-}
-
-template <class T>
-size_t DataStorage<T>::count() const
-{
-    return storage_.size();
-}
-
-template <class T>
-static inline bool key_compare(
-    const typename DataStorage<T>::Map::value_type& a,
-    const typename DataStorage<T>::Map::value_type& b)
-{
-    return a.first < b.first;
-}
-
-template <class T>
-DataId DataStorage<T>::generateId()
-{
-    if (storage_.empty())
-        return 1;
-
-    DataId max = std::max_element(storage_.begin(), storage_.end(), key_compare<T>)->first;
-    const size_t sz = storage_.size();
-
-    if (max == sz)
-        return max + 1;
-    else {
-        for (DataId i = 1; i < std::max<DataId>(sz, max); i++) {
-            if (storage_.find(i) == storage_.end())
-                return i;
-        }
-    }
-
-    // should never happen
-    return static_cast<DataId>(-1);
-}
-
-template <class T>
-Data<T>* DataStorage<T>::get(DataId id)
-{
-    typename Map::iterator it = storage_.find(id);
-    return it == storage_.end() ? 0 : it->second;
-}
-
-template <class T>
-bool DataStorage<T>::add(DataId id, Data<T>* ptr)
-{
-    typename Map::iterator it = storage_.find(id);
-    if (it != storage_.end())
-        return false;
-
-    storage_.insert(std::make_pair(id, ptr));
-    return true;
-}
-
-template <class T>
-bool DataStorage<T>::remove(DataId id)
-{
-    typename Map::iterator it = storage_.find(id);
-    if (it == storage_.end())
-        return false;
-
-    storage_.erase(it);
-    return true;
-}
 }
 
 #endif // CEAMMC_DATASTORAGE_H

@@ -15,7 +15,7 @@
 #define BASE_EXTENSION_TEST_H
 
 #include "catch.hpp"
-#include "ceammc_datamanager.h"
+#include "ceammc_datastorage.h"
 #include "ceammc_factory.h"
 #include "ceammc_message.h"
 #include "ceammc_object.h"
@@ -27,8 +27,7 @@
 using namespace ceammc;
 
 typedef std::vector<Message> MessageList;
-typedef boost::shared_ptr<Data<AbstractData> > BaseDataPtr;
-typedef std::vector<BaseDataPtr> DataPtrList;
+typedef std::vector<SharedDataPtr> DataPtrList;
 
 extern "C" void obj_init();
 extern "C" void pd_init();
@@ -91,8 +90,8 @@ public:
     size_t messageCount(size_t outlet = 0) const;
     const Message& lastMessage(size_t outlet = 0) const;
     const Message& messageAt(size_t idx, size_t outlet) const;
-    BaseDataPtr dataAt(size_t idx, size_t outlet) const;
-    const BaseDataPtr& lastData(size_t outlet = 0) const;
+    SharedDataPtr dataAt(size_t idx, size_t outlet) const;
+    const SharedDataPtr& lastData(size_t outlet = 0) const;
     bool lastMessageIsBang(size_t outlet = 0) const;
     void cleanMessages(size_t outlet = 0);
     void cleanAllMessages();
@@ -522,9 +521,11 @@ void TestExtension<T>::messageTo(size_t n, const Message& m)
 template <class T>
 void TestExtension<T>::dataTo(size_t n, const Atom& d)
 {
-    msg_[n].push_back(d);
-    Data<AbstractData>* p = DataManager::instance().clone(d.getData());
-    data_[n].push_back(Data<AbstractData>::DataPtr(p));
+    Data* p = DataStorage::instance().get(d.getData());
+    if (p) {
+        msg_[n].push_back(d);
+        data_[n].push_back(SharedDataPtr(p->clone()));
+    }
 }
 
 template <class T>
@@ -565,13 +566,13 @@ const Message& TestExtension<T>::messageAt(size_t idx, size_t outlet) const
 }
 
 template <class T>
-BaseDataPtr TestExtension<T>::dataAt(size_t idx, size_t outlet) const
+SharedDataPtr TestExtension<T>::dataAt(size_t idx, size_t outlet) const
 {
     return data_[outlet].at(idx);
 }
 
 template <class T>
-const BaseDataPtr& TestExtension<T>::lastData(size_t outlet) const
+const SharedDataPtr& TestExtension<T>::lastData(size_t outlet) const
 {
     return data_[outlet].back();
 }
@@ -603,7 +604,7 @@ template <class T>
 template <class DataT>
 DataT* TestExtension<T>::typedDataAt(size_t idx, size_t outlet)
 {
-    BaseDataPtr p = dataAt(idx, outlet);
+    SharedDataPtr p = dataAt(idx, outlet);
     if (p && p->type() == DataT::dataType) {
         return static_cast<DataT*>(p.get());
     } else
@@ -614,7 +615,7 @@ template <class T>
 template <class DataT>
 DataT* TestExtension<T>::typedLastDataAt(size_t outlet)
 {
-    BaseDataPtr p = lastData(outlet);
+    SharedDataPtr p = lastData(outlet);
     if (p && p->type() == DataT::dataType) {
         return static_cast<DataT*>(p->data());
     } else

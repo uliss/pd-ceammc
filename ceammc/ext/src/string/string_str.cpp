@@ -19,42 +19,42 @@
 
 StringStr::StringStr(const PdArgs& a)
     : BaseObject(a)
-    , str_(new String(new DataString(positionalArguments())))
+    , str_(new DataString(positionalArguments()))
 {
     createOutlet();
 }
 
 void StringStr::onBang()
 {
-    if (!str_)
+    if (str_.isNull())
         return;
 
-    dataTo(0, str_->toAtom());
+    dataTo(0, str_.toAtom());
 }
 
 void StringStr::onFloat(float f)
 {
     char buf[20];
     sprintf(buf, "%g", f);
-    str_->data()->str() = buf;
+    str_->str() = buf;
     onBang();
 }
 
 void StringStr::onSymbol(t_symbol* s)
 {
-    str_->data()->str() = s->s_name;
+    str_->str() = s->s_name;
     onBang();
 }
 
 void StringStr::onList(const AtomList& l)
 {
-    str_->data()->str() = to_string(l);
+    str_->str() = to_string(l);
     onBang();
 }
 
 void StringStr::onData(const AbstractData* d)
 {
-    str_->data()->str() = d->toString();
+    str_->str() = d->toString();
     onBang();
 }
 
@@ -62,24 +62,23 @@ void StringStr::dump() const
 {
     OBJ_DBG << "DATA: STRING";
     BaseObject::dump();
-    OBJ_DBG << "total strings allocated:" << DataStorage<DataString>::instance().count();
-    OBJ_DBG << "id: " << str_->id();
-    OBJ_DBG << "content: " << str_->data()->str();
+    OBJ_DBG << "id: " << str_.desc().id;
+    OBJ_DBG << "content: " << str_->str();
 }
 
 void StringStr::m_append(t_symbol*, const AtomList& lst)
 {
-    str_->data()->str() += to_string(lst);
+    str_->str() += to_string(lst);
 }
 
 void StringStr::m_set(t_symbol*, const AtomList& lst)
 {
-    str_->data()->str() = to_string(lst);
+    str_->str() = to_string(lst);
 }
 
 void StringStr::m_clear(t_symbol*, const AtomList&)
 {
-    str_->data()->clear();
+    str_->clear();
 }
 
 void string_setup()

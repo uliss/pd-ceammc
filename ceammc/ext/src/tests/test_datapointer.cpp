@@ -22,26 +22,33 @@
 
 using namespace ceammc;
 
-class TestIntData : public AbstractData {
+class IntData : public AbstractData {
     int v_;
 
 public:
-    TestIntData(int v)
+    IntData(int v)
         : v_(v)
     {
         constructor_called++;
     }
 
-    ~TestIntData()
+    ~IntData()
     {
         destructor_called++;
     }
 
     int value() const { return v_; }
     void setValue(int v) { v_ = v; }
+    bool isEqual(const AbstractData* d) const
+    {
+        if (!d || d->type() != type())
+            return false;
+
+        return v_ == d->as<IntData>()->v_;
+    }
 
     DataType type() const { return dataType; }
-    TestIntData* clone() const { return new TestIntData(v_); }
+    IntData* clone() const { return new IntData(v_); }
 
 public:
     static DataType dataType;
@@ -50,46 +57,45 @@ public:
 };
 
 static const DataType DTYPE = 123;
-DataType TestIntData::dataType = DTYPE;
-int TestIntData::constructor_called = 0;
-int TestIntData::destructor_called = 0;
+DataType IntData::dataType = DTYPE;
+int IntData::constructor_called = 0;
+int IntData::destructor_called = 0;
 
-typedef Data<TestIntData> TestData;
-typedef DataStorage<TestIntData> TestStorage;
+#define ID(n) DataDesc(DTYPE, n)
 
 TEST_CASE("datapointer", "[PureData]")
 {
     SECTION("construct")
     {
-        REQUIRE(TestStorage::instance().count() == 0);
+        REQUIRE(DataStorage::instance().count() == 0);
 
-        TestData dp(new TestIntData(1025));
+        Data dp(new IntData(1025));
         REQUIRE(!dp.isNull());
-        REQUIRE(dp.id() == 1);
+        REQUIRE(dp.desc() == DataDesc(DTYPE, 1));
 
-        REQUIRE(TestIntData::constructor_called == 1);
-        REQUIRE(TestIntData::destructor_called == 0);
+        REQUIRE(IntData::constructor_called == 1);
+        REQUIRE(IntData::destructor_called == 0);
 
         {
-            TestData t(new TestIntData(1025));
-            REQUIRE(t.id() == 2);
+            Data t(new IntData(1025));
+            REQUIRE(t.desc() == DataDesc(DTYPE, 2));
 
-            REQUIRE(TestStorage::instance().get(1) == &dp);
-            REQUIRE(TestStorage::instance().get(2) == &t);
+            REQUIRE(DataStorage::instance().get(DataDesc(DTYPE, 1)) == &dp);
+            REQUIRE(DataStorage::instance().get(DataDesc(DTYPE, 2)) == &t);
         }
     }
 
     SECTION("destruct")
     {
-        REQUIRE(TestStorage::instance().count() == 0);
+        REQUIRE(DataStorage::instance().count() == 0);
 
-        REQUIRE(TestIntData::constructor_called == 2);
-        REQUIRE(TestIntData::destructor_called == 2);
+        REQUIRE(IntData::constructor_called == 2);
+        REQUIRE(IntData::destructor_called == 2);
 
         {
-            TestData dp(new TestIntData(1025));
-            REQUIRE(dp.id() == 1);
-            REQUIRE(TestStorage::instance().count() == 1);
+            Data dp(new IntData(1025));
+            REQUIRE(dp.desc() == DataDesc(DTYPE, 1));
+            REQUIRE(DataStorage::instance().count() == 1);
         }
     }
 
@@ -104,32 +110,54 @@ TEST_CASE("datapointer", "[PureData]")
         REQUIRE(i.id == 35);
     }
 
+    SECTION("clone")
+    {
+        Data d(new IntData(1254));
+        Data* d_clone = d.clone();
+
+        REQUIRE(d_clone != 0);
+        REQUIRE(d_clone != &d);
+
+        REQUIRE(d.data()->as<IntData>()->value() == 1254);
+        REQUIRE(d_clone->data()->as<IntData>()->value() == 1254);
+
+        REQUIRE(d.isEqual(*d_clone));
+
+        d.data()->as<IntData>()->setValue(8);
+        REQUIRE_FALSE(d.isEqual(*d_clone));
+
+        delete d_clone;
+    }
+
     SECTION("atoms")
     {
-        REQUIRE(TestStorage::instance().count() == 0);
+        REQUIRE(DataStorage::instance().count() == 0);
 
-        TestData dp(new TestIntData(1026));
-        REQUIRE(dp.type() == DTYPE);
-        REQUIRE(dp.id() == 1);
+        DataPtrT<IntData> dp(new IntData(1026));
+        REQUIRE(dp.data());
+        REQUIRE(dp.desc() == DataDesc(DTYPE, 1));
 
         Atom a = dp.toAtom();
         REQUIRE(a.isData());
         REQUIRE(a.isDataType(DTYPE));
+        REQUIRE(Data::getTypedData(a.getData()) == &dp);
 
-        REQUIRE(TestStorage::instance().get(1));
+        REQUIRE(DataStorage::instance().get(ID(1)) == &dp);
+        SharedDataPtr dp2 = Data::fromAtom(a);
 
         {
-            TestData::DataPtr dp2 = TestData::fromAtom(a);
+            SharedDataPtr dp2 = Data::fromAtom(a);
             REQUIRE(dp2);
+            REQUIRE(dp2->data());
 
             // test copy
-            REQUIRE(dp.id() != dp2->id());
+            REQUIRE(dp.desc() != dp2->desc());
             REQUIRE(dp.type() == dp2->type());
             REQUIRE(dp.data() != dp2->data());
-            REQUIRE(dp.data()->value() == dp2->data()->value());
+            REQUIRE(dp->value() == dp2->data()->as<IntData>()->value());
 
-            dp2->data()->setValue(20);
-            REQUIRE(dp2->data()->value() == 20);
+            dp2->data()->as<IntData>()->setValue(20);
+            REQUIRE(dp2->data()->as<IntData>()->value() == 20);
 
             REQUIRE(dp.data()->value() == 1026);
         }
@@ -137,27 +165,27 @@ TEST_CASE("datapointer", "[PureData]")
 
     SECTION("atomlist")
     {
-        REQUIRE(TestStorage::instance().count() == 0);
+        REQUIRE(DataStorage::instance().count() == 0);
 
         AtomList lst;
 
         {
-            std::vector<TestData*> data;
+            std::vector<DataPtrT<IntData>*> data;
             for (size_t i = 0; i < 15; i++) {
-                const size_t ID = i + 1;
-                REQUIRE(TestStorage::instance().generateId() == ID);
-                data.push_back(new TestData(new TestIntData(int(i))));
-                REQUIRE(data.back()->id() == ID);
-                REQUIRE(TestStorage::instance().get(ID) != 0);
-                REQUIRE(TestStorage::instance().get(ID)->type() == DTYPE);
-                REQUIRE(TestStorage::instance().get(ID)->id() == ID);
+                const size_t id = i + 1;
+                REQUIRE(DataStorage::instance().generateId() == id);
+                data.push_back(new DataPtrT<IntData>(new IntData(int(i))));
+                REQUIRE(data.back()->desc() == ID(id));
+                REQUIRE(DataStorage::instance().get(ID(id)) != 0);
+                REQUIRE(DataStorage::instance().get(ID(id))->type() == DTYPE);
+                REQUIRE(DataStorage::instance().get(ID(id))->desc() == ID(id));
             }
 
             REQUIRE(data.size() == 15);
-            REQUIRE(TestStorage::instance().count() == 15);
+            REQUIRE(DataStorage::instance().count() == 15);
 
             for (size_t i = 0; i < 15; i++) {
-                REQUIRE(data[i]->data()->value() == i);
+                REQUIRE((*data[i])->value() == i);
                 Atom a = data[i]->toAtom();
                 lst.append(a);
             }
@@ -165,29 +193,29 @@ TEST_CASE("datapointer", "[PureData]")
             REQUIRE(data[0]->data()->value() == 0);
             REQUIRE(data[1]->data()->value() == 1);
 
-            REQUIRE(data[0]->id() == 1);
-            REQUIRE(data[1]->id() == 2);
+            REQUIRE(data[0]->desc() == ID(1));
+            REQUIRE(data[1]->desc() == ID(2));
 
-            REQUIRE(TestStorage::instance().get(100) == 0);
+            REQUIRE(DataStorage::instance().get(ID(100)) == 0);
 
-            TestData* p0 = TestStorage::instance().get(1);
-            TestData* p1 = TestStorage::instance().get(2);
+            Data* p0 = DataStorage::instance().get(ID(1));
+            Data* p1 = DataStorage::instance().get(ID(2));
             REQUIRE(p0 != 0);
             REQUIRE(p0 != p1);
             REQUIRE(p0->type() == DTYPE);
             REQUIRE(p0->data() == data[0]->data());
             REQUIRE(p1->data() == data[1]->data());
 
-            TestData::DataPtr dp(TestData::fromAtom(lst[5]));
+            SharedDataPtr dp(Data::fromAtom(lst[5]));
             REQUIRE(dp->type() == DTYPE);
-            REQUIRE(dp->data()->value() == 5);
+            REQUIRE(dp->data()->as<IntData>()->value() == 5);
 
             REQUIRE(lst.size() == 15);
             for (size_t i = 0; i < 10; i++) {
                 Atom a = lst[i];
                 REQUIRE(a.isData());
                 REQUIRE(a.isDataType(DTYPE));
-                TestData::DataPtr dp = TestData::fromAtom(lst[i]);
+                SharedDataPtr dp = Data::fromAtom(lst[i]);
                 REQUIRE(dp);
                 REQUIRE(dp->type() == DTYPE);
             }
@@ -196,30 +224,30 @@ TEST_CASE("datapointer", "[PureData]")
                 delete data[i];
             }
 
-            REQUIRE(TestStorage::instance().count() == 1);
+            REQUIRE(DataStorage::instance().count() == 1);
         }
 
-        REQUIRE(TestStorage::instance().count() == 0);
+        REQUIRE(DataStorage::instance().count() == 0);
 
         REQUIRE(lst.size() == 15);
         for (size_t i = 0; i < lst.size(); i++) {
-            TestData::DataPtr dp = TestData::fromAtom(lst[i]);
+            SharedDataPtr dp = Data::fromAtom(lst[i]);
             REQUIRE_FALSE(dp);
         }
     }
 
     SECTION("fromAtom")
     {
-        TestData d(new TestIntData(199));
+        Data d(new IntData(199));
         Atom a0 = d.toAtom();
         REQUIRE(a0.isData());
-        TestData::DataPtr d2 = TestData::fromAtom(a0);
+        SharedDataPtr d2 = Data::fromAtom(a0);
 
-        REQUIRE(d2->data()->value() == 199);
+        REQUIRE(d2->data()->as<IntData>()->value() == 199);
         REQUIRE(d2.get() != &d);
-        d2->data()->setValue(2000);
-        REQUIRE(d2->data()->value() == 2000);
-        REQUIRE(d.data()->value() == 199);
+        d2->data()->as<IntData>()->setValue(2000);
+        REQUIRE(d2->data()->as<IntData>()->value() == 2000);
+        REQUIRE(d.data()->as<IntData>()->value() == 199);
 
         Atom a1 = d2->toAtom();
 

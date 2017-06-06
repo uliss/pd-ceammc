@@ -20,8 +20,7 @@
 using namespace ceammc;
 
 class StringFormat : public BaseObject {
-    typedef Data<DataString> String;
-    typedef String::DataPtr StringPtr;
+    typedef DataPtrT<DataString> StringPtr;
 
     AtomList fmt_atoms_;
     std::string fmt_str_;

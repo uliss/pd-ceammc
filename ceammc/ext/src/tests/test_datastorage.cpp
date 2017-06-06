@@ -31,40 +31,42 @@ public:
     TestData* clone() const { return new TestData(v_); }
 };
 
-typedef DataStorage<TestData> TestStorage;
-typedef Data<TestData> TestDataPtr;
+static const int DTYPE = 11;
+#define ID(n) DataDesc(DTYPE, n)
 
 TEST_CASE("DataStorage", "[ceammc::DataStorage]")
 {
     SECTION("")
     {
-        REQUIRE(&TestStorage::instance() == &TestStorage::instance());
-        REQUIRE(TestStorage::instance().count() == 0);
-        REQUIRE(TestStorage::instance().get(0) == 0);
-        REQUIRE(TestStorage::instance().get(1) == 0);
+        REQUIRE(&DataStorage::instance() == &DataStorage::instance());
+        REQUIRE(DataStorage::instance().count() == 0);
+        REQUIRE(DataStorage::instance().get(DataDesc(0, 0)) == 0);
+        REQUIRE(DataStorage::instance().get(DataDesc(0, 1)) == 0);
+        REQUIRE(DataStorage::instance().get(DataDesc(1, 0)) == 0);
+        REQUIRE(DataStorage::instance().get(DataDesc(1, 1)) == 0);
 
-        REQUIRE(TestStorage::instance().generateId() == 1);
+        REQUIRE(DataStorage::instance().generateId() == 1);
 
-        TestDataPtr* p = (TestDataPtr*)(0xBEEF);
+        Data* p = (Data*)(0xBEEF);
 
-        REQUIRE(TestStorage::instance().count() == 0);
-        REQUIRE(TestStorage::instance().add(1, p));
-        REQUIRE(TestStorage::instance().count() == 1);
-        REQUIRE(TestStorage::instance().get(0) == 0);
-        REQUIRE(TestStorage::instance().get(1) == p);
+        REQUIRE(DataStorage::instance().count() == 0);
+        REQUIRE(DataStorage::instance().add(DataDesc(DTYPE, 1), p));
+        REQUIRE(DataStorage::instance().count() == 1);
+        REQUIRE(DataStorage::instance().get(ID(0)) == 0);
+        REQUIRE(DataStorage::instance().get(ID(1)) == p);
         // already exists
-        REQUIRE(!TestStorage::instance().add(1, p));
-        REQUIRE(TestStorage::instance().add(2, p));
-        REQUIRE(TestStorage::instance().add(3, p));
-        REQUIRE(TestStorage::instance().count() == 3);
-        REQUIRE(TestStorage::instance().generateId() == 4);
-        REQUIRE(!TestStorage::instance().remove(1000));
-        REQUIRE(TestStorage::instance().remove(3));
-        REQUIRE(TestStorage::instance().add(3, p));
+        REQUIRE(!DataStorage::instance().add(ID(1), p));
+        REQUIRE(DataStorage::instance().add(ID(2), p));
+        REQUIRE(DataStorage::instance().add(ID(3), p)); // 1 2 3
+        REQUIRE(DataStorage::instance().count() == 3);
+        REQUIRE(DataStorage::instance().generateId() == 4);
+        REQUIRE(!DataStorage::instance().remove(ID(1000)));
+        REQUIRE(DataStorage::instance().remove(ID(3))); // 1 2
+        REQUIRE(DataStorage::instance().add(ID(3), p));
 
-        REQUIRE(TestStorage::instance().remove(2));
-        REQUIRE(TestStorage::instance().get(2) == 0);
-        REQUIRE(TestStorage::instance().count() == 2);
-        REQUIRE(TestStorage::instance().generateId() == 2);
+        REQUIRE(DataStorage::instance().remove(ID(2))); // 1 3
+        REQUIRE(DataStorage::instance().get(ID(2)) == 0);
+        REQUIRE(DataStorage::instance().count() == 2);
+        REQUIRE(DataStorage::instance().generateId() == 2);
     }
 }

@@ -28,7 +28,7 @@
 
 StringFormat::StringFormat(const PdArgs& a)
     : BaseObject(a)
-    , fmt_result_(new String(new DataString("")))
+    , fmt_result_(new DataString(""))
 {
     createOutlet();
 
@@ -38,16 +38,16 @@ StringFormat::StringFormat(const PdArgs& a)
 
 void StringFormat::onBang()
 {
-    if (!fmt_result_)
+    if (fmt_result_.isNull())
         return;
 
-    dataTo(0, fmt_result_->toAtom());
+    dataTo(0, fmt_result_.toAtom());
 }
 
 void StringFormat::onData(const AbstractData* d)
 {
     try {
-        fmt_result_->data()->str() = tfm::format(fmt_str_.c_str(), d->toString());
+        fmt_result_->str() = tfm::format(fmt_str_.c_str(), d->toString());
     } catch (std::exception& e) {
         OBJ_ERR << e.what();
         return;
@@ -59,7 +59,7 @@ void StringFormat::onData(const AbstractData* d)
 void StringFormat::onFloat(float v)
 {
     try {
-        fmt_result_->data()->str() = tfm::format(fmt_str_.c_str(), v);
+        fmt_result_->str() = tfm::format(fmt_str_.c_str(), v);
     } catch (std::exception& e) {
         OBJ_ERR << e.what();
         return;
@@ -71,7 +71,7 @@ void StringFormat::onFloat(float v)
 void StringFormat::onSymbol(t_symbol* s)
 {
     try {
-        fmt_result_->data()->str() = tfm::format(fmt_str_.c_str(), s->s_name);
+        fmt_result_->str() = tfm::format(fmt_str_.c_str(), s->s_name);
     } catch (std::exception& e) {
         OBJ_ERR << e.what();
         return;
@@ -90,7 +90,7 @@ void StringFormat::onList(const AtomList& lst)
     try {
         std::ostringstream buf;
         tfm::vformat(buf, fmt_str_.c_str(), args);
-        fmt_result_->data()->str() = buf.str();
+        fmt_result_->str() = buf.str();
     } catch (std::exception& e) {
         OBJ_ERR << e.what();
         return;
@@ -102,8 +102,8 @@ void StringFormat::onList(const AtomList& lst)
 void StringFormat::dump() const
 {
     BaseObject::dump();
-    OBJ_DBG << "formated value: " << fmt_result_->data()->toString();
-    OBJ_DBG << "id: " << fmt_result_->id();
+    OBJ_DBG << "formated value: " << fmt_result_->toString();
+    OBJ_DBG << "id: " << fmt_result_.desc().id;
 }
 
 AtomList StringFormat::propGetFormat() const

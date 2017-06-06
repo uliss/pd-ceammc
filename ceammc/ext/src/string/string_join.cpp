@@ -33,25 +33,25 @@ void StringJoin::onBang()
 
 void StringJoin::onFloat(float f)
 {
-    str_.data()->set(f);
+    str_->set(f);
     onBang();
 }
 
 void StringJoin::onSymbol(t_symbol* s)
 {
-    str_.data()->set(s);
+    str_->set(s);
     onBang();
 }
 
 void StringJoin::onData(const AbstractData* d)
 {
-    str_.data()->str() = d->toString();
+    str_->str() = d->toString();
     onBang();
 }
 
 void StringJoin::onList(const AtomList& l)
 {
-    str_.data()->str() = to_string(l, sep_);
+    str_->str() = to_string(l, sep_);
     onBang();
 }
 

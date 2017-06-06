@@ -20,13 +20,13 @@ DataSet::DataSet(const PdArgs& a)
 {
     createOutlet();
 
-    set_.data()->add(positionalArguments());
+    set_->add(positionalArguments());
 }
 
 void DataSet::dump() const
 {
     BaseObject::dump();
-    OBJ_DBG << set_.data()->toString();
+    OBJ_DBG << set_->toString();
 }
 
 void DataSet::onBang()
@@ -36,19 +36,19 @@ void DataSet::onBang()
 
 void DataSet::onFloat(float f)
 {
-    set_.data()->add(Atom(f));
+    set_->add(Atom(f));
 }
 
 void DataSet::onSymbol(t_symbol* s)
 {
-    set_.data()->add(Atom(s));
+    set_->add(Atom(s));
 }
 
 void DataSet::onData(const AbstractData* d)
 {
     DataTypeSet* ds = d->cloneT<DataTypeSet>();
     if (ds) {
-        set_.set(*ds);
+//        set_.set(*ds);
     } else {
     }
 }

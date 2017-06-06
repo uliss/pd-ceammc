@@ -23,8 +23,9 @@ set(CEAMMC_LIB_SOURCES ceammc.h
     ceammc_canvas.cpp
     ceammc_convert.cpp
     ceammc_dataatom.cpp
-    ceammc_datamanager.cpp
-    ceammc_datapointer.h
+#    ceammc_datamanager.cpp
+    ceammc_datapointer.cpp
+    ceammc_datastorage.cpp
     ceammc_factory.h
     ceammc_faust.cpp
     ceammc_fn_list.cpp

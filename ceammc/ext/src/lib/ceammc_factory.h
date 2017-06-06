@@ -22,7 +22,6 @@
 #include <string>
 #include <vector>
 
-#include "ceammc_datamanager.h"
 #include "ceammc_message.h"
 #include "ceammc_object.h"
 
@@ -217,7 +216,7 @@ public:
         AtomList l(argc, argv);
         if (l.size() == 1 && l[0].isData()) {
             DataDesc desc = l[0].getData();
-            Data<AbstractData>* ptr = DataManager::instance().get(desc);
+            Data* ptr = Data::getTypedData(desc);
             if (ptr) {
                 x->impl->onData(ptr->data());
             } else {
@@ -231,13 +230,12 @@ public:
     template <class DataT>
     static void processDataTypedFn(ObjectProxy* x, t_symbol*, int argc, t_atom* argv)
     {
-        typedef typename Data<DataT>::DataPtr DataPtr;
-
         AtomList l(argc, argv);
         if (l.size() == 1 && l[0].isData()) {
-            DataPtr ptr = Data<DataT>::fromAtom(l[0]);
+            DataDesc desc = l[0].getData();
+            Data* ptr = Data::getTypedData(desc);
             if (ptr) {
-                x->impl->onDataT(*ptr->data());
+                x->impl->onDataT(*static_cast<DataT*>(ptr->data()));
             } else {
                 DataDesc d = l[0].getData();
                 LIB_ERR << "can't get data with type=" << d.type << " and id=" << d.id;

@@ -36,7 +36,7 @@ public:
         if (d->type() != dataType)
             return false;
 
-        return ((IntData*)d)->v_ == v_;
+        return d->as<IntData>()->v_ == v_;
     }
 
     std::string toString() const
@@ -49,8 +49,6 @@ public:
 public:
     static const DataType dataType = 33;
 };
-
-static bool r = data::registerData<IntData>();
 
 TEST_CASE("DataAtom", "[ceammc::DataAtom]")
 {
@@ -65,7 +63,7 @@ TEST_CASE("DataAtom", "[ceammc::DataAtom]")
         b.set(S("ABC"));
         REQUIRE_FALSE(a == b);
 
-        Data<IntData> int_data(new IntData(123));
+        Data int_data(new IntData(123));
         b.set(int_data.toAtom());
 
         REQUIRE(b.isData());
@@ -81,8 +79,8 @@ TEST_CASE("DataAtom", "[ceammc::DataAtom]")
         REQUIRE(aa.dataType() == bb.dataType());
         REQUIRE(aa != bb);
 
-        Data<IntData>* aptr = DataStorage<IntData>::instance().get(b.dataPtr()->id());
-        Data<IntData>* bptr = DataStorage<IntData>::instance().get(int_data.id());
+        Data* aptr = DataStorage::instance().get(b.dataPtr()->desc());
+        Data* bptr = DataStorage::instance().get(int_data.desc());
 
         REQUIRE(aptr != bptr);
 

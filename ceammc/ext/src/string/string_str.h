@@ -20,10 +20,8 @@
 
 using namespace ceammc;
 
-typedef Data<DataString> String;
-typedef String::DataPtr StringPtr;
-
 class StringStr : public BaseObject {
+    typedef DataPtrT<DataString> StringPtr;
     StringPtr str_;
 
 public:

@@ -60,11 +60,12 @@ TEST_CASE("data.set", "[externals]")
             REQUIRE(s.size() == 0);
             REQUIRE(!s.contains(S("DEF")));
 
-            Data<DataTypeSet> ds(new DataTypeSet());
-            ds.data()->add(1);
-            ds.data()->add(2);
+            DataPtrT<DataTypeSet> ds(new DataTypeSet());
+            ds->add(1);
+            ds->add(2);
 
-            s.add(ds.toAtom());
+            Atom a = ds.toAtom();
+            s.add(a);
             //            REQUIRE(s.contains(ds.toAtom()));
             //            s.add(ds.toAtom());
             //            s.add(ds.toAtom());

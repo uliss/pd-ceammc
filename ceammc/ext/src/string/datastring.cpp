@@ -14,7 +14,6 @@
 #include "datastring.h"
 #include "ceammc_atomlist.h"
 #include "ceammc_format.h"
-#include "ceammc_datamanager.h"
 #include "ceammc_log.h"
 
 #include <algorithm>
@@ -23,7 +22,6 @@
 #include <sstream>
 
 const DataType DataString::dataType = 1;
-static const bool r = data::registerData<DataString>();
 
 DataString::DataString(t_symbol* s)
 {
