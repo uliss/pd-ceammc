@@ -67,10 +67,10 @@ TEST_CASE("string->symbol", "[external]")
     {
         StringToSymbolTest t("str->sym");
 
-        WHEN_SEND_TDATA_TO(0, t, DataString("ABC"));
+        WHEN_SEND_TDATA_TO(0, t, DataTypeString("ABC"));
         REQUIRE_SYMBOL_AT_OUTLET(0, t, "ABC");
 
-        WHEN_SEND_TDATA_TO(0, t, DataString("A B  C"));
+        WHEN_SEND_TDATA_TO(0, t, DataTypeString("A B  C"));
         REQUIRE_SYMBOL_AT_OUTLET(0, t, "A B  C");
 
         WHEN_SEND_DATA_TO(0, t, TestData(100));

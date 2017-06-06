@@ -20,12 +20,12 @@ using namespace ceammc;
 
 typedef TestExtension<StringStr> StringStrTest;
 
-#define REQUIRE_STRING_OUTPUT(t, str_)                    \
-    {                                                     \
-        REQUIRE_NEW_DATA_AT_OUTLET(0, t);                 \
-        DataString* s = t.typedLastDataAt<DataString>(0); \
-        REQUIRE(s != 0);                                  \
-        REQUIRE(s->str() == str_);                        \
+#define REQUIRE_STRING_OUTPUT(t, str_)                            \
+    {                                                             \
+        REQUIRE_NEW_DATA_AT_OUTLET(0, t);                         \
+        DataTypeString* s = t.typedLastDataAt<DataTypeString>(0); \
+        REQUIRE(s != 0);                                          \
+        REQUIRE(s->str() == str_);                                \
     }
 
 #define NO_DATA(t) REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
@@ -83,7 +83,7 @@ TEST_CASE("string.str", "[external]")
     {
         StringStrTest t("string.str");
 
-        WHEN_SEND_DATA_TO(0, t, DataString("test string"));
+        WHEN_SEND_DATA_TO(0, t, DataTypeString("test string"));
         REQUIRE_STRING_OUTPUT(t, "test string");
     }
 
@@ -94,7 +94,7 @@ TEST_CASE("string.str", "[external]")
         WHEN_SEND_LIST_TO(0, t, L3(1, 2, 3));
         REQUIRE_STRING_OUTPUT(t, "1 2 3");
 
-        Data p(new DataString("a b c"));
+        Data p(new DataTypeString("a b c"));
         Atom a = p.toAtom();
 
         WHEN_SEND_LIST_TO(0, t, L3(1, a, 3));
@@ -140,7 +140,7 @@ TEST_CASE("string.str", "[external]")
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_STRING_OUTPUT(t, "a b ???");
 
-        Data p(new DataString("STRING"));
+        Data p(new DataTypeString("STRING"));
 
         WHEN_CALL_3(t, set, "a", "b", p.toAtom());
         WHEN_SEND_BANG_TO(0, t);
@@ -179,7 +179,7 @@ TEST_CASE("string.str", "[external]")
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_STRING_OUTPUT(t, "10002000a b???");
 
-        Data p(new DataString("STRING"));
+        Data p(new DataTypeString("STRING"));
         WHEN_CALL_1(t, append, p.toAtom());
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_STRING_OUTPUT(t, "10002000a b???STRING");

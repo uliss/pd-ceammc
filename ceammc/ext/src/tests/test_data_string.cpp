@@ -11,7 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../string/datastring.h"
+#include "../string/datatype_string.h"
 #include "base_extension_test.h"
 
 #include "catch.hpp"
@@ -22,13 +22,13 @@ TEST_CASE("DataString", "[external]")
 {
     SECTION("create")
     {
-        DataString t("");
+        DataTypeString t("");
         REQUIRE(t.str() == "");
     }
 
     SECTION("split")
     {
-        DataString t("");
+        DataTypeString t("");
         std::vector<std::string> tokens;
         t.split(tokens);
         REQUIRE(tokens.empty());

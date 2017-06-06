@@ -39,12 +39,12 @@ public:
     }
 };
 
-#define REQUIRE_STRING_OUTPUT(t, str_)                    \
-    {                                                     \
-        REQUIRE_NEW_DATA_AT_OUTLET(0, t);                 \
-        DataString* s = t.typedLastDataAt<DataString>(0); \
-        REQUIRE(s != 0);                                  \
-        REQUIRE(s->str() == str_);                        \
+#define REQUIRE_STRING_OUTPUT(t, str_)                        \
+    {                                                         \
+        REQUIRE_NEW_DATA_AT_OUTLET(0, t);                     \
+        DataTypeString* s = t.typedLastDataAt<DataTypeString>(0); \
+        REQUIRE(s != 0);                                      \
+        REQUIRE(s->str() == str_);                            \
     }
 
 #define NO_DATA(t) REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
