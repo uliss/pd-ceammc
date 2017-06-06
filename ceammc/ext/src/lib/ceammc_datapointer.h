@@ -60,10 +60,10 @@ private:
 };
 
 template <class T>
-class DataPtrT : public Data {
+class DataT : public Data {
 public:
-    DataPtrT() {}
-    DataPtrT(T* d)
+    DataT() {}
+    DataT(T* d)
         : Data(d)
     {
     }

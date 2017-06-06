@@ -17,7 +17,7 @@
 
 StringJoin::StringJoin(const PdArgs& a)
     : BaseObject(a)
-    , str_(new DataString(""))
+    , str_(new DataTypeString(""))
     , sep_("")
 {
     createOutlet();

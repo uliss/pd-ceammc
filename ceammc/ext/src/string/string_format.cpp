@@ -28,7 +28,7 @@
 
 StringFormat::StringFormat(const PdArgs& a)
     : BaseObject(a)
-    , fmt_result_(new DataString(""))
+    , fmt_result_(new DataTypeString(""))
 {
     createOutlet();
 

@@ -36,19 +36,19 @@ void StringSplit::onData(const AbstractData* d)
 {
 }
 
-void StringSplit::onDataT(const DataString& s)
+void StringSplit::onDataT(const DataTypeString& s)
 {
     split(s);
     output();
 }
 
-void StringSplit::split(const DataString& s)
+void StringSplit::split(const DataTypeString& s)
 {
     std::vector<std::string> tokens;
     s.split(tokens, sep_);
 
     for (size_t i = 0; i < tokens.size(); i++) {
-        tokens_.push_back(StringPtr(new String(new DataString(tokens[i]))));
+        tokens_.push_back(StringPtr(new String(new DataTypeString(tokens[i]))));
     }
 }
 
@@ -93,6 +93,6 @@ void StringSplit::propSetSeparator(const AtomList& l)
 extern "C" void setup_string0x2esplit()
 {
     ObjectFactory<StringSplit> obj("string.split");
-    obj.processData<DataString>();
+    obj.processData<DataTypeString>();
     obj.addAlias("str.split");
 }

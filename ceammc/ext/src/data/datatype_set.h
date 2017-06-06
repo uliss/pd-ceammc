@@ -18,7 +18,6 @@
 #include "ceammc_dataatom.h"
 #include "ceammc_datapointer.h"
 
-#include <boost/functional/hash.hpp>
 #include <boost/scoped_ptr.hpp>
 #include <boost/unordered_set.hpp>
 

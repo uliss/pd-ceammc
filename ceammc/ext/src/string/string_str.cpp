@@ -19,7 +19,7 @@
 
 StringStr::StringStr(const PdArgs& a)
     : BaseObject(a)
-    , str_(new DataString(positionalArguments()))
+    , str_(new DataTypeString(positionalArguments()))
 {
     createOutlet();
 }

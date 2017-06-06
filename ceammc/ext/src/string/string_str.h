@@ -21,7 +21,7 @@
 using namespace ceammc;
 
 class StringStr : public BaseObject {
-    typedef DataPtrT<DataString> StringPtr;
+    typedef DataT<DataTypeString> StringPtr;
     StringPtr str_;
 
 public:

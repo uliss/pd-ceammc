@@ -20,7 +20,7 @@
 using namespace ceammc;
 
 class StringJoin : public BaseObject {
-    typedef DataPtrT<DataString> StringPtr;
+    typedef DataT<DataTypeString> StringPtr;
     StringPtr str_;
     std::string sep_;
 

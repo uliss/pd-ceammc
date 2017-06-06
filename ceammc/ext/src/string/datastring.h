@@ -22,16 +22,16 @@
 
 using namespace ceammc;
 
-class DataString : public AbstractData {
+class DataTypeString : public AbstractData {
     std::string str_;
 
 public:
-    DataString(t_symbol* s);
-    DataString(const Atom& a);
-    DataString(const AtomList& l);
-    DataString(const char* str);
-    DataString(const std::string& str);
-    ~DataString();
+    DataTypeString(t_symbol* s);
+    DataTypeString(const Atom& a);
+    DataTypeString(const AtomList& l);
+    DataTypeString(const char* str);
+    DataTypeString(const std::string& str);
+    ~DataTypeString();
 
     void clear();
 
@@ -39,7 +39,7 @@ public:
     const std::string& str() const { return str_; }
 
     DataType type() const;
-    DataString* clone() const;
+    DataTypeString* clone() const;
     std::string toString() const;
 
     void set(float f);

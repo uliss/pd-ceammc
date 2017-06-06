@@ -22,81 +22,81 @@
 #include <iostream>
 #include <sstream>
 
-const DataType DataString::dataType = ceammc::data::DATA_STRING;
+const DataType DataTypeString::dataType = ceammc::data::DATA_STRING;
 
-DataString::DataString(t_symbol* s)
+DataTypeString::DataTypeString(t_symbol* s)
 {
     str_ = s->s_name;
     LIB_DBG << "string created: " << str_;
 }
 
-DataString::DataString(const Atom& a)
+DataTypeString::DataTypeString(const Atom& a)
 {
     str_ = to_string(a);
     LIB_DBG << "string created: " << str_;
 }
 
-DataString::DataString(const AtomList& l)
+DataTypeString::DataTypeString(const AtomList& l)
 {
     str_ = to_string(l, " ");
     LIB_DBG << "string created: " << str_;
 }
 
-DataString::DataString(const char* str)
+DataTypeString::DataTypeString(const char* str)
     : str_(str)
 {
     LIB_DBG << "string created: " << str_;
 }
 
-DataString::DataString(const std::string& str)
+DataTypeString::DataTypeString(const std::string& str)
     : str_(str)
 {
     LIB_DBG << "string created: " << str_;
 }
 
-DataString::~DataString()
+DataTypeString::~DataTypeString()
 {
     LIB_DBG << "string destructed: " << str_;
 }
 
-void DataString::clear()
+void DataTypeString::clear()
 {
     str_.clear();
 }
 
-DataType DataString::type() const
+DataType DataTypeString::type() const
 {
     return dataType;
 }
 
-DataString* DataString::clone() const
+DataTypeString* DataTypeString::clone() const
 {
-    return new DataString(str_);
+    return new DataTypeString(str_);
 }
 
-std::string DataString::toString() const
+std::string DataTypeString::toString() const
 {
     return str();
 }
 
-void DataString::set(float f)
+void DataTypeString::set(float f)
 {
     std::ostringstream os;
     os << f;
     str_ = os.str();
 }
 
-void DataString::set(t_symbol* s)
+void DataTypeString::set(t_symbol* s)
 {
     str_ = s->s_name;
 }
 
-void DataString::set(const std::string& s)
+void DataTypeString::set(const std::string& s)
 {
     str_ = s;
 }
 
-void DataString::split(std::vector<std::string>& res, const std::string& sep) const
+void DataTypeString::split(std::vector<std::string>& res, const std::string& sep) const
 {
     if (sep.empty())
         splitEveryChar(res);
@@ -104,7 +104,7 @@ void DataString::split(std::vector<std::string>& res, const std::string& sep) co
         splitBySep(res, sep);
 }
 
-void DataString::splitEveryChar(std::vector<std::string>& res) const
+void DataTypeString::splitEveryChar(std::vector<std::string>& res) const
 {
     res.clear();
     res.reserve(str_.size());
@@ -118,7 +118,7 @@ static bool is_empty(const std::string& s)
     return s.empty();
 }
 
-void DataString::splitBySep(std::vector<std::string>& res, const std::string& sep) const
+void DataTypeString::splitBySep(std::vector<std::string>& res, const std::string& sep) const
 {
     res.clear();
     if (str_.empty())

@@ -23,7 +23,7 @@
 using namespace ceammc;
 
 class StringSplit : public BaseObject {
-    typedef DataPtrT<DataString> String;
+    typedef DataT<DataTypeString> String;
     typedef boost::shared_ptr<String> StringPtr;
 
     std::vector<StringPtr> tokens_;
@@ -33,13 +33,13 @@ public:
     StringSplit(const PdArgs& a);
     void onSymbol(t_symbol* s);
     void onData(const AbstractData* d);
-    void onDataT(const DataString& s);
+    void onDataT(const DataTypeString& s);
 
     AtomList propGetSeparator() const;
     void propSetSeparator(const AtomList& l);
 
 private:
-    void split(const DataString& s);
+    void split(const DataTypeString& s);
     void output();
     void parseArgs();
 };

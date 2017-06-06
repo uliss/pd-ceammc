@@ -20,7 +20,7 @@ StringToSymbol::StringToSymbol(const PdArgs& a)
     createOutlet();
 }
 
-void StringToSymbol::onDataT(const DataString& d)
+void StringToSymbol::onDataT(const DataTypeString& d)
 {
     symbolTo(0, gensym(d.toString().c_str()));
 }
@@ -28,6 +28,6 @@ void StringToSymbol::onDataT(const DataString& d)
 extern "C" void setup_string0x2eto_symbol()
 {
     ObjectFactory<StringToSymbol> obj("string2symbol");
-    obj.processData<DataString>();
+    obj.processData<DataTypeString>();
     obj.addAlias("str->sym");
 }
