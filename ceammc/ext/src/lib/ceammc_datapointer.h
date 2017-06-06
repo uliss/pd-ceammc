@@ -14,59 +14,12 @@
 #ifndef CEAMMC_DATAPOINTER_H
 #define CEAMMC_DATAPOINTER_H
 
-#include "ceammc_atom.h"
+#include "ceammc_abstractdata.h"
 #include "ceammc_datastorage.h"
 
 #include <boost/shared_ptr.hpp>
 
 namespace ceammc {
-
-/**
- * @brief Base class for all data types
- */
-class BaseData {
-public:
-    virtual ~BaseData();
-
-    /**
-     * override this method to dump data to Pd console
-     */
-    virtual void dump() {}
-
-    /**
-     * This method should return pointer to new dynamically allocated copy of data
-     */
-    virtual BaseData* clone() const = 0;
-
-    /**
-     * This method should return ID to data type.
-     */
-    virtual DataType type() const = 0;
-
-    /**
-     * Override this method to get non-default string data representation
-     */
-    virtual std::string toString() const;
-
-    /**
-     * Override this method to compare data by pointer to base class
-     */
-    virtual bool isEqual(const BaseData* d) const;
-
-    /**
-     * Helper functions to return pointer to derived classes
-     */
-    template <class T>
-    T* as();
-    template <class T>
-    const T* as() const;
-
-    /**
-     * Typed version of clone() method
-     */
-    template <class T>
-    T* cloneT() const;
-};
 
 /**
  * Main data handler for using in Pd externals.
@@ -225,27 +178,6 @@ Data<T>* Data<T>::clone() const
     ptr->id_ = DataStorage<T>::instance().generateId();
     DataStorage<T>::instance().add(ptr->id_, ptr);
     return ptr;
-}
-
-template <class T>
-T* BaseData::cloneT() const
-{
-    if (type() != T::dataType)
-        return 0;
-
-    return static_cast<T*>(clone());
-}
-
-template <class T>
-T* BaseData::as()
-{
-    return type() == T::dataType ? static_cast<T*>(this) : 0;
-}
-
-template <class T>
-const T* BaseData::as() const
-{
-    return type() == T::dataType ? static_cast<const T*>(this) : 0;
 }
 }
 

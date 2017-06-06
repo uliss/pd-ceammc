@@ -16,6 +16,7 @@ set(CEAMMC_LIB_SOURCES ceammc.h
     ceammc.c
     ceammc.cpp
     ceammc_gui.h
+    ceammc_abstractdata.cpp
     ceammc_array.cpp
     ceammc_atom.cpp
     ceammc_atomlist.cpp
@@ -23,7 +24,7 @@ set(CEAMMC_LIB_SOURCES ceammc.h
     ceammc_convert.cpp
     ceammc_dataatom.cpp
     ceammc_datamanager.cpp
-    ceammc_datapointer.cpp
+    ceammc_datapointer.h
     ceammc_factory.h
     ceammc_faust.cpp
     ceammc_fn_list.cpp

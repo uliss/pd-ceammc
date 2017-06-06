@@ -20,28 +20,37 @@ namespace ceammc {
 
 typedef Data<BaseData>* (*GetDataFn)(DataId id);
 typedef Data<BaseData>* (*CloneDataFn)(DataId id);
+typedef Data<BaseData>* (*CreateDataFn)(BaseData* d);
+
+struct DataManagerFnRecord {
+    GetDataFn get;
+    CloneDataFn clone;
+    CreateDataFn create;
+};
 
 class DataManager {
-    typedef std::map<DataType, GetDataFn> GetFnMap;
-    typedef std::map<DataType, CloneDataFn> CloneFnMap;
-    GetFnMap fn_get_;
-    CloneFnMap fn_clone_;
+    typedef std::map<DataType, DataManagerFnRecord> FnMap;
+    FnMap fn_;
     DataManager();
 
 public:
     static DataManager& instance();
-    void addGetFn(DataType type, GetDataFn fn);
-    void addCloneFn(DataType type, CloneDataFn fn);
+    void registerData(DataType type, const DataManagerFnRecord& rec);
     Data<BaseData>* clone(const DataDesc& d);
     Data<BaseData>* get(const DataDesc& d);
+    Data<BaseData>* add(BaseData* id);
 };
 
 namespace data {
     template <class T>
     bool registerData()
     {
-        DataManager::instance().addGetFn(T::dataType, reinterpret_cast<GetDataFn>(Data<T>::getData));
-        DataManager::instance().addCloneFn(T::dataType, reinterpret_cast<CloneDataFn>(Data<T>::cloneData));
+        DataManagerFnRecord rec;
+        rec.get = reinterpret_cast<GetDataFn>(Data<T>::getData);
+        rec.clone = reinterpret_cast<CloneDataFn>(Data<T>::cloneData);
+        rec.create = 0;
+
+        DataManager::instance().registerData(T::dataType, rec);
         return true;
     }
 }

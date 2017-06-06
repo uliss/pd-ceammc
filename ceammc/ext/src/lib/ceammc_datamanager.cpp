@@ -26,35 +26,43 @@ DataManager& DataManager::instance()
     return fact;
 }
 
-void DataManager::addGetFn(DataType type, GetDataFn fn)
+void DataManager::registerData(DataType type, const DataManagerFnRecord& rec)
 {
     LIB_DBG << "registered data type: " << type;
-    fn_get_[type] = fn;
-}
-
-void DataManager::addCloneFn(DataType type, CloneDataFn fn)
-{
-    fn_clone_[type] = fn;
+    fn_[type] = rec;
 }
 
 Data<BaseData>* DataManager::clone(const DataDesc& d)
 {
-    CloneFnMap::iterator it = fn_clone_.find(d.type);
-    if (it == fn_get_.end()) {
+    FnMap::iterator it = fn_.find(d.type);
+    if (it == fn_.end()) {
         LIB_ERR << "type not found: " << d.type;
         return 0;
     } else {
-        return it->second(d.id);
+        return it->second.clone(d.id);
     }
 }
 
 Data<BaseData>* DataManager::get(const DataDesc& d)
 {
-    GetFnMap::iterator it = fn_get_.find(d.type);
-    if (it == fn_get_.end()) {
+    FnMap::iterator it = fn_.find(d.type);
+    if (it == fn_.end()) {
         LIB_ERR << "type not found: " << d.type;
         return 0;
     } else
-        return it->second(d.id);
+        return it->second.get(d.id);
+}
+
+Data<BaseData>* DataManager::add(BaseData* id)
+{
+    if (!id)
+        return 0;
+
+    FnMap::iterator it = fn_.find(id->type());
+    if (it == fn_.end()) {
+        LIB_ERR << "type not found: " << id->type();
+        return 0;
+    } else
+        return it->second.create(id);
 }
 }

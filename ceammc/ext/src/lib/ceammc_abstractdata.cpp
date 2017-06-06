@@ -11,13 +11,12 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "ceammc_datapointer.h"
-#include "ceammc_log.h"
+#include "ceammc_abstractdata.h"
 
 #include <cstdio>
 #include <typeinfo>
 
-using namespace ceammc;
+namespace ceammc {
 
 BaseData::~BaseData() {}
 
@@ -34,4 +33,5 @@ bool BaseData::isEqual(const BaseData* d) const
         return false;
 
     return this == d;
+}
 }
