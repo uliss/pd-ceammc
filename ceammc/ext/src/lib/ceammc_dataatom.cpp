@@ -15,6 +15,8 @@
 #include "ceammc_datastorage.h"
 #include "ceammc_log.h"
 
+#include <boost/functional/hash.hpp>
+
 namespace ceammc {
 
 DataAtom::DataAtom(const Atom& a)
@@ -85,8 +87,8 @@ bool DataAtom::operator==(const DataAtom& d) const
     if (isAtom() && d.isAtom())
         return atom_ == d.atom_;
 
-    if (isData() && d.isData())
-        return data_->isEqual(d.data_->data());
+    if (data_ && d.data_)
+        return data_->data()->isEqual(d.data_->data());
 
     return false;
 }

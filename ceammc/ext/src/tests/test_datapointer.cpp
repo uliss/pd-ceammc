@@ -22,45 +22,7 @@
 
 using namespace ceammc;
 
-class IntData : public AbstractData {
-    int v_;
-
-public:
-    IntData(int v)
-        : v_(v)
-    {
-        constructor_called++;
-    }
-
-    ~IntData()
-    {
-        destructor_called++;
-    }
-
-    int value() const { return v_; }
-    void setValue(int v) { v_ = v; }
-    bool isEqual(const AbstractData* d) const
-    {
-        if (!d || d->type() != type())
-            return false;
-
-        return v_ == d->as<IntData>()->v_;
-    }
-
-    DataType type() const { return dataType; }
-    IntData* clone() const { return new IntData(v_); }
-
-public:
-    static DataType dataType;
-    static int constructor_called;
-    static int destructor_called;
-};
-
-static const DataType DTYPE = 123;
-DataType IntData::dataType = DTYPE;
-int IntData::constructor_called = 0;
-int IntData::destructor_called = 0;
-
+static const DataType DTYPE = IntData::dataType;
 #define ID(n) DataDesc(DTYPE, n)
 
 TEST_CASE("datapointer", "[PureData]")
@@ -121,10 +83,10 @@ TEST_CASE("datapointer", "[PureData]")
         REQUIRE(d.data()->as<IntData>()->value() == 1254);
         REQUIRE(d_clone->data()->as<IntData>()->value() == 1254);
 
-        REQUIRE(d.isEqual(*d_clone));
+        REQUIRE(d == *d_clone);
 
         d.data()->as<IntData>()->setValue(8);
-        REQUIRE_FALSE(d.isEqual(*d_clone));
+        REQUIRE_FALSE(d == *d_clone);
 
         delete d_clone;
     }

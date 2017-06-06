@@ -17,7 +17,6 @@
 #include "ceammc_atom.h"
 #include "ceammc_datapointer.h"
 
-#include <boost/functional/hash.hpp>
 #include <boost/scoped_ptr.hpp>
 
 namespace ceammc {
@@ -31,7 +30,7 @@ class DataAtom {
     Atom atom_;
 
 public:
-    DataAtom(const Atom& a);
+    explicit DataAtom(const Atom& a);
     DataAtom(const DataAtom& d);
     void set(const Atom& a);
     Atom toAtom() const;

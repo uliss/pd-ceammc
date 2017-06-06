@@ -18,38 +18,6 @@
 
 using namespace ceammc;
 
-class IntData : public AbstractData {
-    int v_;
-
-public:
-    IntData(int v)
-        : v_(v)
-    {
-    }
-
-    int get() const { return v_; }
-    void set(int v) { v_ = v; }
-    IntData* clone() const { return new IntData(v_); }
-    DataType type() const { return dataType; }
-    bool isEqual(const AbstractData* d) const
-    {
-        if (d->type() != dataType)
-            return false;
-
-        return d->as<IntData>()->v_ == v_;
-    }
-
-    std::string toString() const
-    {
-        std::ostringstream os;
-        os << v_;
-        return os.str();
-    }
-
-public:
-    static const DataType dataType = 33;
-};
-
 TEST_CASE("DataAtom", "[ceammc::DataAtom]")
 {
     SECTION("create")
@@ -57,6 +25,7 @@ TEST_CASE("DataAtom", "[ceammc::DataAtom]")
         DataAtom a(1.2f);
         REQUIRE(a.isAtom());
         REQUIRE(!a.isData());
+        REQUIRE(a.toAtom() == Atom(1.2f));
 
         DataAtom b(1.2f);
         REQUIRE(a == b);
@@ -87,8 +56,119 @@ TEST_CASE("DataAtom", "[ceammc::DataAtom]")
         DataAtom c(b);
         REQUIRE(c.isData());
         REQUIRE(c.data()->toString() == "123");
-        REQUIRE(((IntData*)c.data())->get() == 123);
-        //        REQUIRE(b == c);
-        //            REQUIRE(c == b);
+        REQUIRE(((IntData*)c.data())->value() == 123);
+
+        REQUIRE(b == c);
+    }
+
+    SECTION("isEqual")
+    {
+        SECTION("simple")
+        {
+            DataAtom a(1);
+            REQUIRE(a.isEqual(Atom(1)));
+            REQUIRE_FALSE(a.isEqual(Atom(2)));
+        }
+
+        SECTION("mixed")
+        {
+            Data data(new IntData(1));
+            DataAtom a(1);
+            REQUIRE(a.isEqual(Atom(1)));
+            REQUIRE_FALSE(a.isEqual(data.toAtom()));
+
+            DataAtom b(data.toAtom());
+            REQUIRE_FALSE(b.isEqual(Atom(1)));
+            REQUIRE(b.isEqual(data.toAtom()));
+        }
+
+        SECTION("data")
+        {
+            DataPtrT<IntData> data0(new IntData(1));
+            DataPtrT<IntData> data1(new IntData(100));
+
+            DataAtom a(data0.toAtom());
+            DataAtom b(data1.toAtom());
+
+            REQUIRE(a.isEqual(a.toAtom()));
+            REQUIRE(b.isEqual(b.toAtom()));
+            REQUIRE_FALSE(a.isEqual(b.toAtom()));
+            REQUIRE_FALSE(b.isEqual(a.toAtom()));
+
+            data0->setValue(100);
+            // nothing changes since DataAtom has own copy
+            REQUIRE(a.isEqual(a.toAtom()));
+            REQUIRE(b.isEqual(b.toAtom()));
+            REQUIRE_FALSE(a.isEqual(b.toAtom()));
+            REQUIRE_FALSE(b.isEqual(a.toAtom()));
+
+            a.data()->as<IntData>()->setValue(100);
+            REQUIRE(a.isEqual(b.toAtom()));
+            REQUIRE(b.isEqual(a.toAtom()));
+        }
+    }
+
+    SECTION("==")
+    {
+        SECTION("simple")
+        {
+            DataAtom a(1);
+            DataAtom b(2);
+
+            REQUIRE(a == a);
+            REQUIRE_FALSE(a == b);
+            REQUIRE(a.toAtom() == Atom(1));
+            REQUIRE(b.toAtom() == Atom(2));
+
+            DataAtom c(b);
+            REQUIRE(c == b);
+            REQUIRE(b == c);
+        }
+
+        SECTION("mixed")
+        {
+            DataAtom a(1);
+
+            Data data(new IntData(1));
+            DataAtom b(data.toAtom());
+
+            REQUIRE(a == a);
+            REQUIRE(b == b);
+            REQUIRE_FALSE(a == b);
+            REQUIRE_FALSE(b == a);
+
+            REQUIRE(a.toAtom() == Atom(1));
+            REQUIRE(b.data());
+
+            b.set(Atom(1));
+            REQUIRE(a == b);
+            REQUIRE(b == a);
+        }
+
+        SECTION("data")
+        {
+            DataPtrT<IntData> data0(new IntData(1));
+            DataPtrT<IntData> data1(new IntData(100));
+
+            DataAtom a(data0.toAtom());
+            DataAtom b(data1.toAtom());
+
+            REQUIRE(a == a);
+            REQUIRE(b == b);
+            REQUIRE(a.data());
+            REQUIRE(b.data());
+            REQUIRE(a.data()->toString() == "1");
+            REQUIRE(b.data()->toString() == "100");
+            REQUIRE(a.dataPtr());
+            REQUIRE(b.dataPtr());
+
+            REQUIRE(a.data() != b.data());
+            REQUIRE(a.dataPtr() != b.dataPtr());
+
+            REQUIRE_FALSE(a.data()->isEqual(b.data()));
+            REQUIRE_FALSE(b.data()->isEqual(a.data()));
+            REQUIRE_FALSE(a == b);
+            REQUIRE_FALSE(b == a);
+        }
     }
 }

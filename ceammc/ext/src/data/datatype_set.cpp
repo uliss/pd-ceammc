@@ -29,7 +29,7 @@ DataTypeSet::~DataTypeSet()
 
 void DataTypeSet::add(const Atom& a)
 {
-    data_.insert(a);
+    data_.insert(DataAtom(a));
 }
 
 void DataTypeSet::add(const AtomList& l)
@@ -40,7 +40,7 @@ void DataTypeSet::add(const AtomList& l)
 
 void DataTypeSet::remove(const Atom& a)
 {
-    data_.erase(a);
+    data_.erase(DataAtom(a));
 }
 
 void DataTypeSet::remove(const AtomList& l)
@@ -61,7 +61,19 @@ size_t DataTypeSet::size() const
 
 bool DataTypeSet::contains(const Atom& a) const
 {
-    return contains(DataAtom(a));
+    if (!a.isData())
+        return contains(DataAtom(a));
+
+    DataSet::const_iterator it = data_.begin();
+    for (; it != data_.end(); ++it) {
+        if (!it->isData())
+            continue;
+
+        if (it->isEqual(a))
+            return true;
+    }
+
+    return false;
 }
 
 bool DataTypeSet::contains(const DataAtom& a) const
@@ -85,13 +97,13 @@ bool DataTypeSet::isEqual(const AbstractData* d) const
     if (!d || d->type() != dataType)
         return false;
 
-    const DataTypeSet* ds = static_cast<const DataTypeSet*>(d);
+    const DataTypeSet* ds = d->as<DataTypeSet>();
     if (size() != ds->size())
         return false;
 
     DataSet::const_iterator it = data_.begin();
     for (; it != data_.end(); ++it) {
-        if (!ds->contains(*it))
+        if (!ds->contains(it->toAtom()))
             return false;
     }
 

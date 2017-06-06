@@ -66,11 +66,75 @@ TEST_CASE("data.set", "[externals]")
 
             Atom a = ds.toAtom();
             s.add(a);
-            //            REQUIRE(s.contains(ds.toAtom()));
-            //            s.add(ds.toAtom());
-            //            s.add(ds.toAtom());
+            s.add(a);
+            REQUIRE(s.contains(a));
+            REQUIRE(s.contains(ds.toAtom()));
+            s.add(ds.toAtom());
+            s.add(ds.toAtom());
 
-            //            REQUIRE(s.size() == 1);
+            REQUIRE(s.size() == 1);
+
+            ds->add(ds.toAtom());
+        }
+
+        SECTION("isEqual")
+        {
+            Data data0(new IntData(100));
+            DataTypeSet a0;
+            DataTypeSet a1;
+
+            REQUIRE(a0.isEqual(&a1));
+            REQUIRE(a1.isEqual(&a0));
+
+            a0.add(12);
+            REQUIRE_FALSE(a0.isEqual(&a1));
+
+            a1.add(12);
+            REQUIRE(a0.isEqual(&a1));
+            REQUIRE(a1.isEqual(&a0));
+
+            a0.add(data0.toAtom());
+            REQUIRE(a0.size() == 2);
+            REQUIRE_FALSE(a0.isEqual(&a1));
+
+            REQUIRE(a0.contains(Atom(12)));
+            REQUIRE(a0.contains(data0.toAtom()));
+
+            REQUIRE(a1.contains(Atom(12)));
+            REQUIRE(!a1.contains(data0.toAtom()));
+
+            a1.add(data0.toAtom());
+            REQUIRE(a1.size() == 2);
+            REQUIRE(a1.contains(Atom(12)));
+            REQUIRE(a1.contains(data0.toAtom()));
+
+            REQUIRE_FALSE(a0.isEqual(0));
+            REQUIRE(a1.isEqual(&a0));
+            REQUIRE(a0.isEqual(&a1));
+        }
+
+        SECTION("toString")
+        {
+            SECTION("simple")
+            {
+                DataTypeSet a0;
+                a0.add(1);
+
+                REQUIRE(a0.toString() == "Set 1");
+
+                a0.remove(1);
+                a0.add(S("ABC"));
+                REQUIRE(a0.toString() == "Set ABC");
+            }
+
+            SECTION("data")
+            {
+                Data data0(new IntData(100));
+                DataTypeSet a0;
+                a0.add(data0.toAtom());
+
+                REQUIRE(a0.toString() == "Set 100");
+            }
         }
     }
 }

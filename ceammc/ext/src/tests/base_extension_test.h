@@ -23,6 +23,8 @@
 #include <boost/shared_ptr.hpp>
 #include <cassert>
 #include <vector>
+#include <iostream>
+#include <sstream>
 
 using namespace ceammc;
 
@@ -621,5 +623,51 @@ DataT* TestExtension<T>::typedLastDataAt(size_t outlet)
     } else
         return 0;
 }
+
+class IntData : public AbstractData {
+    int v_;
+
+public:
+    IntData(int v)
+        : v_(v)
+    {
+        constructor_called++;
+    }
+
+    ~IntData()
+    {
+        destructor_called++;
+    }
+
+    int value() const { return v_; }
+    void setValue(int v) { v_ = v; }
+    bool isEqual(const AbstractData* d) const
+    {
+        const IntData* dt = d->as<IntData>();
+        if (!dt)
+            return false;
+
+        return v_ == dt->v_;
+    }
+
+    std::string toString() const
+    {
+        std::ostringstream buf;
+        buf << v_;
+        return buf.str();
+    }
+
+    DataType type() const { return dataType; }
+    IntData* clone() const { return new IntData(v_); }
+
+public:
+    static DataType dataType;
+    static int constructor_called;
+    static int destructor_called;
+};
+
+DataType IntData::dataType = 1001;
+int IntData::constructor_called = 0;
+int IntData::destructor_called = 0;
 
 #endif // BASE_EXTENSION_TEST_H

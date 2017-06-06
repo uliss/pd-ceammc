@@ -34,7 +34,7 @@ class Data {
 
 public:
     Data();
-    Data(AbstractData* d);
+    explicit Data(AbstractData* d);
     ~Data();
 
     Atom toAtom() const;
@@ -48,7 +48,7 @@ public:
     DataType type() const;
     DataDesc desc() const;
 
-    bool isEqual(const Data& d) const;
+    bool operator==(const Data& d) const;
 
 public:
     static SharedDataPtr fromAtom(const Atom& a);
@@ -58,8 +58,6 @@ private:
     Data(const Data& d);
     void operator=(const Data& d);
 };
-
-bool operator==(const Data& d1, const Data& d2);
 
 template <class T>
 class DataPtrT : public Data {

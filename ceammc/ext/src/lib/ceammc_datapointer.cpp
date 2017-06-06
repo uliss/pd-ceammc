@@ -88,7 +88,7 @@ DataDesc Data::desc() const
     return desc_;
 }
 
-bool Data::isEqual(const Data& d) const
+bool Data::operator==(const Data& d) const
 {
     if (!data_ || !d.data_)
         return false;
@@ -102,10 +102,5 @@ Data* Data::clone() const
         return 0;
 
     return new Data(data_->clone());
-}
-
-bool operator==(const Data& d1, const Data& d2)
-{
-    return d1.isEqual(d2);
 }
 }
