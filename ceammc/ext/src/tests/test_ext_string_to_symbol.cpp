@@ -73,10 +73,10 @@ TEST_CASE("string->symbol", "[external]")
         WHEN_SEND_TDATA_TO(0, t, DataString("A B  C"));
         REQUIRE_SYMBOL_AT_OUTLET(0, t, "A B  C");
 
-//        WHEN_SEND_TDATA_TO(0, t, TestData(100));
-//        REQUIRE_SYMBOL_AT_OUTLET(0, t, "TEST: 100");
+        WHEN_SEND_DATA_TO(0, t, TestData(100));
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-//        WHEN_SEND_TDATA_TO(0, t, TestData(-10));
-//        REQUIRE_SYMBOL_AT_OUTLET(0, t, "TEST: -10");
+        WHEN_SEND_DATA_TO(0, t, TestData(-10));
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
     }
 }
