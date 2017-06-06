@@ -15,7 +15,7 @@
 #include "base_extension_test.h"
 #include "catch.hpp"
 #include "ceammc.hpp"
-#include "ceammc_datapointer.h"
+#include "ceammc_data.h"
 #include "ceammc_datastorage.h"
 
 #include <vector>
@@ -25,7 +25,7 @@ using namespace ceammc;
 static const DataType DTYPE = IntData::dataType;
 #define ID(n) DataDesc(DTYPE, n)
 
-TEST_CASE("datapointer", "[PureData]")
+TEST_CASE("data", "[PureData]")
 {
     SECTION("construct")
     {
@@ -95,7 +95,7 @@ TEST_CASE("datapointer", "[PureData]")
     {
         REQUIRE(DataStorage::instance().count() == 0);
 
-        DataPtrT<IntData> dp(new IntData(1026));
+        DataT<IntData> dp(new IntData(1026));
         REQUIRE(dp.data());
         REQUIRE(dp.desc() == DataDesc(DTYPE, 1));
 
@@ -132,11 +132,11 @@ TEST_CASE("datapointer", "[PureData]")
         AtomList lst;
 
         {
-            std::vector<DataPtrT<IntData>*> data;
+            std::vector<DataT<IntData>*> data;
             for (size_t i = 0; i < 15; i++) {
                 const size_t id = i + 1;
                 REQUIRE(DataStorage::instance().generateId() == id);
-                data.push_back(new DataPtrT<IntData>(new IntData(int(i))));
+                data.push_back(new DataT<IntData>(new IntData(int(i))));
                 REQUIRE(data.back()->desc() == ID(id));
                 REQUIRE(DataStorage::instance().get(ID(id)) != 0);
                 REQUIRE(DataStorage::instance().get(ID(id))->type() == DTYPE);

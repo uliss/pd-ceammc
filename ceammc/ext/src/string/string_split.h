@@ -15,7 +15,7 @@
 #define STRING_SPLIT_H
 
 #include "ceammc_object.h"
-#include "datastring.h"
+#include "datatype_string.h"
 
 #include <boost/shared_ptr.hpp>
 #include <vector>

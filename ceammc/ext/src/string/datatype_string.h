@@ -15,7 +15,7 @@
 #define DATASTRING_H
 
 #include "ceammc_atomlist.h"
-#include "ceammc_datapointer.h"
+#include "ceammc_data.h"
 
 #include <string>
 #include <vector>

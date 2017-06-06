@@ -11,8 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef CEAMMC_DATAPOINTER_H
-#define CEAMMC_DATAPOINTER_H
+#ifndef CEAMMC_DATA_H
+#define CEAMMC_DATA_H
 
 #include "ceammc_abstractdata.h"
 
@@ -76,4 +76,4 @@ public:
 };
 }
 
-#endif // CEAMMC_DATAPOINTER_H
+#endif // CEAMMC_DATA_H

@@ -17,7 +17,7 @@
 #include <algorithm>
 #include <boost/unordered_map.hpp>
 
-#include "ceammc_datapointer.h"
+#include "ceammc_data.h"
 
 namespace ceammc {
 

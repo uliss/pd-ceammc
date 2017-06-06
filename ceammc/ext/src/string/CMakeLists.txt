@@ -1,4 +1,4 @@
-set(STRING_SOURCES datastring.cpp)
+set(STRING_SOURCES datatype_string.cpp)
 macro(ceammc_string_extension name)
     list(APPEND STRING_SOURCES "string_${name}.cpp")
 endmacro()

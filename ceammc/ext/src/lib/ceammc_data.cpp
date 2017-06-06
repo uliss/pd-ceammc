@@ -11,7 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "ceammc_datapointer.h"
+#include "ceammc_data.h"
 #include "ceammc_datastorage.h"
 #include "ceammc_log.h"
 

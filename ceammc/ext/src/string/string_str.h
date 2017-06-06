@@ -14,9 +14,9 @@
 #ifndef STRING_STR_H
 #define STRING_STR_H
 
-#include "ceammc_datapointer.h"
+#include "ceammc_data.h"
 #include "ceammc_object.h"
-#include "datastring.h"
+#include "datatype_string.h"
 
 using namespace ceammc;
 

@@ -84,8 +84,8 @@ TEST_CASE("DataAtom", "[ceammc::DataAtom]")
 
         SECTION("data")
         {
-            DataPtrT<IntData> data0(new IntData(1));
-            DataPtrT<IntData> data1(new IntData(100));
+            DataT<IntData> data0(new IntData(1));
+            DataT<IntData> data1(new IntData(100));
 
             DataAtom a(data0.toAtom());
             DataAtom b(data1.toAtom());
@@ -147,8 +147,8 @@ TEST_CASE("DataAtom", "[ceammc::DataAtom]")
 
         SECTION("data")
         {
-            DataPtrT<IntData> data0(new IntData(1));
-            DataPtrT<IntData> data1(new IntData(100));
+            DataT<IntData> data0(new IntData(1));
+            DataT<IntData> data1(new IntData(100));
 
             DataAtom a(data0.toAtom());
             DataAtom b(data1.toAtom());

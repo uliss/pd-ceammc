@@ -15,7 +15,7 @@
 #define STRING_JOIN_H
 
 #include "ceammc_object.h"
-#include "datastring.h"
+#include "datatype_string.h"
 
 using namespace ceammc;
 

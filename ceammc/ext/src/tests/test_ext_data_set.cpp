@@ -60,7 +60,7 @@ TEST_CASE("data.set", "[externals]")
             REQUIRE(s.size() == 0);
             REQUIRE(!s.contains(S("DEF")));
 
-            DataPtrT<DataTypeSet> ds(new DataTypeSet());
+            DataT<DataTypeSet> ds(new DataTypeSet());
             ds->add(1);
             ds->add(2);
 

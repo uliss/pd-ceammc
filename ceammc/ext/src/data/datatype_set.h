@@ -16,7 +16,7 @@
 
 #include "ceammc_atomlist.h"
 #include "ceammc_dataatom.h"
-#include "ceammc_datapointer.h"
+#include "ceammc_data.h"
 
 #include <boost/scoped_ptr.hpp>
 #include <boost/unordered_set.hpp>
