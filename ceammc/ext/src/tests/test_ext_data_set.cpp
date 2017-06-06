@@ -136,5 +136,19 @@ TEST_CASE("data.set", "[externals]")
                 REQUIRE(a0.toString() == "Set 100");
             }
         }
+
+        SECTION("add/remove")
+        {
+            DataTypeSet a;
+            a.add(L5(1, 2, 3, 1, 2));
+            REQUIRE(a.contains(1));
+            REQUIRE(a.contains(2));
+            REQUIRE(a.contains(3));
+            REQUIRE(a.size() == 3);
+
+            a.remove(L2(1, 3));
+            REQUIRE(a.size() == 1);
+            REQUIRE(a.contains(2));
+        }
     }
 }
