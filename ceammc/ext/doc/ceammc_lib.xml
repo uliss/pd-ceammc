@@ -67,6 +67,9 @@
     <entry descr="container that store unique elements" name="data.set" ref_view="object">
       <xi:include href="data.set.pddoc" parse="xml"/>
     </entry>
+    <entry descr="check if specified element contains is set" name="set.contains" ref_view="object">
+      <xi:include href="set.contains.pddoc" parse="xml"/>
+    </entry>
     <entry descr="get number of elements in set" name="set.size" ref_view="object">
       <xi:include href="set.size.pddoc" parse="xml"/>
     </entry>

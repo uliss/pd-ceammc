@@ -176,6 +176,7 @@ set(DOC_FILES
     random.int
     replace
     snd.file
+    set.contains
     set.size
     string
     string.join
