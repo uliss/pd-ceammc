@@ -96,6 +96,7 @@ TEST_CASE("data.set", "[externals]")
             a0.add(data0.toAtom());
             REQUIRE(a0.size() == 2);
             REQUIRE_FALSE(a0.isEqual(&a1));
+            REQUIRE_FALSE(a1.isEqual(&a0));
 
             REQUIRE(a0.contains(Atom(12)));
             REQUIRE(a0.contains(data0.toAtom()));
