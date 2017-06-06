@@ -31,7 +31,7 @@ DataAtom::DataAtom(const DataAtom& d)
 void DataAtom::set(const Atom& a)
 {
     if (a.isData()) {
-        Data<BaseData>* p = DataManager::instance().clone(a.getData());
+        Data<AbstractData>* p = DataManager::instance().clone(a.getData());
         if (p != 0 && !p->isNull()) {
             data_.reset(p);
             atom_ = data_->toAtom();
@@ -67,7 +67,7 @@ bool DataAtom::isEqual(const Atom& a) const
         return atom_ == a;
 
     if (isData() && a.isData()) {
-        Data<BaseData>* p = DataManager::instance().get(a.getData());
+        Data<AbstractData>* p = DataManager::instance().get(a.getData());
         if (p == 0 || data_->data() == 0)
             return false;
 
@@ -91,12 +91,12 @@ bool DataAtom::operator==(const DataAtom& d) const
     return false;
 }
 
-BaseData* DataAtom::data()
+AbstractData* DataAtom::data()
 {
     return isAtom() ? 0 : data_->data();
 }
 
-Data<BaseData>* DataAtom::dataPtr()
+Data<AbstractData>* DataAtom::dataPtr()
 {
     return isAtom() ? 0 : data_.get();
 }

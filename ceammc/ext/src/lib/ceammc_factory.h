@@ -217,7 +217,7 @@ public:
         AtomList l(argc, argv);
         if (l.size() == 1 && l[0].isData()) {
             DataDesc desc = l[0].getData();
-            Data<BaseData>* ptr = DataManager::instance().get(desc);
+            Data<AbstractData>* ptr = DataManager::instance().get(desc);
             if (ptr) {
                 x->impl->onData(ptr->data());
             } else {

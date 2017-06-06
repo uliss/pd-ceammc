@@ -29,7 +29,7 @@ class StringFormat : public BaseObject {
 
 public:
     StringFormat(const PdArgs& a);
-    void onData(const BaseData* d);
+    void onData(const AbstractData* d);
     void onBang();
     void onFloat(float v);
     void onSymbol(t_symbol* s);

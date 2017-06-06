@@ -32,7 +32,7 @@ void DataManager::registerData(DataType type, const DataManagerFnRecord& rec)
     fn_[type] = rec;
 }
 
-Data<BaseData>* DataManager::clone(const DataDesc& d)
+Data<AbstractData>* DataManager::clone(const DataDesc& d)
 {
     FnMap::iterator it = fn_.find(d.type);
     if (it == fn_.end()) {
@@ -43,7 +43,7 @@ Data<BaseData>* DataManager::clone(const DataDesc& d)
     }
 }
 
-Data<BaseData>* DataManager::get(const DataDesc& d)
+Data<AbstractData>* DataManager::get(const DataDesc& d)
 {
     FnMap::iterator it = fn_.find(d.type);
     if (it == fn_.end()) {
@@ -53,7 +53,7 @@ Data<BaseData>* DataManager::get(const DataDesc& d)
         return it->second.get(d.id);
 }
 
-Data<BaseData>* DataManager::add(BaseData* id)
+Data<AbstractData>* DataManager::add(AbstractData* id)
 {
     if (!id)
         return 0;

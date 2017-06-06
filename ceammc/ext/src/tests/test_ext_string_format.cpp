@@ -20,7 +20,7 @@ using namespace ceammc;
 
 typedef TestExtension<StringFormat> StringFormatTest;
 
-class TestData : public BaseData {
+class TestData : public AbstractData {
     int v_;
 
 public:

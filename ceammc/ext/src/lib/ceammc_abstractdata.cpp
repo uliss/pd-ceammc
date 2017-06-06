@@ -18,16 +18,16 @@
 
 namespace ceammc {
 
-BaseData::~BaseData() {}
+AbstractData::~AbstractData() {}
 
-std::string BaseData::toString() const
+std::string AbstractData::toString() const
 {
     char buf[120];
     sprintf(buf, "[Data %s id: %i]", typeid(*this).name(), type());
     return buf;
 }
 
-bool BaseData::isEqual(const BaseData* d) const
+bool AbstractData::isEqual(const AbstractData* d) const
 {
     if (type() != d->type())
         return false;

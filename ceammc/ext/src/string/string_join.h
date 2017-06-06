@@ -28,7 +28,7 @@ public:
     void onBang();
     void onFloat(float f);
     void onSymbol(t_symbol* s);
-    void onData(const BaseData* d);
+    void onData(const AbstractData* d);
     void onList(const AtomList& l);
 
     AtomList propGetSeparator() const;

@@ -43,7 +43,7 @@ void StringJoin::onSymbol(t_symbol* s)
     onBang();
 }
 
-void StringJoin::onData(const BaseData* d)
+void StringJoin::onData(const AbstractData* d)
 {
     str_.data()->str() = d->toString();
     onBang();

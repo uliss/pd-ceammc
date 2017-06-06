@@ -21,9 +21,9 @@ namespace ceammc {
 /**
  * @brief Base class for all data types
  */
-class BaseData {
+class AbstractData {
 public:
-    virtual ~BaseData();
+    virtual ~AbstractData();
 
     /**
      * override this method to dump data to Pd console
@@ -33,7 +33,7 @@ public:
     /**
      * This method should return pointer to new dynamically allocated copy of data
      */
-    virtual BaseData* clone() const = 0;
+    virtual AbstractData* clone() const = 0;
 
     /**
      * This method should return ID to data type.
@@ -48,7 +48,7 @@ public:
     /**
      * Override this method to compare data by pointer to base class
      */
-    virtual bool isEqual(const BaseData* d) const;
+    virtual bool isEqual(const AbstractData* d) const;
 
     /**
      * Helper functions to return pointer to derived classes
@@ -66,7 +66,7 @@ public:
 };
 
 template <class T>
-T* BaseData::cloneT() const
+T* AbstractData::cloneT() const
 {
     if (type() != T::dataType)
         return 0;
@@ -75,13 +75,13 @@ T* BaseData::cloneT() const
 }
 
 template <class T>
-T* BaseData::as()
+T* AbstractData::as()
 {
     return type() == T::dataType ? static_cast<T*>(this) : 0;
 }
 
 template <class T>
-const T* BaseData::as() const
+const T* AbstractData::as() const
 {
     return type() == T::dataType ? static_cast<const T*>(this) : 0;
 }

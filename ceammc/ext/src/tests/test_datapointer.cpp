@@ -22,7 +22,7 @@
 
 using namespace ceammc;
 
-class TestIntData : public BaseData {
+class TestIntData : public AbstractData {
     int v_;
 
 public:

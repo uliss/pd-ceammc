@@ -82,7 +82,7 @@ DataType DataTypeSet::type() const
     return dataType;
 }
 
-bool DataTypeSet::isEqual(const BaseData* d) const
+bool DataTypeSet::isEqual(const AbstractData* d) const
 {
     if (!d || d->type() != dataType)
         return false;
@@ -113,7 +113,7 @@ AtomList DataTypeSet::toList() const
     return res;
 }
 
-BaseData* DataTypeSet::clone() const
+AbstractData* DataTypeSet::clone() const
 {
     return new DataTypeSet(*this);
 }

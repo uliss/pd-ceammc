@@ -18,7 +18,7 @@
 
 using namespace ceammc;
 
-class IntData : public BaseData {
+class IntData : public AbstractData {
     int v_;
 
 public:
@@ -31,7 +31,7 @@ public:
     void set(int v) { v_ = v; }
     IntData* clone() const { return new IntData(v_); }
     DataType type() const { return dataType; }
-    bool isEqual(const BaseData* d) const
+    bool isEqual(const AbstractData* d) const
     {
         if (d->type() != dataType)
             return false;

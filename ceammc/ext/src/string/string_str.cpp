@@ -52,7 +52,7 @@ void StringStr::onList(const AtomList& l)
     onBang();
 }
 
-void StringStr::onData(const BaseData* d)
+void StringStr::onData(const AbstractData* d)
 {
     str_->data()->str() = d->toString();
     onBang();

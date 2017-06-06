@@ -27,7 +27,7 @@
 using namespace ceammc;
 
 typedef std::vector<Message> MessageList;
-typedef boost::shared_ptr<Data<BaseData> > BaseDataPtr;
+typedef boost::shared_ptr<Data<AbstractData> > BaseDataPtr;
 typedef std::vector<BaseDataPtr> DataPtrList;
 
 extern "C" void obj_init();
@@ -67,7 +67,7 @@ public:
     void sendList(const AtomList& lst, int inlet = 0);
     void sendAny(const char* name, const AtomList& args = AtomList());
     void sendAny(const AtomList& args);
-    void sendData(const BaseData* d, int inlet = 0);
+    void sendData(const AbstractData* d, int inlet = 0);
 
     template <class DataT>
     void sendTData(const DataT& d, int inlet = 0);
@@ -456,7 +456,7 @@ void TestExtension<T>::sendAny(const AtomList& args)
 }
 
 template <class T>
-void TestExtension<T>::sendData(const BaseData* d, int inlet)
+void TestExtension<T>::sendData(const AbstractData* d, int inlet)
 {
     T::onData(d);
 }
@@ -523,8 +523,8 @@ template <class T>
 void TestExtension<T>::dataTo(size_t n, const Atom& d)
 {
     msg_[n].push_back(d);
-    Data<BaseData>* p = DataManager::instance().clone(d.getData());
-    data_[n].push_back(Data<BaseData>::DataPtr(p));
+    Data<AbstractData>* p = DataManager::instance().clone(d.getData());
+    data_[n].push_back(Data<AbstractData>::DataPtr(p));
 }
 
 template <class T>

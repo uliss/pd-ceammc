@@ -18,9 +18,9 @@
 
 namespace ceammc {
 
-typedef Data<BaseData>* (*GetDataFn)(DataId id);
-typedef Data<BaseData>* (*CloneDataFn)(DataId id);
-typedef Data<BaseData>* (*CreateDataFn)(BaseData* d);
+typedef Data<AbstractData>* (*GetDataFn)(DataId id);
+typedef Data<AbstractData>* (*CloneDataFn)(DataId id);
+typedef Data<AbstractData>* (*CreateDataFn)(AbstractData* d);
 
 struct DataManagerFnRecord {
     GetDataFn get;
@@ -36,9 +36,9 @@ class DataManager {
 public:
     static DataManager& instance();
     void registerData(DataType type, const DataManagerFnRecord& rec);
-    Data<BaseData>* clone(const DataDesc& d);
-    Data<BaseData>* get(const DataDesc& d);
-    Data<BaseData>* add(BaseData* id);
+    Data<AbstractData>* clone(const DataDesc& d);
+    Data<AbstractData>* get(const DataDesc& d);
+    Data<AbstractData>* add(AbstractData* id);
 };
 
 namespace data {

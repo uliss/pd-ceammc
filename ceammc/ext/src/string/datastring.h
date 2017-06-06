@@ -22,7 +22,7 @@
 
 using namespace ceammc;
 
-class DataString : public BaseData {
+class DataString : public AbstractData {
     std::string str_;
 
 public:

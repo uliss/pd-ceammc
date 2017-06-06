@@ -18,7 +18,7 @@
 
 using namespace ceammc;
 
-class TestData : public BaseData {
+class TestData : public AbstractData {
     int v_;
 
 public:

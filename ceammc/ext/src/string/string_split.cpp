@@ -32,7 +32,7 @@ void StringSplit::onSymbol(t_symbol* s)
     output();
 }
 
-void StringSplit::onData(const BaseData* d)
+void StringSplit::onData(const AbstractData* d)
 {
 }
 

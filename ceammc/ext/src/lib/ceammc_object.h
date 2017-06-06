@@ -109,7 +109,7 @@ public:
     virtual void onFloat(float) {}
     virtual void onSymbol(t_symbol*) {}
     virtual void onList(const AtomList&) {}
-    virtual void onData(const BaseData*) {}
+    virtual void onData(const AbstractData*) {}
     virtual void onAny(t_symbol*, const AtomList&) {}
 
     /**

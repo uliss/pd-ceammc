@@ -44,7 +44,7 @@ void StringFormat::onBang()
     dataTo(0, fmt_result_->toAtom());
 }
 
-void StringFormat::onData(const BaseData* d)
+void StringFormat::onData(const AbstractData* d)
 {
     try {
         fmt_result_->data()->str() = tfm::format(fmt_str_.c_str(), d->toString());

@@ -26,7 +26,7 @@ namespace ceammc {
  * @brief The DataAtom class - Atom that can contain Data pointer or simple Atom value
  */
 class DataAtom {
-    typedef boost::scoped_ptr<Data<BaseData> > DataPtr;
+    typedef boost::scoped_ptr<Data<AbstractData> > DataPtr;
     DataPtr data_;
     Atom atom_;
 
@@ -41,8 +41,8 @@ public:
 
     bool operator==(const DataAtom& d) const;
 
-    BaseData* data();
-    Data<BaseData>* dataPtr();
+    AbstractData* data();
+    Data<AbstractData>* dataPtr();
 
 public:
     friend size_t hash_value(const DataAtom& d);

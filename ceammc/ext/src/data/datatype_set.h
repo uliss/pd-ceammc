@@ -24,7 +24,7 @@
 
 using namespace ceammc;
 
-class DataTypeSet : public BaseData {
+class DataTypeSet : public AbstractData {
 private:
     typedef boost::unordered_set<DataAtom> DataSet;
     DataSet data_;
@@ -43,10 +43,10 @@ public:
     bool contains(const DataAtom& a) const;
     std::string toString() const;
     DataType type() const;
-    bool isEqual(const BaseData* d) const;
+    bool isEqual(const AbstractData* d) const;
     AtomList toList() const;
 
-    BaseData* clone() const;
+    AbstractData* clone() const;
 
 public:
     static const DataType dataType;
