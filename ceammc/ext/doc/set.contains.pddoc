@@ -6,7 +6,7 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>check if specified element contains is set</description>
+            <description>check if specified element is in set</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>data</category>

@@ -1,7 +1,7 @@
 #N canvas 0 0 715 555 12;
 #X declare -lib ceammc -lib creammc;
-#X obj 356 50 cnv 1 339 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 356 50 check if specified element contains is set;
+#X obj 404 50 cnv 1 291 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 404 50 check if specified element is in set;
 #X obj 1 1 cnv 5 712 40 empty empty set.contains 20 20 0 20 -104026
 -4096 0;
 #X obj 601 11 set.contains;

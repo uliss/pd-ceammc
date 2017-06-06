@@ -53,7 +53,7 @@ position [0\..1];
 #X obj 30 828 data.set;
 #X text 175 828 container that store unique elements;
 #X obj 30 855 set.contains;
-#X text 175 855 check if specified element contains is set;
+#X text 175 855 check if specified element is in set;
 #X obj 30 882 set.size;
 #X text 175 882 get number of elements in set;
 #X obj 20 909 cnv 5 38 31 empty empty dyn 4 13 0 17 -262144 -49933 0;

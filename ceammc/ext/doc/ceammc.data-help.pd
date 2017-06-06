@@ -9,7 +9,7 @@
 #X obj 30 170 data.set;
 #X text 175 170 container that store unique elements;
 #X obj 30 197 set.contains;
-#X text 175 197 check if specified element contains is set;
+#X text 175 197 check if specified element is in set;
 #X obj 30 224 set.size;
 #X text 175 224 get number of elements in set;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::data 20 20 0 20 -104026
