@@ -15,8 +15,8 @@
 #define DATATYPE_SET_H
 
 #include "ceammc_atomlist.h"
-#include "ceammc_dataatom.h"
 #include "ceammc_data.h"
+#include "ceammc_dataatom.h"
 
 #include <boost/scoped_ptr.hpp>
 #include <boost/unordered_set.hpp>
@@ -40,6 +40,11 @@ public:
 
     bool contains(const Atom& a) const;
     bool contains(const DataAtom& a) const;
+
+    /**
+     * Returns true if set contains *one* of given values
+     */
+    bool contains(const AtomList& lst) const;
     std::string toString() const;
     DataType type() const;
     bool isEqual(const AbstractData* d) const;

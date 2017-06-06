@@ -83,6 +83,16 @@ bool DataTypeSet::contains(const DataAtom& a) const
     return it != data_.end();
 }
 
+bool DataTypeSet::contains(const AtomList& lst) const
+{
+    for (size_t i = 0; i < lst.size(); i++) {
+        if (contains(lst[i]))
+            return true;
+    }
+
+    return false;
+}
+
 std::string DataTypeSet::toString() const
 {
     return std::string("Set ") + to_string(toList());
