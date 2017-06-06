@@ -29,11 +29,15 @@
 StringFormat::StringFormat(const PdArgs& a)
     : BaseObject(a)
     , fmt_result_(new DataTypeString(""))
+    , int_mode_(0)
 {
     createOutlet();
 
     propSetFormat(positionalArguments());
     createCbProperty("@format", &StringFormat::propGetFormat, &StringFormat::propSetFormat);
+
+    int_mode_ = new FlagProperty("@int");
+    createProperty(int_mode_);
 }
 
 void StringFormat::onBang()
@@ -56,15 +60,10 @@ void StringFormat::onData(const AbstractData* d)
     onBang();
 }
 
-static bool isInteger(float v)
-{
-    return int(v) == v;
-}
-
 void StringFormat::onFloat(float v)
 {
     try {
-        if (isInteger(v)) {
+        if (int_mode_->value()) {
             fmt_result_->str() = tfm::format(fmt_str_.c_str(), int(v));
         } else {
             fmt_result_->str() = tfm::format(fmt_str_.c_str(), v);
@@ -94,7 +93,7 @@ void StringFormat::onList(const AtomList& lst)
     VFormatList args;
     for (size_t i = 0; i < lst.size(); i++) {
         if (lst[i].isFloat()) {
-            if (lst[i].isInteger())
+            if (int_mode_->value())
                 args.add(lst[i].asInt());
             else
                 args.add(lst[i].asFloat());

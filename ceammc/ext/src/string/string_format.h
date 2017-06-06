@@ -25,6 +25,7 @@ class StringFormat : public BaseObject {
     AtomList fmt_atoms_;
     std::string fmt_str_;
     StringPtr fmt_result_;
+    FlagProperty* int_mode_;
 
 public:
     StringFormat(const PdArgs& a);

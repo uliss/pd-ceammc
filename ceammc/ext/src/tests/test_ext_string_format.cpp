@@ -168,21 +168,38 @@ TEST_CASE("string.format", "[external]")
 
         SECTION("format: %o")
         {
-            StringFormatTest t("string.format", L1("%o"));
+            SECTION("float mode")
+            {
+                StringFormatTest t("string.format", L1("%o"));
 
-            WHEN_SEND_FLOAT_TO(0, t, 64);
-            REQUIRE_STRING_OUTPUT(t, "100");
+                WHEN_SEND_FLOAT_TO(0, t, 64);
+                REQUIRE_STRING_OUTPUT(t, "64");
 
-            WHEN_SEND_FLOAT_TO(0, t, 8);
-            REQUIRE_STRING_OUTPUT(t, "10");
+                WHEN_SEND_FLOAT_TO(0, t, 8);
+                REQUIRE_STRING_OUTPUT(t, "8");
 
-            WHEN_SEND_LIST_TO(0, t, L1(15));
-            REQUIRE_STRING_OUTPUT(t, "17");
+                WHEN_SEND_LIST_TO(0, t, L1(15));
+                REQUIRE_STRING_OUTPUT(t, "15");
+            }
+
+            SECTION("int mode")
+            {
+                StringFormatTest t("string.format", L2("%o", "@int"));
+
+                WHEN_SEND_FLOAT_TO(0, t, 64);
+                REQUIRE_STRING_OUTPUT(t, "100");
+
+                WHEN_SEND_FLOAT_TO(0, t, 8);
+                REQUIRE_STRING_OUTPUT(t, "10");
+
+                WHEN_SEND_LIST_TO(0, t, L1(15));
+                REQUIRE_STRING_OUTPUT(t, "17");
+            }
         }
 
         SECTION("format: %x")
         {
-            StringFormatTest t("string.format", L1("%x"));
+            StringFormatTest t("string.format", L2("%x", "@int"));
 
             WHEN_SEND_FLOAT_TO(0, t, 15);
             REQUIRE_STRING_OUTPUT(t, "f");
@@ -196,16 +213,33 @@ TEST_CASE("string.format", "[external]")
 
         SECTION("format: %x")
         {
-            StringFormatTest t("string.format", L1("0x%X"));
+            SECTION("float mode")
+            {
+                StringFormatTest t("string.format", L1("0x%X"));
 
-            WHEN_SEND_FLOAT_TO(0, t, 15);
-            REQUIRE_STRING_OUTPUT(t, "0xF");
+                WHEN_SEND_FLOAT_TO(0, t, 15);
+                REQUIRE_STRING_OUTPUT(t, "0x15");
 
-            WHEN_SEND_FLOAT_TO(0, t, 255);
-            REQUIRE_STRING_OUTPUT(t, "0xFF");
+                WHEN_SEND_FLOAT_TO(0, t, 255);
+                REQUIRE_STRING_OUTPUT(t, "0x255");
 
-            WHEN_SEND_LIST_TO(0, t, L1(32));
-            REQUIRE_STRING_OUTPUT(t, "0x20");
+                WHEN_SEND_LIST_TO(0, t, L1(32));
+                REQUIRE_STRING_OUTPUT(t, "0x32");
+            }
+
+            SECTION("int mode ")
+            {
+                StringFormatTest t("string.format", L2("0x%X", "@int"));
+
+                WHEN_SEND_FLOAT_TO(0, t, 15);
+                REQUIRE_STRING_OUTPUT(t, "0xF");
+
+                WHEN_SEND_FLOAT_TO(0, t, 255);
+                REQUIRE_STRING_OUTPUT(t, "0xFF");
+
+                WHEN_SEND_LIST_TO(0, t, L1(32));
+                REQUIRE_STRING_OUTPUT(t, "0x20");
+            }
         }
     }
 
