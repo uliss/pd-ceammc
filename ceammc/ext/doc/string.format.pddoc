@@ -24,8 +24,8 @@
         </arguments>
         <properties>
             <property name="@format" type="symbol">format string</property>
-            <property name="@int" type="int">if specified all floats are converted to integers.
-            This usefull for hex and octal formatting</property>
+            <property name="@int" type="int">integer mode. If specified all floats are converted to
+            integers. This usefull for hex and octal formatting</property>
         </properties>
         <inlets>
             <inlet>
