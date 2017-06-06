@@ -554,6 +554,9 @@
     <entry descr="string constructor" name="string" ref_view="object">
       <xi:include href="string.pddoc" parse="xml"/>
     </entry>
+    <entry descr="joins (concatenates) strings with separator" name="string.join" ref_view="object">
+      <xi:include href="string.join.pddoc" parse="xml"/>
+    </entry>
     <entry descr="split string by separator" name="string.split" ref_view="object">
       <xi:include href="string.split.pddoc" parse="xml"/>
     </entry>
