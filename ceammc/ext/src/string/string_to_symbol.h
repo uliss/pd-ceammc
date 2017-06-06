@@ -22,7 +22,7 @@ using namespace ceammc;
 class StringToSymbol : public BaseObject {
 public:
     StringToSymbol(const PdArgs& a);
-    void onData(const BaseData* d);
+    void onDataT(const DataString& d);
 };
 
 extern "C" void setup_string0x2eto_symbol();

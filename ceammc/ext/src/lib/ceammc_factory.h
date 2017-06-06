@@ -22,6 +22,7 @@
 #include <string>
 #include <vector>
 
+#include "ceammc_datamanager.h"
 #include "ceammc_message.h"
 #include "ceammc_object.h"
 
@@ -144,6 +145,17 @@ public:
         class_addcreator(reinterpret_cast<t_newmethod>(object_new), gensym(name), A_GIMME, A_NULL);
     }
 
+    void processData()
+    {
+        setListFn(processDataFn);
+    }
+
+    template <class DataT>
+    void processData()
+    {
+        setListFn(processDataTypedFn<DataT>);
+    }
+
     static void* object_new(t_symbol*, int argc, t_atom* argv)
     {
         ObjectProxy* x = 0;
@@ -198,6 +210,41 @@ public:
     static void processAny(ObjectProxy* x, t_symbol* s, int argc, t_atom* argv)
     {
         x->impl->anyDispatch(s, AtomList(argc, argv));
+    }
+
+    static void processDataFn(ObjectProxy* x, t_symbol*, int argc, t_atom* argv)
+    {
+        AtomList l(argc, argv);
+        if (l.size() == 1 && l[0].isData()) {
+            DataDesc desc = l[0].getData();
+            Data<BaseData>* ptr = DataManager::instance().get(desc);
+            if (ptr) {
+                x->impl->onData(ptr->data());
+            } else {
+                LIB_ERR << "can't get data with type=" << desc.type << " and id=" << desc.id;
+            }
+        } else {
+            x->impl->onList(l);
+        }
+    }
+
+    template <class DataT>
+    static void processDataTypedFn(ObjectProxy* x, t_symbol*, int argc, t_atom* argv)
+    {
+        typedef typename Data<DataT>::DataPtr DataPtr;
+
+        AtomList l(argc, argv);
+        if (l.size() == 1 && l[0].isData()) {
+            DataPtr ptr = Data<DataT>::fromAtom(l[0]);
+            if (ptr) {
+                x->impl->onDataT(*ptr->data());
+            } else {
+                DataDesc d = l[0].getData();
+                LIB_ERR << "can't get data with type=" << d.type << " and id=" << d.id;
+            }
+        } else {
+            x->impl->onList(l);
+        }
     }
 
     static void dumpMethodList(ObjectProxy* x)

@@ -13,7 +13,7 @@
  *****************************************************************************/
 #include "string_split.h"
 #include "ceammc_format.h"
-#include "data_string_factory.h"
+#include "ceammc_factory.h"
 
 #include <boost/algorithm/string.hpp>
 
@@ -92,7 +92,7 @@ void StringSplit::propSetSeparator(const AtomList& l)
 
 extern "C" void setup_string0x2esplit()
 {
-    DataStringFactory<StringSplit> obj("string.split");
-    obj.processDataT<DataString>();
+    ObjectFactory<StringSplit> obj("string.split");
+    obj.processData<DataString>();
     obj.addAlias("str.split");
 }

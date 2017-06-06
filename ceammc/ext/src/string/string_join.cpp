@@ -13,7 +13,7 @@
  *****************************************************************************/
 #include "string_join.h"
 #include "ceammc_format.h"
-#include "data_string_factory.h"
+#include "ceammc_factory.h"
 
 StringJoin::StringJoin(const PdArgs& a)
     : BaseObject(a)
@@ -85,6 +85,7 @@ void StringJoin::parseArgs()
 
 extern "C" void setup_string0x2ejoin()
 {
-    DataStringFactory<StringJoin> obj("string.join");
+    ObjectFactory<StringJoin> obj("string.join");
+    obj.processData();
     obj.addAlias("str.join");
 }

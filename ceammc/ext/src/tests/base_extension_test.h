@@ -69,6 +69,9 @@ public:
     void sendAny(const AtomList& args);
     void sendData(const BaseData* d, int inlet = 0);
 
+    template <class DataT>
+    void sendTData(const DataT& d, int inlet = 0);
+
     /** overloaded */
     virtual void bangTo(size_t n);
     virtual void listTo(size_t n, const AtomList& lst);
@@ -356,6 +359,13 @@ void WHEN_SEND_DATA_TO(size_t inlet, T& obj, const D* d)
 }
 
 template <class T, class D>
+void WHEN_SEND_TDATA_TO(size_t inlet, T& obj, const D& d)
+{
+    obj.storeAllMessageCount();
+    obj.sendTData(d, inlet);
+}
+
+template <class T, class D>
 void WHEN_SEND_DATA_TO(size_t inlet, T& obj, const D& d)
 {
     WHEN_SEND_DATA_TO(inlet, obj, &d);
@@ -449,6 +459,13 @@ template <class T>
 void TestExtension<T>::sendData(const BaseData* d, int inlet)
 {
     T::onData(d);
+}
+
+template <class T>
+template <class DataT>
+void TestExtension<T>::sendTData(const DataT& d, int inlet)
+{
+    T::onDataT(d);
 }
 
 template <class T>

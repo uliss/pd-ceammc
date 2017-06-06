@@ -12,8 +12,8 @@
  * this file belongs to.
  *****************************************************************************/
 #include "string_str.h"
+#include "ceammc_factory.h"
 #include "ceammc_format.h"
-#include "data_string_factory.h"
 
 #include <cstdio>
 
@@ -84,7 +84,8 @@ void StringStr::m_clear(t_symbol*, const AtomList&)
 
 void string_setup()
 {
-    DataStringFactory<StringStr> obj("string");
+    ObjectFactory<StringStr> obj("string");
+    obj.processData();
     obj.addAlias("str");
     obj.addMethod("append", &StringStr::m_append);
     obj.addMethod("set", &StringStr::m_set);

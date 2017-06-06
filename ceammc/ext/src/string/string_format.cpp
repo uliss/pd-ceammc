@@ -12,8 +12,8 @@
  * this file belongs to.
  *****************************************************************************/
 #include "string_format.h"
+#include "ceammc_factory.h"
 #include "ceammc_format.h"
-#include "data_string_factory.h"
 
 #include <sstream>
 #include <stdexcept>
@@ -119,6 +119,7 @@ void StringFormat::propSetFormat(const AtomList& lst)
 
 extern "C" void setup_string0x2eformat()
 {
-    DataStringFactory<StringFormat> obj("string.format");
+    ObjectFactory<StringFormat> obj("string.format");
+    obj.processData();
     obj.addAlias("str.format");
 }

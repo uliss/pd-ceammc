@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "string_to_symbol.h"
-#include "data_string_factory.h"
+#include "ceammc_factory.h"
 
 StringToSymbol::StringToSymbol(const PdArgs& a)
     : BaseObject(a)
@@ -20,13 +20,14 @@ StringToSymbol::StringToSymbol(const PdArgs& a)
     createOutlet();
 }
 
-void StringToSymbol::onData(const BaseData* d)
+void StringToSymbol::onDataT(const DataString& d)
 {
-    symbolTo(0, gensym(d->toString().c_str()));
+    symbolTo(0, gensym(d.toString().c_str()));
 }
 
 extern "C" void setup_string0x2eto_symbol()
 {
-    DataStringFactory<StringToSymbol> obj("string2symbol");
+    ObjectFactory<StringToSymbol> obj("string2symbol");
+    obj.processData<DataString>();
     obj.addAlias("str->sym");
 }
