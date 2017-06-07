@@ -329,4 +329,16 @@ TEST_CASE("data", "[PureData]")
         REQUIRE(d1->value() == 4);
         REQUIRE(d2->value() == 16);
     }
+
+    SECTION("abstract")
+    {
+        AbstractData* d0 = new IntData(123);
+        AbstractData* d1 = new StrData("test");
+        REQUIRE(!d0->AbstractData::toString().empty());
+        REQUIRE(d0->AbstractData::isEqual(d0));
+        REQUIRE(!d0->AbstractData::isEqual(d1));
+        d0->dump();
+        delete d0;
+        delete d1;
+    }
 }

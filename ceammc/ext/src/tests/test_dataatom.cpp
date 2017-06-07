@@ -171,4 +171,15 @@ TEST_CASE("DataAtom", "[ceammc::DataAtom]")
             REQUIRE_FALSE(b == a);
         }
     }
+
+    SECTION("")
+    {
+        DataT<IntData> data0(new IntData(1));
+        DataAtom a(data0.toAtom());
+
+        REQUIRE(a.isData());
+        a.set(Atom(DataDesc(0, 0)));
+        REQUIRE(!a.isData());
+        REQUIRE(a.toAtom().isNone());
+    }
 }
