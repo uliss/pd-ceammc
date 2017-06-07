@@ -45,7 +45,7 @@ void StringFormat::onBang()
     if (fmt_result_.isNull())
         return;
 
-    dataTo(0, fmt_result_.toAtom());
+    dataTo(0, fmt_result_);
 }
 
 void StringFormat::onData(const AbstractData* d)

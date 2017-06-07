@@ -27,14 +27,14 @@ void SetIntersection::onDataT(const DataTypeSet& s)
     DataTypeSet* res = new DataTypeSet();
     Data out(res);
     DataTypeSet::intersection(*res, s, *set1_.data());
-    dataTo(0, out.toAtom());
+    dataTo(0, out);
 }
 
 void SetIntersection::onInlet(size_t, const AtomList& l)
 {
     set1_->clear();
 
-    if (l.size() == 1 && l[0].isDataType(DataTypeSet::dataType)) {
+    if (l.isDataType(DataTypeSet::dataType)) {
         set1_.setData(l[0]);
     } else {
         set1_->add(l);

@@ -31,7 +31,7 @@ void DataSet::dump() const
 
 void DataSet::onBang()
 {
-    dataTo(0, set_.toAtom());
+    dataTo(0, set_);
 }
 
 void DataSet::onFloat(float f)

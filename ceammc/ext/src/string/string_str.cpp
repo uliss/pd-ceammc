@@ -29,7 +29,7 @@ void StringStr::onBang()
     if (str_.isNull())
         return;
 
-    dataTo(0, str_.toAtom());
+    dataTo(0, str_);
 }
 
 void StringStr::onFloat(float f)

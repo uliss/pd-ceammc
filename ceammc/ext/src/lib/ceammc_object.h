@@ -219,7 +219,7 @@ public:
     virtual void anyTo(size_t n, t_symbol* s, const Atom& a);
     virtual void anyTo(size_t n, t_symbol* s, const AtomList& l);
 
-    virtual void dataTo(size_t n, const Atom& d);
+    virtual void dataTo(size_t n, const Data& d);
 
     virtual bool processAnyInlets(t_symbol* sel, const AtomList& lst);
     virtual bool processAnyProps(t_symbol* sel, const AtomList& lst);

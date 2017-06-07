@@ -171,19 +171,19 @@ void BaseObject::anyTo(size_t n, t_symbol* s, const AtomList& l)
     l.outputAsAny(outlets_[n], s);
 }
 
-void BaseObject::dataTo(size_t n, const Atom& d)
+void BaseObject::dataTo(size_t n, const Data& d)
 {
     if (n >= outlets_.size()) {
         OBJ_ERR << "invalid outlet index: " << n;
         return;
     }
 
-    if (!d.isData()) {
-        OBJ_ERR << "not a data given: " << to_string(d);
+    if (d.isNull()) {
+        OBJ_ERR << "NULL data";
         return;
     }
 
-    d.output(outlets_[n]);
+    d.toAtom().output(outlets_[n]);
 }
 
 bool BaseObject::processAnyInlets(t_symbol* sel, const AtomList& lst)

@@ -123,7 +123,6 @@ TEST_CASE("string.str", "[external]")
     {
         StringStrTest t("string.str", L2("a", "b"));
         WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_DATA_AT_OUTLET(0, t, D(1, 1));
         REQUIRE_STRING_OUTPUT(t, "a b");
 
         WHEN_CALL_1(t, set, "a");

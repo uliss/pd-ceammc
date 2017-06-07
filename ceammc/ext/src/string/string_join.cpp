@@ -28,7 +28,7 @@ StringJoin::StringJoin(const PdArgs& a)
 
 void StringJoin::onBang()
 {
-    dataTo(0, str_.toAtom());
+    dataTo(0, str_);
 }
 
 void StringJoin::onFloat(float f)

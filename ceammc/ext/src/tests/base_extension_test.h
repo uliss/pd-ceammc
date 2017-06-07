@@ -84,7 +84,7 @@ public:
     virtual void anyTo(size_t n, const AtomList& lst);
     virtual void anyTo(size_t n, t_symbol* sel, const AtomList& lst);
     virtual void messageTo(size_t n, const Message& m);
-    virtual void dataTo(size_t n, const Atom& d);
+    virtual void dataTo(size_t n, const Data& d);
 
     /** messages methods */
 public:
@@ -553,13 +553,11 @@ void TestExtension<T>::messageTo(size_t n, const Message& m)
 }
 
 template <class T>
-void TestExtension<T>::dataTo(size_t n, const Atom& d)
+void TestExtension<T>::dataTo(size_t n, const Data& d)
 {
-    Data* p = DataStorage::instance().get(d.getData());
-    if (p) {
-        msg_[n].push_back(d);
-        data_[n].push_back(SharedDataPtr(p->clone()));
-    }
+    SharedDataPtr p(d.clone());
+    data_[n].push_back(p);
+    msg_[n].push_back(p->toAtom());
 }
 
 template <class T>
