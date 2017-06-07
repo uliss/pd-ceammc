@@ -76,6 +76,14 @@ TEST_CASE("DataAtom", "[ceammc::DataAtom]")
         REQUIRE(*a.dataPtr() == *b.dataPtr());
         REQUIRE(a.dataPtr()->desc().id != b.dataPtr()->desc().id);
         REQUIRE(b.as<IntData>()->value() == 1000);
+
+        b.as<IntData>()->setValue(2000);
+        REQUIRE_FALSE(a == b);
+
+        b = a;
+        REQUIRE(a == b);
+        REQUIRE(b.isData());
+        REQUIRE(a.data() != b.data());
     }
 
     SECTION("isEqual")
