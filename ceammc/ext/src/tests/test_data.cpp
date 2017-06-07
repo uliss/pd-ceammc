@@ -89,6 +89,9 @@ TEST_CASE("data", "[PureData]")
         REQUIRE_FALSE(d == *d_clone);
 
         delete d_clone;
+
+        Data n;
+        REQUIRE(n.clone() == 0);
     }
 
     SECTION("atoms")
@@ -259,5 +262,23 @@ TEST_CASE("data", "[PureData]")
 
             REQUIRE(d0.data() != d1.data());
         }
+    }
+
+    SECTION("toAtom")
+    {
+        Data d0;
+        REQUIRE(d0.toAtom().isNone());
+    }
+
+    SECTION("DataT")
+    {
+        Data d0;
+        const Data& r0 = d0;
+        REQUIRE(r0.data() == 0);
+
+        DataT<IntData> d1(new IntData(200));
+        const DataT<IntData>& r1 = d1;
+        REQUIRE(r1.data() != 0);
+        REQUIRE(d1->value() == 200);
     }
 }
