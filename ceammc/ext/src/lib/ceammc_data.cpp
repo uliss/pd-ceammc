@@ -103,4 +103,31 @@ Data* Data::clone() const
 
     return new Data(data_->clone());
 }
+
+void Data::setData(AbstractData* d)
+{
+    if (data_) {
+        DataStorage::instance().remove(desc_);
+        delete data_;
+        data_ = 0;
+    }
+
+    if (d) {
+        data_ = d;
+        desc_ = DataStorage::instance().generateNewDesc(data_);
+        DataStorage::instance().add(desc_, this);
+    }
+}
+
+void Data::setData(const Atom& a)
+{
+    if (!a.isData())
+        return;
+
+    Data* p = Data::getTypedData(a.getData());
+    if (!p || !p->data())
+        return;
+
+    setData(p->data()->clone());
+}
 }

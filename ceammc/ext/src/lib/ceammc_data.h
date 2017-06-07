@@ -42,6 +42,8 @@ public:
     Data* clone() const;
     AbstractData* data() { return data_; }
     const AbstractData* data() const { return data_; }
+    void setData(AbstractData* d);
+    void setData(const Atom& a);
 
     bool isNull() const { return desc_.type == 0 || data_ == 0; }
 

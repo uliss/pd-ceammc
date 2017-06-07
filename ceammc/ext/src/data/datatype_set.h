@@ -33,13 +33,36 @@ public:
     DataTypeSet(const Atom& a);
     DataTypeSet(const AtomList& l);
     ~DataTypeSet();
+
+    /**
+     * Add element to set
+     */
     void add(const Atom& a);
     void add(const AtomList& l);
+
+    /**
+     * Remove element from set
+     */
     void remove(const Atom& a);
+
+    /**
+     * Removes all list elements from set
+     */
     void remove(const AtomList& l);
+
+    /**
+     * Removes all elements from set
+     */
     void clear();
+
+    /**
+     * Returns number of elements in set
+     */
     size_t size() const;
 
+    /**
+     * Checks if set contains element
+     */
     bool contains(const Atom& a) const;
     bool contains(const DataAtom& a) const;
 
@@ -51,12 +74,24 @@ public:
     DataType type() const;
     bool isEqual(const AbstractData* d) const;
     AtomList toList() const;
-
     AbstractData* clone() const;
+    bool operator==(const DataTypeSet& s) const;
+
+    /**
+      * Assign set
+      */
+    void operator=(const DataTypeSet& s);
 
 public:
     static const DataType dataType;
-    static DataTypeSet intersection(const DataTypeSet& s0, const DataTypeSet& s1);
+
+    /**
+     * Set intersection
+     * @param out - result
+     * @param s0 - first set
+     * @param s1 - second set
+     */
+    static void intersection(DataTypeSet& out, const DataTypeSet& s0, const DataTypeSet& s1);
 
 private:
     DataTypeSet(const DataTypeSet& ds);

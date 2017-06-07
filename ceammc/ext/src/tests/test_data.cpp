@@ -216,4 +216,45 @@ TEST_CASE("data", "[PureData]")
         REQUIRE(a0 != a1);
         REQUIRE(a0.dataId() != a1.dataId());
     }
+
+    SECTION("setData")
+    {
+        SECTION("pointer")
+        {
+            AbstractData* ptr = 0;
+            Data d(new IntData(199));
+            REQUIRE(d.data()->as<IntData>()->value() == 199);
+            ptr = d.data();
+
+            d.setData(new IntData(200));
+            REQUIRE(d.data()->as<IntData>()->value() == 200);
+            REQUIRE(d.data() != ptr);
+
+            d.setData(0);
+            REQUIRE(d.data() == 0);
+
+            Data d1;
+            REQUIRE(d1.data() == 0);
+            d1.setData(0);
+            REQUIRE(d1.data() == 0);
+
+            d1.setData(new IntData(300));
+            REQUIRE(d1.data() != 0);
+        }
+
+        SECTION("atom")
+        {
+            Data d0(new IntData(199));
+            d0.setData(Atom(1));
+            REQUIRE(d0.data()->as<IntData>()->value() == 199);
+
+            Data d1(new IntData(256));
+            REQUIRE(d0.data() != d1.data());
+
+            d0.setData(d1.toAtom());
+            REQUIRE(d0.data()->as<IntData>()->value() == 256);
+
+            REQUIRE(d0.data() != d1.data());
+        }
+    }
 }

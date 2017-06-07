@@ -10,6 +10,7 @@ ceammc_data_extension(data set)
 
 ceammc_data_extension(set contains)
 ceammc_data_extension(set size)
+ceammc_data_extension(set intersection)
 
 ceammc_data_extension(global int)
 ceammc_data_extension(global float)
