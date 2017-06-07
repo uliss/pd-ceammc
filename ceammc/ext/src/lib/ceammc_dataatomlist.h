@@ -39,6 +39,8 @@ public:
 
     void append(const Atom& a);
     AtomList toList() const;
+
+    bool operator==(const DataAtomList& l) const;
 };
 }
 

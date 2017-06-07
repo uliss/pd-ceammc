@@ -179,6 +179,29 @@ void DataTypeSet::set_union(DataTypeSet& out, const DataTypeSet& s0, const DataT
     std::copy(s1.data_.begin(), s1.data_.end(), std::inserter(out.data_, out.data_.begin()));
 }
 
+void DataTypeSet::set_difference(DataTypeSet& out, const DataTypeSet& s0, const DataTypeSet& s1)
+{
+    out.clear();
+    for (DataSet::const_iterator it = s0.data_.begin(); it != s0.data_.end(); ++it) {
+        if (!s1.contains(it->toAtom()))
+            out.data_.insert(*it);
+    }
+}
+
+void DataTypeSet::set_sym_difference(DataTypeSet& out, const DataTypeSet& s0, const DataTypeSet& s1)
+{
+    out.clear();
+    for (DataSet::const_iterator it = s0.data_.begin(); it != s0.data_.end(); ++it) {
+        if (!s1.contains(it->toAtom()))
+            out.data_.insert(*it);
+    }
+
+    for (DataSet::const_iterator it = s1.data_.begin(); it != s1.data_.end(); ++it) {
+        if (!s0.contains(it->toAtom()))
+            out.data_.insert(*it);
+    }
+}
+
 DataTypeSet::DataTypeSet(const DataTypeSet& ds)
     : data_(ds.data_)
 {

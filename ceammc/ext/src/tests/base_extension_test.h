@@ -15,6 +15,8 @@
 #define BASE_EXTENSION_TEST_H
 
 #include "catch.hpp"
+#include "ceammc_dataatom.h"
+#include "ceammc_dataatomlist.h"
 #include "ceammc_datastorage.h"
 #include "ceammc_factory.h"
 #include "ceammc_message.h"
@@ -22,9 +24,9 @@
 
 #include <boost/shared_ptr.hpp>
 #include <cassert>
-#include <vector>
 #include <iostream>
 #include <sstream>
+#include <vector>
 
 using namespace ceammc;
 
@@ -220,6 +222,7 @@ Atom test_atom_wrap(const char* v) { return Atom(gensym(v)); }
 Atom test_atom_wrap(t_symbol* v) { return Atom(v); }
 Atom test_atom_wrap(float v) { return Atom(v); }
 Atom test_atom_wrap(const Atom& v) { return v; }
+Atom test_atom_wrap(const Data& d) { return d.toAtom(); }
 
 AtomList test_list_wrap(const Atom& a1) { return AtomList(a1); }
 AtomList test_list_wrap(const Atom& a1, const Atom& a2) { return AtomList(a1, a2); }
@@ -247,7 +250,36 @@ AtomList test_list_wrap(const Atom& a1, const Atom& a2, const Atom& a3, const At
     AtomList res(a1, a2); res.append(a3); res.append(a4);
     res.append(a5); res.append(a6); res.append(a7); res.append(a8); return res;
 }
+
+DataAtomList test_datalist_wrap(const Atom& a1) { return DataAtomList(a1); }
+
+DataAtomList test_datalist_wrap(const Atom& a1, const Atom& a2) {
+    DataAtomList res(a1);
+    res.append(a2);
+    return res;
+}
+
+DataAtomList test_datalist_wrap(const Atom& a1, const Atom& a2, const Atom& a3) {
+    DataAtomList res(a1);
+    res.append(a2);
+    res.append(a3);
+    return res;
+}
+
+DataAtomList test_datalist_wrap(const Atom& a1, const Atom& a2, const Atom& a3, const Atom& a4) {
+    DataAtomList res(a1);
+    res.append(a2);
+    res.append(a3);
+    res.append(a4);
+    return res;
+}
 // clang-format on
+
+#define D1(v) test_datalist_wrap(test_atom_wrap(v))
+#define D2(v1, v2) test_datalist_wrap(test_atom_wrap(v1), test_atom_wrap(v2))
+#define D3(v1, v2, v3) test_datalist_wrap(test_atom_wrap(v1), test_atom_wrap(v2), test_atom_wrap(v3))
+#define D4(v1, v2, v3, v4) test_datalist_wrap(test_atom_wrap(v1), test_atom_wrap(v2), \
+    test_atom_wrap(v3), test_atom_wrap(v4))
 
 #define A(v) test_atom_wrap(v)
 #define L1(v) test_list_wrap(test_atom_wrap(v))

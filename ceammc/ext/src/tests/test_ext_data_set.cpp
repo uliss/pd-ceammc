@@ -19,6 +19,11 @@
 
 typedef TestExtension<DataSet> DataSetTest;
 
+#define DINT(v) Data(new IntData(v))
+#define DSTR(v) Data(new StrData(v))
+#define CONTAINS_INT(t, n) REQUIRE(t.contains(DINT(n).toAtom()))
+#define CONTAINS_STR(t, str) REQUIRE(t.contains(DSTR(str).toAtom()))
+
 TEST_CASE("data.set", "[externals]")
 {
     SECTION("DataTypeSet")
@@ -183,6 +188,110 @@ TEST_CASE("data.set", "[externals]")
 
             DataTypeSet::set_union(d2, d1, d1);
             REQUIRE(d2 == d1);
+
+            SECTION("data")
+            {
+                d0.clear();
+                d1.clear();
+                d2.clear();
+
+                Data dt0(new IntData(10));
+                d0.add(dt0.toAtom());
+                d1.add(dt0.toAtom());
+
+                Data dt1(new StrData("abc"));
+
+                d1.add(dt1.toAtom());
+
+                DataTypeSet::set_union(d2, d0, d1);
+                REQUIRE(d2.size() == 2);
+
+                REQUIRE(d2.contains(dt0.toAtom()));
+                REQUIRE(d2.contains(dt1.toAtom()));
+
+                SharedDataPtr dt3(dt0.clone());
+                REQUIRE(d2.contains(dt3->toAtom()));
+
+                Data dt4(new StrData("abc"));
+                REQUIRE(d2.contains(dt4.toAtom()));
+
+                DataTypeSet un;
+                DataAtomList l0(D2(DSTR("A"), DSTR("C")));
+                DataAtomList l1(D2(DSTR("A"), DSTR("D")));
+                DataTypeSet d3(l0.toList());
+                DataTypeSet d4(l1.toList());
+
+                DataTypeSet::set_union(un, d3, d4);
+                REQUIRE(un.size() == 3);
+                CONTAINS_STR(un, "A");
+                CONTAINS_STR(un, "C");
+                CONTAINS_STR(un, "D");
+            }
+        }
+
+        SECTION("difference")
+        {
+            DataTypeSet d0(L3(1, 2, 3));
+            DataTypeSet d1(L3(2, 3, 4));
+
+            DataTypeSet diff;
+
+            DataTypeSet::set_difference(diff, d0, DataTypeSet());
+            REQUIRE(diff == d0);
+
+            DataTypeSet::set_difference(diff, DataTypeSet(), d1);
+            REQUIRE(diff == DataTypeSet());
+
+            DataTypeSet::set_difference(diff, d1, d1);
+            REQUIRE(diff == DataTypeSet());
+
+            DataTypeSet::set_difference(diff, d0, d1);
+            REQUIRE(diff == DataTypeSet(L1(1)));
+
+            DataTypeSet::set_difference(diff, d1, d0);
+            REQUIRE(diff == DataTypeSet(L1(4)));
+
+            SECTION("data")
+            {
+                REQUIRE(D2(1, 2) == D2(1, 2));
+                REQUIRE_FALSE(D2(1, 2) == D3(1, 2, 3));
+                REQUIRE(D2(DINT(2), DSTR("A")) == D2(DINT(2), DSTR("A")));
+
+                DataTypeSet d0(D3(DINT(2), DSTR("A"), DSTR("C")).toList());
+                DataTypeSet d1(D3(DINT(2), DSTR("D"), DSTR("C")).toList());
+
+                DataTypeSet diff;
+                DataTypeSet::set_difference(diff, d0, d1);
+                REQUIRE(diff.size() == 1);
+                CONTAINS_STR(diff, "A");
+
+                DataTypeSet::set_difference(diff, d1, d0);
+                REQUIRE(diff.size() == 1);
+                CONTAINS_STR(diff, "D");
+            }
+        }
+
+        SECTION("sym_difference")
+        {
+            DataTypeSet d0(L3(1, 2, 3));
+            DataTypeSet d1(L3(2, 3, 4));
+
+            DataTypeSet diff;
+
+            DataTypeSet::set_sym_difference(diff, d0, DataTypeSet());
+            REQUIRE(diff == d0);
+
+            DataTypeSet::set_sym_difference(diff, DataTypeSet(), d0);
+            REQUIRE(diff == d0);
+
+            DataTypeSet::set_sym_difference(diff, d0, d0);
+            REQUIRE(diff == DataTypeSet());
+
+            DataTypeSet::set_sym_difference(diff, d1, d0);
+            REQUIRE(diff == DataTypeSet(L2(1, 4)));
+
+            DataTypeSet::set_sym_difference(diff, d0, d1);
+            REQUIRE(diff == DataTypeSet(L2(1, 4)));
         }
     }
 }

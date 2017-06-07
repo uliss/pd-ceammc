@@ -183,4 +183,17 @@ TEST_CASE("DataAtom", "[ceammc::DataAtom]")
         REQUIRE(!a.isData());
         REQUIRE(a.toAtom().isNone());
     }
+
+    SECTION("container")
+    {
+        std::vector<DataAtom> a;
+        a.push_back(DataAtom(123));
+
+        Data int0(new IntData(10));
+        a.push_back(DataAtom(int0));
+        REQUIRE(std::find(a.begin(), a.end(), DataAtom(int0)) != a.end());
+
+        a.pop_back();
+        REQUIRE(std::find(a.begin(), a.end(), DataAtom(int0)) == a.end());
+    }
 }

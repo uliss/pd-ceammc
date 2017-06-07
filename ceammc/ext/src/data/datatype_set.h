@@ -101,6 +101,22 @@ public:
      */
     static void set_union(DataTypeSet& out, const DataTypeSet& s0, const DataTypeSet& s1);
 
+    /**
+     * Set difference
+     * @param out - result
+     * @param s0 - first set
+     * @param s1 - second set
+     */
+    static void set_difference(DataTypeSet& out, const DataTypeSet& s0, const DataTypeSet& s1);
+
+    /**
+     * Set symmetric difference
+     * @param out - result
+     * @param s0 - first set
+     * @param s1 - second set
+     */
+    static void set_sym_difference(DataTypeSet& out, const DataTypeSet& s0, const DataTypeSet& s1);
+
 private:
     DataTypeSet(const DataTypeSet& ds);
 };

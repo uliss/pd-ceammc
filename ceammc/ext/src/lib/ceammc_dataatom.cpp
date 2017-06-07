@@ -24,6 +24,11 @@ DataAtom::DataAtom(const Atom& a)
     set(a);
 }
 
+DataAtom::DataAtom(const Data& d)
+{
+    set(d);
+}
+
 DataAtom::DataAtom(const DataAtom& d)
     : atom_(d.atom_)
 {
@@ -46,6 +51,11 @@ void DataAtom::set(const Atom& a)
         atom_ = a;
         data_.reset();
     }
+}
+
+void DataAtom::set(const Data& d)
+{
+    set(d.toAtom());
 }
 
 Atom DataAtom::toAtom() const

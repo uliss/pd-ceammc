@@ -81,4 +81,17 @@ AtomList DataAtomList::toList() const
 
     return res;
 }
+
+bool DataAtomList::operator==(const DataAtomList& l) const
+{
+    if (size() != l.size())
+        return false;
+
+    for (size_t i = 0; i < size(); i++) {
+        if (!list_[i]->isEqual(l.list_[i]->toAtom()))
+            return false;
+    }
+
+    return true;
+}
 }

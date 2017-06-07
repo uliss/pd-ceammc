@@ -31,8 +31,10 @@ class DataAtom {
 
 public:
     explicit DataAtom(const Atom& a);
+    explicit DataAtom(const Data& d);
     DataAtom(const DataAtom& d);
     void set(const Atom& a);
+    void set(const Data& d);
     Atom toAtom() const;
     bool isAtom() const;
     bool isData() const;
