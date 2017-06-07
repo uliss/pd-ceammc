@@ -670,4 +670,48 @@ DataType IntData::dataType = 1001;
 int IntData::constructor_called = 0;
 int IntData::destructor_called = 0;
 
+class StrData : public AbstractData {
+    std::string v_;
+
+public:
+    StrData(const std::string& v)
+        : v_(v)
+    {
+        constructor_called++;
+    }
+
+    ~StrData()
+    {
+        destructor_called++;
+    }
+
+    const std::string& get() const { return v_; }
+    void setValue(const std::string& v) { v_ = v; }
+    bool isEqual(const AbstractData* d) const
+    {
+        const StrData* dt = d->as<StrData>();
+        if (!dt)
+            return false;
+
+        return v_ == dt->v_;
+    }
+
+    std::string toString() const
+    {
+        return v_;
+    }
+
+    DataType type() const { return dataType; }
+    StrData* clone() const { return new StrData(v_); }
+
+public:
+    static DataType dataType;
+    static int constructor_called;
+    static int destructor_called;
+};
+
+DataType StrData::dataType = 1002;
+int StrData::constructor_called = 0;
+int StrData::destructor_called = 0;
+
 #endif // BASE_EXTENSION_TEST_H

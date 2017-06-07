@@ -221,6 +221,19 @@ TEST_CASE("data", "[PureData]")
 
         d2 = Data::fromAtom(Atom());
         REQUIRE_FALSE(d2);
+
+        SECTION("type mismatch")
+        {
+            Data d0(new IntData(123));
+            Data d1(new StrData("test"));
+
+            Atom a0 = d0.toAtom();
+            Atom a1 = d1.toAtom();
+            a1.setData(DataDesc(a0.dataType(), a1.dataId()));
+            SharedDataPtr p = Data::fromAtom(a1);
+
+            REQUIRE(!p);
+        }
     }
 
     SECTION("setData")
@@ -293,5 +306,27 @@ TEST_CASE("data", "[PureData]")
         REQUIRE_FALSE(d0 == d1);
         REQUIRE(d1 == Data(new IntData(123)));
         REQUIRE_FALSE(d1 == Data(new IntData(124)));
+    }
+
+    SECTION("setData")
+    {
+        Data d0;
+        d0.setData(Atom(DataDesc(1234, 1234)));
+        REQUIRE(d0.isNull());
+
+        DataT<IntData> d1(new IntData(2));
+        d1.setData(Atom(DataDesc(1234, 1234)));
+        REQUIRE(d1->value() == 2);
+
+        DataT<IntData> d2(new IntData(4));
+        d1.setData(d2.toAtom());
+
+        REQUIRE(d1->value() == 4);
+        REQUIRE(d2->value() == 4);
+        REQUIRE(d1.data() != d2.data());
+
+        d2->setValue(16);
+        REQUIRE(d1->value() == 4);
+        REQUIRE(d2->value() == 16);
     }
 }
