@@ -90,6 +90,12 @@ DataDesc Data::desc() const
 
 bool Data::operator==(const Data& d) const
 {
+    if (this == &d)
+        return true;
+
+    if (!data_ && !d.data_)
+        return true;
+
     if (!data_ || !d.data_)
         return false;
 

@@ -281,4 +281,17 @@ TEST_CASE("data", "[PureData]")
         REQUIRE(r1.data() != 0);
         REQUIRE(d1->value() == 200);
     }
+
+    SECTION("==")
+    {
+        Data d0;
+        Data d1(new IntData(123));
+
+        REQUIRE(d0 == d0);
+        REQUIRE(d0 == Data());
+        REQUIRE(d1 == d1);
+        REQUIRE_FALSE(d0 == d1);
+        REQUIRE(d1 == Data(new IntData(123)));
+        REQUIRE_FALSE(d1 == Data(new IntData(124)));
+    }
 }
