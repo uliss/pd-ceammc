@@ -412,6 +412,27 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
             REQUIRE(AtomList(1, 2).isList());
         }
 
+        SECTION("isData")
+        {
+            REQUIRE_FALSE(AtomList().isData());
+            REQUIRE_FALSE(AtomList(1).isData());
+            REQUIRE_FALSE(AtomList(gensym("a")).isData());
+            REQUIRE_FALSE(AtomList(1, 2).isData());
+            REQUIRE_FALSE(AtomList(Atom(DataDesc(1, 1)), Atom(DataDesc(1, 1))).isData());
+            REQUIRE(AtomList(Atom(DataDesc(1, 1))).isData());
+        }
+
+        SECTION("isDataType")
+        {
+            REQUIRE_FALSE(AtomList().isDataType(1));
+            REQUIRE_FALSE(AtomList(1).isDataType(1));
+            REQUIRE_FALSE(AtomList(gensym("a")).isDataType(1));
+            REQUIRE_FALSE(AtomList(1, 2).isDataType(1));
+            REQUIRE_FALSE(AtomList(Atom(DataDesc(1, 1)), Atom(DataDesc(1, 1))).isDataType(1));
+            REQUIRE(AtomList(Atom(DataDesc(1, 10))).isDataType(1));
+            REQUIRE_FALSE(AtomList(Atom(DataDesc(1, 10))).isDataType(2));
+        }
+
         SECTION("all")
         {
             AtomList bng;

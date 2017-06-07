@@ -185,6 +185,8 @@ public:
     bool isSymbol() const;
     bool isProperty() const;
     bool isList() const;
+    bool isData() const;
+    bool isDataType(DataType t) const;
 
     void sort();
     void shuffle();

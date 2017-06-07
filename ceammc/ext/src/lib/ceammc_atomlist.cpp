@@ -520,6 +520,16 @@ bool AtomList::isList() const
     return size() > 1;
 }
 
+bool AtomList::isData() const
+{
+    return size() == 1 && atoms_.front().isData();
+}
+
+bool AtomList::isDataType(DataType t) const
+{
+    return size() == 1 && atoms_.front().isDataType(t);
+}
+
 void AtomList::clear()
 {
     atoms_.clear();
