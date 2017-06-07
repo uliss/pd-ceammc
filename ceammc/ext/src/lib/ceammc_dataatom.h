@@ -32,7 +32,10 @@ class DataAtom {
 public:
     explicit DataAtom(const Atom& a);
     explicit DataAtom(const Data& d);
+
     DataAtom(const DataAtom& d);
+    DataAtom& operator=(const DataAtom& d);
+
     void set(const Atom& a);
     void set(const Data& d);
     Atom toAtom() const;
@@ -45,9 +48,32 @@ public:
     AbstractData* data();
     Data* dataPtr();
 
+    template <class T>
+    T* as();
+    template <class T>
+    const T* as() const;
+
 public:
     friend size_t hash_value(const DataAtom& d);
 };
+
+template <class T>
+T* DataAtom::as()
+{
+    if (!data_ || !data_->data())
+        return 0;
+
+    return data_->data()->as<T>();
+}
+
+template <class T>
+const T* DataAtom::as() const
+{
+    if (!data_ || !data_->data())
+        return 0;
+
+    return data_->data()->as<T>();
+}
 
 size_t hash_value(const DataAtom& d);
 }

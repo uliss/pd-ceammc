@@ -103,6 +103,12 @@ bool DataAtom::operator==(const DataAtom& d) const
     return false;
 }
 
+DataAtom& DataAtom::operator=(const DataAtom& d)
+{
+    set(d.toAtom());
+    return *this;
+}
+
 AbstractData* DataAtom::data()
 {
     return isAtom() ? 0 : data_->data();

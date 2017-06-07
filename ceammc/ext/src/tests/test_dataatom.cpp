@@ -61,6 +61,23 @@ TEST_CASE("DataAtom", "[ceammc::DataAtom]")
         REQUIRE(b == c);
     }
 
+    SECTION("copy")
+    {
+        DataAtom a(Data(new IntData(1000)));
+        REQUIRE(a.isData());
+        REQUIRE(a.data());
+        REQUIRE(a.as<IntData>()->value() == 1000);
+
+        DataAtom b = a;
+        REQUIRE(a == b);
+        REQUIRE(b.isData());
+        REQUIRE(a.data() != b.data());
+        REQUIRE(a.dataPtr() != b.dataPtr());
+        REQUIRE(*a.dataPtr() == *b.dataPtr());
+        REQUIRE(a.dataPtr()->desc().id != b.dataPtr()->desc().id);
+        REQUIRE(b.as<IntData>()->value() == 1000);
+    }
+
     SECTION("isEqual")
     {
         SECTION("simple")
