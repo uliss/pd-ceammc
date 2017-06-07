@@ -159,5 +159,30 @@ TEST_CASE("data.set", "[externals]")
             REQUIRE(a.size() == 1);
             REQUIRE(a.contains(2));
         }
+
+        SECTION("union")
+        {
+            DataTypeSet d0;
+            d0.add(L3(1, 3, 5));
+
+            DataTypeSet d1;
+            d1.add(L3(2, 4, 6));
+
+            DataTypeSet d2;
+
+            DataTypeSet::set_union(d2, d0, d1);
+            REQUIRE(d2 == DataTypeSet(L6(1, 2, 3, 4, 5, 6)));
+
+            DataTypeSet::set_union(d2, DataTypeSet(), d1);
+            REQUIRE(d2 == d1);
+            DataTypeSet::set_union(d2, d1, DataTypeSet());
+            REQUIRE(d2 == d1);
+
+            DataTypeSet::set_union(d2, DataTypeSet(), DataTypeSet());
+            REQUIRE(d2 == DataTypeSet());
+
+            DataTypeSet::set_union(d2, d1, d1);
+            REQUIRE(d2 == d1);
+        }
     }
 }

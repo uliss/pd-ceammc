@@ -172,6 +172,13 @@ void DataTypeSet::intersection(DataTypeSet& out, const DataTypeSet& s0, const Da
     }
 }
 
+void DataTypeSet::set_union(DataTypeSet& out, const DataTypeSet& s0, const DataTypeSet& s1)
+{
+    out.clear();
+    std::copy(s0.data_.begin(), s0.data_.end(), std::inserter(out.data_, out.data_.begin()));
+    std::copy(s1.data_.begin(), s1.data_.end(), std::inserter(out.data_, out.data_.begin()));
+}
+
 DataTypeSet::DataTypeSet(const DataTypeSet& ds)
     : data_(ds.data_)
 {

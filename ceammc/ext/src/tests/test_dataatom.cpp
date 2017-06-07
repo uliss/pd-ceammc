@@ -94,6 +94,7 @@ TEST_CASE("DataAtom", "[ceammc::DataAtom]")
             REQUIRE(b.isEqual(b.toAtom()));
             REQUIRE_FALSE(a.isEqual(b.toAtom()));
             REQUIRE_FALSE(b.isEqual(a.toAtom()));
+            REQUIRE_FALSE(a.isEqual(Atom(DataDesc(100, 100))));
 
             data0->setValue(100);
             // nothing changes since DataAtom has own copy
@@ -172,7 +173,7 @@ TEST_CASE("DataAtom", "[ceammc::DataAtom]")
         }
     }
 
-    SECTION("")
+    SECTION("set")
     {
         DataT<IntData> data0(new IntData(1));
         DataAtom a(data0.toAtom());
