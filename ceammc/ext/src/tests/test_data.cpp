@@ -215,6 +215,9 @@ TEST_CASE("data", "[PureData]")
 
         REQUIRE(a0 != a1);
         REQUIRE(a0.dataId() != a1.dataId());
+
+        d2 = Data::fromAtom(Atom());
+        REQUIRE_FALSE(d2);
     }
 
     SECTION("setData")

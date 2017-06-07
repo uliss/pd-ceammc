@@ -69,4 +69,8 @@ TEST_CASE("DataStorage", "[ceammc::DataStorage]")
         REQUIRE(DataStorage::instance().count() == 2);
         REQUIRE(DataStorage::instance().generateId() == 2);
     }
+
+    SECTION("errors") {
+        REQUIRE(DataStorage::instance().generateNewDesc(0) == DataDesc(0, 0));
+    }
 }

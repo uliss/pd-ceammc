@@ -66,4 +66,13 @@ TEST_CASE("DataAtomList", "[ceammc::DataAtomList]")
         REQUIRE(lst.size() == 2);
         REQUIRE(lst[1].toAtom() == Atom(24));
     }
+
+    SECTION("index")
+    {
+        DataAtomList lst;
+        lst.append(123);
+
+        const DataAtomList& l = lst;
+        REQUIRE(l[0].toAtom() == A(123));
+    }
 }
