@@ -44,23 +44,15 @@ void DataSet::onSymbol(t_symbol* s)
     set_->add(Atom(s));
 }
 
-void DataSet::onData(const AbstractData* d)
-{
-    DataTypeSet* ds = d->cloneT<DataTypeSet>();
-    if (ds) {
-//        set_.set(*ds);
-    } else {
-    }
-}
-
 void DataSet::onList(const AtomList& l)
 {
     set_.data()->add(l);
 }
 
-void DataSet::m_toList(t_symbol*, const AtomList&)
+void DataSet::onDataT(const DataTypeSet& s)
 {
-    listTo(0, set_.data()->toList());
+    set_.setData(s.clone());
+    onBang();
 }
 
 void DataSet::m_clear(t_symbol*, const AtomList&)
@@ -81,7 +73,7 @@ void DataSet::m_remove(t_symbol*, const AtomList& l)
 extern "C" void setup_data0x2eset()
 {
     ObjectFactory<DataSet> obj("data.set");
-    obj.addMethod("to_list", &DataSet::m_toList);
+    obj.processData<DataTypeSet>();
     obj.addMethod("clear", &DataSet::m_clear);
     obj.addMethod("add", &DataSet::m_add);
     obj.addMethod("remove", &DataSet::m_remove);

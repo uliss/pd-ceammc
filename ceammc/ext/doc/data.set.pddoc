@@ -30,13 +30,14 @@
         <inlets>
             <inlet>
                 <xinfo on="bang">output set</xinfo>
-                <xinfo on="float">add to set</xinfo>
-                <xinfo on="symbol">add to set</xinfo>
-                <xinfo on="list">add list elements to set</xinfo>
+                <xinfo on="float">add to set, no output</xinfo>
+                <xinfo on="symbol">add to set, no output</xinfo>
+                <xinfo on="list">add list elements to set, no output</xinfo>
+                <xinfo>if Set recieved, change object content and output it</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output list or list elements</outlet>
+            <outlet>set output</outlet>
         </outlets>
         <example>
             <pdascii>

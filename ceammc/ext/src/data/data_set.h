@@ -14,8 +14,8 @@
 #ifndef DATA_SET_H
 #define DATA_SET_H
 
-#include "ceammc_dataatom.h"
 #include "ceammc_data.h"
+#include "ceammc_dataatom.h"
 #include "ceammc_object.h"
 #include "datatype_set.h"
 
@@ -31,10 +31,9 @@ public:
     void onBang();
     void onFloat(float f);
     void onSymbol(t_symbol* s);
-    void onData(const AbstractData* d);
     void onList(const AtomList& l);
+    void onDataT(const DataTypeSet& s);
 
-    void m_toList(t_symbol*, const AtomList&);
     void m_clear(t_symbol*, const AtomList&);
     void m_add(t_symbol*, const AtomList& l);
     void m_remove(t_symbol*, const AtomList& l);
