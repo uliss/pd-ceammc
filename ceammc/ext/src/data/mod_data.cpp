@@ -1,6 +1,7 @@
 #include "mod_data.h"
 #include "data_set.h"
 #include "set_contains.h"
+#include "set_difference.h"
 #include "set_equal.h"
 #include "set_intersection.h"
 #include "set_size.h"
@@ -22,6 +23,7 @@ void ceammc_data_setup()
 {
     setup_data0x2efifo();
     setup_data0x2elist();
+    setup_data0x2eset();
     setup_global0x2efloat();
     setup_global0x2eint();
     setup_global0x2ejson();
@@ -30,11 +32,12 @@ void ceammc_data_setup()
     setup_local0x2eint();
     setup_local0x2ejson();
     setup_local0x2elist();
-    setup_data0x2eset();
     setup_set0x2econtains();
-    setup_set0x2esize();
-    setup_set0x2eintersection();
-    setup_set0x2eunion();
-    setup_set0x2elist();
+    setup_set0x2edifference();
     setup_set0x2eequal();
+    setup_set0x2eintersection();
+    setup_set0x2elist();
+    setup_set0x2esize();
+    setup_set0x2eunion();
+
 }

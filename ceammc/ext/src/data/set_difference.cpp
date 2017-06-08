@@ -26,7 +26,7 @@ void SetDifference::onDataT(const DataTypeSet& s)
 {
     DataTypeSet* res = new DataTypeSet();
     Data out(res);
-    DataTypeSet::intersection(*res, s, *set1_.data());
+    DataTypeSet::set_difference(*res, s, *set1_.data());
     dataTo(0, out);
 }
 

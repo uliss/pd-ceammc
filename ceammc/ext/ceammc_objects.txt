@@ -249,6 +249,7 @@ sec->samp
 sec->str
 set->list
 set.contains
+set.diff
 set.equal
 set.intersect
 set.size

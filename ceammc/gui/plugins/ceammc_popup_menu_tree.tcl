@@ -71,7 +71,7 @@
         {data.fifo data.list}
     }
     {data.set
-        {data.set set.size set.contains set.union set.intersect set->list}
+        {data.set set.size set.contains set.union set.intersect set.diff set.equal set->list}
     }
     {global/local
         {global.list global.float global.int global.json local.list local.float local.int local.json}

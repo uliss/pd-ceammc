@@ -168,6 +168,7 @@ prop.set,prop<-		?		.
 random.int		.		.
 replace		...		.
 set.contains		..		.
+set.diff		..		.
 set.equal		..		.
 set.size		.		.
 set.union		..		.

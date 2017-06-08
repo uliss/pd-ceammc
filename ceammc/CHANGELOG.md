@@ -32,6 +32,7 @@
     - set.contains
     - set.union
     - set.intersect
+    - set.diff
     - set.equal
 
 ### Changed:

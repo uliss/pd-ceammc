@@ -178,6 +178,7 @@ set(DOC_FILES
     replace
     snd.file
     set.contains
+    set.diff
     set.equal
     set.size
     set.union
