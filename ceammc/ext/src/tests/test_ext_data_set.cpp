@@ -293,5 +293,33 @@ TEST_CASE("data.set", "[externals]")
             DataTypeSet::set_sym_difference(diff, d0, d1);
             REQUIRE(diff == DataTypeSet(L2(1, 4)));
         }
+
+        SECTION("contains")
+        {
+            DataTypeSet d0(L3(1, 2, 3));
+
+            REQUIRE(d0.contains(L2(2, 3)));
+            REQUIRE(d0.contains(L2(2, 16)));
+            REQUIRE(d0.contains(L2(18, 3)));
+            REQUIRE_FALSE(d0.contains(AtomList()));
+        }
+
+        SECTION("operator=")
+        {
+            DataTypeSet d0(L3(1, 2, 3));
+            DataTypeSet d1;
+            DataTypeSet d2(L4(2, 4, 6, 8));
+
+            REQUIRE_FALSE(d0 == d1);
+            d1 = d0;
+
+            REQUIRE(d0 == d1);
+            REQUIRE(d0 == DataTypeSet(L3(1, 2, 3)));
+
+            d1 = d1;
+            REQUIRE(d1 == DataTypeSet(L3(1, 2, 3)));
+            d1 = d2;
+            REQUIRE(d1 == DataTypeSet(L4(2, 4, 6, 8)));
+        }
     }
 }

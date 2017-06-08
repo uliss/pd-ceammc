@@ -156,6 +156,9 @@ bool DataTypeSet::operator==(const DataTypeSet& s) const
 
 void DataTypeSet::operator=(const DataTypeSet& s)
 {
+    if (this == &s)
+        return;
+
     data_ = s.data_;
 }
 
