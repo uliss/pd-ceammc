@@ -73,6 +73,9 @@
     <entry descr="check if specified element is in set" name="set.contains" ref_view="object">
       <xi:include href="set.contains.pddoc" parse="xml"/>
     </entry>
+    <entry descr="checks if two sets are equal (contains same elements)" name="set.equal" ref_view="object">
+      <xi:include href="set.equal.pddoc" parse="xml"/>
+    </entry>
     <entry descr="get number of elements in set" name="set.size" ref_view="object">
       <xi:include href="set.size.pddoc" parse="xml"/>
     </entry>

@@ -1,6 +1,7 @@
 #include "mod_data.h"
 #include "data_set.h"
 #include "set_contains.h"
+#include "set_equal.h"
 #include "set_intersection.h"
 #include "set_size.h"
 #include "set_to_list.h"
@@ -35,4 +36,5 @@ void ceammc_data_setup()
     setup_set0x2eintersection();
     setup_set0x2eunion();
     setup_set0x2elist();
+    setup_set0x2eequal();
 }

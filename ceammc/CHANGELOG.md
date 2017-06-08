@@ -32,6 +32,7 @@
     - set.contains
     - set.union
     - set.intersect
+    - set.equal
 
 ### Changed:
 - pass.if renamed to flow.pass_if (with pass_if alias)
