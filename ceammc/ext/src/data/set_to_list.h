@@ -20,6 +20,8 @@
 using namespace ceammc;
 
 class SetToList : public BaseObject {
+    FlagProperty* sort_;
+
 public:
     SetToList(const PdArgs& a);
     void onDataT(const DataTypeSet& s);

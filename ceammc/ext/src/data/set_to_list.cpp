@@ -16,13 +16,22 @@
 
 SetToList::SetToList(const PdArgs& a)
     : BaseObject(a)
+    , sort_(0)
 {
     createOutlet();
+
+    sort_ = new FlagProperty("@sort");
+    createProperty(sort_);
 }
 
 void SetToList::onDataT(const DataTypeSet& s)
 {
-    listTo(0, s.toList());
+    AtomList lst = s.toList();
+
+    if (sort_->value())
+        lst.sort();
+
+    listTo(0, lst);
 }
 
 extern "C" void setup_set0x2elist()
