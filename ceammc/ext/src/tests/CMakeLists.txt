@@ -64,6 +64,7 @@ ceammc_external_test(conv lin2lin)
 ceammc_external_test(data set)
 ceammc_external_test(data set_size)
 ceammc_external_test(data set_intersection)
+ceammc_external_test(data set_union)
 
 ceammc_external_test(list all_of)
 ceammc_external_test(list any_of)
