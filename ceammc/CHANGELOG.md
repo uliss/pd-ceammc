@@ -19,16 +19,19 @@
 - function.call (func.call) added
 - math.gcd (Greatest Common Divisor) added
 - math.lcm (Least Common Multiple) added
-- string supported added and this objects:
+- string support added and objects:
     - string (str)
     - string2symbol (str->sym)
     - string.format (str.format)
     - string.join (str.join)
     - string.split (str.split)
-- set type added with this obbjects:
+- Set data type added and objects:
     - data.set
+    - data.set2list (set->list)
     - set.size
     - set.contains
+    - set.union
+    - set.intersect
 
 ### Changed:
 - pass.if renamed to flow.pass_if (with pass_if alias)
