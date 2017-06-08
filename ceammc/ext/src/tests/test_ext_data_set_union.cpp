@@ -80,5 +80,8 @@ TEST_CASE("set.intersection", "[externals]")
         WHEN_SEND_LIST_TO(1, t, L1(DSET(L2(DINT(1), DINT(3))).toAtom()));
         WHEN_SEND_TDATA_TO(0, t, DataTypeSet(L2(DINT(2), DINT(4))));
         REQUIRE_SET_OUTPUT(t, DataTypeSet(L4(DINT(1), DINT(2), DINT(3), DINT(4))));
+
+        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(L4(DINT(2), DINT(4), DINT(3), DINT(1))));
+        REQUIRE_SET_OUTPUT(t, DataTypeSet(L4(DINT(1), DINT(2), DINT(3), DINT(4))));
     }
 }
