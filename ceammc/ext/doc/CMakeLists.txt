@@ -180,6 +180,7 @@ set(DOC_FILES
     set.contains
     set.diff
     set.equal
+    set.intersect
     set.size
     set.union
     string

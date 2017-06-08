@@ -22,6 +22,11 @@ SetIntersection::SetIntersection(const PdArgs& a)
     createOutlet();
 }
 
+void SetIntersection::onList(const AtomList& lst)
+{
+    onDataT(DataTypeSet(lst));
+}
+
 void SetIntersection::onDataT(const DataTypeSet& s)
 {
     DataTypeSet* res = new DataTypeSet();

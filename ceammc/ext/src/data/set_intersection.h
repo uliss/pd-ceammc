@@ -24,6 +24,7 @@ class SetIntersection : public BaseObject {
 
 public:
     SetIntersection(const PdArgs& a);
+    void onList(const AtomList& lst);
     void onDataT(const DataTypeSet& s);
     void onInlet(size_t, const AtomList& l);
 };

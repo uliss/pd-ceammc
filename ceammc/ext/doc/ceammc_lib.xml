@@ -79,6 +79,9 @@
     <entry descr="checks if two sets are equal (contains same elements)" name="set.equal" ref_view="object">
       <xi:include href="set.equal.pddoc" parse="xml"/>
     </entry>
+    <entry descr="output intersection of given sets" name="set.intersect" ref_view="object">
+      <xi:include href="set.intersect.pddoc" parse="xml"/>
+    </entry>
     <entry descr="get number of elements in set" name="set.size" ref_view="object">
       <xi:include href="set.size.pddoc" parse="xml"/>
     </entry>

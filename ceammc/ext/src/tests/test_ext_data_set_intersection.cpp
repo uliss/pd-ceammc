@@ -74,4 +74,13 @@ TEST_CASE("set.intersection", "[externals]")
         WHEN_SEND_TDATA_TO(0, t, DataTypeSet(L3(3, 4, 5)));
         REQUIRE_SET_OUTPUT(t, DataTypeSet(Atom(3)));
     }
+
+    SECTION("do list")
+    {
+        SetIntersectionTest t("set.intersecion");
+        WHEN_SEND_LIST_TO(1, t, L3(1, 3, 5));
+        WHEN_SEND_LIST_TO(0, t, L6(1, 2, 3, 4, 5, 6));
+
+        REQUIRE_SET_OUTPUT(t, DataTypeSet(L3(1, 3, 5)));
+    }
 }

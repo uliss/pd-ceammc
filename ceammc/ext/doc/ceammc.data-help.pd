@@ -16,10 +16,12 @@
 #X text 175 251 difference between two sets;
 #X obj 30 278 set.equal;
 #X text 175 278 checks if two sets are equal (contains same elements);
-#X obj 30 305 set.size;
-#X text 175 305 get number of elements in set;
-#X obj 30 332 set.union;
-#X text 175 332 output union of given sets;
+#X obj 30 305 set.intersect;
+#X text 175 305 output intersection of given sets;
+#X obj 30 332 set.size;
+#X text 175 332 get number of elements in set;
+#X obj 30 359 set.union;
+#X text 175 359 output union of given sets;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::data 20 20 0 20 -104026
 -4096 0;
 #X obj 1 458 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;

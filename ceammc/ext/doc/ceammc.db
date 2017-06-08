@@ -170,6 +170,7 @@ replace		...		.
 set.contains		..		.
 set.diff		..		.
 set.equal		..		.
+set.intersect		..		.
 set.size		.		.
 set.union		..		.
 snd.file		.		.
