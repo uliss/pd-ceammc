@@ -84,4 +84,19 @@ TEST_CASE("set.intersection", "[externals]")
         WHEN_SEND_TDATA_TO(0, t, DataTypeSet(L4(DINT(2), DINT(4), DINT(3), DINT(1))));
         REQUIRE_SET_OUTPUT(t, DataTypeSet(L4(DINT(1), DINT(2), DINT(3), DINT(4))));
     }
+
+    SECTION("do list")
+    {
+        SetUnionTest t("set.union");
+
+        WHEN_SEND_LIST_TO(1, t, L2(1, 2));
+        WHEN_SEND_LIST_TO(0, t, L2(1, 3));
+
+        REQUIRE_SET_OUTPUT(t, DataTypeSet(L3(1, 2, 3)));
+
+        WHEN_SEND_LIST_TO(1, t, AtomList());
+        WHEN_SEND_LIST_TO(0, t, AtomList());
+
+        REQUIRE_SET_OUTPUT(t, DataTypeSet());
+    }
 }

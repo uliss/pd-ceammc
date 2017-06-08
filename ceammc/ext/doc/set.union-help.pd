@@ -25,14 +25,15 @@
 #X obj 20 373 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 378 1\.;
-#X text 240 378 first set. Other values are ignored.;
-#X text 120 396 2\.;
-#X text 240 396 second set.;
-#X obj 20 424 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 429 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 240 378 first set or list (converted to set) \, other values
+are ignored.;
+#X text 120 410 2\.;
+#X text 240 410 second set or list (converted to set).;
+#X obj 20 438 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 443 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 434 1\.;
-#X text 240 434 output union of given sets;
+#X text 120 448 1\.;
+#X text 240 448 output union of given sets;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

@@ -22,6 +22,11 @@ SetUnion::SetUnion(const PdArgs& a)
     createOutlet();
 }
 
+void SetUnion::onList(const AtomList& lst)
+{
+    onDataT(DataTypeSet(lst));
+}
+
 void SetUnion::onDataT(const DataTypeSet& s)
 {
     DataTypeSet* res = new DataTypeSet();

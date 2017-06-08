@@ -22,10 +22,10 @@
         </arguments>
         <inlets>
             <inlet>
-                <xinfo>first set. Other values are ignored</xinfo>
+                <xinfo>first set or list (converted to set), other values are ignored</xinfo>
             </inlet>
             <inlet>
-                <xinfo>second set</xinfo>
+                <xinfo>second set or list (converted to set)</xinfo>
             </inlet>
         </inlets>
         <outlets>
