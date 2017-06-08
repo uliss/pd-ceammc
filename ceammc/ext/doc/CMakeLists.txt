@@ -179,6 +179,7 @@ set(DOC_FILES
     snd.file
     set.contains
     set.size
+    set.union
     string
     string.join
     string.format

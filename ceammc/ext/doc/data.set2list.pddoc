@@ -19,6 +19,9 @@
                 <see>data.set</see>
             </also>
         </meta>
+        <properties>
+            <property name="@sort" type="int">if specified - sort output list</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo>input set</xinfo>

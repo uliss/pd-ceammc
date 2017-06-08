@@ -37,6 +37,7 @@ conv.vline2bpf
 data.fifo
 data.list
 data.set
+data.set2list
 dyn.comp2~
 dyn.comp~
 dyn.gate2~
@@ -246,7 +247,11 @@ replace
 samp->sec
 sec->samp
 sec->str
+set->list
 set.contains
+set.intersect
+set.size
+set.union
 snd.file
 split
 str

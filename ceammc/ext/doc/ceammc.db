@@ -169,6 +169,7 @@ random.int		.		.
 replace		...		.
 set.contains		..		.
 set.size		.		.
+set.union		..		.
 snd.file		.		.
 string,str		.		.
 string.format,str.format		.		.
