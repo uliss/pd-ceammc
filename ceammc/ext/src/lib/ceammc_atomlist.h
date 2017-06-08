@@ -187,6 +187,8 @@ public:
     bool isList() const;
     bool isData() const;
     bool isDataType(DataType t) const;
+    template <class T>
+    bool isDataType() const;
 
     void sort();
     void shuffle();
@@ -309,6 +311,12 @@ public:
     friend bool operator==(const AtomList& l1, const AtomList& l2);
     friend bool operator!=(const AtomList& l1, const AtomList& l2);
 };
+
+template <class T>
+bool AtomList::isDataType() const
+{
+    return isDataType(T::dataType);
+}
 
 template <typename T>
 T AtomList::reduce(T init, T (*fn)(const Atom&, const Atom&)) const

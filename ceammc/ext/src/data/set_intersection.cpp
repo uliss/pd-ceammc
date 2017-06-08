@@ -34,7 +34,7 @@ void SetIntersection::onInlet(size_t, const AtomList& l)
 {
     set1_->clear();
 
-    if (l.isDataType(DataTypeSet::dataType)) {
+    if (l.isDataType<DataTypeSet>()) {
         set1_.setData(l[0]);
     } else {
         set1_->add(l);

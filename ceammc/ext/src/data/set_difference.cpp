@@ -11,10 +11,10 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "set_union.h"
+#include "set_difference.h"
 #include "ceammc_factory.h"
 
-SetUnion::SetUnion(const PdArgs& a)
+SetDifference::SetDifference(const PdArgs& a)
     : BaseObject(a)
     , set1_(new DataTypeSet(positionalArguments()))
 {
@@ -22,26 +22,27 @@ SetUnion::SetUnion(const PdArgs& a)
     createOutlet();
 }
 
-void SetUnion::onDataT(const DataTypeSet& s)
+void SetDifference::onDataT(const DataTypeSet& s)
 {
     DataTypeSet* res = new DataTypeSet();
     Data out(res);
-    DataTypeSet::set_union(*res, s, *set1_.data());
+    DataTypeSet::intersection(*res, s, *set1_.data());
     dataTo(0, out);
 }
 
-void SetUnion::onInlet(size_t, const AtomList& lst)
+void SetDifference::onInlet(size_t, const AtomList& l)
 {
     set1_->clear();
 
-    if (lst.isDataType<DataTypeSet>())
-        set1_.setData(lst[0]);
-    else
-        set1_->add(lst);
+    if (l.isDataType<DataTypeSet>()) {
+        set1_.setData(l[0]);
+    } else {
+        set1_->add(l);
+    }
 }
 
-extern "C" void setup_set0x2eunion()
+extern "C" void setup_set0x2edifference()
 {
-    ObjectFactory<SetUnion> obj("set.union");
+    ObjectFactory<SetDifference> obj("set.diff");
     obj.processData<DataTypeSet>();
 }

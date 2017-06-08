@@ -11,37 +11,23 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "set_union.h"
-#include "ceammc_factory.h"
+#ifndef SET_DIFFERENCE_H
+#define SET_DIFFERENCE_H
 
-SetUnion::SetUnion(const PdArgs& a)
-    : BaseObject(a)
-    , set1_(new DataTypeSet(positionalArguments()))
-{
-    createInlet();
-    createOutlet();
-}
+#include "ceammc_object.h"
+#include "datatype_set.h"
 
-void SetUnion::onDataT(const DataTypeSet& s)
-{
-    DataTypeSet* res = new DataTypeSet();
-    Data out(res);
-    DataTypeSet::set_union(*res, s, *set1_.data());
-    dataTo(0, out);
-}
+using namespace ceammc;
 
-void SetUnion::onInlet(size_t, const AtomList& lst)
-{
-    set1_->clear();
+class SetDifference : public BaseObject {
+    DataT<DataTypeSet> set1_;
 
-    if (lst.isDataType<DataTypeSet>())
-        set1_.setData(lst[0]);
-    else
-        set1_->add(lst);
-}
+public:
+    SetDifference(const PdArgs& a);
+    void onDataT(const DataTypeSet& s);
+    void onInlet(size_t, const AtomList& l);
+};
 
-extern "C" void setup_set0x2eunion()
-{
-    ObjectFactory<SetUnion> obj("set.union");
-    obj.processData<DataTypeSet>();
-}
+extern "C" void setup_set0x2edifference();
+
+#endif // SET_DIFFERENCE_H
