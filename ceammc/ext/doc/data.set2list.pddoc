@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="data.set2list">
+        <title>data.set2list</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>converts set to list</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>data</category>
+            <keywords>data set list</keywords>
+            <since>0.3</since>
+            <aliases>
+                <alias>set-&gt;list</alias>
+            </aliases>
+            <also>
+                <see>data.set</see>
+            </also>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo>input set</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output list</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[dump(
+|
+| [B] [add a(   [remove a(
+| |   |         |
+| |   |         |
+| |   |         |
+[data.set a b c  d]
+|
+[set->list]
+|
+[msg set]
+|
+[ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

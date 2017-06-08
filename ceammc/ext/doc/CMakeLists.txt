@@ -25,6 +25,7 @@ set(DOC_FILES
     data.fifo
     data.list
     data.set
+    data.set2list
     dyn.comp~
     dyn.comp2~
     dyn.gate~

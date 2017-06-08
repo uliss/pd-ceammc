@@ -8,10 +8,12 @@
 #X text 175 143 list container;
 #X obj 30 170 data.set;
 #X text 175 170 container that store unique elements;
-#X obj 30 197 set.contains;
-#X text 175 197 check if specified element is in set;
-#X obj 30 224 set.size;
-#X text 175 224 get number of elements in set;
+#X obj 30 197 data.set2list;
+#X text 175 197 converts set to list;
+#X obj 30 224 set.contains;
+#X text 175 224 check if specified element is in set;
+#X obj 30 251 set.size;
+#X text 175 251 get number of elements in set;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::data 20 20 0 20 -104026
 -4096 0;
 #X obj 1 458 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;

@@ -16,6 +16,7 @@ conv.str2sec,str->sec		.		.
 data.fifo		.		.
 data.list		..		.
 data.set		.		.
+data.set2list,set->list		.		.
 dyn.comp2~		~~		~~.
 dyn.comp~		~		~.
 dyn.gate2~		~~		~~.

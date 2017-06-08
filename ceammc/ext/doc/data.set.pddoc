@@ -13,6 +13,7 @@
             <keywords>data set</keywords>
             <since>0.3</since>
             <also>
+                <see>set-&gt;list</see>
                 <see>data.list</see>
             </also>
         </meta>
@@ -25,7 +26,6 @@
             <method name="set">set new contents</method>
             <method name="clear">remove all elements</method>
             <method name="dump">dump set info to Pd window</method>
-            <method name="to_list">output as list</method>
         </methods>
         <inlets>
             <inlet>
@@ -41,15 +41,15 @@
         <example>
             <pdascii>
 <![CDATA[
-[dump(
+[F]
 |
-| [B] [add a(   [remove a(
-| |   |         |
-| |   |         |
-| |   |         |
-[data.set a b c  d]
+[$1, bang( [clear(
+|        __/
+[data.set]
 |
-[str->sym]
+[set->list]
+|
+[list.range]
 |
 [msg set]
 |
