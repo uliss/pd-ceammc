@@ -17,15 +17,15 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="STR" type="symbol">removed substring</argument>
+            <argument name="STR" type="symbol">substring to remove</argument>
         </arguments>
         <properties>
             <property name="@mode" type="symbol" enum="all,first,last">remove mode</property>
-            <property name="@all" type="symbol">alias to @mode all - remove all occurences in input
+            <property name="@all" type="alias">alias to @mode all - remove all occurences in input
             string</property>
-            <property name="@first" type="symbol">alias to @mode first - remove first occurence in
+            <property name="@first" type="alias">alias to @mode first - remove first occurence in
             input string</property>
-            <property name="@last" type="symbol">alias to @mode last - remove last occurence in
+            <property name="@last" type="alias">alias to @mode last - remove last occurence in
             input string</property>
         </properties>
         <inlets>
