@@ -47,6 +47,8 @@ TEST_CASE("string.str", "[external]")
 
             WHEN_SEND_BANG_TO(0, t);
             REQUIRE_STRING_OUTPUT(t, "");
+
+            t.dump();
         }
 
         SECTION("float arg")

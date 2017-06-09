@@ -58,6 +58,8 @@ TEST_CASE("string.format", "[external]")
 
             WHEN_SEND_LIST_TO(0, t, L2(1, 2));
             REQUIRE_NO_MSG(t);
+
+            t.dump();
         }
 
         SECTION("no-%")
