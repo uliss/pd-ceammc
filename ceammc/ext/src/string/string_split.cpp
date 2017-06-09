@@ -17,6 +17,16 @@
 
 #include <boost/algorithm/string.hpp>
 
+static t_symbol* SQUOTE = gensym("'");
+
+static bool isSpace(const AtomList& lst)
+{
+    if (lst.size() != 2)
+        return false;
+
+    return lst == AtomList(SQUOTE, SQUOTE);
+}
+
 StringSplit::StringSplit(const PdArgs& a)
     : BaseObject(a)
 {
@@ -62,7 +72,7 @@ void StringSplit::output()
 
 void StringSplit::parseArgs()
 {
-    if (positionalArguments() == AtomList(gensym("'"), gensym("'"))) {
+    if (isSpace(positionalArguments())) {
         sep_ = " ";
         return;
     }
@@ -80,12 +90,20 @@ AtomList StringSplit::propGetSeparator() const
 
 void StringSplit::propSetSeparator(const AtomList& l)
 {
-    if (l.size() != 1) {
-        OBJ_ERR << "single separator value required";
+    switch (l.size()) {
+    case 0:
+        sep_ = "";
         return;
+    case 1:
+        sep_ = to_string(l[0]);
+        return;
+    default: {
+        if (isSpace(l))
+            sep_ = " ";
+        else
+            sep_ = to_string(l[0]);
     }
-
-    sep_ = to_string(l[0]);
+    }
 }
 
 extern "C" void setup_string0x2esplit()

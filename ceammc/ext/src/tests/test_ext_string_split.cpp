@@ -84,4 +84,40 @@ TEST_CASE("string.split", "[external]")
         REQUIRE(t.lastMessage(0).isList());
         REQUIRE(to_string(t.lastMessage(0).listValue()) == "A B C");
     }
+
+    SECTION("create")
+    {
+        SECTION("empty")
+        {
+            StringSplitTest t("str.split", AtomList());
+            REQUIRE_PROPERTY(t, @sep, "");
+        }
+
+        SECTION("list")
+        {
+            StringSplitTest t("str.split", L2("A", "B"));
+            REQUIRE_PROPERTY(t, @sep, "A");
+        }
+
+        SECTION("space")
+        {
+            StringSplitTest t("str.split", L2("'", "'"));
+            REQUIRE_PROPERTY(t, @sep, " ");
+        }
+    }
+
+    SECTION("@sep")
+    {
+        StringSplitTest t("str.split", AtomList());
+        REQUIRE_PROPERTY(t, @sep, "");
+
+        t.setProperty("@sep", L1(123));
+        REQUIRE_PROPERTY(t, @sep, "123");
+
+        t.setProperty("@sep", AtomList());
+        REQUIRE_PROPERTY(t, @sep, "");
+
+        t.setProperty("@sep", L2("A", "B"));
+        REQUIRE_PROPERTY(t, @sep, "A");
+    }
 }
