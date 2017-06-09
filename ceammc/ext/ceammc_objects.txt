@@ -262,10 +262,12 @@ str->sec
 str->sym
 str.format
 str.join
+str.remove
 str.split
 string
 string.format
 string.join
+string.remove
 string.split
 string2symbol
 symbol.ends_with

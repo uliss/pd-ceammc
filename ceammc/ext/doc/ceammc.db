@@ -178,6 +178,7 @@ snd.file		.		.
 string,str		.		.
 string.format,str.format		.		.
 string.join,str.join		.		.
+string.remove,str.remove		..		.
 string.split,str.split		.		.
 string2symbol,str->sym		.		.
 symbol.equal		..		.

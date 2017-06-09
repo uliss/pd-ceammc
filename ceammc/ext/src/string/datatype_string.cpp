@@ -109,6 +109,21 @@ bool DataTypeString::operator==(const DataTypeString& s) const
     return str_ == s.str_;
 }
 
+DataTypeString DataTypeString::removeAll(const std::string& s) const
+{
+    return DataTypeString(boost::algorithm::erase_all_copy(str_, s));
+}
+
+DataTypeString DataTypeString::removeFirst(const std::string& s) const
+{
+    return DataTypeString(boost::algorithm::erase_first_copy(str_, s));
+}
+
+DataTypeString DataTypeString::removeLast(const std::string& s) const
+{
+    return DataTypeString(boost::algorithm::erase_last_copy(str_, s));
+}
+
 void DataTypeString::splitEveryChar(std::vector<std::string>& res) const
 {
     res.clear();

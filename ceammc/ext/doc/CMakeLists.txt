@@ -188,6 +188,7 @@ set(DOC_FILES
     string.join
     string.format
     string.split
+    string.remove
     string2symbol
     symbol.equal
     symbol.length

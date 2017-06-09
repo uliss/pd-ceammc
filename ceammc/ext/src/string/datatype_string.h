@@ -50,6 +50,10 @@ public:
 
     bool operator==(const DataTypeString& s) const;
 
+    DataTypeString removeAll(const std::string& s) const;
+    DataTypeString removeFirst(const std::string& s) const;
+    DataTypeString removeLast(const std::string& s) const;
+
 public:
     static const DataType dataType;
 

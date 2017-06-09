@@ -90,4 +90,43 @@ TEST_CASE("DataString", "[external]")
         t.set(gensym("TEST"));
         REQUIRE(t.str() == "TEST");
     }
+
+    SECTION("remove")
+    {
+        SECTION("all")
+        {
+            REQUIRE(DataTypeString("").removeAll("") == DataTypeString(""));
+            REQUIRE(DataTypeString("ABC").removeAll("") == DataTypeString("ABC"));
+            REQUIRE(DataTypeString("ABC").removeAll("DEF") == DataTypeString("ABC"));
+            REQUIRE(DataTypeString("").removeAll("DEF") == DataTypeString(""));
+            REQUIRE(DataTypeString("ABABA").removeAll("A") == DataTypeString("BB"));
+            REQUIRE(DataTypeString("ABABA").removeAll("AB") == DataTypeString("A"));
+            REQUIRE(DataTypeString("ABCBA ABCBA").removeAll("ABC") == DataTypeString("BA BA"));
+            REQUIRE(DataTypeString("АБВ").removeAll("А") == DataTypeString("БВ"));
+        }
+
+        SECTION("first")
+        {
+            REQUIRE(DataTypeString("").removeFirst("") == DataTypeString(""));
+            REQUIRE(DataTypeString("ABC").removeFirst("") == DataTypeString("ABC"));
+            REQUIRE(DataTypeString("ABC").removeFirst("DEF") == DataTypeString("ABC"));
+            REQUIRE(DataTypeString("").removeFirst("DEF") == DataTypeString(""));
+            REQUIRE(DataTypeString("ABABA").removeFirst("A") == DataTypeString("BABA"));
+            REQUIRE(DataTypeString("ABABA").removeFirst("AB") == DataTypeString("ABA"));
+            REQUIRE(DataTypeString("ABCBA ABCBA").removeFirst("ABC") == DataTypeString("BA ABCBA"));
+            REQUIRE(DataTypeString("АБВ").removeFirst("А") == DataTypeString("БВ"));
+        }
+
+        SECTION("last")
+        {
+            REQUIRE(DataTypeString("").removeLast("") == DataTypeString(""));
+            REQUIRE(DataTypeString("ABC").removeLast("") == DataTypeString("ABC"));
+            REQUIRE(DataTypeString("ABC").removeLast("DEF") == DataTypeString("ABC"));
+            REQUIRE(DataTypeString("").removeLast("DEF") == DataTypeString(""));
+            REQUIRE(DataTypeString("ABABA").removeLast("A") == DataTypeString("ABAB"));
+            REQUIRE(DataTypeString("ABABA").removeLast("AB") == DataTypeString("ABA"));
+            REQUIRE(DataTypeString("ABCBA ABCBA").removeLast("ABC") == DataTypeString("ABCBA BA"));
+            REQUIRE(DataTypeString("АБВ").removeLast("А") == DataTypeString("БВ"));
+        }
+    }
 }
