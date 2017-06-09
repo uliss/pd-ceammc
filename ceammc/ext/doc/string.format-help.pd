@@ -28,9 +28,8 @@
 #X msg 120 372 @format;
 #X text 240 372 Get/Set format string. Type: symbol;
 #X msg 120 399 @int;
-#X text 240 399 Get/Set integer mode. If specified all floats are
-converted to integers. This usefull for hex and octal formatting.
-Type: int;
+#X text 240 399 flag for integer mode. If specified all floats are
+converted to integers. This usefull for hex and octal formatting;
 #X obj 20 460 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 465 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
