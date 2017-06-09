@@ -13,31 +13,13 @@
  *****************************************************************************/
 #include "../string/string_format.h"
 #include "base_extension_test.h"
+#include "ceammc_pd.h"
 
 #include "catch.hpp"
 
 using namespace ceammc;
 
 typedef TestExtension<StringFormat> StringFormatTest;
-
-class TestData : public AbstractData {
-    int v_;
-
-public:
-    TestData(int v)
-        : v_(v)
-    {
-    }
-
-    DataType type() const { return 2; }
-    TestData* clone() const { return new TestData(v_); }
-    std::string toString() const
-    {
-        char buf[40];
-        sprintf(buf, "TEST: %i", v_);
-        return buf;
-    }
-};
 
 #define REQUIRE_STRING_OUTPUT(t, str_)                            \
     {                                                             \
@@ -49,8 +31,12 @@ public:
 
 #define NO_DATA(t) REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
+static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
+
 TEST_CASE("string.format", "[external]")
 {
+    setup_string0x2eformat();
+
     SECTION("create")
     {
         SECTION("empty")
@@ -125,9 +111,6 @@ TEST_CASE("string.format", "[external]")
 
             WHEN_SEND_LIST_TO(0, t, L1(100));
             REQUIRE_STRING_OUTPUT(t, "100");
-
-            //            WHEN_SEND_DATA_TO(0, t, DataString("324"));
-            //            REQUIRE_STRING_OUTPUT(t, "324");
 
             WHEN_SEND_LIST_TO(0, t, L2(100, 200));
             REQUIRE_NO_MSG(t);
@@ -239,6 +222,100 @@ TEST_CASE("string.format", "[external]")
 
                 WHEN_SEND_LIST_TO(0, t, L1(32));
                 REQUIRE_STRING_OUTPUT(t, "0x20");
+            }
+
+            SECTION("#")
+            {
+                SECTION("int")
+                {
+                    StringFormatTest t("string.format", L2("%#X", "@int"));
+                    WHEN_SEND_FLOAT_TO(0, t, 15);
+                    REQUIRE_STRING_OUTPUT(t, "0XF");
+
+                    t.propSetFormat(L1("%#x"));
+                    WHEN_SEND_FLOAT_TO(0, t, 15);
+                    REQUIRE_STRING_OUTPUT(t, "0xf");
+                }
+
+                SECTION("float")
+                {
+                    StringFormatTest t("string.format", L1("%#X"));
+                    WHEN_SEND_FLOAT_TO(0, t, 15);
+                    REQUIRE_STRING_OUTPUT(t, "15.0000");
+
+                    t.propSetFormat(L1("%#x"));
+                    WHEN_SEND_FLOAT_TO(0, t, 15);
+                    REQUIRE_STRING_OUTPUT(t, "15.0000");
+                }
+            }
+
+            SECTION("-")
+            {
+                StringFormatTest t("string.format", L2("%-d", "@int"));
+                WHEN_SEND_FLOAT_TO(0, t, 15);
+                REQUIRE_STRING_OUTPUT(t, "15");
+
+                t.propSetFormat(L1("%-8d"));
+                WHEN_SEND_FLOAT_TO(0, t, 15);
+                REQUIRE_STRING_OUTPUT(t, "15      ");
+            }
+
+            SECTION(" ")
+            {
+                StringFormatTest t("string.format", L2("% d", "@int"));
+                WHEN_SEND_FLOAT_TO(0, t, 15);
+                REQUIRE_STRING_OUTPUT(t, " 15");
+
+                t.propSetFormat(L1("% 8d"));
+                WHEN_SEND_FLOAT_TO(0, t, 15);
+                REQUIRE_STRING_OUTPUT(t, "      15");
+            }
+
+            SECTION("*")
+            {
+                StringFormatTest t("string.format", L2("%2*d", "@int"));
+                WHEN_SEND_LIST_TO(0, t, L2(12, 10));
+                REQUIRE_STRING_OUTPUT(t, "          10");
+            }
+
+            SECTION(".")
+            {
+                StringFormatTest t("string.format", L1("%.*d"));
+                WHEN_SEND_LIST_TO(0, t, L2(12, 10));
+                REQUIRE_STRING_OUTPUT(t, "000000000010");
+
+                t.propSetFormat(L1("%.3s"));
+                WHEN_SEND_SYMBOL_TO(0, t, "ABCDEFG");
+                REQUIRE_STRING_OUTPUT(t, "ABC");
+            }
+
+            SECTION("*")
+            {
+                StringFormatTest t("string.format", L1("%E"));
+                WHEN_SEND_FLOAT_TO(0, t, 15);
+                REQUIRE_STRING_OUTPUT(t, "1.500000E+01");
+
+                t.propSetFormat(L1("%e"));
+                WHEN_SEND_FLOAT_TO(0, t, 0.15f);
+                REQUIRE_STRING_OUTPUT(t, "1.500000e-01");
+            }
+
+            SECTION("f")
+            {
+                StringFormatTest t("string.format", L1("%f"));
+                WHEN_SEND_FLOAT_TO(0, t, 15);
+                REQUIRE_STRING_OUTPUT(t, "15.000000");
+
+                t.propSetFormat(L1("%F"));
+                WHEN_SEND_FLOAT_TO(0, t, 15);
+                REQUIRE_STRING_OUTPUT(t, "15.000000");
+            }
+
+            SECTION("n")
+            {
+                StringFormatTest t("string.format", L1("%n"));
+                WHEN_SEND_FLOAT_TO(0, t, 15);
+                REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
             }
         }
     }
