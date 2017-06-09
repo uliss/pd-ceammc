@@ -23,14 +23,15 @@
 #X obj 20 344 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 349 1\.;
-#X text 240 349 first set. Other values are ignored.;
-#X text 120 367 2\.;
-#X text 240 367 second set.;
-#X obj 20 395 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 400 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 240 349 first set or list (converted to set) \, other values
+are ignored.;
+#X text 120 381 2\.;
+#X text 240 381 second set or list (converted to set).;
+#X obj 20 409 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 414 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 405 1\.;
-#X text 240 405 output set with elements from first set \, that are
+#X text 120 419 1\.;
+#X text 240 419 output set with elements from first set \, that are
 not in second set;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

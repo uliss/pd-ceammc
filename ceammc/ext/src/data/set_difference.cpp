@@ -22,6 +22,11 @@ SetDifference::SetDifference(const PdArgs& a)
     createOutlet();
 }
 
+void SetDifference::onList(const AtomList& l)
+{
+    onDataT(DataTypeSet(l));
+}
+
 void SetDifference::onDataT(const DataTypeSet& s)
 {
     DataTypeSet* res = new DataTypeSet();
