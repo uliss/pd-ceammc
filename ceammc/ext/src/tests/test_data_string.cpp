@@ -24,6 +24,15 @@ TEST_CASE("DataString", "[external]")
     {
         DataTypeString t("");
         REQUIRE(t.str() == "");
+
+        REQUIRE(DataTypeString(1.001f).str() == "1.001");
+        REQUIRE(DataTypeString(-231.001f).str() == "-231.001");
+
+        REQUIRE(DataTypeString("A B C").str() == "A B C");
+        REQUIRE(DataTypeString(std::string("A B C")).str() == "A B C");
+        REQUIRE(DataTypeString(gensym("A B C")).str() == "A B C");
+        REQUIRE(DataTypeString("A B C").str() == "A B C");
+        REQUIRE(DataTypeString(Atom(-200)).str() == "-200");
     }
 
     SECTION("split")
@@ -71,5 +80,14 @@ TEST_CASE("DataString", "[external]")
         REQUIRE(tokens[0] == "1");
         REQUIRE(tokens[1] == "2");
         REQUIRE(tokens[2] == "3");
+    }
+
+    SECTION("set")
+    {
+        DataTypeString t("");
+        t.set(128);
+        REQUIRE(t.str() == "128");
+        t.set(gensym("TEST"));
+        REQUIRE(t.str() == "TEST");
     }
 }
