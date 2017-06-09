@@ -20,10 +20,20 @@
 
 typedef TestExtension<DataSet> DataSetTest;
 
-#define DINT(v) Data(new IntData(v))
-#define DSTR(v) Data(new StrData(v))
 #define CONTAINS_INT(t, n) REQUIRE(t.contains(DINT(n).toAtom()))
 #define CONTAINS_STR(t, str) REQUIRE(t.contains(DSTR(str).toAtom()))
+
+#define REQUIRE_SET_OUTPUT(t, set)                          \
+    {                                                       \
+        REQUIRE_NEW_DATA_AT_OUTLET(0, t);                   \
+        DataTypeSet* s = t.typedLastDataAt<DataTypeSet>(0); \
+        REQUIRE(s != 0);                                    \
+        REQUIRE(*s == set);                                 \
+    }
+
+#define DSET(l) Data(new DataTypeSet(l))
+#define DINT(v) Data(new IntData(v))
+#define DSTR(v) Data(new StrData(v))
 
 static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
 
@@ -325,6 +335,141 @@ TEST_CASE("data.set", "[externals]")
             REQUIRE(d1 == DataTypeSet(L3(1, 2, 3)));
             d1 = d2;
             REQUIRE(d1 == DataTypeSet(L4(2, 4, 6, 8)));
+        }
+    }
+
+    SECTION("DataSet")
+    {
+        SECTION("create")
+        {
+            SECTION("empty")
+            {
+                DataSetTest t("data.set");
+                REQUIRE(t.numInlets() == 1);
+                REQUIRE(t.numOutlets() == 1);
+
+                WHEN_SEND_BANG_TO(0, t);
+                REQUIRE_SET_OUTPUT(t, DataTypeSet());
+            }
+
+            SECTION("args")
+            {
+                DataSetTest t("data.set", L2(1, 3));
+
+                WHEN_SEND_BANG_TO(0, t);
+                REQUIRE_SET_OUTPUT(t, DataTypeSet(L2(3, 1)));
+            }
+        }
+
+        SECTION("float")
+        {
+            DataSetTest t("data.set");
+
+            WHEN_SEND_FLOAT_TO(0, t, 11);
+            REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+
+            WHEN_SEND_FLOAT_TO(0, t, 11);
+            WHEN_SEND_FLOAT_TO(0, t, 12);
+            WHEN_SEND_FLOAT_TO(0, t, 100);
+            WHEN_SEND_FLOAT_TO(0, t, 12);
+
+            WHEN_SEND_BANG_TO(0, t);
+            REQUIRE_SET_OUTPUT(t, DataTypeSet(L3(11, 12, 100)));
+        }
+
+        SECTION("symbol")
+        {
+            DataSetTest t("data.set");
+
+            WHEN_SEND_SYMBOL_TO(0, t, "A");
+            REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+
+            WHEN_SEND_SYMBOL_TO(0, t, "A");
+            WHEN_SEND_SYMBOL_TO(0, t, "C");
+            WHEN_SEND_SYMBOL_TO(0, t, "E");
+            WHEN_SEND_SYMBOL_TO(0, t, "C");
+
+            WHEN_SEND_BANG_TO(0, t);
+            REQUIRE_SET_OUTPUT(t, DataTypeSet(L3("A", "C", "E")));
+        }
+
+        SECTION("list")
+        {
+            DataSetTest t("data.set");
+
+            WHEN_SEND_LIST_TO(0, t, L2(1, 3));
+            REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+
+            WHEN_SEND_LIST_TO(0, t, L2(1, 3));
+            WHEN_SEND_LIST_TO(0, t, L2(2, 2));
+            WHEN_SEND_LIST_TO(0, t, L2(2, 4));
+            WHEN_SEND_LIST_TO(0, t, L2(1, 4));
+
+            WHEN_SEND_BANG_TO(0, t);
+            REQUIRE_SET_OUTPUT(t, DataTypeSet(L4(1, 2, 3, 4)));
+        }
+
+        SECTION("data")
+        {
+            DataSetTest t("data.set");
+
+            WHEN_SEND_TDATA_TO(0, t, DataTypeSet(L2(1, 2)));
+            REQUIRE_SET_OUTPUT(t, DataTypeSet(L2(1, 2)));
+
+            WHEN_SEND_TDATA_TO(0, t, DataTypeSet(L3(3, 2, 28)));
+            REQUIRE_SET_OUTPUT(t, DataTypeSet(L3(3, 2, 28)));
+        }
+
+        SECTION("methods")
+        {
+            SECTION("clear")
+            {
+                DataSetTest t("data.set");
+
+                WHEN_CALL(t, clear);
+                REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+                WHEN_SEND_BANG_TO(0, t);
+                REQUIRE_SET_OUTPUT(t, DataTypeSet());
+
+                WHEN_SEND_LIST_TO(0, t, L2(1, 3));
+                WHEN_CALL(t, clear);
+                WHEN_SEND_BANG_TO(0, t);
+                REQUIRE_SET_OUTPUT(t, DataTypeSet());
+            }
+
+            SECTION("add")
+            {
+                DataSetTest t("data.set");
+
+                WHEN_CALL_1(t, add, "A");
+                REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+                WHEN_SEND_BANG_TO(0, t);
+                REQUIRE_SET_OUTPUT(t, DataTypeSet(L1("A")));
+
+                WHEN_CALL_2(t, add, "A", "B");
+                REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+                WHEN_SEND_BANG_TO(0, t);
+                REQUIRE_SET_OUTPUT(t, DataTypeSet(L2("A", "B")));
+            }
+
+            SECTION("add")
+            {
+                DataSetTest t("data.set");
+
+                WHEN_CALL_1(t, remove, "A");
+                REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+                WHEN_SEND_BANG_TO(0, t);
+                REQUIRE_SET_OUTPUT(t, DataTypeSet());
+
+                WHEN_SEND_LIST_TO(0, t, L4("A", "B", "C", "D"));
+                WHEN_CALL_2(t, remove, "A", "F");
+                WHEN_SEND_BANG_TO(0, t);
+                REQUIRE_SET_OUTPUT(t, DataTypeSet(L3("B", "C", "D")));
+
+                WHEN_CALL_2(t, remove, "C", "D");
+                WHEN_SEND_BANG_TO(0, t);
+                REQUIRE_SET_OUTPUT(t, DataTypeSet(L1("B")));
+            }
         }
     }
 }
