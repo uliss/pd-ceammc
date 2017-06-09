@@ -11,8 +11,8 @@ elements which are in either of the sets and not in their
 intersection;
 #X obj 50 169 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 198 data.set 1 2 3 4 5 6;
-#X obj 50 227 set.symdiff 3 4 5 6 7 8;
+#X obj 50 198 data.set A B C D;
+#X obj 50 227 set.symdiff C D E F;
 #X obj 50 256 set->list @sort;
 #X obj 50 285 msg set;
 #X msg 50 313 ;
