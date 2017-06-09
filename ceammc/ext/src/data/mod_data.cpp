@@ -5,6 +5,7 @@
 #include "set_equal.h"
 #include "set_intersection.h"
 #include "set_size.h"
+#include "set_symdiff.h"
 #include "set_to_list.h"
 #include "set_union.h"
 
@@ -39,5 +40,5 @@ void ceammc_data_setup()
     setup_set0x2elist();
     setup_set0x2esize();
     setup_set0x2eunion();
-
+    setup_set0x2esymdiff();
 }

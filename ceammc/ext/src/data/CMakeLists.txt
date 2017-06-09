@@ -9,6 +9,7 @@ ceammc_data_extension(data list)
 ceammc_data_extension(data set)
 
 ceammc_data_extension(set contains)
+ceammc_data_extension(set symdiff)
 ceammc_data_extension(set difference)
 ceammc_data_extension(set equal)
 ceammc_data_extension(set intersection)

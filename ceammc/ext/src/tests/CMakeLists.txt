@@ -65,6 +65,7 @@ ceammc_external_test(data set)
 ceammc_external_test(data set_size)
 ceammc_external_test(data set_intersection)
 ceammc_external_test(data set_difference)
+ceammc_external_test(data set_symdiff)
 ceammc_external_test(data set_union)
 
 ceammc_external_test(list all_of)
