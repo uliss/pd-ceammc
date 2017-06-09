@@ -14,13 +14,18 @@
 #include "../data/set_size.h"
 #include "base_extension_test.h"
 #include "catch.hpp"
+#include "ceammc_pd.h"
 
 #include <stdio.h>
 
 typedef TestExtension<SetSize> SetSizeTest;
 
+static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
+
 TEST_CASE("set.size", "[externals]")
 {
+    setup_set0x2esize();
+
     SECTION("create")
     {
         SetSizeTest t("set.size");

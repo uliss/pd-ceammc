@@ -85,6 +85,9 @@
     <entry descr="get number of elements in set" name="set.size" ref_view="object">
       <xi:include href="set.size.pddoc" parse="xml"/>
     </entry>
+    <entry descr="symmetric difference between two sets" name="set.symdiff" ref_view="object">
+      <xi:include href="set.symdiff.pddoc" parse="xml"/>
+    </entry>
     <entry descr="output union of given sets" name="set.union" ref_view="object">
       <xi:include href="set.union.pddoc" parse="xml"/>
     </entry>

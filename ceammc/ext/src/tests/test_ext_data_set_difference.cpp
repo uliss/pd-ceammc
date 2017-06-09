@@ -14,6 +14,7 @@
 #include "../data/set_difference.h"
 #include "base_extension_test.h"
 #include "catch.hpp"
+#include "ceammc_pd.h"
 
 #include <stdio.h>
 
@@ -31,8 +32,12 @@ typedef TestExtension<SetDifference> SetDifferenceTest;
 #define DINT(v) Data(new IntData(v))
 #define DSTR(v) Data(new StrData(v))
 
+static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
+
 TEST_CASE("set.diff", "[externals]")
 {
+    setup_set0x2edifference();
+
     SECTION("create")
     {
         SECTION("empty")

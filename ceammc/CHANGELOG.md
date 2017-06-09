@@ -33,6 +33,7 @@
     - set.union
     - set.intersect
     - set.diff
+    - set.symdiff
     - set.equal
 
 ### Changed:

@@ -14,6 +14,7 @@
 #include "../data/set_intersection.h"
 #include "base_extension_test.h"
 #include "catch.hpp"
+#include "ceammc_pd.h"
 
 #include <stdio.h>
 
@@ -27,8 +28,12 @@ typedef TestExtension<SetIntersection> SetIntersectionTest;
         REQUIRE(*s == set);                                 \
     }
 
+static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
+
 TEST_CASE("set.intersection", "[externals]")
 {
+    setup_set0x2eintersection();
+
     SECTION("create")
     {
         SECTION("empty")

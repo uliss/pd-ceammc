@@ -172,6 +172,7 @@ set.diff		..		.
 set.equal		..		.
 set.intersect		..		.
 set.size		.		.
+set.symdiff		..		.
 set.union		..		.
 snd.file		.		.
 string,str		.		.

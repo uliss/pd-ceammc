@@ -182,6 +182,7 @@ set(DOC_FILES
     set.equal
     set.intersect
     set.size
+    set.symdiff
     set.union
     string
     string.join

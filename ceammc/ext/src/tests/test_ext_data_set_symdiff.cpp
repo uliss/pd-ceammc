@@ -11,7 +11,6 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../data/mod_data.h"
 #include "../data/set_symdiff.h"
 #include "base_extension_test.h"
 #include "catch.hpp"
@@ -37,7 +36,7 @@ static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
 
 TEST_CASE("set.symdiff", "[externals]")
 {
-    ceammc_data_setup();
+    setup_set0x2esymdiff();
 
     SECTION("create")
     {

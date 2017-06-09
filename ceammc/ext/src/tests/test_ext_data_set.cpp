@@ -14,6 +14,7 @@
 #include "../data/data_set.h"
 #include "base_extension_test.h"
 #include "catch.hpp"
+#include "ceammc_pd.h"
 
 #include <stdio.h>
 
@@ -24,8 +25,12 @@ typedef TestExtension<DataSet> DataSetTest;
 #define CONTAINS_INT(t, n) REQUIRE(t.contains(DINT(n).toAtom()))
 #define CONTAINS_STR(t, str) REQUIRE(t.contains(DSTR(str).toAtom()))
 
+static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
+
 TEST_CASE("data.set", "[externals]")
 {
+    setup_data0x2eset();
+
     SECTION("DataTypeSet")
     {
         SECTION("create")
