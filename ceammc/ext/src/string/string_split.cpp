@@ -45,7 +45,8 @@ void StringSplit::split(const DataTypeString& s)
     s.split(tokens, sep_);
 
     for (size_t i = 0; i < tokens.size(); i++) {
-        tokens_.push_back(StringPtr(new String(new DataTypeString(tokens[i]))));
+        Data d(new DataTypeString(tokens[i]));
+        tokens_.push_back(DataAtom(d));
     }
 }
 
@@ -54,7 +55,7 @@ void StringSplit::output()
     AtomList res;
 
     for (size_t i = 0; i < tokens_.size(); i++)
-        res.append(tokens_[i]->toAtom());
+        res.append(tokens_[i].toAtom());
 
     listTo(0, res);
 }

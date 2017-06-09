@@ -48,6 +48,8 @@ public:
 
     void split(std::vector<std::string>& res, const std::string& sep = "") const;
 
+    bool operator==(const DataTypeString& s) const;
+
 public:
     static const DataType dataType;
 

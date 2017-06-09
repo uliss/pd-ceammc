@@ -317,6 +317,13 @@ TEST_CASE("string.format", "[external]")
                 WHEN_SEND_FLOAT_TO(0, t, 15);
                 REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
             }
+
+            SECTION("%")
+            {
+                StringFormatTest t("string.format", L1("%s%%"));
+                WHEN_SEND_SYMBOL_TO(0, t, "100");
+                REQUIRE_STRING_OUTPUT(t, "100%");
+            }
         }
     }
 
@@ -334,6 +341,13 @@ TEST_CASE("string.format", "[external]")
 
         WHEN_SEND_LIST_TO(0, t, L4(1, 2, 3, 4));
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+    }
+
+    SECTION("list")
+    {
+        StringFormatTest t("string.format", L1("A:%s D:%d"));
+        WHEN_SEND_LIST_TO(0, t, L2("string", 100));
+        REQUIRE_STRING_OUTPUT(t, "A:string D:100");
     }
 
     SECTION("data")

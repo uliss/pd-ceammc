@@ -14,6 +14,7 @@
 #ifndef STRING_SPLIT_H
 #define STRING_SPLIT_H
 
+#include "ceammc_dataatom.h"
 #include "ceammc_object.h"
 #include "datatype_string.h"
 
@@ -26,7 +27,7 @@ class StringSplit : public BaseObject {
     typedef DataT<DataTypeString> String;
     typedef boost::shared_ptr<String> StringPtr;
 
-    std::vector<StringPtr> tokens_;
+    std::vector<DataAtom> tokens_;
     std::string sep_;
 
 public:

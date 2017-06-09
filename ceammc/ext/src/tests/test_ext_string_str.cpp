@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "../string/string_str.h"
 #include "base_extension_test.h"
+#include "ceammc_pd.h"
 
 #include "catch.hpp"
 
@@ -30,8 +31,12 @@ typedef TestExtension<StringStr> StringStrTest;
 
 #define NO_DATA(t) REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
+static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
+
 TEST_CASE("string.str", "[external]")
 {
+    string_setup();
+
     SECTION("create")
     {
         SECTION("empty")

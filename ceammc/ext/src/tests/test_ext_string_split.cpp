@@ -14,6 +14,7 @@
 #include "../string/string_split.h"
 #include "base_extension_test.h"
 #include "ceammc_format.h"
+#include "ceammc_pd.h"
 
 #include "catch.hpp"
 
@@ -21,8 +22,14 @@ using namespace ceammc;
 
 typedef TestExtension<StringSplit> StringSplitTest;
 
+#define DSTR(l) Data(new DataTypeString(l))
+
+static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
+
 TEST_CASE("string.split", "[external]")
 {
+    setup_string0x2esplit();
+
     SECTION("process")
     {
         StringSplitTest t("str.split");
@@ -66,5 +73,15 @@ TEST_CASE("string.split", "[external]")
         REQUIRE(t.hasNewMessages(0));
         REQUIRE(t.lastMessage(0).isList());
         REQUIRE(to_string(t.lastMessage(0).listValue()) == "ab cde");
+    }
+
+    SECTION("symbol")
+    {
+        StringSplitTest t("str.split", L1(":"));
+        WHEN_SEND_SYMBOL_TO(0, t, "A:B:C");
+
+        REQUIRE(t.hasNewMessages(0));
+        REQUIRE(t.lastMessage(0).isList());
+        REQUIRE(to_string(t.lastMessage(0).listValue()) == "A B C");
     }
 }

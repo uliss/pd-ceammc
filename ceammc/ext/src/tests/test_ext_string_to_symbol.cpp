@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "../string/string_to_symbol.h"
 #include "base_extension_test.h"
+#include "ceammc_pd.h"
 
 #include "catch.hpp"
 
@@ -20,27 +21,12 @@ using namespace ceammc;
 
 typedef TestExtension<StringToSymbol> StringToSymbolTest;
 
-class TestData : public AbstractData {
-    int v_;
-
-public:
-    TestData(int v)
-        : v_(v)
-    {
-    }
-
-    DataType type() const { return 2; }
-    TestData* clone() const { return new TestData(v_); }
-    std::string toString() const
-    {
-        char buf[40];
-        sprintf(buf, "TEST: %i", v_);
-        return buf;
-    }
-};
+static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
 
 TEST_CASE("string->symbol", "[external]")
 {
+    setup_string0x2eto_symbol();
+
     SECTION("create")
     {
         StringToSymbolTest t("str->sym");
@@ -73,10 +59,10 @@ TEST_CASE("string->symbol", "[external]")
         WHEN_SEND_TDATA_TO(0, t, DataTypeString("A B  C"));
         REQUIRE_SYMBOL_AT_OUTLET(0, t, "A B  C");
 
-        WHEN_SEND_DATA_TO(0, t, TestData(100));
+        WHEN_SEND_DATA_TO(0, t, IntData(100));
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-        WHEN_SEND_DATA_TO(0, t, TestData(-10));
+        WHEN_SEND_DATA_TO(0, t, IntData(-10));
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
     }
 }

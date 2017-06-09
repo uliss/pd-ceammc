@@ -104,6 +104,11 @@ void DataTypeString::split(std::vector<std::string>& res, const std::string& sep
         splitBySep(res, sep);
 }
 
+bool DataTypeString::operator==(const DataTypeString& s) const
+{
+    return str_ == s.str_;
+}
+
 void DataTypeString::splitEveryChar(std::vector<std::string>& res) const
 {
     res.clear();
