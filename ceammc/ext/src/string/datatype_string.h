@@ -58,6 +58,10 @@ public:
     DataTypeString replaceFirst(const std::string& from, const std::string& to) const;
     DataTypeString replaceLast(const std::string& from, const std::string& to) const;
 
+    bool contains(const std::string& s) const;
+    bool startsWith(const std::string& s) const;
+    bool endsWith(const std::string& s) const;
+
 public:
     static const DataType dataType;
 

@@ -139,6 +139,21 @@ DataTypeString DataTypeString::replaceLast(const std::string& from, const std::s
     return DataTypeString(boost::algorithm::replace_last_copy(str_, from, to));
 }
 
+bool DataTypeString::contains(const std::string& s) const
+{
+    return boost::algorithm::contains(str_, s);
+}
+
+bool DataTypeString::startsWith(const std::string& s) const
+{
+    return boost::algorithm::starts_with(str_, s);
+}
+
+bool DataTypeString::endsWith(const std::string& s) const
+{
+    return boost::algorithm::ends_with(str_, s);
+}
+
 void DataTypeString::splitEveryChar(std::vector<std::string>& res) const
 {
     res.clear();
