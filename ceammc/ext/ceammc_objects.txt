@@ -260,12 +260,14 @@ split
 str
 str->sec
 str->sym
+str.ends_with
 str.format
 str.join
 str.remove
 str.replace
 str.split
 string
+string.ends_with
 string.format
 string.join
 string.remove

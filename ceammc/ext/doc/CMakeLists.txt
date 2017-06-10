@@ -191,6 +191,7 @@ set(DOC_FILES
     string.remove
     string.replace
     string2symbol
+    string.ends_with
     symbol.equal
     symbol.length
     system.getenv

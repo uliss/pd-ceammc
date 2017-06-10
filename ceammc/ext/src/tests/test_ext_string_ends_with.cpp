@@ -42,5 +42,45 @@ TEST_CASE("string.ends_with", "[external]")
             WHEN_SEND_TDATA_TO(0, t, DataTypeString(""));
             REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
         }
+
+        SECTION("args")
+        {
+            TestStringEndsWith t("str.ends_with", L1(".mp3"));
+
+            WHEN_SEND_TDATA_TO(0, t, DataTypeString("data.mp3"));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+
+            WHEN_SEND_SYMBOL_TO(0, t, "data.mp3");
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+
+            WHEN_SEND_TDATA_TO(0, t, DataTypeString("data.mp4"));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
+
+            WHEN_SEND_SYMBOL_TO(0, t, "data.mp4");
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
+        }
+
+        SECTION("args list")
+        {
+            TestStringEndsWith t("str.ends_with", L3("A", "B", "C"));
+            WHEN_SEND_SYMBOL_TO(0, t, "ABC");
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
+
+            WHEN_SEND_SYMBOL_TO(0, t, "TEST A B C");
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+        }
+    }
+
+    SECTION("do")
+    {
+        TestStringEndsWith t("str.ends_with");
+
+        WHEN_SEND_SYMBOL_TO(1, t, ".mp3");
+        WHEN_SEND_SYMBOL_TO(0, t, "data.mp3");
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+
+        WHEN_SEND_SYMBOL_TO(1, t, ".m4a");
+        WHEN_SEND_SYMBOL_TO(0, t, "data.mp3");
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
     }
 }
