@@ -28,6 +28,7 @@
     - string.remove (str.remove)
     - string.replace (str.replace)
     - string.ends_with (str.ends_with)
+    - string.contains (str.contains)
 - Set data type added and objects:
     - data.set
     - data.set2list (set->list)

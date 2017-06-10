@@ -581,6 +581,9 @@
     <entry descr="string constructor" name="string" ref_view="object">
       <xi:include href="string.pddoc" parse="xml"/>
     </entry>
+    <entry descr="checks if given string contains specified substring" name="string.contains" ref_view="object">
+      <xi:include href="string.contains.pddoc" parse="xml"/>
+    </entry>
     <entry descr="checks if given string ends with specified suffix" name="string.ends_with" ref_view="object">
       <xi:include href="string.ends_with.pddoc" parse="xml"/>
     </entry>

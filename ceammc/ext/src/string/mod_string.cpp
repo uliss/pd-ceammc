@@ -1,4 +1,6 @@
 #include "mod_string.h"
+#include "string_contains.h"
+#include "string_ends_with.h"
 #include "string_format.h"
 #include "string_join.h"
 #include "string_remove.h"
@@ -6,7 +8,6 @@
 #include "string_split.h"
 #include "string_str.h"
 #include "string_to_symbol.h"
-#include "string_ends_with.h"
 
 void ceammc_string_setup()
 {
@@ -18,4 +19,5 @@ void ceammc_string_setup()
     setup_string0x2eremove();
     setup_string0x2ereplace();
     setup_string0x2eends_with();
+    setup_string0x2econtains();
 }

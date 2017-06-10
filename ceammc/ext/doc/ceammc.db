@@ -176,6 +176,7 @@ set.symdiff		..		.
 set.union		..		.
 snd.file		.		.
 string,str		.		.
+string.contains,str.contains		..		.
 string.ends_with,str.ends_with		..		.
 string.format,str.format		.		.
 string.join,str.join		.		.
