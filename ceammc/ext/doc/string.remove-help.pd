@@ -32,8 +32,8 @@
 #X obj 20 373 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 378 @mode;
-#X text 240 378 Get/Set remove mode. Type: symbol. Allowed values: all
-\, first \, last;
+#X text 240 378 Get/Set remove mode. Type: symbol. Default value: all.
+Allowed values: all \, first \, last;
 #X msg 120 415 @all;
 #X text 240 415 alias to @mode all - remove all occurences in input
 string;

@@ -26,6 +26,7 @@
     - string.join (str.join)
     - string.split (str.split)
     - string.remove (str.remove)
+    - string.replace (str.replace)
 - Set data type added and objects:
     - data.set
     - data.set2list (set->list)

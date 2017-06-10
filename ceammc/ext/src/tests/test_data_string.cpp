@@ -129,4 +129,35 @@ TEST_CASE("DataString", "[external]")
             REQUIRE(DataTypeString("АБВ").removeLast("А") == DataTypeString("БВ"));
         }
     }
+
+    SECTION("replace")
+    {
+        SECTION("all")
+        {
+            REQUIRE(DataTypeString("").replaceAll("", "ABC") == DataTypeString(""));
+            REQUIRE(DataTypeString("").replaceAll("", "") == DataTypeString(""));
+            REQUIRE(DataTypeString("").replaceAll("ABC", "") == DataTypeString(""));
+            REQUIRE(DataTypeString("ABC").replaceAll("", "ABC") == DataTypeString("ABC"));
+            REQUIRE(DataTypeString("123454321").replaceAll("1", "...") == DataTypeString("...2345432..."));
+        }
+
+        SECTION("first")
+        {
+            REQUIRE(DataTypeString("").replaceFirst("", "ABC") == DataTypeString(""));
+            REQUIRE(DataTypeString("").replaceFirst("", "") == DataTypeString(""));
+            REQUIRE(DataTypeString("").replaceFirst("ABC", "") == DataTypeString(""));
+            REQUIRE(DataTypeString("ABC").replaceFirst("", "ABC") == DataTypeString("ABC"));
+            REQUIRE(DataTypeString("123454321").replaceFirst("1", "...") == DataTypeString("...23454321"));
+        }
+
+        SECTION("last")
+        {
+            REQUIRE(DataTypeString("").replaceLast("", "ABC") == DataTypeString(""));
+            REQUIRE(DataTypeString("").replaceLast("", "") == DataTypeString(""));
+            REQUIRE(DataTypeString("").replaceLast("ABC", "") == DataTypeString(""));
+            REQUIRE(DataTypeString("ABC").replaceLast("", "ABC") == DataTypeString("ABC"));
+            REQUIRE(DataTypeString("123454321").replaceLast("1", "...") == DataTypeString("12345432..."));
+
+        }
+    }
 }

@@ -17,9 +17,9 @@
 
 #include <boost/algorithm/string.hpp>
 
-static t_symbol* REPLACE_ALL = gensym("all");
-static t_symbol* REPLACE_FIRST = gensym("first");
-static t_symbol* REPLACE_LAST = gensym("last");
+static t_symbol* REMOVE_ALL = gensym("all");
+static t_symbol* REMOVE_FIRST = gensym("first");
+static t_symbol* REMOVE_LAST = gensym("last");
 
 StringRemove::StringRemove(const PdArgs& a)
     : BaseObject(a)
@@ -34,14 +34,14 @@ StringRemove::StringRemove(const PdArgs& a)
     mode_->appendEnum("last");
     createProperty(mode_);
 
-    createProperty(new SymbolEnumAlias("@all", mode_, REPLACE_ALL));
-    createProperty(new SymbolEnumAlias("@first", mode_, REPLACE_FIRST));
-    createProperty(new SymbolEnumAlias("@last", mode_, REPLACE_LAST));
+    createProperty(new SymbolEnumAlias("@all", mode_, REMOVE_ALL));
+    createProperty(new SymbolEnumAlias("@first", mode_, REMOVE_FIRST));
+    createProperty(new SymbolEnumAlias("@last", mode_, REMOVE_LAST));
 }
 
 void StringRemove::onSymbol(t_symbol* s)
 {
-    remove(s->s_name);
+    onDataT(DataTypeString(s));
 }
 
 void StringRemove::onInlet(size_t, const AtomList& l)
@@ -53,11 +53,11 @@ void StringRemove::onDataT(const DataTypeString& s)
 {
     Data res;
 
-    if (mode_->value() == REPLACE_ALL) {
+    if (mode_->value() == REMOVE_ALL) {
         res.setData(new DataTypeString(s.removeAll(str_to_remove_->str())));
-    } else if (mode_->value() == REPLACE_FIRST) {
+    } else if (mode_->value() == REMOVE_FIRST) {
         res.setData(new DataTypeString(s.removeFirst(str_to_remove_->str())));
-    } else if (mode_->value() == REPLACE_LAST) {
+    } else if (mode_->value() == REMOVE_LAST) {
         res.setData(new DataTypeString(s.removeLast(str_to_remove_->str())));
     }
 

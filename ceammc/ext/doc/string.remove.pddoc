@@ -20,7 +20,8 @@
             <argument name="STR" type="symbol">substring to remove</argument>
         </arguments>
         <properties>
-            <property name="@mode" type="symbol" enum="all,first,last">remove mode</property>
+            <property name="@mode" type="symbol" enum="all,first,last" default="all">remove
+            mode</property>
             <property name="@all" type="alias">alias to @mode all - remove all occurences in input
             string</property>
             <property name="@first" type="alias">alias to @mode first - remove first occurence in

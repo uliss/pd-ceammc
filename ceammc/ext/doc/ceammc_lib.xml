@@ -590,6 +590,9 @@
     <entry descr="remove substring from input string" name="string.remove" ref_view="object">
       <xi:include href="string.remove.pddoc" parse="xml"/>
     </entry>
+    <entry descr="replace from one substring to another in input string" name="string.replace" ref_view="object">
+      <xi:include href="string.replace.pddoc" parse="xml"/>
+    </entry>
     <entry descr="split string by separator" name="string.split" ref_view="object">
       <xi:include href="string.split.pddoc" parse="xml"/>
     </entry>

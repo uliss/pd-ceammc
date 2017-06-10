@@ -124,6 +124,21 @@ DataTypeString DataTypeString::removeLast(const std::string& s) const
     return DataTypeString(boost::algorithm::erase_last_copy(str_, s));
 }
 
+DataTypeString DataTypeString::replaceAll(const std::string& from, const std::string& to) const
+{
+    return DataTypeString(boost::algorithm::replace_all_copy(str_, from, to));
+}
+
+DataTypeString DataTypeString::replaceFirst(const std::string& from, const std::string& to) const
+{
+    return DataTypeString(boost::algorithm::replace_first_copy(str_, from, to));
+}
+
+DataTypeString DataTypeString::replaceLast(const std::string& from, const std::string& to) const
+{
+    return DataTypeString(boost::algorithm::replace_last_copy(str_, from, to));
+}
+
 void DataTypeString::splitEveryChar(std::vector<std::string>& res) const
 {
     res.clear();

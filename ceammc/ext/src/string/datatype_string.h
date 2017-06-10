@@ -54,6 +54,10 @@ public:
     DataTypeString removeFirst(const std::string& s) const;
     DataTypeString removeLast(const std::string& s) const;
 
+    DataTypeString replaceAll(const std::string& from, const std::string& to) const;
+    DataTypeString replaceFirst(const std::string& from, const std::string& to) const;
+    DataTypeString replaceLast(const std::string& from, const std::string& to) const;
+
 public:
     static const DataType dataType;
 

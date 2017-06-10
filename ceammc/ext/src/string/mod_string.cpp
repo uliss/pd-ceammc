@@ -2,6 +2,7 @@
 #include "string_format.h"
 #include "string_join.h"
 #include "string_remove.h"
+#include "string_replace.h"
 #include "string_split.h"
 #include "string_str.h"
 #include "string_to_symbol.h"
@@ -14,4 +15,5 @@ void ceammc_string_setup()
     setup_string0x2ejoin();
     setup_string0x2esplit();
     setup_string0x2eremove();
+    setup_string0x2ereplace();
 }

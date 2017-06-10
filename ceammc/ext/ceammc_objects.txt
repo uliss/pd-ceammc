@@ -263,11 +263,13 @@ str->sym
 str.format
 str.join
 str.remove
+str.replace
 str.split
 string
 string.format
 string.join
 string.remove
+string.replace
 string.split
 string2symbol
 symbol.ends_with
