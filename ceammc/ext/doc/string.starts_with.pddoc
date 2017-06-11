@@ -39,9 +39,9 @@
 [B]
 |
 [string CSound] [symbol SuperCollider(
-|                 |
-|                 |
-|                 |
+|               |
+|               |
+|               |
 [str.starts_with CSound]
 |
 [T]
