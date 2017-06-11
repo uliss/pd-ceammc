@@ -6,6 +6,7 @@
 #include "string_remove.h"
 #include "string_replace.h"
 #include "string_split.h"
+#include "string_starts_with.h"
 #include "string_str.h"
 #include "string_to_symbol.h"
 
@@ -20,4 +21,5 @@ void ceammc_string_setup()
     setup_string0x2ereplace();
     setup_string0x2eends_with();
     setup_string0x2econtains();
+    setup_string0x2estarts_with();
 }

@@ -267,6 +267,7 @@ str.join
 str.remove
 str.replace
 str.split
+str.starts_with
 string
 string.contains
 string.ends_with
@@ -275,6 +276,7 @@ string.join
 string.remove
 string.replace
 string.split
+string.starts_with
 string2symbol
 symbol.ends_with
 symbol.equal

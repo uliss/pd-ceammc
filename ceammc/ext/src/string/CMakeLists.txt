@@ -10,6 +10,7 @@ ceammc_string_extension(join)
 ceammc_string_extension(remove)
 ceammc_string_extension(replace)
 ceammc_string_extension(split)
+ceammc_string_extension(starts_with)
 ceammc_string_extension(str)
 ceammc_string_extension(to_symbol)
 
