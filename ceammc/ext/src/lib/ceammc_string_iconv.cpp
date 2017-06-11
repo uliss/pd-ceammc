@@ -70,21 +70,23 @@ size_t iconv_utf8_strlen(const char* str)
     char* text = 0;
 
     size_t len = strlen(str);
-    char *inbuf, *outbuf;
+    char *inbuf, *inbuf_alloc, *outbuf;
     size_t inbytesleft, outbytesleft, outbuf_size;
 
     // short strings
-    if (len < BUF_SIZE - 1) {
+    if (len < (BUF_SIZE - 1)) {
         strncpy(abuf, str, BUF_SIZE - 1);
         abuf[BUF_SIZE - 1] = '\0';
 
         inbuf = abuf;
+        inbuf_alloc = 0;
         inbytesleft = len;
         outbuf = reinterpret_cast<char*>(wbuf);
         outbuf_size = sizeof(wbuf);
         outbytesleft = outbuf_size;
     } else {
         inbuf = strdup(str);
+        inbuf_alloc = inbuf;
         inbytesleft = len;
         outbuf_size = MAX_UNICODE_CHAR_WIDTH * len;
         outbytesleft = outbuf_size;
@@ -97,6 +99,9 @@ size_t iconv_utf8_strlen(const char* str)
 
     if (text)
         free(text);
+
+    if (!inbuf_alloc)
+        free(inbuf_alloc);
 
     return (res == static_cast<size_t>(-1)) ? 0 : (outbuf_size - outbytesleft) / MAX_UNICODE_CHAR_WIDTH;
 }
