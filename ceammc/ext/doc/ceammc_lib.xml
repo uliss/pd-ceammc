@@ -596,6 +596,9 @@
     <entry descr="joins (concatenates) strings with separator" name="string.join" ref_view="object">
       <xi:include href="string.join.pddoc" parse="xml"/>
     </entry>
+    <entry descr="number of characters in string (unicode supported)" name="string.length" ref_view="object">
+      <xi:include href="string.length.pddoc" parse="xml"/>
+    </entry>
     <entry descr="remove substring from input string" name="string.remove" ref_view="object">
       <xi:include href="string.remove.pddoc" parse="xml"/>
     </entry>

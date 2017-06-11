@@ -190,6 +190,7 @@ set(DOC_FILES
     string.equal
     string.format
     string.join
+    string.length
     string.remove
     string.replace
     string.split

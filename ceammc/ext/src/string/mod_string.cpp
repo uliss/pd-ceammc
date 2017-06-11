@@ -4,6 +4,7 @@
 #include "string_equal.h"
 #include "string_format.h"
 #include "string_join.h"
+#include "string_length.h"
 #include "string_remove.h"
 #include "string_replace.h"
 #include "string_split.h"
@@ -18,6 +19,7 @@ void ceammc_string_setup()
     setup_string0x2eequal();
     setup_string0x2eformat();
     setup_string0x2ejoin();
+    setup_string0x2elength();
     setup_string0x2eremove();
     setup_string0x2ereplace();
     setup_string0x2esplit();

@@ -265,6 +265,7 @@ str.ends_with
 str.equal
 str.format
 str.join
+str.length
 str.remove
 str.replace
 str.split
@@ -275,6 +276,7 @@ string.ends_with
 string.equal
 string.format
 string.join
+string.length
 string.remove
 string.replace
 string.split
