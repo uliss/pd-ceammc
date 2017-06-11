@@ -85,6 +85,7 @@ ceammc_external_test(string split)
 ceammc_external_test(string to_symbol)
 ceammc_external_test(string ends_with)
 ceammc_external_test(string starts_with)
+ceammc_external_test(string length)
 
 ceammc_add_extension_test("list_walk" "../list/list_walk.cpp")
 ceammc_add_extension_test("list_walk2" "../list/list_walk.cpp")

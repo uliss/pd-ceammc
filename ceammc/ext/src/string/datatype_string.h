@@ -62,6 +62,8 @@ public:
     bool startsWith(const std::string& s) const;
     bool endsWith(const std::string& s) const;
 
+    size_t length() const;
+
 public:
     static const DataType dataType;
 

@@ -16,6 +16,7 @@
 #include "ceammc_datatypes.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
+#include "ceammc_string.h"
 
 #include <algorithm>
 #include <boost/algorithm/string.hpp>
@@ -152,6 +153,11 @@ bool DataTypeString::startsWith(const std::string& s) const
 bool DataTypeString::endsWith(const std::string& s) const
 {
     return boost::algorithm::ends_with(str_, s);
+}
+
+size_t DataTypeString::length() const
+{
+    return string::utf8_strlen(str_.c_str());
 }
 
 void DataTypeString::splitEveryChar(std::vector<std::string>& res) const
