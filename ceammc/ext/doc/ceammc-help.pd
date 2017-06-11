@@ -444,84 +444,86 @@ direction;
 #X text 175 6271 checks if given string contains specified substring;
 #X obj 30 6298 string.ends_with;
 #X text 175 6298 checks if given string ends with specified suffix;
-#X obj 30 6325 string.format;
-#X text 175 6325 formats string like printf.;
-#X obj 30 6352 string.join;
-#X text 175 6352 joins (concatenates) strings with separator;
-#X obj 30 6379 string.remove;
-#X text 175 6379 remove substring from input string;
-#X obj 30 6406 string.replace;
-#X text 175 6406 replace from one substring to another in input
+#X obj 30 6325 string.equal;
+#X text 175 6325 check strings for equality;
+#X obj 30 6352 string.format;
+#X text 175 6352 formats string like printf.;
+#X obj 30 6379 string.join;
+#X text 175 6379 joins (concatenates) strings with separator;
+#X obj 30 6406 string.remove;
+#X text 175 6406 remove substring from input string;
+#X obj 30 6433 string.replace;
+#X text 175 6433 replace from one substring to another in input
 string;
-#X obj 30 6433 string.split;
-#X text 175 6433 split string by separator;
-#X obj 30 6460 string.starts_with;
-#X text 175 6460 checks if given string starts with specified prefix;
-#X obj 30 6487 string2symbol;
-#X text 175 6487 converts string to symbol;
-#X obj 20 6514 cnv 5 68 31 empty empty symbol 4 13 0 17 -262144 -49933
+#X obj 30 6460 string.split;
+#X text 175 6460 split string by separator;
+#X obj 30 6487 string.starts_with;
+#X text 175 6487 checks if given string starts with specified prefix;
+#X obj 30 6514 string2symbol;
+#X text 175 6514 converts string to symbol;
+#X obj 20 6541 cnv 5 68 31 empty empty symbol 4 13 0 17 -262144 -49933
 0;
-#X obj 20 6555 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 6566 symbol.equal;
-#X text 175 6566 check symbols for equality;
-#X obj 30 6593 symbol.length;
-#X text 175 6593 number of characters in symbol (unicode supported);
-#X obj 20 6620 cnv 5 68 31 empty empty system 4 13 0 17 -262144 -49933
+#X obj 20 6582 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 6593 symbol.equal;
+#X text 175 6593 check symbols for equality;
+#X obj 30 6620 symbol.length;
+#X text 175 6620 number of characters in symbol (unicode supported);
+#X obj 20 6647 cnv 5 68 31 empty empty system 4 13 0 17 -262144 -49933
 0;
-#X obj 20 6661 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 6672 system.getenv;
-#X text 175 6672 Get system environment variables;
-#X obj 30 6699 system.hostname;
-#X text 175 6699 outputs system hostname;
-#X obj 30 6726 system.memsize;
-#X text 175 6726 returns the size of physical memory (RAM) in bytes
+#X obj 20 6688 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 6699 system.getenv;
+#X text 175 6699 Get system environment variables;
+#X obj 30 6726 system.hostname;
+#X text 175 6726 outputs system hostname;
+#X obj 30 6753 system.memsize;
+#X text 175 6753 returns the size of physical memory (RAM) in bytes
 round to float data type.;
-#X obj 30 6763 system.memused;
-#X text 175 6763 returns the process physical memory use - current and
+#X obj 30 6790 system.memused;
+#X text 175 6790 returns the process physical memory use - current and
 peak;
-#X obj 30 6790 system.screen_size;
-#X text 175 6790 returns current screen size in pixels;
-#X obj 20 6817 cnv 5 28 31 empty empty ui 4 13 0 17 -262144 -49933 0;
-#X obj 20 6858 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 6872 ui.link @title [ui.bang] @url ui.bang-help.pd;
-#X text 175 6869 A bang... that's all;
-#X obj 30 6895 ui.link @title [ui.bpfunc] @url ui.bpfunc-help.pd;
-#X text 175 6892 Breakpoint function GUI object;
-#X obj 30 6918 ui.link @title [ui.display] @url ui.display-help.pd;
-#X text 175 6915 Display GUI object;
-#X obj 30 6941 ui.link @title [ui.keyboard] @url ui.keyboard-help.pd;
-#X text 175 6938 keyboard widget;
-#X obj 30 6964 ui.link @title [ui.knob] @url ui.knob-help.pd;
-#X text 175 6961 knob widget;
-#X obj 30 6987 ui.link @title [ui.matrix] @url ui.matrix-help.pd;
-#X text 175 6984 The matrix of toggles has you.;
-#X obj 30 7010 ui.link @title [ui.scope~] @url ui.scope~-help.pd;
-#X text 175 7007 Scope GUI object;
-#X obj 30 7033 ui.link @title [ui.slider2d] @url ui.slider2d-help.pd;
-#X text 175 7030 2D slider widget;
-#X obj 30 7056 ui.link @title [ui.sliders] @url ui.sliders-help.pd;
-#X text 175 7053 Multiple slider widget;
-#X obj 30 7079 ui.link @title [ui.spectroscope~] @url
+#X obj 30 6817 system.screen_size;
+#X text 175 6817 returns current screen size in pixels;
+#X obj 20 6844 cnv 5 28 31 empty empty ui 4 13 0 17 -262144 -49933 0;
+#X obj 20 6885 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 6899 ui.link @title [ui.bang] @url ui.bang-help.pd;
+#X text 175 6896 A bang... that's all;
+#X obj 30 6922 ui.link @title [ui.bpfunc] @url ui.bpfunc-help.pd;
+#X text 175 6919 Breakpoint function GUI object;
+#X obj 30 6945 ui.link @title [ui.display] @url ui.display-help.pd;
+#X text 175 6942 Display GUI object;
+#X obj 30 6968 ui.link @title [ui.keyboard] @url ui.keyboard-help.pd;
+#X text 175 6965 keyboard widget;
+#X obj 30 6991 ui.link @title [ui.knob] @url ui.knob-help.pd;
+#X text 175 6988 knob widget;
+#X obj 30 7014 ui.link @title [ui.matrix] @url ui.matrix-help.pd;
+#X text 175 7011 The matrix of toggles has you.;
+#X obj 30 7037 ui.link @title [ui.scope~] @url ui.scope~-help.pd;
+#X text 175 7034 Scope GUI object;
+#X obj 30 7060 ui.link @title [ui.slider2d] @url ui.slider2d-help.pd;
+#X text 175 7057 2D slider widget;
+#X obj 30 7083 ui.link @title [ui.sliders] @url ui.sliders-help.pd;
+#X text 175 7080 Multiple slider widget;
+#X obj 30 7106 ui.link @title [ui.spectroscope~] @url
 ui.spectroscope~-help.pd;
-#X text 175 7076 Spectroscope GUI object;
-#X obj 30 7102 ui.link @title [ui.toggle] @url ui.toggle-help.pd;
-#X text 175 7099 modern toggle widget;
-#X obj 20 7122 cnv 5 69 31 empty empty vector 4 13 0 17 -262144 -49933
+#X text 175 7103 Spectroscope GUI object;
+#X obj 30 7129 ui.link @title [ui.toggle] @url ui.toggle-help.pd;
+#X text 175 7126 modern toggle widget;
+#X obj 20 7149 cnv 5 69 31 empty empty vector 4 13 0 17 -262144 -49933
 0;
-#X obj 20 7163 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 7174 vector.distance;
-#X text 175 7174 returns euclidean distance between two points;
-#X obj 30 7201 vector.dot;
-#X text 175 7201 treats list of floats as vector \, returns the dot
+#X obj 20 7190 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 7201 vector.distance;
+#X text 175 7201 returns euclidean distance between two points;
+#X obj 30 7228 vector.dot;
+#X text 175 7228 treats list of floats as vector \, returns the dot
 product (sum of the elements of two lists with same indexes
 multiplied).;
-#X obj 30 7252 vector.length;
-#X text 175 7252 treats list of floats as vector \, returns vector
+#X obj 30 7279 vector.length;
+#X text 175 7279 treats list of floats as vector \, returns vector
 length: sqrt(element(1)^2 + ...element(n)^2).;
-#X obj 30 7289 vector.normalize;
-#X text 175 7289 returns normalized vector;
+#X obj 30 7316 vector.normalize;
+#X text 175 7316 returns normalized vector;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc 20 20 0 20 -104026 -4096 0;
-#X obj 1 7316 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 7316 version: v0.2 \, license: GPL3;
-#X obj 20 7335 ui.link @title https://github.com/uliss/pure-data @url
+#X obj 1 7343 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 7343 version: v0.2 \, license: GPL3;
+#X obj 20 7362 ui.link @title https://github.com/uliss/pure-data @url
 https://github.com/uliss/pure-data;

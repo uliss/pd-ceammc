@@ -187,6 +187,7 @@ set(DOC_FILES
     string
     string.contains
     string.ends_with
+    string.equal
     string.format
     string.join
     string.remove

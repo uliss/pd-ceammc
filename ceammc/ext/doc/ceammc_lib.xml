@@ -587,6 +587,9 @@
     <entry descr="checks if given string ends with specified suffix" name="string.ends_with" ref_view="object">
       <xi:include href="string.ends_with.pddoc" parse="xml"/>
     </entry>
+    <entry descr="check strings for equality" name="string.equal" ref_view="object">
+      <xi:include href="string.equal.pddoc" parse="xml"/>
+    </entry>
     <entry descr="formats string like printf." name="string.format" ref_view="object">
       <xi:include href="string.format.pddoc" parse="xml"/>
     </entry>

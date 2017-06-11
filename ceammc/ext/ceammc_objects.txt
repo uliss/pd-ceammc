@@ -262,6 +262,7 @@ str->sec
 str->sym
 str.contains
 str.ends_with
+str.equal
 str.format
 str.join
 str.remove
@@ -271,6 +272,7 @@ str.starts_with
 string
 string.contains
 string.ends_with
+string.equal
 string.format
 string.join
 string.remove

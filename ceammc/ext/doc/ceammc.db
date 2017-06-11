@@ -178,6 +178,7 @@ snd.file		.		.
 string,str		.		.
 string.contains,str.contains		..		.
 string.ends_with,str.ends_with		..		.
+string.equal,str.equal		..		.
 string.format,str.format		.		.
 string.join,str.join		.		.
 string.remove,str.remove		..		.

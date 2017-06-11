@@ -30,6 +30,7 @@
     - string.ends_with (str.ends_with)
     - string.contains (str.contains)
     - string.starts_with (str.starts_with)
+    - string.equal (str.equal)
 - Set data type added and objects:
     - data.set
     - data.set2list (set->list)
