@@ -45,12 +45,8 @@ set(CEAMMC_LIB_SOURCES ceammc.h
 
 if(UNIX)
     list(APPEND CEAMMC_LIB_SOURCES ceammc_platform_unix.cpp)
-    if(ICONV_FOUND)
-        include_directories(${ICONV_INCLUDE_DIR})
-        list(APPEND CEAMMC_LIB_SOURCES ceammc_string_iconv.cpp)
-    endif()
 elseif(WIN32)
-    list(APPEND CEAMMC_LIB_SOURCES ceammc_string_win.cpp ceammc_platform_win.cpp)
+    list(APPEND CEAMMC_LIB_SOURCES ceammc_platform_win.cpp)
 endif()
 
 # main shared library
@@ -68,10 +64,6 @@ if(WIN32)
         COMMAND ${CMAKE_COMMAND} -E copy_if_different
             "$<TARGET_FILE:ceammc_core>"
             "${CMAKE_CURRENT_BINARY_DIR}/../tests")
-endif()
-
-if(ICONV_FOUND)
-    target_link_libraries(ceammc_core ${ICONV_LIBRARIES})
 endif()
 
 target_link_libraries(ceammc_core utf8rewind)

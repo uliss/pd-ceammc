@@ -18,17 +18,9 @@
 #include <cstdlib>
 #include <iostream>
 
-#ifdef __WIN32
-#define NS(f) win_##f
-#include "ceammc_string_win.h"
-#else
-#define NS(f) iconv_##f
-#include "ceammc_string_iconv.h"
-#endif
-
 size_t ceammc::string::utf8_strlen(const char* str)
 {
-    return NS(utf8_strlen)(str);
+    return utf8len(str);
 }
 
 std::string ceammc::string::utf8_to_upper(const char* str)
