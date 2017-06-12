@@ -181,4 +181,90 @@ TEST_CASE("DataString", "[external]")
             REQUIRE(DataTypeString("АБВГД").toLower() == DataTypeString("абвгд"));
         }
     }
+
+    SECTION("substr")
+    {
+        SECTION("ascii")
+        {
+            REQUIRE(DataTypeString("TEST STRING").substr(0, 4) == DataTypeString("TEST"));
+            REQUIRE(DataTypeString("TEST STRING").substr(0, 0) == DataTypeString(""));
+
+            REQUIRE(DataTypeString("TEST").substr(0, 40) == DataTypeString("TEST"));
+            REQUIRE(DataTypeString("TEST").substr(0, 4) == DataTypeString("TEST"));
+            REQUIRE(DataTypeString("TEST").substr(1, 40) == DataTypeString("EST"));
+            REQUIRE(DataTypeString("TEST").substr(1, 3) == DataTypeString("EST"));
+            REQUIRE(DataTypeString("TEST").substr(2, 40) == DataTypeString("ST"));
+            REQUIRE(DataTypeString("TEST").substr(2, 2) == DataTypeString("ST"));
+            REQUIRE(DataTypeString("TEST").substr(3, 40) == DataTypeString("T"));
+            REQUIRE(DataTypeString("TEST").substr(3, 1) == DataTypeString("T"));
+            REQUIRE(DataTypeString("TEST").substr(3, 40) == DataTypeString("T"));
+            REQUIRE(DataTypeString("TEST").substr(4, 0) == DataTypeString(""));
+            REQUIRE(DataTypeString("TEST").substr(4, 1) == DataTypeString(""));
+
+            REQUIRE(DataTypeString("TEST").substr(-1, 40) == DataTypeString("T"));
+            REQUIRE(DataTypeString("TEST").substr(-1, 1) == DataTypeString("T"));
+            REQUIRE(DataTypeString("TEST").substr(-2, 40) == DataTypeString("ST"));
+            REQUIRE(DataTypeString("TEST").substr(-2, 2) == DataTypeString("ST"));
+            REQUIRE(DataTypeString("TEST").substr(-3, 40) == DataTypeString("EST"));
+            REQUIRE(DataTypeString("TEST").substr(-3, 3) == DataTypeString("EST"));
+            REQUIRE(DataTypeString("TEST").substr(-4, 40) == DataTypeString("TEST"));
+            REQUIRE(DataTypeString("TEST").substr(-4, 4) == DataTypeString("TEST"));
+
+            REQUIRE(DataTypeString("TEST").substr(-1, 1) == DataTypeString("T"));
+            REQUIRE(DataTypeString("TEST").substr(-2, 1) == DataTypeString("S"));
+            REQUIRE(DataTypeString("TEST").substr(-3, 1) == DataTypeString("E"));
+            REQUIRE(DataTypeString("TEST").substr(-4, 1) == DataTypeString("T"));
+
+            REQUIRE(DataTypeString("TEST").substr(0, 1) == DataTypeString("T"));
+            REQUIRE(DataTypeString("TEST").substr(1, 1) == DataTypeString("E"));
+            REQUIRE(DataTypeString("TEST").substr(2, 1) == DataTypeString("S"));
+            REQUIRE(DataTypeString("TEST").substr(3, 1) == DataTypeString("T"));
+
+            // out of range
+            REQUIRE(DataTypeString("TEST").substr(5, 40) == DataTypeString(""));
+            REQUIRE(DataTypeString("TEST").substr(5, 4) == DataTypeString(""));
+            REQUIRE(DataTypeString("TEST").substr(-5, 40) == DataTypeString(""));
+            REQUIRE(DataTypeString("TEST").substr(-5, 4) == DataTypeString(""));
+        }
+
+        SECTION("UTF-8")
+        {
+            REQUIRE(DataTypeString("ТЕСТ").substr(0, 40) == DataTypeString("ТЕСТ"));
+            REQUIRE(DataTypeString("ТЕСТ").substr(0, 4) == DataTypeString("ТЕСТ"));
+            REQUIRE(DataTypeString("ТЕСТ").substr(1, 40) == DataTypeString("ЕСТ"));
+            REQUIRE(DataTypeString("ТЕСТ").substr(1, 3) == DataTypeString("ЕСТ"));
+            REQUIRE(DataTypeString("ТЕСТ").substr(2, 40) == DataTypeString("СТ"));
+            REQUIRE(DataTypeString("ТЕСТ").substr(2, 2) == DataTypeString("СТ"));
+            REQUIRE(DataTypeString("ТЕСТ").substr(3, 40) == DataTypeString("Т"));
+            REQUIRE(DataTypeString("ТЕСТ").substr(3, 1) == DataTypeString("Т"));
+            REQUIRE(DataTypeString("ТЕСТ").substr(3, 40) == DataTypeString("Т"));
+            REQUIRE(DataTypeString("ТЕСТ").substr(4, 0) == DataTypeString(""));
+            REQUIRE(DataTypeString("ТЕСТ").substr(4, 1) == DataTypeString(""));
+
+            REQUIRE(DataTypeString("ТЕСТ").substr(-1, 40) == DataTypeString("Т"));
+            REQUIRE(DataTypeString("ТЕСТ").substr(-1, 1) == DataTypeString("Т"));
+            REQUIRE(DataTypeString("ТЕСТ").substr(-2, 40) == DataTypeString("СТ"));
+            REQUIRE(DataTypeString("ТЕСТ").substr(-2, 2) == DataTypeString("СТ"));
+            REQUIRE(DataTypeString("ТЕСТ").substr(-3, 40) == DataTypeString("ЕСТ"));
+            REQUIRE(DataTypeString("ТЕСТ").substr(-3, 3) == DataTypeString("ЕСТ"));
+            REQUIRE(DataTypeString("ТЕСТ").substr(-4, 40) == DataTypeString("ТЕСТ"));
+            REQUIRE(DataTypeString("ТЕСТ").substr(-4, 4) == DataTypeString("ТЕСТ"));
+
+            REQUIRE(DataTypeString("ТЕСТ").substr(-1, 1) == DataTypeString("Т"));
+            REQUIRE(DataTypeString("ТЕСТ").substr(-2, 1) == DataTypeString("С"));
+            REQUIRE(DataTypeString("ТЕСТ").substr(-3, 1) == DataTypeString("Е"));
+            REQUIRE(DataTypeString("ТЕСТ").substr(-4, 1) == DataTypeString("Т"));
+
+            REQUIRE(DataTypeString("ТЕСТ").substr(0, 1) == DataTypeString("Т"));
+            REQUIRE(DataTypeString("ТЕСТ").substr(1, 1) == DataTypeString("Е"));
+            REQUIRE(DataTypeString("ТЕСТ").substr(2, 1) == DataTypeString("С"));
+            REQUIRE(DataTypeString("ТЕСТ").substr(3, 1) == DataTypeString("Т"));
+
+            // out of range
+            REQUIRE(DataTypeString("ТЕСТ").substr(5, 40) == DataTypeString(""));
+            REQUIRE(DataTypeString("ТЕСТ").substr(5, 4) == DataTypeString(""));
+            REQUIRE(DataTypeString("ТЕСТ").substr(-5, 40) == DataTypeString(""));
+            REQUIRE(DataTypeString("ТЕСТ").substr(-5, 4) == DataTypeString(""));
+        }
+    }
 }

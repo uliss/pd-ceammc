@@ -68,6 +68,8 @@ public:
     DataTypeString toLower() const;
     DataTypeString toUpper() const;
 
+    DataTypeString substr(int from, size_t len) const;
+
 public:
     static const DataType dataType;
 

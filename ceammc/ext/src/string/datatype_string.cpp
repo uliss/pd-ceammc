@@ -170,6 +170,11 @@ DataTypeString DataTypeString::toUpper() const
     return ceammc::string::utf8_to_upper(str_.c_str());
 }
 
+DataTypeString DataTypeString::substr(int from, size_t len) const
+{
+    return ceammc::string::utf8_substr(str_.c_str(), from, len);
+}
+
 void DataTypeString::splitEveryChar(std::vector<std::string>& res) const
 {
     res.clear();

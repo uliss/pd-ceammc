@@ -26,20 +26,17 @@ size_t ceammc::string::utf8_strlen(const char* str)
 std::string ceammc::string::utf8_to_upper(const char* str)
 {
     size_t input_size = strlen(str);
-    size_t converted_size = 0;
     int32_t errors = 0;
 
-    if ((converted_size = utf8toupper(str, input_size, NULL, 0, UTF8_LOCALE_DEFAULT, &errors)) == 0
-        || errors != UTF8_ERR_NONE) {
+    size_t converted_size = utf8toupper(str, input_size, NULL, 0, UTF8_LOCALE_DEFAULT, &errors);
+    if (converted_size == 0 || errors != UTF8_ERR_NONE)
         return std::string();
-    }
 
     boost::scoped_array<char> converted(new char[converted_size + 1]);
 
-    if (utf8toupper(str, input_size, converted.get(), converted_size, UTF8_LOCALE_DEFAULT, &errors) == 0
-        || errors != UTF8_ERR_NONE) {
+    converted_size = utf8toupper(str, input_size, converted.get(), converted_size, UTF8_LOCALE_DEFAULT, &errors);
+    if (converted_size == 0 || errors != UTF8_ERR_NONE)
         return std::string();
-    }
 
     return std::string(converted.get(), converted_size);
 }
@@ -47,20 +44,62 @@ std::string ceammc::string::utf8_to_upper(const char* str)
 std::string ceammc::string::utf8_to_lower(const char* str)
 {
     size_t input_size = strlen(str);
-    size_t converted_size = 0;
     int32_t errors = 0;
 
-    if ((converted_size = utf8tolower(str, input_size, NULL, 0, UTF8_LOCALE_DEFAULT, &errors)) == 0
-        || errors != UTF8_ERR_NONE) {
+    size_t converted_size = utf8tolower(str, input_size, NULL, 0, UTF8_LOCALE_DEFAULT, &errors);
+    if (converted_size == 0 || errors != UTF8_ERR_NONE)
         return std::string();
-    }
 
     boost::scoped_array<char> converted(new char[converted_size + 1]);
 
-    if (utf8tolower(str, input_size, converted.get(), converted_size, UTF8_LOCALE_DEFAULT, &errors) == 0
-        || errors != UTF8_ERR_NONE) {
+    converted_size = utf8tolower(str, input_size, converted.get(), converted_size, UTF8_LOCALE_DEFAULT, &errors);
+    if (converted_size == 0 || errors != UTF8_ERR_NONE)
         return std::string();
-    }
 
     return std::string(converted.get(), converted_size);
+}
+
+std::string ceammc::string::utf8_substr(const char* str, int from, size_t len)
+{
+    int32_t errors = 0;
+    const size_t N = utf8len(str);
+
+    if (len == 0)
+        return std::string();
+
+    // check range
+    // positive position
+    if (from >= 0 && from >= N)
+        return std::string();
+
+    // negative position
+    if (from < 0) {
+        if (-from <= int(N))
+            from += N;
+        else
+            return std::string();
+    }
+
+    // clip
+    len = std::min<size_t>(len, N - from);
+
+    assert(from + len <= N);
+    assert(from < N);
+    assert(len <= N);
+
+    boost::scoped_array<unicode_t> wide(new unicode_t[N]);
+    boost::scoped_array<char> narrow(new char[strlen(str)]);
+
+    size_t converted_size = utf8toutf32(str, strlen(str),
+        wide.get(), N * sizeof(unicode_t), &errors);
+
+    if (converted_size == 0 || errors != UTF8_ERR_NONE)
+        return std::string();
+
+    converted_size = utf32toutf8(wide.get() + from, len * sizeof(unicode_t),
+        narrow.get(), strlen(str), &errors);
+    if (converted_size == 0 || errors != UTF8_ERR_NONE)
+        return std::string();
+
+    return std::string(narrow.get(), converted_size);
 }
