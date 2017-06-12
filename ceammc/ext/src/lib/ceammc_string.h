@@ -15,10 +15,12 @@
 #define CEAMMC_STRING_H
 
 #include <cstddef>
+#include <string>
 
 namespace ceammc {
 namespace string {
     size_t utf8_strlen(const char* str);
+    std::string utf8_to_upper(const char* str);
 }
 }
 
