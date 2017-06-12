@@ -15,6 +15,7 @@ ceammc_string_extension(split)
 ceammc_string_extension(starts_with)
 ceammc_string_extension(str)
 ceammc_string_extension(to_symbol)
+ceammc_string_extension(substr)
 
 add_library(ceammc_string STATIC mod_string.cpp ${STRING_SOURCES})
 if(UNIX)

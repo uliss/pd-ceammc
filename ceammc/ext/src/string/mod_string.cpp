@@ -10,6 +10,7 @@
 #include "string_split.h"
 #include "string_starts_with.h"
 #include "string_str.h"
+#include "string_substr.h"
 #include "string_to_symbol.h"
 
 void ceammc_string_setup()
@@ -24,6 +25,7 @@ void ceammc_string_setup()
     setup_string0x2ereplace();
     setup_string0x2esplit();
     setup_string0x2estarts_with();
+    setup_string0x2esubstr();
     setup_string0x2eto_symbol();
     string_setup();
 }
