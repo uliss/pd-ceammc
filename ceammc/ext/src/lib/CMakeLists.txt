@@ -1,3 +1,4 @@
+add_subdirectory(utf8rewind)
 include_directories(${CMAKE_BINARY_DIR}) # for config.h
 include_directories(${PROJECT_SOURCE_DIR}/src)
 include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra/CicmWrapper/Sources)
@@ -72,6 +73,8 @@ endif()
 if(ICONV_FOUND)
     target_link_libraries(ceammc_core ${ICONV_LIBRARIES})
 endif()
+
+target_link_libraries(ceammc_core utf8rewind)
 
 #
 # sound library
