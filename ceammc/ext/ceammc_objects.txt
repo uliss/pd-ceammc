@@ -270,6 +270,7 @@ str.remove
 str.replace
 str.split
 str.starts_with
+str.substr
 string
 string.contains
 string.ends_with
@@ -281,6 +282,7 @@ string.remove
 string.replace
 string.split
 string.starts_with
+string.substr
 string2symbol
 symbol.ends_with
 symbol.equal

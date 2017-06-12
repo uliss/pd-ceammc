@@ -31,6 +31,7 @@
     - string.contains (str.contains)
     - string.starts_with (str.starts_with)
     - string.equal (str.equal)
+    - string.substr (str.substr)
 - Set data type added and objects:
     - data.set
     - data.set2list (set->list)
