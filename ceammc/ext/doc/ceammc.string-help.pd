@@ -24,9 +24,11 @@
 #X text 175 359 split string by separator;
 #X obj 30 386 string.starts_with;
 #X text 175 386 checks if given string starts with specified prefix;
-#X obj 30 413 string2symbol;
-#X text 175 413 converts string to symbol;
+#X obj 30 413 string.substr;
+#X text 175 413 extract substring from input string;
+#X obj 30 440 string2symbol;
+#X text 175 440 converts string to symbol;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::string 20 20 0 20 -104026
 -4096 0;
-#X obj 1 458 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 468 library: ceammc;
+#X obj 1 467 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 477 library: ceammc;

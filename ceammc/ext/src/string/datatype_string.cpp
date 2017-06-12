@@ -177,11 +177,7 @@ DataTypeString DataTypeString::substr(int from, size_t len) const
 
 void DataTypeString::splitEveryChar(std::vector<std::string>& res) const
 {
-    res.clear();
-    res.reserve(str_.size());
-
-    for (size_t i = 0; i < str_.size(); i++)
-        res.push_back(std::string(1, str_[i]));
+    ceammc::string::utf8_split_by_char(res, str_.c_str());
 }
 
 static bool is_empty(const std::string& s)

@@ -103,3 +103,22 @@ std::string ceammc::string::utf8_substr(const char* str, int from, size_t len)
 
     return std::string(narrow.get(), converted_size);
 }
+
+void ceammc::string::utf8_split_by_char(std::vector<std::string>& vec, const char* str)
+{
+    vec.clear();
+    size_t len = utf8len(str);
+    if (len == 0)
+        return;
+
+    vec.reserve(len);
+
+    const char* c0 = str;
+    const char* c1 = str;
+
+    while (len-- > 0) {
+        c1 = utf8seek(c0, strlen(str), c0, 1, SEEK_CUR);
+        vec.push_back(std::string(c0, c1 - c0));
+        c0 = c1;
+    }
+}

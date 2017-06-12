@@ -186,6 +186,7 @@ string.remove,str.remove		..		.
 string.replace,str.replace		...		.
 string.split,str.split		.		.
 string.starts_with,str.starts_with		..		.
+string.substr,str.substr		.		.
 string2symbol,str->sym		.		.
 symbol.equal		..		.
 symbol.length		.		.

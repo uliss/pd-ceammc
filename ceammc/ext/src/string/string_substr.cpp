@@ -17,7 +17,6 @@
 StringSubstr::StringSubstr(const PdArgs& a)
     : BaseObject(a)
 {
-    createInlet();
     createOutlet();
 
     from_ = new IntProperty("@from", positionalArgument(0).asInt(0));

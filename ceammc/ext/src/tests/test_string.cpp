@@ -168,4 +168,33 @@ TEST_CASE("ceammc_string", "[PureData]")
             REQUIRE(utf8_substr("ТЕСТ", -1, 5) == "Т");
         }
     }
+
+    SECTION("splitByChar")
+    {
+        std::vector<std::string> chars;
+        utf8_split_by_char(chars, "");
+        REQUIRE(chars.empty());
+
+        utf8_split_by_char(chars, "abc");
+        REQUIRE(chars.size() == 3);
+        REQUIRE(chars[0] == "a");
+        REQUIRE(chars[1] == "b");
+        REQUIRE(chars[2] == "c");
+
+        utf8_split_by_char(chars, "абв 123");
+        REQUIRE(chars.size() == 7);
+        REQUIRE(chars[0] == "а");
+        REQUIRE(chars[1] == "б");
+        REQUIRE(chars[2] == "в");
+        REQUIRE(chars[3] == " ");
+        REQUIRE(chars[4] == "1");
+        REQUIRE(chars[5] == "2");
+        REQUIRE(chars[6] == "3");
+
+        utf8_split_by_char(chars, "1的Ж");
+        REQUIRE(chars.size() == 3);
+        REQUIRE(chars[0] == "1");
+        REQUIRE(chars[1] == "的");
+        REQUIRE(chars[2] == "Ж");
+    }
 }

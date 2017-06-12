@@ -611,6 +611,9 @@
     <entry descr="checks if given string starts with specified prefix" name="string.starts_with" ref_view="object">
       <xi:include href="string.starts_with.pddoc" parse="xml"/>
     </entry>
+    <entry descr="extract substring from input string" name="string.substr" ref_view="object">
+      <xi:include href="string.substr.pddoc" parse="xml"/>
+    </entry>
     <entry descr="converts string to symbol" name="string2symbol" ref_view="object">
       <xi:include href="string2symbol.pddoc" parse="xml"/>
     </entry>

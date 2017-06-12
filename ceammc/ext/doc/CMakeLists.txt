@@ -194,6 +194,7 @@ set(DOC_FILES
     string.remove
     string.replace
     string.split
+    string.substr
     string.starts_with
     string2symbol
     symbol.equal
