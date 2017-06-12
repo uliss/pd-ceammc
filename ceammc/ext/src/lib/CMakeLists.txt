@@ -3,8 +3,6 @@ include_directories(${CMAKE_BINARY_DIR}) # for config.h
 include_directories(${PROJECT_SOURCE_DIR}/src)
 include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra/CicmWrapper/Sources)
 
-find_package(Iconv)
-
 set(LIBCEAMMC_COMPILE_FLAGS "${PD_EXTERNAL_CFLAGS}")
 set(LIBCEAMMC_LINK_FLAGS ${PD_EXTERNAL_LDFLAGS})
 if(WIN32)
