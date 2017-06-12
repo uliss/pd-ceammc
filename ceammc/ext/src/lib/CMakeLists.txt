@@ -1,7 +1,7 @@
-add_subdirectory(utf8rewind)
 include_directories(${CMAKE_BINARY_DIR}) # for config.h
 include_directories(${PROJECT_SOURCE_DIR}/src)
 include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra/CicmWrapper/Sources)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/utf8rewind)
 
 set(LIBCEAMMC_COMPILE_FLAGS "${PD_EXTERNAL_CFLAGS}")
 set(LIBCEAMMC_LINK_FLAGS ${PD_EXTERNAL_LDFLAGS})
@@ -10,11 +10,21 @@ if(WIN32)
     set(LIBCEAMMC_COMPILE_FLAGS "-lpsapi")
 endif()
 
+set(UTF8REWIND_SOURCES
+    utf8rewind/utf8rewind.c
+    utf8rewind/unicodedatabase.c
+    utf8rewind/internal/casemapping.c
+    utf8rewind/internal/codepoint.c
+    utf8rewind/internal/composition.c
+    utf8rewind/internal/database.c
+    utf8rewind/internal/decomposition.c
+    utf8rewind/internal/seeking.c
+    utf8rewind/internal/streaming.c)
+
 set(CEAMMC_LIB_SOURCES ceammc.h
     ceammc.hpp
     ceammc.c
     ceammc.cpp
-    ceammc_gui.h
     ceammc_abstractdata.cpp
     ceammc_array.cpp
     ceammc_atom.cpp
@@ -29,17 +39,20 @@ set(CEAMMC_LIB_SOURCES ceammc.h
     ceammc_faust.cpp
     ceammc_fn_list.cpp
     ceammc_fn_vector.cpp
+    ceammc_format.cpp
+    ceammc_gui.h
+    ceammc_impl.cpp
     ceammc_log.cpp
     ceammc_message.cpp
-    ceammc_format.cpp
     ceammc_object.cpp
-    ceammc_impl.cpp
     ceammc_pd.cpp
     ceammc_platform.cpp
     ceammc_property.cpp
     ceammc_string.cpp
     ceammc_timeline.cpp
-    ceammc_window)
+    ceammc_window.cpp
+
+    ${UTF8REWIND_SOURCES})
 
 if(UNIX)
     list(APPEND CEAMMC_LIB_SOURCES ceammc_platform_unix.cpp)
@@ -55,7 +68,7 @@ set_target_properties(ceammc_core PROPERTIES
     LINK_FLAGS    "${LIBCEAMMC_LINK_FLAGS}")
 
 if(WIN32)
-    target_link_libraries(ceammc_core psapi shlwapi puredata-core)
+    target_link_libraries(ceammc_core psapi shlwapi msvcr100 puredata-core)
 
     # copy library to tests folder
     add_custom_command(TARGET ceammc_core POST_BUILD
@@ -63,8 +76,6 @@ if(WIN32)
             "$<TARGET_FILE:ceammc_core>"
             "${CMAKE_CURRENT_BINARY_DIR}/../tests")
 endif()
-
-target_link_libraries(ceammc_core utf8rewind)
 
 #
 # sound library
