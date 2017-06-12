@@ -51,3 +51,24 @@ std::string ceammc::string::utf8_to_upper(const char* str)
 
     return std::string(converted.get(), converted_size);
 }
+
+std::string ceammc::string::utf8_to_lower(const char* str)
+{
+    size_t input_size = strlen(str);
+    size_t converted_size = 0;
+    int32_t errors = 0;
+
+    if ((converted_size = utf8tolower(str, input_size, NULL, 0, UTF8_LOCALE_DEFAULT, &errors)) == 0
+        || errors != UTF8_ERR_NONE) {
+        return std::string();
+    }
+
+    boost::scoped_array<char> converted(new char[converted_size + 1]);
+
+    if (utf8tolower(str, input_size, converted.get(), converted_size, UTF8_LOCALE_DEFAULT, &errors) == 0
+        || errors != UTF8_ERR_NONE) {
+        return std::string();
+    }
+
+    return std::string(converted.get(), converted_size);
+}

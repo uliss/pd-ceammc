@@ -17,6 +17,7 @@
 #include "ceammc_atomlist.h"
 #include "ceammc_data.h"
 
+#include <iostream>
 #include <string>
 #include <vector>
 
@@ -64,6 +65,9 @@ public:
 
     size_t length() const;
 
+    DataTypeString toLower() const;
+    DataTypeString toUpper() const;
+
 public:
     static const DataType dataType;
 
@@ -71,5 +75,7 @@ private:
     void splitEveryChar(std::vector<std::string>& res) const;
     void splitBySep(std::vector<std::string>& res, const std::string& sep) const;
 };
+
+std::ostream& operator<<(std::ostream& os, const DataTypeString& d);
 
 #endif // DATASTRING_H

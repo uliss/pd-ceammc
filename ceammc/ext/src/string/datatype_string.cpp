@@ -160,6 +160,16 @@ size_t DataTypeString::length() const
     return string::utf8_strlen(str_.c_str());
 }
 
+DataTypeString DataTypeString::toLower() const
+{
+    return ceammc::string::utf8_to_lower(str_.c_str());
+}
+
+DataTypeString DataTypeString::toUpper() const
+{
+    return ceammc::string::utf8_to_upper(str_.c_str());
+}
+
 void DataTypeString::splitEveryChar(std::vector<std::string>& res) const
 {
     res.clear();
@@ -183,4 +193,10 @@ void DataTypeString::splitBySep(std::vector<std::string>& res, const std::string
     boost::algorithm::split(res, str_, boost::is_any_of(sep), boost::token_compress_on);
     // remove all empty elements
     res.erase(std::remove_if(res.begin(), res.end(), is_empty), res.end());
+}
+
+std::ostream& operator<<(std::ostream& os, const DataTypeString& d)
+{
+    os << d.toString();
+    return os;
 }

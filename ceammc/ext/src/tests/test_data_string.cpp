@@ -157,7 +157,28 @@ TEST_CASE("DataString", "[external]")
             REQUIRE(DataTypeString("").replaceLast("ABC", "") == DataTypeString(""));
             REQUIRE(DataTypeString("ABC").replaceLast("", "ABC") == DataTypeString("ABC"));
             REQUIRE(DataTypeString("123454321").replaceLast("1", "...") == DataTypeString("12345432..."));
+        }
+    }
 
+    SECTION("case")
+    {
+        SECTION("upper")
+        {
+            REQUIRE(DataTypeString("").toUpper() == DataTypeString(""));
+            REQUIRE(DataTypeString("123 56").toUpper() == DataTypeString("123 56"));
+            REQUIRE(DataTypeString("abc").toUpper() == DataTypeString("ABC"));
+            REQUIRE(DataTypeString("éfoo").toUpper() == DataTypeString("ÉFOO"));
+            REQUIRE(DataTypeString("абвгд").toUpper() == DataTypeString("АБВГД"));
+        }
+
+        SECTION("lower")
+        {
+            REQUIRE(DataTypeString("").toLower() == DataTypeString(""));
+            REQUIRE(DataTypeString("123 56").toLower() == DataTypeString("123 56"));
+            REQUIRE(DataTypeString("abc").toLower() == DataTypeString("abc"));
+            REQUIRE(DataTypeString("ABC").toLower() == DataTypeString("abc"));
+            REQUIRE(DataTypeString("ÉFOO").toLower() == DataTypeString("éfoo"));
+            REQUIRE(DataTypeString("АБВГД").toLower() == DataTypeString("абвгд"));
         }
     }
 }
