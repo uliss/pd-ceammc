@@ -11,11 +11,34 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef CEAMMC_STRING_ICONV_H
-#define CEAMMC_STRING_ICONV_H
+#ifndef DATA_SET_H
+#define DATA_SET_H
 
-#include <cstddef>
+#include "ceammc_data.h"
+#include "ceammc_dataatom.h"
+#include "ceammc_object.h"
+#include "datatype_set.h"
 
-size_t iconv_utf8_strlen(const char*);
+using namespace ceammc;
 
-#endif // CEAMMC_STRING_ICONV_H
+class DataSet : public BaseObject {
+    DataT<DataTypeSet> set_;
+
+public:
+    DataSet(const PdArgs& a);
+
+    void dump() const;
+    void onBang();
+    void onFloat(float f);
+    void onSymbol(t_symbol* s);
+    void onList(const AtomList& l);
+    void onDataT(const DataTypeSet& s);
+
+    void m_clear(t_symbol*, const AtomList&);
+    void m_add(t_symbol*, const AtomList& l);
+    void m_remove(t_symbol*, const AtomList& l);
+};
+
+extern "C" void setup_data0x2eset();
+
+#endif // DATA_SET_H

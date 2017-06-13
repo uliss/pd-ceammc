@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="string.contains">
+        <title>string.contains</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>checks if given string contains specified substring</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>string</category>
+            <keywords>contains</keywords>
+            <since>0.3</since>
+            <aliases>
+                <alias>str.contains</alias>
+            </aliases>
+            <also>
+                <see>str.ends_with</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="SUBSTR" type="symbol">searched substring</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo>Input string or symbol</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo>search substring (string or symbol)</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output 1 if input string contains specified substring, otherwise 0</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]
+|
+[string test] [symbol message(  [symbol simple(
+|             |                 |
+|             |                 |
+|             |                 |
+[str.contains                 es]
+|
+[T]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

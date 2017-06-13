@@ -15,6 +15,7 @@
 #define CEAMMC_OBJECT_H
 
 #include "ceammc_atomlist.h"
+#include "ceammc_data.h"
 #include "ceammc_message.h"
 #include "ceammc_property.h"
 
@@ -108,6 +109,7 @@ public:
     virtual void onFloat(float) {}
     virtual void onSymbol(t_symbol*) {}
     virtual void onList(const AtomList&) {}
+    virtual void onData(const AbstractData*) {}
     virtual void onAny(t_symbol*, const AtomList&) {}
 
     /**
@@ -216,6 +218,8 @@ public:
     virtual void anyTo(size_t n, const AtomList& l);
     virtual void anyTo(size_t n, t_symbol* s, const Atom& a);
     virtual void anyTo(size_t n, t_symbol* s, const AtomList& l);
+
+    virtual void dataTo(size_t n, const Data& d);
 
     virtual bool processAnyInlets(t_symbol* sel, const AtomList& lst);
     virtual bool processAnyProps(t_symbol* sel, const AtomList& lst);

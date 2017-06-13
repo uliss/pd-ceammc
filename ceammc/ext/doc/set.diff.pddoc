@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="set.diff">
+        <title>set.diff</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>difference between two sets</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>data</category>
+            <keywords>data difference set</keywords>
+            <since>0.3</since>
+            <also>
+                <see>data.set</see>
+                <see>set.union</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="ARGS" type="any">right set elements</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo>first set or list (converted to set), other values are ignored</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo>second set or list (converted to set)</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output set with elements from first set, that are not in second set</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]
+|
+[data.set 1 2 3 4 5 6]
+|
+[set.diff 2 4 6]
+|
+[set->list @sort]
+|
+[msg set]
+|
+[ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

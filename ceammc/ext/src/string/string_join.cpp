@@ -1,42 +1,91 @@
-#include "ceammc.h"
-#include <glib.h>
-#include <m_pd.h>
+/*****************************************************************************
+ * Copyright 2017 Serge Poltavsky. All rights reserved.
+ *
+ * This file may be distributed under the terms of GNU Public License version
+ * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
+ * license should have been included with this file, or the project in which
+ * this file belongs to. You may also find the details of GPL v3 at:
+ * http://www.gnu.org/licenses/gpl-3.0.txt
+ *
+ * If you have any questions regarding the use of this file, feel free to
+ * contact the author of this file, or the owner of the project in which
+ * this file belongs to.
+ *****************************************************************************/
+#include "string_join.h"
+#include "ceammc_format.h"
+#include "ceammc_factory.h"
 
-t_class* string_join_class;
-struct t_string_join {
-    t_object x_obj;
-    t_symbol *str2;
-    t_symbol *str_out;
-    t_outlet *out1;
-};
-
-static void string_join_symbol(t_string_join* x, t_symbol* s)
+StringJoin::StringJoin(const PdArgs& a)
+    : BaseObject(a)
+    , str_(new DataTypeString(""))
+    , sep_("")
 {
+    createOutlet();
 
-    gchar *str1 = s->s_name;    //?
-    g_strlcat(str1, x->str2->s_name, 1024);
-  
-    x->str_out = gensym(str1);
-    outlet_symbol(x->out1, x->str_out);
+    createCbProperty("@sep", &StringJoin::propGetSeparator, &StringJoin::propSetSeparator);
+    parseArgs();
 }
 
-static void* string_join_new()
+void StringJoin::onBang()
 {
-    t_string_join* x = reinterpret_cast<t_string_join*>(pd_new(string_join_class));
-    
-    symbolinlet_new(&x->x_obj, &x->str2);
-    
-    x->out1 = outlet_new(&x->x_obj, &s_symbol);
-    
-    return static_cast<void*>(x);
+    dataTo(0, str_);
+}
+
+void StringJoin::onFloat(float f)
+{
+    str_->set(f);
+    onBang();
+}
+
+void StringJoin::onSymbol(t_symbol* s)
+{
+    str_->set(s);
+    onBang();
+}
+
+void StringJoin::onData(const AbstractData* d)
+{
+    str_->str() = d->toString();
+    onBang();
+}
+
+void StringJoin::onList(const AtomList& l)
+{
+    str_->str() = to_string(l, sep_);
+    onBang();
+}
+
+AtomList StringJoin::propGetSeparator() const
+{
+    return Atom(gensym(sep_.c_str()));
+}
+
+void StringJoin::propSetSeparator(const AtomList& l)
+{
+    if (l.size() != 1) {
+        OBJ_ERR << "single separator value required";
+        return;
+    }
+
+    sep_ = to_string(l[0]);
+}
+
+void StringJoin::parseArgs()
+{
+    if (positionalArguments() == AtomList(gensym("'"), gensym("'"))) {
+        sep_ = " ";
+        return;
+    }
+
+    if (positionalArguments().size() > 0) {
+        const Atom& a = positionalArguments()[0];
+        sep_ = to_string(a);
+    }
 }
 
 extern "C" void setup_string0x2ejoin()
 {
-    string_join_class = class_new(gensym("string.join"),
-        reinterpret_cast<t_newmethod>(string_join_new),
-        reinterpret_cast<t_method>(0),
-        sizeof(t_string_join), 0, A_NULL);
-    
-    class_addsymbol(string_join_class, string_join_symbol);
+    ObjectFactory<StringJoin> obj("string.join");
+    obj.processData();
+    obj.addAlias("str.join");
 }

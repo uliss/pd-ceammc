@@ -13,7 +13,7 @@
             <keywords>data fifo</keywords>
             <since>0.1</since>
             <also>
-                <see>data.stack</see>
+                <see>data.list</see>
             </also>
         </meta>
         <info>

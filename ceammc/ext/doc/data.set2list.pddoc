@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="data.set2list">
+        <title>data.set2list</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>converts set to list</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>data</category>
+            <keywords>data set list</keywords>
+            <since>0.3</since>
+            <aliases>
+                <alias>set-&gt;list</alias>
+            </aliases>
+            <also>
+                <see>data.set</see>
+            </also>
+        </meta>
+        <info>
+            <par>Note: output list is not sorted by default. You can use @sort flag to get sorted
+            output</par>
+        </info>
+        <properties>
+            <property name="@sort" type="flag">if specified - sort output list</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo>input set</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output list</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[dump(
+|
+| [B] [add a(   [remove a(
+| |   |         |
+| |   |         |
+| |   |         |
+[data.set a b c  d]
+|           |
+[set->list] [set->list @sort]
+|           |
+[msg set]   [msg set]
+|           |
+[ (         [ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

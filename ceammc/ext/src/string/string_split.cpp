@@ -1,80 +1,114 @@
-#include "ceammc.h"
-#include <glib.h>
-#include <stdlib.h>
-#include <m_pd.h>
-#include <string>
-#include <vector>
-#include <sstream>
+/*****************************************************************************
+ * Copyright 2017 Serge Poltavsky. All rights reserved.
+ *
+ * This file may be distributed under the terms of GNU Public License version
+ * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
+ * license should have been included with this file, or the project in which
+ * this file belongs to. You may also find the details of GPL v3 at:
+ * http://www.gnu.org/licenses/gpl-3.0.txt
+ *
+ * If you have any questions regarding the use of this file, feel free to
+ * contact the author of this file, or the owner of the project in which
+ * this file belongs to.
+ *****************************************************************************/
+#include "string_split.h"
+#include "ceammc_factory.h"
+#include "ceammc_format.h"
 
-t_class* string_split_class;
-struct t_string_split {
-    t_object x_obj;
-    t_symbol *str2;
-    t_atom *out1;
-    int out1count;
-    t_outlet *outlet1;
-};
+#include <boost/algorithm/string.hpp>
 
+static t_symbol* SQUOTE = gensym("'");
 
-//!
-void string_split_one(const std::string &s, char delim, std::vector<std::string> &elems) {
-    std::stringstream ss;
-    ss.str(s);
-    std::string item;
-    while (std::getline(ss, item, delim)) {
-        elems.push_back(item);
+static bool isSpace(const AtomList& lst)
+{
+    if (lst.size() != 2)
+        return false;
+
+    return lst == AtomList(SQUOTE, SQUOTE);
+}
+
+StringSplit::StringSplit(const PdArgs& a)
+    : BaseObject(a)
+{
+    createOutlet();
+
+    createCbProperty("@sep", &StringSplit::propGetSeparator, &StringSplit::propSetSeparator);
+    parseArgs();
+}
+
+void StringSplit::onSymbol(t_symbol* s)
+{
+    split(s);
+    output();
+}
+
+void StringSplit::onDataT(const DataTypeString& s)
+{
+    split(s);
+    output();
+}
+
+void StringSplit::split(const DataTypeString& s)
+{
+    tokens_.clear();
+    std::vector<std::string> tokens;
+    s.split(tokens, sep_);
+
+    for (size_t i = 0; i < tokens.size(); i++) {
+        Data d(new DataTypeString(tokens[i]));
+        tokens_.push_back(DataAtom(d));
     }
 }
-std::vector<std::string> string_split(const std::string &s, char delim) {
-    std::vector<std::string> elems;
-    string_split_one(s, delim, elems);
-    return elems;
+
+void StringSplit::output()
+{
+    AtomList res;
+
+    for (size_t i = 0; i < tokens_.size(); i++)
+        res.append(tokens_[i].toAtom());
+
+    listTo(0, res);
 }
 
-static void string_split_symbol(t_string_split* x, t_symbol* s)
+void StringSplit::parseArgs()
 {
-
-    std::string str1 = s->s_name;
-    std::string del1 = x->str2->s_name;
-
-    std::vector<std::string> vec = string_split(str1, del1.c_str()[0]);
-
-    x->out1count = (int)vec.size();
-    x->out1 = (t_atom*)malloc(sizeof(t_atom)*x->out1count);
-
-    std::vector<std::string>::iterator it;
-    int i=0;
-    for (it = vec.begin(); it != vec.end(); ++it)
-    {
-        x->out1[i].a_w.w_symbol = gensym(it->c_str());
-        x->out1[i].a_type = A_SYMBOL;
-        printf("%s\n",it->c_str());
-        i++;
+    if (isSpace(positionalArguments())) {
+        sep_ = " ";
+        return;
     }
 
-    outlet_list(x->outlet1, &s_list, x->out1count, x->out1);
+    if (positionalArguments().size() > 0) {
+        const Atom& a = positionalArguments()[0];
+        sep_ = to_string(a);
+    }
 }
 
-static void* string_split_new()
+AtomList StringSplit::propGetSeparator() const
 {
-    t_string_split* x = reinterpret_cast<t_string_split*>(pd_new(string_split_class));
+    return Atom(gensym(sep_.c_str()));
+}
 
-    symbolinlet_new(&x->x_obj, &x->str2);
-
-    x->str2 = gensym(" ");
-
-    x->outlet1 = outlet_new(&x->x_obj, &s_list);
-
-    x->out1 = (t_atom*)malloc(0);    //dummy
-    return static_cast<void*>(x);
+void StringSplit::propSetSeparator(const AtomList& l)
+{
+    switch (l.size()) {
+    case 0:
+        sep_ = "";
+        return;
+    case 1:
+        sep_ = to_string(l[0]);
+        return;
+    default: {
+        if (isSpace(l))
+            sep_ = " ";
+        else
+            sep_ = to_string(l[0]);
+    }
+    }
 }
 
 extern "C" void setup_string0x2esplit()
 {
-    string_split_class = class_new(gensym("string.split"),
-        reinterpret_cast<t_newmethod>(string_split_new),
-        reinterpret_cast<t_method>(0),
-        sizeof(t_string_split), 0, A_NULL);
-
-    class_addsymbol(string_split_class, string_split_symbol);
+    ObjectFactory<StringSplit> obj("string.split");
+    obj.processData<DataTypeString>();
+    obj.addAlias("str.split");
 }

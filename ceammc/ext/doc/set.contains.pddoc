@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="set.contains">
+        <title>set.contains</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>check if specified element is in set</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>data</category>
+            <keywords>data predicate contains</keywords>
+            <since>0.3</since>
+            <also>
+                <see>data.set</see>
+            </also>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo>input set. Other values are ignored</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="atom">single searched element</xinfo>
+                <xinfo on="list">check if at least one of elements is in set</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>1 if element exists in set, otherwise 0.</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]
+|
+[data.set 1 2 3 4]
+|
+|           [F]
+|           |.
+[set.contains 2]
+|
+[T]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -3,4 +3,5 @@ BasedOnStyle: WebKit
 IndentWidth: 4
 ---
 Language: Cpp
+Standard: Cpp03
 

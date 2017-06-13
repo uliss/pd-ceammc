@@ -7,39 +7,43 @@
                 <author>Alex Nadzharov</author>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>joins (concatenates) two strings.</description>
+            <description>joins (concatenates) strings with separator</description>
             <license>GPL3</license>
             <library>ceammc</library>
-            <category>list</category>
-            <keywords>list</keywords>
-            <since>0.1</since>
+            <category>string</category>
+            <keywords>join</keywords>
+            <since>0.3</since>
+            <aliases>
+                <alias>str.join</alias>
+            </aliases>
             <also>
-                <see>string.split string.compare string.slice</see>
+                <see>string.split</see>
             </also>
         </meta>
         <arguments>
-            <argument name="index" type="int">position index (starting from 0). Negative value
-            means position from end of the list. For example: '-1' means last element.</argument>
+            <argument name="SEP" type="atom">separator. For space use ' '.</argument>
         </arguments>
+        <properties>
+            <property name="@sep" type="atom">separator</property>
+        </properties>
         <inlets>
             <inlet>
-                <xinfo on="list">Input list. If no element found by specified index - list passed
-                without changes.</xinfo>
-            </inlet>
-            <inlet>
-                <xinfo>New modified value from applied object.</xinfo>
+                <xinfo on="list">list of strings</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>new modified list</outlet>
-            <outlet>Element at given index. Should be passed to applied object.</outlet>
+            <outlet>concatenated string</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[1 60 120(
+[bang(
 |
-[list.apply_to 1] X [mtof]
+[string TEST]
+|
+[string.split]
+|
+[string.join ' ']
 |
 [msg set]
 |

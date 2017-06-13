@@ -14,9 +14,11 @@
 #ifndef CEAMMC_ATOM_H
 #define CEAMMC_ATOM_H
 
-#include <iostream>
 #include <m_pd.h>
+
+#include <iostream>
 #include <string>
+#include <utility>
 
 namespace ceammc {
 
@@ -24,6 +26,18 @@ class Atom;
 typedef Atom (*AtomMapFunction)(const Atom& a);
 typedef t_float (*AtomFloatMapFunction)(t_float f);
 typedef t_symbol* (*AtomSymbolMapFunction)(t_symbol* s);
+
+typedef unsigned int DataId;
+typedef unsigned short DataType;
+
+struct DataDesc {
+    DataType type;
+    DataId id;
+
+    DataDesc(DataType t, DataId i);
+    bool operator==(const DataDesc& d) const;
+    bool operator!=(const DataDesc& d) const;
+};
 
 class Atom : t_atom {
 public:
@@ -34,7 +48,8 @@ public:
         NONE,
         FLOAT,
         SYMBOL,
-        PROPERTY
+        PROPERTY,
+        DATA
     };
 
     static const char PROP_PREFIX = '@';
@@ -44,6 +59,7 @@ public:
     Atom(const t_atom& a);
     Atom(t_float v);
     Atom(t_symbol* s);
+    Atom(const DataDesc& d);
 
     /**
      * @returns true if atom has logical type Atom::FLOAT
@@ -128,6 +144,35 @@ public:
     void apply(AtomFloatMapFunction f);
     void apply(AtomSymbolMapFunction f);
 
+    /**
+      * Data functions
+      */
+
+    /**
+     * @brief dataType
+     * @return data type or 0 on error
+     */
+    DataType dataType() const;
+
+    /**
+     * @brief dataId
+     * @return data id or 0 on error
+     */
+    DataId dataId() const;
+
+    DataDesc getData() const;
+    void setData(const DataDesc& d);
+
+    /**
+     * @returns true if atom is a data structure
+     */
+    bool isData() const;
+
+    /**
+     * @returns true if atom is a data structure of specified type
+     */
+    bool isDataType(DataType type) const;
+
 public:
     friend bool operator==(const Atom& a1, const Atom& a2);
     friend bool operator!=(const Atom& a1, const Atom& a2);
@@ -145,6 +190,7 @@ static inline bool isProperty(const Atom& a) { return a.isProperty(); }
 static inline bool notFloat(const Atom& a) { return !a.isFloat(); }
 static inline bool notSymbol(const Atom& a) { return !a.isSymbol(); }
 static inline bool notProperty(const Atom& a) { return !a.isProperty(); }
+static inline bool isData(const Atom& a) { return a.isData(); }
 }
 
 #endif // CEAMMC_ATOM_H

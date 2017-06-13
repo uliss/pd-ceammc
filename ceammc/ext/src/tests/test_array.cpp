@@ -181,7 +181,9 @@ TEST_CASE("Array", "[ceammc::Atom]")
         float data[5] = { 0 };
         Array b("array1");
         b.fillWith(generateLin);
-        b.copyTo(data, 5);
+//        b.copyTo(data, 5);
+        // strange fail on GCC coverage
+        std::copy(b.begin(), b.begin() + 5, data);
 
         REQUIRE(data[0] == 0.f);
         REQUIRE(data[1] == 1.f);

@@ -26,7 +26,8 @@ public:
         FLOAT,
         SYMBOL,
         LIST,
-        ANY
+        ANY,
+        DATA
     };
 
 private:
@@ -62,6 +63,7 @@ public:
 
     void output(t_outlet* x) const;
 
+    inline bool isData() const { return type_ == DATA; }
     inline bool isFloat() const { return type_ == FLOAT; }
     inline bool isSymbol() const { return type_ == SYMBOL; }
     inline bool isList() const { return type_ == LIST; }

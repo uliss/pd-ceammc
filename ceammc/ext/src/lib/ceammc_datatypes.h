@@ -11,11 +11,16 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef CEAMMC_STRING_WIN_H
-#define CEAMMC_STRING_WIN_H
+#ifndef CEAMMC_DATATYPES_H
+#define CEAMMC_DATATYPES_H
 
-#include <cstddef>
+#include "ceammc_atom.h"
 
-size_t win_utf8_strlen(const char* str);
+namespace ceammc {
+namespace data {
+    static const DataType DATA_STRING = 1;
+    static const DataType DATA_SET = 2;
+}
+}
 
-#endif // CEAMMC_STRING_WIN_H
+#endif // CEAMMC_DATATYPES_H

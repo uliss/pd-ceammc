@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="string.equal">
+        <title>string.equal</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>check strings for equality</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>string</category>
+            <keywords>string compare euql</keywords>
+            <since>0.3</since>
+            <aliases>
+                <alias>str.equal</alias>
+            </aliases>
+            <also>
+                <see>string</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="STR" type="symbol">second string initial value</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo>first string (or symbol)</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo>second string (or symbol)</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>outputs 1 if strings are equal, otherwise 0</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]
+|
+[string Chuck] [symbol Chuck?(
+|              |
+[string.equal Chuck]
+|
+[T]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

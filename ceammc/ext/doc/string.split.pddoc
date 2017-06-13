@@ -7,43 +7,50 @@
                 <author>Alex Nadzharov</author>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>splits a string into two new ones.</description>
+            <description>split string by separator</description>
             <license>GPL3</license>
             <library>ceammc</library>
-            <category>list</category>
-            <keywords>list</keywords>
-            <since>0.1</since>
+            <category>string</category>
+            <keywords>split</keywords>
+            <since>0.3</since>
+            <aliases>
+                <alias>str.split</alias>
+            </aliases>
             <also>
-                <see>string.join string.compare string.slice</see>
+                <see>string.join</see>
             </also>
         </meta>
         <arguments>
-            <argument name="index" type="int">position index (starting from 0). Negative value
-            means position from end of the list. For example: '-1' means last element.</argument>
+            <argument name="SEP" type="atom">separator. If nonspecified - separate by every char.
+            To separate by space - use ' ' argument</argument>
         </arguments>
+        <properties>
+            <property name="@sep" type="atom">separator</property>
+        </properties>
         <inlets>
             <inlet>
-                <xinfo on="list">Input list. If no element found by specified index - list passed
-                without changes.</xinfo>
-            </inlet>
-            <inlet>
-                <xinfo>New modified value from applied object.</xinfo>
+                <xinfo>Input string</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>new modified list</outlet>
-            <outlet>Element at given index. Should be passed to applied object.</outlet>
+            <outlet>list of strings</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[1 60 120(
-|
-[list.apply_to 1] X [mtof]
-|
-[msg set]
-|
-[ (
+[symbol A/B/C(      [symbol Sample(     [bang(
+|                   |                   |
+[string]            [string]            [string AB CD]
+|                   |                   |
+[string.split /]    [string.split]      [string.split ' ']
+|                   |                   |
+[string.join ' ']   [string.join *]     [string.join -]
+|                   |                   |
+[str->sym]          [str->sym]          [str->sym]
+|                   |                   |
+[msg set]           [msg set]           [msg set]
+|                   |                   |
+[ (                 [ (                 [ (
 ]]>
             </pdascii>
         </example>

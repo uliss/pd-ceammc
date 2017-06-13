@@ -6,8 +6,6 @@ include(tests.cmake)
 add_definitions("-DTEST_DATA_DIR=\"${CMAKE_CURRENT_SOURCE_DIR}\"")
 #remove_definitions(-DPD_INTERNAL)
 
-find_package(Iconv)
-
 add_library(tests_main_lib STATIC tests_main.cpp test_external)
 
 if(APPLE)
@@ -16,9 +14,14 @@ endif()
 
 ceammc_add_test("ceammc::Array" test_array)
 ceammc_add_test("ceammc::Atom" test_atom)
+ceammc_add_test("ceammc::Atom2" test_atom2)
 ceammc_add_test("ceammc::AtomList" test_atomlist)
 ceammc_add_test("ceammc::AtomList2" test_atomlist2)
 ceammc_add_test("ceammc::ControlValue" test_message)
+ceammc_add_test("ceammc::DataAtom" test_dataatom)
+ceammc_add_test("ceammc::DataAtomList" test_dataatomlist)
+ceammc_add_test("ceammc::Data" test_data)
+ceammc_add_test("ceammc::DataStorage" test_datastorage)
 ceammc_add_test("ceammc::SharedData" test_shareddata)
 ceammc_add_test("ceammc::formatting" test_format)
 ceammc_add_test("ceammc::properties" test_properties)
@@ -32,9 +35,6 @@ ceammc_add_test("ceammc::platform" test_platform)
 ceammc_add_test("ceammc::convert" test_convert)
 ceammc_add_test("ceammc::string" test_string)
 ceammc_add_test("ceammc::window" test_window)
-if(ICONV_FOUND)
-    target_link_libraries(test_string ${ICONV_LIBRARIES})
-endif()
 
 ceammc_external_test(array copy)
 ceammc_external_test(array do)
@@ -56,6 +56,13 @@ ceammc_external_test(conv cc2amp)
 ceammc_external_test(conv lin2exp)
 ceammc_external_test(conv lin2lin)
 
+ceammc_external_test(data set)
+ceammc_external_test(data set_size)
+ceammc_external_test(data set_intersection)
+ceammc_external_test(data set_difference)
+ceammc_external_test(data set_symdiff)
+ceammc_external_test(data set_union)
+
 ceammc_external_test(list all_of)
 ceammc_external_test(list any_of)
 ceammc_external_test(list none_of)
@@ -66,6 +73,14 @@ ceammc_external_test(math and)
 ceammc_external_test(math gcd)
 ceammc_external_test(math lcm)
 ceammc_external_test(math or)
+
+ceammc_external_test(string format)
+ceammc_external_test(string str)
+ceammc_external_test(string split)
+ceammc_external_test(string to_symbol)
+ceammc_external_test(string ends_with)
+ceammc_external_test(string starts_with)
+ceammc_external_test(string length)
 
 ceammc_add_extension_test("list_walk" "../list/list_walk.cpp")
 ceammc_add_extension_test("list_walk2" "../list/list_walk.cpp")
@@ -84,6 +99,11 @@ ceammc_add_extension_test("ext_symbol_num_compare" "../symbol/symbol_num_compare
 ceammc_add_extension_test("ext_system_getenv" "../system/system_getenv.cpp")
 
 ceammc_add_test_linked(TITLE "ceammc::pd" NAME test_pd SRC "../base/debug_gensym.cpp" LINK ceammc_core puredata-core)
+ceammc_add_test_linked(TITLE "ceammc::DataString"
+    NAME test_data_string
+    SRC "test_data_string.cpp"
+    LINK ceammc_core ceammc_string puredata-core ceammc_core)
+
 
 if(WITH_LIBSNDFILE)
     include(FindLibSndFile)

@@ -11,12 +11,24 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "ceammc_string_win.h"
+#ifndef SET_DIFFERENCE_H
+#define SET_DIFFERENCE_H
 
-#include <cstring>
-#include <windows.h>
+#include "ceammc_object.h"
+#include "datatype_set.h"
 
-size_t win_utf8_strlen(const char* str)
-{
-    return MultiByteToWideChar(CP_UTF8, 0, str, strlen(str), 0, 0);
-}
+using namespace ceammc;
+
+class SetDifference : public BaseObject {
+    DataT<DataTypeSet> set1_;
+
+public:
+    SetDifference(const PdArgs& a);
+    void onList(const AtomList& l);
+    void onDataT(const DataTypeSet& s);
+    void onInlet(size_t, const AtomList& l);
+};
+
+extern "C" void setup_set0x2edifference();
+
+#endif // SET_DIFFERENCE_H

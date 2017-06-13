@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="string2symbol">
+        <title>string2symbol</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>converts string to symbol</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>string</category>
+            <keywords>string symbol convert</keywords>
+            <since>0.3</since>
+            <aliases>
+                <alias>str-&gt;sym</alias>
+            </aliases>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo>input string value</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>symbol output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B] [F]    [symbol test(
+|   |      |
+[string A B C]
+|
+[str->sym]
+|
+[msg set]
+|
+[ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

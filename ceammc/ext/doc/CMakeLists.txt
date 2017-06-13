@@ -18,30 +18,33 @@ set(DOC_FILES
     conv.bpm2ms
     conv.bpm2sec
     conv.lin2curve
-    conv.lin2lin
     conv.lin2exp
+    conv.lin2lin
     conv.sec2str
     conv.str2sec
     data.fifo
     data.list
-    dyn.comp~
+    data.set
+    data.set2list
     dyn.comp2~
-    dyn.gate~
+    dyn.comp~
     dyn.gate2~
-    dyn.limit~
+    dyn.gate~
     dyn.limit2~
+    dyn.limit~
     dyn.softclip~
-    env.ar~
     env.adsr~
+    env.ar~
     env.follow~
     expand_env
     flow.change
-    flow.sync
-    flow.reject
-    flow.reject_if
     flow.pass
     flow.pass_if
+    flow.reject
+    flow.reject_if
     flow.split
+    flow.sync
+    flt.biquad~
     flt.bpf12~
     flt.bpf24~
     flt.c_bpf~
@@ -51,9 +54,9 @@ set(DOC_FILES
     flt.c_lpf~
     flt.c_notch~
     flt.c_peak~
-    flt.dcblock~
     flt.dcblock2~
-    flt.biquad~
+    flt.dcblock~
+    flt.eq_peak~
     flt.highshelf~
     flt.hpf12~
     flt.hpf24~
@@ -62,28 +65,29 @@ set(DOC_FILES
     flt.lpf24~
     flt.notch~
     flt.resonbp~
-    flt.eq_peak~
     function
     function.call
-    fx.flanger~
-    fx.freqshift~
     fx.distortion~
-    fx.pitchshift~
-    fx.freeverb~
+    fx.flanger~
     fx.freeverb2~
+    fx.freeverb~
+    fx.freqshift~
+    fx.pitchshift~
     fx.zita_rev1~
     global.float
     global.int
     global.list
     is_any
     is_bang
+    is_even
     is_float
+    is_list
     is_odd
     is_pointer
     is_symbol
-    is_list
-    is_even
-    live.capture~
+    lfo.impulse~
+    lfo.square~
+    lfo.tri~
     list.all_of
     list.any_of
     list.apply_to
@@ -96,9 +100,9 @@ set(DOC_FILES
     list.each
     list.equal
     list.first
-    list.interleave
-    list.integrator
     list.gen
+    list.integrator
+    list.interleave
     list.last
     list.length
     list.max
@@ -117,12 +121,10 @@ set(DOC_FILES
     list.sort
     list.sum
     list.unpack
+    list.unwrap
     list.walk
     list.wrap
-    list.unwrap
-    lfo.impulse~
-    lfo.square~
-    lfo.tri~
+    live.capture~
     math.abs
     math.acos
     math.acosh
@@ -174,7 +176,27 @@ set(DOC_FILES
     prop.set
     random.int
     replace
+    set.contains
+    set.diff
+    set.equal
+    set.intersect
+    set.size
+    set.symdiff
+    set.union
     snd.file
+    string
+    string.contains
+    string.ends_with
+    string.equal
+    string.format
+    string.join
+    string.length
+    string.remove
+    string.replace
+    string.split
+    string.substr
+    string.starts_with
+    string2symbol
     symbol.equal
     symbol.length
     system.getenv
@@ -197,6 +219,7 @@ set(DOC_FILES
     vector.dot
     vector.length
     vector.normalize
+
     )
 
 if(NOT PD_LIB2PD)

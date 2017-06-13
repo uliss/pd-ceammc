@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="string.substr">
+        <title>string.substr</title>
+        <meta>
+            <authors>
+                <author>Alex Nadzharov</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>extract substring from input string</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>string</category>
+            <keywords>substring</keywords>
+            <since>0.3</since>
+            <aliases>
+                <alias>str.substr</alias>
+            </aliases>
+            <also>
+                <see>string.split</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="FROM" type="int">substring position. May be relative: -1 means one
+            character from the end of stirng</argument>
+            <argument name="LENGTH" type="int" minvalue="0">substring lenght. If -1 given (by
+            default), means 'till string end'.</argument>
+        </arguments>
+        <properties>
+            <property name="@from" type="int">substring position. Can be negative - to address
+            string from the end</property>
+            <property name="@len" type="int" default="-1">substring length. If equal to -1,
+            substring to the end of strng</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo>input string</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output substring</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[symbol PureData(
+|
+[str.substr 4]
+|
+[str->sym]
+|
+[msg set]
+|
+[ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

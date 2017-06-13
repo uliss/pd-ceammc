@@ -16,7 +16,21 @@
 #include <cmath>
 #include <cstring>
 #include <iostream>
+#include <limits>
 #include <sstream>
+
+typedef unsigned int data_id_type;
+static const unsigned int MASK_BITS = 12;
+
+// on 32-bit uint - use 2**20 unique object id
+// on 64-bit uint - use 2**52 unique object id
+static const data_id_type ID_MASK = (std::numeric_limits<data_id_type>::max() >> MASK_BITS);
+
+// use 2**12 unique data types
+static const data_id_type TYPE_MASK = ~ID_MASK;
+static const unsigned int TYPE_SHIFT = std::numeric_limits<data_id_type>::digits - MASK_BITS;
+
+static const t_atomtype DATA_TYPE = t_atomtype(A_GIMME + 11);
 
 namespace ceammc {
 
@@ -42,6 +56,11 @@ Atom::Atom(t_float v)
 Atom::Atom(t_symbol* s)
 {
     SETSYMBOL(this, s);
+}
+
+Atom::Atom(const DataDesc& d)
+{
+    setData(d);
 }
 
 bool Atom::isFloat() const
@@ -74,6 +93,19 @@ bool Atom::isNatural() const
     return isInteger() && a_w.w_float >= 0.f;
 }
 
+bool Atom::isData() const
+{
+    return type() == DATA;
+}
+
+bool Atom::isDataType(DataType type) const
+{
+    if (!isData())
+        return false;
+
+    return dataType() == type;
+}
+
 Atom::Type Atom::type() const
 {
     switch (a_type) {
@@ -84,6 +116,8 @@ Atom::Type Atom::type() const
         return (a_w.w_symbol->s_name[0] == PROP_PREFIX) ? PROPERTY : SYMBOL;
     case A_FLOAT:
         return FLOAT;
+    case DATA_TYPE:
+        return DATA;
     default:
         return NONE;
     }
@@ -276,6 +310,37 @@ void Atom::apply(AtomSymbolMapFunction f)
         a_w.w_symbol = f(a_w.w_symbol);
 }
 
+DataType Atom::dataType() const
+{
+    return getData().type;
+}
+
+DataId Atom::dataId() const
+{
+    return getData().id;
+}
+
+DataDesc Atom::getData() const
+{
+    if (a_type != DATA_TYPE)
+        return DataDesc(0, 0);
+
+    data_id_type value = static_cast<data_id_type>(a_w.w_index);
+
+    DataType t = (value & TYPE_MASK) >> TYPE_SHIFT;
+    DataId id = value & ID_MASK;
+    return DataDesc(t, id);
+}
+
+void Atom::setData(const DataDesc& d)
+{
+    a_type = DATA_TYPE;
+    data_id_type t = static_cast<unsigned int>(d.type) << TYPE_SHIFT;
+    data_id_type id = d.id & ID_MASK;
+    data_id_type value = t | id;
+    a_w.w_index = value;
+}
+
 void Atom::outputAsAny(t_outlet* x, t_symbol* sel) const
 {
     outlet_anything(x, sel, 1, const_cast<t_atom*>(static_cast<const t_atom*>(this)));
@@ -305,6 +370,9 @@ bool operator==(const Atom& a1, const Atom& a2)
         return strcmp(a1.a_w.w_symbol->s_name, a2.a_w.w_symbol->s_name) == 0;
     }
 
+    if (a1.isData() && a2.isData())
+        return a1.getData() == a2.getData();
+
     return false;
 }
 
@@ -325,6 +393,11 @@ bool to_outlet(t_outlet* x, const Atom& a)
         return true;
     }
 
+    if (a.isData()) {
+        outlet_list(x, &s_list, 1, const_cast<t_atom*>(reinterpret_cast<const t_atom*>(&a)));
+        return true;
+    }
+
     return false;
 }
 
@@ -336,7 +409,25 @@ std::ostream& operator<<(std::ostream& os, const Atom& a)
         os << a.asString();
     if (a.isNone())
         os << "NONE";
+    if (a.isData())
+        os << "Data[" << a.dataType() << '#' << a.dataId() << ']';
 
     return os;
+}
+
+DataDesc::DataDesc(DataType t, DataId i)
+    : type(t)
+    , id(i)
+{
+}
+
+bool DataDesc::operator==(const DataDesc& d) const
+{
+    return type == d.type && id == d.id;
+}
+
+bool DataDesc::operator!=(const DataDesc& d) const
+{
+    return !(this->operator==(d));
 }
 }

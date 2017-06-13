@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="set.symdiff">
+        <title>set.symdiff</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>symmetric difference between two sets</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>data</category>
+            <keywords>data symmetric difference set</keywords>
+            <since>0.3</since>
+            <also>
+                <see>data.set</see>
+                <see>set.diff</see>
+            </also>
+        </meta>
+        <info>
+            <par>Symmetric difference, of two sets is theset of elements which are in either of the
+            sets and not in their intersection</par>
+        </info>
+        <arguments>
+            <argument name="ARGS" type="any">right set elements</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo>first set or list (converted to set), other values are ignored</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo>second set or list (converted to set)</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output symmetric set difference</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]
+|
+[data.set A B C D]
+|
+[set.symdiff C D E F]
+|
+[set->list @sort]
+|
+[msg set]
+|
+[ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

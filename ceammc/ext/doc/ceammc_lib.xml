@@ -64,6 +64,33 @@
     <entry descr="list container" name="data.list" ref_view="object">
       <xi:include href="data.list.pddoc" parse="xml"/>
     </entry>
+    <entry descr="container that store unique elements" name="data.set" ref_view="object">
+      <xi:include href="data.set.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="converts set to list" name="data.set2list" ref_view="object">
+      <xi:include href="data.set2list.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="check if specified element is in set" name="set.contains" ref_view="object">
+      <xi:include href="set.contains.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="difference between two sets" name="set.diff" ref_view="object">
+      <xi:include href="set.diff.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="checks if two sets are equal (contains same elements)" name="set.equal" ref_view="object">
+      <xi:include href="set.equal.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="output intersection of given sets" name="set.intersect" ref_view="object">
+      <xi:include href="set.intersect.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="get number of elements in set" name="set.size" ref_view="object">
+      <xi:include href="set.size.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="symmetric difference between two sets" name="set.symdiff" ref_view="object">
+      <xi:include href="set.symdiff.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="output union of given sets" name="set.union" ref_view="object">
+      <xi:include href="set.union.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="dyn">
     <entry descr="stereo dynamic range compressor" name="dyn.comp2~" ref_view="object">
@@ -548,6 +575,47 @@
   <category name="snd">
     <entry descr="Sound file loader on steroids" name="snd.file" ref_view="object">
       <xi:include href="snd.file.pddoc" parse="xml"/>
+    </entry>
+  </category>
+  <category name="string">
+    <entry descr="string constructor" name="string" ref_view="object">
+      <xi:include href="string.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="checks if given string contains specified substring" name="string.contains" ref_view="object">
+      <xi:include href="string.contains.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="checks if given string ends with specified suffix" name="string.ends_with" ref_view="object">
+      <xi:include href="string.ends_with.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="check strings for equality" name="string.equal" ref_view="object">
+      <xi:include href="string.equal.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="formats string like printf." name="string.format" ref_view="object">
+      <xi:include href="string.format.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="joins (concatenates) strings with separator" name="string.join" ref_view="object">
+      <xi:include href="string.join.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="number of characters in string (unicode supported)" name="string.length" ref_view="object">
+      <xi:include href="string.length.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="remove substring from input string" name="string.remove" ref_view="object">
+      <xi:include href="string.remove.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="replace from one substring to another in input string" name="string.replace" ref_view="object">
+      <xi:include href="string.replace.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="split string by separator" name="string.split" ref_view="object">
+      <xi:include href="string.split.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="checks if given string starts with specified prefix" name="string.starts_with" ref_view="object">
+      <xi:include href="string.starts_with.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="extract substring from input string" name="string.substr" ref_view="object">
+      <xi:include href="string.substr.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="converts string to symbol" name="string2symbol" ref_view="object">
+      <xi:include href="string2symbol.pddoc" parse="xml"/>
     </entry>
   </category>
   <category name="symbol">
