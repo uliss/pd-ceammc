@@ -54,8 +54,12 @@ Roadmap v0.3+:
 -------------
 
  * Core objects:
-   - objects working with strings and string data type
-   - math.* - add functions with multiple arguments
+   - custom data types:
+   - 'String' data type. string.\* objects for common string manipulation functionality
+   - 'Set' data type. data.set, set.\* objects to work with sets - unordered lists. conversion to list.
+   - function.call and [function] objects - working with named functions in Pd
+   - array.do, array.each - apply the function to each element of an array
+   - math.\* - add functions with multiple arguments
  * GUI
    - new completely rewritten Qt-based GUI with MVC architecture
    - simplified object set
