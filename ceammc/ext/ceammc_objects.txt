@@ -50,6 +50,7 @@ env.ar~
 env.follow~
 expand_env
 flow.change
+flow.group
 flow.pass
 flow.pass_if
 flow.reject
@@ -92,6 +93,7 @@ global.float
 global.int
 global.json
 global.list
+group
 is_any
 is_bang
 is_even
