@@ -1,4 +1,4 @@
-# CEAMMC extension library changelog
+# CEAMMC external library changelog
 
 ## [Unreleased]
 ### Fixed:
