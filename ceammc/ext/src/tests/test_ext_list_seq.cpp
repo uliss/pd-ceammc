@@ -34,6 +34,7 @@ TEST_CASE("list.seq", "[externals]")
             REQUIRE_PROPERTY(t, @from, 0.f);
             REQUIRE_PROPERTY(t, @to, 1.f);
             REQUIRE_PROPERTY(t, @step, 1.f);
+            REQUIRE_PROPERTY(t, @closed, 0.0f);
         }
 
         SECTION("properties")
@@ -42,6 +43,7 @@ TEST_CASE("list.seq", "[externals]")
             REQUIRE_PROPERTY(t, @from, -10.f);
             REQUIRE_PROPERTY(t, @to, 1.f);
             REQUIRE_PROPERTY(t, @step, 1.f);
+            REQUIRE_PROPERTY(t, @closed, 0.0f);
 
             {
                 ListSeqTest t("list.seq", L4("@from", -10, "@to", -2));
@@ -56,6 +58,20 @@ TEST_CASE("list.seq", "[externals]")
                 REQUIRE_PROPERTY(t, @to, -2.f);
                 REQUIRE_PROPERTY(t, @step, -1.f);
             }
+
+            {
+                ListSeqTest t("list.seq", L1("@closed"));
+                REQUIRE_PROPERTY(t, @from, 0.f);
+                REQUIRE_PROPERTY(t, @to, 1.f);
+                REQUIRE_PROPERTY(t, @closed, 1.f);
+            }
+
+            {
+                ListSeqTest t("list.seq", L3("@to", 10, "@closed"));
+                REQUIRE_PROPERTY(t, @from, 0.f);
+                REQUIRE_PROPERTY(t, @to, 10.f);
+                REQUIRE_PROPERTY(t, @closed, 1.f);
+            }
         }
 
         SECTION("positional arguments")
@@ -65,6 +81,7 @@ TEST_CASE("list.seq", "[externals]")
                 REQUIRE_PROPERTY(t, @from, 0.f);
                 REQUIRE_PROPERTY(t, @to, 100.f);
                 REQUIRE_PROPERTY(t, @step, 1.f);
+                REQUIRE_PROPERTY(t, @closed, 0.0f);
             }
 
             {
@@ -166,6 +183,23 @@ TEST_CASE("list.seq", "[externals]")
         REQUIRE_LIST_AT_OUTLET(0, t, L4(0.f, 1, 2, 3));
 
         WHEN_SEND_FLOAT_TO(0, t, -4);
+        REQUIRE_LIST_AT_OUTLET(0, t, L4(0.f, -1, -2, -3));
+    }
+
+    SECTION("@closed")
+    {
+        ListSeqTest t("list.seq", L1("@closed"));
+
+        WHEN_SEND_FLOAT_TO(0, t, 0);
+        REQUIRE_LIST_AT_OUTLET(0, t, AtomList());
+
+        WHEN_SEND_FLOAT_TO(0, t, 1);
+        REQUIRE_LIST_AT_OUTLET(0, t, L2(0.f, 1));
+
+        WHEN_SEND_FLOAT_TO(0, t, 3);
+        REQUIRE_LIST_AT_OUTLET(0, t, L4(0.f, 1, 2, 3));
+
+        WHEN_SEND_FLOAT_TO(0, t, -3);
         REQUIRE_LIST_AT_OUTLET(0, t, L4(0.f, -1, -2, -3));
     }
 }

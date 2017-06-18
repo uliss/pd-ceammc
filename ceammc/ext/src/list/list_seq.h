@@ -22,6 +22,7 @@ class ListSeq : public BaseObject {
     FloatProperty* from_;
     FloatProperty* to_;
     FloatProperty* step_;
+    FlagProperty* closed_range_;
 
 public:
     ListSeq(const PdArgs& a);

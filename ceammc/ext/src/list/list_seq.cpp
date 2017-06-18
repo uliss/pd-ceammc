@@ -11,16 +11,19 @@ ListSeq::ListSeq(const PdArgs& a)
     , from_(0)
     , to_(0)
     , step_(0)
+    , closed_range_(0)
 {
     createOutlet();
 
     from_ = new FloatProperty("@from", 0);
     to_ = new FloatProperty("@to", 1);
     step_ = new FloatProperty("@step", 1);
+    closed_range_ = new FlagProperty("@closed");
 
     createProperty(from_);
     createProperty(to_);
     createProperty(step_);
+    createProperty(closed_range_);
 
     if (positionalArguments().size() == 1) {
         from_->setValue(0);
@@ -52,11 +55,21 @@ void ListSeq::onBang()
     }
 
     if (from < to) {
-        for (t_float i = from; i < to; i += step)
-            res.append(i);
+        if (closed_range_->value()) {
+            for (t_float i = from; i <= to; i += step)
+                res.append(i);
+        } else {
+            for (t_float i = from; i < to; i += step)
+                res.append(i);
+        }
     } else if (from > to) {
-        for (t_float i = from; i > to; i -= step)
-            res.append(i);
+        if (closed_range_->value()) {
+            for (t_float i = from; i >= to; i -= step)
+                res.append(i);
+        } else {
+            for (t_float i = from; i > to; i -= step)
+                res.append(i);
+        }
     } else {
         OBJ_ERR << "invalid sequence args: @from " << from << " @to " << to << ", @step " << step;
     }
