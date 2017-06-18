@@ -166,6 +166,7 @@ path.basename		.		.
 path.dirname		.		.
 prop.get,prop->		.		?
 prop.set,prop<-		?		.
+random.float		.		.
 random.int		.		.
 replace		...		.
 set.contains		..		.
@@ -182,7 +183,7 @@ string.ends_with,str.ends_with		..		.
 string.equal,str.equal		..		.
 string.format,str.format		.		.
 string.join,str.join		.		.
-string.length		.		.
+string.length,str.length		.		.
 string.remove,str.remove		..		.
 string.replace,str.replace		...		.
 string.split,str.split		.		.

@@ -571,6 +571,9 @@
     </entry>
   </category>
   <category name="random">
+    <entry descr="random float generator in specified range" name="random.float" ref_view="object">
+      <xi:include href="random.float.pddoc" parse="xml"/>
+    </entry>
     <entry descr="Random integer generator in specified range" name="random.int" ref_view="object">
       <xi:include href="random.int.pddoc" parse="xml"/>
     </entry>
