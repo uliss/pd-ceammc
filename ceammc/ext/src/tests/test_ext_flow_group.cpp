@@ -39,7 +39,7 @@ TEST_CASE("flow.group", "[externals]")
             REQUIRE(t.numOutlets() == 1);
 
             REQUIRE_PROPERTY(t, @by, 1);
-            REQUIRE_PROPERTY(t, @size, 0.f);
+            REQUIRE_PROPERTY(t, @free, 0.f);
         }
 
         SECTION("raw args")
@@ -64,11 +64,11 @@ TEST_CASE("flow.group", "[externals]")
 
         WHEN_SEND_FLOAT_TO(0, t, 13);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
-        REQUIRE_PROPERTY(t, @size, 2);
+        REQUIRE_PROPERTY(t, @free, 2);
 
         WHEN_SEND_FLOAT_TO(0, t, 14);
         REQUIRE_LIST_AT_OUTLET(0, t, L2(12, 13));
-        REQUIRE_PROPERTY(t, @size, 1);
+        REQUIRE_PROPERTY(t, @free, 1);
 
         WHEN_SEND_FLOAT_TO(0, t, 15);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
