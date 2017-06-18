@@ -48,7 +48,7 @@
     {list
         {list.apply_to list.at list.choice list.count list.count_if list.each list.length list.sort
         list.count list.delta list.equal list.remove_if list.gen list.integrator list.last list.max
-        list.mean list.min list.normalize list.group list.product list.repeat list.reverse list.rotate
+        list.mean list.min list.normalize list.product list.repeat list.reverse list.rotate
         list.seq list.shift list.shuffle list.sort list.stretch list.sum list.zip list.wrap list.unwrap
         list.interleave list.deinterleave list.split}}
     {vector
