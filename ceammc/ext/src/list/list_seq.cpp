@@ -16,7 +16,7 @@ ListSeq::ListSeq(const PdArgs& a)
 
     from_ = new FloatProperty("@from", 0);
     to_ = new FloatProperty("@to", 1);
-    step_ = new FloatProperty("@step", 0);
+    step_ = new FloatProperty("@step", 1);
 
     createProperty(from_);
     createProperty(to_);
@@ -25,13 +25,11 @@ ListSeq::ListSeq(const PdArgs& a)
     if (positionalArguments().size() == 1) {
         from_->setValue(0);
         to_->setValue(positionalFloatArgument(0, 0));
-        step_->setValue(to_->value() > 0 ? 1 : -1);
     }
 
     if (positionalArguments().size() == 2) {
         from_->setValue(positionalFloatArgument(0, 0));
         to_->setValue(positionalFloatArgument(1, 0));
-        step_->setValue(from_->value() > to_->value() ? -1 : 1);
     }
 
     if (positionalArguments().size() == 3) {
@@ -46,13 +44,18 @@ void ListSeq::onBang()
     AtomList res;
     const t_float from = from_->value();
     const t_float to = to_->value();
-    const t_float step = step_->value();
+    const t_float step = fabsf(step_->value());
 
-    if (from < to && step > 0) {
+    if (step == 0.f) {
+        OBJ_ERR << "invalid step: " << step;
+        return;
+    }
+
+    if (from < to) {
         for (t_float i = from; i < to; i += step)
             res.append(i);
-    } else if (from > to && step < 0) {
-        for (t_float i = from; i > to; i += step)
+    } else if (from > to) {
+        for (t_float i = from; i > to; i -= step)
             res.append(i);
     } else {
         OBJ_ERR << "invalid sequence args: @from " << from << " @to " << to << ", @step " << step;
@@ -65,7 +68,7 @@ void ListSeq::onFloat(float f)
 {
     from_->setValue(0);
     to_->setValue(f);
-    step_->setValue(f >= 0 ? 1 : -1);
+    step_->setValue(1);
     onBang();
 }
 
@@ -75,13 +78,13 @@ void ListSeq::onList(const AtomList& lst)
     case 1: {
         from_->setValue(0);
         to_->setValue(lst[0].asFloat(0));
-        step_->setValue(to_->value() >= 0 ? 1 : -1);
+        step_->setValue(1);
         onBang();
     } break;
     case 2: {
         from_->setValue(lst[0].asFloat(0));
         to_->setValue(lst[1].asFloat(0));
-        step_->setValue(from_->value() <= to_->value() ? 1 : -1);
+        step_->setValue(1);
         onBang();
     } break;
     case 3: {

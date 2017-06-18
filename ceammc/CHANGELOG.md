@@ -42,6 +42,7 @@
     - set.diff
     - set.symdiff
     - set.equal
+- list.seq uses only positive step. To get 6 4 2 use [list.seq 6 0 2]
 
 ### Changed:
 - pass.if renamed to flow.pass_if (with pass_if alias)
@@ -49,3 +50,4 @@
 - pass.this renamed to flow.pass (with pass alias)
 - reject.this renamed to flow.reject (with reject alias)
 - pass.changed renamed to flow.change
+- list.seq

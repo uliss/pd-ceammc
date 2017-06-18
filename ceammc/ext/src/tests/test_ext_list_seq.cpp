@@ -33,7 +33,7 @@ TEST_CASE("list.seq", "[externals]")
 
             REQUIRE_PROPERTY(t, @from, 0.f);
             REQUIRE_PROPERTY(t, @to, 1.f);
-            REQUIRE_PROPERTY(t, @step, 0.f);
+            REQUIRE_PROPERTY(t, @step, 1.f);
         }
 
         SECTION("properties")
@@ -41,13 +41,13 @@ TEST_CASE("list.seq", "[externals]")
             ListSeqTest t("list.seq", L2("@from", -10));
             REQUIRE_PROPERTY(t, @from, -10.f);
             REQUIRE_PROPERTY(t, @to, 1.f);
-            REQUIRE_PROPERTY(t, @step, 0.f);
+            REQUIRE_PROPERTY(t, @step, 1.f);
 
             {
                 ListSeqTest t("list.seq", L4("@from", -10, "@to", -2));
                 REQUIRE_PROPERTY(t, @from, -10.f);
                 REQUIRE_PROPERTY(t, @to, -2.f);
-                REQUIRE_PROPERTY(t, @step, 0.f);
+                REQUIRE_PROPERTY(t, @step, 1.f);
             }
 
             {
@@ -71,7 +71,7 @@ TEST_CASE("list.seq", "[externals]")
                 ListSeqTest t("list.seq", L1(-100));
                 REQUIRE_PROPERTY(t, @from, 0.f);
                 REQUIRE_PROPERTY(t, @to, -100.f);
-                REQUIRE_PROPERTY(t, @step, -1.f);
+                REQUIRE_PROPERTY(t, @step, 1.f);
             }
 
             {
@@ -85,7 +85,7 @@ TEST_CASE("list.seq", "[externals]")
                 ListSeqTest t("list.seq", L2(10, 1));
                 REQUIRE_PROPERTY(t, @from, 10.f);
                 REQUIRE_PROPERTY(t, @to, 1.f);
-                REQUIRE_PROPERTY(t, @step, -1.f);
+                REQUIRE_PROPERTY(t, @step, 1.f);
             }
 
             {
@@ -126,7 +126,7 @@ TEST_CASE("list.seq", "[externals]")
         {
             ListSeqTest t("list.seq", L3(1, 3, -1));
             WHEN_SEND_BANG_TO(0, t);
-            REQUIRE_LIST_AT_OUTLET(0, t, AtomList());
+            REQUIRE_LIST_AT_OUTLET(0, t, L2(1, 2));
         }
     }
 
@@ -134,7 +134,7 @@ TEST_CASE("list.seq", "[externals]")
     {
         ListSeqTest t("list.seq", AtomList());
         WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_LIST_AT_OUTLET(0, t, AtomList());
+        REQUIRE_LIST_AT_OUTLET(0, t, L1(0.f));
 
         WHEN_SEND_LIST_TO(0, t, L1(4));
         REQUIRE_LIST_AT_OUTLET(0, t, L4(0.f, 1, 2, 3));
