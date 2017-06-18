@@ -12,6 +12,9 @@
             <library>ceammc</library>
             <category>string</category>
             <keywords>string length</keywords>
+            <aliases>
+                <alias>str.length</alias>
+            </aliases>
             <since>0.3</since>
         </meta>
         <inlets>
