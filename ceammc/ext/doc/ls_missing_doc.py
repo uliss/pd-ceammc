@@ -2,11 +2,12 @@
 import os
 import re
 import logging
+import xml.etree.ElementTree as ET
 
 logging.addLevelName(logging.WARNING, "\033[1;31m%s\033[1;0m" % logging.getLevelName(logging.WARNING))
 logging.addLevelName(logging.ERROR, "\033[1;41m%s\033[1;0m" % logging.getLevelName(logging.ERROR))
 
-def src_in_project():
+def allExternalsWithAliases():
     res = set()
     with open("../ceammc_objects.txt", "r") as f:
         for l in f.readlines():
@@ -14,10 +15,10 @@ def src_in_project():
 
     return res
 
-def pddoc_in_project():
-    r_obj = re.compile(r'\s*([\w]+(\.|_)[\w\d_~]+)\s*')
+def allDocFilesInCmake():
+    r_obj = re.compile(r'\s*([\w\d\.~]+)\s*')
     doc_obj = set()
-    with open("CMakeLists.txt", "r") as f:
+    with open("docs.cmake", "r") as f:
         for l in f.readlines():
             m = r_obj.match(l)
             if not m:
@@ -26,33 +27,47 @@ def pddoc_in_project():
 
     return doc_obj
 
-def pddoc_in_dir():
+def allDocFilesWithAliases():
     files = filter(lambda x: x.endswith(".pddoc"), os.listdir("."))
     res = set()
     for f in files:
-        res.add(os.path.splitext(f)[0])
+        doc_name = os.path.splitext(f)[0]
+        res.add(doc_name)
+
+        tree = ET.parse(f)
+        root = tree.getroot()
+        for alias in root.iter('alias'):
+            res.add(alias.text)
 
     return res
 
-def main():
-    d1 = pddoc_in_project()
-    d2 = pddoc_in_dir()
-    d3 = d2 - d1
-    d4 = src_in_project()
+def allDocFilesOnDisk():
+    files = filter(lambda x: x.endswith(".pddoc"), os.listdir("."))
+    res = set()
+    for f in files:
+        doc_name = os.path.splitext(f)[0]
+        res.add(doc_name)
 
-    if len(d3) > 0:
-        logging.warning("this files not in cmake project:")
-        for f in d3:
+    return res
+
+def not_in_project():
+    files = allDocFilesOnDisk() - allDocFilesInCmake()
+    if len(files) > 0:
+        logging.warning("this pddoc files are not in cmake project (no PD-help will be generated for them):")
+        for f in files:
             print "    {0}".format(f)
 
+def non_documented():
+    files = allExternalsWithAliases() - allDocFilesWithAliases()
 
-    d5 = d4 - d1
-    if len(d5) > 0:
+    if len(files) > 0:
         logging.warning("this objects are not documented:")
-        for f in sorted(d5):
+        for f in sorted(files):
             print "    {0}".format(f)
 
-        logging.warning("undocumented objects: %s", len(d5))
+        logging.warning("undocumented objects: %s", len(files))
 
 if __name__ == '__main__':
-    main()
+    not_in_project()
+    non_documented()
+
