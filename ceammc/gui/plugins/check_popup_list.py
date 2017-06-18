@@ -58,6 +58,7 @@ def main():
     cream = cream_list()
     core = core_list()
     m = menu_list(sys.argv[1])
+    has_missing = False
 
     for obj in m:
         if obj in core:
@@ -66,12 +67,16 @@ def main():
             continue
         elif obj in cream:
             continue
-        elif obj in ('bang', 'float', 'symbol'):
+        elif obj in ('bang', 'float', 'symbol', 'bob~', 'sigmund~', 'bonk~', 'rev1~', 'rev2~', 'rev3~'):
             continue
         elif obj.startswith('exp.'):
             continue
 
+        has_missing = True
         print obj, "is not found"
+
+    if not has_missing:
+        print "Ok"
 
 
 if __name__ == '__main__':
