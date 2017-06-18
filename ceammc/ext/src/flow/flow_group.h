@@ -30,7 +30,10 @@ public:
     void onList(const AtomList& l);
     void onData(const AbstractData* d);
 
-    AtomList propSize() const;
+    AtomList propFree() const;
+
+    void m_flush(t_symbol*, const AtomList& l);
+    void m_clear(t_symbol*, const AtomList& l);
 
 private:
     size_t size() const;

@@ -38,6 +38,7 @@ set(DOC_FILES
     env.follow~
     expand_env
     flow.change
+    flow.group
     flow.pass
     flow.pass_if
     flow.reject

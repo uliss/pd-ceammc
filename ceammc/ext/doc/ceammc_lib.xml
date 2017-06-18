@@ -133,6 +133,9 @@
     <entry descr="rejects redundant input values" name="flow.change" ref_view="object">
       <xi:include href="flow.change.pddoc" parse="xml"/>
     </entry>
+    <entry descr="group data atoms in list of specified size" name="flow.group" ref_view="object">
+      <xi:include href="flow.group.pddoc" parse="xml"/>
+    </entry>
     <entry descr="pass specified values" name="flow.pass" ref_view="object">
       <xi:include href="flow.pass.pddoc" parse="xml"/>
     </entry>

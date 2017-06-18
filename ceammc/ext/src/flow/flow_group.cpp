@@ -22,7 +22,7 @@ FlowGroup::FlowGroup(const PdArgs& a)
 
     group_size_ = new IntProperty("@by", positionalFloatArgument(0, 1));
     createProperty(group_size_);
-    createCbProperty("@size", &FlowGroup::propSize);
+    createCbProperty("@free", &FlowGroup::propFree);
 }
 
 void FlowGroup::onFloat(float v)
@@ -52,9 +52,19 @@ void FlowGroup::onData(const AbstractData* d)
     atoms_.append(data.toAtom());
 }
 
-AtomList FlowGroup::propSize() const
+AtomList FlowGroup::propFree() const
 {
     return Atom(atoms_.size());
+}
+
+void FlowGroup::m_flush(t_symbol*, const AtomList& l)
+{
+    flush();
+}
+
+void FlowGroup::m_clear(t_symbol*, const AtomList& l)
+{
+    atoms_.clear();
 }
 
 size_t FlowGroup::size() const
@@ -79,4 +89,6 @@ extern "C" void setup_flow0x2egroup()
     ObjectFactory<FlowGroup> obj("flow.group");
     obj.processData();
     obj.addAlias("group");
+    obj.addMethod("flush", &FlowGroup::m_flush);
+    obj.addMethod("clear", &FlowGroup::m_clear);
 }

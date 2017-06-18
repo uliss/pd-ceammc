@@ -29,6 +29,7 @@ env.ar~		~		~.
 env.follow~		~		~.
 expand_env		.		.
 flow.change		.		.
+flow.group,group		.		.
 flow.pass,pass		.		.
 flow.pass_if,pass_if		..		..
 flow.reject,reject		.		.
