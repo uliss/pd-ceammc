@@ -76,8 +76,8 @@
     {global/local
         {global.list global.float global.int global.json local.list local.float local.int local.json}
     }
-    {pass/reject
-        {pass.changed pass.if pass.this reject.if reject.this}
+    {flow
+        {flow.change flow.group flow.pass flow.pass_if flow.reject flow.reject_if flow.split flow.sync}
     }
     {converters
         {conv.bpf2env conv.bpf2vline conv.bpf2list conv.bpf2array conv.lin2lin conv.lin2exp conv.lin2curve}
