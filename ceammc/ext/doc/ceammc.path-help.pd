@@ -6,6 +6,8 @@
 #X text 175 116 outputs filename portion of pathname;
 #X obj 30 143 path.dirname;
 #X text 175 143 outputs directory portion of pathname;
+#X obj 30 170 path.exists;
+#X text 175 170 checks if given path exists;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::path 20 20 0 20 -104026
 -4096 0;
 #X obj 1 458 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
