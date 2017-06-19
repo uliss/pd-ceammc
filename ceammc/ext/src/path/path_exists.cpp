@@ -1,3 +1,4 @@
+#include "../string/datatype_string.h"
 #include "ceammc_factory.h"
 #include "ceammc_object.h"
 #include "ceammc_platform.h"
@@ -29,9 +30,15 @@ public:
     {
         listTo(0, l.map(exists));
     }
+
+    void onDataT(const DataTypeString& s)
+    {
+        floatTo(0, platform::path_exists(s.str().c_str()) ? 1 : 0);
+    }
 };
 
 extern "C" void setup_path0x2eexists()
 {
     ObjectFactory<PathExists> obj("path.exists");
+    obj.processData<DataTypeString>();
 }
