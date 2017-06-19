@@ -9,6 +9,7 @@ set(DOC_FILES
     conv.bpm2hz
     conv.bpm2ms
     conv.bpm2sec
+    conv.cc2amp
     conv.lin2curve
     conv.lin2exp
     conv.lin2lin

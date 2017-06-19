@@ -18,7 +18,7 @@
             <since>0.1</since>
         </meta>
         <info>
-            <par>Generates random value that has gaussian random distribution</par>
+            <par>Generates random value that has gaussian distribution</par>
         </info>
         <arguments>
             <argument name="MU" type="float">the mean</argument>

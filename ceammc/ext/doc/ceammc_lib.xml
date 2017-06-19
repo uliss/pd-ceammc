@@ -41,6 +41,9 @@
     <entry descr="convert frequency in BPM to period in seconds" name="conv.bpm2sec" ref_view="object">
       <xi:include href="conv.bpm2sec.pddoc" parse="xml"/>
     </entry>
+    <entry descr="convert from MIDI Control Change range" name="conv.cc2amp" ref_view="object">
+      <xi:include href="conv.cc2amp.pddoc" parse="xml"/>
+    </entry>
     <entry descr="map linear to exponential range with 0 allowed." name="conv.lin2curve" ref_view="object">
       <xi:include href="conv.lin2curve.pddoc" parse="xml"/>
     </entry>
