@@ -167,6 +167,7 @@ path.dirname		.		.
 prop.get,prop->		.		?
 prop.set,prop<-		?		.
 random.float		.		.
+random.gauss		.		.
 random.int		.		.
 replace		...		.
 set.contains		..		.

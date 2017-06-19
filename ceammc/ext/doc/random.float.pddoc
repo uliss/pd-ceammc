@@ -18,8 +18,8 @@
             </also>
         </meta>
         <info>
-            <par>generates a random floating-point value uniformly distributed in
-            the range [min..max)</par>
+            <par>generates a random floating-point value uniformly distributed in the range
+            [min..max)</par>
         </info>
         <arguments>
             <argument name="MIN" type="float">random range lower bound</argument>

@@ -167,6 +167,7 @@ set(DOC_FILES
     path.dirname
     prop.get
     prop.set
+    random.gauss
     random.int
     random.float
     replace

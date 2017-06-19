@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="random.gauss">
+        <title>random.gauss</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>gaussian random distribution</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>random</category>
+            <keywords>gauss random</keywords>
+            <also>
+                <see>random.float</see>
+                <see>random.int</see>
+            </also>
+            <since>0.1</since>
+        </meta>
+        <info>
+            <par>Generates random value that has gaussian random distribution</par>
+        </info>
+        <arguments>
+            <argument name="MU" type="float">the mean</argument>
+            <argument name="SIGMA" type="float" minvalue="0">the standard deviation</argument>
+        </arguments>
+        <properties>
+            <property name="@mu" type="float" default="0">the mean</property>
+            <property name="@sigma" type="float" minvalue="0" default="0">the standard
+            deviation</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">generates random number</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>result value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]
+|
+[list.gen 100]          [array array1 size=100 yr=0..1]
+^|
+[random.gauss 50 10]
+|
+[math.round]
+|
+[t f f]
+|    ^|
+|    [tabread array1]
+|    |
+|    [+ 0.01]
+|    |.
+[swap ]                 [const 0( [normalize(
+|    ^|.                |         |
+[tabwrite array1]       [s array1 ]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
