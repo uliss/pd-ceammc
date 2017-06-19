@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="path.exists">
+        <title>path.exists</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>checks if given path exists</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>path</category>
+            <keywords>path exists</keywords>
+            <since>0.1</since>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="symbol">checks if given path exists</xinfo>
+                <xinfo on="data">If string given - checks if path exists</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>1 - on success, 0 - if not exists</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[symbol .( [symbol ABC( [B]
+|          |            |
+|          |            [string test]
+|          |            |
+[path.exists            ]
+|
+[T]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

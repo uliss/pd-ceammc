@@ -166,6 +166,7 @@ set(DOC_FILES
     osc.tri~
     path.basename
     path.dirname
+    path.exists
     prop.get
     prop.set
     random.gauss

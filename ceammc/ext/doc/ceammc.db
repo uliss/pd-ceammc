@@ -165,6 +165,7 @@ osc.square~		~		~
 osc.tri~		~		~
 path.basename		.		.
 path.dirname		.		.
+path.exists		.		.
 prop.get,prop->		.		?
 prop.set,prop<-		?		.
 random.float		.		.
