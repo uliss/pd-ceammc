@@ -32,13 +32,13 @@ clifford Attractors
 
 // CEAMMC pd library version
 
-#include "cicm_wrapper.h"
+#include "m_pd.h"
 
 #include <math.h>
 #include <stdbool.h>
 
 typedef struct _clifford {
-    t_eobj c_ob;
+    t_object x_obj;
     t_outlet *c_out1, *c_out2; // outlets
     double a, b, c, d, nx, ny;
     double ainit, binit, cinit, dinit, nxinit, nyinit;
@@ -65,16 +65,16 @@ static void clifford_nx(clifford* x, t_float max);
 static void clifford_ny(clifford* x, t_float max);
 static void clifford_om(clifford* x, t_float max);
 
-static t_eclass* clifford_class;
+static t_class* clifford_class;
 
 void* clifford_new(t_symbol* msg, int argc, t_atom* argv)
 {
     clifford* x;
 
-    x = (clifford*)eobj_new(clifford_class);
+    x = (clifford*)pd_new(clifford_class);
 
-    x->c_out2 = floatout(x);
-    x->c_out1 = floatout(x);
+    x->c_out2 = outlet_new(&x->x_obj, &s_float);
+    x->c_out1 = outlet_new(&x->x_obj, &s_float);
 
     //init
     x->a = -1.4;
@@ -251,19 +251,19 @@ void clifford_reset(clifford* x)
 void setup_noise0x2eclifford()
 {
 
-    clifford_class = eclass_new(("noise.clifford"),
-        (t_typ_method)(clifford_new),
-        (t_typ_method)(clifford_free),
+    clifford_class = class_new(gensym("noise.clifford"),
+        (t_newmethod)(clifford_new),
+        (t_method)(clifford_free),
         sizeof(clifford), 0, A_GIMME, 0);
 
-    eclass_addmethod(clifford_class, (method)clifford_bang, "bang", A_NULL, 0);
-    eclass_addmethod(clifford_class, (method)clifford_reset, "reset", A_NULL, 0);
-    eclass_addmethod(clifford_class, (method)clifford_set, "set", A_GIMME, 0);
-    eclass_addmethod(clifford_class, (method)clifford_nx, "x", A_DEFFLOAT, 0);
-    eclass_addmethod(clifford_class, (method)clifford_ny, "y", A_DEFFLOAT, 0);
-    eclass_addmethod(clifford_class, (method)clifford_a, "a", A_DEFFLOAT, 0);
-    eclass_addmethod(clifford_class, (method)clifford_b, "b", A_DEFFLOAT, 0);
-    eclass_addmethod(clifford_class, (method)clifford_c, "c", A_DEFFLOAT, 0);
-    eclass_addmethod(clifford_class, (method)clifford_d, "d", A_DEFFLOAT, 0);
-    eclass_addmethod(clifford_class, (method)clifford_om, "om", A_DEFFLOAT, 0);
+    class_addmethod(clifford_class, (t_method)clifford_bang, gensym("bang"), A_NULL, 0);
+    class_addmethod(clifford_class, (t_method)clifford_reset, gensym("reset"), A_NULL, 0);
+    class_addmethod(clifford_class, (t_method)clifford_set, gensym("set"), A_GIMME, 0);
+    class_addmethod(clifford_class, (t_method)clifford_nx, gensym("x"), A_DEFFLOAT, 0);
+    class_addmethod(clifford_class, (t_method)clifford_ny, gensym("y"), A_DEFFLOAT, 0);
+    class_addmethod(clifford_class, (t_method)clifford_a, gensym("a"), A_DEFFLOAT, 0);
+    class_addmethod(clifford_class, (t_method)clifford_b, gensym("b"), A_DEFFLOAT, 0);
+    class_addmethod(clifford_class, (t_method)clifford_c, gensym("c"), A_DEFFLOAT, 0);
+    class_addmethod(clifford_class, (t_method)clifford_d, gensym("d"), A_DEFFLOAT, 0);
+    class_addmethod(clifford_class, (t_method)clifford_om, gensym("om"), A_DEFFLOAT, 0);
 }
