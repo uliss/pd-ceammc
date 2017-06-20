@@ -45,6 +45,9 @@ if(UNIX)
     set (CMAKE_C_FLAGS_DEBUG "-g ${CMAKE_C_FLAGS_DEBUG}"
         CACHE STRING "enable extra checks for debugging" FORCE)
     if(APPLE)
+        set (CMAKE_C_FLAGS_DEBUG "-msse -msse2 ${CMAKE_C_FLAGS_DEBUG}")
+        set (CMAKE_C_FLAGS_RELEASE "-msse -msse2 ${CMAKE_C_FLAGS_RELEASE}")
+
         set(MACSRC pmmacosxcm pmmac readbinaryplist finddefault)
         prepend_path(LIBSRC ../pm_mac/ ${MACSRC})
         list(APPEND LIBSRC ../porttime/ptmacosx_mach)
