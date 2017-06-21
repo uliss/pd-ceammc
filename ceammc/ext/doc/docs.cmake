@@ -144,6 +144,7 @@ set(DOC_FILES
     math.log2
     math.nan
     math.neg
+    math.or
     math.pi
     math.reciprocal
     math.round

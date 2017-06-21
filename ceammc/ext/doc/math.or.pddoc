@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="math.and">
-        <title>math.and</title>
+    <object name="math.or">
+        <title>math.or</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>operation AND for multiple arguments</description>
+            <description>operation OR for multiple arguments</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>math</category>
-            <keywords>math and logic</keywords>
+            <keywords>math or logic</keywords>
             <also>
-                <see>math.or</see>
+                <see>math.and</see>
             </also>
             <aliases>
-                <alias>and</alias>
+                <alias>or</alias>
             </aliases>
             <since>0.2</since>
         </meta>
@@ -53,7 +53,7 @@
 |       |      |
 |       |      [< 50]
 |       |.     |..
-[math.and       3 @sync]
+[math.or       3 @sync]
 |
 [F]
 |

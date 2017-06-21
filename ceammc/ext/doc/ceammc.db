@@ -121,7 +121,7 @@ live.capture~		~		~.
 math.abs		.		.
 math.acos		.		.
 math.acosh		.		.
-math.and		?		.
+math.and,and		?		.
 math.approx,approx		...		.
 math.asin		.		.
 math.asinh		.		.
@@ -143,6 +143,7 @@ math.log10		.		.
 math.log2		.		.
 math.nan		.		.
 math.neg		.		.
+math.or,or		?		.
 math.pi		.		.
 math.reciprocal		.		.
 math.round		.		.

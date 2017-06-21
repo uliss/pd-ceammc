@@ -463,6 +463,9 @@
     <entry descr="negate function" name="math.neg" ref_view="object">
       <xi:include href="math.neg.pddoc" parse="xml"/>
     </entry>
+    <entry descr="operation OR for multiple arguments" name="math.or" ref_view="object">
+      <xi:include href="math.or.pddoc" parse="xml"/>
+    </entry>
     <entry descr="mathematical constant" name="math.pi" ref_view="object">
       <xi:include href="math.pi.pddoc" parse="xml"/>
     </entry>

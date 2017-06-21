@@ -1,11 +1,11 @@
 #N canvas 0 0 715 555 12;
 #X declare -lib ceammc -lib creammc;
-#X obj 404 50 cnv 1 291 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 404 50 operation AND for multiple arguments;
-#X obj 1 1 cnv 5 712 40 empty empty math.and 20 20 0 20 -104026 -4096
+#X obj 412 50 cnv 1 283 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 412 50 operation OR for multiple arguments;
+#X obj 1 1 cnv 5 712 40 empty empty math.or 20 20 0 20 -104026 -4096
 0;
-#X obj 582 11 and;
-#X obj 629 11 math.and;
+#X obj 594 11 or;
+#X obj 636 11 math.or;
 #X obj 50 118 hslider 128 15 0.0 127.0 0 0 empty empty empty 17 7 0 10
 -262144 -1 -1 0 0;
 #X obj 50 147 > 50;
@@ -15,7 +15,7 @@
 #X obj 194 176 hslider 128 15 0.0 127.0 0 0 empty empty empty 17 7 0
 10 -262144 -1 -1 0 0;
 #X obj 194 205 < 50;
-#X obj 50 234 math.and 3 @sync;
+#X obj 50 234 math.or 3 @sync;
 #X floatatom 50 262 5 0 0 0 - - -;
 #X obj 50 291 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
@@ -59,8 +59,8 @@ int;
 #X obj 131 48 ui.link @title math @url ceammc.math-help.pd;
 #X obj 1 582 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 585 library: ceammc v0.2;
-#X text 563 597 see also:;
-#X obj 639 597 math.or;
+#X text 556 597 see also:;
+#X obj 632 597 math.and;
 #N canvas 10 604 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
@@ -68,7 +68,7 @@ int;
 #X text 10 32 version:;
 #X text 120 32 0.2;
 #X text 10 54 object:;
-#X text 120 54 math.and;
+#X text 120 54 math.or;
 #X text 10 76 category:;
 #X text 120 76 math;
 #X text 10 98 since:;
@@ -78,7 +78,7 @@ int;
 #X text 10 142 license:;
 #X text 120 142 GPL3;
 #X text 10 164 keywords:;
-#X text 120 164 math \, and \, logic;
+#X text 120 164 math \, or \, logic;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pure-data @url
 https://github.com/uliss/pure-data;
