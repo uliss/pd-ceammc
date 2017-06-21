@@ -27,7 +27,7 @@ a-jong - © andré sier 2004
 
 // CEAMMC pd library version
 
-#include "cicm_wrapper.h"
+#include "m_pd.h"
 
 #include <math.h>
 #include <stdbool.h>
@@ -35,8 +35,8 @@ a-jong - © andré sier 2004
 //#define	j_calc(a, b, c, d) (sin((a)*(b))-cos((c)*(d)))
 
 typedef struct _jong {
-    t_object c_ob;
-    void *c_out, *c_out2; // outlet
+    t_object x_obj;
+    t_outlet *c_out, *c_out2; // outlet
     double a, b, c, d, nx, ny;
     double ainit, binit, cinit, dinit, nxinit, nyinit;
 
@@ -59,17 +59,17 @@ void jong_ny(jong* x, double max);
 void jong_om(jong* x, long max);
 
 void jong_assist(jong* x, void* b, long m, long a, char* s);
-static t_eclass* jong_class;
+static t_class* jong_class;
 
 void* jong_new(t_symbol* msg, short argc, t_atom* argv) //input the args
 {
     jong* x;
     int i;
 
-    x = (jong*)eobj_new(jong_class);
+    x = (jong*)pd_new(jong_class);
 
-    x->c_out2 = floatout(x);
-    x->c_out = floatout(x);
+    x->c_out2 = outlet_new(&x->x_obj, &s_float);
+    x->c_out = outlet_new(&x->x_obj, &s_float);
 
     //init
     x->a = 1.4f;
@@ -238,21 +238,21 @@ void jong_free() {}
 void setup_noise0x2ejong()
 {
 
-    jong_class = eclass_new(("noise.jong"),
-        (t_typ_method)(jong_new),
-        (t_typ_method)(jong_free),
+    jong_class = class_new(gensym("noise.jong"),
+        (t_newmethod)(jong_new),
+        (t_method)(jong_free),
         sizeof(jong), 0, A_GIMME, 0);
 
-    eclass_addmethod(jong_class, (method)jong_bang, "bang", A_GIMME, 0);
-    eclass_addmethod(jong_class, (method)jong_reset, "reset", A_GIMME, 0);
-    eclass_addmethod(jong_class, (method)jong_set, "set", A_GIMME, 0);
-    eclass_addmethod(jong_class, (method)jong_nx, "x", A_DEFFLOAT, 0);
-    eclass_addmethod(jong_class, (method)jong_ny, "y", A_DEFFLOAT, 0);
-    eclass_addmethod(jong_class, (method)jong_a, "a", A_DEFFLOAT, 0);
-    eclass_addmethod(jong_class, (method)jong_b, "b", A_DEFFLOAT, 0);
-    eclass_addmethod(jong_class, (method)jong_c, "c", A_DEFFLOAT, 0);
-    eclass_addmethod(jong_class, (method)jong_d, "d", A_DEFFLOAT, 0);
-    eclass_addmethod(jong_class, (method)jong_om, "om", A_DEFFLOAT, 0);
+    class_addmethod(jong_class, (t_method)jong_bang, gensym("bang"), A_GIMME, 0);
+    class_addmethod(jong_class, (t_method)jong_reset, gensym("reset"), A_GIMME, 0);
+    class_addmethod(jong_class, (t_method)jong_set, gensym("set"), A_GIMME, 0);
+    class_addmethod(jong_class, (t_method)jong_nx, gensym("x"), A_DEFFLOAT, 0);
+    class_addmethod(jong_class, (t_method)jong_ny, gensym("y"), A_DEFFLOAT, 0);
+    class_addmethod(jong_class, (t_method)jong_a, gensym("a"), A_DEFFLOAT, 0);
+    class_addmethod(jong_class, (t_method)jong_b, gensym("b"), A_DEFFLOAT, 0);
+    class_addmethod(jong_class, (t_method)jong_c, gensym("c"), A_DEFFLOAT, 0);
+    class_addmethod(jong_class, (t_method)jong_d, gensym("d"), A_DEFFLOAT, 0);
+    class_addmethod(jong_class, (t_method)jong_om, gensym("om"), A_DEFFLOAT, 0);
 }
 
 

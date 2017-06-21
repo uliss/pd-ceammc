@@ -14,13 +14,13 @@ phase, advancing it by an amount related to 'a' -- all in the calc method
 
 // CEAMMC pd library version
 
-#include "cicm_wrapper.h"
+#include "m_pd.h"
 
 #include <math.h>
 #include <stdbool.h>
 
 typedef struct _henonf {
-    t_object c_ob;
+    t_object x_obj;
     void *c_out, *c_out2;
     double a, b, nx, ny;
     double ainit, binit, nxinit, nyinit;
@@ -41,17 +41,17 @@ void henonf_b(henonf* x, double max);
 void henonf_om(henonf* x, long max);
 
 void henonf_assist(henonf* x, void* b, long m, long a, char* s);
-static t_eclass* henonf_class;
+static t_class* henonf_class;
 
 void* henonf_new(t_symbol* msg, short argc, t_atom* argv) //input the args
 {
     henonf* x;
     int i;
 
-    x = (henonf*)eobj_new(henonf_class);
+    x = (henonf*)pd_new(henonf_class);
 
-    x->c_out2 = floatout(x);
-    x->c_out = floatout(x);
+    x->c_out2 = outlet_new(&x->x_obj, &s_float);
+    x->c_out = outlet_new(&x->x_obj, &s_float);
 
     //init
     x->a = 1.4f;
@@ -216,20 +216,20 @@ void henonf_free() {}
 void setup_noise0x2ehenonf()
 {
 
-    henonf_class = eclass_new(("noise.henonf"),
-        (t_typ_method)(henonf_new),
-        (t_typ_method)(henonf_free),
+    henonf_class = class_new(gensym("noise.henonf"),
+        (t_newmethod)(henonf_new),
+        (t_method)(henonf_free),
         sizeof(henonf), 0, A_GIMME, 0);
 
-    eclass_addmethod(henonf_class, (method)henonf_bang, "bang", A_GIMME, 0);
-    eclass_addmethod(henonf_class, (method)henonf_set, "set", A_GIMME, 0);
-    eclass_addmethod(henonf_class, (method)henonf_reset, "reset", A_GIMME, 0);
-    eclass_addmethod(henonf_class, (method)henonf_a, "a", A_FLOAT, 0);
-    eclass_addmethod(henonf_class, (method)henonf_b, "b", A_FLOAT, 0);
-    eclass_addmethod(henonf_class, (method)henonf_nx, "x", A_FLOAT, 0);
-    eclass_addmethod(henonf_class, (method)henonf_ny, "y", A_FLOAT, 0);
-    eclass_addmethod(henonf_class, (method)henonf_ny, "dt", A_FLOAT, 0);
-    eclass_addmethod(henonf_class, (method)henonf_om, "om", A_FLOAT, 0);
+    class_addmethod(henonf_class, (t_method)henonf_bang, gensym("bang"), A_GIMME, 0);
+    class_addmethod(henonf_class, (t_method)henonf_set, gensym("set"), A_GIMME, 0);
+    class_addmethod(henonf_class, (t_method)henonf_reset, gensym("reset"), A_GIMME, 0);
+    class_addmethod(henonf_class, (t_method)henonf_a, gensym("a"), A_FLOAT, 0);
+    class_addmethod(henonf_class, (t_method)henonf_b, gensym("b"), A_FLOAT, 0);
+    class_addmethod(henonf_class, (t_method)henonf_nx, gensym("x"), A_FLOAT, 0);
+    class_addmethod(henonf_class, (t_method)henonf_ny, gensym("y"), A_FLOAT, 0);
+    class_addmethod(henonf_class, (t_method)henonf_ny, gensym("dt"), A_FLOAT, 0);
+    class_addmethod(henonf_class, (t_method)henonf_om, gensym("om"), A_FLOAT, 0);
 }
 
 

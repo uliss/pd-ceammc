@@ -10,15 +10,15 @@ a - verhulst © andré sier 20030914
 
 // CEAMMC pd library version
 
-#include "cicm_wrapper.h"
+#include "m_pd.h"
 
 #include <math.h>
 #include <stdbool.h>
 
 typedef struct
 {
-    t_object c_ob;
-    void* c_out;
+    t_object x_obj;
+    t_outlet* c_out;
 
     double lambda, seed, seedinit;
     bool om;
@@ -38,16 +38,16 @@ void verhulst_lambda(verhulst* x, float echo);
 void verhulst_seed(verhulst* x, float echo);
 
 void verhulst_assist(verhulst* x, void* b, long m, long a, char* s);
-static t_eclass* verhulst_class;
+static t_class* verhulst_class;
 
 void* verhulst_new(t_symbol* msg, short argc, t_atom* argv) //input the args
 {
     verhulst* x;
     int i;
 
-    x = (verhulst*)eobj_new(verhulst_class);
+    x = (verhulst*)pd_new(verhulst_class);
 
-    x->c_out = floatout(x);
+    x->c_out = outlet_new(&x->x_obj, &s_float);
 
     x->seed = 0.5f;
     x->seedinit = 0.5f;
@@ -135,20 +135,20 @@ void verhulst_free() {}
 
 void setup_noise0x2everhulst()
 {
-    verhulst_class = eclass_new(("noise.verhulst"),
-        (t_typ_method)(verhulst_new),
-        (t_typ_method)(verhulst_free),
+    verhulst_class = class_new(gensym("noise.verhulst"),
+        (t_newmethod)(verhulst_new),
+        (t_method)(verhulst_free),
         sizeof(verhulst), 0, A_GIMME, 0);
 
-    eclass_addmethod(verhulst_class, (method)verhulst_bang, "bang", A_GIMME, 0);
+    class_addmethod(verhulst_class, (t_method)verhulst_bang, gensym("bang"), A_GIMME, 0);
 
-    eclass_addmethod(verhulst_class, (method)verhulst_reset, "reset", A_GIMME, 0);
-    eclass_addmethod(verhulst_class, (method)verhulst_set, "set", A_GIMME, 0);
-    eclass_addmethod(verhulst_class, (method)verhulst_int, "int", A_GIMME, 0);
-    eclass_addmethod(verhulst_class, (method)verhulst_float, "float", A_GIMME, 0);
-    eclass_addmethod(verhulst_class, (method)verhulst_lambda, "lambda", A_DEFFLOAT, 0);
-    eclass_addmethod(verhulst_class, (method)verhulst_seed, "seed", A_DEFFLOAT, 0);
-    eclass_addmethod(verhulst_class, (method)verhulst_om, "om", A_DEFFLOAT, 0);
+    class_addmethod(verhulst_class, (t_method)verhulst_reset, gensym("reset"), A_GIMME, 0);
+    class_addmethod(verhulst_class, (t_method)verhulst_set, gensym("set"), A_GIMME, 0);
+    class_addmethod(verhulst_class, (t_method)verhulst_int, gensym("int"), A_GIMME, 0);
+    class_addmethod(verhulst_class, (t_method)verhulst_float, gensym("float"), A_GIMME, 0);
+    class_addmethod(verhulst_class, (t_method)verhulst_lambda, gensym("lambda"), A_DEFFLOAT, 0);
+    class_addmethod(verhulst_class, (t_method)verhulst_seed, gensym("seed"), A_DEFFLOAT, 0);
+    class_addmethod(verhulst_class, (t_method)verhulst_om, gensym("om"), A_DEFFLOAT, 0);
 }
 
 

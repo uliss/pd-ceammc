@@ -26,13 +26,13 @@ A-Chaos Lib
 
 // CEAMMC pd library version
 
-#include "cicm_wrapper.h"
+#include "m_pd.h"
 
 #include <math.h>
 #include <stdbool.h>
 
 typedef struct _ginger {
-    t_object c_ob;
+    t_object x_obj;
     void *c_out, *c_out2; // 2 outlets
     double seed, nx, ny;
     double seedinit, nxinit, nyinit;
@@ -51,17 +51,17 @@ void ginger_ny(ginger* x, double max);
 void ginger_om(ginger* x, long max);
 
 void ginger_assist(ginger* x, void* b, long m, long a, char* s);
-static t_eclass* ginger_class;
+static t_class* ginger_class;
 
 void* ginger_new(t_symbol* s, int ac, t_atom* av) //input the args
 {
     ginger* x;
     int i;
 
-    x = (ginger*)eobj_new(ginger_class);
+    x = (ginger*)pd_new(ginger_class);
 
-    x->c_out2 = floatout(x);
-    x->c_out = floatout(x);
+    x->c_out2 = outlet_new(&x->x_obj, &s_float);
+    x->c_out = outlet_new(&x->x_obj, &s_float);
 
     x->seed = 0.82f;
     x->nx = 0.7f;
@@ -165,19 +165,19 @@ void ginger_free() {}
 void setup_noise0x2eginger()
 {
 
-    ginger_class = eclass_new(("noise.ginger"),
-        (t_typ_method)(ginger_new),
-        (t_typ_method)(ginger_free),
+    ginger_class = class_new(gensym("noise.ginger"),
+        (t_newmethod)(ginger_new),
+        (t_method)(ginger_free),
         sizeof(ginger), 0, A_GIMME, 0);
 
-    eclass_addmethod(ginger_class, (method)ginger_bang, "bang", A_GIMME, 0);
-    eclass_addmethod(ginger_class, (method)ginger_set, "set", A_GIMME, 0);
-    eclass_addmethod(ginger_class, (method)ginger_reset, "reset", A_GIMME, 0);
-    eclass_addmethod(ginger_class, (method)ginger_nx, "x", A_FLOAT, 0);
-    eclass_addmethod(ginger_class, (method)ginger_ny, "y", A_FLOAT, 0);
-    eclass_addmethod(ginger_class, (method)ginger_seed, "z", A_FLOAT, 0);
-    eclass_addmethod(ginger_class, (method)ginger_seed, "seed", A_FLOAT, 0);
-    eclass_addmethod(ginger_class, (method)ginger_om, "om", A_FLOAT, 0);
+    class_addmethod(ginger_class, (t_method)ginger_bang, gensym("bang"), A_GIMME, 0);
+    class_addmethod(ginger_class, (t_method)ginger_set, gensym("set"), A_GIMME, 0);
+    class_addmethod(ginger_class, (t_method)ginger_reset, gensym("reset"), A_GIMME, 0);
+    class_addmethod(ginger_class, (t_method)ginger_nx, gensym("x"), A_FLOAT, 0);
+    class_addmethod(ginger_class, (t_method)ginger_ny, gensym("y"), A_FLOAT, 0);
+    class_addmethod(ginger_class, (t_method)ginger_seed, gensym("z"), A_FLOAT, 0);
+    class_addmethod(ginger_class, (t_method)ginger_seed, gensym("seed"), A_FLOAT, 0);
+    class_addmethod(ginger_class, (t_method)ginger_om, gensym("om"), A_FLOAT, 0);
 }
 
 

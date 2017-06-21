@@ -9,13 +9,13 @@ a port of Richard's chaos-henon-heilles from chaos collection
 
 // CEAMMC pd library version
 
-#include "cicm_wrapper.h"
+#include "m_pd.h"
 
 #include <math.h>
 #include <stdbool.h>
 
 typedef struct _henon_heilles {
-    t_eobj c_ob;
+    t_object x_obj;
     void* c_out[4]; // outlets
     double nx, ny, nxdot, nydot, e, dt;
     double nxinit, nyinit, nxdotinit, nydotinit, einit, dtinit;
@@ -36,19 +36,19 @@ void henon_heilles_dt(henon_heilles* x, double max);
 void henon_heilles_om(henon_heilles* x, long max);
 
 void henon_heilles_assist(henon_heilles* x, void* b, long m, long a, char* s);
-static t_eclass* henon_heilles_class;
+static t_class* henon_heilles_class;
 
 void* henon_heilles_new(t_symbol* msg, short argc, t_atom* argv) //input the args
 {
     henon_heilles* x;
     //int i;
 
-    x = (henon_heilles*)eobj_new(henon_heilles_class);
+    x = (henon_heilles*)pd_new(henon_heilles_class);
 
-    x->c_out[3] = floatout(x);
-    x->c_out[2] = floatout(x);
-    x->c_out[1] = floatout(x);
-    x->c_out[0] = floatout(x);
+    x->c_out[3] = outlet_new(&x->x_obj, &s_float);
+    x->c_out[2] = outlet_new(&x->x_obj, &s_float);
+    x->c_out[1] = outlet_new(&x->x_obj, &s_float);
+    x->c_out[0] = outlet_new(&x->x_obj, &s_float);
 
     //init
     x->nx = 1.0f;
@@ -205,18 +205,18 @@ void henon_heilles_om(henon_heilles* x, long max) { x->om = (max > 0); }
 void setup_noise0x2ehenon_heilles()
 {
 
-    henon_heilles_class = eclass_new(("noise.henon_heilles"),
-        (t_typ_method)(henon_heilles_new),
-        (t_typ_method)(henon_heilles_free),
+    henon_heilles_class = class_new(gensym("noise.henon_heilles"),
+        (t_newmethod)(henon_heilles_new),
+        (t_method)(henon_heilles_free),
         sizeof(henon_heilles), 0, A_GIMME, 0);
 
-    eclass_addmethod(henon_heilles_class, (method)henon_heilles_bang, "bang", A_GIMME, 0);
-    eclass_addmethod(henon_heilles_class, (method)henon_heilles_reset, "reset", A_GIMME, 0);
-    eclass_addmethod(henon_heilles_class, (method)henon_heilles_set, "set", A_GIMME, 0);
-    eclass_addmethod(henon_heilles_class, (method)henon_heilles_nx, "x", A_DEFFLOAT, 0);
-    eclass_addmethod(henon_heilles_class, (method)henon_heilles_ny, "y", A_DEFFLOAT, 0);
-    eclass_addmethod(henon_heilles_class, (method)henon_heilles_nydot, "y'", A_DEFFLOAT, 0);
-    eclass_addmethod(henon_heilles_class, (method)henon_heilles_e, "e", A_DEFFLOAT, 0);
-    eclass_addmethod(henon_heilles_class, (method)henon_heilles_dt, "dt", A_DEFFLOAT, 0);
+    class_addmethod(henon_heilles_class, (t_method)henon_heilles_bang, gensym("bang"), A_GIMME, 0);
+    class_addmethod(henon_heilles_class, (t_method)henon_heilles_reset, gensym("reset"), A_GIMME, 0);
+    class_addmethod(henon_heilles_class, (t_method)henon_heilles_set, gensym("set"), A_GIMME, 0);
+    class_addmethod(henon_heilles_class, (t_method)henon_heilles_nx, gensym("x"), A_DEFFLOAT, 0);
+    class_addmethod(henon_heilles_class, (t_method)henon_heilles_ny, gensym("y"), A_DEFFLOAT, 0);
+    class_addmethod(henon_heilles_class, (t_method)henon_heilles_nydot, gensym("y'"), A_DEFFLOAT, 0);
+    class_addmethod(henon_heilles_class, (t_method)henon_heilles_e, gensym("e"), A_DEFFLOAT, 0);
+    class_addmethod(henon_heilles_class, (t_method)henon_heilles_dt, gensym("dt"), A_DEFFLOAT, 0);
 }
 

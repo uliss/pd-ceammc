@@ -17,13 +17,13 @@ Henon Phase Diagrams
 //
 //#include <math.h>
 
-#include "cicm_wrapper.h"
+#include "m_pd.h"
 
 #include <math.h>
 #include <stdbool.h>
 
 typedef struct _henonphase {
-    t_object c_ob;
+    t_object x_obj;
     void *c_out, *c_out2;
     double a, b, nx, ny;
     double ainit, binit, nxinit, nyinit;
@@ -44,17 +44,17 @@ void henonphase_b(henonphase* x, double max);
 void henonphase_om(henonphase* x, long max);
 
 void henonphase_assist(henonphase* x, void* b, long m, long a, char* s);
-static t_eclass* henonphase_class;
+static t_class* henonphase_class;
 
 void* henonphase_new(t_symbol* msg, short argc, t_atom* argv) //input the args
 {
     henonphase* x;
     //int i;
 
-    x = (henonphase*)eobj_new(henonphase_class);
+    x = (henonphase*)pd_new(henonphase_class);
 
-    x->c_out2 = floatout(x);
-    x->c_out = floatout(x);
+    x->c_out2 = outlet_new(&x->x_obj, &s_float);
+    x->c_out = outlet_new(&x->x_obj, &s_float);
 
     //init
     x->a = 1.4f;
@@ -233,18 +233,18 @@ void henonphase_free() {}
 void setup_noise0x2ehenon_phase()
 {
 
-    henonphase_class = eclass_new(("noise.henon_phase"),
-        (t_typ_method)(henonphase_new),
-        (t_typ_method)(henonphase_free),
+    henonphase_class = class_new(gensym("noise.henon_phase"),
+        (t_newmethod)(henonphase_new),
+        (t_method)(henonphase_free),
         sizeof(henonphase), 0, A_GIMME, 0);
 
-    eclass_addmethod(henonphase_class, (method)henonphase_bang, "bang", A_GIMME, 0);
-    eclass_addmethod(henonphase_class, (method)henonphase_set, "set", A_GIMME, 0);
-    eclass_addmethod(henonphase_class, (method)henonphase_reset, "reset", A_GIMME, 0);
-    eclass_addmethod(henonphase_class, (method)henonphase_a, "a", A_FLOAT, 0);
-    eclass_addmethod(henonphase_class, (method)henonphase_b, "b", A_FLOAT, 0);
-    eclass_addmethod(henonphase_class, (method)henonphase_nx, "x", A_FLOAT, 0);
-    eclass_addmethod(henonphase_class, (method)henonphase_ny, "y", A_FLOAT, 0);
-    eclass_addmethod(henonphase_class, (method)henonphase_dt, "dt", A_FLOAT, 0);
-    eclass_addmethod(henonphase_class, (method)henonphase_om, "om", A_FLOAT, 0);
+    class_addmethod(henonphase_class, (t_method)henonphase_bang, gensym("bang"), A_GIMME, 0);
+    class_addmethod(henonphase_class, (t_method)henonphase_set, gensym("set"), A_GIMME, 0);
+    class_addmethod(henonphase_class, (t_method)henonphase_reset, gensym("reset"), A_GIMME, 0);
+    class_addmethod(henonphase_class, (t_method)henonphase_a, gensym("a"), A_FLOAT, 0);
+    class_addmethod(henonphase_class, (t_method)henonphase_b, gensym("b"), A_FLOAT, 0);
+    class_addmethod(henonphase_class, (t_method)henonphase_nx, gensym("x"), A_FLOAT, 0);
+    class_addmethod(henonphase_class, (t_method)henonphase_ny, gensym("y"), A_FLOAT, 0);
+    class_addmethod(henonphase_class, (t_method)henonphase_dt, gensym("dt"), A_FLOAT, 0);
+    class_addmethod(henonphase_class, (t_method)henonphase_om, gensym("om"), A_FLOAT, 0);
 }

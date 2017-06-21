@@ -3,7 +3,7 @@
 
 // CEAMMC pd library version
 
-#include "cicm_wrapper.h"
+#include "m_pd.h"
 
 #include <math.h>
 #include <stdbool.h>
@@ -14,10 +14,10 @@
 
 typedef struct
 {
-    t_object c_ob;
-    void* c_out; // value
-    void* c_out2; // value
-    void* c_out3; // value
+    t_object x_obj;
+    t_outlet* c_out; // value
+    t_outlet* c_out2; // value
+    t_outlet* c_out3; // value
 
     double a, b, c, nx, ny, nz, dt; //eq variables
     double ainit, binit, cinit, nxinit, nyinit, nzinit, dtinit; //init eq variables
@@ -43,18 +43,18 @@ void rossler_reset(rossler* x, t_symbol* msg, short argc, t_atom* argv);
 void rossler_set(rossler* x, t_symbol* msg, short argc, t_atom* argv);
 
 void rossler_assist(rossler* x, void* b, long m, long a, char* s);
-static t_eclass* rossler_class;
+static t_class* rossler_class;
 
 void* rossler_new(t_symbol* msg, short argc, t_atom* argv) //input the args
 {
     rossler* x;
     int i;
 
-    x = (rossler*)eobj_new(rossler_class);
+    x = (rossler*)pd_new(rossler_class);
 
-    x->c_out3 = floatout(x);
-    x->c_out2 = floatout(x);
-    x->c_out = floatout(x);
+    x->c_out3 = outlet_new(&x->x_obj, &s_float);
+    x->c_out2 = outlet_new(&x->x_obj, &s_float);
+    x->c_out = outlet_new(&x->x_obj, &s_float);
 
     //classic rossler
     x->a = 0.2;
@@ -250,23 +250,21 @@ void rossler_free() {}
 void setup_noise0x2erossler()
 {
 
-    rossler_class = eclass_new(("noise.rossler"),
-        (t_typ_method)(rossler_new),
-        (t_typ_method)(rossler_free),
+    rossler_class = class_new(gensym("noise.rossler"),
+        (t_newmethod)(rossler_new),
+        (t_method)(rossler_free),
         sizeof(rossler), 0, A_GIMME, 0);
 
-    eclass_addmethod(rossler_class, (method)rossler_bang, "bang", A_GIMME, 0);
-    eclass_addmethod(rossler_class, (method)rossler_set, "set", A_GIMME, 0);
-    eclass_addmethod(rossler_class, (method)rossler_reset, "reset", A_GIMME, 0);
+    class_addmethod(rossler_class, (t_method)rossler_bang, gensym("bang"), A_GIMME, 0);
+    class_addmethod(rossler_class, (t_method)rossler_set, gensym("set"), A_GIMME, 0);
+    class_addmethod(rossler_class, (t_method)rossler_reset, gensym("reset"), A_GIMME, 0);
 
-    eclass_addmethod(rossler_class, (method)rossler_dt, "dt", A_DEFFLOAT, 0);
-    eclass_addmethod(rossler_class, (method)rossler_a, "a", A_DEFFLOAT, 0);
-    eclass_addmethod(rossler_class, (method)rossler_b, "b", A_DEFFLOAT, 0);
-    eclass_addmethod(rossler_class, (method)rossler_c, "c", A_DEFFLOAT, 0);
-    eclass_addmethod(rossler_class, (method)rossler_nx, "x", A_DEFFLOAT, 0);
-    eclass_addmethod(rossler_class, (method)rossler_ny, "y", A_DEFFLOAT, 0);
-    eclass_addmethod(rossler_class, (method)rossler_nz, "z", A_DEFFLOAT, 0);
-    eclass_addmethod(rossler_class, (method)rossler_om, "om", A_DEFFLOAT, 0);
+    class_addmethod(rossler_class, (t_method)rossler_dt, gensym("dt"), A_DEFFLOAT, 0);
+    class_addmethod(rossler_class, (t_method)rossler_a, gensym("a"), A_DEFFLOAT, 0);
+    class_addmethod(rossler_class, (t_method)rossler_b, gensym("b"), A_DEFFLOAT, 0);
+    class_addmethod(rossler_class, (t_method)rossler_c, gensym("c"), A_DEFFLOAT, 0);
+    class_addmethod(rossler_class, (t_method)rossler_nx, gensym("x"), A_DEFFLOAT, 0);
+    class_addmethod(rossler_class, (t_method)rossler_ny, gensym("y"), A_DEFFLOAT, 0);
+    class_addmethod(rossler_class, (t_method)rossler_nz, gensym("z"), A_DEFFLOAT, 0);
+    class_addmethod(rossler_class, (t_method)rossler_om, gensym("om"), A_DEFFLOAT, 0);
 }
-
-

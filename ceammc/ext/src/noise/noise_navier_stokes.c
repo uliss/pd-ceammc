@@ -36,14 +36,14 @@ With 28.73 < R1 > 29.0 and R2 ± = 33.43.
 
 // CEAMMC pd library
 
-#include "cicm_wrapper.h"
+#include "m_pd.h"
 
 #include <math.h>
 #include <stdbool.h>
 
 typedef struct
 {
-    t_eobj c_ob;
+    t_object x_obj;
     t_outlet* c_out[5]; // value
 
     double a, b, c, d, e, r, dt; //eq variables
@@ -68,19 +68,19 @@ void navierstokes_set(navierstokes* x, t_symbol* msg, short argc, t_atom* argv);
 
 void navierstokes_assist(navierstokes* x, void* b, long m, long a, char* s);
 
-static t_eclass* noise_navierstokes_class;
+static t_class* noise_navierstokes_class;
 
 void* navierstokes_new(t_symbol* msg, short argc, t_atom* argv) //input the args
 {
     navierstokes* x;
 
-    x = (navierstokes*)eobj_new(noise_navierstokes_class);
+    x = (navierstokes*)pd_new(noise_navierstokes_class);
 
-    x->c_out[4] = floatout(x);
-    x->c_out[3] = floatout(x);
-    x->c_out[2] = floatout(x);
-    x->c_out[1] = floatout(x);
-    x->c_out[0] = floatout(x);
+    x->c_out[4] = outlet_new(&x->x_obj, &s_float);
+    x->c_out[3] = outlet_new(&x->x_obj, &s_float);
+    x->c_out[2] = outlet_new(&x->x_obj, &s_float);
+    x->c_out[1] = outlet_new(&x->x_obj, &s_float);
+    x->c_out[0] = outlet_new(&x->x_obj, &s_float);
 
     //classic navierstokes
     x->a = 1.0;
@@ -117,51 +117,37 @@ void navierstokes_set(navierstokes* x, t_symbol* msg, short ac, t_atom* av) //in
     if (ac) {
 
         if (ac > 6) {
-            if (av[6].a_type == A_LONG)
-                x->dtinit = (double)av[6].a_w.w_float;
-            else if (av[6].a_type == A_FLOAT)
+            if (av[6].a_type == A_FLOAT)
                 x->dtinit = av[6].a_w.w_float;
             x->dt = x->dtinit;
         }
         if (ac > 5) {
-            if (av[5].a_type == A_LONG)
-                x->rinit = (double)av[5].a_w.w_float;
-            else if (av[5].a_type == A_FLOAT)
+            if (av[5].a_type == A_FLOAT)
                 x->rinit = av[5].a_w.w_float;
             x->r = x->rinit;
         }
         if (ac > 4) {
-            if (av[4].a_type == A_LONG)
-                x->einit = (double)av[4].a_w.w_float;
-            else if (av[4].a_type == A_FLOAT)
+            if (av[4].a_type == A_FLOAT)
                 x->einit = av[4].a_w.w_float;
             x->e = x->einit;
         }
         if (ac > 3) {
-            if (av[3].a_type == A_LONG)
-                x->dinit = (double)av[3].a_w.w_float;
-            else if (av[3].a_type == A_FLOAT)
+            if (av[3].a_type == A_FLOAT)
                 x->dinit = av[3].a_w.w_float;
             x->d = x->dinit;
         }
         if (ac > 2) {
-            if (av[2].a_type == A_LONG)
-                x->cinit = (double)av[2].a_w.w_float;
-            else if (av[2].a_type == A_FLOAT)
+            if (av[2].a_type == A_FLOAT)
                 x->cinit = av[2].a_w.w_float;
             x->c = x->cinit;
         }
         if (ac > 1) {
-            if (av[1].a_type == A_LONG)
-                x->binit = (double)av[1].a_w.w_float;
-            else if (av[1].a_type == A_FLOAT)
+            if (av[1].a_type == A_FLOAT)
                 x->binit = av[1].a_w.w_float;
             x->b = x->binit;
         }
         if (ac > 0) {
-            if (av[0].a_type == A_LONG)
-                x->ainit = (double)av[0].a_w.w_float;
-            else if (av[0].a_type == A_FLOAT)
+            if (av[0].a_type == A_FLOAT)
                 x->ainit = av[0].a_w.w_float;
             x->a = x->ainit;
         }
@@ -292,22 +278,22 @@ void navierstokes_bang(navierstokes* x) //important, output _ten_ calc
 void setup_noise0x2enavier_stokes()
 {
 
-    noise_navierstokes_class = eclass_new(("noise.navier_stokes"),
-        (t_typ_method)(navierstokes_new),
-        (t_typ_method)(navierstokes_free),
+    noise_navierstokes_class = class_new(gensym("noise.navier_stokes"),
+        (t_newmethod)(navierstokes_new),
+        (t_method)(navierstokes_free),
         sizeof(navierstokes), 0, A_GIMME, 0);
 
-    eclass_addmethod(noise_navierstokes_class, (method)navierstokes_bang,  "bang",  A_GIMME, 0);
-    eclass_addmethod(noise_navierstokes_class, (method)navierstokes_set,   "set",   A_GIMME, 0);
-    eclass_addmethod(noise_navierstokes_class, (method)navierstokes_reset, "reset", A_GIMME, 0);
+    class_addmethod(noise_navierstokes_class, (t_method)navierstokes_bang,  gensym("bang"),  A_GIMME, 0);
+    class_addmethod(noise_navierstokes_class, (t_method)navierstokes_set,   gensym("set"),   A_GIMME, 0);
+    class_addmethod(noise_navierstokes_class, (t_method)navierstokes_reset, gensym("reset"), A_GIMME, 0);
 
-    eclass_addmethod(noise_navierstokes_class, (method)navierstokes_dt, "dt", A_DEFFLOAT, 0);
-    eclass_addmethod(noise_navierstokes_class, (method)navierstokes_a,  "a",  A_DEFFLOAT, 0);
-    eclass_addmethod(noise_navierstokes_class, (method)navierstokes_r,  "r",  A_DEFFLOAT, 0);
-    eclass_addmethod(noise_navierstokes_class, (method)navierstokes_c,  "c",  A_DEFFLOAT, 0);
-    eclass_addmethod(noise_navierstokes_class, (method)navierstokes_b,  "b",  A_DEFFLOAT, 0);
-    eclass_addmethod(noise_navierstokes_class, (method)navierstokes_d,  "d",  A_DEFFLOAT, 0);
-    eclass_addmethod(noise_navierstokes_class, (method)navierstokes_om, "om", A_DEFFLOAT, 0);
+    class_addmethod(noise_navierstokes_class, (t_method)navierstokes_dt, gensym("dt"), A_DEFFLOAT, 0);
+    class_addmethod(noise_navierstokes_class, (t_method)navierstokes_a,  gensym("a"),  A_DEFFLOAT, 0);
+    class_addmethod(noise_navierstokes_class, (t_method)navierstokes_r,  gensym("r"),  A_DEFFLOAT, 0);
+    class_addmethod(noise_navierstokes_class, (t_method)navierstokes_c,  gensym("c"),  A_DEFFLOAT, 0);
+    class_addmethod(noise_navierstokes_class, (t_method)navierstokes_b,  gensym("b"),  A_DEFFLOAT, 0);
+    class_addmethod(noise_navierstokes_class, (t_method)navierstokes_d,  gensym("d"),  A_DEFFLOAT, 0);
+    class_addmethod(noise_navierstokes_class, (t_method)navierstokes_om, gensym("om"), A_DEFFLOAT, 0);
 }
 
 

@@ -44,13 +44,13 @@ References
 
 // CEAMMC pd library version
 
-#include "cicm_wrapper.h"
+#include "m_pd.h"
 
 #include <math.h>
 #include <stdbool.h>
 
 typedef struct _lyapunov {
-    t_object c_ob;
+    t_object x_obj;
     t_outlet *c_out, *c_out2; // outlets
     double a[6], b[6], nx, ny;
     double ainit[6], binit[6], nxinit, nyinit;
@@ -71,17 +71,17 @@ void lyapunov_ny(lyapunov* x, double max);
 void lyapunov_om(lyapunov* x, long max);
 
 void lyapunov_assist(lyapunov* x, void* b, long m, long a, char* s);
-static t_eclass* lyapunov_class;
+static t_class* lyapunov_class;
 
 void* lyapunov_new(t_symbol* msg, short argc, t_atom* argv)
 {
     lyapunov* x;
     int i;
 
-    x = (lyapunov*)eobj_new(lyapunov_class);
+    x = (lyapunov*)pd_new(lyapunov_class);
 
-    x->c_out2 = floatout(x);
-    x->c_out = floatout(x);
+    x->c_out2 = outlet_new(&x->x_obj, &s_float);
+    x->c_out = outlet_new(&x->x_obj, &s_float);
 
     //init calculated at random (of course with a max patch:)
     x->a[0] = -1.4f;
@@ -415,19 +415,19 @@ void lyapunov_free() {}
 void setup_noise0x2elyapunov()
 {
 
-    lyapunov_class = eclass_new(("noise.lyapunov"),
-        (t_typ_method)(lyapunov_new),
-        (t_typ_method)(lyapunov_free),
+    lyapunov_class = class_new(gensym("noise.lyapunov"),
+        (t_newmethod)(lyapunov_new),
+        (t_method)(lyapunov_free),
         sizeof(lyapunov), 0, A_GIMME, 0);
 
-    eclass_addmethod(lyapunov_class, (method)lyapunov_bang, "bang", A_GIMME, 0);
-    eclass_addmethod(lyapunov_class, (method)lyapunov_reset, "reset", A_GIMME, 0);
-    eclass_addmethod(lyapunov_class, (method)lyapunov_set, "set", A_GIMME, 0);
-    eclass_addmethod(lyapunov_class, (method)lyapunov_a, "a", A_GIMME, 0);
-    eclass_addmethod(lyapunov_class, (method)lyapunov_b, "b", A_GIMME, 0);
-    eclass_addmethod(lyapunov_class, (method)lyapunov_nx, "x", A_DEFFLOAT, 0);
-    eclass_addmethod(lyapunov_class, (method)lyapunov_ny, "y", A_DEFFLOAT, 0);
-    eclass_addmethod(lyapunov_class, (method)lyapunov_om, "om", A_DEFFLOAT, 0);
+    class_addmethod(lyapunov_class, (t_method)lyapunov_bang, gensym("bang"), A_GIMME, 0);
+    class_addmethod(lyapunov_class, (t_method)lyapunov_reset, gensym("reset"), A_GIMME, 0);
+    class_addmethod(lyapunov_class, (t_method)lyapunov_set, gensym("set"), A_GIMME, 0);
+    class_addmethod(lyapunov_class, (t_method)lyapunov_a, gensym("a"), A_GIMME, 0);
+    class_addmethod(lyapunov_class, (t_method)lyapunov_b, gensym("b"), A_GIMME, 0);
+    class_addmethod(lyapunov_class, (t_method)lyapunov_nx, gensym("x"), A_DEFFLOAT, 0);
+    class_addmethod(lyapunov_class, (t_method)lyapunov_ny, gensym("y"), A_DEFFLOAT, 0);
+    class_addmethod(lyapunov_class, (t_method)lyapunov_om, gensym("om"), A_DEFFLOAT, 0);
 }
 
 

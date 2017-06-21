@@ -15,10 +15,9 @@ b replaced with c
 ————————————————————————————————————————————————————————————————
 */
 
-
 // CEAMMC pd library version
 
-#include "cicm_wrapper.h"
+#include "m_pd.h"
 
 #include <math.h>
 #include <stdbool.h>
@@ -29,10 +28,10 @@ b replaced with c
 
 typedef struct
 {
-    t_object c_ob;
-    void* c_out; // value
-    void* c_out2; // value
-    void* c_out3; // value
+    t_object x_obj;
+    t_outlet* c_out; // value
+    t_outlet* c_out2; // value
+    t_outlet* c_out3; // value
 
     double a, r, c, nx, ny, nz, dt; //eq variables
     double ainit, rinit, cinit, nxinit, nyinit, nzinit, dtinit; //init eq variables
@@ -63,18 +62,18 @@ void lorenz_calc(lorenz* x);
 void lorenz_reset(lorenz* x, t_symbol* msg, short argc, t_atom* argv);
 void lorenz_set(lorenz* x, t_symbol* msg, short argc, t_atom* argv);
 
-static t_eclass* lorenz_class;
+static t_class* lorenz_class;
 
 void* lorenz_new(t_symbol* msg, short argc, t_atom* argv) //input the args
 {
     lorenz* x;
     //int i;
 
-    x = (lorenz*)eobj_new(lorenz_class);
+    x = (lorenz*)pd_new(lorenz_class);
 
-    x->c_out3 = floatout(x);
-    x->c_out2 = floatout(x);
-    x->c_out = floatout(x);
+    x->c_out3 = outlet_new(&x->x_obj, &s_float);
+    x->c_out2 = outlet_new(&x->x_obj, &s_float);
+    x->c_out = outlet_new(&x->x_obj, &s_float);
 
     //classic lorenz
     x->a = 10.0;
@@ -109,51 +108,37 @@ void lorenz_set(lorenz* x, t_symbol* msg, short ac, t_atom* av) //input the args
     if (ac) {
 
         if (ac > 6) {
-            if (av[6].a_type == A_LONG)
-                x->dtinit = (double)av[6].a_w.w_float;
-            else if (av[6].a_type == A_FLOAT)
+            if (av[6].a_type == A_FLOAT)
                 x->dtinit = av[6].a_w.w_float;
             x->dt = x->dtinit;
         }
         if (ac > 5) {
-            if (av[5].a_type == A_LONG)
-                x->cinit = (double)av[5].a_w.w_float;
-            else if (av[5].a_type == A_FLOAT)
+            if (av[5].a_type == A_FLOAT)
                 x->cinit = av[5].a_w.w_float;
             x->c = x->cinit;
         }
         if (ac > 4) {
-            if (av[4].a_type == A_LONG)
-                x->rinit = (double)av[4].a_w.w_float;
-            else if (av[4].a_type == A_FLOAT)
+            if (av[4].a_type == A_FLOAT)
                 x->rinit = av[4].a_w.w_float;
             x->r = x->rinit;
         }
         if (ac > 3) {
-            if (av[3].a_type == A_LONG)
-                x->ainit = (double)av[3].a_w.w_float;
-            else if (av[3].a_type == A_FLOAT)
+            if (av[3].a_type == A_FLOAT)
                 x->ainit = av[3].a_w.w_float;
             x->a = x->ainit;
         }
         if (ac > 2) {
-            if (av[2].a_type == A_LONG)
-                x->nzinit = (double)av[2].a_w.w_float;
-            else if (av[2].a_type == A_FLOAT)
+            if (av[2].a_type == A_FLOAT)
                 x->nzinit = av[2].a_w.w_float;
             x->nz = x->nzinit;
         }
         if (ac > 1) {
-            if (av[1].a_type == A_LONG)
-                x->nyinit = (double)av[1].a_w.w_float;
-            else if (av[1].a_type == A_FLOAT)
+            if (av[1].a_type == A_FLOAT)
                 x->nyinit = av[1].a_w.w_float;
             x->ny = x->nyinit;
         }
         if (ac > 0) {
-            if (av[0].a_type == A_LONG)
-                x->nxinit = (double)av[0].a_w.w_float;
-            else if (av[0].a_type == A_FLOAT)
+            if (av[0].a_type == A_FLOAT)
                 x->nxinit = av[0].a_w.w_float;
             x->nx = x->nxinit;
         }
@@ -283,24 +268,23 @@ void lorenz_bang(lorenz* x)
 void setup_noise0x2elorenz()
 {
 
-    lorenz_class = eclass_new(("noise.lorenz"),
-        (t_typ_method)(lorenz_new),
-        (t_typ_method)(lorenz_free),
+    lorenz_class = class_new(gensym("noise.lorenz"),
+        (t_newmethod)(lorenz_new),
+        (t_method)(lorenz_free),
         sizeof(lorenz), 0, A_GIMME, 0);
 
-    eclass_addmethod(lorenz_class, (method)lorenz_bang, "bang", A_GIMME, 0);
-    eclass_addmethod(lorenz_class, (method)lorenz_set, "set", A_GIMME, 0);
-    eclass_addmethod(lorenz_class, (method)lorenz_reset, "reset", A_GIMME, 0);
+    class_addmethod(lorenz_class, (t_method)lorenz_bang, gensym("bang"), A_GIMME, 0);
+    class_addmethod(lorenz_class, (t_method)lorenz_set, gensym("set"), A_GIMME, 0);
+    class_addmethod(lorenz_class, (t_method)lorenz_reset, gensym("reset"), A_GIMME, 0);
     //
-    eclass_addmethod(lorenz_class, (method)lorenz_dt, "dt", A_DEFFLOAT, 0);
-    eclass_addmethod(lorenz_class, (method)lorenz_a, "a", A_DEFFLOAT, 0);
-    eclass_addmethod(lorenz_class, (method)lorenz_r, "r", A_DEFFLOAT, 0);
-    eclass_addmethod(lorenz_class, (method)lorenz_c, "c", A_DEFFLOAT, 0);
-    eclass_addmethod(lorenz_class, (method)lorenz_nx, "x", A_DEFFLOAT, 0);
-    eclass_addmethod(lorenz_class, (method)lorenz_ny, "y", A_DEFFLOAT, 0);
-    eclass_addmethod(lorenz_class, (method)lorenz_nz, "z", A_DEFFLOAT, 0);
-    // addint((method)lorenz_int);
-    // addfloat((method)lorenz_float);
-    eclass_addmethod(lorenz_class, (method)lorenz_om, "om", A_DEFFLOAT, 0);
+    class_addmethod(lorenz_class, (t_method)lorenz_dt, gensym("dt"), A_DEFFLOAT, 0);
+    class_addmethod(lorenz_class, (t_method)lorenz_a, gensym("a"), A_DEFFLOAT, 0);
+    class_addmethod(lorenz_class, (t_method)lorenz_r, gensym("r"), A_DEFFLOAT, 0);
+    class_addmethod(lorenz_class, (t_method)lorenz_c, gensym("c"), A_DEFFLOAT, 0);
+    class_addmethod(lorenz_class, (t_method)lorenz_nx, gensym("x"), A_DEFFLOAT, 0);
+    class_addmethod(lorenz_class, (t_method)lorenz_ny, gensym("y"), A_DEFFLOAT, 0);
+    class_addmethod(lorenz_class, (t_method)lorenz_nz, gensym("z"), A_DEFFLOAT, 0);
+    // addint((t_method)lorenz_int);
+    // addfloat((t_method)lorenz_float);
+    class_addmethod(lorenz_class, (t_method)lorenz_om, gensym("om"), A_DEFFLOAT, 0);
 }
-

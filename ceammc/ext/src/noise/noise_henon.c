@@ -9,13 +9,13 @@ updated to use init vars method ported from chaos collection
 
 // CEAMMC pd library version
 
-#include "cicm_wrapper.h"
+#include "m_pd.h"
 
 #include <math.h>
 #include <stdbool.h>
 
 typedef struct _henon {
-    t_object c_ob;
+    t_object x_obj;
     void *c_out, *c_out2;
     double a, b, nx, ny;
     double ainit, binit, nxinit, nyinit;
@@ -34,17 +34,17 @@ void henon_b(henon* x, double max);
 void henon_om(henon* x, long max);
 
 void henon_assist(henon* x, void* b, long m, long a, char* s);
-static t_eclass* henon_class;
+static t_class* henon_class;
 
 void* henon_new(t_symbol* msg, short argc, t_atom* argv) //input the args
 {
     henon* x;
     int i;
 
-    x = (henon*)eobj_new(henon_class);
+    x = (henon*)pd_new(henon_class);
 
-    x->c_out2 = floatout(x);
-    x->c_out = floatout(x);
+    x->c_out2 = outlet_new(&x->x_obj, &s_float);
+    x->c_out = outlet_new(&x->x_obj, &s_float);
 
     //init
     x->a = 1.4f;
@@ -162,19 +162,19 @@ void henon_free() {}
 void setup_noise0x2ehenon()
 {
 
-    henon_class = eclass_new(("noise.henon"),
-        (t_typ_method)(henon_new),
-        (t_typ_method)(henon_free),
+    henon_class = class_new(gensym("noise.henon"),
+        (t_newmethod)(henon_new),
+        (t_method)(henon_free),
         sizeof(henon), 0, A_GIMME, 0);
 
-    eclass_addmethod(henon_class, (method)henon_bang, "bang", A_GIMME, 0);
-    eclass_addmethod(henon_class, (method)henon_set, "set", A_GIMME, 0);
-    eclass_addmethod(henon_class, (method)henon_reset, "reset", A_GIMME, 0);
-    eclass_addmethod(henon_class, (method)henon_a, "a", A_FLOAT, 0);
-    eclass_addmethod(henon_class, (method)henon_b, "b", A_FLOAT, 0);
-    eclass_addmethod(henon_class, (method)henon_nx, "x", A_FLOAT, 0);
-    eclass_addmethod(henon_class, (method)henon_ny, "y", A_FLOAT, 0);
-    eclass_addmethod(henon_class, (method)henon_om, "om", A_FLOAT, 0);
+    class_addmethod(henon_class, (t_method)henon_bang, gensym("bang"), A_GIMME, 0);
+    class_addmethod(henon_class, (t_method)henon_set, gensym("set"), A_GIMME, 0);
+    class_addmethod(henon_class, (t_method)henon_reset, gensym("reset"), A_GIMME, 0);
+    class_addmethod(henon_class, (t_method)henon_a, gensym("a"), A_FLOAT, 0);
+    class_addmethod(henon_class, (t_method)henon_b, gensym("b"), A_FLOAT, 0);
+    class_addmethod(henon_class, (t_method)henon_nx, gensym("x"), A_FLOAT, 0);
+    class_addmethod(henon_class, (t_method)henon_ny, gensym("y"), A_FLOAT, 0);
+    class_addmethod(henon_class, (t_method)henon_om, gensym("om"), A_FLOAT, 0);
 }
 
 

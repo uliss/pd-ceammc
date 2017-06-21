@@ -11,7 +11,7 @@ a - torus © andré sier 20030914
 
 // CEAMMC pd library version
 
-#include "cicm_wrapper.h"
+#include "m_pd.h"
 
 #include <math.h>
 #include <stdbool.h>
@@ -21,9 +21,9 @@ a - torus © andré sier 20030914
 
 typedef struct
 {
-    t_object c_ob;
-    void* c_out;
-    void* c_out2;
+    t_object x_obj;
+    t_outlet* c_out;
+    t_outlet* c_out2;
 
     double x0, y0, cr;
     double x0init, y0init, crinit;
@@ -42,17 +42,17 @@ void torus_y0(torus* x, float echo);
 void torus_cr(torus* x, float echo);
 
 void torus_assist(torus* x, void* b, long m, long a, char* s);
-static t_eclass* torus_class;
+static t_class* torus_class;
 
 void* torus_new(t_symbol* msg, short argc, t_atom* argv)
 {
     torus* x;
     int i;
 
-    x = (torus*)eobj_new(torus_class);
+    x = (torus*)pd_new(torus_class);
 
-    x->c_out2 = floatout(x);
-    x->c_out = floatout(x);
+    x->c_out2 = outlet_new(&x->x_obj, &s_float);
+    x->c_out = outlet_new(&x->x_obj, &s_float);
 
     x->x0 = 0.777f;
     x->y0 = 1.2f;
@@ -153,19 +153,19 @@ void torus_free() {}
 void setup_noise0x2etorus()
 {
 
-    torus_class = eclass_new(("noise.torus"),
-        (t_typ_method)(torus_new),
-        (t_typ_method)(torus_free),
+    torus_class = class_new(gensym("noise.torus"),
+        (t_newmethod)(torus_new),
+        (t_method)(torus_free),
         sizeof(torus), 0, A_GIMME, 0);
 
-    eclass_addmethod(torus_class, (method)torus_bang, "bang", A_GIMME, 0);
+    class_addmethod(torus_class, (t_method)torus_bang, gensym("bang"), A_GIMME, 0);
 
-    eclass_addmethod(torus_class, (method)torus_reset, "reset", A_GIMME, 0);
-    eclass_addmethod(torus_class, (method)torus_set, "set", A_GIMME, 0);
-    eclass_addmethod(torus_class, (method)torus_cr, "cr", A_DEFFLOAT, 0);
-    eclass_addmethod(torus_class, (method)torus_x0, "x", A_DEFFLOAT, 0);
-    eclass_addmethod(torus_class, (method)torus_y0, "y", A_DEFFLOAT, 0);
-    eclass_addmethod(torus_class, (method)torus_om, "om", A_DEFFLOAT, 0);
+    class_addmethod(torus_class, (t_method)torus_reset, gensym("reset"), A_GIMME, 0);
+    class_addmethod(torus_class, (t_method)torus_set, gensym("set"), A_GIMME, 0);
+    class_addmethod(torus_class, (t_method)torus_cr, gensym("cr"), A_DEFFLOAT, 0);
+    class_addmethod(torus_class, (t_method)torus_x0, gensym("x"), A_DEFFLOAT, 0);
+    class_addmethod(torus_class, (t_method)torus_y0, gensym("y"), A_DEFFLOAT, 0);
+    class_addmethod(torus_class, (t_method)torus_om, gensym("om"), A_DEFFLOAT, 0);
 }
 
 

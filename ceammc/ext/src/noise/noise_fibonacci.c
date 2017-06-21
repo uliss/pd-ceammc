@@ -16,7 +16,7 @@ modos:	raw (calcular a iteracao da sequencia fibo n)
 
 // CEAMMC pd library version
 
-#include "cicm_wrapper.h"
+#include "m_pd.h"
 
 #include <math.h>
 #include <stdbool.h>
@@ -45,7 +45,7 @@ void fibo_tavle(fibo* x, long n);
 void fibo_filltavle(fibo* x, long n);
 void fibo_trust(fibo* x, long n);
 int Fibonacci(int n);
-t_eclass* fibo_class;
+t_class* fibo_class;
 
 // 0 @ 47
 long fivo[] = { 1, 1, 2, 3, 5, 8, 13, 21, 34, 55,
@@ -120,7 +120,7 @@ void* fibo_new(long arg)
     register short i;
 
     fibo* x;
-    x = (fibo*)eobj_new(fibo_class);
+    x = (fibo*)pd_new(fibo_class);
 
     x->x_a = 0;
     x->x_fill = 0;
@@ -131,7 +131,7 @@ void* fibo_new(long arg)
     if (arg)
         fibo_filltavle(x, arg);
 
-    x->x_outlet = floatout(x);
+    x->x_outlet = outlet_new(&x->x_obj, &s_float);
     x->x_fire = 1;
     x->x_rep = 0;
     return (x);
@@ -146,19 +146,19 @@ void fibo_free(fibo* x)
 void setup_noise0x2efibonacci()
 {
 
-    fibo_class = eclass_new(("noise.fibonacci"),
+    fibo_class = class_new(gensym("noise.fibonacci"),
         (t_typ_method)(fibo_new),
         (t_typ_method)(fibo_free),
         sizeof(fibo), 0, A_GIMME, 0);
 
-    //eclass_addmethod(lorenz_class, (method)baker_bang, "bang", A_GIMME, 0);
+    //class_addmethod(lorenz_class, (t_method)baker_bang, "bang", A_GIMME, 0);
 
-    eclass_addmethod(fibo_class, (method)fibo_bang, "bang", A_GIMME, 0);
-    eclass_addmethod(fibo_class, (method)fibo_int, "float", A_GIMME, 0);
-    eclass_addmethod(fibo_class, (method)fibo_fire, "fire", A_FLOAT, 0);
-    eclass_addmethod(fibo_class, (method)fibo_tavle, "tavle", A_FLOAT, 0);
-    eclass_addmethod(fibo_class, (method)fibo_trust, "tst", A_FLOAT, 0);
-    eclass_addmethod(fibo_class, (method)fibo_filltavle, "fill", A_FLOAT, 0);
-    eclass_addmethod(fibo_class, (method)fibo_rep, "rep", A_FLOAT, 0);
+    class_addmethod(fibo_class, (t_method)fibo_bang, "bang", A_GIMME, 0);
+    class_addmethod(fibo_class, (t_method)fibo_int, "float", A_GIMME, 0);
+    class_addmethod(fibo_class, (t_method)fibo_fire, "fire", A_FLOAT, 0);
+    class_addmethod(fibo_class, (t_method)fibo_tavle, "tavle", A_FLOAT, 0);
+    class_addmethod(fibo_class, (t_method)fibo_trust, "tst", A_FLOAT, 0);
+    class_addmethod(fibo_class, (t_method)fibo_filltavle, "fill", A_FLOAT, 0);
+    class_addmethod(fibo_class, (t_method)fibo_rep, "rep", A_FLOAT, 0);
 }
 

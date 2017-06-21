@@ -10,15 +10,15 @@ a - logistic © andré sier 20030914
 
 // CEAMMC pd library version
 
-#include "cicm_wrapper.h"
+#include "m_pd.h"
 
 #include <math.h>
 #include <stdbool.h>
 
 typedef struct
 {
-    t_object c_ob;
-    void* c_out;
+    t_object x_obj;
+    t_outlet* c_out;
 
     double lambda, seed, seedinit;
     bool om;
@@ -38,16 +38,16 @@ void logistic_lambda(logistic* x, float echo);
 void logistic_seed(logistic* x, float echo);
 
 void logistic_assist(logistic* x, void* b, long m, long a, char* s);
-static t_eclass* logistic_class;
+static t_class* logistic_class;
 
 void* logistic_new(t_symbol* msg, short argc, t_atom* argv) //input the args
 {
     logistic* x;
     int i;
 
-    x = (logistic*)eobj_new(logistic_class);
+    x = (logistic*)pd_new(logistic_class);
 
-    x->c_out = floatout(x);
+    x->c_out = outlet_new(&x->x_obj, &s_float);
 
     x->seed = 0.777f;
     x->seedinit = 0.777f;
@@ -136,20 +136,20 @@ void logistic_free() {}
 void setup_noise0x2elogistic()
 {
 
-    logistic_class = eclass_new(("noise.logistic"),
-        (t_typ_method)(logistic_new),
-        (t_typ_method)(logistic_free),
+    logistic_class = class_new(gensym("noise.logistic"),
+        (t_newmethod)(logistic_new),
+        (t_method)(logistic_free),
         sizeof(logistic), 0, A_GIMME, 0);
 
-    eclass_addmethod(logistic_class, (method)logistic_bang, "bang", A_GIMME, 0);
+    class_addmethod(logistic_class, (t_method)logistic_bang, gensym("bang"), A_GIMME, 0);
 
-    eclass_addmethod(logistic_class, (method)logistic_reset, "reset", A_GIMME, 0);
-    eclass_addmethod(logistic_class, (method)logistic_set, "set", A_GIMME, 0);
-    //eclass_addmethod(logistic_class, (method)logistic_int, "float", A_GIMME, 0);
-    eclass_addmethod(logistic_class, (method)logistic_float, "float", A_GIMME, 0);
-    eclass_addmethod(logistic_class, (method)logistic_lambda, "lambda", A_DEFFLOAT, 0);
-    eclass_addmethod(logistic_class, (method)logistic_seed, "seed", A_DEFFLOAT, 0);
-    eclass_addmethod(logistic_class, (method)logistic_om, "om", A_DEFFLOAT, 0);
+    class_addmethod(logistic_class, (t_method)logistic_reset, gensym("reset"), A_GIMME, 0);
+    class_addmethod(logistic_class, (t_method)logistic_set, gensym("set"), A_GIMME, 0);
+    //class_addmethod(logistic_class, (t_method)logistic_int, "float", A_GIMME, 0);
+    class_addmethod(logistic_class, (t_method)logistic_float, gensym("float"), A_GIMME, 0);
+    class_addmethod(logistic_class, (t_method)logistic_lambda, gensym("lambda"), A_DEFFLOAT, 0);
+    class_addmethod(logistic_class, (t_method)logistic_seed, gensym("seed"), A_DEFFLOAT, 0);
+    class_addmethod(logistic_class, (t_method)logistic_om, gensym("om"), A_DEFFLOAT, 0);
 }
 
 

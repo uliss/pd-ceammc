@@ -7,14 +7,14 @@ collatz - © Copyright sier 2002
 ————————————————————————————————————————————————————————————————
 */
 
-#include "cicm_wrapper.h"
+#include "m_pd.h"
 
 #include <math.h>
 #include <stdbool.h>
 
 typedef struct
 {
-    t_object c_ob;
+    t_object x_obj;
     t_outlet* c_out;
     long c_value;
     long c_offset;
@@ -29,7 +29,7 @@ static void atz_mode(atz* x, t_float number);
 static void atz_om(atz* x, t_float number);
 static int atz_calc(atz* x, int number);
 
-static t_eclass* atz_class;
+static t_class* atz_class;
 
 void atz_mode(atz* x, t_float number)
 {
@@ -44,8 +44,8 @@ void* atz_new(t_symbol* msg, int argc, t_atom* argv)
     long inputarg = 0, offset = 0;
 
     atz* x;
-    x = (atz*)eobj_new(atz_class);
-    x->c_out = floatout(x);
+    x = (atz*)pd_new(atz_class);
+    x->c_out = outlet_new(&x->x_obj, &s_float);
 
     if (argc) {
         if (argc > 1)
@@ -116,7 +116,7 @@ void atz_int(atz* x, t_float number)
 
 void atz_bang(atz* x)
 {
-    outlet_int(x->c_out, x->c_value + x->c_offset);
+    outlet_float(x->c_out, x->c_value + x->c_offset);
 
     x->c_value = atz_calc(x, (int)x->c_value); //run again
 }
@@ -129,14 +129,14 @@ void atz_free(atz* x)
 void setup_noise0x2ecollatz()
 {
 
-    atz_class = eclass_new(("noise.collatz"),
-        (t_typ_method)(atz_new),
-        (t_typ_method)(atz_free),
+    atz_class = class_new(gensym("noise.collatz"),
+        (t_newmethod)(atz_new),
+        (t_method)(atz_free),
         sizeof(atz), 0, A_GIMME, 0);
 
-    eclass_addmethod(atz_class, (method)atz_bang, "bang", A_NULL, 0);
-    eclass_addmethod(atz_class, (method)atz_int, "float", A_DEFFLOAT, 0);
-    eclass_addmethod(atz_class, (method)atz_offset, "offset", A_DEFFLOAT, 0);
-    eclass_addmethod(atz_class, (method)atz_mode, "mode", A_DEFFLOAT, 0);
-    eclass_addmethod(atz_class, (method)atz_om, "om", A_DEFFLOAT, 0);
+    class_addmethod(atz_class, (t_method)atz_bang, gensym("bang"), A_NULL, 0);
+    class_addmethod(atz_class, (t_method)atz_int, gensym("float"), A_DEFFLOAT, 0);
+    class_addmethod(atz_class, (t_method)atz_offset, gensym("offset"), A_DEFFLOAT, 0);
+    class_addmethod(atz_class, (t_method)atz_mode, gensym("mode"), A_DEFFLOAT, 0);
+    class_addmethod(atz_class, (t_method)atz_om, gensym("om"), A_DEFFLOAT, 0);
 }

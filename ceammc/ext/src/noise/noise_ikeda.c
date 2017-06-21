@@ -17,16 +17,16 @@ yn+1 =     k*( x0*sin(b-(p/(1+x0*x0+y0*y0))) - y0*cos(b-(p/(1*x0*x0+y0*y0))) )
 
 // CEAMMC pd library version
 
-#include "cicm_wrapper.h"
+#include "m_pd.h"
 
 #include <math.h>
 #include <stdbool.h>
 
 typedef struct
 {
-    t_object c_ob;
-    void* c_out; // value
-    void* c_out2; // value
+    t_object x_obj;
+    t_outlet* c_out; // value
+    t_outlet* c_out2; // value
 
     double a, b, k, p, nx, ny; //eq variables
     double ainit, binit, kinit, pinit, nxinit, nyinit; //init eq variables
@@ -51,17 +51,17 @@ void ikeda_reset(ikeda* x, t_symbol* msg, short argc, t_atom* argv);
 void ikeda_set(ikeda* x, t_symbol* msg, short argc, t_atom* argv);
 
 void ikeda_assist(ikeda* x, void* b, long m, long a, char* s);
-static t_eclass* ikeda_class;
+static t_class* ikeda_class;
 
 void* ikeda_new(t_symbol* msg, short argc, t_atom* argv) //input the args
 {
     ikeda* x;
     int i;
 
-    x = (ikeda*)eobj_new(ikeda_class);
+    x = (ikeda*)pd_new(ikeda_class);
 
-    x->c_out2 = floatout(x);
-    x->c_out = floatout(x);
+    x->c_out2 = outlet_new(&x->x_obj, &s_float);
+    x->c_out = outlet_new(&x->x_obj, &s_float);
 
     //classic ikeda  a = 0.85, b = 0.9, k = 0.4, p = 7.7
 
@@ -234,22 +234,22 @@ void ikeda_free() {}
 void setup_noise0x2eikeda()
 {
 
-    ikeda_class = eclass_new(("noise.ikeda"),
-        (t_typ_method)(ikeda_new),
-        (t_typ_method)(ikeda_free),
+    ikeda_class = class_new(gensym("noise.ikeda"),
+        (t_newmethod)(ikeda_new),
+        (t_method)(ikeda_free),
         sizeof(ikeda), 0, A_GIMME, 0);
 
-    eclass_addmethod(ikeda_class, (method)ikeda_bang, "bang", A_GIMME, 0);
-    eclass_addmethod(ikeda_class, (method)ikeda_set, "set", A_GIMME, 0);
-    eclass_addmethod(ikeda_class, (method)ikeda_reset, "reset", A_GIMME, 0);
+    class_addmethod(ikeda_class, (t_method)ikeda_bang, gensym("bang"), A_GIMME, 0);
+    class_addmethod(ikeda_class, (t_method)ikeda_set, gensym("set"), A_GIMME, 0);
+    class_addmethod(ikeda_class, (t_method)ikeda_reset, gensym("reset"), A_GIMME, 0);
 
-    eclass_addmethod(ikeda_class, (method)ikeda_nx, "x", A_DEFFLOAT, 0);
-    eclass_addmethod(ikeda_class, (method)ikeda_ny, "y", A_DEFFLOAT, 0);
-    eclass_addmethod(ikeda_class, (method)ikeda_a, "a", A_DEFFLOAT, 0);
-    eclass_addmethod(ikeda_class, (method)ikeda_b, "b", A_DEFFLOAT, 0);
-    eclass_addmethod(ikeda_class, (method)ikeda_k, "c", A_DEFFLOAT, 0);
-    eclass_addmethod(ikeda_class, (method)ikeda_p, "p", A_DEFFLOAT, 0);
-    eclass_addmethod(ikeda_class, (method)ikeda_om, "om", A_DEFFLOAT, 0);
+    class_addmethod(ikeda_class, (t_method)ikeda_nx, gensym("x"), A_DEFFLOAT, 0);
+    class_addmethod(ikeda_class, (t_method)ikeda_ny, gensym("y"), A_DEFFLOAT, 0);
+    class_addmethod(ikeda_class, (t_method)ikeda_a, gensym("a"), A_DEFFLOAT, 0);
+    class_addmethod(ikeda_class, (t_method)ikeda_b, gensym("b"), A_DEFFLOAT, 0);
+    class_addmethod(ikeda_class, (t_method)ikeda_k, gensym("c"), A_DEFFLOAT, 0);
+    class_addmethod(ikeda_class, (t_method)ikeda_p, gensym("p"), A_DEFFLOAT, 0);
+    class_addmethod(ikeda_class, (t_method)ikeda_om, gensym("om"), A_DEFFLOAT, 0);
 }
 
 

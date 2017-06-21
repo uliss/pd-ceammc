@@ -10,7 +10,7 @@ a - stein © andré sier 20030914
 
 // CEAMMC pd library version
 
-#include "cicm_wrapper.h"
+#include "m_pd.h"
 
 #include <math.h>
 #include <stdbool.h>
@@ -19,8 +19,8 @@ a - stein © andré sier 20030914
 
 typedef struct
 {
-    t_object c_ob;
-    void* c_out;
+    t_object x_obj;
+    t_outlet* c_out;
 
     double lambda, seed, seedinit;
     bool om;
@@ -40,16 +40,16 @@ void stein_lambda(stein* x, float echo);
 void stein_seed(stein* x, float echo);
 
 void stein_assist(stein* x, void* b, long m, long a, char* s);
-static t_eclass* stein_class;
+static t_class* stein_class;
 
 void* stein_new(t_symbol* msg, short argc, t_atom* argv) //input the args
 {
     stein* x;
     int i;
 
-    x = (stein*)eobj_new(stein_class);
+    x = (stein*)pd_new(stein_class);
 
-    x->c_out = floatout(x);
+    x->c_out = outlet_new(&x->x_obj, &s_float);
 
     x->seed = 0.777f;
     x->seedinit = 0.777f;
@@ -137,20 +137,20 @@ void stein_free() {}
 
 void setup_noise0x2estein()
 {
-    stein_class = eclass_new(("noise.stein"),
-        (t_typ_method)(stein_new),
-        (t_typ_method)(stein_free),
+    stein_class = class_new(gensym("noise.stein"),
+        (t_newmethod)(stein_new),
+        (t_method)(stein_free),
         sizeof(stein), 0, A_GIMME, 0);
 
-    eclass_addmethod(stein_class, (method)stein_bang, "bang", A_GIMME, 0);
+    class_addmethod(stein_class, (t_method)stein_bang, gensym("bang"), A_GIMME, 0);
 
-    eclass_addmethod(stein_class, (method)stein_reset, "reset", A_GIMME, 0);
-    eclass_addmethod(stein_class, (method)stein_set, "set", A_GIMME, 0);
-    //     eclass_addmethod(stein_class, (method)stein_int, "int", A_GIMME, 0);
-    eclass_addmethod(stein_class, (method)stein_float, "float", A_GIMME, 0);
-    eclass_addmethod(stein_class, (method)stein_lambda, "lambda", A_DEFFLOAT, 0);
-    eclass_addmethod(stein_class, (method)stein_seed, "seed", A_DEFFLOAT, 0);
-    eclass_addmethod(stein_class, (method)stein_om, "om", A_DEFFLOAT, 0);
+    class_addmethod(stein_class, (t_method)stein_reset, gensym("reset"), A_GIMME, 0);
+    class_addmethod(stein_class, (t_method)stein_set, gensym("set"), A_GIMME, 0);
+    //     class_addmethod(stein_class, (t_method)stein_int, "int", A_GIMME, 0);
+    class_addmethod(stein_class, (t_method)stein_float, gensym("float"), A_GIMME, 0);
+    class_addmethod(stein_class, (t_method)stein_lambda, gensym("lambda"), A_DEFFLOAT, 0);
+    class_addmethod(stein_class, (t_method)stein_seed, gensym("seed"), A_DEFFLOAT, 0);
+    class_addmethod(stein_class, (t_method)stein_om, gensym("om"), A_DEFFLOAT, 0);
 }
 
 

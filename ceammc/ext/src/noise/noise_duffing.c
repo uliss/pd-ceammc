@@ -25,13 +25,13 @@ Duffing Attractor
 
 // CEAMMC pd library version
 
-#include "cicm_wrapper.h"
+#include "m_pd.h"
 
 #include <math.h>
 #include <stdbool.h>
 
 typedef struct _duffing {
-    t_object c_ob;
+    t_object x_obj;
     t_outlet *c_out1, *c_out2; // outlet
     double a, b, w, t, dt, nx, ny;
     double ainit, binit, winit, tinit, dtinit, nxinit, nyinit;
@@ -50,16 +50,16 @@ static void duffing_w(duffing* x, t_float max);
 static void duffing_dt(duffing* x, t_float max);
 static void duffing_om(duffing* x, t_float max);
 
-static t_eclass* duffing_class;
+static t_class* duffing_class;
 
 void* duffing_new(t_symbol* msg, int argc, t_atom* argv) //input the args
 {
     duffing* x;
 
-    x = (duffing*)eobj_new(duffing_class);
+    x = (duffing*)pd_new(duffing_class);
 
-    x->c_out2 = floatout(x);
-    x->c_out1 = floatout(x);
+    x->c_out2 = outlet_new(&x->x_obj, &s_float);
+    x->c_out1 = outlet_new(&x->x_obj, &s_float);
 
     //init
     x->a = 0.25;
@@ -224,17 +224,17 @@ void duffing_free(duffing* x)
 void setup_noise0x2eduffing()
 {
 
-    duffing_class = eclass_new(("noise.duffing"),
-        (t_typ_method)(duffing_new),
-        (t_typ_method)(duffing_free),
+    duffing_class = class_new(gensym("noise.duffing"),
+        (t_newmethod)(duffing_new),
+        (t_method)(duffing_free),
         sizeof(duffing), 0, A_GIMME, 0);
 
-    eclass_addmethod(duffing_class, (method)duffing_bang, "bang", A_NULL, 0);
-    eclass_addmethod(duffing_class, (method)duffing_set, "set", A_GIMME, 0);
-    eclass_addmethod(duffing_class, (method)duffing_reset, "reset", A_NULL, 0);
-    eclass_addmethod(duffing_class, (method)duffing_a, "a", A_FLOAT, 0);
-    eclass_addmethod(duffing_class, (method)duffing_b, "b", A_FLOAT, 0);
-    eclass_addmethod(duffing_class, (method)duffing_w, "w", A_FLOAT, 0);
-    eclass_addmethod(duffing_class, (method)duffing_dt, "dt", A_FLOAT, 0);
-    eclass_addmethod(duffing_class, (method)duffing_om, "om", A_DEFFLOAT, 0);
+    class_addmethod(duffing_class, (t_method)duffing_bang, gensym("bang"), A_NULL, 0);
+    class_addmethod(duffing_class, (t_method)duffing_set, gensym("set"), A_GIMME, 0);
+    class_addmethod(duffing_class, (t_method)duffing_reset, gensym("reset"), A_NULL, 0);
+    class_addmethod(duffing_class, (t_method)duffing_a, gensym("a"), A_FLOAT, 0);
+    class_addmethod(duffing_class, (t_method)duffing_b, gensym("b"), A_FLOAT, 0);
+    class_addmethod(duffing_class, (t_method)duffing_w, gensym("w"), A_FLOAT, 0);
+    class_addmethod(duffing_class, (t_method)duffing_dt, gensym("dt"), A_FLOAT, 0);
+    class_addmethod(duffing_class, (t_method)duffing_om, gensym("om"), A_DEFFLOAT, 0);
 }
