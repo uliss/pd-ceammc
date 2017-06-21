@@ -25,7 +25,7 @@
         </arguments>
         <properties>
             <property name="@sync" type="int">if specified - all inlets are 'hot'</property>
-            <property name="@state" type="int" readonly="true">internal logic state as list of 1
+            <property name="@state" type="list" readonly="true">internal logic state as list of 1
             and 0</property>
         </properties>
         <inlets dynamic="true">
