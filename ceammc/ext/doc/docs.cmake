@@ -202,6 +202,8 @@ set(DOC_FILES
     system.memsize
     system.memused
     system.screen_size
+    tl.bang
+    tl.transport
     ui.bang
     ui.bpfunc
     ui.display

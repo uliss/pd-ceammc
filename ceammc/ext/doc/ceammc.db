@@ -201,6 +201,8 @@ system.hostname		.		.
 system.memsize		.		.
 system.memused		.		..
 system.screen_size		.		.
+tl.bang		.		.
+tl.transport		.		-
 ui.bang		.		.
 ui.bpfunc		.		.
 ui.display		.		-
