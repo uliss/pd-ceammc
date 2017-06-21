@@ -243,7 +243,7 @@ void setup_noise0x2ejong()
         (t_method)(jong_free),
         sizeof(jong), 0, A_GIMME, 0);
 
-    class_addmethod(jong_class, (t_method)jong_bang, gensym("bang"), A_GIMME, 0);
+    class_addbang(jong_class, (t_method)jong_bang);
     class_addmethod(jong_class, (t_method)jong_reset, gensym("reset"), A_GIMME, 0);
     class_addmethod(jong_class, (t_method)jong_set, gensym("set"), A_GIMME, 0);
     class_addmethod(jong_class, (t_method)jong_nx, gensym("x"), A_DEFFLOAT, 0);

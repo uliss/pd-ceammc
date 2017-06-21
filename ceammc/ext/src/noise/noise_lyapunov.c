@@ -420,7 +420,7 @@ void setup_noise0x2elyapunov()
         (t_method)(lyapunov_free),
         sizeof(lyapunov), 0, A_GIMME, 0);
 
-    class_addmethod(lyapunov_class, (t_method)lyapunov_bang, gensym("bang"), A_GIMME, 0);
+    class_addbang(lyapunov_class, (t_method)lyapunov_bang);
     class_addmethod(lyapunov_class, (t_method)lyapunov_reset, gensym("reset"), A_GIMME, 0);
     class_addmethod(lyapunov_class, (t_method)lyapunov_set, gensym("set"), A_GIMME, 0);
     class_addmethod(lyapunov_class, (t_method)lyapunov_a, gensym("a"), A_GIMME, 0);

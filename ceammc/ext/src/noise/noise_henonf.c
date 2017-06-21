@@ -21,7 +21,7 @@ phase, advancing it by an amount related to 'a' -- all in the calc method
 
 typedef struct _henonf {
     t_object x_obj;
-    void *c_out, *c_out2;
+    t_outlet *c_out, *c_out2;
     double a, b, nx, ny;
     double ainit, binit, nxinit, nyinit;
     double px, py;
@@ -221,7 +221,7 @@ void setup_noise0x2ehenonf()
         (t_method)(henonf_free),
         sizeof(henonf), 0, A_GIMME, 0);
 
-    class_addmethod(henonf_class, (t_method)henonf_bang, gensym("bang"), A_GIMME, 0);
+    class_addbang(henonf_class, (t_method)henonf_bang);
     class_addmethod(henonf_class, (t_method)henonf_set, gensym("set"), A_GIMME, 0);
     class_addmethod(henonf_class, (t_method)henonf_reset, gensym("reset"), A_GIMME, 0);
     class_addmethod(henonf_class, (t_method)henonf_a, gensym("a"), A_FLOAT, 0);
@@ -231,5 +231,3 @@ void setup_noise0x2ehenonf()
     class_addmethod(henonf_class, (t_method)henonf_ny, gensym("dt"), A_FLOAT, 0);
     class_addmethod(henonf_class, (t_method)henonf_om, gensym("om"), A_FLOAT, 0);
 }
-
-

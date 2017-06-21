@@ -16,7 +16,7 @@ updated to use init vars method ported from chaos collection
 
 typedef struct _henon {
     t_object x_obj;
-    void *c_out, *c_out2;
+    t_outlet *c_out, *c_out2;
     double a, b, nx, ny;
     double ainit, binit, nxinit, nyinit;
 
@@ -167,7 +167,7 @@ void setup_noise0x2ehenon()
         (t_method)(henon_free),
         sizeof(henon), 0, A_GIMME, 0);
 
-    class_addmethod(henon_class, (t_method)henon_bang, gensym("bang"), A_GIMME, 0);
+    class_addbang(henon_class, (t_method)henon_bang);
     class_addmethod(henon_class, (t_method)henon_set, gensym("set"), A_GIMME, 0);
     class_addmethod(henon_class, (t_method)henon_reset, gensym("reset"), A_GIMME, 0);
     class_addmethod(henon_class, (t_method)henon_a, gensym("a"), A_FLOAT, 0);
@@ -176,5 +176,3 @@ void setup_noise0x2ehenon()
     class_addmethod(henon_class, (t_method)henon_ny, gensym("y"), A_FLOAT, 0);
     class_addmethod(henon_class, (t_method)henon_om, gensym("om"), A_FLOAT, 0);
 }
-
-

@@ -283,7 +283,7 @@ void setup_noise0x2enavier_stokes()
         (t_method)(navierstokes_free),
         sizeof(navierstokes), 0, A_GIMME, 0);
 
-    class_addmethod(noise_navierstokes_class, (t_method)navierstokes_bang,  gensym("bang"),  A_GIMME, 0);
+    class_addbang(noise_navierstokes_class, (t_method)navierstokes_bang);
     class_addmethod(noise_navierstokes_class, (t_method)navierstokes_set,   gensym("set"),   A_GIMME, 0);
     class_addmethod(noise_navierstokes_class, (t_method)navierstokes_reset, gensym("reset"), A_GIMME, 0);
 

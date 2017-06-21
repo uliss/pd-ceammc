@@ -158,7 +158,7 @@ void setup_noise0x2etorus()
         (t_method)(torus_free),
         sizeof(torus), 0, A_GIMME, 0);
 
-    class_addmethod(torus_class, (t_method)torus_bang, gensym("bang"), A_GIMME, 0);
+    class_addbang(torus_class, (t_method)torus_bang);
 
     class_addmethod(torus_class, (t_method)torus_reset, gensym("reset"), A_GIMME, 0);
     class_addmethod(torus_class, (t_method)torus_set, gensym("set"), A_GIMME, 0);

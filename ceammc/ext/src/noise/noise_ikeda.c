@@ -239,7 +239,7 @@ void setup_noise0x2eikeda()
         (t_method)(ikeda_free),
         sizeof(ikeda), 0, A_GIMME, 0);
 
-    class_addmethod(ikeda_class, (t_method)ikeda_bang, gensym("bang"), A_GIMME, 0);
+    class_addbang(ikeda_class, (t_method)ikeda_bang);
     class_addmethod(ikeda_class, (t_method)ikeda_set, gensym("set"), A_GIMME, 0);
     class_addmethod(ikeda_class, (t_method)ikeda_reset, gensym("reset"), A_GIMME, 0);
 

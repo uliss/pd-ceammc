@@ -24,7 +24,7 @@ Henon Phase Diagrams
 
 typedef struct _henonphase {
     t_object x_obj;
-    void *c_out, *c_out2;
+    t_outlet *c_out, *c_out2;
     double a, b, nx, ny;
     double ainit, binit, nxinit, nyinit;
     double px, py;
@@ -238,7 +238,7 @@ void setup_noise0x2ehenon_phase()
         (t_method)(henonphase_free),
         sizeof(henonphase), 0, A_GIMME, 0);
 
-    class_addmethod(henonphase_class, (t_method)henonphase_bang, gensym("bang"), A_GIMME, 0);
+    class_addbang(henonphase_class, (t_method)henonphase_bang);
     class_addmethod(henonphase_class, (t_method)henonphase_set, gensym("set"), A_GIMME, 0);
     class_addmethod(henonphase_class, (t_method)henonphase_reset, gensym("reset"), A_GIMME, 0);
     class_addmethod(henonphase_class, (t_method)henonphase_a, gensym("a"), A_FLOAT, 0);

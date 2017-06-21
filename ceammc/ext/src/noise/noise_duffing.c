@@ -229,7 +229,7 @@ void setup_noise0x2eduffing()
         (t_method)(duffing_free),
         sizeof(duffing), 0, A_GIMME, 0);
 
-    class_addmethod(duffing_class, (t_method)duffing_bang, gensym("bang"), A_NULL, 0);
+    class_addbang(duffing_class, (t_method)duffing_bang);
     class_addmethod(duffing_class, (t_method)duffing_set, gensym("set"), A_GIMME, 0);
     class_addmethod(duffing_class, (t_method)duffing_reset, gensym("reset"), A_NULL, 0);
     class_addmethod(duffing_class, (t_method)duffing_a, gensym("a"), A_FLOAT, 0);

@@ -143,7 +143,7 @@ void setup_noise0x2ebaker()
         (t_method)(baker_free),
         sizeof(baker), 0, A_GIMME, 0);
 
-    class_addmethod(noise_baker_class, (t_method)baker_bang, gensym("bang"), A_NULL, 0);
+    class_addbang(noise_baker_class, (t_method)baker_bang);
     class_addmethod(noise_baker_class, (t_method)baker_set, gensym("set"), A_GIMME, 0);
     class_addmethod(noise_baker_class, (t_method)baker_reset, gensym("reset"), A_NULL, 0);
     class_addmethod(noise_baker_class, (t_method)baker_eval, gensym("seed"), A_FLOAT, 0);

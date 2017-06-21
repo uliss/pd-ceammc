@@ -256,7 +256,7 @@ void setup_noise0x2eclifford()
         (t_method)(clifford_free),
         sizeof(clifford), 0, A_GIMME, 0);
 
-    class_addmethod(clifford_class, (t_method)clifford_bang, gensym("bang"), A_NULL, 0);
+    class_addbang(clifford_class, (t_method)clifford_bang);
     class_addmethod(clifford_class, (t_method)clifford_reset, gensym("reset"), A_NULL, 0);
     class_addmethod(clifford_class, (t_method)clifford_set, gensym("set"), A_GIMME, 0);
     class_addmethod(clifford_class, (t_method)clifford_nx, gensym("x"), A_DEFFLOAT, 0);

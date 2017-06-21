@@ -33,7 +33,7 @@ A-Chaos Lib
 
 typedef struct _ginger {
     t_object x_obj;
-    void *c_out, *c_out2; // 2 outlets
+    t_outlet *c_out, *c_out2; // 2 outlets
     double seed, nx, ny;
     double seedinit, nxinit, nyinit;
     bool om;
@@ -170,7 +170,7 @@ void setup_noise0x2eginger()
         (t_method)(ginger_free),
         sizeof(ginger), 0, A_GIMME, 0);
 
-    class_addmethod(ginger_class, (t_method)ginger_bang, gensym("bang"), A_GIMME, 0);
+    class_addbang(ginger_class, (t_method)ginger_bang);
     class_addmethod(ginger_class, (t_method)ginger_set, gensym("set"), A_GIMME, 0);
     class_addmethod(ginger_class, (t_method)ginger_reset, gensym("reset"), A_GIMME, 0);
     class_addmethod(ginger_class, (t_method)ginger_nx, gensym("x"), A_FLOAT, 0);

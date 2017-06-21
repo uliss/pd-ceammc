@@ -273,7 +273,7 @@ void setup_noise0x2elorenz()
         (t_method)(lorenz_free),
         sizeof(lorenz), 0, A_GIMME, 0);
 
-    class_addmethod(lorenz_class, (t_method)lorenz_bang, gensym("bang"), A_GIMME, 0);
+    class_addbang(lorenz_class, (t_method)lorenz_bang);
     class_addmethod(lorenz_class, (t_method)lorenz_set, gensym("set"), A_GIMME, 0);
     class_addmethod(lorenz_class, (t_method)lorenz_reset, gensym("reset"), A_GIMME, 0);
     //

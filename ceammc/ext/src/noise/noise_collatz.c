@@ -134,8 +134,8 @@ void setup_noise0x2ecollatz()
         (t_method)(atz_free),
         sizeof(atz), 0, A_GIMME, 0);
 
-    class_addmethod(atz_class, (t_method)atz_bang, gensym("bang"), A_NULL, 0);
-    class_addmethod(atz_class, (t_method)atz_int, gensym("float"), A_DEFFLOAT, 0);
+    class_addbang(atz_class, (t_method)atz_bang);
+    class_addfloat(atz_class, (t_method)atz_int);
     class_addmethod(atz_class, (t_method)atz_offset, gensym("offset"), A_DEFFLOAT, 0);
     class_addmethod(atz_class, (t_method)atz_mode, gensym("mode"), A_DEFFLOAT, 0);
     class_addmethod(atz_class, (t_method)atz_om, gensym("om"), A_DEFFLOAT, 0);

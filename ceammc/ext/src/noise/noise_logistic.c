@@ -104,7 +104,6 @@ void logistic_echo(logistic* x, float echo)
         logistic_bang(x);
 }
 
-//void logistic_int(logistic* x, int n) { logistic_echo(x, n * 0.01); }
 void logistic_float(logistic* x, float n) { logistic_echo(x, n); }
 
 void logistic_om(logistic* x, int n) { x->om = (n > 0); }
@@ -141,12 +140,11 @@ void setup_noise0x2elogistic()
         (t_method)(logistic_free),
         sizeof(logistic), 0, A_GIMME, 0);
 
-    class_addmethod(logistic_class, (t_method)logistic_bang, gensym("bang"), A_GIMME, 0);
+    class_addbang(logistic_class, (t_method)logistic_bang);
 
     class_addmethod(logistic_class, (t_method)logistic_reset, gensym("reset"), A_GIMME, 0);
     class_addmethod(logistic_class, (t_method)logistic_set, gensym("set"), A_GIMME, 0);
-    //class_addmethod(logistic_class, (t_method)logistic_int, "float", A_GIMME, 0);
-    class_addmethod(logistic_class, (t_method)logistic_float, gensym("float"), A_GIMME, 0);
+    class_addfloat(logistic_class, (t_method)logistic_float);
     class_addmethod(logistic_class, (t_method)logistic_lambda, gensym("lambda"), A_DEFFLOAT, 0);
     class_addmethod(logistic_class, (t_method)logistic_seed, gensym("seed"), A_DEFFLOAT, 0);
     class_addmethod(logistic_class, (t_method)logistic_om, gensym("om"), A_DEFFLOAT, 0);

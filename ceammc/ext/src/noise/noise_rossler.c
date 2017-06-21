@@ -255,7 +255,7 @@ void setup_noise0x2erossler()
         (t_method)(rossler_free),
         sizeof(rossler), 0, A_GIMME, 0);
 
-    class_addmethod(rossler_class, (t_method)rossler_bang, gensym("bang"), A_GIMME, 0);
+    class_addbang(rossler_class, (t_method)rossler_bang);
     class_addmethod(rossler_class, (t_method)rossler_set, gensym("set"), A_GIMME, 0);
     class_addmethod(rossler_class, (t_method)rossler_reset, gensym("reset"), A_GIMME, 0);
 

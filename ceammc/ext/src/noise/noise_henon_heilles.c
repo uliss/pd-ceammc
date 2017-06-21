@@ -16,7 +16,7 @@ a port of Richard's chaos-henon-heilles from chaos collection
 
 typedef struct _henon_heilles {
     t_object x_obj;
-    void* c_out[4]; // outlets
+    t_outlet* c_out[4]; // outlets
     double nx, ny, nxdot, nydot, e, dt;
     double nxinit, nyinit, nxdotinit, nydotinit, einit, dtinit;
     bool om;
@@ -210,7 +210,7 @@ void setup_noise0x2ehenon_heilles()
         (t_method)(henon_heilles_free),
         sizeof(henon_heilles), 0, A_GIMME, 0);
 
-    class_addmethod(henon_heilles_class, (t_method)henon_heilles_bang, gensym("bang"), A_GIMME, 0);
+    class_addbang(henon_heilles_class, (t_method)henon_heilles_bang);
     class_addmethod(henon_heilles_class, (t_method)henon_heilles_reset, gensym("reset"), A_GIMME, 0);
     class_addmethod(henon_heilles_class, (t_method)henon_heilles_set, gensym("set"), A_GIMME, 0);
     class_addmethod(henon_heilles_class, (t_method)henon_heilles_nx, gensym("x"), A_DEFFLOAT, 0);
@@ -219,4 +219,3 @@ void setup_noise0x2ehenon_heilles()
     class_addmethod(henon_heilles_class, (t_method)henon_heilles_e, gensym("e"), A_DEFFLOAT, 0);
     class_addmethod(henon_heilles_class, (t_method)henon_heilles_dt, gensym("dt"), A_DEFFLOAT, 0);
 }
-
