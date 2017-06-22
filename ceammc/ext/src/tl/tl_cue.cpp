@@ -96,6 +96,7 @@ static void update_canvas_cues(t_canvas* c)
     for (size_t i = 0; i < lst->size(); i++) {
         void* obj = lst->at(i)->object();
         tl_cue* c = reinterpret_cast<tl_cue*>(obj);
+        ebox_pos(&c->b_box, c->b_box.b_rect.x, 2);
         c->data->setXPos(c->b_box.b_rect.x);
     }
 
@@ -181,6 +182,18 @@ UI_fun(tl_cue)::wx_attr_changed_ext(tl_cue* z, t_symbol* attr)
     ws_redraw(z);
 }
 
+static bool cue_layout_finished(t_canvas* canvas)
+{
+    CueList* lst = CueStorage::cueList(canvas);
+    for (size_t i = 0; i < lst->size(); i++) {
+        tl_cue* c = reinterpret_cast<tl_cue*>(lst->at(i)->object());
+        if (c->b_box.b_rect.x == 0.f)
+            return false;
+    }
+
+    return true;
+}
+
 UI_fun(tl_cue)::wx_paint(tl_cue* zx, t_object* /*view*/)
 {
     t_rect rect;
@@ -188,15 +201,9 @@ UI_fun(tl_cue)::wx_paint(tl_cue* zx, t_object* /*view*/)
 
     if (zx->first_draw) {
         zx->first_draw = false;
-//        ebox_m
 
-        CueList* lst = CueStorage::cueList(zx->canvas);
-        for (size_t i = 0; i < lst->size(); i++) {
-            void* obj = lst->at(i)->object();
-            tl_cue* c = reinterpret_cast<tl_cue*>(obj);
-            if (c->b_box.b_rect.x == 0.f)
-                return;
-        }
+        if (!cue_layout_finished(zx->canvas))
+            return;
 
         update_canvas_cues(zx->canvas);
         redraw_canvas_cues(zx->canvas);
