@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "ceammc_fn_list.h"
 
+#include <algorithm>
 #include <cstdlib>
 #include <limits>
 #include <map>
@@ -273,6 +274,21 @@ namespace list {
         const size_t b = static_cast<size_t>(abs(pos)) % (a * 2);
         *idx = std::min(b, a * 2 - b);
         return true;
+    }
+
+    AtomList rotate(const AtomList& l, int steps)
+    {
+        if (l.size() < 2 || steps == 0)
+            return l;
+
+        int sz = int(l.size());
+        steps = steps % sz;
+        if (steps < 0)
+            steps += sz;
+
+        AtomList res(l);
+        std::rotate(res.begin(), res.begin() + steps, res.end());
+        return res;
     }
 }
 }

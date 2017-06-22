@@ -95,6 +95,26 @@ bool AtomList::empty() const
     return atoms_.empty();
 }
 
+AtomList::Iterator AtomList::begin()
+{
+    return atoms_.begin();
+}
+
+AtomList::Iterator AtomList::end()
+{
+    return atoms_.end();
+}
+
+AtomList::ConstIterator AtomList::begin() const
+{
+    return atoms_.begin();
+}
+
+AtomList::ConstIterator AtomList::end() const
+{
+    return atoms_.end();
+}
+
 Atom& AtomList::at(size_t pos)
 {
     return atoms_.at(pos);
@@ -451,13 +471,13 @@ bool AtomList::remove(size_t pos)
 
 void AtomList::removeAll(const Atom& a)
 {
-    atom_iterator nend = std::remove(atoms_.begin(), atoms_.end(), a);
+    Iterator nend = std::remove(atoms_.begin(), atoms_.end(), a);
     atoms_.erase(nend, atoms_.end());
 }
 
 void AtomList::removeAll(AtomPredicate pred)
 {
-    atom_iterator nend = std::remove_if(atoms_.begin(), atoms_.end(), pred);
+    Iterator nend = std::remove_if(atoms_.begin(), atoms_.end(), pred);
     atoms_.erase(nend, atoms_.end());
 }
 
@@ -542,7 +562,7 @@ void AtomList::fill(const Atom& a)
 
 void AtomList::fill(const Atom& a, size_t sz)
 {
-    atoms_ = atom_list(sz, a);
+    atoms_ = Container(sz, a);
 }
 
 void AtomList::sort()
@@ -600,7 +620,7 @@ Atom* AtomList::find(const Atom& a)
     if (empty())
         return 0;
 
-    atom_iterator it = std::find(atoms_.begin(), atoms_.end(), a);
+    Iterator it = std::find(atoms_.begin(), atoms_.end(), a);
     return it == atoms_.end() ? 0 : &(*it);
 }
 
@@ -609,7 +629,7 @@ Atom* AtomList::findLast(const Atom& a)
     if (empty())
         return 0;
 
-    atom_riterator it = std::find(atoms_.rbegin(), atoms_.rend(), a);
+    ReverseIterator it = std::find(atoms_.rbegin(), atoms_.rend(), a);
     return it == atoms_.rend() ? 0 : &(*it);
 }
 
@@ -618,7 +638,7 @@ Atom* AtomList::findLast(AtomPredicate pred)
     if (empty())
         return 0;
 
-    atom_riterator it = std::find_if(atoms_.rbegin(), atoms_.rend(), pred);
+    ReverseIterator it = std::find_if(atoms_.rbegin(), atoms_.rend(), pred);
     return it == atoms_.rend() ? 0 : &(*it);
 }
 
@@ -652,7 +672,7 @@ bool AtomList::contains(const Atom& a) const
 
 int AtomList::findPos(const Atom& a) const
 {
-    const_atom_iterator it = std::find(atoms_.begin(), atoms_.end(), a);
+    ConstIterator it = std::find(atoms_.begin(), atoms_.end(), a);
     if (it == atoms_.end())
         return -1;
 
@@ -661,7 +681,7 @@ int AtomList::findPos(const Atom& a) const
 
 int AtomList::findPos(AtomPredicate pred) const
 {
-    const_atom_iterator it = std::find_if(atoms_.begin(), atoms_.end(), pred);
+    ConstIterator it = std::find_if(atoms_.begin(), atoms_.end(), pred);
     if (it == atoms_.end())
         return -1;
 
@@ -683,8 +703,8 @@ bool AtomList::allOf(AtomPredicate pred) const
     if (empty())
         return false;
 
-    const_atom_iterator first = atoms_.begin();
-    const_atom_iterator last = atoms_.end();
+    ConstIterator first = atoms_.begin();
+    ConstIterator last = atoms_.end();
     while (first != last) {
         if (!pred(*first))
             return false;
@@ -695,8 +715,8 @@ bool AtomList::allOf(AtomPredicate pred) const
 
 bool AtomList::anyOf(AtomPredicate pred) const
 {
-    const_atom_iterator first = atoms_.begin();
-    const_atom_iterator last = atoms_.end();
+    ConstIterator first = atoms_.begin();
+    ConstIterator last = atoms_.end();
 
     while (first != last) {
         if (pred(*first))
@@ -708,8 +728,8 @@ bool AtomList::anyOf(AtomPredicate pred) const
 
 bool AtomList::noneOf(AtomPredicate pred) const
 {
-    const_atom_iterator first = atoms_.begin();
-    const_atom_iterator last = atoms_.end();
+    ConstIterator first = atoms_.begin();
+    ConstIterator last = atoms_.end();
 
     while (first != last) {
         if (pred(*first))
@@ -724,7 +744,7 @@ Atom* AtomList::find(AtomPredicate pred)
     if (empty())
         return 0;
 
-    atom_iterator it = std::find_if(atoms_.begin(), atoms_.end(), pred);
+    Iterator it = std::find_if(atoms_.begin(), atoms_.end(), pred);
     return it == atoms_.end() ? 0 : &(*it);
 }
 
@@ -759,7 +779,7 @@ bool AtomList::range(Atom& min, Atom& max) const
     if (empty())
         return false;
 
-    std::pair<const_atom_iterator, const_atom_iterator> res = ceammc::minmax_element(atoms_.begin(), atoms_.end());
+    std::pair<ConstIterator, ConstIterator> res = ceammc::minmax_element(atoms_.begin(), atoms_.end());
     min = *res.first;
     max = *res.second;
     return true;
@@ -833,7 +853,7 @@ void AtomList::outputAsAny(_outlet* x, t_symbol* s) const
 t_float AtomList::reduceFloat(t_float init, t_float def, t_float (*fn)(t_float, t_float)) const
 {
     t_float accum = init;
-    const_atom_iterator it;
+    ConstIterator it;
     for (it = atoms_.begin(); it != atoms_.end(); ++it) {
         accum = fn(accum, it->asFloat(def));
     }
@@ -850,7 +870,7 @@ bool AtomList::normalizeFloats()
     if (s == 0.f)
         return false;
 
-    atom_iterator it;
+    Iterator it;
     for (it = atoms_.begin(); it != atoms_.end(); ++it) {
         t_float f = 0.f;
         if (!it->getFloat(&f))

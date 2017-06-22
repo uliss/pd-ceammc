@@ -56,6 +56,9 @@
     <entry descr="convert samples to time according to samplerate" name="conv.samp2sec" ref_view="object">
       <xi:include href="conv.samp2sec.pddoc" parse="xml"/>
     </entry>
+    <entry descr="convert time in seconds to number of samples according to current samplerate" name="conv.sec2samp" ref_view="object">
+      <xi:include href="conv.sec2samp.pddoc" parse="xml"/>
+    </entry>
     <entry descr="converts float time in seconds to formated symbol" name="conv.sec2str" ref_view="object">
       <xi:include href="conv.sec2str.pddoc" parse="xml"/>
     </entry>

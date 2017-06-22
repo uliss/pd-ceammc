@@ -11,8 +11,9 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-
 #include "catch.hpp"
+
+#include "base_extension_test.h"
 #include "ceammc_fn_list.h"
 
 using namespace ceammc;
@@ -595,5 +596,32 @@ TEST_CASE("list functions", "[ceammc::list]")
                 REQUIRE(list::sliceFold(LST, -3, 5) == AtomList::values(5, 2., 1., 2., 1., 2.));
             }
         }
+    }
+
+    SECTION("rotate")
+    {
+        REQUIRE(list::rotate(AtomList(), 0) == AtomList());
+        REQUIRE(list::rotate(AtomList(), 1) == AtomList());
+        REQUIRE(list::rotate(AtomList(), -1) == AtomList());
+
+        REQUIRE(list::rotate(L1(100), 0) == L1(100));
+        REQUIRE(list::rotate(L1(100), -1) == L1(100));
+        REQUIRE(list::rotate(L1(100), 1) == L1(100));
+
+        REQUIRE(list::rotate(L2(1, 2), 0) == L2(1, 2));
+        REQUIRE(list::rotate(L2(1, 2), 1) == L2(2, 1));
+        REQUIRE(list::rotate(L2(1, 2), 2) == L2(1, 2));
+        REQUIRE(list::rotate(L2(1, 2), -1) == L2(2, 1));
+        REQUIRE(list::rotate(L2(1, 2), -2) == L2(1, 2));
+
+        REQUIRE(list::rotate(L3(1, 2, 3), 0) == L3(1, 2, 3));
+        REQUIRE(list::rotate(L3(1, 2, 3), 1) == L3(2, 3, 1));
+        REQUIRE(list::rotate(L3(1, 2, 3), 2) == L3(3, 1, 2));
+        REQUIRE(list::rotate(L3(1, 2, 3), 3) == L3(1, 2, 3));
+        REQUIRE(list::rotate(L3(1, 2, 3), 4) == L3(2, 3, 1));
+        REQUIRE(list::rotate(L3(1, 2, 3), -1) == L3(3, 1, 2));
+        REQUIRE(list::rotate(L3(1, 2, 3), -2) == L3(2, 3, 1));
+        REQUIRE(list::rotate(L3(1, 2, 3), -3) == L3(1, 2, 3));
+        REQUIRE(list::rotate(L3(1, 2, 3), -4) == L3(3, 1, 2));
     }
 }

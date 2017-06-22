@@ -26,14 +26,14 @@ typedef bool (*AtomPredicate)(const Atom& a);
 typedef Atom (*AtomGenerator)();
 
 class AtomList {
-    std::vector<Atom> atoms_;
-    typedef std::vector<Atom> atom_list;
-    typedef atom_list::const_iterator const_atom_iterator;
-    typedef atom_list::iterator atom_iterator;
-    typedef atom_list::reverse_iterator atom_riterator;
-
     static bool calc_rel_idx(int pos, size_t* dest, size_t sz);
     bool getRelativeIdx(int pos, size_t* idx) const;
+
+public:
+    typedef std::vector<Atom> Container;
+    typedef Container::const_iterator ConstIterator;
+    typedef Container::iterator Iterator;
+    typedef Container::reverse_iterator ReverseIterator;
 
 public:
     AtomList();
@@ -44,6 +44,11 @@ public:
     size_t size() const;
     void reserve(size_t n);
     bool empty() const;
+
+    Iterator begin();
+    Iterator end();
+    ConstIterator begin() const;
+    ConstIterator end() const;
 
     /**
          * @brief returns reference to element at specified position
@@ -310,6 +315,9 @@ public:
 public:
     friend bool operator==(const AtomList& l1, const AtomList& l2);
     friend bool operator!=(const AtomList& l1, const AtomList& l2);
+
+private:
+    Container atoms_;
 };
 
 template <class T>
@@ -322,7 +330,7 @@ template <typename T>
 T AtomList::reduce(T init, T (*fn)(const Atom&, const Atom&)) const
 {
     T accum(init);
-    AtomList::const_atom_iterator it;
+    AtomList::ConstIterator it;
     for (it = atoms_.begin(); it != atoms_.end(); ++it) {
         accum = fn(accum, *it);
     }

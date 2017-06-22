@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="conv.samp2sec">
-        <title>conv.samp2sec</title>
+    <object name="conv.sec2samp">
+        <title>conv.sec2samp</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>convert samples to time according to samplerate</description>
+            <description>convert time in seconds to number of samples according to current samplerate</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>conv</category>
-            <keywords>conv samp</keywords>
+            <keywords>conv samp sec</keywords>
             <since>0.2</since>
             <aliases>
-                <alias>samp-&gt;sec</alias>
+                <alias>sec-&gt;samp</alias>
             </aliases>
             <also>
-                <see>conv.sec2samp</see>
+                <see>conv.samp2sec</see>
             </also>
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="int">number of samples</xinfo>
-                <xinfo on="list">list of number of samples</xinfo>
+                <xinfo on="float">time in seconds</xinfo>
+                <xinfo on="list">list of times in seconds</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -31,9 +31,9 @@
         <example>
             <pdascii>
 <![CDATA[
-[44100(  [20 1000 5000 20000(
-|        |
-[samp->sec]
+[1(  [1 1.5 2.9(
+|    |
+[sec->samp]
 |
 [msg set]
 |

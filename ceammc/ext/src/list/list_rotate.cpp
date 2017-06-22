@@ -1,43 +1,30 @@
-#include <algorithm>
-#include <m_pd.h>
+#include "list_rotate.h"
+#include "ceammc_factory.h"
+#include "ceammc_fn_list.h"
 
-t_class* list_rotate_class;
-struct t_list_rotate {
-    t_object x_obj;
-    t_inlet* in_step;
-    t_float r_step;
-};
-
-static void list_rotate_list(t_list_rotate* x, t_symbol* s, int argc, t_atom* argv)
+ListRotate::ListRotate(const PdArgs& a)
+    : BaseObject(a)
+    , step_(0)
 {
-    int steps = static_cast<int>(x->r_step) % argc;
-    t_atom* n_first = argv - steps;
-    if (steps >= 0)
-        n_first = n_first + argc;
+    createInlet();
+    createOutlet();
 
-    std::rotate(argv, n_first, argv + argc);
-    outlet_list(x->x_obj.te_outlet, s, argc, argv);
+    step_ = new IntProperty("@step", int(positionalFloatArgument(0, 1)));
+    createProperty(step_);
 }
 
-static void* list_rotate_new(t_floatarg r)
+void ListRotate::onList(const AtomList& l)
 {
-    t_list_rotate* x = reinterpret_cast<t_list_rotate*>(pd_new(list_rotate_class));
-    outlet_new(&x->x_obj, &s_list);
-    x->in_step = floatinlet_new(&x->x_obj, &x->r_step);
-    x->r_step = r;
-    return static_cast<void*>(x);
+    listTo(0, list::rotate(l, step_->value()));
 }
 
-static void list_rotate_free(t_list_rotate* x)
+void ListRotate::onInlet(size_t, const AtomList& step)
 {
-    inlet_free(x->in_step);
+    step_->set(step);
 }
 
 extern "C" void setup_list0x2erotate()
 {
-    list_rotate_class = class_new(gensym("list.rotate"),
-        reinterpret_cast<t_newmethod>(list_rotate_new),
-        reinterpret_cast<t_method>(list_rotate_free),
-        sizeof(t_list_rotate), 0, A_DEFFLOAT, 0);
-    class_addlist(list_rotate_class, list_rotate_list);
+    ObjectFactory<ListRotate> obj("list.rotate");
+    obj.addAlias("list.<<");
 }
