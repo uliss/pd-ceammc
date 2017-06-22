@@ -8,7 +8,7 @@
 #X obj 608 11 list.rotate;
 #X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 147 list 1 2 3 4 5 *;
+#X obj 50 147 list 0 1 2 3 4 5 6 7 8 9 *;
 #X floatatom 174 176 5 0 0 0 - - -;
 #X obj 50 205 list.rotate 1;
 #X obj 50 234 msg set;
