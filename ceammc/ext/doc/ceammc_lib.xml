@@ -387,6 +387,11 @@
       <xi:include href="live.capture~.pddoc" parse="xml"/>
     </entry>
   </category>
+  <category name="local">
+    <entry descr="canvas-scoped named variable" name="local.int" ref_view="object">
+      <xi:include href="local.int.pddoc" parse="xml"/>
+    </entry>
+  </category>
   <category name="math">
     <entry descr="absolute value function" name="math.abs" ref_view="object">
       <xi:include href="math.abs.pddoc" parse="xml"/>

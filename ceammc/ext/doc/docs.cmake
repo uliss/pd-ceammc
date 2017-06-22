@@ -119,6 +119,7 @@ set(DOC_FILES
     list.walk
     list.wrap
     live.capture~
+    local.int
     math.abs
     math.acos
     math.acosh
