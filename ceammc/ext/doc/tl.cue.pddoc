@@ -15,7 +15,6 @@
             <since>0.1</since>
             <also>
                 <see view="link">tl.bang</see>
-                <see>tl.transport</see>
             </also>
         </meta>
         <inlets/>
