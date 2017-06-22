@@ -758,6 +758,7 @@ typedef struct t_ebox
     
     t_elayer*           b_layers;           /*!< The ebox layers. */
     long                b_number_of_layers; /*!< The ebox number of layers. */
+    char                b_force_redraw;     /*!< Force ebox redraw. */
 }t_ebox;
 
 /** @} */

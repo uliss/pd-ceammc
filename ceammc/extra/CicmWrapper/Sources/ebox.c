@@ -63,6 +63,7 @@ void ebox_new(t_ebox *x, long flags)
     x->b_visible            = 1;
     x->b_zoom               = 1;
     x->b_smooth_method      = egraphics_smooth();
+    x->b_force_redraw       = 0;
     eobj_getclass(x)->c_widget.w_dosave = (t_typ_method)ebox_dosave;
     ebox_attrprocess_default(x);
 }
@@ -394,6 +395,7 @@ static void ebox_create_widget(t_ebox* x)
 static void ebox_create_window(t_ebox* x, t_glist* glist)
 {
     x->b_have_window = 0;
+    x->b_force_redraw = 0;
     if(!glist->gl_havewindow)
     {
         x->b_isinsubcanvas = 1;
@@ -1306,8 +1308,9 @@ void ebox_dialog(t_ebox *x, t_symbol *s, int argc, t_atom *argv)
 
 void ebox_redraw(t_ebox *x)
 {
-    if(ebox_isdrawable(x) && x->b_have_window)
+    if((ebox_isdrawable(x) && x->b_have_window) || x->b_force_redraw)
     {
+        x->b_force_redraw = 0;
         ebox_invalidate_layer(x, s_eboxbd);
         ebox_invalidate_layer(x, s_eboxio);
         ebox_paint(x);

@@ -28,18 +28,11 @@ struct tl_cue : public BaseGuiObject {
     CueData* data;
 
     t_object* asObj() { return &b_box.b_obj.o_obj; }
-
-    bool updatePos()
-    {
-        if (data->xPos() != b_box.b_rect.x) {
-            data->setXPos(b_box.b_rect.x);
-            CueStorage::sort(canvas);
-            CueStorage::enumerate(canvas);
-            return true;
-        }
-        return false;
-    }
+    bool first_draw;
 };
+
+static void update_canvas_cues(t_canvas* c);
+static void redraw_canvas_cues(t_canvas* c, tl_cue* except = 0);
 
 static inline tl_cue* asCue(t_ebox* x)
 {
@@ -94,7 +87,7 @@ static void tl_cue_ebox_move(t_ebox* x)
     }
 }
 
-static void redraw_canvas_cues(t_canvas* c, tl_cue* except = 0)
+static void update_canvas_cues(t_canvas* c)
 {
     CueList* lst = CueStorage::cueList(c);
     if (lst == 0)
@@ -102,10 +95,12 @@ static void redraw_canvas_cues(t_canvas* c, tl_cue* except = 0)
 
     for (size_t i = 0; i < lst->size(); i++) {
         void* obj = lst->at(i)->object();
-        if (obj != except) {
-            GuiFactory<tl_cue>::ws_redraw(reinterpret_cast<tl_cue*>(obj));
-        }
+        tl_cue* c = reinterpret_cast<tl_cue*>(obj);
+        c->data->setXPos(c->b_box.b_rect.x);
     }
+
+    CueStorage::sort(c);
+    CueStorage::enumerate(c);
 }
 
 void tl_cue_displace(t_gobj* z, t_glist* glist, int dx, int /*dy*/)
@@ -133,11 +128,8 @@ void tl_cue_displace(t_gobj* z, t_glist* glist, int dx, int /*dy*/)
 #endif
 
     tl_cue* zx = asCue(x);
-    if (zx->updatePos()) {
-        CueStorage::sort(zx->canvas);
-        CueStorage::enumerate(zx->canvas);
-        redraw_canvas_cues(zx->canvas);
-    }
+    update_canvas_cues(zx->canvas);
+    redraw_canvas_cues(zx->canvas);
 }
 
 UI_fun(tl_cue)::new_ext(tl_cue* zx, t_symbol* /*s*/, int /*argc*/, t_atom* /*argv*/)
@@ -147,6 +139,7 @@ UI_fun(tl_cue)::new_ext(tl_cue* zx, t_symbol* /*s*/, int /*argc*/, t_atom* /*arg
     zx->canvas = canvas_getcurrent();
 
     zx->data = new CueData(zx->canvas, zx->asObj());
+    zx->first_draw = true;
 
     CueStorage::add(zx->data);
 }
@@ -193,11 +186,26 @@ UI_fun(tl_cue)::wx_paint(tl_cue* zx, t_object* /*view*/)
     t_rect rect;
     zx->getRect(&rect);
 
+    if (zx->first_draw) {
+        zx->first_draw = false;
+//        ebox_m
+
+        CueList* lst = CueStorage::cueList(zx->canvas);
+        for (size_t i = 0; i < lst->size(); i++) {
+            void* obj = lst->at(i)->object();
+            tl_cue* c = reinterpret_cast<tl_cue*>(obj);
+            if (c->b_box.b_rect.x == 0.f)
+                return;
+        }
+
+        update_canvas_cues(zx->canvas);
+        redraw_canvas_cues(zx->canvas);
+    }
+
     t_elayer* g = ebox_start_layer(asBox(zx), BG_LAYER, rect.width, rect.height);
     if (g) {
         const float xoff = 2 * ebox_getzoom(asBox(zx));
         const float yoff = (FONT_SIZE + 2) * ebox_getzoom(asBox(zx));
-        bool pos_changed = zx->updatePos();
 
         etext_layout_set(zx->txt, zx->data->name().c_str(), zx->fnt, xoff, yoff, rect.width, rect.height / 2,
             ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
@@ -205,14 +213,27 @@ UI_fun(tl_cue)::wx_paint(tl_cue* zx, t_object* /*view*/)
         etext_layout_draw(zx->txt, g);
         ebox_end_layer(asBox(zx), BG_LAYER);
 
-        if (pos_changed)
-            redraw_canvas_cues(zx->canvas, zx);
-
         vline_delete(asBox(zx));
         vline_draw(asBox(zx));
     }
 
     ebox_paint_layer(asBox(zx), BG_LAYER, 0., 0.);
+}
+
+static void redraw_canvas_cues(t_canvas* c, tl_cue* except)
+{
+    CueList* lst = CueStorage::cueList(c);
+    if (lst == 0)
+        return;
+
+    for (size_t i = 0; i < lst->size(); i++) {
+        void* obj = lst->at(i)->object();
+        if (obj != except) {
+            tl_cue* c = reinterpret_cast<tl_cue*>(obj);
+            c->b_box.b_force_redraw = 1;
+            GuiFactory<tl_cue>::ws_redraw(c);
+        }
+    }
 }
 }
 
