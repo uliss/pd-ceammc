@@ -12,6 +12,7 @@ conv.cc2amp,cc->amp		.		.
 conv.lin2curve,lin->curve		.		.
 conv.lin2exp,lin->exp		.		.
 conv.lin2lin,lin->lin		.		.
+conv.samp2sec,samp->sec		.		.
 conv.sec2str,sec->str		.		.
 conv.str2sec,str->sec		.		.
 data.fifo		.		.

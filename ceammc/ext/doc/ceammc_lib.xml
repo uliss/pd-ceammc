@@ -53,6 +53,9 @@
     <entry descr="convert from one linear range to another" name="conv.lin2lin" ref_view="object">
       <xi:include href="conv.lin2lin.pddoc" parse="xml"/>
     </entry>
+    <entry descr="convert samples to time according to samplerate" name="conv.samp2sec" ref_view="object">
+      <xi:include href="conv.samp2sec.pddoc" parse="xml"/>
+    </entry>
     <entry descr="converts float time in seconds to formated symbol" name="conv.sec2str" ref_view="object">
       <xi:include href="conv.sec2str.pddoc" parse="xml"/>
     </entry>
