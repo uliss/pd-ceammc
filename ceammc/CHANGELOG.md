@@ -50,4 +50,4 @@
 - pass.this renamed to flow.pass (with pass alias)
 - reject.this renamed to flow.reject (with reject alias)
 - pass.changed renamed to flow.change
-- list.seq
+- list.seq @closed property added for closed interval
