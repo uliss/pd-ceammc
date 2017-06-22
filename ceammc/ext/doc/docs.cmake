@@ -203,6 +203,7 @@ set(DOC_FILES
     system.memused
     system.screen_size
     tl.bang
+    tl.cue
     tl.transport
     ui.bang
     ui.bpfunc

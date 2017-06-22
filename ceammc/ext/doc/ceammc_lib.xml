@@ -665,7 +665,10 @@
     <entry descr="Timeline bang" name="tl.bang" ref_view="link">
       <xi:include href="tl.bang.pddoc" parse="xml"/>
     </entry>
-    <entry descr="Timeline transport control" name="tl.transport" ref_view="link">
+    <entry descr="Timeline section" name="tl.cue" ref_view="link">
+      <xi:include href="tl.cue.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="Timeline transport control" name="tl.transport" ref_view="object">
       <xi:include href="tl.transport.pddoc" parse="xml"/>
     </entry>
     <entry descr="A bang... that's all" name="ui.bang" ref_view="link">
