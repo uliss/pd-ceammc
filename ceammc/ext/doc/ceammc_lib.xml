@@ -388,7 +388,10 @@
     </entry>
   </category>
   <category name="local">
-    <entry descr="canvas-scoped named variable" name="local.int" ref_view="object">
+    <entry descr="canvas-scoped named float variable" name="local.float" ref_view="object">
+      <xi:include href="local.float.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="canvas-scoped named integer variable" name="local.int" ref_view="object">
       <xi:include href="local.int.pddoc" parse="xml"/>
     </entry>
   </category>

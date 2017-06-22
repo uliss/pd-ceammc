@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="local.int">
-        <title>local.int</title>
+    <object name="local.float">
+        <title>local.float</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>canvas-scoped named integer variable</description>
+            <description>canvas-scoped named float variable</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>local</category>
-            <keywords>int local</keywords>
+            <keywords>float local</keywords>
             <since>0.1</since>
             <also>
-                <see>local.float</see>
+                <see>local.int</see>
                 <see>global.int</see>
             </also>
         </meta>
         <info>
-            <par>Defines named local integer variable, accessed by name and available only within
+            <par>Defines named local float variable, accessed by name and available only within
             its patch (canvas). Note: it is not accessible even in subpatch.</par>
         </info>
         <arguments>
@@ -34,14 +34,14 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="control">integer output</outlet>
+            <outlet>float output</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
 [F]   [3.1415(  [B]
 |     |         |
-[local.int a]   [local.int a]
+[local.float a] [local.float a]
                 |
                 [F]
 ]]>

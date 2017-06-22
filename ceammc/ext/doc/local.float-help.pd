@@ -1,20 +1,20 @@
 #N canvas 0 0 715 555 12;
 #X declare -lib ceammc -lib creammc;
-#X obj 403 50 cnv 1 292 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 403 50 canvas-scoped named integer variable;
-#X obj 1 1 cnv 5 712 40 empty empty local.int 20 20 0 20 -104026 -4096
-0;
-#X obj 623 11 local.int;
+#X obj 419 50 cnv 1 276 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 419 50 canvas-scoped named float variable;
+#X obj 1 1 cnv 5 712 40 empty empty local.float 20 20 0 20 -104026
+-4096 0;
+#X obj 608 11 local.float;
 #X obj 205 80 cnv 1 490 61 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80 Defines named local integer variable \, accessed by
-name and available only within its patch (canvas). Note: it is not
+#X text 210 80 Defines named local float variable \, accessed by name
+and available only within its patch (canvas). Note: it is not
 accessible even in subpatch.;
 #X floatatom 50 169 5 0 0 0 - - -;
 #X msg 107 169 3.1415;
 #X obj 203 169 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 198 local.int a;
-#X obj 203 198 local.int a;
+#X obj 50 198 local.float a;
+#X obj 203 198 local.float a;
 #X floatatom 203 227 5 0 0 0 - - -;
 #X obj 20 266 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 271 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
@@ -41,7 +41,7 @@ outlet.;
 #X obj 20 431 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 436 1\.;
-#X text 240 436 integer output;
+#X text 240 436 float output;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -49,8 +49,8 @@ outlet.;
 #X obj 131 48 ui.link @title local @url ceammc.local-help.pd;
 #X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.2;
-#X text 448 520 see also:;
-#X obj 524 520 local.float;
+#X text 463 520 see also:;
+#X obj 539 520 local.int;
 #X obj 618 520 global.int;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
@@ -59,7 +59,7 @@ outlet.;
 #X text 10 32 version:;
 #X text 120 32 0.2;
 #X text 10 54 object:;
-#X text 120 54 local.int;
+#X text 120 54 local.float;
 #X text 10 76 category:;
 #X text 120 76 local;
 #X text 10 98 since:;
@@ -69,7 +69,7 @@ outlet.;
 #X text 10 142 license:;
 #X text 120 142 GPL3;
 #X text 10 164 keywords:;
-#X text 120 164 int \, local;
+#X text 120 164 float \, local;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pure-data @url
 https://github.com/uliss/pure-data;
