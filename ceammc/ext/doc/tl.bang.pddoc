@@ -20,7 +20,7 @@
         <info>
             <par>Bang only when nearest left tl.cue was activated</par>
         </info>
-        <inlets/>
+        <inlets />
         <outlets>
             <outlet>bang output</outlet>
         </outlets>

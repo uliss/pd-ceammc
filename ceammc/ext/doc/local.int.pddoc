@@ -30,7 +30,8 @@
         <inlets>
             <inlet>
                 <xinfo on="bang">output value</xinfo>
-                <xinfo on="float">sets new value and outputs it ONLY at current object outlet</xinfo>
+                <xinfo on="float">sets new value and outputs it ONLY at current object
+                outlet</xinfo>
             </inlet>
         </inlets>
         <outlets>

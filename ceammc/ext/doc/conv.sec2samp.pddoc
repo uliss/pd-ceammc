@@ -6,7 +6,8 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>convert time in seconds to number of samples according to current samplerate</description>
+            <description>convert time in seconds to number of samples according to current
+            samplerate</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>conv</category>

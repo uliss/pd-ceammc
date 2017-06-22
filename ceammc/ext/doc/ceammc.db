@@ -111,6 +111,7 @@ list.reduce		..		..
 list.remove_if		..		..
 list.resize		.		.
 list.reverse		.		.
+list.rotate,list.<<		..		.
 list.seq		.		.
 list.shuffle		.		.
 list.sort		.		.

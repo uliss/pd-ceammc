@@ -362,6 +362,9 @@
     <entry descr="reverses the order of the elements in the list" name="list.reverse" ref_view="object">
       <xi:include href="list.reverse.pddoc" parse="xml"/>
     </entry>
+    <entry descr="rotates list left" name="list.rotate" ref_view="object">
+      <xi:include href="list.rotate.pddoc" parse="xml"/>
+    </entry>
     <entry descr="numeric sequence list generator" name="list.seq" ref_view="object">
       <xi:include href="list.seq.pddoc" parse="xml"/>
     </entry>

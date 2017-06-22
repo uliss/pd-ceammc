@@ -18,14 +18,15 @@
             </also>
         </meta>
         <inlets>
-            <inlet><xinfo>control input</xinfo></inlet>
+            <inlet>
+                <xinfo>control input</xinfo>
+            </inlet>
         </inlets>
         <methods>
-            <method name="cue">sets cue index
-                <param name="N" type="int" minvalue="0">cue index</param>
-            </method>
+            <method name="cue">sets cue index 
+            <param name="N" type="int" minvalue="0">cue index</param></method>
         </methods>
-        <outlets/>
+        <outlets />
         <example>
             <pdascii>
 <![CDATA[

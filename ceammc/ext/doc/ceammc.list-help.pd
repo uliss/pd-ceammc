@@ -70,26 +70,28 @@ list;
 #X text 175 892 changes list size with;
 #X obj 30 919 list.reverse;
 #X text 175 919 reverses the order of the elements in the list;
-#X obj 30 946 list.seq;
-#X text 175 946 numeric sequence list generator;
-#X obj 30 973 list.shuffle;
-#X text 175 973 randomly rearranges elements in list;
-#X obj 30 1000 list.sort;
-#X text 175 1000 sorts list values by ascending order;
-#X obj 30 1027 list.sum;
-#X text 175 1027 calculates sum of floats in list;
-#X obj 30 1054 list.unpack;
-#X text 175 1054 sends list element one by one separately;
-#X obj 30 1081 list.unwrap;
-#X text 175 1081 gets list element on first input and list with count
+#X obj 30 946 list.rotate;
+#X text 175 946 rotates list left;
+#X obj 30 973 list.seq;
+#X text 175 973 numeric sequence list generator;
+#X obj 30 1000 list.shuffle;
+#X text 175 1000 randomly rearranges elements in list;
+#X obj 30 1027 list.sort;
+#X text 175 1027 sorts list values by ascending order;
+#X obj 30 1054 list.sum;
+#X text 175 1054 calculates sum of floats in list;
+#X obj 30 1081 list.unpack;
+#X text 175 1081 sends list element one by one separately;
+#X obj 30 1108 list.unwrap;
+#X text 175 1108 gets list element on first input and list with count
 of each element on a second inlet.;
-#X obj 30 1118 list.walk;
-#X text 175 1118 Walks thru the list;
-#X obj 30 1145 list.wrap;
-#X text 175 1145 filters repeated elements of the list and outputs
+#X obj 30 1145 list.walk;
+#X text 175 1145 Walks thru the list;
+#X obj 30 1172 list.wrap;
+#X text 175 1172 filters repeated elements of the list and outputs
 unique elements on first outlet \, outputs the count of elements on
 second.;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::list 20 20 0 20 -104026
 -4096 0;
-#X obj 1 1196 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 1206 library: ceammc;
+#X obj 1 1223 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 1233 library: ceammc;

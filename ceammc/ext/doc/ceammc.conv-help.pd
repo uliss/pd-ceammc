@@ -23,11 +23,14 @@ position [0\..1];
 #X text 175 342 convert from one linear range to another;
 #X obj 30 369 conv.samp2sec;
 #X text 175 369 convert samples to time according to samplerate;
-#X obj 30 396 conv.sec2str;
-#X text 175 396 converts float time in seconds to formated symbol;
-#X obj 30 423 conv.str2sec;
-#X text 175 423 converts formatted time to float value in seconds;
+#X obj 30 396 conv.sec2samp;
+#X text 175 396 convert time in seconds to number of samples according
+to current samplerate;
+#X obj 30 433 conv.sec2str;
+#X text 175 433 converts float time in seconds to formated symbol;
+#X obj 30 460 conv.str2sec;
+#X text 175 460 converts formatted time to float value in seconds;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::conv 20 20 0 20 -104026
 -4096 0;
-#X obj 1 458 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 468 library: ceammc;
+#X obj 1 487 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 497 library: ceammc;

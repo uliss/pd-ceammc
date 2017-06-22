@@ -112,6 +112,7 @@ set(DOC_FILES
     list.remove_if
     list.resize
     list.reverse
+    list.rotate
     list.seq
     list.shuffle
     list.sort

@@ -17,8 +17,8 @@
                 <see view="link">tl.bang</see>
             </also>
         </meta>
-        <inlets/>
-        <outlets/>
+        <inlets />
+        <outlets />
         <example>
             <pdascii>
 <![CDATA[
