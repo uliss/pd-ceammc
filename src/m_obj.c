@@ -25,10 +25,6 @@ struct _inlet
     t_object *i_owner;
     t_pd *i_dest;
     t_symbol *i_symfrom;
-    
-    //CEAMMC EXPERIMENTAL
-    float y_offset;
-    
     union inletunion i_un;
 };
 
@@ -71,19 +67,6 @@ t_inlet *signalinlet_new(t_object *owner, t_float f)
     t_inlet *x = inlet_new(owner, &owner->ob_pd, &s_signal, &s_signal);
     x->i_un.iu_floatsignalvalue = f;
     return (x);
-}
-
-//CEAMMC EXPERIMENTAL
-void inlet_set_yoffset(t_inlet* inlet, float y)
-{
-    inlet->y_offset=y;
-    
-}
-
-float inlet_get_yoffset(t_inlet* inlet)
-{
-    return inlet->y_offset;
-    
 }
 
 static void inlet_wrong(t_inlet *x, t_symbol *s)
@@ -347,9 +330,6 @@ struct _outlet
     struct _outlet *o_next;
     t_outconnect *o_connections;
     t_symbol *o_sym;
-    
-    //CEAMMC EXPERIMENTAL
-    float y_offset;
 };
 
 t_outlet *outlet_new(t_object *owner, t_symbol *s)
@@ -366,18 +346,6 @@ t_outlet *outlet_new(t_object *owner, t_symbol *s)
     x->o_connections = 0;
     x->o_sym = s;
     return (x);
-}
-
-//CEAMMC EXPERIMENTAL
-void outlet_set_yoffset(t_outlet* outlet, float y)
-{
-    outlet->y_offset = y;
-}
-
-float outlet_get_yoffset(t_outlet* outlet)
-{
-    return outlet->y_offset;
-    
 }
 
 static void outlet_stackerror(t_outlet *x)
