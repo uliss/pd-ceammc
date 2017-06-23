@@ -18,6 +18,7 @@ endif()
 
 # libsndfile source root specified
 if(LIBSNDFILE_ROOT)
+    message(STATUS "libsndfile root: ${LIBSNDFILE_ROOT}")
 
     find_path(LIBSNDFILE_INCLUDE_DIR
         NAMES sndfile.h
