@@ -29,6 +29,14 @@ DataAtom::DataAtom(const Data& d)
     set(d);
 }
 
+DataAtom::DataAtom(const AbstractData* d)
+{
+    if (d != 0) {
+        data_.reset(new Data(d->clone()));
+        atom_ = data_->toAtom();
+    }
+}
+
 DataAtom::DataAtom(const DataAtom& d)
     : atom_(d.atom_)
 {

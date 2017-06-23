@@ -624,4 +624,14 @@ TEST_CASE("list functions", "[ceammc::list]")
         REQUIRE(list::rotate(L3(1, 2, 3), -3) == L3(1, 2, 3));
         REQUIRE(list::rotate(L3(1, 2, 3), -4) == L3(3, 1, 2));
     }
+
+    SECTION("repeat")
+    {
+        REQUIRE(list::repeat(AtomList(), 0) == AtomList());
+        REQUIRE(list::repeat(AtomList(), 100) == AtomList());
+        REQUIRE(list::repeat(L1(1), 0) == AtomList());
+        REQUIRE(list::repeat(L1(1), 4) == L4(1, 1, 1, 1));
+        REQUIRE(list::repeat(L2(1, 5), 2) == L4(1, 5, 1, 5));
+        REQUIRE(list::repeat(L3(1, 2, 3), 2) == L6(1, 2, 3, 1, 2, 3));
+    }
 }

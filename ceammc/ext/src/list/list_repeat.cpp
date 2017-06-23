@@ -1,89 +1,72 @@
-#include "ceammc.hpp"
-#include <m_pd.h>
-#include <math.h>
+#include "list_repeat.h"
+#include "ceammc_dataatomlist.h"
+#include "ceammc_factory.h"
+#include "ceammc_fn_list.h"
 
-#define PREFIX "[list.repeat] "
+const static int REPEAT_MAX = 10000;
 
-const static t_float REPEAT_MAX = 10000;
-
-t_class* list_repeat_class;
-typedef struct list_repeat {
-    t_object x_obj;
-    t_inlet* n_inlet;
-    t_float n;
-} t_list_repeat;
-
-template <class T>
-static inline bool is_valid(T v)
+ListRepeat::ListRepeat(const ceammc::PdArgs& a)
+    : BaseObject(a)
+    , times_(0)
 {
-    return (ceammc::math::is_natural(v) && v < REPEAT_MAX) ? true : false;
+    createInlet();
+    createOutlet();
+
+    times_ = new IntProperty("@times", int(positionalFloatArgument(0, 1)));
+    createProperty(times_);
 }
 
-static void list_repeat_float(t_list_repeat* x, t_floatarg f)
+void ListRepeat::onFloat(float f)
 {
-    if (!is_valid(x->n)) {
-        pd_error(x, PREFIX "invalid repeat value: %f", x->n);
-        return;
-    }
-
-    if (x->n == 0.0)
-        return;
-
-    size_t n = static_cast<size_t>(x->n);
-    t_atom v;
-    SETFLOAT(&v, f);
-    ceammc::pd::output(x->x_obj.te_outlet, ceammc::pd::atom_list(n, v));
+    onList(Atom(f));
 }
 
-static void list_repeat_list(t_list_repeat* x, t_symbol* s, int argc, t_atom* argv)
+void ListRepeat::onSymbol(t_symbol* s)
 {
-    if (!is_valid(x->n)) {
-        pd_error(x, PREFIX "invalid repeat value: %f", x->n);
-        return;
-    }
-
-    if (x->n == 0.0)
-        return;
-
-    size_t n = static_cast<size_t>(x->n);
-    ceammc::pd::atom_list result;
-    result.reserve(n * argc);
-    for (size_t i = 0; i < n; i++) {
-        for (int j = 0; j < argc; j++) {
-            result.push_back(argv[j]);
-        }
-    }
-
-    ceammc::pd::output(x->x_obj.te_outlet, result);
+    onList(Atom(s));
 }
 
-static void list_repeat_free(t_list_repeat* x)
+void ListRepeat::onList(const AtomList& l)
 {
-    inlet_free(x->n_inlet);
+    const size_t n = repeatCount();
+    if (n == size_t(-1))
+        return;
+
+    listTo(0, list::repeat(l, n));
 }
 
-static void* list_repeat_new(t_floatarg f)
+void ListRepeat::onData(const AbstractData* d)
 {
-    t_list_repeat* x = reinterpret_cast<t_list_repeat*>(pd_new(list_repeat_class));
-    x->n_inlet = floatinlet_new(&x->x_obj, &x->n);
+    size_t n = repeatCount();
+    if (n == size_t(-1))
+        return;
 
-    if (!is_valid(f)) {
-        pd_error(x, PREFIX "invalid repeat value: %f, setting to 1", f);
-        x->n = 1;
-    } else {
-        x->n = static_cast<int>(f);
+    DataAtomList res;
+    while (n-- > 0) {
+        res.append(d);
     }
 
-    outlet_new(&x->x_obj, &s_anything);
-    return static_cast<void*>(x);
+    listTo(0, res.toList());
+}
+
+size_t ListRepeat::repeatCount() const
+{
+    const int n = times_->value();
+    if (n < 0) {
+        OBJ_ERR << "invalid repeat value: " << n;
+        return size_t(-1);
+    }
+
+    if (n > REPEAT_MAX) {
+        OBJ_ERR << "too big repeat value: " << n << ". Clip to " << REPEAT_MAX;
+        return size_t(REPEAT_MAX);
+    }
+
+    return size_t(n);
 }
 
 extern "C" void setup_list0x2erepeat()
 {
-    list_repeat_class = class_new(gensym("list.repeat"),
-        reinterpret_cast<t_newmethod>(list_repeat_new),
-        reinterpret_cast<t_method>(list_repeat_free),
-        sizeof(t_list_repeat), CLASS_DEFAULT, A_DEFFLOAT, 0);
-    class_addfloat(list_repeat_class, list_repeat_float);
-    class_addlist(list_repeat_class, list_repeat_list);
+    ObjectFactory<ListRepeat> obj("list.repeat");
+    obj.processData();
 }

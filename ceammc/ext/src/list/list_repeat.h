@@ -11,38 +11,25 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef CEAMMC_DATAATOMLIST_H
-#define CEAMMC_DATAATOMLIST_H
+#ifndef LIST_REPEAT_H
+#define LIST_REPEAT_H
 
-#include "ceammc_atomlist.h"
-#include "ceammc_dataatom.h"
+#include "ceammc_object.h"
 
-#include <vector>
+using namespace ceammc;
 
-namespace ceammc {
-
-class DataAtomList {
-    std::vector<DataAtom*> list_;
+class ListRepeat : public BaseObject {
+    IntProperty* times_;
 
 public:
-    DataAtomList();
-    ~DataAtomList();
-    DataAtomList(const Atom& a);
-    DataAtomList(const AtomList& lst);
+    ListRepeat(const PdArgs& a);
+    void onFloat(float f);
+    void onSymbol(t_symbol* s);
+    void onList(const AtomList& l);
+    void onData(const AbstractData* d);
 
-    void set(const AtomList& lst);
-
-    size_t size() const;
-    DataAtom& operator[](size_t idx);
-    const DataAtom& operator[](size_t idx) const;
-    void clear();
-
-    void append(const Atom& a);
-    void append(const AbstractData* d);
-    AtomList toList() const;
-
-    bool operator==(const DataAtomList& l) const;
+private:
+    size_t repeatCount() const;
 };
-}
 
-#endif // CEAMMC_DATAATOMLIST_H
+#endif // LIST_REPEAT_H

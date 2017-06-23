@@ -71,6 +71,11 @@ void DataAtomList::append(const Atom& a)
     list_.push_back(new DataAtom(a));
 }
 
+void DataAtomList::append(const AbstractData* d)
+{
+    list_.push_back(new DataAtom(d));
+}
+
 AtomList DataAtomList::toList() const
 {
     AtomList res;

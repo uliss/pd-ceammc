@@ -32,6 +32,7 @@ class DataAtom {
 public:
     explicit DataAtom(const Atom& a);
     explicit DataAtom(const Data& d);
+    explicit DataAtom(const AbstractData* d);
 
     DataAtom(const DataAtom& d);
     DataAtom& operator=(const DataAtom& d);

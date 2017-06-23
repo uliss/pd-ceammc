@@ -290,5 +290,20 @@ namespace list {
         std::rotate(res.begin(), res.begin() + steps, res.end());
         return res;
     }
+
+    AtomList repeat(const AtomList& l, size_t n)
+    {
+        AtomList res;
+        if (n == 0 || l.size() == 0)
+            return res;
+
+        res.reserve(l.size() * n);
+
+        while (n-- > 0) {
+            res.append(l);
+        }
+
+        return res;
+    }
 }
 }

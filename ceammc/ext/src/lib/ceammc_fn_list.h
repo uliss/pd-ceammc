@@ -52,6 +52,7 @@ namespace list {
     bool calcFoldIndex(int pos, size_t len, size_t* idx);
 
     AtomList rotate(const AtomList& l, int steps);
+    AtomList repeat(const AtomList& l, size_t n);
 }
 }
 
