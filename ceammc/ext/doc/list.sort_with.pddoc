@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="list.sort_with">
+        <title>list.sort_with</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>sort list with user defined side-chain</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>list</category>
+            <keywords>list sort_with</keywords>
+            <since>0.2</since>
+            <also>
+                <see>list.sort</see>
+            </also>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="list">input list</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="int">output from compare object</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>sorted list</outlet>
+            <outlet>output list with two element to compare side-chain</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[3 4 1 0 6(
+|
+|
+[list.sort_with] X [>]
+|
+[msg set]
+|
+[ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

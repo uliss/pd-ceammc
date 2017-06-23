@@ -116,6 +116,7 @@ set(DOC_FILES
     list.seq
     list.shuffle
     list.sort
+    list.sort_with
     list.sum
     list.unpack
     list.unwrap

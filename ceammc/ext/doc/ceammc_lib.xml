@@ -374,6 +374,9 @@
     <entry descr="sorts list values by ascending order" name="list.sort" ref_view="object">
       <xi:include href="list.sort.pddoc" parse="xml"/>
     </entry>
+    <entry descr="sort list with user defined side-chain" name="list.sort_with" ref_view="object">
+      <xi:include href="list.sort_with.pddoc" parse="xml"/>
+    </entry>
     <entry descr="calculates sum of floats in list" name="list.sum" ref_view="object">
       <xi:include href="list.sum.pddoc" parse="xml"/>
     </entry>
