@@ -575,6 +575,9 @@
     <entry descr="checks if input number is even" name="is_even" ref_view="object">
       <xi:include href="is_even.pddoc" parse="xml"/>
     </entry>
+    <entry descr="checks if file exists and accessible" name="is_file" ref_view="object">
+      <xi:include href="is_file.pddoc" parse="xml"/>
+    </entry>
     <entry descr="checks if input data has *float* type" name="is_float" ref_view="object">
       <xi:include href="is_float.pddoc" parse="xml"/>
     </entry>

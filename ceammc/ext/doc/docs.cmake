@@ -76,6 +76,7 @@ set(DOC_FILES
     is_any
     is_bang
     is_even
+    is_file
     is_float
     is_list
     is_odd
