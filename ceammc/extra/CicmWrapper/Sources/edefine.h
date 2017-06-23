@@ -793,6 +793,7 @@ typedef struct t_edspbox
     int                 b_selected_item;    /*!< The items selected. */
     int                 b_selected_inlet;   /*!< The inlet selected. */
     int                 b_selected_outlet;  /*!< The outlet selected. */
+    float               b_zoom;
     
     char                b_mouse_down;       /*!< The mouse state. */
     
@@ -804,6 +805,7 @@ typedef struct t_edspbox
     
     t_elayer*           b_layers;           /*!< The ebox layers. */
     long                b_number_of_layers; /*!< The ebox number of layers. */
+    char                b_force_redraw;     /*!< Force ebox redraw. */
     
     t_edsp d_dsp; /*!< The dsp structure. */
 }t_edspbox;

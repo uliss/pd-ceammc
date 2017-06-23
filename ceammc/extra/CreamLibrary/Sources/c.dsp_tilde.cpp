@@ -11,6 +11,9 @@
 #include <cmath>
 
 #include "../c.library.hpp"
+#include <boost/static_assert.hpp>
+
+BOOST_STATIC_ASSERT((sizeof(t_edspbox) - sizeof(t_edsp)) == sizeof(t_ebox));
 
 typedef struct _dsp_tilde {
     t_ebox j_box;
@@ -183,7 +186,7 @@ extern "C" void setup_ui0x2edsp_tilde(void)
     ATTR_DEFAULT_COLOR_BORDER       (c, t_dsp_tilde);
     ATTR_DEFAULT_COLOR_BACKGROUND   (c, t_dsp_tilde);
     ATTR_DEFAULT_COLOR_ACTIVE       (c, t_dsp_tilde);
-    
+
     // clang-format on
     eclass_register(CLASS_BOX, c);
     dsp_tildeclass = c;
