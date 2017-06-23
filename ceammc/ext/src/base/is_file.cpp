@@ -1,3 +1,4 @@
+#include "../string/datatype_string.h"
 #include "ceammc_factory.h"
 #include "ceammc_object.h"
 
@@ -18,7 +19,17 @@ public:
 
     void onSymbol(t_symbol* s)
     {
-        std::string path = s->s_name;
+        floatTo(0, isFile(s->s_name) ? 1 : 0);
+    }
+
+    void onDataT(const DataTypeString& s)
+    {
+        floatTo(0, isFile(s.str()) ? 1 : 0);
+    }
+
+    bool isFile(const std::string& p) const
+    {
+        std::string path(p);
 
         if (!sys_isabsolutepath(path.c_str())) {
             if (cnv_) {
@@ -29,11 +40,12 @@ public:
         }
 
         std::ifstream f(path.c_str());
-        floatTo(0, f.is_open() ? 1 : 0);
+        return f.is_open();
     }
 };
 
 extern "C" void is_file_setup()
 {
     ObjectFactory<IsFile> obj("is_file");
+    obj.processData<DataTypeString>();
 }

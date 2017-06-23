@@ -13,6 +13,9 @@
             <keywords>predicate filesystem</keywords>
             <since>0.2</since>
         </meta>
+        <info>
+            <par>If relative path is given file searched under patch directory</par>
+        </info>
         <inlets>
             <inlet>
                 <xinfo on="symbol">outputs '1' if file exists and can be opened, otherwise
