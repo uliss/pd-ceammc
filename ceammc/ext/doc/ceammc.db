@@ -110,6 +110,7 @@ list.product		.		.
 list.range		.		.
 list.reduce		..		..
 list.remove_if		..		..
+list.repeat		..		.
 list.resize		.		.
 list.reverse		.		.
 list.rotate,list.<<		..		.

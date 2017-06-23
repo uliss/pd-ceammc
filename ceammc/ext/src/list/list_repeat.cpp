@@ -49,6 +49,11 @@ void ListRepeat::onData(const AbstractData* d)
     listTo(0, res.toList());
 }
 
+void ListRepeat::onInlet(size_t, const AtomList& l)
+{
+    times_->set(l);
+}
+
 size_t ListRepeat::repeatCount() const
 {
     const int n = times_->value();

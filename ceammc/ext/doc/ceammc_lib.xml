@@ -356,6 +356,9 @@
     <entry descr="remove elements by predicate" name="list.remove_if" ref_view="object">
       <xi:include href="list.remove_if.pddoc" parse="xml"/>
     </entry>
+    <entry descr="creates new list by repeating given list specified times" name="list.repeat" ref_view="object">
+      <xi:include href="list.repeat.pddoc" parse="xml"/>
+    </entry>
     <entry descr="changes list size with" name="list.resize" ref_view="object">
       <xi:include href="list.resize.pddoc" parse="xml"/>
     </entry>

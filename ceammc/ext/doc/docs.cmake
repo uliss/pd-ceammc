@@ -112,6 +112,7 @@ set(DOC_FILES
     list.reduce
     list.remove_if
     list.resize
+    list.repeat
     list.reverse
     list.rotate
     list.seq

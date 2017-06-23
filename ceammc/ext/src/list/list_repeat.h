@@ -28,6 +28,8 @@ public:
     void onList(const AtomList& l);
     void onData(const AbstractData* d);
 
+    void onInlet(size_t, const AtomList& l);
+
 private:
     size_t repeatCount() const;
 };
