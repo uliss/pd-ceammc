@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="list.distribution">
+        <title>list.distribution</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>list value distribution</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>list</category>
+            <keywords>list distribution</keywords>
+            <since>0.1</since>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="list">input list</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>list of pairs: first element - value, second - number of repeats in list</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]                             [A array1 yr=0..1]
+|
+[t b b]
+^|  |
+ |  [normalize(
+ |  |
+ |  [s array1]
+ |
+[list.gen 1000]X[random.int 0 20]
+|
+[list.distribution]
+|
+[list.repack 2]
+|
+[swap]
+|   ^|.
+[tabwrite array1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

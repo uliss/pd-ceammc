@@ -93,6 +93,7 @@ list.count		..		.
 list.count_if		..		..
 list.deinterleave		.		?
 list.delta		.		.
+list.distribution		.		.
 list.each		..		..
 list.equal		..		.
 list.first		.		.
@@ -110,6 +111,7 @@ list.product		.		.
 list.range		.		.
 list.reduce		..		..
 list.remove_if		..		..
+list.repack		.		..
 list.repeat		..		.
 list.resize		.		.
 list.reverse		.		.

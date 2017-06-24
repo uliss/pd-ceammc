@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="list.repack">
+        <title>list.repack</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>repack input list to specified size</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>list</category>
+            <keywords>list repack</keywords>
+            <since>0.1</since>
+        </meta>
+        <arguments>
+            <argument name="SIZE" type="int" minvalue="1">output list size</argument>
+        </arguments>
+        <properties>
+            <property name="@size" type="int" minvalue="1" maxvalue="1024" default="1">output list size</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="list">input list</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output list</outlet>
+            <outlet>bang after last element output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[1 2 3 4 5 6 7 8 9(
+|
+|
+[list.repack 4]
+|
+[print]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

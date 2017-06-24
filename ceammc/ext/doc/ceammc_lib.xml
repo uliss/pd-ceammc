@@ -305,6 +305,9 @@
     <entry descr="returns the difference between the current list of floats and the previous one." name="list.delta" ref_view="object">
       <xi:include href="list.delta.pddoc" parse="xml"/>
     </entry>
+    <entry descr="list value distribution" name="list.distribution" ref_view="object">
+      <xi:include href="list.distribution.pddoc" parse="xml"/>
+    </entry>
     <entry descr="maps each list value via external object(s)" name="list.each" ref_view="object">
       <xi:include href="list.each.pddoc" parse="xml"/>
     </entry>
@@ -355,6 +358,9 @@
     </entry>
     <entry descr="remove elements by predicate" name="list.remove_if" ref_view="object">
       <xi:include href="list.remove_if.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="repack input list to specified size" name="list.repack" ref_view="object">
+      <xi:include href="list.repack.pddoc" parse="xml"/>
     </entry>
     <entry descr="creates new list by repeating given list specified times" name="list.repeat" ref_view="object">
       <xi:include href="list.repeat.pddoc" parse="xml"/>

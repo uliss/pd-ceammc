@@ -94,6 +94,7 @@ set(DOC_FILES
     list.count_if
     list.deinterleave
     list.delta
+    list.distribution
     list.each
     list.equal
     list.first
@@ -113,6 +114,7 @@ set(DOC_FILES
     list.remove_if
     list.resize
     list.repeat
+    list.repack
     list.reverse
     list.rotate
     list.seq
