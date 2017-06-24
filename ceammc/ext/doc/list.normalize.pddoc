@@ -13,11 +13,21 @@
             <keywords>list normalize</keywords>
             <since>0.1</since>
         </meta>
+        <info>
+            <par>There are two modes of normalizing:</par>
+            <par>1. by sum - multiply all elements to such number to get total sum = 1.0</par>
+            <par>2. by value range - maps all values to range 0..1 lineary</par>
+        </info>
         <inlets>
             <inlet>
                 <xinfo on="list">input list of floats. Non float values are rejected</xinfo>
             </inlet>
         </inlets>
+        <properties>
+            <property name="@by" enum="sum range" default="range" type="symbol">normalization mode</property>
+            <property name="@sum" type="flag">alias to @by sum</property>
+            <property name="@range" type="flag">alias to @by range</property>
+        </properties>
         <outlets>
             <outlet>output list</outlet>
         </outlets>
@@ -26,9 +36,11 @@
 <![CDATA[
 [1 2 3 4(
 |
-|  [1 2 a b c d(
-|  |
-[list.normalize]
+|  [1 2 a b c d( [@range( [@sum(
+|  |             |        |
+|  |             |        |
+|  |             |        |
+[list.normalize       @sum]
 |
 [t b a]
 |    ^|

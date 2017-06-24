@@ -344,5 +344,27 @@ namespace list {
 
         return res;
     }
+
+    bool normalizeByRange(const AtomList& src, AtomList& dest)
+    {
+        Atom amin, amax;
+        if (!src.range(amin, amax))
+            return false;
+
+        t_float min = amin.asFloat();
+        t_float max = amax.asFloat();
+        t_float range = max - min;
+
+        if (range == 0.f)
+            return false;
+
+        dest.clear();
+        dest.reserve(src.size());
+
+        for (size_t i = 0; i < src.size(); i++)
+            dest.append((src[i].asFloat() - min) / t_float(range));
+
+        return true;
+    }
 }
 }

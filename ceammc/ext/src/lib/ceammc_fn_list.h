@@ -55,6 +55,8 @@ namespace list {
     AtomList repeat(const AtomList& l, size_t n);
 
     AtomList histogram(const AtomList& l, size_t bins);
+
+    bool normalizeByRange(const AtomList& src, AtomList& dest);
 }
 }
 

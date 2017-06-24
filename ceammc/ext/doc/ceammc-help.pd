@@ -243,7 +243,7 @@ floats and the previous one.;
 #X text 175 3471 generates list of specified length via external
 generator;
 #X obj 30 3498 list.histogram;
-#X text 175 3498 returns first list element;
+#X text 175 3498 outputs normalized distibution histogram;
 #X obj 30 3525 list.integrator;
 #X text 175 3525 returns the sum of the previously stored list and the
 current one then stores this sum.;

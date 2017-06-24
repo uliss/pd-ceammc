@@ -40,4 +40,29 @@ TEST_CASE("list functions", "[ceammc::list]")
         REQUIRE(list::histogram(L4(1, 1.1f, 2, 2), 2) == L2(0.5, 0.5));
         REQUIRE(list::histogram(L4(1, 1.1f, 1.9f, 2), 3) == L3(0.5, 0.25, 0.25));
     }
+
+    SECTION("normalizeByRange")
+    {
+        AtomList res;
+        REQUIRE_FALSE(list::normalizeByRange(AtomList(), res));
+        REQUIRE_FALSE(list::normalizeByRange(L1(0.f), res));
+        REQUIRE_FALSE(list::normalizeByRange(L1(10), res));
+        REQUIRE_FALSE(list::normalizeByRange(L1(-10), res));
+        REQUIRE_FALSE(list::normalizeByRange(L4(1, 1, 1, 1), res));
+        REQUIRE(res.empty());
+
+#define REQUIRE_NORMALIZE(l1, dest)               \
+    {                                             \
+        AtomList res;                             \
+        REQUIRE(list::normalizeByRange(l1, res)); \
+        REQUIRE(res == dest);                     \
+    }
+
+        REQUIRE_NORMALIZE(L2(0.f, 1), L2(0.f, 1));
+        REQUIRE_NORMALIZE(L2(0.f, 10), L2(0.f, 1));
+        REQUIRE_NORMALIZE(L5(1, 2, 3, 4, 5), L5(0.f, 0.25, 0.5, 0.75, 1));
+        REQUIRE_NORMALIZE(L5(-1, -2, -3, -4, -5), L5(1, 0.75, 0.5, 0.25, 0.f));
+        REQUIRE_NORMALIZE(L3(-20, 0.0, 20), L3(0.0, 0.5, 1.0));
+
+    }
 }
