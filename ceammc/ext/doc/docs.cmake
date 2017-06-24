@@ -96,11 +96,11 @@ set(DOC_FILES
     list.delta
     list.distribution
     list.each
-    list.equal
     list.enumerate
+    list.equal
     list.first
-    list.histogram
     list.gen
+    list.histogram
     list.integrator
     list.interleave
     list.last
@@ -114,16 +114,18 @@ set(DOC_FILES
     list.range
     list.reduce
     list.remove_if
-    list.resize
-    list.repeat
     list.repack
+    list.repeat
+    list.resize
     list.reverse
     list.rotate
     list.seq
     list.shuffle
+    list.slice
     list.sort
     list.sort_with
     list.sum
+    list.unique
     list.unpack
     list.unwrap
     list.walk
@@ -182,9 +184,9 @@ set(DOC_FILES
     path.exists
     prop.get
     prop.set
+    random.float
     random.gauss
     random.int
-    random.float
     replace
     set.contains
     set.diff
@@ -204,8 +206,8 @@ set(DOC_FILES
     string.remove
     string.replace
     string.split
-    string.substr
     string.starts_with
+    string.substr
     string2symbol
     symbol.equal
     symbol.length

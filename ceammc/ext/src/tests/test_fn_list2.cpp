@@ -78,4 +78,13 @@ TEST_CASE("list functions", "[ceammc::list]")
         REQUIRE(list::enumerate(L1(100), 20, list::APPEND) == L2(100, 20));
         REQUIRE(list::enumerate(L1(100), -20, list::APPEND) == L2(100, -20));
     }
+
+    SECTION("unique")
+    {
+        REQUIRE(list::unique(AtomList()) == AtomList());
+        REQUIRE(list::unique(L1(100)) == L1(100));
+        REQUIRE(list::unique(L2(1, 2)) == L2(1, 2));
+        REQUIRE(list::unique(L6(1, 2, 3, 1, 3, 2)) == L3(1, 2, 3));
+        REQUIRE(list::unique(L4(1, 1, 1, 1)) == L1(1));
+    }
 }

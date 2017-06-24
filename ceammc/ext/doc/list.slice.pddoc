@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="list.slice">
+        <title>list.slice</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>extract sublist</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>list</category>
+            <keywords>list slice sublist</keywords>
+            <since>0.2</since>
+            <also>
+                <see>list.at</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="FROM" type="int">@from property</argument>
+            <argument name="TO" type="int">@to property</argument>
+            <argument name="STEP" type="int">@step property</argument>
+        </arguments>
+        <properties>
+            <property name="@from" type="int" default="0">start slice position. You can use
+            negative index to address elements from the end</property>
+            <property name="@to" type="int" default="end">end slice position. You can use negative
+            index to address elements from the end</property>
+            <property name="@step" type="int" default="1" minvalue="1">slice step</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="list">input list</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output sublist</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[list A B C D E(    [list A B C D E(   [list A B C D E(
+|                   |                  |
+[list.slice 2]      [list.slice 2 4]   [list.slice 0 5 2]
+|                   |                  |
+[msg set]           [msg set]          [msg set]
+|                   |                  |
+[ (                 [ (                [ (
+
+[list A B C D E(    [list A B C D E(
+|                   |
+[list.slice -2]     [list.slice -4 -1]
+|                   |
+[msg set]           [msg set]
+|                   |
+[ (                 [ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

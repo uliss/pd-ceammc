@@ -64,6 +64,8 @@ namespace list {
     };
 
     AtomList enumerate(const AtomList& l, int from = 0, enumerateMode mode = PREPEND);
+
+    AtomList unique(const AtomList& l);
 }
 }
 

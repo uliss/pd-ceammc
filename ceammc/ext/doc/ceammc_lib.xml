@@ -386,6 +386,9 @@
     <entry descr="randomly rearranges elements in list" name="list.shuffle" ref_view="object">
       <xi:include href="list.shuffle.pddoc" parse="xml"/>
     </entry>
+    <entry descr="extract sublist" name="list.slice" ref_view="object">
+      <xi:include href="list.slice.pddoc" parse="xml"/>
+    </entry>
     <entry descr="sorts list values by ascending order" name="list.sort" ref_view="object">
       <xi:include href="list.sort.pddoc" parse="xml"/>
     </entry>
@@ -394,6 +397,9 @@
     </entry>
     <entry descr="calculates sum of floats in list" name="list.sum" ref_view="object">
       <xi:include href="list.sum.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="sorts and removes duplicates from input list" name="list.unique" ref_view="object">
+      <xi:include href="list.unique.pddoc" parse="xml"/>
     </entry>
     <entry descr="sends list element one by one separately" name="list.unpack" ref_view="object">
       <xi:include href="list.unpack.pddoc" parse="xml"/>

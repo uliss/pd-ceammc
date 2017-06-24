@@ -389,5 +389,14 @@ namespace list {
 
         return res;
     }
+
+    AtomList unique(const AtomList& l)
+    {
+        AtomList res(l);
+        res.sort();
+        AtomList::Iterator last = std::unique(res.begin(), res.end());
+        res.resizeClip(last - res.begin());
+        return res;
+    }
 }
 }

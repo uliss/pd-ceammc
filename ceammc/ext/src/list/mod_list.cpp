@@ -11,9 +11,11 @@ extern "C" void setup_list0x2edeinterleave();
 extern "C" void setup_list0x2edelta();
 extern "C" void setup_list0x2edistribution();
 extern "C" void setup_list0x2eeach();
+extern "C" void setup_list0x2eenumerate();
 extern "C" void setup_list0x2eequal();
 extern "C" void setup_list0x2efirst();
 extern "C" void setup_list0x2egen();
+extern "C" void setup_list0x2ehistogram();
 extern "C" void setup_list0x2eintegrator();
 extern "C" void setup_list0x2einterleave();
 extern "C" void setup_list0x2elast();
@@ -47,8 +49,6 @@ extern "C" void setup_list0x2eunwrap();
 extern "C" void setup_list0x2ewalk();
 extern "C" void setup_list0x2ewrap();
 extern "C" void setup_list0x2ezip();
-extern "C" void setup_list0x2ehistogram();
-extern "C" void setup_list0x2eenumerate();
 
 void ceammc_list_setup()
 {
@@ -63,9 +63,11 @@ void ceammc_list_setup()
     setup_list0x2edelta();
     setup_list0x2edistribution();
     setup_list0x2eeach();
+    setup_list0x2eenumerate();
     setup_list0x2eequal();
     setup_list0x2efirst();
     setup_list0x2egen();
+    setup_list0x2ehistogram();
     setup_list0x2eintegrator();
     setup_list0x2einterleave();
     setup_list0x2elast();
@@ -99,6 +101,4 @@ void ceammc_list_setup()
     setup_list0x2ewalk();
     setup_list0x2ewrap();
     setup_list0x2ezip();
-    setup_list0x2ehistogram();
-    setup_list0x2eenumerate();
 }
