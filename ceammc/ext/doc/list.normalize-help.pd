@@ -6,7 +6,7 @@
 -4096 0;
 #X obj 586 11 list.normalize;
 #X obj 205 80 cnv 1 490 93 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80 There are two modes of normalizing:;
+#X text 210 80 There are two modes of normalization:;
 #X text 210 103 1\. by sum - multiply all elements to such number to
 get total sum = 1.0;
 #X text 210 140 2\. by value range - maps all values to range 0\..1

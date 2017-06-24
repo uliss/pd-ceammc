@@ -36,14 +36,10 @@
 [list.gen 512]X[random.gauss 50 10]
 |
 [list.histogram]
-|              |
-|              [msg set]
-|              |
-|              [ (
 |
 [list.normalize @range]
 |
-[list.enumerate]
+[list.enumerate @append]
 |
 [list.repack 2]
 |
