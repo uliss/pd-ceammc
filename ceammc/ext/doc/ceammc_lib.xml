@@ -287,7 +287,7 @@
     <entry descr="modifies list value at specified position, filtering it via external object." name="list.apply_to" ref_view="object">
       <xi:include href="list.apply_to.pddoc" parse="xml"/>
     </entry>
-    <entry descr="returns list element at given position" name="list.at" ref_view="object">
+    <entry descr="returns list element(s) at given position(s)" name="list.at" ref_view="object">
       <xi:include href="list.at.pddoc" parse="xml"/>
     </entry>
     <entry descr="returns random element from list" name="list.choice" ref_view="object">

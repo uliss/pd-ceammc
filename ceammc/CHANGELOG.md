@@ -4,6 +4,8 @@
 ### Fixed:
 - array.phase->sample fix with lists argument
 - array.phase->sample clip phase to [0, 1] range
+- ui.spectroscope~ crash fix
+- noise.* fix on compat library
 
 ### Added:
 - array.phase->sample help file added
@@ -54,3 +56,4 @@
 - reject.this renamed to flow.reject (with reject alias)
 - pass.changed renamed to flow.change
 - list.seq @closed property added for closed interval
+- list.at multiple arguments support added

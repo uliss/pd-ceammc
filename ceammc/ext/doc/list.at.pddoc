@@ -6,7 +6,7 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>returns list element at given position</description>
+            <description>returns list element(s) at given position(s)</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>list</category>
@@ -27,21 +27,21 @@
             indexes are wrapped by modulo division.</par>
         </info>
         <arguments>
-            <argument name="position" type="int">position</argument>
+            <argument name="position" type="list">single or multiple elements position</argument>
             <argument name="method" type="symbol">@rel(default), @clip, @fold or @wrap. They are
             aliases for property: @method rel, @method clip, @method fold and @method
             wrap</argument>
         </arguments>
         <inlets>
             <inlet>
-                <xinfo on="list">Input list</xinfo>
+                <xinfo on="list">input list</xinfo>
             </inlet>
             <inlet>
-                <xinfo on="int">position</xinfo>
+                <xinfo on="list">positions</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>element at the given index position</outlet>
+            <outlet>element(s) at the given index position(s)</outlet>
         </outlets>
         <example>
             <pdascii>
@@ -58,6 +58,14 @@
 [list.at @wrap]  [list.at @fold]
 |                |
 [F]              [F]
+
+[list A B C D E(
+|
+[list.at -1 1 3]
+|
+[msg set]
+|
+[ (
 ]]>
             </pdascii>
         </example>

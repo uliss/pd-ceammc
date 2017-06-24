@@ -21,13 +21,11 @@ typedef TestExtension<ListAt> ListAtTest;
 
 TEST_CASE("list.at", "[externals]")
 {
-    obj_init();
-
     SECTION("test create with:")
     {
         SECTION("empty arguments")
         {
-            ListAtTest t("list.at", AtomList());
+            ListAtTest t("list.at");
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
 
@@ -56,15 +54,45 @@ TEST_CASE("list.at", "[externals]")
         {
             SECTION("props")
             {
-                ListAtTest t("list.each", L2("@index", "none"));
-                REQUIRE_PROPERTY(t, @index, 0.f);
+                ListAtTest t("list.at", L2("@index", "none"));
+                REQUIRE_PROPERTY_LIST(t, @index, L1("none"));
             }
 
             SECTION("positional")
             {
-                ListAtTest t("list.each", L1("none"));
+                ListAtTest t("list.at", L1("none"));
                 REQUIRE_PROPERTY(t, @index, 0.f);
             }
+        }
+    }
+
+    SECTION("do")
+    {
+        SECTION("single")
+        {
+            ListAtTest t("list.at");
+
+            WHEN_SEND_LIST_TO(0, t, L3(1, 2, 3));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+
+            t.setProperty("@index", L1(2));
+            WHEN_SEND_LIST_TO(0, t, L3(1, 2, 3));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
+
+            WHEN_SEND_LIST_TO(0, t, L4("a", "b", "c", "d"));
+            REQUIRE_SYMBOL_AT_OUTLET(0, t, "c");
+        }
+
+        SECTION("many")
+        {
+            ListAtTest t("list.at", L3(1, 1, ""));
+
+            WHEN_SEND_LIST_TO(0, t, L4("a", "b", "c", "d"));
+            REQUIRE_LIST_AT_OUTLET(0, t, L2("b", "b"));
+
+            t.setProperty("@index", L3(-1, 1, 2));
+            WHEN_SEND_LIST_TO(0, t, L4("a", "b", "c", "d"));
+            REQUIRE_LIST_AT_OUTLET(0, t, L3("d", "b", "c"));
         }
     }
 }

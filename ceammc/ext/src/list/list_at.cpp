@@ -8,7 +8,10 @@ ListAt::ListAt(const PdArgs& a)
     createInlet();
     createOutlet();
 
-    pos_ = new IntProperty("@index", int(positionalFloatArgument(0, 0)));
+    pos_ = new ListProperty("@index", positionalArguments().filtered(isFloat));
+    if (pos_->value().empty())
+        pos_->set(AtomList(0.0));
+
     createProperty(pos_);
 
     at_method_ = new SymbolEnumProperty("@method", "rel");
@@ -28,28 +31,66 @@ void ListAt::onInlet(size_t idx, const AtomList& l)
     if (idx != 1)
         return;
 
-    pos_->setValue(atomlistToValue<int>(l, 0));
+    if (!l.allOf(isFloat)) {
+        OBJ_ERR << "invalid indexes given: " << l;
+        return;
+    }
+
+    pos_->set(l);
 }
 
 void ListAt::onList(const AtomList& l)
 {
-    const Atom* a;
+    AtomList& p = pos_->value();
 
-    if (at_method_->is("clip"))
-        a = l.clipAt(pos_->value());
-    else if (at_method_->is("wrap"))
-        a = l.wrapAt(pos_->value());
-    else if (at_method_->is("fold"))
-        a = l.foldAt(pos_->value());
-    else
-        a = l.relativeAt(pos_->value());
+    // single item
+    if (p.size() == 1) {
+        const Atom* a = at(l, p[0]);
+        if (!a)
+            return;
 
-    if (a == 0) {
-        OBJ_ERR << "invalid index value: " << pos_->value();
+        atomTo(0, *a);
         return;
     }
 
-    atomTo(0, *a);
+    // multiple items
+    AtomList res;
+    res.reserve(p.size());
+    for (size_t i = 0; i < p.size(); i++) {
+        const Atom* a = at(l, p[i].asInt(0));
+        if (!a)
+            continue;
+
+        res.append(*a);
+    }
+
+    listTo(0, res);
+}
+
+const Atom* ListAt::at(const AtomList& l, const Atom& p)
+{
+    const Atom* a = 0;
+
+    if (!p.isInteger()) {
+        OBJ_ERR << "invalid index value: " << p;
+        return 0;
+    }
+
+    int pos = p.asInt(0);
+
+    if (at_method_->is("clip"))
+        a = l.clipAt(pos);
+    else if (at_method_->is("wrap"))
+        a = l.wrapAt(pos);
+    else if (at_method_->is("fold"))
+        a = l.foldAt(pos);
+    else
+        a = l.relativeAt(pos);
+
+    if (a == 0)
+        OBJ_ERR << "invalid index value: " << p;
+
+    return a;
 }
 
 extern "C" void setup_list0x2eat()
