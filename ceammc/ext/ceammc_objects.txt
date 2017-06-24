@@ -121,6 +121,7 @@ list.deinterleave
 list.delta
 list.distribution
 list.each
+list.enumerate
 list.equal
 list.first
 list.gen

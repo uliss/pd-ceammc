@@ -56,6 +56,7 @@ ceammc_list_extension(split)
 
 ceammc_list_extension(repack)
 ceammc_list_extension(unpack)
+ceammc_list_extension(enumerate)
 
 add_library(ceammc_list STATIC mod_list.h mod_list.cpp ${LIST_SOURCES})
 if(UNIX)

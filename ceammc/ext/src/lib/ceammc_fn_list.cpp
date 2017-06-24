@@ -366,5 +366,28 @@ namespace list {
 
         return true;
     }
+
+    AtomList enumerate(const AtomList& l, int from, enumerateMode mode)
+    {
+        if (l.empty())
+            return l;
+
+        AtomList res;
+        res.reserve(l.size() * 2);
+
+        for (size_t i = 0; i < l.size(); i++) {
+            const int idx = int(i) + from;
+
+            if (mode == PREPEND) {
+                res.append(idx);
+                res.append(l[i]);
+            } else if (mode == APPEND) {
+                res.append(l[i]);
+                res.append(idx);
+            }
+        }
+
+        return res;
+    }
 }
 }

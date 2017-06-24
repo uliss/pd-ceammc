@@ -63,6 +63,19 @@ TEST_CASE("list functions", "[ceammc::list]")
         REQUIRE_NORMALIZE(L5(1, 2, 3, 4, 5), L5(0.f, 0.25, 0.5, 0.75, 1));
         REQUIRE_NORMALIZE(L5(-1, -2, -3, -4, -5), L5(1, 0.75, 0.5, 0.25, 0.f));
         REQUIRE_NORMALIZE(L3(-20, 0.0, 20), L3(0.0, 0.5, 1.0));
+    }
 
+    SECTION("enumerate")
+    {
+        REQUIRE(list::enumerate(AtomList()) == AtomList());
+        REQUIRE(list::enumerate(L1(100)) == L2(0.0, 100));
+        REQUIRE(list::enumerate(L1(100), 20) == L2(20, 100));
+        REQUIRE(list::enumerate(L1(100), -20) == L2(-20, 100));
+
+        REQUIRE(list::enumerate(L1(100), 20, list::PREPEND) == L2(20, 100));
+        REQUIRE(list::enumerate(L1(100), -20, list::PREPEND) == L2(-20, 100));
+
+        REQUIRE(list::enumerate(L1(100), 20, list::APPEND) == L2(100, 20));
+        REQUIRE(list::enumerate(L1(100), -20, list::APPEND) == L2(100, -20));
     }
 }

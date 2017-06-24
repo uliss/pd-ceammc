@@ -19,7 +19,8 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>list of pairs: first element - value, second - number of repeats in list</outlet>
+            <outlet>list of pairs: first element - value, second - number of repeats in
+            list</outlet>
         </outlets>
         <example>
             <pdascii>

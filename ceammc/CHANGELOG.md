@@ -45,6 +45,7 @@
 - list.seq uses only positive step. To get 6 4 2 use [list.seq 6 0 2]
 - list.rotate alias added [list.<<]
 - list.histogram added
+- list.enumerate added
 
 ### Changed:
 - pass.if renamed to flow.pass_if (with pass_if alias)

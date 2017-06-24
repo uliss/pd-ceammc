@@ -6,7 +6,7 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>outputs normalized distibution histogram</description>
+            <description>outputs distibution histogram</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>list</category>
@@ -14,15 +14,19 @@
             <since>0.3</since>
         </meta>
         <info>
-            <par>Histogram (normalized in range 0-1) outputs as list of pairs, where first element in pair is a probability, and second - bin number</par>
+            <par>Histogram outputted as list of probabilities in specified number of bins</par>
         </info>
+        <properties>
+            <property name="@bins" type="int" minvalue="2" default="100">number of histogram
+            bins</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="list">input list</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>first list element</outlet>
+            <outlet>output list - length of @bins</outlet>
         </outlets>
         <example>
             <pdascii>
@@ -32,8 +36,12 @@
 [list.gen 512]X[random.gauss 50 10]
 |
 [list.histogram]
+|              |
+|              [msg set]
+|              |
+|              [ (
 |
-[list.normalize @value]
+[list.normalize @range]
 |
 [list.enumerate]
 |

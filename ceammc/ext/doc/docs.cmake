@@ -97,6 +97,7 @@ set(DOC_FILES
     list.distribution
     list.each
     list.equal
+    list.enumerate
     list.first
     list.histogram
     list.gen

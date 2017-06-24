@@ -311,6 +311,9 @@
     <entry descr="maps each list value via external object(s)" name="list.each" ref_view="object">
       <xi:include href="list.each.pddoc" parse="xml"/>
     </entry>
+    <entry descr="enumerates input list" name="list.enumerate" ref_view="object">
+      <xi:include href="list.enumerate.pddoc" parse="xml"/>
+    </entry>
     <entry descr="checks if given lists are equal" name="list.equal" ref_view="object">
       <xi:include href="list.equal.pddoc" parse="xml"/>
     </entry>
@@ -320,7 +323,7 @@
     <entry descr="generates list of specified length via external generator" name="list.gen" ref_view="object">
       <xi:include href="list.gen.pddoc" parse="xml"/>
     </entry>
-    <entry descr="outputs normalized distibution histogram" name="list.histogram" ref_view="object">
+    <entry descr="outputs distibution histogram" name="list.histogram" ref_view="object">
       <xi:include href="list.histogram.pddoc" parse="xml"/>
     </entry>
     <entry descr="returns the sum of the previously stored list and the current one then stores this sum." name="list.integrator" ref_view="object">

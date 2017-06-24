@@ -48,6 +48,7 @@ extern "C" void setup_list0x2ewalk();
 extern "C" void setup_list0x2ewrap();
 extern "C" void setup_list0x2ezip();
 extern "C" void setup_list0x2ehistogram();
+extern "C" void setup_list0x2eenumerate();
 
 void ceammc_list_setup()
 {
@@ -99,4 +100,5 @@ void ceammc_list_setup()
     setup_list0x2ewrap();
     setup_list0x2ezip();
     setup_list0x2ehistogram();
+    setup_list0x2eenumerate();
 }
