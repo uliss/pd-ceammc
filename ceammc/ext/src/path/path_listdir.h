@@ -16,12 +16,14 @@
 
 #include <string>
 
+#include "ceammc_dataatomlist.h"
 #include "ceammc_object.h"
 
 using namespace ceammc;
+class DataTypeString;
 
 class PathListDir : public BaseObject {
-    AtomList ls_;
+    DataAtomList ls_;
     std::string path_;
     t_symbol* match_;
     t_canvas* cnv_;
@@ -30,6 +32,7 @@ public:
     PathListDir(const PdArgs& a);
     void onBang();
     void onSymbol(t_symbol* path);
+    void onDataT(const DataTypeString& s);
 
     void m_match(t_symbol*, const AtomList& lst);
 

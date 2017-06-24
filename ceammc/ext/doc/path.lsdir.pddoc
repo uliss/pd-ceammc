@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="path.lsdir">
+        <title>path.lsdir</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>list directory contents</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>path</category>
+            <keywords>path list</keywords>
+            <since>0.2</since>
+            <aliases>
+                <alias>path.ls</alias>
+            </aliases>
+        </meta>
+        <properties>
+            <property name="@match" type="symbol">match mask: for example *.wav for all wav
+            files</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">output directory content</xinfo>
+                <xinfo on="symbol">set directory path (symbol or string) and output it content. If
+                not absolute path is given list current patch directory</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>list of strings</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[symbol .( [symbol /(
+|          |
+|          |
+[path.lsdir]
+|
+[str.join ' ']
+|
+[str->sym]
+|
+|  [ (
+|  |
+[msg set]
+|
+[ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

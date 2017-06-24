@@ -11,9 +11,11 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#include "catch.hpp"
+
 #include "../path/path_listdir.h"
 #include "base_extension_test.h"
-#include "catch.hpp"
+#include "ceammc_format.h"
 
 #include <stdio.h>
 
@@ -25,8 +27,6 @@ typedef TestExtension<PathListDir> ListDirTest;
 
 TEST_CASE("path.lsdir", "[externals]")
 {
-    obj_init();
-
     SECTION("test create with:")
     {
         SECTION("empty arguments")
@@ -59,7 +59,9 @@ TEST_CASE("path.lsdir", "[externals]")
             REQUIRE_LIST_AT_OUTLET(0, t, AtomList());
 
             WHEN_SEND_SYMBOL_TO(0, t, TEST_DATA_DIR);
-            REQUIRE_LIST_AT_OUTLET(0, t, L2("test_data0.mp3", "test_data0_vbr.mp3"));
+            REQUIRE(t.hasNewMessages(0));
+            REQUIRE(t.lastMessage(0).isList());
+            REQUIRE(to_string(t.lastMessage(0).listValue()) == "test_data0.mp3 test_data0_vbr.mp3");
 
             WHEN_CALL(t, match);
             REQUIRE_PROPERTY_NONE(t, @match);

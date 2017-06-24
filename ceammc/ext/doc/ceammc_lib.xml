@@ -585,6 +585,9 @@
     <entry descr="checks if given path exists" name="path.exists" ref_view="object">
       <xi:include href="path.exists.pddoc" parse="xml"/>
     </entry>
+    <entry descr="list directory contents" name="path.lsdir" ref_view="object">
+      <xi:include href="path.lsdir.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="predicates">
     <entry descr="checks if input data has *any* type" name="is_any" ref_view="object">

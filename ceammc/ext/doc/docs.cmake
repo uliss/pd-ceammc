@@ -182,6 +182,7 @@ set(DOC_FILES
     path.basename
     path.dirname
     path.exists
+    path.lsdir
     prop.get
     prop.set
     random.float

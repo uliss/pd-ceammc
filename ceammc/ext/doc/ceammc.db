@@ -181,6 +181,7 @@ osc.tri~		~		~
 path.basename		.		.
 path.dirname		.		.
 path.exists		.		.
+path.lsdir,path.ls		.		.
 prop.get,prop->		.		?
 prop.set,prop<-		?		.
 random.float		.		.

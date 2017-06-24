@@ -13,7 +13,7 @@ predicate;
 #X text 175 180 modifies list value at specified position \, filtering
 it via external object.;
 #X obj 30 217 list.at;
-#X text 175 217 returns list element at given position;
+#X text 175 217 returns list element(s) at given position(s);
 #X obj 30 244 list.choice;
 #X text 175 244 returns random element from list;
 #X obj 30 271 list.count;

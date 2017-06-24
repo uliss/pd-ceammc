@@ -1,4 +1,5 @@
 #include "path_listdir.h"
+#include "../string/datatype_string.h"
 #include "ceammc_factory.h"
 #include "ceammc_platform.h"
 #include "config.h"
@@ -24,12 +25,19 @@ PathListDir::PathListDir(const PdArgs& a)
 
 void PathListDir::onBang()
 {
-    listTo(0, ls_);
+    listTo(0, ls_.toList());
 }
 
 void PathListDir::onSymbol(t_symbol* path)
 {
     path_ = path->s_name;
+    readDirList();
+    onBang();
+}
+
+void PathListDir::onDataT(const DataTypeString& s)
+{
+    path_ = s.str();
     readDirList();
     onBang();
 }
@@ -72,10 +80,14 @@ void PathListDir::readDirList()
             continue;
 
         if (match_ != 0) {
-            if (platform::fnmatch(match_->s_name, p_dirent->d_name))
-                ls_.append(gensym(p_dirent->d_name));
-        } else
-            ls_.append(gensym(p_dirent->d_name));
+            if (platform::fnmatch(match_->s_name, p_dirent->d_name)) {
+                Data d(new DataTypeString(p_dirent->d_name));
+                ls_.append(d.toAtom());
+            }
+        } else {
+            Data d(new DataTypeString(p_dirent->d_name));
+            ls_.append(d.toAtom());
+        }
     }
 
     closedir(dir);
@@ -86,4 +98,5 @@ extern "C" void setup_path0x2elsdir()
     ObjectFactory<PathListDir> obj("path.lsdir");
     obj.addAlias("path.ls");
     obj.addMethod("match", &PathListDir::m_match);
+    obj.processData<DataTypeString>();
 }
