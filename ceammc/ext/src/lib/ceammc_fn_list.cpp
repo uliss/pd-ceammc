@@ -14,9 +14,11 @@
 #include "ceammc_fn_list.h"
 
 #include <algorithm>
+#include <cmath>
 #include <cstdlib>
 #include <limits>
 #include <map>
+#include <numeric>
 
 namespace ceammc {
 namespace list {
@@ -301,6 +303,43 @@ namespace list {
 
         while (n-- > 0) {
             res.append(l);
+        }
+
+        return res;
+    }
+
+    AtomList histogram(const AtomList& l, size_t bins)
+    {
+        if (l.empty() || bins == 0)
+            return AtomList();
+
+        if (bins == 1)
+            return AtomList(1);
+
+        std::vector<int> hist(bins, 0);
+
+        Atom amin, amax;
+        l.range(amin, amax);
+        const t_float min = amin.asFloat();
+        const t_float max = amax.asFloat();
+        t_float range = fabsf(max - min);
+
+        if (range == 0) {
+            hist[0] = max * bins;
+        } else {
+            t_float bin_wd = range / (bins - 1);
+            for (size_t i = 0; i < l.size(); i++) {
+                const t_float v = l[i].asFloat();
+                int idx = ((v - min) / bin_wd);
+                hist[idx]++;
+            }
+        }
+
+        int total = std::accumulate(hist.begin(), hist.end(), 0);
+        AtomList res;
+        res.reserve(hist.size());
+        for (size_t i = 0; i < hist.size(); i++) {
+            res.append(hist[i] / float(total));
         }
 
         return res;

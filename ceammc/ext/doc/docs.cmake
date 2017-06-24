@@ -98,6 +98,7 @@ set(DOC_FILES
     list.each
     list.equal
     list.first
+    list.histogram
     list.gen
     list.integrator
     list.interleave

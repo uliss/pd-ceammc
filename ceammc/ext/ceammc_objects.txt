@@ -109,6 +109,7 @@ lfo.tri~
 lin->curve
 lin->exp
 lin->lin
+list.<<
 list.all_of
 list.any_of
 list.apply_to
@@ -123,6 +124,7 @@ list.each
 list.equal
 list.first
 list.gen
+list.histogram
 list.integrator
 list.interleave
 list.last

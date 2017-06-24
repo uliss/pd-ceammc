@@ -98,6 +98,7 @@ list.each		..		..
 list.equal		..		.
 list.first		.		.
 list.gen		..		..
+list.histogram		.		.
 list.integrator		.		.
 list.interleave		?		.
 list.last		.		.

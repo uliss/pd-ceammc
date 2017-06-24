@@ -53,6 +53,8 @@ namespace list {
 
     AtomList rotate(const AtomList& l, int steps);
     AtomList repeat(const AtomList& l, size_t n);
+
+    AtomList histogram(const AtomList& l, size_t bins);
 }
 }
 

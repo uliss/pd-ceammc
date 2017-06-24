@@ -320,6 +320,9 @@
     <entry descr="generates list of specified length via external generator" name="list.gen" ref_view="object">
       <xi:include href="list.gen.pddoc" parse="xml"/>
     </entry>
+    <entry descr="returns first list element" name="list.histogram" ref_view="object">
+      <xi:include href="list.histogram.pddoc" parse="xml"/>
+    </entry>
     <entry descr="returns the sum of the previously stored list and the current one then stores this sum." name="list.integrator" ref_view="object">
       <xi:include href="list.integrator.pddoc" parse="xml"/>
     </entry>
