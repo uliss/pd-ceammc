@@ -34,6 +34,7 @@ extern "C" void setup_list0x2erepeat();
 extern "C" void setup_list0x2eresize();
 extern "C" void setup_list0x2ereverse();
 extern "C" void setup_list0x2erotate();
+extern "C" void setup_list0x2eseparate();
 extern "C" void setup_list0x2eseq();
 extern "C" void setup_list0x2eshift();
 extern "C" void setup_list0x2eshuffle();
@@ -87,6 +88,7 @@ void ceammc_list_setup()
     setup_list0x2ereverse();
     setup_list0x2erotate();
     setup_list0x2eseq();
+    setup_list0x2eseparate();
     setup_list0x2eshift();
     setup_list0x2eshuffle();
     setup_list0x2eslice();
