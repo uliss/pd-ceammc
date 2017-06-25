@@ -118,6 +118,7 @@ list.repeat		..		.
 list.resize		.		.
 list.reverse		.		.
 list.rotate,list.<<		..		.
+list.separate,list.sep		.		..
 list.seq		.		.
 list.shuffle		.		.
 list.slice		.		.
@@ -125,7 +126,7 @@ list.sort		.		.
 list.sort_with		..		..
 list.sum		.		.
 list.unique		.		.
-list.unpack		.		..
+list.unpack		.		?
 list.unwrap		..		.
 list.walk		.		.
 list.wrap		.		..

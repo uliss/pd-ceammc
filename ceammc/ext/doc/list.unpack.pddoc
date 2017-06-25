@@ -6,39 +6,41 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>sends list element one by one separately</description>
+            <description>unpack list elements to separate outlets</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>list</category>
             <keywords>list unpack</keywords>
-            <since>0.1</since>
+            <since>0.3</since>
             <also>
                 <see>list.repack</see>
             </also>
         </meta>
+        <arguments>
+            <argument name="N" type="int" minvalue="1" maxvalue="32">number of outlets</argument>
+        </arguments>
+        <properties>
+            <property name="@n" type="int" minvalue="1" maxvalue="32" default="1" readonly="true">
+            number of outlets</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="list">input list</xinfo>
             </inlet>
         </inlets>
-        <outlets>
-            <outlet>outlet for single atoms</outlet>
-            <outlet>outputs bang after last element in the list</outlet>
+        <outlets dynamic="true">
+            <outlet number="1">outlet for first atom in list</outlet>
+            <outlet number="..."></outlet>
+            <outlet number="n">outlet for Nth atom in list</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[list a b c d e(
+[1 2 3 4 5 6(
 |
-[list.unpack   ]
-|             ^|
-[m insert 0] [flush(
-|            |
-[data.list   ]
-|
-[m set]
-|
-[ (
+[list.unpack 3]
+|     ^|    ^^|
+[F]   [F]    [F]
 ]]>
             </pdascii>
         </example>

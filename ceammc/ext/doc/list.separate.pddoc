@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="list.separate">
+        <title>list.separate</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>sends list elements one by one separately</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>list</category>
+            <keywords>list separate</keywords>
+            <since>0.3</since>
+            <also>
+                <see>list.repack</see>
+                <see>list.unpack</see>
+            </also>
+            <aliases>
+                <alias>list.sep</alias>
+            </aliases>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="list">input list</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>outlet for single atoms</outlet>
+            <outlet>outputs bang after last element in the list</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[list a b c d e(
+|
+[list.separate]
+|             ^|
+[m insert 0] [flush(
+|            |
+[data.list   ]
+|
+[m set]
+|
+[ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

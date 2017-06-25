@@ -57,3 +57,5 @@
 - pass.changed renamed to flow.change
 - list.seq @closed property added for closed interval
 - list.at multiple arguments support added
+- list.unpack migrated list.separate - to split into sepatate atoms and output them sequentially
+- list.unpack behavior now is similar to basic [unpack] - to unpack to several outlets

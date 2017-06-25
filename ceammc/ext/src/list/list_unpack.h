@@ -19,11 +19,14 @@
 using namespace ceammc;
 
 class ListUnpack : public BaseObject {
-    SizeTProperty* n_;
+    size_t n_;
 
 public:
     ListUnpack(const PdArgs& a);
     void onList(const AtomList& l);
+
+    AtomList p_n() const;
+    void parseProperties();
 };
 
 #endif // LIST_UNPACK_H

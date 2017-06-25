@@ -119,6 +119,7 @@ set(DOC_FILES
     list.resize
     list.reverse
     list.rotate
+    list.separate
     list.seq
     list.shuffle
     list.slice

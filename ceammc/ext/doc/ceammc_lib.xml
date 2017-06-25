@@ -380,6 +380,9 @@
     <entry descr="rotates list left" name="list.rotate" ref_view="object">
       <xi:include href="list.rotate.pddoc" parse="xml"/>
     </entry>
+    <entry descr="sends list elements one by one separately" name="list.separate" ref_view="object">
+      <xi:include href="list.separate.pddoc" parse="xml"/>
+    </entry>
     <entry descr="numeric sequence list generator" name="list.seq" ref_view="object">
       <xi:include href="list.seq.pddoc" parse="xml"/>
     </entry>
@@ -401,7 +404,7 @@
     <entry descr="sorts and removes duplicates from input list" name="list.unique" ref_view="object">
       <xi:include href="list.unique.pddoc" parse="xml"/>
     </entry>
-    <entry descr="sends list element one by one separately" name="list.unpack" ref_view="object">
+    <entry descr="unpack list elements to separate outlets" name="list.unpack" ref_view="object">
       <xi:include href="list.unpack.pddoc" parse="xml"/>
     </entry>
     <entry descr="gets list element on first input and list with count of each element on a second inlet." name="list.unwrap" ref_view="object">
