@@ -106,3 +106,18 @@ bool DataPtr::operator!=(const DataPtr& d)
 {
     return !this->operator==(d);
 }
+
+bool DataPtr::operator<(const DataPtr& d)
+{
+    if (this == &d)
+        return false;
+
+    if (data_ == d.data_)
+        return false;
+
+    if (isValid()) {
+        return d.isValid() ? data_->isLess(d.data_) : false;
+    } else {
+        return true;
+    }
+}

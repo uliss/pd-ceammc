@@ -127,4 +127,18 @@ TEST_CASE("XData", "[ceammc::XData]")
         REQUIRE(DataPtr(INVALID) == DataPtr(INVALID));
         REQUIRE(DataPtr(INVALID) == DataPtr(Atom()));
     }
+
+    SECTION("compare")
+    {
+        DataPtr p0(new IntData(100));
+        DataPtr p1(new IntData(200));
+        DataPtr p2(new IntData(300));
+
+        REQUIRE(p0 < p1);
+        REQUIRE(p1 < p2);
+        REQUIRE(p0 < p2);
+
+        REQUIRE_FALSE(p0 < p0);
+        REQUIRE_FALSE(p0 < DataPtr(p0));
+    }
 }

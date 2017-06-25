@@ -680,6 +680,15 @@ public:
         return v_ == dt->v_;
     }
 
+    bool isLess(const AbstractData* d) const
+    {
+        const IntData* dt = d->as<IntData>();
+        if (!dt)
+            return false;
+
+        return v_ < dt->v_;
+    }
+
     std::string toString() const
     {
         std::ostringstream buf;

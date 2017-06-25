@@ -44,6 +44,7 @@ public:
 
     bool operator==(const DataPtr& d);
     bool operator!=(const DataPtr& d);
+    bool operator<(const DataPtr& d);
 };
 
 template <class T>
