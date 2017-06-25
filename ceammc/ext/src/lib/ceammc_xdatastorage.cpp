@@ -91,7 +91,8 @@ size_t XDataStorage::refCount(const DataDesc& desc)
 
 DataId XDataStorage::generateId(const AbstractData* data)
 {
-    size_t hash = boost::hash_value<long>(reinterpret_cast<long>(data));
+    size_t hash = 0;
+    boost::hash_combine(hash, reinterpret_cast<long>(data));
     boost::hash_combine(hash, data->type());
     // NB: data type truncation!
     Atom a(DataDesc(0, DataId(hash)));
