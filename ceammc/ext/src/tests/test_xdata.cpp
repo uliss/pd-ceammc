@@ -18,6 +18,7 @@
 
 #include "catch.hpp"
 
+#include <algorithm>
 #include <vector>
 
 using namespace ceammc;
@@ -140,5 +141,24 @@ TEST_CASE("XData", "[ceammc::XData]")
 
         REQUIRE_FALSE(p0 < p0);
         REQUIRE_FALSE(p0 < DataPtr(p0));
+
+        std::vector<DataPtr> vec;
+        for (size_t i = 0; i < 5; i++) {
+            vec.push_back(DataPtr(new IntData(5 - i)));
+        }
+
+        REQUIRE(vec[0].as<IntData>()->value() == 5);
+        REQUIRE(vec[1].as<IntData>()->value() == 4);
+        REQUIRE(vec[2].as<IntData>()->value() == 3);
+        REQUIRE(vec[3].as<IntData>()->value() == 2);
+        REQUIRE(vec[4].as<IntData>()->value() == 1);
+
+        std::sort(vec.begin(), vec.end());
+
+        REQUIRE(vec[0].as<IntData>()->value() == 1);
+        REQUIRE(vec[1].as<IntData>()->value() == 2);
+        REQUIRE(vec[2].as<IntData>()->value() == 3);
+        REQUIRE(vec[3].as<IntData>()->value() == 4);
+        REQUIRE(vec[4].as<IntData>()->value() == 5);
     }
 }

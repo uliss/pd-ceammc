@@ -107,16 +107,16 @@ bool DataPtr::operator!=(const DataPtr& d)
     return !this->operator==(d);
 }
 
-bool DataPtr::operator<(const DataPtr& d)
+bool ceammc::operator<(const DataPtr& d0, const DataPtr& d1)
 {
-    if (this == &d)
+    if (&d0 == &d1)
         return false;
 
-    if (data_ == d.data_)
+    if (d0.data() == d1.data())
         return false;
 
-    if (isValid()) {
-        return d.isValid() ? data_->isLess(d.data_) : false;
+    if (d0.isValid()) {
+        return d1.isValid() ? d0.data()->isLess(d1.data()) : false;
     } else {
         return true;
     }

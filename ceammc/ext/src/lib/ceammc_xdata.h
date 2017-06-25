@@ -44,7 +44,6 @@ public:
 
     bool operator==(const DataPtr& d);
     bool operator!=(const DataPtr& d);
-    bool operator<(const DataPtr& d);
 };
 
 template <class T>
@@ -55,6 +54,8 @@ const T* DataPtr::as() const
 
     return data_->as<T>();
 }
+
+bool operator<(const DataPtr& d0, const DataPtr& d1);
 }
 
 #endif // CEAMMC_XDATA_H
