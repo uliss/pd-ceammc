@@ -141,6 +141,8 @@ TEST_CASE("XData", "[ceammc::XData]")
 
         REQUIRE_FALSE(p0 < p0);
         REQUIRE_FALSE(p0 < DataPtr(p0));
+        REQUIRE_FALSE(p0 < DataPtr(0));
+        REQUIRE(DataPtr(0) < p0);
 
         std::vector<DataPtr> vec;
         for (size_t i = 0; i < 5; i++) {
