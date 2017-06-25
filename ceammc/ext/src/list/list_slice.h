@@ -28,4 +28,6 @@ public:
     void onList(const AtomList& l);
 };
 
+extern "C" void setup_list0x2eslice();
+
 #endif // LIST_SLICE_H

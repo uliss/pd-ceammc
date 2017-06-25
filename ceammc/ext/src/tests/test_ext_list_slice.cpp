@@ -19,7 +19,7 @@ typedef TestExtension<ListSlice> ListSliceTest;
 
 TEST_CASE("list.slice", "[externals]")
 {
-    obj_init();
+    setup_list0x2eslice();
 
     SECTION("init")
     {
@@ -166,5 +166,12 @@ TEST_CASE("list.slice", "[externals]")
         t.setProperty("@step", L1(-2));
         WHEN_SEND_LIST_TO(0, t, L6(1, 2, 3, 4, 5, 6));
         REQUIRE_LIST_AT_OUTLET(0, t, L2(4, 5));
+
+        // invalid @step
+        t.setProperty("@from", L1(3));
+        t.setProperty("@to", Atom());
+        t.setProperty("@step", Atom());
+        WHEN_SEND_LIST_TO(0, t, L6(1, 2, 3, 4, 5, 6));
+        REQUIRE_LIST_AT_OUTLET(0, t, L3(4, 5, 6));
     }
 }
