@@ -21,6 +21,8 @@ typedef TestExtension<ListCount> ListCountTest;
 
 TEST_CASE("list.count", "[externals]")
 {
+    setup_list0x2ecount();
+
     SECTION("init")
     {
         SECTION("empty")

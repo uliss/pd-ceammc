@@ -27,4 +27,6 @@ public:
     void onInlet(size_t n, const AtomList& l);
 };
 
+extern "C" void setup_list0x2ecount();
+
 #endif // LIST_COUNT_H

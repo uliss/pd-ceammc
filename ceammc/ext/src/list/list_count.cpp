@@ -20,9 +20,6 @@ void ListCount::onList(const AtomList& l)
 
 void ListCount::onInlet(size_t n, const AtomList& l)
 {
-    if (n != 1)
-        return;
-
     if (l.size() < 1)
         return;
     else if (l.size() == 1)
