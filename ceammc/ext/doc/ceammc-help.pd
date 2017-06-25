@@ -283,7 +283,7 @@ list;
 #X text 175 3964 creates new list by repeating given list specified
 times;
 #X obj 30 3991 list.resize;
-#X text 175 3991 changes list size with;
+#X text 175 3991 changes list size;
 #X obj 30 4018 list.reverse;
 #X text 175 4018 reverses the order of the elements in the list;
 #X obj 30 4045 list.rotate;

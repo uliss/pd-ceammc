@@ -371,7 +371,7 @@
     <entry descr="creates new list by repeating given list specified times" name="list.repeat" ref_view="object">
       <xi:include href="list.repeat.pddoc" parse="xml"/>
     </entry>
-    <entry descr="changes list size with" name="list.resize" ref_view="object">
+    <entry descr="changes list size" name="list.resize" ref_view="object">
       <xi:include href="list.resize.pddoc" parse="xml"/>
     </entry>
     <entry descr="reverses the order of the elements in the list" name="list.reverse" ref_view="object">
