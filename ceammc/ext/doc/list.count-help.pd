@@ -6,7 +6,7 @@ value;
 #X obj 1 1 cnv 5 712 40 empty empty list.count 20 20 0 20 -104026
 -4096 0;
 #X obj 615 11 list.count;
-#X msg 146 118 pattern c;
+#X msg 146 118 @pattern c;
 #X msg 280 118 list a b c c;
 #X msg 50 147 1 2 3 1;
 #X floatatom 165 147 5 0 0 0 - - -;
@@ -21,25 +21,23 @@ value;
 #X obj 241 255 cnv 1 64 18 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 240 254 pattern: count pattern value.;
 #X obj 20 282 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 287 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 287 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 292 pattern;
-#X text 240 292 Arguments are:;
-#X obj 250 320 cnv 1 64 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 320 [anonym]: new pattern value. Type: any.;
-#X obj 20 358 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 363 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 120 292 @pattern;
+#X text 240 292 Get/Set new pattern value. Type: atom;
+#X obj 20 329 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 334 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 368 1\.;
-#X text 150 368 *list*;
-#X text 240 368 Input list.;
-#X text 120 386 2\.;
-#X text 240 386 change pattern value.;
-#X obj 20 414 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 419 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 120 339 1\.;
+#X text 150 339 *list*;
+#X text 240 339 Input list.;
+#X text 120 357 2\.;
+#X text 240 357 change pattern value.;
+#X obj 20 385 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 390 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 424 1\.;
-#X text 240 424 count of found elements;
+#X text 120 395 1\.;
+#X text 240 395 count of found elements;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

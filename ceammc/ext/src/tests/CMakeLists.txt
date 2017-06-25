@@ -72,6 +72,7 @@ ceammc_external_test(list normalize)
 ceammc_external_test(list rotate)
 ceammc_external_test(list slice)
 ceammc_external_test(list at)
+ceammc_external_test(list count)
 
 ceammc_external_test(math approx)
 ceammc_external_test(math and)
