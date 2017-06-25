@@ -51,6 +51,8 @@ set(CEAMMC_LIB_SOURCES ceammc.h
     ceammc_string.cpp
     ceammc_timeline.cpp
     ceammc_window.cpp
+    ceammc_xdata.cpp
+    ceammc_xdatastorage.cpp
 
     ${UTF8REWIND_SOURCES})
 
