@@ -16,58 +16,56 @@
 
 DataSet::DataSet(const PdArgs& a)
     : BaseObject(a)
-    , set_(new DataTypeSet())
+    , set_(positionalArguments())
 {
     createOutlet();
-
-    set_->add(positionalArguments());
 }
 
 void DataSet::dump() const
 {
     BaseObject::dump();
-    OBJ_DBG << set_->toString();
+    OBJ_DBG << set_.toString();
 }
 
 void DataSet::onBang()
 {
-    dataTo(0, set_);
+    dataTo(0, DataPtr(set_.clone()));
 }
 
 void DataSet::onFloat(float f)
 {
-    set_->add(Atom(f));
+    set_.add(Atom(f));
 }
 
 void DataSet::onSymbol(t_symbol* s)
 {
-    set_->add(Atom(s));
+    set_.add(Atom(s));
 }
 
 void DataSet::onList(const AtomList& l)
 {
-    set_.data()->add(l);
+    set_.add(l);
 }
 
 void DataSet::onDataT(const DataTypeSet& s)
 {
-    set_.setData(s.clone());
+    set_ = s;
     onBang();
 }
 
 void DataSet::m_clear(t_symbol*, const AtomList&)
 {
-    set_.data()->clear();
+    set_.clear();
 }
 
 void DataSet::m_add(t_symbol*, const AtomList& l)
 {
-    set_.data()->add(l);
+    set_.add(l);
 }
 
 void DataSet::m_remove(t_symbol*, const AtomList& l)
 {
-    set_.data()->remove(l);
+    set_.remove(l);
 }
 
 extern "C" void setup_data0x2eset()

@@ -110,16 +110,16 @@ TEST_CASE("flow.group", "[externals]")
 
     SECTION("onData")
     {
-        Data d0(new IntData(123));
-        Data d1(new StrData("test"));
-        Data d2(new StrData("test2"));
+        DataPtr d0(new IntData(123));
+        DataPtr d1(new StrData("test"));
+        DataPtr d2(new StrData("test2"));
 
         FlowGroupTest t("flow.group", L1(2));
 
-        WHEN_SEND_DATA_TO(0, t, *d0.data());
+        WHEN_SEND_DATA_TO(0, t, d0);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-        WHEN_SEND_DATA_TO(0, t, *d1.data());
+        WHEN_SEND_DATA_TO(0, t, d1);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
     }
 }

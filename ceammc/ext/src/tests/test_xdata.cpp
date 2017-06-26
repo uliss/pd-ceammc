@@ -79,6 +79,13 @@ TEST_CASE("XData", "[ceammc::XData]")
         }
     }
 
+    SECTION("operator=")
+    {
+        DataPtr p(new IntData(200));
+        p = p;
+        REQUIRE(p.refCount() == 1);
+    }
+
     SECTION("container")
     {
         std::vector<DataPtr> vec;
@@ -162,5 +169,26 @@ TEST_CASE("XData", "[ceammc::XData]")
         REQUIRE(vec[2].as<IntData>()->value() == 3);
         REQUIRE(vec[3].as<IntData>()->value() == 4);
         REQUIRE(vec[4].as<IntData>()->value() == 5);
+    }
+
+    SECTION("dataT")
+    {
+        DataTPtr<IntData> p(0);
+        REQUIRE_FALSE(p.isValid());
+
+        p = DataTPtr<IntData>(new IntData(123));
+        REQUIRE(p.isValid());
+        REQUIRE(p->value() == 123);
+
+        DataTPtr<IntData> p1(p);
+        REQUIRE(p1->value() == 123);
+
+        DataTPtr<IntData> p2(new IntData(1111));
+        DataTPtr<StrData> p3(p2.asAtom());
+
+        REQUIRE(p2.refCount() == 1);
+        REQUIRE(p3.refCount() == 0);
+        REQUIRE(p3.isNull());
+        REQUIRE(!p3.isValid());
     }
 }

@@ -45,11 +45,10 @@ void FlowGroup::onList(const AtomList& l)
     }
 }
 
-void FlowGroup::onData(const AbstractData* d)
+void FlowGroup::onData(const DataPtr& d)
 {
     checkFull();
-    Data data(d->clone());
-    atoms_.append(data.toAtom());
+    atoms_.append(d);
 }
 
 AtomList FlowGroup::propFree() const

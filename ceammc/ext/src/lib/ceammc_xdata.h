@@ -31,6 +31,7 @@ public:
     ~DataPtr();
 
     bool isValid() const;
+    bool isNull() const;
     ceammc::DataDesc desc() const;
     size_t refCount() const;
 
@@ -42,8 +43,11 @@ public:
 
     Atom asAtom() const;
 
-    bool operator==(const DataPtr& d);
-    bool operator!=(const DataPtr& d);
+    bool operator==(const DataPtr& d) const;
+    bool operator!=(const DataPtr& d) const;
+
+protected:
+    void invalidate();
 };
 
 template <class T>
@@ -56,6 +60,26 @@ const T* DataPtr::as() const
 }
 
 bool operator<(const DataPtr& d0, const DataPtr& d1);
+
+template <class T>
+class DataTPtr : public DataPtr {
+public:
+    DataTPtr(T* d)
+        : DataPtr(d)
+    {
+    }
+
+    DataTPtr(const Atom& a)
+        : DataPtr(a)
+    {
+        if (!a.isDataType(T::dataType)) {
+            invalidate();
+        }
+    }
+
+    const T* data() const { return static_cast<const T*>(DataPtr::data()); }
+    const T* operator->() const { return data(); }
+};
 }
 
 #endif // CEAMMC_XDATA_H

@@ -24,7 +24,7 @@ static t_symbol* REMOVE_LAST = gensym("last");
 StringRemove::StringRemove(const PdArgs& a)
     : BaseObject(a)
     , mode_(0)
-    , str_to_remove_(new DataTypeString(positionalArguments()))
+    , str_to_remove_(to_string(positionalArguments()))
 {
     createInlet();
     createOutlet();
@@ -46,22 +46,22 @@ void StringRemove::onSymbol(t_symbol* s)
 
 void StringRemove::onInlet(size_t, const AtomList& l)
 {
-    str_to_remove_->set(to_string(l));
+    str_to_remove_ = to_string(l);
 }
 
 void StringRemove::onDataT(const DataTypeString& s)
 {
-    Data res;
+    DataTypeString* str = 0;
 
     if (mode_->value() == REMOVE_ALL) {
-        res.setData(new DataTypeString(s.removeAll(str_to_remove_->str())));
+        str = new DataTypeString(s.removeAll(str_to_remove_));
     } else if (mode_->value() == REMOVE_FIRST) {
-        res.setData(new DataTypeString(s.removeFirst(str_to_remove_->str())));
+        str = new DataTypeString(s.removeFirst(str_to_remove_));
     } else if (mode_->value() == REMOVE_LAST) {
-        res.setData(new DataTypeString(s.removeLast(str_to_remove_->str())));
+        str = new DataTypeString(s.removeLast(str_to_remove_));
     }
 
-    dataTo(0, res);
+    dataTo(0, DataPtr(str));
 }
 
 void setup_string0x2eremove()

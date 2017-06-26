@@ -12,12 +12,12 @@
  * this file belongs to.
  *****************************************************************************/
 #include "string_join.h"
-#include "ceammc_format.h"
 #include "ceammc_factory.h"
+#include "ceammc_format.h"
 
 StringJoin::StringJoin(const PdArgs& a)
     : BaseObject(a)
-    , str_(new DataTypeString(""))
+    , str_("")
     , sep_("")
 {
     createOutlet();
@@ -28,30 +28,30 @@ StringJoin::StringJoin(const PdArgs& a)
 
 void StringJoin::onBang()
 {
-    dataTo(0, str_);
+    dataTo(0, DataPtr(str_.clone()));
 }
 
 void StringJoin::onFloat(float f)
 {
-    str_->set(f);
+    str_.set(f);
     onBang();
 }
 
 void StringJoin::onSymbol(t_symbol* s)
 {
-    str_->set(s);
+    str_.set(s);
     onBang();
 }
 
-void StringJoin::onData(const AbstractData* d)
+void StringJoin::onData(const DataPtr& d)
 {
-    str_->str() = d->toString();
+    str_.str() = d->toString();
     onBang();
 }
 
 void StringJoin::onList(const AtomList& l)
 {
-    str_->str() = to_string(l, sep_);
+    str_.str() = to_string(l, sep_);
     onBang();
 }
 

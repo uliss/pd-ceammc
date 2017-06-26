@@ -47,6 +47,9 @@ DataPtr::DataPtr(const DataPtr& d)
 
 DataPtr& DataPtr::operator=(const DataPtr& d)
 {
+    if (this == &d)
+        return *this;
+
     XDataStorage::instance().release(desc_);
 
     desc_ = d.desc_;
@@ -91,7 +94,7 @@ Atom DataPtr::asAtom() const
     return Atom(desc_);
 }
 
-bool DataPtr::operator==(const DataPtr& d)
+bool DataPtr::operator==(const DataPtr& d) const
 {
     if (data_ == d.data_)
         return true;
@@ -102,9 +105,19 @@ bool DataPtr::operator==(const DataPtr& d)
     return false;
 }
 
-bool DataPtr::operator!=(const DataPtr& d)
+bool DataPtr::operator!=(const DataPtr& d) const
 {
     return !this->operator==(d);
+}
+
+void DataPtr::invalidate()
+{
+    if (isNull())
+        return;
+
+    XDataStorage::instance().release(desc_);
+    data_ = 0;
+    desc_ = INVALID;
 }
 
 bool ceammc::operator<(const DataPtr& d0, const DataPtr& d1)
@@ -120,4 +133,9 @@ bool ceammc::operator<(const DataPtr& d0, const DataPtr& d1)
     } else {
         return true;
     }
+}
+
+bool ceammc::DataPtr::isNull() const
+{
+    return !isValid();
 }

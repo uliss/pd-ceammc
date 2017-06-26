@@ -11,24 +11,23 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef SET_UNION_H
-#define SET_UNION_H
-
-#include "ceammc_object.h"
-#include "datatype_set.h"
+#include "datatype_dict.h"
+#include "ceammc_datatypes.h"
 
 using namespace ceammc;
 
-class SetUnion : public BaseObject {
-    DataTypeSet set1_;
+const DataType DataTypeDict::dataType = data::DATA_DICT;
 
-public:
-    SetUnion(const PdArgs& a);
-    void onList(const AtomList& lst);
-    void onDataT(const DataTypeSet& s);
-    void onInlet(size_t, const AtomList& lst);
-};
+DataTypeDict::DataTypeDict()
+{
+}
 
-extern "C" void setup_set0x2eunion();
+DataTypeDict* DataTypeDict::clone() const
+{
+    return new DataTypeDict(*this);
+}
 
-#endif // SET_UNION_H
+DataType DataTypeDict::type() const
+{
+    return dataType;
+}

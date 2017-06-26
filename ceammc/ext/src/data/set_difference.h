@@ -20,7 +20,7 @@
 using namespace ceammc;
 
 class SetDifference : public BaseObject {
-    DataT<DataTypeSet> set1_;
+    DataTypeSet set1_;
 
 public:
     SetDifference(const PdArgs& a);

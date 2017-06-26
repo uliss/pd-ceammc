@@ -40,6 +40,9 @@ DataTypeSet::~DataTypeSet()
 
 void DataTypeSet::add(const Atom& a)
 {
+    if (a.isData() && contains(a))
+        return;
+
     data_.insert(DataAtom(a));
 }
 
@@ -80,7 +83,7 @@ bool DataTypeSet::contains(const Atom& a) const
         if (!it->isData())
             continue;
 
-        if (it->isEqual(a))
+        if (*it == DataAtom(a))
             return true;
     }
 

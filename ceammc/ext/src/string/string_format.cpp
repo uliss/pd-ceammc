@@ -29,6 +29,7 @@
 StringFormat::StringFormat(const PdArgs& a)
     : BaseObject(a)
     , fmt_result_(new DataTypeString(""))
+    , pfmt_result_(fmt_result_)
     , int_mode_(0)
 {
     createOutlet();
@@ -42,13 +43,13 @@ StringFormat::StringFormat(const PdArgs& a)
 
 void StringFormat::onBang()
 {
-    if (fmt_result_.isNull())
+    if (pfmt_result_.isNull())
         return;
 
     dataTo(0, fmt_result_);
 }
 
-void StringFormat::onData(const AbstractData* d)
+void StringFormat::onData(const DataPtr& d)
 {
     try {
         fmt_result_->str() = tfm::format(fmt_str_.c_str(), d->toString());
@@ -116,8 +117,8 @@ void StringFormat::onList(const AtomList& lst)
 void StringFormat::dump() const
 {
     BaseObject::dump();
-    OBJ_DBG << "formated value: " << fmt_result_->toString();
-    OBJ_DBG << "id: " << fmt_result_.desc().id;
+    OBJ_DBG << "formated value: " << pfmt_result_->toString();
+    OBJ_DBG << "id: " << pfmt_result_.desc().id;
 }
 
 AtomList StringFormat::propGetFormat() const

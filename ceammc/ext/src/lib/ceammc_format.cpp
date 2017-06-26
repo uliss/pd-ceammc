@@ -14,8 +14,8 @@
 #include "ceammc_format.h"
 #include "ceammc_atom.h"
 #include "ceammc_atomlist.h"
-#include "ceammc_datastorage.h"
 #include "ceammc_message.h"
+#include "ceammc_xdata.h"
 
 #include <algorithm>
 #include <iomanip>
@@ -36,11 +36,11 @@ std::string to_string(const Atom& a)
         return std::string(a.asSymbol()->s_name);
 
     if (a.isData()) {
-        Data* p = DataStorage::instance().get(a.getData());
-        if (!p || !p->data())
+        DataPtr ptr(a);
+        if (ptr.isNull())
             return "???";
         else
-            return p->data()->toString();
+            return ptr->toString();
     }
 
     std::ostringstream ss;

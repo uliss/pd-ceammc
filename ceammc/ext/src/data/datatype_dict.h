@@ -11,24 +11,25 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef SET_UNION_H
-#define SET_UNION_H
+#ifndef DATATYPE_DICT_H
+#define DATATYPE_DICT_H
 
-#include "ceammc_object.h"
-#include "datatype_set.h"
+#include "ceammc_abstractdata.h"
 
-using namespace ceammc;
+#include <map>
 
-class SetUnion : public BaseObject {
-    DataTypeSet set1_;
+namespace ceammc {
+class DataTypeDict : public AbstractData {
+    typedef std::map<Atom, DataAtom> DictMap;
 
 public:
-    SetUnion(const PdArgs& a);
-    void onList(const AtomList& lst);
-    void onDataT(const DataTypeSet& s);
-    void onInlet(size_t, const AtomList& lst);
+    DataTypeDict();
+    DataTypeDict* clone() const;
+    DataType type() const;
+
+public:
+    static const DataType dataType;
 };
+}
 
-extern "C" void setup_set0x2eunion();
-
-#endif // SET_UNION_H
+#endif // DATATYPE_DICT_H

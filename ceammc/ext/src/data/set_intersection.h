@@ -20,7 +20,7 @@
 using namespace ceammc;
 
 class SetIntersection : public BaseObject {
-    DataT<DataTypeSet> set1_;
+    DataTypeSet set1_;
 
 public:
     SetIntersection(const PdArgs& a);

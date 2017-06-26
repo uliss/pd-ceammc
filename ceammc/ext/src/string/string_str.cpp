@@ -20,16 +20,17 @@
 StringStr::StringStr(const PdArgs& a)
     : BaseObject(a)
     , str_(new DataTypeString(positionalArguments()))
+    , pstr_(str_)
 {
     createOutlet();
 }
 
 void StringStr::onBang()
 {
-    if (str_.isNull())
+    if (pstr_.isNull())
         return;
 
-    dataTo(0, str_);
+    dataTo(0, pstr_);
 }
 
 void StringStr::onFloat(float f)
@@ -52,7 +53,7 @@ void StringStr::onList(const AtomList& l)
     onBang();
 }
 
-void StringStr::onData(const AbstractData* d)
+void StringStr::onData(const DataPtr& d)
 {
     str_->str() = d->toString();
     onBang();
@@ -62,8 +63,9 @@ void StringStr::dump() const
 {
     OBJ_DBG << "DATA: STRING";
     BaseObject::dump();
-    OBJ_DBG << "id: " << str_.desc().id;
-    OBJ_DBG << "content: " << str_->str();
+    OBJ_DBG << "id:       " << pstr_.desc().id;
+    OBJ_DBG << "refcount: " << pstr_.refCount();
+    OBJ_DBG << "content:  " << str_->str();
 }
 
 void StringStr::m_append(t_symbol*, const AtomList& lst)

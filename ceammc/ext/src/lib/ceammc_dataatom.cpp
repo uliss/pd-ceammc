@@ -12,7 +12,6 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_dataatom.h"
-#include "ceammc_datastorage.h"
 #include "ceammc_log.h"
 
 #include <boost/functional/hash.hpp>
@@ -20,50 +19,43 @@
 namespace ceammc {
 
 DataAtom::DataAtom(const Atom& a)
+    : data_(a)
+    , atom_(a)
 {
-    set(a);
 }
 
-DataAtom::DataAtom(const Data& d)
+DataAtom::DataAtom(const DataPtr& d)
+    : data_(d)
+    , atom_(d.asAtom())
 {
-    set(d);
-}
-
-DataAtom::DataAtom(const AbstractData* d)
-{
-    if (d != 0) {
-        data_.reset(new Data(d->clone()));
-        atom_ = data_->toAtom();
-    }
 }
 
 DataAtom::DataAtom(const DataAtom& d)
-    : atom_(d.atom_)
+    : data_(d.data_)
+    , atom_(d.atom_)
 {
-    set(d.toAtom());
 }
 
 void DataAtom::set(const Atom& a)
 {
     if (a.isData()) {
-        Data* p = DataStorage::instance().get(a.getData());
-        if (p != 0 && !p->isNull()) {
-            data_.reset(p->clone());
-            atom_ = data_->toAtom();
-        } else {
-            LIB_ERR << "invalid data: " << a;
-            data_.reset();
+        data_ = DataPtr(a);
+        if (data_.isNull()) {
             atom_ = Atom();
+            LIB_ERR << "invalid data: " << a;
+        } else {
+            atom_ = a;
         }
     } else {
         atom_ = a;
-        data_.reset();
+        data_ = DataPtr(0);
     }
 }
 
-void DataAtom::set(const Data& d)
+void DataAtom::set(const DataPtr& d)
 {
-    set(d.toAtom());
+    data_ = d;
+    atom_ = d.asAtom();
 }
 
 Atom DataAtom::toAtom() const
@@ -73,28 +65,12 @@ Atom DataAtom::toAtom() const
 
 bool DataAtom::isAtom() const
 {
-    return !data_;
+    return !isData();
 }
 
 bool DataAtom::isData() const
 {
-    return bool(data_);
-}
-
-bool DataAtom::isEqual(const Atom& a) const
-{
-    if (isAtom())
-        return atom_ == a;
-
-    if (isData() && a.isData()) {
-        Data* p = DataStorage::instance().get(a.getData());
-        if (p == 0 || data_->data() == 0)
-            return false;
-
-        return data_->data()->isEqual(p->data());
-    }
-
-    return false;
+    return atom_.isData();
 }
 
 bool DataAtom::operator==(const DataAtom& d) const
@@ -105,26 +81,22 @@ bool DataAtom::operator==(const DataAtom& d) const
     if (isAtom() && d.isAtom())
         return atom_ == d.atom_;
 
-    if (data_ && d.data_)
-        return data_->data()->isEqual(d.data_->data());
+    if (data_.isValid() && d.data_.isValid())
+        return data_ == d.data_;
 
     return false;
 }
 
 DataAtom& DataAtom::operator=(const DataAtom& d)
 {
-    set(d.toAtom());
+    data_ = d.data_;
+    atom_ = d.atom_;
     return *this;
 }
 
-AbstractData* DataAtom::data()
+DataPtr DataAtom::data() const
 {
-    return isAtom() ? 0 : data_->data();
-}
-
-Data* DataAtom::dataPtr()
-{
-    return isAtom() ? 0 : data_.get();
+    return isAtom() ? DataPtr(0) : data_;
 }
 
 size_t hash_value(const DataAtom& d)

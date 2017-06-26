@@ -21,7 +21,7 @@ using namespace std;
 
 class StringRemove : public BaseObject {
     SymbolEnumProperty* mode_;
-    DataT<DataTypeString> str_to_remove_;
+    std::string str_to_remove_;
 
 public:
     StringRemove(const PdArgs& a);

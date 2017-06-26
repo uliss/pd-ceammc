@@ -24,8 +24,6 @@ static t_symbol* REPLACE_LAST = gensym("last");
 StringReplace::StringReplace(const PdArgs& a)
     : BaseObject(a)
     , mode_(0)
-    , from_(new DataTypeString(""))
-    , to_(new DataTypeString(""))
 {
     createInlet();
     createInlet();
@@ -45,10 +43,10 @@ StringReplace::StringReplace(const PdArgs& a)
 
     const size_t nargs = positionalArguments().size();
     if (nargs > 0)
-        from_->set(to_string(positionalArguments()[0]));
+        from_ = to_string(positionalArguments()[0]);
 
     if (nargs > 1)
-        to_->set(to_string(positionalArguments()[1]));
+        to_ = to_string(positionalArguments()[1]);
 }
 
 void StringReplace::onSymbol(t_symbol* s)
@@ -58,50 +56,50 @@ void StringReplace::onSymbol(t_symbol* s)
 
 void StringReplace::onDataT(const DataTypeString& s)
 {
-    Data res;
+    DataTypeString* res = 0;
 
     if (mode_->value() == REPLACE_ALL) {
-        res.setData(new DataTypeString(s.replaceAll(from_->str(), to_->str())));
+        res = new DataTypeString(s.replaceAll(from_, to_));
     } else if (mode_->value() == REPLACE_FIRST) {
-        res.setData(new DataTypeString(s.replaceFirst(from_->str(), to_->str())));
+        res = new DataTypeString(s.replaceFirst(from_, to_));
     } else if (mode_->value() == REPLACE_LAST) {
-        res.setData(new DataTypeString(s.replaceLast(from_->str(), to_->str())));
+        res = new DataTypeString(s.replaceLast(from_, to_));
     }
 
-    dataTo(0, res);
+    dataTo(0, DataPtr(res));
 }
 
 void StringReplace::onInlet(size_t n, const AtomList& l)
 {
     if (n == 1) {
-        from_->set(to_string(l));
+        from_ = to_string(l);
         return;
     }
 
     if (n == 2) {
-        to_->set(to_string(l));
+        to_ = to_string(l);
         return;
     }
 }
 
 AtomList StringReplace::propFrom() const
 {
-    return from_.toAtom();
+    return DataPtr(new DataTypeString(from_)).asAtom();
 }
 
 AtomList StringReplace::propTo() const
 {
-    return to_.toAtom();
+    return DataPtr(new DataTypeString(to_)).asAtom();
 }
 
 void StringReplace::setPropFrom(const AtomList& l)
 {
-    from_->set(to_string(l));
+    from_ = to_string(l);
 }
 
 void StringReplace::setPropTo(const AtomList& l)
 {
-    to_->set(to_string(l));
+    to_ = to_string(l);
 }
 
 void setup_string0x2ereplace()

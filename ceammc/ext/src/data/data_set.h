@@ -22,7 +22,7 @@
 using namespace ceammc;
 
 class DataSet : public BaseObject {
-    DataT<DataTypeSet> set_;
+    DataTypeSet set_;
 
 public:
     DataSet(const PdArgs& a);
