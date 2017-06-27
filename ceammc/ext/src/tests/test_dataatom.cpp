@@ -13,7 +13,7 @@
  *****************************************************************************/
 #include "base_extension_test.h"
 #include "ceammc_dataatom.h"
-#include "ceammc_xdata.h"
+#include "ceammc_data.h"
 
 #include "catch.hpp"
 

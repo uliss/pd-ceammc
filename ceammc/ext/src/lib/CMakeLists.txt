@@ -31,6 +31,8 @@ set(CEAMMC_LIB_SOURCES ceammc.h
     ceammc_atomlist.cpp
     ceammc_canvas.cpp
     ceammc_convert.cpp
+    ceammc_data.cpp
+    ceammc_datastorage.cpp
     ceammc_dataatom.cpp
     ceammc_dataatomlist.cpp
     ceammc_factory.h
@@ -49,8 +51,6 @@ set(CEAMMC_LIB_SOURCES ceammc.h
     ceammc_string.cpp
     ceammc_timeline.cpp
     ceammc_window.cpp
-    ceammc_xdata.cpp
-    ceammc_xdatastorage.cpp
 
     ${UTF8REWIND_SOURCES})
 

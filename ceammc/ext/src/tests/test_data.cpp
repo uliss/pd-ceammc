@@ -13,8 +13,8 @@
  *****************************************************************************/
 #include "base_extension_test.h"
 #include "ceammc_datatypes.h"
-#include "ceammc_xdata.h"
-#include "ceammc_xdatastorage.h"
+#include "ceammc_data.h"
+#include "ceammc_datastorage.h"
 
 #include "catch.hpp"
 
@@ -99,13 +99,13 @@ TEST_CASE("XData", "[ceammc::XData]")
             REQUIRE(vec[i].as<IntData>()->value() == i);
         }
 
-        REQUIRE(XDataStorage::instance().size() == 10);
+        REQUIRE(DataStorage::instance().size() == 10);
         vec.clear();
-        REQUIRE(XDataStorage::instance().size() == 0);
+        REQUIRE(DataStorage::instance().size() == 0);
 
         DataPtr d(new StrData("test"));
         vec.assign(20, d);
-        REQUIRE(XDataStorage::instance().size() == 1);
+        REQUIRE(DataStorage::instance().size() == 1);
 
         for (size_t i = 0; i < vec.size(); i++) {
             REQUIRE(vec[i].refCount() == 21);
@@ -114,7 +114,7 @@ TEST_CASE("XData", "[ceammc::XData]")
         }
 
         vec.clear();
-        REQUIRE(XDataStorage::instance().size() == 1);
+        REQUIRE(DataStorage::instance().size() == 1);
     }
 
     SECTION("equal")

@@ -11,9 +11,9 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "ceammc_xdata.h"
+#include "ceammc_data.h"
 #include "ceammc_datatypes.h"
-#include "ceammc_xdatastorage.h"
+#include "ceammc_datastorage.h"
 
 using namespace ceammc;
 
@@ -23,7 +23,7 @@ DataPtr::DataPtr(AbstractData* data)
     : desc_(INVALID)
     , data_(data)
 {
-    desc_ = XDataStorage::instance().add(data_);
+    desc_ = DataStorage::instance().add(data_);
 }
 
 DataPtr::DataPtr(const Atom& data)
@@ -34,7 +34,7 @@ DataPtr::DataPtr(const Atom& data)
         return;
 
     desc_ = data.getData();
-    data_ = XDataStorage::instance().acquire(desc_);
+    data_ = DataStorage::instance().acquire(desc_);
 }
 
 DataPtr::DataPtr(const DataPtr& d)
@@ -42,7 +42,7 @@ DataPtr::DataPtr(const DataPtr& d)
     , data_(0)
 {
     desc_ = d.desc_;
-    data_ = XDataStorage::instance().acquire(desc_);
+    data_ = DataStorage::instance().acquire(desc_);
 }
 
 DataPtr& DataPtr::operator=(const DataPtr& d)
@@ -50,16 +50,16 @@ DataPtr& DataPtr::operator=(const DataPtr& d)
     if (this == &d)
         return *this;
 
-    XDataStorage::instance().release(desc_);
+    DataStorage::instance().release(desc_);
 
     desc_ = d.desc_;
-    data_ = XDataStorage::instance().acquire(desc_);
+    data_ = DataStorage::instance().acquire(desc_);
     return *this;
 }
 
 DataPtr::~DataPtr()
 {
-    XDataStorage::instance().release(desc_);
+    DataStorage::instance().release(desc_);
 }
 
 bool DataPtr::isValid() const
@@ -76,7 +76,7 @@ DataDesc DataPtr::desc() const
 
 size_t DataPtr::refCount() const
 {
-    return XDataStorage::instance().refCount(desc_);
+    return DataStorage::instance().refCount(desc_);
 }
 
 const AbstractData* DataPtr::data() const
@@ -115,7 +115,7 @@ void DataPtr::invalidate()
     if (isNull())
         return;
 
-    XDataStorage::instance().release(desc_);
+    DataStorage::instance().release(desc_);
     data_ = 0;
     desc_ = INVALID;
 }

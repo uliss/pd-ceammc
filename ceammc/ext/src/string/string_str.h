@@ -15,7 +15,7 @@
 #define STRING_STR_H
 
 #include "ceammc_object.h"
-#include "ceammc_xdata.h"
+#include "ceammc_data.h"
 #include "datatype_string.h"
 
 using namespace ceammc;

@@ -15,7 +15,7 @@
 #define CEAMMC_DATAATOM_H
 
 #include "ceammc_atom.h"
-#include "ceammc_xdata.h"
+#include "ceammc_data.h"
 
 namespace ceammc {
 

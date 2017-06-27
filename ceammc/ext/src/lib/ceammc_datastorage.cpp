@@ -11,7 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "ceammc_xdatastorage.h"
+#include "ceammc_datastorage.h"
 #include "ceammc_datatypes.h"
 
 #include <boost/functional/hash.hpp>
@@ -25,22 +25,22 @@ size_t ceammc::hash_value(const DataDesc& d)
     return res;
 }
 
-XDataStorage::XDataStorage()
+DataStorage::DataStorage()
 {
 }
 
-XDataStorage& XDataStorage::instance()
+DataStorage& DataStorage::instance()
 {
-    static XDataStorage s;
+    static DataStorage s;
     return s;
 }
 
-size_t XDataStorage::size() const
+size_t DataStorage::size() const
 {
     return map_.size();
 }
 
-DataDesc XDataStorage::add(const AbstractData* data)
+DataDesc DataStorage::add(const AbstractData* data)
 {
     if (data == 0)
         return DataDesc(data::DATA_INVALID, DataId(-1));
@@ -59,7 +59,7 @@ DataDesc XDataStorage::add(const AbstractData* data)
     return desc;
 }
 
-const AbstractData* XDataStorage::acquire(const DataDesc& desc)
+const AbstractData* DataStorage::acquire(const DataDesc& desc)
 {
     DataMap::iterator it = map_.find(desc);
     if (it != map_.end()) {
@@ -70,7 +70,7 @@ const AbstractData* XDataStorage::acquire(const DataDesc& desc)
         return 0;
 }
 
-void XDataStorage::release(const DataDesc& desc)
+void DataStorage::release(const DataDesc& desc)
 {
     DataMap::iterator it = map_.find(desc);
     if (it != map_.end()) {
@@ -83,13 +83,13 @@ void XDataStorage::release(const DataDesc& desc)
     }
 }
 
-size_t XDataStorage::refCount(const DataDesc& desc)
+size_t DataStorage::refCount(const DataDesc& desc)
 {
     DataMap::iterator it = map_.find(desc);
     return (it == map_.end()) ? 0 : it->second.ref_count;
 }
 
-DataId XDataStorage::generateId(const AbstractData* data)
+DataId DataStorage::generateId(const AbstractData* data)
 {
     size_t hash = 0;
     boost::hash_combine(hash, reinterpret_cast<long>(data));

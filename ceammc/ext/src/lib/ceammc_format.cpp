@@ -15,7 +15,7 @@
 #include "ceammc_atom.h"
 #include "ceammc_atomlist.h"
 #include "ceammc_message.h"
-#include "ceammc_xdata.h"
+#include "ceammc_data.h"
 
 #include <algorithm>
 #include <iomanip>

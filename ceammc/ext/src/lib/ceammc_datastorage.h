@@ -19,7 +19,7 @@
 #include <boost/unordered_map.hpp>
 
 namespace ceammc {
-class XDataStorage {
+class DataStorage {
     struct Entry {
         int ref_count;
         const AbstractData* data;
@@ -29,12 +29,12 @@ class XDataStorage {
 
     DataMap map_;
 
-    XDataStorage();
-    XDataStorage(const XDataStorage& s);
-    void operator=(const XDataStorage& s);
+    DataStorage();
+    DataStorage(const DataStorage& s);
+    void operator=(const DataStorage& s);
 
 public:
-    static XDataStorage& instance();
+    static DataStorage& instance();
     size_t size() const;
     DataDesc add(const AbstractData* data);
 
