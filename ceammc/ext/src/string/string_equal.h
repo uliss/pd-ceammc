@@ -20,7 +20,7 @@
 using namespace ceammc;
 
 class StringEqual : public BaseObject {
-    DataT<DataTypeString> str1_;
+    std::string str1_;
 
 public:
     StringEqual(const PdArgs& a);

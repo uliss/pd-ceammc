@@ -20,7 +20,7 @@
 using namespace ceammc;
 
 class StringContains : public BaseObject {
-    DataT<DataTypeString> subj_;
+    std::string subj_;
 
 public:
     StringContains(const PdArgs& a);

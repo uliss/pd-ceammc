@@ -17,7 +17,7 @@
 
 StringContains::StringContains(const PdArgs& a)
     : BaseObject(a)
-    , subj_(new DataTypeString(to_string(positionalArguments())))
+    , subj_(to_string(positionalArguments()))
 {
     createInlet();
     createOutlet();
@@ -30,12 +30,12 @@ void StringContains::onSymbol(t_symbol* s)
 
 void StringContains::onDataT(const DataTypeString& s)
 {
-    floatTo(0, s.contains(subj_->str()));
+    floatTo(0, s.contains(subj_));
 }
 
 void StringContains::onInlet(size_t, const AtomList& l)
 {
-    subj_->set(to_string(l));
+    subj_ = to_string(l);
 }
 
 extern "C" void setup_string0x2econtains()

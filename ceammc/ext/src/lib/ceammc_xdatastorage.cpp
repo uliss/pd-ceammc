@@ -18,7 +18,7 @@
 
 using namespace ceammc;
 
-size_t hash_value(const DataDesc& d)
+size_t ceammc::hash_value(const DataDesc& d)
 {
     size_t res = d.type;
     boost::hash_combine(res, boost::hash_value(d.id));

@@ -20,7 +20,7 @@
 using namespace std;
 
 class StringStartsWith : public BaseObject {
-    DataT<DataTypeString> suffix_;
+    std::string suffix_;
 
 public:
     StringStartsWith(const PdArgs& a);

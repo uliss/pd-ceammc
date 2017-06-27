@@ -17,7 +17,7 @@
 
 StringStartsWith::StringStartsWith(const PdArgs& a)
     : BaseObject(a)
-    , suffix_(new DataTypeString(to_string(positionalArguments())))
+    , suffix_(to_string(positionalArguments()))
 {
     createInlet();
     createOutlet();
@@ -30,12 +30,12 @@ void StringStartsWith::onSymbol(t_symbol* s)
 
 void StringStartsWith::onInlet(size_t, const AtomList& l)
 {
-    suffix_->set(to_string(l));
+    suffix_ = to_string(l);
 }
 
 void StringStartsWith::onDataT(const DataTypeString& s)
 {
-    floatTo(0, s.startsWith(suffix_->str()) ? 1 : 0);
+    floatTo(0, s.startsWith(suffix_) ? 1 : 0);
 }
 
 extern "C" void setup_string0x2estarts_with()

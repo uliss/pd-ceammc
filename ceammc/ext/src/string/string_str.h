@@ -14,7 +14,6 @@
 #ifndef STRING_STR_H
 #define STRING_STR_H
 
-#include "ceammc_data.h"
 #include "ceammc_object.h"
 #include "ceammc_xdata.h"
 #include "datatype_string.h"

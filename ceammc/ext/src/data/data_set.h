@@ -14,7 +14,6 @@
 #ifndef DATA_SET_H
 #define DATA_SET_H
 
-#include "ceammc_data.h"
 #include "ceammc_dataatom.h"
 #include "ceammc_object.h"
 #include "datatype_set.h"

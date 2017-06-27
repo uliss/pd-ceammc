@@ -15,7 +15,6 @@
 #define DATATYPE_SET_H
 
 #include "ceammc_atomlist.h"
-#include "ceammc_data.h"
 #include "ceammc_dataatom.h"
 
 #include <boost/unordered_set.hpp>
