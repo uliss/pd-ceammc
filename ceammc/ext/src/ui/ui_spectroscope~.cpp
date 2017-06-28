@@ -6,41 +6,82 @@
 //
 //
 
+#include <boost/static_assert.hpp>
+#include <cmath>
 #include <stdio.h>
 
 #include "ceammc_gui.h"
 
-struct ui_spectroscope : public ceammc_gui::BaseSoundGuiStruct {
-    t_inlet* in1;
-    t_sample input;
-    t_sample buf[8192];
+static const size_t TXT_DB_COUNT = 11;
+static const char* TXT_DB[TXT_DB_COUNT] = {
+    "", " -6", "-12", "-18", "-24", "-30", "-36", "-42", "-50", "-54", "-60"
+};
+static const size_t TXT_FREQ_COUNT = 10;
+static const char* TXT_FREQ[TXT_DB_COUNT] = {
+    " 1k", " 5k", "10k", "15k", "20k", "25k", "30k", "35k", "40k", "45k"
+};
 
-    int counter;
+static const size_t WINDOW_SIZE = 4096;
+static const size_t BUFSIZE = 8192;
+static t_sample hann_window[WINDOW_SIZE] = { 0 };
+static t_symbol* GRID_LAYER = gensym("grid_layer");
+
+static void init_hann_window()
+{
+    for (size_t i = 0; i < WINDOW_SIZE; i++) {
+        hann_window[i] = (1 - cosf((2 * 3.1415926f * i) / (WINDOW_SIZE - 1))) / 2;
+    }
+}
+
+struct ui_spectroscope : public ceammc_gui::BaseSoundGuiStruct {
+    t_sample input;
+    t_sample buf[BUFSIZE];
+
+    size_t counter;
+    t_rgba fg_color;
+
+    t_etext* txt_db[TXT_DB_COUNT];
+    t_etext* txt_freq[TXT_FREQ_COUNT];
+    t_efont* txt_font;
 };
 
 namespace ceammc_gui {
 
 #pragma mark dsp
 
-static void ui_spectroscope_perform(ui_spectroscope* x, t_object* dsp64, t_sample** ins, long numins, t_sample** outs, long numouts, long sampleframes, long flags, void* userparam)
+static void ui_spectroscope_perform(ui_spectroscope* x,
+    t_object* /*dsp64*/,
+    t_sample** ins,
+    long /*numins*/,
+    t_sample** /*outs*/,
+    long /*numouts*/,
+    long sampleframes,
+    long /*flags*/,
+    void* /*userparam*/)
 {
-    t_sample* in1 = ins[0];
-    int n = (int)sampleframes;
+    t_sample* in = ins[0];
+    t_sample* out = x->buf + x->counter;
 
-    t_sample* out = &(x)->buf[x->counter * sampleframes];
-
+    long n = sampleframes;
     while (n--) {
-        *out++ = *in1++;
-    } //
+        *out++ = *in++;
+        x->counter++;
+        if (x->counter == WINDOW_SIZE)
+            break;
+    }
 
-    x->counter++;
-    if (x->counter == 32) {
+    if (x->counter >= WINDOW_SIZE) {
         x->counter = 0;
         GuiFactory<ui_spectroscope>::ws_redraw(x);
     }
 }
 
-void ui_spectroscope_dsp(ui_spectroscope* x, t_object* dsp, short* count, double samplerate, long maxvectorsize, long flags)
+void ui_spectroscope_dsp(ui_spectroscope* x,
+    t_object* dsp,
+    short* /*count*/,
+    double /*samplerate*/,
+    long /*maxvectorsize*/,
+    long /*flags*/)
 {
     object_method(dsp, gensym("dsp_add"), x, (method)ui_spectroscope_perform, 0, NULL);
 }
@@ -52,68 +93,112 @@ UI_fun(ui_spectroscope)::wx_paint(ui_spectroscope* zx, t_object* view)
     t_rect rect;
     zx->getRect(&rect);
 
-    t_elayer* g = ebox_start_layer(asBox(zx), BG_LAYER, rect.width, rect.height);
+    // grid
+    t_elayer* grid = ebox_start_layer(asBox(zx), GRID_LAYER, rect.width, rect.height);
+    if (grid) {
+        egraphics_set_line_width(grid, 1);
+        egraphics_set_color_hex(grid, gensym("#DDDDDD"));
 
-    if (g) {
-        egraphics_set_line_width(g, 1);
+        // draw vertical lines
+        {
+            bool vgrid_linear = true;
+            if (vgrid_linear) {
+                const int STEP = (rect.width < 200) ? 2000 : 1000;
+                const t_float SR = sys_getsr();
 
-        egraphics_set_color_hex(g, gensym("#A0A0A0"));
-        egraphics_line(g, 0, rect.height / 2, rect.width, rect.height / 2);
-        egraphics_line(g, 0, rect.height * .25f, rect.width, rect.height * .25f);
-        egraphics_line(g, 0, rect.height * .75f, rect.width, rect.height * .75f);
-        egraphics_stroke(g);
+                for (t_float i = STEP; i < SR / 2; i += STEP) {
+                    float x = rect.width * i * 2 / SR;
+                    egraphics_line(grid, x, 0, x, rect.height);
 
-        egraphics_set_line_width(g, 1);
+                    // calc text index
+                    const size_t FREQ_IDX = size_t(i) / 5000;
+                    // skip repeats
+                    if (int(i) % 5000 != 0 && int(i) != 1000)
+                        continue;
 
-        egraphics_set_color_hex(g, gensym("#00C0FF"));
+                    if (FREQ_IDX >= TXT_FREQ_COUNT)
+                        continue;
 
-        t_sample* in1 = zx->buf;
+                    etext_layout_set(zx->txt_freq[FREQ_IDX], TXT_FREQ[FREQ_IDX],
+                        zx->txt_font, x - 13, rect.height, 50, 20,
+                        ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
+                    etext_layout_draw(zx->txt_freq[FREQ_IDX], grid);
+                }
 
-        t_sample zero[8192];
-
-        t_sample* zero1 = zero;
-
-        const int fft_size = 1024;
-
-        for (int i = 0; i < fft_size; i++) {
-            zero[i] = 0;
-        }
-        //int half_fft = fft_size/2;
-
-        mayer_fft(fft_size, in1, zero1);
-        int i2 = 0;
-        int n = fft_size;
-
-        t_sample out_buf[8192];
-        t_sample* out1 = out_buf;
-        while (n--) {
-
-            t_sample f_r = 1. / fft_size * in1[(int)floor(i2 / 2)];
-            t_sample f_i = 1. / fft_size * in1[(int)floor(i2 / 2) + fft_size];
-
-            out1[i2] = sqrtf(f_r * f_r + f_i * f_i);
-            
-            out1[i2] = log10f(128.*out1[i2]);
-
-            i2++;
-
-        } //
-
-        zx->buf[0] = 0;
-        //    instead of windowind lol
-        egraphics_move_to(g, 0, (1 - zx->buf[0]) * rect.height);
-
-        for (int i = 0; i < fft_size; i += 4) {
-
-            float xx = float(i + 1) / fft_size * rect.width;
-            float val = (out1[i] == out1[i]) ? out1[i] : 0.;
-
-            float yy = (1. - val) * rect.height;
-
-            egraphics_line_to(g, xx, yy);
+                egraphics_stroke(grid);
+            }
         }
 
-        egraphics_stroke(g);
+        // draw horizontal lines
+        {
+            const size_t DENS = std::max<size_t>(1, 120 / size_t(rect.height));
+
+            for (size_t i = 1; i < TXT_DB_COUNT; i++) {
+                float y = rect.height * i / float(TXT_DB_COUNT - 1);
+                egraphics_line(grid, 0, y, rect.width, y);
+
+                // skip some lines if too narrow
+                if (i % DENS != 0)
+                    continue;
+
+                etext_layout_set(zx->txt_db[i], TXT_DB[i], zx->txt_font,
+                    rect.width - 14, y, 50, 20,
+                    ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
+                etext_layout_draw(zx->txt_db[i], grid);
+            }
+
+            egraphics_stroke(grid);
+        }
+
+        ebox_end_layer(asBox(zx), GRID_LAYER);
+    }
+
+    ebox_paint_layer(asBox(zx), GRID_LAYER, 0., 0.);
+
+    // spectral
+    t_elayer* l_spectral = ebox_start_layer(asBox(zx), BG_LAYER, rect.width, rect.height);
+    if (l_spectral) {
+        egraphics_set_line_width(l_spectral, 1);
+        egraphics_set_color_rgba(l_spectral, &zx->fg_color);
+
+        t_sample imag[BUFSIZE];
+        for (size_t i = 0; i < WINDOW_SIZE; i++)
+            imag[i] = 0;
+
+        t_sample* real = zx->buf;
+        for (size_t i = 0; i < WINDOW_SIZE; i++)
+            real[i] = hann_window[i] * real[i];
+
+        mayer_fft(WINDOW_SIZE, real, imag);
+
+        t_sample out_buf[BUFSIZE];
+        t_sample* pout = out_buf;
+
+        const size_t N = WINDOW_SIZE / 2;
+
+        for (size_t i = 0; i < N; i++) {
+            t_sample f_r = real[i];
+            t_sample f_i = imag[i];
+
+            pout[i] = 2 * sqrtf(f_r * f_r + f_i * f_i) / N;
+            pout[i] = 10 * log10f(pout[i]);
+        }
+
+        real[0] = 0;
+        real[N - 1] = 0;
+
+        egraphics_move_to(l_spectral, 0, rect.height);
+
+        const size_t step = std::max<size_t>(1, N / rect.width);
+        for (size_t i = 0; i < N; i += step) {
+            float xx = float(i + 1) / N * rect.width;
+            float val = *std::max_element(pout + i, pout + i + step);
+            float yy = (-val / 60) * rect.height;
+
+            egraphics_line_to(l_spectral, xx, yy);
+        }
+
+        egraphics_stroke(l_spectral);
         ebox_end_layer(asBox(zx), BG_LAYER);
     }
 
@@ -122,9 +207,28 @@ UI_fun(ui_spectroscope)::wx_paint(ui_spectroscope* zx, t_object* view)
 
 #pragma mark setup
 
-UI_fun(ui_spectroscope)::new_ext(ui_spectroscope* z, t_symbol* s, int argcl, t_atom* argv)
+UI_fun(ui_spectroscope)::new_ext(ui_spectroscope* zx, t_symbol* s, int argcl, t_atom* argv)
 {
-    eobj_dspsetup(z, 1, 0);
+    eobj_dspsetup(zx, 1, 0);
+
+    for (size_t i = 0; i < TXT_DB_COUNT; i++)
+        zx->txt_db[i] = etext_layout_create();
+
+    for (size_t i = 0; i < TXT_FREQ_COUNT; i++)
+        zx->txt_freq[i] = etext_layout_create();
+
+    zx->txt_font = efont_create(FONT_FAMILY, FONT_STYLE, FONT_WEIGHT, FONT_SIZE_SMALL);
+}
+
+UI_fun(ui_spectroscope)::free_ext(ui_spectroscope* zx)
+{
+    for (size_t i = 0; i < TXT_DB_COUNT; i++)
+        etext_layout_destroy(zx->txt_db[i]);
+
+    for (size_t i = 0; i < TXT_FREQ_COUNT; i++)
+        etext_layout_destroy(zx->txt_freq[i]);
+
+    efont_destroy(zx->txt_font);
 }
 
 static void ui_sps_getdrawparams(ui_spectroscope* x, t_object* patcherview, t_edrawparams* params)
@@ -142,6 +246,11 @@ UI_fun(ui_spectroscope)::init_ext(t_eclass* z)
     // clang-format off
     CLASS_ATTR_DEFAULT        (z, "size", 0, "150. 100.");
     CLASS_ATTR_INVISIBLE      (z, "send", 0);
+
+    CLASS_ATTR_RGBA                 (z, "fgcolor", 0, ui_spectroscope, fg_color);
+    CLASS_ATTR_LABEL                (z, "fgcolor", 0, _("Foreground color"));
+    CLASS_ATTR_STYLE                (z, "fgcolor", 0, "color");
+    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "fgcolor", 0, DEFAULT_ACTIVE_COLOR);
     // clang-format on
 
     eclass_addmethod(z, (method)ui_sps_getdrawparams, "getdrawparams", A_NULL, 0);
@@ -156,6 +265,8 @@ UI_fun(ui_spectroscope)::wx_oksize(ui_spectroscope*, t_rect* newrect)
 
 extern "C" void setup_ui0x2espectroscope_tilde()
 {
+    init_hann_window();
+
     ceammc_gui::GuiFactory<ui_spectroscope> class1;
     class1.setup_dsp("ui.spectroscope~");
 }
