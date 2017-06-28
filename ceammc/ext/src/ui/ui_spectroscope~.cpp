@@ -6,15 +6,14 @@
 //
 //
 
-#include <boost/static_assert.hpp>
 #include <cmath>
 #include <stdio.h>
 
 #include "ceammc_gui.h"
 
-static const size_t TXT_DB_COUNT = 11;
+static const size_t TXT_DB_COUNT = 10;
 static const char* TXT_DB[TXT_DB_COUNT] = {
-    "", " -6", "-12", "-18", "-24", "-30", "-36", "-42", "-50", "-54", "-60"
+    "", " -6", "-12", "-18", "-24", "-30", "-36", "-42", "-50", "-54"
 };
 static const size_t TXT_FREQ_COUNT = 10;
 static const char* TXT_FREQ[TXT_DB_COUNT] = {
@@ -43,6 +42,10 @@ struct ui_spectroscope : public ceammc_gui::BaseSoundGuiStruct {
     t_etext* txt_db[TXT_DB_COUNT];
     t_etext* txt_freq[TXT_FREQ_COUNT];
     t_efont* txt_font;
+
+    // this flag used to redraw spectral only on DSP update
+    // not when resizing etc.
+    char redraw_spectral;
 };
 
 namespace ceammc_gui {
@@ -66,13 +69,15 @@ static void ui_spectroscope_perform(ui_spectroscope* x,
     while (n--) {
         *out++ = *in++;
         x->counter++;
-        if (x->counter == WINDOW_SIZE)
+        if (x->counter >= WINDOW_SIZE)
             break;
     }
 
     if (x->counter >= WINDOW_SIZE) {
         x->counter = 0;
+        x->redraw_spectral = 1;
         GuiFactory<ui_spectroscope>::ws_redraw(x);
+        x->redraw_spectral = 0;
     }
 }
 
@@ -83,6 +88,7 @@ void ui_spectroscope_dsp(ui_spectroscope* x,
     long /*maxvectorsize*/,
     long /*flags*/)
 {
+    x->counter = 0;
     object_method(dsp, gensym("dsp_add"), x, (method)ui_spectroscope_perform, 0, NULL);
 }
 
@@ -155,51 +161,55 @@ UI_fun(ui_spectroscope)::wx_paint(ui_spectroscope* zx, t_object* view)
 
     ebox_paint_layer(asBox(zx), GRID_LAYER, 0., 0.);
 
-    // spectral
-    t_elayer* l_spectral = ebox_start_layer(asBox(zx), BG_LAYER, rect.width, rect.height);
-    if (l_spectral) {
-        egraphics_set_line_width(l_spectral, 1);
-        egraphics_set_color_rgba(l_spectral, &zx->fg_color);
+    if (zx->redraw_spectral) {
+        // spectral
+        t_elayer* l_spectral = ebox_start_layer(asBox(zx), BG_LAYER, rect.width, rect.height);
+        if (l_spectral) {
+            egraphics_set_line_width(l_spectral, 1);
+            egraphics_set_color_rgba(l_spectral, &zx->fg_color);
 
-        t_sample imag[BUFSIZE];
-        for (size_t i = 0; i < WINDOW_SIZE; i++)
-            imag[i] = 0;
+            // clear imag part
+            t_sample imag[BUFSIZE];
+            for (size_t i = 0; i < WINDOW_SIZE; i++)
+                imag[i] = 0;
 
-        t_sample* real = zx->buf;
-        for (size_t i = 0; i < WINDOW_SIZE; i++)
-            real[i] = hann_window[i] * real[i];
+            // apply hann window
+            t_sample* real = zx->buf;
+            for (size_t i = 0; i < WINDOW_SIZE; i++)
+                real[i] *= hann_window[i];
 
-        mayer_fft(WINDOW_SIZE, real, imag);
+            mayer_fft(WINDOW_SIZE, real, imag);
 
-        t_sample out_buf[BUFSIZE];
-        t_sample* pout = out_buf;
+            t_sample out_buf[BUFSIZE];
+            t_sample* pout = out_buf;
 
-        const size_t N = WINDOW_SIZE / 2;
+            const size_t N = WINDOW_SIZE / 2;
 
-        for (size_t i = 0; i < N; i++) {
-            t_sample f_r = real[i];
-            t_sample f_i = imag[i];
+            for (size_t i = 1; i < N - 1; i++) {
+                t_sample f_r = real[i];
+                t_sample f_i = imag[i];
 
-            pout[i] = 2 * sqrtf(f_r * f_r + f_i * f_i) / N;
-            pout[i] = 10 * log10f(pout[i]);
+                pout[i] = 2 * sqrtf(f_r * f_r + f_i * f_i) / N;
+                pout[i] = 10 * log10f(pout[i]);
+            }
+
+            egraphics_move_to(l_spectral, 0, rect.height);
+
+            const size_t step = std::max<size_t>(1, N / rect.width);
+            for (size_t i = 1; i < N; i += step) {
+                if (i + step >= N)
+                    break;
+
+                float xx = float(i + 1) / N * rect.width;
+                float val = *std::max_element(pout + i, pout + i + step);
+                float yy = (-val / 54) * rect.height;
+
+                egraphics_line_to(l_spectral, xx, yy);
+            }
+
+            egraphics_stroke(l_spectral);
+            ebox_end_layer(asBox(zx), BG_LAYER);
         }
-
-        real[0] = 0;
-        real[N - 1] = 0;
-
-        egraphics_move_to(l_spectral, 0, rect.height);
-
-        const size_t step = std::max<size_t>(1, N / rect.width);
-        for (size_t i = 0; i < N; i += step) {
-            float xx = float(i + 1) / N * rect.width;
-            float val = *std::max_element(pout + i, pout + i + step);
-            float yy = (-val / 60) * rect.height;
-
-            egraphics_line_to(l_spectral, xx, yy);
-        }
-
-        egraphics_stroke(l_spectral);
-        ebox_end_layer(asBox(zx), BG_LAYER);
     }
 
     ebox_paint_layer(asBox(zx), BG_LAYER, 0., 0.);
