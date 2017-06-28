@@ -109,7 +109,7 @@ public:
     virtual void onFloat(float) {}
     virtual void onSymbol(t_symbol*) {}
     virtual void onList(const AtomList&) {}
-    virtual void onData(const AbstractData*) {}
+    virtual void onData(const DataPtr&) {}
     virtual void onAny(t_symbol*, const AtomList&) {}
 
     /**
@@ -219,7 +219,7 @@ public:
     virtual void anyTo(size_t n, t_symbol* s, const Atom& a);
     virtual void anyTo(size_t n, t_symbol* s, const AtomList& l);
 
-    virtual void dataTo(size_t n, const Data& d);
+    virtual void dataTo(size_t n, const DataPtr& d);
 
     virtual bool processAnyInlets(t_symbol* sel, const AtomList& lst);
     virtual bool processAnyProps(t_symbol* sel, const AtomList& lst);

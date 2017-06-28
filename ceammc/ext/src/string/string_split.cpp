@@ -55,7 +55,7 @@ void StringSplit::split(const DataTypeString& s)
     s.split(tokens, sep_);
 
     for (size_t i = 0; i < tokens.size(); i++) {
-        Data d(new DataTypeString(tokens[i]));
+        DataPtr d(new DataTypeString(tokens[i]));
         tokens_.push_back(DataAtom(d));
     }
 }

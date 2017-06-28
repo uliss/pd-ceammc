@@ -20,7 +20,7 @@
 using namespace std;
 
 class StringEndsWith : public BaseObject {
-    DataT<DataTypeString> suffix_;
+    std::string suffix_;
 
 public:
     StringEndsWith(const PdArgs& a);

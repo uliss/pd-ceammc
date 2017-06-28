@@ -21,8 +21,8 @@ using namespace std;
 
 class StringReplace : public BaseObject {
     SymbolEnumProperty* mode_;
-    DataT<DataTypeString> from_;
-    DataT<DataTypeString> to_;
+    std::string from_;
+    std::string to_;
 
 public:
     StringReplace(const PdArgs& a);

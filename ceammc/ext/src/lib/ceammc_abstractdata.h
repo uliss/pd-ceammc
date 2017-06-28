@@ -51,6 +51,11 @@ public:
     virtual bool isEqual(const AbstractData* d) const;
 
     /**
+     * Override this method to compare data by pointer to base class
+     */
+    virtual bool isLess(const AbstractData* d) const;
+
+    /**
      * Helper functions to return pointer to derived classes
      */
     template <class T>

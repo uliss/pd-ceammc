@@ -20,16 +20,14 @@
 using namespace ceammc;
 
 class StringFormat : public BaseObject {
-    typedef DataT<DataTypeString> StringPtr;
-
     AtomList fmt_atoms_;
     std::string fmt_str_;
-    StringPtr fmt_result_;
+    std::string fmt_result_;
     FlagProperty* int_mode_;
 
 public:
     StringFormat(const PdArgs& a);
-    void onData(const AbstractData* d);
+    void onData(const DataPtr& d);
     void onBang();
     void onFloat(float v);
     void onSymbol(t_symbol* s);

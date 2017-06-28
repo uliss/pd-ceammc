@@ -14,8 +14,8 @@
 #ifndef DATASTRING_H
 #define DATASTRING_H
 
+#include "ceammc_abstractdata.h"
 #include "ceammc_atomlist.h"
-#include "ceammc_data.h"
 
 #include <iostream>
 #include <string>

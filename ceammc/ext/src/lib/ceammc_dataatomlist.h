@@ -17,12 +17,13 @@
 #include "ceammc_atomlist.h"
 #include "ceammc_dataatom.h"
 
+#include <iostream>
 #include <vector>
 
 namespace ceammc {
 
 class DataAtomList {
-    std::vector<DataAtom*> list_;
+    std::vector<DataAtom> list_;
 
 public:
     DataAtomList();
@@ -38,11 +39,13 @@ public:
     void clear();
 
     void append(const Atom& a);
-    void append(const AbstractData* d);
+    void append(const DataPtr& d);
     AtomList toList() const;
 
     bool operator==(const DataAtomList& l) const;
 };
+
+std::ostream& operator<<(std::ostream& os, const DataAtomList& l);
 }
 
 #endif // CEAMMC_DATAATOMLIST_H

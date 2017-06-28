@@ -16,7 +16,7 @@
 
 SetEqual::SetEqual(const PdArgs& a)
     : BaseObject(a)
-    , set1_(new DataTypeSet(positionalArguments()))
+    , set1_(positionalArguments())
 {
     createInlet();
     createOutlet();
@@ -24,18 +24,15 @@ SetEqual::SetEqual(const PdArgs& a)
 
 void SetEqual::onDataT(const DataTypeSet& s)
 {
-    bool res = (s == *set1_.data());
-    floatTo(0, res ? 1 : 0);
+    floatTo(0, (s == set1_) ? 1 : 0);
 }
 
 void SetEqual::onInlet(size_t, const AtomList& l)
 {
-    set1_->clear();
-
     if (l.isDataType<DataTypeSet>())
-        set1_.setData(l[0]);
+        set1_ = *DataTPtr<DataTypeSet>(l[0]).data();
     else
-        set1_->add(l);
+        set1_ = DataTypeSet(l);
 }
 
 void SetEqual::onList(const AtomList& l)

@@ -28,7 +28,7 @@ StringSubstr::StringSubstr(const PdArgs& a)
 
 void StringSubstr::onDataT(const DataTypeString& s)
 {
-    dataTo(0, Data(s.substr(from_->value(), len_->value()).clone()));
+    dataTo(0, DataPtr(s.substr(from_->value(), len_->value()).clone()));
 }
 
 void StringSubstr::onSymbol(t_symbol* s)

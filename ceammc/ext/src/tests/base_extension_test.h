@@ -17,7 +17,6 @@
 #include "catch.hpp"
 #include "ceammc_dataatom.h"
 #include "ceammc_dataatomlist.h"
-#include "ceammc_datastorage.h"
 #include "ceammc_factory.h"
 #include "ceammc_message.h"
 #include "ceammc_object.h"
@@ -31,7 +30,7 @@
 using namespace ceammc;
 
 typedef std::vector<Message> MessageList;
-typedef std::vector<SharedDataPtr> DataPtrList;
+typedef std::vector<DataPtr> DataPtrList;
 
 extern "C" void obj_init();
 extern "C" void pd_init();
@@ -70,7 +69,7 @@ public:
     void sendList(const AtomList& lst, int inlet = 0);
     void sendAny(const char* name, const AtomList& args = AtomList());
     void sendAny(const AtomList& args);
-    void sendData(const AbstractData* d, int inlet = 0);
+    void sendData(const DataPtr& d, int inlet = 0);
 
     template <class DataT>
     void sendTData(const DataT& d, int inlet = 0);
@@ -84,7 +83,7 @@ public:
     virtual void anyTo(size_t n, const AtomList& lst);
     virtual void anyTo(size_t n, t_symbol* sel, const AtomList& lst);
     virtual void messageTo(size_t n, const Message& m);
-    virtual void dataTo(size_t n, const Data& d);
+    virtual void dataTo(size_t n, const DataPtr& d);
 
     /** messages methods */
 public:
@@ -94,17 +93,17 @@ public:
     size_t messageCount(size_t outlet = 0) const;
     const Message& lastMessage(size_t outlet = 0) const;
     const Message& messageAt(size_t idx, size_t outlet) const;
-    SharedDataPtr dataAt(size_t idx, size_t outlet) const;
-    const SharedDataPtr& lastData(size_t outlet = 0) const;
+    DataPtr dataAt(size_t idx, size_t outlet) const;
+    const DataPtr& lastData(size_t outlet = 0) const;
     bool lastMessageIsBang(size_t outlet = 0) const;
     void cleanMessages(size_t outlet = 0);
     void cleanAllMessages();
 
     template <class DataT>
-    DataT* typedDataAt(size_t idx, size_t outlet);
+    const DataT* typedDataAt(size_t idx, size_t outlet);
 
     template <class DataT>
-    DataT* typedLastDataAt(size_t outlet);
+    const DataT* typedLastDataAt(size_t outlet);
 
 public:
     typedef void (*sendAtomCallback)(TestExtension* obj, size_t outn, const Atom& a);
@@ -222,7 +221,7 @@ Atom test_atom_wrap(const char* v) { return Atom(gensym(v)); }
 Atom test_atom_wrap(t_symbol* v) { return Atom(v); }
 Atom test_atom_wrap(float v) { return Atom(v); }
 Atom test_atom_wrap(const Atom& v) { return v; }
-Atom test_atom_wrap(const Data& d) { return d.toAtom(); }
+Atom test_atom_wrap(const DataPtr& d) { return d.asAtom(); }
 
 AtomList test_list_wrap(const Atom& a1) { return AtomList(a1); }
 AtomList test_list_wrap(const Atom& a1, const Atom& a2) { return AtomList(a1, a2); }
@@ -385,7 +384,14 @@ void WHEN_SEND_FLOAT_TO(size_t inlet, T& obj, float v)
 }
 
 template <class T, class D>
-void WHEN_SEND_DATA_TO(size_t inlet, T& obj, const D* d)
+void WHEN_SEND_DATA_TO(size_t inlet, T& obj, const D& d)
+{
+    obj.storeAllMessageCount();
+    obj.sendData(DataPtr(d.clone()), inlet);
+}
+
+template <class T>
+void WHEN_SEND_DATA_TO(size_t inlet, T& obj, const DataPtr& d)
 {
     obj.storeAllMessageCount();
     obj.sendData(d, inlet);
@@ -396,12 +402,6 @@ void WHEN_SEND_TDATA_TO(size_t inlet, T& obj, const D& d)
 {
     obj.storeAllMessageCount();
     obj.sendTData(d, inlet);
-}
-
-template <class T, class D>
-void WHEN_SEND_DATA_TO(size_t inlet, T& obj, const D& d)
-{
-    WHEN_SEND_DATA_TO(inlet, obj, &d);
 }
 
 template <class T>
@@ -489,7 +489,7 @@ void TestExtension<T>::sendAny(const AtomList& args)
 }
 
 template <class T>
-void TestExtension<T>::sendData(const AbstractData* d, int inlet)
+void TestExtension<T>::sendData(const DataPtr& d, int inlet)
 {
     T::onData(d);
 }
@@ -553,11 +553,10 @@ void TestExtension<T>::messageTo(size_t n, const Message& m)
 }
 
 template <class T>
-void TestExtension<T>::dataTo(size_t n, const Data& d)
+void TestExtension<T>::dataTo(size_t n, const DataPtr& d)
 {
-    SharedDataPtr p(d.clone());
-    data_[n].push_back(p);
-    msg_[n].push_back(p->toAtom());
+    data_[n].push_back(d);
+    msg_[n].push_back(d.asAtom());
 }
 
 template <class T>
@@ -598,13 +597,13 @@ const Message& TestExtension<T>::messageAt(size_t idx, size_t outlet) const
 }
 
 template <class T>
-SharedDataPtr TestExtension<T>::dataAt(size_t idx, size_t outlet) const
+DataPtr TestExtension<T>::dataAt(size_t idx, size_t outlet) const
 {
     return data_[outlet].at(idx);
 }
 
 template <class T>
-const SharedDataPtr& TestExtension<T>::lastData(size_t outlet) const
+const DataPtr& TestExtension<T>::lastData(size_t outlet) const
 {
     return data_[outlet].back();
 }
@@ -634,22 +633,22 @@ void TestExtension<T>::cleanAllMessages()
 
 template <class T>
 template <class DataT>
-DataT* TestExtension<T>::typedDataAt(size_t idx, size_t outlet)
+const DataT* TestExtension<T>::typedDataAt(size_t idx, size_t outlet)
 {
-    SharedDataPtr p = dataAt(idx, outlet);
+    DataPtr p = dataAt(idx, outlet);
     if (p && p->type() == DataT::dataType) {
-        return static_cast<DataT*>(p.get());
+        return static_cast<DataT*>(p.data());
     } else
         return 0;
 }
 
 template <class T>
 template <class DataT>
-DataT* TestExtension<T>::typedLastDataAt(size_t outlet)
+const DataT* TestExtension<T>::typedLastDataAt(size_t outlet)
 {
-    SharedDataPtr p = lastData(outlet);
-    if (p && p->type() == DataT::dataType) {
-        return static_cast<DataT*>(p->data());
+    DataPtr p = lastData(outlet);
+    if (p.isValid() && p->type() == DataT::dataType) {
+        return static_cast<const DataT*>(p.data());
     } else
         return 0;
 }
@@ -678,6 +677,15 @@ public:
             return false;
 
         return v_ == dt->v_;
+    }
+
+    bool isLess(const AbstractData* d) const
+    {
+        const IntData* dt = d->as<IntData>();
+        if (!dt)
+            return false;
+
+        return v_ < dt->v_;
     }
 
     std::string toString() const

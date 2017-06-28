@@ -14,7 +14,6 @@
 #ifndef DATA_SET_H
 #define DATA_SET_H
 
-#include "ceammc_data.h"
 #include "ceammc_dataatom.h"
 #include "ceammc_object.h"
 #include "datatype_set.h"
@@ -22,7 +21,7 @@
 using namespace ceammc;
 
 class DataSet : public BaseObject {
-    DataT<DataTypeSet> set_;
+    DataTypeSet set_;
 
 public:
     DataSet(const PdArgs& a);

@@ -23,7 +23,7 @@ typedef TestExtension<SetIntersection> SetIntersectionTest;
 #define REQUIRE_SET_OUTPUT(t, set)                          \
     {                                                       \
         REQUIRE_NEW_DATA_AT_OUTLET(0, t);                   \
-        DataTypeSet* s = t.typedLastDataAt<DataTypeSet>(0); \
+        const DataTypeSet* s = t.typedLastDataAt<DataTypeSet>(0); \
         REQUIRE(s != 0);                                    \
         REQUIRE(*s == set);                                 \
     }
@@ -73,8 +73,8 @@ TEST_CASE("set.intersection", "[externals]")
     SECTION("do data")
     {
         SetIntersectionTest t("set.intersecion");
-        Data set1(new DataTypeSet(L2(1, 3)));
-        WHEN_SEND_LIST_TO(1, t, set1.toAtom());
+        DataPtr set1(new DataTypeSet(L2(1, 3)));
+        WHEN_SEND_LIST_TO(1, t, set1.asAtom());
 
         WHEN_SEND_TDATA_TO(0, t, DataTypeSet(L3(3, 4, 5)));
         REQUIRE_SET_OUTPUT(t, DataTypeSet(Atom(3)));

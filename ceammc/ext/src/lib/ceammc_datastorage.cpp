@@ -12,101 +12,89 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_datastorage.h"
+#include "ceammc_datatypes.h"
 
 #include <boost/functional/hash.hpp>
 
-namespace ceammc {
+using namespace ceammc;
 
-DataStorage& DataStorage::instance()
-{
-    static DataStorage ds;
-    return ds;
-}
-
-size_t DataStorage::count() const
-{
-    return storage_.size();
-}
-
-static inline bool key_compare(
-    const DataStorage::Map::value_type& a,
-    const DataStorage::Map::value_type& b)
-{
-    return a.first.id < b.first.id;
-}
-
-struct FindById {
-    DataId id_;
-    FindById(DataId id)
-        : id_(id)
-    {
-    }
-
-    bool operator()(const DataStorage::Map::value_type& a) const
-    {
-        return a.first.id == id_;
-    }
-};
-
-DataId DataStorage::generateId()
-{
-    if (storage_.empty())
-        return 1;
-
-    DataDesc max = std::max_element(storage_.begin(), storage_.end(), key_compare)->first;
-    const size_t sz = storage_.size();
-
-    if (max.id == sz)
-        return max.id + 1;
-    else {
-        for (DataId i = 1; i < std::max<DataId>(sz, max.id); i++) {
-            if (std::find_if(storage_.begin(), storage_.end(), FindById(i)) == storage_.end())
-                return i;
-        }
-    }
-
-    // should never happen
-    return static_cast<DataId>(-1);
-}
-
-DataDesc DataStorage::generateNewDesc(AbstractData* d)
-{
-    if (!d)
-        return DataDesc(0, 0);
-
-    return DataDesc(d->type(), generateId());
-}
-
-Data* DataStorage::get(const DataDesc& d)
-{
-    Map::iterator it = storage_.find(d);
-    return it == storage_.end() ? 0 : it->second;
-}
-
-bool DataStorage::add(const DataDesc& d, Data* ptr)
-{
-    Map::iterator it = storage_.find(d);
-    if (it != storage_.end())
-        return false;
-
-    storage_.insert(std::make_pair(d, ptr));
-    return true;
-}
-
-bool DataStorage::remove(const DataDesc& d)
-{
-    Map::iterator it = storage_.find(d);
-    if (it == storage_.end())
-        return false;
-
-    storage_.erase(it);
-    return true;
-}
-
-size_t hash_value(const DataDesc& d)
+size_t ceammc::hash_value(const DataDesc& d)
 {
     size_t res = d.type;
     boost::hash_combine(res, boost::hash_value(d.id));
     return res;
 }
+
+DataStorage::DataStorage()
+{
+}
+
+DataStorage& DataStorage::instance()
+{
+    static DataStorage s;
+    return s;
+}
+
+size_t DataStorage::size() const
+{
+    return map_.size();
+}
+
+DataDesc DataStorage::add(const AbstractData* data)
+{
+    if (data == 0)
+        return DataDesc(data::DATA_INVALID, DataId(-1));
+
+    DataDesc desc(data->type(), generateId(data));
+    DataMap::iterator it = map_.find(desc);
+    if (it != map_.end()) {
+        it->second.ref_count++;
+        return desc;
+    }
+
+    Entry entry;
+    entry.ref_count = 1;
+    entry.data = data;
+    map_[desc] = entry;
+    return desc;
+}
+
+const AbstractData* DataStorage::acquire(const DataDesc& desc)
+{
+    DataMap::iterator it = map_.find(desc);
+    if (it != map_.end()) {
+        it->second.ref_count++;
+        //        std::cerr << "acquire: " << desc << " = " << it->second.ref_count << "\n";
+        return it->second.data;
+    } else
+        return 0;
+}
+
+void DataStorage::release(const DataDesc& desc)
+{
+    DataMap::iterator it = map_.find(desc);
+    if (it != map_.end()) {
+        it->second.ref_count--;
+        //        std::cerr << "release: " << desc << " = " << it->second.ref_count << "\n";
+        if (it->second.ref_count == 0) {
+            delete it->second.data;
+            map_.erase(desc);
+        }
+    }
+}
+
+size_t DataStorage::refCount(const DataDesc& desc)
+{
+    DataMap::iterator it = map_.find(desc);
+    return (it == map_.end()) ? 0 : it->second.ref_count;
+}
+
+DataId DataStorage::generateId(const AbstractData* data)
+{
+    size_t hash = 0;
+    boost::hash_combine(hash, reinterpret_cast<long>(data));
+    boost::hash_combine(hash, data->type());
+    // NB: data type truncation!
+    Atom a(DataDesc(0, DataId(hash)));
+    return a.getData().id;
 }

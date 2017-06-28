@@ -15,10 +15,8 @@
 #define DATATYPE_SET_H
 
 #include "ceammc_atomlist.h"
-#include "ceammc_data.h"
 #include "ceammc_dataatom.h"
 
-#include <boost/scoped_ptr.hpp>
 #include <boost/unordered_set.hpp>
 
 using namespace ceammc;

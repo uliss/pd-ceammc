@@ -215,11 +215,11 @@ public:
     {
         AtomList l(argc, argv);
         if (l.size() == 1 && l[0].isData()) {
-            DataDesc desc = l[0].getData();
-            Data* ptr = Data::getTypedData(desc);
-            if (ptr) {
-                x->impl->onData(ptr->data());
+            DataPtr ptr(l[0]);
+            if (ptr.isValid()) {
+                x->impl->onData(ptr);
             } else {
+                DataDesc desc = l[0].getData();
                 LIB_ERR << "can't get data with type=" << desc.type << " and id=" << desc.id;
             }
         } else {
@@ -232,10 +232,9 @@ public:
     {
         AtomList l(argc, argv);
         if (l.size() == 1 && l[0].isData()) {
-            DataDesc desc = l[0].getData();
-            Data* ptr = Data::getTypedData(desc);
-            if (ptr) {
-                x->impl->onDataT(*static_cast<DataT*>(ptr->data()));
+            DataTPtr<DataT> ptr(l[0]);
+            if (ptr.isValid()) {
+                x->impl->onDataT(*ptr.data());
             } else {
                 DataDesc d = l[0].getData();
                 LIB_ERR << "can't get data with type=" << d.type << " and id=" << d.id;

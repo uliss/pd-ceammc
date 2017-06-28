@@ -18,15 +18,11 @@
 #include "ceammc_object.h"
 #include "datatype_string.h"
 
-#include <boost/shared_ptr.hpp>
 #include <vector>
 
 using namespace ceammc;
 
 class StringSplit : public BaseObject {
-    typedef DataT<DataTypeString> String;
-    typedef boost::shared_ptr<String> StringPtr;
-
     std::vector<DataAtom> tokens_;
     std::string sep_;
 

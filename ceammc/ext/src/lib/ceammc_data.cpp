@@ -12,128 +12,130 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_data.h"
+#include "ceammc_datatypes.h"
 #include "ceammc_datastorage.h"
-#include "ceammc_log.h"
 
-namespace ceammc {
-Data::Data()
-    : data_(0)
-    , desc_(0, 0)
+using namespace ceammc;
+
+static const DataDesc INVALID(data::DATA_INVALID, DataId(-1));
+
+DataPtr::DataPtr(AbstractData* data)
+    : desc_(INVALID)
+    , data_(data)
 {
+    desc_ = DataStorage::instance().add(data_);
 }
 
-Data::Data(AbstractData* d)
-    : data_(d)
-    , desc_(0, 0)
+DataPtr::DataPtr(const Atom& data)
+    : desc_(INVALID)
+    , data_(0)
 {
-    if (data_) {
-        desc_ = DataStorage::instance().generateNewDesc(data_);
-        DataStorage::instance().add(desc_, this);
-    }
+    if (!data.isData())
+        return;
+
+    desc_ = data.getData();
+    data_ = DataStorage::instance().acquire(desc_);
 }
 
-Data::~Data()
+DataPtr::DataPtr(const DataPtr& d)
+    : desc_(INVALID)
+    , data_(0)
 {
-    if (data_) {
-        DataStorage::instance().remove(desc_);
-        delete data_;
-    }
+    desc_ = d.desc_;
+    data_ = DataStorage::instance().acquire(desc_);
 }
 
-Atom Data::toAtom() const
+DataPtr& DataPtr::operator=(const DataPtr& d)
 {
-    Atom res;
-    if (isNull())
-        return res;
+    if (this == &d)
+        return *this;
 
-    res.setData(desc());
-    return res;
+    DataStorage::instance().release(desc_);
+
+    desc_ = d.desc_;
+    data_ = DataStorage::instance().acquire(desc_);
+    return *this;
 }
 
-SharedDataPtr Data::fromAtom(const Atom& a)
+DataPtr::~DataPtr()
 {
-    if (!a.isData()) {
-        std::cerr << "invalid atom: " << a;
-        return SharedDataPtr();
-    }
-
-    DataDesc desc = a.getData();
-
-    Data* ptr = DataStorage::instance().get(desc);
-    if (!ptr) {
-        LIB_DBG << "data not found: " << desc;
-        return SharedDataPtr();
-    }
-
-    if (ptr->type() != a.dataType()) {
-        LIB_DBG << "invalid data type: " << desc;
-        return SharedDataPtr();
-    }
-
-    return SharedDataPtr(ptr->clone());
+    DataStorage::instance().release(desc_);
 }
 
-Data* Data::getTypedData(const DataDesc& d)
+bool DataPtr::isValid() const
 {
-    return DataStorage::instance().get(d);
+    return desc_.type != data::DATA_INVALID
+        && desc_.id != DataId(-1)
+        && data_ != 0;
 }
 
-DataType Data::type() const
-{
-    return data_ ? data_->type() : 0;
-}
-
-DataDesc Data::desc() const
+DataDesc DataPtr::desc() const
 {
     return desc_;
 }
 
-bool Data::operator==(const Data& d) const
+size_t DataPtr::refCount() const
 {
-    if (this == &d)
-        return true;
-
-    if (!data_ && !d.data_)
-        return true;
-
-    if (!data_ || !d.data_)
-        return false;
-
-    return data_->isEqual(d.data_);
+    return DataStorage::instance().refCount(desc_);
 }
 
-Data* Data::clone() const
+const AbstractData* DataPtr::data() const
+{
+    return data_;
+}
+
+const AbstractData* DataPtr::operator->() const
+{
+    return data_;
+}
+
+Atom DataPtr::asAtom() const
+{
+    return Atom(desc_);
+}
+
+bool DataPtr::operator==(const DataPtr& d) const
+{
+    if (data_ == d.data_)
+        return true;
+
+    if (isValid() && d.isValid())
+        return data_->isEqual(d.data_);
+
+    return false;
+}
+
+bool DataPtr::operator!=(const DataPtr& d) const
+{
+    return !this->operator==(d);
+}
+
+void DataPtr::invalidate()
 {
     if (isNull())
-        return 0;
-
-    return new Data(data_->clone());
-}
-
-void Data::setData(AbstractData* d)
-{
-    if (data_) {
-        DataStorage::instance().remove(desc_);
-        delete data_;
-        data_ = 0;
-    }
-
-    if (d) {
-        data_ = d;
-        desc_ = DataStorage::instance().generateNewDesc(data_);
-        DataStorage::instance().add(desc_, this);
-    }
-}
-
-void Data::setData(const Atom& a)
-{
-    if (!a.isData())
         return;
 
-    Data* p = Data::getTypedData(a.getData());
-    if (!p || !p->data())
-        return;
-
-    setData(p->data()->clone());
+    DataStorage::instance().release(desc_);
+    data_ = 0;
+    desc_ = INVALID;
 }
+
+bool ceammc::operator<(const DataPtr& d0, const DataPtr& d1)
+{
+    if (&d0 == &d1)
+        return false;
+
+    if (d0.data() == d1.data())
+        return false;
+
+    if (d0.isValid()) {
+        return d1.isValid() ? d0.data()->isLess(d1.data()) : false;
+    } else {
+        return true;
+    }
+}
+
+bool ceammc::DataPtr::isNull() const
+{
+    return !isValid();
 }

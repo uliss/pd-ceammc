@@ -11,75 +11,41 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef CEAMMC_DATASTORAGE_H
-#define CEAMMC_DATASTORAGE_H
+#ifndef CEAMMC_XDATASTORAGE_H
+#define CEAMMC_XDATASTORAGE_H
 
-#include <algorithm>
+#include "ceammc_abstractdata.h"
+
 #include <boost/unordered_map.hpp>
 
-#include "ceammc_data.h"
-
 namespace ceammc {
-
-/**
- * Typed data storage. For each data type it stores mapping between DataId and pointer
- * to data itself.
- * Mainly for internal use. But if you know data type, you can access data by its DataId.
- */
 class DataStorage {
-public:
-    typedef boost::unordered_map<DataDesc, Data*> Map;
+    struct Entry {
+        int ref_count;
+        const AbstractData* data;
+    };
+
+    typedef boost::unordered_map<DataDesc, Entry> DataMap;
+
+    DataMap map_;
+
+    DataStorage();
+    DataStorage(const DataStorage& s);
+    void operator=(const DataStorage& s);
 
 public:
-    /**
-     * Singleton pattern
-     */
     static DataStorage& instance();
+    size_t size() const;
+    DataDesc add(const AbstractData* data);
 
-public:
-    /**
-     * @return new generated (not used) ID
-     */
-    DataId generateId();
+    const AbstractData* acquire(const DataDesc& desc);
+    void release(const DataDesc& desc);
+    size_t refCount(const DataDesc& desc);
 
-    /**
-     * Generates new atom descriptor (not used)
-     */
-    DataDesc generateNewDesc(AbstractData* d);
-
-    /**
-     * get data from storage by ID
-     * @param id - data descriptor
-     * @return pointer to data on success, or 0-pointer if data is not found for given ID
-     */
-    Data* get(const DataDesc& d);
-
-    /**
-     * adds new created data pointer to storage
-     * @param id - data id
-     * @param ptr - pointer to data
-     * @return true on success, false if data with given ID already exists
-     */
-    bool add(const DataDesc& d, Data* ptr);
-
-    /**
-     * removes data from storage
-     * @param id - data id
-     * @return true on success, false on error
-     */
-    bool remove(const DataDesc& d);
-
-    /**
-     * Returns number of data pointers in storage
-     */
-    size_t count() const;
-
-private:
-    DataStorage() {}
-
-private:
-    Map storage_;
+    DataId generateId(const AbstractData* data);
 };
+
+size_t hash_value(const DataDesc& d);
 }
 
-#endif // CEAMMC_DATASTORAGE_H
+#endif // CEAMMC_XDATASTORAGE_H

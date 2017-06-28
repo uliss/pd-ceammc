@@ -26,7 +26,7 @@ public:
     void onFloat(float f);
     void onSymbol(t_symbol* s);
     void onList(const AtomList& l);
-    void onData(const AbstractData* d);
+    void onData(const DataPtr& d);
 
     void onInlet(size_t, const AtomList& l);
 

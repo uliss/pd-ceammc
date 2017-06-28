@@ -11,71 +11,75 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef CEAMMC_DATA_H
-#define CEAMMC_DATA_H
+#ifndef CEAMMC_XDATA_H
+#define CEAMMC_XDATA_H
 
 #include "ceammc_abstractdata.h"
 
-#include <boost/shared_ptr.hpp>
-
 namespace ceammc {
 
-class Data;
-typedef boost::shared_ptr<Data> SharedDataPtr;
-
-/**
- * Main data handler for using in Pd externals.
- * You should create data for passing between externals only with this object.
- * It generates DataId and stores it in object storage
- */
-class Data {
-    AbstractData* data_;
+class DataPtr {
     DataDesc desc_;
+    const AbstractData* data_;
+    DataPtr();
 
 public:
-    Data();
-    explicit Data(AbstractData* d);
-    ~Data();
+    DataPtr(AbstractData* data);
+    DataPtr(const Atom& data);
+    DataPtr(const DataPtr& d);
+    DataPtr& operator=(const DataPtr& d);
+    ~DataPtr();
 
-    Atom toAtom() const;
+    bool isValid() const;
+    bool isNull() const;
+    ceammc::DataDesc desc() const;
+    size_t refCount() const;
 
-    Data* clone() const;
-    AbstractData* data() { return data_; }
-    const AbstractData* data() const { return data_; }
-    void setData(AbstractData* d);
-    void setData(const Atom& a);
+    const AbstractData* data() const;
+    const AbstractData* operator->() const;
 
-    bool isNull() const { return desc_.type == 0 || data_ == 0; }
+    template <class T>
+    const T* as() const;
 
-    DataType type() const;
-    DataDesc desc() const;
+    Atom asAtom() const;
 
-    bool operator==(const Data& d) const;
+    bool operator==(const DataPtr& d) const;
+    bool operator!=(const DataPtr& d) const;
 
-public:
-    static SharedDataPtr fromAtom(const Atom& a);
-    static Data* getTypedData(const DataDesc& d);
-
-private:
-    Data(const Data& d);
-    void operator=(const Data& d);
+protected:
+    void invalidate();
 };
 
 template <class T>
-class DataT : public Data {
+const T* DataPtr::as() const
+{
+    if (data_ == 0)
+        return 0;
+
+    return data_->as<T>();
+}
+
+bool operator<(const DataPtr& d0, const DataPtr& d1);
+
+template <class T>
+class DataTPtr : public DataPtr {
 public:
-    DataT() {}
-    DataT(T* d)
-        : Data(d)
+    DataTPtr(T* d)
+        : DataPtr(d)
     {
     }
 
-    T* data() { return static_cast<T*>(Data::data()); }
-    const T* data() const { return static_cast<const T*>(Data::data()); }
+    DataTPtr(const Atom& a)
+        : DataPtr(a)
+    {
+        if (!a.isDataType(T::dataType)) {
+            invalidate();
+        }
+    }
 
-    T* operator->() { return data(); }
+    const T* data() const { return static_cast<const T*>(DataPtr::data()); }
     const T* operator->() const { return data(); }
 };
 }
 
-#endif // CEAMMC_DATA_H
+#endif // CEAMMC_XDATA_H

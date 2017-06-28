@@ -16,7 +16,7 @@
 
 SetDifference::SetDifference(const PdArgs& a)
     : BaseObject(a)
-    , set1_(new DataTypeSet(positionalArguments()))
+    , set1_(positionalArguments())
 {
     createInlet();
     createOutlet();
@@ -30,19 +30,16 @@ void SetDifference::onList(const AtomList& l)
 void SetDifference::onDataT(const DataTypeSet& s)
 {
     DataTypeSet* res = new DataTypeSet();
-    Data out(res);
-    DataTypeSet::set_difference(*res, s, *set1_.data());
-    dataTo(0, out);
+    DataTypeSet::set_difference(*res, s, set1_);
+    dataTo(0, DataPtr(res));
 }
 
 void SetDifference::onInlet(size_t, const AtomList& l)
 {
-    set1_->clear();
-
     if (l.isDataType<DataTypeSet>()) {
-        set1_.setData(l[0]);
+        set1_ = *DataPtr(l[0]).as<DataTypeSet>();
     } else {
-        set1_->add(l);
+        set1_ = DataTypeSet(l);
     }
 }
 

@@ -20,17 +20,17 @@
 
 typedef TestExtension<SetUnion> SetUnionTest;
 
-#define REQUIRE_SET_OUTPUT(t, set)                          \
-    {                                                       \
-        REQUIRE_NEW_DATA_AT_OUTLET(0, t);                   \
-        DataTypeSet* s = t.typedLastDataAt<DataTypeSet>(0); \
-        REQUIRE(s != 0);                                    \
-        REQUIRE(*s == set);                                 \
+#define REQUIRE_SET_OUTPUT(t, set)                                \
+    {                                                             \
+        REQUIRE_NEW_DATA_AT_OUTLET(0, t);                         \
+        const DataTypeSet* s = t.typedLastDataAt<DataTypeSet>(0); \
+        REQUIRE(s != 0);                                          \
+        REQUIRE(*s == set);                                       \
     }
 
-#define DSET(l) Data(new DataTypeSet(l))
-#define DINT(v) Data(new IntData(v))
-#define DSTR(v) Data(new StrData(v))
+#define DSET(l) DataPtr(new DataTypeSet(l))
+#define DINT(v) DataPtr(new IntData(v))
+#define DSTR(v) DataPtr(new StrData(v))
 
 static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
 
@@ -82,12 +82,12 @@ TEST_CASE("set.intersection", "[externals]")
         WHEN_SEND_TDATA_TO(0, t, DataTypeSet(L2(DINT(2), DINT(4))));
         REQUIRE_SET_OUTPUT(t, DataTypeSet(L4(DINT(1), DINT(2), DINT(3), DINT(4))));
 
-        WHEN_SEND_LIST_TO(1, t, L1(DSET(L2(DINT(1), DINT(3))).toAtom()));
-        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(L2(DINT(2), DINT(4))));
-        REQUIRE_SET_OUTPUT(t, DataTypeSet(L4(DINT(1), DINT(2), DINT(3), DINT(4))));
+        WHEN_SEND_LIST_TO(1, t, L1(DSET(L2(DINT(1), DINT(3))).asAtom()));
+        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(L2(DINT(2), DINT(5))));
+        REQUIRE_SET_OUTPUT(t, DataTypeSet(L4(DINT(1), DINT(2), DINT(3), DINT(5))));
 
-        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(L4(DINT(2), DINT(4), DINT(3), DINT(1))));
-        REQUIRE_SET_OUTPUT(t, DataTypeSet(L4(DINT(1), DINT(2), DINT(3), DINT(4))));
+        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(L4(DINT(2), DINT(5), DINT(3), DINT(1))));
+        REQUIRE_SET_OUTPUT(t, DataTypeSet(L4(DINT(1), DINT(2), DINT(3), DINT(5))));
     }
 
     SECTION("do list")

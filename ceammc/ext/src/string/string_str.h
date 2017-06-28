@@ -14,15 +14,15 @@
 #ifndef STRING_STR_H
 #define STRING_STR_H
 
-#include "ceammc_data.h"
 #include "ceammc_object.h"
+#include "ceammc_data.h"
 #include "datatype_string.h"
 
 using namespace ceammc;
 
 class StringStr : public BaseObject {
-    typedef DataT<DataTypeString> StringPtr;
-    StringPtr str_;
+    DataTypeString* str_;
+    DataPtr pstr_;
 
 public:
     StringStr(const PdArgs& a);
@@ -30,7 +30,7 @@ public:
     void onFloat(float f);
     void onSymbol(t_symbol* s);
     void onList(const AtomList& l);
-    void onData(const AbstractData* d);
+    void onData(const DataPtr& d);
     void dump() const;
 
     void m_append(t_symbol*, const AtomList& lst);

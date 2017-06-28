@@ -17,7 +17,7 @@
 
 StringEqual::StringEqual(const PdArgs& a)
     : BaseObject(a)
-    , str1_(new DataTypeString(positionalArguments()))
+    , str1_(to_string(positionalArguments()))
 {
     createInlet();
     createOutlet();
@@ -30,13 +30,13 @@ void StringEqual::onSymbol(t_symbol* s)
 
 void StringEqual::onDataT(const DataTypeString& s)
 {
-    bool eq = (s == *str1_.data());
+    bool eq = (s.str() == str1_);
     floatTo(0, eq ? 1 : 0);
 }
 
 void StringEqual::onInlet(size_t, const AtomList& l)
 {
-    str1_->set(to_string(l));
+    str1_ = to_string(l);
 }
 
 extern "C" void setup_string0x2eequal()

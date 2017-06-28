@@ -18,8 +18,10 @@
 
 namespace ceammc {
 namespace data {
-    static const DataType DATA_STRING = 1;
-    static const DataType DATA_SET = 2;
+    static const ::ceammc::DataType DATA_INVALID = ::ceammc::DataType(-1);
+    static const ::ceammc::DataType DATA_STRING = 1;
+    static const ::ceammc::DataType DATA_SET = 2;
+    static const ::ceammc::DataType DATA_DICT = 3;
 }
 }
 

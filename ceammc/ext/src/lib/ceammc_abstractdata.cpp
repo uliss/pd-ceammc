@@ -34,4 +34,12 @@ bool AbstractData::isEqual(const AbstractData* d) const
 
     return this == d;
 }
+
+bool AbstractData::isLess(const AbstractData* d) const
+{
+    if (type() != d->type())
+        return type() < d->type();
+
+    return false;
+}
 }

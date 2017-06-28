@@ -171,7 +171,7 @@ void BaseObject::anyTo(size_t n, t_symbol* s, const AtomList& l)
     l.outputAsAny(outlets_[n], s);
 }
 
-void BaseObject::dataTo(size_t n, const Data& d)
+void BaseObject::dataTo(size_t n, const DataPtr& d)
 {
     if (n >= outlets_.size()) {
         OBJ_ERR << "invalid outlet index: " << n;
@@ -183,7 +183,7 @@ void BaseObject::dataTo(size_t n, const Data& d)
         return;
     }
 
-    d.toAtom().output(outlets_[n]);
+    d.asAtom().output(outlets_[n]);
 }
 
 bool BaseObject::processAnyInlets(t_symbol* sel, const AtomList& lst)

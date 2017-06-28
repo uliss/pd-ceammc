@@ -20,16 +20,14 @@
 using namespace ceammc;
 
 class StringJoin : public BaseObject {
-    typedef DataT<DataTypeString> StringPtr;
-    StringPtr str_;
+    std::string str_;
     std::string sep_;
 
 public:
     StringJoin(const PdArgs& a);
     void onBang();
-    void onFloat(float f);
     void onSymbol(t_symbol* s);
-    void onData(const AbstractData* d);
+    void onData(const DataPtr& d);
     void onList(const AtomList& l);
 
     AtomList propGetSeparator() const;

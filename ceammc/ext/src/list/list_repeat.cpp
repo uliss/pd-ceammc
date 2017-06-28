@@ -35,7 +35,7 @@ void ListRepeat::onList(const AtomList& l)
     listTo(0, list::repeat(l, n));
 }
 
-void ListRepeat::onData(const AbstractData* d)
+void ListRepeat::onData(const DataPtr& d)
 {
     size_t n = repeatCount();
     if (n == size_t(-1))

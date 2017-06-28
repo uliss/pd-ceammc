@@ -21,12 +21,12 @@ using namespace ceammc;
 
 typedef TestExtension<StringFormat> StringFormatTest;
 
-#define REQUIRE_STRING_OUTPUT(t, str_)                            \
-    {                                                             \
-        REQUIRE_NEW_DATA_AT_OUTLET(0, t);                         \
-        DataTypeString* s = t.typedLastDataAt<DataTypeString>(0); \
-        REQUIRE(s != 0);                                          \
-        REQUIRE(s->str() == str_);                                \
+#define REQUIRE_STRING_OUTPUT(t, str_)                                  \
+    {                                                                   \
+        REQUIRE_NEW_DATA_AT_OUTLET(0, t);                               \
+        const DataTypeString* s = t.typedLastDataAt<DataTypeString>(0); \
+        REQUIRE(s != 0);                                                \
+        REQUIRE(s->str() == str_);                                      \
     }
 
 #define NO_DATA(t) REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
@@ -354,11 +354,11 @@ TEST_CASE("string.format", "[external]")
 
     SECTION("data")
     {
-        Data d(new IntData(158));
+        DataPtr d(new IntData(158));
 
         StringFormatTest t("string.format", L1("DATA-%s"));
 
-        WHEN_SEND_DATA_TO<StringFormatTest, AbstractData>(0, t, d.data());
+        WHEN_SEND_DATA_TO(0, t, d);
         REQUIRE_STRING_OUTPUT(t, "DATA-158");
     }
 }

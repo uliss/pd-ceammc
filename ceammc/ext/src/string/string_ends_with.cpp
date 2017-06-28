@@ -17,7 +17,7 @@
 
 StringEndsWith::StringEndsWith(const PdArgs& a)
     : BaseObject(a)
-    , suffix_(new DataTypeString(to_string(positionalArguments())))
+    , suffix_(to_string(positionalArguments()))
 {
     createInlet();
     createOutlet();
@@ -30,12 +30,12 @@ void StringEndsWith::onSymbol(t_symbol* s)
 
 void StringEndsWith::onInlet(size_t, const AtomList& l)
 {
-    suffix_->set(to_string(l));
+    suffix_ = to_string(l);
 }
 
 void StringEndsWith::onDataT(const DataTypeString& s)
 {
-    floatTo(0, s.endsWith(suffix_->str()) ? 1 : 0);
+    floatTo(0, s.endsWith(suffix_) ? 1 : 0);
 }
 
 extern "C" void setup_string0x2eends_with()

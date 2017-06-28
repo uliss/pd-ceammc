@@ -12,65 +12,91 @@
  * this file belongs to.
  *****************************************************************************/
 #include "base_extension_test.h"
+#include "ceammc_datatypes.h"
+#include "ceammc_data.h"
 #include "ceammc_datastorage.h"
 
 #include "catch.hpp"
 
 using namespace ceammc;
 
-class TestData : public AbstractData {
-    int v_;
+static const DataDesc INVALID(data::DATA_INVALID, DataId(-1));
 
-public:
-    TestData(int v = 0)
-        : v_(v)
-    {
-    }
-
-    DataType type() const { return 812; }
-    TestData* clone() const { return new TestData(v_); }
-};
-
-static const int DTYPE = 11;
-#define ID(n) DataDesc(DTYPE, n)
-
-TEST_CASE("DataStorage", "[ceammc::DataStorage]")
+TEST_CASE("XDataStorage", "[ceammc::XDataStorage]")
 {
     SECTION("")
     {
         REQUIRE(&DataStorage::instance() == &DataStorage::instance());
-        REQUIRE(DataStorage::instance().count() == 0);
-        REQUIRE(DataStorage::instance().get(DataDesc(0, 0)) == 0);
-        REQUIRE(DataStorage::instance().get(DataDesc(0, 1)) == 0);
-        REQUIRE(DataStorage::instance().get(DataDesc(1, 0)) == 0);
-        REQUIRE(DataStorage::instance().get(DataDesc(1, 1)) == 0);
-
-        REQUIRE(DataStorage::instance().generateId() == 1);
-
-        Data* p = (Data*)(0xBEEF);
-
-        REQUIRE(DataStorage::instance().count() == 0);
-        REQUIRE(DataStorage::instance().add(DataDesc(DTYPE, 1), p));
-        REQUIRE(DataStorage::instance().count() == 1);
-        REQUIRE(DataStorage::instance().get(ID(0)) == 0);
-        REQUIRE(DataStorage::instance().get(ID(1)) == p);
-        // already exists
-        REQUIRE(!DataStorage::instance().add(ID(1), p));
-        REQUIRE(DataStorage::instance().add(ID(2), p));
-        REQUIRE(DataStorage::instance().add(ID(3), p)); // 1 2 3
-        REQUIRE(DataStorage::instance().count() == 3);
-        REQUIRE(DataStorage::instance().generateId() == 4);
-        REQUIRE(!DataStorage::instance().remove(ID(1000)));
-        REQUIRE(DataStorage::instance().remove(ID(3))); // 1 2
-        REQUIRE(DataStorage::instance().add(ID(3), p));
-
-        REQUIRE(DataStorage::instance().remove(ID(2))); // 1 3
-        REQUIRE(DataStorage::instance().get(ID(2)) == 0);
-        REQUIRE(DataStorage::instance().count() == 2);
-        REQUIRE(DataStorage::instance().generateId() == 2);
+        REQUIRE(DataStorage::instance().size() == 0);
+        REQUIRE(DataStorage::instance().add(0) == INVALID);
+        REQUIRE(DataStorage::instance().refCount(INVALID) == 0);
+        REQUIRE(DataStorage::instance().acquire(INVALID) == 0);
     }
 
-    SECTION("errors") {
-        REQUIRE(DataStorage::instance().generateNewDesc(0) == DataDesc(0, 0));
+    SECTION("create simple")
+    {
+        IntData* data = new IntData(123);
+        DataPtr d(data);
+
+        REQUIRE(DataStorage::instance().size() == 1);
+        REQUIRE(DataStorage::instance().refCount(d.desc()) == 1);
+
+        // new pointer
+        DataPtr d2(d);
+        REQUIRE(DataStorage::instance().size() == 1);
+        REQUIRE(DataStorage::instance().refCount(d2.desc()) == 2);
+        REQUIRE(DataStorage::instance().acquire(d2.desc()) == data);
+
+        REQUIRE(DataStorage::instance().refCount(d.desc()) == 3);
+        DataStorage::instance().release(d2.desc());
+        REQUIRE(DataStorage::instance().refCount(d.desc()) == 2);
+
+        REQUIRE(d2->type() == d->type());
+        REQUIRE(d2->isEqual(d.data()));
+
+        REQUIRE(d2->as<IntData>() == data);
+        REQUIRE(d->as<IntData>()->value() == 123);
+        REQUIRE(d2->as<IntData>()->value() == 123);
+
+        REQUIRE(d2->as<StrData>() == 0);
+    }
+
+    SECTION("operator=")
+    {
+        REQUIRE(DataStorage::instance().size() == 0);
+        IntData* d0 = new IntData(1024);
+        StrData* d1 = new StrData("ABC");
+
+        DataPtr p0(d0);
+        DataPtr p1(d1);
+
+        REQUIRE(DataStorage::instance().size() == 2);
+
+        SECTION("copy")
+        {
+            DataPtr p2 = p1;
+            REQUIRE(p2.as<StrData>()->get() == "ABC");
+            REQUIRE(DataStorage::instance().refCount(p1.desc()) == 2);
+            REQUIRE(p2.refCount() == 2);
+            REQUIRE(p1.refCount() == 2);
+        }
+
+        REQUIRE(DataStorage::instance().refCount(p1.desc()) == 1);
+        REQUIRE(p1.refCount() == 1);
+
+        SECTION("operator=")
+        {
+            REQUIRE(p1.refCount() == 1);
+            REQUIRE(p0.refCount() == 1);
+            REQUIRE(p1.as<StrData>()->get() == "ABC");
+            REQUIRE(p1.as<IntData>() == 0);
+            REQUIRE(DataStorage::instance().size() == 2);
+
+            p1 = p0;
+
+            REQUIRE(DataStorage::instance().size() == 1);
+            REQUIRE(p1.refCount() == 2);
+            REQUIRE(p0.refCount() == 2);
+        }
     }
 }

@@ -21,12 +21,12 @@ using namespace ceammc;
 
 typedef TestExtension<StringStr> StringStrTest;
 
-#define REQUIRE_STRING_OUTPUT(t, str_)                            \
-    {                                                             \
-        REQUIRE_NEW_DATA_AT_OUTLET(0, t);                         \
-        DataTypeString* s = t.typedLastDataAt<DataTypeString>(0); \
-        REQUIRE(s != 0);                                          \
-        REQUIRE(s->str() == str_);                                \
+#define REQUIRE_STRING_OUTPUT(t, str_)                                  \
+    {                                                                   \
+        REQUIRE_NEW_DATA_AT_OUTLET(0, t);                               \
+        const DataTypeString* s = t.typedLastDataAt<DataTypeString>(0); \
+        REQUIRE(s != 0);                                                \
+        REQUIRE(s->str() == str_);                                      \
     }
 
 #define NO_DATA(t) REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
@@ -101,8 +101,8 @@ TEST_CASE("string.str", "[external]")
         WHEN_SEND_LIST_TO(0, t, L3(1, 2, 3));
         REQUIRE_STRING_OUTPUT(t, "1 2 3");
 
-        Data p(new DataTypeString("a b c"));
-        Atom a = p.toAtom();
+        DataPtr p(new DataTypeString("a b c"));
+        Atom a = p.asAtom();
 
         WHEN_SEND_LIST_TO(0, t, L3(1, a, 3));
         REQUIRE_STRING_OUTPUT(t, "1 a b c 3");
@@ -146,13 +146,13 @@ TEST_CASE("string.str", "[external]")
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_STRING_OUTPUT(t, "a b ???");
 
-        Data p(new DataTypeString("STRING"));
+        DataPtr p(new DataTypeString("STRING"));
 
-        WHEN_CALL_3(t, set, "a", "b", p.toAtom());
+        WHEN_CALL_3(t, set, "a", "b", p.asAtom());
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_STRING_OUTPUT(t, "a b STRING");
 
-        WHEN_CALL_4(t, set, "a", "b", p.toAtom(), p.toAtom());
+        WHEN_CALL_4(t, set, "a", "b", p.asAtom(), p.asAtom());
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_STRING_OUTPUT(t, "a b STRING STRING");
     }
@@ -185,8 +185,8 @@ TEST_CASE("string.str", "[external]")
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_STRING_OUTPUT(t, "10002000a b???");
 
-        Data p(new DataTypeString("STRING"));
-        WHEN_CALL_1(t, append, p.toAtom());
+        DataPtr p(new DataTypeString("STRING"));
+        WHEN_CALL_1(t, append, p.asAtom());
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_STRING_OUTPUT(t, "10002000a b???STRING");
     }

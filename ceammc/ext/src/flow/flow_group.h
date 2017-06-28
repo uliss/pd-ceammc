@@ -28,7 +28,7 @@ public:
     void onFloat(float v);
     void onSymbol(t_symbol* s);
     void onList(const AtomList& l);
-    void onData(const AbstractData* d);
+    void onData(const DataPtr& d);
 
     AtomList propFree() const;
 

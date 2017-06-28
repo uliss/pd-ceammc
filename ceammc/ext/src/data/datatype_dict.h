@@ -11,41 +11,25 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef CEAMMC_DATAATOM_H
-#define CEAMMC_DATAATOM_H
+#ifndef DATATYPE_DICT_H
+#define DATATYPE_DICT_H
 
-#include "ceammc_atom.h"
-#include "ceammc_data.h"
+#include "ceammc_abstractdata.h"
+
+#include <map>
 
 namespace ceammc {
-
-/**
- * @brief The DataAtom class - Atom that can contain Data pointer or simple Atom value
- */
-class DataAtom {
-    DataPtr data_;
-    Atom atom_;
+class DataTypeDict : public AbstractData {
+    typedef std::map<Atom, DataAtom> DictMap;
 
 public:
-    explicit DataAtom(const Atom& a);
-    explicit DataAtom(const DataPtr& d);
+    DataTypeDict();
+    DataTypeDict* clone() const;
+    DataType type() const;
 
-    DataAtom(const DataAtom& d);
-    DataAtom& operator=(const DataAtom& d);
-
-    void set(const Atom& a);
-    void set(const DataPtr& d);
-    Atom toAtom() const;
-    bool isAtom() const;
-    bool isData() const;
-
-    bool operator==(const DataAtom& d) const;
-    DataPtr data() const;
 public:
-    friend size_t hash_value(const DataAtom& d);
+    static const DataType dataType;
 };
-
-size_t hash_value(const DataAtom& d);
 }
 
-#endif // CEAMMC_DATAATOM_H
+#endif // DATATYPE_DICT_H

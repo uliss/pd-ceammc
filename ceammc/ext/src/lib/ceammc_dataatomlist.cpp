@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_dataatomlist.h"
+#include "ceammc_format.h"
 
 namespace ceammc {
 
@@ -25,7 +26,7 @@ DataAtomList::~DataAtomList()
 }
 
 DataAtomList::DataAtomList(const Atom& a)
-    : list_(1, new DataAtom(a))
+    : list_(1, DataAtom(a))
 {
 }
 
@@ -40,7 +41,7 @@ void DataAtomList::set(const AtomList& lst)
     list_.reserve(lst.size());
 
     for (size_t i = 0; i < lst.size(); i++)
-        list_.push_back(new DataAtom(lst[i]));
+        list_.push_back(DataAtom(lst[i]));
 }
 
 size_t DataAtomList::size() const
@@ -50,30 +51,27 @@ size_t DataAtomList::size() const
 
 const DataAtom& DataAtomList::operator[](size_t idx) const
 {
-    return *list_.at(idx);
+    return list_.at(idx);
 }
 
 DataAtom& DataAtomList::operator[](size_t idx)
 {
-    return *list_.at(idx);
+    return list_.at(idx);
 }
 
 void DataAtomList::clear()
 {
-    for (size_t i = 0; i < list_.size(); i++)
-        delete list_[i];
-
     list_.clear();
 }
 
 void DataAtomList::append(const Atom& a)
 {
-    list_.push_back(new DataAtom(a));
+    list_.push_back(DataAtom(a));
 }
 
-void DataAtomList::append(const AbstractData* d)
+void DataAtomList::append(const DataPtr& d)
 {
-    list_.push_back(new DataAtom(d));
+    list_.push_back(DataAtom(d));
 }
 
 AtomList DataAtomList::toList() const
@@ -82,7 +80,7 @@ AtomList DataAtomList::toList() const
     res.reserve(list_.size());
 
     for (size_t i = 0; i < list_.size(); i++)
-        res.append(list_[i]->toAtom());
+        res.append(list_[i].toAtom());
 
     return res;
 }
@@ -93,10 +91,22 @@ bool DataAtomList::operator==(const DataAtomList& l) const
         return false;
 
     for (size_t i = 0; i < size(); i++) {
-        if (!list_[i]->isEqual(l.list_[i]->toAtom()))
+        if (!(list_[i] == l.list_[i]))
             return false;
     }
 
     return true;
+}
+
+std::ostream& operator<<(std::ostream& os, const DataAtomList& l)
+{
+    for (size_t i = 0; i < l.size(); i++) {
+        if (i != 0)
+            os << " ";
+
+        os << to_string(l[i].toAtom());
+    }
+
+    return os;
 }
 }

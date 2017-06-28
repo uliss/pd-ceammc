@@ -81,12 +81,12 @@ void PathListDir::readDirList()
 
         if (match_ != 0) {
             if (platform::fnmatch(match_->s_name, p_dirent->d_name)) {
-                Data d(new DataTypeString(p_dirent->d_name));
-                ls_.append(d.toAtom());
+                DataPtr d(new DataTypeString(p_dirent->d_name));
+                ls_.append(d.asAtom());
             }
         } else {
-            Data d(new DataTypeString(p_dirent->d_name));
-            ls_.append(d.toAtom());
+            DataPtr d(new DataTypeString(p_dirent->d_name));
+            ls_.append(d.asAtom());
         }
     }
 
