@@ -30,6 +30,7 @@ public:
     DataTypeSet();
     DataTypeSet(const Atom& a);
     DataTypeSet(const AtomList& l);
+    DataTypeSet(const DataTypeSet& ds);
     ~DataTypeSet();
 
     /**
@@ -114,9 +115,6 @@ public:
      * @param s1 - second set
      */
     static void set_sym_difference(DataTypeSet& out, const DataTypeSet& s0, const DataTypeSet& s1);
-
-private:
-    DataTypeSet(const DataTypeSet& ds);
 };
 
 #endif // DATATYPE_SET_H
