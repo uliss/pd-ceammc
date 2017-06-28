@@ -20,13 +20,12 @@
 using namespace ceammc;
 
 class StringJoin : public BaseObject {
-    DataTypeString str_;
+    std::string str_;
     std::string sep_;
 
 public:
     StringJoin(const PdArgs& a);
     void onBang();
-    void onFloat(float f);
     void onSymbol(t_symbol* s);
     void onData(const DataPtr& d);
     void onList(const AtomList& l);

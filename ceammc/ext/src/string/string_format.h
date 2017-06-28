@@ -22,8 +22,7 @@ using namespace ceammc;
 class StringFormat : public BaseObject {
     AtomList fmt_atoms_;
     std::string fmt_str_;
-    DataTypeString* fmt_result_;
-    DataTPtr<DataTypeString> pfmt_result_;
+    std::string fmt_result_;
     FlagProperty* int_mode_;
 
 public:
