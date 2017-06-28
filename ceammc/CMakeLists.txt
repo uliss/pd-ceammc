@@ -1,4 +1,4 @@
-set(CEAMMC_LIB_VERSION "0.2")
+set(CEAMMC_LIB_VERSION "0.3")
 set(CEAMMC_LIB_HOME "https://github.com/uliss/pure-data")
 
 # we need 1.47.0 for boost random uniform distribution

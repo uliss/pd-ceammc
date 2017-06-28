@@ -1,10 +1,12 @@
 # CEAMMC external library changelog
 
 ## [Unreleased]
+
+## [0.3]
 ### Fixed:
 - array.phase->sample fix with lists argument
 - array.phase->sample clip phase to [0, 1] range
-- ui.spectroscope~ crash fix
+- ui.spectroscope~ crash fix and view improvements
 - noise.* fix on compat library
 
 ### Added:
