@@ -1,9 +1,6 @@
 include(faust)
 include(ceammc_pd.cmake)
 include(cppcheck.cmake)
-# we need 1.47.0 for boost random uniform distribution
-find_package(Boost 1.47.0 REQUIRED)
-include_directories(${Boost_INCLUDE_DIRS})
 
 if(WITH_COVERAGE)
     if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")

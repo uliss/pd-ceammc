@@ -1,6 +1,10 @@
 set(CEAMMC_LIB_VERSION "0.2")
 set(CEAMMC_LIB_HOME "https://github.com/uliss/pure-data")
 
+# we need 1.47.0 for boost random uniform distribution
+find_package(Boost 1.47.0 REQUIRED)
+include_directories(${Boost_INCLUDE_DIRS})
+
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/ceammc_config.h.in ${CMAKE_CURRENT_BINARY_DIR}/ceammc_config.h)
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
