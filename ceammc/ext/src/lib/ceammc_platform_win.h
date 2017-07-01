@@ -23,8 +23,10 @@ std::string win_dirname(const char* path);
 bool win_fnmatch(const char* pattern, const char* str);
 bool win_path_exists(const char* path);
 bool mb_to_wch(const char* str, wchar_t** res);
+bool wch_to_mb(const wchar_t* str, char** res);
 bool win_mkdir(const char* path, int flags = -1);
 bool win_rmdir(const char* path);
+std::string win_home_directory();
 }
 
 #endif // CEAMMC_PLATFORM_WIN_H

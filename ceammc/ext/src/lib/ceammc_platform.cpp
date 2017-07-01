@@ -131,5 +131,19 @@ namespace platform {
     {
         return NS(rmdir)(path);
     }
+
+    std::string home_directory()
+    {
+        return NS(home_directory)();
+    }
+
+    std::string expand_tilde_path(const std::string& path)
+    {
+        if (path.empty() || path[0] != '~')
+            return path;
+
+        std::string res(path);
+        return res.replace(0, 1, home_directory());
+    }
 }
 }

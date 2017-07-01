@@ -1,6 +1,7 @@
 #include "path_listdir.h"
 #include "../string/datatype_string.h"
 #include "ceammc_factory.h"
+#include "ceammc_format.h"
 #include "ceammc_platform.h"
 #include "config.h"
 
@@ -21,6 +22,9 @@ PathListDir::PathListDir(const PdArgs& a)
     createOutlet();
 
     createProperty(new PointerProperty<t_symbol*>("@match", &match_, false));
+
+    path_ = to_string(positionalArguments());
+    readDirList();
 }
 
 void PathListDir::onBang()
@@ -55,6 +59,9 @@ void PathListDir::m_match(t_symbol*, const AtomList& lst)
 
 void PathListDir::readDirList()
 {
+    if (path_.empty())
+        return;
+
     ls_.clear();
 
     std::string path = path_;

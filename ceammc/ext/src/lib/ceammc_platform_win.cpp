@@ -15,6 +15,7 @@
 
 #include <Shlwapi.h>
 #include <Stringapiset.h>
+#include <Userenv.h>
 #include <cstdlib>
 #include <cstring>
 #include <io.h>
@@ -136,5 +137,46 @@ bool win_rmdir(const char* path)
     int err = _wrmdir(wpath);
     free(wpath);
     return err == 0;
+}
+
+std::string win_home_directory()
+{
+    WCHAR buf[MAX_PATH] = { 0 };
+
+    // We need a process with query permission set
+    HANDLE token = 0;
+    if (!OpenProcessToken(GetCurrentProcess(), TOKEN_QUERY, &token))
+        return "";
+
+    // Returns a path like C:/Documents and Settings/nibu if my user name is nibu
+    DWORD buf_size = MAX_PATH;
+    GetUserProfileDirectoryW(token, buf, &buf_size);
+    CloseHandle(token);
+
+    char* path;
+    if (!wch_to_mb(buf, &path))
+        return "";
+
+    std::string home(path);
+    free(path);
+    return home;
+}
+
+bool wch_to_mb(const wchar_t* wstr, char** res)
+{
+    const int wstr_len = wcslen(wstr) + 1;
+    int str_len = WideCharToMultiByte(CP_ACP, 0, wstr, wstr_len, 0, 0, 0, 0);
+    if (str_len == 0)
+        return false;
+
+    char* str = static_cast<char*>(malloc(str_len));
+    int rc = WideCharToMultiByte(CP_ACP, 0, wstr, wstr_len, str, str_len, 0, 0);
+    if (!rc) {
+        free(str);
+        return false;
+    } else {
+        *res = str;
+        return true;
+    }
 }
 }

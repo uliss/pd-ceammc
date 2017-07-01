@@ -238,4 +238,31 @@ TEST_CASE("ceammc::platform", "[ceammc::lib]")
         ceammc::platform::rmdir("тест");
 #endif
     }
+
+    SECTION("home_directory")
+    {
+#ifdef __APPLE__
+        REQUIRE(ceammc::platform::home_directory().substr(0, 6) == "/Users");
+#endif
+
+#ifdef __WIN32
+        REQUIRE(ceammc::platform::home_directory().substr(0, 3) == "C:\\");
+#endif
+    }
+
+    SECTION("expand_tilde_path")
+    {
+        REQUIRE(ceammc::platform::expand_tilde_path("") == "");
+        REQUIRE(ceammc::platform::expand_tilde_path("/full/path") == "/full/path");
+        REQUIRE(ceammc::platform::expand_tilde_path("relative path") == "relative path");
+        REQUIRE(ceammc::platform::expand_tilde_path("./~") == "./~");
+
+#ifdef __APPLE__
+        REQUIRE(ceammc::platform::expand_tilde_path("~/").substr(0, 7) == "/Users/");
+#endif
+
+#ifdef __WIN32
+        REQUIRE(ceammc::platform::expand_tilde_path("~/").substr(0, 3) == "C:\\");
+#endif
+    }
 }

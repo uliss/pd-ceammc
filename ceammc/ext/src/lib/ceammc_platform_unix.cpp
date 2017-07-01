@@ -17,7 +17,9 @@
 #include <cstring>
 #include <fnmatch.h>
 #include <libgen.h>
+#include <pwd.h>
 #include <sys/stat.h>
+#include <sys/types.h>
 #include <unistd.h>
 
 bool ceammc::unix_is_path_relative(const char* path)
@@ -70,4 +72,15 @@ bool ceammc::unix_mkdir(const char* path, int flags)
 bool ceammc::unix_rmdir(const char* path)
 {
     return rmdir(path) == 0;
+}
+
+std::string ceammc::unix_home_directory()
+{
+    const char* homedir = 0;
+
+    if ((homedir = getenv("HOME")) == NULL) {
+        homedir = getpwuid(getuid())->pw_dir;
+    }
+
+    return homedir ? homedir : "";
 }

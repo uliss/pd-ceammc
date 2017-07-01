@@ -68,7 +68,7 @@ set_target_properties(ceammc_core PROPERTIES
     LINK_FLAGS    "${LIBCEAMMC_LINK_FLAGS}")
 
 if(WIN32)
-    target_link_libraries(ceammc_core psapi shlwapi msvcr100 puredata-core)
+    target_link_libraries(ceammc_core psapi shlwapi userenv msvcr100 puredata-core)
 
     # copy library to tests folder
     add_custom_command(TARGET ceammc_core POST_BUILD
