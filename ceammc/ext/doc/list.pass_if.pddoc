@@ -17,8 +17,8 @@
             </also>
         </meta>
         <info>
-            <par>Predicate object should accept atom and output 0 (leave element) or 1
-            (remove).</par>
+            <par>Predicate object should accept atom and output 0 (remove element) or 1
+            (leave element).</par>
         </info>
         <inlets>
             <inlet>
@@ -44,6 +44,20 @@
 [msg set]                     [msg set]
 |                             |
 [  (                          [  (
+
+[B]
+|
+[path.ls .]
+|
+[list.pass_if] X [str.ends_with .pd]
+|
+[str.join ' ']
+|
+[str->sym]
+|
+[msg set]
+|
+[ (
 ]]>
             </pdascii>
         </example>
