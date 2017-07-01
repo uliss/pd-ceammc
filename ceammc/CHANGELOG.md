@@ -50,6 +50,7 @@
 - list.rotate alias added [list.<<]
 - list.histogram added
 - list.enumerate added
+- list.pass_if added for list filtration
 
 ### Changed:
 - pass.if renamed to flow.pass_if (with pass_if alias)

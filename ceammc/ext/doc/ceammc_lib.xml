@@ -353,6 +353,9 @@
     <entry descr="normalizes float list values to get their sum = 1.0" name="list.normalize" ref_view="object">
       <xi:include href="list.normalize.pddoc" parse="xml"/>
     </entry>
+    <entry descr="leave only elements accepted by predicate" name="list.pass_if" ref_view="object">
+      <xi:include href="list.pass_if.pddoc" parse="xml"/>
+    </entry>
     <entry descr="calculates product of floats in list" name="list.product" ref_view="object">
       <xi:include href="list.product.pddoc" parse="xml"/>
     </entry>

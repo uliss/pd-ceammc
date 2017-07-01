@@ -135,6 +135,7 @@ list.mean
 list.min
 list.none_of
 list.normalize
+list.pass_if
 list.product
 list.range
 list.reduce
@@ -144,6 +145,8 @@ list.repeat
 list.resize
 list.reverse
 list.rotate
+list.sep
+list.separate
 list.seq
 list.shift
 list.shuffle

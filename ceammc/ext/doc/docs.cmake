@@ -110,6 +110,7 @@ set(DOC_FILES
     list.min
     list.none_of
     list.normalize
+    list.pass_if
     list.product
     list.range
     list.reduce

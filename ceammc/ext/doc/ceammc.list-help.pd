@@ -63,54 +63,56 @@ list2-2 etc.).;
 #X text 175 811 checks if none of list atoms is accepted by predicate;
 #X obj 30 838 list.normalize;
 #X text 175 838 normalizes float list values to get their sum = 1.0;
-#X obj 30 865 list.product;
-#X text 175 865 calculates product of floats in list;
-#X obj 30 892 list.range;
-#X text 175 892 returns list smallest and largest value;
-#X obj 30 919 list.reduce;
-#X text 175 919 apply function of two arguments cumulatively to the
+#X obj 30 865 list.pass_if;
+#X text 175 865 leave only elements accepted by predicate;
+#X obj 30 892 list.product;
+#X text 175 892 calculates product of floats in list;
+#X obj 30 919 list.range;
+#X text 175 919 returns list smallest and largest value;
+#X obj 30 946 list.reduce;
+#X text 175 946 apply function of two arguments cumulatively to the
 list;
-#X obj 30 946 list.remove_if;
-#X text 175 946 remove elements by predicate;
-#X obj 30 973 list.repack;
-#X text 175 973 repack input list to specified size;
-#X obj 30 1000 list.repeat;
-#X text 175 1000 creates new list by repeating given list specified
+#X obj 30 973 list.remove_if;
+#X text 175 973 remove elements by predicate;
+#X obj 30 1000 list.repack;
+#X text 175 1000 repack input list to specified size;
+#X obj 30 1027 list.repeat;
+#X text 175 1027 creates new list by repeating given list specified
 times;
-#X obj 30 1027 list.resize;
-#X text 175 1027 changes list size;
-#X obj 30 1054 list.reverse;
-#X text 175 1054 reverses the order of the elements in the list;
-#X obj 30 1081 list.rotate;
-#X text 175 1081 rotates list left;
-#X obj 30 1108 list.separate;
-#X text 175 1108 sends list elements one by one separately;
-#X obj 30 1135 list.seq;
-#X text 175 1135 numeric sequence list generator;
-#X obj 30 1162 list.shuffle;
-#X text 175 1162 randomly rearranges elements in list;
-#X obj 30 1189 list.slice;
-#X text 175 1189 extract sublist;
-#X obj 30 1216 list.sort;
-#X text 175 1216 sorts list values by ascending order;
-#X obj 30 1243 list.sort_with;
-#X text 175 1243 sort list with user defined side-chain;
-#X obj 30 1270 list.sum;
-#X text 175 1270 calculates sum of floats in list;
-#X obj 30 1297 list.unique;
-#X text 175 1297 sorts and removes duplicates from input list;
-#X obj 30 1324 list.unpack;
-#X text 175 1324 unpack list elements to separate outlets;
-#X obj 30 1351 list.unwrap;
-#X text 175 1351 gets list element on first input and list with count
+#X obj 30 1054 list.resize;
+#X text 175 1054 changes list size;
+#X obj 30 1081 list.reverse;
+#X text 175 1081 reverses the order of the elements in the list;
+#X obj 30 1108 list.rotate;
+#X text 175 1108 rotates list left;
+#X obj 30 1135 list.separate;
+#X text 175 1135 sends list elements one by one separately;
+#X obj 30 1162 list.seq;
+#X text 175 1162 numeric sequence list generator;
+#X obj 30 1189 list.shuffle;
+#X text 175 1189 randomly rearranges elements in list;
+#X obj 30 1216 list.slice;
+#X text 175 1216 extract sublist;
+#X obj 30 1243 list.sort;
+#X text 175 1243 sorts list values by ascending order;
+#X obj 30 1270 list.sort_with;
+#X text 175 1270 sort list with user defined side-chain;
+#X obj 30 1297 list.sum;
+#X text 175 1297 calculates sum of floats in list;
+#X obj 30 1324 list.unique;
+#X text 175 1324 sorts and removes duplicates from input list;
+#X obj 30 1351 list.unpack;
+#X text 175 1351 unpack list elements to separate outlets;
+#X obj 30 1378 list.unwrap;
+#X text 175 1378 gets list element on first input and list with count
 of each element on a second inlet.;
-#X obj 30 1388 list.walk;
-#X text 175 1388 Walks thru the list;
-#X obj 30 1415 list.wrap;
-#X text 175 1415 filters repeated elements of the list and outputs
+#X obj 30 1415 list.walk;
+#X text 175 1415 Walks thru the list;
+#X obj 30 1442 list.wrap;
+#X text 175 1442 filters repeated elements of the list and outputs
 unique elements on first outlet \, outputs the count of elements on
 second.;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::list 20 20 0 20 -104026
 -4096 0;
-#X obj 1 1466 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 1476 library: ceammc;
+#X obj 1 1493 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 1503 library: ceammc;

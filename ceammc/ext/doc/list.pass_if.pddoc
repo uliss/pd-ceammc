@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="list.remove_if">
-        <title>list.remove_if</title>
+    <object name="list.pass_if">
+        <title>list.pass_if</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>remove elements by predicate</description>
+            <description>leave only elements accepted by predicate</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>list</category>
-            <keywords>list remove predicate</keywords>
-            <since>0.1</since>
+            <keywords>list pass accept leave predicate</keywords>
+            <since>0.3</since>
             <also>
-                <see>list.count_if</see>
-                <see>list.pass_if</see>
+                <see>list.remove_if</see>
             </also>
         </meta>
         <info>
@@ -30,7 +29,7 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output list with some removed elements</outlet>
+            <outlet>output list with accepted elements</outlet>
             <outlet>atom to predicate</outlet>
         </outlets>
         <example>
@@ -40,7 +39,7 @@
 |                             |
 [list.seq]                    [list.seq]
 |                             |
-[list.remove_if] X [is_odd]   [list.remove_if] X [> 5]
+[list.pass_if] X [is_odd]     [list.pass_if] X [> 5]
 |                             |
 [msg set]                     [msg set]
 |                             |
