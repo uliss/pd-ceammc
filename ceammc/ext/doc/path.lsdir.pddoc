@@ -16,6 +16,9 @@
                 <alias>path.ls</alias>
             </aliases>
         </meta>
+        <arguments>
+            <argument type="symbol" name="PATH">init directory value</argument>
+        </arguments>
         <properties>
             <property name="@match" type="symbol">match mask: for example *.wav for all wav
             files</property>
@@ -33,16 +36,17 @@
         <example>
             <pdascii>
 <![CDATA[
-[symbol .( [symbol /(
-|          |
-|          |
-[path.lsdir]
-|
-[str.join ' ']
-|
-[str->sym]
-|
-|  [ (
+[symbol .( [symbol /(     [B]
+|          |              |
+|  [B]     |              [path.lsdir ~ @match *.aiff]
+|  |       |              |
+[path.lsdir ~]            [str.join ' ']
+|                         |
+[str.join ' ']            [str->sym]
+|                         |
+[str->sym]                [msg set]
+|                         |
+|  [ (                    [ (
 |  |
 [msg set]
 |

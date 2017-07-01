@@ -69,6 +69,20 @@ TEST_CASE("path.lsdir", "[externals]")
             WHEN_SEND_SYMBOL_TO(0, t, TEST_DATA_DIR "non-exists");
             REQUIRE_LIST_AT_OUTLET(0, t, AtomList());
         }
+
+        SECTION("properties")
+        {
+            ListDirTest t("path.ls", L3(".", "@match", "*.mp3"));
+            REQUIRE_PROPERTY(t, @match, A("*.mp3"));
+
+            WHEN_SEND_BANG_TO(0, t);
+            REQUIRE_LIST_AT_OUTLET(0, t, AtomList());
+
+            WHEN_SEND_SYMBOL_TO(0, t, TEST_DATA_DIR);
+            REQUIRE(t.hasNewMessages(0));
+            REQUIRE(t.lastMessage(0).isList());
+            REQUIRE(to_string(t.lastMessage(0).listValue()) == "test_data0.mp3 test_data0_vbr.mp3");
+        }
     }
 
     SECTION("test errors")

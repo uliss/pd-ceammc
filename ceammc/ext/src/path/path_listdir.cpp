@@ -24,25 +24,23 @@ PathListDir::PathListDir(const PdArgs& a)
     createProperty(new PointerProperty<t_symbol*>("@match", &match_, false));
 
     path_ = to_string(positionalArguments());
-    readDirList();
 }
 
 void PathListDir::onBang()
 {
+    readDirList();
     listTo(0, ls_.toList());
 }
 
 void PathListDir::onSymbol(t_symbol* path)
 {
     path_ = path->s_name;
-    readDirList();
     onBang();
 }
 
 void PathListDir::onDataT(const DataTypeString& s)
 {
     path_ = s.str();
-    readDirList();
     onBang();
 }
 
@@ -64,7 +62,7 @@ void PathListDir::readDirList()
 
     ls_.clear();
 
-    std::string path = path_;
+    std::string path = platform::expand_tilde_path(path_);
 
     if (!sys_isabsolutepath(path.c_str())) {
         if (cnv_) {
