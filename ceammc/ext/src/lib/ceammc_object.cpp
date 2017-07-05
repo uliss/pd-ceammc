@@ -262,6 +262,16 @@ AtomList BaseObject::listAllProps() const
     return res;
 }
 
+void BaseObject::appendInlet(t_inlet* in)
+{
+    inlets_.push_back(in);
+}
+
+void BaseObject::appendOutlet(t_outlet* out)
+{
+    outlets_.push_back(out);
+}
+
 void BaseObject::extractPositionalArguments()
 {
     int idx = pd_.args.findPos(isProperty);
@@ -271,9 +281,9 @@ void BaseObject::extractPositionalArguments()
     positional_args_ = pd_.args.slice(0, idx);
 }
 
-t_outlet* BaseObject::createOutlet(bool signal)
+t_outlet* BaseObject::createOutlet()
 {
-    t_outlet* out = outlet_new(pd_.owner, signal ? &s_signal : &s_anything);
+    t_outlet* out = outlet_new(pd_.owner, &s_list);
     outlets_.push_back(out);
     return out;
 }
@@ -586,5 +596,54 @@ t_symbol* BaseObject::tryGetPropKey(t_symbol* sel)
     }
 
     return res;
+}
+
+SoundExternal::SoundExternal(const PdArgs& a)
+    : BaseObject(a)
+    , block_size_(0)
+    , n_in_(1)
+    , n_out_(0)
+{
+}
+
+void SoundExternal::setupDSP(t_signal** sp)
+{
+    OBJ_DBG << "setup DSP";
+    block_size_ = size_t(sp[0]->s_n);
+    sample_rate_ = size_t(sp[0]->s_sr);
+
+    dsp_add(dspPerform, 1, static_cast<void*>(this));
+
+    for (size_t i = 0; i < n_in_; i++)
+        in_[i] = sp[i]->s_vec;
+
+    for (size_t i = 0; i < n_out_; i++)
+        out_[i] = sp[i + n_in_]->s_vec;
+}
+
+t_inlet* SoundExternal::createSignalInlet()
+{
+    if (n_in_ == MAX_SIG_NUM) {
+        OBJ_ERR << "too many inlets: " << n_in_;
+        return 0;
+    }
+
+    t_inlet* in = inlet_new(owner(), &owner()->ob_pd, &s_signal, &s_signal);
+    appendInlet(in);
+    n_in_++;
+    return in;
+}
+
+t_outlet* SoundExternal::createSignalOutlet()
+{
+    if (n_out_ == MAX_SIG_NUM) {
+        OBJ_ERR << "too many outlets: " << n_out_;
+        return 0;
+    }
+
+    t_outlet* out = outlet_new(owner(), &s_signal);
+    appendOutlet(out);
+    n_out_++;
+    return out;
 }
 }

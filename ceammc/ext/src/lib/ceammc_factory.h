@@ -34,6 +34,7 @@ template <typename T>
 struct PdObject {
     t_object pd_obj;
     T* impl;
+    t_sample f;
 };
 
 template <typename T>
@@ -265,6 +266,8 @@ public:
         (x->impl->*(it->second))(sel, AtomList(argc, argv));
     }
 
+    static t_class* classPointer() { return class_; }
+
 private:
     static void defaultFloatToList(ObjectProxy* x, t_floatarg f)
     {
@@ -288,6 +291,24 @@ private:
     PdSymbolFunction fn_symbol_;
     PdListFunction fn_list_;
     PdAnyFunction fn_any_;
+};
+
+template <typename T>
+class SoundExternalFactory : public ObjectFactory<T> {
+public:
+    SoundExternalFactory(const char* name)
+        : ObjectFactory<T>(name)
+    {
+        class_addmethod(SoundExternalFactory::classPointer(),
+            reinterpret_cast<t_method>(setupDSP), gensym("dsp"), A_NULL);
+        CLASS_MAINSIGNALIN(SoundExternalFactory::classPointer(),
+            typename SoundExternalFactory::ObjectProxy, f);
+    }
+
+    static void setupDSP(typename SoundExternalFactory::ObjectProxy* x, t_signal** sp)
+    {
+        x->impl->setupDSP(sp);
+    }
 };
 
 template <typename T>
