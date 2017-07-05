@@ -17,7 +17,7 @@ Key concepts
    - Inclusion of some modern techniques. Library v0.1 includes comprehensive set of objects that work with lists and include some concepts from functional programming.
 
 
-Features: v0.2
+Features: v0.3
 --------------
 
  * Core objects:
@@ -30,6 +30,11 @@ Features: v0.2
    - flow control: pass, reject objects; predicates objects
    - random number generators
    - property concept: non-UI objects may have properties that can be accessed after object creation. This includes special message and prop.get object for handling
+   - custom data types:
+   - 'String' data type. string.\* objects for common string manipulation functionality
+   - 'Set' data type. data.set, set.\* objects to work with sets - unordered lists. conversion to list.
+   - function.call and [function] objects - working with named functions in Pd
+   - array.do, array.each - apply the function to each element of an array
  * Audio objects:
    - dynamics: compressor, limiter, soft clip
    - envelope generators (ar, adsr) and follower
@@ -49,16 +54,13 @@ Features: v0.2
    - Multiple undo (beta)
    - Grid / Align to grid (beta)
 
+see ceammc/CHANGELOG.md for more details
 
-Roadmap v0.3+:
+Roadmap v0.4+:
 -------------
 
  * Core objects:
-   - custom data types:
-   - 'String' data type. string.\* objects for common string manipulation functionality
-   - 'Set' data type. data.set, set.\* objects to work with sets - unordered lists. conversion to list.
-   - function.call and [function] objects - working with named functions in Pd
-   - array.do, array.each - apply the function to each element of an array
+   
    - math.\* - add functions with multiple arguments
  * GUI
    - new completely rewritten Qt-based GUI with MVC architecture
