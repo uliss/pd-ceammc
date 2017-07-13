@@ -8,7 +8,6 @@ ceammc_misc_extension(live capture)
 
 find_package(MikMod)
 if(MIKMOD_FOUND)
-    add_definitions(-DMIKMOD_FOUND)
     include_directories(${MIKMOD_INCLUDES})
     ceammc_misc_extension(misc mikmod)
 endif()
