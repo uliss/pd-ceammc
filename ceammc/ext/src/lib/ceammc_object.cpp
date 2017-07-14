@@ -608,7 +608,6 @@ SoundExternal::SoundExternal(const PdArgs& a)
 
 void SoundExternal::setupDSP(t_signal** sp)
 {
-    OBJ_DBG << "setup DSP";
     block_size_ = size_t(sp[0]->s_n);
     sample_rate_ = size_t(sp[0]->s_sr);
 
