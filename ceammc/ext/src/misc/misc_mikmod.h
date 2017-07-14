@@ -33,6 +33,8 @@ public:
 
     void m_play(t_symbol*, const AtomList&);
     void m_stop(t_symbol*, const AtomList&);
+    void m_pause(t_symbol*, const AtomList&);
+    void m_seek(t_symbol*, const AtomList& pos);
 
 private:
     void load();

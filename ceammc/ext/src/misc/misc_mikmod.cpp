@@ -41,27 +41,33 @@ void ModPlug::onSymbol(t_symbol* s)
 void ModPlug::processBlock(const t_sample** /*in*/, t_sample** out)
 {
     const size_t BS = blockSize();
-    //    md_mixfreq = sample_rate_;
 
-    if (!play_)
+    if (!play_) {
+        for (size_t i = 0; i < BS; i++) {
+            out[0][i] = 0.f;
+            out[1][i] = 0.f;
+        }
         return;
+    }
 
-    char buf[BS * 2];
-    if (ModPlug_Read(file_, &buf, BS * 2) <= 0) {
+    int32_t buf[BS * 2];
+    if (ModPlug_Read(file_, &buf, BS * 2 * sizeof(int32_t)) <= 0) {
         play_ = false;
+        ModPlug_Seek(file_, 0);
         return;
     }
 
     for (size_t i = 0; i < BS; i++) {
-        out[0][i] = (buf[i * 2] - 127.f) / 255.f;
-        out[1][i] = (buf[i * 2 + 1] - 127.f) / 255.f;
+        double norm = std::numeric_limits<int32_t>::max();
+        out[0][i] = buf[i * 2] / norm;
+        out[1][i] = buf[i * 2 + 1] / norm;
     }
 }
 
 void ModPlug::m_play(t_symbol*, const AtomList&)
 {
     if (!file_) {
-        OBJ_ERR << "file not loaded";
+        OBJ_ERR << "file is not loaded";
         return;
     }
 
@@ -71,13 +77,46 @@ void ModPlug::m_play(t_symbol*, const AtomList&)
 
 void ModPlug::m_stop(t_symbol*, const AtomList&)
 {
+    if (!file_) {
+        OBJ_ERR << "file is not loaded";
+        return;
+    }
+
     if (!play_) {
         OBJ_ERR << "already stopped";
         return;
     }
 
+    ModPlug_Seek(file_, 0);
     play_ = false;
     OBJ_DBG << "stop";
+}
+
+void ModPlug::m_pause(t_symbol*, const AtomList&)
+{
+    play_ = false;
+    OBJ_DBG << "pause";
+}
+
+void ModPlug::m_seek(t_symbol*, const AtomList& pos)
+{
+    if (!file_) {
+        OBJ_ERR << "file is not loaded";
+        return;
+    }
+
+    if (!checkArgs(pos, ARG_FLOAT)) {
+        OBJ_ERR << "time position in ms expected: " << pos;
+        return;
+    }
+
+    int off = pos.at(0).asInt();
+    if (off < 0) {
+        OBJ_ERR << "position should be positive" << off;
+        return;
+    }
+
+    ModPlug_Seek(file_, off);
 }
 
 void ModPlug::load()
@@ -129,7 +168,7 @@ extern "C" void setup_misc0x2emikmod_tilde()
         | MODPLUG_ENABLE_NOISE_REDUCTION;
 
     s.mChannels = 2;
-    s.mBits = 8;
+    s.mBits = 32;
     s.mFrequency = 44100;
     s.mResamplingMode = MODPLUG_RESAMPLE_LINEAR;
     s.mStereoSeparation = 1;
@@ -141,4 +180,6 @@ extern "C" void setup_misc0x2emikmod_tilde()
     SoundExternalFactory<ModPlug> obj("modplug~");
     obj.addMethod("play", &ModPlug::m_play);
     obj.addMethod("stop", &ModPlug::m_stop);
+    obj.addMethod("pause", &ModPlug::m_pause);
+    obj.addMethod("seek", &ModPlug::m_seek);
 }
