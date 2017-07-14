@@ -40,6 +40,7 @@ set(DOC_FILES
     flow.reject_if
     flow.split
     flow.sync
+    flow.tee~
     flt.biquad~
     flt.bpf12~
     flt.bpf24~

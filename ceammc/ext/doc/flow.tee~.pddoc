@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flow.tee~">
+        <title>flow.tee~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>separate audio and control streams</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>flow</category>
+            <keywords>flow tee separate</keywords>
+            <since>0.4</since>
+        </meta>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>mixed stream</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">audio stream</outlet>
+            <outlet>control stream</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[osc~ 440]
+|
+| [B] [symbol A( [list 1 2 3( [@p 1(
+| |   |          |            |
+[flow.tee~                    ]
+|        ^|
+[*~ 0.1]  [msg set]
+|         |
+[dac~ 1]  [ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
