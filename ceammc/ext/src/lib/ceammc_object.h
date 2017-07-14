@@ -259,7 +259,7 @@ private:
 
 public:
     SoundExternal(const PdArgs& a);
-    void setupDSP(t_signal** sp);
+    virtual void setupDSP(t_signal** sp);
 
     t_inlet* createSignalInlet();
     t_outlet* createSignalOutlet();

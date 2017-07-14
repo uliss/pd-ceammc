@@ -24,21 +24,37 @@ class ModPlug : public SoundExternal {
     t_symbol* path_;
     ModPlugFile* file_;
     bool play_;
+    PointerProperty<bool>* play_prop_;
+    float pos_;
+    t_symbol* func_on_end_;
 
 public:
     ModPlug(const PdArgs& a);
     ~ModPlug();
     void onSymbol(t_symbol* s);
     void processBlock(const t_sample**, t_sample** out);
+    void setupDSP(t_signal** sp);
 
     void m_play(t_symbol*, const AtomList&);
     void m_stop(t_symbol*, const AtomList&);
     void m_pause(t_symbol*, const AtomList&);
-    void m_seek(t_symbol*, const AtomList& pos);
+
+    AtomList p_pos() const;
+    void p_set_pos(const AtomList& pos);
+    AtomList p_name() const;
+    AtomList p_len() const;
+
+    AtomList p_rel_pos() const;
+    void p_set_rel_pos(const AtomList& pos);
+
+    AtomList p_on_end() const;
+    void p_set_on_end(const AtomList& fn);
 
 private:
     void load();
     void unload();
+
+    bool isOpened() const;
 };
 
 extern "C" void setup_misc0x2emikmod_tilde();

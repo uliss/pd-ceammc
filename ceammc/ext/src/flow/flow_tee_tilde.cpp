@@ -65,4 +65,5 @@ extern "C" void setup_flow0x2etee_tilde()
 {
     SoundExternalFactory<FlowTeeTilde> obj("flow.tee~");
     obj.addAlias("tee~");
+    obj.addAlias("~->");
 }

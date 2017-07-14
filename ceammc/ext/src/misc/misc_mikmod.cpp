@@ -12,19 +12,34 @@
  * this file belongs to.
  *****************************************************************************/
 #include "misc_mikmod.h"
+#include "../base/function.h"
 #include "ceammc_factory.h"
 
+#include <cmath>
 #include <fstream>
 #include <limits>
+
+static t_symbol* SNULL = gensym("");
 
 ModPlug::ModPlug(const PdArgs& a)
     : SoundExternal(a)
     , path_(gensym(""))
     , file_(0)
     , play_(false)
+    , play_prop_(0)
+    , pos_(0)
+    , func_on_end_(SNULL)
 {
     createSignalOutlet();
     createSignalOutlet();
+
+    play_prop_ = new PointerProperty<bool>("@play", &play_);
+    createProperty(play_prop_);
+    createCbProperty("@pos", &ModPlug::p_pos, &ModPlug::p_set_pos);
+    createCbProperty("@rpos", &ModPlug::p_rel_pos, &ModPlug::p_set_rel_pos);
+    createCbProperty("@len", &ModPlug::p_len);
+    createCbProperty("@name", &ModPlug::p_name);
+    createCbProperty("@on_end", &ModPlug::p_on_end, &ModPlug::p_set_on_end);
 }
 
 ModPlug::~ModPlug()
@@ -50,18 +65,43 @@ void ModPlug::processBlock(const t_sample** /*in*/, t_sample** out)
         return;
     }
 
+    // stereo buffer
     int32_t buf[BS * 2];
     if (ModPlug_Read(file_, &buf, BS * 2 * sizeof(int32_t)) <= 0) {
         play_ = false;
         ModPlug_Seek(file_, 0);
+        pos_ = 0;
+
+        if (func_on_end_ != SNULL) {
+            Function* f = Function::function(func_on_end_);
+            if (!f) {
+                OBJ_ERR << "function is not found: " << func_on_end_->s_name;
+            } else {
+                f->onBang();
+            }
+        }
+
         return;
     }
+
+    // pos in milliseconds
+    pos_ += (float(BS) / sys_getsr()) * 1000.f;
 
     for (size_t i = 0; i < BS; i++) {
         double norm = std::numeric_limits<int32_t>::max();
         out[0][i] = buf[i * 2] / norm;
         out[1][i] = buf[i * 2 + 1] / norm;
     }
+}
+
+void ModPlug::setupDSP(t_signal** sp)
+{
+    SoundExternal::setupDSP(sp);
+
+    ModPlug_Settings s;
+    ModPlug_GetSettings(&s);
+    s.mFrequency = static_cast<int>(sys_getsr());
+    ModPlug_SetSettings(&s);
 }
 
 void ModPlug::m_play(t_symbol*, const AtomList&)
@@ -89,6 +129,7 @@ void ModPlug::m_stop(t_symbol*, const AtomList&)
 
     ModPlug_Seek(file_, 0);
     play_ = false;
+    pos_ = 0;
     OBJ_DBG << "stop";
 }
 
@@ -98,12 +139,58 @@ void ModPlug::m_pause(t_symbol*, const AtomList&)
     OBJ_DBG << "pause";
 }
 
-void ModPlug::m_seek(t_symbol*, const AtomList& pos)
+AtomList ModPlug::p_rel_pos() const
 {
-    if (!file_) {
-        OBJ_ERR << "file is not loaded";
+    if (!isOpened())
+        return AtomList();
+
+    float len = ModPlug_GetLength(file_);
+    return Atom(pos_ / len);
+}
+
+void ModPlug::p_set_rel_pos(const AtomList& pos)
+{
+    if (!isOpened())
+        return;
+
+    if (!checkArgs(pos, ARG_FLOAT)) {
+        OBJ_ERR << "position in range [0-1] expexted: " << pos;
         return;
     }
+
+    float p = pos[0].asFloat();
+    if (0 <= p && p <= 1) {
+        float len = ModPlug_GetLength(file_);
+        int off = static_cast<int>(roundf(p * len));
+        ModPlug_Seek(file_, off);
+        pos_ = off;
+    } else {
+        OBJ_ERR << "position in range [0-1] expexted: " << p;
+    }
+}
+
+AtomList ModPlug::p_on_end() const
+{
+    return Atom(func_on_end_);
+}
+
+void ModPlug::p_set_on_end(const AtomList& fn)
+{
+    if (!checkArgs(fn, ARG_SYMBOL)) {
+        OBJ_ERR << "function name expected: " << fn;
+        return;
+    }
+
+    func_on_end_ = fn[0].asSymbol();
+    if (Function::function(func_on_end_) == 0) {
+        OBJ_ERR << "function not exists: " << fn;
+    }
+}
+
+void ModPlug::p_set_pos(const AtomList& pos)
+{
+    if (!isOpened())
+        return;
 
     if (!checkArgs(pos, ARG_FLOAT)) {
         OBJ_ERR << "time position in ms expected: " << pos;
@@ -117,12 +204,35 @@ void ModPlug::m_seek(t_symbol*, const AtomList& pos)
     }
 
     ModPlug_Seek(file_, off);
+    pos_ = off;
+}
+
+AtomList ModPlug::p_pos() const
+{
+    if (!isOpened())
+        return AtomList(-1);
+
+    return AtomList(pos_);
+}
+
+AtomList ModPlug::p_name() const
+{
+    if (!isOpened())
+        return AtomList();
+
+    return AtomList(gensym(ModPlug_GetName(file_)));
+}
+
+AtomList ModPlug::p_len() const
+{
+    if (!isOpened())
+        return AtomList(0.f);
+
+    return AtomList(ModPlug_GetLength(file_));
 }
 
 void ModPlug::load()
 {
-    OBJ_DBG << "load";
-
     if (!file_)
         unload();
 
@@ -161,6 +271,16 @@ void ModPlug::unload()
     file_ = 0;
 }
 
+bool ModPlug::isOpened() const
+{
+    if (!file_) {
+        OBJ_ERR << "file is not loaded";
+        return false;
+    }
+
+    return true;
+}
+
 extern "C" void setup_misc0x2emikmod_tilde()
 {
     ModPlug_Settings s;
@@ -169,7 +289,7 @@ extern "C" void setup_misc0x2emikmod_tilde()
 
     s.mChannels = 2;
     s.mBits = 32;
-    s.mFrequency = 44100;
+    s.mFrequency = sys_getsr() ? sys_getsr() : 44100;
     s.mResamplingMode = MODPLUG_RESAMPLE_LINEAR;
     s.mStereoSeparation = 1;
     s.mMaxMixChannels = 128;
@@ -181,5 +301,4 @@ extern "C" void setup_misc0x2emikmod_tilde()
     obj.addMethod("play", &ModPlug::m_play);
     obj.addMethod("stop", &ModPlug::m_stop);
     obj.addMethod("pause", &ModPlug::m_pause);
-    obj.addMethod("seek", &ModPlug::m_seek);
 }
