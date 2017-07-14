@@ -14,6 +14,7 @@ ceammc_flow_extension(reject)
 ceammc_flow_extension(reject_if)
 ceammc_flow_extension(split)
 ceammc_flow_extension(sync)
+ceammc_flow_extension(tee_tilde)
 
 add_library(ceammc_flow STATIC mod_flow.h mod_flow.cpp ${FLOW_SOURCES})
 if(UNIX)
