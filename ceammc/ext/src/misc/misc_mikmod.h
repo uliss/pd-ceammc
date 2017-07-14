@@ -57,6 +57,6 @@ private:
     bool isOpened() const;
 };
 
-extern "C" void setup_misc0x2emikmod_tilde();
+extern "C" void setup_misc0x2emodplug_tilde();
 
 #endif // MISC_MIKMOD_H

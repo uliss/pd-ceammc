@@ -281,7 +281,7 @@ bool ModPlug::isOpened() const
     return true;
 }
 
-extern "C" void setup_misc0x2emikmod_tilde()
+extern "C" void setup_misc0x2emodplug_tilde()
 {
     ModPlug_Settings s;
     s.mFlags = MODPLUG_ENABLE_OVERSAMPLING
