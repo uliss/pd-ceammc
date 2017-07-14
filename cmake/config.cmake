@@ -17,9 +17,9 @@ check_include_files(fnmatch.h HAVE_FNMATCH_H)
 check_function_exists(nanosleep HAVE_NANOSLEEP)
 check_function_exists(setenv HAVE_SETENV)
 
-find_package(MikMod)
-if(MIKMOD_FOUND)
-    set(HAVE_MIKMOD ON)
+find_package(ModPlug)
+if(MODPLUG_FOUND)
+    set(CEAMMC_HAVE_MODPLUG ON)
 endif()
 
 configure_file(${PROJECT_SOURCE_DIR}/config.h.in ${PROJECT_BINARY_DIR}/config.h)

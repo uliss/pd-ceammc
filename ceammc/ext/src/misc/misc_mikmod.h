@@ -16,22 +16,27 @@
 
 #include "ceammc_object.h"
 
-#include <mikmod.h>
+#include <libmodplug/modplug.h>
 
 using namespace ceammc;
 
-class MikMod : public SoundExternal {
+class ModPlug : public SoundExternal {
     t_symbol* path_;
-    MODULE* module_;
+    ModPlugFile* file_;
+    bool play_;
 
 public:
-    MikMod(const PdArgs& a);
-    ~MikMod();
+    ModPlug(const PdArgs& a);
+    ~ModPlug();
     void onSymbol(t_symbol* s);
-    void processBlock(const t_sample** in, t_sample** out);
+    void processBlock(const t_sample**, t_sample** out);
 
     void m_play(t_symbol*, const AtomList&);
     void m_stop(t_symbol*, const AtomList&);
+
+private:
+    void load();
+    void unload();
 };
 
 extern "C" void setup_misc0x2emikmod_tilde();

@@ -6,9 +6,9 @@ endmacro()
 
 ceammc_misc_extension(live capture)
 
-find_package(MikMod)
-if(MIKMOD_FOUND)
-    include_directories(${MIKMOD_INCLUDES})
+find_package(ModPlug)
+if(MODPLUG_FOUND)
+    include_directories(${MODPLUG_FOUND_INCLUDES})
     ceammc_misc_extension(misc mikmod)
 endif()
 
@@ -18,6 +18,6 @@ if(UNIX)
     set_target_properties(ceammc_misc PROPERTIES COMPILE_FLAGS "-fPIC")
 endif()
 
-if(MIKMOD_FOUND)
-    target_link_libraries(ceammc_misc ${MIKMOD_LIBRARIES})
+if(MODPLUG_FOUND)
+    target_link_libraries(ceammc_misc ${MODPLUG_LIBRARIES})
 endif()

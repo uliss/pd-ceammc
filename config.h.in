@@ -10,4 +10,3 @@
 
 #cmakedefine HAVE_SETENV
 #cmakedefine HAVE_NANOSLEEP
-#cmakedefine HAVE_MIKMOD

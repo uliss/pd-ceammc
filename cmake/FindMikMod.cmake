@@ -1,7 +1,7 @@
-# - Find the MikMod library
+# - Find the ModPlug library
 #
 # Usage:
-#   find_package(MikMod [REQUIRED] [QUIET])
+#   find_package(ModPlug [REQUIRED] [QUIET])
 #
 # It sets the following variables:
 #   MIKMOD_FOUND               ... true if mikmod is found on the system
