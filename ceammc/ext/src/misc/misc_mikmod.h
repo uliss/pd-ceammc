@@ -33,7 +33,6 @@ public:
     ~ModPlug();
     void onSymbol(t_symbol* s);
     void processBlock(const t_sample**, t_sample** out);
-    void setupDSP(t_signal** sp);
 
     void m_play(t_symbol*, const AtomList&);
     void m_stop(t_symbol*, const AtomList&);

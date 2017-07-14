@@ -94,16 +94,6 @@ void ModPlug::processBlock(const t_sample** /*in*/, t_sample** out)
     }
 }
 
-void ModPlug::setupDSP(t_signal** sp)
-{
-    SoundExternal::setupDSP(sp);
-
-    ModPlug_Settings s;
-    ModPlug_GetSettings(&s);
-    s.mFrequency = static_cast<int>(sys_getsr());
-    ModPlug_SetSettings(&s);
-}
-
 void ModPlug::m_play(t_symbol*, const AtomList&)
 {
     if (!file_) {
@@ -289,7 +279,7 @@ extern "C" void setup_misc0x2emodplug_tilde()
 
     s.mChannels = 2;
     s.mBits = 32;
-    s.mFrequency = sys_getsr() ? sys_getsr() : 44100;
+    s.mFrequency = 44100;
     s.mResamplingMode = MODPLUG_RESAMPLE_LINEAR;
     s.mStereoSeparation = 1;
     s.mMaxMixChannels = 128;
