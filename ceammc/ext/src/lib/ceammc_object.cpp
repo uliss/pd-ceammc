@@ -601,7 +601,7 @@ t_symbol* BaseObject::tryGetPropKey(t_symbol* sel)
 SoundExternal::SoundExternal(const PdArgs& a)
     : BaseObject(a)
     , block_size_(0)
-    , n_in_(a.noDefaultInlet ? 0 : 1)
+    , n_in_(a.hasDefaultSignalInlet() ? 1 : 0)
     , n_out_(0)
 {
 }

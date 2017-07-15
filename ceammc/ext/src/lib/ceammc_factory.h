@@ -194,6 +194,7 @@ public:
 
             PdArgs args(AtomList(argc, argv), class_name_, &x->pd_obj);
             args.noDefaultInlet = flags_ & OBJECT_FACTORY_NO_DEFAULT_INLET;
+            args.mainSignalInlet = flags_ & OBJECT_FACTORY_MAIN_SIGNAL_INLET;
 
             x->impl = new T(args);
             x->impl->parseProperties();

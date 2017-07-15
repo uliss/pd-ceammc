@@ -33,13 +33,20 @@ public:
     t_symbol* className;
     t_object* owner;
     bool noDefaultInlet;
+    bool mainSignalInlet;
 
     PdArgs(const AtomList& lst, t_symbol* c, t_object* own)
         : args(lst)
         , className(c)
         , owner(own)
         , noDefaultInlet(false)
+        , mainSignalInlet(false)
     {
+    }
+
+    bool hasDefaultSignalInlet() const
+    {
+        return mainSignalInlet && !noDefaultInlet;
     }
 };
 
