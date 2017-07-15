@@ -11,7 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "misc_mikmod.h"
+#include "misc_modplug.h"
 #include "../base/function.h"
 #include "ceammc_factory.h"
 #include "ceammc_platform.h"

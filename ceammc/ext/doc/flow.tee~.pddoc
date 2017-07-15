@@ -12,6 +12,10 @@
             <category>flow</category>
             <keywords>flow tee separate</keywords>
             <since>0.4</since>
+            <aliases>
+                <alias>tee~</alias>
+                <alias>~-&gt;</alias>
+            </aliases>
         </meta>
         <inlets>
             <inlet type="audio">

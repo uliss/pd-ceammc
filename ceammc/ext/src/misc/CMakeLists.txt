@@ -9,7 +9,7 @@ ceammc_misc_extension(live capture)
 find_package(ModPlug)
 if(MODPLUG_FOUND)
     include_directories(${MODPLUG_FOUND_INCLUDES})
-    ceammc_misc_extension(misc mikmod)
+    ceammc_misc_extension(misc modplug)
 endif()
 
 add_library(ceammc_misc STATIC mod_misc.cpp ${MISC_SOURCES})

@@ -2,7 +2,7 @@
 #include "ceammc_config.h"
 
 #ifdef CEAMMC_HAVE_MODPLUG
-#include "misc_mikmod.h"
+#include "misc_modplug.h"
 #endif
 
 extern "C" void setup_live0x2ecapture_tilde();

@@ -40,7 +40,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[symbol stargazing.mod(     [T]
+[symbol stargazing.mod(    [T]
 |                          |
 | [play( [pause( [stop(    [metro 100]
 | |      |       |         |
