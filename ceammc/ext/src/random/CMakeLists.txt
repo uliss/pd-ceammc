@@ -6,6 +6,7 @@ endmacro()
 ceammc_random_extension(float)
 ceammc_random_extension(int)
 ceammc_random_extension(gauss)
+ceammc_random_extension(linear)
 
 add_library(ceammc_random STATIC mod_random.cpp ${RANDOM_SOURCES})
 if(UNIX)

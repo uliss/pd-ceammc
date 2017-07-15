@@ -252,6 +252,7 @@ prop<-
 random.float
 random.gauss
 random.int
+random.linear
 reject
 reject_if
 replace
@@ -326,3 +327,4 @@ vector.length
 vector.normalize
 win
 window
+~->

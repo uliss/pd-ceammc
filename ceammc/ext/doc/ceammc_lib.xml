@@ -650,6 +650,9 @@
     <entry descr="Random integer generator in specified range" name="random.int" ref_view="object">
       <xi:include href="random.int.pddoc" parse="xml"/>
     </entry>
+    <entry descr="random linear distribution" name="random.linear" ref_view="object">
+      <xi:include href="random.linear.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="snd">
     <entry descr="Sound file loader on steroids" name="snd.file" ref_view="object">
