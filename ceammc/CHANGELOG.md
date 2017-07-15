@@ -1,6 +1,17 @@
 # CEAMMC external library changelog
 
 ## [Unreleased]
+### Fixed:
+- function - bang handling fixed
+
+### Added:
+- math.round~ added
+- flow.tee~ added to separate audio and control signals
+- modplug~ added (using libmodplug) for playing vaious MOD formats:
+    MOD, S3M, XM, IT, 669, AMF (both of them), AMS, DBM, DMF, DSM, FAR,
+    MDL, MED, MTM, OKT, PTM, STM, ULT, UMX, MT2, PSM
+
+    see more info: https://github.com/Konstanty/libmodplug
 
 ## [0.3]
 ### Fixed:
