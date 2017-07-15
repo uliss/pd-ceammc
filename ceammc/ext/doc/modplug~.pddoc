@@ -14,7 +14,8 @@
             <since>0.4</since>
         </meta>
         <properties>
-            <property name="@done" type="float" default="0">begin of input range</property>
+            <property name="@done" type="symbol">function called with bang when playing
+            is finished</property>
             <property name="@len" type="float" readonly="true" units="millisecond">length of mod
             file</property>
             <property name="@name" type="symbol" readonly="true">mod name</property>
@@ -46,11 +47,11 @@
 | |      |       |       |
 | |      |       |       [@rpos?(
 | |      |       |       |
-[modplug~                ]
+[modplug~   @done on_done]
 |
-[~->    ]
-|      ^|
-|      [route @rpos]
+[~->    ]             [func on_done]
+|      ^|                        ^|
+|      [route @rpos]             [T]
 |      |
 [dac~] [F]
 ]]>

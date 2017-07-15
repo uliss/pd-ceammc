@@ -41,7 +41,7 @@ ModPlug::ModPlug(const PdArgs& a)
     createCbProperty("@rpos", &ModPlug::p_rel_pos, &ModPlug::p_set_rel_pos);
     createCbProperty("@len", &ModPlug::p_len);
     createCbProperty("@name", &ModPlug::p_name);
-    createCbProperty("@on_end", &ModPlug::p_on_end, &ModPlug::p_set_on_end);
+    createCbProperty("@done", &ModPlug::p_on_end, &ModPlug::p_set_on_end);
 }
 
 ModPlug::~ModPlug()
