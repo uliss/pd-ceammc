@@ -73,7 +73,7 @@ TEST_CASE("ceammc_factory", "[PureData]")
         SETFLOAT(&args[0], 2);
         SETSYMBOL(&args[1], gensym("a"));
 
-        PdExternal* ext = reinterpret_cast<PdExternal*>(f.object_new(gensym("test.new"), 2, args));
+        PdExternal* ext = reinterpret_cast<PdExternal*>(f.createObject(gensym("test.new"), 2, args));
 
         REQUIRE(ext != 0);
         REQUIRE(ext->impl != 0);
@@ -97,7 +97,7 @@ TEST_CASE("ceammc_factory", "[PureData]")
         REQUIRE(destructor_called == false);
         t_symbol* name = gensym("test.new");
         REQUIRE_THROWS(test_throw());
-        PdExternal* ext = reinterpret_cast<PdExternal*>(f.object_new(name, 0, 0));
+        PdExternal* ext = reinterpret_cast<PdExternal*>(f.createObject(name, 0, 0));
         REQUIRE(ext == 0);
         REQUIRE(destructor_called);
     }
@@ -116,7 +116,7 @@ TEST_CASE("ceammc_factory", "[PureData]")
         SETSYMBOL(&args[2], gensym("@test_prop"));
         SETFLOAT(&args[3], 33);
 
-        PdExternal* ext = reinterpret_cast<PdExternal*>(f.object_new(gensym("test.new"), 4, args));
+        PdExternal* ext = reinterpret_cast<PdExternal*>(f.createObject(gensym("test.new"), 4, args));
 
         REQUIRE(ext != 0);
         REQUIRE(ext->impl != 0);

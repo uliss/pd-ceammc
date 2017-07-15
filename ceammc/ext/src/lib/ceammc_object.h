@@ -32,11 +32,13 @@ public:
     AtomList args;
     t_symbol* className;
     t_object* owner;
+    bool noDefaultInlet;
 
     PdArgs(const AtomList& lst, t_symbol* c, t_object* own)
         : args(lst)
         , className(c)
         , owner(own)
+        , noDefaultInlet(false)
     {
     }
 };
@@ -261,17 +263,36 @@ public:
     SoundExternal(const PdArgs& a);
     virtual void setupDSP(t_signal** sp);
 
+    /**
+     * @brief creates new signal inlet
+     * @return pointer to new inlet
+     */
     t_inlet* createSignalInlet();
+
+    /**
+     * @brief creates new signal outlet
+     * @return pointer to new outlet
+     */
     t_outlet* createSignalOutlet();
 
+    /**
+     * @brief returns current DSP block size
+     */
     size_t blockSize() const { return block_size_; }
+
+    /**
+     * @brief returns number of sound inlets
+     */
     size_t numInputChannels() const { return n_in_; }
+
+    /**
+     * @brief returns number of sound outlets
+     */
     size_t numOutputChannels() const { return n_out_; }
 
-    static bool bindDSP() { return true; }
-    static bool bindFloat() { return false; }
-    static bool bindMainSignalInlet() { return true; }
-
+    /**
+     * @brief main DSP function. Overload to sound processing.
+     */
     virtual void processBlock(const t_sample** in, t_sample** out) = 0;
 
 private:
