@@ -34,6 +34,18 @@ template <typename T>
 struct PdObject {
     t_object pd_obj;
     T* impl;
+    t_sample f;
+};
+
+enum ObjectFactoryFlags {
+    OBJECT_FACTORY_DEFAULT = 0x0,
+    OBJECT_FACTORY_NO_DEFAULT_INLET = 0x1,
+    OBJECT_FACTORY_MAIN_SIGNAL_INLET = 0x2,
+    OBJECT_FACTORY_NO_BANG = 0x4,
+    OBJECT_FACTORY_NO_FLOAT = 0x8,
+    OBJECT_FACTORY_NO_SYMBOL = 0x10,
+    OBJECT_FACTORY_NO_LIST = 0x20,
+    OBJECT_FACTORY_NO_ANY = 0x40
 };
 
 template <typename T>
@@ -58,7 +70,7 @@ public:
     typedef std::map<t_symbol*, MethodPtrList> MethodListMap;
 
 public:
-    ObjectFactory(const char* name, int flags = 0)
+    ObjectFactory(const char* name, int flags = OBJECT_FACTORY_DEFAULT)
         : name_(name)
         , fn_bang_(0)
         , fn_float_(0)
@@ -66,19 +78,38 @@ public:
         , fn_list_(0)
         , fn_any_(0)
     {
+        int pd_flags = CLASS_PATCHABLE;
+        if (flags & OBJECT_FACTORY_NO_DEFAULT_INLET) {
+            pd_flags |= CLASS_NOINLET;
+            if (flags & OBJECT_FACTORY_MAIN_SIGNAL_INLET) {
+                LIB_ERR << name << ": invalid flag combination - "
+                                   "OBJECT_FACTORY_NO_DEFAULT_INLET & OBJECT_FACTORY_MAIN_SIGNAL_INLET";
+            }
+        }
+
         t_symbol* s_name = gensym(name);
         t_class* c = class_new(s_name,
-            reinterpret_cast<t_newmethod>(object_new),
-            reinterpret_cast<t_method>(object_free),
-            sizeof(ObjectProxy), flags, A_GIMME, A_NULL);
+            reinterpret_cast<t_newmethod>(createObject),
+            reinterpret_cast<t_method>(deleteObject),
+            sizeof(ObjectProxy), pd_flags, A_GIMME, A_NULL);
 
         class_ = c;
+        flags_ = flags;
 
-        setBangFn(processBang);
-        setFloatFn(processFloat);
-        setSymbolFn(processSymbol);
-        setListFn(processList);
-        setAnyFn(processAny);
+        if (!(flags & OBJECT_FACTORY_NO_BANG))
+            setBangFn(processBang);
+
+        if (!(flags & OBJECT_FACTORY_NO_FLOAT))
+            setFloatFn(processFloat);
+
+        if (!(flags & OBJECT_FACTORY_NO_SYMBOL))
+            setSymbolFn(processSymbol);
+
+        if (!(flags & OBJECT_FACTORY_NO_LIST))
+            setListFn(processList);
+
+        if (!(flags & OBJECT_FACTORY_NO_ANY))
+            setAnyFn(processAny);
 
         class_addmethod(c, reinterpret_cast<t_method>(dumpMethodList), gensym("dump"), A_NULL);
 
@@ -141,7 +172,7 @@ public:
 
     void addAlias(const char* name)
     {
-        class_addcreator(reinterpret_cast<t_newmethod>(object_new), gensym(name), A_GIMME, A_NULL);
+        class_addcreator(reinterpret_cast<t_newmethod>(createObject), gensym(name), A_GIMME, A_NULL);
     }
 
     void processData()
@@ -155,20 +186,25 @@ public:
         setListFn(processDataTypedFn<DataT>);
     }
 
-    static void* object_new(t_symbol*, int argc, t_atom* argv)
+    static void* createObject(t_symbol*, int argc, t_atom* argv)
     {
         ObjectProxy* x = 0;
         try {
             x = reinterpret_cast<ObjectProxy*>(pd_new(class_));
-            x->impl = new T(PdArgs(AtomList(argc, argv), class_name_, &x->pd_obj));
+
+            PdArgs args(AtomList(argc, argv), class_name_, &x->pd_obj);
+            args.noDefaultInlet = flags_ & OBJECT_FACTORY_NO_DEFAULT_INLET;
+            args.mainSignalInlet = flags_ & OBJECT_FACTORY_MAIN_SIGNAL_INLET;
+
+            x->impl = new T(args);
             x->impl->parseProperties();
         } catch (std::exception& e) {
             x->impl = 0;
             pd_free(&x->pd_obj.te_g.g_pd);
             x = 0;
 
-            char buf[100];
-            snprintf(buf, 99, "%s", e.what());
+            char buf[200];
+            snprintf(buf, 199, "%s", e.what());
             pd_error(0, "[ceammc] can't create object [%s]: %s", class_name_->s_name, buf);
         } catch (...) {
             x->impl = 0;
@@ -181,7 +217,7 @@ public:
         return x;
     }
 
-    static void object_free(ObjectProxy* x)
+    static void deleteObject(ObjectProxy* x)
     {
         delete x->impl;
     }
@@ -265,6 +301,8 @@ public:
         (x->impl->*(it->second))(sel, AtomList(argc, argv));
     }
 
+    static t_class* classPointer() { return class_; }
+
 private:
     static void defaultFloatToList(ObjectProxy* x, t_floatarg f)
     {
@@ -280,6 +318,7 @@ private:
     static t_class* class_;
     static t_symbol* class_name_;
     static MethodListMap methods_;
+    static int flags_;
 
 private:
     const char* name_;
@@ -291,6 +330,31 @@ private:
 };
 
 template <typename T>
+class SoundExternalFactory : public ObjectFactory<T> {
+public:
+    SoundExternalFactory(const char* name,
+        int flags = OBJECT_FACTORY_DEFAULT | OBJECT_FACTORY_MAIN_SIGNAL_INLET | OBJECT_FACTORY_NO_FLOAT)
+        : ObjectFactory<T>(name, flags)
+    {
+        class_addmethod(SoundExternalFactory::classPointer(),
+            reinterpret_cast<t_method>(setupDSP), gensym("dsp"), A_NULL);
+
+        // if default inlet is signal
+        if (!(flags & OBJECT_FACTORY_NO_DEFAULT_INLET)
+            && (flags & OBJECT_FACTORY_MAIN_SIGNAL_INLET)) {
+
+            CLASS_MAINSIGNALIN(SoundExternalFactory::classPointer(),
+                typename SoundExternalFactory::ObjectProxy, f);
+        }
+    }
+
+    static void setupDSP(typename SoundExternalFactory::ObjectProxy* x, t_signal** sp)
+    {
+        x->impl->setupDSP(sp);
+    }
+};
+
+template <typename T>
 t_class* ObjectFactory<T>::class_;
 
 template <typename T>
@@ -298,6 +362,9 @@ t_symbol* ObjectFactory<T>::class_name_ = 0;
 
 template <typename T>
 typename ObjectFactory<T>::MethodListMap ObjectFactory<T>::methods_;
+
+template <typename T>
+int ObjectFactory<T>::flags_ = 0;
 
 #define CLASS_ADD_METHOD()
 

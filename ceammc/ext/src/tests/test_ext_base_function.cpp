@@ -40,6 +40,19 @@ TEST_CASE("function", "[externals]")
 
         WHEN_SEND_FLOAT_TO(0, t, 1);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+        REQUIRE_FLOAT_AT_OUTLET(1, t, 1);
+
+        WHEN_SEND_BANG_TO(0, t);
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+        REQUIRE_BANG_AT_OUTLET(1, t);
+
+        WHEN_SEND_LIST_TO(0, t, L3("A", "B", "C"));
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+        REQUIRE_LIST_AT_OUTLET(1, t, L3("A", "B", "C"));
+
+        WHEN_SEND_SYMBOL_TO(0, t, "TEST");
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+        REQUIRE_SYMBOL_AT_OUTLET(1, t, "TEST");
     }
 
     SECTION("test")

@@ -57,6 +57,7 @@ flow.reject
 flow.reject_if
 flow.split
 flow.sync
+flow.tee~
 flt.biquad~
 flt.bpf12~
 flt.bpf24~
@@ -197,6 +198,7 @@ math.or
 math.pi
 math.reciprocal
 math.round
+math.round~
 math.sign
 math.sin
 math.sinh
@@ -205,6 +207,7 @@ math.squared
 math.tan
 math.tanh
 math.trunc
+modplug~
 msg
 noise.baker
 noise.clifford
@@ -252,6 +255,7 @@ random.int
 reject
 reject_if
 replace
+round~
 samp->sec
 sec->samp
 sec->str
@@ -301,6 +305,7 @@ system.hostname
 system.memsize
 system.memused
 system.screen_size
+tee~
 test.data
 test.expect
 tl.bang

@@ -88,7 +88,7 @@ Function::~Function()
 
 void Function::onBang()
 {
-    bangTo(0);
+    bangTo(1);
 }
 
 void Function::onFloat(float f)

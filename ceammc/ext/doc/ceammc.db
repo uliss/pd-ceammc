@@ -39,6 +39,7 @@ flow.reject,reject		.		.
 flow.reject_if,reject_if		..		..
 flow.split,split		..		...
 flow.sync		?		?
+flow.tee~,tee~,~->		~		~.
 flt.biquad~		~~~~~~		~
 flt.bpf12~		~		~.
 flt.bpf24~		~		~.
@@ -171,6 +172,7 @@ math.squared		.		.
 math.tan		.		.
 math.tanh		.		.
 math.trunc		.		.
+modplug~		.		~~
 msg,m		..		.
 noise.pink~		-		~
 noise.white~		-		~

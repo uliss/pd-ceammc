@@ -113,6 +113,7 @@ cp $SRC_DIR/ceammc/extra/hcs/*-help.pd $PD_EXTRA/ceammc
 
 echo "Copying CEAMMC help files:"
 cp $SRC_DIR/ceammc/ext/doc/*-help.pd $PD_EXTRA/ceammc
+cp $SRC_DIR/ceammc/ext/doc/*.mod $PD_EXTRA/ceammc
 # handle index file
 rm $PD_EXTRA/ceammc/index-help.pd
 chmod 0444 $PD_EXTRA/ceammc/*-help.pd

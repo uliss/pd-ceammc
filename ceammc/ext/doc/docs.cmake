@@ -40,6 +40,7 @@ set(DOC_FILES
     flow.reject_if
     flow.split
     flow.sync
+    flow.tee~
     flt.biquad~
     flt.bpf12~
     flt.bpf24~
@@ -172,6 +173,7 @@ set(DOC_FILES
     math.tan
     math.tanh
     math.trunc
+    modplug~
     msg
     noise.pink~
     noise.white~

@@ -32,12 +32,21 @@ public:
     AtomList args;
     t_symbol* className;
     t_object* owner;
+    bool noDefaultInlet;
+    bool mainSignalInlet;
 
     PdArgs(const AtomList& lst, t_symbol* c, t_object* own)
         : args(lst)
         , className(c)
         , owner(own)
+        , noDefaultInlet(false)
+        , mainSignalInlet(false)
     {
+    }
+
+    bool hasDefaultSignalInlet() const
+    {
+        return mainSignalInlet && !noDefaultInlet;
     }
 };
 
@@ -141,10 +150,9 @@ public:
     size_t numInlets() const;
 
     /**
-     * Creates outlet
-     * @param signal - if true create signal outlet
+     * Creates control outlet
      */
-    t_outlet* createOutlet(bool signal = false);
+    t_outlet* createOutlet();
 
     /**
      * Returns pointer to outlet specified by given index
@@ -240,9 +248,76 @@ protected:
     AtomList propNumOutlets();
     AtomList listAllProps() const;
     const AtomList& args() const { return pd_.args; }
+    void appendInlet(t_inlet* in);
+    void appendOutlet(t_outlet* out);
 
 private:
     void extractPositionalArguments();
+};
+
+class SoundExternal : public BaseObject {
+    const static size_t MAX_SIG_NUM = 16;
+
+private:
+    size_t block_size_;
+    size_t n_in_;
+    size_t n_out_;
+    size_t sample_rate_;
+    t_sample* in_[MAX_SIG_NUM];
+    t_sample* out_[MAX_SIG_NUM];
+
+public:
+    SoundExternal(const PdArgs& a);
+    virtual void setupDSP(t_signal** sp);
+
+    /**
+     * @brief creates new signal inlet
+     * @return pointer to new inlet
+     */
+    t_inlet* createSignalInlet();
+
+    /**
+     * @brief creates new signal outlet
+     * @return pointer to new outlet
+     */
+    t_outlet* createSignalOutlet();
+
+    /**
+     * @brief returns current DSP block size
+     */
+    size_t blockSize() const { return block_size_; }
+
+    /**
+     * @brief returns number of sound inlets
+     */
+    size_t numInputChannels() const { return n_in_; }
+
+    /**
+     * @brief returns number of sound outlets
+     */
+    size_t numOutputChannels() const { return n_out_; }
+
+    /**
+     * @brief main DSP function. Overload to sound processing.
+     */
+    virtual void processBlock(const t_sample** in, t_sample** out) = 0;
+
+private:
+    inline void _processBlock()
+    {
+        processBlock((const t_sample**)in_, out_);
+    }
+
+    inline static t_int* dspPerform(t_int* w)
+    {
+        SoundExternal* ext = reinterpret_cast<SoundExternal*>(w[1]);
+        ext->_processBlock();
+        return (w + 2);
+    }
+
+protected:
+    /* only for testing! */
+    void setBlockSize(size_t s) { block_size_ = s; }
 };
 }
 

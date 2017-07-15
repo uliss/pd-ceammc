@@ -76,7 +76,7 @@ TEST_CASE("array.each", "[externals]")
 
         t_atom argv;
         SETSYMBOL(&argv, gensym("array1"));
-        void* x = ObjectFactory<ArrayEach>::object_new(0, 1, &argv);
+        void* x = ObjectFactory<ArrayEach>::createObject(0, 1, &argv);
 
         ObjectFactory<ArrayEach>::ObjectProxy* p = (ObjectFactory<ArrayEach>::ObjectProxy*)x;
         REQUIRE(p->impl->numInlets() == 2);

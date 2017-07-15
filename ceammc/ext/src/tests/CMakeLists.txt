@@ -79,6 +79,7 @@ ceammc_external_test(math and)
 ceammc_external_test(math gcd)
 ceammc_external_test(math lcm)
 ceammc_external_test(math or)
+ceammc_external_test(math round_tilde)
 
 ceammc_external_test(string format)
 ceammc_external_test(string str)
