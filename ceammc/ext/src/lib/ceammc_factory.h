@@ -37,6 +37,17 @@ struct PdObject {
     t_sample f;
 };
 
+enum ObjectFactoryFlags {
+    OBJECT_FACTORY_DEFAULT = 0x0,
+    OBJECT_FACTORY_NO_INLET = 0x1,
+    OBJECT_FACTORY_MAIN_SIGNAL_INLET = 0x2,
+    OBJECT_FACTORY_NO_BANG = 0x4,
+    OBJECT_FACTORY_NO_FLOAT = 0x8,
+    OBJECT_FACTORY_NO_SYMBOL = 0x10,
+    OBJECT_FACTORY_NO_LIST = 0x20,
+    OBJECT_FACTORY_NO_ANY = 0x40
+};
+
 template <typename T>
 class ObjectFactory {
 public:
@@ -59,7 +70,7 @@ public:
     typedef std::map<t_symbol*, MethodPtrList> MethodListMap;
 
 public:
-    ObjectFactory(const char* name, int flags = 0)
+    ObjectFactory(const char* name)
         : name_(name)
         , fn_bang_(0)
         , fn_float_(0)
@@ -71,7 +82,7 @@ public:
         t_class* c = class_new(s_name,
             reinterpret_cast<t_newmethod>(object_new),
             reinterpret_cast<t_method>(object_free),
-            sizeof(ObjectProxy), flags, A_GIMME, A_NULL);
+            sizeof(ObjectProxy), 0, A_GIMME, A_NULL);
 
         class_ = c;
 
@@ -291,6 +302,7 @@ private:
     PdSymbolFunction fn_symbol_;
     PdListFunction fn_list_;
     PdAnyFunction fn_any_;
+    bool main_signal_inlet_;
 };
 
 template <typename T>
@@ -301,6 +313,7 @@ public:
     {
         class_addmethod(SoundExternalFactory::classPointer(),
             reinterpret_cast<t_method>(setupDSP), gensym("dsp"), A_NULL);
+
         CLASS_MAINSIGNALIN(SoundExternalFactory::classPointer(),
             typename SoundExternalFactory::ObjectProxy, f);
     }
