@@ -163,6 +163,9 @@
     <entry descr="bus with only hot inlets" name="flow.sync" ref_view="object">
       <xi:include href="flow.sync.pddoc" parse="xml"/>
     </entry>
+    <entry descr="separate audio and control streams" name="flow.tee~" ref_view="object">
+      <xi:include href="flow.tee~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="Replace atoms in data stream" name="replace" ref_view="object">
       <xi:include href="replace.pddoc" parse="xml"/>
     </entry>

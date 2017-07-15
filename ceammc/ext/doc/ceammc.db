@@ -39,6 +39,7 @@ flow.reject,reject		.		.
 flow.reject_if,reject_if		..		..
 flow.split,split		..		...
 flow.sync		?		?
+flow.tee~		~		~.
 flt.biquad~		~~~~~~		~
 flt.bpf12~		~		~.
 flt.bpf24~		~		~.
