@@ -235,7 +235,7 @@ void ModPlug::load()
         return;
     }
 
-    std::ifstream file(path, std::ios::binary | std::ios::ate);
+    std::ifstream file(path.c_str(), std::ios::binary | std::ios::ate);
     if (!file) {
         OBJ_ERR << "can't read file: " << path;
         return;
