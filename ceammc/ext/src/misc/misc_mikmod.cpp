@@ -14,6 +14,7 @@
 #include "misc_mikmod.h"
 #include "../base/function.h"
 #include "ceammc_factory.h"
+#include "ceammc_platform.h"
 
 #include <cmath>
 #include <fstream>
@@ -29,6 +30,7 @@ ModPlug::ModPlug(const PdArgs& a)
     , play_prop_(0)
     , pos_(0)
     , func_on_end_(SNULL)
+    , cnv_(canvas_getcurrent())
 {
     createSignalOutlet();
     createSignalOutlet();
@@ -226,9 +228,16 @@ void ModPlug::load()
     if (!file_)
         unload();
 
-    std::ifstream file(path_->s_name, std::ios::binary | std::ios::ate);
+    // search in standard locations
+    std::string path = platform::find_in_std_path(cnv_, path_->s_name);
+    if (path.empty()) {
+        OBJ_ERR << "can't find file: " << path_->s_name;
+        return;
+    }
+
+    std::ifstream file(path, std::ios::binary | std::ios::ate);
     if (!file) {
-        OBJ_ERR << "can't read file: " << path_->s_name;
+        OBJ_ERR << "can't read file: " << path;
         return;
     }
 
@@ -237,17 +246,17 @@ void ModPlug::load()
 
     std::vector<char> buffer(size);
     if (!file.read(buffer.data(), size)) {
-        OBJ_ERR << "can't read file: " << path_->s_name;
+        OBJ_ERR << "can't read file: " << path;
         return;
     }
 
     file_ = ModPlug_Load(buffer.data(), int(buffer.size()));
     if (!file_) {
-        OBJ_ERR << "can't load file: " << path_->s_name;
+        OBJ_ERR << "can't load file: " << path;
         return;
     }
 
-    OBJ_DBG << "Mod loaded:   " << path_->s_name;
+    OBJ_DBG << "Mod loaded:   " << path;
     OBJ_DBG << "  - name:        " << ModPlug_GetName(file_);
     OBJ_DBG << "  - length (ms): " << ModPlug_GetLength(file_);
 }

@@ -27,6 +27,7 @@ class ModPlug : public SoundExternal {
     PointerProperty<bool>* play_prop_;
     float pos_;
     t_symbol* func_on_end_;
+    t_canvas* cnv_;
 
 public:
     ModPlug(const PdArgs& a);

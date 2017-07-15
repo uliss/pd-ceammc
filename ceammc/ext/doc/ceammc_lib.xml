@@ -551,6 +551,11 @@
     </entry>
     <xi:include href="ceammc_category_math.xml" parse="xml"/>
   </category>
+  <category name="misc">
+    <entry descr="MOD file player (using libmodplug)" name="modplug~" ref_view="object">
+      <xi:include href="modplug~.pddoc" parse="xml"/>
+    </entry>
+  </category>
   <category name="msg">
     <entry descr="message constructor" name="msg" ref_view="object">
       <xi:include href="msg.pddoc" parse="xml"/>

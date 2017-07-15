@@ -173,6 +173,7 @@ set(DOC_FILES
     math.tan
     math.tanh
     math.trunc
+    modplug~
     msg
     noise.pink~
     noise.white~

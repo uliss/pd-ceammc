@@ -12,7 +12,9 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_platform.h"
+#include "ceammc_log.h"
 
+#include "g_canvas.h"
 #include <cstdlib>
 
 #ifdef __WIN32
@@ -144,6 +146,29 @@ namespace platform {
 
         std::string res(path);
         return res.replace(0, 1, home_directory());
+    }
+
+    std::string find_in_std_path(t_canvas* cnv, const char* path)
+    {
+        if (!is_path_relative(path))
+            return path;
+
+        const char* patch_dir = "";
+        if (cnv && cnv->gl_env) {
+            patch_dir = canvas_getdir(cnv)->s_name;
+        }
+
+        char dirname[MAXPDSTRING], *filename;
+        int fd = open_via_path(patch_dir, path, "", dirname, &filename, MAXPDSTRING, 1);
+        if (fd < 0)
+            return std::string();
+
+        close(fd);
+
+        std::string full_path(dirname);
+        full_path += '/';
+        full_path += filename;
+        return full_path;
     }
 }
 }
