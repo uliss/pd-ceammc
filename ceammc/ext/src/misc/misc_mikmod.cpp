@@ -287,7 +287,7 @@ extern "C" void setup_misc0x2emodplug_tilde()
 
     ModPlug_SetSettings(&s);
 
-    SoundExternalFactory<ModPlug> obj("modplug~", OBJECT_FACTORY_DEFAULT | OBJECT_FACTORY_NO_DEFAULT_INLET);
+    SoundExternalFactory<ModPlug> obj("modplug~", OBJECT_FACTORY_DEFAULT | OBJECT_FACTORY_NO_FLOAT);
     obj.addMethod("play", &ModPlug::m_play);
     obj.addMethod("stop", &ModPlug::m_stop);
     obj.addMethod("pause", &ModPlug::m_pause);

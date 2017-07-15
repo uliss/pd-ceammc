@@ -332,7 +332,7 @@ template <typename T>
 class SoundExternalFactory : public ObjectFactory<T> {
 public:
     SoundExternalFactory(const char* name,
-        int flags = OBJECT_FACTORY_DEFAULT | OBJECT_FACTORY_MAIN_SIGNAL_INLET)
+        int flags = OBJECT_FACTORY_DEFAULT | OBJECT_FACTORY_MAIN_SIGNAL_INLET | OBJECT_FACTORY_NO_FLOAT)
         : ObjectFactory<T>(name, flags)
     {
         class_addmethod(SoundExternalFactory::classPointer(),
