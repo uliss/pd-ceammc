@@ -12,6 +12,11 @@
     MDL, MED, MTM, OKT, PTM, STM, ULT, UMX, MT2, PSM
 
     see more info: https://github.com/Konstanty/libmodplug
+- random.linear added
+
+### Changed:
+- random.gauss doc update
+
 
 ## [0.3]
 ### Fixed:
