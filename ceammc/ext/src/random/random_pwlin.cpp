@@ -4,22 +4,22 @@
 #include <ctime>
 
 #include "ceammc_factory.h"
-#include "random_linseg.h"
+#include "random_pwlin.h"
 
 static boost::random::mt19937 random_gen(std::time(0));
 
-RandomLinSeg::RandomLinSeg(const PdArgs& a)
+RandomPwLinear::RandomPwLinear(const PdArgs& a)
     : BaseObject(a)
 {
     createOutlet();
 
     // the interval boundaries interleaved with weights
-    createCbProperty("@segs", &RandomLinSeg::propSegs, &RandomLinSeg::propSetSegs);
+    createCbProperty("@segs", &RandomPwLinear::propSegs, &RandomPwLinear::propSetSegs);
     if (positionalArguments().size() > 1)
         set(positionalArguments());
 }
 
-void RandomLinSeg::onBang()
+void RandomPwLinear::onBang()
 {
     if (bounds_.size() < 2) {
         OBJ_ERR << "to few values..." << segs_;
@@ -31,13 +31,13 @@ void RandomLinSeg::onBang()
     floatTo(0, dist(random_gen));
 }
 
-void RandomLinSeg::onList(const AtomList& w)
+void RandomPwLinear::onList(const AtomList& w)
 {
     if (!set(w))
         bangTo(0);
 }
 
-bool RandomLinSeg::set(const AtomList& data)
+bool RandomPwLinear::set(const AtomList& data)
 {
     if (data.size() % 2 != 0) {
         OBJ_ERR << "expected even number of arguments: boundary0, weight0, boundary1, weight1 etc...";
@@ -61,23 +61,28 @@ bool RandomLinSeg::set(const AtomList& data)
         return false;
     }
 
+    if (std::count_if(w.begin(), w.end(), std::bind2nd(std::less<t_float>(), 0))) {
+        OBJ_ERR << "negative weights are found: " << w;
+        return false;
+    }
+
     segs_ = data;
     bounds_ = b;
     weights_ = w;
     return true;
 }
 
-AtomList RandomLinSeg::propSegs() const
+AtomList RandomPwLinear::propSegs() const
 {
     return segs_;
 }
 
-void RandomLinSeg::propSetSegs(const AtomList& s)
+void RandomPwLinear::propSetSegs(const AtomList& s)
 {
     set(s);
 }
 
-extern "C" void setup_random0x2elinseg()
+extern "C" void setup_random0x2epw_lin()
 {
-    ObjectFactory<RandomLinSeg> obj("random.linseg");
+    ObjectFactory<RandomPwLinear> obj("random.pw_lin");
 }

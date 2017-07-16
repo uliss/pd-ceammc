@@ -192,6 +192,7 @@ random.float		.		.
 random.gauss		.		.
 random.int		.		.
 random.linear		.		.
+random.pw_lin		.		.
 replace		...		.
 set.contains		..		.
 set.diff		..		.

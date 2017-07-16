@@ -193,6 +193,7 @@ set(DOC_FILES
     random.gauss
     random.int
     random.linear
+    random.pw_lin
     replace
     set.contains
     set.diff
