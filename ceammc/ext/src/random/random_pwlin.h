@@ -5,7 +5,7 @@
 using namespace ceammc;
 
 class RandomPwLinear : public BaseObject {
-    AtomList segs_;
+    AtomList values_;
     std::vector<t_float> bounds_;
     std::vector<t_float> weights_;
 
@@ -15,8 +15,11 @@ public:
     void onList(const AtomList& w);
 
     bool set(const AtomList& data);
-    AtomList propSegs() const;
-    void propSetSegs(const AtomList& s);
+    AtomList propValues() const;
+    void propSetValues(const AtomList& s);
+
+    AtomList propBounds() const;
+    AtomList propWeights() const;
 };
 
 extern "C" void setup_random0x2epw_lin();

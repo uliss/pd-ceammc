@@ -14,27 +14,31 @@ RandomPwLinear::RandomPwLinear(const PdArgs& a)
     createOutlet();
 
     // the interval boundaries interleaved with weights
-    createCbProperty("@segs", &RandomPwLinear::propSegs, &RandomPwLinear::propSetSegs);
+    createCbProperty("@v", &RandomPwLinear::propValues, &RandomPwLinear::propSetValues);
     if (positionalArguments().size() > 1)
         set(positionalArguments());
+
+    createCbProperty("@bounds", &RandomPwLinear::propBounds);
+    createCbProperty("@weights", &RandomPwLinear::propWeights);
 }
 
 void RandomPwLinear::onBang()
 {
     if (bounds_.size() < 2) {
-        OBJ_ERR << "to few values..." << segs_;
+        OBJ_ERR << "too few values..." << values_;
         return;
     }
 
     boost::random::piecewise_linear_distribution<t_float> dist(
         bounds_.begin(), bounds_.end(), weights_.begin());
+
     floatTo(0, dist(random_gen));
 }
 
 void RandomPwLinear::onList(const AtomList& w)
 {
-    if (!set(w))
-        bangTo(0);
+    if (set(w))
+        onBang();
 }
 
 bool RandomPwLinear::set(const AtomList& data)
@@ -45,7 +49,7 @@ bool RandomPwLinear::set(const AtomList& data)
     }
 
     if (data.size() < 4) {
-        OBJ_ERR << "to few values..." << data;
+        OBJ_ERR << "too few values..." << data;
         return false;
     }
 
@@ -66,20 +70,40 @@ bool RandomPwLinear::set(const AtomList& data)
         return false;
     }
 
-    segs_ = data;
+    values_ = data;
     bounds_ = b;
     weights_ = w;
     return true;
 }
 
-AtomList RandomPwLinear::propSegs() const
+AtomList RandomPwLinear::propValues() const
 {
-    return segs_;
+    return values_;
 }
 
-void RandomPwLinear::propSetSegs(const AtomList& s)
+void RandomPwLinear::propSetValues(const AtomList& s)
 {
     set(s);
+}
+
+static AtomList vector2list(const std::vector<t_float>& v)
+{
+    AtomList res;
+    res.reserve(v.size());
+    for (size_t i = 0; i < v.size(); i++)
+        res.append(v[i]);
+
+    return res;
+}
+
+AtomList RandomPwLinear::propBounds() const
+{
+    return vector2list(bounds_);
+}
+
+AtomList RandomPwLinear::propWeights() const
+{
+    return vector2list(weights_);
 }
 
 extern "C" void setup_random0x2epw_lin()

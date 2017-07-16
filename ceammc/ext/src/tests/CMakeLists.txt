@@ -82,6 +82,7 @@ ceammc_external_test(math or)
 ceammc_external_test(math round_tilde)
 
 ceammc_external_test(random linear)
+ceammc_external_test(random pw_lin)
 
 ceammc_external_test(string format)
 ceammc_external_test(string str)
