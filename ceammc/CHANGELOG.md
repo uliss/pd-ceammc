@@ -13,6 +13,7 @@
 
     see more info: https://github.com/Konstanty/libmodplug
 - random.linear added
+- random.pw_lin added (piecewise linear distribution)
 
 ### Changed:
 - random.gauss doc update
