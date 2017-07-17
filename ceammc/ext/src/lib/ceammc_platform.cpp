@@ -17,6 +17,10 @@
 #include "g_canvas.h"
 #include <cstdlib>
 
+#ifdef HAVE_UNISTD_H
+#include <unistd.h>
+#endif
+
 #ifdef __WIN32
 #define NS(f) win_##f
 #include "ceammc_platform_win.h"
