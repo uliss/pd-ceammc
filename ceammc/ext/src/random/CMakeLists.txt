@@ -8,6 +8,7 @@ ceammc_random_extension(int)
 ceammc_random_extension(gauss)
 ceammc_random_extension(linear)
 ceammc_random_extension(pwlin)
+ceammc_random_extension(pwconst)
 
 add_library(ceammc_random STATIC mod_random.cpp ${RANDOM_SOURCES})
 if(UNIX)
