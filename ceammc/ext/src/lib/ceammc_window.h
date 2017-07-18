@@ -88,6 +88,17 @@ namespace window {
     {
         return sinf((M_PI * idx) / float(n - 1));
     }
+
+    template <class T>
+    T hamming(size_t idx, size_t n);
+
+    template <>
+    float hamming<float>(size_t idx, size_t n)
+    {
+        static const float a = 0.54f;
+        static const float b = 1 - a;
+        return a - b * cosf((2 * M_PI * idx) / float(n - 1));
+    }
 }
 }
 

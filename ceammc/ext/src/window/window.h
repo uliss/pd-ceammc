@@ -38,6 +38,7 @@ public:
     void m_welch(t_symbol*, const AtomList&);
     void m_rect(t_symbol*, const AtomList&);
     void m_sine(t_symbol*, const AtomList&);
+    void m_hamming(t_symbol*, const AtomList&);
 
 private:
     void pTypeSet(const AtomList& l);
