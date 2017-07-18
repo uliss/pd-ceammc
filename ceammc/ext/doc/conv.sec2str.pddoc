@@ -37,9 +37,9 @@
 <![CDATA[
 [T]                   [F]
 |                     |
-[metro 1000]          [sec->str @symbol]
+[metro 1000]          [sec->str @symbol @ms]
 |                     |
-[f] X [+ 1]           [S digits=12]
+[f] X [+ 1]           [S digits=14]
 |                     |
 [sec->str @symbol]    [str->sec]
 |                     |
