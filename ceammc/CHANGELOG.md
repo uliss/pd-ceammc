@@ -15,6 +15,7 @@
 - random.linear added
 - random.pw_lin added (piecewise linear distribution)
 - random.pw_const added (piecewise constant distribution)
+- random.discrete added
 
 ### Changed:
 - random.gauss doc update

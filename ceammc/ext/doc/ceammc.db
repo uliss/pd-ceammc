@@ -188,6 +188,7 @@ path.exists		.		.
 path.lsdir,path.ls		.		.
 prop.get,prop->		.		?
 prop.set,prop<-		?		.
+random.discrete		.		.
 random.float		.		.
 random.gauss		.		.
 random.int		.		.

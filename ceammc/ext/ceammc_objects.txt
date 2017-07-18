@@ -249,6 +249,7 @@ prop->
 prop.get
 prop.set
 prop<-
+random.discrete
 random.float
 random.gauss
 random.int

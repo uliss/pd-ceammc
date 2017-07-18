@@ -641,6 +641,9 @@
     </entry>
   </category>
   <category name="random">
+    <entry descr="random weighted integers on interval [0, n)" name="random.discrete" ref_view="object">
+      <xi:include href="random.discrete.pddoc" parse="xml"/>
+    </entry>
     <entry descr="random float generator in specified range" name="random.float" ref_view="object">
       <xi:include href="random.float.pddoc" parse="xml"/>
     </entry>
