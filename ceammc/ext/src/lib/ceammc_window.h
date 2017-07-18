@@ -110,8 +110,29 @@ namespace window {
         static const float a0 = (1 - a) / 2;
         static const float a1 = 0.5f;
         static const float a2 = a / 2;
+        const float N = n - 1;
 
-        return a0 - a1 * cosf((2 * M_PI * idx) / float(n - 1)) + a2 * cosf((4 * M_PI * idx) / float(n - 1));
+        return a0
+            - a1 * cosf((2 * M_PI * idx) / N)
+            + a2 * cosf((4 * M_PI * idx) / N);
+    }
+
+    template <class T>
+    T nuttall(size_t idx, size_t n);
+
+    template <>
+    float nuttall<float>(size_t idx, size_t n)
+    {
+        static const float a0 = 0.355768f;
+        static const float a1 = 0.487396f;
+        static const float a2 = 0.144232f;
+        static const float a3 = 0.012604f;
+        const float N = n - 1;
+
+        return a0
+            - a1 * cosf((2 * M_PI * idx) / N)
+            + a2 * cosf((4 * M_PI * idx) / N)
+            - a3 * cosf((6 * M_PI * idx) / N);
     }
 }
 }

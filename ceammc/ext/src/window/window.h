@@ -40,6 +40,7 @@ public:
     void m_sine(t_symbol*, const AtomList&);
     void m_hamming(t_symbol*, const AtomList&);
     void m_blackman(t_symbol*, const AtomList&);
+    void m_nuttall(t_symbol*, const AtomList&);
 
 private:
     void pTypeSet(const AtomList& l);
