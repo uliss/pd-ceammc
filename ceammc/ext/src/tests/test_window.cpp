@@ -66,4 +66,17 @@ TEST_CASE("Window", "[ceammc::ceammc_loader_coreaudio]")
         REQUIRE(window::triangle<float>(3, 5) == 0.5f);
         REQUIRE(window::triangle<float>(4, 5) == 0.0f);
     }
+
+    SECTION("rect")
+    {
+        // empty
+        REQUIRE(window::rect<float>(0, 0) == 1);
+
+        // single
+        REQUIRE(window::rect<float>(0, 1) == 1);
+
+        // 2 elements
+        REQUIRE(window::rect<float>(0, 2) == 1);
+        REQUIRE(window::rect<float>(1, 2) == 1);
+    }
 }

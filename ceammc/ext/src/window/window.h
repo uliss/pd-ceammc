@@ -27,6 +27,7 @@ class Window : public BaseObject {
 
 public:
     Window(const PdArgs& a);
+    void onBang();
     void onFloat(float v);
     void onList(const AtomList& l);
     void setWindowFunc(t_symbol* name);
@@ -35,6 +36,7 @@ public:
     void m_hann(t_symbol*, const AtomList&);
     void m_tri(t_symbol*, const AtomList&);
     void m_welch(t_symbol*, const AtomList&);
+    void m_rect(t_symbol*, const AtomList&);
 
 private:
     void pTypeSet(const AtomList& l);

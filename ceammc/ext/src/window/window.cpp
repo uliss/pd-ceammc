@@ -21,6 +21,7 @@
 static t_symbol* WIN_TRIANGLE = gensym("tri");
 static t_symbol* WIN_WELCH = gensym("welch");
 static t_symbol* WIN_HANN = gensym("hann");
+static t_symbol* WIN_RECT = gensym("rect");
 static t_symbol* WIN_DEFAULT = WIN_HANN;
 static const size_t DEFAULT_SIZE = 512;
 
@@ -29,10 +30,11 @@ static WFuncMap win_func_map;
 
 static bool initFuncMap()
 {
-    win_func_map[WIN_DEFAULT] = window::triangle<float>;
+    win_func_map[WIN_DEFAULT] = window::hann<float>;
     win_func_map[WIN_WELCH] = window::welch<float>;
     win_func_map[WIN_TRIANGLE] = window::triangle<float>;
     win_func_map[WIN_HANN] = window::hann<float>;
+    win_func_map[WIN_RECT] = window::rect<float>;
     return true;
 }
 
@@ -44,7 +46,7 @@ Window::Window(const PdArgs& a)
     : BaseObject(a)
     , size_(0)
     , type_(WIN_DEFAULT)
-    , fn_(0)
+    , fn_(window::hann<float>)
 {
     createCbProperty("@type", &Window::pTypeGet, &Window::pTypeSet);
     setWindowFunc(positionalSymbolArgument(0, WIN_DEFAULT));
@@ -57,6 +59,18 @@ Window::Window(const PdArgs& a)
     createProperty(size_);
 
     createOutlet();
+}
+
+void Window::onBang()
+{
+    AtomList res;
+    const size_t N = size_->value();
+    res.reserve(N);
+
+    for (size_t i = 0; i < N; i++)
+        res.append(fn_(i, N));
+
+    listTo(0, res);
 }
 
 void Window::onFloat(float v)
@@ -125,6 +139,11 @@ void Window::m_welch(t_symbol*, const AtomList&)
     setWindowFunc(WIN_WELCH);
 }
 
+void Window::m_rect(t_symbol*, const AtomList&)
+{
+    setWindowFunc(WIN_RECT);
+}
+
 void window_setup()
 {
     ObjectFactory<Window> obj("window");
@@ -132,4 +151,5 @@ void window_setup()
     obj.addMethod("tri", &Window::m_tri);
     obj.addMethod("welch", &Window::m_welch);
     obj.addMethod("hann", &Window::m_hann);
+    obj.addMethod("rect", &Window::m_rect);
 }

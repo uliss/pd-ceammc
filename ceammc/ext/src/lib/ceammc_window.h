@@ -70,6 +70,15 @@ namespace window {
 
         return 0.5f * (1 - cosf(float(2.0 * M_PI * idx) / (n - 1)));
     }
+
+    template <class T>
+    T rect(size_t idx, size_t n);
+
+    template <>
+    float rect<float>(size_t /*idx*/, size_t /*n*/)
+    {
+        return 1;
+    }
 }
 }
 
