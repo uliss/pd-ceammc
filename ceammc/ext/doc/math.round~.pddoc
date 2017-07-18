@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.round~">
+        <title>math.round~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>signal round</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math round~</keywords>
+            <aliases>
+                <alias>round~</alias>
+            </aliases>
+            <also>
+                <see>math.round</see>
+            </also>
+            <since>0.4</since>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo>input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output rounded signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[osc~ 440]
+|
+[*~ 8]
+|
+[math.round~]
+|
+[/~ 32] [T]
+|  .____/
+[*~]
+| \
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

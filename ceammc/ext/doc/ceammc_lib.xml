@@ -528,6 +528,9 @@
     <entry descr="round to integral value, regardless of rounding direction" name="math.round" ref_view="object">
       <xi:include href="math.round.pddoc" parse="xml"/>
     </entry>
+    <entry descr="signal round" name="math.round~" ref_view="object">
+      <xi:include href="math.round~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="sign function" name="math.sign" ref_view="object">
       <xi:include href="math.sign.pddoc" parse="xml"/>
     </entry>

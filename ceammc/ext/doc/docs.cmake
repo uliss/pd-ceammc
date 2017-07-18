@@ -166,6 +166,7 @@ set(DOC_FILES
     math.pi
     math.reciprocal
     math.round
+    math.round~
     math.sign
     math.sin
     math.sinh

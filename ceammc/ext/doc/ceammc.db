@@ -165,6 +165,7 @@ math.or,or		?		.
 math.pi		.		.
 math.reciprocal		.		.
 math.round		.		.
+math.round~,round~		.		.
 math.sign		.		.
 math.sin		.		.
 math.sinh		.		.
