@@ -12,6 +12,7 @@ array.phase->sample
 array.s->p
 array.s2p
 array.sample->phase
+array.set
 bpm->hz
 bpm->ms
 bpm->sec
@@ -111,6 +112,7 @@ lfo.tri~
 lin->curve
 lin->exp
 lin->lin
+list->array
 list.<<
 list.all_of
 list.any_of

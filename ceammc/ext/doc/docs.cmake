@@ -6,6 +6,7 @@ set(DOC_FILES
     array.minmax
     array.p2s
     array.s2p
+    array.set
     conv.bpm2hz
     conv.bpm2ms
     conv.bpm2sec
