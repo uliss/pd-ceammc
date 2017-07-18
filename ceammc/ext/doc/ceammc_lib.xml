@@ -653,6 +653,9 @@
     <entry descr="random linear distribution" name="random.linear" ref_view="object">
       <xi:include href="random.linear.pddoc" parse="xml"/>
     </entry>
+    <entry descr="piecewise constant random distribution" name="random.pw_const" ref_view="object">
+      <xi:include href="random.pw_const.pddoc" parse="xml"/>
+    </entry>
     <entry descr="piecewise linear random distribution" name="random.pw_lin" ref_view="object">
       <xi:include href="random.pw_lin.pddoc" parse="xml"/>
     </entry>

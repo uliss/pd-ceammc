@@ -194,6 +194,7 @@ set(DOC_FILES
     random.int
     random.linear
     random.pw_lin
+    random.pw_const
     replace
     set.contains
     set.diff

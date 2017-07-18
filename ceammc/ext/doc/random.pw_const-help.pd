@@ -1,27 +1,28 @@
 #N canvas 0 0 715 555 12;
 #X declare -lib ceammc -lib creammc;
-#X obj 404 50 cnv 1 291 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 404 50 piecewise linear random distribution;
-#X obj 1 1 cnv 5 712 40 empty empty random.pw_lin 20 20 0 20 -104026
+#X obj 388 50 cnv 1 307 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 388 50 piecewise constant random distribution;
+#X obj 1 1 cnv 5 712 40 empty empty random.pw_const 20 20 0 20 -104026
 -4096 0;
-#X obj 594 11 random.pw_lin;
+#X obj 580 11 random.pw_const;
 #X obj 205 80 cnv 1 490 98 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 210 80 Produces random floating-point numbers \, which are
-distributed according to a linear probability density function within
-each of the several subintervals [b0 \, b1);
-#X text 210 131 Linear segments specified as: bound0 \, prob0 \,
-bound1 \, prob1 \, etc;
+uniformly distributed within each of the several subintervals [b0 \,
+b1) \, each with its own weight;
+#X text 210 131 Const segments specified as: bound0 \, weight0 \,
+bound1 \, weight0 \, bound2 etc;
 #X obj 50 206 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #N canvas 0 22 450 300 (subpatch) 0;
-#X array array1 50 float 0;
+#X array array1 100 float 0;
 #A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
-#X coords 0 1 50 0 200 140 1;
-#X restore 443 206 graph;
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X coords 0 1 100 0 200 140 1;
+#X restore 472 206 graph;
 #X obj 50 235 list.gen 1000;
-#X obj 203 235 random.pw_lin 0 0 10 1 20 0 30 1;
-#X obj 50 264 list.histogram @bins 50;
+#X obj 203 235 random.pw_const 0 1 1 0 2 2 3;
+#X obj 50 264 list.histogram @bins 100;
 #X obj 50 293 list.normalize @range;
 #X obj 50 322 list.enumerate @append;
 #X obj 50 350 list.repack 2;
@@ -33,7 +34,7 @@ bound1 \, prob1 \, etc;
 #X text 150 428 list;
 #X obj 241 429 cnv 1 16 18 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 240 428 P: interleaved interval boundaries and boundary
-propabilities. Note: number of arguments should be even and >=4\.
+propabilities. Note: number of arguments should be odd and >=5\.
 Boundaries should be in strictly increasing order and weights should
 be non-negative.;
 #X obj 20 498 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -41,43 +42,42 @@ be non-negative.;
 -49933 0;
 #X msg 120 508 @v;
 #X text 240 508 Get/Set interleaved interval boundaries and boundary
-propabilities. For example: values 0 0 0.5 0 1 0 produce triangle
-distribution. Type: list;
-#X msg 120 559 @bounds;
-#X text 240 559 (readonly) Get list of boundaries. Type: list;
-#X msg 120 586 @weights;
-#X text 240 586 (readonly) Get list of weights. Type: list;
-#X obj 20 623 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 628 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+propabilities. Type: list;
+#X msg 120 545 @bounds;
+#X text 240 545 (readonly) Get list of boundaries. Type: list;
+#X msg 120 572 @weights;
+#X text 240 572 (readonly) Get list of weights. Type: list;
+#X obj 20 609 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 614 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 633 1\.;
-#X text 150 633 *bang*;
-#X text 240 633 generates random number.;
-#X text 150 651 *list*;
-#X text 240 651 set new distribution values.;
-#X obj 20 679 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 684 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 120 619 1\.;
+#X text 150 619 *bang*;
+#X text 240 619 generates random number.;
+#X text 150 637 *list*;
+#X text 240 637 set new distribution values.;
+#X obj 20 665 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 670 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 689 1\.;
-#X text 240 689 result value;
+#X text 120 675 1\.;
+#X text 240 675 result value;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title random @url ceammc.random-help.pd;
-#X obj 1 737 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 740 library: ceammc v0.3;
-#X text 399 752 see also:;
-#X obj 475 752 random.linear;
-#X obj 583 752 random.pw_const;
-#N canvas 10 759 400 290 info 0;
+#X obj 1 723 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 726 library: ceammc v0.3;
+#X text 413 738 see also:;
+#X obj 489 738 random.linear;
+#X obj 597 738 random.pw_lin;
+#N canvas 10 745 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
 #X text 120 32 0.3;
 #X text 10 54 object:;
-#X text 120 54 random.pw_lin;
+#X text 120 54 random.pw_const;
 #X text 10 76 category:;
 #X text 120 76 random;
 #X text 10 98 since:;
@@ -94,7 +94,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc -lib creammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 759 pd info;
+#X restore 10 745 pd info;
 #X connect 14 0 15 0;
 #X connect 9 0 11 0;
 #X connect 10 0 9 1;

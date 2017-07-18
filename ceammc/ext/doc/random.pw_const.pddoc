@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="random.pw_lin">
-        <title>random.pw_lin</title>
+    <object name="random.pw_const">
+        <title>random.pw_const</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>piecewise linear random distribution</description>
+            <description>piecewise constant random distribution</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>random</category>
             <keywords>linear random piecewise</keywords>
             <also>
                 <see>random.linear</see>
-                <see>random.pw_const</see>
+                <see>random.pw_lin</see>
             </also>
             <since>0.4</since>
         </meta>
         <info>
-            <par>Produces random floating-point numbers, which are distributed according
-            to a linear probability density function within each of the several subintervals [b0, b1)
+            <par>Produces random floating-point numbers, which are uniformly distributed
+            within each of the several subintervals [b0, b1) , each with its own weight
             </par>
-            <par>Linear segments specified as: bound0, prob0, bound1, prob1, etc</par>
+            <par>Const segments specified as: bound0, weight0, bound1, weight0, bound2 etc</par>
         </info>
         <arguments>
             <argument type="list" name="P">interleaved interval boundaries
-            and boundary propabilities. Note: number of arguments should be even and &gt;=4.
+            and boundary propabilities. Note: number of arguments should be odd and &gt;=5.
             Boundaries should be in strictly increasing order and weights should be non-negative
             </argument>
         </arguments>
         <properties>
             <property name="@v" type="list">interleaved interval boundaries
-            and boundary propabilities. For example: values 0 0 0.5 0 1 0 produce triangle distribution
+            and boundary propabilities.
             </property>
             <property name="@bounds" type="list" readonly="true">list of boundaries</property>
             <property name="@weights" type="list" readonly="true">list of weights</property>
@@ -48,11 +48,11 @@
         <example>
             <pdascii>
 <![CDATA[
-[B]                                      [array array1 size=50 yr=0..1]
+[B]                                         [array array1 size=100 yr=0..1]
 |
-[list.gen 1000]X[random.pw_lin 0 0 10 1 20 0 30 1]
+[list.gen 1000]X[random.pw_const 0 1 1 0 2 2 3]
 |
-[list.histogram @bins 50]
+[list.histogram @bins 100]
 |
 [list.normalize @range]
 |
