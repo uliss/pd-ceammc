@@ -5,6 +5,7 @@ endmacro()
 
 ceammc_random_extension(float)
 ceammc_random_extension(int)
+ceammc_random_extension(discrete)
 ceammc_random_extension(gauss)
 ceammc_random_extension(linear)
 ceammc_random_extension(pwlin)
