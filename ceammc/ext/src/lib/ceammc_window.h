@@ -79,6 +79,15 @@ namespace window {
     {
         return 1;
     }
+
+    template <class T>
+    T sine(size_t idx, size_t n);
+
+    template <>
+    float sine<float>(size_t idx, size_t n)
+    {
+        return sinf((M_PI * idx) / float(n - 1));
+    }
 }
 }
 

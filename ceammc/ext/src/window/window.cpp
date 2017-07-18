@@ -22,6 +22,7 @@ static t_symbol* WIN_TRIANGLE = gensym("tri");
 static t_symbol* WIN_WELCH = gensym("welch");
 static t_symbol* WIN_HANN = gensym("hann");
 static t_symbol* WIN_RECT = gensym("rect");
+static t_symbol* WIN_SINE = gensym("sine");
 static t_symbol* WIN_DEFAULT = WIN_HANN;
 static const size_t DEFAULT_SIZE = 512;
 
@@ -35,6 +36,7 @@ static bool initFuncMap()
     win_func_map[WIN_TRIANGLE] = window::triangle<float>;
     win_func_map[WIN_HANN] = window::hann<float>;
     win_func_map[WIN_RECT] = window::rect<float>;
+    win_func_map[WIN_SINE] = window::sine<float>;
     return true;
 }
 
@@ -144,6 +146,11 @@ void Window::m_rect(t_symbol*, const AtomList&)
     setWindowFunc(WIN_RECT);
 }
 
+void Window::m_sine(t_symbol*, const AtomList&)
+{
+    setWindowFunc(WIN_SINE);
+}
+
 void window_setup()
 {
     ObjectFactory<Window> obj("window");
@@ -152,4 +159,5 @@ void window_setup()
     obj.addMethod("welch", &Window::m_welch);
     obj.addMethod("hann", &Window::m_hann);
     obj.addMethod("rect", &Window::m_rect);
+    obj.addMethod("sine", &Window::m_sine);
 }
