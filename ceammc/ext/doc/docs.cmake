@@ -14,6 +14,7 @@ set(DOC_FILES
     conv.lin2curve
     conv.lin2exp
     conv.lin2lin
+    conv.pitch2midi
     conv.samp2sec
     conv.sec2samp
     conv.sec2str

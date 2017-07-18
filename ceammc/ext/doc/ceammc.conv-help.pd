@@ -21,17 +21,19 @@ position [0\..1];
 #X text 175 315 maps linear range to exponential range;
 #X obj 30 342 conv.lin2lin;
 #X text 175 342 convert from one linear range to another;
-#X obj 30 369 conv.samp2sec;
-#X text 175 369 convert samples to time according to samplerate;
-#X obj 30 396 conv.sec2samp;
-#X text 175 396 convert time in seconds to number of samples according
+#X obj 30 369 conv.pitch2midi;
+#X text 175 369 converts symbol pitch name to MIDI note number;
+#X obj 30 396 conv.samp2sec;
+#X text 175 396 convert samples to time according to samplerate;
+#X obj 30 423 conv.sec2samp;
+#X text 175 423 convert time in seconds to number of samples according
 to current samplerate;
-#X obj 30 433 conv.sec2str;
-#X text 175 433 converts float time in seconds to formated symbol (or
+#X obj 30 460 conv.sec2str;
+#X text 175 460 converts float time in seconds to formated symbol (or
 string);
-#X obj 30 470 conv.str2sec;
-#X text 175 470 converts formatted time to float value in seconds;
+#X obj 30 497 conv.str2sec;
+#X text 175 497 converts formatted time to float value in seconds;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::conv 20 20 0 20 -104026
 -4096 0;
-#X obj 1 497 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 507 library: ceammc;
+#X obj 1 524 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 534 library: ceammc;

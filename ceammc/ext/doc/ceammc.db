@@ -13,6 +13,7 @@ conv.cc2amp,cc->amp		.		.
 conv.lin2curve,lin->curve		.		.
 conv.lin2exp,lin->exp		.		.
 conv.lin2lin,lin->lin		.		.
+conv.pitch2midi,pitch->midi		.		.
 conv.samp2sec,samp->sec		.		.
 conv.sec2samp,sec->samp		.		.
 conv.sec2str,sec->str		.		.
