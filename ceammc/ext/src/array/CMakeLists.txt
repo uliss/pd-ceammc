@@ -13,6 +13,7 @@ ceammc_array_extension(fill)
 ceammc_array_extension(minmax)
 ceammc_array_extension(p2s)
 ceammc_array_extension(s2p)
+ceammc_array_extension(set)
 
 add_library(ceammc_array STATIC mod_array.h mod_array.cpp ${ARRAY_SOURCES})
 if(UNIX)
