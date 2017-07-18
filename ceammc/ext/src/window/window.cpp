@@ -26,6 +26,7 @@ static t_symbol* WIN_SINE = gensym("sine");
 static t_symbol* WIN_HAMMING = gensym("hamming");
 static t_symbol* WIN_BLACKMAN = gensym("blackman");
 static t_symbol* WIN_NUTTALL = gensym("nuttall");
+static t_symbol* WIN_BLACKMAN_HARRIS = gensym("blackman-harris");
 static t_symbol* WIN_DEFAULT = WIN_HANN;
 static const size_t DEFAULT_SIZE = 512;
 
@@ -43,6 +44,7 @@ static bool initFuncMap()
     win_func_map[WIN_HAMMING] = window::hamming<float>;
     win_func_map[WIN_BLACKMAN] = window::blackman<float>;
     win_func_map[WIN_NUTTALL] = window::nuttall<float>;
+    win_func_map[WIN_BLACKMAN_HARRIS] = window::blackman_harris<float>;
     return true;
 }
 
@@ -172,6 +174,11 @@ void Window::m_nuttall(t_symbol*, const AtomList&)
     setWindowFunc(WIN_NUTTALL);
 }
 
+void Window::m_blackman_harris(t_symbol*, const AtomList&)
+{
+    setWindowFunc(WIN_BLACKMAN_HARRIS);
+}
+
 void window_setup()
 {
     ObjectFactory<Window> obj("window");
@@ -184,4 +191,5 @@ void window_setup()
     obj.addMethod("hamming", &Window::m_hamming);
     obj.addMethod("blackman", &Window::m_blackman);
     obj.addMethod("nuttall", &Window::m_nuttall);
+    obj.addMethod("blackman-harris", &Window::m_blackman_harris);
 }

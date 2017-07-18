@@ -134,6 +134,24 @@ namespace window {
             + a2 * cosf((4 * M_PI * idx) / N)
             - a3 * cosf((6 * M_PI * idx) / N);
     }
+
+    template <class T>
+    T blackman_harris(size_t idx, size_t n);
+
+    template <>
+    float blackman_harris<float>(size_t idx, size_t n)
+    {
+        static const float a0 = 0.35875f;
+        static const float a1 = 0.48829f;
+        static const float a2 = 0.14128f;
+        static const float a3 = 0.01168f;
+        const float N = n - 1;
+
+        return a0
+            - a1 * cosf((2 * M_PI * idx) / N)
+            + a2 * cosf((4 * M_PI * idx) / N)
+            - a3 * cosf((6 * M_PI * idx) / N);
+    }
 }
 }
 
