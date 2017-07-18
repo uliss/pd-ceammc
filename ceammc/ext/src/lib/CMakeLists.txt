@@ -31,6 +31,7 @@ set(CEAMMC_LIB_SOURCES ceammc.h
     ceammc_atomlist.cpp
     ceammc_canvas.cpp
     ceammc_convert.cpp
+    ceammc_convert_pitch.cpp
     ceammc_data.cpp
     ceammc_datastorage.cpp
     ceammc_dataatom.cpp

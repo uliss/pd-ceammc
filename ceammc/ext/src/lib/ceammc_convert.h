@@ -47,6 +47,8 @@ namespace convert {
     double exp2lin(double x, double x0, double x1, double y0, double y1);
     float lin2curve(float x, float x0, float x1, float y0, float y1, float curve);
     double lin2curve(double x, double x0, double x1, double y0, double y1, double curve);
+
+    int spn2midi(const char* p);
 }
 }
 

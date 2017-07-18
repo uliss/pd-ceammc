@@ -1,4 +1,5 @@
 #include "mod_conv.h"
+#include "conv_pitch2midi.h"
 
 extern "C" void setup_conv0x2esec2str();
 extern "C" void setup_conv0x2estr2sec();
@@ -44,4 +45,6 @@ void ceammc_conv_setup()
     setup_conv0x2ebpm2ms();
     setup_conv0x2ebpm2sec();
     setup_conv0x2ebpm2hz();
+
+    setup_conv0x2epitch2midi();
 }
