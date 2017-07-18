@@ -99,6 +99,20 @@ namespace window {
         static const float b = 1 - a;
         return a - b * cosf((2 * M_PI * idx) / float(n - 1));
     }
+
+    template <class T>
+    T blackman(size_t idx, size_t n);
+
+    template <>
+    float blackman<float>(size_t idx, size_t n)
+    {
+        static const float a = 0.16f;
+        static const float a0 = (1 - a) / 2;
+        static const float a1 = 0.5f;
+        static const float a2 = a / 2;
+
+        return a0 - a1 * cosf((2 * M_PI * idx) / float(n - 1)) + a2 * cosf((4 * M_PI * idx) / float(n - 1));
+    }
 }
 }
 
