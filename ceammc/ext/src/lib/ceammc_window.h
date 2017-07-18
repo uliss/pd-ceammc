@@ -152,6 +152,26 @@ namespace window {
             + a2 * cosf((4 * M_PI * idx) / N)
             - a3 * cosf((6 * M_PI * idx) / N);
     }
+
+    template <class T>
+    T flattop(size_t idx, size_t n);
+
+    template <>
+    float flattop<float>(size_t idx, size_t n)
+    {
+        static const float a0 = 0.21557895f;
+        static const float a1 = 0.41663158f;
+        static const float a2 = 0.27726316f;
+        static const float a3 = 0.08357895f;
+        static const float a4 = 0.00694737f;
+        const float N = n - 1;
+
+        return a0
+            - a1 * cosf((2 * M_PI * idx) / N)
+            + a2 * cosf((4 * M_PI * idx) / N)
+            - a3 * cosf((6 * M_PI * idx) / N)
+            + a4 * cosf((8 * M_PI * idx) / N);
+    }
 }
 }
 
