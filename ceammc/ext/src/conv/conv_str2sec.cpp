@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "conv_str2sec.h"
+#include "../string/datatype_string.h"
 
 #include "ceammc_convert.h"
 
@@ -35,8 +36,14 @@ void StrToSec::onAny(t_symbol* s, const AtomList& v)
     floatTo(0, convert::time::str2sec(s->s_name, on_err_->value()));
 }
 
+void StrToSec::onDataT(const DataTypeString& s)
+{
+    floatTo(0, convert::time::str2sec(s.str(), on_err_->value()));
+}
+
 extern "C" void setup_conv0x2estr2sec()
 {
     ObjectFactory<StrToSec> obj("conv.str2sec");
     obj.addAlias("str->sec");
+    obj.processData<DataTypeString>();
 }

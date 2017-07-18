@@ -19,7 +19,7 @@
 
 ### Changed:
 - random.gauss doc update
-
+- conv.str2sec - handling of strings added (only symbols were supported)
 
 ## [0.3]
 ### Fixed:

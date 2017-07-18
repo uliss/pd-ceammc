@@ -19,6 +19,8 @@
 
 using namespace ceammc;
 
+class DataTypeString;
+
 class StrToSec : public BaseObject {
     FloatProperty* on_err_;
 
@@ -26,6 +28,7 @@ public:
     StrToSec(const PdArgs& a);
     void onSymbol(t_symbol* s);
     void onAny(t_symbol* s, const AtomList& v);
+    void onDataT(const DataTypeString& s);
 };
 
 #endif // CONV_STR2SEC_H
