@@ -1,7 +1,8 @@
 #N canvas 0 0 715 555 12;
 #X declare -lib ceammc -lib creammc;
-#X obj 300 50 cnv 1 395 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 300 50 converts float time in seconds to formated symbol;
+#X obj 268 50 cnv 1 427 35 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 268 50 converts float time in seconds to formated symbol (or
+string);
 #X obj 1 1 cnv 5 712 40 empty empty conv.sec2str 20 20 0 20 -104026
 -4096 0;
 #X obj 517 11 sec->str;
@@ -9,25 +10,33 @@
 #X obj 50 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X floatatom 261 118 5 0 0 0 - - -;
 #X obj 50 147 metro 1000;
-#X obj 261 147 sec->str;
+#X obj 261 147 sec->str @symbol;
 #X obj 50 176 f;
 #X obj 107 176 + 1;
 #X symbolatom 261 176 12 0 0 0 - - -;
-#X obj 50 205 sec->str;
+#X obj 50 205 sec->str @symbol;
 #X obj 261 205 str->sec;
 #X symbolatom 50 234 12 0 0 0 - - -;
 #X floatatom 261 234 5 0 0 0 - - -;
 #X obj 20 273 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 278 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
-0;
-#X text 120 283 1\.;
-#X text 150 283 *float*;
-#X text 240 283 converts float value in seconds to formatted symbol.;
-#X obj 20 311 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 316 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 278 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X text 120 321 1\.;
-#X text 240 321 time in format "HH:MM::SS";
+#X msg 120 283 @ms;
+#X text 240 283 output milliseconds;
+#X msg 120 310 @symbol;
+#X text 240 310 if specified - output formatted time as symbol \,
+otherwise as string;
+#X obj 20 357 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 362 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+0;
+#X text 120 367 1\.;
+#X text 150 367 *float*;
+#X text 240 367 converts float value in seconds to formatted symbol.;
+#X obj 20 395 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 400 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+-49933 0;
+#X text 120 405 1\.;
+#X text 240 405 time in format "HH:MM::SS" or "HH:MM:SS.XXX";
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

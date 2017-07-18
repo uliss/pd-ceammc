@@ -6,7 +6,7 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>converts float time in seconds to formated symbol</description>
+            <description>converts float time in seconds to formated symbol (or string)</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>conv</category>
@@ -19,24 +19,29 @@
                 <alias>sec-&gt;str</alias>
             </aliases>
         </meta>
+        <properties>
+            <property name="@ms" type="flag">output milliseconds</property>
+            <property name="@symbol" type="flag">if specified - output formatted time as symbol,
+            otherwise as string.</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="float">converts float value in seconds to formatted symbol</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>time in format "HH:MM::SS"</outlet>
+            <outlet>time in format "HH:MM::SS" or "HH:MM:SS.XXX"</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
 [T]                   [F]
 |                     |
-[metro 1000]          [sec->str]
+[metro 1000]          [sec->str @symbol]
 |                     |
 [f] X [+ 1]           [S digits=12]
 |                     |
-[sec->str]            [str->sec]
+[sec->str @symbol]    [str->sec]
 |                     |
 [S digits=12]         [F]
 ]]>

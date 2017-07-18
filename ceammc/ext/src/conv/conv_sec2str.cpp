@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "conv_sec2str.h"
+#include "../string/datatype_string.h"
 #include "ceammc_convert.h"
 
 using namespace ceammc;
@@ -19,16 +20,24 @@ using namespace ceammc;
 SecToStr::SecToStr(const PdArgs& a)
     : BaseObject(a)
     , ms_flag_(0)
+    , symbol_out_(0)
 {
     createOutlet();
 
     ms_flag_ = new FlagProperty("@ms");
+    symbol_out_ = new FlagProperty("@symbol");
     createProperty(ms_flag_);
+    createProperty(symbol_out_);
 }
 
 void SecToStr::onFloat(t_float v)
 {
-    symbolTo(0, gensym(convert::time::sec2str(v, ms_flag_->value()).c_str()));
+    const std::string str = convert::time::sec2str(v, ms_flag_->value()).c_str();
+
+    if (symbol_out_->value())
+        symbolTo(0, gensym(str.c_str()));
+    else
+        dataTo(0, DataPtr(new DataTypeString(str)));
 }
 
 extern "C" void setup_conv0x2esec2str()

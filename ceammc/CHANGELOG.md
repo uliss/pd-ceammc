@@ -20,6 +20,7 @@
 ### Changed:
 - random.gauss doc update
 - conv.str2sec - handling of strings added (only symbols were supported)
+- conv.sec2str - by default outputs string instead of symbol. Flag @symbol added for old behaivor.
 
 ## [0.3]
 ### Fixed:

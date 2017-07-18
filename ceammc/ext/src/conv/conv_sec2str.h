@@ -21,6 +21,7 @@ using namespace ceammc;
 
 class SecToStr : public BaseObject {
     FlagProperty* ms_flag_;
+    FlagProperty* symbol_out_;
 
 public:
     SecToStr(const PdArgs& a);
