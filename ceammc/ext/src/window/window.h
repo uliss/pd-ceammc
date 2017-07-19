@@ -43,6 +43,7 @@ public:
     void m_nuttall(t_symbol*, const AtomList&);
     void m_blackman_harris(t_symbol*, const AtomList&);
     void m_flattop(t_symbol*, const AtomList&);
+    void m_gauss(t_symbol*, const AtomList&);
 
 private:
     void pTypeSet(const AtomList& l);

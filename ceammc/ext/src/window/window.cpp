@@ -28,6 +28,7 @@ static t_symbol* WIN_BLACKMAN = gensym("blackman");
 static t_symbol* WIN_NUTTALL = gensym("nuttall");
 static t_symbol* WIN_BLACKMAN_HARRIS = gensym("blackman-harris");
 static t_symbol* WIN_FLATTOP = gensym("flattop");
+static t_symbol* WIN_GAUSS = gensym("gauss");
 static t_symbol* WIN_DEFAULT = WIN_HANN;
 static const size_t DEFAULT_SIZE = 512;
 
@@ -47,6 +48,7 @@ static bool initFuncMap()
     win_func_map[WIN_NUTTALL] = window::nuttall<float>;
     win_func_map[WIN_BLACKMAN_HARRIS] = window::blackman_harris<float>;
     win_func_map[WIN_FLATTOP] = window::flattop<float>;
+    win_func_map[WIN_GAUSS] = window::gauss<20>;
     return true;
 }
 
@@ -186,6 +188,11 @@ void Window::m_flattop(t_symbol*, const AtomList&)
     setWindowFunc(WIN_FLATTOP);
 }
 
+void Window::m_gauss(t_symbol*, const AtomList&)
+{
+    setWindowFunc(WIN_GAUSS);
+}
+
 void window_setup()
 {
     ObjectFactory<Window> obj("window");
@@ -200,4 +207,5 @@ void window_setup()
     obj.addMethod("nuttall", &Window::m_nuttall);
     obj.addMethod("blackman-harris", &Window::m_blackman_harris);
     obj.addMethod("flattop", &Window::m_flattop);
+    obj.addMethod("gauss", &Window::m_gauss);
 }

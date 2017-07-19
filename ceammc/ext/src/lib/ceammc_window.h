@@ -172,6 +172,14 @@ namespace window {
             - a3 * cosf((6 * M_PI * idx) / N)
             + a4 * cosf((8 * M_PI * idx) / N);
     }
+
+    template <int SIGMA>
+    float gauss(size_t idx, size_t n)
+    {
+        const float A = (n - 1) / 2.0f;
+        const float x = (idx - A) / ((float(SIGMA) / 100.f) * A);
+        return expf(-0.5 * x * x);
+    }
 }
 }
 
