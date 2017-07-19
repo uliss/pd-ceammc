@@ -33,7 +33,7 @@ matrix:
 
 before_install:
 ## install some dependencies
-- sudo apt-get install -qq libboost1.48-dev libsndfile1 libsndfile-dev libportaudio-dev libfftw3-dev libasound2-dev libjack-dev libmodplug-dev
+- sudo apt-get install -qq libboost-dev libsndfile1 libsndfile-dev libportaudio-dev libfftw3-dev libasound2-dev libjack-dev libmodplug-dev
 - pip install --user cpp-coveralls
 
 
