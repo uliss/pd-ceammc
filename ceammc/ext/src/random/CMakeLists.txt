@@ -7,7 +7,7 @@ ceammc_random_extension(float)
 ceammc_random_extension(int)
 ceammc_random_extension(gauss)
 
-if(${Boost_VERSION} VERSION_GREATER "1.50")
+if(${Boost_VERSION} GREATER 105000)
     ceammc_random_extension(discrete)
     ceammc_random_extension(linear)
     ceammc_random_extension(pwlin)
