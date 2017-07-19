@@ -5,11 +5,14 @@ endmacro()
 
 ceammc_random_extension(float)
 ceammc_random_extension(int)
-ceammc_random_extension(discrete)
 ceammc_random_extension(gauss)
-ceammc_random_extension(linear)
-ceammc_random_extension(pwlin)
-ceammc_random_extension(pwconst)
+
+if(${Boost_VERSION} VERSION_GREATER "1.50")
+    ceammc_random_extension(discrete)
+    ceammc_random_extension(linear)
+    ceammc_random_extension(pwlin)
+    ceammc_random_extension(pwconst)
+endif()
 
 add_library(ceammc_random STATIC mod_random.cpp ${RANDOM_SOURCES})
 if(UNIX)
