@@ -11,3 +11,9 @@ pd_add_extension(NAME soundtouch.bpm~
     INTERNAL False
     LIBRARY soundtouch
     LINK ceammc_core soundtouch)
+
+pd_add_extension(NAME soundtouch.bpm
+    FILES st_bpm_array.cpp
+    INTERNAL False
+    LIBRARY soundtouch
+    LINK ceammc_core soundtouch ceammc_array)
