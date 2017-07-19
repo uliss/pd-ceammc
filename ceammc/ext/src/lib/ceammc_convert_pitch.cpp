@@ -1,6 +1,7 @@
 #include "ceammc_convert.h"
 
 #include <boost/unordered_map.hpp>
+#include <cstring>
 #include <string>
 
 typedef boost::unordered_map<std::string, int> PitchMap;
