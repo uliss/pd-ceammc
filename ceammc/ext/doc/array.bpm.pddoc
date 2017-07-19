@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="array.bpm">
+        <title>array.bpm</title>
+        <meta>
+            <authors>
+                <author>Olli Parviainen</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>BPM calculator</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>array</category>
+            <keywords>array bpm</keywords>
+            <since>0.4</since>
+        </meta>
+        <info>
+            <par>Calculates BPM (Beats Per Minute) rate using SoundTouch library</par>
+        </info>
+        <arguments>
+            <argument name="ARRAY" type="symbol">array name</argument>
+        </arguments>
+        <properties>
+            <property name="@array" type="symbol">array name</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">starts calculation</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>float value - BPM</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]                                 [array A1]
+|
+[openpanel]
+|
+[load $1 @to A1 @resize(
+|
+[snd.file]
+|
+[bng]
+|
+[array.bpm A1]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

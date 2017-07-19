@@ -1,4 +1,5 @@
 set(DOC_FILES
+    array.bpm
     array.copy
     array.do
     array.each

@@ -17,6 +17,7 @@
 - random.pw_const added (piecewise constant distribution)
 - random.discrete added
 - array.set added
+- array.bpm added (via SoundTouch library: https://www.surina.net/soundtouch/)
 
 ### Changed:
 - random.gauss doc update
