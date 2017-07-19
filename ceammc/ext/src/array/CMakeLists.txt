@@ -17,6 +17,7 @@ ceammc_array_extension(minmax)
 ceammc_array_extension(p2s)
 ceammc_array_extension(s2p)
 ceammc_array_extension(set)
+ceammc_array_extension(stretch)
 
 add_library(ceammc_array STATIC mod_array.h mod_array.cpp ${ARRAY_SOURCES})
 target_link_libraries(ceammc_array soundtouch)
