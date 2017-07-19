@@ -8,6 +8,7 @@
 #   https://scan.coverity.com/projects/pure-data-pure-data
 
 language: cpp
+dist: trusty
 
 env:
   global:
