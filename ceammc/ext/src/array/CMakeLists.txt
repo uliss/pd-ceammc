@@ -1,4 +1,6 @@
 include_directories(${CMAKE_SOURCE_DIR}/src)
+include_directories(${CMAKE_BINARY_DIR}/ceammc/extra/SoundTouch)
+include_directories(${CMAKE_SOURCE_DIR}/ceammc/extra/SoundTouch/soundtouch/include)
 
 set(ARRAY_SOURCES array_base.cpp)
 
@@ -6,6 +8,7 @@ macro(ceammc_array_extension name)
     list(APPEND ARRAY_SOURCES "array_${name}.cpp")
 endmacro()
 
+ceammc_array_extension(bpm)
 ceammc_array_extension(copy)
 ceammc_array_extension(do)
 ceammc_array_extension(each)
@@ -16,6 +19,7 @@ ceammc_array_extension(s2p)
 ceammc_array_extension(set)
 
 add_library(ceammc_array STATIC mod_array.h mod_array.cpp ${ARRAY_SOURCES})
+target_link_libraries(ceammc_array soundtouch)
 if(UNIX)
     set_target_properties(ceammc_array PROPERTIES COMPILE_FLAGS "-fPIC")
 endif()

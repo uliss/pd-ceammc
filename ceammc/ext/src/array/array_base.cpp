@@ -49,7 +49,7 @@ void ArrayBase::propSetArray(const AtomList& l)
     setArray(l[0].asSymbol());
 }
 
-bool ArrayBase::check()
+bool ArrayBase::checkArray()
 {
     if (array_name_ == 0 || !array_.open(array_name_)) {
         OBJ_ERR << "invalid array: " << array_.name();

@@ -1,4 +1,5 @@
 #include "mod_array.h"
+#include "array_bpm.h"
 #include "array_set.h"
 
 extern "C" void setup_array0x2ecopy();
@@ -11,6 +12,7 @@ extern "C" void setup_array0x2es2p();
 
 void ceammc_array_setup()
 {
+    setup_array0x2ebpm();
     setup_array0x2ecopy();
     setup_array0x2edo();
     setup_array0x2eeach();

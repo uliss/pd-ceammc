@@ -27,7 +27,7 @@ void ArrayFill::onSymbol(t_symbol* s)
 
 void ArrayFill::onFloat(float f)
 {
-    if (!check())
+    if (!checkArray())
         return;
 
     for (size_t i = 0; i < array_.size(); i++)
@@ -43,7 +43,7 @@ void ArrayFill::onList(const AtomList& l)
 
 void ArrayFill::m_fill(t_symbol* m, const AtomList& l)
 {
-    if (!check())
+    if (!checkArray())
         return;
 
     size_t from = 0;

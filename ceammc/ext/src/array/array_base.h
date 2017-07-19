@@ -26,7 +26,7 @@ public:
     ArrayBase(const PdArgs& a);
 
     bool setArray(t_symbol* s);
-    bool check();
+    bool checkArray();
 
 protected:
     Array array_;

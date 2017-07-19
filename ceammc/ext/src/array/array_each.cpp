@@ -25,7 +25,7 @@ ArrayEach::ArrayEach(const PdArgs& a)
 
 void ArrayEach::onBang()
 {
-    if (!check())
+    if (!checkArray())
         return;
 
     outputEach();

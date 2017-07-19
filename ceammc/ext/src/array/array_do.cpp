@@ -25,7 +25,7 @@ ArrayDo::ArrayDo(const PdArgs& a)
 
 void ArrayDo::onBang()
 {
-    if (!check())
+    if (!checkArray())
         return;
 
     output();

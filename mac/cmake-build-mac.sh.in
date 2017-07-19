@@ -112,8 +112,8 @@ cp $SRC_DIR/ceammc/extra/hcs/*.tcl $PD_EXTRA/ceammc
 cp $SRC_DIR/ceammc/extra/hcs/*-help.pd $PD_EXTRA/ceammc
 cp $SRC_DIR/ceammc/extra/hcs/*-help.pd $PD_EXTRA/ceammc
 # soundtouch
-cp $BUILD_DIR/ceammc/extra/SoundTouch/pd/soundtouch*d_fat $PD_EXTRA/ceammc
-$DYLIBBUNDLER -x $PD_EXTRA/ceammc/soundtouch*d_fat -b -cd -d $PD_EXTRA/ceammc -p @loader_path/ -of
+cp $BUILD_DIR/ceammc/extra/SoundTouch/pd/*.d_fat $PD_EXTRA/ceammc
+$DYLIBBUNDLER -x $PD_EXTRA/ceammc/*.d_fat -b -cd -d $PD_EXTRA/ceammc -p @loader_path/ -of
 
 echo "Copying CEAMMC help files:"
 cp $SRC_DIR/ceammc/ext/doc/*-help.pd $PD_EXTRA/ceammc

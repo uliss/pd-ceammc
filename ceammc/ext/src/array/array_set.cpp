@@ -36,7 +36,7 @@ void ArraySet::onList(const AtomList& values)
 
 void ArraySet::set(const AtomList& v)
 {
-    if (!check())
+    if (!checkArray())
         return;
 
     if (!array_.resize(v.size())) {

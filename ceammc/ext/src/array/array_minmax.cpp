@@ -25,7 +25,7 @@ ArrayMinMax::ArrayMinMax(const PdArgs& a)
 
 void ArrayMinMax::onBang()
 {
-    if (!check())
+    if (!checkArray())
         return;
 
     perform();
