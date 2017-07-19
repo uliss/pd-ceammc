@@ -37,6 +37,7 @@ ceammc_add_test("ceammc::convert" test_convert)
 ceammc_add_test("ceammc::string" test_string)
 ceammc_add_test("ceammc::window" test_window)
 
+ceammc_external_test(array bpm)
 ceammc_external_test(array copy)
 ceammc_external_test(array do)
 ceammc_external_test(array each)
