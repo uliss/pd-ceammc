@@ -22,3 +22,5 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/soundtouch/include/soundtouch_config.
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/soundtouch/include)
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 add_library(soundtouch STATIC ${SOUNDTOUCH_SRC})
+
+add_subdirectory(pd)

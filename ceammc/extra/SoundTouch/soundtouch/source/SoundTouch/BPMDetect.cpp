@@ -237,7 +237,7 @@ void BPMDetect::updateXCorr(int process_samples)
         {
             sum += pBuffer[i] * pBuffer[i + offs];    // scaling the sub-result shouldn't be necessary
         }
-//        xcorr[offs] *= xcorr_decay;   // decay 'xcorr' here with suitable coefficients 
+        xcorr[offs] *= 0.999f;   // decay 'xcorr' here with suitable coefficients 
                                         // if it's desired that the system adapts automatically to
                                         // various bpms, e.g. in processing continouos music stream.
                                         // The 'xcorr_decay' should be a value that's smaller than but 
