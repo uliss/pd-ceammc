@@ -16,7 +16,7 @@
         </meta>
         <info>
             <par>Based on SoundTouch library for changing the Tempo, Pitch and 
-            Playback Rates of arrays. Copries time-stretched data from source to destination array</par>
+            Playback Rates of arrays. Copies time-stretched data from source to destination array</par>
         </info>
         <arguments>
             <argument name="SRC" type="symbol">source array</argument>
@@ -56,11 +56,11 @@
 
 [bng]                                
 |                                    
-[array.stretch A1 A2 @pitch -12]     
+[array.stretch A1 A2 @pitch -5]     
 
 [bng]                                [bng]                               
 |                                    |                                   
-[array.stretch A1 A2 @rate 1.5]      [array.stretch A1 A2 @tempo -20]    
+[array.stretch A1 A2 @rate 1.5]      [array.stretch A1 A2 @tempo -10 @speech]    
 
 /* Play */
 
