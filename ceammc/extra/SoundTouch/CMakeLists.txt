@@ -23,3 +23,6 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/soundtouch/include)
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 add_library(soundtouch STATIC ${SOUNDTOUCH_SRC})
 
+if(UNIX)
+    set_target_properties(soundtouch PROPERTIES COMPILE_FLAGS "-fPIC")
+endif()
