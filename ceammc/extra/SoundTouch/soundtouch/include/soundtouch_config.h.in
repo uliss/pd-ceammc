@@ -1,5 +1,0 @@
-/* Use Float as Sample type */
-#cmakedefine SOUNDTOUCH_FLOAT_SAMPLES ${SOUNDTOUCH_FLOAT_SAMPLES}
-
-/* Use Integer as Sample type */
-#cmakedefine SOUNDTOUCH_INTEGER_SAMPLES ${SOUNDTOUCH_INTEGER_SAMPLES}

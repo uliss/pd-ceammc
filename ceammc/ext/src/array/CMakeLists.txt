@@ -1,5 +1,4 @@
 include_directories(${CMAKE_SOURCE_DIR}/src)
-include_directories(${CMAKE_BINARY_DIR}/ceammc/extra/SoundTouch)
 include_directories(${CMAKE_SOURCE_DIR}/ceammc/extra/SoundTouch/soundtouch/include)
 
 set(ARRAY_SOURCES array_base.cpp)
