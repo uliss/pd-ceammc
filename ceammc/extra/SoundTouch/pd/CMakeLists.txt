@@ -11,8 +11,3 @@ pd_add_extension(NAME soundtouch.bpm~
     LIBRARY soundtouch
     LINK ceammc_core soundtouch)
 
-pd_add_extension(NAME timestretch
-    FILES st_timestretch.cpp
-    INTERNAL False
-    LIBRARY soundtouch
-    LINK ceammc_core soundtouch ceammc_array)
