@@ -22,6 +22,9 @@
     <entry descr="set array content from list" name="array.set" ref_view="object">
       <xi:include href="array.set.pddoc" parse="xml"/>
     </entry>
+    <entry descr="array time-stretch, pitch-shift or rate-change" name="array.stretch" ref_view="object">
+      <xi:include href="array.stretch.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="base">
     <entry descr="named function" name="function" ref_view="link">

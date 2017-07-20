@@ -8,6 +8,7 @@ set(DOC_FILES
     array.p2s
     array.s2p
     array.set
+    array.stretch
     conv.bpm2hz
     conv.bpm2ms
     conv.bpm2sec

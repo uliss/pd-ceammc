@@ -1,0 +1,135 @@
+#N canvas 0 0 715 555 12;
+#X declare -lib ceammc -lib creammc;
+#X obj 324 50 cnv 1 371 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 324 50 array time-stretch \, pitch-shift or rate-change;
+#X obj 1 1 cnv 5 712 40 empty empty array.stretch 20 20 0 20 -104026
+-4096 0;
+#X obj 593 11 array.stretch;
+#X obj 205 80 cnv 1 490 61 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 210 80 Based on SoundTouch library for changing the Tempo \,
+Pitch and Playback Rates of arrays. Copries time-stretched data from
+source to destination array;
+#X msg 50 169 symbol bell.aiff;
+#X msg 232 169 symbol voice.wav;
+#N canvas 0 22 450 300 (subpatch) 0;
+#X array A1 100 float 0;
+#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X coords 0 1 100 -1 150 140 1;
+#X restore 414 169 graph;
+#N canvas 0 22 450 300 (subpatch) 0;
+#X array A2 100 float 0;
+#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X coords 0 1 100 -1 150 140 1;
+#X restore 597 169 graph;
+#X msg 50 198 load %DOC%/sound/\$1 @to A1 @resize;
+#X obj 50 227 expand_env;
+#X obj 50 256 snd.file;
+#X obj 50 285 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 50 313 array.stretch A1 A2 @pitch -12;
+#X obj 50 342 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 405 342 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 50 371 array.stretch A1 A2 @rate 1.5;
+#X obj 405 371 array.stretch A1 A2 @tempo -20;
+#X text 50 400 Play;
+#X msg 50 429 bang;
+#X msg 117 429 stop;
+#X msg 184 429 set A1;
+#X msg 270 429 set A2;
+#X obj 50 457 tabplay~ A2;
+#X obj 50 486 dac~;
+#X obj 20 525 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 530 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+-49933 0;
+#X text 120 535 1\.;
+#X text 150 535 symbol;
+#X obj 241 536 cnv 1 32 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 535 SRC: source array.;
+#X text 120 553 2\.;
+#X text 150 553 symbol;
+#X obj 241 554 cnv 1 40 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 553 DEST: destination array.;
+#X obj 20 581 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 586 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+-49933 0;
+#X msg 120 591 @src;
+#X text 240 591 Get/Set source array. Type: symbol;
+#X msg 120 618 @dest;
+#X text 240 618 Get/Set destination array. Type: symbol;
+#X msg 120 645 @tempo;
+#X text 240 645 Get/Set relative tempo change without affecting the
+sound pitch. Type: float. Units: %. Default value: 0\. Value range:
+-50-100;
+#X msg 120 696 @pitch;
+#X text 240 696 Get/Set relative pitch change in semitones while
+keeping the original tempo. Type: float. Default value: 0;
+#X msg 120 733 @rate;
+#X text 240 733 Get/Set Playback rate - changes both tempo and pitch
+together as if a vinyl disc was played at different RPM rate. Type:
+float. Default value: 1\. Value range: 0.1-2;
+#X msg 120 784 @speech;
+#X text 240 784 optimize for speech sound source;
+#X msg 120 811 @anti_alias;
+#X text 240 811 Get/Set anti-alias. Type: int. Default value: 1\.
+Allowed values: 0 \, 1;
+#X obj 20 858 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 863 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+0;
+#X text 120 868 1\.;
+#X text 150 868 *bang*;
+#X text 240 868 starts processing.;
+#X obj 20 896 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 901 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+-49933 0;
+#X text 120 906 1\.;
+#X text 240 906 float value - number of result samples;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 115 45 ::;
+#X obj 131 48 ui.link @title array @url ceammc.array-help.pd;
+#X obj 1 954 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 957 library: ceammc v0.3;
+#N canvas 10 976 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 library:;
+#X text 120 10 ceammc;
+#X text 10 32 version:;
+#X text 120 32 0.3;
+#X text 10 54 object:;
+#X text 120 54 array.stretch;
+#X text 10 76 category:;
+#X text 120 76 array;
+#X text 10 98 since:;
+#X text 120 98 0.4;
+#X text 10 120 authors:;
+#X text 120 120 Olli Parviainen \, Serge Poltavsky;
+#X text 10 142 license:;
+#X text 120 142 GPL3;
+#X text 10 164 keywords:;
+#X text 120 164 array \, stretch;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pure-data @url
+https://github.com/uliss/pure-data;
+#X obj 120 208 declare -lib ceammc -lib creammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 generated by pddoc;
+#X restore 10 976 pd info;
+#X connect 20 0 24 0;
+#X connect 15 0 17 0;
+#X connect 24 0 25 0;
+#X connect 24 0 25 1;
+#X connect 6 0 10 0;
+#X connect 10 0 11 0;
+#X connect 11 0 12 0;
+#X connect 23 0 24 0;
+#X connect 22 0 24 0;
+#X connect 21 0 24 0;
+#X connect 13 0 14 0;
+#X connect 16 0 18 0;

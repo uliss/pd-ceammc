@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="array.stretch">
+        <title>array.stretch</title>
+        <meta>
+            <authors>
+                <author>Olli Parviainen</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>array time-stretch, pitch-shift or rate-change</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>array</category>
+            <keywords>array stretch</keywords>
+            <since>0.4</since>
+        </meta>
+        <info>
+            <par>Based on SoundTouch library for changing the Tempo, Pitch and 
+            Playback Rates of arrays. Copries time-stretched data from source to destination array</par>
+        </info>
+        <arguments>
+            <argument name="SRC" type="symbol">source array</argument>
+            <argument name="DEST" type="symbol">destination array</argument>
+        </arguments>
+        <properties>
+            <property name="@src" type="symbol">source array</property>
+            <property name="@dest" type="symbol">destination array</property>
+            <property name="@tempo" type="float" units="percent" minvalue="-50" maxvalue="100" default="0">
+            relative tempo change without affecting the sound pitch</property>
+            <property name="@pitch" type="float" default="0">
+            relative pitch change in semitones while keeping the original tempo</property>
+            <property name="@rate" type="float" minvalue="0.1" maxvalue="2" default="1">
+            Playback rate - changes both tempo and pitch together as if 
+            a vinyl disc was played at different RPM rate</property>
+            <property name="@speech" type="flag">optimize for speech sound source</property>
+            <property name="@anti_alias" type="int" enum="0 1" default="1">anti-alias</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">starts processing</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>float value - number of result samples</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[ 
+[symbol bell.aiff( [symbol voice.wav( [array A1 w=100] [array A2 w=100]   
+|                  |
+[load %DOC%/sound/$1 @to A1 @resize(
+|
+[expand_env]
+|
+[snd.file]
+
+[bng]                                
+|                                    
+[array.stretch A1 A2 @pitch -12]     
+
+[bng]                                [bng]                               
+|                                    |                                   
+[array.stretch A1 A2 @rate 1.5]      [array.stretch A1 A2 @tempo -20]    
+
+/* Play */
+
+[bang( [stop( [set A1( [set A2(
+|      |      |        | 
+[tabplay~            A2]
+| \
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

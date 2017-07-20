@@ -105,6 +105,11 @@ void ArrayStretch::onBang()
 {
     soundtouch_->clear();
 
+    if (src_array_.name() == dest_array_.name()) {
+        OBJ_ERR << "source and destination arrays should be different";
+        return;
+    }
+
     if (!src_array_.update()) {
         OBJ_ERR << "can't open source array: " << src_array_.name();
         return;

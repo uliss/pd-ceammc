@@ -16,6 +16,8 @@
 #X text 175 251 find array min and max element value;
 #X obj 30 278 array.set;
 #X text 175 278 set array content from list;
+#X obj 30 305 array.stretch;
+#X text 175 305 array time-stretch \, pitch-shift or rate-change;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::array 20 20 0 20 -104026
 -4096 0;
 #X obj 1 458 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
