@@ -24,6 +24,20 @@ if(WIN32)
     set(PD_EXTERNAL_LDFLAGS "-shared -Wl,--enable-auto-import")
 endif()
 
+# adds puredata external
+#
+# arguments:
+#   NAME        - external name
+#   LIBRARY     - external library name. Install to this subdirectory if specified.
+#   INSTALL_DIR - explicit directory for installation
+#   INTERNAL    - flag for internal install, if  INSTALL_DIR not specified and this flag is true,
+#                 install to ${PD_INTERNAL_EXT_INSTALL_PATH},
+#                 otherwise install system Pd directory
+#   FILES       - list of external source files (*.c, *.cpp, *.h etc)
+#   HELP_FILES  - list of external help files (*-help.pd)
+#   EXTRA_FILES - list of extra files to install
+#   LINK        - list of libraries to link with
+#
 function(pd_add_extension)
     set(_OPTIONS_ARGS)
     set(_ONE_VALUE_ARGS NAME INSTALL_DIR INTERNAL LIBRARY)

@@ -19,6 +19,7 @@ if(PD_LIB2PD)
         NAME soundtouch
         VERSION 0.1
         HOME "https://www.surina.net/soundtouch/"
+        INTERNAL FALSE
         FILES ${DOC_FILES})
 endif()
 
