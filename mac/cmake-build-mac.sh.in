@@ -113,8 +113,9 @@ cp $SRC_DIR/ceammc/extra/hcs/*-help.pd $PD_EXTRA/ceammc
 cp $SRC_DIR/ceammc/extra/hcs/*-help.pd $PD_EXTRA/ceammc
 
 echo "Copying SoundTouch external..."
-cp $BUILD_DIR/ceammc/extra/SoundTouch/pd/*.d_fat $PD_EXTRA/ceammc
-cp $SRC_DIR/ceammc/extra/SoundTouch/pd/*-help.pd $PD_EXTRA/ceammc
+mkdir $PD_EXTRA/soundtouch
+cp $BUILD_DIR/ceammc/extra/SoundTouch/pd/*.d_fat $PD_EXTRA/soundtouch
+cp $SRC_DIR/ceammc/extra/SoundTouch/pd/*-help.pd $PD_EXTRA/soundtouch
 
 echo "Copying CEAMMC help files:"
 cp $SRC_DIR/ceammc/ext/doc/*-help.pd $PD_EXTRA/ceammc

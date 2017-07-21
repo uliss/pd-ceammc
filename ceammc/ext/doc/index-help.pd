@@ -3,18 +3,24 @@
 -4032 0;
 #X obj 71 63 cnv 15 470 260 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 87 165 ui.link @size 48 16 @fontname "Helvetica" @fontweight
+#X obj 87 165 ui.link @size 112 13 @fontname "Helvetica" @fontweight
 "normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
-@pinned 0 @bgcolor 1 1 1 1 @bdcolor 0.6 0.6 0.6 1 @url "ceammc/ceammc-help.pd"
-@title "ceammc library";
-#X obj 88 102 ui.link @size 157 16 @fontname "Helvetica" @fontweight
+@pinned 0 @background_color 1 1 1 1 @border_color 0.6 0.6 0.6 1 @url
+"ceammc/ceammc-help.pd" @title "ceammc library";
+#X obj 88 102 ui.link @size 157 13 @fontname "Helvetica" @fontweight
 "normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
-@pinned 0 @bgcolor 1 1 1 1 @bdcolor 0.6 0.6 0.6 1 @url "../doc/5.reference/help-intro.pd"
-@title "vanilla core library";
-#X obj 87 272 ui.link @size 269 16 @fontname "Helvetica" @fontweight
+@pinned 0 @background_color 1 1 1 1 @border_color 0.6 0.6 0.6 1 @url
+"../doc/5.reference/help-intro.pd" @title "vanilla core library";
+#X obj 87 272 ui.link @size 269 13 @fontname "Helvetica" @fontweight
 "normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
-@pinned 0 @bgcolor 1 1 1 1 @bdcolor 0.6 0.6 0.6 1 @url "http://www.pd-tutorial.com/english/"
-@title "Programming Electronic Music in Pd";
+@pinned 0 @background_color 1 1 1 1 @border_color 0.6 0.6 0.6 1 @url
+"http://www.pd-tutorial.com/english/" @title "Programming Electronic Music in Pd"
+;
 #X text 86 80 PureData core libary object list:;
 #X text 86 141 CEAMMC standart library documentation:;
 #X text 86 247 Tutorial by Johannes Kreidler:;
+#X obj 87 205 ui.link @size 141 13 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 1 1 1 1 @border_color 0.6 0.6 0.6 1 @url
+"soundtouch/soundtouch-help.pd" @title "soundtouch library";
+#X text 86 181 SoundTouch library:;
