@@ -1,3 +1,12 @@
+# makes target for generating PureData library documentation
+# arguments are:
+#   NAME    - library name
+#   VERSION - library version
+#   HOME    - library home page
+#   FILES   - list of library PDDOC files
+#
+# creates target <b>NAME_pddoc</b> to start generation
+
 function(make_pddoc_lib)
     set(_OPTIONS_ARGS)
     set(_ONE_VALUE_ARGS NAME VERSION HOME)
