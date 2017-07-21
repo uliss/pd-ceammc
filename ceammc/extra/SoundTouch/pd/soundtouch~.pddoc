@@ -7,7 +7,7 @@
                 <author>Olli Parviainen</author>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>real-time pitch shifter</description>
+            <description>realtime pitch shifter</description>
             <license>GPL3</license>
             <library>soundtouch</library>
             <category>pitch</category>

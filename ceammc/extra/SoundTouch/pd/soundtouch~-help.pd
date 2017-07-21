@@ -1,7 +1,7 @@
 #N canvas 0 0 715 555 12;
 #X declare -lib ceammc -lib creammc;
-#X obj 508 50 cnv 1 187 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 508 50 real-time pitch shifter;
+#X obj 516 50 cnv 1 179 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 516 50 realtime pitch shifter;
 #X obj 1 1 cnv 5 712 40 empty empty soundtouch~ 20 20 0 20 -104026
 -4096 0;
 #X obj 607 11 soundtouch~;
