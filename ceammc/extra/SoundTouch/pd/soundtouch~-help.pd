@@ -1,0 +1,631 @@
+#N canvas 230 28 455 610 10;
+#X obj 41 285 dac~;
+#X obj 59 232 hsl 200 15 0 1 0 0 empty empty sound_level 20 8 0 10
+-262144 -260097 -1 0 0;
+#X obj 41 258 *~;
+#X floatatom 71 258 5 0 0 0 - - -, f 5;
+#X obj 125 173 hsl 200 15 0.25 2 0 1 empty empty pitch-factor 20 8
+0 10 -262144 -260097 -1 11500 0;
+#X floatatom 136 201 5 0 0 0 - - -, f 5;
+#X obj 41 201 soundtouch~ 40;
+#X obj 20 146 adc~;
+#N canvas 524 51 408 555 timestretching 0;
+#X obj 24 105 openpanel;
+#X obj 24 155 soundfiler;
+#X obj 24 180 / 44100;
+#X obj 24 206 t b f;
+#X obj 24 300 *~ 1;
+#X obj 24 324 +~ 1;
+#X obj 24 275 phasor~;
+#X obj 24 247 /;
+#X obj 229 304 /;
+#X msg 229 280 1;
+#X obj 229 257 t b f;
+#X obj 24 66 bng 30 250 50 0 empty empty empty 17 7 0 10 -260097 -1
+-1;
+#X obj 24 525 dac~;
+#X obj 232 211 hsl 128 15 0.75 1.5 0 1 empty empty playback_speed 20
+8 0 10 -262144 -260097 -1 4233 0;
+#X obj 232 355 hsl 128 15 0.25 2 0 0 empty empty pitch 20 8 0 10 -262144
+-260097 -1 0 0;
+#X floatatom 229 380 5 0 0 0 - - -, f 5;
+#X floatatom 239 234 5 0 0 0 - - -, f 5;
+#X obj 141 467 hsl 200 15 0 1 0 0 empty empty sound_level 20 8 0 10
+-262144 -260097 -1 0 0;
+#X floatatom 148 492 5 0 0 0 - - -, f 5;
+#X text 17 6 This patch illustrates time stretching. A soundfile is
+played at fractional speed \, while [soundtouch~] is used for pitch
+correction.;
+#X text 57 71 open a short soundfile \, max 22 sec;
+#N canvas 0 22 603 635 settings 0;
+#X obj 381 289 hsl 200 15 10 100 0 0 empty sequence sequence 20 8 0
+10 -262144 -260097 -1 0 0;
+#X msg 378 335 sequence \$1;
+#X floatatom 386 312 5 0 0 0 - - -, f 5;
+#X obj 381 373 hsl 200 15 10 100 0 0 empty seekwindow seekwindow 20
+8 0 10 -262144 -260097 -1 0 0;
+#X floatatom 386 396 5 0 0 0 - - -, f 5;
+#X obj 379 462 hsl 200 15 5 100 0 0 empty overlap overlap 20 8 0 10
+-262144 -260097 -1 0 0;
+#X floatatom 384 485 5 0 0 0 - - -, f 5;
+#X obj 324 540 outlet;
+#X msg 378 422 seekwindow \$1;
+#X msg 376 509 overlap \$1;
+#X msg 43 477 \; sequence 40 \; seekwindow 20 \; overlap 10 \;;
+#X obj 39 289 cnv 15 300 150 empty empty empty 20 12 0 14 -233017 -66577
+0;
+#X obj 52 325 hsl 200 15 10 100 0 0 empty empty set 20 8 0 10 -262144
+-260097 -1 0 0;
+#X floatatom 57 348 5 0 0 0 - - -, f 5;
+#X msg 49 371 set \$1;
+#X text 113 348 all settings at once in the ratio:;
+#X text 112 369 sequence 4;
+#X text 112 390 seekwindow 2;
+#X text 113 410 overlap 1;
+#X text 52 301 range 10 - 100 milliseconds;
+#X text 43 50 - sequence: signal grain size;
+#X text 43 76 - seekwindow: margin for finding best overlap match;
+#X text 43 102 - overlap: overlap size of grains;
+#X text 42 451 [soundtouch~] defaults:;
+#X text 39 138 You can experiment with these settings according to
+your sound material. For easy of use \, the 'set' selector does all
+three settings at once in a fixed ratio \, but they can be set individually
+as well. Notice that changing settings in runtime can sometimes cause
+disproportionate latency in [soundtouch~] \, which is only undone when
+you reload the object. Alternatively \, you can initialize [soundtouch~]
+with an optional single argument for sequence size \, from which the
+other settings are derived in fixed ratio.;
+#X text 42 568 Website of the SoundTouch library:;
+#X text 41 593 http://www.surina.net/soundtouch/;
+#X text 42 9 In Olli Parviainen's SoundTouch library \, these settings
+are user-definable in milliseconds:;
+#X connect 0 0 1 0;
+#X connect 0 0 2 0;
+#X connect 1 0 7 0;
+#X connect 3 0 8 0;
+#X connect 3 0 4 0;
+#X connect 5 0 9 0;
+#X connect 5 0 6 0;
+#X connect 8 0 7 0;
+#X connect 9 0 7 0;
+#X connect 12 0 14 0;
+#X connect 12 0 13 0;
+#X connect 14 0 7 0;
+#X restore 11 413 pd settings;
+#X text 45 341 read with interpolation;
+#X text 83 412 open this patch to control settings;
+#X obj 229 164 loadbang;
+#X msg 229 188 1;
+#X obj 281 75 table audioleft;
+#X obj 281 97 table audioright;
+#X msg 24 130 read -resize -maxsize 1e+06 \$1 audioleft audioright
+;
+#X obj 24 360 tabread4~ audioleft;
+#X obj 70 385 tabread4~ audioright;
+#X obj 24 495 *~ 0;
+#X obj 117 492 *~ 0;
+#X obj 229 329 spigot;
+#X obj 262 305 tgl 15 1 empty empty empty 17 7 0 10 -262144 -1 -1 1
+1;
+#X text 280 303 pitch correction;
+#X text 281 315 on /off;
+#X text 280 291 automatic;
+#X text 129 441 stereo pitch shifter;
+#X obj 24 446 soundtouch~ 40;
+#X connect 0 0 28 0;
+#X connect 1 0 2 0;
+#X connect 1 0 4 1;
+#X connect 2 0 3 0;
+#X connect 3 0 7 0;
+#X connect 3 1 7 1;
+#X connect 4 0 5 0;
+#X connect 5 0 29 0;
+#X connect 5 0 30 0;
+#X connect 6 0 4 0;
+#X connect 7 0 6 0;
+#X connect 8 0 33 0;
+#X connect 9 0 8 0;
+#X connect 10 0 9 0;
+#X connect 10 1 8 1;
+#X connect 11 0 0 0;
+#X connect 13 0 10 0;
+#X connect 13 0 7 0;
+#X connect 13 0 16 0;
+#X connect 14 0 15 0;
+#X connect 15 0 39 1;
+#X connect 17 0 18 0;
+#X connect 17 0 31 1;
+#X connect 17 0 32 1;
+#X connect 21 0 39 0;
+#X connect 24 0 25 0;
+#X connect 25 0 13 0;
+#X connect 28 0 1 0;
+#X connect 29 0 39 0;
+#X connect 31 0 12 0;
+#X connect 32 0 12 1;
+#X connect 33 0 14 0;
+#X connect 34 0 33 1;
+#X connect 39 0 31 0;
+#X restore 142 562 pd timestretching;
+#N canvas 0 22 603 635 settings 0;
+#X obj 381 289 hsl 200 15 10 100 0 0 empty sequence sequence 20 8 0
+10 -262144 -260097 -1 0 0;
+#X msg 378 335 sequence \$1;
+#X floatatom 386 312 5 0 0 0 - - -, f 5;
+#X obj 381 373 hsl 200 15 10 100 0 0 empty seekwindow seekwindow 20
+8 0 10 -262144 -260097 -1 0 0;
+#X floatatom 386 396 5 0 0 0 - - -, f 5;
+#X obj 379 462 hsl 200 15 5 100 0 0 empty overlap overlap 20 8 0 10
+-262144 -260097 -1 0 0;
+#X floatatom 384 485 5 0 0 0 - - -, f 5;
+#X obj 324 540 outlet;
+#X msg 378 422 seekwindow \$1;
+#X msg 376 509 overlap \$1;
+#X msg 43 477 \; sequence 40 \; seekwindow 20 \; overlap 10 \;;
+#X obj 39 289 cnv 15 300 150 empty empty empty 20 12 0 14 -233017 -66577
+0;
+#X obj 52 325 hsl 200 15 10 100 0 0 empty empty set 20 8 0 10 -262144
+-260097 -1 0 0;
+#X floatatom 57 348 5 0 0 0 - - -, f 5;
+#X msg 49 371 set \$1;
+#X text 113 348 all settings at once in the ratio:;
+#X text 52 301 range 10 - 100 milliseconds;
+#X text 43 50 - sequence: signal grain size;
+#X text 43 76 - seekwindow: margin for finding best overlap match;
+#X text 43 102 - overlap: overlap size of grains;
+#X text 42 451 [soundtouch~] defaults:;
+#X text 39 138 You can experiment with these settings according to
+your sound material. For easy of use \, the 'set' selector does all
+three settings at once in a fixed ratio \, but they can be set individually
+as well. Notice that changing settings in runtime can sometimes cause
+disproportionate latency in [soundtouch~] \, which is only undone when
+you reload the object. Alternatively \, you can initialize [soundtouch~]
+with an optional single argument for sequence size \, from which the
+other settings are derived in fixed ratio.;
+#X text 42 568 Website of the SoundTouch library:;
+#X text 41 593 http://www.surina.net/soundtouch/;
+#X text 42 9 In Olli Parviainen's SoundTouch library \, these settings
+are user-definable in milliseconds:;
+#X text 373 540 to [soundtouch~] left inlet;
+#X text 112 369 sequence 1;
+#X text 112 390 seekwindow 0.5;
+#X text 113 410 overlap 0.25;
+#X connect 0 0 1 0;
+#X connect 0 0 2 0;
+#X connect 1 0 7 0;
+#X connect 3 0 8 0;
+#X connect 3 0 4 0;
+#X connect 5 0 9 0;
+#X connect 5 0 6 0;
+#X connect 8 0 7 0;
+#X connect 9 0 7 0;
+#X connect 12 0 14 0;
+#X connect 12 0 13 0;
+#X connect 14 0 7 0;
+#X restore 47 172 pd settings;
+#X text 54 147 input from soundcard;
+#X msg 381 236 \; pd dsp 1;
+#X msg 381 275 \; pd dsp 0;
+#X text 20 -14 [soundtouch~] is a realtime pitch shifter \, based on
+Olli Parviainen's SoundTouch library. [soundtouch~] does pitch conversion
+within the range 0.25 - 2;
+#N canvas 0 23 330 161 about 1;
+#X text 13 21 [soundtouch~] for Pd written by Katja Vetter;
+#X text 14 54 based on Olli Parviainen's SoundTouch library;
+#X obj 14 71 pddp/pddplink http://www.surina.net/soundtouch/;
+#X obj 15 37 ui.link @size 98 13 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 1 1 1 1 @border_color 0.6 0.6 0.6 1 @url
+"http://www.katjaas.nl" @title "www.katjaas.nl";
+#X restore 380 173 pd about;
+#X text 24 499 [soundtouch~] for Pd operates on a signal stream and
+can not perform time stretching all by itself. Open the patch below
+to see how time stretching is done with help of [soundtouch~]:;
+#X obj 381 210 loadbang;
+#N canvas 91 76 887 574 test&compare 0;
+#N canvas 361 48 427 572 G09.pitchshift.pd 0;
+#X floatatom 29 97 0 0 0 0 - - -;
+#X obj 92 368 *~;
+#X obj 276 219 line~;
+#X floatatom 276 136 0 0 0 0 - - -;
+#X text 302 17 PITCH SHIFTER;
+#X obj 276 193 pack 0 200;
+#X obj 29 153 exp;
+#X floatatom 29 179 6 0 0 0 - - -, f 6;
+#X obj 29 269 /;
+#X obj 156 199 * 0.001;
+#X obj 92 394 +~;
+#X obj 29 420 cos~;
+#X obj 29 447 *~;
+#X obj 29 476 +~;
+#X obj 198 340 wrap~;
+#X obj 261 370 *~;
+#X obj 261 403 +~;
+#X obj 198 430 cos~;
+#X obj 198 459 *~;
+#X obj 276 73 loadbang;
+#X obj 156 226 t b f;
+#X floatatom 29 295 6 0 0 0 - - -, f 6;
+#X obj 198 313 +~ 0.5;
+#X obj 29 368 -~ 0.5;
+#X obj 29 394 *~ 0.5;
+#X obj 198 369 -~ 0.5;
+#X obj 198 402 *~ 0.5;
+#X obj 29 206 - 1;
+#X obj 29 127 * 0.05776;
+#X obj 29 232 * -1;
+#X text 63 96 <-- transposition;
+#X text 106 109 (halftones);
+#X text 92 173 speed;
+#X text 91 187 change;
+#X text 320 135 <--window (msec);
+#X text 64 262 tape head;
+#X obj 29 326 phasor~;
+#X obj 276 163 max 1;
+#X text 65 275 rotation freq;
+#X obj 261 432 vd~ \$0-del;
+#X obj 29 40 delwrite~ \$0-del 5000;
+#X obj 92 420 vd~ \$0-del;
+#X obj 29 18 inlet~;
+#X msg 276 110 40;
+#X obj 247 22 inlet;
+#X obj 29 505 outlet~;
+#X text 30 532 from Pd's help browser \, audio examples G09.pitchshift.pd
+;
+#X connect 0 0 28 0;
+#X connect 1 0 10 0;
+#X connect 2 0 1 1;
+#X connect 2 0 15 1;
+#X connect 3 0 37 0;
+#X connect 5 0 2 0;
+#X connect 6 0 7 0;
+#X connect 7 0 27 0;
+#X connect 8 0 21 0;
+#X connect 9 0 20 0;
+#X connect 10 0 41 0;
+#X connect 11 0 12 0;
+#X connect 12 0 13 0;
+#X connect 13 0 45 0;
+#X connect 14 0 15 0;
+#X connect 14 0 25 0;
+#X connect 15 0 16 0;
+#X connect 16 0 39 0;
+#X connect 17 0 18 0;
+#X connect 18 0 13 1;
+#X connect 19 0 43 0;
+#X connect 20 0 8 0;
+#X connect 20 1 8 1;
+#X connect 21 0 36 0;
+#X connect 22 0 14 0;
+#X connect 23 0 24 0;
+#X connect 24 0 11 0;
+#X connect 25 0 26 0;
+#X connect 26 0 17 0;
+#X connect 27 0 29 0;
+#X connect 28 0 6 0;
+#X connect 29 0 8 0;
+#X connect 36 0 1 0;
+#X connect 36 0 23 0;
+#X connect 36 0 22 0;
+#X connect 37 0 9 0;
+#X connect 37 0 5 0;
+#X connect 39 0 18 1;
+#X connect 41 0 12 1;
+#X connect 42 0 40 0;
+#X connect 43 0 3 0;
+#X connect 44 0 7 0;
+#X restore 230 377 pd G09.pitchshift.pd;
+#X obj 126 377 soundtouch~ 40;
+#X obj 230 524 dac~;
+#X obj 248 471 hsl 200 15 0 1 0 0 empty empty sound_level 20 8 0 10
+-262144 -260097 -1 0 0;
+#X obj 230 497 *~;
+#X floatatom 260 497 5 0 0 0 - - -, f 5;
+#X obj 210 314 hsl 200 15 0.25 2 0 1 empty empty pitch-shift-factor
+20 8 0 10 -262144 -260097 -1 11800 0;
+#X floatatom 217 340 8 0 0 0 - - -, f 8;
+#X obj 126 442 *~ 0;
+#X obj 230 443 *~ 0;
+#X obj 147 421 tgl 15 1 empty empty empty 17 7 0 10 -262144 -1 -1 1
+1;
+#X obj 251 422 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#N canvas 0 22 450 300 (subpatch) 0;
+#X array harmonics 515 float 0;
+#X coords 0 1 514 -1 200 140 1;
+#X restore 484 402 graph;
+#X obj 34 314 tabosc4~ harmonics;
+#X obj 37 267 hsl 200 15 100 1000 0 1 empty empty input-frequency 20
+8 0 10 -262144 -260097 -1 4000 0;
+#X obj 485 41 loadbang;
+#X floatatom 50 290 5 0 0 0 - - -, f 5;
+#X text 32 21 This patch illustrates differences between [soundtouch~]
+and Pd's example pitch shifter from the help browser.;
+#X msg 485 132 \; harmonics sinesum 512 0.5 0.25 0.125 0.0625;
+#X text 481 17 click sinesum messages to change harmonic content:;
+#X obj 34 441 *~ 0;
+#X obj 55 420 tgl 15 1 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X msg 485 73 \; harmonics sinesum 512 0.7;
+#X msg 485 193 \; harmonics sinesum 512 0.5 0 0.25 0 0.125 0 0.0625
+;
+#X text 52 402 input;
+#X text 144 402 soundtouch~;
+#X text 249 402 Pd's pitch shifter;
+#X text 558 54 test signal 1;
+#X text 559 115 test signal 2;
+#X text 560 175 test signal 3;
+#X text 560 237 test signal 4;
+#X msg 485 254 \; harmonics sinesum 512 0.2 0 0.18 0 0.16 0 0.14 0
+0.12 0 0.1 0 0.08 0 0.06 0 0.04 0 0.02;
+#X text 561 313 test signal 5;
+#X msg 484 331 \; harmonics sinesum 512 0.1 0 0.1 0 0.1 0 0.1 0 0.1
+0 0.1 0 0.1 0 0.1 0 0.1 0 0.1 0 0.1 0 0.1;
+#X text 32 121 In contrast \, Pd' example pitch shifter produces amplitude
+modulation in most cases \, but never blips or clicks. It doesn't do
+any analysis \, so it can not make mistakes either.;
+#X text 32 65 With simple harmonic content \, [soundtouch~] behaves
+well. The richer harmonic content \, the harder to transpose for [soundtouch~].
+Test signal 5 can not be handled by [soundtouch~].;
+#X text 32 181 Since acoustic instruments do not have extremely rich
+harmonic content \, [soundtouch~] can transpose their sounds quite
+well \, specially in the case of monophonic solo-instruments or voice.
+;
+#X connect 0 0 9 0;
+#X connect 1 0 8 0;
+#X connect 3 0 4 1;
+#X connect 3 0 5 0;
+#X connect 4 0 2 0;
+#X connect 4 0 2 1;
+#X connect 6 0 7 0;
+#X connect 6 0 1 1;
+#X connect 6 0 0 1;
+#X connect 8 0 4 0;
+#X connect 9 0 4 0;
+#X connect 10 0 8 1;
+#X connect 11 0 9 1;
+#X connect 13 0 20 0;
+#X connect 13 0 1 0;
+#X connect 13 0 0 0;
+#X connect 14 0 13 0;
+#X connect 14 0 16 0;
+#X connect 15 0 22 0;
+#X connect 20 0 4 0;
+#X connect 21 0 20 1;
+#X restore 147 382 pd test&compare;
+#X text 24 334 Apply test signals and compare [soundtouch~] with Pd's
+built-in pitch shift example:;
+#X text 26 422 Check latency times for [soundtouch~]:;
+#X text 172 200 pitch factor 1 = original pitch;
+#N canvas 302 123 413 226 clicks-vs-latency 0;
+#X text 22 23 The SoundTouch C++ library offers a preprocessor definition
+to prevent clicks when changing pitch factor. It is called PREVENT_CLICK_AT_RATE_CROSSOVER
+and lives in file STTypes.h. If [soundtouch~] is compiled with #define
+PREVENT_CLICK_AT_RATE_CROSSOVER 1 \, clicks are gone \, but the latency
+will double.;
+#X text 23 120 For binary distributions of [soundtouch~] I have opted
+for the clicks rather than the increased latency. There is no way to
+avoid them both.;
+#X text 24 175 Katja.;
+#X restore 271 451 pd clicks-vs-latency;
+#N canvas 448 25 490 550 test-latency 0;
+#N canvas 79 23 338 519 latency-meter 0;
+#X obj 26 113 table \$0-clicks 10000;
+#X obj 26 83 tabwrite~ \$0-clicks;
+#X obj 194 194 tabread \$0-clicks;
+#X obj 194 167 t f f;
+#X floatatom 194 273 5 0 0 0 - - -, f 5;
+#X obj 194 248 max;
+#X msg 236 221 0;
+#X obj 194 116 t b b;
+#X obj 194 395 > 0;
+#X obj 194 447 f;
+#X obj 194 421 sel 1;
+#X obj 26 25 inlet~;
+#X obj 194 28 inlet;
+#X obj 194 84 delay 300;
+#X obj 194 478 outlet;
+#X msg 25 160 arrayviewlistnew;
+#X obj 25 190 s \$0-clicks;
+#X obj 209 62 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 221 335 f;
+#X obj 194 306 t f b;
+#X obj 194 366 -;
+#X obj 194 141 for++ 0 10000;
+#X connect 2 0 5 0;
+#X connect 3 0 2 0;
+#X connect 3 1 9 1;
+#X connect 4 0 5 1;
+#X connect 4 0 19 0;
+#X connect 5 0 4 0;
+#X connect 6 0 5 1;
+#X connect 6 0 18 1;
+#X connect 7 0 21 0;
+#X connect 7 1 6 0;
+#X connect 8 0 10 0;
+#X connect 9 0 14 0;
+#X connect 10 0 9 0;
+#X connect 11 0 1 0;
+#X connect 12 0 1 0;
+#X connect 12 0 13 0;
+#X connect 13 0 7 0;
+#X connect 15 0 16 0;
+#X connect 17 0 13 0;
+#X connect 18 0 20 1;
+#X connect 19 0 18 1;
+#X connect 19 0 20 0;
+#X connect 19 1 18 0;
+#X connect 20 0 8 0;
+#X connect 21 0 3 0;
+#X restore 244 303 pd latency-meter;
+#X obj 244 195 click~;
+#X obj 35 37 bng 25 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X floatatom 244 335 5 0 0 0 - - -, f 5;
+#X obj 247 38 hsl 200 15 0.25 2 0 1 empty empty pitch 20 8 0 10 -262144
+-260097 -1 13900 0;
+#N canvas 0 22 210 231 milliseconds 0;
+#X obj 37 22 inlet;
+#X obj 64 108 samplerate~;
+#X obj 37 50 t f b;
+#X obj 37 135 /;
+#X obj 36 198 outlet;
+#X obj 37 167 * 1000;
+#X connect 0 0 2 0;
+#X connect 1 0 3 1;
+#X connect 2 0 3 0;
+#X connect 2 1 1 0;
+#X connect 3 0 5 0;
+#X connect 5 0 4 0;
+#X restore 244 364 pd milliseconds;
+#X floatatom 244 391 5 0 0 0 - - -, f 5;
+#X obj 244 86 f;
+#N canvas 0 22 338 519 latency-meter 0;
+#X obj 194 167 t f f;
+#X floatatom 194 273 5 0 0 0 - - -, f 5;
+#X obj 194 248 max;
+#X msg 236 223 0;
+#X obj 194 116 t b b;
+#X obj 194 395 > 0;
+#X obj 194 447 f;
+#X obj 194 421 sel 1;
+#X obj 26 25 inlet~;
+#X obj 194 28 inlet;
+#X obj 194 84 delay 300;
+#X obj 194 478 outlet;
+#X msg 25 160 arrayviewlistnew;
+#X obj 209 62 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 221 335 f;
+#X obj 194 306 t f b;
+#X obj 194 366 -;
+#X obj 26 113 table \$0-clicks2 10000;
+#X obj 26 83 tabwrite~ \$0-clicks2;
+#X obj 25 190 s \$0-clicks2;
+#X obj 194 195 tabread \$0-clicks2;
+#X obj 194 141 for++ 0 10000;
+#X connect 0 0 20 0;
+#X connect 0 1 6 1;
+#X connect 1 0 2 1;
+#X connect 1 0 15 0;
+#X connect 2 0 1 0;
+#X connect 3 0 2 1;
+#X connect 3 0 14 1;
+#X connect 4 0 21 0;
+#X connect 4 1 3 0;
+#X connect 5 0 7 0;
+#X connect 6 0 11 0;
+#X connect 7 0 6 0;
+#X connect 8 0 18 0;
+#X connect 9 0 10 0;
+#X connect 9 0 18 0;
+#X connect 10 0 4 0;
+#X connect 12 0 19 0;
+#X connect 13 0 10 0;
+#X connect 14 0 16 1;
+#X connect 15 0 14 1;
+#X connect 15 0 16 0;
+#X connect 15 1 14 0;
+#X connect 16 0 5 0;
+#X connect 20 0 2 0;
+#X connect 21 0 0 0;
+#X restore 34 304 pd latency-meter;
+#X obj 34 193 click~;
+#X obj 244 114 s \$0-pitch;
+#X floatatom 328 103 8 0 0 0 - - -, f 8;
+#X obj 115 250 r \$0-pitch;
+#X obj 35 75 s \$0-click;
+#X obj 244 164 r \$0-click;
+#X obj 325 163 r \$0-pitch;
+#X obj 34 162 r \$0-click;
+#X floatatom 34 334 5 0 0 0 - - -, f 5;
+#N canvas 0 22 210 231 milliseconds 0;
+#X obj 37 22 inlet;
+#X obj 64 108 samplerate~;
+#X obj 37 50 t f b;
+#X obj 37 135 /;
+#X obj 36 198 outlet;
+#X obj 37 167 * 1000;
+#X connect 0 0 2 0;
+#X connect 1 0 3 1;
+#X connect 2 0 3 0;
+#X connect 2 1 1 0;
+#X connect 3 0 5 0;
+#X connect 5 0 4 0;
+#X restore 34 363 pd milliseconds;
+#X floatatom 34 390 5 0 0 0 - - -, f 5;
+#X text 284 334 samples;
+#X text 75 333 samples;
+#X text 281 390 milliseconds;
+#X text 75 390 milliseconds;
+#X text 68 40 click to find latency;
+#X msg 44 248 set 40;
+#X msg 340 240 bypass \$1;
+#X obj 340 214 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X floatatom 128 275 8 0 0 0 - - -, f 8;
+#X obj 340 190 == 1;
+#X msg 254 60 1;
+#X text 368 213 automatic bypass;
+#X text 283 60 pitch factor 1 = no shift;
+#X text 383 104 pitch factor;
+#X obj 34 275 soundtouch~ 80;
+#X msg 43 221 set 80;
+#X obj 244 274 soundtouch~ 40;
+#X msg 260 246 set 40;
+#X msg 259 219 set 80;
+#X text 31 431 Check latency times of [soundtouch~]. Notice that latency
+time is not exactly proportional to sequence length. It seems that
+\, once a long sequence length is set \, latency can not easily be
+reduced by setting a shorter sequence length.;
+#X text 31 498 The bypass message can be used to avoid latency in the
+case where pitch shifting is not needed.;
+#X connect 0 0 3 0;
+#X connect 1 0 36 0;
+#X connect 2 0 13 0;
+#X connect 3 0 5 0;
+#X connect 4 0 7 0;
+#X connect 5 0 6 0;
+#X connect 7 0 10 0;
+#X connect 7 0 11 0;
+#X connect 8 0 17 0;
+#X connect 9 0 34 0;
+#X connect 12 0 28 0;
+#X connect 12 0 34 1;
+#X connect 14 0 1 0;
+#X connect 14 0 0 1;
+#X connect 15 0 29 0;
+#X connect 15 0 36 1;
+#X connect 16 0 9 0;
+#X connect 16 0 8 1;
+#X connect 17 0 18 0;
+#X connect 18 0 19 0;
+#X connect 25 0 34 0;
+#X connect 26 0 36 0;
+#X connect 27 0 26 0;
+#X connect 29 0 27 0;
+#X connect 30 0 7 0;
+#X connect 34 0 8 0;
+#X connect 35 0 34 0;
+#X connect 36 0 0 0;
+#X connect 37 0 36 0;
+#X connect 38 0 36 0;
+#X restore 147 451 pd test-latency;
+#X text 19 37 [soundtouch~] takes two optional initialization arguments.
+The first argument is the processing grain size in milliseconds. For
+more details \, open [pd settings]. An optional second argument will
+set the number of channels (1 or 2). One channel is the default \,
+but [soundtouch~] can process two channels in phase-aligned stereo
+(see subpatch [timestretching]).;
+#X connect 1 0 2 1;
+#X connect 1 0 3 0;
+#X connect 2 0 0 0;
+#X connect 2 0 0 1;
+#X connect 4 0 5 0;
+#X connect 4 0 6 1;
+#X connect 6 0 2 0;
+#X connect 7 0 6 0;
+#X connect 7 1 6 0;
+#X connect 9 0 6 0;
+#X connect 16 0 11 0;

@@ -21,3 +21,5 @@ add_library(soundtouch STATIC ${SOUNDTOUCH_SRC})
 if(UNIX)
     set_target_properties(soundtouch PROPERTIES COMPILE_FLAGS "-fPIC")
 endif()
+
+add_subdirectory(pd)
