@@ -109,8 +109,6 @@ echo "Copying Additional extra:"
 cp $BUILD_DIR/ceammc/extra/comport/system.serial.d_fat $PD_EXTRA/ceammc
 cp $BUILD_DIR/ceammc/extra/hcs/*.d_fat $PD_EXTRA/ceammc
 cp $SRC_DIR/ceammc/extra/hcs/*.tcl $PD_EXTRA/ceammc
-cp $SRC_DIR/ceammc/extra/hcs/*-help.pd $PD_EXTRA/ceammc
-cp $SRC_DIR/ceammc/extra/hcs/*-help.pd $PD_EXTRA/ceammc
 
 echo "Copying SoundTouch external..."
 mkdir $PD_EXTRA/soundtouch

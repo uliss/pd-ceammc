@@ -733,6 +733,9 @@
     </entry>
   </category>
   <category name="system">
+    <entry descr="S" name="system.cursor" ref_view="object">
+      <xi:include href="system.cursor.pddoc" parse="xml"/>
+    </entry>
     <entry descr="Get system environment variables" name="system.getenv" ref_view="object">
       <xi:include href="system.getenv.pddoc" parse="xml"/>
     </entry>
@@ -811,6 +814,7 @@
     <version>0.3</version>
     <authors>
       <author>Alex Nadzharov</author>
+      <author>Hans-Christoph Steiner</author>
       <author>Olli Parviainen</author>
       <author>Pierre Guillot</author>
       <author>Serge Poltavsky</author>

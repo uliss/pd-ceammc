@@ -225,6 +225,7 @@ set(DOC_FILES
     string2symbol
     symbol.equal
     symbol.length
+    system.cursor
     system.getenv
     system.hostname
     system.memsize

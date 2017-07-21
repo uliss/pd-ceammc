@@ -224,6 +224,7 @@ string.substr,str.substr		.		.
 string2symbol,str->sym		.		.
 symbol.equal		..		.
 symbol.length		.		.
+system.cursor		.		.
 system.getenv		.		.
 system.hostname		.		.
 system.memsize		.		.

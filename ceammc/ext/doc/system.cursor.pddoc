@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="system.cursor">
+        <title>system.cursor</title>
+        <meta>
+            <authors>
+                <author>Hans-Christoph Steiner</author>
+            </authors>
+            <description>S</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>system</category>
+            <keywords>cursor mouse</keywords>
+            <since>0.1</since>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">output cursor position</xinfo>
+                <xinfo on="float">when 1 is received - turns on cursor polling (position and buttons),
+                when 0 is received - turns it off</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>messages: motion, mousewheel, button</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[T]
+|
+|  [bang(
+|  |
+[system.cursor]
+|
+[route cursor mousewheel button]
+|          ^|   ^^|
+[msg set]  [F]   [route 1 2 3]
+|                |  ^|  ^^|
+[ (              [T] [T] [T]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

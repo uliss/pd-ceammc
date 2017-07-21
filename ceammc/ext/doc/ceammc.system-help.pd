@@ -2,18 +2,20 @@
 #X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
 #X obj 79 53 ui.link @title ceammc @url ceammc-help.pd;
-#X obj 30 116 system.getenv;
-#X text 175 116 Get system environment variables;
-#X obj 30 143 system.hostname;
-#X text 175 143 outputs system hostname;
-#X obj 30 170 system.memsize;
-#X text 175 170 returns the size of physical memory (RAM) in bytes
+#X obj 30 116 system.cursor;
+#X text 175 116 S;
+#X obj 30 143 system.getenv;
+#X text 175 143 Get system environment variables;
+#X obj 30 170 system.hostname;
+#X text 175 170 outputs system hostname;
+#X obj 30 197 system.memsize;
+#X text 175 197 returns the size of physical memory (RAM) in bytes
 round to float data type.;
-#X obj 30 207 system.memused;
-#X text 175 207 returns the process physical memory use - current and
+#X obj 30 234 system.memused;
+#X text 175 234 returns the process physical memory use - current and
 peak;
-#X obj 30 234 system.screen_size;
-#X text 175 234 returns current screen size in pixels;
+#X obj 30 261 system.screen_size;
+#X text 175 261 returns current screen size in pixels;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::system 20 20 0 20 -104026
 -4096 0;
 #X obj 1 458 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
