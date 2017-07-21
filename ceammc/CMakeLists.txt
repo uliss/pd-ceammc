@@ -8,6 +8,12 @@ include_directories(${Boost_INCLUDE_DIRS})
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/ceammc_config.h.in ${CMAKE_CURRENT_BINARY_DIR}/ceammc_config.h)
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
+find_program(PD_DOC2PD pd_doc2pd)
+find_program(PD_MAKELIB pd_makelibrary)
+find_program(PD_LIB2PD pd_lib2pd)
+find_program(PD_CAT2PD pd_cat2pd)
+find_program(TIDY tidy)
+
 add_subdirectory(extra)
 add_subdirectory(gui)
 add_subdirectory(ext)

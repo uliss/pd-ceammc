@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library xmlns:xi="http://www.w3.org/2001/XInclude" name="soundtouch" version="1.0">
+  <category name="pitch">
+    <entry descr="real-time pitch shifter" name="soundtouch~" ref_view="object">
+      <xi:include href="soundtouch~.pddoc" parse="xml"/>
+    </entry>
+  </category>
+  <meta>
+    <version>0.1</version>
+    <authors>
+      <author>Olli Parviainen</author>
+      <author>Serge Poltavsky</author>
+    </authors>
+  </meta>
+</library>
