@@ -11,5 +11,6 @@
       <author>Olli Parviainen</author>
       <author>Serge Poltavsky</author>
     </authors>
+    <xi:include href="soundtouch_meta.xml" parse="xml"/>
   </meta>
 </library>
