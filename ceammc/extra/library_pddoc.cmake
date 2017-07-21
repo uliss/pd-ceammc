@@ -25,6 +25,10 @@ function(make_pddoc_lib)
                 "${fname_pddoc}" ${fname}
             COMMAND ${CMAKE_COMMAND} -E copy_if_different ${fname} ${CMAKE_CURRENT_SOURCE_DIR}
             VERBATIM)
+        
+        # install generated help files
+        install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/${f}-help.pd"
+            DESTINATION "${PD_INTERNAL_EXT_INSTALL_PATH}/${_LIB_NAME}")
     endforeach()
 
     add_custom_command(
@@ -43,13 +47,15 @@ function(make_pddoc_lib)
         COMMAND ${PD_LIB2PD} "${CMAKE_CURRENT_SOURCE_DIR}/${_LIB_NAME}_lib.xml"
         COMMAND ${CMAKE_COMMAND} -E copy_if_different "${_LIB_NAME}-help.pd" ${CMAKE_CURRENT_SOURCE_DIR})
 
-#    add_custom_target(ceammc_pddoc_cat
-#        DEPENDS ${DOC_PD_FILES} "ceammc_lib.xml"
-#        COMMAND ${PD_CAT2PD} "ceammc_lib.xml"
-#        WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
-
     add_custom_target(${_LIB_NAME}_pddoc
         DEPENDS ${_LIB_PD_FILES} "${_LIB_NAME}_lib.xml" "${_LIB_NAME}-help.pd"
         COMMAND cat "*-xlet_db.txt" | sort > "${_LIB_NAME}.db"
         COMMAND ${CMAKE_COMMAND} -E copy_if_different "${_LIB_NAME}.db" ${CMAKE_CURRENT_SOURCE_DIR})
+    
+    # install library help file
+    install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/${_LIB_NAME}-help.pd"
+        DESTINATION "${PD_INTERNAL_EXT_INSTALL_PATH}/${_LIB_NAME}")
+    # install library xlet db file
+    install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/${_LIB_NAME}.db"
+        DESTINATION "${PD_INTERNAL_EXT_INSTALL_PATH}/${_LIB_NAME}")
 endfunction()
