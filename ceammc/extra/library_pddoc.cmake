@@ -3,9 +3,16 @@
 #   NAME    - library name
 #   VERSION - library version
 #   HOME    - library home page
-#   FILES   - list of library PDDOC files
+#   FILES   - list of library PDDOC file names (without pddoc extension)
 #
-# creates target <b>NAME_pddoc</b> to start generation
+# creates:
+#   target <b>NAME_pddoc</b> to start generation
+#
+# installes:
+#    generated help files into ${PD_INTERNAL_EXT_INSTALL_PATH}/NAME
+#    generated library help file into ${PD_INTERNAL_EXT_INSTALL_PATH}/NAME/NAME-help.pd
+#    generated library xlet database file (NAME-into ${PD_INTERNAL_EXT_INSTALL_PATH}/NAME/NAME.db
+#
 
 function(make_pddoc_lib)
     set(_OPTIONS_ARGS)
