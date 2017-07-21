@@ -7,7 +7,7 @@ beats-per-minute rates for audio tracks.;
 0;
 #X obj 20 156 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 167 soundtouch~;
-#X text 175 167 real-time pitch shifter;
+#X text 175 167 realtime pitch shifter;
 #X obj 1 1 cnv 5 712 40 empty empty soundtouch 20 20 0 20 -104026
 -4096 0;
 #X obj 1 458 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;

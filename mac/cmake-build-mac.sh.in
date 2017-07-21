@@ -126,6 +126,7 @@ chmod 0444 $PD_EXTRA/ceammc/*-help.pd
 cp $SRC_DIR/ceammc/ext/doc/index-help.pd $PD_EXTRA
 chmod 0444 $PD_EXTRA/index-help.pd
 cp $SRC_DIR/ceammc/ext/ceammc_objects.txt $PD_TCL/ceammc
+cp $SRC_DIR/ceammc/ext/extra_objects.txt $PD_TCL/ceammc
 
 echo "Copy about file..."
 cat $BUILD_DIR/ceammc/ext/doc/about.pd | sed "s/%GIT_BRANCH%/$GIT_BRANCH/g" | \
