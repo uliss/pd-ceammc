@@ -20,7 +20,13 @@
 #   PD_LIB2PD  - path to pd_lib2pd
 #   cat, sort  - unix command line utilities
 #   ${PD_INTERNAL_EXT_INSTALL_PATH}
-#   
+# 
+
+include(CMakeParseArguments)
+# allow creating targets with reserved names or which do not match the validity pattern
+if(${CMAKE_VERSION} VERSION_GREATER "3.0")
+    cmake_policy(SET CMP0037 OLD)
+endif()
 
 function(make_pddoc_lib)
     set(_OPTIONS_ARGS)
