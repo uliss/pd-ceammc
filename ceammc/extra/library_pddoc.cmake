@@ -61,6 +61,7 @@ function(make_pddoc_lib)
             DESTINATION "${PD_INTERNAL_EXT_INSTALL_PATH}/${_LIB_NAME}")
     endforeach()
 
+    # generate library XML file from list of pddocs 
     add_custom_command(
         OUTPUT "${_LIB_NAME}_lib.xml"
         DEPENDS ${_LIB_PDDOC_FILES}
@@ -71,12 +72,20 @@ function(make_pddoc_lib)
             --search-path ${CMAKE_CURRENT_SOURCE_DIR}
         COMMAND ${CMAKE_COMMAND} -E copy_if_different "${_LIB_NAME}_lib.xml" ${CMAKE_CURRENT_SOURCE_DIR})
 
+    # gnerate library-help.pd file from library XMl file
     add_custom_command(
         OUTPUT "${_LIB_NAME}-help.pd"
         DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/${_LIB_NAME}_lib.xml"
         COMMAND ${PD_LIB2PD} "${CMAKE_CURRENT_SOURCE_DIR}/${_LIB_NAME}_lib.xml"
         COMMAND ${CMAKE_COMMAND} -E copy_if_different "${_LIB_NAME}-help.pd" ${CMAKE_CURRENT_SOURCE_DIR})
 
+    # extract categories from library XML file and generate their categoryX-help.pd
+    add_custom_target(${_LIB_NAME}_pddoc_cat
+        DEPENDS ${DOC_PD_FILES} "${_LIB_NAME}.xml"
+        COMMAND ${PD_CAT2PD} "${_LIB_NAME}.xml"
+        WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
+    
+    # generate all library documentation and xlet database
     add_custom_target(${_LIB_NAME}_pddoc
         DEPENDS ${_LIB_PD_FILES} "${_LIB_NAME}_lib.xml" "${_LIB_NAME}-help.pd"
         COMMAND cat "*-xlet_db.txt" | sort > "${_LIB_NAME}.db"
