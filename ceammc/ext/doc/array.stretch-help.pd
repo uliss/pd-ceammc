@@ -82,7 +82,7 @@ sample rate with interpolation. Type: int. Default value: 0\. Allowed
 values: 0 \, 1;
 #X msg 120 876 @aalength;
 #X text 240 876 Get/Set pitch transposer anti-alias filter length.
-Type: int. Default value: 32\. Value range: 8-128;
+Type: int. Default value: 64\. Value range: 8-128;
 #X msg 120 913 @sequence;
 #X text 240 913 Get/Set Default length of a single processing sequence
 \, in milliseconds. This determines to how long sequences the original
