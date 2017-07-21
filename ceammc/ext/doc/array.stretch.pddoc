@@ -33,7 +33,46 @@
             Playback rate - changes both tempo and pitch together as if 
             a vinyl disc was played at different RPM rate</property>
             <property name="@speech" type="flag">optimize for speech sound source</property>
-            <property name="@anti_alias" type="int" enum="0 1" default="1">anti-alias</property>
+            <property name="@antialias" type="int" enum="0 1" default="0">use of anti-alias filter.
+            Anti-alias filter is used to prevent folding of high frequencies when 
+            transposing the sample rate with interpolation.</property>
+            <property name="@aalength" type="int" minvalue="8" maxvalue="128" default="64">
+            pitch transposer anti-alias filter length</property>
+            <property name="@sequence" type="int" units="millisecond" default="0">
+            Default length of a single processing sequence, in milliseconds. This determines to how 
+            long sequences the original sound is chopped in the time-stretch algorithm.
+            
+            The larger this value is, the lesser sequences are used in processing. In principle
+            a bigger value sounds better when slowing down tempo, but worse when increasing tempo
+            and vice versa.
+            
+            Increasing this value reduces computational burden &amp; vice versa.
+            Giving *0* value for the sequence length sets automatic parameter value 
+            according to tempo setting (recommended).
+            </property>
+            <property name="@seekwindow" type="int" units="millisecond" minvalue="0" maxvalue="100">
+            Seeking window default length in milliseconds for algorithm that finds the best possible 
+            overlapping location. This determines from how wide window the algorithm may look for an 
+            optimal joining location when mixing the sound sequences back together. 
+            
+            The bigger this window setting is, the higher the possibility to find a better mixing
+            position will become, but at the same time large values may cause a "drifting" artifact
+            because consequent sequences will be taken at more uneven intervals.
+            
+            If there's a disturbing artifact that sounds as if a constant frequency was drifting 
+            around, try reducing this setting.
+
+            Increasing this value increases computational burden &amp; vice versa.
+            Giving *0* value for the seek window length sets automatic parameter value
+            according to tempo setting (recommended)
+            </property>
+            <property name="@overlap" type="int" units="millisecond" minvalue="1" maxvalue="100">
+                Overlap length in milliseconds. When the chopped sound sequences are mixed back together, 
+                to form a continuous sound stream, this parameter defines over how long period the two 
+                consecutive sequences are let to overlap each other. 
+                
+                Increasing this value increases computational burden &amp; vice versa.
+            </property>
         </properties>
         <inlets>
             <inlet>

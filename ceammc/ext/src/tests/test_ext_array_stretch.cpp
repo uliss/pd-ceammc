@@ -41,9 +41,24 @@ TEST_CASE("array.stretch", "[externals]")
             REQUIRE_PROPERTY(t, @pitch, 0.f);
             REQUIRE_PROPERTY(t, @tempo, 0.f);
             REQUIRE_PROPERTY(t, @rate, 1);
+            REQUIRE_PROPERTY(t, @sequence, 0.f);
+            REQUIRE_PROPERTY(t, @seekwindow, 0.f);
+            REQUIRE_PROPERTY(t, @overlap, 8);
+            REQUIRE_PROPERTY(t, @antialias, 1);
+            REQUIRE_PROPERTY(t, @aalength, 64);
+            REQUIRE_PROPERTY(t, @speech, 0.f);
 
             WHEN_SEND_BANG_TO(0, t);
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+        }
+
+        SECTION("@speech")
+        {
+            ArrayStretchTest t("array.stretch", L1("@speech"));
+            REQUIRE_PROPERTY(t, @sequence, 40);
+            REQUIRE_PROPERTY(t, @seekwindow, 15);
+            REQUIRE_PROPERTY(t, @overlap, 8);
+            REQUIRE_PROPERTY(t, @speech, 1);
         }
 
         SECTION("errors")
@@ -87,6 +102,69 @@ TEST_CASE("array.stretch", "[externals]")
                 WHEN_SEND_BANG_TO(0, t);
                 REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
             }
+        }
+    }
+
+    SECTION("props")
+    {
+        SECTION("@sequence")
+        {
+            ArrayStretchTest t("array.stretch");
+            t.setProperty("@sequence", A(0.f));
+            REQUIRE_PROPERTY(t, @sequence, 0.f);
+            t.setProperty("@sequence", A(99));
+            REQUIRE_PROPERTY(t, @sequence, 99);
+            t.setProperty("@sequence", A(100));
+            REQUIRE_PROPERTY(t, @sequence, 100);
+            // clip
+            t.setProperty("@sequence", A(101));
+            REQUIRE_PROPERTY(t, @sequence, 100);
+            t.setProperty("@sequence", A(-1));
+            REQUIRE_PROPERTY(t, @sequence, 0.f);
+        }
+
+        SECTION("@seekwindow")
+        {
+            ArrayStretchTest t("array.stretch");
+            t.setProperty("@seekwindow", A(0.f));
+            REQUIRE_PROPERTY(t, @seekwindow, 0.f);
+            t.setProperty("@seekwindow", A(99));
+            REQUIRE_PROPERTY(t, @seekwindow, 99);
+            t.setProperty("@seekwindow", A(100));
+            REQUIRE_PROPERTY(t, @seekwindow, 100);
+            // clip
+            t.setProperty("@seekwindow", A(101));
+            REQUIRE_PROPERTY(t, @seekwindow, 100);
+            t.setProperty("@seekwindow", A(-1));
+            REQUIRE_PROPERTY(t, @seekwindow, 0.f);
+        }
+
+        SECTION("@overlap")
+        {
+            ArrayStretchTest t("array.stretch");
+            t.setProperty("@overlap", A(1));
+            REQUIRE_PROPERTY(t, @overlap, 1);
+            t.setProperty("@overlap", A(100));
+            REQUIRE_PROPERTY(t, @overlap, 100);
+            // clip
+            t.setProperty("@overlap", A(0.f));
+            REQUIRE_PROPERTY(t, @overlap, 1);
+            t.setProperty("@overlap", A(101));
+            REQUIRE_PROPERTY(t, @overlap, 100);
+        }
+
+        SECTION("@aalength")
+        {
+            ArrayStretchTest t("array.stretch");
+            t.setProperty("@aalength", A(8));
+            REQUIRE_PROPERTY(t, @aalength, 8);
+            t.setProperty("@aalength", A(128));
+            REQUIRE_PROPERTY(t, @aalength, 128);
+            // clip
+            t.setProperty("@aalength", A(7));
+            REQUIRE_PROPERTY(t, @aalength, 8);
+            t.setProperty("@aalength", A(129));
+            REQUIRE_PROPERTY(t, @aalength, 128);
         }
     }
 
