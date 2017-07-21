@@ -1,4 +1,5 @@
 # makes target for generating PureData library documentation
+#
 # arguments are:
 #   NAME    - library name
 #   VERSION - library version
@@ -12,7 +13,14 @@
 #    generated help files into ${PD_INTERNAL_EXT_INSTALL_PATH}/NAME
 #    generated library help file into ${PD_INTERNAL_EXT_INSTALL_PATH}/NAME/NAME-help.pd
 #    generated library xlet database file (NAME-into ${PD_INTERNAL_EXT_INSTALL_PATH}/NAME/NAME.db
-#
+# 
+# uses:
+#   PD_DOC2PD  - path to pd_doc2pd
+#   PD_MAKELIB - path to pd_makelibrary
+#   PD_LIB2PD  - path to pd_lib2pd
+#   cat, sort  - unix command line utilities
+#   ${PD_INTERNAL_EXT_INSTALL_PATH}
+#   
 
 function(make_pddoc_lib)
     set(_OPTIONS_ARGS)
