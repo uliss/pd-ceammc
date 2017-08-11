@@ -9,6 +9,7 @@ set(DOC_FILES
     array.s2p
     array.set
     array.stretch
+    click~
     conv.bpm2hz
     conv.bpm2ms
     conv.bpm2sec
