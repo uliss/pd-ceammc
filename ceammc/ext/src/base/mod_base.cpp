@@ -1,5 +1,6 @@
 #include "mod_base.h"
 
+#include "base_click.h"
 #include "function.h"
 #include "function_call.h"
 
@@ -40,6 +41,7 @@ void ceammc_base_setup()
     replace_setup();
     setup_prop0x2eget();
     setup_prop0x2eset();
+    click_tilde_setup();
 
 #ifdef WITH_SND_FILE
     setup_snd0x2efile();

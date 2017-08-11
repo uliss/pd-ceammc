@@ -26,6 +26,11 @@ list(APPEND BASE_SOURCES
     test_data.cpp
     test_expect.cpp)
 
+
+# click
+list(APPEND BASE_SOURCES
+    base_click.cpp)
+
 if(TARGET ceammc_sound)
     add_definitions(-DWITH_SND_FILE)
     list(APPEND BASE_SOURCES snd_file.cpp)
