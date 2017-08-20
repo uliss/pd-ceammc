@@ -4,3 +4,6 @@
 [submodule "ceammc/distrib/git-archive-all"]
 	path = ceammc/distrib/git-archive-all
 	url = https://github.com/Kentzo/git-archive-all.git
+[submodule "ceammc/extra/flext/flext"]
+	path = ceammc/extra/flext/flext
+	url = https://github.com/grrrr/flext
