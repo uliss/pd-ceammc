@@ -10,3 +10,6 @@
 [submodule "ceammc/extra/flext/zconf"]
 	path = ceammc/extra/flext/zconf
 	url = https://github.com/grrrr/zconf
+[submodule "ceammc/extra/libdir/libdir"]
+	path = ceammc/extra/libdir/libdir
+	url = https://github.com/pure-data/libdir.git

@@ -6,5 +6,7 @@ add_subdirectory(hcs)
 add_subdirectory(comport)
 add_subdirectory(SoundTouch)
 add_subdirectory(flext)
+add_subdirectory(libdir)
+add_subdirectory(import)
 
 add_custom_target(_ceammc_extra_misc SOURCES extra_objects.txt)

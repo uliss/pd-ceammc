@@ -115,6 +115,20 @@ mkdir -p $PD_EXTRA/zconf
 cp $BUILD_DIR/ceammc/extra/flext/zconf.d_fat $PD_EXTRA/zconf
 cp $SRC_DIR/ceammc/extra/flext/zconf/zconf-help.pd $PD_EXTRA/zconf
 
+echo "Copying libdir..."
+mkdir -p $PD_EXTRA/libdir
+cp $BUILD_DIR/ceammc/extra/libdir/libdir.d_fat $PD_EXTRA/libdir
+cp $SRC_DIR/ceammc/extra/libdir/libdir/libdir-help.pd $PD_EXTRA/libdir
+cp $SRC_DIR/ceammc/extra/libdir/libdir/libdir-meta.pd $PD_EXTRA/libdir
+cp $SRC_DIR/ceammc/extra/libdir/libdir/LICENSE.txt $PD_EXTRA/libdir
+
+echo "Copying import..."
+mkdir -p $PD_EXTRA/import
+cp $BUILD_DIR/ceammc/extra/import/import.d_fat $PD_EXTRA/import
+cp $SRC_DIR/ceammc/extra/import/import-help.pd $PD_EXTRA/import
+cp $SRC_DIR/ceammc/extra/import/libdir-meta.pd $PD_EXTRA/import
+cp $SRC_DIR/ceammc/extra/import/LICENSE.txt $PD_EXTRA/import
+
 echo "Copying SoundTouch external..."
 mkdir $PD_EXTRA/soundtouch
 cp $BUILD_DIR/ceammc/extra/SoundTouch/pd/*.d_fat $PD_EXTRA/soundtouch
