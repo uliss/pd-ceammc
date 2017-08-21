@@ -146,6 +146,13 @@ cp $SRC_DIR/ceammc/extra/flext/xsample/xsample/pd-ex/* $PD_EXTRA/xsample
 cp $SRC_DIR/ceammc/extra/flext/xsample/xsample/gpl.txt $PD_EXTRA/xsample
 cp $SRC_DIR/ceammc/extra/flext/xsample/xsample/license.txt $PD_EXTRA/xsample
 
+echo "Copying LyonPotpourri..."
+mkdir -p $PD_EXTRA/lyonpotpourri/sound
+cp $BUILD_DIR/ceammc/extra/lyonpotpourri/*.d_fat $PD_EXTRA/lyonpotpourri
+cp $SRC_DIR/ceammc/extra/lyonpotpourri/*-help.pd $PD_EXTRA/lyonpotpourri
+cp $SRC_DIR/ceammc/extra/lyonpotpourri/LICENSE.txt $PD_EXTRA/lyonpotpourri
+cp $SRC_DIR/ceammc/extra/lyonpotpourri/examples/* $PD_EXTRA/lyonpotpourri/sound
+
 LEAPMOTION_EXTERNAL="$BUILD_DIR/ceammc/extra/flext/leapmotion/leapmotion.d_fat"
 if [ -f "$LEAPMOTION_EXTERNAL" ]
 then
