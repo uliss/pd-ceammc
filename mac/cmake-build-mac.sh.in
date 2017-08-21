@@ -129,6 +129,14 @@ cp $SRC_DIR/ceammc/extra/import/import-help.pd $PD_EXTRA/import
 cp $SRC_DIR/ceammc/extra/import/libdir-meta.pd $PD_EXTRA/import
 cp $SRC_DIR/ceammc/extra/import/LICENSE.txt $PD_EXTRA/import
 
+echo "Copying VASP..."
+mkdir -p $PD_EXTRA/vasp
+cp $BUILD_DIR/ceammc/extra/flext/vasp.d_fat $PD_EXTRA/vasp
+cp $SRC_DIR/ceammc/extra/flext/vasp/pd/* $PD_EXTRA/vasp
+cp $SRC_DIR/ceammc/extra/flext/vasp/pd-help/* $PD_EXTRA/vasp
+cp $SRC_DIR/ceammc/extra/flext/vasp/gpl.txt $PD_EXTRA/vasp
+cp $SRC_DIR/ceammc/extra/flext/vasp/license.txt $PD_EXTRA/vasp
+
 echo "Copying SoundTouch external..."
 mkdir $PD_EXTRA/soundtouch
 cp $BUILD_DIR/ceammc/extra/SoundTouch/pd/*.d_fat $PD_EXTRA/soundtouch
