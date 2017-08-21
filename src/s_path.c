@@ -504,17 +504,23 @@ int sys_fclose(FILE *stream)
     suffix here, even though we have to tear it back off for one of the
     search attempts. */
 void open_via_helppath(const char *name, const char *dir)
-{
+{   
     char realname[MAXPDSTRING], dirbuf[MAXPDSTRING], *basename;
         /* make up a silly "dir" if none is supplied */
     const char *usedir = (*dir ? dir : "./");
     int fd;
+    
+        /* 0. "givenpath" */
+    if ((fd = do_open_via_path(usedir, name, "", dirbuf, &basename,
+        MAXPDSTRING, 0, sys_helppath)) >= 0)
+            goto gotone;
 
         /* 1. "objectname-help.pd" */
     strncpy(realname, name, MAXPDSTRING-10);
     realname[MAXPDSTRING-10] = 0;
     if (strlen(realname) > 3 && !strcmp(realname+strlen(realname)-3, ".pd"))
         realname[strlen(realname)-3] = 0;
+    
     strcat(realname, "-help.pd");
     if ((fd = do_open_via_path(usedir, realname, "", dirbuf, &basename,
         MAXPDSTRING, 0, sys_helppath)) >= 0)
