@@ -7,3 +7,6 @@
 [submodule "ceammc/extra/flext/flext"]
 	path = ceammc/extra/flext/flext
 	url = https://github.com/grrrr/flext
+[submodule "ceammc/extra/flext/zconf"]
+	path = ceammc/extra/flext/zconf
+	url = https://github.com/grrrr/zconf

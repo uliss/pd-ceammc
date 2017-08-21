@@ -95,7 +95,7 @@ mkdir -p $PD_EXTRA/ceammc
 
 echo "Copying CEAMMC dll:"
 cp $CEAMMC_EXT_BIN_DIR/lib/libceammc*.dylib $PD_EXTRA/ceammc
-cp $CEAMMC_EXT_BIN_DIR/*.dylib $PD_EXTRA/ceammc
+#cp $CEAMMC_EXT_BIN_DIR/*.dylib $PD_EXTRA/ceammc
 
 echo "Copying CEAMMC extension:"
 extension_files $CEAMMC_EXT_BIN_DIR | while read f
@@ -109,6 +109,11 @@ echo "Copying Additional extra:"
 cp $BUILD_DIR/ceammc/extra/comport/system.serial.d_fat $PD_EXTRA/ceammc
 cp $BUILD_DIR/ceammc/extra/hcs/*.d_fat $PD_EXTRA/ceammc
 cp $SRC_DIR/ceammc/extra/hcs/*.tcl $PD_EXTRA/ceammc
+
+echo "Copying zconf..."
+mkdir -p $PD_EXTRA/zconf
+cp $BUILD_DIR/ceammc/extra/flext/zconf.d_fat $PD_EXTRA/zconf
+cp $SRC_DIR/ceammc/extra/flext/zconf/zconf-help.pd $PD_EXTRA/zconf
 
 echo "Copying SoundTouch external..."
 mkdir $PD_EXTRA/soundtouch
