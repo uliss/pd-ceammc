@@ -213,6 +213,7 @@ if(APPLE)
             -DBUNDLE=${BUNDLE_FULL_PATH}
             -DWISH_APP=${WISH_APP}
             -DTCL_PATH=${TCL_PATH}
+            -DLEAPMOTION_LIBRARY=${LEAPMOTION_LIBRARY}
             -DDYLIBBUNDLER="${CMAKE_BINARY_DIR}/ceammc/distrib/mac/dylibbundler"
             -DTK_PATH=${TK_PATH}
             -DIS_SYSTEM_TK=${IS_SYSTEM_TK}

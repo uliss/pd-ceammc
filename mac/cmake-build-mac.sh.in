@@ -29,6 +29,7 @@ echo "$TCL_PATH"
 CEAMMC_EXT_SRC_DIR="$SRC_DIR/ceammc/ext/src"
 CEAMMC_EXT_BIN_DIR="$BUILD_DIR/ceammc/ext/src"
 
+LIB_LEAPMOTION="${LEAPMOTION_LIBRARY}"
 
 cd "$BUILD_DIR"
 mkdir -p dist
@@ -126,7 +127,7 @@ echo "Copying import..."
 mkdir -p $PD_EXTRA/import
 cp $BUILD_DIR/ceammc/extra/import/import.d_fat $PD_EXTRA/import
 cp $SRC_DIR/ceammc/extra/import/import-help.pd $PD_EXTRA/import
-cp $SRC_DIR/ceammc/extra/import/libdir-meta.pd $PD_EXTRA/import
+cp $SRC_DIR/ceammc/extra/import/import-meta.pd $PD_EXTRA/import
 cp $SRC_DIR/ceammc/extra/import/LICENSE.txt $PD_EXTRA/import
 
 echo "Copying VASP..."
@@ -136,6 +137,16 @@ cp $SRC_DIR/ceammc/extra/flext/vasp/pd/* $PD_EXTRA/vasp
 cp $SRC_DIR/ceammc/extra/flext/vasp/pd-help/* $PD_EXTRA/vasp
 cp $SRC_DIR/ceammc/extra/flext/vasp/gpl.txt $PD_EXTRA/vasp
 cp $SRC_DIR/ceammc/extra/flext/vasp/license.txt $PD_EXTRA/vasp
+
+LEAPMOTION_EXTERNAL="$BUILD_DIR/ceammc/extra/flext/leapmotion/leapmotion.d_fat"
+if [ -f "$LEAPMOTION_EXTERNAL" ]
+then
+    echo "Copying LeapMotion"
+    mkdir $PD_EXTRA/leapmotion
+    cp "$LEAPMOTION_EXTERNAL" $PD_EXTRA/leapmotion
+    cp $SRC_DIR/ceammc/extra/flext/leapmotion/*.pd $PD_EXTRA/leapmotion
+    cp $LIB_LEAPMOTION $PD_EXTRA/leapmotion
+fi
 
 echo "Copying SoundTouch external..."
 mkdir $PD_EXTRA/soundtouch

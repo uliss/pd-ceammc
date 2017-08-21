@@ -149,3 +149,6 @@ pd_add_extension(NAME vasp
     LINK flext_static)
 
 
+add_subdirectory(leapmotion)
+
+

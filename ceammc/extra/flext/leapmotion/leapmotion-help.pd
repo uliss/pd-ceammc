@@ -1,0 +1,192 @@
+#N canvas 219 75 1088 725 10;
+#X obj 89 245 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 89 181 tgl 30 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+1;
+#X obj 89 219 metro 50;
+#X msg 145 219 info;
+#X obj 187 291 leapmotion;
+#X obj 215 331 route hand tool;
+#N canvas 323 22 793 547 flags 0;
+#X obj 109 135 tgl 15 0 empty to_general general 17 7 0 10 -262144
+-1 -1 1 1;
+#X obj 109 177 tgl 15 0 empty to_palm_position palm_position 17 7 0
+10 -262144 -1 -1 1 1;
+#X obj 110 312 tgl 15 0 empty to_fingers_position position 17 7 0 10
+-262144 -1 -1 1 1;
+#X obj 219 164 tgl 15 0 empty to_tools_position position 17 7 0 10
+-262144 -1 -1 1 1;
+#X obj 110 344 tgl 15 0 empty to_fingers_size size 17 7 0 10 -262144
+-1 -1 1 1;
+#X obj 219 196 tgl 15 0 empty to_tools_size size 17 7 0 10 -262144
+-1 -1 1 1;
+#X obj 219 180 tgl 15 0 empty to_tools_velocity velocity 17 7 0 10
+-262144 -1 -1 1 1;
+#X obj 110 328 tgl 15 0 empty to_fingers_velocity velocity 17 7 0 10
+-262144 -1 -1 1 1;
+#X obj 109 162 tgl 15 0 empty to_direction direction 17 7 0 10 -262144
+-1 -1 1 1;
+#X obj 109 220 tgl 15 0 empty to_sphere_radius sphere_radius 17 7 0
+10 -262144 -1 -1 1 1;
+#X obj 109 235 tgl 15 0 empty to_sphere_center sphere_center 17 7 0
+10 -262144 -1 -1 1 1;
+#X obj 109 250 tgl 15 0 empty to_finger_count finger_count 17 7 0 10
+-262144 -1 -1 1 1;
+#X obj 109 265 tgl 15 0 empty to_tool_count tool_count 17 7 0 10 -262144
+-1 -1 1 1;
+#X obj 109 191 tgl 15 0 empty to_palm_velocity palm_velocity 17 7 0
+10 -262144 -1 -1 1 1;
+#X obj 109 206 tgl 15 0 empty to_palm_normal palm_normal 17 7 0 10
+-262144 -1 -1 1 1;
+#X obj -49 463 outlet;
+#X msg -49 133 general \$1;
+#X msg -50 177 hands_direction \$1;
+#X msg -48 236 hands_sphere_radius \$1;
+#X msg -48 251 hands_sphere_center \$1;
+#X msg -48 266 hands_finger_count \$1;
+#X msg -48 280 hands_tool_count \$1;
+#X msg -50 192 hands_palm_position \$1;
+#X msg -49 206 hands_palm_velocity \$1;
+#X msg -48 220 hands_palm_normal \$1;
+#X msg -49 359 fingers_size \$1;
+#X obj 359 427 list prepend gestures;
+#X obj 359 450 list trim;
+#X msg 356 210 tools_size \$1;
+#X msg -49 327 fingers_position \$1;
+#X msg -49 345 fingers_velocity \$1;
+#X msg 356 179 tools_position \$1;
+#X msg 356 194 tools_velocity \$1;
+#X msg 359 312 TYPE_CIRCLE \$1;
+#X msg 359 343 TYPE_KEY_TAP \$1;
+#X msg 359 358 TYPE_SCREEN_TAP \$1;
+#X msg 359 328 TYPE_SWIPE \$1;
+#X obj 220 296 tgl 15 0 empty to_gestures_circle circle 17 7 0 10 -262144
+-1 -1 1 1;
+#X obj 220 326 tgl 15 0 empty to_gestures_key_tap key_tap 17 7 0 10
+-262144 -1 -1 1 1;
+#X obj 220 341 tgl 15 0 empty to_gestures_screen_tap screen_tap 17
+7 0 10 -262144 -1 -1 1 1;
+#X obj 220 311 tgl 15 0 empty to_gestures_swipe swipe 17 7 0 10 -262144
+-1 -1 1 1;
+#X obj 110 299 tgl 15 0 empty to_fingers_direction direction 17 7 0
+10 -262144 -1 -1 1 1;
+#X msg -49 310 fingers_direction \$1;
+#X text 108 147 hands;
+#X text 108 279 fingers;
+#X text 218 277 gestures;
+#X text 218 131 tools;
+#X obj 219 148 tgl 15 0 empty to_tools_direction direction 17 7 0 10
+-262144 -1 -1 1 1;
+#X msg 356 163 tools_direction \$1;
+#X obj 218 110 tgl 15 0 empty empty all_on/off 17 7 0 10 -258113 -1
+-1 1 1;
+#X msg 544 128 \; to_general \$1 \; to_direction \$1 \; to_palm_position
+\$1 \; to_palm_velocity \$1 \; to_palm_normal \$1 \; to_sphere_radius
+\$1 \; to_sphere_center \$1 \; to_finger_count \$1 \; to_tool_count
+\$1 \; to_fingers_direction \$1 \; to_fingers_position \$1 \; to_fingers_velocity
+\$1 \; to_fingers_size \$1 \; to_tools_direction \$1 \; to_tools_position
+\$1 \; to_tools_velocity \$1 \; to_tools_size \$1 \; to_gestures_circle
+\$1 \; to_gestures_swipe \$1 \; to_gestures_key_tap \$1 \; to_gestures_screen_tap
+\$1 \;;
+#X connect 0 0 16 0;
+#X connect 1 0 22 0;
+#X connect 2 0 29 0;
+#X connect 3 0 31 0;
+#X connect 4 0 25 0;
+#X connect 5 0 28 0;
+#X connect 6 0 32 0;
+#X connect 7 0 30 0;
+#X connect 8 0 17 0;
+#X connect 9 0 18 0;
+#X connect 10 0 19 0;
+#X connect 11 0 20 0;
+#X connect 12 0 21 0;
+#X connect 13 0 23 0;
+#X connect 14 0 24 0;
+#X connect 16 0 15 0;
+#X connect 17 0 15 0;
+#X connect 18 0 15 0;
+#X connect 19 0 15 0;
+#X connect 20 0 15 0;
+#X connect 21 0 15 0;
+#X connect 22 0 15 0;
+#X connect 23 0 15 0;
+#X connect 24 0 15 0;
+#X connect 25 0 15 0;
+#X connect 26 0 27 0;
+#X connect 27 0 15 0;
+#X connect 28 0 15 0;
+#X connect 29 0 15 0;
+#X connect 30 0 15 0;
+#X connect 31 0 15 0;
+#X connect 32 0 15 0;
+#X connect 33 0 26 0;
+#X connect 34 0 26 0;
+#X connect 35 0 26 0;
+#X connect 36 0 26 0;
+#X connect 37 0 33 0;
+#X connect 38 0 34 0;
+#X connect 39 0 35 0;
+#X connect 40 0 36 0;
+#X connect 41 0 42 0;
+#X connect 42 0 15 0;
+#X connect 47 0 48 0;
+#X connect 48 0 15 0;
+#X connect 49 0 50 0;
+#X coords 0 -1 1 1 250 270 1 100 100;
+#X restore 187 -6 pd flags;
+#X obj 653 254 gesture 0;
+#X obj 297 308 s gesture;
+#X obj 773 254 gesture 1;
+#X obj 893 254 gesture 2;
+#N canvas 415 24 450 300 general 0;
+#X obj 169 75 unpack 0 0 0 0 0 0;
+#X floatatom 169 122 10 0 0 0 frameID - -;
+#X floatatom 169 142 10 0 0 0 timestamp - -;
+#X floatatom 169 162 5 0 0 0 hands - -;
+#X floatatom 169 182 5 0 0 0 fingers - -;
+#X floatatom 169 202 5 0 0 0 tools - -;
+#X floatatom 169 222 5 0 0 0 gestures - -;
+#X obj 169 49 r general;
+#X connect 0 0 1 0;
+#X connect 0 1 2 0;
+#X connect 0 2 3 0;
+#X connect 0 3 4 0;
+#X connect 0 4 5 0;
+#X connect 0 5 6 0;
+#X connect 7 0 0 0;
+#X coords 0 -1 1 1 150 140 1 100 100;
+#X restore 35 -6 pd general;
+#X obj 215 356 s hand;
+#X obj 113 308 s general;
+#X obj 260 355 s tool;
+#N canvas 698 164 615 451 tool 0;
+#X obj 299 63 r tool;
+#X obj 167 120 point 0;
+#X obj 229 120 point 1;
+#X obj 291 120 point 2;
+#X obj 353 120 point 3;
+#X obj 415 120 point 4;
+#X text 104 133 direction;
+#X text 104 187 position;
+#X text 104 241 velocity;
+#X text 104 295 size;
+#X connect 0 0 1 0;
+#X connect 0 0 2 0;
+#X connect 0 0 3 0;
+#X connect 0 0 4 0;
+#X connect 0 0 5 0;
+#X coords 0 -1 1 1 380 250 1 100 100;
+#X restore 653 -2 pd tool;
+#X obj 541 380 hand 1;
+#X obj 27 381 hand 0;
+#X connect 0 0 4 0;
+#X connect 1 0 2 0;
+#X connect 2 0 0 0;
+#X connect 3 0 4 0;
+#X connect 4 0 13 0;
+#X connect 4 1 5 0;
+#X connect 4 2 8 0;
+#X connect 5 0 12 0;
+#X connect 5 1 14 0;
+#X connect 6 0 4 0;
