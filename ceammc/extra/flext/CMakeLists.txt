@@ -3,7 +3,8 @@ set(FLEXT_SRC
     flext/source/flatom_part.cpp
     flext/source/flatom_pr.cpp
     flext/source/flattr.cpp
-    flext/source/flattr_ed.cpp
+    #flext/source/flattr_ed.cpp
+    mocks/flattr_ed.cpp
     flext/source/flbase.cpp
     flext/source/flbind.cpp
     flext/source/flbuf.cpp
