@@ -16,3 +16,6 @@
 [submodule "ceammc/extra/flext/vasp"]
 	path = ceammc/extra/flext/vasp
 	url = https://github.com/grrrr/vasp.git
+[submodule "ceammc/extra/flext/xsample/xsample"]
+	path = ceammc/extra/flext/xsample/xsample
+	url = https://github.com/grrrr/xsample.git

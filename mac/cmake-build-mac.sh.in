@@ -138,6 +138,14 @@ cp $SRC_DIR/ceammc/extra/flext/vasp/pd-help/* $PD_EXTRA/vasp
 cp $SRC_DIR/ceammc/extra/flext/vasp/gpl.txt $PD_EXTRA/vasp
 cp $SRC_DIR/ceammc/extra/flext/vasp/license.txt $PD_EXTRA/vasp
 
+echo "Copying xsample..."
+mkdir -p $PD_EXTRA/xsample
+cp $BUILD_DIR/ceammc/extra/flext/xsample/xsample.d_fat $PD_EXTRA/xsample
+cp $SRC_DIR/ceammc/extra/flext/xsample/xsample/pd/* $PD_EXTRA/xsample
+cp $SRC_DIR/ceammc/extra/flext/xsample/xsample/pd-ex/* $PD_EXTRA/xsample
+cp $SRC_DIR/ceammc/extra/flext/xsample/xsample/gpl.txt $PD_EXTRA/xsample
+cp $SRC_DIR/ceammc/extra/flext/xsample/xsample/license.txt $PD_EXTRA/xsample
+
 LEAPMOTION_EXTERNAL="$BUILD_DIR/ceammc/extra/flext/leapmotion/leapmotion.d_fat"
 if [ -f "$LEAPMOTION_EXTERNAL" ]
 then

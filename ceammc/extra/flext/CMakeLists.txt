@@ -150,5 +150,6 @@ pd_add_extension(NAME vasp
 
 
 add_subdirectory(leapmotion)
+add_subdirectory(xsample)
 
 
