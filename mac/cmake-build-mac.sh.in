@@ -153,6 +153,13 @@ cp $SRC_DIR/ceammc/extra/lyonpotpourri/*-help.pd $PD_EXTRA/lyonpotpourri
 cp $SRC_DIR/ceammc/extra/lyonpotpourri/LICENSE.txt $PD_EXTRA/lyonpotpourri
 cp $SRC_DIR/ceammc/extra/lyonpotpourri/examples/* $PD_EXTRA/lyonpotpourri/sound
 
+echo "Copying FFTease..."
+mkdir -p $PD_EXTRA/fftease/sound
+cp $BUILD_DIR/ceammc/extra/fftease/*.d_fat $PD_EXTRA/fftease
+cp $SRC_DIR/ceammc/extra/fftease/fftease/help/*.pd $PD_EXTRA/fftease
+cp $SRC_DIR/ceammc/extra/fftease/fftease/LICENSE.txt $PD_EXTRA/fftease
+cp $SRC_DIR/ceammc/extra/fftease/fftease/sound/* $PD_EXTRA/fftease/sound
+
 LEAPMOTION_EXTERNAL="$BUILD_DIR/ceammc/extra/flext/leapmotion/leapmotion.d_fat"
 if [ -f "$LEAPMOTION_EXTERNAL" ]
 then
