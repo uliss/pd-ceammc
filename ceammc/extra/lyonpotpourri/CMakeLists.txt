@@ -6,7 +6,7 @@ include_directories(${PROJECT_SOURCE_DIR}/src)
 add_library(lyon_static STATIC 
     MSPd.h bashfest_dsp.c bashfest_helper.c convert.c bloscbank.c ellipse.c fftease_setup.c 
     fold.c leanconvert.c leanunconvert.c makewindows.c 
-    from_msp.c fft.c fft4.c qsortE.c power_of_two.c overlapadd.c)
+    from_msp.c fft.c fft4.c qsortE.c power_of_two.c overlapadd.c unconvert.c)
 
 function(lyon_external name)
     pd_add_extension(NAME ${name}
@@ -14,7 +14,16 @@ function(lyon_external name)
         INTERNAL True
         LIBRARY lyonpotpourri
         LINK lyon_static
-        #HELP_FILES ${name}-help.pd
+        HELP_FILES ${name}-help.pd
+        )
+endfunction()
+
+function(lyon_external_no_help name)
+    pd_add_extension(NAME ${name}
+        FILES ${name}.c
+        INTERNAL True
+        LIBRARY lyonpotpourri
+        LINK lyon_static
         )
 endfunction()
 
@@ -43,8 +52,8 @@ lyon_external(function~)
 lyon_external(granola~)
 lyon_external(granulesf~)
 lyon_external(granule~)
-lyon_external(greater~)
-lyon_external(impulse~)
+lyon_external_no_help(greater~)
+lyon_external_no_help(impulse~)
 lyon_external(kbuffer~)
 lyon_external(killdc~)
 lyon_external(latch~)
@@ -69,7 +78,6 @@ lyon_external(splitbank~)
 lyon_external(splitspec~)
 lyon_external(squash~)
 lyon_external(stutter~)
-lyon_external(unconvert)
 lyon_external(vdb~)
 lyon_external(vdp~)
 lyon_external(vecdex~)
