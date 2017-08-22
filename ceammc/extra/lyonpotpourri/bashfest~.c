@@ -1,4 +1,4 @@
-#import "MSPd.h"
+#include "MSPd.h"
 #include "bashfest.h"
 #include <string.h>
 
@@ -218,7 +218,7 @@ void bashfest_soloproc(t_bashfest *x, long p)
 {
     int i;
     if(p < 0 || p >= PROCESS_COUNT){
-        error("bad %d",p);
+        error("%d %ld",p);
     }
     for(i=0;i<PROCESS_COUNT;i++){
         x->odds[i] = 0.0;
@@ -231,7 +231,7 @@ void bashfest_killproc(t_bashfest *x, long p)
 {
     int i;
     if(p < 0 || p >= PROCESS_COUNT){
-        error("bad %d",p);
+        error("bad %ld",p);
     }
     for(i=0;i<PROCESS_COUNT;i++){
         x->odds[i] = 1.0;
@@ -953,7 +953,7 @@ void bashfest_deploy_dsp(t_bashfest *x)
     events[slot].completed = 1;// for testing only
 	
     if(b_nchans <1 || b_nchans > 2){
-        error("illegal channels in buffer:%d",b_nchans);
+        error("illegal channels in buffer:%ld",b_nchans);
         return;
         x->hosed = 1;
     }
