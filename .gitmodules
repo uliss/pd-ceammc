@@ -19,3 +19,6 @@
 [submodule "ceammc/extra/flext/xsample/xsample"]
 	path = ceammc/extra/flext/xsample/xsample
 	url = https://github.com/grrrr/xsample.git
+[submodule "ceammc/extra/stk/stk"]
+	path = ceammc/extra/stk/stk
+	url = https://github.com/thestk/stk.git
