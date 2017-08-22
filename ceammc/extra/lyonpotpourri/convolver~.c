@@ -176,7 +176,7 @@ void convolver_convolve(t_convolver *x)
 		}
 	} else {
 		post("%s: \"convolve\" is not smart enough to figure out what you want to do. Try \"convolvechans\"",OBJECT_NAME);
-		post("source chans: %d, impulse chans: %d, dest chans: %d",x->source->b_nchans, x->impulse->b_nchans, x->dest->b_nchans );
+		post("source chans: %ld, impulse chans: %ld, dest chans: %ld",x->source->b_nchans, x->impulse->b_nchans, x->dest->b_nchans );
 	}
 	outlet_bang(x->bang);
 }
@@ -217,15 +217,15 @@ void convolver_convolvechans(t_convolver *x, t_symbol *msg, short argc, t_atom *
 		return;
 	}
 	if( source_chan > source->b_nchans ){
-		error("%s: source channel %d out of range", OBJECT_NAME, source_chan);
+		error("%s: source channel %ld out of range", OBJECT_NAME, source_chan);
 		return;
 	}
 	if( impulse_chan > impulse->b_nchans ){
-		error("%s: impulse channel %d out of range", OBJECT_NAME, impulse_chan);
+		error("%s: impulse channel %ld out of range", OBJECT_NAME, impulse_chan);
 		return;
 	}
 	if( dest_chan > dest->b_nchans ){
-		error("%s: dest channel %d out of range", OBJECT_NAME, dest_chan);
+		error("%s: dest channel %ld out of range", OBJECT_NAME, dest_chan);
 		return;
 	}
 	--source_chan;

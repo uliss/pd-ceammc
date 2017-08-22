@@ -165,7 +165,7 @@ void oscil_harmcount(t_oscil *x, t_floatarg harms)
 {
     
 	if( harms < 1 || harms > OSCIL_MAXIMUM_HARMONICS-1) {
-		error("%d is out of range and must be between 1 to %d", harms,OSCIL_MAXIMUM_HARMONICS-1 );
+		error("%f is out of range and must be between 1 to %d", harms,OSCIL_MAXIMUM_HARMONICS-1 );
 		return;
 	}
 	x->bl_harms = harms + 1;

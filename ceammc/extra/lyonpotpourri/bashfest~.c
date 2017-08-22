@@ -218,7 +218,7 @@ void bashfest_soloproc(t_bashfest *x, long p)
 {
     int i;
     if(p < 0 || p >= PROCESS_COUNT){
-        error("%d %ld",p);
+        error("%ld",p);
     }
     for(i=0;i<PROCESS_COUNT;i++){
         x->odds[i] = 0.0;
@@ -934,7 +934,7 @@ void bashfest_copy_to_MSP_buffer(t_bashfest *x, int slot)
 }
 void bashfest_deploy_dsp(t_bashfest *x)
 {
-    float *b_samples = x->b_samples;
+    t_word *b_samples = x->b_samples;
     long b_nchans = x->b_nchans;
     long b_frames = x->b_frames;
     t_event *events = x->events;
@@ -977,7 +977,7 @@ void bashfest_deploy_dsp(t_bashfest *x)
     events[slot].out_channels = b_nchans;
     events[slot].sample_frames = b_frames;
     for(i=0; i<b_frames*b_nchans; i++){
-        events[slot].workbuffer[i] = b_samples[i];
+        events[slot].workbuffer[i] = b_samples[i].w_float;
     }
     
     // clean rest of work buffer
