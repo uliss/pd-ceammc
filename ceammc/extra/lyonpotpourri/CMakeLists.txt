@@ -8,6 +8,10 @@ add_library(lyon_static STATIC
     fold.c leanconvert.c leanunconvert.c makewindows.c 
     from_msp.c fft.c fft4.c qsortE.c power_of_two.c overlapadd.c unconvert.c)
 
+if(UNIX)
+    set_target_properties(lyon_static PROPERTIES COMPILE_FLAGS "-fPIC")
+endif()
+
 function(lyon_external name)
     pd_add_extension(NAME ${name}
         FILES ${name}.c
