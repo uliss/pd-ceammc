@@ -38,6 +38,10 @@ function(fftease_external name)
         )
 endfunction()
 
+if(UNIX)
+    set_target_properties(fftease_static PROPERTIES COMPILE_FLAGS "-fPIC")
+endif()
+
 
 fftease_external(bthresher~)
 fftease_external(burrow~)
