@@ -175,6 +175,11 @@ mkdir $PD_EXTRA/soundtouch
 cp $BUILD_DIR/ceammc/extra/SoundTouch/pd/*.d_fat $PD_EXTRA/soundtouch
 cp $SRC_DIR/ceammc/extra/SoundTouch/pd/*-help.pd $PD_EXTRA/soundtouch
 
+echo "Copying autotune external..."
+mkdir $PD_EXTRA/autotune
+cp $BUILD_DIR/ceammc/extra/autotune/*.d_fat $PD_EXTRA/autotune
+cp $SRC_DIR/ceammc/extra/autotune/*-help.pd $PD_EXTRA/autotune
+
 echo "Copying CEAMMC help files:"
 cp $SRC_DIR/ceammc/ext/doc/*-help.pd $PD_EXTRA/ceammc
 cp $SRC_DIR/ceammc/ext/doc/*.mod $PD_EXTRA/ceammc

@@ -10,5 +10,6 @@ add_subdirectory(libdir)
 add_subdirectory(import)
 add_subdirectory(lyonpotpourri)
 add_subdirectory(fftease)
+add_subdirectory(autotune)
 
 add_custom_target(_ceammc_extra_misc SOURCES extra_objects.txt)
