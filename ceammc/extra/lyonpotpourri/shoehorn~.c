@@ -45,7 +45,7 @@ void *shoehorn_new(t_symbol *s, int argc, t_atom *argv)
     x->inChans = (long) atom_getfloatarg(0,argc,argv);
     x->outChans = (long) atom_getfloatarg(1,argc,argv);
     if( x->outChans < 2 || x->inChans < 2){
-        error("%s: illegal channel count: [in = %d] [out = %d]",OBJECT_NAME,x->inChans,x->outChans);
+        error("%s: illegal channel count: [in = %ld] [out = %ld]",OBJECT_NAME,x->inChans,x->outChans);
         return NULL;
     }
     for(i = 0; i < x->inChans - 1; i++){
