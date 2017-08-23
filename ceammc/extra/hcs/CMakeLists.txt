@@ -5,3 +5,6 @@ include_directories(${PROJECT_SOURCE_DIR}/src)
 
 ceammc_c_extension(system colorpanel)
 ceammc_c_extension(system cursor)
+
+install(FILES system.cursor.tcl
+    DESTINATION ${PD_INTERNAL_EXT_INSTALL_PATH}/ceammc)
