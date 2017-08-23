@@ -15,6 +15,10 @@ set(SOUNDTOUCH_SRC
     soundtouch/source/SoundTouch/sse_optimized.cpp
 )
 
+if(WIN32 OR MSYS)
+    add_definitions(-DSOUNDTOUCH_DISABLE_X86_OPTIMIZATIONS)
+endif()
+
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/soundtouch/include)
 add_library(soundtouch STATIC ${SOUNDTOUCH_SRC})
 
