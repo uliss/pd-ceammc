@@ -19,6 +19,7 @@ bpm->hz
 bpm->ms
 bpm->sec
 cc->amp
+click~
 conv.bpf2array
 conv.bpf2env
 conv.bpf2list
