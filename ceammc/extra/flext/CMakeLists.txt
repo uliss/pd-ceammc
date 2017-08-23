@@ -47,23 +47,6 @@ if(UNIX)
     set_target_properties(flext_static PROPERTIES COMPILE_FLAGS "-fPIC")
 endif()
 
-set(ZCONF_SRC
-    zconf/zconf.cpp
-    zconf/zconf_browse.cpp
-    zconf/zconf_domains.cpp
-    zconf/zconf_meta.cpp
-    zconf/zconf_resolve.cpp
-    zconf/zconf_service.cpp
-)
-
-include(PdExtension)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/flext/source)
-pd_add_extension(NAME "zconf"
-    FILES ${ZCONF_SRC}
-    INTERNAL True
-    LIBRARY zconf
-    LINK flext_static)
-
 set(VASP_SRC
     vasp/source/arg.cpp
     vasp/source/arg.h
@@ -149,7 +132,7 @@ pd_add_extension(NAME vasp
     LIBRARY vasp
     LINK flext_static)
 
-
+add_subdirectory(zconf)
 add_subdirectory(leapmotion)
 add_subdirectory(xsample)
 add_subdirectory(disis_munger) 
