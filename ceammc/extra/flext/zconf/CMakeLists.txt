@@ -10,9 +10,6 @@ if(DNSSD_FOUND)
         zconf/zconf_service.cpp
     )
     
-    include(PdExtension)
-    include_directories(${CMAKE_CURRENT_SOURCE_DIR}/flext/source)
-    
     pd_add_extension(NAME zconf
         FILES ${ZCONF_SRC}
         INTERNAL True

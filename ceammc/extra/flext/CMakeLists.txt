@@ -29,6 +29,7 @@ set(FLEXT_SRC
 )
 
 include_directories(${PROJECT_SOURCE_DIR}/src)
+
 add_definitions(-DFLEXT_SYS_PD -DFLEXT_ATTRIBUTES)
 if(APPLE)
     add_definitions(-DFLEXT_THREADS=3)
@@ -46,6 +47,9 @@ add_library(flext_static STATIC ${FLEXT_SRC})
 if(UNIX)
     set_target_properties(flext_static PROPERTIES COMPILE_FLAGS "-fPIC")
 endif()
+
+include(PdExtension)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/flext/source)
 
 set(VASP_SRC
     vasp/source/arg.cpp
