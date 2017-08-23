@@ -51,7 +51,7 @@ For latest changes please see changelog
 #ifndef __GNUC__
 #define RANDOM() (rand())
 #else
-#define RANDOM() (random()%32768)
+#define RANDOM() (rand())
 #endif
 
 #define ONE_OVER_HALFRAND 0.00006103516							// constant = 1. / 16384.0
