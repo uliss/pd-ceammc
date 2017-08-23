@@ -113,8 +113,8 @@ cp $SRC_DIR/ceammc/extra/hcs/*.tcl $PD_EXTRA/ceammc
 
 echo "Copying zconf..."
 mkdir -p $PD_EXTRA/zconf
-cp $BUILD_DIR/ceammc/extra/flext/zconf.d_fat $PD_EXTRA/zconf
-cp $SRC_DIR/ceammc/extra/flext/zconf/zconf-help.pd $PD_EXTRA/zconf
+cp $BUILD_DIR/ceammc/extra/flext/zconf/zconf.d_fat $PD_EXTRA/zconf
+cp $SRC_DIR/ceammc/extra/flext/zconf/zconf/zconf-help.pd $PD_EXTRA/zconf
 
 echo "Copying libdir..."
 mkdir -p $PD_EXTRA/libdir
