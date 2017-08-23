@@ -169,20 +169,18 @@ if(LIBDL_FOUND)
     list(APPEND PLATFORM_LINK_LIBRARIES ${LIBDL_LIBRARIES})
 endif()
 
-set(RESOURCE)
 if(WIN32 OR MSYS)
-    set(LIB_STATE "SHARED")
-    # substitute version variables
-    configure_file("pd.rc" "${CMAKE_CURRENT_BINARY_DIR}/pd.rc")
-    list(APPEND RESOURCE "${CMAKE_CURRENT_BINARY_DIR}/pd.rc")
+    set(RESOURCE "${CMAKE_CURRENT_BINARY_DIR}/pd.rc")
+    configure_file("pd.rc" ${RESOURCE})
+    
+    add_library(puredata-core SHARED ${D_SRC} ${G_SRC} ${M_SRC} ${S_SRC} ${X_SRC})
+    add_executable(pd WIN32 s_entry.c ${RESOURCE})
 else()
-    set(LIB_STATE "STATIC")
+    add_library(puredata-core STATIC ${D_SRC} ${G_SRC} ${M_SRC} ${S_SRC} ${X_SRC})
+    add_executable(pd s_entry.c)
 endif()
 
-add_library(puredata-core ${LIB_STATE} ${D_SRC} ${G_SRC} ${M_SRC} ${S_SRC} ${X_SRC})
 target_link_libraries(puredata-core ${PD_NEEDED_LIBS} ${PLATFORM_LINK_LIBRARIES})
-
-add_executable(pd WIN32 s_entry.c ${RESOURCE})
 target_link_libraries(pd puredata-core ${PD_NEEDED_LIBS})
 
 if(UNIX AND NOT APPLE)
