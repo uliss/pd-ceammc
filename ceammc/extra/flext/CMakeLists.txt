@@ -41,6 +41,7 @@ else()
 endif()
 
 add_library(flext_static STATIC ${FLEXT_SRC})
+#target_link_libraries(flext_static puredata-core)
 
 if(UNIX)
     set_target_properties(flext_static PROPERTIES COMPILE_FLAGS "-fPIC")
@@ -151,5 +152,4 @@ pd_add_extension(NAME vasp
 
 add_subdirectory(leapmotion)
 add_subdirectory(xsample)
-
-
+add_subdirectory(disis_munger) 
