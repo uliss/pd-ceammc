@@ -53,7 +53,7 @@ before_build:
     - if "%APPVEYOR_REPO_TAG%"=="true" (set CMAKE_BUILD_TYPE=Release) else (set CMAKE_BUILD_TYPE=Debug)
     - mkdir build
     - cd build
-    - cmake -G "MinGW Makefiles" -DBOOST_ROOT=%BOOST_ROOT% -DCMAKE_BUILD_TYPE=%CMAKE_BUILD_TYPE% ..
+    - cmake -G "MinGW Makefiles" -DWITH_PORTAUDIO=OFF -DBOOST_ROOT=%BOOST_ROOT% -DCMAKE_BUILD_TYPE=%CMAKE_BUILD_TYPE% ..
 
 build_script:
     - set VERBOSE=1
