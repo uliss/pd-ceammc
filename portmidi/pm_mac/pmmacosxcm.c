@@ -845,6 +845,7 @@ char* cm_get_full_endpoint_name(MIDIEndpointRef endpoint)
     newName = (char *) malloc(maxSize);
 
     CFStringGetCString(fullName, newName, maxSize, kCFStringEncodingUTF8);
+    CFRelease(fullName);
     return newName;
 }
 
