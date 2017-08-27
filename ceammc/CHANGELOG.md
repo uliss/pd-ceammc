@@ -3,6 +3,7 @@
 ## [Unreleased]
 ### Fixed:
 - function - bang handling fixed
+- list.choice - fixed hang on empty list
 
 ### Added:
 - math.round~ added

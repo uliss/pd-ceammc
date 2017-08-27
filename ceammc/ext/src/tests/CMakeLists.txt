@@ -69,6 +69,7 @@ ceammc_external_test(data set_union)
 
 ceammc_external_test(list all_of)
 ceammc_external_test(list any_of)
+ceammc_external_test(list choice)
 ceammc_external_test(list none_of)
 ceammc_external_test(list normalize)
 ceammc_external_test(list rotate)
