@@ -20,3 +20,5 @@ add_library(ceammc_flow STATIC mod_flow.h mod_flow.cpp ${FLOW_SOURCES})
 if(UNIX)
     set_target_properties(ceammc_flow PROPERTIES COMPILE_FLAGS "-fPIC")
 endif()
+
+target_link_libraries(ceammc_flow ceammc_base) # for function calls

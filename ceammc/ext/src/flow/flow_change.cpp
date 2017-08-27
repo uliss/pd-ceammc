@@ -12,11 +12,14 @@
  * this file belongs to.
  *****************************************************************************/
 #include "flow_change.h"
+#include "../base/function.h"
 #include "ceammc_factory.h"
 
 FlowChange::FlowChange(const PdArgs& a)
     : BaseObject(a)
+    , on_repeat_(gensym(""))
 {
+    createProperty(new PointerProperty<t_symbol*>("@onrepeat", &on_repeat_, false));
     createOutlet();
 }
 
@@ -30,8 +33,10 @@ void FlowChange::onBang()
 
 void FlowChange::onFloat(float f)
 {
-    if (msg_.isEqual(f))
+    if (msg_.isEqual(f)) {
+        onRepeat();
         return;
+    }
 
     msg_ = f;
     floatTo(0, f);
@@ -39,8 +44,10 @@ void FlowChange::onFloat(float f)
 
 void FlowChange::onSymbol(t_symbol* s)
 {
-    if (msg_.isEqual(s))
+    if (msg_.isEqual(s)) {
+        onRepeat();
         return;
+    }
 
     msg_ = s;
     symbolTo(0, s);
@@ -48,8 +55,10 @@ void FlowChange::onSymbol(t_symbol* s)
 
 void FlowChange::onList(const AtomList& l)
 {
-    if (msg_.isEqual(l))
+    if (msg_.isEqual(l)) {
+        onRepeat();
         return;
+    }
 
     msg_ = l;
     listTo(0, l);
@@ -57,8 +66,10 @@ void FlowChange::onList(const AtomList& l)
 
 void FlowChange::onAny(t_symbol* s, const AtomList& l)
 {
-    if (msg_.isEqual(Message(s, l)))
+    if (msg_.isEqual(Message(s, l))) {
+        onRepeat();
         return;
+    }
 
     msg_ = Message(s, l);
     anyTo(0, s, l);
@@ -75,6 +86,21 @@ void FlowChange::m_set(t_symbol* s, const AtomList& l)
         msg_ = Message(l[0]);
     else
         msg_ = Message(l);
+}
+
+void FlowChange::onRepeat()
+{
+    if (!on_repeat_)
+        return;
+
+    Function* fn = Function::function(on_repeat_);
+
+    if (!fn) {
+        OBJ_ERR << "function is not found: " << on_repeat_->s_name;
+        return;
+    }
+
+    fn->onBang();
 }
 
 extern "C" void setup_flow0x2echange()

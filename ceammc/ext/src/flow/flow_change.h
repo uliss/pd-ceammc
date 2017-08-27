@@ -20,6 +20,7 @@ using namespace ceammc;
 
 class FlowChange : public BaseObject {
     Message msg_;
+    t_symbol* on_repeat_;
 
 public:
     FlowChange(const PdArgs& a);
@@ -31,6 +32,9 @@ public:
 
     void m_reset(t_symbol* m, const AtomList& l);
     void m_set(t_symbol* s, const AtomList& l);
+
+private:
+    void onRepeat();
 };
 
 extern "C" void setup_flow0x2echange();

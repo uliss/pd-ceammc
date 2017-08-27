@@ -25,6 +25,9 @@
             <method name="reset">resets state</method>
             <method name="set">sets current value, but without output</method>
         </methods>
+        <properties>
+            <property name="@onrepeat" type="symbol">function called when repeat occures</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="bang">force output current value</xinfo>
@@ -36,15 +39,24 @@
         <example>
             <pdascii>
 <![CDATA[
-    [1 2( [3 4( [list a b( [a b( [reset(
-    |     |     |          |     |
-[F] | [B] | [S] |          |     |
+    [1 2( [3 4( [list a b( [a b( [reset(    [func fn_repeat]
+    |     |     |          |     |           ^|
+[F] | [B] | [S] |          |     |          [B]
 |   | |   | |   |          |     |
-[flow.change                     ]
+[flow.change  @onrepeat  fn_repeat]
 |                 |
 [msg set]         [print passed]
 |
 [ (
+
+
+[B] [func try_again]
+|    ^|
+[random.int 1 3]
+|
+[flow.change @onrepeat try_again]
+|
+[F]
 ]]>
             </pdascii>
         </example>
