@@ -16,6 +16,11 @@
                 <see>random.int</see>
             </also>
         </meta>
+        <properties>
+            <property name="@norepeat" type="int" default="0" enum="0 1">norepeat property.
+            If 1 is given: every time output value at new list position, do not repeat choosed 
+            position twice at adjacent events.</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="list">Input list</xinfo>

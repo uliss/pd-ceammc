@@ -4,6 +4,7 @@
 ### Fixed:
 - function - bang handling fixed
 - list.choice - fixed hang on empty list
+- list.choice @norepeat property added - for non repeated index choices
 
 ### Added:
 - math.round~ added
