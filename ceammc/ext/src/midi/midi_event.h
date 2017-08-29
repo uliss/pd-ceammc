@@ -1,20 +1,26 @@
 #ifndef MIDI_EVENT_H
 #define MIDI_EVENT_H
 
-#include "MidiEvent.h"
 #include "ceammc_object.h"
 
+#include <boost/scoped_ptr.hpp>
+
 using namespace ceammc;
+
+class MidiEvent;
 
 class XMidiEvent {
     bool valid_;
     AtomList raw_;
-    MidiEvent event_;
+    MidiEvent* event_;
     t_float duration_;
     int track_;
 
+    XMidiEvent(XMidiEvent&);
+
 public:
     XMidiEvent(const AtomList& l);
+    ~XMidiEvent();
     bool parse(const AtomList& l);
     bool isNote() const;
     bool isValid() const;
@@ -31,12 +37,12 @@ public:
     void onAny(t_symbol* s, const AtomList& args);
 };
 
-class MidiEventNote : public BaseObject {
+class MidiEventToNote : public BaseObject {
     XMidiEvent ev_;
     AtomList note_;
 
 public:
-    MidiEventNote(const PdArgs& args);
+    MidiEventToNote(const PdArgs& args);
     void onAny(t_symbol* s, const AtomList& args);
 };
 
