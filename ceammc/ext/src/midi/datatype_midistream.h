@@ -1,7 +1,6 @@
 #ifndef DATATYPE_MIDISTREAM_H
 #define DATATYPE_MIDISTREAM_H
 
-#include "MidiFile.h"
 #include "ceammc_abstractdata.h"
 
 #include <boost/shared_ptr.hpp>

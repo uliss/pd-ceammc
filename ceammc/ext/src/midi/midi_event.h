@@ -3,7 +3,7 @@
 
 #include "ceammc_object.h"
 
-#include <boost/scoped_ptr.hpp>
+#include <boost/shared_ptr.hpp>
 
 using namespace ceammc;
 
@@ -12,7 +12,7 @@ class MidiEvent;
 class XMidiEvent {
     bool valid_;
     AtomList raw_;
-    MidiEvent* event_;
+    boost::shared_ptr<MidiEvent> event_;
     t_float duration_;
     int track_;
 
@@ -20,7 +20,6 @@ class XMidiEvent {
 
 public:
     XMidiEvent(const AtomList& l);
-    ~XMidiEvent();
     bool parse(const AtomList& l);
     bool isNote() const;
     bool isValid() const;

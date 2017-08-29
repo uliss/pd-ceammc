@@ -14,11 +14,6 @@ XMidiEvent::XMidiEvent(const AtomList& l)
     parse(l);
 }
 
-XMidiEvent::~XMidiEvent()
-{
-    delete event_;
-}
-
 bool XMidiEvent::parse(const AtomList& l)
 {
     valid_ = (l.size() >= 5);
@@ -29,7 +24,7 @@ bool XMidiEvent::parse(const AtomList& l)
         for (size_t i = 3; i < l.size(); i++)
             v.push_back(l[i].asInt());
 
-        *event_ = MidiEvent(l[0].asInt(), l[1].asInt(), v);
+        *event_.get() = MidiEvent(l[0].asInt(), l[1].asInt(), v);
         track_ = l[1].asInt();
         duration_ = l[2].asFloat();
     }
