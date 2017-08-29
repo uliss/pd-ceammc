@@ -29,9 +29,10 @@ public:
     void m_reset(t_symbol*, const AtomList&);
     void m_output(t_symbol*, const AtomList&);
 
-private:
     void outputEvent(MidiEvent* ev);
-    int currentTick();
+
+private:
+    int currentTick() const;
     void outputCurrent();
 };
 

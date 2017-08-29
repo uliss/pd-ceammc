@@ -37,3 +37,8 @@ MidiEvent* DataTypeMidiTrack::eventAt(size_t n)
 {
     return &events_[n];
 }
+
+const MidiEvent* DataTypeMidiTrack::eventAt(size_t n) const
+{
+    return &events_[n];
+}

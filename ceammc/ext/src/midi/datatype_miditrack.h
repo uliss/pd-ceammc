@@ -19,6 +19,7 @@ public:
     size_t eventCount() const;
     MidiEventList& events();
     MidiEvent* eventAt(size_t n);
+    const MidiEvent* eventAt(size_t n) const;
 
 public:
     static const DataType dataType;

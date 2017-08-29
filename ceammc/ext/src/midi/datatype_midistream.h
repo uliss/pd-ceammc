@@ -4,13 +4,13 @@
 #include "MidiFile.h"
 #include "ceammc_abstractdata.h"
 
-#include <memory>
+#include <boost/shared_ptr.hpp>
 
 class MidiFile;
 using namespace ceammc;
 
 class DataTypeMidiStream : public AbstractData {
-    std::shared_ptr<MidiFile> midi_file_;
+    boost::shared_ptr<MidiFile> midi_file_;
 
 public:
     DataTypeMidiStream();
@@ -21,8 +21,8 @@ public:
     size_t tempo() const;
     t_symbol* filename() const;
 
-    DataTypeMidiStream* clone() const override;
-    DataType type() const override;
+    DataTypeMidiStream* clone() const;
+    DataType type() const;
 
     const MidiFile& midifile() const;
 
