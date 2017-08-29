@@ -115,8 +115,8 @@ public:
 
     // ticks-per-quarter related functions:
     void setMillisecondTicks(void);
-    int getTicksPerQuarterNote(void);
-    int getTPQ(void);
+    int getTicksPerQuarterNote(void) const;
+    int getTPQ(void) const;
     void setTicksPerQuarterNote(int ticks);
     void setTPQ(int ticks);
 

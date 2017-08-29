@@ -23,7 +23,8 @@ public:
     DataTypeMidiStream* clone() const;
     DataType type() const;
 
-    const MidiFile& midifile() const;
+    MidiFile* midifile();
+    const MidiFile* midifile() const;
 
 public:
     static const DataType dataType;

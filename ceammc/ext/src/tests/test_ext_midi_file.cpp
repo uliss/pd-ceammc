@@ -40,7 +40,22 @@ TEST_CASE("midi.file", "[externals]")
     {
         MidiFileTest t("midi.file");
 
+        // not-exists
         WHEN_CALL_1(t, read, TEST_DATA_DIR "/not-exists.mid");
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+        REQUIRE_PROPERTY(t, @filename, "");
+        REQUIRE_PROPERTY(t, @tracks, 1);
+        REQUIRE_PROPERTY(t, @tempo, 120);
+
+        // wrong argument count
+        WHEN_CALL(t, read);
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+        REQUIRE_PROPERTY(t, @filename, "");
+        REQUIRE_PROPERTY(t, @tracks, 1);
+        REQUIRE_PROPERTY(t, @tempo, 120);
+
+        // wrong argument type
+        WHEN_CALL_1(t, read, 234);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
         REQUIRE_PROPERTY(t, @filename, "");
         REQUIRE_PROPERTY(t, @tracks, 1);
@@ -84,5 +99,30 @@ TEST_CASE("midi.file", "[externals]")
         REQUIRE_PROPERTY(t, @filename, "test_01.mid");
         REQUIRE_PROPERTY(t, @tracks, 1);
         REQUIRE_PROPERTY(t, @tempo, 480);
+    }
+
+    SECTION("write")
+    {
+        MidiFileTest t("midi.file");
+
+        // wrong argument count
+        WHEN_CALL(t, write);
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+        REQUIRE_PROPERTY(t, @filename, "");
+        REQUIRE_PROPERTY(t, @tracks, 1);
+        REQUIRE_PROPERTY(t, @tempo, 120);
+
+        // wrong argument type
+        WHEN_CALL_1(t, read, 234);
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+        REQUIRE_PROPERTY(t, @filename, "");
+        REQUIRE_PROPERTY(t, @tracks, 1);
+        REQUIRE_PROPERTY(t, @tempo, 120);
+
+        WHEN_CALL_1(t, write, "./test_midi_output.mid");
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+        REQUIRE_PROPERTY(t, @filename, "");
+        REQUIRE_PROPERTY(t, @tracks, 1);
+        REQUIRE_PROPERTY(t, @tempo, 120);
     }
 }

@@ -1814,7 +1814,7 @@ MidiEvent& MidiFile::getEvent(int aTrack, int anIndex)
 //   time units that are supposed to occur during a quarternote.
 //
 
-int MidiFile::getTicksPerQuarterNote(void)
+int MidiFile::getTicksPerQuarterNote(void) const
 {
     if (ticksPerQuarterNote == 0xE728) {
         // this is a special case which is the SMPTE time code
@@ -1831,7 +1831,7 @@ int MidiFile::getTicksPerQuarterNote(void)
 // Alias for getTicksPerQuarterNote:
 //
 
-int MidiFile::getTPQ(void)
+int MidiFile::getTPQ(void) const
 {
     return getTicksPerQuarterNote();
 }

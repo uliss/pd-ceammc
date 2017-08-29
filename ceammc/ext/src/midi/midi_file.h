@@ -18,6 +18,7 @@ public:
     void m_clear(t_symbol*, const AtomList&);
     void m_info(t_symbol*, const AtomList&);
     void m_read(t_symbol*, const AtomList& l);
+    void m_write(t_symbol*, const AtomList& l);
 
     AtomList p_filename() const;
     AtomList p_tempo() const;

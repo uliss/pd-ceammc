@@ -53,7 +53,12 @@ DataType DataTypeMidiStream::type() const
     return data::DATA_MIDI_STREAM;
 }
 
-const MidiFile& DataTypeMidiStream::midifile() const
+MidiFile* DataTypeMidiStream::midifile()
 {
-    return *midi_file_.get();
+    return midi_file_.get();
+}
+
+const MidiFile* DataTypeMidiStream::midifile() const
+{
+    return midi_file_.get();
 }
