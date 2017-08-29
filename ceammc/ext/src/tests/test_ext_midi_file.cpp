@@ -52,8 +52,16 @@ TEST_CASE("midi.file", "[externals]")
         REQUIRE_PROPERTY(t, @tempo, 480);
 
         WHEN_CALL(t, clear);
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
         REQUIRE_PROPERTY(t, @filename, "");
         REQUIRE_PROPERTY(t, @tracks, 1);
         REQUIRE_PROPERTY(t, @tempo, 120);
+    }
+
+    SECTION("bang")
+    {
+        MidiFileTest t("midi.file");
+        WHEN_SEND_BANG_TO(0, t);
+        REQUIRE(t.lastMessage(0).isData());
     }
 }
