@@ -11,7 +11,7 @@ ceammc_midi_extension(event)
 ceammc_midi_extension(file)
 ceammc_midi_extension(track)
 
-include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra/midifile/midifile/include)
+include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra/midifile)
 add_library(ceammc_midi STATIC mod_midi.cpp ${MIDI_SOURCES})
 if(UNIX)
     set_target_properties(ceammc_midi PROPERTIES COMPILE_FLAGS "-fPIC")
