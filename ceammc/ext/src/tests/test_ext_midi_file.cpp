@@ -16,6 +16,7 @@
 #include "catch.hpp"
 #include "ceammc_datatypes.h"
 
+#include <fstream>
 #include <stdio.h>
 
 #ifndef TEST_DATA_DIR
@@ -124,5 +125,16 @@ TEST_CASE("midi.file", "[externals]")
         REQUIRE_PROPERTY(t, @filename, "");
         REQUIRE_PROPERTY(t, @tracks, 1);
         REQUIRE_PROPERTY(t, @tempo, 120);
+
+        std::ifstream ifs("./test_midi_output.mid");
+        REQUIRE(ifs);
+
+        WHEN_CALL_1(t, write, "./test_midi_output.mid");
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+        REQUIRE_PROPERTY(t, @filename, "");
+        REQUIRE_PROPERTY(t, @tracks, 1);
+        REQUIRE_PROPERTY(t, @tempo, 120);
+
+        REQUIRE(unlink("./test_midi_output.mid") == 0);
     }
 }
