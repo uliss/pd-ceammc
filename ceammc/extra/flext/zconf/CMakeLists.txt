@@ -1,9 +1,5 @@
 find_package(DNSSD)
 
-if(UNIX OR MACOSX)
-    add_definitions(-Wno-c++11-narrowing)
-endif()
-
 if(DNSSD_FOUND) 
     set(ZCONF_SRC
         zconf/zconf.cpp
