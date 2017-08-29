@@ -1,20 +1,19 @@
 set(MIDIFILE_SOURCES
-    midifile/src-library/Binasc.cpp
-    midifile/src-library/MidiEvent.cpp
-    midifile/src-library/MidiEventList.cpp
-    midifile/src-library/MidiFile.cpp
-    midifile/src-library/MidiMessage.cpp
-    midifile/src-library/Options.cpp
+    Binasc.cpp
+    MidiEvent.cpp
+    MidiEventList.cpp
+    MidiFile.cpp
+    MidiMessage.cpp
+    Options.cpp
     
-    midifile/include/Binasc.h
-    midifile/include/MidiEvent.h
-    midifile/include/MidiEventList.h
-    midifile/include/MidiFile.h
-    midifile/include/MidiMessage.h
-    midifile/include/Options.h
+    Binasc.h
+    MidiEvent.h
+    MidiEventList.h
+    MidiFile.h
+    MidiMessage.h
+    Options.h
 )
     
-include_directories(midifile/include)
 add_library(midifile STATIC ${MIDIFILE_SOURCES})
 
 if(UNIX)

@@ -25,6 +25,3 @@
 [submodule "ceammc/extra/flext/zconf/zconf"]
 	path = ceammc/extra/flext/zconf/zconf
 	url = https://github.com/grrrr/zconf
-[submodule "ceammc/extra/midifile/midifile"]
-	path = ceammc/extra/midifile/midifile
-	url = https://github.com/craigsapp/midifile
