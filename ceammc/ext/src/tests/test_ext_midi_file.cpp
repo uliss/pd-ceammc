@@ -14,6 +14,7 @@
 #include "../midi/midi_file.h"
 #include "base_extension_test.h"
 #include "catch.hpp"
+#include "ceammc_datatypes.h"
 
 #include <stdio.h>
 
@@ -63,5 +64,25 @@ TEST_CASE("midi.file", "[externals]")
         MidiFileTest t("midi.file");
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE(t.lastMessage(0).isData());
+    }
+
+    SECTION("onDataT")
+    {
+        DataTypeMidiStream str(TEST_DATA_DIR "/test_01.mid");
+        REQUIRE(str.filename() == gensym("test_01.mid"));
+        REQUIRE(str.tempo() == 480);
+        REQUIRE(str.trackCount() == 1);
+        REQUIRE(str.type() == data::DATA_MIDI_STREAM);
+
+        MidiFileTest t("midi.file");
+        REQUIRE_PROPERTY(t, @filename, "");
+        REQUIRE_PROPERTY(t, @tracks, 1);
+        REQUIRE_PROPERTY(t, @tempo, 120);
+
+        WHEN_SEND_TDATA_TO(0, t, str);
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+        REQUIRE_PROPERTY(t, @filename, "test_01.mid");
+        REQUIRE_PROPERTY(t, @tracks, 1);
+        REQUIRE_PROPERTY(t, @tempo, 480);
     }
 }

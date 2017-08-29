@@ -22,6 +22,8 @@ public:
     AtomList p_filename() const;
     AtomList p_tempo() const;
     AtomList p_tracks() const;
+
+    void onDataT(const DataTypeMidiStream& data);
 };
 
 extern "C" void setup_midi_file();

@@ -55,9 +55,15 @@ AtomList XMidiFile::p_tracks() const
     return Atom(midi_stream_->trackCount());
 }
 
+void XMidiFile::onDataT(const DataTypeMidiStream& data)
+{
+    midi_stream_ = data.clone();
+}
+
 void setup_midi_file()
 {
     ObjectFactory<XMidiFile> obj("midi.file");
+    obj.processData<DataTypeMidiStream>();
     obj.addMethod("read", &XMidiFile::m_read);
     obj.addMethod("clear", &XMidiFile::m_clear);
 }
