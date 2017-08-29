@@ -4,14 +4,12 @@ set(MIDIFILE_SOURCES
     MidiEventList.cpp
     MidiFile.cpp
     MidiMessage.cpp
-    Options.cpp
     
     Binasc.h
     MidiEvent.h
     MidiEventList.h
     MidiFile.h
     MidiMessage.h
-    Options.h
 )
     
 add_library(midifile STATIC ${MIDIFILE_SOURCES})
