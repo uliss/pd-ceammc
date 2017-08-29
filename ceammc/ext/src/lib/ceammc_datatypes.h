@@ -22,6 +22,8 @@ namespace data {
     static const ::ceammc::DataType DATA_STRING = 1;
     static const ::ceammc::DataType DATA_SET = 2;
     static const ::ceammc::DataType DATA_DICT = 3;
+    static const ::ceammc::DataType DATA_MIDI_STREAM = 10;
+    static const ::ceammc::DataType DATA_MIDI_TRACK = 11;
 }
 }
 
