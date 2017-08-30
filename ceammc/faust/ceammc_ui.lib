@@ -1,10 +1,16 @@
 declare name "CEAMMC faust default UI elements";
-declare version "0.1";
+declare version "0.1.1";
 
 si = library("signals.lib");
+cm = library("ceammc.lib");
 
 freq(f) = vslider("freq [unit:Hz]", f, 20, 20000, 0.1) : si.smoo;
 q(v) = vslider("q", v, 0.01, 100, 0.1) : si.smoo;
 gain_db(f) = vslider("gain [unit:db]", f, -15, 15, 0.1) : si.smoo;
 drywet(f) = hslider("drywet [style:knob]", f, 0, 1, 0.01) : si.smoo;
 bypass = checkbox("bypass");
+
+attack(t) = hslider("attack [unit:ms] [style:knob]", t, 0, 100000, 1) : cm.time_pd2faust : si.smoo;
+decay(t) = hslider("decay [unit:ms] [style:knob]", t, 0, 100000, 1) : cm.time_pd2faust : si.smoo;
+sustain(p) = hslider("sustain [unit:percent] [style:knob]", p, 0, 100, 0.001) : si.smoo;
+release(t) = hslider("release [unit:ms] [style:knob]", t, 0, 100000, 1) : cm.time_pd2faust : si.smoo;

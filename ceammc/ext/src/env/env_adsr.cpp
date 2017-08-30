@@ -1,8 +1,8 @@
 #include "env_adsr.h"
 
-static void* faust_new(t_symbol* s, int argc, t_atom* argv)
+static void* adsr_faust_new(t_symbol* s, int argc, t_atom* argv)
 {
-    t_faust* x = reinterpret_cast<t_faust*>(pd_new(faust_class));
+    t_faust_adsr* x = reinterpret_cast<t_faust_adsr*>(pd_new(adsr_faust_class));
     PdArgParser p(x, argc, argv);
     p.initFloatArg("attack", 1);
     p.initFloatArg("decay", 2);
