@@ -9,6 +9,7 @@ using namespace ceammc;
 
 class XMidiFile : public BaseObject {
     DataTPtr<DataTypeMidiStream> midi_stream_;
+    t_canvas* cnv_;
 
 public:
     XMidiFile(const PdArgs& a);
@@ -25,6 +26,9 @@ public:
     AtomList p_tracks() const;
 
     void onDataT(const DataTypeMidiStream& data);
+
+private:
+    std::string searchFileInPaths(const char* fname);
 };
 
 extern "C" void setup_midi_file();
