@@ -30,8 +30,8 @@ public:
     void onList(const AtomList& l);
     void onAny(t_symbol* s, const AtomList& l);
 
-    void m_reset(t_symbol* m, const AtomList& l);
-    void m_set(t_symbol* s, const AtomList& l);
+    void m_reset(t_symbol*, const AtomList&);
+    void m_set(t_symbol*, const AtomList& l);
 
 private:
     void onRepeat();
