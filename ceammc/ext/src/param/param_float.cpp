@@ -10,7 +10,7 @@ extern "C" {
 
 static t_symbol* SYM_EMPTY = gensym("");
 
-ParamFloat::ParamFloat(const PdArgs& args)
+PresetFloat::PresetFloat(const PdArgs& args)
     : BaseObject(args)
     , max_(0)
     , init_(0)
@@ -35,22 +35,22 @@ ParamFloat::ParamFloat(const PdArgs& args)
     pd_bind(&owner()->te_g.g_pd, bind_addr_);
 }
 
-ParamFloat::~ParamFloat()
+PresetFloat::~PresetFloat()
 {
     pd_unbind(&owner()->te_g.g_pd, bind_addr_);
 }
 
-void ParamFloat::onFloat(float f)
+void PresetFloat::onFloat(float f)
 {
     current_value_ = f;
 }
 
-void ParamFloat::m_clear(t_symbol*, const AtomList&)
+void PresetFloat::m_clear(t_symbol*, const AtomList&)
 {
     PresetStorage::instance().remove(name_->value());
 }
 
-void ParamFloat::m_store(t_symbol*, const AtomList& l)
+void PresetFloat::m_store(t_symbol*, const AtomList& l)
 {
     if (!checkArgs(l, ARG_NATURAL)) {
         OBJ_ERR << "single float value expected: " << l;
@@ -69,7 +69,7 @@ void ParamFloat::m_store(t_symbol*, const AtomList& l)
         OBJ_DBG << "can't save preset: " << name_->str();
 }
 
-void ParamFloat::m_load(t_symbol*, const AtomList& l)
+void PresetFloat::m_load(t_symbol*, const AtomList& l)
 {
     if (!checkArgs(l, ARG_FLOAT)) {
         OBJ_ERR << "single float value expected: " << l;
@@ -88,7 +88,7 @@ void ParamFloat::m_load(t_symbol*, const AtomList& l)
     floatTo(0, current_value_);
 }
 
-std::string ParamFloat::makeParamFilePath() const
+std::string PresetFloat::makeParamFilePath() const
 {
     std::string res;
 
@@ -101,10 +101,10 @@ std::string ParamFloat::makeParamFilePath() const
     return res;
 }
 
-void setup_param_float()
+void setup_preset_float()
 {
-    ObjectFactory<ParamFloat> obj("param.float");
-    obj.addMethod("clear", &ParamFloat::m_clear);
-    obj.addMethod("store", &ParamFloat::m_store);
-    obj.addMethod("load", &ParamFloat::m_load);
+    ObjectFactory<PresetFloat> obj("param.float");
+    obj.addMethod("clear", &PresetFloat::m_clear);
+    obj.addMethod("store", &PresetFloat::m_store);
+    obj.addMethod("load", &PresetFloat::m_load);
 }

@@ -3,5 +3,5 @@
 
 void ceammc_param_setup()
 {
-    setup_param_float();
+    setup_preset_float();
 }

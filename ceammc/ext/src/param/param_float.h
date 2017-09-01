@@ -8,7 +8,7 @@
 
 using namespace ceammc;
 
-class ParamFloat : public BaseObject {
+class PresetFloat : public BaseObject {
     SizeTProperty* max_;
     FloatProperty* init_;
     SymbolProperty* name_;
@@ -17,8 +17,8 @@ class ParamFloat : public BaseObject {
     t_symbol* bind_addr_;
 
 public:
-    ParamFloat(const PdArgs& args);
-    ~ParamFloat();
+    PresetFloat(const PdArgs& args);
+    ~PresetFloat();
 
     void onFloat(float f);
 
@@ -30,6 +30,6 @@ private:
     std::string makeParamFilePath() const;
 };
 
-void setup_param_float();
+void setup_preset_float();
 
 #endif // PARAM_FLOAT_H
