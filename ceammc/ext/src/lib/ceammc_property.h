@@ -196,6 +196,8 @@ public:
 
     t_symbol* value() const;
     void setValue(t_symbol* s);
+
+    std::string str() const;
 };
 
 class SymbolEnumProperty : public EnumProperty<t_symbol*> {

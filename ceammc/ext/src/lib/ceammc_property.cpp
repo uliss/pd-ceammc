@@ -291,6 +291,11 @@ void SymbolProperty::setValue(t_symbol* s)
     value_ = s;
 }
 
+std::string SymbolProperty::str() const
+{
+    return value_->s_name;
+}
+
 SymbolEnumProperty::~SymbolEnumProperty()
 {
 }
