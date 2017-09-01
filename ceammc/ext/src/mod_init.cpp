@@ -31,7 +31,7 @@
 #include "misc/mod_misc.h"
 #include "noise/mod_noise.h"
 #include "osc/mod_osc.h"
-#include "param/mod_param.h"
+#include "preset/mod_param.h"
 #include "path/mod_path.h"
 #include "random/mod_random.h"
 #include "spat/mod_spat.h"
