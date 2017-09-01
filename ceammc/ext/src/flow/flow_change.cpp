@@ -19,9 +19,10 @@ static t_symbol* SYM_EMPTY = gensym("");
 
 FlowChange::FlowChange(const PdArgs& a)
     : BaseObject(a)
-    , on_repeat_(SYM_EMPTY)
+    , on_repeat_(NULL)
 {
-    createProperty(new PointerProperty<t_symbol*>("@onrepeat", &on_repeat_, false));
+    on_repeat_ = new SymbolProperty("@onrepeat", SYM_EMPTY);
+    createProperty(on_repeat_);
     createOutlet();
 }
 
@@ -92,13 +93,13 @@ void FlowChange::m_set(t_symbol*, const AtomList& l)
 
 void FlowChange::onRepeat()
 {
-    if (!on_repeat_ || on_repeat_ == SYM_EMPTY)
+    if (on_repeat_->value() == SYM_EMPTY)
         return;
 
-    Function* fn = Function::function(on_repeat_);
+    Function* fn = Function::function(on_repeat_->value());
 
     if (!fn) {
-        OBJ_ERR << "function is not found: " << on_repeat_->s_name;
+        OBJ_ERR << "function is not found: " << on_repeat_->value()->s_name;
         return;
     }
 

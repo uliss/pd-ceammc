@@ -20,7 +20,7 @@ using namespace ceammc;
 
 class FlowChange : public BaseObject {
     Message msg_;
-    t_symbol* on_repeat_;
+    SymbolProperty* on_repeat_;
 
 public:
     FlowChange(const PdArgs& a);
