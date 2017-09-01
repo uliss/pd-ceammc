@@ -15,6 +15,8 @@
 #include "catch.hpp"
 #include "ceammc_property.h"
 
+#include "base_extension_test.h"
+
 using namespace ceammc;
 
 struct prop_ro {
@@ -385,5 +387,30 @@ TEST_CASE("Properties", "[ceammc::properties]")
         fl.set(AtomList(0.f));
         REQUIRE(fl.value() == true);
         REQUIRE(fl.get() == AtomList(1));
+    }
+
+    SECTION("symbol property")
+    {
+        SymbolProperty p("sym", gensym("test"));
+        REQUIRE(p.value() == gensym("test"));
+        REQUIRE_FALSE(p.readonly());
+        REQUIRE(p.get() == L1("test"));
+
+        p.setValue(gensym("ABC"));
+        REQUIRE(p.get() == L1("ABC"));
+
+        // invalid
+        // empty
+        REQUIRE_FALSE(p.set(AtomList()));
+        // wrong type
+        REQUIRE_FALSE(p.set(L2(1, 2)));
+        REQUIRE(p.set(L1("XYZ")));
+        REQUIRE(p.get() == L1("XYZ"));
+
+        SymbolProperty p_ro("sym2", gensym("RO"), true);
+        REQUIRE(p_ro.get() == L1("RO"));
+        REQUIRE(p_ro.value() == gensym("RO"));
+
+        REQUIRE_FALSE(p_ro.set(L1("RW")));
     }
 }

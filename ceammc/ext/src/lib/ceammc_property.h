@@ -185,6 +185,19 @@ private:
     int idx_;
 };
 
+class SymbolProperty : public Property {
+    mutable t_symbol* value_;
+
+public:
+    SymbolProperty(const std::string& name, t_symbol* init, bool readonly = false);
+
+    AtomList get() const;
+    bool set(const AtomList& lst);
+
+    t_symbol* value() const;
+    void setValue(t_symbol* s);
+};
+
 class SymbolEnumProperty : public EnumProperty<t_symbol*> {
 public:
     SymbolEnumProperty(const std::string& name, const char* sym, bool readonly = false)
@@ -192,10 +205,9 @@ public:
     {
     }
 
-    void appendEnum(const char* v)
-    {
-        EnumProperty<t_symbol*>::appendEnum(gensym(v));
-    }
+    ~SymbolEnumProperty();
+
+    void appendEnum(const char* v);
 
     bool is(const char* v) const
     {

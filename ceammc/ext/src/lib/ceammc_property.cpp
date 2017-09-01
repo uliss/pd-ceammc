@@ -252,4 +252,51 @@ bool FlagProperty::set(const AtomList&)
     v_ = true;
     return true;
 }
+
+SymbolProperty::SymbolProperty(const std::string& name, t_symbol* init, bool readonly)
+    : Property(name, readonly)
+    , value_(init)
+{
+}
+
+AtomList SymbolProperty::get() const
+{
+    return Atom(value_);
+}
+
+bool SymbolProperty::set(const AtomList& lst)
+{
+    if (!readonlyCheck())
+        return false;
+
+    if (!emptyValueCheck(lst))
+        return false;
+
+    if (!lst[0].isSymbol()) {
+        LIB_DBG << "non symbol given for property " << name() << ": " << to_string(lst) << ", ignored.";
+        return false;
+    }
+
+    value_ = lst[0].asSymbol();
+    return true;
+}
+
+t_symbol* SymbolProperty::value() const
+{
+    return value_;
+}
+
+void SymbolProperty::setValue(t_symbol* s)
+{
+    value_ = s;
+}
+
+SymbolEnumProperty::~SymbolEnumProperty()
+{
+}
+
+void SymbolEnumProperty::appendEnum(const char* v)
+{
+    EnumProperty<t_symbol*>::appendEnum(gensym(v));
+}
 }
