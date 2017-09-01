@@ -7,6 +7,7 @@ macro(ceammc_param_extension name)
 endmacro()
 
 ceammc_param_extension(float)
+ceammc_param_extension(storage)
 
 add_library(ceammc_param STATIC mod_param.h mod_param.cpp ${PARAM_SOURCES})
 if(UNIX)
