@@ -13,8 +13,8 @@ endif()
 
 set(CEAMMC_EXT_LINK_LIBRARIES ceammc_array ceammc_base ceammc_conv ceammc_data ceammc_dyn ceammc_env
     ceammc_flt ceammc_flow ceammc_fx ceammc_lfo ceammc_list ceammc_math ceammc_midi ceammc_misc ceammc_noise
-    ceammc_osc ceammc_path ceammc_random ceammc_spat ceammc_symbol ceammc_system ceammc_string ceammc_tl
-    ceammc_ui ceammc_vector cicm_static ceammc_core ceammc_sound ceammc_window)
+    ceammc_osc ceammc_param ceammc_path ceammc_random ceammc_spat ceammc_symbol ceammc_system ceammc_string 
+    ceammc_tl ceammc_ui ceammc_vector cicm_static ceammc_core ceammc_sound ceammc_window)
 
 add_subdirectory(lib)
 include_directories(lib)
@@ -42,6 +42,7 @@ add_subdirectory(midi)
 add_subdirectory(misc)
 add_subdirectory(noise)
 add_subdirectory(osc)
+add_subdirectory(param)
 add_subdirectory(path)
 add_subdirectory(random)
 add_subdirectory(rtmidi)
