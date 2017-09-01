@@ -101,7 +101,7 @@ void ceammc_init()
     ceammc_midi_setup();
     ceammc_misc_setup();
     ceammc_noise_setup();
-    ceammc_param_setup();
+    ceammc_preset_setup();
     ceammc_path_setup();
     ceammc_osc_setup();
     ceammc_random_setup();
