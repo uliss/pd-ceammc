@@ -265,7 +265,7 @@ int MidiEventList::linkNotePairs(void)
     oldstates.resize(18);
     for (int i = 0; i < 18; i++) {
         contevents[i].resize(16);
-        fill(contevents[i].begin(), contevents[i].end(), nullptr);
+        fill(contevents[i].begin(), contevents[i].end(), NULL);
         oldstates[i].resize(16);
         fill(oldstates[i].begin(), oldstates[i].end(), -1);
     }
