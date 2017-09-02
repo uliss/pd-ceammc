@@ -180,7 +180,7 @@ bool PresetStorage::read(const char* path)
             }
 
             if (sel == &s_symbol) {
-                PresetStorage::instance().setFloatValueAt(name, index, line[3].asSymbol());
+//                PresetStorage::instance().setSyValueAt(name, index, line[3].asSymbol());
             }
         } else {
             LIB_ERR << "invalid preset line: " << line;
