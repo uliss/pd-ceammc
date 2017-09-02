@@ -3,6 +3,7 @@
 
 #include "ceammc_atomlist.h"
 #include "ceammc_message.h"
+#include "ceammc_object.h"
 
 #include <boost/shared_ptr.hpp>
 #include <map>
@@ -79,9 +80,34 @@ public:
     bool write(const char* path) const;
     bool read(const char* path);
 
+    AtomList keys() const;
+
+    void createPreset(t_symbol* name);
+    bool hasPreset(t_symbol* name);
+
 private:
     PresetPtr
     getOrCreateParam(t_symbol* name);
 };
+
+class PresetExternal : public BaseObject {
+    t_canvas* cnv_;
+    t_canvas* root_cnv_;
+    std::string patch_dir_;
+
+public:
+    PresetExternal(const PdArgs& args);
+
+    AtomList p_keys() const;
+
+    void m_load(t_symbol*, const AtomList& l);
+    void m_store(t_symbol*, const AtomList& l);
+    void m_write(t_symbol*, const AtomList& fname);
+    void m_read(t_symbol*, const AtomList& fname);
+
+    std::string makePresetPath() const;
+};
+
+void setup_preset_storage();
 
 #endif // PARAM_STORAGE_H

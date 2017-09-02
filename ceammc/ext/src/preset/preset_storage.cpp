@@ -1,7 +1,14 @@
 #include "preset_storage.h"
+#include "ceammc_factory.h"
+#include "ceammc_format.h"
 
 #include <boost/make_shared.hpp>
 #include <fstream>
+
+extern "C" {
+#include "g_canvas.h"
+#include "m_imp.h"
+}
 
 static const size_t MAX_PRESET_COUNT = 16;
 t_symbol* Preset::SYM_NONE = gensym("");
@@ -113,17 +120,18 @@ bool PresetStorage::write(const char* path) const
             if (!ptr->hasDataAt(i))
                 continue;
 
-            binbuf_addv(content, "ss", &s_symbol, ptr->name());
+            binbuf_addv(content, "sf", ptr->name(), double(i));
 
-            if (ptr->hasFloatAt(i)) {
+            if (ptr->hasFloatAt(i))
                 binbuf_addv(content, "sf", &s_float, ptr->floatAt(i));
-            }
+            else if (ptr->hasSymbolAt(i))
+                binbuf_addv(content, "ss", &s_symbol, ptr->symbolAt(i));
 
             binbuf_addsemi(content);
         }
     }
 
-    int rc = binbuf_write(content, (char*)path, NULL, 0);
+    int rc = binbuf_write(content, (char*)path, (char*)"", 0);
     binbuf_free(content);
 
     return rc == 0;
@@ -132,12 +140,79 @@ bool PresetStorage::write(const char* path) const
 bool PresetStorage::read(const char* path)
 {
     t_binbuf* content = binbuf_new();
-    int rc = binbuf_read(content, (char*)path, NULL, 0);
+    int rc = binbuf_read(content, (char*)path, (char*)"", 0);
 
-    //    binbuf_eval();
+    std::vector<AtomList> lines;
+    lines.push_back(AtomList());
+
+    const int n = binbuf_getnatom(content);
+    t_atom* lst = binbuf_getvec(content);
+    for (int i = 0; i < n; i++) {
+        lines.back().append(lst[i]);
+
+        if (lst[i].a_type == A_SEMI) {
+            lines.push_back(AtomList());
+            continue;
+        }
+    }
 
     binbuf_free(content);
+
+    // remove last empty list
+    if (!lines.empty() && lines.back().empty())
+        lines.pop_back();
+
+    LIB_DBG << lines;
+
+    for (size_t i = 0; i < lines.size(); i++) {
+        AtomList& line = lines[i];
+
+        if (line.size() < 4)
+            continue;
+
+        if (line[0].isSymbol() && line[1].isFloat() && line[2].isSymbol()) {
+            t_symbol* name = line[0].asSymbol();
+            size_t index = line[1].asSizeT();
+            t_symbol* sel = line[2].asSymbol();
+
+            if (sel == &s_float) {
+                PresetStorage::instance().setFloatValueAt(name, index, line[3].asFloat());
+            }
+
+            if (sel == &s_symbol) {
+                PresetStorage::instance().setFloatValueAt(name, index, line[3].asSymbol());
+            }
+        } else {
+            LIB_ERR << "invalid preset line: " << line;
+        }
+    }
+
     return rc == 0;
+}
+
+AtomList PresetStorage::keys() const
+{
+    AtomList res;
+    res.reserve(params_.size());
+
+    PresetMap::const_iterator it;
+    for (it = params_.begin(); it != params_.end(); ++it)
+        res.append(it->first);
+
+    return res;
+}
+
+void PresetStorage::createPreset(t_symbol* name)
+{
+    if (!hasPreset(name)) {
+        PresetPtr ptr = boost::make_shared<Preset>(name);
+        params_.insert(PresetMap::value_type(name, ptr));
+    }
+}
+
+bool PresetStorage::hasPreset(t_symbol* name)
+{
+    return params_.find(name) != params_.end();
 }
 
 PresetPtr PresetStorage::getOrCreateParam(t_symbol* name)
@@ -277,4 +352,114 @@ t_symbol* Preset::makeBindAddress(t_symbol* name)
     std::string res("preset: ");
     res += name->s_name;
     return gensym(res.c_str());
+}
+
+PresetExternal::PresetExternal(const PdArgs& args)
+    : BaseObject(args)
+    , cnv_(canvas_getcurrent())
+    , root_cnv_(canvas_getrootfor(canvas_getcurrent()))
+    , patch_dir_(".")
+{
+    createCbProperty("@keys", &PresetExternal::p_keys);
+
+    createOutlet();
+
+    if (root_cnv_)
+        patch_dir_ = canvas_getdir(root_cnv_)->s_name;
+}
+
+AtomList PresetExternal::p_keys() const
+{
+    return PresetStorage::instance().keys();
+}
+
+void PresetExternal::m_load(t_symbol*, const AtomList& l)
+{
+    if (!checkArgs(l, ARG_FLOAT))
+        return;
+
+    PresetStorage& s = PresetStorage::instance();
+
+    size_t idx = l[0].asSizeT();
+    if (idx >= s.maxPresetCount()) {
+        OBJ_ERR << "invalid preset index: " << idx;
+        return;
+    }
+
+    PresetStorage::instance().loadAll(idx);
+}
+
+void PresetExternal::m_store(t_symbol*, const AtomList& l)
+{
+    if (!checkArgs(l, ARG_FLOAT))
+        return;
+
+    PresetStorage& s = PresetStorage::instance();
+
+    size_t idx = l[0].asSizeT();
+    if (idx >= s.maxPresetCount()) {
+        OBJ_ERR << "invalid preset index: " << idx;
+        return;
+    }
+
+    PresetStorage::instance().storeAll(idx);
+}
+
+void PresetExternal::m_write(t_symbol*, const AtomList& l)
+{
+    std::string fname;
+
+    if (l.empty()) {
+        if (root_cnv_) {
+            fname += std::string(root_cnv_->gl_name->s_name);
+            fname += "-preset.txt";
+        }
+    } else
+        fname = to_string(l[0]);
+
+    if (!sys_isabsolutepath(fname.c_str()))
+        fname = patch_dir_ + "/" + fname;
+
+    bool rc = PresetStorage::instance().write(fname.c_str());
+    if (!rc) {
+        OBJ_ERR << "can't write presets to " << fname;
+        return;
+    }
+
+    OBJ_DBG << "presets written to: " << fname;
+}
+
+void PresetExternal::m_read(t_symbol*, const AtomList& l)
+{
+    std::string fname;
+
+    if (l.empty()) {
+        if (root_cnv_) {
+            fname += std::string(root_cnv_->gl_name->s_name);
+            fname += "-preset.txt";
+        }
+    } else
+        fname = to_string(l[0]);
+
+    if (!sys_isabsolutepath(fname.c_str()))
+        fname = patch_dir_ + "/" + fname;
+
+    OBJ_DBG << "presets read from: " << fname;
+
+    bool rc = PresetStorage::instance().read(fname.c_str());
+    if (!rc) {
+        OBJ_ERR << "can't read presets from " << fname;
+        return;
+    }
+
+    OBJ_DBG << "presets read from: " << fname;
+}
+
+void setup_preset_storage()
+{
+    ObjectFactory<PresetExternal> obj("preset.storage");
+    obj.addMethod("load", &PresetExternal::m_load);
+    obj.addMethod("store", &PresetExternal::m_store);
+    obj.addMethod("read", &PresetExternal::m_read);
+    obj.addMethod("write", &PresetExternal::m_write);
 }

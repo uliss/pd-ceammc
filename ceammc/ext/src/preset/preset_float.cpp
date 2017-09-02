@@ -31,6 +31,12 @@ PresetFloat::PresetFloat(const PdArgs& args)
 
     bind_addr_ = Preset::makeBindAddress(name_->value());
     pd_bind(&owner()->te_g.g_pd, bind_addr_);
+
+    if (!PresetStorage::instance().hasPreset(name_->value())) {
+        PresetStorage::instance().createPreset(name_->value());
+    } else {
+        OBJ_DBG << "warning! preset already exists: " << name_->value();
+    }
 }
 
 PresetFloat::~PresetFloat()
