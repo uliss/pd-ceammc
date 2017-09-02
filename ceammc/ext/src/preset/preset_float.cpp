@@ -107,7 +107,7 @@ std::string PresetFloat::makeParamFilePath() const
 
 void setup_preset_float()
 {
-    ObjectFactory<PresetFloat> obj("param.float");
+    ObjectFactory<PresetFloat> obj("preset.float");
     obj.addMethod("clear", &PresetFloat::m_clear);
     obj.addMethod("store", &PresetFloat::m_store);
     obj.addMethod("load", &PresetFloat::m_load);
