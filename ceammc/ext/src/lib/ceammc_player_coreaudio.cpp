@@ -5,13 +5,17 @@
 
 using namespace ceammc::sound;
 
-CoreAudioPlayer::CoreAudioPlayer(const std::string& fname)
-    : SoundFilePlayer(fname)
+CoreAudioPlayer::CoreAudioPlayer()
+    : SoundFilePlayer()
     , handle_(ceammc_coreaudio_player_create())
 {
-    if (ceammc_coreaudio_player_open(handle_, filename().c_str()) != 0) {
-        std::cerr << "[PLAYER] error while opening: " << filename() << "\n";
-    }
+}
+
+CoreAudioPlayer::CoreAudioPlayer(const std::string& filename)
+    : SoundFilePlayer()
+    , handle_(ceammc_coreaudio_player_create())
+{
+    open(filename);
 }
 
 CoreAudioPlayer::~CoreAudioPlayer()
@@ -52,4 +56,29 @@ bool CoreAudioPlayer::seek(size_t offset)
 size_t CoreAudioPlayer::tell() const
 {
     return ceammc_coreaudio_player_tell(handle_);
+}
+
+bool CoreAudioPlayer::open(const std::string& filename)
+{
+    if (ceammc_coreaudio_player_open(handle_, filename.c_str()) == 0) {
+        path_ = filename;
+        channels_ = ceammc_coreaudio_player_channel_count(handle_);
+        sample_rate_ = ceammc_coreaudio_player_samplerate(handle_);
+        sample_count_ = ceammc_coreaudio_player_samples(handle_);
+        return true;
+    } else {
+        std::cerr << "[PLAYER] error while opening: " << filename << "\n";
+        return false;
+    }
+}
+
+bool CoreAudioPlayer::close()
+{
+    if (isOpened()) {
+        path_.clear();
+        ceammc_coreaudio_player_close(handle_);
+        return true;
+    }
+
+    return false;
 }

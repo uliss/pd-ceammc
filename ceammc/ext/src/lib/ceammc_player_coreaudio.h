@@ -17,7 +17,8 @@ namespace sound {
         bool is_opened_;
 
     public:
-        CoreAudioPlayer(const std::string& fname);
+        CoreAudioPlayer();
+        CoreAudioPlayer(const std::string& filename);
         ~CoreAudioPlayer();
 
         size_t sampleCount() const;
@@ -29,6 +30,8 @@ namespace sound {
 
         bool seek(size_t offset);
         size_t tell() const;
+
+        bool open(const std::string& filename);
         bool close();
 
     public:

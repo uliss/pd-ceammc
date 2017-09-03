@@ -37,13 +37,8 @@ namespace sound {
         return SoundFilePtr(new LibSndFile(path));
     }
 
-    static SoundFilePlayerPtr libsndfile_player_func(const std::string& path)
-    {
-        return SoundFilePlayerPtr();
-    }
-
     static const bool libsndfile_register = SoundFileLoader::registerLoader(
-        LoaderDescr("libsndfile", &libsndfile_load_func, LibSndFile::supportedFormats, &libsndfile_player_func));
+        LoaderDescr("libsndfile", &libsndfile_load_func, LibSndFile::supportedFormats, NULL));
 #endif
 
 #if defined(__APPLE__) && defined(__clang__)
@@ -52,9 +47,9 @@ namespace sound {
         return SoundFilePtr(new CoreAudioFile(path));
     }
 
-    static SoundFilePlayerPtr coreaudio_player_func(const std::string& path)
+    static SoundFilePlayerPtr coreaudio_player_func()
     {
-        return SoundFilePlayerPtr(new CoreAudioPlayer(path));
+        return SoundFilePlayerPtr(new CoreAudioPlayer());
     }
 
     static const bool coreaudio_register = SoundFileLoader::registerLoader(
@@ -138,6 +133,26 @@ namespace sound {
         return ptr;
     }
 
+    SoundFilePlayerPtr SoundFileLoader::player()
+    {
+        SoundFilePlayerPtr ptr;
+
+        if (loaders().empty()) {
+            std::cerr << "no loaders registered";
+            return ptr;
+        }
+
+        for (size_t i = 0; i < loaders().size(); i++) {
+            playerFunc fn = loaders().at(i).player;
+
+            if (fn) {
+                return fn();
+            }
+        }
+
+        return ptr;
+    }
+
     SoundFileLoader::LoaderList& SoundFileLoader::loaders()
     {
         static SoundFileLoader::LoaderList loaders;
@@ -154,8 +169,7 @@ namespace sound {
         return l.func == func;
     }
 
-    SoundFilePlayer::SoundFilePlayer(const string& path)
-        : path_(path)
+    SoundFilePlayer::SoundFilePlayer()
     {
     }
 

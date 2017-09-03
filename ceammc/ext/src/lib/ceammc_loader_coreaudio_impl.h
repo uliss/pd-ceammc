@@ -50,6 +50,7 @@ int ceammc_coreaudio_player_open(t_audio_player* p, const char* path);
 void ceammc_coreaudio_player_close(t_audio_player* p);
 void ceammc_coreaudio_player_free(t_audio_player* p);
 double ceammc_coreaudio_player_samplerate(t_audio_player* p);
+size_t ceammc_coreaudio_player_samples(t_audio_player* p);
 int ceammc_coreaudio_player_is_opened(t_audio_player* p);
 int ceammc_coreaudio_player_channel_count(t_audio_player* p);
 int ceammc_coreaudio_player_seek(t_audio_player* p, int64_t offset);

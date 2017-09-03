@@ -29,6 +29,11 @@ SoundFilePtr testLoadFunc(const std::string& path)
     return SoundFilePtr();
 }
 
+SoundFilePlayerPtr testPlayFunc()
+{
+    return SoundFilePlayerPtr();
+}
+
 FormatList testFormatFunc()
 {
     return FormatList();
@@ -52,9 +57,41 @@ TEST_CASE("ceammc_sound", "[ceammc_sound]")
 
     SECTION("register")
     {
-        LoaderDescr ld("test_loader", testLoadFunc, testFormatFunc);
+        LoaderDescr ld("test_loader", testLoadFunc, testFormatFunc, testPlayFunc);
         REQUIRE(SoundFileLoader::registerLoader(ld));
         // double register
         REQUIRE_FALSE(SoundFileLoader::registerLoader(ld));
     }
+
+#ifdef __APPLE__
+
+    SECTION("player")
+    {
+        SoundFilePlayerPtr p = SoundFileLoader::player();
+        REQUIRE(p);
+        REQUIRE_FALSE(p->isOpened());
+        REQUIRE(p->channels() == 0);
+        REQUIRE(p->filename() == "");
+        REQUIRE(p->sampleCount() == 0);
+        REQUIRE(p->sampleRate() == 0);
+        REQUIRE_FALSE(p->close());
+
+        REQUIRE_FALSE(p->open("not-exists"));
+        REQUIRE_FALSE(p->isOpened());
+
+        REQUIRE(p->open(TEST_DATA_DIR "/test_data1.wav"));
+        REQUIRE(p->isOpened());
+        REQUIRE(p->channels() == 2);
+        REQUIRE(p->sampleRate() == 44100);
+        REQUIRE(p->sampleCount() == 441);
+
+        REQUIRE(p->close());
+        REQUIRE_FALSE(p->isOpened());
+        REQUIRE(p->channels() == 0);
+        REQUIRE(p->filename() == "");
+        REQUIRE(p->sampleCount() == 0);
+        REQUIRE(p->sampleRate() == 0);
+    }
+
+#endif
 }

@@ -436,3 +436,22 @@ int64_t ceammc_coreaudio_player_tell(t_audio_player* p)
 
     return err == noErr ? off : 0;
 }
+
+size_t ceammc_coreaudio_player_samples(t_audio_player* p)
+{
+    if (!p)
+        return 0;
+
+    SInt64 totalFrameCount;
+    UInt32 size = sizeof(totalFrameCount);
+    OSStatus err = ExtAudioFileGetProperty(p->file_ref,
+        kExtAudioFileProperty_FileLengthFrames,
+        &size, &totalFrameCount);
+
+    if (err != noErr) {
+        checkError(err, "error: kExtAudioFileProperty_FileLengthFrames");
+        return 0;
+    }
+
+    return totalFrameCount;
+}
