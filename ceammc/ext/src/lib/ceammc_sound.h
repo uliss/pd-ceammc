@@ -17,8 +17,8 @@
 #include <boost/shared_ptr.hpp>
 #include <m_pd.h>
 #include <string>
-#include <vector>
 #include <utility>
+#include <vector>
 
 namespace ceammc {
 namespace sound {
@@ -26,6 +26,8 @@ namespace sound {
     typedef std::vector<FormatDescription> FormatList;
     class SoundFile;
     typedef boost::shared_ptr<SoundFile> SoundFilePtr;
+    class SoundFilePlayer;
+    typedef boost::shared_ptr<SoundFilePlayer> SoundFilePlayerPtr;
 
     class SoundFile {
         std::string fname_;
@@ -57,17 +59,21 @@ namespace sound {
         virtual bool isOpened() const = 0;
     };
 
+    class SoundFilePlayer;
     typedef SoundFilePtr (*loadFunc)(const std::string& path);
+    typedef SoundFilePlayerPtr (*playerFunc)(const std::string& path);
     typedef FormatList (*formatFunc)();
     struct LoaderDescr {
-        LoaderDescr(const std::string& n, loadFunc f, formatFunc ff)
+        LoaderDescr(const std::string& n, loadFunc f, formatFunc ff, playerFunc pf)
             : name(n)
             , func(f)
+            , player(pf)
             , formats(ff)
         {
         }
         std::string name;
         loadFunc func;
+        playerFunc player;
         formatFunc formats;
         bool operator==(const LoaderDescr& l);
     };
@@ -82,6 +88,27 @@ namespace sound {
     private:
         typedef std::vector<LoaderDescr> LoaderList;
         static LoaderList& loaders(); // singleton
+    };
+
+    class SoundFilePlayer {
+        std::string path_;
+
+    public:
+        SoundFilePlayer(const std::string& path);
+        virtual ~SoundFilePlayer();
+
+        virtual bool close() = 0;
+
+        virtual size_t sampleCount() const = 0;
+        virtual size_t sampleRate() const = 0;
+        virtual size_t channels() const = 0;
+
+        std::string filename() const;
+
+        virtual bool isOpened() const = 0;
+        virtual bool seek(size_t offset) = 0;
+        virtual size_t tell() const = 0;
+        virtual size_t read(t_sample** dest, size_t n) = 0;
     };
 }
 }

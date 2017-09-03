@@ -104,7 +104,10 @@ endif()
 
 # coreaudio backend
 if(APPLE AND CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-    list(APPEND CEAMMC_LOAD_SRC ceammc_loader_coreaudio.cpp ceammc_loader_coreaudio_impl.m)
+    list(APPEND CEAMMC_LOAD_SRC
+        ceammc_loader_coreaudio.cpp
+        ceammc_player_coreaudio.cpp
+        ceammc_loader_coreaudio_impl.m)
     find_library(FOUNDATION_LIBRARY Foundation)
     find_library(QUICKTIME_LIBRARY QuickTime)
     find_library(APP_SERVICES_LIBRARY ApplicationServices)

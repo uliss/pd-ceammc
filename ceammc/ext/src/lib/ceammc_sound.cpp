@@ -20,6 +20,7 @@
 
 #if defined(__APPLE__) && defined(__clang__)
 #include "ceammc_loader_coreaudio.h"
+#include "ceammc_player_coreaudio.h"
 #endif
 
 #include <algorithm>
@@ -36,8 +37,13 @@ namespace sound {
         return SoundFilePtr(new LibSndFile(path));
     }
 
+    static SoundFilePlayerPtr libsndfile_player_func(const std::string& path)
+    {
+        return SoundFilePlayerPtr();
+    }
+
     static const bool libsndfile_register = SoundFileLoader::registerLoader(
-        LoaderDescr("libsndfile", &libsndfile_load_func, LibSndFile::supportedFormats));
+        LoaderDescr("libsndfile", &libsndfile_load_func, LibSndFile::supportedFormats, &libsndfile_player_func));
 #endif
 
 #if defined(__APPLE__) && defined(__clang__)
@@ -46,8 +52,13 @@ namespace sound {
         return SoundFilePtr(new CoreAudioFile(path));
     }
 
+    static SoundFilePlayerPtr coreaudio_player_func(const std::string& path)
+    {
+        return SoundFilePlayerPtr(new CoreAudioPlayer(path));
+    }
+
     static const bool coreaudio_register = SoundFileLoader::registerLoader(
-        LoaderDescr("coreaudio", &coreaudio_load_func, CoreAudioFile::supportedFormats));
+        LoaderDescr("coreaudio", &coreaudio_load_func, CoreAudioFile::supportedFormats, &coreaudio_player_func));
 #endif
 
     SoundFile::SoundFile(const std::string& fname)
@@ -141,6 +152,20 @@ namespace sound {
     bool LoaderDescr::operator==(const LoaderDescr& l)
     {
         return l.func == func;
+    }
+
+    SoundFilePlayer::SoundFilePlayer(const string& path)
+        : path_(path)
+    {
+    }
+
+    SoundFilePlayer::~SoundFilePlayer()
+    {
+    }
+
+    string SoundFilePlayer::filename() const
+    {
+        return path_;
     }
 }
 }
