@@ -8,12 +8,14 @@ using namespace ceammc::sound;
 CoreAudioPlayer::CoreAudioPlayer()
     : SoundFilePlayer()
     , handle_(ceammc_coreaudio_player_create())
+    , out_sample_rate_(44100)
 {
 }
 
 CoreAudioPlayer::CoreAudioPlayer(const std::string& filename)
     : SoundFilePlayer()
     , handle_(ceammc_coreaudio_player_create())
+    , out_sample_rate_(44100)
 {
     open(filename);
 }
@@ -43,7 +45,7 @@ bool CoreAudioPlayer::isOpened() const
     return ceammc_coreaudio_player_is_opened(handle_);
 }
 
-size_t CoreAudioPlayer::read(t_sample** dest, size_t n)
+long CoreAudioPlayer::read(t_sample** dest, size_t n)
 {
     return ceammc_coreaudio_player_read(handle_, dest, n);
 }
@@ -60,7 +62,7 @@ size_t CoreAudioPlayer::tell() const
 
 bool CoreAudioPlayer::open(const std::string& filename)
 {
-    if (ceammc_coreaudio_player_open(handle_, filename.c_str()) == 0) {
+    if (ceammc_coreaudio_player_open(handle_, filename.c_str(), out_sample_rate_) == 0) {
         path_ = filename;
         channels_ = ceammc_coreaudio_player_channel_count(handle_);
         sample_rate_ = ceammc_coreaudio_player_samplerate(handle_);
@@ -81,4 +83,9 @@ bool CoreAudioPlayer::close()
     }
 
     return false;
+}
+
+void CoreAudioPlayer::setSamplerate(size_t sr)
+{
+    out_sample_rate_;
 }

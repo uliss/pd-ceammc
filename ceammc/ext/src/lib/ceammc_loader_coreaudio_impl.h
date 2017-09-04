@@ -46,7 +46,7 @@ int ceammc_coreaudio_getinfo(const char* path, audiofile_info_t* info);
 int64_t ceammc_coreaudio_load(const char* path, size_t channel, size_t offset, size_t count, t_word* buf);
 
 t_audio_player* ceammc_coreaudio_player_create();
-int ceammc_coreaudio_player_open(t_audio_player* p, const char* path);
+int ceammc_coreaudio_player_open(t_audio_player* p, const char* path, int sample_rate);
 void ceammc_coreaudio_player_close(t_audio_player* p);
 void ceammc_coreaudio_player_free(t_audio_player* p);
 double ceammc_coreaudio_player_samplerate(t_audio_player* p);

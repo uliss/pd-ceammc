@@ -11,6 +11,8 @@ namespace sound {
     class CoreAudioPlayer : public SoundFilePlayer {
         t_audio_player* handle_;
 
+        size_t out_sample_rate_;
+
         size_t sample_rate_;
         size_t channels_;
         size_t sample_count_;
@@ -26,13 +28,15 @@ namespace sound {
         size_t channels() const;
         bool isOpened() const;
 
-        size_t read(t_sample** dest, size_t n);
+        long read(t_sample** dest, size_t n);
 
         bool seek(size_t offset);
         size_t tell() const;
 
         bool open(const std::string& filename);
         bool close();
+
+        void setSamplerate(size_t sr);
 
     public:
         static FormatList supportedFormats();

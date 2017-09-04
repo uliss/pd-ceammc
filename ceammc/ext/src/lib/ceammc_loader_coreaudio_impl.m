@@ -25,13 +25,12 @@ typedef struct convert_settings_t {
     AudioStreamBasicDescription inputFormat;
 } convert_settings;
 
-static const size_t PLAYER_BUF_SIZE = 1024;
+static const size_t PLAYER_BUF_SIZE = 8192;
 
 struct audio_player {
     ExtAudioFileRef file_ref;
     AudioStreamBasicDescription in_asbd;
     AudioStreamBasicDescription out_asbd;
-    UInt8 buf[PLAYER_BUF_SIZE];
     int is_opened;
 };
 
@@ -309,7 +308,7 @@ t_audio_player* ceammc_coreaudio_player_create()
     return p;
 }
 
-int ceammc_coreaudio_player_open(t_audio_player* p, const char* path)
+int ceammc_coreaudio_player_open(t_audio_player* p, const char* path, int sample_rate)
 {
     if (!p)
         return INVALID_ARGS;
@@ -328,6 +327,7 @@ int ceammc_coreaudio_player_open(t_audio_player* p, const char* path)
     }
 
     fillOutputASBD(&p->out_asbd, &p->in_asbd);
+    p->out_asbd.mSampleRate = sample_rate;
 
     if (!setOutputFormat(p->file_ref, &p->out_asbd)) {
         p->is_opened = 0;
@@ -361,45 +361,41 @@ int64_t ceammc_coreaudio_player_read(t_audio_player* p, t_sample** dest, size_t 
     if (!p)
         return INVALID_ARGS;
 
-    UInt32 sizePerPacket = p->out_asbd.mBytesPerPacket;
-    UInt32 packetsPerBuffer = PLAYER_BUF_SIZE;
-    UInt32 outputBufferSize = packetsPerBuffer * sizePerPacket;
-
     AudioBufferList convertedData;
+
+    float buf[9000];
 
     convertedData.mNumberBuffers = 1;
     convertedData.mBuffers[0].mNumberChannels = p->out_asbd.mChannelsPerFrame;
-    convertedData.mBuffers[0].mDataByteSize = outputBufferSize;
-    convertedData.mBuffers[0].mData = p->buf;
+    convertedData.mBuffers[0].mDataByteSize = sizeof(buf);
+    convertedData.mBuffers[0].mData = (void*)&buf[0];
 
-    UInt32 frameCount = PLAYER_BUF_SIZE;
+    UInt32 frameCount = count;
     size_t frameIdx = 0, k = 0;
+    int64_t off = ceammc_coreaudio_player_tell(p);
 
-    while (frameCount > 0) {
+    do {
         OSStatus err = ExtAudioFileRead(p->file_ref, &frameCount, &convertedData);
         if (err != noErr)
             return READ_ERR;
 
-        if (frameCount > 0) {
-            AudioBuffer audioBuffer = convertedData.mBuffers[0];
-            float* data = (float*)audioBuffer.mData;
+        float* data = (float*)convertedData.mBuffers[0].mData;
 
-            const UInt32 CHAN_NUM = p->out_asbd.mChannelsPerFrame;
+        const UInt32 CHAN_NUM = p->out_asbd.mChannelsPerFrame;
 
-            for (UInt32 i = 0; i < frameCount && (frameIdx < count); i++) {
-
-                for (size_t ch = 0; i < CHAN_NUM; ch++) {
-                    dest[ch][frameIdx] = data[CHAN_NUM * i + ch];
-                }
-
-                frameIdx++;
+        for (UInt32 i = 0; i < frameCount && (frameIdx < count); i++, frameIdx++) {
+            for (UInt32 ch = 0; ch < CHAN_NUM; ch++) {
+                t_sample s = data[CHAN_NUM * i + ch];
+                dest[ch][frameIdx] = s;
             }
-
-            k += frameCount;
         }
-    }
 
-    return k;
+        k += frameCount;
+
+    } while (frameCount > 0);
+
+    ceammc_coreaudio_player_seek(p, off + count);
+    return count;
 }
 
 double ceammc_coreaudio_player_samplerate(t_audio_player* p)

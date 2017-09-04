@@ -111,7 +111,9 @@ namespace sound {
         virtual bool isOpened() const = 0;
         virtual bool seek(size_t offset) = 0;
         virtual size_t tell() const = 0;
-        virtual size_t read(t_sample** dest, size_t n) = 0;
+        virtual long read(t_sample** dest, size_t n) = 0;
+
+        virtual void setSamplerate(size_t sr) = 0;
     };
 }
 }

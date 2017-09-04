@@ -74,6 +74,7 @@ TEST_CASE("ceammc_sound", "[ceammc_sound]")
         REQUIRE(p->filename() == "");
         REQUIRE(p->sampleCount() == 0);
         REQUIRE(p->sampleRate() == 0);
+        REQUIRE(p->tell() == 0);
         REQUIRE_FALSE(p->close());
 
         REQUIRE_FALSE(p->open("not-exists"));
@@ -84,6 +85,36 @@ TEST_CASE("ceammc_sound", "[ceammc_sound]")
         REQUIRE(p->channels() == 2);
         REQUIRE(p->sampleRate() == 44100);
         REQUIRE(p->sampleCount() == 441);
+        REQUIRE(p->tell() == 0);
+
+        t_sample ch1[441] = { 0 };
+        t_sample ch2[441] = { 0 };
+        t_sample* buf[2] = { ch1, ch2 };
+        REQUIRE(p->read(&buf[0], 20) == 20);
+        REQUIRE(p->tell() == 20);
+
+        for (int i = 0; i < 20; i++) {
+            REQUIRE(ch1[i] == Approx(10 * i / 32767.0));
+            REQUIRE(ch2[i] == Approx(10 * i / -32767.0));
+        }
+
+        REQUIRE(p->read(&buf[0], 20) == 20);
+        REQUIRE(p->tell() == 40);
+
+        for (int i = 0; i < 20; i++) {
+            REQUIRE(ch1[i] == Approx(10 * (i + 20) / 32767.0));
+            REQUIRE(ch2[i] == Approx(10 * (i + 20) / -32767.0));
+        }
+
+        REQUIRE(p->read(&buf[0], 20) == 20);
+        REQUIRE(p->tell() == 60);
+
+        for (int i = 0; i < 20; i++) {
+            REQUIRE(ch1[i] == Approx(10 * (i + 40) / 32767.0));
+            REQUIRE(ch2[i] == Approx(10 * (i + 40) / -32767.0));
+        }
+
+        REQUIRE(p->read(&buf[0], 441) == 20);
 
         REQUIRE(p->close());
         REQUIRE_FALSE(p->isOpened());
@@ -91,6 +122,7 @@ TEST_CASE("ceammc_sound", "[ceammc_sound]")
         REQUIRE(p->filename() == "");
         REQUIRE(p->sampleCount() == 0);
         REQUIRE(p->sampleRate() == 0);
+        REQUIRE(p->tell() == 0);
     }
 
 #endif
