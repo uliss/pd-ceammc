@@ -7,6 +7,7 @@ macro(ceammc_flow_extension name)
 endmacro()
 
 ceammc_flow_extension(change)
+ceammc_flow_extension(count)
 ceammc_flow_extension(group)
 ceammc_flow_extension(pass)
 ceammc_flow_extension(pass_if)
