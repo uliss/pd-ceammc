@@ -20,6 +20,7 @@
 
 #if defined(__APPLE__) && defined(__clang__)
 #include "ceammc_loader_coreaudio.h"
+#include "ceammc_player_coreaudio.h"
 #endif
 
 #include <algorithm>
@@ -37,7 +38,7 @@ namespace sound {
     }
 
     static const bool libsndfile_register = SoundFileLoader::registerLoader(
-        LoaderDescr("libsndfile", &libsndfile_load_func, LibSndFile::supportedFormats));
+        LoaderDescr("libsndfile", &libsndfile_load_func, LibSndFile::supportedFormats, NULL));
 #endif
 
 #if defined(__APPLE__) && defined(__clang__)
@@ -46,8 +47,13 @@ namespace sound {
         return SoundFilePtr(new CoreAudioFile(path));
     }
 
+    static SoundFilePlayerPtr coreaudio_player_func()
+    {
+        return SoundFilePlayerPtr(new CoreAudioPlayer());
+    }
+
     static const bool coreaudio_register = SoundFileLoader::registerLoader(
-        LoaderDescr("coreaudio", &coreaudio_load_func, CoreAudioFile::supportedFormats));
+        LoaderDescr("coreaudio", &coreaudio_load_func, CoreAudioFile::supportedFormats, &coreaudio_player_func));
 #endif
 
     SoundFile::SoundFile(const std::string& fname)
@@ -127,6 +133,26 @@ namespace sound {
         return ptr;
     }
 
+    SoundFilePlayerPtr SoundFileLoader::player()
+    {
+        SoundFilePlayerPtr ptr;
+
+        if (loaders().empty()) {
+            std::cerr << "no loaders registered";
+            return ptr;
+        }
+
+        for (size_t i = 0; i < loaders().size(); i++) {
+            playerFunc fn = loaders().at(i).player;
+
+            if (fn) {
+                return fn();
+            }
+        }
+
+        return ptr;
+    }
+
     SoundFileLoader::LoaderList& SoundFileLoader::loaders()
     {
         static SoundFileLoader::LoaderList loaders;
@@ -141,6 +167,19 @@ namespace sound {
     bool LoaderDescr::operator==(const LoaderDescr& l)
     {
         return l.func == func;
+    }
+
+    SoundFilePlayer::SoundFilePlayer()
+    {
+    }
+
+    SoundFilePlayer::~SoundFilePlayer()
+    {
+    }
+
+    string SoundFilePlayer::filename() const
+    {
+        return path_;
     }
 }
 }

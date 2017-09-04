@@ -36,7 +36,7 @@ list(APPEND BASE_SOURCES
 
 if(TARGET ceammc_sound)
     add_definitions(-DWITH_SND_FILE)
-    list(APPEND BASE_SOURCES snd_file.cpp)
+    list(APPEND BASE_SOURCES snd_file.cpp snd_play.cpp)
 endif()
 
 add_library(ceammc_base STATIC mod_base.cpp ${BASE_SOURCES})

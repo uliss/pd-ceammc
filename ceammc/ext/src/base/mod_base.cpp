@@ -5,6 +5,10 @@
 #include "function_call.h"
 #include "route_between.h"
 
+#ifdef WITH_SND_FILE
+#include "snd_play.h"
+#endif
+
 extern "C" void expand_env_setup();
 extern "C" void is_any_setup();
 extern "C" void is_bang_setup();
@@ -46,6 +50,7 @@ void ceammc_base_setup()
 
 #ifdef WITH_SND_FILE
     setup_snd0x2efile();
+    setup_snd_play();
 #endif
 
     setup_test0x2edata();

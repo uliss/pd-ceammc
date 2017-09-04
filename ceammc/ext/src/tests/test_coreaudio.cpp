@@ -142,4 +142,55 @@ TEST_CASE("CoreAudio", "[ceammc::ceammc_loader_coreaudio]")
         t_word buf2[10];
         REQUIRE(sf3.read(buf2, 10, 0, 100) == 341);
     }
+
+    SECTION("player")
+    {
+        REQUIRE(ceammc_coreaudio_player_tell(NULL) == 0);
+        REQUIRE(ceammc_coreaudio_player_seek(NULL, 100) == 0);
+        REQUIRE(ceammc_coreaudio_player_channel_count(NULL) == 0);
+        REQUIRE(ceammc_coreaudio_player_samplerate(NULL) == 0);
+        REQUIRE(ceammc_coreaudio_player_samples(NULL) == 0);
+
+        t_audio_player* p = ceammc_coreaudio_player_create();
+        REQUIRE(p);
+
+        // check nulls
+        REQUIRE_FALSE(ceammc_coreaudio_player_is_opened(p));
+        REQUIRE(ceammc_coreaudio_player_tell(p) == 0);
+        REQUIRE(ceammc_coreaudio_player_channel_count(p) == 0);
+        REQUIRE(ceammc_coreaudio_player_samplerate(p) == 0);
+        REQUIRE(ceammc_coreaudio_player_samples(p) == 0);
+
+        REQUIRE(ceammc_coreaudio_player_open(p, "not-exists", 44100) != 0);
+        REQUIRE_FALSE(ceammc_coreaudio_player_is_opened(p));
+
+        // opened
+        REQUIRE(ceammc_coreaudio_player_open(p, TEST_DATA_DIR "/test_data1.wav", 44100) == 0);
+        // check ok
+        REQUIRE(ceammc_coreaudio_player_is_opened(p));
+        REQUIRE(ceammc_coreaudio_player_tell(p) == 0);
+        REQUIRE(ceammc_coreaudio_player_channel_count(p) == 2);
+        REQUIRE(ceammc_coreaudio_player_samplerate(p) == 44100);
+        REQUIRE(ceammc_coreaudio_player_samples(p) == 441);
+
+        // check tell/seek
+        REQUIRE(ceammc_coreaudio_player_tell(p) == 0);
+        REQUIRE(ceammc_coreaudio_player_seek(p, 100));
+        REQUIRE(ceammc_coreaudio_player_tell(p) == 100);
+
+        float ch1[441] = { 0 };
+        float ch2[441] = { 0 };
+        float* buf[2] = { ch1, ch2 };
+
+        REQUIRE(ceammc_coreaudio_player_read(p, &buf[0], 20) == 20);
+        REQUIRE(ceammc_coreaudio_player_tell(p) == 120);
+
+        ceammc_coreaudio_player_close(p);
+        // check nulls
+        REQUIRE_FALSE(ceammc_coreaudio_player_is_opened(p));
+        REQUIRE(ceammc_coreaudio_player_tell(p) == 0);
+
+        ceammc_coreaudio_player_free(p);
+        ceammc_coreaudio_player_free(NULL);
+    }
 }

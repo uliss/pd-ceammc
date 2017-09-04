@@ -31,6 +31,7 @@
 #include "misc/mod_misc.h"
 #include "noise/mod_noise.h"
 #include "osc/mod_osc.h"
+#include "preset/mod_preset.h"
 #include "path/mod_path.h"
 #include "random/mod_random.h"
 #include "spat/mod_spat.h"
@@ -100,6 +101,7 @@ void ceammc_init()
     ceammc_midi_setup();
     ceammc_misc_setup();
     ceammc_noise_setup();
+    ceammc_preset_setup();
     ceammc_path_setup();
     ceammc_osc_setup();
     ceammc_random_setup();
