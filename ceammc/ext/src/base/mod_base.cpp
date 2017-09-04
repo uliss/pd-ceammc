@@ -3,6 +3,7 @@
 #include "base_click.h"
 #include "function.h"
 #include "function_call.h"
+#include "route_between.h"
 
 extern "C" void expand_env_setup();
 extern "C" void is_any_setup();
@@ -49,4 +50,6 @@ void ceammc_base_setup()
 
     setup_test0x2edata();
     setup_test0x2eexpect();
+
+    setup_route_between();
 }
