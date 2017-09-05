@@ -82,8 +82,9 @@ std::string XMidiFile::searchFileInPaths(const char* fname)
         return fname;
 
     const char* patch_dir = "";
-    if (cnv_ && cnv_->gl_env)
+    if (cnv_) {
         patch_dir = canvas_getdir(cnv_)->s_name;
+    }
 
     char dirname[MAXPDSTRING], *filename;
 
@@ -91,6 +92,7 @@ std::string XMidiFile::searchFileInPaths(const char* fname)
 
     if (fd < 0) {
         OBJ_ERR << "file not found: " << fname;
+        OBJ_ERR << "   in directory: " << patch_dir;
         return "";
     }
 
