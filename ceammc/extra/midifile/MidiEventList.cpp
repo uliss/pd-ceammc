@@ -383,3 +383,23 @@ MidiEventList& MidiEventList::operator=(MidiEventList other)
     list.swap(other.list);
     return *this;
 }
+
+MidiEventList::iterator MidiEventList::begin()
+{
+    return list.begin();
+}
+
+MidiEventList::const_iterator MidiEventList::begin() const
+{
+    return list.begin();
+}
+
+MidiEventList::iterator MidiEventList::end()
+{
+    return list.end();
+}
+
+MidiEventList::const_iterator MidiEventList::end() const
+{
+    return list.end();
+}

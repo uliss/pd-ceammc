@@ -22,6 +22,16 @@ public:
     const MidiEvent* eventAt(size_t n) const;
 
 public:
+    typedef MidiEventList::iterator iterator;
+    typedef MidiEventList::const_iterator const_iterator;
+
+    iterator begin();
+    iterator end();
+
+    const_iterator begin() const;
+    const_iterator end() const;
+
+public:
     static const DataType dataType;
 };
 

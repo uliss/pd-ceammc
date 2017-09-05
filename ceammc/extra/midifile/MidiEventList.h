@@ -49,6 +49,14 @@ public:
 
     MidiEventList& operator=(MidiEventList other);
 
+    typedef std::vector<MidiEvent*>::iterator iterator;
+    typedef std::vector<MidiEvent*>::const_iterator const_iterator;
+
+    iterator begin();
+    const_iterator begin() const;
+    iterator end();
+    const_iterator end() const;
+
 private:
     std::vector<MidiEvent*> list;
 };

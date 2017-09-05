@@ -18,6 +18,10 @@ class MidiTrack : public BaseObject {
     AtomList current_event_;
 
 public:
+    typedef DataTypeMidiTrack::iterator MidiEventIterator;
+    typedef DataTypeMidiTrack::const_iterator MidiEventConstIterator;
+
+public:
     MidiTrack(const PdArgs& args);
 
     void onBang();
@@ -30,6 +34,21 @@ public:
     void m_output(t_symbol*, const AtomList&);
 
     void outputEvent(MidiEvent* ev);
+
+    /**
+     * find next event after specified event index
+     * @param ev - event iterator
+     * @return next event iterator or end() iterator if not found
+     */
+    MidiEventIterator findNextEvent(MidiEventIterator ev);
+    MidiEventConstIterator findNextEvent(MidiEventConstIterator ev) const;
+    size_t findNextEventIndex(size_t idx) const;
+
+    MidiEventIterator begin() { return midi_track_.begin(); }
+    MidiEventIterator end() { return midi_track_.end(); }
+    MidiEventConstIterator begin() const { return midi_track_.begin(); }
+    MidiEventConstIterator end() const { return midi_track_.end(); }
+    size_t size() const { return midi_track_.eventCount(); }
 
 private:
     int currentTick() const;

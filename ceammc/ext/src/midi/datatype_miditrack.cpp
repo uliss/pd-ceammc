@@ -42,3 +42,23 @@ const MidiEvent* DataTypeMidiTrack::eventAt(size_t n) const
 {
     return &events_[n];
 }
+
+DataTypeMidiTrack::iterator DataTypeMidiTrack::begin()
+{
+    return events_.begin();
+}
+
+DataTypeMidiTrack::iterator DataTypeMidiTrack::end()
+{
+    return events_.end();
+}
+
+DataTypeMidiTrack::const_iterator DataTypeMidiTrack::begin() const
+{
+    return events_.begin();
+}
+
+DataTypeMidiTrack::const_iterator DataTypeMidiTrack::end() const
+{
+    return events_.end();
+}

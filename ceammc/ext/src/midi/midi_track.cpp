@@ -61,16 +61,23 @@ void MidiTrack::onDataT(const DataTypeMidiStream& s)
 
 AtomList MidiTrack::p_events() const
 {
-    return Atom(midi_track_.eventCount());
+    return Atom(size());
 }
 
 void MidiTrack::m_next(t_symbol*, const AtomList&)
 {
-    if (current_event_idx_ >= midi_track_.eventCount()) {
+    if (current_event_idx_ >= size()) {
         OBJ_DBG << "end of track reached";
         return;
     }
 
+    size_t next_idx = findNextEventIndex(current_event_idx_);
+    if (!next_idx) {
+        OBJ_DBG << "end of track reached";
+        return;
+    }
+
+    current_event_idx_ = next_idx;
     outputCurrent();
 }
 
@@ -81,7 +88,7 @@ void MidiTrack::m_reset(t_symbol*, const AtomList&)
 
 void MidiTrack::m_output(t_symbol*, const AtomList&)
 {
-    for (size_t i = 0; i < midi_track_.eventCount(); i++)
+    for (size_t i = 0; i < size(); i++)
         outputEvent(midi_track_.eventAt(i));
 }
 
@@ -100,14 +107,6 @@ void MidiTrack::outputEvent(MidiEvent* ev)
     anyTo(0, SYM_MIDI_EVENT, current_event_);
 }
 
-int MidiTrack::currentTick() const
-{
-    if (current_event_idx_ >= midi_track_.eventCount())
-        return 0;
-
-    return midi_track_.eventAt(current_event_idx_)->tick;
-}
-
 struct NewTickFinder {
     const int tick;
     NewTickFinder(int t)
@@ -117,6 +116,35 @@ struct NewTickFinder {
 
     bool operator()(MidiEvent* e) { return e->tick != tick; }
 };
+
+MidiTrack::MidiEventIterator MidiTrack::findNextEvent(MidiEventIterator ev)
+{
+    return std::find_if(ev, end(), NewTickFinder((*ev)->tick));
+}
+
+MidiTrack::MidiEventConstIterator MidiTrack::findNextEvent(MidiTrack::MidiEventConstIterator ev) const
+{
+    return std::find_if(ev, end(), NewTickFinder((*ev)->tick));
+}
+
+size_t MidiTrack::findNextEventIndex(size_t idx) const
+{
+    if (idx >= size())
+        return 0;
+
+    MidiEventConstIterator cur_ev = begin() + idx;
+    MidiEventConstIterator next_ev = findNextEvent(cur_ev);
+
+    return next_ev - begin();
+}
+
+int MidiTrack::currentTick() const
+{
+    if (current_event_idx_ >= size())
+        return 0;
+
+    return midi_track_.eventAt(current_event_idx_)->tick;
+}
 
 struct EventOutput {
     MidiTrack* track;
@@ -130,24 +158,21 @@ struct EventOutput {
 
 void MidiTrack::outputCurrent()
 {
-    MidiEvent* e = midi_track_.eventAt(current_event_idx_);
-    const int current_tick = e->tick;
+    if (current_event_idx_ >= size())
+        return;
 
-    MidiEvent** cur = midi_track_.events().data() + current_event_idx_;
-    MidiEvent** end = midi_track_.events().data() + midi_track_.eventCount();
-    NewTickFinder new_tick_finder(current_tick);
-    MidiEvent** next_tick = std::find_if(cur, end, new_tick_finder);
+    MidiEventIterator cur_ev = begin() + current_event_idx_;
+    MidiEventIterator next_ev = findNextEvent(cur_ev);
 
-    int tick_duration = (next_tick == end) ? 0 : (*next_tick)->tick - current_tick;
-    const size_t n_events = (next_tick - cur);
+    int tick_duration = 0;
+    if (next_ev != end())
+        tick_duration = (*next_ev)->tick - (*cur_ev)->tick;
 
     floatTo(1, tick_duration);
 
-    // output all
+    // output all events before next tick
     EventOutput event_out(this);
-    std::for_each(cur, next_tick, event_out);
-
-    current_event_idx_ += n_events;
+    std::for_each(cur_ev, next_ev, event_out);
 }
 
 void setup_midi_track()
