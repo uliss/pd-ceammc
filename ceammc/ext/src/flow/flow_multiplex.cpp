@@ -10,7 +10,7 @@ FlowMultiplex::FlowMultiplex(const PdArgs& a)
     , index_(0)
 {
     size_t n = clip(positionalArguments().size(), MIN_OUTLETS, MAX_OUTLETS);
-    index_ = new SizeTProperty("@index", n);
+    index_ = new SizeTProperty("@index", 0);
     createProperty(index_);
 
     for (size_t i = 0; i < n; i++)
