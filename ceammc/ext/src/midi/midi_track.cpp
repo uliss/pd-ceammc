@@ -73,6 +73,7 @@ void MidiTrack::m_next(t_symbol*, const AtomList&)
 
     size_t next_idx = findNextEventIndex(current_event_idx_);
     if (!next_idx) {
+        floatTo(1, 0);
         OBJ_DBG << "end of track reached";
         return;
     }
