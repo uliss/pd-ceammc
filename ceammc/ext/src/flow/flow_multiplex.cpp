@@ -9,8 +9,6 @@ FlowMultiplex::FlowMultiplex(const PdArgs& a)
     : BaseObject(a)
     , index_(0)
 {
-    createInlet();
-
     size_t n = clip(positionalArguments().size(), MIN_OUTLETS, MAX_OUTLETS);
     index_ = new SizeTProperty("@index", n);
     createProperty(index_);
