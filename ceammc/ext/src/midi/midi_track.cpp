@@ -31,7 +31,8 @@ MidiTrack::MidiTrack(const PdArgs& args)
 
 void MidiTrack::onBang()
 {
-    dataTo(0, midi_track_.clone());
+    outputCurrent();
+    //    dataTo(0, midi_track_.clone());
 }
 
 void MidiTrack::onDataT(const DataTypeMidiStream& s)
@@ -79,7 +80,6 @@ void MidiTrack::m_next(t_symbol*, const AtomList&)
     }
 
     current_event_idx_ = next_idx;
-    outputCurrent();
 }
 
 void MidiTrack::m_reset(t_symbol*, const AtomList&)
@@ -91,6 +91,33 @@ void MidiTrack::m_output(t_symbol*, const AtomList&)
 {
     for (size_t i = 0; i < size(); i++)
         outputEvent(midi_track_.eventAt(i));
+}
+
+void MidiTrack::m_seek(t_symbol*, const AtomList& l)
+{
+    if (l.empty()) {
+        OBJ_ERR << "usage: seek tick_index [BEGIN|REL]";
+        return;
+    }
+
+    t_symbol* mode = gensym("BEGIN");
+    int tick_idx = 0;
+
+    if (l.size() < 2) {
+        if (!l[0].isInteger()) {
+            OBJ_ERR << "seek: integer required for tick index";
+            return;
+        }
+
+        tick_idx = l[0].asInt();
+
+        if (tick_idx >= 0)
+            seekAbs(tick_idx);
+        else {
+            OBJ_ERR << "negative tick are not supported yet: " << tick_idx;
+            return;
+        }
+    }
 }
 
 void MidiTrack::outputEvent(MidiEvent* ev)
@@ -118,14 +145,50 @@ struct NewTickFinder {
     bool operator()(MidiEvent* e) { return e->tick != tick; }
 };
 
-MidiTrack::MidiEventIterator MidiTrack::findNextEvent(MidiEventIterator ev)
+MidiTrack::MidiEventIterator MidiTrack::findNextTick(MidiEventIterator ev)
 {
+    if (ev == end())
+        return end();
+
     return std::find_if(ev, end(), NewTickFinder((*ev)->tick));
 }
 
-MidiTrack::MidiEventConstIterator MidiTrack::findNextEvent(MidiTrack::MidiEventConstIterator ev) const
+MidiTrack::MidiEventConstIterator MidiTrack::findNextTick(MidiTrack::MidiEventConstIterator ev) const
 {
+    if (ev == end())
+        return end();
+
     return std::find_if(ev, end(), NewTickFinder((*ev)->tick));
+}
+
+MidiTrack::MidiEventIterator MidiTrack::findTickAt(size_t tickIdx)
+{
+    MidiEventIterator it = begin();
+
+    for (size_t i = 0; i < tickIdx; i++) {
+        MidiEventIterator next_tick = findNextTick(it);
+        if (next_tick == end())
+            return end();
+
+        it = next_tick;
+    }
+
+    return it;
+}
+
+MidiTrack::MidiEventConstIterator MidiTrack::findTickAt(size_t tickIdx) const
+{
+    MidiEventConstIterator it = begin();
+
+    for (size_t i = 0; i < tickIdx; i++) {
+        MidiEventConstIterator next_tick = findNextTick(it);
+        if (next_tick == end())
+            return end();
+
+        it = next_tick;
+    }
+
+    return it;
 }
 
 size_t MidiTrack::findNextEventIndex(size_t idx) const
@@ -134,9 +197,21 @@ size_t MidiTrack::findNextEventIndex(size_t idx) const
         return 0;
 
     MidiEventConstIterator cur_ev = begin() + idx;
-    MidiEventConstIterator next_ev = findNextEvent(cur_ev);
+    MidiEventConstIterator next_ev = findNextTick(cur_ev);
 
     return next_ev - begin();
+}
+
+bool MidiTrack::seekAbs(size_t tick)
+{
+    MidiEventIterator ev = findTickAt(tick);
+    if (ev == end()) {
+        OBJ_ERR << "invalid tick position: " << tick;
+        return false;
+    }
+
+    current_event_idx_ = ev - begin();
+    return true;
 }
 
 int MidiTrack::currentTick() const
@@ -163,7 +238,7 @@ void MidiTrack::outputCurrent()
         return;
 
     MidiEventIterator cur_ev = begin() + current_event_idx_;
-    MidiEventIterator next_ev = findNextEvent(cur_ev);
+    MidiEventIterator next_ev = findNextTick(cur_ev);
 
     int tick_duration = 0;
     if (next_ev != end())
@@ -183,4 +258,5 @@ void setup_midi_track()
     obj.addMethod("next", &MidiTrack::m_next);
     obj.addMethod("reset", &MidiTrack::m_reset);
     obj.addMethod("output", &MidiTrack::m_output);
+    obj.addMethod("seek", &MidiTrack::m_seek);
 }

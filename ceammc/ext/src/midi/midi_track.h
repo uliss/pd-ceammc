@@ -32,16 +32,26 @@ public:
     void m_next(t_symbol*, const AtomList&);
     void m_reset(t_symbol*, const AtomList&);
     void m_output(t_symbol*, const AtomList&);
+    void m_seek(t_symbol*, const AtomList& l);
 
     void outputEvent(MidiEvent* ev);
 
     /**
-     * find next event after specified event index
+     * find next tick event after specified event
      * @param ev - event iterator
-     * @return next event iterator or end() iterator if not found
+     * @return next event iterator or end() iterator if next tick is not found
      */
-    MidiEventIterator findNextEvent(MidiEventIterator ev);
-    MidiEventConstIterator findNextEvent(MidiEventConstIterator ev) const;
+    MidiEventIterator findNextTick(MidiEventIterator ev);
+    MidiEventConstIterator findNextTick(MidiEventConstIterator ev) const;
+
+    /**
+     * Find tick index
+     * @param tickIdx logical tick position from begining of MIDI track
+     * @return event iterator or end() iterator if tick is not found
+     */
+    MidiEventIterator findTickAt(size_t tickIdx);
+    MidiEventConstIterator findTickAt(size_t tickIdx) const;
+
     size_t findNextEventIndex(size_t idx) const;
 
     MidiEventIterator begin() { return midi_track_.begin(); }
@@ -49,6 +59,8 @@ public:
     MidiEventConstIterator begin() const { return midi_track_.begin(); }
     MidiEventConstIterator end() const { return midi_track_.end(); }
     size_t size() const { return midi_track_.eventCount(); }
+
+    bool seekAbs(size_t tick);
 
 private:
     int currentTick() const;
