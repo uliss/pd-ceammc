@@ -55,6 +55,7 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
         REQUIRE(b.receive() == 0);
         REQUIRE(b.numOutlets() == 0);
         REQUIRE(b.numInlets() == 0);
+        REQUIRE(b.canvas() == 0);
 
         REQUIRE_FALSE(b.hasProperty("@?"));
         REQUIRE(b.property("@?") == 0);

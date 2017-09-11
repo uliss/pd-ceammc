@@ -335,6 +335,7 @@ t_inlet* BaseObject::createInlet()
 BaseObject::BaseObject(const PdArgs& args)
     : pd_(args)
     , receive_from_(0)
+    , cnv_(canvas_getcurrent())
 {
     createCbProperty("@*", &BaseObject::listAllProps);
 

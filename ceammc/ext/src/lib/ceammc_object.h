@@ -62,6 +62,7 @@ class BaseObject {
     Properties props_;
     AtomList positional_args_;
     t_symbol* receive_from_;
+    t_canvas* cnv_;
 
 public:
     typedef AtomList (BaseObject::*GetterFn)() const;
@@ -236,6 +237,13 @@ public:
     void bindReceive(t_symbol* path);
     void unbindReceive();
     t_symbol* receive();
+
+    /**
+     * Returns pointer to parent canvas
+     * @return pointer to canvas or NULL
+     */
+    t_canvas* canvas() { return cnv_; }
+    const t_canvas* convas() const { return cnv_; }
 
 public:
     static t_symbol* tryGetPropKey(t_symbol* sel);
