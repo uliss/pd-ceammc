@@ -245,8 +245,14 @@ public:
     t_canvas* canvas() { return cnv_; }
     const t_canvas* convas() const { return cnv_; }
 
+    /**
+     * Returns patch directory
+     */
+    std::string patchDirectory() const;
+
 public:
     static t_symbol* tryGetPropKey(t_symbol* sel);
+    static bool isAbsolutePath(const char* ch);
 
 protected:
     void freeInlets();

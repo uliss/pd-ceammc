@@ -56,6 +56,7 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
         REQUIRE(b.numOutlets() == 0);
         REQUIRE(b.numInlets() == 0);
         REQUIRE(b.canvas() == 0);
+        REQUIRE(b.patchDirectory() == "");
 
         REQUIRE_FALSE(b.hasProperty("@?"));
         REQUIRE(b.property("@?") == 0);
@@ -310,5 +311,21 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
             REQUIRE(b.positionalSymbolArgument(1, 0) == S("second"));
             REQUIRE(b.positionalSymbolArgument(2, 0) == 0);
         }
+    }
+
+    SECTION("isAbsolutePath")
+    {
+        REQUIRE_FALSE(BaseObject::isAbsolutePath(""));
+        REQUIRE_FALSE(BaseObject::isAbsolutePath("file"));
+        REQUIRE_FALSE(BaseObject::isAbsolutePath(" test"));
+        REQUIRE(BaseObject::isAbsolutePath("~/test"));
+        REQUIRE(BaseObject::isAbsolutePath("/test"));
+        REQUIRE(BaseObject::isAbsolutePath("/"));
+
+#ifdef _WIN32
+        REQUIRE(BaseObject::isAbsolutePath("%"));
+        REQUIRE(BaseObject::isAbsolutePath("C://"));
+        REQUIRE(BaseObject::isAbsolutePath("D://data"));
+#endif
     }
 }

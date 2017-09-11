@@ -584,6 +584,11 @@ t_symbol* BaseObject::receive()
     return receive_from_;
 }
 
+std::string BaseObject::patchDirectory() const
+{
+    return cnv_ ? canvas_getdir(cnv_)->s_name : std::string();
+}
+
 t_symbol* BaseObject::tryGetPropKey(t_symbol* sel)
 {
     char buf[MAXPDSTRING] = { 0 };
@@ -597,6 +602,11 @@ t_symbol* BaseObject::tryGetPropKey(t_symbol* sel)
     }
 
     return res;
+}
+
+bool BaseObject::isAbsolutePath(const char* ch)
+{
+    return sys_isabsolutepath(ch) == 1;
 }
 
 SoundExternal::SoundExternal(const PdArgs& a)
