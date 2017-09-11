@@ -246,9 +246,16 @@ public:
     const t_canvas* convas() const { return cnv_; }
 
     /**
-     * Returns patch directory
+     * Returns patch (root canvas) directory
      */
     std::string patchDirectory() const;
+
+    /**
+     * Returns patch (root canvas) name
+     */
+    std::string patchName() const;
+
+    std::string findInStdPaths(const char* fname) const;
 
 public:
     static t_symbol* tryGetPropKey(t_symbol* sel);

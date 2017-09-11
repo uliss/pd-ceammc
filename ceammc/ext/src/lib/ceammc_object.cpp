@@ -15,12 +15,14 @@
 #include "ceammc_object.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
+#include "ceammc_platform.h"
 
 #include <algorithm>
 #include <cstdarg>
 #include <cstring>
 
 extern "C" {
+#include "g_canvas.h"
 #include "m_imp.h"
 }
 
@@ -586,7 +588,26 @@ t_symbol* BaseObject::receive()
 
 std::string BaseObject::patchDirectory() const
 {
-    return cnv_ ? canvas_getdir(cnv_)->s_name : std::string();
+    if (!cnv_)
+        return "";
+
+    if (!cnv_->gl_env)
+        return "";
+
+    return canvas_getdir(cnv_)->s_name;
+}
+
+std::string BaseObject::patchName() const
+{
+    if (!cnv_)
+        return "";
+
+    return cnv_->gl_name->s_name;
+}
+
+std::string BaseObject::findInStdPaths(const char* fname) const
+{
+    return platform::find_in_std_path(cnv_, fname);
 }
 
 t_symbol* BaseObject::tryGetPropKey(t_symbol* sel)

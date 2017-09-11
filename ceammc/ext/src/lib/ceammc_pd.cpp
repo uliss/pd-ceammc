@@ -140,6 +140,8 @@ CanvasPtr PureData::createTopCanvas(const char* name)
     l.append(400); // height
     l.append(10); // font size
 
+    glob_setfilename(0, gensym(name), &s_);
+
     t_canvas* cnv = canvas_new(0, gensym(name), l.size(), l.toPdData());
 
     if (!cnv)

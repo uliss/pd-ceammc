@@ -30,6 +30,9 @@ TEST_CASE("flow.pass_if", "[externals]")
         FlowPassIfTest t("flow.pass_if");
         REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 2);
+        REQUIRE(t.canvas() != 0);
+        REQUIRE(t.patchDirectory() == "");
+        REQUIRE(t.patchName() == "test_canvas");
     }
 
     SECTION("float")

@@ -57,6 +57,7 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
         REQUIRE(b.numInlets() == 0);
         REQUIRE(b.canvas() == 0);
         REQUIRE(b.patchDirectory() == "");
+        REQUIRE(b.patchName() == "");
 
         REQUIRE_FALSE(b.hasProperty("@?"));
         REQUIRE(b.property("@?") == 0);
@@ -327,5 +328,13 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
         REQUIRE(BaseObject::isAbsolutePath("C://"));
         REQUIRE(BaseObject::isAbsolutePath("D://data"));
 #endif
+    }
+
+    SECTION("findInStdPaths")
+    {
+        BaseObject b(PdArgs(AtomList(), gensym("testname"), 0));
+        REQUIRE_FALSE(b.canvas());
+        REQUIRE(b.patchDirectory() == "");
+        REQUIRE(b.findInStdPaths("test") == "");
     }
 }
