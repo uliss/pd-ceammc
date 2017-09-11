@@ -15,6 +15,11 @@
 #include "base_extension_test.h"
 #include "catch.hpp"
 #include "ceammc_object.h"
+#include "ceammc_pd.h"
+
+#ifndef TEST_DATA_DIR
+#define TEST_DATA_DIR "."
+#endif
 
 using namespace ceammc;
 
@@ -332,9 +337,30 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
 
     SECTION("findInStdPaths")
     {
-        BaseObject b(PdArgs(AtomList(), gensym("testname"), 0));
-        REQUIRE_FALSE(b.canvas());
-        REQUIRE(b.patchDirectory() == "");
-        REQUIRE(b.findInStdPaths("test") == "");
+        BaseObject b1(PdArgs(AtomList(), gensym("testname"), 0));
+        REQUIRE_FALSE(b1.canvas());
+        REQUIRE(b1.patchDirectory() == "");
+        REQUIRE(b1.patchName() == "");
+        REQUIRE(b1.patchPath() == "");
+        REQUIRE(b1.findInStdPaths("test") == "");
+
+        CanvasPtr cnv1 = PureData::instance().createTopCanvas("/dir/file.pd");
+
+        BaseObject b2(PdArgs(AtomList(), gensym("test"), 0));
+        REQUIRE(b2.canvas() == cnv1->pd_canvas());
+        REQUIRE(b2.patchPath() == "/dir/file.pd");
+        REQUIRE(b2.patchDirectory() == "/dir");
+        REQUIRE(b2.patchName() == "file.pd");
+        REQUIRE(b2.findInStdPaths("test") == "");
+
+        CanvasPtr cnv2 = PureData::instance().createTopCanvas(TEST_DATA_DIR "/test.pd");
+
+        BaseObject b3(PdArgs(AtomList(), gensym("mtof"), 0));
+        REQUIRE(b3.canvas() == cnv2->pd_canvas());
+        REQUIRE(b3.patchPath() == TEST_DATA_DIR "/test.pd");
+        REQUIRE(b3.patchDirectory() == TEST_DATA_DIR);
+        REQUIRE(b3.patchName() == "test.pd");
+        REQUIRE(b3.findInStdPaths("unknown") == "");
+        REQUIRE(b3.findInStdPaths("snd_mono_48k.wav") == TEST_DATA_DIR "/snd_mono_48k.wav");
     }
 }

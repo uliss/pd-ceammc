@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "ceammc_pd.h"
 #include "ceammc_atomlist.h"
+#include "ceammc_platform.h"
 
 #include "m_pd.h"
 
@@ -130,17 +131,21 @@ CanvasPtr PureData::createTopCanvas(const char* name)
     CanvasPtr ptr;
 
     CanvasMap::iterator it = canvas_map_.find(name);
-    if (it != canvas_map_.end()) {
-        std::cerr << "Canvas exist's: " << name << "\n";
+    if (it != canvas_map_.end())
         return it->second;
-    }
 
     AtomList l(0.f, 0.f); // x, y
     l.append(600); // width
     l.append(400); // height
     l.append(10); // font size
 
-    glob_setfilename(0, gensym(name), &s_);
+    if (platform::is_path_relative(name)) {
+        glob_setfilename(0, gensym(name), &s_);
+    } else {
+        std::string dir = platform::dirname(name);
+        std::string fname = platform::basename(name);
+        glob_setfilename(0, gensym(fname.c_str()), gensym(dir.c_str()));
+    }
 
     t_canvas* cnv = canvas_new(0, gensym(name), l.size(), l.toPdData());
 

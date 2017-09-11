@@ -42,6 +42,9 @@ public:
 
     static bool connect(t_object* src, size_t nout, t_object* dest, size_t ninl);
     static bool connect(const BaseObject& src, size_t nout, BaseObject& dest, size_t ninl);
+
+public:
+    _glist* pd_canvas() { return canvas_; }
 };
 }
 

@@ -605,6 +605,19 @@ std::string BaseObject::patchName() const
     return cnv_->gl_name->s_name;
 }
 
+std::string BaseObject::patchPath() const
+{
+    if (!cnv_)
+        return "";
+
+    if (!cnv_->gl_env)
+        return "";
+
+    char buf[MAXPDSTRING + 1];
+    canvas_makefilename(cnv_, cnv_->gl_name->s_name, buf, MAXPDSTRING);
+    return buf;
+}
+
 std::string BaseObject::findInStdPaths(const char* fname) const
 {
     return platform::find_in_std_path(cnv_, fname);

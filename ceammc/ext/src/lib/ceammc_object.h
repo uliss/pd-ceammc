@@ -255,6 +255,16 @@ public:
      */
     std::string patchName() const;
 
+    /**
+     * Returns patch (root canvas) full path
+     */
+    std::string patchPath() const;
+
+    /**
+     * Tries to find file by given filename
+     * @param fname - filename (relative or absolute)
+     * @return full path or empty string if not found
+     */
     std::string findInStdPaths(const char* fname) const;
 
 public:
