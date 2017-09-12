@@ -30,7 +30,6 @@
             <property name="@height" readonly="true" type="int">canvas height (window or GOP)</property>
             <property name="@x" readonly="true" type="int">canvas x-pos (window or GOP)</property>
             <property name="@y" readonly="true" type="int">canvas y-pos (window or GOP)</property>
-            <property name="@y" readonly="true" type="int">canvas y-pos (window or GOP)</property>
         </properties>
         <inlets>
             <inlet>

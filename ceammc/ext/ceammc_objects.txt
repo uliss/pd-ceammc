@@ -19,6 +19,7 @@ bpm->hz
 bpm->ms
 bpm->sec
 canvas.current
+canvas.top
 cc->amp
 click~
 conv.bpf2array

@@ -10,6 +10,7 @@ set(DOC_FILES
     array.set
     array.stretch
     canvas.current
+    canvas.top
     click~
     conv.bpm2hz
     conv.bpm2ms

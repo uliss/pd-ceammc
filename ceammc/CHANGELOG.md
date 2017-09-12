@@ -24,6 +24,7 @@
 - array.stretch added (time-stretch, pitch-shift and rate-range) 
 - patch.args added
 - canvas.current added
+- canvas.top added
 
 ### Changed:
 - random.gauss doc update

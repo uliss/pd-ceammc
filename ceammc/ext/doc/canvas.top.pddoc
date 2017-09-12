@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="canvas.top">
+        <title>canvas.top</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>verbose information top-level canvas</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>patch</category>
+            <keywords>canvas</keywords>
+            <also>
+                <see>patch.args</see>
+                <see>canvas.current</see>
+            </also>
+            <since>0.4</since>
+        </meta>
+        <properties>
+            <property name="@name" readonly="true" type="symbol">canvas name</property>
+            <property name="@dir" readonly="true" type="symbol">canvas directory</property>
+            <property name="@size" readonly="true" type="list">window size</property>
+            <property name="@width" readonly="true" type="int">window width</property>
+            <property name="@height" readonly="true" type="int">window height</property>
+            <property name="@x" readonly="true" type="int">window x-pos</property>
+            <property name="@y" readonly="true" type="int">window y-pos</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo>property request</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>property output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[@name?( [@dir?( [@width?(
+|        |       |
+|        |       | [@height?(
+|        |       | |
+| [@x?(  | [@y?( | |
+| |      | |     | |
+[canvas.top       ]
+|
+[msg set]
+|
+[ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

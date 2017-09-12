@@ -9,6 +9,7 @@ array.s2p,array.s->p,array.sample->phase		.		.
 array.set,list->array		.		-
 array.stretch		.		.
 canvas.current		.		.
+canvas.top		.		.
 click~		.		~
 conv.bpm2hz,bpm->hz		.		.
 conv.bpm2ms,bpm->ms		.		.

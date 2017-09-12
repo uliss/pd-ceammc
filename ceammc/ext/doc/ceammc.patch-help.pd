@@ -4,8 +4,10 @@
 #X obj 79 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 30 116 canvas.current;
 #X text 175 116 verbose information about current canvas;
-#X obj 30 143 patch.args;
-#X text 175 143 Get patch or subpatch arguments;
+#X obj 30 143 canvas.top;
+#X text 175 143 verbose information top-level canvas;
+#X obj 30 170 patch.args;
+#X text 175 170 Get patch or subpatch arguments;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::patch 20 20 0 20 -104026
 -4096 0;
 #X obj 1 458 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
