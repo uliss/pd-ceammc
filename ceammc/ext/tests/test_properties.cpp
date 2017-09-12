@@ -395,6 +395,7 @@ TEST_CASE("Properties", "[ceammc::properties]")
         REQUIRE(p.value() == gensym("test"));
         REQUIRE_FALSE(p.readonly());
         REQUIRE(p.get() == L1("test"));
+        REQUIRE(p.str() == "test");
 
         p.setValue(gensym("ABC"));
         REQUIRE(p.get() == L1("ABC"));

@@ -267,4 +267,33 @@ TEST_CASE("DataString", "[external]")
             REQUIRE(DataTypeString("ТЕСТ").substr(-5, 4) == DataTypeString(""));
         }
     }
+
+    SECTION("contains")
+    {
+        SECTION("ascii")
+        {
+            REQUIRE(DataTypeString("").contains(""));
+            REQUIRE_FALSE(DataTypeString("").contains("ABC"));
+            REQUIRE(DataTypeString("ABC").contains("ABC"));
+            REQUIRE(DataTypeString("ABC").contains("AB"));
+            REQUIRE(DataTypeString("ABC").contains("A"));
+            REQUIRE(DataTypeString("ABC").contains("B"));
+            REQUIRE(DataTypeString("ABC").contains("BC"));
+            REQUIRE(DataTypeString("ABC").contains(""));
+            REQUIRE_FALSE(DataTypeString("ABC").contains("ABF"));
+            REQUIRE_FALSE(DataTypeString("ABC").contains("ABCD"));
+        }
+
+        SECTION("UTF-8")
+        {
+            REQUIRE(DataTypeString("").contains(""));
+            REQUIRE_FALSE(DataTypeString("").contains("АБВ"));
+            REQUIRE(DataTypeString("АБВ").contains("АБВ"));
+            REQUIRE(DataTypeString("АБВ").contains("АБ"));
+            REQUIRE(DataTypeString("АБВ").contains("А"));
+            REQUIRE(DataTypeString("АБВ").contains("Б"));
+            REQUIRE(DataTypeString("АБВ").contains("БВ"));
+            REQUIRE(DataTypeString("АБВ").contains(""));
+        }
+    }
 }
