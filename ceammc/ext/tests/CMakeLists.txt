@@ -50,6 +50,7 @@ ceammc_external_test(array stretch)
 
 ceammc_external_test(base function)
 
+ceammc_add_test("[canvas.args]" test_ext_canvas_args)
 ceammc_add_test("[canvas.current]" test_ext_canvas_current)
 
 ceammc_external_test(flow change)

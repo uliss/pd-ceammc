@@ -24,6 +24,8 @@ TEST_CASE("canvas.current", "[externals]")
 {
     SECTION("init")
     {
+        setup_canvas_current();
+
         CanvasCurrentTest t("canvas.current");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
