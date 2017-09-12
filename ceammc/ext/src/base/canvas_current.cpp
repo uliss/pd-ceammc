@@ -1,4 +1,4 @@
-#include "canvas_info.h"
+#include "canvas_current.h"
 #include "ceammc_canvas.h"
 #include "ceammc_factory.h"
 

@@ -1,5 +1,5 @@
-#ifndef CANVAS_INFO_H
-#define CANVAS_INFO_H
+#ifndef CANVAS_CURRENT_H
+#define CANVAS_CURRENT_H
 
 #include "ceammc_object.h"
 
@@ -25,4 +25,4 @@ public:
 
 void setup_canvas_current();
 
-#endif // CANVAS_INFO_H
+#endif // CANVAS_CURRENT_H

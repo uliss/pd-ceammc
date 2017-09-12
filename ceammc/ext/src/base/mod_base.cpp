@@ -1,7 +1,7 @@
 #include "mod_base.h"
 
 #include "base_click.h"
-#include "canvas_info.h"
+#include "canvas_current.h"
 #include "function.h"
 #include "function_call.h"
 #include "route_between.h"

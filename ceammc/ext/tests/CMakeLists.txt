@@ -50,6 +50,8 @@ ceammc_external_test(array stretch)
 
 ceammc_external_test(base function)
 
+ceammc_add_test("[canvas.current]" test_ext_canvas_current)
+
 ceammc_external_test(flow change)
 ceammc_external_test(flow group)
 ceammc_external_test(flow pass)
@@ -128,7 +130,6 @@ ceammc_add_test_linked(TITLE "ceammc::DataTypeMidiStream"
     NAME test_datatype_midistream
     SRC test_datatype_midistream.cpp
     LINK ceammc_core puredata-core ceammc_core ceammc_midi)
-
 
 if(WITH_LIBSNDFILE)
     include(FindLibSndFile)

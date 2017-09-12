@@ -7,7 +7,7 @@ set(BASE_SOURCES
     msg.cpp
     prop.get.cpp
     prop.set.cpp
-    canvas_info.cpp
+    canvas_current.cpp
     replace.cpp)
 
 # predicates
