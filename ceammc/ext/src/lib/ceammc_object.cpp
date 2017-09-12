@@ -591,7 +591,11 @@ t_canvas* BaseObject::rootCanvas()
     if (!cnv_)
         return NULL;
 
-    return canvas_getrootfor(cnv_);
+    t_canvas* c = cnv_;
+    while (c->gl_owner)
+        c = c->gl_owner;
+
+    return c;
 }
 
 t_canvas* BaseObject::rootCanvas() const
@@ -599,25 +603,29 @@ t_canvas* BaseObject::rootCanvas() const
     if (!cnv_)
         return NULL;
 
-    return canvas_getrootfor((t_canvas*)cnv_);
+    t_canvas* c = cnv_;
+    while (c->gl_owner)
+        c = c->gl_owner;
+
+    return c;
 }
 
-std::string BaseObject::patchDirectory() const
+t_symbol* BaseObject::patchDirectory() const
 {
     t_canvas* c = rootCanvas();
 
     if (!c || !c->gl_env)
-        return "";
+        return &s_;
 
-    return canvas_getdir(c)->s_name;
+    return canvas_getdir(c);
 }
 
-std::string BaseObject::patchName() const
+t_symbol* BaseObject::patchName() const
 {
     if (!cnv_)
-        return "";
+        return &s_;
 
-    return cnv_->gl_name->s_name;
+    return cnv_->gl_name;
 }
 
 std::string BaseObject::patchPath() const
@@ -653,9 +661,9 @@ t_symbol* BaseObject::tryGetPropKey(t_symbol* sel)
     return res;
 }
 
-bool BaseObject::isAbsolutePath(const char* ch)
+bool BaseObject::isAbsolutePath(const char* path)
 {
-    return sys_isabsolutepath(ch) == 1;
+    return sys_isabsolutepath(path) == 1;
 }
 
 SoundExternal::SoundExternal(const PdArgs& a)

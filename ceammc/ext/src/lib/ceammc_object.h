@@ -234,8 +234,21 @@ public:
     virtual bool processAnyProps(t_symbol* sel, const AtomList& lst);
     virtual void anyDispatch(t_symbol* s, const AtomList& lst);
 
+    /**
+     * Bind object to listen global signal bus
+     * @see unbindReceive()
+     */
     void bindReceive(t_symbol* path);
+
+    /**
+     * Unbind object
+     * @see bindReceive()
+     */
     void unbindReceive();
+
+    /**
+     * Binded address
+     */
     t_symbol* receive();
 
     /**
@@ -243,23 +256,27 @@ public:
      * @return pointer to canvas or NULL
      */
     t_canvas* canvas() { return cnv_; }
-    const t_canvas* convas() const { return cnv_; }
+    const t_canvas* canvas() const { return cnv_; }
 
+    /**
+     * Returns pointer to root canvas (top window)
+     */
     t_canvas* rootCanvas();
     t_canvas* rootCanvas() const;
 
     /**
      * Returns patch (root canvas) directory
      */
-    std::string patchDirectory() const;
+    t_symbol* patchDirectory() const;
 
     /**
      * Returns patch (root canvas) name
      */
-    std::string patchName() const;
+    t_symbol* patchName() const;
 
     /**
      * Returns patch (root canvas) full path
+     * @see patchName()
      */
     std::string patchPath() const;
 
@@ -272,7 +289,12 @@ public:
 
 public:
     static t_symbol* tryGetPropKey(t_symbol* sel);
-    static bool isAbsolutePath(const char* ch);
+
+    /**
+     * Checks if given filesystem path is absolute (starts with / on UNIX, and for ex. C:// on Windows)
+     * @param ch - filepath
+     */
+    static bool isAbsolutePath(const char* path);
 
 protected:
     void freeInlets();

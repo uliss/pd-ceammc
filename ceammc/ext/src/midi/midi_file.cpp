@@ -58,8 +58,9 @@ void XMidiFile::m_write(t_symbol*, const AtomList& l)
 
     std::string filepath = l[0].asSymbol()->s_name;
     if (!isAbsolutePath(filepath.c_str())) {
-        if (!patchDirectory().empty())
-            filepath = patchDirectory() + "/" + filepath;
+        if (patchDirectory() != &s_) {
+            filepath = std::string(patchDirectory()->s_name) + "/" + filepath;
+        }
     }
 
     MidiFile* mf = const_cast<MidiFile*>(midi_stream_->midifile());

@@ -31,8 +31,8 @@ TEST_CASE("flow.pass_if", "[externals]")
         REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 2);
         REQUIRE(t.canvas() != 0);
-        REQUIRE(t.patchDirectory() == "");
-        REQUIRE(t.patchName() == "test_canvas");
+        REQUIRE(t.patchDirectory()->s_name == std::string());
+        REQUIRE(t.patchName()->s_name == std::string("test_canvas"));
     }
 
     SECTION("float")

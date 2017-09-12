@@ -1,6 +1,7 @@
 #include "mod_base.h"
 
 #include "base_click.h"
+#include "canvas_info.h"
 #include "function.h"
 #include "function_call.h"
 #include "route_between.h"
@@ -57,4 +58,5 @@ void ceammc_base_setup()
     setup_test0x2eexpect();
 
     setup_route_between();
+    setup_canvas_current();
 }

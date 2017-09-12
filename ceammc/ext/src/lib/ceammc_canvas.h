@@ -15,6 +15,7 @@
 #define CEAMMC_CANVAS_H
 
 #include "ceammc_array.h"
+#include "ceammc_atomlist.h"
 
 #include <boost/shared_ptr.hpp>
 #include <map>
@@ -26,6 +27,59 @@ struct _text;
 typedef struct _text t_object;
 
 namespace ceammc {
+
+/**
+ * Checks if given canvas is top level (window)
+ * @param c - pointer to canvas
+ */
+bool canvas_info_is_root(const _glist* c);
+
+/**
+ * Checks if given canvas is abstraction
+ * @param c - pointer to canvas
+ */
+bool canvas_info_is_abstraction(const _glist* c);
+
+AtomList canvas_info_paths(const _glist* c);
+AtomList canvas_info_args(const _glist* c);
+
+/**
+ * Returns canvas name or empty symbol (not NULL!) on error
+ * @c - pointer to canvas
+ */
+t_symbol* canvas_info_name(const _glist* c);
+
+/**
+ * Returns canvas directory or empty symbol (not NULL!) on error
+ * @param c - pointer to canvas
+ */
+t_symbol* canvas_info_dir(const _glist* c);
+
+/**
+ * Returns canvas font size
+ * @param c - pointer to canvas
+ * @return font size or 0 on error
+ */
+int canvas_info_font(const _glist* c);
+
+struct t_rect {
+    int x, y, w, h;
+    t_rect(int x_, int y_, int w_, int h_)
+        : x(x_)
+        , y(y_)
+        , w(w_)
+        , h(h_)
+    {
+    }
+
+    bool operator==(const t_rect& r) const { return x == r.x && y == r.y && w == r.w && h == r.h; }
+};
+
+/**
+ * Returns canvas rect, for root canvas - windows, for others - GOP
+ * @param c - pointer to canvas
+ */
+t_rect canvas_info_rect(const t_canvas* c);
 
 class BaseObject;
 typedef boost::shared_ptr<Array> ArrayPtr;

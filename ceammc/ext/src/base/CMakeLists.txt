@@ -5,8 +5,9 @@ set(BASE_SOURCES
     function.cpp
     function_call.cpp
     msg.cpp
-    prop.get
-    prop.set
+    prop.get.cpp
+    prop.set.cpp
+    canvas_info.cpp
     replace.cpp)
 
 # predicates
