@@ -63,6 +63,7 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
         REQUIRE(b.canvas() == 0);
         REQUIRE(b.patchDirectory() == "");
         REQUIRE(b.patchName() == "");
+        REQUIRE(b.rootCanvas() == 0);
 
         REQUIRE_FALSE(b.hasProperty("@?"));
         REQUIRE(b.property("@?") == 0);
@@ -343,6 +344,7 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
         REQUIRE(b1.patchName() == "");
         REQUIRE(b1.patchPath() == "");
         REQUIRE(b1.findInStdPaths("test") == "");
+        REQUIRE(b1.rootCanvas() == 0);
 
         CanvasPtr cnv1 = PureData::instance().createTopCanvas("/dir/file.pd");
 
@@ -352,6 +354,7 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
         REQUIRE(b2.patchDirectory() == "/dir");
         REQUIRE(b2.patchName() == "file.pd");
         REQUIRE(b2.findInStdPaths("test") == "");
+        REQUIRE(b2.rootCanvas() == b2.canvas());
 
         CanvasPtr cnv2 = PureData::instance().createTopCanvas(TEST_DATA_DIR "/test.pd");
 
