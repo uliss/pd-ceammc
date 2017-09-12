@@ -7,7 +7,7 @@ set(BASE_SOURCES
     msg.cpp
     prop.get.cpp
     prop.set.cpp
-    canvas_args.cpp
+    patch_args.cpp
     canvas_current.cpp
     replace.cpp)
 

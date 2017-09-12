@@ -189,6 +189,7 @@ set(DOC_FILES
     osc.sinfb~
     osc.square~
     osc.tri~
+    patch.args
     path.basename
     path.dirname
     path.exists

@@ -22,6 +22,7 @@
 - array.set added
 - array.bpm added (via SoundTouch library: https://www.surina.net/soundtouch/)
 - array.stretch added (time-stretch, pitch-shift and rate-range) 
+- patch.args added
 
 ### Changed:
 - random.gauss doc update

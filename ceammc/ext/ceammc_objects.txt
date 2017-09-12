@@ -18,6 +18,7 @@ array.stretch
 bpm->hz
 bpm->ms
 bpm->sec
+canvas.current
 cc->amp
 click~
 conv.bpf2array
@@ -55,7 +56,10 @@ env.ar~
 env.follow~
 expand_env
 flow.change
+flow.count
 flow.group
+flow.multiplex
+flow.mux
 flow.pass
 flow.pass_if
 flow.reject
@@ -213,6 +217,10 @@ math.squared
 math.tan
 math.tanh
 math.trunc
+midi.ev->note
+midi.file
+midi.track
+midievent.is_note
 modplug~
 msg
 noise.baker
@@ -246,12 +254,15 @@ osc.square~
 osc.tri~
 pass
 pass_if
+patch.args
 path.basename
 path.dirname
 path.exists
 path.ls
 path.lsdir
 pitch->midi
+preset.float
+preset.storage
 prop->
 prop.get
 prop.set
@@ -267,6 +278,7 @@ reject
 reject_if
 replace
 round~
+route.between
 samp->sec
 sec->samp
 sec->str
@@ -279,6 +291,7 @@ set.size
 set.symdiff
 set.union
 snd.file
+snd.play~
 split
 str
 str->sec

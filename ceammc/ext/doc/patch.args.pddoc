@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="patch.args">
+        <title>patch.args</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Get patch or subpatch arguments</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>patch</category>
+            <keywords>patch args arguments canvas</keywords>
+            <also>
+                <see>canvas.current</see>
+                <see>canvas.top</see>
+            </also>
+            <since>0.4</since>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">output patch or subpatch arguments</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>list of arguments</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[loadbang]
+|
+[patch.args]
+|
+[msg set]
+|
+[ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

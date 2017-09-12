@@ -1,10 +1,10 @@
 #include "mod_base.h"
 
 #include "base_click.h"
-#include "canvas_args.h"
 #include "canvas_current.h"
 #include "function.h"
 #include "function_call.h"
+#include "patch_args.h"
 #include "route_between.h"
 
 #ifdef WITH_SND_FILE
@@ -60,5 +60,5 @@ void ceammc_base_setup()
 
     setup_route_between();
     setup_canvas_current();
-    setup_canvas_args();
+    setup_patch_args();
 }

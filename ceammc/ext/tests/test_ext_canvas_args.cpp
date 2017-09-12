@@ -11,22 +11,22 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../base/canvas_args.h"
+#include "../base/patch_args.h"
 #include "base_extension_test.h"
 #include "catch.hpp"
 #include "ceammc_pd.h"
 
 #include <stdio.h>
 
-typedef TestExtension<CanvasArgs> CanvasArgsTest;
+typedef TestExtension<PatchArgs> PatchArgsTest;
 
-TEST_CASE("canvas.args", "[externals]")
+TEST_CASE("patch.args", "[externals]")
 {
     SECTION("init")
     {
-        setup_canvas_args();
+        setup_patch_args();
 
-        CanvasArgsTest t("canvas.args");
+        PatchArgsTest t("patch.args");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
 
@@ -36,7 +36,7 @@ TEST_CASE("canvas.args", "[externals]")
         CanvasPtr cnv = PureData::instance().createTopCanvas("patch");
 
         {
-            CanvasArgsTest t("canvas.args");
+            PatchArgsTest t("patch.args");
             WHEN_SEND_BANG_TO(0, t);
             REQUIRE_LIST_AT_OUTLET(0, t, AtomList());
         }

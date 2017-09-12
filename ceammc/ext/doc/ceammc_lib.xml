@@ -607,6 +607,11 @@
       <xi:include href="osc.tri~.pddoc" parse="xml"/>
     </entry>
   </category>
+  <category name="patch">
+    <entry descr="Get patch or subpatch arguments" name="patch.args" ref_view="object">
+      <xi:include href="patch.args.pddoc" parse="xml"/>
+    </entry>
+  </category>
   <category name="path">
     <entry descr="outputs filename portion of pathname" name="path.basename" ref_view="object">
       <xi:include href="path.basename.pddoc" parse="xml"/>
