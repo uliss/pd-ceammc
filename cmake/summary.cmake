@@ -12,13 +12,13 @@ message(STATUS "  C++ compiler:        ${CMAKE_CXX_COMPILER}")
 message(STATUS "  build type:          ${CMAKE_BUILD_TYPE}")
 
 if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
-message(STATUS "  CFLAGS:              ${CMAKE_C_FLAGS_DEBUG}")
-message(STATUS "  CXXFLAGS:            ${CMAKE_CXX_FLAGS_DEBUG}")
+message(STATUS "  CFLAGS:              ${CMAKE_C_FLAGS_DEBUG} ${CMAKE_C_FLAGS}")
+message(STATUS "  CXXFLAGS:            ${CMAKE_CXX_FLAGS_DEBUG} ${CMAKE_CXX_FLAGS}")
 endif()
 
 if("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
-message(STATUS "  CFLAGS:              ${CMAKE_C_FLAGS_RELEASE}")
-message(STATUS "  CXXFLAGS:            ${CMAKE_CXX_FLAGS_RELEASE}")
+message(STATUS "  CFLAGS:              ${CMAKE_C_FLAGS_RELEASE} ${CMAKE_C_FLAGS}")
+message(STATUS "  CXXFLAGS:            ${CMAKE_CXX_FLAGS_RELEASE} ${CMAKE_CXX_FLAGS}")
 endif()
 
 if(APPLE)

@@ -62,26 +62,56 @@ macro(ceammc_external_test external name)
 endmacro()
 
 if(${WITH_COVERAGE})
-    find_program(LCOV NAMES lcov PATHS /usr/bin /usr/local/bin)
-    find_program (GCOV NAMES gcov-5 gcov-6 gcov-7 gcov PATHS /usr/bin /usr/local/bin)
+    if(APPLE)
+        find_program (LLVM_COV NAMES llvm-cov
+            PATHS /Library/Developer/CommandLineTools/usr/bin
+                  /usr/bin
+                  /usr/local/bin)
 
-    if(LCOV AND GCOV)
-        message(STATUS "lcov found: ${LCOV}")
-        message(STATUS "gcov found: ${GCOV}")
-        add_custom_target(coverage
-            COMMAND ${LCOV}
-                --gcov-tool=${GCOV}
-                --directory "${CMAKE_CURRENT_BINARY_DIR}/.."
-                --capture
-                --output-file coverage.info
-            COMMAND ${LCOV}
-                --remove coverage.info 'ceammc/ext/src/tests/Catch/*' '/usr/*' '/Applications/Xcode.app/*' 'src/m_pd.h'
-                --output-file coverage.info
-            COMMAND ${LCOV}
-                --list coverage.info)
+        find_program(GCOVR NAMES gcovr PATHS /usr/bin /usr/local/bin)
 
-        add_custom_target(coverage_report
-            COMMAND genhtml --output-directory ${CMAKE_BINARY_DIR}/coverage coverage.info
-            COMMAND open ${CMAKE_BINARY_DIR}/coverage/index.html)
+        if(LCOV AND GCOV)
+            message(STATUS "llvm-cov found: ${LLVM_COV}")
+            message(STATUS "gcovr found: ${GCOVR}")
+
+            add_custom_target(coverage
+                COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/llvm_cov_gen.sh
+                    "${LLVM_COV}" "${CMAKE_CURRENT_BINARY_DIR}/..")
+
+            add_custom_target(coverage_report
+                COMMAND mkdir -p ${CMAKE_BINARY_DIR}/coverage
+                COMMAND ${GCOVR} --html --html-details
+                    --output "${CMAKE_BINARY_DIR}/coverage/index.html"
+                    --exclude "ceammc/ext/src/tests/*"
+                    --exclude "ceammc/ext/src/lib/utf8rewind*"
+                    --sort-percentage
+                    --use-gcov-files
+                    -k
+                    --root "${CMAKE_SOURCE_DIR}"
+                COMMAND open ${CMAKE_BINARY_DIR}/coverage/index.html)
+        endif()
+    else()
+        find_program(LCOV NAMES lcov PATHS /usr/bin /usr/local/bin)
+        find_program (GCOV NAMES gcov-5 gcov-6 gcov-7 gcov PATHS /usr/bin /usr/local/bin)
+
+        if(LCOV AND GCOV)
+            message(STATUS "lcov found: ${LCOV}")
+            message(STATUS "gcov found: ${GCOV}")
+            add_custom_target(coverage
+                COMMAND ${LCOV}
+                    --gcov-tool=${GCOV}
+                    --directory "${CMAKE_CURRENT_BINARY_DIR}/.."
+                    --capture
+                    --output-file coverage.info
+                COMMAND ${LCOV}
+                    --remove coverage.info 'ceammc/ext/src/tests/Catch/*' '/usr/*' '/Applications/Xcode.app/*' 'src/m_pd.h'
+                    --output-file coverage.info
+                COMMAND ${LCOV}
+                    --list coverage.info)
+
+            add_custom_target(coverage_report
+                COMMAND genhtml --output-directory ${CMAKE_BINARY_DIR}/coverage coverage.info
+                COMMAND open ${CMAKE_BINARY_DIR}/coverage/index.html)
+        endif()
     endif()
 endif()
