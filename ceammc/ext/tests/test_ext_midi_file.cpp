@@ -29,6 +29,8 @@ TEST_CASE("midi.file", "[externals]")
 {
     SECTION("init")
     {
+        setup_midi_file();
+
         MidiFileTest t("midi.file");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
