@@ -6,7 +6,7 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>verbose information top-level canvas</description>
+            <description>verbose information about top-level canvas</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>patch</category>
