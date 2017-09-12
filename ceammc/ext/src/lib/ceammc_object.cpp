@@ -586,15 +586,30 @@ t_symbol* BaseObject::receive()
     return receive_from_;
 }
 
-std::string BaseObject::patchDirectory() const
+t_canvas* BaseObject::rootCanvas()
 {
     if (!cnv_)
+        return NULL;
+
+    return canvas_getrootfor(cnv_);
+}
+
+t_canvas* BaseObject::rootCanvas() const
+{
+    if (!cnv_)
+        return NULL;
+
+    return canvas_getrootfor((t_canvas*)cnv_);
+}
+
+std::string BaseObject::patchDirectory() const
+{
+    t_canvas* c = rootCanvas();
+
+    if (!c || !c->gl_env)
         return "";
 
-    if (!cnv_->gl_env)
-        return "";
-
-    return canvas_getdir(cnv_)->s_name;
+    return canvas_getdir(c)->s_name;
 }
 
 std::string BaseObject::patchName() const

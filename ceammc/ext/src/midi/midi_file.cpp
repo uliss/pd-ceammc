@@ -48,6 +48,7 @@ void XMidiFile::m_read(t_symbol*, const AtomList& l)
     }
 
     midi_stream_ = new DataTypeMidiStream(mf);
+    OBJ_DBG << "file read from: \"" << path << "\"";
 }
 
 void XMidiFile::m_write(t_symbol*, const AtomList& l)
@@ -63,6 +64,8 @@ void XMidiFile::m_write(t_symbol*, const AtomList& l)
 
     MidiFile* mf = const_cast<MidiFile*>(midi_stream_->midifile());
     mf->write(filepath.c_str());
+
+    OBJ_DBG << "file written to: \"" << filepath << "\"";
 }
 
 AtomList XMidiFile::p_filename() const

@@ -245,6 +245,9 @@ public:
     t_canvas* canvas() { return cnv_; }
     const t_canvas* convas() const { return cnv_; }
 
+    t_canvas* rootCanvas();
+    t_canvas* rootCanvas() const;
+
     /**
      * Returns patch (root canvas) directory
      */
