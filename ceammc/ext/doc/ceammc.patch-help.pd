@@ -5,7 +5,7 @@
 #X obj 30 116 canvas.current;
 #X text 175 116 verbose information about current canvas;
 #X obj 30 143 canvas.top;
-#X text 175 143 verbose information top-level canvas;
+#X text 175 143 verbose information about top-level canvas;
 #X obj 30 170 patch.args;
 #X text 175 170 Get patch or subpatch arguments;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::patch 20 20 0 20 -104026

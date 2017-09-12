@@ -611,7 +611,7 @@
     <entry descr="verbose information about current canvas" name="canvas.current" ref_view="object">
       <xi:include href="canvas.current.pddoc" parse="xml"/>
     </entry>
-    <entry descr="verbose information top-level canvas" name="canvas.top" ref_view="object">
+    <entry descr="verbose information about top-level canvas" name="canvas.top" ref_view="object">
       <xi:include href="canvas.top.pddoc" parse="xml"/>
     </entry>
     <entry descr="Get patch or subpatch arguments" name="patch.args" ref_view="object">

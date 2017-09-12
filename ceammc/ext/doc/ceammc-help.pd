@@ -461,7 +461,7 @@ direction;
 #X obj 30 6432 canvas.current;
 #X text 175 6432 verbose information about current canvas;
 #X obj 30 6459 canvas.top;
-#X text 175 6459 verbose information top-level canvas;
+#X text 175 6459 verbose information about top-level canvas;
 #X obj 30 6486 patch.args;
 #X text 175 6486 Get patch or subpatch arguments;
 #X obj 20 6513 cnv 5 47 31 empty empty path 4 13 0 17 -262144 -49933
