@@ -52,6 +52,7 @@ ceammc_external_test(base function)
 
 ceammc_add_test("[canvas.args]" test_ext_canvas_args)
 ceammc_add_test("[canvas.current]" test_ext_canvas_current)
+ceammc_add_test("[canvas.top]" test_ext_canvas_top)
 
 ceammc_external_test(flow change)
 ceammc_external_test(flow group)

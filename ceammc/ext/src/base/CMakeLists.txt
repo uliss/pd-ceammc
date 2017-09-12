@@ -9,6 +9,7 @@ set(BASE_SOURCES
     prop.set.cpp
     patch_args.cpp
     canvas_current.cpp
+    canvas_top.cpp
     replace.cpp)
 
 # predicates

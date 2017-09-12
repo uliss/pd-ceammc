@@ -2,6 +2,7 @@
 
 #include "base_click.h"
 #include "canvas_current.h"
+#include "canvas_top.h"
 #include "function.h"
 #include "function_call.h"
 #include "patch_args.h"
@@ -61,4 +62,5 @@ void ceammc_base_setup()
     setup_route_between();
     setup_canvas_current();
     setup_patch_args();
+    setup_canvas_top();
 }
