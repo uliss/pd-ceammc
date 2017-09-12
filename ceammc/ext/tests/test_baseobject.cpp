@@ -61,9 +61,6 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
         REQUIRE(b.numOutlets() == 0);
         REQUIRE(b.numInlets() == 0);
         REQUIRE(b.canvas() == 0);
-        REQUIRE(b.patchDirectory() == &s_);
-        REQUIRE(b.patchName() == &s_);
-        REQUIRE(b.patchPath() == "");
         REQUIRE(b.rootCanvas() == 0);
 
         REQUIRE_FALSE(b.hasProperty("@?"));
@@ -341,9 +338,6 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
     {
         BaseObject b1(PdArgs(AtomList(), gensym("testname"), 0));
         REQUIRE_FALSE(b1.canvas());
-        REQUIRE(b1.patchDirectory() == &s_);
-        REQUIRE(b1.patchName() == &s_);
-        REQUIRE(b1.patchPath() == "");
         REQUIRE(b1.findInStdPaths("test") == "");
         REQUIRE(b1.rootCanvas() == 0);
 
@@ -351,9 +345,6 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
 
         BaseObject b2(PdArgs(AtomList(), gensym("test"), 0));
         REQUIRE(b2.canvas() == cnv1->pd_canvas());
-        REQUIRE(b2.patchPath() == "/dir/file.pd");
-        REQUIRE(b2.patchDirectory()->s_name == std::string("/dir"));
-        REQUIRE(b2.patchName()->s_name == std::string("file.pd"));
         REQUIRE(b2.findInStdPaths("test") == "");
         REQUIRE(b2.rootCanvas() == b2.canvas());
 
@@ -361,9 +352,6 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
 
         BaseObject b3(PdArgs(AtomList(), gensym("mtof"), 0));
         REQUIRE(b3.canvas() == cnv2->pd_canvas());
-        REQUIRE(b3.patchPath() == TEST_DATA_DIR "/test.pd");
-        REQUIRE(b3.patchDirectory()->s_name == std::string(TEST_DATA_DIR));
-        REQUIRE(b3.patchName()->s_name == std::string("test.pd"));
         REQUIRE(b3.findInStdPaths("unknown") == "");
         REQUIRE(b3.findInStdPaths("snd_mono_48k.wav") == TEST_DATA_DIR "/snd_mono_48k.wav");
     }

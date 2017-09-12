@@ -1,4 +1,5 @@
 #include "midi_file.h"
+#include "ceammc_canvas.h"
 #include "ceammc_factory.h"
 
 #include "MidiFile.h"
@@ -58,9 +59,11 @@ void XMidiFile::m_write(t_symbol*, const AtomList& l)
 
     std::string filepath = l[0].asSymbol()->s_name;
     if (!isAbsolutePath(filepath.c_str())) {
-        if (patchDirectory() != &s_) {
-            filepath = std::string(patchDirectory()->s_name) + "/" + filepath;
-        }
+
+        std::string top_level_dir(canvas_info_dir(rootCanvas())->s_name);
+
+        if (!top_level_dir.empty())
+            filepath = top_level_dir + "/" + filepath;
     }
 
     MidiFile* mf = const_cast<MidiFile*>(midi_stream_->midifile());

@@ -610,37 +610,6 @@ t_canvas* BaseObject::rootCanvas() const
     return c;
 }
 
-t_symbol* BaseObject::patchDirectory() const
-{
-    t_canvas* c = rootCanvas();
-
-    if (!c || !c->gl_env)
-        return &s_;
-
-    return canvas_getdir(c);
-}
-
-t_symbol* BaseObject::patchName() const
-{
-    if (!cnv_)
-        return &s_;
-
-    return cnv_->gl_name;
-}
-
-std::string BaseObject::patchPath() const
-{
-    if (!cnv_)
-        return "";
-
-    if (!cnv_->gl_env)
-        return "";
-
-    char buf[MAXPDSTRING + 1];
-    canvas_makefilename(cnv_, cnv_->gl_name->s_name, buf, MAXPDSTRING);
-    return buf;
-}
-
 std::string BaseObject::findInStdPaths(const char* fname) const
 {
     return platform::find_in_std_path(cnv_, fname);
