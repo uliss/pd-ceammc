@@ -48,6 +48,13 @@ TEST_CASE("midi.file", "[externals]")
         REQUIRE_PROPERTY(t, @tracks, 1);
         REQUIRE_PROPERTY(t, @tempo, 120);
 
+        // not-exists relative (search in standart paths)
+        WHEN_CALL_1(t, read, "unknown.mid");
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+        REQUIRE_PROPERTY(t, @filename, "");
+        REQUIRE_PROPERTY(t, @tracks, 1);
+        REQUIRE_PROPERTY(t, @tempo, 120);
+
         // wrong argument count
         WHEN_CALL(t, read);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);

@@ -16,6 +16,7 @@
 #include "m_pd.h"
 
 #include "ceammc.hpp"
+#include "ceammc_pd.h"
 #include "ceammc_platform.h"
 #include "config.h"
 
@@ -29,6 +30,10 @@
 
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
+#endif
+
+#ifndef TEST_DATA_DIR
+#define TEST_DATA_DIR "."
 #endif
 
 using namespace ceammc::platform;
@@ -264,5 +269,15 @@ TEST_CASE("ceammc::platform", "[ceammc::lib]")
 #ifdef __WIN32
         REQUIRE(ceammc::platform::expand_tilde_path("~/").substr(0, 3) == "C:\\");
 #endif
+    }
+
+    SECTION("find_in_std_path")
+    {
+        REQUIRE(ceammc::platform::find_in_std_path(0, "test").empty());
+        ceammc::CanvasPtr cnv = ceammc::PureData::instance().createTopCanvas(TEST_DATA_DIR "/empty");
+        REQUIRE(cnv);
+        REQUIRE(cnv->pd_canvas());
+        REQUIRE(ceammc::platform::find_in_std_path(cnv->pd_canvas(), "test").empty());
+        REQUIRE(ceammc::platform::find_in_std_path(cnv->pd_canvas(), "test_01.mid") == TEST_DATA_DIR "/test_01.mid");
     }
 }

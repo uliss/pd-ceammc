@@ -3,16 +3,27 @@ if(WINE_EXE)
     message(STATUS "WINE found: ${WINE_EXE}")
 endif()
 
+function(set_test_command title exec_path)
+    if(MINGW AND WINE_EXE)
+        add_test(NAME ${title} COMMAND ${WINE_EXE} ${exec_path})
+    else()
+        if(${WITH_COVERAGE})
+#            set(EXEC ${CMAKE_CURRENT_SOURCE_DIR}/test_runner.sh)
+#            add_test(NAME ${title}
+#                COMMAND ${EXEC} ${exec_path}
+#                WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
+
+            add_test(NAME ${title} COMMAND ${exec_path})
+        else()
+            add_test(NAME ${title} COMMAND ${exec_path})
+        endif()
+    endif()
+endfunction()
+
 macro(ceammc_add_test title name)
     add_executable(${name} "${name}.cpp")
     target_link_libraries(${name} tests_main_lib ceammc_core puredata-core)
-    set(_exec_cmd ${name})
-
-    if(MINGW AND WINE_EXE)
-        set(_exec_cmd ${WINE_EXE} ${name})
-    endif()
-
-    add_test(NAME ${title} COMMAND ${_exec_cmd})
+    set_test_command(${title} ${name})
 endmacro()
 
 macro(ceammc_add_test_linked)
@@ -26,12 +37,7 @@ macro(ceammc_add_test_linked)
     set(title ${_TEST_TITLE})
     add_executable(${name} "${name}.cpp" ${_TEST_SRC})
     target_link_libraries(${name} ${_TEST_LINK} tests_main_lib)
-    set(_exec_cmd ${name})
-
-    if(MINGW AND WINE_EXE)
-        set(_exec_cmd ${WINE_EXE} ${name})
-    endif()
-    add_test(NAME ${title} COMMAND ${_exec_cmd})
+    set_test_command(${title} ${name})
 endmacro()
 
 macro(ceammc_add_extension_test name extpath)
@@ -39,11 +45,7 @@ macro(ceammc_add_extension_test name extpath)
     add_executable(${_target} "${_target}.cpp" ${extpath})
     target_link_libraries(${_target} tests_main_lib puredata-core ceammc_core puredata-core ceammc_sound)
     set(_exec_cmd ${_target})
-
-    if(MINGW AND WINE_EXE)
-        set(_exec_cmd ${WINE_EXE} ${_target})
-    endif()
-    add_test(NAME "Extension::${name}" COMMAND ${_exec_cmd})
+    set_test_command("Extension::${name}" ${_exec_cmd})
 endmacro()
 
 macro(ceammc_external_test external name)
@@ -54,11 +56,7 @@ macro(ceammc_external_test external name)
         tests_main_lib puredata-core ceammc_core puredata-core
         ceammc_sound "ceammc_${external}" ceammc_string ceammc_core)
     set(_exec_cmd ${_target})
-
-    if(MINGW AND WINE_EXE)
-        set(_exec_cmd ${WINE_EXE} ${_target})
-    endif()
-    add_test(NAME "[${external}.${name}]" COMMAND ${_exec_cmd})
+    set_test_command("[${external}.${name}]" ${_exec_cmd})
 endmacro()
 
 if(${WITH_COVERAGE})
@@ -79,7 +77,7 @@ if(${WITH_COVERAGE})
 
             add_custom_target(coverage
                 COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/llvm_cov_gen.sh
-                    "${LLVM_COV}" "${CMAKE_CURRENT_BINARY_DIR}/..")
+                    "${LLVM_COV}" "${CMAKE_CURRENT_BINARY_DIR}/../src")
 
             add_custom_target(coverage_report
                 COMMAND mkdir -p ${CMAKE_BINARY_DIR}/coverage
