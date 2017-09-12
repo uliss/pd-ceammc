@@ -137,4 +137,23 @@ TEST_CASE("midi.file", "[externals]")
 
         REQUIRE(unlink("./test_midi_output.mid") == 0);
     }
+
+    SECTION("clear")
+    {
+        MidiFileTest t("midi.file");
+        WHEN_CALL(t, clear);
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+
+        WHEN_CALL_1(t, read, TEST_DATA_DIR "/test_01.mid");
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+        REQUIRE_PROPERTY(t, @filename, "test_01.mid");
+        REQUIRE_PROPERTY(t, @tracks, 1);
+        REQUIRE_PROPERTY(t, @tempo, 480);
+
+        WHEN_CALL(t, clear);
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+        REQUIRE_PROPERTY(t, @filename, "");
+        REQUIRE_PROPERTY(t, @tracks, 1);
+        REQUIRE_PROPERTY(t, @tempo, 120);
+    }
 }

@@ -123,6 +123,11 @@ ceammc_add_test_linked(TITLE "ceammc::DataString"
     SRC "test_data_string.cpp"
     LINK ceammc_core ceammc_string puredata-core ceammc_core)
 
+ceammc_add_test_linked(TITLE "ceammc::DataTypeMidiStream"
+    NAME test_datatype_midistream
+    SRC test_datatype_midistream.cpp
+    LINK ceammc_core puredata-core ceammc_core ceammc_midi)
+
 
 if(WITH_LIBSNDFILE)
     include(FindLibSndFile)

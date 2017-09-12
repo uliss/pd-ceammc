@@ -34,9 +34,11 @@ void XMidiFile::m_read(t_symbol*, const AtomList& l)
     if (!checkArgs(l, ARG_SYMBOL))
         return;
 
-    std::string path = searchFileInPaths(l[0].asSymbol()->s_name);
-    if (path.empty())
+    std::string path = findInStdPaths(l[0].asSymbol()->s_name);
+    if (path.empty()) {
+        OBJ_ERR << "file is not found in search paths: " << l;
         return;
+    }
 
     MidiFile mf;
 
@@ -74,34 +76,6 @@ AtomList XMidiFile::p_tracks() const
 void XMidiFile::onDataT(const DataTypeMidiStream& data)
 {
     midi_stream_ = data.clone();
-}
-
-std::string XMidiFile::searchFileInPaths(const char* fname)
-{
-    if (sys_isabsolutepath(fname))
-        return fname;
-
-    const char* patch_dir = "";
-    if (cnv_) {
-        patch_dir = canvas_getdir(cnv_)->s_name;
-    }
-
-    char dirname[MAXPDSTRING], *filename;
-
-    int fd = open_via_path(patch_dir, fname, "", dirname, &filename, MAXPDSTRING, 1);
-
-    if (fd < 0) {
-        OBJ_ERR << "file not found: " << fname;
-        OBJ_ERR << "   in directory: " << patch_dir;
-        return "";
-    }
-
-    close(fd);
-
-    std::string full_path(dirname);
-    full_path += '/';
-    full_path += filename;
-    return full_path;
 }
 
 void setup_midi_file()

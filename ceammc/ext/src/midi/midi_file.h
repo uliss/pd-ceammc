@@ -26,9 +26,6 @@ public:
     AtomList p_tracks() const;
 
     void onDataT(const DataTypeMidiStream& data);
-
-private:
-    std::string searchFileInPaths(const char* fname);
 };
 
 extern "C" void setup_midi_file();
