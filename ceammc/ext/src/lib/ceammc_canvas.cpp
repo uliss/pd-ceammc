@@ -143,7 +143,7 @@ AtomList ceammc::canvas_info_args(const _glist* c)
         int argc = binbuf_getnatom(b);
         t_atom* argv = binbuf_getvec(b);
 
-        for (int i = 0; i < argc; i++)
+        for (int i = 1; i < argc; i++)
             res.append(Atom(argv[i]));
     }
 
