@@ -608,6 +608,9 @@
     </entry>
   </category>
   <category name="patch">
+    <entry descr="verbose information about current canvas" name="canvas.current" ref_view="object">
+      <xi:include href="canvas.current.pddoc" parse="xml"/>
+    </entry>
     <entry descr="Get patch or subpatch arguments" name="patch.args" ref_view="object">
       <xi:include href="patch.args.pddoc" parse="xml"/>
     </entry>
