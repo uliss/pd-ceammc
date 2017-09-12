@@ -10,6 +10,17 @@ message(STATUS "  Distrib version:     ${CEAMMC_DISTRIB_VERSION}")
 message(STATUS "  C compiler:          ${CMAKE_C_COMPILER}")
 message(STATUS "  C++ compiler:        ${CMAKE_CXX_COMPILER}")
 message(STATUS "  build type:          ${CMAKE_BUILD_TYPE}")
+
+if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+message(STATUS "  CFLAGS:              ${CMAKE_C_FLAGS_DEBUG}")
+message(STATUS "  CXXFLAGS:            ${CMAKE_CXX_FLAGS_DEBUG}")
+endif()
+
+if("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
+message(STATUS "  CFLAGS:              ${CMAKE_C_FLAGS_RELEASE}")
+message(STATUS "  CXXFLAGS:            ${CMAKE_CXX_FLAGS_RELEASE}")
+endif()
+
 if(APPLE)
 message(STATUS "  Arch:                ${CMAKE_OSX_ARCHITECTURES}")
 message(STATUS "  MacOSX sysroot:      ${CMAKE_OSX_SYSROOT}")

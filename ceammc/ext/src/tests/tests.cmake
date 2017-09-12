@@ -63,7 +63,7 @@ endmacro()
 
 if(${WITH_COVERAGE})
     find_program(LCOV NAMES lcov PATHS /usr/bin /usr/local/bin)
-    find_program (GCOV NAMES gcov-5 gcov-6 gcov PATHS /usr/bin /usr/local/bin)
+    find_program (GCOV NAMES gcov-5 gcov-6 gcov-7 gcov PATHS /usr/bin /usr/local/bin)
 
     if(LCOV AND GCOV)
         message(STATUS "lcov found: ${LCOV}")

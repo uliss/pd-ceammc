@@ -29,6 +29,13 @@ $LastChangedBy$
 	#include <net/if.h>
 #endif
 
+// Yousemite <os/base.h> bug fix with gcc
+#ifdef __APPLE__
+#ifdef __GNUC__
+#define  __has_extension(cond) 0
+#endif
+#endif
+
 #include <dns_sd.h>
 
 #include <vector>

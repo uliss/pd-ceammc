@@ -22,6 +22,3 @@
 [submodule "ceammc/extra/timbreID/timbreID"]
 	path = ceammc/extra/timbreID/timbreID
 	url = https://github.com/avilleret/timbreID.git
-[submodule "ceammc/extra/flext/zconf/zconf"]
-	path = ceammc/extra/flext/zconf/zconf
-	url = https://github.com/grrrr/zconf
