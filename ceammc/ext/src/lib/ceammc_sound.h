@@ -26,8 +26,6 @@ namespace sound {
     typedef std::vector<FormatDescription> FormatList;
     class SoundFile;
     typedef boost::shared_ptr<SoundFile> SoundFilePtr;
-    class SoundFilePlayer;
-    typedef boost::shared_ptr<SoundFilePlayer> SoundFilePlayerPtr;
 
     class SoundFile {
         std::string fname_;
@@ -59,21 +57,17 @@ namespace sound {
         virtual bool isOpened() const = 0;
     };
 
-    class SoundFilePlayer;
     typedef SoundFilePtr (*loadFunc)(const std::string& path);
-    typedef SoundFilePlayerPtr (*playerFunc)();
     typedef FormatList (*formatFunc)();
     struct LoaderDescr {
-        LoaderDescr(const std::string& n, loadFunc f, formatFunc ff, playerFunc pf)
+        LoaderDescr(const std::string& n, loadFunc f, formatFunc ff)
             : name(n)
             , func(f)
-            , player(pf)
             , formats(ff)
         {
         }
         std::string name;
         loadFunc func;
-        playerFunc player;
         formatFunc formats;
         bool operator==(const LoaderDescr& l);
     };
@@ -84,36 +78,10 @@ namespace sound {
         static FormatList supportedFormats();
 
         static SoundFilePtr open(const std::string& path);
-        static SoundFilePlayerPtr player();
 
     private:
         typedef std::vector<LoaderDescr> LoaderList;
         static LoaderList& loaders(); // singleton
-    };
-
-    class SoundFilePlayer {
-    protected:
-        std::string path_;
-
-    public:
-        SoundFilePlayer();
-        virtual ~SoundFilePlayer();
-
-        virtual bool open(const std::string& filename) = 0;
-        virtual bool close() = 0;
-
-        virtual size_t sampleCount() const = 0;
-        virtual size_t sampleRate() const = 0;
-        virtual size_t channels() const = 0;
-
-        std::string filename() const;
-
-        virtual bool isOpened() const = 0;
-        virtual bool seek(size_t offset) = 0;
-        virtual size_t tell() const = 0;
-        virtual long read(t_sample** dest, size_t n) = 0;
-
-        virtual void setSamplerate(size_t sr) = 0;
     };
 }
 }
