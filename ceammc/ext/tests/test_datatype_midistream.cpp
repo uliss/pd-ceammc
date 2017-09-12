@@ -25,5 +25,7 @@ TEST_CASE("DataTypeMidiStream", "[ceammc::DataTypeMidiStream]")
         DataTypeMidiStream midi;
         REQUIRE(midi.trackCount() == 1);
         REQUIRE(midi.tempo() == 120);
+        REQUIRE(midi.filename() == gensym(""));
+        REQUIRE(midi.midifile() != 0);
     }
 }

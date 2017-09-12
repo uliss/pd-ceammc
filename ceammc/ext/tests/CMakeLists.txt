@@ -1,5 +1,5 @@
 include_directories(Catch/single_include)
-include_directories(../lib)
+include_directories(../src/lib)
 include_directories(${PROJECT_SOURCE_DIR}/src)
 include_directories(${CMAKE_BINARY_DIR}) # for config.h
 include(tests.cmake)
@@ -9,7 +9,7 @@ add_definitions("-DTEST_DATA_DIR=\"${CMAKE_CURRENT_SOURCE_DIR}\"")
 add_library(tests_main_lib STATIC tests_main.cpp test_external)
 
 if(APPLE)
-    set(CMAKE_INSTALL_RPATH "@loader_path/../lib")
+    set(CMAKE_INSTALL_RPATH "@loader_path/../src/lib")
 endif()
 
 ceammc_add_test("ceammc::Array" test_array)
@@ -102,22 +102,22 @@ ceammc_external_test(string length)
 
 ceammc_external_test(path lsdir)
 
-ceammc_add_extension_test("list_walk" "../list/list_walk.cpp")
-ceammc_add_extension_test("list_walk2" "../list/list_walk.cpp")
-ceammc_add_extension_test("snd_file" "../base/snd_file.cpp")
-ceammc_add_extension_test("ext_data_list" "../data/data_list.cpp")
-ceammc_add_extension_test("ext_replace" "../base/replace.cpp")
-ceammc_add_extension_test("ext_expand_env" "../base/expand_env.cpp")
-ceammc_add_extension_test("ext_msg" "../base/msg.cpp")
+ceammc_add_extension_test("snd_file" "../src/base/snd_file.cpp")
+ceammc_add_extension_test("ext_replace" "../src/base/replace.cpp")
+ceammc_add_extension_test("ext_expand_env" "../src/base/expand_env.cpp")
+ceammc_add_extension_test("ext_msg" "../src/base/msg.cpp")
 
-ceammc_add_extension_test("ext_list_each" "../list/list_each.cpp")
-ceammc_add_extension_test("ext_list_gen" "../list/list_gen.cpp")
-ceammc_add_extension_test("ext_list_seq" "../list/list_seq.cpp")
-ceammc_add_extension_test("ext_symbol_equal" "../symbol/symbol_equal.cpp")
-ceammc_add_extension_test("ext_symbol_num_compare" "../symbol/symbol_num_compare.cpp")
-ceammc_add_extension_test("ext_system_getenv" "../system/system_getenv.cpp")
+ceammc_add_extension_test("list_walk" "../src/list/list_walk.cpp")
+ceammc_add_extension_test("list_walk2" "../src/list/list_walk.cpp")
+ceammc_add_extension_test("ext_list_each" "../src/list/list_each.cpp")
+ceammc_add_extension_test("ext_list_gen" "../src/list/list_gen.cpp")
+ceammc_add_extension_test("ext_list_seq" "../src/list/list_seq.cpp")
+ceammc_add_extension_test("ext_symbol_equal" "../src/symbol/symbol_equal.cpp")
+ceammc_add_extension_test("ext_symbol_num_compare" "../src/symbol/symbol_num_compare.cpp")
+ceammc_add_extension_test("ext_system_getenv" "../src/system/system_getenv.cpp")
+ceammc_add_extension_test("ext_data_list" "../src/data/data_list.cpp")
 
-ceammc_add_test_linked(TITLE "ceammc::pd" NAME test_pd SRC "../base/debug_gensym.cpp" LINK ceammc_core puredata-core)
+ceammc_add_test_linked(TITLE "ceammc::pd" NAME test_pd SRC "../src/base/debug_gensym.cpp" LINK ceammc_core puredata-core)
 ceammc_add_test_linked(TITLE "ceammc::DataString"
     NAME test_data_string
     SRC "test_data_string.cpp"

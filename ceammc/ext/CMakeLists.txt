@@ -2,6 +2,7 @@ include(PdExtension)
 
 add_subdirectory(src)
 add_subdirectory(doc)
+add_subdirectory(tests)
 
 add_custom_target(ceammc_completion_src SOURCES ceammc_objects.txt)
 # install completion

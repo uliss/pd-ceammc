@@ -28,7 +28,6 @@ include_directories(lib)
 include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra/CicmWrapper/Sources)
 include_directories(${CMAKE_SOURCE_DIR}/src)
 
-add_subdirectory(tests)
 remove_definitions(-DPD_INTERNAL)
 add_definitions(-DPD)
 

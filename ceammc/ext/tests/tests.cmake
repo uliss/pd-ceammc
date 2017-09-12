@@ -63,6 +63,9 @@ endmacro()
 
 if(${WITH_COVERAGE})
     if(APPLE)
+        set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} --coverage")
+        set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --coverage")
+
         find_program (LLVM_COV NAMES llvm-cov
             PATHS /Library/Developer/CommandLineTools/usr/bin
                   /usr/bin
