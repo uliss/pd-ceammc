@@ -8,5 +8,5 @@ echo "extrating gcov dat with $COV in $DIR"
 find ${DIR} -name *.gcda | while read f
 do
     echo "    coverage: processing \"$(basename $f)\""
-    ${COV} gcov $f 1>/dev/null
+    ${COV} gcov -f $f 1>/dev/null
 done
