@@ -68,11 +68,12 @@ TEST_CASE("midi.track", "[externals]")
         REQUIRE(t.numOutlets() == 2);
 
         REQUIRE_PROPERTY(t, @join, A(0.f));
-        REQUIRE_PROPERTY(t, @index, A(0.f));
+        REQUIRE_PROPERTY(t, @track, A(0.f));
         REQUIRE_PROPERTY(t, @tempo, A(120));
         REQUIRE_PROPERTY(t, @events, A(0.f));
         REQUIRE_PROPERTY(t, @current, A(0.f));
         REQUIRE_PROPERTY(t, @state, Z);
+        REQUIRE_PROPERTY(t, @speed, 1);
 
         REQUIRE(t.begin() == t.end());
         REQUIRE(t.size() == 0);
@@ -87,8 +88,8 @@ TEST_CASE("midi.track", "[externals]")
 
         MidiTrackTest t("midi.track");
         WHEN_SEND_TDATA_TO(0, t, m);
-        REQUIRE_PROPERTY(t, @join, A(0.f));
-        REQUIRE_PROPERTY(t, @index, A(0.f));
+        REQUIRE_PROPERTY(t, @join, Z);
+        REQUIRE_PROPERTY(t, @track, Z);
         REQUIRE_PROPERTY(t, @tempo, A(480));
         REQUIRE_PROPERTY(t, @events, A(19));
         REQUIRE(t.begin() != t.end());
@@ -242,5 +243,22 @@ TEST_CASE("midi.track", "[externals]")
         WHEN_CALL(t, pause);
         REQUIRE_PROPERTY(t, @state, Z);
         REQUIRE_PROPERTY(t, @current, Z);
+    }
+
+    SECTION("track count")
+    {
+        DataTypeMidiStream m(TEST_DATA_DIR "/test_01.mid");
+        REQUIRE(m.is_open());
+
+        MidiTrackTest t("midi.track", L2("@track", 2));
+        REQUIRE_PROPERTY(t, @track, 2);
+
+        WHEN_SEND_TDATA_TO(0, t, m);
+        REQUIRE_PROPERTY(t, @join, Z);
+        REQUIRE_PROPERTY(t, @track, 2);
+        REQUIRE_PROPERTY(t, @tempo, 120);
+        REQUIRE_PROPERTY(t, @events, Z);
+        REQUIRE(t.begin() == t.end());
+        REQUIRE(t.size() == 0);
     }
 }

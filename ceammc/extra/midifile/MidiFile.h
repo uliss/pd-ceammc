@@ -75,9 +75,11 @@ public:
     // track-related functions:
     MidiEventList& operator[](int aTrack);
     const MidiEventList& operator[](int aTrack) const;
-    int getTrackCount(void) const;
-    int getNumTracks(void) const;
-    int size(void) const;
+    MidiEventList& trackAt(size_t trackIndex);
+    const MidiEventList& trackAt(size_t trackIndex) const;
+    int getTrackCount() const;
+    int getNumTracks() const;
+    int size() const;
 
     // join/split track functionality:
     void markSequence(void);
@@ -114,7 +116,7 @@ public:
 
     // ticks-per-quarter related functions:
     void setMillisecondTicks(void);
-    int getTicksPerQuarterNote(void) const;
+    int getTicksPerQuarterNote() const;
     int getTPQ(void) const;
     void setTicksPerQuarterNote(int ticks);
     void setTPQ(int ticks);

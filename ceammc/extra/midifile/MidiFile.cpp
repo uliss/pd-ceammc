@@ -794,13 +794,23 @@ const MidiEventList& MidiFile::operator[](int aTrack) const
     return *events[aTrack];
 }
 
+MidiEventList& MidiFile::trackAt(size_t trackIndex)
+{
+    return *events.at(trackIndex);
+}
+
+const MidiEventList& MidiFile::trackAt(size_t trackIndex) const
+{
+    return *events.at(trackIndex);
+}
+
 //////////////////////////////
 //
 // MidiFile::getTrackCount -- return the number of tracks in
 //   the Midi File.
 //
 
-int MidiFile::getTrackCount(void) const
+int MidiFile::getTrackCount() const
 {
     return (int)events.size();
 }
@@ -809,7 +819,7 @@ int MidiFile::getTrackCount(void) const
 // Alias for getTrackCount()
 //
 
-int MidiFile::getNumTracks(void) const
+int MidiFile::getNumTracks() const
 {
     return getTrackCount();
 }
@@ -818,7 +828,7 @@ int MidiFile::getNumTracks(void) const
 // Alias for getTrackCount()
 //
 
-int MidiFile::size(void) const
+int MidiFile::size() const
 {
     return getTrackCount();
 }
@@ -1777,7 +1787,7 @@ MidiEvent& MidiFile::getEvent(int aTrack, int anIndex)
 //   time units that are supposed to occur during a quarternote.
 //
 
-int MidiFile::getTicksPerQuarterNote(void) const
+int MidiFile::getTicksPerQuarterNote() const
 {
     if (ticksPerQuarterNote == 0xE728) {
         // this is a special case which is the SMPTE time code

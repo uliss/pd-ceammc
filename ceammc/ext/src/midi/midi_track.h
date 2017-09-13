@@ -18,6 +18,7 @@ class MidiTrack : public BaseObject {
     FlagProperty* join_;
     SizeTProperty* track_idx_;
     IntProperty* tempo_;
+    FloatPropertyMin* speed_;
     size_t current_event_idx_;
     // used with reserved memory
     // to avoid allocation on every outputEvent() call

@@ -17,12 +17,14 @@ MidiTrack::MidiTrack(const PdArgs& args)
 {
     // properties
     join_ = new FlagProperty("@join");
-    track_idx_ = new SizeTProperty("@index", positionalFloatArgument(0, 0));
+    track_idx_ = new SizeTProperty("@track", positionalFloatArgument(0, 0));
     tempo_ = new IntProperty("@tempo", 120, true);
+    speed_ = new FloatPropertyMin("@speed", 1, 0.01);
 
     createProperty(join_);
     createProperty(track_idx_);
     createProperty(tempo_);
+    createProperty(speed_);
 
     createCbProperty("@events", &MidiTrack::p_events);
     createCbProperty("@current", &MidiTrack::p_current);
@@ -45,7 +47,6 @@ MidiTrack::~MidiTrack()
 void MidiTrack::onBang()
 {
     outputCurrent();
-    //    dataTo(0, midi_track_.clone());
 }
 
 void MidiTrack::onDataT(const DataTypeMidiStream& s)
@@ -60,14 +61,14 @@ void MidiTrack::onDataT(const DataTypeMidiStream& s)
 
     } else {
         const size_t trackN = track_idx_->value();
-        const MidiFile mf = *s.midifile();
-        if (mf.getTrackCount() <= trackN) {
+        const MidiFile* mf = s.midifile();
+        if (mf->getTrackCount() <= trackN) {
             OBJ_ERR << "invalid track index: " << trackN;
             return;
         }
 
-        midi_track_ = DataTypeMidiTrack(mf[trackN]);
-        tempo_->setValue(mf.getTicksPerQuarterNote());
+        midi_track_ = DataTypeMidiTrack(mf->trackAt(trackN));
+        tempo_->setValue(mf->getTicksPerQuarterNote());
     }
 
     current_event_idx_ = 0;
