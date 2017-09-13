@@ -2,16 +2,13 @@
 #include "MidiEventList.h"
 #include "ceammc_datatypes.h"
 
+#include <boost/make_shared.hpp>
+
 const DataType DataTypeMidiTrack::dataType = data::DATA_MIDI_TRACK;
 
 DataTypeMidiTrack::DataTypeMidiTrack()
-    : events_(new MidiEventList)
+    : events_(boost::make_shared<MidiEventList>())
 {
-}
-
-DataTypeMidiTrack::~DataTypeMidiTrack()
-{
-    delete events_;
 }
 
 DataTypeMidiTrack::DataTypeMidiTrack(const MidiEventList& lst)

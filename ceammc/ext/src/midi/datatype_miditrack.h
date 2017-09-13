@@ -3,6 +3,7 @@
 
 #include "ceammc_abstractdata.h"
 
+#include <boost/shared_ptr.hpp>
 #include <vector>
 
 using namespace ceammc;
@@ -11,11 +12,10 @@ class MidiEvent;
 class MidiEventList;
 
 class DataTypeMidiTrack : public AbstractData {
-    MidiEventList* events_;
+    boost::shared_ptr<MidiEventList> events_;
 
 public:
     DataTypeMidiTrack();
-    ~DataTypeMidiTrack();
     DataTypeMidiTrack(const MidiEventList& lst);
 
     DataTypeMidiTrack* clone() const;

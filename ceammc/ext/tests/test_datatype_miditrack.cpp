@@ -11,7 +11,9 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#include "../lib/ceammc_datatypes.h"
 #include "../midi/datatype_miditrack.h"
+
 #include "base_extension_test.h"
 
 #include "catch.hpp"
@@ -26,6 +28,9 @@ TEST_CASE("DataTypeMidiTrack", "[ceammc::DataTypeMidiTrack]")
 {
     SECTION("init")
     {
-        DataTypeMidiTrack mt;
+        DataTypeMidiTrack track;
+        REQUIRE(track.type() == data::DATA_MIDI_TRACK);
+        REQUIRE(track.eventCount() == 0);
+        REQUIRE(track.begin() == track.end());
     }
 }
