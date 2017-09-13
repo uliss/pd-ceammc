@@ -54,8 +54,6 @@ MidiFile::MidiFile(void)
     theTimeState = TIME_STATE_ABSOLUTE; // absolute or delta
     events.resize(1);
     events[0] = new MidiEventList;
-    readFileName.resize(1);
-    readFileName[0] = '\0';
     timemap.clear();
     timemapvalid = 0;
     rwstatus = 1;
@@ -69,28 +67,9 @@ MidiFile::MidiFile(const char* filename)
     theTimeState = TIME_STATE_ABSOLUTE; // absolute or delta
     events.resize(1);
     events[0] = new MidiEventList;
-    readFileName.resize(1);
-    readFileName[0] = '\0';
-    read(filename);
+    rwstatus = read(filename);
     timemap.clear();
     timemapvalid = 0;
-    rwstatus = 1;
-}
-
-MidiFile::MidiFile(const string& filename)
-{
-    ticksPerQuarterNote = 120; // TQP time base of file
-    trackCount = 1; // # of tracks in file
-    theTrackState = TRACK_STATE_SPLIT; // joined or split
-    theTimeState = TIME_STATE_ABSOLUTE; // absolute or delta
-    events.resize(1);
-    events[0] = new MidiEventList;
-    readFileName.resize(1);
-    readFileName[0] = '\0';
-    read(filename);
-    timemap.clear();
-    timemapvalid = 0;
-    rwstatus = 1;
 }
 
 MidiFile::MidiFile(istream& input)
@@ -101,12 +80,9 @@ MidiFile::MidiFile(istream& input)
     theTimeState = TIME_STATE_ABSOLUTE; // absolute or delta
     events.resize(1);
     events[0] = new MidiEventList;
-    readFileName.resize(1);
-    readFileName[0] = '\0';
-    read(input);
+    rwstatus = read(input);
     timemap.clear();
     timemapvalid = 0;
-    rwstatus = 1;
 }
 
 //////////////////////////////
@@ -138,8 +114,6 @@ MidiFile::MidiFile(const MidiFile& other)
 
 MidiFile::~MidiFile()
 {
-    readFileName.resize(1);
-    readFileName[0] = '\0';
     clear();
     if (events[0] != NULL) {
         delete events[0];
@@ -228,7 +202,7 @@ int MidiFile::read(istream& input)
         }
     }
 
-    const char* filename = getFilename();
+    const std::string& filename = getFilename();
 
     int character;
     // uchar  buffer[123456] = {0};
@@ -795,7 +769,7 @@ int MidiFile::writeBinascWithComments(ostream& output)
 //    write (writeHex, writeBinasc).
 //
 
-int MidiFile::status(void)
+int MidiFile::status() const
 {
     return rwstatus;
 }
@@ -1263,24 +1237,13 @@ int MidiFile::isAbsoluteTicks(void)
 //      Currently removed any directory path.
 //
 
-void MidiFile::setFilename(const char* aname)
-{
-    const char* ptr = strrchr(aname, '/');
-    int len;
-    if (ptr != NULL) {
-        len = (int)strlen(ptr + 1);
-        readFileName.resize(len + 1);
-        strncpy(readFileName.data(), ptr + 1, len);
-    } else {
-        len = (int)strlen(aname);
-        readFileName.resize(len + 1);
-        strncpy(readFileName.data(), aname, len);
-    }
-}
-
 void MidiFile::setFilename(const string& aname)
 {
-    MidiFile::setFilename(aname.data());
+    std::string::size_type p = aname.rfind('/');
+    if (p == std::string::npos)
+        readFileName = aname;
+    else
+        readFileName = aname.substr(p + 1);
 }
 
 //////////////////////////////
@@ -1289,9 +1252,9 @@ void MidiFile::setFilename(const string& aname)
 //    structure (if the data was read from a file).
 //
 
-const char* MidiFile::getFilename(void) const
+const string& MidiFile::getFilename() const
 {
-    return readFileName.data();
+    return readFileName;
 }
 
 //////////////////////////////
@@ -1299,7 +1262,7 @@ const char* MidiFile::getFilename(void) const
 // MidiFile::addEvent --
 //
 
-int MidiFile::addEvent(int aTrack, int aTick, vector<uchar>& midiData)
+int MidiFile::addEvent(int aTrack, int aTick, const std::vector<uchar>& midiData)
 {
     timemapvalid = 0;
     MidiEvent anEvent;
@@ -2078,6 +2041,9 @@ double MidiFile::getTotalTimeInSeconds(void)
     }
     double output = 0.0;
     for (int i = 0; i < (int)events.size(); i++) {
+        if (events[i]->empty())
+            continue;
+
         if (events[i]->last().seconds > output) {
             output = events[i]->last().seconds;
         }

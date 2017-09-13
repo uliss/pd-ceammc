@@ -91,6 +91,7 @@ ceammc_external_test(math round_tilde)
 
 ceammc_external_test(midi file)
 ceammc_external_test(midi note)
+ceammc_external_test(midi track)
 
 ceammc_external_test(random discrete)
 ceammc_external_test(random linear)
@@ -131,6 +132,11 @@ ceammc_add_test_linked(TITLE "ceammc::DataString"
 ceammc_add_test_linked(TITLE "ceammc::DataTypeMidiStream"
     NAME test_datatype_midistream
     SRC test_datatype_midistream.cpp
+    LINK ceammc_core puredata-core ceammc_core ceammc_midi)
+
+ceammc_add_test_linked(TITLE "ceammc::DataTypeMidiTrack"
+    NAME test_datatype_miditrack
+    SRC test_datatype_miditrack.cpp
     LINK ceammc_core puredata-core ceammc_core ceammc_midi)
 
 if(WITH_LIBSNDFILE)

@@ -13,6 +13,7 @@ MidiTrack::MidiTrack(const PdArgs& args)
     , tempo_(0)
     , current_event_idx_(0)
     , clock_(clock_new(this, (t_method)&MidiTrack::clockTickHandler))
+    , play_state_(PLAY_STATE_STOPPED)
 {
     join_ = new FlagProperty("@join");
     track_idx_ = new SizeTProperty("@index", positionalFloatArgument(0, 0));
@@ -20,6 +21,7 @@ MidiTrack::MidiTrack(const PdArgs& args)
 
     createProperty(join_);
     createProperty(track_idx_);
+    createProperty(tempo_);
 
     createOutlet();
     createOutlet();
@@ -129,7 +131,25 @@ void MidiTrack::m_seek(t_symbol*, const AtomList& l)
 
 void MidiTrack::m_play(t_symbol*, const AtomList&)
 {
-    clock_set(clock_, 1000);
+    if (play_state_ == PLAY_STATE_PLAYING) {
+        OBJ_ERR << "already playing...";
+        return;
+    }
+
+    play_state_ = PLAY_STATE_PLAYING;
+    clockTick();
+}
+
+void MidiTrack::m_stop(t_symbol*, const AtomList&)
+{
+    if (play_state_ == PLAY_STATE_STOPPED) {
+        OBJ_ERR << "already stopped...";
+        return;
+    }
+
+    current_event_idx_ = 0;
+    play_state_ = PLAY_STATE_STOPPED;
+    clock_unset(clock_);
 }
 
 void MidiTrack::outputEvent(MidiEvent* ev)
@@ -241,7 +261,13 @@ struct EventOutput {
     {
     }
 
-    void operator()(MidiEvent* e) { track->outputEvent(e); }
+    void operator()(MidiEvent* e)
+    {
+        track->outputEvent(e);
+
+        if (e->isTempo()) {
+        }
+    }
 };
 
 double MidiTrack::outputCurrent()
@@ -252,9 +278,13 @@ double MidiTrack::outputCurrent()
     MidiEventIterator cur_ev = begin() + current_event_idx_;
     MidiEventIterator next_ev = findNextTick(cur_ev);
 
-    int tick_duration = 0;
+    //    int tpq = getTicksPerQuarterNote();
+    //    double defaultTempo = 120.0;
+    //    double secondsPerTick = 60.0 / (defaultTempo * tpq);
+
+    double tick_duration = 0;
     if (next_ev != end())
-        tick_duration = (*next_ev)->tick - (*cur_ev)->tick;
+        tick_duration = (*next_ev)->seconds - (*cur_ev)->seconds;
 
     floatTo(1, tick_duration);
 
@@ -272,8 +302,19 @@ void MidiTrack::clockTickHandler(MidiTrack* p)
 
 void MidiTrack::clockTick()
 {
+    if (play_state_ != PLAY_STATE_PLAYING)
+        return;
+
     OBJ_DBG << "tick";
-    onBang();
+    double dur = outputCurrent();
+
+    if (dur <= 0) {
+        OBJ_DBG << "finished";
+        return;
+    }
+
+    clock_delay(clock_, dur * 1000);
+    m_next(0, AtomList());
 }
 
 void setup_midi_track()
@@ -285,4 +326,5 @@ void setup_midi_track()
     obj.addMethod("output", &MidiTrack::m_output);
     obj.addMethod("seek", &MidiTrack::m_seek);
     obj.addMethod("play", &MidiTrack::m_play);
+    obj.addMethod("stop", &MidiTrack::m_stop);
 }

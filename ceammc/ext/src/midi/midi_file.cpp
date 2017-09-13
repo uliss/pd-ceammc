@@ -44,14 +44,12 @@ void XMidiFile::m_read(t_symbol*, const AtomList& l)
         return;
     }
 
-    MidiFile mf;
-
-    if (!mf.read(path.c_str())) {
+    midi_stream_ = new DataTypeMidiStream(path.c_str());
+    if (!midi_stream_->is_open()) {
         OBJ_ERR << "can't read MIDI file: " << path.c_str();
         return;
     }
 
-    midi_stream_ = new DataTypeMidiStream(mf);
     OBJ_DBG << "file read from: \"" << path << "\"";
 }
 

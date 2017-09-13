@@ -7,6 +7,12 @@
 
 using namespace ceammc;
 
+enum PlayState {
+    PLAY_STATE_STOPPED = 0,
+    PLAY_STATE_PLAYING = 1,
+    PLAY_STATE_PAUSED = 2
+};
+
 class MidiTrack : public BaseObject {
     DataTypeMidiTrack midi_track_;
     FlagProperty* join_;
@@ -17,6 +23,7 @@ class MidiTrack : public BaseObject {
     // to avoid allocation on every outputEvent() call
     AtomList current_event_;
     t_clock* clock_;
+    PlayState play_state_;
 
 public:
     typedef DataTypeMidiTrack::iterator MidiEventIterator;
@@ -36,6 +43,7 @@ public:
     void m_output(t_symbol*, const AtomList&);
     void m_seek(t_symbol*, const AtomList& l);
     void m_play(t_symbol*, const AtomList&);
+    void m_stop(t_symbol*, const AtomList&);
 
     void outputEvent(MidiEvent* ev);
 

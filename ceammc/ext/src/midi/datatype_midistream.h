@@ -13,12 +13,14 @@ class DataTypeMidiStream : public AbstractData {
     int total_ticks_;
     double total_secs_;
     double total_quarters_;
+    bool is_open_;
 
 public:
     DataTypeMidiStream();
-    DataTypeMidiStream(const MidiFile& midifile);
-    DataTypeMidiStream(const char* fname);
+    explicit DataTypeMidiStream(const MidiFile& midifile);
+    explicit DataTypeMidiStream(const char* fname);
     ~DataTypeMidiStream();
+
     size_t trackCount() const;
     size_t tempo() const;
     t_symbol* filename() const;
@@ -32,6 +34,11 @@ public:
 
     MidiFile* midifile();
     const MidiFile* midifile() const;
+
+    /**
+     * Checks if midi stream successfully opened
+     */
+    bool is_open() const;
 
 public:
     static const DataType dataType;

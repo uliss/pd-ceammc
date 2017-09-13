@@ -1,16 +1,21 @@
 #ifndef DATATYPE_MIDITRACK_H
 #define DATATYPE_MIDITRACK_H
 
-#include "MidiEventList.h"
 #include "ceammc_abstractdata.h"
+
+#include <vector>
 
 using namespace ceammc;
 
+class MidiEvent;
+class MidiEventList;
+
 class DataTypeMidiTrack : public AbstractData {
-    MidiEventList events_;
+    MidiEventList* events_;
 
 public:
     DataTypeMidiTrack();
+    ~DataTypeMidiTrack();
     DataTypeMidiTrack(const MidiEventList& lst);
 
     DataTypeMidiTrack* clone() const;
@@ -22,8 +27,8 @@ public:
     const MidiEvent* eventAt(size_t n) const;
 
 public:
-    typedef MidiEventList::iterator iterator;
-    typedef MidiEventList::const_iterator const_iterator;
+    typedef std::vector<MidiEvent*>::iterator iterator;
+    typedef std::vector<MidiEvent*>::const_iterator const_iterator;
 
     iterator begin();
     iterator end();
@@ -33,6 +38,9 @@ public:
 
 public:
     static const DataType dataType;
+
+private:
+    DataTypeMidiTrack(const DataTypeMidiTrack& dt);
 };
 
 #endif // DATATYPE_MIDITRACK_H

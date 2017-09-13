@@ -10,8 +10,8 @@ DataTypeMidiStream::DataTypeMidiStream()
     , total_ticks_(0)
     , total_secs_(0)
     , total_quarters_(0)
+    , is_open_(false)
 {
-    LIB_DBG << "MidiStream created";
 }
 
 DataTypeMidiStream::DataTypeMidiStream(const MidiFile& midifile)
@@ -19,8 +19,8 @@ DataTypeMidiStream::DataTypeMidiStream(const MidiFile& midifile)
     , total_ticks_(0)
     , total_secs_(0)
     , total_quarters_(0)
+    , is_open_(midi_file_->status())
 {
-    LIB_DBG << "MidiStream created";
     calcTime();
 }
 
@@ -29,14 +29,16 @@ DataTypeMidiStream::DataTypeMidiStream(const char* fname)
     , total_ticks_(0)
     , total_secs_(0)
     , total_quarters_(0)
+    , is_open_(midi_file_->status() != 0)
 {
-    LIB_DBG << "MidiStream created: " << fname;
+    if (!is_open_)
+        midi_file_->setFilename("");
+
     calcTime();
 }
 
 DataTypeMidiStream::~DataTypeMidiStream()
 {
-    LIB_DBG << "MidiStream destroyed";
 }
 
 size_t DataTypeMidiStream::trackCount() const
@@ -51,7 +53,7 @@ size_t DataTypeMidiStream::tempo() const
 
 t_symbol* DataTypeMidiStream::filename() const
 {
-    return gensym(midi_file_->getFilename());
+    return gensym(midi_file_->getFilename().c_str());
 }
 
 DataTypeMidiStream* DataTypeMidiStream::clone() const
@@ -89,22 +91,14 @@ const MidiFile* DataTypeMidiStream::midifile() const
     return midi_file_.get();
 }
 
+bool DataTypeMidiStream::is_open() const
+{
+    return is_open_;
+}
+
 void DataTypeMidiStream::calcTime()
 {
-    bool splitted = midi_file_->hasSplitTracks();
-    if (splitted)
-        midi_file_->joinTracks();
-
-    if (midi_file_->getEventCount(0) > 0) {
-        total_ticks_ = midi_file_->getTotalTimeInTicks();
-        total_secs_ = midi_file_->getTotalTimeInSeconds();
-        total_quarters_ = midi_file_->getTotalTimeInQuarters();
-    } else {
-        total_ticks_ = 0;
-        total_secs_ = 0;
-        total_quarters_ = 0;
-    }
-
-    if (splitted)
-        midi_file_->splitTracks();
+    total_ticks_ = midi_file_->getTotalTimeInTicks();
+    total_secs_ = midi_file_->getTotalTimeInSeconds();
+    total_quarters_ = midi_file_->getTotalTimeInQuarters();
 }

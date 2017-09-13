@@ -49,7 +49,6 @@ class MidiFile {
 public:
     MidiFile(void);
     MidiFile(const char* aFile);
-    MidiFile(const std::string& aFile);
     MidiFile(std::istream& input);
     MidiFile(const MidiFile& other);
     //MidiFile(MidiFile&& other);
@@ -71,7 +70,7 @@ public:
     int writeBinascWithComments(const char* aFile);
     int writeBinascWithComments(const std::string& aFile);
     int writeBinascWithComments(std::ostream& out);
-    int status(void);
+    int status() const;
 
     // track-related functions:
     MidiEventList& operator[](int aTrack);
@@ -136,12 +135,10 @@ public:
     void clearLinks(void);
 
     // filename functions:
-    void setFilename(const char* aname);
     void setFilename(const std::string& aname);
-    const char* getFilename(void) const;
+    const std::string& getFilename() const;
 
-    int addEvent(int aTrack, int aTick,
-        std::vector<uchar>& midiData);
+    int addEvent(int aTrack, int aTick, const std::vector<uchar>& midiData);
     int addEvent(MidiEvent& mfevent);
 
     // MIDI message adding convenience functions:
@@ -218,7 +215,7 @@ protected:
     int trackCount; // # of tracks in file
     int theTrackState; // joined or split
     int theTimeState; // absolute or delta
-    std::vector<char> readFileName; // read file name
+    std::string readFileName; // read file name
 
     int timemapvalid;
     std::vector<_TickTime> timemap;
