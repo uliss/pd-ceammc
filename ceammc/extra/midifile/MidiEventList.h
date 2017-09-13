@@ -25,8 +25,6 @@ public:
     MidiEventList(const MidiEventList& other);
     MidiEventList* clone() const;
 
-    MidiEvent& operator[](int index);
-    const MidiEvent& operator[](int index) const;
     MidiEvent& back(void);
     MidiEvent& last(void);
     MidiEvent& getEvent(int index);
@@ -56,6 +54,18 @@ public:
     const_iterator begin() const;
     iterator end();
     const_iterator end() const;
+
+    /**
+     * Checks if event list is empty
+     */
+    bool empty() const { return list.empty(); }
+
+    /**
+     * Returns event at specified position
+     * @note no range checks
+     */
+    MidiEvent& operator[](size_t index) { return *list[index]; }
+    const MidiEvent& operator[](size_t index) const { return *list[index]; }
 
 private:
     std::vector<MidiEvent*> list;

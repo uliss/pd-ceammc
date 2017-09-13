@@ -60,21 +60,6 @@ MidiEventList::~MidiEventList()
 
 //////////////////////////////
 //
-// MidiEventList::operator[] --
-//
-
-MidiEvent& MidiEventList::operator[](int index)
-{
-    return *list[index];
-}
-
-const MidiEvent& MidiEventList::operator[](int index) const
-{
-    return *list[index];
-}
-
-//////////////////////////////
-//
 // MidiEventList::back -- Return the last element in the list.
 //
 

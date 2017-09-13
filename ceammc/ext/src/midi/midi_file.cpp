@@ -18,6 +18,9 @@ XMidiFile::XMidiFile(const PdArgs& a)
     createCbProperty("@filename", &XMidiFile::p_filename);
     createCbProperty("@tracks", &XMidiFile::p_tracks);
     createCbProperty("@tempo", &XMidiFile::p_tempo);
+    createCbProperty("@length_sec", &XMidiFile::p_length_sec);
+    createCbProperty("@length_tick", &XMidiFile::p_length_tick);
+    createCbProperty("@length_beat", &XMidiFile::p_length_beat);
 }
 
 void XMidiFile::onBang()
@@ -85,6 +88,21 @@ AtomList XMidiFile::p_tempo() const
 AtomList XMidiFile::p_tracks() const
 {
     return Atom(midi_stream_->trackCount());
+}
+
+AtomList XMidiFile::p_length_sec() const
+{
+    return Atom(midi_stream_->totalTimeInSeconds());
+}
+
+AtomList XMidiFile::p_length_tick() const
+{
+    return Atom(midi_stream_->totalTimeInTicks());
+}
+
+AtomList XMidiFile::p_length_beat() const
+{
+    return Atom(midi_stream_->totalTimeInQuarters());
 }
 
 void XMidiFile::onDataT(const DataTypeMidiStream& data)

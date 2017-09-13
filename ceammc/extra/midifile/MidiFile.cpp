@@ -2104,7 +2104,10 @@ int MidiFile::getTotalTimeInTicks(void)
         deltaTicks();
     }
     int output = 0.0;
-    for (int i = 0; i < (int)events.size(); i++) {
+    for (size_t i = 0; i < events.size(); i++) {
+        if (events[i]->empty())
+            continue;
+
         if (events[i]->last().tick > output) {
             output = events[i]->last().tick;
         }

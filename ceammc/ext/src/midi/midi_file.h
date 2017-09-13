@@ -24,6 +24,9 @@ public:
     AtomList p_filename() const;
     AtomList p_tempo() const;
     AtomList p_tracks() const;
+    AtomList p_length_sec() const;
+    AtomList p_length_tick() const;
+    AtomList p_length_beat() const;
 
     void onDataT(const DataTypeMidiStream& data);
 };

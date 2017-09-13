@@ -37,6 +37,9 @@ TEST_CASE("midi.file", "[externals]")
         REQUIRE_PROPERTY(t, @filename, "");
         REQUIRE_PROPERTY(t, @tracks, 1);
         REQUIRE_PROPERTY(t, @tempo, 120);
+        REQUIRE_PROPERTY(t, @length_sec, Atom(0.f));
+        REQUIRE_PROPERTY(t, @length_tick, Atom(0.f));
+        REQUIRE_PROPERTY(t, @length_beat, Atom(0.f));
     }
 
     SECTION("read")
@@ -56,6 +59,9 @@ TEST_CASE("midi.file", "[externals]")
         REQUIRE_PROPERTY(t, @filename, "");
         REQUIRE_PROPERTY(t, @tracks, 1);
         REQUIRE_PROPERTY(t, @tempo, 120);
+        REQUIRE_PROPERTY(t, @length_sec, Atom(0.f));
+        REQUIRE_PROPERTY(t, @length_tick, Atom(0.f));
+        REQUIRE_PROPERTY(t, @length_beat, Atom(0.f));
 
         // wrong argument count
         WHEN_CALL(t, read);
@@ -76,12 +82,18 @@ TEST_CASE("midi.file", "[externals]")
         REQUIRE_PROPERTY(t, @filename, "test_01.mid");
         REQUIRE_PROPERTY(t, @tracks, 1);
         REQUIRE_PROPERTY(t, @tempo, 480);
+        REQUIRE_PROPERTY(t, @length_sec, Atom(1.975));
+        REQUIRE_PROPERTY(t, @length_tick, Atom(1896));
+        REQUIRE_PROPERTY(t, @length_beat, Atom(3.95));
 
         WHEN_CALL(t, clear);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
         REQUIRE_PROPERTY(t, @filename, "");
         REQUIRE_PROPERTY(t, @tracks, 1);
         REQUIRE_PROPERTY(t, @tempo, 120);
+        REQUIRE_PROPERTY(t, @length_sec, Atom(0.f));
+        REQUIRE_PROPERTY(t, @length_tick, Atom(0.f));
+        REQUIRE_PROPERTY(t, @length_beat, Atom(0.f));
     }
 
     SECTION("bang")

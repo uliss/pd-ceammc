@@ -18,6 +18,10 @@
 
 using namespace ceammc;
 
+#ifndef TEST_DATA_DIR
+#define TEST_DATA_DIR "."
+#endif
+
 TEST_CASE("DataTypeMidiStream", "[ceammc::DataTypeMidiStream]")
 {
     SECTION("init")
@@ -27,5 +31,16 @@ TEST_CASE("DataTypeMidiStream", "[ceammc::DataTypeMidiStream]")
         REQUIRE(midi.tempo() == 120);
         REQUIRE(midi.filename() == gensym(""));
         REQUIRE(midi.midifile() != 0);
+        REQUIRE(midi.totalTimeInSeconds() == 0);
+        REQUIRE(midi.totalTimeInTicks() == 0);
+        REQUIRE(midi.totalTimeInQuarters() == 0);
+
+        DataTypeMidiStream midi2(TEST_DATA_DIR "/test_01.mid");
+        REQUIRE(midi2.tempo() == 480);
+        REQUIRE(midi2.trackCount() == 1);
+        REQUIRE(midi2.filename()->s_name == std::string("test_01.mid"));
+        REQUIRE(midi2.totalTimeInTicks() == 1896);
+        REQUIRE(midi2.totalTimeInQuarters() == Approx(3.95));
+        REQUIRE(midi2.totalTimeInSeconds() == Approx(1.975));
     }
 }

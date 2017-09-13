@@ -12,6 +12,7 @@ MidiTrack::MidiTrack(const PdArgs& args)
     , track_idx_(0)
     , tempo_(0)
     , current_event_idx_(0)
+    , clock_(clock_new(this, (t_method)&MidiTrack::clockTickHandler))
 {
     join_ = new FlagProperty("@join");
     track_idx_ = new SizeTProperty("@index", positionalFloatArgument(0, 0));
@@ -27,6 +28,12 @@ MidiTrack::MidiTrack(const PdArgs& args)
 
     // reserve space to avoid runtime reallocations
     current_event_.reserve(10);
+}
+
+MidiTrack::~MidiTrack()
+{
+    if (clock_)
+        clock_free(clock_);
 }
 
 void MidiTrack::onBang()
@@ -120,13 +127,18 @@ void MidiTrack::m_seek(t_symbol*, const AtomList& l)
     }
 }
 
+void MidiTrack::m_play(t_symbol*, const AtomList&)
+{
+    clock_set(clock_, 1000);
+}
+
 void MidiTrack::outputEvent(MidiEvent* ev)
 {
     current_event_.clear();
 
     current_event_.append(ev->tick);
     current_event_.append(ev->track);
-    current_event_.append(ev->getDurationInSeconds() / 1000.f);
+    current_event_.append(ev->getDurationInSeconds() * 1000);
 
     const size_t size = ev->size();
     for (size_t i = 0; i < size; i++)
@@ -232,10 +244,10 @@ struct EventOutput {
     void operator()(MidiEvent* e) { track->outputEvent(e); }
 };
 
-void MidiTrack::outputCurrent()
+double MidiTrack::outputCurrent()
 {
     if (current_event_idx_ >= size())
-        return;
+        return 0;
 
     MidiEventIterator cur_ev = begin() + current_event_idx_;
     MidiEventIterator next_ev = findNextTick(cur_ev);
@@ -249,6 +261,19 @@ void MidiTrack::outputCurrent()
     // output all events before next tick
     EventOutput event_out(this);
     std::for_each(cur_ev, next_ev, event_out);
+
+    return tick_duration;
+}
+
+void MidiTrack::clockTickHandler(MidiTrack* p)
+{
+    p->clockTick();
+}
+
+void MidiTrack::clockTick()
+{
+    OBJ_DBG << "tick";
+    onBang();
 }
 
 void setup_midi_track()
@@ -259,4 +284,5 @@ void setup_midi_track()
     obj.addMethod("reset", &MidiTrack::m_reset);
     obj.addMethod("output", &MidiTrack::m_output);
     obj.addMethod("seek", &MidiTrack::m_seek);
+    obj.addMethod("play", &MidiTrack::m_play);
 }

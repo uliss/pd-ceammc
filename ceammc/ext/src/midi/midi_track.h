@@ -16,6 +16,7 @@ class MidiTrack : public BaseObject {
     // used with reserved memory
     // to avoid allocation on every outputEvent() call
     AtomList current_event_;
+    t_clock* clock_;
 
 public:
     typedef DataTypeMidiTrack::iterator MidiEventIterator;
@@ -23,6 +24,7 @@ public:
 
 public:
     MidiTrack(const PdArgs& args);
+    ~MidiTrack();
 
     void onBang();
 
@@ -33,6 +35,7 @@ public:
     void m_reset(t_symbol*, const AtomList&);
     void m_output(t_symbol*, const AtomList&);
     void m_seek(t_symbol*, const AtomList& l);
+    void m_play(t_symbol*, const AtomList&);
 
     void outputEvent(MidiEvent* ev);
 
@@ -64,7 +67,10 @@ public:
 
 private:
     int currentTick() const;
-    void outputCurrent();
+    double outputCurrent();
+
+    static void clockTickHandler(MidiTrack* p);
+    void clockTick();
 };
 
 void setup_midi_track();
