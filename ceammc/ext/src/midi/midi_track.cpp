@@ -327,6 +327,7 @@ void MidiTrack::clockTick()
 
     if (dur_ms <= 0) {
         OBJ_DBG << "finished";
+        play_state_ = PLAY_STATE_STOPPED;
         return;
     }
 
