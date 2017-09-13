@@ -182,7 +182,7 @@ void MidiTrack::outputEvent(MidiEvent* ev)
 
     current_event_.append(ev->tick);
     current_event_.append(ev->track);
-    double dur_ms = ev->getDurationInSeconds() * 1000;
+    double dur_ms = (ev->getDurationInSeconds() * 1000) / speed_->value();
     current_event_.append(dur_ms > 0 ? dur_ms : 0);
 
     const size_t size = ev->size();
@@ -303,7 +303,7 @@ double MidiTrack::outputCurrent()
 
     double tick_duration_ms = 0;
     if (next_ev != end())
-        tick_duration_ms = ((*next_ev)->seconds - (*cur_ev)->seconds) * 1000;
+        tick_duration_ms = (((*next_ev)->seconds - (*cur_ev)->seconds) * 1000) / speed_->value();
 
     floatTo(1, tick_duration_ms);
 

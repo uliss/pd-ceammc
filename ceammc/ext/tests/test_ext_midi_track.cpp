@@ -79,6 +79,12 @@ TEST_CASE("midi.track", "[externals]")
         REQUIRE(t.size() == 0);
         REQUIRE_FALSE(t.seekAbs(0));
         REQUIRE_FALSE(t.seekAbs(1));
+
+        t.setProperty("@speed", A(-2));
+        REQUIRE_PROPERTY(t, @speed, A(1));
+
+        t.setProperty("@speed", A(0.1));
+        REQUIRE_PROPERTY(t, @speed, A(0.1));
     }
 
     SECTION("real")
@@ -260,5 +266,51 @@ TEST_CASE("midi.track", "[externals]")
         REQUIRE_PROPERTY(t, @events, Z);
         REQUIRE(t.begin() == t.end());
         REQUIRE(t.size() == 0);
+    }
+
+    SECTION("speed")
+    {
+        DataTypeMidiStream m(TEST_DATA_DIR "/test_01.mid");
+        REQUIRE(m.is_open());
+
+        MidiTrackTest t("midi.track", L2("@speed", 0.5));
+        WHEN_SEND_TDATA_TO(0, t, m);
+        REQUIRE(t.size() == 19);
+
+        REQUIRE(t.seekAbs(0));
+        REQUIRE_PROPERTY(t, @current, A(Z));
+        WHEN_SEND_BANG_TO(0, t);
+        REQUIRE(t.hasNewMessages(0));
+        REQUIRE(t.hasNewMessages(1));
+        REQUIRE(t.lastMessage(1).atomValue().asFloat() == Approx(473.95834 * 2));
+        t.cleanAllMessages();
+
+        REQUIRE(t.seekAbs(1));
+        REQUIRE_PROPERTY(t, @current, A(11));
+        WHEN_SEND_BANG_TO(0, t);
+        REQUIRE(t.hasNewMessages(0));
+        REQUIRE(t.hasNewMessages(1));
+
+        REQUIRE(t.messageCount(0) == 1);
+        REQUIRE(t.messageCount(1) == 1);
+        REQUIRE(t.lastMessage(1).atomValue().asFloat() == Approx(26.04167 * 2));
+        REQUIRE(approxCompare(t.lastMessage(0).anyValue(), L7("MidiEvent", 455, Z, Z, 144, 60, Z)));
+
+        t.m_next(0, AtomList());
+        REQUIRE_PROPERTY(t, @current, A(12));
+
+        WHEN_SEND_BANG_TO(0, t);
+        REQUIRE(t.hasNewMessages(0));
+        REQUIRE(t.hasNewMessages(1));
+        REQUIRE(t.lastMessage(1).atomValue().asFloat() == Approx(473.958 * 2));
+        REQUIRE(approxCompare(t.lastMessage(0).anyValue(), L7("MidiEvent", 480, Z, 473.958 * 2, 144, 62, 80)));
+
+        t.m_next(0, AtomList());
+        REQUIRE_PROPERTY(t, @current, A(13));
+        WHEN_SEND_BANG_TO(0, t);
+        REQUIRE(t.hasNewMessages(0));
+        REQUIRE(t.hasNewMessages(1));
+        REQUIRE(t.lastMessage(1).atomValue().asFloat() == Approx(26.04167 * 2));
+        REQUIRE(approxCompare(t.lastMessage(0).anyValue(), L7("MidiEvent", 935, Z, Z, 144, 62, Z)));
     }
 }
