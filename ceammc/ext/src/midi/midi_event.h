@@ -22,27 +22,48 @@ public:
     XMidiEvent(const AtomList& l);
     bool parse(const AtomList& l);
     bool isNote() const;
+    bool isProgramChange() const;
     bool isValid() const;
     t_float duration() const;
     MidiEvent& event();
     int track() const;
 };
 
-class MidiEventIsNote : public BaseObject {
-    XMidiEvent ev_;
+class BaseMidiEventExternal : public BaseObject {
+protected:
+    XMidiEvent event_;
 
 public:
-    MidiEventIsNote(const PdArgs& args);
+    BaseMidiEventExternal(const PdArgs& a);
+
     void onAny(t_symbol* s, const AtomList& args);
+    virtual void processEvent() = 0;
 };
 
-class MidiEventToNote : public BaseObject {
-    XMidiEvent ev_;
-    AtomList note_;
+class MidiEventIsNote : public BaseMidiEventExternal {
+public:
+    MidiEventIsNote(const PdArgs& args);
+    void processEvent();
+};
+
+class MidiEventToNote : public BaseMidiEventExternal {
+    AtomList msg_;
 
 public:
     MidiEventToNote(const PdArgs& args);
-    void onAny(t_symbol* s, const AtomList& args);
+    void processEvent();
+};
+
+class MidiEventIsPrg : public BaseMidiEventExternal {
+public:
+    MidiEventIsPrg(const PdArgs& args);
+    void processEvent();
+};
+
+class MidiEventToPrg : public BaseMidiEventExternal {
+public:
+    MidiEventToPrg(const PdArgs& args);
+    void processEvent();
 };
 
 void setup_midi_event();
