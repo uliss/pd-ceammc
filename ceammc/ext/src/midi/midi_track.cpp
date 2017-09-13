@@ -18,7 +18,7 @@ MidiTrack::MidiTrack(const PdArgs& args)
     // properties
     join_ = new FlagProperty("@join");
     track_idx_ = new SizeTProperty("@index", positionalFloatArgument(0, 0));
-    tempo_ = new IntProperty("@tempo", 120);
+    tempo_ = new IntProperty("@tempo", 120, true);
 
     createProperty(join_);
     createProperty(track_idx_);
@@ -26,6 +26,8 @@ MidiTrack::MidiTrack(const PdArgs& args)
 
     createCbProperty("@events", &MidiTrack::p_events);
     createCbProperty("@current", &MidiTrack::p_current);
+    // play state property
+    createCbProperty("@state", &MidiTrack::p_state);
 
     createOutlet();
     createOutlet();
@@ -81,6 +83,11 @@ AtomList MidiTrack::p_current() const
     return Atom(current_event_idx_);
 }
 
+AtomList MidiTrack::p_state() const
+{
+    return Atom(play_state_);
+}
+
 void MidiTrack::m_next(t_symbol*, const AtomList&)
 {
     if (current_event_idx_ >= size()) {
@@ -103,12 +110,6 @@ void MidiTrack::m_reset(t_symbol*, const AtomList&)
     current_event_idx_ = 0;
 }
 
-void MidiTrack::m_output(t_symbol*, const AtomList&)
-{
-    for (size_t i = 0; i < size(); i++)
-        outputEvent(midi_track_.eventAt(i));
-}
-
 void MidiTrack::m_seek(t_symbol*, const AtomList& l)
 {
     if (l.empty()) {
@@ -116,7 +117,6 @@ void MidiTrack::m_seek(t_symbol*, const AtomList& l)
         return;
     }
 
-    t_symbol* mode = gensym("BEGIN");
     int tick_idx = 0;
 
     if (l.size() < 2) {
@@ -156,6 +156,22 @@ void MidiTrack::m_stop(t_symbol*, const AtomList&)
 
     current_event_idx_ = 0;
     play_state_ = PLAY_STATE_STOPPED;
+    clock_unset(clock_);
+}
+
+void MidiTrack::m_pause(t_symbol*, const AtomList&)
+{
+    if (play_state_ == PLAY_STATE_PAUSED) {
+        OBJ_ERR << "already paused...";
+        return;
+    }
+
+    if (play_state_ == PLAY_STATE_STOPPED) {
+        OBJ_ERR << "playing stopped, ignored...";
+        return;
+    }
+
+    play_state_ = PLAY_STATE_PAUSED;
     clock_unset(clock_);
 }
 
@@ -284,16 +300,16 @@ double MidiTrack::outputCurrent()
     MidiEventIterator cur_ev = begin() + current_event_idx_;
     MidiEventIterator next_ev = findNextTick(cur_ev);
 
-    double tick_duration = 0;
+    double tick_duration_ms = 0;
     if (next_ev != end())
-        tick_duration = (*next_ev)->seconds - (*cur_ev)->seconds;
+        tick_duration_ms = ((*next_ev)->seconds - (*cur_ev)->seconds) * 1000;
 
-    floatTo(1, tick_duration * 1000);
+    floatTo(1, tick_duration_ms);
 
     EventOutput event_out(this);
     std::for_each(cur_ev, next_ev, event_out);
 
-    return tick_duration;
+    return tick_duration_ms;
 }
 
 void MidiTrack::clockTickHandler(MidiTrack* p)
@@ -307,14 +323,14 @@ void MidiTrack::clockTick()
         return;
 
     OBJ_DBG << "tick";
-    double dur = outputCurrent();
+    double dur_ms = outputCurrent();
 
-    if (dur <= 0) {
+    if (dur_ms <= 0) {
         OBJ_DBG << "finished";
         return;
     }
 
-    clock_delay(clock_, dur * 1000);
+    clock_delay(clock_, dur_ms);
     m_next(0, AtomList());
 }
 
@@ -324,8 +340,8 @@ void setup_midi_track()
     obj.processData<DataTypeMidiStream>();
     obj.addMethod("next", &MidiTrack::m_next);
     obj.addMethod("reset", &MidiTrack::m_reset);
-    obj.addMethod("output", &MidiTrack::m_output);
     obj.addMethod("seek", &MidiTrack::m_seek);
     obj.addMethod("play", &MidiTrack::m_play);
     obj.addMethod("stop", &MidiTrack::m_stop);
+    obj.addMethod("pause", &MidiTrack::m_pause);
 }

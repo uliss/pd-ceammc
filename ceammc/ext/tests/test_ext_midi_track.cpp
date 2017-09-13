@@ -14,8 +14,10 @@
 #include "../midi/datatype_midistream.h"
 #include "../midi/midi_track.h"
 #include "base_extension_test.h"
-#include "catch.hpp"
 #include "ceammc_datatypes.h"
+#include "ceammc_pd.h"
+
+#include "catch.hpp"
 
 #include <fstream>
 #include <stdio.h>
@@ -27,6 +29,8 @@
 static const float Z = 0.f;
 
 typedef TestExtension<MidiTrack> MidiTrackTest;
+
+CanvasPtr p = PureData::instance().createTopCanvas("test");
 
 static bool approxCompare(const AtomList& l1, const AtomList& l2)
 {
@@ -68,6 +72,7 @@ TEST_CASE("midi.track", "[externals]")
         REQUIRE_PROPERTY(t, @tempo, A(120));
         REQUIRE_PROPERTY(t, @events, A(0.f));
         REQUIRE_PROPERTY(t, @current, A(0.f));
+        REQUIRE_PROPERTY(t, @state, Z);
 
         REQUIRE(t.begin() == t.end());
         REQUIRE(t.size() == 0);
@@ -177,5 +182,65 @@ TEST_CASE("midi.track", "[externals]")
         REQUIRE(t.hasNewMessages(1));
         REQUIRE(t.lastMessage(1).atomValue().asFloat() == Approx(473.958));
         REQUIRE(approxCompare(t.lastMessage(0).anyValue(), L7("MidiEvent", 1440, Z, 473.958, 144, 65, 80)));
+
+        WHEN_CALL(t, reset);
+        REQUIRE_PROPERTY(t, @current, A(Z));
+
+        WHEN_CALL_1(t, seek, 1);
+        REQUIRE_PROPERTY(t, @current, A(11));
+
+        WHEN_CALL_1(t, seek, Z);
+        REQUIRE_PROPERTY(t, @current, A(Z));
+
+        WHEN_CALL_1(t, seek, 3);
+        REQUIRE_PROPERTY(t, @current, A(13));
+    }
+
+    SECTION("play/stop")
+    {
+        DataTypeMidiStream m(TEST_DATA_DIR "/test_01.mid");
+        REQUIRE(m.is_open());
+
+        MidiTrackTest t("midi.track");
+        WHEN_SEND_TDATA_TO(0, t, m);
+
+        t.seekAbs(0);
+        REQUIRE_PROPERTY(t, @state, Z);
+
+        WHEN_CALL(t, play);
+        REQUIRE_PROPERTY(t, @state, 1);
+        REQUIRE_PROPERTY(t, @current, 11);
+
+        WHEN_CALL(t, pause);
+        REQUIRE_PROPERTY(t, @state, 2);
+        REQUIRE_PROPERTY(t, @current, 11);
+
+        // twice paused
+        WHEN_CALL(t, pause);
+        REQUIRE_PROPERTY(t, @state, 2);
+        REQUIRE_PROPERTY(t, @current, 11);
+
+        WHEN_CALL(t, play);
+        REQUIRE_PROPERTY(t, @state, 1);
+        REQUIRE_PROPERTY(t, @current, 12);
+
+        // twice playing
+        WHEN_CALL(t, play);
+        REQUIRE_PROPERTY(t, @state, 1);
+        REQUIRE_PROPERTY(t, @current, 12);
+
+        WHEN_CALL(t, stop);
+        REQUIRE_PROPERTY(t, @state, Z);
+        REQUIRE_PROPERTY(t, @current, Z);
+
+        // twice stopped
+        WHEN_CALL(t, stop);
+        REQUIRE_PROPERTY(t, @state, Z);
+        REQUIRE_PROPERTY(t, @current, Z);
+
+        // pause stopped
+        WHEN_CALL(t, pause);
+        REQUIRE_PROPERTY(t, @state, Z);
+        REQUIRE_PROPERTY(t, @current, Z);
     }
 }
