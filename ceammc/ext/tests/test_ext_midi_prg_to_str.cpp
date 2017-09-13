@@ -11,12 +11,22 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#include "../midi/midi_common.h"
 #include "../midi/midi_prg2str.h"
+#include "../string/datatype_string.h"
 #include "base_extension_test.h"
 #include "catch.hpp"
 
 #include <map>
 #include <set>
+
+#define REQUIRE_STRING_OUTPUT(t, str_)                                  \
+    {                                                                   \
+        REQUIRE_NEW_DATA_AT_OUTLET(0, t);                               \
+        const DataTypeString* s = t.typedLastDataAt<DataTypeString>(0); \
+        REQUIRE(s != 0);                                                \
+        REQUIRE(s->str() == str_);                                      \
+    }
 
 typedef std::set<t_symbol*> NamesSet;
 typedef std::map<t_symbol*, int> NamesMap;
@@ -100,5 +110,29 @@ TEST_CASE("midi.prg->str", "[externals]")
         REQUIRE_SYMBOL_AT_OUTLET(0, t, "Piano");
         WHEN_SEND_FLOAT_TO(0, t, 8);
         REQUIRE_SYMBOL_AT_OUTLET(0, t, "Piano");
+    }
+
+    SECTION("str")
+    {
+        Prg2StrTest t("midi.prg->str");
+        WHEN_SEND_FLOAT_TO(0, t, 9);
+        REQUIRE_STRING_OUTPUT(t, "Celesta");
+
+        Prg2StrTest t2("midi.prg->str", L1("@family"));
+        WHEN_SEND_FLOAT_TO(0, t2, 8);
+        REQUIRE_STRING_OUTPUT(t2, "Piano");
+    }
+
+    SECTION("common")
+    {
+        for (size_t i = 1; i <= 128; i++) {
+            REQUIRE(midi::instrument_name(i) != &s_);
+        }
+
+        REQUIRE(midi::instrument_index(midi::instrument_name(10)) == 10);
+
+        for (size_t i = 1; i <= 128; i++) {
+            REQUIRE(midi::instrument_index(midi::instrument_name(i)) == i);
+        }
     }
 }

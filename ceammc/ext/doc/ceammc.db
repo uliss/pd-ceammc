@@ -180,6 +180,7 @@ math.squared		.		.
 math.tan		.		.
 math.tanh		.		.
 math.trunc		.		.
+midi.ctr2str,midi.ctr->str		.		.
 midi.prg2str,midi.prg->str		.		.
 modplug~		.		~~
 msg,m		..		.

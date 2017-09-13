@@ -567,6 +567,9 @@
     <xi:include href="ceammc_category_math.xml" parse="xml"/>
   </category>
   <category name="midi">
+    <entry descr="convert Standard MIDI Controllers number to name" name="midi.ctr2str" ref_view="object">
+      <xi:include href="midi.ctr2str.pddoc" parse="xml"/>
+    </entry>
     <entry descr="convert GM Instrument number to name (string or symbol)" name="midi.prg2str" ref_view="object">
       <xi:include href="midi.prg2str.pddoc" parse="xml"/>
     </entry>

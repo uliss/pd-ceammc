@@ -2,8 +2,10 @@
 #X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
 #X obj 79 53 ui.link @title ceammc @url ceammc-help.pd;
-#X obj 30 116 midi.prg2str;
-#X text 175 116 convert GM Instrument number to name (string or
+#X obj 30 116 midi.ctr2str;
+#X text 175 116 convert Standard MIDI Controllers number to name;
+#X obj 30 143 midi.prg2str;
+#X text 175 143 convert GM Instrument number to name (string or
 symbol);
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::midi 20 20 0 20 -104026
 -4096 0;

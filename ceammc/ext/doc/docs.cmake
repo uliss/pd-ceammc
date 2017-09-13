@@ -181,6 +181,7 @@ set(DOC_FILES
     math.tan
     math.tanh
     math.trunc
+    midi.ctr2str
     midi.prg2str
     modplug~
     msg

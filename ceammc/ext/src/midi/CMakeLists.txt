@@ -1,6 +1,7 @@
 set(MIDI_SOURCES 
     datatype_midistream.cpp datatype_midistream.h
     datatype_miditrack.cpp datatype_miditrack.h
+    midi_common.cpp midi_common.h
 )
 
 macro(ceammc_midi_extension name)
@@ -10,7 +11,10 @@ endmacro()
 ceammc_midi_extension(event)
 ceammc_midi_extension(file)
 ceammc_midi_extension(track)
+ceammc_midi_extension(ctr2str)
+ceammc_midi_extension(key2str)
 ceammc_midi_extension(prg2str)
+ceammc_midi_extension(str2key)
 
 include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra/midifile)
 add_library(ceammc_midi STATIC mod_midi.cpp ${MIDI_SOURCES})
