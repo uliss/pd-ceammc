@@ -5,15 +5,15 @@
 
 using namespace ceammc;
 
-class ProgChange2Str : public BaseObject {
+class Prg2Str : public BaseObject {
     FlagProperty* as_symbol_;
     FlagProperty* family_;
 
 public:
-    ProgChange2Str(const PdArgs& a);
+    Prg2Str(const PdArgs& a);
     void onFloat(float v);
 };
 
-void setup_midi_progchange2str();
+void setup_midi_prg2str();
 
 #endif // MIDI_PROGCHANGE2STR_H

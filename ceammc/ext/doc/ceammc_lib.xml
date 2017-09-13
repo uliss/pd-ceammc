@@ -566,6 +566,11 @@
     </entry>
     <xi:include href="ceammc_category_math.xml" parse="xml"/>
   </category>
+  <category name="midi">
+    <entry descr="convert GM Instrument number to name (string or symbol)" name="midi.prg2str" ref_view="object">
+      <xi:include href="midi.prg2str.pddoc" parse="xml"/>
+    </entry>
+  </category>
   <category name="misc">
     <entry descr="Output single impulse on bang" name="click~" ref_view="object">
       <xi:include href="click~.pddoc" parse="xml"/>

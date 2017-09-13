@@ -25,6 +25,7 @@
 - patch.args added
 - canvas.current added
 - canvas.top added
+- midi.prg->str added
 
 ### Changed:
 - random.gauss doc update

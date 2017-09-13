@@ -180,6 +180,7 @@ math.squared		.		.
 math.tan		.		.
 math.tanh		.		.
 math.trunc		.		.
+midi.prg2str,midi.prg->str		.		.
 modplug~		.		~~
 msg,m		..		.
 noise.pink~		-		~

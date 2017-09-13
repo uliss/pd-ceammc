@@ -219,9 +219,14 @@ math.tan
 math.tanh
 math.trunc
 midi.ev->note
+midi.ev->prg
+midi.event2note
 midi.file
+midi.prg->str
+midi.prg2str
 midi.track
 midievent.is_note
+midievent.is_prg
 modplug~
 msg
 noise.baker
@@ -292,7 +297,6 @@ set.size
 set.symdiff
 set.union
 snd.file
-snd.play~
 split
 str
 str->sec

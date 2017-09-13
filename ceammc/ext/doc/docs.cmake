@@ -181,6 +181,7 @@ set(DOC_FILES
     math.tan
     math.tanh
     math.trunc
+    midi.prg2str
     modplug~
     msg
     noise.pink~

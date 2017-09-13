@@ -14,21 +14,91 @@
 #include "../midi/midi_prg2str.h"
 #include "base_extension_test.h"
 #include "catch.hpp"
-#include "ceammc_datatypes.h"
 
-#include <fstream>
-#include <stdio.h>
+#include <map>
+#include <set>
 
-#ifndef TEST_DATA_DIR
-#define TEST_DATA_DIR "."
-#endif
+typedef std::set<t_symbol*> NamesSet;
+typedef std::map<t_symbol*, int> NamesMap;
 
-typedef TestExtension<XMidiFile> MidiFileTest;
+typedef TestExtension<Prg2Str> Prg2StrTest;
 
-TEST_CASE("midi.file", "[externals]")
+TEST_CASE("midi.prg->str", "[externals]")
 {
+    pd_init();
+
     SECTION("init")
     {
-        setup_midi_file();
+        setup_midi_prg2str();
+
+        Prg2StrTest t("midi.prg->str", L1("@symbol"));
+
+        WHEN_SEND_FLOAT_TO(0, t, -2);
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+
+        WHEN_SEND_FLOAT_TO(0, t, 0.f);
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+
+        WHEN_SEND_FLOAT_TO(0, t, 129.f);
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+
+        WHEN_SEND_FLOAT_TO(0, t, 1000.f);
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+
+        NamesSet names;
+
+        for (int i = 1; i < 128; i++) {
+            WHEN_SEND_FLOAT_TO(0, t, i);
+            REQUIRE(t.hasNewMessages(0));
+            REQUIRE(t.lastMessage(0).isSymbol());
+            names.insert(t.lastMessage(0).atomValue().asSymbol());
+        }
+
+        REQUIRE(names.size() == 127);
+
+        WHEN_SEND_FLOAT_TO(0, t, 1);
+        REQUIRE_SYMBOL_AT_OUTLET(0, t, "Acoustic Grand Piano");
+
+        WHEN_SEND_FLOAT_TO(0, t, 9);
+        REQUIRE_SYMBOL_AT_OUTLET(0, t, "Celesta");
+    }
+
+    SECTION("family")
+    {
+        Prg2StrTest t("midi.prg->str", L2("@symbol", "@family"));
+
+        WHEN_SEND_FLOAT_TO(0, t, -2);
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+
+        WHEN_SEND_FLOAT_TO(0, t, 0.f);
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+
+        WHEN_SEND_FLOAT_TO(0, t, 129.f);
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+
+        WHEN_SEND_FLOAT_TO(0, t, 1000.f);
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+
+        NamesMap names;
+
+        for (int i = 1; i <= 128; i++) {
+            WHEN_SEND_FLOAT_TO(0, t, i);
+            REQUIRE(t.hasNewMessages(0));
+            REQUIRE(t.lastMessage(0).isSymbol());
+            t_symbol* s = t.lastMessage(0).atomValue().asSymbol();
+            names[s]++;
+        }
+
+        REQUIRE(names.size() == 16);
+        for (NamesMap::iterator it = names.begin(); it != names.end(); ++it) {
+            REQUIRE(it->second == 8);
+        }
+
+        WHEN_SEND_FLOAT_TO(0, t, 1);
+        REQUIRE_SYMBOL_AT_OUTLET(0, t, "Piano");
+        WHEN_SEND_FLOAT_TO(0, t, 2);
+        REQUIRE_SYMBOL_AT_OUTLET(0, t, "Piano");
+        WHEN_SEND_FLOAT_TO(0, t, 8);
+        REQUIRE_SYMBOL_AT_OUTLET(0, t, "Piano");
     }
 }

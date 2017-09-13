@@ -1,4 +1,4 @@
-#include "midi_progchange2str.h"
+#include "midi_prg2str.h"
 #include "../string/datatype_string.h"
 #include "ceammc_factory.h"
 
@@ -159,15 +159,15 @@ BOOST_STATIC_ASSERT(sizeof(PG_INSTR_FAMILY) / sizeof(t_symbol*) == 16);
 
 static t_symbol* instrument_family(int instrIndex)
 {
-    return PG_INSTR_FAMILY[instrIndex / 8];
+    return PG_INSTR_FAMILY[(instrIndex - 1) / 8];
 }
 
 static t_symbol* instrument_name(int instrIndex)
 {
-    return PG_INSTR_NAMES[instrIndex];
+    return PG_INSTR_NAMES[instrIndex - 1];
 }
 
-ProgChange2Str::ProgChange2Str(const PdArgs& a)
+Prg2Str::Prg2Str(const PdArgs& a)
     : BaseObject(a)
     , as_symbol_(0)
     , family_(0)
@@ -180,11 +180,11 @@ ProgChange2Str::ProgChange2Str(const PdArgs& a)
     createOutlet();
 }
 
-void ProgChange2Str::onFloat(float v)
+void Prg2Str::onFloat(float v)
 {
     int val = v;
 
-    if (!(0 < val && val < 128)) {
+    if (!(0 < val && val <= 128)) {
         OBJ_ERR << "invalid program change value:" << v;
         return;
     }
@@ -197,7 +197,8 @@ void ProgChange2Str::onFloat(float v)
         dataTo(0, DataPtr(new DataTypeString(name->s_name)));
 }
 
-void setup_midi_progchange2str()
+void setup_midi_prg2str()
 {
-    ObjectFactory<ProgChange2Str> obj("midi.pg->str");
+    ObjectFactory<Prg2Str> obj("midi.prg2str");
+    obj.addAlias("midi.prg->str");
 }
