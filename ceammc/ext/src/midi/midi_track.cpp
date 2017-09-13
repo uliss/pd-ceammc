@@ -323,7 +323,6 @@ void MidiTrack::clockTick()
     if (play_state_ != PLAY_STATE_PLAYING)
         return;
 
-    OBJ_DBG << "tick";
     double dur_ms = outputCurrent();
 
     if (dur_ms <= 0) {
