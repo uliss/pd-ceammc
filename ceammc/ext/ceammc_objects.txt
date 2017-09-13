@@ -218,6 +218,8 @@ math.squared
 math.tan
 math.tanh
 math.trunc
+midi.ctr->str
+midi.ctr2str
 midi.ev->note
 midi.ev->prg
 midi.event2note
