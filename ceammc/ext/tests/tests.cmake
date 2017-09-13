@@ -95,6 +95,9 @@ if(${WITH_COVERAGE})
         find_program(LCOV NAMES lcov PATHS /usr/bin /usr/local/bin)
         find_program (GCOV NAMES gcov-5 gcov-6 gcov-7 gcov PATHS /usr/bin /usr/local/bin)
 
+        set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} --coverage")
+        set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --coverage")
+
         if(LCOV AND GCOV)
             message(STATUS "lcov found: ${LCOV}")
             message(STATUS "gcov found: ${GCOV}")
