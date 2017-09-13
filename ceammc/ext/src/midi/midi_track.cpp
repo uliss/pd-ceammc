@@ -15,18 +15,20 @@ MidiTrack::MidiTrack(const PdArgs& args)
     , clock_(clock_new(this, (t_method)&MidiTrack::clockTickHandler))
     , play_state_(PLAY_STATE_STOPPED)
 {
+    // properties
     join_ = new FlagProperty("@join");
     track_idx_ = new SizeTProperty("@index", positionalFloatArgument(0, 0));
-    tempo_ = new IntProperty("@tempo", 0);
+    tempo_ = new IntProperty("@tempo", 120);
 
     createProperty(join_);
     createProperty(track_idx_);
     createProperty(tempo_);
 
-    createOutlet();
-    createOutlet();
-
     createCbProperty("@events", &MidiTrack::p_events);
+    createCbProperty("@current", &MidiTrack::p_current);
+
+    createOutlet();
+    createOutlet();
 
     // reserve space to avoid runtime reallocations
     current_event_.reserve(10);
@@ -74,6 +76,11 @@ AtomList MidiTrack::p_events() const
     return Atom(size());
 }
 
+AtomList MidiTrack::p_current() const
+{
+    return Atom(current_event_idx_);
+}
+
 void MidiTrack::m_next(t_symbol*, const AtomList&)
 {
     if (current_event_idx_ >= size()) {
@@ -81,7 +88,7 @@ void MidiTrack::m_next(t_symbol*, const AtomList&)
         return;
     }
 
-    size_t next_idx = findNextEventIndex(current_event_idx_);
+    size_t next_idx = findNextTickEventIndex(current_event_idx_);
     if (!next_idx) {
         floatTo(1, 0);
         OBJ_DBG << "end of track reached";
@@ -158,7 +165,8 @@ void MidiTrack::outputEvent(MidiEvent* ev)
 
     current_event_.append(ev->tick);
     current_event_.append(ev->track);
-    current_event_.append(ev->getDurationInSeconds() * 1000);
+    double dur_ms = ev->getDurationInSeconds() * 1000;
+    current_event_.append(dur_ms > 0 ? dur_ms : 0);
 
     const size_t size = ev->size();
     for (size_t i = 0; i < size; i++)
@@ -193,11 +201,11 @@ MidiTrack::MidiEventConstIterator MidiTrack::findNextTick(MidiTrack::MidiEventCo
     return std::find_if(ev, end(), NewTickFinder((*ev)->tick));
 }
 
-MidiTrack::MidiEventIterator MidiTrack::findTickAt(size_t tickIdx)
+MidiTrack::MidiEventIterator MidiTrack::findEventAt(size_t tickIndex)
 {
     MidiEventIterator it = begin();
 
-    for (size_t i = 0; i < tickIdx; i++) {
+    for (size_t i = 0; i < tickIndex; i++) {
         MidiEventIterator next_tick = findNextTick(it);
         if (next_tick == end())
             return end();
@@ -208,11 +216,11 @@ MidiTrack::MidiEventIterator MidiTrack::findTickAt(size_t tickIdx)
     return it;
 }
 
-MidiTrack::MidiEventConstIterator MidiTrack::findTickAt(size_t tickIdx) const
+MidiTrack::MidiEventConstIterator MidiTrack::findEventAt(size_t tickIndex) const
 {
     MidiEventConstIterator it = begin();
 
-    for (size_t i = 0; i < tickIdx; i++) {
+    for (size_t i = 0; i < tickIndex; i++) {
         MidiEventConstIterator next_tick = findNextTick(it);
         if (next_tick == end())
             return end();
@@ -223,7 +231,7 @@ MidiTrack::MidiEventConstIterator MidiTrack::findTickAt(size_t tickIdx) const
     return it;
 }
 
-size_t MidiTrack::findNextEventIndex(size_t idx) const
+size_t MidiTrack::findNextTickEventIndex(size_t idx) const
 {
     if (idx >= size())
         return 0;
@@ -234,11 +242,11 @@ size_t MidiTrack::findNextEventIndex(size_t idx) const
     return next_ev - begin();
 }
 
-bool MidiTrack::seekAbs(size_t tick)
+bool MidiTrack::seekAbs(size_t tickIndex)
 {
-    MidiEventIterator ev = findTickAt(tick);
+    MidiEventIterator ev = findEventAt(tickIndex);
     if (ev == end()) {
-        OBJ_ERR << "invalid tick position: " << tick;
+        OBJ_ERR << "invalid tick index: " << tickIndex;
         return false;
     }
 
@@ -256,6 +264,7 @@ int MidiTrack::currentTick() const
 
 struct EventOutput {
     MidiTrack* track;
+
     EventOutput(MidiTrack* t)
         : track(t)
     {
@@ -264,9 +273,6 @@ struct EventOutput {
     void operator()(MidiEvent* e)
     {
         track->outputEvent(e);
-
-        if (e->isTempo()) {
-        }
     }
 };
 
@@ -278,17 +284,12 @@ double MidiTrack::outputCurrent()
     MidiEventIterator cur_ev = begin() + current_event_idx_;
     MidiEventIterator next_ev = findNextTick(cur_ev);
 
-    //    int tpq = getTicksPerQuarterNote();
-    //    double defaultTempo = 120.0;
-    //    double secondsPerTick = 60.0 / (defaultTempo * tpq);
-
     double tick_duration = 0;
     if (next_ev != end())
         tick_duration = (*next_ev)->seconds - (*cur_ev)->seconds;
 
-    floatTo(1, tick_duration);
+    floatTo(1, tick_duration * 1000);
 
-    // output all events before next tick
     EventOutput event_out(this);
     std::for_each(cur_ev, next_ev, event_out);
 

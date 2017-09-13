@@ -112,4 +112,5 @@ void setup_midi_event()
 {
     ObjectFactory<MidiEventIsNote> is_note("midievent.is_note");
     ObjectFactory<MidiEventToNote> note("midi.ev->note");
+    note.addAlias("midi.event2note");
 }

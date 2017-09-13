@@ -38,6 +38,8 @@ public:
     void onDataT(const DataTypeMidiStream& s);
 
     AtomList p_events() const;
+    AtomList p_current() const;
+
     void m_next(t_symbol*, const AtomList&);
     void m_reset(t_symbol*, const AtomList&);
     void m_output(t_symbol*, const AtomList&);
@@ -56,14 +58,18 @@ public:
     MidiEventConstIterator findNextTick(MidiEventConstIterator ev) const;
 
     /**
-     * Find tick index
-     * @param tickIdx logical tick position from begining of MIDI track
-     * @return event iterator or end() iterator if tick is not found
+     * Find event by tick index (not tick time!) in track
+     * @param tickIdx tick index from begining of MIDI track
+     * @return event iterator or end() iterator if tick index is not found
      */
-    MidiEventIterator findTickAt(size_t tickIdx);
-    MidiEventConstIterator findTickAt(size_t tickIdx) const;
+    MidiEventIterator findEventAt(size_t tickIndex);
+    MidiEventConstIterator findEventAt(size_t tickIndex) const;
 
-    size_t findNextEventIndex(size_t idx) const;
+    /**
+     * Find event index (not tick index) of next tick event
+     * @param idx
+     */
+    size_t findNextTickEventIndex(size_t idx) const;
 
     MidiEventIterator begin() { return midi_track_.begin(); }
     MidiEventIterator end() { return midi_track_.end(); }
@@ -71,10 +77,19 @@ public:
     MidiEventConstIterator end() const { return midi_track_.end(); }
     size_t size() const { return midi_track_.eventCount(); }
 
-    bool seekAbs(size_t tick);
+    /**
+     * Moves current track event to given tick index from begining of track
+     * @param pos - tick index
+     * @return true on success, false if invalid tick index is given
+     */
+    bool seekAbs(size_t tickIndex);
 
 private:
     int currentTick() const;
+
+    /**
+     * Returns duration until next tick in milliseconds
+     */
     double outputCurrent();
 
     static void clockTickHandler(MidiTrack* p);
