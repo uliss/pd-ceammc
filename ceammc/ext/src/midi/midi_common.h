@@ -2,6 +2,7 @@
 #define MIDI_COMMON_H
 
 #include "ceammc_atom.h"
+#include "ceammc_music_theory.h"
 
 namespace ceammc {
 namespace midi {
@@ -33,6 +34,8 @@ namespace midi {
      * @return empty symbol (not NULL) if controller has no common name
      */
     t_symbol* controller_name(size_t ctrNum);
+
+    t_symbol* key_to_name(size_t key, const Tonality& t, bool up = true);
 }
 }
 

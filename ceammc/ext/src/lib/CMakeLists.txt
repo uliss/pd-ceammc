@@ -45,6 +45,7 @@ set(CEAMMC_LIB_SOURCES ceammc.h
     ceammc_impl.cpp
     ceammc_log.cpp
     ceammc_message.cpp
+    ceammc_music_theory.cpp
     ceammc_object.cpp
     ceammc_pd.cpp
     ceammc_platform.cpp

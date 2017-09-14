@@ -2,6 +2,7 @@
 #include "midi_ctr2str.h"
 #include "midi_event.h"
 #include "midi_file.h"
+#include "midi_key2str.h"
 #include "midi_prg2str.h"
 #include "midi_track.h"
 
@@ -12,4 +13,5 @@ void ceammc_midi_setup()
     setup_midi_track();
     setup_midi_prg2str();
     setup_midi_ctr2str();
+    setup_midi_key2str();
 }
