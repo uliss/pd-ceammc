@@ -52,7 +52,7 @@ PitchClass::PitchClass(PitchName p, Alteration a)
 
 size_t PitchClass::absolutePitch() const
 {
-    int res = int(pitch_name_.absolutePitch()) + alt_.get();
+    int res = int(pitch_name_.absolutePitch()) + alt_.semitones();
     return res < 0 ? (12 + res) % 12 : (res % 12);
 }
 
@@ -63,14 +63,14 @@ std::string PitchClass::name() const
 
 PitchClass PitchClass::simplifyFull() const
 {
-    switch (alt_.get()) {
-    case Alteration::FLAT: {
+    switch (alt_.type()) {
+    case ALTERATION_FLAT: {
         // F-flat -> E and C-flat -> B
         if (pitch_name_ == PitchName::F || pitch_name_ == PitchName::C) {
             return PitchClass(pitch_name_ - 1, Alteration::NATURAL);
         }
     } break;
-    case Alteration::DOUBLE_FLAT: {
+    case ALTERATION_DOUBLE_FLAT: {
         // F-flat -> E-flat and C-flat -> B-flat
         if (pitch_name_ == PitchName::F || pitch_name_ == PitchName::C) {
             return PitchClass(pitch_name_ - 1, Alteration::FLAT);
@@ -78,13 +78,13 @@ PitchClass PitchClass::simplifyFull() const
             return PitchClass(pitch_name_ - 1, Alteration::NATURAL);
         }
     } break;
-    case Alteration::SHARP: {
+    case ALTERATION_SHARP: {
         // E-sharp -> F and B-sharp -> C
         if (pitch_name_ == PitchName::E || pitch_name_ == PitchName::B) {
             return PitchClass(pitch_name_ + 1, Alteration::NATURAL);
         }
     } break;
-    case Alteration::DOUBLE_SHARP: {
+    case ALTERATION_DOUBLE_SHARP: {
         // E-sharp -> F-sharp and B-sharp -> C-sharp
         if (pitch_name_ == PitchName::E || pitch_name_ == PitchName::B) {
             return PitchClass(pitch_name_ + 1, Alteration::SHARP);
@@ -92,7 +92,6 @@ PitchClass PitchClass::simplifyFull() const
             return PitchClass(pitch_name_ + 1, Alteration::NATURAL);
         }
     } break;
-    case Alteration::NATURAL:
     default:
         break;
     }
@@ -102,8 +101,8 @@ PitchClass PitchClass::simplifyFull() const
 
 PitchClass& PitchClass::simplifyDouble()
 {
-    switch (alt_.get()) {
-    case Alteration::DOUBLE_FLAT: {
+    switch (alt_.type()) {
+    case ALTERATION_DOUBLE_FLAT: {
         // F-flat -> E-flat and C-flat -> B-flat
         if (pitch_name_ == PitchName::F || pitch_name_ == PitchName::C) {
             pitch_name_ = pitch_name_ - 1;
@@ -113,7 +112,7 @@ PitchClass& PitchClass::simplifyDouble()
             alt_ = Alteration::NATURAL;
         }
     } break;
-    case Alteration::DOUBLE_SHARP: {
+    case ALTERATION_DOUBLE_SHARP: {
         // E-sharp -> F-sharp and B-sharp -> C-sharp
         if (pitch_name_ == PitchName::E || pitch_name_ == PitchName::B) {
             pitch_name_ = pitch_name_ + 1;
@@ -123,11 +122,9 @@ PitchClass& PitchClass::simplifyDouble()
             alt_ = Alteration::NATURAL;
         }
     } break;
-    case Alteration::NATURAL:
     default:
         break;
     }
-
     return *this;
 }
 
@@ -166,17 +163,17 @@ PitchClass PitchClass::stepTranspose(int n) const
     return PitchClass(pitch_name_ + n, alt_);
 }
 
-bool PitchClass::tryAlterateToEqPattern(PitchClass& pitch, const PitchClass& pattern)
+bool PitchClass::tryAlterateToEqPattern(PitchClass& target, const PitchClass& pattern)
 {
-    size_t min_semi = minSemitoneDistance(pattern, pitch);
-    int semi = pattern.absolutePitch() - pitch.absolutePitch();
+    size_t min_semi = minSemitoneDistance(pattern, target);
+    int semi = pattern.absolutePitch() - target.absolutePitch();
     int sign = (min_semi < semi) ? -1 : 1;
 
-    Alteration a = pitch.alteration();
+    Alteration a = target.alteration();
     if (!a.alterate(min_semi * sign))
         return false;
 
-    pitch.setAlteration(a);
+    target.setAlteration(a);
     return true;
 }
 
@@ -229,6 +226,19 @@ Enharmonics PitchClass::enharmonic() const
         res.push_back(e4);
 
     return res;
+}
+
+size_t PitchClass::minSemitoneDistance(const PitchClass& c1, const PitchClass& c2)
+{
+    const int dist = abs(int(c2.absolutePitch()) - int(c1.absolutePitch()));
+    return std::min(dist, 12 - dist);
+}
+
+int PitchClass::minSemitonesFromTo(const PitchClass& c1, const PitchClass& c2)
+{
+    const int dist = abs(int(c2.absolutePitch()) - int(c1.absolutePitch()));
+    const int min_dist = std::min(dist, 12 - dist);
+    return min_dist;
 }
 
 std::ostream& ceammc::music::operator<<(std::ostream& os, const PitchClass& p)

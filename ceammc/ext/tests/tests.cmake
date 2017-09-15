@@ -71,7 +71,7 @@ if(${WITH_COVERAGE})
 
         find_program(GCOVR NAMES gcovr PATHS /usr/bin /usr/local/bin)
 
-        if(LCOV AND GCOV)
+        if(LLVM_COV AND GCOVR)
             message(STATUS "llvm-cov found: ${LLVM_COV}")
             message(STATUS "gcovr found: ${GCOVR}")
 

@@ -1,38 +1,33 @@
 #ifndef CEAMMC_MUSIC_THEORY_ALTERATION_H
 #define CEAMMC_MUSIC_THEORY_ALTERATION_H
 
-#include <boost/functional/hash.hpp>
 #include <iostream>
 
 namespace ceammc {
 namespace music {
 
+    enum AlterationType {
+        ALTERATION_DOUBLE_FLAT = -2,
+        ALTERATION_FLAT = -1,
+        ALTERATION_NATURAL = 0,
+        ALTERATION_SHARP = 1,
+        ALTERATION_DOUBLE_SHARP = 2
+    };
+
     class Alteration {
     public:
-        enum Type {
-            DOUBLE_FLAT = -2,
-            FLAT,
-            NATURAL,
-            SHARP,
-            DOUBLE_SHARP
-        };
-
-    public:
-        Alteration(Type t = NATURAL)
-            : type_(t)
+        Alteration(const Alteration& a)
+            : value_(a.value_)
         {
         }
 
-        Alteration::Type get() const { return type_; }
-        void set(Type t) { type_ = t; }
+        bool operator==(const Alteration& a) const { return value_ == a.value_; }
+        bool operator!=(const Alteration& a) const { return value_ != a.value_; }
 
-        bool operator==(Type t) const { return type_ == t; }
-        bool operator==(const Alteration& a) const { return type_ == a.type_; }
-        bool operator!=(const Alteration& a) const { return type_ != a.type_; }
-        bool operator<(const Alteration& a) const { return type_ < a.type_; }
-        bool operator<=(const Alteration& a) const { return type_ <= a.type_; }
-        bool operator>(const Alteration& a) const { return type_ > a.type_; }
-        bool operator>=(const Alteration& a) const { return type_ >= a.type_; }
+        bool operator<(const Alteration& a) const { return value_ < a.value_; }
+        bool operator<=(const Alteration& a) const { return value_ <= a.value_; }
+        bool operator>(const Alteration& a) const { return value_ > a.value_; }
+        bool operator>=(const Alteration& a) const { return value_ >= a.value_; }
 
         bool operator++();
         bool operator--();
@@ -42,14 +37,23 @@ namespace music {
         const char* fullName() const;
         const char* shortName() const;
 
-        size_t hash_value() const;
+        AlterationType type() const { return AlterationType(value_); }
+        int semitones() const;
+        double cents() const;
+
+    public:
+        static const Alteration DOUBLE_FLAT;
+        static const Alteration FLAT;
+        static const Alteration NATURAL;
+        static const Alteration SHARP;
+        static const Alteration DOUBLE_SHARP;
 
     private:
-        Type type_;
+        signed char value_;
+        Alteration(signed char t);
     };
 
     std::ostream& operator<<(std::ostream& os, const Alteration& a);
-    size_t hash_value(const Alteration& a);
 }
 }
 

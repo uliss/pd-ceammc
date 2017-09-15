@@ -46,7 +46,9 @@ namespace music {
         Enharmonics enharmonic() const;
 
     public:
-        static bool tryAlterateToEqPattern(PitchClass& pitchName, const PitchClass& pattern);
+        static bool tryAlterateToEqPattern(PitchClass& target, const PitchClass& pattern);
+        static size_t minSemitoneDistance(const PitchClass& c1, const PitchClass& c2);
+        static int minSemitonesFromTo(const PitchClass& c1, const PitchClass& c2);
 
     public:
         static const PitchClass Cff;
@@ -87,10 +89,6 @@ namespace music {
     };
 
     std::ostream& operator<<(std::ostream& os, const PitchClass& p);
-    size_t hash_value(const PitchClass& c);
-
-    size_t minSemitoneDistance(const PitchClass& c1, const PitchClass& c2);
-    int minSemitonesFromTo(const PitchClass& c1, const PitchClass& c2);
 }
 }
 

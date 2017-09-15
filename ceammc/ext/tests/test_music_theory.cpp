@@ -23,68 +23,6 @@ using namespace ceammc::music;
 
 TEST_CASE("MusicTheory", "[ceammc::music]")
 {
-    SECTION("alteration")
-    {
-        REQUIRE(Alteration(Alteration::DOUBLE_FLAT).get() == Alteration::DOUBLE_FLAT);
-        REQUIRE(Alteration(Alteration::DOUBLE_FLAT).shortName() == std::string("--"));
-        REQUIRE(Alteration(Alteration::DOUBLE_FLAT).fullName() == std::string("double flat"));
-
-        REQUIRE(Alteration(Alteration::FLAT).shortName() == std::string("-"));
-        REQUIRE(Alteration(Alteration::FLAT).fullName() == std::string("flat"));
-
-        REQUIRE(Alteration(Alteration::NATURAL).shortName() == std::string(""));
-        REQUIRE(Alteration(Alteration::NATURAL).fullName() == std::string("natural"));
-
-        REQUIRE(Alteration(Alteration::SHARP).shortName() == std::string("#"));
-        REQUIRE(Alteration(Alteration::SHARP).fullName() == std::string("sharp"));
-
-        REQUIRE(Alteration(Alteration::DOUBLE_SHARP).shortName() == std::string("##"));
-        REQUIRE(Alteration(Alteration::DOUBLE_SHARP).fullName() == std::string("double sharp"));
-
-        std::ostringstream s;
-        s << Alteration(Alteration::DOUBLE_SHARP);
-        REQUIRE(s.str() == "##");
-
-        REQUIRE(Alteration(Alteration::SHARP) == Alteration(Alteration::SHARP));
-        REQUIRE(Alteration(Alteration::SHARP) != Alteration(Alteration::FLAT));
-        REQUIRE(Alteration(Alteration::SHARP) > Alteration(Alteration::FLAT));
-        REQUIRE(Alteration(Alteration::SHARP) >= Alteration(Alteration::FLAT));
-        REQUIRE(Alteration(Alteration::SHARP) < Alteration(Alteration::DOUBLE_SHARP));
-        REQUIRE(Alteration(Alteration::SHARP) <= Alteration(Alteration::DOUBLE_SHARP));
-
-        Alteration a;
-        REQUIRE(++a);
-        REQUIRE(a == Alteration::SHARP);
-        REQUIRE(++a);
-        REQUIRE(a == Alteration::DOUBLE_SHARP);
-        REQUIRE_FALSE(++a);
-        REQUIRE(a == Alteration::DOUBLE_SHARP);
-        a.set(Alteration::NATURAL);
-        REQUIRE(--a);
-        REQUIRE(a == Alteration::FLAT);
-        REQUIRE(--a);
-        REQUIRE(a == Alteration::DOUBLE_FLAT);
-        REQUIRE_FALSE(--a);
-        REQUIRE(a == Alteration::DOUBLE_FLAT);
-
-#define REQUIRE_ALTERATE(a, n) REQUIRE(Alteration(Alteration::a).alterate(n));
-#define REQUIRE_NALTERATE(a, n) REQUIRE_FALSE(Alteration(Alteration::a).alterate(n));
-
-        REQUIRE_ALTERATE(NATURAL, 0);
-        REQUIRE_ALTERATE(NATURAL, 1);
-        REQUIRE_ALTERATE(NATURAL, 2);
-        REQUIRE_ALTERATE(NATURAL, -1);
-        REQUIRE_ALTERATE(NATURAL, -2);
-        REQUIRE_NALTERATE(NATURAL, 3);
-        REQUIRE_NALTERATE(NATURAL, -3);
-
-        {
-            std::ostringstream s;
-            s << Alteration(Alteration::DOUBLE_SHARP);
-            REQUIRE(s.str() == "##");
-        }
-    }
-
     SECTION("Tonality")
     {
         Tonality t(PitchClass::As, MAJOR);

@@ -87,7 +87,7 @@ size_t Tonality::sharps() const
 {
     size_t res = 0;
     for (size_t i = 0; i < scale_.size(); i++) {
-        int n = scale_[i].alteration().get();
+        int n = scale_[i].alteration().semitones();
         if (n > 0)
             res += n;
     }
@@ -99,7 +99,7 @@ size_t Tonality::flats() const
 {
     size_t res = 0;
     for (size_t i = 0; i < scale_.size(); i++) {
-        int n = scale_[i].alteration().get();
+        int n = scale_[i].alteration().semitones();
         if (n < 0)
             res -= n;
     }
@@ -111,7 +111,7 @@ size_t Tonality::keys() const
 {
     size_t res = 0;
     for (size_t i = 0; i < scale_.size(); i++) {
-        res += abs(scale_[i].alteration().get());
+        res += abs(scale_[i].alteration().semitones());
     }
 
     return res;
@@ -139,35 +139,23 @@ void Tonality::calcScale()
     }
 }
 
-size_t ceammc::music::hash_value(const Tonality& c)
-{
-    size_t seed = 0;
-    boost::hash_combine(seed, c.pitch());
-    boost::hash_combine(seed, c.modus());
-    return seed;
-}
+//size_t ceammc::music::hash_value(const Tonality& c)
+//{
+//    size_t seed = 0;
+//    boost::hash_combine(seed, c.pitch());
+//    boost::hash_combine(seed, c.modus());
+//    return seed;
+//}
 
-size_t ceammc::music::hash_value(const PitchClass& c)
-{
-    size_t seed = 0;
-    boost::hash_combine(seed, c.pitchName());
-    boost::hash_combine(seed, c.alteration());
-    return seed;
-}
+//size_t ceammc::music::hash_value(const PitchClass& c)
+//{
+//    size_t seed = 0;
+//    boost::hash_combine(seed, c.pitchName());
+//    boost::hash_combine(seed, c.alteration());
+//    return seed;
+//}
 
-size_t ceammc::music::hash_value(const Alteration& a)
-{
-    return boost::hash_value(a.get());
-}
-
-size_t ceammc::music::minSemitoneDistance(const PitchClass& c1, const PitchClass& c2)
-{
-    const int dist = abs(c2.absolutePitch() - c1.absolutePitch());
-    return std::min(dist, 12 - dist);
-}
-
-int minSemitonesFromTo(const PitchClass& c1, const PitchClass& c2)
-{
-    const int dist = abs(c2.absolutePitch() - c1.absolutePitch());
-    const int min_dist = std::min(dist, 12 - dist);
-}
+//size_t ceammc::music::hash_value(const Alteration& a)
+//{
+//    return boost::hash_value(a.semitones());
+//}
