@@ -138,7 +138,7 @@ PitchClass PitchClass::toneUp() const
 
     if (semi == 1) {
         Alteration a = alt_;
-        if (!++a)
+        if (!a.alterate(1))
             new_pitch.invalid_ = true;
 
         new_pitch.setAlteration(a);
@@ -154,7 +154,7 @@ PitchClass PitchClass::semitoneUp() const
 
     if (semi == 2) {
         Alteration a = alt_;
-        if (!--a)
+        if (!a.alterate(-1))
             new_pitch.invalid_ = true;
 
         new_pitch.setAlteration(a);

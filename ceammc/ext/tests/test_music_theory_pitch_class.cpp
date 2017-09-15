@@ -27,6 +27,68 @@ using namespace ceammc::music;
 #undef REQUIRE_INDEX
 #endif
 
+#define REQUIRE_STEP_TRANS(p1, p2, n)                               \
+    {                                                               \
+        REQUIRE(PitchClass::p1.stepTranspose(n) == PitchClass::p2); \
+    }
+
+#define REQUIRE_ALT_TO_PATTERN(p1, p2)                                   \
+    {                                                                    \
+        PitchClass p0 = PitchClass::p1;                                  \
+        REQUIRE(PitchClass::tryAlterateToEqPattern(p0, PitchClass::p2)); \
+        REQUIRE(p0.enharmonicEqual(PitchClass::p2));                     \
+    }
+
+#define REQUIRE_ENHARM_2(p, e0, e1)                  \
+    {                                                \
+        Enharmonics en = PitchClass::p.enharmonic(); \
+        REQUIRE(en.size() == 2);                     \
+        REQUIRE(en[0] == PitchClass::e0);            \
+        REQUIRE(en[1] == PitchClass::e1);            \
+    }
+
+#define REQUIRE_NO_UP_ENHARM(p)                            \
+    {                                                      \
+        Enharmonics en = PitchClass::p.upperEnharmonics(); \
+        REQUIRE(en.empty());                               \
+    }
+
+#define REQUIRE_UP_ENHARM(p, e)                            \
+    {                                                      \
+        Enharmonics en = PitchClass::p.upperEnharmonics(); \
+        REQUIRE(en.size() == 1);                           \
+        REQUIRE(en[0].enharmonicEqual(PitchClass::p));     \
+        REQUIRE(en[0] == PitchClass::e);                   \
+    }
+
+#define REQUIRE_LOW_ENHARM(p, e)                           \
+    {                                                      \
+        Enharmonics en = PitchClass::p.lowerEnharmonics(); \
+        REQUIRE(en.size() == 1);                           \
+        REQUIRE(en[0].enharmonicEqual(PitchClass::p));     \
+        REQUIRE(en[0] == PitchClass::e);                   \
+    }
+
+#define REQUIRE_UP_ENHARM_2(p, e0, e1)                     \
+    {                                                      \
+        Enharmonics en = PitchClass::p.upperEnharmonics(); \
+        REQUIRE(en.size() == 2);                           \
+        REQUIRE(en[0].enharmonicEqual(PitchClass::p));     \
+        REQUIRE(en[1].enharmonicEqual(PitchClass::p));     \
+        REQUIRE(en[0] == PitchClass::e0);                  \
+        REQUIRE(en[1] == PitchClass::e1);                  \
+    }
+
+#define REQUIRE_LOW_ENHARM_2(p, e0, e1)                    \
+    {                                                      \
+        Enharmonics en = PitchClass::p.lowerEnharmonics(); \
+        REQUIRE(en.size() == 2);                           \
+        REQUIRE(en[0].enharmonicEqual(PitchClass::p));     \
+        REQUIRE(en[1].enharmonicEqual(PitchClass::p));     \
+        REQUIRE(en[0] == PitchClass::e0);                  \
+        REQUIRE(en[1] == PitchClass::e1);                  \
+    }
+
 TEST_CASE("MusicTheory::PitchClass", "[ceammc::music]")
 {
     SECTION("construct")
@@ -235,14 +297,54 @@ TEST_CASE("MusicTheory::PitchClass", "[ceammc::music]")
         REQUIRE(PitchClass::Cff.toneUp() == PitchClass::Dff);
     }
 
+    SECTION("semitoneUp")
+    {
+        REQUIRE(PitchClass::Bss.semitoneUp() == PitchClass::Css);
+        REQUIRE(PitchClass::Bs.semitoneUp() == PitchClass::Cs);
+        REQUIRE(PitchClass::B.semitoneUp() == PitchClass::C);
+        REQUIRE(PitchClass::Bf.semitoneUp() == PitchClass::Cf);
+        REQUIRE(PitchClass::Bff.semitoneUp() == PitchClass::Cff);
+
+        REQUIRE(PitchClass::Ass.semitoneUp() == PitchClass::Bs);
+        REQUIRE(PitchClass::As.semitoneUp() == PitchClass::B);
+        REQUIRE(PitchClass::A.semitoneUp() == PitchClass::Bf);
+        REQUIRE(PitchClass::Af.semitoneUp() == PitchClass::Bff);
+        REQUIRE_FALSE(PitchClass::Aff.semitoneUp());
+
+        REQUIRE(PitchClass::Gss.semitoneUp() == PitchClass::As);
+        REQUIRE(PitchClass::Gs.semitoneUp() == PitchClass::A);
+        REQUIRE(PitchClass::G.semitoneUp() == PitchClass::Af);
+        REQUIRE(PitchClass::Gf.semitoneUp() == PitchClass::Aff);
+        REQUIRE_FALSE(PitchClass::Gff.semitoneUp());
+
+        REQUIRE(PitchClass::Fss.semitoneUp() == PitchClass::Gs);
+        REQUIRE(PitchClass::Fs.semitoneUp() == PitchClass::G);
+        REQUIRE(PitchClass::F.semitoneUp() == PitchClass::Gf);
+        REQUIRE(PitchClass::Ff.semitoneUp() == PitchClass::Gff);
+        REQUIRE_FALSE(PitchClass::Fff.semitoneUp());
+
+        REQUIRE(PitchClass::Ess.semitoneUp() == PitchClass::Fss);
+        REQUIRE(PitchClass::Es.semitoneUp() == PitchClass::Fs);
+        REQUIRE(PitchClass::E.semitoneUp() == PitchClass::F);
+        REQUIRE(PitchClass::Ef.semitoneUp() == PitchClass::Ff);
+        REQUIRE(PitchClass::Eff.semitoneUp() == PitchClass::Fff);
+
+        REQUIRE(PitchClass::Dss.semitoneUp() == PitchClass::Es);
+        REQUIRE(PitchClass::Ds.semitoneUp() == PitchClass::E);
+        REQUIRE(PitchClass::D.semitoneUp() == PitchClass::Ef);
+        REQUIRE(PitchClass::Df.semitoneUp() == PitchClass::Eff);
+        REQUIRE_FALSE(PitchClass::Dff.semitoneUp());
+
+        REQUIRE(PitchClass::Css.semitoneUp() == PitchClass::Ds);
+        REQUIRE(PitchClass::Cs.semitoneUp() == PitchClass::D);
+        REQUIRE(PitchClass::C.semitoneUp() == PitchClass::Df);
+        REQUIRE(PitchClass::Cf.semitoneUp() == PitchClass::Dff);
+        REQUIRE_FALSE(PitchClass::Cff.semitoneUp());
+    }
+
     SECTION("enharmonic")
     {
         REQUIRE(PitchClass::Cs.enharmonicEqual(PitchClass::Df));
-
-#define REQUIRE_STEP_TRANS(p1, p2, n)                               \
-    {                                                               \
-        REQUIRE(PitchClass::p1.stepTranspose(n) == PitchClass::p2); \
-    }
 
         REQUIRE_STEP_TRANS(Cff, Dff, 1);
         REQUIRE_STEP_TRANS(Cf, Df, 1);
@@ -267,59 +369,6 @@ TEST_CASE("MusicTheory::PitchClass", "[ceammc::music]")
         REQUIRE_STEP_TRANS(F, C, -3);
         REQUIRE_STEP_TRANS(Fs, Cs, -3);
         REQUIRE_STEP_TRANS(Fss, Css, -3);
-
-#define REQUIRE_ALT_TO_PATTERN(p1, p2)                                   \
-    {                                                                    \
-        PitchClass p0 = PitchClass::p1;                                  \
-        REQUIRE(PitchClass::tryAlterateToEqPattern(p0, PitchClass::p2)); \
-        REQUIRE(p0.enharmonicEqual(PitchClass::p2));                     \
-    }
-
-        REQUIRE_ALT_TO_PATTERN(E, F);
-        REQUIRE_ALT_TO_PATTERN(E, Fs);
-        REQUIRE_ALT_TO_PATTERN(E, Ff);
-
-#define REQUIRE_NO_UP_ENHARM(p)                            \
-    {                                                      \
-        Enharmonics en = PitchClass::p.upperEnharmonics(); \
-        REQUIRE(en.empty());                               \
-    }
-
-#define REQUIRE_UP_ENHARM(p, e)                            \
-    {                                                      \
-        Enharmonics en = PitchClass::p.upperEnharmonics(); \
-        REQUIRE(en.size() == 1);                           \
-        REQUIRE(en[0].enharmonicEqual(PitchClass::p));     \
-        REQUIRE(en[0] == PitchClass::e);                   \
-    }
-
-#define REQUIRE_LOW_ENHARM(p, e)                           \
-    {                                                      \
-        Enharmonics en = PitchClass::p.lowerEnharmonics(); \
-        REQUIRE(en.size() == 1);                           \
-        REQUIRE(en[0].enharmonicEqual(PitchClass::p));     \
-        REQUIRE(en[0] == PitchClass::e);                   \
-    }
-
-#define REQUIRE_UP_ENHARM_2(p, e0, e1)                     \
-    {                                                      \
-        Enharmonics en = PitchClass::p.upperEnharmonics(); \
-        REQUIRE(en.size() == 2);                           \
-        REQUIRE(en[0].enharmonicEqual(PitchClass::p));     \
-        REQUIRE(en[1].enharmonicEqual(PitchClass::p));     \
-        REQUIRE(en[0] == PitchClass::e0);                  \
-        REQUIRE(en[1] == PitchClass::e1);                  \
-    }
-
-#define REQUIRE_LOW_ENHARM_2(p, e0, e1)                    \
-    {                                                      \
-        Enharmonics en = PitchClass::p.lowerEnharmonics(); \
-        REQUIRE(en.size() == 2);                           \
-        REQUIRE(en[0].enharmonicEqual(PitchClass::p));     \
-        REQUIRE(en[1].enharmonicEqual(PitchClass::p));     \
-        REQUIRE(en[0] == PitchClass::e0);                  \
-        REQUIRE(en[1] == PitchClass::e1);                  \
-    }
 
         REQUIRE_UP_ENHARM(C, Dff);
         REQUIRE_UP_ENHARM(Cs, Df);
@@ -349,13 +398,9 @@ TEST_CASE("MusicTheory::PitchClass", "[ceammc::music]")
         REQUIRE_UP_ENHARM_2(As, Bf, Cff);
         REQUIRE_UP_ENHARM_2(Ass, B, Cf);
 
-#define REQUIRE_ENHARM_2(p, e0, e1)                  \
-    {                                                \
-        Enharmonics en = PitchClass::p.enharmonic(); \
-        REQUIRE(en.size() == 2);                     \
-        REQUIRE(en[0] == PitchClass::e0);            \
-        REQUIRE(en[1] == PitchClass::e1);            \
-    }
+        REQUIRE_ALT_TO_PATTERN(E, F);
+        REQUIRE_ALT_TO_PATTERN(E, Fs);
+        REQUIRE_ALT_TO_PATTERN(E, Ff);
 
         //        REQUIRE_UP_ENHARM(B, Cf);
         //        REQUIRE_ENHARM_2(Bf, Cff, As);

@@ -40,7 +40,16 @@ namespace music {
         PitchClass simplifyFull() const;
         PitchClass simplifyDouble() const;
 
+        /**
+         * Moves pitch class tone up
+         * @return invalid pitch on error - test with operator bool()
+         */
         PitchClass toneUp() const;
+
+        /**
+         * Moves pitch class semitone up
+         * @return invalid pitch on error - test with operator bool()
+         */
         PitchClass semitoneUp() const;
         PitchClass stepTranspose(int n) const;
 
