@@ -77,100 +77,12 @@ TEST_CASE("MusicTheory", "[ceammc::music]")
         REQUIRE_ALTERATE(NATURAL, -2);
         REQUIRE_NALTERATE(NATURAL, 3);
         REQUIRE_NALTERATE(NATURAL, -3);
-    }
 
-    SECTION("integer pitch")
-    {
-        REQUIRE(IntegerPitch(IntegerPitch::C) == IntegerPitch::C);
-
-        REQUIRE(IntegerPitch(IntegerPitch::C).name() == std::string("C"));
-        REQUIRE(IntegerPitch(IntegerPitch::D).name() == std::string("D"));
-        REQUIRE(IntegerPitch(IntegerPitch::E).name() == std::string("E"));
-        REQUIRE(IntegerPitch(IntegerPitch::F).name() == std::string("F"));
-        REQUIRE(IntegerPitch(IntegerPitch::G).name() == std::string("G"));
-        REQUIRE(IntegerPitch(IntegerPitch::A).name() == std::string("A"));
-        REQUIRE(IntegerPitch(IntegerPitch::B).name() == std::string("B"));
-
-        REQUIRE(IntegerPitch(IntegerPitch::C) == IntegerPitch(IntegerPitch::C));
-        REQUIRE(IntegerPitch(IntegerPitch::C) != IntegerPitch(IntegerPitch::D));
-        REQUIRE(IntegerPitch(IntegerPitch::C) < IntegerPitch(IntegerPitch::D));
-        REQUIRE(IntegerPitch(IntegerPitch::C) <= IntegerPitch(IntegerPitch::D));
-        REQUIRE(IntegerPitch(IntegerPitch::C) <= IntegerPitch(IntegerPitch::C));
-        REQUIRE(IntegerPitch(IntegerPitch::C) >= IntegerPitch(IntegerPitch::C));
-        REQUIRE(IntegerPitch(IntegerPitch::B) > IntegerPitch(IntegerPitch::C));
-        REQUIRE(IntegerPitch(IntegerPitch::B) >= IntegerPitch(IntegerPitch::C));
-
-        REQUIRE(IntegerPitch(IntegerPitch::C).next() == IntegerPitch(IntegerPitch::D));
-        REQUIRE(IntegerPitch(IntegerPitch::D).next() == IntegerPitch(IntegerPitch::E));
-        REQUIRE(IntegerPitch(IntegerPitch::E).next() == IntegerPitch(IntegerPitch::F));
-        REQUIRE(IntegerPitch(IntegerPitch::F).next() == IntegerPitch(IntegerPitch::G));
-        REQUIRE(IntegerPitch(IntegerPitch::G).next() == IntegerPitch(IntegerPitch::A));
-        REQUIRE(IntegerPitch(IntegerPitch::A).next() == IntegerPitch(IntegerPitch::B));
-        REQUIRE(IntegerPitch(IntegerPitch::B).next() == IntegerPitch(IntegerPitch::C));
-
-        REQUIRE(IntegerPitch(IntegerPitch::C).prev() == IntegerPitch(IntegerPitch::B));
-        REQUIRE(IntegerPitch(IntegerPitch::D).prev() == IntegerPitch(IntegerPitch::C));
-        REQUIRE(IntegerPitch(IntegerPitch::E).prev() == IntegerPitch(IntegerPitch::D));
-        REQUIRE(IntegerPitch(IntegerPitch::F).prev() == IntegerPitch(IntegerPitch::E));
-        REQUIRE(IntegerPitch(IntegerPitch::G).prev() == IntegerPitch(IntegerPitch::F));
-        REQUIRE(IntegerPitch(IntegerPitch::A).prev() == IntegerPitch(IntegerPitch::G));
-        REQUIRE(IntegerPitch(IntegerPitch::B).prev() == IntegerPitch(IntegerPitch::A));
-
-        std::ostringstream s;
-        s << Alteration(Alteration::DOUBLE_SHARP);
-        REQUIRE(s.str() == "##");
-
-// semitone distance
-#define SEMI(p1, p2) semitones(IntegerPitch(IntegerPitch::p1), IntegerPitch(IntegerPitch::p2))
-
-        REQUIRE(SEMI(C, D) == 2);
-        REQUIRE(SEMI(D, C) == 2);
-        REQUIRE(SEMI(D, D) == 0);
-        REQUIRE(SEMI(D, E) == 2);
-        REQUIRE(SEMI(E, D) == 2);
-        REQUIRE(SEMI(E, F) == 1);
-        REQUIRE(SEMI(F, E) == 1);
-        REQUIRE(SEMI(C, B) == 1);
-        REQUIRE(SEMI(B, C) == 1);
-        REQUIRE(SEMI(D, A) == 5);
-
-#undef SEMI
-
-        REQUIRE(IntegerPitch(IntegerPitch::A) + 1 == IntegerPitch(IntegerPitch::B));
-        REQUIRE(IntegerPitch(IntegerPitch::A) + 2 == IntegerPitch(IntegerPitch::C));
-        REQUIRE(IntegerPitch(IntegerPitch::A) + 3 == IntegerPitch(IntegerPitch::D));
-        REQUIRE(IntegerPitch(IntegerPitch::A) + 4 == IntegerPitch(IntegerPitch::E));
-        REQUIRE(IntegerPitch(IntegerPitch::A) + 5 == IntegerPitch(IntegerPitch::F));
-        REQUIRE(IntegerPitch(IntegerPitch::A) + 6 == IntegerPitch(IntegerPitch::G));
-        REQUIRE(IntegerPitch(IntegerPitch::A) + 7 == IntegerPitch(IntegerPitch::A));
-        REQUIRE(IntegerPitch(IntegerPitch::A) + 8 == IntegerPitch(IntegerPitch::B));
-
-        REQUIRE(IntegerPitch(IntegerPitch::A) + -1 == IntegerPitch(IntegerPitch::G));
-        REQUIRE(IntegerPitch(IntegerPitch::A) + -2 == IntegerPitch(IntegerPitch::F));
-        REQUIRE(IntegerPitch(IntegerPitch::A) + -3 == IntegerPitch(IntegerPitch::E));
-        REQUIRE(IntegerPitch(IntegerPitch::A) + -4 == IntegerPitch(IntegerPitch::D));
-        REQUIRE(IntegerPitch(IntegerPitch::A) + -5 == IntegerPitch(IntegerPitch::C));
-        REQUIRE(IntegerPitch(IntegerPitch::A) + -6 == IntegerPitch(IntegerPitch::B));
-        REQUIRE(IntegerPitch(IntegerPitch::A) + -7 == IntegerPitch(IntegerPitch::A));
-        REQUIRE(IntegerPitch(IntegerPitch::A) + -8 == IntegerPitch(IntegerPitch::G));
-
-        REQUIRE(IntegerPitch(IntegerPitch::A) - 1 == IntegerPitch(IntegerPitch::G));
-        REQUIRE(IntegerPitch(IntegerPitch::A) - 2 == IntegerPitch(IntegerPitch::F));
-        REQUIRE(IntegerPitch(IntegerPitch::A) - 3 == IntegerPitch(IntegerPitch::E));
-        REQUIRE(IntegerPitch(IntegerPitch::A) - 4 == IntegerPitch(IntegerPitch::D));
-        REQUIRE(IntegerPitch(IntegerPitch::A) - 5 == IntegerPitch(IntegerPitch::C));
-        REQUIRE(IntegerPitch(IntegerPitch::A) - 6 == IntegerPitch(IntegerPitch::B));
-        REQUIRE(IntegerPitch(IntegerPitch::A) - 7 == IntegerPitch(IntegerPitch::A));
-        REQUIRE(IntegerPitch(IntegerPitch::A) - 8 == IntegerPitch(IntegerPitch::G));
-
-        REQUIRE(IntegerPitch(IntegerPitch::A) - -1 == IntegerPitch(IntegerPitch::B));
-        REQUIRE(IntegerPitch(IntegerPitch::A) - -2 == IntegerPitch(IntegerPitch::C));
-        REQUIRE(IntegerPitch(IntegerPitch::A) - -3 == IntegerPitch(IntegerPitch::D));
-        REQUIRE(IntegerPitch(IntegerPitch::A) - -4 == IntegerPitch(IntegerPitch::E));
-        REQUIRE(IntegerPitch(IntegerPitch::A) - -5 == IntegerPitch(IntegerPitch::F));
-        REQUIRE(IntegerPitch(IntegerPitch::A) - -6 == IntegerPitch(IntegerPitch::G));
-        REQUIRE(IntegerPitch(IntegerPitch::A) - -7 == IntegerPitch(IntegerPitch::A));
-        REQUIRE(IntegerPitch(IntegerPitch::A) - -8 == IntegerPitch(IntegerPitch::B));
+        {
+            std::ostringstream s;
+            s << Alteration(Alteration::DOUBLE_SHARP);
+            REQUIRE(s.str() == "##");
+        }
     }
 
     SECTION("pitch class")
@@ -178,6 +90,10 @@ TEST_CASE("MusicTheory", "[ceammc::music]")
         REQUIRE(PitchClass::C == PitchClass::C);
         REQUIRE(PitchClass::C != PitchClass::Cs);
         REQUIRE(PitchClass::Cs != PitchClass::Df);
+
+        REQUIRE(PitchClass::Cs.absolutePitch() == 1);
+        REQUIRE(PitchClass::D.absolutePitch() == 2);
+
         REQUIRE(PitchClass::Cs.enharmonicEqual(PitchClass::Df));
 
         REQUIRE(PitchClass::Cs <= PitchClass::Df);

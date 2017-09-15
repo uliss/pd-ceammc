@@ -30,11 +30,17 @@ using namespace ceammc::music;
         REQUIRE(s.str() == STR); \
     }
 
+#ifdef REQUIRE_INDEX
+#undef REQUIRE_INDEX
+#endif
+
 #define REQUIRE_DISTANCE(p1, p2, d) REQUIRE(PitchName::distance(PitchName::p1, PitchName::p2) == d)
 #define REQUIRE_MIN_DISTANCE(p1, p2, d) REQUIRE(PitchName::minDistance(PitchName::p1, PitchName::p2) == d)
 #define REQUIRE_UP_STEPS(from, to, d) REQUIRE(PitchName::upSteps(PitchName::from, PitchName::to) == d)
 #define REQUIRE_DOWN_STEPS(from, to, d) REQUIRE(PitchName::downSteps(PitchName::from, PitchName::to) == d)
 #define REQUIRE_MIN_STEPS(from, to, d) REQUIRE(PitchName::minSteps(PitchName::from, PitchName::to) == d)
+#define REQUIRE_INDEX(p, idx) REQUIRE(PitchName::p.index() == idx)
+#define REQUIRE_ABS_PITCH(p, abs_p) REQUIRE(PitchName::p.absolutePitch() == abs_p)
 
 TEST_CASE("MusicTheory::PitchName", "[ceammc::music]")
 {
@@ -176,5 +182,27 @@ TEST_CASE("MusicTheory::PitchName", "[ceammc::music]")
             REQUIRE(abs(PitchName::minSteps(p1, p2)) <= 3);
             REQUIRE(PitchName::minDistance(p1, p2) <= 3);
         }
+    }
+
+    SECTION("index")
+    {
+        REQUIRE_INDEX(C, 0);
+        REQUIRE_INDEX(D, 1);
+        REQUIRE_INDEX(E, 2);
+        REQUIRE_INDEX(F, 3);
+        REQUIRE_INDEX(G, 4);
+        REQUIRE_INDEX(A, 5);
+        REQUIRE_INDEX(B, 6);
+    }
+
+    SECTION("absolutePitch")
+    {
+        REQUIRE_ABS_PITCH(C, 0);
+        REQUIRE_ABS_PITCH(D, 2);
+        REQUIRE_ABS_PITCH(E, 4);
+        REQUIRE_ABS_PITCH(F, 5);
+        REQUIRE_ABS_PITCH(G, 7);
+        REQUIRE_ABS_PITCH(A, 9);
+        REQUIRE_ABS_PITCH(B, 11);
     }
 }

@@ -1,0 +1,102 @@
+#ifndef CEAMMC_MUSIC_THEORY_PITCH_CLASS_H
+#define CEAMMC_MUSIC_THEORY_PITCH_CLASS_H
+
+#include "ceammc_music_theory_alteration.h"
+#include "ceammc_music_theory_pitch_name.h"
+
+#include <cstddef>
+#include <iostream>
+#include <vector>
+
+namespace ceammc {
+namespace music {
+
+    class PitchClass;
+    typedef std::vector<PitchClass> Enharmonics;
+
+    class PitchClass {
+        PitchName p_;
+        Alteration alt_;
+
+    public:
+        PitchClass(PitchName p, Alteration a = Alteration(Alteration::NATURAL));
+
+        PitchName pitch() const { return p_; }
+        void setPitch(PitchName p) { p_ = p; }
+        Alteration alt() const { return alt_; }
+        void setAlt(Alteration a) { alt_ = a; }
+
+        bool operator==(const PitchClass& c) const { return p_ == c.p_ && alt_ == c.alt_; }
+        bool operator!=(const PitchClass& c) const { return !this->operator==(c); }
+
+        bool enharmonicEqual(const PitchClass& c) const { return absolutePitch() == c.absolutePitch(); }
+        int absolutePitch() const;
+
+        bool operator<(const PitchClass& c) const { return absolutePitch() < c.absolutePitch(); }
+        bool operator<=(const PitchClass& c) const { return absolutePitch() <= c.absolutePitch(); }
+        bool operator>(const PitchClass& c) const { return absolutePitch() > c.absolutePitch(); }
+        bool operator>=(const PitchClass& c) const { return absolutePitch() >= c.absolutePitch(); }
+
+        std::string name() const;
+
+        PitchClass simplifyFull() const;
+        PitchClass& simplifyDouble();
+
+        PitchClass toneUp() const;
+        PitchClass semitoneUp() const;
+        PitchClass stepTranspose(int n) const;
+
+        Enharmonics upperEnharmonics() const;
+        Enharmonics lowerEnharmonics() const;
+        Enharmonics enharmonic() const;
+
+    public:
+        static bool tryAlterateToEqPattern(PitchClass& pitch, const PitchClass& pattern);
+
+    public:
+        static const PitchClass Cff;
+        static const PitchClass Cf;
+        static const PitchClass C;
+        static const PitchClass Dff;
+        static const PitchClass Cs;
+        static const PitchClass Df;
+        static const PitchClass Css;
+        static const PitchClass D;
+        static const PitchClass Eff;
+        static const PitchClass Ds;
+        static const PitchClass Ef;
+        static const PitchClass Fff;
+        static const PitchClass Dss;
+        static const PitchClass E;
+        static const PitchClass Ff;
+        static const PitchClass Es;
+        static const PitchClass F;
+        static const PitchClass Gff;
+        static const PitchClass Ess;
+        static const PitchClass Fs;
+        static const PitchClass Gf;
+        static const PitchClass Fss;
+        static const PitchClass G;
+        static const PitchClass Aff;
+        static const PitchClass Gs;
+        static const PitchClass Af;
+        static const PitchClass Gss;
+        static const PitchClass A;
+        static const PitchClass Bff;
+        static const PitchClass As;
+        static const PitchClass Bf;
+        static const PitchClass Ass;
+        static const PitchClass B;
+        static const PitchClass Bs;
+        static const PitchClass Bss;
+    };
+
+    std::ostream& operator<<(std::ostream& os, const PitchClass& p);
+    size_t hash_value(const PitchClass& c);
+
+    size_t minSemitoneDistance(const PitchClass& c1, const PitchClass& c2);
+    int minSemitonesFromTo(const PitchClass& c1, const PitchClass& c2);
+}
+}
+
+#endif // CEAMMC_MUSIC_THEORY_PITCH_CLASS_H
