@@ -22,6 +22,11 @@ std::ostream& ceammc::music::operator<<(std::ostream& os, const Alteration& a)
     return os;
 }
 
+Alteration::Alteration(const Alteration& a)
+    : value_(a.value_)
+{
+}
+
 bool Alteration::operator++()
 {
     if (value_ == ALTERATION_DOUBLE_SHARP)
@@ -60,6 +65,11 @@ const char* Alteration::fullName() const
 const char* Alteration::shortName() const
 {
     return ALTERATION_SHORT_NAMES[value_ - ALTERATION_DOUBLE_FLAT];
+}
+
+AlterationType Alteration::type() const
+{
+    return AlterationType(value_);
 }
 
 int Alteration::semitones() const

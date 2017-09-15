@@ -16,10 +16,7 @@ namespace music {
 
     class Alteration {
     public:
-        Alteration(const Alteration& a)
-            : value_(a.value_)
-        {
-        }
+        Alteration(const Alteration& a);
 
         bool operator==(const Alteration& a) const { return value_ == a.value_; }
         bool operator!=(const Alteration& a) const { return value_ != a.value_; }
@@ -37,7 +34,7 @@ namespace music {
         const char* fullName() const;
         const char* shortName() const;
 
-        AlterationType type() const { return AlterationType(value_); }
+        AlterationType type() const;
         int semitones() const;
         double cents() const;
 
