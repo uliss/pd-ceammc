@@ -168,7 +168,7 @@ PitchClass PitchClass::stepTranspose(int n) const
     return PitchClass(pitch_name_ + n, alt_);
 }
 
-bool PitchClass::tryAlterateToEqPattern(PitchClass& target, const PitchClass& pattern)
+bool PitchClass::tryAlterateToEqPitch(PitchClass& target, const PitchClass& pattern)
 {
     size_t min_semi = minSemitoneDistance(pattern, target);
     int semi = pattern.absolutePitch() - target.absolutePitch();
@@ -189,9 +189,9 @@ Enharmonics PitchClass::upperEnharmonics() const
     PitchClass e1 = stepTranspose(1);
     PitchClass e2 = stepTranspose(2);
 
-    if (tryAlterateToEqPattern(e1, *this))
+    if (tryAlterateToEqPitch(e1, *this))
         res.push_back(e1);
-    if (tryAlterateToEqPattern(e2, *this))
+    if (tryAlterateToEqPitch(e2, *this))
         res.push_back(e2);
 
     return res;
@@ -201,12 +201,12 @@ Enharmonics PitchClass::lowerEnharmonics() const
 {
     Enharmonics res;
 
-    PitchClass e1 = stepTranspose(-1);
-    PitchClass e2 = stepTranspose(-2);
+    PitchClass e1 = stepTranspose(-2);
+    PitchClass e2 = stepTranspose(-1);
 
-    if (tryAlterateToEqPattern(e1, *this))
+    if (tryAlterateToEqPitch(e1, *this))
         res.push_back(e1);
-    if (tryAlterateToEqPattern(e2, *this))
+    if (tryAlterateToEqPitch(e2, *this))
         res.push_back(e2);
 
     return res;
@@ -221,13 +221,13 @@ Enharmonics PitchClass::enharmonic() const
     PitchClass e3 = stepTranspose(1);
     PitchClass e4 = stepTranspose(2);
 
-    if (tryAlterateToEqPattern(e1, *this))
+    if (tryAlterateToEqPitch(e1, *this))
         res.push_back(e1);
-    if (tryAlterateToEqPattern(e2, *this))
+    if (tryAlterateToEqPitch(e2, *this))
         res.push_back(e2);
-    if (tryAlterateToEqPattern(e3, *this))
+    if (tryAlterateToEqPitch(e3, *this))
         res.push_back(e3);
-    if (tryAlterateToEqPattern(e4, *this))
+    if (tryAlterateToEqPitch(e4, *this))
         res.push_back(e4);
 
     return res;

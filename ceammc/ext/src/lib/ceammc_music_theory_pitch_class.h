@@ -43,22 +43,33 @@ namespace music {
         /**
          * Moves pitch class tone up
          * @return invalid pitch on error - test with operator bool()
+         * @see semitoneUp()
          */
         PitchClass toneUp() const;
 
         /**
          * Moves pitch class semitone up
          * @return invalid pitch on error - test with operator bool()
+         * @see toneUp()
          */
         PitchClass semitoneUp() const;
         PitchClass stepTranspose(int n) const;
 
+        /**
+         * Returns list of upper pitch class enharmonics sorted by PitchName
+         * @see upperEnharmonics()
+         */
         Enharmonics upperEnharmonics() const;
+
+        /**
+         * Returns list of lower pitch class enharmonics sorted by PitchName
+         * @see upperEnharmonics()
+         */
         Enharmonics lowerEnharmonics() const;
         Enharmonics enharmonic() const;
 
     public:
-        static bool tryAlterateToEqPattern(PitchClass& target, const PitchClass& pattern);
+        static bool tryAlterateToEqPitch(PitchClass& target, const PitchClass& pattern);
         static size_t minSemitoneDistance(const PitchClass& c1, const PitchClass& c2);
         static int minSemitonesFromTo(const PitchClass& c1, const PitchClass& c2);
 

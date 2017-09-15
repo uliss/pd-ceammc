@@ -32,11 +32,18 @@ using namespace ceammc::music;
         REQUIRE(PitchClass::p1.stepTranspose(n) == PitchClass::p2); \
     }
 
-#define REQUIRE_ALT_TO_PATTERN(p1, p2)                                   \
-    {                                                                    \
-        PitchClass p0 = PitchClass::p1;                                  \
-        REQUIRE(PitchClass::tryAlterateToEqPattern(p0, PitchClass::p2)); \
-        REQUIRE(p0.enharmonicEqual(PitchClass::p2));                     \
+#define REQUIRE_CAN_ALT_TO(p1, p2)                                     \
+    {                                                                  \
+        PitchClass p0 = PitchClass::p1;                                \
+        REQUIRE(PitchClass::tryAlterateToEqPitch(p0, PitchClass::p2)); \
+        REQUIRE(p0.enharmonicEqual(PitchClass::p2));                   \
+    }
+
+#define REQUIRE_NO_ALT_TO(p1, p2)                                            \
+    {                                                                        \
+        PitchClass p0 = PitchClass::p1;                                      \
+        REQUIRE_FALSE(PitchClass::tryAlterateToEqPitch(p0, PitchClass::p2)); \
+        REQUIRE(p0 == PitchClass::p1);                                       \
     }
 
 #define REQUIRE_ENHARM_2(p, e0, e1)                  \
@@ -388,41 +395,139 @@ TEST_CASE("MusicTheory::PitchClass", "[ceammc::music]")
         REQUIRE_STEP_TRANS(C, C, -7000);
     }
 
+    SECTION("alterate to pattern")
+    {
+        // C
+        REQUIRE_CAN_ALT_TO(C, Cff);
+        REQUIRE_CAN_ALT_TO(C, Cf);
+        REQUIRE_CAN_ALT_TO(C, C);
+        REQUIRE_CAN_ALT_TO(C, Cs);
+        REQUIRE_CAN_ALT_TO(C, Css);
+
+        REQUIRE_CAN_ALT_TO(C, Dff);
+        REQUIRE_CAN_ALT_TO(C, Df);
+        REQUIRE_CAN_ALT_TO(C, D);
+        REQUIRE_NO_ALT_TO(C, Ds);
+        REQUIRE_NO_ALT_TO(C, Dss);
+
+        REQUIRE_CAN_ALT_TO(C, Bss);
+        REQUIRE_CAN_ALT_TO(C, Bs);
+        REQUIRE_CAN_ALT_TO(C, B);
+        REQUIRE_CAN_ALT_TO(C, Bf);
+        REQUIRE_NO_ALT_TO(C, Bff);
+
+        REQUIRE_CAN_ALT_TO(C, Eff);
+        REQUIRE_NO_ALT_TO(C, Ef);
+        REQUIRE_NO_ALT_TO(C, E);
+        REQUIRE_NO_ALT_TO(C, Es);
+        REQUIRE_NO_ALT_TO(C, Ess);
+
+        REQUIRE_NO_ALT_TO(C, Aff);
+        REQUIRE_NO_ALT_TO(C, Af);
+        REQUIRE_NO_ALT_TO(C, A);
+        REQUIRE_CAN_ALT_TO(C, As);
+        REQUIRE_CAN_ALT_TO(C, Ass);
+
+        // D
+        REQUIRE_NO_ALT_TO(D, Cff);
+        REQUIRE_NO_ALT_TO(D, Cf);
+        REQUIRE_CAN_ALT_TO(D, C);
+        REQUIRE_CAN_ALT_TO(D, Cs);
+        REQUIRE_CAN_ALT_TO(D, Css);
+
+        REQUIRE_CAN_ALT_TO(D, Eff);
+        REQUIRE_CAN_ALT_TO(D, Ef);
+        REQUIRE_CAN_ALT_TO(D, E);
+        REQUIRE_NO_ALT_TO(D, Es);
+        REQUIRE_NO_ALT_TO(D, Ess);
+
+        REQUIRE_CAN_ALT_TO(D, Fff);
+        REQUIRE_CAN_ALT_TO(D, Ff);
+        REQUIRE_NO_ALT_TO(D, F);
+        REQUIRE_NO_ALT_TO(D, Fs);
+        REQUIRE_NO_ALT_TO(D, Fss);
+
+        REQUIRE_NO_ALT_TO(D, Bff);
+        REQUIRE_NO_ALT_TO(D, Bf);
+        REQUIRE_NO_ALT_TO(D, B);
+        REQUIRE_CAN_ALT_TO(D, Bs);
+        REQUIRE_CAN_ALT_TO(D, Bss);
+
+        // E
+        REQUIRE_NO_ALT_TO(E, Dff);
+        REQUIRE_NO_ALT_TO(E, Df);
+        REQUIRE_CAN_ALT_TO(E, D);
+        REQUIRE_CAN_ALT_TO(E, Ds);
+        REQUIRE_CAN_ALT_TO(E, Dss);
+
+        REQUIRE_CAN_ALT_TO(E, Fff);
+        REQUIRE_CAN_ALT_TO(E, Ff);
+        REQUIRE_CAN_ALT_TO(E, F);
+        REQUIRE_CAN_ALT_TO(E, Fs);
+        REQUIRE_NO_ALT_TO(E, Fss);
+
+        REQUIRE_NO_ALT_TO(E, Cff);
+        REQUIRE_NO_ALT_TO(E, Cf);
+        REQUIRE_NO_ALT_TO(E, C);
+        REQUIRE_NO_ALT_TO(E, Cs);
+        REQUIRE_CAN_ALT_TO(E, Css);
+
+        REQUIRE_CAN_ALT_TO(E, Gff);
+        REQUIRE_CAN_ALT_TO(E, Gf);
+        REQUIRE_NO_ALT_TO(E, G);
+        REQUIRE_NO_ALT_TO(E, Gs);
+        REQUIRE_NO_ALT_TO(E, Gss);
+
+        //
+        REQUIRE_CAN_ALT_TO(E, F);
+        REQUIRE_CAN_ALT_TO(E, Fs);
+        REQUIRE_CAN_ALT_TO(E, Ff);
+    }
+
     SECTION("enharmonic")
     {
-        REQUIRE(PitchClass::Cs.enharmonicEqual(PitchClass::Df));
+        SECTION("equal")
+        {
+            REQUIRE(PitchClass::Cs.enharmonicEqual(PitchClass::Df));
+        }
 
-        REQUIRE_UP_ENHARM(C, Dff);
-        REQUIRE_UP_ENHARM(Cs, Df);
-        REQUIRE_UP_ENHARM_2(Css, D, Eff);
-        REQUIRE_NO_UP_ENHARM(Dff);
-        REQUIRE_NO_UP_ENHARM(Df);
-        REQUIRE_UP_ENHARM(D, Eff);
-        REQUIRE_UP_ENHARM_2(Ds, Ef, Fff);
-        REQUIRE_UP_ENHARM_2(Dss, E, Ff);
-        REQUIRE_NO_UP_ENHARM(Eff);
-        REQUIRE_UP_ENHARM(Ef, Fff);
-        REQUIRE_UP_ENHARM(E, Ff);
-        REQUIRE_UP_ENHARM_2(Es, F, Gff);
-        REQUIRE_UP_ENHARM_2(Ess, Fs, Gf);
-        REQUIRE_UP_ENHARM_2(Ess, Fs, Gf);
-        REQUIRE_UP_ENHARM(F, Gff);
-        REQUIRE_UP_ENHARM(Fs, Gf);
-        REQUIRE_UP_ENHARM_2(Fss, G, Aff);
-        REQUIRE_NO_UP_ENHARM(Gff);
-        REQUIRE_NO_UP_ENHARM(Gf);
-        REQUIRE_UP_ENHARM(G, Aff);
-        REQUIRE_UP_ENHARM(Gs, Af);
-        REQUIRE_UP_ENHARM_2(Gss, A, Bff);
-        REQUIRE_NO_UP_ENHARM(Aff);
-        REQUIRE_NO_UP_ENHARM(Af);
-        REQUIRE_UP_ENHARM(A, Bff);
-        REQUIRE_UP_ENHARM_2(As, Bf, Cff);
-        REQUIRE_UP_ENHARM_2(Ass, B, Cf);
+        SECTION("upper")
+        {
+            REQUIRE_UP_ENHARM(C, Dff);
+            REQUIRE_UP_ENHARM(Cs, Df);
+            REQUIRE_UP_ENHARM_2(Css, D, Eff);
+            REQUIRE_NO_UP_ENHARM(Dff);
+            REQUIRE_NO_UP_ENHARM(Df);
+            REQUIRE_UP_ENHARM(D, Eff);
+            REQUIRE_UP_ENHARM_2(Ds, Ef, Fff);
+            REQUIRE_UP_ENHARM_2(Dss, E, Ff);
+            REQUIRE_NO_UP_ENHARM(Eff);
+            REQUIRE_UP_ENHARM(Ef, Fff);
+            REQUIRE_UP_ENHARM(E, Ff);
+            REQUIRE_UP_ENHARM_2(Es, F, Gff);
+            REQUIRE_UP_ENHARM_2(Ess, Fs, Gf);
+            REQUIRE_UP_ENHARM_2(Ess, Fs, Gf);
+            REQUIRE_UP_ENHARM(F, Gff);
+            REQUIRE_UP_ENHARM(Fs, Gf);
+            REQUIRE_UP_ENHARM_2(Fss, G, Aff);
+            REQUIRE_NO_UP_ENHARM(Gff);
+            REQUIRE_NO_UP_ENHARM(Gf);
+            REQUIRE_UP_ENHARM(G, Aff);
+            REQUIRE_UP_ENHARM(Gs, Af);
+            REQUIRE_UP_ENHARM_2(Gss, A, Bff);
+            REQUIRE_NO_UP_ENHARM(Aff);
+            REQUIRE_NO_UP_ENHARM(Af);
+            REQUIRE_UP_ENHARM(A, Bff);
+            REQUIRE_UP_ENHARM_2(As, Bf, Cff);
+            REQUIRE_UP_ENHARM_2(Ass, B, Cf);
+        }
 
-        REQUIRE_ALT_TO_PATTERN(E, F);
-        REQUIRE_ALT_TO_PATTERN(E, Fs);
-        REQUIRE_ALT_TO_PATTERN(E, Ff);
+        SECTION("lower")
+        {
+            REQUIRE_LOW_ENHARM_2(Cff, As, Bf);
+            REQUIRE_LOW_ENHARM_2(Cf, Ass, B);
+            //            REQUIRE_LOW_ENHARM(C, Bs);
+        }
 
         //        REQUIRE_UP_ENHARM(B, Cf);
         //        REQUIRE_ENHARM_2(Bf, Cff, As);
