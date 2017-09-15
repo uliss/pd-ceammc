@@ -30,7 +30,7 @@ namespace music {
         bool operator!=(const PitchClass& c) const { return !this->operator==(c); }
 
         bool enharmonicEqual(const PitchClass& c) const { return absolutePitch() == c.absolutePitch(); }
-        int absolutePitch() const;
+        size_t absolutePitch() const;
 
         bool operator<(const PitchClass& c) const { return absolutePitch() < c.absolutePitch(); }
         bool operator<=(const PitchClass& c) const { return absolutePitch() <= c.absolutePitch(); }

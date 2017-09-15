@@ -50,9 +50,10 @@ PitchClass::PitchClass(PitchName p, Alteration a)
 {
 }
 
-int PitchClass::absolutePitch() const
+size_t PitchClass::absolutePitch() const
 {
-    return int(p_.absolutePitch()) + alt_.get();
+    int res = int(p_.absolutePitch()) + alt_.get();
+    return res < 0 ? (12 + res) % 12 : (res % 12);
 }
 
 std::string PitchClass::name() const
