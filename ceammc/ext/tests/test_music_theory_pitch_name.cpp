@@ -205,4 +205,9 @@ TEST_CASE("MusicTheory::PitchName", "[ceammc::music]")
         REQUIRE_ABS_PITCH(A, 9);
         REQUIRE_ABS_PITCH(B, 11);
     }
+
+    SECTION("to_string")
+    {
+        REQUIRE(to_string(PitchName::C) == "C");
+    }
 }
