@@ -342,10 +342,8 @@ TEST_CASE("MusicTheory::PitchClass", "[ceammc::music]")
         REQUIRE_FALSE(PitchClass::Cff.semitoneUp());
     }
 
-    SECTION("enharmonic")
+    SECTION("stepTranspose")
     {
-        REQUIRE(PitchClass::Cs.enharmonicEqual(PitchClass::Df));
-
         REQUIRE_STEP_TRANS(Cff, Dff, 1);
         REQUIRE_STEP_TRANS(Cf, Df, 1);
         REQUIRE_STEP_TRANS(C, D, 1);
@@ -369,6 +367,23 @@ TEST_CASE("MusicTheory::PitchClass", "[ceammc::music]")
         REQUIRE_STEP_TRANS(F, C, -3);
         REQUIRE_STEP_TRANS(Fs, Cs, -3);
         REQUIRE_STEP_TRANS(Fss, Css, -3);
+
+        REQUIRE_STEP_TRANS(C, B, -1);
+        REQUIRE_STEP_TRANS(B, C, 1);
+
+        REQUIRE_STEP_TRANS(E, F, 1);
+        REQUIRE_STEP_TRANS(F, E, -1);
+
+        REQUIRE_STEP_TRANS(C, G, 4);
+        REQUIRE_STEP_TRANS(G, C, -4);
+
+        REQUIRE_STEP_TRANS(C, A, 5);
+        REQUIRE_STEP_TRANS(A, C, -5);
+    }
+
+    SECTION("enharmonic")
+    {
+        REQUIRE(PitchClass::Cs.enharmonicEqual(PitchClass::Df));
 
         REQUIRE_UP_ENHARM(C, Dff);
         REQUIRE_UP_ENHARM(Cs, Df);
