@@ -15,27 +15,22 @@ namespace music {
     typedef std::vector<PitchClass> Enharmonics;
 
     class PitchClass {
-        PitchName p_;
+        PitchName pitch_name_;
         Alteration alt_;
 
     public:
         PitchClass(PitchName p, Alteration a = Alteration(Alteration::NATURAL));
 
-        PitchName pitch() const { return p_; }
-        void setPitch(PitchName p) { p_ = p; }
-        Alteration alt() const { return alt_; }
-        void setAlt(Alteration a) { alt_ = a; }
+        PitchName pitchName() const { return pitch_name_; }
+        void setPitchName(PitchName p) { pitch_name_ = p; }
+        Alteration alteration() const { return alt_; }
+        void setAlteration(Alteration a) { alt_ = a; }
 
-        bool operator==(const PitchClass& c) const { return p_ == c.p_ && alt_ == c.alt_; }
+        bool operator==(const PitchClass& c) const { return pitch_name_ == c.pitch_name_ && alt_ == c.alt_; }
         bool operator!=(const PitchClass& c) const { return !this->operator==(c); }
 
         bool enharmonicEqual(const PitchClass& c) const { return absolutePitch() == c.absolutePitch(); }
         size_t absolutePitch() const;
-
-        bool operator<(const PitchClass& c) const { return absolutePitch() < c.absolutePitch(); }
-        bool operator<=(const PitchClass& c) const { return absolutePitch() <= c.absolutePitch(); }
-        bool operator>(const PitchClass& c) const { return absolutePitch() > c.absolutePitch(); }
-        bool operator>=(const PitchClass& c) const { return absolutePitch() >= c.absolutePitch(); }
 
         std::string name() const;
 
@@ -51,7 +46,7 @@ namespace music {
         Enharmonics enharmonic() const;
 
     public:
-        static bool tryAlterateToEqPattern(PitchClass& pitch, const PitchClass& pattern);
+        static bool tryAlterateToEqPattern(PitchClass& pitchName, const PitchClass& pattern);
 
     public:
         static const PitchClass Cff;

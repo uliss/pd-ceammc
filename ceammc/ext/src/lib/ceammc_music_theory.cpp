@@ -66,11 +66,11 @@ bool Tonality::enharmonicEqual(const Tonality& t) const
 
 std::string Tonality::name() const
 {
-    std::string res = to_string(pitch_.pitch());
+    std::string res = to_string(pitch_.pitchName());
 
-    if (pitch_.alt() != Alteration::NATURAL) {
+    if (pitch_.alteration() != Alteration::NATURAL) {
         res += '-';
-        res += pitch_.alt().fullName();
+        res += pitch_.alteration().fullName();
     }
 
     res += ((modus_ == MAJOR) ? " major" : " minor");
@@ -87,7 +87,7 @@ size_t Tonality::sharps() const
 {
     size_t res = 0;
     for (size_t i = 0; i < scale_.size(); i++) {
-        int n = scale_[i].alt().get();
+        int n = scale_[i].alteration().get();
         if (n > 0)
             res += n;
     }
@@ -99,7 +99,7 @@ size_t Tonality::flats() const
 {
     size_t res = 0;
     for (size_t i = 0; i < scale_.size(); i++) {
-        int n = scale_[i].alt().get();
+        int n = scale_[i].alteration().get();
         if (n < 0)
             res -= n;
     }
@@ -111,7 +111,7 @@ size_t Tonality::keys() const
 {
     size_t res = 0;
     for (size_t i = 0; i < scale_.size(); i++) {
-        res += abs(scale_[i].alt().get());
+        res += abs(scale_[i].alteration().get());
     }
 
     return res;
@@ -150,8 +150,8 @@ size_t ceammc::music::hash_value(const Tonality& c)
 size_t ceammc::music::hash_value(const PitchClass& c)
 {
     size_t seed = 0;
-    boost::hash_combine(seed, c.pitch());
-    boost::hash_combine(seed, c.alt());
+    boost::hash_combine(seed, c.pitchName());
+    boost::hash_combine(seed, c.alteration());
     return seed;
 }
 

@@ -45,20 +45,20 @@ const PitchClass PitchClass::Bs(PitchName::B, Alteration::SHARP);
 const PitchClass PitchClass::Bss(PitchName::B, Alteration::DOUBLE_SHARP);
 
 PitchClass::PitchClass(PitchName p, Alteration a)
-    : p_(p)
+    : pitch_name_(p)
     , alt_(a)
 {
 }
 
 size_t PitchClass::absolutePitch() const
 {
-    int res = int(p_.absolutePitch()) + alt_.get();
+    int res = int(pitch_name_.absolutePitch()) + alt_.get();
     return res < 0 ? (12 + res) % 12 : (res % 12);
 }
 
 std::string PitchClass::name() const
 {
-    return to_string(p_) + alt_.shortName();
+    return to_string(pitch_name_) + alt_.shortName();
 }
 
 PitchClass PitchClass::simplifyFull() const
@@ -66,30 +66,30 @@ PitchClass PitchClass::simplifyFull() const
     switch (alt_.get()) {
     case Alteration::FLAT: {
         // F-flat -> E and C-flat -> B
-        if (p_ == PitchName::F || p_ == PitchName::C) {
-            return PitchClass(p_ - 1, Alteration::NATURAL);
+        if (pitch_name_ == PitchName::F || pitch_name_ == PitchName::C) {
+            return PitchClass(pitch_name_ - 1, Alteration::NATURAL);
         }
     } break;
     case Alteration::DOUBLE_FLAT: {
         // F-flat -> E-flat and C-flat -> B-flat
-        if (p_ == PitchName::F || p_ == PitchName::C) {
-            return PitchClass(p_ - 1, Alteration::FLAT);
+        if (pitch_name_ == PitchName::F || pitch_name_ == PitchName::C) {
+            return PitchClass(pitch_name_ - 1, Alteration::FLAT);
         } else {
-            return PitchClass(p_ - 1, Alteration::NATURAL);
+            return PitchClass(pitch_name_ - 1, Alteration::NATURAL);
         }
     } break;
     case Alteration::SHARP: {
         // E-sharp -> F and B-sharp -> C
-        if (p_ == PitchName::E || p_ == PitchName::B) {
-            return PitchClass(p_ + 1, Alteration::NATURAL);
+        if (pitch_name_ == PitchName::E || pitch_name_ == PitchName::B) {
+            return PitchClass(pitch_name_ + 1, Alteration::NATURAL);
         }
     } break;
     case Alteration::DOUBLE_SHARP: {
         // E-sharp -> F-sharp and B-sharp -> C-sharp
-        if (p_ == PitchName::E || p_ == PitchName::B) {
-            return PitchClass(p_ + 1, Alteration::SHARP);
+        if (pitch_name_ == PitchName::E || pitch_name_ == PitchName::B) {
+            return PitchClass(pitch_name_ + 1, Alteration::SHARP);
         } else {
-            return PitchClass(p_ + 1, Alteration::NATURAL);
+            return PitchClass(pitch_name_ + 1, Alteration::NATURAL);
         }
     } break;
     case Alteration::NATURAL:
@@ -105,21 +105,21 @@ PitchClass& PitchClass::simplifyDouble()
     switch (alt_.get()) {
     case Alteration::DOUBLE_FLAT: {
         // F-flat -> E-flat and C-flat -> B-flat
-        if (p_ == PitchName::F || p_ == PitchName::C) {
-            p_ = p_ - 1;
+        if (pitch_name_ == PitchName::F || pitch_name_ == PitchName::C) {
+            pitch_name_ = pitch_name_ - 1;
             alt_ = Alteration::FLAT;
         } else {
-            p_ = p_ - 1;
+            pitch_name_ = pitch_name_ - 1;
             alt_ = Alteration::NATURAL;
         }
     } break;
     case Alteration::DOUBLE_SHARP: {
         // E-sharp -> F-sharp and B-sharp -> C-sharp
-        if (p_ == PitchName::E || p_ == PitchName::B) {
-            p_ = p_ + 1;
+        if (pitch_name_ == PitchName::E || pitch_name_ == PitchName::B) {
+            pitch_name_ = pitch_name_ + 1;
             alt_ = Alteration::SHARP;
         } else {
-            p_ = p_ + 1;
+            pitch_name_ = pitch_name_ + 1;
             alt_ = Alteration::NATURAL;
         }
     } break;
@@ -133,14 +133,14 @@ PitchClass& PitchClass::simplifyDouble()
 
 PitchClass PitchClass::toneUp() const
 {
-    PitchClass new_pitch(p_ + 1, alt_);
+    PitchClass new_pitch(pitch_name_ + 1, alt_);
     size_t semi = minSemitoneDistance(*this, new_pitch);
 
     if (semi == 1) {
         Alteration a(alt_);
         if (!++a) {
         }
-        new_pitch.setAlt(a);
+        new_pitch.setAlteration(a);
     }
 
     return new_pitch;
@@ -148,14 +148,14 @@ PitchClass PitchClass::toneUp() const
 
 PitchClass PitchClass::semitoneUp() const
 {
-    PitchClass new_pitch(p_ + 1, alt_);
+    PitchClass new_pitch(pitch_name_ + 1, alt_);
     size_t semi = minSemitoneDistance(*this, new_pitch);
 
     if (semi == 2) {
         Alteration a(alt_);
         if (!--a) {
         }
-        new_pitch.setAlt(a);
+        new_pitch.setAlteration(a);
     }
 
     return new_pitch;
@@ -163,7 +163,7 @@ PitchClass PitchClass::semitoneUp() const
 
 PitchClass PitchClass::stepTranspose(int n) const
 {
-    return PitchClass(p_ + n, alt_);
+    return PitchClass(pitch_name_ + n, alt_);
 }
 
 bool PitchClass::tryAlterateToEqPattern(PitchClass& pitch, const PitchClass& pattern)
@@ -172,11 +172,11 @@ bool PitchClass::tryAlterateToEqPattern(PitchClass& pitch, const PitchClass& pat
     int semi = pattern.absolutePitch() - pitch.absolutePitch();
     int sign = (min_semi < semi) ? -1 : 1;
 
-    Alteration a = pitch.alt();
+    Alteration a = pitch.alteration();
     if (!a.alterate(min_semi * sign))
         return false;
 
-    pitch.setAlt(a);
+    pitch.setAlteration(a);
     return true;
 }
 

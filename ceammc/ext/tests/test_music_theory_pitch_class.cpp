@@ -29,21 +29,73 @@ using namespace ceammc::music;
 
 TEST_CASE("MusicTheory::PitchClass", "[ceammc::music]")
 {
-    SECTION("pitch class")
+    SECTION("construct")
+    {
+        PitchClass p(PitchName::C);
+        REQUIRE(p.pitchName() == PitchName::C);
+        REQUIRE(p.alteration() == Alteration::NATURAL);
+
+        PitchClass p2(PitchName::D, Alteration::FLAT);
+        REQUIRE(p2.pitchName() == PitchName::D);
+        REQUIRE(p2.alteration() == Alteration::FLAT);
+    }
+
+    SECTION("pitch compare")
     {
         REQUIRE(PitchClass::C == PitchClass::C);
         REQUIRE(PitchClass::C != PitchClass::Cs);
         REQUIRE(PitchClass::Cs != PitchClass::Df);
+    }
 
+    SECTION("absolute pitch")
+    {
+        REQUIRE(PitchClass::C.absolutePitch() == 0);
         REQUIRE(PitchClass::Cs.absolutePitch() == 1);
+        REQUIRE(PitchClass::Css.absolutePitch() == 2);
+
+        REQUIRE(PitchClass::Dff.absolutePitch() == 0);
+        REQUIRE(PitchClass::Df.absolutePitch() == 1);
         REQUIRE(PitchClass::D.absolutePitch() == 2);
+        REQUIRE(PitchClass::Ds.absolutePitch() == 3);
+        REQUIRE(PitchClass::Dss.absolutePitch() == 4);
 
+        REQUIRE(PitchClass::Eff.absolutePitch() == 2);
+        REQUIRE(PitchClass::Ef.absolutePitch() == 3);
+        REQUIRE(PitchClass::E.absolutePitch() == 4);
+        REQUIRE(PitchClass::Es.absolutePitch() == 5);
+        REQUIRE(PitchClass::Ess.absolutePitch() == 6);
+
+        REQUIRE(PitchClass::Fff.absolutePitch() == 3);
+        REQUIRE(PitchClass::Ff.absolutePitch() == 4);
+        REQUIRE(PitchClass::F.absolutePitch() == 5);
+        REQUIRE(PitchClass::Fs.absolutePitch() == 6);
+        REQUIRE(PitchClass::Fss.absolutePitch() == 7);
+
+        REQUIRE(PitchClass::Gff.absolutePitch() == 5);
+        REQUIRE(PitchClass::Gf.absolutePitch() == 6);
+        REQUIRE(PitchClass::G.absolutePitch() == 7);
+        REQUIRE(PitchClass::Gs.absolutePitch() == 8);
+        REQUIRE(PitchClass::Gss.absolutePitch() == 9);
+
+        REQUIRE(PitchClass::Aff.absolutePitch() == 7);
+        REQUIRE(PitchClass::Af.absolutePitch() == 8);
+        REQUIRE(PitchClass::A.absolutePitch() == 9);
+        REQUIRE(PitchClass::As.absolutePitch() == 10);
+        REQUIRE(PitchClass::Ass.absolutePitch() == 11);
+
+        REQUIRE(PitchClass::Bff.absolutePitch() == 9);
+        REQUIRE(PitchClass::Bf.absolutePitch() == 10);
+        REQUIRE(PitchClass::B.absolutePitch() == 11);
+        REQUIRE(PitchClass::Bs.absolutePitch() == 0);
+        REQUIRE(PitchClass::Bss.absolutePitch() == 1);
+
+        REQUIRE(PitchClass::Cff.absolutePitch() == 10);
+        REQUIRE(PitchClass::Cf.absolutePitch() == 11);
+    }
+
+    SECTION("enharmonic")
+    {
         REQUIRE(PitchClass::Cs.enharmonicEqual(PitchClass::Df));
-
-        REQUIRE(PitchClass::Cs <= PitchClass::Df);
-        REQUIRE_FALSE(PitchClass::Cs < PitchClass::Df);
-        REQUIRE_FALSE(PitchClass::Cs > PitchClass::Df);
-        REQUIRE(PitchClass::Cs >= PitchClass::Df);
 
         REQUIRE(PitchClass::Cff.simplifyFull() == PitchClass::Bf);
         REQUIRE(PitchClass::Cf.simplifyFull() == PitchClass::B);
