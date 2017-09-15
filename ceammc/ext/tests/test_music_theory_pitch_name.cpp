@@ -16,6 +16,8 @@
 
 #include "catch.hpp"
 
+#include <cstdlib>
+#include <ctime>
 #include <sstream>
 
 using namespace ceammc;
@@ -30,6 +32,9 @@ using namespace ceammc::music;
 
 #define REQUIRE_DISTANCE(p1, p2, d) REQUIRE(PitchName::distance(PitchName::p1, PitchName::p2) == d)
 #define REQUIRE_MIN_DISTANCE(p1, p2, d) REQUIRE(PitchName::minDistance(PitchName::p1, PitchName::p2) == d)
+#define REQUIRE_UP_STEPS(from, to, d) REQUIRE(PitchName::upSteps(PitchName::from, PitchName::to) == d)
+#define REQUIRE_DOWN_STEPS(from, to, d) REQUIRE(PitchName::downSteps(PitchName::from, PitchName::to) == d)
+#define REQUIRE_MIN_STEPS(from, to, d) REQUIRE(PitchName::minSteps(PitchName::from, PitchName::to) == d)
 
 TEST_CASE("MusicTheory::PitchName", "[ceammc::music]")
 {
@@ -123,5 +128,53 @@ TEST_CASE("MusicTheory::PitchName", "[ceammc::music]")
         REQUIRE_MIN_DISTANCE(C, F, 3);
         REQUIRE_MIN_DISTANCE(C, G, 3);
         REQUIRE_MIN_DISTANCE(C, A, 2);
+    }
+
+    SECTION("upSteps")
+    {
+        REQUIRE_UP_STEPS(C, C, 0);
+        REQUIRE_UP_STEPS(C, D, 1);
+        REQUIRE_UP_STEPS(C, E, 2);
+        REQUIRE_UP_STEPS(C, B, 6);
+        REQUIRE_UP_STEPS(B, C, 1);
+        REQUIRE_UP_STEPS(D, C, 6);
+        REQUIRE_UP_STEPS(A, C, 2);
+        REQUIRE_UP_STEPS(C, A, 5);
+    }
+
+    SECTION("downSteps")
+    {
+        REQUIRE_DOWN_STEPS(C, C, 0);
+        REQUIRE_DOWN_STEPS(C, D, 6);
+        REQUIRE_DOWN_STEPS(C, E, 5);
+        REQUIRE_DOWN_STEPS(C, B, 1);
+        REQUIRE_DOWN_STEPS(B, C, 6);
+        REQUIRE_DOWN_STEPS(D, C, 1);
+        REQUIRE_DOWN_STEPS(A, C, 5);
+        REQUIRE_DOWN_STEPS(C, A, 2);
+    }
+
+    SECTION("minSteps")
+    {
+        REQUIRE_MIN_STEPS(C, C, 0);
+        REQUIRE_MIN_STEPS(C, D, 1);
+        REQUIRE_MIN_STEPS(C, E, 2);
+        REQUIRE_MIN_STEPS(C, F, 3);
+        REQUIRE_MIN_STEPS(C, G, -3);
+        REQUIRE_MIN_STEPS(C, B, -1);
+        REQUIRE_MIN_STEPS(B, C, 1);
+        REQUIRE_MIN_STEPS(D, C, -1);
+        REQUIRE_MIN_STEPS(A, C, 2);
+        REQUIRE_MIN_STEPS(C, A, -2);
+
+        srand(time(0));
+
+        for (size_t i = 0; i < 500; i++) {
+            PitchName p1 = PitchName::C + rand() % 7;
+            PitchName p2 = PitchName::C + rand() % 7;
+
+            REQUIRE(abs(PitchName::minSteps(p1, p2)) <= 3);
+            REQUIRE(PitchName::minDistance(p1, p2) <= 3);
+        }
     }
 }

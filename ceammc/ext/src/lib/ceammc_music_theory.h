@@ -79,6 +79,10 @@ namespace music {
         static size_t distance(const PitchName& p1, const PitchName& p2);
         static size_t minDistance(const PitchName& p1, const PitchName& p2);
 
+        static size_t upSteps(const PitchName& from, const PitchName& to);
+        static size_t downSteps(const PitchName& from, const PitchName& to);
+        static int minSteps(const PitchName& from, const PitchName& to);
+
     private:
         friend std::ostream& operator<<(std::ostream& os, const PitchName& p);
         static const char* pitch_names_[7];

@@ -569,6 +569,30 @@ size_t PitchName::minDistance(const PitchName& p1, const PitchName& p2)
     return std::min(dist, 7 - dist);
 }
 
+size_t PitchName::upSteps(const PitchName& from, const PitchName& to)
+{
+    if (from.value_ <= to.value_)
+        return to.value_ - from.value_;
+    else
+        return (7 + to.value_ - from.value_) % 7;
+}
+
+size_t PitchName::downSteps(const PitchName& from, const PitchName& to)
+{
+    if (to.value_ <= from.value_)
+        return from.value_ - to.value_;
+    else
+        return (7 + from.value_ - to.value_) % 7;
+}
+
+int PitchName::minSteps(const PitchName& from, const PitchName& to)
+{
+    size_t up = upSteps(from, to);
+    size_t down = downSteps(from, to);
+
+    return up < down ? up : -down;
+}
+
 std::ostream& ceammc::music::operator<<(std::ostream& os, const PitchName& p)
 {
     os << p.pitch_names_[p.value_];
