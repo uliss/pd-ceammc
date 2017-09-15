@@ -47,6 +47,7 @@ const PitchClass PitchClass::Bss(PitchName::B, Alteration::DOUBLE_SHARP);
 PitchClass::PitchClass(PitchName p, Alteration a)
     : pitch_name_(p)
     , alt_(a)
+    , invalid_(false)
 {
 }
 
@@ -54,6 +55,11 @@ size_t PitchClass::absolutePitch() const
 {
     int res = int(pitch_name_.absolutePitch()) + alt_.semitones();
     return res < 0 ? (12 + res) % 12 : (res % 12);
+}
+
+PitchClass::operator bool() const
+{
+    return invalid_ == false;
 }
 
 std::string PitchClass::name() const
@@ -99,32 +105,29 @@ PitchClass PitchClass::simplifyFull() const
     return *this;
 }
 
-PitchClass& PitchClass::simplifyDouble()
+PitchClass PitchClass::simplifyDouble() const
 {
     switch (alt_.type()) {
     case ALTERATION_DOUBLE_FLAT: {
         // F-flat -> E-flat and C-flat -> B-flat
         if (pitch_name_ == PitchName::F || pitch_name_ == PitchName::C) {
-            pitch_name_ = pitch_name_ - 1;
-            alt_ = Alteration::FLAT;
+            return PitchClass(pitch_name_ - 1, Alteration::FLAT);
         } else {
-            pitch_name_ = pitch_name_ - 1;
-            alt_ = Alteration::NATURAL;
+            return PitchClass(pitch_name_ - 1, Alteration::NATURAL);
         }
     } break;
     case ALTERATION_DOUBLE_SHARP: {
         // E-sharp -> F-sharp and B-sharp -> C-sharp
         if (pitch_name_ == PitchName::E || pitch_name_ == PitchName::B) {
-            pitch_name_ = pitch_name_ + 1;
-            alt_ = Alteration::SHARP;
+            return PitchClass(pitch_name_ + 1, Alteration::SHARP);
         } else {
-            pitch_name_ = pitch_name_ + 1;
-            alt_ = Alteration::NATURAL;
+            return PitchClass(pitch_name_ + 1, Alteration::NATURAL);
         }
     } break;
     default:
         break;
     }
+
     return *this;
 }
 
@@ -134,9 +137,10 @@ PitchClass PitchClass::toneUp() const
     size_t semi = minSemitoneDistance(*this, new_pitch);
 
     if (semi == 1) {
-        Alteration a(alt_);
-        if (!++a) {
-        }
+        Alteration a = alt_;
+        if (!++a)
+            new_pitch.invalid_ = true;
+
         new_pitch.setAlteration(a);
     }
 
@@ -149,9 +153,10 @@ PitchClass PitchClass::semitoneUp() const
     size_t semi = minSemitoneDistance(*this, new_pitch);
 
     if (semi == 2) {
-        Alteration a(alt_);
-        if (!--a) {
-        }
+        Alteration a = alt_;
+        if (!--a)
+            new_pitch.invalid_ = true;
+
         new_pitch.setAlteration(a);
     }
 

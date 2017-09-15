@@ -17,6 +17,7 @@ namespace music {
     class PitchClass {
         PitchName pitch_name_;
         Alteration alt_;
+        bool invalid_;
 
     public:
         PitchClass(PitchName p, Alteration a = Alteration(Alteration::NATURAL));
@@ -32,10 +33,12 @@ namespace music {
         bool enharmonicEqual(const PitchClass& c) const { return absolutePitch() == c.absolutePitch(); }
         size_t absolutePitch() const;
 
+        operator bool() const;
+
         std::string name() const;
 
         PitchClass simplifyFull() const;
-        PitchClass& simplifyDouble();
+        PitchClass simplifyDouble() const;
 
         PitchClass toneUp() const;
         PitchClass semitoneUp() const;

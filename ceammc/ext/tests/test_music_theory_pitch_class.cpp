@@ -34,10 +34,12 @@ TEST_CASE("MusicTheory::PitchClass", "[ceammc::music]")
         PitchClass p(PitchName::C);
         REQUIRE(p.pitchName() == PitchName::C);
         REQUIRE(p.alteration() == Alteration::NATURAL);
+        REQUIRE(p);
 
         PitchClass p2(PitchName::D, Alteration::FLAT);
         REQUIRE(p2.pitchName() == PitchName::D);
         REQUIRE(p2.alteration() == Alteration::FLAT);
+        REQUIRE(p2);
     }
 
     SECTION("pitch compare")
@@ -93,53 +95,103 @@ TEST_CASE("MusicTheory::PitchClass", "[ceammc::music]")
         REQUIRE(PitchClass::Cf.absolutePitch() == 11);
     }
 
-    SECTION("enharmonic")
+    SECTION("simplify")
     {
-        REQUIRE(PitchClass::Cs.enharmonicEqual(PitchClass::Df));
+        SECTION("simplify full")
+        {
+            REQUIRE(PitchClass::Cff.simplifyFull() == PitchClass::Bf);
+            REQUIRE(PitchClass::Cf.simplifyFull() == PitchClass::B);
+            REQUIRE(PitchClass::C.simplifyFull() == PitchClass::C);
+            REQUIRE(PitchClass::Cs.simplifyFull() == PitchClass::Cs);
+            REQUIRE(PitchClass::Css.simplifyFull() == PitchClass::D);
 
-        REQUIRE(PitchClass::Cff.simplifyFull() == PitchClass::Bf);
-        REQUIRE(PitchClass::Cf.simplifyFull() == PitchClass::B);
-        REQUIRE(PitchClass::C.simplifyFull() == PitchClass::C);
-        REQUIRE(PitchClass::Cs.simplifyFull() == PitchClass::Cs);
-        REQUIRE(PitchClass::Css.simplifyFull() == PitchClass::D);
+            REQUIRE(PitchClass::Dff.simplifyFull() == PitchClass::C);
+            REQUIRE(PitchClass::Df.simplifyFull() == PitchClass::Df);
+            REQUIRE(PitchClass::D.simplifyFull() == PitchClass::D);
+            REQUIRE(PitchClass::Ds.simplifyFull() == PitchClass::Ds);
+            REQUIRE(PitchClass::Dss.simplifyFull() == PitchClass::E);
 
-        REQUIRE(PitchClass::Dff.simplifyFull() == PitchClass::C);
-        REQUIRE(PitchClass::Df.simplifyFull() == PitchClass::Df);
-        REQUIRE(PitchClass::D.simplifyFull() == PitchClass::D);
-        REQUIRE(PitchClass::Ds.simplifyFull() == PitchClass::Ds);
-        REQUIRE(PitchClass::Dss.simplifyFull() == PitchClass::E);
+            REQUIRE(PitchClass::Eff.simplifyFull() == PitchClass::D);
+            REQUIRE(PitchClass::Ef.simplifyFull() == PitchClass::Ef);
+            REQUIRE(PitchClass::E.simplifyFull() == PitchClass::E);
+            REQUIRE(PitchClass::Es.simplifyFull() == PitchClass::F);
+            REQUIRE(PitchClass::Ess.simplifyFull() == PitchClass::Fs);
 
-        REQUIRE(PitchClass::Eff.simplifyFull() == PitchClass::D);
-        REQUIRE(PitchClass::Ef.simplifyFull() == PitchClass::Ef);
-        REQUIRE(PitchClass::E.simplifyFull() == PitchClass::E);
-        REQUIRE(PitchClass::Es.simplifyFull() == PitchClass::F);
-        REQUIRE(PitchClass::Ess.simplifyFull() == PitchClass::Fs);
+            REQUIRE(PitchClass::Fff.simplifyFull() == PitchClass::Ef);
+            REQUIRE(PitchClass::Ff.simplifyFull() == PitchClass::E);
+            REQUIRE(PitchClass::F.simplifyFull() == PitchClass::F);
+            REQUIRE(PitchClass::Fs.simplifyFull() == PitchClass::Fs);
+            REQUIRE(PitchClass::Fss.simplifyFull() == PitchClass::G);
 
-        REQUIRE(PitchClass::Fff.simplifyFull() == PitchClass::Ef);
-        REQUIRE(PitchClass::Ff.simplifyFull() == PitchClass::E);
-        REQUIRE(PitchClass::F.simplifyFull() == PitchClass::F);
-        REQUIRE(PitchClass::Fs.simplifyFull() == PitchClass::Fs);
-        REQUIRE(PitchClass::Fss.simplifyFull() == PitchClass::G);
+            REQUIRE(PitchClass::Gff.simplifyFull() == PitchClass::F);
+            REQUIRE(PitchClass::Gf.simplifyFull() == PitchClass::Gf);
+            REQUIRE(PitchClass::G.simplifyFull() == PitchClass::G);
+            REQUIRE(PitchClass::Gs.simplifyFull() == PitchClass::Gs);
+            REQUIRE(PitchClass::Gss.simplifyFull() == PitchClass::A);
 
-        REQUIRE(PitchClass::Gff.simplifyFull() == PitchClass::F);
-        REQUIRE(PitchClass::Gf.simplifyFull() == PitchClass::Gf);
-        REQUIRE(PitchClass::G.simplifyFull() == PitchClass::G);
-        REQUIRE(PitchClass::Gs.simplifyFull() == PitchClass::Gs);
-        REQUIRE(PitchClass::Gss.simplifyFull() == PitchClass::A);
+            REQUIRE(PitchClass::Aff.simplifyFull() == PitchClass::G);
+            REQUIRE(PitchClass::Af.simplifyFull() == PitchClass::Af);
+            REQUIRE(PitchClass::A.simplifyFull() == PitchClass::A);
+            REQUIRE(PitchClass::As.simplifyFull() == PitchClass::As);
+            REQUIRE(PitchClass::Ass.simplifyFull() == PitchClass::B);
 
-        REQUIRE(PitchClass::Aff.simplifyFull() == PitchClass::G);
-        REQUIRE(PitchClass::Af.simplifyFull() == PitchClass::Af);
-        REQUIRE(PitchClass::A.simplifyFull() == PitchClass::A);
-        REQUIRE(PitchClass::As.simplifyFull() == PitchClass::As);
-        REQUIRE(PitchClass::Ass.simplifyFull() == PitchClass::B);
+            REQUIRE(PitchClass::Bff.simplifyFull() == PitchClass::A);
+            REQUIRE(PitchClass::Bf.simplifyFull() == PitchClass::Bf);
+            REQUIRE(PitchClass::B.simplifyFull() == PitchClass::B);
+            REQUIRE(PitchClass::Bs.simplifyFull() == PitchClass::C);
+            REQUIRE(PitchClass::Bss.simplifyFull() == PitchClass::Cs);
+        }
 
-        REQUIRE(PitchClass::Bff.simplifyFull() == PitchClass::A);
-        REQUIRE(PitchClass::Bf.simplifyFull() == PitchClass::Bf);
-        REQUIRE(PitchClass::B.simplifyFull() == PitchClass::B);
-        REQUIRE(PitchClass::Bs.simplifyFull() == PitchClass::C);
-        REQUIRE(PitchClass::Bss.simplifyFull() == PitchClass::Cs);
+        SECTION("simplify doubles")
+        {
+            REQUIRE(PitchClass::Cff.simplifyDouble() == PitchClass::Bf);
+            REQUIRE(PitchClass::Cf.simplifyDouble() == PitchClass::Cf);
+            REQUIRE(PitchClass::C.simplifyDouble() == PitchClass::C);
+            REQUIRE(PitchClass::Cs.simplifyDouble() == PitchClass::Cs);
+            REQUIRE(PitchClass::Css.simplifyDouble() == PitchClass::D);
 
-        REQUIRE(PitchClass::Bss.toneUp() == PitchClass::Css);
+            REQUIRE(PitchClass::Dff.simplifyDouble() == PitchClass::C);
+            REQUIRE(PitchClass::Df.simplifyDouble() == PitchClass::Df);
+            REQUIRE(PitchClass::D.simplifyDouble() == PitchClass::D);
+            REQUIRE(PitchClass::Ds.simplifyDouble() == PitchClass::Ds);
+            REQUIRE(PitchClass::Dss.simplifyDouble() == PitchClass::E);
+
+            REQUIRE(PitchClass::Eff.simplifyDouble() == PitchClass::D);
+            REQUIRE(PitchClass::Ef.simplifyDouble() == PitchClass::Ef);
+            REQUIRE(PitchClass::E.simplifyDouble() == PitchClass::E);
+            REQUIRE(PitchClass::Es.simplifyDouble() == PitchClass::Es);
+            REQUIRE(PitchClass::Ess.simplifyDouble() == PitchClass::Fs);
+
+            REQUIRE(PitchClass::Fff.simplifyDouble() == PitchClass::Ef);
+            REQUIRE(PitchClass::Ff.simplifyDouble() == PitchClass::Ff);
+            REQUIRE(PitchClass::F.simplifyDouble() == PitchClass::F);
+            REQUIRE(PitchClass::Fs.simplifyDouble() == PitchClass::Fs);
+            REQUIRE(PitchClass::Fss.simplifyDouble() == PitchClass::G);
+
+            REQUIRE(PitchClass::Gff.simplifyDouble() == PitchClass::F);
+            REQUIRE(PitchClass::Gf.simplifyDouble() == PitchClass::Gf);
+            REQUIRE(PitchClass::G.simplifyDouble() == PitchClass::G);
+            REQUIRE(PitchClass::Gs.simplifyDouble() == PitchClass::Gs);
+            REQUIRE(PitchClass::Gss.simplifyDouble() == PitchClass::A);
+
+            REQUIRE(PitchClass::Aff.simplifyDouble() == PitchClass::G);
+            REQUIRE(PitchClass::Af.simplifyDouble() == PitchClass::Af);
+            REQUIRE(PitchClass::A.simplifyDouble() == PitchClass::A);
+            REQUIRE(PitchClass::As.simplifyDouble() == PitchClass::As);
+            REQUIRE(PitchClass::Ass.simplifyDouble() == PitchClass::B);
+
+            REQUIRE(PitchClass::Bff.simplifyDouble() == PitchClass::A);
+            REQUIRE(PitchClass::Bf.simplifyDouble() == PitchClass::Bf);
+            REQUIRE(PitchClass::B.simplifyDouble() == PitchClass::B);
+            REQUIRE(PitchClass::Bs.simplifyDouble() == PitchClass::Bs);
+            REQUIRE(PitchClass::Bss.simplifyDouble() == PitchClass::Cs);
+        }
+    }
+
+    SECTION("toneUp")
+    {
+        REQUIRE_FALSE(PitchClass::Bss.toneUp());
+        REQUIRE(PitchClass::Bs.toneUp());
         REQUIRE(PitchClass::Bs.toneUp() == PitchClass::Css);
         REQUIRE(PitchClass::B.toneUp() == PitchClass::Cs);
         REQUIRE(PitchClass::Bf.toneUp() == PitchClass::C);
@@ -163,7 +215,8 @@ TEST_CASE("MusicTheory::PitchClass", "[ceammc::music]")
         REQUIRE(PitchClass::Ff.toneUp() == PitchClass::Gf);
         REQUIRE(PitchClass::Fff.toneUp() == PitchClass::Gff);
 
-        REQUIRE(PitchClass::Ess.toneUp() == PitchClass::Fss);
+        REQUIRE_FALSE(PitchClass::Ess.toneUp());
+        REQUIRE(PitchClass::Es.toneUp());
         REQUIRE(PitchClass::Es.toneUp() == PitchClass::Fss);
         REQUIRE(PitchClass::E.toneUp() == PitchClass::Fs);
         REQUIRE(PitchClass::Ef.toneUp() == PitchClass::F);
@@ -180,6 +233,11 @@ TEST_CASE("MusicTheory::PitchClass", "[ceammc::music]")
         REQUIRE(PitchClass::C.toneUp() == PitchClass::D);
         REQUIRE(PitchClass::Cf.toneUp() == PitchClass::Df);
         REQUIRE(PitchClass::Cff.toneUp() == PitchClass::Dff);
+    }
+
+    SECTION("enharmonic")
+    {
+        REQUIRE(PitchClass::Cs.enharmonicEqual(PitchClass::Df));
 
 #define REQUIRE_STEP_TRANS(p1, p2, n)                               \
     {                                                               \
