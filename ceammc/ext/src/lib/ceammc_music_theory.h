@@ -53,6 +53,39 @@ namespace music {
     std::ostream& operator<<(std::ostream& os, const Alteration& a);
     size_t hash_value(const Alteration& a);
 
+    class PitchName {
+        unsigned char value_;
+        PitchName(unsigned char v);
+
+    public:
+        PitchName(const PitchName& p);
+
+        bool operator==(const PitchName& p) const { return value_ == p.value_; }
+        bool operator!=(const PitchName& p) const { return value_ != p.value_; }
+
+        PitchName operator+(int i) const;
+        PitchName operator-(int i) const;
+
+    public:
+        static const PitchName C;
+        static const PitchName D;
+        static const PitchName E;
+        static const PitchName F;
+        static const PitchName G;
+        static const PitchName A;
+        static const PitchName B;
+
+    public:
+        static size_t distance(const PitchName& p1, const PitchName& p2);
+        static size_t minDistance(const PitchName& p1, const PitchName& p2);
+
+    private:
+        friend std::ostream& operator<<(std::ostream& os, const PitchName& p);
+        static const char* pitch_names_[7];
+    };
+
+    std::ostream& operator<<(std::ostream& os, const PitchName& p);
+
     class IntegerPitch {
     public:
         enum Pitch {
