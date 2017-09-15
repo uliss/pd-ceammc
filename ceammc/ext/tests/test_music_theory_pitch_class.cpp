@@ -379,6 +379,13 @@ TEST_CASE("MusicTheory::PitchClass", "[ceammc::music]")
 
         REQUIRE_STEP_TRANS(C, A, 5);
         REQUIRE_STEP_TRANS(A, C, -5);
+
+        REQUIRE_STEP_TRANS(C, C, 7);
+        REQUIRE_STEP_TRANS(C, C, -7);
+        REQUIRE_STEP_TRANS(C, C, 14);
+        REQUIRE_STEP_TRANS(C, C, -14);
+        REQUIRE_STEP_TRANS(C, C, 7000);
+        REQUIRE_STEP_TRANS(C, C, -7000);
     }
 
     SECTION("enharmonic")
