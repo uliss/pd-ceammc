@@ -4,6 +4,7 @@
 #include "ceammc_music_theory_alteration.h"
 #include "ceammc_music_theory_pitch_name.h"
 
+#include <boost/array.hpp>
 #include <cstddef>
 #include <iostream>
 #include <vector>
@@ -66,12 +67,12 @@ namespace music {
          * @see upperEnharmonics()
          */
         Enharmonics lowerEnharmonics() const;
-        Enharmonics enharmonic() const;
+        Enharmonics enharmonics() const;
 
     public:
         static bool tryAlterateToEqPitch(PitchClass& target, const PitchClass& pattern);
         static size_t minSemitoneDistance(const PitchClass& c1, const PitchClass& c2);
-        static int minSemitonesFromTo(const PitchClass& c1, const PitchClass& c2);
+        static int minSemitonesFromTo(const PitchClass& from, const PitchClass& to);
 
     public:
         static const PitchClass Cff;
@@ -109,6 +110,7 @@ namespace music {
         static const PitchClass B;
         static const PitchClass Bs;
         static const PitchClass Bss;
+        static const boost::array<PitchClass, 35> all;
     };
 
     std::ostream& operator<<(std::ostream& os, const PitchClass& p);

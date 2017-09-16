@@ -16,6 +16,7 @@
 
 #include "catch.hpp"
 
+#include <algorithm>
 #include <cstdlib>
 #include <ctime>
 #include <sstream>
@@ -46,12 +47,12 @@ using namespace ceammc::music;
         REQUIRE(p0 == PitchClass::p1);                                       \
     }
 
-#define REQUIRE_ENHARM_2(p, e0, e1)                  \
-    {                                                \
-        Enharmonics en = PitchClass::p.enharmonic(); \
-        REQUIRE(en.size() == 2);                     \
-        REQUIRE(en[0] == PitchClass::e0);            \
-        REQUIRE(en[1] == PitchClass::e1);            \
+#define REQUIRE_ENHARM_2(p, e0, e1)                   \
+    {                                                 \
+        Enharmonics en = PitchClass::p.enharmonics(); \
+        REQUIRE(en.size() == 2);                      \
+        REQUIRE(en[0] == PitchClass::e0);             \
+        REQUIRE(en[1] == PitchClass::e1);             \
     }
 
 #define REQUIRE_NO_UP_ENHARM(p)                            \
@@ -76,6 +77,12 @@ using namespace ceammc::music;
         REQUIRE(en[0] == PitchClass::e);                   \
     }
 
+#define REQUIRE_NO_LOW_ENHARM(p)                           \
+    {                                                      \
+        Enharmonics en = PitchClass::p.lowerEnharmonics(); \
+        REQUIRE(en.empty());                               \
+    }
+
 #define REQUIRE_UP_ENHARM_2(p, e0, e1)                     \
     {                                                      \
         Enharmonics en = PitchClass::p.upperEnharmonics(); \
@@ -95,6 +102,21 @@ using namespace ceammc::music;
         REQUIRE(en[0] == PitchClass::e0);                  \
         REQUIRE(en[1] == PitchClass::e1);                  \
     }
+
+#define REQUIRE_MIN_SEMITONE_DISTANCE(p1, p2, n)                                       \
+    {                                                                                  \
+        REQUIRE(PitchClass::minSemitoneDistance(PitchClass::p1, PitchClass::p2) == n); \
+    }
+
+#define REQUIRE_MIN_SEMITONES_FROM_TO(p1, p2, n)                                      \
+    {                                                                                 \
+        REQUIRE(PitchClass::minSemitonesFromTo(PitchClass::p1, PitchClass::p2) == n); \
+    }
+
+static bool pitchClassCmp(const PitchClass& c1, const PitchClass& c2)
+{
+    return c1.pitchName().absolutePitch() < c2.pitchName().absolutePitch();
+}
 
 TEST_CASE("MusicTheory::PitchClass", "[ceammc::music]")
 {
@@ -395,6 +417,104 @@ TEST_CASE("MusicTheory::PitchClass", "[ceammc::music]")
         REQUIRE_STEP_TRANS(C, C, -7000);
     }
 
+    SECTION("minSemitoneDistance")
+    {
+        REQUIRE_MIN_SEMITONE_DISTANCE(C, Cff, 2);
+        REQUIRE_MIN_SEMITONE_DISTANCE(C, Cf, 1);
+        REQUIRE_MIN_SEMITONE_DISTANCE(C, C, 0);
+        REQUIRE_MIN_SEMITONE_DISTANCE(C, Cs, 1);
+        REQUIRE_MIN_SEMITONE_DISTANCE(C, Css, 2);
+
+        REQUIRE_MIN_SEMITONE_DISTANCE(C, Dff, 0);
+        REQUIRE_MIN_SEMITONE_DISTANCE(C, Df, 1);
+        REQUIRE_MIN_SEMITONE_DISTANCE(C, D, 2);
+        REQUIRE_MIN_SEMITONE_DISTANCE(C, Ds, 3);
+        REQUIRE_MIN_SEMITONE_DISTANCE(C, Dss, 4);
+
+        REQUIRE_MIN_SEMITONE_DISTANCE(C, Eff, 2);
+        REQUIRE_MIN_SEMITONE_DISTANCE(C, Ef, 3);
+        REQUIRE_MIN_SEMITONE_DISTANCE(C, E, 4);
+        REQUIRE_MIN_SEMITONE_DISTANCE(C, Es, 5);
+        REQUIRE_MIN_SEMITONE_DISTANCE(C, Ess, 6);
+
+        REQUIRE_MIN_SEMITONE_DISTANCE(C, Fff, 3);
+        REQUIRE_MIN_SEMITONE_DISTANCE(C, Ff, 4);
+        REQUIRE_MIN_SEMITONE_DISTANCE(C, F, 5);
+        REQUIRE_MIN_SEMITONE_DISTANCE(C, Fs, 6);
+        REQUIRE_MIN_SEMITONE_DISTANCE(C, Fss, 5);
+
+        REQUIRE_MIN_SEMITONE_DISTANCE(C, Gff, 5);
+        REQUIRE_MIN_SEMITONE_DISTANCE(C, Gf, 6);
+        REQUIRE_MIN_SEMITONE_DISTANCE(C, G, 5);
+        REQUIRE_MIN_SEMITONE_DISTANCE(C, Gs, 4);
+        REQUIRE_MIN_SEMITONE_DISTANCE(C, Gss, 3);
+
+        REQUIRE_MIN_SEMITONE_DISTANCE(C, Aff, 5);
+        REQUIRE_MIN_SEMITONE_DISTANCE(C, Af, 4);
+        REQUIRE_MIN_SEMITONE_DISTANCE(C, A, 3);
+        REQUIRE_MIN_SEMITONE_DISTANCE(C, As, 2);
+        REQUIRE_MIN_SEMITONE_DISTANCE(C, Ass, 1);
+
+        REQUIRE_MIN_SEMITONE_DISTANCE(C, Bff, 3);
+        REQUIRE_MIN_SEMITONE_DISTANCE(C, Bf, 2);
+        REQUIRE_MIN_SEMITONE_DISTANCE(C, B, 1);
+        REQUIRE_MIN_SEMITONE_DISTANCE(C, Bs, 0);
+        REQUIRE_MIN_SEMITONE_DISTANCE(C, Bss, 1);
+
+        REQUIRE_MIN_SEMITONE_DISTANCE(B, Bff, 2);
+        REQUIRE_MIN_SEMITONE_DISTANCE(B, Bf, 1);
+        REQUIRE_MIN_SEMITONE_DISTANCE(B, B, 0);
+        REQUIRE_MIN_SEMITONE_DISTANCE(B, Bs, 1);
+        REQUIRE_MIN_SEMITONE_DISTANCE(Bs, B, 1);
+        REQUIRE_MIN_SEMITONE_DISTANCE(Bss, B, 2);
+        REQUIRE_MIN_SEMITONE_DISTANCE(Bss, Bss, 0);
+
+        size_t total = PitchClass::all.size();
+        for (size_t i = 0; i < 1000; i++) {
+            const PitchClass& p1 = PitchClass::all[rand() % total];
+            const PitchClass& p2 = PitchClass::all[rand() % total];
+
+            size_t s1 = PitchClass::minSemitoneDistance(p1, p2);
+            size_t s2 = PitchClass::minSemitoneDistance(p2, p1);
+
+            REQUIRE(s1 == s2);
+            REQUIRE(s1 < 7);
+        }
+    }
+
+    SECTION("minSemitonesFromTo")
+    {
+        REQUIRE_MIN_SEMITONES_FROM_TO(C, C, 0);
+        REQUIRE_MIN_SEMITONES_FROM_TO(C, Cs, 1);
+
+        REQUIRE_MIN_SEMITONES_FROM_TO(C, Bss, 1);
+        REQUIRE_MIN_SEMITONES_FROM_TO(Bss, C, -1);
+        REQUIRE_MIN_SEMITONES_FROM_TO(C, Bs, 0);
+        REQUIRE_MIN_SEMITONES_FROM_TO(Bs, C, 0);
+        REQUIRE_MIN_SEMITONES_FROM_TO(C, B, -1);
+        REQUIRE_MIN_SEMITONES_FROM_TO(B, C, 1);
+        REQUIRE_MIN_SEMITONES_FROM_TO(C, Bf, -2);
+        REQUIRE_MIN_SEMITONES_FROM_TO(Bf, C, 2);
+        REQUIRE_MIN_SEMITONES_FROM_TO(C, Bff, -3);
+        REQUIRE_MIN_SEMITONES_FROM_TO(Bff, C, 3);
+
+        REQUIRE_MIN_SEMITONES_FROM_TO(B, Bs, 1);
+        REQUIRE_MIN_SEMITONES_FROM_TO(Bs, B, -1);
+        REQUIRE_MIN_SEMITONES_FROM_TO(Bss, B, -2);
+
+        size_t total = PitchClass::all.size();
+        for (size_t i = 0; i < 1000; i++) {
+            const PitchClass& p1 = PitchClass::all[rand() % total];
+            const PitchClass& p2 = PitchClass::all[rand() % total];
+
+            int s1 = PitchClass::minSemitonesFromTo(p1, p2);
+            int s2 = PitchClass::minSemitonesFromTo(p2, p1);
+
+            REQUIRE(s1 == -s2);
+            REQUIRE(abs(s1) < 7);
+        }
+    }
+
     SECTION("alterate to pattern")
     {
         // C
@@ -478,6 +598,37 @@ TEST_CASE("MusicTheory::PitchClass", "[ceammc::music]")
         REQUIRE_NO_ALT_TO(E, Gs);
         REQUIRE_NO_ALT_TO(E, Gss);
 
+        // B
+        REQUIRE_CAN_ALT_TO(B, Bff);
+        REQUIRE_CAN_ALT_TO(B, Bf);
+        REQUIRE_CAN_ALT_TO(B, B);
+        REQUIRE_CAN_ALT_TO(B, Bs);
+        REQUIRE_CAN_ALT_TO(B, Bss);
+
+        REQUIRE_CAN_ALT_TO(B, Cff);
+        REQUIRE_CAN_ALT_TO(B, Cf);
+        REQUIRE_CAN_ALT_TO(B, C);
+        REQUIRE_CAN_ALT_TO(B, Cs);
+        REQUIRE_NO_ALT_TO(B, Css);
+
+        REQUIRE_NO_ALT_TO(B, Aff);
+        REQUIRE_NO_ALT_TO(B, Af);
+        REQUIRE_CAN_ALT_TO(B, A);
+        REQUIRE_CAN_ALT_TO(B, As);
+        REQUIRE_CAN_ALT_TO(B, Ass);
+
+        REQUIRE_CAN_ALT_TO(B, Dff);
+        REQUIRE_CAN_ALT_TO(B, Df);
+        REQUIRE_NO_ALT_TO(B, D);
+        REQUIRE_NO_ALT_TO(B, Ds);
+        REQUIRE_NO_ALT_TO(B, Dss);
+
+        REQUIRE_NO_ALT_TO(B, Gff);
+        REQUIRE_NO_ALT_TO(B, Gf);
+        REQUIRE_NO_ALT_TO(B, G);
+        REQUIRE_NO_ALT_TO(B, Gs);
+        REQUIRE_CAN_ALT_TO(B, Gss);
+
         //
         REQUIRE_CAN_ALT_TO(E, F);
         REQUIRE_CAN_ALT_TO(E, Fs);
@@ -489,6 +640,28 @@ TEST_CASE("MusicTheory::PitchClass", "[ceammc::music]")
         SECTION("equal")
         {
             REQUIRE(PitchClass::Cs.enharmonicEqual(PitchClass::Df));
+
+            size_t total = PitchClass::all.size();
+            for (size_t i = 0; i < 1000; i++) {
+                const PitchClass& p1 = PitchClass::all[rand() % total];
+                const PitchClass& p2 = PitchClass::all[rand() % total];
+
+                if (p1.enharmonicEqual(p2)) {
+                    REQUIRE(p2.enharmonicEqual(p1));
+
+                    Enharmonics e1 = p1.enharmonics();
+                    e1.push_back(p1);
+                    Enharmonics e2 = p2.enharmonics();
+                    e2.push_back(p2);
+
+                    std::sort(e1.begin(), e1.end(), pitchClassCmp);
+                    std::sort(e2.begin(), e2.end(), pitchClassCmp);
+
+                    REQUIRE(e1 == e2);
+                } else {
+                    REQUIRE_FALSE(p2.enharmonicEqual(p1));
+                }
+            }
         }
 
         SECTION("upper")
@@ -520,24 +693,88 @@ TEST_CASE("MusicTheory::PitchClass", "[ceammc::music]")
             REQUIRE_UP_ENHARM(A, Bff);
             REQUIRE_UP_ENHARM_2(As, Bf, Cff);
             REQUIRE_UP_ENHARM_2(Ass, B, Cf);
+            REQUIRE_UP_ENHARM_2(Bs, C, Dff);
+            REQUIRE_UP_ENHARM(B, Cf);
+
+            size_t total = PitchClass::all.size();
+            for (size_t i = 0; i < 100; i++) {
+                const PitchClass& p = PitchClass::all[rand() % total];
+                Enharmonics e = p.upperEnharmonics();
+
+                for (size_t j = 0; j < e.size(); j++) {
+                    REQUIRE(p.enharmonicEqual(e[j]));
+                }
+            }
         }
 
         SECTION("lower")
         {
             REQUIRE_LOW_ENHARM_2(Cff, As, Bf);
             REQUIRE_LOW_ENHARM_2(Cf, Ass, B);
-            //            REQUIRE_LOW_ENHARM(C, Bs);
+            REQUIRE_LOW_ENHARM(C, Bs);
+            REQUIRE_LOW_ENHARM(Cs, Bss);
+            REQUIRE_NO_LOW_ENHARM(Css);
+
+            REQUIRE_LOW_ENHARM_2(Dff, Bs, C);
+            REQUIRE_LOW_ENHARM_2(Df, Bss, Cs);
+            REQUIRE_LOW_ENHARM(D, Css);
+            REQUIRE_NO_LOW_ENHARM(Ds);
+            REQUIRE_NO_LOW_ENHARM(Dss);
+
+            REQUIRE_LOW_ENHARM_2(Eff, Css, D);
+            REQUIRE_LOW_ENHARM(Ef, Ds);
+            REQUIRE_LOW_ENHARM(E, Dss);
+            REQUIRE_NO_LOW_ENHARM(Es);
+            REQUIRE_NO_LOW_ENHARM(Ess);
+
+            REQUIRE_LOW_ENHARM_2(Fff, Ds, Ef);
+            REQUIRE_LOW_ENHARM_2(Ff, Dss, E);
+            REQUIRE_LOW_ENHARM(F, Es);
+            REQUIRE_LOW_ENHARM(Fs, Ess);
+            REQUIRE_NO_LOW_ENHARM(Fss);
+
+            REQUIRE_LOW_ENHARM_2(Gff, Es, F);
+            REQUIRE_LOW_ENHARM_2(Gf, Ess, Fs);
+            REQUIRE_LOW_ENHARM(G, Fss);
+            REQUIRE_NO_LOW_ENHARM(Gs);
+            REQUIRE_NO_LOW_ENHARM(Gss);
+
+            REQUIRE_LOW_ENHARM_2(Aff, Fss, G);
+            REQUIRE_LOW_ENHARM(Af, Gs);
+            REQUIRE_LOW_ENHARM(A, Gss);
+            REQUIRE_NO_LOW_ENHARM(As);
+            REQUIRE_NO_LOW_ENHARM(Ass);
+
+            REQUIRE_LOW_ENHARM_2(Bff, Gss, A);
+            REQUIRE_LOW_ENHARM(Bf, As);
+            REQUIRE_LOW_ENHARM(B, Ass);
+            REQUIRE_NO_LOW_ENHARM(Bs);
+            REQUIRE_NO_LOW_ENHARM(Bss);
+
+            size_t total = PitchClass::all.size();
+            for (size_t i = 0; i < 100; i++) {
+                const PitchClass& p = PitchClass::all[rand() % total];
+                Enharmonics e = p.lowerEnharmonics();
+
+                for (size_t j = 0; j < e.size(); j++) {
+                    REQUIRE(p.enharmonicEqual(e[j]));
+                }
+            }
         }
 
-        //        REQUIRE_UP_ENHARM(B, Cf);
-        //        REQUIRE_ENHARM_2(Bf, Cff, As);
-        //        REQUIRE_ENHARM_2(Cff, Bf, As);
-        //        REQUIRE_ENHARM_2(Bf, Cff, As);
+        SECTION("both")
+        {
+            size_t total = PitchClass::all.size();
+            for (size_t i = 0; i < 100; i++) {
+                const PitchClass& p = PitchClass::all[rand() % total];
+                Enharmonics e = p.enharmonics();
 
-        //        REQUIRE_ENHARM_2(B, Cf, Ass);
-        //        REQUIRE_ENHARM_2(C, Dff, Bs);
-        //        REQUIRE_ENHARM_2(Cs, Df, Bss);
-        //        REQUIRE_ENHARM_2(Df, Cs, Bss);
-        //        REQUIRE_ENHARM_2(D, Eff, Css);
+                REQUIRE(e.size() > 0);
+
+                for (size_t j = 0; j < e.size(); j++) {
+                    REQUIRE(p.enharmonicEqual(e[j]));
+                }
+            }
+        }
     }
 }

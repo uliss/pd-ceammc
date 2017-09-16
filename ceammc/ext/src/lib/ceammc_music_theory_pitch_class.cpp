@@ -44,6 +44,16 @@ const PitchClass PitchClass::B(PitchName::B, Alteration::NATURAL);
 const PitchClass PitchClass::Bs(PitchName::B, Alteration::SHARP);
 const PitchClass PitchClass::Bss(PitchName::B, Alteration::DOUBLE_SHARP);
 
+const boost::array<PitchClass, 35> PitchClass::all = {
+    Cff, Cf, C, Cs, Css,
+    Dff, Df, D, Ds, Dss,
+    Eff, Ef, E, Es, Ess,
+    Fff, Ff, F, Fs, Fss,
+    Gff, Gf, G, Gs, Gss,
+    Aff, Af, A, As, Ass,
+    Bff, Bf, B, Bs, Bss
+};
+
 PitchClass::PitchClass(PitchName p, Alteration a)
     : pitch_name_(p)
     , alt_(a)
@@ -170,12 +180,10 @@ PitchClass PitchClass::stepTranspose(int n) const
 
 bool PitchClass::tryAlterateToEqPitch(PitchClass& target, const PitchClass& pattern)
 {
-    size_t min_semi = minSemitoneDistance(pattern, target);
-    int semi = pattern.absolutePitch() - target.absolutePitch();
-    int sign = (min_semi < semi) ? -1 : 1;
+    int min_semi = minSemitonesFromTo(target, pattern);
 
     Alteration a = target.alteration();
-    if (!a.alterate(min_semi * sign))
+    if (!a.alterate(min_semi))
         return false;
 
     target.setAlteration(a);
@@ -212,7 +220,7 @@ Enharmonics PitchClass::lowerEnharmonics() const
     return res;
 }
 
-Enharmonics PitchClass::enharmonic() const
+Enharmonics PitchClass::enharmonics() const
 {
     Enharmonics res;
 
@@ -235,15 +243,20 @@ Enharmonics PitchClass::enharmonic() const
 
 size_t PitchClass::minSemitoneDistance(const PitchClass& c1, const PitchClass& c2)
 {
-    const int dist = abs(int(c2.absolutePitch()) - int(c1.absolutePitch()));
-    return std::min(dist, 12 - dist);
+    return abs(minSemitonesFromTo(c1, c2));
 }
 
-int PitchClass::minSemitonesFromTo(const PitchClass& c1, const PitchClass& c2)
+int PitchClass::minSemitonesFromTo(const PitchClass& from, const PitchClass& to)
 {
-    const int dist = abs(int(c2.absolutePitch()) - int(c1.absolutePitch()));
-    const int min_dist = std::min(dist, 12 - dist);
-    return min_dist;
+    int p_from = from.absolutePitch();
+    int p_to = to.absolutePitch();
+    int p_dist = p_to - p_from;
+    int dist = abs(p_dist);
+
+    if (dist < 12 - dist)
+        return dist * (p_dist < 0 ? -1 : 1);
+    else
+        return (12 - dist) * (p_dist > 0 ? -1 : 1);
 }
 
 std::ostream& ceammc::music::operator<<(std::ostream& os, const PitchClass& p)
