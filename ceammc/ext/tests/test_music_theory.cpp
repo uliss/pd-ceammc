@@ -249,4 +249,31 @@ TEST_CASE("MusicTheory", "[ceammc::music]")
         REQUIRE_SCALE(Bf, MINOR, Bf, C, Df, Ef, F, Gf, Af);
         REQUIRE_SCALE(B, MINOR, B, Cs, D, E, Fs, G, A);
     }
+
+    SECTION("alterations")
+    {
+        Scale alt = Tonality(PitchClass::D, MAJOR).alterations();
+        REQUIRE(alt.size() == 5);
+        REQUIRE(alt[0] == PitchClass::Ds);
+        REQUIRE(alt[1] == PitchClass::Es);
+        REQUIRE(alt[2] == PitchClass::Gs);
+        REQUIRE(alt[3] == PitchClass::As);
+        REQUIRE(alt[4] == PitchClass::C);
+
+        alt = Tonality(PitchClass::D, MAJOR).alterations(ALTERATE_UP);
+        REQUIRE(alt.size() == 5);
+        REQUIRE(alt[0] == PitchClass::Ds);
+        REQUIRE(alt[1] == PitchClass::Es);
+        REQUIRE(alt[2] == PitchClass::Gs);
+        REQUIRE(alt[3] == PitchClass::As);
+        REQUIRE(alt[4] == PitchClass::C);
+
+        alt = Tonality(PitchClass::D, MAJOR).alterations(ALTERATE_DOWN);
+        REQUIRE(alt.size() == 5);
+        REQUIRE(alt[0] == PitchClass::Ef);
+        REQUIRE(alt[1] == PitchClass::F);
+        REQUIRE(alt[2] == PitchClass::Gs);
+        REQUIRE(alt[3] == PitchClass::Bf);
+        REQUIRE(alt[4] == PitchClass::C);
+    }
 }
