@@ -133,6 +133,22 @@ TEST_CASE("MusicTheory::PitchClass", "[ceammc::music]")
         REQUIRE(p2);
     }
 
+    SECTION("construct from MIDI value")
+    {
+        REQUIRE(PitchClass(0) == PitchClass::C);
+        REQUIRE(PitchClass(1) == PitchClass::Cs);
+        REQUIRE(PitchClass(2) == PitchClass::D);
+        REQUIRE(PitchClass(3) == PitchClass::Ds);
+        REQUIRE(PitchClass(4) == PitchClass::E);
+        REQUIRE(PitchClass(5) == PitchClass::F);
+        REQUIRE(PitchClass(6) == PitchClass::Fs);
+        REQUIRE(PitchClass(7) == PitchClass::G);
+        REQUIRE(PitchClass(8) == PitchClass::Gs);
+        REQUIRE(PitchClass(9) == PitchClass::A);
+        REQUIRE(PitchClass(10) == PitchClass::As);
+        REQUIRE(PitchClass(11) == PitchClass::B);
+    }
+
     SECTION("pitch compare")
     {
         REQUIRE(PitchClass::C == PitchClass::C);
@@ -776,5 +792,17 @@ TEST_CASE("MusicTheory::PitchClass", "[ceammc::music]")
                 }
             }
         }
+    }
+
+    SECTION("alterate")
+    {
+        REQUIRE(PitchClass::C.alterate(1) == PitchClass::Cs);
+        REQUIRE(PitchClass::C.alterate(2) == PitchClass::Css);
+        REQUIRE(PitchClass::C.alterate(0) == PitchClass::C);
+        REQUIRE(PitchClass::C.alterate(-1) == PitchClass::Cf);
+        REQUIRE(PitchClass::C.alterate(-2) == PitchClass::Cff);
+
+        REQUIRE_FALSE(PitchClass::C.alterate(3));
+        REQUIRE_FALSE(PitchClass::C.alterate(-3));
     }
 }
