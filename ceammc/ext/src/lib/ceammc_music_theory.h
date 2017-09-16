@@ -53,6 +53,9 @@ namespace music {
 
     public:
         static int fifthsCircleIndex(const PitchClass& c, mode_t m);
+        static PitchClass correctAlteration(size_t pitch,
+            const Tonality& t,
+            AlterationDir dir = ALTERATE_UP);
 
     private:
         Scale scale_;
@@ -62,8 +65,6 @@ namespace music {
         Scale alt_down_;
 
         void calcScale();
-        bool isValid() const;
-        friend size_t hash_value(const Tonality& t);
     };
 
     std::ostream& operator<<(std::ostream& os, const Tonality& t);

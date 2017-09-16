@@ -27,6 +27,10 @@ using namespace ceammc::music;
 #define REQUIRE_KEYS(t, m, n) REQUIRE(Tonality(PitchClass::t, m).numKeys() == n);
 #define REQUIRE_FLATS(t, m, n) REQUIRE(Tonality(PitchClass::t, m).numFlats() == n);
 #define REQUIRE_SHARPS(t, m, n) REQUIRE(Tonality(PitchClass::t, m).numSharps() == n);
+#define REQUIRE_PITCH(n, t, m, p, d)                                                             \
+    {                                                                                            \
+        REQUIRE(Tonality::correctAlteration(n, Tonality(PitchClass::t, m), d) == PitchClass::p); \
+    }
 
 #define REQUIRE_SCALE(t, m, p1, p2, p3, p4, p5, p6, p7) \
     {                                                   \
@@ -404,5 +408,66 @@ TEST_CASE("MusicTheory", "[ceammc::music]")
             REQUIRE(chrom[10] == PitchClass::C);
             REQUIRE(chrom[11] == PitchClass::Cs);
         }
+    }
+
+    SECTION("name")
+    {
+        REQUIRE(Tonality(PitchClass::Bf, MAJOR).name() == "B-flat major");
+        REQUIRE(Tonality(PitchClass::Bf, MINOR).name() == "B-flat minor");
+    }
+
+    SECTION("correct alteration")
+    {
+        REQUIRE_PITCH(0, C, MAJOR, C, ALTERATE_UP);
+        REQUIRE_PITCH(1, C, MAJOR, Cs, ALTERATE_UP);
+        REQUIRE_PITCH(2, C, MAJOR, D, ALTERATE_UP);
+        REQUIRE_PITCH(3, C, MAJOR, Ds, ALTERATE_UP);
+        REQUIRE_PITCH(4, C, MAJOR, E, ALTERATE_UP);
+        REQUIRE_PITCH(5, C, MAJOR, F, ALTERATE_UP);
+        REQUIRE_PITCH(6, C, MAJOR, Fs, ALTERATE_UP);
+        REQUIRE_PITCH(7, C, MAJOR, G, ALTERATE_UP);
+        REQUIRE_PITCH(8, C, MAJOR, Gs, ALTERATE_UP);
+        REQUIRE_PITCH(9, C, MAJOR, A, ALTERATE_UP);
+        REQUIRE_PITCH(10, C, MAJOR, Bf, ALTERATE_UP);
+        REQUIRE_PITCH(11, C, MAJOR, B, ALTERATE_UP);
+
+        REQUIRE_PITCH(11, C, MAJOR, B, ALTERATE_DOWN);
+        REQUIRE_PITCH(10, C, MAJOR, Bf, ALTERATE_DOWN);
+        REQUIRE_PITCH(9, C, MAJOR, A, ALTERATE_DOWN);
+        REQUIRE_PITCH(8, C, MAJOR, Af, ALTERATE_DOWN);
+        REQUIRE_PITCH(7, C, MAJOR, G, ALTERATE_DOWN);
+        REQUIRE_PITCH(6, C, MAJOR, Fs, ALTERATE_DOWN);
+        REQUIRE_PITCH(5, C, MAJOR, F, ALTERATE_DOWN);
+        REQUIRE_PITCH(4, C, MAJOR, E, ALTERATE_DOWN);
+        REQUIRE_PITCH(3, C, MAJOR, Ef, ALTERATE_DOWN);
+        REQUIRE_PITCH(2, C, MAJOR, D, ALTERATE_DOWN);
+        REQUIRE_PITCH(1, C, MAJOR, Df, ALTERATE_DOWN);
+        REQUIRE_PITCH(0, C, MAJOR, C, ALTERATE_DOWN);
+
+        REQUIRE_PITCH(2, D, MINOR, D, ALTERATE_UP);
+        REQUIRE_PITCH(3, D, MINOR, Ef, ALTERATE_UP);
+        REQUIRE_PITCH(4, D, MINOR, E, ALTERATE_UP);
+        REQUIRE_PITCH(5, D, MINOR, F, ALTERATE_UP);
+        REQUIRE_PITCH(6, D, MINOR, Fs, ALTERATE_UP);
+        REQUIRE_PITCH(7, D, MINOR, G, ALTERATE_UP);
+        REQUIRE_PITCH(8, D, MINOR, Gs, ALTERATE_UP);
+        REQUIRE_PITCH(9, D, MINOR, A, ALTERATE_UP);
+        REQUIRE_PITCH(10, D, MINOR, Bf, ALTERATE_UP);
+        REQUIRE_PITCH(11, D, MINOR, B, ALTERATE_UP);
+        REQUIRE_PITCH(0, D, MINOR, C, ALTERATE_UP);
+        REQUIRE_PITCH(1, D, MINOR, Cs, ALTERATE_UP);
+
+        REQUIRE_PITCH(2, D, MINOR, D, ALTERATE_DOWN);
+        REQUIRE_PITCH(3, D, MINOR, Ef, ALTERATE_DOWN);
+        REQUIRE_PITCH(4, D, MINOR, E, ALTERATE_DOWN);
+        REQUIRE_PITCH(5, D, MINOR, F, ALTERATE_DOWN);
+        REQUIRE_PITCH(6, D, MINOR, Fs, ALTERATE_DOWN);
+        REQUIRE_PITCH(7, D, MINOR, G, ALTERATE_DOWN);
+        REQUIRE_PITCH(8, D, MINOR, Gs, ALTERATE_DOWN);
+        REQUIRE_PITCH(9, D, MINOR, A, ALTERATE_DOWN);
+        REQUIRE_PITCH(10, D, MINOR, Bf, ALTERATE_DOWN);
+        REQUIRE_PITCH(11, D, MINOR, B, ALTERATE_DOWN);
+        REQUIRE_PITCH(0, D, MINOR, C, ALTERATE_DOWN);
+        REQUIRE_PITCH(1, D, MINOR, Cs, ALTERATE_DOWN);
     }
 }

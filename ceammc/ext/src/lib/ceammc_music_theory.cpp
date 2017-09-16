@@ -130,6 +130,20 @@ int Tonality::fifthsCircleIndex(const PitchClass& c, mode_t m)
         return pitchToFithIndex(c.pitchName()) - 3 + 7 * c.alteration().semitones();
 }
 
+PitchClass Tonality::correctAlteration(size_t pitch, const Tonality& t, AlterationDir dir)
+{
+    pitch %= 12;
+    const Scale& chrom = t.chromatic(dir);
+
+    for (size_t i = 0; i < chrom.size(); i++) {
+        if (chrom[i].absolutePitch() == pitch)
+            return chrom[i];
+    }
+
+    // shoud never happend
+    return PitchClass(pitch);
+}
+
 void Tonality::calcScale()
 {
     scale_.assign(7, pitch_);
@@ -211,14 +225,4 @@ void Tonality::calcScale()
         alt_down_ = alt_up_;
         chrom_down_ = chrom_up_;
     }
-}
-
-bool Tonality::isValid() const
-{
-    for (size_t i = 0; i < scale_.size(); i++) {
-        if (abs(scale_[i].alteration().semitones()) > 1)
-            return false;
-    }
-
-    return true;
 }
