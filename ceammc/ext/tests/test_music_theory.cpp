@@ -129,25 +129,4 @@ TEST_CASE("MusicTheory", "[ceammc::music]")
         REQUIRE_SCALE(Tonality(PitchClass::Bf, MAJOR), Bf, C, D, Ef, F, G, A);
         REQUIRE_SCALE(Tonality(PitchClass::B, MAJOR), B, Cs, Ds, E, Fs, Gs, As);
     }
-
-    SECTION("min semitone distance")
-    {
-
-#define REQUIRE_MIN_DISTANCE(p1, p2, d)                                    \
-    {                                                                      \
-        REQUIRE(minSemitoneDistance(PitchClass::p1, PitchClass::p2) == d); \
-    }
-
-        REQUIRE_MIN_DISTANCE(C, C, 0);
-        REQUIRE_MIN_DISTANCE(C, Dff, 0);
-        REQUIRE_MIN_DISTANCE(Dff, C, 0);
-        REQUIRE_MIN_DISTANCE(C, Bs, 0);
-        REQUIRE_MIN_DISTANCE(C, D, 2);
-        REQUIRE_MIN_DISTANCE(C, Df, 1);
-        REQUIRE_MIN_DISTANCE(B, Df, 2);
-        REQUIRE_MIN_DISTANCE(B, C, 1);
-        REQUIRE_MIN_DISTANCE(C, B, 1);
-        REQUIRE_MIN_DISTANCE(Bs, Dff, 0);
-        REQUIRE_MIN_DISTANCE(Dff, Bs, 0);
-    }
 }

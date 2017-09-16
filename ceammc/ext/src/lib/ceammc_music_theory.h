@@ -1,7 +1,6 @@
 #ifndef CEAMMC_MUSIC_THEORY_H
 #define CEAMMC_MUSIC_THEORY_H
 
-#include <boost/functional/hash.hpp>
 #include <iostream>
 #include <string>
 
@@ -51,7 +50,6 @@ namespace music {
     };
 
     std::ostream& operator<<(std::ostream& os, const Tonality& t);
-    size_t hash_value(const Tonality& c);
 }
 }
 
