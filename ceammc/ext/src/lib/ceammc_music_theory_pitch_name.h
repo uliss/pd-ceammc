@@ -7,6 +7,16 @@
 namespace ceammc {
 namespace music {
 
+    enum PitchNameType {
+        PITCH_NAME_C = 0,
+        PITCH_NAME_D,
+        PITCH_NAME_E,
+        PITCH_NAME_F,
+        PITCH_NAME_G,
+        PITCH_NAME_A,
+        PITCH_NAME_B
+    };
+
     class PitchName {
         unsigned char value_;
         PitchName(unsigned char v);
@@ -19,6 +29,8 @@ namespace music {
 
         PitchName operator+(int i) const;
         PitchName operator-(int i) const;
+
+        PitchNameType type() const;
 
         unsigned int index() const;
         unsigned int absolutePitch() const;

@@ -5,13 +5,13 @@
 
 using namespace ceammc::music;
 
-const PitchName PitchName::C(0);
-const PitchName PitchName::D(1);
-const PitchName PitchName::E(2);
-const PitchName PitchName::F(3);
-const PitchName PitchName::G(4);
-const PitchName PitchName::A(5);
-const PitchName PitchName::B(6);
+const PitchName PitchName::C(PITCH_NAME_C);
+const PitchName PitchName::D(PITCH_NAME_D);
+const PitchName PitchName::E(PITCH_NAME_E);
+const PitchName PitchName::F(PITCH_NAME_F);
+const PitchName PitchName::G(PITCH_NAME_G);
+const PitchName PitchName::A(PITCH_NAME_A);
+const PitchName PitchName::B(PITCH_NAME_B);
 
 const char* PitchName::pitch_names_[7] = { "C", "D", "E", "F", "G", "A", "B" };
 
@@ -34,6 +34,11 @@ PitchName PitchName::operator+(int i) const
 PitchName PitchName::operator-(int i) const
 {
     return *this + (-i);
+}
+
+PitchNameType PitchName::type() const
+{
+    return PitchNameType(value_);
 }
 
 unsigned int PitchName::index() const

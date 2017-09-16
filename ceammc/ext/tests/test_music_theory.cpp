@@ -21,15 +21,97 @@
 using namespace ceammc;
 using namespace ceammc::music;
 
+#define REQUIRE_TONALITY(p1, p2, m) REQUIRE(Tonality(PitchClass::p1, m).pitch() == PitchClass::p2)
+#define REQUIRE_MAJ_FIFTH_INDEX(p, n) REQUIRE(Tonality::fifthsCircleIndex(PitchClass::p, MAJOR) == n)
+#define REQUIRE_MIN_FIFTH_INDEX(p, n) REQUIRE(Tonality::fifthsCircleIndex(PitchClass::p, MINOR) == n)
+
 TEST_CASE("MusicTheory", "[ceammc::music]")
 {
+    SECTION("fifthsIndex")
+    {
+        REQUIRE_MAJ_FIFTH_INDEX(Cf, -7);
+        REQUIRE_MAJ_FIFTH_INDEX(Gf, -6);
+        REQUIRE_MAJ_FIFTH_INDEX(Df, -5);
+        REQUIRE_MAJ_FIFTH_INDEX(Af, -4);
+        REQUIRE_MAJ_FIFTH_INDEX(Ef, -3);
+        REQUIRE_MAJ_FIFTH_INDEX(Bf, -2);
+        REQUIRE_MAJ_FIFTH_INDEX(F, -1);
+        REQUIRE_MAJ_FIFTH_INDEX(C, 0);
+        REQUIRE_MAJ_FIFTH_INDEX(G, 1);
+        REQUIRE_MAJ_FIFTH_INDEX(D, 2);
+        REQUIRE_MAJ_FIFTH_INDEX(A, 3);
+        REQUIRE_MAJ_FIFTH_INDEX(E, 4);
+        REQUIRE_MAJ_FIFTH_INDEX(B, 5);
+        REQUIRE_MAJ_FIFTH_INDEX(Fs, 6);
+        REQUIRE_MAJ_FIFTH_INDEX(Cs, 7);
+    }
+
+    SECTION("construct")
+    {
+        REQUIRE_TONALITY(Cff, Bf, MAJOR);
+        REQUIRE_TONALITY(Cf, Cf, MAJOR);
+        REQUIRE_TONALITY(C, C, MAJOR);
+        REQUIRE_TONALITY(Cs, Cs, MAJOR);
+        REQUIRE_TONALITY(Css, D, MAJOR);
+
+        REQUIRE_TONALITY(Dff, C, MAJOR);
+        REQUIRE_TONALITY(Df, Df, MAJOR);
+        REQUIRE_TONALITY(D, D, MAJOR);
+        REQUIRE_TONALITY(Ds, Ef, MAJOR);
+        REQUIRE_TONALITY(Dss, E, MAJOR);
+
+        REQUIRE_TONALITY(Eff, D, MAJOR);
+        REQUIRE_TONALITY(Ef, Ef, MAJOR);
+        REQUIRE_TONALITY(E, E, MAJOR);
+        REQUIRE_TONALITY(Es, F, MAJOR);
+        REQUIRE_TONALITY(Ess, Fs, MAJOR);
+
+        REQUIRE_TONALITY(Fff, Ef, MAJOR);
+        REQUIRE_TONALITY(Ff, E, MAJOR);
+        REQUIRE_TONALITY(F, F, MAJOR);
+        REQUIRE_TONALITY(Fs, Fs, MAJOR);
+        REQUIRE_TONALITY(Fss, G, MAJOR);
+
+        REQUIRE_TONALITY(Gff, F, MAJOR);
+        REQUIRE_TONALITY(Gf, Gf, MAJOR);
+        REQUIRE_TONALITY(G, G, MAJOR);
+        REQUIRE_TONALITY(Gs, Af, MAJOR);
+        REQUIRE_TONALITY(Gss, A, MAJOR);
+
+        REQUIRE_TONALITY(Aff, G, MAJOR);
+        REQUIRE_TONALITY(Af, Af, MAJOR);
+        REQUIRE_TONALITY(A, A, MAJOR);
+        REQUIRE_TONALITY(As, Bf, MAJOR);
+        REQUIRE_TONALITY(Ass, B, MAJOR);
+
+        REQUIRE_TONALITY(Bff, A, MAJOR);
+        REQUIRE_TONALITY(Bf, Bf, MAJOR);
+        REQUIRE_TONALITY(B, B, MAJOR);
+        REQUIRE_TONALITY(Bs, C, MAJOR);
+        REQUIRE_TONALITY(Bss, Cs, MAJOR);
+
+        REQUIRE_TONALITY(Cff, Bf, MINOR);
+        REQUIRE_TONALITY(Cf, B, MINOR);
+        REQUIRE_TONALITY(C, C, MINOR);
+        REQUIRE_TONALITY(Cs, Cs, MINOR);
+        REQUIRE_TONALITY(Css, D, MINOR);
+
+        REQUIRE_TONALITY(Dff, C, MINOR);
+        REQUIRE_TONALITY(Df, Cs, MINOR);
+        REQUIRE_TONALITY(D, D, MINOR);
+        REQUIRE_TONALITY(Ds, Ds, MINOR);
+        REQUIRE_TONALITY(Dss, E, MINOR);
+
+        REQUIRE_TONALITY(Eff, D, MINOR);
+        REQUIRE_TONALITY(Ef, Ef, MINOR);
+        REQUIRE_TONALITY(E, E, MINOR);
+        REQUIRE_TONALITY(Es, F, MINOR);
+        REQUIRE_TONALITY(Ess, Fs, MINOR);
+    }
+
     SECTION("Tonality")
     {
         Tonality t(PitchClass::As, MAJOR);
-
-        std::ostringstream s;
-        s << t;
-        REQUIRE(s.str() == "A-sharp major");
 
         REQUIRE(Tonality(PitchClass::A, MAJOR).name() == "A major");
         REQUIRE(Tonality(PitchClass::F, MINOR).name() == "F minor");
@@ -46,9 +128,9 @@ TEST_CASE("MusicTheory", "[ceammc::music]")
 
 // keys
 
-#define REQUIRE_KEYS(t, m, n) REQUIRE(Tonality(PitchClass::t, m).keys() == n);
-#define REQUIRE_FLATS(t, m, n) REQUIRE(Tonality(PitchClass::t, m).flats() == n);
-#define REQUIRE_SHARPS(t, m, n) REQUIRE(Tonality(PitchClass::t, m).sharps() == n);
+#define REQUIRE_KEYS(t, m, n) REQUIRE(Tonality(PitchClass::t, m).numKeys() == n);
+#define REQUIRE_FLATS(t, m, n) REQUIRE(Tonality(PitchClass::t, m).numFlats() == n);
+#define REQUIRE_SHARPS(t, m, n) REQUIRE(Tonality(PitchClass::t, m).numSharps() == n);
 
         REQUIRE_KEYS(Cf, MAJOR, 7);
         REQUIRE_KEYS(Gf, MAJOR, 6);
@@ -97,9 +179,6 @@ TEST_CASE("MusicTheory", "[ceammc::music]")
         REQUIRE_FLATS(B, MAJOR, 0);
         REQUIRE_FLATS(Fs, MAJOR, 0);
         REQUIRE_FLATS(Cs, MAJOR, 0);
-
-        // simplification
-        REQUIRE(Tonality(PitchClass::Ass, MAJOR).name() == "B major");
 
 #define REQUIRE_SCALE(t, p1, p2, p3, p4, p5, p6, p7) \
     {                                                \

@@ -38,15 +38,19 @@ namespace music {
 
         const Scale& scale() const;
 
-        size_t sharps() const;
-        size_t flats() const;
-        size_t keys() const;
+        size_t numSharps() const;
+        size_t numFlats() const;
+        size_t numKeys() const;
 
         Tonality simplify() const;
+
+    public:
+        static int fifthsCircleIndex(const PitchClass& c, mode_t m);
 
     private:
         Scale scale_;
         void calcScale();
+        bool isValid() const;
     };
 
     std::ostream& operator<<(std::ostream& os, const Tonality& t);
