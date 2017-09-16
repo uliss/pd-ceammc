@@ -131,7 +131,7 @@ void Tonality::calcScale()
         scale_[2] = scale_[1].semitoneUp();
         scale_[3] = scale_[2].toneUp();
         scale_[4] = scale_[3].toneUp();
-        scale_[5] = scale_[4].toneUp();
+        scale_[5] = scale_[4].semitoneUp();
         scale_[6] = scale_[5].toneUp();
     }
 }

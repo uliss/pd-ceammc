@@ -24,6 +24,21 @@ using namespace ceammc::music;
 #define REQUIRE_TONALITY(p1, p2, m) REQUIRE(Tonality(PitchClass::p1, m).pitch() == PitchClass::p2)
 #define REQUIRE_MAJ_FIFTH_INDEX(p, n) REQUIRE(Tonality::fifthsCircleIndex(PitchClass::p, MAJOR) == n)
 #define REQUIRE_MIN_FIFTH_INDEX(p, n) REQUIRE(Tonality::fifthsCircleIndex(PitchClass::p, MINOR) == n)
+#define REQUIRE_KEYS(t, m, n) REQUIRE(Tonality(PitchClass::t, m).numKeys() == n);
+#define REQUIRE_FLATS(t, m, n) REQUIRE(Tonality(PitchClass::t, m).numFlats() == n);
+#define REQUIRE_SHARPS(t, m, n) REQUIRE(Tonality(PitchClass::t, m).numSharps() == n);
+
+#define REQUIRE_SCALE(t, m, p1, p2, p3, p4, p5, p6, p7) \
+    {                                                   \
+        Scale s = Tonality(PitchClass::t, m).scale();   \
+        REQUIRE(s[0] == PitchClass::p1);                \
+        REQUIRE(s[1] == PitchClass::p2);                \
+        REQUIRE(s[2] == PitchClass::p3);                \
+        REQUIRE(s[3] == PitchClass::p4);                \
+        REQUIRE(s[4] == PitchClass::p5);                \
+        REQUIRE(s[5] == PitchClass::p6);                \
+        REQUIRE(s[6] == PitchClass::p7);                \
+    }
 
 TEST_CASE("MusicTheory", "[ceammc::music]")
 {
@@ -149,13 +164,10 @@ TEST_CASE("MusicTheory", "[ceammc::music]")
         REQUIRE_FALSE(Tonality(PitchClass::Es, MAJOR).enharmonicEqual(Tonality(PitchClass::F, MINOR)));
 
         REQUIRE(Tonality(PitchClass::Es, MAJOR).simplify() == Tonality(PitchClass::F, MAJOR));
+    }
 
-// keys
-
-#define REQUIRE_KEYS(t, m, n) REQUIRE(Tonality(PitchClass::t, m).numKeys() == n);
-#define REQUIRE_FLATS(t, m, n) REQUIRE(Tonality(PitchClass::t, m).numFlats() == n);
-#define REQUIRE_SHARPS(t, m, n) REQUIRE(Tonality(PitchClass::t, m).numSharps() == n);
-
+    SECTION("keys")
+    {
         REQUIRE_KEYS(Cf, MAJOR, 7);
         REQUIRE_KEYS(Gf, MAJOR, 6);
         REQUIRE_KEYS(Df, MAJOR, 5);
@@ -203,33 +215,38 @@ TEST_CASE("MusicTheory", "[ceammc::music]")
         REQUIRE_FLATS(B, MAJOR, 0);
         REQUIRE_FLATS(Fs, MAJOR, 0);
         REQUIRE_FLATS(Cs, MAJOR, 0);
-
-#define REQUIRE_SCALE(t, p1, p2, p3, p4, p5, p6, p7) \
-    {                                                \
-        Scale s = t.scale();                         \
-        REQUIRE(s[0] == PitchClass::p1);             \
-        REQUIRE(s[1] == PitchClass::p2);             \
-        REQUIRE(s[2] == PitchClass::p3);             \
-        REQUIRE(s[3] == PitchClass::p4);             \
-        REQUIRE(s[4] == PitchClass::p5);             \
-        REQUIRE(s[5] == PitchClass::p6);             \
-        REQUIRE(s[6] == PitchClass::p7);             \
     }
 
-        REQUIRE_SCALE(Tonality(PitchClass::C, MAJOR), C, D, E, F, G, A, B);
-        REQUIRE_SCALE(Tonality(PitchClass::Cs, MAJOR), Cs, Ds, Es, Fs, Gs, As, Bs);
-        REQUIRE_SCALE(Tonality(PitchClass::Df, MAJOR), Df, Ef, F, Gf, Af, Bf, C);
-        REQUIRE_SCALE(Tonality(PitchClass::D, MAJOR), D, E, Fs, G, A, B, Cs);
-        //        REQUIRE_SCALE(Tonality(PitchClass::Ds, MAJOR), Ef, F, G, Af, Bf, C, D);
-        REQUIRE_SCALE(Tonality(PitchClass::Ef, MAJOR), Ef, F, G, Af, Bf, C, D);
-        REQUIRE_SCALE(Tonality(PitchClass::E, MAJOR), E, Fs, Gs, A, B, Cs, Ds);
-        REQUIRE_SCALE(Tonality(PitchClass::F, MAJOR), F, G, A, Bf, C, D, E);
-        REQUIRE_SCALE(Tonality(PitchClass::Fs, MAJOR), Fs, Gs, As, B, Cs, Ds, Es);
-        REQUIRE_SCALE(Tonality(PitchClass::Gf, MAJOR), Gf, Af, Bf, Cf, Df, Ef, F);
-        REQUIRE_SCALE(Tonality(PitchClass::G, MAJOR), G, A, B, C, D, E, Fs);
-        REQUIRE_SCALE(Tonality(PitchClass::Af, MAJOR), Af, Bf, C, Df, Ef, F, G);
-        REQUIRE_SCALE(Tonality(PitchClass::A, MAJOR), A, B, Cs, D, E, Fs, Gs);
-        REQUIRE_SCALE(Tonality(PitchClass::Bf, MAJOR), Bf, C, D, Ef, F, G, A);
-        REQUIRE_SCALE(Tonality(PitchClass::B, MAJOR), B, Cs, Ds, E, Fs, Gs, As);
+    SECTION("scale")
+    {
+        REQUIRE_SCALE(C, MAJOR, C, D, E, F, G, A, B);
+        REQUIRE_SCALE(Cs, MAJOR, Cs, Ds, Es, Fs, Gs, As, Bs);
+        REQUIRE_SCALE(Df, MAJOR, Df, Ef, F, Gf, Af, Bf, C);
+        REQUIRE_SCALE(D, MAJOR, D, E, Fs, G, A, B, Cs);
+        REQUIRE_SCALE(Ds, MAJOR, Ef, F, G, Af, Bf, C, D);
+        REQUIRE_SCALE(Ef, MAJOR, Ef, F, G, Af, Bf, C, D);
+        REQUIRE_SCALE(E, MAJOR, E, Fs, Gs, A, B, Cs, Ds);
+        REQUIRE_SCALE(F, MAJOR, F, G, A, Bf, C, D, E);
+        REQUIRE_SCALE(Fs, MAJOR, Fs, Gs, As, B, Cs, Ds, Es);
+        REQUIRE_SCALE(Gf, MAJOR, Gf, Af, Bf, Cf, Df, Ef, F);
+        REQUIRE_SCALE(G, MAJOR, G, A, B, C, D, E, Fs);
+        REQUIRE_SCALE(Af, MAJOR, Af, Bf, C, Df, Ef, F, G);
+        REQUIRE_SCALE(A, MAJOR, A, B, Cs, D, E, Fs, Gs);
+        REQUIRE_SCALE(Bf, MAJOR, Bf, C, D, Ef, F, G, A);
+        REQUIRE_SCALE(B, MAJOR, B, Cs, Ds, E, Fs, Gs, As);
+
+        REQUIRE_SCALE(C, MINOR, C, D, Ef, F, G, Af, Bf);
+        REQUIRE_SCALE(Cs, MINOR, Cs, Ds, E, Fs, Gs, A, B);
+        REQUIRE_SCALE(D, MINOR, D, E, F, G, A, Bf, C);
+        REQUIRE_SCALE(Ds, MINOR, Ds, Es, Fs, Gs, As, B, Cs);
+        REQUIRE_SCALE(Ef, MINOR, Ef, F, Gf, Af, Bf, Cf, Df);
+        REQUIRE_SCALE(E, MINOR, E, Fs, G, A, B, C, D);
+        REQUIRE_SCALE(F, MINOR, F, G, Af, Bf, C, Df, Ef);
+        REQUIRE_SCALE(Fs, MINOR, Fs, Gs, A, B, Cs, D, E);
+        REQUIRE_SCALE(G, MINOR, G, A, Bf, C, D, Ef, F);
+        REQUIRE_SCALE(Af, MINOR, Af, Bf, Cf, Df, Ef, Ff, Gf);
+        REQUIRE_SCALE(A, MINOR, A, B, C, D, E, F, G);
+        REQUIRE_SCALE(Bf, MINOR, Bf, C, Df, Ef, F, Gf, Af);
+        REQUIRE_SCALE(B, MINOR, B, Cs, D, E, Fs, G, A);
     }
 }
