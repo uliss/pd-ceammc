@@ -3,7 +3,7 @@
 using namespace ceammc::music;
 
 static const char* ALTERATION_SHORT_NAMES[] = {
-    "--", "-", "", "#", "##"
+    "bb", "b", "", "#", "##"
 };
 
 static const char* ALTERATION_FULL_NAMES[] = {

@@ -1,4 +1,5 @@
 #include "midi_common.h"
+#include "ceammc_music_theory.h"
 
 #include <algorithm>
 #include <boost/static_assert.hpp>
@@ -282,6 +283,9 @@ t_symbol* ceammc::midi::controller_name(size_t ctrNum)
     return (ctrNum > 127) ? &s_ : CTR_NAMES[ctrNum];
 }
 
-t_symbol* ceammc::midi::key_to_name(size_t key, const Tonality& t, bool up)
+t_symbol* ceammc::midi::key_to_name(size_t key, const music::Tonality& t, bool up)
 {
+    using namespace ceammc::music;
+    PitchClass p = Tonality::correctAlteration(key, t, up ? ALTERATE_UP : ALTERATE_DOWN);
+    return gensym(p.name().c_str());
 }

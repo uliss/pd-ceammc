@@ -54,6 +54,18 @@ const boost::array<PitchClass, 35> PitchClass::all = {
     Bff, Bf, B, Bs, Bss
 };
 
+PitchClass::PitchClass(size_t semitoneValue)
+    : pitch_name_(PitchName::C)
+    , alt_(Alteration::NATURAL)
+    , invalid_(false)
+{
+    size_t p = (semitoneValue < 5) ? (semitoneValue / 2) : ((semitoneValue + 1) / 2);
+    size_t a = (semitoneValue < 5) ? (semitoneValue % 2) : ((semitoneValue + 1) % 2);
+    pitch_name_ = PitchName::C + p;
+    if (a)
+        alt_.alterate(1);
+}
+
 PitchClass::PitchClass(PitchName p, Alteration a)
     : pitch_name_(p)
     , alt_(a)

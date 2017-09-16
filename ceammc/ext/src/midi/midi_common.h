@@ -5,6 +5,10 @@
 #include "ceammc_music_theory.h"
 
 namespace ceammc {
+namespace music {
+    class Tonality;
+}
+
 namespace midi {
 
     /**
@@ -35,7 +39,7 @@ namespace midi {
      */
     t_symbol* controller_name(size_t ctrNum);
 
-    t_symbol* key_to_name(size_t key, const Tonality& t, bool up = true);
+    t_symbol* key_to_name(size_t key, const music::Tonality& t, bool up = true);
 }
 }
 

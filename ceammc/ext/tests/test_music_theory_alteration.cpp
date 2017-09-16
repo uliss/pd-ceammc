@@ -89,10 +89,10 @@ TEST_CASE("MusicTheory::Alteration", "[ceammc::music]")
 
     SECTION("names")
     {
-        REQUIRE(Alteration::DOUBLE_FLAT.shortName() == std::string("--"));
+        REQUIRE(Alteration::DOUBLE_FLAT.shortName() == std::string("bb"));
         REQUIRE(Alteration::DOUBLE_FLAT.fullName() == std::string("double flat"));
 
-        REQUIRE(Alteration::FLAT.shortName() == std::string("-"));
+        REQUIRE(Alteration::FLAT.shortName() == std::string("b"));
         REQUIRE(Alteration::FLAT.fullName() == std::string("flat"));
 
         REQUIRE(Alteration::NATURAL.shortName() == std::string(""));
