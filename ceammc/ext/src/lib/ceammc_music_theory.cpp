@@ -25,6 +25,12 @@ Tonality::Tonality(const PitchClass& p, HarmonicModus m)
         }
     }
 
+    scale_.reserve(7);
+    alt_up_.reserve(5);
+    alt_down_.reserve(5);
+    chrom_up_.reserve(12);
+    chrom_down_.reserve(12);
+
     calcScale();
 }
 
@@ -50,6 +56,16 @@ std::string Tonality::name() const
 const Scale& Tonality::scale() const
 {
     return scale_;
+}
+
+const Scale& Tonality::alterations(AlterationDir dir) const
+{
+    return dir == ALTERATE_UP ? alt_up_ : alt_down_;
+}
+
+const Scale& Tonality::chromatic(AlterationDir dir) const
+{
+    return dir == ALTERATE_UP ? chrom_up_ : chrom_down_;
 }
 
 size_t Tonality::numSharps() const
@@ -116,8 +132,9 @@ int Tonality::fifthsCircleIndex(const PitchClass& c, mode_t m)
 
 void Tonality::calcScale()
 {
-    scale_.reserve(7);
     scale_.assign(7, pitch_);
+    alt_up_.assign(5, pitch_);
+    alt_down_.assign(5, pitch_);
 
     if (modus_ == MAJOR) {
         scale_[1] = scale_[0].toneUp();
@@ -126,6 +143,44 @@ void Tonality::calcScale()
         scale_[4] = scale_[3].toneUp();
         scale_[5] = scale_[4].toneUp();
         scale_[6] = scale_[5].toneUp();
+
+        alt_up_[0] = scale_[0].alterate(1);
+        alt_up_[1] = scale_[1].alterate(1);
+        alt_up_[2] = scale_[3].alterate(1);
+        alt_up_[3] = scale_[4].alterate(1);
+        alt_up_[4] = scale_[6].alterate(-1);
+
+        alt_down_[0] = scale_[1].alterate(-1);
+        alt_down_[1] = scale_[2].alterate(-1);
+        alt_down_[2] = scale_[3].alterate(1);
+        alt_down_[3] = scale_[5].alterate(-1);
+        alt_down_[4] = scale_[6].alterate(-1);
+
+        chrom_up_.push_back(scale_[0]);
+        chrom_up_.push_back(scale_[0].alterate(1));
+        chrom_up_.push_back(scale_[1]);
+        chrom_up_.push_back(scale_[1].alterate(1));
+        chrom_up_.push_back(scale_[2]);
+        chrom_up_.push_back(scale_[3]);
+        chrom_up_.push_back(scale_[3].alterate(1));
+        chrom_up_.push_back(scale_[4]);
+        chrom_up_.push_back(scale_[4].alterate(1));
+        chrom_up_.push_back(scale_[5]);
+        chrom_up_.push_back(scale_[6].alterate(-1));
+        chrom_up_.push_back(scale_[6]);
+
+        chrom_down_.push_back(scale_[0]);
+        chrom_down_.push_back(scale_[1].alterate(-1));
+        chrom_down_.push_back(scale_[1]);
+        chrom_down_.push_back(scale_[2].alterate(-1));
+        chrom_down_.push_back(scale_[2]);
+        chrom_down_.push_back(scale_[3]);
+        chrom_down_.push_back(scale_[3].alterate(1));
+        chrom_down_.push_back(scale_[4]);
+        chrom_down_.push_back(scale_[5].alterate(-1));
+        chrom_down_.push_back(scale_[5]);
+        chrom_down_.push_back(scale_[6].alterate(-1));
+        chrom_down_.push_back(scale_[6]);
     } else {
         scale_[1] = scale_[0].toneUp();
         scale_[2] = scale_[1].semitoneUp();
@@ -133,6 +188,28 @@ void Tonality::calcScale()
         scale_[4] = scale_[3].toneUp();
         scale_[5] = scale_[4].semitoneUp();
         scale_[6] = scale_[5].toneUp();
+
+        alt_up_[0] = scale_[1].alterate(-1);
+        alt_up_[1] = scale_[2].alterate(1);
+        alt_up_[2] = scale_[3].alterate(1);
+        alt_up_[3] = scale_[5].alterate(1);
+        alt_up_[4] = scale_[6].alterate(1);
+
+        chrom_up_.push_back(scale_[0]);
+        chrom_up_.push_back(scale_[1].alterate(-1));
+        chrom_up_.push_back(scale_[1]);
+        chrom_up_.push_back(scale_[2]);
+        chrom_up_.push_back(scale_[2].alterate(1));
+        chrom_up_.push_back(scale_[3]);
+        chrom_up_.push_back(scale_[3].alterate(1));
+        chrom_up_.push_back(scale_[4]);
+        chrom_up_.push_back(scale_[5]);
+        chrom_up_.push_back(scale_[5].alterate(1));
+        chrom_up_.push_back(scale_[6]);
+        chrom_up_.push_back(scale_[6].alterate(1));
+
+        alt_down_ = alt_up_;
+        chrom_down_ = chrom_up_;
     }
 }
 

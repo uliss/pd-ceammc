@@ -21,6 +21,7 @@ namespace music {
         bool invalid_;
 
     public:
+        PitchClass(size_t semitoneValue);
         PitchClass(PitchName p, Alteration a = Alteration(Alteration::NATURAL));
 
         PitchName pitchName() const { return pitch_name_; }
@@ -40,6 +41,8 @@ namespace music {
 
         PitchClass simplifyFull() const;
         PitchClass simplifyDouble() const;
+
+        PitchClass alterate(int n) const;
 
         /**
          * Moves pitch class tone up

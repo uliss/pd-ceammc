@@ -16,6 +16,11 @@ namespace music {
         MINOR
     };
 
+    enum AlterationDir {
+        ALTERATE_UP = 0,
+        ALTERATE_DOWN
+    };
+
     typedef std::vector<PitchClass> Scale;
 
     class Tonality {
@@ -37,6 +42,8 @@ namespace music {
         std::string name() const;
 
         const Scale& scale() const;
+        const Scale& alterations(AlterationDir dir = ALTERATE_UP) const;
+        const Scale& chromatic(AlterationDir dir = ALTERATE_UP) const;
 
         size_t numSharps() const;
         size_t numFlats() const;
@@ -49,8 +56,14 @@ namespace music {
 
     private:
         Scale scale_;
+        Scale chrom_up_;
+        Scale chrom_down_;
+        Scale alt_up_;
+        Scale alt_down_;
+
         void calcScale();
         bool isValid() const;
+        friend size_t hash_value(const Tonality& t);
     };
 
     std::ostream& operator<<(std::ostream& os, const Tonality& t);

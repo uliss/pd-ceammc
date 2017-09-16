@@ -252,28 +252,157 @@ TEST_CASE("MusicTheory", "[ceammc::music]")
 
     SECTION("alterations")
     {
-        Scale alt = Tonality(PitchClass::D, MAJOR).alterations();
-        REQUIRE(alt.size() == 5);
-        REQUIRE(alt[0] == PitchClass::Ds);
-        REQUIRE(alt[1] == PitchClass::Es);
-        REQUIRE(alt[2] == PitchClass::Gs);
-        REQUIRE(alt[3] == PitchClass::As);
-        REQUIRE(alt[4] == PitchClass::C);
+        SECTION("major")
+        {
+            Scale alt = Tonality(PitchClass::D, MAJOR).alterations();
+            REQUIRE(alt.size() == 5);
+            REQUIRE(alt[0] == PitchClass::Ds);
+            REQUIRE(alt[1] == PitchClass::Es);
+            REQUIRE(alt[2] == PitchClass::Gs);
+            REQUIRE(alt[3] == PitchClass::As);
+            REQUIRE(alt[4] == PitchClass::C);
 
-        alt = Tonality(PitchClass::D, MAJOR).alterations(ALTERATE_UP);
-        REQUIRE(alt.size() == 5);
-        REQUIRE(alt[0] == PitchClass::Ds);
-        REQUIRE(alt[1] == PitchClass::Es);
-        REQUIRE(alt[2] == PitchClass::Gs);
-        REQUIRE(alt[3] == PitchClass::As);
-        REQUIRE(alt[4] == PitchClass::C);
+            alt = Tonality(PitchClass::D, MAJOR).alterations(ALTERATE_UP);
+            REQUIRE(alt.size() == 5);
+            REQUIRE(alt[0] == PitchClass::Ds);
+            REQUIRE(alt[1] == PitchClass::Es);
+            REQUIRE(alt[2] == PitchClass::Gs);
+            REQUIRE(alt[3] == PitchClass::As);
+            REQUIRE(alt[4] == PitchClass::C);
 
-        alt = Tonality(PitchClass::D, MAJOR).alterations(ALTERATE_DOWN);
-        REQUIRE(alt.size() == 5);
-        REQUIRE(alt[0] == PitchClass::Ef);
-        REQUIRE(alt[1] == PitchClass::F);
-        REQUIRE(alt[2] == PitchClass::Gs);
-        REQUIRE(alt[3] == PitchClass::Bf);
-        REQUIRE(alt[4] == PitchClass::C);
+            alt = Tonality(PitchClass::D, MAJOR).alterations(ALTERATE_DOWN);
+            REQUIRE(alt.size() == 5);
+            REQUIRE(alt[0] == PitchClass::Ef);
+            REQUIRE(alt[1] == PitchClass::F);
+            REQUIRE(alt[2] == PitchClass::Gs);
+            REQUIRE(alt[3] == PitchClass::Bf);
+            REQUIRE(alt[4] == PitchClass::C);
+        }
+
+        SECTION("minor")
+        {
+            Scale alt = Tonality(PitchClass::D, MINOR).alterations();
+            REQUIRE(alt.size() == 5);
+            REQUIRE(alt[0] == PitchClass::Ef);
+            REQUIRE(alt[1] == PitchClass::Fs);
+            REQUIRE(alt[2] == PitchClass::Gs);
+            REQUIRE(alt[3] == PitchClass::B);
+            REQUIRE(alt[4] == PitchClass::Cs);
+
+            alt = Tonality(PitchClass::D, MINOR).alterations(ALTERATE_UP);
+            REQUIRE(alt.size() == 5);
+            REQUIRE(alt[0] == PitchClass::Ef);
+            REQUIRE(alt[1] == PitchClass::Fs);
+            REQUIRE(alt[2] == PitchClass::Gs);
+            REQUIRE(alt[3] == PitchClass::B);
+            REQUIRE(alt[4] == PitchClass::Cs);
+
+            alt = Tonality(PitchClass::D, MINOR).alterations(ALTERATE_DOWN);
+            REQUIRE(alt.size() == 5);
+            REQUIRE(alt[0] == PitchClass::Ef);
+            REQUIRE(alt[1] == PitchClass::Fs);
+            REQUIRE(alt[2] == PitchClass::Gs);
+            REQUIRE(alt[3] == PitchClass::B);
+            REQUIRE(alt[4] == PitchClass::Cs);
+        }
+    }
+
+    SECTION("chromatics")
+    {
+        SECTION("major")
+        {
+            Scale chrom = Tonality(PitchClass::C, MAJOR).chromatic();
+            REQUIRE(chrom.size() == 12);
+            REQUIRE(chrom[0] == PitchClass::C);
+            REQUIRE(chrom[1] == PitchClass::Cs);
+            REQUIRE(chrom[2] == PitchClass::D);
+            REQUIRE(chrom[3] == PitchClass::Ds);
+            REQUIRE(chrom[4] == PitchClass::E);
+            REQUIRE(chrom[5] == PitchClass::F);
+            REQUIRE(chrom[6] == PitchClass::Fs);
+            REQUIRE(chrom[7] == PitchClass::G);
+            REQUIRE(chrom[8] == PitchClass::Gs);
+            REQUIRE(chrom[9] == PitchClass::A);
+            REQUIRE(chrom[10] == PitchClass::Bf);
+            REQUIRE(chrom[11] == PitchClass::B);
+
+            chrom = Tonality(PitchClass::C, MAJOR).chromatic(ALTERATE_UP);
+            REQUIRE(chrom.size() == 12);
+            REQUIRE(chrom[0] == PitchClass::C);
+            REQUIRE(chrom[1] == PitchClass::Cs);
+            REQUIRE(chrom[2] == PitchClass::D);
+            REQUIRE(chrom[3] == PitchClass::Ds);
+            REQUIRE(chrom[4] == PitchClass::E);
+            REQUIRE(chrom[5] == PitchClass::F);
+            REQUIRE(chrom[6] == PitchClass::Fs);
+            REQUIRE(chrom[7] == PitchClass::G);
+            REQUIRE(chrom[8] == PitchClass::Gs);
+            REQUIRE(chrom[9] == PitchClass::A);
+            REQUIRE(chrom[10] == PitchClass::Bf);
+            REQUIRE(chrom[11] == PitchClass::B);
+
+            chrom = Tonality(PitchClass::C, MAJOR).chromatic(ALTERATE_DOWN);
+            REQUIRE(chrom.size() == 12);
+            REQUIRE(chrom[0] == PitchClass::C);
+            REQUIRE(chrom[1] == PitchClass::Df);
+            REQUIRE(chrom[2] == PitchClass::D);
+            REQUIRE(chrom[3] == PitchClass::Ef);
+            REQUIRE(chrom[4] == PitchClass::E);
+            REQUIRE(chrom[5] == PitchClass::F);
+            REQUIRE(chrom[6] == PitchClass::Fs);
+            REQUIRE(chrom[7] == PitchClass::G);
+            REQUIRE(chrom[8] == PitchClass::Af);
+            REQUIRE(chrom[9] == PitchClass::A);
+            REQUIRE(chrom[10] == PitchClass::Bf);
+            REQUIRE(chrom[11] == PitchClass::B);
+        }
+
+        SECTION("minor")
+        {
+            Scale chrom = Tonality(PitchClass::D, MINOR).chromatic();
+            REQUIRE(chrom.size() == 12);
+            REQUIRE(chrom[0] == PitchClass::D);
+            REQUIRE(chrom[1] == PitchClass::Ef);
+            REQUIRE(chrom[2] == PitchClass::E);
+            REQUIRE(chrom[3] == PitchClass::F);
+            REQUIRE(chrom[4] == PitchClass::Fs);
+            REQUIRE(chrom[5] == PitchClass::G);
+            REQUIRE(chrom[6] == PitchClass::Gs);
+            REQUIRE(chrom[7] == PitchClass::A);
+            REQUIRE(chrom[8] == PitchClass::Bf);
+            REQUIRE(chrom[9] == PitchClass::B);
+            REQUIRE(chrom[10] == PitchClass::C);
+            REQUIRE(chrom[11] == PitchClass::Cs);
+
+            chrom = Tonality(PitchClass::D, MINOR).chromatic(ALTERATE_UP);
+            REQUIRE(chrom.size() == 12);
+            REQUIRE(chrom[0] == PitchClass::D);
+            REQUIRE(chrom[1] == PitchClass::Ef);
+            REQUIRE(chrom[2] == PitchClass::E);
+            REQUIRE(chrom[3] == PitchClass::F);
+            REQUIRE(chrom[4] == PitchClass::Fs);
+            REQUIRE(chrom[5] == PitchClass::G);
+            REQUIRE(chrom[6] == PitchClass::Gs);
+            REQUIRE(chrom[7] == PitchClass::A);
+            REQUIRE(chrom[8] == PitchClass::Bf);
+            REQUIRE(chrom[9] == PitchClass::B);
+            REQUIRE(chrom[10] == PitchClass::C);
+            REQUIRE(chrom[11] == PitchClass::Cs);
+
+            chrom = Tonality(PitchClass::D, MINOR).chromatic(ALTERATE_DOWN);
+            REQUIRE(chrom.size() == 12);
+            REQUIRE(chrom[0] == PitchClass::D);
+            REQUIRE(chrom[1] == PitchClass::Ef);
+            REQUIRE(chrom[2] == PitchClass::E);
+            REQUIRE(chrom[3] == PitchClass::F);
+            REQUIRE(chrom[4] == PitchClass::Fs);
+            REQUIRE(chrom[5] == PitchClass::G);
+            REQUIRE(chrom[6] == PitchClass::Gs);
+            REQUIRE(chrom[7] == PitchClass::A);
+            REQUIRE(chrom[8] == PitchClass::Bf);
+            REQUIRE(chrom[9] == PitchClass::B);
+            REQUIRE(chrom[10] == PitchClass::C);
+            REQUIRE(chrom[11] == PitchClass::Cs);
+        }
     }
 }

@@ -264,3 +264,16 @@ std::ostream& ceammc::music::operator<<(std::ostream& os, const PitchClass& p)
     os << p.name();
     return os;
 }
+
+PitchClass PitchClass::alterate(int n) const
+{
+    PitchClass pitch(*this);
+    Alteration new_alt(alt_);
+    if (!new_alt.alterate(n)) {
+        pitch.invalid_ = true;
+        return pitch;
+    }
+
+    pitch.setAlteration(new_alt);
+    return pitch;
+}
