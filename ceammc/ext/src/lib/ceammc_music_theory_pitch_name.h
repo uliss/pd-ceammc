@@ -54,12 +54,10 @@ namespace music {
 
     private:
         friend std::ostream& operator<<(std::ostream& os, const PitchName& p);
-        friend std::string to_string(const PitchName& p);
         static const char* pitch_names_[7];
     };
 
     std::ostream& operator<<(std::ostream& os, const PitchName& p);
-    std::string to_string(const PitchName& p);
 }
 }
 #endif // CEAMMC_MUSIC_THEORY_PITCH_NAME_H

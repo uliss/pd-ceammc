@@ -113,6 +113,8 @@ using namespace ceammc::music;
         REQUIRE(PitchClass::minSemitonesFromTo(PitchClass::p1, PitchClass::p2) == n); \
     }
 
+#define REQUIRE_TO_STR(p, s, ns) REQUIRE(to_string(PitchClass::p, ns) == s)
+
 static bool pitchClassCmp(const PitchClass& c1, const PitchClass& c2)
 {
     return c1.pitchName().absolutePitch() < c2.pitchName().absolutePitch();
@@ -804,5 +806,117 @@ TEST_CASE("MusicTheory::PitchClass", "[ceammc::music]")
 
         REQUIRE_FALSE(PitchClass::C.alterate(3));
         REQUIRE_FALSE(PitchClass::C.alterate(-3));
+    }
+
+    SECTION("to_string")
+    {
+        REQUIRE_TO_STR(Cs, "C#", NAMING_SCHEME_GUIDO);
+        REQUIRE_TO_STR(Cs, "C sharp", NAMING_SCHEME_ENGLISH);
+        REQUIRE_TO_STR(Cs, "C#", NAMING_SCHEME_SPN);
+
+        REQUIRE_TO_STR(E, "E", NAMING_SCHEME_ENGLISH);
+
+        REQUIRE_TO_STR(Cs, "Cis", NAMING_SCHEME_GERMAN);
+        REQUIRE_TO_STR(B, "H", NAMING_SCHEME_GERMAN);
+        REQUIRE_TO_STR(Bs, "His", NAMING_SCHEME_GERMAN);
+        REQUIRE_TO_STR(Bss, "Hisis", NAMING_SCHEME_GERMAN);
+        REQUIRE_TO_STR(Bf, "B", NAMING_SCHEME_GERMAN);
+        REQUIRE_TO_STR(Bff, "Bes", NAMING_SCHEME_GERMAN);
+
+        REQUIRE_TO_STR(E, "E", NAMING_SCHEME_GERMAN);
+        REQUIRE_TO_STR(Ef, "Es", NAMING_SCHEME_GERMAN);
+        REQUIRE_TO_STR(Eff, "Eses", NAMING_SCHEME_GERMAN);
+        REQUIRE_TO_STR(Es, "Eis", NAMING_SCHEME_GERMAN);
+        REQUIRE_TO_STR(Ess, "Eisis", NAMING_SCHEME_GERMAN);
+
+        REQUIRE_TO_STR(A, "A", NAMING_SCHEME_GERMAN);
+        REQUIRE_TO_STR(Af, "As", NAMING_SCHEME_GERMAN);
+        REQUIRE_TO_STR(Aff, "Ases", NAMING_SCHEME_GERMAN);
+        REQUIRE_TO_STR(As, "Ais", NAMING_SCHEME_GERMAN);
+        REQUIRE_TO_STR(Ass, "Aisis", NAMING_SCHEME_GERMAN);
+
+        REQUIRE_TO_STR(F, "F", NAMING_SCHEME_GERMAN);
+        REQUIRE_TO_STR(Ff, "Fes", NAMING_SCHEME_GERMAN);
+        REQUIRE_TO_STR(Fff, "Feses", NAMING_SCHEME_GERMAN);
+        REQUIRE_TO_STR(Fs, "Fis", NAMING_SCHEME_GERMAN);
+        REQUIRE_TO_STR(Fss, "Fisis", NAMING_SCHEME_GERMAN);
+
+        REQUIRE_TO_STR(F, "F", NAMING_SCHEME_ABC);
+        REQUIRE_TO_STR(Ff, "_F", NAMING_SCHEME_ABC);
+        REQUIRE_TO_STR(Fff, "__F", NAMING_SCHEME_ABC);
+        REQUIRE_TO_STR(Fs, "^F", NAMING_SCHEME_ABC);
+        REQUIRE_TO_STR(Fss, "^^F", NAMING_SCHEME_ABC);
+
+        REQUIRE_TO_STR(F, "F", NAMING_SCHEME_GUIDO);
+        REQUIRE_TO_STR(Ff, "F&", NAMING_SCHEME_GUIDO);
+        REQUIRE_TO_STR(Fff, "F&&", NAMING_SCHEME_GUIDO);
+        REQUIRE_TO_STR(Fs, "F#", NAMING_SCHEME_GUIDO);
+        REQUIRE_TO_STR(Fss, "F##", NAMING_SCHEME_GUIDO);
+
+        REQUIRE_TO_STR(F, "F", NAMING_SCHEME_SPN);
+        REQUIRE_TO_STR(Ff, "Fb", NAMING_SCHEME_SPN);
+        REQUIRE_TO_STR(Fff, "Fbb", NAMING_SCHEME_SPN);
+        REQUIRE_TO_STR(Fs, "F#", NAMING_SCHEME_SPN);
+        REQUIRE_TO_STR(Fss, "F##", NAMING_SCHEME_SPN);
+    }
+
+    SECTION("from_string")
+    {
+        PitchClass p = PitchClass::C;
+        REQUIRE(from_string("A flat", p));
+        REQUIRE(p == PitchClass::Af);
+        REQUIRE(from_string("A double flat", p));
+        REQUIRE(p == PitchClass::Aff);
+        REQUIRE(from_string("A", p));
+        REQUIRE(p == PitchClass::A);
+        REQUIRE_FALSE(from_string("A flat", p, NAMING_SCHEME_ABC));
+
+        REQUIRE(from_string("La", p, NAMING_SCHEME_ITALIAN));
+        REQUIRE(p == PitchClass::A);
+        REQUIRE(from_string("La ", p, NAMING_SCHEME_ITALIAN));
+        REQUIRE(p == PitchClass::A);
+        REQUIRE(from_string("La diesis", p, NAMING_SCHEME_ITALIAN));
+        REQUIRE(p == PitchClass::As);
+        REQUIRE(from_string("La doppio diesis", p, NAMING_SCHEME_ITALIAN));
+        REQUIRE(p == PitchClass::Ass);
+        REQUIRE(from_string("La bemolle", p, NAMING_SCHEME_ITALIAN));
+        REQUIRE(p == PitchClass::Af);
+        REQUIRE(from_string("La doppio bemolle", p, NAMING_SCHEME_ITALIAN));
+        REQUIRE(p == PitchClass::Aff);
+
+        REQUIRE(from_string("Ля", p, NAMING_SCHEME_RUSSIAN));
+        REQUIRE(p == PitchClass::A);
+        REQUIRE(from_string("Ля ", p, NAMING_SCHEME_RUSSIAN));
+        REQUIRE(p == PitchClass::A);
+        REQUIRE(from_string("Ля диез", p, NAMING_SCHEME_RUSSIAN));
+        REQUIRE(p == PitchClass::As);
+        REQUIRE(from_string("Ля дубль-диез", p, NAMING_SCHEME_RUSSIAN));
+        REQUIRE(p == PitchClass::Ass);
+        REQUIRE(from_string("Ля бемоль", p, NAMING_SCHEME_RUSSIAN));
+        REQUIRE(p == PitchClass::Af);
+        REQUIRE(from_string("Ля дубль-бемоль", p, NAMING_SCHEME_RUSSIAN));
+        REQUIRE(p == PitchClass::Aff);
+    }
+
+    SECTION("from/to")
+    {
+        for (size_t i = 0; i < PitchClass::all.size(); i++) {
+            for (size_t ns = 0; ns < NAMING_SCHEME_ALL; ns++) {
+                //                std::cerr << "\tNS: " << ns << "\n";
+
+                std::string str = to_string(PitchClass::all[i], NamingScheme(ns));
+                REQUIRE(str.size() > 0);
+
+                PitchClass c = PitchClass::C;
+                if (!from_string(str, c, NamingScheme(ns)))
+                    std::cerr << "\t" << str << "\n";
+
+                if (PitchClass::all[i] != c)
+                    std::cerr << "\t" << str << "\tNS: " << ns << "\n";
+
+                //                REQUIRE(from_string(str, c, NamingScheme(ns)));
+                REQUIRE(PitchClass::all[i] == c);
+            }
+        }
     }
 }

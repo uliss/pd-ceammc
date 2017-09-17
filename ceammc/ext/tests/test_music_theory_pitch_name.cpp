@@ -209,5 +209,32 @@ TEST_CASE("MusicTheory::PitchName", "[ceammc::music]")
     SECTION("to_string")
     {
         REQUIRE(to_string(PitchName::C) == "C");
+        REQUIRE(to_string(PitchName::C, NAMING_SCHEME_ITALIAN) == "Do");
+
+        for (int ns = 0; ns < NAMING_SCHEME_ABC; ns++) {
+            for (int i = 0; i < 7; i++) {
+                PitchName name0 = PitchName::C + i;
+                std::string str = to_string(name0, NamingScheme(ns));
+
+                PitchName name1 = PitchName::C;
+                REQUIRE(from_string(str, name1, NamingScheme(ns)));
+            }
+        }
+    }
+
+    SECTION("from_string")
+    {
+        PitchName n = PitchName::C;
+        REQUIRE_FALSE(from_string("Sol", n));
+        REQUIRE(n == PitchName::C);
+        REQUIRE_FALSE(from_string("Sol", n, NAMING_SCHEME_ENGLISH));
+        REQUIRE(n == PitchName::C);
+        REQUIRE(from_string("Sol", n, NAMING_SCHEME_ITALIAN));
+        REQUIRE(n == PitchName::G);
+        REQUIRE(from_string("La", n, NAMING_SCHEME_ALL));
+        REQUIRE(n == PitchName::A);
+
+        REQUIRE_FALSE(from_string("???", n));
+        REQUIRE_FALSE(from_string("???", n, NAMING_SCHEME_ALL));
     }
 }

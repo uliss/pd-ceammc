@@ -92,8 +92,3 @@ std::ostream& ceammc::music::operator<<(std::ostream& os, const PitchName& p)
     os << p.pitch_names_[p.value_];
     return os;
 }
-
-std::string ceammc::music::to_string(const PitchName& p)
-{
-    return p.pitch_names_[p.value_];
-}

@@ -1,4 +1,5 @@
 #include "ceammc_music_theory_pitch_class.h"
+#include "ceammc_music_theory_names.h"
 
 using namespace ceammc::music;
 
@@ -82,11 +83,6 @@ size_t PitchClass::absolutePitch() const
 PitchClass::operator bool() const
 {
     return invalid_ == false;
-}
-
-std::string PitchClass::name() const
-{
-    return to_string(pitch_name_) + alt_.shortName();
 }
 
 PitchClass PitchClass::simplifyFull() const
@@ -273,7 +269,7 @@ int PitchClass::minSemitonesFromTo(const PitchClass& from, const PitchClass& to)
 
 std::ostream& ceammc::music::operator<<(std::ostream& os, const PitchClass& p)
 {
-    os << p.name();
+    os << to_string(p);
     return os;
 }
 

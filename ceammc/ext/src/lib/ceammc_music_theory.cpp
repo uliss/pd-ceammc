@@ -1,4 +1,5 @@
 #include "ceammc_music_theory.h"
+#include "ceammc_music_theory_names.h"
 
 #include <boost/algorithm/minmax.hpp>
 #include <cstdlib>

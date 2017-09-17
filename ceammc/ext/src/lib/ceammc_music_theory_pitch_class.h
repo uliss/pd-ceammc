@@ -37,8 +37,6 @@ namespace music {
 
         operator bool() const;
 
-        std::string name() const;
-
         PitchClass simplifyFull() const;
         PitchClass simplifyDouble() const;
 

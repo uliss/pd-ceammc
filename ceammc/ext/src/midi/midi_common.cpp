@@ -287,5 +287,5 @@ t_symbol* ceammc::midi::key_to_name(size_t key, const music::Tonality& t, bool u
 {
     using namespace ceammc::music;
     PitchClass p = Tonality::correctAlteration(key, t, up ? ALTERATE_UP : ALTERATE_DOWN);
-    return gensym(p.name().c_str());
+    return gensym(to_string(p).c_str());
 }

@@ -13,11 +13,13 @@
  *****************************************************************************/
 #include "base_extension_test.h"
 #include "ceammc_music_theory_alteration.h"
+#include "ceammc_music_theory_names.h"
 
 #include "catch.hpp"
 
 #include <cstdlib>
 #include <ctime>
+#include <set>
 #include <sstream>
 
 using namespace ceammc;
@@ -134,5 +136,64 @@ TEST_CASE("MusicTheory::Alteration", "[ceammc::music]")
         REQUIRE_ALTERATE(DOUBLE_SHARP, -4);
         REQUIRE_NOT_ALTERATE(DOUBLE_SHARP, -5);
         REQUIRE_NOT_ALTERATE(DOUBLE_SHARP, 1);
+    }
+
+    SECTION("names")
+    {
+        REQUIRE(to_string(Alteration::FLAT) == "flat");
+        REQUIRE(to_string(Alteration::SHARP) == "sharp");
+        REQUIRE(to_string(Alteration::DOUBLE_SHARP) == "double sharp");
+        REQUIRE(to_string(Alteration::DOUBLE_SHARP, NAMING_SCHEME_ITALIAN) == "doppio diesis");
+        REQUIRE(to_string(Alteration::DOUBLE_SHARP, NAMING_SCHEME_GERMAN) == "Doppelkreuz");
+        REQUIRE(to_string(Alteration::DOUBLE_SHARP, NAMING_SCHEME_FRENCH) == "double dièse");
+        REQUIRE(to_string(Alteration::DOUBLE_SHARP, NAMING_SCHEME_RUSSIAN) == "дубль-диез");
+        REQUIRE(to_string(Alteration::DOUBLE_SHARP, NAMING_SCHEME_SPN) == "##");
+        REQUIRE(to_string(Alteration::DOUBLE_SHARP, NAMING_SCHEME_SPN_UTF8) == "♯♯");
+        REQUIRE(to_string(Alteration::DOUBLE_SHARP, NAMING_SCHEME_GUIDO) == "##");
+        REQUIRE(to_string(Alteration::DOUBLE_SHARP, NAMING_SCHEME_ABC) == "^^");
+
+        for (int ns = 0; ns <= NAMING_SCHEME_ABC; ns++) {
+            Alteration a = Alteration::DOUBLE_FLAT;
+            std::set<std::string> names;
+            do {
+                std::string s = to_string(a, (NamingScheme)ns);
+                names.insert(s);
+            } while (++a);
+
+            // check for unique name
+            REQUIRE(names.size() == 5);
+        }
+    }
+
+    SECTION("to/from string")
+    {
+        for (size_t ns = 0; ns < NAMING_SCHEME_ALL; ns++) {
+            Alteration a0 = Alteration::DOUBLE_FLAT;
+            do {
+                std::string str = to_string(a0, NamingScheme(ns));
+                Alteration a1 = Alteration::NATURAL;
+                REQUIRE(from_string(str, a1, NamingScheme(ns)));
+                REQUIRE(a0 == a1);
+            } while (a0.alterate(1));
+        }
+    }
+
+    SECTION("from string")
+    {
+        Alteration a = Alteration::NATURAL;
+        REQUIRE(from_string("sharp", a));
+        REQUIRE(a == Alteration::SHARP);
+
+        REQUIRE(from_string("##", a, NAMING_SCHEME_SPN));
+        REQUIRE(a == Alteration::DOUBLE_SHARP);
+
+        REQUIRE_FALSE(from_string("&", a, NAMING_SCHEME_SPN));
+        REQUIRE(a == Alteration::DOUBLE_SHARP);
+
+        REQUIRE(from_string("&", a, NAMING_SCHEME_ALL));
+        REQUIRE(a == Alteration::FLAT);
+
+        REQUIRE(from_string("", a, NAMING_SCHEME_ALL));
+        REQUIRE(a == Alteration::NATURAL);
     }
 }
