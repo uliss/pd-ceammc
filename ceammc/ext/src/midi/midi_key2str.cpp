@@ -3,12 +3,13 @@
 #include "ceammc_format.h"
 #include "midi_common.h"
 
+#include <cstring>
+
 MidiKey2Str::MidiKey2Str(const PdArgs& args)
     : BaseObject(args)
     , tonality_(music::PitchClass::C, music::MAJOR)
 {
-    // init cache with zeroes
-    memset(cache_, 0, sizeof(t_symbol*) * 12);
+    clearCache();
 
     if (positionalArguments().size() > 0) {
         std::string str = to_string(positionalArguments());
@@ -45,8 +46,17 @@ AtomList MidiKey2Str::p_tonality() const
 void MidiKey2Str::p_setTonality(const AtomList& l)
 {
     std::string str = to_string(l);
-    if (!music::from_string(str, tonality_, music::NAMING_SCHEME_SPN))
+    if (!music::from_string(str, tonality_, music::NAMING_SCHEME_SPN)) {
         OBJ_ERR << "can't parse tonality: " << str;
+        return;
+    }
+
+    clearCache();
+}
+
+void MidiKey2Str::clearCache()
+{
+    memset(cache_, 0, sizeof(t_symbol*) * 12);
 }
 
 void setup_midi_key2str()

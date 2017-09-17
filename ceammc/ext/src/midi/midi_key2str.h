@@ -20,6 +20,7 @@ public:
 private:
     bool isMajor() const;
     t_symbol* cache_[12];
+    void clearCache();
 };
 
 void setup_midi_key2str();

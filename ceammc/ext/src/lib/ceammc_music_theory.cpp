@@ -35,6 +35,18 @@ Tonality::Tonality(const PitchClass& p, HarmonicModus m)
     calcScale();
 }
 
+void Tonality::setPitch(PitchClass name)
+{
+    pitch_ = name;
+    calcScale();
+}
+
+void Tonality::setModus(HarmonicModus m)
+{
+    modus_ = m;
+    calcScale();
+}
+
 bool Tonality::enharmonicEqual(const Tonality& t) const
 {
     return modus_ == t.modus_ && pitch_.enharmonicEqual(t.pitch());
@@ -150,6 +162,8 @@ void Tonality::calcScale()
     scale_.assign(7, pitch_);
     alt_up_.assign(5, pitch_);
     alt_down_.assign(5, pitch_);
+    chrom_up_.clear();
+    chrom_down_.clear();
 
     if (modus_ == MAJOR) {
         scale_[1] = scale_[0].toneUp();

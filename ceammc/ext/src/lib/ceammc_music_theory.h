@@ -32,9 +32,9 @@ namespace music {
         Tonality(const PitchClass& p, HarmonicModus m);
 
         PitchClass pitch() const { return pitch_; }
-        void setPitch(PitchClass name) { pitch_ = name; }
+        void setPitch(PitchClass name);
         HarmonicModus modus() const { return modus_; }
-        void setModus(HarmonicModus m) { modus_ = m; }
+        void setModus(HarmonicModus m);
 
         bool operator==(const Tonality& t) const { return pitch_ == t.pitch_ && modus_ == t.modus_; }
         bool operator!=(const Tonality& t) const { return !this->operator==(t); }
