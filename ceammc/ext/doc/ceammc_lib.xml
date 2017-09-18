@@ -567,8 +567,8 @@
     <xi:include href="ceammc_category_math.xml" parse="xml"/>
   </category>
   <category name="midi">
-    <entry descr="convert Standard MIDI Controllers number to name" name="midi.ctr2str" ref_view="object">
-      <xi:include href="midi.ctr2str.pddoc" parse="xml"/>
+    <entry descr="convert Standard MIDI Controllers number to name" name="midi.ctl2str" ref_view="object">
+      <xi:include href="midi.ctl2str.pddoc" parse="xml"/>
     </entry>
     <entry descr="convert MidiEvent message to midi note/velocity pair" name="midi.event2note" ref_view="object">
       <xi:include href="midi.event2note.pddoc" parse="xml"/>

@@ -2,17 +2,17 @@
 #X declare -lib ceammc -lib creammc;
 #X obj 308 50 cnv 1 387 21 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 308 50 convert Standard MIDI Controllers number to name;
-#X obj 1 1 cnv 5 712 40 empty empty midi.ctr2str 20 20 0 20 -104026
+#X obj 1 1 cnv 5 712 40 empty empty midi.ctl2str 20 20 0 20 -104026
 -4096 0;
-#X obj 479 11 midi.ctr->str;
-#X obj 599 11 midi.ctr2str;
+#X obj 479 11 midi.ctl->str;
+#X obj 599 11 midi.ctl2str;
 #X msg 50 118 0;
 #X msg 88 118 4;
 #X msg 126 118 7;
 #X msg 165 118 64;
 #X msg 213 118 120;
 #X floatatom 50 147 5 0 0 0 - - -;
-#X obj 50 176 midi.ctr->str @symbol;
+#X obj 50 176 midi.ctl->str @symbol;
 #X obj 50 205 msg set;
 #X msg 50 234 ;
 #X obj 20 273 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -46,7 +46,7 @@ symbol);
 #X text 10 32 version:;
 #X text 120 32 0.3;
 #X text 10 54 object:;
-#X text 120 54 midi.ctr2str;
+#X text 120 54 midi.ctl2str;
 #X text 10 76 category:;
 #X text 120 76 midi;
 #X text 10 98 since:;

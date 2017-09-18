@@ -426,7 +426,7 @@ direction;
 #X obj 20 5875 cnv 5 49 31 empty empty midi 4 13 0 17 -262144 -49933
 0;
 #X obj 20 5916 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 5927 midi.ctr2str;
+#X obj 30 5927 midi.ctl2str;
 #X text 175 5927 convert Standard MIDI Controllers number to name;
 #X obj 30 5954 midi.event2note;
 #X text 175 5954 convert MidiEvent message to midi note/velocity pair;

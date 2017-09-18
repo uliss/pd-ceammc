@@ -2,7 +2,7 @@
 #X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
 #X obj 79 53 ui.link @title ceammc @url ceammc-help.pd;
-#X obj 30 116 midi.ctr2str;
+#X obj 30 116 midi.ctl2str;
 #X text 175 116 convert Standard MIDI Controllers number to name;
 #X obj 30 143 midi.event2note;
 #X text 175 143 convert MidiEvent message to midi note/velocity pair;

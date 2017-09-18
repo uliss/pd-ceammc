@@ -181,7 +181,7 @@ set(DOC_FILES
     math.tan
     math.tanh
     math.trunc
-    midi.ctr2str
+    midi.ctl2str
     midi.file
     midi.track
     midi.event2note

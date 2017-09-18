@@ -26,7 +26,7 @@
 - canvas.current added
 - canvas.top added
 - midi.prg->str added
-- midi.ctr->str added
+- midi.ctl->str added
 - midi.key->str added
 - midi.file added
 - midi.track added

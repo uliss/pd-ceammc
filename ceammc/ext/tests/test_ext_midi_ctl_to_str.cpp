@@ -12,12 +12,12 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../midi/midi_common.h"
-#include "../midi/midi_ctr2str.h"
+#include "../midi/midi_ctl2str.h"
 #include "../string/datatype_string.h"
 #include "base_extension_test.h"
 #include "catch.hpp"
 
-typedef TestExtension<MidiCtr2Str> Ctr2StrTest;
+typedef TestExtension<MidiCtl2Str> Ctl2StrTest;
 
 #define REQUIRE_STRING_OUTPUT(t, str_)                                  \
     {                                                                   \
@@ -27,15 +27,15 @@ typedef TestExtension<MidiCtr2Str> Ctr2StrTest;
         REQUIRE(s->str() == str_);                                      \
     }
 
-TEST_CASE("midi.ctr->str", "[externals]")
+TEST_CASE("midi.ctl->str", "[externals]")
 {
     pd_init();
 
     SECTION("init")
     {
-        setup_midi_ctr2str();
+        setup_midi_ctl2str();
 
-        Ctr2StrTest t("midi.ctr->str", L1("@symbol"));
+        Ctl2StrTest t("midi.ctl->str", L1("@symbol"));
 
         WHEN_SEND_FLOAT_TO(0, t, -1);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
@@ -76,7 +76,7 @@ TEST_CASE("midi.ctr->str", "[externals]")
 
     SECTION("str")
     {
-        Ctr2StrTest t("midi.ctr->str");
+        Ctl2StrTest t("midi.ctl->str");
         WHEN_SEND_FLOAT_TO(0, t, 64);
         REQUIRE_STRING_OUTPUT(t, "Hold Pedal");
     }

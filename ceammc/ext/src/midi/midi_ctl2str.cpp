@@ -1,9 +1,9 @@
-#include "midi_ctr2str.h"
+#include "midi_ctl2str.h"
 #include "../string/datatype_string.h"
 #include "ceammc_factory.h"
 #include "midi_common.h"
 
-MidiCtr2Str::MidiCtr2Str(const PdArgs& args)
+MidiCtl2Str::MidiCtl2Str(const PdArgs& args)
     : BaseObject(args)
     , as_symbol_(0)
 {
@@ -13,7 +13,7 @@ MidiCtr2Str::MidiCtr2Str(const PdArgs& args)
     createOutlet();
 }
 
-void MidiCtr2Str::onFloat(float f)
+void MidiCtl2Str::onFloat(float f)
 {
     size_t n = f;
 
@@ -30,8 +30,8 @@ void MidiCtr2Str::onFloat(float f)
         dataTo(0, DataPtr(new DataTypeString(name->s_name)));
 }
 
-void setup_midi_ctr2str()
+void setup_midi_ctl2str()
 {
-    ObjectFactory<MidiCtr2Str> obj("midi.ctr2str");
-    obj.addAlias("midi.ctr->str");
+    ObjectFactory<MidiCtl2Str> obj("midi.ctl2str");
+    obj.addAlias("midi.ctl->str");
 }

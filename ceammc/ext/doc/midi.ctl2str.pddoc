@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="midi.ctr2str">
-        <title>midi.ctr2str</title>
+    <object name="midi.ctl2str">
+        <title>midi.ctl2str</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
@@ -12,7 +12,7 @@
             <category>midi</category>
             <keywords>midi controller name</keywords>
             <aliases>
-                <alias>midi.ctr-&gt;str</alias>
+                <alias>midi.ctl-&gt;str</alias>
             </aliases>
             <since>0.4</since>
         </meta>
@@ -34,7 +34,7 @@
 |   |   |   |    |
 [F               ]
 |
-[midi.ctr->str @symbol]
+[midi.ctl->str @symbol]
 |
 [msg set]
 |
