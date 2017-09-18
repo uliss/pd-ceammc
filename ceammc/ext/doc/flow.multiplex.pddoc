@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flow.multiplex">
+        <title>flow.multiplex</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>control flow multiplexer</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>flow</category>
+            <keywords>multiplex</keywords>
+            <aliases>
+                <alias>flow.mux</alias>
+            </aliases>
+            <since>0.4</since>
+        </meta>
+        <arguments>
+            <argument name="N" type="int" minvalue="2" maxvalue="24">number of outlets</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="any">input flow inlet</xinfo>
+            </inlet>
+        </inlets>
+        <properties>
+            <property name="@index" type="int" minvalue="0">current multiplexer output index</property>
+        </properties>
+        <methods>
+            <method name="reset">reset counter</method>
+        </methods>
+        <outlets dynamic="true">
+            <outlet>multiplexer first output</outlet>
+            <outlet number="n">multiplexer N-th output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]  [hradio]
+|    |
+|    [@index $1(
+|    |
+|    |
+[flow.multiplex  4]
+|   ^|   ^^|   ^^^|
+[F]  [F]   [F]   [F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

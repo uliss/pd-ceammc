@@ -42,6 +42,7 @@ set(DOC_FILES
     flow.change
     flow.count
     flow.group
+    flow.multiplex
     flow.pass
     flow.pass_if
     flow.reject

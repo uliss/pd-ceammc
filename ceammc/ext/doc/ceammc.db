@@ -41,6 +41,7 @@ expand_env		.		.
 flow.change		.		.
 flow.count		.		.
 flow.group,group		.		.
+flow.multiplex,flow.mux		.		?
 flow.pass,pass		.		.
 flow.pass_if,pass_if		..		..
 flow.reject,reject		.		.
