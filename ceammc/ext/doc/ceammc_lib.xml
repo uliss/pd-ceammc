@@ -154,6 +154,9 @@
     <entry descr="rejects redundant input values" name="flow.change" ref_view="object">
       <xi:include href="flow.change.pddoc" parse="xml"/>
     </entry>
+    <entry descr="control flow event counter" name="flow.count" ref_view="object">
+      <xi:include href="flow.count.pddoc" parse="xml"/>
+    </entry>
     <entry descr="group data atoms in list of specified size" name="flow.group" ref_view="object">
       <xi:include href="flow.group.pddoc" parse="xml"/>
     </entry>

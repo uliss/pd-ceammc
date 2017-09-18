@@ -24,9 +24,6 @@ FlowCount::FlowCount(const PdArgs& a)
     counter_ = new SizeTProperty("@value", 0);
     createProperty(counter_);
 
-    // main flow
-    createOutlet();
-
     // counter flow
     createOutlet();
 }
@@ -34,31 +31,31 @@ FlowCount::FlowCount(const PdArgs& a)
 void FlowCount::onBang()
 {
     tick();
-    bangTo(0);
 }
 
 void FlowCount::onFloat(t_float f)
 {
     tick();
-    floatTo(0, f);
 }
 
 void FlowCount::onSymbol(t_symbol* s)
 {
     tick();
-    symbolTo(0, s);
 }
 
 void FlowCount::onList(const AtomList& l)
 {
     tick();
-    listTo(0, l);
 }
 
 void FlowCount::onAny(t_symbol* s, const AtomList& l)
 {
     tick();
-    anyTo(0, s, l);
+}
+
+void FlowCount::onData(const DataPtr&)
+{
+    tick();
 }
 
 void FlowCount::m_reset(t_symbol*, const AtomList&)
@@ -91,7 +88,7 @@ bool FlowCount::processAnyProps(t_symbol* s, const AtomList& l)
 void FlowCount::tick()
 {
     counter_->setValue(counter_->value() + 1);
-    floatTo(1, counter_->value());
+    floatTo(0, counter_->value());
 }
 
 void setup_flow_count()

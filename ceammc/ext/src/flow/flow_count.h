@@ -29,6 +29,7 @@ public:
     void onSymbol(t_symbol* s);
     void onList(const AtomList& l);
     void onAny(t_symbol* s, const AtomList& l);
+    void onData(const DataPtr&);
 
     void m_reset(t_symbol*, const AtomList&);
 

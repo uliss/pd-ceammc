@@ -10,6 +10,7 @@
 ### Added:
 - math.round~ added
 - flow.tee~ added to separate audio and control signals
+- flow.count added to count control stream events
 - modplug~ added (using libmodplug) for playing vaious MOD formats:
     MOD, S3M, XM, IT, 669, AMF (both of them), AMS, DBM, DMF, DSM, FAR,
     MDL, MED, MTM, OKT, PTM, STM, ULT, UMX, MT2, PSM

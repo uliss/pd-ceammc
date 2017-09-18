@@ -40,6 +40,7 @@ set(DOC_FILES
     env.follow~
     expand_env
     flow.change
+    flow.count
     flow.group
     flow.pass
     flow.pass_if
