@@ -40,23 +40,11 @@ public:
     virtual void processEvent() = 0;
 };
 
-class MidiEventIsNote : public BaseMidiEventExternal {
-public:
-    MidiEventIsNote(const PdArgs& args);
-    void processEvent();
-};
-
 class MidiEventToNote : public BaseMidiEventExternal {
     AtomList msg_;
 
 public:
     MidiEventToNote(const PdArgs& args);
-    void processEvent();
-};
-
-class MidiEventIsPrg : public BaseMidiEventExternal {
-public:
-    MidiEventIsPrg(const PdArgs& args);
     void processEvent();
 };
 

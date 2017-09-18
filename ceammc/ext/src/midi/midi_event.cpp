@@ -88,16 +88,6 @@ void BaseMidiEventExternal::onAny(t_symbol* s, const AtomList& args)
     processEvent();
 }
 
-MidiEventIsNote::MidiEventIsNote(const PdArgs& args)
-    : BaseMidiEventExternal(args)
-{
-}
-
-void MidiEventIsNote::processEvent()
-{
-    floatTo(0, event_.isNote());
-}
-
 MidiEventToNote::MidiEventToNote(const PdArgs& args)
     : BaseMidiEventExternal(args)
 {
@@ -118,16 +108,6 @@ void MidiEventToNote::processEvent()
     listTo(0, msg_);
 }
 
-MidiEventIsPrg::MidiEventIsPrg(const PdArgs& args)
-    : BaseMidiEventExternal(args)
-{
-}
-
-void MidiEventIsPrg::processEvent()
-{
-    floatTo(0, event_.isProgramChange());
-}
-
 MidiEventToPrg::MidiEventToPrg(const PdArgs& args)
     : BaseMidiEventExternal(args)
 {
@@ -146,9 +126,8 @@ void MidiEventToPrg::processEvent()
 
 void setup_midi_event()
 {
-    ObjectFactory<MidiEventIsNote> is_note("midievent.is_note");
     ObjectFactory<MidiEventToNote> to_note("midi.event2note");
     to_note.addAlias("midi.ev->note");
-    ObjectFactory<MidiEventIsPrg> is_prg("midievent.is_prg");
-    ObjectFactory<MidiEventToPrg> to_prg("midi.ev->prg");
+    ObjectFactory<MidiEventToPrg> to_prg("midi.event2prg");
+    to_prg.addAlias("midi.ev->prg");
 }
