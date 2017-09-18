@@ -7,9 +7,9 @@
 #X obj 479 11 midi.key->str;
 #X obj 599 11 midi.key2str;
 #X floatatom 50 118 5 0 0 0 - - -;
-#X msg 88 118 @tonality F minor;
-#X msg 280 118 @tonality E;
-#X msg 414 118 @tonality C;
+#X msg 98 118 @tonality F minor;
+#X msg 290 118 @tonality E;
+#X msg 424 118 @tonality C;
 #X obj 50 176 midi.key->str @symbol;
 #X obj 50 205 msg set;
 #X msg 50 234 ;
@@ -18,7 +18,7 @@
 -49933 0;
 #X msg 120 283 @symbol;
 #X text 240 283 output as symbol instead of string by default;
-#X msg 120 310 @symbol;
+#X msg 120 310 @tonality;
 #X text 240 310 Get/Set current tonality. Type: symbol. Default value:
 C major;
 #X obj 20 357 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;

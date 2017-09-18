@@ -18,7 +18,7 @@
         </meta>
         <properties>
             <property name="@symbol" type="flag">output as symbol instead of string by default</property>
-            <property name="@symbol" type="symbol" default="C major">current tonality</property>
+            <property name="@tonality" type="symbol" default="C major">current tonality</property>
         </properties>
         <inlets>
             <inlet>
@@ -31,10 +31,10 @@
         <example>
             <pdascii>
 <![CDATA[
-[F] [@tonality F minor( [@tonality E( [@tonality C(
-|   |                   |             |
-|   |                   |             |
-|   |                   |             |
+[F]  [@tonality F minor( [@tonality E( [@tonality C(
+|    |                   |             |
+|    |                   |             |
+|    |                   |             |
 [midi.key->str @symbol                ]
 |
 [msg set]

@@ -570,11 +570,20 @@
     <entry descr="convert Standard MIDI Controllers number to name" name="midi.ctr2str" ref_view="object">
       <xi:include href="midi.ctr2str.pddoc" parse="xml"/>
     </entry>
+    <entry descr="convert MidiEvent message to midi note/velocity pair" name="midi.event2note" ref_view="object">
+      <xi:include href="midi.event2note.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="standard midi file SMF reader and writer" name="midi.file" ref_view="object">
+      <xi:include href="midi.file.pddoc" parse="xml"/>
+    </entry>
     <entry descr="convert key number to SPN name according to tonality" name="midi.key2str" ref_view="object">
       <xi:include href="midi.key2str.pddoc" parse="xml"/>
     </entry>
     <entry descr="convert GM Instrument number to name (string or symbol)" name="midi.prg2str" ref_view="object">
       <xi:include href="midi.prg2str.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="extract track from MidiFile" name="midi.track" ref_view="object">
+      <xi:include href="midi.track.pddoc" parse="xml"/>
     </entry>
   </category>
   <category name="misc">

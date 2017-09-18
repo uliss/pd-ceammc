@@ -147,8 +147,8 @@ void MidiEventToPrg::processEvent()
 void setup_midi_event()
 {
     ObjectFactory<MidiEventIsNote> is_note("midievent.is_note");
-    ObjectFactory<MidiEventToNote> to_note("midi.ev->note");
-    to_note.addAlias("midi.event2note");
+    ObjectFactory<MidiEventToNote> to_note("midi.event2note");
+    to_note.addAlias("midi.ev->note");
     ObjectFactory<MidiEventIsPrg> is_prg("midievent.is_prg");
     ObjectFactory<MidiEventToPrg> to_prg("midi.ev->prg");
 }

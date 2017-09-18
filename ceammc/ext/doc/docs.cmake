@@ -182,6 +182,9 @@ set(DOC_FILES
     math.tanh
     math.trunc
     midi.ctr2str
+    midi.file
+    midi.track
+    midi.event2note
     midi.prg2str
     midi.key2str
     modplug~

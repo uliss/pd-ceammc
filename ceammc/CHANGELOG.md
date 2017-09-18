@@ -28,6 +28,9 @@
 - midi.prg->str added
 - midi.ctr->str added
 - midi.key->str added
+- midi.file added
+- midi.track added
+- midi.event2note added
 
 ### Changed:
 - random.gauss doc update

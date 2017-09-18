@@ -181,8 +181,11 @@ math.tan		.		.
 math.tanh		.		.
 math.trunc		.		.
 midi.ctr2str,midi.ctr->str		.		.
+midi.event2note,midi.ev->note		.		..
+midi.file		.		.
 midi.key2str,midi.key->str		.		.
 midi.prg2str,midi.prg->str		.		.
+midi.track		.		..
 modplug~		.		~~
 msg,m		..		.
 noise.pink~		-		~
