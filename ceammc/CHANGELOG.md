@@ -27,6 +27,7 @@
 - canvas.top added
 - midi.prg->str added
 - midi.ctr->str added
+- midi.key->str added
 
 ### Changed:
 - random.gauss doc update

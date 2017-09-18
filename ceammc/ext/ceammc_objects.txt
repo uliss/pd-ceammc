@@ -224,6 +224,8 @@ midi.ev->note
 midi.ev->prg
 midi.event2note
 midi.file
+midi.key->str
+midi.key2str
 midi.prg->str
 midi.prg2str
 midi.track

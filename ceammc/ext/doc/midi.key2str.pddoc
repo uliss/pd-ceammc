@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="midi.key2str">
+        <title>midi.key2str</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>convert key number to SPN name according to tonality</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>midi</category>
+            <keywords>midi key name</keywords>
+            <aliases>
+                <alias>midi.key-&gt;str</alias>
+            </aliases>
+            <since>0.4</since>
+        </meta>
+        <properties>
+            <property name="@symbol" type="flag">output as symbol instead of string by default</property>
+            <property name="@symbol" type="symbol" default="C major">current tonality</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="float">standart MIDI key number [0-127]</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output key name</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]
+|
+[midi.key->str @symbol]
+|
+[msg set]
+|
+[ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -183,6 +183,7 @@ set(DOC_FILES
     math.trunc
     midi.ctr2str
     midi.prg2str
+    midi.key2str
     modplug~
     msg
     noise.pink~
