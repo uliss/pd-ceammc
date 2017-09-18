@@ -31,9 +31,11 @@
         <example>
             <pdascii>
 <![CDATA[
-[F]
-|
-[midi.key->str @symbol]
+[F] [@tonality F minor( [@tonality E( [@tonality C(
+|   |                   |             |
+|   |                   |             |
+|   |                   |             |
+[midi.key->str @symbol                ]
 |
 [msg set]
 |
