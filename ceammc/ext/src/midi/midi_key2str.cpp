@@ -1,4 +1,5 @@
 #include "midi_key2str.h"
+#include "../string/datatype_string.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
 #include "midi_common.h"
@@ -8,6 +9,7 @@
 MidiKey2Str::MidiKey2Str(const PdArgs& args)
     : BaseObject(args)
     , tonality_(music::PitchClass::C, music::MAJOR)
+    , as_symbol_(0)
 {
     clearCache();
 
@@ -18,6 +20,9 @@ MidiKey2Str::MidiKey2Str(const PdArgs& args)
     }
 
     createCbProperty("@tonality", &MidiKey2Str::p_tonality, &MidiKey2Str::p_setTonality);
+    as_symbol_ = new FlagProperty("@symbol");
+    createProperty(as_symbol_);
+
     createOutlet();
 }
 
@@ -34,7 +39,10 @@ void MidiKey2Str::onFloat(float f)
     if (cache_[key] == 0)
         cache_[key] = midi::key_to_name(key, tonality_, true);
 
-    symbolTo(0, cache_[key]);
+    if (as_symbol_->value())
+        symbolTo(0, cache_[key]);
+    else
+        dataTo(0, DataPtr(new DataTypeString(cache_[key]->s_name)));
 }
 
 AtomList MidiKey2Str::p_tonality() const

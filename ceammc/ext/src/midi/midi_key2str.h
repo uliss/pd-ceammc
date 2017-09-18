@@ -3,12 +3,12 @@
 
 #include "ceammc_music_theory.h"
 #include "ceammc_object.h"
-#include <boost/array.hpp>
 
 using namespace ceammc;
 
 class MidiKey2Str : public BaseObject {
     music::Tonality tonality_;
+    FlagProperty* as_symbol_;
 
 public:
     MidiKey2Str(const PdArgs& args);

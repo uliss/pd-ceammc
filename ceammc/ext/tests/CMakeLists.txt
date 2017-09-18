@@ -97,6 +97,7 @@ ceammc_external_test(midi file)
 ceammc_external_test(midi note)
 ceammc_external_test(midi track)
 ceammc_external_test(midi ctr_to_str)
+ceammc_external_test(midi key_to_str)
 ceammc_external_test(midi prg_to_str)
 
 ceammc_external_test(random discrete)
