@@ -60,6 +60,7 @@ ceammc_add_test("[canvas.top]" test_ext_canvas_top)
 
 ceammc_external_test(flow change)
 ceammc_external_test(flow count)
+ceammc_external_test(flow gate)
 ceammc_external_test(flow group)
 ceammc_external_test(flow multiplex)
 ceammc_external_test(flow pass)
