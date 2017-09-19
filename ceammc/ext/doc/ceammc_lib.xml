@@ -460,6 +460,9 @@
     <entry descr="canvas-scoped named integer variable" name="local.int" ref_view="object">
       <xi:include href="local.int.pddoc" parse="xml"/>
     </entry>
+    <entry descr="local named list object" name="local.list" ref_view="object">
+      <xi:include href="local.list.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="math">
     <entry descr="absolute value function" name="math.abs" ref_view="object">

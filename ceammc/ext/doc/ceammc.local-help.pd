@@ -6,6 +6,8 @@
 #X text 175 116 canvas-scoped named float variable;
 #X obj 30 143 local.int;
 #X text 175 143 canvas-scoped named integer variable;
+#X obj 30 170 local.list;
+#X text 175 170 local named list object;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::local 20 20 0 20 -104026
 -4096 0;
 #X obj 1 458 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;

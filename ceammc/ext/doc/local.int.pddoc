@@ -14,6 +14,7 @@
             <since>0.1</since>
             <also>
                 <see>local.float</see>
+                <see>local.list</see>
                 <see>global.int</see>
             </also>
         </meta>

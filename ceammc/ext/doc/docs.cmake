@@ -146,6 +146,7 @@ set(DOC_FILES
     live.capture~
     local.float
     local.int
+    local.list
     math.abs
     math.acos
     math.acosh

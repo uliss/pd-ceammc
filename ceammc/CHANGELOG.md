@@ -36,6 +36,7 @@
 - midi.event2note added
 - midi.event2ctl added
 - window help added
+- local.list help added
 
 ### Changed:
 - random.gauss doc update

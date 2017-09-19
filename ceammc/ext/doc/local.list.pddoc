@@ -6,15 +6,15 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>global named list object</description>
+            <description>local named list object</description>
             <license>GPL3</license>
             <library>ceammc</library>
-            <category>global</category>
+            <category>local</category>
             <keywords>list global</keywords>
             <since>0.1</since>
             <also>
-                <see>global.float</see>
-                <see>global.int</see>
+                <see>local.float</see>
+                <see>local.int</see>
             </also>
         </meta>
         <info>
