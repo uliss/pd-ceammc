@@ -92,6 +92,7 @@ MidiEventToNote::MidiEventToNote(const PdArgs& args)
     : BaseMidiEventExternal(args)
 {
     createOutlet();
+    createOutlet();
     msg_.fill(Atom(0.f), 2);
 }
 
@@ -100,7 +101,8 @@ void MidiEventToNote::processEvent()
     if (!event_.isNote())
         return;
 
-    floatTo(1, event_.track());
+    floatTo(2, event_.track());
+    floatTo(1, event_.duration());
 
     msg_[0].setFloat(event_.event().getKeyNumber());
     msg_[1].setFloat(event_.event().getVelocity());
@@ -121,7 +123,7 @@ void MidiEventToPrg::processEvent()
         return;
 
     floatTo(1, event_.track());
-    floatTo(0, event_.event().getP1());
+    floatTo(0, event_.event().getP1() + 1);
 }
 
 void setup_midi_event()

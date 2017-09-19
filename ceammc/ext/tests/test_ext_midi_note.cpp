@@ -25,7 +25,7 @@ TEST_CASE("midievent.note", "[externals]")
     {
         MidiEventNoteTest t("midi.ev->note");
         REQUIRE(t.numInlets() == 1);
-        REQUIRE(t.numOutlets() == 2);
+        REQUIRE(t.numOutlets() == 3);
     }
 
     SECTION("ignored events")
@@ -59,8 +59,9 @@ TEST_CASE("midievent.note", "[externals]")
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
         // note event
-        WHEN_SEND_ANY_TO(t, "MidiEvent", L6(100, 4, 1, 0x90, 0x48, 0x40));
-        REQUIRE_FLOAT_AT_OUTLET(1, t, 4);
+        WHEN_SEND_ANY_TO(t, "MidiEvent", L6(100, 4, 200, 0x90, 0x48, 0x40));
+        REQUIRE_FLOAT_AT_OUTLET(2, t, 4);
+        REQUIRE_FLOAT_AT_OUTLET(1, t, 200);
         REQUIRE_LIST_AT_OUTLET(0, t, L2(72, 64));
     }
 }

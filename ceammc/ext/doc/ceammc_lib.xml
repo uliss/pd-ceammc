@@ -582,6 +582,9 @@
     <entry descr="convert MidiEvent message to midi note/velocity pair" name="midi.event2note" ref_view="object">
       <xi:include href="midi.event2note.pddoc" parse="xml"/>
     </entry>
+    <entry descr="convert MidiEvent message to midi program change value" name="midi.event2prg" ref_view="object">
+      <xi:include href="midi.event2prg.pddoc" parse="xml"/>
+    </entry>
     <entry descr="standard midi file SMF reader and writer" name="midi.file" ref_view="object">
       <xi:include href="midi.file.pddoc" parse="xml"/>
     </entry>

@@ -188,6 +188,7 @@ set(DOC_FILES
     midi.file
     midi.track
     midi.event2note
+    midi.event2prg
     midi.prg2str
     midi.key2str
     modplug~
