@@ -55,11 +55,11 @@
             <pdascii>
 <![CDATA[
 
-[blackman(  [blackman-harris(    [flattop(
+[blackman(  [blackman-harris(    [flattop, bang(
 |           |                    |
-| [hamming( | [hann(  [nutall(   | [rect(
+| [hamming( | [hann(  [nutall(   | [rect, bang(
 | |         | |       |          | |
-| | [sine(  | | [tri( |  [welch( | | [gauss(
+| | [sine(  | | [tri( |  [welch( | | [gauss, bang(
 | | |       | | |     |  |       | | |
 | | | [B]   | | |     |  |       | | |
 | | | |     | | |     |  |       | | |

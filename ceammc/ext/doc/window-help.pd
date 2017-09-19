@@ -7,15 +7,15 @@
 #X obj 642 11 window;
 #X msg 50 133 blackman;
 #X msg 165 133 blackman-harris;
-#X msg 366 133 flattop;
+#X msg 366 133 flattop \, bang;
 #X msg 69 162 hamming;
 #X msg 184 162 hann;
 #X msg 261 162 nutall;
-#X msg 386 162 rect;
+#X msg 386 162 rect \, bang;
 #X msg 88 190 sine;
 #X msg 203 190 tri;
 #X msg 290 190 welch;
-#X msg 405 190 gauss;
+#X msg 405 190 gauss \, bang;
 #X obj 107 219 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 50 248 window gauss 512;
