@@ -41,6 +41,7 @@ set(DOC_FILES
     expand_env
     flow.change
     flow.count
+    flow.gate
     flow.group
     flow.multiplex
     flow.pass

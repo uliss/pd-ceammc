@@ -2,6 +2,7 @@
 
 #include "flow_change.h"
 #include "flow_count.h"
+#include "flow_gate.h"
 #include "flow_group.h"
 #include "flow_multiplex.h"
 #include "flow_pass.h"
@@ -25,4 +26,5 @@ void ceammc_flow_setup()
     setup_flow0x2esync();
     setup_flow0x2etee_tilde();
     setup_flow_multiplex();
+    setup_flow_gate();
 }

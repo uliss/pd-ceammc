@@ -58,6 +58,7 @@ env.follow~
 expand_env
 flow.change
 flow.count
+flow.gate
 flow.group
 flow.multiplex
 flow.mux
@@ -100,6 +101,7 @@ fx.freeverb~
 fx.freqshift~
 fx.pitchshift~
 fx.zita_rev1~
+gate
 global.float
 global.int
 global.json
