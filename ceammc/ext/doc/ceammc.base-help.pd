@@ -6,6 +6,8 @@
 #X text 175 116 named function;
 #X obj 30 139 function.call;
 #X text 175 139 call named function;
+#X obj 30 166 window;
+#X text 175 166 returns window value by given window position;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::base 20 20 0 20 -104026
 -4096 0;
 #X obj 1 458 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;

@@ -33,6 +33,9 @@
     <entry descr="call named function" name="function.call" ref_view="object">
       <xi:include href="function.call.pddoc" parse="xml"/>
     </entry>
+    <entry descr="returns window value by given window position" name="window" ref_view="object">
+      <xi:include href="window.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="conv">
     <entry descr="convert array phase [0..1] to sample position" name="array.p2s" ref_view="object">

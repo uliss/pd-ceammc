@@ -264,3 +264,4 @@ vector.distance		..		.
 vector.dot		..		.
 vector.length		.		.
 vector.normalize		.		.
+window,win		.		.

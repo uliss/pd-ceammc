@@ -1,0 +1,145 @@
+#N canvas 0 0 715 555 12;
+#X declare -lib ceammc -lib creammc;
+#X obj 333 50 cnv 1 362 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 333 50 returns window value by given window position;
+#X obj 1 1 cnv 5 712 40 empty empty window 20 20 0 20 -104026 -4096 0;
+#X obj 594 11 win;
+#X obj 642 11 window;
+#X msg 50 133 blackman;
+#X msg 165 133 blackman-harris;
+#X msg 366 133 flattop;
+#X msg 69 162 hamming;
+#X msg 184 162 hann;
+#X msg 261 162 nutall;
+#X msg 386 162 rect;
+#X msg 88 190 sine;
+#X msg 203 190 tri;
+#X msg 290 190 welch;
+#X msg 405 190 gauss;
+#X obj 107 219 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 50 248 window gauss 512;
+#X obj 50 277 array.set array-window;
+#N canvas 0 22 450 300 (subpatch) 0;
+#X array array-window 512 float 0;
+#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X coords 0 1 512 0 100 100 1;
+#X restore 50 320 graph;
+#X obj 20 427 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 432 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+-49933 0;
+#X text 120 437 1\.;
+#X text 150 437 symbol;
+#X obj 241 438 cnv 1 41 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 437 NAME: window name: blackman \, blackman-harris \,
+flattop \, gauss \, hamming \, hann \, nutall \, rect \, sine \, tri
+\, welch.;
+#X obj 20 479 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 484 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+-49933 0;
+#X msg 120 489 @type;
+#X text 240 489 Get/Set window type. See argument description. Type:
+symbol;
+#X msg 120 516 @size;
+#X text 240 516 Get/Set window size. Type: int. Min value: 16;
+#X obj 20 553 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 558 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+-49933 0;
+#X msg 120 563 blackman;
+#X text 240 563 Sets Blackman window type.;
+#X msg 120 595 blackman-harris;
+#X text 240 595 Sets Blackman-Harris window type.;
+#X msg 120 627 flattop;
+#X text 240 627 Sets Flattop window type.;
+#X msg 120 659 gauss;
+#X text 240 659 Sets Gauss window type.;
+#X msg 120 691 hamming;
+#X text 240 691 Sets Hamming window type.;
+#X msg 120 723 hann;
+#X text 240 723 Sets Hann window type.;
+#X msg 120 755 nutall;
+#X text 240 755 Sets Nutall window type.;
+#X msg 120 787 rect;
+#X text 240 787 Sets Rectangle window type.;
+#X msg 120 819 sine;
+#X text 240 819 Sets Sine window type.;
+#X msg 120 851 tri;
+#X text 240 851 Sets Triangle window type.;
+#X msg 120 883 welch;
+#X text 240 883 Sets Welch window type.;
+#X obj 20 925 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 930 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+0;
+#X text 120 935 1\.;
+#X text 150 935 *bang*;
+#X text 240 935 output all window values as list.;
+#X text 150 953 *float*;
+#X text 240 953 window index position: from 0 to SIZE-1\. Output 0 if
+invalid index given.;
+#X text 150 985 *list*;
+#X text 240 985 pair INDEX SIZE expected. Sets windows size to SIZE.
+Output window value at given index.;
+#X obj 20 1027 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1032 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+-49933 0;
+#X text 120 1037 1\.;
+#X text 240 1037 sample number;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 115 45 ::;
+#X obj 131 48 ui.link @title base @url ceammc.base-help.pd;
+#X obj 1 1085 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1088 library: ceammc v0.3;
+#N canvas 10 1107 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 library:;
+#X text 120 10 ceammc;
+#X text 10 32 version:;
+#X text 120 32 0.3;
+#X text 10 54 object:;
+#X text 120 54 window;
+#X text 10 76 category:;
+#X text 120 76 base;
+#X text 10 98 since:;
+#X text 120 98 0.4;
+#X text 10 120 authors:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 license:;
+#X text 120 142 GPL3;
+#X text 10 164 keywords:;
+#X text 120 164 window;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pure-data @url
+https://github.com/uliss/pure-data;
+#X obj 120 208 declare -lib ceammc -lib creammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 generated by pddoc;
+#X restore 10 1107 pd info;
+#X connect 10 0 17 0;
+#X connect 15 0 17 0;
+#X connect 12 0 17 0;
+#X connect 16 0 17 0;
+#X connect 7 0 17 0;
+#X connect 9 0 17 0;
+#X connect 17 0 18 0;
+#X connect 5 0 17 0;
+#X connect 14 0 17 0;
+#X connect 8 0 17 0;
+#X connect 13 0 17 0;
+#X connect 6 0 17 0;
+#X connect 11 0 17 0;

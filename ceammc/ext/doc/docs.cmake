@@ -264,4 +264,5 @@ set(DOC_FILES
     vector.dot
     vector.length
     vector.normalize
+    window
 )

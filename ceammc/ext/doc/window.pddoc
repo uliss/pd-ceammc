@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="window">
+        <title>window</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>returns window value by given window position</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>base</category>
+            <keywords>window</keywords>
+            <since>0.4</since>
+            <aliases>
+                <alias>win</alias>
+            </aliases>
+        </meta>
+        <arguments>
+            <argument name="NAME" type="symbol">window name:
+            blackman, blackman-harris, flattop, gauss, hamming,
+            hann, nutall, rect, sine, tri, welch
+            </argument>
+        </arguments>
+        <methods>
+            <method name="blackman">Sets Blackman window type</method>
+            <method name="blackman-harris">Sets Blackman-Harris window type</method>
+            <method name="flattop">Sets Flattop window type</method>
+            <method name="gauss">Sets Gauss window type</method>
+            <method name="hamming">Sets Hamming window type</method>
+            <method name="hann">Sets Hann window type</method>
+            <method name="nutall">Sets Nutall window type</method>
+            <method name="rect">Sets Rectangle window type</method>
+            <method name="sine">Sets Sine window type</method>
+            <method name="tri">Sets Triangle window type</method>
+            <method name="welch">Sets Welch window type</method>
+        </methods>
+        <properties>
+            <property name="@type" type="symbol">window type. See argument description</property>
+            <property name="@size" type="int" minvalue="16">window size</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">output all window values as list</xinfo>
+                <xinfo on="float">window index position: from 0 to SIZE-1.
+                Output 0 if invalid index given</xinfo>
+                <xinfo on="list">pair INDEX SIZE expected. Sets windows size to SIZE.
+                Output window value at given index</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>sample number</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+
+[blackman(  [blackman-harris(    [flattop(
+|           |                    |
+| [hamming( | [hann(  [nutall(   | [rect(
+| |         | |       |          | |
+| | [sine(  | | [tri( |  [welch( | | [gauss(
+| | |       | | |     |  |       | | |
+| | | [B]   | | |     |  |       | | |
+| | | |     | | |     |  |       | | |
+[window                       gauss 512]
+|
+[array.set array-window]
+
+
+[array array-window size=512 w=100 h=100 yr=0..1]
+
+
+
+
+
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
