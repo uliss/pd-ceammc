@@ -222,8 +222,10 @@ math.tanh
 math.trunc
 midi.ctl->str
 midi.ctl2str
+midi.ev->ctl
 midi.ev->note
 midi.ev->prg
+midi.event2ctl
 midi.event2note
 midi.event2prg
 midi.file

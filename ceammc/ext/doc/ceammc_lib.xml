@@ -579,6 +579,9 @@
     <entry descr="convert Standard MIDI Controllers number to name" name="midi.ctl2str" ref_view="object">
       <xi:include href="midi.ctl2str.pddoc" parse="xml"/>
     </entry>
+    <entry descr="convert MidiEvent message to controller channel/value pair" name="midi.event2ctl" ref_view="object">
+      <xi:include href="midi.event2ctl.pddoc" parse="xml"/>
+    </entry>
     <entry descr="convert MidiEvent message to midi note/velocity pair" name="midi.event2note" ref_view="object">
       <xi:include href="midi.event2note.pddoc" parse="xml"/>
     </entry>

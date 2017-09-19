@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="midi.event2ctl">
+        <title>midi.event2ctl</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>convert MidiEvent message to controller channel/value pair</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>midi</category>
+            <keywords>midi event control</keywords>
+            <since>0.4</since>
+            <aliases>
+                <alias>midi.ev-&gt;ctl</alias>
+            </aliases>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo>MidiEvent message</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output pair: controller number, value</outlet>
+            <outlet>track number</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]
+|
+[openpanel]
+|
+[read $1, bang(
+|
+[midi.file]
+|
+|  [play( [stop(
+|  |      |
+[midi.track @join @speed 0.7]
+|
+[midi.ev->ctl]
+|
+[msg set]
+|
+[ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

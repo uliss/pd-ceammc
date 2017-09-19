@@ -9,6 +9,7 @@ macro(ceammc_midi_extension name)
 endmacro()
 
 ceammc_midi_extension(event)
+ceammc_midi_extension(event_to_ctl)
 ceammc_midi_extension(file)
 ceammc_midi_extension(track)
 ceammc_midi_extension(ctl2str)

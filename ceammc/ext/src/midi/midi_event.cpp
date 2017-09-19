@@ -48,6 +48,14 @@ bool XMidiEvent::isProgramChange() const
     return event_->isPatchChange();
 }
 
+bool XMidiEvent::isControl() const
+{
+    if (!valid_)
+        return false;
+
+    return event_->isController();
+}
+
 bool XMidiEvent::isValid() const
 {
     return valid_;

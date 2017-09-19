@@ -34,6 +34,7 @@
 - midi.file added
 - midi.track added
 - midi.event2note added
+- midi.event2ctl added
 
 ### Changed:
 - random.gauss doc update

@@ -185,6 +185,7 @@ math.tanh		.		.
 math.trunc		.		.
 midi.ctl2str,midi.ctl->str		.		.
 midi.ctr2str,midi.ctr->str		.		.
+midi.event2ctl,midi.ev->ctl		.		..
 midi.event2note,midi.ev->note		.		...
 midi.event2prg,midi.ev->prg		.		.
 midi.file		.		.

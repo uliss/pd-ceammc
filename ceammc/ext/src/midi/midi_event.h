@@ -23,6 +23,7 @@ public:
     bool parse(const AtomList& l);
     bool isNote() const;
     bool isProgramChange() const;
+    bool isControl() const;
     bool isValid() const;
     t_float duration() const;
     MidiEvent& event();

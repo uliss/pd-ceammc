@@ -187,6 +187,7 @@ set(DOC_FILES
     midi.ctl2str
     midi.file
     midi.track
+    midi.event2ctl
     midi.event2note
     midi.event2prg
     midi.prg2str
