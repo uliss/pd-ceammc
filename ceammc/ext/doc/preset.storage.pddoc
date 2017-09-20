@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="preset.storage">
+        <title>preset.storage</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>preset storage control</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>preset</category>
+            <keywords>preset storage</keywords>
+            <since>0.4</since>
+            <also>
+                <see>preset.float</see>
+                <see>preset.symbol</see>
+                <see>preset.list</see>
+            </also>
+        </meta>
+        <info>
+            <par>Preset storage allows to load and store presets, read and write them to files</par>
+        </info>
+        <methods>
+            <method name="load">load preset by specified index</method>
+            <method name="store">stores preset by specified index</method>
+            <method name="clear">creat preset by specified index</method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">output list content</xinfo>
+                <xinfo on="list">set new list content and output</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="control">list output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[list a b c(  [set 3 2 1(
+|             |
+|  [1 2 3(    |            [bng]
+|  |          |            |
+[local.list id]            [local.list id]
+|                          |
+[msg set]                  [msg set]
+|                          |
+[ (                        [ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

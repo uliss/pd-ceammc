@@ -132,6 +132,36 @@ bool Canvas::connect(const BaseObject& src, size_t nout, BaseObject& dest, size_
     return connect(src.owner(), nout, dest.owner(), ninl);
 }
 
+_glist* Canvas::owner()
+{
+    return canvas_->gl_owner;
+}
+
+t_symbol* Canvas::name()
+{
+    return canvas_->gl_name;
+}
+
+void Canvas::setName(const char* str)
+{
+    canvas_->gl_name = gensym(str);
+}
+
+std::string Canvas::parentName() const
+{
+    return canvas_->gl_owner ? canvas_->gl_owner->gl_name->s_name : "";
+}
+
+_glist* Canvas::current()
+{
+    return canvas_getcurrent();
+}
+
+void Canvas::setCurrent(_glist* c)
+{
+    canvas_setcurrent(c);
+}
+
 AtomList ceammc::canvas_info_args(const _glist* c)
 {
     AtomList res;

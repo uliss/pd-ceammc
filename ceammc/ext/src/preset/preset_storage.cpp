@@ -1,6 +1,7 @@
 #include "preset_storage.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
+#include "ceammc_platform.h"
 
 #include <boost/make_shared.hpp>
 #include <fstream>
@@ -14,6 +15,7 @@ static const size_t MAX_PRESET_COUNT = 16;
 t_symbol* Preset::SYM_NONE = gensym("");
 t_symbol* Preset::SYM_LOAD = gensym("load");
 t_symbol* Preset::SYM_STORE = gensym("store");
+t_symbol* Preset::SYM_UPDATE = gensym("update");
 
 PresetStorage::PresetStorage()
 {
@@ -108,6 +110,29 @@ bool PresetStorage::storeAll(size_t presetIdx)
     return true;
 }
 
+bool PresetStorage::clearAll(size_t presetIdx)
+{
+    if (presetIdx >= maxPresetCount())
+        return false;
+
+    PresetMap::iterator it;
+    for (it = params_.begin(); it != params_.end(); ++it) {
+        it->second->clearAt(presetIdx);
+    }
+
+    return true;
+}
+
+bool PresetStorage::updateAll()
+{
+    AtomList k = keys();
+    for (size_t i = 0; i < k.size(); i++) {
+        params_[k[i].asSymbol()]->update();
+    }
+
+    return true;
+}
+
 bool PresetStorage::write(const char* path) const
 {
     t_binbuf* content = binbuf_new();
@@ -180,7 +205,7 @@ bool PresetStorage::read(const char* path)
             }
 
             if (sel == &s_symbol) {
-//                PresetStorage::instance().setSyValueAt(name, index, line[3].asSymbol());
+                //                PresetStorage::instance().setSyValueAt(name, index, line[3].asSymbol());
             }
         } else {
             LIB_ERR << "invalid preset line: " << line;
@@ -202,17 +227,47 @@ AtomList PresetStorage::keys() const
     return res;
 }
 
-void PresetStorage::createPreset(t_symbol* name)
-{
-    if (!hasPreset(name)) {
-        PresetPtr ptr = boost::make_shared<Preset>(name);
-        params_.insert(PresetMap::value_type(name, ptr));
-    }
-}
-
 bool PresetStorage::hasPreset(t_symbol* name)
 {
     return params_.find(name) != params_.end();
+}
+
+void PresetStorage::bindPreset(t_symbol* name)
+{
+    PresetMap::iterator it = params_.find(name);
+
+    // create new preset
+    if (it == params_.end()) {
+        PresetPtr ptr = boost::make_shared<Preset>(name);
+        std::pair<PresetMap::iterator, bool> res = params_.insert(PresetMap::value_type(name, ptr));
+        if (!res.second) {
+            LIB_ERR << "can't create preset: " << name;
+            return;
+        }
+
+        it = res.first;
+    }
+
+    it->second->refCountUp();
+}
+
+void PresetStorage::unbindPreset(t_symbol* name)
+{
+    PresetMap::iterator it = params_.find(name);
+
+    if (it == params_.end()) {
+        LIB_ERR << "preset is not found: " << name;
+        return;
+    }
+
+    it->second->refCountDown();
+    int n = it->second->refCount();
+
+    if (n == 0) {
+        params_.erase(it);
+    } else if (n < 0) {
+        LIB_ERR << "preset ref count error: " << name;
+    }
 }
 
 PresetPtr PresetStorage::getOrCreateParam(t_symbol* name)
@@ -229,6 +284,7 @@ PresetPtr PresetStorage::getOrCreateParam(t_symbol* name)
 Preset::Preset(t_symbol* name)
     : name_(name)
     , bind_addr_(makeBindAddress(name))
+    , ref_count_(0)
 {
     data_.assign(MAX_PRESET_COUNT, Message());
 }
@@ -347,6 +403,14 @@ bool Preset::clearAt(size_t idx)
     return true;
 }
 
+void Preset::update()
+{
+    if (!bind_addr_->s_thing)
+        return;
+
+    pd_typedmess(bind_addr_->s_thing, SYM_UPDATE, 0, NULL);
+}
+
 t_symbol* Preset::makeBindAddress(t_symbol* name)
 {
     std::string res("preset: ");
@@ -356,8 +420,7 @@ t_symbol* Preset::makeBindAddress(t_symbol* name)
 
 PresetExternal::PresetExternal(const PdArgs& args)
     : BaseObject(args)
-    , cnv_(canvas_getcurrent())
-    , root_cnv_(canvas_getrootfor(canvas_getcurrent()))
+    , root_cnv_(rootCanvas())
     , patch_dir_(".")
 {
     createCbProperty("@keys", &PresetExternal::p_keys);
@@ -405,16 +468,29 @@ void PresetExternal::m_store(t_symbol*, const AtomList& l)
     PresetStorage::instance().storeAll(idx);
 }
 
+void PresetExternal::m_clear(t_symbol*, const AtomList& l)
+{
+    if (!checkArgs(l, ARG_FLOAT))
+        return;
+
+    PresetStorage& s = PresetStorage::instance();
+
+    size_t idx = l[0].asSizeT();
+    if (idx >= s.maxPresetCount()) {
+        OBJ_ERR << "invalid preset index: " << idx;
+        return;
+    }
+
+    PresetStorage::instance().clearAll(idx);
+}
+
 void PresetExternal::m_write(t_symbol*, const AtomList& l)
 {
     std::string fname;
 
-    if (l.empty()) {
-        if (root_cnv_) {
-            fname += std::string(root_cnv_->gl_name->s_name);
-            fname += "-preset.txt";
-        }
-    } else
+    if (l.empty())
+        fname = makeDefaultPresetPath();
+    else
         fname = to_string(l[0]);
 
     if (!sys_isabsolutepath(fname.c_str()))
@@ -433,12 +509,9 @@ void PresetExternal::m_read(t_symbol*, const AtomList& l)
 {
     std::string fname;
 
-    if (l.empty()) {
-        if (root_cnv_) {
-            fname += std::string(root_cnv_->gl_name->s_name);
-            fname += "-preset.txt";
-        }
-    } else
+    if (l.empty())
+        fname = makeDefaultPresetPath();
+    else
         fname = to_string(l[0]);
 
     if (!sys_isabsolutepath(fname.c_str()))
@@ -455,6 +528,23 @@ void PresetExternal::m_read(t_symbol*, const AtomList& l)
     OBJ_DBG << "presets read from: " << fname;
 }
 
+void PresetExternal::m_update(t_symbol*, const AtomList&)
+{
+    PresetStorage::instance().updateAll();
+}
+
+std::string PresetExternal::makeDefaultPresetPath() const
+{
+    std::string res;
+
+    if (root_cnv_) {
+        res += platform::strip_extension(root_cnv_->gl_name->s_name);
+        res += "-preset.txt";
+    }
+
+    return res;
+}
+
 void setup_preset_storage()
 {
     ObjectFactory<PresetExternal> obj("preset.storage");
@@ -462,4 +552,6 @@ void setup_preset_storage()
     obj.addMethod("store", &PresetExternal::m_store);
     obj.addMethod("read", &PresetExternal::m_read);
     obj.addMethod("write", &PresetExternal::m_write);
+    obj.addMethod("clear", &PresetExternal::m_clear);
+    obj.addMethod("update", &PresetExternal::m_update);
 }

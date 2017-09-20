@@ -9,12 +9,13 @@
 using namespace ceammc;
 
 class PresetFloat : public BaseObject {
-    SizeTProperty* max_;
     FloatProperty* init_;
     SymbolProperty* name_;
+    SymbolProperty* path_;
+    t_symbol* preset_path_;
+    FlagProperty* global_;
+    FlagProperty* subpatch_;
     t_float current_value_;
-    t_canvas* cnv_;
-    t_symbol* bind_addr_;
 
 public:
     PresetFloat(const PdArgs& args);
@@ -25,9 +26,13 @@ public:
     void m_clear(t_symbol*, const AtomList&);
     void m_store(t_symbol*, const AtomList& l);
     void m_load(t_symbol*, const AtomList& l);
+    void m_update(t_symbol*, const AtomList&);
 
-private:
-    std::string makeParamFilePath() const;
+    t_symbol* makePresetPath() const;
+    t_symbol* makePath() const;
+
+    void bindPreset();
+    void unbindPreset();
 };
 
 void setup_preset_float();

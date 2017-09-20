@@ -99,6 +99,14 @@ public:
 
 public:
     _glist* pd_canvas() { return canvas_; }
+    _glist* owner();
+    t_symbol* name();
+    void setName(const char* str);
+    std::string parentName() const;
+
+public:
+    static _glist* current();
+    static void setCurrent(_glist* c);
 };
 }
 

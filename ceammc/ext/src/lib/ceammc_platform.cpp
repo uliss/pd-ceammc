@@ -174,5 +174,16 @@ namespace platform {
         full_path += filename;
         return full_path;
     }
+
+    std::string strip_extension(const std::string& name)
+    {
+        std::string::size_type p = name.rfind('.');
+        if (p != std::string::npos) {
+            if (p == 0 || (p + 1 == name.length()))
+                return name;
+        }
+
+        return name.substr(0, p);
+    }
 }
 }

@@ -56,6 +56,7 @@ class PureData {
 public:
     static PureData& instance();
     CanvasPtr createTopCanvas(const char* name);
+    CanvasPtr createSubpatch(_glist* parent, const char* name);
 
 private:
     PureData();

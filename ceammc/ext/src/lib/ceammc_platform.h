@@ -44,6 +44,8 @@ namespace platform {
     std::string home_directory();
     std::string expand_tilde_path(const std::string& path);
 
+    std::string strip_extension(const std::string& name);
+
     /**
      * Search file in standard PureData locations and tries to open it.
      * @return On success returns full path to file, else returns empty string

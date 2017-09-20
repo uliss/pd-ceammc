@@ -6,6 +6,7 @@ macro(ceammc_preset_extension name)
     list(APPEND PRESET_SOURCES "preset_${name}.cpp")
 endmacro()
 
+ceammc_preset_extension(base)
 ceammc_preset_extension(float)
 ceammc_preset_extension(storage)
 

@@ -280,4 +280,15 @@ TEST_CASE("ceammc::platform", "[ceammc::lib]")
         REQUIRE(ceammc::platform::find_in_std_path(cnv->pd_canvas(), "test").empty());
         REQUIRE(ceammc::platform::find_in_std_path(cnv->pd_canvas(), "test_01.mid") == TEST_DATA_DIR "/test_01.mid");
     }
+
+    SECTION("strip extension")
+    {
+        REQUIRE(ceammc::platform::strip_extension("") == "");
+        REQUIRE(ceammc::platform::strip_extension(".") == ".");
+        REQUIRE(ceammc::platform::strip_extension(".a") == ".a");
+        REQUIRE(ceammc::platform::strip_extension(".atest") == ".atest");
+        REQUIRE(ceammc::platform::strip_extension(".file.pd") == ".file");
+        REQUIRE(ceammc::platform::strip_extension("file.pd") == "file");
+        REQUIRE(ceammc::platform::strip_extension("file.1.2.3.4.pd") == "file.1.2.3.4");
+    }
 }

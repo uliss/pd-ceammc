@@ -6,6 +6,8 @@
 #include "ceammc_object.h"
 
 #include <boost/shared_ptr.hpp>
+#include <boost/unordered_map.hpp>
+#include <boost/unordered_set.hpp>
 #include <map>
 
 using namespace ceammc;
@@ -14,11 +16,13 @@ class Preset {
     mutable t_symbol* name_;
     mutable t_symbol* bind_addr_;
     std::vector<Message> data_;
+    int ref_count_;
 
 public:
     static t_symbol* SYM_NONE;
     static t_symbol* SYM_LOAD;
     static t_symbol* SYM_STORE;
+    static t_symbol* SYM_UPDATE;
 
 public:
     Preset(t_symbol* name);
@@ -45,6 +49,11 @@ public:
     bool storeAt(size_t idx);
     bool loadAt(size_t idx);
     bool clearAt(size_t idx);
+    void update();
+
+    void refCountUp() { ref_count_++; }
+    void refCountDown() { ref_count_--; }
+    int refCount() const { return ref_count_; }
 
 public:
     static t_symbol* makeBindAddress(t_symbol* name);
@@ -58,7 +67,7 @@ class PresetStorage {
     void operator=(const PresetStorage&);
 
 private:
-    typedef std::map<t_symbol*, PresetPtr> PresetMap;
+    typedef boost::unordered_map<t_symbol*, PresetPtr> PresetMap;
     PresetMap params_;
 
 public:
@@ -76,14 +85,17 @@ public:
     void remove(t_symbol* name);
     bool loadAll(size_t presetIdx);
     bool storeAll(size_t presetIdx);
+    bool clearAll(size_t presetIdx);
+    bool updateAll();
 
     bool write(const char* path) const;
     bool read(const char* path);
 
     AtomList keys() const;
 
-    void createPreset(t_symbol* name);
     bool hasPreset(t_symbol* name);
+    void bindPreset(t_symbol* name);
+    void unbindPreset(t_symbol* name);
 
 private:
     PresetPtr
@@ -91,7 +103,6 @@ private:
 };
 
 class PresetExternal : public BaseObject {
-    t_canvas* cnv_;
     t_canvas* root_cnv_;
     std::string patch_dir_;
 
@@ -102,10 +113,12 @@ public:
 
     void m_load(t_symbol*, const AtomList& l);
     void m_store(t_symbol*, const AtomList& l);
+    void m_clear(t_symbol*, const AtomList& l);
     void m_write(t_symbol*, const AtomList& fname);
     void m_read(t_symbol*, const AtomList& fname);
+    void m_update(t_symbol*, const AtomList&);
 
-    std::string makePresetPath() const;
+    std::string makeDefaultPresetPath() const;
 };
 
 void setup_preset_storage();

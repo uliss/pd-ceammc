@@ -7,41 +7,42 @@ extern "C" {
 }
 
 static t_symbol* SYM_EMPTY = gensym("");
+static t_symbol* SYM_FLOAT = gensym("float");
 
 PresetFloat::PresetFloat(const PdArgs& args)
     : BaseObject(args)
-    , max_(0)
     , init_(0)
-    , cnv_(0)
-    , bind_addr_(0)
 {
-    max_ = new SizeTProperty("@max", 10, true);
-    createProperty(max_);
-
     init_ = new FloatProperty("@init", 0, true);
     current_value_ = init_->value();
     createProperty(init_);
 
-    name_ = new SymbolProperty("@name", positionalSymbolArgument(0, SYM_EMPTY), true);
+    global_ = new FlagProperty("@global");
+    createProperty(global_);
+
+    subpatch_ = new FlagProperty("@subpatch");
+    createProperty(subpatch_);
+
+    // to get @global and @subpatch flags before makeName() call
+    parseProperties();
+
+    name_ = new SymbolProperty("@name", positionalSymbolArgument(0, SYM_FLOAT), true);
     createProperty(name_);
 
-    cnv_ = canvas_getcurrent();
+    path_ = new SymbolProperty("@path", positionalSymbolArgument(0, SYM_EMPTY), true);
+    createProperty(path_);
+
+    path_->setValue(makePath());
+    preset_path_ = makePresetPath();
+
+    bindPreset();
 
     createOutlet();
-
-    bind_addr_ = Preset::makeBindAddress(name_->value());
-    pd_bind(&owner()->te_g.g_pd, bind_addr_);
-
-    if (!PresetStorage::instance().hasPreset(name_->value())) {
-        PresetStorage::instance().createPreset(name_->value());
-    } else {
-        OBJ_DBG << "warning! preset already exists: " << name_->value();
-    }
 }
 
 PresetFloat::~PresetFloat()
 {
-    pd_unbind(&owner()->te_g.g_pd, bind_addr_);
+    unbindPreset();
 }
 
 void PresetFloat::onFloat(float f)
@@ -92,23 +93,78 @@ void PresetFloat::m_load(t_symbol*, const AtomList& l)
     floatTo(0, current_value_);
 }
 
-std::string PresetFloat::makeParamFilePath() const
+void PresetFloat::m_update(t_symbol*, const AtomList&)
+{
+    path_->setValue(makePath());
+    t_symbol* new_preset_path = makePresetPath();
+
+    if (preset_path_ != new_preset_path) {
+        unbindPreset();
+        preset_path_ = new_preset_path;
+        bindPreset();
+    }
+}
+
+t_symbol* PresetFloat::makePresetPath() const
+{
+    std::string res;
+    res += path_->value()->s_name;
+    res += name_->value()->s_name;
+    return gensym(res.c_str());
+}
+
+t_symbol* PresetFloat::makePath() const
 {
     std::string res;
 
-    if (cnv_) {
-        res += canvas_getdir(cnv_)->s_name;
+    if (!global_->value()) {
+        const t_canvas* c = canvas();
+        while (c) {
+            // not top window
+            if (c->gl_owner) { //
+                if (subpatch_->value()) {
+                    //                    OBJ_DBG << "subpatch";
+                    res = std::string("/") + std::string(c->gl_name->s_name) + res;
+                } else if (canvas_isabstraction((t_canvas*)c)) {
+                    //                    OBJ_DBG << "abstra";
+                    res = std::string("/") + std::string(c->gl_name->s_name) + res;
+                } else {
+                    //                    OBJ_DBG << "ignore";
+                }
+            }
+
+            c = c->gl_owner;
+        }
+
         res += '/';
     }
 
-    res += name_->value()->s_name;
-    return res;
+    return gensym(res.c_str());
+}
+
+void PresetFloat::bindPreset()
+{
+    bindReceive(Preset::makeBindAddress(preset_path_));
+
+    if (PresetStorage::instance().hasPreset(preset_path_)) {
+        OBJ_DBG << "warning! preset already exists: " << preset_path_->s_name;
+    }
+
+    PresetStorage::instance().bindPreset(preset_path_);
+}
+
+void PresetFloat::unbindPreset()
+{
+    OBJ_DBG << "unbind: " << preset_path_->s_name;
+    //    unbindReceive();
+    PresetStorage::instance().unbindPreset(preset_path_);
 }
 
 void setup_preset_float()
 {
     ObjectFactory<PresetFloat> obj("preset.float");
-    obj.addMethod("clear", &PresetFloat::m_clear);
+    //    obj.addMethod("clear", &PresetFloat::m_clear);
     obj.addMethod("store", &PresetFloat::m_store);
     obj.addMethod("load", &PresetFloat::m_load);
+    obj.addMethod("update", &PresetFloat::m_update);
 }
