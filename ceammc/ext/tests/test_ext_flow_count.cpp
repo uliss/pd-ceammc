@@ -26,6 +26,8 @@ TEST_CASE("flow.count", "[externals]")
 {
     SECTION("init")
     {
+        setup_flow_count();
+
         FlowCountTest t("flow.count");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
@@ -66,5 +68,10 @@ TEST_CASE("flow.count", "[externals]")
 
         WHEN_SEND_DATA_TO(0, t, DataPtr(new IntData(123)));
         REQUIRE_FLOAT_AT_OUTLET(0, t, 9);
+        REQUIRE_PROPERTY(t, @value, 9);
+
+        WHEN_CALL(t, reset);
+        REQUIRE_NO_MSG(t);
+        REQUIRE_PROPERTY(t, @value, 0.f);
     }
 }
