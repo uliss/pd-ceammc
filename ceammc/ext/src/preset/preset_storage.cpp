@@ -4,6 +4,7 @@
 #include "ceammc_platform.h"
 
 #include <boost/make_shared.hpp>
+#include <cstring>
 #include <fstream>
 
 extern "C" {
@@ -16,6 +17,9 @@ t_symbol* Preset::SYM_NONE = gensym("");
 t_symbol* Preset::SYM_LOAD = gensym("load");
 t_symbol* Preset::SYM_STORE = gensym("store");
 t_symbol* Preset::SYM_UPDATE = gensym("update");
+t_symbol* Preset::SYM_CLEAR = gensym("clear");
+t_symbol* Preset::SYM_PRESET_ALL = gensym("preset update all");
+static t_symbol* SYM_WITH_SPACES = gensym("_symbol_s");
 
 PresetStorage::PresetStorage()
 {
@@ -34,7 +38,7 @@ size_t PresetStorage::maxPresetCount() const
 
 bool PresetStorage::setFloatValueAt(t_symbol* name, size_t presetIdx, float v)
 {
-    PresetPtr param = getOrCreateParam(name);
+    PresetPtr param = getOrCreate(name);
     return param->setFloatAt(presetIdx, v);
 }
 
@@ -45,6 +49,51 @@ bool PresetStorage::clearValueAt(t_symbol* name, size_t presetIdx)
         return false;
 
     return it->second->clearAt(presetIdx);
+}
+
+bool PresetStorage::setSymbolValueAt(t_symbol* name, size_t presetIdx, t_symbol* v)
+{
+    PresetPtr param = getOrCreate(name);
+    return param->setSymbolAt(presetIdx, v);
+}
+
+t_symbol* PresetStorage::symbolValueAt(t_symbol* name, size_t presetIdx, t_symbol* def) const
+{
+    PresetMap::const_iterator it = params_.find(name);
+    if (it == params_.end())
+        return def;
+
+    return it->second->symbolAt(presetIdx, def);
+}
+
+bool PresetStorage::setListValueAt(t_symbol* name, size_t presetIdx, const AtomList& l)
+{
+    PresetPtr param = getOrCreate(name);
+    return param->setListAt(presetIdx, l);
+}
+
+AtomList PresetStorage::listValueAt(t_symbol* name, size_t presetIdx, const AtomList& def) const
+{
+    PresetMap::const_iterator it = params_.find(name);
+    if (it == params_.end())
+        return def;
+
+    return it->second->listAt(presetIdx, def);
+}
+
+bool PresetStorage::setAnyValueAt(t_symbol* name, size_t presetIdx, t_symbol* sel, const AtomList& l)
+{
+    PresetPtr param = getOrCreate(name);
+    return param->setAnyAt(presetIdx, sel, l);
+}
+
+AtomList PresetStorage::anyValueAt(t_symbol* name, size_t presetIdx, const AtomList& def) const
+{
+    PresetMap::const_iterator it = params_.find(name);
+    if (it == params_.end())
+        return def;
+
+    return it->second->anyAt(presetIdx, def);
 }
 
 float PresetStorage::floatValueAt(t_symbol* name, size_t presetIdx, float def) const
@@ -79,62 +128,13 @@ bool PresetStorage::hasFloatValueAt(t_symbol* name, size_t presetIdx)
     return hasValueTypeAt(name, Message::FLOAT, presetIdx);
 }
 
-void PresetStorage::remove(t_symbol* name)
-{
-    params_.erase(name);
-}
-
-bool PresetStorage::loadAll(size_t presetIdx)
-{
-    if (presetIdx >= maxPresetCount())
-        return false;
-
-    PresetMap::iterator it;
-    for (it = params_.begin(); it != params_.end(); ++it) {
-        it->second->loadAt(presetIdx);
-    }
-
-    return true;
-}
-
-bool PresetStorage::storeAll(size_t presetIdx)
-{
-    if (presetIdx >= maxPresetCount())
-        return false;
-
-    PresetMap::iterator it;
-    for (it = params_.begin(); it != params_.end(); ++it) {
-        it->second->storeAt(presetIdx);
-    }
-
-    return true;
-}
-
-bool PresetStorage::clearAll(size_t presetIdx)
-{
-    if (presetIdx >= maxPresetCount())
-        return false;
-
-    PresetMap::iterator it;
-    for (it = params_.begin(); it != params_.end(); ++it) {
-        it->second->clearAt(presetIdx);
-    }
-
-    return true;
-}
-
-bool PresetStorage::updateAll()
-{
-    AtomList k = keys();
-    for (size_t i = 0; i < k.size(); i++) {
-        params_[k[i].asSymbol()]->update();
-    }
-
-    return true;
-}
-
 bool PresetStorage::write(const char* path) const
 {
+    if (params_.empty()) {
+        LIB_DBG << "no presets in storage";
+        return false;
+    }
+
     t_binbuf* content = binbuf_new();
 
     PresetMap::const_iterator it;
@@ -149,8 +149,23 @@ bool PresetStorage::write(const char* path) const
 
             if (ptr->hasFloatAt(i))
                 binbuf_addv(content, "sf", &s_float, ptr->floatAt(i));
-            else if (ptr->hasSymbolAt(i))
-                binbuf_addv(content, "ss", &s_symbol, ptr->symbolAt(i));
+            else if (ptr->hasSymbolAt(i)) {
+                t_symbol* sym = ptr->symbolAt(i);
+                if (strchr(sym->s_name, ' ')) {
+                    // has spaces
+                    binbuf_addv(content, "ss", SYM_WITH_SPACES, sym);
+                } else {
+                    // no spaces
+                    binbuf_addv(content, "ss", &s_symbol, sym);
+                }
+            } else if (ptr->hasListAt(i)) {
+                AtomList l = ptr->listAt(i);
+                binbuf_addv(content, "s", &s_list);
+                binbuf_add(content, l.size(), l.toPdData());
+            } else if (ptr->hasAnyAt(i)) {
+                AtomList l = ptr->anyAt(i);
+                binbuf_add(content, l.size(), l.toPdData());
+            }
 
             binbuf_addsemi(content);
         }
@@ -187,7 +202,7 @@ bool PresetStorage::read(const char* path)
     if (!lines.empty() && lines.back().empty())
         lines.pop_back();
 
-    LIB_DBG << lines;
+    params_.clear();
 
     for (size_t i = 0; i < lines.size(); i++) {
         AtomList& line = lines[i];
@@ -202,11 +217,26 @@ bool PresetStorage::read(const char* path)
 
             if (sel == &s_float) {
                 PresetStorage::instance().setFloatValueAt(name, index, line[3].asFloat());
+            } else if (sel == &s_symbol) {
+                PresetStorage::instance().setSymbolValueAt(name, index, line[3].asSymbol());
+            } else {
+                AtomList lst = line.slice(3);
+                if (lst.last() && lst.last()->isNone())
+                    lst.remove(lst.size() - 1);
+
+                if (sel == SYM_WITH_SPACES) {
+                    std::string str = to_string(lst);
+
+                    PresetStorage::instance().setSymbolValueAt(name,
+                        index,
+                        gensym(str.c_str()));
+                } else if (sel == &s_list) {
+                    PresetStorage::instance().setListValueAt(name, index, lst);
+                } else {
+                    PresetStorage::instance().setAnyValueAt(name, index, sel, lst);
+                }
             }
 
-            if (sel == &s_symbol) {
-                //                PresetStorage::instance().setSyValueAt(name, index, line[3].asSymbol());
-            }
         } else {
             LIB_ERR << "invalid preset line: " << line;
         }
@@ -270,7 +300,54 @@ void PresetStorage::unbindPreset(t_symbol* name)
     }
 }
 
-PresetPtr PresetStorage::getOrCreateParam(t_symbol* name)
+void PresetStorage::clearAll()
+{
+    params_.clear();
+}
+
+void PresetStorage::loadAll(size_t idx)
+{
+    if (!Preset::SYM_PRESET_ALL->s_thing)
+        return;
+
+    if (idx >= maxPresetCount()) {
+        LIB_ERR << "[preset] "
+                << "invalid preset index: " << idx
+                << ". Should be less then: " << maxPresetCount();
+        return;
+    }
+
+    t_atom a;
+    SETFLOAT(&a, idx);
+    pd_typedmess(Preset::SYM_PRESET_ALL->s_thing, Preset::SYM_LOAD, 1, &a);
+}
+
+void PresetStorage::storeAll(size_t idx)
+{
+    if (!Preset::SYM_PRESET_ALL->s_thing)
+        return;
+
+    if (idx >= maxPresetCount()) {
+        LIB_ERR << "[preset] "
+                << "invalid preset index: " << idx
+                << ". Should be less then: " << maxPresetCount();
+        return;
+    }
+
+    t_atom a;
+    SETFLOAT(&a, idx);
+    pd_typedmess(Preset::SYM_PRESET_ALL->s_thing, Preset::SYM_STORE, 1, &a);
+}
+
+void PresetStorage::updateAll()
+{
+    if (!Preset::SYM_PRESET_ALL->s_thing)
+        return;
+
+    pd_typedmess(Preset::SYM_PRESET_ALL->s_thing, Preset::SYM_UPDATE, 0, NULL);
+}
+
+PresetPtr PresetStorage::getOrCreate(t_symbol* name)
 {
     PresetMap::iterator it = params_.find(name);
     if (it != params_.end())
@@ -283,7 +360,6 @@ PresetPtr PresetStorage::getOrCreateParam(t_symbol* name)
 
 Preset::Preset(t_symbol* name)
     : name_(name)
-    , bind_addr_(makeBindAddress(name))
     , ref_count_(0)
 {
     data_.assign(MAX_PRESET_COUNT, Message());
@@ -292,11 +368,6 @@ Preset::Preset(t_symbol* name)
 t_symbol* Preset::name() const
 {
     return name_;
-}
-
-t_symbol* Preset::bindName() const
-{
-    return bind_addr_;
 }
 
 std::vector<Message>& Preset::data()
@@ -342,6 +413,33 @@ bool Preset::setFloatAt(size_t idx, float v)
     return true;
 }
 
+bool Preset::setSymbolAt(size_t idx, t_symbol* v)
+{
+    if (idx >= data_.size())
+        return false;
+
+    data_[idx].setSymbol(v);
+    return true;
+}
+
+bool Preset::setListAt(size_t idx, const AtomList& l)
+{
+    if (idx >= data_.size())
+        return false;
+
+    data_[idx].setList(l);
+    return true;
+}
+
+bool Preset::setAnyAt(size_t idx, t_symbol* sel, const AtomList& args)
+{
+    if (idx >= data_.size())
+        return false;
+
+    data_[idx].setAny(sel, args);
+    return true;
+}
+
 t_symbol* Preset::symbolAt(size_t idx, t_symbol* def) const
 {
     if (idx >= data_.size())
@@ -366,34 +464,6 @@ AtomList Preset::anyAt(size_t idx, const AtomList& def) const
     return data_[idx].isAny() ? data_[idx].anyValue() : def;
 }
 
-bool Preset::storeAt(size_t idx)
-{
-    if (idx >= data_.size())
-        return false;
-
-    if (!bind_addr_->s_thing)
-        return false;
-
-    t_atom a;
-    SETFLOAT(&a, idx);
-    pd_typedmess(bind_addr_->s_thing, SYM_STORE, 1, &a);
-    return true;
-}
-
-bool Preset::loadAt(size_t idx)
-{
-    if (idx >= data_.size())
-        return false;
-
-    if (!bind_addr_->s_thing)
-        return false;
-
-    t_atom a;
-    SETFLOAT(&a, idx);
-    pd_typedmess(bind_addr_->s_thing, SYM_LOAD, 1, &a);
-    return true;
-}
-
 bool Preset::clearAt(size_t idx)
 {
     if (idx >= data_.size())
@@ -401,21 +471,6 @@ bool Preset::clearAt(size_t idx)
 
     data_[idx] = Message();
     return true;
-}
-
-void Preset::update()
-{
-    if (!bind_addr_->s_thing)
-        return;
-
-    pd_typedmess(bind_addr_->s_thing, SYM_UPDATE, 0, NULL);
-}
-
-t_symbol* Preset::makeBindAddress(t_symbol* name)
-{
-    std::string res("preset: ");
-    res += name->s_name;
-    return gensym(res.c_str());
 }
 
 PresetExternal::PresetExternal(const PdArgs& args)
@@ -438,50 +493,26 @@ AtomList PresetExternal::p_keys() const
 
 void PresetExternal::m_load(t_symbol*, const AtomList& l)
 {
-    if (!checkArgs(l, ARG_FLOAT))
-        return;
-
-    PresetStorage& s = PresetStorage::instance();
-
-    size_t idx = l[0].asSizeT();
-    if (idx >= s.maxPresetCount()) {
-        OBJ_ERR << "invalid preset index: " << idx;
-        return;
-    }
-
+    size_t idx = l.asSizeT(0);
     PresetStorage::instance().loadAll(idx);
 }
 
 void PresetExternal::m_store(t_symbol*, const AtomList& l)
 {
-    if (!checkArgs(l, ARG_FLOAT))
-        return;
-
-    PresetStorage& s = PresetStorage::instance();
-
-    size_t idx = l[0].asSizeT();
-    if (idx >= s.maxPresetCount()) {
-        OBJ_ERR << "invalid preset index: " << idx;
-        return;
-    }
-
+    size_t idx = l.asSizeT(0);
     PresetStorage::instance().storeAll(idx);
 }
 
 void PresetExternal::m_clear(t_symbol*, const AtomList& l)
 {
-    if (!checkArgs(l, ARG_FLOAT))
+    size_t idx = l.asSizeT(0);
+
+    if (!Preset::SYM_PRESET_ALL->s_thing)
         return;
 
-    PresetStorage& s = PresetStorage::instance();
-
-    size_t idx = l[0].asSizeT();
-    if (idx >= s.maxPresetCount()) {
-        OBJ_ERR << "invalid preset index: " << idx;
-        return;
-    }
-
-    PresetStorage::instance().clearAll(idx);
+    t_atom a;
+    SETFLOAT(&a, idx);
+    pd_typedmess(Preset::SYM_PRESET_ALL->s_thing, Preset::SYM_CLEAR, 1, &a);
 }
 
 void PresetExternal::m_write(t_symbol*, const AtomList& l)

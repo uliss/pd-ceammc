@@ -41,6 +41,14 @@ namespace platform {
     bool mkdir(const char* path, int flags = -1);
     bool rmdir(const char* path);
 
+    /**
+     * Removes specified file
+     * @param path - path fo file
+     * @see rmdir()
+     * @return true on sucess, false on error
+     */
+    bool remove(const char* path);
+
     std::string home_directory();
     std::string expand_tilde_path(const std::string& path);
 

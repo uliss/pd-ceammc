@@ -9,7 +9,7 @@ class PresetBase : public BaseObject {
     FlagProperty* global_;
     FlagProperty* subpatch_;
 
-    SymbolProperty* name_;
+    t_symbol* name_;
     t_symbol* path_;
     t_symbol* preset_path_;
 
@@ -20,10 +20,23 @@ public:
     t_symbol* makePath() const;
     t_symbol* makePresetPath() const;
 
+    t_symbol* name();
     t_symbol* path() { return path_; }
     t_symbol* presetPath() { return preset_path_; }
 
+    virtual void loadFrom(size_t idx);
+    virtual void storeAt(size_t idx);
+
+    t_float loadFloat(size_t idx, t_float def = 0.f);
+
+    void storeFloat(t_float f, size_t idx);
+    void storeSymbol(t_symbol* s, size_t idx);
+    void storeList(const AtomList& l, size_t idx);
+    void storeAny(t_symbol* sel, const AtomList& l, size_t idx);
+
 public:
+    void m_load(t_symbol*, const AtomList& index);
+    void m_store(t_symbol*, const AtomList& index);
     void m_update(t_symbol*, const AtomList&);
 
 private:

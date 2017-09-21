@@ -108,6 +108,8 @@ ceammc_external_test(random linear)
 ceammc_external_test(random pw_lin)
 ceammc_external_test(random pw_const)
 
+ceammc_external_test(preset float)
+
 ceammc_external_test(string format)
 ceammc_external_test(string str)
 ceammc_external_test(string split)

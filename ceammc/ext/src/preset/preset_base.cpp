@@ -12,7 +12,7 @@ PresetBase::PresetBase(const PdArgs& args)
     : BaseObject(args)
     , global_(0)
     , subpatch_(0)
-    , name_(0)
+    , name_(&s_)
     , path_(&s_)
     , preset_path_(&s_)
 {
@@ -24,14 +24,16 @@ PresetBase::PresetBase(const PdArgs& args)
     subpatch_ = new FlagProperty("@subpatch");
     createProperty(subpatch_);
 
+    // virtual @name property
+    createProperty(new PointerProperty<t_symbol*>("@name", &preset_path_, true));
+
     // to get @global and @subpatch flags before makeName() call
     parseProperties();
 
-    name_ = new SymbolProperty("@name", positionalSymbolArgument(0, &s_), true);
-    createProperty(name_);
-
+    name_ = positionalSymbolArgument(0, &s_);
     path_ = makePath();
     preset_path_ = makePresetPath();
+
     bind();
 }
 
@@ -42,6 +44,8 @@ PresetBase::~PresetBase()
 
 void PresetBase::m_update(t_symbol*, const AtomList&)
 {
+    OBJ_DBG << "update: " << preset_path_->s_name;
+
     path_ = makePath();
     t_symbol* new_preset_path = makePresetPath();
 
@@ -54,7 +58,7 @@ void PresetBase::m_update(t_symbol*, const AtomList&)
 
 void PresetBase::bind()
 {
-    bindReceive(Preset::makeBindAddress(preset_path_));
+    bindReceive(Preset::SYM_PRESET_ALL);
 
     if (PresetStorage::instance().hasPreset(preset_path_)) {
         OBJ_DBG << "warning! preset already exists: " << preset_path_->s_name;
@@ -93,11 +97,81 @@ t_symbol* PresetBase::makePath() const
     return gensym(res.c_str());
 }
 
+void PresetBase::m_store(t_symbol*, const AtomList& index)
+{
+    size_t idx = index.asSizeT(0);
+
+    PresetStorage& storage = PresetStorage::instance();
+
+    if (idx >= storage.maxPresetCount()) {
+        OBJ_ERR << "preset index is too big: " << idx << ". Max " << storage.maxPresetCount() << " allowed";
+        return;
+    }
+
+    storeAt(idx);
+}
+
+void PresetBase::loadFrom(size_t idx)
+{
+}
+
+void PresetBase::storeAt(size_t idx)
+{
+}
+
+t_float PresetBase::loadFloat(size_t idx, t_float def)
+{
+    return PresetStorage::instance().floatValueAt(preset_path_, idx, def);
+}
+
+void PresetBase::storeFloat(t_float f, size_t idx)
+{
+    if (!PresetStorage::instance().setFloatValueAt(preset_path_, idx, f))
+        OBJ_DBG << "can't save preset: " << preset_path_->s_name;
+}
+
+void PresetBase::storeSymbol(t_symbol* s, size_t idx)
+{
+    if (!PresetStorage::instance().setSymbolValueAt(preset_path_, idx, s))
+        OBJ_DBG << "can't save preset: " << preset_path_->s_name;
+}
+
+void PresetBase::storeList(const AtomList& l, size_t idx)
+{
+    if (!PresetStorage::instance().setListValueAt(preset_path_, idx, l))
+        OBJ_DBG << "can't save preset: " << preset_path_->s_name;
+}
+
+void PresetBase::storeAny(t_symbol* sel, const AtomList& l, size_t idx)
+{
+    if (!PresetStorage::instance().setAnyValueAt(preset_path_, idx, sel, l))
+        OBJ_DBG << "can't save preset: " << preset_path_->s_name;
+}
+
 t_symbol* PresetBase::makePresetPath() const
 {
     std::string res;
     res += path_->s_name;
     res += SEPARATOR;
-    res += name_->value()->s_name;
+    res += name_->s_name;
     return gensym(res.c_str());
+}
+
+t_symbol* PresetBase::name()
+{
+    return name_;
+}
+
+void PresetBase::m_load(t_symbol*, const AtomList& index)
+{
+    size_t idx = index.asSizeT(0);
+
+    PresetStorage& storage = PresetStorage::instance();
+
+    if (idx >= storage.maxPresetCount()) {
+        OBJ_ERR << "preset index is too big: " << idx << ". Max " << storage.maxPresetCount() << " allowed";
+        return;
+    }
+
+    loadFrom(idx);
 }

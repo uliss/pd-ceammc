@@ -15,6 +15,7 @@
 #include "ceammc_log.h"
 
 #include "g_canvas.h"
+#include <cstdio>
 #include <cstdlib>
 
 #ifdef HAVE_UNISTD_H
@@ -184,6 +185,11 @@ namespace platform {
         }
 
         return name.substr(0, p);
+    }
+
+    bool remove(const char* path)
+    {
+        return ::remove(path) == 0;
     }
 }
 }
