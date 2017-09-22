@@ -13,6 +13,7 @@
 - flow.count added to count control stream events
 - flow.multiplex added
 - flow.gate added
+- flow.less added
 - modplug~ added (using libmodplug) for playing vaious MOD formats:
     MOD, S3M, XM, IT, 669, AMF (both of them), AMS, DBM, DMF, DSM, FAR,
     MDL, MED, MTM, OKT, PTM, STM, ULT, UMX, MT2, PSM
