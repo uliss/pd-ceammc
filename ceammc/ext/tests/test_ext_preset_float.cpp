@@ -34,19 +34,63 @@ TEST_CASE("[preset.float]", "[PureData]")
         PresetFloatTest t("preset.float", L1("pf1"));
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
-        REQUIRE_PROPERTY(t, @name, "/pf1");
-        REQUIRE_PROPERTY(t, @init, 0.f)
+        REQUIRE_PROPERTY(t, @id, "pf1");
+        REQUIRE_PROPERTY(t, @path, "/pf1");
+        REQUIRE_PROPERTY(t, @init, 0.f);
+        REQUIRE_PROPERTY(t, @global, 0.f);
+        REQUIRE_PROPERTY(t, @subpatch, 0.f);
+
+        SECTION("init value")
+        {
+            PresetFloatTest t("preset.float", L2("pf2", 123));
+            REQUIRE_PROPERTY(t, @path, "/pf2");
+            REQUIRE_PROPERTY(t, @init, 123);
+        }
+
+        SECTION("global")
+        {
+            PresetFloatTest t("preset.float", L2("pf3", "@global"));
+            REQUIRE_PROPERTY(t, @path, "/pf3");
+            REQUIRE_PROPERTY(t, @global, 1);
+            REQUIRE_PROPERTY(t, @subpatch, 0.f);
+        }
+
+        SECTION("subpatch")
+        {
+            PresetFloatTest t("preset.float", L2("pf4", "@subpatch"));
+            REQUIRE_PROPERTY(t, @path, "/pf4");
+            REQUIRE_PROPERTY(t, @global, 0.f);
+            REQUIRE_PROPERTY(t, @subpatch, 1);
+        }
+    }
+
+    SECTION("destructor test")
+    {
+        REQUIRE_FALSE(PresetStorage::instance().hasPreset(gensym("/A")));
+
+        {
+            PresetFloatTest t("preset.float", L1("A"));
+            REQUIRE(PresetStorage::instance().hasPreset(t.presetPath()));
+            REQUIRE(PresetStorage::instance().hasPreset(gensym("/A")));
+        }
+
+        REQUIRE_FALSE(PresetStorage::instance().hasPreset(gensym("/A")));
     }
 
     SECTION("do")
     {
         PresetFloatTest p1("preset.float", L1("p1"));
-        PresetFloatTest p2("preset.float", L1("p2"));
 
         WHEN_SEND_FLOAT_TO(0, p1, 11);
+        p1.m_store(0, L1(0.f));
 
-        PresetStorage::instance().storeAll(0);
         WHEN_SEND_FLOAT_TO(0, p1, 15);
-        PresetStorage::instance().loadAll(0);
+        p1.m_store(0, L1(1));
+
+        p1.m_load(0, L1(0.f));
+        REQUIRE_FLOAT_AT_OUTLET(0, p1, 11);
+
+        p1.m_load(0, L1(1.f));
+        REQUIRE_FLOAT_AT_OUTLET(0, p1, 15);
     }
 }

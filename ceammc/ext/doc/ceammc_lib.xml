@@ -702,6 +702,17 @@
       <xi:include href="is_symbol.pddoc" parse="xml"/>
     </entry>
   </category>
+  <category name="preset">
+    <entry descr="load/store float preset" name="preset.float" ref_view="object">
+      <xi:include href="preset.float.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="preset storage control" name="preset.storage" ref_view="object">
+      <xi:include href="preset.storage.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="load/store symbol preset" name="preset.symbol" ref_view="object">
+      <xi:include href="preset.symbol.pddoc" parse="xml"/>
+    </entry>
+  </category>
   <category name="property">
     <entry descr="Property extractor" name="prop.get" ref_view="object">
       <xi:include href="prop.get.pddoc" parse="xml"/>

@@ -276,6 +276,7 @@ path.lsdir
 pitch->midi
 preset.float
 preset.storage
+preset.symbol
 prop->
 prop.get
 prop.set

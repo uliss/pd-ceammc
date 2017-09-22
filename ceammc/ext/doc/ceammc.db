@@ -208,6 +208,9 @@ path.basename		.		.
 path.dirname		.		.
 path.exists		.		.
 path.lsdir,path.ls		.		.
+preset.float		.		.
+preset.storage		.		.
+preset.symbol		.		.
 prop.get,prop->		.		?
 prop.set,prop<-		?		.
 random.discrete		.		.

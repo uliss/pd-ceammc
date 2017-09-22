@@ -41,7 +41,8 @@ TEST_CASE("ceammc_preset", "[PureData]")
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
 
-        REQUIRE_PROPERTY(t, @name, "/name1");
+        REQUIRE_PROPERTY(t, @id, "name1");
+        REQUIRE_PROPERTY(t, @path, "/name1");
         REQUIRE(t.makePath() == gensym(""));
         REQUIRE(t.makePresetPath() == gensym("/name1"));
     }
@@ -150,8 +151,6 @@ TEST_CASE("ceammc_preset", "[PureData]")
 
         REQUIRE(L5(1, 2, 3, 4, 5).slice(3) == L2(4, 5));
 
-        s.clearAll();
-        REQUIRE(s.keys().size() == 0);
         REQUIRE(s.read("./presets.txt"));
         REQUIRE(s.keys().size() == 5);
         REQUIRE(s.hasPreset(gensym("F")));
@@ -163,8 +162,11 @@ TEST_CASE("ceammc_preset", "[PureData]")
 
         s.clearAll();
         s.setFloatValueAt(gensym("OTHERS"), 0, 1231);
-        REQUIRE(s.keys().size() == 1);
+        s.setFloatValueAt(gensym("F"), 0, 11);
+        REQUIRE(s.keys().size() == 2);
         REQUIRE(s.read("./presets.txt"));
-        REQUIRE(s.keys().size() == 5);
+        REQUIRE(s.keys().size() == 2);
+        REQUIRE(s.hasPreset(gensym("OTHERS")));
+        REQUIRE(s.floatValueAt(gensym("F"), 0) == -1024);
     }
 }

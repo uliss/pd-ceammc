@@ -24,8 +24,9 @@ PresetBase::PresetBase(const PdArgs& args)
     subpatch_ = new FlagProperty("@subpatch");
     createProperty(subpatch_);
 
-    // virtual @name property
-    createProperty(new PointerProperty<t_symbol*>("@name", &preset_path_, true));
+    // virtual @path property
+    createProperty(new PointerProperty<t_symbol*>("@path", &preset_path_, true));
+    createProperty(new PointerProperty<t_symbol*>("@id", &name_, true));
 
     // to get @global and @subpatch flags before makeName() call
     parseProperties();
@@ -44,8 +45,6 @@ PresetBase::~PresetBase()
 
 void PresetBase::m_update(t_symbol*, const AtomList&)
 {
-    OBJ_DBG << "update: " << preset_path_->s_name;
-
     path_ = makePath();
     t_symbol* new_preset_path = makePresetPath();
 
@@ -54,6 +53,20 @@ void PresetBase::m_update(t_symbol*, const AtomList&)
         preset_path_ = new_preset_path;
         bind();
     }
+}
+
+void PresetBase::m_clear(t_symbol*, const AtomList& index)
+{
+    size_t idx = index.asSizeT(0);
+
+    PresetStorage& storage = PresetStorage::instance();
+
+    if (idx >= storage.maxPresetCount()) {
+        OBJ_ERR << "preset index is too big: " << idx << ". Max " << storage.maxPresetCount() << " allowed";
+        return;
+    }
+
+    storage.clearValueAt(preset_path_, idx);
 }
 
 void PresetBase::bind()
@@ -122,6 +135,21 @@ void PresetBase::storeAt(size_t idx)
 t_float PresetBase::loadFloat(size_t idx, t_float def)
 {
     return PresetStorage::instance().floatValueAt(preset_path_, idx, def);
+}
+
+t_symbol* PresetBase::loadSymbol(size_t idx, t_symbol* def)
+{
+    return PresetStorage::instance().symbolValueAt(preset_path_, idx, def);
+}
+
+AtomList PresetBase::loadList(size_t idx, const AtomList& def)
+{
+    return PresetStorage::instance().listValueAt(preset_path_, idx, def);
+}
+
+AtomList PresetBase::loadAny(size_t idx, const AtomList& def)
+{
+    return PresetStorage::instance().anyValueAt(preset_path_, idx, def);
 }
 
 void PresetBase::storeFloat(t_float f, size_t idx)

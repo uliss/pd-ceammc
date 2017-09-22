@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="preset.symbol">
+        <title>preset.symbol</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>load/store symbol preset</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>preset</category>
+            <keywords>preset storage symbol</keywords>
+            <since>0.4</since>
+            <also>
+                <see>preset.storage</see>
+                <see>preset.float</see>
+                <see>preset.list</see>
+            </also>
+        </meta>
+        <info>
+            <par>Named symbol preset entry. Can store/load up to 16 various symbol values</par>
+        </info>
+        <arguments>
+            <argument name="ID" type="symbol">preset id (should be unique in most use cases)</argument>
+            <argument name="VAL" type="symbol">preset initial value</argument>
+        </arguments>
+        <properties>
+            <property name="@path" type="symbol" readonly="true">property OSC-like path
+            that includes id, abstraction name and may be subpatch name separated by slashes.</property>
+            <property name="@init" type="symbol">init float value</property>
+            <property name="@global" type="flag">use global path like /ID</property>
+            <property name="@subpatch" type="flag">include subpatch name to path</property>
+        </properties>
+        <methods>
+            <method name="load">load preset value by specified index and output it</method>
+            <method name="store">stores preset value at specified index</method>
+            <method name="clear">clear preset at specified index</method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="symbol">set preset value without output</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>preset symbol value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+                    [store 0(  [store 1(
+                    |          |
+           [load 0( | [load 1( |
+           |        | |        |
+           |        | |        |
+           |        | |        |
+[S]    X   [preset.symbol     f1]
+
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

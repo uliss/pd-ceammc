@@ -28,6 +28,9 @@ public:
     virtual void storeAt(size_t idx);
 
     t_float loadFloat(size_t idx, t_float def = 0.f);
+    t_symbol* loadSymbol(size_t idx, t_symbol* def);
+    AtomList loadList(size_t idx, const AtomList& def = AtomList());
+    AtomList loadAny(size_t idx, const AtomList& def = AtomList());
 
     void storeFloat(t_float f, size_t idx);
     void storeSymbol(t_symbol* s, size_t idx);
@@ -38,6 +41,7 @@ public:
     void m_load(t_symbol*, const AtomList& index);
     void m_store(t_symbol*, const AtomList& index);
     void m_update(t_symbol*, const AtomList&);
+    void m_clear(t_symbol*, const AtomList& index);
 
 private:
     void bind();

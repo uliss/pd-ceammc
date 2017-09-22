@@ -37,6 +37,9 @@
 - midi.event2ctl added
 - window help added
 - local.list help added
+- preset.float added
+- preset.symbol added
+- preset.storage added
 
 ### Changed:
 - random.gauss doc update

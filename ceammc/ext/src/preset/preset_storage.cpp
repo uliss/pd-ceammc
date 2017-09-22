@@ -202,8 +202,6 @@ bool PresetStorage::read(const char* path)
     if (!lines.empty() && lines.back().empty())
         lines.pop_back();
 
-    params_.clear();
-
     for (size_t i = 0; i < lines.size(); i++) {
         AtomList& line = lines[i];
 
@@ -215,10 +213,13 @@ bool PresetStorage::read(const char* path)
             size_t index = line[1].asSizeT();
             t_symbol* sel = line[2].asSymbol();
 
+            if (!hasPreset(name))
+                continue;
+
             if (sel == &s_float) {
-                PresetStorage::instance().setFloatValueAt(name, index, line[3].asFloat());
+                setFloatValueAt(name, index, line[3].asFloat());
             } else if (sel == &s_symbol) {
-                PresetStorage::instance().setSymbolValueAt(name, index, line[3].asSymbol());
+                setSymbolValueAt(name, index, line[3].asSymbol());
             } else {
                 AtomList lst = line.slice(3);
                 if (lst.last() && lst.last()->isNone())
@@ -227,13 +228,11 @@ bool PresetStorage::read(const char* path)
                 if (sel == SYM_WITH_SPACES) {
                     std::string str = to_string(lst);
 
-                    PresetStorage::instance().setSymbolValueAt(name,
-                        index,
-                        gensym(str.c_str()));
+                    setSymbolValueAt(name, index, gensym(str.c_str()));
                 } else if (sel == &s_list) {
-                    PresetStorage::instance().setListValueAt(name, index, lst);
+                    setListValueAt(name, index, lst);
                 } else {
-                    PresetStorage::instance().setAnyValueAt(name, index, sel, lst);
+                    setAnyValueAt(name, index, sel, lst);
                 }
             }
 
@@ -547,8 +546,6 @@ void PresetExternal::m_read(t_symbol*, const AtomList& l)
 
     if (!sys_isabsolutepath(fname.c_str()))
         fname = patch_dir_ + "/" + fname;
-
-    OBJ_DBG << "presets read from: " << fname;
 
     bool rc = PresetStorage::instance().read(fname.c_str());
     if (!rc) {

@@ -5,7 +5,9 @@ PresetFloat::PresetFloat(const PdArgs& args)
     : PresetBase(args)
     , init_(0)
 {
-    init_ = new FloatProperty("@init", 0, true);
+    // 1st positionalSymbolArgument is preset name - in base class
+    // 2nd positionalFloatArgument weare using as init value
+    init_ = new FloatProperty("@init", positionalFloatArgument(1, 0), true);
     current_value_ = init_->value();
     createProperty(init_);
 }
@@ -29,7 +31,7 @@ void PresetFloat::storeAt(size_t idx)
 void setup_preset_float()
 {
     ObjectFactory<PresetFloat> obj("preset.float");
-    //    obj.addMethod("clear", &PresetFloat::m_clear);
+    obj.addMethod("clear", &PresetFloat::m_clear);
     obj.addMethod("store", &PresetFloat::m_store);
     obj.addMethod("load", &PresetFloat::m_load);
     obj.addMethod("update", &PresetFloat::m_update);
