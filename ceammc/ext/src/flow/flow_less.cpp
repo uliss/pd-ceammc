@@ -35,6 +35,11 @@ FlowLess::FlowLess(const PdArgs& a)
     : BaseObject(a)
 {
     const AtomList& pos_args = positionalArguments();
+
+    if (pos_args.empty()) {
+        OBJ_DBG << "Usage: flow.less FLOAT1 [FLOAT2] ... [FLOAT-N]";
+    }
+
     for (size_t i = 0; i < pos_args.size(); i++) {
         if (pos_args[i].isFloat()) {
             createOutlet();
