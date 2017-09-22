@@ -9,7 +9,7 @@
 #X text 210 80 Numbers thar are *less* then N-th argument are passed
 to N-th inlet;
 #X floatatom 50 155 5 0 0 0 - - -;
-#X obj 50 213 flow.less 0 10 20;
+#X obj 50 213 flow.less 0 10 20 30;
 #X floatatom 50 242 5 0 0 0 - - -;
 #X floatatom 107 242 5 0 0 0 - - -;
 #X floatatom 165 242 5 0 0 0 - - -;
