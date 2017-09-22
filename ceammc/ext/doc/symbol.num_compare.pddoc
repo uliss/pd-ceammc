@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="symbol.num_compare">
+        <title>symbol.num_compare</title>
+        <meta>
+            <authors>
+                <author>Alex Nadzharov</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>numeric symbol compare</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>symbol</category>
+            <keywords>symbol num_compare compare</keywords>
+            <since>0.4</since>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="symbol">first compare symbol. Unicode strings also supported</xinfo>
+                <xinfo on="list">compare first and second list elements</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="symbol">second compare symbol. Unicode strings also supported</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>1 if first symbol less then second, otherwise 0</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+/* common sort */
+
+[list 10.txt 1.txt 14.txt 2.txt 6.txt 7.txt 9.txt(
+|
+[list.sort]
+|
+[msg set]
+|
+[ (
+
+/* numeric sort */
+
+[list 10.txt 1.txt 14.txt 2.txt 6.txt 7.txt 9.txt(
+|
+[list.sort_with] X [symbol.num_compare]
+|
+[msg set]
+|
+[ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

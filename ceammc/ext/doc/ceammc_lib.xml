@@ -806,6 +806,9 @@
     <entry descr="number of characters in symbol (unicode supported)" name="symbol.length" ref_view="object">
       <xi:include href="symbol.length.pddoc" parse="xml"/>
     </entry>
+    <entry descr="numeric symbol compare" name="symbol.num_compare" ref_view="object">
+      <xi:include href="symbol.num_compare.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="system">
     <entry descr="S" name="system.cursor" ref_view="object">

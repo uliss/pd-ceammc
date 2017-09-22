@@ -608,70 +608,72 @@ string;
 #X text 175 8466 check symbols for equality;
 #X obj 30 8493 symbol.length;
 #X text 175 8493 number of characters in symbol (unicode supported);
-#X obj 20 8520 cnv 5 68 31 empty empty system 4 13 0 17 -262144 -49933
+#X obj 30 8520 symbol.num_compare;
+#X text 175 8520 numeric symbol compare;
+#X obj 20 8547 cnv 5 68 31 empty empty system 4 13 0 17 -262144 -49933
 0;
-#X obj 20 8561 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 8572 system.cursor;
-#X text 175 8572 S;
-#X obj 30 8599 system.getenv;
-#X text 175 8599 Get system environment variables;
-#X obj 30 8626 system.hostname;
-#X text 175 8626 outputs system hostname;
-#X obj 30 8653 system.memsize;
-#X text 175 8653 returns the size of physical memory (RAM) in bytes
+#X obj 20 8588 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 8599 system.cursor;
+#X text 175 8599 S;
+#X obj 30 8626 system.getenv;
+#X text 175 8626 Get system environment variables;
+#X obj 30 8653 system.hostname;
+#X text 175 8653 outputs system hostname;
+#X obj 30 8680 system.memsize;
+#X text 175 8680 returns the size of physical memory (RAM) in bytes
 round to float data type.;
-#X obj 30 8690 system.memused;
-#X text 175 8690 returns the process physical memory use - current and
+#X obj 30 8717 system.memused;
+#X text 175 8717 returns the process physical memory use - current and
 peak;
-#X obj 30 8717 system.screen_size;
-#X text 175 8717 returns current screen size in pixels;
-#X obj 20 8744 cnv 5 28 31 empty empty ui 4 13 0 17 -262144 -49933 0;
-#X obj 20 8785 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 8799 ui.link @title [tl.bang] @url tl.bang-help.pd;
-#X text 175 8796 Timeline bang;
-#X obj 30 8822 ui.link @title [tl.cue] @url tl.cue-help.pd;
-#X text 175 8819 Timeline section;
-#X obj 30 8842 tl.transport;
-#X text 175 8842 Timeline transport control;
-#X obj 30 8872 ui.link @title [ui.bang] @url ui.bang-help.pd;
-#X text 175 8869 A bang... that's all;
-#X obj 30 8895 ui.link @title [ui.bpfunc] @url ui.bpfunc-help.pd;
-#X text 175 8892 Breakpoint function GUI object;
-#X obj 30 8918 ui.link @title [ui.display] @url ui.display-help.pd;
-#X text 175 8915 Display GUI object;
-#X obj 30 8941 ui.link @title [ui.keyboard] @url ui.keyboard-help.pd;
-#X text 175 8938 keyboard widget;
-#X obj 30 8964 ui.link @title [ui.knob] @url ui.knob-help.pd;
-#X text 175 8961 knob widget;
-#X obj 30 8987 ui.link @title [ui.matrix] @url ui.matrix-help.pd;
-#X text 175 8984 The matrix of toggles has you.;
-#X obj 30 9010 ui.link @title [ui.scope~] @url ui.scope~-help.pd;
-#X text 175 9007 Scope GUI object;
-#X obj 30 9033 ui.link @title [ui.slider2d] @url ui.slider2d-help.pd;
-#X text 175 9030 2D slider widget;
-#X obj 30 9056 ui.link @title [ui.sliders] @url ui.sliders-help.pd;
-#X text 175 9053 Multiple slider widget;
-#X obj 30 9079 ui.link @title [ui.spectroscope~] @url
+#X obj 30 8744 system.screen_size;
+#X text 175 8744 returns current screen size in pixels;
+#X obj 20 8771 cnv 5 28 31 empty empty ui 4 13 0 17 -262144 -49933 0;
+#X obj 20 8812 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 8826 ui.link @title [tl.bang] @url tl.bang-help.pd;
+#X text 175 8823 Timeline bang;
+#X obj 30 8849 ui.link @title [tl.cue] @url tl.cue-help.pd;
+#X text 175 8846 Timeline section;
+#X obj 30 8869 tl.transport;
+#X text 175 8869 Timeline transport control;
+#X obj 30 8899 ui.link @title [ui.bang] @url ui.bang-help.pd;
+#X text 175 8896 A bang... that's all;
+#X obj 30 8922 ui.link @title [ui.bpfunc] @url ui.bpfunc-help.pd;
+#X text 175 8919 Breakpoint function GUI object;
+#X obj 30 8945 ui.link @title [ui.display] @url ui.display-help.pd;
+#X text 175 8942 Display GUI object;
+#X obj 30 8968 ui.link @title [ui.keyboard] @url ui.keyboard-help.pd;
+#X text 175 8965 keyboard widget;
+#X obj 30 8991 ui.link @title [ui.knob] @url ui.knob-help.pd;
+#X text 175 8988 knob widget;
+#X obj 30 9014 ui.link @title [ui.matrix] @url ui.matrix-help.pd;
+#X text 175 9011 The matrix of toggles has you.;
+#X obj 30 9037 ui.link @title [ui.scope~] @url ui.scope~-help.pd;
+#X text 175 9034 Scope GUI object;
+#X obj 30 9060 ui.link @title [ui.slider2d] @url ui.slider2d-help.pd;
+#X text 175 9057 2D slider widget;
+#X obj 30 9083 ui.link @title [ui.sliders] @url ui.sliders-help.pd;
+#X text 175 9080 Multiple slider widget;
+#X obj 30 9106 ui.link @title [ui.spectroscope~] @url
 ui.spectroscope~-help.pd;
-#X text 175 9076 Spectroscope GUI object;
-#X obj 30 9102 ui.link @title [ui.toggle] @url ui.toggle-help.pd;
-#X text 175 9099 modern toggle widget;
-#X obj 20 9122 cnv 5 69 31 empty empty vector 4 13 0 17 -262144 -49933
+#X text 175 9103 Spectroscope GUI object;
+#X obj 30 9129 ui.link @title [ui.toggle] @url ui.toggle-help.pd;
+#X text 175 9126 modern toggle widget;
+#X obj 20 9149 cnv 5 69 31 empty empty vector 4 13 0 17 -262144 -49933
 0;
-#X obj 20 9163 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 9174 vector.distance;
-#X text 175 9174 returns euclidean distance between two points;
-#X obj 30 9201 vector.dot;
-#X text 175 9201 treats list of floats as vector \, returns the dot
+#X obj 20 9190 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 9201 vector.distance;
+#X text 175 9201 returns euclidean distance between two points;
+#X obj 30 9228 vector.dot;
+#X text 175 9228 treats list of floats as vector \, returns the dot
 product (sum of the elements of two lists with same indexes
 multiplied).;
-#X obj 30 9252 vector.length;
-#X text 175 9252 treats list of floats as vector \, returns vector
+#X obj 30 9279 vector.length;
+#X text 175 9279 treats list of floats as vector \, returns vector
 length: sqrt(element(1)^2 + ...element(n)^2).;
-#X obj 30 9289 vector.normalize;
-#X text 175 9289 returns normalized vector;
+#X obj 30 9316 vector.normalize;
+#X text 175 9316 returns normalized vector;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc 20 20 0 20 -104026 -4096 0;
-#X obj 1 9316 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 9316 version: v0.3 \, license: GPL3;
-#X obj 20 9335 ui.link @title https://github.com/uliss/pure-data @url
+#X obj 1 9343 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 9343 version: v0.3 \, license: GPL3;
+#X obj 20 9362 ui.link @title https://github.com/uliss/pure-data @url
 https://github.com/uliss/pure-data;

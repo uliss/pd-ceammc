@@ -6,6 +6,8 @@
 #X text 175 116 check symbols for equality;
 #X obj 30 143 symbol.length;
 #X text 175 143 number of characters in symbol (unicode supported);
+#X obj 30 170 symbol.num_compare;
+#X text 175 170 numeric symbol compare;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::symbol 20 20 0 20 -104026
 -4096 0;
 #X obj 1 458 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;

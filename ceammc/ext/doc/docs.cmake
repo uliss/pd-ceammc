@@ -247,6 +247,7 @@ set(DOC_FILES
     string2symbol
     symbol.equal
     symbol.length
+    symbol.num_compare
     system.cursor
     system.getenv
     system.hostname
