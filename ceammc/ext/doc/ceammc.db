@@ -43,6 +43,7 @@ flow.count		.		.
 flow.gate,gate		..		.
 flow.group,group		.		.
 flow.less		.		?
+flow.less_eq		.		?
 flow.multiplex,flow.mux		.		?
 flow.pass,pass		.		.
 flow.pass_if,pass_if		..		..
