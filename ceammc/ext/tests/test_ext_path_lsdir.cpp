@@ -18,15 +18,32 @@
 #include "ceammc_format.h"
 
 #include <stdio.h>
+#include <vector>
 
 typedef TestExtension<PathListDir> ListDirTest;
+typedef std::vector<std::string> FileList;
 
 #ifndef TEST_DATA_DIR
 #define TEST_DATA_DIR "."
 #endif
 
+static FileList dataToList(const Message& m)
+{
+    FileList res;
+    const AtomList& items = m.listValue();
+    for (size_t i = 0; i < items.size(); i++)
+        res.push_back(to_string(items[i]));
+
+    std::sort(res.begin(), res.end());
+    return res;
+}
+
 TEST_CASE("path.lsdir", "[externals]")
 {
+    FileList files;
+    files.push_back("test_data0.mp3");
+    files.push_back("test_data0_vbr.mp3");
+
     SECTION("test create with:")
     {
         SECTION("empty arguments")
@@ -61,7 +78,7 @@ TEST_CASE("path.lsdir", "[externals]")
             WHEN_SEND_SYMBOL_TO(0, t, TEST_DATA_DIR);
             REQUIRE(t.hasNewMessages(0));
             REQUIRE(t.lastMessage(0).isList());
-            REQUIRE(to_string(t.lastMessage(0).listValue()) == "test_data0.mp3 test_data0_vbr.mp3");
+            REQUIRE(dataToList(t.lastMessage(0)) == files);
 
             WHEN_CALL(t, match);
             REQUIRE_PROPERTY_NONE(t, @match);
@@ -81,7 +98,7 @@ TEST_CASE("path.lsdir", "[externals]")
             WHEN_SEND_SYMBOL_TO(0, t, TEST_DATA_DIR);
             REQUIRE(t.hasNewMessages(0));
             REQUIRE(t.lastMessage(0).isList());
-            REQUIRE(to_string(t.lastMessage(0).listValue()) == "test_data0.mp3 test_data0_vbr.mp3");
+            REQUIRE(dataToList(t.lastMessage(0)) == files);
         }
     }
 
