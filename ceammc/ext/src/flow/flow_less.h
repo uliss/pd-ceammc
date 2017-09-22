@@ -11,22 +11,22 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef ROUTE_BETWEEN_H
-#define ROUTE_BETWEEN_H
+#ifndef FLOW_LESS_H
+#define FLOW_LESS_H
 
 #include "ceammc_object.h"
 
 using namespace ceammc;
 
-class RouteBetween : public BaseObject {
+class FlowLess : public BaseObject {
     std::vector<t_float> args_;
 
 public:
-    RouteBetween(const PdArgs& a);
+    FlowLess(const PdArgs& a);
 
     void onFloat(t_float f);
 };
 
-void setup_route_between();
+void setup_flow_less();
 
-#endif // ROUTE_BETWEEN_H
+#endif // FLOW_LESS_H

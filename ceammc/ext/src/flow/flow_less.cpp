@@ -11,18 +11,16 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "route_between.h"
+#include "flow_less.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
 
 static bool is_sorted(const std::vector<t_float>& v)
 {
-    t_float cur;
-
     if (v.empty())
         return false;
 
-    cur = v[0];
+    t_float cur = v[0];
     for (size_t i = 1; i < v.size(); i++) {
         if (cur > v[i])
             return false;
@@ -33,7 +31,7 @@ static bool is_sorted(const std::vector<t_float>& v)
     return true;
 }
 
-RouteBetween::RouteBetween(const PdArgs& a)
+FlowLess::FlowLess(const PdArgs& a)
     : BaseObject(a)
 {
     const AtomList& pos_args = positionalArguments();
@@ -44,27 +42,30 @@ RouteBetween::RouteBetween(const PdArgs& a)
         }
     }
 
+    createOutlet();
+
     if (!is_sorted(args_)) {
         OBJ_ERR << "unsorted list" << pos_args;
     }
 }
 
-void RouteBetween::onFloat(t_float f)
+void FlowLess::onFloat(t_float f)
 {
     if (args_.empty())
         return;
 
-    for (size_t i = 0; i < args_.size() - 1; i++) {
-        if (args_[i] <= f && f < args_[i + 1]) {
-            floatTo(i, f);
-            return;
-        }
+    if (f < args_[0])
+        return floatTo(0, f);
+
+    for (size_t i = 1; i < args_.size(); i++) {
+        if (args_[i - 1] <= f && f < args_[i])
+            return floatTo(i, f);
     }
 
     floatTo(numOutlets() - 1, f);
 }
 
-void setup_route_between()
+void setup_flow_less()
 {
-    ObjectFactory<RouteBetween> obj("route.between");
+    ObjectFactory<FlowLess> obj("flow.less");
 }

@@ -43,6 +43,7 @@ set(DOC_FILES
     flow.count
     flow.gate
     flow.group
+    flow.less
     flow.multiplex
     flow.pass
     flow.pass_if

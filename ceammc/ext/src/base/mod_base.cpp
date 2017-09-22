@@ -6,7 +6,6 @@
 #include "function.h"
 #include "function_call.h"
 #include "patch_args.h"
-#include "route_between.h"
 
 #ifdef WITH_SND_FILE
 #endif
@@ -57,7 +56,6 @@ void ceammc_base_setup()
     setup_test0x2edata();
     setup_test0x2eexpect();
 
-    setup_route_between();
     setup_canvas_current();
     setup_patch_args();
     setup_canvas_top();

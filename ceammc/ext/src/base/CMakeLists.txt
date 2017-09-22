@@ -29,10 +29,6 @@ list(APPEND BASE_SOURCES
     test_data.cpp
     test_expect.cpp)
 
-#route
-list(APPEND BASE_SOURCES
-    route_between.cpp)
-
 # click
 list(APPEND BASE_SOURCES
     base_click.cpp)
