@@ -302,28 +302,24 @@ TEST_CASE("convert", "[PureData]")
                 REQUIRE(spn2midi("") == -1);
                 REQUIRE(spn2midi("C") == -1);
                 REQUIRE(spn2midi("C23") == -1);
-                REQUIRE(spn2midi("CIS") == -1);
+                REQUIRE(spn2midi("C#") == -1);
                 REQUIRE(spn2midi("1") == -1);
             }
 
             REQUIRE(spn2midi("C0") == 12);
             REQUIRE(spn2midi("C1") == 24);
             REQUIRE(spn2midi("C4") == 60);
-            REQUIRE(spn2midi("Cis4") == 61);
+            REQUIRE(spn2midi("C#4") == 61);
 
             REQUIRE(spn2midi("A3") == 57);
             REQUIRE(spn2midi("A4") == 69);
-            REQUIRE(spn2midi("As4") == 68);
-            REQUIRE(spn2midi("Aes4") == 68);
-            REQUIRE(spn2midi("Ases4") == 67);
-            REQUIRE(spn2midi("Aeses4") == 67);
+            REQUIRE(spn2midi("Ab4") == 68);
+            REQUIRE(spn2midi("Abb4") == 67);
 
             REQUIRE(spn2midi("E6") == 88);
             REQUIRE(spn2midi("E4") == 64);
-            REQUIRE(spn2midi("Es4") == 63);
-            REQUIRE(spn2midi("Ees4") == 63);
-            REQUIRE(spn2midi("Eses4") == 62);
-            REQUIRE(spn2midi("Eeses4") == 62);
+            REQUIRE(spn2midi("Eb4") == 63);
+            REQUIRE(spn2midi("Ebb4") == 62);
         }
     }
 }

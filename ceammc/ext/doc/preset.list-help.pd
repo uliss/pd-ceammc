@@ -54,7 +54,7 @@ Type: symbol;
 #X obj 20 696 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 701 1\.;
-#X text 150 701 *symbol*;
+#X text 150 701 *list*;
 #X text 240 701 set preset value without output.;
 #X obj 20 729 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 734 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144

@@ -11,51 +11,47 @@ class SPN {
 public:
     SPN()
     {
-        map_["Ceses"] = -2;
-        map_["Ces"] = -1;
+        map_["Cbb"] = -2;
+        map_["Cb"] = -1;
         map_["C"] = 0;
-        map_["Cis"] = 1;
-        map_["Cisis"] = 2;
+        map_["C#"] = 1;
+        map_["C##"] = 2;
 
-        map_["Deses"] = 0;
-        map_["Des"] = 1;
+        map_["Dbb"] = 0;
+        map_["Db"] = 1;
         map_["D"] = 2;
-        map_["Dis"] = 3;
-        map_["Disis"] = 4;
+        map_["D#"] = 3;
+        map_["D##"] = 4;
 
-        map_["Eses"] = 2;
-        map_["Eeses"] = 2;
-        map_["Es"] = 3;
-        map_["Ees"] = 3;
+        map_["Ebb"] = 2;
+        map_["Eb"] = 3;
         map_["E"] = 4;
-        map_["Eis"] = 5;
-        map_["Eisis"] = 6;
+        map_["E#"] = 5;
+        map_["E##"] = 6;
 
-        map_["Feses"] = 3;
-        map_["Fes"] = 4;
+        map_["Fbb"] = 3;
+        map_["Fb"] = 4;
         map_["F"] = 5;
-        map_["Fis"] = 6;
-        map_["Fisis"] = 7;
+        map_["F#"] = 6;
+        map_["F##"] = 7;
 
-        map_["Geses"] = 5;
-        map_["Ges"] = 6;
+        map_["Gbb"] = 5;
+        map_["Gb"] = 6;
         map_["G"] = 7;
-        map_["Gis"] = 8;
-        map_["Gisis"] = 9;
+        map_["G#"] = 8;
+        map_["G##"] = 9;
 
-        map_["Ases"] = 7;
-        map_["Aeses"] = 7;
-        map_["As"] = 8;
-        map_["Aes"] = 8;
+        map_["Abb"] = 7;
+        map_["Ab"] = 8;
         map_["A"] = 9;
-        map_["Ais"] = 10;
-        map_["Aisis"] = 11;
+        map_["A#"] = 10;
+        map_["A##"] = 11;
 
-        map_["Beses"] = 9;
-        map_["Bes"] = 10;
+        map_["Bbb"] = 9;
+        map_["Bb"] = 10;
         map_["B"] = 11;
-        map_["Bis"] = 12;
-        map_["Bisis"] = 13;
+        map_["B#"] = 12;
+        map_["B##"] = 13;
     }
 
     bool findPitch(const std::string& str, int* dest) const
