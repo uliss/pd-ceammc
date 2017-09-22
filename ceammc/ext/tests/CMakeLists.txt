@@ -110,6 +110,7 @@ ceammc_external_test(random pw_const)
 
 ceammc_external_test(preset float)
 ceammc_external_test(preset symbol)
+ceammc_external_test(preset list)
 
 ceammc_external_test(string format)
 ceammc_external_test(string str)

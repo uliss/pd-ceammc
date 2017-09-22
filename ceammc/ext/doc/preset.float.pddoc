@@ -28,7 +28,7 @@
         <properties>
             <property name="@path" type="symbol" readonly="true">property OSC-like path
             that includes id, abstraction name and may be subpatch name separated by slashes.</property>
-            <property name="@init" type="symbol">init float value</property>
+            <property name="@init" type="float">init float value</property>
             <property name="@global" type="flag">use global path like /ID</property>
             <property name="@subpatch" type="flag">include subpatch name to path</property>
         </properties>

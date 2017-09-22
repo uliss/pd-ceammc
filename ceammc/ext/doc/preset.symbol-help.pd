@@ -33,7 +33,7 @@ various symbol values;
 \, abstraction name and may be subpatch name separated by slashes.
 Type: symbol;
 #X msg 120 398 @init;
-#X text 240 398 Get/Set init float value. Type: symbol;
+#X text 240 398 Get/Set init symbol value. Type: symbol;
 #X msg 120 425 @global;
 #X text 240 425 use global path like /ID;
 #X msg 120 452 @subpatch;

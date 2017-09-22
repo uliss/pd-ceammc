@@ -6,6 +6,8 @@
 #X text 175 116 load/store float preset;
 #X obj 30 143 preset.storage;
 #X text 175 143 preset storage control;
+#X obj 30 170 preset.symbol;
+#X text 175 170 load/store symbol preset;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::preset 20 20 0 20 -104026
 -4096 0;
 #X obj 1 458 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;

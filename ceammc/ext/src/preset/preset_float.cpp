@@ -6,7 +6,7 @@ PresetFloat::PresetFloat(const PdArgs& args)
     , init_(0)
 {
     // 1st positionalSymbolArgument is preset name - in base class
-    // 2nd positionalFloatArgument weare using as init value
+    // 2nd positionalFloatArgument we are using as init value
     init_ = new FloatProperty("@init", positionalFloatArgument(1, 0), true);
     current_value_ = init_->value();
     createProperty(init_);

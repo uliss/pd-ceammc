@@ -209,6 +209,7 @@ set(DOC_FILES
     path.exists
     path.lsdir
     preset.float
+    preset.list
     preset.storage
     preset.symbol
     prop.get

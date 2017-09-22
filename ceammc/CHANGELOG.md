@@ -39,6 +39,7 @@
 - local.list help added
 - preset.float added
 - preset.symbol added
+- preset.list added
 - preset.storage added
 
 ### Changed:

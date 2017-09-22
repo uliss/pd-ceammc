@@ -209,6 +209,7 @@ path.dirname		.		.
 path.exists		.		.
 path.lsdir,path.ls		.		.
 preset.float		.		.
+preset.list		.		.
 preset.storage		.		.
 preset.symbol		.		.
 prop.get,prop->		.		?

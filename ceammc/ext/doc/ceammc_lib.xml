@@ -706,6 +706,9 @@
     <entry descr="load/store float preset" name="preset.float" ref_view="object">
       <xi:include href="preset.float.pddoc" parse="xml"/>
     </entry>
+    <entry descr="load/store symbol preset" name="preset.list" ref_view="object">
+      <xi:include href="preset.list.pddoc" parse="xml"/>
+    </entry>
     <entry descr="preset storage control" name="preset.storage" ref_view="object">
       <xi:include href="preset.storage.pddoc" parse="xml"/>
     </entry>
