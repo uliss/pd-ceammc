@@ -45,6 +45,7 @@ set(DOC_FILES
     flow.group
     flow.less
     flow.less_eq
+    flow.demultiplex
     flow.multiplex
     flow.pass
     flow.pass_if

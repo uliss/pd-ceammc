@@ -53,6 +53,8 @@ Min value: 0;
 #X obj 131 48 ui.link @title flow @url ceammc.flow-help.pd;
 #X obj 1 519 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 522 library: ceammc v0.3;
+#X text 498 534 see also:;
+#X obj 574 534 flow.demultiplex;
 #N canvas 10 541 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

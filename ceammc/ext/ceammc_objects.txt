@@ -58,6 +58,8 @@ env.follow~
 expand_env
 flow.change
 flow.count
+flow.demultiplex
+flow.demux
 flow.gate
 flow.group
 flow.less

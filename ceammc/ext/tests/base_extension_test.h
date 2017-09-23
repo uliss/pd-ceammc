@@ -501,7 +501,10 @@ void TestExtension<T>::sendAny(const AtomList& args)
 template <class T>
 void TestExtension<T>::sendData(const DataPtr& d, int inlet)
 {
-    T::onData(d);
+    if (inlet == 0)
+        T::onData(d);
+    else
+        T::onInlet(inlet, d.asAtom());
 }
 
 template <class T>

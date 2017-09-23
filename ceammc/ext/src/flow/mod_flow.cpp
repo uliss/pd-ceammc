@@ -2,6 +2,7 @@
 
 #include "flow_change.h"
 #include "flow_count.h"
+#include "flow_demultiplex.h"
 #include "flow_gate.h"
 #include "flow_group.h"
 #include "flow_less.h"
@@ -19,6 +20,7 @@ void ceammc_flow_setup()
 {
     setup_flow0x2echange();
     setup_flow_count();
+    setup_flow_demultiplex();
     setup_flow0x2egroup();
     setup_flow_less();
     setup_flow_less_eq();

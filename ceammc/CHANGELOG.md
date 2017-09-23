@@ -12,6 +12,7 @@
 - flow.tee~ added to separate audio and control signals
 - flow.count added to count control stream events
 - flow.multiplex added
+- flow.demultiplex added
 - flow.gate added
 - flow.less added
 - modplug~ added (using libmodplug) for playing vaious MOD formats:
