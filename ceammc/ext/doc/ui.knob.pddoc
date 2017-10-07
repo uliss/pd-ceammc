@@ -15,17 +15,15 @@
             <since>0.1</since>
             <also>
                 <see view="link">ui.slider</see>
-                <see view="link">ui.presets</see>
             </also>
         </meta>
         <info>
-            <par>Simple knob widget with default range 0-127.</par>
-            <par>Leftmost position outputs @offset property value, rightmost - @offset +
-            @range</par>
+            <par>Simple knob widget with default range 0-1.</par>
+            <par>Leftmost position outputs @min property value, rightmost - @max</par>
         </info>
         <properties>
-            <property name="@offset" type="float" default="0">value offset</property>
-            <property name="@range" type="float" default="127">value range</property>
+            <property name="@min" type="float" default="0">minimum knob value</property>
+            <property name="@max" type="float" default="1">maximum knob value</property>
             <property name="@preset" type="symbol">preset name for using with
             [ui.preset]</property>
             <property name="@send" type="symbol">send destination</property>
@@ -33,7 +31,17 @@
         </properties>
         <methods>
             <method name="dump">dumps all object info to Pd console window</method>
-            <method name="set">sets toggle state without output</method>
+            <method name="set">sets knob state without output</method>
+            <method name="++">increment knob value without output</method>
+            <method name="--">decrement knob value without output</method>
+            <method name="+">add value to knob without output
+            <param name="V" type="float" required="true">added value</param></method>
+            <method name="-">substruct value from knob without output
+            <param name="V" type="float" required="true">substructed value</param></method>
+            <method name="*">multiply knob value without output
+            <param name="V" type="float" required="true">mutiplied value</param></method>
+            <method name="/">divide knob value without output
+            <param name="V" type="float" required="true">denominator value</param></method>
         </methods>
         <inlets>
             <inlet>
@@ -47,10 +55,15 @@
         <example>
             <pdascii>
 <![CDATA[
-[F]
+[hsl min=0 max=10]
 |
 |
-[ui.knob @size=30x30]
+[F]   [+ 0.1( [- 0.1( [* 2( [/ 2( [++, bang( [--, bang(
+|     |       |       |     |     |          |
+|     |       |       |     |     |          |
+|     |       |       |     |     |          |
+[ui.knob @size=30x30 @max=10                 ]
+|
 |
 |
 [F]

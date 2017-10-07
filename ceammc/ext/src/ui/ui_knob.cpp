@@ -12,6 +12,7 @@
 
 #include "ceammc_atomlist.h"
 #include "ceammc_format.h"
+#include "ceammc_log.h"
 
 template <typename T>
 static T clip(T min, T max, T v)
@@ -19,13 +20,18 @@ static T clip(T min, T max, T v)
     return std::max(min, std::min(max, v));
 }
 
+static t_symbol* SYM_PLUS = gensym("+");
+static t_symbol* SYM_MINUS = gensym("-");
+static t_symbol* SYM_MUL = gensym("*");
+static t_symbol* SYM_DIV = gensym("/");
+static t_symbol* SYM_INC = gensym("++");
+static t_symbol* SYM_DEC = gensym("--");
+
 struct ui_knob : public ceammc_gui::BaseGuiObject {
     t_outlet* out1;
 
-    float x_value;
-
-    float range;
-    float shift;
+    float x_min;
+    float x_max;
 
     int show_range;
     int draw_active;
@@ -37,26 +43,31 @@ struct ui_knob : public ceammc_gui::BaseGuiObject {
     t_rgba knob_color;
     t_rgba scale_color;
 
+private:
+    float x_value;
+
 public:
+    t_float range() const { return x_max - x_min; }
+    t_float value() const { return x_value; }
+    t_float minValue() const { return x_min; }
+    t_float maxValue() const { return x_max; }
+    void setValue(t_float v) { x_value = clip<t_float>(0, 1, v); }
+
     t_float realValue() const
     {
-        return x_value * range + shift;
+        t_float r = range();
+        return r < 0 ? (x_value - 1) * r + x_max : x_value * r + x_min;
     }
 
-    t_float minValue() const
+    void setRealValue(t_float v)
     {
-        return std::min(shift, range + shift);
-    }
-
-    t_float maxValue() const
-    {
-        return std::max(shift, range + shift);
-    }
-
-    void setValue(t_float v)
-    {
-        t_float f = clip(minValue(), maxValue(), v);
-        x_value = (f - shift) / range;
+        t_float r = range();
+        if (r < 0)
+            x_value = clip(x_max, x_min, v) / r;
+        else if (r > 0)
+            x_value = clip(x_min, x_max, v) / r;
+        else
+            ceammc::Error(0).stream() << "[ui.knob] zero range";
     }
 
     void output()
@@ -110,10 +121,15 @@ UI_fun(ui_knob)::wx_paint(ui_knob* zx, t_object* view)
         const float arc_angle_offset = -(EPD_PI2 + (1 - arc_scale) * EPD_PI);
         const float arc_begin = arc_angle_offset;
         const float arc_end = arc_full + arc_angle_offset;
-        const float value_angle = zx->x_value * arc_full + arc_angle_offset;
+        const float value_angle = zx->value() * arc_full + arc_angle_offset;
 
         // adjust knob
         float line_width = int(rect.height / 20) + 1;
+
+#ifdef __WIN32
+        line_width *= 0.5;
+#endif
+
         if (rect.height < 30) {
             radius_scale = 0.55f;
         }
@@ -137,12 +153,12 @@ UI_fun(ui_knob)::wx_paint(ui_knob* zx, t_object* view)
             const float yoff = 12 * ebox_getzoom(asBox(zx));
 
             char buf[10];
-            sprintf(buf, "%g", zx->shift);
+            sprintf(buf, "%g", zx->minValue());
 
             etext_layout_set(zx->txt_min, buf, zx->txt_font, xoff, rect.height - yoff, rect.width * 2, rect.height / 2, ETEXT_UP_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
             etext_layout_draw(zx->txt_min, g);
 
-            sprintf(buf, "%g", zx->range + zx->shift);
+            sprintf(buf, "%g", zx->maxValue());
             etext_layout_set(zx->txt_max, buf, zx->txt_font, rect.width - xoff, rect.height - yoff, rect.width, rect.height / 2, ETEXT_UP_RIGHT, ETEXT_JRIGHT, ETEXT_NOWRAP);
             etext_layout_draw(zx->txt_max, g);
         }
@@ -172,7 +188,7 @@ UI_fun(ui_knob)::wx_mousedrag_ext(ui_knob* zx, t_object*, t_pt pt, long)
     if (val < 0)
         val = 0;
 
-    zx->x_value = val;
+    zx->setValue(val);
 
     ws_redraw(zx);
 
@@ -186,7 +202,7 @@ UI_fun(ui_knob)::wx_mousedown_ext(ui_knob* zx, t_object* view, t_pt pt, long mod
 
 UI_fun(ui_knob)::m_float(ui_knob* zx, t_float f)
 {
-    zx->setValue(f);
+    zx->setRealValue(f);
     ws_redraw(zx);
     zx->output();
 }
@@ -219,7 +235,7 @@ static void knob_get_value(ui_knob* x, t_object* /*attr*/, long* ac, t_atom** av
 static t_pd_err knob_set_value(ui_knob* x, t_object* /*attr*/, int ac, t_atom* av)
 {
     if (ac > 0 && av) {
-        x->setValue(atom_getfloat(av));
+        x->setRealValue(atom_getfloat(av));
         return 0;
     }
 
@@ -228,7 +244,7 @@ static t_pd_err knob_set_value(ui_knob* x, t_object* /*attr*/, int ac, t_atom* a
 
 static void knob_set(ui_knob* x, t_float f)
 {
-    x->setValue(f);
+    x->setRealValue(f);
     GuiFactory<ui_knob>::ws_redraw(x);
 }
 
@@ -239,13 +255,13 @@ static void knob_modify(ui_knob* z, t_symbol* s, int argc, t_atom* argv)
         return;
     }
 
-    if (s == gensym("+")) {
+    if (s == SYM_PLUS) {
         knob_set(z, z->realValue() + atom_getfloat(argv));
-    } else if (s == gensym("-")) {
+    } else if (s == SYM_MINUS) {
         knob_set(z, z->realValue() - atom_getfloat(argv));
-    } else if (s == gensym("*")) {
+    } else if (s == SYM_MUL) {
         knob_set(z, z->realValue() * atom_getfloat(argv));
-    } else if (s == gensym("/")) {
+    } else if (s == SYM_DIV) {
         t_float v = atom_getfloat(argv);
         if (v == 0.f) {
             pd_error(z, "[%s] division by zero attempt.", eobj_getclassname(z)->s_name);
@@ -253,6 +269,15 @@ static void knob_modify(ui_knob* z, t_symbol* s, int argc, t_atom* argv)
         }
 
         knob_set(z, z->realValue() / v);
+    }
+}
+
+static void knob_modify_single(ui_knob* z, t_symbol* s, int, t_atom*)
+{
+    if (s == SYM_INC) {
+        knob_set(z, z->realValue() + 1);
+    } else if (s == SYM_DEC) {
+        knob_set(z, z->realValue() - 1);
     }
 }
 
@@ -281,15 +306,15 @@ UI_fun(ui_knob)::init_ext(t_eclass* z)
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "draw_active", 0, "0");
     CLASS_ATTR_STYLE                (z, "draw_active", 0, "onoff");
 
-    CLASS_ATTR_FLOAT                (z, "shift", 0, ui_knob, shift);
-    CLASS_ATTR_LABEL                (z, "shift", 0, _("Value shift"));
-    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "shift", 0, "0");
-    CLASS_ATTR_STYLE                (z, "shift", 0, "number");
+    CLASS_ATTR_FLOAT                (z, "min", 0, ui_knob, x_min);
+    CLASS_ATTR_LABEL                (z, "min", 0, _("Minimum Value"));
+    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "min", 0, "0");
+    CLASS_ATTR_STYLE                (z, "min", 0, "number");
 
-    CLASS_ATTR_FLOAT                (z, "range", 0, ui_knob, range);
-    CLASS_ATTR_LABEL                (z, "range", 0, _("Value range"));
-    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "range", 0, "127");
-    CLASS_ATTR_STYLE                (z, "range", 0, "number");
+    CLASS_ATTR_FLOAT                (z, "max", 0, ui_knob, x_max);
+    CLASS_ATTR_LABEL                (z, "max", 0, _("Maximum Value"));
+    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "max", 0, "1");
+    CLASS_ATTR_STYLE                (z, "max", 0, "number");
 
     CLASS_ATTR_VIRTUAL              (z, "value",   knob_get_value, knob_set_value);
     // clang-format on
@@ -300,12 +325,15 @@ UI_fun(ui_knob)::init_ext(t_eclass* z)
     eclass_addmethod(z, reinterpret_cast<t_typ_method>(knob_modify), "-", A_GIMME, 0);
     eclass_addmethod(z, reinterpret_cast<t_typ_method>(knob_modify), "*", A_GIMME, 0);
     eclass_addmethod(z, reinterpret_cast<t_typ_method>(knob_modify), "/", A_GIMME, 0);
+    eclass_addmethod(z, reinterpret_cast<t_typ_method>(knob_modify_single), "++", A_GIMME, 0);
+    eclass_addmethod(z, reinterpret_cast<t_typ_method>(knob_modify_single), "--", A_GIMME, 0);
 }
 
 UI_fun(ui_knob)::new_ext(ui_knob* zx, t_symbol*, int, t_atom*)
 {
     zx->out1 = create_outlet(zx, &s_float);
-    zx->x_value = 0.f;
+
+    zx->setValue(0);
 
     zx->txt_max = etext_layout_create();
     zx->txt_min = etext_layout_create();

@@ -1,11 +1,14 @@
 # CEAMMC external library changelog
 
-## [Unreleased]
+## [0.4]
 ### Fixed:
 - function - bang handling fixed
 - list.choice - fixed hang on empty list
 - list.choice @norepeat property added - for non repeated index choices
 - flow.change @onrepeat function callback added
+- ui.knob @shift, @offset change to @min, @max. Default value range now is [0-1]
+- ui.rslider @sync property added, for output on every mouse move
+- ui.number new methods added: +, -, *, /, ++, --
 
 ### Added:
 - math.round~ added
@@ -39,6 +42,18 @@
 - midi.event2ctl added
 - window help added
 - local.list help added
+- ui.menu help added
+- ui.number~ help added
+- ui.number help added
+- ui.meter~ help added
+- ui.colorpanel help added
+- ui.slider help added
+- ui.radio help added
+- ui.rslider help added
+- ui.tab help added
+- ui.incdec help added
+- ui.link help added
+- list.split help added
 - symbol.num_compare help added
 - preset.float added
 - preset.symbol added

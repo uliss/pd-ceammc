@@ -520,7 +520,13 @@ extern "C" void setup_ui0x2epreset(void)
         CLASS_ATTR_INVISIBLE            (c, "fontweight", 1);
         CLASS_ATTR_INVISIBLE            (c, "fontslant", 1);
         CLASS_ATTR_INVISIBLE            (c, "fontsize", 1);
+
+#ifndef __WIN32
         CLASS_ATTR_DEFAULT              (c, "size", 0, "102 42");
+#else
+        CLASS_ATTR_DEFAULT              (c, "size", 0, "102 50");
+#endif
+
         CLASS_ATTR_DEFAULT              (c, "fontsize", 0, "11");
 
         CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_preset, color_background);

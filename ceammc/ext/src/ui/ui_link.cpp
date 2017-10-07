@@ -6,6 +6,7 @@
 //
 //
 
+#include <cmath>
 #include <stdio.h>
 
 #include "ceammc_gui.h"
@@ -31,7 +32,11 @@ namespace ceammc_gui {
 static const t_rgba LINK_COLOR = hex_to_rgba("#00A0C0");
 static const t_rgba LINK_COLOR_HOVER = hex_to_rgba("#FF0080");
 
+#ifdef __WIN32
+static t_symbol* LINK_FONT = gensym("Verdana");
+#else
 static t_symbol* LINK_FONT = gensym("Menlo");
+#endif
 
 UI_fun(ui_link)::wx_paint(ui_link* zx, t_object*)
 {
@@ -83,7 +88,7 @@ static void link_getdrawparams(ui_link* x, t_object*, t_edrawparams* params)
 static size_t text_width(t_symbol* txt, int sz)
 {
     const size_t len = strlen(txt->s_name);
-    const size_t char_wd = static_cast<size_t>(sys_fontwidth(sz));
+    size_t char_wd = static_cast<size_t>(sys_fontwidth(sz));
     int corr = 0;
 
 #ifdef __APPLE__
@@ -91,6 +96,10 @@ static size_t text_width(t_symbol* txt, int sz)
         corr = 3;
     if (len > 16)
         corr = -3;
+#endif
+
+#ifdef __WIN32
+    char_wd += 3;
 #endif
 
     return char_wd * len + corr;
@@ -132,7 +141,12 @@ UI_fun(ui_link)::wx_oksize(ui_link* zx, t_rect* newrect)
         w = text_width(zx->title, FONT_SIZE) * ebox_getzoom(asBox(zx));
 
     newrect->width = pd_clip_min(w, 20);
+
+#ifndef __WIN32
     newrect->height = ebox_fontheight(asBox(zx));
+#else
+    newrect->height = floorf(1.5 * ebox_fontheight(asBox(zx)));
+#endif
 }
 
 UI_fun(ui_link)::init_ext(t_eclass* z)

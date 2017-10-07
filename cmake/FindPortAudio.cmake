@@ -12,12 +12,6 @@
 #   PORTAUDIO_ROOT               ... if set, the libraries are exclusively searched
 #                               under this path
 
-# Check if we can use PkgConfig
-find_package(PkgConfig QUIET)
-if(PKG_CONFIG_FOUND)
-    pkg_check_modules(PKGCONFIG_PORTAUDIO "portaudio-2.0")
-endif()
-
 # portaudio source root specified
 if(PORTAUDIO_ROOT)
     message(STATUS "PortAudio root: ${PORTAUDIO_ROOT}")
@@ -29,12 +23,17 @@ if(PORTAUDIO_ROOT)
         NO_DEFAULT_PATH)
 
     find_library(PORTAUDIO_LIBRARY
-        NAMES portaudio libportaudio
+        NAMES portaudio libportaudio libportaudio-2
         PATHS ${PORTAUDIO_ROOT}
         PATH_SUFFIXES "lib" "lib64"
         NO_DEFAULT_PATH)
 
 else()
+    # Check if we can use PkgConfig
+    find_package(PkgConfig QUIET)
+    if(PKG_CONFIG_FOUND)
+        pkg_check_modules(PKGCONFIG_PORTAUDIO "portaudio-2.0")
+    endif()
 
     find_path(PORTAUDIO_INCLUDE_DIR
         NAMES portaudio.h
@@ -49,14 +48,16 @@ else()
           C:/MinGW/msys/1.0/usr/local/include)
 
     find_library(PORTAUDIO_LIBRARY
-        NAMES portaudio
+        NAMES portaudio libportaudio portaudio-2
         HINTS ${PKGCONFIG_PORTAUDIO_LIBDIR} ${PKGCONFIG_PORTAUDIO_LIBRARY_DIRS}
         PATHS
+          ${PKGCONFIG_PORTAUDIO_LIBRARY_DIRS}
           /usr/lib
           /usr/local/lib
           /opt/local/lib
           /sw/lib
           /usr/local/mingw/i686-w64-mingw32/lib
+          /opt/local/mingw/bin
           C:/MinGW/msys/1.0/usr/lib
           C:/MinGW/msys/1.0/usr/local/lib)
 

@@ -97,22 +97,25 @@ times;
 #X text 175 1243 sorts list values by ascending order;
 #X obj 30 1270 list.sort_with;
 #X text 175 1270 sort list with user defined side-chain;
-#X obj 30 1297 list.sum;
-#X text 175 1297 calculates sum of floats in list;
-#X obj 30 1324 list.unique;
-#X text 175 1324 sorts and removes duplicates from input list;
-#X obj 30 1351 list.unpack;
-#X text 175 1351 unpack list elements to separate outlets;
-#X obj 30 1378 list.unwrap;
-#X text 175 1378 gets list element on first input and list with count
+#X obj 30 1297 list.split;
+#X text 175 1297 splits list into two parts \, the length of first
+list is specified by the argument.;
+#X obj 30 1334 list.sum;
+#X text 175 1334 calculates sum of floats in list;
+#X obj 30 1361 list.unique;
+#X text 175 1361 sorts and removes duplicates from input list;
+#X obj 30 1388 list.unpack;
+#X text 175 1388 unpack list elements to separate outlets;
+#X obj 30 1415 list.unwrap;
+#X text 175 1415 gets list element on first input and list with count
 of each element on a second inlet.;
-#X obj 30 1415 list.walk;
-#X text 175 1415 Walks thru the list;
-#X obj 30 1442 list.wrap;
-#X text 175 1442 filters repeated elements of the list and outputs
+#X obj 30 1452 list.walk;
+#X text 175 1452 Walks thru the list;
+#X obj 30 1479 list.wrap;
+#X text 175 1479 filters repeated elements of the list and outputs
 unique elements on first outlet \, outputs the count of elements on
 second.;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::list 20 20 0 20 -104026
 -4096 0;
-#X obj 1 1493 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 1503 library: ceammc;
+#X obj 1 1530 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 1540 library: ceammc;

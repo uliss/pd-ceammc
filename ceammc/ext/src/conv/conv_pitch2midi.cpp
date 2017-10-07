@@ -3,26 +3,10 @@
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 
-static t_symbol* MODE_SPN = gensym("spn");
-static t_symbol* MODE_HELMHOLTZ = gensym("helmholtz");
-
 PitchToMIDI::PitchToMIDI(const PdArgs& a)
     : BaseObject(a)
-    , mode_(0)
-    , mode_spn_(0)
-    , mode_helmholtz_(0)
 {
     createOutlet();
-
-    mode_ = new SymbolEnumProperty("@mode", "spn");
-    mode_->appendEnum("helmholtz");
-
-    mode_spn_ = new SymbolEnumAlias("@spn", mode_, MODE_SPN);
-    mode_helmholtz_ = new SymbolEnumAlias("@helmholtz", mode_, MODE_HELMHOLTZ);
-
-    createProperty(mode_);
-    createProperty(mode_spn_);
-    createProperty(mode_helmholtz_);
 }
 
 void PitchToMIDI::onDataT(const DataTypeString& s)
@@ -32,16 +16,7 @@ void PitchToMIDI::onDataT(const DataTypeString& s)
 
 void PitchToMIDI::convert(const char* p)
 {
-    int midi_note = 0;
-
-    if (mode_->value() == MODE_SPN)
-        midi_note = spn2midi(p);
-    else if (mode_->value() == MODE_HELMHOLTZ)
-        midi_note = helmholtz2midi(p);
-    else {
-        OBJ_ERR << "unsupported mode: " << mode_->value();
-        return;
-    }
+    int midi_note = spn2midi(p);
 
     if (midi_note < 0) {
         OBJ_ERR << "invalid pitch name: " << p;
@@ -56,14 +31,20 @@ void PitchToMIDI::onSymbol(t_symbol* p)
     convert(p->s_name);
 }
 
+void PitchToMIDI::onList(const AtomList& lst)
+{
+    AtomList res;
+
+    for (size_t i = 0; i < lst.size(); i++) {
+        res.append(Atom(spn2midi(lst[i].asSymbol()->s_name)));
+    }
+
+    listTo(0, res);
+}
+
 int PitchToMIDI::spn2midi(const char* p)
 {
     return convert::spn2midi(p);
-}
-
-int PitchToMIDI::helmholtz2midi(const char* p)
-{
-    return -1;
 }
 
 extern "C" void setup_conv0x2epitch2midi()

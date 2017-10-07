@@ -53,7 +53,7 @@ namespace music {
         Tonality simplify() const;
 
     public:
-        static int fifthsCircleIndex(const PitchClass& c, mode_t m);
+        static int fifthsCircleIndex(const PitchClass& c, HarmonicModus m);
         static PitchClass correctAlteration(size_t pitch,
             const Tonality& t,
             AlterationDir dir = ALTERATE_UP);

@@ -162,11 +162,11 @@ CanvasPtr PureData::createTopCanvas(const char* name)
 CanvasPtr PureData::createSubpatch(_glist* parent, const char* name)
 {
     t_canvas* cnv = canvas_new(0, gensym(name), 0, NULL);
-    cnv->gl_name = gensym(name);
-    cnv->gl_owner = parent;
-
     if (!cnv)
         return CanvasPtr();
+
+    cnv->gl_name = gensym(name);
+    cnv->gl_owner = parent;
 
     return CanvasPtr(new Canvas(cnv));
 }

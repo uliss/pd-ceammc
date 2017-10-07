@@ -1,6 +1,6 @@
 [Desktop Entry]
 Encoding=UTF-8
-Name=Pure Data
+Name=Pure Data (ceammc)
 GenericName=Pd
 Comment=Visual dataflow programming platform for multimedia
 Comment[ca]=Plataforma de programació visual per aplicacions multimèdia
@@ -9,7 +9,8 @@ Comment[es]=Plataforma de programación visual para aplicaciones multimedia
 Comment[fr]=Plateforme de programmation visuelle pour applications multimédia
 Comment[it]=Piattaforma di programmazione visuale per applicazioni multimedia
 Comment[pt]=Plataforma de programação visuais para multimedia
-Exec=/usr/bin/puredata %F
+Comment[ru]=
+Exec=/usr/bin/puredata-ceammc %F
 Terminal=false
 Type=Application
 Icon=puredata

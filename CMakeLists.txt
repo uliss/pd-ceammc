@@ -81,3 +81,8 @@ include(package)
 if(APPLE)
     add_custom_target(mac_deploy SOURCES mac/cmake-build-mac.sh.in mac/codesign.sh mac/dmg.sh)
 endif()
+
+add_custom_target(puredata_changelog SOURCES CHANGELOG.md)
+
+file(GLOB _DEB_FILES "debian/*")
+add_custom_target(deb_files SOURCES ${_DEB_FILES})

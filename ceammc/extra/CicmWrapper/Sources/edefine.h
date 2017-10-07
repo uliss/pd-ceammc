@@ -103,9 +103,7 @@ typedef struct _namelist    /* element in a linked list of stored strings */
     char *nl_string;            /* the string */
 } t_namelist;
 
-EXTERN t_namelist *sys_staticpath;
 EXTERN t_namelist *sys_searchpath;
-EXTERN t_namelist *namelist_append_files(t_namelist *listwas, const char *s);
 
 //! @endcond
 
@@ -155,7 +153,7 @@ typedef enum etextanchor_flags
     ETEXT_LEFT          = 6, /*!< Left. */
     ETEXT_RIGHT         = 7, /*!< Right. */
     ETEXT_CENTER        = 8  /*!< Center. */
-    
+
 } etextanchor_flags;
 
 /**
@@ -226,8 +224,8 @@ typedef enum
  */
 typedef struct t_pt
 {
-	float x; /*!< The abscissa coordiante. */
-	float y; /*!< The ordiante coordiante. */
+    float x; /*!< The abscissa coordiante. */
+    float y; /*!< The ordiante coordiante. */
 } t_pt;
 
 /**
@@ -237,10 +235,10 @@ typedef struct t_pt
  */
 typedef struct t_rect
 {
-	float x;        /*!< The abscissa coordiante. */
-	float y;        /*!< The ordiante coordiante. */
-	float width;    /*!< The width of the rectangle */
-	float height;   /*!< The height of the rectangle */
+    float x;        /*!< The abscissa coordiante. */
+    float y;        /*!< The ordiante coordiante. */
+    float width;    /*!< The width of the rectangle */
+    float height;   /*!< The height of the rectangle */
 } t_rect;
 
 /**
@@ -250,12 +248,12 @@ typedef struct t_rect
  */
 typedef struct t_matrix
 {
-	float xx;   /*!< The abscissa-abscissa translation of the matrix */
-	float yx;   /*!< The abscissa-ordiante translation of the matrix */
-	float xy;   /*!< The ordiante-abscissa translation of the matrix */
-	float yy;   /*!< The ordiante-ordiante translation of the matrix */
-	float x0;   /*!< The abscissa origin of the matrix */
-	float y0;   /*!< The ordiante origin of the matrix */
+    float xx;   /*!< The abscissa-abscissa translation of the matrix */
+    float yx;   /*!< The abscissa-ordiante translation of the matrix */
+    float xy;   /*!< The ordiante-abscissa translation of the matrix */
+    float yy;   /*!< The ordiante-ordiante translation of the matrix */
+    float x0;   /*!< The abscissa origin of the matrix */
+    float y0;   /*!< The ordiante origin of the matrix */
 } t_matrix;
 
 /**
@@ -265,9 +263,9 @@ typedef struct t_matrix
  */
 typedef struct t_rgb
 {
-	float red;      /*!< The red value. */
-	float green;    /*!< The green value. */
-	float blue;     /*!< The blue value. */
+    float red;      /*!< The red value. */
+    float green;    /*!< The green value. */
+    float blue;     /*!< The blue value. */
 } t_rgb;
 
 /**
@@ -277,10 +275,10 @@ typedef struct t_rgb
  */
 typedef struct t_rgba
 {
-	float red;      /*!< The red value. */
-	float green;    /*!< The green value. */
-	float blue;     /*!< The blue value. */
-	float alpha;    /*!< The alpha value. */
+    float red;      /*!< The red value. */
+    float green;    /*!< The green value. */
+    float blue;     /*!< The blue value. */
+    float alpha;    /*!< The alpha value. */
 } t_rgba;
 
 /**
@@ -290,9 +288,9 @@ typedef struct t_rgba
  */
 typedef struct t_hsl
 {
-	float hue;          /*!< The hue value. */
-	float saturation;   /*!< The saturation value. */
-	float lightness;    /*!< The lightness value. */
+    float hue;          /*!< The hue value. */
+    float saturation;   /*!< The saturation value. */
+    float lightness;    /*!< The lightness value. */
 } t_hsl;
 
 /**
@@ -302,9 +300,9 @@ typedef struct t_hsl
  */
 typedef struct t_hsla
 {
-	float hue;          /*!< The hue value. */
-	float saturation;   /*!< The saturation value. */
-	float lightness;    /*!< The lightness value. */
+    float hue;          /*!< The hue value. */
+    float saturation;   /*!< The saturation value. */
+    float lightness;    /*!< The lightness value. */
     float alpha;        /*!< The alpha value. */
 } t_hsla;
 
@@ -373,7 +371,7 @@ typedef struct t_etext
  */
 typedef struct t_egobj
 {
-	egraphics_types e_type;         /*!< The type of the graphical object. */
+    egraphics_types e_type;         /*!< The type of the graphical object. */
     int             e_filled;       /*!< The filled state of the graphical object. */
     t_symbol*       e_color;        /*!< The color of the graphical object. */
     float           e_width;        /*!< The line width of the graphical object. */
@@ -385,7 +383,7 @@ typedef struct t_egobj
     t_symbol*       e_anchor;       /*!< The anchor of the graphical object. */
     t_symbol*       e_justify;      /*!< The justification of the graphical object. */
     t_symbol*       e_text;         /*!< The text of the graphical object. */
-    
+
 } t_egobj;
 
 /**
@@ -400,7 +398,7 @@ typedef struct t_elayer
     t_symbol*           e_id;               /*!< The layer canvas ID. */
     int                 e_state;            /*!< The layer state. */
     t_rect              e_rect;             /*!< The layer size. */
-    
+
     t_symbol*           e_color;            /*!< The layer color. */
     int                 e_line_width;       /*!< The layer line width. */
     int                 e_line_capstyle;    /*!< The layer line capstyle. */
@@ -501,7 +499,7 @@ typedef struct t_eattr
     long            offset;     /*!< The offset of the attribute in the object structure. */
     long            sizemax;    /*!< The maximum size of the attribute if the attribute is an array. */
     long            size;       /*!< The size of the attribute if the attribute is an array. */
-    
+
     t_err_method    getter;     /*!< The getter method of the attribute. */
     t_err_method    setter;     /*!< The setter method of the attribute. */
     long            clipped;    /*!< If the attribute is clipped if it's value or an array of numerical values. */
@@ -522,6 +520,10 @@ typedef struct t_eattr
 typedef struct t_eclass
 {
     t_class     c_class;    /*!< The default class. */
+    // do not remove!
+    // in Pd 0.48 t_class* next added into t_class, and sizeof(t_class) grown to 8 bytes on x86_64
+    // this padding added to prevent field rewriting values
+    char        c_padding[8];
     char        c_box;      /*!< The marker if the class is GUI. */
     char        c_dsp;      /*!< The marker if the class is DSP. */
     t_ewidget   c_widget;   /*!< The extra widget methods. */
@@ -651,7 +653,7 @@ typedef enum ekey_flags
     EKEY_TAB      = 1, /*!< The tabulation key. */
     EKEY_ENTER    = 2, /*!< The return key. */
     EKEY_ESC      = 3  /*!< The escape key. */
-    
+
 } ekey_flags;
 
 //! @cond
@@ -714,7 +716,7 @@ typedef struct t_edrawparams
     t_rgba      d_bordercolor;      /*!< The border color. */
     t_rgba      d_boxfillcolor;     /*!< The background color. */
     int         d_hideiolets;       /*!< CEAMMC experimental: hide standard iolets. */
-    
+
 } t_edrawparams;
 
 /**
@@ -726,16 +728,16 @@ typedef struct t_edrawparams
 typedef struct t_ebox
 {
     t_eobj              b_obj;              ///<The  object.
-    
+
     t_symbol*           b_receive_id;       /*!< The object user ID. */
     t_symbol*           b_send_id;          /*!< The object send ID. */
     t_symbol*           b_objpreset_id;     /*!< The object preset ID. */
-    
+
     t_symbol*           b_canvas_id;        /*!< The canvas ID. */
     t_symbol*           b_drawing_id;       /*!< The drawing ID. */
     t_symbol*           b_window_id;        /*!< The window ID. */
     t_symbol*           b_all_id;           /*!< The global ID. */
-    
+
     long                b_flags;            /*!< The ebox flags. */
     t_rect              b_rect;             /*!< The ebox rectangle. */
     t_rect              b_rect_last;        /*!< The ebox previous rectangle. */
@@ -746,16 +748,16 @@ typedef struct t_ebox
     int                 b_selected_inlet;   /*!< The inlet selected. */
     int                 b_selected_outlet;  /*!< The outlet selected. */
     float               b_zoom;
-    
+
     char                b_smooth_method;    /*!< Tk canvas line smooth method */
     char                b_mouse_down;       /*!< The mouse state. */
-    
+
     char                b_visible;          /*!< The visible state. */
     char                b_ready_to_draw;    /*!< The ebox state for drawing. */
     char                b_have_window;      /*!< The ebox window state. */
     char                b_isinsubcanvas;    /*!< If the box is in a sub canvas. */
     t_edrawparams       b_boxparameters;    /*!< The ebox parameters. */
-    
+
     t_elayer*           b_layers;           /*!< The ebox layers. */
     long                b_number_of_layers; /*!< The ebox number of layers. */
     char                b_force_redraw;     /*!< Force ebox redraw. */
@@ -774,16 +776,16 @@ typedef struct t_ebox
 typedef struct t_edspbox
 {
     t_eobj              b_obj;              /*!< The  DSP object. */
-    
+
     t_symbol*           b_receive_id;       /*!< The object user ID. */
     t_symbol*           b_send_id;          /*!< The object send ID. */
     t_symbol*           b_objpreset_id;     /*!< The object preset ID. */
-    
+
     t_symbol*           b_canvas_id;        /*!< The canvas ID. */
     t_symbol*           b_drawing_id;       /*!< The drawing ID. */
     t_symbol*           b_window_id;        /*!< The window ID. */
     t_symbol*           b_all_id;           /*!< The global ID. */
-    
+
     long                b_flags;            /*!< The ebox flags. */
     t_rect              b_rect;             /*!< The ebox rectangle. */
     t_rect              b_rect_last;        /*!< The ebox previous rectangle. */
@@ -794,19 +796,19 @@ typedef struct t_edspbox
     int                 b_selected_inlet;   /*!< The inlet selected. */
     int                 b_selected_outlet;  /*!< The outlet selected. */
     float               b_zoom;
-    
+
     char                b_mouse_down;       /*!< The mouse state. */
-    
+
     char                b_visible;          /*!< The visible State. */
     char                b_ready_to_draw;    /*!< The ebox state for drawing. */
     char                b_have_window;      /*!< The ebox window state. */
     char                b_isinsubcanvas;    /*!< If the box is in a sub canvas. */
     t_edrawparams       b_boxparameters;    /*!< The ebox parameters. */
-    
+
     t_elayer*           b_layers;           /*!< The ebox layers. */
     long                b_number_of_layers; /*!< The ebox number of layers. */
     char                b_force_redraw;     /*!< Force ebox redraw. */
-    
+
     t_edsp d_dsp; /*!< The dsp structure. */
 }t_edspbox;
 

@@ -20,9 +20,22 @@ void uilink_tcl_init() {
     sys_gui("set dir [file dirname $fullpath]\n");
     sys_gui("set filename [file tail $fullpath]\n");
     sys_gui("menu_doc_open $dir $filename\n");
+    sys_gui("} elseif {[file exists [file join $::sys_libdir doc 5.reference $filename]]} {\n");
+    sys_gui("# search in core doc dir\n");
+    sys_gui("set fullpath [file normalize [file join $::sys_libdir doc 5.reference $filename]]\n");
+    sys_gui("set dir [file dirname $fullpath]\n");
+    sys_gui("set filename [file tail $fullpath]\n");
+    sys_gui("menu_doc_open $dir $filename\n");
+    sys_gui("} elseif {[file exists [file join $::sys_libdir extra $filename]]} {\n");
+    sys_gui("# search in external doc dir\n");
+    sys_gui("set fullpath [file normalize [file join $::sys_libdir extra $filename]]\n");
+    sys_gui("set dir [file dirname $fullpath]\n");
+    sys_gui("set filename [file tail $fullpath]\n");
+    sys_gui("menu_doc_open $dir $filename\n");
     sys_gui("} else {\n");
     sys_gui("bell ; # beep on error to provide instant feedback\n");
-    sys_gui("pdtk_post \"[ui.link] ERROR file not found: $filename at $dirn\"\n");
+    sys_gui("pdtk_post \"ERROR: file not found: $filename at $dir\"\n");
+    sys_gui("pdtk_post \"\"\n");
     sys_gui("}\n");
     sys_gui("}\n");
 }

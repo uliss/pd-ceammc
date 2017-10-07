@@ -140,6 +140,7 @@ set(DOC_FILES
     list.slice
     list.sort
     list.sort_with
+    list.split
     list.sum
     list.unique
     list.unpack
@@ -260,15 +261,26 @@ set(DOC_FILES
     tl.transport
     ui.bang
     ui.bpfunc
+    ui.colorpanel
     ui.display
+    ui.incdec
     ui.keyboard
     ui.knob
     ui.matrix
+    ui.menu
+    ui.number
+    ui.link
+    ui.number~
     ui.scope~
+    ui.slider
     ui.slider2d
     ui.sliders
+    ui.radio
+    ui.rslider
+    ui.tab
     ui.spectroscope~
     ui.toggle
+    ui.meter~
     vector.distance
     vector.dot
     vector.length

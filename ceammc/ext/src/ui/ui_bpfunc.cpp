@@ -6,57 +6,29 @@
 //
 //
 
-#include <stdio.h>
-
-#include "ceammc_gui.h"
-
-#include "ceammc_atomlist.h"
-
 #include <algorithm>
+#include <cstdio>
 #include <map>
-
+#include <sstream>
 #include <vector>
 
+#include "ceammc_atomlist.h"
 #include "ceammc_bpf.h"
-
 #include "ceammc_globaldata.h"
-
-//using namespace ceammc;
+#include "ceammc_gui.h"
 
 using namespace std;
 using namespace ceammc;
 using namespace ceammc_gui;
 
-// for local object name
-#include <sstream>
-
-template <class T>
-inline std::string to_string(const T& t)
-{
-    std::stringstream ss;
-    ss << t;
-    return ss.str();
-}
-
 namespace ceammc_gui {
 
-typedef std::vector<t_bpt> bpf_points;
-
 struct ui_bpfunc : public BaseGuiObject {
-    t_ebox x_gui;
-
-    float mouse_x;
-    float mouse_y;
-    int mouse_dn;
-    bool _selected;
-
     t_outlet* out1;
     t_atom* out_list;
+    BPF* x_bpf;
+
     int out_list_count;
-
-    BPF* x_bpf; //later add globaldata / pointer
-    GlobalData<BPF>* g_bpf;
-
     float _px;
     float _py;
 
@@ -65,89 +37,88 @@ struct ui_bpfunc : public BaseGuiObject {
 
     float addpos;
     float addpos_y;
-    bool del_mod;
-
     int select_idx;
 
     bool auto_send;
+    bool del_mod;
 
     t_etext* txt_min;
     t_etext* txt_max;
-    t_etext* txt_val; //stub
-
+    t_etext* txt_val;
     t_efont* txt_font;
 };
 
 #pragma mark -
 
+static t_symbol* GRID_COLOR = gensym("#C0C0C0");
+static t_symbol* ENV_COLOR = gensym("#505050");
+static t_symbol* ENV_COLOR2 = gensym("#00C0FF");
+static t_symbol* ENV_ACTIVE = gensym("#FF0000");
+
 UI_fun(ui_bpfunc)::wx_paint(ui_bpfunc* z, t_object* view)
 {
-    t_symbol* bgl = gensym("background_layer");
-    //float size;
     t_rect rect;
     z->getRect(&rect);
 
-    t_elayer* g = ebox_start_layer((t_ebox*)z, bgl, rect.width, rect.height);
-
-    ui_bpfunc* zx = (ui_bpfunc*)z;
+    t_elayer* g = ebox_start_layer(asBox(z), BG_LAYER, rect.width, rect.height);
 
     if (g) {
-        //egraphics_set_color_hex(g, gensym("#E0E0E0"));
-        egraphics_set_color_rgba(g, &zx->b_color_background);
-
+        egraphics_set_color_rgba(g, &z->b_color_background);
         egraphics_rectangle(g, 0, 0, rect.width, rect.height);
         egraphics_fill(g);
 
-        egraphics_set_color_hex(g, gensym("#C0C0C0"));
-
-        egraphics_line(g, 0, .25 * rect.height, rect.width, .25 * rect.height);
-        egraphics_line(g, 0, .5 * rect.height, rect.width, .5 * rect.height);
-        egraphics_line(g, 0, .75 * rect.height, rect.width, .75 * rect.height);
-
+        // draw horizontal lines
+        egraphics_set_color_hex(g, GRID_COLOR);
+        egraphics_line(g, -1, 0.25f * rect.height, rect.width, 0.25f * rect.height);
+        egraphics_line(g, -1, 0.5f * rect.height, rect.width, 0.5f * rect.height);
+        egraphics_line(g, -1, 0.75f * rect.height, rect.width, 0.75f * rect.height);
         egraphics_stroke(g);
-
-        egraphics_set_color_hex(g, gensym("#505050"));
 
         char c_val[16];
         sprintf(c_val, "—");
 
-        if (zx->addpos > 0) {
-            egraphics_set_color_hex(g, gensym("#00C0FF"));
+        if (z->addpos > 0) {
+            egraphics_set_color_hex(g, ENV_COLOR2);
+            egraphics_line(g, z->addpos, 0, z->addpos, rect.height);
+            egraphics_line(g, 0, z->addpos_y, rect.width, z->addpos_y);
+            egraphics_stroke(g);
 
-            egraphics_line(g, zx->addpos, 0, zx->addpos, rect.height);
-            egraphics_line(g, 0, zx->addpos_y, rect.width, zx->addpos_y);
+            sprintf(c_val, "%.2f : %.2f",
+                z->addpos / rect.width * z->x_bpf->range_x + z->x_bpf->shift_x,
+                (1 - z->addpos_y / rect.height) * z->x_bpf->range_y + z->x_bpf->shift_y);
+        }
 
-            sprintf(c_val, "%.2f : %.2f", zx->addpos / rect.width * zx->x_bpf->range_x + zx->x_bpf->shift_x, (1 - zx->addpos_y / rect.height) * zx->x_bpf->range_y + zx->x_bpf->shift_y);
-
+        if (z->select_idx == 0) {
+            egraphics_set_color_hex(g, ENV_COLOR2);
+            egraphics_rectangle(g,
+                z->x_bpf->getPointRawX(0) * rect.width - 8,
+                (1 - z->x_bpf->getPointRawY(0)) * rect.height - 8,
+                15, 15);
             egraphics_stroke(g);
         }
 
-        if (zx->select_idx == 0) {
-            egraphics_set_color_hex(g, gensym("#00C0FF"));
-
-            egraphics_rectangle(g, zx->x_bpf->getPointRawX(0) * rect.width - 8, (1 - zx->x_bpf->getPointRawY(0)) * rect.height - 8, 15, 15);
-            egraphics_stroke(g);
-        }
-
-        int i = 0;
         {
 
-            int pw1 = 6 - 4 * zx->x_bpf->getPointLockX(i);
-            int ph1 = 6 - 4 * zx->x_bpf->getPointLockY(i);
+            int pw1 = 6 - 4 * z->x_bpf->getPointLockX(0);
+            int ph1 = 6 - 4 * z->x_bpf->getPointLockY(0);
 
-            egraphics_rectangle(g, zx->x_bpf->getPointRawX(i) * rect.width - .5 * pw1, (1 - zx->x_bpf->getPointRawY(i)) * rect.height - .5 * ph1, pw1, ph1);
+            egraphics_rectangle(g, z->x_bpf->getPointRawX(0) * rect.width - 0.5f * pw1,
+                (1 - z->x_bpf->getPointRawY(0)) * rect.height - 0.5f * ph1,
+                pw1, ph1);
             egraphics_fill(g);
 
-            egraphics_set_color_hex(g, gensym("#505050"));
+            egraphics_set_color_hex(g, ENV_COLOR);
 
-            float px = zx->x_bpf->getPointRawX(i) * rect.width;
-            float py = (1 - zx->x_bpf->getPointRawY(i)) * rect.height;
+            float px = z->x_bpf->getPointRawX(0) * rect.width;
+            float py = (1 - z->x_bpf->getPointRawY(0)) * rect.height;
 
-            if (zx->x_bpf->getPointDist(i) < .1) {
-                egraphics_rectangle(g, zx->x_bpf->getPointRawX(i) * rect.width - 6, (1 - zx->x_bpf->getPointRawY(i)) * rect.height - 6, 11, 11);
+            if (z->x_bpf->getPointDist(0) < 0.1f) {
+                egraphics_rectangle(g, z->x_bpf->getPointRawX(0) * rect.width - 6,
+                    (1 - z->x_bpf->getPointRawY(0)) * rect.height - 6, 11, 11);
                 egraphics_stroke(g);
 
-                sprintf(c_val, "%.2f : %.2f", zx->x_bpf->getPointRawX(i) * zx->x_bpf->range_x + zx->x_bpf->shift_x, zx->x_bpf->getPointRawY(i) * zx->x_bpf->range_y + zx->x_bpf->shift_y);
+                sprintf(c_val, "%.2f : %.2f", z->x_bpf->getPointRawX(0) * z->x_bpf->range_x + z->x_bpf->shift_x,
+                    z->x_bpf->getPointRawY(0) * z->x_bpf->range_y + z->x_bpf->shift_y);
             }
 
             //yet disabled
@@ -157,15 +128,16 @@ UI_fun(ui_bpfunc)::wx_paint(ui_bpfunc* z, t_object* view)
 
             egraphics_set_line_width(g, 1); //yet disabled
 
-            for (i = 1; i < zx->x_bpf->size(); i++) {
-                egraphics_set_color_hex(g, gensym("#505050"));
-
+            for (int i = 1; i < z->x_bpf->size(); i++) {
+                egraphics_set_color_hex(g, ENV_COLOR);
                 egraphics_set_line_width(g, 1);
-                egraphics_line(g, px, py, zx->x_bpf->getPointRawX(i) * rect.width, (1 - zx->x_bpf->getPointRawY(i)) * rect.height);
+                egraphics_line(g, px, py,
+                    z->x_bpf->getPointRawX(i) * rect.width,
+                    (1 - z->x_bpf->getPointRawY(i)) * rect.height);
                 egraphics_stroke(g);
 
-                px = zx->x_bpf->getPointRawX(i) * rect.width;
-                py = (1 - zx->x_bpf->getPointRawY(i)) * rect.height;
+                px = z->x_bpf->getPointRawX(i) * rect.width;
+                py = (1 - z->x_bpf->getPointRawY(i)) * rect.height;
 
                 //yet disabled
                 //                lw = (it->ldist<.4);
@@ -173,56 +145,71 @@ UI_fun(ui_bpfunc)::wx_paint(ui_bpfunc* z, t_object* view)
                 //                if (lw>1) lw=1;
 
                 egraphics_set_line_width(g, 1);
-                int pw1 = 6 - 4 * zx->x_bpf->getPointLockX(i);
-                int ph1 = 6 - 4 * zx->x_bpf->getPointLockY(i);
-                egraphics_rectangle(g, zx->x_bpf->getPointRawX(i) * rect.width - .5 * pw1, (1 - zx->x_bpf->getPointRawY(i)) * rect.height - .5 * ph1, pw1, ph1);
+                int pw1 = 6 - 4 * z->x_bpf->getPointLockX(i);
+                int ph1 = 6 - 4 * z->x_bpf->getPointLockY(i);
+                egraphics_rectangle(g,
+                    z->x_bpf->getPointRawX(i) * rect.width - 0.5f * pw1,
+                    (1 - z->x_bpf->getPointRawY(i)) * rect.height - 0.5f * ph1,
+                    pw1, ph1);
                 egraphics_fill(g);
 
-                if (zx->x_bpf->getPointDist(i) < .1) {
-                    egraphics_set_color_hex(g, gensym((zx->del_mod) ? "#FF0000" : "#505050"));
-
-                    egraphics_rectangle(g, zx->x_bpf->getPointRawX(i) * rect.width - 6, (1 - zx->x_bpf->getPointRawY(i)) * rect.height - 6, 11, 11);
+                if (z->x_bpf->getPointDist(i) < 0.1f) {
+                    egraphics_set_color_hex(g, (z->del_mod) ? ENV_ACTIVE : ENV_COLOR);
+                    egraphics_rectangle(g,
+                        z->x_bpf->getPointRawX(i) * rect.width - 6,
+                        (1 - z->x_bpf->getPointRawY(i)) * rect.height - 6,
+                        11, 11);
                     egraphics_stroke(g);
 
-                    sprintf(c_val, "%.2f : %.2f", zx->x_bpf->getPointRawX(i) * zx->x_bpf->range_x + zx->x_bpf->shift_x, zx->x_bpf->getPointRawY(i) * zx->x_bpf->range_y + zx->x_bpf->shift_y);
+                    sprintf(c_val, "%.2f : %.2f", z->x_bpf->getPointRawX(i) * z->x_bpf->range_x + z->x_bpf->shift_x,
+                        z->x_bpf->getPointRawY(i) * z->x_bpf->range_y + z->x_bpf->shift_y);
                 }
 
-                if (zx->select_idx == i) {
-                    egraphics_set_color_hex(g, gensym("#00C0FF"));
-
-                    egraphics_rectangle(g, zx->x_bpf->getPointRawX(i) * rect.width - 8, (1 - zx->x_bpf->getPointRawY(i)) * rect.height - 8, 15, 15);
+                if (z->select_idx == i) {
+                    egraphics_set_color_hex(g, ENV_COLOR2);
+                    egraphics_rectangle(g, z->x_bpf->getPointRawX(i) * rect.width - 8,
+                        (1 - z->x_bpf->getPointRawY(i)) * rect.height - 8,
+                        15, 15);
                     egraphics_stroke(g);
                 }
 
-                if (zx->x_bpf->getEndSeg(i)) {
+                if (z->x_bpf->getEndSeg(i)) {
                     for (int sy = 0; sy < rect.height; sy += 5) {
-                        egraphics_line(g, zx->x_bpf->getPointRawX(i) * rect.width, sy, zx->x_bpf->getPointRawX(i) * rect.width, sy + 2.5);
+                        egraphics_line(g,
+                            z->x_bpf->getPointRawX(i) * rect.width, sy,
+                            z->x_bpf->getPointRawX(i) * rect.width,
+                            sy + 2.5f);
                     }
                     egraphics_stroke(g);
                 }
-
-                //i++;
             }
         }
 
         char c_min[10];
-        sprintf(c_min, "%.2f", zx->x_bpf->shift_y);
+        sprintf(c_min, "%.2f", z->x_bpf->shift_y);
 
         char c_max[10];
-        sprintf(c_max, "%.2f", zx->x_bpf->range_y + zx->x_bpf->shift_y);
+        sprintf(c_max, "%.2f", z->x_bpf->range_y + z->x_bpf->shift_y);
 
-        etext_layout_set(zx->txt_min, c_min, zx->txt_font, 3, rect.height - 12, rect.width * 2, rect.height / 2, ETEXT_UP_LEFT, ETEXT_JLEFT, ETEXT_WRAP);
-        etext_layout_draw(zx->txt_min, g);
+        etext_layout_set(z->txt_min, c_min, z->txt_font,
+            3, rect.height - 12, rect.width * 2, rect.height / 2,
+            ETEXT_UP_LEFT, ETEXT_JLEFT, ETEXT_WRAP);
+        etext_layout_draw(z->txt_min, g);
 
-        etext_layout_set(zx->txt_max, c_max, zx->txt_font, 3, 12, rect.width * 2, rect.height / 2, ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_WRAP);
-        etext_layout_draw(zx->txt_max, g);
+        etext_layout_set(z->txt_max, c_max, z->txt_font,
+            3, 12, rect.width * 2, rect.height / 2,
+            ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_WRAP);
+        etext_layout_draw(z->txt_max, g);
 
-        etext_layout_set(zx->txt_val, c_val, zx->txt_font, rect.width * .45, 12, rect.width * .1, rect.height / 2, ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
-        etext_layout_draw(zx->txt_val, g);
+        etext_layout_set(z->txt_val, c_val, z->txt_font,
+            rect.width * 0.45f, 12, rect.width * 0.1f,
+            rect.height / 2, ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
+        etext_layout_draw(z->txt_val, g);
+
+        ebox_end_layer(asBox(z), BG_LAYER);
     }
 
-    ebox_end_layer((t_ebox*)z, bgl);
-    ebox_paint_layer((t_ebox*)z, bgl, 0., 0.);
+    ebox_paint_layer(asBox(z), BG_LAYER, 0., 0.);
 }
 
 #pragma mark -
@@ -240,9 +227,9 @@ UI_fun(ui_bpfunc)::wx_mousemove_ext(ui_bpfunc* zx, t_object* view, t_pt pt, long
     //        float nnx = (nlen!=0) ? nx/ nlen : 0;
     //        float nny = (nlen!=0) ? ny/ nlen : 0;
 
-    for (int i = 0; i < zx->x_bpf->size(); i++) //it = zx->points->begin(); it != zx->points->end(); ++it
-    {
+    for (int i = 0; i < zx->x_bpf->size(); i++) {
 
+        // ???
         int j = ((i - 1) == zx->x_bpf->size()) ? i + 1 : i;
 
         float dx = nx - zx->x_bpf->getPointRawX(i);
@@ -255,8 +242,8 @@ UI_fun(ui_bpfunc)::wx_mousemove_ext(ui_bpfunc* zx, t_object* view, t_pt pt, long
         zx->x_bpf->setPointSel(i, sel);
 
         //todo ldist
-
-        if ((zx->x_bpf->getPointRawX(i) < (pt.x / rect.width)) && ((pt.x / rect.width) < zx->x_bpf->getPointRawX(j))) {
+        if ((zx->x_bpf->getPointRawX(i) < (pt.x / rect.width))
+            && ((pt.x / rect.width) < zx->x_bpf->getPointRawX(j))) {
             zx->addidx = i;
         } else {
             zx->addidx = (int)zx->x_bpf->size();
@@ -537,7 +524,6 @@ void bpf_m_join_next(ui_bpfunc* zx, t_symbol* s, int argc, t_atom* argv)
 void bpf_m_clear(ui_bpfunc* zx, t_symbol* s, int argc, t_atom* argv)
 {
     zx->x_bpf->clear();
-
     GuiFactory<BaseGuiObject>::ws_redraw(zx);
 }
 
@@ -861,7 +847,7 @@ UI_fun(ui_bpfunc)::wx_mousedrag_ext(ui_bpfunc* zx, t_object* view, t_pt pt, long
     zx->_px = pt.x;
     zx->_py = pt.y;
 
-    zx->x_bpf->_Sort();
+    zx->x_bpf->sortPoints();
 
     ws_redraw(zx);
 
@@ -901,14 +887,15 @@ UI_fun(ui_bpfunc)::new_ext(ui_bpfunc* zx, t_symbol* s, int argcl, t_atom* argv)
     zx->txt_min = etext_layout_create();
     zx->txt_val = etext_layout_create();
 
+#ifndef __WIN32
     zx->txt_font = efont_create(gensym("Helvetica"), gensym("light"), gensym("normal"), 8);
+#else
+    zx->txt_font = efont_create(gensym("Verdana"), gensym("light"), gensym("normal"), 6);
+#endif
 }
 
 UI_fun(ui_bpfunc)::free_ext(ui_bpfunc* zx)
 {
-    //?
-    zx->g_bpf = new GlobalData<BPF>(to_string((unsigned long)zx));
-    delete zx->g_bpf;
 }
 
 static void ui_bpf_getdrawparams(ui_bpfunc* x, t_object* patcherview, t_edrawparams* params)

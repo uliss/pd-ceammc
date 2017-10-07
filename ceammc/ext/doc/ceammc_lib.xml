@@ -437,6 +437,9 @@
     <entry descr="sort list with user defined side-chain" name="list.sort_with" ref_view="object">
       <xi:include href="list.sort_with.pddoc" parse="xml"/>
     </entry>
+    <entry descr="splits list into two parts, the length of first list is specified by the argument." name="list.split" ref_view="object">
+      <xi:include href="list.split.pddoc" parse="xml"/>
+    </entry>
     <entry descr="calculates sum of floats in list" name="list.sum" ref_view="object">
       <xi:include href="list.sum.pddoc" parse="xml"/>
     </entry>
@@ -814,7 +817,7 @@
     </entry>
   </category>
   <category name="system">
-    <entry descr="S" name="system.cursor" ref_view="object">
+    <entry descr="Get information about cursor motion, mousewheel and buttonclick" name="system.cursor" ref_view="object">
       <xi:include href="system.cursor.pddoc" parse="xml"/>
     </entry>
     <entry descr="Get system environment variables" name="system.getenv" ref_view="object">
@@ -849,8 +852,14 @@
     <entry descr="Breakpoint function GUI object" name="ui.bpfunc" ref_view="link">
       <xi:include href="ui.bpfunc.pddoc" parse="xml"/>
     </entry>
+    <entry descr="colorchooser widget" name="ui.colorpanel" ref_view="link">
+      <xi:include href="ui.colorpanel.pddoc" parse="xml"/>
+    </entry>
     <entry descr="Display GUI object" name="ui.display" ref_view="link">
       <xi:include href="ui.display.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="value increment/decrement" name="ui.incdec" ref_view="link">
+      <xi:include href="ui.incdec.pddoc" parse="xml"/>
     </entry>
     <entry descr="keyboard widget" name="ui.keyboard" ref_view="link">
       <xi:include href="ui.keyboard.pddoc" parse="xml"/>
@@ -858,11 +867,35 @@
     <entry descr="knob widget" name="ui.knob" ref_view="link">
       <xi:include href="ui.knob.pddoc" parse="xml"/>
     </entry>
+    <entry descr="Hyperlink widget" name="ui.link" ref_view="link">
+      <xi:include href="ui.link.pddoc" parse="xml"/>
+    </entry>
     <entry descr="The matrix of toggles has you." name="ui.matrix" ref_view="link">
       <xi:include href="ui.matrix.pddoc" parse="xml"/>
     </entry>
+    <entry descr="Dropdown menu" name="ui.menu" ref_view="link">
+      <xi:include href="ui.menu.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="counterpart of the vanilla [vu]. Shows peak signal level" name="ui.meter~" ref_view="link">
+      <xi:include href="ui.meter~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="counterpart of the vanilla [nbx]" name="ui.number" ref_view="link">
+      <xi:include href="ui.number.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="counterpart of the vanilla [nbx] for signal" name="ui.number~" ref_view="link">
+      <xi:include href="ui.number~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="counterpart of the vanilla radio toggle" name="ui.radio" ref_view="link">
+      <xi:include href="ui.radio.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="rangle slider" name="ui.rslider" ref_view="link">
+      <xi:include href="ui.rslider.pddoc" parse="xml"/>
+    </entry>
     <entry descr="Scope GUI object" name="ui.scope~" ref_view="link">
       <xi:include href="ui.scope~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="counterpart of the vanilla slider" name="ui.slider" ref_view="link">
+      <xi:include href="ui.slider.pddoc" parse="xml"/>
     </entry>
     <entry descr="2D slider widget" name="ui.slider2d" ref_view="link">
       <xi:include href="ui.slider2d.pddoc" parse="xml"/>
@@ -872,6 +905,9 @@
     </entry>
     <entry descr="Spectroscope GUI object" name="ui.spectroscope~" ref_view="link">
       <xi:include href="ui.spectroscope~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="displays a list of text buttons or text toggles" name="ui.tab" ref_view="link">
+      <xi:include href="ui.tab.pddoc" parse="xml"/>
     </entry>
     <entry descr="modern toggle widget" name="ui.toggle" ref_view="link">
       <xi:include href="ui.toggle.pddoc" parse="xml"/>
@@ -892,7 +928,7 @@
     </entry>
   </category>
   <meta>
-    <version>0.3</version>
+    <version>0.4</version>
     <authors>
       <author>Alex Nadzharov</author>
       <author>Hans-Christoph Steiner</author>

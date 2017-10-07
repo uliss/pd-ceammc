@@ -25,6 +25,7 @@ typedef struct _rslider {
     float f_max;
     float f_value_low;
     float f_value_high;
+    int i_sync;
 
     t_atom out_list[2];
 } t_rslider;
@@ -221,6 +222,12 @@ static void rslider_paint(t_rslider* x, t_object* view)
     draw_knob(x, view, &rect);
 }
 
+static void rslider_mouseup(t_rslider* x, t_object* patcherview, t_pt pt, long modifiers)
+{
+    if (!x->i_sync)
+        rslider_output(x);
+}
+
 static void rslider_mousedown(t_rslider* x, t_object* patcherview, t_pt pt, long modifiers)
 {
     t_rect rect;
@@ -258,7 +265,9 @@ static void rslider_mousedown(t_rslider* x, t_object* patcherview, t_pt pt, long
         x->f_loworhigh = 0;
     }
 
-    rslider_output(x);
+    if (x->i_sync)
+        rslider_output(x);
+
     ebox_invalidate_layer((t_ebox*)x, cream_sym_knob_layer);
     ebox_redraw((t_ebox*)x);
 }
@@ -293,7 +302,9 @@ static void rslider_mousedrag(t_rslider* x, t_object* patcherview, t_pt pt, long
         x->f_value_high = value;
     }
 
-    rslider_output(x);
+    if (x->i_sync)
+        rslider_output(x);
+
     ebox_invalidate_layer((t_ebox*)x, cream_sym_knob_layer);
     ebox_redraw((t_ebox*)x);
 }
@@ -387,6 +398,7 @@ extern "C" void setup_ui0x2erslider(void)
         eclass_addmethod(c, (method) rslider_float,           "float",            A_FLOAT,0);
         eclass_addmethod(c, (method) rslider_bang,            "bang",             A_NULL, 0);
         eclass_addmethod(c, (method) rslider_mousedown,       "mousedown",        A_NULL, 0);
+        eclass_addmethod(c, (method) rslider_mouseup,         "mouseup",        A_NULL, 0);
         eclass_addmethod(c, (method) rslider_mousedrag,       "mousedrag",        A_NULL, 0);
         eclass_addmethod(c, (method) rslider_preset,          "preset",           A_NULL, 0);
         
@@ -409,6 +421,13 @@ extern "C" void setup_ui0x2erslider(void)
         CLASS_ATTR_DEFAULT              (c, "max", 0, "1.");
         CLASS_ATTR_SAVE                 (c, "max", 1);
         CLASS_ATTR_STYLE                (c, "max", 0, "number");
+
+        CLASS_ATTR_INT                  (c, "sync", 0, t_rslider, i_sync);
+        CLASS_ATTR_LABEL                (c, "sync", 0, _("Mouse sync"));
+        CLASS_ATTR_ORDER                (c, "sync", 0, "1");
+        CLASS_ATTR_DEFAULT              (c, "sync", 0, "0.");
+        CLASS_ATTR_SAVE                 (c, "sync", 1);
+        CLASS_ATTR_STYLE                (c, "sync", 0, "onoff");
 
         ATTR_DEFAULT_COLOR_BORDER       (c, t_rslider);
         ATTR_DEFAULT_COLOR_BACKGROUND   (c, t_rslider);

@@ -20,18 +20,22 @@ endif()
 include(FindPackageHandleStandardArgs)
 
 if(LEAPMOTION_ROOT)
+    message(STATUS "LeapMotion: root specified at ${LEAPMOTION_ROOT}")
 
     find_path(LEAPMOTION_INCLUDE_DIR
         NAMES "Leap.h"
         PATHS ${LEAPMOTION_ROOT}
-        PATH_SUFFIXES "include"
-        NO_DEFAULT_PATH)
+        HINTS{}
+        PATH_SUFFIXES "include")
+
+    message(STATUS ${LEAPMOTION_ROOT}/lib/x86)
 
     find_library(LEAPMOTION_LIBRARY
-        NAMES "Leap"
+        NAMES Leap Leap.dll
         PATHS ${LEAPMOTION_ROOT}
-        PATH_SUFFIXES "lib" "lib64"
-        NO_DEFAULT_PATH)
+              ${LEAPMOTION_ROOT}/lib/x86
+              ${LEAPMOTION_ROOT}/lib/x64
+        PATH_SUFFIXES "lib" "lib64")
 
     find_package_handle_standard_args(LEAPMOTION DEFAULT_MSG LEAPMOTION_INCLUDE_DIR LEAPMOTION_LIBRARY)
     

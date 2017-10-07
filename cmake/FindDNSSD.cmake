@@ -70,9 +70,10 @@ else()
   list(APPEND _dnssd_lib_paths /usr /usr/local /opt/local /opt)
 endif()
 
-find_path(_dnssd_INCLUDE_DIR dns_sd.h
+find_path(_dnssd_INCLUDE_DIR
+  NAMES dns_sd.h
   HINTS $ENV{DNSSD_ROOT} ${DNSSD_ROOT}
-  PATH_SUFFIXES include
+  PATH_SUFFIXES include Include
   PATHS ${_dnssd_lib_paths}
   )
 
@@ -104,9 +105,9 @@ elseif(WIN32)
   else()
     set(_dnssd_lib_postfix "Win32")
   endif()
-  find_library(_dnssd_LIBRARY dnssd.lib
-    HINTS $ENV{DNSSD_ROOT} ${DNSSD_ROOT}
-    PATH_SUFFIXES lib
+  find_library(_dnssd_LIBRARY
+    NAMES dnssd.lib
+    HINTS $ENV{DNSSD_ROOT} ${DNSSD_ROOT}/Lib/${_dnssd_lib_postfix}
     PATHS ${_dnssd_lib_paths}/Lib/${_dnssd_lib_postfix})
 else()
   find_library(_dnssd_LIBRARY dns_sd

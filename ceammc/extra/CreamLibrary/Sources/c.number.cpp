@@ -9,7 +9,10 @@
  */
 
 #include "../c.library.hpp"
+
+#include <algorithm>
 #include <stdlib.h>
+
 typedef struct _number {
     t_ebox j_box;
 
@@ -28,7 +31,46 @@ typedef struct _number {
     t_rgba color_background;
     t_rgba color_border;
     t_rgba color_text;
+
+public:
+    void set(float f)
+    {
+        if (atom_gettype(&f_max) == A_FLOAT && atom_gettype(&f_min) == A_FLOAT) {
+            f_value = pd_clip_minmax(f, atom_getfloat(&f_min), atom_getfloat(&f_max));
+        } else if (atom_gettype(&f_max) == A_FLOAT) {
+            f_value = pd_clip_max(f, atom_getfloat(&f_max));
+        } else if (atom_gettype(&f_min) == A_FLOAT) {
+            f_value = pd_clip_min(f, atom_getfloat(&f_min));
+        } else {
+            f_value = f;
+        }
+    }
+
+    void setMin(const t_atom& a)
+    {
+        f_min = a;
+        if (atom_gettype(&f_max) == A_FLOAT && atom_getfloat(&f_max) < atom_getfloat(&f_min))
+            std::swap(f_max, f_min);
+
+        set(f_value);
+    }
+
+    void setMax(const t_atom& a)
+    {
+        f_max = a;
+        if (atom_gettype(&f_min) == A_FLOAT && atom_getfloat(&f_max) < atom_getfloat(&f_min))
+            std::swap(f_max, f_min);
+
+        set(f_value);
+    }
 } t_number;
+
+static t_symbol* SYM_PLUS = gensym("+");
+static t_symbol* SYM_MINUS = gensym("-");
+static t_symbol* SYM_MUL = gensym("*");
+static t_symbol* SYM_DIV = gensym("/");
+static t_symbol* SYM_INC = gensym("++");
+static t_symbol* SYM_DEC = gensym("--");
 
 static t_eclass* number_class;
 
@@ -43,18 +85,7 @@ static void number_output(t_number* x)
 
 static void number_float(t_number* x, float f)
 {
-    if (atom_gettype(&x->f_max) == A_FLOAT && atom_gettype(&x->f_min) == A_FLOAT) {
-        x->f_value = f = pd_clip_minmax(f, atom_getfloat(&x->f_min), atom_getfloat(&x->f_max));
-    }
-    if (atom_gettype(&x->f_max) == A_FLOAT) {
-        x->f_value = pd_clip_max(f, atom_getfloat(&x->f_max));
-    }
-    if (atom_gettype(&x->f_min) == A_FLOAT) {
-        x->f_value = pd_clip_min(f, atom_getfloat(&x->f_min));
-    } else {
-        x->f_value = f;
-    }
-
+    x->set(f);
     number_output(x);
     ebox_invalidate_layer((t_ebox*)x, cream_sym_value_layer);
     ebox_redraw((t_ebox*)x);
@@ -62,18 +93,7 @@ static void number_float(t_number* x, float f)
 
 static void number_set(t_number* x, float f)
 {
-    if (atom_gettype(&x->f_max) == A_FLOAT && atom_gettype(&x->f_min) == A_FLOAT) {
-        x->f_value = f = pd_clip_minmax(f, atom_getfloat(&x->f_min), atom_getfloat(&x->f_max));
-    }
-    if (atom_gettype(&x->f_max) == A_FLOAT) {
-        x->f_value = pd_clip_max(f, atom_getfloat(&x->f_max));
-    }
-    if (atom_gettype(&x->f_min) == A_FLOAT) {
-        x->f_value = pd_clip_min(f, atom_getfloat(&x->f_min));
-    } else {
-        x->f_value = f;
-    }
-
+    x->set(f);
     ebox_invalidate_layer((t_ebox*)x, cream_sym_value_layer);
     ebox_redraw((t_ebox*)x);
 }
@@ -202,7 +222,41 @@ void number_mousedown(t_number* x, t_object* patcherview, t_pt pt, long modifier
             else
                 x->f_inc = -1. / powf(10, (i - n_integer - 1));
         }
+
         x->f_inc = pd_clip_minmax(x->f_inc, -100., -0.000001);
+    }
+}
+
+static void number_modify_single(t_number* x, t_symbol* s, int argc, t_atom* argv)
+{
+    if (argc < 1 || !argv) {
+        pd_error(x, "[%s] %s: float argument required", eobj_getclassname(x)->s_name, s->s_name);
+        return;
+    }
+
+    if (s == SYM_PLUS) {
+        number_set(x, x->f_value + atom_getfloat(argv));
+    } else if (s == SYM_MINUS) {
+        number_set(x, x->f_value - atom_getfloat(argv));
+    } else if (s == SYM_MUL) {
+        number_set(x, x->f_value * atom_getfloat(argv));
+    } else if (s == SYM_DIV) {
+        t_float v = atom_getfloat(argv);
+        if (v == 0.f) {
+            pd_error(x, "[%s] division by zero attempt.", eobj_getclassname(x)->s_name);
+            return;
+        }
+
+        number_set(x, x->f_value / v);
+    }
+}
+
+static void number_modify(t_number* x, t_symbol* s)
+{
+    if (s == SYM_INC) {
+        number_set(x, x->f_value + 1);
+    } else if (s == SYM_DEC) {
+        number_set(x, x->f_value - 1);
     }
 }
 
@@ -219,7 +273,7 @@ void number_mousedrag(t_number* x, t_object* patcherview, t_pt pt, long modifier
     if (PD_BADFLOAT(value) || PD_BIGORSMALL(value))
         return;
 
-    x->f_value = value;
+    x->set(value);
     number_output(x);
     ebox_invalidate_layer((t_ebox*)x, cream_sym_value_layer);
     ebox_redraw((t_ebox*)x);
@@ -280,7 +334,7 @@ void number_keyfilter(t_number* x, t_object* patcherview, char textcharacter, lo
         ebox_redraw((t_ebox*)x);
     } else if (textcharacter == EKEY_TAB || textcharacter == EKEY_ENTER) {
         x->f_mode = 0;
-        x->f_value = atof(x->f_textvalue);
+        x->set(atof(x->f_textvalue));
         number_output(x);
         ebox_invalidate_layer((t_ebox*)x, cream_sym_value_layer);
         ebox_redraw((t_ebox*)x);
@@ -308,19 +362,11 @@ static void number_preset(t_number* x, t_binbuf* b)
 t_pd_err number_min_set(t_number* x, t_object* attr, int ac, t_atom* av)
 {
     if (ac && av && atom_gettype(av) == A_FLOAT) {
-        x->f_min = av[0];
-
-        if (atom_gettype(&x->f_max) == A_FLOAT && atom_getfloat(&x->f_max) < atom_getfloat(&x->f_min)) {
-            x->f_min = x->f_max;
-            x->f_max = av[0];
-        }
-
-        if (atom_gettype(&x->f_max) == A_FLOAT)
-            x->f_value = pd_clip_max(x->f_value, atom_getfloat(&x->f_max));
-        x->f_value = pd_clip_min(x->f_value, atom_getfloat(&x->f_min));
+        x->setMin(av[0]);
     } else {
         atom_setsym(&x->f_min, s_null);
     }
+
     ebox_invalidate_layer((t_ebox*)x, cream_sym_value_layer);
     ebox_redraw((t_ebox*)x);
     return 0;
@@ -329,34 +375,8 @@ t_pd_err number_min_set(t_number* x, t_object* attr, int ac, t_atom* av)
 t_pd_err number_max_set(t_number* x, t_object* attr, int ac, t_atom* av)
 {
     if (ac && av && atom_gettype(av) == A_FLOAT) {
-        x->f_max = av[0];
-
-        if (atom_gettype(&x->f_min) == A_FLOAT && atom_getfloat(&x->f_max) < atom_getfloat(&x->f_min)) {
-            x->f_max = x->f_min;
-            x->f_min = av[0];
-        }
-
-        if (atom_gettype(&x->f_min) == A_FLOAT)
-            x->f_value = pd_clip_min(x->f_value, atom_getfloat(&x->f_min));
-        x->f_value = pd_clip_max(x->f_value, atom_getfloat(&x->f_max));
+        x->setMax(av[0]);
     } else {
-        atom_setsym(&x->f_max, s_null);
-    }
-
-    ebox_invalidate_layer((t_ebox*)x, cream_sym_value_layer);
-    ebox_redraw((t_ebox*)x);
-    return 0;
-}
-
-static t_pd_err number_minmax_set(t_number* x, t_object* attr, int ac, t_atom* av)
-{
-    if (ac == 1) {
-        return number_min_set(x, attr, ac, av);
-    } else if (ac > 1 && av) {
-        number_min_set(x, attr, 1, av);
-        number_max_set(x, attr, 1, av + 1);
-    } else {
-        atom_setsym(&x->f_min, s_null);
         atom_setsym(&x->f_max, s_null);
     }
 
@@ -375,8 +395,7 @@ static void* number_new(t_symbol* s, int argc, t_atom* argv)
         x->f_outlet = outlet_new((t_object*)x, &s_float);
         x->f_mode = 0.f;
         sprintf(x->f_textvalue, "0.");
-        x->f_value = 0;
-
+        x->set(0);
         ebox_attrprocess_viabinbuf(x, d);
         ebox_ready((t_ebox*)x);
 
@@ -395,22 +414,28 @@ extern "C" void setup_ui0x2enumber(void)
     if (c) {
         // clang-format off
         eclass_guiinit(c, 0);
-        eclass_addmethod(c, (method) number_paint,           "paint",            A_NULL, 0);
-        eclass_addmethod(c, (method) number_notify,          "notify",           A_NULL, 0);
-        eclass_addmethod(c, (method) number_getdrawparams,   "getdrawparams",    A_NULL, 0);
-        eclass_addmethod(c, (method) number_oksize,          "oksize",           A_NULL, 0);
-        eclass_addmethod(c, (method) number_float,           "float",            A_FLOAT,0);
-        eclass_addmethod(c, (method) number_set,             "set",              A_FLOAT,0);
-        eclass_addmethod(c, (method) number_output,          "bang",             A_NULL, 0);
+        eclass_addmethod(c, (method) number_paint,            "paint",           A_NULL,  0);
+        eclass_addmethod(c, (method) number_notify,           "notify",          A_NULL,  0);
+        eclass_addmethod(c, (method) number_getdrawparams,    "getdrawparams",   A_NULL,  0);
+        eclass_addmethod(c, (method) number_oksize,           "oksize",          A_NULL,  0);
+        eclass_addmethod(c, (method) number_float,            "float",           A_FLOAT, 0);
+        eclass_addmethod(c, (method) number_set,              "set",             A_FLOAT, 0);
+        eclass_addmethod(c, (method) number_output,           "bang",            A_NULL,  0);
         
-        eclass_addmethod(c, (method) number_mousedown,        "mousedown",       A_NULL, 0);
-        eclass_addmethod(c, (method) number_mousedrag,        "mousedrag",       A_NULL, 0);
-        eclass_addmethod(c, (method) number_dblclick,         "dblclick",        A_NULL, 0);
-        eclass_addmethod(c, (method) number_key,              "key",             A_NULL, 0);
-        eclass_addmethod(c, (method) number_keyfilter,        "keyfilter",       A_NULL, 0);
-        eclass_addmethod(c, (method) number_mouseleave,       "mouseleave",      A_NULL, 0);
+        eclass_addmethod(c, (method) number_mousedown,        "mousedown",       A_NULL,  0);
+        eclass_addmethod(c, (method) number_mousedrag,        "mousedrag",       A_NULL,  0);
+        eclass_addmethod(c, (method) number_dblclick,         "dblclick",        A_NULL,  0);
+        eclass_addmethod(c, (method) number_key,              "key",             A_NULL,  0);
+        eclass_addmethod(c, (method) number_keyfilter,        "keyfilter",       A_NULL,  0);
+        eclass_addmethod(c, (method) number_mouseleave,       "mouseleave",      A_NULL,  0);
         
-        eclass_addmethod(c, (method) number_preset,           "preset",          A_NULL, 0);
+        eclass_addmethod(c, (method) number_preset,           "preset",          A_NULL,  0);
+        eclass_addmethod(c, (method) number_modify_single,    "+",               A_GIMME, 0);
+        eclass_addmethod(c, (method) number_modify_single,    "-",               A_GIMME, 0);
+        eclass_addmethod(c, (method) number_modify_single,    "*",               A_GIMME, 0);
+        eclass_addmethod(c, (method) number_modify_single,    "/",               A_GIMME, 0);
+        eclass_addmethod(c, (method) number_modify,           "++",              A_GIMME, 0);
+        eclass_addmethod(c, (method) number_modify,           "--",              A_GIMME, 0);
         
         CLASS_ATTR_INVISIBLE            (c, "fontname", 1);
         CLASS_ATTR_INVISIBLE            (c, "fontweight", 1);
@@ -418,12 +443,19 @@ extern "C" void setup_ui0x2enumber(void)
 
         CLASS_ATTR_DEFAULT			    (c, "size", 0, "53 16");
         
-        CLASS_ATTR_ATOM_ARRAY           (c, "minmax", 0, t_number, f_min, 2);
-        CLASS_ATTR_ORDER                (c, "minmax", 0, "3");
-        CLASS_ATTR_LABEL                (c, "minmax", 0, "Min - Max Values");
-        CLASS_ATTR_DEFAULT              (c, "minmax", 0, "(null) (null)");
-        CLASS_ATTR_ACCESSORS            (c, "minmax", NULL, number_minmax_set);
-        CLASS_ATTR_SAVE                 (c, "minmax", 1);
+        CLASS_ATTR_ATOM                 (c, "min", 0, t_number, f_min);
+        CLASS_ATTR_ORDER                (c, "min", 0, "3");
+        CLASS_ATTR_LABEL                (c, "min", 0, _("Minimum Value"));
+        CLASS_ATTR_DEFAULT              (c, "min", 0, "(null)");
+        CLASS_ATTR_ACCESSORS            (c, "min", NULL, number_min_set);
+        CLASS_ATTR_SAVE                 (c, "min", 1);
+
+        CLASS_ATTR_ATOM                 (c, "max", 0, t_number, f_max);
+        CLASS_ATTR_ORDER                (c, "max", 0, "3");
+        CLASS_ATTR_LABEL                (c, "max", 0, _("Maximum Value"));
+        CLASS_ATTR_DEFAULT              (c, "max", 0, "(null)");
+        CLASS_ATTR_ACCESSORS            (c, "max", NULL, number_max_set);
+        CLASS_ATTR_SAVE                 (c, "max", 1);
         
         ATTR_DEFAULT_COLOR_BORDER       (c, t_number);
         ATTR_DEFAULT_COLOR_BACKGROUND   (c, t_number);

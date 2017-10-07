@@ -27,7 +27,7 @@
             resize contents to feet incoming message</property>
             <property name="@display_type" type="int" default="0" enum="0 1">flag for displaying
             incomming message type</property>
-            <property name="@display_events" type="int" default="0" enum="0 1">flag for blinking on
+            <property name="@display_events" type="int" default="1" enum="0 1">flag for blinking on
             incoming messages</property>
             <property name="@receive" type="symbol">receive source</property>
         </properties>
@@ -48,7 +48,7 @@
 |            |   |          |         |
 |            |   |          |         |
 |            |   |          |         |
-[ui.display            @display_type 1]
+[ui.display            @display_type=1]
 
 
 ]]>

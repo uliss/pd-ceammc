@@ -58,7 +58,6 @@ ceammc_add_test("[canvas.args]" test_ext_canvas_args)
 ceammc_add_test("[canvas.current]" test_ext_canvas_current)
 ceammc_add_test("[canvas.top]" test_ext_canvas_top)
 
-ceammc_external_test(flow change)
 ceammc_external_test(flow count)
 ceammc_external_test(flow gate)
 ceammc_external_test(flow group)
@@ -89,6 +88,7 @@ ceammc_external_test(list none_of)
 ceammc_external_test(list normalize)
 ceammc_external_test(list rotate)
 ceammc_external_test(list slice)
+ceammc_external_test(list split)
 ceammc_external_test(list at)
 ceammc_external_test(list count)
 
@@ -147,15 +147,20 @@ ceammc_add_test_linked(TITLE "ceammc::DataString"
     SRC "test_data_string.cpp"
     LINK ceammc_core ceammc_string puredata-core ceammc_core)
 
+ceammc_add_test_linked(TITLE "[flow.change]"
+    NAME test_ext_flow_change
+    SRC test_ext_flow_change.cpp
+    LINK ceammc_core puredata-core ceammc_base ceammc_flow ceammc_core)
+
 ceammc_add_test_linked(TITLE "ceammc::DataTypeMidiStream"
     NAME test_datatype_midistream
     SRC test_datatype_midistream.cpp
-    LINK ceammc_core puredata-core ceammc_core ceammc_midi)
+    LINK ceammc_core puredata-core ceammc_midi ceammc_core)
 
 ceammc_add_test_linked(TITLE "ceammc::DataTypeMidiTrack"
     NAME test_datatype_miditrack
     SRC test_datatype_miditrack.cpp
-    LINK ceammc_core puredata-core ceammc_core ceammc_midi)
+    LINK ceammc_core puredata-core ceammc_midi ceammc_core)
 
 if(WITH_LIBSNDFILE)
     include(FindLibSndFile)

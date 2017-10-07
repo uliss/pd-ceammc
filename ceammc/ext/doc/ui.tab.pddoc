@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="ui.tab" type="gui">
+        <title>ui.tab</title>
+        <meta>
+            <authors>
+                <author>Pierre Guillot</author>
+            </authors>
+            <description>displays a list of text buttons or text toggles</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category view="link">ui</category>
+            <keywords>ui tab</keywords>
+            <since>0.1</since>
+            <also>
+                <see view="link">ui.menu</see>
+            </also>
+        </meta>
+        <properties>
+            <property name="@items" type="int" default="1" minvalue="1" maxvalue="256">
+            number of tabs</property>
+            <property name="@toggle" type="int" default="0" enum="0 1">toggle mode</property>
+            <property name="@orientation" type="int" enum="0 1" default="0">tab orientation.
+            1 is vertical, 0 is horizontal</property>
+            <property name="@send" type="symbol">send destination</property>
+            <property name="@receive" type="symbol">receive source</property>
+        </properties>
+        <methods>
+            <method name="append">appends new tab item
+            <param name="ATOMS" type="list" required="true">item name</param></method>
+            <method name="insert">inserts new tab item before specified position
+            <param name="IDX" type="int" minvalue="0" required="true">item position</param>
+            <param name="ATOMS" type="list" required="true">item name</param></method>
+            <method name="clear">clears all tab menu</method>
+            <method name="delete">removes item from tab
+            <param name="IDX" type="int" minvalue="0" required="true">removed item index</param></method>
+            <method name="setitem">renames tab item
+            <param name="IDX" type="int" required="true" minvalue="0">item index</param>
+            <param name="ATOMS" type="list" required="true">item name</param></method>
+            <method name="set">silently sets tab state.
+            <param name="IDX" type="int" minvalue="0" required="true">item index</param></method>
+        </methods>
+        <inlets>
+            <inlet>
+            <xinfo on="bang">outputs current tab state</xinfo>
+            <xinfo on="float">change tab state and output new value</xinfo>
+            <xinfo on="any">selects item equal to given</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output tab index</outlet>
+            <outlet>output selected item</outlet>
+            <outlet>output hover item index</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[append sqrt(    [setitem 0 white noise(
+|                |
+| [insert 0 saw( |  [delete 1(
+| |              |  |
+| | [clear( [F]  |  | [B]  [tri (   [T]
+| | |       |    |  | |    |        |
+| | |       |    |  | |    |        [@toggle $1(
+| | |       |    |  | |    |        |
+[ui.tab      @items sin tri @size=200x15]
+|       ^|       ^^|
+[F]     [S]       [F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

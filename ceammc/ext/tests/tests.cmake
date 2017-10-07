@@ -22,7 +22,7 @@ endfunction()
 
 macro(ceammc_add_test title name)
     add_executable(${name} "${name}.cpp")
-    target_link_libraries(${name} tests_main_lib ceammc_core ceammc_base puredata-core)
+    target_link_libraries(${name} tests_main_lib ceammc_core ceammc_base puredata-core ceammc_core)
     set_test_command(${title} ${name})
 endmacro()
 
@@ -43,7 +43,8 @@ endmacro()
 macro(ceammc_add_extension_test name extpath)
     set(_target "test_${name}")
     add_executable(${_target} "${_target}.cpp" ${extpath})
-    target_link_libraries(${_target} tests_main_lib puredata-core ceammc_core puredata-core ceammc_sound)
+    target_link_libraries(${_target}
+        tests_main_lib puredata-core ceammc_core puredata-core ceammc_sound)
     set(_exec_cmd ${_target})
     set_test_command("Extension::${name}" ${_exec_cmd})
 endmacro()

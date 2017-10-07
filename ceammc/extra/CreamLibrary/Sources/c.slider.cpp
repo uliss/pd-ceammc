@@ -26,6 +26,13 @@ typedef struct _slider {
     long f_mode;
 } t_slider;
 
+static t_symbol* SYM_PLUS = gensym("+");
+static t_symbol* SYM_MINUS = gensym("-");
+static t_symbol* SYM_MUL = gensym("*");
+static t_symbol* SYM_DIV = gensym("/");
+static t_symbol* SYM_INC = gensym("++");
+static t_symbol* SYM_DEC = gensym("--");
+
 static t_eclass* slider_class;
 
 static void slider_output(t_slider* x)
@@ -247,13 +254,13 @@ static void slider_modify_single(t_slider* z, t_symbol* s, int argc, t_atom* arg
         return;
     }
 
-    if (s == gensym("+")) {
+    if (s == SYM_PLUS) {
         slider_set(z, z->f_value + atom_getfloat(argv));
-    } else if (s == gensym("-")) {
+    } else if (s == SYM_MINUS) {
         slider_set(z, z->f_value - atom_getfloat(argv));
-    } else if (s == gensym("*")) {
+    } else if (s == SYM_MUL) {
         slider_set(z, z->f_value * atom_getfloat(argv));
-    } else if (s == gensym("/")) {
+    } else if (s == SYM_DIV) {
         t_float v = atom_getfloat(argv);
         if (v == 0.f) {
             pd_error(z, "[%s] division by zero attempt.", eobj_getclassname(z)->s_name);
@@ -266,9 +273,9 @@ static void slider_modify_single(t_slider* z, t_symbol* s, int argc, t_atom* arg
 
 static void slider_modify(t_slider* z, t_symbol* s)
 {
-    if (s == gensym("++")) {
+    if (s == SYM_INC) {
         slider_set(z, z->f_value + 1);
-    } else if (s == gensym("--")) {
+    } else if (s == SYM_DEC) {
         slider_set(z, z->f_value - 1);
     }
 }
@@ -304,7 +311,7 @@ extern "C" void setup_ui0x2eslider(void)
         CLASS_ATTR_DEFAULT              (c, "size", 0, "15. 120.");
 
         CLASS_ATTR_LONG                 (c, "mode", 0, t_slider, f_mode);
-        CLASS_ATTR_LABEL                (c, "mode", 0, "Relative Mode");
+        CLASS_ATTR_LABEL                (c, "mode", 0, _("Relative Mode"));
         CLASS_ATTR_ORDER                (c, "mode", 0, "1");
         CLASS_ATTR_FILTER_CLIP          (c, "mode", 0, 1);
         CLASS_ATTR_DEFAULT              (c, "mode", 0, "0");
@@ -312,14 +319,14 @@ extern "C" void setup_ui0x2eslider(void)
         CLASS_ATTR_STYLE                (c, "mode", 0, "onoff");
 
         CLASS_ATTR_FLOAT                (c, "min", 0, t_slider, f_min);
-        CLASS_ATTR_LABEL                (c, "min", 0, "Minimum Value");
+        CLASS_ATTR_LABEL                (c, "min", 0, _("Minimum Value"));
         CLASS_ATTR_ORDER                (c, "min", 0, "1");
         CLASS_ATTR_DEFAULT              (c, "min", 0, "0.");
         CLASS_ATTR_SAVE                 (c, "min", 1);
         CLASS_ATTR_STYLE                (c, "min", 0, "number");
 
         CLASS_ATTR_FLOAT                (c, "max", 0, t_slider, f_max);
-        CLASS_ATTR_LABEL                (c, "max", 0, "Maximum Value");
+        CLASS_ATTR_LABEL                (c, "max", 0, _("Maximum Value"));
         CLASS_ATTR_ORDER                (c, "max", 0, "1");
         CLASS_ATTR_DEFAULT              (c, "max", 0, "1.");
         CLASS_ATTR_SAVE                 (c, "max", 1);

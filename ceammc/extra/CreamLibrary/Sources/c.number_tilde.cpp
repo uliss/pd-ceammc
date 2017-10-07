@@ -16,7 +16,6 @@ typedef struct  _number_tilde
 	t_clock*	f_clock;
 	int			f_startclock;
 	long        f_interval;
-    long        f_ndecimal;
     t_outlet*   f_peaks_outlet;
     float       f_peak_value;
     int         f_max_decimal;
@@ -126,15 +125,15 @@ static void draw_value(t_number_tilde *x, t_object *view, t_rect *rect)
             if(x->f_max_decimal == 0)
                 sprintf(number, "%i", (int)x->f_peak_value);
             else if(x->f_max_decimal == 1)
-                sprintf(number, "%.1f", x->f_peak_value);
+                sprintf(number, "%.1f", int(10 * x->f_peak_value) / 10.0);
             else if(x->f_max_decimal == 2)
-                sprintf(number, "%.2f", x->f_peak_value);
+                sprintf(number, "%.2f", int(100 * x->f_peak_value) / 100.0);
             else if(x->f_max_decimal == 3)
-                sprintf(number, "%.3f", x->f_peak_value);
+                sprintf(number, "%.3f", int(1000 * x->f_peak_value) / 1000.0);
             else if(x->f_max_decimal == 4)
-                sprintf(number, "%.4f", x->f_peak_value);
+                sprintf(number, "%.4f", int(10000 * x->f_peak_value) / 10000.0);
             else if(x->f_max_decimal == 5)
-                sprintf(number, "%.5f", x->f_peak_value);
+                sprintf(number, "%.5f", int(100000 * x->f_peak_value) / 100000.0);
             else
                 sprintf(number, "%.6f", x->f_peak_value);
             etext_layout_settextcolor(jtl, &x->color_text);
@@ -234,15 +233,15 @@ extern "C" void setup_ui0x2enumber_tilde(void)
     
     CLASS_ATTR_LONG                 (c, "interval", 0, t_number_tilde, f_interval);
     CLASS_ATTR_ORDER                (c, "interval", 0, "2");
-    CLASS_ATTR_LABEL                (c, "interval", 0, "Refresh Interval in Milliseconds");
+    CLASS_ATTR_LABEL                (c, "interval", 0, _("Refresh interval (ms)"));
     CLASS_ATTR_FILTER_MIN           (c, "interval", 20);
     CLASS_ATTR_DEFAULT              (c, "interval", 0, "50");
     CLASS_ATTR_SAVE                 (c, "interval", 1);
     CLASS_ATTR_STYLE                (c, "interval", 0, "number");
     
-    CLASS_ATTR_LONG                 (c, "decimal", 0, t_number_tilde, f_ndecimal);
+    CLASS_ATTR_LONG                 (c, "decimal", 0, t_number_tilde, f_max_decimal);
     CLASS_ATTR_ORDER                (c, "decimal", 0, "3");
-    CLASS_ATTR_LABEL                (c, "decimal", 0, "Number of decimal");
+    CLASS_ATTR_LABEL                (c, "decimal", 0, _("Number of decimal"));
     CLASS_ATTR_DEFAULT              (c, "decimal", 0, "6");
     CLASS_ATTR_FILTER_MIN           (c, "decimal", 0);
     CLASS_ATTR_FILTER_MAX           (c, "decimal", 6);

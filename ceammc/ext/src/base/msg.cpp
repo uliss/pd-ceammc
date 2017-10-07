@@ -4,6 +4,7 @@ extern "C" void msg_setup()
 {
     ObjectFactory<Msg> obj("msg");
     obj.addAlias("m");
+    obj.addAlias("prepend");
 }
 
 Msg::Msg(const PdArgs& a)

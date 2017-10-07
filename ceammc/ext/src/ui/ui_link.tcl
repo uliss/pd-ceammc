@@ -18,8 +18,21 @@ proc ceammclink_open {filename dir} {
         set dir [file dirname $fullpath]
         set filename [file tail $fullpath]
         menu_doc_open $dir $filename
+   } elseif {[file exists [file join $::sys_libdir doc 5.reference $filename]]} {
+        # search in core doc dir
+        set fullpath [file normalize [file join $::sys_libdir doc 5.reference $filename]]
+        set dir [file dirname $fullpath]
+        set filename [file tail $fullpath]
+        menu_doc_open $dir $filename
+    } elseif {[file exists [file join $::sys_libdir extra $filename]]} {
+        # search in external doc dir
+        set fullpath [file normalize [file join $::sys_libdir extra $filename]]
+        set dir [file dirname $fullpath]
+        set filename [file tail $fullpath]
+        menu_doc_open $dir $filename
     } else {
         bell ; # beep on error to provide instant feedback
-        pdtk_post "\[ui.link\] ERROR file not found: $filename at $dir\n"
+        pdtk_post "ERROR: file not found: $filename at $dir"
+        pdtk_post ""
     }
 }

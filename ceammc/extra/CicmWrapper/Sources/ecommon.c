@@ -555,68 +555,6 @@ t_pd_err binbuf_get_attribute_float(t_binbuf *d, t_symbol *key, float *value)
 
 void epd_add_folder(const char* name, const char* folder)
 {
-    /*
-    // ADD TO SYSTEM PATH
-    sys_gui("foreach pathdir [concat $::sys_searchpath $::sys_staticpath] {\n");
-    sys_gui("if {[file isdirectory $pathdir]} {\n");
-    sys_gui("set dir [string trimright [file join [file normalize $pathdir] { }]]\n");
-    sys_vgui("append dir \"%s\"\n", name);
-    sys_gui("if {[file isdirectory $dir] && [file exists $dir]} {\n");
-    sys_vgui("append dir \"/%s/\"\n", folder);
-    
-    sys_gui("if {[file isdirectory $dir] && [file exists $dir]} {::helpbrowser::add_entry ::sys_searchpath dir}\n");
-            //lappend ::sys_staticpath $dir\n pdwindow::logpost 0, 2 \"OK\n\"}\n");
-    
-    sys_gui("}}}\n");
-    post("start");
-    const char dir[MAXPDSTRING], ext = '\0';
-    char dirresult[MAXPDSTRING], *nameresult = NULL;
-    if(open_via_path(dir, folder, &ext, dirresult, &nameresult, MAXPDSTRING, 0) != -1)
-    {
-        post("aki");
-    }
-    post("end");
-    */
-
-	char path[MAXPDSTRING];
-	t_namelist* var = sys_searchpath;
-	while (var)
-	{
-		sprintf(path, "%s/%s",var->nl_string, name);
-		if(strncmp(var->nl_string, name, strlen(name)) == 0)
-		{
-			sprintf(path, "%s/%s", var->nl_string, folder);
-			namelist_append_files(sys_staticpath, path);
-			return;
-		}
-		else if(access(path, O_RDONLY) != -1)
-		{
-			sprintf(path, "%s/%s/%s", var->nl_string, name, folder);
-			namelist_append_files(sys_staticpath, path);
-			return;
-		}
-		var = var->nl_next;
-	}
-    var = sys_staticpath;
-    while (var)
-    {
-        sprintf(path, "%s/%s",var->nl_string, name);
-		if(strncmp(var->nl_string, name, strlen(name)) == 0)
-		{
-			sprintf(path, "%s/%s", var->nl_string, folder);
-			namelist_append_files(sys_staticpath, path);
-			return;
-		}
-		else if(access(path, O_RDONLY) != -1)
-		{
-			sprintf(path, "%s/%s/%s", var->nl_string, name, folder);
-			namelist_append_files(sys_staticpath, path);
-			return;
-		}
-		var = var->nl_next;
-    }
 
 }
-
-
 

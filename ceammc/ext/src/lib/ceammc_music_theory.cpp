@@ -135,7 +135,7 @@ static int pitchToFithIndex(const PitchName& n)
     return fiths[n.index()];
 }
 
-int Tonality::fifthsCircleIndex(const PitchClass& c, mode_t m)
+int Tonality::fifthsCircleIndex(const PitchClass& c, HarmonicModus m)
 {
     if (m == MAJOR)
         return pitchToFithIndex(c.pitchName()) + 7 * c.alteration().semitones();

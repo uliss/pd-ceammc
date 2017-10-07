@@ -55,12 +55,13 @@ static const char* PROP_BACKGROUND_COLOR = "background_color";
 static const char* PROP_BORDER_COLOR = "border_color";
 static const char* PROP_TEXT_COLOR = "text_color";
 
-#define HIDE_FONT_PROPS(cl) {\
-    CLASS_ATTR_INVISIBLE(cl, "fontname", 1);\
-    CLASS_ATTR_INVISIBLE(cl, "fontweight", 1);\
-    CLASS_ATTR_INVISIBLE(cl, "fontslant", 1);\
-    CLASS_ATTR_INVISIBLE(cl, "fontsize", 1);\
-}
+#define HIDE_FONT_PROPS(cl)                        \
+    {                                              \
+        CLASS_ATTR_INVISIBLE(cl, "fontname", 1);   \
+        CLASS_ATTR_INVISIBLE(cl, "fontweight", 1); \
+        CLASS_ATTR_INVISIBLE(cl, "fontslant", 1);  \
+        CLASS_ATTR_INVISIBLE(cl, "fontsize", 1);   \
+    }
 
 /**
  * @brief Structure prototype for pd object (t_object).
@@ -349,9 +350,9 @@ public:
         t_ebox* box = reinterpret_cast<t_ebox*>(z);
 
         t_binbuf* d = binbuf_via_atoms(argc, argv);
-        ebox_new(box, GuiFactory<U>::flags);
 
         if (z && d) {
+            ebox_new(box, GuiFactory<U>::flags);
             //moved
             new_ext(asStruct(z), s, argc, argv);
 

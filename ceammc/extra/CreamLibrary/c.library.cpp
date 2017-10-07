@@ -26,53 +26,10 @@ static void* cream_new(t_symbol* s)
     return (x);
 }
 
-/*
-static void epd_add_lib(const char* name)
-{
-    char path[MAXPDSTRING];
-    t_namelist* var = sys_searchpath;
-    while (var)
-    {
-        sprintf(path, "%s/%s",var->nl_string, name);
-        if(strncmp(var->nl_string, name, strlen(name)) == 0)
-        {
-            //post(var->nl_string);
-            sys_vgui((char *)"set creammenu .menubar.help\n $creammenu insert 3 command -label [_ \"Cream\"] -command {pdsend {pd open cream-help.pd %s}}\n", var->nl_string);
-            return;
-        }
-        else if(access(path, O_RDONLY) != -1)
-        {
-            //post(path);
-            sys_vgui((char *)"set creammenu .menubar.help\n $creammenu insert 3 command -label [_ \"Cream\"] -command {pdsend {pd open cream-help.pd %s}}\n", path);
-            return;
-        }
-        var = var->nl_next;
-    }
-    var = sys_staticpath;
-    while (var)
-    {
-        sprintf(path, "%s/%s",var->nl_string, name);
-        if(strncmp(var->nl_string, name, strlen(name)) == 0)
-        {
-            //post(var->nl_string);
-            sys_vgui((char *)"set creammenu .menubar.help\n $creammenu insert 3 command -label [_ \"Cream\"] -command {pdsend {pd open cream-help.pd %s}}\n", var->nl_string);
-            return;
-        }
-        else if(access(path, O_RDONLY) != -1)
-        {
-            //post(path);
-            sys_vgui((char *)"set creammenu .menubar.help\n $creammenu insert 3 command -label [_ \"Cream\"] -command {pdsend {pd open cream-help.pd %s}}\n", path);
-            return;
-        }
-        var = var->nl_next;
-    }
-}
- */
-
 extern "C" void cream_setup(void)
 {
-    cream_class = eclass_new("cream", (method)cream_new, (method)eobj_free, (short)sizeof(t_eobj), CLASS_PD, A_NULL, 0);
-    cream_class = eclass_new("Cream", (method)cream_new, (method)eobj_free, (short)sizeof(t_eobj), CLASS_PD, A_NULL, 0);
+    cream_class = eclass_new("cream", (method)cream_new, (method)eobj_free, sizeof(t_eobj), CLASS_PD, A_NULL, 0);
+    cream_class = eclass_new("Cream", (method)cream_new, (method)eobj_free, sizeof(t_eobj), CLASS_PD, A_NULL, 0);
     t_eobj* obj = (t_eobj*)cream_new(NULL);
     if (!obj) {
 
@@ -82,7 +39,6 @@ extern "C" void cream_setup(void)
         eobj_free(obj);
     }
 
-    //epd_add_lib("cream");
     //    setup_c0x2egain_tilde();
 
     //CEAMMC
@@ -105,8 +61,6 @@ extern "C" void cream_setup(void)
 #ifdef __APPLE__
 //    setup_c0x2ecamomile();
 #endif
-    epd_add_folder("Cream", "misc");
-    epd_add_folder("Cream", "helps");
 }
 
 typedef t_object* (*t_returnnewmethod)(t_symbol* s);

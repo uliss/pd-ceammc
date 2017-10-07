@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure\\ Data 0.47.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2017-03-02 22:17+0300\n"
-"PO-Revision-Date: 2017-03-02 22:22+0300\n"
+"POT-Creation-Date: 2017-10-05 01:34+0300\n"
+"PO-Revision-Date: 2017-10-05 01:32+0300\n"
 "Last-Translator: Serge Poltavski <serge.poltavski@gmail.com>\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
@@ -17,7 +17,7 @@ msgstr ""
 "X-Language: ru_RU\n"
 "X-Source-Language: C\n"
 "X-Loco-Parser: loco_parse_po\n"
-"X-Generator: Poedit 1.8.11\n"
+"X-Generator: Poedit 2.0.4\n"
 
 #: ../tcl/dialog_font.tcl:60
 #, tcl-format
@@ -85,20 +85,20 @@ msgstr ""
 msgid "------visible_rectangle(pix)(pix):------"
 msgstr ""
 
-#: ../tcl/pd_deken.tcl:498
+#: ../tcl/pd_deken.tcl:498 ../tcl/pd_deken.tcl:522
 #, tcl-format
 msgid "1. Unzip %s."
-msgstr ""
+msgstr "Распаковка %s."
 
 #: ../tcl/dialog_audio.tcl:183 ../tcl/dialog_audio.tcl:248
 #: ../tcl/dialog_midi.tcl:133 ../tcl/dialog_midi.tcl:241
 msgid "1:"
 msgstr "1:"
 
-#: ../tcl/pd_deken.tcl:500
+#: ../tcl/pd_deken.tcl:500 ../tcl/pd_deken.tcl:524
 #, tcl-format
 msgid "2. Copy the contents into %s.\n"
-msgstr ""
+msgstr "2. Копирую содержимое в %s.\n"
 
 #: ../tcl/dialog_audio.tcl:197 ../tcl/dialog_audio.tcl:273
 #: ../tcl/dialog_midi.tcl:143 ../tcl/dialog_midi.tcl:251
@@ -152,6 +152,8 @@ msgstr "Цвет активной ячейки"
 #: ../ceammc/extra/CreamLibrary/Sources/c.bang.cpp:163
 #: ../ceammc/extra/CreamLibrary/Sources/c.dsp_tilde.cpp:199
 #: ../ceammc/extra/CreamLibrary/Sources/c.matrix.cpp:362
+#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:553
+#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:559
 #: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:560
 #: ../ceammc/extra/CreamLibrary/Sources/c.radio.cpp:427
 #: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:578
@@ -191,6 +193,10 @@ msgstr ""
 #: ../tcl/dialog_array.tcl:257
 msgid "Array Properties"
 msgstr "Свойства Array"
+
+#: ../ceammc/extra/CreamLibrary/Sources/c.incdec.cpp:99
+msgid "Arrow Color"
+msgstr "Цвет стрелки"
 
 #: ../tcl/pd-gui.tcl:305 ../tcl/pd-gui.tcl:309 ../tcl/pd-gui.tcl:347
 #: ../tcl/pd-gui.tcl:351 ../tcl/pd-gui.tcl:382 ../tcl/pd-gui.tcl:386
@@ -238,7 +244,9 @@ msgstr "Фон"
 #: ../ceammc/extra/CreamLibrary/Sources/c.matrix.cpp:350
 #: ../ceammc/extra/CreamLibrary/Sources/c.menu.cpp:126
 #: ../ceammc/extra/CreamLibrary/Sources/c.number.cpp:432
+#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:527
 #: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:530
+#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:533
 #: ../ceammc/extra/CreamLibrary/Sources/c.radio.cpp:415
 #: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:418
 #: ../ceammc/extra/CreamLibrary/Sources/c.slider.cpp:332
@@ -263,8 +271,18 @@ msgstr "Bang"
 #: ../ceammc/extra/CicmWrapper/Sources/eclass.c:102
 #: ../ceammc/extra/CicmWrapper/Sources/eclass.c:112
 #: ../ceammc/extra/CicmWrapper/Sources/eclass.c:120
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:123
 #: ../ceammc/extra/CicmWrapper/Sources/eclass.c:126
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:131
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:138
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:147
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:156
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:166
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:174
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:180
 #: ../ceammc/extra/CicmWrapper/Sources/eclass.c:279
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:280
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:294
 msgid "Basic"
 msgstr "Базовые"
 
@@ -311,7 +329,7 @@ msgstr "CEAMMC объекты"
 msgid "Cancel"
 msgstr "Отмена"
 
-#: ../tcl/pd_deken.tcl:454
+#: ../tcl/pd_deken.tcl:454 ../tcl/pd_deken.tcl:478
 msgid "Cannot download/install libraries!"
 msgstr "Невозможно загрузить/установить библиотеки!"
 
@@ -331,6 +349,7 @@ msgstr "Свойства Canvas"
 msgid "Channels:"
 msgstr "Каналы:"
 
+#: ../ceammc/extra/CreamLibrary/Sources/c.radio.cpp:403
 #: ../ceammc/extra/CreamLibrary/Sources/c.radio.cpp:406
 msgid "Check List Mode"
 msgstr "Множественный выбор"
@@ -353,11 +372,19 @@ msgstr "Очистить меню"
 msgid "Close"
 msgstr "Закрыть"
 
+#: ../ceammc/extra/CreamLibrary/Sources/c.meter_tilde.cpp:265
+msgid "Cold signal color"
+msgstr "Холодный цвет"
+
 #: ../tcl/dialog_iemgui.tcl:718
 msgid "Colors"
 msgstr "Цвета"
 
-#: ../tcl/pd_deken.tcl:469
+#: ../ceammc/extra/CreamLibrary/Sources/c.matrix.cpp:474
+msgid "Columns"
+msgstr "Столбцы"
+
+#: ../tcl/pd_deken.tcl:469 ../tcl/pd_deken.tcl:493
 #, tcl-format
 msgid ""
 "Commencing downloading of:\n"
@@ -385,7 +412,7 @@ msgstr "Не удалось найти '%s' в %s"
 
 #: ../ceammc/extra/CreamLibrary/Sources/c.toggle.cpp:180
 msgid "Cross Color"
-msgstr ""
+msgstr "Цвет индикатора"
 
 #: ../tcl/pd_menus.tcl:165 ../tcl/pd_menus.tcl:168 ../tcl/pd_menus.tcl:174
 msgid "Cut"
@@ -464,6 +491,8 @@ msgstr "Режим редактирования"
 msgid "Edit library"
 msgstr "Изменить библиотеку"
 
+#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:541
+#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:547
 #: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:548
 msgid "Empty Button Color"
 msgstr "Цвет пустой ячейки"
@@ -489,15 +518,24 @@ msgid "Find Last Error"
 msgstr "Найти последнюю ошибку"
 
 #: ../tcl/pd_deken.tcl:319 ../tcl/pd_deken.tcl:324 ../tcl/pd_deken.tcl:331
-#: ../tcl/pd_deken.tcl:332 ../tcl/pd_deken.tcl:565 ../tcl/pd_deken.tcl:567
-#: ../tcl/pd_deken.tcl:578 ../tcl/pd_deken.tcl:580 ../tcl/pd_deken.tcl:590
-#: ../tcl/pd_deken.tcl:591 ../tcl/pd_deken.tcl:592 ../tcl/pd_deken.tcl:593
+#: ../tcl/pd_deken.tcl:332 ../tcl/pd_deken.tcl:348 ../tcl/pd_deken.tcl:565
+#: ../tcl/pd_deken.tcl:567 ../tcl/pd_deken.tcl:578 ../tcl/pd_deken.tcl:580
+#: ../tcl/pd_deken.tcl:590 ../tcl/pd_deken.tcl:591 ../tcl/pd_deken.tcl:592
+#: ../tcl/pd_deken.tcl:593 ../tcl/pd_deken.tcl:615 ../tcl/pd_deken.tcl:617
 msgid "Find externals"
 msgstr "Поиск расширений"
 
 #: ../tcl/pd_menus.tcl:250 ../tcl/pd_menus.tcl:253 ../tcl/pd_menus.tcl:264
 msgid "Find..."
 msgstr "Найти..."
+
+#: ../ceammc/extra/CreamLibrary/Sources/c.colorpanel.cpp:129
+msgid "First Hue"
+msgstr "Начальный оттенок"
+
+#: ../ceammc/extra/CreamLibrary/Sources/c.colorpanel.cpp:138
+msgid "First Lightness"
+msgstr "Начальная светлота"
 
 #: ../tcl/dialog_iemgui.tcl:519
 msgid "Flash Time (msec)"
@@ -511,18 +549,22 @@ msgid "Font"
 msgstr "Шрифт"
 
 #: ../ceammc/extra/CicmWrapper/Sources/eclass.c:85
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:139
 msgid "Font Name"
 msgstr "Имя шрифта"
 
-#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:113 ../tcl/dialog_font.tcl:121
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:113
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:167 ../tcl/dialog_font.tcl:121
 msgid "Font Size"
 msgstr "Размер шрифта"
 
 #: ../ceammc/extra/CicmWrapper/Sources/eclass.c:103
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:157
 msgid "Font Slant"
 msgstr "Начертание"
 
 #: ../ceammc/extra/CicmWrapper/Sources/eclass.c:94
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:148
 msgid "Font Weight"
 msgstr "Жирность шрифта"
 
@@ -572,11 +614,17 @@ msgstr ""
 msgid "Horizontal range"
 msgstr "Горизонтальный диапазон"
 
+#: ../ceammc/extra/CreamLibrary/Sources/c.meter_tilde.cpp:283
+msgid "Hot signal color"
+msgstr "Горячий цвет"
+
+#: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:556
 #: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:572
 msgid "Hover Color"
 msgstr "Цвет наведения"
 
 #: ../ceammc/extra/CreamLibrary/Sources/c.menu.cpp:113
+#: ../ceammc/extra/CreamLibrary/Sources/c.menu.cpp:114
 msgid "Hover Mode"
 msgstr "Режим наведения"
 
@@ -607,11 +655,11 @@ msgstr ""
 msgid "Input Devices"
 msgstr "Устройства ввода"
 
-#: ../tcl/pd_deken.tcl:283
+#: ../tcl/pd_deken.tcl:283 ../tcl/pd_deken.tcl:293
 msgid "Install libraries to directory:"
 msgstr "Установить в директорию:"
 
-#: ../tcl/pd_deken.tcl:458
+#: ../tcl/pd_deken.tcl:458 ../tcl/pd_deken.tcl:482
 #, tcl-format
 msgid "Install to directory %s?"
 msgstr "Установить в директорию «%s»?"
@@ -625,6 +673,8 @@ msgid "Item Color"
 msgstr "Цвет элемента"
 
 #: ../ceammc/extra/CreamLibrary/Sources/c.menu.cpp:120
+#: ../ceammc/extra/CreamLibrary/Sources/c.menu.cpp:121
+#: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:546
 #: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:549
 msgid "Items"
 msgstr "Элементы"
@@ -637,7 +687,11 @@ msgstr "Переход при клике"
 msgid "Keys"
 msgstr "Число клавиш"
 
+#: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:417
 #: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:430
+#: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:436
+#: ../ceammc/extra/CreamLibrary/Sources/c.slider.cpp:332
+#: ../ceammc/extra/CreamLibrary/Sources/c.slider.cpp:339
 #: ../ceammc/extra/CreamLibrary/Sources/c.slider.cpp:344
 msgid "Knob Color"
 msgstr "Цвет ползунка"
@@ -713,6 +767,11 @@ msgstr "Отступ:"
 msgid "Match whole word only"
 msgstr "Только полное совпадение"
 
+#: ../ceammc/extra/CreamLibrary/Sources/c.colorpanel.cpp:112
+msgid "Matrix Reversed"
+msgstr "Обратная матрица"
+
+#: ../ceammc/extra/CreamLibrary/Sources/c.colorpanel.cpp:105
 #: ../ceammc/extra/CreamLibrary/Sources/c.matrix.cpp:343
 msgid "Matrix Size"
 msgstr "Размер матрицы"
@@ -735,7 +794,11 @@ msgstr ""
 msgid "Max Text Files (.mxt)"
 msgstr ""
 
+#: ../ceammc/extra/CreamLibrary/Sources/c.number.cpp:455
+#: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:407
 #: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:411
+#: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:419
+#: ../ceammc/extra/CreamLibrary/Sources/c.slider.cpp:329
 msgid "Maximum Value"
 msgstr "Максимальное значение"
 
@@ -759,9 +822,17 @@ msgstr "Сообщения"
 msgid "Minimize"
 msgstr "Свернуть"
 
+#: ../ceammc/extra/CreamLibrary/Sources/c.number.cpp:448
+#: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:400
 #: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:404
+#: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:412
+#: ../ceammc/extra/CreamLibrary/Sources/c.slider.cpp:322
 msgid "Minimum Value"
 msgstr "Минимальное значение"
+
+#: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:426
+msgid "Mouse sync"
+msgstr "Синхронизировать с мышью"
 
 #: ../tcl/dialog_array.tcl:270
 msgid "Name:"
@@ -786,13 +857,13 @@ msgstr "Следующее окно"
 msgid "No init"
 msgstr ""
 
-#: ../tcl/pd_deken.tcl:409 ../tcl/pd_deken.tcl:410
+#: ../tcl/pd_deken.tcl:409 ../tcl/pd_deken.tcl:410 ../tcl/pd_deken.tcl:432
 msgid "No matching externals found. Try using the full name e.g. 'freeverb'."
 msgstr ""
 "Расширение не найдено. Попробуйте использовать полное имя, например "
 "‘freeverb’."
 
-#: ../tcl/pd_deken.tcl:452
+#: ../tcl/pd_deken.tcl:452 ../tcl/pd_deken.tcl:476
 msgid "No writeable directory found in:"
 msgstr "Не найдена директория доступная для записи среди:"
 
@@ -808,9 +879,14 @@ msgstr "Число ячеек:"
 msgid "Number"
 msgstr "Число"
 
+#: ../ceammc/extra/CreamLibrary/Sources/c.radio.cpp:394
 #: ../ceammc/extra/CreamLibrary/Sources/c.radio.cpp:397
 msgid "Number of Items"
 msgstr "Число элементов"
+
+#: ../ceammc/extra/CreamLibrary/Sources/c.number_tilde.cpp:244
+msgid "Number of decimal"
+msgstr "Число разрядов"
 
 #: ../tcl/dialog_iemgui.tcl:528 ../tcl/pd_menus.tcl:227 ../tcl/pd_menus.tcl:230
 #: ../tcl/pd_menus.tcl:241
@@ -836,7 +912,7 @@ msgstr ""
 msgid "Object"
 msgstr "Объект"
 
-#: ../tcl/pd_deken.tcl:354 ../tcl/pd_deken.tcl:355
+#: ../tcl/pd_deken.tcl:354 ../tcl/pd_deken.tcl:355 ../tcl/pd_deken.tcl:377
 msgid "Only install externals uploaded by people you trust."
 msgstr "Устанавливайте расширения только от людей, которым вы доверяете."
 
@@ -875,6 +951,10 @@ msgstr "Устройства вывода"
 msgid "Output Range"
 msgstr "Диапазон значений"
 
+#: ../ceammc/extra/CreamLibrary/Sources/c.meter_tilde.cpp:289
+msgid "Overload signal color"
+msgstr "Цвет перегрузки"
+
 #: ../tcl/dialog_iemgui.tcl:613
 msgid "Parameters"
 msgstr "Параметры"
@@ -889,6 +969,7 @@ msgid "Paste"
 msgstr "Вставить"
 
 #: ../ceammc/extra/CicmWrapper/Sources/eclass.c:70
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:124
 msgid "Patching Size"
 msgstr "Размер"
 
@@ -923,10 +1004,11 @@ msgid "Pd window"
 msgstr ""
 
 #: ../ceammc/extra/CicmWrapper/Sources/eclass.c:78
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:132
 msgid "Pinned"
-msgstr ""
+msgstr "Закрепить на нижнем слое"
 
-#: ../tcl/pd_deken.tcl:496 ../tcl/pd_deken.tcl:497
+#: ../tcl/pd_deken.tcl:496 ../tcl/pd_deken.tcl:497 ../tcl/pd_deken.tcl:521
 msgid "Please perform the following steps manually:"
 msgstr "Пожалуйста, сделайте вручную следующие шаги:"
 
@@ -946,6 +1028,8 @@ msgid "Preferences"
 msgstr "Настройки"
 
 #: ../ceammc/extra/CicmWrapper/Sources/eclass.c:280
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:281
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:295
 msgid "Preset Name"
 msgstr "Имя для пресета"
 
@@ -983,6 +1067,7 @@ msgid "Range and size"
 msgstr "Диапазон и размер"
 
 #: ../ceammc/extra/CicmWrapper/Sources/eclass.c:121
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:175
 msgid "Receive Symbol"
 msgstr "Получать из"
 
@@ -1030,6 +1115,15 @@ msgstr "Повторить вставку"
 msgid "Redo typing"
 msgstr "Повторить ввод"
 
+#: ../ceammc/extra/CreamLibrary/Sources/c.meter_tilde.cpp:255
+#: ../ceammc/extra/CreamLibrary/Sources/c.number_tilde.cpp:236
+msgid "Refresh interval (ms)"
+msgstr "Интервал обновления (мс)"
+
+#: ../ceammc/extra/CreamLibrary/Sources/c.slider.cpp:314
+msgid "Relative Mode"
+msgstr "Относительный режим"
+
 #: ../tcl/pd_menus.tcl:339 ../tcl/pd_menus.tcl:346 ../tcl/pd_menus.tcl:357
 msgid "Report a bug"
 msgstr "Сообщить об ошибке"
@@ -1038,9 +1132,17 @@ msgstr "Сообщить об ошибке"
 msgid "Right"
 msgstr "Справа"
 
+#: ../ceammc/extra/CreamLibrary/Sources/c.matrix.cpp:465
+msgid "Rows"
+msgstr "Ряды"
+
 #: ../tcl/dialog_audio.tcl:153
 msgid "Sample rate:"
 msgstr "Частота сэмплирования:"
+
+#: ../ceammc/extra/CreamLibrary/Sources/c.colorpanel.cpp:120
+msgid "Saturation"
+msgstr "Насыщенность"
 
 #: ../tcl/pd_menus.tcl:55 ../tcl/pd_menus.tcl:61 ../tcl/pd_menus.tcl:82
 #: ../tcl/pd_menus.tcl:88 ../tcl/pd_menus.tcl:112 ../tcl/pd_menus.tcl:114
@@ -1083,6 +1185,7 @@ msgid "Scale"
 msgstr "Масштаб"
 
 #: ../tcl/pd_deken.tcl:294 ../tcl/pd_deken.tcl:295 ../tcl/pd_deken.tcl:296
+#: ../tcl/pd_deken.tcl:306
 msgid "Search"
 msgstr "Поиск"
 
@@ -1090,7 +1193,7 @@ msgstr "Поиск"
 msgid "Search in"
 msgstr "Поиск в"
 
-#: ../tcl/pd_deken.tcl:385 ../tcl/pd_deken.tcl:386
+#: ../tcl/pd_deken.tcl:385 ../tcl/pd_deken.tcl:386 ../tcl/pd_deken.tcl:408
 msgid "Searching for externals..."
 msgstr "…Поиск расширений"
 
@@ -1100,13 +1203,14 @@ msgstr "Выделить все"
 
 #: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:560
 msgid "Selected Button Color"
-msgstr ""
+msgstr "Цвет выделенной кнопки"
 
 #: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:578
 msgid "Selection Color"
 msgstr "Цвет выделения"
 
 #: ../ceammc/extra/CicmWrapper/Sources/eclass.c:127
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:181
 msgid "Send Symbol"
 msgstr "Отправлять"
 
@@ -1128,8 +1232,8 @@ msgid "Shift"
 msgstr "Смещение"
 
 #: ../tcl/pd_deken.tcl:292 ../tcl/pd_deken.tcl:293 ../tcl/pd_deken.tcl:294
-#: ../tcl/pd_deken.tcl:337 ../tcl/pd_deken.tcl:342 ../tcl/pd_deken.tcl:349
-#: ../tcl/pd_deken.tcl:350
+#: ../tcl/pd_deken.tcl:304 ../tcl/pd_deken.tcl:337 ../tcl/pd_deken.tcl:342
+#: ../tcl/pd_deken.tcl:349 ../tcl/pd_deken.tcl:350 ../tcl/pd_deken.tcl:372
 msgid "Show all"
 msgstr "Показать все"
 
@@ -1178,6 +1282,12 @@ msgstr "Запуск..."
 msgid "Steady on click"
 msgstr "Не реагировать на клик"
 
+#: ../ceammc/extra/CreamLibrary/Sources/c.incdec.cpp:88
+msgid "Step increment"
+msgstr "Шаг инкремента"
+
+#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:547
+#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:553
 #: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:554
 msgid "Stored Button Color"
 msgstr "Цвет сохраненной ячейки"
@@ -1186,7 +1296,7 @@ msgstr "Цвет сохраненной ячейки"
 msgid "Stretch"
 msgstr "Масштаб"
 
-#: ../tcl/pd_deken.tcl:491
+#: ../tcl/pd_deken.tcl:491 ../tcl/pd_deken.tcl:515
 #, tcl-format
 msgid "Successfully unzipped %s into %s.\n"
 msgstr "Успешно распакован файл %s в директорию %s.\n"
@@ -1199,6 +1309,10 @@ msgstr "Символ"
 msgid "Tcl:"
 msgstr ""
 
+#: ../ceammc/extra/CreamLibrary/Sources/c.meter_tilde.cpp:271
+msgid "Tepid signal color"
+msgstr "Умеренный цвет"
+
 #: ../tcl/pd_menus.tcl:266 ../tcl/pd_menus.tcl:269 ../tcl/pd_menus.tcl:280
 msgid "Test Audio and MIDI..."
 msgstr "Проверка аудио и MIDI..."
@@ -1209,6 +1323,8 @@ msgstr ""
 
 #: ../ceammc/extra/CreamLibrary/Sources/c.menu.cpp:138
 #: ../ceammc/extra/CreamLibrary/Sources/c.number.cpp:444
+#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:535
+#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:541
 #: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:542
 #: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:566
 msgid "Text Color"
@@ -1225,7 +1341,7 @@ msgstr "Расставить"
 msgid "Title"
 msgstr "Текст"
 
-#: ../tcl/pd_deken.tcl:317 ../tcl/pd_deken.tcl:318
+#: ../tcl/pd_deken.tcl:317 ../tcl/pd_deken.tcl:318 ../tcl/pd_deken.tcl:330
 msgid "To get a list of all available externals, try an empty search."
 msgstr ""
 "Чтобы получить список всех доступных расширений используйте пустой запрос."
@@ -1235,6 +1351,7 @@ msgstr ""
 msgid "Toggle"
 msgstr ""
 
+#: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:539
 #: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:542
 msgid "Toggle Mode"
 msgstr "Режим переключателя"
@@ -1251,11 +1368,11 @@ msgstr "Крайнее верхнее значение"
 msgid "URL"
 msgstr "URL"
 
-#: ../tcl/pd_deken.tcl:495 ../tcl/pd_deken.tcl:496
+#: ../tcl/pd_deken.tcl:495 ../tcl/pd_deken.tcl:496 ../tcl/pd_deken.tcl:520
 msgid "Unable to extract package automatically."
 msgstr "Невозможно распаковать пакет автоматически."
 
-#: ../tcl/pd_deken.tcl:392 ../tcl/pd_deken.tcl:393
+#: ../tcl/pd_deken.tcl:392 ../tcl/pd_deken.tcl:393 ../tcl/pd_deken.tcl:415
 msgid "Unable to perform search. Are you online?"
 msgstr "Невозможно выполнить поиск. Вы онлайн?"
 
@@ -1298,7 +1415,7 @@ msgstr "Отменить вставку"
 msgid "Undo typing"
 msgstr "Отменить ввод"
 
-#: ../tcl/pd_deken.tcl:672
+#: ../tcl/pd_deken.tcl:672 ../tcl/pd_deken.tcl:696
 #, tcl-format
 msgid "Uploaded by %s @ %s"
 msgstr "Добавлено пользователем %s @ %s"
@@ -1311,7 +1428,7 @@ msgstr "До:"
 
 #: ../tcl/dialog_audio.tcl:170
 msgid "Use callbacks"
-msgstr ""
+msgstr "Использовать обратные вызовы"
 
 #: ../tcl/dialog_audio.tcl:320 ../tcl/dialog_midi.tcl:340
 msgid "Use multiple devices"
@@ -1342,6 +1459,7 @@ msgstr "Значение:"
 msgid "Verbose"
 msgstr "Подробный вывод"
 
+#: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:532
 #: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:535
 msgid "Vertical Orientation"
 msgstr "Вертикально"
@@ -1367,16 +1485,21 @@ msgstr "Vertial Slider"
 #: ../tcl/pd-gui.tcl:477 ../tcl/pd-gui.tcl:479 ../tcl/pd-gui.tcl:481
 #, tcl-format
 msgid "WARNING: Font family '%s' not found, using default (%s)\n"
-msgstr ""
+msgstr "ВНИМАНИЕ: Шрифт «%s» не найден, используется шрифт по умолчанию (%s)\n"
 
 #: ../tcl/pd-gui.tcl:485 ../tcl/pd-gui.tcl:487 ../tcl/pd-gui.tcl:489
 #, tcl-format
 msgid "WARNING: Font weight '%s' not found, using default (%s)\n"
 msgstr ""
+"ВНИМАНИЕ: Жирность шрифта «%s» не найдена, используется по умолчанию (%s)\n"
 
 #: ../tcl/dialog_canvas.tcl:122
 msgid "WARNING: unknown graphme flags received in pdtk_canvas_dialog"
 msgstr ""
+
+#: ../ceammc/extra/CreamLibrary/Sources/c.meter_tilde.cpp:277
+msgid "Warm signal color"
+msgstr "Теплый цвет"
 
 #: ../tcl/dialog_iemgui.tcl:529
 msgid "Width (digits):"
@@ -1506,7 +1629,8 @@ msgstr ""
 msgid "min:"
 msgstr ""
 
-#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:90 ../tcl/pdwindow.tcl:366
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:90
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:144 ../tcl/pdwindow.tcl:366
 msgid "normal"
 msgstr "обычный"
 
@@ -1518,7 +1642,7 @@ msgstr ""
 msgid "right:"
 msgstr ""
 
-#: ../tcl/pd_deken.tcl:579
+#: ../tcl/pd_deken.tcl:579 ../tcl/pd_deken.tcl:603
 #, tcl-format
 msgid "searching for '%s'"
 msgstr "поиск «%s»"

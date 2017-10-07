@@ -70,7 +70,7 @@ if(WIN32)
     install(DIRECTORY "${WISH_BINDIR}/../lib/tk8.6" DESTINATION "${PD_LIBTCL_INSTALL_PATH}")
     install(DIRECTORY "${WISH_BINDIR}/../lib/dde1.4" DESTINATION "${PD_LIBTCL_INSTALL_PATH}")
     install(DIRECTORY "${WISH_BINDIR}/../lib/tcllib1.18" DESTINATION "${PD_LIBTCL_INSTALL_PATH}")
-    install(DIRECTORY "${WISH_BINDIR}/../lib/tklib0.5" DESTINATION "${PD_LIBTCL_INSTALL_PATH}")
+    install(DIRECTORY "${WISH_BINDIR}/../lib/tooltip" DESTINATION "${PD_LIBTCL_INSTALL_PATH}")
     install(DIRECTORY "${WISH_BINDIR}/../lib/reg1.3" DESTINATION "${PD_LIBTCL_INSTALL_PATH}")
     
     # pthreadGC-3.dll
@@ -112,12 +112,69 @@ if(WIN32)
         install(PROGRAMS ${VORBISENCDLL_PATH} DESTINATION ${PD_EXE_INSTALL_PATH})
     endif()
 
+    # install libmodplug-1.dll
+    find_file(MODPLUGDLL_PATH NAMES libmodplug-1.dll PATHS ${WISH_BINDIR})
+    if(MODPLUGDLL_PATH)
+        install(PROGRAMS ${MODPLUGDLL_PATH} DESTINATION ${PD_EXE_INSTALL_PATH})
+    endif()
+
+    # install libfftw3f-3.dll
+    find_file(FFTWDLL_PATH NAMES libfftw3f-3.dll PATHS ${WISH_BINDIR})
+    if(FFTWDLL_PATH)
+        install(PROGRAMS ${FFTWDLL_PATH} DESTINATION ${PD_EXE_INSTALL_PATH})
+    endif()
+
     # mingw runtime libs
+
     get_filename_component(_MINGW_PATH ${CMAKE_CXX_COMPILER} PATH)
-    set(_MINGW_BIN ${_MINGW_PATH}/../i686-w64-mingw32/bin)
-    set(CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS ${_MINGW_BIN}/libgcc_s_dw2-1.dll ${_MINGW_BIN}/libstdc++-6.dll )
-    include(InstallRequiredSystemLibraries)
+    set(_MINGW_SYSROOT1 ${_MINGW_PATH}/../i686-w64-mingw32/bin )
+
+    execute_process(COMMAND ${CMAKE_CXX_COMPILER} -print-libgcc-file-name OUTPUT_VARIABLE _LIBGCC_FNAME)
+    get_filename_component(_LIBGCC_PATH ${_LIBGCC_FNAME} DIRECTORY)
+    set(_MINGW_SYSROOT2 ${_LIBGCC_PATH}/../../../../i686-w64-mingw32/lib)
+
+    # C++ runtime
+    find_file(LIBSTDXX_DLL
+        NAME libstdc++-6.dll
+        PATHS ${_MINGW_SYSROOT1} ${_MINGW_SYSROOT2})
+
+    if(LIBSTDXX_DLL)
+        message(STATUS "MinGW runtime: ${LIBSTDXX_DLL} found")
+        list(APPEND CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS ${LIBSTDXX_DLL})
+    endif()
+
+    # C runtime
+    find_file(LIBGCC_RUNTIME_DLL
+        NAME libgcc_s_sjlj-1.dll libgcc_s_dw2-1.dll
+        PATHS ${_MINGW_SYSROOT1} ${_MINGW_SYSROOT2})
+
+    if(LIBGCC_RUNTIME_DLL)
+        message(STATUS "MinGW runtime: ${LIBGCC_RUNTIME_DLL} found")
+        list(APPEND CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS ${LIBGCC_RUNTIME_DLL})
+    endif()
     
+    # thread
+    find_file(LIBWINPTHREAD
+        NAME libwinpthread-1.dll
+        PATHS ${_MINGW_SYSROOT1} ${_MINGW_SYSROOT2} ${_MINGW_SYSROOT2}/../bin)
+
+    if(LIBWINPTHREAD)
+        message(STATUS "MinGW runtime: ${LIBWINPTHREAD} found")
+        list(APPEND CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS ${LIBWINPTHREAD})
+    endif()
+
+    # msvcr100.dll
+    find_file(MSVCR100
+        NAME msvcr100.dll
+        PATHS ${CMAKE_INSTALL_PREFIX}/bin)
+
+    if(MSVCR100)
+        message(STATUS "MinGW runtime: ${MSVCR100} found")
+        list(APPEND CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS ${MSVCR100})
+    endif()
+
+    include(InstallRequiredSystemLibraries)
+
     # libportaudio-2.dll
     find_file(LIBPORTAUDIO_DLL NAMES libportaudio-2.dll PATHS /usr/bin /usr/local/bin)
     if(LIBPORTAUDIO_DLL)

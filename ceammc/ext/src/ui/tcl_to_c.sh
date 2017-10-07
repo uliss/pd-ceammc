@@ -1,4 +1,5 @@
 #!/bin/sh
+ECHO=`which gecho`
 
 if [ $# -ne 2 ]
 then
@@ -22,7 +23,7 @@ echo "void $2() {"
 cat "$1" | sed '/^\s*$/d' | sed '/^#/d' | while read line
 do
     line=$(echo $line | sed s/\"/\\\\\"/g)
-    `which echo` -E '    sys_gui("'$line'\n");'
+    $ECHO -E '    sys_gui("'$line'\n");'
 done
 
 echo "}"

@@ -6,7 +6,7 @@
             <authors>
                 <author>Hans-Christoph Steiner</author>
             </authors>
-            <description>S</description>
+            <description>Get information about cursor motion, mousewheel and buttonclick</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>system</category>

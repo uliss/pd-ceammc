@@ -17,33 +17,36 @@
 
 #include "m_pd.h"
 
-static t_class* ceammc_class;
+static t_class* ceammc_class = 0;
 
-static void* ceammc_new(t_symbol*)
+static void* ceammc_new()
 {
     t_object* x = reinterpret_cast<t_object*>(pd_new(ceammc_class));
-    if (x) {
-        post("CEAMMC extension library\n"
-             "       © 2016-2017 Serge Poltavsky and Alex Nadzharov.\n"
-             "       version: %s\n"
-             "       url: %s\n"
-             "       license: GPL-3\n"
-             "       build date: '%s'\n"
-             "       contains code from CICM-Wrapper",
-            CEAMMC_LIB_VERSION, CEAMMC_LIB_HOME, __DATE__);
+    if (!x) {
+        pd_error(0, "[ceammc] load error");
+        return NULL;
+    }
 
-        int major, minor, fix;
-        sys_getversion(&major, &minor, &fix);
-        int runtime_version = 10000 * major + 100 * minor + fix;
+    post("CEAMMC extension library\n"
+         "       © 2016-2017 Serge Poltavsky and Alex Nadzharov.\n"
+         "       version: %s\n"
+         "       url: %s\n"
+         "       license: GPL-3\n"
+         "       build date: '%s'\n"
+         "       contains code from CICM-Wrapper",
+        CEAMMC_LIB_VERSION, CEAMMC_LIB_HOME, __DATE__);
 
-        int compiled_version = 10000 * PD_MAJOR_VERSION + 100 * PD_MINOR_VERSION + PD_BUGFIX_VERSION;
+    int major, minor, fix;
+    sys_getversion(&major, &minor, &fix);
+    int runtime_version = 10000 * major + 100 * minor + fix;
 
-        if (runtime_version < compiled_version) {
-            pd_error(0, "[ceammc] WARNING: running on Pd version (%d.%d.%d) "
-                        "that is older then ceammc library was compiled for (%d.%d.%d). "
-                        "Not all featers can be supported.",
-                major, minor, fix, PD_MAJOR_VERSION, PD_MINOR_VERSION, PD_BUGFIX_VERSION);
-        }
+    int compiled_version = 10000 * PD_MAJOR_VERSION + 100 * PD_MINOR_VERSION + PD_BUGFIX_VERSION;
+
+    if (runtime_version < compiled_version) {
+        pd_error(0, "[ceammc] WARNING: running on Pd version (%d.%d.%d) "
+                    "that is older then ceammc library was compiled for (%d.%d.%d). "
+                    "Not all featers can be supported.",
+            major, minor, fix, PD_MAJOR_VERSION, PD_MINOR_VERSION, PD_BUGFIX_VERSION);
     }
 
     return x;
@@ -51,12 +54,21 @@ static void* ceammc_new(t_symbol*)
 
 extern "C" void ceammc_setup()
 {
-    ceammc_class = class_new(gensym("ceammc"),
-        reinterpret_cast<t_newmethod>(ceammc_new),
-        reinterpret_cast<t_method>(pd_free),
-        sizeof(t_object), CLASS_PD, A_NULL, 0);
+    if (ceammc_class) {
+        post("%s", "already loaded");
+        return;
+    }
 
-    ceammc_new(NULL);
+    ceammc_class = class_new(gensym("ceammc"),
+        reinterpret_cast<t_newmethod>(ceammc_new), 0,
+        sizeof(t_object), CLASS_NOINLET, A_NULL);
+
+    if (!ceammc_class) {
+        pd_error(0, "[ceammc] can't create library class");
+        return;
+    }
+
+    ceammc_new();
     ceammc_init();
 }
 

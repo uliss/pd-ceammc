@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="ui.number~" type="gui">
+        <title>ui.number~</title>
+        <meta>
+            <authors>
+                <author>Pierre Guillot</author>
+            </authors>
+            <description>counterpart of the vanilla [nbx] for signal</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category view="link">ui</category>
+            <keywords>ui number</keywords>
+            <since>0.1</since>
+            <also>
+                <see view="link">ui.number</see>
+            </also>
+        </meta>
+        <properties>
+            <property name="@interval" type="int" default="50" minvalue="20" units="millisecond">
+            refresh interval</property>
+            <property name="@decimal" type="int" minvalue="0" maxvalue="6" default="6">
+            number of decimal</property>
+            <property name="@send" type="symbol">send destination</property>
+            <property name="@receive" type="symbol">receive source</property>
+        </properties>
+        <inlets>
+            <inlet type="audio">
+                <xinfo on="bang">outputs current value to second outlet</xinfo>
+                <xinfo>input audio signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">signal pass thru</outlet>
+            <outlet>output signal amplitude</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[osc~ 0.15]
+|
+|
+[ui.number~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

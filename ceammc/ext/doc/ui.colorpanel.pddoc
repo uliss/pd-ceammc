@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="ui.colorpanel" type="gui">
+        <title>ui.colorpanel</title>
+        <meta>
+            <authors>
+                <author>Pierre Guillot</author>
+            </authors>
+            <description>colorchooser widget</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category view="link">ui</category>
+            <keywords>ui color choose</keywords>
+            <since>0.1</since>
+            <also>
+                <see view="link">ui.number</see>
+            </also>
+        </meta>
+        <properties>
+            <property name="@matrix" type="list" default="24 13">matrix size</property>
+            <property name="@reversed" type="int" enum="0 1" default="0">matrix reversed</property>
+            <property name="@saturation" type="float" default="1">saturation</property>
+            <property name="@hue" type="float" default="0">first hue</property>
+            <property name="@lightness" type="float" default="1">first lightness</property>
+            <property name="@send" type="symbol">send destination</property>
+            <property name="@receive" type="symbol">receive source</property>
+        </properties>
+        <methods>
+            <method name="set">set widget value with no output
+            <param name="COL" type="int" required="true">column index</param>
+            <param name="ROW" type="int" required="true">row index</param></method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">outputs current widget value</xinfo>
+                <xinfo on="list">pair of COL ROW indexes expected</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output values: @pd COLOR, @rgb in range [0-1], @hsl in range [0-1], @hex</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.colorpanel]          [ui.colorpanel @size 193 14]
+|                        |
+|                        |
+|                        [route @rgb]
+|                        |
+|                        [msg @background_color]
+|                        |
+|                        [ui.radio]
+|
+[route @pd]
+|
+[color $1(
+|
+[tgl]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
