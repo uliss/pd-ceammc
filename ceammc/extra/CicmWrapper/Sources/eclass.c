@@ -330,7 +330,9 @@ void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, 
                 return;
             }
         }
-        attr = (t_eattr*)malloc(sizeof(t_eattr));
+
+        attr = (t_eattr*)getbytes(sizeof(t_eattr));
+
         if (attr) {
             attr->name = gensym(attrname);
             attr->type = gensym(type);
@@ -355,7 +357,8 @@ void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, 
             attr->itemslist = NULL;
             attr->itemssize = 0;
 
-            attrs = (t_eattr**)realloc(c->c_attr, (size_t)(c->c_nattr + 1) * sizeof(t_eattr*));
+            size_t new_sz = (size_t)(c->c_nattr + 1) * sizeof(t_eattr*);
+            attrs = (t_eattr**)resizebytes(c->c_attr, new_sz, new_sz);
             if (attrs) {
                 char buf[MAXPDSTRING];
                 c->c_attr = attrs;
@@ -458,11 +461,12 @@ void eclass_attr_itemlist(t_eclass* c, const char* attrname, long flags, const c
             }
             if (size > 0) {
                 if (c->c_attr[i]->itemssize) {
-                    c->c_attr[i]->itemslist = (t_symbol**)realloc(c->c_attr[i]->itemslist, (unsigned long)size * sizeof(t_symbol*));
+                    size_t new_sz = (unsigned long)size * sizeof(t_symbol*);
+                    c->c_attr[i]->itemslist = (t_symbol**)resizebytes(c->c_attr[i]->itemslist, new_sz, new_sz);
                     if (c->c_attr[i]->itemslist)
                         c->c_attr[i]->itemssize = size;
                 } else {
-                    c->c_attr[i]->itemslist = (t_symbol**)calloc((unsigned long)size, sizeof(t_symbol*));
+                    c->c_attr[i]->itemslist = (t_symbol**)getbytes((unsigned long)size * sizeof(t_symbol*));
                     if (c->c_attr[i]->itemslist)
                         c->c_attr[i]->itemssize = size;
                 }
@@ -477,7 +481,7 @@ void eclass_attr_itemlist(t_eclass* c, const char* attrname, long flags, const c
 
             } else {
                 if (c->c_attr[i]->itemssize)
-                    free(c->c_attr[i]->itemslist);
+                    freebytes(c->c_attr[i]->itemslist, 0);
                 c->c_attr[i]->itemssize = 0;
             }
             return;
@@ -608,7 +612,8 @@ void eclass_attr_getter(t_object* x, t_symbol* s, int* argc, t_atom** argv)
 
         point = (char*)x + c->c_attr[i]->offset;
 
-        argv[0] = (t_atom*)calloc((size_t)*argc, sizeof(t_atom));
+        argv[0] = (t_atom*)getbytes((size_t)*argc * sizeof(t_atom));
+
         if (c->c_attr[i]->getter) {
             c->c_attr[i]->getter(x, c->c_attr[i], argc, argv);
         } else if (type == s_int) {
@@ -675,7 +680,7 @@ void eclass_attr_ceammc_getter(t_object* x, t_symbol* s, int a, t_atom* l)
         t_symbol* prop_at_name = gensym(buf);
         outlet_anything(z->b_obj.o_obj.te_outlet, prop_at_name, argc_, argv_);
         // free memory allocated in eclass_attr_getter()
-        free(argv_);
+        freebytes(argv_, 0);
     } else {
         memcpy(buf, s->s_name, len - 1);
         buf[len - 1] = '\0';
