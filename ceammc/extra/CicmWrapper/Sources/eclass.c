@@ -359,6 +359,7 @@ void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, 
 
             size_t new_sz = (size_t)(c->c_nattr + 1) * sizeof(t_eattr*);
             attrs = (t_eattr**)resizebytes(c->c_attr, new_sz, new_sz);
+
             if (attrs) {
                 char buf[MAXPDSTRING];
                 c->c_attr = attrs;

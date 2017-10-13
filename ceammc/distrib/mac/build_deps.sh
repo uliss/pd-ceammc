@@ -8,10 +8,20 @@ fi
 
 PKG=$1
 CWD=`pwd`
+OSX_MINOR_VER=`sw_vers -productVersion | cut -d. -f2`
+OSX_OLD=0
 
 PREFIX=/opt/local/universal
 export PKG_CONFIG_PATH="${PREFIX}/lib/pkgconfig"
-export CFLAGS='-arch x86_64 -arch i386 -O2'
+
+if [ $OSX_MINOR_VER -lt 8 ]; then
+    export CFLAGS='-arch i386 -O2'
+    OSX_OLD=1
+else
+    export CFLAGS='-arch x86_64 -arch i386 -O2'
+fi
+
+echo "CFLAGS: ${CFLAGS}"
 
 function banner() {
     echo "*****************************************************"
@@ -181,16 +191,20 @@ function install_fftw3() {
     brew unpack fftw
     cd fftw-*
 
+    OPTIONS=""
+    if [ ! $OSX_OLD ]; then
+       OPTIONS='--enable-avx' 
+    fi
+
     banner "Configure ${pkg} float"
     ./configure --enable-single \
         --prefix=${PREFIX} \
         --disable-fortran \
         --enable-sse \
         --enable-sse2 \
-        --enable-avx \
         --with-our-malloc \
         --enable-shared=yes \
-        --enable-static=no
+        --enable-static=no $OPTIONS
 
     banner "Build ${pkg} float"
     make -j3

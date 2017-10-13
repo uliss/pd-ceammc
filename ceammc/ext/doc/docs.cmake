@@ -271,6 +271,7 @@ set(DOC_FILES
     ui.number
     ui.link
     ui.number~
+    ui.preset
     ui.scope~
     ui.slider
     ui.slider2d

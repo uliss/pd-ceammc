@@ -278,6 +278,7 @@ path.exists
 path.ls
 path.lsdir
 pitch->midi
+prepend
 preset.float
 preset.list
 preset.storage

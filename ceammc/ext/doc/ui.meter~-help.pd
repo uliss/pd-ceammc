@@ -9,8 +9,8 @@ level;
 #X obj 194 118 phasor~ 0.2;
 #X obj 194 147 env~;
 #X obj 194 176 dbtorms;
-#X obj 50 205 ui.meter~;
-#X obj 194 205 ui.meter~;
+#X obj 50 205 ui.meter~ @size 15 120;
+#X obj 194 205 ui.meter~ @size 15 120;
 #X floatatom 50 334 5 0 0 0 - - -;
 #X obj 20 373 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 378 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144

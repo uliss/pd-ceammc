@@ -34,8 +34,16 @@ static const t_rgba LINK_COLOR_HOVER = hex_to_rgba("#FF0080");
 
 #ifdef __WIN32
 static t_symbol* LINK_FONT = gensym("Verdana");
-#else
+static float FIX_LINK_Y_POS = 5;
+static float FIX_TEXT_Y_OFF = 0;
+#elif __APPLE__
 static t_symbol* LINK_FONT = gensym("Menlo");
+static float FIX_LINK_Y_POS = 3;
+static float FIX_TEXT_Y_OFF = 1;
+#else
+static t_symbol* LINK_FONT = gensym("Terminus");
+static float FIX_LINK_Y_POS = 3;
+static float FIX_TEXT_Y_OFF = 0;
 #endif
 
 UI_fun(ui_link)::wx_paint(ui_link* zx, t_object*)
@@ -46,9 +54,13 @@ UI_fun(ui_link)::wx_paint(ui_link* zx, t_object*)
     t_elayer* g = ebox_start_layer(asBox(zx), BG_LAYER, rect.width, rect.height);
 
     if (g) {
+        float TEXT_XOFF = 2;
+        float TEXT_YOFF = rect.height + FIX_TEXT_Y_OFF;
+
         etext_layout_settextcolor(zx->t_e, &zx->link_color);
-        etext_layout_set(zx->t_e, zx->title->s_name, zx->t_ef, 3,
-            rect.height, rect.width, rect.height,
+        etext_layout_set(zx->t_e, zx->title->s_name, zx->t_ef,
+            TEXT_XOFF, TEXT_YOFF,
+            rect.width, rect.height,
             ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
 
         etext_layout_draw(zx->t_e, g);
@@ -99,7 +111,7 @@ static size_t text_width(t_symbol* txt, int sz)
 #endif
 
 #ifdef __WIN32
-    char_wd += 3;
+    char_wd += 2;
 #endif
 
     return char_wd * len + corr;
@@ -123,6 +135,11 @@ UI_fun(ui_link)::new_ext(ui_link* zx, t_symbol*, int, t_atom*)
         atom_setfloat(&data[1], 0);
         zx->b_box.b_rect.width = w;
         eobj_attr_setvalueof(zx, gensym("size"), 2, data);
+
+        // fix y-position
+        atom_setfloat(&data[0], zx->b_box.b_obj.o_obj.te_xpix);
+        atom_setfloat(&data[1], zx->b_box.b_obj.o_obj.te_ypix + FIX_LINK_Y_POS);
+        eobj_attr_setvalueof(zx, gensym("pos"), 2, data);
     }
 
     zx->link_color = hex_to_rgba("#00A0C0");
@@ -145,7 +162,7 @@ UI_fun(ui_link)::wx_oksize(ui_link* zx, t_rect* newrect)
 #ifndef __WIN32
     newrect->height = ebox_fontheight(asBox(zx));
 #else
-    newrect->height = floorf(1.5 * ebox_fontheight(asBox(zx)));
+    newrect->height = floorf(1.5 * ebox_fontheight(asBox(zx)) * ebox_getzoom(asBox(zx)));
 #endif
 }
 

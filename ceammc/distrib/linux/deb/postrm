@@ -1,0 +1,9 @@
+#!/bin/sh
+
+if [ "$1" = "remove" ]; then
+	rm /usr/bin/pd-ceammc
+	rm /usr/bin/pdsend-ceammc
+	rm /usr/bin/pdreceive-ceammc
+	ldconfig
+fi
+

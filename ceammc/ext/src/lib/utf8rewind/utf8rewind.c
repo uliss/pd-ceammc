@@ -557,24 +557,7 @@ UTF8_API size_t utf8envlocale()
 	*/
 
 #if WIN32 || _WINDOWS
-	#define UTF8_LOCALE_CHECK(_name, _ansiCodepage, _oemCodepage) \
-		(codepage == _ansiCodepage || codepage == _oemCodepage)
-
-	unsigned int codepage;
-	_locale_t locale = _get_current_locale();
-
-	if (locale == 0)
-	{
-		return UTF8_LOCALE_DEFAULT;
-	}
-
-	// Microsoft changed the name of the codepage member in VS2015.
-
-	#if _MSC_VER >= 1900
-		codepage = ((__crt_locale_data_public*)(locale)->locinfo)->_locale_lc_codepage;
-	#else
-		codepage = locale->locinfo->lc_codepage;
-	#endif
+    return UTF8_LOCALE_DEFAULT;
 #else
 	#define UTF8_LOCALE_CHECK(_name, _ansiCodepage, _oemCodepage) \
 		!strncasecmp(locale, _name, 5)

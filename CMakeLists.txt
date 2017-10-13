@@ -86,3 +86,5 @@ add_custom_target(puredata_changelog SOURCES CHANGELOG.md)
 
 file(GLOB _DEB_FILES "debian/*")
 add_custom_target(deb_files SOURCES ${_DEB_FILES})
+
+add_custom_target(ci_files SOURCES .travis.yml appveyor.yml)

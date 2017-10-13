@@ -1,4 +1,35 @@
+# get commmit information
+set(GIT_BRANCH "master")
+set(GIT_COMMIT "")
+string(TIMESTAMP BUILD_DATETIME "%d %m %Y UTC %H:%M:%S " UTC)
+if(EXISTS "${CMAKE_SOURCE_DIR}/.git")
+    find_program(_GIT git)
+    if(_GIT)
+        execute_process(
+            COMMAND ${_GIT} symbolic-ref --short HEAD
+            WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+            OUTPUT_VARIABLE GIT_BRANCH
+            OUTPUT_STRIP_TRAILING_WHITESPACE)
+        execute_process(
+            COMMAND ${_GIT} describe --tags
+            WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+            OUTPUT_VARIABLE GIT_COMMIT
+            OUTPUT_STRIP_TRAILING_WHITESPACE)
+    endif()
+
+    message(STATUS "Build from source git:
+        branch: ${GIT_BRANCH}
+        commit: ${GIT_COMMIT}
+        date:   ${BUILD_DATETIME}")
+else()
+    message(STATUS "Build from source tarball
+        date:   ${BUILD_DATETIME}")
+endif()
+
+# generating about info page
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/about.pd ${CMAKE_CURRENT_BINARY_DIR}/about.pd @ONLY)
+
+# doc file list
 include(docs.cmake)
 
 if(NOT PD_LIB2PD)
@@ -59,16 +90,24 @@ else()
     set(DOC_INSTALL_PATH "${PD_DOC_INSTALL_PATH}/extra/ceammc")
 endif()
 
+    # install all help files
     foreach(_doc_file ${DOC_FILES})
         install(FILES "${_doc_file}-help.pd"
             DESTINATION ${DOC_INSTALL_PATH}
             PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
     endforeach()
 
+    # About Pd page
     install(FILES "${CMAKE_CURRENT_BINARY_DIR}/about.pd" DESTINATION ${DOC_INSTALL_PATH}
         PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
 
+    # Documentation index install
     install(FILES "index-help.pd" DESTINATION "${DOC_INSTALL_PATH}/.."
+        PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
+
+    # ui.preset example prs.txt install
+    # NOTE: should do this by regexp?
+    install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/prs.txt" DESTINATION ${DOC_INSTALL_PATH}
         PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
 
     install(
@@ -95,4 +134,6 @@ endif()
 file(GLOB _PDDOC_FILES "*.pddoc")
 file(GLOB _PDDOC_XML_FILES "*.xml")
 add_custom_target(pddoc_files SOURCES ${_PDDOC_FILES} ${_PDDOC_XML_FILES} ceammc.db ls_missing_doc.py)
+file(GLOB _PDDOC_PD_FILES "*.pd")
+add_custom_target(pddoc_pd_files SOURCES ${_PDDOC_PD_FILES})
 

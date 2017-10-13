@@ -22,7 +22,7 @@
 1 @borderwidth 1 @labeloffset 0 0;
 #X obj 60 116 cnv 3 3 50 empty empty empty 20 12 0 14 -99865 -66577
 0;
-#X text 60 194 This is PureData distribution @CEAMMC_DISTRIB_VERSION@
+#X text 60 194 This is PureData distribution v@CEAMMC_DISTRIB_VERSION@
 by Centre of electoacoustic music of Moscow Conservatory (CEAMMC) and
 ZIL-electro studio. Made by Serge Poltavsky and Alex Nadzharov. It
 based on original 'vanilla' Pd-@PD_TEXT_VERSION_SHORT@ by Miller Puckette.
@@ -42,11 +42,11 @@ based on original 'vanilla' Pd-@PD_TEXT_VERSION_SHORT@ by Miller Puckette.
 #X text 150 164 Distribution version:;
 #X text 150 179 ceammc version:;
 #X text 150 149 Git commit:;
-#X text 315 104 %BUILD_DATE%;
-#X text 315 149 %GIT_COMMIT%;
-#X text 315 134 %GIT_BRANCH%;
+#X text 315 104 @BUILD_DATETIME@;
+#X text 315 149 @GIT_COMMIT@;
+#X text 315 134 @GIT_BRANCH@;
 #X text 150 134 Git branch:;
-#X text 315 164 @CEAMMC_DISTRIB_VERSION@;
+#X text 315 164 v@CEAMMC_DISTRIB_VERSION@;
 #X text 315 179 @CEAMMC_LIB_VERSION@;
 #X text 150 194 origin Pd version:;
 #X text 315 194 @PD_TEXT_VERSION_SHORT@;

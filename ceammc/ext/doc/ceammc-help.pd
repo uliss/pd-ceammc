@@ -669,41 +669,43 @@ level;
 #X text 175 9223 counterpart of the vanilla [nbx];
 #X obj 30 9249 ui.link @title [ui.number~] @url ui.number~-help.pd;
 #X text 175 9246 counterpart of the vanilla [nbx] for signal;
-#X obj 30 9272 ui.link @title [ui.radio] @url ui.radio-help.pd;
-#X text 175 9269 counterpart of the vanilla radio toggle;
-#X obj 30 9295 ui.link @title [ui.rslider] @url ui.rslider-help.pd;
-#X text 175 9292 rangle slider;
-#X obj 30 9318 ui.link @title [ui.scope~] @url ui.scope~-help.pd;
-#X text 175 9315 Scope GUI object;
-#X obj 30 9341 ui.link @title [ui.slider] @url ui.slider-help.pd;
-#X text 175 9338 counterpart of the vanilla slider;
-#X obj 30 9364 ui.link @title [ui.slider2d] @url ui.slider2d-help.pd;
-#X text 175 9361 2D slider widget;
-#X obj 30 9387 ui.link @title [ui.sliders] @url ui.sliders-help.pd;
-#X text 175 9384 Multiple slider widget;
-#X obj 30 9410 ui.link @title [ui.spectroscope~] @url
+#X obj 30 9272 ui.link @title [ui.preset] @url ui.preset-help.pd;
+#X text 175 9269 Cream GUI preset manager;
+#X obj 30 9295 ui.link @title [ui.radio] @url ui.radio-help.pd;
+#X text 175 9292 counterpart of the vanilla radio toggle;
+#X obj 30 9318 ui.link @title [ui.rslider] @url ui.rslider-help.pd;
+#X text 175 9315 rangle slider;
+#X obj 30 9341 ui.link @title [ui.scope~] @url ui.scope~-help.pd;
+#X text 175 9338 Scope GUI object;
+#X obj 30 9364 ui.link @title [ui.slider] @url ui.slider-help.pd;
+#X text 175 9361 counterpart of the vanilla slider;
+#X obj 30 9387 ui.link @title [ui.slider2d] @url ui.slider2d-help.pd;
+#X text 175 9384 2D slider widget;
+#X obj 30 9410 ui.link @title [ui.sliders] @url ui.sliders-help.pd;
+#X text 175 9407 Multiple slider widget;
+#X obj 30 9433 ui.link @title [ui.spectroscope~] @url
 ui.spectroscope~-help.pd;
-#X text 175 9407 Spectroscope GUI object;
-#X obj 30 9433 ui.link @title [ui.tab] @url ui.tab-help.pd;
-#X text 175 9430 displays a list of text buttons or text toggles;
-#X obj 30 9456 ui.link @title [ui.toggle] @url ui.toggle-help.pd;
-#X text 175 9453 modern toggle widget;
-#X obj 20 9476 cnv 5 69 31 empty empty vector 4 13 0 17 -262144 -49933
+#X text 175 9430 Spectroscope GUI object;
+#X obj 30 9456 ui.link @title [ui.tab] @url ui.tab-help.pd;
+#X text 175 9453 displays a list of text buttons or text toggles;
+#X obj 30 9479 ui.link @title [ui.toggle] @url ui.toggle-help.pd;
+#X text 175 9476 modern toggle widget;
+#X obj 20 9499 cnv 5 69 31 empty empty vector 4 13 0 17 -262144 -49933
 0;
-#X obj 20 9517 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 9528 vector.distance;
-#X text 175 9528 returns euclidean distance between two points;
-#X obj 30 9555 vector.dot;
-#X text 175 9555 treats list of floats as vector \, returns the dot
+#X obj 20 9540 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 9551 vector.distance;
+#X text 175 9551 returns euclidean distance between two points;
+#X obj 30 9578 vector.dot;
+#X text 175 9578 treats list of floats as vector \, returns the dot
 product (sum of the elements of two lists with same indexes
 multiplied).;
-#X obj 30 9606 vector.length;
-#X text 175 9606 treats list of floats as vector \, returns vector
+#X obj 30 9629 vector.length;
+#X text 175 9629 treats list of floats as vector \, returns vector
 length: sqrt(element(1)^2 + ...element(n)^2).;
-#X obj 30 9643 vector.normalize;
-#X text 175 9643 returns normalized vector;
+#X obj 30 9666 vector.normalize;
+#X text 175 9666 returns normalized vector;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc 20 20 0 20 -104026 -4096 0;
-#X obj 1 9670 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 9670 version: v0.4 \, license: GPL3;
-#X obj 20 9689 ui.link @title https://github.com/uliss/pure-data @url
+#X obj 1 9693 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 9693 version: v0.4 \, license: GPL3;
+#X obj 20 9712 ui.link @title https://github.com/uliss/pure-data @url
 https://github.com/uliss/pure-data;

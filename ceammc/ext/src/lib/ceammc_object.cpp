@@ -533,8 +533,9 @@ bool BaseObject::checkArgs(const AtomList& lst, BaseObject::ArgumentType a1,
 
 void BaseObject::dump() const
 {
-    post("[%s] inlets: %zu", className().c_str(), numInlets());
-    post("[%s] outlets: %zu", className().c_str(), numOutlets());
+    // cast from size_t -> int; for all supported OS-platform to be happy
+    post("[%s] inlets: %i", className().c_str(), static_cast<int>(numInlets()));
+    post("[%s] outlets: %i", className().c_str(), static_cast<int>(numOutlets()));
 
     Properties::const_iterator it;
     for (it = props_.begin(); it != props_.end(); ++it) {

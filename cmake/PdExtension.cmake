@@ -113,7 +113,7 @@ function(pd_add_extension)
     else()
         set(INSTALL_DIR "${_PD_EXT_INSTALL_DIR}/${_PD_EXT_NAME}")
     endif()
-    
+
     #message(STATUS ${INSTALL_DIR})
 
     # install extension README etc. files

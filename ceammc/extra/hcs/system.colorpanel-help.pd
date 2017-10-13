@@ -1,6 +1,6 @@
 #N canvas 274 159 494 344 10;
 #X msg 99 56 bang;
-#X obj 112 198 pddp/print;
+#X obj 112 198 ui.display;
 #X obj 98 226 unpack float float float;
 #X obj 30 278 nbx 8 20 -1e+37 1e+37 0 0 empty empty red 0 28 0 14 -261234
 -1 -1 0 256;

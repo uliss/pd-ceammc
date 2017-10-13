@@ -5,9 +5,9 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/utf8rewind)
 
 set(LIBCEAMMC_COMPILE_FLAGS "${PD_EXTERNAL_CFLAGS}")
 set(LIBCEAMMC_LINK_FLAGS ${PD_EXTERNAL_LDFLAGS})
+
 if(WIN32)
     set(LIBCEAMMC_LINK_FLAGS "")
-    set(LIBCEAMMC_COMPILE_FLAGS "-lpsapi")
 endif()
 
 set(UTF8REWIND_SOURCES
@@ -74,7 +74,7 @@ set_target_properties(ceammc_core PROPERTIES
     LINK_FLAGS    "${LIBCEAMMC_LINK_FLAGS}")
 
 if(WIN32)
-    target_link_libraries(ceammc_core psapi shlwapi userenv msvcr100 puredata-core)
+    target_link_libraries(ceammc_core psapi shlwapi userenv puredata-core)
 
     # copy library to tests folder
     add_custom_command(TARGET ceammc_core POST_BUILD

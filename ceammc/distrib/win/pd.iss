@@ -41,6 +41,8 @@ Source: "{#AppRoot}/README.txt"; DestDir: "{app}";
 Source: "{#AppRoot}/LICENSE.txt"; DestDir: "{app}";
 Source: "{#AppRoot}/po/*.msg"; DestDir: "{app}/po";
 Source: "{#AppRoot}/tcl/*.tcl"; DestDir: "{app}/tcl"; Flags: ignoreversion recursesubdirs
+; completion files
+Source: "{#AppRoot}/tcl/*.txt"; DestDir: "{app}/tcl"; Flags: ignoreversion recursesubdirs
 Source: "{#AppRoot}/tcl/pd.ico"; DestDir: "{app}/tcl";
 Source: "{#AppRoot}/tcl/pd_ceammc.ico"; DestDir: "{app}/tcl";
 Source: "{#AppRoot}/lib/*"; DestDir: "{app}/lib"; Flags: ignoreversion recursesubdirs

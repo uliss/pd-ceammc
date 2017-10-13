@@ -53,6 +53,7 @@
 - ui.tab help added
 - ui.incdec help added
 - ui.link help added
+- ui.preset help added
 - list.split help added
 - symbol.num_compare help added
 - preset.float added

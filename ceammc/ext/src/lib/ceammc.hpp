@@ -122,14 +122,6 @@ namespace pd {
 
     bool atoms_minmax(const atom_list& lst, t_float* min, t_float* max);
     bool atoms_normalize(atom_list& lst);
-
-    struct AtomEq
-        : public std::binary_function<t_atom, t_atom, bool> {
-        bool operator()(const t_atom& a, const t_atom& b) const
-        {
-            return atom_equals(a, b);
-        }
-    };
 }
 }
 

@@ -81,3 +81,10 @@ fftease_external(thresher~)
 fftease_external(vacancy~)
 fftease_external(xsyn~)
 
+file(GLOB FFTEASE_PD_FILES "fftease/help/*.pd")
+add_custom_target(fftease_pd_files SOURCES ${FFTEASE_PD_FILES})
+# install fftease help files
+install(FILES ${FFTEASE_PD_FILES} DESTINATION ${PD_INTERNAL_EXT_INSTALL_PATH}/fftease)
+# install fftease sound exmaples
+install(FILES fftease/help/Piano.aif DESTINATION ${PD_INTERNAL_EXT_INSTALL_PATH}/fftease)
+install(FILES fftease/help/sound/Piano.aif DESTINATION ${PD_INTERNAL_EXT_INSTALL_PATH}/fftease/sound)

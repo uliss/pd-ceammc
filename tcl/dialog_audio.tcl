@@ -51,10 +51,29 @@ proc ::dialog_audio::ok {mytoplevel} {
     ::dialog_audio::cancel $mytoplevel
 }
 
+package require msgcat
+
+proc fix_win_locale { msg } {
+    if { $::tcl_platform(platform) eq "windows" } {
+	set loc [::msgcat::mclocale]
+	# ru_RU* locale
+	if { [string match "ru_*" $loc ] } {
+	    # affect only MMIO and ASIO
+            if { [string match "MMIO:*" $msg] } {
+                return [encoding convertfrom cp1251 $msg]
+            }
+            if { [string match "ASIO:*" $msg] } {
+                return [encoding convertfrom cp1251 $msg]
+            }
+        }
+    }
+    return $msg
+}
+
 # callback from popup menu
 proc audio_popup_action {buttonname varname devlist index} {
     global audio_indevlist audio_outdevlist $varname
-    $buttonname configure -text [lindex $devlist $index]
+    $buttonname configure -text [fix_win_locale [lindex $devlist $index]]
     set $varname $index
 }
 
@@ -66,7 +85,7 @@ proc audio_popup {name buttonname varname devlist} {
         $name.popup configure -font menuFont
     }
     for {set x 0} {$x<[llength $devlist]} {incr x} {
-        $name.popup add command -label [lindex $devlist $x] \
+        $name.popup add command -label [fix_win_locale [lindex $devlist $x]] \
             -command [list audio_popup_action \
                           $buttonname $varname $devlist $x] 
     }
@@ -181,7 +200,7 @@ proc ::dialog_audio::pdtk_audio_dialog {mytoplevel \
 
     checkbutton $mytoplevel.inputs.in1f.x0 -variable audio_inenable1 \
         -text [_ "1:"] -anchor e
-    button $mytoplevel.inputs.in1f.x1 -text [lindex $audio_indevlist $audio_indev1] -width 20 \
+    button $mytoplevel.inputs.in1f.x1 -text [fix_win_locale [lindex $audio_indevlist $audio_indev1]] -width 20 \
         -command [list audio_popup $mytoplevel $mytoplevel.inputs.in1f.x1 audio_indev1 $audio_indevlist]
     label $mytoplevel.inputs.in1f.l2 -text [_ "Channels:"]
     entry $mytoplevel.inputs.in1f.x2 -textvariable audio_inchan1 -width 3
@@ -195,7 +214,7 @@ proc ::dialog_audio::pdtk_audio_dialog {mytoplevel \
 
         checkbutton $mytoplevel.inputs.in2f.x0 -variable audio_inenable2 \
             -text [_ "2:"] -anchor e
-        button $mytoplevel.inputs.in2f.x1 -text [lindex $audio_indevlist $audio_indev2] -width 20 \
+        button $mytoplevel.inputs.in2f.x1 -text [fix_win_locale [lindex $audio_indevlist $audio_indev2]] -width 20 \
             -command [list audio_popup $mytoplevel $mytoplevel.inputs.in2f.x1 audio_indev2 \
                 $audio_indevlist]
         label $mytoplevel.inputs.in2f.l2 -text [_ "Channels:"]
@@ -211,7 +230,7 @@ proc ::dialog_audio::pdtk_audio_dialog {mytoplevel \
 
         checkbutton $mytoplevel.inputs.in3f.x0 -variable audio_inenable3 \
             -text [_ "3:"] -anchor e
-        button $mytoplevel.inputs.in3f.x1 -text [lindex $audio_indevlist $audio_indev3] -width 20 \
+        button $mytoplevel.inputs.in3f.x1 -text [fix_win_locale [lindex $audio_indevlist $audio_indev3]] -width 20 \
             -command [list audio_popup $mytoplevel $mytoplevel.inputs.in3f.x1 audio_indev3 \
                 $audio_indevlist]
         label $mytoplevel.inputs.in3f.l2 -text [_ "Channels:"]
@@ -250,7 +269,7 @@ proc ::dialog_audio::pdtk_audio_dialog {mytoplevel \
         label $mytoplevel.outputs.out1f.l1 \
             -text [_ "(same as input device)..."]
     } else {
-        button $mytoplevel.outputs.out1f.x1 -text [lindex $audio_outdevlist $audio_outdev1] -width 20 \
+        button $mytoplevel.outputs.out1f.x1 -text [fix_win_locale [lindex $audio_outdevlist $audio_outdev1]] -width 20 \
             -command  [list audio_popup $mytoplevel $mytoplevel.outputs.out1f.x1 audio_outdev1 \
                 $audio_outdevlist]
     }

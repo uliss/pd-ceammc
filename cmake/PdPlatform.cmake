@@ -41,7 +41,7 @@ if(WIN32)
         get_filename_component(WISHAPP ${WISH_PATH} NAME)
         get_filename_component(WISH_BINDIR ${WISH_PATH} DIRECTORY)
     endif()
-    
+
     # install wish.exe to bin directory
     install(PROGRAMS ${WISH_PATH} DESTINATION ${PD_EXE_INSTALL_PATH})
     include(InstallRequiredSystemLibraries)
@@ -64,15 +64,29 @@ if(WIN32)
         install(PROGRAMS ${ZLIBDLL_PATH} DESTINATION ${PD_EXE_INSTALL_PATH})
     endif()
 
-    # install tcl libs
-    install(DIRECTORY "${WISH_BINDIR}/../lib/tcl8" DESTINATION "${PD_LIBTCL_INSTALL_PATH}")
-    install(DIRECTORY "${WISH_BINDIR}/../lib/tcl8.6" DESTINATION "${PD_LIBTCL_INSTALL_PATH}")
-    install(DIRECTORY "${WISH_BINDIR}/../lib/tk8.6" DESTINATION "${PD_LIBTCL_INSTALL_PATH}")
-    install(DIRECTORY "${WISH_BINDIR}/../lib/dde1.4" DESTINATION "${PD_LIBTCL_INSTALL_PATH}")
-    install(DIRECTORY "${WISH_BINDIR}/../lib/tcllib1.18" DESTINATION "${PD_LIBTCL_INSTALL_PATH}")
-    install(DIRECTORY "${WISH_BINDIR}/../lib/tooltip" DESTINATION "${PD_LIBTCL_INSTALL_PATH}")
-    install(DIRECTORY "${WISH_BINDIR}/../lib/reg1.3" DESTINATION "${PD_LIBTCL_INSTALL_PATH}")
-    
+    # install tcl/tk libs
+    function(install_tcl_dir name)
+        # get normalized path
+        get_filename_component(_path "${WISH_BINDIR}/../lib/${name}" ABSOLUTE)
+        if(EXISTS ${_path})
+            message(STATUS "Found TCL package: ${name} at ${_path}")
+            install(DIRECTORY "${_path}" DESTINATION "${PD_LIBTCL_INSTALL_PATH}")
+        else()
+            message(STATUS "TCL package not found: ${name}")
+        endif()
+    endfunction()
+
+    install_tcl_dir(tcl8)
+    install_tcl_dir(tcl8.6)
+    install_tcl_dir(tk8.6)
+    install_tcl_dir(dde1.4)
+    install_tcl_dir(tcllib1.18)
+    # try different tooltip location
+    install_tcl_dir(tklib0.6)
+    install_tcl_dir(tklib0.6/tooltip)
+    install_tcl_dir(tooltip)
+    install_tcl_dir(reg1.3)
+
     # pthreadGC-3.dll
     find_file(PTHREADGC_DLL
         NAMES pthreadGC-3.dll pthreadGC-2.dll winpthread-1.dll libwinpthread-1.dll
@@ -152,7 +166,7 @@ if(WIN32)
         message(STATUS "MinGW runtime: ${LIBGCC_RUNTIME_DLL} found")
         list(APPEND CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS ${LIBGCC_RUNTIME_DLL})
     endif()
-    
+
     # thread
     find_file(LIBWINPTHREAD
         NAME libwinpthread-1.dll
@@ -163,31 +177,24 @@ if(WIN32)
         list(APPEND CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS ${LIBWINPTHREAD})
     endif()
 
-    # msvcr100.dll
-    find_file(MSVCR100
-        NAME msvcr100.dll
-        PATHS ${CMAKE_INSTALL_PREFIX}/bin)
-
-    if(MSVCR100)
-        message(STATUS "MinGW runtime: ${MSVCR100} found")
-        list(APPEND CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS ${MSVCR100})
-    endif()
-
     include(InstallRequiredSystemLibraries)
+    install(FILES ${CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS}
+        DESTINATION bin
+        COMPONENT Libraries)
 
     # libportaudio-2.dll
     find_file(LIBPORTAUDIO_DLL NAMES libportaudio-2.dll PATHS /usr/bin /usr/local/bin)
     if(LIBPORTAUDIO_DLL)
         install(FILES ${LIBPORTAUDIO_DLL} DESTINATION ${PD_EXE_INSTALL_PATH})
     endif()
-    
-    # install README, LICENSE.txt to root 
-    install(FILES 
+
+    # install README, LICENSE.txt to root
+    install(FILES
             ${CMAKE_SOURCE_DIR}/README.txt
             ${CMAKE_SOURCE_DIR}/LICENSE.txt
         DESTINATION
             ${CMAKE_INSTALL_PREFIX})
-    
+
     if(${CMAKE_SYSTEM_NAME} STREQUAL "WindowsStore")
         message("Building for UWP")
         set(FIPS_UWP 1)
@@ -204,8 +211,11 @@ if(WIN32)
     endif()
 
     add_definitions(-DPD_INTERNAL -DWINVER=0x0502 -D_WIN32_WINNT=0x0502)
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mms-bitfields -O2 -funroll-loops -fomit-frame-pointer")
-    set(CMAKE_CXX_FLAGS "-mms-bitfields -O2 -funroll-loops -fomit-frame-pointer")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mms-bitfields")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mms-bitfields -Wno-incompatible-ms-struct")
+
+    set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -O2 -funroll-loops -fomit-frame-pointer")
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O2 -funroll-loops -fomit-frame-pointer -Wno-incompatible-ms-struct")
     list(APPEND PLATFORM_LINK_LIBRARIES ${CMAKE_THREAD_LIBS_INIT})
     set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--export-all-symbols -lpthread")
     set(CMAKE_EXE_LINKER_FLAGS "-shared-libgcc -lpthread")
