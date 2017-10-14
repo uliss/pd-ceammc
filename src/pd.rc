@@ -1,4 +1,5 @@
-id ICON "${CMAKE_SOURCE_DIR}/ceammc/gui/icons/pd_ceammc.ico"
+id1 ICON "${CMAKE_SOURCE_DIR}/ceammc/gui/icons/pd_ceammc_win.ico"
+id2 ICON "${CMAKE_SOURCE_DIR}/ceammc/gui/icons/pd_doc_win.ico"
 1 VERSIONINFO
 FILEVERSION     ${PD_MAJOR_VERSION},${PD_MINOR_VERSION},${PD_BUGFIX_VERSION},0
 PRODUCTVERSION  ${PD_MAJOR_VERSION},${PD_MINOR_VERSION},${PD_BUGFIX_VERSION},0

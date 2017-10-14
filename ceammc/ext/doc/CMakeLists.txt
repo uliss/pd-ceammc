@@ -90,6 +90,9 @@ else()
     set(DOC_INSTALL_PATH "${PD_DOC_INSTALL_PATH}/extra/ceammc")
 endif()
 
+# extra doc file: presets, sound examples etc.
+set(EXTRA_DOC_FILES prs.txt stargazing.mod)
+
     # install all help files
     foreach(_doc_file ${DOC_FILES})
         install(FILES "${_doc_file}-help.pd"
@@ -105,9 +108,8 @@ endif()
     install(FILES "index-help.pd" DESTINATION "${DOC_INSTALL_PATH}/.."
         PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
 
-    # ui.preset example prs.txt install
-    # NOTE: should do this by regexp?
-    install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/prs.txt" DESTINATION ${DOC_INSTALL_PATH}
+    # install extra files
+    install(FILES ${EXTRA_DOC_FILES} DESTINATION ${DOC_INSTALL_PATH}
         PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
 
     install(

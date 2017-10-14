@@ -96,7 +96,7 @@ lyonpotpourri/vdp~
 lyonpotpourri/vecdex~
 lyonpotpourri/waveshape~
 lyonpotpourri/windowvec~
-soundtouch/soundtouch~
+soundtouch~
 vasp
 vasp.abs
 vasp.cabs

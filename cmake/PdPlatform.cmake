@@ -102,6 +102,13 @@ if(WIN32)
         install(PROGRAMS ${SNDFILEDLL_PATH} DESTINATION ${PD_EXE_INSTALL_PATH})
     endif()
 
+    # on MSYS2 libsndfile builded with speex support
+    # install libspeex-1.dll
+    find_file(SPEEXDLL_PATH NAMES libspeex-1.dll PATHS ${WISH_BINDIR})
+    if(SPEEXDLL_PATH)
+        install(PROGRAMS ${SPEEXDLL_PATH} DESTINATION ${PD_EXE_INSTALL_PATH})
+    endif()
+
     # install libFLAC-8.dll
     find_file(FLACDLL_PATH NAMES libFLAC-8.dll PATHS ${WISH_BINDIR})
     if(FLACDLL_PATH)

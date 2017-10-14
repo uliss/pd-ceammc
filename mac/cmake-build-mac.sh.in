@@ -13,7 +13,7 @@ PD_TCL=$PD_RESOURCES/tcl
 
 PD_INFO="$BUILD_DIR/dist/Info.plist"
 PD_ICON="$SRC_DIR/ceammc/gui/icons/pd_ceammc.icns"
-PD_ICON_FILE="$SRC_DIR/mac/stuff/pd-file.icns"
+PD_ICON_FILE="$SRC_DIR/ceammc/gui/icons/pd_doc.icns"
 WISH_APP="${WISH_APP}"
 TK_PATH="${TK_PATH}"
 TCL_PATH="${TCL_PATH}"
@@ -106,10 +106,20 @@ do
     $DYLIBBUNDLER -x $PD_EXTRA/ceammc/$(basename $f) -b -cd -d $PD_EXTRA/ceammc -p @loader_path/ -of
 done
 
+function dylib_external_fix() {
+    exec=$1
+    dir=$2
+
+    $DYLIBBUNDLER -x "$exec" -b -cd -d "$dir" -p @loader_path/ -of
+}
+
 echo "Copying Additional extra:"
 cp $BUILD_DIR/ceammc/extra/comport/system.serial.d_fat $PD_EXTRA/ceammc
 cp $BUILD_DIR/ceammc/extra/hcs/*.d_fat $PD_EXTRA/ceammc
 cp $SRC_DIR/ceammc/extra/hcs/*.tcl $PD_EXTRA/ceammc
+dylib_external_fix $PD_EXTRA/ceammc/system.serial.d_fat $PD_EXTRA/ceammc
+dylib_external_fix $PD_EXTRA/ceammc/system.cursor.d_fat $PD_EXTRA/ceammc
+dylib_external_fix $PD_EXTRA/ceammc/system.colorpanel.d_fat $PD_EXTRA/ceammc
 
 echo "Copying zconf..."
 mkdir -p $PD_EXTRA/zconf
@@ -170,10 +180,11 @@ then
     cp $LIB_LEAPMOTION $PD_EXTRA/leapmotion
 fi
 
+# install soundtouch~ to ceammc
 echo "Copying SoundTouch external..."
-mkdir $PD_EXTRA/soundtouch
-cp $BUILD_DIR/ceammc/extra/SoundTouch/pd/*.d_fat $PD_EXTRA/soundtouch
-cp $SRC_DIR/ceammc/extra/SoundTouch/pd/*-help.pd $PD_EXTRA/soundtouch
+cp $BUILD_DIR/ceammc/extra/SoundTouch/pd/*.d_fat $PD_EXTRA/ceammc
+cp $SRC_DIR/ceammc/extra/SoundTouch/pd/*-help.pd $PD_EXTRA/ceammc
+dylib_external_fix $PD_EXTRA/ceammc/soundtouch~.d_fat $PD_EXTRA/ceammc
 
 echo "Copying autotune external..."
 mkdir $PD_EXTRA/autotune
@@ -222,6 +233,8 @@ mkdir -p Frameworks
 mkdir -p $LIBDIR
 
 $DYLIBBUNDLER -x $EXECFILE -b -cd -d $LIBDIR -p $NEWLIBPATH -of
+$DYLIBBUNDLER -x "Resources/bin/pdsend" -b -cd -d $LIBDIR -p $NEWLIBPATH -of
+$DYLIBBUNDLER -x "Resources/bin/pdreceive" -b -cd -d $LIBDIR -p $NEWLIBPATH -of
 
 #copy Tcl${TK_VERSION}
 if [ $IS_SYSTEM_TK -eq 0 ]

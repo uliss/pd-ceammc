@@ -12,7 +12,7 @@
 				<string>pd</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>pd-file.icns</string>
+			<string>pd_doc.icns</string>
 			<key>CFBundleTypeName</key>
 			<string>Pure Data Patch</string>
 			<key>CFBundleTypeRole</key>
