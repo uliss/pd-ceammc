@@ -339,24 +339,6 @@ function install_tk() {
     make install
 }
 
-function install_runtime() {
-    pkg="MSVC runtime"
-    cd "${CWD}"
-
-    banner "${pkg}"
-    mkdir -p msvcrt
-    cd msvcrt
-
-    if [ ! -f "vcredist_x86.exe" ]
-    then
-        wget https://download.microsoft.com/download/5/B/C/5BC5DBB3-652D-4DCE-B14A-475AB85EEF6E/vcredist_x86.exe
-    fi
-
-    cabextract -d vcredist "vcredist_x86.exe"
-    cabextract "vcredist/vc_red.cab"
-    cp "F_CENTRAL_msvcr100_x86" ${PREFIX}/bin/msvcr100.dll
-}
-
 function install_fonts() {
     pkg="DejaVu fonts"
     cd "${CWD}"
@@ -393,7 +375,6 @@ case ${PKG} in
         install_sndfile
         install_portaudio
         install_fonts
-        instal_runtime
         ;;
     modplug)
         install_libmodplug
@@ -427,9 +408,6 @@ case ${PKG} in
         ;;
     portaudio)
         install_portaudio
-        ;;
-    runtime)
-        install_runtime
         ;;
     fonts)
         install_fonts
