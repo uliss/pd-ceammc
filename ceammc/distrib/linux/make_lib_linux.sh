@@ -10,6 +10,14 @@ then
     source /etc/os-release
 fi
 
+PATCH_ELF=`which patchelf`
+
+if [ -z $PATCH_ELF ];
+then
+    echo "patchelf is not found..."
+    exit 1
+fi
+
 SYSVER="linux"
 
 if [ ! -z $ID ] && [ ! -z $VERSION_ID ]
@@ -42,13 +50,8 @@ rm -f "${OUTDIR}/*"
 echo "Copying libraries to ${OUTDIR} ..."
 find "${BINDIR}" -name *.so -print0 | while read -r -d '' file
 do
-    if [[ -z $(echo $file | grep CMakeRelink) ]]
-    then
-	echo "skipping... $file"
-	continue
-    fi
-
     cp "$file" "${OUTDIR}"
+    # objdump -x "$file" | grep RPATH
     echo "+ Lib:  $(basename $file)"
 done
 
@@ -56,12 +59,6 @@ done
 echo "Copying extension files to ${OUTDIR} ..."
 find "${BINDIR}" -name *.pd_linux -print0 | while read -r -d '' file
 do
-    if [[ -z $(echo $file | grep CMakeRelink) ]]
-    then
-	echo "skipping... $file"
-	continue
-    fi
-
     ext_name=$(basename $file)
     skip_ext $file
     if [ $? -eq 1 ]
@@ -72,17 +69,12 @@ do
 
     cp "$file" "${OUTDIR}/${ext_name}"
     echo "+ Copy: '$ext_name'"
+    # objdump -x "$file" | grep RPATH
 done
 
 echo "Copying [system.serial] extension files to ${OUTDIR} ..."
 find "${BINDIR}/../extra/comport" -name *.pd_linux -print0 | while read -r -d '' file
 do
-    if [[ -z $(echo $file | grep CMakeRelink) ]]
-    then
-	echo "skipping... $file"
-	continue
-    fi
-
     ext_name=$(basename $file)
     skip_ext $file
     if [ $? -eq 1 ]
@@ -95,8 +87,10 @@ do
     echo "+ Copy: '$ext_name'"
 done
 
-ceammc_lib=$(find "${BINDIR}" -name ceammc\\.pd_linux | grep CMakeRelink)
+ceammc_lib=$(find "${BINDIR}" -name ceammc\\.pd_linux)
 cp $ceammc_lib "${OUTDIR}"
+
+patchelf --set-rpath '$ORIGIN' "${OUTDIR}/ceammc.pd_linux"
 
 echo "Copying help files to ${OUTDIR} ..."
 find "${SRCDIR}/ext/doc" -name *-help\\.pd | while read file
