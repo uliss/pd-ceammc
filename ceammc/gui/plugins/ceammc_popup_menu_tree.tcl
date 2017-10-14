@@ -130,7 +130,7 @@
         lyonpotpourri/waveshape~ lyonpotpourri/windowvec~}
     }
     {soundtouch
-        {soundtouch/soundtouch~}
+        {soundtouch~}
     }
     {vasp_library
         {vasp vasp.abs vasp.cabs vasp.ccopy vasp.cfft vasp.channel
