@@ -148,9 +148,9 @@
 - **Soundtouch** - using Olli Parviainen SoundTouch Audio Processing Library.
     Pitch-shifter
     
-    * [soundtouch/soundtouch~]
+    * [soundtouch~]
 
     http://www.surina.net/soundtouch/
 
-- **disis_munger** a realtime multichannel granulator. [declare -lib disis_munger] 
+- **disis_munger** a realtime multichannel granulator.
     * [disis_munger~]
