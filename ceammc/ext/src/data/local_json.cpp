@@ -245,7 +245,7 @@ static void* json_object_new(t_symbol* s, int argc, t_atom* argv)
 
         //TODO fix
         char buf[16];
-        sprintf(buf, "%lu", (long)x->canvas);
+        sprintf(buf, "%p", x->canvas);
 
         std::string name = id->s_name;
         name += buf;

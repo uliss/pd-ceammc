@@ -271,7 +271,7 @@ void eclass_attr_accessor(t_eclass* c, const char* attrname, t_err_method getter
 void eclass_attr_itemlist(t_eclass* c, const char* attrname, long flags, const char* list);
 
 //! @cond
-#define calcoffset(x,y) ((long)(&(((x *)0L)->y)))
+#define calcoffset(x,y) ((ptrdiff_t)(&(((x *)0L)->y)))
 //! @endcond
 
 //! Macros that create an int attribute
