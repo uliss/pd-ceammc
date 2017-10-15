@@ -59,13 +59,13 @@
 | |          | |            |
 | |          | |            |
 | |          | |            |
-[ui.rslider @min 0 @max  100]
+[ui.rslider  @min=0 @max=100]
 |
 [ui.display @display_type=1]
 
 /*Mouse sync is on*/
 
-[ui.rslider @sync 1]
+[ui.rslider @sync=1]
 |
 [ui.display @display_type=1]
 ]]>

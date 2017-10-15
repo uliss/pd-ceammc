@@ -12,10 +12,10 @@ property is true \, outputs value on every mouse move;
 #X msg 69 184 @range?;
 #X msg 194 184 @minvalue?;
 #X msg 318 184 @maxvalue?;
-#X obj 50 242 ui.rslider @min 0 @max 100;
+#X obj 50 242 ui.rslider @min 0 @max 100 @size 120 16;
 #X obj 50 271 ui.display @display_type 1 @size 150 18;
 #X text 50 299 Mouse sync is on;
-#X obj 50 328 ui.rslider @sync 1;
+#X obj 50 328 ui.rslider @sync 1 @size 120 16;
 #X obj 50 357 ui.display @display_type 1 @size 150 18;
 #X obj 20 397 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 402 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
