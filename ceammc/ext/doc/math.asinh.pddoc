@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.asinh">
+        <title>math.asinh</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>inverse hyperbolic sine function</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math asinh</keywords>
+            <also>
+                <see>math.acosh</see>
+                <see>math.atanh</see>
+                <see>math.exp</see>
+            </also>
+            <since>0.1</since>
+        </meta>
+        <info>
+            <par>The asinh() function computes the inverse hyperbolic sine of the real
+            argument</par>
+            <par>Special values:</par>
+            <par>asinh(+-0) returns +-0.</par>
+            <par>asinh(+-infinity) returns +-infinity.</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo on="float">input value</xinfo>
+                <xinfo on="list">apply to all numeric values</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>result value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]
+|
+[math.asinh]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

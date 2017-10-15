@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="ui.slider2d" type="gui">
+        <title>ui.slider2d</title>
+        <meta>
+            <authors>
+                <author>Alex Nadzharov</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>2D slider widget</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category view="link">ui</category>
+            <keywords>ui slider</keywords>
+            <since>0.1</since>
+            <also>
+                <see view="link">ui.slider</see>
+                <see view="link">ui.presets</see>
+            </also>
+        </meta>
+        <info>
+            <par>2D sliders widget</par>
+        </info>
+        <properties>
+            <property name="@range_x" type="float" default="2">x-value range</property>
+            <property name="@range_y" type="float" default="2">y-value range</property>
+            <property name="@shift_x" type="float" default="-1">x-value offset</property>
+            <property name="@shift_y" type="float" default="-1">y-value offset</property>
+            <property name="@presetname" type="symbol">preset name for using with
+            [ui.preset]</property>
+            <property name="@send" type="symbol">send destination</property>
+            <property name="@receive" type="symbol">receive source</property>
+            <property name="@show_range" type="int" enum="0 1">if show slider range</property>
+        </properties>
+        <methods>
+            <method name="dump">dumps all object info to Pd console window</method>
+            <method name="set">sets slider position without output 
+            <param name="X" type="float" required="true">x-position</param>
+            <param name="Y" type="float" required="true">y-position</param></method>
+            <method name="set_x">sets X-slider position without output 
+            <param name="X" type="float" required="true">x-position</param></method>
+            <method name="set_y">sets Y-slider position without output 
+            <param name="Y" type="float" required="true">y-position</param></method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">outputs slider position</xinfo>
+                <xinfo on="list">sets slider position and outputs it</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>list output of two values: X and Y</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[set 0 0(  [set_x 0.5( [set_y 0.1(
+|          |           |
+[ui.slider2d @presetname=s2d-help]
+|
+|
+|
+|
+|
+|
+|
+[ui.display @display_type=1]
+
+/*[Shift+click] to save, [Alt+click] to remove, [click] to activate*/
+
+
+[ui.preset]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

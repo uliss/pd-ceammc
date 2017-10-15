@@ -6,6 +6,7 @@
 #include "m_pd.h"
 #include "m_imp.h"
 #include "s_stuff.h"
+#include "x_ceammc.h"
 #include <stdlib.h>
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
@@ -487,6 +488,19 @@ t_propertiesfn class_getpropertiesfn(t_class *c)
 
 static t_symbol *symhash[HASHSIZE];
 
+// ceammc
+size_t pd_ceammc_gensym_hash_table_size()
+{
+    return HASHSIZE;
+}
+
+t_symbol** pd_ceammc_gensym_hash_table()
+{
+    return symhash;
+}
+
+// end ceammc
+
 t_symbol *dogensym(const char *s, t_symbol *oldsym)
 {
     t_symbol **sym1, *sym2;
@@ -770,12 +784,12 @@ badarg:
     /* convenience routine giving a stdarg interface to typedmess().  Only
     ten args supported; it seems unlikely anyone will need more since
     longer messages are likely to be programmatically generated anyway. */
-void pd_vmess(t_pd *x, t_symbol *sel, char *fmt, ...)
+void pd_vmess(t_pd *x, t_symbol *sel, const char *fmt, ...)
 {
     va_list ap;
     t_atom arg[10], *at = arg;
     int nargs = 0;
-    char *fp = fmt;
+    const char *fp = fmt;
 
     va_start(ap, fmt);
     while (1)

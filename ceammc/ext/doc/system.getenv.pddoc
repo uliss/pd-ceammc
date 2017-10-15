@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="system.getenv">
+        <title>system.getenv</title>
+        <meta>
+            <authors>
+                <author>Alex Nadzharov</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Get system environment variables</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>system</category>
+            <keywords>system environment</keywords>
+            <since>0.1</since>
+            <also>
+                <see>system.hostname</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="VAR" type="symbol">environment variable name</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">outputs variable value</xinfo>
+                <xinfo on="symbol">sets name of environment variable and outputs it value</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>symbol: env-variable value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[symbol HOME(  [symbol PATH( [symbol USER( [symbol SHELL(
+|              |             |             |
+|              |             |             |
+|  [B]         |             |             |
+|  |           |             |             |
+[system.getenv                             ]
+|
+[msg set]
+|
+[ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

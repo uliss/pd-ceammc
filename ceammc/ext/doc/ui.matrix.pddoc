@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="ui.matrix" type="gui">
+        <title>ui.matrix</title>
+        <meta>
+            <authors>
+                <author>Pierre Guillot</author>
+            </authors>
+            <description>The matrix of toggles has you.</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category view="link">ui</category>
+            <keywords>ui matrix</keywords>
+            <since>0.1</since>
+            <also>
+                <see view="link">ui.radio</see>
+            </also>
+        </meta>
+        <info>
+            <par>Rectangle matrix of toggles. Note: all matrix operations have following cell
+            address format - ROW COL.</par>
+        </info>
+        <properties>
+            <property name="@rows" type="int" minvalue="1">number of matrix rows</property>
+            <property name="@cols" type="int" minvalue="1">number of matrix columns</property>
+            <property name="@send" type="symbol">send destination</property>
+            <property name="@receive" type="symbol">receive source</property>
+        </properties>
+        <methods>
+            <method name="getcell">outputs cell value as [cell( message 
+            <param name="ROW" type="int" minvalue="0" required="true">cell row</param>
+            <param name="COL" type="int" minvalue="0" required="true">cell column</param></method>
+            <method name="setcell">sets cell value without outputting it 
+            <param name="ROW" type="int" minvalue="0" required="true">cell row</param>
+            <param name="COL" type="int" minvalue="0" required="true">cell column</param>
+            <param name="VALUE" type="int" enum="0 1" required="true">value</param></method>
+            <method name="clear">clears all matrix cells and outputs cells that were
+            changed</method>
+            <method name="dump">dumps all object info to Pd console window.</method>
+            <method name="getcolumn">outputs list of column values as [col( message 
+            <param name="NUM" type="int" minvalue="0" required="true">Column index</param></method>
+            <method name="setcolumn">sets column values without outputting them 
+            <param name="COL" type="int" required="true" minvalue="0">Columns index</param>
+            <param name="VALUES" type="list" required="true">cells values, for ex.: 1 0 1
+            1</param></method>
+            <method name="getrow">outputs list of row values as [row( message 
+            <param name="NUM" type="int" minvalue="0" required="true">row index</param></method>
+            <method name="setrow">sets row values without outputting them 
+            <param name="ROW" type="int" required="true" minvalue="0">row index</param>
+            <param name="VALUES" type="list" required="true">cells values, for ex.: 1 0 1
+            1</param></method>
+            <method name="set">silently sets matrix state. 
+            <param name="VALUES" type="list" required="true">list values in format: ROW COL VALUE
+            [, ROW COL VALUE]. VALUE should be 1 or 0.</param></method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">outputs matrix state as separate messages in format: [cell ROW COL
+                VALUE(</xinfo>
+                <xinfo on="list">sets matrix state and outputs values. List values format: ROW COL
+                VALUE [, ROW COL VALUE]. VALUE should be 1 or 0.</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+          [F]         [F]
+[dump(    |           |
+|         [getrow $1( [getcolumn $1(
+| [clear( |           |
+| |       | [bang(    |
+| |       | |         |
+| |       | |         |
+[ui.matrix            ]
+|
+|
+|
+|
+[route cell row col]
+|    ^|  ^^|
+|     |    [ui.display @size=60x18]
+|     |
+|     [ui.display @size=60x18]
+|
+[ui.display @size=60x18]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

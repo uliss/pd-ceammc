@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.acosh">
+        <title>math.acosh</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>inverse hyperbolic cosine function</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math acosh</keywords>
+            <also>
+                <see>math.asinh</see>
+                <see>math.atanh</see>
+                <see>math.exp</see>
+            </also>
+            <since>0.1</since>
+        </meta>
+        <info>
+            <par>The acosh() function computes the principle value of the inverse hyperbolic cosine
+            of input value. The result is in the range [0, +infinity].</par>
+            <par>Special values:</par>
+            <par>acosh(1) returns +0.</par>
+            <par>acosh(x) returns a NAN.</par>
+            <par>acosh(+infinity) returns +infinity.</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo on="float">input value</xinfo>
+                <xinfo on="list">apply to all numeric values</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>result value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]    [1 2 d b(
+|      |
+[math.acosh]
+|
+[msg set]
+|
+[  (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

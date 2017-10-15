@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="tl.cue" type="gui">
+        <title>tl.cue</title>
+        <meta>
+            <authors>
+                <author>Alex Nadzharov</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Timeline section</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category view="link">ui</category>
+            <keywords>timeline cue</keywords>
+            <since>0.1</since>
+            <also>
+                <see view="link">tl.bang</see>
+            </also>
+        </meta>
+        <inlets />
+        <outlets />
+        <example>
+            <pdascii>
+<![CDATA[
+              [tl.cue]           [tl.cue]
+
+[HR number=3]    [tl.bang]
+|                |
+[cue $1(         [B]                      [tl.bang]
+|                                         |
+[tl.transport]                            [B]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

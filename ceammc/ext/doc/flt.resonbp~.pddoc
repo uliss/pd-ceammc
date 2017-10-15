@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flt.resonbp~">
+        <title>flt.resonbp~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Simple resonant bandpass filter</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>flt</category>
+            <keywords>filter resonant</keywords>
+            <since>0.1</since>
+            <also>
+                <see>flt.bpf12~</see>
+            </also>
+        </meta>
+        <methods>
+            <method name="freq">
+                <param type="float" units="herz">center frequency</param>
+            </method>
+            <method name="q">
+                <param type="float">Q</param>
+            </method>
+        </methods>
+        <arguments>
+            <argument name="freq" type="float" units="herz">center frequency</argument>
+            <argument name="q" type="float">Q</argument>
+            <argument name="ID" type="symbol">object ID for OSC control</argument>
+        </arguments>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+                <xinfo on="bang">outputs object internal state to rightmost outlet</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">filtered signal</outlet>
+            <outlet type="control">information output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[lfo.impulse~ 2]
+|
+|  [F]        [F]
+|  |          |
+|  [freq $1(  [q $1(  [@freq?(
+|  |          |       |
+[flt.resonbp~ 1000 100 id ]
+|\                      ^|
+[dac~]                 [ui.display]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="conv.bpm2hz">
+        <title>conv.bpm2hz</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>converts BPM to frequency in herz</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>conv</category>
+            <keywords>conv time</keywords>
+            <also>
+                <see>conv.bpm2ms</see>
+            </also>
+            <since>0.1</since>
+            <aliases>
+                <alias>bpm-&gt;hz</alias>
+            </aliases>
+        </meta>
+        <info>
+            <par>Converts frequency from BPM (beats per minute) to herz. It is simple as /60, but
+            more readable.</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo on="float">frequency in BPM</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>period in milliseconds</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[120(
+|
+[F]  /*simple metronome*/
+|
+[bpm->hz]
+|
+[lfo.impulse~]
+|
+[flt.resonbp~ 1000 20]
+|
+| [T]
+| |.
+[*~]
+|
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.neg">
+        <title>math.neg</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>negate function</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math negate</keywords>
+            <since>0.1</since>
+        </meta>
+        <info>
+            <par>Returns value with opposite sign</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo on="float">input value</xinfo>
+                <xinfo on="list">list of numbers</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>result</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]  [-2 -1 0 1 2(
+|    |
+[math.neg]
+|
+[msg set]
+|
+[ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

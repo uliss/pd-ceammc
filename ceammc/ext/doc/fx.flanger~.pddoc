@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="fx.flanger~">
+        <title>fx.flanger~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>mono flanging effect</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>fx</category>
+            <keywords>fx flanger</keywords>
+            <since>0.2</since>
+        </meta>
+        <arguments>
+            <argument name="ID" type="symbol">object ID for OSC control path</argument>
+        </arguments>
+        <properties>
+            <property name="@delay" type="float" minvalue="0" maxvalue="20" units="millisecond"
+            default="10">flange delay</property>
+            <property name="@offset" type="float" minvalue="0" maxvalue="20" units="millisecond"
+            default="1">flange delay offset</property>
+            <property name="@speed" type="float" minvalue="0" maxvalue="10" default="0.5"
+            units="herz">flanger frequency</property>
+            <property name="@feedback" type="float" minvalue="0" maxvalue="1" default="0">feedback
+            gain</property>
+            <property name="@invert" type="int" enum="0 1" default="0">0 for normal, 1 to invert
+            sign of flanging sum</property>
+            <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">proportion
+            of mix between the original (dry) and 'effected' (wet) signals. 0 - dry signal, 1 -
+            wet.</property>
+            <property name="@bypass" type="int" enum="0 1" default="0">if set to 1 - bypass
+            'effected' signal.</property>
+        </properties>
+        <methods>
+            <method name="delay">set flange delay 
+            <param type="float" minvalue="0" maxvalue="20" units="millisecond"
+            required="true" /></method>
+            <method name="offset">set flange delay offset 
+            <param type="float" minvalue="0" maxvalue="20" units="millisecond"
+            required="true" /></method>
+            <method name="speed">set flanger frequency 
+            <param type="float" minvalue="0" maxvalue="10" units="herz" required="true" /></method>
+            <method name="feedback">set feedback gain 
+            <param name="X" type="float" minvalue="0" maxvalue="1" required="true" /></method>
+            <method name="invert">set sign of flanging sum 
+            <param type="int" name="X" enum="0 1" required="true">0 for normal, 1 to invert sign of
+            flanging sum</param></method>
+            <method name="drywet">set proportion of mix between the original (dry) and 'effected'
+            (wet) signals. 
+            <param name="X" type="float" minvalue="0" maxvalue="1" required="true">0 - dry signal,
+            1 - wet.</param></method>
+            <method name="bypass">bypass effect 
+            <param name="X" type="int" enum="0 1" required="true">if set to 1 - bypass 'effected'
+            signal.</param></method>
+        </methods>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output signal</outlet>
+            <outlet type="control">information output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]
+|
+[osc.saw~ 200]
+|
+|  [T] [F]        [F]        [F]           [T]
+|  |.  |          |          |             |
+[*~ ]  [speed $1( [delay $1( [offset $1(   [bypass $1(
+|      |          |          |             |
+|      |          |          | [T]         | [F]
+|      |          |          | |           | |
+|      |          |          | [invert $1( | [feedback $1(
+|      |          |          | |           | |
+[fx.flanger~ id                               ]
+|
+[*~ 0.1]
+|\
+[dac~]
+
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

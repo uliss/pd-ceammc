@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="list.reduce">
+        <title>list.reduce</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>apply function of two arguments cumulatively to the list</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>list</category>
+            <keywords>list min compare</keywords>
+            <since>0.1</since>
+            <also>
+                <see>list.max</see>
+            </also>
+        </meta>
+        <info>
+            <par>Apply function of two arguments cumulatively to the list, from left to right, so
+            as to reduce the list to a single value.</par>
+            <par>You can imaging this process as a space replacement between elements with binary
+            function, for example: 1 2 3 4 5 becames ((((1+2)+3)+4)+5) after reducing with
+            "+".</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo on="list">input list</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="any">value from binary function</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output value</outlet>
+            <outlet>pair value to binary function</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[1 2 3 4(              [1 2 3 4(
+|                      |
+|                      |
+[list.reduce] X [+]    [list.reduce] X [*]
+|                      |
+[F]                    [F]
+
+
+[1 1 1 0(  [1 1 1(     [1 1 1 0( [0 0 0(
+|          |           |         |
+|          |           |         |
+[list.reduce] X [&&]   [list.reduce] X [||]
+|                      |
+[F]                    [F]
+
+
+[1 2 3 4(              [1 2 3 4(
+|                      |
+|                      |
+[list.reduce] X [min]  [list.reduce] X [max]
+|                      |
+[F]                    [F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

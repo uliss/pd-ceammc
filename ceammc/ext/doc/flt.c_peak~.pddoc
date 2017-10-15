@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flt.c_peak~">
+        <title>flt.c_peak~</title>
+        <meta>
+            <authors>
+                <author>Alex Nadzharov</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Peaking equalizer calculator for biquad.</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>flt</category>
+            <keywords>filter equalizer</keywords>
+            <since>0.1</since>
+            <also>
+                <see>flt.eq_peak~</see>
+                <see>flt.biquad~</see>
+            </also>
+        </meta>
+        <methods>
+            <method name="freq">
+                <param type="float" units="herz">peak frequency</param>
+            </method>
+            <method name="gain">
+                <param type="float" units="decibel" minvalue="-15" maxvalue="+15">level at fx
+                (boost if &gt;0 or cut if &lt;0)</param>
+            </method>
+            <method name="q">
+                <param type="float">quality factor</param>
+            </method>
+        </methods>
+        <arguments>
+            <argument name="freq" type="float" units="herz">peak frequency</argument>
+            <argument name="gain" type="float" units="decibel" minvalue="-15" maxvalue="+15">level
+            at fx (boost if &gt;0 or cut if &lt;0)</argument>
+            <argument name="q" type="float">quality factory</argument>
+            <argument name="ID" type="symbol">object ID for OSC control</argument>
+        </arguments>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+                <xinfo on="bang">outputs object internal state to rightmost outlet</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">b0</outlet>
+            <outlet type="audio">b1</outlet>
+            <outlet type="audio">b2</outlet>
+            <outlet type="audio">a1</outlet>
+            <outlet type="audio">a2</outlet>
+            <outlet type="control">information output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+
+[osc.pulse~ 200]
+|
+|  [T]
+|  |.
+[*~ ]
+|
+[*~ 0.1] [F]       [F]
+|        |         |
+|        [freq $1( [gain $1(
+|        |         |
+|        [flt.c_peak~  200 -15 1]
+|        |  ^|   ^^|    ^^^|     ^^^^|
+|        |.  |..   |...    |....     |.....
+[flt.biquad~                               ]
+|\
+[dac~]
+
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

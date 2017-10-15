@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.e">
+        <title>math.e</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>mathematical constant, base of the natural logarithm</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math e</keywords>
+            <also>
+                <see>math.pi</see>
+            </also>
+            <since>0.1</since>
+        </meta>
+        <info>
+            <par>It is approximately equal to 2.71828, and is the limit of (1 + 1/n)^n as n
+            approaches infinity.</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">outputs value</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]
+|
+[math.e]
+|
+[floatatom digits=10]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -1,0 +1,62 @@
+#N canvas 518 214 587 422 10;
+#X obj 31 275 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X msg 286 345 1 0 1 0 0;
+#X obj 31 195 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min 0 @max 7 @minmax 0 7 @decimal 0 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X msg 105 194 set \$1;
+#X obj 105 155 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min 0 @max 7 @minmax 0 7 @decimal 0 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X text 29 102 Radio button mode;
+#X text 284 77 Check list mode;
+#X msg 286 137 1 0 1 0 0;
+#X msg 366 107 0 1 0 1 1;
+#X obj 286 107 loadbang;
+#X obj 247 139 c.bang @size 17 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X obj 286 200 c.radio @size 16 80 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "chocolist" @nitems 5 @mode 1 @bgcolor 0.75 0.75 0.75 1
+@bdcolor 0.5 0.5 0.5 1 @itcolor 0.5 0.5 0.5 1;
+#X obj 31 236 c.radio @size 140 16 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "chocodio" @nitems 8 @mode 0 @bgcolor 0.75 0.75 0.75 1
+@bdcolor 0.5 0.5 0.5 1 @itcolor 0.5 0.5 0.5 1;
+#X obj 31 126 c.loadmess 0;
+#X obj 8 24 c.patcherinfos;
+#X obj 9 15 c.loadmess;
+#X obj 3 3 c.help.header;
+#X obj 51 371 c.help.pub;
+#X obj 366 137 list prepend set;
+#X obj 366 159 list trim;
+#X obj 286 285 list prepend set;
+#X obj 286 307 list trim;
+#X obj 422 388 c.help.gui;
+#X text 419 372 Look at me;
+#X text 2 44 c.radio is the cream counterpart of the vanilla hradio
+or vradio.;
+#X connect 2 0 12 0;
+#X connect 3 0 12 0;
+#X connect 4 0 3 0;
+#X connect 7 0 11 0;
+#X connect 8 0 18 0;
+#X connect 9 0 7 0;
+#X connect 10 0 11 0;
+#X connect 11 0 20 0;
+#X connect 12 0 0 0;
+#X connect 13 0 2 0;
+#X connect 13 0 4 0;
+#X connect 14 0 16 0;
+#X connect 15 0 14 0;
+#X connect 18 0 19 0;
+#X connect 19 0 11 0;
+#X connect 20 0 21 0;
+#X connect 21 0 1 0;

@@ -1,0 +1,5 @@
+ANY 0 sample 1 3;
+LST 0 list 1 2 3 a b c;
+SYM2 0 symbol a\,a;
+SYM 0 _symbol_s some string;
+F 0 float -1024;

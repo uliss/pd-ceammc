@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flt.eq_peak~">
+        <title>flt.eq_peak~</title>
+        <meta>
+            <authors>
+                <author>Alex Nadzharov</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>second order "peaking equalizer" section (gain boost or cut near some
+            frequency). Also called a "parametric equalizer" section.</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>flt</category>
+            <keywords>filter equalizer</keywords>
+            <since>0.1</since>
+            <also>
+                <see>flt.lowshelf~</see>
+                <see>flt.highshelf~</see>
+            </also>
+        </meta>
+        <methods>
+            <method name="freq">
+                <param type="float" units="herz">peak frequency</param>
+            </method>
+            <method name="gain">
+                <param type="float" units="decibel">level at fx (boost if &gt;0 or cut if
+                &lt;0)</param>
+            </method>
+            <method name="bandwidth">
+                <param type="float" units="herz">bandwidth of peak</param>
+            </method>
+        </methods>
+        <arguments>
+            <argument name="freq" type="float" units="herz">peak frequency</argument>
+            <argument name="gain" type="float" units="decibel">level at fx (boost if &gt;0 or cut
+            if &lt;0)</argument>
+            <argument name="bandwidth" type="float" units="herz">bandwidth of peak</argument>
+            <argument name="ID" type="symbol">object ID for OSC control</argument>
+        </arguments>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+                <xinfo on="bang">outputs object internal state to rightmost outlet</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">filtered signal</outlet>
+            <outlet type="control">information output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[noise~] [_]
+|  ._____/
+[*~]          [F]       [F]       [F]
+|             |         |         |
+[*~ 0.1]  [B] [freq $1( [gain $1( [bandwidth $1(
+|         |   |         |         |
+[flt.eq_peak~ 3000 20 400 id      ]
+|\                      ^|
+[dac~]                 [print]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

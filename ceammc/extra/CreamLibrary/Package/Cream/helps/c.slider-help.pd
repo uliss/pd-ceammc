@@ -1,0 +1,70 @@
+#N canvas 88 138 587 438 10;
+#X obj 40 288 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X text 65 178 the same behavior as;
+#X text 65 204 Except that the default;
+#X text 65 217 range are 0 and 1;
+#X obj 40 120 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min 0 @max 1 @minmax 0 1 @decimal 6 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 255 176 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X text 254 95 mousing behavior and;
+#X text 254 108 reversed minimum and maximum;
+#X obj 401 319 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X msg 401 253 set \$1;
+#X obj 401 229 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 40 147 c.slider @size 15 120 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @mode 0 @min 0 @max 1 @bgcolor 0.75 0.75 0.75
+1 @bdcolor 0.5 0.5 0.5 1 @kncolor 0.5 0.5 0.5 1;
+#X obj 255 133 c.slider @size 120 15 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @mode 1 @min 3.6 @max -2.7 @bgcolor 0.75 0.75
+0.75 1 @bdcolor 0.5 0.5 0.5 1 @kncolor 0.5 0.5 0.5 1;
+#X obj 401 282 c.slider @size 120 15 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "chocoslidr" @mode 0 @min 0 @max 127 @bgcolor 0.75 0.75
+0.75 1 @bdcolor 0.5 0.5 0.5 1 @kncolor 0.5 0.5 0.5 1;
+#X obj 359 244 c.bang @size 17 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X obj 40 89 c.loadmess 0.3;
+#X obj 401 201 c.loadmess 80;
+#X text 65 191 hslider or vslider.;
+#X text 65 165 c.slider have exactly;
+#X text 254 82 c.slider with a relative;
+#X obj 8 24 c.patcherinfos;
+#X obj 9 15 c.loadmess;
+#X obj 3 3 c.help.header;
+#X obj 79 368 c.help.pub;
+#X obj 450 385 c.help.gui;
+#X text 447 369 Look at me;
+#X text 4 44 c.slider is the cream counterpart of the vanilla hslider
+or vslider.;
+#X connect 4 0 11 0;
+#X connect 9 0 13 0;
+#X connect 10 0 9 0;
+#X connect 11 0 0 0;
+#X connect 12 0 5 0;
+#X connect 13 0 8 0;
+#X connect 14 0 13 0;
+#X connect 15 0 4 0;
+#X connect 16 0 10 0;
+#X connect 20 0 22 0;
+#X connect 21 0 20 0;

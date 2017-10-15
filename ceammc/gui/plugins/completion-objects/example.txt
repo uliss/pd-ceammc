@@ -1,0 +1,3 @@
+; put in here any extra object that you would like to add to your completion list.
+; one line per object, no commas or special character.
+; all lines starting with a semi-colon are comments.

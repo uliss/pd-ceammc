@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="list.split">
+        <title>list.split</title>
+        <meta>
+            <authors>
+                <author>Alex Nadzharov</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>splits list into two parts, the length of first list is specified by the
+            argument.</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>list</category>
+            <keywords>list</keywords>
+            <since>0.1</since>
+            <also>
+                <see>list.at</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="AT" type="int">size of first list. The size of the list on the
+            second output is the size of input list - this value</argument>
+        </arguments>
+        <properties>
+            <property name="@at" type="int" minvalue="0" default="0">split point</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="list">Input list</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>first sub-list of given size</outlet>
+            <outlet>second sub-list</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[1 2 3 4 5(  [@at 3(
+|            |
+|            |
+|            |
+[list.split      2]
+|              ^|
+[msg set]       [msg set]
+|               |
+[ (             [ (
+                ]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

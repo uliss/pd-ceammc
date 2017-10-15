@@ -1,0 +1,37 @@
+#!/bin/bash
+
+set -e
+
+#XDG_DESKTOP_MENU="`which xdg-desktop-menu 2>/dev/null`"
+#XDG_MIME="`which xdg-menu 2>/dev/null`"
+#UPDATE_MENUS="`which update-menus 2>/dev/null`"
+#UPDATE_DESKTOP_DATABASE="`which update-desktop-database 2>/dev/null`"
+
+if [ "$1" = "configure" ]; then
+	ln -s /usr/lib/pd_ceammc/bin/pd /usr/bin/pd-ceammc
+	ln -s /usr/lib/pd_ceammc/bin/pdsend  /usr/bin/pdsend-ceammc
+	ln -s /usr/lib/pd_ceammc/bin/pdreceive /usr/bin/pdreceive-ceammc
+
+#	if [ -x ${XDG_MIME} ]; then
+#		${XDG_MIME} install --novendor /usr/share/mime/packages/pd.xml
+#	fi
+#
+#	if [ -x ${XDG_DESKTOP_MENU} ]; then
+#		${XDG_DESKTOP_MENU} install --novendor /usr/share/applications/puredata.desktop
+#	fi
+#
+#	if [ -x ${XDG_MIME} ]; then
+#		${XDG_MIME} default puredata.desktop text/x-puredata 
+#	fi
+#
+#	if [ -x ${UPDATE_MENUS} ]; then
+#		${UPDATE_MENUS}
+#	fi	
+#
+#	if [ -x ${UPDATE_DESKTOP_DATABASE} ]; then
+#		${UPDATE_DESKTOP_DATABASE}
+#	fi
+
+	ldconfig
+fi
+

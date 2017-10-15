@@ -1,0 +1,120 @@
+#N canvas 88 138 566 430 10;
+#X obj 34 169 c.knob @size 50 50 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "choknob1" @endless 0 @mode 0 @min 0 @max 1 @bgcolor 0.75
+0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @necolor 0.5 0.5 0.5 1;
+#X obj 34 125 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 34 243 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 251 169 c.knob @size 50 50 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @endless 1 @mode 0 @min 0 @max 1 @bgcolor 0.75
+0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @necolor 0.5 0.5 0.5 1;
+#X obj 317 169 c.knob @size 50 50 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @endless 1 @mode 0 @min 1 @max 0 @bgcolor 0.75
+0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @necolor 0.5 0.5 0.5 1;
+#X obj 251 243 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 317 243 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 408 169 c.knob @size 50 50 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @endless 0 @mode 0 @min -3.14 @max 15 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @necolor 0.5 0.5 0.5 1;
+#X obj 408 125 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min -3.14 @max 15 @minmax -3.14 15 @decimal 6
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1
+;
+#X obj 408 243 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 134 169 c.knob @size 50 50 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "choknob2" @endless 0 @mode 1 @min 0 @max 1 @bgcolor 0.75
+0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @necolor 0.5 0.5 0.5 1;
+#X obj 134 243 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X text 130 272 Circular;
+#X text 130 282 tracking;
+#X text 130 292 mode;
+#X text 30 282 tracking;
+#X text 30 292 mode;
+#X text 30 272 Vertical;
+#X obj 134 125 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X msg 317 144 set \$1;
+#X msg 251 143 set \$1;
+#X text 250 272 Endless;
+#X text 250 282 mode;
+#X text 316 272 Endless;
+#X text 316 282 mode with;
+#X text 316 292 reversed;
+#X text 316 302 boundaries;
+#X obj 251 108 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 317 108 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X text 406 272 Other;
+#X text 406 282 boundaries;
+#X text 406 292 values;
+#X obj 490 126 c.bang @size 17 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X obj 134 96 c.loadmess 0.25;
+#X obj 34 96 c.loadmess 0.5;
+#X text 3 48 c.knob is a knob with a vertical or horizontal tracking
+mode and endless mode.;
+#X obj 8 25 c.patcherinfos;
+#X obj 9 16 c.loadmess;
+#X obj 3 4 c.help.header;
+#X obj 79 366 c.help.pub;
+#X obj 452 382 c.help.gui;
+#X text 449 366 Look at me;
+#X connect 0 0 2 0;
+#X connect 1 0 0 0;
+#X connect 3 0 5 0;
+#X connect 3 0 19 0;
+#X connect 4 0 6 0;
+#X connect 4 0 20 0;
+#X connect 7 0 9 0;
+#X connect 8 0 7 0;
+#X connect 10 0 11 0;
+#X connect 18 0 10 0;
+#X connect 19 0 4 0;
+#X connect 20 0 3 0;
+#X connect 27 0 3 0;
+#X connect 28 0 4 0;
+#X connect 32 0 7 0;
+#X connect 33 0 18 0;
+#X connect 34 0 1 0;
+#X connect 36 0 38 0;
+#X connect 37 0 36 0;

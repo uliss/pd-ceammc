@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="function" type="gui">
+        <title>function</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>named function</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category view="link">base</category>
+            <keywords>function</keywords>
+            <aliases>
+                <alias>func</alias>
+            </aliases>
+            <also>
+                <see>function.call</see>
+            </also>
+            <since>0.3</since>
+        </meta>
+        <arguments>
+            <argument name="NAME" type="symbol">function name, should be unique</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo>input value</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo>value from side-chain</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>result value</outlet>
+            <outlet>value to side-chain</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[function f1-$0 #f1]X[expr sqrt($f1 * $f1 - 1) #e1]
+
+[F]
+|
+[func.call f1-$0]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

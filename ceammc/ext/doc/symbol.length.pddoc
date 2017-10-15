@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="symbol.length">
+        <title>symbol.length</title>
+        <meta>
+            <authors>
+                <author>Alex Nadzharov</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>number of characters in symbol (unicode supported)</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>symbol</category>
+            <keywords>symbol length</keywords>
+            <since>0.1</since>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="symbol">input symbol. Unicode strings also supported.</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>length of symbol: number of character</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[symbol example(
+|
+|      [S digits=20]
+|      |
+[symbol.length]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

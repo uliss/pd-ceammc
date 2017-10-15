@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="midi.prg2str">
+        <title>midi.prg2str</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>convert GM Instrument number to name (string or symbol)</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>midi</category>
+            <keywords>midi convert midi</keywords>
+            <aliases>
+                <alias>midi.prg-&gt;str</alias>
+            </aliases>
+            <since>0.4</since>
+        </meta>
+        <properties>
+            <property name="@symbol" type="flag">output as symbol instead of string by default</property>
+            <property name="@family" type="flag">output family name instead of instrument name</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="float">General MIDI instrument number [1-128]</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output General MIDI instrument name (string or symbol)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[1(  [9(
+|    |
+[F                      ]
+|                       |
+[midi.prg->str @symbol] [midi.prg->str @symbol @family]
+|                       |
+[msg set]               [msg set]
+|                       |
+[ (                     [ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

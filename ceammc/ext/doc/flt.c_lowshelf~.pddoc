@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flt.c_lowshelf~">
+        <title>flt.c_lowshelf~</title>
+        <meta>
+            <authors>
+                <author>Alex Nadzharov</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Lowshelf filter coefficent calculator for biquad</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>flt</category>
+            <keywords>filter lowshelf</keywords>
+            <since>0.1</since>
+            <also>
+                <see>flt.lowshelf~</see>
+                <see>flt.biquad~</see>
+            </also>
+        </meta>
+        <info>
+            <par>gain boost|cut below some frequency</par>
+        </info>
+        <methods>
+            <method name="freq">
+                <param type="float" units="herz" default="1000">cutoff frequency</param>
+            </method>
+            <method name="gain">
+                <param type="float" units="decibel" name="X" minvalue="-15" maxvalue="+15"
+                default="0">filter gain</param>
+            </method>
+        </methods>
+        <arguments>
+            <argument name="freq" type="float" units="herz">cutoff frequency</argument>
+            <argument name="gain" type="float" minvalue="-15" maxvalue="+15" units="decibel">filter
+            gain</argument>
+            <argument name="ID" type="symbol">object ID for OSC control</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo>control input</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">b0</outlet>
+            <outlet type="audio">b1</outlet>
+            <outlet type="audio">b2</outlet>
+            <outlet type="audio">a1</outlet>
+            <outlet type="audio">a2</outlet>
+            <outlet type="control">information output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[noise.pink~]
+|
+|  [T]
+|  |.
+[*~ ]
+|
+|    [F]       [F]
+|    |         |
+|    [freq $1( [gain $1(
+|    |         |
+|    [flt.c_highshelf~  1000 -15]
+|    |  ^|   ^^|    ^^^|     ^^^^|
+|    |.  |..   |...    |....     |.....
+[flt.biquad~                            ]
+|\
+[dac~]
+
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

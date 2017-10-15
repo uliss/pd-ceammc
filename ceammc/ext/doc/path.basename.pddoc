@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="path.basename">
+        <title>path.basename</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>outputs filename portion of pathname</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>path</category>
+            <keywords>path environment</keywords>
+            <since>0.1</since>
+            <also>
+                <see>path.dirname</see>
+            </also>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="symbol">outputs filename portion of pathname</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>filename</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[symbol HOME(
+|
+[system.getenv] [/dir/path( [./test( [/root(   [/(
+|               |           |        |         |
+|               |           |        |         |
+|               [symbol                        ]
+|               |
+|               |     [.(  [..( [C://file.txt(
+|               |     |    |    |
+|               |     [symbol   ]
+|               |     |
+[path.basename        ]
+|
+[msg set]
+|
+[ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

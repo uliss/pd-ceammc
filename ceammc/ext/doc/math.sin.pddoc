@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.sin">
+        <title>math.sin</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>sine function</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math sin</keywords>
+            <also>
+                <see>math.acos</see>
+                <see>math.asin</see>
+                <see>math.atan</see>
+            </also>
+            <since>0.1</since>
+        </meta>
+        <info>
+            <par>The sin() function computes the sine of input value (measured in radians).</par>
+            <par>Special values:</par>
+            <par>sin(+-0) returns +-0.</par>
+            <par>sin(+-infinity) returns a NaN.</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo on="float">input value</xinfo>
+                <xinfo on="list">apply to all numeric values</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>result value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]  [1 2 3(
+|    |
+[math.sin]
+|
+[msg set]
+|
+[  (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

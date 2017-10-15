@@ -1,0 +1,12 @@
+#N canvas 0 0 715 500 12;
+#X obj 20 53 ui.link @title index @url ../index-help.pd;
+#X text 62 50 ::;
+#X obj 79 53 ui.link @title ceammc @url ceammc-help.pd;
+#X obj 30 116 prop.get;
+#X text 175 116 Property extractor;
+#X obj 30 143 prop.set;
+#X text 175 143 Property injector;
+#X obj 1 1 cnv 5 712 40 empty empty ceammc::property 20 20 0 20
+-104026 -4096 0;
+#X obj 1 458 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 468 library: ceammc;

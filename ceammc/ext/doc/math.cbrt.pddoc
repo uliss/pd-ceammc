@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.cbrt">
+        <title>math.cbrt</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>cube root function</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math cbrt</keywords>
+            <also>
+                <see>math.sqrt</see>
+            </also>
+            <since>0.1</since>
+        </meta>
+        <info>
+            <par>The cbrt() function computes the cube root of input value.</par>
+            <par>Special values:</par>
+            <par>cbrt(+-0) returns +-0.</par>
+            <par>cbrt(+-infinity) returns +-infinity.</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo on="float">input value</xinfo>
+                <xinfo on="list">apply to all numeric values</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>result value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]
+|
+[math.cbrt]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

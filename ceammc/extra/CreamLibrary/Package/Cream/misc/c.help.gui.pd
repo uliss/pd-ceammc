@@ -1,0 +1,71 @@
+#N canvas 460 54 899 557 10;
+#X msg 627 360 attrprint;
+#X obj 548 334 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min 0 @max "(null)" @minmax 0 "(null)" @decimal
+6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0
+1;
+#X obj 608 413 c.radio @size 66.5 10 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @nitems 5 @mode 0 @bgcolor 0.25 0.25 0.499999
+0 @bdcolor 0.5 0.5 0.5 1 @itcolor 0.5 0.5 0.5 1;
+#X obj 478 334 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min 1 @max "(null)" @minmax 1 "(null)" @decimal
+6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0
+1;
+#X msg 478 363 nitems \$1;
+#X text 18 21 Important : Given that Pure Data extended is no longer
+maintained \, the development of the library is mainly focused on the
+compatibility with Pure Data vanilla. Nevertheless \, the "deken" library
+management system has been elaborated so I've made the choice to clean
+the library :;
+#X text 18 101 c.mousestate has been removed. Please use the MouseState
+object from the cyclone library. Nevertheless there is a patch alias
+in the misc folder for minimum of compatibilty if you have the cyclone
+library.;
+#X text 18 161 c.pak doesn't have any substitute for the moment \,
+the object is still in the library but perhaps in the future it will
+be in another.;
+#X text 18 211 c.freeverb~ and c.convolve~ are still in the library
+but not documented. I hope that \, in the future \, there will be some
+kind of reverb library with the objects. You should prefer to use the
+freeverb~ object.;
+#X text 18 271 c.canvasargs and c.canvasinfos are still in the library
+but not documented. I hope that \, in the future \, there will be some
+kind of canvas management library with the objects.;
+#X text 457 15 About GUIs:;
+#X text 457 38 The popup menu for properties window and help is only
+available in edition because sometimes the GUI needs the right-click.
+;
+#X text 457 88 In edition \, you can use the cmd to simulate play mode.
+;
+#X text 457 112 The attributes can be changed in the properties windows
+or with message. Send "attrprint" to an GUI to display the attributes
+informations."Name" is the message that the object is expecting to
+edit the attribute \, "Type" is the type of the values (float \, symbol
+\, etc...) and "Size" is the number of values the object is expecting.
+;
+#X msg 548 363 size \$1 10;
+#X text 457 202 Drag the border (bottom or right) or the corner (bottom-right)
+of the box to resize it. Sometimes the width or the height depends
+of the font size (c.number for example) or any other attribute of the
+object.;
+#X text 458 276 Example:;
+#X obj 704 338 c.colorpanel @size 121 14 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @matrix 12 1 @reverse 0 @saturation 0.5 @hue 1
+@lightness 0.5 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
+#X msg 703 359 bgcolor \$1 \$2 \$3;
+#X text 18 331 c.prepend and c.loadmess are still in the library but
+you should prefer to use the native list object or the prepend object
+from the cyclone library instead of c.prepend and the native objects
+instead of c.loadmess.;
+#X connect 0 0 2 0;
+#X connect 1 0 14 0;
+#X connect 3 0 4 0;
+#X connect 4 0 2 0;
+#X connect 14 0 2 0;
+#X connect 17 0 18 0;
+#X connect 18 0 2 0;
+#X coords 0 557 1 556 361 42 0;

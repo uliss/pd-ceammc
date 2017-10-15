@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.approx">
+        <title>math.approx</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>check if input value approximately equal to pattern</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>equal compare approx</keywords>
+            <since>0.1</since>
+            <aliases>
+                <alias>approx</alias>
+            </aliases>
+        </meta>
+        <info>
+            <par>checks is |x - pattern| &lt;= |epsilon|</par>
+        </info>
+        <properties>
+            <property name="value" type="float" default="0">compare pattern</property>
+            <property name="epsilon" type="float" default="0.01">compare epsilon</property>
+        </properties>
+        <arguments>
+            <argument name="P" type="float">compare pattern</argument>
+            <argument name="E" type="float">compare epsilon</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="float">input value</xinfo>
+                <xinfo on="list">list values are spreaded among three inlets</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float">pattern value</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float">epsilon</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output 1 if input value is approximately equal to pattern, 0 0
+            otherwise</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[HS]
+|
+|   [1.99 2 0.01(
+|   |
+[F] |
+|   |
+[math.approx 50 10] /* 40 <= x <= 60 */
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

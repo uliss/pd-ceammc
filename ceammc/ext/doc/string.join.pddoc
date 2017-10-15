@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="string.join">
+        <title>string.join</title>
+        <meta>
+            <authors>
+                <author>Alex Nadzharov</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>joins (concatenates) strings with separator</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>string</category>
+            <keywords>join</keywords>
+            <since>0.3</since>
+            <aliases>
+                <alias>str.join</alias>
+            </aliases>
+            <also>
+                <see>string.split</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="SEP" type="atom">separator. For space use ' '.</argument>
+        </arguments>
+        <properties>
+            <property name="@sep" type="atom">separator</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="list">list of strings</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>concatenated string</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[bang(
+|
+[string TEST]
+|
+[string.split]
+|
+[string.join ' ']
+|
+[str->sym]
+|
+[msg set]
+|
+[ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

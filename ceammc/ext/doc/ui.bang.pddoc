@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="ui.bang" type="gui">
+        <title>ui.bang</title>
+        <meta>
+            <authors>
+                <author>Pierre Guillot</author>
+            </authors>
+            <description>A bang... that's all</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category view="link">ui</category>
+            <keywords>ui bang</keywords>
+            <since>0.1</since>
+            <also>
+                <see view="link">ui.toggle</see>
+            </also>
+        </meta>
+        <info>
+            <par>do nothing more than vanilla bang for the moment...</par>
+        </info>
+        <methods>
+            <method name="dump">dumps all object info to Pd console window.</method>
+        </methods>
+        <properties>
+            <property name="@send" type="symbol">send destination</property>
+            <property name="@receive" type="symbol">receive source</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">outputs bang</xinfo>
+                <xinfo on="float">outputs bang</xinfo>
+                <xinfo on="symbol">outputs bang</xinfo>
+                <xinfo on="list">outputs bang</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>bang output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[dump(
+|
+[ui.bang @size=40x40 @send=b_out @receive=b_in]
+|
+|      [B]
+|      |
+[B]    [s b_in]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

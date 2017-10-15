@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="set.union">
+        <title>set.union</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>output union of given sets</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>data</category>
+            <keywords>data union set</keywords>
+            <since>0.3</since>
+            <also>
+                <see>data.set</see>
+                <see>set.intersect</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="ARGS" type="any">right set elements</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo>first set or list (converted to set), other values are ignored</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo>second set or list (converted to set)</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output union of given sets</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]
+|
+[trigger           b b]
+|                  ^|
+[data.set 1 2 3 4]  [data.set 3 4 5 6]
+|                   |.
+[set.union           ]
+|
+[set->list @sort]
+|
+[msg set]
+|
+[ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

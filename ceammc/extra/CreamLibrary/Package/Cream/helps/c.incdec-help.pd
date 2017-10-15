@@ -1,0 +1,64 @@
+#N canvas 185 184 625 455 10;
+#X msg 271 141 set \$1;
+#X text 6 49 c.incdec increment and decrement a value without stack
+overflow.;
+#X text 331 149 Output the value;
+#X text 117 92 Set and output the value;
+#X msg 62 205 step \$1;
+#X text 40 139 Set the increment step;
+#X msg 380 209 inc;
+#X msg 372 249 dec;
+#X text 411 207 Increment;
+#X text 406 250 Decrement;
+#X text 12 288 to the c.incdec input and the;
+#X text 12 302 c.incdec output is connected;
+#X obj 235 308 c.incdec @size 17 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@step 0.35 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @arcolor
+0 0 0 1;
+#X obj 255 308 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 62 182 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 170 114 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 271 114 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 360 169 c.bang @size 17 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X text 13 316 to the number input.;
+#X text 13 274 c.number output is connected;
+#X obj 62 157 c.loadmess 0.35;
+#X text 270 92 Set the value withpout output.;
+#X obj 11 27 c.patcherinfos;
+#X obj 12 18 c.loadmess;
+#X obj 6 6 c.help.header;
+#X obj 105 374 c.help.pub;
+#X obj 480 390 c.help.gui;
+#X text 477 374 Look at me;
+#X connect 0 0 12 0;
+#X connect 4 0 12 0;
+#X connect 6 0 12 0;
+#X connect 7 0 12 0;
+#X connect 12 0 13 0;
+#X connect 13 0 12 0;
+#X connect 14 0 4 0;
+#X connect 15 0 12 0;
+#X connect 16 0 0 0;
+#X connect 17 0 12 0;
+#X connect 20 0 14 0;
+#X connect 22 0 24 0;
+#X connect 23 0 22 0;

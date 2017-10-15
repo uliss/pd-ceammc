@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="ui.radio" type="gui">
+        <title>ui.radio</title>
+        <meta>
+            <authors>
+                <author>Pierre Guillot</author>
+            </authors>
+            <description>counterpart of the vanilla radio toggle</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category view="link">ui</category>
+            <keywords>ui radio</keywords>
+            <since>0.1</since>
+            <also>
+                <see view="link">ui.matrix</see>
+            </also>
+        </meta>
+        <properties>
+            <property name="@nitems" type="int" default="8" minvalue="1">number of items</property>
+            <property name="@mode" type="int" enum="0 1" default="0">check list mode.
+            If true acts as checklist</property>
+            <property name="@send" type="symbol">send destination</property>
+            <property name="@receive" type="symbol">receive source</property>
+        </properties>
+        <methods>
+            <method name="set">sets radio without output
+            <param name="V" type="float" required="true">new value</param></method>
+            <method name="reset">reset radio (only in checklist mode)</method>
+            <method name="flip">flips radio (only in checklist mode)</method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">outputs current radio state</xinfo>
+                <xinfo on="float">set radio and output</xinfo>
+                <xinfo on="list">set radio and output (only in checklist mode)</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]  [set 2(         [flip( [reset( [1 1 0 1 0 0 1(
+|    |               |      |       |
+|    |               |      |       |
+[ui.radio]           [ui.radio @mode 1]
+|                    |
+[F]                  [ui.display @display_type 1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="is_file">
+        <title>is_file</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>checks if file exists and accessible</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>predicates</category>
+            <keywords>predicate filesystem</keywords>
+            <since>0.2</since>
+        </meta>
+        <info>
+            <par>If relative path is given file searched under patch directory</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo on="symbol">outputs '1' if file exists and can be opened, otherwise
+                '0'</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>0 or 1</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[symbol is_file-help.pd(
+|
+|   [symbol not-exists(
+|   |
+[is_file]
+|
+[_]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

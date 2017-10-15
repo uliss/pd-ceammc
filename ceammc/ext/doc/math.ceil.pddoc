@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.ceil">
+        <title>math.ceil</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>round to smallest integral value not less than input value</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math ceil</keywords>
+            <also>
+                <see>math.floor</see>
+                <see>math.round</see>
+                <see>math.trunc</see>
+            </also>
+            <since>0.1</since>
+        </meta>
+        <info>
+            <par>The ceil() function return the smallest integral value greater than or equal to
+            input value.</par>
+            <par>Special values:</par>
+            <par>ceil(+-0) returns +-0.</par>
+            <par>ceil(+-infinity) returns +-infinity.</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo on="float">input value</xinfo>
+                <xinfo on="list">apply to all numeric values</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>result value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]    [2.3 3.8 5.5 -2.3 -3.8 -5.5(
+|      |
+[math.ceil]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

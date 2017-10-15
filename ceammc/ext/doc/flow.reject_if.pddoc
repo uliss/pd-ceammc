@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flow.reject_if">
+        <title>flow.reject_if</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>reject values by predicate</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>flow</category>
+            <keywords>reject functional</keywords>
+            <since>0.3</since>
+            <aliases>
+                <alias>reject_if</alias>
+            </aliases>
+            <also>
+                <see>flow.pass_if</see>
+                <see>flow.reject</see>
+                <see>is_even</see>
+            </also>
+        </meta>
+        <info>
+            <par>conditional value reject according to *predicate* object. *predicate* should
+            accept value and ouput 0 or 1, for value passing.</par>
+            <par>[&lt;] [is_even] [is_list] - examples of predicates.</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo>input value</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="int">value from predicate (0 or 1). If *1* reject value, if *0* -
+                pass.</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>passed values</outlet>
+            <outlet>output value to predicate</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]
+|
+[flow.reject_if] X [< 10]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

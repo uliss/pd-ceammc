@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="system.screen_size">
+        <title>system.screen_size</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>returns current screen size in pixels</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>system</category>
+            <keywords>screen info</keywords>
+            <since>0.1</since>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">outputs screen size in pixels</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>list of two values: width and height</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+
+[bng]
+|
+[system.screen_size]
+|
+|
+[ui.display]
+
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

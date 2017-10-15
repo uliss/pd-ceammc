@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="preset.list">
+        <title>preset.list</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>load/store symbol preset</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>preset</category>
+            <keywords>preset storage symbol</keywords>
+            <since>0.4</since>
+            <also>
+                <see>preset.storage</see>
+                <see>preset.float</see>
+                <see>preset.symbol</see>
+            </also>
+        </meta>
+        <info>
+            <par>Named list preset entry. Can store/load up to 16 various lists</par>
+        </info>
+        <arguments>
+            <argument name="ID" type="symbol">preset id (should be unique in most use cases)</argument>
+            <argument name="VALUES" type="list">preset initial value</argument>
+        </arguments>
+        <properties>
+            <property name="@path" type="symbol" readonly="true">property OSC-like path
+            that includes id, abstraction name and may be subpatch name separated by slashes.</property>
+            <property name="@init" type="list">init list value</property>
+            <property name="@global" type="flag">use global path like /ID</property>
+            <property name="@subpatch" type="flag">include subpatch name to path</property>
+        </properties>
+        <methods>
+            <method name="load">load preset value by specified index and output it</method>
+            <method name="store">stores preset value at specified index</method>
+            <method name="clear">clear preset at specified index</method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="list">set preset value without output</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>preset list value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+           [store 0(     [store 1(
+           |             |
+[load 0(   | [load 1(    |
+|          | |           |
+| [1 2 3(  | | [4 5 6(   |
+| |        | | |         |
+| |        | | |         |
+| |        | | |         |
+[preset.list l1 1 2 3 4 5 6 7 8 9]
+|
+[msg set]
+|
+[ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

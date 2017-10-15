@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="noise.pink~">
+        <title>noise.pink~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Pink noise generator</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>noise</category>
+            <keywords>noise pink</keywords>
+            <since>0.1</since>
+            <also>
+                <see>noise.white~</see>
+            </also>
+        </meta>
+        <info>
+            <par>Pink noise or 1/f noise is a signal or process with a frequency spectrum such that
+            the power spectral density (energy or power per frequency interval) is inversely
+            proportional to the frequency of the signal.</par>
+            <par>In pink noise, each octave (halving/doubling in frequency) carries an equal amount
+            of noise energy.</par>
+            <par>The name arises from the pink appearance of visible light with this power
+            spectrum.</par>
+        </info>
+        <outlets>
+            <outlet type="audio">output signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.dsp~]
+
+
+[noise.pink~]
+|
+|
+|
+[ui.scope~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

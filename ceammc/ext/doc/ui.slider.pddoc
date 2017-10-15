@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="ui.slider" type="gui">
+        <title>ui.slider</title>
+        <meta>
+            <authors>
+                <author>Pierre Guillot</author>
+            </authors>
+            <description>counterpart of the vanilla slider</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category view="link">ui</category>
+            <keywords>ui slider</keywords>
+            <since>0.1</since>
+            <also>
+                <see view="link">ui.slider2d</see>
+                <see view="link">ui.sliders</see>
+                <see view="link">ui.knob</see>
+            </also>
+        </meta>
+        <properties>
+            <property name="@min" type="float" default="0">minimum slider value</property>
+            <property name="@max" type="float" default="1">maximum slider value</property>
+            <property name="@mode" type="int" enum="0 1" default="0">relative mode.
+                Do not jump on click to value</property>
+            <property name="@send" type="symbol">send destination</property>
+            <property name="@receive" type="symbol">receive source</property>
+        </properties>
+        <methods>
+            <method name="set">sets slider value without output
+            <param name="V" type="float" required="true">new value</param></method>
+            <method name="++">increment slider value without output</method>
+            <method name="--">decrement slider value without output</method>
+            <method name="+">add value to slider without output
+            <param name="V" type="float" required="true">added value</param></method>
+            <method name="-">substruct value from slider without output
+            <param name="V" type="float" required="true">substructed value</param></method>
+            <method name="*">multiply slider value without output
+            <param name="V" type="float" required="true">mutiplied value</param></method>
+            <method name="/">divide slider value without output
+            <param name="V" type="float" required="true">denominator value</param></method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">outputs current slider state</xinfo>
+                <xinfo on="float">set slider value and output</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[5( [50( [set 100( [bang(
+|   |    |         |
+|   |    |         |  [- 5( [+ 10( [* 2( [/ 3(
+|   |    |         |  |     |      |     |
+|   |    |         |  |     |      |     | [++, bang( [--, bang(
+|   |    |         |  |     |      |     | |          |
+[ui.slider @max 127                                   ]
+|
+|
+|
+|
+|
+|
+|
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

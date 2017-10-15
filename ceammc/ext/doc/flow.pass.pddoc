@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flow.pass">
+        <title>flow.pass</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>pass specified values</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>flow</category>
+            <keywords>pass functional</keywords>
+            <since>0.3</since>
+            <aliases>
+                <alias>pass</alias>
+            </aliases>
+            <also>
+                <see>flow.pass_if</see>
+                <see>flow.reject</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument type="atom" name="values">atoms to pass</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">pass</xinfo>
+                <xinfo on="float">pass if float is found in pass list</xinfo>
+                <xinfo on="symbol">pass if symbol is found in pass list</xinfo>
+                <xinfo on="list">pass. If you want to do conditional list pass, use
+                [flow.pass_if]</xinfo>
+                <xinfo on="any">pass if message selector is found in pass list</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>passed values</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]    [S]    [list 1 2 9 10(
+|      |      |
+|  [B] |      |
+|  |   |      |
+|  |   |      |
+[flow.pass 1 10 100 a z]
+|
+[msg set]
+|
+[ (
+
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

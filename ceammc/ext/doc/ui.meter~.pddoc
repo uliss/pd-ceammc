@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="ui.meter~" type="gui">
+        <title>ui.meter~</title>
+        <meta>
+            <authors>
+                <author>Pierre Guillot</author>
+            </authors>
+            <description>counterpart of the vanilla [vu]. Shows peak signal level</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category view="link">ui</category>
+            <keywords>ui meter</keywords>
+            <since>0.1</since>
+        </meta>
+        <properties>
+            <property name="@interval" type="float" units="millisecond" minvalue="20" default="50">
+            refresh interval</property>
+            <property name="@send" type="symbol">send destination</property>
+            <property name="@receive" type="symbol">receive source</property>
+        </properties>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output meter peak value in decibels (0 - -100)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[lfo.tri~ 0.2] [phasor~ 0.2]
+|              |
+|              [env~]
+|              |
+|              [dbtorms]
+|              |
+[ui.meter~]    [ui.meter~]
+|
+|
+|
+|
+|
+|
+|
+|
+[F]
+
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

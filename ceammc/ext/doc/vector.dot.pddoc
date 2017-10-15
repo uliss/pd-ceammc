@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="vector.dot">
+        <title>vector.dot</title>
+        <meta>
+            <authors>
+                <author>Alex Nadzharov</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>treats list of floats as vector, returns the dot product (sum of the
+            elements of two lists with same indexes multiplied).</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>vector</category>
+            <keywords>vector dot product</keywords>
+            <since>0.1</since>
+            <also>
+                <see>vector.normalize</see>
+                <see>vector.distance</see>
+                <see>vector.length</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="LIST" type="list">initial second list value</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="list">First list of floats</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="list">Second list of floats</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>returns dot of (list1, list2), float</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[1 0 .5(         [0 1 1(
+|        [dump(  |
+|        |       |.
+[vector.dot  1 2 3]
+|
+[msg set]
+|
+[ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="array.each">
+        <title>array.each</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>process each array elements via side-chain</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>array</category>
+            <keywords>array each</keywords>
+            <also>
+                <see>list.each</see>
+            </also>
+            <since>0.3</since>
+        </meta>
+        <arguments>
+            <argument name="NAME" type="symbol">array name</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">process each element of current array</xinfo>
+                <xinfo on="symbol">set new array and then process each element of it</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float">processed float value from side-chain</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>bang on finish</outlet>
+            <outlet>float value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]                            [array array1 size=100 w=130 h=100]
+|
+[array.each array1]X[sin]
+|
+[normalize(
+|
+[s array1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

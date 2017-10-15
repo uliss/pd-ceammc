@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="ui.spectroscope~" type="gui">
+        <title>ui.spectroscope~</title>
+        <meta>
+            <authors>
+                <author>Alex Nadzharov</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Spectroscope GUI object</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category view="link">ui</category>
+            <keywords>ui spectroscope</keywords>
+            <since>0.1</since>
+            <also>
+                <see view="link">ui.scope~</see>
+            </also>
+        </meta>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>signal input</xinfo>
+            </inlet>
+        </inlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.dsp~]
+
+
+[noise~] [osc.saw~ 1000]
+|        |
+| [T]    | [T]
+| |.     | |.
+[*~]     [*~]
+|        |
+|        |
+[ui.spectroscope~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

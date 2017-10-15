@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="system.memused">
+        <title>system.memused</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>returns the process physical memory use - current and peak</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>system</category>
+            <keywords>system memory</keywords>
+            <also>
+                <see>system.memsize</see>
+            </also>
+            <since>0.1</since>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">outputs memory use</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>current physical memory use measured in bytes, or zero if the value cannot be
+            determined on this OS.</outlet>
+            <outlet>peak (maximum so far) physical memory use measured in bytes, or zero if the
+            value cannot be determined on this OS.</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[bng]
+|
+[system.memused]
+|
+|            /* in Kbytes */
+[/ 1024               ]
+|                     |
+[floatatom digits=12] [floatatom digits=12]
+
+                ]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

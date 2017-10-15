@@ -71,7 +71,7 @@ char sys_font[100] = "Monaco";
 char sys_fontweight[10] = "normal";
 #else
 char sys_font[100] = "DejaVu Sans Mono";
-char sys_fontweight[10] = "bold";
+char sys_fontweight[10] = "normal";
 #endif
 static int sys_main_srate;
 static int sys_main_advance;
@@ -193,7 +193,7 @@ int sys_fontheight(int fontsize)
 }
 
 int sys_defaultfont;
-#define DEFAULTFONT 10
+#define DEFAULTFONT 12
 
 static void openit(const char *dirname, const char *filename)
 {
@@ -245,6 +245,15 @@ void glob_initfromgui(void *dummy, t_symbol *s, int argc, t_atom *argv)
     for  (nl = sys_externlist; nl; nl = nl->nl_next)
         if (!sys_load_lib(0, nl->nl_string))
             post("%s: can't load library", nl->nl_string);
+
+    // load main CEAMMC library
+    if(!sys_load_lib(0, "ceammc"))
+        post("ceammc: can't load library");
+
+    // load cream GUI library
+    if(!sys_load_lib(0, "creammc"))
+        post("creammc: can't load library");
+
         /* open patches specifies with "-open" args */
     for  (nl = sys_openlist; nl; nl = nl->nl_next)
         openit(cwd, nl->nl_string);
@@ -356,6 +365,7 @@ static char *(usagemessage[]) = {
 
 #ifdef USEAPI_JACK
 "-jack            -- use JACK audio API\n",
+"-jackname <name> -- a name for your JACK client\n",
 #endif
 
 #ifdef USEAPI_PORTAUDIO
@@ -539,7 +549,7 @@ void sys_findprogdir(char *progname)
 #else
     strncpy(sbuf, sbuf2, MAXPDSTRING-30);
     sbuf[MAXPDSTRING-30] = 0;
-    strcat(sbuf, "/lib/pd");
+    strcat(sbuf, "/lib/pd_ceammc");
     if (stat(sbuf, &statbuf) >= 0)
     {
             /* complicated layout: lib dir is the one we just stat-ed above */
@@ -682,6 +692,13 @@ int sys_argparse(int argc, char **argv)
         {
             sys_set_audio_api(API_JACK);
             argc--; argv++;
+        }
+        else if (!strcmp(*argv, "-jackname") && (argc > 1))
+        {
+            if (argc > 1)
+                sys_set_audio_api(API_JACK), jack_client_name(argv[1]);
+            else goto usage;
+            argc -= 2; argv +=2;
         }
 #endif
 #ifdef USEAPI_PORTAUDIO

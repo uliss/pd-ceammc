@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="ui.rslider" type="gui">
+        <title>ui.rslider</title>
+        <meta>
+            <authors>
+                <author>Pierre Guillot</author>
+            </authors>
+            <description>rangle slider</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category view="link">ui</category>
+            <keywords>ui range slider</keywords>
+            <since>0.1</since>
+            <also>
+                <see view="link">ui.slider</see>
+                <see view="link">ui.sliders</see>
+            </also>
+        </meta>
+        <info>
+            <par>Hold *Shift* to move ranges separately. When @sync property is true,
+            outputs value on every mouse move</par>
+        </info>
+        <properties>
+            <property name="@min" type="float" default="0">minimum allowed slider value</property>
+            <property name="@max" type="float" default="1">maximum allowed slider value</property>
+            <property name="@sync" type="int" enum="0 1" default="0">mouse sync. If true output
+            on every mouse draggin, otherwise output only on mouse up</property>
+            <property name="@value" type="list">current slider value</property>
+            <property name="@minvalue" type="float">minimum selected slider value</property>
+            <property name="@maxvalue" type="float">maximum selected slider value</property>
+            <property name="@range" type="float" minvalue="0">selected slider value</property>
+            <property name="@send" type="symbol">send destination</property>
+            <property name="@receive" type="symbol">receive source</property>
+        </properties>
+        <methods>
+            <method name="set">sets slider value without output
+            <param name="V" type="float" required="true">new value</param></method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">outputs current slider state</xinfo>
+                <xinfo on="float">set leftmost range value</xinfo>
+                <xinfo on="list">set range value without output</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float">set rightmost range value</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output slider range as pair of values</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[20 80(      [60 90(
+|            |
+| [@range?(  | [@minvalue?( [@maxvalue?(
+| |          | |            |
+| |          | |            |
+| |          | |            |
+[ui.rslider @min 0 @max  100]
+|
+[ui.display @display_type=1]
+
+/*Mouse sync is on*/
+
+[ui.rslider @sync 1]
+|
+[ui.display @display_type=1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

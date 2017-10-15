@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="dyn.softclip~">
+        <title>dyn.softclip~</title>
+        <meta>
+            <authors>
+                <author>Alex Nadzharov</author>
+            </authors>
+            <description>soft signal clip</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>dyn</category>
+            <keywords>dyn clip limiter</keywords>
+            <since>0.1</since>
+        </meta>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[osc~ 220] [F]      [osc~ 220] [F]
+|  ._______/        |  ._______/
+[*~]                [*~]
+|                   |
+[dyn.softclip~]     [clip~ -1 1]
+|     [_]           |      [_]
+|     |.            |      |.
+[*~   ]             [*~    ]
+|\                  |\
+[dac~]              [dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

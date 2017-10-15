@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flow.pass_if">
+        <title>flow.pass_if</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>pass values that accepted by predicate object</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>flow</category>
+            <keywords>pass functional</keywords>
+            <since>0.3</since>
+            <aliases>
+                <alias>pass_if</alias>
+            </aliases>
+            <also>
+                <see>flow.pass</see>
+            </also>
+        </meta>
+        <info>
+            <par>conditional value pass according to *predicate* side-chain. *predicate* should
+            accept value and ouput 0 or 1, for value passing.</par>
+            <par>[&gt;=] [is_even] [is_list] - examples of predicates.</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo>input value</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="int" minvalue="0" maxvalue="1">conditional output from predicate object.
+                '1' means pass, '0' means reject</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>passed values</outlet>
+            <outlet>output to predicate side-chain</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]                  [F]  [B] [1 2 3 4 5(
+|                    |    |   |
+[pass_if]X[is_even]  [pass_if ]X[is_list]
+|                    |
+|                    |
+[msg set]            [msg set]
+|                    |
+[ (                  [ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

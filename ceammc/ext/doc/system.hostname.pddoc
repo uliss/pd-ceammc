@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="system.hostname">
+        <title>system.hostname</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>outputs system hostname</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>system</category>
+            <keywords>system hostname</keywords>
+            <since>0.1</since>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">outputs hostname</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>symbol: hostname</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]
+|
+[system.hostname]
+|
+[S digits=20]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

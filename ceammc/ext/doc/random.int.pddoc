@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="random.int">
+        <title>random.int</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Random integer generator in specified range</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>random</category>
+            <keywords>random</keywords>
+            <also>
+                <see>random.float</see>
+                <see>random.gauss</see>
+            </also>
+            <since>0.1</since>
+        </meta>
+        <info>
+            <par>Generates pseudo-random number in specified closed interval.</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">generates random number</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>generated value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]
+|
+[random.int -10 10]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

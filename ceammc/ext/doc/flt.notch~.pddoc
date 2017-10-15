@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flt.notch~">
+        <title>flt.notch~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>band-rejection filter</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>flt</category>
+            <keywords>filter lowshelf</keywords>
+            <since>0.1</since>
+            <also>
+                <see>flt.bpf12~</see>
+            </also>
+        </meta>
+        <info>
+            <par>filter that passes most frequencies unaltered, but attenuates those in a specific
+            range to very low levels. It is the opposite of a band-pass filter.</par>
+        </info>
+        <methods>
+            <method name="freq">
+                <param type="float" units="herz" default="10000">center frequency</param>
+            </method>
+            <method name="width">
+                <param type="float" units="herz" default="50">band width (approximate)</param>
+            </method>
+        </methods>
+        <arguments>
+            <argument name="freq" type="float" units="herz">center frequency</argument>
+            <argument name="width" type="float" units="herz">band width (approximate)</argument>
+            <argument name="ID" type="symbol">object ID for OSC control</argument>
+        </arguments>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+                <xinfo on="bang">outputs object internal state to rightmost outlet</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">filtered signal</outlet>
+            <outlet type="control">information output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[osc~ 1000] [T]
+|  .________/
+[*~]
+|
+|  [@freq?(  [@width?( [F]
+|  |         |         |
+|  |         |         [freq $1(
+|  |         |         |
+[flt.notch~ 1000 10 id    ]
+|\                      ^|
+[dac~]                 [route @freq @width]
+                       |       ^|
+                       [F]     [F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -1,0 +1,1 @@
+cmake  -DCMAKE_TOOLCHAIN_FILE=Toolchain-mingw32.cmake PATH_TO_PROJECT_ROOT

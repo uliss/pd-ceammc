@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="string.length">
+        <title>string.length</title>
+        <meta>
+            <authors>
+                <author>Alex Nadzharov</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>number of characters in string (unicode supported)</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>string</category>
+            <keywords>string length</keywords>
+            <aliases>
+                <alias>str.length</alias>
+            </aliases>
+            <since>0.3</since>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo>input string or symbol. Unicode strings also supported.</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>length of string: number of character</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[list May 2017(  [list Июнь 2017(
+|                |
+[string          ]
+|
+[string.length]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

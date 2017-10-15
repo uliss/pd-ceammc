@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.tanh">
+        <title>math.tanh</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>hyperbolic tangent function</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math tanh</keywords>
+            <also>
+                <see>math.acos</see>
+                <see>math.asin</see>
+                <see>math.atan</see>
+            </also>
+            <since>0.1</since>
+        </meta>
+        <info>
+            <par>The tanh() function computes the hyperbolic tangent of x.</par>
+            <par>Special values:</par>
+            <par>tanh(+-0) returns +-0.</par>
+            <par>tanh(+-infinity) returns +-1.</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo on="float">input value</xinfo>
+                <xinfo on="list">apply to all numeric values</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>result value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]
+|
+[math.tanh]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -1,0 +1,12 @@
+#cmakedefine HAVE_UNISTD_H
+#cmakedefine HAVE_STDINT_H
+#cmakedefine HAVE_LIBDL
+#cmakedefine HAVE_ALLOCA_H
+#cmakedefine HAVE_BSTRING_H
+#cmakedefine HAVE_LIBGEN_H
+#cmakedefine HAVE_DIRENT_H
+#cmakedefine HAVE_FNMATCH_H
+#cmakedefine HAVE_SYS_SOUNDCARD_H
+
+#cmakedefine HAVE_SETENV
+#cmakedefine HAVE_NANOSLEEP

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="lfo.tri~">
+        <title>lfo.tri~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Positive unit-amplitude low frequency triangle wave</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>lfo</category>
+            <keywords>lfo oscillator triangle</keywords>
+            <since>0.1</since>
+            <also>
+                <see>lfo.square~</see>
+                <see>lfo.impulse~</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="freq" type="float" units="herz">frequency</argument>
+        </arguments>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>frequency in Hz</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">triangle wave in [0-1] range</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[osc~ 200] [floatatom]
+|          |
+|          [lfo.tri~ 10]
+|  ._______/
+[*~]   [_]
+|  .___/
+[*~]
+|\
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

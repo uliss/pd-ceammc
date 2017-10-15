@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library-info name="soundtouch">
+<description>SoundTouch is an open-source audio processing library for changing the Tempo, 
+Pitch and Playback Rates of audio streams or audio files. 
+The library additionally supports estimating stable beats-per-minute rates for audio tracks.
+</description>
+<website>https://www.surina.net/soundtouch/</website>
+<license>LGPL2.1</license>
+<contacts></contacts>
+</library-info>

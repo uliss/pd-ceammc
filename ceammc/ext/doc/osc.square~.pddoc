@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="osc.square~">
+        <title>osc.square~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Bandlimited square wave oscillator</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>osc</category>
+            <keywords>oscillator band-limited</keywords>
+            <since>0.1</since>
+            <also>
+                <see>osc.saw~</see>
+                <see>osc.tri~</see>
+                <see>lfo.square~</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="freq" type="float" units="herz">frequency</argument>
+        </arguments>
+        <inlets>
+            <inlet type="audio">
+                <xinfo on="float">frequency in Hz</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]
+|
+[osc.square~ 200]
+|              [T]
+|  .___________/
+[*~]
+|\
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

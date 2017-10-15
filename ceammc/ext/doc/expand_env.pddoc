@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="expand_env">
+        <title>expand_env</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Substitute enviroment variables in data stream</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>flow</category>
+            <keywords>expand_env test</keywords>
+            <since>0.1</since>
+            <also>
+                <see>replace</see>
+            </also>
+        </meta>
+        <info>
+            <par>Environment variable %HOME% will be replaced by home user directory under
+            UNIX</par>
+            <par>Some special variables defined: %DOC% - path to PureData doc directory, %CEAMMC% -
+            path to ceammc library directory</par>
+        </info>
+        <arguments>
+            <argument name="@any" type="property">if specified - also do substitution in message
+            selector</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">passed</xinfo>
+                <xinfo on="float">passed</xinfo>
+                <xinfo on="symbol">expand variable inside symbol string</xinfo>
+                <xinfo on="list">expand variables inside each list symbol</xinfo>
+                <xinfo on="any">expand variables inside each list symbol, more over, if @any
+                argument was used - expand in message selector</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output data stream</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B] [F]  [symbol user:%USER%( [list current shell: %SHELL%(
+|   |    |                    |
+|   |    |  [doc: %DOC%(      |  [doc: %CEAMMC%(
+|   |    |  |                 |  |
+|   |    |  |  [%DOC%(        |  | [home: %HOME%(
+|   |    |  |  |              |  | |
+[expand_env                        ]
+|
+[ui.display @display_type=1]
+
+
+
+
+[%CEAMMC%(
+|
+[expand_env @any]
+|
+[symbol]
+|
+[S digits=70]
+|
+[print]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

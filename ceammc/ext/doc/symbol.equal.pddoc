@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="symbol.equal">
+        <title>symbol.equal</title>
+        <meta>
+            <authors>
+                <author>Alex Nadzharov</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>check symbols for equality</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>symbol</category>
+            <keywords>symbol compare</keywords>
+            <since>0.1</since>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="symbol">first symbol</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="symbol">second symbol</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>outputs 1 if symbols are equal, otherwise 0</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[symbol a( [symbol b( [symbol c(
+|          |          |
+|          |          |  [symbol c(
+|          |          |  |.
+[symbol.equal             b]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="array.minmax">
+        <title>array.minmax</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>find array min and max element value</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>array</category>
+            <keywords>array minmax</keywords>
+            <since>0.3</since>
+        </meta>
+        <arguments>
+            <argument name="NAME" type="symbol">array name</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">perform search in current array</xinfo>
+                <xinfo on="symbol">set new array and perform search</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>list with two elements: minimal and maximum value</outlet>
+            <outlet>indexes of found values</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]                            [array array1 size=100 w=180 h=130]
+|
+[array.minmax array1]
+|                ^|
+[msg set]         [msg set]
+|                 |
+[ (               [ (
+
+[loadbang]
+|
+[sinesum 100 0.2 0.3(
+|
+[s array1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="list.all_of">
+        <title>list.all_of</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>checks if all list atoms accepted by predicate</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>list</category>
+            <keywords>list predicate all</keywords>
+            <since>0.1</since>
+            <also>
+                <see>list.none_of</see>
+            </also>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="list">Input list</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float" minvalue="0" maxvalue="1">input value from predicate. "1" means
+                accepped. "0" means reject.</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>1 - if predicate object returns true for all the elements or list is empty or 0
+            otherwise.</outlet>
+            <outlet>atom to predicate</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[1 10(      [1 10 2(
+|           |
+[list.seq]  [list.seq]
+|           |
+[list.all_of] X [is_odd]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

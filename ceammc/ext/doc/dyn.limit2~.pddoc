@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="dyn.limit2~">
+        <title>dyn.limit2~</title>
+        <meta>
+            <authors>
+                <author>Alex Nadzharov</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>stereo 1176LN Peak Limiter</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>dyn</category>
+            <keywords>limiter</keywords>
+            <since>0.1</since>
+            <also>
+                <see>dyn.limit~</see>
+                <see>dyn.comp~</see>
+            </also>
+        </meta>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>left input signal</xinfo>
+            </inlet>
+            <inlet type="audio">
+                <xinfo>right input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">left output signal</outlet>
+            <outlet type="audio">right output signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[osc~ 440]  [floatatom]
+|           |.
+[*~           ]
+| |         |
+| |         [env~]
+| |         |
+| |         [floatatom]
+| |.
+[dyn.limit2~   ]
+|             ^|
+[env~]        [env~]
+|             |
+[floatatom]   [floatatom]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="list.shift">
+        <title>list.shift</title>
+        <meta>
+            <authors>
+                <author>Alex Nadzharov</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>"shifts" the contents of the list with linear interpolation.</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>list</category>
+            <keywords>list</keywords>
+            <since>0.1</since>
+            <also>
+                <see>list.shift</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="shift" type="float">Shift amount. Float values cause linear
+            interpolation. Can be negative.</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="list">Input list.</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo>New shift value.</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>new modified list</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[1 2 3 4 5(  [3.5 (
+|            |.
+[list.shift 2]
+|
+[msg set]
+|
+[ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

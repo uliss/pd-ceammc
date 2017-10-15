@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="list.range">
+        <title>list.range</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>returns list smallest and largest value</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>list</category>
+            <keywords>list range compare</keywords>
+            <since>0.1</since>
+            <also>
+                <see>list.min</see>
+                <see>list.max</see>
+            </also>
+        </meta>
+        <info>
+            <par>Note: numbers are smaller then symbols</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo on="list">input list</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>list of two elements: first is a smallest values, second - largest</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[list a b z( [1 2 b c(
+|            |
+| [F]        |  [2 -1 6 -2(    [-3 0 10 2 -5 11(
+| |          |  |              |
+[list.range     ]              [list.range     ]
+|                              |
+[msg set]                      [!-]
+|                              |
+[ (                            [F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

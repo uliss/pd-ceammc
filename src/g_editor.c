@@ -4,6 +4,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
 #include "m_pd.h"
 #include "m_imp.h"
 #include "s_stuff.h"
@@ -13,6 +14,8 @@
 #ifdef _MSC_VER  /* This is only for Microsoft's compiler, not cygwin, e.g. */
 #define snprintf sprintf_s
 #endif
+
+#include "g_style.h"
 
 void glist_readfrombinbuf(t_glist *x, t_binbuf *b, char *filename,
     int selectem);
@@ -43,6 +46,26 @@ void gobj_displace(t_gobj *x, t_glist *glist, int dx, int dy)
 {
     if (x->g_pd->c_wb && x->g_pd->c_wb->w_displacefn)
         (*x->g_pd->c_wb->w_displacefn)(x, glist, dx, dy);
+    
+}
+
+void gobj_displace_grid(t_gobj *x, t_glist *glist, int sx, int sy, int ex,int ey)
+{
+    int xx0 = ((t_text*)x)->te_xpix;
+    int yy0 = ((t_text*)x)->te_ypix;
+    
+
+    
+    int xx = ex;
+    int yy = ey;
+    
+    xx -= xx%20 + xx0;
+    yy -= yy%20 + yy0;
+    
+    
+    if (x->g_pd->c_wb && x->g_pd->c_wb->w_displacefn)
+        (*x->g_pd->c_wb->w_displacefn)(x, glist, xx, yy);
+    
 }
 
     /* here we add an extra check whether we're mapped, because some
@@ -143,8 +166,8 @@ void glist_selectline(t_glist *x, t_outconnect *oc, int index1,
         x->gl_editor->e_selectline_index2 = index2;
         x->gl_editor->e_selectline_inno = inno;
         x->gl_editor->e_selectline_tag = oc;
-        sys_vgui(".x%lx.c itemconfigure l%lx -fill blue\n",
-            x, x->gl_editor->e_selectline_tag);
+        sys_vgui(".x%lx.c itemconfigure l%lx -fill %s\n",
+            x, x->gl_editor->e_selectline_tag, STYLE_CORD_SELECTED);
     }
 }
 
@@ -153,8 +176,8 @@ void glist_deselectline(t_glist *x)
     if (x->gl_editor)
     {
         x->gl_editor->e_selectedline = 0;
-        sys_vgui(".x%lx.c itemconfigure l%lx -fill black\n",
-            x, x->gl_editor->e_selectline_tag);
+        sys_vgui(".x%lx.c itemconfigure l%lx -fill %s\n",
+            x, x->gl_editor->e_selectline_tag, STYLE_CORD_NORMAL);
     }
 }
 
@@ -340,27 +363,183 @@ static void *canvas_undo_buf;           /* data private to the undo function */
 static t_canvas *canvas_undo_canvas;    /* which canvas we can undo on */
 static const char *canvas_undo_name;
 
+/* CEAMMC multi_undo */
+typedef struct cm_undo_entry
+{
+    /* current undo function if any */
+    t_undofn canvas_undo_fn;
+    /* (unused) whether we can now UNDO or REDO */
+    int canvas_undo_whatnext;
+    /* data private to the undo function */
+    void *canvas_undo_buf;
+    /* which canvas we can undo on */
+    t_canvas *canvas_undo_canvas;
+    const char *canvas_undo_name;
+    
+} t_cm_undo_entry;
+
+#define cm_undo_count 30
+typedef struct _cm_undo
+{
+    t_cm_undo_entry undo[cm_undo_count];
+    int undo_write_pos;
+    int undo_read_pos;
+    int undo_steps_avail;
+    int redo_steps_avail;
+} t_cm_undo;
+
+static t_cm_undo cm_undo_entries;
+
+void cm_undo_add(t_canvas *x, t_undofn undofn, void *buf,
+                 const char *name)
+{
+    int idx = cm_undo_entries.undo_write_pos;
+    cm_undo_entries.undo[idx].canvas_undo_canvas = x;
+    cm_undo_entries.undo[idx].canvas_undo_fn = undofn;
+    cm_undo_entries.undo[idx].canvas_undo_buf = buf;
+    cm_undo_entries.undo[idx].canvas_undo_whatnext = UNDO_UNDO;
+    cm_undo_entries.undo[idx].canvas_undo_name = name;
+    
+    cm_undo_entries.undo_write_pos++;
+    if (cm_undo_entries.undo_write_pos>cm_undo_count) cm_undo_entries.undo_write_pos = 0;
+    
+    cm_undo_entries.undo_read_pos  = cm_undo_entries.undo_write_pos-1;
+    if (cm_undo_entries.undo_read_pos>= cm_undo_count ) {cm_undo_entries.undo_read_pos = 0;}
+    if (cm_undo_entries.undo_read_pos<0  ) {cm_undo_entries.undo_read_pos = cm_undo_count - 1;}
+    
+    cm_undo_entries.undo_steps_avail++;
+    if (cm_undo_entries.undo_steps_avail>= cm_undo_count ) {cm_undo_entries.undo_steps_avail = cm_undo_count;}
+    
+    cm_undo_entries.redo_steps_avail = 0;
+    
+}
+
+void cm_undo_proxy(t_canvas *canvas, void *buf, int action)
+{
+    printf("undo proxy\n");
+    printf("write %d read %d || %s %s \n", cm_undo_entries.undo_write_pos,
+           cm_undo_entries.undo_read_pos,
+           cm_undo_entries.undo[cm_undo_entries.undo_write_pos].canvas_undo_name,
+           cm_undo_entries.undo[cm_undo_entries.undo_read_pos].canvas_undo_name
+           );
+    
+    int idx = cm_undo_entries.undo_read_pos;
+    
+    if (action==UNDO_REDO)
+    {
+        idx++;
+        if (idx>cm_undo_count) idx = cm_undo_count;
+    }
+    
+    if ( cm_undo_entries.undo[idx].canvas_undo_fn )
+    {
+        cm_undo_entries.undo[idx].canvas_undo_fn (cm_undo_entries.undo[idx].canvas_undo_canvas ,cm_undo_entries.undo[idx].canvas_undo_buf,action);
+    }
+    
+    //undo
+    if (action==UNDO_UNDO)
+    {
+        
+        
+        const char *redo_name = cm_undo_entries.undo[cm_undo_entries.undo_read_pos].canvas_undo_name;
+        
+        cm_undo_entries.undo_read_pos--;
+        if (cm_undo_entries.undo_read_pos<0)
+        {
+            cm_undo_entries.undo_read_pos = cm_undo_count - 1;
+        }
+        
+        const char *undo_name = cm_undo_entries.undo[cm_undo_entries.undo_read_pos].canvas_undo_name;
+        
+        cm_undo_entries.undo_steps_avail--;
+        if (cm_undo_entries.undo_steps_avail<= 0 )
+        {
+            cm_undo_entries.undo_steps_avail = 0;
+            undo_name = "no";
+        }
+        
+        if (canvas && glist_isvisible(canvas) && glist_istoplevel(canvas))
+            // set name
+            sys_vgui("pdtk_undomenu .x%lx %s %s\n", canvas, undo_name, redo_name);
+        
+        cm_undo_entries.redo_steps_avail++;
+        if (cm_undo_entries.redo_steps_avail>= cm_undo_count ) {cm_undo_entries.redo_steps_avail = cm_undo_count;}
+        
+    }
+    else if (action==UNDO_REDO)
+    {
+        const char *redo_name = cm_undo_entries.undo[cm_undo_entries.undo_read_pos].canvas_undo_name;
+        
+        cm_undo_entries.undo_read_pos++;
+        if (cm_undo_entries.undo_read_pos>= cm_undo_count )
+        {
+            cm_undo_entries.undo_read_pos = 0;
+        }
+        
+        const char *undo_name = cm_undo_entries.undo[cm_undo_entries.undo_read_pos].canvas_undo_name;
+        
+        cm_undo_entries.redo_steps_avail--;
+        if (cm_undo_entries.redo_steps_avail<= 0 )
+        {
+            cm_undo_entries.redo_steps_avail = 0;
+            redo_name = "no";
+        }
+        
+        if (canvas && glist_isvisible(canvas) && glist_istoplevel(canvas))
+            // set name
+            sys_vgui("pdtk_undomenu .x%lx %s %s\n", canvas, undo_name, redo_name);
+        
+        cm_undo_entries.undo_steps_avail++;
+        if (cm_undo_entries.undo_steps_avail>= cm_undo_count ) {cm_undo_entries.undo_steps_avail = cm_undo_count;}
+        
+        
+    }
+    
+    cm_undo_entries.undo_write_pos  = cm_undo_entries.undo_read_pos+1;
+    if (cm_undo_entries.undo_write_pos>cm_undo_count) cm_undo_entries.undo_write_pos = 0;
+    if (cm_undo_entries.undo_write_pos<0) {cm_undo_entries.undo_write_pos = cm_undo_count - 1;}
+}
+
 void canvas_setundo(t_canvas *x, t_undofn undofn, void *buf,
     const char *name)
 {
-    int hadone = 0;
-        /* blow away the old undo information.  In one special case the
-        old undo info is re-used; if so we shouldn't free it here. */
-    if (canvas_undo_fn && canvas_undo_buf && (buf != canvas_undo_buf))
-    {
-        (*canvas_undo_fn)(canvas_undo_canvas, canvas_undo_buf, UNDO_FREE);
-        hadone = 1;
-    }
+    //CEAMMC
+    logpost(NULL,3, "set undo %s\n", name);
+    
+    cm_undo_add(x,undofn,buf,name);
+    
     canvas_undo_canvas = x;
-    canvas_undo_fn = undofn;
+    canvas_undo_fn = cm_undo_proxy;
     canvas_undo_buf = buf;
     canvas_undo_whatnext = UNDO_UNDO;
     canvas_undo_name = name;
+    
     if (x && glist_isvisible(x) && glist_istoplevel(x))
-            /* enable undo in menu */
+    /* enable undo in menu */
         sys_vgui("pdtk_undomenu .x%lx %s no\n", x, name);
-    else if (hadone)
-        sys_vgui("pdtk_undomenu nobody no no\n");
+    
+    
+//    int hadone = 0;
+//     
+//        /* blow away the old undo information.  In one special case the
+//        old undo info is re-used; if so we shouldn't free it here. */
+//    
+//    if (canvas_undo_fn && canvas_undo_buf && (buf != canvas_undo_buf))
+//    {
+//        (*canvas_undo_fn)(canvas_undo_canvas, canvas_undo_buf, UNDO_FREE);
+//        hadone = 1;
+//    }
+//    canvas_undo_canvas = x;
+//    canvas_undo_fn = undofn;
+//    canvas_undo_buf = buf;
+//    canvas_undo_whatnext = UNDO_UNDO;
+//    canvas_undo_name = name;
+//    if (x && glist_isvisible(x) && glist_istoplevel(x))
+//            /* enable undo in menu */
+//        sys_vgui("pdtk_undomenu .x%lx %s no\n", x, name);
+//    else if (hadone)
+//        sys_vgui("pdtk_undomenu nobody no no\n");
+    
 }
 
     /* clear undo if it happens to be for the canvas x.
@@ -376,16 +555,16 @@ static void canvas_undo(t_canvas *x)
     int dspwas = canvas_suspend_dsp();
     if (x != canvas_undo_canvas)
         bug("canvas_undo 1");
-    else if (canvas_undo_whatnext != UNDO_UNDO)
-        bug("canvas_undo 2");
+//    else if (canvas_undo_whatnext != UNDO_UNDO)
+//        bug("canvas_undo 2");
     else
     {
         /* post("undo"); */
         (*canvas_undo_fn)(canvas_undo_canvas, canvas_undo_buf, UNDO_UNDO);
             /* enable redo in menu */
-        if (glist_isvisible(x) && glist_istoplevel(x))
-            sys_vgui("pdtk_undomenu .x%lx no %s\n", x, canvas_undo_name);
-        canvas_undo_whatnext = UNDO_REDO;
+//        if (glist_isvisible(x) && glist_istoplevel(x))
+//            sys_vgui("pdtk_undomenu .x%lx no %s\n", x, canvas_undo_name);
+        //canvas_undo_whatnext = UNDO_REDO;
     }
     canvas_resume_dsp(dspwas);
 }
@@ -395,16 +574,16 @@ static void canvas_redo(t_canvas *x)
     int dspwas = canvas_suspend_dsp();
     if (x != canvas_undo_canvas)
         bug("canvas_undo 1");
-    else if (canvas_undo_whatnext != UNDO_REDO)
-        bug("canvas_undo 2");
+//    else if (canvas_undo_whatnext != UNDO_REDO)
+//        bug("canvas_undo 2");
     else
     {
         /* post("redo"); */
         (*canvas_undo_fn)(canvas_undo_canvas, canvas_undo_buf, UNDO_REDO);
             /* enable undo in menu */
-        if (glist_isvisible(x) && glist_istoplevel(x))
-            sys_vgui("pdtk_undomenu .x%lx %s no\n", x, canvas_undo_name);
-        canvas_undo_whatnext = UNDO_UNDO;
+//        if (glist_isvisible(x) && glist_istoplevel(x))
+//            sys_vgui("pdtk_undomenu .x%lx %s no\n", x, canvas_undo_name);
+        //canvas_undo_whatnext = UNDO_UNDO;
     }
     canvas_resume_dsp(dspwas);
 }
@@ -725,6 +904,8 @@ else if (action == UNDO_FREE)
         t_freebytes(buf, sizeof(*buf));
 }
 
+/* ------- */
+
 int clone_match(t_pd *z, t_symbol *name, t_symbol *dir);
 
     /* recursively check for abstractions to reload as result of a save.
@@ -1025,13 +1206,13 @@ void canvas_vis(t_canvas *x, t_floatarg f)
 
     /* set a canvas up as a graph-on-parent.  Set reasonable defaults for
     any missing paramters and redraw things if necessary. */
-void canvas_setgraph(t_glist *x, int flag, int nogoprect)
+EXTERN void canvas_setgraph(t_glist *x, int flag, int nogoprect)
 {
     if (!flag && glist_isgraph(x))
     {
         if (x->gl_owner && !x->gl_loading && glist_isvisible(x->gl_owner))
             gobj_vis(&x->gl_gobj, x->gl_owner, 0);
-        x->gl_isgraph = 0;
+        x->gl_isgraph = x->gl_hidetext = 0;
         if (x->gl_owner && !x->gl_loading && glist_isvisible(x->gl_owner))
         {
             gobj_vis(&x->gl_gobj, x->gl_owner, 1);
@@ -1114,7 +1295,9 @@ static void canvas_donecanvasdialog(t_glist *x,
     ypix = atom_getfloatarg(8, argc, argv);
     xmargin = atom_getfloatarg(9, argc, argv);
     ymargin = atom_getfloatarg(10, argc, argv);
-
+        /* hack - graphme is 0 for no, 1 for yes, and 3 for yes-and-hide-text*/
+    if (!(graphme & 1))
+        graphme = 0;
     x->gl_pixwidth = xpix;
     x->gl_pixheight = ypix;
     x->gl_xmargin = xmargin;
@@ -1324,6 +1507,11 @@ void canvas_doclick(t_canvas *x, int xpos, int ypos, int which,
         t_object *ob = pd_checkobject(&y->g_pd);
             /* check you're in the rectangle */
         ob = pd_checkobject(&y->g_pd);
+        
+        //CEAMMC bindings
+        sys_vgui("pdtk_canvas_setup %d %d\n",
+                 xpos, ypos);   //.x%lx  x,
+        
         if (rightclick)
             canvas_rightclick(x, xpos, ypos, y);
         else if (shiftmod)
@@ -1385,14 +1573,13 @@ void canvas_doclick(t_canvas *x, int xpos, int ypos, int which,
                 {
                     if (doit)
                     {
-                        int issignal = obj_issignaloutlet(ob, closest);
                         x->gl_editor->e_onmotion = MA_CONNECT;
                         x->gl_editor->e_xwas = xpos;
                         x->gl_editor->e_ywas = ypos;
                         sys_vgui(
-                          ".x%lx.c create line %d %d %d %d -width %d -tags x\n",
+                          ".x%lx.c create line %d %d %d %d -width %d -fill %s -tags x\n",
                                 x, xpos, ypos, xpos, ypos,
-                                    (issignal ? 2 : 1) * x->gl_zoom);
+                                style_cord_width(x, ob, closest), STYLE_CORD_NORMAL);
                     }
                     else canvas_setcursor(x, CURSOR_EDITMODE_CONNECT);
                 }
@@ -1574,10 +1761,11 @@ void canvas_doconnect(t_canvas *x, int xpos, int ypos, int which, int doit)
                         ((x22-x21-IOWIDTH) * closest2)/(ninlet2-1) : 0)
                             + IOMIDDLE;
                 ly2 = y21;
-                sys_vgui(".x%lx.c create line %d %d %d %d -width %d -tags [list l%lx cord]\n",
+                sys_vgui(".x%lx.c create line %d %d %d %d -width %d -fill %s -tags [list l%lx cord]\n",
                     glist_getcanvas(x),
                         lx1, ly1, lx2, ly2,
-                        (obj_issignaloutlet(ob1, closest1) ? 2 : 1) * x->gl_zoom,
+                        style_cord_width(x, ob1, closest1),
+                        STYLE_CORD_NORMAL,
                         oc);
                 canvas_dirty(x, 1);
                 canvas_setundo(x, canvas_undo_connect,
@@ -1692,6 +1880,36 @@ static void canvas_displaceselection(t_canvas *x, int dx, int dy)
     {
         t_class *cl = pd_class(&y->sel_what->g_pd);
         gobj_displace(y->sel_what, x, dx, dy);
+        
+        if (cl == vinlet_class) resortin = 1;
+        else if (cl == voutlet_class) resortout = 1;
+    }
+    if (resortin) canvas_resortinlets(x);
+    if (resortout) canvas_resortoutlets(x);
+    sys_vgui("pdtk_canvas_getscroll .x%lx.c\n", x);
+    if (x->gl_editor->e_selection)
+        canvas_dirty(x, 1);
+}
+
+/* CEAMMC grid */
+static void canvas_displaceselection_grid(t_canvas *x, int ex, int sx, int ey, int sy)
+{
+    t_selection *y;
+    int resortin = 0, resortout = 0;
+    if (!canvas_undo_already_set_move)
+    {
+        canvas_setundo(x, canvas_undo_move, canvas_undo_set_move(x, 1),
+                       "motion");
+        canvas_undo_already_set_move = 1;
+    }
+    for (y = x->gl_editor->e_selection; y; y = y->sel_next)
+    {
+        t_class *cl = pd_class(&y->sel_what->g_pd);
+
+        gobj_displace_grid(y->sel_what, x, sx, sy, ex, ey);
+            
+
+
         if (cl == vinlet_class) resortin = 1;
         else if (cl == voutlet_class) resortout = 1;
     }
@@ -1854,12 +2072,27 @@ void canvas_key(t_canvas *x, t_symbol *s, int ac, t_atom *av)
 
 static void delay_move(t_canvas *x)
 {
+    /* CEAMMC grid */
+    
+    if (x->gl_grid)
+    {
+        canvas_displaceselection_grid(x,
+                                      x->gl_editor->e_xnew , x->gl_editor->e_xwas,
+                                      x->gl_editor->e_ynew , x->gl_editor->e_ywas);
+    }
+    else
+    {
     canvas_displaceselection(x,
        x->gl_editor->e_xnew - x->gl_editor->e_xwas,
        x->gl_editor->e_ynew - x->gl_editor->e_ywas);
     x->gl_editor->e_xwas = x->gl_editor->e_xnew;
     x->gl_editor->e_ywas = x->gl_editor->e_ynew;
+    }
 }
+
+/* moved here for CEAMMC grid */
+static t_glist *canvas_last_glist;
+static int canvas_last_glist_x, canvas_last_glist_y;
 
 void canvas_motion(t_canvas *x, t_floatarg xpos, t_floatarg ypos,
     t_floatarg fmod)
@@ -1880,6 +2113,7 @@ void canvas_motion(t_canvas *x, t_floatarg xpos, t_floatarg ypos,
         clock_delay(x->gl_editor->e_clock, 5);
         x->gl_editor->e_xnew = xpos;
         x->gl_editor->e_ynew = ypos;
+        
     }
     else if (x->gl_editor->e_onmotion == MA_REGION)
         canvas_doregion(x, xpos, ypos, 0);
@@ -2326,8 +2560,14 @@ static t_binbuf *canvas_docopy(t_canvas *x)
     return (b);
 }
 
+/* CEAMMC paste fix workaround */
+static int paste_counter = 0;
+
 static void canvas_copy(t_canvas *x)
 {
+    // CEAMMC
+    paste_counter = 0;
+    
     if (!x->gl_editor || !x->gl_editor->e_selection)
         return;
     binbuf_free(copy_binbuf);
@@ -2415,8 +2655,13 @@ restore:
     canvas_dirty(x, 1);
 }
 
+
+
 static void canvas_cut(t_canvas *x)
 {
+    // CEAMMC
+    paste_counter = 0;
+    
     if (!x->gl_editor)  /* ignore if invisible */
         return;
     if (x->gl_editor && x->gl_editor->e_selectedline)   /* delete line */
@@ -2512,9 +2757,18 @@ static void canvas_paste(t_canvas *x)
     }
     else
     {
+        // CEAMMC
+        t_selection *y;
+        
         canvas_setundo(x, canvas_undo_paste, canvas_undo_set_paste(x),
             "paste");
         canvas_dopaste(x, copy_binbuf);
+        for (y = x->gl_editor->e_selection; y; y = y->sel_next)
+            gobj_displace(y->sel_what, x,
+                          10+10*paste_counter, 10+10*paste_counter);
+        canvas_dirty(x, 1);
+        
+        paste_counter++;
     }
 }
 
@@ -2533,6 +2787,8 @@ static void canvas_duplicate(t_canvas *x)
             gobj_displace(y->sel_what, x,
                 10, 10);
         canvas_dirty(x, 1);
+        //CEAMMC
+        paste_counter = 1;
     }
 }
 
@@ -2621,9 +2877,9 @@ void canvas_connect(t_canvas *x, t_floatarg fwhoout, t_floatarg foutno,
     if (!(oc = obj_connect(objsrc, outno, objsink, inno))) goto bad;
     if (glist_isvisible(x))
     {
-        sys_vgui(".x%lx.c create line %d %d %d %d -width %d -tags [list l%lx cord]\n",
+        sys_vgui(".x%lx.c create line %d %d %d %d -width %d -fill %s -tags [list l%lx cord]\n",
             glist_getcanvas(x), 0, 0, 0, 0,
-            (obj_issignaloutlet(objsrc, outno) ? 2 : 1),oc);
+            style_cord_width(x, objsrc, outno), STYLE_CORD_NORMAL, oc);
         canvas_fixlinesfor(x, objsrc);
     }
     return;
@@ -2743,6 +2999,32 @@ static void canvas_tidy(t_canvas *x)
     canvas_dirty(x, 1);
 }
 
+/* CEAMMC align to grid */
+static void canvas_aligntogrid(t_canvas *x)
+{
+    int all = (x->gl_editor ? (x->gl_editor->e_selection == 0) : 1);
+    
+    canvas_setundo(x, canvas_undo_move, canvas_undo_set_move(x, !all), "motion");
+    
+    t_gobj *y;
+    int x1, y1, x2, y2, nx1, ny1;
+    
+    for (y = x->gl_list; y; y = y->g_next)
+        if (all || glist_isselected(x, y))
+        {
+            gobj_getrect(y, x, &x1, &y1, &x2, &y2);
+            
+            nx1 = floor(x1/15)*15;
+            ny1 = floor(y1/15)*15;
+            
+            gobj_displace(y, x, nx1-x1, ny1-y1);
+            
+        }
+    
+    canvas_dirty(x, 1);
+}
+
+
 static void canvas_texteditor(t_canvas *x)
 {
     t_rtext *foo;
@@ -2793,6 +3075,16 @@ void canvas_editmode(t_canvas *x, t_floatarg state)
           glist_getcanvas(x), x->gl_edit);
 }
 
+    /* CEAMMC grid */
+void canvas_gridmode(t_canvas *x, t_floatarg state)
+{
+    if (x->gl_grid == (unsigned int) state)
+        return;
+    x->gl_grid = (unsigned int) state;
+    canvas_drawgrid(x);
+    printf("->grid mode\n");
+}
+
     /* called by canvas_font below */
 static void canvas_dofont(t_canvas *x, t_floatarg font, t_floatarg xresize,
     t_floatarg yresize)
@@ -2838,8 +3130,7 @@ static void canvas_font(t_canvas *x, t_floatarg font, t_floatarg resize,
     sys_defaultfont = font;
 }
 
-static t_glist *canvas_last_glist;
-static int canvas_last_glist_x, canvas_last_glist_y;
+/*CEAMMC grid moved  declarations to canvas_motion */
 
 void glist_getnextxy(t_glist *gl, int *xpix, int *ypix)
 {
@@ -2851,8 +3142,18 @@ void glist_getnextxy(t_glist *gl, int *xpix, int *ypix)
 static void glist_setlastxy(t_glist *gl, int xval, int yval)
 {
     canvas_last_glist = gl;
-    canvas_last_glist_x = xval;
-    canvas_last_glist_y = yval;
+    
+    // CEAMMC grid
+//    if ((t_canvas*)gl->gl_grid)
+//    {
+//        canvas_last_glist_x = floor((xval)/20)*20;
+//        canvas_last_glist_y = floor((yval)/20)*20;
+//    }
+//    else
+    {
+        canvas_last_glist_x = xval;
+        canvas_last_glist_y = yval;
+    }
 }
 
 
@@ -2913,6 +3214,12 @@ void g_editor_setup(void)
         gensym("donecanvasdialog"), A_GIMME, A_NULL);
     class_addmethod(canvas_class, (t_method)glist_arraydialog,
         gensym("arraydialog"), A_SYMBOL, A_FLOAT, A_FLOAT, A_FLOAT, A_NULL);
+    
+/* ---------- CEAMMC grid ---------- */
+    class_addmethod(canvas_class, (t_method)canvas_gridmode,
+                    gensym("gridmode"), A_DEFFLOAT, A_NULL);
+    class_addmethod(canvas_class, (t_method)canvas_aligntogrid,
+                    gensym("aligntogrid"), A_NULL);
 
 /* -------------- connect method used in reading files ------------------ */
     class_addmethod(canvas_class, (t_method)canvas_connect,

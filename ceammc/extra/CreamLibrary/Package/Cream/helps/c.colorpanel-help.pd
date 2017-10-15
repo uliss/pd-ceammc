@@ -1,0 +1,107 @@
+#N canvas 278 124 789 534 10;
+#X obj 532 149 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min 0 @max 1 @minmax 0 1 @decimal 6 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X msg 532 177 lightness \$1;
+#X obj 532 205 c.colorpanel @size 201 14 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @matrix 20 1 @reverse 0 @saturation 1 @hue 0 @lightness
+0.75 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
+#X msg 531 363 hue \$1;
+#X obj 531 338 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min 0 @max 1 @minmax 0 1 @decimal 6 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 597 338 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min 0 @max 1 @minmax 0 1 @decimal 6 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X msg 597 363 saturation \$1;
+#X obj 531 408 c.colorpanel @size 201 14 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @matrix 20 1 @reverse 1 @saturation 0 @hue 0.33
+@lightness 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
+#X msg 115 377 1 0.916667 0.666667;
+#X msg 269 377 0.125 1 0.833333;
+#X obj 115 123 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min 0 @max 4.29497e+09 @minmax 0 4.29497e+09
+@decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 184 123 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min 0 @max 4.29497e+09 @minmax 0 4.29497e+09
+@decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 13 395 c.plane @size 85 85 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @bound -1 -1 1 1 @ptsize 5 @bgcolor 1 0.916667
+0.666667 0 @bdcolor 0.5 0.5 0.5 1 @ptcolor 1 0.916667 0.666667 0;
+#X obj 115 194 c.colorpanel @size 313 131 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @matrix 24 13 @reverse 0 @saturation 1 @hue 0
+@lightness 1 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
+#N canvas 955 409 450 300 colorc.plane 0;
+#X obj 100 49 inlet;
+#X obj 99 177 outlet;
+#X msg 99 84 bgcolor \$1 \$2 \$3;
+#X msg 206 85 ptcolor \$1 \$2 \$3;
+#X connect 0 0 2 0;
+#X connect 0 0 3 0;
+#X connect 2 0 1 0;
+#X connect 3 0 1 0;
+#X restore 13 364 pd colorc.plane;
+#X text 114 396 RGB color;
+#X text 267 396 HSL color;
+#X text 420 396 HEX color;
+#X text 112 99 Select a color with column and row;
+#X text 248 165 Click to pick a color;
+#X text 537 127 Change the lighness :;
+#X text 529 255 The matrix is reversed and;
+#X text 548 313 and the saturation :;
+#X text 548 303 Change the lighness;
+#X msg 423 377 #FFE9AA;
+#X text 529 87 The number of row is equal to 1;
+#X text 529 265 the number of row is equal to 1;
+#X text 6 49 c.colorpanel displays several colors and allows you to
+pick them.;
+#X obj 531 285 c.loadmess 0.33;
+#X obj 532 108 c.loadmess 0.75;
+#X obj 115 166 c.pak 0 0, f 12;
+#X obj 11 28 c.patcherinfos;
+#X obj 12 19 c.loadmess;
+#X obj 6 7 c.help.header;
+#X obj 155 463 c.help.pub;
+#X obj 115 332 list prepend set;
+#X obj 269 332 list prepend set;
+#X obj 423 332 list prepend set;
+#X obj 423 354 list trim;
+#X obj 269 354 list trim;
+#X obj 115 354 list trim;
+#X obj 531 480 c.help.gui;
+#X text 528 464 Look at me;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 3 0 7 0;
+#X connect 4 0 3 0;
+#X connect 5 0 6 0;
+#X connect 6 0 7 0;
+#X connect 10 0 30 0;
+#X connect 11 0 30 1;
+#X connect 13 0 14 0;
+#X connect 13 0 35 0;
+#X connect 13 1 36 0;
+#X connect 13 2 37 0;
+#X connect 14 0 12 0;
+#X connect 28 0 4 0;
+#X connect 29 0 0 0;
+#X connect 30 0 13 0;
+#X connect 31 0 33 0;
+#X connect 32 0 31 0;
+#X connect 35 0 40 0;
+#X connect 36 0 39 0;
+#X connect 37 0 38 0;
+#X connect 38 0 24 0;
+#X connect 39 0 9 0;
+#X connect 40 0 8 0;

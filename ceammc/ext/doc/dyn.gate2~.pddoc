@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="dyn.gate2~">
+        <title>dyn.gate2~</title>
+        <meta>
+            <authors>
+                <author>Alex Nadzharov</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>stereo signal gate</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>dyn</category>
+            <keywords>gate</keywords>
+            <since>0.1</since>
+            <also>
+                <see>dyn.gate~</see>
+            </also>
+        </meta>
+        <methods>
+            <method name="threshold">
+                <param type="float" units="decibel">dB level threshold above which gate opens
+                (e.g., 40 dB)</param>
+            </method>
+            <method name="attack">
+                <param type="float" units="millisecond">attack time = time constant (ms) for gate
+                to open</param>
+            </method>
+            <method name="hold">
+                <param type="float" units="millisecond">hold time = time (ms) gate stays open after
+                signal level &lt; threshold</param>
+            </method>
+            <method name="release">
+                <param type="float" units="millisecond">release time = time constant (ms) for gate
+                to close</param>
+            </method>
+        </methods>
+        <arguments>
+            <argument name="threshold" type="float" units="decibel">dB level threshold above which
+            gate opens (e.g., 40 dB)</argument>
+            <argument name="attack" type="float" units="millisecond">attack time = time constant
+            (ms) for gate to open</argument>
+            <argument name="hold" type="float" units="millisecond">hold time = time (ms) gate stays
+            open after signal level &lt; threshold</argument>
+            <argument name="release" type="float" units="millisecond">release time = time constant
+            (ms) for gate to close</argument>
+            <argument name="ID" type="symbol">object ID for OSC control path</argument>
+        </arguments>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>left input signal</xinfo>
+                <xinfo on="bang">outputs object internal state to rightmost outlet</xinfo>
+            </inlet>
+            <inlet type="audio">
+                <xinfo>right input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">left output signal</outlet>
+            <outlet type="audio">right output signal</outlet>
+            <outlet type="control">information output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[osc~ 440] [F]
+|          |
+|    [dbtorms]
+|    |.
+[*~   ]      [F]
+|            |
+|   [bng]    [threshold $1(
+|   |        |
+[dyn.gate2~ 90 id]
+|  ^|.     ^^|
+[dac~]    [print]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

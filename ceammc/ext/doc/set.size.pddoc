@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="set.size">
+        <title>set.size</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>get number of elements in set</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>data</category>
+            <keywords>data set size</keywords>
+            <since>0.3</since>
+            <also>
+                <see>data.set</see>
+            </also>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo>input set. Other values are ignored</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>number of element in set</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]   [1 2 3 4(
+|     |
+| [B] |
+| |   |
+[data.set a b c]
+|
+[set.size]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

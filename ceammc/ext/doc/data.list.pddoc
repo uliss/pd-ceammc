@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="data.list">
+        <title>data.list</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>list container</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>data</category>
+            <keywords>data list</keywords>
+            <since>0.1</since>
+            <also>
+                <see>data.fifo</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="X" type="any">initial list values</argument>
+        </arguments>
+        <methods>
+            <method name="append">adds values to the end of the list</method>
+            <method name="clear">removes all list values</method>
+            <method name="dump">dump object info to Pd window</method>
+            <method name="flush">outputs and removes all list values</method>
+            <method name="insert">inserts values to the specified position. First argument is
+            position, others - element to insert</method>
+            <method name="pop">removes last list element</method>
+            <method name="set">sets new list without output</method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">same as *flush* message</xinfo>
+                <xinfo on="list">sets new list and output it</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="list">sets new list without output</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output list or list elements</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[dump( [list a b c(  [F]        [10 11(
+|      |             |          |
+| [B]  |  [pop(      [m append] [m insert 1]
+| |    |  |          |          |
+| |    |  |          |          |
+| |    |  |          |          |
+[data.list                  1 2 3]
+|
+[m set]
+|
+[ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

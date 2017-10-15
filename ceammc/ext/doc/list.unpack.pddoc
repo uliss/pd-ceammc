@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="list.unpack">
+        <title>list.unpack</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>unpack list elements to separate outlets</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>list</category>
+            <keywords>list unpack</keywords>
+            <since>0.3</since>
+            <also>
+                <see>list.repack</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="N" type="int" minvalue="1" maxvalue="32">number of outlets</argument>
+        </arguments>
+        <properties>
+            <property name="@n" type="int" minvalue="1" maxvalue="32" default="1" readonly="true">
+            number of outlets</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="list">input list</xinfo>
+            </inlet>
+        </inlets>
+        <outlets dynamic="true">
+            <outlet number="1">outlet for first atom in list</outlet>
+            <outlet number="..."></outlet>
+            <outlet number="n">outlet for Nth atom in list</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[1 2 3 4 5 6(
+|
+[list.unpack 3]
+|     ^|    ^^|
+[F]   [F]    [F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

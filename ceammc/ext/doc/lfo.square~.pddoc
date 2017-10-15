@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="lfo.square~">
+        <title>lfo.square~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Positive low frequence square wave</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>lfo</category>
+            <keywords>lfo oscillator square</keywords>
+            <since>0.1</since>
+            <also>
+                <see>lfo.impulse~</see>
+                <see>lfo.tri~</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="freq" type="float" units="herz">frequency</argument>
+        </arguments>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>frequency in Hz</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[phasor~ 200] [floatatom]
+|             |
+|             [lfo.square~ 10]
+|  .__________/
+[*~]   [_]
+|  .___/
+[*~]
+|\
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

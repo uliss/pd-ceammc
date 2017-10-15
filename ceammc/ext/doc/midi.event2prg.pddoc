@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="midi.event2prg">
+        <title>midi.event2prg</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>convert MidiEvent message to midi program change value</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>midi</category>
+            <keywords>midi program</keywords>
+            <since>0.4</since>
+            <aliases>
+                <alias>midi.ev-&gt;prg</alias>
+            </aliases>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo>MidiEvent message</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output MIDI patch number</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]
+|
+[openpanel]
+|
+[read $1, bang(
+|
+[midi.file]  [play( [stop(
+|            |      |
+[midi.track    @join]
+|
+[midi.ev->prg]
+|
+[midi.prg->str @symbol]
+|
+[msg set]
+|
+[ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

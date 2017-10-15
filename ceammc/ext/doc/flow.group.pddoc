@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flow.group">
+        <title>flow.group</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>group data atoms in list of specified size</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>flow</category>
+            <keywords>flow group</keywords>
+            <since>0.3</since>
+            <aliases>
+                <alias>group</alias>
+            </aliases>
+        </meta>
+        <arguments>
+            <argument name="SIZE" type="int" minvalue="1">group by this size</argument>
+        </arguments>
+        <methods>
+            <method name="flush">outputs and clears group</method>
+            <method name="clear">clear without output</method>
+        </methods>
+        <properties>
+            <property name="@by" type="int" minvalue="1" default="1">group size</property>
+            <property name="@free" type="int" readonly="true">free space left in group</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="float">add float to group and flush if group is full packed</xinfo>
+                <xinfo on="symbol">add symbol to group and flush if group is full packed</xinfo>
+                <xinfo on="list">add list atoms to group and flush if needed</xinfo>
+                <xinfo on="data">add data to group and flush if needed</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output list of grouped atoms</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]  [1 2 3(
+|    |
+|    |
+[flow.group @by 5]
+|
+[m set]
+|
+[ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

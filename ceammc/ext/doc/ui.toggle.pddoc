@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="ui.toggle" type="gui">
+        <title>ui.toggle</title>
+        <meta>
+            <authors>
+                <author>Pierre Guillot</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>modern toggle widget</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category view="link">ui</category>
+            <keywords>ui toggle</keywords>
+            <since>0.1</since>
+            <also>
+                <see view="link">ui.bang</see>
+            </also>
+        </meta>
+        <info>
+            <par>This is the ceammc counterpart of the vanilla toggle, based on Cream
+            library.</par>
+        </info>
+        <properties>
+            <property name="@send" type="symbol">send destination</property>
+            <property name="@receive" type="symbol">receive source</property>
+        </properties>
+        <methods>
+            <method name="dump">dumps all object info to Pd console window</method>
+            <method name="set">sets toggle state without output</method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">change toggle state</xinfo>
+                <xinfo on="float">if *0* given, sets state to unchecked and outputs 0. On any other
+                number sets to checked state and outputs 1.</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>outputs 0 or 1</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+                  [T]
+                  |
+[B] [0( [1( [-1(  [set $1(
+|   |   |   |     |
+|   |   |   |     |
+[ui.toggle @size=40x40]
+|
+|
+[m set]
+|
+[ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

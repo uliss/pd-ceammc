@@ -1,0 +1,64 @@
+# SOME DESCRIPTIVE TITLE.
+# This file is put in the public domain.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Pure\\ Data 0.47.1_ceammc\n"
+"Report-Msgid-Bugs-To: pd-dev@iem.at\n"
+"POT-Creation-Date: 2017-02-20 01:43+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:69
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:77
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:84
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:93
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:102
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:112
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:120
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:126
+msgid "Basic"
+msgstr ""
+
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:70
+msgid "Patching Size"
+msgstr ""
+
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:78
+msgid "Pinned"
+msgstr ""
+
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:85
+msgid "Font Name"
+msgstr ""
+
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:90
+msgid "normal"
+msgstr ""
+
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:94
+msgid "Font Weight"
+msgstr ""
+
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:103
+msgid "Font Slant"
+msgstr ""
+
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:113
+msgid "Font Size"
+msgstr ""
+
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:121
+msgid "Receive Symbol"
+msgstr ""
+
+#: ../ceammc/extra/CicmWrapper/Sources/eclass.c:127
+msgid "Send Symbol"
+msgstr ""

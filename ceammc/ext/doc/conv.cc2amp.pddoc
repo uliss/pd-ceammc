@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="conv.cc2amp">
+        <title>conv.cc2amp</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>convert from MIDI Control Change range</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>conv</category>
+            <keywords>conv cc amp</keywords>
+            <since>0.3</since>
+            <also>
+                <see>lin-&gt;lin</see>
+                <see>lin-&gt;curve</see>
+            </also>
+            <aliases>
+                <alias>cc-&gt;amp</alias>
+            </aliases>
+        </meta>
+        <info>
+            <par>By default converts from [0..127] to [0..1]</par>
+        </info>
+        <arguments>
+            <argument name="FROM" type="float">start value of output range</argument>
+            <argument name="TO" type="float">end value of output range</argument>
+        </arguments>
+        <properties>
+            <property name="@from" type="float" default="0">start value of output range</property>
+            <property name="@to" type="float" default="1">end value of output range</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="float">value in MIDI CC range [0..127]</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>converted value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F min=0 max=127]
+|
+|   [ctlin 0]   [F min=0 max=127]
+|   |           |
+[cc->amp]       [cc->amp @from 1 @to -1]
+|               |
+[F]             [F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

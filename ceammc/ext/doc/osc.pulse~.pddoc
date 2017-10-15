@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="osc.pulse~">
+        <title>osc.pulse~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Bandlimited pulse train oscillator.</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>osc</category>
+            <keywords>oscillator band-limited</keywords>
+            <since>0.1</since>
+            <also>
+                <see>osc.impulse~</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="freq" type="float" units="herz" minvalue="20">frequency</argument>
+            <argument name="duty" type="float" minvalue="0" maxvalue="1">duty cycle</argument>
+            <argument name="ID" type="symbol">object ID for OSC control</argument>
+        </arguments>
+        <inlets>
+            <inlet type="audio">
+                <xinfo minvalue="20" on="float">frequency in Hz</xinfo>
+                <xinfo on="bang">outputs object internal state to rightmost outlet</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output signal</outlet>
+            <outlet type="control">information output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]    [F]
+|      |
+|  [B] [duty $1(
+|  |   |
+[osc.pulse~ 220 0.5 id]
+|               ^|
+|   [_]         [print]
+|  ./
+[*~]
+|\
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

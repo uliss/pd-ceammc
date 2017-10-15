@@ -1,0 +1,50 @@
+#N canvas 541 142 571 362 10;
+#X obj 6 5 cnv 40 552 40 empty empty c.pak 3 12 0 18 -228856 -33289
+0;
+#X msg 106 265 2.55 18 18.5 14.5;
+#X obj 106 95 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X msg 311 235 The good message;
+#X obj 319 134 c.menu @size 64 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @hover 0 @items "small" "simple" "useless" "good"
+@states 0 0 0 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 131 118 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 156 141 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 181 164 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 106 191 c.pak f f f f;
+#X obj 311 170 c.pak The small message;
+#X obj 311 202 c.prepend set;
+#X obj 106 228 c.prepend set;
+#X text 8 26 Combine several atoms into one message.;
+#X text 7 48 c.pak is the cream counterpart of the vanilla pack with
+only hot inlets.;
+#X text 64 296 Important : Perhaps in the future this object will be
+a part of another library dedicated to messages management. The cream
+library tries to be exclusively a GUI library.;
+#X text 287 6 Pierre Guillot | CICM - Université Paris 8;
+#X connect 2 0 8 0;
+#X connect 4 1 9 1;
+#X connect 5 0 8 1;
+#X connect 6 0 8 2;
+#X connect 7 0 8 3;
+#X connect 8 0 11 0;
+#X connect 9 0 10 0;
+#X connect 10 0 3 0;
+#X connect 11 0 1 0;

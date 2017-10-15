@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="ui.keyboard" type="gui">
+        <title>ui.keyboard</title>
+        <meta>
+            <authors>
+                <author>Alex Nadzharov</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>keyboard widget</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category view="link">ui</category>
+            <keywords>ui keyboard</keywords>
+            <since>0.1</since>
+            <also>
+                <see view="link">ui.presets</see>
+            </also>
+        </meta>
+        <info>
+            <par>Piano keyboard widget</par>
+        </info>
+        <properties>
+            <property name="@keys" type="float" default="61">number of keys</property>
+            <property name="@shift" type="float" default="31">MIDI pitch of lefmost key</property>
+            <property name="@preset" type="symbol">preset name for using with
+            [ui.preset]</property>
+            <property name="@send" type="symbol">send destination</property>
+            <property name="@receive" type="symbol">receive source</property>
+        </properties>
+        <methods>
+            <method name="dump">dumps all object info to Pd console window</method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo>control inlet</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>list from two elements: MIDI pitch, MIDI velocity. Velocity depends from key
+            press position.</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[dump(
+|
+[ui.keyboard]
+|
+|
+|
+|
+[unpack f       f]
+|              ^|
+[mtof]         [clip 0 100]
+|              |
+[osc.pulse~]   [/ 1000]
+|       .______/
+[*~     ]
+|\
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

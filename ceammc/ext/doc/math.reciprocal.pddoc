@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.reciprocal">
+        <title>math.reciprocal</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>calculate reciprocal number</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math reciprocal</keywords>
+            <since>0.1</since>
+        </meta>
+        <info>
+            <par>Symbols are ignored, 0 gives NAN value</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo on="float">input value</xinfo>
+                <xinfo on="list">on list input outputs a list of reciprocal values</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>result value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]  [1 2 3 4 5(      [F]
+|    |                |
+[math.reciprocal]     [1 $1(
+|                     |
+[msg set]             [/]
+|                     |
+[ (                   [F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

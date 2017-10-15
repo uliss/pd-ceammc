@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="list.each">
+        <title>list.each</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>maps each list value via external object(s)</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>list</category>
+            <keywords>list functional</keywords>
+            <since>0.1</since>
+            <also>
+                <see>list.apply_to</see>
+            </also>
+        </meta>
+        <info>
+            <par>Each @step elements are passed via righmost outlet to extenal object, that suppose
+            to return it back to rightmost inlet. So various mapping and filtering are
+            possible.</par>
+        </info>
+        <arguments>
+            <argument name="step" type="int" minvalue="1" maxvalue="1024">see @step
+            property</argument>
+        </arguments>
+        <properties>
+            <property name="@step" type="int" minvalue="1" maxvalue="1024" default="1">number of
+            elements outputted to rightmost outlet on each iteration</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="list">Input list</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo>New modified value from applied object.</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>New modified list</outlet>
+            <outlet>single element or list of values (if @step property &gt; 1)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[1 2 3 4 5 6 7 8 9(   [1 2 3 4 5 6 7 8 9(
+|                     |
+[list.each] X [pow 2] [list.each 2] X [*]
+|                     |
+[msg set]             [msg set]
+|                     |
+[ (                   [ (
+
+/* more complex example: multiply by three element in list */
+
+[1 2 3 4 5 6 7 8 9(
+|
+|  [hradio]
+|  |
+|  [@step $1(
+|  |
+[list.each 3] X [list.reduce] X [*]
+|
+[msg set]
+|
+[ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

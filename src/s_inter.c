@@ -66,7 +66,7 @@ typedef int socklen_t;
 #define WISHAPP "wish85.exe"
 #endif
 
-#if defined(__linux__) || defined(__FreeBSD_kernel__) || defined(__GNU__)
+#if defined(__linux__) || defined(__FreeBSD__) || defined(__GNU__)
 #define LOCALHOST "127.0.0.1"
 #else
 #define LOCALHOST "localhost"
@@ -294,7 +294,7 @@ void sys_setsignalhandlers( void)
 #endif /* NOT _WIN32 && NOT __CYGWIN__ */
 }
 
-#if defined(__linux__) || defined(__FreeBSD_kernel__) || defined(__GNU__)
+#if defined(__linux__) || defined(__FreeBSD__) || defined(__GNU__)
 
 #if defined(_POSIX_PRIORITY_SCHEDULING) || defined(_POSIX_MEMLOCK)
 #include <sched.h>
@@ -639,7 +639,7 @@ static void sys_trytogetmoreguibuf(int newsize)
     }
 }
 
-void sys_vgui(char *fmt, ...)
+void sys_vgui(const char *fmt, ...)
 {
     int msglen, bytesleft, headwas, nwrote;
     va_list ap;
@@ -688,7 +688,7 @@ void sys_vgui(char *fmt, ...)
     sys_bytessincelastping += msglen;
 }
 
-void sys_gui(char *s)
+void sys_gui(const char *s)
 {
     sys_vgui("%s", s);
 }
@@ -852,7 +852,7 @@ void sys_init_fdpoll(void)
 
 static int sys_watchfd;
 
-#if defined(__linux__) || defined(__FreeBSD_kernel__) || defined(__GNU__)
+#if defined(__linux__) || defined(__FreeBSD__) || defined(__GNU__)
 void glob_watchdog(t_pd *dummy)
 {
     if (write(sys_watchfd, "\n", 1) < 1)
@@ -1092,6 +1092,7 @@ int sys_startgui(const char *libdir)
         else if (!childpid)                     /* we're the child */
         {
             setuid(getuid());          /* lose setuid priveliges */
+            sys_closesocket(xsock);    /* child doesn't listen */
 #ifndef __APPLE__
 // TODO this seems unneeded on any platform hans@eds.org
                 /* the wish process in Unix will make a wish shell and
@@ -1140,7 +1141,7 @@ int sys_startgui(const char *libdir)
 #endif /* NOT _WIN32 */
     }
 
-#if defined(__linux__) || defined(__FreeBSD_kernel__)
+#if defined(__linux__) || defined(__FreeBSD__)
         /* now that we've spun off the child process we can promote
         our process's priority, if we can and want to.  If not specfied
         (-1), we assume real-time was wanted.  Afterward, just in case
@@ -1201,6 +1202,7 @@ int sys_startgui(const char *libdir)
         {
             sys_set_priority(1);
             setuid(getuid());      /* lose setuid priveliges */
+            sys_closesocket(xsock);    /* child doesn't listen */
             if (pipe9[1] != 0)
             {
                 dup2(pipe9[0], 0);
@@ -1258,9 +1260,9 @@ int sys_startgui(const char *libdir)
 
         sys_guisock = accept(xsock, (struct sockaddr *) &server,
             (socklen_t *)&len);
-#ifdef OOPS
+
         sys_closesocket(xsock);
-#endif
+
         if (sys_guisock < 0) sys_sockerror("accept");
         if (sys_verbose)
             fprintf(stderr, "... connected\n");
@@ -1274,7 +1276,7 @@ int sys_startgui(const char *libdir)
             sys_socketreceiver);
 
             /* here is where we start the pinging. */
-#if defined(__linux__) || defined(__FreeBSD_kernel__)
+#if defined(__linux__) || defined(__FreeBSD__)
         if (sys_hipriority)
             sys_gui("pdtk_watchdog\n");
 #endif
@@ -1304,7 +1306,7 @@ void sys_bail(int n)
     if (!reentered)
     {
         reentered = 1;
-#if !defined(__linux__) && !defined(__FreeBSD_kernel__) && !defined(__GNU__) /* sys_close_audio() hangs if you're in a signal? */
+#if !defined(__linux__) && !defined(__FreeBSD__) && !defined(__GNU__) /* sys_close_audio() hangs if you're in a signal? */
         fprintf(stderr ,"sys_guisock %d - ", sys_guisock);
         fprintf(stderr, "closing audio...\n");
         sys_close_audio();

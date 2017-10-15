@@ -36,6 +36,9 @@ glist has its own window, even if miniaturized.
 /* NOTE: this file describes Pd implementation details which may change
 in future releases.  The public (stable) API is in m_pd.h. */
 
+#ifndef G_CANVAS_H
+#define G_CANVAS_H
+
 #if defined(_LANGUAGE_C_PLUS_PLUS) || defined(__cplusplus)
 extern "C" {
 #endif
@@ -190,6 +193,8 @@ struct _glist
     unsigned int gl_hidetext:1;     /* hide object-name + args when doing graph on parent */
     unsigned int gl_private:1;      /* private flag used in x_scalar.c */
     unsigned int gl_isclone:1;      /* esists as part of a clone object */
+    /* CEAMMC grid */
+    unsigned int gl_grid:1;
 };
 
 #define gl_gobj gl_obj.te_g
@@ -498,6 +503,10 @@ EXTERN void canvas_loadbang(t_canvas *x);
 EXTERN int canvas_hitbox(t_canvas *x, t_gobj *y, int xpos, int ypos,
     int *x1p, int *y1p, int *x2p, int *y2p);
 EXTERN int canvas_setdeleting(t_canvas *x, int flag);
+    
+    //ceammc test
+    EXTERN void *subcanvas_new(t_symbol *s);
+    EXTERN void canvas_setgraph(t_glist *x, int flag, int nogoprect);
 
 #define LB_LOAD 0       /* "loadbang" actions - 0 for original meaning */
 #define LB_INIT 1       /* loaded but not yet connected to parent patch */
@@ -651,7 +660,12 @@ EXTERN t_symbol *iemgui_dollar2raute(t_symbol *s);
 
 /*-------------  g_clone.c ------------- */
 extern t_class *clone_class;
+    
+/* ----- CEAMMC grid ----- */
+EXTERN void canvas_drawgrid(t_canvas *x);
 
 #if defined(_LANGUAGE_C_PLUS_PLUS) || defined(__cplusplus)
 }
 #endif
+
+#endif // G_CANVAS_H

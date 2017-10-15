@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="conv.bpm2ms">
+        <title>conv.bpm2ms</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>convert frequency in BPM to period in milliseconds</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>conv</category>
+            <keywords>conv time</keywords>
+            <also>
+                <see>conv.bpm2sec</see>
+                <see>conv.bpm2hz</see>
+            </also>
+            <since>0.1</since>
+            <aliases>
+                <alias>bpm-&gt;ms</alias>
+            </aliases>
+        </meta>
+        <info>
+            <par>Converts frequency from BPM (beats per minute) to period in ms. It is simple as
+            (60 / f) * 1000, but more readable.</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo on="float">frequency in BPM</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>frequency in herz</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+        [F]   /* tempo */
+        |
+        [* 8] /* 32nds */
+        |
+[T]     [bpm->ms]
+|       |.
+[metro 80]
+|
+[next(
+|
+[list.walk 60 72 48 77 84 62 67 @fold]
+|
+[mtof]
+|
+[osc.pulse~]
+|
+| [T]
+| |.
+[*~]
+|
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

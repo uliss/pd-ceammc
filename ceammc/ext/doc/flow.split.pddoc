@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flow.split">
+        <title>flow.split</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>split data flow by external side-chain predicate</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>flow</category>
+            <keywords>pass functional</keywords>
+            <since>0.3</since>
+            <aliases>
+                <alias>split</alias>
+            </aliases>
+            <also>
+                <see>flow.pass</see>
+                <see>flow.reject</see>
+            </also>
+        </meta>
+        <info>
+            <par>Predicate side chain should accept value and return 1 (true) or 0 (false). If
+            true, input value is outputed to first outlet. Otherwise to second outlet.</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo>input value</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float">input from predicate side chain. If 1 received - output for first
+                outlet. If 0 - to second.</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>values for which predicate side-chain returned true</outlet>
+            <outlet>values for which predicate side-chain returned false</outlet>
+            <outlet>value to predicate side-chain</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]                    [1 2( [2 1(
+|                      |     |
+[flow.split]X[> 0]     [flow.split]X[<]
+|   ^|                 |         ^|
+[F] [F]                [msg set] [msg set]
+                       |         |
+[B]                    [ (       [ (
+|
+[flow.split]X[T]
+|   ^|
+[B] [B]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

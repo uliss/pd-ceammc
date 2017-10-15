@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="fx.zita_rev1~">
+        <title>fx.zita_rev1~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Zita stereo reverb</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>fx</category>
+            <keywords>fx reverb</keywords>
+            <since>0.2</since>
+        </meta>
+        <arguments>
+            <argument name="ID" type="symbol">object ID for OSC control path</argument>
+        </arguments>
+        <methods>
+            <method name="delay">
+                <param type="float" minvalue="20" maxvalue="100" required="true"
+                units="millisecond">A delay of 20 to 100 ms operating on the 'wet' signal. Large
+                values will provide the impression of a larger room.</param>
+            </method>
+            <method name="freq_low">
+                <param type="float" minvalue="50" maxvalue="1000" required="true" units="herz">
+                Crossover frequency (Hz) separating low and middle frequencies</param>
+            </method>
+            <method name="dump_hf">
+                <param type="float" minvalue="1500" maxvalue="20000" required="true" units="herz">
+                Frequency (Hz) at which the high-frequency T60 is half the middle-band's
+                T60</param>
+            </method>
+            <method name="decay_low">
+                <param type="float" minvalue="1" maxvalue="8" required="true" units="second">time
+                (in seconds) to decay 60dB in low-frequency band</param>
+            </method>
+            <method name="decay_mid">
+                <param type="float" minvalue="1" maxvalue="8" required="true" units="second">time
+                (in seconds) to decay 60dB in low-frequency band</param>
+            </method>
+            <method name="drywet">
+                <param type="float" minvalue="0" maxvalue="1" required="true" name="X">Ratio
+                between processed signal (wet) and source signal</param>
+            </method>
+            <method name="bypass">bypass effect 
+            <param name="X" type="int" enum="0 1" required="true">if set to 1 - bypass 'effected'
+            signal.</param></method>
+        </methods>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>left channel</xinfo>
+            </inlet>
+            <inlet type="audio">
+                <xinfo>right channel</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output left</outlet>
+            <outlet type="audio">output right</outlet>
+            <outlet type="control">information output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[bell.aiff( [voice.wav(                  [array array1 w=150 h=100]
+|           |
+[symbol     ]
+|
+[load %DOC%/sound/$1 @to array1 @resize(
+|
+[expand_env]
+|
+[snd.file]
+
+
+[bang(
+|
+[tabplay~ array1]
+|              [F]
+|              |
+| [T]          [delay $1( [F]            [F]
+| |            |          |              |
+| [bypass $1(  | [dump(   [decay_mid $1( [decay_low $1(
+| |            | |        |              |
+| |            | |        |              |
+| |  [B]       | |        |              |
+| |  |         | |        |              |
+[fx.zita_rev1~                         id]
+|  ^|.     ^^|
+[dac~]      [print]
+
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

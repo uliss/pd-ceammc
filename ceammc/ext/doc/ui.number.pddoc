@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="ui.number" type="gui">
+        <title>ui.number</title>
+        <meta>
+            <authors>
+                <author>Pierre Guillot</author>
+            </authors>
+            <description>counterpart of the vanilla [nbx]</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category view="link">ui</category>
+            <keywords>ui number</keywords>
+            <since>0.1</since>
+            <also>
+                <see view="link">ui.number~</see>
+            </also>
+        </meta>
+        <properties>
+            <property name="@min" type="float">minimum value</property>
+            <property name="@max" type="float">maximum value</property>
+            <property name="@send" type="symbol">send destination</property>
+            <property name="@receive" type="symbol">receive source</property>
+        </properties>
+        <methods>
+            <method name="set">sets slider value without output
+            <param name="V" type="float" required="true">new value</param></method>
+            <method name="++">increment slider value without output</method>
+            <method name="--">decrement slider value without output</method>
+            <method name="+">add value to slider without output
+            <param name="V" type="float" required="true">added value</param></method>
+            <method name="-">substruct value from slider without output
+            <param name="V" type="float" required="true">substructed value</param></method>
+            <method name="*">multiply slider value without output
+            <param name="V" type="float" required="true">mutiplied value</param></method>
+            <method name="/">divide slider value without output
+            <param name="V" type="float" required="true">denominator value</param></method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">outputs current value</xinfo>
+                <xinfo on="float">input value</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>signal pass thru</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[hsl]
+|
+| [+ 50( [- 75( [* 2( [/ 3, bang(
+| |      |      |     |
+| | [++( | [--( |     |
+| | |    | |    |     |
+| | |    | |    |     | [set -1( [B]
+| | |    | |    |     | |        |
+[ui.number                       ]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

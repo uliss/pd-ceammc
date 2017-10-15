@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="ui.sliders" type="gui">
+        <title>ui.sliders</title>
+        <meta>
+            <authors>
+                <author>Alex Nadzharov</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Multiple slider widget</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category view="link">ui</category>
+            <keywords>ui slider</keywords>
+            <since>0.1</since>
+            <also>
+                <see view="link">ui.slider</see>
+                <see view="link">ui.presets</see>
+            </also>
+        </meta>
+        <properties>
+            <property name="@count" type="int" default="8" minvalue="1">number of
+            sliders</property>
+            <property name="@range" type="float" default="1">sliders value range</property>
+            <property name="@shift" type="float" default="0">sliders value offset</property>
+            <property name="@presetname" type="symbol">preset name for using with
+            [ui.preset]</property>
+            <property name="@send" type="symbol">send destination</property>
+            <property name="@receive" type="symbol">receive source</property>
+            <property name="@auto_range" type="int" enum="0 1">if set numbers of sliders equal to
+            input list length</property>
+            <property name="@show_range" type="int" enum="0 1">if show slider range</property>
+        </properties>
+        <methods>
+            <method name="dump">dumps all object info to Pd console window</method>
+            <method name="select">draws specified slider with select color 
+            <param name="N" required="true" minvalue="0" type="int">slider index, starting from
+            0.</param></method>
+            <method name="set">sets sliders value without output</method>
+            <method name="set_at">sets specified slider value 
+            <param name="IDX" required="true" type="int" minvalue="0">slider position, starting
+            from 0</param>
+            <param name="VAL" required="true" type="float">slider value</param></method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">outputs sliders position</xinfo>
+                <xinfo on="list">sets slider values and outputs it</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>list of slider values</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[1 2 3 4 5( [0 30(          [F]         [T]
+|           |               |           |
+|  [B]      [list.seq]      [@count $1( [@auto_range $1(
+|  |        |               |           |
+|  |        | [F]           |           |
+|  |        | |             |           |   [select 4(
+|  |        | [set_at 4 $1( |           |   |
+|  |        | |             |           |   |
+|  |        | |             |           |   |
+|  |        | |             |           |   |
+[ui.sliders       @range=10  @presetname=sl-help]
+|
+|
+|
+|
+|
+|
+|
+[ui.display @display_type=1]
+
+/*[Shift+click] to save, [Alt+click] to remove, [click] to activate*/
+
+
+[ui.preset]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flt.bpf12~">
+        <title>flt.bpf12~</title>
+        <meta>
+            <authors>
+                <author>Alex Nadzharov</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Band-pass filter with 12/db per octave slope</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>flt</category>
+            <keywords>filter biquad bpf</keywords>
+            <since>0.1</since>
+            <also>
+                <see>flt.bpf24~</see>
+                <see>flt.c_bpf~</see>
+            </also>
+        </meta>
+        <info>
+            <par>Band-pass filter passes frequencies within a certain range and rejects frequencies
+            outside that range.</par>
+        </info>
+        <methods>
+            <method name="freq">
+                <param type="float" units="herz">center frequency</param>
+            </method>
+            <method name="q">
+                <param type="float" name="Q" minvalue="0.01" maxvalue="100" default="0.01">quality
+                factor</param>
+            </method>
+        </methods>
+        <arguments>
+            <argument name="freq" type="float" units="herz">center frequency</argument>
+            <argument name="q" type="float" minvalue="0.01" maxvalue="100">quality
+            factory</argument>
+            <argument name="ID" type="symbol">object ID for OSC control</argument>
+        </arguments>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">filtered signal</outlet>
+            <outlet>information output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+
+[noise.pink~] [T]
+|        .____/
+[*~      ]
+|
+|        [F]       [F]
+|        |         |
+|        [freq $1( [q $1(
+|        |         |
+[flt.bpf12~  1000 5 ]
+|\
+[dac~]
+
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

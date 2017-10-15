@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="string.format">
+        <title>string.format</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>formats string like printf.</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>string</category>
+            <keywords>string format</keywords>
+            <since>0.3</since>
+            <aliases>
+                <alias>str.format</alias>
+            </aliases>
+        </meta>
+        <info>
+            <par>This format modifiers are supported: %d, %u, %i, %o, %x, %X, %s, %e, %E.</par>
+        </info>
+        <arguments>
+            <argument name="FMT" type="symbol">format string</argument>
+        </arguments>
+        <properties>
+            <property name="@format" type="symbol">format string</property>
+            <property name="@int" type="flag">flag for integer mode. If specified all floats are
+            converted to integers. This usefull for hex and octal formatting</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="float">float format argument</xinfo>
+                <xinfo on="symbol">float format argument</xinfo>
+                <xinfo on="list">format arguments (if many)</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output string</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]  [@format %+02d(
+|    |
+|    |
+[string.format %08.2f]
+|
+[str->sym]
+|
+[msg set]
+|
+[ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="data.set">
+        <title>data.set</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>container that store unique elements</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>data</category>
+            <keywords>data set</keywords>
+            <since>0.3</since>
+            <also>
+                <see>set-&gt;list</see>
+                <see>data.list</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="X" type="any">set elements</argument>
+        </arguments>
+        <methods>
+            <method name="add">add element to set</method>
+            <method name="remove">removes last list element</method>
+            <method name="set">set new contents</method>
+            <method name="clear">remove all elements</method>
+            <method name="dump">dump set info to Pd window</method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">output set</xinfo>
+                <xinfo on="float">add to set, no output</xinfo>
+                <xinfo on="symbol">add to set, no output</xinfo>
+                <xinfo on="list">add list elements to set, no output</xinfo>
+                <xinfo>if Set recieved, change object content and output it</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>set output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]
+|
+[$1, bang( [clear(
+|        __/
+[data.set]
+|
+[set->list]
+|
+[list.range]
+|
+[msg set]
+|
+[ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

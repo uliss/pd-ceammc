@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="fx.freqshift~">
+        <title>fx.freqshift~</title>
+        <meta>
+            <authors>
+                <author>Alex Nadzharov</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>frequency shifter or single-sideband ring modulation</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>fx</category>
+            <keywords>fx freqshift</keywords>
+            <since>0.1</since>
+        </meta>
+        <arguments>
+            <argument name="ID" type="symbol">object ID for OSC control path</argument>
+        </arguments>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+            <inlet type="audio">
+                <xinfo minvalue="-10000" maxvalue="10000">frequency shift in Hertz</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output signal</outlet>
+            <outlet type="audio">output signal</outlet>
+            <outlet type="control">information output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]
+|
+[osc.tri~ 300] [F]   /* frequency shift */
+|              |
+|              [sig~]
+|              |
+|              [lop~ 10]
+|              |.
+[fx.freqshift~   id]
+|  |.            ^^|
+[dac~   ]        [print]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -367,6 +367,7 @@ void signal_cleanup(void)
 {
     t_signal **svec, *sig, *sig2;
     int i;
+
     while ((sig = pd_this->pd_signals))
     {
         pd_this->pd_signals = sig->s_nextused;
@@ -568,6 +569,7 @@ void ugen_stop(void)
 {
     t_signal *s;
     int i;
+    fprintf(stderr, "stop %x\n", pd_this);
     if (pd_this->pd_dspchain)
     {
         freebytes(pd_this->pd_dspchain,
@@ -580,7 +582,9 @@ void ugen_stop(void)
 
 void ugen_start(void)
 {
+    fprintf(stderr, "start %x\n", pd_this);
     ugen_stop();
+    fprintf(stderr, "continue start %x\n", pd_this);
     ugen_sortno++;
     pd_this->pd_dspchain = (t_int *)getbytes(sizeof(*pd_this->pd_dspchain));
     pd_this->pd_dspchain[0] = (t_int)dsp_done;

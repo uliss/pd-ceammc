@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.lcm">
+        <title>math.lcm</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>calculate least common multiple</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math lcm</keywords>
+            <also>
+                <see>math.gcd</see>
+            </also>
+            <since>0.3</since>
+        </meta>
+        <arguments>
+            <argument type="int" name="ARG2">second argument</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="int">sets first argument and outputs calculated LCM value</xinfo>
+                <xinfo on="list">sets first argument and second arguments, then output calculated
+                LCM value</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="int">sets second value</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>LCM value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]  [F]
+|    |.
+[flow.sync 2] [3 5(
+|    ^|.      |
+[math.lcm   12]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

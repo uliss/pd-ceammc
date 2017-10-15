@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="system.memsize">
+        <title>system.memsize</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>returns the size of physical memory (RAM) in bytes round to float data
+            type.</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>system</category>
+            <keywords>system memory</keywords>
+            <also>
+                <see>system.memused</see>
+            </also>
+            <since>0.1</since>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">outputs memory size</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>physical memory (RAM) size in bytes</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[bng]
+|
+[system.memsize]
+|
+[/ 1024]
+|
+[/ 1024] /* in Mbytes */
+|
+[floatatom digits=12]
+
+                ]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

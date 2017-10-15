@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="conv.bpm2sec">
+        <title>conv.bpm2sec</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>convert frequency in BPM to period in seconds</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>conv</category>
+            <keywords>conv time</keywords>
+            <also>
+                <see>conv.bpm2ms</see>
+                <see>conv.bpm2hz</see>
+            </also>
+            <since>0.1</since>
+            <aliases>
+                <alias>bpm-&gt;sec</alias>
+            </aliases>
+        </meta>
+        <info>
+            <par>Convert frequency from BPM (beats per minute) to period in seconds. It's simple as
+            60/f, but more readable.</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo on="float">frequency in BPM</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>period in seconds</outlet>
+        </outlets>
+    </object>
+</pddoc>

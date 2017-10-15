@@ -1,0 +1,22 @@
+#N canvas 0 0 715 500 12;
+#X obj 20 53 ui.link @title index @url ../index-help.pd;
+#X text 62 50 ::;
+#X obj 79 53 ui.link @title ceammc @url ceammc-help.pd;
+#X obj 30 116 dyn.comp2~;
+#X text 175 116 stereo dynamic range compressor;
+#X obj 30 143 dyn.comp~;
+#X text 175 143 mono dynamic range compressors;
+#X obj 30 170 dyn.gate2~;
+#X text 175 170 stereo signal gate;
+#X obj 30 197 dyn.gate~;
+#X text 175 197 mono signal gate;
+#X obj 30 224 dyn.limit2~;
+#X text 175 224 stereo 1176LN Peak Limiter;
+#X obj 30 251 dyn.limit~;
+#X text 175 251 mono 1176LN Peak Limiter;
+#X obj 30 278 dyn.softclip~;
+#X text 175 278 soft signal clip;
+#X obj 1 1 cnv 5 712 40 empty empty ceammc::dyn 20 20 0 20 -104026
+-4096 0;
+#X obj 1 458 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 468 library: ceammc;

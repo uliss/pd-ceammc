@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="array.s2p">
+        <title>array.s2p</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>convert array sample position to relative phase position
+            [0..1]</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>conv</category>
+            <keywords>array phase sample</keywords>
+            <also>
+                <see>array.p2s</see>
+            </also>
+            <since>0.2</since>
+            <aliases>
+                <alias>array.s-&gt;p</alias>
+                <alias>array.sample-&gt;phase</alias>
+            </aliases>
+        </meta>
+        <info>
+            <par>with this object we can get relative position in array</par>
+        </info>
+        <arguments>
+            <argument name="NAME" type="symbol">array name</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="float">array sample number</xinfo>
+                <xinfo on="list">list of sample numbers</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>relative position (non-clipped)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[HS min=0 max=100]       [array array1 size=100 w=100 h=70]
+|
+[F]
+|
+[array.s->p array1]
+|
+[F]
+|
+[array.p->s array1]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

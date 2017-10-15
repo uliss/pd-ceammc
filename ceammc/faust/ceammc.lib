@@ -1,0 +1,42 @@
+declare name "Ceammc PureData misc utils";
+declare version "0.1";
+
+ba = library("basics.lib");
+si = library("signals.lib");
+
+// in puredata 0db = 100db
+db_pd2faust(v) = (v - 100);
+db_faust2pd(v) = (v + 100);
+
+// in puredata common time management in milliseconds
+time_pd2faust(sec) = (sec / 1000.0);
+
+// duplicate inputs
+duplicate(1, x) = x;
+duplicate(n, x) = x, duplicate(n-1, x);
+
+// range
+clip(lo, hi) = max(lo) : min(hi);
+
+// map
+map(xs, fx) = par(i, ba.count(xs), fx);
+
+// bus
+bus(n) = par(i, n, _);
+
+// dry-wet
+fx_drywet(in, fx, g) = IN <: dry(in, fx, g), wet(in, fx, g) :> OUT
+with {
+    IN = bus(ba.count(in));
+    OUT = IN;
+    dry(in, fx, g) = map(in, *(1-g));
+    wet(in, fx, g) = fx : map(in, *(g));
+};
+
+// fx-wrap
+fx_wrap_mono(ui_bypass, ui_drywet, fx) = _ : ba.bypass1(ui_bypass, effect)
+with {
+    effect = fx_drywet(_, fx, ui_drywet);
+};
+
+fx_wrap2(bypass, drywet, fx) = _,_ : ba.bypass2(bypass, fx_drywet(bus(2), fx, drywet)) : _,_;

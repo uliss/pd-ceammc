@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.log10">
+        <title>math.log10</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>logarithm functions</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math log10</keywords>
+            <also>
+                <see>math.exp</see>
+            </also>
+            <since>0.1</since>
+        </meta>
+        <info>
+            <par>The log10() function computes the value of the logarithm of argument x to base
+            10.</par>
+            <par>Special values:</par>
+            <par>log10(+-0) return -infinity</par>
+            <par>log10(1) return +0.</par>
+            <par>log10(x) return a NaN</par>
+            <par>log10(+infinity) return +infinity.</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo on="float">input value</xinfo>
+                <xinfo on="list">apply to all numeric values</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>result value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]
+|
+[math.log10]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

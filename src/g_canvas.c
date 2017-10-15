@@ -13,6 +13,7 @@ to be different but are now unified except for some fossilized names.) */
 #include "g_canvas.h"
 #include <string.h>
 #include "g_all_guis.h"
+#include "g_style.h"
 
 #ifdef _MSC_VER
 #define snprintf sprintf_s
@@ -28,8 +29,8 @@ struct _canvasenvironment
     t_namelist *ce_path;   /* search path */
 };
 
-#define GLIST_DEFCANVASWIDTH 450
-#define GLIST_DEFCANVASHEIGHT 300
+#define GLIST_DEFCANVASWIDTH 700
+#define GLIST_DEFCANVASHEIGHT 500
 
 /* since the window decorations aren't included, open new windows a few
 pixels down so you can posibly move the window later.  Apple needs less
@@ -286,7 +287,7 @@ t_outconnect *linetraverser_next(t_linetraverser *t)
         t->tr_lx2 = t->tr_x21 +
             ((t->tr_x22 - t->tr_x21 - IOWIDTH) * t->tr_inno)/inplus +
                 IOMIDDLE;
-        t->tr_ly2 = t->tr_y21;
+        t->tr_ly2 = t->tr_y21;        
     }
     else
     {
@@ -554,6 +555,7 @@ static void canvas_dosetbounds(t_canvas *x, int x1, int y1, int x2, int y2)
             if (pd_checkobject(&y->g_pd))
                 gobj_displace(y, x, 0, heightchange);
         canvas_redraw(x);
+
     }
 }
 
@@ -622,14 +624,56 @@ void canvas_drawredrect(t_canvas *x, int doit)
 {
     if (doit)
         sys_vgui(".x%lx.c create line\
-            %d %d %d %d %d %d %d %d %d %d -fill #ff8080 -tags GOP\n",
+            %d %d %d %d %d %d %d %d %d %d -fill %s -tags GOP\n",
             glist_getcanvas(x),
             x->gl_xmargin, x->gl_ymargin,
             x->gl_xmargin + x->gl_pixwidth, x->gl_ymargin,
             x->gl_xmargin + x->gl_pixwidth, x->gl_ymargin + x->gl_pixheight,
             x->gl_xmargin, x->gl_ymargin + x->gl_pixheight,
-            x->gl_xmargin, x->gl_ymargin);
+            x->gl_xmargin, x->gl_ymargin, STYLE_CANVAS_GOP_RECT_COLOR);
     else sys_vgui(".x%lx.c delete GOP\n",  glist_getcanvas(x));
+}
+
+/* ----- CEAMMC grid ----- */
+EXTERN void canvas_drawgrid(t_canvas *x)
+{
+
+    int grid_w =  x->gl_screenx2 - x->gl_screenx1;
+    int grid_h =  x->gl_screeny2 - x->gl_screeny1;
+
+
+    //printf("grid %d %d\n", grid_w, grid_h);
+    
+    t_glist *c = glist_getcanvas(x);
+
+    for (int xx=0; xx< grid_w; xx+=20)
+    {
+        if (x->gl_grid==1)
+        {
+            sys_vgui(
+                     ".x%lx.c create line %d %d %d %d -width 1 -fill #EFEFEF -tags GRID \n",
+                     c,
+                     xx, 0,xx, grid_h);
+        }
+
+
+    }
+
+    for (int yy=0; yy< grid_h; yy+=20)
+    {
+        sys_vgui(
+                 ".x%lx.c create line %d %d %d %d -width 1 -tags GRID -fill #EFEFEF\n",
+                 c,
+                 0,yy,grid_w,yy);
+
+    }
+
+    if (x->gl_grid==0)
+    {
+        sys_vgui(".x%lx.c delete GRID\n",  glist_getcanvas(x));
+    }
+
+
 }
 
     /* the window becomes "mapped" (visible and not miniaturized) or
@@ -649,6 +693,7 @@ void canvas_map(t_canvas *x, t_floatarg f)
                 bug("canvas_map");
                 canvas_vis(x, 1);
             }
+            canvas_drawgrid(x);
             for (y = x->gl_list; y; y = y->g_next)
                 gobj_vis(y, x, 1);
             x->gl_mapped = 1;
@@ -677,7 +722,10 @@ void canvas_redraw(t_canvas *x)
     {
         canvas_map(x, 0);
         canvas_map(x, 1);
+
     }
+
+
 }
 
 
@@ -773,6 +821,8 @@ void canvas_free(t_canvas *x)
     if (!x->gl_owner && !x->gl_isclone)
         canvas_takeofflist(x);
 }
+
+
 
 /* ----------------- lines ---------- */
 
@@ -1009,7 +1059,7 @@ void canvas_logerror(t_object *y)
 
 /* -------------------------- subcanvases ---------------------- */
 
-static void *subcanvas_new(t_symbol *s)
+EXTERN void *subcanvas_new(t_symbol *s)
 {
     t_atom a[6];
     t_canvas *x, *z = canvas_getcurrent();
@@ -1021,6 +1071,8 @@ static void *subcanvas_new(t_symbol *s)
     SETSYMBOL(a+4, s);
     SETFLOAT(a+5, 1);
     x = canvas_new(0, 0, 6, a);
+    //ceammc
+    if (!x->gl_obj.te_binbuf) x->gl_obj.te_binbuf = binbuf_new();
     x->gl_owner = z;
     canvas_pop(x, 1);
     return (x);
@@ -1684,6 +1736,16 @@ extern void canvas_msg(t_glist *gl, t_symbol *s, int argc, t_atom *argv);
 extern void canvas_floatatom(t_glist *gl, t_symbol *s, int argc, t_atom *argv);
 extern void canvas_symbolatom(t_glist *gl, t_symbol *s, int argc, t_atom *argv);
 extern void glist_scalar(t_glist *canvas, t_symbol *s, int argc, t_atom *argv);
+    /* CEAMMC */
+extern void canvas_knob(t_glist *gl, t_symbol *s, int argc, t_atom *argv);
+extern void canvas_keyboard(t_glist *gl, t_symbol *s, int argc, t_atom *argv);
+extern void canvas_sliders(t_glist *gl, t_symbol *s, int argc, t_atom *argv);
+extern void canvas_slider2d(t_glist *gl, t_symbol *s, int argc, t_atom *argv);
+extern void canvas_bpfunc(t_glist *gl, t_symbol *s, int argc, t_atom *argv);
+extern void canvas_display(t_glist *gl, t_symbol *s, int argc, t_atom *argv);
+extern void canvas_scope(t_glist *gl, t_symbol *s, int argc, t_atom *argv);
+extern void canvas_spectroscope(t_glist *gl, t_symbol *s, int argc, t_atom *argv);
+extern void canvas_preset(t_glist *gl, t_symbol *s, int argc, t_atom *argv);
 
 void g_graph_setup(void);
 void g_editor_setup(void);
@@ -1744,6 +1806,27 @@ void g_canvas_setup(void)
     class_addmethod(canvas_class, (t_method)canvas_mycnv, gensym("mycnv"),
                     A_GIMME, A_NULL);
     class_addmethod(canvas_class, (t_method)canvas_numbox, gensym("numbox"),
+                    A_GIMME, A_NULL);
+
+/* -------------- CEAMMC GUI: keyboard, sliders etc.   ------------ */
+
+    class_addmethod(canvas_class, (t_method)canvas_knob, gensym("ui.knob"),
+                    A_GIMME, A_NULL);
+    class_addmethod(canvas_class, (t_method)canvas_keyboard, gensym("ui.keyboard"),
+                    A_GIMME, A_NULL);
+    class_addmethod(canvas_class, (t_method)canvas_sliders, gensym("ui.sliders"),
+                    A_GIMME, A_NULL);
+    class_addmethod(canvas_class, (t_method)canvas_slider2d, gensym("ui.slider2d"),
+                    A_GIMME, A_NULL);
+    class_addmethod(canvas_class, (t_method)canvas_bpfunc, gensym("ui.bpfunc"),
+                    A_GIMME, A_NULL);
+    class_addmethod(canvas_class, (t_method)canvas_display, gensym("ui.display"),
+                    A_GIMME, A_NULL);
+    class_addmethod(canvas_class, (t_method)canvas_scope, gensym("ui.scope~"),
+                    A_GIMME, A_NULL);
+    class_addmethod(canvas_class, (t_method)canvas_spectroscope, gensym("ui.spectroscope~"),
+                    A_GIMME, A_NULL);
+    class_addmethod(canvas_class, (t_method)canvas_preset, gensym("ui.preset"),
                     A_GIMME, A_NULL);
 
 /* ------------------------ gui stuff --------------------------- */

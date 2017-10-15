@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="dyn.comp~">
+        <title>dyn.comp~</title>
+        <meta>
+            <authors>
+                <author>Alex Nadzharov</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>mono dynamic range compressors</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>dyn</category>
+            <keywords>compressor</keywords>
+            <since>0.1</since>
+            <also>
+                <see>dyn.comp2~</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="ratio" type="float" minvalue="1">compression ratio (1 = no compression,
+            &gt;1 means compression)</argument>
+            <argument name="threshold" type="float" minvalue="0" maxvalue="100" units="decibel">
+            level threshold above which compression kicks in (100 dB = max level)</argument>
+            <argument name="attack" type="float" units="millisecond">attack time = time constant
+            when level &amp; compression going up</argument>
+            <argument name="release" type="float" units="millisecond">release time = time constant
+            coming out of compression</argument>
+            <argument name="ID" type="symbol">object ID for OSC control path</argument>
+        </arguments>
+        <methods>
+            <method name="ratio">
+                <param type="float">compression ratio (1 = no compression, &gt;1 means
+                compression)</param>
+            </method>
+            <method name="threshold">
+                <param type="float" units="decibel">level threshold above which compression kicks
+                in (100 dB = max level)</param>
+            </method>
+            <method name="attack">
+                <param type="float" units="millisecond">time constant when level &amp; compression
+                going up</param>
+            </method>
+            <method name="release">
+                <param type="float" units="millisecond">release time = time constant coming out of
+                compression</param>
+            </method>
+        </methods>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+                <xinfo on="bang">outputs object internal state to rightmost outlet</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output signal</outlet>
+            <outlet type="control">information output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[lfo.impulse~ 10] [tgl]
+|  .______________/
+[*~]
+|         [floatatom] [floatatom]
+[*~ 4]    |           |
+|   [bng] [ratio $1(  [threshold $1(
+|   |     |           |
+[dyn.comp~ 3 40 10 100 id]
+|\               ^|
+[dac~]           [print]
+
+                ]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

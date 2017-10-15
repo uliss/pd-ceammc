@@ -1,0 +1,20 @@
+#N canvas 0 0 715 500 12;
+#X obj 20 53 ui.link @title index @url ../index-help.pd;
+#X text 62 50 ::;
+#X obj 79 53 ui.link @title ceammc @url ceammc-help.pd;
+#X obj 30 116 osc.impulse~;
+#X text 175 116 Bandlimited impulse train generator;
+#X obj 30 143 osc.pulse~;
+#X text 175 143 Bandlimited pulse train oscillator.;
+#X obj 30 170 osc.saw~;
+#X text 175 170 Bandlimited saw wave oscillator;
+#X obj 30 197 osc.sinfb~;
+#X text 175 197 sine oscilator with feedback;
+#X obj 30 224 osc.square~;
+#X text 175 224 Bandlimited square wave oscillator;
+#X obj 30 251 osc.tri~;
+#X text 175 251 Bandlimited triangle wave oscillator;
+#X obj 1 1 cnv 5 712 40 empty empty ceammc::osc 20 20 0 20 -104026
+-4096 0;
+#X obj 1 458 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 468 library: ceammc;

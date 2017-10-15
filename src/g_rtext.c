@@ -14,6 +14,7 @@
 #include "s_stuff.h"
 #include "g_canvas.h"
 #include "s_utf8.h"
+#include "g_style.h"
 
 
 #define LMARGIN 2
@@ -69,6 +70,7 @@ static t_rtext *rtext_entered;
 
 void rtext_free(t_rtext *x)
 {
+    if (!x) return; //ceammc
     if (x->x_glist->gl_editor->e_textedfor == x)
         x->x_glist->gl_editor->e_textedfor = 0;
     if (x->x_glist->gl_editor->e_rtext == x)
@@ -95,12 +97,14 @@ char *rtext_gettag(t_rtext *x)
 
 void rtext_gettext(t_rtext *x, char **buf, int *bufsize)
 {
+    if (!x) return; //ceammc
     *buf = x->x_buf;
     *bufsize = x->x_bufsize;
 }
 
 void rtext_getseltext(t_rtext *x, char **buf, int *bufsize)
 {
+    if (!x) return; //ceammc
     *buf = x->x_buf + x->x_selstart;
     *bufsize = x->x_selend - x->x_selstart;
 }
@@ -108,6 +112,7 @@ void rtext_getseltext(t_rtext *x, char **buf, int *bufsize)
 /* convert t_text te_type symbol for use as a Tk tag */
 static t_symbol *rtext_gettype(t_rtext *x)
 {
+    if (!x) return gensym("error"); //ceammc
     switch (x->x_text->te_type)
     {
     case T_TEXT: return gensym("text");
@@ -184,12 +189,13 @@ static int lastone(char *s, int c, int n)
 static void rtext_senditup(t_rtext *x, int action, int *widthp, int *heightp,
     int *indexp)
 {
+    if (!x) return;         //ceammc
     t_float dispx, dispy;
     char smallbuf[200], *tempbuf;
     int outchars_b = 0, nlines = 0, ncolumns = 0,
         pixwide, pixhigh, font, fontwidth, fontheight, findx, findy;
     int reportedindex = 0;
-    t_canvas *canvas = glist_getcanvas(x->x_glist);
+    t_canvas *canvas = (x)? glist_getcanvas(x->x_glist) : canvas_getcurrent();  //ceammc
     int widthspec_c = x->x_text->te_width;
     int widthlimit_c = (widthspec_c ? widthspec_c : BOXWIDTH);
     int inindex_b = 0;
@@ -316,7 +322,7 @@ static void rtext_senditup(t_rtext *x, int action, int *widthp, int *heightp,
             outchars_b, tempbuf,
             sys_hostfontsize(font, glist_getzoom(x->x_glist)),
             (glist_isselected(x->x_glist,
-                &x->x_glist->gl_gobj)? "blue" : "black"));
+                &x->x_glist->gl_gobj)? STYLE_TEXT_SELECT_COLOR : STYLE_TEXT_NORMAL_COLOR));
     }
     else if (action == SEND_UPDATE)
     {
@@ -355,6 +361,7 @@ static void rtext_senditup(t_rtext *x, int action, int *widthp, int *heightp,
 
 void rtext_retext(t_rtext *x)
 {
+    if (!x) return; //ceammc
     int w = 0, h = 0, indx;
     t_text *text = x->x_text;
     t_freebytes(x->x_buf, x->x_bufsize);
@@ -427,6 +434,7 @@ t_rtext *glist_findrtext(t_glist *gl, t_text *who)
 
 int rtext_width(t_rtext *x)
 {
+    if (!x) return 0; //ceammc
     int w = 0, h = 0, indx;
     rtext_senditup(x, SEND_CHECK, &w, &h, &indx);
     return (w);
@@ -434,6 +442,7 @@ int rtext_width(t_rtext *x)
 
 int rtext_height(t_rtext *x)
 {
+    if (!x) return 0; //ceammc
     int w = 0, h = 0, indx;
     rtext_senditup(x, SEND_CHECK, &w, &h, &indx);
     return (h);
@@ -441,31 +450,36 @@ int rtext_height(t_rtext *x)
 
 void rtext_draw(t_rtext *x)
 {
+    if (!x) return; //ceammc
     int w = 0, h = 0, indx;
     rtext_senditup(x, SEND_FIRST, &w, &h, &indx);
 }
 
 void rtext_erase(t_rtext *x)
 {
+    if (!x) return; //ceammc
     sys_vgui(".x%lx.c delete %s\n", glist_getcanvas(x->x_glist), x->x_tag);
 }
 
 void rtext_displace(t_rtext *x, int dx, int dy)
 {
+    if (!x) return; //ceammc
     sys_vgui(".x%lx.c move %s %d %d\n", glist_getcanvas(x->x_glist),
         x->x_tag, dx, dy);
 }
 
 void rtext_select(t_rtext *x, int state)
 {
+    if (!x) return; //ceammc
     t_glist *glist = x->x_glist;
     t_canvas *canvas = glist_getcanvas(glist);
     sys_vgui(".x%lx.c itemconfigure %s -fill %s\n", canvas,
-        x->x_tag, (state? "blue" : "black"));
+        x->x_tag, (state? STYLE_TEXT_SELECT_COLOR : STYLE_TEXT_NORMAL_COLOR));
 }
 
 void rtext_activate(t_rtext *x, int state)
 {
+    if (!x) return; //ceammc
     int w = 0, h = 0, indx;
     t_glist *glist = x->x_glist;
     t_canvas *canvas = glist_getcanvas(glist);
@@ -490,6 +504,7 @@ void rtext_activate(t_rtext *x, int state)
 
 void rtext_key(t_rtext *x, int keynum, t_symbol *keysym)
 {
+    if (!x) return; //ceammc
     int w = 0, h = 0, indx, i, newsize, ndel;
     char *s1, *s2;
     if (keynum)
@@ -598,6 +613,7 @@ be printable in whatever 8-bit character set we find ourselves. */
 
 void rtext_mouse(t_rtext *x, int xval, int yval, int flag)
 {
+    if (!x) return; //ceammc
     int w = xval, h = yval, indx;
     rtext_senditup(x, SEND_CHECK, &w, &h, &indx);
     if (flag == RTEXT_DOWN)

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="data.fifo">
+        <title>data.fifo</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>First-In-First-Out (FIFO) queue data container</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>data</category>
+            <keywords>data fifo</keywords>
+            <since>0.1</since>
+            <also>
+                <see>data.list</see>
+            </also>
+        </meta>
+        <info>
+            <par>If size argument specified - creates queue with fixed size. When count of values
+            exceed this limit, outputs and removes first value in queue.</par>
+        </info>
+        <arguments>
+            <argument name="size" type="int" minvalue="0">if specified, creates fixed-size queue.
+            Value '0' means default size (1024)</argument>
+        </arguments>
+        <methods>
+            <method name="clear">removes all queue values</method>
+            <method name="flush">outputs and removes all queue values</method>
+            <method name="pop">outputs and removes first values in queue</method>
+            <method name="resize">
+                <param type="int" minvalue="0">changes queue size. All previous values (if any) are
+                silently removed</param>
+            </method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">same as *flush* message</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+                 [F]
+                 |
+    [pop(  [1 2( [resize $1(
+    |      |         |        [@size?( [@free?( [@filled?(
+[F] |  [B] | [clear( | [flush( |       |        |
+|   |  |   | |       | |       |       |        |
+[data.fifo                                     5]
+|                |
+[msg set]        [print]
+|
+[ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

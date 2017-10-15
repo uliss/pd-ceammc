@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.exp">
+        <title>math.exp</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>exponential functions</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math exp</keywords>
+            <also>
+                <see>math.log</see>
+                <see>math.exp2</see>
+            </also>
+            <since>0.1</since>
+        </meta>
+        <info>
+            <par>The exp() function computes e**x, the base-e exponential of x.</par>
+            <par>If x is nearly zero, then the common expression exp(x) - 1.0 will suffer from
+            catastrophic cancellation and the result will have little or no precision.</par>
+            <par>Special values:</par>
+            <par>exp(+-0) return 1.</par>
+            <par>exp(-infinity) return +0.</par>
+            <par>exp(+infinity) return +infinity.</par>
+            <par>For all these functions, a range error occurs if the magnitude of x is too
+            large.</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo on="float">input value</xinfo>
+                <xinfo on="list">apply to all numeric values</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>result value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]
+|
+[math.exp]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

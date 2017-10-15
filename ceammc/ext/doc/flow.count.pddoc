@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flow.count">
+        <title>flow.count</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>control flow event counter</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>flow</category>
+            <keywords>counter</keywords>
+            <since>0.4</since>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="any">control inlet</xinfo>
+            </inlet>
+        </inlets>
+        <properties>
+            <property name="@value" type="int" minvalue="0">current counter state</property>
+        </properties>
+        <methods>
+            <method name="reset">reset counter</method>
+        </methods>
+        <outlets>
+            <outlet>outputs event number</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[T]
+|
+[metro 300]
+|
+|  [reset(
+|  |
+[flow.count]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

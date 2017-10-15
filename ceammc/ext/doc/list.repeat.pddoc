@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="list.repeat">
+        <title>list.repeat</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>creates new list by repeating given list specified times</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>list</category>
+            <keywords>list repeat</keywords>
+            <since>0.1</since>
+        </meta>
+        <arguments>
+            <argument name="N" type="int" minvalue="0">repeat times</argument>
+        </arguments>
+        <properties>
+            <property name="@times" type="int" default="1" minvalue="0">repeat times</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="list">input list</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="int" minvalue="0">repeat count</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output list</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[1 2 3 4 *(  [F]
+|            |.
+[list.repeat 4]
+|
+[msg set]
+|
+[ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

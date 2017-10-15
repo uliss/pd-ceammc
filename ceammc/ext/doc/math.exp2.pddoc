@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.exp2">
+        <title>math.exp2</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>exponential functions</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math exp2</keywords>
+            <also>
+                <see>math.log</see>
+                <see>math.exp</see>
+            </also>
+            <since>0.1</since>
+        </meta>
+        <info>
+            <par>The exp2() function computes 2**x, the base-2 exponential of x.</par>
+            <par>Special values:</par>
+            <par>exp(+-0) return 1.</par>
+            <par>exp(-infinity) return +0.</par>
+            <par>exp(+infinity) return +infinity.</par>
+            <par>For all these functions, a range error occurs if the magnitude of x is too
+            large.</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo on="float">input value</xinfo>
+                <xinfo on="list">apply to all numeric values</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>result value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]
+|
+[math.exp2]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

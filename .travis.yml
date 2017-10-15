@@ -7,7 +7,8 @@
 #     note that there is a rate-limit for code-analysis.
 #   https://scan.coverity.com/projects/pure-data-pure-data
 
-language: c
+language: cpp
+dist: trusty
 
 env:
   global:
@@ -32,21 +33,29 @@ matrix:
 
 before_install:
 ## install some dependencies
-- sudo apt-get update -qq
-- sudo apt-get install -qq  libasound2-dev libjack-dev
+- sudo apt-get install -qq libboost-dev libsndfile1 libsndfile-dev libportaudio-dev libfftw3-dev libasound2-dev libjack-dev libmodplug-dev libavahi-compat-libdnssd-dev
+- pip install --user cpp-coveralls
 
 
 before_script:
-## basic autoconf setup
-  - ./autogen.sh
-  - ./configure --enable-jack
+  - export CTEST_OUTPUT_ON_FAILURE=1
+  - uname -a
+  - printenv
+  - gcov --version
+  - mkdir bin
+  - cd bin
+  - cmake -DWITH_ALSA_MIDI=ON -DWITH_PORTMIDI=ON -DWITH_PORTAUDIO=OFF -DWITH_COVERAGE=ON ..
   ## check whether we want to use coverity.scan and haven't met the quota yet.
   ## if so, build and submit. (else we skip to the ordinary build)
   # (implement Coverity Scan with before_script instead of addons.coverity_scan
   #  to work around too-early quota check by the coverity_scan addon)
-  - if [[ -n $COVERITY_SCAN_PROJECT_NAME ]] ; then curl -s 'https://scan.coverity.com/scripts/travisci_build_coverity_scan.sh' | bash || true ; fi
-  - if [[ -e cov-int/scm_log.txt ]] ; then cat cov-int/scm_log.txt; else echo "no coverity log found"; fi
+  #- if [[ -n $COVERITY_SCAN_PROJECT_NAME ]] ; then curl -s 'https://scan.coverity.com/scripts/travisci_build_coverity_scan.sh' | bash || true ; fi
+  #- if [[ -e cov-int/scm_log.txt ]] ; then cat cov-int/scm_log.txt; else echo "no coverity log found"; fi
 
 script:
 ## the actual build
 - make
+- make test
+
+after_success:
+  - coveralls --exclude . --include ceammc/ext/src/lib --root .. --build-root . --gcov-options '\-lp'

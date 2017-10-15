@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="soundtouch~">
+        <title>soundtouch~</title>
+        <meta>
+            <authors>
+                <author>Olli Parviainen</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>realtime pitch shifter</description>
+            <license>GPL3</license>
+            <library>soundtouch</library>
+            <category>pitch</category>
+            <keywords>pitch pitchshift</keywords>
+            <since>0.1</since>
+        </meta>
+        <info>
+            <par>Based on SoundTouch library.</par>
+        </info>
+        <properties>
+            <property name="@pitch" type="float" default="0">
+            relative pitch change in semitones</property>
+            <property name="@speech" type="flag">optimize for speech sound source</property>
+            <property name="@antialias" type="int" enum="0 1" default="0">use of anti-alias filter.
+            Anti-alias filter is used to prevent folding of high frequencies when 
+            transposing the sample rate with interpolation.</property>
+            <property name="@aalength" type="int" minvalue="8" maxvalue="128" default="64">
+            pitch transposer anti-alias filter length</property>
+        </properties>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[ 
+[symbol bell.aiff( [symbol voice.wav( [array A1]
+|                  |
+[load %DOC%/sound/$1 @to A1 @resize(
+|
+[expand_env]
+|
+[snd.file]
+
+[bang( [stop( [hsl from=-24 to=24]
+|      |      |
+[tabplay~ A1] [F]
+|             |
+|             [@pitch $1(
+|             |
+[soundtouch~  ]
+| \
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

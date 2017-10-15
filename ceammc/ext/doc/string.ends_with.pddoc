@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="string.ends_with">
+        <title>string.ends_with</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>checks if given string ends with specified suffix</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>string</category>
+            <keywords>ends_with</keywords>
+            <since>0.3</since>
+            <aliases>
+                <alias>str.ends_with</alias>
+            </aliases>
+            <also>
+                <see>str.starts_with</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="SUFFIX" type="symbol">suffix</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo>Input string or symbol</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo>search suffix (string or symbol)</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output 1 if input string ends with suffix, otherwise 0</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]
+|
+[string data.mp3] [symbol data.wav(
+|                 |
+|                 |
+|                 |
+[str.ends_with .mp3]
+|
+[T]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

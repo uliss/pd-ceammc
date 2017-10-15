@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="random.discrete">
+        <title>random.discrete</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>random weighted integers on interval [0, n)</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>random</category>
+            <keywords>linear random discrete</keywords>
+            <also>
+                <see>random.linear</see>
+                <see>random.pw_const</see>
+            </also>
+            <since>0.4</since>
+        </meta>
+        <info>
+            <par>Produces random integers on the interval [0, N), where the probability
+            of each individual integer *i* defined as W_i/S, that is the weight
+            of the i-th integer divided by the sum of all N weights.
+            </par>
+        </info>
+        <arguments>
+            <argument type="list" name="W">weights (list of non-negative floats)</argument>
+        </arguments>
+        <properties>
+            <property name="@weights" type="list">list of weights (non-negative floats)</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">generates random number in interval [0, N),
+                where N is number of weights.</xinfo>
+                <xinfo on="list">set new weights</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>result value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]                                          [array array1 size=9 yr=0..1]
+|
+[list.gen 1000]X[random.discrete 1 2 3 4 0 1 2 4 5]
+|
+[list.histogram @bins 9]
+|
+[list.normalize @range]
+|
+[list.enumerate @append]
+|
+[list.repack 2]
+|
+[tabwrite array1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="fx.distortion~">
+        <title>fx.distortion~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>cubic nonlinearity distortion</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>fx</category>
+            <keywords>fx distortion</keywords>
+            <since>0.2</since>
+        </meta>
+        <arguments>
+            <argument name="drive" type="float" minvalue="0" maxvalue="1">distortion
+            amount</argument>
+            <argument name="offset" type="float" minvalue="0" maxvalue="1">constant added before
+            nonlinearity to give even harmonics</argument>
+            <argument name="ID" type="symbol">object ID for OSC control path</argument>
+        </arguments>
+        <properties>
+            <property name="@drive" type="float" minvalue="0" maxvalue="1" default="0.5">distortion
+            amount</property>
+            <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">proportion
+            of mix between the original (dry) and 'effected' (wet) signals. 0 - dry signal, 1 -
+            wet.</property>
+            <property name="offset" type="float" minvalue="0" maxvalue="1" default="0">constant
+            added before nonlinearity to give even harmonics</property>
+            <property name="@bypass" type="int" enum="0 1" default="0">if set to 1 - bypass
+            'effected' signal.</property>
+        </properties>
+        <methods>
+            <method name="drive">
+                <param type="float" minvalue="0" maxvalue="1">distortion amount</param>
+            </method>
+            <method name="offset">
+                <param type="float" minvalue="0" maxvalue="1">constant added before nonlinearity to
+                give even harmonics</param>
+            </method>
+            <method name="drywet">
+                <param type="float" minvalue="0" maxvalue="1">proportion of mix between the
+                original (dry) and 'effected' (wet) signals. 0 - dry signal, 1 - wet.</param>
+            </method>
+            <method name="bypass">
+                <param name="BOOL" type="int" enum="0 1">bypass effect</param>
+            </method>
+        </methods>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output signal</outlet>
+            <outlet type="control">information output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]
+|           [F]         [F]
+[osc~ 200]  |           |
+|           [/ 100]     [/ 100]      [F]
+|  [T]      |           |            |
+|  |.       |           |            [/ 100]     [T]
+[*~ ]       |           |            |           |
+|           [drive $1(  [offset $1(  [drywet $1( [bypass $1(
+|           |           |            |           |
+|           |           |            |           |
+[fx.distortion~ id                               ]
+|\
+[dac~]
+
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

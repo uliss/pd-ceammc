@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="replace">
+        <title>replace</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Replace atoms in data stream</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>flow</category>
+            <keywords>replace test</keywords>
+            <since>0.1</since>
+            <also>
+                <see>flow.pass</see>
+            </also>
+        </meta>
+        <info>
+            <par>From/to values can be specified both as @from/@to properties or first and second
+            arguments.</par>
+        </info>
+        <arguments>
+            <argument name="FROM" type="atom">replace subject</argument>
+            <argument name="TO" type="atom">replace value</argument>
+        </arguments>
+        <properties>
+            <property name="@from" type="atom">replace subject</property>
+            <property name="@to" type="atom">replace value</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo>input data stream</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo>@from property inlet</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo>@to property inlet</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output data stream</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]  [1 2 3(  [list a b c(
+|    |        |
+|    |        |
+|    |        |
+|    | [dump( | [symbol a( [symbol A(
+|    | |      | |          |
+|    | |      | |.         |..
+[replace 3 33333              ]
+|
+|
+[ui.display @auto_size 0 @size 120 17]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

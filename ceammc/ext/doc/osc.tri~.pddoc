@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="osc.tri~">
+        <title>osc.tri~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Bandlimited triangle wave oscillator</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>osc</category>
+            <keywords>oscillator band-limited</keywords>
+            <since>0.1</since>
+            <also>
+                <see>osc.saw~</see>
+                <see>osc.square~</see>
+                <see>lfo.tri~</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="freq" type="float" units="herz">frequency</argument>
+        </arguments>
+        <inlets>
+            <inlet type="audio">
+                <xinfo minvalue="20" on="float">frequency in Hz</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]
+|
+[osc.tri~ 200]
+|              [T]
+|  .___________/
+[*~]
+|\
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

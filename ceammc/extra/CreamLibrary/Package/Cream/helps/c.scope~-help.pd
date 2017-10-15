@@ -1,0 +1,102 @@
+#N canvas 90 135 995 488 10;
+#X obj 42 169 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 168 169 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min 8 @max 8092 @minmax 8 8092 @decimal 0 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 292 169 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min 8 @max 8092 @minmax 8 8092 @decimal 0 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X msg 292 200 bufsig \$1;
+#X msg 168 200 bufdis \$1;
+#X obj 42 263 c.scope~ @size 200 150 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@bufdis 1024 @bufsig 1024 @range -1 1 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @sicolor 0 0.6 0 0.8;
+#X msg 394 233 range \$1 \$2;
+#X obj 394 169 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 451 169 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 42 200 osc~ 114.8;
+#X text 153 95 The size of the;
+#X text 153 107 buffer to display;
+#X text 283 95 The size of the;
+#X text 283 107 signal buffer;
+#X text 393 95 The range to display;
+#X text 392 107 (minimum and maximum);
+#X obj 569 263 c.scope~ @size 200 150 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@bufdis 1024 @bufsig 1024 @range -1 1 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @sicolor 0 0.6 0 0.8;
+#X obj 569 208 osc~ 440;
+#X obj 569 229 *~ 0.75;
+#X obj 569 187 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 764 229 *~ 0.75;
+#X obj 764 187 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 764 208 osc~ 780;
+#X text 630 190 Oscilloscope with;
+#X text 630 203 two signals (xymode);
+#X text 6 49 c.scope~ displays the waveform of a signal.;
+#X obj 42 134 c.loadmess 126;
+#X obj 168 134 c.loadmess 1024;
+#X obj 394 134 c.loadmess -1;
+#X obj 394 201 c.pak -1 1;
+#X obj 451 134 c.loadmess 1;
+#X obj 569 152 c.loadmess 585;
+#X obj 764 152 c.loadmess 780.1;
+#X text 785 373 3D Bretzel...;
+#X obj 14 28 c.patcherinfos;
+#X obj 15 19 c.loadmess;
+#X obj 9 7 c.help.header;
+#X obj 195 426 c.help.pub;
+#X obj 351 322 c.dsp~ @size 30 30 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @logocolor 0 0.6 0
+0.8;
+#X obj 574 445 c.help.gui;
+#X text 571 429 Look at me;
+#X connect 0 0 9 0;
+#X connect 1 0 4 0;
+#X connect 2 0 3 0;
+#X connect 3 0 5 0;
+#X connect 4 0 5 0;
+#X connect 6 0 5 0;
+#X connect 7 0 29 0;
+#X connect 8 0 29 1;
+#X connect 9 0 5 0;
+#X connect 17 0 18 0;
+#X connect 18 0 16 0;
+#X connect 19 0 17 0;
+#X connect 20 0 16 1;
+#X connect 21 0 22 0;
+#X connect 22 0 20 0;
+#X connect 26 0 0 0;
+#X connect 27 0 1 0;
+#X connect 27 0 2 0;
+#X connect 28 0 7 0;
+#X connect 29 0 6 0;
+#X connect 30 0 8 0;
+#X connect 31 0 19 0;
+#X connect 32 0 21 0;
+#X connect 34 0 36 0;
+#X connect 35 0 34 0;

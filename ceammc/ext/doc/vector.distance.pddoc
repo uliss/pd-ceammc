@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="vector.distance">
+        <title>vector.distance</title>
+        <meta>
+            <authors>
+                <author>Alex Nadzharov</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>returns euclidean distance between two points</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>vector</category>
+            <keywords>vector distance</keywords>
+            <since>0.1</since>
+            <also>
+                <see>vector.normalize</see>
+                <see>vector.length</see>
+                <see>vector.dot</see>
+            </also>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="list">First list of coords (float)</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="list">Second list of coords (float)</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>returns length of (list2-list1), float, always &gt;= 0</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[1 0 0( [dump(  [3 0 0(
+|       |       |
+|       |       |.
+[vector.distance ]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

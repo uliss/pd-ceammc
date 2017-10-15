@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="string.split">
+        <title>string.split</title>
+        <meta>
+            <authors>
+                <author>Alex Nadzharov</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>split string by separator</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>string</category>
+            <keywords>split</keywords>
+            <since>0.3</since>
+            <aliases>
+                <alias>str.split</alias>
+            </aliases>
+            <also>
+                <see>string.join</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="SEP" type="atom">separator. If nonspecified - separate by every char.
+            To separate by space - use ' ' argument</argument>
+        </arguments>
+        <properties>
+            <property name="@sep" type="atom">separator</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo>Input string</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>list of strings</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[symbol A/B/C(      [symbol Sample(     [bang(
+|                   |                   |
+[string]            [string]            [string AB CD]
+|                   |                   |
+[string.split /]    [string.split]      [string.split ' ']
+|                   |                   |
+[string.join ' ']   [string.join *]     [string.join -]
+|                   |                   |
+[str->sym]          [str->sym]          [str->sym]
+|                   |                   |
+[msg set]           [msg set]           [msg set]
+|                   |                   |
+[ (                 [ (                 [ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

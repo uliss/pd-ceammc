@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.pi">
+        <title>math.pi</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>mathematical constant</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math pi</keywords>
+            <also>
+                <see>math.e</see>
+            </also>
+            <since>0.1</since>
+        </meta>
+        <info>
+            <par>The number PI is a mathematical constant, the ratio of a circle's circumference to
+            its diameter, commonly approximated as 3.14159.</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">outputs value</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]
+|
+[math.pi]
+|
+[floatatom digits=10]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

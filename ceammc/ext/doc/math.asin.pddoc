@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.asin">
+        <title>math.asin</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>arc sine function</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math asin</keywords>
+            <also>
+                <see>math.acos</see>
+                <see>math.atan</see>
+                <see>math.cos</see>
+            </also>
+            <since>0.1</since>
+        </meta>
+        <info>
+            <par>The asin() function computes the principal value of the arc sine of input value.
+            The result is in the range [-pi/2, +pi/2].</par>
+            <par>Special values:</par>
+            <par>asin(+-0) returns +-0.</par>
+            <par>asin(x) returns a NAN and raises the "invalid" floating-point exception for |x|
+            &gt; 1.</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo on="float">input value</xinfo>
+                <xinfo on="list">apply to all numeric values</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>result value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]
+|
+[math.asin]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

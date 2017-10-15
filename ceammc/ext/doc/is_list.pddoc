@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="is_list">
+        <title>is_list</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>checks if input data has *list* type</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>predicates</category>
+            <keywords>predicate list</keywords>
+            <also>
+                <see>is_any</see>
+                <see>is_bang</see>
+                <see>is_symbol</see>
+                <see>is_float</see>
+            </also>
+            <since>0.1</since>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="list">outputs '1' to 1st outlet, otherwise '0'</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>0 or 1</outlet>
+            <outlet>passes *list* message</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[100(  [any( [symbol a(  [list a b c( [bang(
+|      |     |           |____________/
+[is_list                  ]
+|     ^|
+[tgl]  [print passed]
+
+                ]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

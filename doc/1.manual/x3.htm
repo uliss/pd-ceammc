@@ -1,10 +1,11 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!DOCTYPE html>
 
 <HTML>
   <HEAD>
 	 <TITLE>Pd Documentation 3</TITLE>
     <meta http-equiv="Content-Type" content="text/html">
 	 <link rel="stylesheet" type="text/css" href="pdmanual.css" media="screen">
+         <meta name="viewport" content="width=device-width, initial-scale=1">
   </HEAD>
 
 
@@ -143,9 +144,9 @@ specify more if your hardware supports it.
 Other parameters may be tweaked using the command line; see under
 <A href=#s4> preferences and startup options </A>.
 
-<H6> MIDI </H6>
+<H4> MIDI </H4>
 
-<A> The "channel message" midi objects in Pd
+The "channel message" midi objects in Pd
 such as notein or pgmout will take channels 1-16 to mean the first open MIDI
 port, 17-32 the second one, and so on.  The midiin, sysexin, midiout objects
 give you a separate inlet to specify which of the open MIDI port numbers

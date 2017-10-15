@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="is_float">
+        <title>is_float</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>checks if input data has *float* type</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>predicates</category>
+            <keywords>predicate float</keywords>
+            <also>
+                <see>is_any</see>
+                <see>is_bang</see>
+                <see>is_symbol</see>
+                <see>is_list</see>
+            </also>
+            <since>0.1</since>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="float">outputs '1' to 1st outlet, otherwise '0'</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>0 or 1</outlet>
+            <outlet>passes *float* message</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[100(  [any( [symbol a(  [list a b c(
+|      |     |        ___/
+[is_float             ]
+|     ^|
+[tgl]  [print passed]
+
+                ]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

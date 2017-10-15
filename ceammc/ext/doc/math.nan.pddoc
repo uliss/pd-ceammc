@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.nan">
+        <title>math.nan</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Not a Number, unrepresentable value</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math nan</keywords>
+            <also>
+                <see>math.inf</see>
+            </also>
+            <since>0.1</since>
+        </meta>
+        <info>
+            <par>In computing, NaN, standing for not a number, is a numeric data type value
+            representing an undefined or unrepresentable value, especially in floating-point
+            calculations. Systematic use of NaNs was introduced by the IEEE 754 floating-point
+            standard in 1985, along with the representation of other non-finite quantities like
+            infinities.</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">outputs value</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]
+|
+[math.nan]
+|
+[floatatom]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

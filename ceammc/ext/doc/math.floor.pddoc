@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.floor">
+        <title>math.floor</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>round to largest integral value not greater than x</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math floor</keywords>
+            <also>
+                <see>math.ceil</see>
+                <see>math.round</see>
+                <see>math.trunc</see>
+            </also>
+            <since>0.1</since>
+        </meta>
+        <info>
+            <par>The floor() functions return the largest integral value less than or equal to
+            x.</par>
+            <par>Special values:</par>
+            <par>floor(+-0) returns +-0.</par>
+            <par>floor(+-infinity) returns +-infinity.</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo on="float">input value</xinfo>
+                <xinfo on="list">apply to all numeric values</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>result value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]    [2.3 3.8 5.5 -2.3 -3.8 -5.5(
+|      |
+[math.floor]
+|
+[msg set]
+|
+[  (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

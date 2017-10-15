@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="ui.incdec" type="gui">
+        <title>ui.incdec</title>
+        <meta>
+            <authors>
+                <author>Pierre Guillot</author>
+            </authors>
+            <description>value increment/decrement</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category view="link">ui</category>
+            <keywords>ui incremenet decrement</keywords>
+            <since>0.1</since>
+            <also>
+                <see view="link">ui.number</see>
+            </also>
+        </meta>
+        <properties>
+            <property name="@step" type="int" default="1" minvalue="0">increment step</property>
+            <property name="@value" type="float">current widget value</property>
+            <property name="@send" type="symbol">send destination</property>
+            <property name="@receive" type="symbol">receive source</property>
+        </properties>
+        <methods>
+            <method name="set">set widget value with no output
+            <param name="VAL" type="float" required="true">value</param></method>
+            <method name="inc">increments widget with output</method>
+            <method name="dec">decrements widget with output</method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">outputs current widget value</xinfo>
+                <xinfo on="float">change widget value and output it</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B] [inc( [dec(                [F]
+|   |     |                    |
+|   |     | [@value?( [set 10( [@step $1(
+|   |     | |         |        |
+|   |     | |  [F]    |        |
+|   |     | |  |      |        |
+[ui.incdec            @step 0.1]
+|
+[prop-> @value]
+|         ^|
+[F]       [F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

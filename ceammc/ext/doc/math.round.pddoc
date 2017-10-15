@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.round">
+        <title>math.round</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>round to integral value, regardless of rounding direction</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math round</keywords>
+            <also>
+                <see>math.ceil</see>
+                <see>math.floor</see>
+                <see>math.trunc</see>
+            </also>
+            <since>0.1</since>
+        </meta>
+        <info>
+            <par>The round() functions return the integral value nearest to x rounding half-way
+            cases away from zero, regardless of the current rounding direction.</par>
+            <par>Special values:</par>
+            <par>round(+-0) returns +-0.</par>
+            <par>round(+-infinity) returns +-infinity.</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo on="float">input value</xinfo>
+                <xinfo on="list">apply to all numeric values</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>result value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]  [2.3 3.8 5.5 -2.3 -3.8 -5.5(
+|    |
+[math.round]
+|
+[msg set]
+|
+[  (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

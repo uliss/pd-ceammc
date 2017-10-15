@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="tl.transport">
+        <title>tl.transport</title>
+        <meta>
+            <authors>
+                <author>Alex Nadzharov</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Timeline transport control</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>ui</category>
+            <keywords>timeline transport</keywords>
+            <since>0.1</since>
+            <also>
+                <see view="link">tl.cue</see>
+            </also>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo>control input</xinfo>
+            </inlet>
+        </inlets>
+        <methods>
+            <method name="cue">sets cue index 
+            <param name="N" type="int" minvalue="0">cue index</param></method>
+        </methods>
+        <outlets />
+        <example>
+            <pdascii>
+<![CDATA[
+              [tl.cue]           [tl.cue]
+
+[HR number=3]    [tl.bang]
+|                |
+[cue $1(         [B]                      [tl.bang]
+|                                         |
+[tl.transport]                            [B]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

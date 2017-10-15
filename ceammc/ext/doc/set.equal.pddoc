@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="set.equal">
+        <title>set.equal</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>checks if two sets are equal (contains same elements)</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>data</category>
+            <keywords>data equal set</keywords>
+            <since>0.3</since>
+            <also>
+                <see>data.set</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="ARGS" type="any">right set elements</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo>Set or list, other values are ignored.</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo>second set</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output 1 if sets are equal, 0 otherwise</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]              [B]
+|                |
+[data.set 1 3 5] [data.set 1 3] [1 3 5( [1 2 3(
+|                |              |       |
+|                |              |       |
+|                |              |       |
+[set.equal 1 3 5                        ]
+|
+[T]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

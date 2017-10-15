@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flt.lpf24~">
+        <title>flt.lpf24~</title>
+        <meta>
+            <authors>
+                <author>Alex Nadzharov</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Low-pass filter with 24/db per octave slope</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>flt</category>
+            <keywords>filter lowpass</keywords>
+            <since>0.1</since>
+            <also>
+                <see>flt.lpf12~</see>
+                <see>flt.hpf12~</see>
+                <see>flt.c_lpf~</see>
+            </also>
+        </meta>
+        <info>
+            <par>A low-pass filter is a filter that passes signals with a frequency lower than a
+            certain cutoff frequency and attenuates signals with frequencies higher than the cutoff
+            frequency. A low-pass filter is the complement of a high-pass filter.</par>
+        </info>
+        <methods>
+            <method name="freq">
+                <param type="float" units="herz">cutoff frequency</param>
+            </method>
+            <method name="q">
+                <param type="float" name="Q" minvalue="0.01" maxvalue="100" default="0.01">quality
+                factor</param>
+            </method>
+        </methods>
+        <arguments>
+            <argument name="freq" type="float" units="herz">cutoff frequency</argument>
+            <argument name="q" type="float" minvalue="0.01" maxvalue="100">quality
+            factory</argument>
+            <argument name="ID" type="symbol">object ID for OSC control</argument>
+        </arguments>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">filtered signal</outlet>
+            <outlet>information output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]
+|             [T]
+[phasor~ 100] |
+|             [metro 200]
+|  [T]        |
+|  |.         [random.int 20 1200]
+[*~ ]         |
+|             |
+|             [F]    [F]
+|             |      |
+[*~ 0.15] [freq $1(  [q $1(
+|         |          |
+[flt.lpf24~    4000 3]
+|         |
+|         |.
+[dyn.limit2~]
+|  ^|.
+[dac~]
+
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

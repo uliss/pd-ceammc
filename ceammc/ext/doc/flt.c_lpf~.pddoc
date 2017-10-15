@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flt.c_lpf~">
+        <title>flt.c_lpf~</title>
+        <meta>
+            <authors>
+                <author>Alex Nadzharov</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>LPF coefficent calculator for biquad filter</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>flt</category>
+            <keywords>filter biquad lowpass</keywords>
+            <since>0.1</since>
+            <also>
+                <see>flt.biquad~</see>
+                <see>flt.lpf12~</see>
+            </also>
+        </meta>
+        <methods>
+            <method name="freq">
+                <param type="float" units="herz">center frequency</param>
+            </method>
+            <method name="q">
+                <param name="Q" type="float" minvalue="0.01" maxvalue="100" default="1">quality
+                factor</param>
+            </method>
+        </methods>
+        <arguments>
+            <argument name="freq" type="float" units="herz">center frequency</argument>
+            <argument name="q" type="float" minvalue="0.01" maxvalue="100">quality
+            factory</argument>
+            <argument name="ID" type="symbol">object ID for OSC control</argument>
+        </arguments>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">b0</outlet>
+            <outlet type="audio">b1</outlet>
+            <outlet type="audio">b2</outlet>
+            <outlet type="audio">a1</outlet>
+            <outlet type="audio">a2</outlet>
+            <outlet type="control">information output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+
+[noise.pink~] [T] [F]       [F]
+|        .____/   |         |
+[*~      ]        [freq $1( [q $1(
+|                 |         |
+|                 [flt.c_lpf~ 1000 100]
+|                 | ^| ^^| ^^^| ^^^^|
+|                 |  |   |    |     |
+|                 |  |   |    |     |
+|                 |. |.. |... |.... |.....
+[flt.biquad~                              ]
+|\
+[dac~]
+
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

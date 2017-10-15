@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="is_pointer">
+        <title>is_pointer</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>checks if input data has *pointer* type</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>predicates</category>
+            <keywords>predicate pointer</keywords>
+            <also>
+                <see>is_any</see>
+                <see>is_float</see>
+                <see>is_symbol</see>
+                <see>is_list</see>
+            </also>
+            <since>0.1</since>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="pointer">outputs '1' to 1st outlet, otherwise '0'</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>0 or 1</outlet>
+            <outlet>passes *pointer* message</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[traverse pd-pointer, bang(     [pd pointer]
+|
+[pointer] [bang( [1( [1 2(
+|         |      |   |
+[is_pointer          ]
+|       ^|
+[_]     [print passed]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

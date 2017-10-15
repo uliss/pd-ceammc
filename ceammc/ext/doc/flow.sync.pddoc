@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flow.sync">
+        <title>flow.sync</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>bus with only hot inlets</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>flow</category>
+            <keywords>flow control</keywords>
+            <since>0.1</since>
+        </meta>
+        <info>
+            <par>Sync inlets data. All inlets are 'hot'. When float, symbol or list arrives to
+            inlet, it's value stored. Then output all stored values from all inlets from rightmost
+            to leftmost. The main usage is to escape 'trigger hell' when using many UI
+            controls.</par>
+        </info>
+        <arguments>
+            <argument type="int" minvalue="1" maxvalue="16" name="N">Number of
+            input/outputs</argument>
+        </arguments>
+        <inlets dynamic="true">
+            <inlet>
+                <xinfo>first inlet</xinfo>
+            </inlet>
+            <inlet number="...">
+                <xinfo>...</xinfo>
+            </inlet>
+            <inlet number="n">
+                <xinfo>Nth inlet</xinfo>
+            </inlet>
+        </inlets>
+        <outlets dynamic="true">
+            <outlet>first outlet</outlet>
+            <outlet number="...">... outlet</outlet>
+            <outlet number="n">Nth outlet</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[HS]
+|
+| [HS]
+| |
+| |  [HS]
+| |. |..
+[flow.sync 3]
+|  ^|. ^^|
+[+   ]   |
+|        |.
+[*        ]
+|
+|
+[F digits=10]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

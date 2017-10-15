@@ -263,6 +263,13 @@ void sys_setextrapath(const char *p)
     sys_expandpath("%CommonProgramFiles%/Pd", pathbuf, MAXPDSTRING);
     sys_staticpath = namelist_append(sys_staticpath, pathbuf, 0);
 #endif
+
+    /* add "ceammc" library to path */
+    strncpy(pathbuf, sys_libdir->s_name, MAXPDSTRING-30);
+    pathbuf[MAXPDSTRING-30] = 0;
+    strcat(pathbuf, "/extra/ceammc");
+    sys_staticpath = namelist_append(sys_staticpath, pathbuf, 0);
+
     /* add built-in "extra" path last so its checked last */
     sys_staticpath = namelist_append(sys_staticpath, p, 0);
 }
@@ -497,17 +504,23 @@ int sys_fclose(FILE *stream)
     suffix here, even though we have to tear it back off for one of the
     search attempts. */
 void open_via_helppath(const char *name, const char *dir)
-{
+{   
     char realname[MAXPDSTRING], dirbuf[MAXPDSTRING], *basename;
         /* make up a silly "dir" if none is supplied */
     const char *usedir = (*dir ? dir : "./");
     int fd;
+    
+        /* 0. "givenpath" */
+    if ((fd = do_open_via_path(usedir, name, "", dirbuf, &basename,
+        MAXPDSTRING, 0, sys_helppath)) >= 0)
+            goto gotone;
 
         /* 1. "objectname-help.pd" */
     strncpy(realname, name, MAXPDSTRING-10);
     realname[MAXPDSTRING-10] = 0;
     if (strlen(realname) > 3 && !strcmp(realname+strlen(realname)-3, ".pd"))
         realname[strlen(realname)-3] = 0;
+    
     strcat(realname, "-help.pd");
     if ((fd = do_open_via_path(usedir, realname, "", dirbuf, &basename,
         MAXPDSTRING, 0, sys_helppath)) >= 0)

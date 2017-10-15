@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="random.float">
+        <title>random.float</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>random float generator in specified range</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>random</category>
+            <keywords>random</keywords>
+            <since>0.1</since>
+            <also>
+                <see>random.int</see>
+                <see>random.gauss</see>
+            </also>
+        </meta>
+        <info>
+            <par>generates a random floating-point value uniformly distributed in the range
+            [min..max)</par>
+        </info>
+        <arguments>
+            <argument name="MIN" type="float">random range lower bound</argument>
+            <argument name="MAX" type="float">random range upper bound</argument>
+        </arguments>
+        <properties>
+            <property name="@min" type="float" default="0">random range lower bound</property>
+            <property name="@max" type="float" default="1">random range upper bound</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">generate new number</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>result value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]
+|
+|
+|
+[random.float 1 3]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

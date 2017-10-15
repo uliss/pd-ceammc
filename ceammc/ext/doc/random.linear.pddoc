@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="random.linear">
+        <title>random.linear</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>random linear distribution</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>random</category>
+            <keywords>linear random</keywords>
+            <also>
+                <see>random.float</see>
+                <see>random.int</see>
+            </also>
+            <since>0.4</since>
+        </meta>
+        <info>
+            <par>Generates random number in interval [@v0, @v1) with linear distribution [@p0, @p1)
+            </par>
+        </info>
+        <properties>
+            <property name="@v0" type="float" default="0">begin of value interval</property>
+            <property name="@v1" type="float" default="1">end of value interval</property>
+            <property name="@p0" type="float" default="1">probability at begin</property>
+            <property name="@p1" type="float" default="0">probability at end</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">generates random number</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>result value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]
+|
+[list.gen 100]          [array array1 size=100 yr=0..1]
+^|
+[random.linear]
+|
+[* 100]
+|
+[math.floor]
+|
+[t f f]
+|    ^|
+|    [tabread array1]
+|    |
+|    [+ 0.01]
+|    |.
+[swap ]                 [const 0( [normalize(
+|    ^|.                |         |
+[tabwrite array1]       [s array1 ]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

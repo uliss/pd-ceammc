@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="list.apply_to">
+        <title>list.apply_to</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>modifies list value at specified position, filtering it via external
+            object.</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>list</category>
+            <keywords>list functional</keywords>
+            <since>0.1</since>
+            <also>
+                <see>list.each</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="index" type="int">position index (starting from 0). Negative value
+            means position from end of the list. For example: '-1' means last element.</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="list">Input list. If no element found by specified index - list passed
+                without changes.</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo>New modified value from applied object.</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>new modified list</outlet>
+            <outlet>Element at given index. Should be passed to applied object.</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[1 60 120(
+|
+[list.apply_to 1] X [mtof]
+|
+[msg set]
+|
+[ (
+                ]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flt.lowshelf~">
+        <title>flt.lowshelf~</title>
+        <meta>
+            <authors>
+                <author>Alex Nadzharov</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>gain boost|cut below some frequency</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>flt</category>
+            <keywords>filter lowshelf</keywords>
+            <since>0.1</since>
+            <also>
+                <see>flt.highshelf~</see>
+                <see>flt.c_lowshelf~</see>
+            </also>
+        </meta>
+        <methods>
+            <method name="freq">
+                <param type="float" units="herz">corner frequency for the shelf (e.g., 100
+                Hz)</param>
+            </method>
+            <method name="gain">
+                <param type="float" units="decibel">amount of boost or cut apply to the signal
+                (e.g., -10 db)</param>
+            </method>
+        </methods>
+        <arguments>
+            <argument name="freq" type="float" units="herz">corner frequency for the
+            shelf</argument>
+            <argument name="gain" type="float" units="decibel">amount of boost or cut apply to the
+            signal</argument>
+            <argument name="ID" type="symbol">object ID for OSC control</argument>
+        </arguments>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+                <xinfo on="bang">outputs object internal state to rightmost outlet</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">filtered signal</outlet>
+            <outlet type="control">information output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[noise~] [tgl]  [floatatom] [floatatom]
+|  ._____/      |           |
+[*~]      [bng] [freq $1(   [gain $1(
+|         |     |           |
+[flt.lowshelf~ 200 10 id    ]
+|\                      ^|
+[dac~]                 [print]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="local.float">
+        <title>local.float</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>canvas-scoped named float variable</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>local</category>
+            <keywords>float local</keywords>
+            <since>0.1</since>
+            <also>
+                <see>local.int</see>
+                <see>global.int</see>
+            </also>
+        </meta>
+        <info>
+            <par>Defines named local float variable, accessed by name and available only within its
+            patch (canvas). Note: it is not accessible even in subpatch.</par>
+        </info>
+        <arguments>
+            <argument name="ID" type="symbol">object ID</argument>
+        </arguments>
+        <methods>
+            <method name="set">sets new value without output</method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">output value</xinfo>
+                <xinfo on="float">sets new value and outputs it ONLY at current object
+                outlet</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>float output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]   [3.1415(  [B]
+|     |         |
+[local.float a] [local.float a]
+                |
+                [F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

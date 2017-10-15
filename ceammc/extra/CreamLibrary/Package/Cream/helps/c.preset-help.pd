@@ -1,0 +1,129 @@
+#N canvas 140 195 1117 500 10;
+#X text 385 106 Recall a preset;
+#X msg 488 103 store \$1;
+#X text 484 55 Store a preset;
+#X text 569 79 Clear a preset;
+#X msg 574 127 clear \$1;
+#X text 636 130 Clear all presets;
+#X obj 42 178 c.plane @size 120 120 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "chococ.plane" @bound -1 -1 1 1 @ptsize 5 @bgcolor 0.75
+0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @ptcolor 0 0 0 1;
+#X obj 215 293 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "choconum" @min "(null)" @max "(null)" @minmax "(null)"
+"(null)" @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
+1 @textcolor 0 0 0 1;
+#X obj 488 78 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min 1 @max "(null)" @minmax 1 "(null)" @decimal
+0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0
+1;
+#X msg 637 153 clearall;
+#X obj 381 128 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min 1 @max "(null)" @minmax 1 "(null)" @decimal
+0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0
+1;
+#X obj 574 100 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min 1 @max "(null)" @minmax 1 "(null)" @decimal
+0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0
+1;
+#X text 275 292 Presetname : choconum;
+#X text 38 151 Presetname : chococ.plane;
+#X obj 17 338 c.colorpanel @size 73 53 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "choc.colorpanel" @matrix 4 4 @reverse 0 @saturation 1
+@hue 0 @lightness 1 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
+1;
+#X text 95 356 Presetname : choc.colorpanel;
+#X text 436 348 Presetname : chocoslidr;
+#X obj 309 348 c.slider @size 120 15 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "chocoslidr" @mode 0 @min 0 @max 1 @bgcolor 0.75 0.75 0.75
+1 @bdcolor 0.5 0.5 0.5 1 @kncolor 0.5 0.5 0.5 1;
+#X obj 488 222 c.preset @size 102 34 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 10 @receive "(null)" @send "(null)"
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1
+@emcolor 0.85 0.85 0.85 1 @stcolor 0.5 0.5 0.5 1 @secolor 0.15 0.15
+0.15 1 @preset [ @index 0 @chococ.plane c.plane list 0.92037 0.912963
+@choconum c.number float -50.27 @choc.colorpanel c.colorpanel list
+0 0 @chocoslidr c.slider float 0.162916 @chocodio c.radio list 1 1
+1 0 0 0 0 0 @chocomenu c.menu float 0 @chocopoints c.breakpoints function
+79.771 0.0466666 191.222 0.95 343.512 0.0433333 578.244 0.861667 586.641
+0 @index 1 @chococ.plane c.plane list -1 -0.0925926 @choconum c.number
+float -515.27 @choc.colorpanel c.colorpanel list 2 2 @chocoslidr c.slider
+float 0.958333 @chocodio c.radio list 0 1 0 1 0 1 0 0 @chocomenu c.menu
+float 3 @chocopoints c.breakpoints function 68.7023 0.933333 267.176
+0 389.313 1 648.855 0 893.13 1 @index 2 @chococ.plane c.plane list
+-1 0.851852 @choconum c.number float 50.155 @choc.colorpanel c.colorpanel
+list 1 0 @chocoslidr c.slider float 0.175 @chocodio c.radio list 0
+1 1 1 0 0 0 0 @chocomenu c.menu float 2 @chocopoints c.breakpoints
+function 0 0.933333 396.947 0 488.55 0.866667 541.985 0 1000 1 ];
+#X obj 366 185 r c.preset;
+#X obj 923 228 s c.preset;
+#X msg 923 180 read choco.preset;
+#X msg 868 180 write;
+#X text 864 91 Use an obsolute or relative path.;
+#X obj 244 147 c.radio @size 16 128 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "chocodio" @nitems 8 @mode 1 @bgcolor 0.75 0.75 0.75 1
+@bdcolor 0.5 0.5 0.5 1 @itcolor 0.5 0.5 0.5 1;
+#X text 270 228 Presetname : chocodio;
+#X text 864 71 Read and write preset files :;
+#X text 601 212 Click on a preset to recall it.;
+#X text 601 232 Click with shift on a preset to store it.;
+#X text 601 252 Click with alt on a preset to clear it.;
+#X text 724 319 Important : Current presets are saved with the patch.
+;
+#X obj 283 397 c.menu @size 47 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "chocomenu" @hover 0 @items "cho" "co" "la" "te" @states
+0 0 0 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X text 339 398 Presetname : chocomenu;
+#X text 653 393 Presetname: chocopoints;
+#X obj 512 377 c.breakpoints @size 135 49 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "chocopoints" @absrange 0 1000 @ordrange 0 1 @outline "Linear"
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @ptcolor 0.5 0.5 0.5
+1 @licolor 0 0 0 1 @textcolor 0 0 0 1 @points 79.771 0.0466666 191.222
+0.95 343.512 0.0433333 578.244 0.861667 586.641 0;
+#X msg 752 144 inter \$1;
+#X obj 752 116 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min 1 @max "(null)" @minmax 1 "(null)" @decimal
+6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0
+1;
+#X obj 381 78 c.loadmess 1;
+#X text 696 90 Recall with interpolation;
+#X text 19 101 Object with a preset name are compatible.;
+#X text 19 114 Note that they can share the same preset;
+#X text 19 126 name so be careful.;
+#X text 864 112 Use only a name to open or write;
+#X text 864 122 a file in the patcher folder.;
+#X text 864 142 Use the message write or read to;
+#X text 864 152 open a dialog window.;
+#X obj -3 23 c.patcherinfos;
+#X obj -2 14 c.loadmess;
+#X obj -8 2 c.help.header;
+#X obj 8 429 c.help.pub;
+#X obj 382 446 c.help.gui;
+#X text 379 430 Look at me;
+#X text -10 44 c.preset saves and recalls presets of the cream externals
+in a pacther;
+#X connect 1 0 18 0;
+#X connect 4 0 18 0;
+#X connect 8 0 1 0;
+#X connect 9 0 18 0;
+#X connect 10 0 18 0;
+#X connect 11 0 4 0;
+#X connect 19 0 18 0;
+#X connect 21 0 20 0;
+#X connect 22 0 20 0;
+#X connect 35 0 18 0;
+#X connect 36 0 35 0;
+#X connect 37 0 10 0;
+#X connect 46 0 48 0;
+#X connect 47 0 46 0;

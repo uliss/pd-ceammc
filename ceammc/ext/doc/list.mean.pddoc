@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="list.mean">
+        <title>list.mean</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>calculates average of list of floats</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>list</category>
+            <keywords>list mean</keywords>
+            <since>0.1</since>
+            <also>
+                <see>list.normalize</see>
+            </also>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="list">input list of floats. Non float values are just ignored</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>average (float)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[1 2 3 4 5( [1 2 a b c(
+|           |
+|           |
+[list.mean  ]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

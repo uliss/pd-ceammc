@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="list.product">
+        <title>list.product</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>calculates product of floats in list</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>list</category>
+            <keywords>list product</keywords>
+            <since>0.1</since>
+            <also>
+                <see>list.sum</see>
+            </also>
+        </meta>
+        <info>
+            <par>Note: symbol values are treated as 0. So if list contains at least one symbol,
+            product will be always equal to zero</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo on="list">input list</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>float list product</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[1 2 3 4 5 -6(   [1 2 a b c(
+|                |
+|  [1 2 3(       |
+|  |             |
+|  |             |
+[list.product    ]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

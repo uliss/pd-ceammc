@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="ui.menu" type="gui">
+        <title>ui.menu</title>
+        <meta>
+            <authors>
+                <author>Pierre Guillot</author>
+            </authors>
+            <description>Dropdown menu</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category view="link">ui</category>
+            <keywords>ui menu</keywords>
+            <since>0.1</since>
+            <also>
+                <see view="link">ui.radio</see>
+            </also>
+        </meta>
+        <properties>
+            <property name="@items" type="list">list of menu items (only symbols are allowed)</property>
+            <property name="@hover" type="int" enum="0 1" default="0">menu hover mode,
+            if true - menu is always opened</property>
+            <property name="@send" type="symbol">send destination</property>
+            <property name="@receive" type="symbol">receive source</property>
+        </properties>
+        <methods>
+            <method name="append">appends new menu item
+            <param name="ATOMS" type="list" required="true">item name</param></method>
+            <method name="insert">inserts new menu item before specified position
+            <param name="IDX" type="int" minvalue="0" required="true">item position</param>
+            <param name="ATOMS" type="list" required="true">item name</param></method>
+            <method name="clear">clears all items menu</method>
+            <method name="delete">removes item from menu
+            <param name="IDX" type="int" minvalue="0" required="true">removed item index</param></method>
+            <method name="setitem">renames menu item
+            <param name="IDX" type="int" required="true" minvalue="0">item index</param>
+            <param name="ATOMS" type="list" required="true">item name</param></method>
+            <method name="set">silently sets menu state.
+            <param name="IDX" type="int" minvalue="0" required="true">item index</param></method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">outputs current menu state</xinfo>
+                <xinfo on="float">change menu state and output new value</xinfo>
+                <xinfo on="any">selects item equal to given</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[append sqrt(    [setitem 0 white noise(
+|                |
+| [insert 0 saw( |  [delete 1(
+| |              |  |
+| | [clear( [F]  |  | [B]  [tri (
+| | |       |    |  | |    |
+[ui.menu      @items sin tri]
+|
+[F]
+|
+[print]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

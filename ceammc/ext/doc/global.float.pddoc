@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="global.float">
+        <title>global.float</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>global named float object</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>global</category>
+            <keywords>float global</keywords>
+            <since>0.1</since>
+            <also>
+                <see>global.int</see>
+            </also>
+        </meta>
+        <info>
+            <par>Defines global scope float variable, accessed by ID name.</par>
+        </info>
+        <arguments>
+            <argument name="ID" type="symbol">object ID</argument>
+        </arguments>
+        <methods>
+            <method name="set">sets variable without output</method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">outputs variable</xinfo>
+                <xinfo on="float">set variable to given float and outputs new value</xinfo>
+                <xinfo on="list">set variable to first value in list</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="control">float output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+/* set value */
+
+[F]   [set 1.1(    [bng]  /* get value */
+|     |            |
+[global.float id]  [global.float id]
+|                  |
+[F]                [F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

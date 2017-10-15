@@ -30,7 +30,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleIconFile</key>
-	<string>pd.icns</string>
+        <string>pd_ceammc.icns</string>
 	<key>CFBundleVersion</key>
 	<string>0.38</string>
 </dict>

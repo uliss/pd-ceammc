@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="list.interleave">
+        <title>list.interleave</title>
+        <meta>
+            <authors>
+                <author>Alex Nadzharov</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>takes n lists from n inlets (specified by argument) and output their
+            elements sequentially (list1-1 list2-1 list1-2 list2-2 etc.).</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>list</category>
+            <keywords>list functional</keywords>
+            <since>0.1</since>
+            <also>
+                <see>list.deinterleave</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="N" type="int" minvalue="2">number of inputs</argument>
+        </arguments>
+        <inlets dynamic="true">
+            <inlet>
+                <xinfo on="list">input list</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>interleaved list</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[10 20 30(  [list a b( [1 2 3 4 5(
+|           |          |
+|  [@pad(   |  [@clip( |    [@wrap( [@fold(
+|  |        |  |       |    |       |
+|  |        |. |       |..  |       |
+[list.interleave               3 @min]
+|
+[msg set]
+|
+[ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

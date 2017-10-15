@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="list.resize">
+        <title>list.resize</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>changes list size</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>list</category>
+            <keywords>list size resize</keywords>
+            <since>0.1</since>
+            <also>
+                <see>list.length</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="SIZE" type="int" minvalue="0">desired list size</argument>
+        </arguments>
+        <properties>
+            <property name="@size" type="int" minvalue="0" default="0">output list size</property>
+            <property name="@method" type="symbol" enum="pad clip wrap fold">method of resizing,
+            if new size is longer then current</property>
+            <property name="@pad" type="atom">pad value for pad method of resizing</property>
+            <property name="@clip" type="alias">alias for @method clip</property>
+            <property name="@wrap" type="alias">alias for @method wrap</property>
+            <property name="@fold" type="alias">alias for @method fold</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="list">input list</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>resized list</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[1 2 3 4 5 6 7 8 9 10 11(
+|
+| [1 2 3(
+| |
+| | [@wrap( [@fold( [@clip( [@pad -1( [dump(
+| | |       |       |       |         |
+| | |       |       |       |         |
+| | |       |       |       |         |
+[list.resize                          8]
+|
+[msg set]
+|
+[ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -1,0 +1,20 @@
+set(FX_SOURCES "")
+macro(ceammc_fx_extension name)
+    list(APPEND FX_SOURCES "fx_${name}.cpp")
+    ceammc_faust_gen(fx ${name})
+endmacro()
+
+ceammc_fx_extension(distortion)
+ceammc_fx_extension(flanger)
+ceammc_fx_extension(freeverb)
+ceammc_fx_extension(freeverb2)
+ceammc_fx_extension(freqshift)
+ceammc_fx_extension(pitchshift)
+ceammc_fx_extension(zita_rev1)
+
+
+add_library(ceammc_fx STATIC mod_fx.cpp ${FX_SOURCES})
+set_target_properties(ceammc_fx PROPERTIES COMPILE_DEFINITIONS "FAUST_MACRO")
+if(UNIX)
+    set_target_properties(ceammc_fx PROPERTIES COMPILE_FLAGS "-fPIC")
+endif()

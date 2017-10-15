@@ -21,13 +21,13 @@
 #include <unistd.h>
 #endif /* _WIN32 */
 
-#if defined (__APPLE__) || defined (__FreeBSD__)
+#if defined (__APPLE__) || defined (__FreeBSD__) || defined(__NetBSD__)
 #define CLOCKHZ CLK_TCK
 #endif
 #if defined (__linux__) || defined (__CYGWIN__) || defined (ANDROID)
 #define CLOCKHZ sysconf(_SC_CLK_TCK)
 #endif
-#if defined (__FreeBSD_kernel__) || defined(__GNU__) || defined(__OpenBSD__)
+#if defined (__FreeBSD__) || defined(__GNU__) || defined(__OpenBSD__)
 #include <time.h>
 #define CLOCKHZ CLOCKS_PER_SEC
 #endif

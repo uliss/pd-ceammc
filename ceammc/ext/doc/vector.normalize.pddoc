@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="vector.normalize">
+        <title>vector.normalize</title>
+        <meta>
+            <authors>
+                <author>Alex Nadzharov</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>returns normalized vector</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>vector</category>
+            <keywords>list</keywords>
+            <since>0.1</since>
+            <also>
+                <see>vector.length</see>
+                <see>vector.distance</see>
+                <see>vector.dot</see>
+            </also>
+        </meta>
+        <info>
+            <par>Treats list of floats as vector, divides the vector elements by its magnitude.
+            Note: returns 0 vector if vector length (magnitude) is 0.</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo on="list">input list of floats</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>normalized vector - list of floats</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[1 2 3( [0 0 0(
+|       |
+|       |
+[vector.normalize]
+|
+[msg set]
+|
+[ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

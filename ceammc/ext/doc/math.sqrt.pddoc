@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.sqrt">
+        <title>math.sqrt</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>square root function</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math sqrt</keywords>
+            <also>
+                <see>math.math</see>
+            </also>
+            <since>0.1</since>
+        </meta>
+        <info>
+            <par>The sqrt() function compute the non-negative square root of x.</par>
+            <par>Special values:</par>
+            <par>sqrt(-0) returns -0.</par>
+            <par>sqrt(x) returns a NaN and generates a domain error for x &lt; 0.</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo on="float">input value</xinfo>
+                <xinfo on="list">apply to all numeric values</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>result value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]
+|
+[math.sqrt]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="function.call">
+        <title>function.call</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>call named function</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>base</category>
+            <keywords>function call</keywords>
+            <aliases>
+                <alias>func.call</alias>
+            </aliases>
+            <also>
+                <see view="link">function</see>
+            </also>
+            <since>0.3</since>
+        </meta>
+        <arguments>
+            <argument name="NAME" type="symbol">function name</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo>input value</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="symbol">change function name</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>function result</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[function f1]X[sin]
+
+[function f2]X[sqrt]
+
+[F]   [symbol f1( [symbol f2(
+|     |.             |.
+[func.call          f1]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="fx.freeverb~">
+        <title>fx.freeverb~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>freeverb - common used open-source reverb</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>fx</category>
+            <keywords>fx reverb</keywords>
+            <since>0.2</since>
+            <also>
+                <see>fx.freeverb2~</see>
+            </also>
+        </meta>
+        <info>
+            <par>A simple Schroeder reverberator primarily developed by "Jezar at Dreampoint" that
+            is extensively used in the free-software world. It uses four Schroeder allpasses in
+            series and eight parallel Schroeder-Moorer filtered-feedback comb-filters for each
+            audio channel, and is said to be especially well tuned.</par>
+        </info>
+        <arguments>
+            <argument name="ID" type="symbol">object ID for OSC control path</argument>
+        </arguments>
+        <methods>
+            <method name="roomsize">
+                <param type="float" minvalue="0" maxvalue="1">Room size</param>
+            </method>
+            <method name="damp">
+                <param type="float" minvalue="0" maxvalue="1">Damping of the lowpass comb
+                filter</param>
+            </method>
+            <method name="drywet">
+                <param type="float" minvalue="0" maxvalue="1">Ratio between processed signal (wet)
+                and source signal</param>
+            </method>
+        </methods>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output signal</outlet>
+            <outlet type="control">information output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]
+|                [F]           [F]         [F]
+[lfo.impulse~ 2] |             |           |
+|                [/ 100]       [/ 100]     [/ 100]
+|  [T]           |             |           |
+|  |.            |             |           |
+[*~ ]            |             |           |
+|                [roomsize $1( [drywet $1( [damp $1(
+| [B]            |             |           |
+| |              |             |           |
+[fx.freeverb~ id                            ]
+|  |.         ^|
+[dac~]       [print]
+
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

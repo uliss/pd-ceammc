@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="ui.knob" type="gui">
+        <title>ui.knob</title>
+        <meta>
+            <authors>
+                <author>Alex Nadzharov</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>knob widget</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category view="link">ui</category>
+            <keywords>ui knob</keywords>
+            <since>0.1</since>
+            <also>
+                <see view="link">ui.slider</see>
+            </also>
+        </meta>
+        <info>
+            <par>Simple knob widget with default range 0-1.</par>
+            <par>Leftmost position outputs @min property value, rightmost - @max</par>
+        </info>
+        <properties>
+            <property name="@min" type="float" default="0">minimum knob value</property>
+            <property name="@max" type="float" default="1">maximum knob value</property>
+            <property name="@preset" type="symbol">preset name for using with
+            [ui.preset]</property>
+            <property name="@send" type="symbol">send destination</property>
+            <property name="@receive" type="symbol">receive source</property>
+        </properties>
+        <methods>
+            <method name="dump">dumps all object info to Pd console window</method>
+            <method name="set">sets knob state without output</method>
+            <method name="++">increment knob value without output</method>
+            <method name="--">decrement knob value without output</method>
+            <method name="+">add value to knob without output
+            <param name="V" type="float" required="true">added value</param></method>
+            <method name="-">substruct value from knob without output
+            <param name="V" type="float" required="true">substructed value</param></method>
+            <method name="*">multiply knob value without output
+            <param name="V" type="float" required="true">mutiplied value</param></method>
+            <method name="/">divide knob value without output
+            <param name="V" type="float" required="true">denominator value</param></method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">outputs knob value</xinfo>
+                <xinfo on="float">sets knob value and output it</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>knob output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[hsl min=0 max=10]
+|
+|
+[F]   [+ 0.1( [- 0.1( [* 2( [/ 2( [++, bang( [--, bang(
+|     |       |       |     |     |          |
+|     |       |       |     |     |          |
+|     |       |       |     |     |          |
+[ui.knob @size=30x30 @max=10                 ]
+|
+|
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

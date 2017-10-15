@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flow.demultiplex">
+        <title>flow.demultiplex</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>control flow demultiplexer</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>flow</category>
+            <keywords>demultiplex</keywords>
+            <aliases>
+                <alias>flow.demux</alias>
+            </aliases>
+            <since>0.4</since>
+            <also>
+                <see>flow.multiplex</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="N" type="int" minvalue="2" maxvalue="24">number of inlets</argument>
+        </arguments>
+        <properties>
+            <property name="@index" type="int" minvalue="0">current multiplexer output index</property>
+        </properties>
+        <methods>
+            <method name="reset">reset counter</method>
+        </methods>
+        <inlets dynamic="true">
+            <inlet><xinfo>demultiplexer first inlet</xinfo></inlet>
+            <inlet number="n"><xinfo>demultiplexer N-th inlet</xinfo></inlet>
+        </inlets>
+        <outlets>
+            <outlet>output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[hradio]
+|
+[@index $1(
+|
+|
+| [F]  [F]  [F]
+| |    |.   |..
+[flow.demultiplex 3]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

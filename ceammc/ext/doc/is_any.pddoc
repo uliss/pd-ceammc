@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="is_any">
+        <title>is_any</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>checks if input data has *any* type</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>predicates</category>
+            <keywords>predicate any</keywords>
+            <also>
+                <see>is_bang</see>
+                <see>is_float</see>
+                <see>is_symbol</see>
+                <see>is_list</see>
+            </also>
+            <since>0.1</since>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="any">outputs '1' to 1st outlet, otherwise '0'</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>0 or 1</outlet>
+            <outlet>passes *any* message</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[message( [1( [symbol a( [list a b c(
+|         |   |        ___/
+[is_any                ]
+|     ^|
+[tgl]  [print passed]
+
+                ]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

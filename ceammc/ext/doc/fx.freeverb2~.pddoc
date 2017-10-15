@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="fx.freeverb2~">
+        <title>fx.freeverb2~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>freeverb2 - stereo version of freeverb</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>fx</category>
+            <keywords>fx reverb</keywords>
+            <since>0.2</since>
+        </meta>
+        <arguments>
+            <argument name="ID" type="symbol">object ID for OSC control path</argument>
+        </arguments>
+        <methods>
+            <method name="roomsize">
+                <param type="float" minvalue="0" maxvalue="1">Room size</param>
+            </method>
+            <method name="damp">
+                <param type="float" minvalue="0" maxvalue="1">Damping of the lowpass comb
+                filter</param>
+            </method>
+            <method name="drywet">
+                <param type="float" minvalue="0" maxvalue="1">Ratio between processed signal (wet)
+                and source signal</param>
+            </method>
+        </methods>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>left channel</xinfo>
+            </inlet>
+            <inlet type="audio">
+                <xinfo>right channel</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output left</outlet>
+            <outlet type="audio">output right</outlet>
+            <outlet type="control">information output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+
+[F]
+|                       [F]           [F]         [F]
+[lfo.impulse~ 2]        |             |           |
+|                       [/ 100]       [/ 100]     [/ 100]
+| [T] [lfo.impulse~ 5]  |             |           |
+| |.  |                 |             |           |
+[*~]  | [T]             |             |           |
+|     | |.       [roomsize $1( [drywet $1( [damp $1(
+|     [*~]       |             |           |
+|     |          |             |           |
+|     |.         |             |           |
+[fx.freeverb2~ id                             ]
+|  ^|.
+[dac~]
+
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

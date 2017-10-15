@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="midi.file">
+        <title>midi.file</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>standard midi file SMF reader and writer</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>midi</category>
+            <keywords>midi file</keywords>
+            <since>0.4</since>
+        </meta>
+        <properties>
+            <property name="@filename" type="symbol" readonly="true">current filename</property>
+            <property name="@tracks" type="float" readonly="true">number of tracks</property>
+            <property name="@tempo" type="float" readonly="true">midi tempo in ticks per quarter</property>
+            <property name="@length_sec" type="float" readonly="true" units="second">file length</property>
+            <property name="@length_tick" type="float" readonly="true">file length on ticks</property>
+            <property name="@length_beat" type="float" readonly="true">file length in quarters</property>
+        </properties>
+        <methods>
+            <method name="read">read specified midi file. No output</method>
+            <method name="write">write to specified midi file</method>
+            <method name="clear">removes all midi file content</method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">output MidiFile data type</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>MidiFile data type</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]
+|
+[openpanel]
+|
+[read $1, bang(
+|
+[midi.file]
+|
+|  [play( [stop(
+|  |      |
+[midi.track @join]
+|
+[midi.ev->note]
+|
+[unpack f f]
+|      ^|
+[mtof] [/ 100]
+|      |
+[osc~] |
+|      |.
+[*~     ]
+| \
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

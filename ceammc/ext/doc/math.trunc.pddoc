@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.trunc">
+        <title>math.trunc</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>truncate to integer value</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math trunc</keywords>
+            <also>
+                <see>math.ceil</see>
+                <see>math.floor</see>
+                <see>math.round</see>
+                <see>math.math</see>
+            </also>
+            <since>0.1</since>
+        </meta>
+        <info>
+            <par>The trunc() functions return the integral value nearest to but no larger in
+            magnitude than x.</par>
+            <par>Special values:</par>
+            <par>trunc(+-0) returns +-0.</par>
+            <par>trunc(+-infinity) returns +-infinity.</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo on="float">input value</xinfo>
+                <xinfo on="list">apply to all numeric values</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>result value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]  [2.3 3.8 5.5 -2.3 -3.8 -5.5(
+|    |
+[math.trunc]
+|
+[msg set]
+|
+[  (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flt.hpf12~">
+        <title>flt.hpf12~</title>
+        <meta>
+            <authors>
+                <author>Alex Nadzharov</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>High-pass filter with 12/db per octave slope</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>flt</category>
+            <keywords>filter highpass</keywords>
+            <since>0.1</since>
+            <also>
+                <see>flt.hpf24~</see>
+                <see>flt.lpf12~</see>
+                <see>flt.c_hpf~</see>
+            </also>
+        </meta>
+        <info>
+            <par>A high-pass filter is an electronic filter that passes signals with a frequency
+            higher than a certain cutoff frequency and attenuates signals with frequencies lower
+            than the cutoff frequency.</par>
+        </info>
+        <methods>
+            <method name="freq">
+                <param type="float" units="herz">cutoff frequency</param>
+            </method>
+            <method name="q">
+                <param type="float" name="Q" minvalue="0.01" maxvalue="100" default="0.01">quality
+                factor</param>
+            </method>
+        </methods>
+        <arguments>
+            <argument name="freq" type="float" units="herz">cutoff frequency</argument>
+            <argument name="q" type="float" minvalue="0.01" maxvalue="100">quality
+            factory</argument>
+            <argument name="ID" type="symbol">object ID for OSC control</argument>
+        </arguments>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">filtered signal</outlet>
+            <outlet>information output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]
+|              [T]
+[osc.saw~ 200] |
+|              [metro 200]
+|  [T]         |
+|  |.          [random.int 100 1000]
+[*~ ]          |
+|              |
+|              [F]   [F]
+|              |     |
+[*~ 0.10] [freq $1(  [q $1(
+|         |          |
+[flt.hpf12~     200 8]
+|         |
+|         |.
+[dyn.limit2~]
+|  ^|.
+[dac~]
+
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

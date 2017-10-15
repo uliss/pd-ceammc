@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.log">
+        <title>math.log</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>logarithm functions</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math log</keywords>
+            <also>
+                <see>math.exp</see>
+                <see>math.math</see>
+            </also>
+            <since>0.1</since>
+        </meta>
+        <info>
+            <par>The log() function computes the value of the natural logarithm of argu- ment
+            x.</par>
+            <par>Special values:</par>
+            <par>log(+-0) return -infinity</par>
+            <par>log(1) return +0.</par>
+            <par>log(x) return a NaN</par>
+            <par>log(+infinity) return +infinity.</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo on="float">input value</xinfo>
+                <xinfo on="list">apply to all numeric values</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>result value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]
+|
+[math.log]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

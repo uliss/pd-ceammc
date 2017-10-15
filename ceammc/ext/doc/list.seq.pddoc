@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="list.seq">
+        <title>list.seq</title>
+        <meta>
+            <authors>
+                <author>Alex Nadzharov</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>numeric sequence list generator</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>list</category>
+            <keywords>list seq sequence</keywords>
+            <since>0.1</since>
+            <also>
+                <see>list.gen</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="FROM" type="float">start value</argument>
+            <argument name="TO" type="float">end value</argument>
+            <argument name="STEP" type="float">sequence step</argument>
+        </arguments>
+        <properties>
+            <property name="@from" type="float" default="0">start value</property>
+            <property name="@to" type="float" default="1">end value</property>
+            <property name="@step" type="float" default="1">sequence step (always
+            positive)</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">outputs generated list</xinfo>
+                <xinfo on="float">sets @from=0, @to=X and outputs generated sequence</xinfo>
+                <xinfo on="list">if 3 arguments are given: they are set to @from, @to and @step
+                accordingly. If 2 args are given: they are set to @from, @to and @step is set to
+                *1*. If 1 arg given, @from is set to 0, @to sets to given value and @step is set to
+                *1*</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>generated sequence</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]            [1 -1 0.1(
+|       [2 10( |
+|  [F]  |      |
+|  |    |      |
+[list.seq 3 10 2]
+|
+[m set]
+|
+[ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -6,6 +6,6 @@ Abstract: This manual describes the usage of PD.
 Section: Sound
 
 Format: HTML
-Index: /usr/share/doc/puredata/1.manual/index.htm
-Files: /usr/share/doc/puredata/1.manual/*.htm
+Index: /usr/share/doc/puredata-ceammc/1.manual/index.htm
+Files: /usr/share/doc/puredata-ceammc/1.manual/*.htm
 

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.cos">
+        <title>math.cos</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>cosine function</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math cos</keywords>
+            <also>
+                <see>math.sin</see>
+                <see>math.tan</see>
+                <see>math.asin</see>
+                <see>math.acos</see>
+            </also>
+            <since>0.1</since>
+        </meta>
+        <info>
+            <par>The cos() function computes the cosine of input value (measured in radians).</par>
+            <par>Special values:</par>
+            <par>cos(+-0) returns 1.</par>
+            <par>cos(+-infinity) returns a NaN and raises the "invalid" floating-point
+            exception.</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo on="float">input value</xinfo>
+                <xinfo on="list">apply to all numeric values</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>result value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]
+|
+[math.cos]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

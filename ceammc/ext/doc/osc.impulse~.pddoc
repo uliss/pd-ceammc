@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="osc.impulse~">
+        <title>osc.impulse~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Bandlimited impulse train generator</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>osc</category>
+            <keywords>oscillator band-limited</keywords>
+            <since>0.1</since>
+            <also>
+                <see>osc.saw~</see>
+                <see>osc.tri~</see>
+                <see>osc.sqr~</see>
+                <see>lfo.impulse~</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="freq" type="float" units="herz" minvalue="20">frequency</argument>
+        </arguments>
+        <inlets>
+            <inlet type="audio">
+                <xinfo minvalue="20" on="float">frequency in Hz</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[floatatom]
+|
+[osc.impulse~ 20]
+|              [tgl]
+|  .___________/
+[*~]
+|\
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

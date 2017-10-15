@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="live.capture~">
+        <title>live.capture~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>record up to 8s of sound and playback the recorded sound in
+            loop</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>live</category>
+            <keywords>live record</keywords>
+            <since>0.1</since>
+        </meta>
+        <methods>
+            <method name="record">
+                <param type="int">capture sound while = 1, play sound while = 0</param>
+            </method>
+        </methods>
+        <arguments>
+            <argument name="ID" type="symbol">object ID for OSC control path</argument>
+        </arguments>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>source signal</xinfo>
+                <xinfo on="bang">outputs object internal state to rightmost outlet</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">recorded signal</outlet>
+            <outlet type="control">information output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[adc~]    [_]
+|         |
+|  [bng]  [record $1(
+|  |      |
+[live.capture~ id]
+|\              ^|
+[dac~]          [print]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

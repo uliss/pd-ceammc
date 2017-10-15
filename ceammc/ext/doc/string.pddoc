@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="string">
+        <title>string</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>string constructor</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>string</category>
+            <keywords>string data</keywords>
+            <since>0.3</since>
+            <aliases>
+                <alias>str</alias>
+            </aliases>
+        </meta>
+        <arguments>
+            <argument name="STR" type="symbol">initial string</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">outputs string value</xinfo>
+                <xinfo on="float">convert float to string and outputs value</xinfo>
+                <xinfo on="symbol">convert symbol to string and outputs value</xinfo>
+                <xinfo on="list">convert list to string (separated with spaces) and outputs
+                value</xinfo>
+            </inlet>
+        </inlets>
+        <methods>
+            <method name="clear">clear string without output</method>
+            <method name="set">set string content without output</method>
+            <method name="append">append values to the end of string</method>
+        </methods>
+        <outlets>
+            <outlet>string data</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B] [F]   [symbol ABC(
+|   |     |
+|   |     |
+[string 1 2 3]  [F]
+|               |
+| [B] [clear(   [append $1 $1(
+| |   |         |
+[string         ]
+|
+[str->sym]
+|
+[msg set]
+|
+[ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

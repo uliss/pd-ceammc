@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="snd.file">
+        <title>snd.file</title>
+        <meta>
+            <authors>
+                <author>Pierre Guillot</author>
+            </authors>
+            <description>Sound file loader on steroids</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>snd</category>
+            <keywords>soundfiler</keywords>
+            <since>0.1</since>
+        </meta>
+        <info>
+            <par>Deal with sound files: gets files info and loads them into arrays. Various formats
+            are supported. Supports array name patterns.</par>
+        </info>
+        <methods>
+            <method name="load">Loads sound file. Outputs info properties and number of loaded
+            samples after load. 
+            <param type="symbol" required="true" name="PATH">path to soundfile</param>
+            <param type="symbol" required="true" name="@to ARRAY_NAME">destination array name or
+            pattern. Array patterns specified in square braces: array_[1-4] means - array_1,
+            array_2, array_3, array_4. array_[left|right] means array_left and array_right</param>
+            <param type="property" name="@resize">resize array to feet loaded file</param>
+            <param type="property" name="@offset SAMPLES">offset in samples from beginning of
+            file</param>
+            <param type="symbol" name="@channel N1 N2..">channels to load</param></method>
+            <method name="info">Outputs info about sound file as properties: @channels - number of
+            channels, @samples - number of samples, @samplerate - sound file samplerate, @duration
+            - file duration in seconds. 
+            <param type="symbol" required="true" name="PATH">path to soundfile</param></method>
+        </methods>
+        <properties>
+            <property name="@formats" readonly="true" type="list">list of supported
+            formats</property>
+        </properties>
+        <inlets>
+            <inlet type="control">
+                <xinfo>input inlet</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>number of loaded samples or file info properties</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B] /*open file*/
+|
+[openpanel]                               [A array1 w=120 h=80]
+|
+[load $1 @to array[] @resize #m2(
+|
+[snd.file  ]
+|
+[prop-> @channels     ]
+|            ^|     ^^|
+[F digits=8] [F]    [print]               [A array2 w=120 h=80]
+
+/* play */
+
+[bang #play(  [stop #stop(
+|             |
+|             |
+[tabplay~ array1]   [tabplay~ array2 #a2]
+|                   |.
+[dac~               ]
+
+[X play->a2]
+[X stop->a2]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

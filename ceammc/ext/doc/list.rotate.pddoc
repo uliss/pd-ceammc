@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="list.rotate">
+        <title>list.rotate</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>rotates list left</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>list</category>
+            <keywords>list rotate</keywords>
+            <since>0.1</since>
+            <also>
+                <see>list.choice</see>
+            </also>
+            <aliases>
+                <alias>list.&lt;&lt;</alias>
+            </aliases>
+        </meta>
+        <arguments>
+            <argument name="STEP" type="int">rotate step. To rotate right use negative
+            step.</argument>
+        </arguments>
+        <properties>
+            <property name="@step" type="int" default="1">rotate step. To rotate right use negative
+            step.</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="list">input list</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="int">rotation step</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>rotated list</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]
+|
+[list 0 1 2 3 4 5 6 7 8 9 * #l]
+|
+|            [F]
+|            |.
+[list.rotate 1 #r]
+|
+[msg set]
+|
+[ (
+
+[X r->l:1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

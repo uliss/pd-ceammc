@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="fx.pitchshift~">
+        <title>fx.pitchshift~</title>
+        <meta>
+            <authors>
+                <author>Alex Nadzharov</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>simple pitch shifter based on 2 delay lines</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>fx</category>
+            <keywords>fx pitchshift</keywords>
+            <since>0.1</since>
+        </meta>
+        <arguments>
+            <argument name="window" type="float" units="millisecond" minvalue="10" maxvalue="2000">
+            the window size</argument>
+            <argument name="fade" type="float" units="millisecond" minvalue="0" maxvalue="1000">
+            crossfade duration</argument>
+            <argument name="ID" type="symbol">object ID for OSC control path</argument>
+        </arguments>
+        <methods>
+            <method name="window">
+                <param type="float" units="millisecond" minvalue="10" maxvalue="2000">the window
+                size</param>
+            </method>
+            <method name="fade">
+                <param type="float" units="millisecond" minvalue="0" maxvalue="1000">crossfade
+                duration</param>
+            </method>
+        </methods>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+            <inlet type="audio">
+                <xinfo minvalue="-38" maxvalue="60">pitch shift in semitones</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output signal</outlet>
+            <outlet type="control">information output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]
+|
+[phasor~ 300] [B]   [F]   /* transposition */
+|             |     |.
+[fx.pitchshift~ 200 100 id]
+|\                  ^|
+[dac~]              [print]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

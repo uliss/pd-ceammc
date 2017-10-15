@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="noise.white~">
+        <title>noise.white~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>White noise generator</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>noise</category>
+            <keywords>noise white</keywords>
+            <since>0.1</since>
+            <also>
+                <see>noise.pink~</see>
+            </also>
+        </meta>
+        <info>
+            <par>outputs random numbers between -1 and 1 at signal rate.</par>
+        </info>
+        <outlets>
+            <outlet type="audio">output signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.dsp~]
+
+
+[noise.white~]
+|
+|
+|
+[ui.scope~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

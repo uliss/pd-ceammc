@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="list.stretch">
+        <title>list.stretch</title>
+        <meta>
+            <authors>
+                <author>Alex Nadzharov</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>stretches list - chenges its size with linear interpolation.</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>list</category>
+            <keywords>list</keywords>
+            <since>0.1</since>
+            <also>
+                <see>list.stretch</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="stretch" type="float">New size of output list. Input list will be
+            stretched to the new size with linear interpolation</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="list">Input list.</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo>New length of output list</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>new modified list</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[1 2 3 4 5(  [10 (
+|            |.
+[list.stretch 8]
+|
+[msg set]
+|
+[ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

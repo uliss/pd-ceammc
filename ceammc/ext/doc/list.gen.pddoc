@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="list.gen">
+        <title>list.gen</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>generates list of specified length via external generator</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>list</category>
+            <keywords>list generate</keywords>
+            <since>0.1</since>
+            <also>
+                <see>list.shuffle</see>
+                <see>list.choice</see>
+            </also>
+        </meta>
+        <info>
+            <par>Note, that maximum length limited to 1024 elements.</par>
+        </info>
+        <arguments>
+            <argument type="int" minvalue="0" maxvalue="1024" name="N">length of generated
+            list</argument>
+        </arguments>
+        <methods>
+            <method name="dump">dump internal object state to Pd console window</method>
+            <method name="@count?">outputs current list length</method>
+            <method name="@count">set new length for generated list</method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">starts list generation</xinfo>
+                <xinfo on="int" minvalue="0" maxvalue="1024">changes length of generated list and
+                starts generation</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="any">input for generated values</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>generated list</outlet>
+            <outlet>bang output for generator object</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+    [F]       [F]
+    |         |
+[B] |  [dump( [@count $1(
+|   |  |      |
+|   |  |      |
+|   |  |      |
+[list.gen    3] X [random 100]
+|
+[m set]
+|
+[ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

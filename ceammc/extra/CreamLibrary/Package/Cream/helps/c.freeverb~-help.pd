@@ -1,0 +1,35 @@
+#N canvas 374 189 642 350 10;
+#X obj 67 240 dac~, f 19;
+#X msg 512 211 \; pd dsp 1;
+#X msg 512 252 \; pd dsp 0;
+#X obj 67 129 phasor~ 1;
+#X text 8 49 c.freeverb~ uses the freeverb algorithm.;
+#X obj 67 192 c.freeverb~ left;
+#X obj 178 192 c.freeverb~ right;
+#X text 317 186 arg 1 : right or left;
+#X msg 199 128 roomsize \$1;
+#X obj 199 97 c.number @size 53 14 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @min 0 @max 1 @minmax 0 1 @decimal 6 @bgcolor 0.75 0.75 0.75
+1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 279 97 c.number @size 53 14 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @min 0 @max 1 @minmax 0 1 @decimal 6 @bgcolor 0.75 0.75 0.75
+1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X msg 279 128 damp \$1;
+#X obj 9 30 c.patcherinfos;
+#X obj 10 21 c.loadmess;
+#X obj 4 7 c.help.header;
+#X obj 79 285 c.help.pub;
+#X connect 3 0 5 0;
+#X connect 3 0 6 0;
+#X connect 5 0 0 0;
+#X connect 6 0 0 1;
+#X connect 8 0 6 0;
+#X connect 8 0 5 0;
+#X connect 9 0 8 0;
+#X connect 10 0 11 0;
+#X connect 11 0 6 0;
+#X connect 11 0 5 0;
+#X connect 12 0 14 0;
+#X connect 13 0 12 0;

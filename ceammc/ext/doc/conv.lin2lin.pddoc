@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="conv.lin2lin">
+        <title>conv.lin2lin</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>convert from one linear range to another</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>conv</category>
+            <keywords>convert linear</keywords>
+            <also>
+                <see>conv.cc2amp</see>
+            </also>
+            <since>0.1</since>
+            <aliases>
+                <alias>lin-&gt;lin</alias>
+            </aliases>
+        </meta>
+        <properties>
+            <property name="@in_from" type="float" default="0">begin of input range</property>
+            <property name="@in_to" type="float" default="127">end of input range</property>
+            <property name="@out_from" type="float" default="0">begin of output range</property>
+            <property name="@out_to" type="float" default="1">end of output range</property>
+            <property name="@clip" type="symbol" default="minmax" enum="noclip min max minmax">
+            noclip (don't clip) max (clip ceiling) min (clip floor) minmax (clip both).</property>
+            <property name="@noclip" type="symbol">alias to @clip noclip</property>
+            <property name="@min" type="symbol">alias to @clip min</property>
+            <property name="@max" type="symbol">alias to @clip max</property>
+            <property name="@minmax" type="symbol">alias to @clip minmax</property>
+        </properties>
+        <arguments>
+            <argument name="FROM" type="float">begin of input range</argument>
+            <argument name="TO" type="float">end of input range</argument>
+            <argument name="FROM" type="float">begin of output range</argument>
+            <argument name="TO" type="float">end of input output</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="float">intput value</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>converted value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]   [T]
+|     |
+|     [@clip $1(
+|     |
+[lin->lin 0 127 -1 1]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

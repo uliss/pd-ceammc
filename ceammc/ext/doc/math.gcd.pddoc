@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.gcd">
+        <title>math.gcd</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>calculate greatest common divisor</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math gcd</keywords>
+            <also>
+                <see>math.lcm</see>
+            </also>
+            <since>0.3</since>
+        </meta>
+        <arguments>
+            <argument type="int" name="ARG2">second argument</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="int">sets first argument and outputs calculated GCD value</xinfo>
+                <xinfo on="list">sets first argument and second arguments, then output calculated
+                GCD value</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="int">sets second value</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>GCD value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]   [14 28(
+|     |
+|     |
+|     |
+[math.gcd 12]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
