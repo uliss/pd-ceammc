@@ -43,15 +43,19 @@
         <example>
             <pdascii>
 <![CDATA[
-[list a b c(  [set 3 2 1(
-|             |
-|  [1 2 3(    |            [bng]
-|  |          |            |
-[local.list id]            [local.list id]
-|                          |
-[msg set]                  [msg set]
-|                          |
-[ (                        [ (
+[F] X [preset.float id1] [F] X [preset.float id2]
+
+[ui.radio]        [ui.radio]
+|                 |
+[load $1(         [store $1( [@keys?(
+|                 |          |
+|                 |          |
+|                 |          |
+[preset.storage              ]
+|
+[msg set]
+|
+[ (
 ]]>
             </pdascii>
         </example>

@@ -8,7 +8,7 @@
 #X obj 290 118 ui.colorpanel @size 193 14;
 #X obj 290 162 route @rgb;
 #X obj 290 190 msg @background_color;
-#X obj 290 219 ui.radio;
+#X obj 290 219 ui.radio @size 127 15;
 #X obj 50 248 route @pd;
 #X msg 50 277 color \$1;
 #X obj 50 305 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;

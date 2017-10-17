@@ -9,8 +9,8 @@
 #X msg 251 118 flip;
 #X msg 318 118 reset;
 #X msg 395 118 1 1 0 1 0 0 1;
-#X obj 50 162 ui.radio;
-#X obj 251 162 ui.radio @mode 1;
+#X obj 50 162 ui.radio @size 127 15;
+#X obj 251 162 ui.radio @mode 1 @size 127 15;
 #X floatatom 50 190 5 0 0 0 - - -;
 #X obj 251 190 ui.display @size 150 18;
 #X obj 20 230 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
