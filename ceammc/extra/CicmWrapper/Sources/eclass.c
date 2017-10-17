@@ -15,6 +15,8 @@
 #include "eobj.h"
 #include "epopup.h"
 
+#include <stddef.h>
+
 #define _(msg) msg
 
 static void eclass_properties_dialog(t_eclass* c);
