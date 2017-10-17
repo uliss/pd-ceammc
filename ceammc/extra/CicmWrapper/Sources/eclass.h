@@ -19,6 +19,8 @@
 
 #include "edefine.h"
 
+#include <stddef.h>
+
 /*! @addtogroup groupclass
  *  @{
  */
