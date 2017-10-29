@@ -11,8 +11,10 @@
 #include "ceammc_log.h"
 #include "ceammc_object.h"
 #include "list_interleave.h"
+#include "ceammc_format.h"
 
 #include <cassert>
+#include <sstream>
 
 using namespace ceammc;
 
@@ -101,6 +103,14 @@ void ListInterleave::initLists()
 
     for (size_t i = 0; i < in_count_; i++)
         in_list_.push_back(AtomList());
+
+
+    for(size_t i = 0; i < in_count_; i++) {
+        std::ostringstream s;
+        s << "@l" << i;
+        PointerProperty<AtomList>* p = new PointerProperty<AtomList>(s.str().c_str(), &in_list_[i], true);
+        createProperty(p);
+    }
 }
 
 void ListInterleave::initProperties()
