@@ -326,7 +326,7 @@ size_t BaseObject::numInlets() const
 t_inlet* BaseObject::createInlet()
 {
     char buf[MAXPDSTRING];
-    sprintf(buf, "_inlet%zu", inlets_.size());
+    sprintf(buf, "_inlet%d", static_cast<int>(inlets_.size()));
     t_symbol* id = gensym(buf);
     t_inlet* in = inlet_new(pd_.owner, &pd_.owner->ob_pd, &s_list, id);
     inlets_s_.push_back(id);
