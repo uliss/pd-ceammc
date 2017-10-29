@@ -10,7 +10,7 @@
 #X msg 366 133 flattop \, bang;
 #X msg 69 162 hamming;
 #X msg 184 162 hann;
-#X msg 261 162 nutall;
+#X msg 261 162 nuttall;
 #X msg 386 162 rect \, bang;
 #X msg 88 190 sine;
 #X msg 203 190 tri;
@@ -46,7 +46,7 @@
 #X text 150 437 symbol;
 #X obj 241 438 cnv 1 41 18 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 240 437 NAME: window name: blackman \, blackman-harris \,
-flattop \, gauss \, hamming \, hann \, nutall \, rect \, sine \, tri
+flattop \, gauss \, hamming \, hann \, nuttall \, rect \, sine \, tri
 \, welch.;
 #X obj 20 479 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 484 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
@@ -71,8 +71,8 @@ symbol;
 #X text 240 691 Sets Hamming window type.;
 #X msg 120 723 hann;
 #X text 240 723 Sets Hann window type.;
-#X msg 120 755 nutall;
-#X text 240 755 Sets Nutall window type.;
+#X msg 120 755 nuttall;
+#X text 240 755 Sets Nuttall window type.;
 #X msg 120 787 rect;
 #X text 240 787 Sets Rectangle window type.;
 #X msg 120 819 sine;

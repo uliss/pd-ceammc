@@ -1,5 +1,11 @@
 # CEAMMC external library changelog
 
+## [unreleased]
+### Fixed:
+- list.interleave wrong inlet handling on Windows
+- window typo fixed nutall => nuttall
+
+
 ## [0.4]
 ### Fixed:
 - function - bang handling fixed
