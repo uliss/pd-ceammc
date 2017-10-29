@@ -127,10 +127,10 @@ function install_portaudio() {
     brew unpack portaudio
 
     cd portaudio*
-
-    ./configure --prefix=${PREFIX} \
-        --enable-static=no \
-        --enable-shared=yes
+    cmake -DCMAKE_C_COMPILER=clang \
+	-DCMAKE_BUILD_TYPE=Release \
+	-DCMAKE_INSTALL_PREFIX=${PREFIX} \
+	-DCMAKE_SKIP_RPATH=ON  .
 
     make
     make install
