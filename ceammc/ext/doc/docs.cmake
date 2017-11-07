@@ -51,6 +51,7 @@ set(DOC_FILES
     flow.pass_if
     flow.reject
     flow.reject_if
+    flow.speedlim
     flow.split
     flow.sync
     flow.tee~
@@ -87,6 +88,7 @@ set(DOC_FILES
     global.float
     global.int
     global.list
+    hw.arduino
     is_any
     is_bang
     is_even
@@ -134,6 +136,7 @@ set(DOC_FILES
     list.resize
     list.reverse
     list.rotate
+    list.route
     list.separate
     list.seq
     list.shuffle
@@ -216,6 +219,7 @@ set(DOC_FILES
     preset.list
     preset.storage
     preset.symbol
+    proto.firmata
     prop.get
     prop.set
     random.float

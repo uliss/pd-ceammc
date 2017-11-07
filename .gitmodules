@@ -22,3 +22,6 @@
 [submodule "ceammc/extra/timbreID/timbreID"]
 	path = ceammc/extra/timbreID/timbreID
 	url = https://github.com/avilleret/timbreID.git
+[submodule "ceammc/extra/serial/serial"]
+	path = ceammc/extra/serial/serial
+	url = https://github.com/wjwwood/serial.git

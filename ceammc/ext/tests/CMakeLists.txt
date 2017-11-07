@@ -69,6 +69,7 @@ ceammc_external_test(flow pass)
 ceammc_external_test(flow pass_if)
 ceammc_external_test(flow reject)
 ceammc_external_test(flow split)
+ceammc_external_test(flow speedlim)
 
 ceammc_external_test(conv cc2amp)
 ceammc_external_test(conv lin2exp)
@@ -81,6 +82,8 @@ ceammc_external_test(data set_difference)
 ceammc_external_test(data set_symdiff)
 ceammc_external_test(data set_union)
 
+ceammc_external_test(proto firmata)
+
 ceammc_external_test(list all_of)
 ceammc_external_test(list any_of)
 ceammc_external_test(list choice)
@@ -92,6 +95,7 @@ ceammc_external_test(list slice)
 ceammc_external_test(list split)
 ceammc_external_test(list at)
 ceammc_external_test(list count)
+ceammc_external_test(list route)
 
 ceammc_external_test(math approx)
 ceammc_external_test(math and)
@@ -191,5 +195,21 @@ if(APPLE AND CMAKE_CXX_COMPILER_ID MATCHES "Clang")
         NAME test_coreaudio
         LINK ceammc_sound)
 endif()
+
+ceammc_add_test_linked(
+    TITLE "Serial"
+    NAME test_serialport
+    INCLUDE_DIRECTORIES ${CMAKE_SOURCE_DIR}/ceammc/extra/serial/serial/include
+    LINK serial)
+
+ceammc_add_test_linked(TITLE "FirmataParser[bison]" NAME test_firmata_parser LINK proto_firmata)
+ceammc_add_test_linked(TITLE "firmata::Pin" NAME test_firmata_pin LINK proto_firmata ceammc_core puredata-core)
+
+ceammc_add_test_linked(TITLE "ArduinoThread"
+    NAME test_arduino_thread
+    INCLUDE_DIRECTORIES ${CMAKE_SOURCE_DIR}/ceammc/extra/serial/serial/include
+    LINK hw_arduino ceammc_core puredata-core)
+ceammc_add_test_linked(TITLE "Arduino" NAME test_arduino LINK hw_arduino ceammc_core puredata-core)
+
 
 add_custom_target(test_src SOURCES gen_test_wav.py)

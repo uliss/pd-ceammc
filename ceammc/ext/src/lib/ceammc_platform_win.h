@@ -27,6 +27,7 @@ bool wch_to_mb(const wchar_t* str, char** res);
 bool win_mkdir(const char* path, int flags = -1);
 bool win_rmdir(const char* path);
 std::string win_home_directory();
+void win_sleep_ms(unsigned int ms);
 }
 
 #endif // CEAMMC_PLATFORM_WIN_H

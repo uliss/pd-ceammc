@@ -191,5 +191,10 @@ namespace platform {
     {
         return ::remove(path) == 0;
     }
+
+    void sleep_ms(unsigned int ms)
+    {
+        NS(sleep_ms(ms));
+    }
 }
 }

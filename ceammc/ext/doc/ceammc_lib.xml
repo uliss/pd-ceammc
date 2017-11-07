@@ -190,6 +190,9 @@
     <entry descr="reject values by predicate" name="flow.reject_if" ref_view="object">
       <xi:include href="flow.reject_if.pddoc" parse="xml"/>
     </entry>
+    <entry descr="control stream speed limitier" name="flow.speedlim" ref_view="object">
+      <xi:include href="flow.speedlim.pddoc" parse="xml"/>
+    </entry>
     <entry descr="split data flow by external side-chain predicate" name="flow.split" ref_view="object">
       <xi:include href="flow.split.pddoc" parse="xml"/>
     </entry>
@@ -300,6 +303,11 @@
     </entry>
     <entry descr="global named list object" name="global.list" ref_view="object">
       <xi:include href="global.list.pddoc" parse="xml"/>
+    </entry>
+  </category>
+  <category name="hw">
+    <entry descr="Arduino device" name="hw.arduino" ref_view="object">
+      <xi:include href="hw.arduino.pddoc" parse="xml"/>
     </entry>
   </category>
   <category name="lfo">
@@ -418,6 +426,9 @@
     </entry>
     <entry descr="rotates list left" name="list.rotate" ref_view="object">
       <xi:include href="list.rotate.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="acts like [route] but for lists" name="list.route" ref_view="object">
+      <xi:include href="list.route.pddoc" parse="xml"/>
     </entry>
     <entry descr="sends list elements one by one separately" name="list.separate" ref_view="object">
       <xi:include href="list.separate.pddoc" parse="xml"/>
@@ -734,6 +745,11 @@
     </entry>
     <entry descr="Property injector" name="prop.set" ref_view="object">
       <xi:include href="prop.set.pddoc" parse="xml"/>
+    </entry>
+  </category>
+  <category name="proto">
+    <entry descr="Firmata Arduino protocol support" name="proto.firmata" ref_view="object">
+      <xi:include href="proto.firmata.pddoc" parse="xml"/>
     </entry>
   </category>
   <category name="random">

@@ -78,7 +78,8 @@ public:
         ARG_SYMBOL,
         ARG_PROPERTY,
         ARG_SNONPROPERTY,
-        ARG_BOOL
+        ARG_BOOL,
+        ARG_BYTE
     };
 
 public:

@@ -70,6 +70,7 @@ flow.pass
 flow.pass_if
 flow.reject
 flow.reject_if
+flow.speedlim
 flow.split
 flow.sync
 flow.tee~
@@ -111,6 +112,7 @@ global.int
 global.json
 global.list
 group
+hw.arduino
 is_any
 is_bang
 is_even
@@ -163,6 +165,7 @@ list.repeat
 list.resize
 list.reverse
 list.rotate
+list.route
 list.sep
 list.separate
 list.seq
@@ -287,6 +290,7 @@ prop->
 prop.get
 prop.set
 prop<-
+proto.firmata
 random.discrete
 random.float
 random.gauss
@@ -310,6 +314,7 @@ set.size
 set.symdiff
 set.union
 snd.file
+speedlim
 split
 str
 str->sec

@@ -1154,4 +1154,27 @@ Atom atomFrom(const std::string& v)
     return Atom(gensym(v.c_str()));
 }
 
+AtomList operator+(const AtomList& l1, const AtomList& l2)
+{
+    AtomList res(l1);
+    res.append(l2);
+    return res;
+}
+
+AtomList operator+(const AtomList& l, const Atom& a)
+{
+    AtomList res(l);
+    res.append(a);
+    return res;
+}
+
+AtomList operator+(const Atom& a, const AtomList& l)
+{
+    AtomList res;
+    res.reserve(l.size() + 1);
+    res.append(a);
+    res.append(l);
+    return res;
+}
+
 } // namespace ceammc

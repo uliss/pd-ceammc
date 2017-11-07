@@ -13,6 +13,8 @@ add_subdirectory(fftease)
 add_subdirectory(autotune)
 add_subdirectory(stk)
 add_subdirectory(midifile)
+add_subdirectory(serial)
+
 
 set(EXTRA_COMPLETION "extra_objects.txt")
 add_custom_target(_ceammc_extra_misc SOURCES ${EXTRA_COMPLETION})
