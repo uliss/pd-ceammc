@@ -25,6 +25,7 @@ bool unix_path_exists(const char* path);
 bool unix_mkdir(const char* path, int flags = -1);
 bool unix_rmdir(const char* path);
 std::string unix_home_directory();
+void unix_sleep_ms(unsigned int ms);
 }
 
 #endif // CEAMMC_PLATFORM_UNIX_H

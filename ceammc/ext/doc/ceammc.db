@@ -50,6 +50,7 @@ flow.pass,pass		.		.
 flow.pass_if,pass_if		..		..
 flow.reject,reject		.		.
 flow.reject_if,reject_if		..		..
+flow.speedlim,speedlim		.		.
 flow.split,split		..		...
 flow.sync		?		?
 flow.tee~,tee~,~->		~		~.
@@ -86,6 +87,8 @@ fx.zita_rev1~		~~		~~.
 global.float		.		.
 global.int		.		.
 global.list		.		.
+hw.arduino		.		.
+hw.firmata		.		.
 is_any		.		..
 is_bang		.		..
 is_even		.		..
@@ -133,6 +136,7 @@ list.repeat		..		.
 list.resize		.		.
 list.reverse		.		.
 list.rotate,list.<<		..		.
+list.route		.		?
 list.separate,list.sep		.		..
 list.seq		.		.
 list.shuffle		.		.
@@ -217,6 +221,7 @@ preset.storage		.		.
 preset.symbol		.		.
 prop.get,prop->		.		?
 prop.set,prop<-		?		.
+proto.firmata		.		.
 random.discrete		.		.
 random.float		.		.
 random.gauss		.		.

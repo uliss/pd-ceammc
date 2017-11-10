@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="list.route">
+        <title>list.route</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>acts like [route] but for lists</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>list</category>
+            <keywords>list route</keywords>
+            <since>0.5</since>
+            <also>
+                <see>route</see>
+            </also>
+        </meta>
+        <info>
+            <par>Outputs float, symbol or list to matched outlet or to last outlet if no match</par>
+        </info>
+        <arguments>
+            <argument name="@type" type="list">list of matched atoms</argument>
+        </arguments>
+        <properties>
+            <property name="@trim" type="flag">cut first element from list,
+            transform float or symbol to bang</property>
+            <property name="@simplify" type="int" enum="0 1" default="1">one element list simplification
+            - transform them to floats or symbols</property>
+            <property name="@as_any" type="flag">trim list or symbol selector on output.
+            </property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo>input list</xinfo>
+            </inlet>
+        </inlets>
+        <outlets dynamic="true">
+            <outlet number="0">first match</outlet>
+            <outlet number="1">second match</outlet>
+            <outlet number="...">nth match</outlet>
+            <outlet number="n">unmatched element (without changes)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[100 #x( [symbol A #a( [list A #d(
+
+[200 #y( [symbol B #b( [list A B #e(
+
+[150 #z( [1 2 3 #c(    [200 300 #f(
+
+
+[list.route A B 100 200              #r     ]
+|         ^|        ^^|       ^^^|      ^^^^|
+|          |          |          |          |
+|          |          |          |          |
+[msg set] [msg set] [msg set] [msg set] [msg set]
+|         |         |         |         |
+[ (       [ (       [ (       [ (       [ (
+
+
+[100 #x2( [symbol A #a2( [list A #d2(   [1 2 3 #c2(
+
+[200 #y2( [symbol B #b2( [list A B #e2( [100 300 #f2(
+
+
+[list.route A B 100  @trim               #r2]
+| |       ^| ^|     ^^| ^^|   ^^^|
+| [B]      | [B]      | [B]      |
+|          |          |          |
+[msg set] [msg set] [msg set] [msg set]
+|         |         |         |
+[ (       [ (       [ (       [ (
+
+[X a->r]
+[X b->r]
+[X c->r]
+[X d->r]
+[X e->r]
+[X f->r]
+[X x->r]
+[X y->r]
+[X z->r]
+[X a2->r2]
+[X b2->r2]
+[X c2->r2]
+[X d2->r2]
+[X e2->r2]
+[X f2->r2]
+[X x2->r2]
+[X y2->r2]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

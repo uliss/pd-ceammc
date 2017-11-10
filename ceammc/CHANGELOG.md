@@ -1,10 +1,14 @@
 # CEAMMC external library changelog
 
 ## [unreleased]
+### Added:
+- hw.arduino added
+- proto.firmata added
+- flow.speedlim added
+- list.route added
 ### Fixed:
 - list.interleave wrong inlet handling on Windows
 - window typo fixed nutall => nuttall
-
 
 ## [0.4]
 ### Fixed:

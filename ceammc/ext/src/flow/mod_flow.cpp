@@ -12,6 +12,7 @@
 #include "flow_pass_if.h"
 #include "flow_reject.h"
 #include "flow_reject_if.h"
+#include "flow_speedlim.h"
 #include "flow_split.h"
 #include "flow_sync.h"
 #include "flow_tee_tilde.h"
@@ -28,6 +29,7 @@ void ceammc_flow_setup()
     setup_flow0x2epass_if();
     setup_flow0x2ereject();
     setup_flow0x2ereject_if();
+    setup_flow_speedlim();
     setup_flow0x2esplit();
     setup_flow0x2esync();
     setup_flow0x2etee_tilde();

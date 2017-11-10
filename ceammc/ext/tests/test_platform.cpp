@@ -21,7 +21,9 @@
 #include "config.h"
 
 #include <cstdlib>
+#include <ctime>
 #include <cwchar>
+#include <fstream>
 #include <string>
 
 #ifdef __WIN32
@@ -248,6 +250,9 @@ TEST_CASE("ceammc::platform", "[ceammc::lib]")
     {
 #ifdef __APPLE__
         REQUIRE(ceammc::platform::home_directory().substr(0, 6) == "/Users");
+
+        unsetenv("HOME");
+        REQUIRE(ceammc::platform::home_directory().substr(0, 6) == "/Users");
 #endif
 
 #ifdef __WIN32
@@ -279,6 +284,9 @@ TEST_CASE("ceammc::platform", "[ceammc::lib]")
         REQUIRE(cnv->pd_canvas());
         REQUIRE(ceammc::platform::find_in_std_path(cnv->pd_canvas(), "test").empty());
         REQUIRE(ceammc::platform::find_in_std_path(cnv->pd_canvas(), "test_01.mid") == TEST_DATA_DIR "/test_01.mid");
+
+        // full path
+        REQUIRE(ceammc::platform::find_in_std_path(cnv->pd_canvas(), TEST_DATA_DIR) == TEST_DATA_DIR);
     }
 
     SECTION("strip extension")
@@ -290,5 +298,48 @@ TEST_CASE("ceammc::platform", "[ceammc::lib]")
         REQUIRE(ceammc::platform::strip_extension(".file.pd") == ".file");
         REQUIRE(ceammc::platform::strip_extension("file.pd") == "file");
         REQUIRE(ceammc::platform::strip_extension("file.1.2.3.4.pd") == "file.1.2.3.4");
+    }
+
+    SECTION("sleep_ms")
+    {
+        time_t t0, t1;
+        time(&t0);
+
+        ceammc::platform::sleep_ms(1001);
+
+        time(&t1);
+
+        double diff = difftime(t1, t0);
+        bool t = (diff == 1 || diff == 2);
+        REQUIRE(t);
+    }
+
+    SECTION("mkdir/rmdir")
+    {
+        const char* DIR = "./123";
+        REQUIRE(ceammc::platform::mkdir(DIR));
+        REQUIRE(ceammc::platform::path_exists(DIR));
+
+        // double creation
+        REQUIRE_FALSE(ceammc::platform::mkdir(DIR));
+
+        // remove
+        REQUIRE(ceammc::platform::rmdir(DIR));
+        REQUIRE_FALSE(ceammc::platform::rmdir("./dir-not-exists"));
+    }
+
+    SECTION("remove")
+    {
+        REQUIRE(ceammc::platform::mkdir("example_path"));
+        REQUIRE(ceammc::platform::remove("example_path"));
+        REQUIRE_FALSE(ceammc::platform::remove("example_path"));
+
+        // create file
+        {
+            std::ofstream f("test.file");
+        }
+
+        REQUIRE(ceammc::platform::path_exists("test.file"));
+        REQUIRE(ceammc::platform::remove("test.file"));
     }
 }

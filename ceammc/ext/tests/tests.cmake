@@ -29,7 +29,7 @@ endmacro()
 macro(ceammc_add_test_linked)
     set(_OPTIONS_ARGS)
     set(_ONE_VALUE_ARGS TITLE NAME)
-    set(_MULTI_VALUE_ARGS LINK SRC)
+    set(_MULTI_VALUE_ARGS LINK SRC INCLUDE_DIRECTORIES)
 
     cmake_parse_arguments(_TEST "${_OPTIONS_ARGS}" "${_ONE_VALUE_ARGS}" "${_MULTI_VALUE_ARGS}" ${ARGN})
 
@@ -37,6 +37,7 @@ macro(ceammc_add_test_linked)
     set(title ${_TEST_TITLE})
     add_executable(${name} "${name}.cpp" ${_TEST_SRC})
     target_link_libraries(${name} ${_TEST_LINK} tests_main_lib)
+    target_include_directories(${name} PUBLIC ${_TEST_INCLUDE_DIRECTORIES})
     set_test_command(${title} ${name})
 endmacro()
 

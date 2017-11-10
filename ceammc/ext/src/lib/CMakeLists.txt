@@ -55,6 +55,7 @@ set(CEAMMC_LIB_SOURCES ceammc.h
     ceammc_platform.cpp
     ceammc_property.cpp
     ceammc_string.cpp
+    ceammc_thread.cpp
     ceammc_timeline.cpp
     ceammc_window.cpp
 

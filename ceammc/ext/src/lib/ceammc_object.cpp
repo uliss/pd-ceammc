@@ -17,9 +17,11 @@
 #include "ceammc_log.h"
 #include "ceammc_platform.h"
 
-#include <algorithm>
 #include <cstdarg>
 #include <cstring>
+
+#include <algorithm>
+#include <boost/range/size.hpp>
 
 extern "C" {
 #include "g_canvas.h"
@@ -390,14 +392,15 @@ void BaseObject::parseProperties()
 
 bool BaseObject::checkArg(const Atom& atom, BaseObject::ArgumentType type, int pos) const
 {
-#define ARG_ERROR(msg)           \
-    {                            \
-        std::ostringstream os;   \
-        os << msg;               \
-        if (pos >= 0)            \
-            os << " at " << pos; \
-        OBJ_ERR << os.str();     \
-        return false;            \
+#define ARG_ERROR(msg)                    \
+    {                                     \
+        std::ostringstream os;            \
+        os << "invalid argument";         \
+        if (pos >= 0)                     \
+            os << " at position " << pos; \
+        os << ": " << msg;                \
+        OBJ_ERR << os.str();              \
+        return false;                     \
     }
 
     switch (type) {
@@ -433,6 +436,14 @@ bool BaseObject::checkArg(const Atom& atom, BaseObject::ArgumentType type, int p
             ARG_ERROR("only 1 or 0 accepted");
 
         break;
+    case ARG_BYTE:
+        if (!atom.isFloat())
+            ARG_ERROR("byte value expexted");
+
+        if (atom.asFloat() < 0 || atom.asFloat() > 255)
+            ARG_ERROR("byte range expected: [0-255]");
+
+        break;
     }
 
     return true;
@@ -443,14 +454,18 @@ bool BaseObject::checkArg(const Atom& atom, BaseObject::ArgumentType type, int p
 static const char* to_string(BaseObject::ArgumentType a)
 {
     static const char* names[] = {
-        "float",
-        "int",
-        "natural",
-        "symbol",
-        "property",
-        "non-property symbol",
-        "bool"
+        "ARG_FLOAT",
+        "ARG_INT",
+        "ARG_NATURAL",
+        "ARG_SYMBOL",
+        "ARG_PROPERTY",
+        "ARG_NON-PROPERTY_SYMBOL",
+        "ARG_BOOL",
+        "ARG_BYTE"
     };
+
+    if (a >= boost::size(names))
+        return "??? fixme";
 
     return names[a];
 }

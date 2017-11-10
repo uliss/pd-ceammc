@@ -320,6 +320,10 @@ private:
     Container atoms_;
 };
 
+AtomList operator+(const AtomList& l1, const AtomList& l2);
+AtomList operator+(const AtomList& l, const Atom& a);
+AtomList operator+(const Atom& a, const AtomList& l);
+
 template <class T>
 bool AtomList::isDataType() const
 {

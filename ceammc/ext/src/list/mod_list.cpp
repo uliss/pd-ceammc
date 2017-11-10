@@ -1,4 +1,5 @@
 #include "mod_list.h"
+#include "list_route.h"
 
 extern "C" void setup_list0x2eall_of();
 extern "C" void setup_list0x2eany_of();
@@ -105,4 +106,6 @@ void ceammc_list_setup()
     setup_list0x2ewalk();
     setup_list0x2ewrap();
     setup_list0x2ezip();
+
+    setup_list_route();
 }

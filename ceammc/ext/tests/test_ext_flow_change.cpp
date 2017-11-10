@@ -32,6 +32,8 @@ TEST_CASE("flow.change", "[externals]")
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
         REQUIRE_PROPERTY(t, @onrepeat, "");
+
+        setup_flow0x2echange();
     }
 
     SECTION("process")
@@ -260,6 +262,17 @@ TEST_CASE("flow.change", "[externals]")
             REQUIRE_ANY_AT_OUTLET(0, t, L2("any2", 1));
             REQUIRE_NO_MESSAGES_AT_OUTLET(1, cb1);
             REQUIRE_NO_MESSAGES_AT_OUTLET(1, cb2);
+        }
+
+        SECTION("invalid callback")
+        {
+            FlowChangeTest t("flow.change", L2("@onrepeat", "test_callback????"));
+            REQUIRE_PROPERTY(t, @onrepeat, gensym("test_callback????"));
+
+            STORE();
+            WHEN_SEND_FLOAT_TO(0, t, 100);
+            WHEN_SEND_FLOAT_TO(0, t, 100);
+            REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
         }
     }
 }
