@@ -37,36 +37,92 @@ extern "C" {
 #define CEAMMC_PATH_MODULE(name) CEAMMC_DOT_MODULE(path, name)
 
 /**
- * @brief compare atoms
+ * @brief compares atoms
  * @return 0 - if a1 == a2, _-1); -1 - if a1 < a2; +1 - if a1 > a2
  * @see ceammc_atoms_equal
  */
 int ceammc_atoms_compare(const t_atom* a1, const t_atom* a2);
 
 /**
- * @brief check for atoms equality
+ * @brief checks if atoms are equal
  * @return 1 if equal, 0 - otherwise
  * @see ceammc_atoms_compare
  */
 int ceammc_atoms_equal(const t_atom* a1, const t_atom* a2);
 
 /**
- * @brief checks is floats are equal with using machine epsilon
+ * @brief checks if floats are equal with the machine-default epsilon value
  * @return 1 if given floats are almost equal, 0 otherwise
  */
 int ceammc_floats_equal(float a, float b);
 
+/**
+ * @brief allocates n atoms
+ * @return pointer to t_atom array
+ */
 t_atom* ceammc_atoms_alloc(size_t n);
+
+/**
+ * @brief free memory for n atoms
+ * @param mem - pointer to first atom
+ * @param n - atom count
+ */
 void ceammc_atoms_free(t_atom* mem, size_t n);
+
+/**
+ * @brief copies n atoms
+ * @param n atom count
+ * @param from pointer
+ * @param to pointer
+ */
 void ceammc_atoms_copy(size_t n, t_atom* from, t_atom* to);
+
+/**
+ * @brief allocates n atoms and copies them from the 'from' pointer
+ * @param from - source
+ * @return pointer to the copy of n atoms
+ */
 t_atom* ceammc_atoms_alloc_copy(size_t, t_atom* from);
+
+/**
+ * @brief output atoms through the specific outlet pointer
+ * @param out - pointer to t_outlet object
+ * @param atom - data to send
+ */
 void output_atom(t_outlet* out, t_atom* atom);
 
+//====================
+
+/**
+ * pointer to unary function that accepts float
+ */
 typedef t_float (*ceammc_float_unary_func)(t_float);
+
+/**
+ * pointer to binary function that accepts float
+ */
 typedef t_float (*ceammc_float_binary_func)(t_float, t_float);
+
+/**
+ * @brief apply unary function to atom list
+ * @param n number of elements in list
+ * @param a pointer to list (first element)
+ * @param func function pointer
+ */
 void ceammc_atoms_map_float(size_t n, t_atom* a, ceammc_float_unary_func func);
+
+/**
+ * @brief apply unary function and output the list through the specific outlet
+ * @param o outlet object pointer
+ * @param s output symbol
+ * @param n element count
+ * @param a pointer to list (first element)
+ * @param func function pointer
+ */
 void ceammc_atoms_map_float_to_outlet(t_outlet* o, t_symbol* s, int n, t_atom* a, ceammc_float_unary_func func);
 t_float ceammc_atoms_reduce_float(size_t n, t_atom* a, t_float init, ceammc_float_binary_func func);
+
+//====================
 
 size_t ceammc_memory_size();
 size_t ceammc_memory_current_rss();
