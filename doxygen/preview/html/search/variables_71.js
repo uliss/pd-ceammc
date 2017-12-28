@@ -1,0 +1,23 @@
+var searchData=
+[
+  ['quickcheckcasemappeddata',['QuickCheckCaseMappedData',['../unicodedatabase_8c.html#af3fca1af53c80fcbd6e1f111a08ef329',1,'unicodedatabase.c']]],
+  ['quickcheckcasemappeddataptr',['QuickCheckCaseMappedDataPtr',['../unicodedatabase_8c.html#ad21ce833f1640944624bce7f15fa7766',1,'unicodedatabase.c']]],
+  ['quickcheckcasemappedindex',['QuickCheckCaseMappedIndex',['../unicodedatabase_8c.html#ab61e26fb58440405e5c4dd7a3817648a',1,'unicodedatabase.c']]],
+  ['quickcheckcasemappedindexptr',['QuickCheckCaseMappedIndexPtr',['../unicodedatabase_8c.html#a42b483d1cd570ce8bd359d49a3352252',1,'unicodedatabase.c']]],
+  ['quickchecknfcdata',['QuickCheckNFCData',['../unicodedatabase_8c.html#a4e9c73943533768213ac18bd934857b6',1,'unicodedatabase.c']]],
+  ['quickchecknfcdataptr',['QuickCheckNFCDataPtr',['../unicodedatabase_8c.html#a302b84e12a3d8de36e3408f1a6bba384',1,'unicodedatabase.c']]],
+  ['quickchecknfcindex',['QuickCheckNFCIndex',['../unicodedatabase_8c.html#ae621f8f3ee77b725a04ab1ea9f16a4ed',1,'unicodedatabase.c']]],
+  ['quickchecknfcindexptr',['QuickCheckNFCIndexPtr',['../unicodedatabase_8c.html#a92eff9b8722874a81513be8f80673fb0',1,'unicodedatabase.c']]],
+  ['quickchecknfddata',['QuickCheckNFDData',['../unicodedatabase_8c.html#acb06b66e1a76e572b2a32faa0c28f39c',1,'unicodedatabase.c']]],
+  ['quickchecknfddataptr',['QuickCheckNFDDataPtr',['../unicodedatabase_8c.html#a7e33c5d3b8352d21e5bba02fefbf54cf',1,'unicodedatabase.c']]],
+  ['quickchecknfdindex',['QuickCheckNFDIndex',['../unicodedatabase_8c.html#ad9465157445d420c67142317bce2d7ea',1,'unicodedatabase.c']]],
+  ['quickchecknfdindexptr',['QuickCheckNFDIndexPtr',['../unicodedatabase_8c.html#a7fe597ad2ac74f9bfab0d26f73333552',1,'unicodedatabase.c']]],
+  ['quickchecknfkcdata',['QuickCheckNFKCData',['../unicodedatabase_8c.html#ad929e1006a9527b610368788eb64dc52',1,'unicodedatabase.c']]],
+  ['quickchecknfkcdataptr',['QuickCheckNFKCDataPtr',['../unicodedatabase_8c.html#a928351c18ead5304409b310f6e2318f4',1,'unicodedatabase.c']]],
+  ['quickchecknfkcindex',['QuickCheckNFKCIndex',['../unicodedatabase_8c.html#aafb7bc3bfa68ac95cbace93e65f5e150',1,'unicodedatabase.c']]],
+  ['quickchecknfkcindexptr',['QuickCheckNFKCIndexPtr',['../unicodedatabase_8c.html#acd9ec9389cb1a0fa19408ec81caba105',1,'unicodedatabase.c']]],
+  ['quickchecknfkddata',['QuickCheckNFKDData',['../unicodedatabase_8c.html#aeb8a9f8b72ce2bb009c8ae20c9c152d2',1,'unicodedatabase.c']]],
+  ['quickchecknfkddataptr',['QuickCheckNFKDDataPtr',['../unicodedatabase_8c.html#aaaae930e43b762813c6ea54976d937e9',1,'unicodedatabase.c']]],
+  ['quickchecknfkdindex',['QuickCheckNFKDIndex',['../unicodedatabase_8c.html#adb6a0317551dc44f5a28063b0091d99d',1,'unicodedatabase.c']]],
+  ['quickchecknfkdindexptr',['QuickCheckNFKDIndexPtr',['../unicodedatabase_8c.html#acf0ce35c4dfeeace9d5b03fcc3614a61',1,'unicodedatabase.c']]]
+];
