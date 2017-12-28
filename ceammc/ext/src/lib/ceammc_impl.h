@@ -20,10 +20,29 @@ struct _atom;
 
 namespace ceammc {
 
+/**
+ * pointer to Pd function that is called when object receives bang
+ */
 typedef void (*PdBangFunction)(_class*);
+
+/**
+ * pointer to Pd function that is called when object receives float
+ */
 typedef void (*PdFloatFunction)(_class*, float);
+
+/**
+ * pointer to Pd function that is called when object receives symbol
+ */
 typedef void (*PdSymbolFunction)(_class*, _symbol*);
+
+/**
+ * pointer to Pd function that is called when object receives list
+ */
 typedef void (*PdListFunction)(_class*, _symbol*, int argc, _atom* argv);
+
+/**
+ * pointer to Pd function that is called when object receives anything
+ */
 typedef void (*PdAnyFunction)(_class*, _symbol*, int argc, _atom* argv);
 
 PdBangFunction default_pd_bang_fn(_class* c);

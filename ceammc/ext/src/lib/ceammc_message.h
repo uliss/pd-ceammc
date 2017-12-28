@@ -19,6 +19,9 @@
 
 namespace ceammc {
 
+/**
+ * @brief Class that wraps AtomList
+ */
 class Message {
 public:
     enum Type {

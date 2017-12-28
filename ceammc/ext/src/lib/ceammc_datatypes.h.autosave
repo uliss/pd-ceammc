@@ -11,21 +11,21 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef CEAMMC_FN_VECTOR_H
-#define CEAMMC_FN_VECTOR_H
+#ifndef CEAMMC_DATATYPES_H
+#define CEAMMC_DATATYPES_H
 
-#include "ceammc_atomlist.h"
-
-/**
- * Functions to work with AtomLists as vectors (vector.* objects)
- */
+#include "ceammc_atom.h"
 
 namespace ceammc {
-namespace vector {
-    double magnitude(const AtomList& l);
-    double dotProduct(const AtomList& a, const AtomList& b);
-    double distance(const AtomList& a, const AtomList& b);
+namespace data {
+
+    static const ::ceammc::DataType DATA_INVALID = ::ceammc::DataType(-1);
+    static const ::ceammc::DataType DATA_STRING = 1;
+    static const ::ceammc::DataType DATA_SET = 2;
+    static const ::ceammc::DataType DATA_DICT = 3;
+    static const ::ceammc::DataType DATA_MIDI_STREAM = 10;
+    static const ::ceammc::DataType DATA_MIDI_TRACK = 11;
 }
 }
 
-#endif // CEAMMC_FN_VECTOR_H
+#endif // CEAMMC_DATATYPES_H

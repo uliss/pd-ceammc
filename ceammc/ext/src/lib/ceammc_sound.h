@@ -27,6 +27,9 @@ namespace sound {
     class SoundFile;
     typedef boost::shared_ptr<SoundFile> SoundFilePtr;
 
+    /**
+     * @brief Class that represents the sound file
+     */
     class SoundFile {
         std::string fname_;
 

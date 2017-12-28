@@ -18,6 +18,9 @@
 
 namespace ceammc {
 
+/**
+ * @brief Class for custom data type
+ */
 class DataPtr {
     DataDesc desc_;
     const AbstractData* data_;

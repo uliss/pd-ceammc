@@ -21,6 +21,9 @@ namespace ceammc {
 
 class BaseObject;
 
+/**
+ * @brief Class for error logging
+ */
 class Error : public std::ostringstream {
     const BaseObject* obj_;
 
@@ -30,6 +33,9 @@ public:
     Error& stream() { return *this; }
 };
 
+/**
+ * @brief Class for debug output
+ */
 class Debug : public std::ostringstream {
     const BaseObject* obj_;
 

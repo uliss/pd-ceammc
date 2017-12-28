@@ -27,6 +27,9 @@
 
 namespace ceammc {
 
+/**
+ * @brief Arguments to Pd objects
+ */
 class PdArgs {
 public:
     AtomList args;
@@ -50,6 +53,10 @@ public:
     }
 };
 
+/**
+ * @brief Base class for Pd objects
+ * @see BaseObjectFactory
+ */
 class BaseObject {
     const PdArgs pd_;
     typedef std::vector<t_inlet*> InletList;

@@ -30,6 +30,9 @@ namespace ceammc {
 template <typename T>
 class ObjectFactory;
 
+/**
+ * Template for class that represents/extends Puredata t_object
+ */
 template <typename T>
 struct PdObject {
     t_object pd_obj;
@@ -37,10 +40,13 @@ struct PdObject {
     t_sample f;
 };
 
+/**
+ * @brief Object type flags
+ */
 enum ObjectFactoryFlags {
-    OBJECT_FACTORY_DEFAULT = 0x0,
-    OBJECT_FACTORY_NO_DEFAULT_INLET = 0x1,
-    OBJECT_FACTORY_MAIN_SIGNAL_INLET = 0x2,
+    OBJECT_FACTORY_DEFAULT = 0x0,               ///> object with inlet
+    OBJECT_FACTORY_NO_DEFAULT_INLET = 0x1,      ///> object without inlets / outputs
+    OBJECT_FACTORY_MAIN_SIGNAL_INLET = 0x2,     ////> object with signal inlet
     OBJECT_FACTORY_NO_BANG = 0x4,
     OBJECT_FACTORY_NO_FLOAT = 0x8,
     OBJECT_FACTORY_NO_SYMBOL = 0x10,
@@ -48,6 +54,9 @@ enum ObjectFactoryFlags {
     OBJECT_FACTORY_NO_ANY = 0x40
 };
 
+/**
+ * @brief Factory for creating objects
+ */
 template <typename T>
 class ObjectFactory {
 public:

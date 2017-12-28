@@ -25,7 +25,10 @@ union word;
 namespace ceammc {
 
 class Array;
-
+/**
+ * @brief Iterator for the Array class
+ * @see Array
+ */
 class ArrayIterator : public std::iterator<std::random_access_iterator_tag, float> {
     word* data_;
 
@@ -61,8 +64,14 @@ public:
 
 ArrayIterator operator+(ArrayIterator::difference_type, const ArrayIterator& it);
 
+/**
+ * Pointer to function that creates new array of floats with n elements
+ */
 typedef float (*FloatValueGenerator)(size_t n);
 
+/**
+ * @brief Array class - wraps and extends Puredata array classes
+ */
 class Array {
     _symbol* name_;
     _garray* array_;
@@ -84,6 +93,8 @@ public:
     iterator end();
     const iterator end() const;
 
+    // ==========
+
     /**
      * You should call this function every time before other function, to assure that array was not
      * resized or deleted.
@@ -94,6 +105,8 @@ public:
      * You should call this function after all array operation, to update array graphics view
      */
     void redraw();
+
+    // ==========
 
     bool isValid() const;
     bool open(_symbol* name);

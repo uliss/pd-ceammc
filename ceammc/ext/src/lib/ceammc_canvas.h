@@ -62,6 +62,9 @@ t_symbol* canvas_info_dir(const _glist* c);
  */
 int canvas_info_font(const _glist* c);
 
+/**
+ * @brief Structure for the rectangle with int values
+ */
 struct t_rect {
     int x, y, w, h;
     t_rect(int x_, int y_, int w_, int h_)
@@ -85,6 +88,9 @@ class BaseObject;
 typedef boost::shared_ptr<Array> ArrayPtr;
 typedef std::map<_symbol*, ArrayPtr> ArrayMap;
 
+/**
+ * @brief Canvas class that wraps and extends Pd t_canvas object
+ */
 class Canvas {
     ArrayMap array_list_;
     _glist* canvas_;

@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Copyright 2017 Serge Poltavsky. All rights reserved.
+ * Copyright 2016 Serge Poltavsky. All rights reserved.
  *
  * This file may be distributed under the terms of GNU Public License version
  * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
@@ -11,21 +11,25 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef CEAMMC_FN_VECTOR_H
-#define CEAMMC_FN_VECTOR_H
+#ifndef CEAMMC_FORMATTER_H
+#define CEAMMC_FORMATTER_H
 
-#include "ceammc_atomlist.h"
-
-/**
- * Functions to work with AtomLists as vectors (vector.* objects)
- */
+#include <string>
 
 namespace ceammc {
-namespace vector {
-    double magnitude(const AtomList& l);
-    double dotProduct(const AtomList& a, const AtomList& b);
-    double distance(const AtomList& a, const AtomList& b);
-}
-}
 
-#endif // CEAMMC_FN_VECTOR_H
+class Atom;
+class AtomList;
+class Message;
+
+std::string to_string(const Atom& a);
+std::string to_float_string(const Atom& a, const std::string& defaultValue = "");
+std::string to_float_range_string(const Atom& a, float min, float max, const std::string& defaultValue = "");
+std::string to_hex_string(const Atom& a, const std::string& defaultValue = "");
+
+std::string to_string(const AtomList& a, const std::string& separator = " ");
+std::string to_string(const Message& msg, const std::string& separator = " ");
+
+} // namespace ceammc
+
+#endif // CEAMMC_FORMATTER_H

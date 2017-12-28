@@ -26,6 +26,10 @@ typedef struct _text t_object;
 
 namespace ceammc {
 namespace pd {
+
+/**
+     * @brief Class that represents Puredata external
+     */
     class External {
     private:
         t_object* obj_;

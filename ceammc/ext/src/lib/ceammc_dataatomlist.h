@@ -22,6 +22,9 @@
 
 namespace ceammc {
 
+/**
+ * @brief List of DataAtoms - provides operations as a list and allows to convert to AtomList
+ */
 class DataAtomList {
     std::vector<DataAtom> list_;
 

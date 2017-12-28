@@ -19,6 +19,10 @@
 #include <boost/unordered_map.hpp>
 
 namespace ceammc {
+
+/**
+ * @brief Class that stores custom data values
+ */
 class DataStorage {
     struct Entry {
         int ref_count;

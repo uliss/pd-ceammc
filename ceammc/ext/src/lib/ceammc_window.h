@@ -17,6 +17,10 @@
 #include <cmath>
 #include <cstddef>
 
+/**
+ * Windowing functions
+ */
+
 namespace ceammc {
 namespace window {
     template <class Iterator, class FillFunc>

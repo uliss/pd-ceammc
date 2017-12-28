@@ -46,6 +46,10 @@ std::string ceammc::convert::time::sec2str(float sec, bool ms)
     return buf;
 }
 
+// TODO move to separate file?
+/**
+ * @brief Time data type class
+ */
 class TimeFSM {
     std::vector<int> stack_;
     int digits_;

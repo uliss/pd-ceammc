@@ -23,6 +23,9 @@
 namespace ceammc {
 namespace tl {
 
+    /**
+     * @brief Class that represents the cue in the timeline
+     */
     class CueData {
         t_canvas* c_;
         t_object* obj_;
@@ -48,6 +51,9 @@ namespace tl {
 
     typedef std::vector<CueData*> CueList;
 
+    /**
+     * @brief Class that stores cues (positions, names etc)
+     */
     class CueStorage {
         typedef std::map<t_canvas*, CueList> CanvasCueMap;
 
@@ -73,6 +79,9 @@ namespace tl {
     class TimelineData;
     typedef void (*UIAction)(TimelineData*);
 
+    /**
+     * @brief Class that stores data to be used with cue
+     */
     class TimelineData {
         t_canvas* canvas_;
         t_object* obj_;

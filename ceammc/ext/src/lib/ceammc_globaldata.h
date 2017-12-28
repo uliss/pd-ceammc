@@ -24,6 +24,9 @@
 
 namespace ceammc {
 
+/**
+ * Dictionary that stores arrays
+ */
 template <typename T>
 class NamedDataDict {
 public:
@@ -163,6 +166,9 @@ public:
     }
 };
 
+/**
+ * Global Data storage - can be used to stored values shared by several instances of the objects
+ */
 template <typename T>
 class GlobalData {
 private:

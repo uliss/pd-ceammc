@@ -22,6 +22,9 @@
 
 namespace ceammc {
 
+/**
+ * @brief The Property class
+ */
 class Property {
     std::string name_;
     bool readonly_;

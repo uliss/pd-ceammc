@@ -23,6 +23,7 @@ namespace ceammc {
 /**
  * @brief structure for single point
  * @details
+ * @see BPF
  */
 
 struct t_bpt {
