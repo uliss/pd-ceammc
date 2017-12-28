@@ -20,7 +20,7 @@
 #include <vector>
 
 /**
- * Functions to work with AtomLists
+ * Functions to work with AtomLists (list.* objects)
  */
 
 namespace ceammc {
