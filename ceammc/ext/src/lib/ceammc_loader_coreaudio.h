@@ -18,6 +18,9 @@
 
 namespace ceammc {
 namespace sound {
+    /**
+     * @brief class that represents Audio File (snd.file)
+     */
     class CoreAudioFile : public SoundFile {
         std::string fname_;
         size_t sample_rate_;

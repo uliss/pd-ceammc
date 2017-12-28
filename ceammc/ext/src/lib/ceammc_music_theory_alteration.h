@@ -14,6 +14,9 @@ namespace music {
         ALTERATION_DOUBLE_SHARP = 2
     };
 
+    /**
+     * @brief Class that represents alteration
+     */
     class Alteration {
     public:
         Alteration(const Alteration& a);

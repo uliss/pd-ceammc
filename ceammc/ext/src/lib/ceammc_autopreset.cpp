@@ -20,6 +20,10 @@ typedef std::pair<t_canvas, t_class> autoPresetPair;
 std::map<autoPresetPair, int> autoPresetCounter;
 std::map<t_class, std::string> autoPresetClassName;
 
+    /**
+     * @brief Auto preset file
+     * @deprecated
+     */
 class autoPreset {
 public:
     static void addObject(t_canvas* canvas, t_class* pdclass);

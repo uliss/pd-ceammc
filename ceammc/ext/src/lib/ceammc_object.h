@@ -302,6 +302,9 @@ private:
     void extractPositionalArguments();
 };
 
+/**
+ * @brief Class that represents external with dsp capabilities
+ */
 class SoundExternal : public BaseObject {
     const static size_t MAX_SIG_NUM = 16;
 

@@ -118,6 +118,10 @@ namespace tl {
         return (pos < lst->size()) ? lst->at(pos) : 0;
     }
 
+    /**
+     * @brief Object predicate structure -
+     * @details operator () returns true if CueData object is equal to the object predicate is created with
+     */
     struct ObjPred {
         t_object* o_;
         ObjPred(t_object* o)

@@ -20,7 +20,7 @@
 namespace ceammc {
 
 /**
- * @brief The DataAtom class - Atom that can contain Data pointer or simple Atom value
+ * @brief atom that may contain Data pointer or simple Atom value
  */
 class DataAtom {
     DataPtr data_;

@@ -32,6 +32,9 @@
 namespace ceammc {
 namespace faust {
 
+    /**
+     * @brief UI element type
+     */
     enum UIElementType {
         UI_BUTTON,
         UI_CHECK_BUTTON,
@@ -46,6 +49,9 @@ namespace faust {
         UI_T_GROUP
     };
 
+    /**
+     * @brief Class thet represents FAUST UI element
+     */
     class UIElement {
         UIElementType type_;
         std::string path_;
@@ -136,6 +142,9 @@ namespace faust {
     std::string escapeOscSegment(const std::string& s);
     std::vector<std::string> filterOscSegment(const std::vector<std::string>& osc);
 
+    /**
+     * @brief PD UI template for FAUST GUI object
+     */
     template <typename T>
     class PdUI : public T {
         std::vector<UIElement*> ui_elements_;

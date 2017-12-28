@@ -64,6 +64,10 @@ const T* DataPtr::as() const
 
 bool operator<(const DataPtr& d0, const DataPtr& d1);
 
+/**
+ * @brief Template for data pointer
+ * @see DataPtr
+ */
 template <class T>
 class DataTPtr : public DataPtr {
 public:

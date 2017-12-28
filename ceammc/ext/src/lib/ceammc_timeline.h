@@ -106,6 +106,9 @@ namespace tl {
 
     typedef std::vector<TimelineData*> UIDataList;
 
+    /**
+     * @brief Class that works with UI data for cues
+     */
     class UIStorage {
         static UIDataList data_;
 

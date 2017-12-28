@@ -31,7 +31,7 @@ template <typename T>
 class ObjectFactory;
 
 /**
- * Template for class that represents/extends Puredata t_object
+ * @brief Template for class that represents/extends Puredata t_object
  */
 template <typename T>
 struct PdObject {
@@ -338,6 +338,9 @@ private:
     PdAnyFunction fn_any_;
 };
 
+/**
+ * @brief Factory for creating DSP objects
+ */
 template <typename T>
 class SoundExternalFactory : public ObjectFactory<T> {
 public:

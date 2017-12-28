@@ -178,6 +178,9 @@ void Array::fillWith(float v)
     std::fill(begin(), end(), v);
 }
 
+/**
+ * @brief Sample counter class
+ */
 struct SampleGenerator {
     size_t n;
     FloatValueGenerator g;

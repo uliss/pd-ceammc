@@ -20,6 +20,9 @@
 #include <ctype.h>
 #include <stdio.h>
 
+/**
+  * @brief settings for file conversion
+  */
 typedef struct convert_settings_t {
     AudioFileID inputFile;
     AudioStreamBasicDescription inputFormat;
@@ -27,6 +30,9 @@ typedef struct convert_settings_t {
 
 static const size_t PLAYER_BUF_SIZE = 8192;
 
+/**
+ * @brief Audio Player structure
+ */
 struct audio_player {
     ExtAudioFileRef file_ref;
     AudioStreamBasicDescription in_asbd;

@@ -138,6 +138,10 @@ struct BaseGuiObject {
     }
 };
 
+/**
+ * @brief Class for UI objects with DSP capabilities
+ */
+
 struct BaseSoundGuiStruct {
     t_edspbox j_box;
 

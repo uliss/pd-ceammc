@@ -18,6 +18,9 @@
 
 namespace ceammc {
 
+/**
+ * @brief proxy class for Pd object
+ */
 template <class Owner>
 struct PdProxy {
     t_object obj;
@@ -46,6 +49,9 @@ struct PdProxy {
 template <class Owner>
 t_class* PdProxy<Owner>::proxy_class = 0;
 
+/**
+ * @brief Proxy for Pd object that works with floats
+ */
 template <class Owner>
 struct PdFloatProxy : public PdProxy<Owner> {
     static PdFloatProxy* proxy_new()

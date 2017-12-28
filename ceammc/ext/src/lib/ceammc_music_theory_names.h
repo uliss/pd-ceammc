@@ -11,6 +11,9 @@ namespace music {
     class PitchClass;
     class Tonality;
 
+    /**
+     * @brief Music theory naming scheme flags
+     */
     enum NamingScheme {
         NAMING_SCHEME_ITALIAN = 0,
         NAMING_SCHEME_GERMAN,

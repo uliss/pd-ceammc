@@ -24,6 +24,9 @@ void pd_init();
 }
 
 // Note! keep in sync with PD declaration
+/**
+ * @brief canvas environment structure from Pd
+ */
 struct _canvasenvironment {
     t_symbol* ce_dir; /* directory patch lives in */
     int ce_argc; /* number of "$" arguments */

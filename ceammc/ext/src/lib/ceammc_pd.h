@@ -27,7 +27,7 @@ typedef struct _text t_object;
 namespace ceammc {
 namespace pd {
 
-/**
+    /**
      * @brief Class that represents Puredata external
      */
     class External {
@@ -54,6 +54,9 @@ namespace pd {
 typedef boost::shared_ptr<Canvas> CanvasPtr;
 typedef std::map<std::string, CanvasPtr> CanvasMap;
 
+/**
+     * @brief Class that represents Puredata instance
+     */
 class PureData {
     CanvasMap canvas_map_;
 

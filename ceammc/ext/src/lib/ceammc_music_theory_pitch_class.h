@@ -13,8 +13,14 @@ namespace ceammc {
 namespace music {
 
     class PitchClass;
+    /**
+     * @brief Vector of PitchClass objects that represents enharmonics
+     */
     typedef std::vector<PitchClass> Enharmonics;
 
+    /**
+     * @brief Class that represents note pitch
+     */
     class PitchClass {
         PitchName pitch_name_;
         Alteration alt_;

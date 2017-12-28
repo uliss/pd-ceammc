@@ -22,12 +22,18 @@
 extern "C" {
 #endif
 
+/**
+  * @brief Audio file info structure
+  */
 typedef struct audio_fileinfo_ {
     size_t sampleRate;
     size_t channels;
     size_t sampleCount;
 } audiofile_info_t;
 
+/**
+ * @brief several CoreAudio error codes
+ */
 enum ceammc_coreaudio_error {
     INVALID_ARGS = -1,
     FILEOPEN_ERR = -2,

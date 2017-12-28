@@ -12,18 +12,30 @@
 namespace ceammc {
 namespace music {
 
+/**
+     * @brief Harmonic modus representation
+     */
     enum HarmonicModus {
         MAJOR = 0,
         MINOR
     };
 
+    /**
+     * @brief alteration direction (sharp or flat)
+     */
     enum AlterationDir {
         ALTERATE_UP = 0,
         ALTERATE_DOWN
     };
 
+    /**
+     * @brief scale as vector of pitches
+     */
     typedef std::vector<PitchClass> Scale;
 
+    /**
+     * @brief Class that represents the tonality
+     */
     class Tonality {
         PitchClass pitch_;
         HarmonicModus modus_;

@@ -62,6 +62,10 @@ namespace sound {
 
     typedef SoundFilePtr (*loadFunc)(const std::string& path);
     typedef FormatList (*formatFunc)();
+
+    /**
+     * @brief Sound file loader description
+     */
     struct LoaderDescr {
         LoaderDescr(const std::string& n, loadFunc f, formatFunc ff)
             : name(n)
@@ -75,6 +79,9 @@ namespace sound {
         bool operator==(const LoaderDescr& l);
     };
 
+    /**
+     * @brief Sound file loader
+     */
     class SoundFileLoader {
     public:
         static bool registerLoader(const LoaderDescr& l);

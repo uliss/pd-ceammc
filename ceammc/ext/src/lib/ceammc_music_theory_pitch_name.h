@@ -17,6 +17,9 @@ namespace music {
         PITCH_NAME_B
     };
 
+    /**
+     * @brief Pitch name class
+     */
     class PitchName {
         unsigned char value_;
         PitchName(unsigned char v);
