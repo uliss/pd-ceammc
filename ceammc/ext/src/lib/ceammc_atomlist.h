@@ -21,10 +21,23 @@
 
 namespace ceammc {
 
+/**
+ * @brief FloatList - vector of Pd t_float values
+ */
 typedef std::vector<t_float> FloatList;
+
+/**
+ * pointer to predicate function that accepts Atom as input
+ */
 typedef bool (*AtomPredicate)(const Atom& a);
+/**
+ * pointer to function that generates Atom
+ */
 typedef Atom (*AtomGenerator)();
 
+/**
+ * @brief AtomList class
+ */
 class AtomList {
     static bool calc_rel_idx(int pos, size_t* dest, size_t sz);
     bool getRelativeIdx(int pos, size_t* idx) const;
@@ -97,6 +110,8 @@ public:
     Atom* foldAt(int pos);
     const Atom* foldAt(int pos) const;
 
+    // ==========
+
     /**
          * Resize list. If new size is less than current, last values are dropped.
          * If new size is bigger - pad with given value
@@ -132,6 +147,8 @@ public:
          */
     void resizeFold(size_t n);
 
+    // ==========
+
     /**
          * Get property value from list
          * @param name - property name with (starts with '@')
@@ -149,25 +166,46 @@ public:
     bool property(const std::string& name, AtomList* dest) const;
 
     /**
-         * Returns all properties and their values from list
+         * Returns all properties and their values from the list
          */
     std::deque<AtomList> properties() const;
 
     /**
-         * Checks is has property in list
+         * Checks the list contains property
          */
     bool hasProperty(const std::string& name) const;
 
+    // ==========
+
+    /**
+     * @brief apply function to list
+     * @param f function pointer
+     * @return new list
+     */
     AtomList map(AtomMapFunction f) const;
     AtomList map(AtomFloatMapFunction f) const;
     AtomList map(AtomSymbolMapFunction f) const;
 
+    /**
+     * @brief output list elements from 'start' to list size
+     * @param start list split point
+     * @return new list
+     */
     AtomList slice(int start) const;
+
+    /**
+     * @brief outputs arbitrary part of the list with optional hop value
+     * @param start split point
+     * @param end end point
+     * @param step allow to skip elements when step > 1
+     * @return new list
+     */
     AtomList slice(int start, int end, size_t step = 1) const;
 
     void fromPdData(size_t n, t_atom* lst);
     void fromPdData(int n, t_atom* lst);
     t_atom* toPdData() const;
+
     void append(const Atom& a);
     void append(const AtomList& l);
     bool insert(size_t pos, const Atom& a);
@@ -185,6 +223,8 @@ public:
     const Atom* first() const;
     const Atom* last() const;
 
+    // ==========
+
     bool isBang() const;
     bool isFloat() const;
     bool isSymbol() const;
@@ -195,26 +235,20 @@ public:
     template <class T>
     bool isDataType() const;
 
+    // ==========
+
+    /**
+     * @brief sorts list in ascending order
+     */
     void sort();
+    /**
+     * @brief places all elements of the list in random positions
+     */
     void shuffle();
+    /**
+     * @brief reverses lists elements order
+     */
     void reverse();
-
-    AtomList filtered(AtomPredicate pred) const;
-
-    const Atom* min() const;
-    const Atom* max() const;
-    bool range(Atom& min, Atom& max) const;
-    const Atom* find(const Atom& a) const;
-    const Atom* find(AtomPredicate pred) const;
-    const Atom* findLast(const Atom& a) const;
-    const Atom* findLast(AtomPredicate pred) const;
-    Atom* min();
-    Atom* max();
-    Atom* find(const Atom& a);
-    Atom* find(AtomPredicate pred);
-    Atom* findLast(const Atom& a);
-    Atom* findLast(AtomPredicate pred);
-
     /**
          * Returns sum of floats in list or 0 if empty
          */
@@ -224,6 +258,34 @@ public:
          * Returns product of floats in list or 0 if empty
          */
     float product() const;
+
+    /**
+     * @brief returns new list that is filtered according to the predicate function provided
+     * @param pred predicate function. returns true for the elements that should be included in the output list
+     * @return new list
+     */
+    AtomList filtered(AtomPredicate pred) const;
+
+    /**
+     * @brief normalizes list elements if they are float values
+     * @return true if successful false otherwise
+     */
+    bool normalizeFloats();
+
+    const Atom* min() const;
+    const Atom* max() const;
+    bool range(Atom& min, Atom& max) const;
+    const Atom* find(const Atom& a) const;
+    const Atom* find(AtomPredicate pred) const;
+    const Atom* findLast(const Atom& a) const;
+    const Atom* findLast(AtomPredicate pred) const;
+
+    Atom* min();
+    Atom* max();
+    Atom* find(const Atom& a);
+    Atom* find(AtomPredicate pred);
+    Atom* findLast(const Atom& a);
+    Atom* findLast(AtomPredicate pred);
 
     bool contains(const Atom& a) const;
     int findPos(const Atom& a) const;
@@ -263,23 +325,45 @@ public:
     void outputAsAny(t_outlet* x, t_symbol* s) const;
 
     enum NonEqualLengthBehaivor {
-        MINSIZE = 0, // result of min size
-        PADZERO, // result of max size, min list padded with zeroes
-        CLIP, // result of max size, min list clipped with last value
-        WRAP, // result of max size, min list wraped
-        FOLD // result of max size, min list wraped
+        MINSIZE = 0, ///> result of min size
+        PADZERO, ///> result of max size, min list padded with zeroes
+        CLIP, ///> result of max size, min list clipped with last value
+        WRAP, ///> result of max size, min list wraped
+        FOLD ///> result of max size, min list wraped
     };
 
     template <typename T>
     T reduce(T init, T (*fn)(const Atom&, const Atom&)) const;
     t_float reduceFloat(t_float init, t_float def, t_float (*fn)(t_float, t_float)) const;
 
-    bool normalizeFloats();
-
 public:
+    /**
+     * @brief creates the new list of arbitrary size that contains zero values
+     * @param n list size
+     * @return new list
+     */
     static AtomList zeroes(size_t n);
+
+    /**
+     * @brief creates the new list of arbitrary size that contains 1.0f values
+     * @param n list size
+     * @return new list
+     */
     static AtomList ones(size_t n);
+
+    /**
+     * @brief creates the new list of arbitrary size with all elements equal to a
+     * @param a Atom value to fill list with
+     * @param n list size
+     * @return  new list
+     */
     static AtomList filled(const Atom& a, size_t n);
+
+    /**
+     * @brief create list with n float values provided
+     * @param n number of elements in new list
+     * @return new list
+     */
     static AtomList values(size_t n, ...);
 
     /**
@@ -298,6 +382,8 @@ public:
          * @return new list
          */
     static AtomList sub(const AtomList& a, const AtomList& b, NonEqualLengthBehaivor lb = MINSIZE);
+
+    // ==========
 
     /**
          * arithmetic operators
@@ -319,6 +405,8 @@ public:
 private:
     Container atoms_;
 };
+
+// ==========
 
 template <class T>
 bool AtomList::isDataType() const

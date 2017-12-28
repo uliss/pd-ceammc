@@ -188,6 +188,12 @@ namespace pd {
         return false;
     }
 
+    /**
+     * @brief returns true if list contains float value
+     * @param lst imput list
+     * @param v atom to find
+     * @return
+     */
     static bool atom_list_contains(const atom_list& lst, const t_atom& a)
     {
         for (size_t i = 0; i < lst.size(); i++) {
@@ -197,7 +203,20 @@ namespace pd {
         return false;
     }
 
+    /**
+     * @brief returns minimum and maximum values of floats within the input atom list
+     * @param lst input atom list
+     * @param min minimum value
+     * @param max maximum value
+     * @return true if succesful
+     */
     bool atoms_minmax(const atom_list& lst, t_float* min, t_float* max);
+
+    /**
+     * @brief normalizes list
+     * @param lst
+     * @return true if succesful
+     */
     bool atoms_normalize(atom_list& lst);
 }
 }
