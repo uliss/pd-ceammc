@@ -127,201 +127,201 @@ $(document).ready(function(){initNavTree('ceammc__window_8h_source.html','');});
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;cmath&gt;</span></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;cstddef&gt;</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">namespace </span>ceammc {</div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="namespaceceammc_1_1window.html">   21</a></span>&#160;<span class="keyword">namespace </span>window {</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">class</span> Iterator, <span class="keyword">class</span> FillFunc&gt;</div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="namespaceceammc_1_1window.html#a893baa7a12cef698b26abe2992b9a6b8">   23</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="namespaceceammc_1_1window.html#a893baa7a12cef698b26abe2992b9a6b8">fill</a>(Iterator begin, Iterator end, FillFunc fn)</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    {</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        std::ptrdiff_t N = end - begin;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <span class="keywordflow">if</span> (N &lt; 1)</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keywordflow">if</span> (N == 1) {</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;            begin[0] = 0;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        }</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; size_t(N); i++)</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            begin[i] = fn(i, N);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    }</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    T <a class="code" href="namespaceceammc_1_1window.html#a23bf34ab616d4b33f602bff683dd0668">triangle</a>(<span class="keywordtype">size_t</span> idx, <span class="keywordtype">size_t</span> n);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">template</span> &lt;&gt;</div>
-<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="namespaceceammc_1_1window.html#a77ca1c216895368a863c54ef42f496a0">   44</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="namespaceceammc_1_1window.html#a77ca1c216895368a863c54ef42f496a0">triangle&lt;float&gt;</a>(<span class="keywordtype">size_t</span> idx, <span class="keywordtype">size_t</span> n)</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    {</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordflow">if</span> (idx &gt;= n || n &lt; 2)</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            <span class="keywordflow">return</span> 0.f;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordflow">return</span> 1 - fabsf(<span class="keywordtype">float</span>(2 * idx) / <span class="keywordtype">float</span>(n - 1) - 1);</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    }</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
-<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="namespaceceammc_1_1window.html#adb098ff3f5a4e264466390c385c3d752">   53</a></span>&#160;    T <a class="code" href="namespaceceammc_1_1window.html#adb098ff3f5a4e264466390c385c3d752">welch</a>(<span class="keywordtype">size_t</span> idx, <span class="keywordtype">size_t</span> n)</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    {</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keywordflow">if</span> (idx &gt;= n || n &lt; 2)</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            <span class="keywordflow">return</span> 0.f;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        T x = (T(2 * idx) / T(n - 1) - 1);</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordflow">return</span> 1 - x * x;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    }</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">namespace </span>ceammc {</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="namespaceceammc_1_1window.html">   25</a></span>&#160;<span class="keyword">namespace </span>window {</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">class</span> Iterator, <span class="keyword">class</span> FillFunc&gt;</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="namespaceceammc_1_1window.html#a893baa7a12cef698b26abe2992b9a6b8">   27</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="namespaceceammc_1_1window.html#a893baa7a12cef698b26abe2992b9a6b8">fill</a>(Iterator begin, Iterator end, FillFunc fn)</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    {</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        std::ptrdiff_t N = end - begin;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keywordflow">if</span> (N &lt; 1)</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordflow">if</span> (N == 1) {</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            begin[0] = 0;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        }</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; size_t(N); i++)</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            begin[i] = fn(i, N);</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    }</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    T <a class="code" href="namespaceceammc_1_1window.html#a23bf34ab616d4b33f602bff683dd0668">triangle</a>(<span class="keywordtype">size_t</span> idx, <span class="keywordtype">size_t</span> n);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">template</span> &lt;&gt;</div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="namespaceceammc_1_1window.html#a77ca1c216895368a863c54ef42f496a0">   48</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="namespaceceammc_1_1window.html#a77ca1c216895368a863c54ef42f496a0">triangle&lt;float&gt;</a>(<span class="keywordtype">size_t</span> idx, <span class="keywordtype">size_t</span> n)</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    {</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordflow">if</span> (idx &gt;= n || n &lt; 2)</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            <span class="keywordflow">return</span> 0.f;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keywordflow">return</span> 1 - fabsf(<span class="keywordtype">float</span>(2 * idx) / <span class="keywordtype">float</span>(n - 1) - 1);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    }</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="namespaceceammc_1_1window.html#adb098ff3f5a4e264466390c385c3d752">   57</a></span>&#160;    T <a class="code" href="namespaceceammc_1_1window.html#adb098ff3f5a4e264466390c385c3d752">welch</a>(<span class="keywordtype">size_t</span> idx, <span class="keywordtype">size_t</span> n)</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    {</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordflow">if</span> (idx &gt;= n || n &lt; 2)</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            <span class="keywordflow">return</span> 0.f;</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    T <a class="code" href="namespaceceammc_1_1window.html#a6ea20bb42c1a5b55645bbbdadb162266">hann</a>(<span class="keywordtype">size_t</span> idx, <span class="keywordtype">size_t</span> n);</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keyword">template</span> &lt;&gt;</div>
-<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="namespaceceammc_1_1window.html#ac921703382287962056482992b7f32f3">   66</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="namespaceceammc_1_1window.html#ac921703382287962056482992b7f32f3">hann&lt;float&gt;</a>(<span class="keywordtype">size_t</span> idx, <span class="keywordtype">size_t</span> n)</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    {</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="keywordflow">if</span> (idx &gt;= n || n &lt; 2)</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            <span class="keywordflow">return</span> 0.f;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="keywordflow">return</span> 0.5f * (1 - cosf(<span class="keywordtype">float</span>(2.0 * M_PI * idx) / (n - 1)));</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    }</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    T <a class="code" href="namespaceceammc_1_1window.html#a1c7a3df9e10cd29f9238eaec0b5f85dc">rect</a>(<span class="keywordtype">size_t</span> idx, <span class="keywordtype">size_t</span> n);</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keyword">template</span> &lt;&gt;</div>
-<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="namespaceceammc_1_1window.html#a85083dddc4bb9554f22c288d829ab89c">   78</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="namespaceceammc_1_1window.html#a85083dddc4bb9554f22c288d829ab89c">rect&lt;float&gt;</a>(<span class="keywordtype">size_t</span> <span class="comment">/*idx*/</span>, <span class="keywordtype">size_t</span> <span class="comment">/*n*/</span>)</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    {</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <span class="keywordflow">return</span> 1;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    }</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    T <a class="code" href="namespaceceammc_1_1window.html#a4d7a37a72b06f39bd8a3cc32e8ac5e10">sine</a>(<span class="keywordtype">size_t</span> idx, <span class="keywordtype">size_t</span> n);</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keyword">template</span> &lt;&gt;</div>
-<div class="line"><a name="l00087"></a><span class="lineno"><a class="line" href="namespaceceammc_1_1window.html#a3a143960d3348b8343508e535b56a850">   87</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="namespaceceammc_1_1window.html#a3a143960d3348b8343508e535b56a850">sine&lt;float&gt;</a>(<span class="keywordtype">size_t</span> idx, <span class="keywordtype">size_t</span> n)</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    {</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        <span class="keywordflow">return</span> sinf((M_PI * idx) / <span class="keywordtype">float</span>(n - 1));</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    }</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    T <a class="code" href="namespaceceammc_1_1window.html#add481e7be8c09707fb09291b363645cc">hamming</a>(<span class="keywordtype">size_t</span> idx, <span class="keywordtype">size_t</span> n);</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keyword">template</span> &lt;&gt;</div>
-<div class="line"><a name="l00096"></a><span class="lineno"><a class="line" href="namespaceceammc_1_1window.html#a5d44daa9f8c1d9d7520038b920a8c6f0">   96</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="namespaceceammc_1_1window.html#a5d44daa9f8c1d9d7520038b920a8c6f0">hamming&lt;float&gt;</a>(<span class="keywordtype">size_t</span> idx, <span class="keywordtype">size_t</span> n)</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    {</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">float</span> a = 0.54f;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">float</span> b = 1 - a;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <span class="keywordflow">return</span> a - b * cosf((2 * M_PI * idx) / <span class="keywordtype">float</span>(n - 1));</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    }</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    T <a class="code" href="namespaceceammc_1_1window.html#afbfd1f074701be7992162bc854cb7534">blackman</a>(<span class="keywordtype">size_t</span> idx, <span class="keywordtype">size_t</span> n);</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keyword">template</span> &lt;&gt;</div>
-<div class="line"><a name="l00107"></a><span class="lineno"><a class="line" href="namespaceceammc_1_1window.html#a1eea4fa3a8be3d07fde5505dc0f5a4ef">  107</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="namespaceceammc_1_1window.html#a1eea4fa3a8be3d07fde5505dc0f5a4ef">blackman&lt;float&gt;</a>(<span class="keywordtype">size_t</span> idx, <span class="keywordtype">size_t</span> n)</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    {</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">float</span> a = 0.16f;</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">float</span> a0 = (1 - a) / 2;</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">float</span> a1 = 0.5f;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">float</span> a2 = a / 2;</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> N = n - 1;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        <span class="keywordflow">return</span> a0</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;            - a1 * cosf((2 * M_PI * idx) / N)</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            + a2 * cosf((4 * M_PI * idx) / N);</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    }</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    T <a class="code" href="namespaceceammc_1_1window.html#acc3326743c31f80f368b341cce361504">nuttall</a>(<span class="keywordtype">size_t</span> idx, <span class="keywordtype">size_t</span> n);</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <span class="keyword">template</span> &lt;&gt;</div>
-<div class="line"><a name="l00124"></a><span class="lineno"><a class="line" href="namespaceceammc_1_1window.html#a69d85e5c1844485fd8b414ff6e82aa45">  124</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="namespaceceammc_1_1window.html#a69d85e5c1844485fd8b414ff6e82aa45">nuttall&lt;float&gt;</a>(<span class="keywordtype">size_t</span> idx, <span class="keywordtype">size_t</span> n)</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    {</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">float</span> a0 = 0.355768f;</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">float</span> a1 = 0.487396f;</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">float</span> a2 = 0.144232f;</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">float</span> a3 = 0.012604f;</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> N = n - 1;</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;        <span class="keywordflow">return</span> a0</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;            - a1 * cosf((2 * M_PI * idx) / N)</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;            + a2 * cosf((4 * M_PI * idx) / N)</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;            - a3 * cosf((6 * M_PI * idx) / N);</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    }</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    T <a class="code" href="namespaceceammc_1_1window.html#a5035e132090e7d76daefa166c398161b">blackman_harris</a>(<span class="keywordtype">size_t</span> idx, <span class="keywordtype">size_t</span> n);</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    <span class="keyword">template</span> &lt;&gt;</div>
-<div class="line"><a name="l00142"></a><span class="lineno"><a class="line" href="namespaceceammc_1_1window.html#a6f80efe98239003227f56914f1ace0a1">  142</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="namespaceceammc_1_1window.html#a6f80efe98239003227f56914f1ace0a1">blackman_harris&lt;float&gt;</a>(<span class="keywordtype">size_t</span> idx, <span class="keywordtype">size_t</span> n)</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    {</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">float</span> a0 = 0.35875f;</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">float</span> a1 = 0.48829f;</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">float</span> a2 = 0.14128f;</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">float</span> a3 = 0.01168f;</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> N = n - 1;</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;        <span class="keywordflow">return</span> a0</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;            - a1 * cosf((2 * M_PI * idx) / N)</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;            + a2 * cosf((4 * M_PI * idx) / N)</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;            - a3 * cosf((6 * M_PI * idx) / N);</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    }</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    T <a class="code" href="namespaceceammc_1_1window.html#a39a86aab6a947d87f3052007dafa13d5">flattop</a>(<span class="keywordtype">size_t</span> idx, <span class="keywordtype">size_t</span> n);</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    <span class="keyword">template</span> &lt;&gt;</div>
-<div class="line"><a name="l00160"></a><span class="lineno"><a class="line" href="namespaceceammc_1_1window.html#ac360e5416708f6ceb70aad1be0ae04ec">  160</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="namespaceceammc_1_1window.html#ac360e5416708f6ceb70aad1be0ae04ec">flattop&lt;float&gt;</a>(<span class="keywordtype">size_t</span> idx, <span class="keywordtype">size_t</span> n)</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    {</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">float</span> a0 = 0.21557895f;</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">float</span> a1 = 0.41663158f;</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">float</span> a2 = 0.27726316f;</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">float</span> a3 = 0.08357895f;</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">float</span> a4 = 0.00694737f;</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> N = n - 1;</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        <span class="keywordflow">return</span> a0</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;            - a1 * cosf((2 * M_PI * idx) / N)</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;            + a2 * cosf((4 * M_PI * idx) / N)</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;            - a3 * cosf((6 * M_PI * idx) / N)</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;            + a4 * cosf((8 * M_PI * idx) / N);</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    }</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    <span class="keyword">template</span> &lt;<span class="keywordtype">int</span> SIGMA&gt;</div>
-<div class="line"><a name="l00177"></a><span class="lineno"><a class="line" href="namespaceceammc_1_1window.html#a4e91c014e1793b88c0797363f5c74c5e">  177</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="namespaceceammc_1_1window.html#a4e91c014e1793b88c0797363f5c74c5e">gauss</a>(<span class="keywordtype">size_t</span> idx, <span class="keywordtype">size_t</span> n)</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    {</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> A = (n - 1) / 2.0f;</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> x = (idx - A) / ((<span class="keywordtype">float</span>(SIGMA) / 100.f) * A);</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;        <span class="keywordflow">return</span> expf(-0.5 * x * x);</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    }</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;}</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;}</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;<span class="preprocessor">#endif // CEAMMC_WINDOW_H</span></div>
-<div class="ttc" id="namespaceceammc_1_1window_html_adb098ff3f5a4e264466390c385c3d752"><div class="ttname"><a href="namespaceceammc_1_1window.html#adb098ff3f5a4e264466390c385c3d752">ceammc::window::welch</a></div><div class="ttdeci">T welch(size_t idx, size_t n)</div><div class="ttdef"><b>Definition:</b> ceammc_window.h:53</div></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        T x = (T(2 * idx) / T(n - 1) - 1);</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="keywordflow">return</span> 1 - x * x;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    }</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    T <a class="code" href="namespaceceammc_1_1window.html#a6ea20bb42c1a5b55645bbbdadb162266">hann</a>(<span class="keywordtype">size_t</span> idx, <span class="keywordtype">size_t</span> n);</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keyword">template</span> &lt;&gt;</div>
+<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="namespaceceammc_1_1window.html#ac921703382287962056482992b7f32f3">   70</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="namespaceceammc_1_1window.html#ac921703382287962056482992b7f32f3">hann&lt;float&gt;</a>(<span class="keywordtype">size_t</span> idx, <span class="keywordtype">size_t</span> n)</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    {</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <span class="keywordflow">if</span> (idx &gt;= n || n &lt; 2)</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            <span class="keywordflow">return</span> 0.f;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <span class="keywordflow">return</span> 0.5f * (1 - cosf(<span class="keywordtype">float</span>(2.0 * M_PI * idx) / (n - 1)));</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    }</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    T <a class="code" href="namespaceceammc_1_1window.html#a1c7a3df9e10cd29f9238eaec0b5f85dc">rect</a>(<span class="keywordtype">size_t</span> idx, <span class="keywordtype">size_t</span> n);</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keyword">template</span> &lt;&gt;</div>
+<div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="namespaceceammc_1_1window.html#a85083dddc4bb9554f22c288d829ab89c">   82</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="namespaceceammc_1_1window.html#a85083dddc4bb9554f22c288d829ab89c">rect&lt;float&gt;</a>(<span class="keywordtype">size_t</span> <span class="comment">/*idx*/</span>, <span class="keywordtype">size_t</span> <span class="comment">/*n*/</span>)</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    {</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        <span class="keywordflow">return</span> 1;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    }</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    T <a class="code" href="namespaceceammc_1_1window.html#a4d7a37a72b06f39bd8a3cc32e8ac5e10">sine</a>(<span class="keywordtype">size_t</span> idx, <span class="keywordtype">size_t</span> n);</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keyword">template</span> &lt;&gt;</div>
+<div class="line"><a name="l00091"></a><span class="lineno"><a class="line" href="namespaceceammc_1_1window.html#a3a143960d3348b8343508e535b56a850">   91</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="namespaceceammc_1_1window.html#a3a143960d3348b8343508e535b56a850">sine&lt;float&gt;</a>(<span class="keywordtype">size_t</span> idx, <span class="keywordtype">size_t</span> n)</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    {</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        <span class="keywordflow">return</span> sinf((M_PI * idx) / <span class="keywordtype">float</span>(n - 1));</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    }</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    T <a class="code" href="namespaceceammc_1_1window.html#add481e7be8c09707fb09291b363645cc">hamming</a>(<span class="keywordtype">size_t</span> idx, <span class="keywordtype">size_t</span> n);</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keyword">template</span> &lt;&gt;</div>
+<div class="line"><a name="l00100"></a><span class="lineno"><a class="line" href="namespaceceammc_1_1window.html#a5d44daa9f8c1d9d7520038b920a8c6f0">  100</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="namespaceceammc_1_1window.html#a5d44daa9f8c1d9d7520038b920a8c6f0">hamming&lt;float&gt;</a>(<span class="keywordtype">size_t</span> idx, <span class="keywordtype">size_t</span> n)</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    {</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">float</span> a = 0.54f;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">float</span> b = 1 - a;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        <span class="keywordflow">return</span> a - b * cosf((2 * M_PI * idx) / <span class="keywordtype">float</span>(n - 1));</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    }</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    T <a class="code" href="namespaceceammc_1_1window.html#afbfd1f074701be7992162bc854cb7534">blackman</a>(<span class="keywordtype">size_t</span> idx, <span class="keywordtype">size_t</span> n);</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keyword">template</span> &lt;&gt;</div>
+<div class="line"><a name="l00111"></a><span class="lineno"><a class="line" href="namespaceceammc_1_1window.html#a1eea4fa3a8be3d07fde5505dc0f5a4ef">  111</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="namespaceceammc_1_1window.html#a1eea4fa3a8be3d07fde5505dc0f5a4ef">blackman&lt;float&gt;</a>(<span class="keywordtype">size_t</span> idx, <span class="keywordtype">size_t</span> n)</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    {</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">float</span> a = 0.16f;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">float</span> a0 = (1 - a) / 2;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">float</span> a1 = 0.5f;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">float</span> a2 = a / 2;</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> N = n - 1;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        <span class="keywordflow">return</span> a0</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;            - a1 * cosf((2 * M_PI * idx) / N)</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;            + a2 * cosf((4 * M_PI * idx) / N);</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    }</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    T <a class="code" href="namespaceceammc_1_1window.html#acc3326743c31f80f368b341cce361504">nuttall</a>(<span class="keywordtype">size_t</span> idx, <span class="keywordtype">size_t</span> n);</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="keyword">template</span> &lt;&gt;</div>
+<div class="line"><a name="l00128"></a><span class="lineno"><a class="line" href="namespaceceammc_1_1window.html#a69d85e5c1844485fd8b414ff6e82aa45">  128</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="namespaceceammc_1_1window.html#a69d85e5c1844485fd8b414ff6e82aa45">nuttall&lt;float&gt;</a>(<span class="keywordtype">size_t</span> idx, <span class="keywordtype">size_t</span> n)</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    {</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">float</span> a0 = 0.355768f;</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">float</span> a1 = 0.487396f;</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">float</span> a2 = 0.144232f;</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">float</span> a3 = 0.012604f;</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> N = n - 1;</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;        <span class="keywordflow">return</span> a0</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;            - a1 * cosf((2 * M_PI * idx) / N)</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;            + a2 * cosf((4 * M_PI * idx) / N)</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;            - a3 * cosf((6 * M_PI * idx) / N);</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    }</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    T <a class="code" href="namespaceceammc_1_1window.html#a5035e132090e7d76daefa166c398161b">blackman_harris</a>(<span class="keywordtype">size_t</span> idx, <span class="keywordtype">size_t</span> n);</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    <span class="keyword">template</span> &lt;&gt;</div>
+<div class="line"><a name="l00146"></a><span class="lineno"><a class="line" href="namespaceceammc_1_1window.html#a6f80efe98239003227f56914f1ace0a1">  146</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="namespaceceammc_1_1window.html#a6f80efe98239003227f56914f1ace0a1">blackman_harris&lt;float&gt;</a>(<span class="keywordtype">size_t</span> idx, <span class="keywordtype">size_t</span> n)</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    {</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">float</span> a0 = 0.35875f;</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">float</span> a1 = 0.48829f;</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">float</span> a2 = 0.14128f;</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">float</span> a3 = 0.01168f;</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> N = n - 1;</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;        <span class="keywordflow">return</span> a0</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;            - a1 * cosf((2 * M_PI * idx) / N)</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;            + a2 * cosf((4 * M_PI * idx) / N)</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;            - a3 * cosf((6 * M_PI * idx) / N);</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    }</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    T <a class="code" href="namespaceceammc_1_1window.html#a39a86aab6a947d87f3052007dafa13d5">flattop</a>(<span class="keywordtype">size_t</span> idx, <span class="keywordtype">size_t</span> n);</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    <span class="keyword">template</span> &lt;&gt;</div>
+<div class="line"><a name="l00164"></a><span class="lineno"><a class="line" href="namespaceceammc_1_1window.html#ac360e5416708f6ceb70aad1be0ae04ec">  164</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="namespaceceammc_1_1window.html#ac360e5416708f6ceb70aad1be0ae04ec">flattop&lt;float&gt;</a>(<span class="keywordtype">size_t</span> idx, <span class="keywordtype">size_t</span> n)</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    {</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">float</span> a0 = 0.21557895f;</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">float</span> a1 = 0.41663158f;</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">float</span> a2 = 0.27726316f;</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">float</span> a3 = 0.08357895f;</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">float</span> a4 = 0.00694737f;</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> N = n - 1;</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;        <span class="keywordflow">return</span> a0</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;            - a1 * cosf((2 * M_PI * idx) / N)</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;            + a2 * cosf((4 * M_PI * idx) / N)</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;            - a3 * cosf((6 * M_PI * idx) / N)</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;            + a4 * cosf((8 * M_PI * idx) / N);</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    }</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    <span class="keyword">template</span> &lt;<span class="keywordtype">int</span> SIGMA&gt;</div>
+<div class="line"><a name="l00181"></a><span class="lineno"><a class="line" href="namespaceceammc_1_1window.html#a4e91c014e1793b88c0797363f5c74c5e">  181</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="namespaceceammc_1_1window.html#a4e91c014e1793b88c0797363f5c74c5e">gauss</a>(<span class="keywordtype">size_t</span> idx, <span class="keywordtype">size_t</span> n)</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    {</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> A = (n - 1) / 2.0f;</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> x = (idx - A) / ((<span class="keywordtype">float</span>(SIGMA) / 100.f) * A);</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;        <span class="keywordflow">return</span> expf(-0.5 * x * x);</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    }</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;}</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;}</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;<span class="preprocessor">#endif // CEAMMC_WINDOW_H</span></div>
+<div class="ttc" id="namespaceceammc_1_1window_html_adb098ff3f5a4e264466390c385c3d752"><div class="ttname"><a href="namespaceceammc_1_1window.html#adb098ff3f5a4e264466390c385c3d752">ceammc::window::welch</a></div><div class="ttdeci">T welch(size_t idx, size_t n)</div><div class="ttdef"><b>Definition:</b> ceammc_window.h:57</div></div>
 <div class="ttc" id="namespaceceammc_1_1window_html_a1c7a3df9e10cd29f9238eaec0b5f85dc"><div class="ttname"><a href="namespaceceammc_1_1window.html#a1c7a3df9e10cd29f9238eaec0b5f85dc">ceammc::window::rect</a></div><div class="ttdeci">T rect(size_t idx, size_t n)</div></div>
 <div class="ttc" id="namespaceceammc_1_1window_html_a23bf34ab616d4b33f602bff683dd0668"><div class="ttname"><a href="namespaceceammc_1_1window.html#a23bf34ab616d4b33f602bff683dd0668">ceammc::window::triangle</a></div><div class="ttdeci">T triangle(size_t idx, size_t n)</div></div>
 <div class="ttc" id="namespaceceammc_1_1window_html_a5035e132090e7d76daefa166c398161b"><div class="ttname"><a href="namespaceceammc_1_1window.html#a5035e132090e7d76daefa166c398161b">ceammc::window::blackman_harris</a></div><div class="ttdeci">T blackman_harris(size_t idx, size_t n)</div></div>
 <div class="ttc" id="namespaceceammc_1_1window_html_add481e7be8c09707fb09291b363645cc"><div class="ttname"><a href="namespaceceammc_1_1window.html#add481e7be8c09707fb09291b363645cc">ceammc::window::hamming</a></div><div class="ttdeci">T hamming(size_t idx, size_t n)</div></div>
-<div class="ttc" id="namespaceceammc_1_1window_html_a5d44daa9f8c1d9d7520038b920a8c6f0"><div class="ttname"><a href="namespaceceammc_1_1window.html#a5d44daa9f8c1d9d7520038b920a8c6f0">ceammc::window::hamming&lt; float &gt;</a></div><div class="ttdeci">float hamming&lt; float &gt;(size_t idx, size_t n)</div><div class="ttdef"><b>Definition:</b> ceammc_window.h:96</div></div>
-<div class="ttc" id="namespaceceammc_1_1window_html_a1eea4fa3a8be3d07fde5505dc0f5a4ef"><div class="ttname"><a href="namespaceceammc_1_1window.html#a1eea4fa3a8be3d07fde5505dc0f5a4ef">ceammc::window::blackman&lt; float &gt;</a></div><div class="ttdeci">float blackman&lt; float &gt;(size_t idx, size_t n)</div><div class="ttdef"><b>Definition:</b> ceammc_window.h:107</div></div>
-<div class="ttc" id="namespaceceammc_1_1window_html_a3a143960d3348b8343508e535b56a850"><div class="ttname"><a href="namespaceceammc_1_1window.html#a3a143960d3348b8343508e535b56a850">ceammc::window::sine&lt; float &gt;</a></div><div class="ttdeci">float sine&lt; float &gt;(size_t idx, size_t n)</div><div class="ttdef"><b>Definition:</b> ceammc_window.h:87</div></div>
+<div class="ttc" id="namespaceceammc_1_1window_html_a5d44daa9f8c1d9d7520038b920a8c6f0"><div class="ttname"><a href="namespaceceammc_1_1window.html#a5d44daa9f8c1d9d7520038b920a8c6f0">ceammc::window::hamming&lt; float &gt;</a></div><div class="ttdeci">float hamming&lt; float &gt;(size_t idx, size_t n)</div><div class="ttdef"><b>Definition:</b> ceammc_window.h:100</div></div>
+<div class="ttc" id="namespaceceammc_1_1window_html_a1eea4fa3a8be3d07fde5505dc0f5a4ef"><div class="ttname"><a href="namespaceceammc_1_1window.html#a1eea4fa3a8be3d07fde5505dc0f5a4ef">ceammc::window::blackman&lt; float &gt;</a></div><div class="ttdeci">float blackman&lt; float &gt;(size_t idx, size_t n)</div><div class="ttdef"><b>Definition:</b> ceammc_window.h:111</div></div>
+<div class="ttc" id="namespaceceammc_1_1window_html_a3a143960d3348b8343508e535b56a850"><div class="ttname"><a href="namespaceceammc_1_1window.html#a3a143960d3348b8343508e535b56a850">ceammc::window::sine&lt; float &gt;</a></div><div class="ttdeci">float sine&lt; float &gt;(size_t idx, size_t n)</div><div class="ttdef"><b>Definition:</b> ceammc_window.h:91</div></div>
 <div class="ttc" id="namespaceceammc_1_1window_html_a6ea20bb42c1a5b55645bbbdadb162266"><div class="ttname"><a href="namespaceceammc_1_1window.html#a6ea20bb42c1a5b55645bbbdadb162266">ceammc::window::hann</a></div><div class="ttdeci">T hann(size_t idx, size_t n)</div></div>
-<div class="ttc" id="namespaceceammc_1_1window_html_a4e91c014e1793b88c0797363f5c74c5e"><div class="ttname"><a href="namespaceceammc_1_1window.html#a4e91c014e1793b88c0797363f5c74c5e">ceammc::window::gauss</a></div><div class="ttdeci">float gauss(size_t idx, size_t n)</div><div class="ttdef"><b>Definition:</b> ceammc_window.h:177</div></div>
+<div class="ttc" id="namespaceceammc_1_1window_html_a4e91c014e1793b88c0797363f5c74c5e"><div class="ttname"><a href="namespaceceammc_1_1window.html#a4e91c014e1793b88c0797363f5c74c5e">ceammc::window::gauss</a></div><div class="ttdeci">float gauss(size_t idx, size_t n)</div><div class="ttdef"><b>Definition:</b> ceammc_window.h:181</div></div>
 <div class="ttc" id="namespaceceammc_1_1window_html_a4d7a37a72b06f39bd8a3cc32e8ac5e10"><div class="ttname"><a href="namespaceceammc_1_1window.html#a4d7a37a72b06f39bd8a3cc32e8ac5e10">ceammc::window::sine</a></div><div class="ttdeci">T sine(size_t idx, size_t n)</div></div>
 <div class="ttc" id="namespaceceammc_1_1window_html_afbfd1f074701be7992162bc854cb7534"><div class="ttname"><a href="namespaceceammc_1_1window.html#afbfd1f074701be7992162bc854cb7534">ceammc::window::blackman</a></div><div class="ttdeci">T blackman(size_t idx, size_t n)</div></div>
-<div class="ttc" id="namespaceceammc_1_1window_html_a893baa7a12cef698b26abe2992b9a6b8"><div class="ttname"><a href="namespaceceammc_1_1window.html#a893baa7a12cef698b26abe2992b9a6b8">ceammc::window::fill</a></div><div class="ttdeci">bool fill(Iterator begin, Iterator end, FillFunc fn)</div><div class="ttdef"><b>Definition:</b> ceammc_window.h:23</div></div>
-<div class="ttc" id="namespaceceammc_1_1window_html_a85083dddc4bb9554f22c288d829ab89c"><div class="ttname"><a href="namespaceceammc_1_1window.html#a85083dddc4bb9554f22c288d829ab89c">ceammc::window::rect&lt; float &gt;</a></div><div class="ttdeci">float rect&lt; float &gt;(size_t, size_t)</div><div class="ttdef"><b>Definition:</b> ceammc_window.h:78</div></div>
-<div class="ttc" id="namespaceceammc_1_1window_html_ac360e5416708f6ceb70aad1be0ae04ec"><div class="ttname"><a href="namespaceceammc_1_1window.html#ac360e5416708f6ceb70aad1be0ae04ec">ceammc::window::flattop&lt; float &gt;</a></div><div class="ttdeci">float flattop&lt; float &gt;(size_t idx, size_t n)</div><div class="ttdef"><b>Definition:</b> ceammc_window.h:160</div></div>
-<div class="ttc" id="namespaceceammc_1_1window_html_a77ca1c216895368a863c54ef42f496a0"><div class="ttname"><a href="namespaceceammc_1_1window.html#a77ca1c216895368a863c54ef42f496a0">ceammc::window::triangle&lt; float &gt;</a></div><div class="ttdeci">float triangle&lt; float &gt;(size_t idx, size_t n)</div><div class="ttdef"><b>Definition:</b> ceammc_window.h:44</div></div>
+<div class="ttc" id="namespaceceammc_1_1window_html_a893baa7a12cef698b26abe2992b9a6b8"><div class="ttname"><a href="namespaceceammc_1_1window.html#a893baa7a12cef698b26abe2992b9a6b8">ceammc::window::fill</a></div><div class="ttdeci">bool fill(Iterator begin, Iterator end, FillFunc fn)</div><div class="ttdef"><b>Definition:</b> ceammc_window.h:27</div></div>
+<div class="ttc" id="namespaceceammc_1_1window_html_a85083dddc4bb9554f22c288d829ab89c"><div class="ttname"><a href="namespaceceammc_1_1window.html#a85083dddc4bb9554f22c288d829ab89c">ceammc::window::rect&lt; float &gt;</a></div><div class="ttdeci">float rect&lt; float &gt;(size_t, size_t)</div><div class="ttdef"><b>Definition:</b> ceammc_window.h:82</div></div>
+<div class="ttc" id="namespaceceammc_1_1window_html_ac360e5416708f6ceb70aad1be0ae04ec"><div class="ttname"><a href="namespaceceammc_1_1window.html#ac360e5416708f6ceb70aad1be0ae04ec">ceammc::window::flattop&lt; float &gt;</a></div><div class="ttdeci">float flattop&lt; float &gt;(size_t idx, size_t n)</div><div class="ttdef"><b>Definition:</b> ceammc_window.h:164</div></div>
+<div class="ttc" id="namespaceceammc_1_1window_html_a77ca1c216895368a863c54ef42f496a0"><div class="ttname"><a href="namespaceceammc_1_1window.html#a77ca1c216895368a863c54ef42f496a0">ceammc::window::triangle&lt; float &gt;</a></div><div class="ttdeci">float triangle&lt; float &gt;(size_t idx, size_t n)</div><div class="ttdef"><b>Definition:</b> ceammc_window.h:48</div></div>
 <div class="ttc" id="namespaceceammc_1_1window_html_a39a86aab6a947d87f3052007dafa13d5"><div class="ttname"><a href="namespaceceammc_1_1window.html#a39a86aab6a947d87f3052007dafa13d5">ceammc::window::flattop</a></div><div class="ttdeci">T flattop(size_t idx, size_t n)</div></div>
 <div class="ttc" id="namespaceceammc_1_1window_html_acc3326743c31f80f368b341cce361504"><div class="ttname"><a href="namespaceceammc_1_1window.html#acc3326743c31f80f368b341cce361504">ceammc::window::nuttall</a></div><div class="ttdeci">T nuttall(size_t idx, size_t n)</div></div>
-<div class="ttc" id="namespaceceammc_1_1window_html_a6f80efe98239003227f56914f1ace0a1"><div class="ttname"><a href="namespaceceammc_1_1window.html#a6f80efe98239003227f56914f1ace0a1">ceammc::window::blackman_harris&lt; float &gt;</a></div><div class="ttdeci">float blackman_harris&lt; float &gt;(size_t idx, size_t n)</div><div class="ttdef"><b>Definition:</b> ceammc_window.h:142</div></div>
-<div class="ttc" id="namespaceceammc_1_1window_html_a69d85e5c1844485fd8b414ff6e82aa45"><div class="ttname"><a href="namespaceceammc_1_1window.html#a69d85e5c1844485fd8b414ff6e82aa45">ceammc::window::nuttall&lt; float &gt;</a></div><div class="ttdeci">float nuttall&lt; float &gt;(size_t idx, size_t n)</div><div class="ttdef"><b>Definition:</b> ceammc_window.h:124</div></div>
-<div class="ttc" id="namespaceceammc_1_1window_html_ac921703382287962056482992b7f32f3"><div class="ttname"><a href="namespaceceammc_1_1window.html#ac921703382287962056482992b7f32f3">ceammc::window::hann&lt; float &gt;</a></div><div class="ttdeci">float hann&lt; float &gt;(size_t idx, size_t n)</div><div class="ttdef"><b>Definition:</b> ceammc_window.h:66</div></div>
+<div class="ttc" id="namespaceceammc_1_1window_html_a6f80efe98239003227f56914f1ace0a1"><div class="ttname"><a href="namespaceceammc_1_1window.html#a6f80efe98239003227f56914f1ace0a1">ceammc::window::blackman_harris&lt; float &gt;</a></div><div class="ttdeci">float blackman_harris&lt; float &gt;(size_t idx, size_t n)</div><div class="ttdef"><b>Definition:</b> ceammc_window.h:146</div></div>
+<div class="ttc" id="namespaceceammc_1_1window_html_a69d85e5c1844485fd8b414ff6e82aa45"><div class="ttname"><a href="namespaceceammc_1_1window.html#a69d85e5c1844485fd8b414ff6e82aa45">ceammc::window::nuttall&lt; float &gt;</a></div><div class="ttdeci">float nuttall&lt; float &gt;(size_t idx, size_t n)</div><div class="ttdef"><b>Definition:</b> ceammc_window.h:128</div></div>
+<div class="ttc" id="namespaceceammc_1_1window_html_ac921703382287962056482992b7f32f3"><div class="ttname"><a href="namespaceceammc_1_1window.html#ac921703382287962056482992b7f32f3">ceammc::window::hann&lt; float &gt;</a></div><div class="ttdeci">float hann&lt; float &gt;(size_t idx, size_t n)</div><div class="ttdef"><b>Definition:</b> ceammc_window.h:70</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_877e035193462187a491ea5fe7161af7.html">ceammc</a></li><li class="navelem"><a class="el" href="dir_93e27135a8975486a4289fd2421fe578.html">ext</a></li><li class="navelem"><a class="el" href="dir_8f8ebfc68d1cfee9aefd649de20f13d2.html">src</a></li><li class="navelem"><a class="el" href="dir_13ee4f635c0c81055866b45db81d92cb.html">lib</a></li><li class="navelem"><a class="el" href="ceammc__window_8h.html">ceammc_window.h</a></li>
-    <li class="footer">Generated on Thu Dec 28 2017 19:50:28 for CEAMMC Library for Puredata by
+    <li class="footer">Generated on Thu Dec 28 2017 21:40:25 for CEAMMC Library for Puredata by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.5 </li>
   </ul>
