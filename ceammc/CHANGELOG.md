@@ -6,6 +6,7 @@
 - proto.firmata added
 - flow.speedlim added
 - list.route added
+- list.do added
 - metro.seq added
 - metro.pattern added
 - new data type added: Envelope

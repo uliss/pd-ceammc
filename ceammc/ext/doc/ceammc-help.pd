@@ -291,7 +291,7 @@ floats and the previous one.;
 #X obj 30 4137 list.distribution;
 #X text 175 4137 list value distribution;
 #X obj 30 4164 list.do;
-#X text 175 4164 iterate thru list with specified item index and size;
+#X text 175 4164 iterate and modify list contents via side-chain;
 #X obj 30 4191 list.each;
 #X text 175 4191 maps each list value via external object(s);
 #X obj 30 4218 list.enumerate;

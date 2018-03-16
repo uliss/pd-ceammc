@@ -121,6 +121,7 @@ set(DOC_FILES
     list.deinterleave
     list.delta
     list.distribution
+    list.do
     list.each
     list.enumerate
     list.equal
