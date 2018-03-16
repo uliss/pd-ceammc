@@ -388,6 +388,9 @@
     <entry descr="list value distribution" name="list.distribution" ref_view="object">
       <xi:include href="list.distribution.pddoc" parse="xml"/>
     </entry>
+    <entry descr="iterate thru list with specified item index and size" name="list.do" ref_view="object">
+      <xi:include href="list.do.pddoc" parse="xml"/>
+    </entry>
     <entry descr="maps each list value via external object(s)" name="list.each" ref_view="object">
       <xi:include href="list.each.pddoc" parse="xml"/>
     </entry>
@@ -1009,7 +1012,7 @@
     </entry>
   </category>
   <meta>
-    <version>0.4</version>
+    <version>0.5</version>
     <authors>
       <author>Alex Nadzharov</author>
       <author>Hans-Christoph Steiner</author>

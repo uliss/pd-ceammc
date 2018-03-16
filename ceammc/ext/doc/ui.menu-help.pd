@@ -35,67 +35,79 @@
 #X text 240 563 Get/Set send destination. Type: symbol;
 #X msg 120 590 @receive;
 #X text 240 590 Get/Set receive source. Type: symbol;
-#X obj 20 627 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 632 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X msg 120 617 @max_length;
+#X text 240 617 Get/Set maximum displayed item character length. Type:
+int. Default value: 100\. Value range: 10-1000;
+#X obj 20 664 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 669 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 637 append;
-#X text 240 637 appends new menu item. Arguments are:;
-#X obj 250 665 cnv 1 46 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 665 ATOMS: item name. Type: list.;
-#X msg 120 693 insert;
-#X text 240 693 inserts new menu item before specified position.
+#X msg 120 674 append;
+#X text 240 674 appends new menu item. Arguments are:;
+#X obj 250 702 cnv 1 46 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 702 ATOMS: item name. Type: list.;
+#X msg 120 730 insert;
+#X text 240 730 inserts new menu item before specified position.
 Arguments are:;
-#X obj 250 735 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 735 IDX: item position. Type: int. Min value: 0;
-#X obj 250 763 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 763 ATOM: item name. Type: atom.;
-#X msg 120 791 clear;
-#X text 240 791 clears all items menu.;
-#X msg 120 823 delete;
-#X text 240 823 removes item from menu. Arguments are:;
-#X obj 250 851 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 851 IDX: removed item index. Type: int. Min value: 0;
-#X msg 120 879 set_item;
-#X text 240 879 renames menu item. Arguments are:;
-#X obj 250 907 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 907 IDX: item index. Type: int. Min value: 0;
-#X obj 250 935 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 935 ATOM: item name. Type: list.;
-#X msg 120 963 set;
-#X text 240 963 silently sets menu state. Arguments are:;
-#X obj 250 991 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 991 IDX: item index. Type: int. Min value: 0;
-#X obj 20 1029 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1034 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X obj 250 772 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 772 IDX: item position. Type: int. Min value: 0;
+#X obj 250 800 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 800 ATOM: item name. Type: atom.;
+#X msg 120 828 clear;
+#X text 240 828 clears all items menu.;
+#X msg 120 860 delete;
+#X text 240 860 removes item from menu. Arguments are:;
+#X obj 250 888 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 888 IDX: removed item index. Type: int. Min value: 0;
+#X msg 120 916 set_item;
+#X text 240 916 renames menu item. Arguments are:;
+#X obj 250 944 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 944 IDX: item index. Type: int. Min value: 0;
+#X obj 250 972 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 972 ATOM: item name. Type: list.;
+#X msg 120 1000 set;
+#X text 240 1000 silently sets menu state. Arguments are:;
+#X obj 250 1028 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 1028 IDX: item index. Type: int. Min value: 0;
+#X msg 120 1056 file_glob;
+#X text 240 1056 fill menu with filenames. Arguments are:;
+#X obj 250 1084 cnv 1 61 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 1084 PATTERN: filename pattern \, like * (all files) \,
+*.wav (all wav files) etc. Type: symbol.;
+#X obj 250 1126 cnv 1 40 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 1126 [DIR]: search directory. If omitted - search in patch
+directory. Performs tilde (~) expansion to home directory. To elide
+long filenames see @max_length property. Type: symbol.;
+#X obj 20 1206 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1211 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 1039 1\.;
-#X text 150 1039 *bang*;
-#X text 240 1039 outputs current menu state as list: INDEX VALUE.;
-#X text 150 1057 *float*;
-#X text 240 1057 change menu state and output new value.;
-#X text 150 1075 *any*;
-#X text 240 1075 selects item equal to given.;
-#X obj 20 1103 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1108 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 120 1216 1\.;
+#X text 150 1216 *bang*;
+#X text 240 1216 outputs current menu state as list: INDEX VALUE.;
+#X text 150 1234 *float*;
+#X text 240 1234 change menu state and output new value.;
+#X text 150 1252 *any*;
+#X text 240 1252 selects item equal to given.;
+#X obj 20 1280 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1285 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 1113 1\.;
-#X text 240 1113 output;
+#X text 120 1290 1\.;
+#X text 240 1290 output;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 1161 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1164 library: ceammc v0.4;
-#X text 554 1176 see also:;
-#X obj 630 1179 ui.link @title [ui.radio] @background_color 0.78431
+#X obj 1 1338 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1341 library: ceammc v0.5;
+#X text 554 1353 see also:;
+#X obj 630 1356 ui.link @title [ui.radio] @background_color 0.78431
 0.78431 0.78431 @url ui.radio-help.pd;
-#N canvas 10 1183 400 290 info 0;
+#N canvas 10 1360 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.4;
+#X text 120 32 0.5;
 #X text 10 54 object:;
 #X text 120 54 ui.menu;
 #X text 10 76 category:;
@@ -114,7 +126,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1183 pd info;
+#X restore 10 1360 pd info;
 #X connect 11 0 14 0;
 #X connect 10 0 12 0;
 #X connect 15 0 17 1;

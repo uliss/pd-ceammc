@@ -2,7 +2,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/uliss/pure-data/badge.svg?branch=ceammc)](https://coveralls.io/github/uliss/pure-data?branch=ceammc)
 
 CEAMMC Puredata distribution 2018.03
------------------
+------------------------------------
 
 General purpose Pd distribution and library used for work and education purposes in Centre of electoacoustic music of Moscow Conservatory (CEAMMC) and ZIL-electro studio.
 
