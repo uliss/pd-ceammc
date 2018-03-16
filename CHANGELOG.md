@@ -1,5 +1,9 @@
 # CEAMMC Pd distribution changelog
 
+## [2018.03]
+### Added:
+- **CEAMMC** external library v0.5 - [ceammc/CHANGELOG.md](ceammc/CHANGELOG.md)
+
 ## [2017.10]
 ### Added:
 - **CEAMMC** external library v0.4 - [ceammc/CHANGELOG.md](ceammc/CHANGELOG.md)
