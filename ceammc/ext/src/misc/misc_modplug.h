@@ -14,7 +14,7 @@
 #ifndef MISC_MIKMOD_H
 #define MISC_MIKMOD_H
 
-#include "ceammc_object.h"
+#include "ceammc_sound_external.h"
 
 #include <libmodplug/modplug.h>
 

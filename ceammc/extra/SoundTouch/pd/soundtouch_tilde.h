@@ -3,7 +3,7 @@
 
 #include "SoundTouch.h"
 
-#include "ceammc_object.h"
+#include "ceammc_sound_external.h"
 using namespace ceammc;
 
 class SoundTouchExt : public SoundExternal {

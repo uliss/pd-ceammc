@@ -34,6 +34,7 @@ atan
 atan2
 b
 bag
+bang
 bang~
 bendin
 bendout

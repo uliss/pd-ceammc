@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="ui.dsp~" type="gui">
+        <title>ui.dsp~</title>
+        <meta>
+            <authors>
+                <author>Pierre Guillot</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>GUI for turning DSP on/off</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category view="link">ui</category>
+            <keywords>ui dsp</keywords>
+            <since>0.1</since>
+        </meta>
+        <info>
+            <par>SHIFT+DblClick open audio settings dialog</par>
+        </info>
+        <methods>
+            <method name="start">starts audio processing</method>
+            <method name="stop">stops audio processing</method>
+            <method name="settings">opens audio settings dialog</method>
+        </methods>
+        <inlets>
+            <inlet/>
+        </inlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[start( [stop( [settings(
+|       |      |
+|       |      |
+[ui.dsp~       ]
+
+
+
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

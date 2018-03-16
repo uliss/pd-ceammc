@@ -13,10 +13,16 @@
             <category view="link">ui</category>
             <keywords>display</keywords>
             <since>0.1</since>
+            <aliases>
+                <alias view="link">ui.d</alias>
+            </aliases>
             <also>
                 <see>msg</see>
             </also>
         </meta>
+        <info>
+            <par>Double click to show/hide message type display</par>
+        </info>
         <inlets>
             <inlet>
                 <xinfo on="list">accepts any messages and displays it.</xinfo>

@@ -9,7 +9,7 @@
 
 
 
-#include "ceammc_gui.h"
+#include "../ui/ceammc_gui.h"
 
 
 using namespace ceammc_gui;
@@ -170,7 +170,6 @@ namespace ceammc_gui {
     
     struct eCanvas : public BaseGuiObject
     {
-        t_ebox b_box;
         t_canvas *canvas;
         t_canvas *root_canvas;
         

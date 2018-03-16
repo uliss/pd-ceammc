@@ -13,10 +13,12 @@ void firmata_message_append(FirmataMessage* msg, const char* wchar, unsigned cha
 
 void firmata_message_append_pin_capability(FirmataMessage* msg, int mode, int resolution)
 {
-    int pin = msg->pin_cap_idx;
-    int cap_idx = msg->capabilities[pin].num;
+    const int pin = msg->pin_cap_idx;
+    if (pin >= MAX_PINS)
+        return;
 
-    if ((pin >= MAX_PINS) || (cap_idx >= MAX_PIN_CAPS))
+    const int cap_idx = msg->capabilities[pin].num;
+    if (cap_idx >= MAX_PIN_CAPS)
         return;
 
     msg->capabilities[pin].list[cap_idx].mode = (enum FirmataPinMode)mode;

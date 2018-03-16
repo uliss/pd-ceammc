@@ -28,6 +28,7 @@ void pd_init();
 
 typedef t_object* (*t_newempty)();
 typedef t_object* (*t_newfloat)(t_float);
+typedef t_object* (*t_newsymbol)(t_symbol*);
 typedef t_object* (*t_newgimme)(t_symbol* s, int argc, t_atom* argv);
 
 using namespace ceammc;
@@ -36,6 +37,9 @@ pd::External::External(const char* name, const AtomList& lst)
     : obj_(0)
 {
     t_symbol* OBJ_NAME = gensym(name);
+
+    //    pd_typedmess(&pd_objectmaker, OBJ_NAME, lst.size(), lst.toPdData());
+
     t_methodentry* m = pd_objectmaker->c_methods;
     try {
         for (int i = 0; i < pd_objectmaker->c_nmethod; i++) {
@@ -63,6 +67,15 @@ pd::External::External(const char* name, const AtomList& lst)
                     obj_ = (*new_fn)(f);
                     break;
                 }
+
+                if (m[i].me_arg[0] == A_DEFSYMBOL) {
+                    t_newsymbol new_fn = (t_newsymbol)m[i].me_fun;
+                    t_symbol* s = lst.empty() ? 0 : lst[0].asSymbol();
+                    obj_ = (*new_fn)(s);
+                    break;
+                }
+
+                printf("unknown construct method: %d...\n", m[i].me_arg[0]);
             }
         }
     } catch (std::exception& e) {
@@ -73,7 +86,7 @@ pd::External::External(const char* name, const AtomList& lst)
 
 pd::External::~External()
 {
-    if (!obj_) {
+    if (obj_) {
         pd_free(&obj_->te_g.g_pd);
     }
 }
@@ -85,19 +98,72 @@ bool pd::External::isNull() const
 
 bool pd::External::connectTo(int outn, t_object* dest, int inln)
 {
-    if (!obj_)
+    if (obj_ == dest) {
+        printf("[connectTo] self-connect\n");
         return false;
+    }
 
-    if (obj_ninlets(obj_) < 1)
+    if (!obj_) {
+        printf("[connectTo] NULL object\n");
         return false;
+    }
 
-    obj_connect(obj_, outn, dest, inln);
-    return true;
+    if (!dest) {
+        printf("[connectTo] NULL destination\n");
+        return false;
+    }
+
+    if (inln >= obj_ninlets(dest)) {
+        printf("[connectTo] invalid destination inlet: %d\n", inln);
+        return false;
+    }
+
+    if (outn >= numOutlets()) {
+        printf("[connectTo] invalid source outlet: %d\n", outn);
+        return false;
+    }
+
+    return obj_connect(obj_, outn, dest, inln) != 0;
 }
 
 bool pd::External::connectTo(int outn, pd::External& ext, int inln)
 {
     return connectTo(outn, ext.object(), inln);
+}
+
+bool pd::External::connectFrom(int outn, t_object* src, int inln)
+{
+    if (obj_ == src) {
+        printf("[connectTo] self-connect\n");
+        return false;
+    }
+
+    if (!obj_) {
+        printf("[connectTo] NULL object\n");
+        return false;
+    }
+
+    if (!src) {
+        printf("[connectTo] NULL source\n");
+        return false;
+    }
+
+    if (inln >= numInlets()) {
+        printf("[connectTo] invalid destination inlet: %d\n", inln);
+        return false;
+    }
+
+    if (outn >= obj_noutlets(src)) {
+        printf("[connectTo] invalid source outlet: %d\n", outn);
+        return false;
+    }
+
+    return obj_connect(src, outn, obj_, inln) != 0;
+}
+
+bool pd::External::connectFrom(int outn, pd::External& ext, int inln)
+{
+    return connectFrom(outn, ext.object(), inln);
 }
 
 t_object* pd::External::object()
@@ -113,12 +179,57 @@ void pd::External::bang()
     pd_bang(&obj_->te_g.g_pd);
 }
 
+void pd::External::sendBang()
+{
+    bang();
+}
+
 void pd::External::sendFloat(t_float v)
 {
     if (!obj_)
         return;
 
     pd_float(&obj_->te_g.g_pd, v);
+}
+
+void pd::External::sendSymbol(t_symbol* s)
+{
+    if (!obj_)
+        return;
+
+    pd_symbol(&obj_->te_g.g_pd, s);
+}
+
+void pd::External::sendList(const AtomList& l)
+{
+    if (!obj_)
+        return;
+
+    pd_list(&obj_->te_g.g_pd, &s_list, l.size(), l.toPdData());
+}
+
+void pd::External::sendMessage(t_symbol* msg, const AtomList& args)
+{
+    if (!obj_)
+        return;
+
+    pd_typedmess(&obj_->te_g.g_pd, msg, args.size(), args.toPdData());
+}
+
+int pd::External::numOutlets() const
+{
+    if (!obj_)
+        return 0;
+
+    return obj_noutlets(obj_);
+}
+
+int pd::External::numInlets() const
+{
+    if (!obj_)
+        return 0;
+
+    return obj_ninlets(obj_);
 }
 
 PureData::PureData()

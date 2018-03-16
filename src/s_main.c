@@ -250,10 +250,6 @@ void glob_initfromgui(void *dummy, t_symbol *s, int argc, t_atom *argv)
     if(!sys_load_lib(0, "ceammc"))
         post("ceammc: can't load library");
 
-    // load cream GUI library
-    if(!sys_load_lib(0, "creammc"))
-        post("creammc: can't load library");
-
         /* open patches specifies with "-open" args */
     for  (nl = sys_openlist; nl; nl = nl->nl_next)
         openit(cwd, nl->nl_string);

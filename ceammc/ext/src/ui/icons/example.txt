@@ -1,0 +1,186 @@
+/*add*/                             /*label*/
+[ui.icon add]                       [ui.icon label]
+                                    
+/*add_circle*/                      /*label_outline*/
+[ui.icon add_circle]                [ui.icon label_outline]
+                                    
+/*add_circle_outline*/              /*levels*/
+[ui.icon add_circle_outline]        [ui.icon levels]
+                                    
+/*add_to_queue*/                    /*lightbulb_outline*/
+[ui.icon add_to_queue]              [ui.icon lightbulb_outline]
+                                    
+/*alarm*/                           /*linear_scale*/
+[ui.icon alarm]                     [ui.icon linear_scale]
+                                    
+/*alarm_off*/                       /*list*/
+[ui.icon alarm_off]                 [ui.icon list]
+                                    
+/*alarm_on*/                        /*lock*/
+[ui.icon alarm_on]                  [ui.icon lock]
+                                    
+/*album*/                           /*lock_open*/
+[ui.icon album]                     [ui.icon lock_open]
+                                    
+/*arrow_down*/                      /*loop*/
+[ui.icon arrow_down]                [ui.icon loop]
+                                    
+/*arrow_left*/                      /*mic*/
+[ui.icon arrow_left]                [ui.icon mic]
+                                    
+/*arrow_right*/                     /*mic_none*/
+[ui.icon arrow_right]               [ui.icon mic_none]
+                                    
+/*arrow_up*/                        /*mic_off*/
+[ui.icon arrow_up]                  [ui.icon mic_off]
+                                    
+/*audio*/                           /*midi*/
+[ui.icon audio]                     [ui.icon midi]
+                                    
+/*backspace*/                       /*mouse*/
+[ui.icon backspace]                 [ui.icon mouse]
+                                    
+/*block*/                           /*movie*/
+[ui.icon block]                     [ui.icon movie]
+                                    
+/*bluetooth*/                       /*notifications*/
+[ui.icon bluetooth]                 [ui.icon notifications]
+                                    
+/*blur_on*/                         /*open_with*/
+[ui.icon blur_on]                   [ui.icon open_with]
+                                    
+/*bookmark*/                        /*pause*/
+[ui.icon bookmark]                  [ui.icon pause]
+                                    
+/*bookmark_border*/                 /*pause_circle_filled*/
+[ui.icon bookmark_border]           [ui.icon pause_circle_filled]
+                                    
+/*build*/                           /*pause_circle_outline*/
+[ui.icon build]                     [ui.icon pause_circle_outline]
+                                    
+/*cached*/                          /*play*/
+[ui.icon cached]                    [ui.icon play]
+                                    
+/*capslock*/                        /*play_circle_filled*/
+[ui.icon capslock]                  [ui.icon play_circle_filled]
+                                    
+/*check_circle*/                    /*play_circle_filled_white*/
+[ui.icon check_circle]              [ui.icon play_circle_filled_white]
+                                    
+/*clear*/                           /*play_circle_outline*/
+[ui.icon clear]                     [ui.icon play_circle_outline]
+                                    
+/*clock*/                           /*power*/
+[ui.icon clock]                     [ui.icon power]
+                                    
+/*computer*/                        /*radio*/
+[ui.icon computer]                  [ui.icon radio]
+                                    
+/*content_cut*/                     /*record*/
+[ui.icon content_cut]               [ui.icon record]
+                                    
+/*copy*/                            /*redo*/
+[ui.icon copy]                      [ui.icon redo]
+                                    
+/*copyright*/                       /*refresh*/
+[ui.icon copyright]                 [ui.icon refresh]
+                                    
+/*delete*/                          /*remove*/
+[ui.icon delete]                    [ui.icon remove]
+                                    
+/*delete_forever*/                  /*remove_circle*/
+[ui.icon delete_forever]            [ui.icon remove_circle]
+                                    
+/*done*/                            /*remove_circle_outline*/
+[ui.icon done]                      [ui.icon remove_circle_outline]
+                                    
+/*eject*/                           /*repeat*/
+[ui.icon eject]                     [ui.icon repeat]
+                                    
+/*equalizer*/                       /*repeat_one*/
+[ui.icon equalizer]                 [ui.icon repeat_one]
+                                    
+/*exit*/                            /*report_problem*/
+[ui.icon exit]                      [ui.icon report_problem]
+                                    
+/*fast_forward*/                    /*save*/
+[ui.icon fast_forward]              [ui.icon save]
+                                    
+/*fast_rewind*/                     /*search*/
+[ui.icon fast_rewind]               [ui.icon search]
+                                    
+/*favorite*/                        /*select_all*/
+[ui.icon favorite]                  [ui.icon select_all]
+                                    
+/*favorite_border*/                 /*settings*/
+[ui.icon favorite_border]           [ui.icon settings]
+                                    
+/*fingerprint*/                     /*settings2*/
+[ui.icon fingerprint]               [ui.icon settings2]
+                                    
+/*flag*/                            /*settings_voice*/
+[ui.icon flag]                      [ui.icon settings_voice]
+                                    
+/*folder*/                          /*shuffle*/
+[ui.icon folder]                    [ui.icon shuffle]
+                                    
+/*folder_open*/                     /*skip_next*/
+[ui.icon folder_open]               [ui.icon skip_next]
+                                    
+/*functions*/                       /*skip_previous*/
+[ui.icon functions]                 [ui.icon skip_previous]
+                                    
+/*gamepad*/                         /*speaker*/
+[ui.icon gamepad]                   [ui.icon speaker]
+                                    
+/*get_app*/                         /*speaker_group*/
+[ui.icon get_app]                   [ui.icon speaker_group]
+                                    
+/*grade*/                           /*stars*/
+[ui.icon grade]                     [ui.icon stars]
+                                    
+/*grain*/                           /*stop*/
+[ui.icon grain]                     [ui.icon stop]
+                                    
+/*group*/                           /*tape*/
+[ui.icon group]                     [ui.icon tape]
+                                    
+/*hdmi*/                            /*timeline*/
+[ui.icon hdmi]                      [ui.icon timeline]
+                                    
+/*headset*/                         /*touch_app*/
+[ui.icon headset]                   [ui.icon touch_app]
+                                    
+/*headset_mic*/                     /*trending_flat*/
+[ui.icon headset_mic]               [ui.icon trending_flat]
+                                    
+/*hearing*/                         /*undo*/
+[ui.icon hearing]                   [ui.icon undo]
+                                    
+/*help*/                            /*videocam*/
+[ui.icon help]                      [ui.icon videocam]
+                                    
+/*help_outline*/                    /*visibility*/
+[ui.icon help_outline]              [ui.icon visibility]
+                                    
+/*history*/                         /*visibility_off*/
+[ui.icon history]                   [ui.icon visibility_off]
+                                    
+/*home*/                            /*volume_down*/
+[ui.icon home]                      [ui.icon volume_down]
+                                    
+/*hourglass*/                       /*volume_mute*/
+[ui.icon hourglass]                 [ui.icon volume_mute]
+                                    
+/*info*/                            /*volume_off*/
+[ui.icon info]                      [ui.icon volume_off]
+                                    
+/*info_outline*/                    /*volume_up*/
+[ui.icon info_outline]              [ui.icon volume_up]
+                                    
+/*input*/                           /*zoom_in*/
+[ui.icon input]                     [ui.icon zoom_in]
+                                    
+/*keyboard*/                        /*zoom_out*/
+[ui.icon keyboard]                  [ui.icon zoom_out]
+                                    

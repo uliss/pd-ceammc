@@ -12,8 +12,8 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_data.h"
-#include "ceammc_datatypes.h"
 #include "ceammc_datastorage.h"
+#include "ceammc_datatypes.h"
 
 using namespace ceammc;
 
@@ -38,11 +38,9 @@ DataPtr::DataPtr(const Atom& data)
 }
 
 DataPtr::DataPtr(const DataPtr& d)
-    : desc_(INVALID)
-    , data_(0)
+    : desc_(d.desc_)
+    , data_(DataStorage::instance().acquire(desc_))
 {
-    desc_ = d.desc_;
-    data_ = DataStorage::instance().acquire(desc_);
 }
 
 DataPtr& DataPtr::operator=(const DataPtr& d)

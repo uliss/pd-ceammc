@@ -2,6 +2,7 @@
 #include "array_bpm.h"
 #include "array_set.h"
 #include "array_stretch.h"
+#include "array_vline_play.h"
 
 extern "C" void setup_array0x2ecopy();
 extern "C" void setup_array0x2edo();
@@ -23,4 +24,5 @@ void ceammc_array_setup()
     setup_array0x2es2p();
     setup_array0x2eset();
     setup_array0x2estretch();
+    setup_array_vline_play();
 }

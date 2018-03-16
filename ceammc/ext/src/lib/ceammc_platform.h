@@ -14,7 +14,9 @@
 #ifndef CEAMMC_PLATFORM_H
 #define CEAMMC_PLATFORM_H
 
+#include <boost/optional.hpp>
 #include <string>
+#include <vector>
 
 #include "m_pd.h"
 
@@ -81,6 +83,16 @@ namespace platform {
      * @param ms
      */
     void sleep_ms(unsigned int ms);
+
+    typedef std::vector<std::string> StringList;
+    typedef boost::optional<StringList> DirList;
+    /**
+     * @brief list_directory
+     * @param path
+     * @param pattern
+     * @return boost::null on error (can't read directory)
+     */
+    DirList list_directory(const char* path, const char* pattern = "");
 }
 }
 

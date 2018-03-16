@@ -14,7 +14,7 @@ def core_list():
     return lst
 
 def cream_list():
-    f = open("../../extra/CreamLibrary/cream_objects.txt", 'r')
+    f = open("../../ext/src/ui/CreamLibrary/cream_objects.txt", 'r')
     lst = f.read().split()
     f.close()
     return lst

@@ -20,7 +20,6 @@ extern "C" {
 #include "g_canvas.h"
 #include "m_imp.h"
 #include "s_stuff.h"
-void pd_init();
 }
 
 // Note! keep in sync with PD declaration

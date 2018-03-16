@@ -66,7 +66,7 @@ proc showhide_buttonbar {mytoplevel} {
         make_ceammc_button $mytoplevel sliders "Sliders"
         make_ceammc_button $mytoplevel slider2d "Slider 2D"
         make_ceammc_button $mytoplevel keyboard "Keyboard"
-        make_ceammc_button $mytoplevel bpfunc "Breakpoint function"
+        make_ceammc_button $mytoplevel env "Breakpoint function"
         make_ceammc_button $mytoplevel display "Display"
         make_ceammc_button_tilde $mytoplevel scope "Scope"
         make_ceammc_button_tilde $mytoplevel spectroscope "Spectroscope"

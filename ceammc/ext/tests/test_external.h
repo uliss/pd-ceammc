@@ -20,11 +20,33 @@
 using namespace ceammc;
 using namespace ceammc::pd;
 
+struct BANG__ {
+    BANG__() {}
+};
+
+extern const BANG__ BANG;
+
 class ExternalOutput : public External {
 public:
     ExternalOutput();
     Message msg();
     void reset();
+
+public:
+    static void setup();
+};
+
+class ListenerExternal : public External {
+public:
+    ListenerExternal(const char* s);
+    ListenerExternal(t_symbol* s);
+    Message msg();
+    t_symbol* addr();
+    void reset();
+
+public:
+    static void setup();
+    static bool isBinded(const char* s);
 };
 
 #endif // TEST_EXTERNAL_H

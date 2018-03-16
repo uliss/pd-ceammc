@@ -20,7 +20,7 @@
 namespace ceammc {
 namespace window {
     template <class Iterator, class FillFunc>
-    bool fill(Iterator begin, Iterator end, FillFunc fn)
+    inline bool fill(Iterator begin, Iterator end, FillFunc fn)
     {
         std::ptrdiff_t N = end - begin;
         if (N < 1)
@@ -38,10 +38,10 @@ namespace window {
     }
 
     template <class T>
-    T triangle(size_t idx, size_t n);
+    inline T triangle(size_t idx, size_t n);
 
     template <>
-    float triangle<float>(size_t idx, size_t n)
+    inline float triangle<float>(size_t idx, size_t n)
     {
         if (idx >= n || n < 2)
             return 0.f;
@@ -50,7 +50,7 @@ namespace window {
     }
 
     template <class T>
-    T welch(size_t idx, size_t n)
+    inline T welch(size_t idx, size_t n)
     {
         if (idx >= n || n < 2)
             return 0.f;
@@ -60,10 +60,10 @@ namespace window {
     }
 
     template <class T>
-    T hann(size_t idx, size_t n);
+    inline T hann(size_t idx, size_t n);
 
     template <>
-    float hann<float>(size_t idx, size_t n)
+    inline float hann<float>(size_t idx, size_t n)
     {
         if (idx >= n || n < 2)
             return 0.f;
@@ -72,28 +72,28 @@ namespace window {
     }
 
     template <class T>
-    T rect(size_t idx, size_t n);
+    inline T rect(size_t idx, size_t n);
 
     template <>
-    float rect<float>(size_t /*idx*/, size_t /*n*/)
+    inline float rect<float>(size_t /*idx*/, size_t /*n*/)
     {
         return 1;
     }
 
     template <class T>
-    T sine(size_t idx, size_t n);
+    inline T sine(size_t idx, size_t n);
 
     template <>
-    float sine<float>(size_t idx, size_t n)
+    inline float sine<float>(size_t idx, size_t n)
     {
         return sinf((M_PI * idx) / float(n - 1));
     }
 
     template <class T>
-    T hamming(size_t idx, size_t n);
+    inline T hamming(size_t idx, size_t n);
 
     template <>
-    float hamming<float>(size_t idx, size_t n)
+    inline float hamming<float>(size_t idx, size_t n)
     {
         static const float a = 0.54f;
         static const float b = 1 - a;
@@ -101,10 +101,10 @@ namespace window {
     }
 
     template <class T>
-    T blackman(size_t idx, size_t n);
+    inline T blackman(size_t idx, size_t n);
 
     template <>
-    float blackman<float>(size_t idx, size_t n)
+    inline float blackman<float>(size_t idx, size_t n)
     {
         static const float a = 0.16f;
         static const float a0 = (1 - a) / 2;
@@ -118,10 +118,10 @@ namespace window {
     }
 
     template <class T>
-    T nuttall(size_t idx, size_t n);
+    inline T nuttall(size_t idx, size_t n);
 
     template <>
-    float nuttall<float>(size_t idx, size_t n)
+    inline float nuttall<float>(size_t idx, size_t n)
     {
         static const float a0 = 0.355768f;
         static const float a1 = 0.487396f;
@@ -136,10 +136,10 @@ namespace window {
     }
 
     template <class T>
-    T blackman_harris(size_t idx, size_t n);
+    inline T blackman_harris(size_t idx, size_t n);
 
     template <>
-    float blackman_harris<float>(size_t idx, size_t n)
+    inline float blackman_harris<float>(size_t idx, size_t n)
     {
         static const float a0 = 0.35875f;
         static const float a1 = 0.48829f;
@@ -154,10 +154,10 @@ namespace window {
     }
 
     template <class T>
-    T flattop(size_t idx, size_t n);
+    inline T flattop(size_t idx, size_t n);
 
     template <>
-    float flattop<float>(size_t idx, size_t n)
+    inline float flattop<float>(size_t idx, size_t n)
     {
         static const float a0 = 0.21557895f;
         static const float a1 = 0.41663158f;
@@ -174,7 +174,7 @@ namespace window {
     }
 
     template <int SIGMA>
-    float gauss(size_t idx, size_t n)
+    inline float gauss(size_t idx, size_t n)
     {
         const float A = (n - 1) / 2.0f;
         const float x = (idx - A) / ((float(SIGMA) / 100.f) * A);

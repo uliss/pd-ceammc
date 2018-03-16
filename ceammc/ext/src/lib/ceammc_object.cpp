@@ -88,6 +88,17 @@ bool BaseObject::setProperty(const char* key, const AtomList& v)
     return setProperty(gensym(key), v);
 }
 
+bool BaseObject::setPropertyFromPositionalArg(Property* p, size_t n)
+{
+    if (!p)
+        return false;
+
+    if (positional_args_.size() <= n)
+        return false;
+
+    return p->set(AtomList(positional_args_.at(n)));
+}
+
 void BaseObject::bangTo(size_t n)
 {
     if (n >= outlets_.size()) {
@@ -376,15 +387,19 @@ void BaseObject::parseProperties()
 {
     std::deque<AtomList> p = pd_.args.properties();
     for (size_t i = 0; i < p.size(); i++) {
-        if (p[i].size() < 1) {
+        if (p[i].size() < 1)
             continue;
-        }
 
         t_symbol* pname = p[i][0].asSymbol();
+
         if (!hasProperty(pname)) {
             OBJ_ERR << "unknown property in argument list: " << pname->s_name;
             continue;
         }
+
+        // skip readonly properties
+        if (props_[pname]->readonly())
+            continue;
 
         props_[pname]->set(p[i].slice(1));
     }
@@ -649,53 +664,5 @@ t_symbol* BaseObject::tryGetPropKey(t_symbol* sel)
 bool BaseObject::isAbsolutePath(const char* path)
 {
     return sys_isabsolutepath(path) == 1;
-}
-
-SoundExternal::SoundExternal(const PdArgs& a)
-    : BaseObject(a)
-    , block_size_(0)
-    , n_in_(a.hasDefaultSignalInlet() ? 1 : 0)
-    , n_out_(0)
-{
-}
-
-void SoundExternal::setupDSP(t_signal** sp)
-{
-    block_size_ = size_t(sp[0]->s_n);
-    sample_rate_ = size_t(sp[0]->s_sr);
-
-    dsp_add(dspPerform, 1, static_cast<void*>(this));
-
-    for (size_t i = 0; i < n_in_; i++)
-        in_[i] = sp[i]->s_vec;
-
-    for (size_t i = 0; i < n_out_; i++)
-        out_[i] = sp[i + n_in_]->s_vec;
-}
-
-t_inlet* SoundExternal::createSignalInlet()
-{
-    if (n_in_ == MAX_SIG_NUM) {
-        OBJ_ERR << "too many inlets: " << n_in_;
-        return 0;
-    }
-
-    t_inlet* in = inlet_new(owner(), &owner()->ob_pd, &s_signal, &s_signal);
-    appendInlet(in);
-    n_in_++;
-    return in;
-}
-
-t_outlet* SoundExternal::createSignalOutlet()
-{
-    if (n_out_ == MAX_SIG_NUM) {
-        OBJ_ERR << "too many outlets: " << n_out_;
-        return 0;
-    }
-
-    t_outlet* out = outlet_new(owner(), &s_signal);
-    appendOutlet(out);
-    n_out_++;
-    return out;
 }
 }

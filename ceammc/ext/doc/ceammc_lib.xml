@@ -33,6 +33,12 @@
     <entry descr="call named function" name="function.call" ref_view="object">
       <xi:include href="function.call.pddoc" parse="xml"/>
     </entry>
+    <entry descr="metro with rythmic patterns" name="metro.pattern" ref_view="object">
+      <xi:include href="metro.pattern.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="metro sequencer" name="metro.seq" ref_view="object">
+      <xi:include href="metro.seq.pddoc" parse="xml"/>
+    </entry>
     <entry descr="returns window value by given window position" name="window" ref_view="object">
       <xi:include href="window.pddoc" parse="xml"/>
     </entry>
@@ -146,8 +152,32 @@
     <entry descr="AR (Attack, Release) envelope generator (useful to create percussion envelopes)." name="env.ar~" ref_view="object">
       <xi:include href="env.ar~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="Envelope concatenation" name="env.concat" ref_view="object">
+      <xi:include href="env.concat.pddoc" parse="xml"/>
+    </entry>
     <entry descr="Envelope follower with independent attack and release times." name="env.follow~" ref_view="object">
       <xi:include href="env.follow~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="Ouput mix between two envelopes. Envelopes should contain equal number of segments" name="env.mix" ref_view="object">
+      <xi:include href="env.mix.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="Envelope time-scale" name="env.tscale" ref_view="object">
+      <xi:include href="env.tscale.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="Envelope time-shift (horizontal)" name="env.tshift" ref_view="object">
+      <xi:include href="env.tshift.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="Envelope value-scale" name="env.vscale" ref_view="object">
+      <xi:include href="env.vscale.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="Renders envelope to specified array" name="env2array" ref_view="object">
+      <xi:include href="env2array.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="Converts envelope to bunch of vline messages" name="env2vline" ref_view="object">
+      <xi:include href="env2vline.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="Envelope data type" name="envelope" ref_view="object">
+      <xi:include href="envelope.pddoc" parse="xml"/>
     </entry>
   </category>
   <category name="flow">
@@ -286,6 +316,12 @@
     </entry>
     <entry descr="frequency shifter or single-sideband ring modulation" name="fx.freqshift~" ref_view="object">
       <xi:include href="fx.freqshift~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="A complex echo-like effect" name="fx.greyhole~" ref_view="object">
+      <xi:include href="fx.greyhole~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="One track looper" name="fx.looper~" ref_view="object">
+      <xi:include href="fx.looper~.pddoc" parse="xml"/>
     </entry>
     <entry descr="simple pitch shifter based on 2 delay lines" name="fx.pitchshift~" ref_view="object">
       <xi:include href="fx.pitchshift~.pddoc" parse="xml"/>
@@ -780,6 +816,20 @@
       <xi:include href="snd.file.pddoc" parse="xml"/>
     </entry>
   </category>
+  <category name="spat">
+    <entry descr="two channel equal power sine/cosine panner" name="pan.cos~" ref_view="object">
+      <xi:include href="pan.cos~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="two channel linear panner" name="pan.lin~" ref_view="object">
+      <xi:include href="pan.lin~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="spreads input channels across the stereo field" name="pan.spread~" ref_view="object">
+      <xi:include href="pan.spread~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="two channel equal power square root panner" name="pan.sqrt~" ref_view="object">
+      <xi:include href="pan.sqrt~.pddoc" parse="xml"/>
+    </entry>
+  </category>
   <category name="string">
     <entry descr="string constructor" name="string" ref_view="object">
       <xi:include href="string.pddoc" parse="xml"/>
@@ -865,14 +915,23 @@
     <entry descr="A bang... that's all" name="ui.bang" ref_view="link">
       <xi:include href="ui.bang.pddoc" parse="xml"/>
     </entry>
-    <entry descr="Breakpoint function GUI object" name="ui.bpfunc" ref_view="link">
-      <xi:include href="ui.bpfunc.pddoc" parse="xml"/>
-    </entry>
     <entry descr="colorchooser widget" name="ui.colorpanel" ref_view="link">
       <xi:include href="ui.colorpanel.pddoc" parse="xml"/>
     </entry>
     <entry descr="Display GUI object" name="ui.display" ref_view="link">
       <xi:include href="ui.display.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="GUI for turning DSP on/off" name="ui.dsp~" ref_view="link">
+      <xi:include href="ui.dsp~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="envelope editor widget" name="ui.env" ref_view="link">
+      <xi:include href="ui.env.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="UI gain control" name="ui.gain~" ref_view="link">
+      <xi:include href="ui.gain~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="simple icon with button capabilities" name="ui.icon" ref_view="link">
+      <xi:include href="ui.icon.pddoc" parse="xml"/>
     </entry>
     <entry descr="value increment/decrement" name="ui.incdec" ref_view="link">
       <xi:include href="ui.incdec.pddoc" parse="xml"/>
@@ -883,6 +942,9 @@
     <entry descr="knob widget" name="ui.knob" ref_view="link">
       <xi:include href="ui.knob.pddoc" parse="xml"/>
     </entry>
+    <entry descr="simple label widget" name="ui.label" ref_view="link">
+      <xi:include href="ui.label.pddoc" parse="xml"/>
+    </entry>
     <entry descr="Hyperlink widget" name="ui.link" ref_view="link">
       <xi:include href="ui.link.pddoc" parse="xml"/>
     </entry>
@@ -892,7 +954,7 @@
     <entry descr="Dropdown menu" name="ui.menu" ref_view="link">
       <xi:include href="ui.menu.pddoc" parse="xml"/>
     </entry>
-    <entry descr="counterpart of the vanilla [vu]. Shows peak signal level" name="ui.meter~" ref_view="link">
+    <entry descr="Shows peak and rms signal level" name="ui.meter~" ref_view="link">
       <xi:include href="ui.meter~.pddoc" parse="xml"/>
     </entry>
     <entry descr="counterpart of the vanilla [nbx]" name="ui.number" ref_view="link">
@@ -951,9 +1013,12 @@
     <authors>
       <author>Alex Nadzharov</author>
       <author>Hans-Christoph Steiner</author>
+      <author>Julian Parker</author>
       <author>Olli Parviainen</author>
       <author>Pierre Guillot</author>
       <author>Serge Poltavsky</author>
+      <author>Serge Potlavsky</author>
+      <author>Till Bovermann</author>
     </authors>
     <xi:include href="ceammc_meta.xml" parse="xml"/>
   </meta>

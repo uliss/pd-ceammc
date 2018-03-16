@@ -1,409 +1,490 @@
-//
-//  ui_sliders.cpp
-//  pd_ext
-//
-//  Created by Alex Nadzharov on 19/12/16.
-//
-//
+/*****************************************************************************
+ * Copyright 2018 Serge Poltavsky. All rights reserved.
+ *
+ * This file may be distributed under the terms of GNU Public License version
+ * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
+ * license should have been included with this file, or the project in which
+ * this file belongs to. You may also find the details of GPL v3 at:
+ * http://www.gnu.org/licenses/gpl-3.0.txt
+ *
+ * If you have any questions regarding the use of this file, feel free to
+ * contact the author of this file, or the owner of the project in which
+ * this file belongs to.
+ *****************************************************************************/
 
 #include <algorithm>
-
-#include "ceammc_gui.h"
+#include <boost/algorithm/minmax_element.hpp>
 
 #include "ceammc_atomlist.h"
+#include "ceammc_convert.h"
+#include "ceammc_fn_list.h"
 #include "ceammc_format.h"
+#include "ceammc_preset.h"
+#include "ceammc_ui.h"
+#include "ui_sliders.h"
 
 using namespace ceammc;
 
-template <typename T>
-static T clip(T min, T max, T v)
-{
-    return std::max(min, std::min(max, v));
-}
-
-struct ui_sliders : public ceammc_gui::BaseGuiObject {
-    t_outlet* out1;
-
-    AtomList* values_;
-
-    t_etext* txt_min;
-    t_etext* txt_max;
-    t_efont* txt_font;
-
-    t_rgba slider_color;
-    t_rgba slider_color_select;
-
-    int count;
-    float range;
-    float shift;
-
-    int sel_idx;
-    int auto_range;
-    int show_range;
-
-    bool _is_vertical;
-
-public:
-    void output()
-    {
-        values_->output(out1);
-        send(values_->size(), values_->toPdData());
-    }
-
-    void setValueAt(size_t idx, float v)
-    {
-        if (idx < values_->size()) {
-            float min = std::min(shift, shift + range);
-            float max = std::max(shift, shift + range);
-            values_->at(idx).setFloat(clip(min, max, v));
-        }
-    }
-
-    void setNormValueAt(size_t idx, float v)
-    {
-        if (idx < values_->size()) {
-            values_->at(idx).setFloat(range * clip(0.f, 1.f, v) + shift);
-        }
-    }
-
-    size_t sliderCount() const
-    {
-        return values_->size();
-    }
-
-    float normValueAt(size_t idx) const
-    {
-        // zero division check
-        if (range == 0.f)
-            return 0;
-
-        return clip(0.f, 1.f, (values_->at(idx).asFloat() - shift) / range);
-    }
-
-    void keepInRange()
-    {
-        if (!auto_range)
-            return;
-
-        for (size_t i = 0; i < values_->size(); i++)
-            setValueAt(i, values_->at(i).asFloat());
-    }
-};
-
-#pragma mark -
-
-namespace ceammc_gui {
-
 static const int MAX_SLIDERS_NUM = 1024;
+static t_symbol* SYM_SLIDER = gensym("slider");
 
-UI_fun(ui_sliders)::wx_paint(ui_sliders* zx, t_object* view)
+UISliders::UISliders()
+    : txt_font_(FONT_FAMILY, FONT_SIZE_SMALL)
+    , txt_min_(txt_font_.font(), ColorRGBA::black(), ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP)
+    , txt_max_(txt_font_.font(), ColorRGBA::black(), ETEXT_UP_LEFT, ETEXT_JRIGHT, ETEXT_NOWRAP)
+    , select_idx_(-1)
+    , is_vertical_(false)
+    , sliders_layer_(asEBox(), gensym("main_layer"))
+    , prop_slider_color(rgba_greydark)
+    , prop_select_color(rgba_blue)
+    , prop_min(0)
+    , prop_max(1)
+    , prop_auto_range(0)
+    , prop_show_range(1)
+    , prop_count(8)
+    , c_min()
+    , c_max()
 {
-    t_rect rect;
-    zx->getRect(&rect);
-
-    t_elayer* g = ebox_start_layer(asBox(zx), BG_LAYER, rect.width, rect.height);
-
-    if (g) {
-        // draw bins
-        for (size_t i = 0; i < zx->sliderCount(); i++) {
-            float v = zx->normValueAt(i);
-
-            float xx, yy, w, h;
-
-            if (zx->_is_vertical) {
-                xx = 0;
-                yy = i * rect.height / zx->sliderCount();
-                w = v * rect.width;
-                h = rect.height / zx->sliderCount() - 1;
-            } else {
-                yy = rect.height - v * rect.height;
-                xx = i * rect.width / zx->sliderCount();
-                h = rect.height;
-                w = rect.width / zx->sliderCount() - 1;
-            }
-
-            egraphics_rectangle(g, xx, yy, w, h);
-            egraphics_set_color_rgba(g, (i == zx->sel_idx) ? &zx->slider_color_select : &zx->slider_color);
-            egraphics_fill(g);
-
-            if (i == zx->sel_idx) {
-                egraphics_set_line_width(g, 1);
-                egraphics_rectangle(g, xx, yy, w - 1, h);
-                egraphics_set_color_rgba(g, &zx->b_color_border);
-                egraphics_stroke(g);
-            }
-        }
-
-        // draw text
-        if (zx->show_range) {
-            const float xoff = 3 * ebox_getzoom(asBox(zx));
-            const float yoff = 12 * ebox_getzoom(asBox(zx));
-
-            char c_min[10];
-            sprintf(c_min, "%g", zx->shift);
-
-            char c_max[10];
-            sprintf(c_max, "%g", zx->range + zx->shift);
-
-            etext_layout_set(zx->txt_min, c_min, zx->txt_font,
-                xoff, rect.height - yoff, rect.width * 2, rect.height / 2,
-                ETEXT_UP_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
-            etext_layout_draw(zx->txt_min, g);
-
-            etext_layout_set(zx->txt_max, c_max, zx->txt_font,
-                xoff, yoff, rect.width * 2, rect.height / 2,
-                ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
-            etext_layout_draw(zx->txt_max, g);
-        }
-
-        ebox_end_layer(asBox(zx), BG_LAYER);
-    }
-
-    ebox_paint_layer(asBox(zx), BG_LAYER, 0, 0);
+    createOutlet();
 }
 
-UI_fun(ui_sliders)::m_set(ui_sliders* zx, t_symbol*, int argc, t_atom* argv)
+void UISliders::okSize(t_rect* newrect)
 {
-    AtomList args(argc, argv);
-
-    if (zx->auto_range) {
-        Atom vmin;
-        Atom vmax;
-        args.range(vmin, vmax);
-
-        zx->shift = vmin.asFloat();
-        zx->range = vmax.asFloat() - zx->shift;
-
-        *zx->values_ = args;
-    } else {
-        const size_t total = std::min(zx->sliderCount(), static_cast<size_t>(argc));
-
-        for (size_t i = 0; i < total; i++) {
-            zx->setValueAt(i, atom_getfloat(argv + i));
-        }
-    }
-
-    ws_redraw(zx);
-}
-
-UI_fun(ui_sliders)::m_list(ui_sliders* z, t_symbol* s, int argc, t_atom* argv)
-{
-    m_set(z, s, argc, argv);
-    z->output();
-}
-
-UI_fun(ui_sliders)::m_bang(ui_sliders* z)
-{
-    z->output();
-}
-
-UI_fun(ui_sliders)::wx_oksize(ui_sliders* z, t_rect* newrect)
-{
-    z->_is_vertical = newrect->width < newrect->height;
+    is_vertical_ = newrect->width < newrect->height;
 
     newrect->width = std::max(20.f, newrect->width);
     newrect->height = std::max(20.f, newrect->height);
 }
 
-UI_fun(ui_sliders)::wx_mousedrag_ext(ui_sliders* zx, t_object*, t_pt pt, long /*modifiers*/)
+void UISliders::paint(t_object* view)
 {
-    t_rect rect;
-    zx->getRect(&rect);
+    paintBackground();
+    paintSliders();
+}
 
-    int numslider;
-    float val;
+void UISliders::paintBackground()
+{
+    const t_rect& r = rect();
+    UIPainter p = bg_layer_.painter(r);
 
-    if (zx->_is_vertical) {
-        numslider = static_cast<int>(floorf(pt.y / rect.height * zx->sliderCount()));
-        val = pt.x / rect.width;
+    if (!p)
+        return;
+
+    if (prop_show_range) {
+        const float z = zoom();
+        const float xoff = 3 * z;
+        const float yoff = 3 * z;
+
+        txt_min_.set(c_min, xoff, r.height - yoff, r.width * 2, r.height / 2);
+        txt_max_.set(c_max, xoff, yoff, r.width * 2, r.height / 2);
+
+        p.drawText(txt_min_);
+        p.drawText(txt_max_);
+    }
+}
+
+void UISliders::paintSliders()
+{
+    const t_rect& r = rect();
+    UIPainter p = sliders_layer_.painter(r);
+
+    if (!p)
+        return;
+
+    // draw bins
+    const size_t N = pos_values_.size();
+    for (size_t i = 0; i < N; i++) {
+        const float v = pos_values_[i];
+
+        float x, y, w, h;
+
+        if (is_vertical_) {
+            x = 0;
+            y = i * r.height / N;
+            w = v * r.width;
+            h = r.height / N - 1;
+        } else {
+            y = r.height - v * r.height;
+            x = i * r.width / N;
+            h = r.height;
+            w = r.width / N - 1;
+        }
+
+        p.setColor(i == select_idx_ ? prop_select_color : prop_slider_color);
+        p.drawRect(x, y, w, h);
+        p.fill();
+
+        if (i == select_idx_) {
+            p.setLineWidth(2);
+            p.setColor(prop_color_border);
+            p.drawRect(x, y, w - 1, h);
+            p.stroke();
+        }
+    }
+}
+
+void UISliders::onBang()
+{
+    outputList();
+}
+
+void UISliders::onList(const AtomList& lst)
+{
+    if (!setRealValues(lst))
+        return;
+
+    outputList();
+}
+
+void UISliders::loadPreset(size_t idx)
+{
+    AtomList lst = PresetStorage::instance().listValueAt(presetId(), idx);
+    onList(lst);
+}
+
+void UISliders::storePreset(size_t idx)
+{
+    PresetStorage::instance().setListValueAt(presetId(), idx, realValues());
+}
+
+void UISliders::onMouseDown(t_object* view, const t_pt& pt, long modifiers)
+{
+    const t_rect r = rect();
+    const size_t N = pos_values_.size();
+
+    size_t idx = 0;
+    float val = 0.f;
+
+    if (is_vertical_) {
+        if (pt.y < 0)
+            return;
+
+        idx = clip<size_t>(floorf(pt.y / r.height * N), 0, N - 1);
+        val = clip<float>(pt.x / r.width, 0, 1);
     } else {
-        numslider = static_cast<int>(floorf(pt.x / rect.width * zx->sliderCount()));
-        val = 1.f - pt.y / rect.height;
+        if (pt.x < 0)
+            return;
+
+        idx = clip<size_t>(floorf(pt.x / r.width * N), 0, N - 1);
+        val = clip<float>(1.f - pt.y / r.height, 0, 1);
     }
 
-    zx->setNormValueAt(numslider, val);
-    zx->output();
-
-    ws_redraw(zx);
+    pos_values_[idx] = val;
+    outputList();
+    redrawSliders();
 }
 
-UI_fun(ui_sliders)::wx_mousedown_ext(ui_sliders* z, t_object* view, t_pt pt, long modifiers)
+void UISliders::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
 {
-    wx_mousedrag_ext(z, view, pt, modifiers);
+    onMouseDown(view, pt, modifiers);
 }
 
-static void sliders_m_select(ui_sliders* zx, t_symbol* s, int argc, t_atom* argv)
+void UISliders::onDblClick(t_object* view, const t_pt& pt, long modifiers)
 {
-    zx->sel_idx = atom_getfloat(argv);
-    GuiFactory<ui_sliders>::ws_redraw(zx);
+    t_canvas* c = reinterpret_cast<t_canvas*>(view);
+    if (c->gl_edit)
+        resize(height(), width());
 }
 
-static void sliders_m_set_at(ui_sliders* zx, t_symbol* s, int argc, t_atom* argv)
+void UISliders::m_get(const AtomList& l)
 {
-    if (argc < 2)
+    if (l.size() > 0 && l[0].isSymbol()) {
+        if (l.size() == 2
+            && l[0].asSymbol() == SYM_SLIDER
+            && l[1].isFloat()) {
+
+            int idx = l[1].asFloat();
+            if (idx < 0 || idx >= pos_values_.size()) {
+                UI_ERR << "invalid slider index: " << idx;
+                return;
+            }
+
+            anyTo(0, SYM_SLIDER, AtomList(idx, realValueAt(idx)));
+        } else {
+            UI_ERR << "usage: get slider IDX";
+            return;
+        }
+    }
+}
+
+AtomList UISliders::realValues() const
+{
+    AtomList res;
+    res.fill(0.f, pos_values_.size());
+
+    for (size_t i = 0; i < pos_values_.size(); i++)
+        res[i] = realValueAt(i);
+
+    return res;
+}
+
+void UISliders::setRealValueAt(size_t n, t_float v)
+{
+    pos_values_[n] = clip<float>((v - prop_min) / (prop_max - prop_min), 0, 1);
+}
+
+float UISliders::realValueAt(size_t n) const
+{
+    return pos_values_[n] * (prop_max - prop_min) + prop_min;
+}
+
+bool UISliders::setRealValues(const AtomList& l)
+{
+    float range = prop_max - prop_min;
+
+    if (l.empty()) {
+        UI_ERR << "empty list given";
+        return false;
+    }
+
+    if (prop_auto_range) {
+        float min = l.min()->asFloat(0);
+        float max = l.max()->asFloat(1);
+        range = max - min;
+
+        if (range == 0.f) {
+            UI_ERR << "zero value range";
+            return false;
+        }
+
+        prop_min = min;
+        prop_max = max;
+        generateTxtLabels();
+        pos_values_.resize(std::min<size_t>(MAX_SLIDERS_NUM, l.size()), min);
+    } else if (range == 0.f) {
+        UI_ERR << "zero value range";
+        return false;
+    }
+
+    const size_t N = std::min(l.size(), pos_values_.size());
+    for (size_t i = 0; i < N; i++) {
+        float f = 0;
+
+        if (!l[i].getFloat(&f))
+            UI_ERR << "float value expected: " << l[i];
+
+        setRealValueAt(i, f);
+    }
+
+    redrawSliders();
+    return true;
+}
+
+float UISliders::propCount() const
+{
+    return pos_values_.size();
+}
+
+void UISliders::setPropCount(float f)
+{
+    prop_count = clip<int>(f, 1, MAX_SLIDERS_NUM);
+    pos_values_.resize(prop_count, prop_min);
+    redrawSliders();
+}
+
+float UISliders::propAutoRange() const
+{
+    return prop_auto_range;
+}
+
+void UISliders::setPropAutoRange(float f)
+{
+    prop_auto_range = (f) ? 1 : 0;
+    if (prop_auto_range)
+        normalize();
+}
+
+float UISliders::propRange() const
+{
+    return prop_max - prop_min;
+}
+
+AtomList UISliders::propValue() const
+{
+    return realValues();
+}
+
+void UISliders::generateTxtLabels()
+{
+    snprintf(c_min, 15, "%g", prop_min);
+    snprintf(c_max, 15, "%g", prop_max);
+}
+
+void UISliders::redrawSliders()
+{
+    sliders_layer_.invalidate();
+    redraw();
+}
+
+void UISliders::redrawAll()
+{
+    bg_layer_.invalidate();
+    sliders_layer_.invalidate();
+    redraw();
+}
+
+void UISliders::normalize()
+{
+    if (pos_values_.empty())
         return;
 
-    if (argv[0].a_type != A_FLOAT || argv[1].a_type != A_FLOAT)
+    typedef std::vector<float>::iterator Iterator;
+
+    std::pair<Iterator, Iterator> mm = boost::minmax_element(pos_values_.begin(), pos_values_.end());
+    const float range = prop_max - prop_min;
+    const float real_min = (*mm.first) * range + prop_min;
+    const float real_max = (*mm.second) * range + prop_min;
+    const float new_range = real_max - real_min;
+
+    if (*mm.second == *mm.first) {
+        UI_ERR << "normalize error - invalid range: " << new_range;
         return;
-
-    size_t pos = atom_getfloat(&argv[0]);
-    t_float v = atom_getfloat(&argv[1]);
-
-    zx->setValueAt(pos, v);
-    GuiFactory<ui_sliders>::ws_redraw(zx);
-}
-
-static void sliders_m_auto_range(ui_sliders* z, t_floatarg v)
-{
-    z->auto_range = (v != 0.f);
-    z->keepInRange();
-    GuiFactory<ui_sliders>::ws_redraw(z);
-}
-
-static void ui_sl_getdrawparams(ui_sliders* x, t_object* patcherview, t_edrawparams* params)
-{
-    params->d_borderthickness = 1;
-    params->d_cornersize = 2;
-    params->d_bordercolor = x->b_color_border;
-    params->d_boxfillcolor = x->b_color_background;
-}
-
-static t_pd_err slider_count_set(ui_sliders* x, t_object* attr, int ac, t_atom* av)
-{
-    if (!x->values_)
-        return 0;
-
-    AtomList args(ac, av);
-    if (args.empty()) {
-        pd_error(x, "[%s] empty list", eobj_getclassname(x)->s_name);
-        return 0;
     }
 
-    if (!args.at(0).isFloat()) {
-        pd_error(x, "[%s] invalid count value", eobj_getclassname(x)->s_name);
-        return 0;
+    for (size_t i = 0; i < pos_values_.size(); i++)
+        pos_values_[i] = (((pos_values_[i] * range) + prop_min) - real_min) / new_range;
+
+    prop_min = real_min;
+    prop_max = real_max;
+    setProperty(gensym("min"), AtomList(real_min));
+    setProperty(gensym("max"), AtomList(real_max));
+}
+
+void UISliders::m_set(const AtomList& l)
+{
+    // set slider IDX VALUE
+    // or
+    // set VALUES...
+    if (l.size() > 0 && l[0].isSymbol()) {
+        if (l.size() == 3
+            && l[0].asSymbol() == SYM_SLIDER
+            && l[1].isFloat()
+            && l[2].isFloat()) {
+
+            int idx = l[1].asFloat();
+            t_float v = l[2].asFloat();
+
+            if (idx < 0 || idx >= pos_values_.size()) {
+                UI_ERR << "invalid slider index: " << idx;
+                return;
+            }
+
+            setRealValueAt(idx, v);
+            redrawSliders();
+        } else {
+            UI_ERR << "usage: set slider INDEX VALUE";
+            return;
+        }
+    } else {
+        setRealValues(l);
+    }
+}
+
+void UISliders::m_select(const AtomList& l)
+{
+    select_idx_ = l.floatAt(0, -1);
+    redrawSliders();
+}
+
+void UISliders::m_plus(t_float f)
+{
+    m_set(realValues() + f);
+}
+
+void UISliders::m_minus(t_float f)
+{
+    m_set(realValues() - f);
+}
+
+void UISliders::m_mul(t_float f)
+{
+    m_set(realValues() * f);
+}
+
+void UISliders::m_div(t_float f)
+{
+    if (f == 0) {
+        UI_ERR << "division by zero";
+        return;
     }
 
-    int new_sz = clip(1, MAX_SLIDERS_NUM, args.at(0).asInt(1));
+    m_set(realValues() / f);
+}
 
-    x->values_->resizePad(new_sz, Atom(x->shift));
-    x->count = new_sz;
+void UISliders::m_increment()
+{
+    m_set(realValues() + 1);
+}
+
+void UISliders::m_decrement()
+{
+    m_set(realValues() - 1);
+}
+
+void UISliders::m_fill(t_float v)
+{
+    m_set(AtomList::filled(v, prop_count));
+}
+
+void UISliders::outputList()
+{
+    AtomList v = realValues();
+    listTo(0, v);
+    send(v);
+}
+
+void UISliders::setup()
+{
+    UIObjectFactory<UISliders> obj("ui.sliders");
+
+    obj.usePresets();
+    obj.useList();
+    obj.useBang();
+    obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_DRAG | UI_MOUSE_DBL_CLICK);
+
+    obj.setDefaultSize(150, 100);
+
+    obj.addProperty("slider_color", _("Slider color"), "0.75 0.75 0.75 1.0", &UISliders::prop_slider_color);
+    obj.addProperty("select_color", _("Select color"), DEFAULT_ACTIVE_COLOR, &UISliders::prop_select_color);
+
+    obj.addProperty("count", _("Sliders count"), 8, &UISliders::prop_count);
+    obj.setPropertyRange("count", 1, MAX_SLIDERS_NUM);
+    obj.setPropertyAccessor("count", &UISliders::propCount, &UISliders::setPropCount);
+
+    obj.addProperty("min", _("Minimum Value"), 0, &UISliders::prop_min, "Bounds");
+    obj.addProperty("max", _("Maximum Value"), 1, &UISliders::prop_max, "Bounds");
+
+    obj.addProperty("auto_range", _("Auto range"), false, &UISliders::prop_auto_range, "View");
+    obj.setPropertyAccessor("auto_range", &UISliders::propAutoRange, &UISliders::setPropAutoRange);
+    obj.addProperty("show_range", _("Show range"), true, &UISliders::prop_show_range, "View");
+
+    obj.addProperty("range", &UISliders::propRange, 0);
+    obj.addProperty("value", &UISliders::propValue, 0);
+
+    obj.addMethod("select", &UISliders::m_select);
+    obj.addMethod("set", &UISliders::m_set);
+    obj.addMethod("get", &UISliders::m_get);
+
+    obj.addMethod("+", &UISliders::m_plus);
+    obj.addMethod("-", &UISliders::m_minus);
+    obj.addMethod("*", &UISliders::m_mul);
+    obj.addMethod("/", &UISliders::m_div);
+    obj.addMethod("++", &UISliders::m_increment);
+    obj.addMethod("--", &UISliders::m_decrement);
+    obj.addMethod("fill", &UISliders::m_fill);
+}
+
+t_pd_err UISliders::notify(t_symbol* attrname, t_symbol* msg)
+{
+    if (msg == s_attr_modified) {
+        generateTxtLabels();
+        redrawAll();
+    }
+
     return 0;
 }
 
-static void slider_range_set(ui_sliders* x, t_object* attr, int ac, t_atom* av)
+void setup_ui_sliders()
 {
-    if (ac < 1)
-        return;
-
-    float v = Atom(*av).asFloat(0.0001f);
-    if (v == 0.f)
-        v = 0.0001f;
-
-    x->range = v;
-}
-
-UI_fun(ui_sliders)::m_preset(ui_sliders* zx, t_binbuf* b)
-{
-    if (!zx->values_)
-        return;
-
-    binbuf_addv(b, "s", &s_list);
-    binbuf_add(b, zx->sliderCount(), zx->values_->toPdData());
-}
-
-UI_fun(ui_sliders)::wx_attr_changed_ext(ui_sliders* z, t_symbol*)
-{
-    ws_redraw(z);
-}
-
-#pragma mark -
-
-UI_fun(ui_sliders)::init_ext(t_eclass* z)
-{
-    // clang-format off
-    CLASS_ATTR_DEFAULT              (z, "size", 0, "150. 100.");
-
-    CLASS_ATTR_RGBA                 (z, "fgcolor", 0, ui_sliders, slider_color);
-    CLASS_ATTR_LABEL                (z, "fgcolor", 0, _("Slider color"));
-    CLASS_ATTR_STYLE                (z, "fgcolor", 0, "color");
-    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "fgcolor", 0, "0.75 0.75 0.75 1.0");
-
-    CLASS_ATTR_INT                  (z, "count", 0, ui_sliders, count);
-    CLASS_ATTR_ACCESSORS            (z, "count", NULL, slider_count_set);
-    CLASS_ATTR_DEFAULT              (z, "count", 0, "8");
-    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "count", 0, "8");
-    CLASS_ATTR_FILTER_MIN           (z, "count", 1);
-    CLASS_ATTR_FILTER_MAX           (z, "count", MAX_SLIDERS_NUM);
-    CLASS_ATTR_LABEL                (z, "count", 0, _("Sliders count"));
-    CLASS_ATTR_STYLE                (z, "count", 0, "number");
-
-    CLASS_ATTR_FLOAT                (z, "shift", 0, ui_sliders, shift);
-    CLASS_ATTR_DEFAULT              (z, "shift", 0, "0");
-    CLASS_ATTR_LABEL                (z, "shift", 0, _("Value shift"));
-    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "shift", 0, "0");
-    CLASS_ATTR_STYLE                (z, "shift", 0, "number");
-
-    CLASS_ATTR_FLOAT                (z, "range", 0, ui_sliders, range);
-    CLASS_ATTR_DEFAULT              (z, "range", 0, "1");
-    CLASS_ATTR_ACCESSORS            (z, "range", NULL, slider_range_set);
-    CLASS_ATTR_LABEL                (z, "range", 0, _("Value range"));
-    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "range", 0, "1");
-    CLASS_ATTR_STYLE                (z, "range", 0, "number");
-
-    CLASS_ATTR_INT                  (z, "auto_range", 0, ui_sliders, auto_range);
-    CLASS_ATTR_DEFAULT              (z, "auto_range", 0, "0");
-    CLASS_ATTR_LABEL                (z, "auto_range", 0, _("Auto range"));
-    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "auto_range", 0, "0");
-    CLASS_ATTR_STYLE                (z, "auto_range", 0, "onoff");
-
-    CLASS_ATTR_INT                  (z, "show_range", 0, ui_sliders, show_range);
-    CLASS_ATTR_DEFAULT              (z, "show_range", 0, "1");
-    CLASS_ATTR_LABEL                (z, "show_range", 0, _("Show range"));
-    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "show_range", 0, "1");
-    CLASS_ATTR_STYLE                (z, "show_range", 0, "onoff");
-    // clang-format on
-
-    eclass_addmethod(z, (method)(sliders_m_select), "select", A_GIMME, 0);
-    eclass_addmethod(z, (method)(sliders_m_set_at), "set_at", A_GIMME, 0);
-    eclass_addmethod(z, (method)ui_sl_getdrawparams, "getdrawparams", A_NULL, 0);
-}
-
-UI_fun(ui_sliders)::new_ext(ui_sliders* zx, t_symbol* s, int argcl, t_atom* argv)
-{
-    zx->out1 = create_outlet(zx, &s_list);
-
-    zx->count = 8;
-    zx->values_ = new AtomList();
-    zx->values_->fill(0.f, zx->count);
-    zx->slider_color_select = hex_to_rgba("#00CAF0");
-
-    zx->range = 1;
-    zx->shift = 0;
-
-    zx->sel_idx = -1;
-    zx->auto_range = false;
-
-    zx->txt_max = etext_layout_create();
-    zx->txt_min = etext_layout_create();
-    zx->txt_font = efont_create(FONT_FAMILY, FONT_STYLE, FONT_WEIGHT, FONT_SIZE_SMALL);
-}
-
-UI_fun(ui_sliders)::free_ext(ui_sliders* zx)
-{
-    outlet_free(zx->out1);
-
-    efont_destroy(zx->txt_font);
-    etext_layout_destroy(zx->txt_max);
-    etext_layout_destroy(zx->txt_min);
-
-    delete zx->values_;
-}
-}
-
-extern "C" void setup_ui0x2esliders()
-{
-    ceammc_gui::GuiFactory<ui_sliders> class1;
-    class1.use_presets(true);
-    class1.setup("ui.sliders");
+    UISliders::setup();
 }

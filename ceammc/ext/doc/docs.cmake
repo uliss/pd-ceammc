@@ -35,9 +35,17 @@ set(DOC_FILES
     dyn.limit2~
     dyn.limit~
     dyn.softclip~
+    envelope
+    env.mix
+    env.tshift
+    env.tscale
+    env.vscale
+    env.concat
     env.adsr~
     env.ar~
     env.follow~
+    env2array
+    env2vline
     expand_env
     flow.change
     flow.count
@@ -83,6 +91,8 @@ set(DOC_FILES
     fx.freeverb2~
     fx.freeverb~
     fx.freqshift~
+    fx.greyhole~
+    fx.looper~
     fx.pitchshift~
     fx.zita_rev1~
     global.float
@@ -192,6 +202,8 @@ set(DOC_FILES
     math.tan
     math.tanh
     math.trunc
+    metro.pattern
+    metro.seq
     midi.ctl2str
     midi.file
     midi.track
@@ -210,6 +222,10 @@ set(DOC_FILES
     osc.sinfb~
     osc.square~
     osc.tri~
+    pan.cos~
+    pan.lin~
+    pan.spread~
+    pan.sqrt~
     patch.args
     path.basename
     path.dirname
@@ -264,15 +280,19 @@ set(DOC_FILES
     tl.cue
     tl.transport
     ui.bang
-    ui.bpfunc
     ui.colorpanel
     ui.display
+    ui.dsp~
+    ui.env
+    ui.gain~
+    ui.icon
     ui.incdec
     ui.keyboard
     ui.knob
     ui.matrix
     ui.menu
     ui.number
+    ui.label
     ui.link
     ui.number~
     ui.preset

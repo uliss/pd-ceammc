@@ -23,15 +23,18 @@ typedef TestExtension<Function> FunctionTest;
 
 static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
 
+void f1() { FunctionTest t("func"); }
+void f2() { FunctionTest t("sqrt"); }
+
 TEST_CASE("function", "[externals]")
 {
     SECTION("init")
     {
-        REQUIRE_THROWS(FunctionTest t("func"));
+        REQUIRE_THROWS(f1());
 
         FunctionTest t("func", L1("sqrt"));
         // already exists
-        REQUIRE_THROWS(FunctionTest t("sqrt"));
+        REQUIRE_THROWS(f2());
         // new name is ok
         FunctionTest t2("func", L1("sqrt2"));
 
@@ -65,6 +68,7 @@ TEST_CASE("function", "[externals]")
     SECTION("process")
     {
         function_setup();
+        ExternalOutput::setup();
 
         pd::External func("function", L1("sqrt"));
         REQUIRE(!func.isNull());

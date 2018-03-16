@@ -177,6 +177,7 @@ if(WIN32 OR MSYS)
 else()
     add_library(puredata-core STATIC ${D_SRC} ${G_SRC} ${M_SRC} ${S_SRC} ${X_SRC})
     add_executable(pd s_entry.c)
+    set_target_properties(puredata-core PROPERTIES COMPILE_FLAGS "-fPIC")
 endif()
 
 target_link_libraries(puredata-core ${PD_NEEDED_LIBS} ${PLATFORM_LINK_LIBRARIES})

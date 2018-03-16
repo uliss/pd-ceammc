@@ -16,7 +16,7 @@
 
 #include <stdio.h>
 
-#include "cicm_wrapper.h"
+#include "../ui/ceammc_cicm.h"
 
 #include "ceammc_globaldata.h"
 #include <algorithm>

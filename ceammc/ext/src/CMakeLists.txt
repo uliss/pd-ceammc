@@ -25,12 +25,12 @@ endif()
 set(CEAMMC_EXT_LINK_LIBRARIES ceammc_array ceammc_base ceammc_conv ceammc_data ceammc_dyn ceammc_env
     ceammc_flt ceammc_flow ceammc_fx ceammc_hw ceammc_lfo ceammc_list ceammc_math ceammc_midi
     ceammc_misc ceammc_noise ceammc_osc ceammc_preset ceammc_path ceammc_proto ceammc_random ceammc_spat
-    ceammc_symbol ceammc_system ceammc_string ceammc_tl ceammc_ui ceammc_vector ceammc_sound ceammc_window
-    cicm_static ceammc_core)
+    ceammc_symbol ceammc_synth ceammc_system ceammc_string ceammc_tl ceammc_ui ceammc_vector
+    ceammc_sound ceammc_window
+    ceammc_core)
 
 add_subdirectory(lib)
 include_directories(lib)
-include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra/CicmWrapper/Sources)
 include_directories(${CMAKE_SOURCE_DIR}/src)
 
 remove_definitions(-DPD_INTERNAL)
@@ -62,6 +62,7 @@ add_subdirectory(rtmidi)
 add_subdirectory(spat)
 add_subdirectory(string)
 add_subdirectory(symbol)
+add_subdirectory(synth)
 add_subdirectory(system)
 add_subdirectory(tl)
 add_subdirectory(ui)

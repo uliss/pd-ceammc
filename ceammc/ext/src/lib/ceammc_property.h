@@ -40,10 +40,12 @@ public:
     virtual bool set(const AtomList&) = 0;
     virtual AtomList get() const = 0;
 
+    void setVisible(bool v) { visible_ = v; }
+    void setReadonly(bool v) { readonly_ = v; }
+
 protected:
     bool readonlyCheck() const;
     bool emptyValueCheck(const AtomList& v) const;
-    void setVisible(bool v) { visible_ = v; }
 };
 
 class AtomProperty : public Property {
@@ -390,11 +392,14 @@ public:
 
     bool set(const AtomList& lst)
     {
+        if (!readonlyCheck())
+            return false;
+
         if (!emptyValueCheck(lst))
             return false;
 
         if (!check_fn_(atomlistToValue<V>(lst, def_))) {
-            LIB_ERR << "invalid property value given:" << lst;
+            LIB_ERR << "invalid value for property " << name()  << ": " << lst << ". " << errorString();
             return false;
         }
 
@@ -413,14 +418,22 @@ public:
         return reinterpret_cast<P*>(prop_)->value();
     }
 
+    virtual std::string errorString() const
+    {
+        return std::string();
+    }
+
 private:
     Property* prop_;
     V def_;
+
+public:
     CheckFunc check_fn_;
 };
 
 template <typename T>
 class ValidateLT {
+public:
     T upper_;
 
 public:
@@ -437,6 +450,7 @@ public:
 
 template <typename T>
 class ValidateLE {
+public:
     T upper_;
 
 public:
@@ -453,6 +467,7 @@ public:
 
 template <typename T>
 class ValidateGT {
+public:
     T lower_;
 
 public:
@@ -469,6 +484,7 @@ public:
 
 template <typename T>
 class ValidateGE {
+public:
     T lower_;
 
 public:
@@ -485,6 +501,7 @@ public:
 
 template <typename T>
 class ValidateRangeOpen {
+public:
     T lower_;
     T upper_;
 
@@ -503,6 +520,7 @@ public:
 
 template <typename T>
 class ValidateRangeClosed {
+public:
     T lower_;
     T upper_;
 
@@ -523,8 +541,17 @@ template <typename P, typename V>
 class GreaterThenProperty : public CheckedProperty<P, V, ValidateGT<V> > {
 public:
     GreaterThenProperty(const std::string& name, V initValue, V minValue)
-        : CheckedProperty<P, V, ValidateGT<V> >(name, initValue, minValue)
+        : CheckedProperty<P, V, ValidateGT<V> >(name,
+          ValidateGT<V>(minValue)(initValue) ? initValue : minValue + 1,
+          minValue)
     {
+    }
+
+    virtual std::string errorString() const
+    {
+        std::ostringstream os;
+        os << "Value shoud be > " << this->check_fn_.lower_ << '.';
+        return os.str();
     }
 };
 
@@ -532,8 +559,15 @@ template <typename P, typename V>
 class GreaterEqualProperty : public CheckedProperty<P, V, ValidateGE<V> > {
 public:
     GreaterEqualProperty(const std::string& name, V initValue, V minValue)
-        : CheckedProperty<P, V, ValidateGE<V> >(name, initValue, minValue)
+        : CheckedProperty<P, V, ValidateGE<V> >(name, std::max(initValue, minValue), minValue)
     {
+    }
+
+    std::string errorString() const
+    {
+        std::ostringstream os;
+        os << "Value shoud be >= " << this->check_fn_.lower_ << '.';
+        return os.str();
     }
 };
 
@@ -541,8 +575,16 @@ template <typename P, typename V>
 class LessThenProperty : public CheckedProperty<P, V, ValidateLT<V> > {
 public:
     LessThenProperty(const std::string& name, V initValue, V maxValue)
-        : CheckedProperty<P, V, ValidateLT<V> >(name, initValue, maxValue)
+        : CheckedProperty<P, V, ValidateLT<V> >(name,
+            ValidateLT<V>(maxValue)(initValue) ? initValue : maxValue - 1, maxValue)
     {
+    }
+
+    std::string errorString() const
+    {
+        std::ostringstream os;
+        os << "Value shoud be < " << this->check_fn_.upper_ << '.';
+        return os.str();
     }
 };
 
@@ -550,8 +592,15 @@ template <typename P, typename V>
 class LessEqualProperty : public CheckedProperty<P, V, ValidateLE<V> > {
 public:
     LessEqualProperty(const std::string& name, V initValue, V maxValue)
-        : CheckedProperty<P, V, ValidateLE<V> >(name, initValue, maxValue)
+        : CheckedProperty<P, V, ValidateLE<V> >(name, std::min(initValue, maxValue), maxValue)
     {
+    }
+
+    virtual std::string errorString() const
+    {
+        std::ostringstream os;
+        os << "Value shoud be <= " << this->check_fn_.upper_ << '.';
+        return os.str();
     }
 };
 
@@ -560,9 +609,18 @@ class OpenRangeProperty : public CheckedProperty<P, V, ValidateRangeOpen<V> > {
 public:
     OpenRangeProperty(const std::string& name, V initValue, V minValue, V maxValue)
         : CheckedProperty<P, V, ValidateRangeOpen<V> >(name,
-              initValue,
+              ValidateRangeOpen<V>(minValue, maxValue)(initValue) ? initValue : (minValue + maxValue) / 2,
               ValidateRangeOpen<V>(minValue, maxValue))
     {
+    }
+
+    virtual std::string errorString() const
+    {
+        std::ostringstream os;
+        os << "Value shoud be "
+           << this->check_fn_.lower_ << " < x < " << this->check_fn_.upper_
+           << '.';
+        return os.str();
     }
 };
 
@@ -571,9 +629,64 @@ class ClosedRangeProperty : public CheckedProperty<P, V, ValidateRangeClosed<V> 
 public:
     ClosedRangeProperty(const std::string& name, V initValue, V minValue, V maxValue)
         : CheckedProperty<P, V, ValidateRangeClosed<V> >(name,
-              initValue,
+              std::min(std::max(initValue, minValue), maxValue),
               ValidateRangeClosed<V>(minValue, maxValue))
     {
+    }
+
+    virtual std::string errorString() const
+    {
+        std::ostringstream os;
+        os << "Value shoud be "
+           << this->check_fn_.lower_ << " <= x <= " << this->check_fn_.upper_
+           << '.';
+        return os.str();
+    }
+};
+
+template<typename P, typename V>
+class InitProperty : public Property {
+    P* prop_;
+public:
+    InitProperty(P* prop)
+        : Property(prop->name(), false), prop_(prop)
+    {
+    }
+
+    ~InitProperty()
+    {
+        delete prop_;
+    }
+
+    V value() const
+    {
+        return prop_->value();
+    }
+
+    AtomList get() const
+    {
+        return prop_->get();
+    }
+
+    bool set(const AtomList& lst)
+    {
+        if(!readonlyCheck())
+            return false;
+
+        prop_->set(lst);
+        prop_->setReadonly(true);
+        setReadonly(true);
+        return true;
+    }
+
+    const P* prop() const
+    {
+        return prop_;
+    }
+
+    P* prop()
+    {
+        return prop_;
     }
 };
 
@@ -597,6 +710,45 @@ typedef LessEqualProperty<FloatProperty, float> FloatPropertyMaxEq;
 typedef LessThenProperty<FloatProperty, float> FloatPropertyMax;
 typedef OpenRangeProperty<FloatProperty, float> FloatPropertyOpenRange;
 typedef ClosedRangeProperty<FloatProperty, float> FloatPropertyClosedRange;
+
+typedef InitProperty<AtomProperty, Atom> InitAtomProperty;
+typedef InitProperty<ListProperty, AtomList> InitListProperty;
+typedef InitProperty<IntProperty, int> InitIntProperty;
+typedef InitProperty<SizeTProperty, size_t> InitSizeTProperty;
+typedef InitProperty<BoolProperty, bool> InitBoolProperty;
+typedef InitProperty<SymbolProperty, t_symbol*> InitSymbolProperty;
+
+#define CEAMMC_FLOAT_PROPERTY_DECLARE(_name) typedef InitProperty<_name, float> Init##_name
+#define CEAMMC_INT_PROPERTY_DECLARE(_name) typedef InitProperty<_name, int> Init##_name
+#define CEAMMC_SIZE_T_PROPERTY_DECLARE(_name) typedef InitProperty<_name, size_t> Init##_name
+
+CEAMMC_FLOAT_PROPERTY_DECLARE(FloatProperty);
+CEAMMC_FLOAT_PROPERTY_DECLARE(FloatPropertyMin);
+CEAMMC_FLOAT_PROPERTY_DECLARE(FloatPropertyMax);
+CEAMMC_FLOAT_PROPERTY_DECLARE(FloatPropertyMinEq);
+CEAMMC_FLOAT_PROPERTY_DECLARE(FloatPropertyMaxEq);
+CEAMMC_FLOAT_PROPERTY_DECLARE(FloatPropertyOpenRange);
+CEAMMC_FLOAT_PROPERTY_DECLARE(FloatPropertyClosedRange);
+
+CEAMMC_INT_PROPERTY_DECLARE(IntProperty);
+CEAMMC_INT_PROPERTY_DECLARE(IntPropertyMin);
+CEAMMC_INT_PROPERTY_DECLARE(IntPropertyMax);
+CEAMMC_INT_PROPERTY_DECLARE(IntPropertyMinEq);
+CEAMMC_INT_PROPERTY_DECLARE(IntPropertyMaxEq);
+CEAMMC_INT_PROPERTY_DECLARE(IntPropertyOpenRange);
+CEAMMC_INT_PROPERTY_DECLARE(IntPropertyClosedRange);
+
+CEAMMC_SIZE_T_PROPERTY_DECLARE(SizeTProperty);
+CEAMMC_SIZE_T_PROPERTY_DECLARE(SizeTPropertyMin);
+CEAMMC_SIZE_T_PROPERTY_DECLARE(SizeTPropertyMax);
+CEAMMC_SIZE_T_PROPERTY_DECLARE(SizeTPropertyMinEq);
+CEAMMC_SIZE_T_PROPERTY_DECLARE(SizeTPropertyMaxEq);
+CEAMMC_SIZE_T_PROPERTY_DECLARE(SizeTPropertyOpenRange);
+CEAMMC_SIZE_T_PROPERTY_DECLARE(SizeTPropertyClosedRange);
+
+#undef CEAMMC_FLOAT_PROPERTY_DECLARE
+#undef CEAMMC_INT_PROPERTY_DECLARE
+#undef CEAMMC_SIZE_T_PROPERTY_DECLARE
 }
 
 #endif // CEAMMC_PROPERTY_H

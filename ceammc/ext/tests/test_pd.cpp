@@ -27,7 +27,7 @@ TEST_CASE("PD", "[PureData]")
 {
     SECTION("hash table size")
     {
-        const int OFFSET = 7;
+        const int OFFSET = 17;
 
         t_ceammc_gensym_info info;
         gensym_info(&info);
@@ -39,8 +39,11 @@ TEST_CASE("PD", "[PureData]")
         gensym("test");
         gensym_info(&info);
         REQUIRE(info.symbol_count == 1 + OFFSET);
+
+#ifdef __MACOSX_CORE__
         REQUIRE(info.max_chain == 1);
-        REQUIRE(info.memory_size == 64);
+        REQUIRE(info.memory_size == 188);
+#endif
 
         char buf[20];
         for (int i = 0; i < 20000; i++) {

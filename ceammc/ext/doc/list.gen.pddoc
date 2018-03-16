@@ -13,6 +13,7 @@
             <keywords>list generate</keywords>
             <since>0.1</since>
             <also>
+                <see>list.seq</see>
                 <see>list.shuffle</see>
                 <see>list.choice</see>
             </also>

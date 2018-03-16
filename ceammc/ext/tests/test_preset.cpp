@@ -13,9 +13,9 @@
  *****************************************************************************/
 
 #include "../preset/preset_base.h"
-#include "../preset/preset_storage.h"
 #include "base_extension_test.h"
 #include "ceammc_pd.h"
+#include "ceammc_preset.h"
 
 #include "ceammc_platform.h"
 
@@ -168,5 +168,51 @@ TEST_CASE("ceammc_preset", "[PureData]")
         REQUIRE(s.keys().size() == 2);
         REQUIRE(s.hasPreset(gensym("OTHERS")));
         REQUIRE(s.floatValueAt(gensym("F"), 0) == -1024);
+    }
+
+    SECTION("NAN")
+    {
+        //        REQUIRE(platform::remove("./presets.txt"));
+
+        PresetStorage& s = PresetStorage::instance();
+        s.clearAll();
+
+        s.setFloatValueAt(gensym("test"), 0, std::numeric_limits<float>::quiet_NaN());
+        REQUIRE(s.hasFloatValueAt(gensym("test"), 0));
+        REQUIRE(s.floatValueAt(gensym("test"), 0) == 0);
+        REQUIRE(s.floatValueAt(gensym("test"), 0, -100) == -100);
+
+        s.setFloatValueAt(gensym("test"), 1, std::numeric_limits<float>::signaling_NaN());
+        REQUIRE(s.hasFloatValueAt(gensym("test"), 1));
+        REQUIRE(s.floatValueAt(gensym("test"), 1) == 0);
+        REQUIRE(s.floatValueAt(gensym("test"), 1, -1000) == -1000);
+
+        REQUIRE(s.write("./presets_nan.txt"));
+        REQUIRE(platform::path_exists("./presets_nan.txt"));
+        REQUIRE(s.keys().size() == 1);
+
+        // change presets
+        s.setFloatValueAt(gensym("test"), 0, 20);
+        s.floatValueAt(gensym("test"), 1, 40);
+
+        // restore presets
+        REQUIRE(s.read("./presets_nan.txt"));
+        REQUIRE(s.keys().size() == 1);
+
+        REQUIRE(s.hasFloatValueAt(gensym("test"), 0));
+        REQUIRE(s.hasFloatValueAt(gensym("test"), 1));
+        REQUIRE(s.floatValueAt(gensym("test"), 0) == 0);
+        REQUIRE(s.floatValueAt(gensym("test"), 1) == 0);
+    }
+
+    SECTION("INF")
+    {
+        PresetStorage& s = PresetStorage::instance();
+        s.clearAll();
+
+        s.setFloatValueAt(gensym("test"), 2, std::numeric_limits<float>::infinity());
+        REQUIRE(s.hasFloatValueAt(gensym("test"), 2));
+        REQUIRE(s.floatValueAt(gensym("test"), 2) == 0);
+        REQUIRE(s.floatValueAt(gensym("test"), 2, -100) == -100);
     }
 }

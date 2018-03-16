@@ -322,9 +322,9 @@ void canvas_slider2d(t_glist *gl, t_symbol *s, int argc, t_atom *argv)
     canvas_ceammcgui(gl, gensym("ui.slider2d"));
 }
 
-void canvas_bpfunc(t_glist *gl, t_symbol *s, int argc, t_atom *argv)
+void canvas_ui_env(t_glist *gl, t_symbol *s, int argc, t_atom *argv)
 {
-    canvas_ceammcgui(gl, gensym("ui.bpfunc"));
+    canvas_ceammcgui(gl, gensym("ui.env"));
 }
 
 void canvas_display(t_glist *gl, t_symbol *s, int argc, t_atom *argv)

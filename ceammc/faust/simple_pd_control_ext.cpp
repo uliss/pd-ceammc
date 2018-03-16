@@ -538,6 +538,17 @@ public:
         if (!faust_new_internal(x, objId, control_outlet_)) {
             this->x_ = NULL;
         }
+
+        std::deque<ceammc::AtomList> props = ceammc::AtomList(argc_, argv).properties();
+        for (size_t i = 0; i < props.size(); i++) {
+            ceammc::AtomList& p = props[i];
+            // skip empty property
+            if(p.size() < 2)
+                continue;
+
+            t_atom* data = p.toPdData() + 1;
+            this->x_->ui->setProperty(p[0].asSymbol(), p.size() - 1, data);
+        }
     }
 
     /**

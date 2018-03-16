@@ -12,6 +12,9 @@
             <category view="link">ui</category>
             <keywords>ui bang</keywords>
             <since>0.1</since>
+            <aliases>
+                <alias view="link">ui.b</alias>
+            </aliases>
             <also>
                 <see view="link">ui.toggle</see>
             </also>

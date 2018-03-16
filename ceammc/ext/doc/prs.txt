@@ -1,8 +1,15 @@
-@preset [ @index 0 @P-radio ui.radio float 6 @P-sliders ui.sliders
-list 0.18 0.3 0.35 0.43 0.52 0.62 0.74 0.88 @P-toggle ui.toggle float
-1 @P-rslider ui.rslider list 0.641667 0.308333 @index 1 @P-radio ui.radio
-float 1 @P-sliders ui.sliders list 0.92 0.82 0.75 0.67 0.59 0.53 0.3
-0.19 @P-toggle ui.toggle float 1 @P-rslider ui.rslider list 0.458333
-0.666667 @index 2 @P-radio ui.radio float 7 @P-sliders ui.sliders list
-0.12 0.82 0.75 0.67 0.59 0.53 0.3 0.84 @P-toggle ui.toggle float 0
-@P-rslider ui.rslider list 0.975 0.9 ] 
+P-rslider 0 list 0.175 0.566667;
+P-rslider 1 list 0.566667 0.883333;
+P-rslider 2 list 0.05 0.941667;
+P-toggle 0 float 1;
+P-toggle 1 float 0;
+P-toggle 2 float 0;
+/ 0 float 0;
+/ 1 float 0;
+/ 2 float 0;
+P-sliders 0 list 0.27 0.45 0.6 0.68 0.67 0.57 0.24 0;
+P-sliders 1 list 0.88 0.76 0.64 0.53 0.45 0.27 0.08 0.04;
+P-sliders 2 list 0.1 0.19 0.28 0.35 0.47 0.63 0.75 1;
+P-radio 0 float 1;
+P-radio 1 float 7;
+P-radio 2 float 4;

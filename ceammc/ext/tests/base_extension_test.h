@@ -20,6 +20,8 @@
 #include "ceammc_factory.h"
 #include "ceammc_message.h"
 #include "ceammc_object.h"
+#include "common_external_test.h"
+#include "test_datatypes.h"
 
 #include <boost/shared_ptr.hpp>
 #include <cassert>
@@ -31,9 +33,6 @@ using namespace ceammc;
 
 typedef std::vector<Message> MessageList;
 typedef std::vector<DataPtr> DataPtrList;
-
-extern "C" void obj_init();
-extern "C" void pd_init();
 
 template <class T>
 static t_object* make_owner(const char* name)
@@ -59,7 +58,7 @@ class TestExtension : public T {
     std::vector<DataPtrList> data_;
 
 public:
-    TestExtension(const char* name, const AtomList& args = AtomList());
+    TestExtension(const char* name, const AtomList& args = AtomList(), bool mainSignalInlet = false);
 
     /** send functions */
     void sendBang(int inlet = 0);
@@ -113,13 +112,16 @@ private:
     sendAtomCallback atom_cb_;
 };
 
+void setTestSampleRate(size_t sr = 44100);
+
 template <class T>
 class TestSoundExtension : public TestExtension<T> {
 public:
-    TestSoundExtension(const char* name, const AtomList& args = AtomList())
-        : TestExtension<T>(name, args)
+    TestSoundExtension(const char* name, const AtomList& args = AtomList(), bool mainSignalInlet = false)
+        : TestExtension<T>(name, args, mainSignalInlet)
     {
         T::setBlockSize(64);
+        setTestSampleRate();
     }
 };
 
@@ -190,6 +192,14 @@ public:
         REQUIRE(p->get() == test_atom_wrap(val));  \
     }
 
+#define REQUIRE_PROPERTY_FLOAT(obj, name, val)            \
+    {                                                     \
+        Property* p = obj.property(gensym(#name));        \
+        REQUIRE(p != 0);                                  \
+        REQUIRE_FALSE(p->get().empty());                  \
+        REQUIRE(p->get().at(0).asFloat() == Approx(val)); \
+    }
+
 #define REQUIRE_PROPERTY_LIST(obj, name, lst)      \
     {                                              \
         Property* p = obj.property(gensym(#name)); \
@@ -221,90 +231,6 @@ public:
         REQUIRE(obj.hasNewMessages(outlet));       \
         REQUIRE(obj.lastMessage(outlet).isData()); \
     }
-
-#define S(v) Atom(gensym(v))
-#define F(v) Atom(float(v))
-#define P(v) Atom(gensym(v))
-
-// clang-format off
-Atom test_atom_wrap(const char* v) { return Atom(gensym(v)); }
-Atom test_atom_wrap(t_symbol* v) { return Atom(v); }
-Atom test_atom_wrap(float v) { return Atom(v); }
-Atom test_atom_wrap(const Atom& v) { return v; }
-Atom test_atom_wrap(const DataPtr& d) { return d.asAtom(); }
-
-AtomList test_list_wrap(const Atom& a1) { return AtomList(a1); }
-AtomList test_list_wrap(const Atom& a1, const Atom& a2) { return AtomList(a1, a2); }
-AtomList test_list_wrap(const Atom& a1, const Atom& a2, const Atom& a3) {
-    AtomList res(a1, a2); res.append(a3); return res;
-}
-AtomList test_list_wrap(const Atom& a1, const Atom& a2, const Atom& a3, const Atom& a4) {
-    AtomList res(a1, a2); res.append(a3); res.append(a4); return res;
-}
-AtomList test_list_wrap(const Atom& a1, const Atom& a2, const Atom& a3, const Atom& a4,
-                        const Atom& a5) {
-    AtomList res(a1, a2); res.append(a3); res.append(a4); res.append(a5); return res;
-}
-AtomList test_list_wrap(const Atom& a1, const Atom& a2, const Atom& a3, const Atom& a4,
-                        const Atom& a5, const Atom& a6) {
-    AtomList res(a1, a2); res.append(a3); res.append(a4); res.append(a5); res.append(a6); return res;
-}
-AtomList test_list_wrap(const Atom& a1, const Atom& a2, const Atom& a3, const Atom& a4,
-                        const Atom& a5, const Atom& a6, const Atom& a7) {
-    AtomList res(a1, a2); res.append(a3); res.append(a4);
-    res.append(a5); res.append(a6); res.append(a7); return res;
-}
-AtomList test_list_wrap(const Atom& a1, const Atom& a2, const Atom& a3, const Atom& a4,
-                        const Atom& a5, const Atom& a6, const Atom& a7, const Atom& a8) {
-    AtomList res(a1, a2); res.append(a3); res.append(a4);
-    res.append(a5); res.append(a6); res.append(a7); res.append(a8); return res;
-}
-
-DataAtomList test_datalist_wrap(const Atom& a1) { return DataAtomList(a1); }
-
-DataAtomList test_datalist_wrap(const Atom& a1, const Atom& a2) {
-    DataAtomList res(a1);
-    res.append(a2);
-    return res;
-}
-
-DataAtomList test_datalist_wrap(const Atom& a1, const Atom& a2, const Atom& a3) {
-    DataAtomList res(a1);
-    res.append(a2);
-    res.append(a3);
-    return res;
-}
-
-DataAtomList test_datalist_wrap(const Atom& a1, const Atom& a2, const Atom& a3, const Atom& a4) {
-    DataAtomList res(a1);
-    res.append(a2);
-    res.append(a3);
-    res.append(a4);
-    return res;
-}
-// clang-format on
-
-#define D1(v) test_datalist_wrap(test_atom_wrap(v))
-#define D2(v1, v2) test_datalist_wrap(test_atom_wrap(v1), test_atom_wrap(v2))
-#define D3(v1, v2, v3) test_datalist_wrap(test_atom_wrap(v1), test_atom_wrap(v2), test_atom_wrap(v3))
-#define D4(v1, v2, v3, v4) test_datalist_wrap(test_atom_wrap(v1), test_atom_wrap(v2), \
-    test_atom_wrap(v3), test_atom_wrap(v4))
-
-#define A(v) test_atom_wrap(v)
-#define L1(v) test_list_wrap(test_atom_wrap(v))
-#define L2(v1, v2) test_list_wrap(test_atom_wrap(v1), test_atom_wrap(v2))
-#define L3(v1, v2, v3) test_list_wrap(test_atom_wrap(v1), test_atom_wrap(v2), test_atom_wrap(v3))
-#define L4(v1, v2, v3, v4) test_list_wrap(test_atom_wrap(v1), test_atom_wrap(v2), \
-    test_atom_wrap(v3), test_atom_wrap(v4))
-#define L5(v1, v2, v3, v4, v5) test_list_wrap(test_atom_wrap(v1), test_atom_wrap(v2), \
-    test_atom_wrap(v3), test_atom_wrap(v4), test_atom_wrap(v5))
-#define L6(v1, v2, v3, v4, v5, v6) test_list_wrap(test_atom_wrap(v1), test_atom_wrap(v2), \
-    test_atom_wrap(v3), test_atom_wrap(v4), test_atom_wrap(v5), test_atom_wrap(v6))
-#define L7(v1, v2, v3, v4, v5, v6, v7) test_list_wrap(test_atom_wrap(v1), test_atom_wrap(v2), \
-    test_atom_wrap(v3), test_atom_wrap(v4), test_atom_wrap(v5), test_atom_wrap(v6), test_atom_wrap(v7))
-#define L8(v1, v2, v3, v4, v5, v6, v7, v8) test_list_wrap(test_atom_wrap(v1), test_atom_wrap(v2),       \
-    test_atom_wrap(v3), test_atom_wrap(v4), test_atom_wrap(v5), test_atom_wrap(v6), test_atom_wrap(v7), \
-    test_atom_wrap(v8))
 
 #define WHEN_CALL(obj, method)                       \
     {                                                \
@@ -359,11 +285,6 @@ DataAtomList test_datalist_wrap(const Atom& a1, const Atom& a2, const Atom& a3, 
         obj.storeAllMessageCount();                                          \
         obj.m_##method(gensym(#method), L8(a1, a2, a3, a4, a5, a6, a7, a8)); \
     }
-
-static Atom D(DataType t, DataId id)
-{
-    return Atom(DataDesc(t, id));
-}
 
 template <class T>
 void WHEN_SEND_ANY_TO(T& obj, const AtomList& lst)
@@ -428,9 +349,18 @@ void WHEN_SEND_BANG_TO(size_t inlet, T& obj)
     obj.sendBang(inlet);
 }
 
+static PdArgs mainSignalArgs(const PdArgs& args)
+{
+    PdArgs res(args);
+    res.mainSignalInlet = true;
+    return res;
+}
+
 template <class T>
-TestExtension<T>::TestExtension(const char* name, const AtomList& args)
-    : T(PdArgs(args, gensym(name), make_owner<T>(name)))
+TestExtension<T>::TestExtension(const char* name, const AtomList& args, bool mainSignalInlet)
+    : T(mainSignalInlet
+              ? mainSignalArgs(PdArgs(args, gensym(name), make_owner<T>(name)))
+              : PdArgs(args, gensym(name), make_owner<T>(name)))
     , atom_cb_(0)
 {
     const size_t N = T::numOutlets();
@@ -665,104 +595,5 @@ const DataT* TestExtension<T>::typedLastDataAt(size_t outlet)
     } else
         return 0;
 }
-
-class IntData : public AbstractData {
-    int v_;
-
-public:
-    IntData(int v)
-        : v_(v)
-    {
-        constructor_called++;
-    }
-
-    ~IntData()
-    {
-        destructor_called++;
-    }
-
-    int value() const { return v_; }
-    void setValue(int v) { v_ = v; }
-    bool isEqual(const AbstractData* d) const
-    {
-        const IntData* dt = d->as<IntData>();
-        if (!dt)
-            return false;
-
-        return v_ == dt->v_;
-    }
-
-    bool isLess(const AbstractData* d) const
-    {
-        const IntData* dt = d->as<IntData>();
-        if (!dt)
-            return false;
-
-        return v_ < dt->v_;
-    }
-
-    std::string toString() const
-    {
-        std::ostringstream buf;
-        buf << v_;
-        return buf.str();
-    }
-
-    DataType type() const { return dataType; }
-    IntData* clone() const { return new IntData(v_); }
-
-public:
-    static DataType dataType;
-    static int constructor_called;
-    static int destructor_called;
-};
-
-DataType IntData::dataType = 1001;
-int IntData::constructor_called = 0;
-int IntData::destructor_called = 0;
-
-class StrData : public AbstractData {
-    std::string v_;
-
-public:
-    StrData(const std::string& v)
-        : v_(v)
-    {
-        constructor_called++;
-    }
-
-    ~StrData()
-    {
-        destructor_called++;
-    }
-
-    const std::string& get() const { return v_; }
-    void setValue(const std::string& v) { v_ = v; }
-    bool isEqual(const AbstractData* d) const
-    {
-        const StrData* dt = d->as<StrData>();
-        if (!dt)
-            return false;
-
-        return v_ == dt->v_;
-    }
-
-    std::string toString() const
-    {
-        return v_;
-    }
-
-    DataType type() const { return dataType; }
-    StrData* clone() const { return new StrData(v_); }
-
-public:
-    static DataType dataType;
-    static int constructor_called;
-    static int destructor_called;
-};
-
-DataType StrData::dataType = 1002;
-int StrData::constructor_called = 0;
-int StrData::destructor_called = 0;
 
 #endif // BASE_EXTENSION_TEST_H

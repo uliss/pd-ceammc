@@ -1,4 +1,27 @@
-set(UI_SOURCES "")
+if(WIN32)
+    add_definitions("-D_WINDOWS=1")
+endif()
+
+include_directories(cicm/Sources)
+
+add_subdirectory(CreamLibrary)
+
+set(UI_SOURCES
+    cicm/Sources/ebox.c
+    cicm/Sources/eclass.c
+    cicm/Sources/ecommon.c
+    cicm/Sources/egraphics.cpp
+    cicm/Sources/eobj.c
+    cicm/Sources/epopup.c
+    ceammc_cicm.h
+    ceammc_cicm.cpp
+    ceammc_ui.h
+    ceammc_dsp_ui.h
+    ceammc_ui_object.h
+    ceammc_ui_object.cpp
+    ceammc_ui_dsp_object.h
+    ceammc_ui_dsp_object.cpp
+    image_detect.cpp)
 
 set(UILINK_TCL ui_link.tcl)
 
@@ -12,17 +35,39 @@ macro(ceammc_ui_extension name)
     list(APPEND UI_SOURCES "ui_${name}.cpp")
 endmacro()
 
+ceammc_ui_extension(arrayview)
+ceammc_ui_extension(bang)
+ceammc_ui_extension(colorpanel)
+ceammc_ui_extension(display)
+ceammc_ui_extension(dsp)
+ceammc_ui_extension(env)
+ceammc_ui_extension(gain)
+ceammc_ui_extension(icon)
+ceammc_ui_extension(incdec)
 ceammc_ui_extension(keyboard)
+ceammc_ui_extension(knob)
+ceammc_ui_extension(label)
+ceammc_ui_extension(link)
+ceammc_ui_extension(matrix)
+ceammc_ui_extension(menu)
+ceammc_ui_extension(meter)
+ceammc_ui_extension(number)
+ceammc_ui_extension(number_tilde)
+ceammc_ui_extension(preset)
+ceammc_ui_extension(radio)
+ceammc_ui_extension(rslider)
+ceammc_ui_extension(scope)
+ceammc_ui_extension(single_value)
+ceammc_ui_extension(slider)
 ceammc_ui_extension(slider2d)
 ceammc_ui_extension(sliders)
-ceammc_ui_extension(knob)
-ceammc_ui_extension(scope~)
-ceammc_ui_extension(spectroscope~)
-ceammc_ui_extension(bpfunc)
-ceammc_ui_extension(display)
-ceammc_ui_extension(link)
+ceammc_ui_extension(spectroscope)
+ceammc_ui_extension(tab)
+ceammc_ui_extension(toggle)
 
 add_library(ceammc_ui STATIC mod_ui.cpp ${UI_SOURCES})
 if(UNIX)
     set_target_properties(ceammc_ui PROPERTIES COMPILE_FLAGS "-fPIC")
 endif()
+
+target_link_libraries(ceammc_ui ceammc_env cream_core)

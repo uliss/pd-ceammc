@@ -13,10 +13,13 @@
  *****************************************************************************/
 #include "ceammc_platform.h"
 #include "ceammc_log.h"
+#include "config.h"
 
 #include "g_canvas.h"
 #include <cstdio>
 #include <cstdlib>
+#include <cerrno>
+#include <cstring>
 
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
@@ -28,6 +31,12 @@
 #else
 #define NS(f) unix_##f
 #include "ceammc_platform_unix.h"
+#endif
+
+#ifdef HAVE_DIRENT_H
+#include <dirent.h>
+#else
+#error <dirent.h> is missing...
 #endif
 
 namespace ceammc {
@@ -195,6 +204,37 @@ namespace platform {
     void sleep_ms(unsigned int ms)
     {
         NS(sleep_ms(ms));
+    }
+
+    DirList list_directory(const char* path, const char* pattern)
+    {
+        std::vector<std::string> res;
+
+        DIR* dir = opendir(path);
+        if (dir == NULL) {
+            LIB_ERR << "can't read directory: '" << path << "'. Error: " << strerror(errno);
+            return boost::none;
+        }
+
+        const bool match = (pattern != 0 && pattern[0] != '\0');
+
+        struct dirent* p_dirent;
+        while ((p_dirent = readdir(dir)) != NULL) {
+            // skip hidden files on UNIX
+            if (p_dirent->d_name[0] == '.')
+                continue;
+
+            if (match) {
+                if (platform::fnmatch(pattern, p_dirent->d_name))
+                    res.push_back(p_dirent->d_name);
+            } else {
+                res.push_back(p_dirent->d_name);
+            }
+        }
+
+        closedir(dir);
+
+        return res;
     }
 }
 }

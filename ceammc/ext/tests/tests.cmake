@@ -3,6 +3,22 @@ if(WINE_EXE)
     message(STATUS "WINE found: ${WINE_EXE}")
 endif()
 
+# wine mingw32 tests
+if(MINGW AND WINE_EXE)
+    add_custom_target(test_wine_dll_copy ALL
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_BINARY_DIR}/src/libpuredata-core.dll
+        ${CMAKE_CURRENT_BINARY_DIR}/libpuredata-core.dll
+
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_BINARY_DIR}/ceammc/ext/src/lib/libceammc_core.dll
+        ${CMAKE_CURRENT_BINARY_DIR}/libceammc_core.dll
+
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_BINARY_DIR}/ceammc/ext/src/lib/libceammc_sound.dll
+        ${CMAKE_CURRENT_BINARY_DIR}/libceammc_sound.dll
+
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_BINARY_DIR}/ceammc/ext/src/ceammc.dll
+        ${CMAKE_CURRENT_BINARY_DIR}/ceammc.dll)
+endif()
+
 function(set_test_command title exec_path)
     if(MINGW AND WINE_EXE)
         add_test(NAME ${title} COMMAND ${WINE_EXE} ${exec_path})
@@ -36,7 +52,7 @@ macro(ceammc_add_test_linked)
     set(name ${_TEST_NAME})
     set(title ${_TEST_TITLE})
     add_executable(${name} "${name}.cpp" ${_TEST_SRC})
-    target_link_libraries(${name} ${_TEST_LINK} tests_main_lib)
+    target_link_libraries(${name} ${_TEST_LINK} tests_main_lib ceammc_core)
     target_include_directories(${name} PUBLIC ${_TEST_INCLUDE_DIRECTORIES})
     set_test_command(${title} ${name})
 endmacro()
@@ -87,6 +103,7 @@ if(${WITH_COVERAGE})
                     --output "${CMAKE_BINARY_DIR}/coverage/index.html"
                     --exclude "ceammc/ext/src/tests/*"
                     --exclude "ceammc/ext/src/lib/utf8rewind*"
+                    --exclude "firmata_bison*"
                     --sort-percentage
                     --use-gcov-files
                     -k
@@ -121,3 +138,13 @@ if(${WITH_COVERAGE})
         endif()
     endif()
 endif()
+
+macro(ceammc_ui_test name)
+    string(REGEX REPLACE "[~]$" "" output ${name})
+    string(REGEX REPLACE "[.]" "_" output ${output})
+    ceammc_add_test_linked(TITLE "[${name}]"
+        NAME test_ext_${output}
+        INCLUDE_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR}/../src/ui
+        LINK ceammc_ui ceammc_core puredata-core)
+endmacro()
+

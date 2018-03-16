@@ -16,10 +16,14 @@
                 <see view="link">ui.matrix</see>
             </also>
         </meta>
+        <info>
+            <par>Double click in edit mode changes slider orientation</par>
+        </info>
         <properties>
             <property name="@nitems" type="int" default="8" minvalue="1">number of items</property>
             <property name="@mode" type="int" enum="0 1" default="0">check list mode.
             If true acts as checklist</property>
+            <property name="@value" type="list">widget value (float or list)</property>
             <property name="@send" type="symbol">send destination</property>
             <property name="@receive" type="symbol">receive source</property>
         </properties>
@@ -28,6 +32,10 @@
             <param name="V" type="float" required="true">new value</param></method>
             <method name="reset">reset radio (only in checklist mode)</method>
             <method name="flip">flips radio (only in checklist mode)</method>
+            <method name="next">moves to next position until last cell is reached (single mode only)</method>
+            <method name="prev">moves to previous position until first cell is reached (single mode only)</method>
+            <method name="+ STEP">moves several steps forward on a loop (single mode only)</method>
+            <method name="- STEP">moves several step backwards on a loop (single mode only)</method>
         </methods>
         <inlets>
             <inlet>
@@ -45,9 +53,14 @@
 [F]  [set 2(         [flip( [reset( [1 1 0 1 0 0 1(
 |    |               |      |       |
 |    |               |      |       |
-[ui.radio]           [ui.radio @mode=1]
+[ui.radio ]          [ui.radio @mode=1]
 |                    |
 [F]                  [ui.display @display_type 1]
+
+[+ 3( [- 1( [prev( [next(
+|     |     |      |
+|     |     |      |
+[ui.radio          ]
 ]]>
             </pdascii>
         </example>

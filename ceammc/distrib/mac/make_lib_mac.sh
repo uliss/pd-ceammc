@@ -54,7 +54,7 @@ do
 done
 
 echo "Copying CREAM extension files to ${OUTDIR} ..."
-find "${BINDIR}/../extra/CreamLibrary" -name *.d_fat -print0 | while read -r -d '' file
+find "${BINDIR}/../ext/src/ui/CreamLibrary" -name *.d_fat -print0 | while read -r -d '' file
 do
     ext_name=$(basename $file)
     skip_ext $file

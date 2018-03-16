@@ -201,6 +201,32 @@ const Atom* AtomList::foldAt(int pos) const
     return const_cast<AtomList*>(this)->foldAt(pos);
 }
 
+int AtomList::intAt(size_t pos, int def) const
+{
+    if (pos >= atoms_.size())
+        return def;
+
+    return atoms_[pos].asInt(def);
+}
+
+t_float AtomList::floatAt(size_t pos, t_float def) const
+{
+    if (pos >= atoms_.size())
+        return def;
+
+    return atoms_[pos].asFloat(def);
+}
+
+t_symbol* AtomList::symbolAt(size_t pos, t_symbol* def) const
+{
+    if (pos >= atoms_.size())
+        return def;
+
+    t_symbol* res = def;
+    atoms_[pos].getSymbol(&res);
+    return res;
+}
+
 void AtomList::resizePad(size_t n, const Atom& v)
 {
     atoms_.resize(n, v);

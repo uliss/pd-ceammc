@@ -317,7 +317,18 @@ function install_tk() {
     fi
 
     unzip -o  "tk-release.zip"
-    cd tk-core*/unix
+
+    cd tk-core*/macosx
+
+    echo "Patch tkMacOSXXStubs.c"
+    echo "933,934c933,934
+< 	    assert(bytes_per_row == 4 * scaled_width);
+< 	    assert([bitmap_rep bytesPerPlane] == bytes_per_row * scaled_height);
+---
+> 	    //assert(bytes_per_row == 4 * scaled_width);
+> 	    //assert([bitmap_rep bytesPerPlane] == bytes_per_row * scaled_height);" | patch tkMacOSXXStubs.c
+
+    cd ../unix
 
     banner "Configure ${pkg}"
     ./configure --prefix="/usr/local" --bindir="/usr/local/bin" --libdir="/Library/Frameworks" \

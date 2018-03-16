@@ -262,7 +262,7 @@ namespace hw {
     bool ArduinoThread::parseArduinoId(const std::string& str, int& vid, int& pid, std::string& serialNo)
     {
         // format is fixed: "USB VID:PID=%04x:%04x SNR=%s"
-        int vid_, pid_;
+        unsigned int vid_, pid_;
         char buf[100];
         if (sscanf(str.c_str(), "USB VID:PID=%04x:%04x SNR=%99s", &vid_, &pid_, buf) != 3)
             return false;

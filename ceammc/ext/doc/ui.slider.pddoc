@@ -12,12 +12,20 @@
             <category view="link">ui</category>
             <keywords>ui slider</keywords>
             <since>0.1</since>
+            <aliases>
+                <alias view="link">ui.hsl</alias>
+                <alias view="link">ui.vsl</alias>
+            </aliases>
             <also>
                 <see view="link">ui.slider2d</see>
                 <see view="link">ui.sliders</see>
                 <see view="link">ui.knob</see>
             </also>
         </meta>
+        <info>
+            <par>Double click in edit mode changes slider orientation</par>
+            <par>[ui.hsl] is alias for horizontal slider, [ui.vsl] - for vertical</par>
+        </info>
         <properties>
             <property name="@min" type="float" default="0">minimum slider value</property>
             <property name="@max" type="float" default="1">maximum slider value</property>

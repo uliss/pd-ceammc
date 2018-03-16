@@ -23,7 +23,7 @@
             Can handle UI objects only on the save canvas, no subpatches or abstractions are supported.</par>
             <par>*Click* activates preset slot, *Shift+click* saves to specified preset slot,
             *Alt+click* removes preset value;</par>
-            <par>NOTE: if now UI widgets with @presetname on canvas - *Shift-click* is disabled.</par>
+            <par>NOTE: if no UI widgets with @presetname on canvas - *Shift-click* is disabled.</par>
             <par>Active slot is highlighted, available slots are dark gray</par>
         </info>
         <properties>
@@ -32,7 +32,6 @@
         <methods>
             <method name="clear">clear specified preset
             <param type="int" name="IDX" required="true" minvalue="0">preset index</param></method>
-            <method name="clearall">clear all presets</method>
             <method name="store">stores specified preset
             <param type="int" name="IDX" required="true">preset index</param></method>
             <method name="read">read presets from file
@@ -41,13 +40,8 @@
             <param type="symbol" name="PATH" required="true">path to preset file</param></method>
         </methods>
         <inlets>
-            <inlet>
-                <xinfo on="float">loads specified preset</xinfo>
-            </inlet>
+            <inlet/>
         </inlets>
-        <outlets>
-            <outlet>outputs 0 or 1</outlet>
-        </outlets>
         <example>
             <pdascii>
 <![CDATA[
@@ -59,9 +53,9 @@
 
 [ui.rslider @presetname=P-rslider]
 
-
-
 [F]
+|
+[load $1(
 |
 | [clear 1(   [clearall(         [loadbang]
 | |           |                  |

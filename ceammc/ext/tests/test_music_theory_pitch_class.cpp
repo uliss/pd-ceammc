@@ -122,17 +122,51 @@ static bool pitchClassCmp(const PitchClass& c1, const PitchClass& c2)
 
 TEST_CASE("MusicTheory::PitchClass", "[ceammc::music]")
 {
+    SECTION("static")
+    {
+        REQUIRE(PitchClass::C.pitchName() == PitchName::C);
+        REQUIRE(PitchClass::C.alteration() == Alteration::NATURAL);
+        REQUIRE(PitchClass::C.absolutePitch() == 0);
+
+        REQUIRE(PitchClass::D.pitchName() == PitchName::D);
+        REQUIRE(PitchClass::D.alteration() == Alteration::NATURAL);
+        REQUIRE(PitchClass::D.absolutePitch() == 2);
+
+        REQUIRE(PitchClass::C != PitchClass::D);
+    }
+
     SECTION("construct")
     {
-        PitchClass p(PitchName::C);
+        PitchClass p(PitchName::C, Alteration::NATURAL);
         REQUIRE(p.pitchName() == PitchName::C);
         REQUIRE(p.alteration() == Alteration::NATURAL);
+        REQUIRE(p.absolutePitch() == 0);
         REQUIRE(p);
+
+        PitchClass p1(PitchName::C, Alteration::SHARP);
+        REQUIRE(p1.pitchName() == PitchName::C);
+        REQUIRE(p1.alteration() == Alteration::SHARP);
+        REQUIRE(p1.absolutePitch() == 1);
+        REQUIRE(p1);
 
         PitchClass p2(PitchName::D, Alteration::FLAT);
         REQUIRE(p2.pitchName() == PitchName::D);
         REQUIRE(p2.alteration() == Alteration::FLAT);
+        REQUIRE(p2.absolutePitch() == 1);
         REQUIRE(p2);
+
+        PitchClass p3(PitchName::E, Alteration::NATURAL);
+        REQUIRE(p3.pitchName() == PitchName::E);
+        REQUIRE(p3.alteration() == Alteration::NATURAL);
+        REQUIRE(p3.absolutePitch() == 4);
+        REQUIRE(p3);
+
+        REQUIRE(PitchClass::C == PitchClass::C);
+        REQUIRE(PitchClass::Cs == PitchClass::Cs);
+        REQUIRE(PitchClass::Df.absolutePitch() == 1);
+        REQUIRE(PitchClass::Cs.absolutePitch() == 1);
+        REQUIRE(PitchClass::D == PitchClass::D);
+        REQUIRE(PitchClass::D.absolutePitch() == 2);
     }
 
     SECTION("construct from MIDI value")

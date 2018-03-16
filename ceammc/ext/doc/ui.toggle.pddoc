@@ -13,6 +13,9 @@
             <category view="link">ui</category>
             <keywords>ui toggle</keywords>
             <since>0.1</since>
+            <aliases>
+                <alias view="link">ui.t</alias>
+            </aliases>
             <also>
                 <see view="link">ui.bang</see>
             </also>

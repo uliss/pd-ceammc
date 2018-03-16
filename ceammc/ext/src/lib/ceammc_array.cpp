@@ -211,6 +211,12 @@ ArrayIterator::ArrayIterator(const ArrayIterator& i)
 {
 }
 
+ArrayIterator& ArrayIterator::operator=(const ArrayIterator& i)
+{
+    data_ = i.data_;
+    return *this;
+}
+
 float& ArrayIterator::operator*()
 {
     return data_->w_float;

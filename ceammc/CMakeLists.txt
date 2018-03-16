@@ -25,9 +25,10 @@ set(POT_TEMPLATE "${CMAKE_SOURCE_DIR}/po/template.pot")
 find_program(XGETTEXT xgettext)
 
 if(XGETTEXT)
-    file(GLOB _CICM_FILES RELATIVE ${CMAKE_SOURCE_DIR}/po "${CMAKE_CURRENT_SOURCE_DIR}/extra/CicmWrapper/Sources/*.c")
-    file(GLOB _CREAM_FILES RELATIVE ${CMAKE_SOURCE_DIR}/po "${CMAKE_CURRENT_SOURCE_DIR}/extra/CreamLibrary/Sources/*.cpp")
+    file(GLOB _CICM_FILES RELATIVE ${CMAKE_SOURCE_DIR}/po "${CMAKE_CURRENT_SOURCE_DIR}/ext/src/ui/cicm/Sources/*.c")
+    file(GLOB _CREAM_FILES RELATIVE ${CMAKE_SOURCE_DIR}/po "${CMAKE_CURRENT_SOURCE_DIR}/ext/src/ui/CreamLibrary/Sources/*.cpp")
     file(GLOB _CEAMMC_FILES RELATIVE ${CMAKE_SOURCE_DIR}/po "${CMAKE_CURRENT_SOURCE_DIR}/ext/src/*.cpp")
+    file(GLOB _UI_FILES RELATIVE ${CMAKE_SOURCE_DIR}/po "${CMAKE_CURRENT_SOURCE_DIR}/ext/src/ui/*.cpp")
 
     add_custom_target(ceammc_messages
         COMMAND ${XGETTEXT} --join-existing --from-code=UTF-8
@@ -36,7 +37,7 @@ if(XGETTEXT)
             --package-name="Pure Data" --package-version=${PD_TEXT_VERSION_FULL}
             --copyright-holder='This file is put in the public domain'
             --foreign-user --msgid-bugs-address=pd-dev@iem.at
-            ${_CICM_FILES} ${_CREAM_FILES} ${_CEAMMC_FILES}
+            ${_CICM_FILES} ${_CREAM_FILES} ${_CEAMMC_FILES} ${_UI_FILES}
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 endif()
 

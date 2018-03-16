@@ -72,6 +72,7 @@ extern "C" void ceammc_setup()
     ceammc_init();
 }
 
+#ifndef __WIN32
 extern "C" int sys_zoomfontwidth(int fontsize, int, int)
 {
     return sys_fontwidth(fontsize);
@@ -81,3 +82,4 @@ extern "C" int sys_zoomfontheight(int fontsize, int, int)
 {
     return sys_fontheight(fontsize);
 }
+#endif

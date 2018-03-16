@@ -17,18 +17,22 @@
 			<string>Pure Data Patch</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+            <key>CFBundleTypeMIMETypes</key>
+            <array>
+                <string>text/plain</string>
+            </array>
 		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
-        <string>Wish</string>
+    <string>Wish</string>
 	<key>CFBundleIdentifier</key>
-        <string>com.ceammc.puredata</string>
-        <key>CFBundleDisplayName</key>
-        <string>PureData (${PD_MACOSX_BUNDLE_SUFFIX})</string>
-        <key>CFBundleName</key>
-        <string>Pd</string>
-        <key>CFBundleSpokenName</key>
-        <string>PureData</string>
+    <string>com.ceammc.puredata</string>
+    <key>CFBundleDisplayName</key>
+    <string>PureData (${PD_MACOSX_BUNDLE_SUFFIX})</string>
+    <key>CFBundleName</key>
+    <string>Pd</string>
+    <key>CFBundleSpokenName</key>
+    <string>PureData</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundlePackageType</key>
@@ -36,8 +40,26 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleIconFile</key>
-        <string>pd_ceammc.icns</string>
+    <string>pd_ceammc.icns</string>
 	<key>CFBundleVersion</key>
-        <string>${PD_TEXT_VERSION_SHORT}</string>
+    <string>${PD_TEXT_VERSION_SHORT}</string>
+    <key>UTExportedTypeDeclarations</key>
+    <array>
+        <dict>
+            <key>UTTypeConformsTo</key>
+            <array><string>public.text</string></array>
+            <key>UTTypeDescription</key>
+            <string>Pure Data patch</string>
+            <key>UTTypeIconFile</key>
+            <string>pd_doc.icns</string>
+            <key>UTTypeIdentifier</key>
+            <string>org.puredata.pd-patch</string>
+            <key>UTTypeTagSpecification</key>
+            <dict>
+                <key>public.filename-extension</key>
+                <array><string>pd</string></array>
+            </dict>
+        </dict>
+    </array>
 </dict>
 </plist>

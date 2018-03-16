@@ -1,4 +1,5 @@
-set(FX_SOURCES "")
+set(FX_SOURCES fx_looper.cpp)
+
 macro(ceammc_fx_extension name)
     list(APPEND FX_SOURCES "fx_${name}.cpp")
     ceammc_faust_gen(fx ${name})
@@ -11,7 +12,8 @@ ceammc_fx_extension(freeverb2)
 ceammc_fx_extension(freqshift)
 ceammc_fx_extension(pitchshift)
 ceammc_fx_extension(zita_rev1)
-
+ceammc_fx_extension(greyhole)
+ceammc_fx_extension(granulator)
 
 add_library(ceammc_fx STATIC mod_fx.cpp ${FX_SOURCES})
 set_target_properties(ceammc_fx PROPERTIES COMPILE_DEFINITIONS "FAUST_MACRO")

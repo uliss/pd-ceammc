@@ -18,11 +18,16 @@
                 <see view="link">ui.presets</see>
             </also>
         </meta>
+        <info>
+            <par>Double click in edit mode changes multislider orientation</par>
+        </info>
         <properties>
-            <property name="@count" type="int" default="8" minvalue="1">number of
+            <property name="@count" type="int" default="8" minvalue="1" maxvalue="1024">number of
             sliders</property>
-            <property name="@range" type="float" default="1">sliders value range</property>
-            <property name="@shift" type="float" default="0">sliders value offset</property>
+            <property name="@min" type="float" default="0">minimal value</property>
+            <property name="@max" type="float" default="1">maximum value</property>
+            <property name="@range" type="float" default="1" readonly="true">value range</property>
+            <property name="@value" type="list" readonly="true">sliders value</property>
             <property name="@presetname" type="symbol">preset name for using with
             [ui.preset]</property>
             <property name="@send" type="symbol">send destination</property>
@@ -34,13 +39,25 @@
         <methods>
             <method name="dump">dumps all object info to Pd console window</method>
             <method name="select">draws specified slider with select color 
-            <param name="N" required="true" minvalue="0" type="int">slider index, starting from
-            0.</param></method>
+                <param name="N" required="true" minvalue="0" type="int">slider index, starting from
+                0.</param>
+            </method>
             <method name="set">sets sliders value without output</method>
-            <method name="set_at">sets specified slider value 
-            <param name="IDX" required="true" type="int" minvalue="0">slider position, starting
-            from 0</param>
-            <param name="VAL" required="true" type="float">slider value</param></method>
+            <method name="set slider N V">sets specified slider value
+                <param name="N" required="true" type="int" minvalue="0">slider position, starting
+                from 0</param>
+                <param name="V" required="true" type="float">slider value</param>
+            </method>
+            <method name="++">increment all sliders without output</method>
+            <method name="--">decrement all sliders without output</method>
+            <method name="+">add value to every slider without output
+            <param name="V" type="float" required="true">added value</param></method>
+            <method name="-">substruct value from every slider without output
+            <param name="V" type="float" required="true">substructed value</param></method>
+            <method name="*">multiply each slider without output
+            <param name="V" type="float" required="true">mutiplied value</param></method>
+            <method name="/">divide each slider without output
+            <param name="V" type="float" required="true">denominator value</param></method>
         </methods>
         <inlets>
             <inlet>
@@ -54,17 +71,17 @@
         <example>
             <pdascii>
 <![CDATA[
-[1 2 3 4 5( [0 30(          [F]         [T]
-|           |               |           |
-|  [B]      [list.seq]      [@count $1( [@auto_range $1(
-|  |        |               |           |
-|  |        | [F]           |           |
-|  |        | |             |           |   [select 4(
-|  |        | [set_at 4 $1( |           |   |
-|  |        | |             |           |   |
-|  |        | |             |           |   |
-|  |        | |             |           |   |
-[ui.sliders       @range=10  @presetname=sl-help]
+[1 2 3 4 5( [0 30(              [F]         [T]
+|           |                   |           |
+|  [B]      [list.seq]          [@count $1( [@auto_range $1(
+|  |        |                   |           |
+|  |        | [F]               |           |
+|  |        | |                 |           |   [select 4(
+|  |        | [set slider 4 $1( |           |   |
+|  |        | |                 |           |   |
+|  |        | |                 |           |   |  /*vertical slider*/
+|  |        | |                 |           |   |
+[ui.sliders       @max=10  @presetname=sl-help  ]  [ui.sliders @size=100x150]
 |
 |
 |

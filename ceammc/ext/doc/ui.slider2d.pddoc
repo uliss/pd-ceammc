@@ -22,25 +22,31 @@
             <par>2D sliders widget</par>
         </info>
         <properties>
-            <property name="@range_x" type="float" default="2">x-value range</property>
-            <property name="@range_y" type="float" default="2">y-value range</property>
-            <property name="@shift_x" type="float" default="-1">x-value offset</property>
-            <property name="@shift_y" type="float" default="-1">y-value offset</property>
+            <property name="@x_min" type="float" default="-1">minimal x-value</property>
+            <property name="@x_max" type="float" default="1">maximum x-value</property>
+            <property name="@y_min" type="float" default="-1">minimal y-value</property>
+            <property name="@y_max" type="float" default="-1">maximum y-value</property>
+            <property name="@x_range" type="float" readonly="true">x-value range</property>
+            <property name="@y_range" type="float" readonly="true">y-value range</property>
+            <property name="@x_value" type="float">slider x-value</property>
+            <property name="@y_value" type="float">slider y-value</property>
             <property name="@presetname" type="symbol">preset name for using with
             [ui.preset]</property>
             <property name="@send" type="symbol">send destination</property>
             <property name="@receive" type="symbol">receive source</property>
             <property name="@show_range" type="int" enum="0 1">if show slider range</property>
+            <property name="@show_grid" type="int" enum="0 1">if show grid</property>
         </properties>
         <methods>
             <method name="dump">dumps all object info to Pd console window</method>
             <method name="set">sets slider position without output 
-            <param name="X" type="float" required="true">x-position</param>
-            <param name="Y" type="float" required="true">y-position</param></method>
-            <method name="set_x">sets X-slider position without output 
-            <param name="X" type="float" required="true">x-position</param></method>
-            <method name="set_y">sets Y-slider position without output 
-            <param name="Y" type="float" required="true">y-position</param></method>
+                <param name="X" type="float" required="true">x-position</param>
+                <param name="Y" type="float" required="true">y-position</param>
+            </method>
+            <method name="move">move slider by given offset
+                <param name="X" type="float" required="true">x-offset</param>
+                <param name="Y" type="float" required="true">y-offset</param>
+            </method>
         </methods>
         <inlets>
             <inlet>
@@ -54,9 +60,11 @@
         <example>
             <pdascii>
 <![CDATA[
-[set 0 0(  [set_x 0.5( [set_y 0.1(
-|          |           |
-[ui.slider2d @presetname=s2d-help]
+                           [T]
+                           |
+[set 0 0(  [move 0.1 -0.1( [@show_grid $1(
+|          |               |
+[ui.slider2d @presetname=s2d-help  ]
 |
 |
 |

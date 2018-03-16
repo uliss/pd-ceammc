@@ -5,6 +5,7 @@
         <meta>
             <authors>
                 <author>Pierre Guillot</author>
+                <author>Serge Poltavsky</author>
             </authors>
             <description>counterpart of the vanilla [nbx]</description>
             <license>GPL3</license>
@@ -12,15 +13,25 @@
             <category view="link">ui</category>
             <keywords>ui number</keywords>
             <since>0.1</since>
+            <aliases>
+                <alias view="link">ui.n</alias>
+            </aliases>
             <also>
                 <see view="link">ui.number~</see>
             </also>
         </meta>
+        <info>
+            <par>Display mode: key '-' and '+' increments value. Mouse drag changes value. Default step is 1/pixel.
+            Holding SHIFT divide step by 100. Holding CTRL multiply by 10.</par>
+            <par>Input mode: Double click to enter new value. Accepted keys: -.0123456789. Press ENTER or TAB key
+            to finish. ESCAPE undo input, BACKSPACE removes last character.</par>
+        </info>
         <properties>
             <property name="@min" type="float">minimum value</property>
             <property name="@max" type="float">maximum value</property>
             <property name="@send" type="symbol">send destination</property>
             <property name="@receive" type="symbol">receive source</property>
+            <property name="@value" type="float">widget value</property>
         </properties>
         <methods>
             <method name="set">sets slider value without output
@@ -40,10 +51,11 @@
             <inlet>
                 <xinfo on="bang">outputs current value</xinfo>
                 <xinfo on="float">input value</xinfo>
+                <xinfo on="list">first element converted to float</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>signal pass thru</outlet>
+            <outlet>number value</outlet>
         </outlets>
         <example>
             <pdascii>
@@ -56,7 +68,10 @@
 | | |    | |    |     |
 | | |    | |    |     | [set -1( [B]
 | | |    | |    |     | |        |
-[ui.number                       ]
+[ui.number  @size 200 40          ]
+|
+|
+|
 |
 [F]
 ]]>

@@ -12,11 +12,9 @@
 #include <vector>
 
 #include "ceammc_atomlist.h"
-#include "ceammc_gui.h"
 
 using namespace std;
 using namespace ceammc;
-using namespace ceammc_gui;
 
 namespace ceammc {
 
