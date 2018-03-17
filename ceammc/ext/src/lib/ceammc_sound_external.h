@@ -86,6 +86,7 @@ private:
 protected:
     /* only for testing! */
     void setBlockSize(size_t s) { block_size_ = s; }
+    void setSamplerate(size_t sr) { sample_rate_ = sr; }
 };
 }
 
