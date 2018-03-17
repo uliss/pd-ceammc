@@ -392,8 +392,7 @@ case ${PKG} in
         install_portaudio
         ;;
     *)
-        echo "Choose from following: modplug, fftw3, tcl, tcllib, tk, tklib, ogg, \
-              vorbis, flac, portaudio or all"
+        echo "Choose from following: modplug, fftw3, tcl, tcllib, tk, tklib, ogg, vorbis, flac, portaudio or all"
         exit 1
         ;;
 esac
