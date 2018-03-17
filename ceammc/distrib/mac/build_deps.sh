@@ -232,7 +232,7 @@ function install_tcl() {
     banner "Downloading ${pkg}"
     if [ ! -f "tcl-release.zip" ]
     then
-        curl "https://github.com/tcltk/tcl/archive/core_8_6_6.zip" -o "tcl-release.zip"
+        curl -L "https://github.com/tcltk/tcl/archive/core-8-6-6.zip" -o "tcl-release.zip"
     fi
 
     unzip -o  "tcl-release.zip"
@@ -392,7 +392,7 @@ case ${PKG} in
         install_portaudio
         ;;
     *)
-        echo "Choose from following: modplug, fftw3, tcl, tcllib, tk, tklib, ogg, vorbis, flac, portaudio or all"
+        echo "Choose from following: modplug, fftw3, tcl, tcllib, tk, tklib, ogg, vorbis, flac, sndfile, portaudio or all"
         exit 1
         ;;
 esac
