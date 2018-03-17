@@ -121,7 +121,8 @@ public:
         : TestExtension<T>(name, args, mainSignalInlet)
     {
         T::setBlockSize(64);
-        setTestSampleRate();
+        T::setSamplerate(48000);
+        setTestSampleRate(48000);
     }
 };
 
