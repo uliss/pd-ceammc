@@ -52,7 +52,6 @@ Features: v0.3
    - 8 new objects: knob, multiple slider box, 2d slider, keyboard, message display, scope and oscilloscope
    - breakpoint function object, working with envelope objects
    - Basic timeline objects: graphical cues in a patch
-   - Includes several objects from CICM Cream Library
  * Extensions:
    - New objects toolbar (also works as edit mode indicator)
    - Saving subpatch as new patch
@@ -65,7 +64,6 @@ this work is based on / includes:
 ---------------------------------
    - Pd vanilla (this repository)
    - CICM Wrapper library (https://github.com/CICM/CicmWrapper)
-   - Cream library (https://github.com/CICM/CreamLibrary)
    - hcs library (https://puredata.info/downloads/hcs)
    - comport object
    - A-Chaos library - https://github.com/s373/ofxAChaosLib

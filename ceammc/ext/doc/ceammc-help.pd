@@ -729,7 +729,7 @@ help.pd;
 #X obj 30 10074 ui.link @title [ui.number~] @url ui.number~-help.pd;
 #X text 175 10071 counterpart of the vanilla [nbx] for signal;
 #X obj 30 10097 ui.link @title [ui.preset] @url ui.preset-help.pd;
-#X text 175 10094 Cream GUI preset manager;
+#X text 175 10094 GUI preset manager;
 #X obj 30 10120 ui.link @title [ui.radio] @url ui.radio-help.pd;
 #X text 175 10117 counterpart of the vanilla radio toggle;
 #X obj 30 10143 ui.link @title [ui.rslider] @url ui.rslider-help.pd;

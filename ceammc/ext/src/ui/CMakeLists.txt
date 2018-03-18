@@ -4,8 +4,6 @@ endif()
 
 include_directories(cicm/Sources)
 
-add_subdirectory(CreamLibrary)
-
 set(UI_SOURCES
     cicm/Sources/ebox.c
     cicm/Sources/eclass.c
@@ -70,4 +68,4 @@ if(UNIX)
     set_target_properties(ceammc_ui PROPERTIES COMPILE_FLAGS "-fPIC")
 endif()
 
-target_link_libraries(ceammc_ui ceammc_env cream_core)
+target_link_libraries(ceammc_ui ceammc_env)

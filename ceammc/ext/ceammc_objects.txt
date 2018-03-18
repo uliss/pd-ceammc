@@ -1,4 +1,3 @@
-Cream
 _tcl.version
 and
 approx
@@ -43,7 +42,6 @@ conv.sec2samp
 conv.sec2str
 conv.str2sec
 conv.vline2bpf
-cream
 data.fifo
 data.list
 data.set
@@ -157,6 +155,7 @@ list.count_if
 list.deinterleave
 list.delta
 list.distribution
+list.do
 list.each
 list.enumerate
 list.equal
@@ -371,7 +370,6 @@ symbol.ends_with
 symbol.equal
 symbol.length
 symbol.num_compare
-synth.8bit~
 synth.risset_tone~
 system.getenv
 system.hostname

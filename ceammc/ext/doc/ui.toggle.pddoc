@@ -21,8 +21,7 @@
             </also>
         </meta>
         <info>
-            <par>This is the ceammc counterpart of the vanilla toggle, based on Cream
-            library.</par>
+            <par>This is the ceammc counterpart of the vanilla toggle</par>
         </info>
         <properties>
             <property name="@send" type="symbol">send destination</property>

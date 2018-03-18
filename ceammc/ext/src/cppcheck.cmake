@@ -19,7 +19,6 @@ if(CPPCHECK)
         --enable=warning,performance,portability,information,missingInclude
         -i tests/Catch
         -i src/rtmidi
-        -i src/ui/CreamLibrary
         -i src/proto/firmata/firmata_bison.tab.c
         -i src/data/rapidjson
         -i src/data/rapidjson/document.h
