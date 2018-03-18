@@ -1,4 +1,4 @@
-set(SYNTH_SOURCES synth_8bit.cpp)
+set(SYNTH_SOURCES)
 
 macro(ceammc_synth_extension name)
     list(APPEND SYNTH_SOURCES "synth_${name}.cpp")
