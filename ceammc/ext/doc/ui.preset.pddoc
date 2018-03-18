@@ -7,7 +7,7 @@
                 <author>Pierre Guillot</author>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>GUI preset manager</description>
+            <description>Preset manager</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category view="link">ui</category>
