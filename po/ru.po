@@ -149,26 +149,15 @@ msgstr "Настройки ALSA MIDI"
 msgid "About Pd"
 msgstr "О программе Pd"
 
-#: ../ceammc/extra/CreamLibrary/Sources/c.matrix.cpp:362
 msgid "Active Cell Color"
 msgstr "Цвет активной ячейки"
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.preset.cpp:567
 #: ../ceammc/ext/src/ui/ui_bang.cpp:100 ../ceammc/ext/src/ui/ui_display.cpp:198
 #: ../ceammc/ext/src/ui/ui_dsp.cpp:104 ../ceammc/ext/src/ui/ui_env.cpp:617
 #: ../ceammc/ext/src/ui/ui_keyboard.cpp:236
 #: ../ceammc/ext/src/ui/ui_matrix.cpp:582
 #: ../ceammc/ext/src/ui/ui_preset.cpp:193 ../ceammc/ext/src/ui/ui_radio.cpp:422
 #: ../ceammc/ext/src/ui/ui_scope.cpp:199 ../ceammc/ext/src/ui/ui_toggle.cpp:109
-#: ../ceammc/extra/CreamLibrary/Sources/c.bang.cpp:163
-#: ../ceammc/extra/CreamLibrary/Sources/c.dsp_tilde.cpp:199
-#: ../ceammc/extra/CreamLibrary/Sources/c.matrix.cpp:362
-#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:553
-#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:559
-#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:560
-#: ../ceammc/extra/CreamLibrary/Sources/c.radio.cpp:427
-#: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:578
-#: ../ceammc/extra/CreamLibrary/Sources/c.toggle.cpp:180
 msgid "Active Color"
 msgstr "Активный цвет"
 
@@ -209,8 +198,6 @@ msgstr ""
 msgid "Array Properties"
 msgstr "Свойства Array"
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.incdec.cpp:120
-#: ../ceammc/extra/CreamLibrary/Sources/c.incdec.cpp:99
 msgid "Arrow Color"
 msgstr "Цвет стрелки"
 
@@ -257,19 +244,6 @@ msgstr "Автоматический размер"
 msgid "Background"
 msgstr "Фон"
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.preset.cpp:541
-#: ../ceammc/extra/CreamLibrary/Sources/c.dsp_tilde.cpp:187
-#: ../ceammc/extra/CreamLibrary/Sources/c.matrix.cpp:350
-#: ../ceammc/extra/CreamLibrary/Sources/c.menu.cpp:126
-#: ../ceammc/extra/CreamLibrary/Sources/c.number.cpp:432
-#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:527
-#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:530
-#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:533
-#: ../ceammc/extra/CreamLibrary/Sources/c.radio.cpp:415
-#: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:418
-#: ../ceammc/extra/CreamLibrary/Sources/c.slider.cpp:332
-#: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:554
-#: ../ceammc/extra/CreamLibrary/Sources/c.toggle.cpp:168
 msgid "Background Color"
 msgstr "Цвет фона"
 
@@ -322,17 +296,6 @@ msgstr "Кривыми"
 msgid "Block size:"
 msgstr "Размер блока:"
 
-#: ../ceammc/extra/CreamLibrary/Sources/c.bang.cpp:157
-#: ../ceammc/extra/CreamLibrary/Sources/c.dsp_tilde.cpp:193
-#: ../ceammc/extra/CreamLibrary/Sources/c.matrix.cpp:356
-#: ../ceammc/extra/CreamLibrary/Sources/c.menu.cpp:132
-#: ../ceammc/extra/CreamLibrary/Sources/c.number.cpp:438
-#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:536
-#: ../ceammc/extra/CreamLibrary/Sources/c.radio.cpp:421
-#: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:424
-#: ../ceammc/extra/CreamLibrary/Sources/c.slider.cpp:338
-#: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:560
-#: ../ceammc/extra/CreamLibrary/Sources/c.toggle.cpp:174
 msgid "Border Color"
 msgstr "Цвет границы"
 
@@ -386,10 +349,7 @@ msgstr "Свойства Canvas"
 msgid "Channels:"
 msgstr "Каналы:"
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.radio.cpp:453
 #: ../ceammc/ext/src/ui/ui_radio.cpp:426
-#: ../ceammc/extra/CreamLibrary/Sources/c.radio.cpp:403
-#: ../ceammc/extra/CreamLibrary/Sources/c.radio.cpp:406
 msgid "Check List Mode"
 msgstr "Множественный выбор"
 
@@ -411,8 +371,6 @@ msgstr "Очистить меню"
 msgid "Close"
 msgstr "Закрыть"
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.meter_tilde.cpp:265
-#: ../ceammc/extra/CreamLibrary/Sources/c.meter_tilde.cpp:265
 msgid "Cold signal color"
 msgstr "Холодный цвет"
 
@@ -420,9 +378,7 @@ msgstr "Холодный цвет"
 msgid "Colors"
 msgstr "Цвета"
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.matrix.cpp:510
 #: ../ceammc/ext/src/ui/ui_matrix.cpp:579
-#: ../ceammc/extra/CreamLibrary/Sources/c.matrix.cpp:474
 msgid "Columns"
 msgstr "Столбцы"
 
@@ -452,7 +408,6 @@ msgstr "Копировать"
 msgid "Couldn't find '%s' in %s"
 msgstr "Не удалось найти '%s' в %s"
 
-#: ../ceammc/extra/CreamLibrary/Sources/c.toggle.cpp:180
 msgid "Cross Color"
 msgstr "Цвет индикатора"
 
@@ -543,11 +498,7 @@ msgstr "Режим редактирования"
 msgid "Edit library"
 msgstr "Изменить библиотеку"
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.preset.cpp:555
 #: ../ceammc/ext/src/ui/ui_preset.cpp:191
-#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:541
-#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:547
-#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:548
 msgid "Empty Button Color"
 msgstr "Цвет пустой ячейки"
 
@@ -583,13 +534,9 @@ msgstr "Поиск расширений"
 msgid "Find..."
 msgstr "Найти..."
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.colorpanel.cpp:129
-#: ../ceammc/extra/CreamLibrary/Sources/c.colorpanel.cpp:129
 msgid "First Hue"
 msgstr "Начальный оттенок"
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.colorpanel.cpp:138
-#: ../ceammc/extra/CreamLibrary/Sources/c.colorpanel.cpp:138
 msgid "First Lightness"
 msgstr "Начальная светлота"
 
@@ -674,20 +621,12 @@ msgstr ""
 msgid "Horizontal range"
 msgstr "Горизонтальный диапазон"
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.meter_tilde.cpp:283
-#: ../ceammc/extra/CreamLibrary/Sources/c.meter_tilde.cpp:283
 msgid "Hot signal color"
 msgstr "Горячий цвет"
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.tab.cpp:589
-#: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:556
-#: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:572
 msgid "Hover Color"
 msgstr "Цвет наведения"
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.menu.cpp:122
-#: ../ceammc/extra/CreamLibrary/Sources/c.menu.cpp:113
-#: ../ceammc/extra/CreamLibrary/Sources/c.menu.cpp:114
 msgid "Hover Mode"
 msgstr "Режим наведения"
 
@@ -732,16 +671,9 @@ msgstr "Установить в директорию «%s»?"
 msgid "Intrrpt:"
 msgstr ""
 
-#: ../ceammc/extra/CreamLibrary/Sources/c.radio.cpp:427
 msgid "Item Color"
 msgstr "Цвет элемента"
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.menu.cpp:129
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.tab.cpp:579
-#: ../ceammc/extra/CreamLibrary/Sources/c.menu.cpp:120
-#: ../ceammc/extra/CreamLibrary/Sources/c.menu.cpp:121
-#: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:546
-#: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:549
 msgid "Items"
 msgstr "Элементы"
 
@@ -754,16 +686,8 @@ msgstr "Переход при клике"
 msgid "Keys"
 msgstr "Число клавиш"
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.rslider.cpp:478
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.slider.cpp:370
 #: ../ceammc/ext/src/ui/ui_gain.cpp:211 ../ceammc/ext/src/ui/ui_knob.cpp:72
 #: ../ceammc/ext/src/ui/ui_slider.cpp:151
-#: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:417
-#: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:430
-#: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:436
-#: ../ceammc/extra/CreamLibrary/Sources/c.slider.cpp:332
-#: ../ceammc/extra/CreamLibrary/Sources/c.slider.cpp:339
-#: ../ceammc/extra/CreamLibrary/Sources/c.slider.cpp:344
 msgid "Knob Color"
 msgstr "Цвет ползунка"
 
@@ -879,14 +803,9 @@ msgstr "Отступ:"
 msgid "Match whole word only"
 msgstr "Только полное совпадение"
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.colorpanel.cpp:112
-#: ../ceammc/extra/CreamLibrary/Sources/c.colorpanel.cpp:112
 msgid "Matrix Reversed"
 msgstr "Обратная матрица"
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.colorpanel.cpp:105
-#: ../ceammc/extra/CreamLibrary/Sources/c.colorpanel.cpp:105
-#: ../ceammc/extra/CreamLibrary/Sources/c.matrix.cpp:343
 msgid "Matrix Size"
 msgstr "Размер матрицы"
 
@@ -908,16 +827,8 @@ msgstr ""
 msgid "Max Text Files (.mxt)"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.number.cpp:486
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.rslider.cpp:461
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.slider.cpp:360
 #: ../ceammc/ext/src/ui/ui_knob.cpp:75 ../ceammc/ext/src/ui/ui_slider.cpp:155
 #: ../ceammc/ext/src/ui/ui_sliders.cpp:452
-#: ../ceammc/extra/CreamLibrary/Sources/c.number.cpp:455
-#: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:407
-#: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:411
-#: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:419
-#: ../ceammc/extra/CreamLibrary/Sources/c.slider.cpp:329
 msgid "Maximum Value"
 msgstr "Максимальное значение"
 
@@ -953,16 +864,8 @@ msgstr "Сообщения"
 msgid "Minimize"
 msgstr "Свернуть"
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.number.cpp:479
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.rslider.cpp:454
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.slider.cpp:353
 #: ../ceammc/ext/src/ui/ui_knob.cpp:74 ../ceammc/ext/src/ui/ui_slider.cpp:154
 #: ../ceammc/ext/src/ui/ui_sliders.cpp:451
-#: ../ceammc/extra/CreamLibrary/Sources/c.number.cpp:448
-#: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:400
-#: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:404
-#: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:412
-#: ../ceammc/extra/CreamLibrary/Sources/c.slider.cpp:322
 msgid "Minimum Value"
 msgstr "Минимальное значение"
 
@@ -978,8 +881,6 @@ msgstr "Минимальное Y-значение"
 msgid "Minimum value"
 msgstr "Минимальное значение"
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.rslider.cpp:468
-#: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:426
 msgid "Mouse sync"
 msgstr "Синхронизировать с мышью"
 
@@ -1028,15 +929,10 @@ msgstr "Число ячеек:"
 msgid "Number"
 msgstr "Число"
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.radio.cpp:444
 #: ../ceammc/ext/src/ui/ui_radio.cpp:423
-#: ../ceammc/extra/CreamLibrary/Sources/c.radio.cpp:394
-#: ../ceammc/extra/CreamLibrary/Sources/c.radio.cpp:397
 msgid "Number of Items"
 msgstr "Число элементов"
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.number_tilde.cpp:230
-#: ../ceammc/extra/CreamLibrary/Sources/c.number_tilde.cpp:244
 msgid "Number of decimal"
 msgstr "Число разрядов"
 
@@ -1113,8 +1009,6 @@ msgstr "Выводить при отпускании мыши"
 msgid "Output value"
 msgstr "Выводить значение"
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.meter_tilde.cpp:289
-#: ../ceammc/extra/CreamLibrary/Sources/c.meter_tilde.cpp:289
 msgid "Overload signal color"
 msgstr "Цвет перегрузки"
 
@@ -1282,10 +1176,6 @@ msgstr "Повторить вставку"
 msgid "Redo typing"
 msgstr "Повторить ввод"
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.meter_tilde.cpp:255
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.number_tilde.cpp:222
-#: ../ceammc/extra/CreamLibrary/Sources/c.meter_tilde.cpp:255
-#: ../ceammc/extra/CreamLibrary/Sources/c.number_tilde.cpp:236
 msgid "Refresh interval (ms)"
 msgstr "Интервал обновления (мс)"
 
@@ -1293,9 +1183,7 @@ msgstr "Интервал обновления (мс)"
 msgid "Refresh time (ms)"
 msgstr "Интервал обновления (мс)"
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.slider.cpp:345
 #: ../ceammc/ext/src/ui/ui_slider.cpp:153
-#: ../ceammc/extra/CreamLibrary/Sources/c.slider.cpp:314
 msgid "Relative Mode"
 msgstr "Относительный режим"
 
@@ -1307,9 +1195,7 @@ msgstr "Сообщить об ошибке"
 msgid "Right"
 msgstr "Справа"
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.matrix.cpp:501
 #: ../ceammc/ext/src/ui/ui_matrix.cpp:576
-#: ../ceammc/extra/CreamLibrary/Sources/c.matrix.cpp:465
 msgid "Rows"
 msgstr "Ряды"
 
@@ -1317,8 +1203,6 @@ msgstr "Ряды"
 msgid "Sample rate:"
 msgstr "Частота сэмплирования:"
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.colorpanel.cpp:120
-#: ../ceammc/extra/CreamLibrary/Sources/c.colorpanel.cpp:120
 msgid "Saturation"
 msgstr "Насыщенность"
 
@@ -1387,11 +1271,9 @@ msgstr "Выделить все"
 msgid "Select color"
 msgstr "Цвет выделения"
 
-#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:560
 msgid "Selected Button Color"
 msgstr "Цвет выделенной кнопки"
 
-#: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:578
 msgid "Selection Color"
 msgstr "Цвет выделения"
 
@@ -1475,16 +1357,10 @@ msgstr "Запуск..."
 msgid "Steady on click"
 msgstr "Не реагировать на клик"
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.incdec.cpp:109
-#: ../ceammc/extra/CreamLibrary/Sources/c.incdec.cpp:88
 msgid "Step increment"
 msgstr "Шаг инкремента"
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.preset.cpp:561
 #: ../ceammc/ext/src/ui/ui_preset.cpp:192
-#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:547
-#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:553
-#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:554
 msgid "Stored Button Color"
 msgstr "Цвет сохраненной ячейки"
 
@@ -1505,8 +1381,6 @@ msgstr "Символ"
 msgid "Tcl:"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.meter_tilde.cpp:271
-#: ../ceammc/extra/CreamLibrary/Sources/c.meter_tilde.cpp:271
 msgid "Tepid signal color"
 msgstr "Умеренный цвет"
 
@@ -1522,15 +1396,8 @@ msgstr ""
 msgid "Text"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.preset.cpp:549
 #: ../ceammc/ext/src/ui/ui_display.cpp:197
 #: ../ceammc/ext/src/ui/ui_label.cpp:138 ../ceammc/ext/src/ui/ui_preset.cpp:190
-#: ../ceammc/extra/CreamLibrary/Sources/c.menu.cpp:138
-#: ../ceammc/extra/CreamLibrary/Sources/c.number.cpp:444
-#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:535
-#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:541
-#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:542
-#: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:566
 msgid "Text Color"
 msgstr "Цвет текста"
 
@@ -1555,9 +1422,6 @@ msgstr ""
 msgid "Toggle"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.tab.cpp:572
-#: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:539
-#: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:542
 msgid "Toggle Mode"
 msgstr "Режим переключателя"
 
@@ -1665,9 +1529,6 @@ msgstr "Значение:"
 msgid "Verbose"
 msgstr "Подробный вывод"
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.tab.cpp:565
-#: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:532
-#: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:535
 msgid "Vertical Orientation"
 msgstr "Вертикально"
 
@@ -1704,8 +1565,6 @@ msgstr ""
 msgid "WARNING: unknown graphme flags received in pdtk_canvas_dialog"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.meter_tilde.cpp:277
-#: ../ceammc/extra/CreamLibrary/Sources/c.meter_tilde.cpp:277
 msgid "Warm signal color"
 msgstr "Теплый цвет"
 
