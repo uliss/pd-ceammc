@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure\\ Data 0.47.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2018-02-18 15:53+0300\n"
+"POT-Creation-Date: 2018-03-19 00:59+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,248 +16,165 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.colorpanel.cpp:105
-#: ../ceammc/extra/CreamLibrary/Sources/c.colorpanel.cpp:105
-#: ../ceammc/extra/CreamLibrary/Sources/c.matrix.cpp:343
+#: ../ceammc/ext/src/ui/ui_colorpanel.cpp:425
 msgid "Matrix Size"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.colorpanel.cpp:112
-#: ../ceammc/extra/CreamLibrary/Sources/c.colorpanel.cpp:112
+#: ../ceammc/ext/src/ui/ui_colorpanel.cpp:439
 msgid "Matrix Reversed"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.colorpanel.cpp:120
-#: ../ceammc/extra/CreamLibrary/Sources/c.colorpanel.cpp:120
+#: ../ceammc/ext/src/ui/ui_colorpanel.cpp:427
 msgid "Saturation"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.colorpanel.cpp:129
-#: ../ceammc/extra/CreamLibrary/Sources/c.colorpanel.cpp:129
+#: ../ceammc/ext/src/ui/ui_colorpanel.cpp:431
 msgid "First Hue"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.colorpanel.cpp:138
-#: ../ceammc/extra/CreamLibrary/Sources/c.colorpanel.cpp:138
+#: ../ceammc/ext/src/ui/ui_colorpanel.cpp:435
 msgid "First Lightness"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.incdec.cpp:109
-#: ../ceammc/extra/CreamLibrary/Sources/c.incdec.cpp:88
+#: ../ceammc/ext/src/ui/ui_incdec.cpp:151
 msgid "Step increment"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.incdec.cpp:120
-#: ../ceammc/extra/CreamLibrary/Sources/c.incdec.cpp:99
+#: ../ceammc/ext/src/ui/ui_incdec.cpp:150
 msgid "Arrow Color"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.matrix.cpp:501
 #: ../ceammc/ext/src/ui/ui_matrix.cpp:576
-#: ../ceammc/extra/CreamLibrary/Sources/c.matrix.cpp:465
 msgid "Rows"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.matrix.cpp:510
 #: ../ceammc/ext/src/ui/ui_matrix.cpp:579
-#: ../ceammc/extra/CreamLibrary/Sources/c.matrix.cpp:474
 msgid "Columns"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.menu.cpp:122
-#: ../ceammc/extra/CreamLibrary/Sources/c.menu.cpp:113
-#: ../ceammc/extra/CreamLibrary/Sources/c.menu.cpp:114
 msgid "Hover Mode"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.menu.cpp:129
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.tab.cpp:579
-#: ../ceammc/extra/CreamLibrary/Sources/c.menu.cpp:120
-#: ../ceammc/extra/CreamLibrary/Sources/c.menu.cpp:121
-#: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:546
-#: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:549
+#: ../ceammc/ext/src/ui/ui_menu.cpp:549 ../ceammc/ext/src/ui/ui_tab.cpp:507
 msgid "Items"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.meter_tilde.cpp:255
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.number_tilde.cpp:222
-#: ../ceammc/extra/CreamLibrary/Sources/c.meter_tilde.cpp:255
-#: ../ceammc/extra/CreamLibrary/Sources/c.number_tilde.cpp:236
+#: ../ceammc/ext/src/ui/ui_meter.cpp:214
+#: ../ceammc/ext/src/ui/ui_number_tilde.cpp:110
 msgid "Refresh interval (ms)"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.meter_tilde.cpp:265
-#: ../ceammc/extra/CreamLibrary/Sources/c.meter_tilde.cpp:265
+#: ../ceammc/ext/src/ui/ui_meter.cpp:208
 msgid "Cold signal color"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.meter_tilde.cpp:271
-#: ../ceammc/extra/CreamLibrary/Sources/c.meter_tilde.cpp:271
+#: ../ceammc/ext/src/ui/ui_meter.cpp:209
 msgid "Tepid signal color"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.meter_tilde.cpp:277
-#: ../ceammc/extra/CreamLibrary/Sources/c.meter_tilde.cpp:277
+#: ../ceammc/ext/src/ui/ui_meter.cpp:210
 msgid "Warm signal color"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.meter_tilde.cpp:283
-#: ../ceammc/extra/CreamLibrary/Sources/c.meter_tilde.cpp:283
+#: ../ceammc/ext/src/ui/ui_meter.cpp:211
 msgid "Hot signal color"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.meter_tilde.cpp:289
-#: ../ceammc/extra/CreamLibrary/Sources/c.meter_tilde.cpp:289
+#: ../ceammc/ext/src/ui/ui_meter.cpp:212
 msgid "Overload signal color"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.number.cpp:479
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.rslider.cpp:454
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.slider.cpp:353
-#: ../ceammc/ext/src/ui/ui_knob.cpp:74 ../ceammc/ext/src/ui/ui_slider.cpp:154
+#: ../ceammc/ext/src/ui/ui_knob.cpp:74 ../ceammc/ext/src/ui/ui_number.cpp:307
+#: ../ceammc/ext/src/ui/ui_rslider.cpp:336
+#: ../ceammc/ext/src/ui/ui_slider.cpp:154
+#: ../ceammc/ext/src/ui/ui_slider.cpp:165
 #: ../ceammc/ext/src/ui/ui_sliders.cpp:451
-#: ../ceammc/extra/CreamLibrary/Sources/c.number.cpp:448
-#: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:400
-#: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:404
-#: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:412
-#: ../ceammc/extra/CreamLibrary/Sources/c.slider.cpp:322
+#: ../ceammc/ext/src/ui/ui_sliders.cpp:454
 msgid "Minimum Value"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.number.cpp:486
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.rslider.cpp:461
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.slider.cpp:360
-#: ../ceammc/ext/src/ui/ui_knob.cpp:75 ../ceammc/ext/src/ui/ui_slider.cpp:155
+#: ../ceammc/ext/src/ui/ui_knob.cpp:75 ../ceammc/ext/src/ui/ui_number.cpp:308
+#: ../ceammc/ext/src/ui/ui_rslider.cpp:337
+#: ../ceammc/ext/src/ui/ui_slider.cpp:155
+#: ../ceammc/ext/src/ui/ui_slider.cpp:166
 #: ../ceammc/ext/src/ui/ui_sliders.cpp:452
-#: ../ceammc/extra/CreamLibrary/Sources/c.number.cpp:455
-#: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:407
-#: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:411
-#: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:419
-#: ../ceammc/extra/CreamLibrary/Sources/c.slider.cpp:329
+#: ../ceammc/ext/src/ui/ui_sliders.cpp:455
 msgid "Maximum Value"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.number_tilde.cpp:230
-#: ../ceammc/extra/CreamLibrary/Sources/c.number_tilde.cpp:244
 msgid "Number of decimal"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.preset.cpp:541
-#: ../ceammc/extra/CreamLibrary/Sources/c.dsp_tilde.cpp:187
-#: ../ceammc/extra/CreamLibrary/Sources/c.matrix.cpp:350
-#: ../ceammc/extra/CreamLibrary/Sources/c.menu.cpp:126
-#: ../ceammc/extra/CreamLibrary/Sources/c.number.cpp:432
-#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:527
-#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:530
-#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:533
-#: ../ceammc/extra/CreamLibrary/Sources/c.radio.cpp:415
-#: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:418
-#: ../ceammc/extra/CreamLibrary/Sources/c.slider.cpp:332
-#: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:554
-#: ../ceammc/extra/CreamLibrary/Sources/c.toggle.cpp:168
 msgid "Background Color"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.preset.cpp:549
 #: ../ceammc/ext/src/ui/ui_display.cpp:197
-#: ../ceammc/ext/src/ui/ui_label.cpp:138 ../ceammc/ext/src/ui/ui_preset.cpp:190
-#: ../ceammc/extra/CreamLibrary/Sources/c.menu.cpp:138
-#: ../ceammc/extra/CreamLibrary/Sources/c.number.cpp:444
-#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:535
-#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:541
-#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:542
-#: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:566
+#: ../ceammc/ext/src/ui/ui_display.cpp:198
+#: ../ceammc/ext/src/ui/ui_label.cpp:138 ../ceammc/ext/src/ui/ui_label.cpp:158
+#: ../ceammc/ext/src/ui/ui_menu.cpp:529 ../ceammc/ext/src/ui/ui_preset.cpp:190
+#: ../ceammc/ext/src/ui/ui_preset.cpp:198 ../ceammc/ext/src/ui/ui_tab.cpp:514
 msgid "Text Color"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.preset.cpp:555
 #: ../ceammc/ext/src/ui/ui_preset.cpp:191
-#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:541
-#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:547
-#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:548
+#: ../ceammc/ext/src/ui/ui_preset.cpp:199
 msgid "Empty Button Color"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.preset.cpp:561
 #: ../ceammc/ext/src/ui/ui_preset.cpp:192
-#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:547
-#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:553
-#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:554
+#: ../ceammc/ext/src/ui/ui_preset.cpp:200
 msgid "Stored Button Color"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.preset.cpp:567
-#: ../ceammc/ext/src/ui/ui_bang.cpp:100 ../ceammc/ext/src/ui/ui_display.cpp:198
-#: ../ceammc/ext/src/ui/ui_dsp.cpp:104 ../ceammc/ext/src/ui/ui_env.cpp:617
+#: ../ceammc/ext/src/ui/ui_bang.cpp:100 ../ceammc/ext/src/ui/ui_bang.cpp:102
+#: ../ceammc/ext/src/ui/ui_display.cpp:198
+#: ../ceammc/ext/src/ui/ui_display.cpp:199 ../ceammc/ext/src/ui/ui_dsp.cpp:104
+#: ../ceammc/ext/src/ui/ui_env.cpp:617 ../ceammc/ext/src/ui/ui_icon.cpp:308
 #: ../ceammc/ext/src/ui/ui_keyboard.cpp:236
-#: ../ceammc/ext/src/ui/ui_matrix.cpp:582
-#: ../ceammc/ext/src/ui/ui_preset.cpp:193 ../ceammc/ext/src/ui/ui_radio.cpp:422
-#: ../ceammc/ext/src/ui/ui_scope.cpp:199 ../ceammc/ext/src/ui/ui_toggle.cpp:109
-#: ../ceammc/extra/CreamLibrary/Sources/c.bang.cpp:163
-#: ../ceammc/extra/CreamLibrary/Sources/c.dsp_tilde.cpp:199
-#: ../ceammc/extra/CreamLibrary/Sources/c.matrix.cpp:362
-#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:553
-#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:559
-#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:560
-#: ../ceammc/extra/CreamLibrary/Sources/c.radio.cpp:427
-#: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:578
-#: ../ceammc/extra/CreamLibrary/Sources/c.toggle.cpp:180
+#: ../ceammc/ext/src/ui/ui_matrix.cpp:582 ../ceammc/ext/src/ui/ui_menu.cpp:530
+#: ../ceammc/ext/src/ui/ui_number.cpp:310
+#: ../ceammc/ext/src/ui/ui_preset.cpp:193
+#: ../ceammc/ext/src/ui/ui_preset.cpp:201 ../ceammc/ext/src/ui/ui_radio.cpp:422
+#: ../ceammc/ext/src/ui/ui_scope.cpp:196 ../ceammc/ext/src/ui/ui_scope.cpp:199
+#: ../ceammc/ext/src/ui/ui_spectroscope.cpp:398
+#: ../ceammc/ext/src/ui/ui_tab.cpp:515 ../ceammc/ext/src/ui/ui_toggle.cpp:109
+#: ../ceammc/ext/src/ui/ui_toggle.cpp:110
 msgid "Active Color"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.radio.cpp:444
 #: ../ceammc/ext/src/ui/ui_radio.cpp:423
-#: ../ceammc/extra/CreamLibrary/Sources/c.radio.cpp:394
-#: ../ceammc/extra/CreamLibrary/Sources/c.radio.cpp:397
 msgid "Number of Items"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.radio.cpp:453
 #: ../ceammc/ext/src/ui/ui_radio.cpp:426
-#: ../ceammc/extra/CreamLibrary/Sources/c.radio.cpp:403
-#: ../ceammc/extra/CreamLibrary/Sources/c.radio.cpp:406
 msgid "Check List Mode"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.rslider.cpp:468
-#: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:426
+#: ../ceammc/ext/src/ui/ui_rslider.cpp:338
 msgid "Mouse sync"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.rslider.cpp:478
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.slider.cpp:370
-#: ../ceammc/ext/src/ui/ui_gain.cpp:211 ../ceammc/ext/src/ui/ui_knob.cpp:72
+#: ../ceammc/ext/src/ui/ui_gain.cpp:211 ../ceammc/ext/src/ui/ui_gain.cpp:222
+#: ../ceammc/ext/src/ui/ui_knob.cpp:72 ../ceammc/ext/src/ui/ui_rslider.cpp:339
 #: ../ceammc/ext/src/ui/ui_slider.cpp:151
-#: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:417
-#: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:430
-#: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:436
-#: ../ceammc/extra/CreamLibrary/Sources/c.slider.cpp:332
-#: ../ceammc/extra/CreamLibrary/Sources/c.slider.cpp:339
-#: ../ceammc/extra/CreamLibrary/Sources/c.slider.cpp:344
+#: ../ceammc/ext/src/ui/ui_slider.cpp:162
 msgid "Knob Color"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.slider.cpp:345
 #: ../ceammc/ext/src/ui/ui_slider.cpp:153
-#: ../ceammc/extra/CreamLibrary/Sources/c.slider.cpp:314
+#: ../ceammc/ext/src/ui/ui_slider.cpp:164
 msgid "Relative Mode"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.tab.cpp:565
-#: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:532
-#: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:535
+#: ../ceammc/ext/src/ui/ui_tab.cpp:503
 msgid "Vertical Orientation"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.tab.cpp:572
-#: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:539
-#: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:542
+#: ../ceammc/ext/src/ui/ui_tab.cpp:504
 msgid "Toggle Mode"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/CreamLibrary/Sources/c.tab.cpp:589
-#: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:556
-#: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:572
+#: ../ceammc/ext/src/ui/ui_link.cpp:165 ../ceammc/ext/src/ui/ui_tab.cpp:516
 msgid "Hover Color"
 msgstr ""
 
@@ -366,17 +283,44 @@ msgstr ""
 msgid "MIDI"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_display.cpp:194 ../ceammc/ext/src/ui_display.cpp:231
+#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c:1096
+msgid "Select"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_arrayview.cpp:519
+msgid "Array name"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_arrayview.cpp:521
+msgid "Wave Color"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_arrayview.cpp:522
+msgid "Cursor Color"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_arrayview.cpp:524
+msgid "Show Labels"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_arrayview.cpp:525
+msgid "Show RMS"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_display.cpp:194
+#: ../ceammc/ext/src/ui/ui_display.cpp:195 ../ceammc/ext/src/ui_display.cpp:231
 #: ../ceammc/ext/src/ui_display.cpp:232
 msgid "Display events"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_display.cpp:195 ../ceammc/ext/src/ui_display.cpp:237
+#: ../ceammc/ext/src/ui/ui_display.cpp:195
+#: ../ceammc/ext/src/ui/ui_display.cpp:196 ../ceammc/ext/src/ui_display.cpp:237
 #: ../ceammc/ext/src/ui_display.cpp:238
 msgid "Display type"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_display.cpp:196 ../ceammc/ext/src/ui_display.cpp:243
+#: ../ceammc/ext/src/ui/ui_display.cpp:196
+#: ../ceammc/ext/src/ui/ui_display.cpp:197 ../ceammc/ext/src/ui_display.cpp:243
 #: ../ceammc/ext/src/ui_display.cpp:244
 msgid "Auto size"
 msgstr ""
@@ -389,16 +333,30 @@ msgstr ""
 msgid "Length"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_gain.cpp:214 ../ceammc/ext/src/ui/ui_scope.cpp:200
+#: ../ceammc/ext/src/ui/ui_gain.cpp:214 ../ceammc/ext/src/ui/ui_gain.cpp:225
+#: ../ceammc/ext/src/ui/ui_scope.cpp:197 ../ceammc/ext/src/ui/ui_scope.cpp:200
 msgid "Maximum value"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_gain.cpp:215 ../ceammc/ext/src/ui/ui_scope.cpp:201
+#: ../ceammc/ext/src/ui/ui_gain.cpp:215 ../ceammc/ext/src/ui/ui_gain.cpp:226
+#: ../ceammc/ext/src/ui/ui_scope.cpp:198 ../ceammc/ext/src/ui/ui_scope.cpp:201
 msgid "Minimum value"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_gain.cpp:218
+#: ../ceammc/ext/src/ui/ui_gain.cpp:218 ../ceammc/ext/src/ui/ui_gain.cpp:229
 msgid "Output value"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_icon.cpp:306
+msgid "Icon"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_icon.cpp:307
+msgid "Size"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_icon.cpp:310
+msgid "Mode"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_keyboard.cpp:239
@@ -417,71 +375,98 @@ msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_knob.cpp:76 ../ceammc/ext/src/ui/ui_slider2d.cpp:342
 #: ../ceammc/ext/src/ui/ui_sliders.cpp:456
+#: ../ceammc/ext/src/ui/ui_sliders.cpp:459
 #: ../ceammc/ext/src/ui_slider2d.cpp:227 ../ceammc/ext/src/ui_sliders.cpp:340
 msgid "Show range"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_knob.cpp:77 ../ceammc/ext/src/ui/ui_slider.cpp:163
+#: ../ceammc/ext/src/ui/ui_slider.cpp:174
 msgid "Draw active scale"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_knob.cpp:78 ../ceammc/ext/src/ui/ui_slider.cpp:157
+#: ../ceammc/ext/src/ui/ui_slider.cpp:168
 msgid "MIDI channel"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_knob.cpp:80 ../ceammc/ext/src/ui/ui_slider.cpp:159
+#: ../ceammc/ext/src/ui/ui_slider.cpp:170
 msgid "MIDI control"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_knob.cpp:82 ../ceammc/ext/src/ui/ui_slider.cpp:161
+#: ../ceammc/ext/src/ui/ui_slider.cpp:172
 msgid "MIDI pickup"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_label.cpp:140
+#: ../ceammc/ext/src/ui/ui_label.cpp:140 ../ceammc/ext/src/ui/ui_label.cpp:160
 msgid "Margin top"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_label.cpp:141
+#: ../ceammc/ext/src/ui/ui_label.cpp:141 ../ceammc/ext/src/ui/ui_label.cpp:161
 msgid "Margin left"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_label.cpp:142
+#: ../ceammc/ext/src/ui/ui_label.cpp:142 ../ceammc/ext/src/ui/ui_label.cpp:162
 msgid "Margin bottom"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_label.cpp:143
+#: ../ceammc/ext/src/ui/ui_label.cpp:143 ../ceammc/ext/src/ui/ui_label.cpp:163
 msgid "Margin right"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_label.cpp:145
+#: ../ceammc/ext/src/ui/ui_label.cpp:145 ../ceammc/ext/src/ui/ui_label.cpp:165
 msgid "Align"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_label.cpp:146
+#: ../ceammc/ext/src/ui/ui_label.cpp:146 ../ceammc/ext/src/ui/ui_label.cpp:166
 msgid "Text"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_link.cpp:183 ../ceammc/ext/src/ui_link.cpp:149
+#: ../ceammc/ext/src/ui/ui_link.cpp:161 ../ceammc/ext/src/ui/ui_link.cpp:183
+#: ../ceammc/ext/src/ui_link.cpp:149
 msgid "URL"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_link.cpp:188 ../ceammc/ext/src/ui_link.cpp:154
+#: ../ceammc/ext/src/ui/ui_link.cpp:162 ../ceammc/ext/src/ui/ui_link.cpp:188
+#: ../ceammc/ext/src/ui_link.cpp:154
 msgid "Title"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_link.cpp:164
+msgid "Link Color"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_matrix.cpp:583
 msgid "Current Color"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_scope.cpp:202
+#: ../ceammc/ext/src/ui/ui_menu.cpp:531
+msgid "Maximum item length"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_number.cpp:311
+#: ../ceammc/ext/src/ui/ui_number_tilde.cpp:106
+#: ../ceammc/ext/src/ui/ui_number_tilde.cpp:107
+msgid "Text color"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_number_tilde.cpp:108
+msgid "Decimal precision"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_scope.cpp:199 ../ceammc/ext/src/ui/ui_scope.cpp:202
 msgid "Window size"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_scope.cpp:204
+#: ../ceammc/ext/src/ui/ui_scope.cpp:201 ../ceammc/ext/src/ui/ui_scope.cpp:204
+#: ../ceammc/ext/src/ui/ui_spectroscope.cpp:400
 msgid "Refresh time (ms)"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_slider.cpp:162
+#: ../ceammc/ext/src/ui/ui_slider.cpp:173
 msgid "Output on mouse up"
 msgstr ""
 
@@ -505,20 +490,32 @@ msgstr ""
 msgid "Show grid"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_sliders.cpp:444 ../ceammc/ext/src/ui_sliders.cpp:306
+#: ../ceammc/ext/src/ui/ui_sliders.cpp:444
+#: ../ceammc/ext/src/ui/ui_sliders.cpp:447 ../ceammc/ext/src/ui_sliders.cpp:306
 msgid "Slider color"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_sliders.cpp:445
+#: ../ceammc/ext/src/ui/ui_sliders.cpp:448
 msgid "Select color"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_sliders.cpp:447 ../ceammc/ext/src/ui_sliders.cpp:316
+#: ../ceammc/ext/src/ui/ui_sliders.cpp:447
+#: ../ceammc/ext/src/ui/ui_sliders.cpp:450 ../ceammc/ext/src/ui_sliders.cpp:316
 msgid "Sliders count"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_sliders.cpp:454 ../ceammc/ext/src/ui_sliders.cpp:334
+#: ../ceammc/ext/src/ui/ui_sliders.cpp:454
+#: ../ceammc/ext/src/ui/ui_sliders.cpp:457 ../ceammc/ext/src/ui_sliders.cpp:334
 msgid "Auto range"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_spectroscope.cpp:399
+msgid "Label Color"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_spectroscope.cpp:402
+msgid "Log scale"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_spectroscope~.cpp:262 ../tcl/dialog_iemgui.tcl:208
@@ -561,37 +558,21 @@ msgstr ""
 msgid "Value range"
 msgstr ""
 
-#: ../ceammc/extra/CreamLibrary/Sources/c.bang.cpp:157
-#: ../ceammc/extra/CreamLibrary/Sources/c.dsp_tilde.cpp:193
-#: ../ceammc/extra/CreamLibrary/Sources/c.matrix.cpp:356
-#: ../ceammc/extra/CreamLibrary/Sources/c.menu.cpp:132
-#: ../ceammc/extra/CreamLibrary/Sources/c.number.cpp:438
-#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:536
-#: ../ceammc/extra/CreamLibrary/Sources/c.radio.cpp:421
-#: ../ceammc/extra/CreamLibrary/Sources/c.rslider.cpp:424
-#: ../ceammc/extra/CreamLibrary/Sources/c.slider.cpp:338
-#: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:560
-#: ../ceammc/extra/CreamLibrary/Sources/c.toggle.cpp:174
 msgid "Border Color"
 msgstr ""
 
-#: ../ceammc/extra/CreamLibrary/Sources/c.matrix.cpp:362
 msgid "Active Cell Color"
 msgstr ""
 
-#: ../ceammc/extra/CreamLibrary/Sources/c.preset.cpp:560
 msgid "Selected Button Color"
 msgstr ""
 
-#: ../ceammc/extra/CreamLibrary/Sources/c.radio.cpp:427
 msgid "Item Color"
 msgstr ""
 
-#: ../ceammc/extra/CreamLibrary/Sources/c.tab.cpp:578
 msgid "Selection Color"
 msgstr ""
 
-#: ../ceammc/extra/CreamLibrary/Sources/c.toggle.cpp:180
 msgid "Cross Color"
 msgstr ""
 
