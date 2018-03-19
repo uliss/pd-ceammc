@@ -10,8 +10,8 @@
 #X text 175 162 Timeline transport control;
 #X obj 30 192 ui.link @title [ui.bang] @url ui.bang-help.pd;
 #X text 175 189 A bang... that's all;
-#X obj 30 215 ui.link @title [ui.colorpanel] @url ui.colorpanel-
-help.pd;
+#X obj 30 215 ui.link @title [ui.colorpanel] @url
+ui.colorpanel-help.pd;
 #X text 175 212 colorchooser widget;
 #X obj 30 238 ui.link @title [ui.display] @url ui.display-help.pd;
 #X text 175 235 Display GUI object;
