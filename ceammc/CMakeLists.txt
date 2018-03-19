@@ -33,6 +33,7 @@ if(XGETTEXT)
         COMMAND ${XGETTEXT} --join-existing --from-code=UTF-8
             --language=C --keyword=_
             --sort-by-file --output=${POT_TEMPLATE}
+            --add-location=file
             --package-name="Pure Data" --package-version=${PD_TEXT_VERSION_FULL}
             --copyright-holder='This file is put in the public domain'
             --foreign-user --msgid-bugs-address=pd-dev@iem.at
