@@ -25,6 +25,8 @@ public:
 
     void calcCoefficents();
     AtomList propCoeffs() const;
+
+
 };
 
 void setup_pan_spread();

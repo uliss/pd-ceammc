@@ -21,6 +21,7 @@ SoundExternal::SoundExternal(const PdArgs& a)
     , block_size_(0)
     , n_in_(a.hasDefaultSignalInlet() ? 1 : 0)
     , n_out_(0)
+    , sample_rate_(44100)
 {
 }
 
