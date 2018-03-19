@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Pure\\ Data 0.47.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
 "POT-Creation-Date: 2018-03-20 02:51+0300\n"
-"PO-Revision-Date: 2018-02-18 15:57+0300\n"
+"PO-Revision-Date: 2018-03-20 02:55+0300\n"
 "Last-Translator: Serge Poltavski <serge.poltavski@gmail.com>\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
@@ -340,9 +340,8 @@ msgid "Current Color"
 msgstr "Текущий цвет"
 
 #: ../ceammc/ext/src/ui/ui_arrayview.cpp
-#, fuzzy
 msgid "Cursor Color"
-msgstr "Текущий цвет"
+msgstr "Цвет курсора"
 
 #: ../tcl/pd_menus.tcl
 msgid "Cut"
@@ -598,9 +597,8 @@ msgid "Label"
 msgstr "Ярлык"
 
 #: ../ceammc/ext/src/ui/ui_spectroscope.cpp
-#, fuzzy
 msgid "Label Color"
-msgstr "Ярлык"
+msgstr "Цвета ярлыка"
 
 #: ../tcl/dialog_iemgui.tcl
 msgid "Label color"
@@ -612,7 +610,7 @@ msgstr "Последний graph"
 
 #: ../tcl/dialog_gatom.tcl
 msgid "Left   "
-msgstr "Слева"
+msgstr "Слева "
 
 #: ../ceammc/ext/src/ui/ui_keyboard.cpp
 msgid "Leftmost MIDI note"
@@ -631,9 +629,8 @@ msgid "Line Color"
 msgstr "Цвет линии"
 
 #: ../ceammc/ext/src/ui/ui_link.cpp
-#, fuzzy
 msgid "Link Color"
-msgstr "Цвет линии"
+msgstr "Цвет ссылки"
 
 #: ../tcl/pd_menus.tcl
 msgid "List of objects..."
@@ -746,9 +743,8 @@ msgid "Maximum Y-value"
 msgstr "Максимальное Y-значение"
 
 #: ../ceammc/ext/src/ui/ui_menu.cpp
-#, fuzzy
 msgid "Maximum item length"
-msgstr "Максимальное значение"
+msgstr "Максимальная длина"
 
 #: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_scope.cpp
 msgid "Maximum value"
@@ -789,9 +785,8 @@ msgid "Minimum value"
 msgstr "Минимальное значение"
 
 #: ../ceammc/ext/src/ui/ui_icon.cpp
-#, fuzzy
 msgid "Mode"
-msgstr "Режим редактирования"
+msgstr "Режим"
 
 #: ../ceammc/ext/src/ui/ui_rslider.cpp
 msgid "Mouse sync"
@@ -1111,9 +1106,8 @@ msgid "Searching for externals..."
 msgstr "Поиск расширений…"
 
 #: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
-#, fuzzy
 msgid "Select"
-msgstr "Выделить все"
+msgstr "Выделить"
 
 #: ../tcl/pd_menus.tcl
 msgid "Select All"
@@ -1140,14 +1134,12 @@ msgid "Settings"
 msgstr "Настройки"
 
 #: ../ceammc/ext/src/ui/ui_arrayview.cpp
-#, fuzzy
 msgid "Show Labels"
-msgstr "Показать все"
+msgstr "Показать ярлыки"
 
 #: ../ceammc/ext/src/ui/ui_arrayview.cpp
-#, fuzzy
 msgid "Show RMS"
-msgstr "Показать все"
+msgstr "Показать RMS"
 
 #: ../tcl/pd_deken.tcl
 msgid "Show all"
@@ -1173,9 +1165,8 @@ msgid "Showing '%d' out of %d items in %s"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_icon.cpp
-#, fuzzy
 msgid "Size"
-msgstr "Размер:"
+msgstr "Размер"
 
 #: ../tcl/dialog_array.tcl ../tcl/dialog_canvas.tcl ../tcl/dialog_iemgui.tcl
 msgid "Size:"
@@ -1249,7 +1240,6 @@ msgid "Text Color"
 msgstr "Цвет текста"
 
 #: ../ceammc/ext/src/ui/ui_number.cpp ../ceammc/ext/src/ui/ui_number_tilde.cpp
-#, fuzzy
 msgid "Text color"
 msgstr "Цвет текста"
 
@@ -1378,7 +1368,8 @@ msgstr "Vertial Slider"
 #: ../tcl/pd-gui.tcl
 #, tcl-format
 msgid "WARNING: Font family '%s' not found, using default (%s)\n"
-msgstr "ВНИМАНИЕ: Шрифт «%s» не найден, используется шрифт по умолчанию (%s)\n"
+msgstr ""
+"ВНИМАНИЕ: Шрифт «%s» не найден, используется шрифт по умолчанию (%s)\n"
 
 #: ../tcl/pd-gui.tcl
 #, tcl-format
@@ -1395,9 +1386,8 @@ msgid "Warm signal color"
 msgstr "Теплый цвет"
 
 #: ../ceammc/ext/src/ui/ui_arrayview.cpp
-#, fuzzy
 msgid "Wave Color"
-msgstr "Цвет шкалы"
+msgstr "Цвет волны"
 
 #: ../tcl/dialog_iemgui.tcl
 msgid "Width (digits):"
