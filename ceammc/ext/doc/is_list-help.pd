@@ -30,8 +30,8 @@
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
-#X obj 131 48 ui.link @title predicates @url ceammc.predicates-
-help.pd;
+#X obj 131 48 ui.link @title predicates @url
+ceammc.predicates-help.pd;
 #X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.5;
 #X text 354 520 see also:;
