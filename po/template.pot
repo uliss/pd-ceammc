@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure\\ Data 0.47.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2018-03-19 00:59+0300\n"
+"POT-Creation-Date: 2018-03-20 02:20+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,166 +16,31 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../ceammc/ext/src/ui/ui_colorpanel.cpp:425
-msgid "Matrix Size"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_colorpanel.cpp:439
-msgid "Matrix Reversed"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_colorpanel.cpp:427
-msgid "Saturation"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_colorpanel.cpp:431
-msgid "First Hue"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_colorpanel.cpp:435
-msgid "First Lightness"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_incdec.cpp:151
-msgid "Step increment"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_incdec.cpp:150
-msgid "Arrow Color"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_matrix.cpp:576
-msgid "Rows"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_matrix.cpp:579
-msgid "Columns"
+msgid "Background Color"
 msgstr ""
 
 msgid "Hover Mode"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_menu.cpp:549 ../ceammc/ext/src/ui/ui_tab.cpp:507
-msgid "Items"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_meter.cpp:214
-#: ../ceammc/ext/src/ui/ui_number_tilde.cpp:110
-msgid "Refresh interval (ms)"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_meter.cpp:208
-msgid "Cold signal color"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_meter.cpp:209
-msgid "Tepid signal color"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_meter.cpp:210
-msgid "Warm signal color"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_meter.cpp:211
-msgid "Hot signal color"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_meter.cpp:212
-msgid "Overload signal color"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_knob.cpp:74 ../ceammc/ext/src/ui/ui_number.cpp:307
-#: ../ceammc/ext/src/ui/ui_rslider.cpp:336
-#: ../ceammc/ext/src/ui/ui_slider.cpp:154
-#: ../ceammc/ext/src/ui/ui_slider.cpp:165
-#: ../ceammc/ext/src/ui/ui_sliders.cpp:451
-#: ../ceammc/ext/src/ui/ui_sliders.cpp:454
-msgid "Minimum Value"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_knob.cpp:75 ../ceammc/ext/src/ui/ui_number.cpp:308
-#: ../ceammc/ext/src/ui/ui_rslider.cpp:337
-#: ../ceammc/ext/src/ui/ui_slider.cpp:155
-#: ../ceammc/ext/src/ui/ui_slider.cpp:166
-#: ../ceammc/ext/src/ui/ui_sliders.cpp:452
-#: ../ceammc/ext/src/ui/ui_sliders.cpp:455
-msgid "Maximum Value"
-msgstr ""
-
 msgid "Number of decimal"
 msgstr ""
 
-msgid "Background Color"
+msgid "Selection Color"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_display.cpp:197
-#: ../ceammc/ext/src/ui/ui_display.cpp:198
-#: ../ceammc/ext/src/ui/ui_label.cpp:138 ../ceammc/ext/src/ui/ui_label.cpp:158
-#: ../ceammc/ext/src/ui/ui_menu.cpp:529 ../ceammc/ext/src/ui/ui_preset.cpp:190
-#: ../ceammc/ext/src/ui/ui_preset.cpp:198 ../ceammc/ext/src/ui/ui_tab.cpp:514
-msgid "Text Color"
+msgid "Active Cell Color"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_preset.cpp:191
-#: ../ceammc/ext/src/ui/ui_preset.cpp:199
-msgid "Empty Button Color"
+msgid "Border Color"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_preset.cpp:192
-#: ../ceammc/ext/src/ui/ui_preset.cpp:200
-msgid "Stored Button Color"
+msgid "Selected Button Color"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_bang.cpp:100 ../ceammc/ext/src/ui/ui_bang.cpp:102
-#: ../ceammc/ext/src/ui/ui_display.cpp:198
-#: ../ceammc/ext/src/ui/ui_display.cpp:199 ../ceammc/ext/src/ui/ui_dsp.cpp:104
-#: ../ceammc/ext/src/ui/ui_env.cpp:617 ../ceammc/ext/src/ui/ui_icon.cpp:308
-#: ../ceammc/ext/src/ui/ui_keyboard.cpp:236
-#: ../ceammc/ext/src/ui/ui_matrix.cpp:582 ../ceammc/ext/src/ui/ui_menu.cpp:530
-#: ../ceammc/ext/src/ui/ui_number.cpp:310
-#: ../ceammc/ext/src/ui/ui_preset.cpp:193
-#: ../ceammc/ext/src/ui/ui_preset.cpp:201 ../ceammc/ext/src/ui/ui_radio.cpp:422
-#: ../ceammc/ext/src/ui/ui_scope.cpp:196 ../ceammc/ext/src/ui/ui_scope.cpp:199
-#: ../ceammc/ext/src/ui/ui_spectroscope.cpp:398
-#: ../ceammc/ext/src/ui/ui_tab.cpp:515 ../ceammc/ext/src/ui/ui_toggle.cpp:109
-#: ../ceammc/ext/src/ui/ui_toggle.cpp:110
-msgid "Active Color"
+msgid "Item Color"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_radio.cpp:423
-msgid "Number of Items"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_radio.cpp:426
-msgid "Check List Mode"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_rslider.cpp:338
-msgid "Mouse sync"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_gain.cpp:211 ../ceammc/ext/src/ui/ui_gain.cpp:222
-#: ../ceammc/ext/src/ui/ui_knob.cpp:72 ../ceammc/ext/src/ui/ui_rslider.cpp:339
-#: ../ceammc/ext/src/ui/ui_slider.cpp:151
-#: ../ceammc/ext/src/ui/ui_slider.cpp:162
-msgid "Knob Color"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_slider.cpp:153
-#: ../ceammc/ext/src/ui/ui_slider.cpp:164
-msgid "Relative Mode"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_tab.cpp:503
-msgid "Vertical Orientation"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_tab.cpp:504
-msgid "Toggle Mode"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_link.cpp:165 ../ceammc/ext/src/ui/ui_tab.cpp:516
-msgid "Hover Color"
+msgid "Cross Color"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/cicm/Sources/eclass.c:139
@@ -307,6 +172,42 @@ msgstr ""
 msgid "Show RMS"
 msgstr ""
 
+#: ../ceammc/ext/src/ui/ui_bang.cpp:100 ../ceammc/ext/src/ui/ui_bang.cpp:102
+#: ../ceammc/ext/src/ui/ui_display.cpp:198
+#: ../ceammc/ext/src/ui/ui_display.cpp:199 ../ceammc/ext/src/ui/ui_dsp.cpp:104
+#: ../ceammc/ext/src/ui/ui_env.cpp:617 ../ceammc/ext/src/ui/ui_icon.cpp:308
+#: ../ceammc/ext/src/ui/ui_keyboard.cpp:236
+#: ../ceammc/ext/src/ui/ui_matrix.cpp:582 ../ceammc/ext/src/ui/ui_menu.cpp:530
+#: ../ceammc/ext/src/ui/ui_number.cpp:310
+#: ../ceammc/ext/src/ui/ui_preset.cpp:193
+#: ../ceammc/ext/src/ui/ui_preset.cpp:201 ../ceammc/ext/src/ui/ui_radio.cpp:422
+#: ../ceammc/ext/src/ui/ui_scope.cpp:196 ../ceammc/ext/src/ui/ui_scope.cpp:199
+#: ../ceammc/ext/src/ui/ui_spectroscope.cpp:398
+#: ../ceammc/ext/src/ui/ui_tab.cpp:515 ../ceammc/ext/src/ui/ui_toggle.cpp:109
+#: ../ceammc/ext/src/ui/ui_toggle.cpp:110
+msgid "Active Color"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_colorpanel.cpp:425
+msgid "Matrix Size"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_colorpanel.cpp:427
+msgid "Saturation"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_colorpanel.cpp:431
+msgid "First Hue"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_colorpanel.cpp:435
+msgid "First Lightness"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_colorpanel.cpp:439
+msgid "Matrix Reversed"
+msgstr ""
+
 #: ../ceammc/ext/src/ui/ui_display.cpp:194
 #: ../ceammc/ext/src/ui/ui_display.cpp:195 ../ceammc/ext/src/ui_display.cpp:231
 #: ../ceammc/ext/src/ui_display.cpp:232
@@ -325,12 +226,27 @@ msgstr ""
 msgid "Auto size"
 msgstr ""
 
+#: ../ceammc/ext/src/ui/ui_display.cpp:197
+#: ../ceammc/ext/src/ui/ui_display.cpp:198
+#: ../ceammc/ext/src/ui/ui_label.cpp:138 ../ceammc/ext/src/ui/ui_label.cpp:158
+#: ../ceammc/ext/src/ui/ui_menu.cpp:529 ../ceammc/ext/src/ui/ui_preset.cpp:190
+#: ../ceammc/ext/src/ui/ui_preset.cpp:198 ../ceammc/ext/src/ui/ui_tab.cpp:514
+msgid "Text Color"
+msgstr ""
+
 #: ../ceammc/ext/src/ui/ui_env.cpp:618
 msgid "Line Color"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_env.cpp:619
 msgid "Length"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_gain.cpp:211 ../ceammc/ext/src/ui/ui_gain.cpp:222
+#: ../ceammc/ext/src/ui/ui_knob.cpp:72 ../ceammc/ext/src/ui/ui_rslider.cpp:339
+#: ../ceammc/ext/src/ui/ui_slider.cpp:151
+#: ../ceammc/ext/src/ui/ui_slider.cpp:162
+msgid "Knob Color"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_gain.cpp:214 ../ceammc/ext/src/ui/ui_gain.cpp:225
@@ -359,6 +275,14 @@ msgstr ""
 msgid "Mode"
 msgstr ""
 
+#: ../ceammc/ext/src/ui/ui_incdec.cpp:150
+msgid "Arrow Color"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_incdec.cpp:151
+msgid "Step increment"
+msgstr ""
+
 #: ../ceammc/ext/src/ui/ui_keyboard.cpp:239
 #: ../ceammc/ext/src/ui_keyboard.cpp:291
 msgid "Keys"
@@ -371,6 +295,24 @@ msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_knob.cpp:71
 msgid "Scale Color"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_knob.cpp:74 ../ceammc/ext/src/ui/ui_number.cpp:307
+#: ../ceammc/ext/src/ui/ui_rslider.cpp:336
+#: ../ceammc/ext/src/ui/ui_slider.cpp:154
+#: ../ceammc/ext/src/ui/ui_slider.cpp:165
+#: ../ceammc/ext/src/ui/ui_sliders.cpp:451
+#: ../ceammc/ext/src/ui/ui_sliders.cpp:454
+msgid "Minimum Value"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_knob.cpp:75 ../ceammc/ext/src/ui/ui_number.cpp:308
+#: ../ceammc/ext/src/ui/ui_rslider.cpp:337
+#: ../ceammc/ext/src/ui/ui_slider.cpp:155
+#: ../ceammc/ext/src/ui/ui_slider.cpp:166
+#: ../ceammc/ext/src/ui/ui_sliders.cpp:452
+#: ../ceammc/ext/src/ui/ui_sliders.cpp:455
+msgid "Maximum Value"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_knob.cpp:76 ../ceammc/ext/src/ui/ui_slider2d.cpp:342
@@ -438,12 +380,53 @@ msgstr ""
 msgid "Link Color"
 msgstr ""
 
+#: ../ceammc/ext/src/ui/ui_link.cpp:165 ../ceammc/ext/src/ui/ui_tab.cpp:516
+msgid "Hover Color"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_matrix.cpp:576
+msgid "Rows"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_matrix.cpp:579
+msgid "Columns"
+msgstr ""
+
 #: ../ceammc/ext/src/ui/ui_matrix.cpp:583
 msgid "Current Color"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_menu.cpp:531
 msgid "Maximum item length"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_menu.cpp:549 ../ceammc/ext/src/ui/ui_tab.cpp:507
+msgid "Items"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_meter.cpp:208
+msgid "Cold signal color"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_meter.cpp:209
+msgid "Tepid signal color"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_meter.cpp:210
+msgid "Warm signal color"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_meter.cpp:211
+msgid "Hot signal color"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_meter.cpp:212
+msgid "Overload signal color"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_meter.cpp:214
+#: ../ceammc/ext/src/ui/ui_number_tilde.cpp:110
+msgid "Refresh interval (ms)"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_number.cpp:311
@@ -456,6 +439,28 @@ msgstr ""
 msgid "Decimal precision"
 msgstr ""
 
+#: ../ceammc/ext/src/ui/ui_preset.cpp:191
+#: ../ceammc/ext/src/ui/ui_preset.cpp:199
+msgid "Empty Button Color"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_preset.cpp:192
+#: ../ceammc/ext/src/ui/ui_preset.cpp:200
+msgid "Stored Button Color"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_radio.cpp:423
+msgid "Number of Items"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_radio.cpp:426
+msgid "Check List Mode"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_rslider.cpp:338
+msgid "Mouse sync"
+msgstr ""
+
 #: ../ceammc/ext/src/ui/ui_scope.cpp:199 ../ceammc/ext/src/ui/ui_scope.cpp:202
 msgid "Window size"
 msgstr ""
@@ -463,6 +468,11 @@ msgstr ""
 #: ../ceammc/ext/src/ui/ui_scope.cpp:201 ../ceammc/ext/src/ui/ui_scope.cpp:204
 #: ../ceammc/ext/src/ui/ui_spectroscope.cpp:400
 msgid "Refresh time (ms)"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_slider.cpp:153
+#: ../ceammc/ext/src/ui/ui_slider.cpp:164
+msgid "Relative Mode"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_slider.cpp:162
@@ -522,6 +532,14 @@ msgstr ""
 msgid "Foreground color"
 msgstr ""
 
+#: ../ceammc/ext/src/ui/ui_tab.cpp:503
+msgid "Vertical Orientation"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_tab.cpp:504
+msgid "Toggle Mode"
+msgstr ""
+
 #: ../ceammc/ext/src/ui_bpfunc.cpp:956
 msgid "Auto send"
 msgstr ""
@@ -556,24 +574,6 @@ msgstr ""
 
 #: ../ceammc/ext/src/ui_sliders.cpp:328
 msgid "Value range"
-msgstr ""
-
-msgid "Border Color"
-msgstr ""
-
-msgid "Active Cell Color"
-msgstr ""
-
-msgid "Selected Button Color"
-msgstr ""
-
-msgid "Item Color"
-msgstr ""
-
-msgid "Selection Color"
-msgstr ""
-
-msgid "Cross Color"
 msgstr ""
 
 #: ../ceammc/gui/plugins/buttonbar.tmpl.tcl:33
