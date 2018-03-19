@@ -24,6 +24,7 @@ public:
     void processBlock(const t_sample** in, t_sample** out);
 
     void calcCoefficents();
+    AtomList propCoeffs() const;
 };
 
 void setup_pan_spread();

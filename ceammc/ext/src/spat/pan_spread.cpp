@@ -24,6 +24,8 @@ PanSpread::PanSpread(const PdArgs& args)
     compensate_ = new BoolProperty("@compensate", false);
     createProperty(compensate_);
 
+    createCbProperty("@coeffs", &PanSpread::propCoeffs);
+
     parseProperties();
 
     const size_t N = channels_->value();
@@ -37,8 +39,6 @@ PanSpread::PanSpread(const PdArgs& args)
     block_l_.assign(64, 0);
     block_r_.assign(64, 0);
 
-    calcCoefficents();
-
     // create inlets
     for (size_t i = 0; i < N - 1; i++)
         createSignalInlet();
@@ -48,6 +48,7 @@ PanSpread::PanSpread(const PdArgs& args)
 
     spread_smooth_.setSmoothTime(10, samplerate(), 64);
     center_smooth_.setSmoothTime(10, samplerate(), 64);
+    calcCoefficents();
 }
 
 void PanSpread::setupDSP(t_signal** sp)
@@ -55,6 +56,8 @@ void PanSpread::setupDSP(t_signal** sp)
     SoundExternal::setupDSP(sp);
     block_l_.resize(blockSize());
     block_r_.resize(blockSize());
+    spread_smooth_.setSmoothTime(10, samplerate(), 64);
+    center_smooth_.setSmoothTime(10, samplerate(), 64);
 }
 
 void PanSpread::processBlock(const t_sample** in, t_sample** out)
@@ -67,11 +70,15 @@ void PanSpread::processBlock(const t_sample** in, t_sample** out)
     std::fill(block_l_.begin(), block_l_.end(), 0);
     std::fill(block_r_.begin(), block_r_.end(), 0);
 
-    for (size_t j = 0; j < N; j++) {
+    for (size_t chan = 0; chan < N; chan++) {
+
+        const t_float cl = coefs_l_[chan];
+        const t_float cr = coefs_r_[chan];
+
         for (size_t i = 0; i < bs; i++) {
-            t_float v = in[j][i];
-            block_l_[i] += v * coefs_l_[j];
-            block_r_[i] += v * coefs_r_[j];
+            t_float v = in[chan][i];
+            block_l_[i] += v * cl;
+            block_r_[i] += v * cr;
         }
     }
 
@@ -94,6 +101,20 @@ void PanSpread::calcCoefficents()
         coefs_l_[i] = cosf(pos * M_PI_2) * comp;
         coefs_r_[i] = sinf(pos * M_PI_2) * comp;
     }
+}
+
+AtomList PanSpread::propCoeffs() const
+{
+    const size_t N = channels_->value();
+    AtomList res;
+    res.reserve(N * 2);
+
+    for (size_t i = 0; i < N; i++) {
+        res.append(Atom(coefs_l_[i]));
+        res.append(Atom(coefs_r_[i]));
+    }
+
+    return res;
 }
 
 void setup_pan_spread()
