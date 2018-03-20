@@ -41,6 +41,15 @@ TEST_CASE("array.vplay", "[externals]")
         REQUIRE_PROPERTY_FLOAT(t, @end, -1);
         REQUIRE_PROPERTY_FLOAT(t, @abs_begin, 0);
         REQUIRE_PROPERTY_FLOAT(t, @abs_end, 0);
+
+        SECTION("empty")
+        {
+            WHEN_CALL(t, play);
+            REQUIRE_NO_MSG(t);
+
+            WHEN_CALL_2(t, range, 10, "ms");
+            REQUIRE_NO_MSG(t);
+        }
     }
 
     SECTION("invalid")
@@ -94,6 +103,7 @@ TEST_CASE("array.vplay", "[externals]")
         REQUIRE(t.hasNewMessages(0));
         REQUIRE(t.messageAt(0, 0).atomValue().asFloat() == 0);
         REQUIRE(t.messageAt(1, 0).listValue() == L2(99, 1000));
+        REQUIRE_PROPERTY(t, @state, "play");
 
         // already playing
         WHEN_CALL(t, play);
@@ -110,6 +120,9 @@ TEST_CASE("array.vplay", "[externals]")
         // different speed
         t.setProperty("@speed", L1(2));
         REQUIRE_VLINE_MSG(t, 0, 99, 500);
+        REQUIRE_PROPERTY(t, @speed, 2);
+        t.setProperty("@speed", L1(0.001));
+        REQUIRE_PROPERTY(t, @speed, 2);
 
         // reverse playback
         t.setProperty("@begin", L1(-1));
@@ -196,8 +209,85 @@ TEST_CASE("array.vplay", "[externals]")
         REQUIRE_PROPERTY_FLOAT(t, @begin, 0);
         REQUIRE_PROPERTY_FLOAT(t, @end, 50);
 
-        WHEN_CALL_4(t, range, -5, "ms", 0.0, "ms");
-        REQUIRE_PROPERTY_FLOAT(t, @begin, 99);
+        WHEN_CALL_4(t, range, 0.0, "ms", -1, "ms");
+        REQUIRE_PROPERTY_FLOAT(t, @begin, 0);
+        REQUIRE_PROPERTY_FLOAT(t, @end, 99);
+
+        WHEN_CALL_4(t, range, 0.0, "ms", -2, "ms");
+        REQUIRE_PROPERTY_FLOAT(t, @begin, 0);
+        REQUIRE_PROPERTY_FLOAT(t, @end, 99);
+
+        WHEN_CALL_4(t, range, 0.0, "ms", -1000, "ms");
+        REQUIRE_PROPERTY_FLOAT(t, @begin, 0);
         REQUIRE_PROPERTY_FLOAT(t, @end, 0);
+
+        WHEN_CALL_4(t, range, 0.0, "ms", -2000, "ms");
+        REQUIRE_PROPERTY_FLOAT(t, @begin, 0);
+        REQUIRE_PROPERTY_FLOAT(t, @end, 0);
+
+        WHEN_CALL_4(t, range, 0.0, "ms", -990, "ms");
+        REQUIRE_PROPERTY_FLOAT(t, @begin, 0);
+        REQUIRE_PROPERTY_FLOAT(t, @end, 1);
+
+        WHEN_CALL_4(t, range, 0.0, "ms", -10, "ms");
+        REQUIRE_PROPERTY_FLOAT(t, @begin, 0);
+        REQUIRE_PROPERTY_FLOAT(t, @end, 99);
+
+        WHEN_CALL_4(t, range, 0.0, "ms", -20, "ms");
+        REQUIRE_PROPERTY_FLOAT(t, @begin, 0);
+        REQUIRE_PROPERTY_FLOAT(t, @end, 98);
+
+        WHEN_CALL_4(t, range, 0.0, "sec", 1, "sec");
+        REQUIRE_PROPERTY_FLOAT(t, @begin, 0);
+        REQUIRE_PROPERTY_FLOAT(t, @end, 99);
+
+        WHEN_CALL_4(t, range, 0.0, "sec", 2, "sec");
+        REQUIRE_PROPERTY_FLOAT(t, @begin, 0);
+        REQUIRE_PROPERTY_FLOAT(t, @end, 99);
+
+        WHEN_CALL_4(t, range, 0.0, "sec", 0.5, "sec");
+        REQUIRE_PROPERTY_FLOAT(t, @begin, 0);
+        REQUIRE_PROPERTY_FLOAT(t, @end, 50);
+
+        WHEN_CALL_4(t, range, 0.0, "sec", -0.01, "sec");
+        REQUIRE_PROPERTY_FLOAT(t, @begin, 0);
+        REQUIRE_PROPERTY_FLOAT(t, @end, 99);
+
+        WHEN_CALL_4(t, range, 0.0, "sec", -0.5, "sec");
+        REQUIRE_PROPERTY_FLOAT(t, @begin, 0);
+        REQUIRE_PROPERTY_FLOAT(t, @end, 50);
+
+        WHEN_CALL_4(t, range, 0.0, "sec", 1, "phase");
+        REQUIRE_PROPERTY_FLOAT(t, @begin, 0);
+        REQUIRE_PROPERTY_FLOAT(t, @end, 99);
+
+        WHEN_CALL_4(t, range, 0.0, "sec", 0.0, "phase");
+        REQUIRE_PROPERTY_FLOAT(t, @begin, 0);
+        REQUIRE_PROPERTY_FLOAT(t, @end, 0);
+
+        WHEN_CALL_4(t, range, 0.0, "sec", 0.5, "phase");
+        REQUIRE_PROPERTY_FLOAT(t, @begin, 0);
+        REQUIRE_PROPERTY_FLOAT(t, @end, 50);
+
+        WHEN_CALL_4(t, range, 0.0, "sec", -0.1, "phase");
+        REQUIRE_PROPERTY_FLOAT(t, @begin, 0);
+        REQUIRE_PROPERTY_FLOAT(t, @end, 50);
+
+        WHEN_CALL_4(t, range, 0.0, "sec", 1.1, "phase");
+        REQUIRE_PROPERTY_FLOAT(t, @begin, 0);
+        REQUIRE_PROPERTY_FLOAT(t, @end, 50);
+
+        WHEN_CALL_4(t, range, 0.0, "sec", -1, "sample");
+        REQUIRE_PROPERTY_FLOAT(t, @begin, 0);
+        REQUIRE_PROPERTY_FLOAT(t, @end, 99);
+
+        // typo
+        WHEN_CALL_4(t, range, 0.0, "sec", 20, "samples");
+        REQUIRE_PROPERTY_FLOAT(t, @begin, 0);
+        REQUIRE_PROPERTY_FLOAT(t, @end, 99);
+
+        WHEN_CALL_3(t, range, 0.0, "sec", 20);
+        REQUIRE_PROPERTY_FLOAT(t, @begin, 0);
+        REQUIRE_PROPERTY_FLOAT(t, @end, 99);
     }
 }

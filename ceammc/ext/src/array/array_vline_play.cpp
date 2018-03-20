@@ -14,6 +14,7 @@
 #include "array_vline_play.h"
 #include "ceammc_factory.h"
 
+#include <boost/none.hpp>
 #include <cmath>
 
 static t_symbol* SYM_PLAY = gensym("play");
@@ -163,38 +164,21 @@ void ArrayVlinePlay::m_range(t_symbol* s, const AtomList& lst)
         return;
 
     if (lst.size() >= 2) {
-        size_t v = unitToAbsPosition(lst[0].asFloat(), lst[1].asSymbol());
-        if (v == std::numeric_limits<size_t>::max()) {
-            OBJ_ERR << "invalid args: " << lst;
-            return;
-        }
-
-        begin_pos_ = v;
+        SamplePos pos = unitToAbsPosition(lst[0].asFloat(), lst[1].asSymbol());
+        if (pos)
+            begin_pos_ = *pos;
     }
 
     if (lst.size() == 4) {
-        size_t v = unitToAbsPosition(lst[2].asFloat(), lst[3].asSymbol());
-        if (v == std::numeric_limits<size_t>::max()) {
-            OBJ_ERR << "invalid args: " << lst;
-            return;
-        }
-
-        end_pos_ = v;
+        SamplePos pos = unitToAbsPosition(lst[2].asFloat(), lst[3].asSymbol());
+        if (pos)
+            end_pos_ = *pos;
     }
-}
-
-size_t ArrayVlinePlay::phaseToAbsPosition(t_float p)
-{
-    const size_t N = array_.size();
-    if (N < 1)
-        return 0;
-
-    return toAbsPosition(roundf((N - 1) * p));
 }
 
 size_t ArrayVlinePlay::secToAbsPosition(t_float t)
 {
-    return toAbsPosition(roundf(t * sys_getsr()));
+    return toAbsPosition(t * sys_getsr());
 }
 
 size_t ArrayVlinePlay::toAbsPosition(long pos) const
@@ -208,19 +192,50 @@ size_t ArrayVlinePlay::toAbsPosition(long pos) const
     return res < 0 ? 0 : res;
 }
 
-size_t ArrayVlinePlay::unitToAbsPosition(t_float v, t_symbol* unit)
+SamplePos ArrayVlinePlay::unitToAbsPosition(t_float v, t_symbol* unit)
 {
-    if (unit == SYM_UNIT_MS)
-        return secToAbsPosition(v * 0.001f);
-    else if (unit == SYM_UNIT_SEC)
-        return secToAbsPosition(v);
-    else if (unit == SYM_UNIT_PHASE)
-        return phaseToAbsPosition(v);
-    else if (unit == SYM_UNIT_SAMP)
+    const size_t N = array_.size();
+    const t_float SR = sys_getsr();
+
+    if (unit == SYM_UNIT_MS) {
+        const t_float ARR_LEN_MS = (1000 * N) / SR;
+
+        t_float t_ms = v;
+        // negative time offset
+        if (t_ms < 0) {
+            t_ms += ARR_LEN_MS;
+            t_ms = std::max<t_float>(0, t_ms);
+        }
+
+        t_ms = std::min<t_float>(t_ms, ARR_LEN_MS);
+        return secToAbsPosition(t_ms * 0.001f);
+
+    } else if (unit == SYM_UNIT_SEC) {
+
+        const t_float ARR_LEN_SEC = N / SR;
+
+        t_float t_sec = v;
+        // negative time offset
+        if (t_sec < 0) {
+            t_sec += ARR_LEN_SEC;
+            t_sec = std::max<t_float>(0, t_sec);
+        }
+
+        t_sec = std::min<t_float>(t_sec, ARR_LEN_SEC);
+        return secToAbsPosition(t_sec);
+
+    } else if (unit == SYM_UNIT_PHASE) {
+        if (v < 0 || v > 1) {
+            OBJ_ERR << "phase should be in [0-1] range";
+            return boost::none;
+        }
+
+        return roundf((N - 1) * v);
+    } else if (unit == SYM_UNIT_SAMP) {
         return toAbsPosition(v);
-    else {
+    } else {
         OBJ_ERR << "unknown unit: " << unit;
-        return std::numeric_limits<size_t>::max();
+        return boost::none;
     }
 }
 
