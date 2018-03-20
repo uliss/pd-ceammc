@@ -25,6 +25,7 @@
 - pan.cos~ (pan~) added
 - pan.spread~ added
 - ui.dsp~ doc added
+- array.vplay added
 - @active_scale - property added to ui.slider
 - change orientation of ui.slider, ui.radio, ui.sliders in edit mode by double click
 - show/hide message type in ui.display by double click

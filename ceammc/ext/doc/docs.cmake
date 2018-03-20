@@ -9,6 +9,7 @@ set(DOC_FILES
     array.s2p
     array.set
     array.stretch
+    array.vplay
     canvas.current
     canvas.top
     click~

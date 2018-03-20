@@ -15,7 +15,7 @@ array.s2p
 array.sample->phase
 array.set
 array.stretch
-array.vline_play
+array.vplay
 bpm->hz
 bpm->ms
 bpm->sec

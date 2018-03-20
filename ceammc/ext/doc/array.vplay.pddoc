@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="array.vplay">
+        <title>array.vplay</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>simple array player that uses vline~</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>array</category>
+            <keywords>array play vline</keywords>
+            <also>
+                <see>list.each</see>
+            </also>
+            <since>0.5</since>
+        </meta>
+        <arguments>
+            <argument name="NAME" type="symbol">array name</argument>
+        </arguments>
+        <properties>
+            <property name="@array" type="symbol">array name</property>
+            <property name="@state" type="symbol" enum="play stop">player state</property>
+            <property name="@speed" type="float" minvalue="0.1" default="1">play speed</property>
+        </properties>
+        <methods>
+            <method name="play">start playing</method>
+            <method name="stop">stop playing</method>
+            <method name="seek">change playing position (no output, you need to stop and start)</method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo>control input</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>message to vline~ object</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[load %DOC%/sound/voice.wav @to vplay @resize( [array vplay size=100 w=130 h=100]
+|
+[expand_env] [ui.hsl]
+|            |
+[snd.file]   [seek phase $1(
+             |
+[stop, play( | [@speed 1( [@speed 0.6( [@speed 2(
+|            | |          |            |
+[array.vplay               @array vplay]
+|
+[vline~]
+|
+[tabread4~ vplay]
+|
+[ui.gain~ @size 120 16]      [ui.dsp~]
+| \
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -8,6 +8,8 @@ array.p2s,array.p->s,array.phase->sample		.		.
 array.s2p,array.s->p,array.sample->phase		.		.
 array.set,list->array		.		-
 array.stretch		.		.
+array.vline_play		.		.
+array.vplay		.		.
 canvas.current		.		.
 canvas.top		.		.
 click~		.		~

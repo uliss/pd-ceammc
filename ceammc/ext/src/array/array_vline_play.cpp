@@ -177,7 +177,7 @@ void ArrayVlinePlay::m_stop(t_symbol* s, const AtomList& lst)
 
 void setup_array_vline_play()
 {
-    ObjectFactory<ArrayVlinePlay> obj("array.vline_play");
+    ObjectFactory<ArrayVlinePlay> obj("array.vplay");
 
     obj.addMethod("play", &ArrayVlinePlay::m_play);
     obj.addMethod("stop", &ArrayVlinePlay::m_stop);
