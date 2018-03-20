@@ -888,6 +888,11 @@
       <xi:include href="symbol.num_compare.pddoc" parse="xml"/>
     </entry>
   </category>
+  <category name="synth">
+    <entry descr="Jean Claude Risset's endless glissando" name="synth.risset_tone~" ref_view="object">
+      <xi:include href="synth.risset_tone~.pddoc" parse="xml"/>
+    </entry>
+  </category>
   <category name="system">
     <entry descr="Get information about cursor motion, mousewheel and buttonclick" name="system.cursor" ref_view="object">
       <xi:include href="system.cursor.pddoc" parse="xml"/>
@@ -1020,6 +1025,7 @@
       <author>Alex Nadzharov</author>
       <author>Hans-Christoph Steiner</author>
       <author>Julian Parker</author>
+      <author>Oliver Larkin</author>
       <author>Olli Parviainen</author>
       <author>Pierre Guillot</author>
       <author>Serge Poltavsky</author>

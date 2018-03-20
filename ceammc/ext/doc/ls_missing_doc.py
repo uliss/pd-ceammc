@@ -4,8 +4,10 @@ import re
 import logging
 import xml.etree.ElementTree as ET
 
-logging.addLevelName(logging.WARNING, "\033[1;31m%s\033[1;0m" % logging.getLevelName(logging.WARNING))
-logging.addLevelName(logging.ERROR, "\033[1;41m%s\033[1;0m" % logging.getLevelName(logging.ERROR))
+logging.addLevelName(logging.WARNING, "\033[1;31m%s\033[1;0m " % logging.getLevelName(logging.WARNING))
+logging.addLevelName(logging.ERROR, "\033[1;41m%s\033[1;0m " % logging.getLevelName(logging.ERROR))
+
+ignored = set(['prepend', '_tcl.version'])
 
 def allExternalsWithAliases():
     res = set()
@@ -51,14 +53,14 @@ def allDocFilesOnDisk():
     return res
 
 def not_in_project():
-    files = allDocFilesOnDisk() - allDocFilesInCmake()
+    files = allDocFilesOnDisk() - allDocFilesInCmake() - ignored
     if len(files) > 0:
         logging.warning("this pddoc files are not in cmake project (no PD-help will be generated for them):")
         for f in files:
             print "    {0}".format(f)
 
 def non_documented():
-    files = allExternalsWithAliases() - allDocFilesWithAliases()
+    files = allExternalsWithAliases() - allDocFilesWithAliases() - ignored
 
     if len(files) > 0:
         logging.warning("this objects are not documented:")
