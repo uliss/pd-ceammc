@@ -22,7 +22,7 @@ purposes in centre of electroacoustic music of Moscow Conservatory
 #X obj 30 342 array.stretch;
 #X text 175 342 array time-stretch \, pitch-shift or rate-change;
 #X obj 30 369 array.vplay;
-#X text 175 369 simple array player that uses vline~;
+#X text 175 369 simple array player for using with vline~;
 #X obj 20 396 cnv 5 48 31 empty empty base 4 13 0 17 -262144 -49933 0;
 #X obj 20 437 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 451 ui.link @title [function] @url function-help.pd;

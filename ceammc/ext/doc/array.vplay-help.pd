@@ -1,7 +1,7 @@
 #N canvas 0 0 715 555 12;
 #X declare -lib ceammc;
-#X obj 403 50 cnv 1 292 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 403 50 simple array player that uses vline~;
+#X obj 363 50 cnv 1 332 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 363 50 simple array player for using with vline~;
 #X obj 1 1 cnv 5 712 40 empty empty array.vplay 20 20 0 20 -104026
 -4096 0;
 #X obj 607 11 array.vplay;
@@ -11,70 +11,87 @@
 #A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
-#X coords 0 1 100 -1 130 100 1;
-#X restore 501 118 graph;
+#X coords 0 1 100 -1 120 95 1;
+#X restore 434 133 graph;
 #X obj 50 147 expand_env;
-#X obj 174 147 ui.hsl;
+#X msg 280 147 0.3;
+#X msg 338 147 1.7;
 #X obj 50 176 snd.file;
-#X msg 174 176 seek phase \$1;
-#X msg 50 205 stop \, play;
-#X msg 194 205 @speed 1;
-#X msg 299 205 @speed 0.6;
-#X msg 424 205 @speed 2;
-#X obj 50 234 array.vplay @array vplay;
-#X obj 50 262 vline~;
-#X obj 50 291 tabread4~ vplay;
-#X obj 50 320 ui.gain~ @size 120 16;
-#X obj 328 320 ui.dsp~;
-#X obj 50 349 dac~;
-#X obj 20 388 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 393 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X floatatom 280 176 5 0 0 0 - - -;
+#X msg 50 219 stop \, play;
+#X msg 174 219 @speed 1;
+#X msg 280 219 @speed \$1;
+#X obj 434 234 ui.rslider @size 120 16;
+#X obj 69 248 r pos;
+#X msg 434 262 range \$1 phase \$2 phase;
+#X obj 50 277 array.vplay @array vplay;
+#X obj 50 305 vline~;
+#X msg 453 305 @begin 0;
+#X msg 558 305 @end -1;
+#X obj 50 334 tabread4~ vplay;
+#X obj 434 334 s pos;
+#X obj 50 363 ui.gain~ @size 120 16;
+#X obj 328 363 ui.dsp~;
+#X obj 50 392 dac~;
+#X obj 20 431 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 436 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 120 398 1\.;
-#X text 150 398 symbol;
-#X obj 241 399 cnv 1 41 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 398 NAME: array name.;
-#X obj 20 426 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 431 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 120 441 1\.;
+#X text 150 441 symbol;
+#X obj 241 442 cnv 1 41 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 441 NAME: array name.;
+#X obj 20 469 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 474 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 436 @array;
-#X text 240 436 Get/Set array name. Type: symbol;
-#X msg 120 463 @state;
-#X text 240 463 Get/Set player state. Type: symbol. Allowed values:
+#X msg 120 479 @array;
+#X text 240 479 Get/Set array name. Type: symbol;
+#X msg 120 506 @state;
+#X text 240 506 Get/Set player state. Type: symbol. Allowed values:
 play \, stop;
-#X msg 120 500 @speed;
-#X text 240 500 Get/Set play speed. Type: float. Default value: 1\.
+#X msg 120 543 @speed;
+#X text 240 543 Get/Set play speed. Type: float. Default value: 1\.
 Min value: 0.1;
-#X obj 20 547 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 552 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 590 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 595 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 557 play;
-#X text 240 557 start playing.;
-#X msg 120 589 stop;
-#X text 240 589 stop playing.;
-#X msg 120 621 seek;
-#X text 240 621 change playing position (no output \, you need to stop
-and start).;
-#X obj 20 673 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 678 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 120 600 play;
+#X text 240 600 start playing.;
+#X msg 120 632 stop;
+#X text 240 632 stop playing.;
+#X msg 120 664 range;
+#X text 240 664 set play range. Arguments are:;
+#X obj 250 692 cnv 1 46 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 692 VALUE: start value. Negative values (offset from end)
+are supported for ms \, sec and sample units. *-1 sample* means last
+sample. Type: float.;
+#X obj 250 748 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 748 UNIT: value unit. Type: symbol. Allowed values: ms \,
+sec \, phase \, sample.;
+#X obj 250 790 cnv 1 56 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 790 [VALUE]: end value. Type: float.;
+#X obj 250 818 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 818 UNIT: value unit. Type: symbol. Allowed values: ms \,
+sec \, phase \, sample.;
+#X obj 20 870 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 875 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 683 1\.;
-#X text 240 683 control input.;
-#X obj 20 711 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 716 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 120 880 1\.;
+#X text 240 880 control input.;
+#X obj 20 908 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 913 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 721 1\.;
-#X text 240 721 message to vline~ object;
+#X text 120 918 1\.;
+#X text 240 918 message to vline~ object;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 769 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 772 library: ceammc v0.5;
-#X text 549 784 see also:;
-#X obj 625 784 list.each;
-#N canvas 10 791 400 290 info 0;
+#X obj 1 966 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 969 library: ceammc v0.5;
+#X text 549 981 see also:;
+#X obj 625 981 list.each;
+#N canvas 10 988 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -98,17 +115,22 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 791 pd info;
-#X connect 9 0 14 0;
-#X connect 10 0 14 0;
-#X connect 17 0 19 0;
-#X connect 14 0 15 0;
-#X connect 11 0 14 0;
-#X connect 16 0 17 0;
-#X connect 12 0 14 0;
-#X connect 17 0 19 1;
-#X connect 6 0 8 0;
-#X connect 15 0 16 0;
+#X restore 10 988 pd info;
+#X connect 19 0 22 0;
+#X connect 13 0 17 0;
+#X connect 7 0 10 0;
+#X connect 20 0 22 0;
+#X connect 18 0 21 0;
+#X connect 10 0 13 0;
+#X connect 15 0 17 0;
+#X connect 12 0 17 0;
+#X connect 16 0 22 0;
+#X connect 23 0 25 0;
+#X connect 23 0 25 1;
+#X connect 6 0 9 0;
+#X connect 11 0 17 0;
+#X connect 17 0 18 0;
+#X connect 21 0 23 0;
+#X connect 8 0 10 0;
 #X connect 4 0 6 0;
-#X connect 13 0 14 0;
-#X connect 7 0 9 0;
+#X connect 14 0 16 0;
