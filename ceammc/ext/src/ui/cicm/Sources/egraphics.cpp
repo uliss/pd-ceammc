@@ -110,6 +110,8 @@ static void egraphics_paint(t_elayer* g, int filled, int preserved)
             nobj->e_width = g->e_line_width;
             nobj->e_capstyle = g->e_line_capstyle;
             nobj->e_dashstyle = g->e_line_dashstyle;
+            nobj->e_justify = g->e_new_objects.e_justify;
+            nobj->e_anchor = g->e_new_objects.e_anchor;
             nobj->e_text = g->e_new_objects.e_text;
             nobj->e_image = g->e_new_objects.e_image;
 
@@ -880,6 +882,8 @@ t_etext* etext_layout_create(void)
     new_text_layout->c_buf[0] = 0;
     new_text_layout->c_text = &new_text_layout->c_buf[0];
     new_text_layout->c_is_buffer_used = 1;
+    new_text_layout->c_justify = ETEXT_JLEFT;
+    new_text_layout->c_anchor = SYM_E;
 
     return new_text_layout;
 }
@@ -952,18 +956,7 @@ void etext_layout_set(t_etext* textlayout, const char* text, t_efont* font,
     }
 
     textlayout->c_anchor = anchor_to_symbol(anchor);
-
-    switch (justify) {
-    case ETEXT_JCENTER:
-        textlayout->c_justify = SYM_CENTER;
-        break;
-    case ETEXT_JRIGHT:
-        textlayout->c_justify = SYM_RIGHT;
-        break;
-    default:
-        textlayout->c_justify = SYM_LEFT;
-        break;
-    }
+    textlayout->c_justify = justify;
 }
 
 void etext_layout_settextcolor(t_etext* textlayout, t_rgba* color)

@@ -1315,6 +1315,19 @@ static void ebox_do_paint_image(t_elayer* g, t_ebox* x, t_egobj const* gobj, flo
         g->e_id->s_name, x->b_all_id->s_name);
 }
 
+
+static const char* justify_to_symbol(etextjustify_flags justify)
+{
+    switch (justify) {
+    case ETEXT_JCENTER:
+        return SYM_CENTER->s_name;
+    case ETEXT_JRIGHT:
+        return SYM_RIGHT->s_name;
+    default:
+        return SYM_LEFT->s_name;
+    }
+}
+
 t_pd_err ebox_paint_layer(t_ebox* x, t_symbol* name, float x_p, float y_p)
 {
 #ifndef JUCE_APP_VERSION
@@ -1391,7 +1404,7 @@ t_pd_err ebox_paint_layer(t_ebox* x, t_symbol* name, float x_p, float y_p)
                     (int)(gobj->e_points[0].y + y_p),
                     gobj->e_text,
                     gobj->e_anchor->s_name,
-                    gobj->e_justify->s_name,
+                    justify_to_symbol(gobj->e_justify),
                     gobj->e_font.c_family->s_name,
                     (int)gobj->e_font.c_size * zoom,
                     gobj->e_font.c_weight->s_name,

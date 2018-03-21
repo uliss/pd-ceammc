@@ -371,7 +371,7 @@ typedef struct t_etext
     t_efont         c_font;     /*!< The font of the text. */
     t_rect          c_rect;     /*!< The rectangle of the text. */
     t_symbol*       c_anchor;   /*!< The anchor of the text. */
-    t_symbol*       c_justify;  /*!< The justification of the text. */
+    etextjustify_flags c_justify;  /*!< The justification of the text. */
     const char*     c_text;     /*!< The text. */
     char            c_buf[64];
     char            c_is_buffer_used;
@@ -409,7 +409,7 @@ typedef struct t_egobj
     int             e_npoints;      /*!< The number of points of the graphical object. */
     t_efont         e_font;         /*!< The font of the graphical object. */
     t_symbol*       e_anchor;       /*!< The anchor of the graphical object. */
-    t_symbol*       e_justify;      /*!< The justification of the graphical object. */
+    etextjustify_flags e_justify;      /*!< The justification of the graphical object. */
     const char*     e_text;         /*!< The text of the graphical object. */
     t_eimage*       e_image;        /*!< The image of the graphical object. */
 } t_egobj;
