@@ -863,16 +863,26 @@ t_pd_err ebox_set_fontslant(t_ebox* x, t_object* attr, int argc, t_atom* argv)
     return 0;
 }
 
+#ifdef __APPLE__
+static const int FONT_SIZE = 11;
+#elif __WIN32
+static const int FONT_SIZE = 9;
+#else
+static const int FONT_SIZE = 10;
+#endif
+
 t_pd_err ebox_set_fontsize(t_ebox* x, t_object* attr, int argc, t_atom* argv)
 {
     if (argc && argv && atom_gettype(argv) == A_FLOAT) {
         x->b_font.c_sizereal = (long)pd_clip_min(atom_getfloat(argv), 4);
-    } else
-        x->b_font.c_sizereal = 11;
+    } else {
+        x->b_font.c_sizereal = FONT_SIZE;
+    }
+
 #ifdef __APPLE__
     x->b_font.c_size = x->b_font.c_sizereal;
 #elif _WINDOWS
-    x->b_font.c_size = x->b_font.c_sizereal - 1;
+    x->b_font.c_size = x->b_font.c_sizereal - 2;
 #else
     x->b_font.c_size = x->b_font.c_sizereal - 3;
 #endif
@@ -1375,7 +1385,7 @@ t_pd_err ebox_paint_layer(t_ebox* x, t_symbol* name, float x_p, float y_p)
                 sys_vgui("%s", bottom);
             } else if (gobj->e_type == E_GOBJ_TEXT) {
                 int zoom = ebox_getzoom(x);
-                sys_vgui("%s create text %d %d -text {%s} -anchor %s -justify %s -font {%s %d %s %s} -fill %s -width %d -tags { %s %s }\n",
+                sys_vgui("%s create text %d %d -text {%s} -anchor %s -justify %s -font {{%s} %d %s %s} -fill %s -width %d -tags { %s %s }\n",
                     x->b_drawing_id->s_name,
                     (int)(gobj->e_points[0].x + x_p),
                     (int)(gobj->e_points[0].y + y_p),

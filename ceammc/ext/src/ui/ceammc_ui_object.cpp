@@ -14,7 +14,7 @@ t_symbol* UIObject::FONT_FAMILY = gensym("Helvetica");
 const int UIObject::FONT_SIZE = 12;
 const int UIObject::FONT_SIZE_SMALL = 8;
 #elif _WIN32
-t_symbol* UIObject::FONT_FAMILY = gensym("Verdana");
+t_symbol* UIObject::FONT_FAMILY = gensym("DejaVu Sans Mono");
 const int UIObject::FONT_SIZE = 9;
 const int UIObject::FONT_SIZE_SMALL = 6;
 #else
