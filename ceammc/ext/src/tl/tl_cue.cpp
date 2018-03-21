@@ -175,6 +175,10 @@ UI_fun(tl_cue)::wx_oksize(tl_cue* z, t_rect* newrect)
     const float zoom = ebox_getzoom(asBox(z));
     newrect->width = 50 * zoom;
     newrect->height = ebox_getzoomfontsize(asBox(z)) + 3 * zoom;
+
+#ifdef __WIN32
+    newrect->height += 6;
+#endif
 }
 
 UI_fun(tl_cue)::wx_attr_changed_ext(tl_cue* z, t_symbol* attr)
@@ -212,10 +216,9 @@ UI_fun(tl_cue)::wx_paint(tl_cue* zx, t_object* /*view*/)
     t_elayer* g = ebox_start_layer(asBox(zx), BG_LAYER, rect.width, rect.height);
     if (g) {
         const float xoff = 2 * ebox_getzoom(asBox(zx));
-        const float yoff = (FONT_SIZE + 2) * ebox_getzoom(asBox(zx));
 
-        etext_layout_set(zx->txt, zx->data->name().c_str(), zx->fnt, xoff, yoff, rect.width, rect.height / 2,
-            ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
+        etext_layout_set(zx->txt, zx->data->name().c_str(), zx->fnt, xoff, rect.height / 2, 0, 0,
+            ETEXT_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
 
         etext_layout_draw(zx->txt, g);
         ebox_end_layer(asBox(zx), BG_LAYER);
