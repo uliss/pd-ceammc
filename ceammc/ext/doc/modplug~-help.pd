@@ -14,11 +14,11 @@
 #X msg 290 176 @rpos?;
 #X obj 50 205 modplug~ @done on_done;
 #X obj 50 234 ~->;
-#X obj 261 234 func on_done;
-#X obj 117 262 route @rpos;
-#X obj 366 262 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 299 234 func on_done;
+#X obj 155 262 route @rpos;
+#X obj 414 262 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 50 291 dac~;
-#X floatatom 117 291 5 0 0 0 - - -;
+#X floatatom 155 291 5 0 0 0 - - -;
 #X obj 20 330 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 335 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -104,3 +104,4 @@ https://github.com/uliss/pure-data;
 #X connect 9 0 10 0;
 #X connect 6 0 11 0;
 #X connect 7 0 11 0;
+#X connect 11 1 16 1;

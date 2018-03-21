@@ -47,13 +47,15 @@
 | |      |       |       |
 | |      |       |       [@rpos?(
 | |      |       |       |
-[modplug~   @done on_done]
+[modplug~   @done on_done #x1]
 |
-[~->    ]             [func on_done]
-|      ^|                        ^|
-|      [route @rpos]             [T]
-|      |
-[dac~] [F]
+[~->        ]             [func on_done]
+|          ^|                         ^|
+|          [route @rpos]              [T]
+|          |
+[dac~ #x2] [F]
+
+[X x1:1->x2:1]
 ]]>
 </pdascii>
         </example>
