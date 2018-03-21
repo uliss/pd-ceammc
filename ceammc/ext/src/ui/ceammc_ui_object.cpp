@@ -18,8 +18,8 @@ t_symbol* UIObject::FONT_FAMILY = gensym("DejaVu Sans Mono");
 const int UIObject::FONT_SIZE = 9;
 const int UIObject::FONT_SIZE_SMALL = 6;
 #else
-t_symbol* UIObject::FONT_FAMILY = gensym("OpenSans");
-const int UIObject::FONT_SIZE = 10;
+t_symbol* UIObject::FONT_FAMILY = gensym("DejaVu Sans Mono");
+const int UIObject::FONT_SIZE = 9;
 const int UIObject::FONT_SIZE_SMALL = 6;
 #endif
 
