@@ -24,8 +24,8 @@ find_program(XDG-DESKTOP-MENU_EXECUTABLE xdg-desktop-menu)
 # Debian package
 include(DpkgBuild)
 if(DPKG_FOUND AND NOT WIN32)
-    set(DESKTOP_FILE "puredata.desktop")
-    set(MIME_FILE    "pd.xml")
+    set(DESKTOP_FILE "pd-ceammc.desktop")
+    set(MIME_FILE    "pd-ceammc.xml")
     # substitute version variables
     configure_file("${CMAKE_SOURCE_DIR}/ceammc/gui/linux/${DESKTOP_FILE}" ${CMAKE_CURRENT_BINARY_DIR})
 
