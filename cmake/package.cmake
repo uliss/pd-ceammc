@@ -37,12 +37,6 @@ if(DPKG_FOUND AND NOT WIN32)
     install(FILES "${CMAKE_SOURCE_DIR}/ceammc/gui/linux/${MIME_FILE}" DESTINATION ${PD_MIME_DIR})
     # Desktop files
     install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${DESKTOP_FILE}" DESTINATION ${PD_DESKTOP_DIR})
-
-    #install(CODE "
-    #    execute_process(COMMAND ${XDG-MIME_EXECUTABLE} install --novendor ${PD_MIME_DIR}/${MIME_FILE})
-    #    execute_process(COMMAND ${XDG-DESKTOP-MENU_EXECUTABLE} install --novendor ${PD_DESKTOP_DIR}/${DESKTOP_FILE})
-    #   execute_process(COMMAND ${XDG-MIME_EXECUTABLE} default ${DESKTOP_FILE} text/x-puredata)
-    #")
   
     include(CheckLSBTypes)
 
