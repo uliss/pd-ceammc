@@ -515,37 +515,61 @@ public:
 
     static void mouseMove(UI* z, t_object* view, t_pt pt, long modifiers)
     {
+        updateMousePos(pt);
         z->onMouseMove(view, pt, modifiers);
     }
 
     static void mouseDown(UI* z, t_object* view, t_pt pt, long modifiers)
     {
+        updateMousePos(pt);
         z->onMouseDown(view, pt, modifiers);
     }
 
     static void mouseUp(UI* z, t_object* view, t_pt pt, long modifiers)
     {
+        updateMousePos(pt);
         z->onMouseUp(view, pt, modifiers);
     }
 
     static void mouseDrag(UI* z, t_object* view, t_pt pt, long modifiers)
     {
+        updateMousePos(pt);
         z->onMouseDrag(view, pt, modifiers);
     }
 
     static void mouseLeave(UI* z, t_object* view, t_pt pt, long modifiers)
     {
+        // invalidate mouse pointer coord on mouseLeave to prevent mouseWheel handle
+        // when mouse is outside of widget
+        t_pt pos;
+        pos.x = std::numeric_limits<t_float>::max();
+        pos.y = pos.x;
+        updateMousePos(pos);
+
         z->onMouseLeave(view, pt, modifiers);
     }
 
     static void mouseEnter(UI* z, t_object* view, t_pt pt, long modifiers)
     {
+        updateMousePos(pt);
         z->onMouseEnter(view, pt, modifiers);
     }
 
     static void mouseWheel(UI* z, t_object* view, t_pt pt, long modifiers, double delta)
     {
+#ifdef __APPLE__
         z->onMouseWheel(view, pt, modifiers, delta);
+#else
+        z->onMouseWheel(view, mouse_pos_, modifiers, delta);
+#endif
+
+    }
+
+    static void updateMousePos(const t_pt& pt)
+    {
+#ifndef __APPLE__
+        mouse_pos_ = pt;
+#endif
     }
 
     static void dblClick(UI* z, t_object* view, t_pt pt, long modifiers)
@@ -819,6 +843,11 @@ public:
     static ListMethodMap list_map;
     static FloatPropertyMap prop_float_map;
     static ListPropertyMap prop_list_map;
+
+    // trick to get valid mouse pointer coordinates on MouseWheel event on Linux and Windows
+#ifndef __APPLE__
+    static t_pt mouse_pos_;
+#endif
 };
 
 template <class UI>
@@ -829,6 +858,11 @@ bool UIObjectFactory<UI>::use_presets = false;
 
 template <class UI>
 long UIObjectFactory<UI>::flags = 0;
+
+#ifndef __APPLE__
+template <class UI>
+t_pt UIObjectFactory<UI>::mouse_pos_;
+#endif
 
 template <class UI>
 typename UIObjectFactory<UI>::BangMethodMap UIObjectFactory<UI>::bang_map;
