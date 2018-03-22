@@ -23,8 +23,11 @@
             </also>
         </meta>
         <info>
-            <par>Double click in edit mode changes slider orientation</par>
+            <par>Ctrl+Double click in edit mode changes slider orientation</par>
             <par>[ui.hsl] is alias for horizontal slider, [ui.vsl] - for vertical</par>
+            <par>Shift+click in performance mode - to bind to first received MIDI control event from
+            controller (red border appears). By default @midi_pickup is on, so you have to pass over current
+            slider value by MIDI control knob to activate binding.</par>
         </info>
         <properties>
             <property name="@min" type="float" default="0">minimum slider value</property>
@@ -33,6 +36,17 @@
                 Do not jump on click to value</property>
             <property name="@send" type="symbol">send destination</property>
             <property name="@receive" type="symbol">receive source</property>
+            <property name="@midi_channel" type="int" minvalue="0" maxvalue="16" default="0">
+                binded MIDI channel. 0 means listen to all channels</property>
+            <property name="@midi_control" type="int" minvalue="0" maxvalue="128" default="0">
+                binded MIDI controller number. 0 means not binded to any controller.</property>
+            <property name="@midi_pickup" type="int" enum="0 1" default="1">pickup current value.
+            If slider is binded to value, first time you should pass over this value to make binding.
+            It prevents from sudden value change on first control change</property>
+            <property name="@mouse_up_output" type="int" enum="0 1" default="0">if output only
+            on mouse-up event</property>
+            <property name="@active_scale" type="int" enum="0 1" default="0">if should draw active scale</property>
+            <property name="@value" type="float">current value</property>
         </properties>
         <methods>
             <method name="set">sets slider value without output
