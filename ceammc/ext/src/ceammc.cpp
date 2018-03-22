@@ -28,7 +28,7 @@ static void* ceammc_new()
     }
 
     post("CEAMMC extension library\n"
-         "       © 2016-2017 Serge Poltavsky and Alex Nadzharov.\n"
+         "       © 2016-2018 Serge Poltavsky and Alex Nadzharov.\n"
          "       version: %s\n"
          "       url: %s\n"
          "       license: GPL-3\n"
