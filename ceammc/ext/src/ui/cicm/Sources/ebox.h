@@ -176,6 +176,8 @@ t_elayer* ebox_start_layer(t_ebox *x, t_symbol *name, float width, float height)
  */
 t_pd_err ebox_end_layer(t_ebox *x, t_symbol *name);
 
+void ebox_free_layer(t_elayer* l);
+
 /*!
  * \fn      t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
  * \brief   Paints a layer in the t_ebox.

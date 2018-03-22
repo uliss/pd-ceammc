@@ -64,6 +64,7 @@ static void ebox_select(t_ebox* x);
 static void ebox_move(t_ebox* x);
 static void ebox_attrprocess_default(void* x);
 static void ebox_newzoom(t_ebox* x);
+static void elayer_free_content(t_elayer& l);
 
 static const char* anchor_to_symbol(etextanchor_flags anchor)
 {
@@ -1554,6 +1555,9 @@ static void ebox_erase(t_ebox* x)
         x->b_have_window = 0;
     }
     if (x->b_layers) {
+        for(long i = 0; i < x->b_number_of_layers; i++)
+            elayer_free_content(x->b_layers[i]);
+
         free(x->b_layers);
         x->b_layers = NULL;
     }
@@ -1637,4 +1641,29 @@ float ebox_fontwidth(t_ebox* x)
 float ebox_fontheight(t_ebox* x)
 {
     return sys_zoomfontheight(ebox_getfontsize(x), ebox_getzoom(x), 1);
+}
+
+void elayer_free_content(t_elayer& l)
+{
+    for (int i = 0; i < l.e_number_objects; i++) {
+        if (l.e_objects[i].e_npoints && l.e_objects[i].e_points) {
+            free(l.e_objects[i].e_points);
+        }
+        l.e_objects[i].e_points = NULL;
+        l.e_objects[i].e_npoints = 0;
+    }
+
+    if(l.e_objects) {
+        free(l.e_objects);
+        l.e_objects = NULL;
+    }
+}
+
+void ebox_free_layer(t_elayer *l)
+{
+    if(!l)
+        return;
+
+    elayer_free_content(*l);
+    free(l);
 }
