@@ -17,6 +17,49 @@
 
 #define _(msg) msg
 
+static t_symbol* SYM_DUMP = gensym("dump");
+static t_symbol* SYM_GET_ALL_PROPS = gensym("@*?");
+static t_symbol* SYM_DIALOG = gensym("dialog");
+
+static t_symbol* SYM_MOUSE_ENTER = gensym("mouseenter");
+static t_symbol* SYM_MOUSE_LEAVE = gensym("mouseleave");
+static t_symbol* SYM_MOUSE_MOVE = gensym("mousemove");
+static t_symbol* SYM_MOUSE_DOWN = gensym("mousedown");
+static t_symbol* SYM_MOUSE_DRAG = gensym("mousedrag");
+static t_symbol* SYM_MOUSE_UP = gensym("mouseup");
+static t_symbol* SYM_MOUSE_WHEEL = gensym("mousewheel");
+static t_symbol* SYM_MOUSE_DBL_CLICK = gensym("dblclick");
+static t_symbol* SYM_KEY = gensym("key");
+static t_symbol* SYM_KEY_FILTER = gensym("keyfilter");
+
+static t_symbol* SYM_PAINT = gensym("paint");
+static t_symbol* SYM_NOTIFY = gensym("notify");
+static t_symbol* SYM_GET_DRAW_PARAMS = gensym("getdrawparams");
+static t_symbol* SYM_OK_SIZE = gensym("oksize");
+static t_symbol* SYM_SAVE = gensym("save");
+static t_symbol* SYM_POPUP = gensym("popup");
+static t_symbol* SYM_PRESET = gensym("preset");
+
+static t_symbol* SYM_POS = gensym("pos");
+static t_symbol* SYM_VIS = gensym("vis");
+static t_symbol* SYM_ZOOM = gensym("zoom");
+
+static t_symbol* SYM_ENTRY = gensym("entry");
+static t_symbol* SYM_CHECKBUTTON = gensym("checkbutton");
+static t_symbol* SYM_ON_OFF = gensym("onoff");
+static t_symbol* SYM_MENU = gensym("menu");
+static t_symbol* SYM_COLOR = gensym("color");
+static t_symbol* SYM_RGB = gensym("rgb");
+static t_symbol* SYM_RGBA = gensym("rgba");
+static t_symbol* SYM_PATH = gensym("path");
+static t_symbol* SYM_NUMBER = gensym("number");
+static t_symbol* SYM_SPINBOX = gensym("spinbox");
+
+static t_symbol* SYM_ANY = gensym("anything");
+static t_symbol* SYM_DSP = gensym("dsp");
+static t_symbol* SYM_DSP_ADD = gensym("dsp_add");
+static t_symbol* SYM_DSP_ADD64 = gensym("dsp_add");
+
 static const int CAT_BASE = 0;
 static const int CAT_COLOR = 100;
 static const int CAT_BOUNDS = 200;
@@ -197,19 +240,19 @@ void eclass_guiinit(t_eclass* c, long flags)
     CLASS_ATTR_LABEL(c, "send", 0, _("Send Symbol"));
 
     // GUI always need this methods //
-    class_addmethod((t_class*)c, (t_method)ebox_attr_dump, gensym("dump"), A_NULL, 0);
-    class_addmethod((t_class*)c, (t_method)ebox_output_all_attrs, gensym("@*?"), A_NULL, 0);
-    class_addmethod((t_class*)c, (t_method)ebox_dialog, gensym("dialog"), A_GIMME, 0);
+    class_addmethod((t_class*)c, (t_method)ebox_attr_dump, SYM_DUMP, A_NULL, 0);
+    class_addmethod((t_class*)c, (t_method)ebox_output_all_attrs, SYM_GET_ALL_PROPS, A_NULL, 0);
+    class_addmethod((t_class*)c, (t_method)ebox_dialog, SYM_DIALOG, A_GIMME, 0);
 
-    class_addmethod((t_class*)c, (t_method)ebox_mouse_enter, gensym("mouseenter"), A_NULL, 0);
-    class_addmethod((t_class*)c, (t_method)ebox_mouse_leave, gensym("mouseleave"), A_NULL, 0);
-    class_addmethod((t_class*)c, (t_method)ebox_mouse_move, gensym("mousemove"), A_GIMME, 0);
-    class_addmethod((t_class*)c, (t_method)ebox_mouse_down, gensym("mousedown"), A_GIMME, 0);
-    class_addmethod((t_class*)c, (t_method)ebox_mouse_up, gensym("mouseup"), A_GIMME, 0);
+    class_addmethod((t_class*)c, (t_method)ebox_mouse_enter, SYM_MOUSE_ENTER, A_NULL, 0);
+    class_addmethod((t_class*)c, (t_method)ebox_mouse_leave, SYM_MOUSE_LEAVE, A_NULL, 0);
+    class_addmethod((t_class*)c, (t_method)ebox_mouse_move, SYM_MOUSE_MOVE, A_GIMME, 0);
+    class_addmethod((t_class*)c, (t_method)ebox_mouse_down, SYM_MOUSE_DOWN, A_GIMME, 0);
+    class_addmethod((t_class*)c, (t_method)ebox_mouse_up, SYM_MOUSE_UP, A_GIMME, 0);
 
-    class_addmethod((t_class*)c, (t_method)ebox_pos, gensym("pos"), A_DEFFLOAT, A_DEFFLOAT, 0);
-    class_addmethod((t_class*)c, (t_method)ebox_vis, gensym("vis"), A_DEFFLOAT, 0);
-    class_addmethod((t_class*)c, (t_method)ebox_setzoom, gensym("zoom"), A_DEFFLOAT, 0);
+    class_addmethod((t_class*)c, (t_method)ebox_pos, SYM_POS, A_DEFFLOAT, A_DEFFLOAT, 0);
+    class_addmethod((t_class*)c, (t_method)ebox_vis, SYM_VIS, A_DEFFLOAT, 0);
+    class_addmethod((t_class*)c, (t_method)ebox_setzoom, SYM_ZOOM, A_DEFFLOAT, 0);
 
     class_setwidget((t_class*)&c->c_class, (t_widgetbehavior*)&c->c_widget);
     class_setsavefn((t_class*)&c->c_class, (t_savefn)eobj_save);
@@ -218,9 +261,9 @@ void eclass_guiinit(t_eclass* c, long flags)
 void eclass_dspinit(t_eclass* c)
 {
     c->c_dsp = 1;
-    class_addmethod((t_class*)c, (t_method)eobj_dsp, gensym("dsp"), A_NULL, 0);
-    class_addmethod((t_class*)c, (t_method)eobj_dsp_add, gensym("dsp_add"), A_NULL, 0);
-    class_addmethod((t_class*)c, (t_method)eobj_dsp_add, gensym("dsp_add64"), A_NULL, 0);
+    class_addmethod((t_class*)c, (t_method)eobj_dsp, SYM_DSP, A_NULL, 0);
+    class_addmethod((t_class*)c, (t_method)eobj_dsp_add, SYM_DSP_ADD, A_NULL, 0);
+    class_addmethod((t_class*)c, (t_method)eobj_dsp_add, SYM_DSP_ADD64, A_NULL, 0);
 }
 
 static t_pd_err is_cicm(t_eobj* x)
@@ -253,57 +296,57 @@ t_pd_err eclass_register(t_symbol* name, t_eclass* c)
 
 void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype type, long dummy)
 {
-    if (gensym(name) == gensym("mouseenter")) {
+    if (gensym(name) == SYM_MOUSE_ENTER) {
         c->c_widget.w_mouseenter = m;
-    } else if (gensym(name) == gensym("mouseleave")) {
+    } else if (gensym(name) == SYM_MOUSE_LEAVE) {
         c->c_widget.w_mouseleave = m;
-    } else if (gensym(name) == gensym("mousemove")) {
+    } else if (gensym(name) == SYM_MOUSE_MOVE) {
         c->c_widget.w_mousemove = m;
-    } else if (gensym(name) == gensym("mousedown")) {
+    } else if (gensym(name) == SYM_MOUSE_DOWN) {
         c->c_widget.w_mousedown = m;
-    } else if (gensym(name) == gensym("mousedrag")) {
+    } else if (gensym(name) == SYM_MOUSE_DRAG) {
         c->c_widget.w_mousedrag = m;
-    } else if (gensym(name) == gensym("mouseup")) {
+    } else if (gensym(name) == SYM_MOUSE_UP) {
         c->c_widget.w_mouseup = m;
-    } else if (gensym(name) == gensym("mousewheel")) {
-        class_addmethod((t_class*)c, (t_method)ebox_mouse_wheel, gensym("mousewheel"), A_GIMME, 0);
+    } else if (gensym(name) == SYM_MOUSE_WHEEL) {
+        class_addmethod((t_class*)c, (t_method)ebox_mouse_wheel, SYM_MOUSE_WHEEL, A_GIMME, 0);
         c->c_widget.w_mousewheel = m;
-    } else if (gensym(name) == gensym("dblclick")) {
-        class_addmethod((t_class*)c, (t_method)ebox_mouse_dblclick, gensym("dblclick"), A_GIMME, 0);
+    } else if (gensym(name) == SYM_MOUSE_DBL_CLICK) {
+        class_addmethod((t_class*)c, (t_method)ebox_mouse_dblclick, SYM_MOUSE_DBL_CLICK, A_GIMME, 0);
         c->c_widget.w_dblclick = m;
-    } else if (gensym(name) == gensym("key") || gensym(name) == gensym("keyfilter")) {
+    } else if (gensym(name) == SYM_KEY || gensym(name) == SYM_KEY_FILTER) {
         if (c->c_widget.w_key == NULL && c->c_widget.w_keyfilter == NULL)
-            class_addmethod((t_class*)c, (t_method)ebox_key, gensym("key"), A_GIMME, 0);
-        if (gensym(name) == gensym("key"))
+            class_addmethod((t_class*)c, (t_method)ebox_key, SYM_KEY, A_GIMME, 0);
+        if (gensym(name) == SYM_KEY)
             c->c_widget.w_key = m;
-        if (gensym(name) == gensym("keyfilter"))
+        if (gensym(name) == SYM_KEY_FILTER)
             c->c_widget.w_keyfilter = m;
-    } else if (gensym(name) == gensym("paint")) {
+    } else if (gensym(name) == SYM_PAINT) {
         c->c_widget.w_paint = m;
-    } else if (gensym(name) == gensym("notify")) {
+    } else if (gensym(name) == SYM_NOTIFY) {
         c->c_widget.w_notify = (t_err_method)m;
-    } else if (gensym(name) == gensym("getdrawparams")) {
+    } else if (gensym(name) == SYM_GET_DRAW_PARAMS) {
         c->c_widget.w_getdrawparameters = m;
-    } else if (gensym(name) == gensym("oksize")) {
+    } else if (gensym(name) == SYM_OK_SIZE) {
         c->c_widget.w_oksize = m;
-    } else if (gensym(name) == gensym("save") || gensym(name) == gensym("jsave")) {
+    } else if (gensym(name) == SYM_SAVE) {
         c->c_widget.w_save = m;
-    } else if (gensym(name) == gensym("popup")) {
-        class_addmethod((t_class*)c, (t_method)eobj_popup, gensym("popup"), A_SYMBOL, A_DEFFLOAT, 0);
+    } else if (gensym(name) == SYM_POPUP) {
+        class_addmethod((t_class*)c, (t_method)eobj_popup, SYM_POPUP, A_SYMBOL, A_DEFFLOAT, 0);
         c->c_widget.w_popup = m;
-    } else if (gensym(name) == gensym("dsp") || gensym(name) == gensym("dsp64")) {
+    } else if (gensym(name) == SYM_DSP) {
         c->c_widget.w_dsp = m;
-    } else if (gensym(name) == gensym("bang")) {
+    } else if (gensym(name) == &s_bang) {
         class_addbang((t_class*)c, m);
     } else if (gensym(name) == &s_float) {
         class_addfloat((t_class*)c, m);
-    } else if (gensym(name) == gensym("list")) {
+    } else if (gensym(name) == &s_list) {
         class_addlist((t_class*)c, m);
-    } else if (gensym(name) == gensym("anything")) {
+    } else if (gensym(name) == SYM_ANY) {
         class_addanything((t_class*)c, m);
     } else if (gensym(name) == &s_symbol) {
         class_addsymbol((t_class*)c, m);
-    } else if (gensym(name) == gensym("preset")) {
+    } else if (gensym(name) == SYM_PRESET) {
         CLASS_ATTR_SYMBOL(c, "presetname", 0, t_ebox, b_objpreset_id);
         CLASS_ATTR_DEFAULT(c, "presetname", 0, "(null)");
         CLASS_ATTR_SAVE(c, "presetname", 0);
@@ -348,7 +391,7 @@ void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, 
             attr->type = gentype(type);
             attr->category = c->c_class.c_name;
             attr->label = gensym("");
-            attr->style = gensym("entry");
+            attr->style = SYM_ENTRY;
             attr->order = c->c_nattr + 1;
             attr->save = 0;
             attr->paint = 0;
@@ -475,18 +518,18 @@ void eclass_attr_style(t_eclass* c, const char* attrname, long flags, const char
 
     for (int i = 0; i < c->c_nattr; i++) {
         if (c->c_attr[i]->name == sel) {
-            if (s_style == gensym("checkbutton") || s_style == gensym("onoff")) {
-                c->c_attr[i]->style = gensym("checkbutton");
-            } else if (s_style == gensym("rgb") || s_style == gensym("rgba") || s_style == gensym("color")) {
-                c->c_attr[i]->style = gensym("color");
-            } else if (s_style == gensym("spinbox") || s_style == gensym("number")) {
-                c->c_attr[i]->style = gensym("number");
-            } else if (s_style == gensym("menu")) {
-                c->c_attr[i]->style = gensym("menu");
-            } else if (s_style == gensym("path")) {
-                c->c_attr[i]->style = gensym("path");
+            if (s_style == SYM_CHECKBUTTON || s_style == SYM_ON_OFF) {
+                c->c_attr[i]->style = SYM_CHECKBUTTON;
+            } else if (s_style == SYM_RGB || s_style == SYM_RGBA || s_style == SYM_COLOR) {
+                c->c_attr[i]->style = SYM_COLOR;
+            } else if (s_style == SYM_SPINBOX || s_style == SYM_NUMBER) {
+                c->c_attr[i]->style = SYM_NUMBER;
+            } else if (s_style == SYM_MENU) {
+                c->c_attr[i]->style = SYM_MENU;
+            } else if (s_style == SYM_PATH) {
+                c->c_attr[i]->style = SYM_PATH;
             } else {
-                c->c_attr[i]->style = gensym("entry");
+                c->c_attr[i]->style = SYM_ENTRY;
             }
             return;
         }
@@ -945,7 +988,7 @@ static void eclass_properties_dialog(t_eclass* c)
     for (i = 0; i < c->c_nattr; i++) {
         const char* ATTR_NAME = c->c_attr[i]->name->s_name;
 
-        if (c->c_attr[i]->style == gensym("color")) {
+        if (c->c_attr[i]->style == SYM_COLOR) {
             sys_vgui("proc pdtk_%s_picker_apply_%s {id red green blue alpha} { \n", c->c_class.c_name->s_name, ATTR_NAME);
             sys_gui("set nR [expr int( $red * 65025 )]\n");
             sys_gui("set nG [expr int( $green * 65025 )]\n");
@@ -1042,17 +1085,17 @@ static void eclass_properties_dialog(t_eclass* c)
 
             /** SELECTOR WIDGETS **/
 
-            if (c->c_attr[i]->style == gensym("checkbutton")) {
+            if (c->c_attr[i]->style == SYM_CHECKBUTTON) {
                 sys_vgui("ttk::checkbutton %s -variable [string trim $var_%s] "
                          "-command  [concat pdtk_%s_dialog_apply_%s $id]\n",
                     WIDGET_ID, ATTR_NAME, CLASS_NAME, ATTR_NAME);
                 sys_vgui("pack %s -side left\n", WIDGET_ID);
-            } else if (c->c_attr[i]->style == gensym("color")) {
+            } else if (c->c_attr[i]->style == SYM_COLOR) {
                 sys_vgui("set color [eval eobj_rgba_to_hex $%s]\n", ATTR_NAME);
                 sys_vgui("entry %s -font {Helvetica 11} -width 10 -readonlybackground $color -state readonly\n", WIDGET_ID);
                 sys_vgui("bind  %s <Button> [concat pdtk_%s_picker_apply_%s $id $%s]\n", WIDGET_ID, CLASS_NAME, ATTR_NAME, ATTR_NAME);
                 sys_vgui("pack %s -side left\n", WIDGET_ID);
-            } else if (c->c_attr[i]->style == gensym("number")) {
+            } else if (c->c_attr[i]->style == SYM_NUMBER) {
                 sys_vgui("ttk::spinbox %s -width 18 -textvariable [string trim $var_%s] -increment %f \n", WIDGET_ID, ATTR_NAME, (float)c->c_attr[i]->step);
                 sys_vgui("%s configure -command [concat pdtk_%s_dialog_apply_%s $id]\n", WIDGET_ID, CLASS_NAME, ATTR_NAME);
                 sys_vgui("%s configure -from -9999999999999 -to 9999999999999\n", WIDGET_ID, (float)c->c_attr[i]->maximum); // Should be enough
@@ -1061,7 +1104,7 @@ static void eclass_properties_dialog(t_eclass* c)
 
                 sys_vgui("bind %s <KeyPress-Return> [concat pdtk_%s_dialog_apply_%s $id]\n", WIDGET_ID, CLASS_NAME, ATTR_NAME);
                 sys_vgui("pack %s -side left\n", WIDGET_ID);
-            } else if (c->c_attr[i]->style == gensym("menu")) {
+            } else if (c->c_attr[i]->style == SYM_MENU) {
                 sys_vgui("ttk::combobox %s -width 16 -state readonly -textvariable [string trim $var_%s]\n", WIDGET_ID, ATTR_NAME);
                 sys_vgui("%s configure -values { ", WIDGET_ID);
                 for (int j = 0; j < c->c_attr[i]->itemssize; j++) {
@@ -1072,34 +1115,33 @@ static void eclass_properties_dialog(t_eclass* c)
                 sys_vgui("bind %s <<ComboboxSelected>> [concat pdtk_%s_dialog_apply_%s $id]\n", WIDGET_ID, CLASS_NAME, ATTR_NAME);
                 sys_vgui("pack %s -side left\n", WIDGET_ID);
                 sys_vgui("%s set [string trim $%s] \n", WIDGET_ID, ATTR_NAME);
-            } else if(c->c_attr[i]->style == gensym("path")) {
+            } else if (c->c_attr[i]->style == SYM_PATH) {
                 sys_vgui("ttk::entry %s -width 20 -textvariable [string trim $var_%s]\n", WIDGET_ID, ATTR_NAME);
-//                sys_vgui("bind %s <FocusIn> { if { [string trim [%%W get]] == {(null)} } { %%W delete 0 end } }\n", WIDGET_ID);
-//                sys_vgui("bind %s <FocusOut> { if { [string trim [%%W get]] == {} } { %%W insert 0 {(null)} } }\n", WIDGET_ID);
+                //                sys_vgui("bind %s <FocusIn> { if { [string trim [%%W get]] == {(null)} } { %%W delete 0 end } }\n", WIDGET_ID);
+                //                sys_vgui("bind %s <FocusOut> { if { [string trim [%%W get]] == {} } { %%W insert 0 {(null)} } }\n", WIDGET_ID);
                 sys_vgui("bind %s <KeyPress-Return> [concat pdtk_%s_dialog_apply_%s $id]\n", WIDGET_ID, CLASS_NAME, ATTR_NAME);
                 sys_vgui("pack %s -side left\n", WIDGET_ID);
 
                 sys_vgui("proc cicm_dialog_%s_open_%s {varname id} {\n", CLASS_NAME, ATTR_NAME);
-                    sys_vgui("global $varname\n");
-                    sys_vgui("puts $varname\n");
-                    sys_vgui("set types {\n");
-                    sys_vgui("{{Image Files}        {.gif .png .jpg .jpeg}}\n");
-                    sys_vgui("}\n");
-                    sys_vgui("set $varname [tk_getOpenFile -initialfile $$varname -filetypes $types]\n");
-                    sys_vgui("pdtk_%s_dialog_apply_%s $id\n", CLASS_NAME, ATTR_NAME);
+                sys_vgui("global $varname\n");
+                sys_vgui("puts $varname\n");
+                sys_vgui("set types {\n");
+                sys_vgui("{{Image Files}        {.gif .png .jpg .jpeg}}\n");
+                sys_vgui("}\n");
+                sys_vgui("set $varname [tk_getOpenFile -initialfile $$varname -filetypes $types]\n");
+                sys_vgui("pdtk_%s_dialog_apply_%s $id\n", CLASS_NAME, ATTR_NAME);
                 sys_vgui("}\n");
 
                 char btn_id[120];
                 snprintf(btn_id, 120, "%s_%s_file", WIDGET_ID, ATTR_NAME);
                 sys_vgui("ttk::button %s -text %s -command [concat cicm_dialog_%s_open_%s [string trim $var_%s] $id]\n",
-                         btn_id,
-                         _("Select"),
-                         CLASS_NAME,
-                         ATTR_NAME,
-                         ATTR_NAME);
+                    btn_id,
+                    _("Select"),
+                    CLASS_NAME,
+                    ATTR_NAME,
+                    ATTR_NAME);
                 sys_vgui("pack %s -side left\n", btn_id);
-            }
-            else {
+            } else {
                 sys_vgui("ttk::entry %s -width 20 -textvariable [string trim $var_%s]\n", WIDGET_ID, ATTR_NAME);
                 sys_vgui("bind %s <FocusIn> { if { [string trim [%%W get]] == {(null)} } { %%W delete 0 end } }\n", WIDGET_ID);
                 sys_vgui("bind %s <FocusOut> { if { [string trim [%%W get]] == {} } { %%W insert 0 {(null)} } }\n", WIDGET_ID);
