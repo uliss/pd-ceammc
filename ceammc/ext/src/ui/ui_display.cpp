@@ -34,12 +34,19 @@ static t_rgba COLOR_BANG_TYPE = hex_to_rgba("#F03060");
 
 #ifdef __APPLE__
 static const int TYPE_WIDTH = 45;
+#elif __WIN32
+static const int TYPE_WIDTH = 58;
 #else
 static const int TYPE_WIDTH = 50;
 #endif
 
 static const int TEXT_XPAD = 3;
+
+#ifdef __WIN32
+static const int TEXT_YPAD = 0;
+#else
 static const int TEXT_YPAD = 2;
+#endif
 
 static inline const t_rgba& msg_color(t_symbol* s_type)
 {
