@@ -14,7 +14,7 @@
 #ifndef MATH_ROUND_TILDE_H
 #define MATH_ROUND_TILDE_H
 
-#include "ceammc_object.h"
+#include "ceammc_sound_external.h"
 
 using namespace ceammc;
 

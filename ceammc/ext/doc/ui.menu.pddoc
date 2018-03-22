@@ -5,6 +5,7 @@
         <meta>
             <authors>
                 <author>Pierre Guillot</author>
+                <author>Serge Poltavsky</author>
             </authors>
             <description>Dropdown menu</description>
             <license>GPL3</license>
@@ -17,30 +18,40 @@
             </also>
         </meta>
         <properties>
-            <property name="@items" type="list">list of menu items (only symbols are allowed)</property>
-            <property name="@hover" type="int" enum="0 1" default="0">menu hover mode,
-            if true - menu is always opened</property>
+            <property name="@items" type="list">list of menu items</property>
+            <property name="@index" type="int">current menu item index</property>
+            <property name="@value" type="symbol">current menu item value</property>
+            <property name="@count" type="int" readonly="true">number of menu items</property>
             <property name="@send" type="symbol">send destination</property>
             <property name="@receive" type="symbol">receive source</property>
+            <property name="@max_length" type="int" minvalue="10" maxvalue="1000" default="100">
+            maximum displayed item character length</property>
         </properties>
         <methods>
             <method name="append">appends new menu item
             <param name="ATOMS" type="list" required="true">item name</param></method>
             <method name="insert">inserts new menu item before specified position
             <param name="IDX" type="int" minvalue="0" required="true">item position</param>
-            <param name="ATOMS" type="list" required="true">item name</param></method>
+            <param name="ATOM" type="atom" required="true">item name</param></method>
             <method name="clear">clears all items menu</method>
             <method name="delete">removes item from menu
             <param name="IDX" type="int" minvalue="0" required="true">removed item index</param></method>
-            <method name="setitem">renames menu item
+            <method name="set_item">renames menu item
             <param name="IDX" type="int" required="true" minvalue="0">item index</param>
-            <param name="ATOMS" type="list" required="true">item name</param></method>
+            <param name="ATOM" type="list" required="true">item name</param></method>
             <method name="set">silently sets menu state.
             <param name="IDX" type="int" minvalue="0" required="true">item index</param></method>
+            <method name="file_glob">fill menu with filenames.
+                <param name="PATTERN" type="symbol" required="true">filename pattern, like * (all files),
+                *.wav (all wav files) etc.</param>
+                <param name="DIR" type="symbol" required="false">search directory.
+                If omitted - search in patch directory. Performs tilde (~) expansion to home directory.
+                To elide long filenames see @max_length property.</param>
+            </method>
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">outputs current menu state</xinfo>
+                <xinfo on="bang">outputs current menu state as list: INDEX VALUE</xinfo>
                 <xinfo on="float">change menu state and output new value</xinfo>
                 <xinfo on="any">selects item equal to given</xinfo>
             </inlet>
@@ -51,17 +62,27 @@
         <example>
             <pdascii>
 <![CDATA[
-[append sqrt(    [setitem 0 white noise(
-|                |
-| [insert 0 saw( |  [delete 1(
-| |              |  |
-| | [clear( [F]  |  | [B]  [tri (
-| | |       |    |  | |    |
-[ui.menu      @items sin tri]
+[clear, file_glob * %DOC%/sound, 0(
 |
-[F]
+[expand_env]
 |
-[print]
+[ui.menu @max_length 32 @size 200 16]
+|
+[list.at 1]
+|
+[S digits=60]
+|
+[t       b s]
+|         ^|
+[del 100] [open $1(
+|         |
+[1( [0(   |
+|   |     |
+[readsf~  ]
+|
+[ui.gain~ @size 120 16]   [ui.dsp~]
+| \
+[dac~]
 ]]>
             </pdascii>
         </example>

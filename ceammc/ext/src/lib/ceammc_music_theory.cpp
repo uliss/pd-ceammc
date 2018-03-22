@@ -1,5 +1,7 @@
 #include "ceammc_music_theory.h"
 #include "ceammc_music_theory_names.h"
+#include "ceammc_music_theory_pitch_class.h"
+#include "ceammc_music_theory_pitch_name.h"
 
 #include <boost/algorithm/minmax.hpp>
 #include <cstdlib>

@@ -9,7 +9,7 @@
 
 #include <stdio.h>
 
-#include "cicm_wrapper.h"
+#include "../ui/ceammc_cicm.h"
 
 t_eclass* exp_recursion_class;
 struct t_exp_recursion {

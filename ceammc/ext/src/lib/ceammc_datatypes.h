@@ -24,6 +24,7 @@ namespace data {
     static const ::ceammc::DataType DATA_DICT = 3;
     static const ::ceammc::DataType DATA_MIDI_STREAM = 10;
     static const ::ceammc::DataType DATA_MIDI_TRACK = 11;
+    static const ::ceammc::DataType DATA_ENVELOPE = 20;
 }
 }
 

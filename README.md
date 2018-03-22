@@ -1,8 +1,8 @@
 [![Build Status](https://travis-ci.org/uliss/pure-data.svg?branch=ceammc)](https://travis-ci.org/uliss/pure-data)
 [![Coverage Status](https://coveralls.io/repos/github/uliss/pure-data/badge.svg?branch=ceammc)](https://coveralls.io/github/uliss/pure-data?branch=ceammc)
 
-CEAMMC Puredata distribution 2017.07
------------------
+CEAMMC Puredata distribution 2018.03
+------------------------------------
 
 General purpose Pd distribution and library used for work and education purposes in Centre of electoacoustic music of Moscow Conservatory (CEAMMC) and ZIL-electro studio.
 
@@ -14,7 +14,12 @@ Key concepts
    - All the externals are grouped by their function. This is different from the traditional approach but this aims to simplify the learning process and makes the language itself more clear.
    - Higher level set of objects for education and handy use in work process: oscillators, filters etc.
    - Library adds several features to basic Pd API. It is written in C++ and covered with tests.
-   - Inclusion of some modern techniques. Library v0.1 includes comprehensive set of objects that work with lists and include some concepts from functional programming.
+   - Inclusion of some modern techniques. Library v0.5 includes comprehensive set of objects that work with lists and include some concepts from functional programming.
+
+ChangeLog:
+----------
+
+[ceammc/CHANGELOG.md](ceammc/CHANGELOG.md)
 
 
 Features: v0.3
@@ -47,7 +52,6 @@ Features: v0.3
    - 8 new objects: knob, multiple slider box, 2d slider, keyboard, message display, scope and oscilloscope
    - breakpoint function object, working with envelope objects
    - Basic timeline objects: graphical cues in a patch
-   - Includes several objects from CICM Cream Library
  * Extensions:
    - New objects toolbar (also works as edit mode indicator)
    - Saving subpatch as new patch
@@ -56,24 +60,10 @@ Features: v0.3
 
 see ceammc/CHANGELOG.md for more details
 
-Roadmap v0.4+:
--------------
-
- * Core objects:
-   
-   - math.\* - add functions with multiple arguments
- * GUI
-   - new completely rewritten Qt-based GUI with MVC architecture
-   - simplified object set
-   - Zoom, grid, extended property handling, extended patching/clipboard/undo etc
-   - embedded Python; API for python
-
-
 this work is based on / includes:
 ---------------------------------
    - Pd vanilla (this repository)
    - CICM Wrapper library (https://github.com/CICM/CicmWrapper)
-   - Cream library (https://github.com/CICM/CreamLibrary)
    - hcs library (https://puredata.info/downloads/hcs)
    - comport object
    - A-Chaos library - https://github.com/s373/ofxAChaosLib

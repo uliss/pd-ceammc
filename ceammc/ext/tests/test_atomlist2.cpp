@@ -555,4 +555,11 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
             REQUIRE(atomlistToValue<Atom>(L2("a", 124), Atom()) == Atom(gensym("a")));
         }
     }
+
+    SECTION("operator+")
+    {
+        REQUIRE(L2(1, 2) + L2(3, 4) == L4(1, 2, 3, 4));
+        REQUIRE(L2(1, 2) + Atom(3) == L3(1, 2, 3));
+        REQUIRE(Atom(0.f) + L2(1, 2) == L3(0.f, 1, 2));
+    }
 }

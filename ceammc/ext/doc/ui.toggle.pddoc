@@ -13,13 +13,15 @@
             <category view="link">ui</category>
             <keywords>ui toggle</keywords>
             <since>0.1</since>
+            <aliases>
+                <alias view="link">ui.t</alias>
+            </aliases>
             <also>
                 <see view="link">ui.bang</see>
             </also>
         </meta>
         <info>
-            <par>This is the ceammc counterpart of the vanilla toggle, based on Cream
-            library.</par>
+            <par>This is the ceammc counterpart of the vanilla toggle</par>
         </info>
         <properties>
             <property name="@send" type="symbol">send destination</property>

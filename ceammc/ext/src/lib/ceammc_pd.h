@@ -36,14 +36,25 @@ namespace pd {
 
         bool isNull() const;
 
-        // connect this object outlet to external object ilnet
+        // connect this object outlet to external object inlet
         bool connectTo(int outn, t_object* dest, int inln);
         bool connectTo(int outn, External& ext, int inln);
+
+        // connect external source outlet to this object inlet
+        bool connectFrom(int outn, t_object* src, int inln);
+        bool connectFrom(int outn, External& ext, int inln);
 
         t_object* object();
 
         void bang();
+        void sendBang();
         void sendFloat(t_float v);
+        void sendSymbol(t_symbol* s);
+        void sendList(const AtomList& l);
+        void sendMessage(t_symbol* msg, const AtomList& args = AtomList());
+
+        int numOutlets() const;
+        int numInlets() const;
     };
 }
 

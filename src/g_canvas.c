@@ -1741,7 +1741,7 @@ extern void canvas_knob(t_glist *gl, t_symbol *s, int argc, t_atom *argv);
 extern void canvas_keyboard(t_glist *gl, t_symbol *s, int argc, t_atom *argv);
 extern void canvas_sliders(t_glist *gl, t_symbol *s, int argc, t_atom *argv);
 extern void canvas_slider2d(t_glist *gl, t_symbol *s, int argc, t_atom *argv);
-extern void canvas_bpfunc(t_glist *gl, t_symbol *s, int argc, t_atom *argv);
+extern void canvas_ui_env(t_glist *gl, t_symbol *s, int argc, t_atom *argv);
 extern void canvas_display(t_glist *gl, t_symbol *s, int argc, t_atom *argv);
 extern void canvas_scope(t_glist *gl, t_symbol *s, int argc, t_atom *argv);
 extern void canvas_spectroscope(t_glist *gl, t_symbol *s, int argc, t_atom *argv);
@@ -1818,7 +1818,7 @@ void g_canvas_setup(void)
                     A_GIMME, A_NULL);
     class_addmethod(canvas_class, (t_method)canvas_slider2d, gensym("ui.slider2d"),
                     A_GIMME, A_NULL);
-    class_addmethod(canvas_class, (t_method)canvas_bpfunc, gensym("ui.bpfunc"),
+    class_addmethod(canvas_class, (t_method)canvas_ui_env, gensym("ui.env"),
                     A_GIMME, A_NULL);
     class_addmethod(canvas_class, (t_method)canvas_display, gensym("ui.display"),
                     A_GIMME, A_NULL);

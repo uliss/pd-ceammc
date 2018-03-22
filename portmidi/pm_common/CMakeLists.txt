@@ -96,3 +96,7 @@ list(APPEND LIBSRC pmutil portmidi)
 add_library(portmidi-static ${LIBSRC})
 set_target_properties(portmidi-static PROPERTIES OUTPUT_NAME "portmidi_s")
 target_link_libraries(portmidi-static ${PM_NEEDED_LIBS})
+
+if(UNIX)
+    set_target_properties(portmidi-static PROPERTIES COMPILE_FLAGS "-fPIC")
+endif()

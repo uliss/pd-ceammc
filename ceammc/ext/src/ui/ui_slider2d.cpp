@@ -1,345 +1,389 @@
-//
-//  ui_slider2d.cpp
-//  pd_ext
-//
-//  Created by Alex on 18/12/16.
-//
-//
+/*****************************************************************************
+ * Copyright 2018 Serge Poltavsky. All rights reserved.
+ *
+ * This file may be distributed under the terms of GNU Public License version
+ * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
+ * license should have been included with this file, or the project in which
+ * this file belongs to. You may also find the details of GPL v3 at:
+ * http://www.gnu.org/licenses/gpl-3.0.txt
+ *
+ * If you have any questions regarding the use of this file, feel free to
+ * contact the author of this file, or the owner of the project in which
+ * this file belongs to.
+ *****************************************************************************/
 
 #include <algorithm>
 #include <stdio.h>
 
 #include "ceammc_atomlist.h"
+#include "ceammc_convert.h"
 #include "ceammc_format.h"
 
-#include "ceammc_gui.h"
-
-template <typename T>
-static T clip(T min, T max, T v)
-{
-    return std::max(min, std::min(max, v));
-}
-
-struct ui_slider2d : public ceammc_gui::BaseGuiObject {
-    t_outlet* out1;
-
-    t_atom out_list[2];
-
-    float shift_x;
-    float range_x;
-    float shift_y;
-    float range_y;
-
-    float _posx;
-    float _posy;
-
-    t_etext* txt_min;
-    t_etext* txt_max;
-    t_efont* txt_font;
-
-    int show_range;
-
-public:
-    float left() const { return shift_x; }
-    float right() const { return shift_x + range_x; }
-    float top() const { return shift_y; }
-    float bottom() const { return shift_y + range_y; }
-
-    bool inXRange(t_float v) const
-    {
-        return std::min(left(), right()) <= v && v <= std::max(left(), right());
-    }
-
-    bool inYRange(t_float v) const
-    {
-        return std::min(top(), bottom()) <= v && v <= std::max(top(), bottom());
-    }
-
-    float xValue() const { return _posx * range_x + shift_x; }
-    float yValue() const { return _posy * range_y + shift_y; }
-
-    void output()
-    {
-        atom_setfloat(&out_list[0], xValue());
-        atom_setfloat(&out_list[1], yValue());
-
-        outlet_list(out1, &s_list, 2, out_list);
-        send(2, out_list);
-    }
-
-    void setPos(const t_pt& mousePos)
-    {
-        _posx = clip(0.f, 1.f, mousePos.x / width());
-        _posy = clip(0.f, 1.f, mousePos.y / height());
-    }
-
-    void setX(t_float xVal)
-    {
-        if (range_x != 0.f && inXRange(xVal))
-            _posx = (xVal - shift_x) / range_x;
-    }
-
-    void setY(t_float yVal)
-    {
-        if (range_y != 0.f && inYRange(yVal))
-            _posy = (yVal - shift_y) / range_y;
-    }
-
-    void set(t_float xVal, t_float yVal)
-    {
-        setX(xVal);
-        setY(yVal);
-    }
-};
-
-namespace ceammc_gui {
+#include "ceammc_preset.h"
+#include "ceammc_ui.h"
+#include "ui_slider2d.h"
 
 static const float KNOB_MIN_SIZE = 5.f;
 static const float KNOB_MAX_SIZE = 20.f;
 static const float KNOB_RATIO = 0.1f;
 static const float KNOB_BORDER_WIDTH = 1.f;
-static t_symbol* KNOB_FILL = gensym("#C0C0C0");
-static t_symbol* KNOB_BORDER = gensym("#707070");
-static t_symbol* KNOB_FILL_ACTIVE = gensym("#003070");
-static t_symbol* KNOB_BORDER_ACTIVE = gensym("#00C0FF");
+static t_rgba KNOB_FILL = hex_to_rgba("#C0C0C0");
+static t_rgba KNOB_BORDER = hex_to_rgba("#707070");
+static t_rgba KNOB_FILL_ACTIVE = hex_to_rgba("#003070");
+static t_rgba KNOB_BORDER_ACTIVE = hex_to_rgba("#00C0FF");
+static t_rgba GUIDE_LINE_COLOR = hex_to_rgba("#00C0F0");
 static const float GUIDE_LINE_WIDTH = 0.5f;
-static t_symbol* GUIDE_LINE_COLOR = gensym("#00C0F0");
+static t_symbol* SYM_KNOB_LAYER = gensym("knob_layer");
 
-static t_symbol* SEL_POS = gensym("pos");
-static t_symbol* SEL_POS_X = gensym("x");
-static t_symbol* SEL_POS_Y = gensym("y");
-
-static void ui_slider2d_value(ui_slider2d* z, t_symbol* s, int argc, t_atom* argv);
-
-static t_symbol* knobBorderColor(int mouseState)
+UISlider2D::UISlider2D()
+    : prop_x_min(-1)
+    , prop_x_max(1)
+    , prop_y_min(-1)
+    , prop_y_max(1)
+    , prop_show_range(1)
+    , prop_show_grid(0)
+    , txt_font(FONT_FAMILY, FONT_SIZE_SMALL)
+    , txt_xrange_(txt_font.font(), ColorRGBA::black(), ETEXT_UP_LEFT, ETEXT_JLEFT)
+    , txt_yrange_(txt_font.font(), ColorRGBA::black(), ETEXT_DOWN_RIGHT, ETEXT_JRIGHT)
+    , knob_layer_(asEBox(), SYM_KNOB_LAYER)
+    , x_pos_(0.5f)
+    , y_pos_(0.5f)
+    , mouse_down_(false)
 {
-    return mouseState == 0 ? KNOB_BORDER : KNOB_BORDER_ACTIVE;
+    createOutlet();
 }
 
-static t_symbol* knobFillColor(int mouseState)
+void UISlider2D::okSize(t_rect* newrect)
 {
-    return mouseState == 0 ? KNOB_FILL : KNOB_FILL_ACTIVE;
+    newrect->height = std::max<float>(30, newrect->height);
+    newrect->width = std::max<float>(30, newrect->width);
 }
 
-UI_fun(ui_slider2d)::wx_paint(ui_slider2d* zx, t_object* view)
+void UISlider2D::paint(t_object* view)
 {
-    t_rect rect;
-    zx->getRect(&rect);
+    paintBackground();
+    paintKnob();
+}
 
-    t_elayer* g = ebox_start_layer(asBox(zx), BG_LAYER, rect.width, rect.height);
+t_pd_err UISlider2D::notify(t_symbol* attr_name, t_symbol* msg)
+{
+    if (msg == s_attr_modified) {
+        updateLabels();
+        redrawAll();
+    }
 
-    if (g) {
-        const float xx = zx->_posx * rect.width;
-        const float yy = zx->_posy * rect.height;
+    return 0;
+}
 
-        // draw lines guides
-        egraphics_set_line_width(g, GUIDE_LINE_WIDTH);
-        egraphics_set_color_hex(g, GUIDE_LINE_COLOR);
+void UISlider2D::paintBackground()
+{
+    const t_rect& r = rect();
 
-        egraphics_line(g, xx, 0, xx, rect.height);
-        egraphics_line(g, 0, yy, rect.width, yy);
+    UIPainter p = bg_layer_.painter(r);
+    if (!p)
+        return;
 
-        egraphics_stroke(g);
+    if (prop_show_grid) {
+        p.setColor(prop_color_border);
+        const float X_GRID_STEP = r.width / 10;
+        const float Y_GRID_STEP = r.height / 10;
 
-        // draw knob
-        const float knobsize = clip<float>(KNOB_MIN_SIZE, KNOB_MAX_SIZE,
-            std::min(rect.height, rect.width) * KNOB_RATIO);
+        for (int i = 1; i < 10; i++)
+            p.drawLine(i * X_GRID_STEP, -1, i * X_GRID_STEP, r.height + 2);
 
-        // knob border
-        egraphics_set_line_width(g, KNOB_BORDER_WIDTH);
+        for (int i = 1; i < 10; i++)
+            p.drawLine(-1, i * Y_GRID_STEP, r.width + 2, i * Y_GRID_STEP);
+    }
 
-        egraphics_rectangle(g, xx - 0.5f * knobsize, yy - 0.5f * knobsize, knobsize, knobsize);
+    if (prop_show_range) {
+        updateLabels();
 
-        egraphics_set_color_hex(g, knobFillColor(zx->mouse_dn));
-        egraphics_fill_preserve(g); // use path twice
-        egraphics_set_color_hex(g, knobBorderColor(zx->mouse_dn));
-        egraphics_stroke(g);
+        txt_xrange_.setColor(prop_color_border);
+        txt_yrange_.setColor(prop_color_border);
 
-        if (zx->show_range != 0) {
-            char buf[30];
+        p.drawText(txt_xrange_);
+        p.drawText(txt_yrange_);
+    }
+}
 
-            const float xoff = 3 * ebox_getzoom(asBox(zx));
-            const float yoff = 12 * ebox_getzoom(asBox(zx));
+void UISlider2D::paintKnob()
+{
+    const t_rect& r = rect();
+    UIPainter p = knob_layer_.painter(r);
 
-            snprintf(buf, 30, "X: [%g..%g]", zx->left(), zx->right());
-            etext_layout_set(zx->txt_max, buf, zx->txt_font,
-                xoff, yoff, rect.width * 2, rect.height / 2,
-                ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_WRAP);
-            etext_layout_draw(zx->txt_max, g);
+    if (p) {
+        const float x = x_pos_ * r.width;
+        const float y = y_pos_ * r.height;
 
-            snprintf(buf, 30, "Y: [%g..%g]", zx->top(), zx->bottom());
-            etext_layout_set(zx->txt_min, buf, zx->txt_font,
-                rect.width - xoff, rect.height - yoff, rect.width, rect.height / 2,
-                ETEXT_UP_RIGHT, ETEXT_JRIGHT, ETEXT_NOWRAP);
-            etext_layout_draw(zx->txt_min, g);
+        // when grid shown - no guide lines are needed
+        if (!prop_show_grid) {
+            // guide lines
+            p.setLineWidth(GUIDE_LINE_WIDTH);
+            p.setColor(GUIDE_LINE_COLOR);
+            p.drawLine(x, 0, x, r.height);
+            p.drawLine(0, y, r.width, y);
         }
 
-        ebox_end_layer(asBox(zx), BG_LAYER);
+        // knob
+        const float knobsize = clip<float>(KNOB_MIN_SIZE, KNOB_MAX_SIZE,
+            std::min(r.height, r.width) * KNOB_RATIO);
+
+        // knob border
+        p.setLineWidth(KNOB_BORDER_WIDTH);
+        p.setColor(mouse_down_ ? KNOB_FILL_ACTIVE : KNOB_FILL);
+        p.drawRect(x - 0.5f * knobsize, y - 0.5f * knobsize, knobsize, knobsize);
+        p.fillPreserve();
+        p.setColor(mouse_down_ ? KNOB_BORDER_ACTIVE : KNOB_BORDER);
+        p.stroke();
     }
-
-    ebox_paint_layer(asBox(zx), BG_LAYER, 0, 0);
 }
 
-UI_fun(ui_slider2d)::wx_mousedrag_ext(ui_slider2d* zx, t_object* view, t_pt pt, long modifiers)
+void UISlider2D::onBang()
 {
-    zx->setPos(pt);
-    ws_redraw(zx);
-    zx->output();
+    output();
 }
 
-UI_fun(ui_slider2d)::wx_mousedown_ext(ui_slider2d* zx, t_object* view, t_pt pt, long modifiers)
+void UISlider2D::onList(const AtomList& lst)
 {
-    zx->setPos(pt);
-    ws_redraw(zx);
-    zx->output();
-}
-
-UI_fun(ui_slider2d)::wx_mouseup_ext(ui_slider2d* zx, t_object*, t_pt pt, long)
-{
-    zx->setPos(pt);
-    ws_redraw(zx);
-    zx->output();
-}
-
-static void ui_s2_getdrawparams(ui_slider2d* x, t_object* /*patcherview*/, t_edrawparams* params)
-{
-    params->d_borderthickness = 1;
-    params->d_cornersize = 2;
-    params->d_bordercolor = x->b_color_border;
-    params->d_boxfillcolor = x->b_color_background;
-}
-
-static void ui_slider2d_xpos(ui_slider2d* z, t_floatarg x)
-{
-    z->setX(x);
-    GuiFactory<ui_slider2d>::ws_redraw(z);
-}
-
-static void ui_slider2d_ypos(ui_slider2d* z, t_floatarg y)
-{
-    z->setY(y);
-    GuiFactory<ui_slider2d>::ws_redraw(z);
-}
-
-UI_fun(ui_slider2d)::init_ext(t_eclass* z)
-{
-    // clang-format off
-    CLASS_ATTR_DEFAULT              (z, "size", 0, "100. 100.");
-
-    CLASS_ATTR_INT                  (z, "show_range", 0, ui_slider2d, show_range);
-    CLASS_ATTR_DEFAULT              (z, "show_range", 0, "1");
-    CLASS_ATTR_LABEL                (z, "show_range", 0, _("Show range"));
-    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "show_range", 0, "1");
-    CLASS_ATTR_STYLE                (z, "show_range", 0, "onoff");
-
-    CLASS_ATTR_FLOAT                (z, "shift_x", 0, ui_slider2d, shift_x);
-    CLASS_ATTR_DEFAULT              (z, "shift_x", 0, "-1");
-    CLASS_ATTR_LABEL                (z, "shift_x", 0, _("Leftmost value"));
-    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "shift_x", 0, "-1");
-    CLASS_ATTR_STYLE                (z, "shift_x", 0, "number");
-
-    CLASS_ATTR_FLOAT                (z, "range_x", 0, ui_slider2d, range_x);
-    CLASS_ATTR_DEFAULT              (z, "range_x", 0, "2");
-    CLASS_ATTR_LABEL                (z, "range_x", 0, _("Horizontal range"));
-    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "range_x", 0, "2");
-    CLASS_ATTR_STYLE                (z, "range_x", 0, "number");
-    CLASS_ATTR_FILTER_MIN           (z, "range_x", 0.0001f);
-
-    CLASS_ATTR_FLOAT                (z, "shift_y", 0, ui_slider2d, shift_y);
-    CLASS_ATTR_DEFAULT              (z, "shift_y", 0, "-1");
-    CLASS_ATTR_LABEL                (z, "shift_y", 0, _("Topmost value"));
-    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "shift_y", 0, "-1");
-    CLASS_ATTR_STYLE                (z, "shift_y", 0, "number");
-
-    CLASS_ATTR_FLOAT                (z, "range_y", 0, ui_slider2d, range_y);
-    CLASS_ATTR_DEFAULT              (z, "range_y", 0, "2");
-    CLASS_ATTR_LABEL                (z, "range_y", 0, _("Vertical range"));
-    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "range_y", 0, "2");
-    CLASS_ATTR_STYLE                (z, "range_y", 0, "number");
-    CLASS_ATTR_FILTER_MIN           (z, "range_y", 0.0001f);
-    // clang-format on
-
-    eclass_addmethod(z, reinterpret_cast<t_typ_method>(ui_s2_getdrawparams), "getdrawparams", A_NULL, 0);
-    eclass_addmethod(z, reinterpret_cast<t_typ_method>(ui_slider2d_value), "set", A_GIMME, 0);
-    eclass_addmethod(z, reinterpret_cast<t_typ_method>(ui_slider2d_xpos), "set_x", A_DEFFLOAT, 0);
-    eclass_addmethod(z, reinterpret_cast<t_typ_method>(ui_slider2d_ypos), "set_y", A_DEFFLOAT, 0);
-}
-
-UI_fun(ui_slider2d)::new_ext(ui_slider2d* zx, t_symbol*, int, t_atom*)
-{
-    zx->out1 = create_outlet(zx, &s_list);
-
-    zx->txt_max = etext_layout_create();
-    zx->txt_min = etext_layout_create();
-    zx->txt_font = efont_create(FONT_FAMILY, FONT_STYLE, FONT_WEIGHT, FONT_SIZE_SMALL);
-
-    // default position in center
-    zx->_posx = 0.5;
-    zx->_posy = 0.5;
-}
-
-UI_fun(ui_slider2d)::free_ext(ui_slider2d* zx)
-{
-    outlet_free(zx->out1);
-
-    etext_layout_destroy(zx->txt_max);
-    etext_layout_destroy(zx->txt_min);
-    efont_destroy(zx->txt_font);
-}
-
-UI_fun(ui_slider2d)::wx_attr_changed_ext(ui_slider2d* z, t_symbol*)
-{
-    ws_redraw(z);
-}
-
-UI_fun(ui_slider2d)::m_bang(ui_slider2d* zx)
-{
-    zx->output();
-}
-
-UI_fun(ui_slider2d)::m_preset(ui_slider2d* zx, t_binbuf* b)
-{
-    binbuf_addv(b, "sff", &s_list, zx->xValue(), zx->yValue());
-}
-
-void ui_slider2d_value(ui_slider2d* zx, t_symbol* s, int argc, t_atom* argv)
-{
-    if (argc != 2) {
-        pd_error(zx, "[ui.slider2d] invalid list given: X, Y values are expected");
+    if (lst.size() != 2) {
+        UI_ERR << "invalid list given: X Y expected";
         return;
     }
 
-    if (zx->range_x == 0.f || zx->range_y == 0.f) {
-        pd_error(zx, "[ui.slider2d] invalid range values: %g - %g",
-            static_cast<double>(zx->range_x),
-            static_cast<double>(zx->range_y));
+    if (!setRealValue(lst))
+        return;
 
+    redrawKnob();
+    output();
+}
+
+void UISlider2D::onMouseDown(t_object* view, const t_pt& pt, long modifiers)
+{
+    mouse_down_ = true;
+    setMouse(pt.x, pt.y);
+    redrawKnob();
+    output();
+}
+
+void UISlider2D::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
+{
+    setMouse(pt.x, pt.y);
+    redrawKnob();
+    output();
+}
+
+void UISlider2D::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
+{
+    mouse_down_ = false;
+    setMouse(pt.x, pt.y);
+    redrawKnob();
+    output();
+}
+
+void UISlider2D::m_set(const AtomList& lst)
+{
+    if (lst.size() != 2) {
+        UI_ERR << "invalid list given: set X Y expected";
         return;
     }
 
-    t_float x = atom_getfloat(&argv[0]);
-    t_float y = atom_getfloat(&argv[1]);
-    zx->set(x, y);
+    if (!setRealValue(lst))
+        return;
 
-    GuiFactory<ui_slider2d>::ws_redraw(zx);
+    redrawKnob();
 }
 
-UI_fun(ui_slider2d)::m_list(ui_slider2d* zx, t_symbol* s, int argc, t_atom* argv)
+void UISlider2D::m_move(const AtomList& lst)
 {
-    ui_slider2d_value(zx, s, argc, argv);
-    zx->output();
+    if (lst.size() != 2) {
+        UI_ERR << "invalid data: X Y offset expected: " << lst;
+        return;
+    }
+
+    float x, y;
+    if (!lst[0].getFloat(&x) || !lst[1].getFloat(&y)) {
+        UI_ERR << "float offsets are expected: " << lst;
+        return;
+    }
+
+    if (!setRealValue(AtomList(realXValue() + x, realYValue() + y)))
+        return;
+
+    redrawKnob();
 }
 
-UI_fun(ui_slider2d)::wx_oksize(ui_slider2d* z, t_rect* newrect)
+void UISlider2D::loadPreset(size_t idx)
 {
-    newrect->height = std::max(30.f, newrect->height);
-    newrect->width = std::max(30.f, newrect->width);
-}
+    setRealValue(PresetStorage::instance().listValueAt(presetId(), idx, AtomList(0.f, 0.f)));
+    redrawKnob();
+    output();
 }
 
-extern "C" void setup_ui0x2eslider2d()
+void UISlider2D::storePreset(size_t idx)
 {
-    ceammc_gui::GuiFactory<ui_slider2d> c;
-    c.use_presets(true);
-    c.setup("ui.slider2d");
+    PresetStorage::instance().setListValueAt(presetId(), idx, realValue());
+}
+
+bool UISlider2D::setRealValue(const AtomList& lst)
+{
+    if (lst.size() != 2)
+        return false;
+
+    float x, y;
+    if (!lst[0].getFloat(&x) || !lst[1].getFloat(&y)) {
+        UI_ERR << "invalid value: " << lst;
+        return false;
+    }
+
+    if (xRange() == 0 || yRange() == 0) {
+        UI_ERR << "invalid slider range: " << xRange() << " - " << yRange();
+        return false;
+    }
+
+    x_pos_ = clip<t_float>((x - prop_x_min) / xRange(), 0, 1);
+    y_pos_ = clip<t_float>((y - prop_y_min) / yRange(), 0, 1);
+    return true;
+}
+
+AtomList UISlider2D::realValue() const
+{
+    return AtomList(realXValue(), realYValue());
+}
+
+t_float UISlider2D::realXValue() const
+{
+    return xRange() * x_pos_ + prop_x_min;
+}
+
+t_float UISlider2D::realYValue() const
+{
+    return yRange() * y_pos_ + prop_y_min;
+}
+
+void UISlider2D::output()
+{
+    AtomList v = realValue();
+    listTo(0, v);
+    send(v);
+}
+
+AtomList UISlider2D::propXRange() const
+{
+    return AtomList(xRange());
+}
+
+AtomList UISlider2D::propYRange() const
+{
+    return AtomList(yRange());
+}
+
+AtomList UISlider2D::propXValue() const
+{
+    return AtomList(realXValue());
+}
+
+AtomList UISlider2D::propYValue() const
+{
+    return AtomList(realYValue());
+}
+
+void UISlider2D::propSetXValue(const AtomList& lst)
+{
+    float x;
+    if (lst.empty() || !lst[0].getFloat(&x)) {
+        UI_ERR << "x float value expected: " << lst;
+        return;
+    }
+
+    x_pos_ = clip<t_float>((x - prop_x_min) / xRange(), 0, 1);
+
+    if (xRange() == 0) {
+        UI_ERR << "invalid x-range: " << xRange();
+        return;
+    }
+
+    redrawKnob();
+}
+
+void UISlider2D::propSetYValue(const AtomList& lst)
+{
+    float y;
+    if (lst.empty() || !lst[0].getFloat(&y)) {
+        UI_ERR << "y float value expected: " << lst;
+        return;
+    }
+
+    if (yRange() == 0) {
+        UI_ERR << "invalid y-range: " << yRange();
+        return;
+    }
+
+    y_pos_ = clip<t_float>((y - prop_y_min) / yRange(), 0, 1);
+    redrawKnob();
+}
+
+void UISlider2D::setup()
+{
+    UIObjectFactory<UISlider2D> obj("ui.slider2d");
+
+    obj.setDefaultSize(100, 100);
+
+    obj.addProperty("x_min", _("Minimum X-value"), -1, &UISlider2D::prop_x_min, "Values");
+    obj.addProperty("x_max", _("Maximum X-value"), 1, &UISlider2D::prop_x_max, "Values");
+    obj.addProperty("y_min", _("Minimum Y-value"), -1, &UISlider2D::prop_y_min, "Values");
+    obj.addProperty("y_max", _("Maximum Y-value"), 1, &UISlider2D::prop_y_max, "Values");
+
+    obj.addProperty("x_range", &UISlider2D::propXRange, 0);
+    obj.addProperty("y_range", &UISlider2D::propYRange, 0);
+    obj.addProperty("x_value", &UISlider2D::propXValue, &UISlider2D::propSetXValue);
+    obj.addProperty("y_value", &UISlider2D::propYValue, &UISlider2D::propSetYValue);
+
+    obj.addProperty("show_grid", _("Show grid"), false, &UISlider2D::prop_show_grid);
+    obj.addProperty("show_range", _("Show range"), true, &UISlider2D::prop_show_range);
+
+    obj.usePresets();
+    obj.useList();
+    obj.useBang();
+
+    obj.useMouseEvents(UI_MOUSE_UP | UI_MOUSE_DOWN | UI_MOUSE_DRAG);
+
+    obj.addMethod("set", &UISlider2D::m_set);
+    obj.addMethod("move", &UISlider2D::m_move);
+}
+
+void UISlider2D::redrawKnob()
+{
+    knob_layer_.invalidate();
+    redraw();
+}
+
+void UISlider2D::redrawAll()
+{
+    knob_layer_.invalidate();
+    bg_layer_.invalidate();
+    redraw();
+}
+
+void UISlider2D::setMouse(float x, float y)
+{
+    x_pos_ = clip<float>(x / width(), 0, 1);
+    y_pos_ = clip<float>(y / height(), 0, 1);
+}
+
+void UISlider2D::updateLabels()
+{
+    char buf[64];
+    snprintf(buf, 64, "X: [%g..%g]", prop_x_min, prop_x_max);
+
+    const float xoff = 2 * zoom();
+    const float yoff = 3 * zoom();
+    txt_xrange_.set(buf, xoff, yoff, 100, 20);
+
+    snprintf(buf, 64, "Y: [%g..%g]", prop_y_min, prop_y_max);
+    txt_yrange_.set(buf, width() - xoff, height() - yoff, 100, 20);
+}
+
+void setup_ui_slider2d()
+{
+    UISlider2D::setup();
 }

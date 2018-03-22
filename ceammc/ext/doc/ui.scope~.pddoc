@@ -18,8 +18,26 @@
             </also>
         </meta>
         <info>
-            <par>Shows waveform</par>
+            <par>Shows waveform. Double-click toggles freeze mode. Shift+Click - zoomin,
+            Ctrl+Click - zoomout</par>
         </info>
+        <properties>
+            <property name="@max" type="float" default="1">maximum (top) graph value</property>
+            <property name="@min" type="float" default="-1">minimum (bottom) graph value</property>
+            <property name="@window" type="int" minvalue="512" maxvalue="4096" default="2048">
+            window size</property>
+            <property name="@refresh" type="int" minvalue="10" maxvalue="1000" default="40" units="millisecond">
+            approximate refresh rate</property>
+        </properties>
+        <methods>
+            <method name="freeze">stop/start processing
+                <param name="V" type="int" enum="0 1">1 - freeze, 0 - unfreeze</param>
+            </method>
+            <method name="scale">sets widget scale
+                <param name="N" type="float" minvalue="0">1 - normal scale, 2 - range from -2..2 (zoomout),
+                0.1 - range from -0.1..0.1 (zoomin)</param>
+            </method>
+        </methods>
         <inlets>
             <inlet>
                 <xinfo>signal input</xinfo>
@@ -31,12 +49,13 @@
 [ui.dsp~ @size=40x40]
 
 
-[300( [660(
-|     |
-[osc~ 440]
-|
-|
-[ui.scope~]
+[300( [660( [F]
+|     |     |
+|     |     |
+[osc~ 440   ] [scale 0.5( [scale 1( [scale 2(
+|             |           |         |
+|             |           |         |
+[ui.scope~             @size=450x200]
 ]]>
             </pdascii>
         </example>

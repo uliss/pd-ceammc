@@ -13,9 +13,11 @@
  *****************************************************************************/
 
 #include "base_extension_test.h"
-#include "catch.hpp"
 #include "ceammc_object.h"
 #include "ceammc_pd.h"
+#include "test_external.h"
+
+#include "catch.hpp"
 
 #ifndef TEST_DATA_DIR
 #define TEST_DATA_DIR "."
@@ -41,8 +43,169 @@ public:
     }
 };
 
+class EXT_C : public BaseObject {
+public:
+    EXT_C(const PdArgs& a)
+        : BaseObject(a)
+    {
+        createProperty(new FloatProperty("@c", 101));
+        createInlet();
+        createOutlet();
+    }
+
+    void onInlet(size_t n, const AtomList& l)
+    {
+        last_inlet = n;
+        last_inlet_data = l;
+    }
+
+public:
+    size_t last_inlet;
+    AtomList last_inlet_data;
+};
+
+static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
+
+template <class T>
+class TestPdExternal : private pd::External {
+    std::vector<ExternalOutput*> outs_;
+
+public:
+    TestPdExternal(const char* name, const AtomList& args = AtomList())
+        : pd::External(name, args)
+    {
+        REQUIRE(object());
+
+        for (size_t i = 0; i < numOutlets(); i++) {
+            ExternalOutput* e = new ExternalOutput;
+            connectTo(i, e->object(), 0);
+            outs_.push_back(e);
+        }
+    }
+
+    T* operator->()
+    {
+        PdObject<T>* obj = (PdObject<T>*)object();
+        return obj->impl;
+    }
+
+    void call(const char* method, const AtomList& l = AtomList())
+    {
+        clearAll();
+        sendMessage(gensym(method), l);
+    }
+
+    void bang()
+    {
+        clearAll();
+        External::bang();
+    }
+
+    void call(const char* method, float f)
+    {
+        clearAll();
+        sendMessage(gensym(method), AtomList(Atom(f)));
+    }
+
+    void send(float f)
+    {
+        clearAll();
+        sendFloat(f);
+    }
+
+    void send(const AtomList& lst)
+    {
+        clearAll();
+        sendList(lst);
+    }
+
+    bool hasOutputAt(size_t n) const
+    {
+        return !outs_.at(n)->msg().isNone();
+    }
+
+    bool hasOutput() const
+    {
+        for (size_t i = 0; i < outs_.size(); i++) {
+            if (!outs_.at(i)->msg().isNone())
+                return true;
+        }
+
+        return false;
+    }
+
+    bool isOutputListAt(size_t n) const
+    {
+        return outs_.at(n)->msg().isList();
+    }
+
+    bool isOutputAnyAt(size_t n) const
+    {
+        return outs_.at(n)->msg().isAny();
+    }
+
+    bool isOutputFloatAt(size_t n) const
+    {
+        return outs_.at(n)->msg().isFloat();
+    }
+
+    bool isOutputSymbolAt(size_t n) const
+    {
+        return outs_.at(n)->msg().isSymbol();
+    }
+
+    bool isOutputBangAt(size_t n) const
+    {
+        return outs_.at(n)->msg().isBang();
+    }
+
+    AtomList outputListAt(size_t n) const
+    {
+        return outs_.at(n)->msg().listValue();
+    }
+
+    AtomList outputAnyAt(size_t n) const
+    {
+        return outs_.at(n)->msg().anyValue();
+    }
+
+    float outputFloatAt(size_t n) const
+    {
+        return outs_.at(n)->msg().atomValue().asFloat();
+    }
+
+    Atom outputAtomAt(size_t n) const
+    {
+        return outs_.at(n)->msg().atomValue();
+    }
+
+    t_symbol* outputSymbolAt(size_t n) const
+    {
+        return outs_.at(n)->msg().atomValue().asSymbol();
+    }
+
+    void clearAll()
+    {
+        for (size_t i = 0; i < outs_.size(); i++)
+            outs_[i]->reset();
+    }
+
+    void clearAt(size_t n)
+    {
+        outs_.at(n)->reset();
+    }
+
+    ~TestPdExternal()
+    {
+        for (size_t i = 0; i < outs_.size(); i++)
+            delete outs_[i];
+    }
+};
+
 TEST_CASE("BaseObject", "[ceammc::BaseObject]")
 {
+    ExternalOutput::setup();
+
     SECTION("test prop key")
     {
         REQUIRE(BaseObject::tryGetPropKey(gensym("@")) == 0);
@@ -60,8 +223,8 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
         REQUIRE(b.receive() == 0);
         REQUIRE(b.numOutlets() == 0);
         REQUIRE(b.numInlets() == 0);
-        REQUIRE(b.canvas() == 0);
-        REQUIRE(b.rootCanvas() == 0);
+        REQUIRE(b.canvas() != 0);
+        REQUIRE(b.rootCanvas() != 0);
 
         REQUIRE_FALSE(b.hasProperty("@?"));
         REQUIRE(b.property("@?") == 0);
@@ -89,11 +252,19 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
             REQUIRE(b.checkArg(A(10), BaseObject::ARG_NATURAL));
             REQUIRE(b.checkArg(A(1), BaseObject::ARG_BOOL));
             REQUIRE(b.checkArg(A(0.0f), BaseObject::ARG_BOOL));
+            REQUIRE(b.checkArg(A(0.0f), BaseObject::ARG_BYTE));
+            REQUIRE(b.checkArg(A(1), BaseObject::ARG_BYTE));
+            REQUIRE(b.checkArg(A(255), BaseObject::ARG_BYTE));
             REQUIRE_FALSE(b.checkArg(A(10), BaseObject::ARG_SYMBOL));
             REQUIRE_FALSE(b.checkArg(A(10), BaseObject::ARG_PROPERTY));
             REQUIRE_FALSE(b.checkArg(A(10), BaseObject::ARG_SNONPROPERTY));
             REQUIRE_FALSE(b.checkArg(A(10), BaseObject::ARG_BOOL));
             REQUIRE_FALSE(b.checkArg(A(0.1), BaseObject::ARG_BOOL));
+            REQUIRE_FALSE(b.checkArg(A("ABC"), BaseObject::ARG_BOOL));
+            REQUIRE_FALSE(b.checkArg(A(-1), BaseObject::ARG_BYTE));
+            REQUIRE_FALSE(b.checkArg(A(256), BaseObject::ARG_BYTE));
+            REQUIRE_FALSE(b.checkArg(A(1000), BaseObject::ARG_BYTE));
+            REQUIRE_FALSE(b.checkArg(A("ABC"), BaseObject::ARG_BYTE));
 
             REQUIRE(b.checkArg(A(1.1f), BaseObject::ARG_FLOAT));
             REQUIRE_FALSE(b.checkArg(A(1.1f), BaseObject::ARG_INT));
@@ -337,9 +508,9 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
     SECTION("findInStdPaths")
     {
         BaseObject b1(PdArgs(AtomList(), gensym("testname"), 0));
-        REQUIRE_FALSE(b1.canvas());
+        REQUIRE(b1.canvas());
         REQUIRE(b1.findInStdPaths("test") == "");
-        REQUIRE(b1.rootCanvas() == 0);
+        REQUIRE(b1.rootCanvas() != 0);
 
         CanvasPtr cnv1 = PureData::instance().createTopCanvas("/dir/file.pd");
 
@@ -354,5 +525,152 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
         REQUIRE(b3.canvas() == cnv2->pd_canvas());
         REQUIRE(b3.findInStdPaths("unknown") == "");
         REQUIRE(b3.findInStdPaths("snd_mono_48k.wav") == TEST_DATA_DIR "/snd_mono_48k.wav");
+    }
+
+    SECTION("outletAt")
+    {
+        BaseObject b1(PdArgs(AtomList(), gensym("test"), 0));
+        REQUIRE(b1.outletAt(0) == 0);
+    }
+
+    SECTION("createProperty")
+    {
+        BaseObject b(PdArgs(AtomList(), gensym("test"), 0));
+        b.createProperty(new IntProperty("int1"));
+        b.createProperty(new IntProperty("int1", 10));
+        REQUIRE(b.property("int1")->get() == L1(10));
+
+        Property* p = new BoolProperty("bool1", true);
+        b.createProperty(p);
+        b.createProperty(p);
+    }
+
+    SECTION("realOutput")
+    {
+        obj_init();
+        pd_init();
+
+        {
+            ObjectFactory<EXT_C> obj("ext.c");
+        }
+
+        TestPdExternal<EXT_C> t("ext.c");
+        REQUIRE(t->outletAt(0));
+        REQUIRE(!t->outletAt(1));
+
+        t->bangTo(100);
+        REQUIRE(!t.hasOutput());
+        t->bangTo(0);
+        REQUIRE(t.hasOutputAt(0));
+
+        t.clearAll();
+        t->floatTo(0, 10);
+        REQUIRE(t.hasOutput());
+        REQUIRE(t.outputFloatAt(0) == 10);
+
+        t.clearAll();
+        t->floatTo(1, 10);
+        REQUIRE_FALSE(t.hasOutput());
+
+        t.clearAll();
+        t->symbolTo(0, gensym("ABC"));
+        REQUIRE(t.hasOutput());
+        REQUIRE(t.outputSymbolAt(0) == gensym("ABC"));
+
+        t.clearAll();
+        t->symbolTo(1, gensym("ABC"));
+        REQUIRE(!t.hasOutput());
+
+        t.clearAll();
+        t->listTo(0, L3(1, 2, 3));
+        REQUIRE(t.hasOutput());
+        REQUIRE(t.outputListAt(0) == L3(1, 2, 3));
+
+        t.clearAll();
+        t->listTo(1, L3(1, 2, 3));
+        REQUIRE(!t.hasOutput());
+
+        t.clearAll();
+        t->atomTo(0, Atom(12));
+        REQUIRE(t.hasOutput());
+        REQUIRE(t.outputFloatAt(0) == 12);
+
+        t.clearAll();
+        t->atomTo(0, Atom());
+        REQUIRE(!t.hasOutput());
+
+        t.clearAll();
+        t->atomTo(1, Atom());
+        REQUIRE(!t.hasOutput());
+
+        t.clearAll();
+        t->atomTo(0, Atom(gensym("CDE")));
+        REQUIRE(t.hasOutput());
+        REQUIRE(t.outputSymbolAt(0) == gensym("CDE"));
+
+        t.clearAll();
+        t->anyTo(0, L4("any", 1, 2, 3));
+        REQUIRE(t.hasOutput());
+        REQUIRE(t.outputAnyAt(0) == L4("any", 1, 2, 3));
+
+        t.clearAll();
+        t->anyTo(1, L4("any", 1, 2, 3));
+        REQUIRE(!t.hasOutput());
+
+        t.clearAll();
+        t->messageTo(0, Message(22));
+        REQUIRE(t.hasOutput());
+        REQUIRE(t.outputFloatAt(0) == 22);
+
+        t.clearAll();
+        t->messageTo(1, Message(22));
+        REQUIRE(!t.hasOutput());
+
+        t.clearAll();
+        t->anyTo(0, gensym("B"), L3(1, 2, 3));
+        REQUIRE(t.hasOutput());
+        REQUIRE(t.outputAnyAt(0) == L4("B", 1, 2, 3));
+
+        t.clearAll();
+        t->anyTo(1, gensym("B"), L3(1, 2, 3));
+        REQUIRE(!t.hasOutput());
+
+        t.clearAll();
+        t->anyTo(0, gensym("B"), A(23));
+        REQUIRE(t.hasOutput());
+        REQUIRE(t.outputAnyAt(0) == L2("B", 23));
+
+        t.clearAll();
+        t->anyTo(1, gensym("B"), A(23));
+        REQUIRE(!t.hasOutput());
+
+        SECTION("process inlets")
+        {
+            REQUIRE(!t->processAnyInlets(gensym("ABC"), AtomList()));
+            REQUIRE(!t->processAnyInlets(gensym("_"), AtomList()));
+            REQUIRE(t->processAnyInlets(gensym("_inlet0"), L1(123)));
+            REQUIRE(t->last_inlet == 1);
+            REQUIRE(t->last_inlet_data == L1(123));
+        }
+
+        SECTION("process props")
+        {
+            REQUIRE(!t->processAnyProps(gensym("???"), AtomList()));
+            REQUIRE(!t->processAnyProps(gensym("@abc"), AtomList()));
+
+            t.clearAll();
+            REQUIRE(t->processAnyProps(gensym("@c?"), AtomList()));
+            REQUIRE(t.hasOutput());
+            REQUIRE(t.outputAnyAt(0) == L2("@c", 101));
+
+            t.clearAll();
+            REQUIRE(t->processAnyProps(gensym("@c"), AtomList(200)));
+            REQUIRE(!t.hasOutput());
+
+            t.clearAll();
+            REQUIRE(t->processAnyProps(gensym("@c?"), AtomList()));
+            REQUIRE(t.hasOutput());
+            REQUIRE(t.outputAnyAt(0) == L2("@c", 200));
+        }
     }
 }

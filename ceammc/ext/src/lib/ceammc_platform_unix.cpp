@@ -15,12 +15,15 @@
 
 #include <cstdlib>
 #include <cstring>
+#include <errno.h>
 #include <fnmatch.h>
 #include <libgen.h>
 #include <pwd.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
+
+#include <iostream>
 
 bool ceammc::unix_is_path_relative(const char* path)
 {
@@ -66,7 +69,11 @@ bool ceammc::unix_mkdir(const char* path, int flags)
     if (flags < 0)
         flags = S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH;
 
-    return mkdir(path, static_cast<mode_t>(flags)) == 0;
+    if (mkdir(path, static_cast<mode_t>(flags)) == 0)
+        return true;
+
+    std::cerr << "[unix_mkdir] error: " << strerror(errno) << "\n";
+    return false;
 }
 
 bool ceammc::unix_rmdir(const char* path)
@@ -83,4 +90,9 @@ std::string ceammc::unix_home_directory()
     }
 
     return homedir ? homedir : "";
+}
+
+void ceammc::unix_sleep_ms(unsigned int ms)
+{
+    usleep(ms * 1000);
 }

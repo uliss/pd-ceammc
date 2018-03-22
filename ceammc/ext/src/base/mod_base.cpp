@@ -5,6 +5,8 @@
 #include "canvas_top.h"
 #include "function.h"
 #include "function_call.h"
+#include "metro_pattern.h"
+#include "metro_seq.h"
 #include "patch_args.h"
 
 #ifdef WITH_SND_FILE
@@ -44,6 +46,8 @@ void ceammc_base_setup()
     msg_setup();
     function_setup();
     function_call_setup();
+    setup_metro_pattern();
+    setup_metro_seq();
     replace_setup();
     setup_prop0x2eget();
     setup_prop0x2eset();

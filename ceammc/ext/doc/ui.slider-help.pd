@@ -1,98 +1,133 @@
 #N canvas 0 0 715 555 12;
-#X declare -lib ceammc -lib creammc;
+#X declare -lib ceammc;
 #X obj 427 50 cnv 1 268 21 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 427 50 counterpart of the vanilla slider;
 #X obj 1 1 cnv 5 712 40 empty empty ui.slider 20 20 0 20 -104026 -4096
 0;
-#X msg 50 118 5;
-#X msg 88 118 50;
-#X msg 136 118 set 100;
-#X msg 232 118 bang;
-#X msg 261 147 - 5;
-#X msg 318 147 + 10;
-#X msg 386 147 * 2;
-#X msg 443 147 / 3;
-#X msg 462 176 ++ \, bang;
-#X msg 568 176 -- \, bang;
-#X obj 50 205 ui.slider @max 127;
-#X floatatom 50 334 5 0 0 0 - - -;
-#X obj 20 373 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 378 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 477 13 ui.link @title [ui.hsl] @background_color 0.39216
+0.39216 0.39216 @url ui.slider-help.pd;
+#X obj 548 13 ui.link @title [ui.vsl] @background_color 0.39216
+0.39216 0.39216 @url ui.slider-help.pd;
+#X obj 619 13 ui.link @title [ui.slider] @background_color 0.39216
+0.39216 0.39216 @url ui.slider-help.pd;
+#X obj 205 80 cnv 1 490 149 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 210 80 Ctrl+Double click in edit mode changes slider
+orientation;
+#X text 210 103 [ui.hsl] is alias for horizontal slider \, [ui.vsl] -
+for vertical;
+#X text 210 140 Shift+click in performance mode - to bind to first
+received MIDI control event from controller (red border appears). By
+default @midi_pickup is on \, so you have to pass over current slider
+value by MIDI control knob to activate binding.;
+#X msg 50 257 5;
+#X msg 88 257 50;
+#X msg 136 257 set 100;
+#X msg 232 257 bang;
+#X msg 261 286 - 5;
+#X msg 318 286 + 10;
+#X msg 386 286 * 2;
+#X msg 443 286 / 3;
+#X msg 462 315 ++ \, bang;
+#X msg 568 315 -- \, bang;
+#X obj 50 344 ui.slider @max 127;
+#X floatatom 50 473 5 0 0 0 - - -;
+#X obj 20 512 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 517 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 383 @min;
-#X text 240 383 Get/Set minimum slider value. Type: float. Default
+#X msg 120 522 @min;
+#X text 240 522 Get/Set minimum slider value. Type: float. Default
 value: 0;
-#X msg 120 410 @max;
-#X text 240 410 Get/Set maximum slider value. Type: float. Default
+#X msg 120 549 @max;
+#X text 240 549 Get/Set maximum slider value. Type: float. Default
 value: 1;
-#X msg 120 437 @mode;
-#X text 240 437 Get/Set relative mode. Do not jump on click to value.
+#X msg 120 576 @mode;
+#X text 240 576 Get/Set relative mode. Do not jump on click to value.
 Type: int. Default value: 0\. Allowed values: 0 \, 1;
-#X msg 120 474 @send;
-#X text 240 474 Get/Set send destination. Type: symbol;
-#X msg 120 501 @receive;
-#X text 240 501 Get/Set receive source. Type: symbol;
-#X obj 20 538 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 543 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X msg 120 613 @send;
+#X text 240 613 Get/Set send destination. Type: symbol;
+#X msg 120 640 @receive;
+#X text 240 640 Get/Set receive source. Type: symbol;
+#X msg 120 667 @midi_channel;
+#X text 240 667 Get/Set binded MIDI channel. 0 means listen to all
+channels. Type: int. Default value: 0\. Value range: 0-16;
+#X msg 120 704 @midi_control;
+#X text 240 704 Get/Set binded MIDI controller number. 0 means not
+binded to any controller. Type: int. Default value: 0\. Value range:
+0-128;
+#X msg 120 755 @midi_pickup;
+#X text 240 755 Get/Set pickup current value. If slider is binded to
+value \, first time you should pass over this value to make binding.
+It prevents from sudden value change on first control change. Type:
+int. Default value: 1\. Allowed values: 0 \, 1;
+#X msg 120 820 @mouse_up_output;
+#X text 240 820 Get/Set if output only on mouse-up event. Type: int.
+Default value: 0\. Allowed values: 0 \, 1;
+#X msg 120 857 @active_scale;
+#X text 240 857 Get/Set if should draw active scale. Type: int.
+Default value: 0\. Allowed values: 0 \, 1;
+#X msg 120 894 @value;
+#X text 240 894 Get/Set current value. Type: float;
+#X obj 20 931 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 936 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 548 set;
-#X text 240 548 sets slider value without output. Arguments are:;
-#X obj 250 576 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 576 V: new value. Type: float.;
-#X msg 120 604 ++;
-#X text 240 604 increment slider value without output.;
-#X msg 120 636 --;
-#X text 240 636 decrement slider value without output.;
-#X msg 120 668 +;
-#X text 240 668 add value to slider without output. Arguments are:;
-#X obj 250 696 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 696 V: added value. Type: float.;
-#X msg 120 724 -;
-#X text 240 724 substruct value from slider without output. Arguments
+#X msg 120 941 set;
+#X text 240 941 sets slider value without output. Arguments are:;
+#X obj 250 969 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 969 V: new value. Type: float.;
+#X msg 120 997 ++;
+#X text 240 997 increment slider value without output.;
+#X msg 120 1029 --;
+#X text 240 1029 decrement slider value without output.;
+#X msg 120 1061 +;
+#X text 240 1061 add value to slider without output. Arguments are:;
+#X obj 250 1089 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 1089 V: added value. Type: float.;
+#X msg 120 1117 -;
+#X text 240 1117 substruct value from slider without output. Arguments
 are:;
-#X obj 250 752 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 752 V: substructed value. Type: float.;
-#X msg 120 780 *;
-#X text 240 780 multiply slider value without output. Arguments are:;
-#X obj 250 808 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 808 V: mutiplied value. Type: float.;
-#X msg 120 836 /;
-#X text 240 836 divide slider value without output. Arguments are:;
-#X obj 250 864 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 864 V: denominator value. Type: float.;
-#X obj 20 902 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 907 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
-0;
-#X text 120 912 1\.;
-#X text 150 912 *bang*;
-#X text 240 912 outputs current slider state.;
-#X text 150 930 *float*;
-#X text 240 930 set slider value and output.;
-#X obj 20 958 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 963 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 250 1145 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 1145 V: substructed value. Type: float.;
+#X msg 120 1173 *;
+#X text 240 1173 multiply slider value without output. Arguments are:;
+#X obj 250 1201 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 1201 V: mutiplied value. Type: float.;
+#X msg 120 1229 /;
+#X text 240 1229 divide slider value without output. Arguments are:;
+#X obj 250 1257 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 1257 V: denominator value. Type: float.;
+#X obj 20 1295 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1300 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 968 1\.;
-#X text 240 968 output value;
+#X text 120 1305 1\.;
+#X text 150 1305 *bang*;
+#X text 240 1305 outputs current slider state.;
+#X text 150 1323 *float*;
+#X text 240 1323 set slider value and output.;
+#X obj 20 1351 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1356 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+-49933 0;
+#X text 120 1361 1\.;
+#X text 240 1361 output value;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 1016 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1019 library: ceammc v0.4;
-#X text 374 1031 see also:;
-#X obj 450 1034 ui.link @title [ui.slider2d] @bgcolor 0.78431 0.78431
-0.78431 @url ui.slider2d-help.pd;
-#X obj 547 1034 ui.link @title [ui.sliders] @bgcolor 0.78431 0.78431
-0.78431 @url ui.sliders-help.pd;
-#X obj 637 1034 ui.link @title [ui.knob] @bgcolor 0.78431 0.78431
-0.78431 @url ui.knob-help.pd;
-#N canvas 10 1038 400 290 info 0;
+#X obj 1 1409 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1412 library: ceammc v0.5;
+#X text 374 1424 see also:;
+#X obj 450 1427 ui.link @title [ui.slider2d] @background_color 0.78431
+0.78431 0.78431 @url ui.slider2d-help.pd;
+#X obj 547 1427 ui.link @title [ui.sliders] @background_color 0.78431
+0.78431 0.78431 @url ui.sliders-help.pd;
+#X obj 637 1427 ui.link @title [ui.knob] @background_color 0.78431
+0.78431 0.78431 @url ui.knob-help.pd;
+#N canvas 10 1431 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.4;
+#X text 120 32 0.5;
 #X text 10 54 object:;
 #X text 120 54 ui.slider;
 #X text 10 76 category:;
@@ -108,18 +143,18 @@ are:;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pure-data @url
 https://github.com/uliss/pure-data;
-#X obj 120 208 declare -lib ceammc -lib creammc;
+#X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1038 pd info;
-#X connect 11 0 13 0;
-#X connect 7 0 13 0;
-#X connect 10 0 13 0;
-#X connect 4 0 13 0;
-#X connect 6 0 13 0;
-#X connect 8 0 13 0;
-#X connect 5 0 13 0;
-#X connect 12 0 13 0;
-#X connect 9 0 13 0;
-#X connect 13 0 14 0;
-#X connect 3 0 13 0;
+#X restore 10 1431 pd info;
+#X connect 13 0 20 0;
+#X connect 18 0 20 0;
+#X connect 14 0 20 0;
+#X connect 12 0 20 0;
+#X connect 10 0 20 0;
+#X connect 17 0 20 0;
+#X connect 20 0 21 0;
+#X connect 19 0 20 0;
+#X connect 16 0 20 0;
+#X connect 15 0 20 0;
+#X connect 11 0 20 0;

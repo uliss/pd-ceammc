@@ -222,3 +222,35 @@ double ceammc::convert::lin2curve(double x, double x0, double x1, double y0, dou
 
     return b - (a * pow(grow, scaled));
 }
+
+double ceammc::convert::lin2sin2(double x, double x0, double x1, double y0, double y1)
+{
+    double v = sin(M_PI_2 * (x - x0) / (x1 - x0));
+    return (v * v) * (y1 - y0) + y0;
+}
+
+double ceammc::convert::lin2sigmoid(double x, double x0, double x1, double y0, double y1, double skew)
+{
+    double v = 1 / (1 + pow(M_E, (-skew) * ((x - x0) / (x1 - x0) - 0.5)));
+    return v * (y1 - y0) + y0;
+}
+
+float ceammc::convert::dbfs2amp(float db)
+{
+    return powf(10.f, db / 20.f);
+}
+
+double ceammc::convert::dbfs2amp(double db)
+{
+    return pow(10.0, db / 20.0);
+}
+
+float ceammc::convert::amp2dbfs(float amp)
+{
+    return 20 * log10f(amp);
+}
+
+double ceammc::convert::amp2dbfs(double amp)
+{
+    return 20 * log10(amp);
+}

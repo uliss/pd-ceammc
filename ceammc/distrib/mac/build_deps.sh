@@ -232,7 +232,7 @@ function install_tcl() {
     banner "Downloading ${pkg}"
     if [ ! -f "tcl-release.zip" ]
     then
-        curl "https://github.com/tcltk/tcl/archive/core_8_6_6.zip" -o "tcl-release.zip"
+        curl -L "https://github.com/tcltk/tcl/archive/core-8-6-6.zip" -o "tcl-release.zip"
     fi
 
     unzip -o  "tcl-release.zip"
@@ -317,7 +317,18 @@ function install_tk() {
     fi
 
     unzip -o  "tk-release.zip"
-    cd tk-core*/unix
+
+    cd tk-core*/macosx
+
+    echo "Patch tkMacOSXXStubs.c"
+    echo "933,934c933,934
+< 	    assert(bytes_per_row == 4 * scaled_width);
+< 	    assert([bitmap_rep bytesPerPlane] == bytes_per_row * scaled_height);
+---
+> 	    //assert(bytes_per_row == 4 * scaled_width);
+> 	    //assert([bitmap_rep bytesPerPlane] == bytes_per_row * scaled_height);" | patch tkMacOSXXStubs.c
+
+    cd ../unix
 
     banner "Configure ${pkg}"
     ./configure --prefix="/usr/local" --bindir="/usr/local/bin" --libdir="/Library/Frameworks" \
@@ -381,8 +392,7 @@ case ${PKG} in
         install_portaudio
         ;;
     *)
-        echo "Choose from following: modplug, fftw3, tcl, tcllib, tk, tklib, ogg, \
-              vorbis, flac, portaudio or all"
+        echo "Choose from following: modplug, fftw3, tcl, tcllib, tk, tklib, ogg, vorbis, flac, sndfile, portaudio or all"
         exit 1
         ;;
 esac

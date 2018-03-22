@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="pan.spread~">
+        <title>pan.spread~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>spreads input channels across the stereo field</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>spat</category>
+            <keywords>pan spread</keywords>
+            <since>0.5</since>
+        </meta>
+        <arguments>
+            <argument name="N" type="int" minvalue="2" maxvalue="16">number of input channels</argument>
+        </arguments>
+        <properties>
+            <property name="@ch" type="int" minvalue="2" maxvalue="16" default="2" readonly="true">
+            number of input channels</property>
+            <property name="@spread" type="float" minvalue="0" maxvalue="1" default="1">for @spread = 0,
+            all channels are in the centre, for 1, they have maximum distribution</property>
+            <property name="@center" type="float" minvalue="-0.5" maxvalue="0.5" default="0">
+            shift the centre of the distribution</property>
+            <property name="@compensate" type="int" enum="0 1" default="0">compensate output level:
+            divide amplitude to number of input channels</property>
+        </properties>
+        <inlets dynamic="true">
+            <inlet type="audio" number="1"><xinfo>input signal</xinfo></inlet>
+            <inlet type="audio" number="..."><xinfo>input signal</xinfo></inlet>
+            <inlet type="audio" number="n"><xinfo>input signal</xinfo></inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">left output channel</outlet>
+            <outlet type="audio">right output channel</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[T]
+|
+[metro 160]
+|
+[flow.count]
+|
+[% 4]
+|
+[sel 0 1 2 3                      ]
+|        ^|       ^^|      ^^^|
+[click~] [click~] [click~] [click~]
+|        |        |        |
+|        |        |        [flt.resonbp~ 1600 30 #d]
+|        |        |
+|        |        [flt.resonbp~ 1200 40 #c]
+|        |
+|        [flt.resonbp~ 800 40 #b]
+|
+[flt.resonbp~ 500 60 #a]
+
+                      [@spread 0( [@spread 1(
+                      |           |
+[pan.spread~                     4 #e]
+| ^|.
+[dac~]
+
+[X a->e:0] [X b->e:1] [X c->e:2] [X d->e:3]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

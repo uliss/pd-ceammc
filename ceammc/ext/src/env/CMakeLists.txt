@@ -1,4 +1,7 @@
-set(ENV_SOURCES "")
+set(ENV_SOURCES datatype_env.cpp
+    env_to_vline.cpp env_env.cpp env_to_array.cpp
+    env_tscale.cpp env_vscale.cpp env_tshift.cpp env_mix.cpp env_concat.cpp)
+
 macro(ceammc_env_extension name)
     list(APPEND ENV_SOURCES "env_${name}.cpp")
     ceammc_faust_gen(env ${name})

@@ -80,11 +80,13 @@ TEST_CASE("flow.pass_if", "[externals]")
     SECTION("puredata")
     {
         setup_flow0x2epass_if();
+        ExternalOutput::setup();
 
         pd::External flow_pass_if("flow.pass_if");
         REQUIRE_FALSE(flow_pass_if.isNull());
 
         pd::External x1(">", L1(10));
+        REQUIRE_FALSE(x1.isNull());
         flow_pass_if.connectTo(1, x1.object(), 0);
         x1.connectTo(0, flow_pass_if.object(), 1);
 

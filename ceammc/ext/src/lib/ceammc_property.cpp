@@ -118,7 +118,7 @@ bool FloatProperty::set(const AtomList& lst)
 
     Atom v = lst.at(0);
     if (!v.isFloat()) {
-        LIB_DBG << "not a float given for property " << name().c_str() << ": " << to_string(v);
+        LIB_DBG << "not a float given for property " << name() << ": " << to_string(v);
         return false;
     }
 

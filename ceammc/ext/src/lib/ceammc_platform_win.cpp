@@ -19,6 +19,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <io.h>
+#include <Windows.h>
 #include <iostream>
 
 #include "config.h"
@@ -178,5 +179,10 @@ bool wch_to_mb(const wchar_t* wstr, char** res)
         *res = str;
         return true;
     }
+}
+
+void win_sleep_ms(unsigned int ms)
+{
+    Sleep(ms);
 }
 }

@@ -28,15 +28,17 @@
 #X text 175 413 reject specified values;
 #X obj 30 440 flow.reject_if;
 #X text 175 440 reject values by predicate;
-#X obj 30 467 flow.split;
-#X text 175 467 split data flow by external side-chain predicate;
-#X obj 30 494 flow.sync;
-#X text 175 494 bus with only hot inlets;
-#X obj 30 521 flow.tee~;
-#X text 175 521 separate audio and control streams;
-#X obj 30 548 replace;
-#X text 175 548 Replace atoms in data stream;
+#X obj 30 467 flow.speedlim;
+#X text 175 467 control stream speed limitier;
+#X obj 30 494 flow.split;
+#X text 175 494 split data flow by external side-chain predicate;
+#X obj 30 521 flow.sync;
+#X text 175 521 bus with only hot inlets;
+#X obj 30 548 flow.tee~;
+#X text 175 548 separate audio and control streams;
+#X obj 30 575 replace;
+#X text 175 575 Replace atoms in data stream;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::flow 20 20 0 20 -104026
 -4096 0;
-#X obj 1 575 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 585 library: ceammc;
+#X obj 1 602 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 612 library: ceammc;

@@ -5,6 +5,7 @@
         <meta>
             <authors>
                 <author>Pierre Guillot</author>
+                <author>Serge Poltavsky</author>
             </authors>
             <description>displays a list of text buttons or text toggles</description>
             <license>GPL3</license>
@@ -19,7 +20,8 @@
         <properties>
             <property name="@items" type="int" default="1" minvalue="1" maxvalue="256">
             number of tabs</property>
-            <property name="@toggle" type="int" default="0" enum="0 1">toggle mode</property>
+            <property name="@toggle" type="int" default="0" enum="0 1">toggle mode.
+            In toggle moe multiple selection is possible</property>
             <property name="@orientation" type="int" enum="0 1" default="0">tab orientation.
             1 is vertical, 0 is horizontal</property>
             <property name="@send" type="symbol">send destination</property>
@@ -30,11 +32,11 @@
             <param name="ATOMS" type="list" required="true">item name</param></method>
             <method name="insert">inserts new tab item before specified position
             <param name="IDX" type="int" minvalue="0" required="true">item position</param>
-            <param name="ATOMS" type="list" required="true">item name</param></method>
+            <param name="ATOM" type="atom" required="true">item name</param></method>
             <method name="clear">clears all tab menu</method>
             <method name="delete">removes item from tab
             <param name="IDX" type="int" minvalue="0" required="true">removed item index</param></method>
-            <method name="setitem">renames tab item
+            <method name="set_item">renames tab item
             <param name="IDX" type="int" required="true" minvalue="0">item index</param>
             <param name="ATOMS" type="list" required="true">item name</param></method>
             <method name="set">silently sets tab state.
@@ -42,20 +44,21 @@
         </methods>
         <inlets>
             <inlet>
-            <xinfo on="bang">outputs current tab state</xinfo>
-            <xinfo on="float">change tab state and output new value</xinfo>
+            <xinfo on="bang">in single mode outputs @title TAB and index of selected tab. In toggle mode
+            outputs current state like: @selected 0 1 0 1 0 etc. and list of two values:
+            [CHANGED_IDX CHANGED_VALUE]</xinfo>
+            <xinfo on="float">onle in single mode: change tab select tab by index and output tab @title
+            and new index</xinfo>
             <xinfo on="any">selects item equal to given</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output tab index</outlet>
-            <outlet>output selected item</outlet>
-            <outlet>output hover item index</outlet>
+            <outlet>output</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[append sqrt(    [setitem 0 white noise(
+[append sqrt(    [set_item 0 white_noise(
 |                |
 | [insert 0 saw( |  [delete 1(
 | |              |  |
@@ -63,9 +66,13 @@
 | | |       |    |  | |    |        |
 | | |       |    |  | |    |        [@toggle $1(
 | | |       |    |  | |    |        |
-[ui.tab      @items sin tri @size=200x15]
-|       ^|       ^^|
-[F]     [S]       [F]
+[ui.tab      @items sin tri @size 350 15]
+|
+[prop-> @title]
+|      ^|
+[ui.d]  |
+        |
+        [ui.d]
 ]]>
             </pdascii>
         </example>

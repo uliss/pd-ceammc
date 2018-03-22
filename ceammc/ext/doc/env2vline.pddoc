@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="env2vline">
+        <title>env2vline</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Converts envelope to bunch of vline messages</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>env</category>
+            <keywords>envelope vline</keywords>
+            <since>0.5</since>
+            <aliases>
+                <alias>env-&gt;vline</alias>
+            </aliases>
+            <also>
+                <see>env-&gt;array</see>
+            </also>
+        </meta>
+        <info>
+            <par>Supports stop-points for multisegment envelopes.
+            Note: non-linear envelopes are outputted using lienear approximation</par>
+        </info>
+        <properties>
+            <property name="@sync" type="int" enum="0 1" default="0">sync with input data. When set to 1
+            outputs envelope (as fixed) on every input data</property>
+        </properties>
+        <methods>
+            <!-- next point -->
+            <method name="next">output segment until next stop-point or end of envelope is reached</method>
+            <!-- reset -->
+            <method name="reset">reset current segment position for multi-segment envelopes</method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">output as envelope of fixed length (no stop-points are encountered)</xinfo>
+                <xinfo on="float">output as attack (on 1) / release (on 0) envelope with one stop-point</xinfo>
+                <xinfo on="data">output as fixed envelope* data</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>bunch of vline-compatible messages: VALUE, DURATION, OFFSET</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[loadbang]                            [r a1]
+|                                     |
+[env easr 20 -4 1000 -8]              [env->array env_a1]
+| |
+| [s a1] [bang( [T]
+|        |      |
+[env->vline     ]                     [array env_a1 w=110 h=80 yr=0..1]
+|
+[vline~] [osc~ 1000]
+|        |.
+[*~       ]
+|\
+[dac~]
+
+[loadbang]
+|
+[line 0 100 1 400 0.2 1000 0.7 2000 0, set_stop_point 2 1, set_stop_point 3 1, bang(
+|
+|
+[env]    [next( [reset(               [r a2]
+| |      |      |                     |
+| [s a2] |      |                     [env->array env_b1]
+|        |      |
+[env->vline     ]
+|
+[vline~] [osc~ 1200]                  [array env_b1 w=110 h=80 yr=0..1]
+|        |.
+[*~       ]
+|\
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

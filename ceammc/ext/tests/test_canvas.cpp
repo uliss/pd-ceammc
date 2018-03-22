@@ -40,9 +40,17 @@ TEST_CASE("Canvas", "[ceammc::Canvas]")
             CanvasPtr cnv = PureData::instance().createTopCanvas("test");
             REQUIRE(canvas_info_dir(cnv->pd_canvas()) == &s_);
 
-            cnv = PureData::instance().createTopCanvas("/dir/test");
-            REQUIRE(canvas_info_dir(cnv->pd_canvas()) == gensym("/dir"));
-            REQUIRE(canvas_info_name(cnv->pd_canvas()) == gensym("test"));
+#ifdef __WIN32
+            const char* FNAME = "C:/dir/test";
+            const char* FDIR = "C:/dir";
+#else
+            const char* FNAME = "/dir/test";
+            const char* FDIR = "/dir";
+#endif
+
+            cnv = PureData::instance().createTopCanvas(FNAME);
+            REQUIRE(canvas_info_dir(cnv->pd_canvas())->s_name == std::string(FDIR));
+            REQUIRE(canvas_info_name(cnv->pd_canvas())->s_name == std::string("test"));
         }
 
         SECTION("font")

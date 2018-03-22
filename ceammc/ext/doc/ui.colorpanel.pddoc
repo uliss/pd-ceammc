@@ -5,6 +5,7 @@
         <meta>
             <authors>
                 <author>Pierre Guillot</author>
+                <author>Serge Poltavsky</author>
             </authors>
             <description>colorchooser widget</description>
             <license>GPL3</license>
@@ -33,7 +34,6 @@
         <inlets>
             <inlet>
                 <xinfo on="bang">outputs current widget value</xinfo>
-                <xinfo on="list">pair of COL ROW indexes expected</xinfo>
             </inlet>
         </inlets>
         <outlets>

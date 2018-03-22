@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="env2array">
+        <title>env2array</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Renders envelope to specified array</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>env</category>
+            <keywords>envelope array</keywords>
+            <since>0.5</since>
+            <aliases>
+                <alias>env-&gt;array</alias>
+            </aliases>
+            <also>
+                <see>env-&gt;vline</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="ARRAY" type="symbol">array name</argument>
+        </arguments>
+        <properties>
+            <property name="@array" type="symbol">target array name</property>
+            <property name="@redraw" type="int" enum="0 1" default="1">redraw after array
+            change</property>
+            <property name="@mode" type="symbol" enum="fit resize raw" default="fit">rendering mode:
+                      *fit* to array size,
+                      *resize* array to envelope length or *raw* render while enough space in array</property>
+            <property name="@fit" type="alias">alias to @mode fit property</property>
+            <property name="@resize" type="alias">alias to @mode resize property</property>
+            <property name="@raw" type="alias">alias to @mode raw property</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo>*envelope* data</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output number of samples in destination array.
+                    If array was resized - output this new size</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ar 50 400, bang(                         [bang(
+|                                         |
+| [adsr 10 40 20 500, bang(   [osc~ 1000] [tabplay~ env_arr]
+| |                           |           |.
+| | [ear 20 -3 500 -8, bang(  [*~          ]
+| | |                         |\
+[env]                         [dac~]
+|
+| [@fit( [@raw( [@resize(
+| |      |      |
+[env->array env_arr]
+|
+[F]
+
+
+[array env_arr size=1000 w=400 h=100 yr=0..1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

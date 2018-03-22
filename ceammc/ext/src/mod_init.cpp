@@ -24,6 +24,7 @@
 #include "flow/mod_flow.h"
 #include "flt/mod_flt.h"
 #include "fx/mod_fx.h"
+#include "hw/mod_hw.h"
 #include "lfo/mod_lfo.h"
 #include "list/mod_list.h"
 #include "math/mod_math.h"
@@ -31,12 +32,14 @@
 #include "misc/mod_misc.h"
 #include "noise/mod_noise.h"
 #include "osc/mod_osc.h"
-#include "preset/mod_preset.h"
 #include "path/mod_path.h"
+#include "preset/mod_preset.h"
+#include "proto/mod_proto.h"
 #include "random/mod_random.h"
 #include "spat/mod_spat.h"
 #include "string/mod_string.h"
 #include "symbol/mod_symbol.h"
+#include "synth/mod_synth.h"
 #include "system/mod_system.h"
 #include "tl/mod_tl.h"
 #include "ui/mod_ui.h"
@@ -95,6 +98,7 @@ void ceammc_init()
     ceammc_flow_setup();
     ceammc_flt_setup();
     ceammc_fx_setup();
+    ceammc_hw_setup();
     ceammc_lfo_setup();
     ceammc_list_setup();
     ceammc_math_setup();
@@ -103,11 +107,13 @@ void ceammc_init()
     ceammc_noise_setup();
     ceammc_preset_setup();
     ceammc_path_setup();
+    ceammc_proto_setup();
     ceammc_osc_setup();
     ceammc_random_setup();
-    //    ceammc_spat_setup();
+    ceammc_spat_setup();
     ceammc_string_setup();
     ceammc_symbol_setup();
+    ceammc_synth_setup();
     ceammc_system_setup();
     ceammc_tl_setup();
     ceammc_ui_setup();

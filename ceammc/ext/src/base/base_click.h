@@ -1,7 +1,7 @@
 #ifndef BASE_CLICK_H
 #define BASE_CLICK_H
 
-#include "ceammc_object.h"
+#include "ceammc_sound_external.h"
 using namespace ceammc;
 
 class Click : public SoundExternal {

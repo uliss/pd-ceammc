@@ -14,55 +14,148 @@
 #ifndef CEAMMC_PROXY_H
 #define CEAMMC_PROXY_H
 
-#include "m_pd.h"
+#include "ceammc_atomlist.h"
+
+#include <cassert>
+#include <string.h>
 
 namespace ceammc {
 
-template <class Owner>
-struct PdProxy {
-    t_object obj;
-    Owner* owner;
+class PdBindObject {
+protected:
+    t_object obj_;
+    t_symbol* bind_name_;
 
-    static t_class* proxy_class;
-
-    static PdProxy* proxy_new()
+public:
+    PdBindObject()
+        : bind_name_(&s_)
     {
-        PdProxy* x = reinterpret_cast<PdProxy*>(pd_new(PdProxy<Owner>::proxy_class));
-        x->owner = 0;
-        return x;
     }
 
-    void free()
+    ~PdBindObject()
     {
-        pd_free(&obj.te_g.g_pd);
+        unbind();
     }
 
-    t_object* object()
+    void bind(t_symbol* name)
     {
-        return &obj;
+        assert(name);
+
+        if (bind_name_ == name)
+            return;
+
+        unbind();
+        pd_bind(pd(), name);
+        bind_name_ = name;
     }
+
+    void unbind()
+    {
+        if (bind_name_ != &s_) {
+            pd_unbind(pd(), bind_name_);
+            bind_name_ = &s_;
+        }
+    }
+
+    bool isBinded() const { return bind_name_ != &s_; }
+
+    t_object* object() { return &obj_; }
+    t_pd* pd() { return &obj_.te_g.g_pd; }
 };
 
-template <class Owner>
-t_class* PdProxy<Owner>::proxy_class = 0;
+template <class T>
+class PdFloatProxy : public PdBindObject {
+public:
+    typedef void (T::*ProxyFnPtr)(float);
 
-template <class Owner>
-struct PdFloatProxy : public PdProxy<Owner> {
-    static PdFloatProxy* proxy_new()
+    PdFloatProxy(T* o, ProxyFnPtr p)
+        : owner_(o)
+        , method_ptr_(p)
     {
-        return static_cast<PdFloatProxy<Owner>*>(PdProxy<Owner>::proxy_new());
+        if (proxy_class_ == 0)
+            initClass();
+
+        assert(proxy_class_);
+
+        t_object* tmp = (t_object*)pd_new(proxy_class_);
+        memcpy(&obj_, tmp, sizeof(t_object));
+        pd_free((t_pd*)tmp);
     }
 
-    typedef void (*FloatMethod)(PdFloatProxy* x, t_float v);
-    static void class_init(const char* name, FloatMethod func)
+    void onFloat(t_float f)
     {
-        PdProxy<Owner>::proxy_class = class_new(gensym(name),
-            reinterpret_cast<t_newmethod>(PdFloatProxy<Owner>::proxy_new),
-            0, sizeof(PdFloatProxy<Owner>), CLASS_PD, A_NULL);
-
-        class_addfloat(PdProxy<Owner>::proxy_class, func);
+        (owner_->*method_ptr_)(f);
     }
+
+public:
+    static void on_float(PdFloatProxy* p, t_float f)
+    {
+        p->onFloat(f);
+    }
+
+    static void initClass()
+    {
+        PdFloatProxy::proxy_class_ = class_new(gensym("proxy float"), 0, 0, sizeof(PdFloatProxy), CLASS_PD, A_NULL);
+        class_addfloat(PdFloatProxy::proxy_class_, PdFloatProxy::on_float);
+    }
+
+private:
+    T* owner_;
+    ProxyFnPtr method_ptr_;
+
+protected:
+    static t_class* proxy_class_;
 };
+
+template <class T>
+t_class* PdFloatProxy<T>::proxy_class_ = 0;
+
+template <class T>
+class PdListProxy : public PdBindObject {
+public:
+    typedef void (T::*ProxyFnPtr)(const AtomList&);
+
+    PdListProxy(T* o, ProxyFnPtr p)
+        : owner_(o)
+        , method_ptr_(p)
+    {
+        if (proxy_class_ == 0)
+            initClass();
+
+        assert(proxy_class_);
+
+        t_object* tmp = (t_object*)pd_new(proxy_class_);
+        memcpy(&obj_, tmp, sizeof(t_object));
+        pd_free((t_pd*)tmp);
+    }
+
+    void onList(const AtomList& l)
+    {
+        (owner_->*method_ptr_)(l);
+    }
+
+public:
+    static void on_list(PdListProxy* p, t_symbol*, int argc, t_atom* argv)
+    {
+        p->onList(AtomList(argc, argv));
+    }
+
+    static void initClass()
+    {
+        PdListProxy::proxy_class_ = class_new(gensym("proxy list"), 0, 0, sizeof(PdListProxy), CLASS_PD, A_NULL);
+        class_addlist(PdListProxy::proxy_class_, PdListProxy::on_list);
+    }
+
+private:
+    T* owner_;
+    ProxyFnPtr method_ptr_;
+
+protected:
+    static t_class* proxy_class_;
+};
+
+template <class T>
+t_class* PdListProxy<T>::proxy_class_ = 0;
 }
 
 #endif // CEAMMC_PROXY_H

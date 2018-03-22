@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="ui.label" type="gui">
+        <title>ui.label</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>simple label widget</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category view="link">ui</category>
+            <keywords>ui label</keywords>
+            <since>0.5</since>
+        </meta>
+        <info>
+            <par>With spaces, text-align, font customization and word wrap</par>
+        </info>
+        <properties>
+            <property name="@text" type="list" default="Label">label text</property>
+            <property name="@align" type="symbol" default="left" enum="left center right">text align</property>
+            <property name="@receive" type="symbol">receive source</property>
+            <property name="@fontname" type="symbol" default="Helvetica">text font family</property>
+            <property name="@fontweight" type="symbol" default="normal" enum="normal bold">font weight</property>
+            <property name="@fontslant" type="symbol" default="normal" enum="roman italic">font slant</property>
+            <property name="@fontsize" type="float" default="32">font size</property>
+        </properties>
+        <methods>
+            <method name="float">set label text to given float, but do not change @text property</method>
+            <method name="symbol">set label text to given symbol, but do not change @text property</method>
+            <method name="list">set label text to given list separated by spaces,
+            but do not change @text property</method>
+            <method name="any">set label text to given message separated by spaces,
+            but do not change @text property</method>
+            <method name="clear">clear label text and clear @text property</method>
+            <method name="append">appends to @text end</method>
+             <method name="set">set label text and update @text property, so it would be saved in patch</method>
+            <method name="prepend">insert into beginning of @text</method>
+        </methods>
+        <inlets/>
+        <outlets/>
+        <example>
+            <pdascii>
+<![CDATA[
+/*[ui.label test label]*/
+
+[ui.label test label @receive lbl1]
+
+
+
+[ui.label test label @align center @background_color 0.8 0.9 0.4 1 @receive lbl1]
+
+
+
+[ui.label test label @align right @receive lbl1 @background_color 0.4 0.9 0.8 1]
+
+
+
+
+[1( [F]   [a b c( [S]     [append A(  [prepend C(
+|   |     |       |       |           |
+|   |     |       |       |           |
+[s lbl1                               ]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

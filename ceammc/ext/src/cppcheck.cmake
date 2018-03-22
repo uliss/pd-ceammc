@@ -18,7 +18,12 @@ if(CPPCHECK)
         ${CMAKE_CURRENT_SOURCE_DIR}
         --enable=warning,performance,portability,information,missingInclude
         -i tests/Catch
-        -i data/rapidjson
+        -i src/rtmidi
+        -i src/proto/firmata/firmata_bison.tab.c
+        -i src/data/rapidjson
+        -i src/data/rapidjson/document.h
+        -i src/lib/utf8rewind
+        -i src/exp
         --std=c++03
         --xml
         --xml-version=2

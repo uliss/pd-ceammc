@@ -10,6 +10,8 @@ set(BASE_SOURCES
     patch_args.cpp
     canvas_current.cpp
     canvas_top.cpp
+    metro_pattern.cpp
+    metro_seq.cpp
     replace.cpp)
 
 # predicates

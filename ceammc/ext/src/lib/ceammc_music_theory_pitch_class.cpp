@@ -3,6 +3,24 @@
 
 using namespace ceammc::music;
 
+const char* PitchName::pitch_names_[7] = { "C", "D", "E", "F", "G", "A", "B" };
+static const char* ALTERATION_SHORT_NAMES[] = { "bb", "b", "", "#", "##" };
+static const char* ALTERATION_FULL_NAMES[] = { "double flat", "flat", "natural", "sharp", "double sharp" };
+
+const PitchName PitchName::C(PITCH_NAME_C);
+const PitchName PitchName::D(PITCH_NAME_D);
+const PitchName PitchName::E(PITCH_NAME_E);
+const PitchName PitchName::F(PITCH_NAME_F);
+const PitchName PitchName::G(PITCH_NAME_G);
+const PitchName PitchName::A(PITCH_NAME_A);
+const PitchName PitchName::B(PITCH_NAME_B);
+
+const Alteration Alteration::DOUBLE_FLAT(ALTERATION_DOUBLE_FLAT);
+const Alteration Alteration::FLAT(ALTERATION_FLAT);
+const Alteration Alteration::NATURAL(ALTERATION_NATURAL);
+const Alteration Alteration::SHARP(ALTERATION_SHARP);
+const Alteration Alteration::DOUBLE_SHARP(ALTERATION_DOUBLE_SHARP);
+
 const PitchClass PitchClass::Cff(PitchName::C, Alteration::DOUBLE_FLAT);
 const PitchClass PitchClass::Cf(PitchName::C, Alteration::FLAT);
 const PitchClass PitchClass::C(PitchName::C, Alteration::NATURAL);
@@ -55,6 +73,167 @@ const boost::array<PitchClass, 35> PitchClass::all = {
     Bff, Bf, B, Bs, Bss
 };
 
+PitchName::PitchName(unsigned char v)
+    : value_(v % 7)
+{
+}
+
+PitchName::PitchName(const PitchName& p)
+    : value_(p.value_)
+{
+}
+
+PitchName& PitchName::operator=(const PitchName& p)
+{
+    value_ = p.value_;
+    return *this;
+}
+
+PitchName PitchName::operator+(int i) const
+{
+    return PitchName((i < 0) ? (7 + value_ - ((-i) % 7))
+                             : (value_ + i) % 7);
+}
+
+PitchName PitchName::operator-(int i) const
+{
+    return *this + (-i);
+}
+
+PitchNameType PitchName::type() const
+{
+    return PitchNameType(value_);
+}
+
+unsigned int PitchName::index() const
+{
+    return value_;
+}
+
+unsigned int PitchName::absolutePitch() const
+{
+    return value_ < 3 ? value_ * 2
+                      : value_ * 2 - 1;
+}
+
+size_t PitchName::distance(const PitchName& p1, const PitchName& p2)
+{
+    return abs(int(p1.value_) - int(p2.value_));
+}
+
+size_t PitchName::minDistance(const PitchName& p1, const PitchName& p2)
+{
+    int dist = distance(p1, p2);
+    return std::min(dist, 7 - dist);
+}
+
+size_t PitchName::upSteps(const PitchName& from, const PitchName& to)
+{
+    if (from.value_ <= to.value_)
+        return to.value_ - from.value_;
+    else
+        return (7 + to.value_ - from.value_) % 7;
+}
+
+size_t PitchName::downSteps(const PitchName& from, const PitchName& to)
+{
+    if (to.value_ <= from.value_)
+        return from.value_ - to.value_;
+    else
+        return (7 + from.value_ - to.value_) % 7;
+}
+
+int PitchName::minSteps(const PitchName& from, const PitchName& to)
+{
+    size_t up = upSteps(from, to);
+    size_t down = downSteps(from, to);
+
+    return up < down ? up : -down;
+}
+
+std::ostream& ceammc::music::operator<<(std::ostream& os, const PitchName& p)
+{
+    os << p.pitch_names_[p.value_];
+    return os;
+}
+
+std::ostream& ceammc::music::operator<<(std::ostream& os, const Alteration& a)
+{
+    os << a.shortName();
+    return os;
+}
+
+Alteration::Alteration(const Alteration& a)
+    : value_(a.value_)
+{
+}
+
+Alteration& Alteration::operator=(const Alteration& a)
+{
+    value_ = a.value_;
+    return *this;
+}
+
+bool Alteration::operator++()
+{
+    if (value_ == ALTERATION_DOUBLE_SHARP)
+        return false;
+
+    value_++;
+    return true;
+}
+
+bool Alteration::operator--()
+{
+    if (value_ == ALTERATION_DOUBLE_FLAT)
+        return false;
+
+    value_--;
+    return true;
+}
+
+bool Alteration::alterate(int n)
+{
+    if (n == 0)
+        return true;
+
+    if ((value_ + n) < ALTERATION_DOUBLE_FLAT || (value_ + n) > ALTERATION_DOUBLE_SHARP)
+        return false;
+
+    value_ += n;
+    return true;
+}
+
+const char* Alteration::fullName() const
+{
+    return ALTERATION_FULL_NAMES[value_ - ALTERATION_DOUBLE_FLAT];
+}
+
+const char* Alteration::shortName() const
+{
+    return ALTERATION_SHORT_NAMES[value_ - ALTERATION_DOUBLE_FLAT];
+}
+
+AlterationType Alteration::type() const
+{
+    return AlterationType(value_);
+}
+
+int Alteration::semitones() const
+{
+    return value_;
+}
+
+double Alteration::cents() const
+{
+    return value_ * 100;
+}
+
+Alteration::Alteration(signed char t)
+    : value_(t)
+{
+}
+
 PitchClass::PitchClass(size_t semitoneValue)
     : pitch_name_(PitchName::C)
     , alt_(Alteration::NATURAL)
@@ -72,6 +251,16 @@ PitchClass::PitchClass(PitchName p, Alteration a)
     , alt_(a)
     , invalid_(false)
 {
+}
+
+bool PitchClass::operator==(const PitchClass& c) const
+{
+    return pitch_name_ == c.pitch_name_ && alt_ == c.alt_;
+}
+
+bool PitchClass::operator!=(const PitchClass& c) const
+{
+    return !this->operator==(c);
 }
 
 size_t PitchClass::absolutePitch() const

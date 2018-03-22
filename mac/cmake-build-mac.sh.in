@@ -214,12 +214,6 @@ cat $BUILD_DIR/ceammc/ext/doc/about.pd | sed "s/%GIT_BRANCH%/$GIT_BRANCH/g" | \
    sed "s/%BUILD_DATE%/$CURRENT_DATE/g" > $PD_EXTRA/ceammc/about.pd
 chmod 0444 $PD_EXTRA/ceammc/about.pd
 
-echo "Copying CICM/Cream files:"
-cp $BUILD_DIR/ceammc/extra/CreamLibrary/creammc.d_fat $PD_EXTRA/ceammc
-cp -R $SRC_DIR/ceammc/extra/CreamLibrary/Package/Cream/helps $PD_EXTRA/ceammc
-cp $SRC_DIR/ceammc/extra/CreamLibrary/Package/Cream/misc/* $PD_EXTRA/ceammc/helps
-cp $SRC_DIR/ceammc/extra/CreamLibrary/cream_objects.txt $PD_TCL/ceammc
-
 echo "Copying license..."
 cp $SRC_DIR/License.txt Scripts
 

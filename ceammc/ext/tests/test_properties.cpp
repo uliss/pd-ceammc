@@ -282,6 +282,13 @@ TEST_CASE("Properties", "[ceammc::properties]")
                 REQUIRE(p.value() == 40);
 
                 REQUIRE(p.get() == AtomList(40));
+
+                SECTION("invalid init")
+                {
+                    REQUIRE(IntPropertyMin("test", 1, 2).value() == 3);
+                    REQUIRE(IntPropertyMin("test", 2, 2).value() == 3);
+                    REQUIRE(IntPropertyMin("test", 3, 2).value() == 3);
+                }
             }
 
             SECTION("INT MIN EQ")
@@ -294,6 +301,13 @@ TEST_CASE("Properties", "[ceammc::properties]")
                 REQUIRE(p.value() == 2);
                 p.setValue(3);
                 REQUIRE(p.value() == 3);
+
+                SECTION("invalid init")
+                {
+                    REQUIRE(IntPropertyMinEq("test", 1, 2).value() == 2);
+                    REQUIRE(IntPropertyMinEq("test", 2, 2).value() == 2);
+                    REQUIRE(IntPropertyMinEq("test", 3, 2).value() == 3);
+                }
             }
 
             SECTION("INT MAX")
@@ -306,6 +320,13 @@ TEST_CASE("Properties", "[ceammc::properties]")
                 REQUIRE(p.value() == 199);
                 p.setValue(200);
                 REQUIRE(p.value() == 199);
+
+                SECTION("invalid init")
+                {
+                    REQUIRE(IntPropertyMax("test", 199, 200).value() == 199);
+                    REQUIRE(IntPropertyMax("test", 200, 200).value() == 199);
+                    REQUIRE(IntPropertyMax("test", 201, 200).value() == 199);
+                }
             }
 
             SECTION("INT MAX EQ")
@@ -320,6 +341,13 @@ TEST_CASE("Properties", "[ceammc::properties]")
                 REQUIRE(p.value() == 200);
                 p.setValue(201);
                 REQUIRE(p.value() == 200);
+
+                SECTION("invalid init")
+                {
+                    REQUIRE(IntPropertyMaxEq("test", 199, 200).value() == 199);
+                    REQUIRE(IntPropertyMaxEq("test", 200, 200).value() == 200);
+                    REQUIRE(IntPropertyMaxEq("test", 201, 200).value() == 200);
+                }
             }
 
             SECTION("INT OPEN RANGE")
@@ -336,6 +364,21 @@ TEST_CASE("Properties", "[ceammc::properties]")
                 REQUIRE(p.value() == 99);
                 p.setValue(100);
                 REQUIRE(p.value() == 99);
+
+                SECTION("invalid init")
+                {
+                    IntPropertyOpenRange p1("test", -99, -100, 100);
+                    REQUIRE(p1.value() == -99);
+
+                    IntPropertyOpenRange p2("test", -100, -100, 100);
+                    REQUIRE(p2.value() == 0);
+
+                    IntPropertyOpenRange p3("test", 99, -100, 100);
+                    REQUIRE(p3.value() == 99);
+
+                    IntPropertyOpenRange p4("test", 100, -100, 100);
+                    REQUIRE(p4.value() == 0);
+                }
             }
 
             SECTION("INT CLOSED RANGE")
@@ -356,6 +399,13 @@ TEST_CASE("Properties", "[ceammc::properties]")
                 REQUIRE(p.value() == 100);
                 p.setValue(101);
                 REQUIRE(p.value() == 100);
+
+                SECTION("invalid init")
+                {
+                    REQUIRE(IntPropertyClosedRange("test", -200, -100, 100).value() == -100);
+                    REQUIRE(IntPropertyClosedRange("test", 200, -100, 100).value() == 100);
+                    REQUIRE(IntPropertyClosedRange("test", 20, 0, 100).value() == 20);
+                }
             }
         }
     }
@@ -413,5 +463,31 @@ TEST_CASE("Properties", "[ceammc::properties]")
         REQUIRE(p_ro.value() == gensym("RO"));
 
         REQUIRE_FALSE(p_ro.set(L1("RW")));
+    }
+
+    SECTION("init property")
+    {
+        InitIntProperty p(new IntProperty("test", 20));
+        REQUIRE(p.value() == 20);
+        REQUIRE(p.name() == "test");
+        REQUIRE_FALSE(p.readonly());
+
+        REQUIRE(p.set(L1(40)));
+        REQUIRE(p.value() == 40);
+        REQUIRE(p.get() == L1(40));
+        REQUIRE(p.readonly());
+
+        REQUIRE_FALSE(p.set(L1(100)));
+        REQUIRE(p.value() == 40);
+        REQUIRE(p.get() == L1(40));
+
+        REQUIRE(InitAtomProperty(new AtomProperty("test", Atom(3))).value() == Atom(3));
+        REQUIRE(InitListProperty(new ListProperty("test", L2(1, 2))).value() == L2(1, 2));
+        REQUIRE(InitIntProperty(new IntProperty("test", -100)).value() == -100);
+        REQUIRE(InitFloatProperty(new FloatProperty("test", 1.01f)).value() == 1.01f);
+        REQUIRE(InitSizeTProperty(new SizeTProperty("test", 200)).value() == 200);
+        REQUIRE(InitBoolProperty(new BoolProperty("test", true)).value() == true);
+        REQUIRE(InitBoolProperty(new BoolProperty("test", false)).value() == false);
+        REQUIRE(InitSymbolProperty(new SymbolProperty("test", gensym("abc"))).value() == gensym("abc"));
     }
 }

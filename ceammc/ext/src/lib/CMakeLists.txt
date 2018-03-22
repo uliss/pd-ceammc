@@ -1,6 +1,5 @@
 include_directories(${CMAKE_BINARY_DIR}) # for config.h
 include_directories(${PROJECT_SOURCE_DIR}/src)
-include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra/CicmWrapper/Sources)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/utf8rewind)
 
 set(LIBCEAMMC_COMPILE_FLAGS "${PD_EXTERNAL_CFLAGS}")
@@ -30,6 +29,7 @@ set(CEAMMC_LIB_SOURCES ceammc.h
     ceammc_atom.cpp
     ceammc_atomlist.cpp
     ceammc_canvas.cpp
+    ceammc_control.cpp
     ceammc_convert.cpp
     ceammc_convert_pitch.cpp
     ceammc_data.cpp
@@ -41,20 +41,20 @@ set(CEAMMC_LIB_SOURCES ceammc.h
     ceammc_fn_list.cpp
     ceammc_fn_vector.cpp
     ceammc_format.cpp
-    ceammc_gui.h
     ceammc_impl.cpp
     ceammc_log.cpp
     ceammc_message.cpp
     ceammc_music_theory.cpp
-    ceammc_music_theory_alteration.cpp
     ceammc_music_theory_names.cpp
-    ceammc_music_theory_pitch_name.cpp
     ceammc_music_theory_pitch_class.cpp
     ceammc_object.cpp
     ceammc_pd.cpp
     ceammc_platform.cpp
+    ceammc_preset.cpp
     ceammc_property.cpp
+    ceammc_sound_external.cpp
     ceammc_string.cpp
+    ceammc_thread.cpp
     ceammc_timeline.cpp
     ceammc_window.cpp
 
@@ -68,6 +68,7 @@ endif()
 
 # main shared library
 add_library(ceammc_core SHARED ${CEAMMC_LIB_SOURCES})
+target_link_libraries(ceammc_core puredata-core)
 
 set_target_properties(ceammc_core PROPERTIES
     COMPILE_FLAGS "${LIBCEAMMC_COMPILE_FLAGS}"
