@@ -54,6 +54,18 @@ static t_symbol* SYM_SW = gensym("sw");
 static t_symbol* SYM_W = gensym("w");
 static t_symbol* SYM_NW = gensym("nw");
 
+static t_symbol* SYM_SIZE = gensym("size");
+static t_symbol* SYM_DEFAULT_FONT_FAMILY = gensym("Helvetica");
+static t_symbol* SYM_BOLD = gensym("bold");
+static t_symbol* SYM_NORMAL = gensym("normal");
+static t_symbol* SYM_ITALIC = gensym("italic");
+static t_symbol* SYM_ROMAN = gensym("roman");
+static t_symbol* SYM_ALL_PROPS = gensym("@*");
+
+static t_symbol* SYM_CHECKBUTTON = gensym("checkbutton");
+static t_symbol* SYM_MENU = gensym("menu");
+static t_symbol* SYM_COLOR = gensym("color");
+
 static void ebox_create_window(t_ebox* x, t_glist* glist);
 static void ebox_invalidate_all(t_ebox* x);
 static void ebox_draw_border(t_ebox* x);
@@ -875,11 +887,11 @@ t_pd_err ebox_set_font(t_ebox* x, t_object* attr, int argc, t_atom* argv)
 {
     if (argc && argv && atom_gettype(argv) == A_SYMBOL) {
         if (atom_getsymbol(argv) == s_null)
-            x->b_font.c_family = gensym("Helvetica");
+            x->b_font.c_family = SYM_DEFAULT_FONT_FAMILY;
         else
             x->b_font.c_family = atom_getsymbol(argv);
     } else
-        x->b_font.c_family = gensym("Helvetica");
+        x->b_font.c_family = SYM_DEFAULT_FONT_FAMILY;
 
     x->b_font.c_family = gensym(strtok(x->b_font.c_family->s_name, " ',.-"));
     x->b_font.c_family->s_name[0] = (char)toupper(x->b_font.c_family->s_name[0]);
@@ -889,12 +901,12 @@ t_pd_err ebox_set_font(t_ebox* x, t_object* attr, int argc, t_atom* argv)
 t_pd_err ebox_set_fontweight(t_ebox* x, t_object* attr, int argc, t_atom* argv)
 {
     if (argc && argv && atom_gettype(argv) == A_SYMBOL) {
-        if (atom_getsymbol(argv) == gensym("bold") || atom_getsymbol(argv) == gensym("Bold"))
-            x->b_font.c_weight = gensym("bold");
+        if (atom_getsymbol(argv) == SYM_BOLD)
+            x->b_font.c_weight = SYM_BOLD;
         else
-            x->b_font.c_weight = gensym("normal");
+            x->b_font.c_weight = SYM_NORMAL;
     } else
-        x->b_font.c_weight = gensym("normal");
+        x->b_font.c_weight = SYM_NORMAL;
 
     return 0;
 }
@@ -902,12 +914,12 @@ t_pd_err ebox_set_fontweight(t_ebox* x, t_object* attr, int argc, t_atom* argv)
 t_pd_err ebox_set_fontslant(t_ebox* x, t_object* attr, int argc, t_atom* argv)
 {
     if (argc && argv && atom_gettype(argv) == A_SYMBOL) {
-        if (atom_getsymbol(argv) == gensym("italic") || atom_getsymbol(argv) == gensym("Italic"))
-            x->b_font.c_slant = gensym("italic");
+        if (atom_getsymbol(argv) == SYM_ITALIC)
+            x->b_font.c_slant = SYM_ITALIC;
         else
-            x->b_font.c_slant = gensym("roman");
+            x->b_font.c_slant = SYM_ROMAN;
     } else
-        x->b_font.c_slant = gensym("roman");
+        x->b_font.c_slant = SYM_ROMAN;
 
     return 0;
 }
@@ -1054,7 +1066,7 @@ void ebox_output_all_attrs(t_ebox* x)
         atom_setsym(&argv[i], gensym(buf));
     }
 
-    outlet_anything(x->b_obj.o_obj.te_outlet, gensym("@*"), argc, argv);
+    outlet_anything(x->b_obj.o_obj.te_outlet, SYM_ALL_PROPS, argc, argv);
     free(argv);
 }
 
@@ -1136,17 +1148,17 @@ void ebox_dialog(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
                 ac = 0;
                 eobj_attr_getvalueof((t_object*)x, c->c_attr[attrindex]->name, &ac, &av);
                 if (ac && av) {
-                    if (c->c_attr[attrindex]->style == gensym("checkbutton")) {
+                    if (c->c_attr[attrindex]->style == SYM_CHECKBUTTON) {
                         if (atom_getfloat(av) == 0)
                             sys_vgui("%s.top_frame.sele%i.selec state !selected\n", atom_getsymbol(argv)->s_name, attrindex + 1);
                         else
                             sys_vgui("%s.top_frame.sele%i.selec state selected\n", atom_getsymbol(argv)->s_name, attrindex + 1);
-                    } else if (c->c_attr[attrindex]->style == gensym("color")) {
+                    } else if (c->c_attr[attrindex]->style == SYM_COLOR) {
                         color.red = atom_getfloat(av);
                         color.green = atom_getfloat(av + 1);
                         color.blue = atom_getfloat(av + 2);
                         sys_vgui("%s.top_frame.sele%i.selec configure -readonlybackground %s \n", atom_getsymbol(argv)->s_name, attrindex + 1, rgb_to_hex(color));
-                    } else if (c->c_attr[attrindex]->style == gensym("menu")) {
+                    } else if (c->c_attr[attrindex]->style == SYM_MENU) {
                         atom_string(av, buffer, MAXPDSTRING);
                         for (i = 1; i < ac; i++) {
                             atom_string(av + i, temp, MAXPDSTRING);
@@ -1555,7 +1567,7 @@ static void ebox_erase(t_ebox* x)
         x->b_have_window = 0;
     }
     if (x->b_layers) {
-        for(long i = 0; i < x->b_number_of_layers; i++)
+        for (long i = 0; i < x->b_number_of_layers; i++)
             elayer_free_content(x->b_layers[i]);
 
         free(x->b_layers);
@@ -1591,7 +1603,7 @@ void ebox_setzoom(t_ebox* x, float f)
 
     int argc = 0;
     t_atom* argv = NULL;
-    eobj_attr_getvalueof(x, gensym("size"), &argc, &argv);
+    eobj_attr_getvalueof(x, SYM_SIZE, &argc, &argv);
 
     if (argc == 2) {
         x->b_zoom = f;
@@ -1599,7 +1611,7 @@ void ebox_setzoom(t_ebox* x, float f)
         float h = atom_getfloat(&argv[1]) / oldzoom * f;
         atom_setfloat(&argv[0], w);
         atom_setfloat(&argv[1], h);
-        eobj_attr_setvalueof(x, gensym("size"), argc, argv);
+        eobj_attr_setvalueof(x, SYM_SIZE, argc, argv);
     }
 
     free(argv);
@@ -1653,15 +1665,15 @@ void elayer_free_content(t_elayer& l)
         l.e_objects[i].e_npoints = 0;
     }
 
-    if(l.e_objects) {
+    if (l.e_objects) {
         free(l.e_objects);
         l.e_objects = NULL;
     }
 }
 
-void ebox_free_layer(t_elayer *l)
+void ebox_free_layer(t_elayer* l)
 {
-    if(!l)
+    if (!l)
         return;
 
     elayer_free_content(*l);
