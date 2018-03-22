@@ -8,9 +8,13 @@
  * WARRANTIES, see the file, "LICENSE.txt," in this distribution.
  */
 
+extern "C" {
 #include "ebox.h"
 #include "egraphics.h"
 #include "eobj.h"
+
+int egraphics_smooth();
+}
 
 static const char* my_cursorlist[] = {
     "left_ptr",
@@ -40,6 +44,18 @@ static const char* my_dashstylelist[] = {
     "-dash -"
 };
 
+static t_symbol* SYM_CENTER = gensym("center");
+static t_symbol* SYM_RIGHT = gensym("right");
+static t_symbol* SYM_LEFT = gensym("left");
+static t_symbol* SYM_N = gensym("n");
+static t_symbol* SYM_NE = gensym("ne");
+static t_symbol* SYM_E = gensym("e");
+static t_symbol* SYM_SE = gensym("se");
+static t_symbol* SYM_S = gensym("s");
+static t_symbol* SYM_SW = gensym("sw");
+static t_symbol* SYM_W = gensym("w");
+static t_symbol* SYM_NW = gensym("nw");
+
 static void ebox_create_window(t_ebox* x, t_glist* glist);
 static void ebox_invalidate_all(t_ebox* x);
 static void ebox_draw_border(t_ebox* x);
@@ -51,7 +67,41 @@ static void ebox_move(t_ebox* x);
 static void ebox_attrprocess_default(void* x);
 static void ebox_newzoom(t_ebox* x);
 
-int egraphics_smooth();
+static const char* anchor_to_symbol(etextanchor_flags anchor)
+{
+    switch (anchor) {
+    case ETEXT_UP:
+        return SYM_N->s_name;
+    case ETEXT_UP_RIGHT:
+        return SYM_NE->s_name;
+    case ETEXT_RIGHT:
+        return SYM_E->s_name;
+    case ETEXT_DOWN_RIGHT:
+        return SYM_SE->s_name;
+    case ETEXT_DOWN:
+        return SYM_S->s_name;
+    case ETEXT_DOWN_LEFT:
+        return SYM_SW->s_name;
+    case ETEXT_LEFT:
+        return SYM_W->s_name;
+    case ETEXT_UP_LEFT:
+        return SYM_NW->s_name;
+    default:
+        return SYM_CENTER->s_name;
+    }
+}
+
+static const char* justify_to_symbol(etextjustify_flags justify)
+{
+    switch (justify) {
+    case ETEXT_JCENTER:
+        return SYM_CENTER->s_name;
+    case ETEXT_JRIGHT:
+        return SYM_RIGHT->s_name;
+    default:
+        return SYM_LEFT->s_name;
+    }
+}
 
 void ebox_new(t_ebox* x, long flags)
 {
@@ -1311,21 +1361,9 @@ static void ebox_do_paint_image(t_elayer* g, t_ebox* x, t_egobj const* gobj, flo
 
     sys_vgui("%s create image %d %d -anchor %s -image %s -tags {%s %s}\n", x->b_drawing_id->s_name,
         (int)(pt[1].x + x_p), (int)(pt[1].y + y_p),
-        gobj->e_image->anchor->s_name, gobj->e_image->name->s_name,
+        anchor_to_symbol(gobj->e_image->anchor),
+        gobj->e_image->name->s_name,
         g->e_id->s_name, x->b_all_id->s_name);
-}
-
-
-static const char* justify_to_symbol(etextjustify_flags justify)
-{
-    switch (justify) {
-    case ETEXT_JCENTER:
-        return SYM_CENTER->s_name;
-    case ETEXT_JRIGHT:
-        return SYM_RIGHT->s_name;
-    default:
-        return SYM_LEFT->s_name;
-    }
 }
 
 t_pd_err ebox_paint_layer(t_ebox* x, t_symbol* name, float x_p, float y_p)
@@ -1403,7 +1441,7 @@ t_pd_err ebox_paint_layer(t_ebox* x, t_symbol* name, float x_p, float y_p)
                     (int)(gobj->e_points[0].x + x_p),
                     (int)(gobj->e_points[0].y + y_p),
                     gobj->e_text,
-                    gobj->e_anchor->s_name,
+                    anchor_to_symbol(gobj->e_anchor),
                     justify_to_symbol(gobj->e_justify),
                     gobj->e_font.c_family->s_name,
                     (int)gobj->e_font.c_size * zoom,

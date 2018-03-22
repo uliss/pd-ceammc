@@ -5,7 +5,7 @@ endif()
 include_directories(cicm/Sources)
 
 set(UI_SOURCES
-    cicm/Sources/ebox.c
+    cicm/Sources/ebox.cpp
     cicm/Sources/eclass.c
     cicm/Sources/ecommon.c
     cicm/Sources/egraphics.cpp
