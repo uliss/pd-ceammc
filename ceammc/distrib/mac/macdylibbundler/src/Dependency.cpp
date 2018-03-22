@@ -142,6 +142,7 @@ Dependency::Dependency(std::string path)
         
         while (true)
         {
+            break;
             std::cout << "Please specify now where this library can be found (or write 'quit' to abort): ";  fflush(stdout);
             
             char buffer[128];

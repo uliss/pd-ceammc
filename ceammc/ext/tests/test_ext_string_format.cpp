@@ -295,11 +295,20 @@ TEST_CASE("string.format", "[external]")
             {
                 StringFormatTest t("string.format", L1("%E"));
                 WHEN_SEND_FLOAT_TO(0, t, 15);
+#ifdef __WIN32
+                REQUIRE_STRING_OUTPUT(t, "1.500000E+001");
+#else
                 REQUIRE_STRING_OUTPUT(t, "1.500000E+01");
+#endif
 
                 t.propSetFormat(L1("%e"));
                 WHEN_SEND_FLOAT_TO(0, t, 0.15f);
+
+#ifdef __WIN32
+                REQUIRE_STRING_OUTPUT(t, "1.500000e-001");
+#else
                 REQUIRE_STRING_OUTPUT(t, "1.500000e-01");
+#endif
             }
 
             SECTION("f")

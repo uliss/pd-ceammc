@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flow.speedlim">
+        <title>flow.speedlim</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>control stream speed limitier</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>flow</category>
+            <keywords>speelim drop</keywords>
+            <since>0.5</since>
+            <aliases>
+                <alias>speedlim</alias>
+            </aliases>
+        </meta>
+        <info>
+            <par>Passthru all control data not often then specified limit in ms.
+            Can be used for button debouncing. In initial state is opened, on first message pass it and
+            then became closed within specified time interval. All incoming messages in that time are dropped.
+            After this interval expiried goes to opened state</par>
+        </info>
+        <arguments>
+            <argument name="TIME" type="int" units="millisecond">limit time</argument>
+        </arguments>
+        <properties>
+            <property name="@limit" type="int" minvalue="0" units="millisecond">speed limit.
+            If set to zero there is no flow limitations</property>
+        </properties>
+        <methods>
+            <method name="reset">reset internal timer and goes to opened state</method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo>input flow</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output flow</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[0, 100 1000( [0, 100 200(
+|             |
+[line         ]
+|
+[trigger         f f]
+^|                  |
+[flow.speedlim 100] [sel 100]
+|                   |
+|                   [flush(
+|                   |
+[flow.group  @by 100]
+|
+[msg set]
+|
+[ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

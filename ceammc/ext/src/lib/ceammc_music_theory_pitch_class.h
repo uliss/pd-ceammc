@@ -1,9 +1,6 @@
 #ifndef CEAMMC_MUSIC_THEORY_PITCH_CLASS_H
 #define CEAMMC_MUSIC_THEORY_PITCH_CLASS_H
 
-#include "ceammc_music_theory_alteration.h"
-#include "ceammc_music_theory_pitch_name.h"
-
 #include <boost/array.hpp>
 #include <cstddef>
 #include <iostream>
@@ -11,6 +8,103 @@
 
 namespace ceammc {
 namespace music {
+
+    enum AlterationType {
+        ALTERATION_DOUBLE_FLAT = -2,
+        ALTERATION_FLAT = -1,
+        ALTERATION_NATURAL = 0,
+        ALTERATION_SHARP = 1,
+        ALTERATION_DOUBLE_SHARP = 2
+    };
+
+    class Alteration {
+
+    public:
+        Alteration(const Alteration& a);
+        Alteration& operator=(const Alteration& a);
+
+        bool operator==(const Alteration& a) const { return value_ == a.value_; }
+        bool operator!=(const Alteration& a) const { return value_ != a.value_; }
+
+        bool operator<(const Alteration& a) const { return value_ < a.value_; }
+        bool operator<=(const Alteration& a) const { return value_ <= a.value_; }
+        bool operator>(const Alteration& a) const { return value_ > a.value_; }
+        bool operator>=(const Alteration& a) const { return value_ >= a.value_; }
+
+        bool operator++();
+        bool operator--();
+
+        bool alterate(int n);
+
+        const char* fullName() const;
+        const char* shortName() const;
+
+        AlterationType type() const;
+        int semitones() const;
+        double cents() const;
+
+    public:
+        static const Alteration DOUBLE_FLAT;
+        static const Alteration FLAT;
+        static const Alteration NATURAL;
+        static const Alteration SHARP;
+        static const Alteration DOUBLE_SHARP;
+
+    private:
+        signed char value_;
+        Alteration(signed char t);
+    };
+
+    enum PitchNameType {
+        PITCH_NAME_C = 0,
+        PITCH_NAME_D,
+        PITCH_NAME_E,
+        PITCH_NAME_F,
+        PITCH_NAME_G,
+        PITCH_NAME_A,
+        PITCH_NAME_B
+    };
+
+    class PitchName {
+        unsigned char value_;
+        PitchName(unsigned char v);
+
+    public:
+        PitchName(const PitchName& p);
+        PitchName& operator=(const PitchName& p);
+
+        bool operator==(const PitchName& p) const { return value_ == p.value_; }
+        bool operator!=(const PitchName& p) const { return value_ != p.value_; }
+
+        PitchName operator+(int i) const;
+        PitchName operator-(int i) const;
+
+        PitchNameType type() const;
+
+        unsigned int index() const;
+        unsigned int absolutePitch() const;
+
+    public:
+        static const PitchName C;
+        static const PitchName D;
+        static const PitchName E;
+        static const PitchName F;
+        static const PitchName G;
+        static const PitchName A;
+        static const PitchName B;
+
+    public:
+        static size_t distance(const PitchName& p1, const PitchName& p2);
+        static size_t minDistance(const PitchName& p1, const PitchName& p2);
+
+        static size_t upSteps(const PitchName& from, const PitchName& to);
+        static size_t downSteps(const PitchName& from, const PitchName& to);
+        static int minSteps(const PitchName& from, const PitchName& to);
+
+    private:
+        friend std::ostream& operator<<(std::ostream& os, const PitchName& p);
+        static const char* pitch_names_[7];
+    };
 
     class PitchClass;
     typedef std::vector<PitchClass> Enharmonics;
@@ -21,16 +115,16 @@ namespace music {
         bool invalid_;
 
     public:
-        PitchClass(size_t semitoneValue);
-        PitchClass(PitchName p, Alteration a = Alteration(Alteration::NATURAL));
+        explicit PitchClass(size_t semitoneValue);
+        PitchClass(PitchName p, Alteration a);
 
         PitchName pitchName() const { return pitch_name_; }
         void setPitchName(PitchName p) { pitch_name_ = p; }
         Alteration alteration() const { return alt_; }
         void setAlteration(Alteration a) { alt_ = a; }
 
-        bool operator==(const PitchClass& c) const { return pitch_name_ == c.pitch_name_ && alt_ == c.alt_; }
-        bool operator!=(const PitchClass& c) const { return !this->operator==(c); }
+        bool operator==(const PitchClass& c) const;
+        bool operator!=(const PitchClass& c) const;
 
         bool enharmonicEqual(const PitchClass& c) const { return absolutePitch() == c.absolutePitch(); }
         size_t absolutePitch() const;
@@ -114,6 +208,8 @@ namespace music {
         static const boost::array<PitchClass, 35> all;
     };
 
+    std::ostream& operator<<(std::ostream& os, const Alteration& a);
+    std::ostream& operator<<(std::ostream& os, const PitchName& p);
     std::ostream& operator<<(std::ostream& os, const PitchClass& p);
 }
 }

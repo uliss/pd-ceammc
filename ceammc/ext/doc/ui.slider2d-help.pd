@@ -1,92 +1,106 @@
 #N canvas 0 0 715 555 12;
-#X declare -lib ceammc -lib creammc;
+#X declare -lib ceammc;
 #X obj 563 50 cnv 1 132 21 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 563 50 2D slider widget;
 #X obj 1 1 cnv 5 712 40 empty empty ui.slider2d 20 20 0 20 -104026
 -4096 0;
+#X obj 605 13 ui.link @title [ui.slider2d] @background_color 0.39216
+0.39216 0.39216 @url ui.slider2d-help.pd;
 #X obj 205 80 cnv 1 490 33 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 210 80 2D sliders widget;
-#X msg 50 141 set 0 0;
-#X msg 155 141 set_x 0.5;
-#X msg 270 141 set_y 0.1;
-#X obj 50 170 ui.slider2d @size 100 100 @presetname s2d-help;
-#X obj 50 285 ui.display @display_type 1 @size 150 18;
-#X text 50 314 [Shift+click] to save \, [Alt+click] to remove \,
+#X obj 309 141 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 50 170 set 0 0;
+#X msg 155 170 move 0.1 -0.1;
+#X msg 309 170 @show_grid \$1;
+#X obj 50 199 ui.slider2d @size 100 100 @presetname s2d-help;
+#X obj 50 314 ui.display @display_type 1 @size 150 18;
+#X text 50 343 [Shift+click] to save \, [Alt+click] to remove \,
 [click] to activate;
-#X obj 50 357 ui.preset @size 102 42;
-#X obj 20 421 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 426 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 50 386 ui.preset @size 102 42;
+#X obj 20 450 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 455 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 431 @range_x;
-#X text 240 431 Get/Set x-value range. Type: float. Default value: 2;
-#X msg 120 458 @range_y;
-#X text 240 458 Get/Set y-value range. Type: float. Default value: 2;
-#X msg 120 485 @shift_x;
-#X text 240 485 Get/Set x-value offset. Type: float. Default value:
+#X msg 120 460 @x_min;
+#X text 240 460 Get/Set minimal x-value. Type: float. Default value:
 -1;
-#X msg 120 512 @shift_y;
-#X text 240 512 Get/Set y-value offset. Type: float. Default value:
+#X msg 120 487 @x_max;
+#X text 240 487 Get/Set maximum x-value. Type: float. Default value:
+1;
+#X msg 120 514 @y_min;
+#X text 240 514 Get/Set minimal y-value. Type: float. Default value:
 -1;
-#X msg 120 539 @presetname;
-#X text 240 539 Get/Set preset name for using with [ui.preset]. Type:
+#X msg 120 541 @y_max;
+#X text 240 541 Get/Set maximum y-value. Type: float. Default value:
+-1;
+#X msg 120 568 @x_range;
+#X text 240 568 (readonly) Get x-value range. Type: float;
+#X msg 120 595 @y_range;
+#X text 240 595 (readonly) Get y-value range. Type: float;
+#X msg 120 622 @x_value;
+#X text 240 622 Get/Set slider x-value. Type: float;
+#X msg 120 649 @y_value;
+#X text 240 649 Get/Set slider y-value. Type: float;
+#X msg 120 676 @presetname;
+#X text 240 676 Get/Set preset name for using with [ui.preset]. Type:
 symbol;
-#X msg 120 576 @send;
-#X text 240 576 Get/Set send destination. Type: symbol;
-#X msg 120 603 @receive;
-#X text 240 603 Get/Set receive source. Type: symbol;
-#X msg 120 630 @show_range;
-#X text 240 630 Get/Set if show slider range. Type: int. Allowed
+#X msg 120 713 @send;
+#X text 240 713 Get/Set send destination. Type: symbol;
+#X msg 120 740 @receive;
+#X text 240 740 Get/Set receive source. Type: symbol;
+#X msg 120 767 @show_range;
+#X text 240 767 Get/Set if show slider range. Type: int. Allowed
 values: 0 \, 1;
-#X obj 20 677 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 682 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X msg 120 804 @show_grid;
+#X text 240 804 Get/Set if show grid. Type: int. Allowed values: 0 \,
+1;
+#X obj 20 841 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 846 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 687 dump;
-#X text 240 687 dumps all object info to Pd console window.;
-#X msg 120 719 set;
-#X text 240 719 sets slider position without output. Arguments are:;
-#X obj 250 747 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 747 X: x-position. Type: float.;
-#X obj 250 775 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 775 Y: y-position. Type: float.;
-#X msg 120 803 set_x;
-#X text 240 803 sets X-slider position without output. Arguments are:;
-#X obj 250 831 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 831 X: x-position. Type: float.;
-#X msg 120 859 set_y;
-#X text 240 859 sets Y-slider position without output. Arguments are:;
-#X obj 250 887 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 887 Y: y-position. Type: float.;
-#X obj 20 925 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 930 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
-0;
-#X text 120 935 1\.;
-#X text 150 935 *bang*;
-#X text 240 935 outputs slider position.;
-#X text 150 953 *list*;
-#X text 240 953 sets slider position and outputs it.;
-#X obj 20 981 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 986 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X msg 120 851 dump;
+#X text 240 851 dumps all object info to Pd console window.;
+#X msg 120 883 set;
+#X text 240 883 sets slider position without output. Arguments are:;
+#X obj 250 911 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 911 X: x-position. Type: float.;
+#X obj 250 939 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 939 Y: y-position. Type: float.;
+#X msg 120 967 move;
+#X text 240 967 move slider by given offset. Arguments are:;
+#X obj 250 995 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 995 X: x-offset. Type: float.;
+#X obj 250 1023 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 1023 Y: y-offset. Type: float.;
+#X obj 20 1061 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1066 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 991 1\.;
-#X text 240 991 list output of two values: X and Y;
+#X text 120 1071 1\.;
+#X text 150 1071 *bang*;
+#X text 240 1071 outputs slider position.;
+#X text 150 1089 *list*;
+#X text 240 1089 sets slider position and outputs it.;
+#X obj 20 1117 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1122 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+-49933 0;
+#X text 120 1127 1\.;
+#X text 240 1127 list output of two values: X and Y;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 1039 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1042 library: ceammc v0.4;
-#X text 456 1054 see also:;
-#X obj 532 1057 ui.link @title [ui.slider] @bgcolor 0.78431 0.78431
-0.78431 @url ui.slider-help.pd;
-#X obj 615 1057 ui.link @title [ui.presets] @bgcolor 0.78431 0.78431
-0.78431 @url ui.presets-help.pd;
-#N canvas 10 1061 400 290 info 0;
+#X obj 1 1175 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1178 library: ceammc v0.5;
+#X text 456 1190 see also:;
+#X obj 532 1193 ui.link @title [ui.slider] @background_color 0.78431
+0.78431 0.78431 @url ui.slider-help.pd;
+#X obj 615 1193 ui.link @title [ui.presets] @background_color 0.78431
+0.78431 0.78431 @url ui.presets-help.pd;
+#N canvas 10 1197 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.4;
+#X text 120 32 0.5;
 #X text 10 54 object:;
 #X text 120 54 ui.slider2d;
 #X text 10 76 category:;
@@ -102,11 +116,12 @@ values: 0 \, 1;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pure-data @url
 https://github.com/uliss/pure-data;
-#X obj 120 208 declare -lib ceammc -lib creammc;
+#X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1061 pd info;
-#X connect 6 0 8 0;
-#X connect 7 0 8 0;
-#X connect 5 0 8 0;
-#X connect 8 0 9 0;
+#X restore 10 1197 pd info;
+#X connect 7 0 10 0;
+#X connect 10 0 11 0;
+#X connect 6 0 9 0;
+#X connect 9 0 10 0;
+#X connect 8 0 10 0;

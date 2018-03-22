@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="metro.seq">
+        <title>metro.seq</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>metro sequencer</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>base</category>
+            <keywords>metro sequencer</keywords>
+            <also>
+                <see>metro</see>
+                <see>metro.pattern</see>
+            </also>
+            <since>0.5</since>
+        </meta>
+        <info>
+            <par>Easy way to build beat machines</par>
+        </info>
+        <arguments>
+            <argument name="INTERVAL" units="millisecond" minvalue="1" type="float">metro tempo in ms</argument>
+            <argument name="PATTERN" type="list">list of 1 and 0. Where 1 means output bang on this beat</argument>
+        </arguments>
+        <properties>
+            <property name="@pattern" type="list">list of 1 and 0. Where 1 means output bang on this beat</property>
+            <property name="@interval" units="millisecond" minvalue="1" type="float">interval between beats</property>
+            <property name="@current" type="int" minvalue="0">current pattern index</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="float">starts (on 1) or stops (on 0) metro</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>outputs *bang*</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[1 0 1 1 0 1 0 1(
+|
+[ui.radio @mode=1]
+|
+[msg @pattern]
+|
+|  [T]
+|  |
+[metro.seq 100 1 0 0 1]
+|
+[click~]
+|
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

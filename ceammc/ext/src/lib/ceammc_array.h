@@ -34,6 +34,7 @@ class ArrayIterator : public std::iterator<std::random_access_iterator_tag, floa
 
 public:
     ArrayIterator(const ArrayIterator& i);
+    ArrayIterator& operator=(const ArrayIterator& i);
 
     bool operator!=(ArrayIterator const& other) const { return data_ != other.data_; }
     bool operator==(ArrayIterator const& other) const { return data_ == other.data_; }

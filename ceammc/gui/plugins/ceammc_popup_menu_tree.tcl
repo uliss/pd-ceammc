@@ -83,7 +83,7 @@
         {conv.bpf2env conv.bpf2vline conv.bpf2list conv.bpf2array conv.lin2lin conv.lin2exp conv.lin2curve}
     }
     {ui
-        {ui.bang ui.toggle ui.slider ui.number ui.preset ui.tab ui.radio ui.rslider ui.number~ ui.radio ui.menu ui.matrix ui.meter~ ui.knob ui.keyboard ui.sliders ui.slider2d ui.bpfunc ui.display ui.scope~ ui.spectroscope~ }
+        {ui.bang ui.toggle ui.slider ui.number ui.preset ui.tab ui.radio ui.rslider ui.number~ ui.radio ui.menu ui.matrix ui.meter~ ui.knob ui.keyboard ui.sliders ui.slider2d ui.env ui.display ui.scope~ ui.spectroscope~ }
     }
     {experimental
         {exp.patchdata exp.class exp.instance exp.method exp.aproperty}

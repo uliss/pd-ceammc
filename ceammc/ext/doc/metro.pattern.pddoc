@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="metro.pattern">
+        <title>metro.pattern</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>metro with rythmic patterns</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>base</category>
+            <keywords>metro pattern rythm</keywords>
+            <also>
+                <see>metro</see>
+                <see>metro.seq</see>
+            </also>
+            <since>0.5</since>
+        </meta>
+        <arguments>
+            <argument name="PATTERN" type="list">list of time intervals</argument>
+        </arguments>
+        <properties>
+            <property name="@pattern" type="list">time intervals performed in a loop</property>
+            <property name="@current" type="int" minvalue="0">current pattern index</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="float">starts (on 1) or stops (on 0) metro</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>outputs *bang*</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[@pattern 100 290 110 70(
+|
+| [T]   [@pattern 500 150(
+| |     |
+[metro.pattern 268 200]
+|
+[click~]
+|
+[flt.resonbp~ 1600]
+|
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

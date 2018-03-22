@@ -1,90 +1,105 @@
 #N canvas 0 0 715 555 12;
-#X declare -lib ceammc -lib creammc;
+#X declare -lib ceammc;
 #X obj 438 50 cnv 1 257 21 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 438 50 counterpart of the vanilla [nbx];
 #X obj 1 1 cnv 5 712 40 empty empty ui.number 20 20 0 20 -104026 -4096
 0;
-#X obj 50 118 hslider 128 15 0.0 127.0 0 0 empty empty empty 17 7 0 10
+#X obj 562 13 ui.link @title [ui.n] @background_color 0.39216 0.39216
+0.39216 @url ui.number-help.pd;
+#X obj 619 13 ui.link @title [ui.number] @background_color 0.39216
+0.39216 0.39216 @url ui.number-help.pd;
+#X obj 205 80 cnv 1 490 112 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 210 80 Display mode: key '-' and '+' increments value. Mouse
+drag changes value. Default step is 1/pixel. Holding SHIFT divide step
+by 100\. Holding CTRL multiply by 10\.;
+#X text 210 131 Input mode: Double click to enter new value. Accepted
+keys: -.0123456789\. Press ENTER or TAB key to finish. ESCAPE undo
+input \, BACKSPACE removes last character.;
+#X obj 50 220 hslider 128 15 0.0 127.0 0 0 empty empty empty 17 7 0 10
 -262144 -1 -1 0 0;
-#X msg 69 147 + 50;
-#X msg 136 147 - 75;
-#X msg 203 147 * 2;
-#X msg 261 147 / 3 \, bang;
-#X msg 88 176 ++;
-#X msg 155 176 --;
-#X msg 280 205 set -1;
-#X obj 366 205 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X msg 69 249 + 50;
+#X msg 136 249 - 75;
+#X msg 203 249 * 2;
+#X msg 261 249 / 3 \, bang;
+#X msg 88 278 ++;
+#X msg 155 278 --;
+#X msg 280 307 set -1;
+#X obj 366 307 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 234 ui.number;
-#X floatatom 50 262 5 0 0 0 - - -;
-#X obj 20 301 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 306 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 50 336 ui.number @size 200 40;
+#X floatatom 50 407 5 0 0 0 - - -;
+#X obj 20 446 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 451 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 311 @min;
-#X text 240 311 Get/Set minimum value. Type: float;
-#X msg 120 338 @max;
-#X text 240 338 Get/Set maximum value. Type: float;
-#X msg 120 365 @send;
-#X text 240 365 Get/Set send destination. Type: symbol;
-#X msg 120 392 @receive;
-#X text 240 392 Get/Set receive source. Type: symbol;
-#X obj 20 429 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 434 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X msg 120 456 @min;
+#X text 240 456 Get/Set minimum value. Type: float;
+#X msg 120 483 @max;
+#X text 240 483 Get/Set maximum value. Type: float;
+#X msg 120 510 @send;
+#X text 240 510 Get/Set send destination. Type: symbol;
+#X msg 120 537 @receive;
+#X text 240 537 Get/Set receive source. Type: symbol;
+#X msg 120 564 @value;
+#X text 240 564 Get/Set widget value. Type: float;
+#X obj 20 601 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 606 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 439 set;
-#X text 240 439 sets slider value without output. Arguments are:;
-#X obj 250 467 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 467 V: new value. Type: float.;
-#X msg 120 495 ++;
-#X text 240 495 increment slider value without output.;
-#X msg 120 527 --;
-#X text 240 527 decrement slider value without output.;
-#X msg 120 559 +;
-#X text 240 559 add value to slider without output. Arguments are:;
-#X obj 250 587 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 587 V: added value. Type: float.;
-#X msg 120 615 -;
-#X text 240 615 substruct value from slider without output. Arguments
+#X msg 120 611 set;
+#X text 240 611 sets slider value without output. Arguments are:;
+#X obj 250 639 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 639 V: new value. Type: float.;
+#X msg 120 667 ++;
+#X text 240 667 increment slider value without output.;
+#X msg 120 699 --;
+#X text 240 699 decrement slider value without output.;
+#X msg 120 731 +;
+#X text 240 731 add value to slider without output. Arguments are:;
+#X obj 250 759 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 759 V: added value. Type: float.;
+#X msg 120 787 -;
+#X text 240 787 substruct value from slider without output. Arguments
 are:;
-#X obj 250 643 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 643 V: substructed value. Type: float.;
-#X msg 120 671 *;
-#X text 240 671 multiply slider value without output. Arguments are:;
-#X obj 250 699 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 699 V: mutiplied value. Type: float.;
-#X msg 120 727 /;
-#X text 240 727 divide slider value without output. Arguments are:;
-#X obj 250 755 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 755 V: denominator value. Type: float.;
-#X obj 20 793 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 798 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 250 815 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 815 V: substructed value. Type: float.;
+#X msg 120 843 *;
+#X text 240 843 multiply slider value without output. Arguments are:;
+#X obj 250 871 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 871 V: mutiplied value. Type: float.;
+#X msg 120 899 /;
+#X text 240 899 divide slider value without output. Arguments are:;
+#X obj 250 927 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 927 V: denominator value. Type: float.;
+#X obj 20 965 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 970 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 803 1\.;
-#X text 150 803 *bang*;
-#X text 240 803 outputs current value.;
-#X text 150 821 *float*;
-#X text 240 821 input value.;
-#X obj 20 849 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 854 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 120 975 1\.;
+#X text 150 975 *bang*;
+#X text 240 975 outputs current value.;
+#X text 150 993 *float*;
+#X text 240 993 input value.;
+#X text 150 1011 *list*;
+#X text 240 1011 first element converted to float.;
+#X obj 20 1039 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1044 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 859 1\.;
-#X text 240 859 signal pass thru;
+#X text 120 1049 1\.;
+#X text 240 1049 number value;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 907 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 910 library: ceammc v0.4;
-#X text 539 922 see also:;
-#X obj 615 925 ui.link @title [ui.number~] @bgcolor 0.78431 0.78431
-0.78431 @url ui.number~-help.pd;
-#N canvas 10 929 400 290 info 0;
+#X obj 1 1097 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1100 library: ceammc v0.5;
+#X text 539 1112 see also:;
+#X obj 615 1115 ui.link @title [ui.number~] @background_color 0.78431
+0.78431 0.78431 @url ui.number~-help.pd;
+#N canvas 10 1119 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.4;
+#X text 120 32 0.5;
 #X text 10 54 object:;
 #X text 120 54 ui.number;
 #X text 10 76 category:;
@@ -92,7 +107,7 @@ are:;
 #X text 10 98 since:;
 #X text 120 98 0.1;
 #X text 10 120 authors:;
-#X text 120 120 Pierre Guillot;
+#X text 120 120 Pierre Guillot \, Serge Poltavsky;
 #X text 10 142 license:;
 #X text 120 142 GPL3;
 #X text 10 164 keywords:;
@@ -100,17 +115,17 @@ are:;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pure-data @url
 https://github.com/uliss/pure-data;
-#X obj 120 208 declare -lib ceammc -lib creammc;
+#X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 929 pd info;
-#X connect 9 0 12 0;
-#X connect 7 0 12 0;
-#X connect 5 0 12 0;
-#X connect 4 0 12 0;
-#X connect 3 0 12 0;
-#X connect 11 0 12 0;
-#X connect 8 0 12 0;
-#X connect 12 0 13 0;
-#X connect 6 0 12 0;
-#X connect 10 0 12 0;
+#X restore 10 1119 pd info;
+#X connect 8 0 17 0;
+#X connect 15 0 17 0;
+#X connect 12 0 17 0;
+#X connect 16 0 17 0;
+#X connect 11 0 17 0;
+#X connect 17 0 18 0;
+#X connect 14 0 17 0;
+#X connect 10 0 17 0;
+#X connect 13 0 17 0;
+#X connect 9 0 17 0;

@@ -184,7 +184,7 @@ bool ceammc::music::from_string(const std::string& str, PitchClass& p, NamingSch
 
         int skip = 1 + strlen(PITCH_CLASS_DELIMITER[ns]);
         if (str.size() < skip) {
-            p = PitchClass(pn);
+            p = PitchClass(pn, Alteration::NATURAL);
             return true;
         }
 
@@ -208,7 +208,7 @@ bool ceammc::music::from_string(const std::string& str, PitchClass& p, NamingSch
 
                 int skip = needle.size() + strlen(PITCH_CLASS_DELIMITER[ns]);
                 if (str.size() < skip) {
-                    p = PitchClass(pn);
+                    p = PitchClass(pn, Alteration::NATURAL);
                     return true;
                 }
 
@@ -281,7 +281,7 @@ bool ceammc::music::from_string(const std::string& str, PitchClass& p, NamingSch
         }
 
         if (str.size() == 1) {
-            p = PitchClass(pn);
+            p = PitchClass(pn, Alteration::NATURAL);
             return true;
         }
 

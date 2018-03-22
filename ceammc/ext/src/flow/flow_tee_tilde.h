@@ -1,7 +1,7 @@
 #ifndef FLOW_TEE_TILDE_H
 #define FLOW_TEE_TILDE_H
 
-#include "ceammc_object.h"
+#include "ceammc_sound_external.h"
 
 using namespace ceammc;
 

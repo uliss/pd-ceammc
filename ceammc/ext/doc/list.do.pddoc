@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="list.do">
+        <title>list.do</title>
+        <meta>
+            <authors>
+                <author>Alex Nadzharov</author>
+            </authors>
+            <description>iterate and modify list contents via side-chain</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>list</category>
+            <keywords>list</keywords>
+            <since>0.5</since>
+            <also>
+                <see>list.each</see>
+            </also>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="list">input list</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="atom">processed atom from side-chain</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output processed list</outlet>
+            <outlet>output per each list element: ATOM INDEX TOTAL</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[1 1 1 1 1(
+|
+[list.do #x1] X [expr $f1 - ($f2 / $f3)]
+|
+[msg set]
+|
+[ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

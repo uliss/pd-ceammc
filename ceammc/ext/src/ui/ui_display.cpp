@@ -1,267 +1,294 @@
-//
-//  ui_display.cpp
-//  pd_ext
-//
-//  Created by Alex Nadzharov on 21/12/16.
-//
-//
+/*****************************************************************************
+ * Copyright 2018 Serge Poltavsky, Alex Nadzharov. All rights reserved.
+ *
+ * This file may be distributed under the terms of GNU Public License version
+ * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
+ * license should have been included with this file, or the project in which
+ * this file belongs to. You may also find the details of GPL v3 at:
+ * http://www.gnu.org/licenses/gpl-3.0.txt
+ *
+ * If you have any questions regarding the use of this file, feel free to
+ * contact the author of this file, or the owner of the project in which
+ * this file belongs to.
+ *****************************************************************************/
 
 #include <algorithm>
 #include <cmath>
-#include <cstdio>
 
 #include "ceammc_atomlist.h"
 #include "ceammc_format.h"
 
-#include "ceammc_gui.h"
+#include "ceammc_ui.h"
+#include "ui_display.h"
 
 using namespace ceammc;
 
-struct ui_display : public ceammc_gui::BaseGuiObject {
-    t_etext* txt_type;
-    t_etext* txt_val;
-    t_efont* txt_font;
+static t_symbol* SYM_DATA_TYPE = gensym("data");
+static t_rgba COLOR_LIST_TYPE = hex_to_rgba("#00A0C0");
+static t_rgba COLOR_FLOAT_TYPE = hex_to_rgba("#E000A0");
+static t_rgba COLOR_SYMBOL_TYPE = hex_to_rgba("#A0E000");
+static t_rgba COLOR_DATA_TYPE = hex_to_rgba("#F07000");
+static t_rgba COLOR_DEFAULT_TYPE = hex_to_rgba("#909090");
+static t_rgba COLOR_PROPERTY_TYPE = hex_to_rgba("#00E0A0");
+static t_rgba COLOR_BANG_TYPE = hex_to_rgba("#F03060");
 
-    t_clock* t_c;
-
-    bool bang;
-
-    std::string* s_value;
-    t_symbol* s_type;
-
-    int show_type;
-    int show_bang;
-
-    int auto_size;
-};
-
-namespace ceammc_gui {
-
-static t_symbol* SDATA_TYPE = gensym("data");
-static t_symbol* COLOR_LIST_TYPE = gensym("#00A0C0");
-static t_symbol* COLOR_FLOAT_TYPE = gensym("#C000A0");
-static t_symbol* COLOR_SYMBOL_TYPE = gensym("#A0C000");
-static t_symbol* COLOR_DATA_TYPE = gensym("#F0A000");
-static t_symbol* COLOR_DEFAULT_TYPE = gensym("#909090");
+#ifdef __APPLE__
 static const int TYPE_WIDTH = 45;
+#elif __WIN32
+static const int TYPE_WIDTH = 58;
+#else
+static const int TYPE_WIDTH = 50;
+#endif
+
 static const int TEXT_XPAD = 3;
+
+#ifdef __WIN32
+static const int TEXT_YPAD = 0;
+#else
 static const int TEXT_YPAD = 2;
+#endif
 
-#pragma mark setup
-
-static inline t_symbol* msg_color(t_symbol* s_type)
+static inline const t_rgba& msg_color(t_symbol* s_type)
 {
     if (s_type == &s_list)
         return COLOR_LIST_TYPE;
     else if (s_type == &s_float)
         return COLOR_FLOAT_TYPE;
+    else if (s_type == &s_bang)
+        return COLOR_BANG_TYPE;
     else if (s_type == &s_symbol)
         return COLOR_SYMBOL_TYPE;
-    else if (s_type == SDATA_TYPE)
+    else if (s_type == SYM_DATA_TYPE)
         return COLOR_DATA_TYPE;
+    else if (s_type->s_name[0] == '@')
+        return COLOR_PROPERTY_TYPE;
     else
         return COLOR_DEFAULT_TYPE;
 }
 
-static void draw_message_type(ui_display* zx, t_elayer* g, float x, float y, float width, float height)
+UIDisplay::UIDisplay()
+    : prop_display_events(1)
+    , prop_display_type(0)
+    , prop_auto_size(1)
+    , on_bang_(false)
+    , type_width_(-1)
+    , prop_active_color(rgba_white)
+    , prop_text_color(rgba_black)
+    , font_(FONT_FAMILY, FONT_SIZE)
+    , txt_value_(font_.font(), ColorRGBA::black(), ETEXT_UP_LEFT, ETEXT_JLEFT, ETEXT_WRAP)
+    , txt_type_(font_.font(), ColorRGBA::black(), ETEXT_UP_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP)
+    , msg_type_(gensym("..."))
+    , timer_(this, &UIDisplay::onClock)
 {
-    egraphics_set_color_hex(g, msg_color(zx->s_type));
-    egraphics_rectangle(g, x, y, width, height);
-    egraphics_fill(g);
-
-    etext_layout_set(zx->txt_type, zx->s_type->s_name, zx->txt_font,
-        x + TEXT_XPAD, y + TEXT_YPAD, width - TEXT_XPAD, height,
-        ETEXT_UP_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
-    etext_layout_draw(zx->txt_type, g);
 }
 
-#pragma mark ui
-
-static void draw_msg_value(ui_display* zx, t_elayer* g, float x, float y, float width, float height)
+void UIDisplay::paint(t_object* view)
 {
-    if (zx->bang)
-        egraphics_set_color_hex(g, GuiFactory<BaseGuiObject>::COLOR_ACTIVE);
-    else
-        egraphics_set_color_rgba(g, &zx->b_color_background);
+    const t_rect& r = rect();
 
-    egraphics_rectangle(g, x, y, width, height);
-    egraphics_fill(g);
+    UIPainter p = bg_layer_.painter(r);
 
-    etext_layout_set(zx->txt_val, zx->s_value->c_str(), zx->txt_font,
-        x + TEXT_XPAD, y + TEXT_YPAD, width - TEXT_XPAD, height,
-        ETEXT_UP_LEFT, ETEXT_JLEFT, ETEXT_WRAP);
-    etext_layout_draw(zx->txt_val, g);
-}
-
-UI_fun(ui_display)::wx_paint(ui_display* zx, t_object* /*view*/)
-{
-    t_rect rect;
-    zx->getRect(&rect);
-
-    t_elayer* g = ebox_start_layer(asBox(zx), BG_LAYER, rect.width, rect.height);
-
-    if (g) {
-        if (zx->show_type) {
-            int zoom = ebox_getzoom(asBox(zx));
-            draw_message_type(zx, g, 0, 0, TYPE_WIDTH * zoom, rect.height);
-            draw_msg_value(zx, g, TYPE_WIDTH * zoom, 0, rect.width, rect.height);
-        } else {
-            draw_msg_value(zx, g, 0, 0, rect.width, rect.height);
+    if (p) {
+        if (prop_display_events) {
+            p.setColor(on_bang_ ? prop_active_color : prop_color_background);
+            p.setLineWidth(0);
+            p.drawRect(0, 0, r.width, r.height);
+            p.fill();
         }
 
-        ebox_end_layer(asBox(zx), BG_LAYER);
+        float x_offset = 0;
+
+        if (prop_display_type) {
+            p.setColor(msg_color(msg_type_));
+            p.drawRect(0, 0, type_width_ * zoom(), r.height);
+            p.fill();
+
+            txt_type_.set(msg_type_->s_name, 0 + TEXT_XPAD, 0 + TEXT_YPAD, type_width_ - TEXT_XPAD, r.height);
+            txt_type_.setColor(prop_text_color);
+            p.drawText(txt_type_);
+
+            x_offset += type_width_ * zoom();
+        }
+
+        txt_value_.set(msg_txt_.c_str(),
+            x_offset + TEXT_XPAD,
+            0 + TEXT_YPAD,
+            r.width - 2 * TEXT_XPAD - x_offset, r.height);
+        txt_value_.setColor(prop_text_color);
+        p.drawText(txt_value_);
     }
-
-    ebox_paint_layer(asBox(zx), BG_LAYER, 0., 0.);
 }
 
-UI_fun(ui_display)::m_anything(ui_display* zx, t_symbol* s, int argc, t_atom* argv)
+void UIDisplay::okSize(t_rect* newrect)
 {
-    zx->s_type = s;
-    if (argc == 1 && Atom(argv[0]).isData())
-        zx->s_type = SDATA_TYPE;
-
-    (*zx->s_value) = to_string(AtomList(argc, argv));
-
-    if (zx->show_bang) {
-        zx->bang = true;
-        clock_delay(zx->t_c, 100);
-    }
-
-    if (zx->auto_size) {
-        float w = zx->s_value->size() * 8 + (zx->show_type * 50) + 7;
-        float h = int(w / 250) * 15 + 15;
-        w = std::min(std::max(w, 20.f), 250.f); // 20 <= w <= 250
-
-        h *= ebox_getzoom(asBox(zx));
-        w *= ebox_getzoom(asBox(zx));
-
-        zx->b_box.b_rect.width = w;
-        zx->b_box.b_rect.height = h;
-
-        ebox_invalidate_layer(asBox(zx), BG_LAYER);
-        ebox_redraw(asBox(zx));
-        ebox_notify(asBox(zx), s_size, 0, 0, 0);
-    }
-
-    ws_redraw(zx);
-}
-
-UI_fun(ui_display)::m_list(ui_display* z, t_symbol*, int argc, t_atom* argv)
-{
-    m_anything(z, &s_list, argc, argv);
-}
-
-UI_fun(ui_display)::m_symbol(ui_display* z, t_symbol* s)
-{
-    t_atom a;
-    atom_setsym(&a, s);
-    m_anything(z, &s_symbol, 1, &a);
-}
-
-UI_fun(ui_display)::m_float(ui_display* z, t_float f)
-{
-    AtomList list1 = AtomList(Atom(f));
-    m_anything(z, &s_float, 1, list1.toPdData());
-}
-
-UI_fun(ui_display)::m_bang(ui_display* z)
-{
-    m_anything(z, &s_bang, 0, 0);
-}
-
-void display_clock(t_object* z)
-{
-    ui_display* zx = reinterpret_cast<ui_display*>(z);
-    zx->bang = false;
-    GuiFactory<BaseGuiObject>::ws_redraw(zx);
-}
-
-UI_fun(ui_display)::wx_oksize(ui_display* zx, t_rect* newrect)
-{
-    float min_width = 40;
-    if (zx->show_type != 0)
-        min_width += TYPE_WIDTH;
+    float min_width = 40 * zoom();
+    if (prop_display_type != 0)
+        min_width += TYPE_WIDTH * zoom();
 
     newrect->width = pd_clip_min(newrect->width, min_width);
     newrect->height = pd_clip_min(newrect->height, 18);
 }
 
-#pragma mark setup
-
-UI_fun(ui_display)::new_ext(ui_display* zx, t_symbol* /*s*/, int /*argcl*/, t_atom* /*argv*/)
+void UIDisplay::onBang()
 {
-    zx->s_value = new std::string;
-    zx->s_type = gensym("...");
+    msg_txt_ = "";
+    msg_type_ = &s_bang;
 
-    zx->txt_val = etext_layout_create();
-    zx->txt_type = etext_layout_create();
-
-    zx->txt_font = efont_create(FONT_FAMILY, FONT_STYLE, FONT_WEIGHT, FONT_SIZE);
-
-    zx->t_c = clock_new(zx, reinterpret_cast<t_method>(display_clock));
-
-    zx->show_bang = 1;
-    zx->show_type = 0;
+    flash();
+    update();
 }
 
-UI_fun(ui_display)::free_ext(ui_display* zx)
+void UIDisplay::onFloat(t_float f)
 {
-    delete zx->s_value;
+    char buf[64];
+    snprintf(buf, 63, "%g", f);
 
-    efont_destroy(zx->txt_font);
+    msg_txt_ = buf;
+    msg_type_ = &s_float;
 
-    clock_unset(zx->t_c);
-    clock_free(zx->t_c);
-
-    etext_layout_destroy(zx->txt_type);
-    etext_layout_destroy(zx->txt_val);
+    flash();
+    update();
 }
 
-static void ui_disp_getdrawparams(ui_display* x, t_object* /*patcherview*/, t_edrawparams* params)
+void UIDisplay::onSymbol(t_symbol* s)
 {
-    params->d_borderthickness = 1;
-    params->d_cornersize = 2;
-    params->d_bordercolor = x->b_color_border;
-    params->d_boxfillcolor = x->b_color_background;
+    msg_txt_ = s->s_name;
+    msg_type_ = &s_symbol;
+
+    flash();
+    update();
 }
 
-UI_fun(ui_display)::wx_attr_changed_ext(ui_display* z, t_symbol*)
+void UIDisplay::onList(const AtomList& lst)
 {
-    ws_redraw(z);
+    onAny(&s_list, lst);
 }
 
-UI_fun(ui_display)::init_ext(t_eclass* z)
+void UIDisplay::onAny(t_symbol* s, const AtomList& lst)
 {
-    // clang-format off
-    CLASS_ATTR_DEFAULT              (z, "size", 0, "150. 18.");
-    CLASS_ATTR_INVISIBLE            (z, "send", 0);
+    msg_txt_ = to_string(lst);
+    msg_type_ = s;
 
-    CLASS_ATTR_INT                  (z, "display_events", 0, ui_display, show_bang);
-    CLASS_ATTR_DEFAULT              (z, "display_events", 0, "1");
-    CLASS_ATTR_LABEL                (z, "display_events", 0, _("Display events"));
-    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "display_events", 0, "1");
-    CLASS_ATTR_STYLE                (z, "display_events", 0, "onoff");
+    if (lst.size() == 1 && lst[0].isData())
+        msg_type_ = SYM_DATA_TYPE;
 
-    CLASS_ATTR_INT                  (z, "display_type", 0, ui_display, show_type);
-    CLASS_ATTR_DEFAULT              (z, "display_type", 0, "0");
-    CLASS_ATTR_LABEL                (z, "display_type", 0, _("Display type"));
-    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "display_type", 0, "0");
-    CLASS_ATTR_STYLE                (z, "display_type", 0, "onoff");
-
-    CLASS_ATTR_INT                  (z, "auto_size", 0, ui_display, auto_size);
-    CLASS_ATTR_DEFAULT              (z, "auto_size", 0, "0");
-    CLASS_ATTR_LABEL                (z, "auto_size", 0, _("Auto size"));
-    CLASS_ATTR_DEFAULT_SAVE_PAINT   (z, "auto_size", 0, "1");
-    CLASS_ATTR_STYLE                (z, "auto_size", 0, "onoff");
-
-    eclass_addmethod(z, reinterpret_cast<t_typ_method>(ui_disp_getdrawparams), "getdrawparams", A_NULL, 0);
-    // clang-format on
-}
+    flash();
+    update();
 }
 
-extern "C" void setup_ui0x2edisplay()
+void UIDisplay::onProperty(t_symbol* s, const AtomList& lst)
 {
-    ceammc_gui::GuiFactory<ui_display> class1;
-    class1.setup("ui.display");
+    onAny(s, lst);
+}
+
+void UIDisplay::onDblClick(t_object* view, const t_pt& pt, long modifiers)
+{
+    prop_display_type = !prop_display_type;
+    update();
+}
+
+const std::string& UIDisplay::text() const
+{
+    return msg_txt_;
+}
+
+const std::string UIDisplay::type() const
+{
+    return msg_type_->s_name;
+}
+
+void UIDisplay::setup()
+{
+    UIObjectFactory<UIDisplay> obj("ui.display");
+    obj.addAlias("ui.d");
+
+    obj.setDefaultSize(150, 18);
+
+    obj.hideProperty("send");
+    obj.addProperty("display_events", _("Display events"), true, &UIDisplay::prop_display_events);
+    obj.addProperty("display_type", _("Display type"), false, &UIDisplay::prop_display_type);
+    obj.addProperty("auto_size", _("Auto size"), true, &UIDisplay::prop_auto_size);
+    obj.addProperty(PROP_TEXT_COLOR, _("Text Color"), DEFAULT_TEXT_COLOR, &UIDisplay::prop_text_color);
+    obj.addProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIDisplay::prop_active_color);
+
+    obj.setPropertyRedirect("send");
+    obj.setPropertyRedirect("size");
+    obj.setPropertyRedirect("fontname");
+    obj.setPropertyRedirect("fontweight");
+    obj.setPropertyRedirect("fontslant");
+    obj.setPropertyRedirect("fontsize");
+    obj.setPropertyRedirect("receive");
+    obj.setPropertyRedirect("send");
+    obj.setPropertyRedirect("pinned");
+    obj.setPropertyRedirect("background_color");
+    obj.setPropertyRedirect("border_color");
+    obj.setPropertyRedirect("text_color");
+    obj.setPropertyRedirect("active_color");
+    obj.setPropertyRedirect("display_events");
+    obj.setPropertyRedirect("display_type");
+    obj.setPropertyRedirect("auto_size");
+
+    obj.useBang();
+    obj.useSymbol();
+    obj.useFloat();
+    obj.useList();
+    obj.useAny();
+    obj.useMouseEvents(UI_MOUSE_DBL_CLICK);
+}
+
+void UIDisplay::onClock()
+{
+    on_bang_ = false;
+    redrawAll();
+}
+
+void UIDisplay::update()
+{
+    if (prop_display_type) {
+        const bool calc_type_wd = (msg_type_ != &s_float
+            && msg_type_ != &s_bang
+            && msg_type_ != &s_symbol
+            && msg_type_ != &s_list
+            && msg_type_ != SYM_DATA_TYPE);
+
+        if (calc_type_wd)
+            type_width_ = std::max<int>(TYPE_WIDTH, strlen(msg_type_->s_name) * 7) + 3;
+        else
+            type_width_ = TYPE_WIDTH;
+
+    } else {
+        type_width_ = 0;
+    }
+
+    if (prop_auto_size) {
+        float w = msg_txt_.size() * 8 + type_width_ + 7;
+        float h = int(w / 250) * 15 + 15;
+        w = std::min(std::max(w, 20.f), 250.f); // 20 <= w <= 250
+
+        h *= zoom();
+        w *= zoom();
+
+        resize(w, h);
+    }
+
+    redrawAll();
+}
+
+void UIDisplay::flash()
+{
+    if (prop_display_events) {
+        on_bang_ = true;
+        timer_.delay(100);
+    }
+}
+
+void UIDisplay::redrawAll()
+{
+    bg_layer_.invalidate();
+    redraw();
+}
+
+void setup_ui_display()
+{
+    UIDisplay::setup();
 }

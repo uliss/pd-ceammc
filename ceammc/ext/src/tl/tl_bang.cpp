@@ -86,7 +86,7 @@ static void tl_cue_displace(t_gobj* z, t_glist* /*glist*/, int dx, int dy)
 
     tl_bang* zx = (tl_bang*)z;
     GuiFactory<tl_bang>::ws_redraw(zx);
-    zx->data->setXPos(zx->b_box.b_rect.x);
+    zx->data->setXPos(zx->j_box.b_rect.x);
 }
 
 UI_fun(tl_bang)::wx_paint(tl_bang* zx, t_object* /*view*/)
@@ -97,13 +97,12 @@ UI_fun(tl_bang)::wx_paint(tl_bang* zx, t_object* /*view*/)
     t_elayer* g = ebox_start_layer(asBox(zx), BG_LAYER, rect.width, rect.height);
     if (g) {
         const float xoff = 2 * ebox_getzoom(asBox(zx));
-        const float yoff = (FONT_SIZE + 2) * ebox_getzoom(asBox(zx));
 
-        etext_layout_set(zx->txt, "tl.bang", zx->fnt, xoff, yoff, rect.width, rect.height / 2,
-            ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
+        etext_layout_set(zx->txt, "tl.bang", zx->fnt, xoff, rect.height / 2, 0, 0,
+            ETEXT_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
         etext_layout_draw(zx->txt, g);
 
-        zx->data->setXPos(zx->b_box.b_rect.x);
+        zx->data->setXPos(zx->j_box.b_rect.x);
         ebox_end_layer(asBox(zx), BG_LAYER);
     }
 
@@ -115,6 +114,11 @@ UI_fun(tl_bang)::wx_oksize(tl_bang* z, t_rect* newrect)
     const float zoom = ebox_getzoom(asBox(z));
     newrect->width = 60 * zoom;
     newrect->height = ebox_getzoomfontsize(asBox(z)) + 3 * zoom;
+
+
+#ifdef __WIN32
+    newrect->height += 6;
+#endif
 }
 
 UI_fun(tl_bang)::new_ext(tl_bang* zx, t_symbol* /*s*/, int /*argc*/, t_atom* /*argv*/)
@@ -122,7 +126,7 @@ UI_fun(tl_bang)::new_ext(tl_bang* zx, t_symbol* /*s*/, int /*argc*/, t_atom* /*a
     zx->canvas = canvas_getcurrent();
 
     zx->data = new TimelineData(zx->canvas, (t_object*)zx);
-    zx->data->setXPos(zx->b_box.b_obj.o_obj.te_xpix);
+    zx->data->setXPos(zx->j_box.b_obj.o_obj.te_xpix);
     zx->data->setAction(&tl_bang_action);
     UIStorage::add(zx->data);
 

@@ -14,7 +14,9 @@
 #ifndef CEAMMC_PLATFORM_H
 #define CEAMMC_PLATFORM_H
 
+#include <boost/optional.hpp>
 #include <string>
+#include <vector>
 
 #include "m_pd.h"
 
@@ -38,7 +40,23 @@ namespace platform {
      */
     bool path_exists(const char* path);
 
+    /**
+     * Creates empty directory
+     * @param path - directory path
+     * @param flags - access parameters flags, read, write, execute. See man mkdir.
+     *                If *-1* create with default parameters: rwxrwxr-x
+     * @return true on success, false on error
+     * @see rmdir
+     */
     bool mkdir(const char* path, int flags = -1);
+
+    /**
+     * Removes a directory file whose name is given by path.
+     * The directory must not have any entries other than '.' and '..'
+     * @param path - directory path
+     * @return true on success, false on error
+     * @see mkdir
+     */
     bool rmdir(const char* path);
 
     /**
@@ -59,6 +77,22 @@ namespace platform {
      * @return On success returns full path to file, else returns empty string
      */
     std::string find_in_std_path(t_canvas* cnv, const char* path);
+
+    /**
+     * suspend thread execution for an interval measured in milliseconds
+     * @param ms
+     */
+    void sleep_ms(unsigned int ms);
+
+    typedef std::vector<std::string> StringList;
+    typedef boost::optional<StringList> DirList;
+    /**
+     * @brief list_directory
+     * @param path
+     * @param pattern
+     * @return boost::null on error (can't read directory)
+     */
+    DirList list_directory(const char* path, const char* pattern = "");
 }
 }
 

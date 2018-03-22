@@ -28,7 +28,7 @@ static void* ceammc_new()
     }
 
     post("CEAMMC extension library\n"
-         "       © 2016-2017 Serge Poltavsky and Alex Nadzharov.\n"
+         "       © 2016-2018 Serge Poltavsky and Alex Nadzharov.\n"
          "       version: %s\n"
          "       url: %s\n"
          "       license: GPL-3\n"
@@ -72,6 +72,7 @@ extern "C" void ceammc_setup()
     ceammc_init();
 }
 
+#ifndef __WIN32
 extern "C" int sys_zoomfontwidth(int fontsize, int, int)
 {
     return sys_fontwidth(fontsize);
@@ -81,3 +82,4 @@ extern "C" int sys_zoomfontheight(int fontsize, int, int)
 {
     return sys_fontheight(fontsize);
 }
+#endif

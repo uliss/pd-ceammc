@@ -57,6 +57,14 @@ TEST_CASE("MusicTheory::PitchName", "[ceammc::music]")
         REQUIRE(PitchName::C != PitchName::D);
         REQUIRE(PitchName::D != PitchName::E);
         REQUIRE(PitchName::E != PitchName::F);
+
+        REQUIRE(PitchName::C.type() == PITCH_NAME_C);
+        REQUIRE(PitchName::D.type() == PITCH_NAME_D);
+        REQUIRE(PitchName::E.type() == PITCH_NAME_E);
+        REQUIRE(PitchName::F.type() == PITCH_NAME_F);
+        REQUIRE(PitchName::G.type() == PITCH_NAME_G);
+        REQUIRE(PitchName::A.type() == PITCH_NAME_A);
+        REQUIRE(PitchName::B.type() == PITCH_NAME_B);
     }
 
     SECTION("add")

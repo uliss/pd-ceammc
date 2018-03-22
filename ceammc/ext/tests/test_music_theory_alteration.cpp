@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "base_extension_test.h"
-#include "ceammc_music_theory_alteration.h"
+#include "ceammc_music_theory_pitch_class.h"
 #include "ceammc_music_theory_names.h"
 
 #include "catch.hpp"

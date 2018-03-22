@@ -26,38 +26,50 @@
 const DataType DataTypeString::dataType = ceammc::data::DATA_STRING;
 
 DataTypeString::DataTypeString(t_symbol* s)
+    : str_(s->s_name)
 {
-    str_ = s->s_name;
+#ifndef NDEBUG
     LIB_DBG << "string created: " << str_;
+#endif
 }
 
 DataTypeString::DataTypeString(const Atom& a)
+    : str_(to_string(a))
 {
-    str_ = to_string(a);
+#ifndef NDEBUG
     LIB_DBG << "string created: " << str_;
+#endif
 }
 
 DataTypeString::DataTypeString(const AtomList& l)
+    : str_(to_string(l, " "))
 {
-    str_ = to_string(l, " ");
+#ifndef NDEBUG
     LIB_DBG << "string created: " << str_;
+#endif
 }
 
 DataTypeString::DataTypeString(const char* str)
     : str_(str)
 {
+#ifndef NDEBUG
     LIB_DBG << "string created: " << str_;
+#endif
 }
 
 DataTypeString::DataTypeString(const std::string& str)
     : str_(str)
 {
+#ifndef NDEBUG
     LIB_DBG << "string created: " << str_;
+#endif
 }
 
 DataTypeString::~DataTypeString()
 {
+#ifndef NDEBUG
     LIB_DBG << "string destructed: " << str_;
+#endif
 }
 
 void DataTypeString::clear()

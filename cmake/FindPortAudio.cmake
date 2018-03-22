@@ -45,7 +45,8 @@ else()
           /sw/include
           /usr/local/mingw/i686-w64-mingw32/include
           C:/MinGW/msys/1.0/usr/include
-          C:/MinGW/msys/1.0/usr/local/include)
+          C:/MinGW/msys/1.0/usr/local/include
+	  /mingw32/include)
 
     find_library(PORTAUDIO_LIBRARY
         NAMES portaudio libportaudio portaudio-2
@@ -59,7 +60,8 @@ else()
           /usr/local/mingw/i686-w64-mingw32/lib
           /opt/local/mingw/bin
           C:/MinGW/msys/1.0/usr/lib
-          C:/MinGW/msys/1.0/usr/local/lib)
+          C:/MinGW/msys/1.0/usr/local/lib
+	  /mingw32/lib)
 
 endif()
 

@@ -13,10 +13,18 @@
             <category view="link">ui</category>
             <keywords>ui spectroscope</keywords>
             <since>0.1</since>
+            <aliases>
+                <alias view="link">ui.ssc~</alias>
+            </aliases>
             <also>
                 <see view="link">ui.scope~</see>
             </also>
         </meta>
+        <properties>
+            <property name="@refresh" type="int" minvalue="20" maxvalue="1000" default="100" units="millisecond">
+            approximate refresh rate</property>
+            <property name="@log_scale" type="int" default="0" enum="0 1">display in log scale</property>
+        </properties>
         <inlets>
             <inlet type="audio">
                 <xinfo>signal input</xinfo>
@@ -26,16 +34,16 @@
             <pdascii>
 <![CDATA[
 [ui.dsp~]
-
-
-[noise~] [osc.saw~ 1000]
-|        |
-| [T]    | [T]
-| |.     | |.
-[*~]     [*~]
-|        |
-|        |
-[ui.spectroscope~]
+         [F]             [F]
+         |               |
+[noise~] [osc.saw~ 1000] [osc~ 5000]
+|        |               |
+| [T]    | [T]           | [T]  [T]
+| |.     | |.            | |.   |
+[*~]     [*~]            [*~]   [@log_scale $1(
+|        |               |      |
+|        |               |      |
+[ui.spectroscope~   @size=500x150]
 ]]>
             </pdascii>
         </example>

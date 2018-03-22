@@ -201,6 +201,32 @@ const Atom* AtomList::foldAt(int pos) const
     return const_cast<AtomList*>(this)->foldAt(pos);
 }
 
+int AtomList::intAt(size_t pos, int def) const
+{
+    if (pos >= atoms_.size())
+        return def;
+
+    return atoms_[pos].asInt(def);
+}
+
+t_float AtomList::floatAt(size_t pos, t_float def) const
+{
+    if (pos >= atoms_.size())
+        return def;
+
+    return atoms_[pos].asFloat(def);
+}
+
+t_symbol* AtomList::symbolAt(size_t pos, t_symbol* def) const
+{
+    if (pos >= atoms_.size())
+        return def;
+
+    t_symbol* res = def;
+    atoms_[pos].getSymbol(&res);
+    return res;
+}
+
 void AtomList::resizePad(size_t n, const Atom& v)
 {
     atoms_.resize(n, v);
@@ -1152,6 +1178,29 @@ AtomList listFrom(bool v)
 Atom atomFrom(const std::string& v)
 {
     return Atom(gensym(v.c_str()));
+}
+
+AtomList operator+(const AtomList& l1, const AtomList& l2)
+{
+    AtomList res(l1);
+    res.append(l2);
+    return res;
+}
+
+AtomList operator+(const AtomList& l, const Atom& a)
+{
+    AtomList res(l);
+    res.append(a);
+    return res;
+}
+
+AtomList operator+(const Atom& a, const AtomList& l)
+{
+    AtomList res;
+    res.reserve(l.size() + 1);
+    res.append(a);
+    res.append(l);
+    return res;
 }
 
 } // namespace ceammc

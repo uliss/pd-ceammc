@@ -23,7 +23,7 @@
         <properties>
             <property name="@keys" type="float" default="61">number of keys</property>
             <property name="@shift" type="float" default="31">MIDI pitch of lefmost key</property>
-            <property name="@preset" type="symbol">preset name for using with
+            <property name="@presetname" type="symbol">preset name for using with
             [ui.preset]</property>
             <property name="@send" type="symbol">send destination</property>
             <property name="@receive" type="symbol">receive source</property>
@@ -57,7 +57,9 @@
 [osc.pulse~]   [/ 1000]
 |       .______/
 [*~     ]
-|\
+|
+[ui.gain~ @size 120 16]  [ui.dsp~]
+| \
 [dac~]
 ]]>
             </pdascii>

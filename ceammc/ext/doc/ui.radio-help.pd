@@ -1,73 +1,96 @@
 #N canvas 0 0 715 555 12;
-#X declare -lib ceammc -lib creammc;
+#X declare -lib ceammc;
 #X obj 380 50 cnv 1 315 21 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 380 50 counterpart of the vanilla radio toggle;
 #X obj 1 1 cnv 5 712 40 empty empty ui.radio 20 20 0 20 -104026 -4096
 0;
-#X floatatom 50 118 5 0 0 0 - - -;
-#X msg 98 118 set 2;
-#X msg 251 118 flip;
-#X msg 318 118 reset;
-#X msg 395 118 1 1 0 1 0 0 1;
-#X obj 50 162 ui.radio;
-#X obj 251 162 ui.radio @mode 1;
-#X floatatom 50 190 5 0 0 0 - - -;
-#X obj 251 190 ui.display @size 150 18;
-#X obj 20 230 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 235 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 627 13 ui.link @title [ui.radio] @background_color 0.39216
+0.39216 0.39216 @url ui.radio-help.pd;
+#X obj 205 80 cnv 1 490 33 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 210 80 Double click in edit mode changes slider orientation;
+#X floatatom 50 141 5 0 0 0 - - -;
+#X msg 98 141 set 2;
+#X msg 251 141 flip;
+#X msg 318 141 reset;
+#X msg 395 141 1 1 0 1 0 0 1;
+#X obj 50 185 ui.radio @size 127 15;
+#X obj 251 185 ui.radio @mode 1 @size 127 15;
+#X floatatom 50 213 5 0 0 0 - - -;
+#X obj 251 213 ui.display @size 150 18;
+#X msg 50 242 + 3;
+#X msg 107 242 - 1;
+#X msg 165 242 prev;
+#X msg 232 242 next;
+#X obj 50 285 ui.radio @size 127 15;
+#X obj 20 322 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 327 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 240 @nitems;
-#X text 240 240 Get/Set number of items. Type: int. Default value: 8\.
+#X msg 120 332 @nitems;
+#X text 240 332 Get/Set number of items. Type: int. Default value: 8\.
 Min value: 1;
-#X msg 120 277 @mode;
-#X text 240 277 Get/Set check list mode. If true acts as checklist.
+#X msg 120 369 @mode;
+#X text 240 369 Get/Set check list mode. If true acts as checklist.
 Type: int. Default value: 0\. Allowed values: 0 \, 1;
-#X msg 120 314 @send;
-#X text 240 314 Get/Set send destination. Type: symbol;
-#X msg 120 341 @receive;
-#X text 240 341 Get/Set receive source. Type: symbol;
-#X obj 20 378 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 383 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X msg 120 406 @value;
+#X text 240 406 Get/Set widget value (float or list). Type: list;
+#X msg 120 433 @send;
+#X text 240 433 Get/Set send destination. Type: symbol;
+#X msg 120 460 @receive;
+#X text 240 460 Get/Set receive source. Type: symbol;
+#X obj 20 497 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 502 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 388 set;
-#X text 240 388 sets radio without output. Arguments are:;
-#X obj 250 416 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 416 V: new value. Type: float.;
-#X msg 120 444 reset;
-#X text 240 444 reset radio (only in checklist mode).;
-#X msg 120 476 flip;
-#X text 240 476 flips radio (only in checklist mode).;
-#X obj 20 518 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 523 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 120 507 set;
+#X text 240 507 sets radio without output. Arguments are:;
+#X obj 250 535 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 535 V: new value. Type: float.;
+#X msg 120 563 reset;
+#X text 240 563 reset radio (only in checklist mode).;
+#X msg 120 595 flip;
+#X text 240 595 flips radio (only in checklist mode).;
+#X msg 120 627 next;
+#X text 240 627 moves to next position until last cell is reached
+(single mode only).;
+#X msg 120 669 prev;
+#X text 240 669 moves to previous position until first cell is reached
+(single mode only).;
+#X msg 120 711 + STEP;
+#X text 240 711 moves several steps forward on a loop (single mode
+only).;
+#X msg 120 743 - STEP;
+#X text 240 743 moves several step backwards on a loop (single mode
+only).;
+#X obj 20 785 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 790 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 528 1\.;
-#X text 150 528 *bang*;
-#X text 240 528 outputs current radio state.;
-#X text 150 546 *float*;
-#X text 240 546 set radio and output.;
-#X text 150 564 *list*;
-#X text 240 564 set radio and output (only in checklist mode).;
-#X obj 20 592 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 597 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 120 795 1\.;
+#X text 150 795 *bang*;
+#X text 240 795 outputs current radio state.;
+#X text 150 813 *float*;
+#X text 240 813 set radio and output.;
+#X text 150 831 *list*;
+#X text 240 831 set radio and output (only in checklist mode).;
+#X obj 20 859 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 864 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 602 1\.;
-#X text 240 602 output value;
+#X text 120 869 1\.;
+#X text 240 869 output value;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 650 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 653 library: ceammc v0.4;
-#X text 546 665 see also:;
-#X obj 622 668 ui.link @title [ui.matrix] @bgcolor 0.78431 0.78431
-0.78431 @url ui.matrix-help.pd;
-#N canvas 10 672 400 290 info 0;
+#X obj 1 917 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 920 library: ceammc v0.5;
+#X text 546 932 see also:;
+#X obj 622 935 ui.link @title [ui.matrix] @background_color 0.78431
+0.78431 0.78431 @url ui.matrix-help.pd;
+#N canvas 10 939 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.4;
+#X text 120 32 0.5;
 #X text 10 54 object:;
 #X text 120 54 ui.radio;
 #X text 10 76 category:;
@@ -83,14 +106,18 @@ Type: int. Default value: 0\. Allowed values: 0 \, 1;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pure-data @url
 https://github.com/uliss/pure-data;
-#X obj 120 208 declare -lib ceammc -lib creammc;
+#X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 672 pd info;
-#X connect 9 0 11 0;
-#X connect 5 0 9 0;
-#X connect 3 0 8 0;
-#X connect 8 0 10 0;
-#X connect 4 0 8 0;
-#X connect 6 0 9 0;
-#X connect 7 0 9 0;
+#X restore 10 939 pd info;
+#X connect 16 0 19 0;
+#X connect 11 0 13 0;
+#X connect 18 0 19 0;
+#X connect 9 0 12 0;
+#X connect 10 0 12 0;
+#X connect 15 0 19 0;
+#X connect 17 0 19 0;
+#X connect 8 0 12 0;
+#X connect 6 0 11 0;
+#X connect 7 0 11 0;
+#X connect 12 0 14 0;

@@ -19,7 +19,7 @@
         <arguments>
             <argument name="NAME" type="symbol">window name:
             blackman, blackman-harris, flattop, gauss, hamming,
-            hann, nutall, rect, sine, tri, welch
+            hann, nuttall, rect, sine, tri, welch
             </argument>
         </arguments>
         <methods>
@@ -29,7 +29,7 @@
             <method name="gauss">Sets Gauss window type</method>
             <method name="hamming">Sets Hamming window type</method>
             <method name="hann">Sets Hann window type</method>
-            <method name="nutall">Sets Nutall window type</method>
+            <method name="nuttall">Sets Nuttall window type</method>
             <method name="rect">Sets Rectangle window type</method>
             <method name="sine">Sets Sine window type</method>
             <method name="tri">Sets Triangle window type</method>
@@ -57,7 +57,7 @@
 
 [blackman(  [blackman-harris(    [flattop, bang(
 |           |                    |
-| [hamming( | [hann(  [nutall(   | [rect, bang(
+| [hamming( | [hann(  [nuttall(  | [rect, bang(
 | |         | |       |          | |
 | | [sine(  | | [tri( |  [welch( | | [gauss, bang(
 | | |       | | |     |  |       | | |

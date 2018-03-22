@@ -1,7 +1,7 @@
 //----------------------------------------------------------
 // name: "fx_flanger"
 //
-// Code generated with Faust 0.9.96 (http://faust.grame.fr)
+// Code generated with Faust 0.10.6 (http://faust.grame.fr)
 //----------------------------------------------------------
 
 /* link with  */
@@ -39,46 +39,27 @@
 #include <string>
 
 /************************************************************************
-    IMPORTANT NOTE : this file contains two clearly delimited sections :
-    the ARCHITECTURE section (in two parts) and the USER section. Each section
-    is governed by its own copyright and license. Please check individually
-    each section for license and copyright information.
-*************************************************************************/
-
-/*******************BEGIN ARCHITECTURE SECTION (part 1/2)****************/
-
-/************************************************************************
-    FAUST Architecture File
-    Copyright (C) 2003-2011 GRAME, Centre National de Creation Musicale
-    ---------------------------------------------------------------------
-    This Architecture section is free software; you can redistribute it
-    and/or modify it under the terms of the GNU General Public License
-    as published by the Free Software Foundation; either version 3 of
-    the License, or (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; If not, see <http://www.gnu.org/licenses/>.
-
-    EXCEPTION : As a special exception, you may create a larger work
-    that contains this FAUST architecture section and distribute
-    that work under terms of your choice, so long as this FAUST
-    architecture section is not modified.
-
- ************************************************************************
- ************************************************************************/
+ FAUST Architecture File
+ Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
+ ---------------------------------------------------------------------
+ This Architecture section is free software; you can redistribute it
+ and/or modify it under the terms of the GNU General Public License
+ as published by the Free Software Foundation; either version 3 of
+ the License, or (at your option) any later version.
  
-/******************************************************************************
-*******************************************************************************
-
-								FAUST DSP
-
-*******************************************************************************
-*******************************************************************************/
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with this program; If not, see <http://www.gnu.org/licenses/>.
+ 
+ EXCEPTION : As a special exception, you may create a larger work
+ that contains this FAUST architecture section and distribute
+ that work under terms of your choice, so long as this FAUST
+ architecture section is not modified.
+ ************************************************************************/
 
 #ifndef __dsp__
 #define __dsp__
@@ -89,6 +70,19 @@
 
 class UI;
 struct Meta;
+
+/**
+ * DSP memory manager.
+ */
+
+struct dsp_memory_manager {
+    
+    virtual ~dsp_memory_manager() {}
+    
+    virtual void* allocate(size_t size) = 0;
+    virtual void destroy(void* ptr) = 0;
+    
+};
 
 /**
 * Signal processor definition.
@@ -108,33 +102,36 @@ class dsp {
         virtual int getNumOutputs() = 0;
     
         /**
-         * Trigger the UI* parameter with instance specific calls
+         * Trigger the ui_interface parameter with instance specific calls
          * to 'addBtton', 'addVerticalSlider'... in order to build the UI.
          *
-         * @param ui_interface - the UI* user interface builder
+         * @param ui_interface - the user interface builder
          */
         virtual void buildUserInterface(UI* ui_interface) = 0;
     
         /* Returns the sample rate currently used by the instance */
         virtual int getSampleRate() = 0;
     
-        /** Global init, calls the following methods:
-         * - static class 'classInit': static table initialisation
-         * - 'instanceInit': constants and instance table initialisation
+        /** 
+         * Global init, calls the following methods:
+         * - static class 'classInit': static tables initialization
+         * - 'instanceInit': constants and instance state initialization
          *
          * @param samplingRate - the sampling rate in Herz
          */
         virtual void init(int samplingRate) = 0;
     
-        /** Init instance state
+        /** 
+         * Init instance state
          *
-         * @param samplingRate - the sampling rate in Herz
+         * @param samplingRate - the sampling rate in Hertz
          */
         virtual void instanceInit(int samplingRate) = 0;
     
-        /** Init instance constant state
+        /** 
+         * Init instance constant state
          *
-         * @param samplingRate - the sampling rate in Herz
+         * @param samplingRate - the sampling rate in Hertz
          */
         virtual void instanceConstants(int samplingRate) = 0;
     
@@ -152,7 +149,7 @@ class dsp {
         virtual dsp* clone() = 0;
     
         /**
-         * Trigger the Meta* parameter with instance specific calls to 'declare' (key, value metadata).
+         * Trigger the Meta* parameter with instance specific calls to 'declare' (key, value) metadata.
          *
          * @param m - the Meta* meta user
          */
@@ -206,7 +203,7 @@ class decorator_dsp : public dsp {
         virtual void instanceResetUserInterface() { fDSP->instanceResetUserInterface(); }
         virtual void instanceClear() { fDSP->instanceClear(); }
         virtual decorator_dsp* clone() { return new decorator_dsp(fDSP->clone()); }
-        virtual void metadata(Meta* m) { return fDSP->metadata(m); }
+        virtual void metadata(Meta* m) { fDSP->metadata(m); }
         // Beware: subclasses usually have to overload the two 'compute' methods
         virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(count, inputs, outputs); }
         virtual void compute(double date_usec, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(date_usec, count, inputs, outputs); }
@@ -231,29 +228,26 @@ class decorator_dsp : public dsp {
 
 #endif
 /************************************************************************
-    FAUST Architecture File
-    Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
-    ---------------------------------------------------------------------
-    This Architecture section is free software; you can redistribute it
-    and/or modify it under the terms of the GNU General Public License
-    as published by the Free Software Foundation; either version 3 of
-    the License, or (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; If not, see <http://www.gnu.org/licenses/>.
-
-    EXCEPTION : As a special exception, you may create a larger work
-    that contains this FAUST architecture section and distribute
-    that work under terms of your choice, so long as this FAUST
-    architecture section is not modified.
-
-
- ************************************************************************
+ FAUST Architecture File
+ Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
+ ---------------------------------------------------------------------
+ This Architecture section is free software; you can redistribute it
+ and/or modify it under the terms of the GNU General Public License
+ as published by the Free Software Foundation; either version 3 of
+ the License, or (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with this program; If not, see <http://www.gnu.org/licenses/>.
+ 
+ EXCEPTION : As a special exception, you may create a larger work
+ that contains this FAUST architecture section and distribute
+ that work under terms of your choice, so long as this FAUST
+ architecture section is not modified.
  ************************************************************************/
 
 #ifndef FAUST_UI_H
@@ -306,26 +300,28 @@ class UI
 
 #endif
 /************************************************************************
- ************************************************************************
-    FAUST Architecture File
-	Copyright (C) 2003-2011 GRAME, Centre National de Creation Musicale
-    ---------------------------------------------------------------------
-    This Architecture section is free software; you can redistribute it
-    and/or modify it under the terms of the GNU General Public License
-	as published by the Free Software Foundation; either version 3 of
-	the License, or (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-	along with this program; If not, see <http://www.gnu.org/licenses/>.
-
- ************************************************************************
- ************************************************************************/
+ FAUST Architecture File
+ Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
+ ---------------------------------------------------------------------
+ This Architecture section is free software; you can redistribute it
+ and/or modify it under the terms of the GNU General Public License
+ as published by the Free Software Foundation; either version 3 of
+ the License, or (at your option) any later version.
  
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with this program; If not, see <http://www.gnu.org/licenses/>.
+ 
+ EXCEPTION : As a special exception, you may create a larger work
+ that contains this FAUST architecture section and distribute
+ that work under terms of your choice, so long as this FAUST
+ architecture section is not modified.
+ ************************************************************************/
+
 #ifndef __meta__
 #define __meta__
 
@@ -337,24 +333,26 @@ struct Meta
 
 #endif
 /************************************************************************
- ************************************************************************
-    FAUST Architecture File
-	Copyright (C) 2003-2011 GRAME, Centre National de Creation Musicale
-    ---------------------------------------------------------------------
-    This Architecture section is free software; you can redistribute it
-    and/or modify it under the terms of the GNU General Public License
-	as published by the Free Software Foundation; either version 3 of
-	the License, or (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-	along with this program; If not, see <http://www.gnu.org/licenses/>.
-
- ************************************************************************
+ FAUST Architecture File
+ Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
+ ---------------------------------------------------------------------
+ This Architecture section is free software; you can redistribute it
+ and/or modify it under the terms of the GNU General Public License
+ as published by the Free Software Foundation; either version 3 of
+ the License, or (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with this program; If not, see <http://www.gnu.org/licenses/>.
+ 
+ EXCEPTION : As a special exception, you may create a larger work
+ that contains this FAUST architecture section and distribute
+ that work under terms of your choice, so long as this FAUST
+ architecture section is not modified.
  ************************************************************************/
  
 #ifndef __misc__
@@ -466,11 +464,11 @@ using namespace ceammc::faust;
 class flanger : public dsp {
   private:
 	FAUSTFLOAT 	fcheckbox0;
-	int 	iVec0[2];
 	FAUSTFLOAT 	fslider0;
+	int 	iVec0[2];
 	float 	fRec1[2];
 	int 	IOTA;
-	float 	fVec1[2048];
+	float 	fVec1[4096];
 	float 	fConst0;
 	float 	fConst1;
 	FAUSTFLOAT 	fslider1;
@@ -490,11 +488,6 @@ class flanger : public dsp {
 	virtual void metadata(Meta* m) { 
 		m->declare("basics.lib/name", "Faust Basic Element Library");
 		m->declare("basics.lib/version", "0.0");
-		m->declare("filters.lib/name", "Faust Filters Library");
-		m->declare("filters.lib/version", "0.0");
-		m->declare("name", "fx_flanger");
-		m->declare("phaflangers.lib/name", "Faust Phaser and Flanger Library");
-		m->declare("phaflangers.lib/version", "0.0");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
 		m->declare("signals.lib/version", "0.0");
 		m->declare("maths.lib/name", "Faust Math Library");
@@ -502,12 +495,17 @@ class flanger : public dsp {
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
-		m->declare("oscillators.lib/name", "Faust Oscillator Library");
-		m->declare("oscillators.lib/version", "0.0");
 		m->declare("delays.lib/name", "Faust Delay Library");
 		m->declare("delays.lib/version", "0.0");
+		m->declare("name", "fx_flanger");
+		m->declare("phaflangers.lib/name", "Faust Phaser and Flanger Library");
+		m->declare("phaflangers.lib/version", "0.0");
+		m->declare("oscillators.lib/name", "Faust Oscillator Library");
+		m->declare("oscillators.lib/version", "0.0");
+		m->declare("filters.lib/name", "Faust Filters Library");
+		m->declare("filters.lib/version", "0.0");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
-		m->declare("ceammc_ui.lib/version", "0.1");
+		m->declare("ceammc_ui.lib/version", "0.1.1");
 	}
 
 	virtual int getNumInputs() { return 1; }
@@ -516,7 +514,7 @@ class flanger : public dsp {
 	}
 	virtual void instanceConstants(int samplingFreq) {
 		fSamplingFreq = samplingFreq;
-		fConst0 = min(1.92e+05f, max(1.0f, (float)fSamplingFreq));
+		fConst0 = min(1.92e+05f, max(1e+03f, (float)fSamplingFreq));
 		fConst1 = (0.001f * fConst0);
 		fConst2 = (6.2831855f / fConst0);
 	}
@@ -533,7 +531,7 @@ class flanger : public dsp {
 		for (int i=0; i<2; i++) iVec0[i] = 0;
 		for (int i=0; i<2; i++) fRec1[i] = 0;
 		IOTA = 0;
-		for (int i=0; i<2048; i++) fVec1[i] = 0;
+		for (int i=0; i<4096; i++) fVec1[i] = 0;
 		for (int i=0; i<2; i++) fRec3[i] = 0;
 		for (int i=0; i<2; i++) fRec4[i] = 0;
 		for (int i=0; i<2; i++) fRec2[i] = 0;
@@ -556,7 +554,7 @@ class flanger : public dsp {
 		return fSamplingFreq;
 	}
 	virtual void buildUserInterface(UI* ui_interface) {
-		ui_interface->openVerticalBox("0x00");
+		ui_interface->openVerticalBox("fx_flanger");
 		ui_interface->addCheckButton("bypass", &fcheckbox0);
 		ui_interface->declare(&fslider2, "style", "knob");
 		ui_interface->declare(&fslider2, "unit", "ms");
@@ -592,14 +590,14 @@ class flanger : public dsp {
 			iVec0[0] = 1;
 			fRec1[0] = (fSlow1 + (0.999f * fRec1[1]));
 			float fTemp1 = ((iSlow0)?0:fTemp0);
-			float fTemp2 = ((fRec0[1] * fRec1[0]) - fTemp1);
-			fVec1[IOTA&2047] = fTemp2;
+			float fTemp2 = ((fRec1[0] * fRec0[1]) - fTemp1);
+			fVec1[IOTA&4095] = fTemp2;
 			fRec3[0] = ((fSlow5 * fRec4[1]) + (fSlow6 * fRec3[1]));
 			fRec4[0] = (((fSlow6 * fRec4[1]) + (fSlow7 * fRec3[1])) + (1 - iVec0[1]));
 			fRec2[0] = ((0.999f * fRec2[1]) + (fConst1 * (fSlow2 + (fSlow3 * (fRec3[0] + 1)))));
 			int iTemp3 = int(fRec2[0]);
 			float fTemp4 = floorf(fRec2[0]);
-			fRec0[0] = ((fVec1[(IOTA-int((iTemp3 & 2047)))&2047] * (fTemp4 + (1 - fRec2[0]))) + ((fRec2[0] - fTemp4) * fVec1[(IOTA-int((int((iTemp3 + 1)) & 2047)))&2047]));
+			fRec0[0] = ((fVec1[(IOTA-int(min(2049, max(0, iTemp3))))&4095] * (fTemp4 + (1 - fRec2[0]))) + ((fRec2[0] - fTemp4) * fVec1[(IOTA-int(min(2049, max(0, (iTemp3 + 1)))))&4095]));
 			fRec5[0] = (fSlow9 + (0.999f * fRec5[1]));
 			output0[i] = (FAUSTFLOAT)((iSlow0)?fTemp0:(0.5f * ((fRec0[0] * ((iSlow8)?(0 - fRec5[0]):fRec5[0])) + fTemp1)));
 			// post processing
@@ -1069,6 +1067,17 @@ public:
         // init error
         if (!faust_new_internal(x, objId, control_outlet_)) {
             this->x_ = NULL;
+        }
+
+        std::deque<ceammc::AtomList> props = ceammc::AtomList(argc_, argv).properties();
+        for (size_t i = 0; i < props.size(); i++) {
+            ceammc::AtomList& p = props[i];
+            // skip empty property
+            if(p.size() < 2)
+                continue;
+
+            t_atom* data = p.toPdData() + 1;
+            this->x_->ui->setProperty(p[0].asSymbol(), p.size() - 1, data);
         }
     }
 

@@ -235,17 +235,18 @@ static void* json_object_new(t_symbol* s, int argc, t_atom* argv)
     x->outlet1 = outlet_new(&x->x_obj, &s_list);
     x->outlet2 = outlet_new(&x->x_obj, &s_list);
 
-    t_symbol* id; // = gensym("local");
-
     if (argc > 0) {
-        Atom a = Atom(argv[0]);
+        t_symbol* id;
+        Atom a(argv[0]);
+
         if (a.isSymbol()) {
             id = gensym(a.asString().c_str());
-        }
+        } else
+            id = gensym("local");
 
         //TODO fix
         char buf[16];
-        sprintf(buf, "%lu", (long)x->canvas);
+        sprintf(buf, "%p", x->canvas);
 
         std::string name = id->s_name;
         name += buf;

@@ -5,19 +5,28 @@
         <meta>
             <authors>
                 <author>Pierre Guillot</author>
+                <author>Serge Poltavsky</author>
             </authors>
-            <description>counterpart of the vanilla [vu]. Shows peak signal level</description>
+            <description>Shows peak and rms signal level</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category view="link">ui</category>
             <keywords>ui meter</keywords>
             <since>0.1</since>
+            <aliases>
+                <alias view="link">ui.m~</alias>
+            </aliases>
         </meta>
+        <info>
+            <par>Each cell has 3db range. Full meter range is 39 db.</par>
+            <par>Values &gt; -3db are red, range [-12, -3) db is hot, [-21, -12) db is warm,
+            [-30, -21) is tepid, values &lt; 30 are cold.</par>
+        </info>
         <properties>
             <property name="@interval" type="float" units="millisecond" minvalue="20" default="50">
             refresh interval</property>
             <property name="@send" type="symbol">send destination</property>
-            <property name="@receive" type="symbol">receive source</property>
+            <property name="@receive" type="symbol">receive source (only control)</property>
         </properties>
         <inlets>
             <inlet type="audio">
@@ -25,7 +34,7 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output meter peak value in decibels (0 - -100)</outlet>
+            <outlet>output pair of values: rms and peak in decibels (dbfs)</outlet>
         </outlets>
         <example>
             <pdascii>
@@ -45,7 +54,7 @@
 |
 |
 |
-[F]
+[ui.display]
 
 ]]>
             </pdascii>

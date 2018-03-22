@@ -15,15 +15,21 @@ find_program(ISCC_PATH
     NAMES ISCC.exe
     PATHS "$ENV{PROGRAMFILES}/Inno Setup 5"
           "$ENV{HOME}/.wine/drive_c/Program Files/Inno Setup 5")
-    
-    
+
+
 if(ISCC_PATH)
     message(STATUS "Inno Setup Installed found: ${ISCC_PATH}")
     message(STATUS "     You could type `make inno` after `make install` to build installer package")
 
-    add_custom_target(inno
-        COMMAND wine ${ISCC_PATH} "${CMAKE_BINARY_DIR}/pd.iss"
-    )
+    if(WINE_CROSSCOMPILE)
+        add_custom_target(inno
+            COMMAND wine ${ISCC_PATH} "${CMAKE_BINARY_DIR}/pd.iss"
+        )
+    else()
+        add_custom_target(inno
+            COMMAND ${ISCC_PATH} "${CMAKE_BINARY_DIR}/pd.iss"
+        )
+    endif()
 endif()
 
 add_subdirectory(homebrew)

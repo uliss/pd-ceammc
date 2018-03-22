@@ -6,7 +6,7 @@ include(tests.cmake)
 add_definitions("-DTEST_DATA_DIR=\"${CMAKE_CURRENT_SOURCE_DIR}\"")
 #remove_definitions(-DPD_INTERNAL)
 
-add_library(tests_main_lib STATIC tests_main.cpp test_external)
+add_library(tests_main_lib STATIC tests_main.cpp test_external test_datatypes.cpp)
 
 if(APPLE)
     set(CMAKE_INSTALL_RPATH "@loader_path/../src/lib")
@@ -24,9 +24,11 @@ ceammc_add_test("ceammc::DataAtomList" test_dataatomlist)
 ceammc_add_test("ceammc::Data" test_data)
 ceammc_add_test("ceammc::DataStorage" test_datastorage)
 ceammc_add_test("ceammc::SharedData" test_shareddata)
+ceammc_add_test("ceammc::pd::External" test_pd_external)
 ceammc_add_test("ceammc::formatting" test_format)
 ceammc_add_test("ceammc::properties" test_properties)
 ceammc_add_test("ceammc::BaseObject" test_baseobject)
+ceammc_add_test("ceammc::SoundExternal" test_sound_external)
 ceammc_add_test("ceammc::Factory" test_factory)
 ceammc_add_test("ceammc::list" test_fn_list)
 ceammc_add_test("ceammc::list2" test_fn_list2)
@@ -36,11 +38,13 @@ ceammc_add_test("ceammc::music_theory" test_music_theory)
 ceammc_add_test("ceammc::music_theory_alteration" test_music_theory_alteration)
 ceammc_add_test("ceammc::music_theory_pitch_name" test_music_theory_pitch_name)
 ceammc_add_test("ceammc::music_theory_pitch_class" test_music_theory_pitch_class)
+ceammc_add_test("ceammc::music_theory_keyboard" test_music_theory_keyboard)
 ceammc_add_test("ceammc::timeline" test_timeline)
 ceammc_add_test("ceammc::platform" test_platform)
 ceammc_add_test("ceammc::convert" test_convert)
 ceammc_add_test("ceammc::string" test_string)
 ceammc_add_test("ceammc::window" test_window)
+ceammc_add_test("ceammc::proxy" test_proxy)
 
 ceammc_external_test(array bpm)
 ceammc_external_test(array copy)
@@ -51,12 +55,20 @@ ceammc_external_test(array minmax)
 ceammc_external_test(array p2s)
 ceammc_external_test(array s2p)
 ceammc_external_test(array stretch)
+ceammc_external_test(array vplay)
 
 ceammc_external_test(base function)
 
 ceammc_add_test("[canvas.args]" test_ext_canvas_args)
 ceammc_add_test("[canvas.current]" test_ext_canvas_current)
 ceammc_add_test("[canvas.top]" test_ext_canvas_top)
+ceammc_add_test("[metro.pattern]" test_ext_metro_pattern)
+ceammc_add_test("[metro.seq]" test_ext_metro_seq)
+
+ceammc_external_test(env env)
+ceammc_external_test(env to_vline)
+ceammc_external_test(env tscale)
+ceammc_external_test(env tshift)
 
 ceammc_external_test(flow count)
 ceammc_external_test(flow gate)
@@ -69,6 +81,9 @@ ceammc_external_test(flow pass)
 ceammc_external_test(flow pass_if)
 ceammc_external_test(flow reject)
 ceammc_external_test(flow split)
+ceammc_external_test(flow speedlim)
+
+ceammc_external_test(fx looper)
 
 ceammc_external_test(conv cc2amp)
 ceammc_external_test(conv lin2exp)
@@ -81,9 +96,12 @@ ceammc_external_test(data set_difference)
 ceammc_external_test(data set_symdiff)
 ceammc_external_test(data set_union)
 
+ceammc_external_test(proto firmata)
+
 ceammc_external_test(list all_of)
 ceammc_external_test(list any_of)
 ceammc_external_test(list choice)
+ceammc_external_test(list interleave)
 ceammc_external_test(list none_of)
 ceammc_external_test(list normalize)
 ceammc_external_test(list rotate)
@@ -91,6 +109,7 @@ ceammc_external_test(list slice)
 ceammc_external_test(list split)
 ceammc_external_test(list at)
 ceammc_external_test(list count)
+ceammc_external_test(list route)
 
 ceammc_external_test(math approx)
 ceammc_external_test(math and)
@@ -124,6 +143,11 @@ ceammc_external_test(string starts_with)
 ceammc_external_test(string length)
 
 ceammc_external_test(path lsdir)
+
+ceammc_external_test(spat pan_lin)
+ceammc_external_test(spat pan_sqrt)
+ceammc_external_test(spat pan_cos)
+ceammc_external_test(spat pan_spread)
 
 ceammc_add_extension_test("snd_file" "../src/base/snd_file.cpp")
 ceammc_add_extension_test("ext_replace" "../src/base/replace.cpp")
@@ -162,6 +186,11 @@ ceammc_add_test_linked(TITLE "ceammc::DataTypeMidiTrack"
     SRC test_datatype_miditrack.cpp
     LINK ceammc_core puredata-core ceammc_midi ceammc_core)
 
+ceammc_add_test_linked(TITLE "ceammc::DataTypeEnv"
+    NAME test_datatype_env
+    SRC test_datatype_env.cpp
+    LINK ceammc_env ceammc_core puredata-core)
+
 if(WITH_LIBSNDFILE)
     include(FindLibSndFile)
 endif()
@@ -190,5 +219,56 @@ if(APPLE AND CMAKE_CXX_COMPILER_ID MATCHES "Clang")
         NAME test_coreaudio
         LINK ceammc_sound)
 endif()
+
+ceammc_add_test_linked(
+    TITLE "Serial"
+    NAME test_serialport
+    INCLUDE_DIRECTORIES ${CMAKE_SOURCE_DIR}/ceammc/extra/serial/serial/include
+    LINK serial)
+
+ceammc_add_test_linked(TITLE "FirmataParser[bison]" NAME test_firmata_parser LINK proto_firmata)
+ceammc_add_test_linked(TITLE "firmata::Pin" NAME test_firmata_pin LINK proto_firmata ceammc_core puredata-core)
+
+ceammc_add_test_linked(TITLE "ArduinoThread"
+    NAME test_arduino_thread
+    INCLUDE_DIRECTORIES ${CMAKE_SOURCE_DIR}/ceammc/extra/serial/serial/include
+    LINK tests_main_lib hw_arduino ceammc_core puredata-core)
+ceammc_add_test_linked(TITLE "Arduino" NAME test_arduino LINK tests_main_lib hw_arduino ceammc_core puredata-core)
+
+# UI
+ceammc_add_test_linked(TITLE "ceammc::UIObjectFactory"
+    NAME test_ui_factory
+    INCLUDE_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR}/../src/ui
+    LINK ceammc_ui ceammc_core puredata-core)
+
+ceammc_ui_test("ui.aview")
+ceammc_ui_test("ui.bang")
+ceammc_ui_test("ui.colorpanel")
+ceammc_ui_test("ui.display")
+ceammc_ui_test("ui.dsp~")
+ceammc_ui_test("ui.gain~")
+ceammc_ui_test("ui.icon")
+ceammc_ui_test("ui.incdec")
+ceammc_ui_test("ui.knob")
+ceammc_ui_test("ui.label")
+ceammc_ui_test("ui.link")
+ceammc_ui_test("ui.matrix")
+ceammc_ui_test("ui.menu")
+ceammc_ui_test("ui.meter")
+ceammc_ui_test("ui.number")
+ceammc_ui_test("ui.number_tilde")
+ceammc_ui_test("ui.radio")
+ceammc_ui_test("ui.rslider")
+ceammc_ui_test("ui.preset")
+ceammc_ui_test("ui.slider2d")
+ceammc_ui_test("ui.sliders")
+ceammc_ui_test("ui.tab")
+ceammc_ui_test("ui.toggle")
+
+
+ceammc_add_test_linked(TITLE "[env->to_array]"
+    NAME test_ext_env_to_array
+    LINK tests_main_lib ceammc_array ceammc_env ceammc_array ceammc_core puredata-core)
+
 
 add_custom_target(test_src SOURCES gen_test_wav.py)

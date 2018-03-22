@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="pan.cos~">
+        <title>pan.cos~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>two channel equal power sine/cosine panner</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>spat</category>
+            <keywords>pan span</keywords>
+            <since>0.5</since>
+            <aliases>
+                <alias>pan~</alias>
+            </aliases>
+            <also>
+                <see>pan.lin~</see>
+                <see>pan.sqrt~</see>
+            </also>
+        </meta>
+        <info>
+            <par>Two channel equal power panner. The center pan position is boosted by
+            3 dB compared to linear panning, and the total power at every pan position is 0 dB.</par>
+        </info>
+        <arguments>
+            <argument name="POS" type="float" minvalue="-1" maxvalue="1">panning position.
+            -1 means left, 0 - center, +1 - right</argument>
+        </arguments>
+        <properties>
+            <property name="@pos" type="float" minvalue="-1" maxvalue="1" default="0">panning position.
+            -1 means left, 0 - center, +1 - right</property>
+            <property name="@smooth" type="int" minvalue="0" maxvalue="100" default="20" readonly="true">
+            smooth control signal to avoid zipping-noise</property>
+        </properties>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float" minvalue="-1" maxvalue="1">pan position</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">left output channel</outlet>
+            <outlet type="audio">right output channel</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+          [hsl]
+          |
+          [lin->lin 0 127 -1 1]
+          |
+[sig~ 1]  [F]
+|         |.
+[pan.cos~  ]
+|       ^|
+[env~]   [env~]
+|        |
+[F]      [F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

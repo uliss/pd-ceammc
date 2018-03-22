@@ -98,6 +98,21 @@ public:
     const Atom* foldAt(int pos) const;
 
     /**
+     * Try to get int from specified list position. If no int - return default value
+     */
+    int intAt(size_t pos, int def) const;
+
+    /**
+     * Try to get float from specified list position. If no float - return default value
+     */
+    t_float floatAt(size_t pos, t_float def) const;
+
+    /**
+     * Try to get symbol from specified list position. If no symbol - return default value
+     */
+    t_symbol* symbolAt(size_t pos, t_symbol* def) const;
+
+    /**
          * Resize list. If new size is less than current, last values are dropped.
          * If new size is bigger - pad with given value
          * @param n - new size
@@ -319,6 +334,10 @@ public:
 private:
     Container atoms_;
 };
+
+AtomList operator+(const AtomList& l1, const AtomList& l2);
+AtomList operator+(const AtomList& l, const Atom& a);
+AtomList operator+(const Atom& a, const AtomList& l);
 
 template <class T>
 bool AtomList::isDataType() const

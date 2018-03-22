@@ -17,6 +17,8 @@
 #include "ceammc.hpp"
 #include "ceammc_convert.h"
 
+#include <boost/math/special_functions/fpclassify.hpp>
+
 using namespace ceammc::convert;
 
 // strange link fix: do not remove!
@@ -170,6 +172,56 @@ TEST_CASE("convert", "[PureData]")
             REQUIRE(lin2lin<float>(1, 1, 0, 200, 100) == 200.f);
             REQUIRE(lin2lin<float>(0.3f, 1, 0, 200, 100) == 130.f);
         }
+
+        REQUIRE(boost::math::isnan(lin2lin<float>(NAN, 0, 1, 0, 127)));
+    }
+
+    SECTION("lin2lin_clip")
+    {
+#define L2L_CLIP(x, x0, x1, y0, y1, v) \
+    REQUIRE(double(lin2lin_clip(float(x), float(x0), float(x1), float(y0), float(y1))) == Approx(v));
+
+        L2L_CLIP(0, 0, 1, 0, 1, 0);
+        L2L_CLIP(1, 0, 1, 0, 1, 1);
+
+        L2L_CLIP(0, 0, 1, 1, 0, 1);
+        L2L_CLIP(1, 0, 1, 1, 0, 0);
+
+        // pos -> pos
+        REQUIRE(lin2lin_clip<float>(0, 0, 1, -10, 10) == Approx(-10));
+        REQUIRE(lin2lin_clip<float>(-0.01, 0, 1, -10, 10) == Approx(-10));
+        REQUIRE(lin2lin_clip<float>(-1, 0, 1, -10, 10) == Approx(-10));
+        REQUIRE(lin2lin_clip<float>(1.01, 0, 1, -10, 10) == Approx(10));
+        REQUIRE(lin2lin_clip<float>(100, 0, 1, -10, 10) == Approx(10));
+
+        // neg -> pos
+        REQUIRE(lin2lin_clip<float>(1, 1, 0, -10, 10) == Approx(-10));
+        REQUIRE(lin2lin_clip<float>(1.1, 1, 0, -10, 10) == Approx(-10));
+        REQUIRE(lin2lin_clip<float>(0, 1, 0, -10, 10) == Approx(10));
+        REQUIRE(lin2lin_clip<float>(-0.1, 1, 0, -10, 10) == Approx(10));
+
+        // neg -> neg
+        REQUIRE(lin2lin_clip<float>(0, 1, 0, 10, -10) == Approx(-10));
+        REQUIRE(lin2lin_clip<float>(-0.1, 1, 0, 10, -10) == Approx(-10));
+        REQUIRE(lin2lin_clip<float>(1, 1, 0, 10, -10) == Approx(10));
+        REQUIRE(lin2lin_clip<float>(1.1, 1, 0, 10, -10) == Approx(10));
+
+        // pos -> neg
+        REQUIRE(lin2lin_clip<float>(0, 0, 1, 10, -10) == Approx(10));
+        REQUIRE(lin2lin_clip<float>(-0.1, 0, 1, 10, -10) == Approx(10));
+        REQUIRE(lin2lin_clip<float>(1, 0, 1, 10, -10) == Approx(-10));
+        REQUIRE(lin2lin_clip<float>(1.1, 0, 1, 10, -10) == Approx(-10));
+    }
+
+    SECTION("clip_any")
+    {
+        using namespace ceammc;
+        REQUIRE(clip_any<float>(1, 0, 10) == 1);
+        REQUIRE(clip_any<float>(1, 10, 0) == 1);
+        REQUIRE(clip_any<float>(-1, 0, 10) == 0);
+        REQUIRE(clip_any<float>(-1, 10, 0) == 0);
+        REQUIRE(clip_any<float>(10.1, 0, 10) == 10);
+        REQUIRE(clip_any<float>(10.1, 10, 0) == 10);
     }
 
     SECTION("lin2exp")
@@ -291,6 +343,38 @@ TEST_CASE("convert", "[PureData]")
         L2C(+0, -2, 2, -1, 1, 3, -0.63514895238729);
         L2C(+1, -2, 2, -1, 1, 3, -0.1105583384404);
         L2C(+2, -2, 2, -1, 1, 3, 1);
+    }
+
+    SECTION("lin2sin2")
+    {
+#define L2S2(x, x0, x1, y0, y1, v) REQUIRE(lin2sin2(x, x0, x1, y0, y1) == Approx(v))
+        L2S2(0, 0, 1, 0, 1, 0);
+        L2S2(0, 0, 1, 0, 2, 0);
+        L2S2(0, 0, 2, 0, 2, 0);
+        L2S2(0, 0, 2, -2, 2, -2);
+        L2S2(0, 0, 2, 1, 2, 1);
+        L2S2(1, 0, 2, 0, 2, 1);
+        L2S2(1, 0, 2, 1, 11, 6);
+        L2S2(2, 0, 2, 1, 11, 11);
+        L2S2(2, 0, 2, -2, 1, 1);
+        L2S2(3, 1, 5, 1, 2, 1.5);
+        L2S2(0, -3, 3, -4, -2, -3);
+    }
+
+    SECTION("lin2sigmoid")
+    {
+#define L2S(x, x0, x1, y0, y1, v) REQUIRE(lin2sigmoid(x, x0, x1, y0, y1, 50) == Approx(v))
+        L2S(0, 0, 1, 0, 1, 0);
+        L2S(0, 0, 1, 0, 2, 0);
+        L2S(0, 0, 2, 0, 2, 0);
+        L2S(0, 0, 2, -2, 2, -2);
+        L2S(0, 0, 2, 1, 2, 1);
+        L2S(1, 0, 2, 0, 2, 1);
+        L2S(1, 0, 2, 1, 11, 6);
+        L2S(2, 0, 2, 1, 11, 11);
+        L2S(2, 0, 2, -2, 1, 1);
+        L2S(3, 1, 5, 1, 2, 1.5);
+        L2S(0, -3, 3, -4, -2, -3);
     }
 
     SECTION("pitch")

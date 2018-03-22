@@ -45,7 +45,7 @@ void SndFile::m_load(t_symbol* sel, const AtomList& lst)
     }
 
     const char* patch_dir = "";
-    if (cnv_ && cnv_->gl_env) {
+    if (cnv_ && canvas_getenv(cnv_)) {
         patch_dir = canvas_getdir(cnv_)->s_name;
     }
 
@@ -53,7 +53,7 @@ void SndFile::m_load(t_symbol* sel, const AtomList& lst)
     char dirname[MAXPDSTRING], *filename;
     int fd = open_via_path(patch_dir, path.c_str(), "", dirname, &filename, MAXPDSTRING, 1);
     if (fd < 0) {
-        OBJ_ERR << "file not found: " << path.c_str();
+        OBJ_ERR << "file not found: " << path.c_str() << " in dir: " << patch_dir;
         return;
     }
 

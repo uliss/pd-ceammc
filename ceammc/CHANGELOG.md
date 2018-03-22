@@ -1,5 +1,61 @@
 # CEAMMC external library changelog
 
+## [2018.03]
+### Added:
+- hw.arduino added
+- proto.firmata added
+- flow.speedlim added
+- list.route added
+- list.do added
+- metro.seq added
+- metro.pattern added
+- new data type added: Envelope
+- envelope object added
+- env->array object added
+- env->vline added
+- env.tshift added
+- env.tscale added
+- env.vscale added
+- env.mix added
+- env.concat added
+- fx.looper~ added
+- fx.greyhole~ added
+- pan.lin~ added
+- pan.sqrt~ added
+- pan.cos~ (pan~) added
+- pan.spread~ added
+- ui.dsp~ doc added
+- array.vplay added
+- @active_scale - property added to ui.slider
+- change orientation of ui.slider, ui.radio, ui.sliders in edit mode by double click
+- show/hide message type in ui.display by double click
+- ui.label widget added
+- ui.slider2d prop changed: migration from xy_range/offset to xy_min/max
+- ui.gain~ widget added
+- ui.icon widget added
+- Aliases added:
+    - ui.n alias added for ui.number
+    - ui.n~ alias added for ui.number~
+    - ui.hsl alias added for horizontal ui.slider
+    - ui.vsl alias added for vertical ui.slider
+    - ui.b alias added for ui.bang
+    - ui.t alias added for ui.toggle
+    - ui.m~ alias added for ui.meter~
+    - ui.d alias added for ui.display
+    - ui.rsl alias added for ui.rslider
+
+### Changed:
+- @range and @shift properties replaced with @min and @max in ui.sliders
+- ui.bpfunc moved to ui.env
+- ui.tab now has one outlet instead of three
+- ui.rslider has one inlet instead of two
+- u.rslider @minvalue renamed to @low, @maxvalue to @high
+- ui.menu @hover mode removed - use ui.tab instead
+
+### Fixed:
+- list.interleave wrong inlet handling on Windows
+- window typo fixed nutall => nuttall
+
 ## [0.4]
 ### Fixed:
 - function - bang handling fixed

@@ -3,7 +3,7 @@ macro(ceammc_extension_sep module name ext separator)
         FILES "${module}_${name}.${ext}"
         INTERNAL True
         LIBRARY ceammc
-        LINK cicm_static ceammc_core)
+        LINK ceammc_core)
 endmacro()
 
 # adds .dotted. extension on C language: MODULE.NAME
