@@ -47,7 +47,7 @@ void UIPreset::paint(t_object* view)
 #elif _WINDOWS
     const static int FNT_SZ = FONT_SIZE_SMALL + 2;
 #else
-    const static int FNT_SZ = FONT_SIZE_SMALL;
+    const static int FNT_SZ = FONT_SIZE_SMALL + 2;
 #endif
 
     // NO multithreading!!!
