@@ -8,9 +8,8 @@
  * WARRANTIES, see the file, "LICENSE.txt," in this distribution.
  */
 
-extern "C" {
+
 #include "egraphics.h"
-}
 
 #include "ceammc_convert.h"
 

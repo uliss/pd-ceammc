@@ -6,11 +6,11 @@ include_directories(cicm/Sources)
 
 set(UI_SOURCES
     cicm/Sources/ebox.cpp
-    cicm/Sources/eclass.c
-    cicm/Sources/ecommon.c
+    cicm/Sources/eclass.cpp
+    cicm/Sources/ecommon.cpp
     cicm/Sources/egraphics.cpp
-    cicm/Sources/eobj.c
-    cicm/Sources/epopup.c
+    cicm/Sources/eobj.cpp
+    cicm/Sources/epopup.cpp
     ceammc_cicm.h
     ceammc_cicm.cpp
     ceammc_ui.h

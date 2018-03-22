@@ -8,13 +8,11 @@
  * WARRANTIES, see the file, "LICENSE.txt," in this distribution.
  */
 
-extern "C" {
 #include "ebox.h"
 #include "egraphics.h"
 #include "eobj.h"
 
 int egraphics_smooth();
-}
 
 static const char* my_cursorlist[] = {
     "left_ptr",

@@ -27,9 +27,12 @@
 #define _FUNCTION_DEPRECTAED_  __attribute__((deprecated))
 #endif
 
-#include <m_pd.h>
+#include "m_pd.h"
+
+extern "C" {
 #include "m_imp.h"
-#include <g_canvas.h>
+#include "g_canvas.h"
+}
 
 #include <stdlib.h>
 #include <math.h>
