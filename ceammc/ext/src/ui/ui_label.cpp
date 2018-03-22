@@ -21,6 +21,12 @@ static t_symbol* SYM_CENTER = gensym("center");
 static t_symbol* SYM_RIGHT = gensym("right");
 static t_symbol* SYM_TEXT = gensym("text");
 
+#ifdef __WIN32
+static const char* DEFAULT_LABEL_FONT_SIZE = "28";
+#else
+static const char* DEFAULT_LABEL_FONT_SIZE = "32";
+#endif
+
 UILabel::UILabel()
     : text_(&asEBox()->b_font, ColorRGBA::black(), ETEXT_UP_LEFT, ETEXT_JLEFT, ETEXT_WRAP)
     , prop_text_color(rgba_black)
@@ -150,7 +156,7 @@ void UILabel::setup()
     obj.showProperty("fontsize");
     obj.showProperty("fontweight");
     obj.showProperty("fontslant");
-    obj.setPropertyDefaultValue("fontsize", "32");
+    obj.setPropertyDefaultValue("fontsize", DEFAULT_LABEL_FONT_SIZE);
     obj.setPropertyDefaultValue("fontweight", "normal");
     obj.setPropertyDefaultValue("background_color", "1 1 1 1");
     obj.setPropertyDefaultValue("pinned", "1");
