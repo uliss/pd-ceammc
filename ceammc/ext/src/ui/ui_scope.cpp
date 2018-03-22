@@ -145,7 +145,10 @@ void UIScope::dspProcess(t_sample** ins, long, t_sample**, long, long samplefram
             return;
         }
 
-        data_[roundf(k * window_phase_)] = ins[0][i];
+        size_t idx = roundf(k * window_phase_);
+        if(idx < N) {
+            data_[idx] = ins[0][i];
+        }
     }
 }
 
