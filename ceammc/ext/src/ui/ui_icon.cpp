@@ -387,5 +387,23 @@ void UIIcon::propSetEnabled(const AtomList& lst)
 
 void setup_ui_icon()
 {
+// on MacOSX with Tcl 8.6 where's crash on image scale
+// there's build script "build_deps.sh" in ceammc/distrib/mac, that applies patch
+// to prevent this crash. So this check is required while running on vanilla Pd as external library.
+// Because current vanilla version now is not 0.47.1.
+#ifdef __APPLE__
+    int major = 0, minor = 0, bugfix = 0;
+    sys_getversion(&major, &minor, &bugfix);
+    bool ok = (major == PD_MAJOR_VERSION)
+        && (minor == PD_MINOR_VERSION)
+        && (bugfix == PD_BUGFIX_VERSION);
+
+    if (!ok) {
+        LIB_ERR << "[ui.icon] is not compatible with your distribution version: "
+                << major << '.' << minor << '.' << bugfix;
+        return;
+    }
+#endif
+
     UIIcon::setup();
 }
