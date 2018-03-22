@@ -85,7 +85,9 @@
         <example>
             <pdascii>
 <![CDATA[ 
-[symbol bell.aiff( [symbol voice.wav( [array A1 w=100] [array A2 w=100]   
+[loadbang]
+|
+[symbol voice.wav( [symbol bell.aiff( [array A1 w=100] [array A2 w=100]
 |                  |
 [load %DOC%/sound/$1 @to A1 @resize(
 |
@@ -93,19 +95,23 @@
 |
 [snd.file]
 
-[bng]                                
+[bng] /*lower pitch*/
 |                                    
 [array.stretch A1 A2 @pitch -5]     
 
-[bng]                                [bng]                               
-|                                    |                                   
-[array.stretch A1 A2 @rate 1.5]      [array.stretch A1 A2 @tempo -10 @speech]    
+[bng] /*speed up and high*/     [bng]/*timestretch*/
+|                               |
+[array.stretch A1 A2 @rate 1.5] [array.stretch A1 A2 @tempo -30 @speech]
 
 /* Play */
 
-[bang( [stop( [set A1( [set A2(
-|      |      |        | 
-[tabplay~            A2]
+[ui.tab @items A1 A2]
+|
+[set $1, bang( [stop(
+|              |
+[tabplay~    A2]
+|
+[ui.gain~ @size 120 16]    [ui.dsp~]
 | \
 [dac~]
 ]]>

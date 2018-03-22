@@ -9,82 +9,87 @@
 #X text 210 80 Based on SoundTouch library for changing the Tempo \,
 Pitch and Playback Rates of arrays. Copies time-stretched data from
 source to destination array;
-#X msg 50 169 symbol bell.aiff;
-#X msg 232 169 symbol voice.wav;
+#X obj 50 169 loadbang;
+#X msg 50 198 symbol voice.wav;
+#X msg 232 198 symbol bell.aiff;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array A1 100 float 0;
 #A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
 #X coords 0 1 100 -1 100 140 1;
-#X restore 414 169 graph;
+#X restore 414 198 graph;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array A2 100 float 0;
 #A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
 #X coords 0 1 100 -1 100 140 1;
-#X restore 578 169 graph;
-#X msg 50 198 load %DOC%/sound/\$1 @to A1 @resize;
-#X obj 50 227 expand_env;
-#X obj 50 256 snd.file;
-#X obj 50 285 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X restore 578 198 graph;
+#X msg 50 227 load %DOC%/sound/\$1 @to A1 @resize;
+#X obj 50 256 expand_env;
+#X obj 50 285 snd.file;
+#X obj 50 313 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 313 array.stretch A1 A2 @pitch -5;
-#X obj 50 342 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X text 107 313 lower pitch;
+#X obj 50 342 array.stretch A1 A2 @pitch -5;
+#X obj 50 371 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 405 342 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X text 107 371 speed up and high;
+#X obj 357 371 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 371 array.stretch A1 A2 @rate 1.5;
-#X obj 405 371 array.stretch A1 A2 @tempo -10 @speech;
-#X text 50 400 Play;
-#X msg 50 429 bang;
-#X msg 117 429 stop;
-#X msg 184 429 set A1;
-#X msg 270 429 set A2;
-#X obj 50 457 tabplay~ A2;
-#X obj 50 486 dac~;
-#X obj 20 525 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 530 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X text 405 371 timestretch;
+#X obj 50 400 array.stretch A1 A2 @rate 1.5;
+#X obj 357 400 array.stretch A1 A2 @tempo -30 @speech;
+#X text 50 429 Play;
+#X obj 50 457 ui.tab @items A1 A2;
+#X msg 50 486 set \$1 \, bang;
+#X msg 194 486 stop;
+#X obj 50 515 tabplay~ A2;
+#X obj 50 544 ui.gain~ @size 120 16;
+#X obj 309 544 ui.dsp~;
+#X obj 50 572 dac~;
+#X obj 20 611 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 616 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 120 535 1\.;
-#X text 150 535 symbol;
-#X obj 241 536 cnv 1 32 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 535 SRC: source array.;
-#X text 120 553 2\.;
-#X text 150 553 symbol;
-#X obj 241 554 cnv 1 40 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 553 DEST: destination array.;
-#X obj 20 581 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 586 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 120 621 1\.;
+#X text 150 621 symbol;
+#X obj 241 622 cnv 1 32 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 621 SRC: source array.;
+#X text 120 639 2\.;
+#X text 150 639 symbol;
+#X obj 241 640 cnv 1 40 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 639 DEST: destination array.;
+#X obj 20 667 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 672 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 591 @src;
-#X text 240 591 Get/Set source array. Type: symbol;
-#X msg 120 618 @dest;
-#X text 240 618 Get/Set destination array. Type: symbol;
-#X msg 120 645 @tempo;
-#X text 240 645 Get/Set relative tempo change without affecting the
+#X msg 120 677 @src;
+#X text 240 677 Get/Set source array. Type: symbol;
+#X msg 120 704 @dest;
+#X text 240 704 Get/Set destination array. Type: symbol;
+#X msg 120 731 @tempo;
+#X text 240 731 Get/Set relative tempo change without affecting the
 sound pitch. Type: float. Units: %. Default value: 0\. Value range:
 -50-100;
-#X msg 120 696 @pitch;
-#X text 240 696 Get/Set relative pitch change in semitones while
+#X msg 120 782 @pitch;
+#X text 240 782 Get/Set relative pitch change in semitones while
 keeping the original tempo. Type: float. Default value: 0;
-#X msg 120 733 @rate;
-#X text 240 733 Get/Set Playback rate - changes both tempo and pitch
+#X msg 120 819 @rate;
+#X text 240 819 Get/Set Playback rate - changes both tempo and pitch
 together as if a vinyl disc was played at different RPM rate. Type:
 float. Default value: 1\. Value range: 0.1-2;
-#X msg 120 784 @speech;
-#X text 240 784 optimize for speech sound source;
-#X msg 120 811 @antialias;
-#X text 240 811 Get/Set use of anti-alias filter. Anti-alias filter is
+#X msg 120 870 @speech;
+#X text 240 870 optimize for speech sound source;
+#X msg 120 897 @antialias;
+#X text 240 897 Get/Set use of anti-alias filter. Anti-alias filter is
 used to prevent folding of high frequencies when transposing the
 sample rate with interpolation. Type: int. Default value: 0\. Allowed
 values: 0 \, 1;
-#X msg 120 876 @aalength;
-#X text 240 876 Get/Set pitch transposer anti-alias filter length.
+#X msg 120 962 @aalength;
+#X text 240 962 Get/Set pitch transposer anti-alias filter length.
 Type: int. Default value: 64\. Value range: 8-128;
-#X msg 120 913 @sequence;
-#X text 240 913 Get/Set Default length of a single processing sequence
+#X msg 120 999 @sequence;
+#X text 240 999 Get/Set Default length of a single processing sequence
 \, in milliseconds. This determines to how long sequences the original
 sound is chopped in the time-stretch algorithm. The larger this value
 is \, the lesser sequences are used in processing. In principle a
@@ -93,8 +98,8 @@ increasing tempo and vice versa. Increasing this value reduces
 computational burden & vice versa. Giving *0* value for the sequence
 length sets automatic parameter value according to tempo setting
 (recommended). Type: int. Units: ms. Default value: 0;
-#X msg 120 1076 @seekwindow;
-#X text 240 1076 Get/Set Seeking window default length in milliseconds
+#X msg 120 1162 @seekwindow;
+#X text 240 1162 Get/Set Seeking window default length in milliseconds
 for algorithm that finds the best possible overlapping location. This
 determines from how wide window the algorithm may look for an optimal
 joining location when mixing the sound sequences back together. The
@@ -107,32 +112,32 @@ try reducing this setting. Increasing this value increases
 computational burden & vice versa. Giving *0* value for the seek
 window length sets automatic parameter value according to tempo
 setting (recommended). Type: int. Units: ms. Value range: 0-100;
-#X msg 120 1309 @overlap;
-#X text 240 1309 Get/Set Overlap length in milliseconds. When the
+#X msg 120 1395 @overlap;
+#X text 240 1395 Get/Set Overlap length in milliseconds. When the
 chopped sound sequences are mixed back together \, to form a
 continuous sound stream \, this parameter defines over how long period
 the two consecutive sequences are let to overlap each other.
 Increasing this value increases computational burden & vice versa.
 Type: int. Units: ms. Value range: 1-100;
-#X obj 20 1426 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1431 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1512 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1517 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 1436 1\.;
-#X text 150 1436 *bang*;
-#X text 240 1436 starts processing.;
-#X obj 20 1464 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1469 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 120 1522 1\.;
+#X text 150 1522 *bang*;
+#X text 240 1522 starts processing.;
+#X obj 20 1550 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1555 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 1474 1\.;
-#X text 240 1474 float value - number of result samples;
+#X text 120 1560 1\.;
+#X text 240 1560 float value - number of result samples;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 1522 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1525 library: ceammc v0.5;
-#N canvas 10 1544 400 290 info 0;
+#X obj 1 1608 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1611 library: ceammc v0.5;
+#N canvas 10 1630 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -156,17 +161,18 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1544 pd info;
-#X connect 20 0 24 0;
-#X connect 7 0 10 0;
-#X connect 15 0 17 0;
+#X restore 10 1630 pd info;
+#X connect 27 0 28 0;
+#X connect 8 0 11 0;
+#X connect 19 0 22 0;
+#X connect 25 0 27 0;
 #X connect 24 0 25 0;
-#X connect 24 0 25 1;
-#X connect 6 0 10 0;
-#X connect 10 0 11 0;
+#X connect 26 0 27 0;
+#X connect 17 0 21 0;
 #X connect 11 0 12 0;
-#X connect 23 0 24 0;
-#X connect 22 0 24 0;
-#X connect 21 0 24 0;
-#X connect 13 0 14 0;
-#X connect 16 0 18 0;
+#X connect 14 0 16 0;
+#X connect 12 0 13 0;
+#X connect 28 0 30 0;
+#X connect 7 0 11 0;
+#X connect 6 0 7 0;
+#X connect 28 0 30 1;
