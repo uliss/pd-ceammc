@@ -10,6 +10,8 @@ env:
   - COVERITY_SCAN_NOTIFICATION_EMAIL="serge.poltavski@gmail.com"
   - COVERITY_SCAN_BRANCH_PATTERN="(master|travis-ci|coverity-.*)"
   - COVERITY_SCAN_BUILD_COMMAND="make"
+  - CTEST_OUTPUT_ON_FAILURE=1
+  - CEAMMC_BUILD_DIR="build"
 
 matrix:
   include:
@@ -24,19 +26,13 @@ before_install:
 - ./ceammc/scripts/travis_before_install.sh
 
 before_script:
-- export CTEST_OUTPUT_ON_FAILURE=1
-- uname -a
-- printenv
-- gcov --version
-- mkdir build
-- cd build
-- cmake -DCMAKE_BUILD_TYPE=${CEAMMC_BUILD_TYPE} -DWITH_ALSA_MIDI=ON -DWITH_PORTMIDI=ON -DWITH_PORTAUDIO=OFF -DWITH_COVERAGE=${CEAMMC_COVERAGE} ..
+- ./ceammc/scripts/travis_configure.sh
+- cd ${CEAMMC_BUILD_DIR}
 
 script:
 - make -j2
 - make test
-- if [[ ${CEAMMC_BUILD_TYPE} == "Release" ]]; then echo "Building DEB package..."; make package; echo $?; fi
-- ls *.deb
+- ../ceammc/scripts/travis_package.sh
 
 after_success:
 - ../ceammc/scripts/travis_coveralls.sh
