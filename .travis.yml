@@ -48,3 +48,5 @@ deploy:
   package_glob: "build/*.deb"
   on:
     branch: ceammc
+    condition: ${CEAMMC_BUILD_TYPE} = Release
+
