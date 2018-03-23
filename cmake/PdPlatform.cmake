@@ -328,6 +328,18 @@ if(APPLE)
             ${PROJECT_SOURCE_DIR}
         WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
         DEPENDS app)
+
+    find_program(GPGENV_EXE NAMES gpgenv)
+
+    if(GPGENV_EXE)
+        add_custom_target(deploy
+            COMMAND
+                ${PROJECT_SOURCE_DIR}/ceammc/distrib/mac/github_upload_release.sh
+                "${PROJECT_BINARY_DIR}/Pd_${PD_MACOSX_BUNDLE_SUFFIX}-macosx-${MACOSX_VERSION}.dmg"
+                ${CEAMMC_DISTRIB_VERSION}
+            WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+            DEPENDS app)
+    endif()
 endif()
 
 if(UNIX AND NOT APPLE)
