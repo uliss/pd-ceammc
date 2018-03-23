@@ -1,4 +1,4 @@
-include_directories(../ui)
+include_directories(../ui/cicm/Sources)
 set(TL_SOURCES "")
 
 macro(ceammc_tl_extension name)
