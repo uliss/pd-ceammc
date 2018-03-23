@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 echo "\${CEAMMC_COVERAGE} = \"${CEAMMC_COVERAGE}\""
 
