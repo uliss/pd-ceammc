@@ -86,7 +86,7 @@ static void tl_cue_displace(t_gobj* z, t_glist* /*glist*/, int dx, int dy)
 
     tl_bang* zx = (tl_bang*)z;
     GuiFactory<tl_bang>::ws_redraw(zx);
-    zx->data->setXPos(zx->j_box.b_rect.x);
+    zx->data->setXPos(zx->b_box.b_rect.x);
 }
 
 UI_fun(tl_bang)::wx_paint(tl_bang* zx, t_object* /*view*/)
@@ -102,7 +102,7 @@ UI_fun(tl_bang)::wx_paint(tl_bang* zx, t_object* /*view*/)
             ETEXT_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
         etext_layout_draw(zx->txt, g);
 
-        zx->data->setXPos(zx->j_box.b_rect.x);
+        zx->data->setXPos(zx->b_box.b_rect.x);
         ebox_end_layer(asBox(zx), BG_LAYER);
     }
 
@@ -126,7 +126,7 @@ UI_fun(tl_bang)::new_ext(tl_bang* zx, t_symbol* /*s*/, int /*argc*/, t_atom* /*a
     zx->canvas = canvas_getcurrent();
 
     zx->data = new TimelineData(zx->canvas, (t_object*)zx);
-    zx->data->setXPos(zx->j_box.b_obj.o_obj.te_xpix);
+    zx->data->setXPos(zx->b_box.b_obj.o_obj.te_xpix);
     zx->data->setAction(&tl_bang_action);
     UIStorage::add(zx->data);
 

@@ -27,7 +27,7 @@ struct tl_cue : public BaseGuiObject {
 
     CueData* data;
 
-    t_object* asObj() { return &j_box.b_obj.o_obj; }
+    t_object* asObj() { return &b_box.b_obj.o_obj; }
     bool first_draw;
 };
 
@@ -96,8 +96,8 @@ static void update_canvas_cues(t_canvas* c)
     for (size_t i = 0; i < lst->size(); i++) {
         void* obj = lst->at(i)->object();
         tl_cue* c = reinterpret_cast<tl_cue*>(obj);
-        ebox_pos(&c->j_box, c->j_box.b_rect.x, 2);
-        c->data->setXPos(c->j_box.b_rect.x);
+        ebox_pos(&c->b_box, c->b_box.b_rect.x, 2);
+        c->data->setXPos(c->b_box.b_rect.x);
     }
 
     CueStorage::sort(c);
@@ -191,7 +191,7 @@ static bool cue_layout_finished(t_canvas* canvas)
     CueList* lst = CueStorage::cueList(canvas);
     for (size_t i = 0; i < lst->size(); i++) {
         tl_cue* c = reinterpret_cast<tl_cue*>(lst->at(i)->object());
-        if (c->j_box.b_rect.x == 0.f)
+        if (c->b_box.b_rect.x == 0.f)
             return false;
     }
 
@@ -240,7 +240,7 @@ static void redraw_canvas_cues(t_canvas* c, tl_cue* except)
         void* obj = lst->at(i)->object();
         if (obj != except) {
             tl_cue* c = reinterpret_cast<tl_cue*>(obj);
-            c->j_box.b_force_redraw = 1;
+            c->b_box.b_force_redraw = 1;
             GuiFactory<tl_cue>::ws_redraw(c);
         }
     }
