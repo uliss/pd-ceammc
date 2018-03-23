@@ -543,6 +543,9 @@ bool Preset::setFloatAt(size_t idx, float v)
     if (idx >= data_.size())
         return false;
 
+    if (v == std::numeric_limits<float>::infinity())
+        v = 0;
+
     data_[idx].setFloat(v);
     return true;
 }
