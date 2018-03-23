@@ -26,7 +26,8 @@ matrix:
 before_install:
 - sudo apt-get install -qq libboost-dev libsndfile1 libsndfile-dev libportaudio-dev
   libfftw3-dev libasound2-dev libjack-dev libmodplug-dev libavahi-compat-libdnssd-dev
-- pip install --user cpp-coveralls
+  if: env(CEAMMC_COVERAGE) = ON
+    - pip install --user cpp-coveralls
 
 before_script:
 - export CTEST_OUTPUT_ON_FAILURE=1
@@ -41,7 +42,7 @@ script:
 - make -j2
 - make test
   if: env(CEAMMC_BUILD_TYPE) = Release
-    make package
+    - make package
 
 after_success:
   if: env(CEAMMC_COVERAGE) = ON
