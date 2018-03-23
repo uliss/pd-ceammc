@@ -41,7 +41,7 @@ TEST_CASE("ui.knob", "[ui.knob]")
         HAS_PROPERTY(t, "knob_color");
         HAS_PROPERTY(t, "scale_color");
         HAS_PROPERTY(t, "show_range");
-        HAS_PROPERTY(t, "draw_active");
+        HAS_PROPERTY(t, "active_scale");
         HAS_PROPERTY(t, "value");
         HAS_PROPERTY(t, "pinned");
         HAS_PROPERTY(t, "midi_channel");
