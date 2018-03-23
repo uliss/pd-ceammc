@@ -15,9 +15,11 @@ PREFIX=/opt/local/universal
 export PKG_CONFIG_PATH="${PREFIX}/lib/pkgconfig"
 
 if [ $OSX_MINOR_VER -lt 8 ]; then
+    echo "Old OSX version: 10.${OSX_MINOR_VER}"
     export CFLAGS='-arch i386 -O2'
     OSX_OLD=1
 else
+    echo "Mac OSX version: 10.${OSX_MINOR_VER}"
     export CFLAGS='-arch x86_64 -arch i386 -O2'
 fi
 
@@ -78,8 +80,9 @@ function install_sndfile() {
 
     banner "Configure ${pkg}"
 
-    if [ $OSX_OLD ]; then
+    if [ $OSX_OLD -eq 1 ]; then
         export CC=/usr/local/bin/gcc-5
+        echo "using sepcified gcc on old MacOSX version: ${CC}"
     fi
 
     CFLAGS="${CFLAGS} -I${PREFIX}/include" ./configure --enable-static=yes \
