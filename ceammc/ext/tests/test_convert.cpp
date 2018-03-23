@@ -173,7 +173,9 @@ TEST_CASE("convert", "[PureData]")
             REQUIRE(lin2lin<float>(0.3f, 1, 0, 200, 100) == 130.f);
         }
 
+#ifdef __GNUC__ > 4
         REQUIRE(boost::math::isnan(lin2lin<float>(NAN, 0, 1, 0, 127)));
+#endif
     }
 
     SECTION("lin2lin_clip")
