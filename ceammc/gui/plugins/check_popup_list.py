@@ -13,12 +13,6 @@ def core_list():
     f.close()
     return lst
 
-def cream_list():
-    f = open("../../ext/src/ui/CreamLibrary/cream_objects.txt", 'r')
-    lst = f.read().split()
-    f.close()
-    return lst
-
 def menu_list(fname):
     stack = []
     lines = []
@@ -55,7 +49,6 @@ def main():
         sys.exit()
 
     c = ceammc_list()
-    cream = cream_list()
     core = core_list()
     m = menu_list(sys.argv[1])
     has_missing = False
@@ -64,8 +57,6 @@ def main():
         if obj in core:
             continue
         elif obj in c:
-            continue
-        elif obj in cream:
             continue
         elif obj in ('bang', 'float', 'symbol', 'bob~', 'sigmund~', 'bonk~', 'rev1~', 'rev2~', 'rev3~'):
             continue

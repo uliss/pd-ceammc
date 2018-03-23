@@ -25,6 +25,9 @@
     <entry descr="array time-stretch, pitch-shift or rate-change" name="array.stretch" ref_view="object">
       <xi:include href="array.stretch.pddoc" parse="xml"/>
     </entry>
+    <entry descr="simple array player for using with vline~" name="array.vplay" ref_view="object">
+      <xi:include href="array.vplay.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="base">
     <entry descr="named function" name="function" ref_view="link">
@@ -885,6 +888,11 @@
       <xi:include href="symbol.num_compare.pddoc" parse="xml"/>
     </entry>
   </category>
+  <category name="synth">
+    <entry descr="Jean Claude Risset's endless glissando" name="synth.risset_tone~" ref_view="object">
+      <xi:include href="synth.risset_tone~.pddoc" parse="xml"/>
+    </entry>
+  </category>
   <category name="system">
     <entry descr="Get information about cursor motion, mousewheel and buttonclick" name="system.cursor" ref_view="object">
       <xi:include href="system.cursor.pddoc" parse="xml"/>
@@ -966,7 +974,7 @@
     <entry descr="counterpart of the vanilla [nbx] for signal" name="ui.number~" ref_view="link">
       <xi:include href="ui.number~.pddoc" parse="xml"/>
     </entry>
-    <entry descr="Cream GUI preset manager" name="ui.preset" ref_view="link">
+    <entry descr="Preset manager" name="ui.preset" ref_view="link">
       <xi:include href="ui.preset.pddoc" parse="xml"/>
     </entry>
     <entry descr="counterpart of the vanilla radio toggle" name="ui.radio" ref_view="link">
@@ -1017,6 +1025,7 @@
       <author>Alex Nadzharov</author>
       <author>Hans-Christoph Steiner</author>
       <author>Julian Parker</author>
+      <author>Oliver Larkin</author>
       <author>Olli Parviainen</author>
       <author>Pierre Guillot</author>
       <author>Serge Poltavsky</author>

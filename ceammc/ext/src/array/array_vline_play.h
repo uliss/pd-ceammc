@@ -16,14 +16,19 @@
 
 #include "array_base.h"
 
+#include <boost/optional.hpp>
+
 enum PlayerState {
     STATE_STOP = 0,
     STATE_PLAY
 };
 
+typedef boost::optional<size_t> SamplePos;
+
 class ArrayVlinePlay : public ArrayBase {
     PlayerState state_;
-    size_t start_pos_;
+    long begin_pos_;
+    long end_pos_;
     float speed_;
 
 public:
@@ -32,16 +37,26 @@ public:
     AtomList propState() const;
     AtomList propSpeed() const;
     void propSetSpeed(const AtomList& lst);
+    AtomList propBeginSample() const;
+    AtomList propEndSample() const;
+    void propSetBeginSample(const AtomList& pos);
+    void propSetEndSample(const AtomList& pos);
+    AtomList propAbsBeginSample() const;
+    AtomList propAbsEndSample() const;
+
+    void onFloat(t_float f);
 
 public:
     void m_play(t_symbol* s, const AtomList& lst);
     void m_stop(t_symbol* s, const AtomList& lst);
-    void m_seek(t_symbol* s, const AtomList& lst);
+    void m_range(t_symbol* s, const AtomList& lst);
 
 private:
-    void setPositionSample(size_t pos);
-    void setPositionSec(t_float sec);
-    void setPositionPhase(t_float phase);
+    size_t secToAbsPosition(t_float t);
+    size_t toAbsPosition(long pos) const;
+    SamplePos unitToAbsPosition(t_float v, t_symbol* unit);
+
+    void output();
 };
 
 void setup_array_vline_play();

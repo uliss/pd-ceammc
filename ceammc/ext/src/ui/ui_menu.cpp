@@ -45,6 +45,11 @@ void UIMenu::okSize(t_rect* newrect)
 {
     newrect->width = pd_clip_min(newrect->width, ebox_fontwidth(asEBox()) * 3 + 8);
     newrect->height = fontSizeZoomed() + 5;
+
+#ifdef __WIN32
+    newrect->height += 4 * zoom();
+#endif
+
     item_height_ = close_height_ = newrect->height;
 
     if (newrect->width < newrect->height * 2)

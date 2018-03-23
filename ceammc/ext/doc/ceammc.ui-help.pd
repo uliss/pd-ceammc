@@ -10,8 +10,8 @@
 #X text 175 162 Timeline transport control;
 #X obj 30 192 ui.link @title [ui.bang] @url ui.bang-help.pd;
 #X text 175 189 A bang... that's all;
-#X obj 30 215 ui.link @title [ui.colorpanel] @url ui.colorpanel-
-help.pd;
+#X obj 30 215 ui.link @title [ui.colorpanel] @url
+ui.colorpanel-help.pd;
 #X text 175 212 colorchooser widget;
 #X obj 30 238 ui.link @title [ui.display] @url ui.display-help.pd;
 #X text 175 235 Display GUI object;
@@ -44,7 +44,7 @@ help.pd;
 #X obj 30 560 ui.link @title [ui.number~] @url ui.number~-help.pd;
 #X text 175 557 counterpart of the vanilla [nbx] for signal;
 #X obj 30 583 ui.link @title [ui.preset] @url ui.preset-help.pd;
-#X text 175 580 Cream GUI preset manager;
+#X text 175 580 Preset manager;
 #X obj 30 606 ui.link @title [ui.radio] @url ui.radio-help.pd;
 #X text 175 603 counterpart of the vanilla radio toggle;
 #X obj 30 629 ui.link @title [ui.rslider] @url ui.rslider-help.pd;

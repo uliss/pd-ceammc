@@ -23,6 +23,8 @@ using namespace ceammc;
 
 TEST_CASE("pan.spread~", "[externals]")
 {
+    setTestSampleRate(48000);
+
     SECTION("init")
     {
         SECTION("default")
@@ -103,6 +105,7 @@ TEST_CASE("pan.spread~", "[externals]")
     {
         PanSpreadTest t("pan.spread~", L1(3), true);
         REQUIRE(t.blockSize() == 64);
+        REQUIRE(t.samplerate() == 48000);
         REQUIRE(t.numInputChannels() == 3);
         REQUIRE(t.numOutputChannels() == 2);
 
@@ -123,7 +126,9 @@ TEST_CASE("pan.spread~", "[externals]")
         }
 
         sig.fillInputN(0, -1);
-        t.processBlock(sig.in, sig.out);
+        for (size_t i = 0; i < 10000; i++)
+            t.processBlock(sig.in, sig.out);
+
         for (int i = 0; i < 64; i++) {
             REQUIRE(sig.out[0][i] == Approx(-1));
             REQUIRE(sig.out[1][i] == Approx(0));

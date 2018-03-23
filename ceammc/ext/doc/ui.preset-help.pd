@@ -1,7 +1,7 @@
 #N canvas 0 0 715 555 12;
 #X declare -lib ceammc;
-#X obj 498 50 cnv 1 197 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 498 50 Cream GUI preset manager;
+#X obj 578 50 cnv 1 117 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 578 50 Preset manager;
 #X obj 1 1 cnv 5 712 40 empty empty ui.preset 20 20 0 20 -104026 -4096
 0;
 #X obj 619 13 ui.link @title [ui.preset] @background_color 0.39216

@@ -37,58 +37,75 @@ symbol;
 #X text 240 477 Get/Set send destination. Type: symbol;
 #X msg 120 504 @receive;
 #X text 240 504 Get/Set receive source. Type: symbol;
-#X obj 20 541 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 546 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X msg 120 531 @midi_channel;
+#X text 240 531 Get/Set binded MIDI channel. 0 means listen to all
+channels. Type: int. Default value: 0\. Value range: 0-16;
+#X msg 120 568 @midi_control;
+#X text 240 568 Get/Set binded MIDI controller number. 0 means not
+binded to any controller. Type: int. Default value: 0\. Value range:
+0-128;
+#X msg 120 619 @midi_pickup;
+#X text 240 619 Get/Set pickup current value. If slider is binded to
+value \, first time you should pass over this value to make binding.
+It prevents from sudden value change on first control change. Type:
+int. Default value: 1\. Allowed values: 0 \, 1;
+#X msg 120 684 @active_scale;
+#X text 240 684 Get/Set if should draw active scale. Type: int.
+Default value: 0\. Allowed values: 0 \, 1;
+#X msg 120 721 @value;
+#X text 240 721 Get/Set current value. Type: float;
+#X obj 20 758 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 763 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 551 dump;
-#X text 240 551 dumps all object info to Pd console window.;
-#X msg 120 583 set;
-#X text 240 583 sets knob state without output.;
-#X msg 120 615 ++;
-#X text 240 615 increment knob value without output.;
-#X msg 120 647 --;
-#X text 240 647 decrement knob value without output.;
-#X msg 120 679 +;
-#X text 240 679 add value to knob without output. Arguments are:;
-#X obj 250 707 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 707 V: added value. Type: float.;
-#X msg 120 735 -;
-#X text 240 735 substruct value from knob without output. Arguments
+#X msg 120 768 dump;
+#X text 240 768 dumps all object info to Pd console window.;
+#X msg 120 800 set;
+#X text 240 800 sets knob state without output.;
+#X msg 120 832 ++;
+#X text 240 832 increment knob value without output.;
+#X msg 120 864 --;
+#X text 240 864 decrement knob value without output.;
+#X msg 120 896 +;
+#X text 240 896 add value to knob without output. Arguments are:;
+#X obj 250 924 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 924 V: added value. Type: float.;
+#X msg 120 952 -;
+#X text 240 952 substruct value from knob without output. Arguments
 are:;
-#X obj 250 763 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 763 V: substructed value. Type: float.;
-#X msg 120 791 *;
-#X text 240 791 multiply knob value without output. Arguments are:;
-#X obj 250 819 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 819 V: mutiplied value. Type: float.;
-#X msg 120 847 /;
-#X text 240 847 divide knob value without output. Arguments are:;
-#X obj 250 875 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 875 V: denominator value. Type: float.;
-#X obj 20 913 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 918 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
-0;
-#X text 120 923 1\.;
-#X text 150 923 *bang*;
-#X text 240 923 outputs knob value.;
-#X text 150 941 *float*;
-#X text 240 941 sets knob value and output it.;
-#X obj 20 969 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 974 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 250 980 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 980 V: substructed value. Type: float.;
+#X msg 120 1008 *;
+#X text 240 1008 multiply knob value without output. Arguments are:;
+#X obj 250 1036 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 1036 V: mutiplied value. Type: float.;
+#X msg 120 1064 /;
+#X text 240 1064 divide knob value without output. Arguments are:;
+#X obj 250 1092 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 1092 V: denominator value. Type: float.;
+#X obj 20 1130 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1135 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 979 1\.;
-#X text 240 979 knob output;
+#X text 120 1140 1\.;
+#X text 150 1140 *bang*;
+#X text 240 1140 outputs knob value.;
+#X text 150 1158 *float*;
+#X text 240 1158 sets knob value and output it.;
+#X obj 20 1186 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1191 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+-49933 0;
+#X text 120 1196 1\.;
+#X text 240 1196 knob output;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 1027 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1030 library: ceammc v0.5;
-#X text 546 1042 see also:;
-#X obj 622 1045 ui.link @title [ui.slider] @background_color 0.78431
+#X obj 1 1244 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1247 library: ceammc v0.5;
+#X text 546 1259 see also:;
+#X obj 622 1262 ui.link @title [ui.slider] @background_color 0.78431
 0.78431 0.78431 @url ui.slider-help.pd;
-#N canvas 10 1049 400 290 info 0;
+#N canvas 10 1266 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -112,7 +129,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1049 pd info;
+#X restore 10 1266 pd info;
 #X connect 12 0 15 0;
 #X connect 14 0 15 0;
 #X connect 11 0 15 0;

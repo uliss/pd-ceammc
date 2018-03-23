@@ -21,6 +21,12 @@
 #include <iostream>
 #include <sstream>
 
+#ifdef __WIN32
+static const int FONT_SIZE_CORR = 4;
+#else
+static const int FONT_SIZE_CORR = 8;
+#endif
+
 UINumber::UINumber()
     : clock_(this, &UINumber::updateTextValue)
     , text_(&asEBox()->b_font, ColorRGBA::black(), ETEXT_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP)
@@ -50,7 +56,7 @@ void UINumber::okSize(t_rect* newrect)
     newrect->width = pd_clip_min(newrect->width, sys_fontwidth(fontSizeZoomed()) * 3 + 8);
 
     t_atom a;
-    SETFLOAT(&a, (newrect->height - 4) / zoom());
+    SETFLOAT(&a, (newrect->height - newrect->height / FONT_SIZE_CORR) / zoom());
     ebox_set_fontsize(asEBox(), 0, 1, &a);
 }
 

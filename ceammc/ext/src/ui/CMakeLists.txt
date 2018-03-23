@@ -4,15 +4,13 @@ endif()
 
 include_directories(cicm/Sources)
 
-add_subdirectory(CreamLibrary)
-
 set(UI_SOURCES
-    cicm/Sources/ebox.c
-    cicm/Sources/eclass.c
-    cicm/Sources/ecommon.c
+    cicm/Sources/ebox.cpp
+    cicm/Sources/eclass.cpp
+    cicm/Sources/ecommon.cpp
     cicm/Sources/egraphics.cpp
-    cicm/Sources/eobj.c
-    cicm/Sources/epopup.c
+    cicm/Sources/eobj.cpp
+    cicm/Sources/epopup.cpp
     ceammc_cicm.h
     ceammc_cicm.cpp
     ceammc_ui.h
@@ -70,4 +68,4 @@ if(UNIX)
     set_target_properties(ceammc_ui PROPERTIES COMPILE_FLAGS "-fPIC")
 endif()
 
-target_link_libraries(ceammc_ui ceammc_env cream_core)
+target_link_libraries(ceammc_ui ceammc_env)

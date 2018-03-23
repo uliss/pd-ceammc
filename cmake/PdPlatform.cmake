@@ -34,17 +34,8 @@ endif()
 
 
 if(WIN32)
-    include(FindWindowsSDK)
-
-    if (WINDOWSSDK_FOUND)
-        get_windowssdk_library_dirs(${WINDOWSSDK_PREFERRED_DIR} WINSDK_LIB_DIRS)
-        get_windowssdk_include_dirs(${WINDOWSSDK_PREFERRED_DIR} WINSDK_INCLUDE_DIRS)
-
-        link_directories(${WINSDK_LIB_DIRS})
-    endif()
-
     find_program(WISH_PATH
-        NAMES wish86.exe wish85.exe wish.exe wish86t.exe
+        NAMES wish86.exe wish.exe
         PATHS C:/Tcl/bin)
 
     if(NOT WISH_PATH)
@@ -60,13 +51,13 @@ if(WIN32)
     include(InstallRequiredSystemLibraries)
 
     # install tcl.dll
-    find_file(TCLDLL_PATH NAMES tcl86.dll tcl85.dll PATHS ${WISH_BINDIR})
+    find_file(TCLDLL_PATH NAMES tcl86.dll PATHS ${WISH_BINDIR})
     if(TCLDLL_PATH)
         install(PROGRAMS ${TCLDLL_PATH} DESTINATION ${PD_EXE_INSTALL_PATH})
     endif()
 
     # install tk.dll
-    find_file(TKDLL_PATH NAMES tk86.dll tk85.dll PATHS ${WISH_BINDIR})
+    find_file(TKDLL_PATH NAMES tk86.dll PATHS ${WISH_BINDIR})
     if(TKDLL_PATH)
         install(PROGRAMS ${TKDLL_PATH} DESTINATION ${PD_EXE_INSTALL_PATH})
     endif()
@@ -234,15 +225,21 @@ if(WIN32)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mms-bitfields")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mms-bitfields -Wno-incompatible-ms-struct")
 
-    set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -O2 -funroll-loops -fomit-frame-pointer")
-    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O2 -funroll-loops -fomit-frame-pointer -Wno-incompatible-ms-struct")
-    list(APPEND PLATFORM_LINK_LIBRARIES ${CMAKE_THREAD_LIBS_INIT})
+    set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -mms-bitfields -O2 -funroll-loops -fomit-frame-pointer")
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -mms-bitfields -O2 -funroll-loops -fomit-frame-pointer -Wno-incompatible-ms-struct")
+
     set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--export-all-symbols -lpthread")
     set(CMAKE_EXE_LINKER_FLAGS "-shared-libgcc -lpthread")
+
+    list(APPEND PLATFORM_LINK_LIBRARIES ${CMAKE_THREAD_LIBS_INIT})
 endif()
 
 if(APPLE)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -funroll-loops -fomit-frame-pointer")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -funroll-loops -fomit-frame-pointer")
+
+    set(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG -ffast-math -funroll-loops -fomit-frame-pointer")
+    set(CMAKE_CXX_FLAGS_RELEASE "-O2 -DNDEBUG -ffast-math -funroll-loops -fomit-frame-pointer")
 
     set(BUNDLE "Pd-${PD_MACOSX_BUNDLE_SUFFIX}.app")
     set(BUNDLE_FULL_PATH "${PROJECT_BINARY_DIR}/dist/${BUNDLE}")
@@ -331,4 +328,12 @@ if(APPLE)
             ${PROJECT_SOURCE_DIR}
         WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
         DEPENDS app)
+endif()
+
+if(UNIX AND NOT APPLE)
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -funroll-loops -fomit-frame-pointer")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -funroll-loops -fomit-frame-pointer")
+
+    set(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG -ffast-math -funroll-loops -fomit-frame-pointer")
+    set(CMAKE_CXX_FLAGS_RELEASE "-O2 -DNDEBUG -ffast-math -funroll-loops -fomit-frame-pointer")
 endif()

@@ -74,7 +74,7 @@ void UIKnob::setup()
     obj.addProperty("min", _("Minimum Value"), 0, &UISingleValue::prop_min, "Bounds");
     obj.addProperty("max", _("Maximum Value"), 1, &UISingleValue::prop_max, "Bounds");
     obj.addProperty("show_range", _("Show range"), false, &UIKnob::show_range_);
-    obj.addProperty("draw_active", _("Draw active scale"), false, &UIKnob::draw_active_scale_);
+    obj.addProperty("active_scale", _("Draw active scale"), false, &UIKnob::draw_active_scale_);
     obj.addProperty("midi_channel", _("MIDI channel"), 0, &UISingleValue::prop_midi_chn, "MIDI");
     obj.setPropertyRange("midi_channel", 0, 16);
     obj.addProperty("midi_control", _("MIDI control"), 0, &UISingleValue::prop_midi_ctl, "MIDI");
@@ -86,8 +86,8 @@ void UIKnob::setup()
 
 UIKnob::UIKnob()
     : txt_font(FONT_FAMILY, FONT_SIZE_SMALL)
-    , txt_min(txt_font.font(), ColorRGBA::black(), ETEXT_DOWN_LEFT, ETEXT_JLEFT)
-    , txt_max(txt_font.font(), ColorRGBA::black(), ETEXT_DOWN_RIGHT, ETEXT_JRIGHT)
+    , txt_min(txt_font.font(), ColorRGBA::black(), ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP)
+    , txt_max(txt_font.font(), ColorRGBA::black(), ETEXT_DOWN_RIGHT, ETEXT_JRIGHT, ETEXT_NOWRAP)
     , show_range_(0)
     , draw_active_scale_(0)
     , prop_knob_color(rgba_black)

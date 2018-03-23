@@ -1,5 +1,4 @@
 #include "mod_ui.h"
-#include "CreamLibrary/cream.h"
 
 #include "ui_arrayview.h"
 #include "ui_bang.h"
@@ -60,6 +59,4 @@ void ceammc_ui_setup()
     setup_ui_spectroscope();
     setup_ui_tab();
     setup_ui_toggle();
-
-    setup_cream();
 }

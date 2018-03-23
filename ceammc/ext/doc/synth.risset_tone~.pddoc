@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="synth.risset_tone~">
+        <title>synth.risset_tone~</title>
+        <meta>
+            <authors>
+                <author>Oliver Larkin</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Jean Claude Risset's endless glissando</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>synth</category>
+            <keywords>risset</keywords>
+            <since>0.5</since>
+        </meta>
+        <properties>
+            <property name="@rate" type="float" minvalue="-2" maxvalue="2" default="0.01">glissanso speed</property>
+            <property name="@centroid" type="float" minvalue="20" maxvalue="120" default="60">
+            main frequency. Units: MIDI note</property>
+            <property name="@range" type="float" minvalue="1" maxvalue="120" default="1">
+            glissando range in MIDI note units</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo>control inlet</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio"/>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[@rate 0.005( [@centroid 80(   [@range 70(
+|             |                |
+| [@rate -1(  | [@centroid 55( | [@range 110(
+| |           | |              | |
+| |           | |              | |
+| |           | |              | |
+[synth.risset_tone~              ]
+|
+[ui.gain~ @size 120 16]                     [ui.dsp~]
+| \
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

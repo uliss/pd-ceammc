@@ -94,12 +94,13 @@ typedef SigVec<1, 1> Vec;
 
 TEST_CASE("fx.looper~", "[externals]")
 {
-    sys_dacsr = 44100;
+    setTestSampleRate(48000);
 
     SECTION("init")
     {
         FxLooperTest t("fx.looper~");
         REQUIRE(t.blockSize() == 64);
+        REQUIRE(t.samplerate() == 48000);
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
         REQUIRE_PROPERTY(t, @capacity, 5);
@@ -124,7 +125,7 @@ TEST_CASE("fx.looper~", "[externals]")
         // PLAY
         t.m_play(&s_, AtomList());
         REQUIRE_PROPERTY(t, @state, "play");
-        REQUIRE_PROPERTY(t, @length, (3 * 64) / 44100.0f);
+        REQUIRE_PROPERTY(t, @length, float(3 * 64) / t.samplerate());
         // 1.2
         t.processBlock(v.in, v.out);
         REQUIRE_OUT_VEC(v, 1.2f);

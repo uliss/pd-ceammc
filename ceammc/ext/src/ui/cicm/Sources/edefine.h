@@ -27,9 +27,12 @@
 #define _FUNCTION_DEPRECTAED_  __attribute__((deprecated))
 #endif
 
-#include <m_pd.h>
+#include "m_pd.h"
+
+extern "C" {
 #include "m_imp.h"
-#include <g_canvas.h>
+#include "g_canvas.h"
+}
 
 #include <stdlib.h>
 #include <math.h>
@@ -367,14 +370,14 @@ typedef struct t_efont
  */
 typedef struct t_etext
 {
-    t_rgba          c_color;    /*!< The color of the text. */
-    t_efont         c_font;     /*!< The font of the text. */
-    t_rect          c_rect;     /*!< The rectangle of the text. */
-    t_symbol*       c_anchor;   /*!< The anchor of the text. */
-    t_symbol*       c_justify;  /*!< The justification of the text. */
-    const char*     c_text;     /*!< The text. */
-    char            c_buf[64];
-    char            c_is_buffer_used;
+    t_rgba             c_color;    /*!< The color of the text. */
+    t_efont            c_font;     /*!< The font of the text. */
+    t_rect             c_rect;     /*!< The rectangle of the text. */
+    etextanchor_flags  c_anchor;   /*!< The anchor of the text. */
+    etextjustify_flags c_justify;  /*!< The justification of the text. */
+    const char*        c_text;     /*!< The text. */
+    char               c_buf[64];
+    char               c_is_buffer_used;
 } t_etext;
 
 /**
@@ -387,7 +390,7 @@ typedef struct t_eimage {
     t_symbol* name;
     size_t width;
     size_t height;
-    t_symbol* anchor;
+    etextanchor_flags anchor;
 } t_eimage;
 
 /**
@@ -398,20 +401,20 @@ typedef struct t_eimage {
  */
 typedef struct t_egobj
 {
-    egraphics_types e_type;         /*!< The type of the graphical object. */
-    int             e_filled;       /*!< The filled state of the graphical object. */
-    t_symbol*       e_color;        /*!< The color of the graphical object. */
-    float           e_width;        /*!< The line width of the graphical object. */
-    int             e_capstyle;     /*!< The line capstyle of the graphical object. */
-    int             e_dashstyle;    /*!< The line dashstyle of the graphical object. */
+    egraphics_types    e_type;         /*!< The type of the graphical object. */
+    int                e_filled;       /*!< The filled state of the graphical object. */
+    t_symbol*          e_color;        /*!< The color of the graphical object. */
+    float              e_width;        /*!< The line width of the graphical object. */
+    int                e_capstyle;     /*!< The line capstyle of the graphical object. */
+    int                e_dashstyle;    /*!< The line dashstyle of the graphical object. */
 
-    t_pt*           e_points;       /*!< The points of the graphical object. */
-    int             e_npoints;      /*!< The number of points of the graphical object. */
-    t_efont         e_font;         /*!< The font of the graphical object. */
-    t_symbol*       e_anchor;       /*!< The anchor of the graphical object. */
-    t_symbol*       e_justify;      /*!< The justification of the graphical object. */
-    const char*     e_text;         /*!< The text of the graphical object. */
-    t_eimage*       e_image;        /*!< The image of the graphical object. */
+    t_pt*              e_points;       /*!< The points of the graphical object. */
+    int                e_npoints;      /*!< The number of points of the graphical object. */
+    t_efont            e_font;         /*!< The font of the graphical object. */
+    etextanchor_flags  e_anchor;       /*!< The anchor of the graphical object. */
+    etextjustify_flags e_justify;      /*!< The justification of the graphical object. */
+    const char*        e_text;         /*!< The text of the graphical object. */
+    t_eimage*          e_image;        /*!< The image of the graphical object. */
 } t_egobj;
 
 /**

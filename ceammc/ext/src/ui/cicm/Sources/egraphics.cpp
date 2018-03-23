@@ -8,9 +8,8 @@
  * WARRANTIES, see the file, "LICENSE.txt," in this distribution.
  */
 
-extern "C" {
+
 #include "egraphics.h"
-}
 
 #include "ceammc_convert.h"
 
@@ -27,17 +26,6 @@ const t_rgba rgba_blue = { 0.f, 0.f, 1.f, 1.f };
 const t_rgba rgba_green = { 0.f, 1.f, 0.f, 1.f };
 const t_rgba rgba_red = { 1.f, 0.f, 0.f, 1.f };
 
-static t_symbol* SYM_N = gensym("n");
-static t_symbol* SYM_NE = gensym("ne");
-static t_symbol* SYM_E = gensym("e");
-static t_symbol* SYM_SE = gensym("se");
-static t_symbol* SYM_S = gensym("s");
-static t_symbol* SYM_SW = gensym("sw");
-static t_symbol* SYM_W = gensym("w");
-static t_symbol* SYM_NW = gensym("nw");
-static t_symbol* SYM_CENTER = gensym("center");
-static t_symbol* SYM_RIGHT = gensym("right");
-static t_symbol* SYM_LEFT = gensym("left");
 static t_symbol* SYM_ITALIC = gensym("italic");
 static t_symbol* SYM_ROMAN = gensym("roman");
 static t_symbol* SYM_BOLD = gensym("bold");
@@ -110,6 +98,8 @@ static void egraphics_paint(t_elayer* g, int filled, int preserved)
             nobj->e_width = g->e_line_width;
             nobj->e_capstyle = g->e_line_capstyle;
             nobj->e_dashstyle = g->e_line_dashstyle;
+            nobj->e_justify = g->e_new_objects.e_justify;
+            nobj->e_anchor = g->e_new_objects.e_anchor;
             nobj->e_text = g->e_new_objects.e_text;
             nobj->e_image = g->e_new_objects.e_image;
 
@@ -880,6 +870,8 @@ t_etext* etext_layout_create(void)
     new_text_layout->c_buf[0] = 0;
     new_text_layout->c_text = &new_text_layout->c_buf[0];
     new_text_layout->c_is_buffer_used = 1;
+    new_text_layout->c_justify = ETEXT_JLEFT;
+    new_text_layout->c_anchor = ETEXT_LEFT;
 
     return new_text_layout;
 }
@@ -890,30 +882,6 @@ void etext_layout_destroy(t_etext* textlayout)
         free((void*)textlayout->c_text);
 
     free(textlayout);
-}
-
-static t_symbol* anchor_to_symbol(etextanchor_flags anchor)
-{
-    switch (anchor) {
-    case ETEXT_UP:
-        return SYM_N;
-    case ETEXT_UP_RIGHT:
-        return SYM_NE;
-    case ETEXT_RIGHT:
-        return SYM_E;
-    case ETEXT_DOWN_RIGHT:
-        return SYM_SE;
-    case ETEXT_DOWN:
-        return SYM_S;
-    case ETEXT_DOWN_LEFT:
-        return SYM_SW;
-    case ETEXT_LEFT:
-        return SYM_W;
-    case ETEXT_UP_LEFT:
-        return SYM_NW;
-    default:
-        return SYM_CENTER;
-    }
 }
 
 void etext_layout_set(t_etext* textlayout, const char* text, t_efont* font,
@@ -951,19 +919,8 @@ void etext_layout_set(t_etext* textlayout, const char* text, t_efont* font,
         textlayout->c_rect.width = 0.;
     }
 
-    textlayout->c_anchor = anchor_to_symbol(anchor);
-
-    switch (justify) {
-    case ETEXT_JCENTER:
-        textlayout->c_justify = SYM_CENTER;
-        break;
-    case ETEXT_JRIGHT:
-        textlayout->c_justify = SYM_RIGHT;
-        break;
-    default:
-        textlayout->c_justify = SYM_LEFT;
-        break;
-    }
+    textlayout->c_anchor = anchor;
+    textlayout->c_justify = justify;
 }
 
 void etext_layout_settextcolor(t_etext* textlayout, t_rgba* color)
@@ -1079,7 +1036,7 @@ t_eimage* eimage_create(const char* data, int width, int height, etextanchor_fla
     img->data_base64 = data;
     img->width = width;
     img->height = height;
-    img->anchor = anchor_to_symbol(anchor);
+    img->anchor = anchor;
 
     char buf[32];
     snprintf(buf, 32, "ceammc_img%04i", image_counter++);

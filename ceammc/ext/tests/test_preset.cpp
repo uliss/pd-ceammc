@@ -210,9 +210,9 @@ TEST_CASE("ceammc_preset", "[PureData]")
         PresetStorage& s = PresetStorage::instance();
         s.clearAll();
 
-        s.setFloatValueAt(gensym("test"), 2, std::numeric_limits<float>::infinity());
+        REQUIRE(s.setFloatValueAt(gensym("test"), 2, std::numeric_limits<float>::infinity()));
         REQUIRE(s.hasFloatValueAt(gensym("test"), 2));
         REQUIRE(s.floatValueAt(gensym("test"), 2) == 0);
-        REQUIRE(s.floatValueAt(gensym("test"), 2, -100) == -100);
+        REQUIRE(s.floatValueAt(gensym("test"), 2, -100) == 0);
     }
 }

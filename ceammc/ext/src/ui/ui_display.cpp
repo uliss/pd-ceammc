@@ -31,9 +31,22 @@ static t_rgba COLOR_DATA_TYPE = hex_to_rgba("#F07000");
 static t_rgba COLOR_DEFAULT_TYPE = hex_to_rgba("#909090");
 static t_rgba COLOR_PROPERTY_TYPE = hex_to_rgba("#00E0A0");
 static t_rgba COLOR_BANG_TYPE = hex_to_rgba("#F03060");
+
+#ifdef __APPLE__
 static const int TYPE_WIDTH = 45;
+#elif __WIN32
+static const int TYPE_WIDTH = 58;
+#else
+static const int TYPE_WIDTH = 50;
+#endif
+
 static const int TEXT_XPAD = 3;
+
+#ifdef __WIN32
+static const int TEXT_YPAD = 0;
+#else
 static const int TEXT_YPAD = 2;
+#endif
 
 static inline const t_rgba& msg_color(t_symbol* s_type)
 {
@@ -87,14 +100,14 @@ void UIDisplay::paint(t_object* view)
 
         if (prop_display_type) {
             p.setColor(msg_color(msg_type_));
-            p.drawRect(0, 0, type_width_, r.height);
+            p.drawRect(0, 0, type_width_ * zoom(), r.height);
             p.fill();
 
             txt_type_.set(msg_type_->s_name, 0 + TEXT_XPAD, 0 + TEXT_YPAD, type_width_ - TEXT_XPAD, r.height);
             txt_type_.setColor(prop_text_color);
             p.drawText(txt_type_);
 
-            x_offset += type_width_;
+            x_offset += type_width_ * zoom();
         }
 
         txt_value_.set(msg_txt_.c_str(),
@@ -108,9 +121,9 @@ void UIDisplay::paint(t_object* view)
 
 void UIDisplay::okSize(t_rect* newrect)
 {
-    float min_width = 40;
+    float min_width = 40 * zoom();
     if (prop_display_type != 0)
-        min_width += TYPE_WIDTH;
+        min_width += TYPE_WIDTH * zoom();
 
     newrect->width = pd_clip_min(newrect->width, min_width);
     newrect->height = pd_clip_min(newrect->height, 18);
@@ -233,6 +246,7 @@ void UIDisplay::update()
 {
     if (prop_display_type) {
         const bool calc_type_wd = (msg_type_ != &s_float
+            && msg_type_ != &s_bang
             && msg_type_ != &s_symbol
             && msg_type_ != &s_list
             && msg_type_ != SYM_DATA_TYPE);
@@ -241,6 +255,7 @@ void UIDisplay::update()
             type_width_ = std::max<int>(TYPE_WIDTH, strlen(msg_type_->s_name) * 7) + 3;
         else
             type_width_ = TYPE_WIDTH;
+
     } else {
         type_width_ = 0;
     }

@@ -55,12 +55,12 @@ t_symbol* UIDspObject::FONT_FAMILY = gensym("Helvetica");
 const int UIDspObject::FONT_SIZE = 12;
 const int UIDspObject::FONT_SIZE_SMALL = 8;
 #elif _WIN32
-t_symbol* UIDspObject::FONT_FAMILY = gensym("Verdana");
+t_symbol* UIDspObject::FONT_FAMILY = gensym("DejaVu Sans Mono");
 const int UIDspObject::FONT_SIZE = 9;
 const int UIDspObject::FONT_SIZE_SMALL = 6;
 #else
-t_symbol* UIDspObject::FONT_FAMILY = gensym("OpenSans");
-const int UIDspObject::FONT_SIZE = 10;
+t_symbol* UIDspObject::FONT_FAMILY = gensym("DejaVu Sans Mono");
+const int UIDspObject::FONT_SIZE = 9;
 const int UIDspObject::FONT_SIZE_SMALL = 6;
 #endif
 

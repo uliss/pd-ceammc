@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="ui.bpfunc" type="gui">
+        <title>ui.bpfunc</title>
+        <meta>
+            <authors>
+                <author>Alex Nadzharov</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Breakpoint function GUI object</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category view="link">ui</category>
+            <keywords>ui env adsr breakpoint function</keywords>
+            <since>0.1</since>
+            <also>
+                <see view="link">ui.sliders</see>
+            </also>
+        </meta>
+        <methods>
+            <!--generic-->
+            <method name="clear">Clears everything and makes default breakpoint function.</method>
+            <method name="drag_limit">If not zero, each point in bpf cannot be dragged beyond
+            neighbors - useful for standard envelopes (boolean)</method>
+            <method name="auto_send">If not zero, always sends message when edited.</method>
+            <!--creates output-->
+            <method name="bang">Outputs list of x y pairs for each point in specified ranges for x
+            and y</method>
+            <method name="raw">Outputs list of x y pairs for each point, in 0..1 range</method>
+            <method name="vline">Outputs messages for vline~ object. Ignores special envelope flags
+            (segments) and outputs full graph</method>
+            <method name="vline_seg">Outputs specified segment of breakpoint function in the format
+            suited for vline~ object</method>
+            <method name="vline_tgl">Outputs first segment for argument 1 and second for 0 - this
+            can be used to drive standard envelopes with a toggle</method>
+            <method name="seg_count">Returns the number of segments in a breakpoint
+            function</method>
+            <!--set data-->
+            <method name="set_rawbpf">Replaces all values with the supplied pairs of x y values in
+            0..1 range</method>
+            <!--editing-->
+            <method name="range_x">output range of x coordinate of the point (float)</method>
+            <method name="range_y">output range of y coordinate of the point (float)</method>
+            <method name="shift_x">output shift of x coordinate of the point (float)</method>
+            <method name="shift_y">output shift of y coordinate of the point (float)</method>
+            <method name="sel">marks a point specified by index (integer number)</method>
+            <method name="set">Takes three arguments, sets point with the index of the first
+            argument value with the value of arguments #2 and #3. X and y values should be
+            specified in the current range of bpfunc object</method>
+            <method name="set_raw">Takes three arguments, sets point with the index of the first
+            argument value with the value of arguments #2 and #3. X and y values should be
+            specified in range 0..1</method>
+            <method name="get">Get point coordinates for specified index (integer number), returns
+            scaled values</method>
+            <method name="get_raw">Get point coordinates for specified index (integer number),
+            returns values in range 0..1</method>
+            <method name="add">Adds new point to the specified coordinates. X and y values should
+            be specified in current ranges</method>
+            <method name="add_raw">Adds new point to the specified coordinates. X and y values
+            should be specified in 0..1 range</method>
+            <method name="del">Deletes the point with the specified index</method>
+            <!--flags-->
+            <method name="end_seg">Needs point number and boolean value. Marks the end of segment.
+            Useful for complex envelopes with sustain etc.</method>
+            <method name="lock_x">Needs point number and boolean value. If value is nonzero,
+            prevents the change of x coordinate with a mouse</method>
+            <method name="lock_y">Needs point number and boolean value. If value is nonzero,
+            prevents the change of y coordinate with a mouse</method>
+            <method name="join_next">Needs point number and boolean value. If value is nonzero,
+            links y coordinate of specified and next point. Useful for AHR envelopes etc</method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="list">Messages</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>Breakpoint function points in various formats</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+
+                    [ui.toggle]
+                    |
+           [vline(   [vline_tgl $1(
+           |         |
+           |         |
+           |         |
+[osc~ 440] [ui.bpfunc @size=120x60]
+|          |
+|          |
+|          |
+|          |
+|          [vline~  ]
+|          |.
+[*~        ]
+|  \
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

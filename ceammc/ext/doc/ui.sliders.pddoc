@@ -90,11 +90,6 @@
 |
 |
 [ui.display @display_type=1]
-
-/*[Shift+click] to save, [Alt+click] to remove, [click] to activate*/
-
-
-[ui.preset]
 ]]>
             </pdascii>
         </example>

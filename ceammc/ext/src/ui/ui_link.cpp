@@ -14,10 +14,8 @@
 #include "ui_link.h"
 #include "ui_link_tcl.h"
 
-//#include "m_imp.h" /* FIXME need access to c_externdir... */
-
 #ifdef __WIN32
-static t_symbol* LINK_FONT = gensym("Verdana");
+static t_symbol* LINK_FONT = gensym("DejaVu Sans Mono");
 static float FIX_LINK_Y_POS = 5;
 static float FIX_TEXT_Y_OFF = 0;
 #elif __APPLE__
@@ -25,7 +23,7 @@ static t_symbol* LINK_FONT = gensym("Menlo");
 static float FIX_LINK_Y_POS = 3;
 static float FIX_TEXT_Y_OFF = 1;
 #else
-static t_symbol* LINK_FONT = gensym("Terminus");
+static t_symbol* LINK_FONT = gensym("DejaVu Sans Mono");
 static float FIX_LINK_Y_POS = 3;
 static float FIX_TEXT_Y_OFF = 0;
 #endif
@@ -41,10 +39,10 @@ static size_t text_width(t_symbol* txt, int sz)
         corr = 3;
     if (len > 16)
         corr = -3;
-#endif
-
-#ifdef __WIN32
-    char_wd += 2;
+#elif __WIN32
+    char_wd += 5;
+#else
+    char_wd += 3;
 #endif
 
     return char_wd * len + corr;
@@ -67,10 +65,10 @@ void UILink::okSize(t_rect* newrect)
     newrect->width = pd_clip_min(w, 20);
     float h = ebox_fontheight(asEBox());
 
-#ifndef __WIN32
+#ifdef __APPLE__
     newrect->height = h;
 #else
-    newrect->height = floorf(1.5 * h) * zoom();
+    newrect->height = floorf(1.5 * h);
 #endif
 }
 

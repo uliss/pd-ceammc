@@ -1,17 +1,41 @@
 #!/bin/bash
 
 PREFIX=/opt/local/universal
-PD_SRC_DIR=$1/..
+READLINK=$(which greadlink)
 
-#rm -rf pd
+error() {
+    tput setaf 1
+    printf "Error: "
+    tput sgr0
+    echo $*
+}
+
+if [ -z ${READLINK} ]
+then
+    error "GNU readlink is not found..."
+    exit 1
+fi
+
+PD_SRC_DIR="$(dirname $0)/../../.."
+PD_SRC_DIR=$(${READLINK} -f ${PD_SRC_DIR})
+
+if [ ! -f "${PD_SRC_DIR}/CMakeLists.txt" ]
+then
+    error "not a Pd source directory: \"${PD_SRC_DIR}\""
+    exit 1
+fi
+
+rm -rf pd
 mkdir -p pd
 cd pd
 
 echo "Building PureData..."
 echo ""
 echo "    build root: ${PREFIX}"
+echo "    Pd source:  ${PD_SRC_DIR}"
 echo ""
 
+export LIBRARY_PATH="${PREFIX}/lib"
 CXX_COMPILER=""
 C_COMPILER=""
 
@@ -30,13 +54,10 @@ then
         ARCH='i386'
 fi
 
-
-DEPS_ROOT="${PREFIX}/../deps"
-
 export PKG_CONFIG_PATH="${PREFIX}/lib/pkgconfig"
 cmake -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_C_FLAGS='-O2' \
-    -DCMAKE_CXX_FLAGS='-O2' \
+    -DCMAKE_C_FLAGS='' \
+    -DCMAKE_CXX_FLAGS='-funroll-loops -fomit-frame-pointer' \
     -DARCH=$ARCH \
     -DLEAPMOTION_ROOT="${HOME}/work/misc/LeapMotionSDK/LeapSDK" \
     ${C_COMPILER} \
@@ -68,4 +89,3 @@ mytest make test
 mytest make app
 mytest make dmg
 mytest make ceammc_lib
-mytest make ceammc_lib_extended

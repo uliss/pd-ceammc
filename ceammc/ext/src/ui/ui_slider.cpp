@@ -133,6 +133,9 @@ void UISlider::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
 
 void UISlider::onDblClick(t_object* view, const t_pt& pt, long modifiers)
 {
+    if(modifiers == EMOD_SHIFT)
+        return UISingleValue::onDblClick(view, pt, modifiers);
+
     t_canvas* c = reinterpret_cast<t_canvas*>(view);
     if (c->gl_edit)
         resize(height(), width());

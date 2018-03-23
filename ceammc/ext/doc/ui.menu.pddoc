@@ -68,9 +68,9 @@
 |
 [ui.menu @max_length 32 @size 200 16]
 |
-[unpack f s]
-^|
-[S]
+[list.at 1]
+|
+[S digits=60]
 |
 [t       b s]
 |         ^|
