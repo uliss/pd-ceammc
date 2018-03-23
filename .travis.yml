@@ -1,33 +1,28 @@
 language: cpp
 dist: trusty
+git:
+  depth: 5
 
 env:
-global:
-- secure: ifC0UBN+k/lpPL3+amsz8lBNpbmDxi/XGRMIXLpRlNq67cSxOK3pF67HSvM1rFtVS5q9pN+MF2Cfq0jEoeqOJht9SiP+gvb1YlKZITNz4XiNgx2oxKnQLxJhc/EH1bd5hkJ9rpgoOAJGGgDGiI/GFsiwb6wrGQ52i3GPNw3QDPMHjDL8lMPCJQ+GP444j+maXQscWsKqLLa0Eeov0hd60T9fYwvDEGzA95X/UcMW9LFEqq9gW1neiv82ga1y7S/pR8ovqasER+wjFBNdfYh9JekRZv7mRjXK45gRWFg3vArEprfbsgQhPNXsXqXP/HbzMV/cpF0Atn+cyd+GxVRn5PdqiJvn73H9612QQQfXc195JcJXFN79ZeoIYxZI9gZt8emHZE1V90AoTthqCDv0lC/qKwH1SpqqrJ07gGh08ZiUTpN5xBerMzWBdhaUpAGRWeC9xO2xDXz3QKmDb8onWpuoQSCfvM8L2uw2UZnB7Hi93wwyb3nb1kw4CW+3HbgdWIOYtNFc8NAnqbk5BHQLZwCYHOAKPZc6Wae1y2sz5Lm/cOHBdN9msA1jTp5A2K/NjBIhOB6k//uTeSZvkwAWeIcxuNG/xxyk1a76sXGN3WNRSiWeR4jAuNt0k6j0QrEI03Vmv7u12MRiwGBI5WDMhvaMHzltCSmSz2tGsfIEfm8=
-- COVERITY_SCAN_NOTIFICATION_EMAIL="serge.poltavski@gmail.com"
-- COVERITY_SCAN_BRANCH_PATTERN="(master|travis-ci|coverity-.*)"
-- COVERITY_SCAN_BUILD_COMMAND="make"
+  global:
+  - secure: ifC0UBN+k/lpPL3+amsz8lBNpbmDxi/XGRMIXLpRlNq67cSxOK3pF67HSvM1rFtVS5q9pN+MF2Cfq0jEoeqOJht9SiP+gvb1YlKZITNz4XiNgx2oxKnQLxJhc/EH1bd5hkJ9rpgoOAJGGgDGiI/GFsiwb6wrGQ52i3GPNw3QDPMHjDL8lMPCJQ+GP444j+maXQscWsKqLLa0Eeov0hd60T9fYwvDEGzA95X/UcMW9LFEqq9gW1neiv82ga1y7S/pR8ovqasER+wjFBNdfYh9JekRZv7mRjXK45gRWFg3vArEprfbsgQhPNXsXqXP/HbzMV/cpF0Atn+cyd+GxVRn5PdqiJvn73H9612QQQfXc195JcJXFN79ZeoIYxZI9gZt8emHZE1V90AoTthqCDv0lC/qKwH1SpqqrJ07gGh08ZiUTpN5xBerMzWBdhaUpAGRWeC9xO2xDXz3QKmDb8onWpuoQSCfvM8L2uw2UZnB7Hi93wwyb3nb1kw4CW+3HbgdWIOYtNFc8NAnqbk5BHQLZwCYHOAKPZc6Wae1y2sz5Lm/cOHBdN9msA1jTp5A2K/NjBIhOB6k//uTeSZvkwAWeIcxuNG/xxyk1a76sXGN3WNRSiWeR4jAuNt0k6j0QrEI03Vmv7u12MRiwGBI5WDMhvaMHzltCSmSz2tGsfIEfm8=
+  - COVERITY_SCAN_NOTIFICATION_EMAIL="serge.poltavski@gmail.com"
+  - COVERITY_SCAN_BRANCH_PATTERN="(master|travis-ci|coverity-.*)"
+  - COVERITY_SCAN_BUILD_COMMAND="make"
 
 matrix:
   include:
   - compiler: clang
-    env:
-    - CEAMMC_BUILD_TYPE="Debug"
-    - CEAMMC_COVERAGE="OFF"
+    env: CEAMMC_BUILD_TYPE="Debug" CEAMMC_COVERAGE="OFF"
   - compiler: gcc
-    env:
-    - CEAMMC_BUILD_TYPE="Debug"
-    - CEAMMC_COVERAGE="ON"
+    env: CEAMMC_BUILD_TYPE="Debug" CEAMMC_COVERAGE="ON"
   - compiler: gcc
-    env:
-    - CEAMMC_BUILD_TYPE="Release"
-    - CEAMMC_COVERAGE="OFF"
+    env: CEAMMC_BUILD_TYPE="Release" CEAMMC_COVERAGE="OFF"
 
 before_install:
 - sudo apt-get install -qq libboost-dev libsndfile1 libsndfile-dev libportaudio-dev
   libfftw3-dev libasound2-dev libjack-dev libmodplug-dev libavahi-compat-libdnssd-dev
-  if: env(CEAMMC_COVERAGE) = ON
-    - pip install --user cpp-coveralls
+- pip install --user cpp-coveralls
 
 before_script:
 - export CTEST_OUTPUT_ON_FAILURE=1
@@ -36,17 +31,15 @@ before_script:
 - gcov --version
 - mkdir build
 - cd build
-- cmake -DCMAKE_BUILD_TYPE=${CEAMMC_BUILD_TYPE} -DWITH_ALSA_MIDI=ON -DWITH_PORTMIDI=ON -DWITH_PORTAUDIO=OFF -DWITH_COVERAGE=${CEAMMC_COVERAGE} ..
+- if [[ $CEAMMC_COVERAGE == "ON" ]]; then cmake -DCMAKE_BUILD_TYPE=${CEAMMC_BUILD_TYPE} -DWITH_ALSA_MIDI=ON -DWITH_PORTMIDI=ON -DWITH_PORTAUDIO=OFF -DWITH_COVERAGE=${CEAMMC_COVERAGE} ..; fi
 
 script:
 - make -j2
 - make test
-  if: env(CEAMMC_BUILD_TYPE) = Release
-    - make package
+- if [[ $CEAMMC_BUILD_TYPE == "Release" ]]; then make package; fi
 
 after_success:
-  if: env(CEAMMC_COVERAGE) = ON
-    - coveralls --exclude . --include ceammc/ext/src/lib --root .. --build-root . --gcov-options '\-lp'
+- if [[ $CEAMMC_COVERAGE == "ON" ]]; then coveralls --exclude . --include ceammc/ext/src/lib --root .. --build-root . --gcov-options '\-lp'; fi
 
 deploy:
     provider: packagecloud
