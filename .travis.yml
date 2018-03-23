@@ -38,7 +38,7 @@ before_script:
 - cmake -DCMAKE_BUILD_TYPE=${CEAMMC_BUILD_TYPE} -DWITH_ALSA_MIDI=ON -DWITH_PORTMIDI=ON -DWITH_PORTAUDIO=OFF -DWITH_COVERAGE=${CEAMMC_COVERAGE} ..
 
 script:
-- make
+- make -j2
 - make test
   if: env(CEAMMC_BUILD_TYPE) = Release
     make package
