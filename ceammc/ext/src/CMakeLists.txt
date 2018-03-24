@@ -75,10 +75,4 @@ pd_add_extension(NAME ceammc
     LIBRARY ceammc
     LINK ${CEAMMC_EXT_LINK_LIBRARIES})
 
-pd_add_extension(NAME ceammc_extended
-    FILES compat.cpp
-    INTERNAL True
-    LIBRARY ceammc
-    LINK ceammc)
-
 add_custom_target(ceammc_lib_src SOURCES gen_lib.sh)

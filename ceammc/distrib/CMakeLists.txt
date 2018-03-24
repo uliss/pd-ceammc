@@ -2,7 +2,6 @@ add_subdirectory(win)
 add_subdirectory(mac)
 
 set(MAKELIB_SCRIPT "")
-set(MAKELIB_EXTENDED_SCRIPT "")
 
 if(APPLE)
     set(DYLIBBUNDLER "${CMAKE_CURRENT_BINARY_DIR}/mac/dylibbundler")
