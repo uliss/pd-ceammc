@@ -1,5 +1,6 @@
 add_subdirectory(win)
 add_subdirectory(mac)
+add_subdirectory(linux)
 
 set(MAKELIB_SCRIPT "")
 
@@ -10,6 +11,12 @@ if(APPLE)
                    ${CMAKE_CURRENT_BINARY_DIR}/mac/make_lib_mac.sh @ONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/mac/github_upload_release.sh
                    ${PROJECT_BINARY_DIR}/dist/github_upload_release.sh @ONLY)
+endif()
+
+if(UNIX AND NOT APPLE)
+    set(MAKELIB_SCRIPT "${PROJECT_BINARY_DIR}/dist/make_lib_linux.sh")
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/linux/make_lib_linux.sh
+                   ${MAKELIB_SCRIPT} @ONLY)
 endif()
 
 if(MAKELIB_SCRIPT)
