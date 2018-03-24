@@ -87,6 +87,8 @@ done
 echo "+ Copying misc files:"
 echo "    stargazing.mod"
 cp "${SRCDIR}/ext/doc/stargazing.mod" "${OUTDIR}"
+echo "    prs.txt"
+cp "${SRCDIR}/ext/doc/prs.txt" "${OUTDIR}"
 echo "    soundtouch~.d_fat"
 cp "${BINDIR}/../extra/SoundTouch/pd/soundtouch~.d_fat" "${OUTDIR}"
 echo "    soundtouch~-help.pd"
