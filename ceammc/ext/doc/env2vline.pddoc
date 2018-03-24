@@ -21,7 +21,7 @@
         </meta>
         <info>
             <par>Supports stop-points for multisegment envelopes.
-            Note: non-linear envelopes are outputted using lienear approximation</par>
+            Note: non-linear envelopes are outputted using linear approximation</par>
         </info>
         <properties>
             <property name="@sync" type="int" enum="0 1" default="0">sync with input data. When set to 1

@@ -8,7 +8,7 @@
 #X obj 621 11 env2vline;
 #X obj 205 80 cnv 1 490 47 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 210 80 Supports stop-points for multisegment envelopes. Note:
-non-linear envelopes are outputted using lienear approximation;
+non-linear envelopes are outputted using linear approximation;
 #X obj 50 155 loadbang;
 #X obj 414 155 r a1;
 #X obj 50 184 env easr 20 -4 1000 -8;
