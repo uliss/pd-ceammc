@@ -338,7 +338,7 @@ if(APPLE)
                 "${PROJECT_BINARY_DIR}/Pd_${PD_MACOSX_BUNDLE_SUFFIX}-macosx-${MACOSX_VERSION}.dmg"
                 ${CEAMMC_DISTRIB_VERSION}
             WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
-            DEPENDS app)
+            DEPENDS dmg src-zip src-tar)
     endif()
 endif()
 
