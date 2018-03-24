@@ -47,6 +47,6 @@ deploy:
   skip_cleanup: true
   package_glob: "*.deb"
   on:
-    branch: ceammc
+    branch: deploy
     condition: ${CEAMMC_BUILD_TYPE} = Release
 
