@@ -20,5 +20,3 @@ if(MAKELIB_SCRIPT)
             "${CEAMMC_LIB_VERSION}"
         SOURCES mac/make_lib_mac.sh)
 endif()
-
-add_custom_target(distrib_sources SOURCES ceammc_pddoc_link_fix.py)
