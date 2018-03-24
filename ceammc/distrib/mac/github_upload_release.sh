@@ -14,7 +14,8 @@ then
 fi
 
 DMG="$1"
-VERSION="$2"
+VERSION="@CEAMMC_DISTRIB_VERSION@"
+CEAMMC_VERSION="@CEAMMC_LIB_VERSION@"
 
 if [ ! -f "$DMG" ]
 then
@@ -35,7 +36,7 @@ SRC_TAR="${DIR}/pd-ceammc-${VERSION}-src.tar.gz"
 
 if [ -f "$SRC_TAR" ]
 then
-    echo "uploading src-tar to github..."
+    echo "uploading $(basename $SRC_TAR) to github..."
     github-release upload --user $USER \
         --repo $REPO \
         --tag $TAG \
@@ -48,7 +49,7 @@ SRC_ZIP="${DIR}/pd-ceammc-${VERSION}-src.zip"
 
 if [ -f "$SRC_ZIP" ]
 then
-    echo "uploading src-zip to github..."
+    echo "uploading $(basename $SRC_ZIP) to github..."
     github-release upload --user $USER \
         --repo $REPO \
         --tag $TAG \
@@ -57,13 +58,27 @@ then
         --replace
 fi
 
+CEAMMC_TAR_GZ="${DIR}/ceammc-${CEAMMC_VERSION}-macosx-*.tar.gz"
+
+if [ -f ${CEAMMC_TAR_GZ} ]
+then
+    fname=$(basename ${CEAMMC_TAR_GZ})
+    echo "uploading $fname to github..."
+    github-release upload --user $USER \
+        --repo $REPO \
+        --tag $TAG \
+        --name $fname \
+        --file ${CEAMMC_TAR_GZ} \
+        --replace
+fi
+
 echo "uploading release DMG ($TAG) to github..."
 
 github-release upload --user $USER \
-	--repo $REPO \
-	--tag $TAG \
-	--name $NAME \
-	--file "$DMG" \
-	--replace
+    --repo $REPO \
+    --tag $TAG \
+    --name $NAME \
+    --file "$DMG" \
+    --replace
 
 

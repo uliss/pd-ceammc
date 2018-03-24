@@ -334,11 +334,10 @@ if(APPLE)
     if(GPGENV_EXE)
         add_custom_target(deploy
             COMMAND
-                ${PROJECT_SOURCE_DIR}/ceammc/distrib/mac/github_upload_release.sh
+                ${PROJECT_BINARY_DIR}/dist/github_upload_release.sh
                 "${PROJECT_BINARY_DIR}/Pd_${PD_MACOSX_BUNDLE_SUFFIX}-macosx-${MACOSX_VERSION}.dmg"
-                ${CEAMMC_DISTRIB_VERSION}
             WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
-            DEPENDS dmg src-zip src-tar)
+            DEPENDS dmg src-zip src-tar ceammc_lib)
     endif()
 endif()
 
