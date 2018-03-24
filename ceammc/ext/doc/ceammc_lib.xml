@@ -161,7 +161,7 @@
     <entry descr="Envelope follower with independent attack and release times." name="env.follow~" ref_view="object">
       <xi:include href="env.follow~.pddoc" parse="xml"/>
     </entry>
-    <entry descr="Ouput mix between two envelopes. Envelopes should contain equal number of segments" name="env.mix" ref_view="object">
+    <entry descr="Mix between two envelopes. Envelopes should contain equal number of segments" name="env.mix" ref_view="object">
       <xi:include href="env.mix.pddoc" parse="xml"/>
     </entry>
     <entry descr="Envelope time-scale" name="env.tscale" ref_view="object">
