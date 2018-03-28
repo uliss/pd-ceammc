@@ -1,6 +1,7 @@
 add_subdirectory(win)
 add_subdirectory(mac)
 add_subdirectory(linux)
+add_subdirectory(docker)
 
 set(MAKELIB_SCRIPT "")
 
