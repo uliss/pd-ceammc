@@ -10,7 +10,7 @@ BINDIR="$2"
 VERSION="$4"
 OUTDIR="$3/ceammc"
 SYSVER=$(sw_vers | grep ProductVersion | cut -f2 | cut -f1,2 -d.)
-OUTFILE="ceammc-${VERSION}-linux-${SYSVER}-pd-@PD_MAJOR_VERSION@.@PD_MINOR_VERSION@.tar.gz"
+OUTFILE="ceammc-${VERSION}-linux-${SYSVER}-pd-@PD_TEXT_VERSION_SHORT@.tar.gz"
 INSTALL_DIR="@CEAMMC_INSTALL_PREFIX@"
 
 function skip_ext {
