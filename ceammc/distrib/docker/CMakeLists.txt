@@ -17,7 +17,7 @@ if(DOCKER_EXE)
     add_custom_target(docker_ubuntu_1604
         COMMAND "${CMAKE_BINARY_DIR}/dist/docker/docker_ubuntu_16.04.sh"
         WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
-    add_custom_target(docker_debian_1710
+    add_custom_target(docker_ubuntu_1710
         COMMAND "${CMAKE_BINARY_DIR}/dist/docker/docker_ubuntu_17.10.sh"
         WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
 endif()
