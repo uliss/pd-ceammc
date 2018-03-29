@@ -124,8 +124,8 @@ create percussion envelopes).;
 #X text 175 1772 Envelope follower with independent attack and release
 times.;
 #X obj 30 1809 env.mix;
-#X text 175 1809 Ouput mix between two envelopes. Envelopes should
-contain equal number of segments;
+#X text 175 1809 Mix between two envelopes. Envelopes should contain
+equal number of segments;
 #X obj 30 1846 env.tscale;
 #X text 175 1846 Envelope time-scale;
 #X obj 30 1873 env.tshift;
