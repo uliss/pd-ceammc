@@ -1,5 +1,13 @@
 # CEAMMC external library changelog
 
+## [Unreleased]
+### Added:
+
+### Changed:
+- migration to Faust v2
+
+### Fixed:
+
 ## [2018.03]
 ### Added:
 - hw.arduino added
