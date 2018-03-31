@@ -8,8 +8,10 @@ macro(ceammc_env_extension name)
 endmacro()
 
 ceammc_env_extension(adsr)
+ceammc_env_extension(asr)
 ceammc_env_extension(ar)
 ceammc_env_extension(follow)
+ceammc_env_extension(smooth)
 
 add_library(ceammc_env STATIC mod_env.cpp ${ENV_SOURCES})
 set_target_properties(ceammc_env PROPERTIES COMPILE_DEFINITIONS "FAUST_MACRO")
