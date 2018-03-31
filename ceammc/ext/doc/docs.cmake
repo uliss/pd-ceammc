@@ -46,6 +46,7 @@ set(DOC_FILES
     env.asr~
     env.ar~
     env.follow~
+    env.smooth~
     env2array
     env2vline
     expand_env

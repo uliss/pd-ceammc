@@ -167,6 +167,9 @@
     <entry descr="Mix between two envelopes. Envelopes should contain equal number of segments" name="env.mix" ref_view="object">
       <xi:include href="env.mix.pddoc" parse="xml"/>
     </entry>
+    <entry descr="An envelope with an exponential attack and release" name="env.smooth~" ref_view="object">
+      <xi:include href="env.smooth~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="Envelope time-scale" name="env.tscale" ref_view="object">
       <xi:include href="env.tscale.pddoc" parse="xml"/>
     </entry>

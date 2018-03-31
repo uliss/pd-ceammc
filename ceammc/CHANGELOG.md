@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 ### Added:
+- env.asr~ envelope generator added
+- env.smooth~ envelope generator added
 
 ### Changed:
 - migration to Faust v2
