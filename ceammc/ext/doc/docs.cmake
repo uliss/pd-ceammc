@@ -94,6 +94,7 @@ set(DOC_FILES
     fx.freeverb2~
     fx.freeverb~
     fx.freqshift~
+    fx.drone_box~
     fx.greyhole~
     fx.looper~
     fx.pitchshift~

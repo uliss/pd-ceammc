@@ -508,12 +508,13 @@ class drone_box : public dsp {
 	
  private:
 	
+	FAUSTFLOAT fCheckbox0;
+	FAUSTFLOAT fHslider0;
+	float fRec0[2];
 	int fSamplingFreq;
 	float fConst0;
 	float fConst1;
 	float fConst2;
-	FAUSTFLOAT fHslider0;
-	float fRec0[2];
 	float fConst3;
 	FAUSTFLOAT fHslider1;
 	float fRec2[2];
@@ -541,10 +542,12 @@ class drone_box : public dsp {
 		m->declare("basics.lib/version", "0.0");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
 		m->declare("ceammc.lib/version", "0.1");
+		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
+		m->declare("ceammc_ui.lib/version", "0.1.1");
 		m->declare("copyright", "Oliver Larkin");
 		m->declare("delays.lib/name", "Faust Delay Library");
 		m->declare("delays.lib/version", "0.0");
-		m->declare("description", "Stereo Sympathetic Resonance Generator");
+		m->declare("description", "Mono Sympathetic Resonance Generator");
 		m->declare("filename", "fx_drone_box");
 		m->declare("licence", "GPL");
 		m->declare("maths.lib/author", "GRAME");
@@ -617,6 +620,7 @@ class drone_box : public dsp {
 	}
 	
 	virtual void instanceResetUserInterface() {
+		fCheckbox0 = FAUSTFLOAT(0.0f);
 		fHslider0 = FAUSTFLOAT(0.5f);
 		fHslider1 = FAUSTFLOAT(48.0f);
 		fHslider2 = FAUSTFLOAT(4000.0f);
@@ -692,9 +696,11 @@ class drone_box : public dsp {
 	
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("DroneBox");
+		ui_interface->addCheckButton("bypass", &fCheckbox0);
 		ui_interface->declare(&fHslider2, "unit", "ms");
 		ui_interface->addHorizontalSlider("decay", &fHslider2, 4000.0f, 100.0f, 120000.0f, 1.0f);
-		ui_interface->addHorizontalSlider("mix", &fHslider0, 0.5f, 0.0f, 1.0f, 0.00999999978f);
+		ui_interface->declare(&fHslider0, "style", "knob");
+		ui_interface->addHorizontalSlider("drywet", &fHslider0, 0.5f, 0.0f, 1.0f, 0.00999999978f);
 		ui_interface->declare(&fHslider1, "unit", "semitones");
 		ui_interface->addHorizontalSlider("pitch", &fHslider1, 48.0f, 36.0f, 60.0f, 0.00100000005f);
 		ui_interface->closeBox();
@@ -704,44 +710,46 @@ class drone_box : public dsp {
 	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
-		float fSlow0 = (fConst2 * float(fHslider0));
-		float fSlow1 = (fConst3 * powf(2.0f, (0.0833333358f * (float(fHslider1) + -69.0f))));
-		float fSlow2 = (fConst4 * float(fHslider2));
+		int iSlow0 = int(float(fCheckbox0));
+		float fSlow1 = (0.00100000005f * float(fHslider0));
+		float fSlow2 = (fConst3 * powf(2.0f, (0.0833333358f * (float(fHslider1) + -69.0f))));
+		float fSlow3 = (fConst4 * float(fHslider2));
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = float(input0[i]);
-			fRec0[0] = (fSlow0 + (fConst1 * fRec0[1]));
-			fRec2[0] = (fSlow1 + (fConst1 * fRec2[1]));
-			fRec3[0] = (fSlow2 + (fConst1 * fRec3[1]));
-			float fTemp1 = (fRec2[0] * fRec3[0]);
-			float fTemp2 = (fTemp0 + (fRec1[1] * powf(0.00100000005f, (1.0f / fTemp1))));
-			fVec0[(IOTA & 8191)] = fTemp2;
-			float fTemp3 = (fConst0 / fRec2[0]);
-			float fTemp4 = (fTemp3 + -2.0f);
-			int iTemp5 = int(fTemp4);
-			float fTemp6 = floorf(fTemp4);
-			fRec1[0] = ((fVec0[((IOTA - min(4097, max(0, iTemp5))) & 8191)] * (fTemp6 + (3.0f - fTemp3))) + ((fTemp3 + (-2.0f - fTemp6)) * fVec0[((IOTA - min(4097, max(0, (iTemp5 + 1)))) & 8191)]));
-			float fTemp7 = (fTemp0 + (fRec4[1] * powf(0.00100000005f, (0.666666687f / fTemp1))));
-			fVec1[(IOTA & 8191)] = fTemp7;
-			float fTemp8 = (fConst5 / fRec2[0]);
-			float fTemp9 = (fTemp8 + -2.0f);
-			int iTemp10 = int(fTemp9);
-			float fTemp11 = floorf(fTemp9);
-			fRec4[0] = ((fVec1[((IOTA - min(4097, max(0, iTemp10))) & 8191)] * (fTemp11 + (3.0f - fTemp8))) + ((fTemp8 + (-2.0f - fTemp11)) * fVec1[((IOTA - min(4097, max(0, (iTemp10 + 1)))) & 8191)]));
-			float fTemp12 = (fTemp0 + (fRec5[1] * powf(0.00100000005f, (0.5f / fTemp1))));
-			fVec2[(IOTA & 8191)] = fTemp12;
-			float fTemp13 = (fConst6 / fRec2[0]);
-			float fTemp14 = (fTemp13 + -2.0f);
-			int iTemp15 = int(fTemp14);
-			float fTemp16 = floorf(fTemp14);
-			fRec5[0] = ((fVec2[((IOTA - min(4097, max(0, iTemp15))) & 8191)] * (fTemp16 + (3.0f - fTemp13))) + ((fTemp13 + (-2.0f - fTemp16)) * fVec2[((IOTA - min(4097, max(0, (iTemp15 + 1)))) & 8191)]));
-			float fTemp17 = (fTemp0 + (fRec6[1] * powf(0.00100000005f, (0.333333343f / fTemp1))));
-			fVec3[(IOTA & 8191)] = fTemp17;
-			float fTemp18 = (fConst7 / fRec2[0]);
-			float fTemp19 = (fTemp18 + -2.0f);
-			int iTemp20 = int(fTemp19);
-			float fTemp21 = floorf(fTemp19);
-			fRec6[0] = ((fVec3[((IOTA - min(4097, max(0, iTemp20))) & 8191)] * (fTemp21 + (3.0f - fTemp18))) + ((fTemp18 + (-2.0f - fTemp21)) * fVec3[((IOTA - min(4097, max(0, (iTemp20 + 1)))) & 8191)]));
-			output0[i] = FAUSTFLOAT(((fTemp0 * (1.0f - fRec0[0])) + (0.25f * (fRec0[0] * (((fRec1[0] + fRec4[0]) + fRec5[0]) + fRec6[0])))));
+			float fTemp1 = (iSlow0?0.0f:fTemp0);
+			fRec0[0] = (fSlow1 + (0.999000013f * fRec0[1]));
+			fRec2[0] = (fSlow2 + (fConst1 * fRec2[1]));
+			fRec3[0] = (fSlow3 + (fConst1 * fRec3[1]));
+			float fTemp2 = (fRec2[0] * fRec3[0]);
+			float fTemp3 = (fTemp1 + (fRec1[1] * powf(0.00100000005f, (1.0f / fTemp2))));
+			fVec0[(IOTA & 8191)] = fTemp3;
+			float fTemp4 = (fConst0 / fRec2[0]);
+			float fTemp5 = (fTemp4 + -2.0f);
+			int iTemp6 = int(fTemp5);
+			float fTemp7 = floorf(fTemp5);
+			fRec1[0] = ((fVec0[((IOTA - min(4097, max(0, iTemp6))) & 8191)] * (fTemp7 + (3.0f - fTemp4))) + ((fTemp4 + (-2.0f - fTemp7)) * fVec0[((IOTA - min(4097, max(0, (iTemp6 + 1)))) & 8191)]));
+			float fTemp8 = (fTemp1 + (fRec4[1] * powf(0.00100000005f, (0.666666687f / fTemp2))));
+			fVec1[(IOTA & 8191)] = fTemp8;
+			float fTemp9 = (fConst5 / fRec2[0]);
+			float fTemp10 = (fTemp9 + -2.0f);
+			int iTemp11 = int(fTemp10);
+			float fTemp12 = floorf(fTemp10);
+			fRec4[0] = ((fVec1[((IOTA - min(4097, max(0, iTemp11))) & 8191)] * (fTemp12 + (3.0f - fTemp9))) + ((fTemp9 + (-2.0f - fTemp12)) * fVec1[((IOTA - min(4097, max(0, (iTemp11 + 1)))) & 8191)]));
+			float fTemp13 = (fTemp1 + (fRec5[1] * powf(0.00100000005f, (0.5f / fTemp2))));
+			fVec2[(IOTA & 8191)] = fTemp13;
+			float fTemp14 = (fConst6 / fRec2[0]);
+			float fTemp15 = (fTemp14 + -2.0f);
+			int iTemp16 = int(fTemp15);
+			float fTemp17 = floorf(fTemp15);
+			fRec5[0] = ((fVec2[((IOTA - min(4097, max(0, iTemp16))) & 8191)] * (fTemp17 + (3.0f - fTemp14))) + ((fTemp14 + (-2.0f - fTemp17)) * fVec2[((IOTA - min(4097, max(0, (iTemp16 + 1)))) & 8191)]));
+			float fTemp18 = (fTemp1 + (fRec6[1] * powf(0.00100000005f, (0.333333343f / fTemp2))));
+			fVec3[(IOTA & 8191)] = fTemp18;
+			float fTemp19 = (fConst7 / fRec2[0]);
+			float fTemp20 = (fTemp19 + -2.0f);
+			int iTemp21 = int(fTemp20);
+			float fTemp22 = floorf(fTemp20);
+			fRec6[0] = ((fVec3[((IOTA - min(4097, max(0, iTemp21))) & 8191)] * (fTemp22 + (3.0f - fTemp19))) + ((fTemp19 + (-2.0f - fTemp22)) * fVec3[((IOTA - min(4097, max(0, (iTemp21 + 1)))) & 8191)]));
+			output0[i] = FAUSTFLOAT((iSlow0?fTemp0:((fTemp1 * (1.0f - fRec0[0])) + (0.25f * (fRec0[0] * (((fRec1[0] + fRec4[0]) + fRec5[0]) + fRec6[0]))))));
 			fRec0[1] = fRec0[0];
 			fRec2[1] = fRec2[0];
 			fRec3[1] = fRec3[0];

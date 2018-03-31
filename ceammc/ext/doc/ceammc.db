@@ -90,6 +90,7 @@ flt.resonbp~		~		~.
 function,func		..		..
 function.call,func.call		..		.
 fx.distortion~		~		~.
+fx.drone_box~		~		~.
 fx.flanger~		~		~.
 fx.freeverb2~		~~		~~.
 fx.freeverb~		~		~.

@@ -18,8 +18,8 @@ duplicate(n, x) = x, duplicate(n-1, x);
 // range
 clip(lo, hi) = max(lo) : min(hi);
 
-// ho.map
-//ho.map(xs, fx) = par(i, ba.count(xs), fx);
+// map
+map(xs, fx) = par(i, ba.count(xs), fx);
 
 // si.bus
 //si.bus(n) = par(i, n, _);
@@ -27,10 +27,10 @@ clip(lo, hi) = max(lo) : min(hi);
 // dry-wet
 fx_drywet(in, fx, g) = IN <: dry(in, fx, g), wet(in, fx, g) :> OUT
 with {
-    IN = si.bus(ba.ba.count(in));
+    IN = si.bus(ba.count(in));
     OUT = IN;
-    dry(in, fx, g) = ho.map(in, *(1-g));
-    wet(in, fx, g) = fx : ho.map(in, *(g));
+    dry(in, fx, g) = map(in, *(1-g));
+    wet(in, fx, g) = fx : map(in, *(g));
 };
 
 // fx-wrap

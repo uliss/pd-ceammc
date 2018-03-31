@@ -4,6 +4,7 @@
 ### Added:
 - env.asr~ envelope generator added
 - env.smooth~ envelope generator added
+- fx.drone_box~ added
 
 ### Changed:
 - migration to Faust v2

@@ -314,6 +314,9 @@
     <entry descr="cubic nonlinearity distortion" name="fx.distortion~" ref_view="object">
       <xi:include href="fx.distortion~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="mono sympathetic resonance generator" name="fx.drone_box~" ref_view="object">
+      <xi:include href="fx.drone_box~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="mono flanging effect" name="fx.flanger~" ref_view="object">
       <xi:include href="fx.flanger~.pddoc" parse="xml"/>
     </entry>
