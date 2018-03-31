@@ -10,6 +10,7 @@ extern "C" void setup_fx0x2epitchshift_tilde();
 extern "C" void setup_fx0x2ezita_rev1_tilde();
 extern "C" void setup_fx0x2egreyhole_tilde();
 extern "C" void setup_fx0x2egranulator_tilde();
+extern "C" void setup_fx0x2edrone_box_tilde();
 
 void ceammc_fx_setup()
 {
@@ -22,5 +23,6 @@ void ceammc_fx_setup()
     setup_fx0x2ezita_rev1_tilde();
     setup_fx0x2egreyhole_tilde();
     setup_fx0x2egranulator_tilde();
+    setup_fx0x2edrone_box_tilde();
     setup_fx_looper();
 }

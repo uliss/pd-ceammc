@@ -6,6 +6,7 @@ macro(ceammc_fx_extension name)
 endmacro()
 
 ceammc_fx_extension(distortion)
+ceammc_fx_extension(drone_box)
 ceammc_fx_extension(flanger)
 ceammc_fx_extension(freeverb)
 ceammc_fx_extension(freeverb2)
