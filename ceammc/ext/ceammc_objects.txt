@@ -58,9 +58,11 @@ env->array
 env->vline
 env.adsr~
 env.ar~
+env.asr~
 env.concat
 env.follow~
 env.mix
+env.smooth~
 env.tscale
 env.tshift
 env.vscale

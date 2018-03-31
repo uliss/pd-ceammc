@@ -43,6 +43,7 @@ set(DOC_FILES
     env.vscale
     env.concat
     env.adsr~
+    env.asr~
     env.ar~
     env.follow~
     env2array

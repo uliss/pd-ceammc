@@ -686,7 +686,7 @@ class adsr : public dsp {
 		int iSlow4 = ((fSlow0 == 0.0f) > 0);
 		float fSlow5 = (9.99999997e-07f * float(fHslider2));
 		float fSlow6 = (9.99999997e-07f * float(fHslider3));
-		float fSlow7 = (0.00100000005f * float(fHslider4));
+		float fSlow7 = (9.99999975e-06f * float(fHslider4));
 		for (int i = 0; (i < count); i = (i + 1)) {
 			fRec1[0] = (fSlow3 + (0.999000013f * fRec1[1]));
 			float fTemp0 = (fConst0 * fRec1[0]);

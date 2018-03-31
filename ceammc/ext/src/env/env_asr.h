@@ -600,7 +600,7 @@ class asr : public dsp {
 		fHslider0 = FAUSTFLOAT(0.0f);
 		fHslider1 = FAUSTFLOAT(10.0f);
 		fHslider2 = FAUSTFLOAT(10.0f);
-		fHslider3 = FAUSTFLOAT(50.0f);
+		fHslider3 = FAUSTFLOAT(100.0f);
 		
 	}
 	
@@ -660,7 +660,7 @@ class asr : public dsp {
 		ui_interface->addHorizontalSlider("release", &fHslider1, 10.0f, 0.0f, 100000.0f, 1.0f);
 		ui_interface->declare(&fHslider3, "style", "knob");
 		ui_interface->declare(&fHslider3, "unit", "percent");
-		ui_interface->addHorizontalSlider("sustain", &fHslider3, 50.0f, 0.0f, 100.0f, 0.00100000005f);
+		ui_interface->addHorizontalSlider("sustain", &fHslider3, 100.0f, 0.0f, 100.0f, 0.00100000005f);
 		ui_interface->addHorizontalSlider("trigger", &fHslider0, 0.0f, 0.0f, 1.0f, 0.00100000005f);
 		ui_interface->closeBox();
 		
@@ -675,7 +675,7 @@ class asr : public dsp {
 		float fSlow3 = (9.99999997e-07f * float(fHslider1));
 		int iSlow4 = ((fSlow0 == 0.0f) > 0);
 		float fSlow5 = (9.99999997e-07f * float(fHslider2));
-		float fSlow6 = (0.00100000005f * float(fHslider3));
+		float fSlow6 = (9.99999975e-06f * float(fHslider3));
 		float fSlow7 = (fConst1 * fSlow0);
 		for (int i = 0; (i < count); i = (i + 1)) {
 			fRec1[0] = (fSlow3 + (0.999000013f * fRec1[1]));

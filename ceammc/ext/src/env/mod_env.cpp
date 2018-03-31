@@ -7,7 +7,6 @@
 #include "env_tscale.h"
 #include "env_tshift.h"
 #include "env_vscale.h"
-#include "env_asr.h"
 
 extern "C" void setup_env0x2eadsr_tilde();
 extern "C" void setup_env0x2easr_tilde();
