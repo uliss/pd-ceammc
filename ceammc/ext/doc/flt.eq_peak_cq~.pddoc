@@ -1,23 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="flt.eq_peak~">
-        <title>flt.eq_peak~</title>
+    <object name="flt.eq_peak_cq~">
+        <title>flt.eq_peak_cq~</title>
         <meta>
             <authors>
-                <author>Alex Nadzharov</author>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>second order "peaking equalizer" section (gain boost or cut near some
-            frequency). Also called a "parametric equalizer" section.</description>
+            <description>constant-Q second order peaking equalizer section</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>flt</category>
-            <keywords>filter equalizer</keywords>
-            <since>0.1</since>
+            <keywords>filter equalizer </keywords>
+            <since>0.6</since>
             <also>
-                <see>flt.eq_peak_cq~</see>
-                <see>flt.lowshelf~</see>
-                <see>flt.highshelf~</see>
+                <see>flt.eq_peak~</see>
             </also>
         </meta>
         <methods>
@@ -28,15 +24,15 @@
                 <param type="float" units="decibel">level at fx (boost if &gt;0 or cut if
                 &lt;0)</param>
             </method>
-            <method name="bandwidth">
-                <param type="float" units="herz">bandwidth of peak</param>
+            <method name="q">
+                <param type="float">quality factor = freq/B where B = bandwidth of peak in Hz</param>
             </method>
         </methods>
         <arguments>
             <argument name="freq" type="float" units="herz">peak frequency</argument>
             <argument name="gain" type="float" units="decibel">level at fx (boost if &gt;0 or cut
             if &lt;0)</argument>
-            <argument name="bandwidth" type="float" units="herz">bandwidth of peak</argument>
+            <argument name="q" type="float">quality factor</argument>
             <argument name="ID" type="symbol">object ID for OSC control</argument>
         </arguments>
         <inlets>
@@ -54,11 +50,11 @@
 <![CDATA[
 [noise~] [F]       [F]       [F]
 |        |         |         |
-|        [freq $1( [gain $1( [bandwidth $1(
+|        [freq $1( [gain $1( [q $1(
 |        |         |         |
-[flt.eq_peak~ 3000 20 400 id ]
+[flt.eq_peak_cq~ 3000 15 3 id]
 |
-[ui.ssc~ @size 500 120]
+[ui.ssc~ @size 500 120 @log_scale 1]
 
 
 

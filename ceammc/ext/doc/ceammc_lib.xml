@@ -282,6 +282,9 @@
     <entry descr="mono DC blocker" name="flt.dcblock~" ref_view="object">
       <xi:include href="flt.dcblock~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="constant-Q second order peaking equalizer section" name="flt.eq_peak_cq~" ref_view="object">
+      <xi:include href="flt.eq_peak_cq~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="second order &quot;peaking equalizer&quot; section (gain boost or cut near some frequency). Also called a &quot;parametric equalizer&quot; section." name="flt.eq_peak~" ref_view="object">
       <xi:include href="flt.eq_peak~.pddoc" parse="xml"/>
     </entry>
