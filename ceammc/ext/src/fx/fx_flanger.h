@@ -1,11 +1,12 @@
-//----------------------------------------------------------
-// name: "fx_flanger"
-//
-// Code generated with Faust 0.10.6 (http://faust.grame.fr)
-//----------------------------------------------------------
+/* ------------------------------------------------------------
+name: "fx_flanger"
+Code generated with Faust 2.5.30 (https://faust.grame.fr)
+Compilation options: cpp, -scal -ftz 0
+------------------------------------------------------------ */
 
-/* link with  */
-#include <math.h>
+#ifndef  __flanger_H__
+#define  __flanger_H__
+
 /************************************************************************
  ************************************************************************
     FAUST Architecture File
@@ -64,6 +65,8 @@
 #ifndef __dsp__
 #define __dsp__
 
+#include <string>
+
 #ifndef FAUSTFLOAT
 #define FAUSTFLOAT float
 #endif
@@ -112,23 +115,23 @@ class dsp {
         /* Returns the sample rate currently used by the instance */
         virtual int getSampleRate() = 0;
     
-        /** 
+        /**
          * Global init, calls the following methods:
          * - static class 'classInit': static tables initialization
          * - 'instanceInit': constants and instance state initialization
          *
-         * @param samplingRate - the sampling rate in Herz
+         * @param samplingRate - the sampling rate in Hertz
          */
         virtual void init(int samplingRate) = 0;
-    
-        /** 
+
+        /**
          * Init instance state
          *
          * @param samplingRate - the sampling rate in Hertz
          */
         virtual void instanceInit(int samplingRate) = 0;
-    
-        /** 
+
+        /**
          * Init instance constant state
          *
          * @param samplingRate - the sampling rate in Hertz
@@ -140,8 +143,8 @@ class dsp {
     
         /* Init instance state (delay lines...) */
         virtual void instanceClear() = 0;
-    
-        /**  
+ 
+        /**
          * Return a clone of the instance.
          *
          * @return a copy of the instance on success, otherwise a null pointer.
@@ -156,9 +159,9 @@ class dsp {
         virtual void metadata(Meta* m) = 0;
     
         /**
-         * DSP instance computation, to be called with sucessive in/out audio buffers.
+         * DSP instance computation, to be called with successive in/out audio buffers.
          *
-         * @param count - the nomber of frames to compute
+         * @param count - the number of frames to compute
          * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
          * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
          *
@@ -169,12 +172,12 @@ class dsp {
          * DSP instance computation: alternative method to be used by subclasses.
          *
          * @param date_usec - the timestamp in microsec given by audio driver.
-         * @param count - the nomber of frames to compute
+         * @param count - the number of frames to compute
          * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
          * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
          *
          */
-        virtual void compute(double date_usec, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { compute(count, inputs, outputs); }
+        virtual void compute(double /*date_usec*/, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { compute(count, inputs, outputs); }
        
 };
 
@@ -207,7 +210,31 @@ class decorator_dsp : public dsp {
         // Beware: subclasses usually have to overload the two 'compute' methods
         virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(count, inputs, outputs); }
         virtual void compute(double date_usec, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(date_usec, count, inputs, outputs); }
-       
+    
+};
+
+/**
+ * DSP factory class.
+ */
+
+class dsp_factory {
+    
+    protected:
+    
+        // So that to force sub-classes to use deleteDSPFactory(dsp_factory* factory);
+        virtual ~dsp_factory() {}
+    
+    public:
+    
+        virtual std::string getName() = 0;
+        virtual std::string getSHAKey() = 0;
+        virtual std::string getDSPCode() = 0;
+    
+        virtual dsp* createDSPInstance() = 0;
+    
+        virtual void setMemoryManager(dsp_memory_manager* manager) = 0;
+        virtual dsp_memory_manager* getMemoryManager() = 0;
+    
 };
 
 /**
@@ -250,8 +277,8 @@ class decorator_dsp : public dsp {
  architecture section is not modified.
  ************************************************************************/
 
-#ifndef FAUST_UI_H
-#define FAUST_UI_H
+#ifndef __UI_H__
+#define __UI_H__
 
 #ifndef FAUSTFLOAT
 #define FAUSTFLOAT float
@@ -263,6 +290,8 @@ class decorator_dsp : public dsp {
  * This abstract class contains only the method that the Faust compiler can
  * generate to describe a DSP user interface.
  ******************************************************************************/
+
+struct Soundfile;
 
 class UI
 {
@@ -292,6 +321,10 @@ class UI
 
         virtual void addHorizontalBargraph(const char* label, FAUSTFLOAT* zone, FAUSTFLOAT min, FAUSTFLOAT max) = 0;
         virtual void addVerticalBargraph(const char* label, FAUSTFLOAT* zone, FAUSTFLOAT min, FAUSTFLOAT max) = 0;
+    
+        // -- soundfiles
+    
+        virtual void addSoundfile(const char* label, const char* filename, Soundfile** sf_zone) = 0;
 
         // -- metadata declarations
 
@@ -454,90 +487,172 @@ using namespace ceammc::faust;
 // clang-format off
 #ifndef FAUSTFLOAT
 #define FAUSTFLOAT float
-#endif  
+#endif 
+
+#include <cmath>
+#include <math.h>
 
 
 #ifndef FAUSTCLASS 
 #define FAUSTCLASS flanger
 #endif
+#ifdef __APPLE__ 
+#define exp10f __exp10f
+#define exp10 __exp10
+#endif
 
 class flanger : public dsp {
-  private:
-	FAUSTFLOAT 	fcheckbox0;
-	FAUSTFLOAT 	fslider0;
-	int 	iVec0[2];
-	float 	fRec1[2];
-	int 	IOTA;
-	float 	fVec1[4096];
-	float 	fConst0;
-	float 	fConst1;
-	FAUSTFLOAT 	fslider1;
-	FAUSTFLOAT 	fslider2;
-	float 	fConst2;
-	FAUSTFLOAT 	fslider3;
-	float 	fRec3[2];
-	float 	fRec4[2];
-	float 	fRec2[2];
-	float 	fRec0[2];
-	FAUSTFLOAT 	fcheckbox1;
-	FAUSTFLOAT 	fslider4;
-	float 	fRec5[2];
+	
+ private:
+	
+	FAUSTFLOAT fCheckbox0;
+	FAUSTFLOAT fHslider0;
+	int iVec0[2];
+	float fRec1[2];
+	int IOTA;
+	float fVec1[4096];
 	int fSamplingFreq;
-
-  public:
-	virtual void metadata(Meta* m) { 
+	float fConst0;
+	float fConst1;
+	FAUSTFLOAT fHslider1;
+	FAUSTFLOAT fHslider2;
+	float fConst2;
+	FAUSTFLOAT fHslider3;
+	float fRec3[2];
+	float fRec4[2];
+	float fRec2[2];
+	float fRec0[2];
+	FAUSTFLOAT fCheckbox1;
+	FAUSTFLOAT fHslider4;
+	float fRec5[2];
+	
+ public:
+	
+	void metadata(Meta* m) { 
 		m->declare("basics.lib/name", "Faust Basic Element Library");
 		m->declare("basics.lib/version", "0.0");
-		m->declare("signals.lib/name", "Faust Signal Routing Library");
-		m->declare("signals.lib/version", "0.0");
-		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.0");
+		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
+		m->declare("ceammc_ui.lib/version", "0.1.1");
+		m->declare("delays.lib/name", "Faust Delay Library");
+		m->declare("delays.lib/version", "0.0");
+		m->declare("filename", "fx_flanger");
+		m->declare("filters.lib/name", "Faust Filters Library");
+		m->declare("filters.lib/version", "0.0");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
-		m->declare("delays.lib/name", "Faust Delay Library");
-		m->declare("delays.lib/version", "0.0");
+		m->declare("maths.lib/name", "Faust Math Library");
+		m->declare("maths.lib/version", "2.1");
 		m->declare("name", "fx_flanger");
-		m->declare("phaflangers.lib/name", "Faust Phaser and Flanger Library");
-		m->declare("phaflangers.lib/version", "0.0");
 		m->declare("oscillators.lib/name", "Faust Oscillator Library");
 		m->declare("oscillators.lib/version", "0.0");
-		m->declare("filters.lib/name", "Faust Filters Library");
-		m->declare("filters.lib/version", "0.0");
-		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
-		m->declare("ceammc_ui.lib/version", "0.1.1");
+		m->declare("phaflangers.lib/name", "Faust Phaser and Flanger Library");
+		m->declare("phaflangers.lib/version", "0.0");
+		m->declare("signals.lib/name", "Faust Signal Routing Library");
+		m->declare("signals.lib/version", "0.0");
 	}
 
-	virtual int getNumInputs() { return 1; }
-	virtual int getNumOutputs() { return 1; }
-	static void classInit(int samplingFreq) {
+	virtual int getNumInputs() {
+		return 1;
+		
 	}
+	virtual int getNumOutputs() {
+		return 1;
+		
+	}
+	virtual int getInputRate(int channel) {
+		int rate;
+		switch (channel) {
+			case 0: {
+				rate = 1;
+				break;
+			}
+			default: {
+				rate = -1;
+				break;
+			}
+			
+		}
+		return rate;
+		
+	}
+	virtual int getOutputRate(int channel) {
+		int rate;
+		switch (channel) {
+			case 0: {
+				rate = 1;
+				break;
+			}
+			default: {
+				rate = -1;
+				break;
+			}
+			
+		}
+		return rate;
+		
+	}
+	
+	static void classInit(int samplingFreq) {
+		
+	}
+	
 	virtual void instanceConstants(int samplingFreq) {
 		fSamplingFreq = samplingFreq;
-		fConst0 = min(1.92e+05f, max(1e+03f, (float)fSamplingFreq));
-		fConst1 = (0.001f * fConst0);
-		fConst2 = (6.2831855f / fConst0);
+		fConst0 = min(192000.0f, max(1.0f, float(fSamplingFreq)));
+		fConst1 = (0.00100000005f * fConst0);
+		fConst2 = (6.28318548f / fConst0);
+		
 	}
+	
 	virtual void instanceResetUserInterface() {
-		fcheckbox0 = 0.0;
-		fslider0 = 0.0f;
-		fslider1 = 1.0f;
-		fslider2 = 1e+01f;
-		fslider3 = 0.5f;
-		fcheckbox1 = 0.0;
-		fslider4 = 1.0f;
+		fCheckbox0 = FAUSTFLOAT(0.0f);
+		fHslider0 = FAUSTFLOAT(0.0f);
+		fHslider1 = FAUSTFLOAT(1.0f);
+		fHslider2 = FAUSTFLOAT(10.0f);
+		fHslider3 = FAUSTFLOAT(0.5f);
+		fCheckbox1 = FAUSTFLOAT(0.0f);
+		fHslider4 = FAUSTFLOAT(1.0f);
+		
 	}
+	
 	virtual void instanceClear() {
-		for (int i=0; i<2; i++) iVec0[i] = 0;
-		for (int i=0; i<2; i++) fRec1[i] = 0;
+		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
+			iVec0[l0] = 0;
+			
+		}
+		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
+			fRec1[l1] = 0.0f;
+			
+		}
 		IOTA = 0;
-		for (int i=0; i<4096; i++) fVec1[i] = 0;
-		for (int i=0; i<2; i++) fRec3[i] = 0;
-		for (int i=0; i<2; i++) fRec4[i] = 0;
-		for (int i=0; i<2; i++) fRec2[i] = 0;
-		for (int i=0; i<2; i++) fRec0[i] = 0;
-		for (int i=0; i<2; i++) fRec5[i] = 0;
+		for (int l2 = 0; (l2 < 4096); l2 = (l2 + 1)) {
+			fVec1[l2] = 0.0f;
+			
+		}
+		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
+			fRec3[l3] = 0.0f;
+			
+		}
+		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
+			fRec4[l4] = 0.0f;
+			
+		}
+		for (int l5 = 0; (l5 < 2); l5 = (l5 + 1)) {
+			fRec2[l5] = 0.0f;
+			
+		}
+		for (int l6 = 0; (l6 < 2); l6 = (l6 + 1)) {
+			fRec0[l6] = 0.0f;
+			
+		}
+		for (int l7 = 0; (l7 < 2); l7 = (l7 + 1)) {
+			fRec5[l7] = 0.0f;
+			
+		}
+		
 	}
+	
 	virtual void init(int samplingFreq) {
 		classInit(samplingFreq);
 		instanceInit(samplingFreq);
@@ -547,73 +662,79 @@ class flanger : public dsp {
 		instanceResetUserInterface();
 		instanceClear();
 	}
+	
 	virtual flanger* clone() {
 		return new flanger();
 	}
 	virtual int getSampleRate() {
 		return fSamplingFreq;
+		
 	}
+	
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("fx_flanger");
-		ui_interface->addCheckButton("bypass", &fcheckbox0);
-		ui_interface->declare(&fslider2, "style", "knob");
-		ui_interface->declare(&fslider2, "unit", "ms");
-		ui_interface->addHorizontalSlider("delay", &fslider2, 1e+01f, 0.0f, 2e+01f, 0.001f);
-		ui_interface->declare(&fslider4, "style", "knob");
-		ui_interface->addHorizontalSlider("drywet", &fslider4, 1.0f, 0.0f, 1.0f, 0.001f);
-		ui_interface->declare(&fslider0, "style", "knob");
-		ui_interface->addHorizontalSlider("feedback", &fslider0, 0.0f, -0.999f, 0.999f, 0.001f);
-		ui_interface->addCheckButton("invert", &fcheckbox1);
-		ui_interface->declare(&fslider1, "style", "knob");
-		ui_interface->declare(&fslider1, "unit", "ms");
-		ui_interface->addHorizontalSlider("offset", &fslider1, 1.0f, 0.0f, 2e+01f, 0.001f);
-		ui_interface->declare(&fslider3, "style", "knob");
-		ui_interface->declare(&fslider3, "unit", "Hz");
-		ui_interface->addHorizontalSlider("speed", &fslider3, 0.5f, 0.0f, 1e+01f, 0.01f);
+		ui_interface->addCheckButton("bypass", &fCheckbox0);
+		ui_interface->declare(&fHslider2, "style", "knob");
+		ui_interface->declare(&fHslider2, "unit", "ms");
+		ui_interface->addHorizontalSlider("delay", &fHslider2, 10.0f, 0.0f, 20.0f, 0.00100000005f);
+		ui_interface->declare(&fHslider4, "style", "knob");
+		ui_interface->addHorizontalSlider("drywet", &fHslider4, 1.0f, 0.0f, 1.0f, 0.00100000005f);
+		ui_interface->declare(&fHslider0, "style", "knob");
+		ui_interface->addHorizontalSlider("feedback", &fHslider0, 0.0f, -0.999000013f, 0.999000013f, 0.00100000005f);
+		ui_interface->addCheckButton("invert", &fCheckbox1);
+		ui_interface->declare(&fHslider1, "style", "knob");
+		ui_interface->declare(&fHslider1, "unit", "ms");
+		ui_interface->addHorizontalSlider("offset", &fHslider1, 1.0f, 0.0f, 20.0f, 0.00100000005f);
+		ui_interface->declare(&fHslider3, "style", "knob");
+		ui_interface->declare(&fHslider3, "unit", "Hz");
+		ui_interface->addHorizontalSlider("speed", &fHslider3, 0.5f, 0.0f, 10.0f, 0.00999999978f);
 		ui_interface->closeBox();
+		
 	}
-	virtual void compute (int count, FAUSTFLOAT** input, FAUSTFLOAT** output) {
-		int 	iSlow0 = int(float(fcheckbox0));
-		float 	fSlow1 = (0.001f * float(fslider0));
-		float 	fSlow2 = (0.001f * float(fslider1));
-		float 	fSlow3 = (0.0005f * float(fslider2));
-		float 	fSlow4 = (fConst2 * float(fslider3));
-		float 	fSlow5 = sinf(fSlow4);
-		float 	fSlow6 = cosf(fSlow4);
-		float 	fSlow7 = (0 - fSlow5);
-		int 	iSlow8 = int(float(fcheckbox1));
-		float 	fSlow9 = (0.001f * float(fslider4));
-		FAUSTFLOAT* input0 = input[0];
-		FAUSTFLOAT* output0 = output[0];
-		for (int i=0; i<count; i++) {
-			float fTemp0 = (float)input0[i];
+	
+	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
+		FAUSTFLOAT* input0 = inputs[0];
+		FAUSTFLOAT* output0 = outputs[0];
+		int iSlow0 = int(float(fCheckbox0));
+		float fSlow1 = (0.00100000005f * float(fHslider0));
+		float fSlow2 = (0.00100000005f * float(fHslider1));
+		float fSlow3 = (0.000500000024f * float(fHslider2));
+		float fSlow4 = (fConst2 * float(fHslider3));
+		float fSlow5 = sinf(fSlow4);
+		float fSlow6 = cosf(fSlow4);
+		float fSlow7 = (0.0f - fSlow5);
+		int iSlow8 = int(float(fCheckbox1));
+		float fSlow9 = (0.00100000005f * float(fHslider4));
+		for (int i = 0; (i < count); i = (i + 1)) {
 			iVec0[0] = 1;
-			fRec1[0] = (fSlow1 + (0.999f * fRec1[1]));
-			float fTemp1 = ((iSlow0)?0:fTemp0);
+			fRec1[0] = (fSlow1 + (0.999000013f * fRec1[1]));
+			float fTemp0 = float(input0[i]);
+			float fTemp1 = (iSlow0?0.0f:fTemp0);
 			float fTemp2 = ((fRec1[0] * fRec0[1]) - fTemp1);
-			fVec1[IOTA&4095] = fTemp2;
+			fVec1[(IOTA & 4095)] = fTemp2;
 			fRec3[0] = ((fSlow5 * fRec4[1]) + (fSlow6 * fRec3[1]));
-			fRec4[0] = (((fSlow6 * fRec4[1]) + (fSlow7 * fRec3[1])) + (1 - iVec0[1]));
-			fRec2[0] = ((0.999f * fRec2[1]) + (fConst1 * (fSlow2 + (fSlow3 * (fRec3[0] + 1)))));
+			fRec4[0] = (((fSlow6 * fRec4[1]) + (fSlow7 * fRec3[1])) + float((1 - iVec0[1])));
+			fRec2[0] = ((0.999000013f * fRec2[1]) + (fConst1 * (fSlow2 + (fSlow3 * (fRec3[0] + 1.0f)))));
 			int iTemp3 = int(fRec2[0]);
 			float fTemp4 = floorf(fRec2[0]);
-			fRec0[0] = ((fVec1[(IOTA-int(min(2049, max(0, iTemp3))))&4095] * (fTemp4 + (1 - fRec2[0]))) + ((fRec2[0] - fTemp4) * fVec1[(IOTA-int(min(2049, max(0, (iTemp3 + 1)))))&4095]));
-			fRec5[0] = (fSlow9 + (0.999f * fRec5[1]));
-			output0[i] = (FAUSTFLOAT)((iSlow0)?fTemp0:(0.5f * ((fRec0[0] * ((iSlow8)?(0 - fRec5[0]):fRec5[0])) + fTemp1)));
-			// post processing
-			fRec5[1] = fRec5[0];
-			fRec0[1] = fRec0[0];
-			fRec2[1] = fRec2[0];
-			fRec4[1] = fRec4[0];
-			fRec3[1] = fRec3[0];
-			IOTA = IOTA+1;
-			fRec1[1] = fRec1[0];
+			fRec0[0] = ((fVec1[((IOTA - min(2049, max(0, iTemp3))) & 4095)] * (fTemp4 + (1.0f - fRec2[0]))) + ((fRec2[0] - fTemp4) * fVec1[((IOTA - min(2049, max(0, (iTemp3 + 1)))) & 4095)]));
+			fRec5[0] = (fSlow9 + (0.999000013f * fRec5[1]));
+			output0[i] = FAUSTFLOAT((iSlow0?fTemp0:(0.5f * ((fRec0[0] * (iSlow8?(0.0f - fRec5[0]):fRec5[0])) + fTemp1))));
 			iVec0[1] = iVec0[0];
+			fRec1[1] = fRec1[0];
+			IOTA = (IOTA + 1);
+			fRec3[1] = fRec3[0];
+			fRec4[1] = fRec4[0];
+			fRec2[1] = fRec2[0];
+			fRec0[1] = fRec0[0];
+			fRec5[1] = fRec5[0];
+			
 		}
+		
 	}
+
+	
 };
-
-
 // clang-format on
 #endif
 
@@ -1163,3 +1284,5 @@ static void internal_setup(t_symbol* s)
 #define SIMPLE_EXTERNAL(MOD) \
     EXTERNAL_SIMPLE_NEW();   \
     EXTERNAL_SETUP(MOD);
+
+#endif
