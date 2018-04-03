@@ -628,7 +628,7 @@ class resonbp : public dsp {
 		ui_interface->openVerticalBox("flt_resonbp");
 		ui_interface->declare(&fVslider0, "unit", "Hz");
 		ui_interface->addVerticalSlider("freq", &fVslider0, 1000.0f, 20.0f, 20000.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("q", &fVslider1, 80.0f, 0.100000001f, 150.0f, 0.100000001f);
+		ui_interface->addVerticalSlider("q", &fVslider1, 80.0f, 0.100000001f, 300.0f, 0.100000001f);
 		ui_interface->closeBox();
 		
 	}
