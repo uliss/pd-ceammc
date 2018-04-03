@@ -5,7 +5,7 @@
 #X obj 1 1 cnv 5 712 40 empty empty fx.distortion~ 20 20 0 20 -104026
 -4096 0;
 #X obj 585 11 fx.distortion~;
-#X msg 50 118 open %DOC%/sound/guitar1.wav \, 1;
+#X msg 50 118 open %CEAMMC%/guitar1.wav \, 1;
 #X obj 50 147 expand_env;
 #X obj 50 176 readsf~;
 #X obj 69 205 ui.knob @size 40 40;

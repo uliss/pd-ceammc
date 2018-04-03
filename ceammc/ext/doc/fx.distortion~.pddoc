@@ -59,7 +59,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[open %DOC%/sound/guitar1.wav, 1(
+[open %CEAMMC%/guitar1.wav, 1(
 |
 [expand_env]
 |
