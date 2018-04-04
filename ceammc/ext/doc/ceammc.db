@@ -221,6 +221,7 @@ midi.track		.		..
 modplug~		.		~~
 msg,m		..		.
 noise.lfreq0~		~		~
+noise.lfreq~		~		~
 noise.pink~		-		~
 noise.white~		-		~
 osc.impulse~		~		~

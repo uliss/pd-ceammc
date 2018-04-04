@@ -4,10 +4,12 @@
 #X obj 79 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 30 116 noise.lfreq0~;
 #X text 175 116 sampled/held noise (piecewise constant);
-#X obj 30 143 noise.pink~;
-#X text 175 143 Pink noise generator;
-#X obj 30 170 noise.white~;
-#X text 175 170 White noise generator;
+#X obj 30 143 noise.lfreq~;
+#X text 175 143 noise.lfreq0~ smoothed with no overshoot;
+#X obj 30 170 noise.pink~;
+#X text 175 170 Pink noise generator;
+#X obj 30 197 noise.white~;
+#X text 175 197 White noise generator;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::noise 20 20 0 20 -104026
 -4096 0;
 #X obj 1 458 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;

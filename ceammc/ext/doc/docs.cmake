@@ -222,6 +222,7 @@ set(DOC_FILES
     msg
     noise.pink~
     noise.white~
+    noise.lfreq~
     noise.lfreq0~
     osc.impulse~
     osc.pulse~

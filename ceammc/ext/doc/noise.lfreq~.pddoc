@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="noise.lfreq~">
+        <title>noise.lfreq~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>noise.lfreq0~ smoothed with no overshoot</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>noise</category>
+            <keywords>noise lfreq</keywords>
+            <since>0.2</since>
+            <also>
+                <see>noise.lfreq0~</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument type="float" name="FREQ">noise generatrion freq</argument>
+        </arguments>
+        <properties>
+            <property name="@freq" type="float" minvalue="10" maxvalue="22050">noise generatrion freq</property>
+        </properties>
+        <inlets>
+            <inlet type="audio"><xinfo>control input</xinfo></inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[freq 5000( [@freq 2000(
+|           |
+[noise.lfreq~ 1000]
+|  |
+|  [ui.gain~ @size 120 16]
+|  |
+|  [dac~]
+|
+|
+[ui.scope~ @size=300x100]
+
+
+
+
+
+
+
+[ui.dsp~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

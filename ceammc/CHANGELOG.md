@@ -5,6 +5,7 @@
 - env.asr~ envelope generator added
 - env.smooth~ envelope generator added
 - fx.drone_box~ added
+- noise.lfreq~ doc added
 - noise.lfreq0~ added
 - flt.eq_peak_cq~ added
 
