@@ -1,8 +1,7 @@
-fl = library("filter.lib");
-ms = library("maxmsp.lib");
-si = library("signal.lib");
-no = library("noise.lib");
+si = library("signals.lib");
+no = library("noises.lib");
+ma = library("maths.lib");
 
-freq = hslider("freq", 10000, 20, 20000, 0.1) : si.smoo;
+freq = hslider("freq", 10000, 5, 22050, 0.1) : si.smoo;
 
 process = no.lfnoise(freq);
