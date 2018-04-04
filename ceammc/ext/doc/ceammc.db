@@ -220,6 +220,7 @@ midi.prg2str,midi.prg->str		.		.
 midi.track		.		..
 modplug~		.		~~
 msg,m		..		.
+noise.lfreq0~		~		~
 noise.pink~		-		~
 noise.white~		-		~
 osc.impulse~		~		~

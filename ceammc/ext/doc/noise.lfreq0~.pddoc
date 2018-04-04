@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="noise.lfreq0~">
+        <title>noise.lfreq0~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>sampled/held noise (piecewise constant)</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>noise</category>
+            <keywords>noise white</keywords>
+            <since>0.6</since>
+            <also>
+                <see>noise.lfreq~</see>
+            </also>
+        </meta>
+        <info>
+            <par>new random number every int(SR/rate) samples or so</par>
+        </info>
+        <inlets>
+            <inlet type="audio"><xinfo>control input</xinfo></inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.dsp~]
+
+
+[noise.lfreq0~]
+|
+|
+|
+[ui.scope~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
