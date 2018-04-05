@@ -264,6 +264,7 @@ set(DOC_FILES
     set.symdiff
     set.union
     snd.file
+    spat.pan4~
     string
     string.contains
     string.ends_with

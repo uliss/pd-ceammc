@@ -234,6 +234,7 @@ osc.square~		~		~
 osc.tri~		~		~
 pan.cos~,pan~		~.		~~
 pan.lin~		~.		~~
+pan.pan4~		~		~~~~
 pan.spread~		?		~~
 pan.sqrt~		~.		~~
 patch.args		.		.
@@ -264,6 +265,7 @@ set.size		.		.
 set.symdiff		..		.
 set.union		..		.
 snd.file		.		.
+spat.pan4~		~		~~~~.
 string,str		.		.
 string.contains,str.contains		..		.
 string.ends_with,str.ends_with		..		.
