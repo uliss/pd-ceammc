@@ -12,69 +12,71 @@ world. It uses four Schroeder allpasses in series and eight parallel
 Schroeder-Moorer filtered-feedback comb-filters for each audio channel
 \, and is said to be especially well tuned.;
 #X floatatom 50 211 5 0 0 0 - - -;
-#X floatatom 213 226 5 0 0 0 - - -;
-#X floatatom 347 226 5 0 0 0 - - -;
-#X floatatom 462 226 5 0 0 0 - - -;
+#X msg 232 211 open %CEAMMC%/guitar1.wav \, 1;
 #X obj 50 240 lfo.impulse~ 2;
-#X obj 213 255 / 100;
-#X obj 347 255 / 100;
-#X obj 462 255 / 100;
+#X obj 232 240 expand_env;
 #X obj 78 269 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 232 269 ui.knob @size 40 40;
+#X obj 366 269 ui.knob @size 40 40;
+#X obj 482 269 ui.knob @size 40 40;
 #X obj 50 298 *~;
-#X msg 213 312 roomsize \$1;
-#X msg 347 312 drywet \$1;
-#X msg 462 312 damp \$1;
+#X obj 107 298 readsf~;
 #X obj 69 327 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 355 fx.freeverb~ id;
-#X obj 50 384 dac~;
-#X obj 174 384 print;
-#X obj 20 423 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 428 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X msg 232 327 roomsize \$1;
+#X msg 366 327 drywet \$1;
+#X msg 482 327 damp \$1;
+#X obj 50 384 fx.freeverb~ id;
+#X obj 50 413 ui.gain~ @size 120 16;
+#X obj 280 413 print;
+#X obj 50 442 dac~;
+#X obj 50 485 ui.dsp~;
+#X obj 20 524 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 529 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 120 433 1\.;
-#X text 150 433 symbol;
-#X obj 241 434 cnv 1 24 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 433 ID: object ID for OSC control path.;
-#X obj 20 461 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 466 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X text 120 534 1\.;
+#X text 150 534 symbol;
+#X obj 241 535 cnv 1 24 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 534 ID: object ID for OSC control path.;
+#X obj 20 562 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 567 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 471 roomsize;
-#X text 240 471 Arguments are:;
-#X obj 250 499 cnv 1 64 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 499 [anonym]: Room size. Type: float. Range: 0\...1;
-#X msg 120 527 damp;
-#X text 240 527 Arguments are:;
-#X obj 250 555 cnv 1 64 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 555 [anonym]: Damping of the lowpass comb filter. Type:
+#X msg 120 572 roomsize;
+#X text 240 572 Arguments are:;
+#X obj 250 600 cnv 1 64 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 600 [anonym]: Room size. Type: float. Range: 0\...1;
+#X msg 120 628 damp;
+#X text 240 628 Arguments are:;
+#X obj 250 656 cnv 1 64 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 656 [anonym]: Damping of the lowpass comb filter. Type:
 float. Range: 0\...1;
-#X msg 120 597 drywet;
-#X text 240 597 Arguments are:;
-#X obj 250 625 cnv 1 64 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 625 [anonym]: Ratio between processed signal (wet) and
+#X msg 120 698 drywet;
+#X text 240 698 Arguments are:;
+#X obj 250 726 cnv 1 64 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 726 [anonym]: Ratio between processed signal (wet) and
 source signal. Type: float. Range: 0\...1;
-#X obj 20 677 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 682 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 778 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 783 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 687 1\.;
-#X text 240 687 input signal.;
-#X obj 20 715 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 720 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 120 788 1\.;
+#X text 240 788 input signal.;
+#X obj 20 816 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 821 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 725 1\.;
-#X text 240 725 output signal;
-#X text 120 743 2\.;
-#X text 240 743 information output;
+#X text 120 826 1\.;
+#X text 240 826 output signal;
+#X text 120 844 2\.;
+#X text 240 844 information output;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 791 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 794 library: ceammc v0.5;
-#X text 519 806 see also:;
-#X obj 595 806 fx.freeverb2~;
-#N canvas 10 813 400 290 info 0;
+#X obj 1 892 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 895 library: ceammc v0.5;
+#X text 519 907 see also:;
+#X obj 595 907 fx.freeverb2~;
+#N canvas 10 914 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -98,21 +100,22 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 813 pd info;
+#X restore 10 914 pd info;
 #X connect 20 1 22 0;
-#X connect 9 0 13 0;
+#X connect 12 0 18 0;
+#X connect 10 0 14 1;
+#X connect 8 0 14 0;
+#X connect 14 0 20 0;
 #X connect 18 0 20 0;
-#X connect 14 0 15 1;
-#X connect 12 0 17 0;
 #X connect 17 0 20 0;
-#X connect 19 0 20 0;
-#X connect 13 0 18 0;
+#X connect 9 0 15 0;
+#X connect 6 0 8 0;
 #X connect 20 0 21 0;
-#X connect 20 0 21 1;
+#X connect 19 0 20 0;
 #X connect 16 0 20 0;
-#X connect 8 0 12 0;
+#X connect 13 0 19 0;
 #X connect 15 0 20 0;
-#X connect 11 0 16 0;
-#X connect 7 0 11 0;
-#X connect 6 0 10 0;
-#X connect 10 0 15 0;
+#X connect 21 0 23 1;
+#X connect 21 0 23 0;
+#X connect 11 0 17 0;
+#X connect 7 0 9 0;
