@@ -48,9 +48,9 @@ grainRandomStartPos(i) = int(SH(int(grainCounter(i)/(grainLength-1)),int(delayLe
 grainPosition(i) = grainCounter(i) + grainRandomStartPos(i);
 
 //Delay Line
-buffer(write,read,x) = rwtable(delayBufferSize, 0.0, write%delayLength, x, read%delayLength);
+buffer(write,read,x) = rwtable(delayBufferSize, 0.0, write % delayLength, x, read % delayLength);
 
 //sin wave for windowing
 window(i) = sin(2*3.14159*grainCounter(i)/(grainLength-1));
 
-process = _<: par(i,maxN,buffer(counter, grainPosition(i))*window(i)*(i<N)/N) :> _,_;
+process = _<: par(i, maxN, buffer(counter, grainPosition(i)) * window(i) * (i<N) / N) :> _,_;
