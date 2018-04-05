@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="lfo.pulse~">
+        <title>lfo.pulse~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Unit-amplitude nonnegative low frequency pulse train,</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>lfo</category>
+            <keywords>lfo oscillator pulse train</keywords>
+            <since>0.6</since>
+            <also>
+                <see>lfo.square~</see>
+                <see>lfo.impulse~</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="freq" type="float" units="herz">frequency</argument>
+            <argument name="duty" type="float" minvalue="0" maxvalue="1">duty cycle</argument>
+            <argument name="ID" type="symbol">object ID for OSC control</argument>
+        </arguments>
+        <properties>
+            <property name="@duty" type="float" minvalue="0" maxvalue="1" default="0.5">duty cycle</property>
+        </properties>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>frequency in Hz</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">pulsetrain wave in [0-1] range</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.dsp~]
+
+
+[F]  [ui.knob]
+|    |
+|    |
+|    |
+|    [@duty $1(
+|    |
+[lfo.pulse~ 100 0.3]
+|
+[ui.scope~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

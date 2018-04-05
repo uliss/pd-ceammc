@@ -116,6 +116,7 @@ set(DOC_FILES
     lfo.impulse~
     lfo.square~
     lfo.tri~
+    lfo.pulse~
     list.all_of
     list.any_of
     list.apply_to

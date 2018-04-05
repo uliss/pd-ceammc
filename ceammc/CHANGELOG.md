@@ -9,6 +9,7 @@
 - noise.lfreq0~ added
 - noise.crackle~ added
 - flt.eq_peak_cq~ added
+- lfo.pulse~ added
 
 ### Changed:
 - migration to Faust v2
