@@ -7,6 +7,7 @@
 - fx.drone_box~ added
 - noise.lfreq~ doc added
 - noise.lfreq0~ added
+- noise.crackle~ added
 - flt.eq_peak_cq~ added
 
 ### Changed:

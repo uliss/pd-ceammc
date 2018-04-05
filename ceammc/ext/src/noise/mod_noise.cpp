@@ -5,6 +5,7 @@ extern "C" void setup_noise0x2elfreq_tilde();
 extern "C" void setup_noise0x2elfreq0_tilde();
 extern "C" void setup_noise0x2epink_tilde();
 extern "C" void setup_noise0x2ewhite_tilde();
+extern "C" void setup_noise0x2ecrackle_tilde();
 extern "C" void setup_noise0x2ebaker();
 extern "C" void setup_noise0x2eclifford();
 extern "C" void setup_noise0x2ecollatz();
@@ -30,6 +31,7 @@ void ceammc_noise_setup() {
      setup_noise0x2elfreq0_tilde();
      setup_noise0x2epink_tilde();
      setup_noise0x2ewhite_tilde();
+     setup_noise0x2ecrackle_tilde();
      setup_noise0x2ebaker();
      setup_noise0x2eclifford();
      setup_noise0x2ecollatz();
