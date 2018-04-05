@@ -1,31 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="noise.lfreq0~">
-        <title>noise.lfreq0~</title>
+    <object name="noise.crackle~">
+        <title>noise.crackle~</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>sampled/held noise (piecewise constant)</description>
+            <description>sparse noise generator</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>noise</category>
-            <keywords>noise white</keywords>
+            <keywords>noise crackle</keywords>
             <since>0.6</since>
-            <also>
-                <see>noise.lfreq~</see>
-            </also>
         </meta>
         <info>
-            <par>new random number every int(SR/freq) samples or so</par>
+            <par>Random impulses in the amplitude range -1 to 1 are generated at an average rate of
+            @freq impulses per second</par>
         </info>
         <arguments>
-            <argument type="float" name="FREQ">noise generation freq</argument>
+            <argument type="float" name="FREQ">average frequency of noise impulses per second</argument>
         </arguments>
         <properties>
-            <property name="@freq" type="float" minvalue="10" maxvalue="22050" default="1000">
-            noise generation freq. New random number every int(SR/freq)
-            </property>
+            <property name="@freq" type="float" minvalue="0" maxvalue="100" default="10">
+            average frequency of noise impulses per second</property>
         </properties>
         <inlets>
             <inlet type="audio"><xinfo>control input</xinfo></inlet>
@@ -36,22 +33,13 @@
         <example>
             <pdascii>
 <![CDATA[
-[freq 200( [@freq 2000(
-|          |
-[noise.lfreq0~ 400]
-|  |
-|  [ui.gain~ @size 120 16]
-|  |
-|  [dac~]
+[freq 3( [@freq 50(
+|        |
+[noise.crackle~ ]
 |
-|
-[ui.scope~ @size=300x100]
-
-
-
-
-
-
+[ui.gain~ @size 120 16]
+|\
+[dac~]
 
 [ui.dsp~]
 ]]>

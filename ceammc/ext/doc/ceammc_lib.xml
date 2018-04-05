@@ -698,6 +698,9 @@
     </entry>
   </category>
   <category name="noise">
+    <entry descr="sparse noise generator" name="noise.crackle~" ref_view="object">
+      <xi:include href="noise.crackle~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="sampled/held noise (piecewise constant)" name="noise.lfreq0~" ref_view="object">
       <xi:include href="noise.lfreq0~.pddoc" parse="xml"/>
     </entry>

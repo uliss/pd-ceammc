@@ -220,6 +220,7 @@ set(DOC_FILES
     midi.key2str
     modplug~
     msg
+    noise.crackle~
     noise.pink~
     noise.white~
     noise.lfreq~

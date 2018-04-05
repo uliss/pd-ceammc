@@ -581,7 +581,7 @@ class crackle : public dsp {
 	}
 	
 	virtual void instanceResetUserInterface() {
-		fHslider0 = FAUSTFLOAT(3.0f);
+		fHslider0 = FAUSTFLOAT(10.0f);
 		
 	}
 	
@@ -635,7 +635,7 @@ class crackle : public dsp {
 		ui_interface->openVerticalBox("noise_crackle");
 		ui_interface->declare(&fHslider0, "style", "knob");
 		ui_interface->declare(&fHslider0, "unit", "Hz");
-		ui_interface->addHorizontalSlider("freq", &fHslider0, 3.0f, 0.0f, 100.0f, 0.00999999978f);
+		ui_interface->addHorizontalSlider("freq", &fHslider0, 10.0f, 0.0f, 100.0f, 0.00999999978f);
 		ui_interface->closeBox();
 		
 	}

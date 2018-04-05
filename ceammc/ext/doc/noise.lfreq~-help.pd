@@ -18,13 +18,13 @@
 #X text 120 412 1\.;
 #X text 150 412 float;
 #X obj 241 413 cnv 1 40 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 412 FREQ: noise generatrion freq.;
+#X text 240 412 FREQ: noise generation freq.;
 #X obj 20 440 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 445 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 450 @freq;
-#X text 240 450 Get/Set noise generatrion freq. Type: float. Value
-range: 10-22050;
+#X text 240 450 Get/Set noise generation freq. Type: float. Default
+value: 1000\. Value range: 10-22050;
 #X obj 20 497 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 502 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
