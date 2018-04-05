@@ -265,6 +265,7 @@ set(DOC_FILES
     set.union
     snd.file
     spat.pan4~
+    spat.pan8~
     string
     string.contains
     string.ends_with

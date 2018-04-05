@@ -862,6 +862,9 @@
     <entry descr="GMEM SPAT: 4-outputs spatializer" name="spat.pan4~" ref_view="object">
       <xi:include href="spat.pan4~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="GMEM SPAT: 8-outputs spatializer" name="spat.pan8~" ref_view="object">
+      <xi:include href="spat.pan8~.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="string">
     <entry descr="string constructor" name="string" ref_view="object">

@@ -11,6 +11,7 @@
 - flt.eq_peak_cq~ added
 - lfo.pulse~ added
 - spat.pan4~ added
+- spat.pan8~ added
 
 ### Changed:
 - migration to Faust v2
