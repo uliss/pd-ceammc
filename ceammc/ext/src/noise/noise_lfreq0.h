@@ -582,7 +582,7 @@ class lfreq0 : public dsp {
 	}
 	
 	virtual void instanceResetUserInterface() {
-		fHslider0 = FAUSTFLOAT(10000.0f);
+		fHslider0 = FAUSTFLOAT(1000.0f);
 		
 	}
 	
@@ -630,7 +630,7 @@ class lfreq0 : public dsp {
 	
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("noise_lfreq0");
-		ui_interface->addHorizontalSlider("freq", &fHslider0, 10000.0f, 5.0f, 22050.0f, 0.100000001f);
+		ui_interface->addHorizontalSlider("freq", &fHslider0, 1000.0f, 5.0f, 22050.0f, 0.100000001f);
 		ui_interface->closeBox();
 		
 	}
