@@ -69,10 +69,16 @@
 |
 [osc.saw~]
 | \
-[fx.greyhole~]
-|  ^|.
-[dac~]
+[fx.greyhole~]   [ui.hsl #c]
+|       ^|
+|        |
+[*~ #a] [*~ #b]
+|       |
+|       |.
+[dac~    ]
 
+[X c->a:1]
+[X c->b:1]
 ]]>
             </pdascii>
         </example>
