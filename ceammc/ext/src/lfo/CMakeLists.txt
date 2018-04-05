@@ -7,7 +7,7 @@ endmacro()
 ceammc_lfo_extension(impulse)
 ceammc_lfo_extension(tri)
 ceammc_lfo_extension(square)
-
+ceammc_lfo_extension(pulse)
 
 add_library(ceammc_lfo STATIC mod_lfo.cpp ${LFO_SOURCES})
 set_target_properties(ceammc_lfo PROPERTIES COMPILE_DEFINITIONS "FAUST_MACRO")
