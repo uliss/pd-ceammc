@@ -14,10 +14,9 @@
             <since>0.1</since>
         </meta>
         <info>
-            <par>Link allows to open external URLs,
-            not only pd patches but all kind of URL supported by your OS.
-            If relarive file path is given, it searched in current directory, then PD doc directory and
-            PD external directories</par>
+            <par>Link allows to open external URLs, not only pd patches but all kind of URL
+            supported by your OS. If relarive file path is given, it searched in current directory,
+            then PD doc directory and PD external directories</par>
         </info>
         <properties>
             <property name="@url" type="symbol">destination url</property>

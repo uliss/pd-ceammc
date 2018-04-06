@@ -23,7 +23,8 @@
             <argument name="ID" type="symbol">object ID for OSC control</argument>
         </arguments>
         <properties>
-            <property name="@duty" type="float" minvalue="0" maxvalue="1" default="0.5">duty cycle</property>
+            <property name="@duty" type="float" minvalue="0" maxvalue="1" default="0.5">duty
+            cycle</property>
         </properties>
         <inlets>
             <inlet type="audio">

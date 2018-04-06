@@ -28,7 +28,8 @@
             </inlet>
         </inlets>
         <properties>
-            <property name="@index" type="int" minvalue="0">current multiplexer output index</property>
+            <property name="@index" type="int" minvalue="0">current multiplexer output
+            index</property>
         </properties>
         <methods>
             <method name="reset">reset counter</method>

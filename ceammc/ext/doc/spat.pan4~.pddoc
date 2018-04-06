@@ -14,11 +14,14 @@
             <since>0.6</since>
         </meta>
         <arguments>
-            <argument name="ANGLE" type="float" minvalue="0">circle panning position in radians</argument>
+            <argument name="ANGLE" type="float" minvalue="0">circle panning position in
+            radians</argument>
         </arguments>
         <properties>
-            <property name="@angle" type="float" minvalue="0" default="0">panning position in radians</property>
-            <property name="@dist" type="float" minvalue="0" maxvalue="1" default="1">distance from circle center</property>
+            <property name="@angle" type="float" minvalue="0" default="0">panning position in
+            radians</property>
+            <property name="@dist" type="float" minvalue="0" maxvalue="1" default="1">distance from
+            circle center</property>
         </properties>
         <inlets>
             <inlet type="audio">

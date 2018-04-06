@@ -10,7 +10,7 @@
             <license>GPL3</license>
             <library>ceammc</library>
             <category>flt</category>
-            <keywords>filter equalizer </keywords>
+            <keywords>filter equalizer</keywords>
             <since>0.6</since>
             <also>
                 <see>flt.eq_peak~</see>
@@ -25,7 +25,8 @@
                 &lt;0)</param>
             </method>
             <method name="q">
-                <param type="float">quality factor = freq/B where B = bandwidth of peak in Hz</param>
+                <param type="float">quality factor = freq/B where B = bandwidth of peak in
+                Hz</param>
             </method>
         </methods>
         <arguments>

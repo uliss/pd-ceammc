@@ -6,7 +6,8 @@
             <authors>
                 <author>Hans-Christoph Steiner</author>
             </authors>
-            <description>Get information about cursor motion, mousewheel and buttonclick</description>
+            <description>Get information about cursor motion, mousewheel and
+            buttonclick</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>system</category>
@@ -16,8 +17,8 @@
         <inlets>
             <inlet>
                 <xinfo on="bang">output cursor position</xinfo>
-                <xinfo on="float">when 1 is received - turns on cursor polling (position and buttons),
-                when 0 is received - turns it off</xinfo>
+                <xinfo on="float">when 1 is received - turns on cursor polling (position and
+                buttons), when 0 is received - turns it off</xinfo>
             </inlet>
         </inlets>
         <outlets>

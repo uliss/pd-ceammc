@@ -34,7 +34,8 @@
             <argument name="ID" type="symbol">object ID for OSC control</argument>
         </arguments>
         <properties>
-            <property name="@freq" type="float" units="herz" default="10000">cutoff frequency</property>
+            <property name="@freq" type="float" units="herz" default="10000">cutoff
+            frequency</property>
         </properties>
         <inlets>
             <inlet type="audio">

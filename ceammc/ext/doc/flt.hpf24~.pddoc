@@ -30,7 +30,8 @@
             </method>
         </methods>
         <properties>
-            <property name="@freq" type="float" units="herz" default="10000">cutoff frequency</property>
+            <property name="@freq" type="float" units="herz" default="10000">cutoff
+            frequency</property>
         </properties>
         <arguments>
             <argument name="freq" type="float" units="herz">cutoff frequency</argument>

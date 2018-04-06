@@ -21,9 +21,10 @@
             </also>
         </meta>
         <properties>
-            <property name="@refresh" type="int" minvalue="20" maxvalue="1000" default="100" units="millisecond">
-            approximate refresh rate</property>
-            <property name="@log_scale" type="int" default="0" enum="0 1">display in log scale</property>
+            <property name="@refresh" type="int" minvalue="20" maxvalue="1000" default="100"
+            units="millisecond">approximate refresh rate</property>
+            <property name="@log_scale" type="int" default="0" enum="0 1">display in log
+            scale</property>
         </properties>
         <inlets>
             <inlet type="audio">

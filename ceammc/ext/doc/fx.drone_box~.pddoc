@@ -15,14 +15,15 @@
             <since>0.6</since>
         </meta>
         <arguments>
-            <argument name="pitch" type="float" minvalue="36" maxvalue="60">drone MIDI pitch</argument>
+            <argument name="pitch" type="float" minvalue="36" maxvalue="60">drone MIDI
+            pitch</argument>
             <argument name="ID" type="symbol">object ID for OSC control path</argument>
         </arguments>
         <properties>
-            <property name="@pitch" type="float" minvalue="36" maxvalue="60"
-            default="48">drone MIDI pitch</property>
-            <property name="@decay" type="float" minvalue="100" maxvalue="120000" units="millisecond"
-            default="4000">drone pluck decay time</property>
+            <property name="@pitch" type="float" minvalue="36" maxvalue="60" default="48">drone
+            MIDI pitch</property>
+            <property name="@decay" type="float" minvalue="100" maxvalue="120000"
+            units="millisecond" default="4000">drone pluck decay time</property>
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">proportion
             of mix between the original (dry) and 'effected' (wet) signals. 0 - dry signal, 1 -
             wet.</property>

@@ -18,14 +18,17 @@
             @freq impulses per second</par>
         </info>
         <arguments>
-            <argument type="float" name="FREQ">average frequency of noise impulses per second</argument>
+            <argument type="float" name="FREQ">average frequency of noise impulses per
+            second</argument>
         </arguments>
         <properties>
-            <property name="@freq" type="float" minvalue="0" maxvalue="100" default="10">
-            average frequency of noise impulses per second</property>
+            <property name="@freq" type="float" minvalue="0" maxvalue="100" default="10">average
+            frequency of noise impulses per second</property>
         </properties>
         <inlets>
-            <inlet type="audio"><xinfo>control input</xinfo></inlet>
+            <inlet type="audio">
+                <xinfo>control input</xinfo>
+            </inlet>
         </inlets>
         <outlets>
             <outlet type="audio">output signal</outlet>

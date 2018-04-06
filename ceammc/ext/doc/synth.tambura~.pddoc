@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="synth.tambura~">
+        <title>synth.tambura~</title>
+        <meta>
+            <authors>
+                <author>Oliver Larkin</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Bulgarian stringed plucked instrument by Oli Larkin</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>synth</category>
+            <keywords>tambura</keywords>
+            <since>0.6</since>
+        </meta>
+        <!--        pluck(i)  = button("pluck%1i"); // buttons for manual plucking-->
+        <!--        pluckrate = hslider("auto_pluck_rate [unit:hz]", 0.1, 0.0, 2, 0.001); // automatic plucking rate (Hz)
+        enableautoplucker = checkbox("auto_pluck"); // enable automatic plucking
+
+        f0       = hslider("pitch", 36, 24, 72, 1) : sm : ba.midikey2hz; // the base pitch of the drone
+        t60      = hslider("decay_time [unit:ms]", 10000, 0, 100000, 0.1) : cm.time_pd2faust : sm; // how long the strings decay
+        damp     = 1. - hslider("high_freq_loss", 0, 0, 1., 0.01) : sm; // string brightness
+        fd       = hslider("harmonic_motion [scale:exp]", 0.001, 0., 1, 0.0001) : *(0.2) : sm; // controls the detuning of parallel waveguides that mimics harmonic motion of the tambura
+        coupling = hslider("sympathetic_coupling", 0.1, 0., 1., 0.0001) : sm; // level of sympathetic coupling between strings
+        jw       = hslider("jawari", 0, 0, 1, 0.001) : *(0.1) : sm; // creates the buzzing / jawari effect
+        spread   = hslider("string_spread", 1., 0., 1., 0.01) : sm; // stereo spread of strings
+
+        tscale  = hslider("tune_scale", 1, 0.9, 1.1, 0.001); //
+        descale = hslider("decay_scale", 1, 0.1, 1., 0.001); //
+        //dascale = hslider("/h:main/[10]damp_scale", 1, 0.5, 2, 0.01); //
+
+        ptype = hslider("material", 0.13, 0.0, 1., 0.01) : sm; // crossfades between pink noise and DC excitation
+        pattack = hslider("attack_time [scale:exp]", 0.07, 0, 0.5, 0.01); // attack time of pluck envelope, 0 to 0.5 times f0 wavelength
+        ptime = hslider("decay_time", 1., 1, 100., 0.01); // decay time (1 to 10 times f0 wavelength)
+        ppos = hslider("position", 0.25, 0.01, 0.5, 0.01); // pick position (ratio of f0 wavelength)
+        pbend = hslider("bend_depth [unit:st]", 3, 0., 12., 0.01); // pick bend depth in semitones
+        pbendtime = hslider("bend_time [unit:ms]", 10., 1, 200., 1); // pick bend time (1 to 200 ms)-->
+        <properties>
+            <property name="@auto_pluck_rate" type="float" minvalue="0" maxvalue="2" default="0.1"
+            units="herz">automatic plucking rate</property>
+            <property name="@rate" type="float" minvalue="-2" maxvalue="2" default="0.01">glissanso
+            speed</property>
+            <property name="@centroid" type="float" minvalue="20" maxvalue="120" default="60">main
+            frequency. Units: MIDI note</property>
+            <property name="@range" type="float" minvalue="1" maxvalue="120" default="120">
+            glissando range in MIDI note units</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo>control inlet</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio" />
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[@rate 0.005( [@centroid 80(   [@range 70(
+|             |                |
+| [@rate -1(  | [@centroid 55( | [@range 110(
+| |           | |              | |
+| |           | |              | |
+| |           | |              | |
+[synth.risset_tone~              ]
+|
+[ui.gain~ @size 120 16]                     [ui.dsp~]
+| \
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

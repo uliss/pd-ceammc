@@ -18,8 +18,8 @@
             <since>0.4</since>
         </meta>
         <info>
-            <par>Generates random number in interval [@v0, @v1) with linear distribution [@p0, @p1)
-            </par>
+            <par>Generates random number in interval [@v0, @v1) with linear distribution [@p0,
+            @p1)</par>
         </info>
         <properties>
             <property name="@v0" type="float" default="0">begin of value interval</property>
