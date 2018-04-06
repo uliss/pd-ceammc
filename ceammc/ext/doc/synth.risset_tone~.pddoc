@@ -18,7 +18,7 @@
             <property name="@rate" type="float" minvalue="-2" maxvalue="2" default="0.01">glissanso speed</property>
             <property name="@centroid" type="float" minvalue="20" maxvalue="120" default="60">
             main frequency. Units: MIDI note</property>
-            <property name="@range" type="float" minvalue="1" maxvalue="120" default="1">
+            <property name="@range" type="float" minvalue="1" maxvalue="120" default="120">
             glissando range in MIDI note units</property>
         </properties>
         <inlets>
