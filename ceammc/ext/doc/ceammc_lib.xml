@@ -919,6 +919,9 @@
     </entry>
   </category>
   <category name="synth">
+    <entry descr="Jean Claude Risset's harmonic arpeggio effect" name="synth.risset_arp~" ref_view="object">
+      <xi:include href="synth.risset_arp~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="Jean Claude Risset's endless glissando" name="synth.risset_tone~" ref_view="object">
       <xi:include href="synth.risset_tone~.pddoc" parse="xml"/>
     </entry>

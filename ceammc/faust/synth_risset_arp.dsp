@@ -7,7 +7,7 @@ declare licence "GPL";
 
 import("stdfaust.lib");
 
-fd     = hslider("detune [unit:%]", 5., 0., 1000., 0.01) : *(0.01) : si.smoo;
+fd     = hslider("detune", 5., 0., 1000., 0.01) : *(0.01) : si.smoo;
 freq   = hslider("freq", 100, 40, 500, 1) : si.smoo;
 spread = hslider("spread", 1., 0., 1., 0.01) : si.smoo;
 l(i)   = hslider("harmonic%i", 1., 0., 1., 0.01) : si.smoo;

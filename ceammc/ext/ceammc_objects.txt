@@ -379,8 +379,8 @@ symbol.ends_with
 symbol.equal
 symbol.length
 symbol.num_compare
+synth.risset_arp~
 synth.risset_tone~
-synth.tambura~
 system.getenv
 system.hostname
 system.memsize

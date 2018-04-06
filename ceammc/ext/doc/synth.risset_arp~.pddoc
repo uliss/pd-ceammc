@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="synth.risset_arp~">
+        <title>synth.risset_arp~</title>
+        <meta>
+            <authors>
+                <author>Oliver Larkin</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Jean Claude Risset's harmonic arpeggio effect</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>synth</category>
+            <keywords>risset arpeggio</keywords>
+            <since>0.6</since>
+        </meta>
+        <properties>
+            <property name="@freq" type="float" minvalue="40" maxvalue="500" default="100">base frequency</property>
+            <property name="@detune" type="float" minvalue="0" maxvalue="1000" default="5">detune percent</property>
+            <property name="@spread" type="float" minvalue="0" maxvalue="1" default="1">stereo spread</property>
+            <property name="@harmonic1" type="float" minvalue="0" maxvalue="1" default="1">1st harmonic amplitude</property>
+            <property name="@harmonic2" type="float" minvalue="0" maxvalue="1" default="1">2nd harmonic amplitude</property>
+            <property name="@harmonic3" type="float" minvalue="0" maxvalue="1" default="1">3rd harmonic amplitude</property>
+            <property name="@harmonic4" type="float" minvalue="0" maxvalue="1" default="1">4th harmonic amplitude</property>
+            <property name="@harmonic5" type="float" minvalue="0" maxvalue="1" default="1">5th harmonic amplitude</property>
+            <property name="@harmonic6" type="float" minvalue="0" maxvalue="1" default="1">6th harmonic amplitude</property>
+            <property name="@harmonic7" type="float" minvalue="0" maxvalue="1" default="1">7th harmonic amplitude</property>
+            <property name="@harmonic8" type="float" minvalue="0" maxvalue="1" default="1">8th harmonic amplitude</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo>control inlet</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio"/>
+            <outlet type="audio"/>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[r $0s]  [F]        [F]              [ui.sliders]
+|        |          |                |
+|        [@freq $1( [@detune $1(     |
+|        |          |                |
+[synth.risset_arp~  ]                |
+|  ^|                                |
+|  [ui.gain~ @size 120 16 #a]        |
+|                                    |
+[ui.gain~ @size 120 16]              [list.enumerate @from 1]
+|                                    |
+[dac~ #b]                            [list.repack 2]
+                                     |
+[ui.dsp~]                            [harmonic$1 $2(
+                                     |
+[X a->b:1]                           [s $0s]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

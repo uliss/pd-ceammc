@@ -12,6 +12,7 @@
 - lfo.pulse~ added
 - spat.pan4~ added
 - spat.pan8~ added
+- synth.risset_arp~ added
 
 ### Changed:
 - migration to Faust v2

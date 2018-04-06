@@ -283,6 +283,7 @@ set(DOC_FILES
     symbol.length
     symbol.num_compare
     synth.risset_tone~
+    synth.risset_arp~
     system.cursor
     system.getenv
     system.hostname
