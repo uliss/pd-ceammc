@@ -919,6 +919,9 @@
     </entry>
   </category>
   <category name="synth">
+    <entry descr="bird singing generator" name="synth.birds~" ref_view="object">
+      <xi:include href="synth.birds~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="Jean Claude Risset's harmonic arpeggio effect" name="synth.risset_arp~" ref_view="object">
       <xi:include href="synth.risset_arp~.pddoc" parse="xml"/>
     </entry>
@@ -1060,6 +1063,7 @@
       <author>Julian Parker</author>
       <author>Oliver Larkin</author>
       <author>Olli Parviainen</author>
+      <author>Pierre Cochard</author>
       <author>Pierre Guillot</author>
       <author>Serge Poltavsky</author>
       <author>Serge Potlavsky</author>

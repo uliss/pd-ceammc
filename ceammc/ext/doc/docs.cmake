@@ -284,6 +284,7 @@ set(DOC_FILES
     symbol.num_compare
     synth.risset_tone~
     synth.risset_arp~
+    synth.birds~
     system.cursor
     system.getenv
     system.hostname
