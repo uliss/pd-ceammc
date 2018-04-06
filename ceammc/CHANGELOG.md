@@ -15,6 +15,7 @@
 
 ### Changed:
 - migration to Faust v2
+- flt.hpf12~, flt.hpf24~ @q property removed
 
 ### Fixed:
 
