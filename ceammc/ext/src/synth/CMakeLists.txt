@@ -5,6 +5,7 @@ macro(ceammc_synth_extension name)
     ceammc_faust_gen(synth ${name})
 endmacro()
 
+ceammc_synth_extension(birds)
 ceammc_synth_extension(risset_tone)
 ceammc_synth_extension(risset_arp)
 
