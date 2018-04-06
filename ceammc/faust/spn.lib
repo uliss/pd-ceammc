@@ -1,0 +1,18 @@
+declare name "Standart Pitch Notation constants";
+declare version "0.0";
+
+oct(n) = (n + 1) * 12;
+
+C(n) = 0 + oct(n);
+D(n) = 2 + oct(n);
+E(n) = 4 + oct(n);
+F(n) = 5 + oct(n);
+G(n) = 7 + oct(n);
+A(n) = 9 + oct(n);
+B(n) = 11 + oct(n);
+
+C_sharp(n) = 1 + oct(n);
+D_sharp(n) = 3 + oct(n);
+F_sharp(n) = 6 + oct(n);
+G_sharp(n) = 8 + oct(n);
+A_sharp(n) = 10 + oct(n);

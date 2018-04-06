@@ -1,5 +1,5 @@
 declare name "Ceammc PureData misc utils";
-declare version "0.1";
+declare version "0.1.1";
 
 ba = library("basics.lib");
 si = library("signals.lib");
