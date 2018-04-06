@@ -4,10 +4,13 @@
 #X obj 79 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 30 116 synth.birds~;
 #X text 175 116 bird singing generator;
-#X obj 30 143 synth.risset_arp~;
-#X text 175 143 Jean Claude Risset's harmonic arpeggio effect;
-#X obj 30 170 synth.risset_tone~;
-#X text 175 170 Jean Claude Risset's endless glissando;
+#X obj 30 143 synth.marimba~;
+#X text 175 143 simple marimba physical model implementing a single
+tone bar connected to tube;
+#X obj 30 180 synth.risset_arp~;
+#X text 175 180 Jean Claude Risset's harmonic arpeggio effect;
+#X obj 30 207 synth.risset_tone~;
+#X text 175 207 Jean Claude Risset's endless glissando;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::synth 20 20 0 20 -104026
 -4096 0;
 #X obj 1 458 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;

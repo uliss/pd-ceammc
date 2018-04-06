@@ -193,6 +193,9 @@
     <entry descr="Substitute enviroment variables in data stream" name="expand_env" ref_view="object">
       <xi:include href="expand_env.pddoc" parse="xml"/>
     </entry>
+    <entry descr="inject message into flow" name="flow.append" ref_view="object">
+      <xi:include href="flow.append.pddoc" parse="xml"/>
+    </entry>
     <entry descr="rejects redundant input values" name="flow.change" ref_view="object">
       <xi:include href="flow.change.pddoc" parse="xml"/>
     </entry>
@@ -924,6 +927,9 @@
   <category name="synth">
     <entry descr="bird singing generator" name="synth.birds~" ref_view="object">
       <xi:include href="synth.birds~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="simple marimba physical model implementing a single tone bar connected to tube" name="synth.marimba~" ref_view="object">
+      <xi:include href="synth.marimba~.pddoc" parse="xml"/>
     </entry>
     <entry descr="Jean Claude Risset's harmonic arpeggio effect" name="synth.risset_arp~" ref_view="object">
       <xi:include href="synth.risset_arp~.pddoc" parse="xml"/>

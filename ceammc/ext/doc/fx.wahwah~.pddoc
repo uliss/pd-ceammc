@@ -14,9 +14,10 @@
             <since>0.6</since>
         </meta>
         <properties>
-            <property name="@angle" type="float" minvalue="0" maxvalue="1" default="0.6">pedal angle</property>
-            <property name="@speed" type="float" minvalue="360" maxvalue="780" default="540" units="bpm">
-            automatisation speed</property>
+            <property name="@angle" type="float" minvalue="0" maxvalue="1" default="0.6">pedal
+            angle</property>
+            <property name="@speed" type="float" minvalue="360" maxvalue="780" default="540"
+            units="bpm">automatisation speed</property>
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">proportion
             of mix between the original (dry) and 'effected' (wet) signals. 0 - dry signal, 1 -
             wet.</property>
@@ -29,7 +30,7 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio"/>
+            <outlet type="audio" />
         </outlets>
         <example>
             <pdascii>

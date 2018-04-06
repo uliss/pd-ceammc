@@ -70,6 +70,7 @@ env2array
 env2vline
 envelope
 expand_env
+flow.append
 flow.change
 flow.count
 flow.demultiplex
@@ -116,6 +117,7 @@ function
 function.call
 fx.distortion~
 fx.drone_box~
+fx.echo~
 fx.flanger~
 fx.freeverb2~
 fx.freeverb~
@@ -381,6 +383,7 @@ symbol.equal
 symbol.length
 symbol.num_compare
 synth.birds~
+synth.marimba~
 synth.risset_arp~
 synth.risset_tone~
 system.getenv

@@ -50,6 +50,7 @@ set(DOC_FILES
     env2array
     env2vline
     expand_env
+    flow.append
     flow.change
     flow.count
     flow.gate
@@ -286,6 +287,7 @@ set(DOC_FILES
     synth.risset_tone~
     synth.risset_arp~
     synth.birds~
+    synth.marimba~
     system.cursor
     system.getenv
     system.hostname

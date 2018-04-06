@@ -15,17 +15,28 @@
             <since>0.6</since>
         </meta>
         <properties>
-            <property name="@freq" type="float" minvalue="40" maxvalue="500" default="100">base frequency</property>
-            <property name="@detune" type="float" minvalue="0" maxvalue="1000" default="5">detune percent</property>
-            <property name="@spread" type="float" minvalue="0" maxvalue="1" default="1">stereo spread</property>
-            <property name="@harmonic1" type="float" minvalue="0" maxvalue="1" default="1">1st harmonic amplitude</property>
-            <property name="@harmonic2" type="float" minvalue="0" maxvalue="1" default="1">2nd harmonic amplitude</property>
-            <property name="@harmonic3" type="float" minvalue="0" maxvalue="1" default="1">3rd harmonic amplitude</property>
-            <property name="@harmonic4" type="float" minvalue="0" maxvalue="1" default="1">4th harmonic amplitude</property>
-            <property name="@harmonic5" type="float" minvalue="0" maxvalue="1" default="1">5th harmonic amplitude</property>
-            <property name="@harmonic6" type="float" minvalue="0" maxvalue="1" default="1">6th harmonic amplitude</property>
-            <property name="@harmonic7" type="float" minvalue="0" maxvalue="1" default="1">7th harmonic amplitude</property>
-            <property name="@harmonic8" type="float" minvalue="0" maxvalue="1" default="1">8th harmonic amplitude</property>
+            <property name="@freq" type="float" minvalue="40" maxvalue="500" default="100">base
+            frequency</property>
+            <property name="@detune" type="float" minvalue="0" maxvalue="1000" default="5">detune
+            percent</property>
+            <property name="@spread" type="float" minvalue="0" maxvalue="1" default="1">stereo
+            spread</property>
+            <property name="@harmonic1" type="float" minvalue="0" maxvalue="1" default="1">1st
+            harmonic amplitude</property>
+            <property name="@harmonic2" type="float" minvalue="0" maxvalue="1" default="1">2nd
+            harmonic amplitude</property>
+            <property name="@harmonic3" type="float" minvalue="0" maxvalue="1" default="1">3rd
+            harmonic amplitude</property>
+            <property name="@harmonic4" type="float" minvalue="0" maxvalue="1" default="1">4th
+            harmonic amplitude</property>
+            <property name="@harmonic5" type="float" minvalue="0" maxvalue="1" default="1">5th
+            harmonic amplitude</property>
+            <property name="@harmonic6" type="float" minvalue="0" maxvalue="1" default="1">6th
+            harmonic amplitude</property>
+            <property name="@harmonic7" type="float" minvalue="0" maxvalue="1" default="1">7th
+            harmonic amplitude</property>
+            <property name="@harmonic8" type="float" minvalue="0" maxvalue="1" default="1">8th
+            harmonic amplitude</property>
         </properties>
         <inlets>
             <inlet>
@@ -33,8 +44,8 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio"/>
-            <outlet type="audio"/>
+            <outlet type="audio" />
+            <outlet type="audio" />
         </outlets>
         <example>
             <pdascii>

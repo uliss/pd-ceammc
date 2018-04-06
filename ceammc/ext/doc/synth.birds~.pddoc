@@ -26,8 +26,8 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio"/>
-            <outlet type="audio"/>
+            <outlet type="audio" />
+            <outlet type="audio" />
         </outlets>
         <example>
             <pdascii>
