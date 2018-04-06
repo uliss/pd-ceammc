@@ -17,6 +17,6 @@ static void synth_tambura(t_faust_tambura* x, t_float f)
 
 extern "C" void setup_synth0x2etambura_tilde()
 {
-    internal_setup(gensym("synth.tambura~"));
+    internal_setup(gensym("synth.tambura~"), false);
     class_addmethod(tambura_faust_class, reinterpret_cast<t_method>(synth_tambura), gensym("trigger"), A_DEFFLOAT);
 }
