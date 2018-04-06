@@ -706,10 +706,10 @@ class flanger : public dsp {
 		int iSlow8 = int(float(fCheckbox1));
 		float fSlow9 = (0.00100000005f * float(fHslider4));
 		for (int i = 0; (i < count); i = (i + 1)) {
-			iVec0[0] = 1;
-			fRec1[0] = (fSlow1 + (0.999000013f * fRec1[1]));
 			float fTemp0 = float(input0[i]);
 			float fTemp1 = (iSlow0?0.0f:fTemp0);
+			iVec0[0] = 1;
+			fRec1[0] = (fSlow1 + (0.999000013f * fRec1[1]));
 			float fTemp2 = ((fRec1[0] * fRec0[1]) - fTemp1);
 			fVec1[(IOTA & 4095)] = fTemp2;
 			fRec3[0] = ((fSlow5 * fRec4[1]) + (fSlow6 * fRec3[1]));
@@ -717,9 +717,9 @@ class flanger : public dsp {
 			fRec2[0] = ((0.999000013f * fRec2[1]) + (fConst1 * (fSlow2 + (fSlow3 * (fRec3[0] + 1.0f)))));
 			int iTemp3 = int(fRec2[0]);
 			float fTemp4 = floorf(fRec2[0]);
-			fRec0[0] = ((fVec1[((IOTA - min(2049, max(0, iTemp3))) & 4095)] * (fTemp4 + (1.0f - fRec2[0]))) + ((fRec2[0] - fTemp4) * fVec1[((IOTA - min(2049, max(0, (iTemp3 + 1)))) & 4095)]));
+			fRec0[0] = ((fVec1[((IOTA - min(2049, max(0, (iTemp3 + 1)))) & 4095)] * (fRec2[0] - fTemp4)) + ((fTemp4 + (1.0f - fRec2[0])) * fVec1[((IOTA - min(2049, max(0, iTemp3))) & 4095)]));
 			fRec5[0] = (fSlow9 + (0.999000013f * fRec5[1]));
-			output0[i] = FAUSTFLOAT((iSlow0?fTemp0:(0.5f * ((fRec0[0] * (iSlow8?(0.0f - fRec5[0]):fRec5[0])) + fTemp1))));
+			output0[i] = FAUSTFLOAT((iSlow0?fTemp0:(0.5f * (fTemp1 + (fRec0[0] * (iSlow8?(0.0f - fRec5[0]):fRec5[0]))))));
 			iVec0[1] = iVec0[0];
 			fRec1[1] = fRec1[0];
 			IOTA = (IOTA + 1);
@@ -1123,6 +1123,20 @@ static bool atom_is_symbol(const t_atom& a)
 }
 
 /**
+ * @return true if given atom is a property
+ */
+static bool atom_is_property(const t_atom& a)
+{
+    switch (a.a_type) {
+    case A_DEFSYMBOL:
+    case A_SYMBOL:
+        return a.a_w.w_symbol->s_name[0] == '@';
+    default:
+        return false;
+    }
+}
+
+/**
  * @brief find nth float in argument list. (arguments can be mixed)
  * @param argc argument count
  * @param argv pointer to argument vector
@@ -1176,12 +1190,22 @@ public:
      */
     PdArgParser(t_faust_flanger* x, int argc, t_atom* argv, bool info_outlet = true)
         : x_(x)
-        , argc_(argc)
+        , argc_(0)
         , argv_(argv)
         , control_outlet_(info_outlet)
     {
         const char* id = NULL;
         std::string objId;
+
+        int first_prop_idx = argc;
+        for(int i = 0; i < argc; i++) {
+            if(atom_is_property(argv[i]))
+                first_prop_idx = i;
+        }
+
+        // store argument count (without properties)
+        argc_ = first_prop_idx;
+
         if (get_nth_symbol_arg(argc_, argv_, 1, &id))
             objId = id;
 
@@ -1190,7 +1214,8 @@ public:
             this->x_ = NULL;
         }
 
-        std::deque<ceammc::AtomList> props = ceammc::AtomList(argc_, argv).properties();
+        // process properties
+        std::deque<ceammc::AtomList> props = ceammc::AtomList(argc, argv).properties();
         for (size_t i = 0; i < props.size(); i++) {
             ceammc::AtomList& p = props[i];
             // skip empty property

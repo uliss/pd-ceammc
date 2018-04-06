@@ -645,7 +645,7 @@ class lpf24 : public dsp {
 			fRec1[0] = (float(input0[i]) - (((fRec1[2] * (((fTemp1 + -1.84775901f) / fTemp0) + 1.0f)) + (2.0f * (fRec1[1] * fTemp2))) / fTemp3));
 			float fTemp4 = (((fTemp1 + 0.765366852f) / fTemp0) + 1.0f);
 			fRec0[0] = (((fRec1[2] + (fRec1[0] + (2.0f * fRec1[1]))) / fTemp3) - (((fRec0[2] * (((fTemp1 + -0.765366852f) / fTemp0) + 1.0f)) + (2.0f * (fTemp2 * fRec0[1]))) / fTemp4));
-			output0[i] = FAUSTFLOAT(((fRec0[2] + ((2.0f * fRec0[1]) + fRec0[0])) / fTemp4));
+			output0[i] = FAUSTFLOAT(((fRec0[2] + (fRec0[0] + (2.0f * fRec0[1]))) / fTemp4));
 			fRec2[1] = fRec2[0];
 			fRec1[2] = fRec1[1];
 			fRec1[1] = fRec1[0];
@@ -1046,6 +1046,20 @@ static bool atom_is_symbol(const t_atom& a)
 }
 
 /**
+ * @return true if given atom is a property
+ */
+static bool atom_is_property(const t_atom& a)
+{
+    switch (a.a_type) {
+    case A_DEFSYMBOL:
+    case A_SYMBOL:
+        return a.a_w.w_symbol->s_name[0] == '@';
+    default:
+        return false;
+    }
+}
+
+/**
  * @brief find nth float in argument list. (arguments can be mixed)
  * @param argc argument count
  * @param argv pointer to argument vector
@@ -1099,12 +1113,22 @@ public:
      */
     PdArgParser(t_faust_lpf24* x, int argc, t_atom* argv, bool info_outlet = true)
         : x_(x)
-        , argc_(argc)
+        , argc_(0)
         , argv_(argv)
         , control_outlet_(info_outlet)
     {
         const char* id = NULL;
         std::string objId;
+
+        int first_prop_idx = argc;
+        for(int i = 0; i < argc; i++) {
+            if(atom_is_property(argv[i]))
+                first_prop_idx = i;
+        }
+
+        // store argument count (without properties)
+        argc_ = first_prop_idx;
+
         if (get_nth_symbol_arg(argc_, argv_, 1, &id))
             objId = id;
 
@@ -1113,7 +1137,8 @@ public:
             this->x_ = NULL;
         }
 
-        std::deque<ceammc::AtomList> props = ceammc::AtomList(argc_, argv).properties();
+        // process properties
+        std::deque<ceammc::AtomList> props = ceammc::AtomList(argc, argv).properties();
         for (size_t i = 0; i < props.size(); i++) {
             ceammc::AtomList& p = props[i];
             // skip empty property

@@ -605,14 +605,14 @@ class bpf24 : public dsp {
 		fConst0 = min(192000.0f, max(1.0f, float(fSamplingFreq)));
 		fConst1 = (1.0f / fConst0);
 		fConst2 = bpf24_faustpower2_f(fConst1);
-		fConst3 = bpf24_faustpower3_f(fConst1);
-		fConst4 = (4.0f * bpf24_faustpower2_f(fConst0));
+		fConst3 = (22.6274166f / fConst0);
+		fConst4 = (2.0f * fConst0);
 		fConst5 = (3.14159274f / fConst0);
 		fConst6 = (0.5f * fConst0);
-		fConst7 = (2.0f * fConst0);
-		fConst8 = (0.5f / fConst0);
-		fConst9 = (4.0f * fConst1);
-		fConst10 = (22.6274166f / fConst0);
+		fConst7 = (0.5f / fConst0);
+		fConst8 = (4.0f * bpf24_faustpower2_f(fConst0));
+		fConst9 = bpf24_faustpower3_f(fConst1);
+		fConst10 = (4.0f * fConst1);
 		fConst11 = (6.0f * fConst2);
 		fConst12 = (11.3137083f / fConst0);
 		
@@ -677,12 +677,12 @@ class bpf24 : public dsp {
 			fRec2[0] = (fSlow1 + (0.999000013f * fRec2[1]));
 			float fTemp0 = (0.5f / fRec2[0]);
 			float fTemp1 = tanf((fConst5 * min((fRec1[0] * (fTemp0 + 1.0f)), fConst6)));
-			float fTemp2 = sqrtf((fConst4 * (tanf((fConst5 * max((fRec1[0] * (1.0f - fTemp0)), 0.0f))) * fTemp1)));
+			float fTemp2 = sqrtf((fConst8 * (tanf((fConst5 * max((fRec1[0] * (1.0f - fTemp0)), 0.0f))) * fTemp1)));
 			float fTemp3 = bpf24_faustpower2_f(fTemp2);
-			float fTemp4 = ((fConst7 * fTemp1) - (fConst8 * (fTemp3 / fTemp1)));
-			float fTemp5 = (5.65685415f * fTemp4);
-			float fTemp6 = (fConst9 * fTemp3);
-			float fTemp7 = (fConst10 * fTemp4);
+			float fTemp4 = ((fConst4 * fTemp1) - (fConst7 * (fTemp3 / fTemp1)));
+			float fTemp5 = (fConst3 * fTemp4);
+			float fTemp6 = (fConst10 * fTemp3);
+			float fTemp7 = (5.65685415f * fTemp4);
 			float fTemp8 = bpf24_faustpower2_f(fTemp4);
 			float fTemp9 = (8.0f * fTemp8);
 			float fTemp10 = ((4.0f * fTemp8) + (8.0f * fTemp3));
@@ -690,7 +690,7 @@ class bpf24 : public dsp {
 			float fTemp12 = (2.82842708f * fTemp4);
 			float fTemp13 = (fConst12 * fTemp4);
 			float fTemp14 = (((fConst2 * (fTemp10 + (fConst1 * (fTemp3 * (fTemp11 + fTemp12))))) + fTemp13) + 16.0f);
-			fRec0[0] = (float(input0[i]) - (((((fRec0[1] * ((fConst3 * (fTemp3 * (fTemp5 + fTemp6))) + (-64.0f - fTemp7))) + (fRec0[2] * ((fConst2 * ((0.0f - (fTemp9 + (16.0f * fTemp3))) + (fConst11 * bpf24_faustpower4_f(fTemp2)))) + 96.0f))) + (fRec0[3] * ((fTemp7 + (fConst3 * (fTemp3 * (fTemp6 - fTemp5)))) + -64.0f))) + (fRec0[4] * ((fConst2 * (fTemp10 + (fConst1 * (fTemp3 * (fTemp11 - fTemp12))))) + (16.0f - fTemp13)))) / fTemp14));
+			fRec0[0] = (float(input0[i]) - ((((fRec0[3] * ((fTemp5 + (fConst9 * (fTemp3 * (fTemp6 - fTemp7)))) + -64.0f)) + ((fRec0[1] * ((fConst9 * (fTemp3 * (fTemp7 + fTemp6))) + (-64.0f - fTemp5))) + (fRec0[2] * ((fConst2 * ((0.0f - (fTemp9 + (16.0f * fTemp3))) + (fConst11 * bpf24_faustpower4_f(fTemp2)))) + 96.0f)))) + (fRec0[4] * ((fConst2 * (fTemp10 + (fConst1 * (fTemp3 * (fTemp11 - fTemp12))))) + (16.0f - fTemp13)))) / fTemp14));
 			output0[i] = FAUSTFLOAT((fConst2 * ((((fRec0[2] * (0.0f - fTemp9)) + (4.0f * (fRec0[0] * fTemp8))) + (4.0f * (fTemp8 * fRec0[4]))) / fTemp14)));
 			fRec1[1] = fRec1[0];
 			fRec2[1] = fRec2[0];
@@ -1093,6 +1093,20 @@ static bool atom_is_symbol(const t_atom& a)
 }
 
 /**
+ * @return true if given atom is a property
+ */
+static bool atom_is_property(const t_atom& a)
+{
+    switch (a.a_type) {
+    case A_DEFSYMBOL:
+    case A_SYMBOL:
+        return a.a_w.w_symbol->s_name[0] == '@';
+    default:
+        return false;
+    }
+}
+
+/**
  * @brief find nth float in argument list. (arguments can be mixed)
  * @param argc argument count
  * @param argv pointer to argument vector
@@ -1146,12 +1160,22 @@ public:
      */
     PdArgParser(t_faust_bpf24* x, int argc, t_atom* argv, bool info_outlet = true)
         : x_(x)
-        , argc_(argc)
+        , argc_(0)
         , argv_(argv)
         , control_outlet_(info_outlet)
     {
         const char* id = NULL;
         std::string objId;
+
+        int first_prop_idx = argc;
+        for(int i = 0; i < argc; i++) {
+            if(atom_is_property(argv[i]))
+                first_prop_idx = i;
+        }
+
+        // store argument count (without properties)
+        argc_ = first_prop_idx;
+
         if (get_nth_symbol_arg(argc_, argv_, 1, &id))
             objId = id;
 
@@ -1160,7 +1184,8 @@ public:
             this->x_ = NULL;
         }
 
-        std::deque<ceammc::AtomList> props = ceammc::AtomList(argc_, argv).properties();
+        // process properties
+        std::deque<ceammc::AtomList> props = ceammc::AtomList(argc, argv).properties();
         for (size_t i = 0; i < props.size(); i++) {
             ceammc::AtomList& p = props[i];
             // skip empty property

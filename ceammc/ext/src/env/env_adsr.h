@@ -511,7 +511,6 @@ class adsr : public dsp {
 	FAUSTFLOAT fHslider1;
 	float fRec1[2];
 	float fRec0[2];
-	float fConst1;
 	FAUSTFLOAT fHslider2;
 	float fRec4[2];
 	FAUSTFLOAT fHslider3;
@@ -519,6 +518,7 @@ class adsr : public dsp {
 	float fRec3[2];
 	FAUSTFLOAT fHslider4;
 	float fRec6[2];
+	float fConst1;
 	float fRec2[2];
 	
  public:
@@ -527,7 +527,7 @@ class adsr : public dsp {
 		m->declare("basics.lib/name", "Faust Basic Element Library");
 		m->declare("basics.lib/version", "0.0");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
-		m->declare("ceammc.lib/version", "0.1");
+		m->declare("ceammc.lib/version", "0.1.1");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.1");
 		m->declare("envelopes.lib/author", "GRAME");
@@ -701,7 +701,7 @@ class adsr : public dsp {
 			fRec6[0] = (fSlow7 + (0.999000013f * fRec6[1]));
 			float fTemp5 = (fSlow0 * fRec6[0]);
 			fRec2[0] = (iSlow1?(float(iSlow1) * (iTemp4?((fRec3[0] < 0.0f)?0.0f:(iTemp4?(fConst1 * (fRec3[0] / fRec4[0])):1.0f)):((fRec3[0] < fTemp2)?((((fRec3[0] - fTemp3) * (fTemp5 + -1.0f)) / (0.0f - (fConst0 * (fRec4[0] - fTemp1)))) + 1.0f):fTemp5))):fRec2[1]);
-			output0[i] = FAUSTFLOAT((((fRec0[0] < 0.0f)?fRec2[0]:((fRec0[0] < fTemp0)?((fConst1 * ((fRec0[0] * (0.0f - fRec2[0])) / fRec1[0])) + fRec2[0]):0.0f)) * float(input0[i])));
+			output0[i] = FAUSTFLOAT((float(input0[i]) * ((fRec0[0] < 0.0f)?fRec2[0]:((fRec0[0] < fTemp0)?(fRec2[0] + (fConst1 * ((fRec0[0] * (0.0f - fRec2[0])) / fRec1[0]))):0.0f))));
 			fRec1[1] = fRec1[0];
 			fRec0[1] = fRec0[0];
 			fRec4[1] = fRec4[0];
@@ -1104,6 +1104,20 @@ static bool atom_is_symbol(const t_atom& a)
 }
 
 /**
+ * @return true if given atom is a property
+ */
+static bool atom_is_property(const t_atom& a)
+{
+    switch (a.a_type) {
+    case A_DEFSYMBOL:
+    case A_SYMBOL:
+        return a.a_w.w_symbol->s_name[0] == '@';
+    default:
+        return false;
+    }
+}
+
+/**
  * @brief find nth float in argument list. (arguments can be mixed)
  * @param argc argument count
  * @param argv pointer to argument vector
@@ -1157,12 +1171,22 @@ public:
      */
     PdArgParser(t_faust_adsr* x, int argc, t_atom* argv, bool info_outlet = true)
         : x_(x)
-        , argc_(argc)
+        , argc_(0)
         , argv_(argv)
         , control_outlet_(info_outlet)
     {
         const char* id = NULL;
         std::string objId;
+
+        int first_prop_idx = argc;
+        for(int i = 0; i < argc; i++) {
+            if(atom_is_property(argv[i]))
+                first_prop_idx = i;
+        }
+
+        // store argument count (without properties)
+        argc_ = first_prop_idx;
+
         if (get_nth_symbol_arg(argc_, argv_, 1, &id))
             objId = id;
 
@@ -1171,7 +1195,8 @@ public:
             this->x_ = NULL;
         }
 
-        std::deque<ceammc::AtomList> props = ceammc::AtomList(argc_, argv).properties();
+        // process properties
+        std::deque<ceammc::AtomList> props = ceammc::AtomList(argc, argv).properties();
         for (size_t i = 0; i < props.size(); i++) {
             ceammc::AtomList& p = props[i];
             // skip empty property

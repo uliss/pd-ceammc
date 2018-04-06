@@ -514,7 +514,7 @@ class dcblock2 : public dsp {
 	
 	void metadata(Meta* m) { 
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
-		m->declare("ceammc.lib/version", "0.1");
+		m->declare("ceammc.lib/version", "0.1.1");
 		m->declare("filename", "flt_dcblock2");
 		m->declare("filters.lib/name", "Faust Filters Library");
 		m->declare("filters.lib/version", "0.0");
@@ -635,11 +635,11 @@ class dcblock2 : public dsp {
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = float(input0[i]);
 			fVec0[0] = fTemp0;
-			fRec0[0] = ((fTemp0 + (0.995000005f * fRec0[1])) - fVec0[1]);
+			fRec0[0] = (((0.995000005f * fRec0[1]) + fTemp0) - fVec0[1]);
 			output0[i] = FAUSTFLOAT(fRec0[0]);
 			float fTemp1 = float(input1[i]);
 			fVec1[0] = fTemp1;
-			fRec1[0] = ((fTemp1 + (0.995000005f * fRec1[1])) - fVec1[1]);
+			fRec1[0] = (((0.995000005f * fRec1[1]) + fTemp1) - fVec1[1]);
 			output1[i] = FAUSTFLOAT(fRec1[0]);
 			fVec0[1] = fVec0[0];
 			fRec0[1] = fRec0[0];
@@ -1040,6 +1040,20 @@ static bool atom_is_symbol(const t_atom& a)
 }
 
 /**
+ * @return true if given atom is a property
+ */
+static bool atom_is_property(const t_atom& a)
+{
+    switch (a.a_type) {
+    case A_DEFSYMBOL:
+    case A_SYMBOL:
+        return a.a_w.w_symbol->s_name[0] == '@';
+    default:
+        return false;
+    }
+}
+
+/**
  * @brief find nth float in argument list. (arguments can be mixed)
  * @param argc argument count
  * @param argv pointer to argument vector
@@ -1093,12 +1107,22 @@ public:
      */
     PdArgParser(t_faust_dcblock2* x, int argc, t_atom* argv, bool info_outlet = true)
         : x_(x)
-        , argc_(argc)
+        , argc_(0)
         , argv_(argv)
         , control_outlet_(info_outlet)
     {
         const char* id = NULL;
         std::string objId;
+
+        int first_prop_idx = argc;
+        for(int i = 0; i < argc; i++) {
+            if(atom_is_property(argv[i]))
+                first_prop_idx = i;
+        }
+
+        // store argument count (without properties)
+        argc_ = first_prop_idx;
+
         if (get_nth_symbol_arg(argc_, argv_, 1, &id))
             objId = id;
 
@@ -1107,7 +1131,8 @@ public:
             this->x_ = NULL;
         }
 
-        std::deque<ceammc::AtomList> props = ceammc::AtomList(argc_, argv).properties();
+        // process properties
+        std::deque<ceammc::AtomList> props = ceammc::AtomList(argc, argv).properties();
         for (size_t i = 0; i < props.size(); i++) {
             ceammc::AtomList& p = props[i];
             // skip empty property

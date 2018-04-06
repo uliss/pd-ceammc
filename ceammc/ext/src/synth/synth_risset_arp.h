@@ -817,7 +817,6 @@ class risset_arp : public dsp {
 	
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("Risset Arpeggio");
-		ui_interface->declare(&fHslider2, "unit", "%");
 		ui_interface->addHorizontalSlider("detune", &fHslider2, 5.0f, 0.0f, 1000.0f, 0.00999999978f);
 		ui_interface->addHorizontalSlider("freq", &fHslider1, 100.0f, 40.0f, 500.0f, 1.0f);
 		ui_interface->addHorizontalSlider("harmonic1", &fHslider3, 1.0f, 0.0f, 1.0f, 0.00999999978f);
@@ -962,10 +961,10 @@ class risset_arp : public dsp {
 			float fTemp78 = (1.0f - fTemp77);
 			float fTemp79 = (1.0f - (2.0f * (fTemp75 * fTemp78)));
 			float fTemp80 = ((2.0f * fTemp79) - fTemp77);
-			float fTemp81 = (fTemp78 + fTemp80);
-			float fTemp82 = ((2.0f * (fTemp75 * fTemp81)) + -1.0f);
+			float fTemp81 = (fTemp80 + fTemp78);
+			float fTemp82 = ((2.0f * (fTemp81 * fTemp75)) + -1.0f);
 			float fTemp83 = ((2.0f * fTemp82) - fTemp80);
-			float fTemp84 = ((((((fRec10[0] * fTemp76) + (fRec11[0] * fTemp79)) + (fRec12[0] * fTemp82)) + (fRec29[0] * (((fRec6[0] + (fRec7[0] * fTemp77)) + (fRec8[0] * fTemp80)) + (fRec9[0] * fTemp83)))) + (fRec13[0] * (1.0f - (2.0f * (fTemp75 * (fTemp81 - fTemp83)))))) + 1.0f);
+			float fTemp84 = ((((((fTemp82 * fRec12[0]) + ((((fTemp80 * fRec8[0]) + (fRec6[0] + (fRec7[0] * fTemp77))) + (fTemp83 * fRec9[0])) * fRec29[0])) + (fRec10[0] * fTemp76)) + (fRec11[0] * fTemp79)) + (fRec13[0] * (1.0f - (2.0f * (fTemp75 * (fTemp81 - fTemp83)))))) + 1.0f);
 			float fTemp85 = (1.0f - fRec0[0]);
 			float fTemp86 = (fRec0[0] + 1.0f);
 			float fTemp87 = (fRec3[0] + fTemp49);
@@ -982,8 +981,8 @@ class risset_arp : public dsp {
 			float fTemp95 = ((2.0f * (fTemp88 * fTemp94)) + -1.0f);
 			float fTemp96 = ((2.0f * fTemp95) - fTemp93);
 			float fTemp97 = (((fRec32[0] * (((fRec6[0] + (fRec7[0] * fTemp90)) + (fRec8[0] * fTemp93)) + (fRec9[0] * fTemp96))) + ((((fRec10[0] * fTemp89) + (fRec11[0] * fTemp92)) + (fRec12[0] * fTemp95)) + (fRec13[0] * (1.0f - (2.0f * (fTemp88 * (fTemp94 - fTemp96))))))) + 1.0f);
-			output0[i] = FAUSTFLOAT((0.0799999982f * ((((fTemp0 + 0.5f) * fTemp13) + (((fTemp14 + 0.5f) * fTemp25) + (((fTemp26 + 0.5f) * fTemp36) + ((fTemp47 * (0.5f - fTemp48)) + ((fTemp60 * (0.5f - fTemp61)) + (fTemp72 * (0.5f - fTemp73))))))) + (0.5f * ((fTemp84 * fTemp85) + (fTemp86 * fTemp97))))));
-			output1[i] = FAUSTFLOAT((0.0799999982f * ((((((((fTemp84 * (1.0f - (0.5f * fTemp85))) + (fTemp60 * (fTemp61 + 0.5f))) + (fTemp72 * (fTemp73 + 0.5f))) + (fTemp47 * (fTemp48 + 0.5f))) + (fTemp36 * (0.5f - fTemp26))) + (fTemp25 * (0.5f - fTemp14))) + (fTemp13 * (0.5f - fTemp0))) + (fTemp97 * (1.0f - (0.5f * fTemp86))))));
+			output0[i] = FAUSTFLOAT((0.0500000007f * ((((fTemp0 + 0.5f) * fTemp13) + (((fTemp14 + 0.5f) * fTemp25) + (((fTemp26 + 0.5f) * fTemp36) + ((fTemp47 * (0.5f - fTemp48)) + ((fTemp60 * (0.5f - fTemp61)) + (fTemp72 * (0.5f - fTemp73))))))) + (0.5f * ((fTemp84 * fTemp85) + (fTemp86 * fTemp97))))));
+			output1[i] = FAUSTFLOAT((0.0500000007f * ((((((((fTemp84 * (1.0f - (0.5f * fTemp85))) + (fTemp60 * (fTemp61 + 0.5f))) + (fTemp72 * (fTemp73 + 0.5f))) + (fTemp47 * (fTemp48 + 0.5f))) + (fTemp36 * (0.5f - fTemp26))) + (fTemp25 * (0.5f - fTemp14))) + (fTemp13 * (0.5f - fTemp0))) + (fTemp97 * (1.0f - (0.5f * fTemp86))))));
 			iVec0[1] = iVec0[0];
 			fRec0[1] = fRec0[0];
 			fRec3[1] = fRec3[0];
@@ -1415,6 +1414,20 @@ static bool atom_is_symbol(const t_atom& a)
 }
 
 /**
+ * @return true if given atom is a property
+ */
+static bool atom_is_property(const t_atom& a)
+{
+    switch (a.a_type) {
+    case A_DEFSYMBOL:
+    case A_SYMBOL:
+        return a.a_w.w_symbol->s_name[0] == '@';
+    default:
+        return false;
+    }
+}
+
+/**
  * @brief find nth float in argument list. (arguments can be mixed)
  * @param argc argument count
  * @param argv pointer to argument vector
@@ -1468,12 +1481,22 @@ public:
      */
     PdArgParser(t_faust_risset_arp* x, int argc, t_atom* argv, bool info_outlet = true)
         : x_(x)
-        , argc_(argc)
+        , argc_(0)
         , argv_(argv)
         , control_outlet_(info_outlet)
     {
         const char* id = NULL;
         std::string objId;
+
+        int first_prop_idx = argc;
+        for(int i = 0; i < argc; i++) {
+            if(atom_is_property(argv[i]))
+                first_prop_idx = i;
+        }
+
+        // store argument count (without properties)
+        argc_ = first_prop_idx;
+
         if (get_nth_symbol_arg(argc_, argv_, 1, &id))
             objId = id;
 
@@ -1482,7 +1505,8 @@ public:
             this->x_ = NULL;
         }
 
-        std::deque<ceammc::AtomList> props = ceammc::AtomList(argc_, argv).properties();
+        // process properties
+        std::deque<ceammc::AtomList> props = ceammc::AtomList(argc, argv).properties();
         for (size_t i = 0; i < props.size(); i++) {
             ceammc::AtomList& p = props[i];
             // skip empty property

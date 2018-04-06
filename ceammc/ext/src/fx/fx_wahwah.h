@@ -599,7 +599,7 @@ class wahwah : public dsp {
 		m->declare("basics.lib/name", "Faust Basic Element Library");
 		m->declare("basics.lib/version", "0.0");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
-		m->declare("ceammc.lib/version", "0.1");
+		m->declare("ceammc.lib/version", "0.1.1");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.1");
 		m->declare("filename", "fx_wahwah");
@@ -773,10 +773,10 @@ class wahwah : public dsp {
 		float fSlow3 = float(fHslider2);
 		int iSlow4 = (fSlow3 <= 0.0f);
 		for (int i = 0; (i < count); i = (i + 1)) {
-			iVec0[0] = 1;
-			fRec0[0] = (fSlow1 + (0.999000013f * fRec0[1]));
 			float fTemp0 = float(input0[i]);
 			float fTemp1 = (iSlow0?0.0f:fTemp0);
+			iVec0[0] = 1;
+			fRec0[0] = (fSlow1 + (0.999000013f * fRec0[1]));
 			fRec4[0] = (fSlow2 + (0.999000013f * fRec4[1]));
 			iRec3[0] = ((iVec0[1] + iRec3[1]) % int((fConst1 / float(int(fRec4[0])))));
 			int iTemp2 = (iRec3[0] == 0);
@@ -791,8 +791,8 @@ class wahwah : public dsp {
 			float fTemp5 = (1.0f - (fConst2 * (fTemp4 / powf(2.0f, ((2.0f * (1.0f - fTemp3)) + 1.0f)))));
 			fRec7[0] = ((0.999000013f * fRec7[1]) + (0.00100000005f * (0.0f - (2.0f * (fTemp5 * cosf((fConst3 * fTemp4)))))));
 			fRec8[0] = ((0.999000013f * fRec8[1]) + (0.00100000005f * wahwah_faustpower2_f(fTemp5)));
-			fRec1[0] = ((fRec2[0] * fTemp1) - ((fRec7[0] * fRec1[1]) + (fRec8[0] * fRec1[2])));
-			output0[i] = FAUSTFLOAT((iSlow0?fTemp0:(((1.0f - fRec0[0]) * fTemp1) + (fRec0[0] * (fRec1[0] - fRec1[1])))));
+			fRec1[0] = ((fTemp1 * fRec2[0]) - ((fRec7[0] * fRec1[1]) + (fRec8[0] * fRec1[2])));
+			output0[i] = FAUSTFLOAT((iSlow0?fTemp0:((fTemp1 * (1.0f - fRec0[0])) + (fRec0[0] * (fRec1[0] - fRec1[1])))));
 			iVec0[1] = iVec0[0];
 			fRec0[1] = fRec0[0];
 			fRec4[1] = fRec4[0];
@@ -1201,6 +1201,20 @@ static bool atom_is_symbol(const t_atom& a)
 }
 
 /**
+ * @return true if given atom is a property
+ */
+static bool atom_is_property(const t_atom& a)
+{
+    switch (a.a_type) {
+    case A_DEFSYMBOL:
+    case A_SYMBOL:
+        return a.a_w.w_symbol->s_name[0] == '@';
+    default:
+        return false;
+    }
+}
+
+/**
  * @brief find nth float in argument list. (arguments can be mixed)
  * @param argc argument count
  * @param argv pointer to argument vector
@@ -1254,12 +1268,22 @@ public:
      */
     PdArgParser(t_faust_wahwah* x, int argc, t_atom* argv, bool info_outlet = true)
         : x_(x)
-        , argc_(argc)
+        , argc_(0)
         , argv_(argv)
         , control_outlet_(info_outlet)
     {
         const char* id = NULL;
         std::string objId;
+
+        int first_prop_idx = argc;
+        for(int i = 0; i < argc; i++) {
+            if(atom_is_property(argv[i]))
+                first_prop_idx = i;
+        }
+
+        // store argument count (without properties)
+        argc_ = first_prop_idx;
+
         if (get_nth_symbol_arg(argc_, argv_, 1, &id))
             objId = id;
 
@@ -1268,7 +1292,8 @@ public:
             this->x_ = NULL;
         }
 
-        std::deque<ceammc::AtomList> props = ceammc::AtomList(argc_, argv).properties();
+        // process properties
+        std::deque<ceammc::AtomList> props = ceammc::AtomList(argc, argv).properties();
         for (size_t i = 0; i < props.size(); i++) {
             ceammc::AtomList& p = props[i];
             // skip empty property

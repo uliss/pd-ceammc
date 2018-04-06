@@ -666,7 +666,7 @@ class saw : public dsp {
 			fVec3[0] = fTemp5;
 			float fTemp6 = ((fTemp5 - fVec3[1]) / fTemp1);
 			fVec4[0] = fTemp6;
-			output0[i] = FAUSTFLOAT(((fTemp0 == 0.0f)?0.0f:(fConst1 * (((fTemp6 - fVec4[1]) * float(iVec0[3])) / fTemp1))));
+			output0[i] = FAUSTFLOAT(((fTemp0 == 0.0f)?0.0f:(fConst1 * ((float(iVec0[3]) * (fTemp6 - fVec4[1])) / fTemp1))));
 			for (int j0 = 3; (j0 > 0); j0 = (j0 - 1)) {
 				iVec0[j0] = iVec0[(j0 - 1)];
 				
@@ -1071,6 +1071,20 @@ static bool atom_is_symbol(const t_atom& a)
 }
 
 /**
+ * @return true if given atom is a property
+ */
+static bool atom_is_property(const t_atom& a)
+{
+    switch (a.a_type) {
+    case A_DEFSYMBOL:
+    case A_SYMBOL:
+        return a.a_w.w_symbol->s_name[0] == '@';
+    default:
+        return false;
+    }
+}
+
+/**
  * @brief find nth float in argument list. (arguments can be mixed)
  * @param argc argument count
  * @param argv pointer to argument vector
@@ -1124,12 +1138,22 @@ public:
      */
     PdArgParser(t_faust_saw* x, int argc, t_atom* argv, bool info_outlet = true)
         : x_(x)
-        , argc_(argc)
+        , argc_(0)
         , argv_(argv)
         , control_outlet_(info_outlet)
     {
         const char* id = NULL;
         std::string objId;
+
+        int first_prop_idx = argc;
+        for(int i = 0; i < argc; i++) {
+            if(atom_is_property(argv[i]))
+                first_prop_idx = i;
+        }
+
+        // store argument count (without properties)
+        argc_ = first_prop_idx;
+
         if (get_nth_symbol_arg(argc_, argv_, 1, &id))
             objId = id;
 
@@ -1138,7 +1162,8 @@ public:
             this->x_ = NULL;
         }
 
-        std::deque<ceammc::AtomList> props = ceammc::AtomList(argc_, argv).properties();
+        // process properties
+        std::deque<ceammc::AtomList> props = ceammc::AtomList(argc, argv).properties();
         for (size_t i = 0; i < props.size(); i++) {
             ceammc::AtomList& p = props[i];
             // skip empty property

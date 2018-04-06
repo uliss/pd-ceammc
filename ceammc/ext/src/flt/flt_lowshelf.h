@@ -506,12 +506,12 @@ class lowshelf : public dsp {
  private:
 	
 	FAUSTFLOAT fVslider0;
-	float fRec1[2];
+	float fRec0[2];
 	int fSamplingFreq;
 	float fConst0;
 	FAUSTFLOAT fVslider1;
 	float fRec2[2];
-	float fRec0[3];
+	float fRec1[3];
 	
  public:
 	
@@ -593,7 +593,7 @@ class lowshelf : public dsp {
 	
 	virtual void instanceClear() {
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
-			fRec1[l0] = 0.0f;
+			fRec0[l0] = 0.0f;
 			
 		}
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
@@ -601,7 +601,7 @@ class lowshelf : public dsp {
 			
 		}
 		for (int l2 = 0; (l2 < 3); l2 = (l2 + 1)) {
-			fRec0[l2] = 0.0f;
+			fRec1[l2] = 0.0f;
 			
 		}
 		
@@ -641,8 +641,8 @@ class lowshelf : public dsp {
 		float fSlow0 = (0.00100000005f * float(fVslider0));
 		float fSlow1 = (0.00100000005f * float(fVslider1));
 		for (int i = 0; (i < count); i = (i + 1)) {
-			fRec1[0] = (fSlow0 + (0.999000013f * fRec1[1]));
-			float fTemp0 = powf(10.0f, (0.0250000004f * fRec1[0]));
+			fRec0[0] = (fSlow0 + (0.999000013f * fRec0[1]));
+			float fTemp0 = powf(10.0f, (0.0250000004f * fRec0[0]));
 			fRec2[0] = (fSlow1 + (0.999000013f * fRec2[1]));
 			float fTemp1 = (fConst0 * max(0.0f, fRec2[0]));
 			float fTemp2 = cosf(fTemp1);
@@ -651,12 +651,12 @@ class lowshelf : public dsp {
 			float fTemp5 = (fTemp0 + fTemp4);
 			float fTemp6 = (sqrtf(fTemp0) * sinf(fTemp1));
 			float fTemp7 = ((fTemp6 + fTemp5) + 1.0f);
-			fRec0[0] = (float(input0[i]) - ((((0.0f - (2.0f * ((fTemp0 + fTemp3) + -1.0f))) * fRec0[1]) + ((fTemp5 + (1.0f - fTemp6)) * fRec0[2])) / fTemp7));
-			output0[i] = FAUSTFLOAT((((((fRec0[0] * ((fTemp0 + fTemp6) + (1.0f - fTemp4))) + (2.0f * (fRec0[1] * (fTemp0 + (-1.0f - fTemp3))))) + (fRec0[2] * (fTemp0 + (1.0f - (fTemp4 + fTemp6))))) * fTemp0) / fTemp7));
-			fRec1[1] = fRec1[0];
-			fRec2[1] = fRec2[0];
-			fRec0[2] = fRec0[1];
+			fRec1[0] = (float(input0[i]) - ((((0.0f - (2.0f * ((fTemp0 + fTemp3) + -1.0f))) * fRec1[1]) + ((fTemp5 + (1.0f - fTemp6)) * fRec1[2])) / fTemp7));
+			output0[i] = FAUSTFLOAT(((fTemp0 * (((fRec1[0] * ((fTemp0 + fTemp6) + (1.0f - fTemp4))) + (2.0f * (fRec1[1] * (fTemp0 + (-1.0f - fTemp3))))) + (fRec1[2] * (fTemp0 + (1.0f - (fTemp4 + fTemp6)))))) / fTemp7));
 			fRec0[1] = fRec0[0];
+			fRec2[1] = fRec2[0];
+			fRec1[2] = fRec1[1];
+			fRec1[1] = fRec1[0];
 			
 		}
 		
@@ -1052,6 +1052,20 @@ static bool atom_is_symbol(const t_atom& a)
 }
 
 /**
+ * @return true if given atom is a property
+ */
+static bool atom_is_property(const t_atom& a)
+{
+    switch (a.a_type) {
+    case A_DEFSYMBOL:
+    case A_SYMBOL:
+        return a.a_w.w_symbol->s_name[0] == '@';
+    default:
+        return false;
+    }
+}
+
+/**
  * @brief find nth float in argument list. (arguments can be mixed)
  * @param argc argument count
  * @param argv pointer to argument vector
@@ -1105,12 +1119,22 @@ public:
      */
     PdArgParser(t_faust_lowshelf* x, int argc, t_atom* argv, bool info_outlet = true)
         : x_(x)
-        , argc_(argc)
+        , argc_(0)
         , argv_(argv)
         , control_outlet_(info_outlet)
     {
         const char* id = NULL;
         std::string objId;
+
+        int first_prop_idx = argc;
+        for(int i = 0; i < argc; i++) {
+            if(atom_is_property(argv[i]))
+                first_prop_idx = i;
+        }
+
+        // store argument count (without properties)
+        argc_ = first_prop_idx;
+
         if (get_nth_symbol_arg(argc_, argv_, 1, &id))
             objId = id;
 
@@ -1119,7 +1143,8 @@ public:
             this->x_ = NULL;
         }
 
-        std::deque<ceammc::AtomList> props = ceammc::AtomList(argc_, argv).properties();
+        // process properties
+        std::deque<ceammc::AtomList> props = ceammc::AtomList(argc, argv).properties();
         for (size_t i = 0; i < props.size(); i++) {
             ceammc::AtomList& p = props[i];
             // skip empty property
