@@ -14,6 +14,7 @@
 - spat.pan8~ added
 - synth.risset_arp~ added
 - synth.birds~ added
+- fx.wahwah~ added
 
 ### Changed:
 - migration to Faust v2

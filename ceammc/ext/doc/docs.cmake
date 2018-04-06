@@ -100,6 +100,7 @@ set(DOC_FILES
     fx.looper~
     fx.pitchshift~
     fx.zita_rev1~
+    fx.wahwah~
     global.float
     global.int
     global.list

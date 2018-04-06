@@ -341,6 +341,9 @@
     <entry descr="simple pitch shifter based on 2 delay lines" name="fx.pitchshift~" ref_view="object">
       <xi:include href="fx.pitchshift~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="digitized CryBaby wah pedal" name="fx.wahwah~" ref_view="object">
+      <xi:include href="fx.wahwah~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="Zita stereo reverb" name="fx.zita_rev1~" ref_view="object">
       <xi:include href="fx.zita_rev1~.pddoc" parse="xml"/>
     </entry>

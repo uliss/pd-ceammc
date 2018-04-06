@@ -20,8 +20,10 @@
 #X text 175 305 One track looper;
 #X obj 30 332 fx.pitchshift~;
 #X text 175 332 simple pitch shifter based on 2 delay lines;
-#X obj 30 359 fx.zita_rev1~;
-#X text 175 359 Zita stereo reverb;
+#X obj 30 359 fx.wahwah~;
+#X text 175 359 digitized CryBaby wah pedal;
+#X obj 30 386 fx.zita_rev1~;
+#X text 175 386 Zita stereo reverb;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::fx 20 20 0 20 -104026
 -4096 0;
 #X obj 1 458 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
