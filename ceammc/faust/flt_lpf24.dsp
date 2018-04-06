@@ -1,3 +1,4 @@
-lpf = library("flt_lpf12.dsp");
+fl = library("filters.lib");
+ui = library("ceammc_ui.lib");
 
-process = lpf.stage12 : lpf.stage12;
+process = fl.lowpass(4, ui.freq(1000));

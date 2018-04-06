@@ -30,7 +30,7 @@
             </method>
         </methods>
         <properties>
-            <property name="@freq" type="float" units="herz">cutoff frequency</property>
+            <property name="@freq" type="float" units="herz" default="1000">cutoff frequency</property>
         </properties>
         <arguments>
             <argument name="freq" type="float" units="herz">cutoff frequency</argument>
@@ -48,25 +48,27 @@
         <example>
             <pdascii>
 <![CDATA[
-[F]
-|             [T]
-[phasor~ 100] |
-|             [metro 200]
-|  [T]        |
-|  |.         [random.int 20 1200]
-[*~ ]         |
-|             |
-|             [F]    [F]
-|             |      |
-[*~ 0.15] [freq $1(  [q $1(
-|         |          |
-[flt.lpf24~    4000 3]
-|         |
-|         |.
-[dyn.limit2~]
-|  ^|.
-[dac~]
+[T]
+|
+[metro 10] [ui.hsl]
+|          |
+[click~]   [lin->lin 0 1 500 15000]
+|          |
+[*~ 100]   [@freq $1(
+|          |
+[flt.lpf24~ 5000]
+|
+[ui.spectroscope~ @size=400x120]
 
+
+
+
+
+
+
+
+
+[ui.dsp~]
 ]]>
             </pdascii>
         </example>
