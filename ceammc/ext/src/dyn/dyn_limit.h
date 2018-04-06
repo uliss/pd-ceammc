@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "dyn_limit"
-Code generated with Faust 2.5.30 (https://faust.grame.fr)
+Code generated with Faust 2.5.31 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -994,11 +994,11 @@ static bool faust_new_internal(t_faust_limit* x, const std::string& objId = "", 
 
 /**
  * find nth element that satisfies given predicate
- * @first - first element of sequence
- * @last - pointer behind last element of sequence
- * @Nth - searched element index
- * @pred - predicate
- * @return pointer to found element or pointer to @bold last, if not found
+ * @param first - first element of sequence
+ * @param last - pointer behind last element of sequence
+ * @param Nth - searched element index
+ * @param pred - predicate
+ * @return pointer to found element or pointer to last, if not found
  */
 template <class InputIterator, class NthOccurence, class UnaryPredicate>
 InputIterator find_nth_if(InputIterator first, InputIterator last, NthOccurence Nth, UnaryPredicate pred)
@@ -1114,7 +1114,7 @@ public:
         for (size_t i = 0; i < props.size(); i++) {
             ceammc::AtomList& p = props[i];
             // skip empty property
-            if(p.size() < 2)
+            if (p.size() < 2)
                 continue;
 
             t_atom* data = p.toPdData() + 1;
@@ -1152,7 +1152,7 @@ public:
      * @param pos argument position among of @bold float(!) arguments. Position starts from @bold 1(!).
      * to select first argument - pass 1.
      */
-    void signalFloatArg(const char* name, int pos)
+    void signalFloatArg(const char* /*name*/, int pos)
     {
         // object was not created
         if (!this->x_)
@@ -1171,17 +1171,21 @@ public:
 
 static void* limit_faust_new(t_symbol* s, int argc, t_atom* argv);
 
-static void internal_setup(t_symbol* s)
+static void internal_setup(t_symbol* s, bool soundIn = true)
 {
     limit_faust_class = class_new(s, reinterpret_cast<t_newmethod>(limit_faust_new),
         reinterpret_cast<t_method>(limit_faust_free),
         sizeof(t_faust_limit),
         CLASS_DEFAULT,
         A_GIMME, A_NULL);
-    class_addmethod(limit_faust_class, nullfn, &s_signal, A_NULL);
+
+    if (soundIn) {
+        class_addmethod(limit_faust_class, nullfn, &s_signal, A_NULL);
+        CLASS_MAINSIGNALIN(limit_faust_class, t_faust_limit, f);
+    }
+
     class_addmethod(limit_faust_class, reinterpret_cast<t_method>(limit_faust_dsp), gensym("dsp"), A_NULL);
     class_addmethod(limit_faust_class, reinterpret_cast<t_method>(limit_dump_to_console), gensym("dump"), A_NULL);
-    CLASS_MAINSIGNALIN(limit_faust_class, t_faust_limit, f);
     class_addanything(limit_faust_class, limit_faust_any);
 }
 
@@ -1199,6 +1203,12 @@ static void internal_setup(t_symbol* s)
     extern "C" void setup_##MOD##0x2elimit_tilde() \
     {                                              \
         internal_setup(gensym(#MOD ".limit~"));    \
+    }
+
+#define EXTERNAL_SETUP_NO_IN(MOD)                      \
+    extern "C" void setup_##MOD##0x2elimit_tilde()     \
+    {                                                  \
+        internal_setup(gensym(#MOD ".limit~"), false); \
     }
 
 #define SIMPLE_EXTERNAL(MOD) \

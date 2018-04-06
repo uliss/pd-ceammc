@@ -1,3 +1,4 @@
 #include "noise_pink.h"
 
-SIMPLE_EXTERNAL(noise);
+EXTERNAL_SIMPLE_NEW();
+EXTERNAL_SETUP_NO_IN(noise);

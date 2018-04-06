@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "env_ar"
-Code generated with Faust 2.5.30 (https://faust.grame.fr)
+Code generated with Faust 2.5.31 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -653,7 +653,7 @@ class ar : public dsp {
 		for (int i = 0; (i < count); i = (i + 1)) {
 			fVec0[0] = fSlow0;
 			fVec1[0] = fSlow2;
-			fRec0[0] = ((((fSlow0 - fVec0[1]) > 0.0f) > 0)?0.0f:min(fSlow3, ((fRec0[1] + (fConst1 * (fSlow2 - fVec1[1]))) + 1.0f)));
+			fRec0[0] = ((((fSlow0 - fVec0[1]) > 0.0f) > 0)?0.0f:min(fSlow3, (fRec0[1] + (1.0f - (fConst1 * (fVec1[1] - fSlow2))))));
 			int iTemp0 = (fRec0[0] < fSlow4);
 			output0[i] = FAUSTFLOAT((float(input0[i]) * (iTemp0?((fRec0[0] < 0.0f)?0.0f:(iTemp0?(fSlow6 * fRec0[0]):1.0f)):((fRec0[0] < fSlow3)?((fSlow5 * (0.0f - (fRec0[0] - fSlow4))) + 1.0f):0.0f))));
 			fVec0[1] = fVec0[0];
@@ -1005,11 +1005,11 @@ static bool faust_new_internal(t_faust_ar* x, const std::string& objId = "", boo
 
 /**
  * find nth element that satisfies given predicate
- * @first - first element of sequence
- * @last - pointer behind last element of sequence
- * @Nth - searched element index
- * @pred - predicate
- * @return pointer to found element or pointer to @bold last, if not found
+ * @param first - first element of sequence
+ * @param last - pointer behind last element of sequence
+ * @param Nth - searched element index
+ * @param pred - predicate
+ * @return pointer to found element or pointer to last, if not found
  */
 template <class InputIterator, class NthOccurence, class UnaryPredicate>
 InputIterator find_nth_if(InputIterator first, InputIterator last, NthOccurence Nth, UnaryPredicate pred)
@@ -1125,7 +1125,7 @@ public:
         for (size_t i = 0; i < props.size(); i++) {
             ceammc::AtomList& p = props[i];
             // skip empty property
-            if(p.size() < 2)
+            if (p.size() < 2)
                 continue;
 
             t_atom* data = p.toPdData() + 1;
@@ -1163,7 +1163,7 @@ public:
      * @param pos argument position among of @bold float(!) arguments. Position starts from @bold 1(!).
      * to select first argument - pass 1.
      */
-    void signalFloatArg(const char* name, int pos)
+    void signalFloatArg(const char* /*name*/, int pos)
     {
         // object was not created
         if (!this->x_)
@@ -1182,17 +1182,21 @@ public:
 
 static void* ar_faust_new(t_symbol* s, int argc, t_atom* argv);
 
-static void internal_setup(t_symbol* s)
+static void internal_setup(t_symbol* s, bool soundIn = true)
 {
     ar_faust_class = class_new(s, reinterpret_cast<t_newmethod>(ar_faust_new),
         reinterpret_cast<t_method>(ar_faust_free),
         sizeof(t_faust_ar),
         CLASS_DEFAULT,
         A_GIMME, A_NULL);
-    class_addmethod(ar_faust_class, nullfn, &s_signal, A_NULL);
+
+    if (soundIn) {
+        class_addmethod(ar_faust_class, nullfn, &s_signal, A_NULL);
+        CLASS_MAINSIGNALIN(ar_faust_class, t_faust_ar, f);
+    }
+
     class_addmethod(ar_faust_class, reinterpret_cast<t_method>(ar_faust_dsp), gensym("dsp"), A_NULL);
     class_addmethod(ar_faust_class, reinterpret_cast<t_method>(ar_dump_to_console), gensym("dump"), A_NULL);
-    CLASS_MAINSIGNALIN(ar_faust_class, t_faust_ar, f);
     class_addanything(ar_faust_class, ar_faust_any);
 }
 
@@ -1210,6 +1214,12 @@ static void internal_setup(t_symbol* s)
     extern "C" void setup_##MOD##0x2ear_tilde() \
     {                                              \
         internal_setup(gensym(#MOD ".ar~"));    \
+    }
+
+#define EXTERNAL_SETUP_NO_IN(MOD)                      \
+    extern "C" void setup_##MOD##0x2ear_tilde()     \
+    {                                                  \
+        internal_setup(gensym(#MOD ".ar~"), false); \
     }
 
 #define SIMPLE_EXTERNAL(MOD) \

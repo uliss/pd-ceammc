@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "env_adsr"
-Code generated with Faust 2.5.30 (https://faust.grame.fr)
+Code generated with Faust 2.5.31 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -511,6 +511,7 @@ class adsr : public dsp {
 	FAUSTFLOAT fHslider1;
 	float fRec1[2];
 	float fRec0[2];
+	float fConst1;
 	FAUSTFLOAT fHslider2;
 	float fRec4[2];
 	FAUSTFLOAT fHslider3;
@@ -518,7 +519,6 @@ class adsr : public dsp {
 	float fRec3[2];
 	FAUSTFLOAT fHslider4;
 	float fRec6[2];
-	float fConst1;
 	float fRec2[2];
 	
  public:
@@ -701,7 +701,7 @@ class adsr : public dsp {
 			fRec6[0] = (fSlow7 + (0.999000013f * fRec6[1]));
 			float fTemp5 = (fSlow0 * fRec6[0]);
 			fRec2[0] = (iSlow1?(float(iSlow1) * (iTemp4?((fRec3[0] < 0.0f)?0.0f:(iTemp4?(fConst1 * (fRec3[0] / fRec4[0])):1.0f)):((fRec3[0] < fTemp2)?((((fRec3[0] - fTemp3) * (fTemp5 + -1.0f)) / (0.0f - (fConst0 * (fRec4[0] - fTemp1)))) + 1.0f):fTemp5))):fRec2[1]);
-			output0[i] = FAUSTFLOAT((float(input0[i]) * ((fRec0[0] < 0.0f)?fRec2[0]:((fRec0[0] < fTemp0)?(fRec2[0] + (fConst1 * ((fRec0[0] * (0.0f - fRec2[0])) / fRec1[0]))):0.0f))));
+			output0[i] = FAUSTFLOAT((((fRec0[0] < 0.0f)?fRec2[0]:((fRec0[0] < fTemp0)?((fConst1 * ((fRec0[0] * (0.0f - fRec2[0])) / fRec1[0])) + fRec2[0]):0.0f)) * float(input0[i])));
 			fRec1[1] = fRec1[0];
 			fRec0[1] = fRec0[0];
 			fRec4[1] = fRec4[0];
@@ -1055,11 +1055,11 @@ static bool faust_new_internal(t_faust_adsr* x, const std::string& objId = "", b
 
 /**
  * find nth element that satisfies given predicate
- * @first - first element of sequence
- * @last - pointer behind last element of sequence
- * @Nth - searched element index
- * @pred - predicate
- * @return pointer to found element or pointer to @bold last, if not found
+ * @param first - first element of sequence
+ * @param last - pointer behind last element of sequence
+ * @param Nth - searched element index
+ * @param pred - predicate
+ * @return pointer to found element or pointer to last, if not found
  */
 template <class InputIterator, class NthOccurence, class UnaryPredicate>
 InputIterator find_nth_if(InputIterator first, InputIterator last, NthOccurence Nth, UnaryPredicate pred)
@@ -1175,7 +1175,7 @@ public:
         for (size_t i = 0; i < props.size(); i++) {
             ceammc::AtomList& p = props[i];
             // skip empty property
-            if(p.size() < 2)
+            if (p.size() < 2)
                 continue;
 
             t_atom* data = p.toPdData() + 1;
@@ -1213,7 +1213,7 @@ public:
      * @param pos argument position among of @bold float(!) arguments. Position starts from @bold 1(!).
      * to select first argument - pass 1.
      */
-    void signalFloatArg(const char* name, int pos)
+    void signalFloatArg(const char* /*name*/, int pos)
     {
         // object was not created
         if (!this->x_)
@@ -1232,17 +1232,21 @@ public:
 
 static void* adsr_faust_new(t_symbol* s, int argc, t_atom* argv);
 
-static void internal_setup(t_symbol* s)
+static void internal_setup(t_symbol* s, bool soundIn = true)
 {
     adsr_faust_class = class_new(s, reinterpret_cast<t_newmethod>(adsr_faust_new),
         reinterpret_cast<t_method>(adsr_faust_free),
         sizeof(t_faust_adsr),
         CLASS_DEFAULT,
         A_GIMME, A_NULL);
-    class_addmethod(adsr_faust_class, nullfn, &s_signal, A_NULL);
+
+    if (soundIn) {
+        class_addmethod(adsr_faust_class, nullfn, &s_signal, A_NULL);
+        CLASS_MAINSIGNALIN(adsr_faust_class, t_faust_adsr, f);
+    }
+
     class_addmethod(adsr_faust_class, reinterpret_cast<t_method>(adsr_faust_dsp), gensym("dsp"), A_NULL);
     class_addmethod(adsr_faust_class, reinterpret_cast<t_method>(adsr_dump_to_console), gensym("dump"), A_NULL);
-    CLASS_MAINSIGNALIN(adsr_faust_class, t_faust_adsr, f);
     class_addanything(adsr_faust_class, adsr_faust_any);
 }
 
@@ -1260,6 +1264,12 @@ static void internal_setup(t_symbol* s)
     extern "C" void setup_##MOD##0x2eadsr_tilde() \
     {                                              \
         internal_setup(gensym(#MOD ".adsr~"));    \
+    }
+
+#define EXTERNAL_SETUP_NO_IN(MOD)                      \
+    extern "C" void setup_##MOD##0x2eadsr_tilde()     \
+    {                                                  \
+        internal_setup(gensym(#MOD ".adsr~"), false); \
     }
 
 #define SIMPLE_EXTERNAL(MOD) \

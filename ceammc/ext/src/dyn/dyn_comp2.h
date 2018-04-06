@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "dyn_comp2"
-Code generated with Faust 2.5.30 (https://faust.grame.fr)
+Code generated with Faust 2.5.31 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -668,12 +668,12 @@ class comp2 : public dsp {
 			float fTemp1 = float(input1[i]);
 			float fTemp2 = fabsf((fabsf(fTemp0) + fabsf(fTemp1)));
 			float fTemp3 = ((fRec1[1] > fTemp2)?fSlow4:fSlow3);
-			fRec2[0] = ((fRec2[1] * fTemp3) + ((1.0f - fTemp3) * fTemp2));
+			fRec2[0] = ((fRec2[1] * fTemp3) + (fTemp2 * (1.0f - fTemp3)));
 			fRec1[0] = fRec2[0];
 			fRec0[0] = ((fSlow1 * fRec0[1]) + (fSlow2 * max((((20.0f * log10f(fRec1[0])) + 100.0f) - fSlow5), 0.0f)));
 			float fTemp4 = powf(10.0f, (0.0500000007f * fRec0[0]));
-			output0[i] = FAUSTFLOAT((fTemp4 * fTemp0));
-			output1[i] = FAUSTFLOAT((fTemp4 * fTemp1));
+			output0[i] = FAUSTFLOAT((fTemp0 * fTemp4));
+			output1[i] = FAUSTFLOAT((fTemp1 * fTemp4));
 			fRec2[1] = fRec2[0];
 			fRec1[1] = fRec1[0];
 			fRec0[1] = fRec0[0];
@@ -1023,11 +1023,11 @@ static bool faust_new_internal(t_faust_comp2* x, const std::string& objId = "", 
 
 /**
  * find nth element that satisfies given predicate
- * @first - first element of sequence
- * @last - pointer behind last element of sequence
- * @Nth - searched element index
- * @pred - predicate
- * @return pointer to found element or pointer to @bold last, if not found
+ * @param first - first element of sequence
+ * @param last - pointer behind last element of sequence
+ * @param Nth - searched element index
+ * @param pred - predicate
+ * @return pointer to found element or pointer to last, if not found
  */
 template <class InputIterator, class NthOccurence, class UnaryPredicate>
 InputIterator find_nth_if(InputIterator first, InputIterator last, NthOccurence Nth, UnaryPredicate pred)
@@ -1143,7 +1143,7 @@ public:
         for (size_t i = 0; i < props.size(); i++) {
             ceammc::AtomList& p = props[i];
             // skip empty property
-            if(p.size() < 2)
+            if (p.size() < 2)
                 continue;
 
             t_atom* data = p.toPdData() + 1;
@@ -1181,7 +1181,7 @@ public:
      * @param pos argument position among of @bold float(!) arguments. Position starts from @bold 1(!).
      * to select first argument - pass 1.
      */
-    void signalFloatArg(const char* name, int pos)
+    void signalFloatArg(const char* /*name*/, int pos)
     {
         // object was not created
         if (!this->x_)
@@ -1200,17 +1200,21 @@ public:
 
 static void* comp2_faust_new(t_symbol* s, int argc, t_atom* argv);
 
-static void internal_setup(t_symbol* s)
+static void internal_setup(t_symbol* s, bool soundIn = true)
 {
     comp2_faust_class = class_new(s, reinterpret_cast<t_newmethod>(comp2_faust_new),
         reinterpret_cast<t_method>(comp2_faust_free),
         sizeof(t_faust_comp2),
         CLASS_DEFAULT,
         A_GIMME, A_NULL);
-    class_addmethod(comp2_faust_class, nullfn, &s_signal, A_NULL);
+
+    if (soundIn) {
+        class_addmethod(comp2_faust_class, nullfn, &s_signal, A_NULL);
+        CLASS_MAINSIGNALIN(comp2_faust_class, t_faust_comp2, f);
+    }
+
     class_addmethod(comp2_faust_class, reinterpret_cast<t_method>(comp2_faust_dsp), gensym("dsp"), A_NULL);
     class_addmethod(comp2_faust_class, reinterpret_cast<t_method>(comp2_dump_to_console), gensym("dump"), A_NULL);
-    CLASS_MAINSIGNALIN(comp2_faust_class, t_faust_comp2, f);
     class_addanything(comp2_faust_class, comp2_faust_any);
 }
 
@@ -1228,6 +1232,12 @@ static void internal_setup(t_symbol* s)
     extern "C" void setup_##MOD##0x2ecomp2_tilde() \
     {                                              \
         internal_setup(gensym(#MOD ".comp2~"));    \
+    }
+
+#define EXTERNAL_SETUP_NO_IN(MOD)                      \
+    extern "C" void setup_##MOD##0x2ecomp2_tilde()     \
+    {                                                  \
+        internal_setup(gensym(#MOD ".comp2~"), false); \
     }
 
 #define SIMPLE_EXTERNAL(MOD) \

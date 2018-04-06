@@ -4,7 +4,7 @@ copyright: "(c)GRAME 2006"
 license: "BSD"
 name: "capture"
 version: "1.0"
-Code generated with Faust 2.5.30 (https://faust.grame.fr)
+Code generated with Faust 2.5.31 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -639,7 +639,7 @@ class capture : public dsp {
 		for (int i = 0; (i < count); i = (i + 1)) {
 			fVec0[(IOTA & 1048575)] = ((fSlow1 * fRec0[1]) + (fSlow0 * float(input0[i])));
 			iVec1[0] = iSlow2;
-			iRec1[0] = (((iSlow2 - iVec1[1]) <= 0) * (iSlow2 + iRec1[1]));
+			iRec1[0] = ((iSlow2 + iRec1[1]) * ((iSlow2 - iVec1[1]) <= 0));
 			fRec0[0] = fVec0[((IOTA - min(524288, int(max(0, int((iRec1[0] + -1)))))) & 1048575)];
 			output0[i] = FAUSTFLOAT(fRec0[0]);
 			IOTA = (IOTA + 1);
@@ -992,11 +992,11 @@ static bool faust_new_internal(t_faust_capture* x, const std::string& objId = ""
 
 /**
  * find nth element that satisfies given predicate
- * @first - first element of sequence
- * @last - pointer behind last element of sequence
- * @Nth - searched element index
- * @pred - predicate
- * @return pointer to found element or pointer to @bold last, if not found
+ * @param first - first element of sequence
+ * @param last - pointer behind last element of sequence
+ * @param Nth - searched element index
+ * @param pred - predicate
+ * @return pointer to found element or pointer to last, if not found
  */
 template <class InputIterator, class NthOccurence, class UnaryPredicate>
 InputIterator find_nth_if(InputIterator first, InputIterator last, NthOccurence Nth, UnaryPredicate pred)
@@ -1112,7 +1112,7 @@ public:
         for (size_t i = 0; i < props.size(); i++) {
             ceammc::AtomList& p = props[i];
             // skip empty property
-            if(p.size() < 2)
+            if (p.size() < 2)
                 continue;
 
             t_atom* data = p.toPdData() + 1;
@@ -1150,7 +1150,7 @@ public:
      * @param pos argument position among of @bold float(!) arguments. Position starts from @bold 1(!).
      * to select first argument - pass 1.
      */
-    void signalFloatArg(const char* name, int pos)
+    void signalFloatArg(const char* /*name*/, int pos)
     {
         // object was not created
         if (!this->x_)
@@ -1169,17 +1169,21 @@ public:
 
 static void* capture_faust_new(t_symbol* s, int argc, t_atom* argv);
 
-static void internal_setup(t_symbol* s)
+static void internal_setup(t_symbol* s, bool soundIn = true)
 {
     capture_faust_class = class_new(s, reinterpret_cast<t_newmethod>(capture_faust_new),
         reinterpret_cast<t_method>(capture_faust_free),
         sizeof(t_faust_capture),
         CLASS_DEFAULT,
         A_GIMME, A_NULL);
-    class_addmethod(capture_faust_class, nullfn, &s_signal, A_NULL);
+
+    if (soundIn) {
+        class_addmethod(capture_faust_class, nullfn, &s_signal, A_NULL);
+        CLASS_MAINSIGNALIN(capture_faust_class, t_faust_capture, f);
+    }
+
     class_addmethod(capture_faust_class, reinterpret_cast<t_method>(capture_faust_dsp), gensym("dsp"), A_NULL);
     class_addmethod(capture_faust_class, reinterpret_cast<t_method>(capture_dump_to_console), gensym("dump"), A_NULL);
-    CLASS_MAINSIGNALIN(capture_faust_class, t_faust_capture, f);
     class_addanything(capture_faust_class, capture_faust_any);
 }
 
@@ -1197,6 +1201,12 @@ static void internal_setup(t_symbol* s)
     extern "C" void setup_##MOD##0x2ecapture_tilde() \
     {                                              \
         internal_setup(gensym(#MOD ".capture~"));    \
+    }
+
+#define EXTERNAL_SETUP_NO_IN(MOD)                      \
+    extern "C" void setup_##MOD##0x2ecapture_tilde()     \
+    {                                                  \
+        internal_setup(gensym(#MOD ".capture~"), false); \
     }
 
 #define SIMPLE_EXTERNAL(MOD) \

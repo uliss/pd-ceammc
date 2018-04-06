@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "osc_sinfb"
-Code generated with Faust 2.5.30 (https://faust.grame.fr)
+Code generated with Faust 2.5.31 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -549,7 +549,7 @@ class sinfbSIG0 {
 	void fillsinfbSIG0(int count, float* output) {
 		for (int i = 0; (i < count); i = (i + 1)) {
 			iRec1[0] = (iRec1[1] + 1);
-			output[i] = sinf((9.58738019e-05f * float((iRec1[0] + -1))));
+			output[i] = cosf((9.58738019e-05f * float((iRec1[0] + -1))));
 			iRec1[1] = iRec1[0];
 			
 		}
@@ -617,7 +617,7 @@ class sinfbSIG1 {
 	void fillsinfbSIG1(int count, float* output) {
 		for (int i = 0; (i < count); i = (i + 1)) {
 			iRec4[0] = (iRec4[1] + 1);
-			output[i] = cosf((9.58738019e-05f * float((iRec4[0] + -1))));
+			output[i] = sinf((9.58738019e-05f * float((iRec4[0] + -1))));
 			iRec4[1] = iRec4[0];
 			
 		}
@@ -783,7 +783,7 @@ class sinfb : public dsp {
 			int iTemp1 = int((65536.0f * fRec2[0]));
 			fRec3[0] = (fSlow0 + (0.999000013f * fRec3[1]));
 			float fTemp2 = (fRec3[0] * fRec0[1]);
-			fRec0[0] = ((ftbl0sinfbSIG0[iTemp1] * cosf(fTemp2)) + (ftbl1sinfbSIG1[iTemp1] * sinf(fTemp2)));
+			fRec0[0] = ((ftbl0sinfbSIG0[iTemp1] * sinf(fTemp2)) + (ftbl1sinfbSIG1[iTemp1] * cosf(fTemp2)));
 			output0[i] = FAUSTFLOAT(fRec0[0]);
 			fRec2[1] = fRec2[0];
 			fRec3[1] = fRec3[0];
@@ -1134,11 +1134,11 @@ static bool faust_new_internal(t_faust_sinfb* x, const std::string& objId = "", 
 
 /**
  * find nth element that satisfies given predicate
- * @first - first element of sequence
- * @last - pointer behind last element of sequence
- * @Nth - searched element index
- * @pred - predicate
- * @return pointer to found element or pointer to @bold last, if not found
+ * @param first - first element of sequence
+ * @param last - pointer behind last element of sequence
+ * @param Nth - searched element index
+ * @param pred - predicate
+ * @return pointer to found element or pointer to last, if not found
  */
 template <class InputIterator, class NthOccurence, class UnaryPredicate>
 InputIterator find_nth_if(InputIterator first, InputIterator last, NthOccurence Nth, UnaryPredicate pred)
@@ -1254,7 +1254,7 @@ public:
         for (size_t i = 0; i < props.size(); i++) {
             ceammc::AtomList& p = props[i];
             // skip empty property
-            if(p.size() < 2)
+            if (p.size() < 2)
                 continue;
 
             t_atom* data = p.toPdData() + 1;
@@ -1292,7 +1292,7 @@ public:
      * @param pos argument position among of @bold float(!) arguments. Position starts from @bold 1(!).
      * to select first argument - pass 1.
      */
-    void signalFloatArg(const char* name, int pos)
+    void signalFloatArg(const char* /*name*/, int pos)
     {
         // object was not created
         if (!this->x_)
@@ -1311,17 +1311,21 @@ public:
 
 static void* sinfb_faust_new(t_symbol* s, int argc, t_atom* argv);
 
-static void internal_setup(t_symbol* s)
+static void internal_setup(t_symbol* s, bool soundIn = true)
 {
     sinfb_faust_class = class_new(s, reinterpret_cast<t_newmethod>(sinfb_faust_new),
         reinterpret_cast<t_method>(sinfb_faust_free),
         sizeof(t_faust_sinfb),
         CLASS_DEFAULT,
         A_GIMME, A_NULL);
-    class_addmethod(sinfb_faust_class, nullfn, &s_signal, A_NULL);
+
+    if (soundIn) {
+        class_addmethod(sinfb_faust_class, nullfn, &s_signal, A_NULL);
+        CLASS_MAINSIGNALIN(sinfb_faust_class, t_faust_sinfb, f);
+    }
+
     class_addmethod(sinfb_faust_class, reinterpret_cast<t_method>(sinfb_faust_dsp), gensym("dsp"), A_NULL);
     class_addmethod(sinfb_faust_class, reinterpret_cast<t_method>(sinfb_dump_to_console), gensym("dump"), A_NULL);
-    CLASS_MAINSIGNALIN(sinfb_faust_class, t_faust_sinfb, f);
     class_addanything(sinfb_faust_class, sinfb_faust_any);
 }
 
@@ -1339,6 +1343,12 @@ static void internal_setup(t_symbol* s)
     extern "C" void setup_##MOD##0x2esinfb_tilde() \
     {                                              \
         internal_setup(gensym(#MOD ".sinfb~"));    \
+    }
+
+#define EXTERNAL_SETUP_NO_IN(MOD)                      \
+    extern "C" void setup_##MOD##0x2esinfb_tilde()     \
+    {                                                  \
+        internal_setup(gensym(#MOD ".sinfb~"), false); \
     }
 
 #define SIMPLE_EXTERNAL(MOD) \

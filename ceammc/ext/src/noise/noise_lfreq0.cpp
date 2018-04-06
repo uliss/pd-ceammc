@@ -8,4 +8,4 @@ EXTERNAL_NEW
     return p.pd_obj();
 }
 
-EXTERNAL_SETUP(noise);
+EXTERNAL_SETUP_NO_IN(noise);

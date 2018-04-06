@@ -639,13 +639,13 @@ class lpf24 : public dsp {
 		for (int i = 0; (i < count); i = (i + 1)) {
 			fRec2[0] = (fSlow0 + (0.999000013f * fRec2[1]));
 			float fTemp0 = tanf((fConst0 * fRec2[0]));
-			float fTemp1 = (1.0f - (1.0f / lpf24_faustpower2_f(fTemp0)));
-			float fTemp2 = (1.0f / fTemp0);
-			float fTemp3 = (((fTemp2 + 1.84775901f) / fTemp0) + 1.0f);
-			fRec1[0] = (float(input0[i]) - (((2.0f * (fRec1[1] * fTemp1)) + (fRec1[2] * (((fTemp2 + -1.84775901f) / fTemp0) + 1.0f))) / fTemp3));
-			float fTemp4 = (((fTemp2 + 0.765366852f) / fTemp0) + 1.0f);
-			fRec0[0] = (((fRec1[2] + (fRec1[0] + (2.0f * fRec1[1]))) / fTemp3) - (((fRec0[2] * (((fTemp2 + -0.765366852f) / fTemp0) + 1.0f)) + (2.0f * (fTemp1 * fRec0[1]))) / fTemp4));
-			output0[i] = FAUSTFLOAT(((fRec0[2] + (fRec0[0] + (2.0f * fRec0[1]))) / fTemp4));
+			float fTemp1 = (1.0f / fTemp0);
+			float fTemp2 = (1.0f - (1.0f / lpf24_faustpower2_f(fTemp0)));
+			float fTemp3 = (((fTemp1 + 1.84775901f) / fTemp0) + 1.0f);
+			fRec1[0] = (float(input0[i]) - (((fRec1[2] * (((fTemp1 + -1.84775901f) / fTemp0) + 1.0f)) + (2.0f * (fRec1[1] * fTemp2))) / fTemp3));
+			float fTemp4 = (((fTemp1 + 0.765366852f) / fTemp0) + 1.0f);
+			fRec0[0] = (((fRec1[2] + (fRec1[0] + (2.0f * fRec1[1]))) / fTemp3) - (((fRec0[2] * (((fTemp1 + -0.765366852f) / fTemp0) + 1.0f)) + (2.0f * (fTemp2 * fRec0[1]))) / fTemp4));
+			output0[i] = FAUSTFLOAT(((fRec0[2] + ((2.0f * fRec0[1]) + fRec0[0])) / fTemp4));
 			fRec2[1] = fRec2[0];
 			fRec1[2] = fRec1[1];
 			fRec1[1] = fRec1[0];

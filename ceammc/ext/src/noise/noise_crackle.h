@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "noise_crackle"
-Code generated with Faust 2.5.30 (https://faust.grame.fr)
+Code generated with Faust 2.5.31 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -655,7 +655,7 @@ class crackle : public dsp {
 			int iTemp3 = ((fVec2[1] <= 0.0f) & (fTemp2 > 0.0f));
 			fRec2[0] = ((fRec2[1] * float((1 - iTemp3))) + (fTemp0 * float(iTemp3)));
 			float fTemp4 = (0.5f * (fRec2[0] + 1.0f));
-			output0[i] = FAUSTFLOAT((fVec0[1] * float(((fRec1[0] >= fTemp4) * (fRec1[1] < fTemp4)))));
+			output0[i] = FAUSTFLOAT((fVec0[1] * float(((fRec1[1] < fTemp4) * (fRec1[0] >= fTemp4)))));
 			iRec0[1] = iRec0[0];
 			fVec0[1] = fVec0[0];
 			fVec1[1] = fVec1[0];
@@ -1008,11 +1008,11 @@ static bool faust_new_internal(t_faust_crackle* x, const std::string& objId = ""
 
 /**
  * find nth element that satisfies given predicate
- * @first - first element of sequence
- * @last - pointer behind last element of sequence
- * @Nth - searched element index
- * @pred - predicate
- * @return pointer to found element or pointer to @bold last, if not found
+ * @param first - first element of sequence
+ * @param last - pointer behind last element of sequence
+ * @param Nth - searched element index
+ * @param pred - predicate
+ * @return pointer to found element or pointer to last, if not found
  */
 template <class InputIterator, class NthOccurence, class UnaryPredicate>
 InputIterator find_nth_if(InputIterator first, InputIterator last, NthOccurence Nth, UnaryPredicate pred)
@@ -1128,7 +1128,7 @@ public:
         for (size_t i = 0; i < props.size(); i++) {
             ceammc::AtomList& p = props[i];
             // skip empty property
-            if(p.size() < 2)
+            if (p.size() < 2)
                 continue;
 
             t_atom* data = p.toPdData() + 1;
@@ -1166,7 +1166,7 @@ public:
      * @param pos argument position among of @bold float(!) arguments. Position starts from @bold 1(!).
      * to select first argument - pass 1.
      */
-    void signalFloatArg(const char* name, int pos)
+    void signalFloatArg(const char* /*name*/, int pos)
     {
         // object was not created
         if (!this->x_)
@@ -1185,17 +1185,21 @@ public:
 
 static void* crackle_faust_new(t_symbol* s, int argc, t_atom* argv);
 
-static void internal_setup(t_symbol* s)
+static void internal_setup(t_symbol* s, bool soundIn = true)
 {
     crackle_faust_class = class_new(s, reinterpret_cast<t_newmethod>(crackle_faust_new),
         reinterpret_cast<t_method>(crackle_faust_free),
         sizeof(t_faust_crackle),
         CLASS_DEFAULT,
         A_GIMME, A_NULL);
-    class_addmethod(crackle_faust_class, nullfn, &s_signal, A_NULL);
+
+    if (soundIn) {
+        class_addmethod(crackle_faust_class, nullfn, &s_signal, A_NULL);
+        CLASS_MAINSIGNALIN(crackle_faust_class, t_faust_crackle, f);
+    }
+
     class_addmethod(crackle_faust_class, reinterpret_cast<t_method>(crackle_faust_dsp), gensym("dsp"), A_NULL);
     class_addmethod(crackle_faust_class, reinterpret_cast<t_method>(crackle_dump_to_console), gensym("dump"), A_NULL);
-    CLASS_MAINSIGNALIN(crackle_faust_class, t_faust_crackle, f);
     class_addanything(crackle_faust_class, crackle_faust_any);
 }
 
@@ -1213,6 +1217,12 @@ static void internal_setup(t_symbol* s)
     extern "C" void setup_##MOD##0x2ecrackle_tilde() \
     {                                              \
         internal_setup(gensym(#MOD ".crackle~"));    \
+    }
+
+#define EXTERNAL_SETUP_NO_IN(MOD)                      \
+    extern "C" void setup_##MOD##0x2ecrackle_tilde()     \
+    {                                                  \
+        internal_setup(gensym(#MOD ".crackle~"), false); \
     }
 
 #define SIMPLE_EXTERNAL(MOD) \

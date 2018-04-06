@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "env_asr"
-Code generated with Faust 2.5.30 (https://faust.grame.fr)
+Code generated with Faust 2.5.31 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -686,7 +686,7 @@ class asr : public dsp {
 			fRec3[0] = (iSlow4?0.0f:min(fTemp1, (fRec3[1] + 1.0f)));
 			fRec5[0] = (fSlow6 + (0.999000013f * fRec5[1]));
 			fRec2[0] = (iSlow1?(float(iSlow1) * ((fRec3[0] < 0.0f)?0.0f:((fRec3[0] < fTemp1)?(fSlow7 * ((fRec3[0] * fRec5[0]) / fRec4[0])):(fSlow0 * fRec5[0])))):fRec2[1]);
-			output0[i] = FAUSTFLOAT((float(input0[i]) * ((fRec0[0] < 0.0f)?fRec2[0]:((fRec0[0] < fTemp0)?(fRec2[0] + (fConst1 * ((fRec0[0] * (0.0f - fRec2[0])) / fRec1[0]))):0.0f))));
+			output0[i] = FAUSTFLOAT((((fRec0[0] < 0.0f)?fRec2[0]:((fRec0[0] < fTemp0)?(fRec2[0] + (fConst1 * ((fRec0[0] * (0.0f - fRec2[0])) / fRec1[0]))):0.0f)) * float(input0[i])));
 			fRec1[1] = fRec1[0];
 			fRec0[1] = fRec0[0];
 			fRec4[1] = fRec4[0];
@@ -1039,11 +1039,11 @@ static bool faust_new_internal(t_faust_asr* x, const std::string& objId = "", bo
 
 /**
  * find nth element that satisfies given predicate
- * @first - first element of sequence
- * @last - pointer behind last element of sequence
- * @Nth - searched element index
- * @pred - predicate
- * @return pointer to found element or pointer to @bold last, if not found
+ * @param first - first element of sequence
+ * @param last - pointer behind last element of sequence
+ * @param Nth - searched element index
+ * @param pred - predicate
+ * @return pointer to found element or pointer to last, if not found
  */
 template <class InputIterator, class NthOccurence, class UnaryPredicate>
 InputIterator find_nth_if(InputIterator first, InputIterator last, NthOccurence Nth, UnaryPredicate pred)
@@ -1159,7 +1159,7 @@ public:
         for (size_t i = 0; i < props.size(); i++) {
             ceammc::AtomList& p = props[i];
             // skip empty property
-            if(p.size() < 2)
+            if (p.size() < 2)
                 continue;
 
             t_atom* data = p.toPdData() + 1;
@@ -1197,7 +1197,7 @@ public:
      * @param pos argument position among of @bold float(!) arguments. Position starts from @bold 1(!).
      * to select first argument - pass 1.
      */
-    void signalFloatArg(const char* name, int pos)
+    void signalFloatArg(const char* /*name*/, int pos)
     {
         // object was not created
         if (!this->x_)
@@ -1216,17 +1216,21 @@ public:
 
 static void* asr_faust_new(t_symbol* s, int argc, t_atom* argv);
 
-static void internal_setup(t_symbol* s)
+static void internal_setup(t_symbol* s, bool soundIn = true)
 {
     asr_faust_class = class_new(s, reinterpret_cast<t_newmethod>(asr_faust_new),
         reinterpret_cast<t_method>(asr_faust_free),
         sizeof(t_faust_asr),
         CLASS_DEFAULT,
         A_GIMME, A_NULL);
-    class_addmethod(asr_faust_class, nullfn, &s_signal, A_NULL);
+
+    if (soundIn) {
+        class_addmethod(asr_faust_class, nullfn, &s_signal, A_NULL);
+        CLASS_MAINSIGNALIN(asr_faust_class, t_faust_asr, f);
+    }
+
     class_addmethod(asr_faust_class, reinterpret_cast<t_method>(asr_faust_dsp), gensym("dsp"), A_NULL);
     class_addmethod(asr_faust_class, reinterpret_cast<t_method>(asr_dump_to_console), gensym("dump"), A_NULL);
-    CLASS_MAINSIGNALIN(asr_faust_class, t_faust_asr, f);
     class_addanything(asr_faust_class, asr_faust_any);
 }
 
@@ -1244,6 +1248,12 @@ static void internal_setup(t_symbol* s)
     extern "C" void setup_##MOD##0x2easr_tilde() \
     {                                              \
         internal_setup(gensym(#MOD ".asr~"));    \
+    }
+
+#define EXTERNAL_SETUP_NO_IN(MOD)                      \
+    extern "C" void setup_##MOD##0x2easr_tilde()     \
+    {                                                  \
+        internal_setup(gensym(#MOD ".asr~"), false); \
     }
 
 #define SIMPLE_EXTERNAL(MOD) \

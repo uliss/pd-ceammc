@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "env_smooth"
-Code generated with Faust 2.5.30 (https://faust.grame.fr)
+Code generated with Faust 2.5.31 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -505,9 +505,9 @@ class smooth : public dsp {
 	
  private:
 	
+	FAUSTFLOAT fHslider0;
 	int fSamplingFreq;
 	float fConst0;
-	FAUSTFLOAT fHslider0;
 	FAUSTFLOAT fHslider1;
 	float fRec0[2];
 	
@@ -586,8 +586,8 @@ class smooth : public dsp {
 	}
 	
 	virtual void instanceResetUserInterface() {
-		fHslider0 = FAUSTFLOAT(100.0f);
-		fHslider1 = FAUSTFLOAT(0.0f);
+		fHslider0 = FAUSTFLOAT(0.0f);
+		fHslider1 = FAUSTFLOAT(100.0f);
 		
 	}
 	
@@ -619,8 +619,8 @@ class smooth : public dsp {
 	
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("env_smooth");
-		ui_interface->addHorizontalSlider("duration", &fHslider0, 100.0f, 0.0f, 100000.0f, 1.0f);
-		ui_interface->addHorizontalSlider("trigger", &fHslider1, 0.0f, 0.0f, 1.0f, 0.00100000005f);
+		ui_interface->addHorizontalSlider("duration", &fHslider1, 100.0f, 0.0f, 100000.0f, 1.0f);
+		ui_interface->addHorizontalSlider("trigger", &fHslider0, 0.0f, 0.0f, 1.0f, 0.00100000005f);
 		ui_interface->closeBox();
 		
 	}
@@ -628,11 +628,11 @@ class smooth : public dsp {
 	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
-		float fSlow0 = expf((0.0f - (fConst0 / float(fHslider0))));
-		float fSlow1 = ((1.0f - fSlow0) * float(fHslider1));
+		float fSlow0 = expf((0.0f - (fConst0 / float(fHslider1))));
+		float fSlow1 = (float(fHslider0) * (1.0f - fSlow0));
 		for (int i = 0; (i < count); i = (i + 1)) {
 			fRec0[0] = (fSlow1 + (fSlow0 * fRec0[1]));
-			output0[i] = FAUSTFLOAT((fRec0[0] * float(input0[i])));
+			output0[i] = FAUSTFLOAT((float(input0[i]) * fRec0[0]));
 			fRec0[1] = fRec0[0];
 			
 		}
@@ -980,11 +980,11 @@ static bool faust_new_internal(t_faust_smooth* x, const std::string& objId = "",
 
 /**
  * find nth element that satisfies given predicate
- * @first - first element of sequence
- * @last - pointer behind last element of sequence
- * @Nth - searched element index
- * @pred - predicate
- * @return pointer to found element or pointer to @bold last, if not found
+ * @param first - first element of sequence
+ * @param last - pointer behind last element of sequence
+ * @param Nth - searched element index
+ * @param pred - predicate
+ * @return pointer to found element or pointer to last, if not found
  */
 template <class InputIterator, class NthOccurence, class UnaryPredicate>
 InputIterator find_nth_if(InputIterator first, InputIterator last, NthOccurence Nth, UnaryPredicate pred)
@@ -1100,7 +1100,7 @@ public:
         for (size_t i = 0; i < props.size(); i++) {
             ceammc::AtomList& p = props[i];
             // skip empty property
-            if(p.size() < 2)
+            if (p.size() < 2)
                 continue;
 
             t_atom* data = p.toPdData() + 1;
@@ -1138,7 +1138,7 @@ public:
      * @param pos argument position among of @bold float(!) arguments. Position starts from @bold 1(!).
      * to select first argument - pass 1.
      */
-    void signalFloatArg(const char* name, int pos)
+    void signalFloatArg(const char* /*name*/, int pos)
     {
         // object was not created
         if (!this->x_)
@@ -1157,17 +1157,21 @@ public:
 
 static void* smooth_faust_new(t_symbol* s, int argc, t_atom* argv);
 
-static void internal_setup(t_symbol* s)
+static void internal_setup(t_symbol* s, bool soundIn = true)
 {
     smooth_faust_class = class_new(s, reinterpret_cast<t_newmethod>(smooth_faust_new),
         reinterpret_cast<t_method>(smooth_faust_free),
         sizeof(t_faust_smooth),
         CLASS_DEFAULT,
         A_GIMME, A_NULL);
-    class_addmethod(smooth_faust_class, nullfn, &s_signal, A_NULL);
+
+    if (soundIn) {
+        class_addmethod(smooth_faust_class, nullfn, &s_signal, A_NULL);
+        CLASS_MAINSIGNALIN(smooth_faust_class, t_faust_smooth, f);
+    }
+
     class_addmethod(smooth_faust_class, reinterpret_cast<t_method>(smooth_faust_dsp), gensym("dsp"), A_NULL);
     class_addmethod(smooth_faust_class, reinterpret_cast<t_method>(smooth_dump_to_console), gensym("dump"), A_NULL);
-    CLASS_MAINSIGNALIN(smooth_faust_class, t_faust_smooth, f);
     class_addanything(smooth_faust_class, smooth_faust_any);
 }
 
@@ -1185,6 +1189,12 @@ static void internal_setup(t_symbol* s)
     extern "C" void setup_##MOD##0x2esmooth_tilde() \
     {                                              \
         internal_setup(gensym(#MOD ".smooth~"));    \
+    }
+
+#define EXTERNAL_SETUP_NO_IN(MOD)                      \
+    extern "C" void setup_##MOD##0x2esmooth_tilde()     \
+    {                                                  \
+        internal_setup(gensym(#MOD ".smooth~"), false); \
     }
 
 #define SIMPLE_EXTERNAL(MOD) \

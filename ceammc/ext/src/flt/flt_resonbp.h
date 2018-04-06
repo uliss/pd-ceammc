@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "flt_resonbp"
-Code generated with Faust 2.5.30 (https://faust.grame.fr)
+Code generated with Faust 2.5.31 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -512,10 +512,10 @@ class resonbp : public dsp {
 	int fSamplingFreq;
 	float fConst0;
 	FAUSTFLOAT fVslider0;
-	float fRec1[2];
+	float fRec0[2];
 	FAUSTFLOAT fVslider1;
 	float fRec2[2];
-	float fRec0[3];
+	float fRec1[3];
 	
  public:
 	
@@ -592,7 +592,7 @@ class resonbp : public dsp {
 	
 	virtual void instanceClear() {
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
-			fRec1[l0] = 0.0f;
+			fRec0[l0] = 0.0f;
 			
 		}
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
@@ -600,7 +600,7 @@ class resonbp : public dsp {
 			
 		}
 		for (int l2 = 0; (l2 < 3); l2 = (l2 + 1)) {
-			fRec0[l2] = 0.0f;
+			fRec1[l2] = 0.0f;
 			
 		}
 		
@@ -639,18 +639,18 @@ class resonbp : public dsp {
 		float fSlow0 = (0.00100000005f * float(fVslider0));
 		float fSlow1 = (0.00100000005f * float(fVslider1));
 		for (int i = 0; (i < count); i = (i + 1)) {
-			fRec1[0] = (fSlow0 + (0.999000013f * fRec1[1]));
-			float fTemp0 = tanf((fConst0 * fRec1[0]));
+			fRec0[0] = (fSlow0 + (0.999000013f * fRec0[1]));
+			float fTemp0 = tanf((fConst0 * fRec0[0]));
 			float fTemp1 = (1.0f / fTemp0);
 			fRec2[0] = (fSlow1 + (0.999000013f * fRec2[1]));
 			float fTemp2 = (1.0f / fRec2[0]);
 			float fTemp3 = (((fTemp1 + fTemp2) / fTemp0) + 1.0f);
-			fRec0[0] = (float(input0[i]) - (((fRec0[2] * (((fTemp1 - fTemp2) / fTemp0) + 1.0f)) + (2.0f * (fRec0[1] * (1.0f - (1.0f / resonbp_faustpower2_f(fTemp0)))))) / fTemp3));
-			output0[i] = FAUSTFLOAT((((fRec0[2] * (0.0f - fTemp1)) + (fRec0[0] / fTemp0)) / fTemp3));
-			fRec1[1] = fRec1[0];
-			fRec2[1] = fRec2[0];
-			fRec0[2] = fRec0[1];
+			fRec1[0] = (float(input0[i]) - (((2.0f * (fRec1[1] * (1.0f - (1.0f / resonbp_faustpower2_f(fTemp0))))) + (fRec1[2] * (((fTemp1 - fTemp2) / fTemp0) + 1.0f))) / fTemp3));
+			output0[i] = FAUSTFLOAT(((((0.0f - fTemp1) * fRec1[2]) + (fRec1[0] / fTemp0)) / fTemp3));
 			fRec0[1] = fRec0[0];
+			fRec2[1] = fRec2[0];
+			fRec1[2] = fRec1[1];
+			fRec1[1] = fRec1[0];
 			
 		}
 		
@@ -997,11 +997,11 @@ static bool faust_new_internal(t_faust_resonbp* x, const std::string& objId = ""
 
 /**
  * find nth element that satisfies given predicate
- * @first - first element of sequence
- * @last - pointer behind last element of sequence
- * @Nth - searched element index
- * @pred - predicate
- * @return pointer to found element or pointer to @bold last, if not found
+ * @param first - first element of sequence
+ * @param last - pointer behind last element of sequence
+ * @param Nth - searched element index
+ * @param pred - predicate
+ * @return pointer to found element or pointer to last, if not found
  */
 template <class InputIterator, class NthOccurence, class UnaryPredicate>
 InputIterator find_nth_if(InputIterator first, InputIterator last, NthOccurence Nth, UnaryPredicate pred)
@@ -1117,7 +1117,7 @@ public:
         for (size_t i = 0; i < props.size(); i++) {
             ceammc::AtomList& p = props[i];
             // skip empty property
-            if(p.size() < 2)
+            if (p.size() < 2)
                 continue;
 
             t_atom* data = p.toPdData() + 1;
@@ -1155,7 +1155,7 @@ public:
      * @param pos argument position among of @bold float(!) arguments. Position starts from @bold 1(!).
      * to select first argument - pass 1.
      */
-    void signalFloatArg(const char* name, int pos)
+    void signalFloatArg(const char* /*name*/, int pos)
     {
         // object was not created
         if (!this->x_)
@@ -1174,17 +1174,21 @@ public:
 
 static void* resonbp_faust_new(t_symbol* s, int argc, t_atom* argv);
 
-static void internal_setup(t_symbol* s)
+static void internal_setup(t_symbol* s, bool soundIn = true)
 {
     resonbp_faust_class = class_new(s, reinterpret_cast<t_newmethod>(resonbp_faust_new),
         reinterpret_cast<t_method>(resonbp_faust_free),
         sizeof(t_faust_resonbp),
         CLASS_DEFAULT,
         A_GIMME, A_NULL);
-    class_addmethod(resonbp_faust_class, nullfn, &s_signal, A_NULL);
+
+    if (soundIn) {
+        class_addmethod(resonbp_faust_class, nullfn, &s_signal, A_NULL);
+        CLASS_MAINSIGNALIN(resonbp_faust_class, t_faust_resonbp, f);
+    }
+
     class_addmethod(resonbp_faust_class, reinterpret_cast<t_method>(resonbp_faust_dsp), gensym("dsp"), A_NULL);
     class_addmethod(resonbp_faust_class, reinterpret_cast<t_method>(resonbp_dump_to_console), gensym("dump"), A_NULL);
-    CLASS_MAINSIGNALIN(resonbp_faust_class, t_faust_resonbp, f);
     class_addanything(resonbp_faust_class, resonbp_faust_any);
 }
 
@@ -1202,6 +1206,12 @@ static void internal_setup(t_symbol* s)
     extern "C" void setup_##MOD##0x2eresonbp_tilde() \
     {                                              \
         internal_setup(gensym(#MOD ".resonbp~"));    \
+    }
+
+#define EXTERNAL_SETUP_NO_IN(MOD)                      \
+    extern "C" void setup_##MOD##0x2eresonbp_tilde()     \
+    {                                                  \
+        internal_setup(gensym(#MOD ".resonbp~"), false); \
     }
 
 #define SIMPLE_EXTERNAL(MOD) \

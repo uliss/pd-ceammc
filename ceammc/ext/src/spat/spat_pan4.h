@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "spat_pan4"
-Code generated with Faust 2.5.30 (https://faust.grame.fr)
+Code generated with Faust 2.5.31 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -591,7 +591,7 @@ class pan4 : public dsp {
 	}
 	
 	virtual void instanceResetUserInterface() {
-		fVslider0 = FAUSTFLOAT(0.0f);
+		fVslider0 = FAUSTFLOAT(1.0f);
 		fVslider1 = FAUSTFLOAT(0.0f);
 		
 	}
@@ -637,7 +637,7 @@ class pan4 : public dsp {
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("spat_pan4");
 		ui_interface->addVerticalSlider("angle", &fVslider1, 0.0f, 0.0f, 6.28318548f, 9.99999975e-05f);
-		ui_interface->addVerticalSlider("dist", &fVslider0, 0.0f, 0.0f, 1.0f, 9.99999975e-05f);
+		ui_interface->addVerticalSlider("dist", &fVslider0, 1.0f, 0.0f, 1.0f, 9.99999975e-05f);
 		ui_interface->closeBox();
 		
 	}
@@ -651,10 +651,10 @@ class pan4 : public dsp {
 		float fSlow0 = float(fVslider0);
 		float fSlow1 = (fSlow0 + 1.0f);
 		float fSlow2 = (0.159154937f * float(fVslider1));
-		float fSlow3 = (4.99999987e-05f * (fSlow1 * sqrtf(max(0.0f, (1.0f - (4.0f * (fabsf((fmodf((fSlow2 + 1.5f), 1.0f) + -0.5f)) * fSlow0)))))));
-		float fSlow4 = (4.99999987e-05f * (fSlow1 * sqrtf(max(0.0f, (1.0f - (4.0f * (fabsf((fmodf((fSlow2 + 1.25f), 1.0f) + -0.5f)) * fSlow0)))))));
-		float fSlow5 = (4.99999987e-05f * (fSlow1 * sqrtf(max(0.0f, (1.0f - (4.0f * (fabsf((fmodf((fSlow2 + 1.0f), 1.0f) + -0.5f)) * fSlow0)))))));
-		float fSlow6 = (4.99999987e-05f * (fSlow1 * sqrtf(max(0.0f, (1.0f - (4.0f * (fabsf((fmodf((fSlow2 + 0.75f), 1.0f) + -0.5f)) * fSlow0)))))));
+		float fSlow3 = (4.99999987e-05f * (fSlow1 * sqrtf(max(0.0f, (1.0f - (4.0f * (fSlow0 * fabsf((fmodf((fSlow2 + 1.5f), 1.0f) + -0.5f)))))))));
+		float fSlow4 = (4.99999987e-05f * (fSlow1 * sqrtf(max(0.0f, (1.0f - (4.0f * (fSlow0 * fabsf((fmodf((fSlow2 + 1.25f), 1.0f) + -0.5f)))))))));
+		float fSlow5 = (4.99999987e-05f * (fSlow1 * sqrtf(max(0.0f, (1.0f - (4.0f * (fSlow0 * fabsf((fmodf((fSlow2 + 1.0f), 1.0f) + -0.5f)))))))));
+		float fSlow6 = (4.99999987e-05f * (fSlow1 * sqrtf(max(0.0f, (1.0f - (4.0f * (fSlow0 * fabsf((fmodf((fSlow2 + 0.75f), 1.0f) + -0.5f)))))))));
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = float(input0[i]);
 			fRec0[0] = (fSlow3 + (0.999899983f * fRec0[1]));
@@ -1015,11 +1015,11 @@ static bool faust_new_internal(t_faust_pan4* x, const std::string& objId = "", b
 
 /**
  * find nth element that satisfies given predicate
- * @first - first element of sequence
- * @last - pointer behind last element of sequence
- * @Nth - searched element index
- * @pred - predicate
- * @return pointer to found element or pointer to @bold last, if not found
+ * @param first - first element of sequence
+ * @param last - pointer behind last element of sequence
+ * @param Nth - searched element index
+ * @param pred - predicate
+ * @return pointer to found element or pointer to last, if not found
  */
 template <class InputIterator, class NthOccurence, class UnaryPredicate>
 InputIterator find_nth_if(InputIterator first, InputIterator last, NthOccurence Nth, UnaryPredicate pred)
@@ -1135,7 +1135,7 @@ public:
         for (size_t i = 0; i < props.size(); i++) {
             ceammc::AtomList& p = props[i];
             // skip empty property
-            if(p.size() < 2)
+            if (p.size() < 2)
                 continue;
 
             t_atom* data = p.toPdData() + 1;
@@ -1173,7 +1173,7 @@ public:
      * @param pos argument position among of @bold float(!) arguments. Position starts from @bold 1(!).
      * to select first argument - pass 1.
      */
-    void signalFloatArg(const char* name, int pos)
+    void signalFloatArg(const char* /*name*/, int pos)
     {
         // object was not created
         if (!this->x_)
@@ -1192,17 +1192,21 @@ public:
 
 static void* pan4_faust_new(t_symbol* s, int argc, t_atom* argv);
 
-static void internal_setup(t_symbol* s)
+static void internal_setup(t_symbol* s, bool soundIn = true)
 {
     pan4_faust_class = class_new(s, reinterpret_cast<t_newmethod>(pan4_faust_new),
         reinterpret_cast<t_method>(pan4_faust_free),
         sizeof(t_faust_pan4),
         CLASS_DEFAULT,
         A_GIMME, A_NULL);
-    class_addmethod(pan4_faust_class, nullfn, &s_signal, A_NULL);
+
+    if (soundIn) {
+        class_addmethod(pan4_faust_class, nullfn, &s_signal, A_NULL);
+        CLASS_MAINSIGNALIN(pan4_faust_class, t_faust_pan4, f);
+    }
+
     class_addmethod(pan4_faust_class, reinterpret_cast<t_method>(pan4_faust_dsp), gensym("dsp"), A_NULL);
     class_addmethod(pan4_faust_class, reinterpret_cast<t_method>(pan4_dump_to_console), gensym("dump"), A_NULL);
-    CLASS_MAINSIGNALIN(pan4_faust_class, t_faust_pan4, f);
     class_addanything(pan4_faust_class, pan4_faust_any);
 }
 
@@ -1220,6 +1224,12 @@ static void internal_setup(t_symbol* s)
     extern "C" void setup_##MOD##0x2epan4_tilde() \
     {                                              \
         internal_setup(gensym(#MOD ".pan4~"));    \
+    }
+
+#define EXTERNAL_SETUP_NO_IN(MOD)                      \
+    extern "C" void setup_##MOD##0x2epan4_tilde()     \
+    {                                                  \
+        internal_setup(gensym(#MOD ".pan4~"), false); \
     }
 
 #define SIMPLE_EXTERNAL(MOD) \
