@@ -16,6 +16,7 @@ ceammc_fx_extension(zita_rev1)
 ceammc_fx_extension(greyhole)
 ceammc_fx_extension(granulator)
 ceammc_fx_extension(wahwah)
+ceammc_fx_extension(echo)
 
 add_library(ceammc_fx STATIC mod_fx.cpp ${FX_SOURCES})
 set_target_properties(ceammc_fx PROPERTIES COMPILE_DEFINITIONS "FAUST_MACRO")
