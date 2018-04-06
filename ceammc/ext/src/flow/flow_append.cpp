@@ -86,6 +86,28 @@ bool FlowAppend::processAnyProps(t_symbol* s, const AtomList& lst)
     return false;
 }
 
+void FlowAppend::parseProperties()
+{
+    std::deque<AtomList> p = args().properties();
+    for (size_t i = 0; i < p.size(); i++) {
+        if (p[i].size() < 1)
+            continue;
+
+        t_symbol* pname = p[i][0].asSymbol();
+
+        if (!hasProperty(pname)) {
+            msg_.append(p[i]);
+            continue;
+        }
+
+        // skip readonly properties
+        if (property(pname)->readonly())
+            continue;
+
+        property(pname)->set(p[i].slice(1));
+    }
+}
+
 void FlowAppend::process()
 {
     if (delay_time_->value() >= 0) {

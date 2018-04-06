@@ -35,6 +35,7 @@ public:
 
     bool processAnyInlets(t_symbol* sel, const AtomList& lst);
     bool processAnyProps(t_symbol*s, const AtomList& lst);
+    void parseProperties();
 
 private:
     void process();
