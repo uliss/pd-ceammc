@@ -100,6 +100,7 @@ flt.c_notch~
 flt.c_peak~
 flt.dcblock2~
 flt.dcblock~
+flt.eq_peak_cq~
 flt.eq_peak~
 flt.highshelf~
 flt.hpf12~
@@ -114,6 +115,7 @@ func.call
 function
 function.call
 fx.distortion~
+fx.drone_box~
 fx.flanger~
 fx.freeverb2~
 fx.freeverb~
@@ -140,6 +142,7 @@ is_odd
 is_pointer
 is_symbol
 lfo.impulse~
+lfo.pulse~
 lfo.square~
 lfo.tri~
 lin->curve
@@ -266,6 +269,7 @@ msg
 noise.baker
 noise.clifford
 noise.collatz
+noise.crackle~
 noise.duffing
 noise.ginger
 noise.henon
@@ -274,6 +278,7 @@ noise.henon_phase
 noise.henonf
 noise.ikeda
 noise.jong
+noise.lfreq0~
 noise.lfreq~
 noise.logistic
 noise.lorenz
@@ -339,6 +344,8 @@ set.size
 set.symdiff
 set.union
 snd.file
+spat.pan4~
+spat.pan8~
 speedlim
 split
 str
@@ -373,6 +380,7 @@ symbol.equal
 symbol.length
 symbol.num_compare
 synth.risset_tone~
+synth.tambura~
 system.getenv
 system.hostname
 system.memsize
