@@ -7,10 +7,10 @@
 #X obj 600 11 flow.append~;
 #X msg 50 118 1 \, 2 \, 3;
 #X obj 50 147 flow.append DONE @delay 0;
-#X obj 50 176 print;
+#X obj 50 176 print NEXT;
 #X msg 50 205 1 \, 2 \, 3;
 #X obj 50 234 flow.append DONE @delay -1;
-#X obj 50 262 print;
+#X obj 50 262 print NO_DELAY;
 #X msg 50 291 1 \, 2 \, 3;
 #X obj 50 320 flow.append DONE @delay 1000;
 #X obj 50 349 print DELAY;

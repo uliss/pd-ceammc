@@ -35,13 +35,13 @@
 |
 [flow.append DONE @delay 0]
 |
-[print]
+[print NEXT]
 
 [1, 2, 3(
 |
 [flow.append DONE @delay -1]
 |
-[print]
+[print NO_DELAY]
 
 [1, 2, 3(
 |
