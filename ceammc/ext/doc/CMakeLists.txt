@@ -118,6 +118,17 @@ install(
         DESTINATION \"${CMAKE_INSTALL_PREFIX}/${DOC_INSTALL_PATH}\")"
 )
 
+if(APPLE)
+find_program(TIDY tidy PATHS /usr/local/bin /usr/bin
+    NO_DEFAULT_PATH
+    NO_CMAKE_ENVIRONMENT_PATH
+    NO_SYSTEM_ENVIRONMENT_PATH
+    NO_CMAKE_SYSTEM_PATH
+    NO_CMAKE_PATH)
+else()
+    find_program(TIDY tidy)
+endif()
+
 if(TIDY)
     message(STATUS "HTMLtidy found: ${TIDY}. The 'ceammc_pddoc_format' target available.")
     add_custom_target(ceammc_pddoc_format
