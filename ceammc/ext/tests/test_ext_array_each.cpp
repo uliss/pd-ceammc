@@ -93,6 +93,6 @@ TEST_CASE("array.each", "[externals]")
 
         // array created
         pd_bang(&p->pd_obj.te_g.g_pd);
-        REQUIRE(a[0] == 2);
+        REQUIRE(a[0] == Approx(2));
     }
 }
