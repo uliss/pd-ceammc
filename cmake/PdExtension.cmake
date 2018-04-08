@@ -28,7 +28,7 @@ endif()
 #   NAME        - external name
 #   LIBRARY     - external library name. Install to this subdirectory if specified.
 #   INSTALL_DIR - explicit directory for installation
-#   INTERNAL    - flag for internal install, if  INSTALL_DIR not specified and this flag is true,
+#   INTERNAL    - flag for internal install, if INSTALL_DIR not specified and this flag is true,
 #                 install to ${PD_INTERNAL_EXT_INSTALL_PATH},
 #                 otherwise install system Pd directory
 #   FILES       - list of external source files (*.c, *.cpp, *.h etc)
@@ -157,7 +157,13 @@ function(pd_add_extension)
     endif()
 endfunction()
 
-function(pd_add_simple_extension)
+# adds simple pd external (C-language)
+# these files are added: ${name}.c and ${name}-help.pd
+#
+# arguments:
+#   NAME        - external name
+#
+function(pd_add_simple_c_external)
     set(_OPTIONS_ARGS)
     set(_ONE_VALUE_ARGS NAME INTERNAL)
     set(_MULTI_VALUE_ARGS)
@@ -171,7 +177,7 @@ function(pd_add_simple_extension)
 endfunction()
 
 function(pd_add_internal_extension name)
-    pd_add_simple_extension(NAME ${name}
+    pd_add_simple_c_external(NAME ${name}
         FILES ${name}.c
         HELP_FILES ${name}-help.pd
         INTERNAL TRUE)
