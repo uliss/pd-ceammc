@@ -48,7 +48,7 @@ if(UNIX)
     set_target_properties(flext_static PROPERTIES COMPILE_FLAGS "-fPIC")
 endif()
 
-include(PdExtension)
+include(PdExternal)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/flext/source)
 
 set(VASP_SRC

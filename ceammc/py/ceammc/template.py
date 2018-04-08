@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 
-class PdExtension(object):
+class PdExternal(object):
     def __init__(self, module, extension, headers=None, gen_free=False, cpp=False):
         if headers is None:
             headers = []
@@ -197,7 +197,7 @@ static void {name}_free({type} *x)
         print res
 
 
-class PdMathUnaryExtension(PdExtension):
+class PdMathUnaryExternal(PdExternal):
     def __init__(self, name, func32=None, func64=None, func_code=None, headers=None):
         if headers is None:
             headers = ["math.h"]
@@ -238,7 +238,7 @@ class PdMathUnaryExtension(PdExtension):
         print '}'
 
 
-class PdMathConstExtension(PdExtension):
+class PdMathConstExternal(PdExternal):
     def __init__(self, name, const_value, headers=None):
         if headers is None:
             headers = ["math.h"]

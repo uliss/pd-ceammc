@@ -1,4 +1,4 @@
-include(PdExtension)
+include(PdExternal)
 
 add_subdirectory(src)
 add_subdirectory(doc)

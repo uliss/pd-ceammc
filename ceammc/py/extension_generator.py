@@ -35,7 +35,7 @@ def generate_common(args):
     if args.headers:
         headers = args.headers.split(',')
 
-    g = ceammc.PdExtension(args.module, args.name, headers=headers)
+    g = ceammc.PdExternal(args.module, args.name, headers=headers)
     cpp = ceammc_cpp.CppExtension(args.module, args.name)
     methods = ['float', 'list']
     if args.methods:

@@ -1,4 +1,4 @@
-include(PdExtension)
+include(PdExternal)
 # for m_pd.h and others
 add_definitions(-DVERSION="1.10")
 include_directories(${PROJECT_SOURCE_DIR}/src)

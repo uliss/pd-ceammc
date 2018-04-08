@@ -1,4 +1,4 @@
-include(PdExtension)
+include(PdExternal)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../stk/stk/include)
 
 pd_add_external(NAME disis_munger~

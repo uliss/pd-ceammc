@@ -256,6 +256,6 @@ echo "Copying cmake files..."
 CMAKE_DIR=$PD_RESOURCES/share/pd/cmake
 echo $CMAKE_DIR
 mkdir -p $CMAKE_DIR
-cp $SRC_DIR/cmake/PdExtension.cmake $CMAKE_DIR
+cp $SRC_DIR/cmake/PdExternal.cmake $CMAKE_DIR
 
 cd ../../..
