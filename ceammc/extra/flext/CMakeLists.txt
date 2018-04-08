@@ -130,7 +130,7 @@ set(VASP_SRC
     vasp/source/vecblk.h
 )
 
-pd_add_extension(NAME vasp
+pd_add_external(NAME vasp
     FILES ${VASP_SRC}
     INTERNAL True
     LIBRARY vasp

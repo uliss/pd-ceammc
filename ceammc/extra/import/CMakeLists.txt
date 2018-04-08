@@ -2,7 +2,7 @@ include(PdExtension)
 # for m_pd.h and others
 include_directories(${PROJECT_SOURCE_DIR}/src)
 
-pd_add_extension(NAME import
+pd_add_external(NAME import
     FILES import.c
     INTERNAL True
     LIBRARY import

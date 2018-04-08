@@ -1,7 +1,5 @@
 include(CMakeParseArguments)
-if(${CMAKE_VERSION} VERSION_GREATER "3.0")
-    cmake_policy(SET CMP0037 OLD)
-endif()
+
 set(PD_EXTERNAL_EXTENSION)
 set(PD_EXTERNAL_CFLAGS)
 set(PD_EXTERNAL_LDFLAGS)
@@ -30,7 +28,7 @@ endif()
 #   NAME        - external name
 #   LIBRARY     - external library name. Install to this subdirectory if specified.
 #   INSTALL_DIR - explicit directory for installation
-#   INTERNAL    - flag for internal install, if  INSTALL_DIR not specified and this flag is true,
+#   INTERNAL    - flag for internal install, if INSTALL_DIR not specified and this flag is true,
 #                 install to ${PD_INTERNAL_EXT_INSTALL_PATH},
 #                 otherwise install system Pd directory
 #   FILES       - list of external source files (*.c, *.cpp, *.h etc)
@@ -38,7 +36,7 @@ endif()
 #   EXTRA_FILES - list of extra files to install
 #   LINK        - list of libraries to link with
 #
-function(pd_add_extension)
+function(pd_add_external)
     set(_OPTIONS_ARGS)
     set(_ONE_VALUE_ARGS NAME INSTALL_DIR INTERNAL LIBRARY)
     set(_MULTI_VALUE_ARGS FILES HELP_FILES EXTRA_FILES LINK)
@@ -61,8 +59,20 @@ function(pd_add_extension)
     )
 
     if(_PD_EXT_NAME)
-        message(STATUS "adding PureData extension: ${_PD_EXT_NAME}")
-        add_library(${_PD_EXT_NAME} SHARED ${_PD_EXT_FILES})
+        set(TARGET_NAME ${_PD_EXT_NAME})
+
+        # check for ending "~". replace it to _tilde
+        # because targets with ~ in names are not allowed, see CMP0037
+        if("${_PD_EXT_NAME}" MATCHES ".+~$")
+            string(LENGTH ${_PD_EXT_NAME} _len)
+            math(EXPR _len "${_len} - 1")
+            string(SUBSTRING ${_PD_EXT_NAME} 0 ${_len} _name)
+            set(TARGET_NAME "${_name}_tilde")
+        endif()
+
+        message(STATUS "adding Pd external: [${_PD_EXT_NAME}]")
+        add_library(${TARGET_NAME} SHARED ${_PD_EXT_FILES})
+        set_target_properties(${TARGET_NAME} PROPERTIES OUTPUT_NAME ${_PD_EXT_NAME})
 
         foreach(_src_file ${_PD_EXT_FILES})
             set_source_files_properties(${_src_file} COMPILE_FLAGS "")
@@ -70,20 +80,21 @@ function(pd_add_extension)
 
         include_directories(${_PD_INCLUDE_DIR})
         include_directories(${CMAKE_SOURCE_DIR}/src)
-        set_target_properties(${_PD_EXT_NAME} PROPERTIES
-            PREFIX ""
-            SUFFIX "${PD_EXTERNAL_EXTENSION}"
+        set_target_properties(${TARGET_NAME} PROPERTIES
+            PREFIX        ""
+            SUFFIX        "${PD_EXTERNAL_EXTENSION}"
             COMPILE_FLAGS "${PD_EXTERNAL_CFLAGS}"
-            LINK_FLAGS "${PD_EXTERNAL_LDFLAGS}"
+            LINK_FLAGS    "${PD_EXTERNAL_LDFLAGS}"
+            OUTPUT        "${_PD_EXT_NAME}"
             )
 
         if(WIN32)
             list(APPEND _PD_EXT_LINK puredata-core)
         endif()
 
-        target_link_libraries(${_PD_EXT_NAME} ${_PD_EXT_LINK})
+        target_link_libraries(${TARGET_NAME} ${_PD_EXT_LINK})
     else()
-        message(FATAL_ERROR "pd_add_extension: 'NAME' argument required.")
+        message(FATAL_ERROR "pd_add_external: 'NAME' argument required.")
     endif()
 
     #    default installation directory
@@ -111,13 +122,13 @@ function(pd_add_extension)
     if(_PD_EXT_LIBRARY)
         set(INSTALL_DIR "${_PD_EXT_INSTALL_DIR}/${_PD_EXT_LIBRARY}")
     else()
-        set(INSTALL_DIR "${_PD_EXT_INSTALL_DIR}/${_PD_EXT_NAME}")
+        set(INSTALL_DIR "${_PD_EXT_INSTALL_DIR}/${TARGET_NAME}")
     endif()
 
     #message(STATUS ${INSTALL_DIR})
 
     # install extension README etc. files
-    #install(DIRECTORY "../${_PD_EXT_NAME}"
+    #install(DIRECTORY "../${TARGET_NAME}"
     #        DESTINATION "${_PD_EXT_INSTALL_DIR}"
     #        FILES_MATCHING REGEX "(README|LICENSE|NOTES|README.txt|LICENSE.txts|NOTES.txt)")
 
@@ -140,27 +151,33 @@ function(pd_add_extension)
 
     # install extension binary
     if(WIN32)
-        install(TARGETS ${_PD_EXT_NAME} DESTINATION "${INSTALL_DIR}")
+        install(TARGETS ${TARGET_NAME} DESTINATION "${INSTALL_DIR}")
     else()
-        install(TARGETS ${_PD_EXT_NAME} LIBRARY DESTINATION "${INSTALL_DIR}")
+        install(TARGETS ${TARGET_NAME} LIBRARY DESTINATION "${INSTALL_DIR}")
     endif()
 endfunction()
 
-function(pd_add_simple_extension)
+# adds simple pd external (C-language)
+# these files are added: ${name}.c and ${name}-help.pd
+#
+# arguments:
+#   NAME        - external name
+#
+function(pd_add_simple_c_external)
     set(_OPTIONS_ARGS)
     set(_ONE_VALUE_ARGS NAME INTERNAL)
     set(_MULTI_VALUE_ARGS)
 
     cmake_parse_arguments(_PD_EXT "${_OPTIONS_ARGS}" "${_ONE_VALUE_ARGS}" "${_MULTI_VALUE_ARGS}" ${ARGN})
 
-    pd_add_extension(NAME ${_PD_EXT_NAME}
+    pd_add_external(NAME ${_PD_EXT_NAME}
         FILES ${_PD_EXT_NAME}.c
         HELP_FILES ${_PD_EXT_NAME}-help.pd
         INTERNAL ${_PD_EXT_INTERNAL})
 endfunction()
 
-function(pd_add_internal_extension name)
-    pd_add_simple_extension(NAME ${name}
+function(pd_add_internal_external name)
+    pd_add_simple_c_external(NAME ${name}
         FILES ${name}.c
         HELP_FILES ${name}-help.pd
         INTERNAL TRUE)

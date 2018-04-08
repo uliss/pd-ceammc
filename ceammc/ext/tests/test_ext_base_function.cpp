@@ -81,6 +81,6 @@ TEST_CASE("function", "[externals]")
         REQUIRE(func.connectTo(0, out, 0));
 
         func.sendFloat(4);
-        REQUIRE(out.msg().atomValue() == A(2));
+        REQUIRE(out.msg().atomValue().asFloat() == Approx(2));
     }
 }

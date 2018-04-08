@@ -1,5 +1,5 @@
 macro(ceammc_midi_external mod name)
-    pd_add_extension(NAME "${mod}.${name}"
+    pd_add_external(NAME "${mod}.${name}"
         FILES "${mod}_${name}.cpp"
         INTERNAL True
         LIBRARY ceammc
@@ -18,7 +18,7 @@ if(APPLE AND CMAKE_CXX_COMPILER_ID MATCHES "Clang")
     ceammc_midi_external(midi listin)
     ceammc_midi_external(midi listout)
 
-    pd_add_extension(NAME midi.ctlin
+    pd_add_external(NAME midi.ctlin
         FILES midiin_cc.cpp midi_in.cpp
         INTERNAL True
         LIBRARY ceammc

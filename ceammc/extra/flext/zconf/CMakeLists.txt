@@ -16,7 +16,7 @@ if(DNSSD_FOUND)
         endif()
     endif()
     
-    pd_add_extension(NAME zconf
+    pd_add_external(NAME zconf
         FILES ${ZCONF_SRC}
         INTERNAL True
         LIBRARY zconf

@@ -1,5 +1,5 @@
 macro(ceammc_extension_sep module name ext separator)
-    pd_add_extension(NAME "${module}${separator}${name}"
+    pd_add_external(NAME "${module}${separator}${name}"
         FILES "${module}_${name}.${ext}"
         INTERNAL True
         LIBRARY ceammc
@@ -23,7 +23,7 @@ endmacro()
 
 # adds simple C++ extension
 macro(ceammc_cxx_extension_simple name)
-    pd_add_extension(NAME "${name}" FILES "${name}.cpp" INTERNAL True LIBRARY ceammc LINK ceammc_core)
+    pd_add_external(NAME "${name}" FILES "${name}.cpp" INTERNAL True LIBRARY ceammc LINK ceammc_core)
 endmacro()
 
 # adds _underscored_ target linked with *glib* library: MODULE_NAME
@@ -41,7 +41,7 @@ endmacro()
 # file named "MODULE_NAME.dsp" should exists in ceammc/faust directory
 macro(ceammc_faust_extension module name ext)
     ceammc_faust_gen(${module} ${name})
-    pd_add_extension(NAME "${module}.${name}~"
+    pd_add_external(NAME "${module}.${name}~"
         FILES "${module}_${name}.cpp" INTERNAL TRUE LINK ceammc_core)
     set_target_properties("${module}.${name}~" PROPERTIES COMPILE_FLAGS "-DFAUST_MACRO")
 endmacro()
