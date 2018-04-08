@@ -36,7 +36,7 @@ endif()
 #   EXTRA_FILES - list of extra files to install
 #   LINK        - list of libraries to link with
 #
-function(pd_add_extension)
+function(pd_add_external)
     set(_OPTIONS_ARGS)
     set(_ONE_VALUE_ARGS NAME INSTALL_DIR INTERNAL LIBRARY)
     set(_MULTI_VALUE_ARGS FILES HELP_FILES EXTRA_FILES LINK)
@@ -70,7 +70,7 @@ function(pd_add_extension)
             set(TARGET_NAME "${_name}_tilde")
         endif()
 
-        message(STATUS "adding PureData extension: ${TARGET_NAME}")
+        message(STATUS "adding Pd external: [${_PD_EXT_NAME}]")
         add_library(${TARGET_NAME} SHARED ${_PD_EXT_FILES})
         set_target_properties(${TARGET_NAME} PROPERTIES OUTPUT_NAME ${_PD_EXT_NAME})
 
@@ -94,7 +94,7 @@ function(pd_add_extension)
 
         target_link_libraries(${TARGET_NAME} ${_PD_EXT_LINK})
     else()
-        message(FATAL_ERROR "pd_add_extension: 'NAME' argument required.")
+        message(FATAL_ERROR "pd_add_external: 'NAME' argument required.")
     endif()
 
     #    default installation directory
@@ -170,7 +170,7 @@ function(pd_add_simple_c_external)
 
     cmake_parse_arguments(_PD_EXT "${_OPTIONS_ARGS}" "${_ONE_VALUE_ARGS}" "${_MULTI_VALUE_ARGS}" ${ARGN})
 
-    pd_add_extension(NAME ${_PD_EXT_NAME}
+    pd_add_external(NAME ${_PD_EXT_NAME}
         FILES ${_PD_EXT_NAME}.c
         HELP_FILES ${_PD_EXT_NAME}-help.pd
         INTERNAL ${_PD_EXT_INTERNAL})

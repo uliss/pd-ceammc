@@ -13,7 +13,7 @@ if(UNIX)
 endif()
 
 function(lyon_external name)
-    pd_add_extension(NAME ${name}
+    pd_add_external(NAME ${name}
         FILES ${name}.c
         INTERNAL True
         LIBRARY lyonpotpourri
@@ -23,7 +23,7 @@ function(lyon_external name)
 endfunction()
 
 function(lyon_external_no_help name)
-    pd_add_extension(NAME ${name}
+    pd_add_external(NAME ${name}
         FILES ${name}.c
         INTERNAL True
         LIBRARY lyonpotpourri

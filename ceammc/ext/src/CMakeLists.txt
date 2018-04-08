@@ -69,7 +69,7 @@ add_subdirectory(ui)
 add_subdirectory(vector)
 add_subdirectory(window)
 
-pd_add_extension(NAME ceammc
+pd_add_external(NAME ceammc
     FILES ceammc.cpp mod_init.cpp
     INTERNAL True
     LIBRARY ceammc

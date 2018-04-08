@@ -6,7 +6,7 @@ set(XSAMPLE_SRC
     xsample/source/record.cpp
 )
 
-pd_add_extension(NAME xsample
+pd_add_external(NAME xsample
     FILES ${XSAMPLE_SRC}
     INTERNAL True
     LIBRARY xsample

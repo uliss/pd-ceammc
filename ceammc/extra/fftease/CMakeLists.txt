@@ -30,7 +30,7 @@ add_library(fftease_static STATIC
     fftease/unconvert.c)
 
 function(fftease_external name)
-    pd_add_extension(NAME ${name}
+    pd_add_external(NAME ${name}
         FILES fftease/${name}.c
         INTERNAL True
         LIBRARY fftease
