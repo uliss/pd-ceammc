@@ -176,7 +176,7 @@ function(pd_add_simple_c_external)
         INTERNAL ${_PD_EXT_INTERNAL})
 endfunction()
 
-function(pd_add_internal_extension name)
+function(pd_add_internal_external name)
     pd_add_simple_c_external(NAME ${name}
         FILES ${name}.c
         HELP_FILES ${name}-help.pd
