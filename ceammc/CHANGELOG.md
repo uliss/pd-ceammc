@@ -17,6 +17,7 @@
 - synth.marimba~ added
 - fx.wahwah~ added
 - fx.echo~ added
+- fx.sdelay~ added
 - flow.append added
 - flt.moog_vcf~ added
 - alias for list.reduce: list.foldl

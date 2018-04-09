@@ -13,6 +13,7 @@ extern "C" void setup_fx0x2egreyhole_tilde();
 extern "C" void setup_fx0x2epitchshift_tilde();
 extern "C" void setup_fx0x2ewahwah_tilde();
 extern "C" void setup_fx0x2ezita_rev1_tilde();
+extern "C" void setup_fx0x2esdelay_tilde();
 
 void ceammc_fx_setup()
 {
@@ -28,5 +29,6 @@ void ceammc_fx_setup()
     setup_fx0x2epitchshift_tilde();
     setup_fx0x2ewahwah_tilde();
     setup_fx0x2ezita_rev1_tilde();
+    setup_fx0x2esdelay_tilde();
     setup_fx_looper();
 }
