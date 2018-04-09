@@ -30,7 +30,6 @@ extern "C" void setup_list0x2enormalize();
 extern "C" void setup_list0x2epass_if();
 extern "C" void setup_list0x2eproduct();
 extern "C" void setup_list0x2erange();
-extern "C" void setup_list0x2ereduce();
 extern "C" void setup_list0x2eremove_if();
 extern "C" void setup_list0x2erepack();
 extern "C" void setup_list0x2erepeat();
@@ -53,6 +52,8 @@ extern "C" void setup_list0x2eunwrap();
 extern "C" void setup_list0x2ewalk();
 extern "C" void setup_list0x2ewrap();
 extern "C" void setup_list0x2ezip();
+
+void setup_list_reduce();
 
 void ceammc_list_setup()
 {
@@ -85,7 +86,6 @@ void ceammc_list_setup()
     setup_list0x2epass_if();
     setup_list0x2eproduct();
     setup_list0x2erange();
-    setup_list0x2ereduce();
     setup_list0x2eremove_if();
     setup_list0x2erepack();
     setup_list0x2erepeat();
@@ -110,4 +110,5 @@ void ceammc_list_setup()
     setup_list0x2ezip();
 
     setup_list_route();
+    setup_list_reduce();
 }

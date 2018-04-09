@@ -149,7 +149,7 @@ list.normalize		.		.
 list.pass_if		..		..
 list.product		.		.
 list.range		.		.
-list.reduce		..		..
+list.reduce,list.foldl		..		..
 list.remove_if		..		..
 list.repack		.		..
 list.repeat		..		.

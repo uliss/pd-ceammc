@@ -169,6 +169,7 @@ list.each
 list.enumerate
 list.equal
 list.first
+list.foldl
 list.gen
 list.histogram
 list.integrator

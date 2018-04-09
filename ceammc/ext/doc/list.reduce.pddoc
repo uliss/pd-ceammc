@@ -12,6 +12,9 @@
             <category>list</category>
             <keywords>list min compare</keywords>
             <since>0.1</since>
+            <aliases>
+                <alias>list.foldl</alias>
+            </aliases>
             <also>
                 <see>list.max</see>
             </also>
