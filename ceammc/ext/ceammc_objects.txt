@@ -127,6 +127,7 @@ fx.granulator~
 fx.greyhole~
 fx.looper~
 fx.pitchshift~
+fx.sdelay~
 fx.wahwah~
 fx.zita_rev1~
 gate
