@@ -309,6 +309,9 @@
     <entry descr="Low-pass filter with 24/db per octave slope" name="flt.lpf24~" ref_view="object">
       <xi:include href="flt.lpf24~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="Moog Voltage Controlled Filter" name="flt.moog_vcf~" ref_view="object">
+      <xi:include href="flt.moog_vcf~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="band-rejection filter" name="flt.notch~" ref_view="object">
       <xi:include href="flt.notch~.pddoc" parse="xml"/>
     </entry>

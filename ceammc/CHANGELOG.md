@@ -18,6 +18,7 @@
 - fx.wahwah~ added
 - fx.echo~ added
 - flow.append added
+- flt.moog_vcf~ added
 
 ### Changed:
 - migration to Faust v2

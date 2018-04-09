@@ -87,6 +87,7 @@ set(DOC_FILES
     flt.lowshelf~
     flt.lpf12~
     flt.lpf24~
+    flt.moog_vcf~
     flt.notch~
     flt.resonbp~
     function
