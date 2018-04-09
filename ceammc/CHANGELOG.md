@@ -19,6 +19,7 @@
 - fx.echo~ added
 - flow.append added
 - flt.moog_vcf~ added
+- alias for list.reduce: list.foldl
 
 ### Changed:
 - migration to Faust v2

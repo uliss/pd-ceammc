@@ -44,6 +44,7 @@ public:
 extern "C" void setup_list0x2ereduce()
 {
     ObjectFactory<ListReduce> obj("list.reduce");
+    obj.addAlias("list.foldl");
     obj.mapFloatToList();
     obj.mapSymbolToList();
 }
