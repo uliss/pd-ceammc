@@ -326,6 +326,9 @@
     <entry descr="mono sympathetic resonance generator" name="fx.drone_box~" ref_view="object">
       <xi:include href="fx.drone_box~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="simple echo effect" name="fx.echo~" ref_view="object">
+      <xi:include href="fx.echo~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="mono flanging effect" name="fx.flanger~" ref_view="object">
       <xi:include href="fx.flanger~.pddoc" parse="xml"/>
     </entry>
@@ -346,6 +349,9 @@
     </entry>
     <entry descr="simple pitch shifter based on 2 delay lines" name="fx.pitchshift~" ref_view="object">
       <xi:include href="fx.pitchshift~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="smooth delay with a feedback control" name="fx.sdelay~" ref_view="object">
+      <xi:include href="fx.sdelay~.pddoc" parse="xml"/>
     </entry>
     <entry descr="digitized CryBaby wah pedal" name="fx.wahwah~" ref_view="object">
       <xi:include href="fx.wahwah~.pddoc" parse="xml"/>
@@ -1080,6 +1086,7 @@
       <author>Serge Poltavsky</author>
       <author>Serge Potlavsky</author>
       <author>Till Bovermann</author>
+      <author>Yann Orlarey</author>
     </authors>
     <xi:include href="ceammc_meta.xml" parse="xml"/>
   </meta>

@@ -93,6 +93,7 @@ set(DOC_FILES
     function
     function.call
     fx.distortion~
+    fx.echo~
     fx.flanger~
     fx.freeverb2~
     fx.freeverb~
@@ -101,6 +102,7 @@ set(DOC_FILES
     fx.greyhole~
     fx.looper~
     fx.pitchshift~
+    fx.sdelay~
     fx.zita_rev1~
     fx.wahwah~
     global.float

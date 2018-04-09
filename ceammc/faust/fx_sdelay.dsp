@@ -1,4 +1,4 @@
-declare name 	"SmoothDelay";
+declare name 	"sdelay";
 declare author 	"Yann Orlarey";
 declare copyright "Grame";
 declare version "1.0";

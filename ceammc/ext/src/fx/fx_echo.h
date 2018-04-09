@@ -505,6 +505,7 @@ class echo : public dsp {
 	
  private:
 	
+	FAUSTFLOAT fCheckbox0;
 	FAUSTFLOAT fHslider0;
 	float fRec1[2];
 	int fSamplingFreq;
@@ -527,6 +528,8 @@ class echo : public dsp {
 		m->declare("basics.lib/version", "0.0");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
 		m->declare("ceammc.lib/version", "0.1.1");
+		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
+		m->declare("ceammc_ui.lib/version", "0.1.1");
 		m->declare("delays.lib/name", "Faust Delay Library");
 		m->declare("delays.lib/version", "0.0");
 		m->declare("filename", "fx_echo");
@@ -601,7 +604,8 @@ class echo : public dsp {
 	}
 	
 	virtual void instanceResetUserInterface() {
-		fHslider0 = FAUSTFLOAT(0.001f);
+		fCheckbox0 = FAUSTFLOAT(0.0f);
+		fHslider0 = FAUSTFLOAT(0.29999999999999999f);
 		fHslider1 = FAUSTFLOAT(500.0f);
 		
 	}
@@ -639,7 +643,8 @@ class echo : public dsp {
 	
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("echo");
-		ui_interface->addHorizontalSlider("feedback", &fHslider0, 0.00100000005f, 0.00100000005f, 0.649999976f, 0.00100000005f);
+		ui_interface->addCheckButton("bypass", &fCheckbox0);
+		ui_interface->addHorizontalSlider("feedback", &fHslider0, 0.300000012f, 0.0f, 0.800000012f, 0.00100000005f);
 		ui_interface->addHorizontalSlider("time", &fHslider1, 500.0f, 10.0f, 10000.0f, 1.0f);
 		ui_interface->closeBox();
 		
@@ -648,19 +653,21 @@ class echo : public dsp {
 	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
-		float fSlow0 = (0.00100000005f * float(fHslider0));
-		float fSlow1 = (fConst1 * min(10000.0f, max(10.0f, float(fHslider1))));
-		float fSlow2 = (fSlow1 + 4.99999987e-06f);
-		float fSlow3 = floorf(fSlow2);
-		float fSlow4 = (0.0f - (fSlow1 + (-1.0f - fSlow3)));
-		int iSlow5 = int(fSlow2);
-		int iSlow6 = (min(iConst7, max(0, iSlow5)) + 1);
-		float fSlow7 = (fSlow1 - fSlow3);
-		int iSlow8 = (min(iConst7, max(0, (iSlow5 + 1))) + 1);
+		int iSlow0 = int(float(fCheckbox0));
+		float fSlow1 = (0.00100000005f * float(fHslider0));
+		float fSlow2 = (fConst1 * min(10000.0f, max(10.0f, float(fHslider1))));
+		float fSlow3 = (fSlow2 + 4.99999987e-06f);
+		float fSlow4 = floorf(fSlow3);
+		float fSlow5 = (0.0f - (fSlow2 + (-1.0f - fSlow4)));
+		int iSlow6 = int(fSlow3);
+		int iSlow7 = (min(iConst7, max(0, iSlow6)) + 1);
+		float fSlow8 = (fSlow2 - fSlow4);
+		int iSlow9 = (min(iConst7, max(0, (iSlow6 + 1))) + 1);
 		for (int i = 0; (i < count); i = (i + 1)) {
-			fRec1[0] = (fSlow0 + (0.999000013f * fRec1[1]));
-			fRec0[(IOTA & 2097151)] = (float(input0[i]) + (fRec1[0] * ((fSlow4 * fRec0[((IOTA - iSlow6) & 2097151)]) + (fSlow7 * fRec0[((IOTA - iSlow8) & 2097151)]))));
-			output0[i] = FAUSTFLOAT(fRec0[((IOTA - 0) & 2097151)]);
+			float fTemp0 = float(input0[i]);
+			fRec1[0] = (fSlow1 + (0.999000013f * fRec1[1]));
+			fRec0[(IOTA & 2097151)] = ((iSlow0?0.0f:fTemp0) + (fRec1[0] * ((fSlow5 * fRec0[((IOTA - iSlow7) & 2097151)]) + (fSlow8 * fRec0[((IOTA - iSlow9) & 2097151)]))));
+			output0[i] = FAUSTFLOAT((iSlow0?fTemp0:fRec0[((IOTA - 0) & 2097151)]));
 			fRec1[1] = fRec1[0];
 			IOTA = (IOTA + 1);
 			

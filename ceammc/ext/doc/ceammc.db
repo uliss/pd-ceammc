@@ -94,6 +94,7 @@ function,func		..		..
 function.call,func.call		..		.
 fx.distortion~		~		~.
 fx.drone_box~		~		~.
+fx.echo~		~		~.
 fx.flanger~		~		~.
 fx.freeverb2~		~~		~~.
 fx.freeverb~		~		~.
@@ -101,6 +102,7 @@ fx.freqshift~		~~		~~
 fx.greyhole~		~~		~~.
 fx.looper~		~		~
 fx.pitchshift~		~~		~.
+fx.sdelay~		~		~.
 fx.wahwah~		~		~
 fx.zita_rev1~		~~		~~.
 global.float		.		.
