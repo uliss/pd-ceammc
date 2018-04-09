@@ -18,10 +18,9 @@
             <since>0.4</since>
         </meta>
         <info>
-            <par>Produces random integers on the interval [0, N), where the probability
-            of each individual integer *i* defined as W_i/S, that is the weight
-            of the i-th integer divided by the sum of all N weights.
-            </par>
+            <par>Produces random integers on the interval [0, N), where the probability of each
+            individual integer *i* defined as W_i/S, that is the weight of the i-th integer divided
+            by the sum of all N weights.</par>
         </info>
         <arguments>
             <argument type="list" name="W">weights (list of non-negative floats)</argument>
@@ -31,8 +30,8 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">generates random number in interval [0, N),
-                where N is number of weights.</xinfo>
+                <xinfo on="bang">generates random number in interval [0, N), where N is number of
+                weights.</xinfo>
                 <xinfo on="list">set new weights</xinfo>
             </inlet>
         </inlets>

@@ -17,8 +17,8 @@
             </also>
         </meta>
         <info>
-            <par>Predicate object should accept atom and output 0 (remove element) or 1
-            (leave element).</par>
+            <par>Predicate object should accept atom and output 0 (remove element) or 1 (leave
+            element).</par>
         </info>
         <inlets>
             <inlet>

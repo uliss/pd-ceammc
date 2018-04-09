@@ -12,7 +12,6 @@ find_program(PD_DOC2PD pd_doc2pd)
 find_program(PD_MAKELIB pd_makelibrary)
 find_program(PD_LIB2PD pd_lib2pd)
 find_program(PD_CAT2PD pd_cat2pd)
-find_program(TIDY tidy)
 
 add_subdirectory(extra)
 add_subdirectory(gui)

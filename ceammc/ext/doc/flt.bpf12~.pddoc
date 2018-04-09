@@ -27,7 +27,7 @@
                 <param type="float" units="herz">center frequency</param>
             </method>
             <method name="q">
-                <param type="float" name="Q" minvalue="0.01" maxvalue="100" default="0.01">quality
+                <param type="float" name="Q" minvalue="0.01" maxvalue="100" default="2">quality
                 factor</param>
             </method>
         </methods>
@@ -49,19 +49,19 @@
         <example>
             <pdascii>
 <![CDATA[
+[F]              [400( [800( [1000( [1200( [2400(
+|                |     |     |      |      |
+[osc~ 1000]      [F                        ]
+|      |         |
+|      |         [@freq $1(
+|      |         |
+|      [flt.bpf12~ 1000 2.5] /*800-1200*/
+|      |
+[env~] [env~]
+|      |
+[F]    [F]
 
-[noise.pink~] [T]
-|        .____/
-[*~      ]
-|
-|        [F]       [F]
-|        |         |
-|        [freq $1( [q $1(
-|        |         |
-[flt.bpf12~  1000 5 ]
-|\
-[dac~]
-
+[ui.dsp~]
 ]]>
             </pdascii>
         </example>

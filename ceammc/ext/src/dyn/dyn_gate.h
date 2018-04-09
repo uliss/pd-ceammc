@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "dyn_gate"
-Code generated with Faust 2.5.30 (https://faust.grame.fr)
+Code generated with Faust 2.5.31 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -529,7 +529,7 @@ class gate : public dsp {
 		m->declare("basics.lib/name", "Faust Basic Element Library");
 		m->declare("basics.lib/version", "0.0");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
-		m->declare("ceammc.lib/version", "0.1");
+		m->declare("ceammc.lib/version", "0.1.1");
 		m->declare("filename", "dyn_gate");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
@@ -1037,11 +1037,11 @@ static bool faust_new_internal(t_faust_gate* x, const std::string& objId = "", b
 
 /**
  * find nth element that satisfies given predicate
- * @first - first element of sequence
- * @last - pointer behind last element of sequence
- * @Nth - searched element index
- * @pred - predicate
- * @return pointer to found element or pointer to @bold last, if not found
+ * @param first - first element of sequence
+ * @param last - pointer behind last element of sequence
+ * @param Nth - searched element index
+ * @param pred - predicate
+ * @return pointer to found element or pointer to last, if not found
  */
 template <class InputIterator, class NthOccurence, class UnaryPredicate>
 InputIterator find_nth_if(InputIterator first, InputIterator last, NthOccurence Nth, UnaryPredicate pred)
@@ -1080,6 +1080,20 @@ static bool atom_is_symbol(const t_atom& a)
     case A_DEFSYMBOL:
     case A_SYMBOL:
         return true;
+    default:
+        return false;
+    }
+}
+
+/**
+ * @return true if given atom is a property
+ */
+static bool atom_is_property(const t_atom& a)
+{
+    switch (a.a_type) {
+    case A_DEFSYMBOL:
+    case A_SYMBOL:
+        return a.a_w.w_symbol->s_name[0] == '@';
     default:
         return false;
     }
@@ -1139,12 +1153,22 @@ public:
      */
     PdArgParser(t_faust_gate* x, int argc, t_atom* argv, bool info_outlet = true)
         : x_(x)
-        , argc_(argc)
+        , argc_(0)
         , argv_(argv)
         , control_outlet_(info_outlet)
     {
         const char* id = NULL;
         std::string objId;
+
+        int first_prop_idx = argc;
+        for(int i = 0; i < argc; i++) {
+            if(atom_is_property(argv[i]))
+                first_prop_idx = i;
+        }
+
+        // store argument count (without properties)
+        argc_ = first_prop_idx;
+
         if (get_nth_symbol_arg(argc_, argv_, 1, &id))
             objId = id;
 
@@ -1153,11 +1177,12 @@ public:
             this->x_ = NULL;
         }
 
-        std::deque<ceammc::AtomList> props = ceammc::AtomList(argc_, argv).properties();
+        // process properties
+        std::deque<ceammc::AtomList> props = ceammc::AtomList(argc, argv).properties();
         for (size_t i = 0; i < props.size(); i++) {
             ceammc::AtomList& p = props[i];
             // skip empty property
-            if(p.size() < 2)
+            if (p.size() < 2)
                 continue;
 
             t_atom* data = p.toPdData() + 1;
@@ -1195,7 +1220,7 @@ public:
      * @param pos argument position among of @bold float(!) arguments. Position starts from @bold 1(!).
      * to select first argument - pass 1.
      */
-    void signalFloatArg(const char* name, int pos)
+    void signalFloatArg(const char* /*name*/, int pos)
     {
         // object was not created
         if (!this->x_)
@@ -1214,17 +1239,21 @@ public:
 
 static void* gate_faust_new(t_symbol* s, int argc, t_atom* argv);
 
-static void internal_setup(t_symbol* s)
+static void internal_setup(t_symbol* s, bool soundIn = true)
 {
     gate_faust_class = class_new(s, reinterpret_cast<t_newmethod>(gate_faust_new),
         reinterpret_cast<t_method>(gate_faust_free),
         sizeof(t_faust_gate),
         CLASS_DEFAULT,
         A_GIMME, A_NULL);
-    class_addmethod(gate_faust_class, nullfn, &s_signal, A_NULL);
+
+    if (soundIn) {
+        class_addmethod(gate_faust_class, nullfn, &s_signal, A_NULL);
+        CLASS_MAINSIGNALIN(gate_faust_class, t_faust_gate, f);
+    }
+
     class_addmethod(gate_faust_class, reinterpret_cast<t_method>(gate_faust_dsp), gensym("dsp"), A_NULL);
     class_addmethod(gate_faust_class, reinterpret_cast<t_method>(gate_dump_to_console), gensym("dump"), A_NULL);
-    CLASS_MAINSIGNALIN(gate_faust_class, t_faust_gate, f);
     class_addanything(gate_faust_class, gate_faust_any);
 }
 
@@ -1242,6 +1271,12 @@ static void internal_setup(t_symbol* s)
     extern "C" void setup_##MOD##0x2egate_tilde() \
     {                                              \
         internal_setup(gensym(#MOD ".gate~"));    \
+    }
+
+#define EXTERNAL_SETUP_NO_IN(MOD)                      \
+    extern "C" void setup_##MOD##0x2egate_tilde()     \
+    {                                                  \
+        internal_setup(gensym(#MOD ".gate~"), false); \
     }
 
 #define SIMPLE_EXTERNAL(MOD) \

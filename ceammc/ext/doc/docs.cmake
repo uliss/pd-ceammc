@@ -43,11 +43,14 @@ set(DOC_FILES
     env.vscale
     env.concat
     env.adsr~
+    env.asr~
     env.ar~
     env.follow~
+    env.smooth~
     env2array
     env2vline
     expand_env
+    flow.append
     flow.change
     flow.count
     flow.gate
@@ -77,12 +80,14 @@ set(DOC_FILES
     flt.dcblock2~
     flt.dcblock~
     flt.eq_peak~
+    flt.eq_peak_cq~
     flt.highshelf~
     flt.hpf12~
     flt.hpf24~
     flt.lowshelf~
     flt.lpf12~
     flt.lpf24~
+    flt.moog_vcf~
     flt.notch~
     flt.resonbp~
     function
@@ -92,10 +97,12 @@ set(DOC_FILES
     fx.freeverb2~
     fx.freeverb~
     fx.freqshift~
+    fx.drone_box~
     fx.greyhole~
     fx.looper~
     fx.pitchshift~
     fx.zita_rev1~
+    fx.wahwah~
     global.float
     global.int
     global.list
@@ -112,6 +119,7 @@ set(DOC_FILES
     lfo.impulse~
     lfo.square~
     lfo.tri~
+    lfo.pulse~
     list.all_of
     list.any_of
     list.apply_to
@@ -216,8 +224,11 @@ set(DOC_FILES
     midi.key2str
     modplug~
     msg
+    noise.crackle~
     noise.pink~
     noise.white~
+    noise.lfreq~
+    noise.lfreq0~
     osc.impulse~
     osc.pulse~
     osc.saw~
@@ -256,6 +267,8 @@ set(DOC_FILES
     set.symdiff
     set.union
     snd.file
+    spat.pan4~
+    spat.pan8~
     string
     string.contains
     string.ends_with
@@ -273,6 +286,9 @@ set(DOC_FILES
     symbol.length
     symbol.num_compare
     synth.risset_tone~
+    synth.risset_arp~
+    synth.birds~
+    synth.marimba~
     system.cursor
     system.getenv
     system.hostname

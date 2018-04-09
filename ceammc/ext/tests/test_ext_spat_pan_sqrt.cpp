@@ -65,7 +65,7 @@ TEST_CASE("pan.sqrt~", "[externals]")
         t.processBlock(sig.in, sig.out);
 
         for (int i = 0; i < 64; i++) {
-            REQUIRE(sig.out[0][i] == 1);
+            REQUIRE(sig.out[0][i] == Approx(1));
             REQUIRE(sig.out[1][i] == 0);
         }
 
@@ -74,7 +74,7 @@ TEST_CASE("pan.sqrt~", "[externals]")
 
         for (int i = 0; i < 64; i++) {
             REQUIRE(sig.out[0][i] == 0);
-            REQUIRE(sig.out[1][i] == 1);
+            REQUIRE(sig.out[1][i] == Approx(1));
         }
 
         t.setProperty("@pos", L1(0.2f));

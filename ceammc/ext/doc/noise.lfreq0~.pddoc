@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="noise.lfreq0~">
+        <title>noise.lfreq0~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>sampled/held noise (piecewise constant)</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>noise</category>
+            <keywords>noise white</keywords>
+            <since>0.6</since>
+            <also>
+                <see>noise.lfreq~</see>
+            </also>
+        </meta>
+        <info>
+            <par>new random number every int(SR/freq) samples or so</par>
+        </info>
+        <arguments>
+            <argument type="float" name="FREQ">noise generation freq</argument>
+        </arguments>
+        <properties>
+            <property name="@freq" type="float" minvalue="10" maxvalue="22050" default="1000">noise
+            generation freq. New random number every int(SR/freq)</property>
+        </properties>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>control input</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[freq 200( [@freq 2000(
+|          |
+[noise.lfreq0~ 400]
+|  |
+|  [ui.gain~ @size 120 16]
+|  |
+|  [dac~]
+|
+|
+[ui.scope~ @size=300x100]
+
+
+
+
+
+
+
+[ui.dsp~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

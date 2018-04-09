@@ -38,9 +38,11 @@ dyn.limit~		~		~
 dyn.softclip~		~		~
 env.adsr~		~		~.
 env.ar~		~		~.
+env.asr~		~		~.
 env.concat		..		.
 env.follow~		~		~.
 env.mix		...		.
+env.smooth~		~		~.
 env.tscale		.		.
 env.tshift		.		.
 env.vscale		.		.
@@ -48,6 +50,7 @@ env2array,env->array		.		.
 env2vline,env->vline		.		.
 envelope,env		.		.
 expand_env		.		.
+flow.append		.		.
 flow.change		.		.
 flow.count		.		.
 flow.demultiplex,flow.demux		?		.
@@ -76,6 +79,7 @@ flt.c_notch~		~		~~~~~.
 flt.c_peak~		~		~~~~~.
 flt.dcblock2~		~~		~~
 flt.dcblock~		~		~
+flt.eq_peak_cq~		~		~.
 flt.eq_peak~		~		~.
 flt.highshelf~		~		~.
 flt.hpf12~		~		~.
@@ -83,18 +87,21 @@ flt.hpf24~		~		~.
 flt.lowshelf~		~		~.
 flt.lpf12~		~		~.
 flt.lpf24~		~		~.
+flt.moog_vcf~		~		~.
 flt.notch~		~		~.
 flt.resonbp~		~		~.
 function,func		..		..
 function.call,func.call		..		.
 fx.distortion~		~		~.
+fx.drone_box~		~		~.
 fx.flanger~		~		~.
 fx.freeverb2~		~~		~~.
 fx.freeverb~		~		~.
-fx.freqshift~		~~		~~.
+fx.freqshift~		~~		~~
 fx.greyhole~		~~		~~.
 fx.looper~		~		~
 fx.pitchshift~		~~		~.
+fx.wahwah~		~		~
 fx.zita_rev1~		~~		~~.
 global.float		.		.
 global.int		.		.
@@ -110,6 +117,7 @@ is_odd		.		..
 is_pointer		.		..
 is_symbol		.		..
 lfo.impulse~		~		~
+lfo.pulse~		~		~
 lfo.square~		~		~
 lfo.tri~		~		~
 list.all_of		..		..
@@ -216,6 +224,9 @@ midi.prg2str,midi.prg->str		.		.
 midi.track		.		..
 modplug~		.		~~
 msg,m		..		.
+noise.crackle~		~		~
+noise.lfreq0~		~		~
+noise.lfreq~		~		~
 noise.pink~		-		~
 noise.white~		-		~
 osc.impulse~		~		~
@@ -226,6 +237,7 @@ osc.square~		~		~
 osc.tri~		~		~
 pan.cos~,pan~		~.		~~
 pan.lin~		~.		~~
+pan.pan4~		~		~~~~
 pan.spread~		?		~~
 pan.sqrt~		~.		~~
 patch.args		.		.
@@ -256,6 +268,8 @@ set.size		.		.
 set.symdiff		..		.
 set.union		..		.
 snd.file		.		.
+spat.pan4~		~		~~~~.
+spat.pan8~		~		~~~~~~~~.
 string,str		.		.
 string.contains,str.contains		..		.
 string.ends_with,str.ends_with		..		.
@@ -272,7 +286,11 @@ string2symbol,str->sym		.		.
 symbol.equal		..		.
 symbol.length		.		.
 symbol.num_compare		..		.
+synth.birds~		.		~~
+synth.marimba~		.		~
+synth.risset_arp~		.		~~
 synth.risset_tone~		.		~
+synth.tambura~		.		~
 system.cursor		.		.
 system.getenv		.		.
 system.hostname		.		.

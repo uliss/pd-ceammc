@@ -58,9 +58,11 @@ env->array
 env->vline
 env.adsr~
 env.ar~
+env.asr~
 env.concat
 env.follow~
 env.mix
+env.smooth~
 env.tscale
 env.tshift
 env.vscale
@@ -68,6 +70,7 @@ env2array
 env2vline
 envelope
 expand_env
+flow.append
 flow.change
 flow.count
 flow.demultiplex
@@ -98,6 +101,7 @@ flt.c_notch~
 flt.c_peak~
 flt.dcblock2~
 flt.dcblock~
+flt.eq_peak_cq~
 flt.eq_peak~
 flt.highshelf~
 flt.hpf12~
@@ -105,6 +109,7 @@ flt.hpf24~
 flt.lowshelf~
 flt.lpf12~
 flt.lpf24~
+flt.moog_vcf~
 flt.notch~
 flt.resonbp~
 func
@@ -112,6 +117,8 @@ func.call
 function
 function.call
 fx.distortion~
+fx.drone_box~
+fx.echo~
 fx.flanger~
 fx.freeverb2~
 fx.freeverb~
@@ -120,6 +127,7 @@ fx.granulator~
 fx.greyhole~
 fx.looper~
 fx.pitchshift~
+fx.wahwah~
 fx.zita_rev1~
 gate
 global.float
@@ -138,6 +146,7 @@ is_odd
 is_pointer
 is_symbol
 lfo.impulse~
+lfo.pulse~
 lfo.square~
 lfo.tri~
 lin->curve
@@ -264,6 +273,7 @@ msg
 noise.baker
 noise.clifford
 noise.collatz
+noise.crackle~
 noise.duffing
 noise.ginger
 noise.henon
@@ -272,6 +282,7 @@ noise.henon_phase
 noise.henonf
 noise.ikeda
 noise.jong
+noise.lfreq0~
 noise.lfreq~
 noise.logistic
 noise.lorenz
@@ -337,6 +348,8 @@ set.size
 set.symdiff
 set.union
 snd.file
+spat.pan4~
+spat.pan8~
 speedlim
 split
 str
@@ -370,6 +383,9 @@ symbol.ends_with
 symbol.equal
 symbol.length
 symbol.num_compare
+synth.birds~
+synth.marimba~
+synth.risset_arp~
 synth.risset_tone~
 system.getenv
 system.hostname

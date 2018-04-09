@@ -19,41 +19,43 @@
             </also>
         </meta>
         <info>
-            <par>A complex echo-like effect, inspired by the classic Eventide effect of a similar name.
-            The effect consists of a diffuser (like a mini-reverb, structurally similar to the one used
-            in JPverb) connected in a feedback system with a long, modulated delay-line.
-            Excels at producing spacey washes of sound.</par>
-
+            <par>A complex echo-like effect, inspired by the classic Eventide effect of a similar
+            name. The effect consists of a diffuser (like a mini-reverb, structurally similar to
+            the one used in JPverb) connected in a feedback system with a long, modulated
+            delay-line. Excels at producing spacey washes of sound.</par>
             <par>Developed as part of the DEIND project.</par>
         </info>
         <arguments>
             <argument name="ID" type="symbol">object ID for OSC control path</argument>
         </arguments>
         <properties>
-            <property name="feedback" type="float" minvalue="0" maxvalue="1" default="0.9">
-            amount of feedback for the delay line</property>
-            <property name="damping" type="float" minvalue="0" maxvalue="0.99" default="0">
-            controls damping of high-frequencies as the delay decays.
-            0 is no damping, 1 is very strong damping</property>
+            <property name="feedback" type="float" minvalue="0" maxvalue="1" default="0.9">amount
+            of feedback for the delay line</property>
+            <property name="damping" type="float" minvalue="0" maxvalue="0.99" default="0">controls
+            damping of high-frequencies as the delay decays. 0 is no damping, 1 is very strong
+            damping</property>
             <property name="delaytime" units="second" type="float" minvalue="0.001" maxvalue="1.45"
             default="0.2">approximate delay time in seconds</property>
-            <property name="diffusion" type="float" minvalue="0" maxvalue="0.99"
-            default="0.5">shape of the diffusion unit. Values greater than 0.707 produce smooth exponential decay.
-            Lower values produce a slower build-up of echoes</property>
-            <property name="moddepth" type="float" minvalue="0" maxvalue="1"
-            default="0.1">depth of delay-line modulation.
-            Use in combination with *@modfreq* to set amount of chorusing within the structure</property>
-            <property name="modfreq" type="float" minvalue="0" maxvalue="10"
-            default="2">frequency of delay-line modulation.
-            Use in combination with *@moddepth* to set amount of chorusing within the structure</property>
-            <property name="size" type="float" minvalue="0.5" maxvalue="3"
-            default="1">size of delay-lines within the diffusion unit, producing the impression
-            of a larger or smaller space. Values below 1 can sound quite metallic.
-            </property>
+            <property name="diffusion" type="float" minvalue="0" maxvalue="0.99" default="0.5">
+            shape of the diffusion unit. Values greater than 0.707 produce smooth exponential
+            decay. Lower values produce a slower build-up of echoes</property>
+            <property name="moddepth" type="float" minvalue="0" maxvalue="1" default="0.1">depth of
+            delay-line modulation. Use in combination with *@modfreq* to set amount of chorusing
+            within the structure</property>
+            <property name="modfreq" type="float" minvalue="0" maxvalue="10" default="2">frequency
+            of delay-line modulation. Use in combination with *@moddepth* to set amount of
+            chorusing within the structure</property>
+            <property name="size" type="float" minvalue="0.5" maxvalue="3" default="1">size of
+            delay-lines within the diffusion unit, producing the impression of a larger or smaller
+            space. Values below 1 can sound quite metallic.</property>
         </properties>
         <inlets>
-            <inlet type="audio"><xinfo>left channel</xinfo></inlet>
-            <inlet type="audio"><xinfo>right channel</xinfo></inlet>
+            <inlet type="audio">
+                <xinfo>left channel</xinfo>
+            </inlet>
+            <inlet type="audio">
+                <xinfo>right channel</xinfo>
+            </inlet>
         </inlets>
         <outlets>
             <outlet type="audio">output signal</outlet>
@@ -69,10 +71,16 @@
 |
 [osc.saw~]
 | \
-[fx.greyhole~]
-|  ^|.
-[dac~]
+[fx.greyhole~]   [ui.hsl #c]
+|       ^|
+|        |
+[*~ #a] [*~ #b]
+|       |
+|       |.
+[dac~    ]
 
+[X c->a:1]
+[X c->b:1]
 ]]>
             </pdascii>
         </example>

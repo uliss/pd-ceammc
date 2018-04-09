@@ -26,9 +26,9 @@
             <property name="@array" type="symbol">target array name</property>
             <property name="@redraw" type="int" enum="0 1" default="1">redraw after array
             change</property>
-            <property name="@mode" type="symbol" enum="fit resize raw" default="fit">rendering mode:
-                      *fit* to array size,
-                      *resize* array to envelope length or *raw* render while enough space in array</property>
+            <property name="@mode" type="symbol" enum="fit resize raw" default="fit">rendering
+            mode: *fit* to array size, *resize* array to envelope length or *raw* render while
+            enough space in array</property>
             <property name="@fit" type="alias">alias to @mode fit property</property>
             <property name="@resize" type="alias">alias to @mode resize property</property>
             <property name="@raw" type="alias">alias to @mode raw property</property>
@@ -39,8 +39,8 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output number of samples in destination array.
-                    If array was resized - output this new size</outlet>
+            <outlet>output number of samples in destination array. If array was resized - output
+            this new size</outlet>
         </outlets>
         <example>
             <pdascii>

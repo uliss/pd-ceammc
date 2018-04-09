@@ -1,5 +1,6 @@
 #include "mod_flow.h"
 
+#include "flow_append.h"
 #include "flow_change.h"
 #include "flow_count.h"
 #include "flow_demultiplex.h"
@@ -19,6 +20,7 @@
 
 void ceammc_flow_setup()
 {
+    setup_flow_append();
     setup_flow0x2echange();
     setup_flow_count();
     setup_flow_demultiplex();

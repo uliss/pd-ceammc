@@ -6,7 +6,8 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>converts float time in seconds to formated symbol (or string)</description>
+            <description>converts float time in seconds to formated symbol (or
+            string)</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>conv</category>

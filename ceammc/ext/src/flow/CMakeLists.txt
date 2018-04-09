@@ -6,6 +6,7 @@ macro(ceammc_flow_extension name)
     list(APPEND FLOW_SOURCES "flow_${name}.cpp")
 endmacro()
 
+ceammc_flow_extension(append)
 ceammc_flow_extension(change)
 ceammc_flow_extension(count)
 ceammc_flow_extension(gate)

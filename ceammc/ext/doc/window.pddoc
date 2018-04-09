@@ -17,10 +17,8 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="NAME" type="symbol">window name:
-            blackman, blackman-harris, flattop, gauss, hamming,
-            hann, nuttall, rect, sine, tri, welch
-            </argument>
+            <argument name="NAME" type="symbol">window name: blackman, blackman-harris, flattop,
+            gauss, hamming, hann, nuttall, rect, sine, tri, welch</argument>
         </arguments>
         <methods>
             <method name="blackman">Sets Blackman window type</method>
@@ -42,10 +40,10 @@
         <inlets>
             <inlet>
                 <xinfo on="bang">output all window values as list</xinfo>
-                <xinfo on="float">window index position: from 0 to SIZE-1.
-                Output 0 if invalid index given</xinfo>
-                <xinfo on="list">pair INDEX SIZE expected. Sets windows size to SIZE.
-                Output window value at given index</xinfo>
+                <xinfo on="float">window index position: from 0 to SIZE-1. Output 0 if invalid
+                index given</xinfo>
+                <xinfo on="list">pair INDEX SIZE expected. Sets windows size to SIZE. Output window
+                value at given index</xinfo>
             </inlet>
         </inlets>
         <outlets>

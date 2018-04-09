@@ -48,7 +48,7 @@ if(UNIX)
     set_target_properties(flext_static PROPERTIES COMPILE_FLAGS "-fPIC")
 endif()
 
-include(PdExtension)
+include(PdExternal)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/flext/source)
 
 set(VASP_SRC
@@ -130,7 +130,7 @@ set(VASP_SRC
     vasp/source/vecblk.h
 )
 
-pd_add_extension(NAME vasp
+pd_add_external(NAME vasp
     FILES ${VASP_SRC}
     INTERNAL True
     LIBRARY vasp

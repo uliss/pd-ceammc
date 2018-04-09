@@ -1,6 +1,9 @@
-import("spat.lib");
+sp = library("spats.lib");
+ma = library("maths.lib");
 
-angle = vslider("angle",0,360,10,0.1);
-dist = vslider("dist",0,1,10,0.1);
+TWO_PI = 2.0 * ma.PI;
 
-process =  _: spat(4,angle/(360),dist) : _,_,_,_;
+angle = vslider("angle", 0, 0, TWO_PI, 0.0001);
+dist = vslider("dist", 1, 0, 1, 0.0001);
+
+process =  _: sp.spat(4, angle / TWO_PI, dist) : _,_,_,_;

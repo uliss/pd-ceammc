@@ -27,7 +27,7 @@
             <property name="@receive" type="symbol">receive source</property>
         </properties>
         <methods>
-            <method name="set">set widget value with no output
+            <method name="set">set widget value with no output 
             <param name="COL" type="int" required="true">column index</param>
             <param name="ROW" type="int" required="true">row index</param></method>
         </methods>
@@ -37,7 +37,8 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output values: @pd COLOR, @rgb in range [0-1], @hsl in range [0-1], @hex</outlet>
+            <outlet>output values: @pd COLOR, @rgb in range [0-1], @hsl in range [0-1],
+            @hex</outlet>
         </outlets>
         <example>
             <pdascii>

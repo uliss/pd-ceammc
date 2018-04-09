@@ -9,14 +9,18 @@
 #include "env_vscale.h"
 
 extern "C" void setup_env0x2eadsr_tilde();
+extern "C" void setup_env0x2easr_tilde();
 extern "C" void setup_env0x2ear_tilde();
 extern "C" void setup_env0x2efollow_tilde();
+extern "C" void setup_env0x2esmooth_tilde();
 
 void ceammc_env_setup()
 {
     setup_env0x2eadsr_tilde();
+    setup_env0x2easr_tilde();
     setup_env0x2ear_tilde();
     setup_env0x2efollow_tilde();
+    setup_env0x2esmooth_tilde();
     setup_envelope();
     setup_env_to_vline();
     setup_env_to_array();

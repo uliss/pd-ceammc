@@ -1,16 +1,13 @@
 #include "env_follow.h"
 
-static void* faust_new(t_symbol* s, int argc, t_atom* argv)
+EXTERNAL_NEW
 {
-    t_faust* x = reinterpret_cast<t_faust*>(pd_new(faust_class));
+    FAUST_EXT* x = reinterpret_cast<FAUST_EXT*>(pd_new(FAUST_EXT_CLASS));
+
     PdArgParser p(x, argc, argv);
     p.initFloatArg("attack", 1);
     p.initFloatArg("release", 2);
     return p.pd_obj();
 }
 
-extern "C" void setup_env0x2efollow_tilde()
-{
-    internal_setup(gensym("env.follow~"));
-}
-
+EXTERNAL_SETUP(env)

@@ -15,7 +15,7 @@
             <also>
                 <see>osc.saw~</see>
                 <see>osc.tri~</see>
-                <see>osc.sqr~</see>
+                <see>osc.square~</see>
                 <see>lfo.impulse~</see>
             </also>
         </meta>
@@ -33,14 +33,15 @@
         <example>
             <pdascii>
 <![CDATA[
-[floatatom]
+[F]
 |
 [osc.impulse~ 20]
-|              [tgl]
-|  .___________/
-[*~]
+|
+[ui.gain~ @size 120 16]
 |\
 [dac~]
+
+[ui.dsp~]
 ]]>
             </pdascii>
         </example>

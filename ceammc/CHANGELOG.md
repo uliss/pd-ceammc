@@ -1,5 +1,31 @@
 # CEAMMC external library changelog
 
+## [Unreleased]
+### Added:
+- env.asr~ envelope generator added
+- env.smooth~ envelope generator added
+- fx.drone_box~ added
+- noise.lfreq~ doc added
+- noise.lfreq0~ added
+- noise.crackle~ added
+- flt.eq_peak_cq~ added
+- lfo.pulse~ added
+- spat.pan4~ added
+- spat.pan8~ added
+- synth.risset_arp~ added
+- synth.birds~ added
+- synth.marimba~ added
+- fx.wahwah~ added
+- fx.echo~ added
+- flow.append added
+- flt.moog_vcf~ added
+
+### Changed:
+- migration to Faust v2
+- flt.hpf12~, flt.hpf24~, flt.lpf12~, flt.lpf24~ @q property removed
+
+### Fixed:
+
 ## [2018.03]
 ### Added:
 - hw.arduino added

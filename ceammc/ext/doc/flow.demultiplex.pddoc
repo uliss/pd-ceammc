@@ -23,14 +23,19 @@
             <argument name="N" type="int" minvalue="2" maxvalue="24">number of inlets</argument>
         </arguments>
         <properties>
-            <property name="@index" type="int" minvalue="0">current multiplexer output index</property>
+            <property name="@index" type="int" minvalue="0">current multiplexer output
+            index</property>
         </properties>
         <methods>
             <method name="reset">reset counter</method>
         </methods>
         <inlets dynamic="true">
-            <inlet><xinfo>demultiplexer first inlet</xinfo></inlet>
-            <inlet number="n"><xinfo>demultiplexer N-th inlet</xinfo></inlet>
+            <inlet>
+                <xinfo>demultiplexer first inlet</xinfo>
+            </inlet>
+            <inlet number="n">
+                <xinfo>demultiplexer N-th inlet</xinfo>
+            </inlet>
         </inlets>
         <outlets>
             <outlet>output</outlet>

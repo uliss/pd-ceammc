@@ -28,14 +28,15 @@
             [ui.preset]</property>
             <property name="@send" type="symbol">send destination</property>
             <property name="@receive" type="symbol">receive source</property>
-            <property name="@midi_channel" type="int" minvalue="0" maxvalue="16" default="0">
-                binded MIDI channel. 0 means listen to all channels</property>
+            <property name="@midi_channel" type="int" minvalue="0" maxvalue="16" default="0">binded
+            MIDI channel. 0 means listen to all channels</property>
             <property name="@midi_control" type="int" minvalue="0" maxvalue="128" default="0">
-                binded MIDI controller number. 0 means not binded to any controller.</property>
+            binded MIDI controller number. 0 means not binded to any controller.</property>
             <property name="@midi_pickup" type="int" enum="0 1" default="1">pickup current value.
-            If slider is binded to value, first time you should pass over this value to make binding.
-            It prevents from sudden value change on first control change</property>
-            <property name="@active_scale" type="int" enum="0 1" default="0">if should draw active scale</property>
+            If slider is binded to value, first time you should pass over this value to make
+            binding. It prevents from sudden value change on first control change</property>
+            <property name="@active_scale" type="int" enum="0 1" default="0">if should draw active
+            scale</property>
             <property name="@value" type="float">current value</property>
         </properties>
         <methods>
@@ -43,13 +44,13 @@
             <method name="set">sets knob state without output</method>
             <method name="++">increment knob value without output</method>
             <method name="--">decrement knob value without output</method>
-            <method name="+">add value to knob without output
+            <method name="+">add value to knob without output 
             <param name="V" type="float" required="true">added value</param></method>
-            <method name="-">substruct value from knob without output
+            <method name="-">substruct value from knob without output 
             <param name="V" type="float" required="true">substructed value</param></method>
-            <method name="*">multiply knob value without output
+            <method name="*">multiply knob value without output 
             <param name="V" type="float" required="true">mutiplied value</param></method>
-            <method name="/">divide knob value without output
+            <method name="/">divide knob value without output 
             <param name="V" type="float" required="true">denominator value</param></method>
         </methods>
         <inlets>
