@@ -54,6 +54,8 @@ extern "C" void setup_list0x2ewalk();
 extern "C" void setup_list0x2ewrap();
 extern "C" void setup_list0x2ezip();
 
+void setup_list_foldl();
+
 void ceammc_list_setup()
 {
     setup_list0x2eall_of();
@@ -110,4 +112,5 @@ void ceammc_list_setup()
     setup_list0x2ezip();
 
     setup_list_route();
+    setup_list_foldl();
 }
