@@ -1,47 +1,40 @@
+#include "list_reduce.h"
 #include "ceammc_factory.h"
-#include "ceammc_object.h"
 
-using namespace ceammc;
+ListReduce::ListReduce(const PdArgs& a)
+    : BaseObject(a)
+{
+    createInlet();
+    createOutlet();
+    createOutlet();
+}
 
-class ListReduce : public BaseObject {
-    Atom accum_;
+void ListReduce::onList(const AtomList& l)
+{
+    if (l.empty())
+        return;
 
-public:
-    ListReduce(const PdArgs& a)
-        : BaseObject(a)
-    {
-        createInlet();
-        createOutlet();
-        createOutlet();
+    accum_ = l[0];
+    AtomList pair(0.f, 0.f);
+
+    for (size_t i = 1; i < l.size(); i++) {
+        pair[0] = accum_;
+        pair[1] = l[i];
+        listTo(1, pair);
     }
 
-    void onList(const AtomList& l)
-    {
-        if (l.empty())
-            return;
+    atomTo(0, accum_);
+}
 
-        accum_ = l[0];
+void ListReduce::onInlet(size_t n, const AtomList& l)
+{
+    if (n != 1)
+        return;
 
-        for (size_t i = 1; i < l.size(); i++) {
-            AtomList pair;
-            pair.append(accum_);
-            pair.append(l[i]);
-            listTo(1, pair);
-        }
+    accum_ = atomlistToValue<Atom>(l, Atom(0.f));
+}
 
-        atomTo(0, accum_);
-    }
-
-    void onInlet(size_t n, const AtomList& l)
-    {
-        if (n != 1)
-            return;
-
-        accum_ = atomlistToValue<Atom>(l, Atom(0.f));
-    }
-};
-
-extern "C" void setup_list0x2ereduce()
+void setup_list_reduce()
 {
     ObjectFactory<ListReduce> obj("list.reduce");
     obj.addAlias("list.foldl");
