@@ -937,6 +937,9 @@
     <entry descr="bird singing generator" name="synth.birds~" ref_view="object">
       <xi:include href="synth.birds~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="simple electric guitar model with steel strings" name="synth.eguitar~" ref_view="object">
+      <xi:include href="synth.eguitar~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="simple marimba physical model implementing a single tone bar connected to tube" name="synth.marimba~" ref_view="object">
       <xi:include href="synth.marimba~.pddoc" parse="xml"/>
     </entry>

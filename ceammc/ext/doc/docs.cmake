@@ -291,6 +291,7 @@ set(DOC_FILES
     synth.risset_arp~
     synth.birds~
     synth.marimba~
+    synth.eguitar~
     system.cursor
     system.getenv
     system.hostname
