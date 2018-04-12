@@ -15,6 +15,8 @@
 - synth.risset_arp~ added
 - synth.birds~ added
 - synth.marimba~ added
+- synth.ks~ (Karplus-Strong) added
+- synth.eguitar~ added
 - fx.wahwah~ added
 - fx.echo~ added
 - fx.sdelay~ added
