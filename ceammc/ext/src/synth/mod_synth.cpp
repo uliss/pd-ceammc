@@ -7,6 +7,7 @@ extern "C" void setup_synth0x2emarimba_tilde();
 extern "C" void setup_synth0x2eeguitar_tilde();
 extern "C" void setup_synth0x2eks_tilde();
 extern "C" void setup_synth0x2echurch_bell_tilde();
+extern "C" void setup_synth0x2edubdub_tilde();
 
 void ceammc_synth_setup()
 {
@@ -17,4 +18,5 @@ void ceammc_synth_setup()
     setup_synth0x2eks_tilde();
     setup_synth0x2eeguitar_tilde();
     setup_synth0x2echurch_bell_tilde();
+    setup_synth0x2edubdub_tilde();
 }
