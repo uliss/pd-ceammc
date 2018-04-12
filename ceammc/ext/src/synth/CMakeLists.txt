@@ -11,6 +11,7 @@ ceammc_synth_extension(risset_arp)
 ceammc_synth_extension(marimba)
 ceammc_synth_extension(eguitar)
 ceammc_synth_extension(ks)
+ceammc_synth_extension(church_bell)
 
 add_library(ceammc_synth STATIC mod_synth.cpp ${SYNTH_SOURCES})
 set_target_properties(ceammc_synth PROPERTIES COMPILE_DEFINITIONS "FAUST_MACRO")
