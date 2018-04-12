@@ -290,6 +290,7 @@ symbol.length		.		.
 symbol.num_compare		..		.
 synth.birds~		.		~~
 synth.eguitar~		.		~
+synth.ks~		.		~
 synth.marimba~		.		~
 synth.risset_arp~		.		~~
 synth.risset_tone~		.		~

@@ -292,6 +292,7 @@ set(DOC_FILES
     synth.birds~
     synth.marimba~
     synth.eguitar~
+    synth.ks~
     system.cursor
     system.getenv
     system.hostname
