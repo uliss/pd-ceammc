@@ -17,6 +17,7 @@
 - synth.marimba~ added
 - synth.ks~ (Karplus-Strong) added
 - synth.eguitar~ added
+- synth.church_bell~ added
 - fx.wahwah~ added
 - fx.echo~ added
 - fx.sdelay~ added

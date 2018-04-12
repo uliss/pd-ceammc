@@ -287,6 +287,7 @@ set(DOC_FILES
     symbol.equal
     symbol.length
     symbol.num_compare
+    synth.church_bell~
     synth.risset_tone~
     synth.risset_arp~
     synth.birds~
