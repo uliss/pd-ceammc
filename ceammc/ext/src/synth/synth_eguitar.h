@@ -629,9 +629,9 @@ class eguitar : public dsp {
 	}
 	
 	virtual void instanceResetUserInterface() {
-		fHslider0 = FAUSTFLOAT(1.0f);
-		fHslider1 = FAUSTFLOAT(48.0f);
-		fHslider2 = FAUSTFLOAT(0.5f);
+		fHslider0 = FAUSTFLOAT(0.0f);
+		fHslider1 = FAUSTFLOAT(0.5f);
+		fHslider2 = FAUSTFLOAT(48.0f);
 		fHslider3 = FAUSTFLOAT(1.0f);
 		fButton0 = FAUSTFLOAT(0.0f);
 		
@@ -744,20 +744,20 @@ class eguitar : public dsp {
 		ui_interface->openVerticalBox("eguitar");
 		ui_interface->addHorizontalSlider("gain", &fHslider3, 1.0f, 0.0f, 1.0f, 0.00100000005f);
 		ui_interface->addButton("gate", &fButton0);
-		ui_interface->addHorizontalSlider("mute", &fHslider0, 1.0f, 0.0f, 1.0f, 0.00100000005f);
-		ui_interface->addHorizontalSlider("pitch", &fHslider1, 48.0f, 36.0f, 84.0f, 0.00100000005f);
-		ui_interface->addHorizontalSlider("pos", &fHslider2, 0.5f, 0.0f, 1.0f, 0.00999999978f);
+		ui_interface->addHorizontalSlider("mute", &fHslider0, 0.0f, 0.0f, 1.0f, 0.00100000005f);
+		ui_interface->addHorizontalSlider("pitch", &fHslider2, 48.0f, 36.0f, 84.0f, 0.00100000005f);
+		ui_interface->addHorizontalSlider("pos", &fHslider1, 0.5f, 0.0f, 1.0f, 0.00999999978f);
 		ui_interface->closeBox();
 		
 	}
 	
 	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
 		FAUSTFLOAT* output0 = outputs[0];
-		float fSlow0 = float(fHslider0);
-		float fSlow1 = powf(2.0f, (0.0833333358f * (float(fHslider1) + -69.0f)));
-		float fSlow2 = ((0.772727251f / fSlow1) + -0.109999999f);
-		float fSlow3 = float(fHslider2);
-		float fSlow4 = (fConst1 * (fSlow2 * (1.0f - fSlow3)));
+		float fSlow0 = (1.0f - float(fHslider0));
+		float fSlow1 = float(fHslider1);
+		float fSlow2 = powf(2.0f, (0.0833333358f * (float(fHslider2) + -69.0f)));
+		float fSlow3 = ((0.772727251f / fSlow2) + -0.109999999f);
+		float fSlow4 = (fConst1 * ((1.0f - fSlow1) * fSlow3));
 		float fSlow5 = (fSlow4 + -1.49999499f);
 		float fSlow6 = floorf(fSlow5);
 		float fSlow7 = (fSlow4 + (-1.0f - fSlow6));
@@ -782,7 +782,7 @@ class eguitar : public dsp {
 		float fSlow26 = (0.0416666679f * (fSlow22 * fSlow9));
 		int iSlow27 = int(min(fConst2, float(max(0, (iSlow12 + 4)))));
 		int iSlow28 = (iSlow27 + 1);
-		float fSlow29 = (fConst1 * (fSlow2 * fSlow3));
+		float fSlow29 = (fConst1 * (fSlow1 * fSlow3));
 		float fSlow30 = (fSlow29 + -1.49999499f);
 		float fSlow31 = floorf(fSlow30);
 		float fSlow32 = (fSlow29 + (-1.0f - fSlow31));
@@ -807,7 +807,7 @@ class eguitar : public dsp {
 		float fSlow51 = (0.0416666679f * (fSlow47 * fSlow34));
 		int iSlow52 = int(min(fConst2, float(max(0, (iSlow37 + 4)))));
 		int iSlow53 = (iSlow52 + 2);
-		float fSlow54 = tanf((fConst3 * fSlow1));
+		float fSlow54 = tanf((fConst3 * fSlow2));
 		float fSlow55 = (1.0f / fSlow54);
 		float fSlow56 = (((fSlow55 + 1.41421354f) / fSlow54) + 1.0f);
 		float fSlow57 = (float(fHslider3) / fSlow56);
@@ -815,7 +815,7 @@ class eguitar : public dsp {
 		float fSlow59 = (2.0f * (1.0f - (1.0f / eguitar_faustpower2_f(fSlow54))));
 		float fSlow60 = (((fSlow55 + -1.41421354f) / fSlow54) + 1.0f);
 		float fSlow61 = float(fButton0);
-		float fSlow62 = eguitar_faustpower2_f((1.0f - (0.219999999f * fSlow1)));
+		float fSlow62 = eguitar_faustpower2_f((1.0f - (0.219999999f * fSlow2)));
 		float fSlow63 = (fConst4 * fSlow62);
 		float fSlow64 = (fConst5 * fSlow62);
 		float fSlow65 = (fConst6 / fSlow62);

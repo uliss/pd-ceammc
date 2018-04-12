@@ -21,8 +21,8 @@
             pitch</property>
             <property name="@pos" type="float" minvalue="0" maxvalue="1" default="0.5">pluck position
             (1 is on the bridge)</property>
-            <property name="@mute" type="float" minvalue="0" maxvalue="1" default="1">mute coefficient
-            (1 for no mute and 0 for instant mute)</property>
+            <property name="@mute" type="float" minvalue="0" maxvalue="1" default="0">mute coefficient
+            (0 for no mute and 1 for instant mute)</property>
             <property name="@gain" type="float" minvalue="0" maxvalue="1" default="1">pluck
             gain</property>
         </properties>

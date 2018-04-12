@@ -31,7 +31,7 @@ range: 36-84;
 float. Default value: 0.5\. Value range: 0-1;
 #X msg 120 558 @mute;
 #X text 240 558 Get/Set mute coefficient (0 for no mute and 1 for
-instant mute). Type: float. Default value: 1\. Value range: 0-1;
+instant mute). Type: float. Default value: 0\. Value range: 0-1;
 #X msg 120 595 @gain;
 #X text 240 595 Get/Set pluck gain. Type: float. Default value: 1\.
 Value range: 0-1;
