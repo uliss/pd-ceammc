@@ -2,6 +2,7 @@
 
 #include "math_gcd.h"
 #include "math_lcm.h"
+#include "math_mul.h"
 
 extern "C" void setup_math0x2eabs();
 extern "C" void setup_math0x2eacos();
@@ -84,4 +85,5 @@ void ceammc_math_setup()
     setup_math0x2egcd();
     setup_math0x2elcm();
     setup_math0x2eround_tilde();
+    setup_math_mul();
 }
