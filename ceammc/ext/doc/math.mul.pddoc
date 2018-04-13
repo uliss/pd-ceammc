@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.mul">
+        <title>math.mul</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>multiplication (on lists too)</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math mul</keywords>
+            <aliases>
+                <alias>math.*</alias>
+            </aliases>
+            <since>0.6</since>
+        </meta>
+        <arguments>
+            <argument name="MUL" type="float">multiplicand</argument>
+        </arguments>
+        <properties>
+            <property name="@mul" type="float" default="1">multiplicand</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="float">multiplier</xinfo>
+                <xinfo on="list">list of multipliers (non float values are ignored)</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float">change multiplicand</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>float or list</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[1 2 3 A B C( [F]  [F]
+|             |    |
+|             |    |.
+[math.* 2           ]
+|
+[msg set]
+|
+[ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

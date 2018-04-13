@@ -199,6 +199,7 @@ set(DOC_FILES
     math.log
     math.log10
     math.log2
+    math.mul
     math.nan
     math.neg
     math.or

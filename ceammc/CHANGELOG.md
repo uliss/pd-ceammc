@@ -24,6 +24,7 @@
 - flow.append added
 - flt.moog_vcf~ added
 - alias for list.reduce: list.foldl
+- math.mul (math.*) added for lists
 
 ### Changed:
 - migration to Faust v2

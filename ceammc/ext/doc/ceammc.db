@@ -199,6 +199,7 @@ math.lcm		..		.
 math.log		.		.
 math.log10		.		.
 math.log2		.		.
+math.mul,math.*		..		.
 math.nan		.		.
 math.neg		.		.
 math.or,or		?		.
