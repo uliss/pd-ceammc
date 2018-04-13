@@ -216,6 +216,7 @@ local.int
 local.json
 local.list
 m
+math.*
 math.abs
 math.acos
 math.acosh
@@ -239,6 +240,7 @@ math.lcm
 math.log
 math.log10
 math.log2
+math.mul
 math.nan
 math.neg
 math.or
@@ -387,6 +389,7 @@ symbol.length
 symbol.num_compare
 synth.birds~
 synth.church_bell~
+synth.dubdub~
 synth.eguitar~
 synth.ks~
 synth.marimba~
