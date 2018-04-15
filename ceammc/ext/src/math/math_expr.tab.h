@@ -65,7 +65,7 @@ extern int math_expr_debug;
 
 union MATH_EXPR_STYPE
 {
-#line 17 "math_expr.y" /* yacc.c:1915  */
+#line 18 "math_expr.y" /* yacc.c:1915  */
 
   double val;   /* for returning numbers                  */
   symrec *tptr; /* for returning symbol-table of 'symrec' */
@@ -81,6 +81,6 @@ typedef union MATH_EXPR_STYPE MATH_EXPR_STYPE;
 
 extern MATH_EXPR_STYPE math_expr_lval;
 
-int math_expr_parse (void);
+int math_expr_parse (double *result);
 
 #endif /* !YY_MATH_EXPR_MATH_EXPR_TAB_H_INCLUDED  */

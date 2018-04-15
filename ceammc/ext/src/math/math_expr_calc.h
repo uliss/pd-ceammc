@@ -21,7 +21,7 @@ extern "C" {
 /* Data type for links in the chain of symbols. */
 
 struct symrec {
-    char* name; /* name of symbol */
+    char name[8]; /* name of symbol */
     int type; /* type of symbol: VAR or FNCT */
     union {
         double var; /* value of a VAR  */
@@ -35,13 +35,16 @@ typedef struct symrec symrec;
 /* The symbol table: a chain of 'struct symrec' */
 extern symrec* sym_table;
 
-symrec* math_expr_putsym(char* sym_name, int sym_type);
-symrec* math_expr_getsym(char* sym_name);
+symrec* math_expr_putvar(const char* var_name, double v);
+symrec* math_expr_setvar(const char* var_name, double v);
+symrec* math_expr_putsym(const char* sym_name, int sym_type);
+symrec* math_expr_getsym(const char* sym_name);
 
+void math_expr_init_table();
 int math_expr_calc(const char* s, double* res);
 
 int math_exprlex();
-void math_expr_error(const char *s);
+void math_expr_error(double* res, const char* s);
 
 #if defined(__cplusplus)
 }

@@ -19,12 +19,15 @@
 using namespace ceammc;
 
 class MathExpr : public BaseObject {
+    std::string expr_;
+
 public:
     MathExpr(const PdArgs& args);
 
     void onFloat(t_float v);
+    void onInlet(size_t n, const AtomList& lst);
+
     void onList(const AtomList& lst);
-    void onAny(t_symbol* s, const AtomList& lst);
 };
 
 void setup_math_expr();

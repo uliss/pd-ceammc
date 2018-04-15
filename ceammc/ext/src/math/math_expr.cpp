@@ -16,17 +16,33 @@
 #include "ceammc_format.h"
 #include "math_expr_calc.h"
 
+#include <cmath>
+
 extern "C" double math_expr_yyparse(const char*);
 
 MathExpr::MathExpr(const PdArgs& args)
     : BaseObject(args)
 {
+    expr_ = to_string(positionalArguments());
+
     createInlet();
     createOutlet();
 }
 
 void MathExpr::onFloat(t_float v)
 {
+    math_expr_setvar("$f", v);
+
+    double res = 0;
+    int err = math_expr_calc(expr_.c_str(), &res);
+
+    if (!err)
+        floatTo(0, res);
+}
+
+void MathExpr::onInlet(size_t n, const AtomList& lst)
+{
+    expr_ = to_string(lst);
 }
 
 void MathExpr::onList(const AtomList& lst)
@@ -38,19 +54,10 @@ void MathExpr::onList(const AtomList& lst)
         floatTo(0, res);
 }
 
-void MathExpr::onAny(t_symbol* s, const AtomList& lst)
-{
-    std::string expr(s->s_name);
-    expr += to_string(lst);
-
-    double res = 0;
-    int err = math_expr_calc(expr.c_str(), &res);
-
-    if (!err)
-        floatTo(0, res);
-}
-
 void setup_math_expr()
 {
     ObjectFactory<MathExpr> obj("math.expr");
+    math_expr_init_table();
+    math_expr_putvar("$pi", M_PI);
+    math_expr_putvar("$e", M_E);
 }
