@@ -25,7 +25,7 @@
 
 %right '='
 %left  '-' '+'
-%left  '*' '/'
+%left  '*' '/' '%'
 %left  NEG     /* unary minus    */
 %right '^'     /* exponentiation */
 
@@ -50,6 +50,7 @@ exp : NUM                 { $$ = $1;                         }
       | exp '-' exp       { $$ = $1 - $3;                    }
       | exp '*' exp       { $$ = $1 * $3;                    }
       | exp '/' exp       { $$ = $1 / $3;                    }
+      | exp '%' exp       { $$ = (long)$1 % (long)$3;        }
       | '-' exp %prec NEG { $$ = -$2;                        }
       | exp '^' exp       { $$ = pow ($1, $3);               }
       | '(' exp ')'       { $$ = $2;                         }
@@ -98,7 +99,7 @@ symrec * math_expr_getsym (char * sym_name) {
 }
 
 /* puts arithmetic functions in table */
-void init_table (void) {
+void math_expr_init_table (void) {
     symrec * ptr;
     for (int i = 0; arith_fncts[i].fname != 0; i++) {
         ptr = math_expr_putsym(arith_fncts[i].fname, FNCT);
@@ -108,7 +109,7 @@ void init_table (void) {
 
 void math_expr_error(const char* s)
 {
-    post("%s", s);
+    pd_error(0, "[math.expr] parse error: %s", s);
 }
 
 int math_expr_calc(const char* s, double* res)
