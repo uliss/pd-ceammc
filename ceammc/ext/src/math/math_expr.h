@@ -28,6 +28,9 @@ public:
     void onInlet(size_t n, const AtomList& lst);
 
     void onList(const AtomList& lst);
+
+    AtomList propExpr() const;
+    void propSetExpr(const AtomList& lst);
 };
 
 void setup_math_expr();

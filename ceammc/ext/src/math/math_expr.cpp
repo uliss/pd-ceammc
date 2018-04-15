@@ -23,10 +23,12 @@ extern "C" double math_expr_yyparse(const char*);
 MathExpr::MathExpr(const PdArgs& args)
     : BaseObject(args)
 {
-    expr_ = to_string(positionalArguments());
+    expr_ = to_string(positionalArguments(), "");
 
     createInlet();
     createOutlet();
+
+    createCbProperty("@expr", &MathExpr::propExpr, &MathExpr::propSetExpr);
 }
 
 void MathExpr::onFloat(t_float v)
@@ -42,16 +44,37 @@ void MathExpr::onFloat(t_float v)
 
 void MathExpr::onInlet(size_t n, const AtomList& lst)
 {
-    expr_ = to_string(lst);
+    expr_ = to_string(lst, "");
 }
 
 void MathExpr::onList(const AtomList& lst)
 {
-    double res = 0;
-    int err = math_expr_calc(to_string(lst).c_str(), &res);
+    AtomList out;
 
-    if (!err)
-        floatTo(0, res);
+    for (size_t i = 0; i < lst.size(); i++) {
+        const Atom& a = lst[i];
+        t_float v = 0;
+        if (!a.getFloat(&v))
+            continue;
+
+        double res = 0;
+        math_expr_setvar("$f", v);
+        int err = math_expr_calc(expr_.c_str(), &res);
+        if (!err)
+            out.append(Atom(res));
+    }
+
+    listTo(0, out);
+}
+
+AtomList MathExpr::propExpr() const
+{
+    return Atom(gensym(expr_.c_str()));
+}
+
+void MathExpr::propSetExpr(const AtomList& lst)
+{
+    expr_ = to_string(lst, "");
 }
 
 void setup_math_expr()
