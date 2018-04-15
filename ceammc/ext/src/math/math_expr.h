@@ -18,8 +18,11 @@
 
 using namespace ceammc;
 
+struct symrec;
+
 class MathExpr : public BaseObject {
     std::string expr_;
+    symrec* var0_;
 
 public:
     MathExpr(const PdArgs& args);

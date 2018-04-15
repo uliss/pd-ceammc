@@ -80,5 +80,7 @@ TEST_CASE("math.expr", "[externals]")
         REQUIRE_EXPR(t, "sin($pi*2)", 100, Approx(0));
         REQUIRE_EXPR(t, "cos(0)", 100, Approx(1));
         REQUIRE_EXPR(t, "cos($pi)", 100, Approx(-1));
+
+
     }
 }

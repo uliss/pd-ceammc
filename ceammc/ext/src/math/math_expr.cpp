@@ -16,14 +16,19 @@
 #include "ceammc_format.h"
 #include "math_expr_calc.h"
 
+#include <cassert>
 #include <cmath>
 
 extern "C" double math_expr_yyparse(const char*);
 
 MathExpr::MathExpr(const PdArgs& args)
     : BaseObject(args)
+    , var0_(0)
 {
     expr_ = to_string(positionalArguments(), "");
+    var0_ = math_expr_getsym("$f");
+
+    assert(var0_);
 
     createInlet();
     createOutlet();
@@ -33,7 +38,7 @@ MathExpr::MathExpr(const PdArgs& args)
 
 void MathExpr::onFloat(t_float v)
 {
-    math_expr_setvar("$f", v);
+    var0_->value.var = v;
 
     double res = 0;
     int err = math_expr_calc(expr_.c_str(), &res);
@@ -58,7 +63,8 @@ void MathExpr::onList(const AtomList& lst)
             continue;
 
         double res = 0;
-        math_expr_setvar("$f", v);
+        var0_->value.var = v;
+
         int err = math_expr_calc(expr_.c_str(), &res);
         if (!err)
             out.append(Atom(res));
@@ -83,4 +89,5 @@ void setup_math_expr()
     math_expr_init_table();
     math_expr_putvar("$pi", M_PI);
     math_expr_putvar("$e", M_E);
+    math_expr_putvar("$f", 0);
 }
