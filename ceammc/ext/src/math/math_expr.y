@@ -1,106 +1,126 @@
+/* multi-function calculator */
+/* Time-stamp: <2000-10-23 14:52:06 ronaldo> mfcalc.y */
+
 %{
-
+#include <math.h>   /* For math functions: cos(), sin(), etc. */
+#include <string.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
+
 #include "m_pd.h"
-
-#include "math_expr.lex.yy.h"
-
-
-typedef struct MathExprResult {
-    double v;
-    double fval;
-    double ival;
-    int error;
-} MathExprResult;
-
-//extern int math_expr_parse(MathExprResult* res);
-
-void math_expr_error(MathExprResult* res, const char* s);
-double math_expr_yyparse(const char* s);
-
+#include "math_expr_calc.h" /* Contains definition of 'symrec'        */
+#include "lex.math_expr.h"
 %}
 
-%union {
-    MathExprResult* res;
-}
-
-// %define api.token.prefix {ME_}
-%define api.pure full
 %define api.prefix {math_expr_}
-%parse-param {MathExprResult *result}
+%define api.pure false
 
-%token<res->ival> T_INT
-%token<res->fval> T_FLOAT
-
-%token T_PLUS T_MINUS T_MULTIPLY T_DIVIDE T_POWER T_LEFT T_RIGHT
-%token T_NEWLINE
-%left T_PLUS T_MINUS
-%left T_MULTIPLY T_DIVIDE T_POWER
-
-%type <res>  program
-%type <res->ival> expression
-%type <res->fval> mixed_expression
-%type <res->fval> calculation
-
-%start program
-
-%%
-
-program: calculation  { post("\tResult: %f\n", $1); result->v = $1; }
-;
-
-calculation: mixed_expression { $$ = $1; }
-    | expression              { $$ = $1; }
-;
-
-mixed_expression: T_FLOAT                            { $$ = $1; }
-      | mixed_expression T_PLUS mixed_expression     { $$ = $1 + $3; }
-      | mixed_expression T_MINUS mixed_expression    { $$ = $1 - $3; }
-      | mixed_expression T_MULTIPLY mixed_expression { $$ = $1 * $3; }
-      | mixed_expression T_DIVIDE mixed_expression   { $$ = $1 / $3; }
-      | mixed_expression T_POWER mixed_expression    { $$ = pow($1, $3); }
-      | T_LEFT mixed_expression T_RIGHT              { $$ = $2; }
-      | expression T_PLUS mixed_expression           { $$ = $1 + $3; }
-      | expression T_MINUS mixed_expression          { $$ = $1 - $3; }
-      | expression T_MULTIPLY mixed_expression       { $$ = $1 * $3; }
-      | expression T_DIVIDE mixed_expression         { $$ = $1 / $3; }
-      | expression T_POWER mixed_expression          { $$ = pow($1, $3); }
-      | mixed_expression T_PLUS expression           { $$ = $1 + $3; }
-      | mixed_expression T_MINUS expression          { $$ = $1 - $3; }
-      | mixed_expression T_MULTIPLY expression       { $$ = $1 * $3; }
-      | mixed_expression T_DIVIDE expression         { $$ = $1 / $3; }
-      | mixed_expression T_POWER expression          { $$ = pow($1, $3); }
-      | expression T_DIVIDE expression               { $$ = $1 / (float)$3; }
-      | expression T_POWER expression                { $$ = pow($1, $3); }
-;
-
-expression: T_INT				            { $$ = $1; }
-      | expression T_PLUS expression        { $$ = $1 + $3; }
-      | expression T_MINUS expression       { $$ = $1 - $3; }
-      | expression T_MULTIPLY expression    { $$ = $1 * $3; }
-      | T_LEFT expression T_RIGHT           { $$ = $2; }
-;
-
-%%
-
-void math_expr_error(MathExprResult* res, const char* s) {
-    post("Parse error: %s", s);
-    res->error = 1;
+%union {
+  double val;   /* for returning numbers                  */
+  symrec *tptr; /* for returning symbol-table of 'symrec' */
 }
 
-double math_expr_yyparse(const char* s)
+%token <val>  NUM        /* Simple double precision number */
+%token <tptr> VAR FNCT   /* Variable and Function          */
+%type  <val>  exp        /* For nonterminal symbols        */
+
+%right '='
+%left  '-' '+'
+%left  '*' '/'
+%left  NEG     /* unary minus    */
+%right '^'     /* exponentiation */
+
+/* Grammar follows */
+
+%%
+
+input : /* empty */
+        | exp { post("%.10lf\n", $1); }
+;
+
+//line : '\n'
+//       | exp '\n'   { post("%.10lf\n", $1); }
+//       | error '\n' { yyerrok;              }
+//;
+
+exp : NUM                 { $$ = $1;                         }
+      | VAR               { $$ = $1->value.var;              }
+//      | VAR '=' exp       { $$ = $3; $1->value.var = $3;     }
+      | FNCT '(' exp ')'  { $$ = (*($1->value.fnctptr))($3); }
+      | exp '+' exp       { $$ = $1 + $3;                    }
+      | exp '-' exp       { $$ = $1 - $3;                    }
+      | exp '*' exp       { $$ = $1 * $3;                    }
+      | exp '/' exp       { $$ = $1 / $3;                    }
+      | '-' exp %prec NEG { $$ = -$2;                        }
+      | exp '^' exp       { $$ = pow ($1, $3);               }
+      | '(' exp ')'       { $$ = $2;                         }
+;
+
+/* End of Grammar */
+
+%%
+
+struct init {
+  char * fname;
+  double (*fnct)(double);
+};
+
+struct init arith_fncts[] = {
+    "sin" , &sin,
+    "cos" , &cos,
+    "atan", &atan,
+    "ln"  , &log,
+    "exp" , &exp,
+    "sqrt", &sqrt,
+    0     , 0
+};
+
+/* The symbol table: a chain of 'struct symrec' */
+symrec * sym_table = (symrec *) 0;
+
+symrec * math_expr_putsym(char * sym_name, int sym_type) {
+    symrec * ptr;
+    ptr = (symrec *) malloc (sizeof (symrec));
+    ptr->name = (char *) malloc (strlen (sym_name) + 1);
+    strcpy (ptr->name, sym_name);
+    ptr->type = sym_type;
+    ptr->value.var = 0; /* set value to 0 even if fctn */
+    ptr->next = (struct symrec *) sym_table;
+    sym_table = ptr;
+    return ptr;
+}
+
+symrec * math_expr_getsym (char * sym_name) {
+    symrec * ptr;
+    for (ptr=sym_table; ptr != (symrec *) 0; ptr = (symrec *) ptr->next)
+    if (strcmp (ptr->name, sym_name) == 0)
+        return ptr;
+    return (symrec *) 0;
+}
+
+/* puts arithmetic functions in table */
+void init_table (void) {
+    symrec * ptr;
+    for (int i = 0; arith_fncts[i].fname != 0; i++) {
+        ptr = math_expr_putsym(arith_fncts[i].fname, FNCT);
+        ptr->value.fnctptr = arith_fncts[i].fnct;
+    }
+}
+
+void math_expr_error(const char* s)
 {
-    post("math_expr_yyparse: %s", s);
-
-    YY_BUFFER_STATE buffer = math_expr_scan_string(s);
-
-    MathExprResult res;
-    res.v = 0;
-    res.error = 0;
-    math_expr_parse(&res);
-
-    math_expr_delete_buffer(buffer);
-    return res.v;
+    post("%s", s);
 }
+
+int math_expr_calc(const char* s, double* res)
+{
+    post("parse: %s", s);
+
+    YY_BUFFER_STATE b;
+    b = math_expr__scan_string(s);
+
+    int ok = yyparse();
+
+    math_expr__delete_buffer(b);
+    return ok;
+}
+

@@ -50,7 +50,7 @@
 #define YYSKELETON_NAME "yacc.c"
 
 /* Pure parsers.  */
-#define YYPURE 2
+#define YYPURE 0
 
 /* Push parsers.  */
 #define YYPUSH 0
@@ -67,33 +67,21 @@
 #define yydebug         math_expr_debug
 #define yynerrs         math_expr_nerrs
 
+#define yylval          math_expr_lval
+#define yychar          math_expr_char
 
 /* Copy the first part of user declarations.  */
-#line 1 "math_expr.y" /* yacc.c:339  */
+#line 4 "math_expr.y" /* yacc.c:339  */
 
-
+#include <math.h>   /* For math functions: cos(), sin(), etc. */
+#include <string.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
+
 #include "m_pd.h"
+#include "math_expr_calc.h" /* Contains definition of 'symrec'        */
+#include "lex.math_expr.h"
 
-#include "math_expr.lex.yy.h"
-
-
-typedef struct MathExprResult {
-    double v;
-    double fval;
-    double ival;
-    int error;
-} MathExprResult;
-
-//extern int math_expr_parse(MathExprResult* res);
-
-void math_expr_error(MathExprResult* res, const char* s);
-double math_expr_yyparse(const char* s);
-
-
-#line 97 "math_expr.tab.c" /* yacc.c:339  */
+#line 85 "math_expr.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -136,16 +124,10 @@ extern int math_expr_debug;
 # define MATH_EXPR_TOKENTYPE
   enum math_expr_tokentype
   {
-    T_INT = 258,
-    T_FLOAT = 259,
-    T_PLUS = 260,
-    T_MINUS = 261,
-    T_MULTIPLY = 262,
-    T_DIVIDE = 263,
-    T_POWER = 264,
-    T_LEFT = 265,
-    T_RIGHT = 266,
-    T_NEWLINE = 267
+    NUM = 258,
+    VAR = 259,
+    FNCT = 260,
+    NEG = 261
   };
 #endif
 
@@ -154,11 +136,12 @@ extern int math_expr_debug;
 
 union MATH_EXPR_STYPE
 {
-#line 25 "math_expr.y" /* yacc.c:355  */
+#line 17 "math_expr.y" /* yacc.c:355  */
 
-    MathExprResult* res;
+  double val;   /* for returning numbers                  */
+  symrec *tptr; /* for returning symbol-table of 'symrec' */
 
-#line 162 "math_expr.tab.c" /* yacc.c:355  */
+#line 145 "math_expr.tab.c" /* yacc.c:355  */
 };
 
 typedef union MATH_EXPR_STYPE MATH_EXPR_STYPE;
@@ -167,14 +150,15 @@ typedef union MATH_EXPR_STYPE MATH_EXPR_STYPE;
 #endif
 
 
+extern MATH_EXPR_STYPE math_expr_lval;
 
-int math_expr_parse (MathExprResult *result);
+int math_expr_parse (void);
 
 #endif /* !YY_MATH_EXPR_MATH_EXPR_TAB_H_INCLUDED  */
 
 /* Copy the second part of user declarations.  */
 
-#line 178 "math_expr.tab.c" /* yacc.c:358  */
+#line 162 "math_expr.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -414,23 +398,23 @@ union yyalloc
 #endif /* !YYCOPY_NEEDED */
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  10
+#define YYFINAL  11
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   56
+#define YYLAST   40
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  13
+#define YYNTOKENS  15
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  5
+#define YYNNTS  3
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  28
+#define YYNRULES  13
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  43
+#define YYNSTATES  25
 
 /* YYTRANSLATE[YYX] -- Symbol number corresponding to YYX as returned
    by yylex, with out-of-bounds checking.  */
 #define YYUNDEFTOK  2
-#define YYMAXUTOK   267
+#define YYMAXUTOK   261
 
 #define YYTRANSLATE(YYX)                                                \
   ((unsigned int) (YYX) <= YYMAXUTOK ? yytranslate[YYX] : YYUNDEFTOK)
@@ -443,12 +427,12 @@ static const yytype_uint8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+      13,    14,     9,     8,     2,     7,     2,    10,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     6,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,    12,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -465,16 +449,15 @@ static const yytype_uint8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
-       5,     6,     7,     8,     9,    10,    11,    12
+       5,    11
 };
 
 #if MATH_EXPR_DEBUG
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    51,    51,    54,    55,    58,    59,    60,    61,    62,
-      63,    64,    65,    66,    67,    68,    69,    70,    71,    72,
-      73,    74,    75,    76,    79,    80,    81,    82,    83
+       0,    36,    36,    37,    45,    46,    48,    49,    50,    51,
+      52,    53,    54,    55
 };
 #endif
 
@@ -483,9 +466,9 @@ static const yytype_uint8 yyrline[] =
    First, the terminals, then, starting at YYNTOKENS, nonterminals.  */
 static const char *const yytname[] =
 {
-  "$end", "error", "$undefined", "T_INT", "T_FLOAT", "T_PLUS", "T_MINUS",
-  "T_MULTIPLY", "T_DIVIDE", "T_POWER", "T_LEFT", "T_RIGHT", "T_NEWLINE",
-  "$accept", "program", "calculation", "mixed_expression", "expression", YY_NULLPTR
+  "$end", "error", "$undefined", "NUM", "VAR", "FNCT", "'='", "'-'",
+  "'+'", "'*'", "'/'", "NEG", "'^'", "'('", "')'", "$accept", "input",
+  "exp", YY_NULLPTR
 };
 #endif
 
@@ -494,15 +477,15 @@ static const char *const yytname[] =
    (internal) symbol number NUM (which must be that of a token).  */
 static const yytype_uint16 yytoknum[] =
 {
-       0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
-     265,   266,   267
+       0,   256,   257,   258,   259,   260,    61,    45,    43,    42,
+      47,   261,    94,    40,    41
 };
 # endif
 
-#define YYPACT_NINF -5
+#define YYPACT_NINF -8
 
 #define yypact_value_is_default(Yystate) \
-  (!!((Yystate) == (-5)))
+  (!!((Yystate) == (-8)))
 
 #define YYTABLE_NINF -1
 
@@ -513,11 +496,9 @@ static const yytype_uint16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      33,    -5,    -5,    33,     6,    -5,    39,    44,    -4,    14,
-      -5,    33,    33,    33,    33,    33,    33,    33,    33,    33,
-      33,    -5,    -5,    31,    47,    31,    47,    -5,    -5,    -5,
-      -5,    -5,    -5,    31,    47,    31,    47,    -5,    -5,    -5,
-      -5,    -5,    -5
+      10,    -8,    -8,    -6,    10,    10,     6,    28,    10,     4,
+      12,    -8,    10,    10,    10,    10,    10,    20,    -8,    -7,
+      -7,     4,     4,     4,    -8
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -525,23 +506,21 @@ static const yytype_int8 yypact[] =
      means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
-       0,    24,     5,     0,     0,     2,     3,     4,     0,     0,
-       1,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,    11,    28,     6,    17,     7,    18,     8,    19,     9,
-      20,    10,    21,    12,    25,    13,    26,    14,    27,    15,
-      22,    16,    23
+       2,     4,     5,     0,     0,     0,     0,     3,     0,    11,
+       0,     1,     0,     0,     0,     0,     0,     0,    13,     8,
+       7,     9,    10,    12,     6
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-      -5,    -5,    -5,    -3,    15
+      -8,    -8,    -4
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-      -1,     4,     5,     6,     7
+      -1,     6,     7
 };
 
   /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -549,49 +528,43 @@ static const yytype_int8 yydefgoto[] =
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_uint8 yytable[] =
 {
-       8,    11,    12,    13,    14,    15,    10,    21,    23,    25,
-      27,    29,    31,    33,    35,    37,    39,    41,     9,    16,
-      17,    18,    19,    20,     0,    22,    24,    26,    28,    30,
-      32,    34,    36,    38,    40,    42,     1,     2,    13,    14,
-      15,     0,     0,     3,    11,    12,    13,    14,    15,    16,
-      17,    18,    19,    20,    18,    19,    20
+       9,    10,    14,    15,    17,    16,    11,     8,    19,    20,
+      21,    22,    23,     1,     2,     3,    16,     4,     0,    12,
+      13,    14,    15,     5,    16,     0,    18,    12,    13,    14,
+      15,     0,    16,     0,    24,    12,    13,    14,    15,     0,
+      16
 };
 
 static const yytype_int8 yycheck[] =
 {
-       3,     5,     6,     7,     8,     9,     0,    11,    11,    12,
-      13,    14,    15,    16,    17,    18,    19,    20,     3,     5,
-       6,     7,     8,     9,    -1,    11,    11,    12,    13,    14,
-      15,    16,    17,    18,    19,    20,     3,     4,     7,     8,
-       9,    -1,    -1,    10,     5,     6,     7,     8,     9,     5,
-       6,     7,     8,     9,     7,     8,     9
+       4,     5,     9,    10,     8,    12,     0,    13,    12,    13,
+      14,    15,    16,     3,     4,     5,    12,     7,    -1,     7,
+       8,     9,    10,    13,    12,    -1,    14,     7,     8,     9,
+      10,    -1,    12,    -1,    14,     7,     8,     9,    10,    -1,
+      12
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
      symbol of state STATE-NUM.  */
 static const yytype_uint8 yystos[] =
 {
-       0,     3,     4,    10,    14,    15,    16,    17,    16,    17,
-       0,     5,     6,     7,     8,     9,     5,     6,     7,     8,
-       9,    11,    11,    16,    17,    16,    17,    16,    17,    16,
-      17,    16,    17,    16,    17,    16,    17,    16,    17,    16,
-      17,    16,    17
+       0,     3,     4,     5,     7,    13,    16,    17,    13,    17,
+      17,     0,     7,     8,     9,    10,    12,    17,    14,    17,
+      17,    17,    17,    17,    14
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
-       0,    13,    14,    15,    15,    16,    16,    16,    16,    16,
-      16,    16,    16,    16,    16,    16,    16,    16,    16,    16,
-      16,    16,    16,    16,    17,    17,    17,    17,    17
+       0,    15,    16,    16,    17,    17,    17,    17,    17,    17,
+      17,    17,    17,    17
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
-       0,     2,     1,     1,     1,     1,     3,     3,     3,     3,
-       3,     3,     3,     3,     3,     3,     3,     3,     3,     3,
-       3,     3,     3,     3,     1,     3,     3,     3,     3
+       0,     2,     0,     1,     1,     1,     4,     3,     3,     3,
+       3,     2,     3,     3
 };
 
 
@@ -619,7 +592,7 @@ do                                                              \
     }                                                           \
   else                                                          \
     {                                                           \
-      yyerror (result, YY_("syntax error: cannot back up")); \
+      yyerror (YY_("syntax error: cannot back up")); \
       YYERROR;                                                  \
     }                                                           \
 while (0)
@@ -656,7 +629,7 @@ do {                                                                      \
     {                                                                     \
       YYFPRINTF (stderr, "%s ", Title);                                   \
       yy_symbol_print (stderr,                                            \
-                  Type, Value, result); \
+                  Type, Value); \
       YYFPRINTF (stderr, "\n");                                           \
     }                                                                     \
 } while (0)
@@ -667,11 +640,10 @@ do {                                                                      \
 `----------------------------------------*/
 
 static void
-yy_symbol_value_print (FILE *yyoutput, int yytype, YYSTYPE const * const yyvaluep, MathExprResult *result)
+yy_symbol_value_print (FILE *yyoutput, int yytype, YYSTYPE const * const yyvaluep)
 {
   FILE *yyo = yyoutput;
   YYUSE (yyo);
-  YYUSE (result);
   if (!yyvaluep)
     return;
 # ifdef YYPRINT
@@ -687,12 +659,12 @@ yy_symbol_value_print (FILE *yyoutput, int yytype, YYSTYPE const * const yyvalue
 `--------------------------------*/
 
 static void
-yy_symbol_print (FILE *yyoutput, int yytype, YYSTYPE const * const yyvaluep, MathExprResult *result)
+yy_symbol_print (FILE *yyoutput, int yytype, YYSTYPE const * const yyvaluep)
 {
   YYFPRINTF (yyoutput, "%s %s (",
              yytype < YYNTOKENS ? "token" : "nterm", yytname[yytype]);
 
-  yy_symbol_value_print (yyoutput, yytype, yyvaluep, result);
+  yy_symbol_value_print (yyoutput, yytype, yyvaluep);
   YYFPRINTF (yyoutput, ")");
 }
 
@@ -725,7 +697,7 @@ do {                                                            \
 `------------------------------------------------*/
 
 static void
-yy_reduce_print (yytype_int16 *yyssp, YYSTYPE *yyvsp, int yyrule, MathExprResult *result)
+yy_reduce_print (yytype_int16 *yyssp, YYSTYPE *yyvsp, int yyrule)
 {
   unsigned long int yylno = yyrline[yyrule];
   int yynrhs = yyr2[yyrule];
@@ -739,7 +711,7 @@ yy_reduce_print (yytype_int16 *yyssp, YYSTYPE *yyvsp, int yyrule, MathExprResult
       yy_symbol_print (stderr,
                        yystos[yyssp[yyi + 1 - yynrhs]],
                        &(yyvsp[(yyi + 1) - (yynrhs)])
-                                              , result);
+                                              );
       YYFPRINTF (stderr, "\n");
     }
 }
@@ -747,7 +719,7 @@ yy_reduce_print (yytype_int16 *yyssp, YYSTYPE *yyvsp, int yyrule, MathExprResult
 # define YY_REDUCE_PRINT(Rule)          \
 do {                                    \
   if (yydebug)                          \
-    yy_reduce_print (yyssp, yyvsp, Rule, result); \
+    yy_reduce_print (yyssp, yyvsp, Rule); \
 } while (0)
 
 /* Nonzero means print parse trace.  It is left uninitialized so that
@@ -1005,10 +977,9 @@ yysyntax_error (YYSIZE_T *yymsg_alloc, char **yymsg,
 `-----------------------------------------------*/
 
 static void
-yydestruct (const char *yymsg, int yytype, YYSTYPE *yyvaluep, MathExprResult *result)
+yydestruct (const char *yymsg, int yytype, YYSTYPE *yyvaluep)
 {
   YYUSE (yyvaluep);
-  YYUSE (result);
   if (!yymsg)
     yymsg = "Deleting";
   YY_SYMBOL_PRINT (yymsg, yytype, yyvaluep, yylocationp);
@@ -1021,26 +992,22 @@ yydestruct (const char *yymsg, int yytype, YYSTYPE *yyvaluep, MathExprResult *re
 
 
 
+/* The lookahead symbol.  */
+int yychar;
+
+/* The semantic value of the lookahead symbol.  */
+YYSTYPE yylval;
+/* Number of syntax errors so far.  */
+int yynerrs;
+
+
 /*----------.
 | yyparse.  |
 `----------*/
 
 int
-yyparse (MathExprResult *result)
+yyparse (void)
 {
-/* The lookahead symbol.  */
-int yychar;
-
-
-/* The semantic value of the lookahead symbol.  */
-/* Default value used for initialization, for pacifying older GCCs
-   or non-GCC compilers.  */
-YY_INITIAL_VALUE (static YYSTYPE yyval_default;)
-YYSTYPE yylval YY_INITIAL_VALUE (= yyval_default);
-
-    /* Number of syntax errors so far.  */
-    int yynerrs;
-
     int yystate;
     /* Number of tokens to shift before error messages enabled.  */
     int yyerrstatus;
@@ -1195,7 +1162,7 @@ yybackup:
   if (yychar == YYEMPTY)
     {
       YYDPRINTF ((stderr, "Reading a token: "));
-      yychar = yylex (&yylval);
+      yychar = yylex ();
     }
 
   if (yychar <= YYEOF)
@@ -1273,170 +1240,74 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-        case 2:
-#line 51 "math_expr.y" /* yacc.c:1661  */
-    { post("\tResult: %f\n", (yyvsp[0].res->fval)); result->v = (yyvsp[0].res->fval); }
-#line 1280 "math_expr.tab.c" /* yacc.c:1661  */
-    break;
-
-  case 3:
-#line 54 "math_expr.y" /* yacc.c:1661  */
-    { (yyval.res->fval) = (yyvsp[0].res->fval); }
-#line 1286 "math_expr.tab.c" /* yacc.c:1661  */
+        case 3:
+#line 37 "math_expr.y" /* yacc.c:1661  */
+    { post("%.10lf\n", (yyvsp[0].val)); }
+#line 1247 "math_expr.tab.c" /* yacc.c:1661  */
     break;
 
   case 4:
-#line 55 "math_expr.y" /* yacc.c:1661  */
-    { (yyval.res->fval) = (yyvsp[0].res->ival); }
-#line 1292 "math_expr.tab.c" /* yacc.c:1661  */
+#line 45 "math_expr.y" /* yacc.c:1661  */
+    { (yyval.val) = (yyvsp[0].val);                         }
+#line 1253 "math_expr.tab.c" /* yacc.c:1661  */
     break;
 
   case 5:
-#line 58 "math_expr.y" /* yacc.c:1661  */
-    { (yyval.res->fval) = (yyvsp[0].res->fval); }
-#line 1298 "math_expr.tab.c" /* yacc.c:1661  */
+#line 46 "math_expr.y" /* yacc.c:1661  */
+    { (yyval.val) = (yyvsp[0].tptr)->value.var;              }
+#line 1259 "math_expr.tab.c" /* yacc.c:1661  */
     break;
 
   case 6:
-#line 59 "math_expr.y" /* yacc.c:1661  */
-    { (yyval.res->fval) = (yyvsp[-2].res->fval) + (yyvsp[0].res->fval); }
-#line 1304 "math_expr.tab.c" /* yacc.c:1661  */
+#line 48 "math_expr.y" /* yacc.c:1661  */
+    { (yyval.val) = (*((yyvsp[-3].tptr)->value.fnctptr))((yyvsp[-1].val)); }
+#line 1265 "math_expr.tab.c" /* yacc.c:1661  */
     break;
 
   case 7:
-#line 60 "math_expr.y" /* yacc.c:1661  */
-    { (yyval.res->fval) = (yyvsp[-2].res->fval) - (yyvsp[0].res->fval); }
-#line 1310 "math_expr.tab.c" /* yacc.c:1661  */
+#line 49 "math_expr.y" /* yacc.c:1661  */
+    { (yyval.val) = (yyvsp[-2].val) + (yyvsp[0].val);                    }
+#line 1271 "math_expr.tab.c" /* yacc.c:1661  */
     break;
 
   case 8:
-#line 61 "math_expr.y" /* yacc.c:1661  */
-    { (yyval.res->fval) = (yyvsp[-2].res->fval) * (yyvsp[0].res->fval); }
-#line 1316 "math_expr.tab.c" /* yacc.c:1661  */
+#line 50 "math_expr.y" /* yacc.c:1661  */
+    { (yyval.val) = (yyvsp[-2].val) - (yyvsp[0].val);                    }
+#line 1277 "math_expr.tab.c" /* yacc.c:1661  */
     break;
 
   case 9:
-#line 62 "math_expr.y" /* yacc.c:1661  */
-    { (yyval.res->fval) = (yyvsp[-2].res->fval) / (yyvsp[0].res->fval); }
-#line 1322 "math_expr.tab.c" /* yacc.c:1661  */
+#line 51 "math_expr.y" /* yacc.c:1661  */
+    { (yyval.val) = (yyvsp[-2].val) * (yyvsp[0].val);                    }
+#line 1283 "math_expr.tab.c" /* yacc.c:1661  */
     break;
 
   case 10:
-#line 63 "math_expr.y" /* yacc.c:1661  */
-    { (yyval.res->fval) = pow((yyvsp[-2].res->fval), (yyvsp[0].res->fval)); }
-#line 1328 "math_expr.tab.c" /* yacc.c:1661  */
+#line 52 "math_expr.y" /* yacc.c:1661  */
+    { (yyval.val) = (yyvsp[-2].val) / (yyvsp[0].val);                    }
+#line 1289 "math_expr.tab.c" /* yacc.c:1661  */
     break;
 
   case 11:
-#line 64 "math_expr.y" /* yacc.c:1661  */
-    { (yyval.res->fval) = (yyvsp[-1].res->fval); }
-#line 1334 "math_expr.tab.c" /* yacc.c:1661  */
+#line 53 "math_expr.y" /* yacc.c:1661  */
+    { (yyval.val) = -(yyvsp[0].val);                        }
+#line 1295 "math_expr.tab.c" /* yacc.c:1661  */
     break;
 
   case 12:
-#line 65 "math_expr.y" /* yacc.c:1661  */
-    { (yyval.res->fval) = (yyvsp[-2].res->ival) + (yyvsp[0].res->fval); }
-#line 1340 "math_expr.tab.c" /* yacc.c:1661  */
+#line 54 "math_expr.y" /* yacc.c:1661  */
+    { (yyval.val) = pow ((yyvsp[-2].val), (yyvsp[0].val));               }
+#line 1301 "math_expr.tab.c" /* yacc.c:1661  */
     break;
 
   case 13:
-#line 66 "math_expr.y" /* yacc.c:1661  */
-    { (yyval.res->fval) = (yyvsp[-2].res->ival) - (yyvsp[0].res->fval); }
-#line 1346 "math_expr.tab.c" /* yacc.c:1661  */
-    break;
-
-  case 14:
-#line 67 "math_expr.y" /* yacc.c:1661  */
-    { (yyval.res->fval) = (yyvsp[-2].res->ival) * (yyvsp[0].res->fval); }
-#line 1352 "math_expr.tab.c" /* yacc.c:1661  */
-    break;
-
-  case 15:
-#line 68 "math_expr.y" /* yacc.c:1661  */
-    { (yyval.res->fval) = (yyvsp[-2].res->ival) / (yyvsp[0].res->fval); }
-#line 1358 "math_expr.tab.c" /* yacc.c:1661  */
-    break;
-
-  case 16:
-#line 69 "math_expr.y" /* yacc.c:1661  */
-    { (yyval.res->fval) = pow((yyvsp[-2].res->ival), (yyvsp[0].res->fval)); }
-#line 1364 "math_expr.tab.c" /* yacc.c:1661  */
-    break;
-
-  case 17:
-#line 70 "math_expr.y" /* yacc.c:1661  */
-    { (yyval.res->fval) = (yyvsp[-2].res->fval) + (yyvsp[0].res->ival); }
-#line 1370 "math_expr.tab.c" /* yacc.c:1661  */
-    break;
-
-  case 18:
-#line 71 "math_expr.y" /* yacc.c:1661  */
-    { (yyval.res->fval) = (yyvsp[-2].res->fval) - (yyvsp[0].res->ival); }
-#line 1376 "math_expr.tab.c" /* yacc.c:1661  */
-    break;
-
-  case 19:
-#line 72 "math_expr.y" /* yacc.c:1661  */
-    { (yyval.res->fval) = (yyvsp[-2].res->fval) * (yyvsp[0].res->ival); }
-#line 1382 "math_expr.tab.c" /* yacc.c:1661  */
-    break;
-
-  case 20:
-#line 73 "math_expr.y" /* yacc.c:1661  */
-    { (yyval.res->fval) = (yyvsp[-2].res->fval) / (yyvsp[0].res->ival); }
-#line 1388 "math_expr.tab.c" /* yacc.c:1661  */
-    break;
-
-  case 21:
-#line 74 "math_expr.y" /* yacc.c:1661  */
-    { (yyval.res->fval) = pow((yyvsp[-2].res->fval), (yyvsp[0].res->ival)); }
-#line 1394 "math_expr.tab.c" /* yacc.c:1661  */
-    break;
-
-  case 22:
-#line 75 "math_expr.y" /* yacc.c:1661  */
-    { (yyval.res->fval) = (yyvsp[-2].res->ival) / (float)(yyvsp[0].res->ival); }
-#line 1400 "math_expr.tab.c" /* yacc.c:1661  */
-    break;
-
-  case 23:
-#line 76 "math_expr.y" /* yacc.c:1661  */
-    { (yyval.res->fval) = pow((yyvsp[-2].res->ival), (yyvsp[0].res->ival)); }
-#line 1406 "math_expr.tab.c" /* yacc.c:1661  */
-    break;
-
-  case 24:
-#line 79 "math_expr.y" /* yacc.c:1661  */
-    { (yyval.res->ival) = (yyvsp[0].res->ival); }
-#line 1412 "math_expr.tab.c" /* yacc.c:1661  */
-    break;
-
-  case 25:
-#line 80 "math_expr.y" /* yacc.c:1661  */
-    { (yyval.res->ival) = (yyvsp[-2].res->ival) + (yyvsp[0].res->ival); }
-#line 1418 "math_expr.tab.c" /* yacc.c:1661  */
-    break;
-
-  case 26:
-#line 81 "math_expr.y" /* yacc.c:1661  */
-    { (yyval.res->ival) = (yyvsp[-2].res->ival) - (yyvsp[0].res->ival); }
-#line 1424 "math_expr.tab.c" /* yacc.c:1661  */
-    break;
-
-  case 27:
-#line 82 "math_expr.y" /* yacc.c:1661  */
-    { (yyval.res->ival) = (yyvsp[-2].res->ival) * (yyvsp[0].res->ival); }
-#line 1430 "math_expr.tab.c" /* yacc.c:1661  */
-    break;
-
-  case 28:
-#line 83 "math_expr.y" /* yacc.c:1661  */
-    { (yyval.res->ival) = (yyvsp[-1].res->ival); }
-#line 1436 "math_expr.tab.c" /* yacc.c:1661  */
+#line 55 "math_expr.y" /* yacc.c:1661  */
+    { (yyval.val) = (yyvsp[-1].val);                         }
+#line 1307 "math_expr.tab.c" /* yacc.c:1661  */
     break;
 
 
-#line 1440 "math_expr.tab.c" /* yacc.c:1661  */
+#line 1311 "math_expr.tab.c" /* yacc.c:1661  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1486,7 +1357,7 @@ yyerrlab:
     {
       ++yynerrs;
 #if ! YYERROR_VERBOSE
-      yyerror (result, YY_("syntax error"));
+      yyerror (YY_("syntax error"));
 #else
 # define YYSYNTAX_ERROR yysyntax_error (&yymsg_alloc, &yymsg, \
                                         yyssp, yytoken)
@@ -1513,7 +1384,7 @@ yyerrlab:
                 yymsgp = yymsg;
               }
           }
-        yyerror (result, yymsgp);
+        yyerror (yymsgp);
         if (yysyntax_error_status == 2)
           goto yyexhaustedlab;
       }
@@ -1537,7 +1408,7 @@ yyerrlab:
       else
         {
           yydestruct ("Error: discarding",
-                      yytoken, &yylval, result);
+                      yytoken, &yylval);
           yychar = YYEMPTY;
         }
     }
@@ -1593,7 +1464,7 @@ yyerrlab1:
 
 
       yydestruct ("Error: popping",
-                  yystos[yystate], yyvsp, result);
+                  yystos[yystate], yyvsp);
       YYPOPSTACK (1);
       yystate = *yyssp;
       YY_STACK_PRINT (yyss, yyssp);
@@ -1630,7 +1501,7 @@ yyabortlab:
 | yyexhaustedlab -- memory exhaustion comes here.  |
 `-------------------------------------------------*/
 yyexhaustedlab:
-  yyerror (result, YY_("memory exhausted"));
+  yyerror (YY_("memory exhausted"));
   yyresult = 2;
   /* Fall through.  */
 #endif
@@ -1642,7 +1513,7 @@ yyreturn:
          user semantic actions for why this is necessary.  */
       yytoken = YYTRANSLATE (yychar);
       yydestruct ("Cleanup: discarding lookahead",
-                  yytoken, &yylval, result);
+                  yytoken, &yylval);
     }
   /* Do not reclaim the symbols of the rule whose action triggered
      this YYABORT or YYACCEPT.  */
@@ -1651,7 +1522,7 @@ yyreturn:
   while (yyssp != yyss)
     {
       yydestruct ("Cleanup: popping",
-                  yystos[*yyssp], yyvsp, result);
+                  yystos[*yyssp], yyvsp);
       YYPOPSTACK (1);
     }
 #ifndef yyoverflow
@@ -1664,25 +1535,71 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 86 "math_expr.y" /* yacc.c:1906  */
+#line 60 "math_expr.y" /* yacc.c:1906  */
 
 
-void math_expr_error(MathExprResult* res, const char* s) {
-    post("Parse error: %s", s);
-    res->error = 1;
+struct init {
+  char * fname;
+  double (*fnct)(double);
+};
+
+struct init arith_fncts[] = {
+    "sin" , &sin,
+    "cos" , &cos,
+    "atan", &atan,
+    "ln"  , &log,
+    "exp" , &exp,
+    "sqrt", &sqrt,
+    0     , 0
+};
+
+/* The symbol table: a chain of 'struct symrec' */
+symrec * sym_table = (symrec *) 0;
+
+symrec * math_expr_putsym(char * sym_name, int sym_type) {
+    symrec * ptr;
+    ptr = (symrec *) malloc (sizeof (symrec));
+    ptr->name = (char *) malloc (strlen (sym_name) + 1);
+    strcpy (ptr->name, sym_name);
+    ptr->type = sym_type;
+    ptr->value.var = 0; /* set value to 0 even if fctn */
+    ptr->next = (struct symrec *) sym_table;
+    sym_table = ptr;
+    return ptr;
 }
 
-double math_expr_yyparse(const char* s)
+symrec * math_expr_getsym (char * sym_name) {
+    symrec * ptr;
+    for (ptr=sym_table; ptr != (symrec *) 0; ptr = (symrec *) ptr->next)
+    if (strcmp (ptr->name, sym_name) == 0)
+        return ptr;
+    return (symrec *) 0;
+}
+
+/* puts arithmetic functions in table */
+void init_table (void) {
+    symrec * ptr;
+    for (int i = 0; arith_fncts[i].fname != 0; i++) {
+        ptr = math_expr_putsym(arith_fncts[i].fname, FNCT);
+        ptr->value.fnctptr = arith_fncts[i].fnct;
+    }
+}
+
+void math_expr_error(const char* s)
 {
-    post("math_expr_yyparse: %s", s);
-
-    YY_BUFFER_STATE buffer = math_expr_scan_string(s);
-
-    MathExprResult res;
-    res.v = 0;
-    res.error = 0;
-    math_expr_parse(&res);
-
-    math_expr_delete_buffer(buffer);
-    return res.v;
+    post("%s", s);
 }
+
+int math_expr_calc(const char* s, double* res)
+{
+    post("parse: %s", s);
+
+    YY_BUFFER_STATE b;
+    b = math_expr__scan_string(s);
+
+    int ok = yyparse();
+
+    math_expr__delete_buffer(b);
+    return ok;
+}
+

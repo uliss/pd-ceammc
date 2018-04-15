@@ -14,9 +14,9 @@
 #include "math_expr.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
-#include "math_expr_spirit.h"
+#include "math_expr_calc.h"
 
-//extern "C" double math_expr_yyparse(const char*);
+extern "C" double math_expr_yyparse(const char*);
 
 MathExpr::MathExpr(const PdArgs& args)
     : BaseObject(args)
@@ -31,10 +31,11 @@ void MathExpr::onFloat(t_float v)
 
 void MathExpr::onList(const AtomList& lst)
 {
-    OptDouble res = parse(to_string(lst).c_str());
+    double res = 0;
+    int err = math_expr_calc(to_string(lst).c_str(), &res);
 
-    if (res)
-        floatTo(0, *res);
+    if (!err)
+        floatTo(0, res);
 }
 
 void MathExpr::onAny(t_symbol* s, const AtomList& lst)
@@ -42,10 +43,11 @@ void MathExpr::onAny(t_symbol* s, const AtomList& lst)
     std::string expr(s->s_name);
     expr += to_string(lst);
 
-    OptDouble res = parse(expr.c_str());
+    double res = 0;
+    int err = math_expr_calc(expr.c_str(), &res);
 
-    if (res)
-        floatTo(0, *res);
+    if (!err)
+        floatTo(0, res);
 }
 
 void setup_math_expr()

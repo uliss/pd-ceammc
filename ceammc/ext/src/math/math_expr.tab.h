@@ -53,16 +53,10 @@ extern int math_expr_debug;
 # define MATH_EXPR_TOKENTYPE
   enum math_expr_tokentype
   {
-    T_INT = 258,
-    T_FLOAT = 259,
-    T_PLUS = 260,
-    T_MINUS = 261,
-    T_MULTIPLY = 262,
-    T_DIVIDE = 263,
-    T_POWER = 264,
-    T_LEFT = 265,
-    T_RIGHT = 266,
-    T_NEWLINE = 267
+    NUM = 258,
+    VAR = 259,
+    FNCT = 260,
+    NEG = 261
   };
 #endif
 
@@ -71,11 +65,12 @@ extern int math_expr_debug;
 
 union MATH_EXPR_STYPE
 {
-#line 25 "math_expr.y" /* yacc.c:1915  */
+#line 17 "math_expr.y" /* yacc.c:1915  */
 
-    MathExprResult* res;
+  double val;   /* for returning numbers                  */
+  symrec *tptr; /* for returning symbol-table of 'symrec' */
 
-#line 79 "math_expr.tab.h" /* yacc.c:1915  */
+#line 74 "math_expr.tab.h" /* yacc.c:1915  */
 };
 
 typedef union MATH_EXPR_STYPE MATH_EXPR_STYPE;
@@ -84,7 +79,8 @@ typedef union MATH_EXPR_STYPE MATH_EXPR_STYPE;
 #endif
 
 
+extern MATH_EXPR_STYPE math_expr_lval;
 
-int math_expr_parse (MathExprResult *result);
+int math_expr_parse (void);
 
 #endif /* !YY_MATH_EXPR_MATH_EXPR_TAB_H_INCLUDED  */

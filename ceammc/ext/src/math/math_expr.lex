@@ -1,34 +1,35 @@
+/* mfcalc.l */
+/* Time-stamp: <2000-10-23 14:51:35 ronaldo> */
 %option noyywrap
+%option prefix="math_expr_"
+%option outfile="lex.math_expr.c"
 
 %{
-#include <stdio.h>
-
-#define YY_DECL int math_expr_lex(MathExprResult* res)
-
-typedef struct MathExprResult MathExprResult;
-
-    typedef struct MathExprResult {
-        double v;
-        double fval;
-        double ival;
-        int error;
-    } MathExprResult;
-
-#include "math_expr.tab.h"
-
+# include "math_expr_calc.h"
+# include "math_expr.tab.h"
 %}
 
 %%
 
-[ \t]	        ; // ignore all whitespace
-[0-9]+\.[0-9]+ 	{res->fval = atof(yytext); return T_FLOAT;}
-[0-9]+		    {res->ival = atoi(yytext); return T_INT;}
-"+"		        {return T_PLUS;}
-"-"		        {return T_MINUS;}
-"*"		        {return T_MULTIPLY;}
-"/"		        {return T_DIVIDE;}
-"^"		        {return T_POWER;}
-"("		        {return T_LEFT;}
-")"		        {return T_RIGHT;}
+[0-9]*\.?[0-9]+ {
+  sscanf (math_expr_text, "%lf", &math_expr_lval.val);
+  return NUM;
+}
+
+[a-zA-Z][a-zA-Z_0-9]* {
+  symrec *s;
+  s = math_expr_getsym(math_expr_text);
+  if (s == 0) {
+    s = math_expr_putsym(math_expr_text, VAR);
+  }
+  math_expr_lval.tptr = s;
+  return s->type;
+}
+
+[ \t]*
+
+.|\n {
+  return *math_expr_text;
+}
 
 %%

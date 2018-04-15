@@ -1,10 +1,10 @@
-#ifndef math_exprHEADER_H
-#define math_exprHEADER_H 1
-#define math_exprIN_HEADER 1
+#ifndef math_expr_HEADER_H
+#define math_expr_HEADER_H 1
+#define math_expr_IN_HEADER 1
 
-#line 6 "math_expr.lex.yy.h"
+#line 6 "lex.math_expr.h"
 
-#line 8 "math_expr.lex.yy.h"
+#line 8 "lex.math_expr.h"
 
 #define  YY_INT_ALIGNED short int
 
@@ -128,9 +128,9 @@ typedef struct yy_buffer_state *YY_BUFFER_STATE;
 typedef size_t yy_size_t;
 #endif
 
-extern yy_size_t math_exprleng;
+extern yy_size_t math_expr_leng;
 
-extern FILE *math_exprin, *math_exprout;
+extern FILE *math_expr_in, *math_expr_out;
 
 #ifndef YY_STRUCT_YY_BUFFER_STATE
 #define YY_STRUCT_YY_BUFFER_STATE
@@ -183,31 +183,31 @@ struct yy_buffer_state
 	};
 #endif /* !YY_STRUCT_YY_BUFFER_STATE */
 
-void math_exprrestart (FILE *input_file  );
-void math_expr_switch_to_buffer (YY_BUFFER_STATE new_buffer  );
-YY_BUFFER_STATE math_expr_create_buffer (FILE *file,int size  );
-void math_expr_delete_buffer (YY_BUFFER_STATE b  );
-void math_expr_flush_buffer (YY_BUFFER_STATE b  );
-void math_exprpush_buffer_state (YY_BUFFER_STATE new_buffer  );
-void math_exprpop_buffer_state (void );
+void math_expr_restart (FILE *input_file  );
+void math_expr__switch_to_buffer (YY_BUFFER_STATE new_buffer  );
+YY_BUFFER_STATE math_expr__create_buffer (FILE *file,int size  );
+void math_expr__delete_buffer (YY_BUFFER_STATE b  );
+void math_expr__flush_buffer (YY_BUFFER_STATE b  );
+void math_expr_push_buffer_state (YY_BUFFER_STATE new_buffer  );
+void math_expr_pop_buffer_state (void );
 
-YY_BUFFER_STATE math_expr_scan_buffer (char *base,yy_size_t size  );
-YY_BUFFER_STATE math_expr_scan_string (yyconst char *yy_str  );
-YY_BUFFER_STATE math_expr_scan_bytes (yyconst char *bytes,yy_size_t len  );
+YY_BUFFER_STATE math_expr__scan_buffer (char *base,yy_size_t size  );
+YY_BUFFER_STATE math_expr__scan_string (yyconst char *yy_str  );
+YY_BUFFER_STATE math_expr__scan_bytes (yyconst char *bytes,yy_size_t len  );
 
-void *math_expralloc (yy_size_t  );
-void *math_exprrealloc (void *,yy_size_t  );
-void math_exprfree (void *  );
+void *math_expr_alloc (yy_size_t  );
+void *math_expr_realloc (void *,yy_size_t  );
+void math_expr_free (void *  );
 
 /* Begin user sect3 */
 
-#define math_exprwrap(n) 1
+#define math_expr_wrap(n) 1
 #define YY_SKIP_YYWRAP
 
-extern int math_exprlineno;
+extern int math_expr_lineno;
 
-extern char *math_exprtext;
-#define yytext_ptr math_exprtext
+extern char *math_expr_text;
+#define yytext_ptr math_expr_text
 
 #ifdef YY_HEADER_EXPORT_START_CONDITIONS
 #define INITIAL 0
@@ -229,31 +229,31 @@ extern char *math_exprtext;
 /* Accessor methods to globals.
    These are made visible to non-reentrant scanners for convenience. */
 
-int math_exprlex_destroy (void );
+int math_expr_lex_destroy (void );
 
-int math_exprget_debug (void );
+int math_expr_get_debug (void );
 
-void math_exprset_debug (int debug_flag  );
+void math_expr_set_debug (int debug_flag  );
 
-YY_EXTRA_TYPE math_exprget_extra (void );
+YY_EXTRA_TYPE math_expr_get_extra (void );
 
-void math_exprset_extra (YY_EXTRA_TYPE user_defined  );
+void math_expr_set_extra (YY_EXTRA_TYPE user_defined  );
 
-FILE *math_exprget_in (void );
+FILE *math_expr_get_in (void );
 
-void math_exprset_in  (FILE * in_str  );
+void math_expr_set_in  (FILE * in_str  );
 
-FILE *math_exprget_out (void );
+FILE *math_expr_get_out (void );
 
-void math_exprset_out  (FILE * out_str  );
+void math_expr_set_out  (FILE * out_str  );
 
-yy_size_t math_exprget_leng (void );
+yy_size_t math_expr_get_leng (void );
 
-char *math_exprget_text (void );
+char *math_expr_get_text (void );
 
-int math_exprget_lineno (void );
+int math_expr_get_lineno (void );
 
-void math_exprset_lineno (int line_number  );
+void math_expr_set_lineno (int line_number  );
 
 /* Macros after this point can all be overridden by user definitions in
  * section 1.
@@ -261,9 +261,9 @@ void math_exprset_lineno (int line_number  );
 
 #ifndef YY_SKIP_YYWRAP
 #ifdef __cplusplus
-extern "C" int math_exprwrap (void );
+extern "C" int math_expr_wrap (void );
 #else
-extern int math_exprwrap (void );
+extern int math_expr_wrap (void );
 #endif
 #endif
 
@@ -295,9 +295,9 @@ static int yy_flex_strlen (yyconst char * );
 #ifndef YY_DECL
 #define YY_DECL_IS_OURS 1
 
-extern int math_exprlex (void);
+extern int math_expr_lex (void);
 
-#define YY_DECL int math_exprlex (void)
+#define YY_DECL int math_expr_lex (void)
 #endif /* !YY_DECL */
 
 /* yy_get_previous_state - get the state just before the EOB char was reached */
@@ -314,9 +314,9 @@ extern int math_exprlex (void);
 #undef YY_DECL
 #endif
 
-#line 34 "math_expr.lex"
+#line 35 "math_expr.lex"
 
 
-#line 321 "math_expr.lex.yy.h"
-#undef math_exprIN_HEADER
-#endif /* math_exprHEADER_H */
+#line 321 "lex.math_expr.h"
+#undef math_expr_IN_HEADER
+#endif /* math_expr_HEADER_H */
