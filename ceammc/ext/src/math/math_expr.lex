@@ -89,6 +89,14 @@ $e { // E
         math_expr_lval.val = UFN_ATAN;
         return UFUNC;
     }
+    else if(strcmp(math_expr_text, "max") == 0) {
+        math_expr_lval.val = BFN_MAX;
+        return BFUNC;
+    }
+    else if(strcmp(math_expr_text, "min") == 0) {
+        math_expr_lval.val = BFN_MIN;
+        return BFUNC;
+    }
 
     return UFUNC;
 }

@@ -30,7 +30,7 @@ typedef struct Node Node;
 
 %token <val>  NUM     /* Simple double precision number */
 %token <val>  REF
-%token <val>  UFUNC
+%token <val>  UFUNC BFUNC
 
 %type  <node>  exp input      /* For nonterminal symbols        */
 
@@ -47,20 +47,18 @@ typedef struct Node Node;
 input : exp { node_add_cont(ast_root(ast), $1); }
 ;
 
-exp : NUM                   { $$ = node_create_value($1);           }
-//      | VAR               { $$ = $1->value.var;              }
-//      | VAR '=' exp       { $$ = $3; $1->value.var = $3;     }
-//      | FNCT '(' exp ')'  { $$ = (*($1->value.fnctptr))($3); }
-      | UFUNC '(' exp ')' { $$ = node_create_ufunc(ufnNameToPtr($1), $3);       }
-      | REF               { $$ = node_create_ref(ast_ref(ast, $1));   }
-      | exp '+' exp       { $$ = node_create_bfunc(fn_plus, $1, $3);  }
-      | exp '-' exp       { $$ = node_create_bfunc(fn_minus, $1, $3); }
-      | exp '*' exp       { $$ = node_create_bfunc(fn_mul, $1, $3);   }
-      | exp '/' exp       { $$ = node_create_bfunc(fn_div, $1, $3);   }
-      | exp '%' exp       { $$ = node_create_bfunc(fn_mod, $1, $3);   }
-      | '-' exp %prec NEG { $$ = node_create_ufunc(fn_neg, $2);       }
-      | exp '^' exp       { $$ = node_create_bfunc(fn_pow, $1, $3);   }
-      | '(' exp ')'       { $$ = node_create_cont($2);                }
+exp : NUM                 { $$ = node_create_value($1);                               }
+      | UFUNC '(' exp ')' { $$ = node_create_ufunc(ufnNameToPtr($1), $3);             }
+      | BFUNC '(' exp ',' exp ')' { $$ = node_create_bfunc(bfnNameToPtr($1), $3, $5); }
+      | REF               { $$ = node_create_ref(ast_ref(ast, $1));                   }
+      | exp '+' exp       { $$ = node_create_bfunc(fn_plus, $1, $3);                  }
+      | exp '-' exp       { $$ = node_create_bfunc(fn_minus, $1, $3);                 }
+      | exp '*' exp       { $$ = node_create_bfunc(fn_mul, $1, $3);                   }
+      | exp '/' exp       { $$ = node_create_bfunc(fn_div, $1, $3);                   }
+      | exp '%' exp       { $$ = node_create_bfunc(fn_mod, $1, $3);                   }
+      | '-' exp %prec NEG { $$ = node_create_ufunc(fn_neg, $2);                       }
+      | exp '^' exp       { $$ = node_create_bfunc(fn_pow, $1, $3);                   }
+      | '(' exp ')'       { $$ = node_create_cont($2);                                }
 ;
 
 /* End of Grammar */

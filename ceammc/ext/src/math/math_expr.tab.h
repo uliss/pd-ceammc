@@ -56,7 +56,8 @@ extern int math_expr_debug;
     NUM = 258,
     REF = 259,
     UFUNC = 260,
-    NEG = 261
+    BFUNC = 261,
+    NEG = 262
   };
 #endif
 
@@ -70,7 +71,7 @@ union MATH_EXPR_STYPE
   double val;   /* for returning numbers                  */
   Node* node;
 
-#line 74 "math_expr.tab.h" /* yacc.c:1915  */
+#line 75 "math_expr.tab.h" /* yacc.c:1915  */
 };
 
 typedef union MATH_EXPR_STYPE MATH_EXPR_STYPE;

@@ -308,3 +308,16 @@ UnaryFunc ufnNameToPtr(UFuncName n)
         return &sqrt;
     }
 }
+
+static double d_min(double d0, double d1) { return std::min(d0, d1); }
+static double d_max(double d0, double d1) { return std::max(d0, d1); }
+
+BinaryFunc bfnNameToPtr(BFuncName n)
+{
+    switch (n) {
+    case BFN_MIN:
+        return &d_min;
+    case BFN_MAX:
+        return &d_max;
+    }
+}

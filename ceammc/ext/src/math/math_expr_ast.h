@@ -53,7 +53,13 @@ typedef enum UFuncName {
     UFN_ATAN
 } UFuncName;
 
+typedef enum BFuncName {
+    BFN_MIN = 0,
+    BFN_MAX
+} BFuncName;
+
 UnaryFunc ufnNameToPtr(UFuncName n);
+BinaryFunc bfnNameToPtr(BFuncName n);
 
 #if defined(__cplusplus)
 }

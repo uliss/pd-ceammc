@@ -87,5 +87,11 @@ TEST_CASE("math.expr", "[externals]")
         REQUIRE_EXPR(t, "log2($f)", 8, Approx(3));
         REQUIRE_EXPR(t, "ln($e^4)", 8, Approx(4));
         REQUIRE_EXPR(t, "log10($f)", 1000, Approx(3));
+
+        REQUIRE_EXPR(t, "max($f, 10)", 1, Approx(10));
+        REQUIRE_EXPR(t, "max($f, 10)", 20, Approx(20));
+
+        REQUIRE_EXPR(t, "min($f, 10)", -1, Approx(-1));
+        REQUIRE_EXPR(t, "min($f, 10)", 20, Approx(10));
     }
 }
