@@ -16,6 +16,9 @@ static double fn_mod(double d0, double d1) { return (long)d0 % (long)d1; }
 static double fn_pow(double d0, double d1) { return pow(d0, d1); }
 static double fn_neg(double d0) { return -d0; }
 
+static double fn_eq(double d0, double d1) { return d0 == d1; }
+static double fn_ne(double d0, double d1) { return d0 != d1; }
+
 static void print_error(ast* tree, const char* msg, int c) {
     char buf[100];
 
@@ -42,13 +45,13 @@ static void print_error(ast* tree, const char* msg, int c) {
   Node* node;
 }
 
-%token <val>  NUM     /* Simple double precision number */
+%token <val>  NUM EQ NOT_EQ
 %token <val>  REF
 %token <val>  UFUNC BFUNC ERROR
 
-%type  <node>  exp input      /* For nonterminal symbols        */
+%type  <node>  exp input
 
-%right '='
+%left EQ NOT_EQ
 %left  '-' '+'
 %left  '*' '/' '%'
 %left  NEG     /* unary minus    */
@@ -66,6 +69,8 @@ exp : NUM                 { $$ = node_create_value($1);                         
       | UFUNC '(' exp ')' { $$ = node_create_ufunc(ufnNameToPtr($1), $3);             }
       | BFUNC '(' exp ',' exp ')' { $$ = node_create_bfunc(bfnNameToPtr($1), $3, $5); }
       | REF               { $$ = node_create_ref(ast_ref(ast, $1));                   }
+      | exp EQ exp        { $$ = node_create_bfunc(fn_eq, $1, $3);                    }
+      | exp NOT_EQ exp    { $$ = node_create_bfunc(fn_ne, $1, $3);                    }
       | exp '+' exp       { $$ = node_create_bfunc(fn_plus, $1, $3);                  }
       | exp '-' exp       { $$ = node_create_bfunc(fn_minus, $1, $3);                 }
       | exp '*' exp       { $$ = node_create_bfunc(fn_mul, $1, $3);                   }

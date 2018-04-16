@@ -19,6 +19,13 @@
 
 typedef TestExtension<MathExpr> MathExprTest;
 
+#define REQUIRE_EXPR(t, expr, in, out)      \
+    {                                       \
+        WHEN_SEND_LIST_TO(1, t, L1(expr));  \
+        WHEN_SEND_FLOAT_TO(0, t, in);       \
+        REQUIRE_FLOAT_AT_OUTLET(0, t, out); \
+    }
+
 TEST_CASE("math.expr", "[externals]")
 {
     pd_init();
@@ -46,13 +53,6 @@ TEST_CASE("math.expr", "[externals]")
 
         WHEN_SEND_FLOAT_TO(0, t, 0.f);
         REQUIRE_FLOAT_AT_OUTLET(0, t, 10);
-
-#define REQUIRE_EXPR(t, expr, in, out)      \
-    {                                       \
-        WHEN_SEND_LIST_TO(1, t, L1(expr));  \
-        WHEN_SEND_FLOAT_TO(0, t, in);       \
-        REQUIRE_FLOAT_AT_OUTLET(0, t, out); \
-    }
 
         WHEN_SEND_LIST_TO(1, t, L1("$f*2"));
         REQUIRE_PROPERTY_LIST(t, @expr, L1("$f*2"));
@@ -98,5 +98,14 @@ TEST_CASE("math.expr", "[externals]")
         WHEN_SEND_LIST_TO(1, t, L1("unkn(2)"));
         WHEN_SEND_FLOAT_TO(0, t, 0);
         REQUIRE_NO_MSG(t);
+    }
+
+    SECTION("compare")
+    {
+        MathExprTest t("math.expr");
+        REQUIRE_EXPR(t, "2==2", 1, Approx(1));
+        REQUIRE_EXPR(t, "1==2", 1, Approx(0));
+        REQUIRE_EXPR(t, "2==1", 1, Approx(0));
+        REQUIRE_EXPR(t, "-2==-2", 1, Approx(1));
     }
 }

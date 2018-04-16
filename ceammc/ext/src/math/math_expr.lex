@@ -42,6 +42,9 @@ $f[0-9]* { // refs
     return REF;
 }
 
+"==" { return EQ; }
+"!=" { return NOT_EQ; }
+
 $pi { // PI
     math_expr_lval.val = M_PI;
     return NUM;

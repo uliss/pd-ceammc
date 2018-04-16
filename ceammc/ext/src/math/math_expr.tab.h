@@ -54,11 +54,13 @@ extern int math_expr_debug;
   enum math_expr_tokentype
   {
     NUM = 258,
-    REF = 259,
-    UFUNC = 260,
-    BFUNC = 261,
-    ERROR = 262,
-    NEG = 263
+    EQ = 259,
+    NOT_EQ = 260,
+    REF = 261,
+    UFUNC = 262,
+    BFUNC = 263,
+    ERROR = 264,
+    NEG = 265
   };
 #endif
 
@@ -67,12 +69,12 @@ extern int math_expr_debug;
 
 union MATH_EXPR_STYPE
 {
-#line 40 "math_expr.y" /* yacc.c:1915  */
+#line 43 "math_expr.y" /* yacc.c:1915  */
 
   double val;   /* for returning numbers                  */
   Node* node;
 
-#line 76 "math_expr.tab.h" /* yacc.c:1915  */
+#line 78 "math_expr.tab.h" /* yacc.c:1915  */
 };
 
 typedef union MATH_EXPR_STYPE MATH_EXPR_STYPE;
