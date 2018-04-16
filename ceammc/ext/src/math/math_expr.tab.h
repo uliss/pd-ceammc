@@ -60,7 +60,11 @@ extern int math_expr_debug;
     UFUNC = 262,
     BFUNC = 263,
     ERROR = 264,
-    NEG = 265
+    LE = 265,
+    LT = 266,
+    GT = 267,
+    GE = 268,
+    NEG = 269
   };
 #endif
 
@@ -69,12 +73,12 @@ extern int math_expr_debug;
 
 union MATH_EXPR_STYPE
 {
-#line 43 "math_expr.y" /* yacc.c:1915  */
+#line 47 "math_expr.y" /* yacc.c:1915  */
 
   double val;   /* for returning numbers                  */
   Node* node;
 
-#line 78 "math_expr.tab.h" /* yacc.c:1915  */
+#line 82 "math_expr.tab.h" /* yacc.c:1915  */
 };
 
 typedef union MATH_EXPR_STYPE MATH_EXPR_STYPE;

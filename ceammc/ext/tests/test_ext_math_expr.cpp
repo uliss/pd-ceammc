@@ -112,5 +112,21 @@ TEST_CASE("math.expr", "[externals]")
         REQUIRE_EXPR(t, "1!=2", 1, Approx(1));
         REQUIRE_EXPR(t, "2!=1", 1, Approx(1));
         REQUIRE_EXPR(t, "-2!=-3", 1, Approx(1));
+
+        REQUIRE_EXPR(t, "2>2", 1, Approx(0));
+        REQUIRE_EXPR(t, "2>1", 1, Approx(1));
+        REQUIRE_EXPR(t, "1>2", 1, Approx(0));
+
+        REQUIRE_EXPR(t, "2>=2", 1, Approx(1));
+        REQUIRE_EXPR(t, "2>=1", 1, Approx(1));
+        REQUIRE_EXPR(t, "1>=2", 1, Approx(0));
+
+        REQUIRE_EXPR(t, "2<=2", 1, Approx(1));
+        REQUIRE_EXPR(t, "2<=1", 1, Approx(0));
+        REQUIRE_EXPR(t, "1<=2", 1, Approx(1));
+
+        REQUIRE_EXPR(t, "2<2", 1, Approx(0));
+        REQUIRE_EXPR(t, "2<1", 1, Approx(0));
+        REQUIRE_EXPR(t, "1<2", 1, Approx(1));
     }
 }

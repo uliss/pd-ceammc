@@ -18,6 +18,10 @@ static double fn_neg(double d0) { return -d0; }
 
 static double fn_eq(double d0, double d1) { return d0 == d1; }
 static double fn_ne(double d0, double d1) { return d0 != d1; }
+static double fn_le(double d0, double d1) { return d0 <= d1; }
+static double fn_lt(double d0, double d1) { return d0 < d1; }
+static double fn_ge(double d0, double d1) { return d0 >= d1; }
+static double fn_gt(double d0, double d1) { return d0 > d1; }
 
 static void print_error(ast* tree, const char* msg, int c) {
     char buf[100];
@@ -51,7 +55,7 @@ static void print_error(ast* tree, const char* msg, int c) {
 
 %type  <node>  exp input
 
-%left EQ NOT_EQ
+%left EQ NOT_EQ LE LT GT GE
 %left  '-' '+'
 %left  '*' '/' '%'
 %left  NEG     /* unary minus    */
@@ -71,6 +75,10 @@ exp : NUM                 { $$ = node_create_value($1);                         
       | REF               { $$ = node_create_ref(ast_ref(ast, $1));                   }
       | exp EQ exp        { $$ = node_create_bfunc(fn_eq, $1, $3);                    }
       | exp NOT_EQ exp    { $$ = node_create_bfunc(fn_ne, $1, $3);                    }
+      | exp LT exp        { $$ = node_create_bfunc(fn_lt, $1, $3);                    }
+      | exp LE exp        { $$ = node_create_bfunc(fn_le, $1, $3);                    }
+      | exp GT exp        { $$ = node_create_bfunc(fn_gt, $1, $3);                    }
+      | exp GE exp        { $$ = node_create_bfunc(fn_ge, $1, $3);                    }
       | exp '+' exp       { $$ = node_create_bfunc(fn_plus, $1, $3);                  }
       | exp '-' exp       { $$ = node_create_bfunc(fn_minus, $1, $3);                 }
       | exp '*' exp       { $$ = node_create_bfunc(fn_mul, $1, $3);                   }
