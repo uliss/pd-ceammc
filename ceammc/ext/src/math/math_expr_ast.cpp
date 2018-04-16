@@ -285,6 +285,16 @@ double* ast_ref(ast* tree, int idx)
     return &(tree->vars[idx]);
 }
 
+static double d_sign(double d)
+{
+    if (d > 0)
+        return 1;
+    else if (d < 0)
+        return -1;
+    else
+        return 0;
+}
+
 UnaryFunc ufnNameToPtr(UFuncName n)
 {
     switch (n) {
@@ -306,6 +316,10 @@ UnaryFunc ufnNameToPtr(UFuncName n)
         return &log2;
     case UFN_SQRT:
         return &sqrt;
+    case UFN_ABS:
+        return &fabs;
+    case UFN_SIGN:
+        return &d_sign;
     }
 }
 

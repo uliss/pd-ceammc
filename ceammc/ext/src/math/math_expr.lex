@@ -104,6 +104,14 @@ $e { // E
         math_expr_lval.val = BFN_MIN;
         return BFUNC;
     }
+    else if(strcmp(math_expr_text, "abs") == 0) {
+        math_expr_lval.val = UFN_ABS;
+        return UFUNC;
+    }
+    else if(strcmp(math_expr_text, "sign") == 0) {
+        math_expr_lval.val = UFN_SIGN;
+        return UFUNC;
+    }
 
     math_expr_lval.val = ERR_UNKNOWN_FUNC;
     return ERROR;
