@@ -98,7 +98,8 @@ $e { // E
         return BFUNC;
     }
 
-    return UFUNC;
+    math_expr_lval.val = ERR_UNKNOWN_FUNC;
+    return ERROR;
 }
 
 [ \t]*

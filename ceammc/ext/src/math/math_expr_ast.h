@@ -58,6 +58,10 @@ typedef enum BFuncName {
     BFN_MAX
 } BFuncName;
 
+typedef enum ParseError {
+    ERR_UNKNOWN_FUNC = 1000
+} ParseError;
+
 UnaryFunc ufnNameToPtr(UFuncName n);
 BinaryFunc bfnNameToPtr(BFuncName n);
 

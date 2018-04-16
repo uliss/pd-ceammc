@@ -111,12 +111,10 @@ void MathExpr::updateAST()
     ast_ = ast_new();
 
     int err = math_expr_parse_ast(ast_, expr_.c_str());
-    if (err) {
-        OBJ_ERR << "parse error...";
+    if (err)
         return;
-    }
 
-//    ast_print(ast_);
+    //    ast_print(ast_);
 }
 
 void setup_math_expr()

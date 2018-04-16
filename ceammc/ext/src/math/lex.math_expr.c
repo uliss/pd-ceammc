@@ -869,28 +869,29 @@ YY_RULE_SETUP
         return BFUNC;
     }
 
-    return UFUNC;
+    math_expr_lval.val = ERR_UNKNOWN_FUNC;
+    return ERROR;
 }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 104 "math_expr.lex"
+#line 105 "math_expr.lex"
 
 	YY_BREAK
 case 9:
 /* rule 9 can match eol */
 YY_RULE_SETUP
-#line 106 "math_expr.lex"
+#line 107 "math_expr.lex"
 {
     return *math_expr_text;
 }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 110 "math_expr.lex"
+#line 111 "math_expr.lex"
 ECHO;
 	YY_BREAK
-#line 894 "lex.math_expr.c"
+#line 895 "lex.math_expr.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1887,7 +1888,7 @@ void math_expr_free (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 110 "math_expr.lex"
+#line 111 "math_expr.lex"
 
 
 

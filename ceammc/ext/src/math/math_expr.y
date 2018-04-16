@@ -16,7 +16,21 @@ static double fn_mod(double d0, double d1) { return (long)d0 % (long)d1; }
 static double fn_pow(double d0, double d1) { return pow(d0, d1); }
 static double fn_neg(double d0) { return -d0; }
 
-typedef struct Node Node;
+static void print_error(ast* tree, const char* msg, int c) {
+    char buf[100];
+
+    switch(c) {
+    case ERR_UNKNOWN_FUNC:
+        snprintf(buf, 100, "unknown function \"%s\"", msg);
+        break;
+    default:
+        sprintf(buf, "???");
+        break;
+    }
+
+    math_expr_error(tree, buf);
+}
+
 %}
 
 %define api.prefix {math_expr_}
@@ -30,7 +44,7 @@ typedef struct Node Node;
 
 %token <val>  NUM     /* Simple double precision number */
 %token <val>  REF
-%token <val>  UFUNC BFUNC
+%token <val>  UFUNC BFUNC ERROR
 
 %type  <node>  exp input      /* For nonterminal symbols        */
 
@@ -48,6 +62,7 @@ input : exp { node_add_cont(ast_root(ast), $1); }
 ;
 
 exp : NUM                 { $$ = node_create_value($1);                               }
+      | ERROR             { print_error(ast, math_expr_text, $1); YYERROR;            }
       | UFUNC '(' exp ')' { $$ = node_create_ufunc(ufnNameToPtr($1), $3);             }
       | BFUNC '(' exp ',' exp ')' { $$ = node_create_bfunc(bfnNameToPtr($1), $3, $5); }
       | REF               { $$ = node_create_ref(ast_ref(ast, $1));                   }

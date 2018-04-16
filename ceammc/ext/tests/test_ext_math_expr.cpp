@@ -93,5 +93,10 @@ TEST_CASE("math.expr", "[externals]")
 
         REQUIRE_EXPR(t, "min($f, 10)", -1, Approx(-1));
         REQUIRE_EXPR(t, "min($f, 10)", 20, Approx(10));
+
+        //unknown function
+        WHEN_SEND_LIST_TO(1, t, L1("unkn(2)"));
+        WHEN_SEND_FLOAT_TO(0, t, 0);
+        REQUIRE_NO_MSG(t);
     }
 }
