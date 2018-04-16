@@ -19,13 +19,15 @@
 using namespace ceammc;
 
 struct symrec;
+struct ast;
 
 class MathExpr : public BaseObject {
     std::string expr_;
-    symrec* var0_;
+    ast* ast_;
 
 public:
     MathExpr(const PdArgs& args);
+    ~MathExpr();
 
     void onFloat(t_float v);
     void onInlet(size_t n, const AtomList& lst);
@@ -34,6 +36,9 @@ public:
 
     AtomList propExpr() const;
     void propSetExpr(const AtomList& lst);
+
+private:
+    void updateAST();
 };
 
 void setup_math_expr();

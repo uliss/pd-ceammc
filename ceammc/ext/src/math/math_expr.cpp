@@ -14,21 +14,19 @@
 #include "math_expr.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
+#include "math_expr_ast.h"
 #include "math_expr_calc.h"
 
 #include <cassert>
 #include <cmath>
 
-extern "C" double math_expr_yyparse(const char*);
-
 MathExpr::MathExpr(const PdArgs& args)
     : BaseObject(args)
-    , var0_(0)
+    , ast_(0)
 {
     expr_ = to_string(positionalArguments(), "");
-    var0_ = math_expr_getsym("$f");
 
-    assert(var0_);
+    updateAST();
 
     createInlet();
     createOutlet();
@@ -36,41 +34,61 @@ MathExpr::MathExpr(const PdArgs& args)
     createCbProperty("@expr", &MathExpr::propExpr, &MathExpr::propSetExpr);
 }
 
+MathExpr::~MathExpr()
+{
+    ast_free(ast_);
+}
+
 void MathExpr::onFloat(t_float v)
 {
-    var0_->value.var = v;
+    if (!ast_) {
+        OBJ_ERR << "NULL AST";
+        return;
+    }
+
+    if (!ast_ok(ast_)) {
+        OBJ_ERR << "invalid AST: not parsed...";
+        return;
+    }
+
+    ast_clear_vars(ast_);
+    ast_bind_var(ast_, 0, v);
 
     double res = 0;
-    int err = math_expr_calc(expr_.c_str(), &res);
+    int err = ast_eval(ast_, &res);
+    if (err) {
+        OBJ_ERR << "eval error";
+        return;
+    }
 
-    if (!err)
-        floatTo(0, res);
+    floatTo(0, res);
 }
 
 void MathExpr::onInlet(size_t n, const AtomList& lst)
 {
     expr_ = to_string(lst, "");
+    updateAST();
 }
 
 void MathExpr::onList(const AtomList& lst)
 {
-    AtomList out;
+    //    AtomList out;
 
-    for (size_t i = 0; i < lst.size(); i++) {
-        const Atom& a = lst[i];
-        t_float v = 0;
-        if (!a.getFloat(&v))
-            continue;
+    //    for (size_t i = 0; i < lst.size(); i++) {
+    //        const Atom& a = lst[i];
+    //        t_float v = 0;
+    //        if (!a.getFloat(&v))
+    //            continue;
 
-        double res = 0;
-        var0_->value.var = v;
+    //        double res = 0;
+    //        var0_->value.var = v;
 
-        int err = math_expr_calc(expr_.c_str(), &res);
-        if (!err)
-            out.append(Atom(res));
-    }
+    //        int err = math_expr_calc(expr_.c_str(), &res);
+    //        if (!err)
+    //            out.append(Atom(res));
+    //    }
 
-    listTo(0, out);
+    //    listTo(0, out);
 }
 
 AtomList MathExpr::propExpr() const
@@ -81,13 +99,31 @@ AtomList MathExpr::propExpr() const
 void MathExpr::propSetExpr(const AtomList& lst)
 {
     expr_ = to_string(lst, "");
+    updateAST();
+}
+
+void MathExpr::updateAST()
+{
+    if (ast_) {
+        ast_free(ast_);
+    }
+
+    ast_ = ast_new();
+
+    int err = math_expr_parse_ast(ast_, expr_.c_str());
+    if (err) {
+        OBJ_ERR << "parse error...";
+        return;
+    }
+
+//    ast_print(ast_);
 }
 
 void setup_math_expr()
 {
     ObjectFactory<MathExpr> obj("math.expr");
-    math_expr_init_table();
-    math_expr_putvar("$pi", M_PI);
-    math_expr_putvar("$e", M_E);
-    math_expr_putvar("$f", 0);
+    //    math_expr_init_table();
+    //    math_expr_putvar("$pi", M_PI);
+    //    math_expr_putvar("$e", M_E);
+    //    math_expr_putvar("$f", 0);
 }

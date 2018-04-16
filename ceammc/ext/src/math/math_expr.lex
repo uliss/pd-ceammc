@@ -5,25 +5,92 @@
 %option outfile="lex.math_expr.c"
 
 %{
-# include "math_expr_calc.h"
-# include "math_expr.tab.h"
+#include <math.h>
+
+#include "math_expr_calc.h"
+#include "math_expr.tab.h"
+#include "math_expr_ast.h"
+
+typedef struct Node Node;
 %}
 
 %%
 
-[0-9]*\.?[0-9]+ {
+0b[0-1]+ { // binary 0x1101101
+    math_expr_lval.val = strtol(math_expr_text + 2, NULL, 2);
+    return NUM;
+}
+
+0x[0-9A-Fa-f]+ { // hex 0xBEEFA24
+    math_expr_lval.val = strtol(math_expr_text, NULL, 16);
+    return NUM;
+}
+
+[0-9]*\.?[0-9]+ { // double
     sscanf (math_expr_text, "%lf", &math_expr_lval.val);
     return NUM;
 }
 
-[a-zA-Z$][a-zA-Z_0-9]* {
-    symrec *s;
-    s = math_expr_getsym(math_expr_text);
-    if (s == 0) {
-        s = math_expr_putsym(math_expr_text, VAR);
+$f[0-9]* { // refs
+    char n = math_expr_text[2];
+
+    if(n == '\0')
+        math_expr_lval.val = 0;
+    else
+        math_expr_lval.val = n - '0';
+
+    return REF;
+}
+
+$pi { // PI
+    math_expr_lval.val = M_PI;
+    return NUM;
+}
+
+$e { // E
+    math_expr_lval.val = M_E;
+    return NUM;
+}
+
+[a-z][a-z_0-9]* {
+    if(strcmp(math_expr_text, "sin") == 0) {
+        math_expr_lval.val = UFN_SIN;
+        return UFUNC;
     }
-    math_expr_lval.tptr = s;
-    return s->type;
+    else if(strcmp(math_expr_text, "cos") == 0) {
+        math_expr_lval.val = UFN_COS;
+        return UFUNC;
+    }
+    else if(strcmp(math_expr_text, "tan") == 0) {
+        math_expr_lval.val = UFN_TAN;
+        return UFUNC;
+    }
+    else if(strcmp(math_expr_text, "sqrt") == 0) {
+        math_expr_lval.val = UFN_SQRT;
+        return UFUNC;
+    }
+    else if(strcmp(math_expr_text, "ln") == 0) {
+        math_expr_lval.val = UFN_LN;
+        return UFUNC;
+    }
+    else if(strcmp(math_expr_text, "log2") == 0) {
+        math_expr_lval.val = UFN_LOG2;
+        return UFUNC;
+    }
+    else if(strcmp(math_expr_text, "log10") == 0) {
+        math_expr_lval.val = UFN_LOG10;
+        return UFUNC;
+    }
+    else if(strcmp(math_expr_text, "exp") == 0) {
+        math_expr_lval.val = UFN_EXP;
+        return UFUNC;
+    }
+    else if(strcmp(math_expr_text, "atan") == 0) {
+        math_expr_lval.val = UFN_ATAN;
+        return UFUNC;
+    }
+
+    return UFUNC;
 }
 
 [ \t]*

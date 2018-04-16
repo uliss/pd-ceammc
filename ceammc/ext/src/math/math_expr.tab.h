@@ -55,8 +55,9 @@ extern int math_expr_debug;
   {
     NUM = 258,
     VAR = 259,
-    FNCT = 260,
-    NEG = 261
+    REF = 260,
+    UFUNC = 261,
+    NEG = 262
   };
 #endif
 
@@ -65,12 +66,13 @@ extern int math_expr_debug;
 
 union MATH_EXPR_STYPE
 {
-#line 18 "math_expr.y" /* yacc.c:1915  */
+#line 29 "math_expr.y" /* yacc.c:1915  */
 
   double val;   /* for returning numbers                  */
   symrec *tptr; /* for returning symbol-table of 'symrec' */
+  Node* node;
 
-#line 74 "math_expr.tab.h" /* yacc.c:1915  */
+#line 76 "math_expr.tab.h" /* yacc.c:1915  */
 };
 
 typedef union MATH_EXPR_STYPE MATH_EXPR_STYPE;
@@ -81,6 +83,6 @@ typedef union MATH_EXPR_STYPE MATH_EXPR_STYPE;
 
 extern MATH_EXPR_STYPE math_expr_lval;
 
-int math_expr_parse (double *result);
+int math_expr_parse (ast *ast);
 
 #endif /* !YY_MATH_EXPR_MATH_EXPR_TAB_H_INCLUDED  */

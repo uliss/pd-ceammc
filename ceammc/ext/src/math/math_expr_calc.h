@@ -44,7 +44,11 @@ void math_expr_init_table();
 int math_expr_calc(const char* s, double* res);
 
 int math_exprlex();
-void math_expr_error(double* res, const char* s);
+
+typedef struct ast ast;
+typedef struct Node Node;
+void math_expr_error(ast *ast, const char* s);
+int math_expr_parse_ast(ast* ast, const char* s);
 
 #if defined(__cplusplus)
 }

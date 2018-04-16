@@ -71,7 +71,6 @@ TEST_CASE("math.expr", "[externals]")
         REQUIRE_EXPR(t, "(1+2)*3", 3, Approx(9));
         REQUIRE_EXPR(t, "$pi", 3, Approx(3.1415926));
         REQUIRE_EXPR(t, "$f", 3, Approx(3));
-        REQUIRE_EXPR(t, "$p", 3, Approx(0));
         REQUIRE_EXPR(t, "$e", 3, Approx(2.7182817459));
         REQUIRE_EXPR(t, "sin(0)", 100, Approx(0));
         REQUIRE_EXPR(t, "sin($pi)", 100, Approx(0));
@@ -80,7 +79,13 @@ TEST_CASE("math.expr", "[externals]")
         REQUIRE_EXPR(t, "sin($pi*2)", 100, Approx(0));
         REQUIRE_EXPR(t, "cos(0)", 100, Approx(1));
         REQUIRE_EXPR(t, "cos($pi)", 100, Approx(-1));
-
-
+        REQUIRE_EXPR(t, "sqrt($f)", 4, Approx(2));
+        REQUIRE_EXPR(t, "tan($f)", 0, Approx(0));
+        REQUIRE_EXPR(t, "tan($pi/4)", 0, Approx(1));
+        REQUIRE_EXPR(t, "atan($f)", 1, Approx(M_PI_4));
+        REQUIRE_EXPR(t, "exp(0)", 1, Approx(1));
+        REQUIRE_EXPR(t, "log2($f)", 8, Approx(3));
+        REQUIRE_EXPR(t, "ln($e^4)", 8, Approx(4));
+        REQUIRE_EXPR(t, "log10($f)", 1000, Approx(3));
     }
 }
