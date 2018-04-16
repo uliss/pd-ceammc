@@ -72,23 +72,19 @@ void MathExpr::onInlet(size_t n, const AtomList& lst)
 
 void MathExpr::onList(const AtomList& lst)
 {
-    //    AtomList out;
+    //    bin vars
+    ast_clear_vars(ast_);
+    for (size_t i = 0; i < std::min<size_t>(10, lst.size()); i++)
+        ast_bind_var(ast_, i, lst[i].asFloat());
 
-    //    for (size_t i = 0; i < lst.size(); i++) {
-    //        const Atom& a = lst[i];
-    //        t_float v = 0;
-    //        if (!a.getFloat(&v))
-    //            continue;
+    double res = 0;
+    int err = ast_eval(ast_, &res);
+    if (err) {
+        OBJ_ERR << "eval error";
+        return;
+    }
 
-    //        double res = 0;
-    //        var0_->value.var = v;
-
-    //        int err = math_expr_calc(expr_.c_str(), &res);
-    //        if (!err)
-    //            out.append(Atom(res));
-    //    }
-
-    //    listTo(0, out);
+    floatTo(0, res);
 }
 
 AtomList MathExpr::propExpr() const
@@ -113,15 +109,9 @@ void MathExpr::updateAST()
     int err = math_expr_parse_ast(ast_, expr_.c_str());
     if (err)
         return;
-
-    //    ast_print(ast_);
 }
 
 void setup_math_expr()
 {
     ObjectFactory<MathExpr> obj("math.expr");
-    //    math_expr_init_table();
-    //    math_expr_putvar("$pi", M_PI);
-    //    math_expr_putvar("$e", M_E);
-    //    math_expr_putvar("$f", 0);
 }

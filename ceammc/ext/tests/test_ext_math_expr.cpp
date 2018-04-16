@@ -57,6 +57,8 @@ TEST_CASE("math.expr", "[externals]")
         WHEN_SEND_LIST_TO(1, t, L1("$f*2"));
         REQUIRE_PROPERTY_LIST(t, @expr, L1("$f*2"));
 
+        REQUIRE_EXPR(t, "$f", 10, Approx(10));
+        REQUIRE_EXPR(t, "$f0", 10, Approx(10));
         REQUIRE_EXPR(t, "$f+1", 1, Approx(2));
         REQUIRE_EXPR(t, "$f-10", 1, Approx(-9));
         REQUIRE_EXPR(t, "$f*3", 2, Approx(6));
@@ -135,5 +137,24 @@ TEST_CASE("math.expr", "[externals]")
         REQUIRE_EXPR(t, "2<2", 1, Approx(0));
         REQUIRE_EXPR(t, "2<1", 1, Approx(0));
         REQUIRE_EXPR(t, "1<2", 1, Approx(1));
+    }
+
+    SECTION("list")
+    {
+
+#define REQUIRE_LIST_EXPR(t, expr, in, out) \
+    {                                       \
+        WHEN_SEND_LIST_TO(1, t, L1(expr));  \
+        WHEN_SEND_LIST_TO(0, t, in);        \
+        REQUIRE_FLOAT_AT_OUTLET(0, t, out); \
+    }
+
+        MathExprTest t("math.expr");
+        REQUIRE_LIST_EXPR(t, "$f", L2(100, 200), Approx(100));
+        REQUIRE_LIST_EXPR(t, "$f0", L2(100, 200), Approx(100));
+        REQUIRE_LIST_EXPR(t, "$f1", L2(100, 200), Approx(200));
+
+        REQUIRE_LIST_EXPR(t, "max($f0, $f1)", L2(100, 200), Approx(200));
+        REQUIRE_LIST_EXPR(t, "min($f0, $f1)", L2(100, 200), Approx(100));
     }
 }
