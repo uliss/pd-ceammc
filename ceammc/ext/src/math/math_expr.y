@@ -1,6 +1,3 @@
-/* multi-function calculator */
-/* Time-stamp: <2000-10-23 14:52:06 ronaldo> mfcalc.y */
-
 %{
 #include <math.h>   /* For math functions: cos(), sin(), etc. */
 #include <string.h>
@@ -28,18 +25,14 @@ typedef struct Node Node;
 
 %union {
   double val;   /* for returning numbers                  */
-  symrec *tptr; /* for returning symbol-table of 'symrec' */
   Node* node;
 }
 
-%token <val>  NUM        /* Simple double precision number */
-%token <tptr> VAR        /* Variable and Function          */
+%token <val>  NUM     /* Simple double precision number */
 %token <val>  REF
-%token <val> UFUNC
+%token <val>  UFUNC
 
-%type  <node>  exp       /* For nonterminal symbols        */
-%type  <node>  input
-
+%type  <node>  exp input      /* For nonterminal symbols        */
 
 %right '='
 %left  '-' '+'
@@ -73,70 +66,6 @@ exp : NUM                   { $$ = node_create_value($1);           }
 /* End of Grammar */
 
 %%
-
-struct init {
-  char fname[8];
-  double (*fnct)(double);
-};
-
-struct init arith_fncts[] = {
-    "sin" , &sin,
-    "cos" , &cos,
-    "atan", &atan,
-    "ln"  , &log,
-    "exp" , &exp,
-    "sqrt", &sqrt,
-    0     , 0
-};
-
-/* The symbol table: a chain of 'struct symrec' */
-symrec * sym_table = (symrec *) 0;
-
-symrec * math_expr_putsym(const char * sym_name, int sym_type) {
-    symrec * ptr;
-    ptr = (symrec *) calloc (1, sizeof (symrec));
-    strncpy (ptr->name, sym_name, 7);
-    ptr->type = sym_type;
-    ptr->value.var = 0; /* set value to 0 even if fctn */
-    ptr->next = (struct symrec *) sym_table;
-    sym_table = ptr;
-    return ptr;
-}
-
-symrec * math_expr_getsym(const char * sym_name) {
-    symrec * ptr;
-    for (ptr=sym_table; ptr != (symrec *) 0; ptr = (symrec *) ptr->next)
-    if (strcmp (ptr->name, sym_name) == 0)
-        return ptr;
-
-    return (symrec *) 0;
-}
-
-symrec* math_expr_putvar(const char* var_name, double v)
-{
-    symrec* s = math_expr_putsym(var_name, VAR);
-    s->value.var = v;
-    return s;
-}
-
-symrec* math_expr_setvar(const char* var_name, double v)
-{
-    symrec* s = math_expr_getsym(var_name);
-    if(!s)
-        return (symrec *) 0;
-
-    s->value.var = v;
-    return s;
-}
-
-/* puts arithmetic functions in table */
-void math_expr_init_table() {
-    symrec * ptr;
-    for (int i = 0; arith_fncts[i].fname[0] != 0; i++) {
-        ptr = math_expr_putsym(arith_fncts[i].fname, VAR);
-        ptr->value.fnctptr = arith_fncts[i].fnct;
-    }
-}
 
 void math_expr_error(ast* ast, const char* s)
 {

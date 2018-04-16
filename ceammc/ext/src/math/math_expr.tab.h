@@ -54,10 +54,9 @@ extern int math_expr_debug;
   enum math_expr_tokentype
   {
     NUM = 258,
-    VAR = 259,
-    REF = 260,
-    UFUNC = 261,
-    NEG = 262
+    REF = 259,
+    UFUNC = 260,
+    NEG = 261
   };
 #endif
 
@@ -66,13 +65,12 @@ extern int math_expr_debug;
 
 union MATH_EXPR_STYPE
 {
-#line 29 "math_expr.y" /* yacc.c:1915  */
+#line 26 "math_expr.y" /* yacc.c:1915  */
 
   double val;   /* for returning numbers                  */
-  symrec *tptr; /* for returning symbol-table of 'symrec' */
   Node* node;
 
-#line 76 "math_expr.tab.h" /* yacc.c:1915  */
+#line 74 "math_expr.tab.h" /* yacc.c:1915  */
 };
 
 typedef union MATH_EXPR_STYPE MATH_EXPR_STYPE;
