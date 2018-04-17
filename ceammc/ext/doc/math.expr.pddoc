@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.expr">
+        <title>math.expr</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>dynamic [expr]</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math expr</keywords>
+            <since>0.6</since>
+        </meta>
+        <info>
+            <par>Operators: +, -, *, /, %, &lt;, &lt;=, &gt;=, &gt;, ==, !=</par>
+            <par>Functions: sin(), cos(), tan(), atan(), sqrt(), ln(), log2(), log10(), exp(),
+            round(), ceil(), float(), fact(), min(), max(), sign(), abs()</par>
+            <par>Constants: $pi, $e</par>
+            <par>Variables: $f, $f0, $f1 ... $f9</par>
+        </info>
+        <arguments>
+            <argument name="EXPR" type="list">expression</argument>
+        </arguments>
+        <properties>
+            <property name="@expr" type="list">expression</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="float">input value (referenced as $f0 or $f in expression)</xinfo>
+                <xinfo on="list">input values (referenced as $f0 ... $f9 in expression)</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo>change expression</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>calculated expression</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]          [$f * 2( [$f*$pi/180( /*change expression*/
+|            |        |
+| [@expr?(   [list    ]
+| |          |.
+[math.expr sin($f)]
+|
+[prop-> @expr  ]
+|             ^|
+|             [msg set]
+|             |
+[F digits=10] [ (
+
+
+[14 2 1( [1 3 4( /*lists*/
+|        |
+[math.expr $f0^2 + $f0 * $f1 + $f2]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
