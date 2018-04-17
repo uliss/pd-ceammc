@@ -779,7 +779,7 @@ YY_RULE_SETUP
 #line 19 "math_expr.lex"
 { // binary 0x1101101
     math_expr_lval.val = strtol(math_expr_text + 2, NULL, 2);
-    return NUM;
+    return T_NUM;
 }
 	YY_BREAK
 case 2:
@@ -787,7 +787,7 @@ YY_RULE_SETUP
 #line 24 "math_expr.lex"
 { // hex 0xBEEFA24
     math_expr_lval.val = strtol(math_expr_text, NULL, 16);
-    return NUM;
+    return T_NUM;
 }
 	YY_BREAK
 case 3:
@@ -795,7 +795,7 @@ YY_RULE_SETUP
 #line 29 "math_expr.lex"
 { // double
     sscanf (math_expr_text, "%lf", &math_expr_lval.val);
-    return NUM;
+    return T_NUM;
 }
 	YY_BREAK
 case 4:
@@ -809,45 +809,45 @@ YY_RULE_SETUP
     else
         math_expr_lval.val = n - '0';
 
-    return REF;
+    return T_REF;
 }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
 #line 45 "math_expr.lex"
-{ return EQ; }
+{ return T_EQ; }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
 #line 46 "math_expr.lex"
-{ return NOT_EQ; }
+{ return T_NOT_EQ; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
 #line 47 "math_expr.lex"
-{ return LE; }
+{ return T_LE; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
 #line 48 "math_expr.lex"
-{ return LT; }
+{ return T_LT; }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
 #line 49 "math_expr.lex"
-{ return GE; }
+{ return T_GE; }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
 #line 50 "math_expr.lex"
-{ return GT; }
+{ return T_GT; }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
 #line 52 "math_expr.lex"
 { // PI
     math_expr_lval.val = M_PI;
-    return NUM;
+    return T_NUM;
 }
 	YY_BREAK
 case 12:
@@ -855,7 +855,7 @@ YY_RULE_SETUP
 #line 57 "math_expr.lex"
 { // E
     math_expr_lval.val = M_E;
-    return NUM;
+    return T_NUM;
 }
 	YY_BREAK
 case 13:
@@ -864,75 +864,75 @@ YY_RULE_SETUP
 {
     if(strcmp(math_expr_text, "sin") == 0) {
         math_expr_lval.val = UFN_SIN;
-        return UFUNC;
+        return T_UFUNC;
     }
     else if(strcmp(math_expr_text, "cos") == 0) {
         math_expr_lval.val = UFN_COS;
-        return UFUNC;
+        return T_UFUNC;
     }
     else if(strcmp(math_expr_text, "tan") == 0) {
         math_expr_lval.val = UFN_TAN;
-        return UFUNC;
+        return T_UFUNC;
     }
     else if(strcmp(math_expr_text, "sqrt") == 0) {
         math_expr_lval.val = UFN_SQRT;
-        return UFUNC;
+        return T_UFUNC;
     }
     else if(strcmp(math_expr_text, "ln") == 0) {
         math_expr_lval.val = UFN_LN;
-        return UFUNC;
+        return T_UFUNC;
     }
     else if(strcmp(math_expr_text, "log2") == 0) {
         math_expr_lval.val = UFN_LOG2;
-        return UFUNC;
+        return T_UFUNC;
     }
     else if(strcmp(math_expr_text, "log10") == 0) {
         math_expr_lval.val = UFN_LOG10;
-        return UFUNC;
+        return T_UFUNC;
     }
     else if(strcmp(math_expr_text, "exp") == 0) {
         math_expr_lval.val = UFN_EXP;
-        return UFUNC;
+        return T_UFUNC;
     }
     else if(strcmp(math_expr_text, "atan") == 0) {
         math_expr_lval.val = UFN_ATAN;
-        return UFUNC;
+        return T_UFUNC;
     }
     else if(strcmp(math_expr_text, "max") == 0) {
         math_expr_lval.val = BFN_MAX;
-        return BFUNC;
+        return T_BFUNC;
     }
     else if(strcmp(math_expr_text, "min") == 0) {
         math_expr_lval.val = BFN_MIN;
-        return BFUNC;
+        return T_BFUNC;
     }
     else if(strcmp(math_expr_text, "abs") == 0) {
         math_expr_lval.val = UFN_ABS;
-        return UFUNC;
+        return T_UFUNC;
     }
     else if(strcmp(math_expr_text, "sign") == 0) {
         math_expr_lval.val = UFN_SIGN;
-        return UFUNC;
+        return T_UFUNC;
     }
     else if(strcmp(math_expr_text, "fact") == 0) {
         math_expr_lval.val = UFN_FACTORIAL;
-        return UFUNC;
+        return T_UFUNC;
     }
     else if(strcmp(math_expr_text, "round") == 0) {
         math_expr_lval.val = UFN_ROUND;
-        return UFUNC;
+        return T_UFUNC;
     }
     else if(strcmp(math_expr_text, "ceil") == 0) {
         math_expr_lval.val = UFN_CEIL;
-        return UFUNC;
+        return T_UFUNC;
     }
     else if(strcmp(math_expr_text, "floor") == 0) {
         math_expr_lval.val = UFN_FLOOR;
-        return UFUNC;
+        return T_UFUNC;
     }
 
     math_expr_lval.val = ERR_UNKNOWN_FUNC;
-    return ERROR;
+    return T_ERROR;
 }
 	YY_BREAK
 case 14:

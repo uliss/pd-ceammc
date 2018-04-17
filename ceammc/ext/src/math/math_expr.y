@@ -49,16 +49,16 @@ static void print_error(ast* tree, const char* msg, int c) {
   Node* node;
 }
 
-%token <val>  NUM EQ NOT_EQ
-%token <val>  REF
-%token <val>  UFUNC BFUNC ERROR
+%token <val> T_NUM T_REF
+%token <val> T_EQ T_NOT_EQ
+%token <val> T_UFUNC T_BFUNC T_ERROR
 
 %type  <node>  exp input
 
-%left EQ NOT_EQ LE LT GT GE
+%left T_EQ T_NOT_EQ T_LE T_LT T_GT T_GE
 %left  '-' '+'
 %left  '*' '/' '%'
-%left  NEG     /* unary minus    */
+%left  T_NEG     /* unary minus    */
 %right '^'     /* exponentiation */
 
 /* Grammar follows */
@@ -68,25 +68,25 @@ static void print_error(ast* tree, const char* msg, int c) {
 input : exp { node_add_cont(ast_root(ast), $1); }
 ;
 
-exp : NUM                 { $$ = node_create_value($1);                               }
-      | ERROR             { print_error(ast, math_expr_text, $1); YYERROR;            }
-      | UFUNC '(' exp ')' { $$ = node_create_ufunc(ufnNameToPtr($1), $3);             }
-      | BFUNC '(' exp ',' exp ')' { $$ = node_create_bfunc(bfnNameToPtr($1), $3, $5); }
-      | REF               { $$ = node_create_ref(ast_ref(ast, $1));                   }
-      | exp EQ exp        { $$ = node_create_bfunc(fn_eq, $1, $3);                    }
-      | exp NOT_EQ exp    { $$ = node_create_bfunc(fn_ne, $1, $3);                    }
-      | exp LT exp        { $$ = node_create_bfunc(fn_lt, $1, $3);                    }
-      | exp LE exp        { $$ = node_create_bfunc(fn_le, $1, $3);                    }
-      | exp GT exp        { $$ = node_create_bfunc(fn_gt, $1, $3);                    }
-      | exp GE exp        { $$ = node_create_bfunc(fn_ge, $1, $3);                    }
-      | exp '+' exp       { $$ = node_create_bfunc(fn_plus, $1, $3);                  }
-      | exp '-' exp       { $$ = node_create_bfunc(fn_minus, $1, $3);                 }
-      | exp '*' exp       { $$ = node_create_bfunc(fn_mul, $1, $3);                   }
-      | exp '/' exp       { $$ = node_create_bfunc(fn_div, $1, $3);                   }
-      | exp '%' exp       { $$ = node_create_bfunc(fn_mod, $1, $3);                   }
-      | '-' exp %prec NEG { $$ = node_create_ufunc(fn_neg, $2);                       }
-      | exp '^' exp       { $$ = node_create_bfunc(fn_pow, $1, $3);                   }
-      | '(' exp ')'       { $$ = node_create_cont($2);                                }
+exp : T_NUM                 { $$ = node_create_value_float($1);                         }
+      | T_ERROR             { print_error(ast, math_expr_text, $1); YYERROR;            }
+      | T_UFUNC '(' exp ')' { $$ = node_create_ufunc(ufnNameToPtr($1), $3);             }
+      | T_BFUNC '(' exp ',' exp ')' { $$ = node_create_bfunc(bfnNameToPtr($1), $3, $5); }
+      | T_REF               { $$ = node_create_ref_float(ast_ref(ast, $1));             }
+      | exp T_EQ exp        { $$ = node_create_bfunc(fn_eq, $1, $3);                    }
+      | exp T_NOT_EQ exp    { $$ = node_create_bfunc(fn_ne, $1, $3);                    }
+      | exp T_LT exp        { $$ = node_create_bfunc(fn_lt, $1, $3);                    }
+      | exp T_LE exp        { $$ = node_create_bfunc(fn_le, $1, $3);                    }
+      | exp T_GT exp        { $$ = node_create_bfunc(fn_gt, $1, $3);                    }
+      | exp T_GE exp        { $$ = node_create_bfunc(fn_ge, $1, $3);                    }
+      | exp '+' exp         { $$ = node_create_bfunc(fn_plus, $1, $3);                  }
+      | exp '-' exp         { $$ = node_create_bfunc(fn_minus, $1, $3);                 }
+      | exp '*' exp         { $$ = node_create_bfunc(fn_mul, $1, $3);                   }
+      | exp '/' exp         { $$ = node_create_bfunc(fn_div, $1, $3);                   }
+      | exp '%' exp         { $$ = node_create_bfunc(fn_mod, $1, $3);                   }
+      | '-' exp %prec T_NEG { $$ = node_create_ufunc(fn_neg, $2);                       }
+      | exp '^' exp         { $$ = node_create_bfunc(fn_pow, $1, $3);                   }
+      | '(' exp ')'         { $$ = node_create_cont($2);                                }
 ;
 
 /* End of Grammar */

@@ -53,18 +53,18 @@ extern int math_expr_debug;
 # define MATH_EXPR_TOKENTYPE
   enum math_expr_tokentype
   {
-    NUM = 258,
-    EQ = 259,
-    NOT_EQ = 260,
-    REF = 261,
-    UFUNC = 262,
-    BFUNC = 263,
-    ERROR = 264,
-    LE = 265,
-    LT = 266,
-    GT = 267,
-    GE = 268,
-    NEG = 269
+    T_NUM = 258,
+    T_REF = 259,
+    T_EQ = 260,
+    T_NOT_EQ = 261,
+    T_UFUNC = 262,
+    T_BFUNC = 263,
+    T_ERROR = 264,
+    T_LE = 265,
+    T_LT = 266,
+    T_GT = 267,
+    T_GE = 268,
+    T_NEG = 269
   };
 #endif
 
