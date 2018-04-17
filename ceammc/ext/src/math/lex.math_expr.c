@@ -503,10 +503,8 @@ char *math_expr_text;
 
 #include "math_expr_calc.h"
 #include "math_expr.tab.h"
-#include "math_expr_ast.h"
 
-typedef struct Node Node;
-#line 510 "lex.math_expr.c"
+#line 508 "lex.math_expr.c"
 
 #define INITIAL 0
 
@@ -688,10 +686,10 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 17 "math_expr.lex"
+#line 15 "math_expr.lex"
 
 
-#line 695 "lex.math_expr.c"
+#line 693 "lex.math_expr.c"
 
 	if ( !(yy_init) )
 		{
@@ -776,7 +774,7 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 19 "math_expr.lex"
+#line 17 "math_expr.lex"
 { // binary 0x1101101
     math_expr_lval.val = strtol(math_expr_text + 2, NULL, 2);
     return T_NUM;
@@ -784,7 +782,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 24 "math_expr.lex"
+#line 22 "math_expr.lex"
 { // hex 0xBEEFA24
     math_expr_lval.val = strtol(math_expr_text, NULL, 16);
     return T_NUM;
@@ -792,7 +790,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 29 "math_expr.lex"
+#line 27 "math_expr.lex"
 { // double
     sscanf (math_expr_text, "%lf", &math_expr_lval.val);
     return T_NUM;
@@ -800,7 +798,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 34 "math_expr.lex"
+#line 32 "math_expr.lex"
 { // refs
     char n = math_expr_text[2];
 
@@ -814,37 +812,37 @@ YY_RULE_SETUP
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 45 "math_expr.lex"
+#line 43 "math_expr.lex"
 { return T_EQ; }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 46 "math_expr.lex"
+#line 44 "math_expr.lex"
 { return T_NOT_EQ; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 47 "math_expr.lex"
+#line 45 "math_expr.lex"
 { return T_LE; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 48 "math_expr.lex"
+#line 46 "math_expr.lex"
 { return T_LT; }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 49 "math_expr.lex"
+#line 47 "math_expr.lex"
 { return T_GE; }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 50 "math_expr.lex"
+#line 48 "math_expr.lex"
 { return T_GT; }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 52 "math_expr.lex"
+#line 50 "math_expr.lex"
 { // PI
     math_expr_lval.val = M_PI;
     return T_NUM;
@@ -852,7 +850,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 57 "math_expr.lex"
+#line 55 "math_expr.lex"
 { // E
     math_expr_lval.val = M_E;
     return T_NUM;
@@ -860,7 +858,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 62 "math_expr.lex"
+#line 60 "math_expr.lex"
 {
     if(strcmp(math_expr_text, "sin") == 0) {
         math_expr_lval.val = UFN_SIN;
@@ -937,23 +935,23 @@ YY_RULE_SETUP
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 136 "math_expr.lex"
+#line 134 "math_expr.lex"
 
 	YY_BREAK
 case 15:
 /* rule 15 can match eol */
 YY_RULE_SETUP
-#line 138 "math_expr.lex"
+#line 136 "math_expr.lex"
 {
     return *math_expr_text;
 }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 142 "math_expr.lex"
+#line 140 "math_expr.lex"
 ECHO;
 	YY_BREAK
-#line 957 "lex.math_expr.c"
+#line 955 "lex.math_expr.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1950,7 +1948,7 @@ void math_expr_free (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 142 "math_expr.lex"
+#line 140 "math_expr.lex"
 
 
 

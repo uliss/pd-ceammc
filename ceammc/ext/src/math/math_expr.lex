@@ -9,9 +9,7 @@
 
 #include "math_expr_calc.h"
 #include "math_expr.tab.h"
-#include "math_expr_ast.h"
 
-typedef struct Node Node;
 %}
 
 %%

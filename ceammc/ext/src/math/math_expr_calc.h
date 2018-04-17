@@ -18,10 +18,10 @@
 extern "C" {
 #endif
 
+#include "math_expr_ast.h"
+
 int math_exprlex();
 
-typedef struct ast ast;
-typedef struct Node Node;
 void math_expr_error(ast *ast, const char* s);
 int math_expr_parse_ast(ast* ast, const char* s);
 

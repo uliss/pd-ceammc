@@ -66,3 +66,14 @@ add_library(ceammc_math STATIC mod_math.h mod_math.cpp ${MATH_SOURCES})
 if(UNIX)
     set_target_properties(ceammc_math PROPERTIES COMPILE_FLAGS "-fPIC")
 endif()
+
+find_package(BISON)
+find_package(FLEX)
+
+if(BISON_FOUND AND FLEX_FOUND)
+    add_custom_target(math_expr_gen
+        COMMAND ${BISON_EXECUTABLE} -d math_expr.y
+        COMMAND ${FLEX_EXECUTABLE} --header-file=lex.math_expr.h math_expr.lex
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    )
+endif()
