@@ -114,6 +114,7 @@ ceammc_external_test(list split)
 
 ceammc_external_test(math approx)
 ceammc_external_test(math and)
+ceammc_external_test(math expr)
 ceammc_external_test(math gcd)
 ceammc_external_test(math lcm)
 ceammc_external_test(math or)

@@ -192,6 +192,7 @@ set(DOC_FILES
     math.e
     math.exp
     math.exp2
+    math.expr
     math.floor
     math.gcd
     math.inf
