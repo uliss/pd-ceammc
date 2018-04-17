@@ -335,6 +335,12 @@ UnaryFunc ufnNameToPtr(UFuncName n)
         return &d_sign;
     case UFN_FACTORIAL:
         return &d_fact;
+    case UFN_CEIL:
+        return &ceil;
+    case UFN_FLOOR:
+        return &floor;
+    case UFN_ROUND:
+        return &round;
     }
 }
 

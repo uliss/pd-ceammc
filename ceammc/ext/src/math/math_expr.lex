@@ -116,6 +116,18 @@ $e { // E
         math_expr_lval.val = UFN_FACTORIAL;
         return UFUNC;
     }
+    else if(strcmp(math_expr_text, "round") == 0) {
+        math_expr_lval.val = UFN_ROUND;
+        return UFUNC;
+    }
+    else if(strcmp(math_expr_text, "ceil") == 0) {
+        math_expr_lval.val = UFN_CEIL;
+        return UFUNC;
+    }
+    else if(strcmp(math_expr_text, "floor") == 0) {
+        math_expr_lval.val = UFN_FLOOR;
+        return UFUNC;
+    }
 
     math_expr_lval.val = ERR_UNKNOWN_FUNC;
     return ERROR;

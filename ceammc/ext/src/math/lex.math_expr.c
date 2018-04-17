@@ -918,6 +918,18 @@ YY_RULE_SETUP
         math_expr_lval.val = UFN_FACTORIAL;
         return UFUNC;
     }
+    else if(strcmp(math_expr_text, "round") == 0) {
+        math_expr_lval.val = UFN_ROUND;
+        return UFUNC;
+    }
+    else if(strcmp(math_expr_text, "ceil") == 0) {
+        math_expr_lval.val = UFN_CEIL;
+        return UFUNC;
+    }
+    else if(strcmp(math_expr_text, "floor") == 0) {
+        math_expr_lval.val = UFN_FLOOR;
+        return UFUNC;
+    }
 
     math_expr_lval.val = ERR_UNKNOWN_FUNC;
     return ERROR;
@@ -925,23 +937,23 @@ YY_RULE_SETUP
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 124 "math_expr.lex"
+#line 136 "math_expr.lex"
 
 	YY_BREAK
 case 15:
 /* rule 15 can match eol */
 YY_RULE_SETUP
-#line 126 "math_expr.lex"
+#line 138 "math_expr.lex"
 {
     return *math_expr_text;
 }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 130 "math_expr.lex"
+#line 142 "math_expr.lex"
 ECHO;
 	YY_BREAK
-#line 945 "lex.math_expr.c"
+#line 957 "lex.math_expr.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1938,7 +1950,7 @@ void math_expr_free (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 130 "math_expr.lex"
+#line 142 "math_expr.lex"
 
 
 

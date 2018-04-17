@@ -110,6 +110,36 @@ TEST_CASE("math.expr", "[externals]")
         REQUIRE_EXPR(t, "min($f, 10)", -1, Approx(-1));
         REQUIRE_EXPR(t, "min($f, 10)", 20, Approx(10));
 
+        REQUIRE_EXPR(t, "round(10)", 0, Approx(10));
+        REQUIRE_EXPR(t, "round(10.1)", 0, Approx(10));
+        REQUIRE_EXPR(t, "round(10.5)", 0, Approx(11));
+        REQUIRE_EXPR(t, "round(10.9)", 0, Approx(11));
+
+        REQUIRE_EXPR(t, "round(-2)", 0, Approx(-2));
+        REQUIRE_EXPR(t, "round(-1.9)", 0, Approx(-2));
+        REQUIRE_EXPR(t, "round(-2.1)", 0, Approx(-2));
+        REQUIRE_EXPR(t, "round(-2.5)", 0, Approx(-3));
+
+        REQUIRE_EXPR(t, "ceil(10)", 0, Approx(10));
+        REQUIRE_EXPR(t, "ceil(10.1)", 0, Approx(11));
+        REQUIRE_EXPR(t, "ceil(10.5)", 0, Approx(11));
+        REQUIRE_EXPR(t, "ceil(10.9)", 0, Approx(11));
+
+        REQUIRE_EXPR(t, "ceil(-10)", 0, Approx(-10));
+        REQUIRE_EXPR(t, "ceil(-10.1)", 0, Approx(-10));
+        REQUIRE_EXPR(t, "ceil(-10.5)", 0, Approx(-10));
+        REQUIRE_EXPR(t, "ceil(-10.9)", 0, Approx(-10));
+
+        REQUIRE_EXPR(t, "floor(10)", 0, Approx(10));
+        REQUIRE_EXPR(t, "floor(10.1)", 0, Approx(10));
+        REQUIRE_EXPR(t, "floor(10.5)", 0, Approx(10));
+        REQUIRE_EXPR(t, "floor(10.9)", 0, Approx(10));
+
+        REQUIRE_EXPR(t, "floor(-10)", 0, Approx(-10));
+        REQUIRE_EXPR(t, "floor(-10.1)", 0, Approx(-11));
+        REQUIRE_EXPR(t, "floor(-10.5)", 0, Approx(-11));
+        REQUIRE_EXPR(t, "floor(-10.9)", 0, Approx(-11));
+
         //unknown function
         WHEN_SEND_LIST_TO(1, t, L1("unkn(2)"));
         WHEN_SEND_FLOAT_TO(0, t, 0);
