@@ -101,6 +101,9 @@ void math_expr_error(Ast* tree, const char* s)
 
 int math_expr_parse_ast(Ast* tree, const char* s)
 {
+    if(strlen(s) == 0)
+        return 0;
+
     YY_BUFFER_STATE b;
     b = math_expr__scan_string(s);
 

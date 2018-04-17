@@ -72,7 +72,7 @@ void MathExpr::onInlet(size_t n, const AtomList& lst)
 
 void MathExpr::onList(const AtomList& lst)
 {
-    //    bin vars
+    //  bind vars
     ast_clear_vars(ast_);
     for (size_t i = 0; i < std::min<size_t>(10, lst.size()); i++)
         ast_bind_var(ast_, i, lst[i].asFloat());
