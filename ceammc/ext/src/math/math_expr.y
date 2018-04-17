@@ -23,7 +23,7 @@ static double fn_lt(double d0, double d1) { return d0 < d1; }
 static double fn_ge(double d0, double d1) { return d0 >= d1; }
 static double fn_gt(double d0, double d1) { return d0 > d1; }
 
-static void print_error(ast* tree, const char* msg, int c) {
+static void print_error(Ast* tree, const char* msg, int c) {
     char buf[100];
 
     switch(c) {
@@ -42,7 +42,7 @@ static void print_error(ast* tree, const char* msg, int c) {
 
 %define api.prefix {math_expr_}
 %define api.pure false
-%parse-param {ast *ast}
+%parse-param {Ast *tree}
 
 %union {
   double val;   /* for returning numbers                  */
@@ -65,14 +65,14 @@ static void print_error(ast* tree, const char* msg, int c) {
 
 %%
 
-input : exp { node_add_cont(ast_root(ast), $1); }
+input : exp { node_add_cont(ast_root(tree), $1); }
 ;
 
 exp : T_NUM                 { $$ = node_create_value_float($1);                         }
-      | T_ERROR             { print_error(ast, math_expr_text, $1); YYERROR;            }
+      | T_ERROR             { print_error(tree, math_expr_text, $1); YYERROR;           }
       | T_UFUNC '(' exp ')' { $$ = node_create_ufunc(ufnNameToPtr($1), $3);             }
       | T_BFUNC '(' exp ',' exp ')' { $$ = node_create_bfunc(bfnNameToPtr($1), $3, $5); }
-      | T_REF               { $$ = node_create_ref_float(ast_ref(ast, $1));             }
+      | T_REF               { $$ = node_create_ref_float(ast_ref(tree, $1));            }
       | exp T_EQ exp        { $$ = node_create_bfunc(fn_eq, $1, $3);                    }
       | exp T_NOT_EQ exp    { $$ = node_create_bfunc(fn_ne, $1, $3);                    }
       | exp T_LT exp        { $$ = node_create_bfunc(fn_lt, $1, $3);                    }
@@ -93,20 +93,20 @@ exp : T_NUM                 { $$ = node_create_value_float($1);                 
 
 %%
 
-void math_expr_error(ast* ast, const char* s)
+void math_expr_error(Ast* tree, const char* s)
 {
-    ast_invalidate(ast);
+    ast_invalidate(tree);
     pd_error(0, "[math.expr] parse error: %s", s);
 }
 
-int math_expr_parse_ast(ast* ast, const char* s)
+int math_expr_parse_ast(Ast* tree, const char* s)
 {
     post("parse: %s", s);
 
     YY_BUFFER_STATE b;
     b = math_expr__scan_string(s);
 
-    int ok = yyparse(ast);
+    int ok = yyparse(tree);
 
     math_expr__delete_buffer(b);
     return ok;

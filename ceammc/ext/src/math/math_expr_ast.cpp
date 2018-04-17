@@ -191,29 +191,29 @@ public:
     }
 };
 
-struct ast {
+struct Ast {
     Node root;
     double vars[MAX_LOCAL_VARS];
     int ok;
 
-    ast()
+    Ast()
         : root(CONTAINTER)
         , ok(1)
     {
     }
 };
 
-ast* ast_new()
+Ast* ast_new()
 {
-    return new ast();
+    return new Ast();
 }
 
-void ast_free(ast* tree)
+void ast_free(Ast* tree)
 {
     delete tree;
 }
 
-Node* ast_root(ast* tree)
+Node* ast_root(Ast* tree)
 {
     return &tree->root;
 }
@@ -233,7 +233,7 @@ Node* node_create_bfunc(BinaryFloatFunc fn, Node* arg0, Node* arg1)
     return Node::createBinaryFunction(fn, arg0, arg1);
 }
 
-void ast_print(ast* tree)
+void ast_print(Ast* tree)
 {
     std::cerr << tree->root.toString() << "\n";
 }
@@ -255,29 +255,29 @@ Node* node_add_cont(Node* parent, Node* c)
     return c;
 }
 
-int ast_eval(ast* tree, double* res)
+int ast_eval(Ast* tree, double* res)
 {
     *res = tree->root.evalute();
     return 0;
 }
 
-int ast_ok(ast* tree)
+int ast_ok(Ast* tree)
 {
     return tree->ok;
 }
 
-void ast_invalidate(ast* tree)
+void ast_invalidate(Ast* tree)
 {
     tree->ok = 0;
 }
 
-void ast_clear_vars(ast* tree)
+void ast_clear_vars(Ast* tree)
 {
     for (size_t i = 0; i < MAX_LOCAL_VARS; i++)
         tree->vars[i] = 0;
 }
 
-void ast_bind_var(ast* tree, int idx, double v)
+void ast_bind_var(Ast* tree, int idx, double v)
 {
     if (idx < 0 || idx >= MAX_LOCAL_VARS)
         return;
@@ -285,7 +285,7 @@ void ast_bind_var(ast* tree, int idx, double v)
     tree->vars[idx] = v;
 }
 
-double* ast_ref(ast* tree, int idx)
+double* ast_ref(Ast* tree, int idx)
 {
     if (idx < 0 || idx >= MAX_LOCAL_VARS)
         return 0;

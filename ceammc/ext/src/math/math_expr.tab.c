@@ -97,7 +97,7 @@ static double fn_lt(double d0, double d1) { return d0 < d1; }
 static double fn_ge(double d0, double d1) { return d0 >= d1; }
 static double fn_gt(double d0, double d1) { return d0 > d1; }
 
-static void print_error(ast* tree, const char* msg, int c) {
+static void print_error(Ast* tree, const char* msg, int c) {
     char buf[100];
 
     switch(c) {
@@ -192,7 +192,7 @@ typedef union MATH_EXPR_STYPE MATH_EXPR_STYPE;
 
 extern MATH_EXPR_STYPE math_expr_lval;
 
-int math_expr_parse (ast *ast);
+int math_expr_parse (Ast *tree);
 
 #endif /* !YY_MATH_EXPR_MATH_EXPR_TAB_H_INCLUDED  */
 
@@ -661,7 +661,7 @@ do                                                              \
     }                                                           \
   else                                                          \
     {                                                           \
-      yyerror (ast, YY_("syntax error: cannot back up")); \
+      yyerror (tree, YY_("syntax error: cannot back up")); \
       YYERROR;                                                  \
     }                                                           \
 while (0)
@@ -698,7 +698,7 @@ do {                                                                      \
     {                                                                     \
       YYFPRINTF (stderr, "%s ", Title);                                   \
       yy_symbol_print (stderr,                                            \
-                  Type, Value, ast); \
+                  Type, Value, tree); \
       YYFPRINTF (stderr, "\n");                                           \
     }                                                                     \
 } while (0)
@@ -709,11 +709,11 @@ do {                                                                      \
 `----------------------------------------*/
 
 static void
-yy_symbol_value_print (FILE *yyoutput, int yytype, YYSTYPE const * const yyvaluep, ast *ast)
+yy_symbol_value_print (FILE *yyoutput, int yytype, YYSTYPE const * const yyvaluep, Ast *tree)
 {
   FILE *yyo = yyoutput;
   YYUSE (yyo);
-  YYUSE (ast);
+  YYUSE (tree);
   if (!yyvaluep)
     return;
 # ifdef YYPRINT
@@ -729,12 +729,12 @@ yy_symbol_value_print (FILE *yyoutput, int yytype, YYSTYPE const * const yyvalue
 `--------------------------------*/
 
 static void
-yy_symbol_print (FILE *yyoutput, int yytype, YYSTYPE const * const yyvaluep, ast *ast)
+yy_symbol_print (FILE *yyoutput, int yytype, YYSTYPE const * const yyvaluep, Ast *tree)
 {
   YYFPRINTF (yyoutput, "%s %s (",
              yytype < YYNTOKENS ? "token" : "nterm", yytname[yytype]);
 
-  yy_symbol_value_print (yyoutput, yytype, yyvaluep, ast);
+  yy_symbol_value_print (yyoutput, yytype, yyvaluep, tree);
   YYFPRINTF (yyoutput, ")");
 }
 
@@ -767,7 +767,7 @@ do {                                                            \
 `------------------------------------------------*/
 
 static void
-yy_reduce_print (yytype_int16 *yyssp, YYSTYPE *yyvsp, int yyrule, ast *ast)
+yy_reduce_print (yytype_int16 *yyssp, YYSTYPE *yyvsp, int yyrule, Ast *tree)
 {
   unsigned long int yylno = yyrline[yyrule];
   int yynrhs = yyr2[yyrule];
@@ -781,7 +781,7 @@ yy_reduce_print (yytype_int16 *yyssp, YYSTYPE *yyvsp, int yyrule, ast *ast)
       yy_symbol_print (stderr,
                        yystos[yyssp[yyi + 1 - yynrhs]],
                        &(yyvsp[(yyi + 1) - (yynrhs)])
-                                              , ast);
+                                              , tree);
       YYFPRINTF (stderr, "\n");
     }
 }
@@ -789,7 +789,7 @@ yy_reduce_print (yytype_int16 *yyssp, YYSTYPE *yyvsp, int yyrule, ast *ast)
 # define YY_REDUCE_PRINT(Rule)          \
 do {                                    \
   if (yydebug)                          \
-    yy_reduce_print (yyssp, yyvsp, Rule, ast); \
+    yy_reduce_print (yyssp, yyvsp, Rule, tree); \
 } while (0)
 
 /* Nonzero means print parse trace.  It is left uninitialized so that
@@ -1047,10 +1047,10 @@ yysyntax_error (YYSIZE_T *yymsg_alloc, char **yymsg,
 `-----------------------------------------------*/
 
 static void
-yydestruct (const char *yymsg, int yytype, YYSTYPE *yyvaluep, ast *ast)
+yydestruct (const char *yymsg, int yytype, YYSTYPE *yyvaluep, Ast *tree)
 {
   YYUSE (yyvaluep);
-  YYUSE (ast);
+  YYUSE (tree);
   if (!yymsg)
     yymsg = "Deleting";
   YY_SYMBOL_PRINT (yymsg, yytype, yyvaluep, yylocationp);
@@ -1077,7 +1077,7 @@ int yynerrs;
 `----------*/
 
 int
-yyparse (ast *ast)
+yyparse (Ast *tree)
 {
     int yystate;
     /* Number of tokens to shift before error messages enabled.  */
@@ -1313,7 +1313,7 @@ yyreduce:
     {
         case 2:
 #line 68 "math_expr.y" /* yacc.c:1661  */
-    { node_add_cont(ast_root(ast), (yyvsp[0].node)); }
+    { node_add_cont(ast_root(tree), (yyvsp[0].node)); }
 #line 1318 "math_expr.tab.c" /* yacc.c:1661  */
     break;
 
@@ -1325,7 +1325,7 @@ yyreduce:
 
   case 4:
 #line 72 "math_expr.y" /* yacc.c:1661  */
-    { print_error(ast, math_expr_text, (yyvsp[0].val)); YYERROR;            }
+    { print_error(tree, math_expr_text, (yyvsp[0].val)); YYERROR;           }
 #line 1330 "math_expr.tab.c" /* yacc.c:1661  */
     break;
 
@@ -1343,7 +1343,7 @@ yyreduce:
 
   case 7:
 #line 75 "math_expr.y" /* yacc.c:1661  */
-    { (yyval.node) = node_create_ref_float(ast_ref(ast, (yyvsp[0].val)));             }
+    { (yyval.node) = node_create_ref_float(ast_ref(tree, (yyvsp[0].val)));            }
 #line 1348 "math_expr.tab.c" /* yacc.c:1661  */
     break;
 
@@ -1482,7 +1482,7 @@ yyerrlab:
     {
       ++yynerrs;
 #if ! YYERROR_VERBOSE
-      yyerror (ast, YY_("syntax error"));
+      yyerror (tree, YY_("syntax error"));
 #else
 # define YYSYNTAX_ERROR yysyntax_error (&yymsg_alloc, &yymsg, \
                                         yyssp, yytoken)
@@ -1509,7 +1509,7 @@ yyerrlab:
                 yymsgp = yymsg;
               }
           }
-        yyerror (ast, yymsgp);
+        yyerror (tree, yymsgp);
         if (yysyntax_error_status == 2)
           goto yyexhaustedlab;
       }
@@ -1533,7 +1533,7 @@ yyerrlab:
       else
         {
           yydestruct ("Error: discarding",
-                      yytoken, &yylval, ast);
+                      yytoken, &yylval, tree);
           yychar = YYEMPTY;
         }
     }
@@ -1589,7 +1589,7 @@ yyerrlab1:
 
 
       yydestruct ("Error: popping",
-                  yystos[yystate], yyvsp, ast);
+                  yystos[yystate], yyvsp, tree);
       YYPOPSTACK (1);
       yystate = *yyssp;
       YY_STACK_PRINT (yyss, yyssp);
@@ -1626,7 +1626,7 @@ yyabortlab:
 | yyexhaustedlab -- memory exhaustion comes here.  |
 `-------------------------------------------------*/
 yyexhaustedlab:
-  yyerror (ast, YY_("memory exhausted"));
+  yyerror (tree, YY_("memory exhausted"));
   yyresult = 2;
   /* Fall through.  */
 #endif
@@ -1638,7 +1638,7 @@ yyreturn:
          user semantic actions for why this is necessary.  */
       yytoken = YYTRANSLATE (yychar);
       yydestruct ("Cleanup: discarding lookahead",
-                  yytoken, &yylval, ast);
+                  yytoken, &yylval, tree);
     }
   /* Do not reclaim the symbols of the rule whose action triggered
      this YYABORT or YYACCEPT.  */
@@ -1647,7 +1647,7 @@ yyreturn:
   while (yyssp != yyss)
     {
       yydestruct ("Cleanup: popping",
-                  yystos[*yyssp], yyvsp, ast);
+                  yystos[*yyssp], yyvsp, tree);
       YYPOPSTACK (1);
     }
 #ifndef yyoverflow
@@ -1663,20 +1663,20 @@ yyreturn:
 #line 94 "math_expr.y" /* yacc.c:1906  */
 
 
-void math_expr_error(ast* ast, const char* s)
+void math_expr_error(Ast* tree, const char* s)
 {
-    ast_invalidate(ast);
+    ast_invalidate(tree);
     pd_error(0, "[math.expr] parse error: %s", s);
 }
 
-int math_expr_parse_ast(ast* ast, const char* s)
+int math_expr_parse_ast(Ast* tree, const char* s)
 {
     post("parse: %s", s);
 
     YY_BUFFER_STATE b;
     b = math_expr__scan_string(s);
 
-    int ok = yyparse(ast);
+    int ok = yyparse(tree);
 
     math_expr__delete_buffer(b);
     return ok;

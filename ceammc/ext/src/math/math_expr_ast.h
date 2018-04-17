@@ -14,7 +14,7 @@
 #ifndef MATH_EXPR_AST_H
 #define MATH_EXPR_AST_H
 
-typedef struct ast ast;
+typedef struct Ast Ast;
 typedef struct Node Node;
 
 typedef double math_float_t;
@@ -27,16 +27,16 @@ typedef math_float_t (*BinaryFloatFunc)(math_float_t, math_float_t);
 extern "C" {
 #endif
 
-ast* ast_new();
-void ast_free(ast* tree);
-Node* ast_root(ast* tree);
-void ast_print(ast* tree);
-int ast_ok(ast* tree);
-void ast_invalidate(ast* tree);
-int ast_eval(ast* tree, double* res);
-void ast_clear_vars(ast* tree);
-void ast_bind_var(ast* tree, int idx, double v);
-double* ast_ref(ast* tree, int idx);
+Ast* ast_new();
+void ast_free(Ast* tree);
+Node* ast_root(Ast* tree);
+void ast_print(Ast* tree);
+int ast_ok(Ast* tree);
+void ast_invalidate(Ast* tree);
+int ast_eval(Ast* tree, double* res);
+void ast_clear_vars(Ast* tree);
+void ast_bind_var(Ast* tree, int idx, double v);
+double* ast_ref(Ast* tree, int idx);
 
 Node* node_add_cont(Node* parent, Node* c);
 Node* node_create_value_float(math_float_t v);

@@ -89,6 +89,6 @@ typedef union MATH_EXPR_STYPE MATH_EXPR_STYPE;
 
 extern MATH_EXPR_STYPE math_expr_lval;
 
-int math_expr_parse (ast *ast);
+int math_expr_parse (Ast *tree);
 
 #endif /* !YY_MATH_EXPR_MATH_EXPR_TAB_H_INCLUDED  */

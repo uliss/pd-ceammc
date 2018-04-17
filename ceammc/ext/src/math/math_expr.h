@@ -19,11 +19,11 @@
 using namespace ceammc;
 
 struct symrec;
-struct ast;
+struct Ast;
 
 class MathExpr : public BaseObject {
     std::string expr_;
-    ast* ast_;
+    Ast* ast_;
 
 public:
     MathExpr(const PdArgs& args);

@@ -22,8 +22,8 @@ extern "C" {
 
 int math_exprlex();
 
-void math_expr_error(ast *ast, const char* s);
-int math_expr_parse_ast(ast* ast, const char* s);
+void math_expr_error(Ast *ast, const char* s);
+int math_expr_parse_ast(Ast* ast, const char* s);
 
 #if defined(__cplusplus)
 }
