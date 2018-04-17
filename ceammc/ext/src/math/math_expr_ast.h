@@ -52,7 +52,8 @@ typedef enum UFuncName {
     UFN_LOG10,
     UFN_ATAN,
     UFN_ABS,
-    UFN_SIGN
+    UFN_SIGN,
+    UFN_FACTORIAL
 } UFuncName;
 
 typedef enum BFuncName {

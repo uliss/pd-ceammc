@@ -112,6 +112,10 @@ $e { // E
         math_expr_lval.val = UFN_SIGN;
         return UFUNC;
     }
+    else if(strcmp(math_expr_text, "fact") == 0) {
+        math_expr_lval.val = UFN_FACTORIAL;
+        return UFUNC;
+    }
 
     math_expr_lval.val = ERR_UNKNOWN_FUNC;
     return ERROR;

@@ -14,10 +14,13 @@
 #include "math_expr_ast.h"
 
 #include <boost/container/static_vector.hpp>
+#include <boost/math/special_functions/factorials.hpp>
 #include <boost/variant.hpp>
 #include <cstring>
 #include <iostream>
 #include <sstream>
+
+#include "m_pd.h"
 
 struct Node;
 typedef boost::container::static_vector<Node*, 4> NodeList;
@@ -295,6 +298,16 @@ static double d_sign(double d)
         return 0;
 }
 
+static double d_fact(double d)
+{
+    try {
+        return boost::math::factorial<double>(d);
+    } catch (std::exception& e) {
+        pd_error(0, "factorial error: %s", e.what());
+        return 0;
+    }
+}
+
 UnaryFunc ufnNameToPtr(UFuncName n)
 {
     switch (n) {
@@ -320,6 +333,8 @@ UnaryFunc ufnNameToPtr(UFuncName n)
         return &fabs;
     case UFN_SIGN:
         return &d_sign;
+    case UFN_FACTORIAL:
+        return &d_fact;
     }
 }
 

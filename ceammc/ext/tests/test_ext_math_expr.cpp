@@ -97,6 +97,13 @@ TEST_CASE("math.expr", "[externals]")
         REQUIRE_EXPR(t, "sign($f)", 0, Approx(0));
         REQUIRE_EXPR(t, "sign($f)", -200, Approx(-1));
 
+        REQUIRE_EXPR(t, "fact(0)", 0, Approx(1));
+        REQUIRE_EXPR(t, "fact(1)", 0, Approx(1));
+        REQUIRE_EXPR(t, "fact(2)", 0, Approx(2));
+        REQUIRE_EXPR(t, "fact(3)", 0, Approx(6));
+        REQUIRE_EXPR(t, "fact(4)", 0, Approx(24));
+        REQUIRE_EXPR(t, "fact($f)", -1, Approx(0));
+
         REQUIRE_EXPR(t, "max($f, 10)", 1, Approx(10));
         REQUIRE_EXPR(t, "max($f, 10)", 20, Approx(20));
 
@@ -155,6 +162,8 @@ TEST_CASE("math.expr", "[externals]")
         REQUIRE_LIST_EXPR(t, "$f1", L2(100, 200), Approx(200));
 
         REQUIRE_LIST_EXPR(t, "max($f0, $f1)", L2(100, 200), Approx(200));
+        REQUIRE_LIST_EXPR(t, "max($f0, $f1)", L2(-2, 2), Approx(2));
+        REQUIRE_LIST_EXPR(t, "max($f0, $f1)", L2(-2, -3), Approx(-2));
         REQUIRE_LIST_EXPR(t, "min($f0, $f1)", L2(100, 200), Approx(100));
     }
 }
