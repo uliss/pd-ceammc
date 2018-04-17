@@ -15,9 +15,19 @@
 #define MATH_EXPR_AST_H
 
 typedef struct ast ast;
-typedef double (*UnaryFunc)(double);
-typedef double (*BinaryFunc)(double, double);
 typedef struct Node Node;
+
+typedef double math_float_t;
+typedef math_float_t* math_float_ref_t;
+typedef long math_int_t;
+typedef math_int_t* math_int_ref_t;
+
+typedef math_float_t (*UnaryFloatFunc)(math_float_t);
+typedef math_float_t (*BinaryFloatFunc)(math_float_t, math_float_t);
+typedef math_int_t (*UnaryIntFunc)(math_int_t);
+typedef math_int_t (*BinaryIntFunc)(math_int_t, math_int_t);
+
+typedef math_int_t (*UnaryMixedFunc)(math_float_t);
 
 #if defined(__cplusplus)
 extern "C" {
@@ -35,11 +45,13 @@ void ast_bind_var(ast* tree, int idx, double v);
 double* ast_ref(ast* tree, int idx);
 
 Node* node_add_cont(Node* parent, Node* c);
-Node* node_create_value(double v);
-Node* node_create_ref(double* v);
+Node* node_create_value_int(math_int_t v);
+Node* node_create_value_float(math_float_t v);
+Node* node_create_ref_float(math_float_ref_t v);
+Node* node_create_ref_int(math_int_ref_t v);
 Node* node_create_cont(Node* c);
-Node* node_create_ufunc(UnaryFunc fn, Node* arg);
-Node* node_create_bfunc(BinaryFunc fn, Node* arg0, Node* arg1);
+Node* node_create_ufunc(UnaryFloatFunc fn, Node* arg);
+Node* node_create_bfunc(BinaryFloatFunc fn, Node* arg0, Node* arg1);
 
 typedef enum UFuncName {
     UFN_SIN = 0,
@@ -61,15 +73,16 @@ typedef enum UFuncName {
 
 typedef enum BFuncName {
     BFN_MIN = 0,
-    BFN_MAX
+    BFN_MAX,
+    BFN_CMN
 } BFuncName;
 
 typedef enum ParseError {
     ERR_UNKNOWN_FUNC = 1000
 } ParseError;
 
-UnaryFunc ufnNameToPtr(UFuncName n);
-BinaryFunc bfnNameToPtr(BFuncName n);
+UnaryFloatFunc ufnNameToPtr(UFuncName n);
+BinaryFloatFunc bfnNameToPtr(BFuncName n);
 
 #if defined(__cplusplus)
 }

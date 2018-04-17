@@ -14,6 +14,7 @@
 #include "math_expr_ast.h"
 
 #include <boost/container/static_vector.hpp>
+#include <boost/math/special_functions/binomial.hpp>
 #include <boost/math/special_functions/factorials.hpp>
 #include <boost/variant.hpp>
 #include <cstring>
@@ -25,13 +26,20 @@
 struct Node;
 typedef boost::container::static_vector<Node*, 4> NodeList;
 
-typedef boost::variant<double, double*, UnaryFunc, BinaryFunc> NodeValue;
+typedef boost::variant<
+    math_int_t, math_int_ref_t,
+    math_float_t, math_float_ref_t,
+    UnaryFloatFunc, BinaryFloatFunc>
+    NodeValue;
+
 static const size_t MAX_LOCAL_VARS = 10;
 
 enum NodeType {
-    VAL = 0,
-    REF,
-    CONT,
+    VAL_FLOAT = 0,
+    VAL_INT,
+    REF_FLOAT,
+    REF_INT,
+    CONTAINTER,
     UFUNC,
     BFUNC
 };
@@ -81,11 +89,15 @@ public:
     double evalute() const
     {
         switch (type_) {
-        case VAL:
-            return boost::get<double>(value_);
-        case REF:
-            return *boost::get<double*>(value_);
-        case CONT: {
+        case VAL_FLOAT:
+            return boost::get<math_float_t>(value_);
+        case VAL_INT:
+            return boost::get<math_int_t>(value_);
+        case REF_FLOAT:
+            return *boost::get<math_float_ref_t>(value_);
+        case REF_INT:
+            return *boost::get<math_int_ref_t>(value_);
+        case CONTAINTER: {
             if (children.size() != 1) {
                 std::cerr << "invalid children count: " << children.size() << "\n";
                 return 0;
@@ -94,7 +106,7 @@ public:
             return children[0]->evalute();
         }
         case UFUNC: {
-            UnaryFunc fn = boost::get<UnaryFunc>(value_);
+            UnaryFloatFunc fn = boost::get<UnaryFloatFunc>(value_);
             if (children.size() != 1) {
                 std::cerr << "invalid children count: " << children.size() << "\n";
                 return 0;
@@ -103,7 +115,7 @@ public:
             return fn(children[0]->evalute());
         }
         case BFUNC: {
-            BinaryFunc fn = boost::get<BinaryFunc>(value_);
+            BinaryFloatFunc fn = boost::get<BinaryFloatFunc>(value_);
             if (children.size() != 2) {
                 std::cerr << "invalid children count: " << children.size() << "\n";
                 return 0;
@@ -119,13 +131,19 @@ public:
         std::ostringstream ss;
         ss << "Node: ";
         switch (type_) {
-        case VAL:
-            ss << "value = " << boost::get<double>(value_) << "\n";
+        case VAL_FLOAT:
+            ss << "value = " << boost::get<math_float_t>(value_) << "\n";
             break;
-        case REF:
-            ss << "ref: " << boost::get<double*>(value_) << "\n";
+        case VAL_INT:
+            ss << "value = " << boost::get<math_int_t>(value_) << "\n";
             break;
-        case CONT:
+        case REF_FLOAT:
+            ss << "ref: " << boost::get<math_float_ref_t>(value_) << "\n";
+            break;
+        case REF_INT:
+            ss << "ref: " << boost::get<math_int_ref_t>(value_) << "\n";
+            break;
+        case CONTAINTER:
             ss << "container:\n";
             ss << children[0]->toString();
             break;
@@ -154,7 +172,7 @@ public:
     }
 
 public:
-    static Node* createUnaryFunction(UnaryFunc fn, Node* v)
+    static Node* createUnaryFunction(UnaryFloatFunc fn, Node* v)
     {
         Node* n = new Node(UFUNC);
         n->setValue(fn);
@@ -162,7 +180,7 @@ public:
         return n;
     }
 
-    static Node* createBinaryFunction(BinaryFunc fn, Node* v0, Node* v1)
+    static Node* createBinaryFunction(BinaryFloatFunc fn, Node* v0, Node* v1)
     {
         Node* n = new Node(BFUNC);
         n->setValue(fn);
@@ -171,16 +189,30 @@ public:
         return n;
     }
 
-    static Node* createValue(double v)
+    static Node* createValue(math_float_t v)
     {
-        Node* n = new Node(VAL);
+        Node* n = new Node(VAL_FLOAT);
         n->setValue(v);
         return n;
     }
 
-    static Node* createRef(double* v)
+    static Node* createValue(math_int_t v)
     {
-        Node* n = new Node(REF);
+        Node* n = new Node(VAL_INT);
+        n->setValue(v);
+        return n;
+    }
+
+    static Node* createRef(math_float_ref_t v)
+    {
+        Node* n = new Node(REF_FLOAT);
+        n->setValue(v);
+        return n;
+    }
+
+    static Node* createRef(math_int_ref_t v)
+    {
+        Node* n = new Node(REF_INT);
         n->setValue(v);
         return n;
     }
@@ -192,7 +224,7 @@ struct ast {
     int ok;
 
     ast()
-        : root(CONT)
+        : root(CONTAINTER)
         , ok(1)
     {
     }
@@ -213,17 +245,17 @@ Node* ast_root(ast* tree)
     return &tree->root;
 }
 
-Node* node_create_ref(double* v)
+Node* node_create_ref_float(math_float_ref_t v)
 {
     return Node::createRef(v);
 }
 
-Node* node_create_ufunc(UnaryFunc fn, Node* arg)
+Node* node_create_ufunc(UnaryFloatFunc fn, Node* arg)
 {
     return Node::createUnaryFunction(fn, arg);
 }
 
-Node* node_create_bfunc(BinaryFunc fn, Node* arg0, Node* arg1)
+Node* node_create_bfunc(BinaryFloatFunc fn, Node* arg0, Node* arg1)
 {
     return Node::createBinaryFunction(fn, arg0, arg1);
 }
@@ -239,7 +271,7 @@ Node* node_create_cont(Node* c)
     return c;
 }
 
-Node* node_create_value(double v)
+Node* node_create_value_float(math_float_t v)
 {
     return Node::createValue(v);
 }
@@ -308,7 +340,7 @@ static double d_fact(double d)
     }
 }
 
-UnaryFunc ufnNameToPtr(UFuncName n)
+UnaryFloatFunc ufnNameToPtr(UFuncName n)
 {
     switch (n) {
     case UFN_SIN:
@@ -346,13 +378,26 @@ UnaryFunc ufnNameToPtr(UFuncName n)
 
 static double d_min(double d0, double d1) { return std::min(d0, d1); }
 static double d_max(double d0, double d1) { return std::max(d0, d1); }
+static double d_cmn(double d0, double d1) { return boost::math::binomial_coefficient<double>(d0, d1); }
 
-BinaryFunc bfnNameToPtr(BFuncName n)
+BinaryFloatFunc bfnNameToPtr(BFuncName n)
 {
     switch (n) {
     case BFN_MIN:
         return &d_min;
     case BFN_MAX:
         return &d_max;
+    case BFN_CMN:
+        return &d_cmn;
     }
+}
+
+Node* node_create_value_int(math_int_t v)
+{
+    return Node::createValue(v);
+}
+
+Node* node_create_ref_int(math_int_ref_t v)
+{
+    return Node::createRef(v);
 }
