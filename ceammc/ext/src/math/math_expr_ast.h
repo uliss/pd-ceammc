@@ -44,6 +44,7 @@ Node* node_create_ref_float(math_float_ref_t v);
 Node* node_create_cont(Node* c);
 Node* node_create_ufunc(UnaryFloatFunc fn, Node* arg);
 Node* node_create_bfunc(BinaryFloatFunc fn, Node* arg0, Node* arg1);
+Node* node_create_afunc(const char* name, Node* idx);
 
 typedef enum UFuncName {
     UFN_SIN = 0,

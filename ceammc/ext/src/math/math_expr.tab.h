@@ -57,14 +57,16 @@ extern int math_expr_debug;
     T_REF = 259,
     T_EQ = 260,
     T_NOT_EQ = 261,
-    T_UFUNC = 262,
-    T_BFUNC = 263,
-    T_ERROR = 264,
-    T_LE = 265,
-    T_LT = 266,
-    T_GT = 267,
-    T_GE = 268,
-    T_NEG = 269
+    T_ARRAY_BEGIN = 262,
+    T_ARRAY_END = 263,
+    T_UFUNC = 264,
+    T_BFUNC = 265,
+    T_ERROR = 266,
+    T_LE = 267,
+    T_LT = 268,
+    T_GT = 269,
+    T_GE = 270,
+    T_NEG = 271
   };
 #endif
 
@@ -76,9 +78,10 @@ union MATH_EXPR_STYPE
 #line 47 "math_expr.y" /* yacc.c:1915  */
 
   double val;   /* for returning numbers                  */
+  const char* txt;
   Node* node;
 
-#line 82 "math_expr.tab.h" /* yacc.c:1915  */
+#line 85 "math_expr.tab.h" /* yacc.c:1915  */
 };
 
 typedef union MATH_EXPR_STYPE MATH_EXPR_STYPE;

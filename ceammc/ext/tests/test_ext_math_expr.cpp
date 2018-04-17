@@ -14,6 +14,7 @@
 #include "../math/math_expr.h"
 #include "base_extension_test.h"
 #include "catch.hpp"
+#include "ceammc_pd.h"
 
 #include <stdio.h>
 
@@ -26,11 +27,11 @@ typedef TestExtension<MathExpr> MathExprTest;
         REQUIRE_FLOAT_AT_OUTLET(0, t, out); \
     }
 
+using namespace ceammc;
+static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
+
 TEST_CASE("math.expr", "[externals]")
 {
-    pd_init();
-    setup_math_expr();
-
     SECTION("init")
     {
         {
@@ -195,5 +196,20 @@ TEST_CASE("math.expr", "[externals]")
         REQUIRE_LIST_EXPR(t, "max($f0, $f1)", L2(-2, 2), Approx(2));
         REQUIRE_LIST_EXPR(t, "max($f0, $f1)", L2(-2, -3), Approx(-2));
         REQUIRE_LIST_EXPR(t, "min($f0, $f1)", L2(100, 200), Approx(100));
+    }
+
+    SECTION("array")
+    {
+        MathExprTest t("math.expr");
+
+        REQUIRE_EXPR(t, "arr1[12]", 1, Approx(0));
+
+        ArrayPtr aptr = cnv->createArray("arr1", 10);
+        (*aptr)[0] = 100;
+        (*aptr)[1] = -3;
+
+        REQUIRE_EXPR(t, "arr1[0]", 1, Approx(100));
+        REQUIRE_EXPR(t, "arr1[1]", 1, Approx(-3));
+        REQUIRE_EXPR(t, "arr1[10]", 1, Approx(0));
     }
 }

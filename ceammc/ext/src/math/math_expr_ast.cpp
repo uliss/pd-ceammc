@@ -21,14 +21,15 @@
 #include <iostream>
 #include <sstream>
 
+#include "ceammc_array.h"
 #include "m_pd.h"
 
 struct Node;
-typedef boost::container::static_vector<Node*, 4> NodeList;
 
+typedef boost::container::static_vector<Node*, 4> NodeList;
 typedef boost::variant<
     math_float_t, math_float_ref_t,
-    UnaryFloatFunc, BinaryFloatFunc>
+    UnaryFloatFunc, BinaryFloatFunc, ceammc::Array>
     NodeValue;
 
 static const size_t MAX_LOCAL_VARS = 10;
@@ -36,6 +37,7 @@ static const size_t MAX_LOCAL_VARS = 10;
 enum NodeType {
     VAL_FLOAT = 0,
     REF_FLOAT,
+    REF_ARRAY,
     CONTAINTER,
     UFUNC,
     BFUNC
@@ -90,6 +92,27 @@ public:
             return boost::get<math_float_t>(value_);
         case REF_FLOAT:
             return *boost::get<math_float_ref_t>(value_);
+        case REF_ARRAY: {
+            using namespace ceammc;
+            Array& arr = const_cast<Array&>(boost::get<Array>(value_));
+            if (!arr.update()) {
+                pd_error(0, "[math.expr] array is not found");
+                return 0;
+            }
+
+            if (children.size() != 1) {
+                std::cerr << "invalid children count: " << children.size() << "\n";
+                return 0;
+            }
+
+            long idx = children[0]->evalute();
+            if (idx < 0 || idx >= arr.size()) {
+                pd_error(0, "[math.expr] invalid array index: %ld", idx);
+                return 0;
+            }
+
+            return arr[idx];
+        }
         case CONTAINTER: {
             if (children.size() != 1) {
                 std::cerr << "invalid children count: " << children.size() << "\n";
@@ -134,6 +157,12 @@ public:
             ss << "container:\n";
             ss << children[0]->toString();
             break;
+        case REF_ARRAY: {
+            using namespace ceammc;
+            const Array& arr = boost::get<Array>(value_);
+            ss << "ref to array: " << arr.name() << "\n";
+            break;
+        }
         case UFUNC:
             ss << "unary function:\n";
             ss << children[0]->toString();
@@ -187,6 +216,17 @@ public:
     {
         Node* n = new Node(REF_FLOAT);
         n->setValue(v);
+        return n;
+    }
+
+    static Node* createArrayFunc(const char* name, Node* idx)
+    {
+        std::string raw_name(name);
+        std::string arr = raw_name.substr(0, raw_name.find('['));
+
+        Node* n = new Node(REF_ARRAY);
+        n->setValue(ceammc::Array(arr.c_str()));
+        n->add(idx);
         return n;
     }
 };
@@ -253,6 +293,16 @@ Node* node_add_cont(Node* parent, Node* c)
 {
     parent->add(c);
     return c;
+}
+
+Node* node_create_array_ref(const char* name, Node* idx)
+{
+    return Node::createArrayFunc(name, idx);
+}
+
+Node* node_create_afunc(const char* name, Node* idx)
+{
+    return Node::createArrayFunc(name, idx);
 }
 
 int ast_eval(Ast* tree, double* res)

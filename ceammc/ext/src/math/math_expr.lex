@@ -57,6 +57,13 @@ $e { // E
     return T_NUM;
 }
 
+[a-zA-Z][a-zA-Z0-9]*[\[] {
+    math_expr_lval.txt = math_expr_text;
+    return T_ARRAY_BEGIN;
+}
+
+"]" { return T_ARRAY_END; }
+
 [a-z][a-z_0-9]* {
     if(strcmp(math_expr_text, "sin") == 0) {
         math_expr_lval.val = UFN_SIN;
