@@ -19,6 +19,7 @@
             round(), ceil(), float(), fact(), min(), max(), sign(), abs()</par>
             <par>Constants: $pi, $e</par>
             <par>Variables: $f, $f0, $f1 ... $f9</par>
+            <par>Array access: array1[$f]</par>
         </info>
         <arguments>
             <argument name="EXPR" type="list">expression</argument>
