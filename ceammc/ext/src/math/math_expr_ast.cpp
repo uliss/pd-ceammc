@@ -27,7 +27,6 @@ struct Node;
 typedef boost::container::static_vector<Node*, 4> NodeList;
 
 typedef boost::variant<
-    math_int_t, math_int_ref_t,
     math_float_t, math_float_ref_t,
     UnaryFloatFunc, BinaryFloatFunc>
     NodeValue;
@@ -36,9 +35,7 @@ static const size_t MAX_LOCAL_VARS = 10;
 
 enum NodeType {
     VAL_FLOAT = 0,
-    VAL_INT,
     REF_FLOAT,
-    REF_INT,
     CONTAINTER,
     UFUNC,
     BFUNC
@@ -91,12 +88,8 @@ public:
         switch (type_) {
         case VAL_FLOAT:
             return boost::get<math_float_t>(value_);
-        case VAL_INT:
-            return boost::get<math_int_t>(value_);
         case REF_FLOAT:
             return *boost::get<math_float_ref_t>(value_);
-        case REF_INT:
-            return *boost::get<math_int_ref_t>(value_);
         case CONTAINTER: {
             if (children.size() != 1) {
                 std::cerr << "invalid children count: " << children.size() << "\n";
@@ -134,14 +127,8 @@ public:
         case VAL_FLOAT:
             ss << "value = " << boost::get<math_float_t>(value_) << "\n";
             break;
-        case VAL_INT:
-            ss << "value = " << boost::get<math_int_t>(value_) << "\n";
-            break;
         case REF_FLOAT:
             ss << "ref: " << boost::get<math_float_ref_t>(value_) << "\n";
-            break;
-        case REF_INT:
-            ss << "ref: " << boost::get<math_int_ref_t>(value_) << "\n";
             break;
         case CONTAINTER:
             ss << "container:\n";
@@ -196,23 +183,9 @@ public:
         return n;
     }
 
-    static Node* createValue(math_int_t v)
-    {
-        Node* n = new Node(VAL_INT);
-        n->setValue(v);
-        return n;
-    }
-
     static Node* createRef(math_float_ref_t v)
     {
         Node* n = new Node(REF_FLOAT);
-        n->setValue(v);
-        return n;
-    }
-
-    static Node* createRef(math_int_ref_t v)
-    {
-        Node* n = new Node(REF_INT);
         n->setValue(v);
         return n;
     }
@@ -390,14 +363,4 @@ BinaryFloatFunc bfnNameToPtr(BFuncName n)
     case BFN_CMN:
         return &d_cmn;
     }
-}
-
-Node* node_create_value_int(math_int_t v)
-{
-    return Node::createValue(v);
-}
-
-Node* node_create_ref_int(math_int_ref_t v)
-{
-    return Node::createRef(v);
 }

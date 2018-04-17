@@ -72,8 +72,8 @@ find_package(FLEX)
 
 if(BISON_FOUND AND FLEX_FOUND)
     add_custom_target(math_expr_gen
-        COMMAND ${BISON_EXECUTABLE} -d math_expr.y
         COMMAND ${FLEX_EXECUTABLE} --header-file=lex.math_expr.h math_expr.lex
+        COMMAND ${BISON_EXECUTABLE} -d math_expr.y
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     )
 endif()
