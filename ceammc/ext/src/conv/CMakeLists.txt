@@ -32,6 +32,7 @@ ceammc_conv_extension(bpm2sec)
 ceammc_conv_extension(bpm2hz)
 
 ceammc_conv_extension(pitch2midi)
+ceammc_conv_extension(amp2dbfs)
 
 
 add_library(ceammc_conv STATIC mod_conv.h mod_conv.cpp ${CONV_SOURCES})

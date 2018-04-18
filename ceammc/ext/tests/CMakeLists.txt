@@ -88,6 +88,7 @@ ceammc_external_test(fx looper)
 ceammc_external_test(conv cc2amp)
 ceammc_external_test(conv lin2exp)
 ceammc_external_test(conv lin2lin)
+ceammc_external_test(conv amp2dbfs)
 
 ceammc_external_test(data set)
 ceammc_external_test(data set_size)
