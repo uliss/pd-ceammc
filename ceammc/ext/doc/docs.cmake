@@ -13,6 +13,7 @@ set(DOC_FILES
     canvas.current
     canvas.top
     click~
+    conv.amp2dbfs
     conv.bpm2hz
     conv.bpm2ms
     conv.bpm2sec

@@ -26,6 +26,7 @@
 - alias for list.reduce: list.foldl
 - math.mul (math.*) added for lists
 - math.expr added
+- conv.amp2dbsf (amp->dbfs) added
 
 ### Changed:
 - migration to Faust v2

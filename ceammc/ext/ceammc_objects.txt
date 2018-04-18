@@ -1,4 +1,5 @@
 _tcl.version
+amp->dbfs
 and
 approx
 array.bpm
@@ -23,6 +24,7 @@ canvas.current
 canvas.top
 cc->amp
 click~
+conv.amp2dbfs
 conv.bpf2array
 conv.bpf2env
 conv.bpf2list

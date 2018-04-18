@@ -13,6 +13,7 @@ array.vplay		.		.
 canvas.current		.		.
 canvas.top		.		.
 click~		.		~
+conv.amp2dbfs,amp->dbfs		.		.
 conv.bpm2hz,bpm->hz		.		.
 conv.bpm2ms,bpm->ms		.		.
 conv.bpm2sec,bpm->sec		.		.
