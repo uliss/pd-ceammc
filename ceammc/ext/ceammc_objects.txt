@@ -33,6 +33,7 @@ conv.bpm2hz
 conv.bpm2ms
 conv.bpm2sec
 conv.cc2amp
+conv.dbfs2amp
 conv.env2bpf
 conv.lin2curve
 conv.lin2exp
@@ -48,6 +49,7 @@ data.fifo
 data.list
 data.set
 data.set2list
+dbfs->amp
 dyn.comp2~
 dyn.comp~
 dyn.gate2~

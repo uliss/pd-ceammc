@@ -18,6 +18,7 @@ conv.bpm2hz,bpm->hz		.		.
 conv.bpm2ms,bpm->ms		.		.
 conv.bpm2sec,bpm->sec		.		.
 conv.cc2amp,cc->amp		.		.
+conv.dbfs2amp,dbfs->amp		.		.
 conv.lin2curve,lin->curve		.		.
 conv.lin2exp,lin->exp		.		.
 conv.lin2lin,lin->lin		.		.
