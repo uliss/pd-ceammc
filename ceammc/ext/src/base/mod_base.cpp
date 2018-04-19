@@ -5,6 +5,7 @@
 #include "canvas_top.h"
 #include "function.h"
 #include "function_call.h"
+#include "gain.h"
 #include "metro_pattern.h"
 #include "metro_seq.h"
 #include "patch_args.h"
@@ -63,4 +64,5 @@ void ceammc_base_setup()
     setup_canvas_current();
     setup_patch_args();
     setup_canvas_top();
+    setup_gain_tilde();
 }
