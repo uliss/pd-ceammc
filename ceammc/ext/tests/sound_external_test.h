@@ -31,7 +31,7 @@ struct TestSignal {
     const t_sample** in;
     t_sample** out;
 
-    TestSignal()
+    TestSignal(t_sample in = 0, t_sample out = 0)
         : in(in_ptr)
         , out(out_ptr)
     {
@@ -40,6 +40,9 @@ struct TestSignal {
 
         for (size_t i = 0; i < OUT; i++)
             out_ptr[i] = buf_out[i];
+
+        fillInput(in);
+        fillOutput(out);
     }
 
     void fillInput(float v)
@@ -91,6 +94,68 @@ struct TestSignal {
 
         for (size_t s = 0; s < 64; s++)
             buf_in[n][s] = v;
+    }
+};
+
+template <class T, class E>
+class DSP {
+    T& sig_;
+    E& ext_;
+
+public:
+    const size_t NI;
+    const size_t NO;
+    const size_t SR;
+    const size_t BS;
+
+private:
+    std::vector<t_signal*> arr_;
+
+public:
+    DSP(T& sig, E& ext)
+        : sig_(sig)
+        , ext_(ext)
+        , NI(ext.numInputChannels())
+        , NO(ext.numOutputChannels())
+        , SR(ext.samplerate())
+        , BS(ext.blockSize())
+    {
+        for (size_t i = 0; i < NI; i++) {
+            t_signal* a = new t_signal;
+            a->s_vec = (t_sample*)sig_.in[i];
+            a->s_n = BS;
+            a->s_sr = SR;
+            arr_.push_back(a);
+        }
+
+        for (size_t i = 0; i < NO; i++) {
+            t_signal* a = new t_signal;
+            a->s_vec = (t_sample*)sig_.out[i];
+            a->s_n = BS;
+            a->s_sr = SR;
+            arr_.push_back(a);
+        }
+
+        ext_.setupDSP(arr_.data());
+    }
+
+    ~DSP()
+    {
+        for (size_t i = 0; i < arr_.size(); i++)
+            delete arr_[i];
+
+        arr_.clear();
+    }
+
+    void processBlock(size_t n = 1)
+    {
+        for (size_t i = 0; i < n; i++)
+            ext_.processBlock(sig_.in, sig_.out);
+    }
+
+    t_sample out(size_t ch, size_t sample) const
+    {
+        return sig_.buf_out[ch][sample];
     }
 };
 

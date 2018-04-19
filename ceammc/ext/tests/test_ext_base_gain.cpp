@@ -23,68 +23,6 @@
 
 typedef TestSoundExtension<Gain> GainTest;
 
-template <class T, class E>
-class DSP {
-    T& sig_;
-    E& ext_;
-
-public:
-    const size_t NI;
-    const size_t NO;
-    const size_t SR;
-    const size_t BS;
-
-private:
-    std::vector<t_signal*> arr_;
-
-public:
-    DSP(T& sig, E& ext)
-        : sig_(sig)
-        , ext_(ext)
-        , NI(ext.numInputChannels())
-        , NO(ext.numOutputChannels())
-        , SR(ext.samplerate())
-        , BS(ext.blockSize())
-    {
-        for (size_t i = 0; i < NI; i++) {
-            t_signal* a = new t_signal;
-            a->s_vec = (t_sample*)sig_.in[i];
-            a->s_n = BS;
-            a->s_sr = SR;
-            arr_.push_back(a);
-        }
-
-        for (size_t i = 0; i < NO; i++) {
-            t_signal* a = new t_signal;
-            a->s_vec = (t_sample*)sig_.out[i];
-            a->s_n = BS;
-            a->s_sr = SR;
-            arr_.push_back(a);
-        }
-
-        ext_.setupDSP(arr_.data());
-    }
-
-    ~DSP()
-    {
-        for (size_t i = 0; i < arr_.size(); i++)
-            delete arr_[i];
-
-        arr_.clear();
-    }
-
-    void processBlock(size_t n = 1)
-    {
-        for (size_t i = 0; i < n; i++)
-            ext_.processBlock(sig_.in, sig_.out);
-    }
-
-    t_sample out(size_t ch, size_t sample) const
-    {
-        return sig_.buf_out[ch][sample];
-    }
-};
-
 static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
 
 TEST_CASE("gain~", "[externals]")
@@ -146,6 +84,54 @@ TEST_CASE("gain~", "[externals]")
             REQUIRE(dsp.out(0, i) == Approx(5));
             REQUIRE(dsp.out(1, i) == Approx(5));
             REQUIRE(dsp.out(0, i) == dsp.out(1, i));
+        }
+    }
+
+    SECTION("process all2")
+    {
+        GainTest t("gain~", L1(2), true);
+        TestSignal<2, 2> s0;
+        s0.fillInputN(0, 10);
+        s0.fillInputN(1, 6);
+
+        DSP<TestSignal<2, 2>, GainTest> dsp(s0, t);
+        dsp.processBlock();
+
+        for (size_t i = 0; i < 64; i++) {
+            REQUIRE(dsp.out(0, i) == Approx(0));
+            REQUIRE(dsp.out(1, i) == Approx(0));
+        }
+
+        t.onInlet(2, L1(0.5));
+        dsp.processBlock(10);
+
+        for (size_t i = 0; i < 64; i++) {
+            REQUIRE(dsp.out(0, i) == Approx(5));
+            REQUIRE(dsp.out(1, i) == Approx(3));
+        }
+    }
+
+    SECTION("process separate")
+    {
+        GainTest t("gain~", L1(2), true);
+        TestSignal<2, 2> s0;
+        s0.fillInputN(0, 10);
+        s0.fillInputN(1, 6);
+
+        DSP<TestSignal<2, 2>, GainTest> dsp(s0, t);
+        dsp.processBlock();
+
+        for (size_t i = 0; i < 64; i++) {
+            REQUIRE(dsp.out(0, i) == Approx(0));
+            REQUIRE(dsp.out(1, i) == Approx(0));
+        }
+
+        t.onList(L2(0.5, 2));
+        dsp.processBlock(10);
+
+        for (size_t i = 0; i < 64; i++) {
+            REQUIRE(dsp.out(0, i) == Approx(5));
+            REQUIRE(dsp.out(1, i) == Approx(12));
         }
     }
 }
