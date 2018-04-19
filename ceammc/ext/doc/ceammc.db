@@ -107,6 +107,7 @@ fx.pitchshift~		~~		~.
 fx.sdelay~		~		~.
 fx.wahwah~		~		~
 fx.zita_rev1~		~~		~~.
+gain~		?		?
 global.float		.		.
 global.int		.		.
 global.list		.		.

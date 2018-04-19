@@ -28,6 +28,7 @@
 - math.expr added
 - conv.amp2dbfs (amp->dbfs) added
 - conv.dbfs2amp (dbfs->amp) added
+- gain~ added
 
 ### Changed:
 - migration to Faust v2

@@ -235,5 +235,11 @@ TEST_CASE("gain~", "[externals]")
         REQUIRE_PROPERTY_LIST(t, @value, ListApprox(0.6, 0.6));
         WHEN_CALL(t, minusDb);
         REQUIRE_PROPERTY_LIST(t, @value, ListApprox(0.6, 0.6));
+
+        WHEN_CALL_1(t, set, 0.5);
+        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(0.5, 0.5));
+
+        WHEN_CALL_1(t, setDb, 6.0206);
+        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(2, 2));
     }
 }

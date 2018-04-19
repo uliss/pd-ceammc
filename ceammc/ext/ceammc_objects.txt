@@ -134,6 +134,7 @@ fx.pitchshift~
 fx.sdelay~
 fx.wahwah~
 fx.zita_rev1~
+gain~
 gate
 global.float
 global.int

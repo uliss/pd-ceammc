@@ -175,6 +175,20 @@ void Gain::m_minusAll(t_symbol* s, const AtomList& lst)
     m_plusAll(s, lst.map(negate));
 }
 
+void Gain::m_set(t_symbol* s, const AtomList& lst)
+{
+    t_float v = lst.floatAt(0, 0);
+    for (size_t i = 0; i < n_; i++)
+        gain_[i].setTargetValue(std::max<t_float>(0, v));
+}
+
+void Gain::m_setDb(t_symbol* s, const AtomList& lst)
+{
+    t_float v = lst.floatAt(0, 0);
+    for (size_t i = 0; i < n_; i++)
+        gain_[i].setTargetValue(std::max<t_float>(0, fromDb(v)));
+}
+
 void Gain::allocateOutBlocks()
 {
     const size_t N = std::max<size_t>(1, n_) * blockSize();
@@ -190,4 +204,6 @@ void setup_gain_tilde()
     obj.addMethod("-db", &Gain::m_minusDb);
     obj.addMethod("+all", &Gain::m_plusAll);
     obj.addMethod("-all", &Gain::m_minusAll);
+    obj.addMethod("set", &Gain::m_set);
+    obj.addMethod("set_db", &Gain::m_setDb);
 }

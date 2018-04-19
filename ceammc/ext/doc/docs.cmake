@@ -107,6 +107,7 @@ set(DOC_FILES
     fx.sdelay~
     fx.zita_rev1~
     fx.wahwah~
+    gain~
     global.float
     global.int
     global.list

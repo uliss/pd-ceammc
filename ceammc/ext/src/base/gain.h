@@ -49,6 +49,9 @@ public:
     void m_plusAll(t_symbol* s, const AtomList& lst);
     void m_minusAll(t_symbol* s, const AtomList& lst);
 
+    void m_set(t_symbol* s, const AtomList& lst);
+    void m_setDb(t_symbol* s, const AtomList& lst);
+
 private:
     void allocateOutBlocks();
 };

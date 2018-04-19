@@ -36,6 +36,9 @@
     <entry descr="call named function" name="function.call" ref_view="object">
       <xi:include href="function.call.pddoc" parse="xml"/>
     </entry>
+    <entry descr="multislot signal gain" name="gain~" ref_view="object">
+      <xi:include href="gain~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="metro with rythmic patterns" name="metro.pattern" ref_view="object">
       <xi:include href="metro.pattern.pddoc" parse="xml"/>
     </entry>
