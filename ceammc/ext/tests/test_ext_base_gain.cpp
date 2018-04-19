@@ -134,4 +134,106 @@ TEST_CASE("gain~", "[externals]")
             REQUIRE(dsp.out(1, i) == Approx(12));
         }
     }
+
+    SECTION("props")
+    {
+        GainTest t("gain~", L1(2), true);
+        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(0, 0));
+        REQUIRE_PROPERTY_LIST(t, @db, ListApprox(-144, -144));
+
+        WHEN_SEND_LIST_TO(0, t, L2(0.5, 0.5));
+        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(0.5, 0.5));
+        REQUIRE_PROPERTY_LIST(t, @db, ListApprox(-6.0206, -6.0206));
+
+        WHEN_SEND_LIST_TO(0, t, L2(0.25, 0.5));
+        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(0.25, 0.5));
+        REQUIRE_PROPERTY_LIST(t, @db, ListApprox(-12.0412, -6.0206));
+
+        WHEN_SEND_LIST_TO(0, t, L1(2));
+        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(2, 0.5));
+        REQUIRE_PROPERTY_LIST(t, @db, ListApprox(6.0206, -6.0206));
+
+        t.setProperty("@value", L2(1, 2));
+        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(1, 2));
+
+        t.setProperty("@db", L2(-4, -5));
+        REQUIRE_PROPERTY_LIST(t, @db, ListApprox(-4, -5));
+    }
+
+    SECTION("methods")
+    {
+        GainTest t("gain~", L4(2, "@value", 1, 1), true);
+        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(1, 1));
+
+        WHEN_CALL(t, plus);
+        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(1, 1));
+
+        WHEN_CALL(t, minus);
+        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(1, 1));
+
+        WHEN_CALL_1(t, plus, 0.1);
+        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(1.1, 1));
+
+        WHEN_CALL_2(t, plus, 0.1, 0.5);
+        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(1.2, 1.5));
+
+        WHEN_CALL_2(t, plus, -0.1, -0.5);
+        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(1.1, 1));
+
+        WHEN_CALL_2(t, minus, -0.1, -0.5);
+        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(1.2, 1.5));
+
+        WHEN_CALL_2(t, minus, 3, 2);
+        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(0, 0));
+
+        WHEN_CALL_2(t, plus, -1, -2);
+        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(0, 0));
+
+        WHEN_CALL_1(t, minus, -1);
+        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(1, 0));
+
+        t.setProperty("@db", L2(0.f, 0.f));
+        WHEN_CALL_2(t, plusDb, 6.0206, -6.0206);
+        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(2, 0.5));
+
+        WHEN_CALL_1(t, plusDb, 6.0206);
+        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(4, 0.5));
+
+        WHEN_CALL_1(t, minusDb, 6.0206);
+        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(2, 0.5));
+
+        WHEN_CALL_2(t, plusDb, -6.0206, 6.0206);
+        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(1, 1));
+
+        WHEN_CALL_2(t, minusDb, 6.0206, -6.0206);
+        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(0.5, 2));
+
+        WHEN_CALL_2(t, plusDb, -144, -144);
+        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(0, 0));
+
+        WHEN_CALL_1(t, plusAll, 0.5);
+        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(0.5, 0.5));
+
+        WHEN_CALL_1(t, plusAll, -0.1);
+        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(0.4, 0.4));
+
+        WHEN_CALL_1(t, minusAll, 0.1);
+        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(0.3, 0.3));
+
+        WHEN_CALL_1(t, minusAll, -0.3);
+        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(0.6, 0.6));
+
+        WHEN_CALL(t, minusAll);
+        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(0.6, 0.6));
+        WHEN_CALL(t, plusAll);
+        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(0.6, 0.6));
+        WHEN_CALL(t, plus);
+        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(0.6, 0.6));
+        WHEN_CALL(t, minus);
+        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(0.6, 0.6));
+        WHEN_CALL(t, plusDb);
+        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(0.6, 0.6));
+        WHEN_CALL(t, minusDb);
+        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(0.6, 0.6));
+    }
 }

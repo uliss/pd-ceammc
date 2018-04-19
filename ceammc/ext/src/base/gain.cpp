@@ -34,7 +34,7 @@ Gain::Gain(const PdArgs& args)
     , prev_bs_(0)
     , n_(std::max<int>(1, static_cast<int>(positionalFloatArgument(0, 1))))
 {
-    for (int i = 1; i < n_; i++) {
+    for (size_t i = 1; i < n_; i++) {
         createSignalInlet();
         createSignalOutlet();
     }
@@ -105,7 +105,7 @@ AtomList Gain::propGain() const
     AtomList res;
     res.reserve(gain_.size());
 
-    for (int i = 0; i < gain_.size(); i++)
+    for (size_t i = 0; i < gain_.size(); i++)
         res.append(gain_[i].target());
 
     return res;
@@ -126,13 +126,68 @@ void Gain::propSetGain(const AtomList& lst)
     }
 }
 
+void Gain::m_plus(t_symbol* s, const AtomList& lst)
+{
+    const size_t N = std::min<size_t>(gain_.size(), lst.size());
+
+    for (size_t i = 0; i < N; i++) {
+        t_float new_gain = gain_[i].target() + lst[i].asFloat();
+        gain_[i].setTargetValue(std::max<t_float>(0, new_gain));
+    }
+}
+
+static Atom negate(const Atom& a)
+{
+    return a.isFloat() ? -a.asFloat() : a;
+}
+
+void Gain::m_minus(t_symbol* s, const AtomList& lst)
+{
+    m_plus(s, lst.map(negate));
+}
+
+void Gain::m_plusDb(t_symbol* s, const AtomList& lst)
+{
+    const size_t N = std::min<size_t>(gain_.size(), lst.size());
+
+    for (size_t i = 0; i < N; i++) {
+        t_float new_gain = gain_[i].target() * fromDb(lst[i].asFloat());
+        gain_[i].setTargetValue(std::max<t_float>(0, new_gain));
+    }
+}
+
+void Gain::m_minusDb(t_symbol* s, const AtomList& lst)
+{
+    m_plusDb(s, lst.map(negate));
+}
+
+void Gain::m_plusAll(t_symbol* s, const AtomList& lst)
+{
+    t_float v = lst.floatAt(0, 0);
+    for (size_t i = 0; i < n_; i++) {
+        t_float new_gain = gain_[i].target() + v;
+        gain_[i].setTargetValue(std::max<t_float>(0, new_gain));
+    }
+}
+
+void Gain::m_minusAll(t_symbol* s, const AtomList& lst)
+{
+    m_plusAll(s, lst.map(negate));
+}
+
 void Gain::allocateOutBlocks()
 {
-    const size_t N = std::max<int>(1, n_) * blockSize();
+    const size_t N = std::max<size_t>(1, n_) * blockSize();
     outs_.resize(N, 0);
 }
 
 void setup_gain_tilde()
 {
     SoundExternalFactory<Gain> obj("gain~");
+    obj.addMethod("+", &Gain::m_plus);
+    obj.addMethod("-", &Gain::m_minus);
+    obj.addMethod("+db", &Gain::m_plusDb);
+    obj.addMethod("-db", &Gain::m_minusDb);
+    obj.addMethod("+all", &Gain::m_plusAll);
+    obj.addMethod("-all", &Gain::m_minusAll);
 }

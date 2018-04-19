@@ -26,7 +26,7 @@ class Gain : public SoundExternal {
     std::vector<t_smooth> gain_;
     OutBlocks outs_;
     size_t prev_bs_; // previous block size
-    const int n_;
+    const size_t n_;
 
 public:
     Gain(const PdArgs& args);
@@ -41,6 +41,13 @@ public:
     AtomList propGain() const;
     void propSetDb(const AtomList& lst);
     void propSetGain(const AtomList& lst);
+
+    void m_plus(t_symbol* s, const AtomList& lst);
+    void m_minus(t_symbol* s, const AtomList& lst);
+    void m_plusDb(t_symbol* s, const AtomList& lst);
+    void m_minusDb(t_symbol* s, const AtomList& lst);
+    void m_plusAll(t_symbol* s, const AtomList& lst);
+    void m_minusAll(t_symbol* s, const AtomList& lst);
 
 private:
     void allocateOutBlocks();
