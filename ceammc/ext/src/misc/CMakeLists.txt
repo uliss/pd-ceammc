@@ -14,7 +14,7 @@ endif()
 
 # flite TTS engine
 include_directories("${CMAKE_SOURCE_DIR}/ceammc/extra/speech/flite/include")
-list(APPEND MISC_SOURCES speech_flite.cpp)
+list(APPEND MISC_SOURCES speech_flite.cpp fliterender.cpp)
 
 add_library(ceammc_misc STATIC mod_misc.cpp ${MISC_SOURCES})
 target_link_libraries(ceammc_misc flite)
