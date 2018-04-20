@@ -20,6 +20,7 @@ extern "C" {
 
 extern cst_voice* register_cmu_us_kal16();
 extern cst_voice* register_cmu_us_slt();
+extern cst_voice* register_cmu_us_rms();
 extern void unregister_cmu_us_kal16();
 }
 
@@ -113,4 +114,5 @@ void setup_misc_speech_flite()
 
     flite_add_voice(register_cmu_us_kal16());
     flite_add_voice(register_cmu_us_slt());
+    flite_add_voice(register_cmu_us_rms());
 }
