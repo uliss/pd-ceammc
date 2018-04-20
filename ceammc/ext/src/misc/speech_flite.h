@@ -16,6 +16,7 @@
 
 #include "ceammc_array.h"
 #include "ceammc_object.h"
+#include "../string/datatype_string.h"
 
 using namespace ceammc;
 
@@ -30,7 +31,10 @@ class SpeechFlite : public BaseObject {
 public:
     SpeechFlite(const PdArgs& args);
 
+    void onFloat(t_float v);
     void onSymbol(t_symbol* s);
+    void onList(const AtomList& lst);
+    void onDataT(const DataTypeString& str);
 
     AtomList propVoice() const;
     void propSetVoice(const AtomList& lst);

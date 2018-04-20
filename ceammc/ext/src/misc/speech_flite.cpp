@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "speech_flite.h"
 #include "ceammc_factory.h"
+#include "ceammc_format.h"
 
 extern "C" {
 #include "cst_wave.h"
@@ -43,9 +44,26 @@ SpeechFlite::SpeechFlite(const PdArgs& args)
     createOutlet();
 }
 
+void SpeechFlite::onFloat(t_float v)
+{
+    char buf[64];
+    sprintf(buf, "%g", v);
+    synth(buf);
+}
+
 void SpeechFlite::onSymbol(t_symbol* s)
 {
     synth(s->s_name);
+}
+
+void SpeechFlite::onList(const AtomList& lst)
+{
+    synth(to_string(lst).c_str());
+}
+
+void SpeechFlite::onDataT(const DataTypeString& str)
+{
+    synth(str.str().c_str());
 }
 
 AtomList SpeechFlite::propVoice() const
@@ -115,4 +133,6 @@ void setup_misc_speech_flite()
     flite_add_voice(register_cmu_us_kal16());
     flite_add_voice(register_cmu_us_slt());
     flite_add_voice(register_cmu_us_rms());
+
+    obj.processData<DataTypeString>();
 }
