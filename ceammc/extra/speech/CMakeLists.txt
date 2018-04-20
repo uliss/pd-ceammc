@@ -76,6 +76,47 @@ set(FLITE_SRC
     flite/src/wavesynth/cst_sigpr.c
     flite/src/wavesynth/cst_sts.c
     flite/src/wavesynth/cst_units.c
+    flite/lang/cmulex/cmu_lex.c
+    flite/lang/cmulex/cmu_lex_data.c
+    flite/lang/cmulex/cmu_lex_entries.c
+    flite/lang/cmulex/cmu_lts_model.c
+    flite/lang/cmulex/cmu_lts_rules.c
+    flite/lang/cmulex/cmu_postlex.c
+    flite/lang/usenglish/us_aswd.c
+    flite/lang/usenglish/us_dur_stats.c
+    flite/lang/usenglish/us_durz_cart.c
+    flite/lang/usenglish/us_expand.c
+    flite/lang/usenglish/us_f0_model.c
+    flite/lang/usenglish/us_f0lr.c
+    flite/lang/usenglish/us_ffeatures.c
+    flite/lang/usenglish/us_gpos.c
+    flite/lang/usenglish/us_int_accent_cart.c
+    flite/lang/usenglish/us_int_tone_cart.c
+    flite/lang/usenglish/us_nums_cart.c
+    flite/lang/usenglish/us_phoneset.c
+    flite/lang/usenglish/us_phrasing_cart.c
+    flite/lang/usenglish/us_pos_cart.c
+    flite/lang/usenglish/us_text.c
+    flite/lang/usenglish/usenglish.c
+
+    # lang kal16
+    flite/lang/cmu_us_kal16/cmu_us_kal16.c
+    flite/lang/cmu_us_kal16/cmu_us_kal16_diphone.c
+    flite/lang/cmu_us_kal16/cmu_us_kal16_lpc.c
+    flite/lang/cmu_us_kal16/cmu_us_kal16_res.c
+    flite/lang/cmu_us_kal16/cmu_us_kal16_residx.c
+
+    # lang slt
+    flite/lang/cmu_us_slt/cmu_us_slt.c
+    flite/lang/cmu_us_slt/cmu_us_slt_cg.c
+    flite/lang/cmu_us_slt/cmu_us_slt_cg_durmodel.c
+    flite/lang/cmu_us_slt/cmu_us_slt_cg_f0_trees.c
+    flite/lang/cmu_us_slt/cmu_us_slt_cg_phonestate.c
+    flite/lang/cmu_us_slt/cmu_us_slt_cg_single_mcep_trees.c
+    flite/lang/cmu_us_slt/cmu_us_slt_cg_single_params.c
+    flite/lang/cmu_us_slt/cmu_us_slt_spamf0_accent.c
+    flite/lang/cmu_us_slt/cmu_us_slt_spamf0_accent_params.c
+    flite/lang/cmu_us_slt/cmu_us_slt_spamf0_phrase.c
 )
 
 if(WIN32)
@@ -83,4 +124,6 @@ if(WIN32)
 endif()
 
 include_directories(flite/include)
+include_directories(flite/lang/cmulex)
+include_directories(flite/lang/usenglish)
 add_library(flite STATIC ${FLITE_SRC})
