@@ -22,7 +22,8 @@
         </arguments>
         <properties>
             <property name="@array" type="symbol">destination array name</property>
-            <property name="@voice" type="symbol" default="kal16">default voice</property>
+            <property name="@voice" type="symbol" default="kal16" enum="kal16 slt rms awb">
+            default voice</property>
         </properties>
         <inlets>
             <inlet>
@@ -48,7 +49,7 @@
 
 [T]
 |
-[metro 1000]     [ui.menu kal16 slt rms]
+[metro 1000]     [ui.menu kal16 slt rms awb]
 |                |
 [flow.count]     [@voice $2(
 |                |

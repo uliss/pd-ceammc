@@ -7,7 +7,7 @@
 #X obj 30 143 modplug~;
 #X text 175 143 MOD file player (using libmodplug);
 #X obj 30 170 speech.flite;
-#X text 175 170 Text to Speech render to array;
+#X text 175 170 render speech to array;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::misc 20 20 0 20 -104026
 -4096 0;
 #X obj 1 458 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;

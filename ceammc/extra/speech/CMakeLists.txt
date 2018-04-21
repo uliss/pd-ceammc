@@ -129,6 +129,18 @@ set(FLITE_SRC
     flite/lang/cmu_us_rms/cmu_us_rms_spamf0_accent.c
     flite/lang/cmu_us_rms/cmu_us_rms_spamf0_accent_params.c
     flite/lang/cmu_us_rms/cmu_us_rms_spamf0_phrase.c
+
+    # lang awb
+    flite/lang/cmu_us_awb/cmu_us_awb.c
+    flite/lang/cmu_us_awb/cmu_us_awb_cg.c
+    flite/lang/cmu_us_awb/cmu_us_awb_cg_durmodel.c
+    flite/lang/cmu_us_awb/cmu_us_awb_cg_f0_trees.c
+    flite/lang/cmu_us_awb/cmu_us_awb_cg_phonestate.c
+    flite/lang/cmu_us_awb/cmu_us_awb_cg_single_mcep_trees.c
+    flite/lang/cmu_us_awb/cmu_us_awb_cg_single_params.c
+    flite/lang/cmu_us_awb/cmu_us_awb_spamf0_accent.c
+    flite/lang/cmu_us_awb/cmu_us_awb_spamf0_accent_params.c
+    flite/lang/cmu_us_awb/cmu_us_awb_spamf0_phrase.c
 )
 
 if(WIN32)
