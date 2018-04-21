@@ -29,6 +29,7 @@
 - conv.amp2dbfs (amp->dbfs) added
 - conv.dbfs2amp (dbfs->amp) added
 - gain~ added
+- speech.flite added
 
 ### Changed:
 - migration to Faust v2

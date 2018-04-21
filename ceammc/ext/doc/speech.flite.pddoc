@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="speech.flite">
+        <title>speech.flite</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>render speech to array</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>misc</category>
+            <keywords>speak speech flite</keywords>
+            <since>0.6</since>
+        </meta>
+        <info>
+            <par>Renders floats, symbols and list to wavetables using flite TTS engine.</par>
+            <par>Rendering is performed in separate thread.</par>
+        </info>
+        <arguments>
+            <argument name="ARRAY" type="symbol">destination array name render to</argument>
+        </arguments>
+        <properties>
+            <property name="@array" type="symbol">destination array name</property>
+            <property name="@voice" type="symbol" default="kal16">default voice</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="float">render number to array</xinfo>
+                <xinfo on="symbol">render text to array</xinfo>
+                <xinfo on="list">render text to array</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="symbol">set target array name</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>bang on done</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[array arr_flite w=500 h=80]
+
+
+
+
+
+[T]
+|
+[metro 1000]     [ui.menu kal16 slt rms]
+|                |
+[flow.count]     [@voice $2(
+|                |
+[speech.flite arr_flite]
+|
+[0(
+|
+[tabplay~ arr_flite]
+|
+[ui.gain~ @size 120 16]   [ui.dsp~]
+|\
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

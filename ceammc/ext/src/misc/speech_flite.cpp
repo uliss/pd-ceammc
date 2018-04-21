@@ -101,8 +101,6 @@ void SpeechFlite::clockTick()
             return;
         }
 
-        OBJ_DBG << "Done....";
-
         if (!render_->copyToArray(array_)) {
             OBJ_ERR << "copy error";
             return;
