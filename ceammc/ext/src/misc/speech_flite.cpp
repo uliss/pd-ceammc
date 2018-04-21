@@ -14,6 +14,7 @@
 #include "speech_flite.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
+#include "fliterender.h"
 
 extern "C" {
 #include "cst_wave.h"
@@ -32,16 +33,21 @@ static t_symbol* SYM_VOICE_DEFAULT = SYM_VOICE_KAL16;
 SpeechFlite::SpeechFlite(const PdArgs& args)
     : BaseObject(args)
     , name_(positionalSymbolArgument(0, &s_))
-    , voice_(0)
-    , voice_name_(SYM_VOICE_DEFAULT)
+    , render_(new FliteThread())
+    , clock_(this, &SpeechFlite::clockTick)
 {
     createProperty(new PointerProperty<t_symbol*>("@array", &name_, false));
 
-    propSetVoice(Atom(SYM_VOICE_DEFAULT));
-    createCbProperty("@voice", &SpeechFlite::propVoice, &SpeechFlite::propSetVoice);
+    voice_name_ = new SymbolProperty("@voice", SYM_VOICE_DEFAULT);
+    createProperty(voice_name_);
 
     createInlet(&name_);
     createOutlet();
+}
+
+SpeechFlite::~SpeechFlite()
+{
+    delete render_;
 }
 
 void SpeechFlite::onFloat(t_float v)
@@ -66,28 +72,6 @@ void SpeechFlite::onDataT(const DataTypeString& str)
     synth(str.str().c_str());
 }
 
-AtomList SpeechFlite::propVoice() const
-{
-    return Atom(voice_name_);
-}
-
-void SpeechFlite::propSetVoice(const AtomList& lst)
-{
-    if (!checkArgs(lst, ARG_SYMBOL)) {
-        OBJ_ERR << "voice name expected: " << lst;
-        return;
-    }
-
-    t_symbol* name = lst.symbolAt(0, SYM_VOICE_DEFAULT);
-    cst_voice* v = flite_voice_select(name->s_name);
-    if (!v) {
-        OBJ_ERR << "can't load voice: " << lst;
-        return;
-    }
-
-    voice_ = v;
-}
-
 bool SpeechFlite::synth(const char* str)
 {
     if (!array_.open(name_)) {
@@ -95,34 +79,38 @@ bool SpeechFlite::synth(const char* str)
         return false;
     }
 
-    if (!voice_) {
-        OBJ_ERR << "no voice selected";
+    if (!render_->start(str, voice_name_->value()->s_name)) {
+        OBJ_ERR << "worker error";
         return false;
+    } else {
+        clock_.delay(25);
     }
-
-    cst_wave* wave = flite_text_to_wave(str, voice_);
-
-    if (!wave) {
-        OBJ_ERR << "synthesis failed for text '" << str << "'";
-        return false;
-    }
-
-    cst_wave_resample(wave, sys_getsr());
-
-    if (!array_.resize(wave->num_samples)) {
-        OBJ_ERR << "can't resize array to " << wave->num_samples;
-        return false;
-    }
-
-    for (int i = 0; i < wave->num_samples; i++)
-        array_[i] = wave->samples[i] / 32767.0;
-
-    delete_wave(wave);
-    array_.redraw();
-
-    bangTo(0);
 
     return true;
+}
+
+void SpeechFlite::clockTick()
+{
+    if (render_->isRunning()) {
+        clock_.delay(25);
+    } else {
+        // array was delete while worker running
+        std::string name = array_.name();
+        if (!array_.update()) {
+            OBJ_ERR << "array not found: " << name;
+            return;
+        }
+
+        OBJ_DBG << "Done....";
+
+        if (!render_->copyToArray(array_)) {
+            OBJ_ERR << "copy error";
+            return;
+        }
+
+        array_.redraw();
+        bangTo(0);
+    }
 }
 
 void setup_misc_speech_flite()

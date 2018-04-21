@@ -14,33 +14,34 @@
 #ifndef SPEECH_FLITE_H
 #define SPEECH_FLITE_H
 
-#include "ceammc_array.h"
-#include "ceammc_object.h"
 #include "../string/datatype_string.h"
+#include "ceammc_array.h"
+#include "ceammc_clock.h"
+#include "ceammc_object.h"
 
 using namespace ceammc;
 
-typedef struct cst_voice_struct cst_voice;
+class FliteThread;
 
 class SpeechFlite : public BaseObject {
     Array array_;
     t_symbol* name_;
-    cst_voice* voice_;
-    t_symbol* voice_name_;
+    SymbolProperty* voice_name_;
+    FliteThread* render_;
+    ClockMemberFunction<SpeechFlite> clock_;
 
 public:
     SpeechFlite(const PdArgs& args);
+    ~SpeechFlite();
 
     void onFloat(t_float v);
     void onSymbol(t_symbol* s);
     void onList(const AtomList& lst);
     void onDataT(const DataTypeString& str);
 
-    AtomList propVoice() const;
-    void propSetVoice(const AtomList& lst);
-
 private:
     bool synth(const char* str);
+    void clockTick();
 };
 
 void setup_misc_speech_flite();

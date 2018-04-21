@@ -14,35 +14,59 @@
 #ifndef FLITERENDER_H
 #define FLITERENDER_H
 
-#include <pthread.h>
+#include <memory>
+#include <mutex>
 #include <string>
+#include <thread>
+#include <vector>
+
+#include "ceammc_array.h"
 
 typedef struct cst_wave_struct cst_wave;
+typedef std::lock_guard<std::mutex> Lock;
 
-class FliteRender {
+enum ExitCode {
+    EXIT_CODE_OK = 0,
+    EXIT_CODE_UNKNOWN_VOICE,
+    EXIT_CODE_ERROR_SYNTH
+};
+
+class ThreadError {
+public:
+    ExitCode code;
+    std::string msg;
+
+    ThreadError();
+    void reset();
+};
+
+class FliteThread {
     std::string str_;
     std::string voice_;
-    std::string array_;
-    pthread_t thread_;
-    mutable pthread_mutex_t mutex_;
-    int sr_;
-    mutable bool is_running_;
-    mutable cst_wave* result_;
+    std::thread thread_;
+    std::mutex mutex_;
+    bool is_running_;
+    ThreadError thread_error_;
+    std::vector<float> wave_;
 
 public:
-    FliteRender();
-    ~FliteRender();
+    FliteThread();
+    ~FliteThread();
 
-    bool start(const std::string& array, const std::string& str, const std::string& voice = "kal16");
-    bool stop();
+    bool start(const std::string& str, const std::string& voice = "kal16");
+    bool isRunning() const;
 
-    const std::string& str() const;
-    const std::string& voice() const;
-    int samplerate() const;
-    void setResultWave(cst_wave* w);
+    bool copyToArray(ceammc::Array& a);
+
+    // thread context
+    void storeWave(cst_wave* w);
+    void setError(ExitCode rc, const std::string& msg);
 
 public:
-    void threadFinished();
+    friend class ThreadTracker;
+
+private:
+    void threadDone();
 };
 
 #endif // FLITERENDER_H

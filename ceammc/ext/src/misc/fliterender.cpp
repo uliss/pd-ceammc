@@ -16,164 +16,150 @@
 #include "ceammc_log.h"
 #include "ceammc_thread.h"
 
+#include <chrono>
+#include <functional>
+
+extern "C" {
 #include "flite.h"
+}
+
 #include "m_pd.h"
 
 #include <iostream>
 
 using namespace ceammc;
 
-#define THREAD_CHECK(status, msg)                                   \
-    {                                                               \
-        if (status != 0) {                                          \
-            LIB_ERR << "[flite] " << msg << ", status = " << status \
-                    << ", str: " << strerror(status) << "\n";       \
-        }                                                           \
-    }
-
 class ThreadTracker {
-    FliteRender* a_;
+    FliteThread& a_;
 
 public:
-    ThreadTracker(FliteRender* a)
+    ThreadTracker(FliteThread& a)
         : a_(a)
     {
-        std::cerr << "[flite_thread] " << pthread_self() << " started\n";
+        std::cerr << "[flite_thread] " << std::this_thread::get_id() << " started\n";
+        std::cerr << "     voice:   " << a_.voice_ << "\n";
+        std::cerr << "     message: \"" << a_.str_ << "\"\n";
     }
 
     ~ThreadTracker()
     {
-        std::cerr << "[flite_thread] " << pthread_self() << " finished\n";
-        a_->threadFinished();
+        std::cerr << "[flite_thread] " << std::this_thread::get_id() << " done\n";
+        a_.threadDone();
     }
 };
 
-static void* worker(void* v)
+static void worker(const std::string& str, const std::string& voice, int SR, FliteThread& flite)
 {
-    FliteRender* flite = static_cast<FliteRender*>(v);
     ThreadTracker logger(flite);
-
-    // copy to thread
-    std::string str(flite->str());
-    std::string voice(flite->voice());
-    const int SR = flite->samplerate();
 
     cst_voice* vc = flite_voice_select(voice.c_str());
     if (!vc) {
-        std::cerr << "can't load voice: " << voice << "\n";
-        return 0;
+        std::ostringstream ss;
+        ss << "can't load voice: " << voice;
+        flite.setError(EXIT_CODE_UNKNOWN_VOICE, ss.str());
+        return;
     }
 
+    // render
     cst_wave* wave = flite_text_to_wave(str.c_str(), vc);
 
     if (!wave) {
-        std::cerr << "synthesis failed for text '" << str << "'";
-        return 0;
+        std::ostringstream ss;
+        ss << "synth error: " << str;
+        flite.setError(EXIT_CODE_ERROR_SYNTH, ss.str());
+        return;
     }
 
+    // resample
     cst_wave_resample(wave, SR);
-    flite->setResultWave(wave);
 
-    return 0;
+    // ok
+    flite.setError(EXIT_CODE_OK, "");
+    // store
+    flite.storeWave(wave);
+
+    delete_wave(wave);
 }
 
-FliteRender::FliteRender()
-    : voice_(0)
-    , sr_(0)
-    , is_running_(false)
-    , result_(0)
+FliteThread::FliteThread()
+    : is_running_(false)
 {
-    int status = 0;
-    status = pthread_mutex_init(&mutex_, 0);
-    THREAD_CHECK(status, "can't init mutex");
 }
 
-FliteRender::~FliteRender()
+FliteThread::~FliteThread()
 {
-    stop();
-
-    int err = pthread_mutex_destroy(&mutex_);
-    THREAD_CHECK(err, "can't destroy mutex");
+    if (thread_.joinable())
+        thread_.join();
 }
 
-bool FliteRender::start(const std::string& array, const std::string& str, const std::string& voice)
+bool FliteThread::start(const std::string& str, const std::string& voice)
 {
-    Array arr(array.c_str());
-    if (!arr.isValid()) {
-        LIB_ERR << "invalid array: " << array;
-        return false;
-    }
-
     if (is_running_) {
-        LIB_ERR << "[flite] thread is running...\n";
+        LIB_ERR << "[flite] thread is already running...";
         return false;
     }
 
-    array_ = array;
     str_ = str;
     voice_ = voice;
-    sr_ = sys_getsr();
-    result_ = 0;
-
-    int err = pthread_create(&thread_, 0, worker, this);
-
-    THREAD_CHECK(err, "thread create failed");
-    if (err)
-        return false;
-
     is_running_ = true;
+
+    thread_error_.reset();
+
+    if (thread_.joinable())
+        thread_.join();
+
+    thread_ = std::thread(&worker, str, voice, sys_getsr(), std::ref(*this));
+
     return true;
 }
 
-bool FliteRender::stop()
+bool FliteThread::isRunning() const
 {
-    if (!is_running_) {
-        LIB_ERR << "[flite] thread is not running...\n";
+    return is_running_;
+}
+
+bool FliteThread::copyToArray(ceammc::Array& a)
+{
+    Lock g(mutex_);
+
+    if (!a.resize(wave_.size())) {
+        LIB_ERR << "can't resize array: " << a.name();
         return false;
     }
 
-    int err = pthread_join(thread_, 0);
-    THREAD_CHECK(err, "thread join failed");
-    if (err)
-        return false;
-
-    is_running_ = false;
+    std::copy(wave_.begin(), wave_.end(), a.begin());
     return true;
 }
 
-const std::string& FliteRender::str() const
+void FliteThread::storeWave(cst_wave* w)
 {
-    return str_;
+    Lock g(mutex_);
+
+    wave_.resize(w->num_samples);
+    for (int i = 0; i < w->num_samples; i++)
+        wave_[i] = w->samples[i] / 32768.0;
 }
 
-const std::string& FliteRender::voice() const
+void FliteThread::setError(ExitCode rc, const std::string& msg)
 {
-    return voice_;
+    Lock g(mutex_);
+
+    thread_error_.code = rc;
+    thread_error_.msg = msg;
 }
 
-void FliteRender::setResultWave(cst_wave* w)
+void FliteThread::threadDone()
 {
-    thread::Lock lock(mutex_);
-    result_ = w;
-}
-
-void FliteRender::threadFinished()
-{
-    thread::Lock lock(mutex_);
     is_running_ = false;
+}
 
-    Array array(array_.c_str());
-    if (!array.isValid()) {
-        LIB_ERR << "can't open array: " << array_;
-    } else {
-        if (!array.resize(result_->num_samples)) {
-            LIB_ERR << "can't resize array to " << result_->num_samples;
-        } else {
-            // copy samples
-            for (int i = 0; i < result_->num_samples; i++)
-                array[i] = result_->samples[i] / 32767.0;
-        }
-    }
+ThreadError::ThreadError()
+    : code(EXIT_CODE_OK)
+{
+}
 
-    delete_wave(result_);
+void ThreadError::reset()
+{
+    code = EXIT_CODE_OK;
+    msg.clear();
 }
