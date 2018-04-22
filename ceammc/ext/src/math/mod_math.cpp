@@ -1,5 +1,6 @@
 #include "mod_math.h"
 
+#include "math_div.h"
 #include "math_expr.h"
 #include "math_gcd.h"
 #include "math_lcm.h"
@@ -88,4 +89,5 @@ void ceammc_math_setup()
     setup_math0x2eround_tilde();
     setup_math_mul();
     setup_math_expr();
+    setup_math_div();
 }
