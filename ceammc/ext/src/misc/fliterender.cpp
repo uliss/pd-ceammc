@@ -63,7 +63,7 @@ public:
     }
 };
 
-static void worker(const std::string& str, const std::string& voice, int SR, FliteThread& flite)
+static void worker(const std::string& str, const std::string& voice, int SR, FliteThread& flite, const FliteFeatures& feat)
 {
     ThreadTracker logger(flite);
 
@@ -74,6 +74,12 @@ static void worker(const std::string& str, const std::string& voice, int SR, Fli
         flite.setError(EXIT_CODE_UNKNOWN_VOICE, ss.str());
         return;
     }
+
+    // set features
+    feat_set_float(vc->features, "duration_stretch", feat.speed);
+
+    if (feat.pitch > 0)
+        feat_set_float(vc->features, "int_f0_target_mean", feat.pitch);
 
     // render
     cst_wave* wave = flite_text_to_wave(str.c_str(), vc);
@@ -107,7 +113,7 @@ FliteThread::~FliteThread()
         thread_.join();
 }
 
-bool FliteThread::start(const std::string& str, const std::string& voice)
+bool FliteThread::start(const std::string& str, const std::string& voice, const FliteFeatures& features)
 {
     if (is_running_) {
         LIB_ERR << "[flite] thread is already running...";
@@ -123,7 +129,7 @@ bool FliteThread::start(const std::string& str, const std::string& voice)
     if (thread_.joinable())
         thread_.join();
 
-    thread_ = std::thread(&worker, str, voice, sys_getsr(), std::ref(*this));
+    thread_ = std::thread(&worker, str, voice, sys_getsr(), std::ref(*this), features);
 
     return true;
 }

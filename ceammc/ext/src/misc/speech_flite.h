@@ -27,6 +27,8 @@ class SpeechFlite : public BaseObject {
     Array array_;
     t_symbol* name_;
     SymbolProperty* voice_name_;
+    FloatPropertyClosedRange* speed_;
+    FloatProperty* pitch_;
     FliteThread* render_;
     ClockMemberFunction<SpeechFlite> clock_;
 

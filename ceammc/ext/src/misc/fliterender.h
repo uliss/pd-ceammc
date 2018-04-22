@@ -14,6 +14,7 @@
 #ifndef FLITERENDER_H
 #define FLITERENDER_H
 
+#include <map>
 #include <memory>
 #include <mutex>
 #include <string>
@@ -40,6 +41,12 @@ public:
     void reset();
 };
 
+class FliteFeatures {
+public:
+    float speed;
+    float pitch;
+};
+
 class FliteThread {
     std::string str_;
     std::string voice_;
@@ -53,7 +60,7 @@ public:
     FliteThread();
     ~FliteThread();
 
-    bool start(const std::string& str, const std::string& voice = "kal16");
+    bool start(const std::string& str, const std::string& voice = "kal16", const FliteFeatures& features = FliteFeatures());
     bool isRunning() const;
 
     bool copyToArray(ceammc::Array& a);
