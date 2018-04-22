@@ -29,21 +29,36 @@ extern "C" {
 
 using namespace ceammc;
 
+//#define FLITE_DEBUG
+
 class ThreadTracker {
     FliteThread& a_;
+#ifdef FLITE_DEBUG
+    std::chrono::high_resolution_clock::time_point t_;
+#endif
 
 public:
     ThreadTracker(FliteThread& a)
         : a_(a)
     {
+#ifdef FLITE_DEBUG
         std::cerr << "[flite_thread] " << std::this_thread::get_id() << " started\n";
         std::cerr << "     voice:   " << a_.voice_ << "\n";
         std::cerr << "     message: \"" << a_.str_ << "\"\n";
+
+        t_ = std::chrono::high_resolution_clock::now();
+#endif
     }
 
     ~ThreadTracker()
     {
+
+#ifdef FLITE_DEBUG
         std::cerr << "[flite_thread] " << std::this_thread::get_id() << " done\n";
+        double dif = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - t_).count();
+        std::cerr << "     time: " << dif << " μs\n";
+#endif
+
         a_.threadDone();
     }
 };
