@@ -192,6 +192,7 @@ set(DOC_FILES
     math.ceil
     math.cos
     math.cosh
+    math.div
     math.e
     math.exp
     math.exp2

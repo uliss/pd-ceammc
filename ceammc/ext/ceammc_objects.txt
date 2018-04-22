@@ -222,6 +222,7 @@ local.json
 local.list
 m
 math.*
+math./
 math.abs
 math.acos
 math.acosh
@@ -235,6 +236,7 @@ math.cbrt
 math.ceil
 math.cos
 math.cosh
+math.div
 math.e
 math.exp
 math.exp2

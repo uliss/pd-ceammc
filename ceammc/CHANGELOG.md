@@ -25,6 +25,7 @@
 - flt.moog_vcf~ added
 - alias for list.reduce: list.foldl
 - math.mul (math.*) added for lists
+- math.div (math./) added for lists
 - math.expr added
 - conv.amp2dbfs (amp->dbfs) added
 - conv.dbfs2amp (dbfs->amp) added

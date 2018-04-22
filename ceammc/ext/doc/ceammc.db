@@ -192,6 +192,7 @@ math.cbrt		.		.
 math.ceil		.		.
 math.cos		.		.
 math.cosh		.		.
+math.div,math./		..		.
 math.e		.		.
 math.exp		.		.
 math.exp2		.		.
