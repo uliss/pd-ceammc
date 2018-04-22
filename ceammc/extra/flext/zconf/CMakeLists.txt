@@ -21,4 +21,6 @@ if(DNSSD_FOUND)
         INTERNAL True
         LIBRARY zconf
         LINK flext_static)
+
+    target_compile_options(zconf PUBLIC -Wno-narrowing)
 endif()
