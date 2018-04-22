@@ -14,33 +14,30 @@
             <since>0.6</since>
         </meta>
         <arguments>
-            <argument name="N" type="int" minvalue="1" maxvalue="16">number of inputs/outputs</argument>
+            <argument name="N" type="int" minvalue="1" maxvalue="16">number of
+            inputs/outputs</argument>
         </arguments>
         <methods>
-            <method name="+">increase gain amplitude
-            <param name="VALS" type="list">values for each input channel</param>
-            </method>
-            <method name="-">decrease gain amplitude
-            <param name="VALS" type="list">values for each input channel</param>
-            </method>
-            <method name="+db">increase gain in db
-            <param name="VALS" type="list">values for each input channel</param>
-            </method>
-            <method name="-db">decrease gain in db
-            <param name="VALS" type="list">values for each input channel</param>
-            </method>
-            <method name="+all">increase gain amplitude for all inputs
-            <param name="V" type="float" required="true">single value for each input channel</param>
-            </method>
-            <method name="-all">decrease gain amplitude for all inputs
-            <param name="V" type="float" required="true">single value for each input channel</param>
-            </method>
-            <method name="set">set gain amplitude for all inputs
-            <param name="V" type="float" required="true" minvalue="0">new gain value</param>
-            </method>
-            <method name="set_db">set gain in db for all inputs
-            <param name="V" type="float" required="true" minvalue="-144">new gain value</param>
-            </method>
+            <method name="+">increase gain amplitude 
+            <param name="VALS" type="list">values for each input channel</param></method>
+            <method name="-">decrease gain amplitude 
+            <param name="VALS" type="list">values for each input channel</param></method>
+            <method name="+db">increase gain in db 
+            <param name="VALS" type="list">values for each input channel</param></method>
+            <method name="-db">decrease gain in db 
+            <param name="VALS" type="list">values for each input channel</param></method>
+            <method name="+all">increase gain amplitude for all inputs 
+            <param name="V" type="float" required="true">single value for each input
+            channel</param></method>
+            <method name="-all">decrease gain amplitude for all inputs 
+            <param name="V" type="float" required="true">single value for each input
+            channel</param></method>
+            <method name="set">set gain amplitude for all inputs 
+            <param name="V" type="float" required="true" minvalue="0">new gain
+            value</param></method>
+            <method name="set_db">set gain in db for all inputs 
+            <param name="V" type="float" required="true" minvalue="-144">new gain
+            value</param></method>
         </methods>
         <properties>
             <property name="@value" type="list" minvalue="0">gain amplitude values</property>

@@ -14,9 +14,11 @@
             <since>0.6</since>
         </meta>
         <info>
-            <par>Modeled after T. Rossing and R. Perrin, Vibrations of Bells, Applied Acoustics 2, 1987</par>
+            <par>Modeled after T. Rossing and R. Perrin, Vibrations of Bells, Applied Acoustics 2,
+            1987</par>
             <par>Model height is 301 mm</par>
-            <par>This model contains 7 excitation positions going linearly from the bottom to the top of the bell</par>
+            <par>This model contains 7 excitation positions going linearly from the bottom to the
+            top of the bell</par>
         </info>
         <methods>
             <method name="gate">gate signal - 0: off, 1: on</method>
@@ -26,8 +28,10 @@
             (0 is on the bottom)</property>
             <property name="@gain" type="float" minvalue="0" maxvalue="1" default="1">pluck
             gain</property>
-            <property name="@sharp" type="float" minvalue="0" maxvalue="5" default="0.5">strike sharpness</property>
-            <property name="@cutoff" type="float" minvalue="20" maxvalue="20000" default="600">cutoff coefficent</property>
+            <property name="@sharp" type="float" minvalue="0" maxvalue="5" default="0.5">strike
+            sharpness</property>
+            <property name="@cutoff" type="float" minvalue="20" maxvalue="20000" default="600">
+            cutoff coefficent</property>
         </properties>
         <inlets>
             <inlet>

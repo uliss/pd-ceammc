@@ -6,7 +6,8 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>simple synth based on a sawtooth wave filtered by a resonant lowpass</description>
+            <description>simple synth based on a sawtooth wave filtered by a resonant
+            lowpass</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>synth</category>
@@ -19,7 +20,8 @@
         <properties>
             <property name="@pitch" type="float" minvalue="36" maxvalue="84" default="48">
             pitch</property>
-            <property name="@cutoff" type="float" minvalue="20" maxvalue="20000" default="3000">cutoff frequency</property>
+            <property name="@cutoff" type="float" minvalue="20" maxvalue="20000" default="3000">
+            cutoff frequency</property>
         </properties>
         <inlets>
             <inlet>

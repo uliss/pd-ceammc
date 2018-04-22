@@ -22,12 +22,12 @@
         </arguments>
         <properties>
             <property name="@array" type="symbol">destination array name</property>
-            <property name="@voice" type="symbol" default="kal16" enum="kal16 slt rms awb">
-            default voice</property>
-            <property name="@speed" type="float" minvalue="0.1" maxvalue="10" default="1">
-            speaking speed</property>
-            <property name="@pitch" type="float" default="-1">
-            voice pitch (-1 - default value)</property>
+            <property name="@voice" type="symbol" default="kal16" enum="kal16 slt rms awb">default
+            voice</property>
+            <property name="@speed" type="float" minvalue="0.1" maxvalue="10" default="1">speaking
+            speed</property>
+            <property name="@pitch" type="float" default="-1">voice pitch (-1 - default
+            value)</property>
         </properties>
         <inlets>
             <inlet>
