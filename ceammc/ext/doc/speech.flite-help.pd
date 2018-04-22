@@ -19,7 +19,7 @@ flite TTS engine.;
 #X obj 50 265 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 50 294 metro 1000;
 #X obj 184 294 ui.menu kal16 slt rms awb;
-#X obj 453 294 ui.knob @min 0.1 @max 5 @size 40 40;
+#X obj 453 294 ui.knob @min 1 @max 4 @size 40 40;
 #X obj 50 322 flow.count;
 #X msg 184 322 @voice \$2;
 #X floatatom 299 322 5 0 0 0 - - -;
@@ -48,7 +48,7 @@ flite TTS engine.;
 kal16\. Allowed values: kal16 \, slt \, rms \, awb;
 #X msg 120 646 @speed;
 #X text 240 646 Get/Set speaking speed. Type: float. Default value:
-1\. Value range: 0.1-10;
+1\. Value range: 1-4;
 #X msg 120 683 @pitch;
 #X text 240 683 Get/Set voice pitch (-1 - default value). Type: float.
 Default value: -1;

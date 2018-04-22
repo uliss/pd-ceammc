@@ -45,7 +45,7 @@ SpeechFlite::SpeechFlite(const PdArgs& args)
     voice_name_ = new SymbolProperty("@voice", SYM_VOICE_DEFAULT);
     createProperty(voice_name_);
 
-    speed_ = new FloatPropertyClosedRange("@speed", 1, 0.1, 10);
+    speed_ = new FloatPropertyClosedRange("@speed", 1, 1, 4);
     createProperty(speed_);
 
     pitch_ = new FloatProperty("@pitch", -1);
@@ -90,7 +90,7 @@ bool SpeechFlite::synth(const char* str)
     }
 
     FliteFeatures ff;
-    ff.speed = speed_->value();
+    ff.speed = 1.f / speed_->value();
     ff.pitch = pitch_->value();
 
     if (!render_->start(str, voice_name_->value()->s_name, ff)) {
