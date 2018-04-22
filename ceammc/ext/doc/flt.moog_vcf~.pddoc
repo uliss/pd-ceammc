@@ -19,20 +19,20 @@
                 corner-resonance frequency</param>
             </method>
             <method name="res">
-                <param type="float" minvalue="0" maxvalue="1" default="0.4">normalized amount of corner-resonance
-                </param>
+                <param type="float" minvalue="0" maxvalue="1" default="0.4">normalized amount of
+                corner-resonance</param>
             </method>
         </methods>
         <arguments>
             <argument name="freq" type="float" units="herz">corner-resonance frequency</argument>
-            <argument name="res" type="float" minvalue="0" maxvalue="1">normalized amount of corner-resonance
-            </argument>
+            <argument name="res" type="float" minvalue="0" maxvalue="1">normalized amount of
+            corner-resonance</argument>
             <argument name="ID" type="symbol">object ID for OSC control</argument>
         </arguments>
         <properties>
             <property name="@freq" type="float" units="herz">center frequency</property>
-            <property name="@res" type="float" minvalue="0" maxvalue="1" default="0.4">normalized amount of corner-resonance
-            </property>
+            <property name="@res" type="float" minvalue="0" maxvalue="1" default="0.4">normalized
+            amount of corner-resonance</property>
         </properties>
         <inlets>
             <inlet type="audio">

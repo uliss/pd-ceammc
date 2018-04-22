@@ -19,15 +19,15 @@
         <arguments>
             <argument name="time" type="float" minvalue="10" maxvalue="10000" units="millisecond">
             echo time</argument>
-            <argument name="feedback" type="float" minvalue="0" maxvalue="0.8">
-            feedback coefficent</argument>
+            <argument name="feedback" type="float" minvalue="0" maxvalue="0.8">feedback
+            coefficent</argument>
             <argument name="ID" type="symbol">object ID for OSC control path</argument>
         </arguments>
         <properties>
-            <property name="@time" type="float"  minvalue="10" maxvalue="10000" units="millisecond" default="500">
-            echo time</property>
-            <property name="@feedback" type="float" minvalue="0" maxvalue="0.8"
-            default="0.3">feedback coefficent</property>
+            <property name="@time" type="float" minvalue="10" maxvalue="10000" units="millisecond"
+            default="500">echo time</property>
+            <property name="@feedback" type="float" minvalue="0" maxvalue="0.8" default="0.3">
+            feedback coefficent</property>
             <property name="@bypass" type="int" enum="0 1" default="0">if set to 1 - bypass
             'effected' signal.</property>
         </properties>

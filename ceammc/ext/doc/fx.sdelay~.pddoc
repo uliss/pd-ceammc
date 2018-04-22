@@ -18,22 +18,23 @@
             </also>
         </meta>
         <info>
-            <par>delay that doesn't click and doesn't transpose when the delay time is changed</par>
+            <par>delay that doesn't click and doesn't transpose when the delay time is
+            changed</par>
         </info>
         <arguments>
             <argument name="delay" type="float" minvalue="10" maxvalue="6000" units="millisecond">
             delay time</argument>
-            <argument name="feedback" type="float" minvalue="0" maxvalue="1">
-            feedback coefficent</argument>
+            <argument name="feedback" type="float" minvalue="0" maxvalue="1">feedback
+            coefficent</argument>
             <argument name="ID" type="symbol">object ID for OSC control path</argument>
         </arguments>
         <properties>
-            <property name="@time" type="float"  minvalue="10" maxvalue="10000" units="millisecond" default="500">
-            echo time</property>
-            <property name="@feedback" type="float" minvalue="0" maxvalue="1"
-            default="0">feedback coefficent</property>
-            <property name="@interpolation" type="float" minvalue="1" maxvalue="200"
-            default="20" units="millisecond">interpoltation time</property>
+            <property name="@time" type="float" minvalue="10" maxvalue="10000" units="millisecond"
+            default="500">echo time</property>
+            <property name="@feedback" type="float" minvalue="0" maxvalue="1" default="0">feedback
+            coefficent</property>
+            <property name="@interpolation" type="float" minvalue="1" maxvalue="200" default="20"
+            units="millisecond">interpoltation time</property>
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">proportion
             of mix between the original (dry) and 'effected' (wet) signals. 0 - dry signal, 1 -
             wet.</property>

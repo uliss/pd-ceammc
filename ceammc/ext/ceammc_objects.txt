@@ -360,6 +360,7 @@ set.union
 snd.file
 spat.pan4~
 spat.pan8~
+speech.flite
 speedlim
 split
 str

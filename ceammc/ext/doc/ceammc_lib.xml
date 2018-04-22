@@ -724,6 +724,9 @@
     <entry descr="MOD file player (using libmodplug)" name="modplug~" ref_view="object">
       <xi:include href="modplug~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="render speech to array" name="speech.flite" ref_view="object">
+      <xi:include href="speech.flite.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="msg">
     <entry descr="message constructor" name="msg" ref_view="object">

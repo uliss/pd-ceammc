@@ -29,6 +29,7 @@
 - conv.amp2dbfs (amp->dbfs) added
 - conv.dbfs2amp (dbfs->amp) added
 - gain~ added
+- speech.flite added
 
 ### Changed:
 - migration to Faust v2
@@ -36,7 +37,7 @@
 
 ### Fixed:
 
-## [2018.03]
+## [0.5]
 ### Added:
 - hw.arduino added
 - proto.firmata added

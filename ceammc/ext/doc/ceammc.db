@@ -277,6 +277,7 @@ set.union		..		.
 snd.file		.		.
 spat.pan4~		~		~~~~.
 spat.pan8~		~		~~~~~~~~.
+speech.flite		..		.
 string,str		.		.
 string.contains,str.contains		..		.
 string.ends_with,str.ends_with		..		.

@@ -276,6 +276,7 @@ set(DOC_FILES
     snd.file
     spat.pan4~
     spat.pan8~
+    speech.flite
     string
     string.contains
     string.ends_with
