@@ -69,7 +69,7 @@ void Gain::onList(const AtomList& lst)
 void Gain::processBlock(const t_sample** in, t_sample** out)
 {
     const size_t BS = blockSize();
-    const size_t N = n_;
+    const size_t N = gain_.size();
 
     for (size_t i = 0; i < N; i++) {
         for (size_t j = 0; j < BS; j++) {
@@ -164,7 +164,7 @@ void Gain::m_minusDb(t_symbol* s, const AtomList& lst)
 void Gain::m_plusAll(t_symbol* s, const AtomList& lst)
 {
     t_float v = lst.floatAt(0, 0);
-    for (size_t i = 0; i < n_; i++) {
+    for (size_t i = 0; i < gain_.size(); i++) {
         t_float new_gain = gain_[i].target() + v;
         gain_[i].setTargetValue(std::max<t_float>(0, new_gain));
     }
@@ -178,14 +178,14 @@ void Gain::m_minusAll(t_symbol* s, const AtomList& lst)
 void Gain::m_set(t_symbol* s, const AtomList& lst)
 {
     t_float v = lst.floatAt(0, 0);
-    for (size_t i = 0; i < n_; i++)
+    for (size_t i = 0; i < gain_.size(); i++)
         gain_[i].setTargetValue(std::max<t_float>(0, v));
 }
 
 void Gain::m_setDb(t_symbol* s, const AtomList& lst)
 {
     t_float v = lst.floatAt(0, 0);
-    for (size_t i = 0; i < n_; i++)
+    for (size_t i = 0; i < gain_.size(); i++)
         gain_[i].setTargetValue(std::max<t_float>(0, fromDb(v)));
 }
 
