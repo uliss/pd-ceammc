@@ -120,6 +120,8 @@ public:
         , SR(ext.samplerate())
         , BS(ext.blockSize())
     {
+        canvas_resume_dsp(1);
+
         for (size_t i = 0; i < NI; i++) {
             t_signal* a = new t_signal;
             a->s_vec = (t_sample*)sig_.in[i];
