@@ -143,6 +143,7 @@ file(GLOB _vasp_help_files1 "vasp/pd-help/*.pd")
 file(GLOB _vasp_help_files2 "vasp/pd/*")
 add_custom_target(vasp_help_files SOURCES ${_vasp_help_files1} ${_vasp_help_files2})
 install(FILES ${_vasp_help_files1} ${_vasp_help_files2} DESTINATION ${PD_INTERNAL_EXT_INSTALL_PATH}/vasp)
+target_compile_options(vasp PUBLIC -Wno-deprecated-register)
 
 add_subdirectory(zconf)
 add_subdirectory(leapmotion)
