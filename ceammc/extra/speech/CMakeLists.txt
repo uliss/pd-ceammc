@@ -150,4 +150,9 @@ endif()
 include_directories(flite/include)
 include_directories(flite/lang/cmulex)
 include_directories(flite/lang/usenglish)
+
 add_library(flite STATIC ${FLITE_SRC})
+
+if(UNIX)
+    set_target_properties(flite PROPERTIES COMPILE_FLAGS "-fPIC")
+endif()
