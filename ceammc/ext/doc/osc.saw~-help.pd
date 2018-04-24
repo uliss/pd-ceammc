@@ -35,9 +35,9 @@
 #X obj 131 48 ui.link @title osc @url ceammc.osc-help.pd;
 #X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.5;
-#X text 408 520 see also:;
-#X obj 484 520 osc.tri~;
-#X obj 558 520 osc.sqr~;
+#X text 386 520 see also:;
+#X obj 462 520 osc.tri~;
+#X obj 536 520 osc.square~;
 #X obj 632 520 lfo.tri~;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
