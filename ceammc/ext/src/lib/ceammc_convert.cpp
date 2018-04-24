@@ -18,6 +18,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <vector>
+#include <boost/math/constants/constants.hpp>
 
 std::string ceammc::convert::time::sec2str(float sec, bool ms)
 {
@@ -225,13 +226,15 @@ double ceammc::convert::lin2curve(double x, double x0, double x1, double y0, dou
 
 double ceammc::convert::lin2sin2(double x, double x0, double x1, double y0, double y1)
 {
-    double v = sin(M_PI_2 * (x - x0) / (x1 - x0));
+    using namespace boost::math::double_constants;
+    double v = sin(half_pi * (x - x0) / (x1 - x0));
     return (v * v) * (y1 - y0) + y0;
 }
 
 double ceammc::convert::lin2sigmoid(double x, double x0, double x1, double y0, double y1, double skew)
 {
-    double v = 1 / (1 + pow(M_E, (-skew) * ((x - x0) / (x1 - x0) - 0.5)));
+    using namespace boost::math::double_constants;
+    double v = 1 / (1 + pow(e, (-skew) * ((x - x0) / (x1 - x0) - 0.5)));
     return v * (y1 - y0) + y0;
 }
 

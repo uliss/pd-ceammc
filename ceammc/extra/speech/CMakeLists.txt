@@ -21,8 +21,7 @@ set(FLITE_SRC
     flite/src/utils/cst_file_stdio.c
 #    flite/src/utils/cst_file_wince.c
     flite/src/utils/cst_mmap_none.c
-    flite/src/utils/cst_mmap_posix.c
-    flite/src/utils/cst_socket.c
+#    flite/src/utils/cst_socket.c
     flite/src/utils/cst_string.c
     flite/src/utils/cst_tokenstream.c
     flite/src/utils/cst_url.c
@@ -142,6 +141,10 @@ set(FLITE_SRC
     flite/lang/cmu_us_awb/cmu_us_awb_spamf0_accent_params.c
     flite/lang/cmu_us_awb/cmu_us_awb_spamf0_phrase.c
 )
+
+if(UNIX)
+    list(APPEND FLITE_SRC flite/src/utils/cst_mmap_posix.c)
+endif()
 
 if(WIN32)
     list(APPEND FLITE_SRC flite/src/utils/cst_mmap_win32.c)

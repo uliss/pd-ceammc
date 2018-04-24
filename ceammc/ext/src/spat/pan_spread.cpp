@@ -3,6 +3,7 @@
 #include "ceammc_factory.h"
 
 #include <cassert>
+#include <boost/math/constants/constants.hpp>
 
 PanSpread::PanSpread(const PdArgs& args)
     : SoundExternal(args)
@@ -88,6 +89,8 @@ void PanSpread::processBlock(const t_sample** in, t_sample** out)
 
 void PanSpread::calcCoefficents()
 {
+    using namespace boost::math::float_constants;
+
     const size_t N = channels_->value();
     const t_float len = spread_smooth_.get(spread_->value());
     const t_float y0 = center_smooth_.get(center_->value()) + 0.5 - len / 2;
@@ -98,8 +101,8 @@ void PanSpread::calcCoefficents()
     for (size_t i = 0; i < N; i++) {
         t_float pos = clip<t_float>(convert::lin2lin<t_float>(t_float(i) / (N - 1), 0, 1, y0, y0 + len), 0, 1);
 
-        coefs_l_[i] = cosf(pos * M_PI_2) * comp;
-        coefs_r_[i] = sinf(pos * M_PI_2) * comp;
+        coefs_l_[i] = cosf(pos * half_pi) * comp;
+        coefs_r_[i] = sinf(pos * half_pi) * comp;
     }
 }
 

@@ -2,6 +2,7 @@
 #include "ceammc_factory.h"
 
 #include <cmath>
+#include <boost/math/constants/constants.hpp>
 
 PanCosine::PanCosine(const PdArgs& args)
     : PanBase(args)
@@ -10,8 +11,10 @@ PanCosine::PanCosine(const PdArgs& args)
 
 void PanCosine::processBlock(const t_sample** in, t_sample** out)
 {
+    using namespace boost::math::float_constants;
+
     const size_t bs = blockSize();
-    const t_float v = (pos_->value() * 0.5 + 0.5) * M_PI_2;
+    const t_float v = (pos_->value() * 0.5 + 0.5) * half_pi;
 
     for (size_t i = 0; i < bs; i += 8) {
         const t_float sv = smooth_pos_.get(v);
