@@ -218,6 +218,10 @@ chmod 0444 $PD_EXTRA/ceammc/about.pd
 echo "Copying license..."
 cp $SRC_DIR/License.txt Scripts
 
+echo "Copying STK rawwaves..."
+mkdir -p $PD_EXTRA/ceammc/stk
+cp $SRC_DIR/ceammc/extra/stk/stk/rawwaves/*.raw $PD_EXTRA/ceammc/stk
+
 echo "Copying libs..."
 NEWLIBPATH="@executable_path/../lib"
 EXECFILE="Resources/bin/pd"
