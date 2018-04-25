@@ -13,6 +13,7 @@ add_subdirectory(stk)
 add_subdirectory(midifile)
 add_subdirectory(serial)
 add_subdirectory(speech)
+add_subdirectory(fluidsynth)
 
 
 set(EXTRA_COMPLETION "extra_objects.txt")
