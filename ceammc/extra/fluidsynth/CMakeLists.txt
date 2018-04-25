@@ -23,11 +23,11 @@
 
 
 # FluidSynth package version
-set ( FLUIDSYNTH_VERSION_MAJOR 2 )
-set ( FLUIDSYNTH_VERSION_MINOR 0 )
-set ( FLUIDSYNTH_VERSION_MICRO 0 )
-set ( VERSION "${FLUIDSYNTH_VERSION_MAJOR}.${FLUIDSYNTH_VERSION_MINOR}.${FLUIDSYNTH_VERSION_MICRO}" )
-set ( FLUIDSYNTH_VERSION "\"${VERSION}\"" )
+set(FLUIDSYNTH_VERSION_MAJOR 2)
+set(FLUIDSYNTH_VERSION_MINOR 0)
+set(FLUIDSYNTH_VERSION_MICRO 0)
+set(VERSION "${FLUIDSYNTH_VERSION_MAJOR}.${FLUIDSYNTH_VERSION_MINOR}.${FLUIDSYNTH_VERSION_MICRO}")
+set(FLUIDSYNTH_VERSION "\"${VERSION}\"")
 
 # libfluidsynth - Library version
 # *** NOTICE ***
@@ -38,73 +38,73 @@ set ( FLUIDSYNTH_VERSION "\"${VERSION}\"" )
 # if any interfaces have been added: AGE++
 # if any interfaces have been removed/changed (compatibility broken): AGE=0
 # This is not exactly the same algorithm as the libtool one, but the results are the same.
-set ( LIB_VERSION_CURRENT 2 )
-set ( LIB_VERSION_AGE 0 )
-set ( LIB_VERSION_REVISION 0 )
-set ( LIB_VERSION_INFO
-      "${LIB_VERSION_CURRENT}.${LIB_VERSION_AGE}.${LIB_VERSION_REVISION}" )
+set(LIB_VERSION_CURRENT 2)
+set(LIB_VERSION_AGE 0)
+set(LIB_VERSION_REVISION 0)
+set(LIB_VERSION_INFO
+      "${LIB_VERSION_CURRENT}.${LIB_VERSION_AGE}.${LIB_VERSION_REVISION}")
 
-#include ( CheckSTDC )
-include ( CheckIncludeFile )
-include ( CheckFunctionExists )
-check_include_file ( string.h HAVE_STRING_H )
-check_include_file ( stdlib.h HAVE_STDLIB_H )
-check_include_file ( stdio.h HAVE_STDIO_H )
-check_include_file ( math.h HAVE_MATH_H )
-check_include_file ( errno.h HAVE_ERRNO_H )
-check_include_file ( stdarg.h HAVE_STDARG_H )
-check_include_file ( unistd.h HAVE_UNISTD_H )
-check_include_file ( memory.h HAVE_MEMORY_H )
-check_include_file ( sys/mman.h HAVE_SYS_MMAN_H )
-check_include_file ( sys/types.h HAVE_SYS_TYPES_H )
-check_include_file ( sys/time.h HAVE_SYS_TIME_H )
-check_include_file ( sys/stat.h HAVE_SYS_STAT_H )
-check_include_file ( sys/ioctl.h HAVE_SYS_IOCTL_H )
-check_include_file ( fcntl.h HAVE_FCNTL_H )
-check_include_file ( sys/socket.h HAVE_SYS_SOCKET_H )
-check_include_file ( netinet/in.h HAVE_NETINET_IN_H )
-check_include_file ( netinet/tcp.h HAVE_NETINET_TCP_H )
-check_include_file ( arpa/inet.h HAVE_ARPA_INET_H )
-check_include_file ( limits.h  HAVE_LIMITS_H )
-check_include_file ( pthread.h HAVE_PTHREAD_H )
-check_include_file ( signal.h HAVE_SIGNAL_H )
-check_include_file ( getopt.h HAVE_GETOPT_H )
-check_include_file ( stdint.h HAVE_STDINT_H )
-#include ( TestInline )
-#include ( TestVLA )
-include ( TestBigEndian )
-test_big_endian ( WORDS_BIGENDIAN )
+#include(CheckSTDC)
+include(CheckIncludeFile)
+include(CheckFunctionExists)
+check_include_file(string.h HAVE_STRING_H)
+check_include_file(stdlib.h HAVE_STDLIB_H)
+check_include_file(stdio.h HAVE_STDIO_H)
+check_include_file(math.h HAVE_MATH_H)
+check_include_file(errno.h HAVE_ERRNO_H)
+check_include_file(stdarg.h HAVE_STDARG_H)
+check_include_file(unistd.h HAVE_UNISTD_H)
+check_include_file(memory.h HAVE_MEMORY_H)
+check_include_file(sys/mman.h HAVE_SYS_MMAN_H)
+check_include_file(sys/types.h HAVE_SYS_TYPES_H)
+check_include_file(sys/time.h HAVE_SYS_TIME_H)
+check_include_file(sys/stat.h HAVE_SYS_STAT_H)
+check_include_file(sys/ioctl.h HAVE_SYS_IOCTL_H)
+check_include_file(fcntl.h HAVE_FCNTL_H)
+check_include_file(sys/socket.h HAVE_SYS_SOCKET_H)
+check_include_file(netinet/in.h HAVE_NETINET_IN_H)
+check_include_file(netinet/tcp.h HAVE_NETINET_TCP_H)
+check_include_file(arpa/inet.h HAVE_ARPA_INET_H)
+check_include_file(limits.h  HAVE_LIMITS_H)
+check_include_file(pthread.h HAVE_PTHREAD_H)
+check_include_file(signal.h HAVE_SIGNAL_H)
+check_include_file(getopt.h HAVE_GETOPT_H)
+check_include_file(stdint.h HAVE_STDINT_H)
+#include(TestInline)
+#include(TestVLA)
+include(TestBigEndian)
+test_big_endian(WORDS_BIGENDIAN)
 
-if ( WIN32 )
-  include ( CheckIncludeFiles )
-  check_include_file ( windows.h HAVE_WINDOWS_H )
-  check_include_file ( io.h HAVE_IO_H )
-  check_include_file ( dsound.h HAVE_DSOUND_H )
-  check_include_files ( "windows.h;mmsystem.h" HAVE_MMSYSTEM_H )
-  set ( WINDOWS_SUPPORT ${HAVE_WINDOWS_H} )
-  set ( WINDOWS_LIBS "dsound;winmm;ws2_32" )
-  set ( LIBFLUID_CPPFLAGS "-DFLUIDSYNTH_DLL_EXPORTS" )
-  set ( FLUID_CPPFLAGS "-DFLUIDSYNTH_NOT_A_DLL" )
-  if (NOT MSVC)
-    set ( CMAKE_DEBUG_POSTFIX "_debug" )
-  endif()
-  # MinGW compiler (a Windows GCC port)
-  if ( MINGW )
-    set ( MINGW32 1 )
-    add_definitions ( -mms-bitfields )
-  endif  ( MINGW )
-else ( WIN32 )
+if(WIN32)
+    include(CheckIncludeFiles)
+    check_include_file(windows.h HAVE_WINDOWS_H)
+    check_include_file(io.h HAVE_IO_H)
+    check_include_file(dsound.h HAVE_DSOUND_H)
+    check_include_files("windows.h;mmsystem.h" HAVE_MMSYSTEM_H)
+    set(WINDOWS_SUPPORT ${HAVE_WINDOWS_H})
+    set(WINDOWS_LIBS "dsound;winmm;ws2_32")
+    set(LIBFLUID_CPPFLAGS "-DFLUIDSYNTH_DLL_EXPORTS")
+    set(FLUID_CPPFLAGS "-DFLUIDSYNTH_NOT_A_DLL")
+    if (NOT MSVC)
+    set(CMAKE_DEBUG_POSTFIX "_debug")
+    endif()
+    # MinGW compiler (a Windows GCC port)
+    if(MINGW)
+    set(MINGW32 1)
+    add_definitions(-mms-bitfields)
+    endif (MINGW)
+else(WIN32)
 # Check PThreads, but not in Windows
-  find_package ( Threads REQUIRED )
-  set ( HAVE_LIBPTHREAD ${Threads_FOUND} )
-  set ( LIBFLUID_LIBS "m" ${CMAKE_THREAD_LIBS_INIT} )
-endif ( WIN32 )
+    find_package(Threads REQUIRED)
+    set(HAVE_LIBPTHREAD ${Threads_FOUND})
+    set(LIBFLUID_LIBS "m" ${CMAKE_THREAD_LIBS_INIT})
+endif(WIN32)
 
-set ( WITH_FLOAT 1 )
+set(WITH_FLOAT 1)
 
 # General configuration file
-configure_file ( ${CMAKE_CURRENT_SOURCE_DIR}/fluidsynth/src/config.cmake
-                 ${CMAKE_CURRENT_BINARY_DIR}/config.h )
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/fluidsynth/src/config.cmake
+                 ${CMAKE_CURRENT_BINARY_DIR}/config.h)
 
 include_directories (
     ${CMAKE_CURRENT_BINARY_DIR}
@@ -126,13 +126,13 @@ include_directories (
     ${GLIB_INCLUDE_DIRS}
 )
 
-#if ( WINDOWS_SUPPORT )
-#  set ( fluid_windows_SOURCES drivers/fluid_dsound.c drivers/fluid_winmidi.c )
+#if(WINDOWS_SUPPORT)
+#  set(fluid_windows_SOURCES drivers/fluid_dsound.c drivers/fluid_winmidi.c)
 #endif ()
 
-set ( config_SOURCES ${CMAKE_CURRENT_BINARY_DIR}/config.h )
+set(config_SOURCES ${CMAKE_CURRENT_BINARY_DIR}/config.h)
 
-set ( libfluidsynth_SOURCES
+set(libfluidsynth_SOURCES
     fluidsynth/src/utils/fluid_conv.c
     fluidsynth/src/utils/fluid_conv.h
     fluidsynth/src/utils/fluid_hash.c
@@ -205,7 +205,7 @@ set ( libfluidsynth_SOURCES
     fluidsynth/src/bindings/fluid_filerenderer.c
 )
 
-set ( public_HEADERS
+set(public_HEADERS
     fluidsynth/include/fluidsynth/audio.h
     fluidsynth/include/fluidsynth/event.h
     fluidsynth/include/fluidsynth/gen.h
@@ -226,31 +226,31 @@ set ( public_HEADERS
     ${CMAKE_CURRENT_BINARY_DIR}/fluidsynth/version.h
 )
 
-set ( public_main_HEADER
+set(public_main_HEADER
     ${CMAKE_CURRENT_BINARY_DIR}/fluidsynth.h
 )
 
-configure_file ( ${CMAKE_CURRENT_SOURCE_DIR}/fluidsynth/include/fluidsynth/version.h.in
-                 ${CMAKE_CURRENT_BINARY_DIR}/fluidsynth/version.h )
-configure_file ( ${CMAKE_CURRENT_SOURCE_DIR}/fluidsynth/include/fluidsynth.cmake
-                 ${public_main_HEADER} )
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/fluidsynth/include/fluidsynth/version.h.in
+                 ${CMAKE_CURRENT_BINARY_DIR}/fluidsynth/version.h)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/fluidsynth/include/fluidsynth.cmake
+                 ${public_main_HEADER})
 
-if ( WIN32 AND NOT MINGW )
-include(generate_product_version)
-generate_product_version(
-    VersionFilesOutputVariable
-    NAME "Fluidsynth"
-    BUNDLE "Fluidsynth"
-    VERSION_MAJOR ${FLUIDSYNTH_VERSION_MAJOR}
-    VERSION_MINOR ${FLUIDSYNTH_VERSION_MINOR}
-    VERSION_PATCH ${FLUIDSYNTH_VERSION_MICRO}
-    VERSION_REVISION 0
-    COMMENTS "Fluidsynth"
-    COMPANY_NAME "Fluidsynth LGPL"
-    ORIGINAL_FILENAME "libfluidsynth.dll"
-    FILE_DESCRIPTION "Fluidsynth"
-)
-endif ( WIN32 AND NOT MINGW )
+if(WIN32 AND NOT MINGW)
+    include(generate_product_version)
+    generate_product_version(
+        VersionFilesOutputVariable
+        NAME "Fluidsynth"
+        BUNDLE "Fluidsynth"
+        VERSION_MAJOR ${FLUIDSYNTH_VERSION_MAJOR}
+        VERSION_MINOR ${FLUIDSYNTH_VERSION_MINOR}
+        VERSION_PATCH ${FLUIDSYNTH_VERSION_MICRO}
+        VERSION_REVISION 0
+        COMMENTS "Fluidsynth"
+        COMPANY_NAME "Fluidsynth LGPL"
+        ORIGINAL_FILENAME "libfluidsynth.dll"
+        FILE_DESCRIPTION "Fluidsynth"
+    )
+endif()
 
 link_directories (
     ${GLIB_LIBDIR}
@@ -260,7 +260,7 @@ link_directories (
 
 # note: by default this target creates a shared object (or dll). To build a
 # static library instead, set the option BUILD_SHARED_LIBS to FALSE.
-add_library ( fluidsynth STATIC
+add_library(fluidsynth STATIC
     ${config_SOURCES}
     ${fluid_windows_SOURCES}
     ${libfluidsynth_SOURCES}
@@ -269,14 +269,17 @@ add_library ( fluidsynth STATIC
     ${VersionFilesOutputVariable}
 )
 
-if ( LIBFLUID_CPPFLAGS )
-  set_target_properties ( libfluidsynth
-    PROPERTIES COMPILE_FLAGS ${LIBFLUID_CPPFLAGS} )
-endif ( LIBFLUID_CPPFLAGS )
+if(LIBFLUID_CPPFLAGS)
+    set_target_properties (libfluidsynth PROPERTIES COMPILE_FLAGS ${LIBFLUID_CPPFLAGS})
+endif()
 
-target_link_libraries ( fluidsynth STATIC
+target_link_libraries(fluidsynth STATIC
     ${GLIB_LIBRARIES}
     ${GMODULE_LIBRARIES}
     ${WINDOWS_LIBS}
     ${LIBFLUID_LIBS}
 )
+
+if(UNIX)
+    set_target_properties(fluidsynth PROPERTIES COMPILE_FLAGS "-fPIC")
+endif()
