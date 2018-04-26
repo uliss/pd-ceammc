@@ -32,3 +32,6 @@
 [submodule "ceammc/extra/fluidsynth/fluidsynth"]
 	path = ceammc/extra/fluidsynth/fluidsynth
 	url = https://github.com/FluidSynth/fluidsynth.git
+[submodule "ceammc/extra/fluidsynth/FluidLite"]
+	path = ceammc/extra/fluidsynth/FluidLite
+	url = https://github.com/divideconcept/FluidLite.git
