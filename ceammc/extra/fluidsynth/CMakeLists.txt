@@ -280,3 +280,7 @@ target_link_libraries(fluidsynth
 if(UNIX)
     set_target_properties(fluidsynth PROPERTIES COMPILE_FLAGS "-fPIC")
 endif()
+
+if(WITH_FLUIDLITE)
+    add_subdirectory(FluidLite)
+endif()

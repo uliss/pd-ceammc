@@ -14,7 +14,7 @@
 #include "fluid.h"
 #include "ceammc_factory.h"
 
-#include "fluidsynth.h"
+#include "fluidlite.h"
 
 Fluid::Fluid(const PdArgs& args)
     : SoundExternal(args)
@@ -73,7 +73,7 @@ void Fluid::setupDSP(t_signal** sp)
 
     if (synth_) {
         fluid_settings_t* s = fluid_synth_get_settings(synth_);
-        if (fluid_settings_setnum(s, "synth.sample-rate", samplerate()) != FLUID_OK) {
+        if (!fluid_settings_setnum(s, "synth.sample-rate", samplerate())) {
             OBJ_ERR << "can't set samplerate: " << samplerate();
         }
     }

@@ -18,8 +18,7 @@ list(APPEND MISC_SOURCES speech_flite.cpp fliterender.cpp)
 
 # FluidSynth
 list(APPEND MISC_SOURCES fluid.cpp)
-include_directories("${CMAKE_SOURCE_DIR}/ceammc/extra/fluidsynth/fluidsynth/include")
-include_directories("${CMAKE_BINARY_DIR}/ceammc/extra/fluidsynth")
+include_directories("${CMAKE_SOURCE_DIR}/ceammc/extra/fluidsynth/FluidLite/include")
 
 add_library(ceammc_misc STATIC mod_misc.cpp ${MISC_SOURCES})
 target_link_libraries(ceammc_misc flite)
@@ -33,4 +32,4 @@ if(MODPLUG_FOUND)
     target_link_libraries(ceammc_misc ${MODPLUG_LIBRARIES})
 endif()
 
-target_link_libraries(ceammc_misc fluidsynth)
+target_link_libraries(ceammc_misc fluidlite)
