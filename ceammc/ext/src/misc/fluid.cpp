@@ -142,4 +142,12 @@ void Fluid::processBlock(const t_sample** in, t_sample** out)
 void setup_misc_fluid()
 {
     SoundExternalFactory<Fluid> obj("fluid~", OBJECT_FACTORY_DEFAULT);
+
+    obj.addMethod("note", &Fluid::m_note);
+
+    //    FLEXT_CADDMETHOD_(c,0,"prog", fluid_program_change);
+    //                FLEXT_CADDMETHOD_(c,0,"control", fluid_control_change);
+    //                FLEXT_CADDMETHOD_(c,0,"bend", fluid_pitch_bend);
+    //                FLEXT_CADDMETHOD_(c,0,"bank",  fluid_bank);
+    //    FLEXT_CADDMETHOD_(c,0,"gen", fluid_gen);
 }
