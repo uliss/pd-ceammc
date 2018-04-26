@@ -251,6 +251,132 @@ function install_tcl() {
     sudo make install
 }
 
+function install_iconv() {
+    pkg="iconv"
+    cd "${CWD}"
+
+    banner "${pkg}"
+    rm -rf libiconv-*
+    brew unpack libiconv
+    cd libiconv-*
+
+    banner "Configure ${pkg}"
+    ./configure --prefix=${PREFIX}
+
+    banner "Build ${pkg}"
+    make
+
+    banner "Install ${pkg}"
+    make install
+}
+
+function install_libffi() {
+    pkg="libffi"
+    cd "${CWD}"
+
+    banner "${pkg}"
+    rm -rf libffi-*
+    brew unpack libffi
+    cd libffi-*
+
+    banner "Configure ${pkg}"
+    ./configure --prefix=${PREFIX} \
+        --enable-portable-binary \
+        --enable-static=yes \
+        --enable-shared=no
+
+    banner "Build ${pkg}"
+    make
+
+    banner "Install ${pkg}"
+    make install
+}
+
+function install_pcre() {
+    pkg="pcre"
+    cd "${CWD}"
+
+    banner "${pkg}"
+    rm -rf pcre-*
+    brew unpack pcre
+    cd pcre-*
+
+    banner "Configure ${pkg}"
+    ./configure --prefix=${PREFIX} \
+        --disable-cpp \
+        --enable-utf \
+        --enable-unicode-properties
+
+    banner "Build ${pkg}"
+    make
+
+    banner "Install ${pkg}"
+    make install
+}
+
+function install_glib() {
+    pkg="glib"
+    cd "${CWD}"
+
+    banner "${pkg}"
+    rm -rf glib-*
+    brew unpack glib
+    cd glib-*
+
+    wget https://raw.githubusercontent.com/macports/macports-ports/master/devel/glib2/files/universal.patch
+    wget https://raw.githubusercontent.com/macports/macports-ports/master/devel/glib2/files/config.h.ed
+    patch -i universal.patch -p0
+
+    CPPFLAGS=-I/usr/local/Cellar/gettext/0.18.1.1/include
+
+    banner "Configure ${pkg}"
+#    meson . build
+    autoreconf
+    ./configure --prefix=${PREFIX} \
+        --enable-static=yes \
+        --enable-shared=no \
+        --disable-debug \
+        --disable-option-checking \
+        --with-pc-path=${PKG_CONFIG_PATH} \
+        --with-internal-glib \
+        LDFLAGS="-L${PREFIX}/lib" \
+        CPPFLAGS="-I${PREFIX}/include -isystem ${PREFIX}/include"
+
+    ed - config.h < config.h.ed
+
+    banner "Build ${pkg}"
+    make
+
+    banner "Install ${pkg}"
+    make install
+}
+
+function install_gettext() {
+    pkg="gettext"
+    cd "${CWD}"
+
+    banner "${pkg}"
+    rm -rf gettext-*
+    brew unpack gettext
+    cd gettext-*
+
+    banner "Configure ${pkg}"
+    ./configure --prefix=${PREFIX} \
+        --enable-static=yes \
+        --enable-shared=yes \
+        --disable-java \
+        --disable-native-java  \
+        --disable-curses \
+        --disable-openmp \
+        --disable-c++
+
+    banner "Build ${pkg}"
+    make
+
+    banner "Install ${pkg}"
+    make install
+}
+
 function install_tcllib() {
     pkg="tcllib"
     cd "${CWD}"
@@ -394,8 +520,20 @@ case ${PKG} in
     portaudio)
         install_portaudio
         ;;
+    glib)
+        install_glib
+        ;;
+    ffi)
+        install_libffi
+        ;;
+    gettext)
+        install_gettext
+        ;;
+    pcre)
+        install_pcre
+        ;;
     *)
-        echo "Choose from following: modplug, fftw3, tcl, tcllib, tk, tklib, ogg, vorbis, flac, sndfile, portaudio or all"
+        echo "Choose from following: glib, gettext, pcre, modplug, ffi, fftw3, tcl, tcllib, tk, tklib, ogg, vorbis, flac, sndfile, portaudio or all"
         exit 1
         ;;
 esac
