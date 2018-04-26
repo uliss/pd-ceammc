@@ -257,9 +257,6 @@ link_directories (
     ${GLIB_LIBRARY_DIRS}
 )
 
-
-# note: by default this target creates a shared object (or dll). To build a
-# static library instead, set the option BUILD_SHARED_LIBS to FALSE.
 add_library(fluidsynth STATIC
     ${config_SOURCES}
     ${fluid_windows_SOURCES}
@@ -273,7 +270,7 @@ if(LIBFLUID_CPPFLAGS)
     set_target_properties (libfluidsynth PROPERTIES COMPILE_FLAGS ${LIBFLUID_CPPFLAGS})
 endif()
 
-target_link_libraries(fluidsynth STATIC
+target_link_libraries(fluidsynth
     ${GLIB_LIBRARIES}
     ${GMODULE_LIBRARIES}
     ${WINDOWS_LIBS}
