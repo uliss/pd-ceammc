@@ -330,7 +330,6 @@ function install_glib() {
     CPPFLAGS=-I/usr/local/Cellar/gettext/0.18.1.1/include
 
     banner "Configure ${pkg}"
-#    meson . build
     autoreconf
     ./configure --prefix=${PREFIX} \
         --enable-static=yes \
@@ -349,6 +348,46 @@ function install_glib() {
 
     banner "Install ${pkg}"
     make install
+}
+
+function install_fluid() {
+    pkg="fluidsynth"
+    cd "${CWD}"
+
+    banner "${pkg}"
+    if [ ! -d fluidsynth ]
+    then
+        git clone --depth 1 https://github.com/FluidSynth/fluidsynth.git
+    fi
+    cd fluidsynth
+
+    banner "Configure ${pkg}"
+    rm -rf build
+    mkdir build
+    cd build
+    cmake -DCMAKE_INSTALL_PREFIX=${PREFIX} \
+        -DBUILD_SHARED_LIBS=OFF \
+        -DCMAKE_C_FLAGS="${CFLAGS}" \
+        -DCMAKE_EXE_LINKER_FLAGS="-liconv" \
+        -DCMAKE_BUILD_TYPE=Release \
+        -Denable-aufile=OFF \
+        -Denable-floats=ON \
+        -Denable-ipv6=OFF \
+        -Denable-jack=OFF \
+        -Denable-ladspa=OFF \
+        -Denable-libsndfile=OFF \
+        -Denable-oss=OFF \
+        -Denable-coreaudio=OFF \
+        -Denable-readline=OFF \
+        -Denable-framework=OFF \
+        ..
+
+    banner "Build ${pkg}"
+    make -j2
+
+    banner "Install ${pkg}"
+    make install
+
 }
 
 function install_gettext() {
@@ -531,6 +570,9 @@ case ${PKG} in
         ;;
     pcre)
         install_pcre
+        ;;
+    fluid)
+        install_fluid
         ;;
     *)
         echo "Choose from following: glib, gettext, pcre, modplug, ffi, fftw3, tcl, tcllib, tk, tklib, ogg, vorbis, flac, sndfile, portaudio or all"
