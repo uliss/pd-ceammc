@@ -133,10 +133,14 @@ function install_portaudio() {
     cmake -DCMAKE_C_COMPILER=clang \
 	-DCMAKE_BUILD_TYPE=Release \
 	-DCMAKE_INSTALL_PREFIX=${PREFIX} \
-	-DCMAKE_SKIP_RPATH=ON  .
+        -DCMAKE_SKIP_RPATH=TRUE \
+        -DCMAKE_SKIP_BUILD_RPATH=FALSE \
+        .
 
     make
     make install
+    LIB="${PREFIX}/lib/libportaudio.dylib"
+    install_name_tool -id ${LIB} ${LIB}
 }
 
 function install_vorbis() {
