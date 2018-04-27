@@ -29,6 +29,3 @@
 [submodule "ceammc/extra/speech/flite"]
 	path = ceammc/extra/speech/flite
 	url = https://github.com/festvox/flite.git
-[submodule "ceammc/extra/fluidsynth/fluidsynth"]
-	path = ceammc/extra/fluidsynth/fluidsynth
-	url = https://github.com/FluidSynth/fluidsynth.git
