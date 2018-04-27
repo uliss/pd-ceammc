@@ -15,5 +15,4 @@ void setup_synth_wurley()
 {
     SoundExternalFactory<SynthWurley> obj("synth.wurley~", OBJECT_FACTORY_DEFAULT);
     stk::Stk::setRawwavePath(std::string(obj.classPointer()->c_externdir->s_name) + "/stk/");
-    LIB_DBG << "set stk rawpath: " << stk::Stk::rawwavePath();
 }
