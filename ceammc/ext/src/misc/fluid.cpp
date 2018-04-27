@@ -14,7 +14,8 @@
 #include "fluid.h"
 #include "ceammc_factory.h"
 
-#include "fluidsynth.h"
+#include <fluidsynth.h>
+#include <fluidsynth/midi.h>
 
 Fluid::Fluid(const PdArgs& args)
     : SoundExternal(args)

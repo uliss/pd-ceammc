@@ -22,5 +22,10 @@ if(MODPLUG_FOUND)
     set(CEAMMC_HAVE_MODPLUG ON)
 endif()
 
+find_package(FluidSynth)
+if(FLUIDSYNTH_FOUND)
+    set(CEAMMC_HAVE_FLUIDSYNTH ON)
+endif()
+
 configure_file(${PROJECT_SOURCE_DIR}/config.h.in ${PROJECT_BINARY_DIR}/config.h)
 add_definitions(-include ${PROJECT_BINARY_DIR}/config.h)
