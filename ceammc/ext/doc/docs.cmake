@@ -92,6 +92,7 @@ set(DOC_FILES
     flt.moog_vcf~
     flt.notch~
     flt.resonbp~
+    fluid~
     function
     function.call
     fx.distortion~

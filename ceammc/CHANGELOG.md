@@ -31,6 +31,7 @@
 - conv.dbfs2amp (dbfs->amp) added
 - gain~ added
 - speech.flite added
+- fluid~ (FluidSynth) added
 
 ### Changed:
 - migration to Faust v2

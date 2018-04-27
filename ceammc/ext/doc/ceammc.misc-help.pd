@@ -4,10 +4,12 @@
 #X obj 79 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 30 116 click~;
 #X text 175 116 Output single impulse on bang;
-#X obj 30 143 modplug~;
-#X text 175 143 MOD file player (using libmodplug);
-#X obj 30 170 speech.flite;
-#X text 175 170 render speech to array;
+#X obj 30 143 fluid~;
+#X text 175 143 FluidSynth SoundFont 2 player;
+#X obj 30 170 modplug~;
+#X text 175 170 MOD file player (using libmodplug);
+#X obj 30 197 speech.flite;
+#X text 175 197 render speech to array;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::misc 20 20 0 20 -104026
 -4096 0;
 #X obj 1 458 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
