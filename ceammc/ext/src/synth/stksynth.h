@@ -9,6 +9,18 @@ namespace stk {
 class Instrmnt;
 }
 
+class StkSynth;
+
+class ControlChangeProperty : public Property {
+    StkSynth& synth_;
+    int channel_;
+
+public:
+    ControlChangeProperty(const char* name, int ch, StkSynth& synth);
+
+    bool set(const AtomList& lst) override;
+};
+
 class StkSynth : public SoundExternal {
 protected:
     stk::Instrmnt* synth_;
@@ -26,6 +38,8 @@ public:
 
     AtomList propGate() const;
     void propSetGate(const AtomList& lst);
+
+    void m_cc(t_symbol* s, const AtomList& lst);
 };
 
 #endif // STKSYNTH_H
