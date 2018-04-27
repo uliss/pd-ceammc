@@ -48,7 +48,7 @@ list(APPEND SOURCES
     libvorbis-${LIBVORBIS_VERSION}/lib/envelope.c
     libvorbis-${LIBVORBIS_VERSION}/lib/floor0.c
     libvorbis-${LIBVORBIS_VERSION}/lib/floor1.c
-    libvorbis-${LIBVORBIS_VERSION}/lib/lookup.c
+#    libvorbis-${LIBVORBIS_VERSION}/lib/lookup.c
     libvorbis-${LIBVORBIS_VERSION}/lib/lpc.c
     libvorbis-${LIBVORBIS_VERSION}/lib/lsp.c
     libvorbis-${LIBVORBIS_VERSION}/lib/mapping0.c
