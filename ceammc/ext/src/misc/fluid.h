@@ -38,6 +38,11 @@ public:
     void propSetSoundFont(const AtomList& lst);
 
     void m_note(t_symbol* s, const AtomList& lst);
+    void m_cc(t_symbol* s, const AtomList& lst);
+    void m_prog(t_symbol* s, const AtomList& lst);
+    void m_bank(t_symbol* s, const AtomList& lst);
+    void m_bend(t_symbol* s, const AtomList& lst);
+    void m_gen(t_symbol* s, const AtomList& lst);
 };
 
 void setup_misc_fluid();

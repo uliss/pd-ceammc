@@ -47,10 +47,6 @@ Fluid::Fluid(const PdArgs& args)
         OBJ_ERR << "couldn't create synth";
 
     createCbProperty("@sf", &Fluid::propSoundFont, &Fluid::propSetSoundFont);
-
-    // We're done constructing:
-    if (synth_)
-        OBJ_DBG << "done";
 }
 
 Fluid::~Fluid()
@@ -97,14 +93,14 @@ void Fluid::propSetSoundFont(const AtomList& lst)
         return;
     }
 
-    t_symbol* filename = lst.symbolAt(0, &s_);
+    std::string filename = findInStdPaths(lst.symbolAt(0, &s_)->s_name);
 
-    if (fluid_synth_sfload(synth_, filename->s_name, 0) >= 0) {
+    if (fluid_synth_sfload(synth_, filename.c_str(), 0) >= 0) {
 
         OBJ_DBG << "loaded soundfont: " << filename;
         fluid_synth_program_reset(synth_);
 
-        sound_font_ = filename;
+        sound_font_ = lst.symbolAt(0, &s_);
     } else {
         OBJ_ERR << "can't load soundfont: " << filename;
     }
@@ -121,12 +117,94 @@ void Fluid::m_note(t_symbol* s, const AtomList& lst)
         int vel = lst[2].asInt();
 
         fluid_synth_noteon(synth_, chan - 1, key, vel);
-    }
-
-    if (lst.size() == 2 && lst[0].isFloat() && lst[1].isFloat()) {
+    } else if (lst.size() == 2 && lst[0].isFloat() && lst[1].isFloat()) {
         int key = lst[0].asInt();
         int vel = lst[1].asInt();
         fluid_synth_noteon(synth_, 0, key, vel);
+    } else {
+        METHOD_ERR(s) << "CHAN KEY VEL or KEY VEL expected: " << lst;
+    }
+}
+
+void Fluid::m_cc(t_symbol* s, const AtomList& lst)
+{
+    if (synth_ == nullptr)
+        return;
+
+    if (lst.size() == 3 && lst[0].isFloat() && lst[1].isFloat() && lst[2].isFloat()) {
+        int chan = lst[0].asInt();
+        int key = lst[1].asInt();
+        int vel = lst[2].asInt();
+
+        fluid_synth_cc(synth_, chan - 1, key, vel);
+    } else if (lst.size() == 2 && lst[0].isFloat() && lst[1].isFloat()) {
+        int key = lst[0].asInt();
+        int vel = lst[1].asInt();
+        fluid_synth_cc(synth_, 0, key, vel);
+    } else {
+        METHOD_ERR(s) << "CHAN KEY VAL or KEY VAL expected: " << lst;
+    }
+}
+
+void Fluid::m_prog(t_symbol* s, const AtomList& lst)
+{
+    if (synth_ == nullptr)
+        return;
+
+    if (lst.size() == 2 && lst[0].isFloat() && lst[1].isFloat()) {
+        int chan = lst[0].asInt();
+        int program = lst[1].asInt();
+        fluid_synth_program_change(synth_, chan - 1, program);
+    } else {
+        METHOD_ERR(s) << "CHAN PROGRAM expected: " << lst;
+    }
+}
+
+void Fluid::m_bank(t_symbol* s, const AtomList& lst)
+{
+    if (synth_ == nullptr)
+        return;
+
+    if (lst.size() == 2 && lst[0].isFloat() && lst[1].isFloat()) {
+        int chan = lst[0].asInt();
+        int bank = lst[1].asInt();
+        fluid_synth_bank_select(synth_, chan - 1, bank);
+    } else {
+        METHOD_ERR(s) << "CHAN BANK expected: " << lst;
+    }
+}
+
+void Fluid::m_bend(t_symbol* s, const AtomList& lst)
+{
+    if (synth_ == nullptr)
+        return;
+
+    if (lst.size() == 2 && lst[0].isFloat() && lst[1].isFloat()) {
+        int chan = lst[0].asInt();
+        int val = lst[1].asInt();
+        fluid_synth_pitch_bend(synth_, chan - 1, val);
+    } else {
+        METHOD_ERR(s) << "CHAN VAL expected: " << lst;
+    }
+}
+
+void Fluid::m_gen(t_symbol* s, const AtomList& lst)
+{
+    if (synth_ == nullptr)
+        return;
+
+    if (lst.size() == 3 && lst[0].isFloat() && lst[1].isFloat() && lst[2].isFloat()) {
+        int chan = lst[0].asInt();
+        int param = lst[1].asInt();
+        int value = lst[2].asInt();
+
+        fluid_synth_set_gen(synth_, chan - 1, param, value);
+    } else if (lst.size() == 2 && lst[0].isFloat() && lst[1].isFloat()) {
+        int param = lst[0].asInt();
+        int value = lst[1].asInt();
+        fluid_synth_cc(synth_, 0, param, value);
+    } else {
+        METHOD_ERR(s) << "CHAN PARAM VAL or PARAM VAL expected: " << lst;
     }
 }
 
@@ -145,10 +223,9 @@ void setup_misc_fluid()
     SoundExternalFactory<Fluid> obj("fluid~", OBJECT_FACTORY_DEFAULT);
 
     obj.addMethod("note", &Fluid::m_note);
-
-    //    FLEXT_CADDMETHOD_(c,0,"prog", fluid_program_change);
-    //                FLEXT_CADDMETHOD_(c,0,"control", fluid_control_change);
-    //                FLEXT_CADDMETHOD_(c,0,"bend", fluid_pitch_bend);
-    //                FLEXT_CADDMETHOD_(c,0,"bank",  fluid_bank);
-    //    FLEXT_CADDMETHOD_(c,0,"gen", fluid_gen);
+    obj.addMethod("cc", &Fluid::m_cc);
+    obj.addMethod("prog", &Fluid::m_prog);
+    obj.addMethod("bank", &Fluid::m_bank);
+    obj.addMethod("bend", &Fluid::m_bend);
+    obj.addMethod("gen", &Fluid::m_gen);
 }
