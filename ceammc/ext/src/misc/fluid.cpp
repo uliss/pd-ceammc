@@ -13,9 +13,9 @@
  *****************************************************************************/
 #include "fluid.h"
 #include "ceammc_factory.h"
+#include "ceammc_platform.h"
 
 #include <fluidsynth.h>
-#include <fluidsynth/midi.h>
 
 Fluid::Fluid(const PdArgs& args)
     : SoundExternal(args)
@@ -93,7 +93,17 @@ void Fluid::propSetSoundFont(const AtomList& lst)
         return;
     }
 
-    std::string filename = findInStdPaths(lst.symbolAt(0, &s_)->s_name);
+    const char* fn = lst.symbolAt(0, &s_)->s_name;
+    std::string filename = findInStdPaths(fn);
+
+    if (filename.empty()) {
+        filename = platform::find_in_exernal_dir(owner(), fn);
+
+        if (filename.empty()) {
+            OBJ_ERR << "sound font is not found: " << lst;
+            return;
+        }
+    }
 
     if (fluid_synth_sfload(synth_, filename.c_str(), 0) >= 0) {
 
@@ -102,7 +112,7 @@ void Fluid::propSetSoundFont(const AtomList& lst)
 
         sound_font_ = lst.symbolAt(0, &s_);
     } else {
-        OBJ_ERR << "can't load soundfont: " << filename;
+        OBJ_ERR << "can't load soundfont: " << lst;
     }
 }
 

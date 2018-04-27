@@ -79,6 +79,12 @@ namespace platform {
     std::string find_in_std_path(t_canvas* cnv, const char* path);
 
     /**
+      * Search file in directory of external
+      * @return On success returns full path to file, else returns empty string
+      */
+    std::string find_in_exernal_dir(t_object* obj, const char* path);
+
+    /**
      * suspend thread execution for an interval measured in milliseconds
      * @param ms
      */
