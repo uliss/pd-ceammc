@@ -36,6 +36,7 @@ public:
 
     AtomList propSoundFont() const;
     void propSetSoundFont(const AtomList& lst);
+    AtomList propVersion() const;
 
     void m_note(t_symbol* s, const AtomList& lst);
     void m_cc(t_symbol* s, const AtomList& lst);
@@ -43,6 +44,7 @@ public:
     void m_bank(t_symbol* s, const AtomList& lst);
     void m_bend(t_symbol* s, const AtomList& lst);
     void m_gen(t_symbol* s, const AtomList& lst);
+    void m_panic(t_symbol* s, const AtomList& lst);
     void m_reset(t_symbol* s, const AtomList& lst);
 };
 

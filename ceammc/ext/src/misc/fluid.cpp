@@ -47,6 +47,7 @@ Fluid::Fluid(const PdArgs& args)
         OBJ_ERR << "couldn't create synth";
 
     createCbProperty("@sf", &Fluid::propSoundFont, &Fluid::propSetSoundFont);
+    createCbProperty("@version", &Fluid::propVersion);
 }
 
 Fluid::~Fluid()
@@ -114,6 +115,11 @@ void Fluid::propSetSoundFont(const AtomList& lst)
     } else {
         OBJ_ERR << "can't load soundfont: " << lst;
     }
+}
+
+AtomList Fluid::propVersion() const
+{
+    return Atom(gensym(FLUIDSYNTH_VERSION));
 }
 
 void Fluid::m_note(t_symbol* s, const AtomList& lst)
@@ -218,12 +224,23 @@ void Fluid::m_gen(t_symbol* s, const AtomList& lst)
     }
 }
 
-void Fluid::m_reset(t_symbol* s, const AtomList& lst)
+void Fluid::m_panic(t_symbol* s, const AtomList& lst)
 {
     if (synth_ == nullptr)
         return;
 
     fluid_synth_system_reset(synth_);
+}
+
+void Fluid::m_reset(t_symbol* s, const AtomList& lst)
+{
+    if (synth_ == nullptr)
+        return;
+
+    int n = fluid_synth_count_midi_channels(synth_);
+
+    for (int i = 0; i < n; i++)
+        fluid_synth_reset_basic_channel(synth_, i);
 }
 
 void Fluid::processBlock(const t_sample** in, t_sample** out)
@@ -246,5 +263,5 @@ void setup_misc_fluid()
     obj.addMethod("bank", &Fluid::m_bank);
     obj.addMethod("bend", &Fluid::m_bend);
     obj.addMethod("gen", &Fluid::m_gen);
-    obj.addMethod("reset", &Fuild::m_reset);
+    obj.addMethod("panic", &Fluid::m_panic);
 }
