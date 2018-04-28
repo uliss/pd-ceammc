@@ -19,5 +19,7 @@ void ceammc_misc_setup()
     setup_misc0x2emodplug_tilde();
 #endif
 
+#ifdef CEAMMC_HAVE_FLUIDSYNTH
     setup_misc_fluid();
+#endif
 }
