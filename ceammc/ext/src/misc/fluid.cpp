@@ -218,6 +218,14 @@ void Fluid::m_gen(t_symbol* s, const AtomList& lst)
     }
 }
 
+void Fluid::m_reset(t_symbol* s, const AtomList& lst)
+{
+    if (synth_ == nullptr)
+        return;
+
+    fluid_synth_system_reset(synth_);
+}
+
 void Fluid::processBlock(const t_sample** in, t_sample** out)
 {
     if (synth_ == nullptr)
@@ -238,4 +246,5 @@ void setup_misc_fluid()
     obj.addMethod("bank", &Fluid::m_bank);
     obj.addMethod("bend", &Fluid::m_bend);
     obj.addMethod("gen", &Fluid::m_gen);
+    obj.addMethod("reset", &Fuild::m_reset);
 }
