@@ -185,6 +185,13 @@ void Fluid::m_bank(t_symbol* s, const AtomList& lst)
         int chan = lst[0].asInt();
         int bank = lst[1].asInt();
         fluid_synth_bank_select(synth_, chan - 1, bank);
+
+        unsigned int sf_id;
+        unsigned int bank_num;
+        unsigned int prog_num;
+
+        fluid_synth_get_program(synth_, chan - 1, &sf_id, &bank_num, &prog_num);
+        fluid_synth_program_change(synth_, chan - 1, prog_num);
     } else {
         METHOD_ERR(s) << "CHAN BANK expected: " << lst;
     }
@@ -218,7 +225,7 @@ void Fluid::m_gen(t_symbol* s, const AtomList& lst)
     } else if (lst.size() == 2 && lst[0].isFloat() && lst[1].isFloat()) {
         int param = lst[0].asInt();
         int value = lst[1].asInt();
-        fluid_synth_cc(synth_, 0, param, value);
+        fluid_synth_set_gen(synth_, 0, param, value);
     } else {
         METHOD_ERR(s) << "CHAN PARAM VAL or PARAM VAL expected: " << lst;
     }
@@ -243,6 +250,24 @@ void Fluid::m_reset(t_symbol* s, const AtomList& lst)
         fluid_synth_reset_basic_channel(synth_, i);
 }
 
+void Fluid::m_notesOff(t_symbol* s, const AtomList& lst)
+{
+    if (synth_ == nullptr)
+        return;
+
+    int chan = lst.floatAt(0, 0);
+    fluid_synth_all_notes_off(synth_, chan - 1);
+}
+
+void Fluid::m_soundsOff(t_symbol* s, const AtomList& lst)
+{
+    if (synth_ == nullptr)
+        return;
+
+    int chan = lst.floatAt(0, 0);
+    fluid_synth_all_sounds_off(synth_, chan - 1);
+}
+
 void Fluid::processBlock(const t_sample** in, t_sample** out)
 {
     if (synth_ == nullptr)
@@ -264,4 +289,7 @@ void setup_misc_fluid()
     obj.addMethod("bend", &Fluid::m_bend);
     obj.addMethod("gen", &Fluid::m_gen);
     obj.addMethod("panic", &Fluid::m_panic);
+    obj.addMethod("reset", &Fluid::m_reset);
+    obj.addMethod("notes_off", &Fluid::m_notesOff);
+    obj.addMethod("sounds_off", &Fluid::m_soundsOff);
 }

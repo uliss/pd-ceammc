@@ -46,6 +46,8 @@ public:
     void m_gen(t_symbol* s, const AtomList& lst);
     void m_panic(t_symbol* s, const AtomList& lst);
     void m_reset(t_symbol* s, const AtomList& lst);
+    void m_notesOff(t_symbol* s, const AtomList& lst);
+    void m_soundsOff(t_symbol* s, const AtomList& lst);
 };
 
 void setup_misc_fluid();
