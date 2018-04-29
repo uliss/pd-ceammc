@@ -15,15 +15,11 @@ if(MODPLUG_FOUND)
     list(APPEND MISC_LIBRARIES ${MODPLUG_LIBRARIES})
 endif()
 
-# FluidSynth
-find_package(FluidSynth)
-if(FLUIDSYNTH_FOUND)
-    find_package(GLIB REQUIRED)
-
+if(WITH_FLUIDSYNTH)
     include_directories(${FLUIDSYNTH_INCLUDES})
-    include_directories(${GLIB_INCLUDE_DIRS})
+    include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra/fluidsynth/fluidsynth)
     list(APPEND MISC_SOURCES fluid.cpp)
-    list(APPEND MISC_LIBRARIES ${FLUIDSYNTH_LIBRARIES} ${GLIB_LIBRARIES})
+    list(APPEND MISC_LIBRARIES ${FLUIDSYNTH_LIBRARIES})
 endif()
 
 # flite TTS engine

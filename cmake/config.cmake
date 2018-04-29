@@ -43,9 +43,19 @@ if(MODPLUG_FOUND)
     set(CEAMMC_HAVE_MODPLUG ON)
 endif()
 
-find_package(FluidSynth)
-if(FLUIDSYNTH_FOUND)
+# FuildSynth
+find_package(GLIB)
+if(GLIB_FOUND)
     set(CEAMMC_HAVE_FLUIDSYNTH ON)
+    set(WITH_FLUIDSYNTH TRUE)
+    #include paths
+    list(APPEND FLUIDSYNTH_INCLUDES
+        ${GLIB_INCLUDE_DIRS}
+        ${PROJECT_BINARY_DIR}/ceammc/extra/fluidsynth)
+    # libs
+    list(APPEND FLUIDSYNTH_LIBRARIES fluidsynth ${GLIB_LIBRARIES})
+else()
+    message(WARNING "Glib is not found: no fluidsynth build")
 endif()
 
 configure_file(${PROJECT_SOURCE_DIR}/config.h.in ${PROJECT_BINARY_DIR}/config.h)

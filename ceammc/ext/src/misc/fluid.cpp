@@ -15,7 +15,8 @@
 #include "ceammc_factory.h"
 #include "ceammc_platform.h"
 
-#include <fluidsynth.h>
+#include "fluidsynth.h"
+#include "src/sfloader/fluid_sfont.h"
 
 Fluid::Fluid(const PdArgs& args)
     : SoundExternal(args)
@@ -34,7 +35,7 @@ Fluid::Fluid(const PdArgs& args)
     // settings:
     fluid_settings_setnum(settings, "synth.midi-channels", 16);
     fluid_settings_setnum(settings, "synth.polyphony", 256);
-    fluid_settings_setnum(settings, "synth.gain", 0.600000);
+    fluid_settings_setnum(settings, "synth.gain", 0.6);
     fluid_settings_setnum(settings, "synth.sample-rate", 44100);
     fluid_settings_setstr(settings, "synth.chorus.active", "no");
     fluid_settings_setstr(settings, "synth.reverb.active", "no");
@@ -48,6 +49,7 @@ Fluid::Fluid(const PdArgs& args)
 
     createCbProperty("@sf", &Fluid::propSoundFont, &Fluid::propSetSoundFont);
     createCbProperty("@version", &Fluid::propVersion);
+    createCbProperty("@soundfonts", &Fluid::propSoundFonts);
 }
 
 Fluid::~Fluid()
@@ -120,6 +122,20 @@ void Fluid::propSetSoundFont(const AtomList& lst)
 AtomList Fluid::propVersion() const
 {
     return Atom(gensym(FLUIDSYNTH_VERSION));
+}
+
+AtomList Fluid::propSoundFonts() const
+{
+    AtomList res;
+    const int N = fluid_synth_sfcount(synth_);
+
+    for (int i = 0; i < N; i++) {
+        fluid_sfont_t* sf = fluid_synth_get_sfont(synth_, i);
+        const char* name = fluid_sfont_get_name(sf);
+        res.append(Atom(gensym(name)));
+    }
+
+    return res;
 }
 
 void Fluid::m_note(t_symbol* s, const AtomList& lst)
@@ -266,6 +282,61 @@ void Fluid::m_soundsOff(t_symbol* s, const AtomList& lst)
 
     int chan = lst.floatAt(0, 0);
     fluid_synth_all_sounds_off(synth_, chan - 1);
+}
+
+void Fluid::dump() const
+{
+    SoundExternal::dump();
+
+    const int N = fluid_synth_sfcount(synth_);
+
+    OBJ_DBG << " presets:";
+    for (int i = 0; i < 128; i++) {
+        for (int j = 0; j < 128; j++) {
+            fluid_preset_t* preset = NULL;
+            fluid_sfont_t* sf = NULL;
+
+            for (int k = 0; k < N; k++) {
+                sf = fluid_synth_get_sfont(synth_, k);
+                preset = fluid_sfont_get_preset(sf, i, j);
+
+                if (preset != NULL)
+                    break;
+            }
+
+            if (preset != NULL) {
+                const char* sf_name = fluid_sfont_get_name(sf);
+                const char* preset_name = fluid_preset_get_name(preset);
+
+                post("  '%s': soundfont '%s', bank %d, program %d",
+                    preset_name, sf_name, i, j);
+            }
+        }
+    }
+
+    int NMIDI = fluid_synth_count_midi_channels(synth_);
+    OBJ_DBG << " channels:";
+
+    for (int i = 0; i < NMIDI; i++) {
+        fluid_preset_t* preset = fluid_synth_get_channel_preset(synth_, i);
+
+        if (preset != NULL) {
+            const char* preset_name = fluid_preset_get_name(preset);
+            unsigned int sf_id;
+            unsigned int bank_num;
+            unsigned int prog_num;
+            fluid_sfont_t* sf;
+
+            fluid_synth_get_program(synth_, i, &sf_id, &bank_num, &prog_num);
+            sf = fluid_synth_get_sfont_by_id(synth_, sf_id);
+
+            post("  %d: soundfont '%s', bank %d, program %d: '%s'",
+                i + 1, fluid_sfont_get_name(sf), bank_num, prog_num, preset_name);
+        } else
+            post("  channel %d: no preset", i + 1);
+    }
+
+    OBJ_DBG << "gain: " << fluid_synth_get_gain(synth_);
 }
 
 void Fluid::processBlock(const t_sample** in, t_sample** out)

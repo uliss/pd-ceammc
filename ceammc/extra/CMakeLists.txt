@@ -4,7 +4,6 @@ add_subdirectory(autotune)
 add_subdirectory(comport)
 add_subdirectory(fftease)
 add_subdirectory(flext)
-add_subdirectory(fluidsynth)
 add_subdirectory(hcs)
 add_subdirectory(import)
 add_subdirectory(libdir)
@@ -15,6 +14,10 @@ add_subdirectory(sf2)
 add_subdirectory(SoundTouch)
 add_subdirectory(speech)
 add_subdirectory(stk)
+
+if(WITH_FLUIDSYNTH)
+    add_subdirectory(fluidsynth)
+endif()
 
 
 set(EXTRA_COMPLETION "extra_objects.txt")

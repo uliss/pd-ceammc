@@ -37,6 +37,7 @@ public:
     AtomList propSoundFont() const;
     void propSetSoundFont(const AtomList& lst);
     AtomList propVersion() const;
+    AtomList propSoundFonts() const;
 
     void m_note(t_symbol* s, const AtomList& lst);
     void m_cc(t_symbol* s, const AtomList& lst);
@@ -48,6 +49,8 @@ public:
     void m_reset(t_symbol* s, const AtomList& lst);
     void m_notesOff(t_symbol* s, const AtomList& lst);
     void m_soundsOff(t_symbol* s, const AtomList& lst);
+
+    void dump() const override;
 };
 
 void setup_misc_fluid();
