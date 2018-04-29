@@ -5,78 +5,81 @@
 #X obj 1 1 cnv 5 712 40 empty empty fluid~ 20 20 0 20 -104026 -4096 0;
 #X obj 643 11 fluid~;
 #X obj 50 118 ui.keyboard @size 433 60;
-#X obj 50 190 msg note;
-#X msg 69 219 dump;
-#X obj 155 219 loadbang;
-#X msg 155 248 @sf sf2/VintageDreamsWaves-v2.sf2;
-#X obj 50 277 fluid~;
-#X obj 50 305 ui.gain~ @size 120 16;
-#X obj 290 305 ui.dsp~;
-#X obj 50 334 dac~;
-#X obj 20 373 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 378 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 174 190 hradio 15 1 0 8 empty empty empty 17 7 0 10 -262144 -1
+-1 0;
+#X obj 50 219 msg note 1;
+#X msg 174 219 prog 1 \$1;
+#X msg 69 248 dump;
+#X obj 194 248 loadbang;
+#X msg 194 277 @sf sf2/VintageDreamsWaves-v2.sf2;
+#X obj 50 305 fluid~;
+#X obj 50 334 ui.gain~ @size 120 16;
+#X obj 290 334 ui.dsp~;
+#X obj 50 363 dac~;
+#X obj 20 402 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 407 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 383 @sf;
-#X text 240 383 Get/Set path to SoundFont. Type: symbol;
-#X msg 120 410 @version;
-#X text 240 410 (readonly) Get FluidSynth version. Type: symbol;
-#X obj 20 447 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 452 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X msg 120 412 @sf;
+#X text 240 412 Get/Set path to SoundFont. Type: symbol;
+#X msg 120 439 @version;
+#X text 240 439 (readonly) Get FluidSynth version. Type: symbol;
+#X obj 20 476 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 481 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 457 note;
-#X text 240 457 play note (CHANNEL \, KEY \, VELOCITY or KEY \,
+#X msg 120 486 note;
+#X text 240 486 play note (CHANNEL \, KEY \, VELOCITY or KEY \,
 VELOCITY expected).;
-#X msg 120 499 cc;
-#X text 240 499 control change (CHANNEL \, KEY \, VALUE or KEY \,
+#X msg 120 528 cc;
+#X text 240 528 control change (CHANNEL \, KEY \, VALUE or KEY \,
 VALUE expected).;
-#X msg 120 541 prog;
-#X text 240 541 program change (CHANNEL \, PROGRAM expected).;
-#X msg 120 573 bank;
-#X text 240 573 set instrument bank number on a MIDI channel (CHANNEL
+#X msg 120 570 prog;
+#X text 240 570 program change (CHANNEL \, PROGRAM expected).;
+#X msg 120 602 bank;
+#X text 240 602 set instrument bank number on a MIDI channel (CHANNEL
 \, BANK expected).;
-#X msg 120 615 bend;
-#X text 240 615 pitchband change (CHANNEL \, VALUE expected).;
-#X msg 120 647 gen;
-#X text 240 647 set a SoundFont generator (effect) value on a MIDI
+#X msg 120 644 bend;
+#X text 240 644 pitchband change (CHANNEL \, VALUE expected).;
+#X msg 120 676 gen;
+#X text 240 676 set a SoundFont generator (effect) value on a MIDI
 channel in real-time (CHANNEL \, PARAM \, VALUE or PARAM \, VALUE
 expected).;
-#X msg 120 703 panic;
-#X text 240 703 send MIDI system reset command (big red 'panic'
+#X msg 120 732 panic;
+#X text 240 732 send MIDI system reset command (big red 'panic'
 button) \, turns off notes \, resets controllers and restores initial
 basic channel configuration.;
-#X msg 120 759 reset;
-#X text 240 759 reset all synth channels.;
-#X msg 120 791 notes_off;
-#X text 240 791 turn off all notes on a MIDI channel (put them into
+#X msg 120 788 reset;
+#X text 240 788 reset all synth channels.;
+#X msg 120 820 notes_off;
+#X text 240 820 turn off all notes on a MIDI channel (put them into
 release phase). Arguments are:;
-#X obj 250 833 cnv 1 64 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 833 [CHAN=0]: MIDI channel. Type: int.;
-#X msg 120 861 sounds_off;
-#X text 240 861 immediately stop all notes on a MIDI channel (skips
+#X obj 250 862 cnv 1 64 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 862 [CHAN=0]: MIDI channel. Type: int.;
+#X msg 120 890 sounds_off;
+#X text 240 890 immediately stop all notes on a MIDI channel (skips
 release phase). Arguments are:;
-#X obj 250 903 cnv 1 64 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 903 [CHAN=0]: MIDI channel. Type: int.;
-#X obj 20 941 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 946 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 250 932 cnv 1 64 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 932 [CHAN=0]: MIDI channel. Type: int.;
+#X obj 20 970 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 975 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 951 1\.;
-#X text 150 951 *symbol*;
-#X text 240 951 load mod file.;
-#X obj 20 979 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 984 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 120 980 1\.;
+#X text 150 980 *symbol*;
+#X text 240 980 load mod file.;
+#X obj 20 1008 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1013 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 989 1\.;
-#X text 240 989 left channel and property output;
-#X text 120 1007 2\.;
-#X text 240 1007 rigth channel;
+#X text 120 1018 1\.;
+#X text 240 1018 left channel and property output;
+#X text 120 1036 2\.;
+#X text 240 1036 rigth channel;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title misc @url ceammc.misc-help.pd;
-#X obj 1 1055 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1058 library: ceammc v0.5;
-#N canvas 10 1077 400 290 info 0;
+#X obj 1 1084 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1087 library: ceammc v0.5;
+#N canvas 10 1106 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -100,13 +103,15 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1077 pd info;
-#X connect 10 0 12 1;
-#X connect 10 0 12 0;
-#X connect 5 0 9 0;
-#X connect 7 0 8 0;
-#X connect 6 0 9 0;
+#X restore 10 1106 pd info;
+#X connect 8 0 11 0;
+#X connect 5 0 7 0;
+#X connect 11 1 12 0;
+#X connect 4 0 6 0;
+#X connect 10 0 11 0;
+#X connect 11 0 12 0;
 #X connect 9 0 10 0;
-#X connect 4 0 5 0;
-#X connect 9 1 10 0;
-#X connect 8 0 9 0;
+#X connect 6 0 11 0;
+#X connect 7 0 11 0;
+#X connect 12 0 14 1;
+#X connect 12 0 14 0;
