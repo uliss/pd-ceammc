@@ -52,6 +52,7 @@ set(WITH_FLOAT 1)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.cmake ${CMAKE_CURRENT_BINARY_DIR}/config.h)
 
 include_directories (
+    ${GLIB_INCLUDES}
     ${CMAKE_CURRENT_BINARY_DIR}
     fluidsynth/src
     fluidsynth/src/drivers
@@ -63,12 +64,6 @@ include_directories (
     fluidsynth/src/bindings
     fluidsynth/include
     ${PTHREADS_INCLUDE_DIR}
-)
-
-include_directories (
-    SYSTEM
-    ${GLIB_INCLUDEDIR}
-    ${GLIB_INCLUDE_DIRS}
 )
 
 set(config_SOURCES ${CMAKE_CURRENT_BINARY_DIR}/config.h)
@@ -174,11 +169,6 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/fluidsynth/include/fluidsynth/version
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/fluidsynth/include/fluidsynth.cmake
                  ${public_main_HEADER})
 
-link_directories (
-    ${GLIB_LIBDIR}
-    ${GLIB_LIBRARY_DIRS}
-)
-
 add_library(fluidsynth STATIC
     ${config_SOURCES}
     ${fluid_windows_SOURCES}
@@ -194,7 +184,6 @@ endif()
 
 target_link_libraries(fluidsynth
     ${GLIB_LIBRARIES}
-    ${GMODULE_LIBRARIES}
     ${WINDOWS_LIBS}
     ${LIBFLUID_LIBS}
 )
