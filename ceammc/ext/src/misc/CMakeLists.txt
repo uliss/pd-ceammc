@@ -17,7 +17,6 @@ endif()
 
 if(WITH_FLUIDSYNTH)
     include_directories(${FLUIDSYNTH_INCLUDES})
-    include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra/fluidsynth/fluidsynth)
     list(APPEND MISC_SOURCES fluid.cpp)
     list(APPEND MISC_LIBRARIES ${FLUIDSYNTH_LIBRARIES})
 endif()

@@ -16,7 +16,7 @@
 #include "ceammc_platform.h"
 
 #include "fluidsynth.h"
-#include "src/sfloader/fluid_sfont.h"
+#include "fluidsynth/src/sfloader/fluid_sfont.h"
 
 Fluid::Fluid(const PdArgs& args)
     : SoundExternal(args)
