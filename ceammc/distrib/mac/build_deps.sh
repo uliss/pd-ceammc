@@ -261,7 +261,9 @@ function install_iconv() {
     cd libiconv-*
 
     banner "Configure ${pkg}"
-    ./configure --prefix=${PREFIX}
+    ./configure --prefix=${PREFIX} \
+        --enable-static=yes \
+        --enable-shared=no
 
     banner "Build ${pkg}"
     make
@@ -574,8 +576,11 @@ case ${PKG} in
     fluid)
         install_fluid
         ;;
+    iconv)
+        install_iconv
+        ;;
     *)
-        echo "Choose from following: glib, gettext, pcre, modplug, ffi, fftw3, tcl, tcllib, tk, tklib, ogg, vorbis, flac, sndfile, portaudio or all"
+        echo "Choose from following: glib, gettext, pcre, modplug, ffi, fftw3, tcl, iconv, tcllib, tk, tklib, ogg, vorbis, flac, sndfile, portaudio or all"
         exit 1
         ;;
 esac
