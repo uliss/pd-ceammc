@@ -51,7 +51,8 @@ if(GLIB_FOUND)
     #include paths
     list(APPEND FLUIDSYNTH_INCLUDES
         ${GLIB_INCLUDE_DIRS}
-        ${PROJECT_BINARY_DIR}/ceammc/extra/fluidsynth)
+        ${PROJECT_BINARY_DIR}/ceammc/extra/fluidsynth
+        ${PROJECT_SOURCE_DIR}/ceammc/extra/fluidsynth)
     # libs
     list(APPEND FLUIDSYNTH_LIBRARIES fluidsynth ${GLIB_LIBRARIES})
 else()
