@@ -85,7 +85,7 @@ TEST_CASE("math.expr", "[externals]")
         REQUIRE_EXPR(t, "sqrt($f)", 4, Approx(2));
         REQUIRE_EXPR(t, "tan($f)", 0, Approx(0));
         REQUIRE_EXPR(t, "tan($pi/4)", 0, Approx(1));
-        REQUIRE_EXPR(t, "atan($f)", 1, Approx(M_PI_4));
+        REQUIRE_EXPR(t, "atan($f)", 1, Approx(3.1415926/4));
         REQUIRE_EXPR(t, "exp(0)", 1, Approx(1));
         REQUIRE_EXPR(t, "log2($f)", 8, Approx(3));
         REQUIRE_EXPR(t, "ln($e^4)", 8, Approx(4));

@@ -142,6 +142,8 @@ set(FLITE_SRC
     flite/lang/cmu_us_awb/cmu_us_awb_spamf0_phrase.c
 )
 
+add_definitions(-DCST_NO_SOCKETS)
+
 if(UNIX)
     list(APPEND FLITE_SRC flite/src/utils/cst_mmap_posix.c)
 endif()
