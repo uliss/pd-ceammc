@@ -56,6 +56,7 @@ if(GLIB_FOUND)
     # libs
     list(APPEND FLUIDSYNTH_LIBRARIES fluidsynth ${GLIB_LIBRARIES})
 else()
+    set(WITH_FLUIDSYNTH FALSE)
     message(WARNING "Glib is not found: no fluidsynth build")
 endif()
 
