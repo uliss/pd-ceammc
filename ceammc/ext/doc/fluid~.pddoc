@@ -14,15 +14,8 @@
             <since>0.6</since>
         </meta>
         <properties>
-<!--            <property name="@done" type="symbol">function called with bang when playing is
-            finished</property>
-            <property name="@len" type="float" readonly="true" units="millisecond">length of mod
-            file</property>
-            <property name="@name" type="symbol" readonly="true">mod name</property>
-            <property name="@pos" type="float" units="millisecond">position in mod file</property>
-            <property name="@rpos" type="float" minvalue="0" maxvalue="1">relative position in mod
-            file</property>
-            <property name="@play" type="int" enum="0 1">play state</property>-->
+            <property name="@sf" type="symbol">path to SoundFont</property>
+            <property name="@version" type="symbol" readonly="true">FluidSynth version</property>
         </properties>
         <inlets>
             <inlet>
@@ -30,9 +23,20 @@
             </inlet>
         </inlets>
         <methods>
-            <method name="note">play mod file</method>
-            <method name="pause">pause playing</method>
-            <method name="pause">stop playing and move play position to the end of file</method>
+            <method name="note">play note (CHANNEL, KEY, VELOCITY or KEY, VELOCITY expected)</method>
+            <method name="cc">control change (CHANNEL, KEY, VALUE or KEY, VALUE expected)</method>
+            <method name="prog">program change (CHANNEL, PROGRAM expected)</method>
+            <method name="bank">set instrument bank number on a MIDI channel (CHANNEL, BANK expected)</method>
+            <method name="bend">pitchband change (CHANNEL, VALUE expected)</method>
+            <method name="gen">set a SoundFont generator (effect) value on a MIDI channel in real-time
+            (CHANNEL, PARAM, VALUE or PARAM, VALUE expected)</method>
+            <method name="panic">send MIDI system reset command (big red 'panic' button), turns off notes, resets
+            controllers and restores initial basic channel configuration</method>
+            <method name="reset">reset all synth channels</method>
+            <method name="notes_off">turn off all notes on a MIDI channel (put them into release phase)
+            <param name="CHAN" type="int" default="0">MIDI channel</param></method>
+            <method name="sounds_off">immediately stop all notes on a MIDI channel (skips release phase).
+            <param name="CHAN" type="int" default="0">MIDI channel</param></method>
         </methods>
         <outlets>
             <outlet type="audio">left channel and property output</outlet>
