@@ -32,6 +32,12 @@ if(GLIB_ROOT)
         PATH_SUFFIXES include include/glib-2.0/include
         NO_DEFAULT_PATH)
 
+    find_path(ICONV_INCLUDE_DIR
+        NAMES iconv.h
+        PATHS ${GLIB_ROOT}
+        PATH_SUFFIXES include
+        NO_DEFAULT_PATH)
+
     find_library(GLIB_LIBRARIES2
         NAMES glib-2.0
         PATHS ${GLIB_ROOT}
@@ -43,6 +49,20 @@ if(GLIB_ROOT)
         NAMES gthread-2.0
         PATHS ${GLIB_ROOT}
         PATH_SUFFIXES lib
+        NO_DEFAULT_PATH
+    )
+
+    find_library(ICONV_LIBRARIES
+        NAMES iconv
+        PATHS ${GLIB_ROOT}
+        PATH_SUFFIXES lib
+        NO_DEFAULT_PATH
+    )
+
+    find_library(INTL_LIBRARIES
+        NAMES intl
+        PATH_SUFFIXES lib
+        PATHS ${GLIB_ROOT}
         NO_DEFAULT_PATH
     )
 
@@ -76,6 +96,12 @@ else() # search via pkg-config
         PATH_SUFFIXES glib-2.0
         NO_DEFAULT_PATH)
 
+    find_path(ICONV_INCLUDE_DIR
+        NAMES iconv.h
+        HINTS ${PKGCONFIG_GLIB_INCLUDEDIR} ${PKGCONFIG_GLIB_INCLUDE_DIRS}
+        PATHS ${_include_paths}
+        NO_DEFAULT_PATH)
+
     find_path(GLIB_CONFIG_INCLUDE_DIR
         NAMES glibconfig.h
         HINTS ${PKGCONFIG_GLIB_INCLUDEDIR} ${PKGCONFIG_GLIB_INCLUDE_DIRS}
@@ -98,18 +124,33 @@ else() # search via pkg-config
         NO_DEFAULT_PATH
     )
 
+    find_library(ICONV_LIBRARIES
+        NAMES libiconv iconv
+        HINTS ${PKGCONFIG_GLIB_INCLUDEDIR} ${PKGCONFIG_GLIB_LIBRARY_DIRS}
+        PATHS ${_lib_paths}
+        NO_DEFAULT_PATH
+    )
+
+    find_library(INTL_LIBRARIES
+        NAMES intl
+        HINTS ${PKGCONFIG_GLIB_INCLUDEDIR} ${PKGCONFIG_GLIB_LIBRARY_DIRS}
+        PATHS ${_lib_paths}
+        NO_DEFAULT_PATH
+    )
+
 endif()
 
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(GLIB
     DEFAULT_MSG GLIB_INCLUDE_DIR GLIB_CONFIG_INCLUDE_DIR
-    GLIB_LIBRARIES2 GTHREAD_LIBRARIES)
+    GLIB_LIBRARIES2 GTHREAD_LIBRARIES
+    ICONV_INCLUDE_DIR)
 
 if(GLIB_FOUND)
-    set(GLIB_INCLUDES ${GLIB_INCLUDE_DIR} ${GLIB_CONFIG_INCLUDE_DIR})
-    set(GLIB_LIBRARIES ${GLIB_LIBRARIES2} ${GTHREAD_LIBRARIES})
+    set(GLIB_INCLUDES ${GLIB_INCLUDE_DIR} ${GLIB_CONFIG_INCLUDE_DIR} ${ICONV_INCLUDE_DIR})
+    set(GLIB_LIBRARIES ${GLIB_LIBRARIES2} ${GTHREAD_LIBRARIES} ${ICONV_LIBRARIES} ${INTL_LIBRARIES})
 
-    message(STATUS "glib-2.0 files: ")
+    message(STATUS "glib-2.0 and iconv files: ")
     foreach(_inc ${GLIB_INCLUDES})
         message(STATUS "    ${_inc}")
     endforeach()

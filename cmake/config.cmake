@@ -45,8 +45,7 @@ endif()
 
 # FuildSynth
 find_package(GLIB)
-find_package(Iconv)
-if(GLIB_FOUND AND Iconv_FOUND)
+if(GLIB_FOUND)
     set(CEAMMC_HAVE_FLUIDSYNTH ON)
     set(WITH_FLUIDSYNTH TRUE)
     #include paths
@@ -55,7 +54,7 @@ if(GLIB_FOUND AND Iconv_FOUND)
         ${PROJECT_BINARY_DIR}/ceammc/extra/fluidsynth
         ${PROJECT_SOURCE_DIR}/ceammc/extra/fluidsynth/fluidsynth/include)
     # libs
-    list(APPEND FLUIDSYNTH_LIBRARIES fluidsynth ${GLIB_LIBRARIES} ${Iconv_LIBRARIES})
+    list(APPEND FLUIDSYNTH_LIBRARIES fluidsynth ${GLIB_LIBRARIES})
 else()
     set(WITH_FLUIDSYNTH FALSE)
     message(WARNING "Glib is not found: no fluidsynth build")
