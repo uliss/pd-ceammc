@@ -724,6 +724,9 @@
     <entry descr="Output single impulse on bang" name="click~" ref_view="object">
       <xi:include href="click~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="FluidSynth SoundFont 2 player" name="fluid~" ref_view="object">
+      <xi:include href="fluid~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="MOD file player (using libmodplug)" name="modplug~" ref_view="object">
       <xi:include href="modplug~.pddoc" parse="xml"/>
     </entry>

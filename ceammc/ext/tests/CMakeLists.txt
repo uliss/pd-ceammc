@@ -126,8 +126,6 @@ ceammc_external_test(math round_tilde)
 ceammc_external_test(math mul)
 ceammc_external_test(math div)
 
-ceammc_external_test(misc speech_flite)
-
 ceammc_external_test(midi file)
 ceammc_external_test(midi note)
 ceammc_external_test(midi track)
@@ -279,6 +277,10 @@ ceammc_ui_test("ui.toggle")
 ceammc_add_test_linked(TITLE "[env->to_array]"
     NAME test_ext_env_to_array
     LINK tests_main_lib ceammc_array ceammc_env ceammc_array ceammc_core puredata-core)
+
+ceammc_add_test_linked(TITLE "[speech.flite]"
+    NAME test_ext_misc_speech_flite
+    LINK ceammc_core ceammc_misc ceammc_string puredata-core ${FLUIDSYNTH_LIBRARIES})
 
 
 add_custom_target(test_src SOURCES gen_test_wav.py)

@@ -237,7 +237,7 @@ bool contains_point(const t_rect& r, const t_pt& pt)
 {
     const float dx = pt.x - r.x;
     const float dy = pt.y - r.y;
-    return dx > 0 && dy > 0 && dx < r.width && dy < r.height;
+    return dx >= 0 && dy >= 0 && dx <= r.width && dy <= r.height;
 }
 
 UIPainter::UIPainter(t_ebox* box, t_symbol* name, const t_rect& brect)

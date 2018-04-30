@@ -25,8 +25,13 @@ then
     exit 1
 fi
 
-rm -rf pd
-mkdir -p pd
+if [ ! "$1" = "rebuild" ]
+then
+    echo "Remove old build directory..."
+    rm -rf pd
+    mkdir -p pd
+fi
+
 cd pd
 
 if [ -z $LEAPMOTION_SDK ]
