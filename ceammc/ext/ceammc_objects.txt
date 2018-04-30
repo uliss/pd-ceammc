@@ -405,6 +405,7 @@ synth.ks~
 synth.marimba~
 synth.risset_arp~
 synth.risset_tone~
+synth.wurley~
 system.getenv
 system.hostname
 system.memsize
