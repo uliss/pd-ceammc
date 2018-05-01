@@ -15,6 +15,7 @@
 #define STKSYNTH_P_H
 
 #include "ceammc_property.h"
+#include "stksynth.h"
 
 using namespace ceammc;
 
@@ -66,6 +67,9 @@ public:
             return -1;
         }
     }
+
+public:
+    typedef ControlChangeProperty<StkFMSynth<T> > CCProperty;
 };
 
 #endif // STKSYNTH_P_H

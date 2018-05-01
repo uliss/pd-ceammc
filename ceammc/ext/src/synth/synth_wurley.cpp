@@ -9,16 +9,15 @@ extern "C" {
 #include "stksynth_p.h"
 
 typedef StkFMSynth<stk::Wurley> Synth;
-typedef ControlChangeProperty<Synth> CCProperty;
 
 SynthWurley::SynthWurley(const PdArgs& args)
     : StkSynth(args, new Synth())
 {
-    createProperty(new CCProperty("@mod", 2, *this));
-    createProperty(new CCProperty("@xfade", 4, *this));
-    createProperty(new CCProperty("@lfo_speed", 11, *this));
-    createProperty(new CCProperty("@lfo_depth", 1, *this));
-    createProperty(new CCProperty("@adsr", 128, *this));
+    createProperty(new Synth::CCProperty("@mod", 2, *this));
+    createProperty(new Synth::CCProperty("@xfade", 4, *this));
+    createProperty(new Synth::CCProperty("@lfo_speed", 11, *this));
+    createProperty(new Synth::CCProperty("@lfo_depth", 1, *this));
+    createProperty(new Synth::CCProperty("@adsr", 128, *this));
 }
 
 void setup_synth_wurley()
