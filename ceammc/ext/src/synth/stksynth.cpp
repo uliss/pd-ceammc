@@ -1,6 +1,15 @@
-#include "stksynth.h"
+#include "ADSR.h"
 #include "Instrmnt.h"
+#include "SineWave.h"
+
 #include "ceammc_convert.h"
+#include "stksynth.h"
+//#include "synth_bthree.h"
+//#include "synth_wurley.h"
+
+#include "stksynth_p.h"
+
+static t_symbol* SYM_CC = gensym("cc");
 
 StkSynth::StkSynth(const PdArgs& args, stk::Instrmnt* instr)
     : SoundExternal(args)
@@ -68,25 +77,69 @@ void StkSynth::m_cc(t_symbol* s, const AtomList& lst)
     synth_->controlChange(ctl_num, ctl_val);
 }
 
-ControlChangeProperty::ControlChangeProperty(const char* name, int ch, StkSynth& synth)
-    : Property(name)
-    , synth_(synth)
-    , channel_(ch)
-    , value_(0)
+t_float StkSynth::getCC(int n) const
+{
+    // it's a hack
+    //    typedef StkFMSynth<SynthBThree> SB3;
+    //    typedef StkFMSynth<SynthWurley> SWurley;
+
+#define CAST(T) dynamic_cast<const T*>(synth_)
+#define FM_CC(T, n)                              \
+    {                                            \
+        if (CAST(T))                             \
+            return CAST(T)->getControlChange(n); \
+    }
+
+    //    FM_CC(SB3, n);
+    //    FM_CC(SWurley, n);
+
+#undef CAST
+
+    return -1;
+}
+
+class FreqGetter : public stk::SineWave {
+public:
+    FreqGetter(const stk::SineWave* ptr)
+        : stk::SineWave(*ptr)
+    {
+    }
+
+    t_float freq() const
+    {
+        return (rate_ * stk::Stk::sampleRate()) / TABLE_SIZE;
+    }
+};
+
+class ADSRGetter : public stk::ADSR {
+public:
+    ADSRGetter(const stk::ADSR* ptr)
+        : stk::ADSR(*ptr)
+    {
+    }
+
+    t_float target() const
+    {
+        return target_;
+    }
+};
+
+SinWaveFreq::SinWaveFreq(const stk::SineWave* ptr)
+    : ptr_(ptr)
 {
 }
 
-AtomList ControlChangeProperty::get() const
+t_float SinWaveFreq::getFrequency() const
 {
-    return Atom(value_);
+    return FreqGetter(ptr_).freq();
 }
 
-bool ControlChangeProperty::set(const AtomList& lst)
+ADSRProp::ADSRProp(const stk::ADSR* ptr)
+    : ptr_(ptr)
 {
-    if (lst.empty())
-        return false;
+}
 
-    value_ = lst[0].asFloat();
-    synth_.m_cc(gensym("cc"), AtomList(channel_, value_));
-    return true;
+t_float ADSRProp::getTarget() const
+{
+    return ADSRGetter(ptr_).target();
 }

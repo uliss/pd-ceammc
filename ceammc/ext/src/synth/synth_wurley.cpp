@@ -1,19 +1,24 @@
 #include "synth_wurley.h"
-#include "Wurley.h"
 #include "ceammc_factory.h"
 
 extern "C" {
 #include "m_imp.h"
 }
 
+#include "Wurley.h"
+#include "stksynth_p.h"
+
+typedef StkFMSynth<stk::Wurley> Synth;
+typedef ControlChangeProperty<Synth> CCProperty;
+
 SynthWurley::SynthWurley(const PdArgs& args)
-    : StkSynth(args, new stk::Wurley())
+    : StkSynth(args, new Synth())
 {
-    createProperty(new ControlChangeProperty("@mod", 2, *this));
-    createProperty(new ControlChangeProperty("@xfade", 4, *this));
-    createProperty(new ControlChangeProperty("@lfo_speed", 11, *this));
-    createProperty(new ControlChangeProperty("@lfo_depth", 1, *this));
-    createProperty(new ControlChangeProperty("@adsr", 128, *this));
+    createProperty(new CCProperty("@mod", 2, *this));
+    createProperty(new CCProperty("@xfade", 4, *this));
+    createProperty(new CCProperty("@lfo_speed", 11, *this));
+    createProperty(new CCProperty("@lfo_depth", 1, *this));
+    createProperty(new CCProperty("@adsr", 128, *this));
 }
 
 void setup_synth_wurley()

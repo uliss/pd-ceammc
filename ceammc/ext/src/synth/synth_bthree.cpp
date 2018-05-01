@@ -15,15 +15,19 @@
 #include "ceammc_factory.h"
 
 #include "BeeThree.h"
+#include "stksynth_p.h"
+
+typedef StkFMSynth<stk::BeeThree> Synth;
+typedef ControlChangeProperty<Synth> CCProperty;
 
 SynthBThree::SynthBThree(const PdArgs& args)
-    : StkSynth(args, new stk::BeeThree())
+    : StkSynth(args, new Synth())
 {
-    createProperty(new ControlChangeProperty("@op4", 2, *this));
-    createProperty(new ControlChangeProperty("@op3", 4, *this));
-    createProperty(new ControlChangeProperty("@lfo_speed", 11, *this));
-    createProperty(new ControlChangeProperty("@lfo_depth", 1, *this));
-    createProperty(new ControlChangeProperty("@adsr", 128, *this));
+    createProperty(new CCProperty("@op4", 2, *this));
+    createProperty(new CCProperty("@op3", 4, *this));
+    createProperty(new CCProperty("@lfo_speed", 11, *this));
+    createProperty(new CCProperty("@lfo_depth", 1, *this));
+    createProperty(new CCProperty("@adsr", 128, *this));
 }
 
 void setup_synth_bthree()
