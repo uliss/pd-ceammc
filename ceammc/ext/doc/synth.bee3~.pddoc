@@ -31,7 +31,7 @@
             LFO Speed (cc11)</property>
             <property name="@lfo_depth" type="float" minvalue="0" maxvalue="127">
             LFO Speed (cc1)</property>
-            <property name="@lfo_depth" type="float" minvalue="0" maxvalue="127">
+            <property name="@adsr" type="float" minvalue="0" maxvalue="127">
             ADSR 2 &amp; 4 Target</property>
         </properties>
         <methods>
