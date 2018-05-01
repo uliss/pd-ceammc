@@ -82,9 +82,10 @@ include_directories(stk/include)
 add_library(stk STATIC ${STK_SOURCES})
 
 file(GLOB _raw_waves "stk/rawwaves/*.raw")
-
-install(FILES ${_raw_waves} DESTINATION ${DOC_INSTALL_PATH}/stk
-    PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
+foreach(_w ${_raw_waves})
+    install(FILES ${_w} DESTINATION ${CEAMMC_INSTALL_PATH}/stk
+        PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
+endforeach()
 
 if(UNIX)
     set_target_properties(stk PROPERTIES COMPILE_FLAGS "-fPIC")
