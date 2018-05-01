@@ -170,8 +170,8 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/fluidsynth/include/fluidsynth.cmake
                  ${public_main_HEADER})
 
 # install soundfonts
-install(FILES fluidsynth/sf2/VintageDreamsWaves-v2.sf2 DESTINATION ${DOC_INSTALL_PATH}/sf2 PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
-install(FILES fluidsynth/sf2/COPYRIGHT.txt DESTINATION ${DOC_INSTALL_PATH}/sf2 PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
+install(FILES fluidsynth/sf2/VintageDreamsWaves-v2.sf2 DESTINATION ${CEAMMC_INSTALL_PATH}/sf2 PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
+install(FILES fluidsynth/sf2/COPYRIGHT.txt DESTINATION ${CEAMMC_INSTALL_PATH}/sf2 PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
 
 add_library(fluidsynth STATIC
     ${config_SOURCES}

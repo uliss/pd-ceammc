@@ -13,6 +13,8 @@ find_program(PD_MAKELIB pd_makelibrary)
 find_program(PD_LIB2PD pd_lib2pd)
 find_program(PD_CAT2PD pd_cat2pd)
 
+set(CEAMMC_INSTALL_PATH ${PD_INTERNAL_EXT_INSTALL_PATH}/ceammc)
+
 add_subdirectory(extra)
 add_subdirectory(gui)
 add_subdirectory(ext)
