@@ -302,6 +302,7 @@ set(DOC_FILES
     synth.eguitar~
     synth.ks~
     synth.marimba~
+    synth.rhodey~
     synth.risset_arp~
     synth.risset_tone~
     synth.wurley~

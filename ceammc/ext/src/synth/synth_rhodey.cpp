@@ -11,25 +11,25 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "synth_bthree.h"
+#include "synth_rhodey.h"
 #include "ceammc_factory.h"
 
-#include "BeeThree.h"
+#include "Rhodey.h"
 #include "stksynth_p.h"
 
-typedef StkFMSynth<stk::BeeThree> Synth;
+typedef StkFMSynth<stk::Rhodey> Synth;
 
-SynthBThree::SynthBThree(const PdArgs& args)
+SynthRhodey::SynthRhodey(const PdArgs& args)
     : StkSynth(args, new Synth())
 {
-    createProperty(new Synth::CCProperty("@op4", 2, *this));
-    createProperty(new Synth::CCProperty("@op3", 4, *this));
+    createProperty(new Synth::CCProperty("@mod", 2, *this));
+    createProperty(new Synth::CCProperty("@xfade", 4, *this));
     createProperty(new Synth::CCProperty("@lfo_speed", 11, *this));
     createProperty(new Synth::CCProperty("@lfo_depth", 1, *this));
     createProperty(new Synth::CCProperty("@adsr", 128, *this));
 }
 
-void setup_synth_bthree()
+void setup_synth_rhodey()
 {
-    SoundExternalFactory<SynthBThree> obj("synth.bee3~", OBJECT_FACTORY_DEFAULT);
+    SoundExternalFactory<SynthRhodey> obj("synth.rhodey~", OBJECT_FACTORY_DEFAULT);
 }

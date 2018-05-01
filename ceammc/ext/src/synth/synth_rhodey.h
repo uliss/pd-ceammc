@@ -11,25 +11,16 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "synth_bthree.h"
-#include "ceammc_factory.h"
+#ifndef SYNTH_RHODEY_H
+#define SYNTH_RHODEY_H
 
-#include "BeeThree.h"
-#include "stksynth_p.h"
+#include "stksynth.h"
 
-typedef StkFMSynth<stk::BeeThree> Synth;
+class SynthRhodey : public StkSynth {
+public:
+    SynthRhodey(const PdArgs& args);
+};
 
-SynthBThree::SynthBThree(const PdArgs& args)
-    : StkSynth(args, new Synth())
-{
-    createProperty(new Synth::CCProperty("@op4", 2, *this));
-    createProperty(new Synth::CCProperty("@op3", 4, *this));
-    createProperty(new Synth::CCProperty("@lfo_speed", 11, *this));
-    createProperty(new Synth::CCProperty("@lfo_depth", 1, *this));
-    createProperty(new Synth::CCProperty("@adsr", 128, *this));
-}
+void setup_synth_rhodey();
 
-void setup_synth_bthree()
-{
-    SoundExternalFactory<SynthBThree> obj("synth.bee3~", OBJECT_FACTORY_DEFAULT);
-}
+#endif // SYNTH_RHODEY_H

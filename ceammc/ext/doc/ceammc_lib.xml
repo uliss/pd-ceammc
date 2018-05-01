@@ -979,6 +979,9 @@
     <entry descr="simple marimba physical model implementing a single tone bar connected to tube" name="synth.marimba~" ref_view="object">
       <xi:include href="synth.marimba~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="STK Fender Rhodes electric piano FM synthesis instrument" name="synth.rhodey~" ref_view="object">
+      <xi:include href="synth.rhodey~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="Jean Claude Risset's harmonic arpeggio effect" name="synth.risset_arp~" ref_view="object">
       <xi:include href="synth.risset_arp~.pddoc" parse="xml"/>
     </entry>
