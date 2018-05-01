@@ -19,6 +19,7 @@
 - synth.eguitar~ added
 - synth.church_bell~ added
 - synth.wurley~ added
+- synth.bee3~ added
 - fx.wahwah~ added
 - fx.echo~ added
 - fx.sdelay~ added

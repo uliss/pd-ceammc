@@ -397,6 +397,7 @@ symbol.ends_with
 symbol.equal
 symbol.length
 symbol.num_compare
+synth.bee3~
 synth.birds~
 synth.church_bell~
 synth.dubdub~

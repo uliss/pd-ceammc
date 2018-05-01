@@ -1,4 +1,4 @@
-set(SYNTH_SOURCES stksynth.cpp synth_wurley.cpp)
+set(SYNTH_SOURCES stksynth.cpp synth_wurley.cpp synth_bthree.cpp)
 
 macro(ceammc_synth_extension name)
     list(APPEND SYNTH_SOURCES "synth_${name}.cpp")

@@ -958,6 +958,9 @@
     </entry>
   </category>
   <category name="synth">
+    <entry descr="Hammond-oid organ FM synthesis instrument" name="synth.bee3~" ref_view="object">
+      <xi:include href="synth.bee3~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="bird singing generator" name="synth.birds~" ref_view="object">
       <xi:include href="synth.birds~.pddoc" parse="xml"/>
     </entry>
