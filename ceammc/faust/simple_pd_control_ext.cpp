@@ -98,8 +98,8 @@ static t_class* mydsp_faust_class;
 // clang-format on
 
 template<class T>
-class _DspUI : public UI {};
-typedef _DspUI<mydsp> DspUI;
+class _mydsp_UI : public UI {};
+typedef _mydsp_UI<mydsp> mydsp_UI;
 
 struct t_faust_mydsp {
     t_object x_obj;
@@ -109,7 +109,7 @@ struct t_faust_mydsp {
     int fence; /* dummy field (not used) */
 #endif
     mydsp* dsp;
-    PdUI<DspUI>* ui;
+    PdUI<mydsp_UI>* ui;
     int active, xfade, n_xfade, rate, n_in, n_out;
     t_sample **inputs, **outputs, **buf;
     t_outlet* out;
@@ -192,7 +192,7 @@ static void mydsp_faust_dsp(t_faust_mydsp* x, t_signal** sp)
 
     if (x->rate <= 0) {
         /* default sample rate is whatever Pd tells us */
-        PdUI<DspUI>* ui = x->ui;
+        PdUI<mydsp_UI>* ui = x->ui;
         std::vector<FAUSTFLOAT> z = ui->uiValues();
         /* set the proper sample rate; this requires reinitializing the dsp */
         x->rate = sr;
@@ -247,7 +247,7 @@ static void mydsp_faust_any(t_faust_mydsp* x, t_symbol* s, int argc, t_atom* arg
     if (!x->dsp)
         return;
 
-    PdUI<DspUI>* ui = x->ui;
+    PdUI<mydsp_UI>* ui = x->ui;
     if (s == &s_bang) {
         ui->dumpUI(x->out);
     } else if (isGetAllProperties(s)) {
@@ -407,7 +407,7 @@ static bool faust_new_internal(t_faust_mydsp* x, const std::string& objId = "", 
     x->n_xfade = static_cast<int>(sr * XFADE_TIME / 64);
 
     x->dsp = new mydsp();
-    x->ui = new PdUI<DspUI>(sym(mydsp), objId);
+    x->ui = new PdUI<mydsp_UI>(sym(mydsp), objId);
 
     if (!faust_init_inputs(x)) {
         mydsp_faust_free(x);
