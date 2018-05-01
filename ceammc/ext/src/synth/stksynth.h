@@ -14,10 +14,12 @@ class StkSynth;
 class ControlChangeProperty : public Property {
     StkSynth& synth_;
     int channel_;
+    t_float value_;
 
 public:
     ControlChangeProperty(const char* name, int ch, StkSynth& synth);
 
+    AtomList get() const override;
     bool set(const AtomList& lst) override;
 };
 

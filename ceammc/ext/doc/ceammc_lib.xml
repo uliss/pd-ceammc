@@ -982,6 +982,9 @@
     <entry descr="Jean Claude Risset's endless glissando" name="synth.risset_tone~" ref_view="object">
       <xi:include href="synth.risset_tone~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="Wurlitzer electric piano FM synthesis instrumentr" name="synth.wurley~" ref_view="object">
+      <xi:include href="synth.wurley~.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="system">
     <entry descr="Get information about cursor motion, mousewheel and buttonclick" name="system.cursor" ref_view="object">

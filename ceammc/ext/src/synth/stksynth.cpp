@@ -52,7 +52,7 @@ void StkSynth::propSetGate(const AtomList& lst)
     if (amp > 0)
         synth_->noteOn(freq_->value(), amp);
     else
-        synth_->noteOn(freq_->value(), 0);
+        synth_->noteOff(freq_->value());
 
     gate_ = amp;
 }
@@ -72,7 +72,13 @@ ControlChangeProperty::ControlChangeProperty(const char* name, int ch, StkSynth&
     : Property(name)
     , synth_(synth)
     , channel_(ch)
+    , value_(0)
 {
+}
+
+AtomList ControlChangeProperty::get() const
+{
+    return Atom(value_);
 }
 
 bool ControlChangeProperty::set(const AtomList& lst)
@@ -80,6 +86,7 @@ bool ControlChangeProperty::set(const AtomList& lst)
     if (lst.empty())
         return false;
 
-    synth_.m_cc(gensym("cc"), AtomList(channel_, lst[0].asFloat()));
+    value_ = lst[0].asFloat();
+    synth_.m_cc(gensym("cc"), AtomList(channel_, value_));
     return true;
 }

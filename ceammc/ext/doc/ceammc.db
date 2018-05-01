@@ -305,6 +305,7 @@ synth.marimba~		.		~
 synth.risset_arp~		.		~~
 synth.risset_tone~		.		~
 synth.tambura~		.		~
+synth.wurley~		.		~
 system.cursor		.		.
 system.getenv		.		.
 system.hostname		.		.

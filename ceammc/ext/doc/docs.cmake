@@ -303,6 +303,7 @@ set(DOC_FILES
     synth.eguitar~
     synth.ks~
     synth.dubdub~
+    synth.wurley~
     system.cursor
     system.getenv
     system.hostname

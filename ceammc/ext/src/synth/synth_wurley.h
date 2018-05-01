@@ -4,7 +4,6 @@
 #include "stksynth.h"
 
 class SynthWurley : public StkSynth {
-
 public:
     SynthWurley(const PdArgs& args);
 };

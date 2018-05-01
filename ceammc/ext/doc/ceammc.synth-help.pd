@@ -20,6 +20,8 @@ tone bar connected to tube;
 #X text 175 298 Jean Claude Risset's harmonic arpeggio effect;
 #X obj 30 325 synth.risset_tone~;
 #X text 175 325 Jean Claude Risset's endless glissando;
+#X obj 30 352 synth.wurley~;
+#X text 175 352 Wurlitzer electric piano FM synthesis instrumentr;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::synth 20 20 0 20 -104026
 -4096 0;
 #X obj 1 458 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
