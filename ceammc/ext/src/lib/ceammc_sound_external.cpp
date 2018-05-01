@@ -64,4 +64,11 @@ t_outlet* SoundExternal::createSignalOutlet()
     n_out_++;
     return out;
 }
+
+void SoundExternal::dump() const
+{
+    BaseObject::dump();
+    post("[%s] block size: %i", className().c_str(), blockSize());
+    post("[%s] samplerate: %i", className().c_str(), samplerate());
+}
 }

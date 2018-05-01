@@ -6,6 +6,8 @@
 #include "misc_modplug.h"
 #endif
 
+#include "fluid.h"
+
 extern "C" void setup_live0x2ecapture_tilde();
 
 void ceammc_misc_setup()
@@ -15,5 +17,9 @@ void ceammc_misc_setup()
 
 #ifdef CEAMMC_HAVE_MODPLUG
     setup_misc0x2emodplug_tilde();
+#endif
+
+#ifdef CEAMMC_HAVE_FLUIDSYNTH
+    setup_misc_fluid();
 #endif
 }

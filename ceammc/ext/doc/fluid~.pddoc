@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="fluid~">
+        <title>fluid~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>FluidSynth SoundFont 2 player</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>misc</category>
+            <keywords>mod player midi soundfont fluid</keywords>
+            <since>0.6</since>
+        </meta>
+        <properties>
+            <property name="@sf" type="symbol">path to SoundFont</property>
+            <property name="@version" type="symbol" readonly="true">FluidSynth version</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="symbol">load mod file</xinfo>
+            </inlet>
+        </inlets>
+        <methods>
+            <method name="note">play note (CHANNEL, KEY, VELOCITY or KEY, VELOCITY expected)</method>
+            <method name="cc">control change (CHANNEL, KEY, VALUE or KEY, VALUE expected)</method>
+            <method name="prog">program change (CHANNEL, PROGRAM expected)</method>
+            <method name="bank">set instrument bank number on a MIDI channel (CHANNEL, BANK expected)</method>
+            <method name="bend">pitchband change (CHANNEL, VALUE expected)</method>
+            <method name="gen">set a SoundFont generator (effect) value on a MIDI channel in real-time
+            (CHANNEL, PARAM, VALUE or PARAM, VALUE expected)</method>
+            <method name="panic">send MIDI system reset command (big red 'panic' button), turns off notes, resets
+            controllers and restores initial basic channel configuration</method>
+            <method name="reset">reset all synth channels</method>
+            <method name="notes_off">turn off all notes on a MIDI channel (put them into release phase)
+            <param name="CHAN" type="int" default="0">MIDI channel</param></method>
+            <method name="sounds_off">immediately stop all notes on a MIDI channel (skips release phase).
+            <param name="CHAN" type="int" default="0">MIDI channel</param></method>
+        </methods>
+        <outlets>
+            <outlet type="audio">left channel and property output</outlet>
+            <outlet type="audio">rigth channel</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.keyboard]
+|
+|
+|
+|
+|            [hradio]
+|            |
+[msg note 1] [prog 1 $1(
+|            |
+| [dump(     | [loadbang]
+| |          | |
+| |          | [@sf sf2/VintageDreamsWaves-v2.sf2(
+| |          | |
+[fluid~        ]
+| ^|
+[ui.gain~ @size 120 16]  [ui.dsp~]
+| \
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

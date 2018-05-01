@@ -16,9 +16,13 @@
 #include "config.h"
 
 #include "g_canvas.h"
+extern "C" {
+#include "m_imp.h"
+}
+
+#include <cerrno>
 #include <cstdio>
 #include <cstdlib>
-#include <cerrno>
 #include <cstring>
 
 #ifdef HAVE_UNISTD_H
@@ -235,6 +239,24 @@ namespace platform {
         closedir(dir);
 
         return res;
+    }
+
+    std::string find_in_exernal_dir(t_object* obj, const char* path)
+    {
+        if (!is_path_relative(path))
+            return path;
+
+        char dirname[MAXPDSTRING], *filename;
+        int fd = open_via_path(obj->te_g.g_pd->c_externdir->s_name, path, "", dirname, &filename, MAXPDSTRING, 1);
+        if (fd < 0)
+            return std::string();
+
+        close(fd);
+
+        std::string full_path(dirname);
+        full_path += '/';
+        full_path += filename;
+        return full_path;
     }
 }
 }

@@ -116,6 +116,7 @@ flt.lpf24~
 flt.moog_vcf~
 flt.notch~
 flt.resonbp~
+fluid~
 func
 func.call
 function
@@ -396,6 +397,7 @@ symbol.ends_with
 symbol.equal
 symbol.length
 symbol.num_compare
+synth.bee3~
 synth.birds~
 synth.church_bell~
 synth.dubdub~
@@ -404,6 +406,7 @@ synth.ks~
 synth.marimba~
 synth.risset_arp~
 synth.risset_tone~
+synth.wurley~
 system.getenv
 system.hostname
 system.memsize

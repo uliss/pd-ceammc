@@ -92,6 +92,7 @@ flt.lpf24~		~		~.
 flt.moog_vcf~		~		~.
 flt.notch~		~		~.
 flt.resonbp~		~		~.
+fluid~		.		~~
 function,func		..		..
 function.call,func.call		..		.
 fx.distortion~		~		~.
@@ -295,6 +296,7 @@ string2symbol,str->sym		.		.
 symbol.equal		..		.
 symbol.length		.		.
 symbol.num_compare		..		.
+synth.bee3~		.		~
 synth.birds~		.		~~
 synth.church_bell~		.		~
 synth.dubdub~		.		~
@@ -304,6 +306,7 @@ synth.marimba~		.		~
 synth.risset_arp~		.		~~
 synth.risset_tone~		.		~
 synth.tambura~		.		~
+synth.wurley~		.		~
 system.cursor		.		.
 system.getenv		.		.
 system.hostname		.		.

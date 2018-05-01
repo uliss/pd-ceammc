@@ -18,6 +18,8 @@
 - synth.ks~ (Karplus-Strong) added
 - synth.eguitar~ added
 - synth.church_bell~ added
+- synth.wurley~ added
+- synth.bee3~ added
 - fx.wahwah~ added
 - fx.echo~ added
 - fx.sdelay~ added
@@ -31,6 +33,7 @@
 - conv.dbfs2amp (dbfs->amp) added
 - gain~ added
 - speech.flite added
+- fluid~ (FluidSynth) added
 
 ### Changed:
 - migration to Faust v2

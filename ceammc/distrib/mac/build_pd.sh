@@ -25,9 +25,29 @@ then
     exit 1
 fi
 
-rm -rf pd
-mkdir -p pd
+if [ ! "$1" = "rebuild" ]
+then
+    echo "Remove old build directory..."
+    rm -rf pd
+    mkdir -p pd
+fi
+
 cd pd
+
+if [ -z $LEAPMOTION_SDK ]
+then
+    if [ ! -d "${HOME}/work/misc/LeapMotionSDK/LeapSDK" ]
+    then
+        error "\${LEAPMOTION_SDK} is not set..."
+        exit 1
+    fi
+fi
+
+if [ ! -d "${LEAPMOTION_SDK}" ]
+then
+    error "LeapMotion SDK path is not found: \"${LEAPMOTION_SDK}\""
+    exit 1
+fi
 
 echo "Building PureData..."
 echo ""
@@ -59,7 +79,7 @@ cmake -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_C_FLAGS='' \
     -DCMAKE_CXX_FLAGS='-funroll-loops -fomit-frame-pointer' \
     -DARCH=$ARCH \
-    -DLEAPMOTION_ROOT="${HOME}/work/misc/LeapMotionSDK/LeapSDK" \
+    -DLEAPMOTION_ROOT="${LEAPMOTION_SDK}" \
     ${C_COMPILER} \
     ${CXX_COMPILER} \
     -DLIBSNDFILE_ROOT="${PREFIX}" \

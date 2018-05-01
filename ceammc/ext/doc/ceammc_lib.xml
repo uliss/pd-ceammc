@@ -724,6 +724,9 @@
     <entry descr="Output single impulse on bang" name="click~" ref_view="object">
       <xi:include href="click~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="FluidSynth SoundFont 2 player" name="fluid~" ref_view="object">
+      <xi:include href="fluid~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="MOD file player (using libmodplug)" name="modplug~" ref_view="object">
       <xi:include href="modplug~.pddoc" parse="xml"/>
     </entry>
@@ -955,6 +958,9 @@
     </entry>
   </category>
   <category name="synth">
+    <entry descr="Hammond-oid organ FM synthesis instrument" name="synth.bee3~" ref_view="object">
+      <xi:include href="synth.bee3~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="bird singing generator" name="synth.birds~" ref_view="object">
       <xi:include href="synth.birds~.pddoc" parse="xml"/>
     </entry>
@@ -978,6 +984,9 @@
     </entry>
     <entry descr="Jean Claude Risset's endless glissando" name="synth.risset_tone~" ref_view="object">
       <xi:include href="synth.risset_tone~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="Wurlitzer electric piano FM synthesis instrumentr" name="synth.wurley~" ref_view="object">
+      <xi:include href="synth.wurley~.pddoc" parse="xml"/>
     </entry>
   </category>
   <category name="system">

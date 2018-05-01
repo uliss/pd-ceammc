@@ -92,6 +92,7 @@ set(DOC_FILES
     flt.moog_vcf~
     flt.notch~
     flt.resonbp~
+    fluid~
     function
     function.call
     fx.distortion~
@@ -294,14 +295,16 @@ set(DOC_FILES
     symbol.equal
     symbol.length
     symbol.num_compare
-    synth.church_bell~
-    synth.risset_tone~
-    synth.risset_arp~
+    synth.bee3~
     synth.birds~
-    synth.marimba~
+    synth.church_bell~
+    synth.dubdub~
     synth.eguitar~
     synth.ks~
-    synth.dubdub~
+    synth.marimba~
+    synth.risset_arp~
+    synth.risset_tone~
+    synth.wurley~
     system.cursor
     system.getenv
     system.hostname

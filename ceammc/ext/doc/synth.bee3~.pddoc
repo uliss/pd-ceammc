@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="synth.bee3~">
+        <title>synth.synth.bee3~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Hammond-oid organ FM synthesis instrument</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>synth</category>
+            <keywords>hammond synth fm</keywords>
+            <since>0.6</since>
+        </meta>
+        <info>
+            <par>This class implements a simple 4 operator
+            topology, also referred to as algorithm 8 of
+            the TX81Z</par>
+        </info>
+        <properties>
+            <property name="@freq" type="float" minvalue="20" maxvalue="480" default="240">
+            maximum speed of whistles</property>
+            <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">
+            synth gate (&gt;0 - play)</property>
+            <property name="@op4" type="float" minvalue="0" maxvalue="127">
+            operator 4 (feedback) gain (cc2)</property>
+            <property name="@op3" type="float" minvalue="0" maxvalue="127">
+            operator 3 gain (cc4)</property>
+            <property name="@lfo_speed" type="float" minvalue="0" maxvalue="127">
+            LFO Speed (cc11)</property>
+            <property name="@lfo_depth" type="float" minvalue="0" maxvalue="127">
+            LFO Speed (cc1)</property>
+            <property name="@adsr" type="float" minvalue="0" maxvalue="127">
+            ADSR 2 &amp; 4 Target</property>
+        </properties>
+        <methods>
+            <method name="cc">Control change
+                <param name="CTL" type="int" required="true">control number</param>
+                <param name="VAL" type="float" required="true">value</param>
+            </method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo>control inlet</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio" />
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.keyboard]
+|
+|
+|
+|
+[unpack f f ]
+|          ^|
+[mtof]     [> 0]
+|          |
+|          [pipe]
+|          |
+[@freq $1( [@gate $1( [dump(
+|          |          |
+[synth.bee3~          ]
+|
+[ui.gain~ @size 120 16]  [ui.dsp~]
+| \
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
