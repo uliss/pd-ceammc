@@ -39,9 +39,20 @@ void StkSynth::setupDSP(t_signal** sp)
 void StkSynth::processBlock(const t_sample**, t_sample** out)
 {
     const size_t BS = blockSize();
+    const size_t N = synth_->channelsOut();
 
-    for (size_t i = 0; i < BS; i++)
-        out[0][i] = synth_->tick();
+    if (N == 1) {
+        for (size_t i = 0; i < BS; i++)
+            out[0][i] = synth_->tick();
+    } else {
+        for (size_t i = 0; i < BS; i++) {
+            out[0][i] = synth_->tick();
+
+            size_t T = std::min<size_t>(numOutputChannels(), N);
+            for (size_t j = 0; j < T; j++)
+                out[j][i] = synth_->lastFrame()[j];
+        }
+    }
 }
 
 AtomList StkSynth::propGate() const
