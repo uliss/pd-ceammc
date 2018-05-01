@@ -18,6 +18,7 @@
 - synth.ks~ (Karplus-Strong) added
 - synth.eguitar~ added
 - synth.church_bell~ added
+- synth.wurley~ added
 - fx.wahwah~ added
 - fx.echo~ added
 - fx.sdelay~ added
