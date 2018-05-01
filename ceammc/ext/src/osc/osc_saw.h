@@ -696,6 +696,10 @@ static t_class* saw_faust_class;
 #define FAUST_EXT_CLASS saw_faust_class
 // clang-format on
 
+template<class T>
+class _DspUI : public UI {};
+typedef _DspUI<saw> DspUI;
+
 struct t_faust_saw {
     t_object x_obj;
 #ifdef __MINGW32__
@@ -704,7 +708,7 @@ struct t_faust_saw {
     int fence; /* dummy field (not used) */
 #endif
     saw* dsp;
-    PdUI<UI>* ui;
+    PdUI<DspUI>* ui;
     int active, xfade, n_xfade, rate, n_in, n_out;
     t_sample **inputs, **outputs, **buf;
     t_outlet* out;
@@ -787,7 +791,7 @@ static void saw_faust_dsp(t_faust_saw* x, t_signal** sp)
 
     if (x->rate <= 0) {
         /* default sample rate is whatever Pd tells us */
-        PdUI<UI>* ui = x->ui;
+        PdUI<DspUI>* ui = x->ui;
         std::vector<FAUSTFLOAT> z = ui->uiValues();
         /* set the proper sample rate; this requires reinitializing the dsp */
         x->rate = sr;
@@ -842,7 +846,7 @@ static void saw_faust_any(t_faust_saw* x, t_symbol* s, int argc, t_atom* argv)
     if (!x->dsp)
         return;
 
-    PdUI<UI>* ui = x->ui;
+    PdUI<DspUI>* ui = x->ui;
     if (s == &s_bang) {
         ui->dumpUI(x->out);
     } else if (isGetAllProperties(s)) {
@@ -1002,7 +1006,7 @@ static bool faust_new_internal(t_faust_saw* x, const std::string& objId = "", bo
     x->n_xfade = static_cast<int>(sr * XFADE_TIME / 64);
 
     x->dsp = new saw();
-    x->ui = new PdUI<UI>(sym(saw), objId);
+    x->ui = new PdUI<DspUI>(sym(saw), objId);
 
     if (!faust_init_inputs(x)) {
         saw_faust_free(x);
