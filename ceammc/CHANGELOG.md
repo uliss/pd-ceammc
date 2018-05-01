@@ -20,6 +20,7 @@
 - synth.church_bell~ added
 - synth.wurley~ added
 - synth.bee3~ added
+- synth.rhodey~ added
 - fx.wahwah~ added
 - fx.echo~ added
 - fx.sdelay~ added
