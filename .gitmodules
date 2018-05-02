@@ -28,7 +28,7 @@
 	url = https://github.com/wjwwood/serial.git
 [submodule "ceammc/extra/speech/flite"]
 	path = ceammc/extra/speech/flite
-	url = https://github.com/festvox/flite.git
+	url = https://github.com/uliss/flite.git
 [submodule "ceammc/extra/fluidsynth/fluidsynth"]
 	path = ceammc/extra/fluidsynth/fluidsynth
 	url = https://github.com/FluidSynth/fluidsynth.git
