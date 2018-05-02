@@ -29,7 +29,7 @@ if(WIN32)
     check_include_files("windows.h;mmsystem.h" HAVE_MMSYSTEM_H)
 
     set(WINDOWS_SUPPORT ${HAVE_WINDOWS_H})
-#    set(WINDOWS_LIBS "dsound;winmm;ws2_32")
+    set(WINDOWS_LIBS "dsound;winmm;ws2_32")
 
     set(LIBFLUID_CPPFLAGS "-DFLUIDSYNTH_DLL_EXPORTS")
     set(FLUID_CPPFLAGS "-DFLUIDSYNTH_NOT_A_DLL")
@@ -140,6 +140,11 @@ set(libfluidsynth_SOURCES
     fluidsynth/src/bindings/fluid_cmd.h
     fluidsynth/src/bindings/fluid_filerenderer.c
 )
+
+if(WIN32 OR MINGW)
+    list(APPEND libfluidsynth_SOURCES fluidsynth/src/drivers/fluid_dsound.c)
+    list(APPEND libfluidsynth_SOURCES fluidsynth/src/drivers/fluid_winmidi.c)
+endif()
 
 set(public_HEADERS
     fluidsynth/include/fluidsynth/audio.h
