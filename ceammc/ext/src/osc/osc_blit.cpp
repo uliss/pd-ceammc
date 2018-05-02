@@ -45,6 +45,12 @@ void OscBlit::processBlock(const t_sample** in, t_sample** out)
     }
 }
 
+void OscBlit::setupDSP(t_signal** sp)
+{
+    SoundExternal::setupDSP(sp);
+    stk::Stk::setSampleRate(samplerate());
+}
+
 AtomList OscBlit::propFreq() const
 {
     return Atom(freq_);
