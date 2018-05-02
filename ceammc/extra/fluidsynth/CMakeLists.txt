@@ -183,7 +183,7 @@ add_library(fluidsynth STATIC
 )
 
 if(LIBFLUID_CPPFLAGS)
-    set_target_properties (libfluidsynth PROPERTIES COMPILE_FLAGS ${LIBFLUID_CPPFLAGS})
+    set_target_properties (fluidsynth PROPERTIES COMPILE_FLAGS ${LIBFLUID_CPPFLAGS})
 endif()
 
 target_link_libraries(fluidsynth
