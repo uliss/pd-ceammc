@@ -1,4 +1,4 @@
-set(STK_SOURCES 
+set(STK_SOURCES
     stk/src/ADSR.cpp
     stk/src/Asymp.cpp
     stk/src/BandedWG.cpp
@@ -77,9 +77,15 @@ set(STK_SOURCES
     stk/src/Whistle.cpp
     stk/src/Wurley.cpp
 )
-  
+
 include_directories(stk/include)
 add_library(stk STATIC ${STK_SOURCES})
+
+include(TestBigEndian)
+test_big_endian(STK_IS_BIG_ENDIAN)
+if(NOT STK_IS_BIG_ENDIAN)
+    add_definitions(-D__LITTLE_ENDIAN__)
+endif()
 
 file(GLOB _raw_waves "stk/rawwaves/*.raw")
 foreach(_w ${_raw_waves})
