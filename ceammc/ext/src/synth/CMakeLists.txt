@@ -1,6 +1,7 @@
 set(SYNTH_SOURCES)
 set(SYNTH_STK_SOURCES
     stksynth.cpp
+    synth_shakers.cpp
     synth_wurley.cpp
     synth_bthree.cpp
     synth_rhodey.cpp)

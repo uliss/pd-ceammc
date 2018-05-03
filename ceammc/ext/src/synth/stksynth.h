@@ -9,39 +9,42 @@ namespace stk {
 class Instrmnt;
 }
 
-class StkSynth : public SoundExternal {
+class StkBase : public SoundExternal {
 protected:
     stk::Instrmnt* synth_;
 
-private:
-    FloatPropertyMin* freq_;
-    t_float gate_;
-
 public:
-    StkSynth(const PdArgs& args, stk::Instrmnt* instr);
-    ~StkSynth() override;
+    StkBase(const PdArgs& args, stk::Instrmnt* instr);
+    ~StkBase() override;
 
     void setupDSP(t_signal** sp) override;
     void processBlock(const t_sample**, t_sample** out) override;
 
-    AtomList propGate() const;
-    void propSetGate(const AtomList& lst);
-
     void m_cc(t_symbol* s, const AtomList& lst);
-    t_float getCC(int n) const;
 
     template <class T>
     T* synth() { return static_cast<T*>(synth_); }
 };
 
+class StkSynth : public StkBase {
+    FloatPropertyMin* freq_;
+    t_float gate_;
+
+public:
+    StkSynth(const PdArgs& args, stk::Instrmnt* instr);
+
+    AtomList propGate() const;
+    void propSetGate(const AtomList& lst);
+};
+
 template <class T>
 class ControlChangeProperty : public Property {
-    StkSynth& synth_;
+    StkBase& synth_;
     int channel_;
     t_float value_;
 
 public:
-    ControlChangeProperty(const char* name, int ch, StkSynth& synth)
+    ControlChangeProperty(const char* name, int ch, StkBase& synth)
         : Property(name)
         , synth_(synth)
         , channel_(ch)

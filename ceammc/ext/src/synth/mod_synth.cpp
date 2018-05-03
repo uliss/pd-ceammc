@@ -3,6 +3,7 @@
 #include "synth_bthree.h"
 #include "synth_rhodey.h"
 #include "synth_wurley.h"
+#include "synth_shakers.h"
 
 extern "C" void setup_synth0x2erisset_tone_tilde();
 extern "C" void setup_synth0x2erisset_arp_tilde();
@@ -27,4 +28,5 @@ void ceammc_synth_setup()
     setup_synth_wurley();
     setup_synth_bthree();
     setup_synth_rhodey();
+    setup_synth_shakers();
 }

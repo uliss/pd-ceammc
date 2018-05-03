@@ -4,39 +4,30 @@
 
 #include "ceammc_convert.h"
 #include "stksynth.h"
-//#include "synth_bthree.h"
-//#include "synth_wurley.h"
 
 #include "stksynth_p.h"
 
 static t_symbol* SYM_CC = gensym("cc");
 
-StkSynth::StkSynth(const PdArgs& args, stk::Instrmnt* instr)
+StkBase::StkBase(const PdArgs& args, stk::Instrmnt* instr)
     : SoundExternal(args)
     , synth_(instr)
-    , freq_(nullptr)
-    , gate_(0)
 {
-    freq_ = new FloatPropertyMin("@freq", mtof(48), 0);
-    createProperty(freq_);
-
-    createCbProperty("@gate", &StkSynth::propGate, &StkSynth::propSetGate);
-
     createSignalOutlet();
 }
 
-StkSynth::~StkSynth()
+StkBase::~StkBase()
 {
     delete synth_;
 }
 
-void StkSynth::setupDSP(t_signal** sp)
+void StkBase::setupDSP(t_signal** sp)
 {
     SoundExternal::setupDSP(sp);
     stk::Stk::setSampleRate(samplerate());
 }
 
-void StkSynth::processBlock(const t_sample**, t_sample** out)
+void StkBase::processBlock(const t_sample**, t_sample** out)
 {
     const size_t BS = blockSize();
     const size_t N = synth_->channelsOut();
@@ -53,6 +44,17 @@ void StkSynth::processBlock(const t_sample**, t_sample** out)
                 out[j][i] = synth_->lastFrame()[j];
         }
     }
+}
+
+StkSynth::StkSynth(const PdArgs& args, stk::Instrmnt* instr)
+    : StkBase(args, instr)
+    , freq_(nullptr)
+    , gate_(0)
+{
+    freq_ = new FloatPropertyMin("@freq", mtof(48), 0);
+    createProperty(freq_);
+
+    createCbProperty("@gate", &StkSynth::propGate, &StkSynth::propSetGate);
 }
 
 AtomList StkSynth::propGate() const
@@ -77,7 +79,7 @@ void StkSynth::propSetGate(const AtomList& lst)
     gate_ = amp;
 }
 
-void StkSynth::m_cc(t_symbol* s, const AtomList& lst)
+void StkBase::m_cc(t_symbol* s, const AtomList& lst)
 {
     if (!checkArgs(lst, ARG_INT, ARG_FLOAT, s))
         return;
@@ -85,28 +87,9 @@ void StkSynth::m_cc(t_symbol* s, const AtomList& lst)
     int ctl_num = lst[0].asInt();
     stk::StkFloat ctl_val = lst[1].asFloat();
 
+    OBJ_DBG << lst;
+
     synth_->controlChange(ctl_num, ctl_val);
-}
-
-t_float StkSynth::getCC(int n) const
-{
-    // it's a hack
-    //    typedef StkFMSynth<SynthBThree> SB3;
-    //    typedef StkFMSynth<SynthWurley> SWurley;
-
-#define CAST(T) dynamic_cast<const T*>(synth_)
-#define FM_CC(T, n)                              \
-    {                                            \
-        if (CAST(T))                             \
-            return CAST(T)->getControlChange(n); \
-    }
-
-    //    FM_CC(SB3, n);
-    //    FM_CC(SWurley, n);
-
-#undef CAST
-
-    return -1;
 }
 
 class FreqGetter : public stk::SineWave {
