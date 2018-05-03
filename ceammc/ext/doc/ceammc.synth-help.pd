@@ -25,9 +25,11 @@ instrument;
 #X text 175 352 Jean Claude Risset's harmonic arpeggio effect;
 #X obj 30 379 synth.risset_tone~;
 #X text 175 379 Jean Claude Risset's endless glissando;
-#X obj 30 406 synth.wurley~;
-#X text 175 406 Wurlitzer electric piano FM synthesis instrumentr;
+#X obj 30 406 synth.shakers~;
+#X text 175 406 various percussion sounds from STK library;
+#X obj 30 433 synth.wurley~;
+#X text 175 433 Wurlitzer electric piano FM synthesis instrumentr;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::synth 20 20 0 20 -104026
 -4096 0;
-#X obj 1 458 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 468 library: ceammc;
+#X obj 1 460 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 470 library: ceammc;

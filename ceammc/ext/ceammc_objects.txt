@@ -308,6 +308,7 @@ noise.torus
 noise.verhulst
 noise.white~
 or
+osc.blit~
 osc.impulse~
 osc.pulse~
 osc.saw~
@@ -407,6 +408,7 @@ synth.marimba~
 synth.rhodey~
 synth.risset_arp~
 synth.risset_tone~
+synth.shakers~
 synth.wurley~
 system.getenv
 system.hostname

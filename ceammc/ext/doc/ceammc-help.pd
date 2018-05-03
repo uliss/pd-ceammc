@@ -743,106 +743,108 @@ instrument;
 #X text 175 10280 Jean Claude Risset's harmonic arpeggio effect;
 #X obj 30 10307 synth.risset_tone~;
 #X text 175 10307 Jean Claude Risset's endless glissando;
-#X obj 30 10334 synth.wurley~;
-#X text 175 10334 Wurlitzer electric piano FM synthesis instrumentr;
-#X obj 20 10361 cnv 5 68 31 empty empty system 4 13 0 17 -262144
+#X obj 30 10334 synth.shakers~;
+#X text 175 10334 various percussion sounds from STK library;
+#X obj 30 10361 synth.wurley~;
+#X text 175 10361 Wurlitzer electric piano FM synthesis instrumentr;
+#X obj 20 10388 cnv 5 68 31 empty empty system 4 13 0 17 -262144
 -49933 0;
-#X obj 20 10402 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 10413 system.cursor;
-#X text 175 10413 Get information about cursor motion \, mousewheel
+#X obj 20 10429 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 10440 system.cursor;
+#X text 175 10440 Get information about cursor motion \, mousewheel
 and buttonclick;
-#X obj 30 10450 system.getenv;
-#X text 175 10450 Get system environment variables;
-#X obj 30 10477 system.hostname;
-#X text 175 10477 outputs system hostname;
-#X obj 30 10504 system.memsize;
-#X text 175 10504 returns the size of physical memory (RAM) in bytes
+#X obj 30 10477 system.getenv;
+#X text 175 10477 Get system environment variables;
+#X obj 30 10504 system.hostname;
+#X text 175 10504 outputs system hostname;
+#X obj 30 10531 system.memsize;
+#X text 175 10531 returns the size of physical memory (RAM) in bytes
 round to float data type.;
-#X obj 30 10541 system.memused;
-#X text 175 10541 returns the process physical memory use - current
+#X obj 30 10568 system.memused;
+#X text 175 10568 returns the process physical memory use - current
 and peak;
-#X obj 30 10568 system.screen_size;
-#X text 175 10568 returns current screen size in pixels;
-#X obj 20 10595 cnv 5 28 31 empty empty ui 4 13 0 17 -262144 -49933 0;
-#X obj 20 10636 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 10650 ui.link @title [tl.bang] @url tl.bang-help.pd;
-#X text 175 10647 Timeline bang;
-#X obj 30 10673 ui.link @title [tl.cue] @url tl.cue-help.pd;
-#X text 175 10670 Timeline section;
-#X obj 30 10693 tl.transport;
-#X text 175 10693 Timeline transport control;
-#X obj 30 10723 ui.link @title [ui.bang] @url ui.bang-help.pd;
-#X text 175 10720 A bang... that's all;
-#X obj 30 10746 ui.link @title [ui.colorpanel] @url
+#X obj 30 10595 system.screen_size;
+#X text 175 10595 returns current screen size in pixels;
+#X obj 20 10622 cnv 5 28 31 empty empty ui 4 13 0 17 -262144 -49933 0;
+#X obj 20 10663 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 10677 ui.link @title [tl.bang] @url tl.bang-help.pd;
+#X text 175 10674 Timeline bang;
+#X obj 30 10700 ui.link @title [tl.cue] @url tl.cue-help.pd;
+#X text 175 10697 Timeline section;
+#X obj 30 10720 tl.transport;
+#X text 175 10720 Timeline transport control;
+#X obj 30 10750 ui.link @title [ui.bang] @url ui.bang-help.pd;
+#X text 175 10747 A bang... that's all;
+#X obj 30 10773 ui.link @title [ui.colorpanel] @url
 ui.colorpanel-help.pd;
-#X text 175 10743 colorchooser widget;
-#X obj 30 10769 ui.link @title [ui.display] @url ui.display-help.pd;
-#X text 175 10766 Display GUI object;
-#X obj 30 10792 ui.link @title [ui.dsp~] @url ui.dsp~-help.pd;
-#X text 175 10789 GUI for turning DSP on/off;
-#X obj 30 10815 ui.link @title [ui.env] @url ui.env-help.pd;
-#X text 175 10812 envelope editor widget;
-#X obj 30 10838 ui.link @title [ui.gain~] @url ui.gain~-help.pd;
-#X text 175 10835 UI gain control;
-#X obj 30 10861 ui.link @title [ui.icon] @url ui.icon-help.pd;
-#X text 175 10858 simple icon with button capabilities;
-#X obj 30 10884 ui.link @title [ui.incdec] @url ui.incdec-help.pd;
-#X text 175 10881 value increment/decrement;
-#X obj 30 10907 ui.link @title [ui.keyboard] @url ui.keyboard-help.pd;
-#X text 175 10904 keyboard widget;
-#X obj 30 10930 ui.link @title [ui.knob] @url ui.knob-help.pd;
-#X text 175 10927 knob widget;
-#X obj 30 10953 ui.link @title [ui.label] @url ui.label-help.pd;
-#X text 175 10950 simple label widget;
-#X obj 30 10976 ui.link @title [ui.link] @url ui.link-help.pd;
-#X text 175 10973 Hyperlink widget;
-#X obj 30 10999 ui.link @title [ui.matrix] @url ui.matrix-help.pd;
-#X text 175 10996 The matrix of toggles has you.;
-#X obj 30 11022 ui.link @title [ui.menu] @url ui.menu-help.pd;
-#X text 175 11019 Dropdown menu;
-#X obj 30 11045 ui.link @title [ui.meter~] @url ui.meter~-help.pd;
-#X text 175 11042 Shows peak and rms signal level;
-#X obj 30 11068 ui.link @title [ui.number] @url ui.number-help.pd;
-#X text 175 11065 counterpart of the vanilla [nbx];
-#X obj 30 11091 ui.link @title [ui.number~] @url ui.number~-help.pd;
-#X text 175 11088 counterpart of the vanilla [nbx] for signal;
-#X obj 30 11114 ui.link @title [ui.preset] @url ui.preset-help.pd;
-#X text 175 11111 Preset manager;
-#X obj 30 11137 ui.link @title [ui.radio] @url ui.radio-help.pd;
-#X text 175 11134 counterpart of the vanilla radio toggle;
-#X obj 30 11160 ui.link @title [ui.rslider] @url ui.rslider-help.pd;
-#X text 175 11157 rangle slider;
-#X obj 30 11183 ui.link @title [ui.scope~] @url ui.scope~-help.pd;
-#X text 175 11180 Scope GUI object;
-#X obj 30 11206 ui.link @title [ui.slider] @url ui.slider-help.pd;
-#X text 175 11203 counterpart of the vanilla slider;
-#X obj 30 11229 ui.link @title [ui.slider2d] @url ui.slider2d-help.pd;
-#X text 175 11226 2D slider widget;
-#X obj 30 11252 ui.link @title [ui.sliders] @url ui.sliders-help.pd;
-#X text 175 11249 Multiple slider widget;
-#X obj 30 11275 ui.link @title [ui.spectroscope~] @url
+#X text 175 10770 colorchooser widget;
+#X obj 30 10796 ui.link @title [ui.display] @url ui.display-help.pd;
+#X text 175 10793 Display GUI object;
+#X obj 30 10819 ui.link @title [ui.dsp~] @url ui.dsp~-help.pd;
+#X text 175 10816 GUI for turning DSP on/off;
+#X obj 30 10842 ui.link @title [ui.env] @url ui.env-help.pd;
+#X text 175 10839 envelope editor widget;
+#X obj 30 10865 ui.link @title [ui.gain~] @url ui.gain~-help.pd;
+#X text 175 10862 UI gain control;
+#X obj 30 10888 ui.link @title [ui.icon] @url ui.icon-help.pd;
+#X text 175 10885 simple icon with button capabilities;
+#X obj 30 10911 ui.link @title [ui.incdec] @url ui.incdec-help.pd;
+#X text 175 10908 value increment/decrement;
+#X obj 30 10934 ui.link @title [ui.keyboard] @url ui.keyboard-help.pd;
+#X text 175 10931 keyboard widget;
+#X obj 30 10957 ui.link @title [ui.knob] @url ui.knob-help.pd;
+#X text 175 10954 knob widget;
+#X obj 30 10980 ui.link @title [ui.label] @url ui.label-help.pd;
+#X text 175 10977 simple label widget;
+#X obj 30 11003 ui.link @title [ui.link] @url ui.link-help.pd;
+#X text 175 11000 Hyperlink widget;
+#X obj 30 11026 ui.link @title [ui.matrix] @url ui.matrix-help.pd;
+#X text 175 11023 The matrix of toggles has you.;
+#X obj 30 11049 ui.link @title [ui.menu] @url ui.menu-help.pd;
+#X text 175 11046 Dropdown menu;
+#X obj 30 11072 ui.link @title [ui.meter~] @url ui.meter~-help.pd;
+#X text 175 11069 Shows peak and rms signal level;
+#X obj 30 11095 ui.link @title [ui.number] @url ui.number-help.pd;
+#X text 175 11092 counterpart of the vanilla [nbx];
+#X obj 30 11118 ui.link @title [ui.number~] @url ui.number~-help.pd;
+#X text 175 11115 counterpart of the vanilla [nbx] for signal;
+#X obj 30 11141 ui.link @title [ui.preset] @url ui.preset-help.pd;
+#X text 175 11138 Preset manager;
+#X obj 30 11164 ui.link @title [ui.radio] @url ui.radio-help.pd;
+#X text 175 11161 counterpart of the vanilla radio toggle;
+#X obj 30 11187 ui.link @title [ui.rslider] @url ui.rslider-help.pd;
+#X text 175 11184 rangle slider;
+#X obj 30 11210 ui.link @title [ui.scope~] @url ui.scope~-help.pd;
+#X text 175 11207 Scope GUI object;
+#X obj 30 11233 ui.link @title [ui.slider] @url ui.slider-help.pd;
+#X text 175 11230 counterpart of the vanilla slider;
+#X obj 30 11256 ui.link @title [ui.slider2d] @url ui.slider2d-help.pd;
+#X text 175 11253 2D slider widget;
+#X obj 30 11279 ui.link @title [ui.sliders] @url ui.sliders-help.pd;
+#X text 175 11276 Multiple slider widget;
+#X obj 30 11302 ui.link @title [ui.spectroscope~] @url
 ui.spectroscope~-help.pd;
-#X text 175 11272 Spectroscope GUI object;
-#X obj 30 11298 ui.link @title [ui.tab] @url ui.tab-help.pd;
-#X text 175 11295 displays a list of text buttons or text toggles;
-#X obj 30 11321 ui.link @title [ui.toggle] @url ui.toggle-help.pd;
-#X text 175 11318 modern toggle widget;
-#X obj 20 11341 cnv 5 69 31 empty empty vector 4 13 0 17 -262144
+#X text 175 11299 Spectroscope GUI object;
+#X obj 30 11325 ui.link @title [ui.tab] @url ui.tab-help.pd;
+#X text 175 11322 displays a list of text buttons or text toggles;
+#X obj 30 11348 ui.link @title [ui.toggle] @url ui.toggle-help.pd;
+#X text 175 11345 modern toggle widget;
+#X obj 20 11368 cnv 5 69 31 empty empty vector 4 13 0 17 -262144
 -49933 0;
-#X obj 20 11382 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 11393 vector.distance;
-#X text 175 11393 returns euclidean distance between two points;
-#X obj 30 11420 vector.dot;
-#X text 175 11420 treats list of floats as vector \, returns the dot
+#X obj 20 11409 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 11420 vector.distance;
+#X text 175 11420 returns euclidean distance between two points;
+#X obj 30 11447 vector.dot;
+#X text 175 11447 treats list of floats as vector \, returns the dot
 product (sum of the elements of two lists with same indexes
 multiplied).;
-#X obj 30 11471 vector.length;
-#X text 175 11471 treats list of floats as vector \, returns vector
+#X obj 30 11498 vector.length;
+#X text 175 11498 treats list of floats as vector \, returns vector
 length: sqrt(element(1)^2 + ...element(n)^2).;
-#X obj 30 11508 vector.normalize;
-#X text 175 11508 returns normalized vector;
+#X obj 30 11535 vector.normalize;
+#X text 175 11535 returns normalized vector;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc 20 20 0 20 -104026 -4096 0;
-#X obj 1 11535 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 11535 version: v0.5 \, license: GPL3;
-#X obj 20 11554 ui.link @title https://github.com/uliss/pure-data @url
+#X obj 1 11562 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 11562 version: v0.5 \, license: GPL3;
+#X obj 20 11581 ui.link @title https://github.com/uliss/pure-data @url
 https://github.com/uliss/pure-data;

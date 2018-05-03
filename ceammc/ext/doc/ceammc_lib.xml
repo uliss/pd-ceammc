@@ -988,6 +988,9 @@
     <entry descr="Jean Claude Risset's endless glissando" name="synth.risset_tone~" ref_view="object">
       <xi:include href="synth.risset_tone~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="various percussion sounds from STK library" name="synth.shakers~" ref_view="object">
+      <xi:include href="synth.shakers~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="Wurlitzer electric piano FM synthesis instrumentr" name="synth.wurley~" ref_view="object">
       <xi:include href="synth.wurley~.pddoc" parse="xml"/>
     </entry>

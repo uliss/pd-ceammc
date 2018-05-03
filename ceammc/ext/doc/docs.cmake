@@ -305,6 +305,7 @@ set(DOC_FILES
     synth.rhodey~
     synth.risset_arp~
     synth.risset_tone~
+    synth.shakers~
     synth.wurley~
     system.cursor
     system.getenv
