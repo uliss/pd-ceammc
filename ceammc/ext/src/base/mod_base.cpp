@@ -31,6 +31,7 @@ extern "C" void setup_reject0x2eif();
 extern "C" void setup_snd0x2efile();
 extern "C" void setup_test0x2edata();
 extern "C" void setup_test0x2eexpect();
+extern "C" void setup_prop0x2eget_tilde();
 
 void ceammc_base_setup()
 {
@@ -65,4 +66,6 @@ void ceammc_base_setup()
     setup_patch_args();
     setup_canvas_top();
     setup_gain_tilde();
+
+    setup_prop0x2eget_tilde();
 }

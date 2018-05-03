@@ -7,6 +7,7 @@ set(BASE_SOURCES
     msg.cpp
     prop.get.cpp
     prop.set.cpp
+    prop.get_tilde.cpp
     patch_args.cpp
     canvas_current.cpp
     canvas_top.cpp
