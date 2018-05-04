@@ -36,12 +36,14 @@
 - gain~ added
 - speech.flite added
 - fluid~ (FluidSynth) added
+- prop.get~ (prop~>, @~>) added
 
 ### Changed:
 - migration to Faust v2
 - flt.hpf12~, flt.hpf24~, flt.lpf12~, flt.lpf24~ @q property removed
 
 ### Fixed:
+- ui.keyboard fixed on glissando (lowest note played between keys)
 
 ## [0.5]
 ### Added:

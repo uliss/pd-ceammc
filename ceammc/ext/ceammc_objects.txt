@@ -1,3 +1,4 @@
+@~>
 _tcl.version
 amp->dbfs
 and
@@ -336,8 +337,10 @@ preset.storage
 preset.symbol
 prop->
 prop.get
+prop.get~
 prop.set
 prop<-
+prop~>
 proto.firmata
 random.discrete
 random.float
@@ -403,6 +406,7 @@ synth.birds~
 synth.church_bell~
 synth.dubdub~
 synth.eguitar~
+synth.fgrain~
 synth.ks~
 synth.marimba~
 synth.rhodey~

@@ -3,9 +3,9 @@
 #X obj 245 50 cnv 1 450 21 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 245 50 STK Fender Rhodes electric piano FM synthesis
 instrument;
-#X obj 1 1 cnv 5 712 40 empty empty synth.synth.rhodey~ 20 20 0 20
--104026 -4096 0;
-#X obj 549 11 synth.synth.rhodey~;
+#X obj 1 1 cnv 5 712 40 empty empty synth.rhodey~ 20 20 0 20 -104026
+-4096 0;
+#X obj 592 11 synth.rhodey~;
 #X obj 205 80 cnv 1 490 47 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 210 80 This class implements two simple FM Pairs summed
 together \, also referred to as algorithm 5 of the TX81Z;
@@ -78,7 +78,7 @@ range: 0-127;
 #X text 10 32 version:;
 #X text 120 32 0.5;
 #X text 10 54 object:;
-#X text 120 54 synth.synth.rhodey~;
+#X text 120 54 synth.rhodey~;
 #X text 10 76 category:;
 #X text 120 76 synth;
 #X text 10 98 since:;

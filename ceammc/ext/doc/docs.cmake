@@ -259,6 +259,7 @@ set(DOC_FILES
     preset.symbol
     proto.firmata
     prop.get
+    prop.get~
     prop.set
     random.float
     random.gauss
