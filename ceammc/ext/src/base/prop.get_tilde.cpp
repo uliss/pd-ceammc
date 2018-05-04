@@ -1,6 +1,7 @@
 #include "ceammc_atomlist.h"
 #include "ceammc_log.h"
 
+#include <algorithm>
 #include <cassert>
 #include <m_pd.h>
 #include <string>
