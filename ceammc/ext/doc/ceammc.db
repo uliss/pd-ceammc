@@ -258,7 +258,7 @@ preset.float		.		.
 preset.list		.		.
 preset.storage		.		.
 preset.symbol		.		.
-prop.get,prop->		.		?
+prop.get,prop->,@->		.		?
 prop.get~,prop~>,@~>		~		?
 prop.set,prop<-		?		.
 proto.firmata		.		.

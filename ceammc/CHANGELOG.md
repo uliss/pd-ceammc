@@ -37,6 +37,7 @@
 - speech.flite added
 - fluid~ (FluidSynth) added
 - prop.get~ (prop~>, @~>) added
+- prop.get alias added (@->)
 
 ### Changed:
 - migration to Faust v2
