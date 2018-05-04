@@ -13,23 +13,25 @@
 resonant lowpass;
 #X obj 30 234 synth.eguitar~;
 #X text 175 234 simple electric guitar model with steel strings;
-#X obj 30 261 synth.ks~;
-#X text 175 261 Karplus-Strong string;
-#X obj 30 288 synth.marimba~;
-#X text 175 288 simple marimba physical model implementing a single
+#X obj 30 261 synth.fgrain~;
+#X text 175 261 file granulator from STK;
+#X obj 30 288 synth.ks~;
+#X text 175 288 Karplus-Strong string;
+#X obj 30 315 synth.marimba~;
+#X text 175 315 simple marimba physical model implementing a single
 tone bar connected to tube;
-#X obj 30 325 synth.rhodey~;
-#X text 175 325 STK Fender Rhodes electric piano FM synthesis
+#X obj 30 352 synth.rhodey~;
+#X text 175 352 STK Fender Rhodes electric piano FM synthesis
 instrument;
-#X obj 30 352 synth.risset_arp~;
-#X text 175 352 Jean Claude Risset's harmonic arpeggio effect;
-#X obj 30 379 synth.risset_tone~;
-#X text 175 379 Jean Claude Risset's endless glissando;
-#X obj 30 406 synth.shakers~;
-#X text 175 406 various percussion sounds from STK library;
-#X obj 30 433 synth.wurley~;
-#X text 175 433 Wurlitzer electric piano FM synthesis instrumentr;
+#X obj 30 379 synth.risset_arp~;
+#X text 175 379 Jean Claude Risset's harmonic arpeggio effect;
+#X obj 30 406 synth.risset_tone~;
+#X text 175 406 Jean Claude Risset's endless glissando;
+#X obj 30 433 synth.shakers~;
+#X text 175 433 various percussion sounds from STK library;
+#X obj 30 460 synth.wurley~;
+#X text 175 460 Wurlitzer electric piano FM synthesis instrumentr;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::synth 20 20 0 20 -104026
 -4096 0;
-#X obj 1 460 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 470 library: ceammc;
+#X obj 1 487 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 497 library: ceammc;

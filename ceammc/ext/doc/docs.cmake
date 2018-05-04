@@ -301,6 +301,7 @@ set(DOC_FILES
     synth.church_bell~
     synth.dubdub~
     synth.eguitar~
+    synth.fgrain~
     synth.ks~
     synth.marimba~
     synth.rhodey~

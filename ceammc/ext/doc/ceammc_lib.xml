@@ -976,6 +976,9 @@
     <entry descr="simple electric guitar model with steel strings" name="synth.eguitar~" ref_view="object">
       <xi:include href="synth.eguitar~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="file granulator from STK" name="synth.fgrain~" ref_view="object">
+      <xi:include href="synth.fgrain~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="Karplus-Strong string" name="synth.ks~" ref_view="object">
       <xi:include href="synth.ks~.pddoc" parse="xml"/>
     </entry>
