@@ -23,19 +23,23 @@
             </inlet>
         </inlets>
         <methods>
-            <method name="note">play note (CHANNEL, KEY, VELOCITY or KEY, VELOCITY expected)</method>
+            <method name="note">play note (CHANNEL, KEY, VELOCITY or KEY, VELOCITY
+            expected)</method>
             <method name="cc">control change (CHANNEL, KEY, VALUE or KEY, VALUE expected)</method>
             <method name="prog">program change (CHANNEL, PROGRAM expected)</method>
-            <method name="bank">set instrument bank number on a MIDI channel (CHANNEL, BANK expected)</method>
+            <method name="bank">set instrument bank number on a MIDI channel (CHANNEL, BANK
+            expected)</method>
             <method name="bend">pitchband change (CHANNEL, VALUE expected)</method>
-            <method name="gen">set a SoundFont generator (effect) value on a MIDI channel in real-time
-            (CHANNEL, PARAM, VALUE or PARAM, VALUE expected)</method>
-            <method name="panic">send MIDI system reset command (big red 'panic' button), turns off notes, resets
-            controllers and restores initial basic channel configuration</method>
+            <method name="gen">set a SoundFont generator (effect) value on a MIDI channel in
+            real-time (CHANNEL, PARAM, VALUE or PARAM, VALUE expected)</method>
+            <method name="panic">send MIDI system reset command (big red 'panic' button), turns off
+            notes, resets controllers and restores initial basic channel configuration</method>
             <method name="reset">reset all synth channels</method>
-            <method name="notes_off">turn off all notes on a MIDI channel (put them into release phase)
+            <method name="notes_off">turn off all notes on a MIDI channel (put them into release
+            phase) 
             <param name="CHAN" type="int" default="0">MIDI channel</param></method>
-            <method name="sounds_off">immediately stop all notes on a MIDI channel (skips release phase).
+            <method name="sounds_off">immediately stop all notes on a MIDI channel (skips release
+            phase). 
             <param name="CHAN" type="int" default="0">MIDI channel</param></method>
         </methods>
         <outlets>

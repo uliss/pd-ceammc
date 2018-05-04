@@ -14,29 +14,27 @@
             <since>0.6</since>
         </meta>
         <info>
-            <par>PhISEM (Physically Informed Stochastic Event Modeling) is an
-            algorithmic approach for simulating collisions of multiple
-            independent sound producing objects.  This class is a meta-model
-            that can simulate a Maraca, Sekere, Cabasa, Bamboo Wind Chimes,
-            Water Drops, Tambourine, Sleighbells, and a Guiro.</par>
-
-            <par>PhOLIES (Physically-Oriented Library of Imitated Environmental
-            Sounds) is a similar approach for the synthesis of environmental
-            sounds.  This class implements simulations of breaking sticks,
-            crunchy snow (or not), a wrench, sandpaper, and more.</par>
+            <par>PhISEM (Physically Informed Stochastic Event Modeling) is an algorithmic approach
+            for simulating collisions of multiple independent sound producing objects. This class
+            is a meta-model that can simulate a Maraca, Sekere, Cabasa, Bamboo Wind Chimes, Water
+            Drops, Tambourine, Sleighbells, and a Guiro.</par>
+            <par>PhOLIES (Physically-Oriented Library of Imitated Environmental Sounds) is a
+            similar approach for the synthesis of environmental sounds. This class implements
+            simulations of breaking sticks, crunchy snow (or not), a wrench, sandpaper, and
+            more.</par>
         </info>
         <properties>
-            <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">
-            synth gate (&gt;0 - play)</property>
-            <property name="@type" type="symbol" enum="maraca cabasa sekere tambourine sleigh_bells bamboo_chimes sand_paper coke_can sticks crunch big_rocks little_rocks next_mug penny_mug nickle_mug dime_mug quarter_mug franc_mug peso_mug guiro wrench water_drops tuned_bamboo_chimes"
+            <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">synth gate
+            (&gt;0 - play)</property>
+            <property name="@type" type="symbol"
+            enum="maraca cabasa sekere tambourine sleigh_bells bamboo_chimes sand_paper coke_can sticks crunch big_rocks little_rocks next_mug penny_mug nickle_mug dime_mug quarter_mug franc_mug peso_mug guiro wrench water_drops tuned_bamboo_chimes"
             default="maraca">instrument type</property>
             <property name="@types" type="list" readonly="true">all instrument types</property>
         </properties>
         <methods>
-            <method name="cc">Control change
-                <param name="CTL" type="int" required="true">control number</param>
-                <param name="VAL" type="float" required="true">value</param>
-            </method>
+            <method name="cc">Control change 
+            <param name="CTL" type="int" required="true">control number</param>
+            <param name="VAL" type="float" required="true">value</param></method>
         </methods>
         <inlets>
             <inlet>

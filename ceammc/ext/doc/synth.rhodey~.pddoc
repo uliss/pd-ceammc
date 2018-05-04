@@ -6,8 +6,7 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>STK Fender Rhodes electric piano FM
-            synthesis instrument</description>
+            <description>STK Fender Rhodes electric piano FM synthesis instrument</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>synth</category>
@@ -15,31 +14,29 @@
             <since>0.6</since>
         </meta>
         <info>
-            <par>This class implements two simple FM Pairs
-            summed together, also referred to as algorithm
-            5 of the TX81Z</par>
+            <par>This class implements two simple FM Pairs summed together, also referred to as
+            algorithm 5 of the TX81Z</par>
         </info>
         <properties>
-            <property name="@freq" type="float" minvalue="20" maxvalue="480" default="240">
-            maximum speed of whistles</property>
-            <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">
-            synth gate (&gt;0 - play)</property>
-            <property name="@mod" type="float" minvalue="0" maxvalue="127">
-            modulator index one (cc2)</property>
-            <property name="@xfade" type="float" minvalue="0" maxvalue="127">
-            crossfade of outputs (cc4)</property>
-            <property name="@lfo_speed" type="float" minvalue="0" maxvalue="127">
-            LFO Speed (cc11)</property>
-            <property name="@lfo_depth" type="float" minvalue="0" maxvalue="127">
-            LFO Speed (cc1)</property>
-            <property name="@adsr" type="float" minvalue="0" maxvalue="127">
-            ADSR 2 &amp; 4 Target</property>
+            <property name="@freq" type="float" minvalue="20" maxvalue="480" default="240">maximum
+            speed of whistles</property>
+            <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">synth gate
+            (&gt;0 - play)</property>
+            <property name="@mod" type="float" minvalue="0" maxvalue="127">modulator index one
+            (cc2)</property>
+            <property name="@xfade" type="float" minvalue="0" maxvalue="127">crossfade of outputs
+            (cc4)</property>
+            <property name="@lfo_speed" type="float" minvalue="0" maxvalue="127">LFO Speed
+            (cc11)</property>
+            <property name="@lfo_depth" type="float" minvalue="0" maxvalue="127">LFO Speed
+            (cc1)</property>
+            <property name="@adsr" type="float" minvalue="0" maxvalue="127">ADSR 2 &amp; 4
+            Target</property>
         </properties>
         <methods>
-            <method name="cc">Control change
-                <param name="CTL" type="int" required="true">control number</param>
-                <param name="VAL" type="float" required="true">value</param>
-            </method>
+            <method name="cc">Control change 
+            <param name="CTL" type="int" required="true">control number</param>
+            <param name="VAL" type="float" required="true">value</param></method>
         </methods>
         <inlets>
             <inlet>

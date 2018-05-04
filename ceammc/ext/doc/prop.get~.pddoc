@@ -21,8 +21,8 @@
             </also>
         </meta>
         <info>
-            <par>Extracts properties from sound stream with matching. Non property values are passed
-            untouched.</par>
+            <par>Extracts properties from sound stream with matching. Non property values are
+            passed untouched.</par>
         </info>
         <inlets>
             <inlet type="audio">
