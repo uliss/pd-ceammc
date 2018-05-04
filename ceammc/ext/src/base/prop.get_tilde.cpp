@@ -1,7 +1,7 @@
 #include "ceammc_atomlist.h"
 #include "ceammc_log.h"
 
-#include <boost/unordered_map.hpp>
+#include <cassert>
 #include <m_pd.h>
 #include <string>
 #include <vector>
@@ -9,79 +9,106 @@
 #define MSG_PREFIX "[prop~>] "
 
 using namespace ceammc;
-typedef boost::unordered_map<t_symbol*, t_outlet*> OutletIndexMap;
+typedef std::pair<t_symbol*, t_outlet*> OutletPair;
+typedef std::vector<OutletPair> OutletList;
 
 static t_class* prop_get_tilde_class;
 struct t_prop_tilde {
     t_object x_obj;
-    OutletIndexMap* prop_map;
+    OutletList* outlet_list;
     t_outlet* all_prop;
     t_float f;
 };
 
 static void prop_get_dump(t_prop_tilde* x)
 {
-    OutletIndexMap::iterator it;
-    for (it = x->prop_map->begin(); it != x->prop_map->end(); ++it)
-        post(MSG_PREFIX "dump: property %s", it->first->s_name);
+    for (auto& p : *x->outlet_list)
+        post(MSG_PREFIX "dump: property %s", p.first->s_name);
 }
 
 static inline void add_prop_map(t_prop_tilde* x, t_symbol* s)
 {
-    t_outlet* out = outlet_new(&x->x_obj, &s_list);
-    (*x->prop_map)[s] = out;
+    x->outlet_list->push_back(std::make_pair(s, outlet_new(&x->x_obj, &s_list)));
 }
 
 static inline t_outlet* get_prop_tilde_outlet(t_prop_tilde* x, t_symbol* sel)
 {
-    OutletIndexMap::iterator it = x->prop_map->find(sel);
-    return it == x->prop_map->end() ? 0 : it->second;
+    auto it = std::find_if(
+        x->outlet_list->begin(),
+        x->outlet_list->end(),
+        [&sel](const OutletList::value_type& el) { return el.first == sel; });
+
+    return it == x->outlet_list->end() ? 0 : it->second;
 }
+
+static bool is_property(t_symbol* s) { return s->s_name[0] == '@'; }
+static bool is_property(t_atom* a) { return (a->a_type == A_SYMBOL || a->a_type == A_DEFSYM) && is_property(a->a_w.w_symbol); }
 
 static void prop_get_anything(t_prop_tilde* x, t_symbol* s, int argc, t_atom* argv)
 {
     // pass thru non-properties
-    if (s->s_name[0] != '@') {
+    if (!is_property(s)) {
         outlet_anything(x->x_obj.te_outlet, s, argc, argv);
         return;
     }
 
-    AtomList args(argc, argv);
-    args.insert(0, s);
-    AtomList unmatched;
+    t_symbol* prev_prop = s;
+    int k = 0;
+    for (int i = 0; i < argc; i++) {
+        if (is_property(&argv[i])) {
+            // outlet to prev property
+            t_outlet* out = get_prop_tilde_outlet(x, prev_prop);
 
-    std::deque<AtomList> props = args.properties();
-    for (size_t i = 0; i < props.size(); i++) {
-        // get mapped to property outlet
-        t_outlet* prop_out = get_prop_tilde_outlet(x, props[i].first()->asSymbol());
-        if (prop_out != 0) {
-            props[i].slice(1).output(prop_out);
-        } else
-            unmatched.append(props[i]);
+            // invariant
+            assert(k <= i);
+
+            // unknown property
+            if (!out)
+                outlet_anything(x->all_prop, prev_prop, i - k, argv + k);
+            else
+                outlet_anything(out, prev_prop, i - k, argv + k);
+
+            // update property index
+            k = i + 1;
+            prev_prop = atom_getsymbol(&argv[i]);
+        }
     }
 
-    if (!unmatched.empty())
-        unmatched.outputAsAny(x->all_prop);
+    // invariant
+    assert(k <= argc);
+
+    // output last property
+    t_outlet* out = get_prop_tilde_outlet(x, prev_prop);
+    // unknown property
+    if (!out)
+        outlet_anything(x->all_prop, prev_prop, argc - k, argv + k);
+    else
+        outlet_anything(out, prev_prop, argc - k, argv + k);
 }
 
 static void* prop_get_new(t_symbol*, int argc, t_atom* argv)
 {
     t_prop_tilde* x = reinterpret_cast<t_prop_tilde*>(pd_new(prop_get_tilde_class));
+
+    // main signal
     outlet_new(&x->x_obj, &s_signal);
-    x->prop_map = new OutletIndexMap;
+    x->outlet_list = new OutletList;
 
-    // use only symbol started from '@'
-    AtomList args = AtomList(argc, argv).filtered(isProperty);
-    for (size_t i = 0; i < args.size(); i++)
-        add_prop_map(x, args.at(i).asSymbol());
+    for (int i = 0; i < argc; i++) {
+        if (!is_property(&argv[i]))
+            continue;
 
+        add_prop_map(x, atom_getsymbol(&argv[i]));
+    }
+
+    // last outlet
     x->all_prop = outlet_new(&x->x_obj, &s_anything);
     return static_cast<void*>(x);
 }
 
 static void prop_get_free(t_prop_tilde* x)
 {
-    delete x->prop_map;
+    delete x->outlet_list;
 
     if (x->all_prop)
         outlet_free(x->all_prop);
@@ -89,12 +116,12 @@ static void prop_get_free(t_prop_tilde* x)
 
 static t_int* prop_dsp_perform(t_int* w)
 {
-    t_sample* in1 = (t_sample*)(w[1]);
+    t_sample* in = (t_sample*)(w[1]);
     t_sample* out = (t_sample*)(w[2]);
     int n = (int)(w[3]);
 
     while (n-- > 0)
-        *out++ = (*in1++);
+        *out++ = (*in++);
 
     return (w + 4);
 }
@@ -111,6 +138,7 @@ extern "C" void setup_prop0x2eget_tilde()
         reinterpret_cast<t_method>(prop_get_free),
         sizeof(t_prop_tilde), 0, A_GIMME, A_NULL);
     class_addcreator(reinterpret_cast<t_newmethod>(prop_get_new), gensym("prop~>"), A_GIMME, A_NULL);
+    class_addcreator(reinterpret_cast<t_newmethod>(prop_get_new), gensym("@~>"), A_GIMME, A_NULL);
     class_addanything(prop_get_tilde_class, prop_get_anything);
 
     class_addmethod(prop_get_tilde_class, reinterpret_cast<t_method>(prop_setup_dsp), gensym("dsp"), A_CANT);
