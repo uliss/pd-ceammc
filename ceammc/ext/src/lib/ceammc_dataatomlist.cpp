@@ -14,6 +14,8 @@
 #include "ceammc_dataatomlist.h"
 #include "ceammc_format.h"
 
+#include <algorithm>
+
 namespace ceammc {
 
 DataAtomList::DataAtomList()
@@ -98,7 +100,36 @@ bool DataAtomList::operator==(const DataAtomList& l) const
     return true;
 }
 
-std::ostream& operator<<(std::ostream& os, const DataAtomList& l)
+bool DataAtomList::contains(const DataPtr& p) const
+{
+    return std::find_if(begin(), end(),
+               [&](const value_type& v) { return v == DataAtom(p); })
+        != end();
+}
+
+bool DataAtomList::contains(const DataAtom& p) const
+{
+    return std::find_if(begin(), end(),
+               [&](const value_type& v) { return v == p; })
+        != end();
+}
+
+bool DataAtomList::contains(const Atom& p) const
+{
+    return std::find_if(begin(), end(),
+               [&](const value_type& v) { return v == DataAtom(p); })
+        != end();
+}
+
+bool DataAtomList::contains(const AtomList& p) const
+{
+    return std::search(begin(), end(), p.begin(), p.end(),
+               [](const value_type& v1, const Atom& v2) { return v1 == DataAtom(v2); })
+        != end();
+}
+
+std::ostream&
+operator<<(std::ostream& os, const DataAtomList& l)
 {
     for (size_t i = 0; i < l.size(); i++) {
         if (i != 0)

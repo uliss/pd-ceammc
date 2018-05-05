@@ -75,4 +75,41 @@ TEST_CASE("DataAtomList", "[ceammc::DataAtomList]")
         const DataAtomList& l = lst;
         REQUIRE(l[0].toAtom() == A(123));
     }
+
+    SECTION("contains")
+    {
+        DataAtomList lst;
+        REQUIRE_FALSE(lst.contains(Atom(10)));
+        REQUIRE_FALSE(lst.contains(DataAtom(gensym("sdf"))));
+
+        REQUIRE_FALSE(lst.contains(new IntData(123)));
+
+        lst.append(100);
+        REQUIRE_FALSE(lst.contains(Atom(10)));
+        REQUIRE_FALSE(lst.contains(DataAtom(gensym("sdf"))));
+        REQUIRE_FALSE(lst.contains(new IntData(123)));
+
+        REQUIRE(lst.contains(Atom(100)));
+        REQUIRE_FALSE(lst.contains(DataAtom(gensym("100"))));
+        REQUIRE_FALSE(lst.contains(new IntData(100)));
+
+        lst.append(new IntData(444));
+        REQUIRE(lst.contains(new IntData(444)));
+        REQUIRE_FALSE(lst.contains(Atom(444)));
+
+        DataAtom int444(new IntData(444));
+        REQUIRE(lst.contains(int444));
+
+        REQUIRE(lst.contains(L2(100, int444.toAtom())));
+
+        // 100, INT(444)
+        lst.append(Atom(gensym("a")));
+        lst.append(Atom(gensym("b")));
+        lst.append(Atom(gensym("c")));
+
+        REQUIRE(lst.contains(Atom(gensym("b"))));
+        REQUIRE(lst.contains(L2("a", "b")));
+        REQUIRE(lst.contains(L2("b", "c")));
+        REQUIRE_FALSE(lst.contains(L2("a", "c")));
+    }
 }

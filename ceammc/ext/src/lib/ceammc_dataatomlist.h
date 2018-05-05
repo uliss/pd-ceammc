@@ -43,6 +43,22 @@ public:
     AtomList toList() const;
 
     bool operator==(const DataAtomList& l) const;
+
+public:
+    typedef std::vector<DataAtom>::iterator iterator;
+    typedef std::vector<DataAtom>::const_iterator const_iterator;
+    typedef std::vector<DataAtom>::value_type value_type;
+
+    const_iterator begin() const { return list_.begin(); }
+    const_iterator end() const { return list_.end(); }
+
+    iterator begin() { return list_.begin(); }
+    iterator end() { return list_.end(); }
+
+    bool contains(const DataPtr& p) const;
+    bool contains(const DataAtom& p) const;
+    bool contains(const Atom& p) const;
+    bool contains(const AtomList& p) const;
 };
 
 std::ostream& operator<<(std::ostream& os, const DataAtomList& l);
