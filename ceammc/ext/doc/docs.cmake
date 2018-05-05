@@ -131,6 +131,7 @@ set(DOC_FILES
     list.apply_to
     list.at
     list.choice
+    list.contains
     list.count
     list.count_if
     list.deinterleave

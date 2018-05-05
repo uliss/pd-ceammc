@@ -38,6 +38,7 @@
 - fluid~ (FluidSynth) added
 - prop.get~ (prop~>, @~>) added
 - prop.get alias added (@->)
+- list.contains added
 
 ### Changed:
 - migration to Faust v2

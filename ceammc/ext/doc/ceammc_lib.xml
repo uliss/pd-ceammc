@@ -415,6 +415,9 @@
     <entry descr="returns random element from list" name="list.choice" ref_view="object">
       <xi:include href="list.choice.pddoc" parse="xml"/>
     </entry>
+    <entry descr="checks if atom, data or list contains in list" name="list.contains" ref_view="object">
+      <xi:include href="list.contains.pddoc" parse="xml"/>
+    </entry>
     <entry descr="returns the number of items that equal to specified value" name="list.count" ref_view="object">
       <xi:include href="list.count.pddoc" parse="xml"/>
     </entry>

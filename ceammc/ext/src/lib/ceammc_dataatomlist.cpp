@@ -102,6 +102,7 @@ bool DataAtomList::operator==(const DataAtomList& l) const
 
 bool DataAtomList::contains(const DataPtr& p) const
 {
+    post("data");
     return std::find_if(begin(), end(),
                [&](const value_type& v) { return v == DataAtom(p); })
         != end();

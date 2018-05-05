@@ -40,6 +40,8 @@ void ListContains::onList(const AtomList& lst)
 
 void ListContains::onData(const DataPtr& ptr)
 {
+    OBJ_DBG << lst_;
+    OBJ_DBG << ptr->toString();
     output(lst_.contains(ptr));
 }
 
@@ -56,4 +58,5 @@ void ListContains::output(bool v)
 void setup_list_contains()
 {
     ObjectFactory<ListContains> obj("list.contains");
+    obj.processData();
 }

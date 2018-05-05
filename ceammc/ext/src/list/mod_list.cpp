@@ -112,4 +112,5 @@ void ceammc_list_setup()
 
     setup_list_route();
     setup_list_reduce();
+    setup_list_contains();
 }
