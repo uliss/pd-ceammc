@@ -102,35 +102,73 @@ bool DataAtomList::operator==(const DataAtomList& l) const
 
 bool DataAtomList::contains(const DataPtr& p) const
 {
-    post("data");
-    return std::find_if(begin(), end(),
-               [&](const value_type& v) { return v == DataAtom(p); })
-        != end();
+    return search(p) >= 0;
 }
 
 bool DataAtomList::contains(const DataAtom& p) const
 {
-    return std::find_if(begin(), end(),
-               [&](const value_type& v) { return v == p; })
-        != end();
+    return search(p) >= 0;
 }
 
 bool DataAtomList::contains(const Atom& p) const
 {
-    return std::find_if(begin(), end(),
-               [&](const value_type& v) { return v == DataAtom(p); })
-        != end();
+    return search(p) >= 0;
 }
 
 bool DataAtomList::contains(const AtomList& p) const
 {
-    return std::search(begin(), end(), p.begin(), p.end(),
-               [](const value_type& v1, const Atom& v2) { return v1 == DataAtom(v2); })
-        != end();
+    return search(p) >= 0;
 }
 
-std::ostream&
-operator<<(std::ostream& os, const DataAtomList& l)
+template <class T, class U>
+long search_list(const DataAtomList::container& lst, const T& needle, size_t from, size_t to, U pred)
+{
+    if (from >= lst.size())
+        return -1;
+
+    to = std::min<size_t>(to, lst.size());
+
+    if (from >= to)
+        return -1;
+
+    auto it = std::find_if(lst.begin() + from, lst.begin() + to, pred);
+    return it == lst.end() ? -1 : std::distance(lst.begin(), it);
+}
+
+long DataAtomList::search(const Atom& p, size_t from, size_t to) const
+{
+    return search_list(list_, p, from, to, [&](const value_type& v) { return v == DataAtom(p); });
+}
+
+long DataAtomList::search(const DataPtr& p, size_t from, size_t to) const
+{
+    return search_list(list_, p, from, to, [&](const value_type& v) { return v == DataAtom(p); });
+}
+
+long DataAtomList::search(const DataAtom& p, size_t from, size_t to) const
+{
+    return search_list(list_, p, from, to, [&](const value_type& v) { return v == p; });
+}
+
+long DataAtomList::search(const AtomList& p, size_t from, size_t to) const
+{
+    if (p.empty())
+        return -1;
+
+    if (from >= list_.size())
+        return -1;
+
+    to = std::min<size_t>(to, list_.size());
+
+    if (from >= to)
+        return -1;
+
+    auto it = std::search(begin() + from, begin() + to, p.begin(), p.end(),
+        [](const value_type& v1, const Atom& v2) { return v1 == DataAtom(v2); });
+    return it == end() ? -1 : std::distance(begin(), it);
+}
+
+std::ostream& operator<<(std::ostream& os, const DataAtomList& l)
 {
     for (size_t i = 0; i < l.size(); i++) {
         if (i != 0)

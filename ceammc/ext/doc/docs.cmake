@@ -143,6 +143,7 @@ set(DOC_FILES
     list.equal
     list.first
     list.gen
+    list.index
     list.histogram
     list.integrator
     list.interleave

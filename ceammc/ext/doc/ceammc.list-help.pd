@@ -46,82 +46,84 @@ floats and the previous one.;
 generator;
 #X obj 30 615 list.histogram;
 #X text 175 615 outputs distibution histogram;
-#X obj 30 642 list.integrator;
-#X text 175 642 returns the sum of the previously stored list and the
+#X obj 30 642 list.index;
+#X text 175 642 find input element index in list;
+#X obj 30 669 list.integrator;
+#X text 175 669 returns the sum of the previously stored list and the
 current one then stores this sum.;
-#X obj 30 679 list.interleave;
-#X text 175 679 takes n lists from n inlets (specified by argument)
+#X obj 30 706 list.interleave;
+#X text 175 706 takes n lists from n inlets (specified by argument)
 and output their elements sequentially (list1-1 list2-1 list1-2
 list2-2 etc.).;
-#X obj 30 730 list.last;
-#X text 175 730 returns last list element;
-#X obj 30 757 list.length;
-#X text 175 757 returns the number of atoms in the message;
-#X obj 30 784 list.max;
-#X text 175 784 returns largest element in the list;
-#X obj 30 811 list.mean;
-#X text 175 811 calculates average of list of floats;
-#X obj 30 838 list.min;
-#X text 175 838 returns smallest element in the list;
-#X obj 30 865 list.none_of;
-#X text 175 865 checks if none of list atoms is accepted by predicate;
-#X obj 30 892 list.normalize;
-#X text 175 892 normalizes float list values to get their sum = 1.0;
-#X obj 30 919 list.pass_if;
-#X text 175 919 leave only elements accepted by predicate;
-#X obj 30 946 list.product;
-#X text 175 946 calculates product of floats in list;
-#X obj 30 973 list.range;
-#X text 175 973 returns list smallest and largest value;
-#X obj 30 1000 list.reduce;
-#X text 175 1000 apply function of two arguments cumulatively to the
+#X obj 30 757 list.last;
+#X text 175 757 returns last list element;
+#X obj 30 784 list.length;
+#X text 175 784 returns the number of atoms in the message;
+#X obj 30 811 list.max;
+#X text 175 811 returns largest element in the list;
+#X obj 30 838 list.mean;
+#X text 175 838 calculates average of list of floats;
+#X obj 30 865 list.min;
+#X text 175 865 returns smallest element in the list;
+#X obj 30 892 list.none_of;
+#X text 175 892 checks if none of list atoms is accepted by predicate;
+#X obj 30 919 list.normalize;
+#X text 175 919 normalizes float list values to get their sum = 1.0;
+#X obj 30 946 list.pass_if;
+#X text 175 946 leave only elements accepted by predicate;
+#X obj 30 973 list.product;
+#X text 175 973 calculates product of floats in list;
+#X obj 30 1000 list.range;
+#X text 175 1000 returns list smallest and largest value;
+#X obj 30 1027 list.reduce;
+#X text 175 1027 apply function of two arguments cumulatively to the
 list;
-#X obj 30 1027 list.remove_if;
-#X text 175 1027 remove elements by predicate;
-#X obj 30 1054 list.repack;
-#X text 175 1054 repack input list to specified size;
-#X obj 30 1081 list.repeat;
-#X text 175 1081 creates new list by repeating given list specified
+#X obj 30 1054 list.remove_if;
+#X text 175 1054 remove elements by predicate;
+#X obj 30 1081 list.repack;
+#X text 175 1081 repack input list to specified size;
+#X obj 30 1108 list.repeat;
+#X text 175 1108 creates new list by repeating given list specified
 times;
-#X obj 30 1108 list.resize;
-#X text 175 1108 changes list size;
-#X obj 30 1135 list.reverse;
-#X text 175 1135 reverses the order of the elements in the list;
-#X obj 30 1162 list.rotate;
-#X text 175 1162 rotates list left;
-#X obj 30 1189 list.route;
-#X text 175 1189 acts like [route] but for lists;
-#X obj 30 1216 list.separate;
-#X text 175 1216 sends list elements one by one separately;
-#X obj 30 1243 list.seq;
-#X text 175 1243 numeric sequence list generator;
-#X obj 30 1270 list.shuffle;
-#X text 175 1270 randomly rearranges elements in list;
-#X obj 30 1297 list.slice;
-#X text 175 1297 extract sublist;
-#X obj 30 1324 list.sort;
-#X text 175 1324 sorts list values by ascending order;
-#X obj 30 1351 list.sort_with;
-#X text 175 1351 sort list with user defined side-chain;
-#X obj 30 1378 list.split;
-#X text 175 1378 splits list into two parts \, the length of first
+#X obj 30 1135 list.resize;
+#X text 175 1135 changes list size;
+#X obj 30 1162 list.reverse;
+#X text 175 1162 reverses the order of the elements in the list;
+#X obj 30 1189 list.rotate;
+#X text 175 1189 rotates list left;
+#X obj 30 1216 list.route;
+#X text 175 1216 acts like [route] but for lists;
+#X obj 30 1243 list.separate;
+#X text 175 1243 sends list elements one by one separately;
+#X obj 30 1270 list.seq;
+#X text 175 1270 numeric sequence list generator;
+#X obj 30 1297 list.shuffle;
+#X text 175 1297 randomly rearranges elements in list;
+#X obj 30 1324 list.slice;
+#X text 175 1324 extract sublist;
+#X obj 30 1351 list.sort;
+#X text 175 1351 sorts list values by ascending order;
+#X obj 30 1378 list.sort_with;
+#X text 175 1378 sort list with user defined side-chain;
+#X obj 30 1405 list.split;
+#X text 175 1405 splits list into two parts \, the length of first
 list is specified by the argument.;
-#X obj 30 1415 list.sum;
-#X text 175 1415 calculates sum of floats in list;
-#X obj 30 1442 list.unique;
-#X text 175 1442 sorts and removes duplicates from input list;
-#X obj 30 1469 list.unpack;
-#X text 175 1469 unpack list elements to separate outlets;
-#X obj 30 1496 list.unwrap;
-#X text 175 1496 gets list element on first input and list with count
+#X obj 30 1442 list.sum;
+#X text 175 1442 calculates sum of floats in list;
+#X obj 30 1469 list.unique;
+#X text 175 1469 sorts and removes duplicates from input list;
+#X obj 30 1496 list.unpack;
+#X text 175 1496 unpack list elements to separate outlets;
+#X obj 30 1523 list.unwrap;
+#X text 175 1523 gets list element on first input and list with count
 of each element on a second inlet.;
-#X obj 30 1533 list.walk;
-#X text 175 1533 Walks thru the list;
-#X obj 30 1560 list.wrap;
-#X text 175 1560 filters repeated elements of the list and outputs
+#X obj 30 1560 list.walk;
+#X text 175 1560 Walks thru the list;
+#X obj 30 1587 list.wrap;
+#X text 175 1587 filters repeated elements of the list and outputs
 unique elements on first outlet \, outputs the count of elements on
 second.;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::list 20 20 0 20 -104026
 -4096 0;
-#X obj 1 1611 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 1621 library: ceammc;
+#X obj 1 1638 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 1648 library: ceammc;

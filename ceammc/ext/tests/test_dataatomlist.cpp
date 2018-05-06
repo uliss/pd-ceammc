@@ -67,13 +67,44 @@ TEST_CASE("DataAtomList", "[ceammc::DataAtomList]")
         REQUIRE(lst[1].toAtom() == Atom(24));
     }
 
-    SECTION("index")
+    SECTION("search")
     {
         DataAtomList lst;
-        lst.append(123);
+        lst.append(1);
+        lst.append(2);
+        lst.append(3);
+        lst.append(gensym("a"));
+        lst.append(new IntData(100));
+        lst.append(new StrData("A"));
 
-        const DataAtomList& l = lst;
-        REQUIRE(l[0].toAtom() == A(123));
+        REQUIRE(lst.search(Atom()) == -1);
+        REQUIRE(lst.search(Atom(gensym("???"))) == -1);
+        REQUIRE(lst.search(Atom(0.f)) == -1);
+        REQUIRE(lst.search(Atom(1)) == 0);
+        REQUIRE(lst.search(Atom(2)) == 1);
+        REQUIRE(lst.search(Atom(3)) == 2);
+        REQUIRE(lst.search(Atom(100)) == -1);
+        REQUIRE(lst.search(Atom(gensym("a"))) == 3);
+        REQUIRE(lst.search(new IntData(100)) == 4);
+        REQUIRE(lst.search(new IntData(99)) == -1);
+        REQUIRE(lst.search(new StrData("A")) == 5);
+        REQUIRE(lst.search(new StrData("B")) == -1);
+
+        REQUIRE(lst.search(L2(2, 3)) == 1);
+        REQUIRE(lst.search(L2(3, "a")) == 2);
+        REQUIRE(lst.search(AtomList()) == -1);
+
+        lst.clear();
+        REQUIRE(lst.search(AtomList()) == -1);
+        lst.append(10);
+        lst.append(20);
+
+        REQUIRE(lst.search(L2(10, 20)) == 0);
+
+        // from
+        REQUIRE(lst.search(Atom(1), 2) == -1);
+        REQUIRE(lst.search(Atom(2), 2) == -1);
+        REQUIRE(lst.search(Atom(3), 2) == 2);
     }
 
     SECTION("contains")
@@ -81,6 +112,8 @@ TEST_CASE("DataAtomList", "[ceammc::DataAtomList]")
         DataAtomList lst;
         REQUIRE_FALSE(lst.contains(Atom(10)));
         REQUIRE_FALSE(lst.contains(DataAtom(gensym("sdf"))));
+        REQUIRE_FALSE(lst.contains(Atom()));
+        REQUIRE_FALSE(lst.contains(AtomList()));
 
         REQUIRE_FALSE(lst.contains(new IntData(123)));
 
@@ -111,5 +144,6 @@ TEST_CASE("DataAtomList", "[ceammc::DataAtomList]")
         REQUIRE(lst.contains(L2("a", "b")));
         REQUIRE(lst.contains(L2("b", "c")));
         REQUIRE_FALSE(lst.contains(L2("a", "c")));
+        REQUIRE_FALSE(lst.contains(AtomList()));
     }
 }

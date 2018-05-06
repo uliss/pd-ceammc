@@ -39,6 +39,7 @@
 - prop.get~ (prop~>, @~>) added
 - prop.get alias added (@->)
 - list.contains added
+- list.index added
 
 ### Changed:
 - migration to Faust v2

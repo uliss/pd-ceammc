@@ -45,9 +45,13 @@ public:
     bool operator==(const DataAtomList& l) const;
 
 public:
-    typedef std::vector<DataAtom>::iterator iterator;
-    typedef std::vector<DataAtom>::const_iterator const_iterator;
-    typedef std::vector<DataAtom>::value_type value_type;
+    static const size_t END = std::numeric_limits<size_t>::max();
+
+public:
+    typedef std::vector<DataAtom> container;
+    typedef container::iterator iterator;
+    typedef container::const_iterator const_iterator;
+    typedef container::value_type value_type;
 
     const_iterator begin() const { return list_.begin(); }
     const_iterator end() const { return list_.end(); }
@@ -59,6 +63,11 @@ public:
     bool contains(const DataAtom& p) const;
     bool contains(const Atom& p) const;
     bool contains(const AtomList& p) const;
+
+    long search(const Atom& p, size_t from = 0, size_t to = END) const;
+    long search(const DataPtr& p, size_t from = 0, size_t to = END) const;
+    long search(const DataAtom& p, size_t from = 0, size_t to = END) const;
+    long search(const AtomList& p, size_t from = 0, size_t to = END) const;
 };
 
 std::ostream& operator<<(std::ostream& os, const DataAtomList& l);

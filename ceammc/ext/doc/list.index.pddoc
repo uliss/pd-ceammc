@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="list.index">
+        <title>list.index</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>find input element index in list</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>list</category>
+            <keywords>list search index find</keywords>
+            <since>0.6</since>
+            <also>
+                <see>list.contains</see>
+            </also>
+        </meta>
+        <info>
+            <par>Outputs index or -1 if not found</par>
+        </info>
+        <properties>
+            <property name="@start" type="int" minvalue="0" default="0">search start index
+            position</property>
+            <property name="@end" type="int" minvalue="-1" default="-1">search end index position
+            (-1 means end of list)</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="float">output float index in searched list</xinfo>
+                <xinfo on="symbol">output symbol index in searched list</xinfo>
+                <xinfo on="list">output position of given list in searched list</xinfo>
+                <xinfo on="data">output data index in searched list</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="list">set searched list</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>1 on success, otherwise 0</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]  [S]    [20 30(
+|    |      |
+|    |      | [F]
+|    |      | |
+|    |      | [@start $1(
+|    |      | |
+|    |      | | [F]
+|    |      | | |
+|    |      | | [@end $1( [1 2 3 4(  [list a b c d(
+|    |      | | |         |.         |.
+[list.index        10 20 30 40 50 A B C]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

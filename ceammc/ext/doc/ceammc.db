@@ -144,6 +144,7 @@ list.equal		..		.
 list.first		.		.
 list.gen		..		..
 list.histogram		.		.
+list.index		..		.
 list.integrator		.		.
 list.interleave		?		.
 list.last		.		.

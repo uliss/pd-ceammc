@@ -11,50 +11,62 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "list_contains.h"
+#include "list_index.h"
 #include "ceammc_factory.h"
-#include "ceammc_fn_list.h"
 
-ListContains::ListContains(const PdArgs& args)
+ListIndex::ListIndex(const PdArgs& args)
     : BaseObject(args)
     , lst_(positionalArguments())
+    , start_(nullptr)
+    , end_(nullptr)
 {
     createInlet();
     createOutlet();
+
+    start_ = new SizeTProperty("@start", 0);
+    createProperty(start_);
+    end_ = new IntProperty("@end", -1);
+    createProperty(end_);
 }
 
-void ListContains::onFloat(t_float f)
+void ListIndex::onFloat(t_float f)
 {
-    output(lst_.contains(Atom(f)));
+    output(lst_.search(Atom(f), start_->value(), end()));
 }
 
-void ListContains::onSymbol(t_symbol* s)
+void ListIndex::onSymbol(t_symbol* s)
 {
-    output(lst_.contains(Atom(s)));
+    output(lst_.search(Atom(s), start_->value(), end()));
 }
 
-void ListContains::onList(const AtomList& lst)
+void ListIndex::onList(const AtomList& lst)
 {
-    output(lst_.contains(lst));
+    output(lst_.search(lst, start_->value(), end()));
 }
 
-void ListContains::onData(const DataPtr& ptr)
+void ListIndex::onData(const DataPtr& ptr)
 {
-    output(lst_.contains(ptr));
+    output(lst_.search(ptr, start_->value(), end()));
 }
 
-void ListContains::onInlet(size_t n, const AtomList& lst)
+void ListIndex::onInlet(size_t n, const AtomList& lst)
 {
     lst_ = lst;
 }
 
-void ListContains::output(bool v)
+void ListIndex::output(long idx)
 {
-    floatTo(0, v ? 1 : 0);
+    floatTo(0, idx);
 }
 
-void setup_list_contains()
+size_t ListIndex::end() const
 {
-    ObjectFactory<ListContains> obj("list.contains");
+    auto v = end_->value();
+    return v < 0 ? DataAtomList::END : v;
+}
+
+void setup_list_index()
+{
+    ObjectFactory<ListIndex> obj("list.index");
     obj.processData();
 }
