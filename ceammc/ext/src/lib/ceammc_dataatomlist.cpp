@@ -131,8 +131,11 @@ long search_list(const DataAtomList::container& lst, const T& needle, size_t fro
     if (from >= to)
         return -1;
 
-    auto it = std::find_if(lst.begin() + from, lst.begin() + to, pred);
-    return it == lst.end() ? -1 : std::distance(lst.begin(), it);
+    auto start = lst.begin() + from;
+    auto end = lst.begin() + to;
+    auto it = std::find_if(start, end, pred);
+    // distance from very beginning or -1
+    return it != end ? std::distance(lst.begin(), it) : -1;
 }
 
 long DataAtomList::search(const Atom& p, size_t from, size_t to) const
@@ -163,9 +166,12 @@ long DataAtomList::search(const AtomList& p, size_t from, size_t to) const
     if (from >= to)
         return -1;
 
-    auto it = std::search(begin() + from, begin() + to, p.begin(), p.end(),
+    auto b = begin() + from;
+    auto e = begin() + to;
+
+    auto it = std::search(b, e, p.begin(), p.end(),
         [](const value_type& v1, const Atom& v2) { return v1 == DataAtom(v2); });
-    return it == end() ? -1 : std::distance(begin(), it);
+    return it != e ? std::distance(begin(), it) : -1;
 }
 
 std::ostream& operator<<(std::ostream& os, const DataAtomList& l)
