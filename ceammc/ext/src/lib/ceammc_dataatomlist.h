@@ -18,7 +18,7 @@
 #include "ceammc_dataatom.h"
 
 #include <iostream>
-#include <numeric>
+#include <limits>
 #include <vector>
 
 namespace ceammc {
