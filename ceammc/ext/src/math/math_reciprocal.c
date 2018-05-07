@@ -35,6 +35,7 @@ void setup_math0x2ereciprocal()
     math_reciprocal_class = class_new(gensym("math.reciprocal"),
         (t_newmethod)math_reciprocal_new, 0,
             sizeof(t_math_reciprocal), 0, A_NULL);
+    class_addcreator((t_newmethod)math_reciprocal_new, gensym("1/x"), A_NULL);
     class_addfloat(math_reciprocal_class, math_reciprocal_float);
     class_addlist(math_reciprocal_class, math_reciprocal_list);
 }

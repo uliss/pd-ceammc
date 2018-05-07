@@ -212,7 +212,7 @@ math.nan		.		.
 math.neg		.		.
 math.or,or		?		.
 math.pi		.		.
-math.reciprocal		.		.
+math.reciprocal,1/x		.		.
 math.round		.		.
 math.round~,round~		.		.
 math.sign		.		.

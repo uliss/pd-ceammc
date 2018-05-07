@@ -40,6 +40,7 @@
 - prop.get alias added (@->)
 - list.contains added
 - list.index added
+- alias 1/x added for math.reciprocal
 
 ### Changed:
 - migration to Faust v2

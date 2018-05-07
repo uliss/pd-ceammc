@@ -12,6 +12,9 @@
             <category>math</category>
             <keywords>math reciprocal</keywords>
             <since>0.1</since>
+            <aliases>
+                <alias>1/x</alias>
+            </aliases>
         </meta>
         <info>
             <par>Symbols are ignored, 0 gives NAN value</par>

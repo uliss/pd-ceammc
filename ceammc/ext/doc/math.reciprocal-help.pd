@@ -4,6 +4,7 @@
 #X text 475 50 calculate reciprocal number;
 #X obj 1 1 cnv 5 712 40 empty empty math.reciprocal 20 20 0 20 -104026
 -4096 0;
+#X obj 531 11 1/x;
 #X obj 578 11 math.reciprocal;
 #X obj 205 80 cnv 1 490 33 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 210 80 Symbols are ignored \, 0 gives NAN value;
@@ -63,8 +64,8 @@ https://github.com/uliss/pure-data;
 #X restore 10 527 pd info;
 #X connect 11 0 13 0;
 #X connect 9 0 11 0;
+#X connect 7 0 10 0;
 #X connect 10 0 12 0;
+#X connect 13 0 15 0;
 #X connect 8 0 10 0;
-#X connect 6 0 9 0;
 #X connect 12 0 14 0;
-#X connect 7 0 9 0;
