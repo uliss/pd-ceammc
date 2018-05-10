@@ -156,6 +156,7 @@ set(DOC_FILES
     list.none_of
     list.normalize
     list.pass_if
+    list.prepend
     list.product
     list.range
     list.reduce

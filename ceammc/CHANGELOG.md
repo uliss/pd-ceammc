@@ -41,6 +41,7 @@
 - list.contains added
 - list.index added
 - list.append added
+- list.prepend added
 - alias 1/x added for math.reciprocal
 
 ### Changed:

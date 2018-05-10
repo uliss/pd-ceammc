@@ -73,61 +73,63 @@ list2-2 etc.).;
 #X text 175 946 normalizes float list values to get their sum = 1.0;
 #X obj 30 973 list.pass_if;
 #X text 175 973 leave only elements accepted by predicate;
-#X obj 30 1000 list.product;
-#X text 175 1000 calculates product of floats in list;
-#X obj 30 1027 list.range;
-#X text 175 1027 returns list smallest and largest value;
-#X obj 30 1054 list.reduce;
-#X text 175 1054 apply function of two arguments cumulatively to the
+#X obj 30 1000 list.prepend;
+#X text 175 1000 prepend atom or list before input list;
+#X obj 30 1027 list.product;
+#X text 175 1027 calculates product of floats in list;
+#X obj 30 1054 list.range;
+#X text 175 1054 returns list smallest and largest value;
+#X obj 30 1081 list.reduce;
+#X text 175 1081 apply function of two arguments cumulatively to the
 list;
-#X obj 30 1081 list.remove_if;
-#X text 175 1081 remove elements by predicate;
-#X obj 30 1108 list.repack;
-#X text 175 1108 repack input list to specified size;
-#X obj 30 1135 list.repeat;
-#X text 175 1135 creates new list by repeating given list specified
+#X obj 30 1108 list.remove_if;
+#X text 175 1108 remove elements by predicate;
+#X obj 30 1135 list.repack;
+#X text 175 1135 repack input list to specified size;
+#X obj 30 1162 list.repeat;
+#X text 175 1162 creates new list by repeating given list specified
 times;
-#X obj 30 1162 list.resize;
-#X text 175 1162 changes list size;
-#X obj 30 1189 list.reverse;
-#X text 175 1189 reverses the order of the elements in the list;
-#X obj 30 1216 list.rotate;
-#X text 175 1216 rotates list left;
-#X obj 30 1243 list.route;
-#X text 175 1243 acts like [route] but for lists;
-#X obj 30 1270 list.search;
-#X text 175 1270 search specified items in input list;
-#X obj 30 1297 list.separate;
-#X text 175 1297 sends list elements one by one separately;
-#X obj 30 1324 list.seq;
-#X text 175 1324 numeric sequence list generator;
-#X obj 30 1351 list.shuffle;
-#X text 175 1351 randomly rearranges elements in list;
-#X obj 30 1378 list.slice;
-#X text 175 1378 extract sublist;
-#X obj 30 1405 list.sort;
-#X text 175 1405 sorts list values by ascending order;
-#X obj 30 1432 list.sort_with;
-#X text 175 1432 sort list with user defined side-chain;
-#X obj 30 1459 list.split;
-#X text 175 1459 splits list into two parts \, the length of first
+#X obj 30 1189 list.resize;
+#X text 175 1189 changes list size;
+#X obj 30 1216 list.reverse;
+#X text 175 1216 reverses the order of the elements in the list;
+#X obj 30 1243 list.rotate;
+#X text 175 1243 rotates list left;
+#X obj 30 1270 list.route;
+#X text 175 1270 acts like [route] but for lists;
+#X obj 30 1297 list.search;
+#X text 175 1297 search specified items in input list;
+#X obj 30 1324 list.separate;
+#X text 175 1324 sends list elements one by one separately;
+#X obj 30 1351 list.seq;
+#X text 175 1351 numeric sequence list generator;
+#X obj 30 1378 list.shuffle;
+#X text 175 1378 randomly rearranges elements in list;
+#X obj 30 1405 list.slice;
+#X text 175 1405 extract sublist;
+#X obj 30 1432 list.sort;
+#X text 175 1432 sorts list values by ascending order;
+#X obj 30 1459 list.sort_with;
+#X text 175 1459 sort list with user defined side-chain;
+#X obj 30 1486 list.split;
+#X text 175 1486 splits list into two parts \, the length of first
 list is specified by the argument.;
-#X obj 30 1496 list.sum;
-#X text 175 1496 calculates sum of floats in list;
-#X obj 30 1523 list.unique;
-#X text 175 1523 sorts and removes duplicates from input list;
-#X obj 30 1550 list.unpack;
-#X text 175 1550 unpack list elements to separate outlets;
-#X obj 30 1577 list.unwrap;
-#X text 175 1577 gets list element on first input and list with count
+#X obj 30 1523 list.sum;
+#X text 175 1523 calculates sum of floats in list;
+#X obj 30 1550 list.unique;
+#X text 175 1550 sorts and removes duplicates from input list;
+#X obj 30 1577 list.unpack;
+#X text 175 1577 unpack list elements to separate outlets;
+#X obj 30 1604 list.unwrap;
+#X text 175 1604 gets list element on first input and list with count
 of each element on a second inlet.;
-#X obj 30 1614 list.walk;
-#X text 175 1614 Walks thru the list;
-#X obj 30 1641 list.wrap;
-#X text 175 1641 filters repeated elements of the list and outputs
+#X obj 30 1641 list.walk;
+#X text 175 1641 Walks thru the list;
+#X obj 30 1668 list.wrap;
+#X text 175 1668 filters repeated elements of the list and outputs
 unique elements on first outlet \, outputs the count of elements on
 second.;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::list 20 20 0 20 -104026
 -4096 0;
-#X obj 1 1692 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 1702 library: ceammc;
+#X obj 1 1719 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 1729 library: ceammc;
