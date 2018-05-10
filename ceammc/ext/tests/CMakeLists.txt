@@ -104,6 +104,7 @@ ceammc_external_test(proto firmata)
 
 ceammc_external_test(list all_of)
 ceammc_external_test(list any_of)
+ceammc_external_test(list append)
 ceammc_external_test(list at)
 ceammc_external_test(list choice)
 ceammc_external_test(list contains)
