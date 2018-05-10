@@ -406,6 +406,9 @@
     <entry descr="checks if at least one list element is accepted by predicate" name="list.any_of" ref_view="object">
       <xi:include href="list.any_of.pddoc" parse="xml"/>
     </entry>
+    <entry descr="append atom or list to the end of input list" name="list.append" ref_view="object">
+      <xi:include href="list.append.pddoc" parse="xml"/>
+    </entry>
     <entry descr="modifies list value at specified position, filtering it via external object." name="list.apply_to" ref_view="object">
       <xi:include href="list.apply_to.pddoc" parse="xml"/>
     </entry>

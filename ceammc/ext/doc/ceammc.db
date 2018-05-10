@@ -128,6 +128,7 @@ lfo.square~		~		~
 lfo.tri~		~		~
 list.all_of		..		..
 list.any_of		..		..
+list.append		..		.
 list.apply_to		..		..
 list.at		..		.
 list.choice		.		.

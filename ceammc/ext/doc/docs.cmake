@@ -128,6 +128,7 @@ set(DOC_FILES
     lfo.pulse~
     list.all_of
     list.any_of
+    list.append
     list.apply_to
     list.at
     list.choice
