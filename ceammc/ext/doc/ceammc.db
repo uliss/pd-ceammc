@@ -166,6 +166,7 @@ list.resize		.		.
 list.reverse		.		.
 list.rotate,list.<<		..		.
 list.route		.		?
+list.search		..		.
 list.separate,list.sep		.		..
 list.seq		.		.
 list.shuffle		.		.

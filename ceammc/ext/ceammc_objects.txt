@@ -205,6 +205,7 @@ list.resize
 list.reverse
 list.rotate
 list.route
+list.search
 list.sep
 list.separate
 list.seq

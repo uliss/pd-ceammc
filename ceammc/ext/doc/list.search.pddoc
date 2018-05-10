@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="list.search">
+        <title>list.search</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>search specified items in input list</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>list</category>
+            <keywords>list search find</keywords>
+            <since>0.6</since>
+            <also>
+                <see>list.index</see>
+            </also>
+        </meta>
+        <info>
+            <par>Returns item position in list or -1 if not found.</par>
+            <par>If several items are specified returns list of positions.</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo on="list">input list</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="list">set searched items</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>position of search item or list of such positions</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[1 2 3 4( [list ABC BC A(
+|         |
+|         |     [F]    [3 2(
+|         |     |.     |.
+[list.search           A]
+|
+[msg set]
+|
+[ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

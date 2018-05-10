@@ -520,6 +520,9 @@
     <entry descr="acts like [route] but for lists" name="list.route" ref_view="object">
       <xi:include href="list.route.pddoc" parse="xml"/>
     </entry>
+    <entry descr="search specified items in input list" name="list.search" ref_view="object">
+      <xi:include href="list.search.pddoc" parse="xml"/>
+    </entry>
     <entry descr="sends list elements one by one separately" name="list.separate" ref_view="object">
       <xi:include href="list.separate.pddoc" parse="xml"/>
     </entry>

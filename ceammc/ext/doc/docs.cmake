@@ -166,6 +166,7 @@ set(DOC_FILES
     list.reverse
     list.rotate
     list.route
+    list.search
     list.separate
     list.seq
     list.shuffle
