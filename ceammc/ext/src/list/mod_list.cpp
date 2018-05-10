@@ -56,6 +56,7 @@ extern "C" void setup_list0x2ezip();
 void setup_list_append();
 void setup_list_contains();
 void setup_list_index();
+void setup_list_insert();
 void setup_list_prepend();
 void setup_list_reduce();
 void setup_list_search();
@@ -117,6 +118,7 @@ void ceammc_list_setup()
     setup_list_append();
     setup_list_contains();
     setup_list_index();
+    setup_list_insert();
     setup_list_prepend();
     setup_list_reduce();
     setup_list_route();
