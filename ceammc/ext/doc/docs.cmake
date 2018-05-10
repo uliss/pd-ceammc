@@ -146,6 +146,7 @@ set(DOC_FILES
     list.gen
     list.index
     list.histogram
+    list.insert
     list.integrator
     list.interleave
     list.last

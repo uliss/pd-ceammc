@@ -460,6 +460,9 @@
     <entry descr="find input element index in list" name="list.index" ref_view="object">
       <xi:include href="list.index.pddoc" parse="xml"/>
     </entry>
+    <entry descr="insert atom or list to the specified position of input list" name="list.insert" ref_view="object">
+      <xi:include href="list.insert.pddoc" parse="xml"/>
+    </entry>
     <entry descr="returns the sum of the previously stored list and the current one then stores this sum." name="list.integrator" ref_view="object">
       <xi:include href="list.integrator.pddoc" parse="xml"/>
     </entry>

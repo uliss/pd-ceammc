@@ -185,6 +185,7 @@ list.foldl
 list.gen
 list.histogram
 list.index
+list.insert
 list.integrator
 list.interleave
 list.last

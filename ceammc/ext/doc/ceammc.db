@@ -146,6 +146,7 @@ list.first		.		.
 list.gen		..		..
 list.histogram		.		.
 list.index		..		.
+list.insert		...		.
 list.integrator		.		.
 list.interleave		?		.
 list.last		.		.
