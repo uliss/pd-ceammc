@@ -68,7 +68,8 @@ backwards. Type: int. Default value: 1\. Allowed values: 0 \, 1;
 #X msg 120 867 @size;
 #X text 240 867 (readonly) Get current list size. Type: int;
 #X msg 120 894 @value;
-#X text 240 894 Get/Set current list. Type: list. Default value: [];
+#X text 240 894 (readonly) Get current list. Type: list. Default
+value: [];
 #X obj 20 931 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 936 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
