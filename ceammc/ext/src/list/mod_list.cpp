@@ -52,11 +52,12 @@ extern "C" void setup_list0x2eunwrap();
 extern "C" void setup_list0x2ewalk();
 extern "C" void setup_list0x2ewrap();
 extern "C" void setup_list0x2ezip();
-extern void setup_list_contains();
-extern void setup_list_index();
-extern void setup_list_append();
 
+void setup_list_append();
+void setup_list_contains();
+void setup_list_index();
 void setup_list_reduce();
+void setup_list_search();
 
 void ceammc_list_setup()
 {
@@ -117,4 +118,5 @@ void ceammc_list_setup()
     setup_list_contains();
     setup_list_index();
     setup_list_append();
+    setup_list_search();
 }

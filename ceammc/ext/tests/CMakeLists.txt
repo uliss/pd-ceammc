@@ -116,6 +116,7 @@ ceammc_external_test(list normalize)
 ceammc_external_test(list reduce)
 ceammc_external_test(list rotate)
 ceammc_external_test(list route)
+ceammc_external_test(list search)
 ceammc_external_test(list slice)
 ceammc_external_test(list split)
 
