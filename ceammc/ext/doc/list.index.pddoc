@@ -13,6 +13,7 @@
             <keywords>list search index find</keywords>
             <since>0.6</since>
             <also>
+                <see>list.search</see>
                 <see>list.contains</see>
             </also>
         </meta>
