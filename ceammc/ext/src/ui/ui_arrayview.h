@@ -26,6 +26,31 @@ struct WaveInfo {
     float rms;
 };
 
+class Selection {
+    long begin_, end_;
+
+public:
+    Selection(long begin = -1, long end = -1);
+    void set(long begin, long end);
+    long begin() const { return begin_; }
+    long end() const { return end_; }
+    long length() const;
+    bool empty() const { return length() == 0; }
+    bool contains(long v) const;
+    void setBegin(long v);
+    void setEnd(long v);
+    bool isValid() const;
+    void fix();
+    void clear();
+};
+
+enum MouseMode {
+    MOUSE_MODE_NONE = -1,
+    MOUSE_MODE_CURSOR = 0,
+    MOUSE_MODE_SELECTION = 1,
+    MOUSE_MODE_EDIT_SELECTION
+};
+
 class UIArrayView : public UIObject {
     std::vector<WaveInfo> buffer_;
     mutable Array array_;
@@ -33,6 +58,8 @@ class UIArrayView : public UIObject {
     ClockMemberFunction<UIArrayView> render_clock_;
     size_t render_index_;
     long cursor_sample_pos_;
+    Selection cursor_selection_;
+    MouseMode mouse_mode_;
     UIFont font_;
     UITextLayout label_top_left_;
     UITextLayout label_top_right_;
@@ -60,6 +87,7 @@ public:
     t_pd_err notify(t_symbol* attr_name, t_symbol* msg);
 
     void onMouseDown(t_object* view, const t_pt& pt, long modifiers);
+    void onMouseUp(t_object* view, const t_pt& pt, long modifiers);
     void onMouseMove(t_object* view, const t_pt& pt, long modifiers);
     void onMouseLeave(t_object* view, const t_pt& pt, long modifiers);
     void onMouseDrag(t_object* view, const t_pt& pt, long modifiers);
@@ -89,6 +117,8 @@ private:
     void setCursorPosSec(t_float pos);
 
     bool checkArray();
+
+    void setMouseMode(long mod);
 
 public:
     t_float sizeSamples() const;

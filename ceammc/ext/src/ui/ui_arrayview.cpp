@@ -30,25 +30,26 @@ static const size_t RENDER_CHUNK = 44100 * 5;
 static const size_t RENDER_CHUNK_PERIOD = 100;
 
 UIArrayView::UIArrayView()
-    : prop_array(&s_)
-    , control_layer_(asEBox(), gensym("control_layer"))
+    : control_layer_(asEBox(), gensym("control_layer"))
     , render_clock_(this, &UIArrayView::renderTick)
     , render_index_(0)
-    , prop_color_wave(rgba_blue)
-    , prop_color_cursor(rgba_blue)
-    , prop_show_labels(0)
-    , prop_show_rms(0)
     , cursor_sample_pos_(0)
+    , mouse_mode_(MOUSE_MODE_CURSOR)
     , font_(FONT_FAMILY, FONT_SIZE_SMALL)
     , label_top_left_(font_.font(), ColorRGBA::black(), ETEXT_UP_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP)
     , label_top_right_(font_.font(), ColorRGBA::black(), ETEXT_UP_RIGHT, ETEXT_JRIGHT, ETEXT_NOWRAP)
     , label_bottom_left_(font_.font(), ColorRGBA::black(), ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP)
     , label_bottom_right_(font_.font(), ColorRGBA::black(), ETEXT_DOWN_RIGHT, ETEXT_JRIGHT, ETEXT_NOWRAP)
+    , prop_array(&s_)
+    , prop_color_wave(rgba_blue)
+    , prop_color_cursor(rgba_blue)
+    , prop_show_labels(0)
+    , prop_show_rms(0)
 {
     createOutlet();
 }
 
-void UIArrayView::paint(t_object* view)
+void UIArrayView::paint(t_object* /*view*/)
 {
     drawBackground();
     drawCursor();
@@ -62,12 +63,28 @@ void UIArrayView::drawBackground()
     if (!p)
         return;
 
+    // draw selection
+    if (cursor_selection_.isValid()) {
+        auto from = convert::lin2lin<float>(cursor_selection_.begin(), 0, array_.size(), 0, r.width);
+        auto to = convert::lin2lin<float>(cursor_selection_.end(), 0, array_.size(), 0, r.width);
+
+        p.setColor(ColorRGBA::white());
+        p.drawRect(from, 0, to - from, r.height);
+        p.fill();
+    }
+
     // draw peak
     p.setColor(prop_color_wave);
     p.moveTo(0, convert::lin2lin<float>(buffer_[0].peak_min, 1, -1, 0, r.height));
     p.drawLineTo(0, convert::lin2lin<float>(buffer_[0].peak_max, 1, -1, 0, r.height));
 
     for (int x = 1; x < r.width; x++) {
+        if (cursor_selection_.isValid() && cursor_selection_.contains(convert::lin2lin<float>(x, 0, r.width, 0, array_.size()))) {
+            p.setColor(ColorRGBA::green());
+        } else {
+            p.setColor(prop_color_wave);
+        }
+
         p.drawLineTo(x, convert::lin2lin<float>(buffer_[x].peak_min, 1, -1, 0, r.height));
         p.drawLineTo(x, convert::lin2lin<float>(buffer_[x].peak_max, 1, -1, 0, r.height));
     }
@@ -123,8 +140,8 @@ void UIArrayView::drawCursor()
     p.drawLine(x, 0, x, r.height);
 
     if (prop_show_labels) {
-        const double SR = sys_getsr();
-        if (!SR)
+        const auto SR = sys_getsr();
+        if (SR <= 0)
             return;
 
         label_bottom_left_.setColor(prop_color_border);
@@ -165,16 +182,49 @@ t_pd_err UIArrayView::notify(t_symbol* attr_name, t_symbol* msg)
     return 0;
 }
 
-void UIArrayView::onMouseDown(t_object* view, const t_pt& pt, long modifiers)
+void UIArrayView::onMouseDown(t_object* /*view*/, const t_pt& pt, long modifiers)
 {
     if (!checkArray())
         return;
 
-    cursor_sample_pos_ = ((pt.x * array_.size()) / width());
+    setMouseMode(modifiers);
+
+    long sample_pos = ((pt.x * array_.size()) / width());
+
+    switch (mouse_mode_) {
+    case MOUSE_MODE_CURSOR:
+        cursor_sample_pos_ = sample_pos;
+        break;
+    case MOUSE_MODE_SELECTION:
+        cursor_selection_.set(sample_pos, sample_pos);
+        bg_layer_.invalidate();
+        break;
+    case MOUSE_MODE_EDIT_SELECTION:
+        break;
+    default:
+        break;
+    }
+
     control_layer_.invalidate();
     redraw();
 
     output();
+}
+
+void UIArrayView::onMouseUp(t_object* /*view*/, const t_pt& pt, long modifiers)
+{
+    if (!checkArray())
+        return;
+
+    switch (mouse_mode_) {
+    case MOUSE_MODE_SELECTION:
+        bg_layer_.invalidate();
+        cursor_selection_.setEnd((pt.x * array_.size()) / width());
+        cursor_selection_.fix();
+        break;
+    default:
+        break;
+    }
 }
 
 void UIArrayView::onMouseMove(t_object* view, const t_pt& pt, long modifiers)
@@ -185,17 +235,30 @@ void UIArrayView::onMouseMove(t_object* view, const t_pt& pt, long modifiers)
 
 void UIArrayView::onMouseLeave(t_object* view, const t_pt& pt, long modifiers)
 {
+    mouse_mode_ = MOUSE_MODE_NONE;
     setCursor(ECURSOR_LEFT_PTR);
 }
 
-void UIArrayView::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
+void UIArrayView::onMouseDrag(t_object* /*view*/, const t_pt& pt, long modifiers)
 {
     if (!checkArray())
         return;
 
     const size_t N = array_.size();
     double x = std::max<double>(0, pt.x);
-    cursor_sample_pos_ = std::min<size_t>((x * array_.size()) / width(), N - 1);
+
+    switch (mouse_mode_) {
+    case MOUSE_MODE_CURSOR:
+        cursor_sample_pos_ = std::min<size_t>((x * array_.size()) / width(), N - 1);
+        break;
+    case MOUSE_MODE_SELECTION:
+        cursor_selection_.setEnd((x * array_.size()) / width());
+        bg_layer_.invalidate();
+        break;
+    default:
+        break;
+    }
+
     control_layer_.invalidate();
     redraw();
 
@@ -441,12 +504,20 @@ void UIArrayView::setCursorPosSec(t_float pos)
 
 bool UIArrayView::checkArray()
 {
-    if (prop_array == 0 || !array_.open(prop_array)) {
+    if (prop_array == nullptr || !array_.open(prop_array)) {
         UI_ERR << "invalid array: " << prop_array;
         return false;
     }
 
     return true;
+}
+
+void UIArrayView::setMouseMode(long mod)
+{
+    if (mod == EMOD_SHIFT)
+        mouse_mode_ = MOUSE_MODE_SELECTION;
+    else
+        mouse_mode_ = MOUSE_MODE_CURSOR;
 }
 
 t_float UIArrayView::sizeSamples() const
@@ -543,4 +614,51 @@ void UIArrayView::setup()
 void setup_ui_arrayview()
 {
     UIArrayView::setup();
+}
+
+Selection::Selection(long begin, long end)
+{
+    set(begin, end);
+}
+
+void Selection::set(long begin, long end)
+{
+    auto p = std::minmax(begin, end);
+    begin_ = p.first;
+    end_ = p.second;
+}
+
+long Selection::length() const
+{
+    return end_ - begin_;
+}
+
+bool Selection::contains(long v) const
+{
+    return begin_ <= v && v <= end_;
+}
+
+void Selection::setBegin(long v)
+{
+    begin_ = v;
+}
+
+void Selection::setEnd(long v)
+{
+    end_ = v;
+}
+
+bool Selection::isValid() const
+{
+    return begin_ >= 0 && end_ >= 0;
+}
+
+void Selection::fix()
+{
+    set(begin_, end_);
+}
+
+void Selection::clear()
+{
+    begin_ = end_ = -1;
 }
