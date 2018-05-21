@@ -31,6 +31,7 @@ class Selection {
 
 public:
     Selection(long begin = -1, long end = -1);
+    Selection(const Selection& s);
     void set(long begin, long end);
     long begin() const { return begin_; }
     long end() const { return end_; }
@@ -72,6 +73,7 @@ public:
     t_symbol* prop_array;
     t_rgba prop_color_wave;
     t_rgba prop_color_cursor;
+    t_rgba prop_color_select;
     int prop_show_labels;
     int prop_show_rms;
 
@@ -119,6 +121,9 @@ private:
     bool checkArray();
 
     void setMouseMode(long mod);
+
+    AtomList propSelection() const;
+    void propSetSelection(const AtomList& lst);
 
 public:
     t_float sizeSamples() const;

@@ -68,27 +68,60 @@ void UIArrayView::drawBackground()
         auto from = convert::lin2lin<float>(cursor_selection_.begin(), 0, array_.size(), 0, r.width);
         auto to = convert::lin2lin<float>(cursor_selection_.end(), 0, array_.size(), 0, r.width);
 
-        p.setColor(ColorRGBA::white());
+        p.setColor(prop_color_select);
         p.drawRect(from, 0, to - from, r.height);
         p.fill();
     }
 
     // draw peak
-    p.setColor(prop_color_wave);
     p.moveTo(0, convert::lin2lin<float>(buffer_[0].peak_min, 1, -1, 0, r.height));
     p.drawLineTo(0, convert::lin2lin<float>(buffer_[0].peak_max, 1, -1, 0, r.height));
 
-    for (int x = 1; x < r.width; x++) {
-        if (cursor_selection_.isValid() && cursor_selection_.contains(convert::lin2lin<float>(x, 0, r.width, 0, array_.size()))) {
-            p.setColor(ColorRGBA::green());
-        } else {
-            p.setColor(prop_color_wave);
+    if (cursor_selection_.isValid()) {
+        enum {
+            out_of_selection,
+            in_selection
+        };
+
+        t_rgba wave_select_color = rgba_addContrast(prop_color_wave, 0.1);
+        int pixel_state = out_of_selection;
+        int color_in = 0;
+
+        p.setColor(prop_color_wave);
+        Selection sel(cursor_selection_);
+
+        for (int x = 1; x < r.width; x++) {
+            size_t sample = convert::lin2lin<double>(x, 0, r.width, 0, array_.size());
+
+            if (sel.contains(sample)) {
+                pixel_state = in_selection;
+                color_in++;
+
+                // change color only on first in
+                if (color_in == 1)
+                    p.setColor(wave_select_color);
+            } else {
+                pixel_state = out_of_selection;
+                // change color only on first out
+                if (color_in > 0) {
+                    color_in = 0;
+                    p.setColor(prop_color_wave);
+                }
+            }
+
+            p.drawLineTo(x, convert::lin2lin<float>(buffer_[x].peak_min, 1, -1, 0, r.height));
+            p.drawLineTo(x, convert::lin2lin<float>(buffer_[x].peak_max, 1, -1, 0, r.height));
         }
 
-        p.drawLineTo(x, convert::lin2lin<float>(buffer_[x].peak_min, 1, -1, 0, r.height));
-        p.drawLineTo(x, convert::lin2lin<float>(buffer_[x].peak_max, 1, -1, 0, r.height));
-    }
+    } else { // no selection
 
+        p.setColor(prop_color_wave);
+
+        for (int x = 1; x < r.width; x++) {
+            p.drawLineTo(x, convert::lin2lin<float>(buffer_[x].peak_min, 1, -1, 0, r.height));
+            p.drawLineTo(x, convert::lin2lin<float>(buffer_[x].peak_max, 1, -1, 0, r.height));
+        }
+    }
     p.stroke();
 
     if (prop_show_rms) {
@@ -220,11 +253,12 @@ void UIArrayView::onMouseUp(t_object* /*view*/, const t_pt& pt, long modifiers)
     case MOUSE_MODE_SELECTION:
         bg_layer_.invalidate();
         cursor_selection_.setEnd((pt.x * array_.size()) / width());
-        cursor_selection_.fix();
         break;
     default:
         break;
     }
+
+    cursor_selection_.fix();
 }
 
 void UIArrayView::onMouseMove(t_object* view, const t_pt& pt, long modifiers)
@@ -235,6 +269,7 @@ void UIArrayView::onMouseMove(t_object* view, const t_pt& pt, long modifiers)
 
 void UIArrayView::onMouseLeave(t_object* view, const t_pt& pt, long modifiers)
 {
+    cursor_selection_.fix();
     mouse_mode_ = MOUSE_MODE_NONE;
     setCursor(ECURSOR_LEFT_PTR);
 }
@@ -520,6 +555,21 @@ void UIArrayView::setMouseMode(long mod)
         mouse_mode_ = MOUSE_MODE_CURSOR;
 }
 
+AtomList UIArrayView::propSelection() const
+{
+    return AtomList(cursor_selection_.begin(), cursor_selection_.end());
+}
+
+void UIArrayView::propSetSelection(const AtomList& lst)
+{
+    if (lst.size() != 2) {
+        UI_ERR << "selection begin and end (in samples) expected: " << lst;
+        return;
+    }
+
+    cursor_selection_.set(lst[0].asInt(), lst[1].asInt());
+}
+
 t_float UIArrayView::sizeSamples() const
 {
     if (!array_.open(prop_array))
@@ -591,6 +641,7 @@ void UIArrayView::setup()
     obj.setPropertyAccessor("array", &UIArrayView::propArray, &UIArrayView::propSetArray);
     obj.addProperty("wave_color", _("Wave Color"), "0.3 0.3 0.3 1", &UIArrayView::prop_color_wave);
     obj.addProperty("cursor_color", _("Cursor Color"), DEFAULT_ACTIVE_COLOR, &UIArrayView::prop_color_cursor);
+    obj.addProperty("select_color", _("Select Color"), "1 1 1 1", &UIArrayView::prop_color_select);
 
     obj.addProperty("show_labels", _("Show Labels"), false, &UIArrayView::prop_show_labels);
     obj.addProperty("show_rms", _("Show RMS"), false, &UIArrayView::prop_show_rms);
@@ -607,6 +658,8 @@ void UIArrayView::setup()
     obj.addProperty("size_sec", &UIArrayView::sizeSec, 0);
     obj.addProperty("size_ms", &UIArrayView::sizeMs, 0);
 
+    obj.addProperty("selection", &UIArrayView::propSelection, &UIArrayView::propSetSelection);
+
     obj.addMethod("update", &UIArrayView::m_update);
     obj.addMethod("set", &UIArrayView::m_set);
 }
@@ -619,6 +672,11 @@ void setup_ui_arrayview()
 Selection::Selection(long begin, long end)
 {
     set(begin, end);
+}
+
+Selection::Selection(const Selection& s)
+{
+    set(s.begin(), s.end());
 }
 
 void Selection::set(long begin, long end)
