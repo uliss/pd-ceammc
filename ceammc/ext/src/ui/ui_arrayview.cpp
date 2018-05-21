@@ -345,6 +345,38 @@ void UIArrayView::m_set(const AtomList& lst)
     }
 }
 
+void UIArrayView::m_selectionBegin()
+{
+    if (!checkArray())
+        return;
+
+    if (!cursor_selection_.isValid()) {
+        UI_ERR << "no selection";
+        return;
+    }
+
+    cursor_sample_pos_ = cursor_selection_.begin();
+
+    control_layer_.invalidate();
+    redraw();
+}
+
+void UIArrayView::m_selectionEnd()
+{
+    if (!checkArray())
+        return;
+
+    if (!cursor_selection_.isValid()) {
+        UI_ERR << "no selection";
+        return;
+    }
+
+    cursor_sample_pos_ = cursor_selection_.end();
+
+    control_layer_.invalidate();
+    redraw();
+}
+
 bool UIArrayView::quickRender()
 {
     if (!array_.open(prop_array)) {
@@ -662,6 +694,8 @@ void UIArrayView::setup()
 
     obj.addMethod("update", &UIArrayView::m_update);
     obj.addMethod("set", &UIArrayView::m_set);
+    obj.addMethod("sel_begin", &UIArrayView::m_selectionBegin);
+    obj.addMethod("sel_end", &UIArrayView::m_selectionEnd);
 }
 
 void setup_ui_arrayview()
