@@ -101,6 +101,8 @@ public:
     void m_set(const AtomList& lst);
     void m_selectionBegin();
     void m_selectionEnd();
+    void m_begin();
+    void m_end();
 
 private:
     bool quickRender();

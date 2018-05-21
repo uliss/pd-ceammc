@@ -377,6 +377,26 @@ void UIArrayView::m_selectionEnd()
     redraw();
 }
 
+void UIArrayView::m_begin()
+{
+    if (!checkArray())
+        return;
+
+    cursor_sample_pos_ = 0;
+    control_layer_.invalidate();
+    redraw();
+}
+
+void UIArrayView::m_end()
+{
+    if (!checkArray())
+        return;
+
+    cursor_sample_pos_ = array_.size() == 0 ? 0 : array_.size() - 1;
+    control_layer_.invalidate();
+    redraw();
+}
+
 bool UIArrayView::quickRender()
 {
     if (!array_.open(prop_array)) {
@@ -696,6 +716,8 @@ void UIArrayView::setup()
     obj.addMethod("set", &UIArrayView::m_set);
     obj.addMethod("sel_begin", &UIArrayView::m_selectionBegin);
     obj.addMethod("sel_end", &UIArrayView::m_selectionEnd);
+    obj.addMethod("begin", &UIArrayView::m_begin);
+    obj.addMethod("end", &UIArrayView::m_end);
 }
 
 void setup_ui_arrayview()
