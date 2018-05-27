@@ -33,6 +33,7 @@
 - math.expr added
 - conv.amp2dbfs (amp->dbfs) added
 - conv.dbfs2amp (dbfs->amp) added
+- conv.midi2freq (m->f) added
 - gain~ added
 - speech.flite added
 - fluid~ (FluidSynth) added

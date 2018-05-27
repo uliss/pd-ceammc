@@ -1,6 +1,7 @@
 #include "mod_conv.h"
 #include "conv_amp2dbfs.h"
 #include "conv_dbfs2amp.h"
+#include "conv_midi2freq.h"
 #include "conv_pitch2midi.h"
 
 extern "C" void setup_conv0x2esec2str();
@@ -51,4 +52,6 @@ void ceammc_conv_setup()
     setup_conv0x2epitch2midi();
     setup_conv_amp2dbfs();
     setup_conv_dbfs2amp();
+
+    setup_conv_midi2freq();
 }

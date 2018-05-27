@@ -42,6 +42,7 @@ conv.lin2curve
 conv.lin2exp
 conv.lin2lin
 conv.list2bpf
+conv.midi2freq
 conv.pitch2midi
 conv.samp2sec
 conv.sec2samp
@@ -230,6 +231,7 @@ local.int
 local.json
 local.list
 m
+m->f
 math.*
 math./
 math.abs
@@ -275,6 +277,7 @@ math.tanh
 math.trunc
 metro.pattern
 metro.seq
+midi->freq
 midi.ctl->str
 midi.ctl2str
 midi.ev->ctl
