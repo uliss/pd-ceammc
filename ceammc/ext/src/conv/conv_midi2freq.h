@@ -7,6 +7,7 @@ using namespace ceammc;
 
 class Midi2Freq : public BaseObject {
     FloatPropertyClosedRange* base_a_;
+    SymbolEnumProperty* prop_temperament_;
 
 public:
     Midi2Freq(const PdArgs& args);
