@@ -188,6 +188,10 @@ void UIArrayView::init(t_symbol* name, const AtomList& args, bool usePresets)
 {
     UIObject::init(name, args, usePresets);
     buffer_.reserve(1000);
+
+    if (args.size() > 0 && !args[0].isProperty() && args[0].isSymbol()) {
+        prop_array = args[0].asSymbol();
+    }
 }
 
 void UIArrayView::okSize(t_rect* newrect)
@@ -619,7 +623,11 @@ void UIArrayView::propSetSelection(const AtomList& lst)
         return;
     }
 
-    cursor_selection_.set(lst[0].asInt(), lst[1].asInt());
+    const int N = array_.size();
+    auto b = relativeIndex<int>(lst[0].asInt(), N);
+    auto e = relativeIndex<int>(lst[1].asInt(), N);
+
+    cursor_selection_.set(b, e);
 }
 
 t_float UIArrayView::sizeSamples() const
