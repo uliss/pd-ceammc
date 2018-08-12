@@ -14,13 +14,50 @@
 #ifndef TEST_MACRO_H
 #define TEST_MACRO_H
 
-#ifndef BOOST_PP_VARIADICS
-  #define BOOST_PP_VARIADICS
-#endif
+// Accept any number of args >= N, but expand to just the Nth one.
+// Here, N == 6.
+#define _GET_NTH_ARG(_1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, _15, _16, N, ...) N
 
-#include <boost/preprocessor/seq.hpp>
-#include <boost/preprocessor/tuple/rem.hpp>
-#include <boost/preprocessor/variadic/to_seq.hpp>
+// Define some macros to help us create overrides based on the
+// arity of a for-each-style macro.
+#define _fe_0(_call, ...)
+#define _fe_1(_call, x) _call(x)
+#define _fe_2(_call, x, ...) _call(x), _fe_1(_call, __VA_ARGS__)
+#define _fe_3(_call, x, ...) _call(x), _fe_2(_call, __VA_ARGS__)
+#define _fe_4(_call, x, ...) _call(x), _fe_3(_call, __VA_ARGS__)
+#define _fe_5(_call, x, ...) _call(x), _fe_4(_call, __VA_ARGS__)
+#define _fe_6(_call, x, ...) _call(x), _fe_5(_call, __VA_ARGS__)
+#define _fe_7(_call, x, ...) _call(x), _fe_6(_call, __VA_ARGS__)
+#define _fe_8(_call, x, ...) _call(x), _fe_7(_call, __VA_ARGS__)
+#define _fe_9(_call, x, ...) _call(x), _fe_8(_call, __VA_ARGS__)
+#define _fe_10(_call, x, ...) _call(x), _fe_9(_call, __VA_ARGS__)
+#define _fe_11(_call, x, ...) _call(x), _fe_10(_call, __VA_ARGS__)
+#define _fe_12(_call, x, ...) _call(x), _fe_11(_call, __VA_ARGS__)
+#define _fe_13(_call, x, ...) _call(x), _fe_12(_call, __VA_ARGS__)
+#define _fe_14(_call, x, ...) _call(x), _fe_13(_call, __VA_ARGS__)
+#define _fe_15(_call, x, ...) _call(x), _fe_14(_call, __VA_ARGS__)
+
+/**
+ * Provide a for-each construct for variadic macros. Supports up
+ * to 4 args.
+ *
+ * Example usage1:
+ *     #define FWD_DECLARE_CLASS(cls) class cls;
+ *     CALL_MACRO_X_FOR_EACH(FWD_DECLARE_CLASS, Foo, Bar)
+ *
+ * Example usage 2:
+ *     #define START_NS(ns) namespace ns {
+ *     #define END_NS(ns) }
+ *     #define MY_NAMESPACES System, Net, Http
+ *     CALL_MACRO_X_FOR_EACH(START_NS, MY_NAMESPACES)
+ *     typedef foo int;
+ *     CALL_MACRO_X_FOR_EACH(END_NS, MY_NAMESPACES)
+ */
+
+#define CALL_MACRO_X_FOR_EACH(x, ...)                                                             \
+    _GET_NTH_ARG("ignored", ##__VA_ARGS__, _fe_15, _fe_14, _fe_13, _fe_12, _fe_11, _fe_10, _fe_9, \
+        _fe_8, _fe_7, _fe_6, _fe_5, _fe_4, _fe_3, _fe_2, _fe_1, _fe_0)                            \
+    (x, ##__VA_ARGS__)
 
 #ifndef TEST_DATA_DIR
 #define TEST_DATA_DIR "."
@@ -32,11 +69,6 @@
 #define A(v) test_atom_wrap(v)
 #define SYM(txt) gensym(txt)
 
-// helper macroses
-#define _TEST_ATOM_WRAP(s, data, elem) test_atom_wrap(elem)
-#define _TEST_ATOM_SEQ(...) BOOST_PP_SEQ_TRANSFORM(_TEST_ATOM_WRAP, 1, BOOST_PP_VARIADIC_TO_SEQ(__VA_ARGS__))
-#define _TEST_ATOM_TUPLE(...) BOOST_PP_SEQ_TO_TUPLE(_TEST_ATOM_SEQ(__VA_ARGS__))
-
 /**
  * @brief empty list
  */
@@ -45,7 +77,8 @@
 /**
  * @brief variadic list of atoms (mixed)
  */
-#define LA(...) AtomList({ BOOST_PP_TUPLE_REM_CTOR(_TEST_ATOM_TUPLE(__VA_ARGS__)) })
+#define _TEST_ATOM_WRAP(elem) test_atom_wrap(elem)
+#define LA(...) AtomList({ CALL_MACRO_X_FOR_EACH(_TEST_ATOM_WRAP, __VA_ARGS__) })
 
 /**
  * @brief variadic list of floats (only)
@@ -60,6 +93,6 @@
 /**
  * @brief variadic list of atoms (mixed)
  */
-#define LD(...) DataAtomList({ BOOST_PP_TUPLE_REM_CTOR(_TEST_ATOM_TUPLE(__VA_ARGS__)) })
+#define LD(...) DataAtomList({ CALL_MACRO_X_FOR_EACH(_TEST_ATOM_WRAP, __VA_ARGS__) })
 
 #endif
