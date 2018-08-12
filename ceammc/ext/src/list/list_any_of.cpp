@@ -59,7 +59,7 @@ void ListAnyOf::onDataT(const DataTypeMList& lst)
     onList(lst.toList());
 }
 
-extern "C" void setup_list0x2eany_of()
+void setup_list_any_of()
 {
     ObjectFactory<ListAnyOf> obj("list.any_of");
     obj.processData<DataTypeMList>();

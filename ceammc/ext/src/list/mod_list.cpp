@@ -1,7 +1,6 @@
 #include "mod_list.h"
 #include "list_route.h"
 
-extern "C" void setup_list0x2eany_of();
 extern "C" void setup_list0x2edeinterleave();
 extern "C" void setup_list0x2edelta();
 extern "C" void setup_list0x2eintegrator();
@@ -9,6 +8,7 @@ extern "C" void setup_list0x2erepack();
 extern "C" void setup_list0x2eseq();
 extern "C" void setup_list0x2ewalk();
 
+void setup_list_any_of();
 void setup_list_all_of();
 void setup_list_append();
 void setup_list_apply_to();
@@ -67,13 +67,13 @@ void setup_list_zip();
 
 void ceammc_list_setup()
 {
-    setup_list0x2eany_of();
     setup_list0x2edelta();
     setup_list0x2eintegrator();
     setup_list0x2erepack();
     setup_list0x2eseq();
     setup_list0x2ewalk();
 
+    setup_list_any_of();
     setup_list_all_of();
     setup_list_append();
     setup_list_apply_to();

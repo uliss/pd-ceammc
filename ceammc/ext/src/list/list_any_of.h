@@ -30,4 +30,6 @@ public:
     void onDataT(const DataTypeMList& lst);
 };
 
+void setup_list_any_of();
+
 #endif // LIST_ANY_OF_H
