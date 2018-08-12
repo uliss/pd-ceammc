@@ -13,18 +13,19 @@
  *****************************************************************************/
 #include "../data/datatype_mlist.h"
 #include "../list/list_any_of.h"
-#include "catch.hpp"
 #include "test_base.h"
 #include "test_external.h"
 
 PD_COMPLETE_TEST_SETUP(ListAnyOf, list, any_of);
 
-static void eqThree(TestListAnyOf* obj, size_t, const Atom& a)
+typedef TestExternal<ListAnyOf> ListAnyOfTest;
+
+static void eqThree(ListAnyOfTest* obj, size_t, const Atom& a)
 {
     obj->sendFloat(a.asInt() == 3 ? 1 : 0, 1);
 }
 
-static void lessThree(TestListAnyOf* obj, size_t, const Atom& a)
+static void lessThree(ListAnyOfTest* obj, size_t, const Atom& a)
 {
     obj->sendFloat(a.asInt() < 3 ? 1 : 0, 1);
 }
@@ -35,7 +36,7 @@ TEST_CASE("list.any_of", "[externals]")
 
     SECTION("init")
     {
-        TestListAnyOf t("list.any_of", L());
+        ListAnyOfTest t("list.any_of", L());
         REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 2);
     }
@@ -56,7 +57,7 @@ TEST_CASE("list.any_of", "[externals]")
 
     SECTION("connect")
     {
-        TestListAnyOf t("list.any_off", L());
+        ListAnyOfTest t("list.any_off", L());
 
         REQUIRE_ANY(t, LF(3), eqThree);
         REQUIRE_ANY(t, LF(3, 1), eqThree);
