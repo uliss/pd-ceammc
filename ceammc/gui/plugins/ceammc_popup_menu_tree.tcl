@@ -42,7 +42,8 @@
     {conv {
         array.p2s array.s2p conv.amp2dbfs conv.bpm2hz conv.bpm2ms conv.bpm2sec
         conv.cc2amp conv.dbfs2amp conv.lin2curve conv.lin2exp conv.lin2lin
-        conv.pitch2midi conv.samp2sec conv.sec2samp conv.sec2str conv.str2sec
+        conv.midi2freq conv.pitch2midi conv.samp2sec conv.sec2samp
+        conv.sec2str conv.str2sec
     }}
     {data {
         data.dict data.fifo data.float data.int data.list data.mlist data.set
