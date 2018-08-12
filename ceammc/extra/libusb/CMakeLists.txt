@@ -48,9 +48,11 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 if(APPLE)
     list(APPEND LIBUSB_SOURCES libusb-0.1.12/darwin.c)
-
-    add_library(libusb_01 STATIC ${LIBUSB_SOURCES})
+else()
+    list(APPEND LIBUSB_SOURCES libusb-0.1.12/linux.c)
 endif()
+
+add_library(libusb_01 STATIC ${LIBUSB_SOURCES})
 
 if(UNIX)
     set_target_properties(libusb_01 PROPERTIES COMPILE_FLAGS "-fPIC")
