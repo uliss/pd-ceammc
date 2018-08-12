@@ -14,6 +14,10 @@
 #ifndef TEST_MACRO_H
 #define TEST_MACRO_H
 
+#ifndef BOOST_PP_VARIADICS
+  #define BOOST_PP_VARIADICS
+#endif
+
 #include <boost/preprocessor/seq.hpp>
 #include <boost/preprocessor/tuple/rem.hpp>
 #include <boost/preprocessor/variadic/to_seq.hpp>
