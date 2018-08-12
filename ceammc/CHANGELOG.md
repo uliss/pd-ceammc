@@ -34,6 +34,7 @@
 - math.reciprocal alias added: 1/x
 - conv.amp2dbfs (amp->dbfs) added
 - conv.dbfs2amp (dbfs->amp) added
+- conv.midi2freq (m->f) added
 - gain~ added
 - mix~ added
 - matrix~ added

@@ -40,6 +40,7 @@ conv.dbfs2amp
 conv.lin2curve
 conv.lin2exp
 conv.lin2lin
+conv.midi2freq
 conv.pitch2midi
 conv.samp2sec
 conv.sec2samp
@@ -271,6 +272,7 @@ local.list
 local.mlist
 local.set
 m
+m->f
 math.*
 math./
 math.abs
@@ -318,6 +320,7 @@ math.trunc
 matrix~
 metro.pattern
 metro.seq
+midi->freq
 midi.ctl->str
 midi.ctl2str
 midi.ev->ctl

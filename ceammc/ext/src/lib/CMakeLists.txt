@@ -44,6 +44,7 @@ set(CEAMMC_LIB_SOURCES ceammc.h
     ceammc_impl.cpp
     ceammc_log.cpp
     ceammc_message.cpp
+    ceammc_music_temperament.cpp
     ceammc_music_theory.cpp
     ceammc_music_theory_names.cpp
     ceammc_music_theory_pitch_class.cpp

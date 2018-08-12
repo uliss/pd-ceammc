@@ -26,58 +26,41 @@ struct WaveInfo {
     float rms;
 };
 
-enum SelectionMode {
-    SELECTION_NONE = 0,
-    SELECTION_CURSOR,
-    SELECTION_RANGE
-};
-
-class SelectionRange {
-    typedef std::pair<long, long> Range;
-    Range range_;
+class Selection {
+    long begin_, end_;
 
 public:
-    SelectionRange(long from = 0, long to = 0)
-        : range_({ from, to })
-    {
-    }
+    Selection(long begin = -1, long end = -1);
+    Selection(const Selection& s);
+    void set(long begin, long end);
+    long begin() const { return begin_; }
+    long end() const { return end_; }
+    long length() const;
+    bool empty() const { return length() == 0; }
+    bool contains(long v) const;
+    void setBegin(long v);
+    void setEnd(long v);
+    bool isValid() const;
+    void fix();
+    void clear();
+};
 
-    long& from() { return range_.first; }
-    long& to() { return range_.second; }
-    const long& from() const { return range_.first; }
-    const long& to() const { return range_.second; }
-
-    bool operator==(const SelectionRange& r) const
-    {
-        return range_ == r.range_;
-    }
-
-    void set(long from, long to)
-    {
-        range_.first = from;
-        range_.second = to;
-    }
-
-    long length() const { return range_.second - range_.first; }
-    size_t absLength() const { return std::abs(range_.second - range_.first); }
-
-    bool isNull() const { return length() == 0; }
-
-    void normalize()
-    {
-        if (range_.second < range_.first)
-            std::swap(range_.first, range_.second);
-    }
+enum MouseMode {
+    MOUSE_MODE_NONE = -1,
+    MOUSE_MODE_CURSOR = 0,
+    MOUSE_MODE_SELECTION = 1,
+    MOUSE_MODE_EDIT_SELECTION
 };
 
 class UIArrayView : public UIObject {
     std::vector<WaveInfo> buffer_;
     mutable Array array_;
-    UILayer cursor_layer_;
-    UILayer wave_layer_;
+    UILayer control_layer_;
     ClockMemberFunction<UIArrayView> render_clock_;
     size_t render_index_;
     long cursor_sample_pos_;
+    Selection cursor_selection_;
+    MouseMode mouse_mode_;
     UIFont font_;
     UITextLayout label_top_left_;
     UITextLayout label_top_right_;
@@ -85,14 +68,12 @@ class UIArrayView : public UIObject {
     UITextLayout label_bottom_right_;
     std::string str_label_top_right_;
     std::string str_label_bottom_right_;
-    SelectionRange selection_;
-    SelectionMode selection_mode_;
 
 public:
     t_symbol* prop_array;
     t_rgba prop_color_wave;
     t_rgba prop_color_cursor;
-    t_rgba prop_color_selection;
+    t_rgba prop_color_select;
     int prop_show_labels;
     int prop_show_rms;
 
@@ -100,8 +81,7 @@ public:
     UIArrayView();
 
     void paint(t_object* view);
-    void drawWaveform();
-    void drawLabels();
+    void drawBackground();
     void drawCursor();
 
     void init(t_symbol* name, const AtomList& args, bool usePresets);
@@ -119,13 +99,15 @@ public:
 
     void m_update();
     void m_set(const AtomList& lst);
-    void m_selectSamples(const AtomList& lst);
+    void m_selectionBegin();
+    void m_selectionEnd();
+    void m_begin();
+    void m_end();
 
 private:
     bool quickRender();
     void renderTick();
     void renderRange(size_t pos, size_t len);
-    void drawWaveformSegment(UIPainter& p, int pixel_from, int pixel_to, const t_rgba& color);
     void output();
 
     t_float cursorPosSample() const;
@@ -140,26 +122,12 @@ private:
     t_float cursorPosSec() const;
     void setCursorPosSec(t_float pos);
 
-    AtomList selectPosSample() const;
-    void setSelectPosSample(const AtomList& pos);
+    bool checkArray();
 
-    AtomList selectPosPhase() const;
-    void setSelectPosPhase(const AtomList& pos);
+    void setMouseMode(long mod);
 
-    AtomList selectPosMs() const;
-    void setSelectPosMs(const AtomList& pos);
-
-    AtomList selectPosSec() const;
-    void setSelectPosSec(const AtomList& pos);
-
-    bool isValidArray();
-
-    void invalidateWaveform();
-    void invalidateCursor();
-    void invalidateAll();
-
-    void redrawSelection();
-    void setSelection(long begin, long end);
+    AtomList propSelection() const;
+    void propSetSelection(const AtomList& lst);
 
 public:
     t_float sizeSamples() const;

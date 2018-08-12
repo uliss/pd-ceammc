@@ -13,12 +13,12 @@
  *****************************************************************************/
 #include "ceammc_convert.h"
 
+#include <boost/math/constants/constants.hpp>
 #include <cctype>
 #include <cmath>
 #include <cstdio>
 #include <cstdlib>
 #include <vector>
-#include <boost/math/constants/constants.hpp>
 
 std::string ceammc::convert::time::sec2str(float sec, bool ms)
 {
@@ -256,4 +256,30 @@ float ceammc::convert::amp2dbfs(float amp)
 double ceammc::convert::amp2dbfs(double amp)
 {
     return 20 * log10(amp);
+}
+
+float ceammc::convert::midi2freq(float note, float a_freq)
+{
+    return a_freq * powf(2, (note - 69) / 12);
+}
+
+double ceammc::convert::midi2freq(double note, double a_freq)
+{
+    return a_freq * pow(2, (note - 69) / 12);
+}
+
+float ceammc::convert::freq2midi(float freq, float a_freq)
+{
+    if (freq <= 0 || a_freq <= 0)
+        return -1;
+
+    return (12 * log2f(freq / a_freq)) + 69;
+}
+
+double ceammc::convert::freq2midi(double freq, double a_freq)
+{
+    if (freq <= 0 || a_freq <= 0)
+        return -1;
+
+    return (12 * log2(freq / a_freq)) + 69;
 }

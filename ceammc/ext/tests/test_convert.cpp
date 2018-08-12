@@ -556,4 +556,25 @@ TEST_CASE("convert", "[PureData]")
 
         REQUIRE(relativeIndex<int>(0, 0) == -1);
     }
+
+    SECTION("midi2freq")
+    {
+        REQUIRE(midi2freq(69.f) == Approx(440));
+        REQUIRE(midi2freq(69.0) == Approx(440));
+        REQUIRE(midi2freq(57.f) == Approx(220));
+        REQUIRE(midi2freq(57.f) == Approx(220));
+        REQUIRE(freq2midi(midi2freq(60.0)) == Approx(60));
+        REQUIRE(freq2midi(midi2freq(60.0, 442), 442) == Approx(60));
+        REQUIRE(freq2midi(midi2freq(60.f, 442), 442) == Approx(60));
+        REQUIRE(freq2midi(midi2freq(60.f)) == Approx(60));
+        REQUIRE(freq2midi(midi2freq(69.0)) == Approx(69));
+
+        REQUIRE(midi2freq(69.f, 442) == Approx(442));
+        REQUIRE(midi2freq(69.f, 415) == Approx(415));
+
+        REQUIRE(midi2freq(-60.f) == Approx(0.25549f));
+        REQUIRE(midi2freq(127.f) == Approx(12543.85547f));
+        REQUIRE(freq2midi(0.f) == Approx(-1));
+        REQUIRE(freq2midi(-10.f) == Approx(-1));
+    }
 }

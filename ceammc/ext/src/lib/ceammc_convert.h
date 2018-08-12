@@ -149,6 +149,19 @@ namespace convert {
     double dbfs2amp(double db);
     float amp2dbfs(float amp);
     double amp2dbfs(double amp);
+
+    // 12-TET convert
+    float midi2freq(float note, float a_freq = 440.f);
+    double midi2freq(double note, double a_freq = 440);
+
+    /**
+     * @brief converts frequency to midi scale
+     * @param freq - input frequency
+     * @param a_freq - base A freq
+     * @return -1 on invalid arguments
+     */
+    float freq2midi(float freq, float a_freq = 440.f);
+    double freq2midi(double freq, double a_freq = 440);
 }
 }
 
