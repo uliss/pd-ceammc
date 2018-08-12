@@ -17,9 +17,13 @@
                 <see>list.none_of</see>
             </also>
         </meta>
+        <info>
+            <par>Note: also data.mlist</par>
+        </info>
         <inlets>
             <inlet>
                 <xinfo on="list">Input list</xinfo>
+                <xinfo on="data">Input mlist</xinfo>
             </inlet>
             <inlet>
                 <xinfo on="float" minvalue="0" maxvalue="1">input value from predicate. "1" means
@@ -34,11 +38,11 @@
         <example>
             <pdascii>
 <![CDATA[
-[1 2( [1 2 3( [1 2 3 4(
-|     |       |
-|     |       |
-|     |       |
-[list.any_of  ] X [> 3]
+[1 2( [1 2 3 4( [\(1 2 3 5), bang(
+|     |         |
+|     |         [ml]
+|     |         |
+[list.any_of    ] X [> 3]
 |
 [F]
 ]]>

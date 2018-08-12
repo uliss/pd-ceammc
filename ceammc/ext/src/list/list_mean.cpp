@@ -1,32 +1,40 @@
+#include "list_mean.h"
+#include "../data/datatype_mlist.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
-#include "ceammc_object.h"
 
-using namespace ceammc;
+ListMean::ListMean(const PdArgs& a)
+    : BaseObject(a)
+{
+    createOutlet();
+}
 
-class ListMean : public BaseObject {
-public:
-    ListMean(const PdArgs& a)
-        : BaseObject(a)
-    {
-        createOutlet();
-    }
+void ListMean::onFloat(float f)
+{
+    floatTo(0, f);
+}
 
-    void onFloat(float f)
-    {
-        floatTo(0, f);
-    }
+void ListMean::onList(const AtomList& l)
+{
+    if (l.empty())
+        return;
 
-    void onList(const AtomList& l)
-    {
-        if (l.empty())
-            return;
+    auto avg = list::average(l);
+    if (avg == boost::none)
+        return;
 
-        floatTo(0, list::average(l));
-    }
-};
+    floatTo(0, *avg);
+}
 
-extern "C" void setup_list0x2emean()
+void ListMean::onDataT(const DataTypeMList& lst)
+{
+    onList(lst.toList());
+}
+
+void setup_list_mean()
 {
     ObjectFactory<ListMean> obj("list.mean");
+    obj.addAlias("list.average");
+
+    obj.processData<DataTypeMList>();
 }

@@ -12,12 +12,12 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../base/msg.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "catch.hpp"
 
 #include <stdio.h>
 
-typedef TestExtension<Msg> MsgTest;
+typedef TestExternal<Msg> MsgTest;
 
 TEST_CASE("msg", "[extension]")
 {
@@ -27,7 +27,7 @@ TEST_CASE("msg", "[extension]")
     {
         SECTION("empty arguments")
         {
-            MsgTest t("msg", AtomList());
+            MsgTest t("msg", L());
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
 
@@ -35,125 +35,125 @@ TEST_CASE("msg", "[extension]")
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
             WHEN_SEND_FLOAT_TO(0, t, 12);
-            REQUIRE_LIST_AT_OUTLET(0, t, L1(12));
+            REQUIRE_LIST_AT_OUTLET(0, t, LF(12));
 
             WHEN_SEND_SYMBOL_TO(0, t, "abc");
-            REQUIRE_ANY_AT_OUTLET(0, t, L1("abc"));
+            REQUIRE_ANY_AT_OUTLET(0, t, LA("abc"));
 
-            WHEN_SEND_LIST_TO(0, t, L3("a", "b", 3));
-            REQUIRE_ANY_AT_OUTLET(0, t, L3("a", "b", 3));
+            WHEN_SEND_LIST_TO(0, t, LA("a", "b", 3));
+            REQUIRE_ANY_AT_OUTLET(0, t, LA("a", "b", 3));
 
-            WHEN_SEND_LIST_TO(0, t, L3(1, 2, 3));
-            REQUIRE_LIST_AT_OUTLET(0, t, L3(1, 2, 3));
+            WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3));
+            REQUIRE_LIST_AT_OUTLET(0, t, LF(1, 2, 3));
 
-            WHEN_SEND_ANY_TO(t, "a", L2("b", "c"));
-            REQUIRE_ANY_AT_OUTLET(0, t, L3("a", "b", "c"));
+            WHEN_SEND_ANY_TO(t, "a", LA("b", "c"));
+            REQUIRE_ANY_AT_OUTLET(0, t, LA("a", "b", "c"));
 
             // change prefix to symbol
             WHEN_SEND_SYMBOL_TO(1, t, "prepend");
 
             WHEN_SEND_BANG_TO(0, t);
-            REQUIRE_ANY_AT_OUTLET(0, t, L1("prepend"));
+            REQUIRE_ANY_AT_OUTLET(0, t, LA("prepend"));
 
             WHEN_SEND_FLOAT_TO(0, t, 11);
-            REQUIRE_ANY_AT_OUTLET(0, t, L2("prepend", 11));
+            REQUIRE_ANY_AT_OUTLET(0, t, LA("prepend", 11));
 
             WHEN_SEND_SYMBOL_TO(0, t, "b");
-            REQUIRE_ANY_AT_OUTLET(0, t, L2("prepend", "b"));
+            REQUIRE_ANY_AT_OUTLET(0, t, LA("prepend", "b"));
 
             WHEN_SEND_SYMBOL_TO(0, t, "@b");
-            REQUIRE_ANY_AT_OUTLET(0, t, L2("prepend", "@b"));
+            REQUIRE_ANY_AT_OUTLET(0, t, LA("prepend", "@b"));
 
-            WHEN_SEND_LIST_TO(0, t, L3("a", "b", "c"));
-            REQUIRE_ANY_AT_OUTLET(0, t, L4("prepend", "a", "b", "c"));
+            WHEN_SEND_LIST_TO(0, t, LA("a", "b", "c"));
+            REQUIRE_ANY_AT_OUTLET(0, t, LA("prepend", "a", "b", "c"));
 
-            WHEN_SEND_ANY_TO(t, "a", L2("b", "c"));
-            REQUIRE_ANY_AT_OUTLET(0, t, L4("prepend", "a", "b", "c"));
+            WHEN_SEND_ANY_TO(t, "a", LA("b", "c"));
+            REQUIRE_ANY_AT_OUTLET(0, t, LA("prepend", "a", "b", "c"));
 
             // change prefix to float
             WHEN_SEND_FLOAT_TO(1, t, 123);
 
             WHEN_SEND_BANG_TO(0, t);
-            REQUIRE_LIST_AT_OUTLET(0, t, L1(123));
+            REQUIRE_LIST_AT_OUTLET(0, t, LF(123));
 
             WHEN_SEND_FLOAT_TO(0, t, 124);
-            REQUIRE_LIST_AT_OUTLET(0, t, L2(123, 124));
+            REQUIRE_LIST_AT_OUTLET(0, t, LF(123, 124));
 
             WHEN_SEND_SYMBOL_TO(0, t, "a");
-            REQUIRE_LIST_AT_OUTLET(0, t, L2(123, "a"));
+            REQUIRE_LIST_AT_OUTLET(0, t, LA(123, "a"));
 
             WHEN_SEND_SYMBOL_TO(0, t, "@b");
-            REQUIRE_LIST_AT_OUTLET(0, t, L2(123, "@b"));
+            REQUIRE_LIST_AT_OUTLET(0, t, LA(123, "@b"));
 
-            WHEN_SEND_LIST_TO(0, t, L3("a", "b", "c"));
-            REQUIRE_LIST_AT_OUTLET(0, t, L4(123, "a", "b", "c"));
+            WHEN_SEND_LIST_TO(0, t, LA("a", "b", "c"));
+            REQUIRE_LIST_AT_OUTLET(0, t, LA(123, "a", "b", "c"));
 
-            WHEN_SEND_ANY_TO(t, "a", L2("b", "c"));
-            REQUIRE_LIST_AT_OUTLET(0, t, L4(123, "a", "b", "c"));
+            WHEN_SEND_ANY_TO(t, "a", LA("b", "c"));
+            REQUIRE_LIST_AT_OUTLET(0, t, LA(123, "a", "b", "c"));
 
             // change prefix to list
-            WHEN_SEND_LIST_TO(1, t, L2("a", "b"));
+            WHEN_SEND_LIST_TO(1, t, LA("a", "b"));
 
             WHEN_SEND_BANG_TO(0, t);
-            REQUIRE_ANY_AT_OUTLET(0, t, L2("a", "b"));
+            REQUIRE_ANY_AT_OUTLET(0, t, LA("a", "b"));
 
             WHEN_SEND_FLOAT_TO(0, t, -100);
-            REQUIRE_ANY_AT_OUTLET(0, t, L3("a", "b", -100));
+            REQUIRE_ANY_AT_OUTLET(0, t, LA("a", "b", -100));
 
             WHEN_SEND_SYMBOL_TO(0, t, "c");
-            REQUIRE_ANY_AT_OUTLET(0, t, L3("a", "b", "c"));
+            REQUIRE_ANY_AT_OUTLET(0, t, LA("a", "b", "c"));
 
             WHEN_SEND_SYMBOL_TO(0, t, "@c");
-            REQUIRE_ANY_AT_OUTLET(0, t, L3("a", "b", "@c"));
+            REQUIRE_ANY_AT_OUTLET(0, t, LA("a", "b", "@c"));
 
-            WHEN_SEND_LIST_TO(0, t, L3("c", "d", "e"));
-            REQUIRE_ANY_AT_OUTLET(0, t, L5("a", "b", "c", "d", "e"));
+            WHEN_SEND_LIST_TO(0, t, LA("c", "d", "e"));
+            REQUIRE_ANY_AT_OUTLET(0, t, LA("a", "b", "c", "d", "e"));
 
-            WHEN_SEND_ANY_TO(t, "c", L2("d", "e"));
-            REQUIRE_ANY_AT_OUTLET(0, t, L5("a", "b", "c", "d", "e"));
+            WHEN_SEND_ANY_TO(t, "c", LA("d", "e"));
+            REQUIRE_ANY_AT_OUTLET(0, t, LA("a", "b", "c", "d", "e"));
 
             // change prefix to prop
-            WHEN_SEND_LIST_TO(1, t, L1("@a"));
+            WHEN_SEND_LIST_TO(1, t, LA("@a"));
 
             WHEN_SEND_BANG_TO(0, t);
-            REQUIRE_ANY_AT_OUTLET(0, t, L1("@a"));
+            REQUIRE_ANY_AT_OUTLET(0, t, LA("@a"));
 
             WHEN_SEND_FLOAT_TO(0, t, 11);
-            REQUIRE_ANY_AT_OUTLET(0, t, L2("@a", 11));
+            REQUIRE_ANY_AT_OUTLET(0, t, LA("@a", 11));
 
             WHEN_SEND_SYMBOL_TO(0, t, "b");
-            REQUIRE_ANY_AT_OUTLET(0, t, L2("@a", "b"));
+            REQUIRE_ANY_AT_OUTLET(0, t, LA("@a", "b"));
 
             WHEN_SEND_SYMBOL_TO(0, t, "@b");
-            REQUIRE_ANY_AT_OUTLET(0, t, L2("@a", "@b"));
+            REQUIRE_ANY_AT_OUTLET(0, t, LA("@a", "@b"));
 
-            WHEN_SEND_LIST_TO(0, t, L3("a", "b", "c"));
-            REQUIRE_ANY_AT_OUTLET(0, t, L4("@a", "a", "b", "c"));
+            WHEN_SEND_LIST_TO(0, t, LA("a", "b", "c"));
+            REQUIRE_ANY_AT_OUTLET(0, t, LA("@a", "a", "b", "c"));
 
-            WHEN_SEND_ANY_TO(t, "a", L2("b", "c"));
-            REQUIRE_ANY_AT_OUTLET(0, t, L4("@a", "a", "b", "c"));
+            WHEN_SEND_ANY_TO(t, "a", LA("b", "c"));
+            REQUIRE_ANY_AT_OUTLET(0, t, LA("@a", "a", "b", "c"));
         }
 
         SECTION("symbol arg")
         {
-            MsgTest t("msg", L1("set"));
+            MsgTest t("msg", LA("set"));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
 
             WHEN_SEND_BANG_TO(0, t);
-            REQUIRE_ANY_AT_OUTLET(0, t, L1("set"));
+            REQUIRE_ANY_AT_OUTLET(0, t, LA("set"));
 
             WHEN_SEND_FLOAT_TO(0, t, 12);
-            REQUIRE_ANY_AT_OUTLET(0, t, L2("set", 12));
+            REQUIRE_ANY_AT_OUTLET(0, t, LA("set", 12));
 
             WHEN_SEND_SYMBOL_TO(0, t, "abc");
-            REQUIRE_ANY_AT_OUTLET(0, t, L2("set", "abc"));
+            REQUIRE_ANY_AT_OUTLET(0, t, LA("set", "abc"));
 
-            WHEN_SEND_LIST_TO(0, t, L3("a", "b", 3));
-            REQUIRE_ANY_AT_OUTLET(0, t, L4("set", "a", "b", 3));
+            WHEN_SEND_LIST_TO(0, t, LA("a", "b", 3));
+            REQUIRE_ANY_AT_OUTLET(0, t, LA("set", "a", "b", 3));
 
-            WHEN_SEND_LIST_TO(0, t, L3(1, 2, 3));
-            REQUIRE_ANY_AT_OUTLET(0, t, L4("set", 1, 2, 3));
+            WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3));
+            REQUIRE_ANY_AT_OUTLET(0, t, LA("set", 1, 2, 3));
         }
     }
 }

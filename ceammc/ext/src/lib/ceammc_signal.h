@@ -15,22 +15,28 @@
 #define CEAMMC_SIGNAL_H
 
 #include <algorithm>
+#include <cmath>
 #include <cstddef>
+#include <cstdint>
 #include <limits>
 
 namespace ceammc {
 
-template <class T, size_t N = 512>
+template <class T>
 class SmoothLinT {
     T step_;
     T current_;
     T target_;
+    uint32_t N_;
+    bool done_;
 
 public:
-    SmoothLinT(T init = 0, T target = 0)
+    SmoothLinT(T init = 0, T target = 0, size_t duration = 512)
         : current_(init)
         , target_(target)
         , step_(0)
+        , N_(std::max<size_t>(duration, 1))
+        , done_(false)
     {
         setTargetValue(target);
     }
@@ -38,19 +44,38 @@ public:
     void setTargetValue(T v)
     {
         target_ = v;
-        T new_step = (target_ - current_) / N;
+        T new_step = (target_ - current_) / N_;
 
         if (SmoothLinT::abs(new_step) <= std::numeric_limits<T>::epsilon())
             step_ = 0;
         else
             step_ = new_step;
+
+        done_ = false;
+    }
+
+    void setDuration(size_t samples)
+    {
+        N_ = std::max<size_t>(samples, 1);
+        setTargetValue(target_);
+    }
+
+    void setDurationMs(double ms, double samplerate)
+    {
+        size_t N = static_cast<size_t>(std::max<double>(1, std::round(ms * (0.001 * samplerate))));
+        setDuration(N);
     }
 
     T operator()()
     {
-        if (SmoothLinT::abs(target_ - current_) < std::max<T>(SmoothLinT::abs(step_), std::numeric_limits<T>::epsilon()))
+        if (done_)
+            return current_;
+
+        if (SmoothLinT::abs(target_ - current_)
+            < std::max<T>(SmoothLinT::abs(step_), std::numeric_limits<T>::epsilon())) {
             current_ = target_;
-        else
+            done_ = true;
+        } else
             current_ += step_;
 
         return current_;
@@ -59,6 +84,7 @@ public:
     T current() const { return current_; }
     T step() const { return step_; }
     T target() const { return target_; }
+    bool isDone() const { return done_; }
 
 private:
     static T abs(T v) { return v < 0 ? -v : v; }

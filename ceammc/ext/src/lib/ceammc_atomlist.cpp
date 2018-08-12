@@ -12,10 +12,12 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_atomlist.h"
+#include "ceammc_convert.h"
+#include "ceammc_dataatom.h"
 #include "ceammc_log.h"
+
 #include <algorithm>
 #include <cassert>
-#include <cstdarg>
 #include <cstdlib>
 #include <iostream>
 #include <iterator>
@@ -25,37 +27,17 @@ namespace ceammc {
 
 typedef const Atom* (AtomList::*ElementAccessFn)(int)const;
 
-bool AtomList::getRelativeIdx(int pos, size_t* idx) const
-{
-    return calc_rel_idx(pos, idx, atoms_.size());
-}
-
-bool AtomList::calc_rel_idx(int pos, size_t* dest, size_t sz)
-{
-    if (sz == 0)
-        return false;
-
-    if (dest == 0)
-        return false;
-
-    const int isz = static_cast<int>(sz);
-    if (abs(pos) > isz)
-        return false;
-
-    if (pos < 0)
-        pos += isz;
-
-    if (pos < 0)
-        return false;
-
-    if (pos >= isz)
-        return false;
-
-    *dest = static_cast<size_t>(pos);
-    return true;
-}
-
 AtomList::AtomList()
+{
+}
+
+AtomList::AtomList(const AtomList& l)
+    : atoms_(l.atoms_)
+{
+}
+
+AtomList::AtomList(AtomList&& l)
+    : atoms_(std::move(l.atoms_))
 {
 }
 
@@ -65,9 +47,8 @@ AtomList::AtomList(const Atom& a)
 }
 
 AtomList::AtomList(const Atom& a, const Atom& b)
+    : atoms_({ a, b })
 {
-    append(a);
-    append(b);
 }
 
 AtomList::AtomList(size_t n, t_atom* lst)
@@ -78,6 +59,26 @@ AtomList::AtomList(size_t n, t_atom* lst)
 AtomList::AtomList(int n, t_atom* lst)
 {
     fromPdData(n, lst);
+}
+
+AtomList::AtomList(std::initializer_list<t_float> l)
+    : atoms_(l.begin(), l.end())
+{
+}
+
+AtomList::AtomList(std::initializer_list<Atom> l)
+    : atoms_(l.begin(), l.end())
+{
+}
+
+void AtomList::operator=(const AtomList& l)
+{
+    atoms_ = l.atoms_;
+}
+
+void AtomList::operator=(AtomList&& l)
+{
+    atoms_ = std::move(l.atoms_);
 }
 
 size_t AtomList::size() const
@@ -137,11 +138,11 @@ const Atom& AtomList::operator[](size_t pos) const
 
 Atom* AtomList::relativeAt(int pos)
 {
-    size_t idx;
-    if (!getRelativeIdx(pos, &idx))
-        return 0;
+    auto idx = relativeIndex<int>(pos, atoms_.size());
+    if (idx < 0)
+        return nullptr;
 
-    return &atoms_[static_cast<size_t>(idx)];
+    return &atoms_[idx];
 }
 
 const Atom* AtomList::relativeAt(int pos) const
@@ -151,13 +152,11 @@ const Atom* AtomList::relativeAt(int pos) const
 
 Atom* AtomList::clipAt(int pos)
 {
-    if (empty())
-        return 0;
+    if (atoms_.empty())
+        return nullptr;
 
-    const int sz = static_cast<int>(size()) - 1;
-    int idx = std::min(std::max(pos, 0), sz);
-
-    return &at(idx);
+    const size_t N = atoms_.size();
+    return &atoms_[clip<long>(pos, 0, N - 1)];
 }
 
 const Atom* AtomList::clipAt(int pos) const
@@ -167,15 +166,10 @@ const Atom* AtomList::clipAt(int pos) const
 
 Atom* AtomList::wrapAt(int pos)
 {
-    if (empty())
-        return 0;
+    if (atoms_.empty())
+        return nullptr;
 
-    const int sz = static_cast<int>(size());
-    int idx = pos % sz;
-    if (idx < 0)
-        idx += sz;
-
-    return &at(idx);
+    return &atoms_[wrapInteger<long>(pos, atoms_.size())];
 }
 
 const Atom* AtomList::wrapAt(int pos) const
@@ -185,15 +179,11 @@ const Atom* AtomList::wrapAt(int pos) const
 
 Atom* AtomList::foldAt(int pos)
 {
-    if (empty())
-        return 0;
+    auto N = atoms_.size();
+    if (N == 0)
+        return nullptr;
 
-    if (size() == 1)
-        return first();
-
-    const size_t a = size() - 1;
-    const size_t b = static_cast<size_t>(abs(pos)) % (a * 2);
-    return &at(std::min(b, a * 2 - b));
+    return &atoms_[foldInteger<int>(pos, N)];
 }
 
 const Atom* AtomList::foldAt(int pos) const
@@ -392,50 +382,44 @@ AtomList AtomList::map(AtomMapFunction f) const
     return res;
 }
 
-AtomList AtomList::slice(int start) const
+static size_t normalizeIdx(int idx, size_t N, bool clip)
 {
-    if (start >= static_cast<int>(size()))
-        return AtomList();
+    const bool is_negative = idx < 0;
+    int abs_idx = idx;
 
-    // lower bound
-    start = std::max(start, -static_cast<int>(size()));
-    size_t pos = 0;
-    getRelativeIdx(start, &pos);
+    if (is_negative)
+        abs_idx = -(idx + 1);
 
-    AtomList res;
-    res.atoms_.reserve(atoms_.size() - pos);
-    std::copy(atoms_.begin() + pos, atoms_.end(), std::back_inserter(res.atoms_));
-    return res;
+    if (clip)
+        abs_idx = std::min<int>(abs_idx, N - 1);
+
+    return is_negative ? (N - 1 - abs_idx) : abs_idx;
 }
 
 AtomList AtomList::slice(int start, int end, size_t step) const
 {
-    if (step < 1)
-        return AtomList();
+    AtomList res;
 
-    if (empty())
-        return AtomList();
+    if (step < 1 || atoms_.empty())
+        return res;
 
     if (start >= static_cast<int>(size()))
+        return res;
+
+    const size_t N = atoms_.size();
+    size_t nfirst = normalizeIdx(start, N, false);
+    if (nfirst >= N)
         return AtomList();
 
-    // lower bound
-    start = std::max(start, -static_cast<int>(size()));
-    end = std::max(end, -static_cast<int>(size()));
-    end = std::min(end, static_cast<int>(size()));
+    size_t last = normalizeIdx(end, N, true);
 
-    size_t start_pos = 0;
-    getRelativeIdx(start, &start_pos);
-
-    if (end < 0)
-        end += size();
-
-    if (start_pos >= end)
-        return AtomList();
-
-    AtomList res;
-    for (size_t i = start_pos; i < end; i += step)
-        res.atoms_.push_back(atoms_[i]);
+    if (nfirst <= last) {
+        for (size_t i = nfirst; i <= last; i += step)
+            res.append(atoms_[i]);
+    } else {
+        for (long i = nfirst; i >= long(last); i -= step)
+            res.append(atoms_[i]);
+    }
 
     return res;
 }
@@ -623,7 +607,7 @@ AtomList AtomList::filtered(AtomPredicate pred) const
 Atom* AtomList::min()
 {
     if (empty())
-        return 0;
+        return nullptr;
 
     return &(*std::min_element(atoms_.begin(), atoms_.end()));
 }
@@ -636,7 +620,7 @@ const Atom* AtomList::min() const
 Atom* AtomList::max()
 {
     if (empty())
-        return 0;
+        return nullptr;
 
     return &(*std::max_element(atoms_.begin(), atoms_.end()));
 }
@@ -644,7 +628,7 @@ Atom* AtomList::max()
 Atom* AtomList::find(const Atom& a)
 {
     if (empty())
-        return 0;
+        return nullptr;
 
     Iterator it = std::find(atoms_.begin(), atoms_.end(), a);
     return it == atoms_.end() ? 0 : &(*it);
@@ -653,7 +637,7 @@ Atom* AtomList::find(const Atom& a)
 Atom* AtomList::findLast(const Atom& a)
 {
     if (empty())
-        return 0;
+        return nullptr;
 
     ReverseIterator it = std::find(atoms_.rbegin(), atoms_.rend(), a);
     return it == atoms_.rend() ? 0 : &(*it);
@@ -662,33 +646,23 @@ Atom* AtomList::findLast(const Atom& a)
 Atom* AtomList::findLast(AtomPredicate pred)
 {
     if (empty())
-        return 0;
+        return nullptr;
 
     ReverseIterator it = std::find_if(atoms_.rbegin(), atoms_.rend(), pred);
     return it == atoms_.rend() ? 0 : &(*it);
 }
 
-static t_float atom_sum(t_float a, t_float b)
+MaybeFloat AtomList::sum() const
 {
-    return a + b;
+    return reduceFloat(0, [](t_float a, t_float b) { return a + b; });
 }
 
-float AtomList::sum() const
-{
-    return reduceFloat(0.f, 0.f, &atom_sum);
-}
-
-static t_float atom_mul(t_float a, t_float b)
-{
-    return a * b;
-}
-
-float AtomList::product() const
+MaybeFloat AtomList::product() const
 {
     if (empty())
-        return 0;
+        return boost::none;
 
-    return reduceFloat(1.f, 1.f, &atom_mul);
+    return reduceFloat(1, [](t_float a, t_float b) { return a * b; });
 }
 
 bool AtomList::contains(const Atom& a) const
@@ -716,7 +690,20 @@ int AtomList::findPos(AtomPredicate pred) const
 
 size_t AtomList::count(const Atom& a) const
 {
-    return std::count(atoms_.begin(), atoms_.end(), a);
+    if (!a.isData()) {
+        return std::count(atoms_.begin(), atoms_.end(), a);
+    } else {
+        DataPtr dptr(a);
+        if (dptr.isNull())
+            return 0;
+
+        return std::count_if(atoms_.begin(), atoms_.end(), [&dptr](const Atom& el) {
+            if (!el.isData())
+                return false;
+
+            return DataPtr(el) == dptr;
+        });
+    }
 }
 
 size_t AtomList::count(AtomPredicate pred) const
@@ -729,46 +716,23 @@ bool AtomList::allOf(AtomPredicate pred) const
     if (empty())
         return false;
 
-    ConstIterator first = atoms_.begin();
-    ConstIterator last = atoms_.end();
-    while (first != last) {
-        if (!pred(*first))
-            return false;
-        ++first;
-    }
-    return true;
+    return std::all_of(atoms_.begin(), atoms_.end(), pred);
 }
 
 bool AtomList::anyOf(AtomPredicate pred) const
 {
-    ConstIterator first = atoms_.begin();
-    ConstIterator last = atoms_.end();
-
-    while (first != last) {
-        if (pred(*first))
-            return true;
-        ++first;
-    }
-    return false;
+    return std::any_of(atoms_.begin(), atoms_.end(), pred);
 }
 
 bool AtomList::noneOf(AtomPredicate pred) const
 {
-    ConstIterator first = atoms_.begin();
-    ConstIterator last = atoms_.end();
-
-    while (first != last) {
-        if (pred(*first))
-            return false;
-        ++first;
-    }
-    return true;
+    return std::none_of(atoms_.begin(), atoms_.end(), pred);
 }
 
 Atom* AtomList::find(AtomPredicate pred)
 {
     if (empty())
-        return 0;
+        return nullptr;
 
     Iterator it = std::find_if(atoms_.begin(), atoms_.end(), pred);
     return it == atoms_.end() ? 0 : &(*it);
@@ -779,33 +743,12 @@ const Atom* AtomList::max() const
     return const_cast<AtomList*>(this)->max();
 }
 
-template <class ForwardIterator>
-static std::pair<ForwardIterator, ForwardIterator>
-minmax_element(ForwardIterator first, ForwardIterator last)
-{
-    if (first == last)
-        return std::make_pair(last, last);
-
-    ForwardIterator smallest = first;
-    ForwardIterator largest = first;
-
-    while (++first != last) {
-        if (*first < *smallest)
-            smallest = first;
-
-        if (*largest < *first)
-            largest = first;
-    }
-
-    return std::make_pair(smallest, largest);
-}
-
 bool AtomList::range(Atom& min, Atom& max) const
 {
     if (empty())
         return false;
 
-    std::pair<ConstIterator, ConstIterator> res = ceammc::minmax_element(atoms_.begin(), atoms_.end());
+    auto res = std::minmax_element(atoms_.begin(), atoms_.end());
     min = *res.first;
     max = *res.second;
     return true;
@@ -834,9 +777,11 @@ const Atom* AtomList::find(AtomPredicate pred) const
 FloatList AtomList::asFloats() const
 {
     FloatList res;
-    for (size_t i = 0; i < atoms_.size(); i++) {
+    res.reserve(atoms_.size());
+
+    for (size_t i = 0; i < atoms_.size(); i++)
         res.push_back(atoms_[i].asFloat());
-    }
+
     return res;
 }
 
@@ -876,33 +821,21 @@ void AtomList::outputAsAny(_outlet* x, t_symbol* s) const
     outlet_anything(x, s, static_cast<int>(size()), toPdData());
 }
 
-t_float AtomList::reduceFloat(t_float init, t_float def, t_float (*fn)(t_float, t_float)) const
-{
-    t_float accum = init;
-    ConstIterator it;
-    for (it = atoms_.begin(); it != atoms_.end(); ++it) {
-        accum = fn(accum, it->asFloat(def));
-    }
-
-    return accum;
-}
-
 bool AtomList::normalizeFloats()
 {
     if (empty())
         return false;
 
-    float s = sum();
-    if (s == 0.f)
+    auto s = sum();
+    if (s == boost::none || *s == 0)
         return false;
 
-    Iterator it;
-    for (it = atoms_.begin(); it != atoms_.end(); ++it) {
+    for (auto& it : atoms_) {
         t_float f = 0.f;
-        if (!it->getFloat(&f))
+        if (!it.getFloat(&f))
             continue;
 
-        it->setFloat(f / s);
+        it.setFloat(f / *s);
     }
 
     return true;
@@ -968,20 +901,6 @@ AtomList AtomList::filled(const Atom& a, size_t n)
 {
     AtomList res;
     res.fill(a, n);
-    return res;
-}
-
-AtomList AtomList::values(size_t n, ...)
-{
-    AtomList res;
-    va_list ap;
-    va_start(ap, n);
-
-    for (size_t i = 2; i <= n + 1; i++) {
-        res.append(Atom(static_cast<float>(va_arg(ap, double))));
-    }
-
-    va_end(ap);
     return res;
 }
 

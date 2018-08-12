@@ -18,15 +18,24 @@
 
 using namespace ceammc;
 
+enum RotateDir {
+    ROTATE_LEFT = 1,
+    ROTATE_RIGHT = -1
+};
+
+class DataTypeMList;
+
 class ListRotate : public BaseObject {
     IntProperty* step_;
+    RotateDir rotate_dir_;
 
 public:
     ListRotate(const PdArgs& a);
     void onList(const AtomList& l);
     void onInlet(size_t, const AtomList& step);
+    void onDataT(const DataTypeMList& ml);
 };
 
-extern "C" void setup_list0x2erotate();
+void setup_list_rotate();
 
 #endif // LIST_ROTATE_H

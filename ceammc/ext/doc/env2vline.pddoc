@@ -16,6 +16,7 @@
                 <alias>env-&gt;vline</alias>
             </aliases>
             <also>
+                <see>vline-&gt;env</see>
                 <see>env-&gt;array</see>
             </also>
         </meta>

@@ -19,6 +19,12 @@ using namespace ceammc;
 
 static const DataDesc INVALID(data::DATA_INVALID, DataId(-1));
 
+DataPtr::DataPtr()
+    : desc_(INVALID)
+    , data_(nullptr)
+{
+}
+
 DataPtr::DataPtr(AbstractData* data)
     : desc_(INVALID)
     , data_(data)
@@ -28,7 +34,7 @@ DataPtr::DataPtr(AbstractData* data)
 
 DataPtr::DataPtr(const Atom& data)
     : desc_(INVALID)
-    , data_(0)
+    , data_(nullptr)
 {
     if (!data.isData())
         return;
@@ -43,28 +49,49 @@ DataPtr::DataPtr(const DataPtr& d)
 {
 }
 
+DataPtr::DataPtr(DataPtr&& d)
+    : desc_(d.desc_)
+    , data_(d.data_)
+{
+    d.desc_ = INVALID;
+    d.data_ = nullptr;
+}
+
 DataPtr& DataPtr::operator=(const DataPtr& d)
 {
     if (this == &d)
         return *this;
 
-    DataStorage::instance().release(desc_);
+    invalidate();
 
     desc_ = d.desc_;
     data_ = DataStorage::instance().acquire(desc_);
     return *this;
 }
 
+DataPtr& DataPtr::operator=(DataPtr&& d)
+{
+    if (this == &d)
+        return *this;
+
+    invalidate();
+    desc_ = d.desc_;
+    data_ = d.data_;
+
+    d.desc_ = INVALID;
+    d.data_ = nullptr;
+
+    return *this;
+}
+
 DataPtr::~DataPtr()
 {
-    DataStorage::instance().release(desc_);
+    invalidate();
 }
 
 bool DataPtr::isValid() const
 {
-    return desc_.type != data::DATA_INVALID
-        && desc_.id != DataId(-1)
-        && data_ != 0;
+    return desc_ != INVALID && data_ != nullptr;
 }
 
 DataDesc DataPtr::desc() const
@@ -114,7 +141,7 @@ void DataPtr::invalidate()
         return;
 
     DataStorage::instance().release(desc_);
-    data_ = 0;
+    data_ = nullptr;
     desc_ = INVALID;
 }
 
@@ -135,5 +162,5 @@ bool ceammc::operator<(const DataPtr& d0, const DataPtr& d1)
 
 bool ceammc::DataPtr::isNull() const
 {
-    return !isValid();
+    return desc_ == INVALID || data_ == nullptr;
 }

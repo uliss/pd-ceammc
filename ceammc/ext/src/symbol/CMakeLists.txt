@@ -1,17 +1,12 @@
 set(SYMBOL_SOURCES "")
 
-macro(ceammc_symbol_extension name)
+macro(ceammc_symbol_external name)
     list(APPEND SYMBOL_SOURCES "symbol_${name}.cpp")
 endmacro()
 
-ceammc_symbol_extension(ends_with)
-ceammc_symbol_extension(length)
-ceammc_symbol_extension(num_compare)
-ceammc_symbol_extension(equal)
-
-#    ceammc_symbol_extension(string join)
-#    ceammc_symbol_extension(string slice)
-#    ceammc_symbol_extension(string split)
+ceammc_symbol_external(length)
+ceammc_symbol_external(num_compare)
+ceammc_symbol_external(equal)
 
 add_library(ceammc_symbol STATIC mod_symbol.cpp ${SYMBOL_SOURCES})
 if(UNIX)

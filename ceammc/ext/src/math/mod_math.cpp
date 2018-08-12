@@ -5,6 +5,7 @@
 #include "math_gcd.h"
 #include "math_lcm.h"
 #include "math_mul.h"
+#include "math_polyeval.h"
 
 extern "C" void setup_math0x2eabs();
 extern "C" void setup_math0x2eacos();
@@ -90,4 +91,5 @@ void ceammc_math_setup()
     setup_math_mul();
     setup_math_expr();
     setup_math_div();
+    setup_math_polyeval();
 }

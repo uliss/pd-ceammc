@@ -12,13 +12,13 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../array/array_each.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "ceammc_factory.h"
 #include "ceammc_pd.h"
 
 #include "catch.hpp"
 
-typedef TestExtension<ArrayEach> ArrayEachTest;
+typedef TestExternal<ArrayEach> ArrayEachTest;
 
 using namespace ceammc;
 
@@ -41,7 +41,7 @@ TEST_CASE("array.each", "[externals]")
 
     SECTION("invalid")
     {
-        ArrayEachTest t("array.each", L1("non-exists"));
+        ArrayEachTest t("array.each", LA("non-exists"));
         REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 2);
         REQUIRE_PROPERTY(t, @array, "non-exists");
@@ -54,7 +54,7 @@ TEST_CASE("array.each", "[externals]")
 
     SECTION("array1")
     {
-        ArrayEachTest t("array.each", L1("array1"));
+        ArrayEachTest t("array.each", LA("array1"));
 
         // no array yet
         WHEN_SEND_BANG_TO(0, t);
@@ -80,7 +80,7 @@ TEST_CASE("array.each", "[externals]")
 
         ObjectFactory<ArrayEach>::ObjectProxy* p = (ObjectFactory<ArrayEach>::ObjectProxy*)x;
         REQUIRE(p->impl->numInlets() == 2);
-        REQUIRE(p->impl->property("@array")->get() == L1("array1"));
+        REQUIRE(p->impl->property("@array")->get() == LA("array1"));
 
         Array a("array1");
         a.fillWith(4);

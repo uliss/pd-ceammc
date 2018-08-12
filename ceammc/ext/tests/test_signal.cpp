@@ -19,13 +19,13 @@
 
 using namespace ceammc;
 
-typedef SmoothLinT<float, 10> SmoothTest;
+typedef SmoothLinT<float> SmoothTest;
 
 TEST_CASE("convert", "[PureData]")
 {
     SECTION("smooth")
     {
-        SmoothTest t;
+        SmoothTest t(0, 0, 10);
 
         REQUIRE(t.step() == Approx(0));
         REQUIRE(t.current() == Approx(0));

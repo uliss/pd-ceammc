@@ -1,4 +1,5 @@
 #include "list_normalize.h"
+#include "../data/datatype_mlist.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
 #include "ceammc_log.h"
@@ -39,7 +40,13 @@ void ListNormalize::onList(const AtomList& lst)
     listTo(0, out);
 }
 
-extern "C" void setup_list0x2enormalize()
+void ListNormalize::onDataT(const DataTypeMList& lst)
+{
+    onList(lst.toList());
+}
+
+void setup_list_normalize()
 {
     ObjectFactory<ListNormalize> obj("list.normalize");
+    obj.processData<DataTypeMList>();
 }

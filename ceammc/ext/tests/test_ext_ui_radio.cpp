@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../ui/ui_radio.h"
-#include "ui_external_test.h"
+#include "test_ui.h"
 
 UI_COMPLETE_TEST_SETUP(Radio)
 
@@ -45,91 +45,91 @@ TEST_CASE("ui.radio", "[ui.radio]")
         REQUIRE(t->height() == 15);
         REQUIRE_UI_FLOAT_PROPERTY(t, "nitems", 8);
 
-        t->setProperty(gensym("nitems"), L1(-1));
+        t->setProperty(gensym("nitems"), LF(-1));
 
         REQUIRE(t->p_numItems() == 2);
         REQUIRE(t->width() == 127);
         REQUIRE(t->height() == 63);
 
-        t->setProperty(gensym("nitems"), L1(0.f));
+        t->setProperty(gensym("nitems"), LF(0.f));
         REQUIRE(t->p_numItems() == 2);
-        t->setProperty(gensym("nitems"), L1(2));
+        t->setProperty(gensym("nitems"), LF(2));
         REQUIRE(t->p_numItems() == 2);
 
-        t->setProperty(gensym("nitems"), L1(129));
+        t->setProperty(gensym("nitems"), LF(129));
 
         REQUIRE(t->p_numItems() == 128);
         REQUIRE(t->width() == 1151);
         REQUIRE(t->height() == 8);
 
-        t->setProperty(gensym("nitems"), L1(128));
+        t->setProperty(gensym("nitems"), LF(128));
         REQUIRE(t->p_numItems() == 128);
-        t->setProperty(gensym("nitems"), L1(127));
+        t->setProperty(gensym("nitems"), LF(127));
         REQUIRE(t->p_numItems() == 127);
 
-        t->setProperty(gensym("nitems"), L1(8.5));
+        t->setProperty(gensym("nitems"), LF(8.5));
         REQUIRE(t->p_numItems() == 8);
     }
 
     SECTION("m_plus")
     {
-        TestRadio t("ui.radio", L2("@nitems", 3));
+        TestRadio t("ui.radio", LA("@nitems", 3));
         REQUIRE(t->p_numItems() == 3);
 
         REQUIRE(t->singleValue() == 0);
-        t.call("+", L1(1));
+        t.call("+", LF(1));
         REQUIRE(t->singleValue() == 1);
-        t.call("+", L1(0.f));
+        t.call("+", LF(0.f));
         REQUIRE(t->singleValue() == 1);
-        t.call("+", L1(1));
+        t.call("+", LF(1));
         REQUIRE(t->singleValue() == 2);
-        t.call("+", L1(1));
+        t.call("+", LF(1));
         REQUIRE(t->singleValue() == 0);
-        t.call("+", L1(2));
+        t.call("+", LF(2));
         REQUIRE(t->singleValue() == 2);
-        t.call("+", L1(2));
+        t.call("+", LF(2));
         REQUIRE(t->singleValue() == 1);
-        t.call("+", L1(-1));
+        t.call("+", LF(-1));
         REQUIRE(t->singleValue() == 0);
-        t.call("+", L1(-1));
+        t.call("+", LF(-1));
         REQUIRE(t->singleValue() == 2);
-        t.call("+", L1(-300));
+        t.call("+", LF(-300));
         REQUIRE(t->singleValue() == 2);
-        t.call("+", L1(-301));
+        t.call("+", LF(-301));
         REQUIRE(t->singleValue() == 1);
     }
 
     SECTION("m_minus")
     {
-        TestRadio t("ui.radio", L2("@nitems", 3));
+        TestRadio t("ui.radio", LA("@nitems", 3));
         REQUIRE(t->p_numItems() == 3);
 
         REQUIRE(t->singleValue() == 0);
-        t.call("-", L1(1));
+        t.call("-", LF(1));
         REQUIRE(t->singleValue() == 2);
-        t.call("-", L1(0.f));
+        t.call("-", LF(0.f));
         REQUIRE(t->singleValue() == 2);
-        t.call("-", L1(1));
+        t.call("-", LF(1));
         REQUIRE(t->singleValue() == 1);
-        t.call("-", L1(1));
+        t.call("-", LF(1));
         REQUIRE(t->singleValue() == 0);
-        t.call("-", L1(2));
+        t.call("-", LF(2));
         REQUIRE(t->singleValue() == 1);
-        t.call("-", L1(2));
+        t.call("-", LF(2));
         REQUIRE(t->singleValue() == 2);
-        t.call("-", L1(-1));
+        t.call("-", LF(-1));
         REQUIRE(t->singleValue() == 0);
-        t.call("-", L1(-1));
+        t.call("-", LF(-1));
         REQUIRE(t->singleValue() == 1);
-        t.call("-", L1(-300));
+        t.call("-", LF(-300));
         REQUIRE(t->singleValue() == 1);
-        t.call("-", L1(-301));
+        t.call("-", LF(-301));
         REQUIRE(t->singleValue() == 2);
     }
 
     SECTION("next/prev")
     {
-        TestRadio t("ui.radio", L2("@nitems", 3));
+        TestRadio t("ui.radio", LA("@nitems", 3));
         REQUIRE(t->p_numItems() == 3);
 
         REQUIRE(t->singleValue() == 0);
@@ -148,7 +148,7 @@ TEST_CASE("ui.radio", "[ui.radio]")
 
         // only in single mode
         t->setSingleValue(1);
-        t->setProperty(gensym("mode"), L1(1));
+        t->setProperty(gensym("mode"), LF(1));
         REQUIRE(t->singleValue() == 0);
 
         REQUIRE(t->singleValue() == 0);
@@ -160,35 +160,35 @@ TEST_CASE("ui.radio", "[ui.radio]")
 
     SECTION("flip")
     {
-        TestRadio t("ui.radio", L4("@nitems", 3, "@mode", 1));
+        TestRadio t("ui.radio", LA("@nitems", 3, "@mode", 1));
         REQUIRE(t->p_numItems() == 3);
 
         t.call("flip");
-        REQUIRE(t->listValue() == L3(1, 1, 1));
-        REQUIRE_UI_LIST_PROPERTY(t, "value", L3(1, 1, 1));
+        REQUIRE(t->listValue() == LF(1, 1, 1));
+        REQUIRE_UI_LIST_PROPERTY(t, "value", LF(1, 1, 1));
 
         t.call("flip");
-        REQUIRE(t->listValue() == L3(0.f, 0.f, 0.f));
+        REQUIRE(t->listValue() == LF(0.f, 0.f, 0.f));
 
         // only in check list mode
-        t.call("@mode", L1(0.f));
+        t.call("@mode", LF(0.f));
         t.call("flip");
-        REQUIRE(t->listValue() == L3(0.f, 0.f, 0.f));
+        REQUIRE(t->listValue() == LF(0.f, 0.f, 0.f));
     }
 
     SECTION("PD")
     {
-        TestPdExternal<UIRadio> t("ui.radio", L2("@nitems", 4));
+        TestExtRadio t("ui.radio", LA("@nitems", 4));
         REQUIRE(t->p_numItems() == 4);
 
         t.call("@value?");
-        REQUIRE_OUTPUT_ANY(t, 0, L2("@value", 0.f));
+        REQUIRE_OUTPUT_ANY(t, 0, LA("@value", 0.f));
         t.bang();
         REQUIRE_OUTPUT_FLOAT(t, 0, 0);
         t.call("next");
         REQUIRE_OUTPUT_FLOAT(t, 0, 1);
         t.call("@value?");
-        REQUIRE_OUTPUT_ANY(t, 0, L2("@value", 1));
+        REQUIRE_OUTPUT_ANY(t, 0, LA("@value", 1));
         t.bang();
         REQUIRE_OUTPUT_FLOAT(t, 0, 1);
         t.call("flip");
@@ -201,50 +201,50 @@ TEST_CASE("ui.radio", "[ui.radio]")
 
         t.send(3);
         REQUIRE_OUTPUT_FLOAT(t, 0, 3);
-        t.call("@value", L1(2));
+        t.call("@value", LF(2));
         REQUIRE_NO_OUTPUT(t);
         t.call("reset");
         REQUIRE_NO_OUTPUT(t);
 
         // presets
-        t.call("store", L1(1));
+        t.call("store", LF(1));
         REQUIRE_NO_OUTPUT(t);
-        t.call("@value", L1(1));
+        t.call("@value", LF(1));
         REQUIRE_NO_OUTPUT(t);
-        t.call("store", L1(2));
+        t.call("store", LF(2));
         REQUIRE_NO_OUTPUT(t);
-        t.call("load", L1(1));
+        t.call("load", LF(1));
         REQUIRE_OUTPUT_FLOAT(t, 0, 2);
-        t.call("load", L1(2));
+        t.call("load", LF(2));
         REQUIRE_OUTPUT_FLOAT(t, 0, 1);
 
         t.call("@mode", 1.f);
         REQUIRE_NO_OUTPUT(t);
         t.call("flip");
-        REQUIRE_OUTPUT_LIST(t, 0, L4(1, 1, 1, 1));
+        REQUIRE_OUTPUT_LIST(t, 0, LF(1, 1, 1, 1));
         t.call("@value?");
-        REQUIRE_OUTPUT_ANY(t, 0, L5("@value", 1, 1, 1, 1));
+        REQUIRE_OUTPUT_ANY(t, 0, LA("@value", 1, 1, 1, 1));
         t.bang();
-        REQUIRE_OUTPUT_LIST(t, 0, L4(1, 1, 1, 1));
+        REQUIRE_OUTPUT_LIST(t, 0, LF(1, 1, 1, 1));
 
-        t.send(L2(0.f, 1));
-        REQUIRE_OUTPUT_LIST(t, 0, L4(0.f, 1, 1, 1));
-        t.send(L5(0.f, 1, 0.f, 0.f, 1));
-        REQUIRE_OUTPUT_LIST(t, 0, L4(0.f, 1, 0.f, 0.f));
+        t.send(LF(0.f, 1));
+        REQUIRE_OUTPUT_LIST(t, 0, LA(0.f, 1, 1, 1));
+        t.send(LA(0.f, 1, 0.f, 0.f, 1));
+        REQUIRE_OUTPUT_LIST(t, 0, LA(0.f, 1, 0.f, 0.f));
 
-        t.call("@value", L4(1, 0.f, 1, 0.f));
+        t.call("@value", LA(1, 0.f, 1, 0.f));
         REQUIRE_NO_OUTPUT(t);
-        t.call("store", L1(1));
+        t.call("store", LF(1));
         REQUIRE_NO_OUTPUT(t);
         t.call("flip");
-        t.call("store", L1(2));
+        t.call("store", LF(2));
 
-        t.call("load", L1(1));
-        REQUIRE_OUTPUT_LIST(t, 0, L4(1, 0.f, 1, 0.f));
-        t.call("load", L1(2));
-        REQUIRE_OUTPUT_LIST(t, 0, L4(0.f, 1, 0.f, 1));
-        t.call("load", L1(1));
-        REQUIRE_OUTPUT_LIST(t, 0, L4(1, 0.f, 1, 0.f));
+        t.call("load", LF(1));
+        REQUIRE_OUTPUT_LIST(t, 0, LA(1, 0.f, 1, 0.f));
+        t.call("load", LF(2));
+        REQUIRE_OUTPUT_LIST(t, 0, LA(0.f, 1, 0.f, 1));
+        t.call("load", LF(1));
+        REQUIRE_OUTPUT_LIST(t, 0, LA(1, 0.f, 1, 0.f));
 
         t.call("+");
         REQUIRE_NO_OUTPUT(t);
@@ -263,7 +263,7 @@ TEST_CASE("ui.radio", "[ui.radio]")
     {
         SECTION("plain")
         {
-            TestExtRadio t("ui.radio", L2("@send", "r2"));
+            TestExtRadio t("ui.radio", LA("@send", "r2"));
             t.addListener("r2");
 
             t << BANG;
@@ -275,10 +275,10 @@ TEST_CASE("ui.radio", "[ui.radio]")
             t << BANG;
             REQUIRE_FLOAT_WAS_SEND(t, "r2", 2);
 
-            t << L2(1, 2);
+            t << LF(1, 2);
             REQUIRE_NONE_WAS_SEND(t, "r2");
 
-            t.call("any", L2(1, 2));
+            t.call("any", LF(1, 2));
             REQUIRE_NONE_WAS_SEND(t, "r2");
 
             t << "ABC";
@@ -290,7 +290,7 @@ TEST_CASE("ui.radio", "[ui.radio]")
 
         SECTION("checkbox")
         {
-            TestExtRadio t("ui.radio", L4("@mode", 1, "@send", "r2"));
+            TestExtRadio t("ui.radio", LA("@mode", 1, "@send", "r2"));
             t.addListener("r2");
 
             t << BANG;
@@ -299,15 +299,15 @@ TEST_CASE("ui.radio", "[ui.radio]")
             t << 2;
             REQUIRE_NONE_WAS_SEND(t, "r2");
 
-            t << L4(1, 1, 1, 1);
-            REQUIRE_LIST_WAS_SEND(t, "r2", L4(1, 1, 1, 1) + AtomList::zeroes(4));
+            t << LF(1, 1, 1, 1);
+            REQUIRE_LIST_WAS_SEND(t, "r2", LF(1, 1, 1, 1) + AtomList::zeroes(4));
 
-            t.call("any", L2(1, 2));
+            t.call("any", LF(1, 2));
             REQUIRE_NONE_WAS_SEND(t, "r2");
 
             t.call("reset");
             t.mouseDown(55, 5);
-            REQUIRE_LIST_WAS_SEND(t, "r2", ListApprox(0, 0, 0, 1, 0, 0, 0, 0));
+            REQUIRE_LIST_WAS_SEND(t, "r2", LX(0, 0, 0, 1, 0, 0, 0, 0));
         }
     }
 }

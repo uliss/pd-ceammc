@@ -6,29 +6,26 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>checks if atom, data or list contains in list</description>
+            <description>on input list checks if it contains specified subsequence</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>list</category>
             <keywords>list predicate any</keywords>
             <since>0.6</since>
             <also>
+                <see>list.^contains</see>
                 <see>list.all_of</see>
                 <see>list.none_of</see>
             </also>
         </meta>
-        <info>
-            <par>Outputs 1 if contains, otherwise 0</par>
-        </info>
         <inlets>
             <inlet>
-                <xinfo on="float">checks if given float contains in list</xinfo>
-                <xinfo on="symbol">checks if given symbol contains in list</xinfo>
-                <xinfo on="list">check is given list is subseqence of list</xinfo>
-                <xinfo on="data">checks if given data contains in list</xinfo>
+                <xinfo on="list">check is list is contains specified atom or sequence</xinfo>
+                <xinfo on="data:mlist">as list</xinfo>
             </inlet>
             <inlet>
-                <xinfo on="list">set haystack list</xinfo>
+                <xinfo on="atom">set needle atom</xinfo>
+                <xinfo on="list">set needle list</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -37,25 +34,25 @@
         <example>
             <pdascii>
 <![CDATA[
-[F]  [2 3 4( [4 5 6( [symbol A( [list A B(
-|    |       |       |          |
-|    |       |       |          | [list A B C D(
-|    |       |       |          | |.
-[list.contains              1 2 3 4 5]
+[1 2( [3 4(   [F]
+|     |       |.
+[list.contains 1]
 |
 [T]
 
-/*works with data*/ [loadbang ]
-                    |         |
-[B]       [B]       [str ABC] [str DEF]
-|         |         |         |.
-[str ABC] [str ??]  [list append]
-|         |         |.
-[list.contains       ]
+[\(A B C ABC\), bang(
+|
+[ml]
+|
+[list.contains A]
 |
 [T]
+
+[1 2 3 4 5( [0 1 2 3 4(
+|           |
+[flow.pass_if] X [list.contains 0]
 |
-[B]
+[ui.display @display_type=1]
 ]]>
             </pdascii>
         </example>

@@ -21,6 +21,7 @@
         <inlets>
             <inlet>
                 <xinfo on="list">input list of floats. Non float values are rejected</xinfo>
+                <xinfo on="data:mlist">same as list</xinfo>
             </inlet>
         </inlets>
         <properties>

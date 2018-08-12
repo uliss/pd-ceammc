@@ -3,7 +3,7 @@
 
 #include "ceammc_platform.h"
 
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "catch.hpp"
 
 #include <iostream>

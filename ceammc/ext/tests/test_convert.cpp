@@ -408,4 +408,152 @@ TEST_CASE("convert", "[PureData]")
             REQUIRE(spn2midi("Ebb4") == 62);
         }
     }
+
+    SECTION("wrapInteger")
+    {
+        using namespace ceammc;
+        REQUIRE(wrapInteger<int>(0, 3) == 0);
+        REQUIRE(wrapInteger<int>(1, 3) == 1);
+        REQUIRE(wrapInteger<int>(2, 3) == 2);
+        REQUIRE(wrapInteger<int>(3, 3) == 0);
+        REQUIRE(wrapInteger<int>(4, 3) == 1);
+        REQUIRE(wrapInteger<int>(5, 3) == 2);
+        REQUIRE(wrapInteger<int>(6, 3) == 0);
+        REQUIRE(wrapInteger<int>(-1, 3) == 2);
+        REQUIRE(wrapInteger<int>(-2, 3) == 1);
+        REQUIRE(wrapInteger<int>(-3, 3) == 0);
+        REQUIRE(wrapInteger<int>(-4, 3) == 2);
+        REQUIRE(wrapInteger<int>(-5, 3) == 1);
+        REQUIRE(wrapInteger<int>(-6, 3) == 0);
+        REQUIRE(wrapInteger<int>(-7, 3) == 2);
+
+        REQUIRE(wrapInteger<char>(0, 3) == 0);
+        REQUIRE(wrapInteger<char>(1, 3) == 1);
+        REQUIRE(wrapInteger<char>(2, 3) == 2);
+        REQUIRE(wrapInteger<char>(3, 3) == 0);
+        REQUIRE(wrapInteger<char>(4, 3) == 1);
+        REQUIRE(wrapInteger<char>(5, 3) == 2);
+        REQUIRE(wrapInteger<char>(6, 3) == 0);
+        REQUIRE(wrapInteger<char>(-1, 3) == 2);
+        REQUIRE(wrapInteger<char>(-2, 3) == 1);
+        REQUIRE(wrapInteger<char>(-3, 3) == 0);
+        REQUIRE(wrapInteger<char>(-4, 3) == 2);
+        REQUIRE(wrapInteger<char>(-5, 3) == 1);
+        REQUIRE(wrapInteger<char>(-6, 3) == 0);
+        REQUIRE(wrapInteger<char>(-7, 3) == 2);
+
+        REQUIRE(wrapInteger<long>(0, 3) == 0);
+        REQUIRE(wrapInteger<long>(1, 3) == 1);
+        REQUIRE(wrapInteger<long>(2, 3) == 2);
+        REQUIRE(wrapInteger<long>(3, 3) == 0);
+        REQUIRE(wrapInteger<long>(4, 3) == 1);
+        REQUIRE(wrapInteger<long>(5, 3) == 2);
+        REQUIRE(wrapInteger<long>(6, 3) == 0);
+        REQUIRE(wrapInteger<long>(-1, 3) == 2);
+        REQUIRE(wrapInteger<long>(-2, 3) == 1);
+        REQUIRE(wrapInteger<long>(-3, 3) == 0);
+        REQUIRE(wrapInteger<long>(-4, 3) == 2);
+        REQUIRE(wrapInteger<long>(-5, 3) == 1);
+        REQUIRE(wrapInteger<long>(-6, 3) == 0);
+        REQUIRE(wrapInteger<long>(-7, 3) == 2);
+
+        REQUIRE(wrapInteger<int>(0, 2) == 0);
+        REQUIRE(wrapInteger<int>(1, 2) == 1);
+        REQUIRE(wrapInteger<int>(2, 2) == 0);
+        REQUIRE(wrapInteger<int>(3, 2) == 1);
+        REQUIRE(wrapInteger<int>(4, 2) == 0);
+        REQUIRE(wrapInteger<int>(5, 2) == 1);
+        REQUIRE(wrapInteger<int>(6, 2) == 0);
+        REQUIRE(wrapInteger<int>(-1, 2) == 1);
+        REQUIRE(wrapInteger<int>(-2, 2) == 0);
+        REQUIRE(wrapInteger<int>(-3, 2) == 1);
+        REQUIRE(wrapInteger<int>(-4, 2) == 0);
+        REQUIRE(wrapInteger<int>(-5, 2) == 1);
+        REQUIRE(wrapInteger<int>(-6, 2) == 0);
+        REQUIRE(wrapInteger<int>(-7, 2) == 1);
+
+        REQUIRE(wrapInteger<int>(0, 1) == 0);
+        REQUIRE(wrapInteger<int>(1, 1) == 0);
+        REQUIRE(wrapInteger<int>(2, 1) == 0);
+        REQUIRE(wrapInteger<int>(3, 1) == 0);
+        REQUIRE(wrapInteger<int>(4, 1) == 0);
+        REQUIRE(wrapInteger<int>(5, 1) == 0);
+        REQUIRE(wrapInteger<int>(6, 1) == 0);
+        REQUIRE(wrapInteger<int>(-1, 1) == 0);
+        REQUIRE(wrapInteger<int>(-2, 1) == 0);
+        REQUIRE(wrapInteger<int>(-3, 1) == 0);
+        REQUIRE(wrapInteger<int>(-4, 1) == 0);
+        REQUIRE(wrapInteger<int>(-5, 1) == 0);
+        REQUIRE(wrapInteger<int>(-6, 1) == 0);
+        REQUIRE(wrapInteger<int>(-7, 1) == 0);
+    }
+
+    SECTION("fold")
+    {
+        using namespace ceammc;
+        REQUIRE(foldInteger<int>(0, 3) == 0);
+        REQUIRE(foldInteger<int>(1, 3) == 1);
+        REQUIRE(foldInteger<int>(2, 3) == 2);
+        REQUIRE(foldInteger<int>(3, 3) == 1);
+        REQUIRE(foldInteger<int>(4, 3) == 0);
+        REQUIRE(foldInteger<int>(5, 3) == 1);
+        REQUIRE(foldInteger<int>(6, 3) == 2);
+        REQUIRE(foldInteger<int>(7, 3) == 1);
+        REQUIRE(foldInteger<int>(8, 3) == 0);
+        REQUIRE(foldInteger<int>(9, 3) == 1);
+        REQUIRE(foldInteger<int>(10, 3) == 2);
+        REQUIRE(foldInteger<int>(0, 3) == 0);
+
+        REQUIRE(foldInteger<int>(-1, 3) == 1);
+        REQUIRE(foldInteger<int>(-2, 3) == 2);
+        REQUIRE(foldInteger<int>(-3, 3) == 1);
+        REQUIRE(foldInteger<int>(-4, 3) == 0);
+        REQUIRE(foldInteger<int>(-5, 3) == 1);
+        REQUIRE(foldInteger<int>(-6, 3) == 2);
+        REQUIRE(foldInteger<int>(-7, 3) == 1);
+        REQUIRE(foldInteger<int>(-8, 3) == 0);
+        REQUIRE(foldInteger<int>(-9, 3) == 1);
+
+        REQUIRE(foldInteger<int>(0, 2) == 0);
+        REQUIRE(foldInteger<int>(1, 2) == 1);
+        REQUIRE(foldInteger<int>(2, 2) == 0);
+        REQUIRE(foldInteger<int>(3, 2) == 1);
+        REQUIRE(foldInteger<int>(4, 2) == 0);
+        REQUIRE(foldInteger<int>(5, 2) == 1);
+        REQUIRE(foldInteger<int>(6, 2) == 0);
+        REQUIRE(foldInteger<int>(7, 2) == 1);
+        REQUIRE(foldInteger<int>(8, 2) == 0);
+        REQUIRE(foldInteger<int>(9, 2) == 1);
+
+        REQUIRE(foldInteger<int>(0, 1) == 0);
+        REQUIRE(foldInteger<int>(1, 1) == 0);
+        REQUIRE(foldInteger<int>(2, 1) == 0);
+        REQUIRE(foldInteger<int>(3, 1) == 0);
+        REQUIRE(foldInteger<int>(4, 1) == 0);
+        REQUIRE(foldInteger<int>(5, 1) == 0);
+        REQUIRE(foldInteger<int>(6, 1) == 0);
+        REQUIRE(foldInteger<int>(7, 1) == 0);
+        REQUIRE(foldInteger<int>(8, 1) == 0);
+        REQUIRE(foldInteger<int>(9, 1) == 0);
+    }
+
+    SECTION("relativeIndex")
+    {
+        using namespace ceammc;
+        REQUIRE(relativeIndex<int>(0, 3) == 0);
+        REQUIRE(relativeIndex<int>(1, 3) == 1);
+        REQUIRE(relativeIndex<int>(2, 3) == 2);
+        REQUIRE(relativeIndex<int>(3, 3) == -1);
+        REQUIRE(relativeIndex<int>(4, 3) == -1);
+        REQUIRE(relativeIndex<int>(5, 3) == -1);
+
+        REQUIRE(relativeIndex<int>(-1, 3) == 2);
+        REQUIRE(relativeIndex<int>(-2, 3) == 1);
+        REQUIRE(relativeIndex<int>(-3, 3) == 0);
+        REQUIRE(relativeIndex<int>(-4, 3) == -1);
+        REQUIRE(relativeIndex<int>(-5, 3) == -1);
+        REQUIRE(relativeIndex<int>(-6, 3) == -1);
+
+        REQUIRE(relativeIndex<int>(0, 0) == -1);
+    }
 }

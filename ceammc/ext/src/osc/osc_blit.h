@@ -25,6 +25,7 @@ class Blit;
 class OscBlit : public SoundExternal {
     stk::Blit* osc_;
     t_float freq_;
+    size_t num_harmonics_;
 
 public:
     OscBlit(const PdArgs& args);
@@ -33,8 +34,12 @@ public:
     void processBlock(const t_sample** in, t_sample** out) override;
     void setupDSP(t_signal** sp) override;
 
+    void onInlet(size_t, const AtomList&) override;
+
     AtomList propFreq() const;
     void propSetFreq(const AtomList& lst);
+    AtomList propHarm() const;
+    void propSetHarm(const AtomList& lst);
 };
 
 void setup_osc_blit();

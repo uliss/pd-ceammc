@@ -12,14 +12,14 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../base/function.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "catch.hpp"
 #include "ceammc_pd.h"
 #include "test_external.h"
 
 #include <stdio.h>
 
-typedef TestExtension<Function> FunctionTest;
+typedef TestExternal<Function> FunctionTest;
 
 static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
 
@@ -32,11 +32,11 @@ TEST_CASE("function", "[externals]")
     {
         REQUIRE_THROWS(f1());
 
-        FunctionTest t("func", L1("sqrt"));
+        FunctionTest t("func", LA("sqrt"));
         // already exists
         REQUIRE_THROWS(f2());
         // new name is ok
-        FunctionTest t2("func", L1("sqrt2"));
+        FunctionTest t2("func", LA("sqrt2"));
 
         REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 2);
@@ -49,9 +49,9 @@ TEST_CASE("function", "[externals]")
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
         REQUIRE_BANG_AT_OUTLET(1, t);
 
-        WHEN_SEND_LIST_TO(0, t, L3("A", "B", "C"));
+        WHEN_SEND_LIST_TO(0, t, LA("A", "B", "C"));
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
-        REQUIRE_LIST_AT_OUTLET(1, t, L3("A", "B", "C"));
+        REQUIRE_LIST_AT_OUTLET(1, t, LA("A", "B", "C"));
 
         WHEN_SEND_SYMBOL_TO(0, t, "TEST");
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
@@ -60,7 +60,7 @@ TEST_CASE("function", "[externals]")
 
     SECTION("test")
     {
-        FunctionTest t("func", L1("sqrt"));
+        FunctionTest t("func", LA("sqrt"));
         WHEN_SEND_FLOAT_TO(0, t, 2);
         REQUIRE_FLOAT_AT_OUTLET(1, t, 2);
     }
@@ -70,7 +70,7 @@ TEST_CASE("function", "[externals]")
         function_setup();
         ExternalOutput::setup();
 
-        pd::External func("function", L1("sqrt"));
+        pd::External func("function", LA("sqrt"));
         REQUIRE(!func.isNull());
         pd::External sqrt("sqrt");
         REQUIRE(!sqrt.isNull());

@@ -12,68 +12,119 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../fx/fx_looper.h"
-#include "base_extension_test.h"
-#include "catch.hpp"
-
-extern "C" {
-#include "s_stuff.h"
-}
+#include "test_base.h"
+#include "test_sound.h"
 
 #include <algorithm>
 #include <cstdlib>
+#include <initializer_list>
+#include <numeric>
 #include <stdio.h>
 
-typedef TestSoundExtension<FxLooper> FxLooperTest;
+//typedef std::vector<t_sample> Signal;
 
-struct ConstGen {
-    double v;
-    ConstGen(double val)
-        : v(val)
+class Signal : public std::vector<t_sample> {
+public:
+    Signal() {}
+
+    Signal(size_t n, t_sample v)
+        : std::vector<t_sample>(n, v)
     {
     }
-    t_sample operator()(size_t) const { return t_sample(v); }
+
+    Signal(std::initializer_list<t_sample> l)
+        : std::vector<t_sample>(l)
+    {
+    }
 };
 
-struct FRandGen {
-    int f, t;
-    FRandGen(int from, int to)
-        : f(from)
-        , t(to)
+Signal operator+(const Signal& s0, const Signal& s1)
+{
+    Signal res(s0);
+    std::copy(s1.begin(), s1.end(), std::back_inserter(res));
+    return res;
+}
+
+static Signal sigLin(size_t len, t_sample from = 0, t_sample to = 1)
+{
+    assert(len > 1);
+
+    Signal res(len, 0);
+    res[0] = from;
+
+    t_sample inc = (to - from) / (len - 1);
+    for (size_t i = 1; i < len - 1; i++)
+        res[i] = res[i - 1] + inc;
+
+    res[len - 1] = to;
+    return res;
+}
+
+class FxLooperTest : public TestSoundExternal<FxLooper> {
+    static const size_t BS = 8;
+    static const size_t SR = 512;
+
+public:
+    typedef TestSignal<1, 1> Vec;
+    Signal output;
+
+public:
+    FxLooperTest(const char* name, const AtomList& args = L())
+        : TestSoundExternal<FxLooper>(name, args, true)
     {
+        FxLooper::setBlockSize(BS);
+        FxLooper::setSamplerate(SR);
+        setTestSampleRate(SR);
     }
-    t_sample operator()(size_t) const { return t_sample(rand() % (t - f) + f); }
-};
 
-template <size_t IN, size_t OUT>
-struct SigVec {
-    t_sample buf_in[IN][64];
-    t_sample buf_out[OUT][64];
-    const t_sample* in_ptr;
-    t_sample* out_ptr;
-    const t_sample** in;
-    t_sample** out;
-
-    SigVec()
-        : in_ptr(buf_in[0])
-        , out_ptr(buf_out[0])
-        , in(&in_ptr)
-        , out(&out_ptr)
+    void operator<<(const Signal& v)
     {
+        const size_t n = v.size() / BS;
+        output.clear();
+
+        auto it = v.begin();
+        for (size_t i = 0; i < n; i++) {
+            Vec sig;
+
+            for (size_t j = 0; j < BS; j++)
+                sig.setInput(j, v[i * BS + j]);
+
+            processBlock(sig.in, sig.out);
+
+            for (size_t j = 0; j < BS; j++)
+                output.push_back(sig.out[0][j]);
+        }
     }
 
-    void fill(float v)
+    void stop()
     {
-        for (size_t c = 0; c < IN; c++)
-            for (size_t s = 0; s < 64; s++)
-                buf_in[c][s] = v;
+        m_stop(&s_, L());
     }
 
-    template <class Gen>
-    void fill(Gen fn)
+    void play()
     {
-        for (size_t c = 0; c < IN; c++)
-            for (size_t s = 0; s < 64; s++)
-                buf_in[c][s] = fn(s);
+        m_play(&s_, L());
+    }
+
+    void record()
+    {
+        m_record(&s_, L());
+    }
+
+    void overdub()
+    {
+        m_overdub(&s_, L());
+    }
+
+    void clear()
+    {
+        m_clear(&s_, L());
+    }
+
+    template <class P>
+    P* prop(const char* name)
+    {
+        return static_cast<P*>(property(name));
     }
 };
 
@@ -83,109 +134,404 @@ static void fill_block(t_sample* b, F f)
     std::generate(b, b + 64, f);
 }
 
-typedef SigVec<1, 1> Vec;
-
-#define REQUIRE_OUT_VEC(v, f)                  \
-    {                                          \
-        for (size_t i = 0; i < 64; i++) {      \
-            REQUIRE(v.out[0][i] == Approx(f)); \
-        }                                      \
+#define REQUIRE_EQ(v0, v1)                       \
+    {                                            \
+        REQUIRE(v0.size() == v1.size());         \
+        for (size_t i = 0; i < v0.size(); i++) { \
+            REQUIRE(v0[i] == Approx(v1[i]));     \
+        }                                        \
     }
 
 TEST_CASE("fx.looper~", "[externals]")
 {
-    setTestSampleRate(48000);
+    setTestSampleRate(512);
 
     SECTION("init")
     {
-        FxLooperTest t("fx.looper~");
-        REQUIRE(t.blockSize() == 64);
-        REQUIRE(t.samplerate() == 48000);
+        FxLooperTest t("fx.looper~", LF(0.125));
+
+        REQUIRE(t.blockSize() == 8);
+        REQUIRE(t.samplerate() == 512);
         REQUIRE(t.numInlets() == 1);
-        REQUIRE(t.numOutlets() == 1);
-        REQUIRE_PROPERTY(t, @capacity, 5);
-        REQUIRE_PROPERTY(t, @state, "init");
+        REQUIRE(t.numOutlets() == 2);
+        REQUIRE(t.numInputChannels() == 1);
+        REQUIRE(t.numOutputChannels() == 1);
+        REQUIRE(t.maxSamples() == 64);
+        REQUIRE_PROPERTY(t, @capacity, 0.125f);
+        REQUIRE_PROPERTY(t, @loop_bang, 0.f);
+        REQUIRE_PROPERTY(t, @length, 0.f);
+        REQUIRE_PROPERTY(t, @play_to_stop_time, 10);
+        REQUIRE_PROPERTY(t, @stop_to_play_time, 10);
+        REQUIRE_PROPERTY(t, @rec_to_play_time, 30);
+        REQUIRE_PROPERTY(t, @rec_to_stop_time, 10);
+        REQUIRE_PROPERTY(t, @rec_to_dub_time, 10);
+        REQUIRE_PROPERTY(t, @dub_to_play_time, 20);
 
-        Vec v;
-        v.fill(1.2f);
+        SECTION("wrong max length")
+        {
+            FxLooperTest t("fx.looper~", LF(0.f));
+            REQUIRE(t.maxSamples() == 5 * 512);
+        }
 
-        // init state
-        t.processBlock(v.in, v.out);
-        REQUIRE_OUT_VEC(v, 0);
+        SECTION("wrong max length")
+        {
+            FxLooperTest t("fx.looper~", LF(-100));
+            REQUIRE(t.maxSamples() == 5 * 512);
+        }
+    }
 
-        // RECORD
-        t.m_record(&s_, AtomList());
+    SECTION("pause")
+    {
+        FxLooperTest t("fx.looper~", LF(0.125));
+        REQUIRE(t.maxSamples() == 64);
+
+        REQUIRE(t.state() == STATE_INIT);
+        t.m_pause(&s_, L());
+        REQUIRE(t.state() == STATE_INIT);
+
+        // record loop
+        t.m_record(&s_, L());
+        REQUIRE(t.state() == STATE_REC);
+        t << Signal({ 1, 1, 1, 1, 1, 1, 1, 1 });
+        REQUIRE(t.output == Signal(8, 0));
+
+        t.m_pause(&s_, L());
+        REQUIRE(t.state() == STATE_PAUSE);
+        REQUIRE(t.loopLengthInSamples() == 8);
+        t << Signal(16, -1);
+        REQUIRE(t.output == Signal(16, 0));
+
+        t.m_play(&s_, L());
+        REQUIRE(t.state() == STATE_PLAY);
+        t << Signal(16, -1);
+        REQUIRE(t.output == Signal(16, 1));
+
+        t.m_pause(&s_, L());
+        REQUIRE(t.state() == STATE_PAUSE);
+        t << Signal(16, -1);
+        REQUIRE(t.output == Signal(16, 0));
+
+        t.m_play(&s_, L());
+        REQUIRE(t.state() == STATE_PLAY);
+        t << Signal(16, -1);
+        REQUIRE(t.output == Signal(16, 1));
+    }
+
+    SECTION("record->stop")
+    {
+        FxLooperTest t("fx.looper~", LF(0.125));
+        REQUIRE(t.maxSamples() == 64);
+        REQUIRE_PROPERTY(t, @play_phase, 0.f);
+        REQUIRE_PROPERTY(t, @play_pos, 0.f);
+        REQUIRE_PROPERTY(t, @length, 0.f);
+
+        t.setProperty("@smooth", LF(0.f));
+        t.setProperty("@rec_to_stop_time", LF(0.f));
+        REQUIRE(t.state() == STATE_INIT);
+        REQUIRE(t.prop<FloatPropertyMinEq>("@smooth")->value() == 0);
+        REQUIRE(t.prop<LinFadeinProperty>("@rec_to_stop_time")->value() == 0);
+        REQUIRE(t.prop<LinFadeinProperty>("@rec_to_stop_time")->samples() == 0);
+
+        // record loop
+        t.record();
+        t << sigLin(16, 0, 1);
+        // no output while recording
+        REQUIRE(t.output == Signal(16, 0));
+        REQUIRE(t.state() == STATE_REC);
         REQUIRE_PROPERTY(t, @state, "record");
-        t.processBlock(v.in, v.out);
-        v.fill(1.3f);
-        t.processBlock(v.in, v.out);
-        v.fill(-1.f);
-        t.processBlock(v.in, v.out);
+        REQUIRE(t.loopLengthInSamples() == 0);
 
-        // PLAY
-        t.m_play(&s_, AtomList());
+        // stop record
+        t.stop();
+        REQUIRE(t.state() == STATE_REC_XFADE_STOP);
+        REQUIRE(t.loopLengthInSamples() == 16);
+        REQUIRE_EQ(t.loop(), sigLin(16, 0, 1));
+        REQUIRE_PROPERTY(t, @state, "");
+
+        // go to stop
+        // no output while stop
+        t << Signal(24, 1);
+        REQUIRE(t.output == Signal(24, 0));
+        REQUIRE(t.state() == STATE_STOP);
+        REQUIRE_EQ(t.loop(), sigLin(16, 0, 1));
+        REQUIRE_PROPERTY(t, @play_phase, 0.f);
+        REQUIRE_PROPERTY(t, @length, 16 / 512.f);
+
+        // clear
+        t.clear();
+        REQUIRE(t.loopLengthInSamples() == 0);
+        t << Signal(24, 1);
+        REQUIRE_EQ(t.output, Signal(24, 0));
+
+        // apply fadein/out
+        t.setProperty("@smooth", LA(1000 * 8 / 512.0));
+
+        // record again
+        t.record();
+        t << Signal(24, 10);
+        // no output while recording
+        REQUIRE_EQ(t.output, Signal(24, 0));
+        REQUIRE(t.state() == STATE_REC);
+        REQUIRE_PROPERTY(t, @state, "record");
+        REQUIRE_PROPERTY(t, @length, 0.f);
+
+        // stop record
+        t.stop();
+        REQUIRE(t.state() == STATE_REC_XFADE_STOP);
+        REQUIRE(t.loopLengthInSamples() == 24);
+        REQUIRE_EQ(t.loop(), Signal(24, 10));
+        REQUIRE_PROPERTY(t, @state, "");
+
+        t << Signal(24, 1);
+        const Signal out = sigLin(8, 0, 8.75) + Signal(8, 10) + sigLin(8, 8.75, 0);
+        REQUIRE_EQ(t.loop(), out);
+        REQUIRE(t.state() == STATE_STOP);
+    }
+
+    SECTION("record->play")
+    {
+        FxLooperTest t("fx.looper~", LF(0.125));
+        REQUIRE(t.maxSamples() == 64);
+        REQUIRE_PROPERTY(t, @play_phase, 0.f);
+        REQUIRE_PROPERTY(t, @play_pos, 0.f);
+        REQUIRE_PROPERTY(t, @length, 0.f);
+
+        t.setProperty("@rec_to_play_time", LF(0.f));
+        REQUIRE(t.prop<LinFadeinProperty>("@rec_to_play_time")->value() == 0);
+        REQUIRE(t.prop<LinFadeinProperty>("@rec_to_play_time")->samples() == 0);
+
+        // record loop
+        t.record();
+        t << sigLin(16, 0, 1);
+        // no output while recording
+        REQUIRE_EQ(t.output, Signal(16, 0));
+        REQUIRE(t.state() == STATE_REC);
+        REQUIRE_PROPERTY(t, @state, "record");
+        REQUIRE(t.loopLengthInSamples() == 0);
+
+        // play loop
+        t.play();
+        REQUIRE(t.state() == STATE_REC_XFADE_PLAY);
+        REQUIRE(t.loopLengthInSamples() == 16);
+        REQUIRE_EQ(t.loop(), sigLin(16, 0, 1));
+        REQUIRE_PROPERTY(t, @state, "");
+
+        t << Signal(32, 100);
+        REQUIRE(t.state() == STATE_PLAY);
         REQUIRE_PROPERTY(t, @state, "play");
-        REQUIRE_PROPERTY(t, @length, float(3 * 64) / t.samplerate());
-        // 1.2
-        t.processBlock(v.in, v.out);
-        REQUIRE_OUT_VEC(v, 1.2f);
-        // 1.3
-        t.processBlock(v.in, v.out);
-        REQUIRE_OUT_VEC(v, 1.3f);
-        // -1
-        t.processBlock(v.in, v.out);
-        REQUIRE_OUT_VEC(v, -1.f);
-        // 1.2
-        t.processBlock(v.in, v.out);
-        REQUIRE_OUT_VEC(v, 1.2f);
-        // 1.3
-        t.processBlock(v.in, v.out);
-        REQUIRE_OUT_VEC(v, 1.3f);
-        // -1
-        t.processBlock(v.in, v.out);
-        REQUIRE_OUT_VEC(v, -1.f);
+        const Signal v = sigLin(16, 0, 1) + sigLin(16, 0, 1);
+        REQUIRE_EQ(t.output, v);
 
-        // OVERDUB
-        t.m_overdub(&s_, AtomList());
-        REQUIRE_PROPERTY(t, @state, "overdub");
-        v.fill(0.1f);
+        // clear
+        t.clear();
+        t.setProperty("@rec_to_play_time", LF(20));
+        t.record();
+        t << Signal(24, 10);
 
-        // the same
-        t.processBlock(v.in, v.out);
-        REQUIRE_OUT_VEC(v, 1.2f);
-        t.processBlock(v.in, v.out);
-        REQUIRE_OUT_VEC(v, 1.3f);
-        t.processBlock(v.in, v.out);
-        REQUIRE_OUT_VEC(v, -1.f);
+        // no output while recording
+        REQUIRE_EQ(t.output, Signal(24, 0));
+        REQUIRE(t.state() == STATE_REC);
+        REQUIRE_PROPERTY(t, @state, "record");
+        REQUIRE(t.loopLengthInSamples() == 0);
 
-        // +0.1
-        t.processBlock(v.in, v.out);
-        REQUIRE_OUT_VEC(v, 1.3f);
-        t.processBlock(v.in, v.out);
-        REQUIRE_OUT_VEC(v, 1.4f);
-        t.processBlock(v.in, v.out);
-        REQUIRE_OUT_VEC(v, -0.9f);
+        // play loop
+        t.play();
+        REQUIRE(t.state() == STATE_REC_XFADE_PLAY);
+        REQUIRE(t.loopLengthInSamples() == 24);
+        REQUIRE_EQ(t.loop(), Signal(24, 10));
+        REQUIRE_PROPERTY(t, @state, "");
 
-        // +0.1
-        t.processBlock(v.in, v.out);
-        REQUIRE_OUT_VEC(v, 1.4f);
-        t.processBlock(v.in, v.out);
-        REQUIRE_OUT_VEC(v, 1.5f);
-        t.processBlock(v.in, v.out);
-        REQUIRE_OUT_VEC(v, -0.8f);
+        t << Signal(24, 10);
+        REQUIRE_PROPERTY(t, @state, "play");
+        const Signal ramp({ 10.0f, 12.1875f, 13.75f, 14.6875f, 15.0f, 14.6875f, 13.75f, 12.1875f });
+        const Signal out = ramp + Signal(16, 10);
+        REQUIRE_EQ(t.loop(), out);
 
-        t.m_stop(&s_, AtomList());
+        t << Signal(48, 10);
+        auto out2 = out + out;
+        REQUIRE_EQ(t.output, out2);
+    }
+
+    SECTION("record max loop length")
+    {
+        FxLooperTest t("fx.looper~", LF(0.125));
+        REQUIRE(t.maxSamples() == 64);
+        REQUIRE_PROPERTY(t, @play_phase, 0.f);
+        REQUIRE_PROPERTY(t, @play_pos, 0.f);
+        REQUIRE_PROPERTY(t, @length, 0.f);
+
+        t.setProperty("@smooth", LF(0.f));
+
+        // record loop
+        t.record();
+        t << sigLin(64, 0, 1);
+        // no output while recording
+        REQUIRE(t.output == Signal(64, 0));
+        REQUIRE(t.state() == STATE_REC);
+        REQUIRE_PROPERTY(t, @state, "record");
+        REQUIRE(t.loopLengthInSamples() == 0);
+
+        // loop length overflow -> stop state
+        t << Signal(16, -10);
+        REQUIRE(t.state() == STATE_STOP);
+        REQUIRE(t.loopLengthInSamples() == 64);
+        REQUIRE(t.loop() == sigLin(64, 0, 1));
+        REQUIRE(t.buffer() == sigLin(64, 0, 1));
+
+        // no output
+        REQUIRE_EQ(t.output, Signal(16, 0));
+
+        // clear
+        t.clear();
+        t.setProperty("@smooth", LA(1000 * 8 / 512.0));
+
+        // record loop
+        t.record();
+        t << Signal(128, 10);
+        // no output while recording
+        REQUIRE_EQ(t.output, Signal(128, 0));
+        REQUIRE(t.state() == STATE_STOP);
         REQUIRE_PROPERTY(t, @state, "stop");
-        t.processBlock(v.in, v.out);
-        REQUIRE_OUT_VEC(v, 0);
+        REQUIRE(t.loopLengthInSamples() == 64);
+        const Signal reference = sigLin(9, 0, 10) + Signal(46, 10) + sigLin(9, 10, 0);
+        REQUIRE_EQ(t.loop(), reference);
+        REQUIRE_EQ(t.buffer(), reference);
+    }
 
-        t.m_play(&s_, AtomList());
-        REQUIRE_PROPERTY(t, @state, "play");
-        t.processBlock(v.in, v.out);
-        REQUIRE_OUT_VEC(v, 1.5f);
-        t.processBlock(v.in, v.out);
-        REQUIRE_OUT_VEC(v, 1.6f);
-        t.processBlock(v.in, v.out);
-        REQUIRE_OUT_VEC(v, -0.7f);
+    SECTION("rec -> dub")
+    {
+        FxLooperTest t("fx.looper~", LF(0.125));
+        REQUIRE(t.maxSamples() == 64);
+
+        t.setProperty("@rec_to_play_time", LF(0.f));
+
+        // record loop
+        t.record();
+        t << sigLin(16, 0, 1);
+        t.play();
+        t << Signal(32, 1);
+        REQUIRE_EQ(t.loop(), sigLin(16, 0, 1));
+
+        // overdub
+        t.overdub();
+        REQUIRE(t.state() == STATE_PLAY_XFADE_DUB);
+        REQUIRE_PROPERTY(t, @state, "");
+        t << sigLin(16, 0, 1);
+
+        REQUIRE(t.state() == STATE_DUB);
+        REQUIRE_PROPERTY(t, @state, "overdub");
+
+        REQUIRE_EQ(t.output, sigLin(16, 0, 1));
+        REQUIRE_EQ(t.loop(), sigLin(16, 0, 2));
+
+        // continue overdub
+        t << sigLin(16, 0, 1);
+
+        REQUIRE_EQ(t.output, sigLin(16, 0, 2));
+        REQUIRE_EQ(t.loop(), sigLin(16, 0, 3));
+
+        t.setProperty("@dub_to_play_time", LF(0.f));
+
+        // play
+        t.play();
+        REQUIRE(t.state() == STATE_DUB_XFADE_PLAY);
+        REQUIRE_PROPERTY(t, @state, "");
+
+        t << Signal(16, 1);
+        REQUIRE_EQ(t.output, sigLin(16, 0, 3));
+        t << Signal(16, 1);
+        REQUIRE_EQ(t.output, sigLin(16, 0, 3));
+    }
+
+    SECTION("bang")
+    {
+        FxLooperTest t("fx.looper~", LA(0.25, "@smooth", 0.f, "@rec_to_play_time", 0.f));
+        REQUIRE(t.maxSamples() == 128);
+
+        t.record();
+        t << sigLin(64, 0, 63);
+        t.play();
+        t << Signal(16, 1);
+        REQUIRE(t.p_play_pos().floatAt(0, 0) == Approx(16 / 512.0));
+        REQUIRE_EQ(t.output, sigLin(16, 0, 15));
+
+        // bang
+        t.onBang();
+        REQUIRE(t.p_play_pos().floatAt(0, 0) == 0.f);
+        t << Signal(16, 1);
+        REQUIRE_EQ(t.output, sigLin(16, 0, 15));
+    }
+
+    SECTION("stop -> play")
+    {
+        FxLooperTest t("fx.looper~", LA(0.125, "@smooth", 0.f, "@rec_to_play_time", 0.f));
+        REQUIRE(t.maxSamples() == 64);
+
+        t.record();
+        t << Signal(96, 1);
+        REQUIRE_EQ(t.loop(), Signal(64, 1));
+        REQUIRE(t.state() == STATE_STOP);
+
+        t.setProperty("@stop_to_play_time", LF(0.f));
+        t.play();
+        t << Signal(256, 0);
+        REQUIRE_EQ(t.output, Signal(256, 1));
+
+        // play with fadein
+        t.stop();
+        t << Signal(256, 0);
+        REQUIRE_EQ(t.output, Signal(256, 0));
+        t.setProperty("@stop_to_play_time", LF(20));
+        t.play();
+        t << Signal(256, 0);
+        const Signal ref = sigLin(9, 0, 1) + Signal(247, 1);
+        REQUIRE_EQ(t.output, ref);
+    }
+
+    SECTION("LinFadeinProperty")
+    {
+        LinFadeinProperty p("@p");
+        REQUIRE_FALSE(p.isRunning());
+        REQUIRE(p.phase() == 0);
+        REQUIRE(p.name() == "@p");
+        REQUIRE(p.samples() == 0);
+        REQUIRE(p.value() == 0);
+        REQUIRE_FALSE(p.readonly());
+        REQUIRE(p.visible());
+
+        static const size_t SR = 1000;
+        static const size_t BS = 10;
+
+        p.calc(SR, BS);
+        REQUIRE(p.phase() == 0);
+        REQUIRE(p.samples() == BS * 0);
+
+        p.setValue(100);
+        REQUIRE(p.value() == 100);
+        p.calc(SR, BS);
+
+        REQUIRE(p.phase() == 0);
+        REQUIRE(p.samples() == 100);
+
+        p.setValue(9);
+        REQUIRE(p.value() == 9);
+        p.calc(SR, BS);
+
+        REQUIRE(p.phase() == 0);
+        REQUIRE(p.samples() == 0);
+
+        p.setValue(10);
+        REQUIRE(p.value() == 10);
+        p.calc(SR, BS);
+
+        REQUIRE(p.phase() == 0);
+        REQUIRE(p.samples() == 10);
+
+        p.setValue(90);
+        REQUIRE(p.value() == 90);
+        p.calc(SR, BS);
+
+        REQUIRE(p.phase() == 0);
+        REQUIRE(p.samples() == 90);
     }
 }

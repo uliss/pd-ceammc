@@ -26,6 +26,8 @@ class UIMatrix : public UIObject {
 public:
     UIMatrix();
 
+    void init(t_symbol* name, const AtomList& args, bool usePresets);
+
     bool cell(size_t row, size_t column) const;
     void setCell(const AtomList& lst);
     AtomList column(size_t column) const;
@@ -34,6 +36,7 @@ public:
     AtomList row(size_t idx) const;
     void setRow(size_t row, const AtomList& lst);
     void setRow(const AtomList& lst);
+    void setList(const AtomList& lst);
     void flipCell(size_t row, size_t column);
     void flipColumn(size_t col);
     void flipRow(size_t col);

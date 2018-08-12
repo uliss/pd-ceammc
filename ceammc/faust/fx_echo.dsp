@@ -8,4 +8,4 @@ echo = ef.echo(10.0, time, feedback) with {
     feedback = hslider("feedback", 0.3, 0, 0.8, 0.001) : si.smoo;
 };
 
-process = _ : ba.bypass1(ui.bypass, echo) : _;
+process = _ : cm.fx_wrap_mono(ui.bypass, ui.drywet(1), echo) : _;

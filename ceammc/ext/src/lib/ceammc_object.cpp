@@ -290,8 +290,10 @@ void BaseObject::appendOutlet(t_outlet* out)
 void BaseObject::extractPositionalArguments()
 {
     int idx = pd_.args.findPos(isProperty);
-    if (idx < 0)
-        idx = pd_.args.size();
+    if (idx == 0)
+        return;
+    else if (idx > 0)
+        idx--;
 
     positional_args_ = pd_.args.slice(0, idx);
 }
@@ -339,7 +341,7 @@ size_t BaseObject::numInlets() const
 t_inlet* BaseObject::createInlet()
 {
     char buf[MAXPDSTRING];
-    sprintf(buf, "_inlet%d", static_cast<int>(inlets_.size()));
+    sprintf(buf, "_%dinlet", static_cast<int>(inlets_.size()));
     t_symbol* id = gensym(buf);
     t_inlet* in = inlet_new(pd_.owner, &pd_.owner->ob_pd, &s_list, id);
     inlets_s_.push_back(id);
@@ -579,6 +581,36 @@ void BaseObject::dump() const
     }
 }
 
+void BaseObject::onBang()
+{
+    OBJ_ERR << "bang is not expected";
+}
+
+void BaseObject::onFloat(float)
+{
+    OBJ_ERR << "float is not expected";
+}
+
+void BaseObject::onSymbol(t_symbol*)
+{
+    OBJ_ERR << "symbol is not expected";
+}
+
+void BaseObject::onList(const AtomList&)
+{
+    OBJ_ERR << "list is not expected";
+}
+
+void BaseObject::onData(const DataPtr&)
+{
+    OBJ_ERR << "data is not expected";
+}
+
+void BaseObject::onAny(t_symbol* s, const AtomList&)
+{
+    OBJ_ERR << "unexpected message: " << s;
+}
+
 void BaseObject::anyDispatch(t_symbol* s, const AtomList& lst)
 {
     if (processAnyInlets(s, lst))
@@ -622,11 +654,7 @@ t_canvas* BaseObject::rootCanvas()
     if (!cnv_)
         return NULL;
 
-    t_canvas* c = cnv_;
-    while (c->gl_owner)
-        c = c->gl_owner;
-
-    return c;
+    return canvas_getrootfor(cnv_);
 }
 
 t_canvas* BaseObject::rootCanvas() const
@@ -634,11 +662,7 @@ t_canvas* BaseObject::rootCanvas() const
     if (!cnv_)
         return NULL;
 
-    t_canvas* c = cnv_;
-    while (c->gl_owner)
-        c = c->gl_owner;
-
-    return c;
+    return canvas_getrootfor(const_cast<t_canvas*>(cnv_));
 }
 
 std::string BaseObject::findInStdPaths(const char* fname) const

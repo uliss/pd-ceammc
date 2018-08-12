@@ -12,13 +12,13 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../data/data_set.h"
-#include "base_extension_test.h"
 #include "catch.hpp"
 #include "ceammc_pd.h"
+#include "test_base.h"
 
 #include <stdio.h>
 
-typedef TestExtension<DataSet> DataSetTest;
+typedef TestExternal<DataSet> DataSetTest;
 
 #define CONTAINS_INT(t, n) REQUIRE(t.contains(DINT(n).asAtom()))
 #define CONTAINS_STR(t, str) REQUIRE(t.contains(DSTR(str).asAtom()))
@@ -39,7 +39,7 @@ static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
 
 TEST_CASE("data.set", "[externals]")
 {
-    setup_data0x2eset();
+    setup_data_set();
 
     SECTION("DataTypeSet")
     {
@@ -183,13 +183,13 @@ TEST_CASE("data.set", "[externals]")
         SECTION("add/remove")
         {
             DataTypeSet a;
-            a.add(L5(1, 2, 3, 1, 2));
+            a.add(LA(1, 2, 3, 1, 2));
             REQUIRE(a.contains(1));
             REQUIRE(a.contains(2));
             REQUIRE(a.contains(3));
             REQUIRE(a.size() == 3);
 
-            a.remove(L2(1, 3));
+            a.remove(LF(1, 3));
             REQUIRE(a.size() == 1);
             REQUIRE(a.contains(2));
         }
@@ -197,15 +197,15 @@ TEST_CASE("data.set", "[externals]")
         SECTION("union")
         {
             DataTypeSet d0;
-            d0.add(L3(1, 3, 5));
+            d0.add(LF(1, 3, 5));
 
             DataTypeSet d1;
-            d1.add(L3(2, 4, 6));
+            d1.add(LF(2, 4, 6));
 
             DataTypeSet d2;
 
             DataTypeSet::set_union(d2, d0, d1);
-            REQUIRE(d2 == DataTypeSet(L6(1, 2, 3, 4, 5, 6)));
+            REQUIRE(d2 == DataTypeSet(LA(1, 2, 3, 4, 5, 6)));
 
             DataTypeSet::set_union(d2, DataTypeSet(), d1);
             REQUIRE(d2 == d1);
@@ -245,13 +245,13 @@ TEST_CASE("data.set", "[externals]")
                 REQUIRE(d2.contains(dt4.asAtom()));
 
                 DataTypeSet un;
-                DataAtomList l0(D2(DINT(1), DINT(2)));
-                DataAtomList l1(D2(DINT(1), DINT(3)));
+                DataAtomList l0(LD(DINT(1), DINT(2)));
+                DataAtomList l1(LD(DINT(1), DINT(3)));
                 DataTypeSet d3(l0.toList());
                 DataTypeSet d4(l1.toList());
 
                 DataTypeSet::set_union(un, d3, d4);
-//                REQUIRE(un.size() == 3);
+                //                REQUIRE(un.size() == 3);
                 CONTAINS_INT(un, 1);
                 CONTAINS_INT(un, 2);
                 CONTAINS_INT(un, 3);
@@ -260,8 +260,8 @@ TEST_CASE("data.set", "[externals]")
 
         SECTION("difference")
         {
-            DataTypeSet d0(L3(1, 2, 3));
-            DataTypeSet d1(L3(2, 3, 4));
+            DataTypeSet d0(LF(1, 2, 3));
+            DataTypeSet d1(LF(2, 3, 4));
 
             DataTypeSet diff;
 
@@ -275,19 +275,19 @@ TEST_CASE("data.set", "[externals]")
             REQUIRE(diff == DataTypeSet());
 
             DataTypeSet::set_difference(diff, d0, d1);
-            REQUIRE(diff == DataTypeSet(L1(1)));
+            REQUIRE(diff == DataTypeSet(LF(1)));
 
             DataTypeSet::set_difference(diff, d1, d0);
-            REQUIRE(diff == DataTypeSet(L1(4)));
+            REQUIRE(diff == DataTypeSet(LF(4)));
 
             SECTION("data")
             {
-                REQUIRE(D2(1, 2) == D2(1, 2));
-                REQUIRE_FALSE(D2(1, 2) == D3(1, 2, 3));
-                REQUIRE(D2(DINT(2), DSTR("A")) == D2(DINT(2), DSTR("A")));
+                REQUIRE(LD(1, 2) == LD(1, 2));
+                REQUIRE_FALSE(LD(1, 2) == LD(1, 2, 3));
+                REQUIRE(LD(DINT(2), DSTR("A")) == LD(DINT(2), DSTR("A")));
 
-                DataTypeSet d0(D3(DINT(2), DSTR("A"), DSTR("C")).toList());
-                DataTypeSet d1(D3(DINT(2), DSTR("D"), DSTR("C")).toList());
+                DataTypeSet d0(LD(DINT(2), DSTR("A"), DSTR("C")).toList());
+                DataTypeSet d1(LD(DINT(2), DSTR("D"), DSTR("C")).toList());
 
                 DataTypeSet diff;
                 DataTypeSet::set_difference(diff, d0, d1);
@@ -302,8 +302,8 @@ TEST_CASE("data.set", "[externals]")
 
         SECTION("sym_difference")
         {
-            DataTypeSet d0(L3(1, 2, 3));
-            DataTypeSet d1(L3(2, 3, 4));
+            DataTypeSet d0(LF(1, 2, 3));
+            DataTypeSet d1(LF(2, 3, 4));
 
             DataTypeSet diff;
 
@@ -317,38 +317,38 @@ TEST_CASE("data.set", "[externals]")
             REQUIRE(diff == DataTypeSet());
 
             DataTypeSet::set_sym_difference(diff, d1, d0);
-            REQUIRE(diff == DataTypeSet(L2(1, 4)));
+            REQUIRE(diff == DataTypeSet(LF(1, 4)));
 
             DataTypeSet::set_sym_difference(diff, d0, d1);
-            REQUIRE(diff == DataTypeSet(L2(1, 4)));
+            REQUIRE(diff == DataTypeSet(LF(1, 4)));
         }
 
         SECTION("contains")
         {
-            DataTypeSet d0(L3(1, 2, 3));
+            DataTypeSet d0(LF(1, 2, 3));
 
-            REQUIRE(d0.contains(L2(2, 3)));
-            REQUIRE(d0.contains(L2(2, 16)));
-            REQUIRE(d0.contains(L2(18, 3)));
-            REQUIRE_FALSE(d0.contains(AtomList()));
+            REQUIRE(d0.contains(LF(2, 3)));
+            REQUIRE(d0.contains(LF(2, 16)));
+            REQUIRE(d0.contains(LF(18, 3)));
+            REQUIRE_FALSE(d0.contains(L()));
         }
 
         SECTION("operator=")
         {
-            DataTypeSet d0(L3(1, 2, 3));
+            DataTypeSet d0(LF(1, 2, 3));
             DataTypeSet d1;
-            DataTypeSet d2(L4(2, 4, 6, 8));
+            DataTypeSet d2(LF(2, 4, 6, 8));
 
             REQUIRE_FALSE(d0 == d1);
             d1 = d0;
 
             REQUIRE(d0 == d1);
-            REQUIRE(d0 == DataTypeSet(L3(1, 2, 3)));
+            REQUIRE(d0 == DataTypeSet(LF(1, 2, 3)));
 
             d1 = d1;
-            REQUIRE(d1 == DataTypeSet(L3(1, 2, 3)));
+            REQUIRE(d1 == DataTypeSet(LF(1, 2, 3)));
             d1 = d2;
-            REQUIRE(d1 == DataTypeSet(L4(2, 4, 6, 8)));
+            REQUIRE(d1 == DataTypeSet(LF(2, 4, 6, 8)));
         }
     }
 
@@ -368,10 +368,10 @@ TEST_CASE("data.set", "[externals]")
 
             SECTION("args")
             {
-                DataSetTest t("data.set", L2(1, 3));
+                DataSetTest t("data.set", LF(1, 3));
 
                 WHEN_SEND_BANG_TO(0, t);
-                REQUIRE_SET_OUTPUT(t, DataTypeSet(L2(3, 1)));
+                REQUIRE_SET_OUTPUT(t, DataTypeSet(LF(3, 1)));
             }
         }
 
@@ -388,7 +388,7 @@ TEST_CASE("data.set", "[externals]")
             WHEN_SEND_FLOAT_TO(0, t, 12);
 
             WHEN_SEND_BANG_TO(0, t);
-            REQUIRE_SET_OUTPUT(t, DataTypeSet(L3(11, 12, 100)));
+            REQUIRE_SET_OUTPUT(t, DataTypeSet(LF(11, 12, 100)));
         }
 
         SECTION("symbol")
@@ -404,34 +404,34 @@ TEST_CASE("data.set", "[externals]")
             WHEN_SEND_SYMBOL_TO(0, t, "C");
 
             WHEN_SEND_BANG_TO(0, t);
-            REQUIRE_SET_OUTPUT(t, DataTypeSet(L3("A", "C", "E")));
+            REQUIRE_SET_OUTPUT(t, DataTypeSet(LA("A", "C", "E")));
         }
 
         SECTION("list")
         {
             DataSetTest t("data.set");
 
-            WHEN_SEND_LIST_TO(0, t, L2(1, 3));
+            WHEN_SEND_LIST_TO(0, t, LF(1, 3));
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-            WHEN_SEND_LIST_TO(0, t, L2(1, 3));
-            WHEN_SEND_LIST_TO(0, t, L2(2, 2));
-            WHEN_SEND_LIST_TO(0, t, L2(2, 4));
-            WHEN_SEND_LIST_TO(0, t, L2(1, 4));
+            WHEN_SEND_LIST_TO(0, t, LF(1, 3));
+            WHEN_SEND_LIST_TO(0, t, LF(2, 2));
+            WHEN_SEND_LIST_TO(0, t, LF(2, 4));
+            WHEN_SEND_LIST_TO(0, t, LF(1, 4));
 
             WHEN_SEND_BANG_TO(0, t);
-            REQUIRE_SET_OUTPUT(t, DataTypeSet(L4(1, 2, 3, 4)));
+            REQUIRE_SET_OUTPUT(t, DataTypeSet(LF(1, 2, 3, 4)));
         }
 
         SECTION("data")
         {
             DataSetTest t("data.set");
 
-            WHEN_SEND_TDATA_TO(0, t, DataTypeSet(L2(1, 2)));
-            REQUIRE_SET_OUTPUT(t, DataTypeSet(L2(1, 2)));
+            WHEN_SEND_TDATA_TO(0, t, DataTypeSet(LF(1, 2)));
+            REQUIRE_SET_OUTPUT(t, DataTypeSet(LF(1, 2)));
 
-            WHEN_SEND_TDATA_TO(0, t, DataTypeSet(L3(3, 2, 28)));
-            REQUIRE_SET_OUTPUT(t, DataTypeSet(L3(3, 2, 28)));
+            WHEN_SEND_TDATA_TO(0, t, DataTypeSet(LF(3, 2, 28)));
+            REQUIRE_SET_OUTPUT(t, DataTypeSet(LF(3, 2, 28)));
         }
 
         SECTION("methods")
@@ -445,7 +445,7 @@ TEST_CASE("data.set", "[externals]")
                 WHEN_SEND_BANG_TO(0, t);
                 REQUIRE_SET_OUTPUT(t, DataTypeSet());
 
-                WHEN_SEND_LIST_TO(0, t, L2(1, 3));
+                WHEN_SEND_LIST_TO(0, t, LF(1, 3));
                 WHEN_CALL(t, clear);
                 WHEN_SEND_BANG_TO(0, t);
                 REQUIRE_SET_OUTPUT(t, DataTypeSet());
@@ -455,34 +455,34 @@ TEST_CASE("data.set", "[externals]")
             {
                 DataSetTest t("data.set");
 
-                WHEN_CALL_1(t, add, "A");
+                WHEN_CALL_N(t, add, "A");
                 REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
                 WHEN_SEND_BANG_TO(0, t);
-                REQUIRE_SET_OUTPUT(t, DataTypeSet(L1("A")));
+                REQUIRE_SET_OUTPUT(t, DataTypeSet(LA("A")));
 
-                WHEN_CALL_2(t, add, "A", "B");
+                WHEN_CALL_N(t, add, "A", "B");
                 REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
                 WHEN_SEND_BANG_TO(0, t);
-                REQUIRE_SET_OUTPUT(t, DataTypeSet(L2("A", "B")));
+                REQUIRE_SET_OUTPUT(t, DataTypeSet(LA("A", "B")));
             }
 
             SECTION("add")
             {
                 DataSetTest t("data.set");
 
-                WHEN_CALL_1(t, remove, "A");
+                WHEN_CALL_N(t, remove, "A");
                 REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
                 WHEN_SEND_BANG_TO(0, t);
                 REQUIRE_SET_OUTPUT(t, DataTypeSet());
 
-                WHEN_SEND_LIST_TO(0, t, L4("A", "B", "C", "D"));
-                WHEN_CALL_2(t, remove, "A", "F");
+                WHEN_SEND_LIST_TO(0, t, LA("A", "B", "C", "D"));
+                WHEN_CALL_N(t, remove, "A", "F");
                 WHEN_SEND_BANG_TO(0, t);
-                REQUIRE_SET_OUTPUT(t, DataTypeSet(L3("B", "C", "D")));
+                REQUIRE_SET_OUTPUT(t, DataTypeSet(LA("B", "C", "D")));
 
-                WHEN_CALL_2(t, remove, "C", "D");
+                WHEN_CALL_N(t, remove, "C", "D");
                 WHEN_SEND_BANG_TO(0, t);
-                REQUIRE_SET_OUTPUT(t, DataTypeSet(L1("B")));
+                REQUIRE_SET_OUTPUT(t, DataTypeSet(LA("B")));
             }
         }
     }

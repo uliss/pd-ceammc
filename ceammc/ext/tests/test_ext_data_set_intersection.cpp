@@ -12,13 +12,13 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../data/set_intersection.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "catch.hpp"
 #include "ceammc_pd.h"
 
 #include <stdio.h>
 
-typedef TestExtension<SetIntersection> SetIntersectionTest;
+typedef TestExternal<SetIntersection> SetIntersectionTest;
 
 #define REQUIRE_SET_OUTPUT(t, set)                          \
     {                                                       \
@@ -42,15 +42,15 @@ TEST_CASE("set.intersection", "[externals]")
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
 
-            WHEN_SEND_TDATA_TO(0, t, DataTypeSet(L2(1, 2)));
+            WHEN_SEND_TDATA_TO(0, t, DataTypeSet(LF(1, 2)));
             REQUIRE_SET_OUTPUT(t, DataTypeSet());
         }
 
         SECTION("args")
         {
-            SetIntersectionTest t("set.intersection", L3(1, 2, 3));
-            WHEN_SEND_TDATA_TO(0, t, DataTypeSet(L3(2, 3, 4)));
-            REQUIRE_SET_OUTPUT(t, DataTypeSet(L2(2, 3)));
+            SetIntersectionTest t("set.intersection", LF(1, 2, 3));
+            WHEN_SEND_TDATA_TO(0, t, DataTypeSet(LF(2, 3, 4)));
+            REQUIRE_SET_OUTPUT(t, DataTypeSet(LF(2, 3)));
         }
     }
 
@@ -58,34 +58,34 @@ TEST_CASE("set.intersection", "[externals]")
     {
         SetIntersectionTest t("set.intersecion");
 
-        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(L3(3, 4, 5)));
+        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(LF(3, 4, 5)));
         REQUIRE_SET_OUTPUT(t, DataTypeSet());
 
-        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(L3(3, 4, 5)));
+        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(LF(3, 4, 5)));
         REQUIRE_SET_OUTPUT(t, DataTypeSet());
 
-        WHEN_SEND_LIST_TO(1, t, L4(1, 2, 3, 4));
+        WHEN_SEND_LIST_TO(1, t, LF(1, 2, 3, 4));
 
-        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(L3(3, 4, 5)));
-        REQUIRE_SET_OUTPUT(t, DataTypeSet(L2(3, 4)));
+        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(LF(3, 4, 5)));
+        REQUIRE_SET_OUTPUT(t, DataTypeSet(LF(3, 4)));
     }
 
     SECTION("do data")
     {
         SetIntersectionTest t("set.intersecion");
-        DataPtr set1(new DataTypeSet(L2(1, 3)));
+        DataPtr set1(new DataTypeSet(LF(1, 3)));
         WHEN_SEND_LIST_TO(1, t, set1.asAtom());
 
-        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(L3(3, 4, 5)));
+        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(LF(3, 4, 5)));
         REQUIRE_SET_OUTPUT(t, DataTypeSet(Atom(3)));
     }
 
     SECTION("do list")
     {
         SetIntersectionTest t("set.intersecion");
-        WHEN_SEND_LIST_TO(1, t, L3(1, 3, 5));
-        WHEN_SEND_LIST_TO(0, t, L6(1, 2, 3, 4, 5, 6));
+        WHEN_SEND_LIST_TO(1, t, LF(1, 3, 5));
+        WHEN_SEND_LIST_TO(0, t, LA(1, 2, 3, 4, 5, 6));
 
-        REQUIRE_SET_OUTPUT(t, DataTypeSet(L3(1, 3, 5)));
+        REQUIRE_SET_OUTPUT(t, DataTypeSet(LF(1, 3, 5)));
     }
 }

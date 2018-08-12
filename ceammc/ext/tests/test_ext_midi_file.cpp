@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../midi/midi_file.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "catch.hpp"
 #include "ceammc_datatypes.h"
 
@@ -23,7 +23,7 @@
 #define TEST_DATA_DIR "."
 #endif
 
-typedef TestExtension<XMidiFile> MidiFileTest;
+typedef TestExternal<XMidiFile> MidiFileTest;
 
 TEST_CASE("midi.file", "[externals]")
 {
@@ -47,14 +47,14 @@ TEST_CASE("midi.file", "[externals]")
         MidiFileTest t("midi.file");
 
         // not-exists
-        WHEN_CALL_1(t, read, TEST_DATA_DIR "/not-exists.mid");
+        WHEN_CALL_N(t, read, TEST_DATA_DIR "/not-exists.mid");
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
         REQUIRE_PROPERTY(t, @filename, "");
         REQUIRE_PROPERTY(t, @tracks, 1);
         REQUIRE_PROPERTY(t, @tempo, 120);
 
         // not-exists relative (search in standart paths)
-        WHEN_CALL_1(t, read, "unknown.mid");
+        WHEN_CALL_N(t, read, "unknown.mid");
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
         REQUIRE_PROPERTY(t, @filename, "");
         REQUIRE_PROPERTY(t, @tracks, 1);
@@ -71,13 +71,13 @@ TEST_CASE("midi.file", "[externals]")
         REQUIRE_PROPERTY(t, @tempo, 120);
 
         // wrong argument type
-        WHEN_CALL_1(t, read, 234);
+        WHEN_CALL_N(t, read, 234);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
         REQUIRE_PROPERTY(t, @filename, "");
         REQUIRE_PROPERTY(t, @tracks, 1);
         REQUIRE_PROPERTY(t, @tempo, 120);
 
-        WHEN_CALL_1(t, read, TEST_DATA_DIR "/test_01.mid");
+        WHEN_CALL_N(t, read, TEST_DATA_DIR "/test_01.mid");
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
         REQUIRE_PROPERTY(t, @filename, "test_01.mid");
         REQUIRE_PROPERTY(t, @tracks, 1);
@@ -135,13 +135,13 @@ TEST_CASE("midi.file", "[externals]")
         REQUIRE_PROPERTY(t, @tempo, 120);
 
         // wrong argument type
-        WHEN_CALL_1(t, read, 234);
+        WHEN_CALL_N(t, read, 234);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
         REQUIRE_PROPERTY(t, @filename, "");
         REQUIRE_PROPERTY(t, @tracks, 1);
         REQUIRE_PROPERTY(t, @tempo, 120);
 
-        WHEN_CALL_1(t, write, "./test_midi_output.mid");
+        WHEN_CALL_N(t, write, "./test_midi_output.mid");
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
         REQUIRE_PROPERTY(t, @filename, "");
         REQUIRE_PROPERTY(t, @tracks, 1);
@@ -150,7 +150,7 @@ TEST_CASE("midi.file", "[externals]")
         std::ifstream ifs("./test_midi_output.mid");
         REQUIRE(ifs);
 
-        WHEN_CALL_1(t, write, "./test_midi_output.mid");
+        WHEN_CALL_N(t, write, "./test_midi_output.mid");
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
         REQUIRE_PROPERTY(t, @filename, "");
         REQUIRE_PROPERTY(t, @tracks, 1);
@@ -165,7 +165,7 @@ TEST_CASE("midi.file", "[externals]")
         WHEN_CALL(t, clear);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-        WHEN_CALL_1(t, read, TEST_DATA_DIR "/test_01.mid");
+        WHEN_CALL_N(t, read, TEST_DATA_DIR "/test_01.mid");
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
         REQUIRE_PROPERTY(t, @filename, "test_01.mid");
         REQUIRE_PROPERTY(t, @tracks, 1);

@@ -26,9 +26,9 @@ void ceammc_synth_setup()
     setup_synth0x2echurch_bell_tilde();
     setup_synth0x2edubdub_tilde();
 
-    setup_synth_wurley();
     setup_synth_bthree();
+    setup_synth_fgrain();
     setup_synth_rhodey();
     setup_synth_shakers();
-    setup_synth_fgrain();
+    setup_synth_wurley();
 }

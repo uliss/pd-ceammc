@@ -19,16 +19,16 @@
 
 using namespace ceammc;
 
+class DataTypeMList;
+
 class ListContains : public BaseObject {
-    DataAtomList lst_;
+    AtomList needle_;
 
 public:
     ListContains(const PdArgs& args);
 
-    void onFloat(t_float f) override;
-    void onSymbol(t_symbol* s) override;
     void onList(const AtomList& lst) override;
-    void onData(const DataPtr& ptr) override;
+    void onDataT(const DataTypeMList& lst);
 
     void onInlet(size_t n, const AtomList& lst) override;
 

@@ -14,7 +14,7 @@
 #ifndef CEAMMC_ATOM_H
 #define CEAMMC_ATOM_H
 
-#include <m_pd.h>
+#include "m_pd.h"
 
 #include <iostream>
 #include <string>
@@ -113,8 +113,17 @@ public:
     int asInt(int def = 0) const;
     size_t asSizeT(size_t def = 0) const;
     t_symbol* asSymbol() const;
+
+    /**
+     * @deprecated
+     */
     std::string asString() const;
 
+    /**
+     * compare operator
+     * compare atoms of same type.
+     * @note now only floats and symbols
+     */
     bool operator<(const Atom& a) const;
 
     /**
@@ -126,8 +135,8 @@ public:
     void outputAsAny(t_outlet* x, t_symbol* sel) const;
 
     /**
-      * Operators
-      */
+     * Operators
+     */
     Atom& operator+=(double v);
     Atom& operator-=(double v);
     Atom& operator*=(double v);
@@ -139,14 +148,18 @@ public:
     Atom operator/(double v) const;
 
     /**
-      * Apply function
-      */
+     * Apply function
+     */
     void apply(AtomFloatMapFunction f);
     void apply(AtomSymbolMapFunction f);
+    template <class F>
+    void apply(F fn);
+    template <class F>
+    void applyFloat(F fn);
 
     /**
-      * Data functions
-      */
+     * Data functions
+     */
 
     /**
      * @brief dataType
@@ -191,6 +204,19 @@ static inline bool notFloat(const Atom& a) { return !a.isFloat(); }
 static inline bool notSymbol(const Atom& a) { return !a.isSymbol(); }
 static inline bool notProperty(const Atom& a) { return !a.isProperty(); }
 static inline bool isData(const Atom& a) { return a.isData(); }
+
+template <class F>
+void Atom::apply(F fn)
+{
+    *this = fn(*this);
+}
+
+template <class F>
+void Atom::applyFloat(F fn)
+{
+    if (isFloat())
+        a_w.w_float = fn(a_w.w_float);
+}
 }
 
 #endif // CEAMMC_ATOM_H

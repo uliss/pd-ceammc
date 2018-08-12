@@ -12,13 +12,9 @@
  * this file belongs to.
  *****************************************************************************/
 
-#include "catch.hpp"
-#include "ceammc_atom.h"
-#include "ceammc_atomlist.h"
 #include "ceammc_format.h"
-#include "ceammc_message.h"
 
-using namespace ceammc;
+#include "test_common.h"
 
 TEST_CASE("format", "[ceammc::format]")
 {
@@ -50,8 +46,8 @@ TEST_CASE("format", "[ceammc::format]")
 
     SECTION("atomlist format")
     {
-        REQUIRE(to_string(AtomList::values(3, 1.f, 2.f, 3.f)) == "1 2 3");
-        REQUIRE(to_string(AtomList()) == "");
+        REQUIRE(to_string(LF(1.f, 2.f, 3.f)) == "1 2 3");
+        REQUIRE(to_string(L()) == "");
     }
 
     SECTION("message format")
@@ -61,5 +57,35 @@ TEST_CASE("format", "[ceammc::format]")
         REQUIRE(to_string(Message(AtomList::ones(2))) == "1 1");
         REQUIRE(to_string(Message()) == "");
         REQUIRE(to_string(Message(gensym("a"), AtomList::zeroes(1))) == "a 0");
+    }
+
+    SECTION("string escape format")
+    {
+#define REQUIRE_ESCAPED(a, b)                              \
+    {                                                      \
+        REQUIRE(to_string_quoted(test_atom_wrap(a)) == b); \
+    }
+
+        REQUIRE_ESCAPED("", "\"\"");
+        REQUIRE_ESCAPED(123, "123");
+        REQUIRE_ESCAPED(123.123, "123.123");
+        REQUIRE_ESCAPED("abc", "abc");
+        REQUIRE_ESCAPED("a b c", "\"a b c\"");
+        REQUIRE_ESCAPED("a b    c", "\"a b    c\"");
+        REQUIRE_ESCAPED("there's a table", "\"there's a table\"");
+        REQUIRE_ESCAPED(new IntData(123), "123");
+        REQUIRE_ESCAPED(new StrData("test string with spaces and q`otes"), "test string with spaces and q`otes");
+        REQUIRE_ESCAPED("many ````", "\"many ````\"");
+        REQUIRE_ESCAPED("many '''''", "\"many '''''\"");
+        REQUIRE_ESCAPED("many \"\"\"\"", "\"many `\"`\"`\"`\"\"");
+        REQUIRE_ESCAPED("'double'", "'double'");
+        REQUIRE_ESCAPED("\"\"", "\"\"");
+        REQUIRE_ESCAPED("\"", "\"");
+        REQUIRE_ESCAPED("'`", "'`");
+        REQUIRE_ESCAPED("`\"", "`\"");
+        REQUIRE_ESCAPED("`\" a", "\"``\" a\"");
+        REQUIRE_ESCAPED("\" \"", "\"`\" `\"\"");
+        REQUIRE_ESCAPED("\"a ", "\"`\"a \"");
+        REQUIRE_ESCAPED("\"a b\"", "\"`\"a b`\"\"");
     }
 }

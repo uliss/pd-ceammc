@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="data.dict">
+        <title>data.dict</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>dictionary container: store values by key</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>data</category>
+            <keywords>data dictionary</keywords>
+            <since>0.6</since>
+            <also>
+                <see>data.set</see>
+                <see>data.mlist</see>
+            </also>
+            <aliases>
+                <alias>dict</alias>
+            </aliases>
+        </meta>
+        <info>
+            <par>Syntax: [key: value] or [key : "the value"]</par>
+        </info>
+        <properties>
+            <property name="@keys" readonly="true" type="list">keys of dictionary</property>
+            <property name="@empty" readonly="true" enum="0 1" type="int">1 if dict is empty,
+            otherwise 0</property>
+            <property name="@size" readonly="true" minvalue="0" type="int">number of entries in
+            dictionary</property>
+        </properties>
+        <methods>
+            <method name="add">adds entry to dictionary 
+            <param name="KEY" type="atom" required="true">entry key</param>
+            <param name="VAL" type="list" required="true">single value or list</param></method>
+            <method name="clear">removes all dict values. No output</method>
+            <method name="get_key">get entry from dictionary 
+            <param name="KEY" type="atom" required="true">entry key</param></method>
+            <method name="set">set dict content without output</method>
+            <method name="remove">remove entry from dictionary 
+            <param name="KEY" type="atom" required="true">entry key</param></method>
+            <method name="[....]">sets new content without output</method>
+            <method name="read">read dict from JSON file 
+            <param name="PATH" type="symbol" required="true">file path</param></method>
+            <method name="write">write dict as JSON file 
+            <param name="PATH" type="symbol" required="true">file path</param></method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">output current dictionary value</xinfo>
+                <xinfo on="list">set dict from list. Key-value pairs are expected. [1 2 3 4(
+                becames dict with keys: 1 and 3, values: 2 and 4. No output</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output dictionary</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[bang(
+|
+|  [[a: b] [c: d], bang( [clear( [remove a(
+|  |                     |       |
+|  |  [add 100 float(    |       | [B]
+|  |  |                  |       | |
+|  |  |                  |       | [openpanel]
+|  |  |  [list a b c d(  |       | |
+|  |  |  |               |       | [read $1(
+|  |  |  |               |       | |
+[data.dict \[tempo: 120\]\[title: "New Masterpiece"\] ]
+|
+[ui.display @display_type=1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

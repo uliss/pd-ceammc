@@ -1,0 +1,144 @@
+#N canvas 0 0 715 555 12;
+#X declare -lib ceammc;
+#X obj 403 50 cnv 1 292 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 403 50 array view with cursor and selection;
+#X obj 1 1 cnv 5 712 40 empty empty ui.aview 20 20 0 20 -104026 -4096
+0;
+#X obj 627 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ui.aview] @url ui.aview-help.pd;
+#X obj 50 118 loadbang;
+#X obj 155 118 table array_view;
+#X msg 50 147 load %DOC%/sound/voice.wav @to array_view @resize;
+#X obj 50 176 expand_env;
+#X obj 50 205 snd.file;
+#X msg 50 234 update;
+#X text 146 234 Shift+drag - select region to play;
+#X obj 50 262 ui.aview @array array_view @show_labels 1 @size 300 80;
+#X obj 50 349 route @select_samp;
+#X obj 280 349 loadbang;
+#X obj 50 378 expr $f1\; $f2 - $f1;
+#X msg 280 378 1;
+#X obj 98 406 b;
+#X floatatom 280 406 5 0 0 0 - - -;
+#X text 309 406 speed;
+#X obj 98 435 loop~;
+#X obj 98 464 *~;
+#X obj 50 493 +~;
+#X obj 50 521 tabread4~ array_view;
+#X obj 50 550 dac~;
+#X obj 50 579 ui.dsp~;
+#X obj 20 618 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 623 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+-49933 0;
+#X msg 120 628 @items;
+#X text 240 628 Get/Set number of tabs. Type: int. Default value: 1\.
+Value range: 1-256;
+#X msg 120 665 @toggle;
+#X text 240 665 Get/Set toggle mode. In toggle moe multiple selection
+is possible. Type: int. Default value: 0\. Allowed values: 0 \, 1;
+#X msg 120 716 @orientation;
+#X text 240 716 Get/Set tab orientation. 1 is vertical \, 0 is
+horizontal. Type: int. Default value: 0\. Allowed values: 0 \, 1;
+#X msg 120 753 @send;
+#X text 240 753 Get/Set send destination. Type: symbol;
+#X msg 120 780 @receive;
+#X text 240 780 Get/Set receive source. Type: symbol;
+#X obj 20 817 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 822 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+-49933 0;
+#X msg 120 827 append;
+#X text 240 827 appends new tab item. Arguments are:;
+#X obj 250 855 cnv 1 46 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 855 ATOMS: item name. Type: list.;
+#X msg 120 883 insert;
+#X text 240 883 inserts new tab item before specified position.
+Arguments are:;
+#X obj 250 925 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 925 IDX: item position. Type: int. Min value: 0;
+#X obj 250 953 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 953 ATOM: item name. Type: atom.;
+#X msg 120 981 clear;
+#X text 240 981 clears all tab menu.;
+#X msg 120 1013 delete;
+#X text 240 1013 removes item from tab. Arguments are:;
+#X obj 250 1041 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 1041 IDX: removed item index. Type: int. Min value: 0;
+#X msg 120 1069 set_item;
+#X text 240 1069 renames tab item. Arguments are:;
+#X obj 250 1097 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 1097 IDX: item index. Type: int. Min value: 0;
+#X obj 250 1125 cnv 1 46 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 1125 ATOMS: item name. Type: list.;
+#X msg 120 1153 set;
+#X text 240 1153 silently sets tab state. Arguments are:;
+#X obj 250 1181 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 1181 IDX: item index. Type: int. Min value: 0;
+#X obj 20 1219 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1224 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+-49933 0;
+#X text 120 1229 1\.;
+#X text 150 1229 *bang*;
+#X text 240 1229 in single mode outputs @title TAB and index of
+selected tab. In toggle mode outputs current state like: @selected 0 1
+0 1 0 etc. and list of two values: [CHANGED_IDX CHANGED_VALUE].;
+#X text 150 1289 *float*;
+#X text 240 1289 onle in single mode: change tab select tab by index
+and output tab @title and new index.;
+#X text 150 1321 *any*;
+#X text 240 1321 selects item equal to given.;
+#X obj 20 1349 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1354 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+-49933 0;
+#X text 120 1359 1\.;
+#X text 240 1359 output;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 115 45 ::;
+#X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
+#X obj 1 1407 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1410 library: ceammc v0.5;
+#N canvas 10 1429 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 library:;
+#X text 120 10 ceammc;
+#X text 10 32 version:;
+#X text 120 32 0.5;
+#X text 10 54 object:;
+#X text 120 54 ui.aview;
+#X text 10 76 category:;
+#X text 120 76 ui;
+#X text 10 98 since:;
+#X text 120 98 0.6;
+#X text 10 120 authors:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 license:;
+#X text 120 142 GPL3;
+#X text 10 164 keywords:;
+#X text 120 164 ui \, array \, view;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pure-data @url
+https://github.com/uliss/pure-data;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 generated by pddoc;
+#X restore 10 1429 pd info;
+#X connect 4 0 6 0;
+#X connect 6 0 7 0;
+#X connect 7 0 8 0;
+#X connect 8 0 9 0;
+#X connect 9 0 11 0;
+#X connect 11 0 12 0;
+#X connect 12 0 14 0;
+#X connect 13 0 15 0;
+#X connect 15 0 17 0;
+#X connect 16 0 19 0;
+#X connect 14 1 19 1;
+#X connect 17 0 19 0;
+#X connect 19 0 20 0;
+#X connect 19 1 20 1;
+#X connect 14 0 21 0;
+#X connect 20 0 21 1;
+#X connect 21 0 22 0;
+#X connect 22 0 23 0;
+#X connect 12 0 16 0;

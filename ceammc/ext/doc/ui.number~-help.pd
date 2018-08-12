@@ -4,10 +4,10 @@
 #X text 348 50 counterpart of the vanilla [nbx] for signal;
 #X obj 1 1 cnv 5 712 40 empty empty ui.number~ 20 20 0 20 -104026
 -4096 0;
-#X obj 548 13 ui.link @title [ui.n~] @background_color 0.39216 0.39216
-0.39216 @url ui.number~-help.pd;
-#X obj 612 13 ui.link @title [ui.number~] @background_color 0.39216
-0.39216 0.39216 @url ui.number~-help.pd;
+#X obj 548 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ui.n~] @url ui.number~-help.pd;
+#X obj 612 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ui.number~] @url ui.number~-help.pd;
 #X obj 205 80 cnv 1 490 33 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 210 80 Shows one sample from input block via specified
 interval;
@@ -41,8 +41,8 @@ Default value: 50\. Min value: 20;
 #X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.5;
 #X text 546 520 see also:;
-#X obj 622 523 ui.link @title [ui.number] @background_color 0.78431
-0.78431 0.78431 @url ui.number-help.pd;
+#X obj 622 523 ui.link @background_color 0.78431 0.78431 0.78431
+@title [ui.number] @url ui.number-help.pd;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

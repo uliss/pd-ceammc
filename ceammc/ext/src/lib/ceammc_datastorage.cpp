@@ -18,7 +18,7 @@
 
 using namespace ceammc;
 
-size_t ceammc::hash_value(const DataDesc& d)
+size_t DataStorageHasher::operator()(const DataDesc& d) const
 {
     size_t res = d.type;
     boost::hash_combine(res, boost::hash_value(d.id));
@@ -46,7 +46,7 @@ DataDesc DataStorage::add(const AbstractData* data)
         return DataDesc(data::DATA_INVALID, DataId(-1));
 
     DataDesc desc(data->type(), generateId(data));
-    DataMap::iterator it = map_.find(desc);
+    auto it = map_.find(desc);
     if (it != map_.end()) {
         it->second.ref_count++;
         return desc;
@@ -61,31 +61,30 @@ DataDesc DataStorage::add(const AbstractData* data)
 
 const AbstractData* DataStorage::acquire(const DataDesc& desc)
 {
-    DataMap::iterator it = map_.find(desc);
-    if (it != map_.end()) {
-        it->second.ref_count++;
-        //        std::cerr << "acquire: " << desc << " = " << it->second.ref_count << "\n";
-        return it->second.data;
-    } else
-        return 0;
+    auto it = map_.find(desc);
+    if (it == map_.end())
+        return nullptr;
+
+    it->second.ref_count++;
+    return it->second.data;
 }
 
 void DataStorage::release(const DataDesc& desc)
 {
-    DataMap::iterator it = map_.find(desc);
-    if (it != map_.end()) {
-        it->second.ref_count--;
-        //        std::cerr << "release: " << desc << " = " << it->second.ref_count << "\n";
-        if (it->second.ref_count == 0) {
-            delete it->second.data;
-            map_.erase(desc);
-        }
+    auto it = map_.find(desc);
+    if (it == map_.end())
+        return;
+
+    it->second.ref_count--;
+    if (it->second.ref_count == 0) {
+        delete it->second.data;
+        map_.erase(desc);
     }
 }
 
 size_t DataStorage::refCount(const DataDesc& desc)
 {
-    DataMap::iterator it = map_.find(desc);
+    auto it = map_.find(desc);
     return (it == map_.end()) ? 0 : it->second.ref_count;
 }
 

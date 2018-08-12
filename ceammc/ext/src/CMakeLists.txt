@@ -22,6 +22,14 @@ if(WIN32 OR MSYS OR MINGW)
     list(APPEND CEAMMC_EXT_LINK_LIBRARIES puredata-core)
 endif()
 
+if(APPLE)
+    # search first for homebrew bison v3.***
+    list(APPEND CMAKE_PREFIX_PATH /usr/local/opt/bison /usr/local/opt/flex /usr/local)
+endif()
+
+find_package(BISON)
+find_package(FLEX)
+
 set(CEAMMC_EXT_LINK_LIBRARIES ceammc_array ceammc_base ceammc_conv ceammc_data ceammc_dyn ceammc_env
     ceammc_flt ceammc_flow ceammc_fx ceammc_hw ceammc_lfo ceammc_list ceammc_math ceammc_midi
     ceammc_misc ceammc_noise ceammc_osc ceammc_preset ceammc_path ceammc_proto ceammc_random ceammc_spat

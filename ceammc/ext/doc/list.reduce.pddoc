@@ -29,6 +29,7 @@
         <inlets>
             <inlet>
                 <xinfo on="list">input list</xinfo>
+                <xinfo on="data:mlist">input mlist</xinfo>
             </inlet>
             <inlet>
                 <xinfo on="any">value from binary function</xinfo>

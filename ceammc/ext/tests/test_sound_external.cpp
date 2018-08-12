@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "ceammc_pd.h"
 #include "ceammc_sound_external.h"
 #include "test_external.h"

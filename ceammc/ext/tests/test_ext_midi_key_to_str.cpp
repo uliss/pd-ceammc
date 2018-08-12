@@ -14,7 +14,7 @@
 #include "../midi/midi_common.h"
 #include "../midi/midi_key2str.h"
 #include "../string/datatype_string.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "catch.hpp"
 
 #define REQUIRE_STRING_OUTPUT(t, str_)                                  \
@@ -25,7 +25,7 @@
         REQUIRE(s->str() == str_);                                      \
     }
 
-typedef TestExtension<MidiKey2Str> Key2StrTest;
+typedef TestExternal<MidiKey2Str> Key2StrTest;
 
 TEST_CASE("midi.key->str", "[externals]")
 {
@@ -35,7 +35,7 @@ TEST_CASE("midi.key->str", "[externals]")
     {
         setup_midi_key2str();
 
-        Key2StrTest t("midi.key->str", L1("@symbol"));
+        Key2StrTest t("midi.key->str", LA("@symbol"));
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
         REQUIRE_PROPERTY(t, @symbol, 1);
@@ -59,7 +59,7 @@ TEST_CASE("midi.key->str", "[externals]")
         WHEN_SEND_FLOAT_TO(0, t, 3);
         REQUIRE_SYMBOL_AT_OUTLET(0, t, "D#");
 
-        t.setProperty("@tonality", L1("F-moll"));
+        t.setProperty("@tonality", LA("F-moll"));
         REQUIRE_PROPERTY(t, @tonality, S("F minor"));
 
         WHEN_SEND_FLOAT_TO(0, t, 3);

@@ -11,31 +11,32 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#include "../data/datatype_mlist.h"
 #include "../list/list_insert.h"
-#include "base_extension_test.h"
-#include "catch.hpp"
+#include "test_base.h"
+#include "test_external.h"
 
-#include <stdio.h>
-
-typedef TestExtension<ListInsert> ListInsertTest;
+PD_COMPLETE_TEST_SETUP(ListInsert, list, insert);
 
 TEST_CASE("list.insert", "[externals]")
 {
+    pd_test_init();
+
     SECTION("create")
     {
-        ListInsertTest t("list.insert");
+        TestListInsert t("list.insert");
         REQUIRE(t.numInlets() == 3);
         REQUIRE(t.numOutlets() == 1);
 
         REQUIRE_PROPERTY_FLOAT(t, @index, 0);
 
-        WHEN_SEND_LIST_TO(2, t, L1(1000));
+        WHEN_SEND_LIST_TO(2, t, LF(1000));
         REQUIRE_PROPERTY_FLOAT(t, @index, 1000);
     }
 
     SECTION("empty")
     {
-        ListInsertTest t("list.insert");
+        TestListInsert t("list.insert");
 
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_NO_MSG(t);
@@ -50,41 +51,41 @@ TEST_CASE("list.insert", "[externals]")
         WHEN_SEND_DATA_TO(0, t, d0);
         REQUIRE_NO_MSG(t);
 
-        WHEN_SEND_LIST_TO(0, t, AtomList());
-        REQUIRE_LIST_AT_OUTLET(0, t, AtomList());
+        WHEN_SEND_LIST_TO(0, t, L());
+        REQUIRE_LIST_AT_OUTLET(0, t, L());
 
-        WHEN_SEND_LIST_TO(0, t, L2(1, 2));
-        REQUIRE_LIST_AT_OUTLET(0, t, L2(1, 2));
+        WHEN_SEND_LIST_TO(0, t, LF(1, 2));
+        REQUIRE_LIST_AT_OUTLET(0, t, LF(1, 2));
     }
 
     SECTION("single")
     {
-        ListInsertTest t("list.insert", L3(1000, "@index", 1));
+        TestListInsert t("list.insert", LA(1000, "@index", 1));
 
-        WHEN_SEND_LIST_TO(0, t, AtomList());
+        WHEN_SEND_LIST_TO(0, t, L());
         REQUIRE_NO_MSG(t);
 
-        WHEN_SEND_LIST_TO(0, t, L1("A"));
-        REQUIRE_LIST_AT_OUTLET(0, t, L2("A", 1000));
+        WHEN_SEND_LIST_TO(0, t, LA("A"));
+        REQUIRE_LIST_AT_OUTLET(0, t, LA("A", 1000));
 
-        WHEN_SEND_LIST_TO(0, t, L2("A", "B"));
-        REQUIRE_LIST_AT_OUTLET(0, t, L3("A", 1000, "B"));
+        WHEN_SEND_LIST_TO(0, t, LA("A", "B"));
+        REQUIRE_LIST_AT_OUTLET(0, t, LA("A", 1000, "B"));
 
-        WHEN_SEND_LIST_TO(1, t, L2(-1, -2));
-        WHEN_SEND_LIST_TO(0, t, L2("A", "B"));
-        REQUIRE_LIST_AT_OUTLET(0, t, L4("A", -1, -2, "B"));
+        WHEN_SEND_LIST_TO(1, t, LA(-1, -2));
+        WHEN_SEND_LIST_TO(0, t, LA("A", "B"));
+        REQUIRE_LIST_AT_OUTLET(0, t, LA("A", -1, -2, "B"));
 
-        t.setProperty("@index", L1(2));
-        WHEN_SEND_LIST_TO(0, t, L2("A", "B"));
-        REQUIRE_LIST_AT_OUTLET(0, t, L4("A", "B", -1, -2));
+        t.setProperty("@index", LF(2));
+        WHEN_SEND_LIST_TO(0, t, LA("A", "B"));
+        REQUIRE_LIST_AT_OUTLET(0, t, LA("A", "B", -1, -2));
 
-        t.setProperty("@index", L1(0.f));
-        WHEN_SEND_LIST_TO(0, t, L2("A", "B"));
-        REQUIRE_LIST_AT_OUTLET(0, t, L4(-1, -2, "A", "B"));
+        t.setProperty("@index", LF(0.f));
+        WHEN_SEND_LIST_TO(0, t, LA("A", "B"));
+        REQUIRE_LIST_AT_OUTLET(0, t, LA(-1, -2, "A", "B"));
 
-        t.setProperty("@index", L1(-1));
-        WHEN_SEND_LIST_TO(0, t, L2("A", "B"));
-        REQUIRE_LIST_AT_OUTLET(0, t, L4(-1, -2, "A", "B"));
+        t.setProperty("@index", LF(-1));
+        WHEN_SEND_LIST_TO(0, t, LA("A", "B"));
+        REQUIRE_LIST_AT_OUTLET(0, t, LA(-1, -2, "A", "B"));
     }
 
     SECTION("data")
@@ -93,10 +94,19 @@ TEST_CASE("list.insert", "[externals]")
         DataPtr d2(new IntData(20));
         DataPtr d3(new IntData(30));
 
-        ListInsertTest t("list.insert", L2("@index", 1));
+        TestListInsert t("list.insert", LA("@index", 1));
 
-        WHEN_SEND_LIST_TO(1, t, L1(d3));
-        WHEN_SEND_LIST_TO(0, t, L2(d1, d2));
-        REQUIRE_LIST_AT_OUTLET(0, t, L3(d1, d3, d2));
+        WHEN_SEND_LIST_TO(1, t, LA(d3));
+        WHEN_SEND_LIST_TO(0, t, LA(d1, d2));
+        REQUIRE_LIST_AT_OUTLET(0, t, LA(d1, d3, d2));
+    }
+
+    SECTION("mlist")
+    {
+        TestExtListInsert t("list.insert", LA(1, 2, 3, "@index", 1));
+
+        t.send(DataTypeMList("(a b c)"));
+        REQUIRE(t.outputDataAt(0).isValid());
+        REQUIRE(t.outputDataAt(0) == DataPtr(new DataTypeMList("(a 1 2 3 b c)")));
     }
 }

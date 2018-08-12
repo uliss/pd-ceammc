@@ -19,13 +19,18 @@
 
 using namespace ceammc;
 
+class DataTypeMList;
+
 class ListDo : public BaseObject {
     AtomList mapped_list_;
 
 public:
     ListDo(const PdArgs& a);
-    void onList(const AtomList& l);
-    void onInlet(size_t n, const AtomList& l);
+    void onList(const AtomList& l) override;
+    void onInlet(size_t n, const AtomList& l) override;
+    void onDataT(const DataTypeMList& lst);
 };
+
+void setup_list_do();
 
 #endif // LIST_EACH_H

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="data.float">
+        <title>data.float</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>robust float object</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>data</category>
+            <keywords>data float</keywords>
+            <since>0.6</since>
+            <also>
+                <see>data.int</see>
+            </also>
+            <aliases>
+                <alias>.float</alias>
+                <alias>.f</alias>
+            </aliases>
+        </meta>
+        <arguments>
+            <argument name="VAL" type="float">set initial value</argument>
+        </arguments>
+        <properties>
+            <property name="@value" readonly="true" type="float">current value</property>
+        </properties>
+        <methods>
+            <method name="set">sets new value without output</method>
+            <method name="+">add to float, no output</method>
+            <method name="-">substruct from float, no output</method>
+            <method name="*">multiply to, no output</method>
+            <method name="/">divide by, no output</method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">output value</xinfo>
+                <xinfo on="float">set new value and outputs</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo>set new value without output</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>set output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]
+|
+| [+ 1.1, bang( [10, bang(
+| |             |
+| | [* 2, bang( | [/ 3.1, bang(
+| | |           | |
+| | | [bang(    | |  [F]
+| | | |         | |  |.
+[.float              100]
+|
+[F digits=10]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

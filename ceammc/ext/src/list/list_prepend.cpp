@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_prepend.h"
+#include "../data/datatype_mlist.h"
 #include "ceammc_factory.h"
 
 ListPrepend::ListPrepend(const PdArgs& args)
@@ -53,7 +54,20 @@ void ListPrepend::onList(const AtomList& lst)
 
 void ListPrepend::onData(const DataPtr& d)
 {
-    onList(AtomList(d.asAtom()));
+    if (d.isValid() && d->type() == DataTypeMList::dataType) {
+        auto lst = d->as<DataTypeMList>();
+        if (!lst) {
+            OBJ_ERR << "invalid data pointer: " << d.data();
+            return;
+        }
+
+        auto res = new DataTypeMList(*lst);
+        DataPtr dptr(res);
+
+        res->prepend(lst_);
+        dataTo(0, dptr);
+    } else
+        onList(AtomList(d.asAtom()));
 }
 
 void ListPrepend::onInlet(size_t n, const AtomList& lst)

@@ -1,5 +1,4 @@
 #include "debug_gensym.h"
-#include "ceammc.hpp"
 #include "ceammc_factory.h"
 #include "ceammc_object.h"
 #include "x_ceammc.h"

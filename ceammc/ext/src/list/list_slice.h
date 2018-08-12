@@ -18,16 +18,19 @@
 
 using namespace ceammc;
 
+class DataTypeMList;
+
 class ListSlice : public BaseObject {
     IntProperty* from_;
-    AtomProperty* step_;
-    AtomProperty* to_;
+    SizeTProperty* step_;
+    IntProperty* to_;
 
 public:
     ListSlice(const PdArgs& a);
     void onList(const AtomList& l);
+    void onDataT(const DataTypeMList& l);
 };
 
-extern "C" void setup_list0x2eslice();
+void setup_list_slice();
 
 #endif // LIST_SLICE_H

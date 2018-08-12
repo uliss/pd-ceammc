@@ -6,14 +6,18 @@
 
 using namespace ceammc;
 
+class DataTypeMList;
+
 class ListSearch : public BaseObject {
     DataAtomList subj_;
 
 public:
     ListSearch(const PdArgs& args);
+    void parseProperties() override;
 
     void onList(const AtomList& lst) override;
     void onInlet(size_t n, const AtomList& lst) override;
+    void onDataT(const DataTypeMList& lst);
 };
 
 void setup_list_search();

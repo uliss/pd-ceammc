@@ -11,10 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "catch.hpp"
-
-#include "base_extension_test.h"
-#include "ceammc_atomlist.h"
+#include "test_common.h"
 
 #include <algorithm>
 #include <cctype>
@@ -294,17 +291,17 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
     {
         SECTION("assign")
         {
-            REQUIRE((AtomList() += 1.0) == AtomList());
-            REQUIRE((AtomList() -= 1.0) == AtomList());
-            REQUIRE((AtomList() *= 1.0) == AtomList());
-            REQUIRE((AtomList() /= 1.0) == AtomList());
+            REQUIRE((L() += 1.0) == L());
+            REQUIRE((L() -= 1.0) == L());
+            REQUIRE((L() *= 1.0) == L());
+            REQUIRE((L() /= 1.0) == L());
 
-            AtomList l = AtomList::values(3, -1.0, 0.0, 2.0);
-            REQUIRE((l += 10) == AtomList::values(3, 9.0, 10.0, 12.0));
-            REQUIRE((l -= 5) == AtomList::values(3, 4.0, 5.0, 7.0));
-            REQUIRE((l *= 2) == AtomList::values(3, 8.0, 10.0, 14.0));
-            REQUIRE((l /= 2) == AtomList::values(3, 4.0, 5.0, 7.0));
-            REQUIRE((l /= 0) == AtomList::values(3, 4.0, 5.0, 7.0));
+            AtomList l = LF(-1.0, 0.0, 2.0);
+            REQUIRE((l += 10) == LF(9.0, 10.0, 12.0));
+            REQUIRE((l -= 5) == LF(4.0, 5.0, 7.0));
+            REQUIRE((l *= 2) == LF(8.0, 10.0, 14.0));
+            REQUIRE((l /= 2) == LF(4.0, 5.0, 7.0));
+            REQUIRE((l /= 0) == LF(4.0, 5.0, 7.0));
 
             l.clear();
             l.append(2.0);
@@ -330,10 +327,10 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
     SECTION("property get atomlist")
     {
         // empty data
-        REQUIRE_FALSE(AtomList().property("@a", static_cast<AtomList*>(0)));
+        REQUIRE_FALSE(L().property("@a", static_cast<AtomList*>(0)));
 
         AtomList plist;
-        REQUIRE_FALSE(AtomList().property("@a", &plist));
+        REQUIRE_FALSE(L().property("@a", &plist));
         REQUIRE(plist.empty());
 
         REQUIRE_FALSE(AtomList(gensym("@b")).property("@a", &plist));
@@ -345,22 +342,22 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
 
         AtomList lst;
         lst.append(F(2));
-        lst.append(P("@a"));
-        lst.append(P("@b"));
+        lst.append(A("@a"));
+        lst.append(A("@b"));
         lst.append(F(3));
         lst.append(F(4));
         lst.append(F(5));
-        lst.append(P("@c"));
+        lst.append(A("@c"));
         lst.append(F(6));
 
         REQUIRE(lst.property("@a", &plist));
-        REQUIRE(plist == AtomList());
+        REQUIRE(plist == L());
 
         REQUIRE(lst.property("@b", &plist));
-        REQUIRE(plist == AtomList::values(3, 3.0, 4.0, 5.0));
+        REQUIRE(plist == LF(3.0, 4.0, 5.0));
 
         REQUIRE(lst.property("@a", &plist));
-        REQUIRE(plist == AtomList());
+        REQUIRE(plist == L());
 
         REQUIRE(lst.property("@c", &plist));
         REQUIRE(plist == AtomList(F(6)));
@@ -373,13 +370,13 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
     {
         SECTION("isBang")
         {
-            REQUIRE(AtomList().isBang());
-            REQUIRE_FALSE(AtomList(1).isBang());
+            REQUIRE(L().isBang());
+            REQUIRE_FALSE(LF(1).isBang());
         }
 
         SECTION("isFloat")
         {
-            REQUIRE_FALSE(AtomList().isFloat());
+            REQUIRE_FALSE(L().isFloat());
             REQUIRE_FALSE(AtomList(1, 2).isFloat());
             REQUIRE_FALSE(AtomList(gensym("s")).isFloat());
             REQUIRE(AtomList(Atom(1)).isFloat());
@@ -387,8 +384,8 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
 
         SECTION("isSymbol")
         {
-            REQUIRE_FALSE(AtomList().isSymbol());
-            REQUIRE_FALSE(AtomList(1).isSymbol());
+            REQUIRE_FALSE(L().isSymbol());
+            REQUIRE_FALSE(LF(1).isSymbol());
             REQUIRE_FALSE(AtomList(gensym("a"), gensym("b")).isSymbol());
             REQUIRE_FALSE(AtomList(gensym("a")).isProperty());
             REQUIRE(AtomList(gensym("a")).isSymbol());
@@ -396,8 +393,8 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
 
         SECTION("isProperty")
         {
-            REQUIRE_FALSE(AtomList().isProperty());
-            REQUIRE_FALSE(AtomList(1).isProperty());
+            REQUIRE_FALSE(L().isProperty());
+            REQUIRE_FALSE(LF(1).isProperty());
             REQUIRE_FALSE(AtomList(gensym("@a"), gensym("@b")).isProperty());
             REQUIRE_FALSE(AtomList(gensym("a")).isProperty());
             REQUIRE(AtomList(gensym("@a")).isProperty());
@@ -406,16 +403,16 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
 
         SECTION("isList")
         {
-            REQUIRE_FALSE(AtomList().isList());
-            REQUIRE_FALSE(AtomList(1).isList());
+            REQUIRE_FALSE(L().isList());
+            REQUIRE_FALSE(LF(1).isList());
             REQUIRE_FALSE(AtomList(gensym("a")).isList());
             REQUIRE(AtomList(1, 2).isList());
         }
 
         SECTION("isData")
         {
-            REQUIRE_FALSE(AtomList().isData());
-            REQUIRE_FALSE(AtomList(1).isData());
+            REQUIRE_FALSE(L().isData());
+            REQUIRE_FALSE(LF(1).isData());
             REQUIRE_FALSE(AtomList(gensym("a")).isData());
             REQUIRE_FALSE(AtomList(1, 2).isData());
             REQUIRE_FALSE(AtomList(Atom(DataDesc(1, 1)), Atom(DataDesc(1, 1))).isData());
@@ -424,8 +421,8 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
 
         SECTION("isDataType")
         {
-            REQUIRE_FALSE(AtomList().isDataType(1));
-            REQUIRE_FALSE(AtomList(1).isDataType(1));
+            REQUIRE_FALSE(L().isDataType(1));
+            REQUIRE_FALSE(LF(1).isDataType(1));
             REQUIRE_FALSE(AtomList(gensym("a")).isDataType(1));
             REQUIRE_FALSE(AtomList(1, 2).isDataType(1));
             REQUIRE_FALSE(AtomList(Atom(DataDesc(1, 1)), Atom(DataDesc(1, 1))).isDataType(1));
@@ -454,112 +451,124 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
     {
         SECTION("float")
         {
-            REQUIRE(L3(1, 2, 3).map(&mul10) == L3(10, 20, 30));
-            REQUIRE(L3("a", "b", "@c").map(&neg) == L3("a", "b", "@c"));
-            REQUIRE(L3("a", 100, "c").map(&neg) == L3("a", -100, "c"));
+            REQUIRE(LF(1, 2, 3).map(&mul10) == LF(10, 20, 30));
+            REQUIRE(LA("a", "b", "@c").map(&neg) == LA("a", "b", "@c"));
+            REQUIRE(LA("a", 100, "c").map(&neg) == LA("a", -100, "c"));
         }
 
         SECTION("symbol")
         {
-            REQUIRE(L3(1, 2, 3).map(&toUpper) == L3(1, 2, 3));
-            REQUIRE(L3("a", "b", "c").map(&toUpper) == L3("A", "B", "C"));
-            REQUIRE(L3("@a", "b", "c").map(&toUpper) == L3("@A", "B", "C"));
-            REQUIRE(L3("A", "B", "C").map(&toUpper) == L3("A", "B", "C"));
-            REQUIRE(L3("a", 100, "c").map(&toUpper) == L3("A", 100, "C"));
+            REQUIRE(LF(1, 2, 3).map(&toUpper) == LF(1, 2, 3));
+            REQUIRE(LA("a", "b", "c").map(&toUpper) == LA("A", "B", "C"));
+            REQUIRE(LA("@a", "b", "c").map(&toUpper) == LA("@A", "B", "C"));
+            REQUIRE(LA("A", "B", "C").map(&toUpper) == LA("A", "B", "C"));
+            REQUIRE(LA("a", 100, "c").map(&toUpper) == LA("A", 100, "C"));
         }
 
         SECTION("atom")
         {
-            REQUIRE(L3(1, 2, 3).map(&testMap1) == L3(100, 200, 300));
-            REQUIRE(L3("a", 0.01f, "@c").map(&testMap1) == L3("A", 1, "@C"));
+            REQUIRE(LF(1, 2, 3).map(&testMap1) == LF(100, 200, 300));
+            REQUIRE(LA("a", 0.01f, "@c").map(&testMap1) == LA("A", 1, "@C"));
+        }
+
+        SECTION("map atom")
+        {
+            auto fn = [](const Atom& a) { return Atom(a.isFloat()); };
+            REQUIRE(LA(1, "a", 3).map(fn) == LF(1, 0.f, 1));
+        }
+
+        SECTION("map float")
+        {
+            auto fn = [](t_float f) { return f * 2; };
+            REQUIRE(LF(1, 2, 3).mapFloat(fn) == LF(2, 4, 6));
         }
     }
 
     SECTION("operators")
     {
-        AtomList lst = L3(10, -12, "a");
-        REQUIRE(lst + 10 == L3(20, -2, "a"));
-        REQUIRE(lst - 9 == L3(1, -21, "a"));
-        REQUIRE(lst * 10 == L3(100, -120, "a"));
-        REQUIRE(lst / 10 == L3(1, -1.2f, "a"));
+        AtomList lst = LA(10, -12, "a");
+        REQUIRE(lst + 10 == LA(20, -2, "a"));
+        REQUIRE(lst - 9 == LA(1, -21, "a"));
+        REQUIRE(lst * 10 == LA(100, -120, "a"));
+        REQUIRE(lst / 10 == LA(1, -1.2f, "a"));
     }
 
     SECTION("listFrom")
     {
-        REQUIRE(listFrom(true) == L1(1.0f));
-        REQUIRE(listFrom(false) == L1(0.0f));
-        REQUIRE(listFrom(std::string("string")) == L1("string"));
-        REQUIRE(listFrom(23) == L1(23));
-        REQUIRE(listFrom(L3("a", "b", 3)) == L3("a", "b", 3));
-        REQUIRE(listFrom(Atom(1)) == L1(1));
+        REQUIRE(listFrom(true) == LF(1.0f));
+        REQUIRE(listFrom(false) == LF(0.0f));
+        REQUIRE(listFrom(std::string("string")) == LA("string"));
+        REQUIRE(listFrom(23) == LF(23));
+        REQUIRE(listFrom(LA("a", "b", 3)) == LA("a", "b", 3));
+        REQUIRE(listFrom(Atom(1)) == LF(1));
 
         using namespace std;
         vector<string> v;
         v.push_back("a");
         v.push_back("c");
-        REQUIRE(listFrom(v) == L2("a", "c"));
+        REQUIRE(listFrom(v) == LA("a", "c"));
     }
 
     SECTION("listTo")
     {
         SECTION("bool")
         {
-            REQUIRE(atomlistToValue<bool>(AtomList(), false) == false);
-            REQUIRE(atomlistToValue<bool>(AtomList(), true) == true);
-            REQUIRE(atomlistToValue<bool>(L1(1), false) == true);
-            REQUIRE(atomlistToValue<bool>(L1(100), false) == true);
-            REQUIRE(atomlistToValue<bool>(L1(-100), false) == true);
-            REQUIRE(atomlistToValue<bool>(L1(0.f), false) == false);
+            REQUIRE(atomlistToValue<bool>(L(), false) == false);
+            REQUIRE(atomlistToValue<bool>(L(), true) == true);
+            REQUIRE(atomlistToValue<bool>(LF(1), false) == true);
+            REQUIRE(atomlistToValue<bool>(LF(100), false) == true);
+            REQUIRE(atomlistToValue<bool>(LF(-100), false) == true);
+            REQUIRE(atomlistToValue<bool>(LF(0.f), false) == false);
 
-            REQUIRE(atomlistToValue<bool>(L1("true"), false) == true);
-            REQUIRE(atomlistToValue<bool>(L1("TRUE"), false) == false);
-            REQUIRE(atomlistToValue<bool>(L1("false"), false) == false);
-            REQUIRE(atomlistToValue<bool>(L1("abc"), false) == false);
+            REQUIRE(atomlistToValue<bool>(LA("true"), false) == true);
+            REQUIRE(atomlistToValue<bool>(LA("TRUE"), false) == false);
+            REQUIRE(atomlistToValue<bool>(LA("false"), false) == false);
+            REQUIRE(atomlistToValue<bool>(LA("abc"), false) == false);
         }
 
         SECTION("int")
         {
-            REQUIRE(atomlistToValue<int>(AtomList(), -1) == -1);
-            REQUIRE(atomlistToValue<int>(L1(123), -1) == 123);
-            REQUIRE(atomlistToValue<int>(L2(123, 124), -1) == 123);
+            REQUIRE(atomlistToValue<int>(L(), -1) == -1);
+            REQUIRE(atomlistToValue<int>(LF(123), -1) == 123);
+            REQUIRE(atomlistToValue<int>(LF(123, 124), -1) == 123);
 
-            REQUIRE(atomlistToValue<int>(L1("a"), -1) == -1);
-            REQUIRE(atomlistToValue<int>(L2("a", 123), -1) == -1);
+            REQUIRE(atomlistToValue<int>(LA("a"), -1) == -1);
+            REQUIRE(atomlistToValue<int>(LA("a", 123), -1) == -1);
         }
 
         SECTION("size")
         {
-            REQUIRE(atomlistToValue<size_t>(AtomList(), 0) == 0);
-            REQUIRE(atomlistToValue<size_t>(L1(123), 0) == 123);
-            REQUIRE(atomlistToValue<size_t>(L1(-123), 0) == 0);
-            REQUIRE(atomlistToValue<size_t>(L2(123, 124), 0) == 123);
+            REQUIRE(atomlistToValue<size_t>(L(), 0) == 0);
+            REQUIRE(atomlistToValue<size_t>(LF(123), 0) == 123);
+            REQUIRE(atomlistToValue<size_t>(LF(-123), 0) == 0);
+            REQUIRE(atomlistToValue<size_t>(LF(123, 124), 0) == 123);
 
-            REQUIRE(atomlistToValue<size_t>(L1("a"), 0) == 0);
-            REQUIRE(atomlistToValue<size_t>(L2("a", 123), 0) == 0);
+            REQUIRE(atomlistToValue<size_t>(LA("a"), 0) == 0);
+            REQUIRE(atomlistToValue<size_t>(LA("a", 123), 0) == 0);
         }
 
         SECTION("float")
         {
-            REQUIRE(atomlistToValue<float>(AtomList(), -1) == -1.f);
-            REQUIRE(atomlistToValue<float>(L1(123), -1) == 123.f);
-            REQUIRE(atomlistToValue<float>(L2(123, 124), -1) == 123.f);
+            REQUIRE(atomlistToValue<float>(L(), -1) == -1.f);
+            REQUIRE(atomlistToValue<float>(LF(123), -1) == 123.f);
+            REQUIRE(atomlistToValue<float>(LF(123, 124), -1) == 123.f);
 
-            REQUIRE(atomlistToValue<float>(L1("a"), -1) == -1);
-            REQUIRE(atomlistToValue<float>(L2("a", 123), -1) == -1);
+            REQUIRE(atomlistToValue<float>(LA("a"), -1) == -1);
+            REQUIRE(atomlistToValue<float>(LA("a", 123), -1) == -1);
         }
 
         SECTION("Atom")
         {
-            REQUIRE(atomlistToValue<Atom>(AtomList(), Atom()).isNone());
-            REQUIRE(atomlistToValue<Atom>(L1(123), Atom()) == Atom(123));
-            REQUIRE(atomlistToValue<Atom>(L2("a", 124), Atom()) == Atom(gensym("a")));
+            REQUIRE(atomlistToValue<Atom>(L(), Atom()).isNone());
+            REQUIRE(atomlistToValue<Atom>(LF(123), Atom()) == Atom(123));
+            REQUIRE(atomlistToValue<Atom>(LA("a", 124), Atom()) == Atom(gensym("a")));
         }
     }
 
     SECTION("operator+")
     {
-        REQUIRE(L2(1, 2) + L2(3, 4) == L4(1, 2, 3, 4));
-        REQUIRE(L2(1, 2) + Atom(3) == L3(1, 2, 3));
-        REQUIRE(Atom(0.f) + L2(1, 2) == L3(0.f, 1, 2));
+        REQUIRE(LF(1, 2) + LF(3, 4) == LF(1, 2, 3, 4));
+        REQUIRE(LF(1, 2) + Atom(3) == LF(1, 2, 3));
+        REQUIRE(Atom(0.f) + LF(1, 2) == LF(0.f, 1, 2));
     }
 }

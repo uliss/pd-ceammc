@@ -12,12 +12,12 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../math/math_or.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "catch.hpp"
 
 #include <stdio.h>
 
-typedef TestExtension<MathOr> MathOrTest;
+typedef TestExternal<MathOr> MathOrTest;
 
 static int asBool(const Atom& a)
 {
@@ -40,43 +40,43 @@ TEST_CASE("math.or", "[externals]")
         }
 
         {
-            MathOrTest t("math.or", L1(5));
+            MathOrTest t("math.or", LF(5));
             REQUIRE(t.numInlets() == 5);
             REQUIRE(t.numOutlets() == 1);
         }
 
         {
-            MathOrTest t("math.or", L1(0.f));
+            MathOrTest t("math.or", LF(0.f));
             REQUIRE(t.numInlets() == 3);
             REQUIRE(t.numOutlets() == 1);
         }
 
         {
-            MathOrTest t("math.or", L1(1));
+            MathOrTest t("math.or", LF(1));
             REQUIRE(t.numInlets() == 3);
             REQUIRE(t.numOutlets() == 1);
         }
 
         {
-            MathOrTest t("math.or", L1(2));
+            MathOrTest t("math.or", LF(2));
             REQUIRE(t.numInlets() == 3);
             REQUIRE(t.numOutlets() == 1);
         }
 
         {
-            MathOrTest t("math.or", L1(20));
+            MathOrTest t("math.or", LF(20));
             REQUIRE(t.numInlets() == 16);
             REQUIRE(t.numOutlets() == 1);
         }
 
         {
-            MathOrTest t("math.or", L1(-1));
+            MathOrTest t("math.or", LF(-1));
             REQUIRE(t.numInlets() == 3);
             REQUIRE(t.numOutlets() == 1);
         }
 
         {
-            MathOrTest t("math.or", L2(4, "@sync"));
+            MathOrTest t("math.or", LA(4, "@sync"));
             REQUIRE(t.numInlets() == 4);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY(t, @sync, 1);
@@ -92,25 +92,25 @@ TEST_CASE("math.or", "[externals]")
         CALL(obj, reset);                                                                          \
         WHEN_SEND_FLOAT_TO(2, obj, vals[2].asFloat());                                             \
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, obj);                                                     \
-        REQUIRE_PROPERTY_LIST(obj, @state, L3(0.f, 0.f, asBool(vals[2])));                         \
+        REQUIRE_PROPERTY_LIST(obj, @state, LA(0.f, 0.f, asBool(vals[2])));                         \
         WHEN_SEND_FLOAT_TO(1, obj, vals[1].asFloat());                                             \
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, obj);                                                     \
-        REQUIRE_PROPERTY_LIST(obj, @state, L3(0.f, asBool(vals[1]), asBool(vals[2])));             \
+        REQUIRE_PROPERTY_LIST(obj, @state, LA(0.f, asBool(vals[1]), asBool(vals[2])));             \
         WHEN_SEND_FLOAT_TO(0, obj, vals[0].asFloat());                                             \
-        REQUIRE_PROPERTY_LIST(obj, @state, L3(asBool(vals[0]), asBool(vals[1]), asBool(vals[2]))); \
+        REQUIRE_PROPERTY_LIST(obj, @state, LA(asBool(vals[0]), asBool(vals[1]), asBool(vals[2]))); \
         REQUIRE_FLOAT_AT_OUTLET(0, obj, cond ? 1 : 0);                                             \
     }
 
-        REQUIRE_OR_ASYNC(t, L3(0.f, 0.f, 0.f), false);
-        REQUIRE_OR_ASYNC(t, L3(1, 2, 3), true);
-        REQUIRE_OR_ASYNC(t, L3(0.f, 0.f, 1), true);
-        REQUIRE_OR_ASYNC(t, L3(1, 1, 1), true);
-        REQUIRE_OR_ASYNC(t, L3(1, 0.f, 1), true);
+        REQUIRE_OR_ASYNC(t, LF(0.f, 0.f, 0.f), false);
+        REQUIRE_OR_ASYNC(t, LF(1, 2, 3), true);
+        REQUIRE_OR_ASYNC(t, LF(0.f, 0.f, 1), true);
+        REQUIRE_OR_ASYNC(t, LF(1, 1, 1), true);
+        REQUIRE_OR_ASYNC(t, LF(1, 0.f, 1), true);
     }
 
     SECTION("sync")
     {
-        MathOrTest t("math.or", L2(3, "@sync"));
+        MathOrTest t("math.or", LA(3, "@sync"));
 
 #define REQUIRE_OR_SYNC(obj, n, v, cond)               \
     {                                                  \
@@ -128,11 +128,11 @@ TEST_CASE("math.or", "[externals]")
 
     SECTION("reset")
     {
-        MathOrTest t("math.or", L1(3));
+        MathOrTest t("math.or", LF(3));
         WHEN_SEND_FLOAT_TO(0, t, 1);
         WHEN_SEND_FLOAT_TO(1, t, 1);
-        REQUIRE_PROPERTY_LIST(t, @state, L3(1, 1, .0f));
+        REQUIRE_PROPERTY_LIST(t, @state, LA(1, 1, .0f));
         CALL(t, reset);
-        REQUIRE_PROPERTY_LIST(t, @state, L3(0.f, 0.f, .0f));
+        REQUIRE_PROPERTY_LIST(t, @state, LA(0.f, 0.f, .0f));
     }
 }

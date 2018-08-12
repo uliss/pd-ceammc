@@ -12,10 +12,10 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../list/list_none_of.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "catch.hpp"
 
-typedef TestExtension<ListNoneOf> ListNoneOfTest;
+typedef TestExternal<ListNoneOf> ListNoneOfTest;
 
 static void eqThree(ListNoneOfTest* obj, size_t, const Atom& a)
 {
@@ -33,7 +33,7 @@ TEST_CASE("list.none_of", "[externals]")
 
     SECTION("init")
     {
-        ListNoneOfTest t("list.none_of", AtomList());
+        ListNoneOfTest t("list.none_of", L());
         REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 2);
     }
@@ -54,20 +54,20 @@ TEST_CASE("list.none_of", "[externals]")
 
     SECTION("connect")
     {
-        ListNoneOfTest t("list.none_off", AtomList());
+        ListNoneOfTest t("list.none_off", L());
 
-        REQUIRE_NONE(t, AtomList(), eqThree);
-        REQUIRE_NONE(t, L1(1), eqThree);
-        REQUIRE_NONE(t, L2(1, 2), eqThree);
-        REQUIRE_NONE(t, L3(1, 2, 4), eqThree);
+        REQUIRE_NONE(t, L(), eqThree);
+        REQUIRE_NONE(t, LF(1), eqThree);
+        REQUIRE_NONE(t, LF(1, 2), eqThree);
+        REQUIRE_NONE(t, LF(1, 2, 4), eqThree);
 
-        REQUIRE_SOME(t, L1(3), eqThree);
-        REQUIRE_SOME(t, L3(1, 3, 4), eqThree);
+        REQUIRE_SOME(t, LF(3), eqThree);
+        REQUIRE_SOME(t, LF(1, 3, 4), eqThree);
 
-        REQUIRE_NONE(t, L1(3), lessThree);
-        REQUIRE_NONE(t, L2(3, 4), lessThree);
-        REQUIRE_NONE(t, L3(3, 4, 5), lessThree);
+        REQUIRE_NONE(t, LF(3), lessThree);
+        REQUIRE_NONE(t, LF(3, 4), lessThree);
+        REQUIRE_NONE(t, LF(3, 4, 5), lessThree);
 
-        REQUIRE_SOME(t, L3(2, 4, 3), lessThree);
+        REQUIRE_SOME(t, LF(2, 4, 3), lessThree);
     }
 }

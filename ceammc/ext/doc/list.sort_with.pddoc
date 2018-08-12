@@ -19,26 +19,26 @@
         <inlets>
             <inlet>
                 <xinfo on="list">input list</xinfo>
+                <xinfo on="data:mlist">input mlist</xinfo>
             </inlet>
             <inlet>
-                <xinfo on="int">output from compare object</xinfo>
+                <xinfo on="int">output from compare object (1 or 0)</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>sorted list</outlet>
+            <outlet>sorted list (or mlist)</outlet>
             <outlet>output list with two element to compare side-chain</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[3 4 1 0 6(
-|
-|
+[3 4 1 0 6(  [\(1 2 3 4 5\), bang(
+|            |
+|            [ml]
+|            |
 [list.sort_with] X [>]
 |
-[msg set]
-|
-[ (
+[ui.display @display_type=1]
 ]]>
             </pdascii>
         </example>

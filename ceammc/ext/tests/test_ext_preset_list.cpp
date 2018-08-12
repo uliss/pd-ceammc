@@ -13,14 +13,14 @@
  *****************************************************************************/
 
 #include "../preset/preset_list.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "ceammc_pd.h"
 #include "ceammc_platform.h"
 #include "ceammc_preset.h"
 
 #include "catch.hpp"
 
-typedef TestExtension<PresetList> PresetListTest;
+typedef TestExternal<PresetList> PresetListTest;
 
 CanvasPtr ptr = PureData::instance().createTopCanvas("test_canvas");
 
@@ -32,38 +32,38 @@ TEST_CASE("[preset.list]", "[PureData]")
     {
         setup_preset_list();
 
-        PresetListTest t("preset.list", L1("pf1"));
+        PresetListTest t("preset.list", LA("pf1"));
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
         REQUIRE_PROPERTY(t, @id, "pf1");
         REQUIRE_PROPERTY(t, @path, "/pf1");
-        REQUIRE_PROPERTY_LIST(t, @init, AtomList());
+        REQUIRE_PROPERTY_LIST(t, @init, L());
         REQUIRE_PROPERTY(t, @global, 0.f);
         REQUIRE_PROPERTY(t, @subpatch, 0.f);
 
         SECTION("init value")
         {
-            PresetListTest t("preset.list", L5("pf2", 123, "A", 1, "C"));
+            PresetListTest t("preset.list", LA("pf2", 123, "A", 1, "C"));
             REQUIRE_PROPERTY(t, @path, "/pf2");
-            REQUIRE_PROPERTY_LIST(t, @init, L4(123, "A", 1, "C"));
+            REQUIRE_PROPERTY_LIST(t, @init, LA(123, "A", 1, "C"));
         }
     }
 
     SECTION("do")
     {
-        PresetListTest p1("preset.list", L1("p1"));
+        PresetListTest p1("preset.list", LA("p1"));
 
-        WHEN_SEND_LIST_TO(0, p1, L2(100, 200));
-        p1.m_store(0, L1(0.f));
+        WHEN_SEND_LIST_TO(0, p1, LF(100, 200));
+        p1.m_store(0, LF(0.f));
 
-        WHEN_SEND_LIST_TO(0, p1, L3("A", "B", "C"));
-        p1.m_store(0, L1(1));
+        WHEN_SEND_LIST_TO(0, p1, LA("A", "B", "C"));
+        p1.m_store(0, LF(1));
 
-        p1.m_load(0, L1(0.f));
-        REQUIRE_LIST_AT_OUTLET(0, p1, L2(100, 200));
+        p1.m_load(0, LF(0.f));
+        REQUIRE_LIST_AT_OUTLET(0, p1, LF(100, 200));
 
-        p1.m_load(0, L1(1.f));
-        REQUIRE_LIST_AT_OUTLET(0, p1, L3("A", "B", "C"));
+        p1.m_load(0, LF(1.f));
+        REQUIRE_LIST_AT_OUTLET(0, p1, LA("A", "B", "C"));
     }
 
     SECTION("long list")
@@ -71,21 +71,21 @@ TEST_CASE("[preset.list]", "[PureData]")
         AtomList long_list;
         long_list.fill(Atom(123), 1024 * 100);
 
-        PresetListTest p1("preset.list", L1("p1"));
+        PresetListTest p1("preset.list", LA("p1"));
         WHEN_SEND_LIST_TO(0, p1, long_list);
-        p1.m_store(0, L1(1));
+        p1.m_store(0, LF(1));
 
         REQUIRE(PresetStorage::instance().write("./long_list_preset.txt"));
 
         WHEN_SEND_LIST_TO(0, p1, AtomList(100, 200));
-        p1.m_store(0, L1(1));
+        p1.m_store(0, LF(1));
 
-        p1.m_load(0, L1(1));
-        REQUIRE_LIST_AT_OUTLET(0, p1, L2(100, 200));
+        p1.m_load(0, LF(1));
+        REQUIRE_LIST_AT_OUTLET(0, p1, LF(100, 200));
 
         REQUIRE(PresetStorage::instance().read("./long_list_preset.txt"));
 
-        p1.m_load(0, L1(1));
+        p1.m_load(0, LF(1));
         REQUIRE_LIST_AT_OUTLET(0, p1, long_list);
 
         REQUIRE(platform::remove("./long_list_preset.txt"));

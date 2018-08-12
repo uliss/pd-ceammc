@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_append.h"
+#include "../data/datatype_mlist.h"
 #include "ceammc_factory.h"
 
 ListAppend::ListAppend(const PdArgs& args)
@@ -53,7 +54,20 @@ void ListAppend::onList(const AtomList& lst)
 
 void ListAppend::onData(const DataPtr& d)
 {
-    onList(AtomList(d.asAtom()));
+    if (d.isValid() && d->type() == DataTypeMList::dataType) {
+        auto lst = d->as<DataTypeMList>();
+        if (!lst) {
+            OBJ_ERR << "invalid data pointer: " << d.data();
+            return;
+        }
+
+        auto res = new DataTypeMList(*lst);
+        DataPtr dptr(res);
+
+        res->append(lst_);
+        dataTo(0, dptr);
+    } else
+        onList(AtomList(d.asAtom()));
 }
 
 void ListAppend::onInlet(size_t n, const AtomList& lst)

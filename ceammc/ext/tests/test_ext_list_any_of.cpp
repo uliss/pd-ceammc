@@ -12,10 +12,10 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../list/list_any_of.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "catch.hpp"
 
-typedef TestExtension<ListAnyOf> ListAnyOfTest;
+typedef TestExternal<ListAnyOf> ListAnyOfTest;
 
 static void eqThree(ListAnyOfTest* obj, size_t, const Atom& a)
 {
@@ -33,7 +33,7 @@ TEST_CASE("list.any_of", "[externals]")
 
     SECTION("init")
     {
-        ListAnyOfTest t("list.any_of", AtomList());
+        ListAnyOfTest t("list.any_of", L());
         REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 2);
     }
@@ -54,22 +54,22 @@ TEST_CASE("list.any_of", "[externals]")
 
     SECTION("connect")
     {
-        ListAnyOfTest t("list.any_off", AtomList());
+        ListAnyOfTest t("list.any_off", L());
 
-        REQUIRE_ANY(t, L1(3), eqThree);
-        REQUIRE_ANY(t, L2(3, 1), eqThree);
-        REQUIRE_ANY(t, L3(1, 2, 3), eqThree);
+        REQUIRE_ANY(t, LF(3), eqThree);
+        REQUIRE_ANY(t, LF(3, 1), eqThree);
+        REQUIRE_ANY(t, LF(1, 2, 3), eqThree);
 
-        REQUIRE_NOT_ANY(t, L1(1), eqThree);
-        REQUIRE_NOT_ANY(t, AtomList(), eqThree);
-        REQUIRE_NOT_ANY(t, L3(1, 2, 4), eqThree);
-        REQUIRE_NOT_ANY(t, L3(-9, 4, 10), eqThree);
+        REQUIRE_NOT_ANY(t, LF(1), eqThree);
+        REQUIRE_NOT_ANY(t, L(), eqThree);
+        REQUIRE_NOT_ANY(t, LF(1, 2, 4), eqThree);
+        REQUIRE_NOT_ANY(t, LF(-9, 4, 10), eqThree);
 
-        REQUIRE_ANY(t, L1(2), lessThree);
-        REQUIRE_ANY(t, L2(0.f, 1), lessThree);
-        REQUIRE_ANY(t, L3(22, 2, 10), lessThree);
+        REQUIRE_ANY(t, LF(2), lessThree);
+        REQUIRE_ANY(t, LF(0.f, 1), lessThree);
+        REQUIRE_ANY(t, LF(22, 2, 10), lessThree);
 
-        REQUIRE_NOT_ANY(t, AtomList(), lessThree);
-        REQUIRE_NOT_ANY(t, L4(4, 4, 3, 4), lessThree);
+        REQUIRE_NOT_ANY(t, L(), lessThree);
+        REQUIRE_NOT_ANY(t, LF(4, 4, 3, 4), lessThree);
     }
 }

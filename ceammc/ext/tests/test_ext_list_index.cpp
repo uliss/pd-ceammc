@@ -12,12 +12,12 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../list/list_index.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "catch.hpp"
 
 #include <stdio.h>
 
-typedef TestExtension<ListIndex> Test;
+typedef TestExternal<ListIndex> Test;
 
 TEST_CASE("list.index", "[externals]")
 {
@@ -34,7 +34,7 @@ TEST_CASE("list.index", "[externals]")
 
         SECTION("props")
         {
-            Test t("list.index", L4("@start", 1, "@end", 100));
+            Test t("list.index", LA("@start", 1, "@end", 100));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY_FLOAT(t, @start, 1);
@@ -44,7 +44,7 @@ TEST_CASE("list.index", "[externals]")
 
     SECTION("search")
     {
-        Test t("list.index", L8(1, 2, 3, 4, 3, 2, 1, 2));
+        Test t("list.index", LF(1, 2, 3, 4, 3, 2, 1, 2));
 
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_NO_MSG(t);
@@ -59,53 +59,53 @@ TEST_CASE("list.index", "[externals]")
         REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
         WHEN_SEND_FLOAT_TO(0, t, 3);
         REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
-        WHEN_SEND_LIST_TO(0, t, L2(2, 3));
+        WHEN_SEND_LIST_TO(0, t, LF(2, 3));
         REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
 
-        t.setProperty("@start", L1(3));
+        t.setProperty("@start", LF(3));
         WHEN_SEND_FLOAT_TO(0, t, 1);
         REQUIRE_FLOAT_AT_OUTLET(0, t, 6);
         WHEN_SEND_FLOAT_TO(0, t, 2);
         REQUIRE_FLOAT_AT_OUTLET(0, t, 5);
-        WHEN_SEND_LIST_TO(0, t, L2(1, 2));
+        WHEN_SEND_LIST_TO(0, t, LF(1, 2));
         REQUIRE_FLOAT_AT_OUTLET(0, t, 6);
-        WHEN_SEND_LIST_TO(0, t, L2(4, 3));
+        WHEN_SEND_LIST_TO(0, t, LF(4, 3));
         REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
-        WHEN_SEND_LIST_TO(0, t, L2(2, 3));
+        WHEN_SEND_LIST_TO(0, t, LF(2, 3));
         REQUIRE_FLOAT_AT_OUTLET(0, t, -1);
 
-        WHEN_SEND_LIST_TO(0, t, AtomList());
+        WHEN_SEND_LIST_TO(0, t, L());
         REQUIRE_FLOAT_AT_OUTLET(0, t, -1);
 
         // out of range start
-        t.setProperty("@start", L1(100));
+        t.setProperty("@start", LF(100));
         WHEN_SEND_FLOAT_TO(0, t, 3);
         REQUIRE_FLOAT_AT_OUTLET(0, t, -1);
-        WHEN_SEND_LIST_TO(0, t, L2(1, 2));
+        WHEN_SEND_LIST_TO(0, t, LF(1, 2));
         REQUIRE_FLOAT_AT_OUTLET(0, t, -1);
 
         // last element start
-        t.setProperty("@start", L1(7));
+        t.setProperty("@start", LF(7));
         WHEN_SEND_FLOAT_TO(0, t, 3);
         REQUIRE_FLOAT_AT_OUTLET(0, t, -1);
         WHEN_SEND_FLOAT_TO(0, t, 2);
         REQUIRE_FLOAT_AT_OUTLET(0, t, 7);
-        WHEN_SEND_LIST_TO(0, t, L2(1, 2));
+        WHEN_SEND_LIST_TO(0, t, LF(1, 2));
         REQUIRE_FLOAT_AT_OUTLET(0, t, -1);
 
         // out of range @end
-        t.setProperty("@start", L1(1));
-        t.setProperty("@end", L1(100));
+        t.setProperty("@start", LF(1));
+        t.setProperty("@end", LF(100));
         WHEN_SEND_FLOAT_TO(0, t, 1);
         REQUIRE_FLOAT_AT_OUTLET(0, t, 6);
         WHEN_SEND_FLOAT_TO(0, t, 2);
         REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
-        WHEN_SEND_LIST_TO(0, t, L2(1, 2));
+        WHEN_SEND_LIST_TO(0, t, LF(1, 2));
         REQUIRE_FLOAT_AT_OUTLET(0, t, 6);
 
         // @start == @end
-        t.setProperty("@start", L1(2));
-        t.setProperty("@end", L1(2));
+        t.setProperty("@start", LF(2));
+        t.setProperty("@end", LF(2));
         WHEN_SEND_FLOAT_TO(0, t, 1);
         REQUIRE_FLOAT_AT_OUTLET(0, t, -1);
         WHEN_SEND_FLOAT_TO(0, t, 2);
@@ -114,12 +114,12 @@ TEST_CASE("list.index", "[externals]")
         REQUIRE_FLOAT_AT_OUTLET(0, t, -1);
         WHEN_SEND_FLOAT_TO(0, t, 4);
         REQUIRE_FLOAT_AT_OUTLET(0, t, -1);
-        WHEN_SEND_LIST_TO(0, t, L2(1, 2));
+        WHEN_SEND_LIST_TO(0, t, LF(1, 2));
         REQUIRE_FLOAT_AT_OUTLET(0, t, -1);
 
         // @start > @end
-        t.setProperty("@start", L1(3));
-        t.setProperty("@end", L1(2));
+        t.setProperty("@start", LF(3));
+        t.setProperty("@end", LF(2));
         WHEN_SEND_FLOAT_TO(0, t, 1);
         REQUIRE_FLOAT_AT_OUTLET(0, t, -1);
         WHEN_SEND_FLOAT_TO(0, t, 2);
@@ -128,7 +128,7 @@ TEST_CASE("list.index", "[externals]")
         REQUIRE_FLOAT_AT_OUTLET(0, t, -1);
         WHEN_SEND_FLOAT_TO(0, t, 4);
         REQUIRE_FLOAT_AT_OUTLET(0, t, -1);
-        WHEN_SEND_LIST_TO(0, t, L2(1, 2));
+        WHEN_SEND_LIST_TO(0, t, LF(1, 2));
         REQUIRE_FLOAT_AT_OUTLET(0, t, -1);
     }
 }

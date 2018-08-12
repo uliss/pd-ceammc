@@ -1,37 +1,31 @@
-#include "ceammc_atomlist.h"
-#include <m_pd.h>
+#include "list_first.h"
+#include "../data/datatype_mlist.h"
+#include "ceammc_factory.h"
 
-#define OBJ_NAME "list.first"
-#define MSG_PREFIX "[" OBJ_NAME "] "
-
-static t_class* list_first_class;
-struct t_list_first {
-    t_object x_obj;
-};
-
-using namespace ceammc;
-
-static void list_first_list(t_list_first* x, t_symbol*, int argc, t_atom* argv)
+ListFirst::ListFirst(const PdArgs& args)
+    : BaseObject(args)
 {
-    if (argc < 1)
+    createOutlet();
+}
+
+void ListFirst::onList(const AtomList& lst)
+{
+    if (lst.empty())
         return;
 
-    Atom a(argv[0]);
-    to_outlet(x->x_obj.te_outlet, a);
+    atomTo(0, lst[0]);
 }
 
-static void* list_first_new()
+void ListFirst::onDataT(const DataTypeMList& lst)
 {
-    t_list_first* x = reinterpret_cast<t_list_first*>(pd_new(list_first_class));
-    outlet_new(&x->x_obj, &s_float);
-    return static_cast<void*>(x);
+    if (lst.empty())
+        return;
+
+    atomTo(0, lst.at(0).toAtom());
 }
 
-extern "C" void setup_list0x2efirst()
+void setup_list_first()
 {
-    list_first_class = class_new(gensym(OBJ_NAME),
-        reinterpret_cast<t_newmethod>(list_first_new),
-        reinterpret_cast<t_method>(0),
-        sizeof(t_list_first), 0, A_NULL);
-    class_addlist(list_first_class, list_first_list);
+    ObjectFactory<ListFirst> obj("list.first");
+    obj.processData<DataTypeMList>();
 }

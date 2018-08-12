@@ -26,6 +26,7 @@
                 <xinfo on="symbol">input symbol</xinfo>
                 <xinfo on="list">input list</xinfo>
                 <xinfo on="data">input data</xinfo>
+                <xinfo on="data:mlist">append to end of input list</xinfo>
             </inlet>
             <inlet>
                 <xinfo on="list">set appended list</xinfo>

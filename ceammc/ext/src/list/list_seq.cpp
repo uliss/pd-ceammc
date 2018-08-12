@@ -1,10 +1,8 @@
 #include <algorithm>
+#include <cmath>
 
 #include "ceammc_factory.h"
 #include "list_seq.h"
-
-#include "ceammc.hpp"
-#include <m_pd.h>
 
 ListSeq::ListSeq(const PdArgs& a)
     : BaseObject(a)
@@ -47,7 +45,7 @@ void ListSeq::onBang()
     AtomList res;
     const t_float from = from_->value();
     const t_float to = to_->value();
-    const t_float step = fabsf(step_->value());
+    const t_float step = std::fabs(step_->value());
 
     if (step == 0.f) {
         OBJ_ERR << "invalid step: " << step;

@@ -35,6 +35,13 @@ namespace ceammc {
 bool canvas_info_is_root(const _glist* c);
 
 /**
+ * Returns parent canvas for given
+ * @param c - pointer to canvas
+ * @return NULL on error
+ */
+const _glist* canvas_root(const _glist* c);
+
+/**
  * Checks if given canvas is abstraction
  * @param c - pointer to canvas
  */

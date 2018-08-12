@@ -11,16 +11,22 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#include "../data/data_mlist.h"
 #include "../list/list_at.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "catch.hpp"
+#include "test_external.h"
 
 #include <stdio.h>
 
-typedef TestExtension<ListAt> ListAtTest;
+PD_COMPLETE_TEST_SETUP(ListAt, list, at);
+
+typedef TestExternal<ListAt> ListAtTest;
 
 TEST_CASE("list.at", "[externals]")
 {
+    pd_test_mod_init_list_at();
+
     SECTION("test create with:")
     {
         SECTION("empty arguments")
@@ -34,19 +40,19 @@ TEST_CASE("list.at", "[externals]")
 
         SECTION("properties")
         {
-            ListAtTest t("list.at", L2("@index", 2));
+            ListAtTest t("list.at", LA("@index", 2));
             REQUIRE_PROPERTY(t, @index, 2.f);
         }
 
         SECTION("positional arguments")
         {
-            ListAtTest t("list.at", L1(100));
+            ListAtTest t("list.at", LF(100));
             REQUIRE_PROPERTY(t, @index, 100);
         }
 
         SECTION("positional arguments and props mixed")
         {
-            ListAtTest t("list.at", L3(100, "@index", 10));
+            ListAtTest t("list.at", LA(100, "@index", 10));
             REQUIRE_PROPERTY(t, @index, 10);
         }
 
@@ -54,13 +60,13 @@ TEST_CASE("list.at", "[externals]")
         {
             SECTION("props")
             {
-                ListAtTest t("list.at", L2("@index", "none"));
-                REQUIRE_PROPERTY_LIST(t, @index, L1("none"));
+                ListAtTest t("list.at", LA("@index", "none"));
+                REQUIRE_PROPERTY_LIST(t, @index, LA("none"));
             }
 
             SECTION("positional")
             {
-                ListAtTest t("list.at", L1("none"));
+                ListAtTest t("list.at", LA("none"));
                 REQUIRE_PROPERTY(t, @index, 0.f);
             }
         }
@@ -72,27 +78,39 @@ TEST_CASE("list.at", "[externals]")
         {
             ListAtTest t("list.at");
 
-            WHEN_SEND_LIST_TO(0, t, L3(1, 2, 3));
+            WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3));
             REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
 
-            t.setProperty("@index", L1(2));
-            WHEN_SEND_LIST_TO(0, t, L3(1, 2, 3));
+            t.setProperty("@index", LF(2));
+            WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3));
             REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
 
-            WHEN_SEND_LIST_TO(0, t, L4("a", "b", "c", "d"));
+            WHEN_SEND_LIST_TO(0, t, LA("a", "b", "c", "d"));
             REQUIRE_SYMBOL_AT_OUTLET(0, t, "c");
         }
 
         SECTION("many")
         {
-            ListAtTest t("list.at", L3(1, 1, ""));
+            ListAtTest t("list.at", LA(1, 1, ""));
 
-            WHEN_SEND_LIST_TO(0, t, L4("a", "b", "c", "d"));
-            REQUIRE_LIST_AT_OUTLET(0, t, L2("b", "b"));
+            WHEN_SEND_LIST_TO(0, t, LA("a", "b", "c", "d"));
+            REQUIRE_LIST_AT_OUTLET(0, t, LA("b", "b"));
 
-            t.setProperty("@index", L3(-1, 1, 2));
-            WHEN_SEND_LIST_TO(0, t, L4("a", "b", "c", "d"));
-            REQUIRE_LIST_AT_OUTLET(0, t, L3("d", "b", "c"));
+            t.setProperty("@index", LF(-1, 1, 2));
+            WHEN_SEND_LIST_TO(0, t, LA("a", "b", "c", "d"));
+            REQUIRE_LIST_AT_OUTLET(0, t, LA("d", "b", "c"));
         }
+    }
+
+    SECTION("external")
+    {
+        TestExtListAt t("list.at", LF(-1));
+        REQUIRE(t->property("@index")->get() == LF(-1));
+
+        t.sendList(LA(1, 2, 3, 4, 5));
+        REQUIRE(t.outputFloatAt(0) == Approx(5));
+
+        t.send(DataTypeMList("(1 2 3 -10)"));
+        REQUIRE(t.outputFloatAt(0) == Approx(-10));
     }
 }

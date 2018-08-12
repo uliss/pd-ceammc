@@ -1,3 +1,4 @@
+
 /*****************************************************************************
  * Copyright 2016 Serge Poltavsky. All rights reserved.
  *
@@ -12,16 +13,11 @@
  * this file belongs to.
  *****************************************************************************/
 
-#include "base_extension_test.h"
 #include "ceammc_object.h"
 #include "ceammc_pd.h"
 #include "test_external.h"
 
 #include "catch.hpp"
-
-#ifndef TEST_DATA_DIR
-#define TEST_DATA_DIR "."
-#endif
 
 using namespace ceammc;
 
@@ -64,148 +60,18 @@ public:
     AtomList last_inlet_data;
 };
 
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
+static void setup_test_extc()
+{
+    ObjectFactory<EXT_C> obj("ext.c");
+}
 
-template <class T>
-class TestPdExternal : private pd::External {
-    std::vector<ExternalOutput*> outs_;
-
-public:
-    TestPdExternal(const char* name, const AtomList& args = AtomList())
-        : pd::External(name, args)
-    {
-        REQUIRE(object());
-
-        for (size_t i = 0; i < numOutlets(); i++) {
-            ExternalOutput* e = new ExternalOutput;
-            connectTo(i, e->object(), 0);
-            outs_.push_back(e);
-        }
-    }
-
-    T* operator->()
-    {
-        PdObject<T>* obj = (PdObject<T>*)object();
-        return obj->impl;
-    }
-
-    void call(const char* method, const AtomList& l = AtomList())
-    {
-        clearAll();
-        sendMessage(gensym(method), l);
-    }
-
-    void bang()
-    {
-        clearAll();
-        External::bang();
-    }
-
-    void call(const char* method, float f)
-    {
-        clearAll();
-        sendMessage(gensym(method), AtomList(Atom(f)));
-    }
-
-    void send(float f)
-    {
-        clearAll();
-        sendFloat(f);
-    }
-
-    void send(const AtomList& lst)
-    {
-        clearAll();
-        sendList(lst);
-    }
-
-    bool hasOutputAt(size_t n) const
-    {
-        return !outs_.at(n)->msg().isNone();
-    }
-
-    bool hasOutput() const
-    {
-        for (size_t i = 0; i < outs_.size(); i++) {
-            if (!outs_.at(i)->msg().isNone())
-                return true;
-        }
-
-        return false;
-    }
-
-    bool isOutputListAt(size_t n) const
-    {
-        return outs_.at(n)->msg().isList();
-    }
-
-    bool isOutputAnyAt(size_t n) const
-    {
-        return outs_.at(n)->msg().isAny();
-    }
-
-    bool isOutputFloatAt(size_t n) const
-    {
-        return outs_.at(n)->msg().isFloat();
-    }
-
-    bool isOutputSymbolAt(size_t n) const
-    {
-        return outs_.at(n)->msg().isSymbol();
-    }
-
-    bool isOutputBangAt(size_t n) const
-    {
-        return outs_.at(n)->msg().isBang();
-    }
-
-    AtomList outputListAt(size_t n) const
-    {
-        return outs_.at(n)->msg().listValue();
-    }
-
-    AtomList outputAnyAt(size_t n) const
-    {
-        return outs_.at(n)->msg().anyValue();
-    }
-
-    float outputFloatAt(size_t n) const
-    {
-        return outs_.at(n)->msg().atomValue().asFloat();
-    }
-
-    Atom outputAtomAt(size_t n) const
-    {
-        return outs_.at(n)->msg().atomValue();
-    }
-
-    t_symbol* outputSymbolAt(size_t n) const
-    {
-        return outs_.at(n)->msg().atomValue().asSymbol();
-    }
-
-    void clearAll()
-    {
-        for (size_t i = 0; i < outs_.size(); i++)
-            outs_[i]->reset();
-    }
-
-    void clearAt(size_t n)
-    {
-        outs_.at(n)->reset();
-    }
-
-    ~TestPdExternal()
-    {
-        for (size_t i = 0; i < outs_.size(); i++)
-            delete outs_[i];
-    }
-};
+PD_TEST_CANVAS();
+PD_TEST_TYPEDEF(EXT_C);
+PD_TEST_CORE_INIT();
+PD_TEST_MOD_INIT(test, extc);
 
 TEST_CASE("BaseObject", "[ceammc::BaseObject]")
 {
-    ExternalOutput::setup();
-
     SECTION("test prop key")
     {
         REQUIRE(BaseObject::tryGetPropKey(gensym("@")) == 0);
@@ -217,7 +83,7 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
 
     SECTION("test construct")
     {
-        BaseObject b(PdArgs(AtomList(), gensym("testname"), 0));
+        BaseObject b(PdArgs(L(), gensym("testname"), 0, gensym("testname")));
         REQUIRE(b.owner() == 0);
         REQUIRE(b.className() == "testname");
         REQUIRE(b.receive() == 0);
@@ -232,21 +98,21 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
         b.createProperty(new IntProperty("@int"));
         REQUIRE(b.hasProperty("@int"));
         REQUIRE(b.property("@int") != 0);
-        REQUIRE(b.setProperty("@int", AtomList(2)));
-        REQUIRE(b.property("@int")->get() == AtomList(2));
+        REQUIRE(b.setProperty("@int", LF(2)));
+        REQUIRE(b.property("@int")->get() == LF(2));
 
         b.createProperty(new IntProperty("@int_ro", -10, true));
         REQUIRE(b.hasProperty("@int_ro"));
         REQUIRE(b.property("@int_ro") != 0);
         REQUIRE(b.property("@int_ro")->readonly());
-        REQUIRE_FALSE(b.setProperty("@int_ro", AtomList(2)));
+        REQUIRE_FALSE(b.setProperty("@int_ro", LF(2)));
     }
 
     SECTION("test check args")
     {
         SECTION("single")
         {
-            BaseObject b(PdArgs(AtomList(), gensym("testname"), 0));
+            BaseObject b(PdArgs(L(), gensym("testname"), 0, gensym("testname")));
             REQUIRE(b.checkArg(A(10), BaseObject::ARG_FLOAT));
             REQUIRE(b.checkArg(A(10), BaseObject::ARG_INT));
             REQUIRE(b.checkArg(A(10), BaseObject::ARG_NATURAL));
@@ -297,26 +163,26 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
 
         SECTION("lists")
         {
-            BaseObject b(PdArgs(AtomList(), gensym("testname"), 0));
-            REQUIRE(b.checkArgs(L1(2), BaseObject::ARG_FLOAT));
-            REQUIRE(b.checkArgs(L1("a"), BaseObject::ARG_SYMBOL));
-            REQUIRE_FALSE(b.checkArgs(L1(2), BaseObject::ARG_SYMBOL));
-            REQUIRE_FALSE(b.checkArgs(L1("a"), BaseObject::ARG_FLOAT));
+            BaseObject b(PdArgs(L(), gensym("testname"), 0, gensym("testname")));
+            REQUIRE(b.checkArgs(LF(2), BaseObject::ARG_FLOAT));
+            REQUIRE(b.checkArgs(LA("a"), BaseObject::ARG_SYMBOL));
+            REQUIRE_FALSE(b.checkArgs(LF(2), BaseObject::ARG_SYMBOL));
+            REQUIRE_FALSE(b.checkArgs(LA("a"), BaseObject::ARG_FLOAT));
 
-            REQUIRE(b.checkArgs(L2(2, 2), BaseObject::ARG_FLOAT, BaseObject::ARG_FLOAT));
-            REQUIRE(b.checkArgs(L2(2, "a"), BaseObject::ARG_FLOAT, BaseObject::ARG_SYMBOL));
-            REQUIRE(b.checkArgs(L3(2, "a", "@a"), BaseObject::ARG_FLOAT,
+            REQUIRE(b.checkArgs(LF(2, 2), BaseObject::ARG_FLOAT, BaseObject::ARG_FLOAT));
+            REQUIRE(b.checkArgs(LA(2, "a"), BaseObject::ARG_FLOAT, BaseObject::ARG_SYMBOL));
+            REQUIRE(b.checkArgs(LA(2, "a", "@a"), BaseObject::ARG_FLOAT,
                 BaseObject::ARG_SYMBOL, BaseObject::ARG_PROPERTY));
-            REQUIRE(b.checkArgs(L4(-22, "a", "@a", 100), BaseObject::ARG_FLOAT,
+            REQUIRE(b.checkArgs(LA(-22, "a", "@a", 100), BaseObject::ARG_FLOAT,
                 BaseObject::ARG_SYMBOL, BaseObject::ARG_PROPERTY, BaseObject::ARG_NATURAL));
 
-            REQUIRE_FALSE(b.checkArgs(L4(-2, "a", "@a", 100.1f), BaseObject::ARG_NATURAL,
+            REQUIRE_FALSE(b.checkArgs(LA(-2, "a", "@a", 100.1f), BaseObject::ARG_NATURAL,
                 BaseObject::ARG_SYMBOL, BaseObject::ARG_PROPERTY, BaseObject::ARG_FLOAT));
-            REQUIRE_FALSE(b.checkArgs(L4(-2, "a", "@a", 100.1f), BaseObject::ARG_INT,
+            REQUIRE_FALSE(b.checkArgs(LA(-2, "a", "@a", 100.1f), BaseObject::ARG_INT,
                 BaseObject::ARG_INT, BaseObject::ARG_PROPERTY, BaseObject::ARG_FLOAT));
-            REQUIRE_FALSE(b.checkArgs(L4(-2, "a", "@a", 100.1f), BaseObject::ARG_INT,
+            REQUIRE_FALSE(b.checkArgs(LA(-2, "a", "@a", 100.1f), BaseObject::ARG_INT,
                 BaseObject::ARG_SYMBOL, BaseObject::ARG_INT, BaseObject::ARG_FLOAT));
-            REQUIRE_FALSE(b.checkArgs(L4(-2, "a", "@a", 100.1f), BaseObject::ARG_INT,
+            REQUIRE_FALSE(b.checkArgs(LA(-2, "a", "@a", 100.1f), BaseObject::ARG_INT,
                 BaseObject::ARG_INT, BaseObject::ARG_SNONPROPERTY, BaseObject::ARG_NATURAL));
         }
     }
@@ -325,8 +191,8 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
     {
         SECTION("only props")
         {
-            BaseObject b(PdArgs(L5("@p1", 1, "@p2", 2, 3), gensym("testname"), 0));
-            REQUIRE(b.positionalArguments() == AtomList());
+            BaseObject b(PdArgs(LA("@p1", 1, "@p2", 2, 3), gensym("testname"), 0, gensym("testname")));
+            REQUIRE(b.positionalArguments() == L());
 
             b.createProperty(new FloatProperty("@p1", -1));
             b.createProperty(new ListProperty("@p2"));
@@ -335,7 +201,7 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
 
             REQUIRE_PROPERTY(b, @p1, 1);
             REQUIRE(b.hasProperty(gensym("@p2")));
-            REQUIRE(b.property(gensym("@p2"))->get() == L2(2, 3));
+            REQUIRE(b.property(gensym("@p2"))->get() == LF(2, 3));
             REQUIRE_PROPERTY(b, @p3, -1);
 
             REQUIRE(b.positionalArguments().empty());
@@ -343,8 +209,8 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
 
         SECTION("only raw args")
         {
-            BaseObject b(PdArgs(L5(1, 2, "a", "b", "c"), gensym("testname"), 0));
-            REQUIRE(b.positionalArguments() == L5(1, 2, "a", "b", "c"));
+            BaseObject b(PdArgs(LA(1, 2, "a", "b", "c"), gensym("testname"), 0, gensym("testname")));
+            REQUIRE(b.positionalArguments() == LA(1, 2, "a", "b", "c"));
 
             b.createProperty(new FloatProperty("@p1", -1));
             b.createProperty(new ListProperty("@p2"));
@@ -353,34 +219,34 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
 
             REQUIRE_PROPERTY(b, @p1, -1);
             REQUIRE(b.hasProperty(gensym("@p2")));
-            REQUIRE(b.property(gensym("@p2"))->get() == AtomList());
+            REQUIRE(b.property(gensym("@p2"))->get() == L());
             REQUIRE_PROPERTY(b, @p3, -1);
 
-            REQUIRE(b.positionalArguments() == L5(1, 2, "a", "b", "c"));
+            REQUIRE(b.positionalArguments() == LA(1, 2, "a", "b", "c"));
         }
 
         SECTION("props and raw args")
         {
-            BaseObject b(PdArgs(L5(1, 2, "@p1", "@p2", "c"), gensym("testname"), 0));
+            BaseObject b(PdArgs(LA(1, 2, "@p1", "@p2", "c"), gensym("testname"), 0, gensym("testname")));
             b.createProperty(new FloatProperty("@p1", -1));
             b.createProperty(new ListProperty("@p2"));
             b.parseProperties();
 
             REQUIRE_PROPERTY(b, @p1, -1);
             REQUIRE(b.hasProperty(gensym("@p2")));
-            REQUIRE(b.property(gensym("@p2"))->get() == L1("c"));
+            REQUIRE(b.property(gensym("@p2"))->get() == LA("c"));
 
-            REQUIRE(b.positionalArguments() == L2(1, 2));
+            REQUIRE(b.positionalArguments() == LF(1, 2));
 
             b.parseProperties();
-            REQUIRE(b.positionalArguments() == L2(1, 2));
+            REQUIRE(b.positionalArguments() == LF(1, 2));
         }
     }
 
     SECTION("inheritance")
     {
         {
-            EXT_B b(PdArgs(AtomList(), gensym("ext.b"), 0));
+            EXT_B b(PdArgs(L(), gensym("ext.b"), 0, gensym("ext.b")));
             b.parseProperties();
             REQUIRE_PROPERTY(b, @a, -1);
             REQUIRE_PROPERTY(b, @b, -2);
@@ -397,7 +263,7 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
         }
 
         {
-            EXT_B b(PdArgs(L2("@a", 100), gensym("ext.b"), 0));
+            EXT_B b(PdArgs(LA("@a", 100), gensym("ext.b"), 0, gensym("ext.b")));
             b.parseProperties();
             REQUIRE_PROPERTY(b, @a, 100);
             REQUIRE_PROPERTY(b, @b, -2);
@@ -414,7 +280,7 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
         }
 
         {
-            EXT_B b(PdArgs(L2("@b", 200), gensym("ext.b"), 0));
+            EXT_B b(PdArgs(LA("@b", 200), gensym("ext.b"), 0, gensym("ext.b")));
             b.parseProperties();
             REQUIRE_PROPERTY(b, @a, -1);
             REQUIRE_PROPERTY(b, @b, 200);
@@ -431,7 +297,7 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
         }
 
         {
-            EXT_B b(PdArgs(L4("@b", 200, "@a", -100), gensym("ext.b"), 0));
+            EXT_B b(PdArgs(LA("@b", 200, "@a", -100), gensym("ext.b"), 0, gensym("ext.b")));
             b.parseProperties();
             REQUIRE_PROPERTY(b, @a, -100);
             REQUIRE_PROPERTY(b, @b, 200);
@@ -448,12 +314,12 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
         }
 
         {
-            EXT_B b(PdArgs(L6(1, 2, "@b", 200, "@a", -100), gensym("ext.b"), 0));
+            EXT_B b(PdArgs(LA(1, 2, "@b", 200, "@a", -100), gensym("ext.b"), 0, gensym("ext.b")));
             b.parseProperties();
             REQUIRE_PROPERTY(b, @a, -100);
             REQUIRE_PROPERTY(b, @b, 200);
 
-            REQUIRE(b.positionalArguments() == L2(1, 2));
+            REQUIRE(b.positionalArguments() == LF(1, 2));
 
             REQUIRE(b.positionalFloatArgument(0, -1) == 1);
             REQUIRE(b.positionalFloatArgument(1, -1) == 2);
@@ -474,7 +340,7 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
         }
 
         {
-            EXT_B b(PdArgs(L6("first", "second", "@b", 200, "@a", -100), gensym("ext.b"), 0));
+            EXT_B b(PdArgs(LA("first", "second", "@b", 200, "@a", -100), gensym("ext.b"), 0, gensym("ext.b")));
             b.parseProperties();
             REQUIRE_PROPERTY(b, @a, -100);
             REQUIRE_PROPERTY(b, @b, 200);
@@ -507,21 +373,21 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
 
     SECTION("findInStdPaths")
     {
-        BaseObject b1(PdArgs(AtomList(), gensym("testname"), 0));
+        BaseObject b1(PdArgs(L(), gensym("testname"), 0, gensym("testname")));
         REQUIRE(b1.canvas());
         REQUIRE(b1.findInStdPaths("test") == "");
         REQUIRE(b1.rootCanvas() != 0);
 
         CanvasPtr cnv1 = PureData::instance().createTopCanvas("/dir/file.pd");
 
-        BaseObject b2(PdArgs(AtomList(), gensym("test"), 0));
+        BaseObject b2(PdArgs(L(), gensym("test"), 0, gensym("test")));
         REQUIRE(b2.canvas() == cnv1->pd_canvas());
         REQUIRE(b2.findInStdPaths("test") == "");
         REQUIRE(b2.rootCanvas() == b2.canvas());
 
         CanvasPtr cnv2 = PureData::instance().createTopCanvas(TEST_DATA_DIR "/test.pd");
 
-        BaseObject b3(PdArgs(AtomList(), gensym("mtof"), 0));
+        BaseObject b3(PdArgs(L(), gensym("mtof"), 0, gensym("mtof")));
         REQUIRE(b3.canvas() == cnv2->pd_canvas());
         REQUIRE(b3.findInStdPaths("unknown") == "");
         REQUIRE(b3.findInStdPaths("snd_mono_48k.wav") == TEST_DATA_DIR "/snd_mono_48k.wav");
@@ -529,16 +395,16 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
 
     SECTION("outletAt")
     {
-        BaseObject b1(PdArgs(AtomList(), gensym("test"), 0));
+        BaseObject b1(PdArgs(L(), gensym("test"), 0, gensym("test")));
         REQUIRE(b1.outletAt(0) == 0);
     }
 
     SECTION("createProperty")
     {
-        BaseObject b(PdArgs(AtomList(), gensym("test"), 0));
+        BaseObject b(PdArgs(L(), gensym("test"), 0, gensym("test")));
         b.createProperty(new IntProperty("int1"));
         b.createProperty(new IntProperty("int1", 10));
-        REQUIRE(b.property("int1")->get() == L1(10));
+        REQUIRE(b.property("int1")->get() == LF(10));
 
         Property* p = new BoolProperty("bool1", true);
         b.createProperty(p);
@@ -547,14 +413,10 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
 
     SECTION("realOutput")
     {
-        obj_init();
-        pd_init();
+        pd_test_core_init();
+        pd_test_mod_init_test_extc();
 
-        {
-            ObjectFactory<EXT_C> obj("ext.c");
-        }
-
-        TestPdExternal<EXT_C> t("ext.c");
+        TestExtEXT_C t("ext.c");
         REQUIRE(t->outletAt(0));
         REQUIRE(!t->outletAt(1));
 
@@ -582,12 +444,12 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
         REQUIRE(!t.hasOutput());
 
         t.clearAll();
-        t->listTo(0, L3(1, 2, 3));
+        t->listTo(0, LF(1, 2, 3));
         REQUIRE(t.hasOutput());
-        REQUIRE(t.outputListAt(0) == L3(1, 2, 3));
+        REQUIRE(t.outputListAt(0) == LF(1, 2, 3));
 
         t.clearAll();
-        t->listTo(1, L3(1, 2, 3));
+        t->listTo(1, LF(1, 2, 3));
         REQUIRE(!t.hasOutput());
 
         t.clearAll();
@@ -609,12 +471,12 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
         REQUIRE(t.outputSymbolAt(0) == gensym("CDE"));
 
         t.clearAll();
-        t->anyTo(0, L4("any", 1, 2, 3));
+        t->anyTo(0, LA("any", 1, 2, 3));
         REQUIRE(t.hasOutput());
-        REQUIRE(t.outputAnyAt(0) == L4("any", 1, 2, 3));
+        REQUIRE(t.outputAnyAt(0) == LA("any", 1, 2, 3));
 
         t.clearAll();
-        t->anyTo(1, L4("any", 1, 2, 3));
+        t->anyTo(1, LA("any", 1, 2, 3));
         REQUIRE(!t.hasOutput());
 
         t.clearAll();
@@ -627,18 +489,18 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
         REQUIRE(!t.hasOutput());
 
         t.clearAll();
-        t->anyTo(0, gensym("B"), L3(1, 2, 3));
+        t->anyTo(0, gensym("B"), LF(1, 2, 3));
         REQUIRE(t.hasOutput());
-        REQUIRE(t.outputAnyAt(0) == L4("B", 1, 2, 3));
+        REQUIRE(t.outputAnyAt(0) == LA("B", 1, 2, 3));
 
         t.clearAll();
-        t->anyTo(1, gensym("B"), L3(1, 2, 3));
+        t->anyTo(1, gensym("B"), LF(1, 2, 3));
         REQUIRE(!t.hasOutput());
 
         t.clearAll();
         t->anyTo(0, gensym("B"), A(23));
         REQUIRE(t.hasOutput());
-        REQUIRE(t.outputAnyAt(0) == L2("B", 23));
+        REQUIRE(t.outputAnyAt(0) == LA("B", 23));
 
         t.clearAll();
         t->anyTo(1, gensym("B"), A(23));
@@ -646,31 +508,31 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
 
         SECTION("process inlets")
         {
-            REQUIRE(!t->processAnyInlets(gensym("ABC"), AtomList()));
-            REQUIRE(!t->processAnyInlets(gensym("_"), AtomList()));
-            REQUIRE(t->processAnyInlets(gensym("_inlet0"), L1(123)));
+            REQUIRE(!t->processAnyInlets(gensym("ABC"), L()));
+            REQUIRE(!t->processAnyInlets(gensym("_"), L()));
+            REQUIRE(t->processAnyInlets(gensym("_0inlet"), LF(123)));
             REQUIRE(t->last_inlet == 1);
-            REQUIRE(t->last_inlet_data == L1(123));
+            REQUIRE(t->last_inlet_data == LF(123));
         }
 
         SECTION("process props")
         {
-            REQUIRE(!t->processAnyProps(gensym("???"), AtomList()));
-            REQUIRE(!t->processAnyProps(gensym("@abc"), AtomList()));
+            REQUIRE(!t->processAnyProps(gensym("???"), L()));
+            REQUIRE(!t->processAnyProps(gensym("@abc"), L()));
 
             t.clearAll();
-            REQUIRE(t->processAnyProps(gensym("@c?"), AtomList()));
+            REQUIRE(t->processAnyProps(gensym("@c?"), L()));
             REQUIRE(t.hasOutput());
-            REQUIRE(t.outputAnyAt(0) == L2("@c", 101));
+            REQUIRE(t.outputAnyAt(0) == LA("@c", 101));
 
             t.clearAll();
-            REQUIRE(t->processAnyProps(gensym("@c"), AtomList(200)));
+            REQUIRE(t->processAnyProps(gensym("@c"), LF(200)));
             REQUIRE(!t.hasOutput());
 
             t.clearAll();
-            REQUIRE(t->processAnyProps(gensym("@c?"), AtomList()));
+            REQUIRE(t->processAnyProps(gensym("@c?"), L()));
             REQUIRE(t.hasOutput());
-            REQUIRE(t.outputAnyAt(0) == L2("@c", 200));
+            REQUIRE(t.outputAnyAt(0) == LA("@c", 200));
         }
     }
 }

@@ -11,30 +11,31 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#include "../data/datatype_mlist.h"
 #include "../list/list_each.h"
-#include "base_extension_test.h"
-#include "catch.hpp"
+#include "test_base.h"
+#include "test_external.h"
 
-#include <stdio.h>
+PD_COMPLETE_TEST_SETUP(ListEach, list, each);
 
-typedef TestExtension<ListEach> ListEachTest;
+typedef TestExternal<ListEach> ListEachTest;
 
 TEST_CASE("list.each", "[externals]")
 {
-    obj_init();
+    pd_test_mod_init_list_each();
 
     SECTION("test create with:")
     {
         SECTION("empty arguments")
         {
-            ListEachTest t("list.each", AtomList());
+            ListEachTest t("list.each", L());
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 2);
 
             REQUIRE_PROPERTY(t, @step, 1);
 
-            WHEN_SEND_LIST_TO(0, t, L3(1, 2, 3));
-            REQUIRE_LIST_AT_OUTLET(0, t, AtomList());
+            WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3));
+            REQUIRE_LIST_AT_OUTLET(0, t, L());
             REQUIRE(t.messageCount(1) == 3);
             REQUIRE(t.messageAt(0, 1).atomValue().asFloat() == 1);
             REQUIRE(t.messageAt(1, 1).atomValue().asFloat() == 2);
@@ -43,31 +44,31 @@ TEST_CASE("list.each", "[externals]")
 
         SECTION("properties")
         {
-            ListEachTest t("list.each", L2("@step", 2));
+            ListEachTest t("list.each", LA("@step", 2));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 2);
 
             REQUIRE_PROPERTY(t, @step, 2);
 
-            WHEN_SEND_LIST_TO(0, t, L4(1, 2, 3, 4));
-            REQUIRE_LIST_AT_OUTLET(0, t, AtomList());
+            WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3, 4));
+            REQUIRE_LIST_AT_OUTLET(0, t, L());
             REQUIRE(t.messageCount(1) == 2);
-            REQUIRE(t.messageAt(0, 1).listValue() == L2(1, 2));
-            REQUIRE(t.messageAt(1, 1).listValue() == L2(3, 4));
+            REQUIRE(t.messageAt(0, 1).listValue() == LF(1, 2));
+            REQUIRE(t.messageAt(1, 1).listValue() == LF(3, 4));
 
             t.cleanAllMessages();
 
-            WHEN_SEND_LIST_TO(0, t, L5(1, 2, 3, 4, 5));
-            REQUIRE_LIST_AT_OUTLET(0, t, AtomList());
+            WHEN_SEND_LIST_TO(0, t, LA(1, 2, 3, 4, 5));
+            REQUIRE_LIST_AT_OUTLET(0, t, L());
             REQUIRE(t.messageCount(1) == 3);
-            REQUIRE(t.messageAt(0, 1).listValue() == L2(1, 2));
-            REQUIRE(t.messageAt(1, 1).listValue() == L2(3, 4));
-            REQUIRE(t.messageAt(2, 1).listValue() == L1(5));
+            REQUIRE(t.messageAt(0, 1).listValue() == LF(1, 2));
+            REQUIRE(t.messageAt(1, 1).listValue() == LF(3, 4));
+            REQUIRE(t.messageAt(2, 1).listValue() == LF(5));
         }
 
         SECTION("positional arguments")
         {
-            ListEachTest t("list.each", L1(12));
+            ListEachTest t("list.each", LF(12));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 2);
 
@@ -76,7 +77,7 @@ TEST_CASE("list.each", "[externals]")
 
         SECTION("positional arguments and props mixed")
         {
-            ListEachTest t("list.each", L3(12, "@step", 4));
+            ListEachTest t("list.each", LA(12, "@step", 4));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 2);
 
@@ -88,7 +89,7 @@ TEST_CASE("list.each", "[externals]")
         {
             SECTION("props")
             {
-                ListEachTest t("list.each", L2("@prop", -100));
+                ListEachTest t("list.each", LA("@prop", -100));
                 REQUIRE(t.numInlets() == 2);
                 REQUIRE(t.numOutlets() == 2);
 
@@ -98,7 +99,7 @@ TEST_CASE("list.each", "[externals]")
 
             SECTION("positional")
             {
-                ListEachTest t("list.each", L1(-100));
+                ListEachTest t("list.each", LF(-100));
                 REQUIRE(t.numInlets() == 2);
                 REQUIRE(t.numOutlets() == 2);
 
@@ -106,5 +107,33 @@ TEST_CASE("list.each", "[externals]")
                 REQUIRE_PROPERTY(t, @step, 1);
             }
         }
+    }
+
+    SECTION("test mlist")
+    {
+        TestExtListEach t("list.each");
+        External mul("*", LF(2));
+
+        // [list.each] X [* 2]
+        REQUIRE(t.object());
+        REQUIRE(mul.object());
+        REQUIRE(t.connectTo(1, mul, 0));
+        REQUIRE(t.connectFrom(0, mul, 1));
+
+        t << L();
+        REQUIRE(t.outputListAt(0) == L());
+
+        t << LF(1, 2, 3);
+        REQUIRE(t.outputListAt(0) == LF(2, 4, 6));
+
+        t.send(DataTypeMList("()"));
+        REQUIRE(t.outputDataAt(0).isValid());
+        REQUIRE(t.outputDataAt(0) == DataPtr(new DataTypeMList("()")));
+
+        t.send(DataTypeMList("(1 2 3)"));
+        REQUIRE(t.outputDataAt(0) == DataPtr(new DataTypeMList("(2 4 6)")));
+
+        t.send(DataTypeMList("(a b c)"));
+        REQUIRE(t.outputDataAt(0) == DataPtr(new DataTypeMList("()")));
     }
 }

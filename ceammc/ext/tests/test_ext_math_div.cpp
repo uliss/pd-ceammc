@@ -12,12 +12,12 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../math/math_div.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "catch.hpp"
 
 #include <stdio.h>
 
-typedef TestExtension<MathDiv> MathDivTest;
+typedef TestExternal<MathDiv> MathDivTest;
 
 TEST_CASE("math.div", "[externals]")
 {
@@ -34,12 +34,12 @@ TEST_CASE("math.div", "[externals]")
         }
 
         {
-            MathDivTest t("math.div", L1(5.f));
+            MathDivTest t("math.div", LF(5.f));
             REQUIRE_PROPERTY(t, @div, 5.f);
         }
 
         {
-            MathDivTest t("math.div", L2("@div", 3));
+            MathDivTest t("math.div", LA("@div", 3));
             REQUIRE_PROPERTY(t, @div, 3);
         }
     }
@@ -57,30 +57,30 @@ TEST_CASE("math.div", "[externals]")
         REQUIRE_FLOAT_AT_OUTLET(0, t, Approx(-100));
 
         // pass thru
-        WHEN_SEND_LIST_TO(0, t, AtomList());
-        REQUIRE_LIST_AT_OUTLET(0, t, AtomList());
+        WHEN_SEND_LIST_TO(0, t, L());
+        REQUIRE_LIST_AT_OUTLET(0, t, L());
 
-        WHEN_SEND_LIST_TO(0, t, L2(1, 2));
-        REQUIRE_LIST_AT_OUTLET(0, t, L2(1, 2));
+        WHEN_SEND_LIST_TO(0, t, LF(1, 2));
+        REQUIRE_LIST_AT_OUTLET(0, t, LF(1, 2));
 
-        WHEN_SEND_LIST_TO(0, t, L2("A", "B"));
-        REQUIRE_LIST_AT_OUTLET(0, t, L2("A", "B"));
+        WHEN_SEND_LIST_TO(0, t, LA("A", "B"));
+        REQUIRE_LIST_AT_OUTLET(0, t, LA("A", "B"));
 
-        WHEN_SEND_LIST_TO(0, t, L2("A", 100));
-        REQUIRE_LIST_AT_OUTLET(0, t, L2("A", 100));
+        WHEN_SEND_LIST_TO(0, t, LA("A", 100));
+        REQUIRE_LIST_AT_OUTLET(0, t, LA("A", 100));
 
-        t.setProperty("@div", L1(2));
+        t.setProperty("@div", LF(2));
 
-        WHEN_SEND_LIST_TO(0, t, AtomList());
-        REQUIRE_LIST_AT_OUTLET(0, t, AtomList());
+        WHEN_SEND_LIST_TO(0, t, L());
+        REQUIRE_LIST_AT_OUTLET(0, t, L());
 
-        WHEN_SEND_LIST_TO(0, t, L2(1, 2));
-        REQUIRE_LIST_AT_OUTLET(0, t, L2(0.5, 1));
+        WHEN_SEND_LIST_TO(0, t, LF(1, 2));
+        REQUIRE_LIST_AT_OUTLET(0, t, LA(0.5, 1));
 
-        WHEN_SEND_LIST_TO(0, t, L2("A", "B"));
-        REQUIRE_LIST_AT_OUTLET(0, t, L2("A", "B"));
+        WHEN_SEND_LIST_TO(0, t, LA("A", "B"));
+        REQUIRE_LIST_AT_OUTLET(0, t, LA("A", "B"));
 
-        WHEN_SEND_LIST_TO(0, t, L2("A", 100));
-        REQUIRE_LIST_AT_OUTLET(0, t, L2("A", 50));
+        WHEN_SEND_LIST_TO(0, t, LA("A", 100));
+        REQUIRE_LIST_AT_OUTLET(0, t, LA("A", 50));
     }
 }

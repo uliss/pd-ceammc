@@ -7,6 +7,7 @@
 #include "env_tscale.h"
 #include "env_tshift.h"
 #include "env_vscale.h"
+#include "vline_to_env.h"
 
 extern "C" void setup_env0x2eadsr_tilde();
 extern "C" void setup_env0x2easr_tilde();
@@ -29,4 +30,6 @@ void ceammc_env_setup()
     setup_env_mix();
     setup_env_vscale();
     setup_env_concat();
+
+    setup_vline_to_env();
 }

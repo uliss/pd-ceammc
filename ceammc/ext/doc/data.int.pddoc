@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="data.int">
+        <title>data.int</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>robust int object</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>data</category>
+            <keywords>data int</keywords>
+            <since>0.6</since>
+            <also>
+                <see>data.float</see>
+            </also>
+            <aliases>
+                <alias>.int</alias>
+                <alias>.i</alias>
+            </aliases>
+        </meta>
+        <arguments>
+            <argument name="INT" type="int">set initial value</argument>
+        </arguments>
+        <properties>
+            <property name="@value" readonly="true" type="int">current value</property>
+        </properties>
+        <methods>
+            <method name="set">sets new value without output</method>
+            <method name="+">add to int, no output</method>
+            <method name="-">substruct from int, no output</method>
+            <method name="*">multiply to, no output</method>
+            <method name="/">divide by, no output</method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">output value</xinfo>
+                <xinfo on="float">set new value and outputs</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo>set new value without output</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>set output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]
+|
+| [+ 1, bang(   [- 10, bang(
+| |             |
+| | [* 2, bang( | [/ 3(
+| | |           | |
+| | | [bang(    | |  [F]
+| | | |         | |  |.
+[.int              100]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

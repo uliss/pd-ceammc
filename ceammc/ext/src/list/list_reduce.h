@@ -17,6 +17,8 @@
 #include "ceammc_object.h"
 using namespace ceammc;
 
+class DataTypeMList;
+
 class ListReduce : public BaseObject {
     Atom accum_;
 
@@ -24,6 +26,7 @@ public:
     ListReduce(const PdArgs& a);
     void onList(const AtomList& l);
     void onInlet(size_t n, const AtomList& l);
+    void onDataT(const DataTypeMList& l);
 };
 
 void setup_list_reduce();

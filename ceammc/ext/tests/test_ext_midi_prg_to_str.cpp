@@ -14,7 +14,7 @@
 #include "../midi/midi_common.h"
 #include "../midi/midi_prg2str.h"
 #include "../string/datatype_string.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "catch.hpp"
 
 #include <map>
@@ -31,7 +31,7 @@
 typedef std::set<t_symbol*> NamesSet;
 typedef std::map<t_symbol*, int> NamesMap;
 
-typedef TestExtension<Prg2Str> Prg2StrTest;
+typedef TestExternal<Prg2Str> Prg2StrTest;
 
 TEST_CASE("midi.prg->str", "[externals]")
 {
@@ -41,7 +41,7 @@ TEST_CASE("midi.prg->str", "[externals]")
     {
         setup_midi_prg2str();
 
-        Prg2StrTest t("midi.prg->str", L1("@symbol"));
+        Prg2StrTest t("midi.prg->str", LA("@symbol"));
 
         WHEN_SEND_FLOAT_TO(0, t, -2);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
@@ -75,7 +75,7 @@ TEST_CASE("midi.prg->str", "[externals]")
 
     SECTION("family")
     {
-        Prg2StrTest t("midi.prg->str", L2("@symbol", "@family"));
+        Prg2StrTest t("midi.prg->str", LA("@symbol", "@family"));
 
         WHEN_SEND_FLOAT_TO(0, t, -2);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
@@ -118,7 +118,7 @@ TEST_CASE("midi.prg->str", "[externals]")
         WHEN_SEND_FLOAT_TO(0, t, 9);
         REQUIRE_STRING_OUTPUT(t, "Celesta");
 
-        Prg2StrTest t2("midi.prg->str", L1("@family"));
+        Prg2StrTest t2("midi.prg->str", LA("@family"));
         WHEN_SEND_FLOAT_TO(0, t2, 8);
         REQUIRE_STRING_OUTPUT(t2, "Piano");
     }

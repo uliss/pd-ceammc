@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../ui/ui_toggle.h"
-#include "ui_external_test.h"
+#include "test_ui.h"
 
 UI_COMPLETE_TEST_SETUP(Toggle)
 
@@ -86,7 +86,7 @@ TEST_CASE("ui.toggle", "[ui.toggle]")
 #define REQUIRE_OUTPUT_VALUE(v)                         \
     {                                                   \
         tgl.sendMessage(gensym("@value?"));             \
-        REQUIRE(out.msg().listValue() == L1(float(v))); \
+        REQUIRE(out.msg().listValue() == LA(float(v))); \
         out.reset();                                    \
     }
 
@@ -109,17 +109,17 @@ TEST_CASE("ui.toggle", "[ui.toggle]")
         tgl.sendFloat(0);
         REQUIRE_OUTPUT_VALUE(0);
 
-        tgl.sendMessage(gensym("@value"), L1(1));
+        tgl.sendMessage(gensym("@value"), LF(1));
         REQUIRE_OUTPUT_VALUE(1);
 
-        tgl.sendMessage(gensym("@value"), L1(0.f));
+        tgl.sendMessage(gensym("@value"), LF(0.f));
         REQUIRE_OUTPUT_VALUE(0);
 
         tgl.sendMessage(gensym("@size?"));
-        REQUIRE(out.msg().listValue() == L2(16, 16));
+        REQUIRE(out.msg().listValue() == LF(16, 16));
 
         out.reset();
-        tgl.sendMessage(gensym("set"), L1(1));
+        tgl.sendMessage(gensym("set"), LF(1));
         REQUIRE(out.msg().isNone());
         tgl.bang();
         REQUIRE_OUTPUT_VALUE(0);
@@ -129,23 +129,23 @@ TEST_CASE("ui.toggle", "[ui.toggle]")
     {
         TestToggle t("ui.toggle");
         t->setValue(1);
-        t.call("store", L1(0.f));
+        t.call("store", LF(0.f));
         t->setValue(0);
-        t.call("store", L1(1));
+        t.call("store", LF(1));
         t->setValue(1);
-        t.call("store", L1(2));
+        t.call("store", LF(2));
 
-        t.call("load", L1(0.f));
+        t.call("load", LF(0.f));
         REQUIRE(t->value() == 1);
-        t.call("load", L1(1));
+        t.call("load", LF(1));
         REQUIRE(t->value() == 0);
-        t.call("load", L1(2));
+        t.call("load", LF(2));
         REQUIRE(t->value() == 1);
     }
 
     SECTION("send test")
     {
-        TestExtToggle t("ui.toggle", L2("@send", "r1"));
+        TestExtToggle t("ui.toggle", LA("@send", "r1"));
         t.addListener("r1");
 
         t << BANG;

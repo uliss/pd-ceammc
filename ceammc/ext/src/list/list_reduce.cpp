@@ -1,4 +1,5 @@
 #include "list_reduce.h"
+#include "../data/data_mlist.h"
 #include "ceammc_factory.h"
 
 ListReduce::ListReduce(const PdArgs& a)
@@ -34,10 +35,16 @@ void ListReduce::onInlet(size_t n, const AtomList& l)
     accum_ = atomlistToValue<Atom>(l, Atom(0.f));
 }
 
+void ListReduce::onDataT(const DataTypeMList& l)
+{
+    onList(l.toList());
+}
+
 void setup_list_reduce()
 {
     ObjectFactory<ListReduce> obj("list.reduce");
     obj.addAlias("list.foldl");
     obj.mapFloatToList();
     obj.mapSymbolToList();
+    obj.processData<DataTypeMList>();
 }

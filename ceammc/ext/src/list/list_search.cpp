@@ -1,12 +1,18 @@
 #include "list_search.h"
+#include "../data/datatype_mlist.h"
 #include "ceammc_factory.h"
 
 ListSearch::ListSearch(const PdArgs& args)
     : BaseObject(args)
-    , subj_(positionalArguments())
+    , subj_(args.args)
 {
     createInlet();
     createOutlet();
+}
+
+void ListSearch::parseProperties()
+{
+    // empty
 }
 
 void ListSearch::onList(const AtomList& lst)
@@ -44,7 +50,13 @@ void ListSearch::onInlet(size_t n, const AtomList& lst)
     subj_.set(lst);
 }
 
+void ListSearch::onDataT(const DataTypeMList& lst)
+{
+    onList(lst.toList());
+}
+
 void setup_list_search()
 {
     ObjectFactory<ListSearch> obj("list.search");
+    obj.processData<DataTypeMList>();
 }

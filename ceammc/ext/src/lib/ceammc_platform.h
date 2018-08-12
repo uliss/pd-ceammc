@@ -67,7 +67,16 @@ namespace platform {
      */
     bool remove(const char* path);
 
+    /**
+     * Returns standart system home directory
+     */
     std::string home_directory();
+
+    /**
+     * Returns standart Pd user directory:
+     */
+    std::string pd_user_directory();
+
     std::string expand_tilde_path(const std::string& path);
 
     std::string strip_extension(const std::string& name);
@@ -77,6 +86,14 @@ namespace platform {
      * @return On success returns full path to file, else returns empty string
      */
     std::string find_in_std_path(t_canvas* cnv, const char* path);
+
+    /**
+     * @brief make_path_with_canvas
+     * @param cnv
+     * @param path
+     * @return
+     */
+    std::string make_abs_filepath_with_canvas(t_canvas* cnv, const std::string& path);
 
     /**
       * Search file in directory of external

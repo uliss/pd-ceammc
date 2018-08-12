@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="ui.aview" type="gui">
+        <title>ui.aview</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>array view with cursor and selection</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category view="link">ui</category>
+            <keywords>ui array view</keywords>
+            <since>0.6</since>
+        </meta>
+        <properties>
+            <property name="@items" type="int" default="1" minvalue="1" maxvalue="256">number of
+            tabs</property>
+            <property name="@toggle" type="int" default="0" enum="0 1">toggle mode. In toggle moe
+            multiple selection is possible</property>
+            <property name="@orientation" type="int" enum="0 1" default="0">tab orientation. 1 is
+            vertical, 0 is horizontal</property>
+            <property name="@send" type="symbol">send destination</property>
+            <property name="@receive" type="symbol">receive source</property>
+        </properties>
+        <methods>
+            <method name="append">appends new tab item 
+            <param name="ATOMS" type="list" required="true">item name</param></method>
+            <method name="insert">inserts new tab item before specified position 
+            <param name="IDX" type="int" minvalue="0" required="true">item position</param>
+            <param name="ATOM" type="atom" required="true">item name</param></method>
+            <method name="clear">clears all tab menu</method>
+            <method name="delete">removes item from tab 
+            <param name="IDX" type="int" minvalue="0" required="true">removed item
+            index</param></method>
+            <method name="set_item">renames tab item 
+            <param name="IDX" type="int" required="true" minvalue="0">item index</param>
+            <param name="ATOMS" type="list" required="true">item name</param></method>
+            <method name="set">silently sets tab state. 
+            <param name="IDX" type="int" minvalue="0" required="true">item index</param></method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">in single mode outputs @title TAB and index of selected tab. In
+                toggle mode outputs current state like: @selected 0 1 0 1 0 etc. and list of two
+                values: [CHANGED_IDX CHANGED_VALUE]</xinfo>
+                <xinfo on="float">onle in single mode: change tab select tab by index and output
+                tab @title and new index</xinfo>
+                <xinfo on="any">selects item equal to given</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[loadbang] [table array_view]
+|
+[load %DOC%/sound/voice.wav @to array_view @resize(
+|
+[expand_env]
+|
+[snd.file]
+|
+[update(  /*Shift+drag - select region to play*/
+|
+[ui.aview @array=array_view @show_labels=1 @size=300x80]
+|
+|
+|
+|
+|
+[route @select_samp #a] [loadbang]
+|                       |
+[expr $f1\; $f2 - $f1]  [1(
+|           ^|          |
+|    [b #b]  |          [F]/*speed*/
+|    |       |.         |
+|    [loop~             ]
+|    |  ^|.
+|    [*~  ]
+|    |.
+[+~   ]
+|
+[tabread4~ array_view]
+|
+[dac~]
+
+[ui.dsp~]
+[X a->b]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

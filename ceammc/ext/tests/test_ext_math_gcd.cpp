@@ -12,12 +12,12 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../math/math_gcd.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "catch.hpp"
 
 #include <stdio.h>
 
-typedef TestExtension<MathGCD> MathGCDTest;
+typedef TestExternal<MathGCD> MathGCDTest;
 
 #define REQUIRE_GCD(in, t, out)             \
     {                                       \
@@ -27,7 +27,7 @@ typedef TestExtension<MathGCD> MathGCDTest;
 
 #define REQUIRE_GCD_2(in1, in2, t, out)        \
     {                                          \
-        WHEN_SEND_LIST_TO(0, t, L2(in1, in2)); \
+        WHEN_SEND_LIST_TO(0, t, LA(in1, in2)); \
         REQUIRE_FLOAT_AT_OUTLET(0, t, out);    \
     }
 
@@ -37,7 +37,7 @@ TEST_CASE("math.gcd", "[externals]")
 
     SECTION("default")
     {
-        MathGCDTest t("math.gcd", L1(10));
+        MathGCDTest t("math.gcd", LF(10));
         REQUIRE_GCD(2, t, 2);
         REQUIRE_GCD(3, t, 1);
         REQUIRE_GCD(4, t, 2);

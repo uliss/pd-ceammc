@@ -11,15 +11,16 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#include "../data/datatype_mlist.h"
 #include "../list/list_reduce.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "catch.hpp"
 #include "ceammc_pd.h"
 #include "test_external.h"
 
 #include <stdio.h>
 
-typedef TestExtension<ListReduce> ListReduceTest;
+typedef TestExternal<ListReduce> ListReduceTest;
 static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
 
 using namespace ceammc::pd;
@@ -33,15 +34,15 @@ TEST_CASE("list.reduce", "[externals]")
     {
         SECTION("empty arguments")
         {
-            ListReduceTest t("list.reduce", AtomList());
+            ListReduceTest t("list.reduce", L());
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 2);
 
-            WHEN_SEND_LIST_TO(0, t, L3(1, 2, 3));
+            WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3));
             REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
             REQUIRE(t.messageCount(1) == 2);
-            REQUIRE(t.messageAt(0, 1).listValue() == ListApprox(1, 2));
-            REQUIRE(t.messageAt(1, 1).listValue() == ListApprox(1, 3));
+            REQUIRE(t.messageAt(0, 1).listValue() == LX(1, 2));
+            REQUIRE(t.messageAt(1, 1).listValue() == LX(1, 3));
         }
     }
 
@@ -51,7 +52,7 @@ TEST_CASE("list.reduce", "[externals]")
 
         SECTION("+")
         {
-            External foldl("list.reduce", L2("@init", 0.f));
+            External foldl("list.reduce");
             External plus("+");
             ExternalOutput out;
 
@@ -62,13 +63,13 @@ TEST_CASE("list.reduce", "[externals]")
             foldl.connectFrom(0, plus, 1);
             foldl.connectTo(0, out, 0);
 
-            foldl.sendList(L3(1, 2, 3));
+            foldl.sendList(LF(1, 2, 3));
             REQUIRE(out.msg().atomValue().asFloat() == 6.f);
         }
 
         SECTION("+")
         {
-            External foldl("list.reduce", L2("@init", 0.f));
+            External foldl("list.reduce");
             External minus("-");
             ExternalOutput out;
 
@@ -79,7 +80,7 @@ TEST_CASE("list.reduce", "[externals]")
             foldl.connectFrom(0, minus, 1);
             foldl.connectTo(0, out, 0);
 
-            foldl.sendList(L3(1, 2, 3));
+            foldl.sendList(LF(1, 2, 3));
             REQUIRE(out.msg().atomValue().asFloat() == Approx(-4.f));
         }
 
@@ -96,8 +97,29 @@ TEST_CASE("list.reduce", "[externals]")
             foldl.connectFrom(0, mul, 1);
             foldl.connectTo(0, out, 0);
 
-            foldl.sendList(L3(2, 3, 4));
+            foldl.sendList(LF(2, 3, 4));
             REQUIRE(out.msg().atomValue().asFloat() == 24.f);
         }
+    }
+
+    SECTION("mlist")
+    {
+        TestPdExternal<ListReduce> t("list.foldl");
+
+        External plus("+");
+        REQUIRE(t.object());
+        REQUIRE(plus.object());
+
+        t.connectTo(1, plus, 0);
+        t.connectFrom(0, plus, 1);
+
+        t.send(DataTypeMList());
+        REQUIRE_FALSE(t.hasOutput());
+
+        t.send(DataTypeMList("(1 2 3)"));
+        REQUIRE(t.outputFloatAt(0) == 6);
+
+        t.send(DataTypeMList("(10)"));
+        REQUIRE(t.outputFloatAt(0) == 10);
     }
 }

@@ -25,6 +25,7 @@
                 <xinfo on="float">input float</xinfo>
                 <xinfo on="symbol">input symbol</xinfo>
                 <xinfo on="list">input list</xinfo>
+                <xinfo on="data:mlist">input mlist</xinfo>
                 <xinfo on="data">input data</xinfo>
             </inlet>
             <inlet>

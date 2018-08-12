@@ -1,4 +1,5 @@
 #include "list_count.h"
+#include "../data/data_mlist.h"
 #include "ceammc_factory.h"
 #include "ceammc_log.h"
 
@@ -30,7 +31,13 @@ void ListCount::onInlet(size_t n, const AtomList& l)
     }
 }
 
-extern "C" void setup_list0x2ecount()
+void ListCount::onDataT(const DataTypeMList& lst)
+{
+    onList(lst.toList());
+}
+
+void setup_list_count()
 {
     ObjectFactory<ListCount> obj("list.count");
+    obj.processData<DataTypeMList>();
 }

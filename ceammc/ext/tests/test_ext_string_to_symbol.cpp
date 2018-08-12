@@ -12,14 +12,14 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../string/string_to_symbol.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "ceammc_pd.h"
 
 #include "catch.hpp"
 
 using namespace ceammc;
 
-typedef TestExtension<StringToSymbol> StringToSymbolTest;
+typedef TestExternal<StringToSymbol> StringToSymbolTest;
 
 static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
 
@@ -42,10 +42,10 @@ TEST_CASE("string->symbol", "[external]")
         WHEN_SEND_SYMBOL_TO(0, t, "A");
         REQUIRE_NO_MSG(t);
 
-        WHEN_SEND_LIST_TO(0, t, L3(1, 2, 3));
+        WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3));
         REQUIRE_NO_MSG(t);
 
-        WHEN_SEND_ANY_TO(t, "a", L2("b", "c"));
+        WHEN_SEND_ANY_TO(t, "a", LA("b", "c"));
         REQUIRE_NO_MSG(t);
     }
 

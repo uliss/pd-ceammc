@@ -17,6 +17,7 @@
 #include "ceammc_atomlist.h"
 #include "ceammc_dataatom.h"
 
+#include <initializer_list>
 #include <iostream>
 #include <limits>
 #include <vector>
@@ -31,9 +32,19 @@ public:
     ~DataAtomList();
     DataAtomList(const Atom& a);
     DataAtomList(const AtomList& lst);
+    DataAtomList(std::initializer_list<Atom> lst);
+    DataAtomList(std::initializer_list<DataAtom> lst);
+    DataAtomList(std::initializer_list<DataPtr> lst);
+
+    // copy/move
+    DataAtomList(const DataAtomList& a);
+    DataAtomList(DataAtomList&& a);
+    DataAtomList& operator=(const DataAtomList& a);
+    DataAtomList& operator=(DataAtomList&& a);
 
     void set(const AtomList& lst);
 
+    bool empty() const;
     size_t size() const;
     DataAtom& operator[](size_t idx);
     const DataAtom& operator[](size_t idx) const;
@@ -41,9 +52,30 @@ public:
 
     void append(const Atom& a);
     void append(const DataPtr& d);
+    void append(const DataAtom& data);
+    void append(const AtomList& lst);
+    void append(const DataAtomList& lst);
+    bool insert(size_t pos, const AtomList& lst);
+    bool insert(size_t pos, const DataAtomList& lst);
+    void prepend(const Atom& a);
+    void prepend(const DataPtr& d);
+    void prepend(const DataAtom& data);
+    void prepend(const AtomList& lst);
+    void prepend(const DataAtomList& lst);
+    bool pop();
+    bool remove(size_t pos);
+    void reserve(size_t sz);
+
     AtomList toList() const;
 
     bool operator==(const DataAtomList& l) const;
+
+    bool isSingleData() const;
+    bool isSingleDataType(DataType t) const;
+    template <typename T>
+    bool isSingleDataType() const;
+    template <typename T>
+    const T* asSingle() const;
 
 public:
     static const size_t END = std::numeric_limits<size_t>::max();
@@ -70,6 +102,21 @@ public:
     long search(const DataAtom& p, size_t from = 0, size_t to = END) const;
     long search(const AtomList& p, size_t from = 0, size_t to = END) const;
 };
+
+template <typename T>
+const T* DataAtomList::asSingle() const
+{
+    if (!isSingleDataType<T>())
+        return nullptr;
+
+    return list_[0].as<T>();
+}
+
+template <typename T>
+bool DataAtomList::isSingleDataType() const
+{
+    return isSingleDataType(T::dataType);
+}
 
 std::ostream& operator<<(std::ostream& os, const DataAtomList& l);
 }

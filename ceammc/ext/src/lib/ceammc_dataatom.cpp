@@ -18,6 +18,12 @@
 
 namespace ceammc {
 
+DataAtom::DataAtom()
+    : data_(Atom())
+    , atom_(Atom())
+{
+}
+
 DataAtom::DataAtom(const Atom& a)
     : data_(a)
     , atom_(a)
@@ -32,6 +38,12 @@ DataAtom::DataAtom(const DataPtr& d)
 
 DataAtom::DataAtom(const DataAtom& d)
     : data_(d.data_)
+    , atom_(d.atom_)
+{
+}
+
+DataAtom::DataAtom(DataAtom&& d)
+    : data_(std::move(d.data_))
     , atom_(d.atom_)
 {
 }
@@ -73,6 +85,11 @@ bool DataAtom::isData() const
     return atom_.isData();
 }
 
+bool DataAtom::isDataType(DataType t) const
+{
+    return atom_.isData() && atom_.dataType() == t;
+}
+
 bool DataAtom::operator==(const DataAtom& d) const
 {
     if (this == &d)
@@ -94,9 +111,24 @@ DataAtom& DataAtom::operator=(const DataAtom& d)
     return *this;
 }
 
+DataAtom& DataAtom::operator=(DataAtom&& d)
+{
+    if (this == &d)
+        return *this;
+
+    data_ = std::move(d.data_);
+    atom_ = d.atom_;
+    return *this;
+}
+
 DataPtr DataAtom::data() const
 {
     return isAtom() ? DataPtr(0) : data_;
+}
+
+bool DataAtom::isValid() const
+{
+    return isAtom() ? !atom_.isNone() : data_.isValid();
 }
 
 size_t hash_value(const DataAtom& d)

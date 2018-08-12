@@ -23,6 +23,7 @@
         <inlets>
             <inlet>
                 <xinfo on="list">input list</xinfo>
+                <xinfo on="data:mlist">input mlist</xinfo>
             </inlet>
             <inlet>
                 <xinfo on="list">set searched items</xinfo>

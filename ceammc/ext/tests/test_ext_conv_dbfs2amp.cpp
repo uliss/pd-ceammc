@@ -12,13 +12,13 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../conv/conv_dbfs2amp.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "catch.hpp"
 #include "ceammc_pd.h"
 
 #include <stdio.h>
 
-typedef TestExtension<Dbfs2amp> Dbfs2AmpTest;
+typedef TestExternal<Dbfs2amp> Dbfs2AmpTest;
 
 using namespace ceammc;
 static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
@@ -50,7 +50,7 @@ TEST_CASE("conv.dbfs2amp", "[externals]")
         D2A(t, -144, 0);
         D2A(t, -200, 0);
 
-        WHEN_SEND_LIST_TO(0, t, L4(0.f, -6.0206f, 6.0206f, -144));
-        REQUIRE_LIST_AT_OUTLET(0, t, ListApprox(1, 0.5, 2, 0.f));
+        WHEN_SEND_LIST_TO(0, t, LA(0.f, -6.0206f, 6.0206f, -144));
+        REQUIRE_LIST_AT_OUTLET(0, t, LX(1, 0.5, 2, 0.f));
     }
 }

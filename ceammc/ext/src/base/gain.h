@@ -27,6 +27,7 @@ class Gain : public SoundExternal {
     OutBlocks outs_;
     size_t prev_bs_; // previous block size
     const size_t n_;
+    FloatPropertyMin* smooth_;
 
 public:
     Gain(const PdArgs& args);

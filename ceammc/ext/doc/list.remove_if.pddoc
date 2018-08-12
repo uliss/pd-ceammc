@@ -24,13 +24,14 @@
         <inlets>
             <inlet>
                 <xinfo on="list">input list</xinfo>
+                <xinfo on="data:mlist">input mlist</xinfo>
             </inlet>
             <inlet>
                 <xinfo on="float">value from predicate</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output list with some removed elements</outlet>
+            <outlet>output list (or mlist) with some removed elements</outlet>
             <outlet>atom to predicate</outlet>
         </outlets>
         <example>

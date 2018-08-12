@@ -14,8 +14,10 @@
 #ifndef CEAMMC_CONVERT_H
 #define CEAMMC_CONVERT_H
 
+#include <algorithm>
 #include <cmath>
 #include <string>
+#include <type_traits>
 
 namespace ceammc {
 
@@ -26,18 +28,86 @@ T clip(T v, T min, T max)
     return std::min(max, std::max(v, min));
 }
 
-template <typename T>
-std::pair<T, T> min_max(T a, T b)
-{
-    return (a < b) ? std::make_pair(a, b) : std::make_pair(b, a);
-}
-
 // not assume v0 <= v1
 template <class T>
 T clip_any(T v, T v0, T v1)
 {
-    std::pair<T, T> r = min_max(v0, v1);
+    auto r = std::minmax(v0, v1);
     return clip<T>(v, r.first, r.second);
+}
+
+/**
+ * Wraps input values to specified range:
+ * -3 -2 -1 0 1 2 3
+ * becames
+ * +0 +1 +2 0 1 2 3 etc..
+ *
+ * @param n
+ * @return number in range [0, n)
+ */
+template <typename T>
+typename std::make_unsigned<T>::type wrapInteger(T v, typename std::make_unsigned<T>::type n)
+{
+    static_assert(std::is_integral<T>(), "Integral type expected");
+    static_assert(std::is_signed<T>(), "Signed type expected");
+
+    typedef typename std::make_unsigned<T>::type Unsigned;
+    typedef typename std::make_signed<T>::type Signed;
+
+    if (v >= 0)
+        return Unsigned(v) % n;
+    else
+        return (n - 1) - ((Unsigned(-v) - 1) % n);
+}
+
+/**
+ * Folds input values to specified range:
+ * -7 -6 -5 -4 -3 -2 -1 0 1 2 3 4 5 6 7 8 9
+ * becames
+ * +1 +0 +1 +2 +3 +2 +1 0 1 2 3 2 1 0 1 2 3 etc..
+ *
+ * @param n
+ * @return number in range [0, n)
+ */
+template <typename T>
+typename std::make_unsigned<T>::type foldInteger(T v, typename std::make_unsigned<T>::type n)
+{
+    static_assert(std::is_integral<T>(), "Integral type expected");
+    static_assert(std::is_signed<T>(), "Signed type expected");
+
+    typedef typename std::make_unsigned<T>::type Unsigned;
+    typedef typename std::make_signed<T>::type Signed;
+
+    if (n == 1)
+        return 0;
+
+    if (v < 0)
+        v = -v;
+
+    Unsigned period = 2 * (n - 1);
+    Unsigned wrap2n = Unsigned(v) % period;
+    Unsigned wrap2n_comp = period - wrap2n;
+    Unsigned is_upper = wrap2n / (n - 1);
+    Unsigned is_lower = Unsigned(1) ^ is_upper;
+
+    return (is_lower * wrap2n) | (is_upper * wrap2n_comp);
+}
+
+template <typename T>
+T relativeIndex(T v, typename std::make_unsigned<T>::type n)
+{
+    static_assert(std::is_integral<T>(), "Integral type expected");
+    static_assert(std::is_signed<T>(), "Signed type expected");
+
+    typedef typename std::make_unsigned<T>::type Unsigned;
+    typedef typename std::make_signed<T>::type Signed;
+
+    const Signed N(n);
+
+    if (v >= N || v < -N)
+        return -1;
+
+    return (v < 0) ? v + N : v;
 }
 
 namespace convert {
@@ -59,7 +129,7 @@ namespace convert {
     template <class T>
     T lin2lin_clip(T v, T x0, T x1, T y0, T y1)
     {
-        std::pair<T, T> yr = min_max(y0, y1);
+        auto yr = std::minmax(y0, y1);
         return clip<T>(lin2lin<T>(v, x0, x1, y0, y1), yr.first, yr.second);
     }
 

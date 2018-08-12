@@ -12,13 +12,13 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../array/array_copy.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "ceammc_factory.h"
 #include "ceammc_pd.h"
 
 #include "catch.hpp"
 
-typedef TestExtension<ArrayCopy> ArrayCopyTest;
+typedef TestExternal<ArrayCopy> ArrayCopyTest;
 
 using namespace ceammc;
 
@@ -64,7 +64,7 @@ TEST_CASE("array.copy", "[externals]")
         b[1] = 19;
         b[2] = 18;
 
-        WHEN_CALL_2(t, copy, "a", "b");
+        WHEN_CALL_N(t, copy, "a", "b");
         REQUIRE_BANG_AT_OUTLET(0, t);
 
         REQUIRE(a[0] == 1.f);
@@ -80,19 +80,19 @@ TEST_CASE("array.copy", "[externals]")
 
         SECTION("invalid source")
         {
-            WHEN_CALL_2(t, copy, "invalid", "b");
+            WHEN_CALL_N(t, copy, "invalid", "b");
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
         }
 
         SECTION("invalid destination")
         {
-            WHEN_CALL_2(t, copy, "a", "invalid");
+            WHEN_CALL_N(t, copy, "a", "invalid");
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
         }
 
         SECTION("invalid both")
         {
-            WHEN_CALL_2(t, copy, "invalid1", "invalid2");
+            WHEN_CALL_N(t, copy, "invalid1", "invalid2");
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
         }
     }
@@ -100,7 +100,7 @@ TEST_CASE("array.copy", "[externals]")
     SECTION("copy simple resize")
     {
         ArrayCopyTest t("array.copy");
-        t.setProperty("@resize", L1(1));
+        t.setProperty("@resize", LF(1));
         REQUIRE_PROPERTY(t, @resize, 1.f);
 
         Array a("a");
@@ -109,7 +109,7 @@ TEST_CASE("array.copy", "[externals]")
         REQUIRE(a.size() == 5);
         REQUIRE(b.size() == 3);
 
-        WHEN_CALL_2(t, copy, "a", "b");
+        WHEN_CALL_N(t, copy, "a", "b");
         REQUIRE_BANG_AT_OUTLET(0, t);
 
         b.update();
@@ -128,23 +128,23 @@ TEST_CASE("array.copy", "[externals]")
         SECTION("invalid arrays")
         {
             ArrayCopyTest t("array.copy");
-            WHEN_CALL_4(t, copy, "a", 0.f, 4, "???");
+            WHEN_CALL_N(t, copy, "a", 0.f, 4, "???");
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-            WHEN_CALL_4(t, copy, "???", 0.f, 4, "???");
+            WHEN_CALL_N(t, copy, "???", 0.f, 4, "???");
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-            WHEN_CALL_4(t, copy, "???", 0.f, 4, "b");
+            WHEN_CALL_N(t, copy, "???", 0.f, 4, "b");
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
         }
 
         SECTION("invalid range")
         {
             ArrayCopyTest t("array.copy");
-            WHEN_CALL_4(t, copy, "a", 5, 6, "b");
+            WHEN_CALL_N(t, copy, "a", 5, 6, "b");
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-            WHEN_CALL_4(t, copy, "a", 3, 2, "b");
+            WHEN_CALL_N(t, copy, "a", 3, 2, "b");
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
         }
 
@@ -156,7 +156,7 @@ TEST_CASE("array.copy", "[externals]")
 
             RESET_DATA();
 
-            WHEN_CALL_4(t, copy, "a", 0.f, 4, "b");
+            WHEN_CALL_N(t, copy, "a", 0.f, 4, "b");
             REQUIRE_BANG_AT_OUTLET(0, t);
 
             b.update();
@@ -165,7 +165,7 @@ TEST_CASE("array.copy", "[externals]")
             REQUIRE(b[1] == 2.f);
             REQUIRE(b[2] == 3.f);
 
-            WHEN_CALL_4(t, copy, "a", 2, 4, "b");
+            WHEN_CALL_N(t, copy, "a", 2, 4, "b");
             REQUIRE_BANG_AT_OUTLET(0, t);
 
             b.update();
@@ -175,7 +175,7 @@ TEST_CASE("array.copy", "[externals]")
             REQUIRE(b[2] == 3.f); // same
 
             RESET_DATA();
-            WHEN_CALL_4(t, copy, "a", 2, 16, "b");
+            WHEN_CALL_N(t, copy, "a", 2, 16, "b");
             REQUIRE_BANG_AT_OUTLET(0, t);
 
             b.update();
@@ -187,13 +187,13 @@ TEST_CASE("array.copy", "[externals]")
 
         SECTION("resize")
         {
-            ArrayCopyTest t("array.copy", L1("@resize"));
+            ArrayCopyTest t("array.copy", LA("@resize"));
             Array a("a");
             Array b("b");
 
             RESET_DATA();
 
-            WHEN_CALL_4(t, copy, "a", 0.f, 10, "b");
+            WHEN_CALL_N(t, copy, "a", 0.f, 10, "b");
             REQUIRE_BANG_AT_OUTLET(0, t);
 
             b.update();
@@ -213,13 +213,13 @@ TEST_CASE("array.copy", "[externals]")
         SECTION("invalid arrays")
         {
             ArrayCopyTest t("array.copy");
-            WHEN_CALL_5(t, copy, "a", 0.f, 4, "???", 1);
+            WHEN_CALL_N(t, copy, "a", 0.f, 4, "???", 1);
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-            WHEN_CALL_5(t, copy, "???", 0.f, 4, "???", 1);
+            WHEN_CALL_N(t, copy, "???", 0.f, 4, "???", 1);
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-            WHEN_CALL_5(t, copy, "???", 0.f, 4, "b", 1);
+            WHEN_CALL_N(t, copy, "???", 0.f, 4, "b", 1);
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
         }
 
@@ -228,15 +228,15 @@ TEST_CASE("array.copy", "[externals]")
             ArrayCopyTest t("array.copy");
 
             // wrong src
-            WHEN_CALL_5(t, copy, "a", 5, 6, "b", 2);
+            WHEN_CALL_N(t, copy, "a", 5, 6, "b", 2);
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
             // negative range
-            WHEN_CALL_5(t, copy, "a", 3, 2, "b", 2);
+            WHEN_CALL_N(t, copy, "a", 3, 2, "b", 2);
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
             // wrong dest
-            WHEN_CALL_5(t, copy, "a", 1, 5, "b", 3);
+            WHEN_CALL_N(t, copy, "a", 1, 5, "b", 3);
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
         }
 
@@ -248,7 +248,7 @@ TEST_CASE("array.copy", "[externals]")
 
             RESET_DATA();
 
-            WHEN_CALL_5(t, copy, "a", 0.f, 4, "b", 1);
+            WHEN_CALL_N(t, copy, "a", 0.f, 4, "b", 1);
             REQUIRE_BANG_AT_OUTLET(0, t);
 
             b.update();
@@ -258,7 +258,7 @@ TEST_CASE("array.copy", "[externals]")
             REQUIRE(b[2] == 2.f);
 
             RESET_DATA();
-            WHEN_CALL_5(t, copy, "a", 0.f, 16, "b", 2);
+            WHEN_CALL_N(t, copy, "a", 0.f, 16, "b", 2);
             REQUIRE_BANG_AT_OUTLET(0, t);
 
             b.update();
@@ -268,7 +268,7 @@ TEST_CASE("array.copy", "[externals]")
             REQUIRE(b[2] == 1.f);
 
             RESET_DATA();
-            WHEN_CALL_5(t, copy, "a", 4, 16, "b", 1);
+            WHEN_CALL_N(t, copy, "a", 4, 16, "b", 1);
             REQUIRE_BANG_AT_OUTLET(0, t);
 
             b.update();
@@ -278,7 +278,7 @@ TEST_CASE("array.copy", "[externals]")
             REQUIRE(b[2] == 18.f);
 
             RESET_DATA();
-            WHEN_CALL_5(t, copy, "a", 0.f, 5, "b", 0.f);
+            WHEN_CALL_N(t, copy, "a", 0.f, 5, "b", 0.f);
             REQUIRE_BANG_AT_OUTLET(0, t);
 
             b.update();
@@ -290,16 +290,16 @@ TEST_CASE("array.copy", "[externals]")
 
         SECTION("resize")
         {
-            ArrayCopyTest t("array.copy", L1("@resize"));
+            ArrayCopyTest t("array.copy", LA("@resize"));
             Array a("a");
             Array b("b");
 
             RESET_DATA();
 
-            WHEN_CALL_5(t, copy, "a", 0.f, 4, "b", 4);
+            WHEN_CALL_N(t, copy, "a", 0.f, 4, "b", 4);
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-            WHEN_CALL_5(t, copy, "a", 0.f, 3, "b", 3);
+            WHEN_CALL_N(t, copy, "a", 0.f, 3, "b", 3);
             REQUIRE_BANG_AT_OUTLET(0, t);
 
             b.update();
@@ -321,7 +321,7 @@ TEST_CASE("array.copy", "[externals]")
 
         RESET_DATA();
 
-        WHEN_CALL_3(t, copy, "a", 3, "b");
+        WHEN_CALL_N(t, copy, "a", 3, "b");
         b.update();
         REQUIRE(b.size() == 3);
         REQUIRE(b[0] == 4.f);
@@ -330,7 +330,7 @@ TEST_CASE("array.copy", "[externals]")
 
         RESET_DATA();
 
-        WHEN_CALL_3(t, copy, "a", 1, "b");
+        WHEN_CALL_N(t, copy, "a", 1, "b");
         b.update();
         REQUIRE(b.size() == 3);
         REQUIRE(b[0] == 2.f);

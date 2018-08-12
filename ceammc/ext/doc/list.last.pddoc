@@ -20,6 +20,7 @@
         <inlets>
             <inlet>
                 <xinfo on="list">input list</xinfo>
+                <xinfo on="data:mlist">input mlist</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -28,7 +29,9 @@
         <example>
             <pdascii>
 <![CDATA[
-[1 60 120 b 11( [list a b( [F]
+[1 60 120 b 11( [list a b( [\(a b c\), bang(
+|               |          |
+|               |          [ml]
 |               |          |
 [list.last                 ]
 |

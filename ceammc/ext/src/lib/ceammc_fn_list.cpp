@@ -12,13 +12,16 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_fn_list.h"
+#include "ceammc_data.h"
 
 #include <algorithm>
+#include <boost/functional/hash.hpp>
 #include <cmath>
 #include <cstdlib>
 #include <limits>
 #include <map>
 #include <numeric>
+#include <unordered_set>
 
 namespace ceammc {
 namespace list {
@@ -177,27 +180,45 @@ namespace list {
         }
     }
 
-    float average(const AtomList& l)
+    MaybeFloat average(const AtomList& l)
     {
-        AtomList r = l.filtered(isFloat);
-        if (r.empty())
-            return 0;
+        size_t n = 0;
+        t_float sum = 0;
 
-        return r.sum() / r.size();
+        for (auto el : l) {
+            if (!el.isFloat())
+                continue;
+
+            n++;
+            sum += el.asFloat();
+        }
+
+        if (!n)
+            return boost::none;
+
+        return sum / n;
     }
 
-    AtomList countRepeats(const AtomList& l)
+    AtomList countRepeats(const AtomList& l, bool normalizeBySum)
     {
         typedef std::map<Atom, int> AtomMap;
         AtomMap hist_map;
-        for (size_t i = 0; i < l.size(); i++) {
+
+        // fill histogram
+        for (size_t i = 0; i < l.size(); i++)
             hist_map[l.at(i)]++;
-        }
 
         AtomList res;
-        for (AtomMap::iterator it = hist_map.begin(); it != hist_map.end(); ++it) {
-            res.append(it->first);
-            res.append(it->second);
+        res.reserve(hist_map.size() * 2);
+        const t_float N = l.size();
+
+        for (auto it : hist_map) {
+            res.append(it.first);
+
+            if (normalizeBySum)
+                res.append(it.second / N);
+            else
+                res.append(it.second);
         }
 
         return res;
@@ -390,13 +411,156 @@ namespace list {
         return res;
     }
 
-    AtomList unique(const AtomList& l)
+    struct AtomHasher {
+        size_t operator()(const Atom& a) const
+        {
+            size_t res = a.type();
+
+            if (a.isFloat())
+                boost::hash_combine(res, boost::hash_value(a.asFloat()));
+            else if (a.isSymbol())
+                boost::hash_combine(res, boost::hash_value(a.asSymbol()));
+            else if (a.isData()) {
+                auto data = a.getData();
+                boost::hash_combine(res, boost::hash_value(data.id));
+                boost::hash_combine(res, boost::hash_value(data.type));
+            }
+
+            return res;
+        }
+    };
+
+    AtomList uniqueStable(const AtomList& l)
+    {
+        const size_t N = l.size();
+        std::unordered_set<Atom, AtomHasher> atom_set;
+        AtomList res;
+
+        res.reserve(N);
+        atom_set.reserve(N);
+
+        for (size_t i = 0; i < N; i++) {
+            auto& a = l[i];
+            if (atom_set.find(a) == atom_set.end()) {
+                atom_set.insert(a);
+                res.append(a);
+            }
+        }
+
+        return res;
+    }
+
+    AtomList uniqueSorted(const AtomList& l)
     {
         AtomList res(l);
         res.sort();
-        AtomList::Iterator last = std::unique(res.begin(), res.end());
+
+        auto pred = [](const Atom& a0, const Atom& a1) {
+            if (a0.isData() && a1.isData())
+                return DataPtr(a0) == DataPtr(a1);
+
+            return a0 == a1;
+        };
+
+        auto last = std::unique(res.begin(), res.end(), pred);
         res.resizeClip(last - res.begin());
         return res;
     }
+
+    AtomList shift(const AtomList& l, t_float off)
+    {
+        AtomList res;
+        res.fill(Atom(0.f), l.size());
+
+        const size_t N = l.size();
+
+        for (size_t i = 0; i < N; i++) {
+            // wrap by N
+            t_float fidx = fmod(i + off, N);
+            if (fidx < 0)
+                fidx += N;
+
+            // clip over N-1
+            fidx = std::min<t_float>(N - 1, fidx);
+
+            size_t i1 = size_t(long(fidx)) % N;
+            size_t i2 = (i1 + 1) % N;
+
+            t_float a = l[i1].asFloat();
+            t_float b = l[i2].asFloat();
+            t_float mix = fidx - std::floor(fidx);
+
+            // linear interpolation
+            res[i] = a * (1 - mix) + b * mix;
+        }
+
+        return res;
+    }
+
+    AtomList stretch(const AtomList& l, size_t sz)
+    {
+        if (sz <= 1 || l.size() == 0)
+            return AtomList();
+
+        if (sz == l.size())
+            return l;
+
+        AtomList res;
+        res.reserve(sz);
+
+        const size_t N = l.size();
+
+        for (size_t i = 0; i < sz; i++) {
+            double old_fidx = ((N - 1) * i) / double(sz - 1);
+            size_t old_idx0 = old_fidx;
+            size_t old_idx1 = std::min(N - 1, old_idx0 + 1);
+            double mix = old_fidx - old_idx0;
+
+            double value = l[old_idx0].asFloat() * (1 - mix) + l[old_idx1].asFloat() * mix;
+            res.append(value);
+        }
+
+        return res;
+    }
+
+    std::vector<std::pair<Atom, size_t>> rleEncode(const AtomList& l)
+    {
+        std::vector<std::pair<Atom, size_t>> res;
+        const size_t N = l.size();
+        if (!N)
+            return res;
+
+        Atom prev = l[0];
+        res.push_back({ prev, 1 });
+        for (size_t i = 1; i < N; i++) {
+            const auto& a = l[i];
+            if (a == prev) {
+                res.back().second++;
+                continue;
+            }
+
+            prev = a;
+            res.push_back({ prev, 1 });
+        }
+
+        return res;
+    }
+
+    AtomList rleDecode(const std::vector<std::pair<Atom, size_t>>& rle)
+    {
+        AtomList res;
+        auto sum = [](size_t n, const std::pair<Atom, size_t>& a) { return n + a.second; };
+        const size_t N = std::accumulate(rle.begin(), rle.end(), 0, sum);
+        res.reserve(N);
+
+        for (auto& p : rle) {
+            size_t n = p.second;
+            while (n-- > 0)
+                res.append(p.first);
+        }
+
+        return res;
+    }
+
 }
 }

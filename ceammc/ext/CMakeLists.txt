@@ -4,6 +4,14 @@ add_subdirectory(src)
 add_subdirectory(doc)
 add_subdirectory(tests)
 
+if(WITH_BENCHMARK)
+    if(WITH_COVERAGE)
+        message(STATUS "Coverage and benchmarks are not supported together")
+    else()
+        add_subdirectory(benchmark)
+    endif()
+endif()
+
 add_custom_target(ceammc_completion_src SOURCES ceammc_objects.txt)
 # install completion
 install(FILES ceammc_objects.txt DESTINATION ${PD_GUI_PLUGINS_PATH}/ceammc)

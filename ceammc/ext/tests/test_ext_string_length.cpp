@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../string/string_length.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "ceammc_format.h"
 #include "ceammc_pd.h"
 
@@ -20,7 +20,7 @@
 
 using namespace ceammc;
 
-typedef TestExtension<StringLength> TestStringLength;
+typedef TestExternal<StringLength> TestStringLength;
 
 static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
 
@@ -40,13 +40,13 @@ TEST_CASE("string.length", "[external]")
         WHEN_SEND_FLOAT_TO(0, t, 0);
         REQUIRE_NO_MSG(t);
 
-        WHEN_SEND_LIST_TO(0, t, AtomList());
+        WHEN_SEND_LIST_TO(0, t, L());
         REQUIRE_NO_MSG(t);
 
-        WHEN_SEND_LIST_TO(0, t, L1(1));
+        WHEN_SEND_LIST_TO(0, t, LF(1));
         REQUIRE_NO_MSG(t);
 
-        WHEN_SEND_LIST_TO(0, t, L2("a", "b"));
+        WHEN_SEND_LIST_TO(0, t, LA("a", "b"));
         REQUIRE_NO_MSG(t);
 
         WHEN_SEND_TDATA_TO(0, t, DataTypeString("abcde"));

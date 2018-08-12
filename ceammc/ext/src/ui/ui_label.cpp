@@ -89,7 +89,7 @@ void UILabel::init(t_symbol* name, const AtomList& args, bool usePresets)
 
     int pos = args.findPos(isProperty);
     if (pos > 0) {
-        setProperty(SYM_TEXT, args.slice(0, pos));
+        setProperty(SYM_TEXT, args.slice(0, pos - 1));
     } else if (pos < 0 && args.size() > 0) {
         setProperty(SYM_TEXT, args);
     }

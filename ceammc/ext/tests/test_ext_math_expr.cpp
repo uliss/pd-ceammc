@@ -12,17 +12,17 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../math/math_expr.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "catch.hpp"
 #include "ceammc_pd.h"
 
 #include <stdio.h>
 
-typedef TestExtension<MathExpr> MathExprTest;
+typedef TestExternal<MathExpr> MathExprTest;
 
 #define REQUIRE_EXPR(t, expr, in, out)      \
     {                                       \
-        WHEN_SEND_LIST_TO(1, t, L1(expr));  \
+        WHEN_SEND_LIST_TO(1, t, LA(expr));  \
         WHEN_SEND_FLOAT_TO(0, t, in);       \
         REQUIRE_FLOAT_AT_OUTLET(0, t, out); \
     }
@@ -43,20 +43,20 @@ TEST_CASE("math.expr", "[externals]")
         }
 
         {
-            MathExprTest t("math.expr", L2("$pi+", "$f"));
-            REQUIRE_PROPERTY_LIST(t, @expr, L1("$pi+$f"));
+            MathExprTest t("math.expr", LA("$pi+", "$f"));
+            REQUIRE_PROPERTY_LIST(t, @expr, LA("$pi+$f"));
         }
     }
 
     SECTION("do")
     {
-        MathExprTest t("math.expr", L2("$f", "+10"));
+        MathExprTest t("math.expr", LA("$f", "+10"));
 
         WHEN_SEND_FLOAT_TO(0, t, 0.f);
         REQUIRE_FLOAT_AT_OUTLET(0, t, 10);
 
-        WHEN_SEND_LIST_TO(1, t, L1("$f*2"));
-        REQUIRE_PROPERTY_LIST(t, @expr, L1("$f*2"));
+        WHEN_SEND_LIST_TO(1, t, LA("$f*2"));
+        REQUIRE_PROPERTY_LIST(t, @expr, LA("$f*2"));
 
         REQUIRE_EXPR(t, "$f", 10, Approx(10));
         REQUIRE_EXPR(t, "$f0", 10, Approx(10));
@@ -142,7 +142,7 @@ TEST_CASE("math.expr", "[externals]")
         REQUIRE_EXPR(t, "floor(-10.9)", 0, Approx(-11));
 
         //unknown function
-        WHEN_SEND_LIST_TO(1, t, L1("unkn(2)"));
+        WHEN_SEND_LIST_TO(1, t, LA("unkn(2)"));
         WHEN_SEND_FLOAT_TO(0, t, 0);
         REQUIRE_NO_MSG(t);
     }
@@ -182,20 +182,20 @@ TEST_CASE("math.expr", "[externals]")
 
 #define REQUIRE_LIST_EXPR(t, expr, in, out) \
     {                                       \
-        WHEN_SEND_LIST_TO(1, t, L1(expr));  \
+        WHEN_SEND_LIST_TO(1, t, LA(expr));  \
         WHEN_SEND_LIST_TO(0, t, in);        \
         REQUIRE_FLOAT_AT_OUTLET(0, t, out); \
     }
 
         MathExprTest t("math.expr");
-        REQUIRE_LIST_EXPR(t, "$f", L2(100, 200), Approx(100));
-        REQUIRE_LIST_EXPR(t, "$f0", L2(100, 200), Approx(100));
-        REQUIRE_LIST_EXPR(t, "$f1", L2(100, 200), Approx(200));
+        REQUIRE_LIST_EXPR(t, "$f", LF(100, 200), Approx(100));
+        REQUIRE_LIST_EXPR(t, "$f0", LF(100, 200), Approx(100));
+        REQUIRE_LIST_EXPR(t, "$f1", LF(100, 200), Approx(200));
 
-        REQUIRE_LIST_EXPR(t, "max($f0, $f1)", L2(100, 200), Approx(200));
-        REQUIRE_LIST_EXPR(t, "max($f0, $f1)", L2(-2, 2), Approx(2));
-        REQUIRE_LIST_EXPR(t, "max($f0, $f1)", L2(-2, -3), Approx(-2));
-        REQUIRE_LIST_EXPR(t, "min($f0, $f1)", L2(100, 200), Approx(100));
+        REQUIRE_LIST_EXPR(t, "max($f0, $f1)", LF(100, 200), Approx(200));
+        REQUIRE_LIST_EXPR(t, "max($f0, $f1)", LA(-2, 2), Approx(2));
+        REQUIRE_LIST_EXPR(t, "max($f0, $f1)", LA(-2, -3), Approx(-2));
+        REQUIRE_LIST_EXPR(t, "min($f0, $f1)", LF(100, 200), Approx(100));
     }
 
     SECTION("array")

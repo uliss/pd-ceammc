@@ -12,13 +12,13 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../misc/speech_flite.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "catch.hpp"
 #include "ceammc_pd.h"
 
 #include <stdio.h>
 
-typedef TestExtension<SpeechFlite> FliteTest;
+typedef TestExternal<SpeechFlite> FliteTest;
 
 static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
 
@@ -33,22 +33,22 @@ TEST_CASE("speech.flite", "[externals]")
         REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 1);
 
-        REQUIRE_PROPERTY_LIST(t, @array, L1(""));
-        REQUIRE_PROPERTY_LIST(t, @voice, L1("kal16"));
+        REQUIRE_PROPERTY_LIST(t, @array, LA(""));
+        REQUIRE_PROPERTY_LIST(t, @voice, LA("kal16"));
     }
 
     SECTION("voice")
     {
         FliteTest t("speech.flite");
-        REQUIRE_PROPERTY_LIST(t, @voice, L1("kal16"));
+        REQUIRE_PROPERTY_LIST(t, @voice, LA("kal16"));
     }
 
     SECTION("render")
     {
         ArrayPtr arr = cnv->createArray("array2", 10);
 
-        FliteTest t("speech.flite", L2("@array", "array2"));
-        REQUIRE_PROPERTY_LIST(t, @array, L1("array2"));
+        FliteTest t("speech.flite", LA("@array", "array2"));
+        REQUIRE_PROPERTY_LIST(t, @array, LA("array2"));
         WHEN_SEND_FLOAT_TO(0, t, 1);
     }
 }

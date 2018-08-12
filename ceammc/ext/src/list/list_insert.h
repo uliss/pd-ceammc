@@ -19,6 +19,8 @@
 
 using namespace ceammc;
 
+class DataTypeMList;
+
 class ListInsert : public BaseObject {
     DataAtomList lst_;
     SizeTProperty* index_;
@@ -28,6 +30,7 @@ public:
 
     void onList(const AtomList& lst) override;
     void onInlet(size_t n, const AtomList& lst) override;
+    void onDataT(const DataTypeMList& lst);
 };
 
 void setup_list_insert();

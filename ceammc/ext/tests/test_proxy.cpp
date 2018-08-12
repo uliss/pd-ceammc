@@ -11,7 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "ceammc_pd.h"
 #include "ceammc_proxy.h"
 
@@ -68,12 +68,12 @@ TEST_CASE("proxy", "[ceammc::proxy]")
 
         TestListProxy p(&t, &TestProxy::onList);
 
-        p.onList(L3(1, 2, 3));
-        REQUIRE(t.l == L3(1, 2, 3));
+        p.onList(LF(1, 2, 3));
+        REQUIRE(t.l == LF(1, 2, 3));
 
-        pd_list(p.pd(), &s_list, 2, L2("A", 100).toPdData());
+        pd_list(p.pd(), &s_list, 2, LA("A", 100).toPdData());
 
-        REQUIRE(t.l == L2("A", 100));
+        REQUIRE(t.l == LA("A", 100));
     }
 
     SECTION("bind")

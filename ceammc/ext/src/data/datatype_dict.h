@@ -15,17 +15,98 @@
 #define DATATYPE_DICT_H
 
 #include "ceammc_abstractdata.h"
+#include "ceammc_atomlist.h"
+#include "ceammc_data.h"
+#include "ceammc_dataatom.h"
 
+#include <boost/optional.hpp>
+#include <boost/variant.hpp>
 #include <map>
+#include <type_traits>
 
 namespace ceammc {
+
+typedef boost::variant<DataAtom, Atom, AtomList> DictValue;
+typedef boost::optional<std::string> MaybeString;
+
 class DataTypeDict : public AbstractData {
-    typedef std::map<Atom, DataAtom> DictMap;
+public:
+    typedef std::map<Atom, DictValue> DictMap;
+    typedef boost::optional<DictValue> MaybeValue;
+
+private:
+    DictMap dict_;
 
 public:
     DataTypeDict();
-    DataTypeDict* clone() const;
-    DataType type() const;
+    DataTypeDict(const DataTypeDict& dict);
+    DataTypeDict(const std::string& str);
+
+    DataTypeDict* clone() const override;
+    DataType type() const override;
+    std::string toString() const override;
+    bool isEqual(const AbstractData* d) const override;
+    bool operator==(const DataTypeDict& d) const;
+
+    size_t size() const;
+    bool contains(const Atom& key) const;
+    MaybeValue value(const Atom& key) const;
+
+    template <class T>
+    boost::optional<T> valueT(const Atom& key) const
+    {
+        static_assert(std::is_same<T, DataAtom>()
+                || std::is_same<T, Atom>()
+                || std::is_same<T, AtomList>(),
+            "unsupported type");
+
+        MaybeValue opt = value(key);
+        if (!opt)
+            return boost::none;
+
+        auto val = opt.get();
+
+        if (val.type() == typeid(T))
+            return boost::get<T>(val);
+        else
+            return boost::none;
+    }
+
+    void insert(const std::string& key, const std::string& value);
+    void insert(const std::string& key, t_float value);
+    void insert(const std::string& key, const Atom& value);
+    void insert(const Atom& key, t_float value);
+    void insert(const Atom& key, const Atom& value);
+    void insert(const Atom& key, const AtomList& value);
+    void insert(const Atom& key, const DataAtom& value);
+    bool remove(const Atom& key);
+    void clear();
+
+    bool fromString(const std::string& str);
+
+    MaybeString toJSON(int indent = -1) const;
+    bool fromJSON(const std::string& str);
+
+    bool read(const std::string& path);
+    bool write(const std::string& path) const;
+
+public:
+    template <class T>
+    static bool isType(const MaybeValue& v)
+    {
+        if (!v)
+            return false;
+
+        return v.get().type() == typeid(T);
+    }
+
+    static bool isAtom(const MaybeValue& v);
+    static bool isAtomList(const MaybeValue& v);
+    static bool isDataAtom(const MaybeValue& v);
+
+public:
+    DictMap& innerData() { return dict_; }
+    const DictMap& innerData() const { return dict_; }
 
 public:
     static const DataType dataType;

@@ -1,32 +1,32 @@
+#include "list_range.h"
+#include "../data/datatype_mlist.h"
 #include "ceammc_factory.h"
-#include "ceammc_object.h"
 
-using namespace ceammc;
+#include <algorithm>
+#include <iterator>
 
-class ListRange : public BaseObject {
-public:
-    ListRange(const PdArgs& a)
-        : BaseObject(a)
-    {
-        createOutlet();
-    }
+ListRange::ListRange(const PdArgs& a)
+    : BaseObject(a)
+{
+    createOutlet();
+}
 
-    void onList(const AtomList& l)
-    {
-        if (l.empty())
-            return;
+void ListRange::onList(const AtomList& l)
+{
+    Atom min, max;
+    if (l.range(min, max))
+        listTo(0, AtomList(min, max));
+}
 
-        Atom min, max;
-        if (l.range(min, max)) {
-            AtomList res;
-            res.append(min);
-            res.append(max);
-            listTo(0, res);
-        }
-    }
-};
+void ListRange::onDataT(const DataTypeMList& l)
+{
+    auto is_atom = [](const DataAtom& a) { return a.isAtom(); };
+    onList(l.toList(is_atom));
+}
 
-extern "C" void setup_list0x2erange()
+void setup_list_range()
 {
     ObjectFactory<ListRange> obj("list.range");
+    obj.addAlias("list.minmax");
+    obj.processData<DataTypeMList>();
 }

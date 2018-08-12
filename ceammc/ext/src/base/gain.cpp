@@ -33,6 +33,7 @@ Gain::Gain(const PdArgs& args)
     : SoundExternal(args)
     , prev_bs_(0)
     , n_(std::max<int>(1, static_cast<int>(positionalFloatArgument(0, 1))))
+    , smooth_(nullptr)
 {
     for (size_t i = 1; i < n_; i++) {
         createSignalInlet();
@@ -47,6 +48,9 @@ Gain::Gain(const PdArgs& args)
 
     createCbProperty("@db", &Gain::propDb, &Gain::propSetDb);
     createCbProperty("@value", &Gain::propGain, &Gain::propSetGain);
+
+    smooth_ = new FloatPropertyMin("@smooth_time", 20, 1);
+    createProperty(smooth_);
 }
 
 void Gain::onInlet(size_t n, const AtomList& lst)
@@ -93,6 +97,12 @@ void Gain::setupDSP(t_signal** sp)
         allocateOutBlocks();
         prev_bs_ = blockSize();
     }
+
+    // update smooth time
+    const double ms = smooth_->value();
+    const double SR = samplerate();
+    for (auto& env : gain_)
+        env.setDurationMs(ms, SR);
 }
 
 AtomList Gain::propDb() const

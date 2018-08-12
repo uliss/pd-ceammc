@@ -162,6 +162,9 @@ namespace platform {
         if (path.empty() || path[0] != '~')
             return path;
 
+        if (path.size() > 1 && path[1] != '/')
+            return path;
+
         std::string res(path);
         return res.replace(0, 1, home_directory());
     }
@@ -172,7 +175,7 @@ namespace platform {
             return path;
 
         const char* patch_dir = "";
-        if (cnv && cnv->gl_env) {
+        if (cnv && (cnv->gl_owner || cnv->gl_env)) {
             patch_dir = canvas_getdir(cnv)->s_name;
         }
 
@@ -257,6 +260,35 @@ namespace platform {
         full_path += '/';
         full_path += filename;
         return full_path;
+    }
+
+    std::string make_abs_filepath_with_canvas(_glist* cnv, const std::string& path)
+    {
+        if (path.empty() || path == "~" || path == "~/")
+            return std::string();
+
+        std::string p = expand_tilde_path(path);
+        if (!is_path_relative(p.c_str()))
+            return p;
+
+        if (cnv) {
+            if (cnv && (cnv->gl_owner || cnv->gl_env)) {
+                auto patch_dir = canvas_getdir(cnv);
+                if (patch_dir && patch_dir->s_name) {
+                    std::string dir(patch_dir->s_name);
+                    dir += '/';
+                    dir += p;
+                    return dir;
+                }
+            }
+        }
+
+        return pd_user_directory() + "/" + p;
+    }
+
+    std::string pd_user_directory()
+    {
+        return home_directory() + "/Documents/Pd";
     }
 }
 }

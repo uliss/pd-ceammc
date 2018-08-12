@@ -12,12 +12,12 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../system/system_getenv.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "catch.hpp"
 
 #include <stdio.h>
 
-typedef TestExtension<SystemGetEnv> SystemGetEnvTest;
+typedef TestExternal<SystemGetEnv> SystemGetEnvTest;
 
 TEST_CASE("system.getenv", "[externals]")
 {
@@ -27,7 +27,7 @@ TEST_CASE("system.getenv", "[externals]")
     {
         SECTION("empty arguments")
         {
-            SystemGetEnvTest t("system.getenv", AtomList());
+            SystemGetEnvTest t("system.getenv", L());
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
 
@@ -40,7 +40,7 @@ TEST_CASE("system.getenv", "[externals]")
 
         SECTION("symbol")
         {
-            SystemGetEnvTest t("system.getenv", L1("HOME"));
+            SystemGetEnvTest t("system.getenv", LA("HOME"));
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
 

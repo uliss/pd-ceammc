@@ -33,6 +33,8 @@
         <methods>
             <method name="clear">clear specified preset 
             <param type="int" name="IDX" required="true" minvalue="0">preset index</param></method>
+            <method name="load">loads specified preset 
+            <param type="int" name="IDX" required="true">preset index</param></method>
             <method name="store">stores specified preset 
             <param type="int" name="IDX" required="true">preset index</param></method>
             <method name="read">read presets from file 

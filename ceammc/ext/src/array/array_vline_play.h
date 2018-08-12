@@ -15,6 +15,7 @@
 #define ARRAY_VLINE_PLAY_H
 
 #include "array_base.h"
+#include "ceammc_clock.h"
 
 #include <boost/optional.hpp>
 
@@ -30,9 +31,13 @@ class ArrayVlinePlay : public ArrayBase {
     long begin_pos_;
     long end_pos_;
     float speed_;
+    BoolProperty* reversed_;
+    ClockMemberFunction<ArrayVlinePlay> clock_;
 
 public:
     ArrayVlinePlay(const PdArgs& args);
+
+    bool processAnyProps(t_symbol* s, const AtomList& args) override;
 
     AtomList propState() const;
     AtomList propSpeed() const;
@@ -44,7 +49,8 @@ public:
     AtomList propAbsBeginSample() const;
     AtomList propAbsEndSample() const;
 
-    void onFloat(t_float f);
+    void onBang() override;
+    void onFloat(t_float f) override;
 
 public:
     void m_play(t_symbol* s, const AtomList& lst);
@@ -55,6 +61,7 @@ private:
     size_t secToAbsPosition(t_float t);
     size_t toAbsPosition(long pos) const;
     SamplePos unitToAbsPosition(t_float v, t_symbol* unit);
+    void timeElapsed();
 
     void output();
 };

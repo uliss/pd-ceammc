@@ -12,13 +12,13 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../flow/flow_less.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "catch.hpp"
 #include "ceammc_pd.h"
 
 #include <stdio.h>
 
-typedef TestExtension<FlowLess> FlowLessTest;
+typedef TestExternal<FlowLess> FlowLessTest;
 
 static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
 
@@ -42,7 +42,7 @@ TEST_CASE("flow.less", "[externals]")
 
         SECTION("single")
         {
-            FlowLessTest t("flow.less", L1(1));
+            FlowLessTest t("flow.less", LF(1));
             REQUIRE(t.numOutlets() == 2);
 
             WHEN_SEND_FLOAT_TO(0, t, -100);
@@ -57,7 +57,7 @@ TEST_CASE("flow.less", "[externals]")
 
         SECTION("multiple")
         {
-            FlowLessTest t("flow.less", L3(-10, 1, 10)); // [. -10 . 1 . 10 .]
+            FlowLessTest t("flow.less", LF(-10, 1, 10)); // [. -10 . 1 . 10 .]
             REQUIRE(t.numOutlets() == 4);
 
             // 1st outlet

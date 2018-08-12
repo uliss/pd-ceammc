@@ -507,11 +507,13 @@ class echo : public dsp {
 	
 	FAUSTFLOAT fCheckbox0;
 	FAUSTFLOAT fHslider0;
-	float fRec1[2];
+	float fRec0[2];
+	FAUSTFLOAT fHslider1;
+	float fRec2[2];
 	int fSamplingFreq;
 	float fConst0;
 	float fConst1;
-	FAUSTFLOAT fHslider1;
+	FAUSTFLOAT fHslider2;
 	int iConst2;
 	int iConst3;
 	int iConst4;
@@ -519,7 +521,7 @@ class echo : public dsp {
 	int iConst6;
 	int iConst7;
 	int IOTA;
-	float fRec0[2097152];
+	float fRec1[2097152];
 	
  public:
 	
@@ -605,19 +607,24 @@ class echo : public dsp {
 	
 	virtual void instanceResetUserInterface() {
 		fCheckbox0 = FAUSTFLOAT(0.0f);
-		fHslider0 = FAUSTFLOAT(0.29999999999999999f);
-		fHslider1 = FAUSTFLOAT(500.0f);
+		fHslider0 = FAUSTFLOAT(1.0f);
+		fHslider1 = FAUSTFLOAT(0.29999999999999999f);
+		fHslider2 = FAUSTFLOAT(500.0f);
 		
 	}
 	
 	virtual void instanceClear() {
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
-			fRec1[l0] = 0.0f;
+			fRec0[l0] = 0.0f;
+			
+		}
+		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
+			fRec2[l1] = 0.0f;
 			
 		}
 		IOTA = 0;
-		for (int l1 = 0; (l1 < 2097152); l1 = (l1 + 1)) {
-			fRec0[l1] = 0.0f;
+		for (int l2 = 0; (l2 < 2097152); l2 = (l2 + 1)) {
+			fRec1[l2] = 0.0f;
 			
 		}
 		
@@ -644,8 +651,10 @@ class echo : public dsp {
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("echo");
 		ui_interface->addCheckButton("bypass", &fCheckbox0);
-		ui_interface->addHorizontalSlider("feedback", &fHslider0, 0.300000012f, 0.0f, 0.800000012f, 0.00100000005f);
-		ui_interface->addHorizontalSlider("time", &fHslider1, 500.0f, 10.0f, 10000.0f, 1.0f);
+		ui_interface->declare(&fHslider0, "style", "knob");
+		ui_interface->addHorizontalSlider("drywet", &fHslider0, 1.0f, 0.0f, 1.0f, 0.00999999978f);
+		ui_interface->addHorizontalSlider("feedback", &fHslider1, 0.300000012f, 0.0f, 0.800000012f, 0.00100000005f);
+		ui_interface->addHorizontalSlider("time", &fHslider2, 500.0f, 10.0f, 10000.0f, 1.0f);
 		ui_interface->closeBox();
 		
 	}
@@ -655,20 +664,24 @@ class echo : public dsp {
 		FAUSTFLOAT* output0 = outputs[0];
 		int iSlow0 = int(float(fCheckbox0));
 		float fSlow1 = (0.00100000005f * float(fHslider0));
-		float fSlow2 = (fConst1 * min(10000.0f, max(10.0f, float(fHslider1))));
-		float fSlow3 = (fSlow2 + 4.99999987e-06f);
-		float fSlow4 = floorf(fSlow3);
-		float fSlow5 = (0.0f - (fSlow2 + (-1.0f - fSlow4)));
-		int iSlow6 = int(fSlow3);
-		int iSlow7 = (min(iConst7, max(0, iSlow6)) + 1);
-		float fSlow8 = (fSlow2 - fSlow4);
-		int iSlow9 = (min(iConst7, max(0, (iSlow6 + 1))) + 1);
+		float fSlow2 = (0.00100000005f * float(fHslider1));
+		float fSlow3 = (fConst1 * min(10000.0f, max(10.0f, float(fHslider2))));
+		float fSlow4 = (fSlow3 + 4.99999987e-06f);
+		float fSlow5 = floorf(fSlow4);
+		float fSlow6 = (0.0f - (fSlow3 + (-1.0f - fSlow5)));
+		int iSlow7 = int(fSlow4);
+		int iSlow8 = (min(iConst7, max(0, iSlow7)) + 1);
+		float fSlow9 = (fSlow3 - fSlow5);
+		int iSlow10 = (min(iConst7, max(0, (iSlow7 + 1))) + 1);
 		for (int i = 0; (i < count); i = (i + 1)) {
+			fRec0[0] = (fSlow1 + (0.999000013f * fRec0[1]));
 			float fTemp0 = float(input0[i]);
-			fRec1[0] = (fSlow1 + (0.999000013f * fRec1[1]));
-			fRec0[(IOTA & 2097151)] = ((iSlow0?0.0f:fTemp0) + (fRec1[0] * ((fSlow5 * fRec0[((IOTA - iSlow7) & 2097151)]) + (fSlow8 * fRec0[((IOTA - iSlow9) & 2097151)]))));
-			output0[i] = FAUSTFLOAT((iSlow0?fTemp0:fRec0[((IOTA - 0) & 2097151)]));
-			fRec1[1] = fRec1[0];
+			float fTemp1 = (iSlow0?0.0f:fTemp0);
+			fRec2[0] = (fSlow2 + (0.999000013f * fRec2[1]));
+			fRec1[(IOTA & 2097151)] = ((fRec2[0] * ((fSlow6 * fRec1[((IOTA - iSlow8) & 2097151)]) + (fSlow9 * fRec1[((IOTA - iSlow10) & 2097151)]))) + fTemp1);
+			output0[i] = FAUSTFLOAT((iSlow0?fTemp0:(((1.0f - fRec0[0]) * fTemp1) + (fRec0[0] * fRec1[((IOTA - 0) & 2097151)]))));
+			fRec0[1] = fRec0[0];
+			fRec2[1] = fRec2[0];
 			IOTA = (IOTA + 1);
 			
 		}
@@ -690,6 +703,10 @@ static t_class* echo_faust_class;
 #define FAUST_EXT_CLASS echo_faust_class
 // clang-format on
 
+template<class T>
+class _echo_UI : public UI {};
+typedef _echo_UI<echo> echo_UI;
+
 struct t_faust_echo {
     t_object x_obj;
 #ifdef __MINGW32__
@@ -698,7 +715,7 @@ struct t_faust_echo {
     int fence; /* dummy field (not used) */
 #endif
     echo* dsp;
-    PdUI<UI>* ui;
+    PdUI<echo_UI>* ui;
     int active, xfade, n_xfade, rate, n_in, n_out;
     t_sample **inputs, **outputs, **buf;
     t_outlet* out;
@@ -781,7 +798,7 @@ static void echo_faust_dsp(t_faust_echo* x, t_signal** sp)
 
     if (x->rate <= 0) {
         /* default sample rate is whatever Pd tells us */
-        PdUI<UI>* ui = x->ui;
+        PdUI<echo_UI>* ui = x->ui;
         std::vector<FAUSTFLOAT> z = ui->uiValues();
         /* set the proper sample rate; this requires reinitializing the dsp */
         x->rate = sr;
@@ -836,7 +853,7 @@ static void echo_faust_any(t_faust_echo* x, t_symbol* s, int argc, t_atom* argv)
     if (!x->dsp)
         return;
 
-    PdUI<UI>* ui = x->ui;
+    PdUI<echo_UI>* ui = x->ui;
     if (s == &s_bang) {
         ui->dumpUI(x->out);
     } else if (isGetAllProperties(s)) {
@@ -996,7 +1013,7 @@ static bool faust_new_internal(t_faust_echo* x, const std::string& objId = "", b
     x->n_xfade = static_cast<int>(sr * XFADE_TIME / 64);
 
     x->dsp = new echo();
-    x->ui = new PdUI<UI>(sym(echo), objId);
+    x->ui = new PdUI<echo_UI>(sym(echo), objId);
 
     if (!faust_init_inputs(x)) {
         echo_faust_free(x);

@@ -13,12 +13,14 @@ set(BASE_SOURCES
     canvas_top.cpp
     metro_pattern.cpp
     metro_seq.cpp
+    radio.cpp
     replace.cpp)
 
 # predicates
 list(APPEND BASE_SOURCES
     is_any.cpp
     is_bang.cpp
+    is_data.cpp
     is_even.cpp
     is_float.cpp
     is_file.cpp
@@ -35,7 +37,11 @@ list(APPEND BASE_SOURCES
 # sound
 list(APPEND BASE_SOURCES
     base_click.cpp
-    gain.cpp)
+    gain.cpp
+    matrix.cpp
+    mix.cpp
+    xfade_tilde.cpp
+    xfade2_tilde.cpp)
 
 if(TARGET ceammc_sound)
     add_definitions(-DWITH_SND_FILE)

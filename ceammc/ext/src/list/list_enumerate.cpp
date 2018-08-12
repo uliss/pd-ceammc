@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_enumerate.h"
+#include "../data/datatype_mlist.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
 
@@ -34,7 +35,13 @@ void ListEnumerate::onList(const AtomList& l)
     listTo(0, list::enumerate(l, from_->value(), append_->value() ? list::APPEND : list::PREPEND));
 }
 
-extern "C" void setup_list0x2eenumerate()
+void ListEnumerate::onDataT(const DataTypeMList& lst)
+{
+    onList(lst.toList());
+}
+
+void setup_list_enumerate()
 {
     ObjectFactory<ListEnumerate> obj("list.enumerate");
+    obj.processData<DataTypeMList>();
 }

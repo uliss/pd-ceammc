@@ -21,11 +21,13 @@
             <par>Works with data atoms</par>
         </info>
         <properties>
-            <property name="@index" type="int" default="0" minvalue="0">insert element index</property>
+            <property name="@index" type="int" default="0" minvalue="0">insert element
+            index</property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="list">input list</xinfo>
+                <xinfo on="data:mlist">input mlist</xinfo>
             </inlet>
             <inlet>
                 <xinfo on="list">set inserted atom or list</xinfo>
@@ -35,7 +37,7 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output result list</outlet>
+            <outlet>output result list or mlist</outlet>
         </outlets>
         <example>
             <pdascii>

@@ -60,6 +60,7 @@ ceammc_mathxx_external(div)
 ceammc_mathxx_external(and)
 ceammc_mathxx_external(or)
 ceammc_mathxx_external(prime)
+ceammc_mathxx_external(polyeval)
 
 ceammc_mathxx_external(round_tilde)
 
@@ -67,9 +68,6 @@ add_library(ceammc_math STATIC mod_math.h mod_math.cpp ${MATH_SOURCES})
 if(UNIX)
     set_target_properties(ceammc_math PROPERTIES COMPILE_FLAGS "-fPIC")
 endif()
-
-find_package(BISON)
-find_package(FLEX)
 
 if(BISON_FOUND AND FLEX_FOUND)
     add_custom_target(math_expr_gen

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="mix~">
+        <title>mix~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>multislot signal mixer</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>base</category>
+            <keywords>mix amplitude decibell</keywords>
+            <since>0.6</since>
+        </meta>
+        <arguments>
+            <argument name="N" type="int" minvalue="2" maxvalue="16">number of inputs</argument>
+        </arguments>
+        <methods>
+            <method name="mute">mute specified channel 
+            <param name="CH" type="int" minvalue="0" required="true">channel index (from 0)</param>
+            <param name="VAL" type="int" enum="0 1" required="true">1 - mute, 0 -
+            unmute</param></method>
+            <method name="solo">solo (mute all others that not solo) specified channel 
+            <param name="CH" type="int" minvalue="0" required="true">channel index (from 0)</param>
+            <param name="VAL" type="int" enum="0 1">1 - enable solo, 0 - disable
+            solo</param></method>
+        </methods>
+        <properties>
+            <property name="@xfade_time" type="float" minvalue="1" default="20"
+            units="millisecond">smooth time</property>
+            <property name="@value" type="list" minvalue="0">gain amplitude values</property>
+            <property name="@mute" type="list" enum="0 1">mute channel list</property>
+            <property name="@solo" type="list" enum="0 1">solo channel list</property>
+        </properties>
+        <inlets dynamic="true">
+            <inlet number="1" type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+            <inlet number="..." type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+            <inlet number="n" type="audio">
+                <xinfo on="float">input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output mixed signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.sliders @count=4]     [ui.dsp~]
+|
+|
+|
+|
+|
+|                                              [T]
+|                                              |
+|  [osc~ 200] [osc~ 400] [osc~ 600] [osc~ 800] [mute 0 $1(
+|  |          |.         |..        |...       |
+[mix~ 4                                        ]
+|
+[ui.gain~ @size 120 16]
+|\
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

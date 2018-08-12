@@ -47,15 +47,6 @@ void ceammc_atoms_map_float_to_outlet(t_outlet* o, t_symbol* s, int n, t_atom* a
     ceammc_atoms_free(lst, n);
 }
 
-t_float ceammc_atoms_reduce_float(size_t n, t_atom* a, t_float init, ceammc_float_binary_func func)
-{
-    t_float accum = init;
-    for (size_t i = 0; i < n; i++) {
-        accum = func(accum, atom_getfloat(&a[i]));
-    }
-    return accum;
-}
-
 int ceammc_atoms_compare(const t_atom* a1, const t_atom* a2)
 {
     if (a1->a_type == a2->a_type) {
@@ -105,11 +96,6 @@ void output_atom(t_outlet* out, t_atom* atom)
     }
 }
 
-int ceammc_atoms_equal(const t_atom* a1, const t_atom* a2)
-{
-    return ceammc_atoms_compare(a1, a2) == 0 ? 1 : 0;
-}
-
 size_t ceammc_memory_size()
 {
     return getMemorySize();
@@ -123,18 +109,4 @@ size_t ceammc_memory_current_rss()
 size_t ceammc_memory_peak_rss()
 {
     return getPeakRSS();
-}
-
-int ceammc_floats_equal(float a, float b)
-{
-    // Calculate the difference.
-    float diff = fabs(a - b);
-    a = fabs(a);
-    b = fabs(b);
-    // Find the largest
-    float largest = (b > a) ? b : a;
-
-    if (diff <= largest * FLT_EPSILON)
-        return 1;
-    return 0;
 }

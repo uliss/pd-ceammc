@@ -5,6 +5,8 @@
 
 using namespace ceammc;
 
+class DataTypeMList;
+
 class ListRoute : public BaseObject {
     FlagProperty* trim_;
     FlagProperty* as_any_;
@@ -15,6 +17,7 @@ public:
     void onFloat(t_float f);
     void onSymbol(t_symbol* s);
     void onList(const AtomList& lst);
+    void onDataT(const DataTypeMList& lst);
 
     int outletIndex(const Atom& a) const;
 

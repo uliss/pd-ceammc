@@ -28,9 +28,17 @@ set(DOC_FILES
     conv.sec2str
     conv.str2sec
     data.fifo
+    data.float
+    data.dict
+    data.int
     data.list
+    data.mlist
     data.set
     data.set2list
+    dict.contains
+    dict.keys
+    dict.size
+    dict.values
     dyn.comp2~
     dyn.comp~
     dyn.gate2~
@@ -51,6 +59,7 @@ set(DOC_FILES
     env.smooth~
     env2array
     env2vline
+    vline2env
     expand_env
     flow.append
     flow.change
@@ -60,11 +69,18 @@ set(DOC_FILES
     flow.less
     flow.less_eq
     flow.demultiplex
+    flow.demultiplex~
+    flow.demultiplex2~
+    flow.interval
     flow.multiplex
+    flow.multiplex~
+    flow.multiplex2~
+    flow.once
     flow.pass
     flow.pass_if
     flow.reject
     flow.reject_if
+    flow.route
     flow.speedlim
     flow.split
     flow.sync
@@ -110,11 +126,15 @@ set(DOC_FILES
     fx.wahwah~
     gain~
     global.float
+    global.dict
     global.int
     global.list
+    global.mlist
+    global.set
     hw.arduino
     is_any
     is_bang
+    is_data
     is_even
     is_file
     is_float
@@ -126,6 +146,9 @@ set(DOC_FILES
     lfo.square~
     lfo.tri~
     lfo.pulse~
+    list.^at
+    list.^contains
+    list.^search
     list.all_of
     list.any_of
     list.append
@@ -135,7 +158,6 @@ set(DOC_FILES
     list.contains
     list.count
     list.count_if
-    list.deinterleave
     list.delta
     list.distribution
     list.do
@@ -144,11 +166,9 @@ set(DOC_FILES
     list.equal
     list.first
     list.gen
-    list.index
     list.histogram
     list.insert
     list.integrator
-    list.interleave
     list.last
     list.length
     list.max
@@ -161,31 +181,40 @@ set(DOC_FILES
     list.product
     list.range
     list.reduce
+    list.remove
     list.remove_if
     list.repack
     list.repeat
     list.resize
     list.reverse
+    list.rldecode
+    list.rlencode
     list.rotate
     list.route
     list.search
     list.separate
+    list.set
     list.seq
+    list.shift
     list.shuffle
     list.slice
     list.sort
     list.sort_with
     list.split
+    list.stretch
     list.sum
     list.unique
     list.unpack
-    list.unwrap
+    list.unzip
     list.walk
-    list.wrap
+    list.zip
     live.capture~
     local.float
+    local.dict
     local.int
     local.list
+    local.mlist
+    local.set
     math.abs
     math.acos
     math.acosh
@@ -216,6 +245,7 @@ set(DOC_FILES
     math.neg
     math.or
     math.pi
+    math.polyeval
     math.reciprocal
     math.round
     math.round~
@@ -227,6 +257,7 @@ set(DOC_FILES
     math.tan
     math.tanh
     math.trunc
+    matrix~
     metro.pattern
     metro.seq
     midi.ctl2str
@@ -237,6 +268,8 @@ set(DOC_FILES
     midi.event2prg
     midi.prg2str
     midi.key2str
+    mix~
+    mlist.flatten
     modplug~
     msg
     noise.crackle~
@@ -244,6 +277,7 @@ set(DOC_FILES
     noise.white~
     noise.lfreq~
     noise.lfreq0~
+    osc.blit~
     osc.impulse~
     osc.pulse~
     osc.saw~
@@ -267,6 +301,7 @@ set(DOC_FILES
     prop.get
     prop.get~
     prop.set
+    radio
     random.float
     random.gauss
     random.int
@@ -324,6 +359,7 @@ set(DOC_FILES
     tl.bang
     tl.cue
     tl.transport
+    ui.aview
     ui.bang
     ui.colorpanel
     ui.display
@@ -356,4 +392,6 @@ set(DOC_FILES
     vector.length
     vector.normalize
     window
+    xfade~
+    xfade2~
 )

@@ -27,7 +27,8 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="list">Input list</xinfo>
+                <xinfo on="list">input list</xinfo>
+                <xinfo on="data:mlist">input mlist</xinfo>
             </inlet>
         </inlets>
         <outlets>

@@ -24,6 +24,7 @@
         <inlets>
             <inlet>
                 <xinfo on="list">Input list</xinfo>
+                <xinfo on="data">Input mlist</xinfo>
             </inlet>
         </inlets>
         <outlets>

@@ -23,6 +23,10 @@
             address format - ROW COL.</par>
             <par>On click outputs message with format [cell ROW COL VALUE(</par>
         </info>
+        <arguments>
+            <argument name="ROW" type="int" minvalue="1" maxvalue="256">matrix rows</argument>
+            <argument name="COL" type="int" minvalue="1" maxvalue="256">matrix columns</argument>
+        </arguments>
         <properties>
             <property name="@rows" type="int" minvalue="1">number of matrix rows</property>
             <property name="@cols" type="int" minvalue="1">number of matrix columns</property>

@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../ui/ui_tab.h"
-#include "ui_external_test.h"
+#include "test_ui.h"
 
 UI_COMPLETE_TEST_SETUP(Tab)
 
@@ -30,14 +30,14 @@ TEST_CASE("ui.tab", "[ui.tab]")
 
         SECTION("raw items")
         {
-            TestTab t("ui.tab", L3("a", "b", 10));
-            REQUIRE_UI_LIST_PROPERTY(t, "items", L3("a", "b", 10));
+            TestTab t("ui.tab", LA("a", "b", 10));
+            REQUIRE_UI_LIST_PROPERTY(t, "items", LA("a", "b", 10));
         }
 
         SECTION("@items property")
         {
-            TestTab t("ui.tab", L4("@items", "a", "b", 10));
-            REQUIRE_UI_LIST_PROPERTY(t, "items", L3("a", "b", 10));
+            TestTab t("ui.tab", LA("@items", "a", "b", 10));
+            REQUIRE_UI_LIST_PROPERTY(t, "items", LA("a", "b", 10));
         }
     }
 
@@ -52,13 +52,13 @@ TEST_CASE("ui.tab", "[ui.tab]")
 
         SECTION("items")
         {
-            TestExtTab t("ui.tab", L2(1, 2));
-            t->setProperty(gensym("send"), L1("r1"));
+            TestExtTab t("ui.tab", LF(1, 2));
+            t->setProperty(gensym("send"), LA("r1"));
             t.addListener("r1");
 
             t << BANG;
             REQUIRE_NO_OUTPUT(t);
-            REQUIRE_UI_LIST_PROPERTY(t, "size", L2(100, 15));
+            REQUIRE_UI_LIST_PROPERTY(t, "size", LF(100, 15));
             REQUIRE_NONE_WAS_SEND(t, "r1");
 
             t.mouseDown(25, 10);
@@ -91,70 +91,70 @@ TEST_CASE("ui.tab", "[ui.tab]")
     {
         SECTION("single")
         {
-            TestExtTab t("ui.tab", L2("A", "B"));
+            TestExtTab t("ui.tab", LA("A", "B"));
             t << BANG;
             REQUIRE_NO_OUTPUT(t);
 
             t.mouseDown(25, 8);
             t << BANG;
             REQUIRE_OUTPUT_FLOAT(t, 0, 0);
-            REQUIRE_UI_LIST_PROPERTY(t, "selected", L2(1, 0.f));
+            REQUIRE_UI_LIST_PROPERTY(t, "selected", LA(1, 0.f));
 
             t.mouseDown(75, 8);
             t << BANG;
             REQUIRE_OUTPUT_FLOAT(t, 0, 1);
-            REQUIRE_UI_LIST_PROPERTY(t, "selected", L2(0.f, 1));
+            REQUIRE_UI_LIST_PROPERTY(t, "selected", LA(0.f, 1));
 
-            t <<= L2("select", 0.f);
+            t <<= LA("select", 0.f);
             REQUIRE_NO_OUTPUT(t);
-            REQUIRE_UI_LIST_PROPERTY(t, "selected", L2(1, 0.f));
+            REQUIRE_UI_LIST_PROPERTY(t, "selected", LA(1, 0.f));
 
-            t <<= L2("select", 1);
+            t <<= LA("select", 1);
             REQUIRE_NO_OUTPUT(t);
-            REQUIRE_UI_LIST_PROPERTY(t, "selected", L2(0.f, 1));
+            REQUIRE_UI_LIST_PROPERTY(t, "selected", LA(0.f, 1));
 
-            t <<= L2("select", -1);
+            t <<= LA("select", -1);
             REQUIRE_NO_OUTPUT(t);
-            REQUIRE_UI_LIST_PROPERTY(t, "selected", L2(0.f, 1));
+            REQUIRE_UI_LIST_PROPERTY(t, "selected", LA(0.f, 1));
 
-            t <<= L2("select", 2);
-            REQUIRE_UI_LIST_PROPERTY(t, "selected", L2(0.f, 1));
+            t <<= LA("select", 2);
+            REQUIRE_UI_LIST_PROPERTY(t, "selected", LA(0.f, 1));
 
-            t <<= L2("select", "A");
-            REQUIRE_UI_LIST_PROPERTY(t, "selected", L2(1, 0.f));
+            t <<= LA("select", "A");
+            REQUIRE_UI_LIST_PROPERTY(t, "selected", LA(1, 0.f));
 
-            t <<= L2("select", "B");
-            REQUIRE_UI_LIST_PROPERTY(t, "selected", L2(0.f, 1.0));
+            t <<= LA("select", "B");
+            REQUIRE_UI_LIST_PROPERTY(t, "selected", LA(0.f, 1.0));
         }
 
         SECTION("toggle")
         {
-            TestExtTab t("ui.tab", L5("@toggle", 1, "@items", "A", "B"));
+            TestExtTab t("ui.tab", LA("@toggle", 1, "@items", "A", "B"));
             t << BANG;
-            REQUIRE_OUTPUT_ANY(t, 0, L3("@selected", 0.f, 0.f));
+            REQUIRE_OUTPUT_ANY(t, 0, LA("@selected", 0.f, 0.f));
 
             t.mouseDown(25, 8);
             t << BANG;
-            REQUIRE_OUTPUT_LIST(t, 0, L2(0.f, 1));
-            REQUIRE_UI_LIST_PROPERTY(t, "selected", L2(1, 0.f));
+            REQUIRE_OUTPUT_LIST(t, 0, LA(0.f, 1));
+            REQUIRE_UI_LIST_PROPERTY(t, "selected", LA(1, 0.f));
 
             t.mouseDown(75, 8);
             t << BANG;
-            REQUIRE_OUTPUT_LIST(t, 0, L2(1, 1));
-            REQUIRE_UI_LIST_PROPERTY(t, "selected", L2(1, 1));
+            REQUIRE_OUTPUT_LIST(t, 0, LF(1, 1));
+            REQUIRE_UI_LIST_PROPERTY(t, "selected", LF(1, 1));
 
             t.mouseDown(25, 8);
             t << BANG;
-            REQUIRE_OUTPUT_LIST(t, 0, L2(0.f, 0.f));
-            REQUIRE_UI_LIST_PROPERTY(t, "selected", L2(0.f, 1));
+            REQUIRE_OUTPUT_LIST(t, 0, LF(0.f, 0.f));
+            REQUIRE_UI_LIST_PROPERTY(t, "selected", LA(0.f, 1));
 
             t.mouseDown(75, 8);
             t << BANG;
-            REQUIRE_OUTPUT_LIST(t, 0, L2(1, 0.f));
-            REQUIRE_UI_LIST_PROPERTY(t, "selected", L2(0.f, 0.f));
+            REQUIRE_OUTPUT_LIST(t, 0, LA(1, 0.f));
+            REQUIRE_UI_LIST_PROPERTY(t, "selected", LF(0.f, 0.f));
 
-            REQUIRE_UI_LIST_PROPERTY(t, "items", L2("A", "B"));
-            t <<= L1("clear");
+            REQUIRE_UI_LIST_PROPERTY(t, "items", LA("A", "B"));
+            t <<= LA("clear");
             REQUIRE(!t->hasProperty(gensym("@items")));
         }
     }
@@ -163,77 +163,77 @@ TEST_CASE("ui.tab", "[ui.tab]")
     {
         SECTION("single")
         {
-            TestExtTab t("ui.tab", L3("@items", "A", "B"));
+            TestExtTab t("ui.tab", LA("@items", "A", "B"));
             t << 1;
-            REQUIRE_UI_LIST_PROPERTY(t, "selected", L2(0.f, 1));
+            REQUIRE_UI_LIST_PROPERTY(t, "selected", LA(0.f, 1));
 
             t->storePreset(0);
             t << 0.f;
             t->storePreset(1);
 
             t->loadPreset(0);
-            REQUIRE_UI_LIST_PROPERTY(t, "selected", L2(0.f, 1));
+            REQUIRE_UI_LIST_PROPERTY(t, "selected", LA(0.f, 1));
             t->loadPreset(1);
-            REQUIRE_UI_LIST_PROPERTY(t, "selected", L2(1, 0.f));
+            REQUIRE_UI_LIST_PROPERTY(t, "selected", LA(1, 0.f));
             t->loadPreset(2);
-            REQUIRE_UI_LIST_PROPERTY(t, "selected", L2(1, 0.f));
+            REQUIRE_UI_LIST_PROPERTY(t, "selected", LA(1, 0.f));
         }
     }
 
     SECTION("append")
     {
         TestExtTab t("ui.tab");
-        t <<= L3("append", "A", "B");
+        t <<= LA("append", "A", "B");
         REQUIRE_NO_OUTPUT(t);
-        REQUIRE_UI_LIST_PROPERTY(t, "items", L2("A", "B"));
+        REQUIRE_UI_LIST_PROPERTY(t, "items", LA("A", "B"));
 
-        t <<= L3("append", "C", "D");
+        t <<= LA("append", "C", "D");
         REQUIRE_NO_OUTPUT(t);
-        REQUIRE_UI_LIST_PROPERTY(t, "items", L4("A", "B", "C", "D"));
+        REQUIRE_UI_LIST_PROPERTY(t, "items", LA("A", "B", "C", "D"));
     }
 
     SECTION("set_item")
     {
         TestExtTab t("ui.tab");
-        t <<= L3("append", "A", "B");
+        t <<= LA("append", "A", "B");
 
-        t <<= L3("set_item", -1, "D");
+        t <<= LA("set_item", -1, "D");
         REQUIRE_NO_OUTPUT(t);
-        REQUIRE_UI_LIST_PROPERTY(t, "items", L2("A", "B"));
+        REQUIRE_UI_LIST_PROPERTY(t, "items", LA("A", "B"));
 
-        t <<= L3("set_item", 2, "D");
+        t <<= LA("set_item", 2, "D");
         REQUIRE_NO_OUTPUT(t);
-        REQUIRE_UI_LIST_PROPERTY(t, "items", L2("A", "B"));
+        REQUIRE_UI_LIST_PROPERTY(t, "items", LA("A", "B"));
 
-        t <<= L3("set_item", "INVALID_INDEX", "D");
+        t <<= LA("set_item", "INVALID_INDEX", "D");
         REQUIRE_NO_OUTPUT(t);
-        REQUIRE_UI_LIST_PROPERTY(t, "items", L2("A", "B"));
+        REQUIRE_UI_LIST_PROPERTY(t, "items", LA("A", "B"));
 
-        t <<= L3("set_item", 1, "D");
+        t <<= LA("set_item", 1, "D");
         REQUIRE_NO_OUTPUT(t);
-        REQUIRE_UI_LIST_PROPERTY(t, "items", L2("A", "D"));
+        REQUIRE_UI_LIST_PROPERTY(t, "items", LA("A", "D"));
 
-        t <<= L3("set_item", 0.f, "E");
+        t <<= LA("set_item", 0.f, "E");
         REQUIRE_NO_OUTPUT(t);
-        REQUIRE_UI_LIST_PROPERTY(t, "items", L2("E", "D"));
+        REQUIRE_UI_LIST_PROPERTY(t, "items", LA("E", "D"));
     }
 
     SECTION("delete")
     {
         TestExtTab t("ui.tab");
-        t <<= L2("delete", 0.f);
+        t <<= LA("delete", 0.f);
         REQUIRE_NO_OUTPUT(t);
 
-        t <<= L3("append", "A", "B");
-        t <<= L2("delete", 0.f);
-        REQUIRE_UI_LIST_PROPERTY(t, "items", L1("B"));
+        t <<= LA("append", "A", "B");
+        t <<= LA("delete", 0.f);
+        REQUIRE_UI_LIST_PROPERTY(t, "items", LA("B"));
 
-        t <<= L2("delete", -1);
-        REQUIRE_UI_LIST_PROPERTY(t, "items", L1("B"));
-        t <<= L2("delete", 1);
-        REQUIRE_UI_LIST_PROPERTY(t, "items", L1("B"));
+        t <<= LA("delete", -1);
+        REQUIRE_UI_LIST_PROPERTY(t, "items", LA("B"));
+        t <<= LA("delete", 1);
+        REQUIRE_UI_LIST_PROPERTY(t, "items", LA("B"));
 
-        t <<= L2("delete", 0.f);
+        t <<= LA("delete", 0.f);
         REQUIRE(t->hasProperty(gensym("items")));
     }
 
@@ -242,17 +242,17 @@ TEST_CASE("ui.tab", "[ui.tab]")
         TestExtTab t("ui.tab");
 
         // invalid
-        t <<= L1("insert");
-        t <<= L2("insert", -1);
-        t <<= L3("insert", -1, "A");
+        t <<= LA("insert");
+        t <<= LA("insert", -1);
+        t <<= LA("insert", -1, "A");
         REQUIRE_UI_FLOAT_PROPERTY(t, "count", 0);
 
-        t <<= L3("insert", 0.f, "A");
-        REQUIRE_UI_LIST_PROPERTY(t, "items", L1("A"));
+        t <<= LA("insert", 0.f, "A");
+        REQUIRE_UI_LIST_PROPERTY(t, "items", LA("A"));
         REQUIRE_UI_FLOAT_PROPERTY(t, "count", 1);
 
-        t <<= L3("insert", 0.f, "B");
-        REQUIRE_UI_LIST_PROPERTY(t, "items", L2("B", "A"));
+        t <<= LA("insert", 0.f, "B");
+        REQUIRE_UI_LIST_PROPERTY(t, "items", LA("B", "A"));
     }
 
     SECTION("select")
@@ -260,32 +260,32 @@ TEST_CASE("ui.tab", "[ui.tab]")
         SECTION("single")
         {
             TestExtTab t("ui.tab");
-            t << PropertySetter("@items", L4(1, 2, "A", "B"));
-            REQUIRE_UI_LIST_PROPERTY(t, "items", L4(1, 2, "A", "B"));
+            t << PropertySetter("@items", LA(1, 2, "A", "B"));
+            REQUIRE_UI_LIST_PROPERTY(t, "items", LA(1, 2, "A", "B"));
 
             // index
-            t <<= L2("select", 0.f);
+            t <<= LA("select", 0.f);
             REQUIRE_UI_FLOAT_PROPERTY(t, "current", 0);
-            t <<= L2("select", 1);
+            t <<= LA("select", 1);
             REQUIRE_UI_FLOAT_PROPERTY(t, "current", 1);
-            t <<= L2("select", -1);
+            t <<= LA("select", -1);
             REQUIRE_UI_FLOAT_PROPERTY(t, "current", 1);
-            t <<= L2("select", 2);
+            t <<= LA("select", 2);
             REQUIRE_UI_FLOAT_PROPERTY(t, "current", 2);
-            t <<= L2("select", 3);
+            t <<= LA("select", 3);
             REQUIRE_UI_FLOAT_PROPERTY(t, "current", 3);
-            t <<= L2("select", 4);
+            t <<= LA("select", 4);
             REQUIRE_UI_FLOAT_PROPERTY(t, "current", 3);
 
-            t <<= L2("select", "1");
+            t <<= LA("select", "1");
             REQUIRE_UI_FLOAT_PROPERTY(t, "current", 0);
-            t <<= L2("select", "2");
+            t <<= LA("select", "2");
             REQUIRE_UI_FLOAT_PROPERTY(t, "current", 1);
-            t <<= L2("select", "A");
+            t <<= LA("select", "A");
             REQUIRE_UI_FLOAT_PROPERTY(t, "current", 2);
-            t <<= L2("select", "B");
+            t <<= LA("select", "B");
             REQUIRE_UI_FLOAT_PROPERTY(t, "current", 3);
-            t <<= L2("select", "???");
+            t <<= LA("select", "???");
             REQUIRE_UI_FLOAT_PROPERTY(t, "current", 3);
         }
 
@@ -302,7 +302,7 @@ TEST_CASE("ui.tab", "[ui.tab]")
             t << "A";
             REQUIRE_NO_OUTPUT(t);
 
-            t <<= L5("@items", "A", "B", "C", "D");
+            t <<= LA("@items", "A", "B", "C", "D");
 
             t << "A";
             REQUIRE_OUTPUT_FLOAT(t, 0, 0);
@@ -316,27 +316,27 @@ TEST_CASE("ui.tab", "[ui.tab]")
 
         SECTION("toggle")
         {
-            TestExtTab t("ui.tab", L2("@toggle", 1));
+            TestExtTab t("ui.tab", LA("@toggle", 1));
             t << "A";
             REQUIRE_NO_OUTPUT(t);
 
-            t <<= L5("@items", "A", "B", "C", "D");
+            t <<= LA("@items", "A", "B", "C", "D");
 
             t << "A";
-            REQUIRE_OUTPUT_LIST(t, 0, L2(0.f, 1));
+            REQUIRE_OUTPUT_LIST(t, 0, LA(0.f, 1));
             REQUIRE_UI_FLOAT_PROPERTY(t, "current", -1);
 
             t << "A";
-            REQUIRE_OUTPUT_LIST(t, 0, L2(0.f, 0.f));
+            REQUIRE_OUTPUT_LIST(t, 0, LF(0.f, 0.f));
             REQUIRE_UI_FLOAT_PROPERTY(t, "current", -1);
 
             t << "B";
-            REQUIRE_OUTPUT_LIST(t, 0, L2(1, 1));
+            REQUIRE_OUTPUT_LIST(t, 0, LF(1, 1));
             REQUIRE_UI_FLOAT_PROPERTY(t, "current", -1);
 
             t << "D";
-            REQUIRE_OUTPUT_LIST(t, 0, L2(3, 1));
-            REQUIRE_UI_LIST_PROPERTY(t, "selected", L4(0.f, 1, 0.f, 1));
+            REQUIRE_OUTPUT_LIST(t, 0, LF(3, 1));
+            REQUIRE_UI_LIST_PROPERTY(t, "selected", LA(0.f, 1, 0.f, 1));
         }
     }
 }

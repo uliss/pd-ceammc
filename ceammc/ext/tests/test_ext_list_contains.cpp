@@ -11,13 +11,14 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#include "../data/datatype_mlist.h"
 #include "../list/list_contains.h"
-#include "base_extension_test.h"
 #include "catch.hpp"
+#include "test_base.h"
 
 #include <stdio.h>
 
-typedef TestExtension<ListContains> TestListContains;
+typedef TestExternal<ListContains> TestListContains;
 
 TEST_CASE("list.contains", "[externals]")
 {
@@ -39,99 +40,55 @@ TEST_CASE("list.contains", "[externals]")
         REQUIRE_NO_MSG(t);
 
         WHEN_SEND_FLOAT_TO(0, t, 10);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
+        REQUIRE_NO_MSG(t);
 
         WHEN_SEND_SYMBOL_TO(0, t, "a");
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
+        REQUIRE_NO_MSG(t);
 
-        WHEN_SEND_LIST_TO(0, t, L2(1, 2));
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
+        WHEN_SEND_LIST_TO(0, t, LF(1, 2));
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
 
-        WHEN_SEND_DATA_TO(0, t, DataPtr(new IntData(100)));
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
+        WHEN_SEND_TDATA_TO(0, t, DataTypeMList("(a b c)"));
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
     }
 
     SECTION("empty")
     {
-        TestListContains t("list.contains", L4(1, 2, 3, "A"));
+        TestListContains t("list.contains", LF(11));
 
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_NO_MSG(t);
 
         WHEN_SEND_FLOAT_TO(0, t, 10);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
-
-        WHEN_SEND_FLOAT_TO(0, t, 1);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
-
-        WHEN_SEND_FLOAT_TO(0, t, 2);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
-
-        WHEN_SEND_FLOAT_TO(0, t, 3);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+        REQUIRE_NO_MSG(t);
 
         // symbol
         WHEN_SEND_SYMBOL_TO(0, t, "a");
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
-
-        WHEN_SEND_SYMBOL_TO(0, t, "A");
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
-
-        // list
-        WHEN_SEND_LIST_TO(0, t, L2(1, 10));
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
-
-        WHEN_SEND_LIST_TO(0, t, L1(1));
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
-
-        WHEN_SEND_LIST_TO(0, t, L1(2));
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
-
-        WHEN_SEND_LIST_TO(0, t, L1(3));
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
-
-        WHEN_SEND_LIST_TO(0, t, L2(1, 2));
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
-
-        WHEN_SEND_LIST_TO(0, t, L2(2, 3));
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
-
-        WHEN_SEND_LIST_TO(0, t, L2(1, 3));
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
-
-        WHEN_SEND_LIST_TO(0, t, L3(1, 2, 3));
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
-
-        // data
-        WHEN_SEND_DATA_TO(0, t, DataPtr(new IntData(100)));
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
-
-        DataAtom d0(new IntData(1000));
-        DataAtom d1(new StrData("ABC"));
-        AtomList l0(d0.toAtom(), d1.toAtom());
-
-        WHEN_SEND_LIST_TO(1, t, l0);
         REQUIRE_NO_MSG(t);
 
-        WHEN_SEND_FLOAT_TO(0, t, 1);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
-        WHEN_SEND_FLOAT_TO(0, t, 2);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
-        WHEN_SEND_FLOAT_TO(0, t, 3);
+        // list
+        WHEN_SEND_LIST_TO(0, t, LF(1, 11));
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+
+        WHEN_SEND_LIST_TO(0, t, LF(1));
         REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
 
-        WHEN_SEND_DATA_TO(0, t, DataPtr(new IntData(1000)));
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
-        WHEN_SEND_DATA_TO(0, t, DataPtr(new IntData(999)));
+        WHEN_SEND_LIST_TO(0, t, LF(2));
         REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
-        WHEN_SEND_DATA_TO(0, t, DataPtr(new StrData("abc")));
+
+        WHEN_SEND_LIST_TO(0, t, LF(3));
         REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
-        WHEN_SEND_DATA_TO(0, t, DataPtr(new StrData("ABC")));
+
+        // data
+        WHEN_SEND_TDATA_TO(0, t, DataTypeMList("(a b c)"));
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
+
+        WHEN_SEND_TDATA_TO(0, t, DataTypeMList("(2 3 4 11 2 3)"));
         REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
     }
 
     SECTION("inlet 2")
     {
-        TestListContains t("list.contains", L1(2));
+        TestListContains t("list.contains", LF(2));
     }
 }

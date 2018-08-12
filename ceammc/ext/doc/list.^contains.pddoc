@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="list.^contains">
+        <title>list.^contains</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>on input atom or list checks if specified list contains it</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>list</category>
+            <keywords>list predicate any</keywords>
+            <since>0.6</since>
+            <also>
+                <see>list.contains</see>
+                <see>list.all_of</see>
+                <see>list.none_of</see>
+            </also>
+        </meta>
+        <info>
+            <par>Outputs 1 if contains, otherwise 0</par>
+            <par>Different arguments order then in [list.^contains]</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo on="float">checks if given float contains in list</xinfo>
+                <xinfo on="symbol">checks if given symbol contains in list</xinfo>
+                <xinfo on="list">check is given list is subseqence of list</xinfo>
+                <xinfo on="data:mlist">as list</xinfo>
+                <xinfo on="data">checks if given data contains in list</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="list">set haystack list</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>1 on success, otherwise 0</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]  [2 3 4( [4 5 6( [symbol A( [list A B(
+|    |       |       |          |
+|    |       |       |          | [list A B C D(
+|    |       |       |          | |.
+[list.^contains              1 2 3 4 5]
+|
+[T]
+
+/*works with data*/ [loadbang ]
+                    |         |
+[B]       [B]       [str ABC] [str DEF]
+|         |         |         |.
+[str ABC] [str ??]  [list append]
+|         |         |.
+[list.^contains       ]
+|
+[T]
+|
+[B]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

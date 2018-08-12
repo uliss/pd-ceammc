@@ -32,13 +32,17 @@ public:
     AtomList args;
     t_symbol* className;
     t_object* owner;
+    t_symbol* creationName;
+    int flags;
     bool noDefaultInlet;
     bool mainSignalInlet;
 
-    PdArgs(const AtomList& lst, t_symbol* c, t_object* own)
+    PdArgs(const AtomList& lst, t_symbol* c, t_object* own, t_symbol* alias)
         : args(lst)
         , className(c)
         , owner(own)
+        , creationName(alias)
+        , flags(0)
         , noDefaultInlet(false)
         , mainSignalInlet(false)
     {
@@ -86,12 +90,32 @@ public:
     BaseObject(const PdArgs& args);
     virtual ~BaseObject();
 
+    /**
+     * Returns specified position argument (before property list)
+     * @param pos - argument position
+     * @param def - default value, if searched argument not exists
+     */
     Atom positionalArgument(size_t pos, const Atom& def = Atom()) const;
+
+    /**
+     * Same as positionalArgument, but for t_float type
+     */
     t_float positionalFloatArgument(size_t pos, t_float def = 0.f) const;
+
+    /**
+     * Same as positionalArgument, but for t_symbol* type
+     */
     t_symbol* positionalSymbolArgument(size_t pos, t_symbol* def = 0) const;
     inline const AtomList& positionalArguments() const { return positional_args_; }
+
+    /**
+     * Parse initial constructor arguments and extract properties
+     */
     virtual void parseProperties();
 
+    /**
+     * Method args checking
+     */
     bool checkArg(const Atom& atom, ArgumentType type, int pos = -1) const;
     bool checkArgs(const AtomList& lst, ArgumentType a1, t_symbol* method = 0) const;
     bool checkArgs(const AtomList& lst, ArgumentType a1, ArgumentType a2, t_symbol* method = 0) const;
@@ -116,12 +140,12 @@ public:
     /**
      * You should override this functions to react upon arrived messages.
      */
-    virtual void onBang() {}
-    virtual void onFloat(float) {}
-    virtual void onSymbol(t_symbol*) {}
-    virtual void onList(const AtomList&) {}
-    virtual void onData(const DataPtr&) {}
-    virtual void onAny(t_symbol*, const AtomList&) {}
+    virtual void onBang();
+    virtual void onFloat(float);
+    virtual void onSymbol(t_symbol*);
+    virtual void onList(const AtomList&);
+    virtual void onData(const DataPtr&);
+    virtual void onAny(t_symbol* s, const AtomList&);
 
     /**
      * This function called when value come in inlet, except the first one
@@ -230,10 +254,31 @@ public:
     virtual void anyTo(size_t n, t_symbol* s, const Atom& a);
     virtual void anyTo(size_t n, t_symbol* s, const AtomList& l);
 
+    /**
+     * Sends data to specified outlet
+     * @param n - output number
+     * @param d - data pointer
+     */
     virtual void dataTo(size_t n, const DataPtr& d);
 
     virtual bool processAnyInlets(t_symbol* sel, const AtomList& lst);
+
+    /**
+     * Used internally to get/set properties:
+     *  - [@prop?( - output property value
+     *  - [@prop VALUE( - set property value
+     *
+     * @param sel property name
+     * @param lt property value
+     * @return true if property request was successully finished
+     *
+     * @note override this method for custom property processing
+     */
     virtual bool processAnyProps(t_symbol* sel, const AtomList& lst);
+
+    /**
+     * Main dispatcher of *any* messages. (Not bang, symbol, pointer, list or registered method)
+     */
     virtual void anyDispatch(t_symbol* s, const AtomList& lst);
 
     /**

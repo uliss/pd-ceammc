@@ -22,14 +22,29 @@ using namespace ceammc;
 typedef bool (*StepPropertyCheck)(int);
 typedef CheckedProperty<IntProperty, int, StepPropertyCheck> StepProperty;
 
+class DataTypeMList;
+
+enum ListMode {
+    MODE_NORMAL = 0,
+    MODE_MLIST
+};
+
 class ListEach : public BaseObject {
     AtomList mapped_list_;
+    DataTypeMList* mapped_mlist_;
     StepProperty* step_prop_;
+    ListMode mode_;
 
 public:
     ListEach(const PdArgs& a);
-    void onList(const AtomList& l);
-    void onInlet(size_t n, const AtomList& l);
+    ~ListEach();
+
+    void onList(const AtomList& l) override;
+    void onInlet(size_t n, const AtomList& l) override;
+
+    void onDataT(const DataTypeMList& lst);
 };
+
+void setup_list_each();
 
 #endif // LIST_EACH_H

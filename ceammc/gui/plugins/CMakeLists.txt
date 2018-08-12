@@ -9,3 +9,7 @@ list(APPEND GUI_PLUGINS "${CMAKE_CURRENT_SOURCE_DIR}/completion.cfg")
 install(FILES ${GUI_PLUGINS} DESTINATION ${PD_GUI_PLUGINS_PATH}/ceammc)
 
 add_custom_target(gui_plugins SOURCES ${GUI_PLUGINS} check_popup_list.py)
+add_custom_target(popup_gen
+    COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/gen_ceammc_popup_list.py
+    COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/gen_popup_menu.sh
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})

@@ -1,56 +1,57 @@
+#include "list_max.h"
+#include "../data/datatype_mlist.h"
 #include "ceammc_factory.h"
-#include "ceammc_object.h"
 
-using namespace ceammc;
+static t_symbol* SYM_FLOAT = gensym("float");
+static t_symbol* SYM_SYMBOL = gensym("symbol");
+static t_symbol* SYM_ANY = gensym("any");
 
-class ListMax : public BaseObject {
-    SymbolEnumProperty* type_;
-    t_symbol* alias_float_;
-    t_symbol* alias_symbol_;
-    t_symbol* alias_any_;
+ListMax::ListMax(const PdArgs& a)
+    : BaseObject(a)
+    , type_(0)
+{
+    createOutlet();
 
-public:
-    ListMax(const PdArgs& a)
-        : BaseObject(a)
-        , type_(0)
-        , alias_float_(gensym("float"))
-        , alias_symbol_(gensym("symbol"))
-        , alias_any_(gensym("any"))
-    {
-        createOutlet();
+    type_ = new SymbolEnumProperty("@type", "float");
+    type_->appendEnum("symbol");
+    type_->appendEnum("any");
+    createProperty(type_);
 
-        type_ = new SymbolEnumProperty("@type", "float");
-        type_->appendEnum("symbol");
-        type_->appendEnum("any");
-        createProperty(type_);
+    createProperty(new SymbolEnumAlias("@float", type_, SYM_FLOAT));
+    createProperty(new SymbolEnumAlias("@symbol", type_, SYM_SYMBOL));
+    createProperty(new SymbolEnumAlias("@any", type_, SYM_ANY));
+}
 
-        createProperty(new SymbolEnumAlias("@float", type_, alias_float_));
-        createProperty(new SymbolEnumAlias("@symbol", type_, alias_symbol_));
-        createProperty(new SymbolEnumAlias("@any", type_, alias_any_));
-    }
+void ListMax::onList(const AtomList& l)
+{
+    if (l.empty())
+        return;
 
-    void onList(const AtomList& l)
-    {
-        if (l.empty())
-            return;
+    const Atom* max = 0;
 
-        const Atom* max = 0;
+    if (type_->value() == SYM_ANY)
+        max = l.max();
+    else if (type_->value() == SYM_FLOAT)
+        max = l.filtered(isFloat).max();
+    else if (type_->value() == SYM_SYMBOL)
+        max = l.filtered(isSymbol).max();
 
-        if (type_->value() == alias_any_)
-            max = l.max();
-        else if (type_->value() == alias_float_)
-            max = l.filtered(isFloat).max();
-        else if (type_->value() == alias_symbol_)
-            max = l.filtered(isSymbol).max();
+    if (max != 0)
+        atomTo(0, *max);
+}
 
-        if (max != 0)
-            atomTo(0, *max);
-    }
-};
+static bool isComparable(const Atom& a) { return a.isFloat() || a.isSymbol(); }
 
-extern "C" void setup_list0x2emax()
+void ListMax::onDataT(const DataTypeMList& lst)
+{
+    onList(lst.toList().filtered(isComparable));
+}
+
+void setup_list_max()
 {
     ObjectFactory<ListMax> obj("list.max");
     obj.mapFloatToList();
     obj.mapSymbolToList();
+
+    obj.processData<DataTypeMList>();
 }

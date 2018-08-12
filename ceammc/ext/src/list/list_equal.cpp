@@ -1,37 +1,38 @@
+#include "list_equal.h"
+#include "../data/datatype_mlist.h"
 #include "ceammc_factory.h"
-#include "ceammc_object.h"
 
-using namespace ceammc;
-
-class ListEqual : public BaseObject {
-    AtomList pattern_list_;
-
-public:
-    ListEqual(const PdArgs& a)
-        : BaseObject(a)
-        , pattern_list_(a.args)
-    {
-        createInlet();
-        createOutlet();
-
-        createProperty(new PointerProperty<AtomList>("@pattern", &pattern_list_, true));
-    }
-
-    void onInlet(size_t n, const AtomList& lst)
-    {
-        if (n != 1)
-            return;
-
-        pattern_list_ = lst;
-    }
-
-    void onList(const AtomList& lst)
-    {
-        floatTo(0, lst == pattern_list_ ? 1 : 0);
-    }
-};
-
-extern "C" void setup_list0x2eequal()
+ListEqual::ListEqual(const PdArgs& a)
+    : BaseObject(a)
+    , pattern_(nullptr)
 {
-    ObjectFactory<ListEqual>("list.equal");
+    createInlet();
+    createOutlet();
+
+    pattern_ = new ListProperty("@pattern", a.args);
+    createProperty(pattern_);
+}
+
+void ListEqual::onInlet(size_t n, const AtomList& lst)
+{
+    if (n != 1)
+        return;
+
+    pattern_->set(lst);
+}
+
+void ListEqual::onList(const AtomList& lst)
+{
+    floatTo(0, lst == pattern_->value() ? 1 : 0);
+}
+
+void ListEqual::onDataT(const DataTypeMList& lst)
+{
+    onList(lst.toList());
+}
+
+void setup_list_equal()
+{
+    ObjectFactory<ListEqual> obj("list.equal");
+    obj.processData<DataTypeMList>();
 }

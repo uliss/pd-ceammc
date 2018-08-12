@@ -11,19 +11,19 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#include "../data/datatype_mlist.h"
 #include "../list/list_search.h"
-#include "base_extension_test.h"
-#include "catch.hpp"
+#include "test_external.h"
 
-#include <stdio.h>
-
-typedef TestExtension<ListSearch> ListSearchTest;
+PD_COMPLETE_TEST_SETUP(ListSearch, list, search);
 
 TEST_CASE("list.search", "[externals]")
 {
+    pd_test_init();
+
     SECTION("create")
     {
-        ListSearchTest t("list.search");
+        TestListSearch t("list.search");
         REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 1);
     }
@@ -32,7 +32,7 @@ TEST_CASE("list.search", "[externals]")
     {
         SECTION("empty")
         {
-            ListSearchTest t("list.search");
+            TestListSearch t("list.search");
             WHEN_SEND_BANG_TO(0, t);
             REQUIRE_NO_MSG(t);
 
@@ -45,58 +45,58 @@ TEST_CASE("list.search", "[externals]")
             WHEN_SEND_DATA_TO(0, t, DataPtr(new IntData(100)));
             REQUIRE_NO_MSG(t);
 
-            WHEN_SEND_LIST_TO(0, t, AtomList());
-            REQUIRE_LIST_AT_OUTLET(0, t, AtomList());
+            WHEN_SEND_LIST_TO(0, t, L());
+            REQUIRE_LIST_AT_OUTLET(0, t, L());
 
-            WHEN_SEND_LIST_TO(0, t, L1(123));
-            REQUIRE_LIST_AT_OUTLET(0, t, AtomList());
+            WHEN_SEND_LIST_TO(0, t, LF(123));
+            REQUIRE_LIST_AT_OUTLET(0, t, L());
 
-            WHEN_SEND_LIST_TO(0, t, L4(1, 2, 3, 4));
-            REQUIRE_LIST_AT_OUTLET(0, t, AtomList());
+            WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3, 4));
+            REQUIRE_LIST_AT_OUTLET(0, t, L());
         }
 
         SECTION("simple")
         {
-            ListSearchTest t("list.search", L4(1, 2, 3, "A"));
+            TestListSearch t("list.search", LA(1, 2, 3, "A"));
 
-            WHEN_SEND_LIST_TO(0, t, AtomList());
-            REQUIRE_LIST_AT_OUTLET(0, t, L4(-1, -1, -1, -1));
+            WHEN_SEND_LIST_TO(0, t, L());
+            REQUIRE_LIST_AT_OUTLET(0, t, LF(-1, -1, -1, -1));
 
-            WHEN_SEND_LIST_TO(0, t, L1(100));
-            REQUIRE_LIST_AT_OUTLET(0, t, L4(-1, -1, -1, -1));
+            WHEN_SEND_LIST_TO(0, t, LF(100));
+            REQUIRE_LIST_AT_OUTLET(0, t, LF(-1, -1, -1, -1));
 
-            WHEN_SEND_LIST_TO(0, t, L1(1));
-            REQUIRE_LIST_AT_OUTLET(0, t, L4(0.f, -1, -1, -1));
+            WHEN_SEND_LIST_TO(0, t, LF(1));
+            REQUIRE_LIST_AT_OUTLET(0, t, LA(0.f, -1, -1, -1));
 
-            WHEN_SEND_LIST_TO(0, t, L1(2));
-            REQUIRE_LIST_AT_OUTLET(0, t, L4(-1, 0.f, -1, -1));
+            WHEN_SEND_LIST_TO(0, t, LF(2));
+            REQUIRE_LIST_AT_OUTLET(0, t, LA(-1, 0.f, -1, -1));
 
-            WHEN_SEND_LIST_TO(0, t, L1(3));
-            REQUIRE_LIST_AT_OUTLET(0, t, L4(-1, -1, 0.f, -1));
+            WHEN_SEND_LIST_TO(0, t, LF(3));
+            REQUIRE_LIST_AT_OUTLET(0, t, LA(-1, -1, 0.f, -1));
 
-            WHEN_SEND_LIST_TO(0, t, L1("A"));
-            REQUIRE_LIST_AT_OUTLET(0, t, L4(-1, -1, -1, 0.f));
+            WHEN_SEND_LIST_TO(0, t, LA("A"));
+            REQUIRE_LIST_AT_OUTLET(0, t, LA(-1, -1, -1, 0.f));
 
-            WHEN_SEND_LIST_TO(0, t, L2(1, 2));
-            REQUIRE_LIST_AT_OUTLET(0, t, L4(0.f, 1, -1, -1));
+            WHEN_SEND_LIST_TO(0, t, LF(1, 2));
+            REQUIRE_LIST_AT_OUTLET(0, t, LA(0.f, 1, -1, -1));
 
-            WHEN_SEND_LIST_TO(0, t, L2(3, 2));
-            REQUIRE_LIST_AT_OUTLET(0, t, L4(-1, 1, 0.f, -1));
+            WHEN_SEND_LIST_TO(0, t, LF(3, 2));
+            REQUIRE_LIST_AT_OUTLET(0, t, LA(-1, 1, 0.f, -1));
 
-            WHEN_SEND_LIST_TO(0, t, L5("D", "E", "C", "B", "A"));
-            REQUIRE_LIST_AT_OUTLET(0, t, L4(-1, -1, -1, 4));
+            WHEN_SEND_LIST_TO(0, t, LA("D", "E", "C", "B", "A"));
+            REQUIRE_LIST_AT_OUTLET(0, t, LF(-1, -1, -1, 4));
 
-            WHEN_SEND_LIST_TO(1, t, L1(8));
-            WHEN_SEND_LIST_TO(0, t, L5(5, 6, 7, 8, 9));
-            REQUIRE_LIST_AT_OUTLET(0, t, L1(3));
+            WHEN_SEND_LIST_TO(1, t, LF(8));
+            WHEN_SEND_LIST_TO(0, t, LA(5, 6, 7, 8, 9));
+            REQUIRE_LIST_AT_OUTLET(0, t, LF(3));
 
-            WHEN_SEND_LIST_TO(0, t, L5(5, 8, 7, 8, 9));
-            REQUIRE_LIST_AT_OUTLET(0, t, L1(1));
+            WHEN_SEND_LIST_TO(0, t, LA(5, 8, 7, 8, 9));
+            REQUIRE_LIST_AT_OUTLET(0, t, LF(1));
         }
 
         SECTION("data")
         {
-            ListSearchTest t("list.search");
+            TestListSearch t("list.search");
 
             DataPtr d0(new IntData(100));
             DataPtr d1(new IntData(200));
@@ -105,12 +105,32 @@ TEST_CASE("list.search", "[externals]")
             DataPtr d4(new StrData("str1"));
             DataPtr d5(new StrData("str2"));
 
-            WHEN_SEND_LIST_TO(0, t, L6(d0, d1, d2, d3, d4, d5));
-            REQUIRE_LIST_AT_OUTLET(0, t, AtomList());
+            WHEN_SEND_LIST_TO(0, t, LA(d0, d1, d2, d3, d4, d5));
+            REQUIRE_LIST_AT_OUTLET(0, t, L());
 
-            WHEN_SEND_LIST_TO(1, t, L2(d1, d5));
-            WHEN_SEND_LIST_TO(0, t, L6(d0, d1, d2, d3, d4, d5));
-            REQUIRE_LIST_AT_OUTLET(0, t, L2(1, 5));
+            WHEN_SEND_LIST_TO(1, t, LA(d1, d5));
+            WHEN_SEND_LIST_TO(0, t, LA(d0, d1, d2, d3, d4, d5));
+            REQUIRE_LIST_AT_OUTLET(0, t, LF(1, 5));
         }
+    }
+
+    SECTION("external")
+    {
+        TestExtListSearch t("list.search", LA("@a", 100, "B"));
+
+        t << LA(1, 2, 3, "@a");
+        REQUIRE(t.outputListAt(0) == LF(3, -1, -1));
+
+        t << LF(10, 100);
+        REQUIRE(t.outputListAt(0) == LF(-1, 1, -1));
+
+        t << LA(10, 100, "B");
+        REQUIRE(t.outputListAt(0) == LF(-1, 1, 2));
+
+        t.send(DataTypeMList());
+        REQUIRE(t.outputListAt(0) == LF(-1, -1, -1));
+
+        t.send(DataTypeMList("(1 2 3 4 5 6 7 8 9 100 A B C D E @a @b)"));
+        REQUIRE(t.outputListAt(0) == LF(15, 9, 11));
     }
 }

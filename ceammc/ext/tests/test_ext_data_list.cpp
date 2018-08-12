@@ -12,8 +12,8 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../data/data_list.h"
-#include "base_extension_test.h"
 #include "catch.hpp"
+#include "test_base.h"
 
 #include <stdio.h>
 
@@ -26,7 +26,7 @@
         REQUIRE_LIST_AT_OUTLET(0, obj, lst); \
     }
 
-typedef TestExtension<DataList> DataListTest;
+typedef TestExternal<DataList> DataListTest;
 
 TEST_CASE("data.list", "[externals]")
 {
@@ -35,22 +35,23 @@ TEST_CASE("data.list", "[externals]")
     SECTION("main")
     {
 
-        DataListTest t("data.list", AtomList());
+        DataListTest t("data.list", L());
         REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 1);
 
-        REQUIRE_PROPERTY(t, @size, 0.f);
-        REQUIRE_LIST(t, AtomList());
+        REQUIRE_PROPERTY_FLOAT(t, @size, 0);
+        REQUIRE_PROPERTY_FLOAT(t, @empty, 1);
+        REQUIRE_LIST(t, L());
 
         WHEN_SEND_FLOAT_TO(0, t, 0);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-        WHEN_SEND_LIST_TO(0, t, L3(1, 2, 3));
-        REQUIRE_LIST_AT_OUTLET(0, t, L3(1, 2, 3));
+        WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3));
+        REQUIRE_LIST_AT_OUTLET(0, t, LF(1, 2, 3));
 
         REQUIRE_SIZE(t, 3.f);
 
-        WHEN_SEND_LIST_TO(1, t, L4(1, 2, 3, 4));
+        WHEN_SEND_LIST_TO(1, t, LF(1, 2, 3, 4));
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
         REQUIRE_PROPERTY(t, @size, 4.f);
 
@@ -58,81 +59,80 @@ TEST_CASE("data.list", "[externals]")
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
         REQUIRE_SIZE(t, 0);
 
-        WHEN_CALL_3(t, set, 1, 2, 3);
+        WHEN_CALL_N(t, set, 1, 2, 3);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
-        REQUIRE_LIST(t, L3(1, 2, 3));
+        REQUIRE_LIST(t, LF(1, 2, 3));
 
-        WHEN_CALL_1(t, append, 4);
+        WHEN_CALL_N(t, append, 4);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
-        REQUIRE_LIST(t, L4(1, 2, 3, 4));
+        REQUIRE_LIST(t, LF(1, 2, 3, 4));
 
-        WHEN_CALL_2(t, append, 5, 6);
+        WHEN_CALL_N(t, append, 5, 6);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
-        REQUIRE_LIST(t, L6(1, 2, 3, 4, 5, 6));
+        REQUIRE_LIST(t, LA(1, 2, 3, 4, 5, 6));
 
         WHEN_CALL(t, pop);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
-        REQUIRE_LIST(t, L5(1, 2, 3, 4, 5));
+        REQUIRE_LIST(t, LA(1, 2, 3, 4, 5));
 
         WHEN_CALL(t, clear);
         WHEN_CALL(t, pop);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
         REQUIRE_SIZE(t, 0);
 
-        WHEN_CALL(t, remove);
+        WHEN_CALL(t, removeAt);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
-        WHEN_CALL_1(t, remove, "a");
+        WHEN_CALL_N(t, removeAt, "a");
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
-        WHEN_CALL_1(t, remove, 0.f);
+        WHEN_CALL_N(t, removeAt, 0.f);
 
-        WHEN_CALL_1(t, append, 100);
-        WHEN_CALL_1(t, append, 200);
-        REQUIRE_LIST(t, L2(100, 200));
+        WHEN_CALL_N(t, append, 100);
+        WHEN_CALL_N(t, append, 200);
+        REQUIRE_LIST(t, LF(100, 200));
 
-        WHEN_CALL_1(t, remove, 123);
-        REQUIRE_LIST(t, L2(100, 200));
+        WHEN_CALL_N(t, removeAt, 123);
+        REQUIRE_LIST(t, LF(100, 200));
 
-        WHEN_CALL_1(t, remove, -123);
-        REQUIRE_LIST(t, L2(100, 200));
+        WHEN_CALL_N(t, removeAt, -123);
+        REQUIRE_LIST(t, LF(100, 200));
 
-        WHEN_CALL_1(t, remove, 123.1f);
-        REQUIRE_LIST(t, L2(100, 200));
+        WHEN_CALL_N(t, removeAt, 123.1f);
+        REQUIRE_LIST(t, LF(100, 200));
 
-        WHEN_CALL_1(t, remove, 1.f);
-        REQUIRE_LIST(t, L1(100));
+        WHEN_CALL_N(t, removeAt, 1.f);
+        REQUIRE_LIST(t, LF(100));
 
-        WHEN_CALL_1(t, remove, 0.f);
-        REQUIRE_LIST(t, AtomList());
+        WHEN_CALL_N(t, removeAt, 0.f);
+        REQUIRE_LIST(t, L());
 
         WHEN_CALL(t, insert);
-        REQUIRE_LIST(t, AtomList());
+        REQUIRE_LIST(t, L());
 
-        WHEN_CALL_1(t, insert, 0.f);
-        REQUIRE_LIST(t, AtomList());
+        WHEN_CALL_N(t, insert, 0.f);
+        REQUIRE_LIST(t, L());
 
-        WHEN_CALL_2(t, insert, 0.f, 100);
-        REQUIRE_LIST(t, L1(100));
+        WHEN_CALL_N(t, insert, 0.f, 100);
+        REQUIRE_LIST(t, LF(100));
 
-        WHEN_CALL_2(t, insert, 0.f, 200);
-        REQUIRE_LIST(t, L2(200, 100));
+        WHEN_CALL_N(t, insert, 0.f, 200);
+        REQUIRE_LIST(t, LF(200, 100));
 
-        WHEN_CALL_2(t, insert, 1, 300);
-        REQUIRE_LIST(t, L3(200, 300, 100));
+        WHEN_CALL_N(t, insert, 1, 300);
+        REQUIRE_LIST(t, LF(200, 300, 100));
 
-        WHEN_CALL_2(t, insert, 3, 400);
-        REQUIRE_LIST(t, L4(200, 300, 100, 400));
+        WHEN_CALL_N(t, insert, 3, 400);
+        REQUIRE_LIST(t, LF(200, 300, 100, 400));
 
-        WHEN_CALL_2(t, insert, 5, 500);
-        REQUIRE_LIST(t, L4(200, 300, 100, 400));
-
-        WHEN_CALL(t, flush);
-        REQUIRE_LIST_AT_OUTLET(0, t, L4(200, 300, 100, 400));
-        REQUIRE_SIZE(t, 0.f);
+        WHEN_CALL_N(t, insert, 5, 500);
+        REQUIRE_LIST(t, LF(200, 300, 100, 400));
     }
 
     SECTION("construct args")
     {
-        DataListTest t("data.list", L5(1, 2, 3, 4, 5));
-        REQUIRE_LIST(t, L5(1, 2, 3, 4, 5));
+        DataListTest t("data.list", LA(1, 2, 3, 4, 5));
+        REQUIRE_LIST(t, LA(1, 2, 3, 4, 5));
+
+        REQUIRE_PROPERTY_FLOAT(t, @size, 5);
+        REQUIRE_PROPERTY_FLOAT(t, @empty, 0);
     }
 }

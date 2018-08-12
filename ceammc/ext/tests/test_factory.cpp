@@ -15,7 +15,7 @@
 #include <stdexcept>
 
 #include "../base/debug_gensym.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "catch.hpp"
 #include "ceammc.hpp"
 #include "ceammc_factory.h"
@@ -79,7 +79,7 @@ TEST_CASE("ceammc_factory", "[PureData]")
         REQUIRE(ext->impl != 0);
         REQUIRE(ext->impl->owner() == &ext->pd_obj);
         REQUIRE(ext->impl->className() == "test.new");
-        REQUIRE(ext->impl->positionalArguments() == L2(2, "a"));
+        REQUIRE(ext->impl->positionalArguments() == LA(2, "a"));
         REQUIRE_PROPERTY((*ext->impl), @test_prop, -1);
 
         pd_free(&ext->pd_obj.te_g.g_pd);
@@ -122,7 +122,7 @@ TEST_CASE("ceammc_factory", "[PureData]")
         REQUIRE(ext->impl != 0);
         REQUIRE(ext->impl->owner() == &ext->pd_obj);
         REQUIRE(ext->impl->className() == "test.new");
-        REQUIRE(ext->impl->positionalArguments() == L2(2, "a"));
+        REQUIRE(ext->impl->positionalArguments() == LA(2, "a"));
         REQUIRE_PROPERTY((*ext->impl), @test_prop, 33);
 
         pd_free(&ext->pd_obj.te_g.g_pd);

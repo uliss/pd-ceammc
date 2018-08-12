@@ -21,8 +21,13 @@
         </arguments>
         <properties>
             <property name="@array" type="symbol">array name</property>
-            <property name="@state" type="symbol" enum="play stop">player state</property>
+            <property name="@state" type="symbol" enum="play stop" readonly="true">player
+            state</property>
             <property name="@speed" type="float" minvalue="0.1" default="1">play speed</property>
+            <property name="@begin" type="int">begin position in samples</property>
+            <property name="@end" type="int">end position in samples</property>
+            <property name="@reversed" type="int" enum="0 1">playing backwards (if set to
+            1)</property>
         </properties>
         <methods>
             <method name="play">start playing</method>
@@ -39,29 +44,31 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo>control input</xinfo>
+                <xinfo on="bang">start playing from the begining</xinfo>
+                <xinfo on="float">1 - play, 0 - stop</xinfo>
             </inlet>
         </inlets>
         <outlets>
             <outlet>message to vline~ object</outlet>
+            <outlet>bang after playing finished</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
 [load %DOC%/sound/voice.wav @to vplay @resize(
 |                                       [array vplay size=100 w=120 h=95]
-[expand_env]            [0.3( [1.7(
-|                       |     |
-[snd.file]              [F    ]
-                        |
-                        |
-[stop, play( [@speed 1( [@speed $1(
-|            |          |               [ui.rslider ]
-| [r pos]    |          |               |
-| |          |          |               [range $1 phase $2 phase(
-[array.vplay @array vplay]              |
-|                                       |
-[vline~]                                | [@begin 0( [@end -1(
+[expand_env]  [0.3( [1( [1.7(
+|             |     |   |
+[snd.file]    [F        ] [T]
+              |           |
+              |           |
+[stop, play(  [@speed $1( [@reversed $1(
+|             |           |             [ui.rslider ]
+| [r pos] [B] |           |             |
+| |       |   |           |             [range $1 phase $2 phase(
+[array.vplay @array vplay ]             |
+|                    ^|                 |
+[vline~]             [B]                | [@begin 0( [@end -1(
 |                                       | |          |
 [tabread4~ vplay]                       [s        pos]
 |

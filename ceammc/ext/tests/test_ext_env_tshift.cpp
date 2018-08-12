@@ -12,13 +12,13 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../env/env_tshift.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "catch.hpp"
 #include "ceammc_pd.h"
 
 #include <stdio.h>
 
-typedef TestExtension<EnvTimeShift> EnvTimeShiftTest;
+typedef TestExternal<EnvTimeShift> EnvTimeShiftTest;
 
 static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
 
@@ -47,26 +47,26 @@ TEST_CASE("env.tshift", "[externals]")
 
         SECTION("float")
         {
-            EnvTimeShiftTest t("env.tshift", L1(2));
+            EnvTimeShiftTest t("env.tshift", LF(2));
             REQUIRE_PROPERTY(t, @shift, 2);
         }
 
         SECTION("@prop")
         {
-            EnvTimeShiftTest t("env.tshift", L2("@shift", 3));
+            EnvTimeShiftTest t("env.tshift", LA("@shift", 3));
             REQUIRE_PROPERTY(t, @shift, 3);
         }
 
         SECTION("invalid")
         {
-            EnvTimeShiftTest t("env.tshift", L2("@shift", -3));
+            EnvTimeShiftTest t("env.tshift", LA("@shift", -3));
             REQUIRE_PROPERTY(t, @shift, -3);
         }
     }
 
     SECTION("on data")
     {
-        EnvTimeShiftTest t("env", L2("@shift", 250));
+        EnvTimeShiftTest t("env", LA("@shift", 250));
         WHEN_SEND_TDATA_TO(0, t, DataTypeEnv());
         REQUIRE_ENV_OUTPUT(t, DataTypeEnv());
 

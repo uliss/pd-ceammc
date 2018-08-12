@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../string/string_ends_with.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "ceammc_format.h"
 #include "ceammc_pd.h"
 
@@ -20,7 +20,7 @@
 
 using namespace ceammc;
 
-typedef TestExtension<StringEndsWith> TestStringEndsWith;
+typedef TestExternal<StringEndsWith> TestStringEndsWith;
 
 static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
 
@@ -45,7 +45,7 @@ TEST_CASE("string.ends_with", "[external]")
 
         SECTION("args")
         {
-            TestStringEndsWith t("str.ends_with", L1(".mp3"));
+            TestStringEndsWith t("str.ends_with", LA(".mp3"));
 
             WHEN_SEND_TDATA_TO(0, t, DataTypeString("data.mp3"));
             REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
@@ -62,7 +62,7 @@ TEST_CASE("string.ends_with", "[external]")
 
         SECTION("args list")
         {
-            TestStringEndsWith t("str.ends_with", L3("A", "B", "C"));
+            TestStringEndsWith t("str.ends_with", LA("A", "B", "C"));
             WHEN_SEND_SYMBOL_TO(0, t, "ABC");
             REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
 

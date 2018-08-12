@@ -18,12 +18,9 @@
 
 using namespace ceammc;
 
-typedef bool (*countCheckFunc)(int);
-typedef CheckedProperty<IntProperty, int, countCheckFunc> CountProperty;
-
 class ListGenerate : public BaseObject {
     AtomList gen_values_;
-    CountProperty* count_;
+    IntPropertyClosedRange* count_;
     bool in_process_;
 
 public:
@@ -38,5 +35,7 @@ public:
 private:
     bool setCount(float v);
 };
+
+void setup_list_gen();
 
 #endif // LIST_GEN_H

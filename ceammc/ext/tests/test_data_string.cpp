@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../string/datatype_string.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 
 #include "catch.hpp"
 

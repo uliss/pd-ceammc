@@ -18,12 +18,17 @@
 
 using namespace ceammc;
 
+class DataTypeMList;
+
 class ListNormalize : public BaseObject {
     SymbolEnumProperty* by_;
 
 public:
     ListNormalize(const PdArgs& a);
     void onList(const AtomList& lst);
+    void onDataT(const DataTypeMList& lst);
 };
+
+void setup_list_normalize();
 
 #endif // LIST_NORMALIZE_H

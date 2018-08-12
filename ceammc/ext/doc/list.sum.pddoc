@@ -14,11 +14,13 @@
             <since>0.1</since>
             <also>
                 <see>list.product</see>
+                <see>list.reduce</see>
             </also>
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="list">input list</xinfo>
+                <xinfo on="list">input list. Non float values are ignored</xinfo>
+                <xinfo on="data:mlist">input mlist</xinfo>
             </inlet>
         </inlets>
         <outlets>

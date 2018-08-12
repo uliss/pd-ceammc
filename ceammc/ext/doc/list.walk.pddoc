@@ -43,7 +43,8 @@
             <property name="@length" type="int" minvalue="1" default="1">output list
             length</property>
             <property name="@size" type="int" readonly="true">current list size</property>
-            <property name="@value" type="list" default="[]" readonly="true">current list</property>
+            <property name="@value" type="list" default="[]" readonly="true">current
+            list</property>
         </properties>
         <methods>
             <method name="current">outputs current element</method>

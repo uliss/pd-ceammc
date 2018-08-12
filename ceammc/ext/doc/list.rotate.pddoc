@@ -6,7 +6,7 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>rotates list left</description>
+            <description>rotates list</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>list</category>
@@ -17,19 +17,25 @@
             </also>
             <aliases>
                 <alias>list.&lt;&lt;</alias>
+                <alias>list.&gt;&gt;</alias>
             </aliases>
         </meta>
+        <info>
+            <par>[list.rotate] and [list.&lt;&lt;] rotate list left. [list.&gt;&gt; rotates
+            right.</par>
+        </info>
         <arguments>
-            <argument name="STEP" type="int">rotate step. To rotate right use negative
-            step.</argument>
+            <argument name="STEP" type="int">rotate step. Negative step changes rotation
+            direction</argument>
         </arguments>
         <properties>
-            <property name="@step" type="int" default="1">rotate step. To rotate right use negative
-            step.</property>
+            <property name="@step" type="int" default="1">rotate step. Negative value change
+            rotation direction to opposite</property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="list">input list</xinfo>
+                <xinfo on="data">input mlist</xinfo>
             </inlet>
             <inlet>
                 <xinfo on="int">rotation step</xinfo>

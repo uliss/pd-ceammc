@@ -27,21 +27,23 @@ class GlobalBase : public BaseObject {
     void operator=(const GlobalBase&);
 
 public:
-    GlobalBase(const PdArgs& a, const std::string& extName)
+    GlobalBase(const PdArgs& a)
         : BaseObject(a)
-        , data_(a.args.empty() ? "default" : to_string(a.args[0]), extName)
+        , data_(a.args.empty() ? "default" : to_string(a.args[0]), a.className->s_name)
     {
         if (positionalArguments().empty())
-            OBJ_ERR << "global object ID required! Using default: " << data_.name();
+            OBJ_DBG << "global object ID required! Using default id: \"" << data_.name() << '"';
 
         createOutlet();
         createCbProperty("@id", &GlobalBase::m_id);
-        createCbProperty("@refs", &GlobalBase::m_refs);
-        createCbProperty("@keys", &GlobalBase::m_keys);
+        createCbProperty("@obj_refs", &GlobalBase::m_refs);
+        createCbProperty("@obj_keys", &GlobalBase::m_keys);
     }
 
     T& ref() { return data_.ref(); }
     const T& ref() const { return data_.ref(); }
+
+    size_t refCount() const { return data_.refCount(); }
 
     AtomList m_id() const
     {

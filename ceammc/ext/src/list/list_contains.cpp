@@ -12,40 +12,34 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_contains.h"
+#include "../data/datatype_mlist.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
 
 ListContains::ListContains(const PdArgs& args)
     : BaseObject(args)
-    , lst_(positionalArguments())
+    , needle_(positionalArguments())
 {
     createInlet();
     createOutlet();
 }
 
-void ListContains::onFloat(t_float f)
-{
-    output(lst_.contains(Atom(f)));
-}
-
-void ListContains::onSymbol(t_symbol* s)
-{
-    output(lst_.contains(Atom(s)));
-}
-
 void ListContains::onList(const AtomList& lst)
 {
-    output(lst_.contains(lst));
+    auto it = std::search(lst.begin(), lst.end(), needle_.begin(), needle_.end());
+    output(it != lst.end());
 }
 
-void ListContains::onData(const DataPtr& ptr)
+void ListContains::onDataT(const DataTypeMList& lst)
 {
-    output(lst_.contains(ptr));
+    auto eq = [](const DataAtom& d, const Atom& a) { return d == DataAtom(a); };
+    auto it = std::search(lst.begin(), lst.end(), needle_.begin(), needle_.end(), eq);
+    output(it != lst.end());
 }
 
 void ListContains::onInlet(size_t n, const AtomList& lst)
 {
-    lst_ = lst;
+    needle_ = lst;
 }
 
 void ListContains::output(bool v)
@@ -56,5 +50,5 @@ void ListContains::output(bool v)
 void setup_list_contains()
 {
     ObjectFactory<ListContains> obj("list.contains");
-    obj.processData();
+    obj.processData<DataTypeMList>();
 }

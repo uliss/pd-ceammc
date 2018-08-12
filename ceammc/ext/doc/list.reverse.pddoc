@@ -20,6 +20,7 @@
         <inlets>
             <inlet>
                 <xinfo on="list">input list</xinfo>
+                <xinfo on="data:mlist">input mlist</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -28,13 +29,13 @@
         <example>
             <pdascii>
 <![CDATA[
-[1 2 3 4 5(  [list a b c d e(
-|            |
-[list.reverse]
+[1 2 3 4 5(  [list a b c d e( [\(5 4 3 2 1\), bang(
+|            |                |
+|            |                [ml]
+|            |                |
+[list.reverse                 ]
 |
-[msg set]
-|
-[ (
+[ui.display @display_type=1]
 ]]>
             </pdascii>
         </example>

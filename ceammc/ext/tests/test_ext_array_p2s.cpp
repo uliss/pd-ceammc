@@ -12,12 +12,12 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../array/array_p2s.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "ceammc_pd.h"
 
 #include "catch.hpp"
 
-typedef TestExtension<ArrayPhaseToSample> ArrayPhaseToSampleTest;
+typedef TestExternal<ArrayPhaseToSample> ArrayPhaseToSampleTest;
 
 using namespace ceammc;
 
@@ -53,7 +53,7 @@ TEST_CASE("array.p2s", "[externals]")
             ON_FLOAT_REQUIRE(0.5, t, 0);
             ON_FLOAT_REQUIRE(1, t, 0);
 
-            ON_LIST_REQUIRE(L3(0.1f, 0.2f, 0.3f), t, L3(0.f, 0.f, 0.f));
+            ON_LIST_REQUIRE(LF(0.1f, 0.2f, 0.3f), t, LF(0.f, 0.f, 0.f));
         }
 
         SECTION("symbol arguments")
@@ -68,8 +68,8 @@ TEST_CASE("array.p2s", "[externals]")
             ON_FLOAT_REQUIRE(-1, t, 0);
             ON_FLOAT_REQUIRE(2, t, 10);
 
-            ON_LIST_REQUIRE(L3(0.1f, 0.2f, 0.3f), t, L3(1, 2, 3));
-            ON_LIST_REQUIRE(L3(-1, -20, 40), t, L3(0.f, 0.f, 10));
+            ON_LIST_REQUIRE(LF(0.1f, 0.2f, 0.3f), t, LF(1, 2, 3));
+            ON_LIST_REQUIRE(LF(-1, -20, 40), t, LF(0.f, 0.f, 10));
         }
     }
 }

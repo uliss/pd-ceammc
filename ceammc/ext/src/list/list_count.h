@@ -18,6 +18,8 @@
 
 using namespace ceammc;
 
+class DataTypeMList;
+
 class ListCount : public BaseObject {
     AtomProperty* pattern_;
 
@@ -25,8 +27,9 @@ public:
     ListCount(const PdArgs& a);
     void onList(const AtomList& l);
     void onInlet(size_t n, const AtomList& l);
+    void onDataT(const DataTypeMList& lst);
 };
 
-extern "C" void setup_list0x2ecount();
+void setup_list_count();
 
 #endif // LIST_COUNT_H

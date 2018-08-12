@@ -12,15 +12,19 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../list/list_rotate.h"
-#include "base_extension_test.h"
-#include "catch.hpp"
+#include "test_base.h"
+#include "test_external.h"
 
 #include <stdio.h>
 
-typedef TestExtension<ListRotate> ListRotateTest;
+PD_COMPLETE_TEST_SETUP(ListRotate, list, rotate);
+
+typedef TestExternal<ListRotate> ListRotateTest;
 
 TEST_CASE("list.rotate", "[externals]")
 {
+    pd_test_mod_init_list_rotate();
+
     SECTION("init")
     {
         SECTION("empty")
@@ -33,7 +37,7 @@ TEST_CASE("list.rotate", "[externals]")
 
         SECTION("int")
         {
-            ListRotateTest t("list.rotate", L1(12));
+            ListRotateTest t("list.rotate", LF(12));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY(t, @step, 12);
@@ -41,7 +45,7 @@ TEST_CASE("list.rotate", "[externals]")
 
         SECTION("wrong")
         {
-            ListRotateTest t("list.rotate", L1("ABC"));
+            ListRotateTest t("list.rotate", LA("ABC"));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY(t, @step, 1);
@@ -50,12 +54,54 @@ TEST_CASE("list.rotate", "[externals]")
 
     SECTION("rotate")
     {
-        ListRotateTest t("list.rotate", L1(3));
-        WHEN_SEND_LIST_TO(0, t, L5(1, 2, 3, 4, 5));
-        REQUIRE_LIST_AT_OUTLET(0, t, L5(4, 5, 1, 2, 3));
+        ListRotateTest t("list.rotate", LF(3));
+        WHEN_SEND_LIST_TO(0, t, LA(1, 2, 3, 4, 5));
+        REQUIRE_LIST_AT_OUTLET(0, t, LA(4, 5, 1, 2, 3));
 
-        t.setProperty("@step", L1(-1));
-        WHEN_SEND_LIST_TO(0, t, L5(1, 2, 3, 4, 5));
-        REQUIRE_LIST_AT_OUTLET(0, t, L5(5, 1, 2, 3, 4));
+        t.setProperty("@step", LF(-1));
+        WHEN_SEND_LIST_TO(0, t, LA(1, 2, 3, 4, 5));
+        REQUIRE_LIST_AT_OUTLET(0, t, LA(5, 1, 2, 3, 4));
+    }
+
+    SECTION("external")
+    {
+        SECTION("rotate")
+        {
+            TestExtListRotate t("list.rotate");
+            REQUIRE(t->property("@step")->get() == LF(1));
+
+            t << LF(1, 2, 3, 4);
+            REQUIRE(t.outputListAt(0) == LF(2, 3, 4, 1));
+
+            t->setProperty("@step", LF(-1));
+            t << LF(1, 2, 3, 4);
+            REQUIRE(t.outputListAt(0) == LF(4, 1, 2, 3));
+        }
+
+        SECTION("<<")
+        {
+            TestExtListRotate t("list.<<");
+            REQUIRE(t->property("@step")->get() == LF(1));
+
+            t << LF(1, 2, 3, 4);
+            REQUIRE(t.outputListAt(0) == LF(2, 3, 4, 1));
+
+            t->setProperty("@step", LF(-1));
+            t << LF(1, 2, 3, 4);
+            REQUIRE(t.outputListAt(0) == LF(4, 1, 2, 3));
+        }
+
+        SECTION(">>")
+        {
+            TestExtListRotate t("list.>>");
+            REQUIRE(t->property("@step")->get() == LF(1));
+
+            t << LF(1, 2, 3, 4);
+            REQUIRE(t.outputListAt(0) == LF(4, 1, 2, 3));
+
+            t->setProperty("@step", LF(-1));
+            t << LF(1, 2, 3, 4);
+            REQUIRE(t.outputListAt(0) == LF(2, 3, 4, 1));
+        }
     }
 }

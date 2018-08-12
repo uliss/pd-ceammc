@@ -18,15 +18,17 @@
 
 using namespace ceammc;
 
+class DataTypeMList;
+
 class ListUnpack : public BaseObject {
-    size_t n_;
+    const size_t n_;
 
 public:
     ListUnpack(const PdArgs& a);
-    void onList(const AtomList& l);
-
-    AtomList p_n() const;
-    void parseProperties();
+    void onList(const AtomList& l) override;
+    void onDataT(const DataTypeMList& l);
 };
+
+void setup_list_unpack();
 
 #endif // LIST_UNPACK_H

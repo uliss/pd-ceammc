@@ -11,73 +11,74 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#include "../data/data_mlist.h"
 #include "../list/list_prepend.h"
-#include "base_extension_test.h"
-#include "catch.hpp"
+#include "test_base.h"
+#include "test_external.h"
 
-#include <stdio.h>
-
-typedef TestExtension<ListPrepend> ListPrependTest;
+PD_COMPLETE_TEST_SETUP(ListPrepend, list, prepend);
 
 TEST_CASE("list.prepend", "[externals]")
 {
+    pd_test_init();
+
     SECTION("create")
     {
-        ListPrependTest t("list.prepend");
+        TestListPrepend t("list.prepend");
         REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 1);
     }
 
     SECTION("empty")
     {
-        ListPrependTest t("list.prepend");
+        TestListPrepend t("list.prepend");
 
         WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_LIST_AT_OUTLET(0, t, AtomList());
+        REQUIRE_LIST_AT_OUTLET(0, t, L());
 
         WHEN_SEND_FLOAT_TO(0, t, 10);
-        REQUIRE_LIST_AT_OUTLET(0, t, L1(10));
+        REQUIRE_LIST_AT_OUTLET(0, t, LF(10));
 
         WHEN_SEND_SYMBOL_TO(0, t, "ABC");
-        REQUIRE_LIST_AT_OUTLET(0, t, L1("ABC"));
+        REQUIRE_LIST_AT_OUTLET(0, t, LA("ABC"));
 
         DataPtr d0(new IntData(12));
         WHEN_SEND_DATA_TO(0, t, d0);
-        REQUIRE_LIST_AT_OUTLET(0, t, L1(d0));
+        REQUIRE_DATA_AT_OUTLET(0, t, d0);
 
-        WHEN_SEND_LIST_TO(0, t, AtomList());
-        REQUIRE_LIST_AT_OUTLET(0, t, AtomList());
+        WHEN_SEND_LIST_TO(0, t, L());
+        REQUIRE_LIST_AT_OUTLET(0, t, L());
 
-        WHEN_SEND_LIST_TO(0, t, L2(1, 2));
-        REQUIRE_LIST_AT_OUTLET(0, t, L2(1, 2));
+        WHEN_SEND_LIST_TO(0, t, LF(1, 2));
+        REQUIRE_LIST_AT_OUTLET(0, t, LF(1, 2));
     }
 
     SECTION("args")
     {
-        ListPrependTest t("list.prepend", L2("@prop", 1));
+        TestListPrepend t("list.prepend", LA("@prop", 1));
 
         WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_LIST_AT_OUTLET(0, t, L2("@prop", 1));
+        REQUIRE_LIST_AT_OUTLET(0, t, LA("@prop", 1));
 
         WHEN_SEND_FLOAT_TO(0, t, 10);
-        REQUIRE_LIST_AT_OUTLET(0, t, L3("@prop", 1, 10));
+        REQUIRE_LIST_AT_OUTLET(0, t, LA("@prop", 1, 10));
 
         WHEN_SEND_SYMBOL_TO(0, t, "ABC");
-        REQUIRE_LIST_AT_OUTLET(0, t, L3("@prop", 1, "ABC"));
+        REQUIRE_LIST_AT_OUTLET(0, t, LA("@prop", 1, "ABC"));
 
         DataPtr d0(new IntData(12));
         WHEN_SEND_DATA_TO(0, t, d0);
-        REQUIRE_LIST_AT_OUTLET(0, t, L3("@prop", 1, d0));
+        REQUIRE_LIST_AT_OUTLET(0, t, LA("@prop", 1, d0));
 
-        WHEN_SEND_LIST_TO(0, t, AtomList());
-        REQUIRE_LIST_AT_OUTLET(0, t, L2("@prop", 1));
+        WHEN_SEND_LIST_TO(0, t, L());
+        REQUIRE_LIST_AT_OUTLET(0, t, LA("@prop", 1));
 
-        WHEN_SEND_LIST_TO(0, t, L2(1, 2));
-        REQUIRE_LIST_AT_OUTLET(0, t, L4("@prop", 1, 1, 2));
+        WHEN_SEND_LIST_TO(0, t, LF(1, 2));
+        REQUIRE_LIST_AT_OUTLET(0, t, LA("@prop", 1, 1, 2));
 
-        WHEN_SEND_LIST_TO(1, t, L1(100));
-        WHEN_SEND_LIST_TO(0, t, L2(1, 2));
-        REQUIRE_LIST_AT_OUTLET(0, t, L3(100, 1, 2));
+        WHEN_SEND_LIST_TO(1, t, LF(100));
+        WHEN_SEND_LIST_TO(0, t, LF(1, 2));
+        REQUIRE_LIST_AT_OUTLET(0, t, LF(100, 1, 2));
     }
 
     SECTION("data")
@@ -86,10 +87,19 @@ TEST_CASE("list.prepend", "[externals]")
         DataPtr d2(new IntData(20));
         DataPtr d3(new IntData(30));
 
-        ListPrependTest t("list.prepend");
+        TestExtListPrepend t("list.prepend");
 
-        WHEN_SEND_LIST_TO(1, t, L2(d1, d2));
-        WHEN_SEND_DATA_TO(0, t, d3);
-        REQUIRE_LIST_AT_OUTLET(0, t, L3(d1, d2, d3));
+        t->onInlet(1, LA(d1, d2));
+        t.send(d3);
+        REQUIRE(t.outputListAt(0) == LA(d1, d2, d3));
+
+        t->onInlet(1, LA("a", "b"));
+        t.send(DataTypeMList());
+        REQUIRE(t.isOutputDataAt(0));
+        REQUIRE(t.outputDataAt(0).isValid());
+        REQUIRE(t.outputDataAt(0) == DataPtr(new DataTypeMList("(a b)")));
+
+        t.send(DataTypeMList("(1 2 3 ())"));
+        REQUIRE(t.outputDataAt(0) == DataPtr(new DataTypeMList("(a b 1 2 3 ())")));
     }
 }

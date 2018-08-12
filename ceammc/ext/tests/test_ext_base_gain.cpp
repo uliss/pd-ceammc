@@ -12,16 +12,16 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../base/gain.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "catch.hpp"
 #include "ceammc_pd.h"
-#include "sound_external_test.h"
+#include "test_sound.h"
 
 #include <algorithm>
 #include <cstdlib>
 #include <stdio.h>
 
-typedef TestSoundExtension<Gain> GainTest;
+typedef TestSoundExternal<Gain> GainTest;
 
 static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
 
@@ -31,32 +31,44 @@ TEST_CASE("gain~", "[externals]")
     {
         SECTION("default")
         {
-            GainTest t("gain~", AtomList(), true);
+            GainTest t("gain~", L(), true);
             REQUIRE(t.blockSize() == 64);
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numInputChannels() == 1);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE(t.numOutputChannels() == 1);
-            REQUIRE_PROPERTY_LIST(t, @db, ListApprox(-144));
-            REQUIRE_PROPERTY_LIST(t, @value, ListApprox(0));
+            REQUIRE_PROPERTY_LIST(t, @db, LX(-144));
+            REQUIRE_PROPERTY_LIST(t, @value, LX(0));
         }
 
         SECTION("args")
         {
-            GainTest t("gain~", L1(4), true);
+            GainTest t("gain~", LF(4), true);
             REQUIRE(t.blockSize() == 64);
             REQUIRE(t.numInlets() == 5);
             REQUIRE(t.numInputChannels() == 4);
             REQUIRE(t.numOutlets() == 4);
             REQUIRE(t.numOutputChannels() == 4);
-            REQUIRE_PROPERTY_LIST(t, @db, ListApprox(-144, -144, -144, -144));
-            REQUIRE_PROPERTY_LIST(t, @value, ListApprox(0, 0, 0, 0));
+            REQUIRE_PROPERTY_LIST(t, @db, LX(-144, -144, -144, -144));
+            REQUIRE_PROPERTY_LIST(t, @value, LX(0, 0, 0, 0));
+        }
+
+        SECTION("props")
+        {
+            GainTest t("gain~", LA(3, "@db", -6, -6), true);
+            REQUIRE(t.blockSize() == 64);
+            REQUIRE(t.numInlets() == 4);
+            REQUIRE(t.numInputChannels() == 3);
+            REQUIRE(t.numOutlets() == 3);
+            REQUIRE(t.numOutputChannels() == 3);
+            REQUIRE_PROPERTY_LIST(t, @db, LX(-6, -6, -144));
+            REQUIRE_PROPERTY_LIST(t, @value, LX(0.501187, 0.501187, 0));
         }
     }
 
     SECTION("process all")
     {
-        GainTest t("gain~", L1(2), true);
+        GainTest t("gain~", LF(2), true);
         TestSignal<2, 2> s0;
         s0.fillInput(10);
 
@@ -68,8 +80,8 @@ TEST_CASE("gain~", "[externals]")
             REQUIRE(dsp.out(1, i) == Approx(0));
         }
 
-        t.onInlet(2, L1(0.5));
-        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(0.5, 0.5));
+        t.onInlet(2, LF(0.5));
+        REQUIRE_PROPERTY_LIST(t, @value, LX(0.5, 0.5));
 
         dsp.processBlock();
         for (size_t i = 0; i < 64; i++) {
@@ -78,7 +90,7 @@ TEST_CASE("gain~", "[externals]")
             REQUIRE(dsp.out(0, i) == dsp.out(1, i));
         }
 
-        dsp.processBlock(10);
+        dsp.processBlock(20);
 
         for (size_t i = 0; i < 64; i++) {
             REQUIRE(dsp.out(0, i) == Approx(5));
@@ -89,7 +101,7 @@ TEST_CASE("gain~", "[externals]")
 
     SECTION("process all2")
     {
-        GainTest t("gain~", L1(2), true);
+        GainTest t("gain~", LF(2), true);
         TestSignal<2, 2> s0;
         s0.fillInputN(0, 10);
         s0.fillInputN(1, 6);
@@ -102,8 +114,8 @@ TEST_CASE("gain~", "[externals]")
             REQUIRE(dsp.out(1, i) == Approx(0));
         }
 
-        t.onInlet(2, L1(0.5));
-        dsp.processBlock(10);
+        t.onInlet(2, LF(0.5));
+        dsp.processBlock(20);
 
         for (size_t i = 0; i < 64; i++) {
             REQUIRE(dsp.out(0, i) == Approx(5));
@@ -113,7 +125,7 @@ TEST_CASE("gain~", "[externals]")
 
     SECTION("process separate")
     {
-        GainTest t("gain~", L1(2), true);
+        GainTest t("gain~", LF(2), true);
         TestSignal<2, 2> s0;
         s0.fillInputN(0, 10);
         s0.fillInputN(1, 6);
@@ -126,8 +138,8 @@ TEST_CASE("gain~", "[externals]")
             REQUIRE(dsp.out(1, i) == Approx(0));
         }
 
-        t.onList(L2(0.5, 2));
-        dsp.processBlock(10);
+        t.onList(LA(0.5, 2));
+        dsp.processBlock(20);
 
         for (size_t i = 0; i < 64; i++) {
             REQUIRE(dsp.out(0, i) == Approx(5));
@@ -137,109 +149,109 @@ TEST_CASE("gain~", "[externals]")
 
     SECTION("props")
     {
-        GainTest t("gain~", L1(2), true);
-        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(0, 0));
-        REQUIRE_PROPERTY_LIST(t, @db, ListApprox(-144, -144));
+        GainTest t("gain~", LF(2), true);
+        REQUIRE_PROPERTY_LIST(t, @value, LX(0, 0));
+        REQUIRE_PROPERTY_LIST(t, @db, LX(-144, -144));
 
-        WHEN_SEND_LIST_TO(0, t, L2(0.5, 0.5));
-        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(0.5, 0.5));
-        REQUIRE_PROPERTY_LIST(t, @db, ListApprox(-6.0206, -6.0206));
+        WHEN_SEND_LIST_TO(0, t, LF(0.5, 0.5));
+        REQUIRE_PROPERTY_LIST(t, @value, LX(0.5, 0.5));
+        REQUIRE_PROPERTY_LIST(t, @db, LX(-6.0206, -6.0206));
 
-        WHEN_SEND_LIST_TO(0, t, L2(0.25, 0.5));
-        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(0.25, 0.5));
-        REQUIRE_PROPERTY_LIST(t, @db, ListApprox(-12.0412, -6.0206));
+        WHEN_SEND_LIST_TO(0, t, LF(0.25, 0.5));
+        REQUIRE_PROPERTY_LIST(t, @value, LX(0.25, 0.5));
+        REQUIRE_PROPERTY_LIST(t, @db, LX(-12.0412, -6.0206));
 
-        WHEN_SEND_LIST_TO(0, t, L1(2));
-        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(2, 0.5));
-        REQUIRE_PROPERTY_LIST(t, @db, ListApprox(6.0206, -6.0206));
+        WHEN_SEND_LIST_TO(0, t, LF(2));
+        REQUIRE_PROPERTY_LIST(t, @value, LX(2, 0.5));
+        REQUIRE_PROPERTY_LIST(t, @db, LX(6.0206, -6.0206));
 
-        t.setProperty("@value", L2(1, 2));
-        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(1, 2));
+        t.setProperty("@value", LF(1, 2));
+        REQUIRE_PROPERTY_LIST(t, @value, LX(1, 2));
 
-        t.setProperty("@db", L2(-4, -5));
-        REQUIRE_PROPERTY_LIST(t, @db, ListApprox(-4, -5));
+        t.setProperty("@db", LA(-4, -5));
+        REQUIRE_PROPERTY_LIST(t, @db, LX(-4, -5));
     }
 
     SECTION("methods")
     {
-        GainTest t("gain~", L4(2, "@value", 1, 1), true);
-        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(1, 1));
+        GainTest t("gain~", LA(2, "@value", 1, 1), true);
+        REQUIRE_PROPERTY_LIST(t, @value, LX(1, 1));
 
         WHEN_CALL(t, plus);
-        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(1, 1));
+        REQUIRE_PROPERTY_LIST(t, @value, LX(1, 1));
 
         WHEN_CALL(t, minus);
-        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(1, 1));
+        REQUIRE_PROPERTY_LIST(t, @value, LX(1, 1));
 
-        WHEN_CALL_1(t, plus, 0.1);
-        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(1.1, 1));
+        WHEN_CALL_N(t, plus, 0.1);
+        REQUIRE_PROPERTY_LIST(t, @value, LX(1.1, 1));
 
-        WHEN_CALL_2(t, plus, 0.1, 0.5);
-        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(1.2, 1.5));
+        WHEN_CALL_N(t, plus, 0.1, 0.5);
+        REQUIRE_PROPERTY_LIST(t, @value, LX(1.2, 1.5));
 
-        WHEN_CALL_2(t, plus, -0.1, -0.5);
-        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(1.1, 1));
+        WHEN_CALL_N(t, plus, -0.1, -0.5);
+        REQUIRE_PROPERTY_LIST(t, @value, LX(1.1, 1));
 
-        WHEN_CALL_2(t, minus, -0.1, -0.5);
-        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(1.2, 1.5));
+        WHEN_CALL_N(t, minus, -0.1, -0.5);
+        REQUIRE_PROPERTY_LIST(t, @value, LX(1.2, 1.5));
 
-        WHEN_CALL_2(t, minus, 3, 2);
-        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(0, 0));
+        WHEN_CALL_N(t, minus, 3, 2);
+        REQUIRE_PROPERTY_LIST(t, @value, LX(0, 0));
 
-        WHEN_CALL_2(t, plus, -1, -2);
-        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(0, 0));
+        WHEN_CALL_N(t, plus, -1, -2);
+        REQUIRE_PROPERTY_LIST(t, @value, LX(0, 0));
 
-        WHEN_CALL_1(t, minus, -1);
-        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(1, 0));
+        WHEN_CALL_N(t, minus, -1);
+        REQUIRE_PROPERTY_LIST(t, @value, LX(1, 0));
 
-        t.setProperty("@db", L2(0.f, 0.f));
-        WHEN_CALL_2(t, plusDb, 6.0206, -6.0206);
-        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(2, 0.5));
+        t.setProperty("@db", LF(0.f, 0.f));
+        WHEN_CALL_N(t, plusDb, 6.0206, -6.0206);
+        REQUIRE_PROPERTY_LIST(t, @value, LX(2, 0.5));
 
-        WHEN_CALL_1(t, plusDb, 6.0206);
-        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(4, 0.5));
+        WHEN_CALL_N(t, plusDb, 6.0206);
+        REQUIRE_PROPERTY_LIST(t, @value, LX(4, 0.5));
 
-        WHEN_CALL_1(t, minusDb, 6.0206);
-        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(2, 0.5));
+        WHEN_CALL_N(t, minusDb, 6.0206);
+        REQUIRE_PROPERTY_LIST(t, @value, LX(2, 0.5));
 
-        WHEN_CALL_2(t, plusDb, -6.0206, 6.0206);
-        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(1, 1));
+        WHEN_CALL_N(t, plusDb, -6.0206, 6.0206);
+        REQUIRE_PROPERTY_LIST(t, @value, LX(1, 1));
 
-        WHEN_CALL_2(t, minusDb, 6.0206, -6.0206);
-        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(0.5, 2));
+        WHEN_CALL_N(t, minusDb, 6.0206, -6.0206);
+        REQUIRE_PROPERTY_LIST(t, @value, LX(0.5, 2));
 
-        WHEN_CALL_2(t, plusDb, -144, -144);
-        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(0, 0));
+        WHEN_CALL_N(t, plusDb, -144, -144);
+        REQUIRE_PROPERTY_LIST(t, @value, LX(0, 0));
 
-        WHEN_CALL_1(t, plusAll, 0.5);
-        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(0.5, 0.5));
+        WHEN_CALL_N(t, plusAll, 0.5);
+        REQUIRE_PROPERTY_LIST(t, @value, LX(0.5, 0.5));
 
-        WHEN_CALL_1(t, plusAll, -0.1);
-        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(0.4, 0.4));
+        WHEN_CALL_N(t, plusAll, -0.1);
+        REQUIRE_PROPERTY_LIST(t, @value, LX(0.4, 0.4));
 
-        WHEN_CALL_1(t, minusAll, 0.1);
-        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(0.3, 0.3));
+        WHEN_CALL_N(t, minusAll, 0.1);
+        REQUIRE_PROPERTY_LIST(t, @value, LX(0.3, 0.3));
 
-        WHEN_CALL_1(t, minusAll, -0.3);
-        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(0.6, 0.6));
+        WHEN_CALL_N(t, minusAll, -0.3);
+        REQUIRE_PROPERTY_LIST(t, @value, LX(0.6, 0.6));
 
         WHEN_CALL(t, minusAll);
-        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(0.6, 0.6));
+        REQUIRE_PROPERTY_LIST(t, @value, LX(0.6, 0.6));
         WHEN_CALL(t, plusAll);
-        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(0.6, 0.6));
+        REQUIRE_PROPERTY_LIST(t, @value, LX(0.6, 0.6));
         WHEN_CALL(t, plus);
-        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(0.6, 0.6));
+        REQUIRE_PROPERTY_LIST(t, @value, LX(0.6, 0.6));
         WHEN_CALL(t, minus);
-        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(0.6, 0.6));
+        REQUIRE_PROPERTY_LIST(t, @value, LX(0.6, 0.6));
         WHEN_CALL(t, plusDb);
-        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(0.6, 0.6));
+        REQUIRE_PROPERTY_LIST(t, @value, LX(0.6, 0.6));
         WHEN_CALL(t, minusDb);
-        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(0.6, 0.6));
+        REQUIRE_PROPERTY_LIST(t, @value, LX(0.6, 0.6));
 
-        WHEN_CALL_1(t, set, 0.5);
-        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(0.5, 0.5));
+        WHEN_CALL_N(t, set, 0.5);
+        REQUIRE_PROPERTY_LIST(t, @value, LX(0.5, 0.5));
 
-        WHEN_CALL_1(t, setDb, 6.0206);
-        REQUIRE_PROPERTY_LIST(t, @value, ListApprox(2, 2));
+        WHEN_CALL_N(t, setDb, 6.0206);
+        REQUIRE_PROPERTY_LIST(t, @value, LX(2, 2));
     }
 }

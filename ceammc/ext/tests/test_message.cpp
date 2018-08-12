@@ -12,8 +12,8 @@
  * this file belongs to.
  *****************************************************************************/
 
-#include "catch.hpp"
 #include "ceammc_message.h"
+#include "test_common.h"
 
 using namespace ceammc;
 
@@ -44,6 +44,21 @@ TEST_CASE("Message", "[ceammc::Message]")
     Message v7(Atom(gensym("b")));
     REQUIRE(v7.isSymbol());
 
+    Message v8(DataPtr(new IntData(123)).asAtom());
+    REQUIRE(v8.isData());
+
+    Message v9(AtomList(DataPtr(new IntData(123)).asAtom()));
+    REQUIRE(v9.isData());
+
+    Message v10(AtomList(DataPtr(new IntData(123)).asAtom()));
+    REQUIRE(v10.isData());
+
+    Message v11(AtomList(DataPtr(new IntData(124)).asAtom()));
+    REQUIRE(v11.isData());
+
+    Message v12(&s_bang);
+    REQUIRE(v12.isBang());
+
     SECTION("compare")
     {
         REQUIRE(v1 == v1);
@@ -65,6 +80,9 @@ TEST_CASE("Message", "[ceammc::Message]")
         REQUIRE(v3 != v5);
 
         REQUIRE(v4 != v5);
+
+        REQUIRE(v9 == v10);
+        REQUIRE(v10 != v11);
     }
 
     SECTION("compare2")
@@ -82,7 +100,7 @@ TEST_CASE("Message", "[ceammc::Message]")
         REQUIRE(v4 == Message(l1));
 
         REQUIRE(v5 != Message(gensym("a"), l1));
-        REQUIRE(v5 != Message(gensym("c"), AtomList()));
+        REQUIRE(v5 != Message(gensym("c"), L()));
         REQUIRE(v5 == Message(gensym("c"), l1));
 
         AtomList l2;
@@ -101,9 +119,9 @@ TEST_CASE("Message", "[ceammc::Message]")
         REQUIRE(v1.isFloat());
         v1.setSymbol(gensym("a"));
         REQUIRE(v1.isSymbol());
-        v1.setList(AtomList());
+        v1.setList(L());
         REQUIRE(v1.isList());
-        v1.setAny(gensym("b"), AtomList());
+        v1.setAny(gensym("b"), L());
         REQUIRE(v1.isAny());
         v1.setList(2, &atoms[0]);
         REQUIRE(v1.isList());
@@ -114,6 +132,9 @@ TEST_CASE("Message", "[ceammc::Message]")
         REQUIRE(v1.isFloat());
         v1.setAtom(Atom(gensym("a")));
         REQUIRE(v1.isSymbol());
+
+        v1.setList(AtomList(DataPtr(new IntData(123)).asAtom()));
+        REQUIRE(v1.isData());
     }
 
     SECTION("test any value")
@@ -124,5 +145,34 @@ TEST_CASE("Message", "[ceammc::Message]")
 
         Message msg(gensym("a"), AtomList(1, 2));
         REQUIRE(msg.anyValue() == ref);
+    }
+
+    SECTION("data")
+    {
+        SECTION("valid")
+        {
+            DataPtr d0(new IntData(123));
+            Message m(d0.asAtom());
+
+            REQUIRE(m.isData());
+            REQUIRE_FALSE(m.dataValue().isNull());
+            REQUIRE(m.dataValue()->isEqual(d0.data()));
+            REQUIRE(m.dataValue() == d0);
+        }
+
+        SECTION("invalid")
+        {
+            Message m(123);
+            REQUIRE_FALSE(m.isData());
+            REQUIRE(m.dataValue().isNull());
+        }
+
+        SECTION("ownership")
+        {
+            Message m(DataPtr(new IntData(123)).asAtom());
+            REQUIRE(m.isData());
+            REQUIRE(m.dataValue().isValid());
+            REQUIRE(m.dataValue() == DataPtr(new IntData(123)));
+        }
     }
 }

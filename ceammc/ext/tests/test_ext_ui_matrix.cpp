@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../ui/ui_matrix.h"
-#include "ui_external_test.h"
+#include "test_ui.h"
 
 UI_COMPLETE_TEST_SETUP(Matrix)
 
@@ -37,11 +37,22 @@ TEST_CASE("ui.matrix", "[ui.matrix]")
         REQUIRE_UI_FLOAT_PROPERTY(t, "current_col", -1);
     }
 
+    SECTION("construct args")
+    {
+        TestMatrix t("ui.matrix", LF(3, 8));
+        REQUIRE(t->numOutlets() == 1);
+        REQUIRE(t->p_rows() == 3);
+        REQUIRE(t->p_cols() == 8);
+
+        REQUIRE_UI_FLOAT_PROPERTY(t, "cols", 8);
+        REQUIRE_UI_FLOAT_PROPERTY(t, "rows", 3);
+    }
+
     SECTION("onList")
     {
-        TestMatrix t("ui.matrix", L4("@rows", 2, "@cols", 4));
-        t->onList(L8(1, 0.f, 1, 0.f, 0.f, 1, 0.f, 1));
-        REQUIRE(t->asList() == L8(1, 0.f, 1, 0.f, 0.f, 1, 0.f, 1));
+        TestMatrix t("ui.matrix", LA("@rows", 2, "@cols", 4));
+        t->onList(LF(1, 0.f, 1, 0.f, 0.f, 1, 0.f, 1));
+        REQUIRE(t->asList() == LF(1, 0.f, 1, 0.f, 0.f, 1, 0.f, 1));
 
         REQUIRE(t->cell(0, 0) == 1);
         REQUIRE(t->cell(0, 1) == 0);
@@ -62,7 +73,7 @@ TEST_CASE("ui.matrix", "[ui.matrix]")
         REQUIRE(t->cell(1, 2) == 1);
         REQUIRE(t->cell(1, 3) == 0);
 
-        t->onList(L5(1, 1, 1, 1, 0.f));
+        t->onList(LF(1, 1, 1, 1, 0));
         REQUIRE(t->cell(0, 0) == 1);
         REQUIRE(t->cell(0, 1) == 1);
         REQUIRE(t->cell(0, 2) == 1);
@@ -82,7 +93,7 @@ TEST_CASE("ui.matrix", "[ui.matrix]")
         REQUIRE(t->cell(1, 2) == 0);
         REQUIRE(t->cell(1, 3) == 0);
 
-        t->onList(L8("A", "B", -1, 0.f, 1, 2, 3, 0.001));
+        t->onList(LA("A", "B", -1, 0.f, 1, 2, 3, 0.001));
         REQUIRE(t->cell(0, 0) == 0);
         REQUIRE(t->cell(0, 1) == 0);
         REQUIRE(t->cell(0, 2) == 1);
@@ -97,42 +108,42 @@ TEST_CASE("ui.matrix", "[ui.matrix]")
     {
         SECTION("row")
         {
-            TestMatrix t("ui.matrix", L4("@rows", 2, "@cols", 4));
+            TestMatrix t("ui.matrix", LA("@rows", 2, "@cols", 4));
 
-            REQUIRE(t->row(0) == L4(0.f, 0.f, 0.f, 0.f));
-            REQUIRE(t->row(1) == L4(0.f, 0.f, 0.f, 0.f));
+            REQUIRE(t->row(0) == LF(0, 0, 0, 0));
+            REQUIRE(t->row(1) == LF(0, 0, 0, 0));
             t->flipRow(0);
-            REQUIRE(t->row(0) == L4(1, 1, 1, 1));
-            REQUIRE(t->row(1) == L4(0.f, 0.f, 0.f, 0.f));
+            REQUIRE(t->row(0) == LF(1, 1, 1, 1));
+            REQUIRE(t->row(1) == LF(0, 0, 0, 0));
         }
 
         SECTION("col")
         {
-            TestMatrix t("ui.matrix", L4("@rows", 2, "@cols", 4));
+            TestMatrix t("ui.matrix", LA("@rows", 2, "@cols", 4));
 
-            REQUIRE(t->column(0) == L2(0.f, 0.f));
-            REQUIRE(t->column(1) == L2(0.f, 0.f));
-            REQUIRE(t->column(2) == L2(0.f, 0.f));
-            REQUIRE(t->column(3) == L2(0.f, 0.f));
+            REQUIRE(t->column(0) == LF(0, 0));
+            REQUIRE(t->column(1) == LF(0, 0));
+            REQUIRE(t->column(2) == LF(0, 0));
+            REQUIRE(t->column(3) == LF(0, 0));
             t->flipColumn(3);
-            REQUIRE(t->column(0) == L2(0.f, 0.f));
-            REQUIRE(t->column(1) == L2(0.f, 0.f));
-            REQUIRE(t->column(2) == L2(0.f, 0.f));
-            REQUIRE(t->column(3) == L2(1, 1));
+            REQUIRE(t->column(0) == LF(0, 0));
+            REQUIRE(t->column(1) == LF(0, 0));
+            REQUIRE(t->column(2) == LF(0, 0));
+            REQUIRE(t->column(3) == LF(1, 1));
         }
 
         SECTION("list")
         {
-            TestExtMatrix t("ui.matrix", L4("@cols", 3, "@rows", 2));
+            TestExtMatrix t("ui.matrix", LA("@cols", 3, "@rows", 2));
 
-            t.call("set", L7("list", 1, 1, 1, 0.f, 0.f, 0.f));
-            REQUIRE(t->row(0) == L3(1, 1, 1));
-            REQUIRE(t->row(1) == L3(0.f, 0.f, 0.f));
+            t.call("set", LA("list", 1, 1, 1, 0.f, 0.f, 0.f));
+            REQUIRE(t->row(0) == LF(1, 1, 1));
+            REQUIRE(t->row(1) == LF(0, 0, 0));
         }
 
         SECTION("pd")
         {
-            TestExtMatrix t("ui.matrix", L4("@cols", 3, "@rows", 2));
+            TestExtMatrix t("ui.matrix", LA("@cols", 3, "@rows", 2));
 
             // 0 0 0
             // 0 0 0
@@ -147,47 +158,47 @@ TEST_CASE("ui.matrix", "[ui.matrix]")
 
             // 1 0 1
             // 1 0 1
-            t.call("flip", L2("col", 1));
-            REQUIRE(t->row(0) == L3(1, 0.f, 1));
-            REQUIRE(t->row(1) == L3(1, 0.f, 1));
+            t.call("flip", LA("col", 1));
+            REQUIRE(t->row(0) == LF(1, 0, 1));
+            REQUIRE(t->row(1) == LF(1, 0, 1));
 
             // 1 0 1
             // 0 1 0
-            t.call("flip", L2("row", 1));
-            REQUIRE(t->row(0) == L3(1, 0.f, 1));
-            REQUIRE(t->row(1) == L3(0.f, 1, 0.f));
+            t.call("flip", LA("row", 1));
+            REQUIRE(t->row(0) == LF(1, 0, 1));
+            REQUIRE(t->row(1) == LF(0, 1, 0));
 
             // 1 0 0
             // 0 1 0
-            t.call("flip", L2(0.f, 2));
-            REQUIRE(t->row(0) == L3(1, 0.f, 0.f));
-            REQUIRE(t->row(1) == L3(0.f, 1, 0.f));
+            t.call("flip", LF(0, 2));
+            REQUIRE(t->row(0) == LF(1, 0, 0));
+            REQUIRE(t->row(1) == LF(0, 1, 0));
 
             SECTION("invalid")
             {
                 AtomList l = t->asList();
-                t.call("flip", L1(1));
+                t.call("flip", LF(1));
                 REQUIRE(t->asList() == l);
-                t.call("flip", L2("???", "???"));
+                t.call("flip", LA("???", "???"));
                 REQUIRE(t->asList() == l);
-                t.call("flip", L2(2, 3));
+                t.call("flip", LF(2, 3));
                 REQUIRE(t->asList() == l);
-                t.call("flip", L2(2, 1));
+                t.call("flip", LF(2, 1));
                 REQUIRE(t->asList() == l);
-                t.call("flip", L2(1, 3));
+                t.call("flip", LF(1, 3));
                 REQUIRE(t->asList() == l);
-                t.call("flip", L2(1, "A"));
+                t.call("flip", LA(1, "A"));
                 REQUIRE(t->asList() == l);
-                t.call("flip", L2("A", 2));
+                t.call("flip", LA("A", 2));
                 REQUIRE(t->asList() == l);
-                t.call("flip", L2("row", 2));
+                t.call("flip", LA("row", 2));
                 REQUIRE(t->asList() == l);
-                t.call("flip", L2("row", "??"));
+                t.call("flip", LA("row", "??"));
                 REQUIRE(t->asList() == l);
 
-                t.call("flip", L2("col", 3));
+                t.call("flip", LA("col", 3));
                 REQUIRE(t->asList() == l);
-                t.call("flip", L2("col", "??"));
+                t.call("flip", LA("col", "??"));
                 REQUIRE(t->asList() == l);
             }
         }
@@ -195,136 +206,133 @@ TEST_CASE("ui.matrix", "[ui.matrix]")
 
     SECTION("get/set column")
     {
-        TestMatrix t("ui.matrix", L4("@rows", 2, "@cols", 4));
-        t->onList(L8(1, 0.f, 1, 0.f, 0.f, 1, 0.f, 1));
+        TestMatrix t("ui.matrix", LA("@rows", 2, "@cols", 4));
+        t->onList(LF(1, 0, 1, 0, 0, 1, 0, 1));
 
-        REQUIRE(t->column(0) == L2(1, 0.f));
-        REQUIRE(t->column(2) == L2(1, 0.f));
-        REQUIRE(t->column(1) == L2(0.f, 1));
-        REQUIRE(t->column(3) == L2(0.f, 1));
-        REQUIRE(t->column(5) == L2(0.f, 0.f));
-        REQUIRE(t->column(400) == L2(0.f, 0.f));
+        REQUIRE(t->column(0) == LF(1, 0));
+        REQUIRE(t->column(2) == LF(1, 0));
+        REQUIRE(t->column(1) == LF(0, 1));
+        REQUIRE(t->column(3) == LF(0, 1));
+        REQUIRE(t->column(5) == LF(0, 0));
+        REQUIRE(t->column(400) == LF(0, 0));
 
-        t->setColumn(0, L2(1, 1));
-        t->setColumn(1, L2(0.f, 0.f));
-        t->setColumn(2, L2(1, 1));
-        t->setColumn(3, L2(0.f, 0.f));
-        t->setColumn(4, L2(0.f, 0.f));
-        t->setColumn(500, L2(0.f, 0.f));
+        t->setColumn(0, LF(1, 1));
+        t->setColumn(1, LF(0, 0));
+        t->setColumn(2, LF(1, 1));
+        t->setColumn(3, LF(0, 0));
+        t->setColumn(4, LF(0, 0));
+        t->setColumn(500, LF(0, 0));
 
-        REQUIRE(t->asList() == L8(1, 0.f, 1, 0.f, 1, 0.f, 1, 0.f));
+        REQUIRE(t->asList() == LF(1, 0, 1, 0, 1, 0, 1, 0));
         t->flipAll();
-        REQUIRE(t->asList() == L8(0.f, 1, 0.f, 1, 0.f, 1, 0.f, 1));
+        REQUIRE(t->asList() == LF(0, 1, 0, 1, 0, 1, 0, 1));
     }
 
     SECTION("output column")
     {
-        TestExtMatrix t("ui.matrix", L4("@cols", 4, "@rows", 2));
-        t.send(L8(
-            1.f, 1.f, 0.f, 1.f,
-            0.f, 0.f, 1.f, 1.f));
+        TestExtMatrix t("ui.matrix", LA("@cols", 4, "@rows", 2));
+        t.send(LF(
+            1, 1, 0, 1,
+            0, 0, 1, 1));
 
-        t.call("get", L2("col", 1));
-        REQUIRE_OUTPUT_ANY(t, 0, L4("col", 1, 1, 0.f));
+        t.call("get", LA("col", 1));
+        REQUIRE_OUTPUT_ANY(t, 0, LA("col", 1, 1, 0.f));
 
-        t.call("get", L2("col", 2));
-        REQUIRE_OUTPUT_ANY(t, 0, L4("col", 2, 0.f, 1.f));
+        t.call("get", LA("col", 2));
+        REQUIRE_OUTPUT_ANY(t, 0, LA("col", 2, 0.f, 1));
 
-        t.call("get", L1("col"));
+        t.call("get", LA("col"));
         REQUIRE_NO_OUTPUT(t);
 
-        t.call("get", L2("col", "NOTANUMBER"));
+        t.call("get", LA("col", "NOTANUMBER"));
         REQUIRE_NO_OUTPUT(t)
-        t.call("get", L2("col", -1));
+        t.call("get", LA("col", -1));
         REQUIRE_NO_OUTPUT(t);
 
-        t.call("get", L2("col", 5));
+        t.call("get", LA("col", 5));
         REQUIRE_NO_OUTPUT(t);
     }
 
     SECTION("get/set row")
     {
-        TestMatrix t("ui.matrix", L4("@rows", 2, "@cols", 4));
-        t->onList(L8(1, 0.f, 1, 0.f, 0.f, 1, 0.f, 1));
-        REQUIRE(t->row(0) == L4(1, 0.f, 1, 0.f));
-        REQUIRE(t->row(1) == L4(0.f, 1, 0.f, 1));
-        REQUIRE(t->row(2) == L4(0.f, 0.f, 0.f, 0.f));
+        TestMatrix t("ui.matrix", LA("@rows", 2, "@cols", 4));
+        t->onList(LF(1, 0.f, 1, 0, 0, 1, 0, 1));
+        REQUIRE(t->row(0) == LF(1, 0, 1, 0));
+        REQUIRE(t->row(1) == LF(0, 1, 0, 1));
+        REQUIRE(t->row(2) == LF(0, 0, 0, 0));
 
-        t->setRow(0, L4(1, 1, 1, 1));
-        REQUIRE(t->row(0) == L4(1, 1, 1, 1));
-        t->setRow(1, L4(1, 1, 0.f, 0.f));
-        REQUIRE(t->row(1) == L4(1, 1, 0.f, 0.f));
-        t->setRow(2, L4(1, 1, 0.f, 0.f));
+        t->setRow(0, LF(1, 1, 1, 1));
+        REQUIRE(t->row(0) == LF(1, 1, 1, 1));
+        t->setRow(1, LF(1, 1, 0, 0));
+        REQUIRE(t->row(1) == LF(1, 1, 0, 0));
+        t->setRow(2, LF(1, 1, 0, 0));
     }
 
     SECTION("output row")
     {
-        TestExtMatrix t("ui.matrix", L4("@rows", 2, "@cols", 3));
-        t.send(L6(
-            1, 0.f, 1,
-            0.f, 1, 0.f));
+        TestExtMatrix t("ui.matrix", LA("@rows", 2, "@cols", 3));
+        t.send(LF(1, 0, 1, 0, 1, 0));
+
+        REQUIRE(t->row(0) == LF(1, 0, 1));
+        REQUIRE(t->row(1) == LF(0, 1, 0));
+
+        t.call("get", LA("row", 0.f));
+        REQUIRE_OUTPUT_ANY(t, 0, LA("row", 0.f, 1, 0.f, 1));
+        t.call("get", LA("row", 1));
+        REQUIRE_OUTPUT_ANY(t, 0, LA("row", 1, 0.f, 1, 0.f));
+
+        t.call("get", LA("row"));
         REQUIRE_NO_OUTPUT(t);
 
-        REQUIRE(t->row(0) == L3(1, 0.f, 1));
-        REQUIRE(t->row(1) == L3(0.f, 1, 0.f));
-
-        t.call("get", L2("row", 0.f));
-        REQUIRE_OUTPUT_ANY(t, 0, L5("row", 0.f, 1, 0.f, 1));
-        t.call("get", L2("row", 1));
-        REQUIRE_OUTPUT_ANY(t, 0, L5("row", 1, 0.f, 1, 0.f));
-
-        t.call("get", L1("row"));
+        t.call("get", LA("row", "ABC"));
         REQUIRE_NO_OUTPUT(t);
 
-        t.call("get", L2("row", "ABC"));
+        t.call("get", LA("row", -1));
         REQUIRE_NO_OUTPUT(t);
 
-        t.call("get", L2("row", -1));
-        REQUIRE_NO_OUTPUT(t);
-
-        t.call("get", L2("row", 2));
+        t.call("get", LA("row", 2));
         REQUIRE_NO_OUTPUT(t);
     }
 
     SECTION("reset")
     {
-        TestMatrix t("ui.matrix", L4("@rows", 2, "@cols", 3));
+        TestMatrix t("ui.matrix", LA("@rows", 2, "@cols", 3));
         t->flipAll();
-        REQUIRE(t->asList() == L6(1, 1, 1, 1, 1, 1));
+        REQUIRE(t->asList() == LF(1, 1, 1, 1, 1, 1));
         t->m_reset();
         REQUIRE(t->asList() == AtomList::zeroes(6));
     }
 
     SECTION("output cell")
     {
-        TestExtMatrix t("ui.matrix", L4("@rows", 2, "@cols", 3));
-        t.send(L6(1, 0.f, 1, 0.f, 1, 0.f));
-        t.call("get", L3("cell", 0.f, 0.f));
-        REQUIRE_OUTPUT_ANY(t, 0, L4("cell", 0.f, 0.f, 1));
-        t.call("get", L3("cell", 0.f, 1));
-        REQUIRE_OUTPUT_ANY(t, 0, L4("cell", 0.f, 1, 0.f));
-        t.call("get", L3("cell", 0.f, 2));
-        REQUIRE_OUTPUT_ANY(t, 0, L4("cell", 0.f, 2, 1));
-        t.call("get", L3("cell", 1, 0.f));
-        REQUIRE_OUTPUT_ANY(t, 0, L4("cell", 1, 0.f, 0.f));
-        t.call("get", L3("cell", 1, 1));
-        REQUIRE_OUTPUT_ANY(t, 0, L4("cell", 1, 1, 1));
-        t.call("get", L3("cell", 1, 2));
-        REQUIRE_OUTPUT_ANY(t, 0, L4("cell", 1, 2, 0.f));
+        TestExtMatrix t("ui.matrix", LA("@rows", 2, "@cols", 3));
+        t.send(LF(1, 0, 1, 0, 1, 0));
+        t.call("get", LA("cell", 0.f, 0.f));
+        REQUIRE_OUTPUT_ANY(t, 0, LA("cell", 0.f, 0.f, 1));
+        t.call("get", LA("cell", 0.f, 1));
+        REQUIRE_OUTPUT_ANY(t, 0, LA("cell", 0.f, 1, 0.f));
+        t.call("get", LA("cell", 0.f, 2));
+        REQUIRE_OUTPUT_ANY(t, 0, LA("cell", 0.f, 2, 1));
+        t.call("get", LA("cell", 1, 0.f));
+        REQUIRE_OUTPUT_ANY(t, 0, LA("cell", 1, 0.f, 0.f));
+        t.call("get", LA("cell", 1, 1));
+        REQUIRE_OUTPUT_ANY(t, 0, LA("cell", 1, 1, 1));
+        t.call("get", LA("cell", 1, 2));
+        REQUIRE_OUTPUT_ANY(t, 0, LA("cell", 1, 2, 0.f));
 
-        t.call("get", L1("cell"));
+        t.call("get", LA("cell"));
         REQUIRE_NO_OUTPUT(t);
-        t.call("get", L2("cell", 2));
+        t.call("get", LA("cell", 2));
         REQUIRE_NO_OUTPUT(t);
-        t.call("get", L3("cell", -2, -2));
+        t.call("get", LA("cell", -2, -2));
         REQUIRE_NO_OUTPUT(t);
-        t.call("get", L3("cell", 20, 1));
+        t.call("get", LA("cell", 20, 1));
         REQUIRE_NO_OUTPUT(t);
-        t.call("get", L3("cell", 10, 10));
+        t.call("get", LA("cell", 10, 10));
         REQUIRE_NO_OUTPUT(t);
-        t.call("get", L3("cell", 10, -10));
+        t.call("get", LA("cell", 10, -10));
         REQUIRE_NO_OUTPUT(t);
-        t.call("get", L3("cell", "A", "B"));
+        t.call("get", LA("cell", "A", "B"));
         REQUIRE_NO_OUTPUT(t);
     }
 
@@ -333,17 +341,17 @@ TEST_CASE("ui.matrix", "[ui.matrix]")
         TestExtMatrix t("ui.matrix");
 
         t.call("@cols?");
-        REQUIRE_OUTPUT_ANY(t, 0, L2("@cols", 8));
+        REQUIRE_OUTPUT_ANY(t, 0, LA("@cols", 8));
         t.call("@rows?");
-        REQUIRE_OUTPUT_ANY(t, 0, L2("@rows", 4));
+        REQUIRE_OUTPUT_ANY(t, 0, LA("@rows", 4));
 
         t.call("@rows?");
-        REQUIRE_OUTPUT_ANY(t, 0, L2("@rows", 4));
+        REQUIRE_OUTPUT_ANY(t, 0, LA("@rows", 4));
 
         for (int i = 0; i < t->p_rows(); i++) {
             for (int j = 0; j < t->p_cols(); j++) {
                 t->outputCell(i, j);
-                REQUIRE_OUTPUT_ANY(t, 0, L4("cell", i, j, 0.f));
+                REQUIRE_OUTPUT_ANY(t, 0, LA("cell", i, j, 0.f));
             }
         }
 
@@ -352,7 +360,7 @@ TEST_CASE("ui.matrix", "[ui.matrix]")
         for (int i = 0; i < t->p_rows(); i++) {
             for (int j = 0; j < t->p_cols(); j++) {
                 t->outputCell(i, j);
-                REQUIRE_OUTPUT_ANY(t, 0, L4("cell", i, j, 1));
+                REQUIRE_OUTPUT_ANY(t, 0, LA("cell", i, j, 1));
             }
         }
 
@@ -362,198 +370,198 @@ TEST_CASE("ui.matrix", "[ui.matrix]")
 
     SECTION("output all")
     {
-        TestExtMatrix t("ui.matrix", L4("@rows", 2, "@cols", 3));
-        t.send(L6(1, 0.f, 1, 0.f, 1, 0.f));
+        TestExtMatrix t("ui.matrix", LA("@rows", 2, "@cols", 3));
+        t.send(LF(1, 0.f, 1, 0.f, 1, 0.f));
 
-        t.call("get", L1("rows"));
-        REQUIRE_OUTPUT_ANY(t, 0, L5("row", 1, 0.f, 1, 0.f));
+        t.call("get", LA("rows"));
+        REQUIRE_OUTPUT_ANY(t, 0, LA("row", 1, 0.f, 1, 0.f));
 
-        t.call("get", L1("cols"));
-        REQUIRE_OUTPUT_ANY(t, 0, L4("col", 2, 1, 0.f));
+        t.call("get", LA("cols"));
+        REQUIRE_OUTPUT_ANY(t, 0, LA("col", 2, 1, 0.f));
 
-        t.call("get", L1("cells"));
-        REQUIRE_OUTPUT_ANY(t, 0, L4("cell", 1, 2, 0.f));
+        t.call("get", LA("cells"));
+        REQUIRE_OUTPUT_ANY(t, 0, LA("cell", 1, 2, 0.f));
     }
 
     SECTION("output list")
     {
-        TestExtMatrix t("ui.matrix", L4("@rows", 2, "@cols", 3));
+        TestExtMatrix t("ui.matrix", LA("@rows", 2, "@cols", 3));
 
-        t.call("get", L1("list"));
+        t.call("get", LA("list"));
         REQUIRE_OUTPUT_LIST(t, 0, AtomList::zeroes(6));
 
         t->flipAll();
-        t.call("get", L1("list"));
+        t.call("get", LA("list"));
         REQUIRE_OUTPUT_LIST(t, 0, AtomList::ones(6));
 
-        t.call("get", L1("unknown"));
+        t.call("get", LA("unknown"));
         REQUIRE_NO_OUTPUT(t);
 
         t.call("get");
         REQUIRE_NO_OUTPUT(t);
 
-        t.call("get", L1(100));
+        t.call("get", LF(100));
         REQUIRE_NO_OUTPUT(t);
     }
 
     SECTION("set cell")
     {
-        TestExtMatrix t("ui.matrix", L4("@rows", 2, "@cols", 3));
+        TestExtMatrix t("ui.matrix", LA("@rows", 2, "@cols", 3));
 
         REQUIRE_FALSE(t->cell(1, 1));
-        t.call("set", L4("cell", 1, 1, 1));
+        t.call("set", LA("cell", 1, 1, 1));
         REQUIRE(t->cell(1, 1));
         REQUIRE_NO_OUTPUT(t);
 
         REQUIRE_FALSE(t->cell(1, 2));
-        t.call("set", L4("cell", 1, 2, 1));
+        t.call("set", LA("cell", 1, 2, 1));
         REQUIRE(t->cell(1, 2));
 
         AtomList l = t->asList();
-        t.call("set", L3("cell", 1, 0.f));
+        t.call("set", LA("cell", 1, 0.f));
         REQUIRE(t->asList() == l);
 
         l = t->asList();
-        t.call("set", L4("cell", 1, -1, 1));
+        t.call("set", LA("cell", 1, -1, 1));
         REQUIRE(t->asList() == l);
 
         l = t->asList();
-        t.call("set", L4("cell", -1, -1, 1));
+        t.call("set", LA("cell", -1, -1, 1));
         REQUIRE(t->asList() == l);
 
         l = t->asList();
-        t.call("set", L4("cell", -1, 1, 1));
+        t.call("set", LA("cell", -1, 1, 1));
         REQUIRE(t->asList() == l);
 
         l = t->asList();
-        t.call("set", L4("cell", 2, 1, 1));
+        t.call("set", LA("cell", 2, 1, 1));
         REQUIRE(t->asList() == l);
 
         l = t->asList();
-        t.call("set", L4("cell", 1, 4, 1));
+        t.call("set", LA("cell", 1, 4, 1));
         REQUIRE(t->asList() == l);
     }
 
     SECTION("set col")
     {
-        TestExtMatrix t("ui.matrix", L4("@rows", 2, "@cols", 3));
+        TestExtMatrix t("ui.matrix", LA("@rows", 2, "@cols", 3));
 
-        t.call("set", L4("col", 1, 1, 1));
+        t.call("set", LA("col", 1, 1, 1));
         REQUIRE_NO_OUTPUT(t);
-        REQUIRE(t->column(1) == L2(1, 1));
+        REQUIRE(t->column(1) == LF(1, 1));
 
-        t.call("set", L4("col", 2, 1, 1));
+        t.call("set", LA("col", 2, 1, 1));
         REQUIRE_NO_OUTPUT(t);
-        REQUIRE(t->column(2) == L2(1, 1));
+        REQUIRE(t->column(2) == LF(1, 1));
 
         AtomList l = t->asList();
-        t.call("set", L1("col"));
+        t.call("set", LA("col"));
         REQUIRE(t->asList() == l);
 
         l = t->asList();
-        t.call("set", L2("col", 1));
+        t.call("set", LA("col", 1));
         REQUIRE(t->asList() == l);
 
-        t.call("set", L3("col", 1, 0.f));
-        REQUIRE(t->column(1) == L2(0.f, 1));
+        t.call("set", LA("col", 1, 0.f));
+        REQUIRE(t->column(1) == LF(0.f, 1));
 
         l = t->asList();
-        t.call("set", L3("col", 3, 0.f));
-        REQUIRE(t->asList() == l);
-
-        l = t->asList();
-        t.call("set", L3("col", 3, 0.f));
+        t.call("set", LA("col", 3, 0.f));
         REQUIRE(t->asList() == l);
 
         l = t->asList();
-        t.call("set", L3("col", "???", 0.f));
+        t.call("set", LA("col", 3, 0.f));
         REQUIRE(t->asList() == l);
 
-        t.call("set", L8("col", 0.f, 1, 1, 1, 1, 1, 1));
-        REQUIRE(t->column(0) == L2(1, 1));
+        l = t->asList();
+        t.call("set", LA("col", "???", 0.f));
+        REQUIRE(t->asList() == l);
+
+        t.call("set", LA("col", 0.f, 1, 1, 1, 1, 1, 1));
+        REQUIRE(t->column(0) == LF(1, 1));
     }
 
     SECTION("row")
     {
-        TestExtMatrix t("ui.matrix", L4("@rows", 2, "@cols", 3));
+        TestExtMatrix t("ui.matrix", LA("@rows", 2, "@cols", 3));
 
-        t.call("set", L5("row", 1, 1, 1, 1));
+        t.call("set", LA("row", 1, 1, 1, 1));
         REQUIRE_NO_OUTPUT(t);
-        REQUIRE(t->row(1) == L3(1, 1, 1));
+        REQUIRE(t->row(1) == LF(1, 1, 1));
 
         // invalid row
         AtomList l = t->asList();
-        t.call("set", L5("row", 2, 1, 1, 1));
+        t.call("set", LA("row", 2, 1, 1, 1));
         REQUIRE(t->asList() == l);
 
         // missing arguments
         l = t->asList();
-        t.call("set", L1("row"));
+        t.call("set", LA("row"));
         REQUIRE(t->asList() == l);
 
         l = t->asList();
-        t.call("set", L2("row", 1));
+        t.call("set", LA("row", 1));
         REQUIRE(t->asList() == l);
 
         l = t->asList();
-        t.call("set", L3("row", 1, 1));
+        t.call("set", LA("row", 1, 1));
         REQUIRE(t->asList() == l);
 
         t.call("set");
         REQUIRE_NO_OUTPUT(t);
-        t.call("set", L1("???"));
+        t.call("set", LA("???"));
         REQUIRE_NO_OUTPUT(t);
     }
 
     SECTION("preset")
     {
-        TestExtMatrix t("ui.matrix", L4("@rows", 2, "@cols", 3));
+        TestExtMatrix t("ui.matrix", LA("@rows", 2, "@cols", 3));
 
-        REQUIRE(t->row(0) == L3(0.f, 0.f, 0.f));
-        REQUIRE(t->row(1) == L3(0.f, 0.f, 0.f));
-        t.call("store", L1(1));
+        REQUIRE(t->row(0) == LF(0.f, 0.f, 0.f));
+        REQUIRE(t->row(1) == LF(0.f, 0.f, 0.f));
+        t.call("store", LF(1));
 
         t->flipRow(0);
-        REQUIRE(t->row(0) == L3(1, 1, 1));
-        REQUIRE(t->row(1) == L3(0.f, 0.f, 0.f));
-        t.call("store", L1(2));
+        REQUIRE(t->row(0) == LF(1, 1, 1));
+        REQUIRE(t->row(1) == LF(0.f, 0.f, 0.f));
+        t.call("store", LF(2));
 
         t->flipRow(1);
-        REQUIRE(t->row(0) == L3(1, 1, 1));
-        REQUIRE(t->row(1) == L3(1, 1, 1));
-        t.call("store", L1(3));
+        REQUIRE(t->row(0) == LF(1, 1, 1));
+        REQUIRE(t->row(1) == LF(1, 1, 1));
+        t.call("store", LF(3));
 
-        t.call("load", L1(1));
-        REQUIRE(t->row(0) == L3(0.f, 0.f, 0.f));
-        REQUIRE(t->row(1) == L3(0.f, 0.f, 0.f));
+        t.call("load", LF(1));
+        REQUIRE(t->row(0) == LF(0.f, 0.f, 0.f));
+        REQUIRE(t->row(1) == LF(0.f, 0.f, 0.f));
 
-        t.call("load", L1(2));
-        REQUIRE(t->row(0) == L3(1, 1, 1));
-        REQUIRE(t->row(1) == L3(0.f, 0.f, 0.f));
+        t.call("load", LF(2));
+        REQUIRE(t->row(0) == LF(1, 1, 1));
+        REQUIRE(t->row(1) == LF(0.f, 0.f, 0.f));
 
-        t.call("load", L1(3));
-        REQUIRE(t->row(0) == L3(1, 1, 1));
-        REQUIRE(t->row(1) == L3(1, 1, 1));
+        t.call("load", LF(3));
+        REQUIRE(t->row(0) == LF(1, 1, 1));
+        REQUIRE(t->row(1) == LF(1, 1, 1));
     }
 
     SECTION("send")
     {
-        TestExtMatrix t("ui.matrix", L6("@rows", 2, "@cols", 3, "@send", "r1"));
+        TestExtMatrix t("ui.matrix", LA("@rows", 2, "@cols", 3, "@send", "r1"));
         t.addListener("r1");
 
         t << BANG;
-        REQUIRE_ANY_WAS_SEND(t, "r1", L4("cell", 1, 2, 0.f));
+        REQUIRE_ANY_WAS_SEND(t, "r1", LA("cell", 1, 2, 0.f));
 
-        t.call("get", L1("rows"));
-        REQUIRE_ANY_WAS_SEND(t, "r1", L5("row", 1, 0.f, 0.f, 0.f));
+        t.call("get", LA("rows"));
+        REQUIRE_ANY_WAS_SEND(t, "r1", LA("row", 1, 0.f, 0.f, 0.f));
 
-        t.call("get", L1("cols"));
-        REQUIRE_ANY_WAS_SEND(t, "r1", L4("col", 2, 0.f, 0.f));
-
-        t.mouseDown(5, 5);
-        REQUIRE_ANY_WAS_SEND(t, "r1", L4("cell", 0.f, 0.f, 1));
+        t.call("get", LA("cols"));
+        REQUIRE_ANY_WAS_SEND(t, "r1", LA("col", 2, 0.f, 0.f));
 
         t.mouseDown(5, 5);
-        REQUIRE_ANY_WAS_SEND(t, "r1", L4("cell", 0.f, 0.f, 0.f));
+        REQUIRE_ANY_WAS_SEND(t, "r1", LA("cell", 0.f, 0.f, 1));
+
+        t.mouseDown(5, 5);
+        REQUIRE_ANY_WAS_SEND(t, "r1", LA("cell", 0.f, 0.f, 0.f));
     }
 }
