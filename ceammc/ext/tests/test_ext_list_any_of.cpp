@@ -16,6 +16,8 @@
 #include "test_base.h"
 #include "test_external.h"
 
+#include <stdio.h>
+
 PD_COMPLETE_TEST_SETUP(ListAnyOf, list, any_of);
 
 typedef TestExternal<ListAnyOf> ListAnyOfTest;
