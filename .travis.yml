@@ -7,6 +7,11 @@ git:
 addons:
   apt:
     update: true
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - gcc-4.9
+      - g++-4.9
 
 env:
   global:
@@ -28,6 +33,7 @@ matrix:
 
 before_install:
 - ./ceammc/scripts/travis_before_install.sh
+- if [ "$CXX" = "g++" ]; then export CXX="g++-4.9" CC="gcc-4.9"; fi
 
 before_script:
 - ./ceammc/scripts/travis_configure.sh
