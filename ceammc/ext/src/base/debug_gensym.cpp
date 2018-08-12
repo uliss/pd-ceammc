@@ -3,6 +3,8 @@
 #include "ceammc_object.h"
 #include "x_ceammc.h"
 
+#include <cstring>
+
 using namespace ceammc;
 
 namespace pd {
