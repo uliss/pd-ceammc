@@ -331,7 +331,8 @@ bool DataTypeDict::fromJSON(const std::string& str)
         dict_.clear();
 
         for (auto it = j.begin(); it != j.end(); ++it) {
-            DictValue v = *it;
+            DictValue v;
+            from_json(*it, v);
             std::string str_key = it.key();
             Atom atom_key;
 
