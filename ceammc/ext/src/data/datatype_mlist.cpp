@@ -19,6 +19,7 @@
 
 #include <cassert>
 #include <cmath>
+#include <cstring>
 
 DataType DataTypeMList::dataType = data::DATA_MLIST;
 
