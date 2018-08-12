@@ -97,15 +97,15 @@ void FlowRoute::onData(const DataPtr& ptr)
             const size_t IDX = i - 1;
             auto& key = slots[IDX];
             auto value = dict->value(key);
-            if (value == boost::none)
-                continue;
 
-            if (DataTypeDict::isAtom(value))
-                atomTo(IDX, boost::get<Atom>(*value));
+            if (DataTypeDict::isNull(value))
+                continue;
+            else if (DataTypeDict::isAtom(value))
+                atomTo(IDX, boost::get<Atom>(value));
             else if (DataTypeDict::isAtomList(value))
-                listTo(IDX, boost::get<AtomList>(*value));
+                listTo(IDX, boost::get<AtomList>(value));
             else if (DataTypeDict::isDataAtom(value))
-                dataTo(IDX, boost::get<DataAtom>(*value).data());
+                dataTo(IDX, boost::get<DataAtom>(value).data());
             else {
                 OBJ_ERR << "unsupported value type";
             }

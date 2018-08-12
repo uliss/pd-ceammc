@@ -26,13 +26,12 @@
 
 namespace ceammc {
 
-typedef boost::variant<DataAtom, Atom, AtomList> DictValue;
+typedef boost::variant<boost::blank, DataAtom, Atom, AtomList> DictValue;
 typedef boost::optional<std::string> MaybeString;
 
 class DataTypeDict : public AbstractData {
 public:
     typedef std::map<Atom, DictValue> DictMap;
-    typedef boost::optional<DictValue> MaybeValue;
 
 private:
     DictMap dict_;
@@ -50,7 +49,7 @@ public:
 
     size_t size() const;
     bool contains(const Atom& key) const;
-    MaybeValue value(const Atom& key) const;
+    DictValue value(const Atom& key) const;
 
     template <class T>
     boost::optional<T> valueT(const Atom& key) const
@@ -60,11 +59,7 @@ public:
                 || std::is_same<T, AtomList>(),
             "unsupported type");
 
-        MaybeValue opt = value(key);
-        if (!opt)
-            return boost::none;
-
-        auto val = opt.get();
+        DictValue val = value(key);
 
         if (val.type() == typeid(T))
             return boost::get<T>(val);
@@ -92,17 +87,15 @@ public:
 
 public:
     template <class T>
-    static bool isType(const MaybeValue& v)
+    static bool isType(const DictValue& v)
     {
-        if (!v)
-            return false;
-
-        return v.get().type() == typeid(T);
+        return v.type() == typeid(T);
     }
 
-    static bool isAtom(const MaybeValue& v);
-    static bool isAtomList(const MaybeValue& v);
-    static bool isDataAtom(const MaybeValue& v);
+    static bool isNull(const DictValue& v);
+    static bool isAtom(const DictValue& v);
+    static bool isAtomList(const DictValue& v);
+    static bool isDataAtom(const DictValue& v);
 
 public:
     DictMap& innerData() { return dict_; }

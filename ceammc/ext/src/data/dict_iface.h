@@ -79,17 +79,17 @@ public:
         }
 
         auto v = dict().value(key[0]);
-        if (v == boost::none) {
+        if (DataTypeDict::isNull(v)) {
             METHOD_ERR(s) << "key not found: " << key[0];
             return;
         }
 
-        if (v->type() == typeid(Atom))
-            this->atomTo(0, boost::get<Atom>(*v));
-        else if (v->type() == typeid(AtomList))
-            this->listTo(0, boost::get<AtomList>(*v));
-        else if (v->type() == typeid(DataAtom))
-            this->atomTo(0, boost::get<DataAtom>(*v).toAtom());
+        if (v.type() == typeid(Atom))
+            this->atomTo(0, boost::get<Atom>(v));
+        else if (v.type() == typeid(AtomList))
+            this->listTo(0, boost::get<AtomList>(v));
+        else if (v.type() == typeid(DataAtom))
+            this->atomTo(0, boost::get<DataAtom>(v).toAtom());
         else
             METHOD_ERR(s) << "unknown value type";
     }

@@ -38,7 +38,7 @@ TEST_CASE("DataTypeDict", "[ceammc::DataTypeDict]")
         REQUIRE(d.size() == 0);
 
         REQUIRE(d.innerData().empty());
-        REQUIRE_FALSE(d.value(A("ABC")));
+        REQUIRE(d.value(A("ABC")).which() == 0);
 
         DataTypeDict d1("[]");
         REQUIRE(d.size() == 0);
@@ -127,16 +127,16 @@ TEST_CASE("DataTypeDict", "[ceammc::DataTypeDict]")
         REQUIRE(d0.contains(A("atom data2")));
         REQUIRE(d0.contains(A(123)));
 
-        REQUIRE(d0.value(A("string")).value().type() == typeid(Atom));
-        REQUIRE(d0.value(A("float")).value().type() == typeid(Atom));
-        REQUIRE(d0.value(A("float1")).value().type() == typeid(Atom));
-        REQUIRE(d0.value(A("atom")).value().type() == typeid(Atom));
-        REQUIRE(d0.value(A("atom_float1")).value().type() == typeid(Atom));
-        REQUIRE(d0.value(A("atom_float2")).value().type() == typeid(Atom));
-        REQUIRE(d0.value(A("atom_atom")).value().type() == typeid(Atom));
-        REQUIRE(d0.value(A("atom_list")).value().type() == typeid(AtomList));
-        REQUIRE(d0.value(A("atom_data1")).value().type() == typeid(DataAtom));
-        REQUIRE(d0.value(A("atom data2")).value().type() == typeid(DataAtom));
+        REQUIRE(d0.value(A("string")).type() == typeid(Atom));
+        REQUIRE(d0.value(A("float")).type() == typeid(Atom));
+        REQUIRE(d0.value(A("float1")).type() == typeid(Atom));
+        REQUIRE(d0.value(A("atom")).type() == typeid(Atom));
+        REQUIRE(d0.value(A("atom_float1")).type() == typeid(Atom));
+        REQUIRE(d0.value(A("atom_float2")).type() == typeid(Atom));
+        REQUIRE(d0.value(A("atom_atom")).type() == typeid(Atom));
+        REQUIRE(d0.value(A("atom_list")).type() == typeid(AtomList));
+        REQUIRE(d0.value(A("atom_data1")).type() == typeid(DataAtom));
+        REQUIRE(d0.value(A("atom data2")).type() == typeid(DataAtom));
 
 #ifdef __APPLE__
         REQUIRE(d0.toString() == "[123: numeric] "
@@ -189,7 +189,7 @@ TEST_CASE("DataTypeDict", "[ceammc::DataTypeDict]")
         res = dict_get(d);
         REQUIRE(res.size() == 1);
         REQUIRE(res.contains(A("key")));
-        REQUIRE(*res.valueT<Atom>(A("key")) == A("value"));
+        REQUIRE(res.valueT<Atom>(A("key")) == A("value"));
         // wrong type
         REQUIRE(res.valueT<AtomList>(A("key")) == boost::none);
         REQUIRE(res.valueT<Atom>(A("key-not-exists")) == boost::none);
@@ -199,21 +199,21 @@ TEST_CASE("DataTypeDict", "[ceammc::DataTypeDict]")
         res = dict_get(d);
         REQUIRE(res.size() == 1);
         REQUIRE(res.contains(A(100)));
-        REQUIRE(*res.valueT<Atom>(A(100)) == A("value"));
+        REQUIRE(res.valueT<Atom>(A(100)) == A("value"));
 
         // single key no spaces
         dict_parse_string(d, "[key2:value]");
         res = dict_get(d);
         REQUIRE(res.size() == 1);
         REQUIRE(res.contains(A("key2")));
-        REQUIRE(*res.valueT<Atom>(A("key2")) == A("value"));
+        REQUIRE(res.valueT<Atom>(A("key2")) == A("value"));
 
         // single key with spaces
         dict_parse_string(d, "[\"key with spaces\" : \"value with spaces\"]");
         res = dict_get(d);
         REQUIRE(res.size() == 1);
         REQUIRE(res.contains(A("key with spaces")));
-        REQUIRE(*res.valueT<Atom>(A("key with spaces")) == A("value with spaces"));
+        REQUIRE(res.valueT<Atom>(A("key with spaces")) == A("value with spaces"));
 
         // two keys
         dict_parse_string(d, "[key1: value1] [key2: value2]");
@@ -236,7 +236,7 @@ TEST_CASE("DataTypeDict", "[ceammc::DataTypeDict]")
         REQUIRE(res.size() == 2);
         REQUIRE(res.contains(A("key1")));
         REQUIRE(res.contains(A("key2")));
-        REQUIRE(*res.valueT<Atom>(A("key1")) == A("a b c"));
+        REQUIRE(res.valueT<Atom>(A("key1")) == A("a b c"));
 
         // lists
         dict_parse_string(d, "[key: 1 2 3] [key2: a b c]");
@@ -244,43 +244,43 @@ TEST_CASE("DataTypeDict", "[ceammc::DataTypeDict]")
         REQUIRE(res.size() == 2);
         REQUIRE(res.contains(A("key")));
         REQUIRE(res.contains(A("key2")));
-        REQUIRE(*res.valueT<AtomList>(A("key")) == LF(1, 2, 3));
-        REQUIRE(*res.valueT<AtomList>(A("key2")) == LA("a", "b", "c"));
+        REQUIRE(res.valueT<AtomList>(A("key")) == LF(1, 2, 3));
+        REQUIRE(res.valueT<AtomList>(A("key2")) == LA("a", "b", "c"));
 
         // single key no quotes
         dict_parse_string(d, "a: 1");
         res = dict_get(d);
         REQUIRE(res.size() == 1);
         REQUIRE(res.contains(A("a")));
-        REQUIRE(*res.valueT<Atom>(A("a")) == A(1));
+        REQUIRE(res.valueT<Atom>(A("a")) == A(1));
 
         // single key
         dict_parse_string(d, "a: \"1 2 3\"");
         res = dict_get(d);
         REQUIRE(res.size() == 1);
         REQUIRE(res.contains(A("a")));
-        REQUIRE(*res.valueT<Atom>(A("a")) == A("1 2 3"));
+        REQUIRE(res.valueT<Atom>(A("a")) == A("1 2 3"));
 
         // single key
         dict_parse_string(d, "\"a\": \"1\"");
         res = dict_get(d);
         REQUIRE(res.size() == 1);
         REQUIRE(res.contains(A("a")));
-        REQUIRE(*res.valueT<Atom>(A("a")) == A("1"));
+        REQUIRE(res.valueT<Atom>(A("a")) == A("1"));
 
         // single key
         dict_parse_string(d, "\"a\": 1");
         res = dict_get(d);
         REQUIRE(res.size() == 1);
         REQUIRE(res.contains(A("a")));
-        REQUIRE(*res.valueT<Atom>(A("a")) == A(1));
+        REQUIRE(res.valueT<Atom>(A("a")) == A(1));
 
         // single key -> list
         dict_parse_string(d, "\"a\": 1 2 3");
         res = dict_get(d);
         REQUIRE(res.size() == 1);
         REQUIRE(res.contains(A("a")));
-        REQUIRE(*res.valueT<AtomList>(A("a")) == LF(1, 2, 3));
+        REQUIRE(res.valueT<AtomList>(A("a")) == LF(1, 2, 3));
         REQUIRE(DataTypeDict::isAtomList(res.value(A("a"))));
         REQUIRE_FALSE(DataTypeDict::isDataAtom(res.value(A("a"))));
 
@@ -289,7 +289,7 @@ TEST_CASE("DataTypeDict", "[ceammc::DataTypeDict]")
         res = dict_get(d);
         REQUIRE(res.size() == 1);
         REQUIRE(res.contains(A("a")));
-        REQUIRE(*res.valueT<AtomList>(A("a")) == LA(1, 2, "a test"));
+        REQUIRE(res.valueT<AtomList>(A("a")) == LA(1, 2, "a test"));
 
         dict_free(d);
     }

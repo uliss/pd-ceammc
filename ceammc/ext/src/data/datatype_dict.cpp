@@ -120,11 +120,11 @@ bool DataTypeDict::contains(const Atom& key) const
     return dict_.find(key) != dict_.end();
 }
 
-DataTypeDict::MaybeValue DataTypeDict::value(const Atom& key) const
+DictValue DataTypeDict::value(const Atom& key) const
 {
     auto it = dict_.find(key);
 
-    return it == dict_.end() ? boost::none : MaybeValue(it->second);
+    return it == dict_.end() ? DictValue() : it->second;
 }
 
 void DataTypeDict::insert(const std::string& key, const std::string& value)
@@ -404,17 +404,22 @@ bool DataTypeDict::write(const std::string& path) const
     return true;
 }
 
-bool DataTypeDict::isAtom(const DataTypeDict::MaybeValue& v)
+bool DataTypeDict::isNull(const DictValue& v)
+{
+    return v.which() == 0;
+}
+
+bool DataTypeDict::isAtom(const DictValue& v)
 {
     return isType<Atom>(v);
 }
 
-bool DataTypeDict::isAtomList(const DataTypeDict::MaybeValue& v)
+bool DataTypeDict::isAtomList(const DictValue& v)
 {
     return isType<AtomList>(v);
 }
 
-bool DataTypeDict::isDataAtom(const DataTypeDict::MaybeValue& v)
+bool DataTypeDict::isDataAtom(const DictValue& v)
 {
     return isType<DataAtom>(v);
 }
