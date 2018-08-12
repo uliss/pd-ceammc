@@ -16,6 +16,8 @@
 #include "ceammc_log.h"
 #include "m_pd.h"
 
+#include <cstring>
+
 using namespace ceammc;
 
 #define USBDEV_SHARED_VENDOR 0x16C0 /* VOTI */
