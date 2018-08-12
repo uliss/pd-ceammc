@@ -124,7 +124,7 @@ DictValue DataTypeDict::value(const Atom& key) const
 {
     auto it = dict_.find(key);
 
-    return it == dict_.end() ? DictValue() : it->second;
+    return it == dict_.end() ? DictValue() : DictValue(it->second);
 }
 
 void DataTypeDict::insert(const std::string& key, const std::string& value)
