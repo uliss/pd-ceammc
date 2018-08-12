@@ -247,11 +247,6 @@ MaybeString DataTypeDict::toJSON(int indent) const
     }
 }
 
-static void to_json(nlohmann::json& j, const DictValue& p)
-{
-    //    j = json{ { "name", p.name }, { "address", p.address }, { "age", p.age } };
-}
-
 static void from_json(const nlohmann::json& j, DictValue& p)
 {
     if (j.is_boolean())
@@ -312,7 +307,8 @@ static void from_json(const nlohmann::json& j, DictValue& p)
         DataTPtr<DataTypeDict> dptr(ptr);
 
         for (auto it = j.begin(); it != j.end(); ++it) {
-            DictValue v = *it;
+            DictValue v;
+            from_json(*it, v);
             auto key = Atom(gensym(it.key().c_str()));
             ptr->innerData()[key] = v;
         }
