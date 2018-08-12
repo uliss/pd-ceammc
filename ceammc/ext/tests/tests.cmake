@@ -72,7 +72,7 @@ macro(ceammc_external_test external name)
     # library repeats are done to make mingw linker happy
     target_link_libraries(${_target}
         tests_main_lib puredata-core ceammc_core ceammc_data ceammc_array puredata-core
-        ceammc_sound "ceammc_${external}" ceammc_string ceammc_core)
+        ceammc_sound "ceammc_${external}" ceammc_data ceammc_string ceammc_core)
     set(_exec_cmd ${_target})
     set_test_command("[${external}.${name}]" ${_exec_cmd})
 endmacro()
