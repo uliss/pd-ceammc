@@ -124,7 +124,7 @@ DataTypeDict::MaybeValue DataTypeDict::value(const Atom& key) const
 {
     auto it = dict_.find(key);
 
-    return it == dict_.end() ? MaybeValue(boost::none) : it->second;
+    return it == dict_.end() ? boost::none : MaybeValue(it->second);
 }
 
 void DataTypeDict::insert(const std::string& key, const std::string& value)
