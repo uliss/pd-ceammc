@@ -41,7 +41,7 @@ TEST_CASE("list.sort_with", "[externals]")
         REQUIRE(t.outputListAt(0) == L());
 
         t << LF(100);
-        REQUIRE(t.outputFloatAt(0) == 100);
+        REQUIRE(t.outputListAt(0) == LF(100));
 
         t << LF(5, 2, 4);
         REQUIRE(t.outputListAt(0) == LF(2, 4, 5));
@@ -59,7 +59,7 @@ TEST_CASE("list.sort_with", "[externals]")
         REQUIRE(t.outputListAt(0) == L());
 
         t << LF(100);
-        REQUIRE(t.outputFloatAt(0) == 100);
+        REQUIRE(t.outputListAt(0) == LF(100));
 
         t << LF(5, 2, 4);
         REQUIRE(t.outputListAt(0) == LF(5, 4, 2));

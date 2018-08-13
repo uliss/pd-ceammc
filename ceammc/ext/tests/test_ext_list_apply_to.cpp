@@ -45,7 +45,7 @@ TEST_CASE("list.apply_to", "[externals]")
         REQUIRE(t.outputListAt(0) == L());
 
         t << 100;
-        REQUIRE(t.outputFloatAt(0) == 110);
+        REQUIRE(t.outputListAt(0) == LF(110));
 
         t << LF(1, 2, 3, 4);
         REQUIRE(t.outputListAt(0) == LF(11, 2, 3, 14));

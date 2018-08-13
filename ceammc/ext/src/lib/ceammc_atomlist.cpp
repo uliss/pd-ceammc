@@ -1052,26 +1052,27 @@ bool operator!=(const AtomList& l1, const AtomList& l2)
     return !(l1 == l2);
 }
 
-void to_outlet(t_outlet* x, const AtomList& a)
+bool to_outlet(t_outlet* x, const AtomList& a, bool typeConversion)
 {
-    if (x == 0) {
-        post("[ceammc] ERROR! NULL outlet pointer: %s", __FUNCTION__);
-        return;
+    if (!x) {
+        LIB_DBG << "ERROR! NULL outlet pointer: " << __FUNCTION__;
+        return false;
     }
 
-    t_symbol* sel = 0;
-    if (a.isList())
-        sel = &s_list;
-    else if (a.isFloat())
-        sel = &s_float;
-    else if (a.isSymbol())
-        sel = &s_symbol;
-    else if (a.isBang())
-        sel = &s_bang;
-    else
-        sel = &s_list;
+    if (typeConversion) {
+        if (a.isBang())
+            outlet_bang(x);
+        else if (a.isFloat())
+            outlet_float(x, a[0].asFloat());
+        else if (a.isSymbol())
+            outlet_symbol(x, a[0].asSymbol());
+        else
+            outlet_list(x, &s_list, static_cast<int>(a.size()), a.toPdData());
+    } else {
+        outlet_list(x, &s_list, static_cast<int>(a.size()), a.toPdData());
+    }
 
-    outlet_anything(x, sel, static_cast<int>(a.size()), a.toPdData());
+    return true;
 }
 
 std::ostream& operator<<(std::ostream& os, const AtomList& l)

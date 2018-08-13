@@ -113,7 +113,8 @@ void Function::onInlet(size_t n, const AtomList& l)
         return;
 
     result_ = l;
-    listTo(0, l);
+    // output simplified type
+    to_outlet(outletAt(0), l, true);
 }
 
 Message& Function::result()
