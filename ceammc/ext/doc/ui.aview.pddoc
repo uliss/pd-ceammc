@@ -53,7 +53,7 @@
         </properties>
         <methods>
             <method name="update">redraws view</method>
-            <method name="select">set selection
+            <method name="select">set selection 
             <param name="BEGIN" type="int" required="true">selection start in samples</param>
             <param name="END" type="int" required="true">selection end in samples</param></method>
         </methods>
