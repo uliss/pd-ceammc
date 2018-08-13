@@ -27,7 +27,7 @@ position [0\..1];
 #X text 175 396 convert from one linear range to another;
 #X obj 30 423 conv.midi2freq;
 #X text 175 423 convert from midi pitch to freqency in hz (with
-various base A);
+various base A and temperament);
 #X obj 30 460 conv.pitch2midi;
 #X text 175 460 converts symbol pitch name to MIDI note number;
 #X obj 30 487 conv.samp2sec;

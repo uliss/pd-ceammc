@@ -71,7 +71,9 @@
 |
 |
 |
-[route @select_samp #a] [loadbang]
+[route @select_samp]
+|
+[flow.change #a]        [loadbang]
 |                       |
 [expr $f1\; $f2 - $f1]  [1(
 |           ^|          |
@@ -85,9 +87,10 @@
 |
 [tabread4~ array_view]
 |
+[ui.gain~ @size 120 16]  [ui.dsp~]
+|\
 [dac~]
 
-[ui.dsp~]
 [X a->b]
 ]]>
             </pdascii>
