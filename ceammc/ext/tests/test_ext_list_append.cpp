@@ -20,7 +20,7 @@ PD_COMPLETE_TEST_SETUP(ListAppend, list, append)
 
 TEST_CASE("list.append", "[externals]")
 {
-    pd_test_mod_init_list_append();
+    pd_test_init();
 
     SECTION("create")
     {
