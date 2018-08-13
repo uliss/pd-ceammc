@@ -21,7 +21,7 @@
 #X msg 280 406 1;
 #X obj 98 435 b;
 #X floatatom 280 435 5 0 0 0 - - -;
-#X text 309 435 speed;
+#X text 347 435 speed;
 #X obj 98 464 loop~;
 #X obj 98 493 *~;
 #X obj 50 521 +~;
@@ -32,75 +32,91 @@
 #X obj 20 647 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 652 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 657 @items;
-#X text 240 657 Get/Set number of tabs. Type: int. Default value: 1\.
-Value range: 1-256;
-#X msg 120 694 @toggle;
-#X text 240 694 Get/Set toggle mode. In toggle moe multiple selection
-is possible. Type: int. Default value: 0\. Allowed values: 0 \, 1;
-#X msg 120 745 @orientation;
-#X text 240 745 Get/Set tab orientation. 1 is vertical \, 0 is
-horizontal. Type: int. Default value: 0\. Allowed values: 0 \, 1;
-#X msg 120 782 @send;
-#X text 240 782 Get/Set send destination. Type: symbol;
-#X msg 120 809 @receive;
-#X text 240 809 Get/Set receive source. Type: symbol;
-#X obj 20 846 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 851 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X msg 120 657 @array;
+#X text 240 657 Get/Set array name. Type: symbol;
+#X msg 120 684 @cursor_samp;
+#X text 240 684 Get/Set cursor position in samples. Type: int;
+#X msg 120 711 @cursor_phase;
+#X text 240 711 Get/Set cursor position in 0-1 range. Type: float.
+Value range: 0-1;
+#X msg 120 748 @cursor_sec;
+#X text 240 748 Get/Set cursor position in seconds. Type: float.
+Units: sec;
+#X msg 120 775 @cursor_ms;
+#X text 240 775 Get/Set cursor position in milliseconds. Type: float.
+Units: ms;
+#X msg 120 812 @select_samp;
+#X text 240 812 Get/Set selection range in samples \, pair of values:
+begin \, end. Type: list;
+#X msg 120 849 @select_sec;
+#X text 240 849 Get/Set selection range in seconds \, pair of values:
+begin \, end. Type: list;
+#X msg 120 886 @select_ms;
+#X text 240 886 Get/Set selection range in milliseconds \, pair of
+values: begin \, end. Type: list;
+#X msg 120 923 @select_phase;
+#X text 240 923 Get/Set selection range noramlized to 0-1 range \,
+pair of values: begin \, end. Type: list;
+#X msg 120 960 @show_rms;
+#X text 240 960 Get/Set show RMS graph. Type: int. Default value: 0\.
+Allowed values: 0 \, 1;
+#X msg 120 997 @show_labels;
+#X text 240 997 Get/Set if show corner labels. Type: int. Default
+value: 0\. Allowed values: 0 \, 1;
+#X msg 120 1034 @label_top_right;
+#X text 240 1034 Get/Set top right label if @show_labels is on. Type:
+symbol;
+#X msg 120 1061 @label_bottom_right;
+#X text 240 1061 Get/Set bottom right label if @show_labels is on.
+Type: symbol;
+#X msg 120 1098 @size_samp;
+#X text 240 1098 (readonly) Get array size in samples. Type: int. Min
+value: 0;
+#X msg 120 1135 @size_sec;
+#X text 240 1135 (readonly) Get array size in seconds. Type: float.
+Units: sec. Min value: 0;
+#X msg 120 1172 @size_ms;
+#X text 240 1172 (readonly) Get array size in milleseconds. Type:
+float. Units: ms. Min value: 0;
+#X msg 120 1209 @send;
+#X text 240 1209 Get/Set send destination. Type: symbol;
+#X msg 120 1236 @receive;
+#X text 240 1236 Get/Set receive source. Type: symbol;
+#X obj 20 1273 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1278 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 856 append;
-#X text 240 856 appends new tab item. Arguments are:;
-#X obj 250 884 cnv 1 46 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 884 ATOMS: item name. Type: list.;
-#X msg 120 912 insert;
-#X text 240 912 inserts new tab item before specified position.
-Arguments are:;
-#X obj 250 954 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 954 IDX: item position. Type: int. Min value: 0;
-#X obj 250 982 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 982 ATOM: item name. Type: atom.;
-#X msg 120 1010 clear;
-#X text 240 1010 clears all tab menu.;
-#X msg 120 1042 delete;
-#X text 240 1042 removes item from tab. Arguments are:;
-#X obj 250 1070 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 1070 IDX: removed item index. Type: int. Min value: 0;
-#X msg 120 1098 set_item;
-#X text 240 1098 renames tab item. Arguments are:;
-#X obj 250 1126 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 1126 IDX: item index. Type: int. Min value: 0;
-#X obj 250 1154 cnv 1 46 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 1154 ATOMS: item name. Type: list.;
-#X msg 120 1182 set;
-#X text 240 1182 silently sets tab state. Arguments are:;
-#X obj 250 1210 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 1210 IDX: item index. Type: int. Min value: 0;
-#X obj 20 1248 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1253 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X msg 120 1283 update;
+#X text 240 1283 redraws view.;
+#X msg 120 1315 select;
+#X text 240 1315 set selection. Arguments are:;
+#X obj 250 1343 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 1343 BEGIN: selection start in samples. Type: int.;
+#X obj 250 1371 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 1371 END: selection end in samples. Type: int.;
+#X obj 20 1409 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1414 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 1258 1\.;
-#X text 150 1258 *bang*;
-#X text 240 1258 in single mode outputs @title TAB and index of
-selected tab. In toggle mode outputs current state like: @selected 0 1
-0 1 0 etc. and list of two values: [CHANGED_IDX CHANGED_VALUE].;
-#X text 150 1318 *float*;
-#X text 240 1318 onle in single mode: change tab select tab by index
-and output tab @title and new index.;
-#X text 150 1350 *any*;
-#X text 240 1350 selects item equal to given.;
-#X obj 20 1378 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1383 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 120 1419 1\.;
+#X text 150 1419 *bang*;
+#X text 240 1419 output current cursor positions: @cursor_samp \,
+@cursor_phase \, @cursor_ms \, @cursor_sec and selection (if
+selected): @select_samp \, @select_phase \, @select_ms \, @select_sec
+\, @begin \, @end.;
+#X text 150 1479 *float*;
+#X text 240 1479 move cursor to specified sample position.;
+#X obj 20 1507 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1512 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 1388 1\.;
-#X text 240 1388 output;
+#X text 120 1517 1\.;
+#X text 240 1517 output;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 1436 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1439 library: ceammc v0.5;
-#N canvas 10 1458 400 290 info 0;
+#X obj 1 1565 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1568 library: ceammc v0.5;
+#N canvas 10 1587 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -124,7 +140,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1458 pd info;
+#X restore 10 1587 pd info;
 #X connect 4 0 6 0;
 #X connect 6 0 7 0;
 #X connect 7 0 8 0;
