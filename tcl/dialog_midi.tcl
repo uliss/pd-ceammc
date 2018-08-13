@@ -68,7 +68,7 @@ proc midi_popup {name buttonname varname devlist} {
     for {set x 0} {$x<[llength $devlist]} {incr x} {
         $name.popup add command -label [lindex $devlist $x] \
             -command [list midi_popup_action \
-                $buttonname $varname $devlist $x] 
+                $buttonname $varname $devlist $x]
     }
     # open popup over source button
     set x [expr [winfo rootx $buttonname] + ( [winfo width $buttonname] / 2 )]
@@ -121,7 +121,7 @@ proc ::dialog_midi::pdtk_midi_dialog {id \
     ::pd_bindings::dialog_bindings $id "midi"
     # not all Tcl/Tk versions or platforms support -topmost, so catch the error
     catch {wm attributes $id -topmost 1}
-    
+
     # input devices
     labelframe $id.inputs -text [_ "Input Devices"] -padx 5 -pady 5 -borderwidth 1
     pack $id.inputs -side top -fill x -pady 5
@@ -333,7 +333,7 @@ proc ::dialog_midi::pdtk_midi_dialog {id \
     }
 
     # if not the "long form" make a button to
-    # restart with longform set. 
+    # restart with longform set.
     if {$longform == 0} {
         frame $id.longbutton
         pack $id.longbutton -side top
@@ -377,7 +377,7 @@ proc ::dialog_midi::pdtk_midi_dialog {id \
         #$id.buttonframe.ok config -default normal
         bind $id.buttonframe.ok <FocusIn> "$id.buttonframe.ok config -default active"
         bind $id.buttonframe.ok <FocusOut> "$id.buttonframe.ok config -default normal"
-    
+
         # since we show the active focus, disable the highlight outline
         if {[winfo exists $id.longbutton.b]} {
             $id.longbutton.b config -highlightthickness 0
@@ -417,7 +417,7 @@ proc ::dialog_midi::pdtk_alsa_midi_dialog {id indev1 indev2 indev3 indev4 \
     set midi_outdev9 0
     set midi_alsain [expr [llength $midi_indevlist] - 1]
     set midi_alsaout [expr [llength $midi_outdevlist] - 1]
-    
+
     toplevel $id -class DialogWindow
     wm title $id [_ "ALSA MIDI Settings"]
     if {$::windowingsystem eq "aqua"} {$id configure -menu .menubar}
