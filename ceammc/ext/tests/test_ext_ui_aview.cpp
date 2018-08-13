@@ -38,10 +38,10 @@ TEST_CASE("ui.aview", "[ui.aview]")
         REQUIRE_UI_FLOAT_PROPERTY(t, "cursor_sec", 0);
         REQUIRE_UI_FLOAT_PROPERTY(t, "cursor_ms", 0);
 
-        REQUIRE_UI_LIST_PROPERTY(t, "selection", LF(-1, -1));
-//        REQUIRE_UI_LIST_PROPERTY(t, "select_phase", LF(0.f, 0.f));
-//        REQUIRE_UI_LIST_PROPERTY(t, "select_sec", LF(0.f, 0.f));
-//        REQUIRE_UI_LIST_PROPERTY(t, "select_ms", LF(0.f, 0.f));
+        REQUIRE_UI_LIST_PROPERTY(t, "select_samp", LF(0, 0));
+        REQUIRE_UI_LIST_PROPERTY(t, "select_phase", LF(0, 0));
+        REQUIRE_UI_LIST_PROPERTY(t, "select_sec", LF(0, 0));
+        REQUIRE_UI_LIST_PROPERTY(t, "select_ms", LF(0, 0));
 
         REQUIRE_UI_FLOAT_PROPERTY(t, "size_samp", 0);
         REQUIRE_UI_FLOAT_PROPERTY(t, "size_sec", 0);
@@ -50,8 +50,8 @@ TEST_CASE("ui.aview", "[ui.aview]")
         REQUIRE_UI_FLOAT_PROPERTY(t, "show_rms", 0);
         REQUIRE_UI_FLOAT_PROPERTY(t, "show_labels", 0);
 
-        REQUIRE_UI_LIST_PROPERTY(t, "label_top_right", LA(""));
-        REQUIRE_UI_LIST_PROPERTY(t, "label_bottom_right", LA(""));
+        REQUIRE_UI_LIST_PROPERTY(t, "label_top", LA(""));
+        REQUIRE_UI_LIST_PROPERTY(t, "label_bottom", LA(""));
     }
 
     SECTION("@cursor...")
@@ -192,26 +192,26 @@ TEST_CASE("ui.aview", "[ui.aview]")
         REQUIRE(t->sizeSamples() == 201);
         REQUIRE(t->sizeSec() == Approx(0.0201f));
 
-        t << $2("@selection", 0.f, 200);
-        REQUIRE_UI_LIST_PROPERTY(t, "selection", LX(0, 200));
+        t << $2("@select_samp", 0.f, 200);
+        REQUIRE_UI_LIST_PROPERTY(t, "select_samp", LX(0, 200));
 
-        t << $2("@selection", -101, -1);
-        REQUIRE_UI_LIST_PROPERTY(t, "selection", LX(100, 200));
+        t << $2("@select_samp", -101, -1);
+        REQUIRE_UI_LIST_PROPERTY(t, "select_samp", LX(100, 200));
 
-        t << $2("@selection", -101, -51);
-        REQUIRE_UI_LIST_PROPERTY(t, "selection", LX(100, 150));
+        t << $2("@select_samp", -101, -51);
+        REQUIRE_UI_LIST_PROPERTY(t, "select_samp", LX(100, 150));
 
-        //        t << $2("@selection", 0.25, 0.5);
-        //        REQUIRE_UI_LIST_PROPERTY(t, "selection", LX(50, 100));
+        t << $2("@select_phase", 0.25, 0.5);
+        REQUIRE_UI_LIST_PROPERTY(t, "select_samp", LX(50, 100));
 
-        //        t << $2("@selection", 3, 11);
-        //        REQUIRE_UI_LIST_PROPERTY(t, "selection", LX(30, 110));
+        t << $2("@select_ms", 3, 11);
+        REQUIRE_UI_LIST_PROPERTY(t, "select_samp", LX(30, 110));
 
-        //        t << $2("@selection", -10.1, -5.1);
-        //        REQUIRE_UI_LIST_PROPERTY(t, "selection", LX(100, 150));
+        t << $2("@select_ms", -10.1, -5.1);
+        REQUIRE_UI_LIST_PROPERTY(t, "select_samp", LX(100, 150));
 
-        //        t << $2("@selection", 0.002, 0.004);
-        //        REQUIRE_UI_LIST_PROPERTY(t, "selection", LX(20, 40));
+        t << $2("@select_sec", 0.002, 0.004);
+        REQUIRE_UI_LIST_PROPERTY(t, "select_samp", LX(20, 40));
     }
 
     SECTION("external")

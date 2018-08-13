@@ -63,10 +63,10 @@ Allowed values: 0 \, 1;
 #X msg 120 997 @show_labels;
 #X text 240 997 Get/Set if show corner labels. Type: int. Default
 value: 0\. Allowed values: 0 \, 1;
-#X msg 120 1034 @label_top_right;
+#X msg 120 1034 @label_top;
 #X text 240 1034 Get/Set top right label if @show_labels is on. Type:
 symbol;
-#X msg 120 1061 @label_bottom_right;
+#X msg 120 1061 @label_bottom;
 #X text 240 1061 Get/Set bottom right label if @show_labels is on.
 Type: symbol;
 #X msg 120 1098 @size_samp;

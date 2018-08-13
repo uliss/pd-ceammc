@@ -36,9 +36,9 @@
             <property name="@show_rms" type="int" enum="0 1" default="0">show RMS graph</property>
             <property name="@show_labels" type="int" enum="0 1" default="0">if show corner
             labels</property>
-            <property name="@label_top_right" type="symbol">top right label if @show_labels is
+            <property name="@label_top" type="symbol">top right label if @show_labels is
             on</property>
-            <property name="@label_bottom_right" type="symbol">bottom right label if @show_labels
+            <property name="@label_bottom" type="symbol">bottom right label if @show_labels
             is on</property>
             <!-- size -->
             <property name="@size_samp" type="int" minvalue="0" readonly="true">array size in
