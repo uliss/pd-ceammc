@@ -21,11 +21,6 @@ GlobalDict::GlobalDict(const PdArgs& args)
 
 void setup_global_dict()
 {
-    ColectionIFaceFactory<GlobalDict> obj("global.dict");
-    protocol::Reader<ObjectFactory, GlobalDict> reader(obj);
-    protocol::Writer<ObjectFactory, GlobalDict> writer(obj);
-
+    DictIFaceFactory<GlobalDict> obj("global.dict");
     obj.addAlias("global.json");
-    obj.processData<DataTypeDict>();
-    obj.addMethod("get_key", &GlobalDict::m_get);
 }

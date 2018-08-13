@@ -210,6 +210,8 @@ TEST_CASE("data.mlist", "[externals]")
     {
         TestExtDataDict t("data.dict");
         TestExtDataDict t_alias("dict");
+        REQUIRE(t.object());
+        REQUIRE(t_alias.object());
     }
 
     SECTION("list")
@@ -233,5 +235,54 @@ TEST_CASE("data.mlist", "[externals]")
         REQUIRE_SIZE(t, 2);
         REQUIRE_CONTAINS_ATOM(t, "a", "b");
         REQUIRE_CONTAINS_ATOM(t, "c", "d");
+    }
+
+    SECTION("iface")
+    {
+        TestExtDataDict t("data.dict");
+        t.call("add", LA("a", "b"));
+
+        REQUIRE(t.property("@keys")->get() == LA("a"));
+
+#define REQUIRE_KEY_LIST(obj, key, val)      \
+    {                                        \
+        obj.call("get_key", A(key));         \
+        REQUIRE(obj.hasOutput());            \
+        REQUIRE(obj.isOutputListAt(0));      \
+        REQUIRE(obj.outputListAt(0) == val); \
+    }
+
+#define REQUIRE_KEY_SYMBOL(obj, key, val)              \
+    {                                                  \
+        obj.call("get_key", A(key));                   \
+        REQUIRE(obj.hasOutput());                      \
+        REQUIRE(obj.isOutputSymbolAt(0));              \
+        REQUIRE(obj.outputSymbolAt(0) == gensym(val)); \
+    }
+
+        t.call("set_key");
+        REQUIRE_FALSE(t.hasOutput());
+        REQUIRE_KEY_SYMBOL(t, "a", "b");
+        t.call("set_key", LA("b"));
+        REQUIRE_FALSE(t.hasOutput());
+        REQUIRE_KEY_SYMBOL(t, "a", "b");
+        t.call("set_key", LA("b", "c"));
+        REQUIRE_FALSE(t.hasOutput());
+        REQUIRE_KEY_SYMBOL(t, "a", "b");
+        t.call("set_key", LA("a"));
+        REQUIRE_FALSE(t.hasOutput());
+        REQUIRE_KEY_SYMBOL(t, "a", "b");
+
+        t.call("get_key", LA("a"));
+        REQUIRE_KEY_SYMBOL(t, "a", "b");
+
+        t.call("set_key", LA("a", 1, 2, 3));
+        REQUIRE_FALSE(t.hasOutput());
+        REQUIRE_KEY_LIST(t, "a", LF(1, 2, 3));
+
+        t.call("get_key");
+        REQUIRE_FALSE(t.hasOutput());
+        t.call("get_key", LA("????"));
+        REQUIRE_FALSE(t.hasOutput());
     }
 }

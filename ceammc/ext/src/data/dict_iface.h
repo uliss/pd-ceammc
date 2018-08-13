@@ -71,7 +71,7 @@ public:
         onBang();
     }
 
-    void m_get(t_symbol* s, const AtomList& key)
+    void m_get_key(t_symbol* s, const AtomList& key)
     {
         if (key.empty()) {
             METHOD_ERR(s) << "key expected";
@@ -94,6 +94,28 @@ public:
             METHOD_ERR(s) << "unknown value type";
     }
 
+    void m_set_key(t_symbol* s, const AtomList& lst)
+    {
+        if (lst.empty()) {
+            METHOD_ERR(s) << "key expected";
+            return;
+        }
+
+        if (lst.size() < 2) {
+            METHOD_ERR(s) << "value expected";
+            return;
+        }
+
+        auto key = lst[0];
+
+        if (!dict().contains(key)) {
+            METHOD_ERR(s) << "key not found: " << key;
+            return;
+        }
+
+        proto_add(lst);
+    }
+
     void proto_add(const AtomList& lst) override
     {
         if (lst.size() < 2) {
@@ -101,9 +123,12 @@ public:
             return;
         }
 
-        if (lst.size() == 2)
-            dict().insert(lst[0], lst[1]);
-        else
+        if (lst.size() == 2) {
+            if (lst[1].isData())
+                dict().insert(lst[0], DataAtom(lst[1]));
+            else
+                dict().insert(lst[0], lst[1]);
+        } else
             dict().insert(lst[0], lst.slice(1));
     }
 
@@ -160,6 +185,22 @@ public:
 public:
     virtual DataTypeDict& dict() = 0;
     virtual const DataTypeDict& dict() const = 0;
+};
+
+template <typename T>
+class DictIFaceFactory : public ColectionIFaceFactory<T> {
+public:
+    DictIFaceFactory(const char* name, int flags = OBJECT_FACTORY_DEFAULT)
+        : ColectionIFaceFactory<T>(name, flags)
+    {
+        protocol::Reader<ObjectFactory, T> reader(*this);
+        protocol::Writer<ObjectFactory, T> writer(*this);
+
+        this->addMethod("get_key", &T::m_get_key);
+        this->addMethod("set_key", &T::m_set_key);
+
+        this->template processData<DataTypeDict>();
+    }
 };
 
 #endif // DICT_IFACE_H

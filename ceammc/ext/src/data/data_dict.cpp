@@ -23,11 +23,6 @@ DataDict::DataDict(const PdArgs& args)
 
 void setup_data_dict()
 {
-    ColectionIFaceFactory<DataDict> obj("data.dict");
-    protocol::Reader<ObjectFactory, DataDict> reader(obj);
-    protocol::Writer<ObjectFactory, DataDict> writer(obj);
-
+    DictIFaceFactory<DataDict> obj("data.dict");
     obj.addAlias("dict");
-    obj.processData<DataTypeDict>();
-    obj.addMethod("get_key", &DataDict::m_get);
 }
