@@ -20,6 +20,7 @@ add_library(ceammc_hw STATIC mod_hw.cpp ${HW_SOURCES})
 target_link_libraries(ceammc_hw hw_arduino)
 
 if(WITH_EXPERIMENTAL)
+    add_definitions(-DWITH_LIBUSB_01)
     set(HW_SOURCES udmx_handle.cpp)
     ceammc_hw_extension(udmx)
     target_link_libraries(ceammc_hw libusb_01)
