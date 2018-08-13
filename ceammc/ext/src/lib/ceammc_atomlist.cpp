@@ -606,10 +606,11 @@ AtomList AtomList::filtered(AtomPredicate pred) const
 
 Atom* AtomList::min()
 {
-    if (empty())
+    auto it = std::min_element(atoms_.begin(), atoms_.end());
+    if (it == atoms_.end())
         return nullptr;
 
-    return &(*std::min_element(atoms_.begin(), atoms_.end()));
+    return &(*it);
 }
 
 const Atom* AtomList::min() const
