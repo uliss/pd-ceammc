@@ -157,6 +157,8 @@ TEST_CASE("midi.file", "[externals]")
         REQUIRE_PROPERTY(t, @tracks, 1);
         REQUIRE_PROPERTY(t, @tempo, 120);
 
+        ifs.close();
+        REQUIRE(platform::path_exists("./test_midi_output.mid"));
         REQUIRE(platform::remove("./test_midi_output.mid"));
     }
 
