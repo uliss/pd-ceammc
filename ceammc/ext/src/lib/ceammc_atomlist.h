@@ -16,6 +16,7 @@
 
 #include "ceammc_atom.h"
 
+#include <boost/iterator/filter_iterator.hpp>
 #include <boost/optional.hpp>
 #include <deque>
 #include <initializer_list>
@@ -36,6 +37,9 @@ public:
     typedef Container::const_iterator ConstIterator;
     typedef Container::iterator Iterator;
     typedef Container::reverse_iterator ReverseIterator;
+    typedef bool (*AtomPredicateFn)(const Atom&);
+    typedef boost::filter_iterator<AtomPredicateFn, Iterator> FilterIterator;
+    typedef boost::filter_iterator<AtomPredicateFn, ConstIterator> ConstFilterIterator;
 
 public:
     AtomList();
@@ -73,6 +77,11 @@ public:
     Iterator end();
     ConstIterator begin() const;
     ConstIterator end() const;
+
+    FilterIterator beginFilter(AtomPredicateFn pred);
+    FilterIterator endFilter();
+    ConstFilterIterator beginFilter(AtomPredicateFn pred) const;
+    ConstFilterIterator endFilter() const;
 
     /**
      * @brief returns reference to element at specified position

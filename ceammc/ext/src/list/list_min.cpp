@@ -24,20 +24,25 @@ ListMin::ListMin(const PdArgs& a)
 
 void ListMin::onList(const AtomList& l)
 {
-    if (l.empty())
-        return;
+    if (type_->value() == SYM_ANY) {
+        auto it = std::min(l.begin(), l.end());
+        if (it == l.end())
+            return;
 
-    const Atom* min = nullptr;
+        atomTo(0, *it);
+    } else if (type_->value() == SYM_FLOAT) {
+        auto it = std::min(l.beginFilter(isFloat), l.endFilter());
+        if (it == l.endFilter())
+            return;
 
-    if (type_->value() == SYM_ANY)
-        min = l.min();
-    else if (type_->value() == SYM_FLOAT)
-        min = l.filtered(isFloat).min();
-    else if (type_->value() == SYM_SYMBOL)
-        min = l.filtered(isSymbol).min();
+        atomTo(0, *it);
+    } else if (type_->value() == SYM_SYMBOL) {
+        auto it = std::min(l.beginFilter(isSymbol), l.endFilter());
+        if (it == l.endFilter())
+            return;
 
-    if (min != nullptr)
-        atomTo(0, *min);
+        atomTo(0, *it);
+    }
 }
 
 void ListMin::onDataT(const DataTypeMList& lst)

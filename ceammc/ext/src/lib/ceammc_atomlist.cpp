@@ -116,6 +116,26 @@ AtomList::ConstIterator AtomList::end() const
     return atoms_.end();
 }
 
+AtomList::FilterIterator AtomList::beginFilter(AtomList::AtomPredicateFn pred)
+{
+    return FilterIterator(pred, begin(), end());
+}
+
+AtomList::FilterIterator AtomList::endFilter()
+{
+    return FilterIterator(nullptr, end(), end());
+}
+
+AtomList::ConstFilterIterator AtomList::beginFilter(AtomList::AtomPredicateFn pred) const
+{
+    return ConstFilterIterator(pred, begin(), end());
+}
+
+AtomList::ConstFilterIterator AtomList::endFilter() const
+{
+    return ConstFilterIterator(nullptr, end(), end());
+}
+
 Atom& AtomList::at(size_t pos)
 {
     return atoms_.at(pos);

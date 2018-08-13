@@ -571,4 +571,29 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
         REQUIRE(LF(1, 2) + Atom(3) == LF(1, 2, 3));
         REQUIRE(Atom(0.f) + LF(1, 2) == LF(0.f, 1, 2));
     }
+
+    SECTION("floatIterator")
+    {
+        AtomList a(LA(1, "a", -2, 3));
+        REQUIRE(*std::min_element(a.beginFilter(isFloat), a.endFilter()) == LX(-2));
+        REQUIRE(*std::max_element(a.beginFilter(isFloat), a.endFilter()) == LX(3));
+        REQUIRE(*std::min_element(a.begin(), a.end()) == LX(-2));
+        REQUIRE(*std::max_element(a.begin(), a.end()) == LA("a"));
+
+        AtomList a1(LA("a", "b", "c", "d", "e"));
+        REQUIRE(std::min_element(a1.beginFilter(isFloat), a1.endFilter()) == a1.endFilter());
+        REQUIRE(std::max_element(a1.beginFilter(isFloat), a1.endFilter()) == a1.endFilter());
+        REQUIRE(std::min_element(a1.begin(), a1.end()) != a1.end());
+        REQUIRE(std::max_element(a1.begin(), a1.end()) != a1.end());
+
+        AtomList a2(LA("a", "b", 1, "c", "d", "e"));
+        REQUIRE(std::min_element(a2.beginFilter(isFloat), a2.endFilter()) != a2.endFilter());
+        REQUIRE(std::max_element(a2.beginFilter(isFloat), a2.endFilter()) != a2.endFilter());
+        REQUIRE(std::min_element(a2.begin(), a2.end()) != a2.end());
+        REQUIRE(std::max_element(a2.begin(), a2.end()) != a2.end());
+
+        AtomList a3(LF(1, 2, 3));
+        REQUIRE(std::min_element(a3.beginFilter(isSymbol), a3.endFilter()) == a3.endFilter());
+        REQUIRE(std::max_element(a3.beginFilter(isSymbol), a3.endFilter()) == a3.endFilter());
+    }
 }
