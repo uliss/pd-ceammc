@@ -98,7 +98,7 @@
     <entry descr="convert from one linear range to another" name="conv.lin2lin" ref_view="object">
       <xi:include href="conv.lin2lin.pddoc" parse="xml"/>
     </entry>
-    <entry descr="convert from midi pitch to freqency in hz (with various base A)" name="conv.midi2freq" ref_view="object">
+    <entry descr="convert from midi pitch to freqency in hz (with various base A and temperament)" name="conv.midi2freq" ref_view="object">
       <xi:include href="conv.midi2freq.pddoc" parse="xml"/>
     </entry>
     <entry descr="converts symbol pitch name to MIDI note number" name="conv.pitch2midi" ref_view="object">

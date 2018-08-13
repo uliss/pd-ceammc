@@ -2,7 +2,7 @@
 #X declare -lib ceammc;
 #X obj 253 50 cnv 1 442 35 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 253 50 convert from midi pitch to freqency in hz (with various
-base A);
+base A and temperament);
 #X obj 1 1 cnv 5 712 40 empty empty conv.midi2freq 20 20 0 20 -104026
 -4096 0;
 #X obj 434 11 midi->freq;
