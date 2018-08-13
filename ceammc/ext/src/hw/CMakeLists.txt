@@ -1,14 +1,12 @@
 add_subdirectory(arduino)
 include_directories(${PROJECT_BINARY_DIR}/ceammc/extra/libusb)
 
-set(HW_SOURCES udmx_handle.cpp)
-
 macro(ceammc_hw_extension name)
     list(APPEND HW_SOURCES "hw_${name}.cpp")
 endmacro()
 
 ceammc_hw_extension(arduino)
-ceammc_hw_extension(udmx)
+
 
 if(LIBUSB_1_FOUND)
     ceammc_hw_extension(usb)
@@ -19,7 +17,13 @@ if(LIBUSB_1_FOUND)
 endif()
 
 add_library(ceammc_hw STATIC mod_hw.cpp ${HW_SOURCES})
-target_link_libraries(ceammc_hw hw_arduino libusb_01)
+target_link_libraries(ceammc_hw hw_arduino)
+
+if(WITH_EXPERIMENTAL)
+    set(HW_SOURCES udmx_handle.cpp)
+    ceammc_hw_extension(udmx)
+    target_link_libraries(ceammc_hw libusb_01)
+endif()
 
 if(LIBUSB_1_FOUND)
     target_link_libraries(ceammc_hw ${LIBUSB_1_LIBRARIES})

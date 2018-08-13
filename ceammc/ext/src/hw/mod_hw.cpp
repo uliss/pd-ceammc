@@ -6,7 +6,10 @@
 void ceammc_hw_setup()
 {
     hw_setup_arduino();
+
+#ifdef WITH_LIBUSB_01
     setup_hw_udmx();
+#endif
 
 #ifdef WITH_LIBUSB_1
     setup_hw_usb();
