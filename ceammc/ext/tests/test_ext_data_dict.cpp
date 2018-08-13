@@ -47,7 +47,7 @@ PD_COMPLETE_TEST_SETUP(DataDict, data, dict);
 
 TEST_CASE("data.mlist", "[externals]")
 {
-    pd_test_mod_init_data_dict();
+    pd_test_init();
 
     SECTION("create")
     {
