@@ -11,10 +11,10 @@ namespace eval ::dialog_audio:: {
 ####################### audio dialog ##################3
 
 proc ::dialog_audio::apply {mytoplevel} {
-    global audio_indev1 audio_indev2 audio_indev3 audio_indev4 
+    global audio_indev1 audio_indev2 audio_indev3 audio_indev4
     global audio_inchan1 audio_inchan2 audio_inchan3 audio_inchan4
     global audio_inenable1 audio_inenable2 audio_inenable3 audio_inenable4
-    global audio_outdev1 audio_outdev2 audio_outdev3 audio_outdev4 
+    global audio_outdev1 audio_outdev2 audio_outdev3 audio_outdev4
     global audio_outchan1 audio_outchan2 audio_outchan3 audio_outchan4
     global audio_outenable1 audio_outenable2 audio_outenable3 audio_outenable4
     global audio_sr audio_advance audio_callback audio_blocksize
@@ -87,7 +87,7 @@ proc audio_popup {name buttonname varname devlist} {
     for {set x 0} {$x<[llength $devlist]} {incr x} {
         $name.popup add command -label [fix_win_locale [lindex $devlist $x]] \
             -command [list audio_popup_action \
-                          $buttonname $varname $devlist $x] 
+                          $buttonname $varname $devlist $x]
     }
     # open popup over source button
     set x [expr [winfo rootx $buttonname] + ( [winfo width $buttonname] / 2 )]
@@ -108,7 +108,7 @@ proc ::dialog_audio::pdtk_audio_dialog {mytoplevel \
         outdev1 outdev2 outdev3 outdev4 \
         outchan1 outchan2 outchan3 outchan4 sr advance multi callback \
         longform blocksize} {
-    global audio_indev1 audio_indev2 audio_indev3 audio_indev4 
+    global audio_indev1 audio_indev2 audio_indev3 audio_indev4
     global audio_inchan1 audio_inchan2 audio_inchan3 audio_inchan4
     global audio_inenable1 audio_inenable2 audio_inenable3 audio_inenable4
     global audio_outdev1 audio_outdev2 audio_outdev3 audio_outdev4
@@ -162,11 +162,11 @@ proc ::dialog_audio::pdtk_audio_dialog {mytoplevel \
     ::pd_bindings::dialog_bindings $mytoplevel "audio"
     # not all Tcl/Tk versions or platforms support -topmost, so catch the error
     catch {wm attributes $mytoplevel -topmost 1}
-    
+
     # settings
     labelframe $mytoplevel.settings -text [_ "Settings"] -padx 5 -pady 5 -borderwidth 1
     pack $mytoplevel.settings -side top -fill x -pady 5
-    
+
     frame $mytoplevel.settings.srd
     pack $mytoplevel.settings.srd -side top -fill x
     label $mytoplevel.settings.srd.sr_label -text [_ "Sample rate:"]
@@ -189,7 +189,7 @@ proc ::dialog_audio::pdtk_audio_dialog {mytoplevel \
             -text [_ "Use callbacks"] -anchor e
         pack $mytoplevel.settings.bsc.c_button -side right
     }
-    
+
     # input devices
     labelframe $mytoplevel.inputs -text [_ "Input Devices"] -padx 5 -pady 5 -borderwidth 1
     pack $mytoplevel.inputs -side top -fill x -pady 5
@@ -332,7 +332,7 @@ proc ::dialog_audio::pdtk_audio_dialog {mytoplevel \
     }
 
     # If not the "long form" but if "multi" is 2, make a button to
-    # restart with longform set. 
+    # restart with longform set.
     if {$longform == 0 && $multi > 1} {
         frame $mytoplevel.longbutton
         pack $mytoplevel.longbutton -side top
@@ -391,7 +391,7 @@ proc ::dialog_audio::pdtk_audio_dialog {mytoplevel \
         $mytoplevel.buttonframe.ok config -default normal
         bind $mytoplevel.buttonframe.ok <FocusIn> "$mytoplevel.buttonframe.ok config -default active"
         bind $mytoplevel.buttonframe.ok <FocusOut> "$mytoplevel.buttonframe.ok config -default normal"
-    
+
         # since we show the active focus, disable the highlight outline
         $mytoplevel.saveall config -highlightthickness 0
         $mytoplevel.buttonframe.ok config -highlightthickness 0
