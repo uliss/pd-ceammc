@@ -6,7 +6,8 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>convert from midi pitch to freqency in hz (with various base A)</description>
+            <description>convert from midi pitch to freqency in hz (with various base
+            A and temperament)</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>conv</category>
@@ -21,10 +22,15 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="APITCH" type="float" minvalue="200" maxvalue="600">pitch standard</argument>
+            <argument name="APITCH" type="float" minvalue="200" maxvalue="600">pitch
+            standard</argument>
         </arguments>
         <properties>
-            <property name="@a" type="float" default="440" minvalue="200" maxvalue="400">A pitch frequency</property>
+            <property name="@a" type="float" default="440" minvalue="200" maxvalue="400">A pitch
+            frequency</property>
+            <property name="@t" type="symbol" default="eq"
+            enum="eq just ganassi meantone kirnberger3 pythagorean rameau valotti zarlino">
+            temperament</property>
         </properties>
         <inlets>
             <inlet>
@@ -43,13 +49,21 @@
 |
 |
 |
-[m->f 442]
+[f]  [@a 415( [@a 440(   [ui.menu eq just ganassi meantone kirnberger3 pythagorean rameau valotti zarlino]
+|    |        |          |
+|    |        |          [@t $2(
+|    |        |          |
+[m->f 442                ]
+|
+[F]
 |
 [osc~]
 |
-[ui.gain~ @size 120 16] [ui.dsp~]
+[ui.gain~ @size 120 16]
 |\
 [dac~]
+
+[ui.dsp~]
 ]]>
             </pdascii>
         </example>
