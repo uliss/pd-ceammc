@@ -231,15 +231,22 @@ TEST_CASE("ui.matrix", "[ui.matrix]")
     SECTION("output column")
     {
         TestExtMatrix t("ui.matrix", LA("@cols", 4, "@rows", 2));
-        t.send(LF(
+        REQUIRE(t.object());
+        t->onList(LF(
             1, 1, 0, 1,
             0, 0, 1, 1));
+
+        t.call("get", LA("col", 0.f));
+        REQUIRE_OUTPUT_ANY(t, 0, LA("col", 0.f, 1, 0.f));
 
         t.call("get", LA("col", 1));
         REQUIRE_OUTPUT_ANY(t, 0, LA("col", 1, 1, 0.f));
 
         t.call("get", LA("col", 2));
         REQUIRE_OUTPUT_ANY(t, 0, LA("col", 2, 0.f, 1));
+
+        t.call("get", LA("col", 3));
+        REQUIRE_OUTPUT_ANY(t, 0, LA("col", 3, 1, 1));
 
         t.call("get", LA("col"));
         REQUIRE_NO_OUTPUT(t);
@@ -271,7 +278,7 @@ TEST_CASE("ui.matrix", "[ui.matrix]")
     SECTION("output row")
     {
         TestExtMatrix t("ui.matrix", LA("@rows", 2, "@cols", 3));
-        t.send(LF(1, 0, 1, 0, 1, 0));
+        t->onList(LF(1, 0, 1, 0, 1, 0));
 
         REQUIRE(t->row(0) == LF(1, 0, 1));
         REQUIRE(t->row(1) == LF(0, 1, 0));
@@ -306,7 +313,7 @@ TEST_CASE("ui.matrix", "[ui.matrix]")
     SECTION("output cell")
     {
         TestExtMatrix t("ui.matrix", LA("@rows", 2, "@cols", 3));
-        t.send(LF(1, 0, 1, 0, 1, 0));
+        t->onList(LF(1, 0, 1, 0, 1, 0));
         t.call("get", LA("cell", 0.f, 0.f));
         REQUIRE_OUTPUT_ANY(t, 0, LA("cell", 0.f, 0.f, 1));
         t.call("get", LA("cell", 0.f, 1));
@@ -371,7 +378,7 @@ TEST_CASE("ui.matrix", "[ui.matrix]")
     SECTION("output all")
     {
         TestExtMatrix t("ui.matrix", LA("@rows", 2, "@cols", 3));
-        t.send(LF(1, 0.f, 1, 0.f, 1, 0.f));
+        t->onList(LF(1, 0.f, 1, 0.f, 1, 0.f));
 
         t.call("get", LA("rows"));
         REQUIRE_OUTPUT_ANY(t, 0, LA("row", 1, 0.f, 1, 0.f));
