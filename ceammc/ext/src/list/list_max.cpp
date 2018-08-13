@@ -32,11 +32,30 @@ void ListMax::onList(const AtomList& l)
         max(l.beginFilter(isSymbol), l.endFilter());
 }
 
-static bool isComparable(const Atom& a) { return a.isFloat() || a.isSymbol(); }
+// predicates
+static bool is_float(const DataAtom& d)
+{
+    return d.isAtom() && d.toAtom().isFloat();
+}
+
+static bool is_symbol(const DataAtom& d)
+{
+    return d.isAtom() && d.toAtom().isSymbol();
+}
+
+static bool is_atom(const DataAtom& d)
+{
+    return d.isAtom();
+}
 
 void ListMax::onDataT(const DataTypeMList& lst)
 {
-    onList(lst.toList().filtered(isComparable));
+    if (type_->value() == SYM_ANY)
+        maxData(lst.begin_filter(is_atom), lst.end_filter());
+    else if (type_->value() == SYM_FLOAT)
+        maxData(lst.begin_filter(is_float), lst.end_filter());
+    else if (type_->value() == SYM_SYMBOL)
+        maxData(lst.begin_filter(is_symbol), lst.end_filter());
 }
 
 void setup_list_max()

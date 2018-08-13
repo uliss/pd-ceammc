@@ -29,6 +29,9 @@ class DataTypeMList : public AbstractData {
 public:
     typedef DataAtomList::iterator iterator;
     typedef DataAtomList::const_iterator const_iterator;
+    typedef DataAtomList::filter_iterator filter_iterator;
+    typedef DataAtomList::const_filter_iterator const_filter_iterator;
+    typedef DataAtomList::DataAtomPredicate DataAtomPredicate;
 
 public:
     DataTypeMList();
@@ -81,6 +84,11 @@ public:
     iterator begin() { return data_.begin(); }
     const_iterator end() const { return data_.end(); }
     iterator end() { return data_.end(); }
+
+    const_filter_iterator begin_filter(DataAtomPredicate pred) const { return data_.begin_filter(pred); }
+    filter_iterator begin_filter(DataAtomPredicate pred) { return data_.begin_filter(pred); }
+    const_filter_iterator end_filter() const { return data_.end_filter(); }
+    filter_iterator end_filter() { return data_.end_filter(); }
 
     // fn
     DataTypeMList rotateLeft(int steps) const;

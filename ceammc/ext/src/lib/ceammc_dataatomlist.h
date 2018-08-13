@@ -17,6 +17,7 @@
 #include "ceammc_atomlist.h"
 #include "ceammc_dataatom.h"
 
+#include <boost/iterator/filter_iterator.hpp>
 #include <initializer_list>
 #include <iostream>
 #include <limits>
@@ -85,12 +86,21 @@ public:
     typedef container::iterator iterator;
     typedef container::const_iterator const_iterator;
     typedef container::value_type value_type;
+    typedef bool (*DataAtomPredicate)(const DataAtom&);
+    typedef boost::filter_iterator<DataAtomPredicate, iterator> filter_iterator;
+    typedef boost::filter_iterator<DataAtomPredicate, const_iterator> const_filter_iterator;
 
     const_iterator begin() const { return list_.begin(); }
     const_iterator end() const { return list_.end(); }
 
     iterator begin() { return list_.begin(); }
     iterator end() { return list_.end(); }
+
+    filter_iterator begin_filter(DataAtomPredicate pred);
+    filter_iterator end_filter();
+
+    const_filter_iterator begin_filter(DataAtomPredicate pred) const;
+    const_filter_iterator end_filter() const;
 
     bool contains(const DataPtr& p) const;
     bool contains(const DataAtom& p) const;

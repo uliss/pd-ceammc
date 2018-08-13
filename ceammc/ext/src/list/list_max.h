@@ -38,6 +38,17 @@ public:
 
         atomTo(0, *it);
     }
+
+    template <typename Iterator>
+    void maxData(Iterator begin, Iterator end)
+    {
+        auto less = [](const DataAtom& d0, const DataAtom& d1) { return d0.toAtom() < d1.toAtom(); };
+        auto it = std::max_element(begin, end, less);
+        if (it == end)
+            return;
+
+        atomTo(0, it->toAtom());
+    }
 };
 
 void setup_list_max();

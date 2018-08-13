@@ -235,6 +235,26 @@ bool DataAtomList::isSingleDataType(DataType t) const
     return list_.size() == 1 && list_[0].isDataType(t);
 }
 
+DataAtomList::filter_iterator DataAtomList::begin_filter(DataAtomList::DataAtomPredicate pred)
+{
+    return filter_iterator(pred, list_.begin(), list_.end());
+}
+
+DataAtomList::filter_iterator DataAtomList::end_filter()
+{
+    return filter_iterator(nullptr, list_.end(), list_.end());
+}
+
+DataAtomList::const_filter_iterator DataAtomList::begin_filter(DataAtomList::DataAtomPredicate pred) const
+{
+    return const_filter_iterator(pred, list_.begin(), list_.end());
+}
+
+DataAtomList::const_filter_iterator DataAtomList::end_filter() const
+{
+    return const_filter_iterator(nullptr, list_.end(), list_.end());
+}
+
 bool DataAtomList::contains(const DataPtr& p) const
 {
     return search(p) >= 0;
