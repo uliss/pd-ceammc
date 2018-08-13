@@ -153,6 +153,7 @@ proc ::dialog_audio::pdtk_audio_dialog {mytoplevel \
     set audio_blocksize $blocksize
 
     toplevel $mytoplevel -class DialogWindow
+    wm withdraw $mytoplevel
     wm title $mytoplevel [_ "Audio Settings"]
     wm group $mytoplevel .
     wm resizable $mytoplevel 0 0
@@ -297,7 +298,7 @@ proc ::dialog_audio::pdtk_audio_dialog {mytoplevel \
 
         checkbutton $mytoplevel.outputs.out2f.x0 -variable audio_outenable2 \
             -text [_ "2:"] -anchor e
-        button $mytoplevel.outputs.out2f.x1 -text [lindex $audio_outdevlist $audio_outdev2] -width 20 \
+        button $mytoplevel.outputs.out2f.x1 -text [fix_win_locale [lindex $audio_outdevlist $audio_outdev2]] -width 20 \
             -command \
             [list audio_popup $mytoplevel $mytoplevel.outputs.out2f.x1 audio_outdev2 $audio_outdevlist]
         label $mytoplevel.outputs.out2f.l2 -text [_ "Channels:"]
