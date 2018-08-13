@@ -103,25 +103,29 @@ bool pd::External::connectTo(int outn, t_object* dest, int inln)
         return false;
     }
 
+#define OBJ_NAME() obj_->te_g.g_pd->c_name->s_name
+
     if (obj_ == dest) {
-        printf("[%s: connectTo] self-connect\n", obj_->te_g.g_pd->c_name);
+        printf("[%s: connectTo] self-connect\n", OBJ_NAME());
         return false;
     }
 
     if (!dest) {
-        printf("[%s: connectTo] NULL destination\n", obj_->te_g.g_pd->c_name);
+        printf("[%s: connectTo] NULL destination\n", OBJ_NAME());
         return false;
     }
 
     if (inln >= obj_ninlets(dest)) {
-        printf("[%s: connectTo] invalid destination inlet: %d\n", obj_->te_g.g_pd->c_name, inln);
+        printf("[%s: connectTo] invalid destination inlet: %d\n", OBJ_NAME(), inln);
         return false;
     }
 
     if (outn >= numOutlets()) {
-        printf("[%s: connectTo] invalid source outlet: %d\n", obj_->te_g.g_pd->c_name, outn);
+        printf("[%s: connectTo] invalid source outlet: %d\n", OBJ_NAME(), outn);
         return false;
     }
+
+#undef OBJ_NAME
 
     return obj_connect(obj_, outn, dest, inln) != 0;
 }
@@ -133,30 +137,34 @@ bool pd::External::connectTo(int outn, pd::External& ext, int inln)
 
 bool pd::External::connectFrom(int outn, t_object* src, int inln)
 {
-    if (obj_ == src) {
-        printf("[connectTo] self-connect\n");
+    if (!obj_) {
+        printf("[connectFrom] NULL object\n");
         return false;
     }
 
-    if (!obj_) {
-        printf("[connectTo] NULL object\n");
+#define OBJ_NAME() obj_->te_g.g_pd->c_name->s_name
+
+    if (obj_ == src) {
+        printf("[%s: connectFrom] self-connect\n", OBJ_NAME());
         return false;
     }
 
     if (!src) {
-        printf("[connectTo] NULL source\n");
+        printf("[%s: connectFrom] NULL source\n", OBJ_NAME());
         return false;
     }
 
     if (inln >= numInlets()) {
-        printf("[connectTo] invalid destination inlet: %d\n", inln);
+        printf("[%s: connectFrom] invalid destination inlet: %d\n", OBJ_NAME(), inln);
         return false;
     }
 
     if (outn >= obj_noutlets(src)) {
-        printf("[connectTo] invalid source outlet: %d\n", outn);
+        printf("[%s: connectFrom] invalid source outlet: %d\n", OBJ_NAME(), outn);
         return false;
     }
+
+#undef OBJ_NAME
 
     return obj_connect(src, outn, obj_, inln) != 0;
 }
