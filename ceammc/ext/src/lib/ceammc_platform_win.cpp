@@ -140,6 +140,15 @@ bool win_rmdir(const char* path)
     return err == 0;
 }
 
+bool win_is_dir(const char* path)
+{
+    auto attrs = GetFileAttributesA(path);
+    if(attrs == INVALID_FILE_ATTRIBUTES)
+        return false;
+
+    return attrs & FILE_ATTRIBUTE_DIRECTORY;
+}
+
 std::string win_home_directory()
 {
     WCHAR buf[MAX_PATH] = { 0 };
