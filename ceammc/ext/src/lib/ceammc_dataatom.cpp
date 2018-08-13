@@ -139,4 +139,13 @@ size_t hash_value(const DataAtom& d)
     boost::hash_combine(hash, boost::hash_value(a->a_w.w_index));
     return hash;
 }
+
+bool to_outlet(t_outlet* x, const DataAtom& a)
+{
+    if (!x || !a.isValid())
+        return false;
+
+    return to_outlet(x, a.toAtom());
+}
+
 }
