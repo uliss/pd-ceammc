@@ -98,28 +98,28 @@ bool pd::External::isNull() const
 
 bool pd::External::connectTo(int outn, t_object* dest, int inln)
 {
-    if (obj_ == dest) {
-        printf("[connectTo] self-connect\n");
-        return false;
-    }
-
     if (!obj_) {
         printf("[connectTo] NULL object\n");
         return false;
     }
 
+    if (obj_ == dest) {
+        printf("[%s: connectTo] self-connect\n", obj_->te_g.g_pd->c_name);
+        return false;
+    }
+
     if (!dest) {
-        printf("[connectTo] NULL destination\n");
+        printf("[%s: connectTo] NULL destination\n", obj_->te_g.g_pd->c_name);
         return false;
     }
 
     if (inln >= obj_ninlets(dest)) {
-        printf("[connectTo] invalid destination inlet: %d\n", inln);
+        printf("[%s: connectTo] invalid destination inlet: %d\n", obj_->te_g.g_pd->c_name, inln);
         return false;
     }
 
     if (outn >= numOutlets()) {
-        printf("[connectTo] invalid source outlet: %d\n", outn);
+        printf("[%s: connectTo] invalid source outlet: %d\n", obj_->te_g.g_pd->c_name, outn);
         return false;
     }
 
