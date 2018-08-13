@@ -16,8 +16,6 @@
 #include "ceammc_format.h"
 #include "ceammc_ui.h"
 
-#include <boost/algorithm/minmax_element.hpp> 
-
 static t_symbol* SYM_ARRAY_NAME = gensym("array");
 static t_symbol* SYM_ATTR_SIZE = gensym("size");
 static t_symbol* SYM_ATTR_WAVE_COLOR = gensym("wave_color");
@@ -501,7 +499,7 @@ void UIArrayView::renderRange(size_t pos, size_t len)
 
         auto from(array_.begin() + samp_from);
         auto to(array_.begin() + samp_to);
-        auto peak = boost::minmax_element(from, to);
+        auto peak = std::minmax_element(from, to);
 
         buffer_[i].peak_min = *peak.first;
         buffer_[i].peak_max = *peak.second;

@@ -33,6 +33,7 @@ class ArrayIterator : public std::iterator<std::random_access_iterator_tag, floa
     friend class Array;
 
 public:
+    ArrayIterator();
     ArrayIterator(const ArrayIterator& i);
     ArrayIterator& operator=(const ArrayIterator& i);
 
