@@ -28,9 +28,8 @@ void ListMin::onList(const AtomList& l)
         min(l.begin(), l.end());
     else if (type_->value() == SYM_FLOAT)
         min(l.beginFilter(isFloat), l.endFilter());
-    else if (type_->value() == SYM_SYMBOL) {
+    else if (type_->value() == SYM_SYMBOL)
         min(l.beginFilter(isSymbol), l.endFilter());
-    }
 }
 
 void ListMin::onDataT(const DataTypeMList& lst)

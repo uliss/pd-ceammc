@@ -28,6 +28,16 @@ public:
     void onList(const AtomList& l) override;
 
     void onDataT(const DataTypeMList& lst);
+
+    template <typename Iterator>
+    void max(Iterator begin, Iterator end)
+    {
+        auto it = std::max_element(begin, end);
+        if (it == end)
+            return;
+
+        atomTo(0, *it);
+    }
 };
 
 void setup_list_max();

@@ -24,20 +24,12 @@ ListMax::ListMax(const PdArgs& a)
 
 void ListMax::onList(const AtomList& l)
 {
-    if (l.empty())
-        return;
-
-    const Atom* max = 0;
-
     if (type_->value() == SYM_ANY)
-        max = l.max();
+        max(l.begin(), l.end());
     else if (type_->value() == SYM_FLOAT)
-        max = l.filtered(isFloat).max();
+        max(l.beginFilter(isFloat), l.endFilter());
     else if (type_->value() == SYM_SYMBOL)
-        max = l.filtered(isSymbol).max();
-
-    if (max != 0)
-        atomTo(0, *max);
+        max(l.beginFilter(isSymbol), l.endFilter());
 }
 
 static bool isComparable(const Atom& a) { return a.isFloat() || a.isSymbol(); }
