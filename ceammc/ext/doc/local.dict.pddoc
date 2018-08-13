@@ -41,6 +41,9 @@
             <method name="clear">removes all dict values. No output</method>
             <method name="get_key">get entry from dictionary 
             <param name="KEY" type="atom" required="true">entry key</param></method>
+            <method name="set_key">change entry in dictionary. If it's not exists, do nothing.
+            <param name="KEY" type="atom" required="true">key</param>
+            <param name="VAL" type="list" required="true">single value or list</param></method>
             <method name="set">set dict content without output</method>
             <method name="remove">remove entry from dictionary 
             <param name="KEY" type="atom" required="true">entry key</param></method>
@@ -55,6 +58,7 @@
                 <xinfo on="bang">output current dictionary value</xinfo>
                 <xinfo on="list">set dict from list. Key-value pairs are expected. [1 2 3 4(
                 becames dict with keys: 1 and 3, values: 2 and 4. No output</xinfo>
+                <xinfo on="data:dict">set and output new dict</xinfo>
             </inlet>
         </inlets>
         <outlets>

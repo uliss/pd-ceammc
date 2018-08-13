@@ -58,6 +58,12 @@ public:
     friend size_t hash_value(const DataAtom& d);
 };
 
+/**
+ * Sends to specified outlet
+ * @returns true on success, false on error
+ */
+bool to_outlet(t_outlet* x, const DataAtom& a);
+
 template <typename T>
 bool DataAtom::isDataType() const
 {

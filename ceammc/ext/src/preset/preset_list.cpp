@@ -1,5 +1,6 @@
 #include "preset_list.h"
 #include "ceammc_factory.h"
+#include "preset_iface.h"
 
 PresetList::PresetList(const PdArgs& args)
     : PresetBase(args)
@@ -30,9 +31,5 @@ void PresetList::storeAt(size_t idx)
 
 void setup_preset_list()
 {
-    ObjectFactory<PresetList> obj("preset.list");
-    obj.addMethod("clear", &PresetList::m_clear);
-    obj.addMethod("store", &PresetList::m_store);
-    obj.addMethod("load", &PresetList::m_load);
-    obj.addMethod("update", &PresetList::m_update);
+    PresetIFaceFactory<PresetList> obj("preset.list");
 }

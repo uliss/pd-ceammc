@@ -47,7 +47,7 @@ TEST_CASE("list.remove_if", "[externals]")
         REQUIRE(t.outputListAt(0) == L());
 
         t << LF(1, 2, 3);
-        REQUIRE(t.outputFloatAt(0) == 3);
+        REQUIRE(t.outputListAt(0) == LF(3));
 
         t << LF(1, 2, 3, 4);
         REQUIRE(t.outputListAt(0) == LF(3, 4));

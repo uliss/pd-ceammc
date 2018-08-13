@@ -21,11 +21,6 @@ LocalDict::LocalDict(const PdArgs& args)
 
 void setup_local_dict()
 {
-    ColectionIFaceFactory<LocalDict> obj("local.dict");
-    protocol::Reader<ObjectFactory, LocalDict> reader(obj);
-    protocol::Writer<ObjectFactory, LocalDict> writer(obj);
-
+    DictIFaceFactory<LocalDict> obj("local.dict");
     obj.addAlias("local.json");
-    obj.processData<DataTypeDict>();
-    obj.addMethod("get_key", &LocalDict::m_get);
 }

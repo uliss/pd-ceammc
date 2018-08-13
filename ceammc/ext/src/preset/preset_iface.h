@@ -11,16 +11,24 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "global_dict.h"
+#ifndef PRESET_IFACE_H
+#define PRESET_IFACE_H
+
+#include "../data/data_protocol.h"
 #include "ceammc_factory.h"
 
-GlobalDict::GlobalDict(const PdArgs& args)
-    : GlobalDictBase(args)
-{
+namespace ceammc {
+
+template <typename T>
+class PresetIFaceFactory : public ObjectFactory<T> {
+public:
+    PresetIFaceFactory(const char* name, int flags = OBJECT_FACTORY_DEFAULT)
+        : ObjectFactory<T>(name, flags)
+    {
+        protocol::Storage<ObjectFactory, T> obj(*this);
+    }
+};
+
 }
 
-void setup_global_dict()
-{
-    DictIFaceFactory<GlobalDict> obj("global.dict");
-    obj.addAlias("global.json");
-}
+#endif // PRESET_IFACE_H

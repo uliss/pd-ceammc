@@ -60,7 +60,7 @@ TEST_CASE("list.shift", "[externals]")
         REQUIRE(t.outputListAt(0) == LX(0, 0));
 
         t << LF(1);
-        REQUIRE(t.outputFloatAt(0) == 1);
+        REQUIRE(t.outputListAt(0) == LX(1));
 
         t << LF(1, 2);
         REQUIRE(t.outputListAt(0) == LX(1.4, 2));

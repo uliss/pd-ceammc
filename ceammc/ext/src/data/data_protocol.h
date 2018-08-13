@@ -498,6 +498,19 @@ namespace protocol {
             obj.addMethod("write", &T::m_write);
         }
     };
+
+    template <template <typename T> class Factory, typename T>
+    class Storage : public Factory<T> {
+    public:
+        Storage(Factory<T>& obj)
+            : Factory<T>(obj)
+        {
+            obj.addMethod("clear", &T::m_clear);
+            obj.addMethod("store", &T::m_store);
+            obj.addMethod("load", &T::m_load);
+            obj.addMethod("update", &T::m_update);
+        }
+    };
 }
 
 template <typename T>

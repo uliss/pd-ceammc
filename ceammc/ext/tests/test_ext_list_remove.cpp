@@ -39,7 +39,7 @@ TEST_CASE("list.remove", "[externals]")
             REQUIRE(t.outputListAt(0) == L());
 
             t << LF(1);
-            REQUIRE(t.outputFloatAt(0) == 1);
+            REQUIRE(t.outputListAt(0) == LF(1));
 
             t << LF(1, 2, 3);
             REQUIRE(t.outputListAt(0) == LF(1, 2, 3));
@@ -53,10 +53,10 @@ TEST_CASE("list.remove", "[externals]")
             REQUIRE(t.outputListAt(0) == L());
 
             t << LF(1);
-            REQUIRE(t.outputFloatAt(0) == 1);
+            REQUIRE(t.outputListAt(0) == LF(1));
 
             t << LF(1, 2);
-            REQUIRE(t.outputFloatAt(0) == 1);
+            REQUIRE(t.outputListAt(0) == LF(1));
 
             t << LF(1, 2, 3);
             REQUIRE(t.outputListAt(0) == LF(1, 3));
@@ -73,7 +73,7 @@ TEST_CASE("list.remove", "[externals]")
             REQUIRE(t.outputListAt(0) == L());
 
             t << LF(1, 2);
-            REQUIRE(t.outputFloatAt(0) == 1);
+            REQUIRE(t.outputListAt(0) == LF(1));
 
             t << LF(1, 2, 3);
             REQUIRE(t.outputListAt(0) == LF(1, 2));
@@ -90,7 +90,7 @@ TEST_CASE("list.remove", "[externals]")
             REQUIRE(t.outputListAt(0) == L());
 
             t << LF(1, 2);
-            REQUIRE(t.outputFloatAt(0) == 1);
+            REQUIRE(t.outputListAt(0) == LF(1));
 
             t << LF(1, 2, 3);
             REQUIRE(t.outputListAt(0) == LF(1, 2));
@@ -110,10 +110,10 @@ TEST_CASE("list.remove", "[externals]")
             REQUIRE(t.outputListAt(0) == L());
 
             t << LF(1, 2, 3);
-            REQUIRE(t.outputFloatAt(0) == 2);
+            REQUIRE(t.outputListAt(0) == LF(2));
 
             t << LF(1, 2, 3, 4);
-            REQUIRE(t.outputFloatAt(0) == 2);
+            REQUIRE(t.outputListAt(0) == LF(2));
 
             t << LF(1, 2, 3, 4, 5);
             REQUIRE(t.outputListAt(0) == LF(2, 4));

@@ -37,7 +37,7 @@ TEST_CASE("list.reverse", "[externals]")
         REQUIRE(t.outputListAt(0) == L());
 
         t << LF(1);
-        REQUIRE(t.outputFloatAt(0) == 1);
+        REQUIRE(t.outputListAt(0) == LF(1));
 
         t << LF(1, 2);
         REQUIRE(t.outputListAt(0) == LF(2, 1));

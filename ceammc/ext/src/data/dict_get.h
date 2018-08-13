@@ -11,16 +11,25 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "global_dict.h"
-#include "ceammc_factory.h"
+#ifndef DICT_GET_H
+#define DICT_GET_H
 
-GlobalDict::GlobalDict(const PdArgs& args)
-    : GlobalDictBase(args)
-{
-}
+#include "ceammc_object.h"
+#include "datatype_dict.h"
 
-void setup_global_dict()
-{
-    DictIFaceFactory<GlobalDict> obj("global.dict");
-    obj.addAlias("global.json");
-}
+using namespace ceammc;
+
+class DictGet : public BaseObject {
+    AtomList keys_;
+
+public:
+    DictGet(const PdArgs& args);
+    void onDataT(const DataTypeDict& d);
+
+    void parseProperties() override;
+    bool processAnyProps(t_symbol* sel, const AtomList& lst) override;
+};
+
+void setup_dict_get();
+
+#endif // DICT_GET_H
