@@ -21,7 +21,7 @@ PD_COMPLETE_TEST_SETUP(ListCount, list, count)
 
 TEST_CASE("list.count", "[externals]")
 {
-    pd_test_mod_init_list_count();
+    pd_test_init();
 
     SECTION("init")
     {
