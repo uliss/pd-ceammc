@@ -424,7 +424,7 @@ bool DataTypeDict::isDataAtom(const DictValue& v)
     return isType<DataAtom>(v);
 }
 
-bool to_outlet(t_outlet* x, const DictValue& v)
+bool ceammc::to_outlet(t_outlet* x, const DictValue& v)
 {
     if (DataTypeDict::isNull(v))
         return false;

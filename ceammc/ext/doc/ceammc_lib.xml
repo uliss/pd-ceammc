@@ -145,6 +145,9 @@
     <entry descr="predicate to check dict contains key" name="dict.contains" ref_view="object">
       <xi:include href="dict.contains.pddoc" parse="xml"/>
     </entry>
+    <entry descr="on input dict outputs value to corresponding key outlet" name="dict.get" ref_view="object">
+      <xi:include href="dict.get.pddoc" parse="xml"/>
+    </entry>
     <entry descr="get list of dict keys" name="dict.keys" ref_view="object">
       <xi:include href="dict.keys.pddoc" parse="xml"/>
     </entry>
