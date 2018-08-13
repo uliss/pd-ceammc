@@ -423,3 +423,17 @@ bool DataTypeDict::isDataAtom(const DictValue& v)
 {
     return isType<DataAtom>(v);
 }
+
+bool to_outlet(t_outlet* x, const DictValue& v)
+{
+    if (DataTypeDict::isNull(v))
+        return false;
+    else if (v.type() == typeid(Atom))
+        return to_outlet(x, boost::get<Atom>(v));
+    else if (v.type() == typeid(AtomList))
+        return to_outlet(x, boost::get<AtomList>(v));
+    else if (v.type() == typeid(DataAtom))
+        return to_outlet(x, boost::get<DataAtom>(v));
+    else
+        return false;
+}

@@ -29,6 +29,12 @@ namespace ceammc {
 typedef boost::variant<boost::blank, DataAtom, Atom, AtomList> DictValue;
 typedef boost::optional<std::string> MaybeString;
 
+/**
+ * Outputs dict value to specified outlet
+ * @return true on success
+ */
+bool to_outlet(t_outlet* x, const DictValue& v);
+
 class DataTypeDict : public AbstractData {
 public:
     typedef std::map<Atom, DictValue> DictMap;
@@ -104,6 +110,7 @@ public:
 public:
     static const DataType dataType;
 };
+
 }
 
 #endif // DATATYPE_DICT_H
