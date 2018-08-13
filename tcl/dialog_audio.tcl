@@ -55,10 +55,10 @@ package require msgcat
 
 proc fix_win_locale { msg } {
     if { $::tcl_platform(platform) eq "windows" } {
-	set loc [::msgcat::mclocale]
-	# ru_RU* locale
-	if { [string match "ru_*" $loc ] } {
-	    # affect only MMIO and ASIO
+        set loc [::msgcat::mclocale]
+        # ru_RU* locale
+        if { [string match "ru_*" $loc ] } {
+            # affect only MMIO and ASIO
             if { [string match "MMIO:*" $msg] } {
                 return [encoding convertfrom cp1251 $msg]
             }
