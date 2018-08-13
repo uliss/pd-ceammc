@@ -22,7 +22,7 @@ typedef TestExternal<ListEach> ListEachTest;
 
 TEST_CASE("list.each", "[externals]")
 {
-    pd_test_mod_init_list_each();
+    pd_test_init();
 
     SECTION("test create with:")
     {

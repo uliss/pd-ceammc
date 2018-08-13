@@ -21,7 +21,7 @@ PD_COMPLETE_TEST_SETUP(ListCountIf, list, count_if)
 
 TEST_CASE("list.count_if", "[externals]")
 {
-    pd_test_mod_init_list_count_if();
+    pd_test_init();
 
     SECTION("init")
     {

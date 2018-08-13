@@ -21,7 +21,7 @@ PD_COMPLETE_TEST_SETUP(ListDo, list, do)
 
 TEST_CASE("list.do", "[externals]")
 {
-    pd_test_mod_init_list_do();
+    pd_test_init();
 
     SECTION("init")
     {

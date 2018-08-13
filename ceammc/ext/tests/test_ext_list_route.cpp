@@ -14,15 +14,14 @@
 #include "../data/datatype_mlist.h"
 #include "../list/list_route.h"
 #include "test_base.h"
-#include "catch.hpp"
+#include "test_external.h"
 
-#include <stdio.h>
-
+PD_COMPLETE_TEST_SETUP(ListRoute, list, route);
 typedef TestExternal<ListRoute> ListRouteTest;
 
 TEST_CASE("list.route", "[externals]")
 {
-    obj_init();
+    pd_test_init();
 
     SECTION("test create with:")
     {
