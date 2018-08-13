@@ -16,6 +16,8 @@
 
 #include "ceammc_object.h"
 
+#include <algorithm>
+
 using namespace ceammc;
 
 class DataTypeMList;
@@ -28,6 +30,16 @@ public:
 
     void onList(const AtomList& l) override;
     void onDataT(const DataTypeMList& lst);
+
+    template <typename Iterator>
+    void min(Iterator begin, Iterator end)
+    {
+        auto it = std::min_element(begin, end);
+        if (it == end)
+            return;
+
+        atomTo(0, *it);
+    }
 };
 
 void setup_list_min();
