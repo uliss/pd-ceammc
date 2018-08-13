@@ -75,14 +75,13 @@ public:
     {
         if (key.empty()) {
             METHOD_ERR(s) << "key expected";
+            METHOD_ERR(s) << "usage: " << s << " KEY";
             return;
         }
 
         auto v = dict().value(key[0]);
-        if (DataTypeDict::isNull(v)) {
-            METHOD_ERR(s) << "key not found: " << key[0];
+        if (DataTypeDict::isNull(v))
             return;
-        }
 
         if (v.type() == typeid(Atom))
             this->atomTo(0, boost::get<Atom>(v));
@@ -98,11 +97,13 @@ public:
     {
         if (lst.empty()) {
             METHOD_ERR(s) << "key expected";
+            METHOD_ERR(s) << "usage: " << s << " KEY VALUES...";
             return;
         }
 
         if (lst.size() < 2) {
             METHOD_ERR(s) << "value expected";
+            METHOD_ERR(s) << "usage: " << s << " KEY VALUES...";
             return;
         }
 
@@ -119,7 +120,7 @@ public:
     void proto_add(const AtomList& lst) override
     {
         if (lst.size() < 2) {
-            OBJ_ERR << "Usage: add key values...";
+            OBJ_ERR << "Usage: add KEY VALUES...";
             return;
         }
 
