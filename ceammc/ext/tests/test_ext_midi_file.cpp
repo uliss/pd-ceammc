@@ -157,7 +157,7 @@ TEST_CASE("midi.file", "[externals]")
         REQUIRE_PROPERTY(t, @tracks, 1);
         REQUIRE_PROPERTY(t, @tempo, 120);
 
-        REQUIRE(platform::remove("./test_midi_output.mid") == 0);
+        REQUIRE(platform::remove("./test_midi_output.mid"));
     }
 
     SECTION("clear")
