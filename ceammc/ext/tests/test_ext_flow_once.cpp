@@ -18,7 +18,7 @@ PD_COMPLETE_TEST_SETUP(FlowOnce, flow, once);
 
 TEST_CASE("flow.once", "[externals]")
 {
-    pd_test_mod_init_flow_once();
+    pd_test_init();
 
     SECTION("init")
     {

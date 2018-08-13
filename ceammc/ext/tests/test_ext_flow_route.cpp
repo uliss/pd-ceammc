@@ -21,7 +21,7 @@ PD_COMPLETE_TEST_SETUP(FlowRoute, flow, route);
 
 TEST_CASE("flow.route", "[externals]")
 {
-    pd_test_mod_init_flow_route();
+    pd_test_init();
 
     SECTION("init")
     {

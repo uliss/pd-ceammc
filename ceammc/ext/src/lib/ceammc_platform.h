@@ -116,6 +116,12 @@ namespace platform {
      * @return boost::null on error (can't read directory)
      */
     DirList list_directory(const char* path, const char* pattern = "");
+
+    /**
+     * check if specified path exists and is directory
+     * @return true on sucess
+     */
+    bool is_dir(const char* path);
 }
 }
 

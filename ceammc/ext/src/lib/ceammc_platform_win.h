@@ -28,6 +28,7 @@ bool win_mkdir(const char* path, int flags = -1);
 bool win_rmdir(const char* path);
 std::string win_home_directory();
 void win_sleep_ms(unsigned int ms);
+bool win_is_dir(const char* path);
 }
 
 #endif // CEAMMC_PLATFORM_WIN_H

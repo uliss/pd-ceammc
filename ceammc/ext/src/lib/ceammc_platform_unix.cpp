@@ -92,6 +92,18 @@ std::string ceammc::unix_home_directory()
     return homedir ? homedir : "";
 }
 
+bool ceammc::unix_is_dir(const char* path)
+{
+    struct stat statbuf;
+    if (stat(path, &statbuf) != -1) {
+        if (S_ISDIR(statbuf.st_mode))
+            return true;
+        else
+            return false;
+    }
+    return false;
+}
+
 void ceammc::unix_sleep_ms(unsigned int ms)
 {
     usleep(ms * 1000);

@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../midi/midi_file.h"
+#include "ceammc_platform.h"
 #include "test_base.h"
 #include "catch.hpp"
 #include "ceammc_datatypes.h"
@@ -156,7 +157,7 @@ TEST_CASE("midi.file", "[externals]")
         REQUIRE_PROPERTY(t, @tracks, 1);
         REQUIRE_PROPERTY(t, @tempo, 120);
 
-        REQUIRE(unlink("./test_midi_output.mid") == 0);
+        REQUIRE(platform::remove("./test_midi_output.mid") == 0);
     }
 
     SECTION("clear")

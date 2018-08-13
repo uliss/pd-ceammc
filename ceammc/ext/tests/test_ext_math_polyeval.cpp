@@ -19,7 +19,7 @@ PD_COMPLETE_TEST_SETUP(MathPolyEval, math, polyeval);
 
 TEST_CASE("math.polyeval", "[externals]")
 {
-    pd_test_mod_init_math_polyeval();
+    pd_test_init();
 
     SECTION("init")
     {

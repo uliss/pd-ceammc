@@ -18,7 +18,7 @@ PD_COMPLETE_TEST_SETUP(DictContains, dict, contains);
 
 TEST_CASE("dict.contains", "[externals]")
 {
-    pd_test_mod_init_dict_contains();
+    pd_test_init();
     test::pdPrintToStdError(true);
 
     SECTION("create")

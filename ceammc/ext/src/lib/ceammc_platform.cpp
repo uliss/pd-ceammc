@@ -205,7 +205,15 @@ namespace platform {
 
     bool remove(const char* path)
     {
-        return ::remove(path) == 0;
+        if(is_dir(path))
+            return rmdir(path);
+        else
+            return ::remove(path) == 0;
+    }
+
+    bool is_dir(const char* path)
+    {
+        return NS(is_dir(path));
     }
 
     void sleep_ms(unsigned int ms)

@@ -30,7 +30,12 @@ TEST_CASE("ui.label", "[ui.label]")
 
         REQUIRE_UI_LIST_PROPERTY(t, "align", LA("left"));
         REQUIRE_UI_LIST_PROPERTY(t, "fontweight", LA("normal"));
+
+#ifndef __WIN32
         REQUIRE_UI_FLOAT_PROPERTY(t, "fontsize", 32);
+#else
+        REQUIRE_UI_FLOAT_PROPERTY(t, "fontsize", 28);
+#endif
 
         REQUIRE_UI_FLOAT_PROPERTY(t, "margin_left", 5);
         REQUIRE_UI_FLOAT_PROPERTY(t, "margin_top", 5);

@@ -23,7 +23,7 @@ typedef TestExternal<ListRotate> ListRotateTest;
 
 TEST_CASE("list.rotate", "[externals]")
 {
-    pd_test_mod_init_list_rotate();
+    pd_test_init();
 
     SECTION("init")
     {

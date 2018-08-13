@@ -34,7 +34,7 @@ static void lessThree(ListAllOfTest* obj, size_t, const Atom& a)
 
 TEST_CASE("list.all_of", "[externals]")
 {
-    pd_test_mod_init_list_all_of();
+    pd_test_init();
 
     SECTION("init")
     {
