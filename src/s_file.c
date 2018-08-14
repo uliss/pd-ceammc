@@ -240,9 +240,9 @@ static int sys_getpreference(const char *key, char *value, int size)
     snprintf(embedded_prefs, MAXPDSTRING, "%s/../org.puredata.pd",
         sys_libdir->s_name);
     snprintf(user_prefs, MAXPDSTRING,
-        "%s/Library/Preferences/org.puredata.pd.plist", homedir);
+        "%s/Library/Preferences/org.puredata.pd-ceammc.plist", homedir);
     if (stat(user_prefs, &statbuf) == 0)
-        snprintf(cmdbuf, 256, "defaults read org.puredata.pd %s 2> /dev/null\n",
+        snprintf(cmdbuf, 256, "defaults read org.puredata.pd-ceammc %s 2> /dev/null\n",
             key);
     else snprintf(cmdbuf, 256, "defaults read %s %s 2> /dev/null\n",
             embedded_prefs, key);
@@ -277,7 +277,7 @@ static void sys_putpreference(const char *key, const char *value)
 {
     char cmdbuf[MAXPDSTRING];
     snprintf(cmdbuf, MAXPDSTRING,
-        "defaults write org.puredata.pd %s \"%s\" 2> /dev/null\n", key, value);
+        "defaults write org.puredata.pd-ceammc %s \"%s\" 2> /dev/null\n", key, value);
     system(cmdbuf);
 }
 
