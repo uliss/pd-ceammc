@@ -6,7 +6,7 @@
  * this file implements a mechanism for storing and retrieving preferences.
  * Should later be renamed "preferences.c" or something.
  *
- * In unix this is handled by the "~/.pdsettings" file, in windows by
+ * In unix this is handled by the "~/.pd_ceammc_settings" file, in windows by
  * the registry, and in MacOS by the Preferences system.
  */
 
@@ -40,7 +40,7 @@ void sys_doflags( void);
 #if defined(__linux__) || defined(__CYGWIN__) || defined(__FreeBSD__) \
 || defined(__GNU__) || defined(ANDROID) || defined(__OpenBSD__) || defined(__NetBSD__)
 
-/*****  linux/android/BSD etc: read and write to ~/.pdsettings file ******/
+/*****  linux/android/BSD etc: read and write to ~/.pd_ceammc_settings file ******/
 
 static char *sys_prefbuf;
 static int sys_prefbufsize;
@@ -56,7 +56,7 @@ static void sys_initloadpreferences( void)
 
     snprintf(default_prefs_file, MAXPDSTRING, "%s/default.pdsettings",
         sys_libdir->s_name);
-    snprintf(user_prefs_file, MAXPDSTRING, "%s/.pdsettings",
+    snprintf(user_prefs_file, MAXPDSTRING, "%s/.pd_ceammc_settings",
         (homedir ? homedir : "."));
     if (stat(user_prefs_file, &statbuf) == 0)
         strncpy(filenamebuf, user_prefs_file, MAXPDSTRING);
@@ -138,7 +138,7 @@ static void sys_initsavepreferences( void)
 
     if (!homedir)
         return;
-    snprintf(filenamebuf, MAXPDSTRING, "%s/.pdsettings", homedir);
+    snprintf(filenamebuf, MAXPDSTRING, "%s/.pd_ceammc_settings", homedir);
     filenamebuf[MAXPDSTRING-1] = 0;
     if ((sys_prefsavefp = fopen(filenamebuf, "w")) == NULL)
     {
