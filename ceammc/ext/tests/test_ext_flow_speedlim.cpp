@@ -12,13 +12,13 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../flow/flow_speedlim.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "catch.hpp"
 #include "ceammc_pd.h"
 
 #include <stdio.h>
 
-typedef TestExtension<FlowSpeedLimit> FlowSpeedLimitTest;
+typedef TestExternal<FlowSpeedLimit> FlowSpeedLimitTest;
 
 static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
 
@@ -34,22 +34,22 @@ TEST_CASE("flow.speedlim", "[externals]")
         setup_flow_speedlim();
 
         {
-            FlowSpeedLimitTest t("flow.speedlim", L1(100));
+            FlowSpeedLimitTest t("flow.speedlim", LF(100));
             REQUIRE_PROPERTY(t, @limit, 100);
         }
 
         {
-            FlowSpeedLimitTest t("flow.speedlim", L1("ABC"));
+            FlowSpeedLimitTest t("flow.speedlim", LA("ABC"));
             REQUIRE_PROPERTY(t, @limit, 0.0f);
         }
 
         {
-            FlowSpeedLimitTest t("flow.speedlim", L1(-100));
+            FlowSpeedLimitTest t("flow.speedlim", LF(-100));
             REQUIRE_PROPERTY(t, @limit, -100);
         }
 
         {
-            FlowSpeedLimitTest t("flow.speedlim", L2("@limit", 500));
+            FlowSpeedLimitTest t("flow.speedlim", LA("@limit", 500));
             REQUIRE_PROPERTY(t, @limit, 500);
         }
     }
@@ -65,18 +65,18 @@ TEST_CASE("flow.speedlim", "[externals]")
             REQUIRE_FLOAT_AT_OUTLET(0, t, 200);
             WHEN_SEND_SYMBOL_TO(0, t, "ABC");
             REQUIRE_SYMBOL_AT_OUTLET(0, t, "ABC");
-            WHEN_SEND_LIST_TO(0, t, L3(1, 2, 3));
-            REQUIRE_LIST_AT_OUTLET(0, t, L3(1, 2, 3));
-            WHEN_SEND_ANY_TO(t, "msg", L2(100, 200));
-            REQUIRE_ANY_AT_OUTLET(0, t, L3("msg", 100, 200));
+            WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3));
+            REQUIRE_LIST_AT_OUTLET(0, t, LF(1, 2, 3));
+            WHEN_SEND_ANY_TO(t, "msg", LF(100, 200));
+            REQUIRE_ANY_AT_OUTLET(0, t, LA("msg", 100, 200));
             DataPtr dp(new IntData(123));
             WHEN_SEND_DATA_TO(0, t, dp);
-            REQUIRE_DATA_AT_OUTLET(0, t, dp.asAtom());
+            REQUIRE_DATA_AT_OUTLET(0, t, dp);
         }
 
         SECTION("limit")
         {
-            FlowSpeedLimitTest t("flow.speedlim", L1(20));
+            FlowSpeedLimitTest t("flow.speedlim", LF(20));
             WHEN_SEND_BANG_TO(0, t);
             REQUIRE_BANG_AT_OUTLET(0, t);
             WHEN_SEND_BANG_TO(0, t);
@@ -100,19 +100,19 @@ TEST_CASE("flow.speedlim", "[externals]")
             WHEN_SEND_SYMBOL_TO(0, t, "ABC");
             REQUIRE_SYMBOL_AT_OUTLET(0, t, "ABC");
 
-            WHEN_SEND_LIST_TO(0, t, L3(1, 2, 3));
+            WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3));
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
             t.clock_handler();
-            WHEN_SEND_LIST_TO(0, t, L3(1, 2, 3));
-            REQUIRE_LIST_AT_OUTLET(0, t, L3(1, 2, 3));
+            WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3));
+            REQUIRE_LIST_AT_OUTLET(0, t, LF(1, 2, 3));
 
-            WHEN_SEND_ANY_TO(t, "msg", L2(100, 200));
+            WHEN_SEND_ANY_TO(t, "msg", LF(100, 200));
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
             t.clock_handler();
-            WHEN_SEND_ANY_TO(t, "msg", L2(100, 200));
-            REQUIRE_ANY_AT_OUTLET(0, t, L3("msg", 100, 200));
+            WHEN_SEND_ANY_TO(t, "msg", LF(100, 200));
+            REQUIRE_ANY_AT_OUTLET(0, t, LA("msg", 100, 200));
 
             DataPtr dp(new IntData(123));
             WHEN_SEND_DATA_TO(0, t, dp);
@@ -120,7 +120,7 @@ TEST_CASE("flow.speedlim", "[externals]")
 
             t.clock_handler();
             WHEN_SEND_DATA_TO(0, t, dp);
-            REQUIRE_DATA_AT_OUTLET(0, t, dp.asAtom());
+            REQUIRE_DATA_AT_OUTLET(0, t, dp);
         }
     }
 }

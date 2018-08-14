@@ -14,22 +14,29 @@
             <since>0.5</since>
         </meta>
         <arguments>
-            <argument name="N" type="int" minvalue="2" maxvalue="16">number of input channels</argument>
+            <argument name="N" type="int" minvalue="2" maxvalue="16">number of input
+            channels</argument>
         </arguments>
         <properties>
             <property name="@ch" type="int" minvalue="2" maxvalue="16" default="2" readonly="true">
             number of input channels</property>
-            <property name="@spread" type="float" minvalue="0" maxvalue="1" default="1">for @spread = 0,
-            all channels are in the centre, for 1, they have maximum distribution</property>
-            <property name="@center" type="float" minvalue="-0.5" maxvalue="0.5" default="0">
-            shift the centre of the distribution</property>
+            <property name="@spread" type="float" minvalue="0" maxvalue="1" default="1">for @spread
+            = 0, all channels are in the centre, for 1, they have maximum distribution</property>
+            <property name="@center" type="float" minvalue="-0.5" maxvalue="0.5" default="0">shift
+            the centre of the distribution</property>
             <property name="@compensate" type="int" enum="0 1" default="0">compensate output level:
             divide amplitude to number of input channels</property>
         </properties>
         <inlets dynamic="true">
-            <inlet type="audio" number="1"><xinfo>input signal</xinfo></inlet>
-            <inlet type="audio" number="..."><xinfo>input signal</xinfo></inlet>
-            <inlet type="audio" number="n"><xinfo>input signal</xinfo></inlet>
+            <inlet type="audio" number="1">
+                <xinfo>input signal</xinfo>
+            </inlet>
+            <inlet type="audio" number="...">
+                <xinfo>input signal</xinfo>
+            </inlet>
+            <inlet type="audio" number="n">
+                <xinfo>input signal</xinfo>
+            </inlet>
         </inlets>
         <outlets>
             <outlet type="audio">left output channel</outlet>

@@ -9,16 +9,15 @@ class FlowMultiplex : public BaseObject {
     SizeTProperty* index_;
 
 public:
-    FlowMultiplex(const PdArgs& a);
+    FlowMultiplex(const PdArgs& args);
 
     void onBang();
-    void onFloat(t_float f);
+    void onFloat(float f);
     void onSymbol(t_symbol* s);
     void onList(const AtomList& l);
-    void onAny(t_symbol* s, const AtomList& l);
-    void onData(const DataPtr& d);
-
-    bool checkIndex() const;
+    void onAny(t_symbol* sel, const AtomList& args);
+    void onData(const DataPtr& ptr);
+    void onInlet(size_t idx, const AtomList& l);
 };
 
 void setup_flow_multiplex();

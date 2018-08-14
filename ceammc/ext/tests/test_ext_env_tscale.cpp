@@ -12,13 +12,13 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../env/env_tscale.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "catch.hpp"
 #include "ceammc_pd.h"
 
 #include <stdio.h>
 
-typedef TestExtension<EnvTimeScale> EnvTimeScaleTest;
+typedef TestExternal<EnvTimeScale> EnvTimeScaleTest;
 
 static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
 
@@ -47,26 +47,26 @@ TEST_CASE("env.tscale", "[externals]")
 
         SECTION("float")
         {
-            EnvTimeScaleTest t("env.tscale", L1(2));
+            EnvTimeScaleTest t("env.tscale", LF(2));
             REQUIRE_PROPERTY(t, @scale, 2.f);
         }
 
         SECTION("@prop")
         {
-            EnvTimeScaleTest t("env.tscale", L2("@scale", 3));
+            EnvTimeScaleTest t("env.tscale", LA("@scale", 3));
             REQUIRE_PROPERTY(t, @scale, 3.f);
         }
 
         SECTION("invalid")
         {
-            EnvTimeScaleTest t("env.tscale", L2("@scale", -3));
+            EnvTimeScaleTest t("env.tscale", LA("@scale", -3));
             REQUIRE_PROPERTY(t, @scale, 1.f);
         }
     }
 
     SECTION("on data")
     {
-        EnvTimeScaleTest t("env", L2("@scale", 2));
+        EnvTimeScaleTest t("env", LA("@scale", 2));
         WHEN_SEND_TDATA_TO(0, t, DataTypeEnv());
         REQUIRE_ENV_OUTPUT(t, DataTypeEnv());
 

@@ -12,13 +12,13 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../base/canvas_current.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "catch.hpp"
 #include "ceammc_pd.h"
 
 #include <stdio.h>
 
-typedef TestExtension<CanvasCurrent> CanvasCurrentTest;
+typedef TestExternal<CanvasCurrent> CanvasCurrentTest;
 
 TEST_CASE("canvas.current", "[externals]")
 {
@@ -40,8 +40,8 @@ TEST_CASE("canvas.current", "[externals]")
         REQUIRE_PROPERTY(t, @x, Atom(0.f));
         REQUIRE_PROPERTY(t, @y, Atom(0.f));
 
-        REQUIRE_PROPERTY_LIST(t, @args, AtomList());
-        REQUIRE_PROPERTY_LIST(t, @paths, AtomList());
+        REQUIRE_PROPERTY_LIST(t, @args, L());
+        REQUIRE_PROPERTY_LIST(t, @paths, L());
         REQUIRE_PROPERTY_LIST(t, @size, AtomList(0.f, 0.f));
 
         CanvasPtr cnv = PureData::instance().createTopCanvas("patch");
@@ -64,9 +64,9 @@ TEST_CASE("canvas.current", "[externals]")
             REQUIRE_PROPERTY(t, @y, 22);
 #endif
 
-            REQUIRE_PROPERTY_LIST(t, @args, AtomList());
-            REQUIRE_PROPERTY_LIST(t, @size, L2(600, 400));
-            REQUIRE_PROPERTY_LIST(t, @paths, AtomList());
+            REQUIRE_PROPERTY_LIST(t, @args, L());
+            REQUIRE_PROPERTY_LIST(t, @size, LF(600, 400));
+            REQUIRE_PROPERTY_LIST(t, @paths, L());
         }
     }
 }

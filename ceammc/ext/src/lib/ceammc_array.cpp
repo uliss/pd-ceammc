@@ -201,6 +201,11 @@ Array::Exception::Exception(const char* what)
 {
 }
 
+ArrayIterator::ArrayIterator()
+    : data_(nullptr)
+{
+}
+
 ArrayIterator::ArrayIterator(word* ptr)
     : data_(ptr)
 {

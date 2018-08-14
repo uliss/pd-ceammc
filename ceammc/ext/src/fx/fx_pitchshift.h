@@ -1,10 +1,12 @@
-//----------------------------------------------------------
-//
-// Code generated with Faust 0.9.92 (http://faust.grame.fr)
-//----------------------------------------------------------
+/* ------------------------------------------------------------
+name: "fx_pitchshift"
+Code generated with Faust 2.5.31 (https://faust.grame.fr)
+Compilation options: cpp, -scal -ftz 0
+------------------------------------------------------------ */
 
-/* link with  */
-#include <math.h>
+#ifndef  __pitchshift_H__
+#define  __pitchshift_H__
+
 /************************************************************************
  ************************************************************************
     FAUST Architecture File
@@ -38,49 +40,32 @@
 #include <string>
 
 /************************************************************************
-    IMPORTANT NOTE : this file contains two clearly delimited sections :
-    the ARCHITECTURE section (in two parts) and the USER section. Each section
-    is governed by its own copyright and license. Please check individually
-    each section for license and copyright information.
-*************************************************************************/
-
-/*******************BEGIN ARCHITECTURE SECTION (part 1/2)****************/
-
-/************************************************************************
-    FAUST Architecture File
-    Copyright (C) 2003-2011 GRAME, Centre National de Creation Musicale
-    ---------------------------------------------------------------------
-    This Architecture section is free software; you can redistribute it
-    and/or modify it under the terms of the GNU General Public License
-    as published by the Free Software Foundation; either version 3 of
-    the License, or (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; If not, see <http://www.gnu.org/licenses/>.
-
-    EXCEPTION : As a special exception, you may create a larger work
-    that contains this FAUST architecture section and distribute
-    that work under terms of your choice, so long as this FAUST
-    architecture section is not modified.
-
- ************************************************************************
- ************************************************************************/
+ FAUST Architecture File
+ Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
+ ---------------------------------------------------------------------
+ This Architecture section is free software; you can redistribute it
+ and/or modify it under the terms of the GNU General Public License
+ as published by the Free Software Foundation; either version 3 of
+ the License, or (at your option) any later version.
  
-/******************************************************************************
-*******************************************************************************
-
-								FAUST DSP
-
-*******************************************************************************
-*******************************************************************************/
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with this program; If not, see <http://www.gnu.org/licenses/>.
+ 
+ EXCEPTION : As a special exception, you may create a larger work
+ that contains this FAUST architecture section and distribute
+ that work under terms of your choice, so long as this FAUST
+ architecture section is not modified.
+ ************************************************************************/
 
 #ifndef __dsp__
 #define __dsp__
+
+#include <string>
 
 #ifndef FAUSTFLOAT
 #define FAUSTFLOAT float
@@ -88,6 +73,19 @@
 
 class UI;
 struct Meta;
+
+/**
+ * DSP memory manager.
+ */
+
+struct dsp_memory_manager {
+    
+    virtual ~dsp_memory_manager() {}
+    
+    virtual void* allocate(size_t size) = 0;
+    virtual void destroy(void* ptr) = 0;
+    
+};
 
 /**
 * Signal processor definition.
@@ -107,33 +105,36 @@ class dsp {
         virtual int getNumOutputs() = 0;
     
         /**
-         * Trigger the UI* parameter with instance specific calls
+         * Trigger the ui_interface parameter with instance specific calls
          * to 'addBtton', 'addVerticalSlider'... in order to build the UI.
          *
-         * @param ui_interface - the UI* user interface builder
+         * @param ui_interface - the user interface builder
          */
         virtual void buildUserInterface(UI* ui_interface) = 0;
     
         /* Returns the sample rate currently used by the instance */
         virtual int getSampleRate() = 0;
     
-        /** Global init, calls the following methods :
-         * - static class 'classInit' : static table initialisation
-         * - 'instanceInit' : constants and instance table initialisation
+        /**
+         * Global init, calls the following methods:
+         * - static class 'classInit': static tables initialization
+         * - 'instanceInit': constants and instance state initialization
          *
-         * @param samplingRate - the sampling rate in Herz
+         * @param samplingRate - the sampling rate in Hertz
          */
         virtual void init(int samplingRate) = 0;
-    
-        /** Init instance state
+
+        /**
+         * Init instance state
          *
-         * @param samplingRate - the sampling rate in Herz
+         * @param samplingRate - the sampling rate in Hertz
          */
         virtual void instanceInit(int samplingRate) = 0;
-    
-        /** Init instance constant state
+
+        /**
+         * Init instance constant state
          *
-         * @param samplingRate - the sampling rate in Herz
+         * @param samplingRate - the sampling rate in Hertz
          */
         virtual void instanceConstants(int samplingRate) = 0;
     
@@ -142,8 +143,8 @@ class dsp {
     
         /* Init instance state (delay lines...) */
         virtual void instanceClear() = 0;
-    
-        /**  
+ 
+        /**
          * Return a clone of the instance.
          *
          * @return a copy of the instance on success, otherwise a null pointer.
@@ -151,32 +152,32 @@ class dsp {
         virtual dsp* clone() = 0;
     
         /**
-         * Trigger the Meta* parameter with instance specific calls to 'declare' (key, value metadata).
+         * Trigger the Meta* parameter with instance specific calls to 'declare' (key, value) metadata.
          *
          * @param m - the Meta* meta user
          */
         virtual void metadata(Meta* m) = 0;
     
         /**
-         * DSP instance computation, to be called with sucessive in/out audio buffers.
+         * DSP instance computation, to be called with successive in/out audio buffers.
          *
-         * @param count - the nomber of frames to compute
-         * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, doucbe or quad)
-         * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, doucbe or quad)
+         * @param count - the number of frames to compute
+         * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
+         * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
          *
          */
         virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) = 0;
     
         /**
-         * DSP instance computation : alternative method to be used by subclasses.
+         * DSP instance computation: alternative method to be used by subclasses.
          *
          * @param date_usec - the timestamp in microsec given by audio driver.
-         * @param count - the nomber of frames to compute
-         * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, doucbe or quad)
-         * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, doucbe or quad)
+         * @param count - the number of frames to compute
+         * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
+         * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
          *
          */
-        virtual void compute(double date_usec, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { compute(count, inputs, outputs); }
+        virtual void compute(double /*date_usec*/, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { compute(count, inputs, outputs); }
        
 };
 
@@ -205,10 +206,35 @@ class decorator_dsp : public dsp {
         virtual void instanceResetUserInterface() { fDSP->instanceResetUserInterface(); }
         virtual void instanceClear() { fDSP->instanceClear(); }
         virtual decorator_dsp* clone() { return new decorator_dsp(fDSP->clone()); }
-        virtual void metadata(Meta* m) { return fDSP->metadata(m); }
+        virtual void metadata(Meta* m) { fDSP->metadata(m); }
+        // Beware: subclasses usually have to overload the two 'compute' methods
         virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(count, inputs, outputs); }
         virtual void compute(double date_usec, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(date_usec, count, inputs, outputs); }
-       
+    
+};
+
+/**
+ * DSP factory class.
+ */
+
+class dsp_factory {
+    
+    protected:
+    
+        // So that to force sub-classes to use deleteDSPFactory(dsp_factory* factory);
+        virtual ~dsp_factory() {}
+    
+    public:
+    
+        virtual std::string getName() = 0;
+        virtual std::string getSHAKey() = 0;
+        virtual std::string getDSPCode() = 0;
+    
+        virtual dsp* createDSPInstance() = 0;
+    
+        virtual void setMemoryManager(dsp_memory_manager* manager) = 0;
+        virtual dsp_memory_manager* getMemoryManager() = 0;
+    
 };
 
 /**
@@ -229,43 +255,43 @@ class decorator_dsp : public dsp {
 
 #endif
 /************************************************************************
-    FAUST Architecture File
-    Copyright (C) 2003-2016 GRAME, Centre National de Creation Musicale
-    ---------------------------------------------------------------------
-    This Architecture section is free software; you can redistribute it
-    and/or modify it under the terms of the GNU General Public License
-    as published by the Free Software Foundation; either version 3 of
-    the License, or (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; If not, see <http://www.gnu.org/licenses/>.
-
-    EXCEPTION : As a special exception, you may create a larger work
-    that contains this FAUST architecture section and distribute
-    that work under terms of your choice, so long as this FAUST
-    architecture section is not modified.
-
-
- ************************************************************************
- ************************************************************************/
+ FAUST Architecture File
+ Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
+ ---------------------------------------------------------------------
+ This Architecture section is free software; you can redistribute it
+ and/or modify it under the terms of the GNU General Public License
+ as published by the Free Software Foundation; either version 3 of
+ the License, or (at your option) any later version.
  
-#ifndef FAUST_UI_H
-#define FAUST_UI_H
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with this program; If not, see <http://www.gnu.org/licenses/>.
+ 
+ EXCEPTION : As a special exception, you may create a larger work
+ that contains this FAUST architecture section and distribute
+ that work under terms of your choice, so long as this FAUST
+ architecture section is not modified.
+ ************************************************************************/
+
+#ifndef __UI_H__
+#define __UI_H__
 
 #ifndef FAUSTFLOAT
 #define FAUSTFLOAT float
 #endif
 
 /*******************************************************************************
- * UI : Faust User Interface
- * This abstract class contains only the method that the faust compiler can
- * generate to describe a DSP interface.
+ * UI : Faust DSP User Interface
+ * User Interface as expected by the buildUserInterface() method of a DSP.
+ * This abstract class contains only the method that the Faust compiler can
+ * generate to describe a DSP user interface.
  ******************************************************************************/
+
+struct Soundfile;
 
 class UI
 {
@@ -295,106 +321,71 @@ class UI
 
         virtual void addHorizontalBargraph(const char* label, FAUSTFLOAT* zone, FAUSTFLOAT min, FAUSTFLOAT max) = 0;
         virtual void addVerticalBargraph(const char* label, FAUSTFLOAT* zone, FAUSTFLOAT min, FAUSTFLOAT max) = 0;
+    
+        // -- soundfiles
+    
+        virtual void addSoundfile(const char* label, const char* filename, Soundfile** sf_zone) = 0;
 
         // -- metadata declarations
 
         virtual void declare(FAUSTFLOAT*, const char*, const char*) {}
 };
 
-//----------------------------------------------------------------
-//  Generic decorator
-//----------------------------------------------------------------
-
-class DecoratorUI : public UI
-{
-    protected:
-    
-        UI* fUI;
-
-    public:
-    
-        DecoratorUI(UI* ui = 0):fUI(ui)
-        {}
-
-        virtual ~DecoratorUI() { delete fUI; }
-
-        // -- widget's layouts
-        virtual void openTabBox(const char* label)          { fUI->openTabBox(label); }
-        virtual void openHorizontalBox(const char* label)   { fUI->openHorizontalBox(label); }
-        virtual void openVerticalBox(const char* label)     { fUI->openVerticalBox(label); }
-        virtual void closeBox()                             { fUI->closeBox(); }
-
-        // -- active widgets
-        virtual void addButton(const char* label, FAUSTFLOAT* zone)         { fUI->addButton(label, zone); }
-        virtual void addCheckButton(const char* label, FAUSTFLOAT* zone)    { fUI->addCheckButton(label, zone); }
-        virtual void addVerticalSlider(const char* label, FAUSTFLOAT* zone, FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step)
-            { fUI->addVerticalSlider(label, zone, init, min, max, step); }
-        virtual void addHorizontalSlider(const char* label, FAUSTFLOAT* zone, FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step) 	
-            { fUI->addHorizontalSlider(label, zone, init, min, max, step); }
-        virtual void addNumEntry(const char* label, FAUSTFLOAT* zone, FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step) 			
-            { fUI->addNumEntry(label, zone, init, min, max, step); }
-
-        // -- passive widgets	
-        virtual void addHorizontalBargraph(const char* label, FAUSTFLOAT* zone, FAUSTFLOAT min, FAUSTFLOAT max) 
-            { fUI->addHorizontalBargraph(label, zone, min, max); }
-        virtual void addVerticalBargraph(const char* label, FAUSTFLOAT* zone, FAUSTFLOAT min, FAUSTFLOAT max)
-            { fUI->addVerticalBargraph(label, zone, min, max); }
-
-        virtual void declare(FAUSTFLOAT* zone, const char* key, const char* val) { fUI->declare(zone, key, val); }
-
-};
-
 #endif
 /************************************************************************
- ************************************************************************
-    FAUST Architecture File
-	Copyright (C) 2003-2011 GRAME, Centre National de Creation Musicale
-    ---------------------------------------------------------------------
-    This Architecture section is free software; you can redistribute it
-    and/or modify it under the terms of the GNU General Public License
-	as published by the Free Software Foundation; either version 3 of
-	the License, or (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-	along with this program; If not, see <http://www.gnu.org/licenses/>.
-
- ************************************************************************
- ************************************************************************/
+ FAUST Architecture File
+ Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
+ ---------------------------------------------------------------------
+ This Architecture section is free software; you can redistribute it
+ and/or modify it under the terms of the GNU General Public License
+ as published by the Free Software Foundation; either version 3 of
+ the License, or (at your option) any later version.
  
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with this program; If not, see <http://www.gnu.org/licenses/>.
+ 
+ EXCEPTION : As a special exception, you may create a larger work
+ that contains this FAUST architecture section and distribute
+ that work under terms of your choice, so long as this FAUST
+ architecture section is not modified.
+ ************************************************************************/
+
 #ifndef __meta__
 #define __meta__
 
 struct Meta
 {
     virtual void declare(const char* key, const char* value) = 0;
-    virtual ~Meta() {}
+    virtual ~Meta() {};
 };
 
 #endif
 /************************************************************************
- ************************************************************************
-    FAUST Architecture File
-	Copyright (C) 2003-2011 GRAME, Centre National de Creation Musicale
-    ---------------------------------------------------------------------
-    This Architecture section is free software; you can redistribute it
-    and/or modify it under the terms of the GNU General Public License
-	as published by the Free Software Foundation; either version 3 of
-	the License, or (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-	along with this program; If not, see <http://www.gnu.org/licenses/>.
-
- ************************************************************************
+ FAUST Architecture File
+ Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
+ ---------------------------------------------------------------------
+ This Architecture section is free software; you can redistribute it
+ and/or modify it under the terms of the GNU General Public License
+ as published by the Free Software Foundation; either version 3 of
+ the License, or (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with this program; If not, see <http://www.gnu.org/licenses/>.
+ 
+ EXCEPTION : As a special exception, you may create a larger work
+ that contains this FAUST architecture section and distribute
+ that work under terms of your choice, so long as this FAUST
+ architecture section is not modified.
  ************************************************************************/
  
 #ifndef __misc__
@@ -496,59 +487,128 @@ using namespace ceammc::faust;
 // clang-format off
 #ifndef FAUSTFLOAT
 #define FAUSTFLOAT float
-#endif  
+#endif 
+
+#include <cmath>
+#include <math.h>
 
 
 #ifndef FAUSTCLASS 
 #define FAUSTCLASS pitchshift
 #endif
+#ifdef __APPLE__ 
+#define exp10f __exp10f
+#define exp10 __exp10
+#endif
 
 class pitchshift : public dsp {
-  private:
-	int 	IOTA;
-	float 	fVec0[65536];
-	float 	fConst0;
-	float 	fConst1;
-	FAUSTFLOAT 	fslider0;
-	float 	fRec0[2];
-	float 	fConst2;
-	FAUSTFLOAT 	fslider1;
+	
+ private:
+	
+	int IOTA;
+	float fVec0[131072];
 	int fSamplingFreq;
-
-  public:
-	virtual void metadata(Meta* m) { 
-		m->declare("misceffect.lib/name", "Faust Math Library");
-		m->declare("misceffect.lib/version", "2.0");
+	float fConst0;
+	float fConst1;
+	FAUSTFLOAT fVslider0;
+	float fRec0[2];
+	float fConst2;
+	FAUSTFLOAT fVslider1;
+	
+ public:
+	
+	void metadata(Meta* m) { 
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
-		m->declare("ceammc.lib/version", "0.1");
-		m->declare("math.lib/name", "Faust Math Library");
-		m->declare("math.lib/version", "2.0");
-		m->declare("math.lib/author", "GRAME");
-		m->declare("math.lib/copyright", "GRAME");
-		m->declare("math.lib/license", "LGPL with exception");
-		m->declare("delay.lib/name", "Faust Delay Library");
-		m->declare("delay.lib/version", "0.0");
+		m->declare("ceammc.lib/version", "0.1.1");
+		m->declare("delays.lib/name", "Faust Delay Library");
+		m->declare("delays.lib/version", "0.0");
+		m->declare("filename", "fx_pitchshift");
+		m->declare("maths.lib/author", "GRAME");
+		m->declare("maths.lib/copyright", "GRAME");
+		m->declare("maths.lib/license", "LGPL with exception");
+		m->declare("maths.lib/name", "Faust Math Library");
+		m->declare("maths.lib/version", "2.1");
+		m->declare("misceffects.lib/name", "Faust Math Library");
+		m->declare("misceffects.lib/version", "2.0");
+		m->declare("name", "fx_pitchshift");
 	}
 
-	virtual int getNumInputs() { return 2; }
-	virtual int getNumOutputs() { return 1; }
-	static void classInit(int samplingFreq) {
+	virtual int getNumInputs() {
+		return 2;
+		
 	}
+	virtual int getNumOutputs() {
+		return 1;
+		
+	}
+	virtual int getInputRate(int channel) {
+		int rate;
+		switch (channel) {
+			case 0: {
+				rate = 1;
+				break;
+			}
+			case 1: {
+				rate = 1;
+				break;
+			}
+			default: {
+				rate = -1;
+				break;
+			}
+			
+		}
+		return rate;
+		
+	}
+	virtual int getOutputRate(int channel) {
+		int rate;
+		switch (channel) {
+			case 0: {
+				rate = 1;
+				break;
+			}
+			default: {
+				rate = -1;
+				break;
+			}
+			
+		}
+		return rate;
+		
+	}
+	
+	static void classInit(int samplingFreq) {
+		
+	}
+	
 	virtual void instanceConstants(int samplingFreq) {
 		fSamplingFreq = samplingFreq;
-		fConst0 = min(1.92e+05f, max(1.0f, (float)fSamplingFreq));
-		fConst1 = (0.001f * fConst0);
-		fConst2 = (1e+03f / fConst0);
+		fConst0 = min(192000.0f, max(1.0f, float(fSamplingFreq)));
+		fConst1 = (0.00100000005f * fConst0);
+		fConst2 = (1000.0f / fConst0);
+		
 	}
+	
 	virtual void instanceResetUserInterface() {
-		fslider0 = 2e+02f;
-		fslider1 = 1e+02f;
+		fVslider0 = FAUSTFLOAT(200.0f);
+		fVslider1 = FAUSTFLOAT(100.0f);
+		
 	}
+	
 	virtual void instanceClear() {
 		IOTA = 0;
-		for (int i=0; i<65536; i++) fVec0[i] = 0;
-		for (int i=0; i<2; i++) fRec0[i] = 0;
+		for (int l0 = 0; (l0 < 131072); l0 = (l0 + 1)) {
+			fVec0[l0] = 0.0f;
+			
+		}
+		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
+			fRec0[l1] = 0.0f;
+			
+		}
+		
 	}
+	
 	virtual void init(int samplingFreq) {
 		classInit(samplingFreq);
 		instanceInit(samplingFreq);
@@ -558,44 +618,50 @@ class pitchshift : public dsp {
 		instanceResetUserInterface();
 		instanceClear();
 	}
+	
 	virtual pitchshift* clone() {
 		return new pitchshift();
 	}
 	virtual int getSampleRate() {
 		return fSamplingFreq;
+		
 	}
+	
 	virtual void buildUserInterface(UI* ui_interface) {
-		ui_interface->openVerticalBox("0x00");
-		ui_interface->addVerticalSlider("fade", &fslider1, 1e+02f, 0.0f, 1e+03f, 0.1f);
-		ui_interface->addVerticalSlider("window", &fslider0, 2e+02f, 1e+01f, 2e+03f, 0.1f);
+		ui_interface->openVerticalBox("fx_pitchshift");
+		ui_interface->addVerticalSlider("fade", &fVslider1, 100.0f, 0.0f, 1000.0f, 0.100000001f);
+		ui_interface->addVerticalSlider("window", &fVslider0, 200.0f, 10.0f, 2000.0f, 0.100000001f);
 		ui_interface->closeBox();
+		
 	}
-	virtual void compute (int count, FAUSTFLOAT** input, FAUSTFLOAT** output) {
-		float 	fSlow0 = (fConst1 * float(fslider0));
-		float 	fSlow1 = (fConst2 / float(fslider1));
-		FAUSTFLOAT* input0 = input[0];
-		FAUSTFLOAT* input1 = input[1];
-		FAUSTFLOAT* output0 = output[0];
-		for (int i=0; i<count; i++) {
-			float fTemp0 = (float)input0[i];
-			fVec0[IOTA&65535] = fTemp0;
-			fRec0[0] = fmodf((fSlow0 + (fRec0[1] + (1 - powf(2,(0.083333336f * min((float)60, max((float)-38, (float)input1[i]))))))),fSlow0);
+	
+	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
+		FAUSTFLOAT* input0 = inputs[0];
+		FAUSTFLOAT* input1 = inputs[1];
+		FAUSTFLOAT* output0 = outputs[0];
+		float fSlow0 = (fConst1 * float(fVslider0));
+		float fSlow1 = (fConst2 / float(fVslider1));
+		for (int i = 0; (i < count); i = (i + 1)) {
+			float fTemp0 = float(input0[i]);
+			fVec0[(IOTA & 131071)] = fTemp0;
+			fRec0[0] = fmodf((fSlow0 + (fRec0[1] + (1.0f - powf(2.0f, (0.0833333358f * min(60.0f, max(-38.0f, float(input1[i])))))))), fSlow0);
 			int iTemp1 = int(fRec0[0]);
 			float fTemp2 = floorf(fRec0[0]);
-			float fTemp3 = (1 - fRec0[0]);
-			float fTemp4 = min((fSlow1 * fRec0[0]), (float)1);
+			float fTemp3 = (1.0f - fRec0[0]);
+			float fTemp4 = min((fSlow1 * fRec0[0]), 1.0f);
 			float fTemp5 = (fSlow0 + fRec0[0]);
 			int iTemp6 = int(fTemp5);
 			float fTemp7 = floorf(fTemp5);
-			output0[i] = (FAUSTFLOAT)((((fVec0[(IOTA-int((iTemp1 & 65535)))&65535] * (fTemp2 + fTemp3)) + ((fRec0[0] - fTemp2) * fVec0[(IOTA-int((int((iTemp1 + 1)) & 65535)))&65535])) * fTemp4) + (((fVec0[(IOTA-int((iTemp6 & 65535)))&65535] * ((fTemp7 + fTemp3) - fSlow0)) + ((fSlow0 + (fRec0[0] - fTemp7)) * fVec0[(IOTA-int((int((iTemp6 + 1)) & 65535)))&65535])) * (1 - fTemp4)));
-			// post processing
+			output0[i] = FAUSTFLOAT(((((fVec0[((IOTA - min(65537, max(0, iTemp1))) & 131071)] * (fTemp2 + fTemp3)) + ((fRec0[0] - fTemp2) * fVec0[((IOTA - min(65537, max(0, (iTemp1 + 1)))) & 131071)])) * fTemp4) + (((fVec0[((IOTA - min(65537, max(0, iTemp6))) & 131071)] * ((fTemp7 + fTemp3) - fSlow0)) + ((fSlow0 + (fRec0[0] - fTemp7)) * fVec0[((IOTA - min(65537, max(0, (iTemp6 + 1)))) & 131071)])) * (1.0f - fTemp4))));
+			IOTA = (IOTA + 1);
 			fRec0[1] = fRec0[0];
-			IOTA = IOTA+1;
+			
 		}
+		
 	}
+
+	
 };
-
-
 // clang-format on
 #endif
 
@@ -935,11 +1001,11 @@ static bool faust_new_internal(t_faust_pitchshift* x, const std::string& objId =
 
 /**
  * find nth element that satisfies given predicate
- * @first - first element of sequence
- * @last - pointer behind last element of sequence
- * @Nth - searched element index
- * @pred - predicate
- * @return pointer to found element or pointer to @bold last, if not found
+ * @param first - first element of sequence
+ * @param last - pointer behind last element of sequence
+ * @param Nth - searched element index
+ * @param pred - predicate
+ * @return pointer to found element or pointer to last, if not found
  */
 template <class InputIterator, class NthOccurence, class UnaryPredicate>
 InputIterator find_nth_if(InputIterator first, InputIterator last, NthOccurence Nth, UnaryPredicate pred)
@@ -978,6 +1044,20 @@ static bool atom_is_symbol(const t_atom& a)
     case A_DEFSYMBOL:
     case A_SYMBOL:
         return true;
+    default:
+        return false;
+    }
+}
+
+/**
+ * @return true if given atom is a property
+ */
+static bool atom_is_property(const t_atom& a)
+{
+    switch (a.a_type) {
+    case A_DEFSYMBOL:
+    case A_SYMBOL:
+        return a.a_w.w_symbol->s_name[0] == '@';
     default:
         return false;
     }
@@ -1037,18 +1117,40 @@ public:
      */
     PdArgParser(t_faust_pitchshift* x, int argc, t_atom* argv, bool info_outlet = true)
         : x_(x)
-        , argc_(argc)
+        , argc_(0)
         , argv_(argv)
         , control_outlet_(info_outlet)
     {
         const char* id = NULL;
         std::string objId;
+
+        int first_prop_idx = argc;
+        for(int i = 0; i < argc; i++) {
+            if(atom_is_property(argv[i]))
+                first_prop_idx = i;
+        }
+
+        // store argument count (without properties)
+        argc_ = first_prop_idx;
+
         if (get_nth_symbol_arg(argc_, argv_, 1, &id))
             objId = id;
 
         // init error
         if (!faust_new_internal(x, objId, control_outlet_)) {
             this->x_ = NULL;
+        }
+
+        // process properties
+        std::deque<ceammc::AtomList> props = ceammc::AtomList(argc, argv).properties();
+        for (size_t i = 0; i < props.size(); i++) {
+            ceammc::AtomList& p = props[i];
+            // skip empty property
+            if (p.size() < 2)
+                continue;
+
+            t_atom* data = p.toPdData() + 1;
+            this->x_->ui->setProperty(p[0].asSymbol(), p.size() - 1, data);
         }
     }
 
@@ -1065,8 +1167,15 @@ public:
             return;
 
         t_float v = 0.0;
-        if (get_nth_float_arg(this->argc_, this->argv_, pos, &v))
-            this->x_->ui->setElementValue(name, v);
+        if (get_nth_float_arg(this->argc_, this->argv_, pos, &v)) {
+            UIElement* el = this->x_->ui->findElementByLabel(name);
+            if (!el) {
+                post("invalid UI element name: %s", name);
+                return;
+            }
+
+            el->setValue(v, true);
+        }
     }
 
     /**
@@ -1075,7 +1184,7 @@ public:
      * @param pos argument position among of @bold float(!) arguments. Position starts from @bold 1(!).
      * to select first argument - pass 1.
      */
-    void signalFloatArg(const char* name, int pos)
+    void signalFloatArg(const char* /*name*/, int pos)
     {
         // object was not created
         if (!this->x_)
@@ -1094,17 +1203,21 @@ public:
 
 static void* pitchshift_faust_new(t_symbol* s, int argc, t_atom* argv);
 
-static void internal_setup(t_symbol* s)
+static void internal_setup(t_symbol* s, bool soundIn = true)
 {
     pitchshift_faust_class = class_new(s, reinterpret_cast<t_newmethod>(pitchshift_faust_new),
         reinterpret_cast<t_method>(pitchshift_faust_free),
         sizeof(t_faust_pitchshift),
         CLASS_DEFAULT,
         A_GIMME, A_NULL);
-    class_addmethod(pitchshift_faust_class, nullfn, &s_signal, A_NULL);
+
+    if (soundIn) {
+        class_addmethod(pitchshift_faust_class, nullfn, &s_signal, A_NULL);
+        CLASS_MAINSIGNALIN(pitchshift_faust_class, t_faust_pitchshift, f);
+    }
+
     class_addmethod(pitchshift_faust_class, reinterpret_cast<t_method>(pitchshift_faust_dsp), gensym("dsp"), A_NULL);
     class_addmethod(pitchshift_faust_class, reinterpret_cast<t_method>(pitchshift_dump_to_console), gensym("dump"), A_NULL);
-    CLASS_MAINSIGNALIN(pitchshift_faust_class, t_faust_pitchshift, f);
     class_addanything(pitchshift_faust_class, pitchshift_faust_any);
 }
 
@@ -1124,6 +1237,14 @@ static void internal_setup(t_symbol* s)
         internal_setup(gensym(#MOD ".pitchshift~"));    \
     }
 
+#define EXTERNAL_SETUP_NO_IN(MOD)                      \
+    extern "C" void setup_##MOD##0x2epitchshift_tilde()     \
+    {                                                  \
+        internal_setup(gensym(#MOD ".pitchshift~"), false); \
+    }
+
 #define SIMPLE_EXTERNAL(MOD) \
     EXTERNAL_SIMPLE_NEW();   \
     EXTERNAL_SETUP(MOD);
+
+#endif

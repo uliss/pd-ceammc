@@ -14,10 +14,10 @@
 #include "../midi/midi_common.h"
 #include "../midi/midi_ctl2str.h"
 #include "../string/datatype_string.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "catch.hpp"
 
-typedef TestExtension<MidiCtl2Str> Ctl2StrTest;
+typedef TestExternal<MidiCtl2Str> Ctl2StrTest;
 
 #define REQUIRE_STRING_OUTPUT(t, str_)                                  \
     {                                                                   \
@@ -35,7 +35,7 @@ TEST_CASE("midi.ctl->str", "[externals]")
     {
         setup_midi_ctl2str();
 
-        Ctl2StrTest t("midi.ctl->str", L1("@symbol"));
+        Ctl2StrTest t("midi.ctl->str", LA("@symbol"));
 
         WHEN_SEND_FLOAT_TO(0, t, -1);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);

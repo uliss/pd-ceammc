@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../ui/ui_number_tilde.h"
-#include "ui_external_test.h"
+#include "test_ui.h"
 
 UI_COMPLETE_DSP_TEST_SETUP(NumberTilde)
 

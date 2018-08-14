@@ -1,5 +1,5 @@
 declare name "Ceammc PureData misc utils";
-declare version "0.1";
+declare version "0.1.1";
 
 ba = library("basics.lib");
 si = library("signals.lib");
@@ -21,13 +21,13 @@ clip(lo, hi) = max(lo) : min(hi);
 // map
 map(xs, fx) = par(i, ba.count(xs), fx);
 
-// bus
-bus(n) = par(i, n, _);
+// si.bus
+//si.bus(n) = par(i, n, _);
 
 // dry-wet
 fx_drywet(in, fx, g) = IN <: dry(in, fx, g), wet(in, fx, g) :> OUT
 with {
-    IN = bus(ba.count(in));
+    IN = si.bus(ba.count(in));
     OUT = IN;
     dry(in, fx, g) = map(in, *(1-g));
     wet(in, fx, g) = fx : map(in, *(g));
@@ -39,4 +39,4 @@ with {
     effect = fx_drywet(_, fx, ui_drywet);
 };
 
-fx_wrap2(bypass, drywet, fx) = _,_ : ba.bypass2(bypass, fx_drywet(bus(2), fx, drywet)) : _,_;
+fx_wrap2(bypass, drywet, fx) = _,_ : ba.bypass2(bypass, fx_drywet(si.bus(2), fx, drywet)) : _,_;

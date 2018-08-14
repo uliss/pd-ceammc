@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="xfade2~">
+        <title>xfade2~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>multi stereo-signal crossfade</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>base</category>
+            <keywords>crossfade xfade</keywords>
+            <also>
+                <see>xfade~</see>
+            </also>
+            <since>0.6</since>
+        </meta>
+        <info>
+            <par>control float value in range [0-1) controls xfade between first and second
+            signals, [1-2) between second and third etc.</par>
+        </info>
+        <arguments>
+            <argument name="N" type="int" minvalue="1" maxvalue="8">number of signal inputs
+            (multiplied 2)</argument>
+        </arguments>
+        <properties>
+            <property name="@smooth" type="float" minvalue="1" default="20" units="millisecond">
+            signal change smooth time</property>
+            <property name="@type" type="symbol" enum="lin pow">fade curve type: linear or
+            power</property>
+            <property name="@lin" type="alias">alias to @type lin</property>
+            <property name="@pow" type="alias">alias to @type pow</property>
+        </properties>
+        <inlets dynamic="true">
+            <inlet number="1" type="audio">
+                <xinfo>left input signal</xinfo>
+            </inlet>
+            <inlet number="2" type="audio">
+                <xinfo>right input signal</xinfo>
+            </inlet>
+            <inlet number="..." type="audio">
+                <xinfo>left input signal</xinfo>
+            </inlet>
+            <inlet number="..." type="audio">
+                <xinfo>right input signal</xinfo>
+            </inlet>
+            <inlet number="n-1" type="audio">
+                <xinfo>left input signal</xinfo>
+            </inlet>
+            <inlet number="n" type="audio">
+                <xinfo>right input signal</xinfo>
+            </inlet>
+            <inlet type="control" number="n+1">
+                <xinfo on="float">set crossfade value</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">left output signal</outlet>
+            <outlet type="audio">right output signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[                             
+[osc~ 440]    [osc~ 1000]   [ui.knob]
+|             |             |
+| [osc~ 441]  | [osc~ 1002] |
+| |           |   |         |
+| |           |   |         [F]
+| |.          |.. |...      |....
+[xfade2~ 2                        ]
+|  ^|
+|   |   [ui.slider @size 120 16]
+|   |.  |..
+[gain~   2]
+| ^|.
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

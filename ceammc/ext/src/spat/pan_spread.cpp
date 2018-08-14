@@ -2,24 +2,20 @@
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 
+#include <boost/math/constants/constants.hpp>
 #include <cassert>
 
 PanSpread::PanSpread(const PdArgs& args)
     : SoundExternal(args)
     , channels_(0)
-    , spread_(0)
-    , center_(0)
     , compensate_(0)
 {
     channels_ = new InitIntPropertyClosedRange(new IntPropertyClosedRange("@ch", 2, 2, 16));
     setPropertyFromPositionalArg(channels_, 0);
     createProperty(channels_);
 
-    spread_ = new FloatPropertyClosedRange("@spread", 1, 0, 1);
-    createProperty(spread_);
-
-    center_ = new FloatPropertyClosedRange("@center", 0, -0.5, 0.5);
-    createProperty(center_);
+    createCbProperty("@center", &PanSpread::propCenter, &PanSpread::propSetCenter);
+    createCbProperty("@spread", &PanSpread::propSpread, &PanSpread::propSetSpread);
 
     compensate_ = new BoolProperty("@compensate", false);
     createProperty(compensate_);
@@ -46,8 +42,10 @@ PanSpread::PanSpread(const PdArgs& args)
     createSignalOutlet();
     createSignalOutlet();
 
-    spread_smooth_.setSmoothTime(10, samplerate(), 64);
-    center_smooth_.setSmoothTime(10, samplerate(), 64);
+    spread_.setDurationMs(5, samplerate());
+    center_.setDurationMs(5, samplerate());
+    spread_.setTargetValue(1);
+    center_.setTargetValue(0);
     calcCoefficents();
 }
 
@@ -56,8 +54,8 @@ void PanSpread::setupDSP(t_signal** sp)
     SoundExternal::setupDSP(sp);
     block_l_.resize(blockSize());
     block_r_.resize(blockSize());
-    spread_smooth_.setSmoothTime(10, samplerate(), 64);
-    center_smooth_.setSmoothTime(10, samplerate(), 64);
+    spread_.setDurationMs(5, samplerate());
+    center_.setDurationMs(5, samplerate());
 }
 
 void PanSpread::processBlock(const t_sample** in, t_sample** out)
@@ -88,9 +86,13 @@ void PanSpread::processBlock(const t_sample** in, t_sample** out)
 
 void PanSpread::calcCoefficents()
 {
+    using namespace boost::math::float_constants;
+
+    static const t_float SMALL_FLOAT = 0.0001f;
+
     const size_t N = channels_->value();
-    const t_float len = spread_smooth_.get(spread_->value());
-    const t_float y0 = center_smooth_.get(center_->value()) + 0.5 - len / 2;
+    const t_float len = spread_();
+    const t_float y0 = center_() + 0.5 - len / 2;
 
     const t_float comp = compensate_->value() ? (1.f / N) : 1;
 
@@ -98,8 +100,16 @@ void PanSpread::calcCoefficents()
     for (size_t i = 0; i < N; i++) {
         t_float pos = clip<t_float>(convert::lin2lin<t_float>(t_float(i) / (N - 1), 0, 1, y0, y0 + len), 0, 1);
 
-        coefs_l_[i] = cosf(pos * M_PI_2) * comp;
-        coefs_r_[i] = sinf(pos * M_PI_2) * comp;
+        auto left = cosf(pos * half_pi) * comp;
+        auto right = sinf(pos * half_pi) * comp;
+
+        if (left <= SMALL_FLOAT)
+            left = 0.f;
+        if (right <= SMALL_FLOAT)
+            right = 0.f;
+
+        coefs_l_[i] = left;
+        coefs_r_[i] = right;
     }
 }
 
@@ -115,6 +125,28 @@ AtomList PanSpread::propCoeffs() const
     }
 
     return res;
+}
+
+AtomList PanSpread::propSpread() const
+{
+    return Atom(spread_.target());
+}
+
+void PanSpread::propSetSpread(const AtomList& lst)
+{
+    t_float v = clip<t_float>(lst.floatAt(0, 0), -0.5, 0.5);
+    spread_.setTargetValue(v);
+}
+
+AtomList PanSpread::propCenter() const
+{
+    return Atom(center_.target());
+}
+
+void PanSpread::propSetCenter(const AtomList& lst)
+{
+    t_float v = clip<t_float>(lst.floatAt(0, 0), -0.5, 0.5);
+    center_.setTargetValue(v);
 }
 
 void setup_pan_spread()

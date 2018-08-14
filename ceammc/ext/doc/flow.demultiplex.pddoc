@@ -14,40 +14,41 @@
             <aliases>
                 <alias>flow.demux</alias>
             </aliases>
-            <since>0.4</since>
+            <since>0.6</since>
             <also>
                 <see>flow.multiplex</see>
             </also>
         </meta>
         <arguments>
-            <argument name="N" type="int" minvalue="2" maxvalue="24">number of inlets</argument>
+            <argument name="N" type="int" minvalue="2" maxvalue="24">number of outlets</argument>
         </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="any">input flow inlet</xinfo>
+            </inlet>
+        </inlets>
         <properties>
-            <property name="@index" type="int" minvalue="0">current multiplexer output index</property>
+            <property name="@index" type="int" minvalue="0">current demultiplexer output
+            index</property>
         </properties>
         <methods>
             <method name="reset">reset counter</method>
         </methods>
-        <inlets dynamic="true">
-            <inlet><xinfo>demultiplexer first inlet</xinfo></inlet>
-            <inlet number="n"><xinfo>demultiplexer N-th inlet</xinfo></inlet>
-        </inlets>
-        <outlets>
-            <outlet>output</outlet>
+        <outlets dynamic="true">
+            <outlet>demultiplexer first output</outlet>
+            <outlet number="n">demultiplexer N-th output</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[hradio]
-|
-[@index $1(
-|
-|
-| [F]  [F]  [F]
-| |    |.   |..
-[flow.demultiplex 3]
-|
-[F]
+[F]  [hradio]
+|    |
+|    [@index $1(
+|    |
+|    |
+[flow.demultiplex  4]
+|   ^|   ^^|   ^^^|
+[F]  [F]   [F]   [F]
 ]]>
             </pdascii>
         </example>

@@ -17,10 +17,17 @@
 #include "ceammc_object.h"
 using namespace ceammc;
 
+class DataTypeMList;
+
 class ListUnique : public BaseObject {
+    BoolProperty* stable_;
+
 public:
     ListUnique(const PdArgs& a);
-    void onList(const AtomList& l);
+    void onList(const AtomList& l) override;
+    void onDataT(const DataTypeMList& l);
 };
+
+void setup_list_unique();
 
 #endif // LIST_UNIQUE_H

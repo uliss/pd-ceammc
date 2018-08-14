@@ -21,21 +21,24 @@
         </info>
         <properties>
             <property name="@nitems" type="int" default="8" minvalue="1">number of items</property>
-            <property name="@mode" type="int" enum="0 1" default="0">check list mode.
-            If true acts as checklist</property>
+            <property name="@mode" type="int" enum="0 1" default="0">check list mode. If true acts
+            as checklist</property>
             <property name="@value" type="list">widget value (float or list)</property>
             <property name="@send" type="symbol">send destination</property>
             <property name="@receive" type="symbol">receive source</property>
         </properties>
         <methods>
-            <method name="set">sets radio without output
+            <method name="set">sets radio without output 
             <param name="V" type="float" required="true">new value</param></method>
             <method name="reset">reset radio (only in checklist mode)</method>
             <method name="flip">flips radio (only in checklist mode)</method>
-            <method name="next">moves to next position until last cell is reached (single mode only)</method>
-            <method name="prev">moves to previous position until first cell is reached (single mode only)</method>
+            <method name="next">moves to next position until last cell is reached (single mode
+            only)</method>
+            <method name="prev">moves to previous position until first cell is reached (single mode
+            only)</method>
             <method name="+ STEP">moves several steps forward on a loop (single mode only)</method>
-            <method name="- STEP">moves several step backwards on a loop (single mode only)</method>
+            <method name="- STEP">moves several step backwards on a loop (single mode
+            only)</method>
         </methods>
         <inlets>
             <inlet>

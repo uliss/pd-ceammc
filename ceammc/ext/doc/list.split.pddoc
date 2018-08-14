@@ -19,15 +19,16 @@
             </also>
         </meta>
         <arguments>
-            <argument name="AT" type="int">size of first list. The size of the list on the
-            second output is the size of input list - this value</argument>
+            <argument name="AT" type="int">size of first list. The size of the list on the second
+            output is the size of input list - this value</argument>
         </arguments>
         <properties>
             <property name="@at" type="int" minvalue="0" default="0">split point</property>
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="list">Input list</xinfo>
+                <xinfo on="list">input list</xinfo>
+                <xinfo on="data:mlist">input mlist</xinfo>
             </inlet>
         </inlets>
         <outlets>

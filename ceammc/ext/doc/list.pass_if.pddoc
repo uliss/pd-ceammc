@@ -15,14 +15,18 @@
             <also>
                 <see>list.remove_if</see>
             </also>
+            <aliases>
+                <alias>list.filter</alias>
+            </aliases>
         </meta>
         <info>
-            <par>Predicate object should accept atom and output 0 (remove element) or 1
-            (leave element).</par>
+            <par>Predicate object should accept atom and output 0 (remove element) or 1 (leave
+            element).</par>
         </info>
         <inlets>
             <inlet>
                 <xinfo on="list">input list</xinfo>
+                <xinfo on="data:mlist">input mlist</xinfo>
             </inlet>
             <inlet>
                 <xinfo on="float">value from predicate</xinfo>

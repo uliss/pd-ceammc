@@ -35,6 +35,7 @@
         <inlets>
             <inlet>
                 <xinfo on="list">input list</xinfo>
+                <xinfo on="data:mlist">input mlist</xinfo>
                 <xinfo on="float">passed thru in @float or @any mode</xinfo>
                 <xinfo on="symbol">passed thru in @symbol or @any mode</xinfo>
             </inlet>

@@ -12,9 +12,9 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../ui/ui_arrayview.h"
-#include "base_extension_test.h"
 #include "ceammc_pd.h"
-#include "ui_external_test.h"
+#include "test_base.h"
+#include "test_ui.h"
 
 UI_COMPLETE_TEST_SETUP(ArrayView)
 
@@ -22,7 +22,7 @@ extern "C" void garray_init(void);
 
 TEST_CASE("ui.aview", "[ui.aview]")
 {
-    printPdToStdError();
+    test::pdPrintToStdError();
     UIArrayView::setup();
     setTestSampleRate(10000);
 
@@ -32,11 +32,16 @@ TEST_CASE("ui.aview", "[ui.aview]")
         REQUIRE(t->numInlets() == 1);
         REQUIRE(t->numOutlets() == 1);
 
-        REQUIRE_UI_LIST_PROPERTY(t, "size", L2(480, 120));
+        REQUIRE_UI_LIST_PROPERTY(t, "size", LF(480, 120));
         REQUIRE_UI_FLOAT_PROPERTY(t, "cursor_samp", 0);
         REQUIRE_UI_FLOAT_PROPERTY(t, "cursor_phase", 0);
         REQUIRE_UI_FLOAT_PROPERTY(t, "cursor_sec", 0);
         REQUIRE_UI_FLOAT_PROPERTY(t, "cursor_ms", 0);
+
+        REQUIRE_UI_LIST_PROPERTY(t, "select_samp", LF(0, 0));
+        REQUIRE_UI_LIST_PROPERTY(t, "select_phase", LF(0, 0));
+        REQUIRE_UI_LIST_PROPERTY(t, "select_sec", LF(0, 0));
+        REQUIRE_UI_LIST_PROPERTY(t, "select_ms", LF(0, 0));
 
         REQUIRE_UI_FLOAT_PROPERTY(t, "size_samp", 0);
         REQUIRE_UI_FLOAT_PROPERTY(t, "size_sec", 0);
@@ -45,8 +50,8 @@ TEST_CASE("ui.aview", "[ui.aview]")
         REQUIRE_UI_FLOAT_PROPERTY(t, "show_rms", 0);
         REQUIRE_UI_FLOAT_PROPERTY(t, "show_labels", 0);
 
-        REQUIRE_UI_LIST_PROPERTY(t, "label_top_right", L1(""));
-        REQUIRE_UI_LIST_PROPERTY(t, "label_bottom_right", L1(""));
+        REQUIRE_UI_LIST_PROPERTY(t, "label_top", LA(""));
+        REQUIRE_UI_LIST_PROPERTY(t, "label_bottom", LA(""));
     }
 
     SECTION("@cursor...")
@@ -60,12 +65,12 @@ TEST_CASE("ui.aview", "[ui.aview]")
         TestExtArrayView t("ui.aview");
         t << $1("@array", "array1");
 
-        REQUIRE_UI_LIST_PROPERTY(t, "array", L1("array1"));
+        REQUIRE_UI_LIST_PROPERTY(t, "array", LA("array1"));
         REQUIRE(t->sizeSamples() == 101);
         REQUIRE(t->sizeSec() == Approx(0.0101f));
-        REQUIRE_UI_LIST_PROPERTY(t, "size_samp", L1(101));
-        REQUIRE_UI_LIST_PROPERTY(t, "size_sec", ListApprox(0.0101f));
-        REQUIRE_UI_LIST_PROPERTY(t, "size_ms", ListApprox(10.1f));
+        REQUIRE_UI_LIST_PROPERTY(t, "size_samp", LF(101));
+        REQUIRE_UI_LIST_PROPERTY(t, "size_sec", LX(0.0101f));
+        REQUIRE_UI_LIST_PROPERTY(t, "size_ms", LX(10.1f));
 
         t << $1("@cursor_samp", 0);
         REQUIRE_UI_FLOAT_PROPERTY(t, "cursor_samp", 0);
@@ -171,6 +176,42 @@ TEST_CASE("ui.aview", "[ui.aview]")
         REQUIRE_UI_FLOAT_PROPERTY(t, "cursor_samp", 100);
         REQUIRE_UI_FLOAT_PROPERTY(t, "cursor_phase", 1);
         REQUIRE_UI_FLOAT_PROPERTY(t, "cursor_ms", 10);
+    }
+
+    SECTION("select")
+    {
+        REQUIRE(cnv);
+        ArrayPtr aptr = cnv->createArray("array2", 201);
+        Array a("array2");
+        REQUIRE(a.isValid());
+        REQUIRE(a.size() == 201);
+
+        TestExtArrayView t("ui.aview", LA("array2"));
+
+        REQUIRE_UI_LIST_PROPERTY(t, "array", LA("array2"));
+        REQUIRE(t->sizeSamples() == 201);
+        REQUIRE(t->sizeSec() == Approx(0.0201f));
+
+        t << $2("@select_samp", 0.f, 200);
+        REQUIRE_UI_LIST_PROPERTY(t, "select_samp", LX(0, 200));
+
+        t << $2("@select_samp", -101, -1);
+        REQUIRE_UI_LIST_PROPERTY(t, "select_samp", LX(100, 200));
+
+        t << $2("@select_samp", -101, -51);
+        REQUIRE_UI_LIST_PROPERTY(t, "select_samp", LX(100, 150));
+
+        t << $2("@select_phase", 0.25, 0.5);
+        REQUIRE_UI_LIST_PROPERTY(t, "select_samp", LX(50, 100));
+
+        t << $2("@select_ms", 3, 11);
+        REQUIRE_UI_LIST_PROPERTY(t, "select_samp", LX(30, 110));
+
+        t << $2("@select_ms", -10.1, -5.1);
+        REQUIRE_UI_LIST_PROPERTY(t, "select_samp", LX(100, 150));
+
+        t << $2("@select_sec", 0.002, 0.004);
+        REQUIRE_UI_LIST_PROPERTY(t, "select_samp", LX(20, 40));
     }
 
     SECTION("external")

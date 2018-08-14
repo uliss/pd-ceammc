@@ -1,5 +1,6 @@
 #include "preset_float.h"
 #include "ceammc_factory.h"
+#include "preset_iface.h"
 
 PresetFloat::PresetFloat(const PdArgs& args)
     : PresetBase(args)
@@ -30,9 +31,5 @@ void PresetFloat::storeAt(size_t idx)
 
 void setup_preset_float()
 {
-    ObjectFactory<PresetFloat> obj("preset.float");
-    obj.addMethod("clear", &PresetFloat::m_clear);
-    obj.addMethod("store", &PresetFloat::m_store);
-    obj.addMethod("load", &PresetFloat::m_load);
-    obj.addMethod("update", &PresetFloat::m_update);
+    PresetIFaceFactory<PresetFloat> obj("preset.float");
 }

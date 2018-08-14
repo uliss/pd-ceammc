@@ -36,14 +36,32 @@
     <entry descr="call named function" name="function.call" ref_view="object">
       <xi:include href="function.call.pddoc" parse="xml"/>
     </entry>
+    <entry descr="multislot signal gain" name="gain~" ref_view="object">
+      <xi:include href="gain~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="signal routing matrix" name="matrix~" ref_view="object">
+      <xi:include href="matrix~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="metro with rythmic patterns" name="metro.pattern" ref_view="object">
       <xi:include href="metro.pattern.pddoc" parse="xml"/>
     </entry>
     <entry descr="metro sequencer" name="metro.seq" ref_view="object">
       <xi:include href="metro.seq.pddoc" parse="xml"/>
     </entry>
+    <entry descr="multislot signal mixer" name="mix~" ref_view="object">
+      <xi:include href="mix~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="float index to outlet values as radio switch" name="radio" ref_view="object">
+      <xi:include href="radio.pddoc" parse="xml"/>
+    </entry>
     <entry descr="returns window value by given window position" name="window" ref_view="object">
       <xi:include href="window.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="multi stereo-signal crossfade" name="xfade2~" ref_view="object">
+      <xi:include href="xfade2~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="multi signal crossfade" name="xfade~" ref_view="object">
+      <xi:include href="xfade~.pddoc" parse="xml"/>
     </entry>
   </category>
   <category name="conv">
@@ -52,6 +70,9 @@
     </entry>
     <entry descr="convert array sample position to relative phase position [0..1]" name="array.s2p" ref_view="object">
       <xi:include href="array.s2p.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="convert from amplitude to decibell full scale" name="conv.amp2dbfs" ref_view="object">
+      <xi:include href="conv.amp2dbfs.pddoc" parse="xml"/>
     </entry>
     <entry descr="converts BPM to frequency in herz" name="conv.bpm2hz" ref_view="object">
       <xi:include href="conv.bpm2hz.pddoc" parse="xml"/>
@@ -65,6 +86,9 @@
     <entry descr="convert from MIDI Control Change range" name="conv.cc2amp" ref_view="object">
       <xi:include href="conv.cc2amp.pddoc" parse="xml"/>
     </entry>
+    <entry descr="convert decibell full scale to amplitude" name="conv.dbfs2amp" ref_view="object">
+      <xi:include href="conv.dbfs2amp.pddoc" parse="xml"/>
+    </entry>
     <entry descr="map linear to exponential range with 0 allowed." name="conv.lin2curve" ref_view="object">
       <xi:include href="conv.lin2curve.pddoc" parse="xml"/>
     </entry>
@@ -73,6 +97,9 @@
     </entry>
     <entry descr="convert from one linear range to another" name="conv.lin2lin" ref_view="object">
       <xi:include href="conv.lin2lin.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="convert from midi pitch to freqency in hz (with various base A and temperament)" name="conv.midi2freq" ref_view="object">
+      <xi:include href="conv.midi2freq.pddoc" parse="xml"/>
     </entry>
     <entry descr="converts symbol pitch name to MIDI note number" name="conv.pitch2midi" ref_view="object">
       <xi:include href="conv.pitch2midi.pddoc" parse="xml"/>
@@ -91,17 +118,47 @@
     </entry>
   </category>
   <category name="data">
+    <entry descr="dictionary container: store values by key" name="data.dict" ref_view="object">
+      <xi:include href="data.dict.pddoc" parse="xml"/>
+    </entry>
     <entry descr="First-In-First-Out (FIFO) queue data container" name="data.fifo" ref_view="object">
       <xi:include href="data.fifo.pddoc" parse="xml"/>
     </entry>
+    <entry descr="robust float object" name="data.float" ref_view="object">
+      <xi:include href="data.float.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="robust int object" name="data.int" ref_view="object">
+      <xi:include href="data.int.pddoc" parse="xml"/>
+    </entry>
     <entry descr="list container" name="data.list" ref_view="object">
       <xi:include href="data.list.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="multidimensial list container" name="data.mlist" ref_view="object">
+      <xi:include href="data.mlist.pddoc" parse="xml"/>
     </entry>
     <entry descr="container that store unique elements" name="data.set" ref_view="object">
       <xi:include href="data.set.pddoc" parse="xml"/>
     </entry>
     <entry descr="converts set to list" name="data.set2list" ref_view="object">
       <xi:include href="data.set2list.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="predicate to check dict contains key" name="dict.contains" ref_view="object">
+      <xi:include href="dict.contains.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="on input dict outputs value to corresponding key outlet" name="dict.get" ref_view="object">
+      <xi:include href="dict.get.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="get list of dict keys" name="dict.keys" ref_view="object">
+      <xi:include href="dict.keys.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="dictionary size" name="dict.size" ref_view="object">
+      <xi:include href="dict.size.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="dictionary values as mlist" name="dict.values" ref_view="object">
+      <xi:include href="dict.values.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="flatten nested mlist" name="mlist.flatten" ref_view="object">
+      <xi:include href="mlist.flatten.pddoc" parse="xml"/>
     </entry>
     <entry descr="check if specified element is in set" name="set.contains" ref_view="object">
       <xi:include href="set.contains.pddoc" parse="xml"/>
@@ -155,14 +212,20 @@
     <entry descr="AR (Attack, Release) envelope generator (useful to create percussion envelopes)." name="env.ar~" ref_view="object">
       <xi:include href="env.ar~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="ASR (Attack, Sustain, Release) envelope generator" name="env.asr~" ref_view="object">
+      <xi:include href="env.asr~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="Envelope concatenation" name="env.concat" ref_view="object">
       <xi:include href="env.concat.pddoc" parse="xml"/>
     </entry>
     <entry descr="Envelope follower with independent attack and release times." name="env.follow~" ref_view="object">
       <xi:include href="env.follow~.pddoc" parse="xml"/>
     </entry>
-    <entry descr="Ouput mix between two envelopes. Envelopes should contain equal number of segments" name="env.mix" ref_view="object">
+    <entry descr="Mix between two envelopes. Envelopes should contain equal number of segments" name="env.mix" ref_view="object">
       <xi:include href="env.mix.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="An envelope with an exponential attack and release" name="env.smooth~" ref_view="object">
+      <xi:include href="env.smooth~.pddoc" parse="xml"/>
     </entry>
     <entry descr="Envelope time-scale" name="env.tscale" ref_view="object">
       <xi:include href="env.tscale.pddoc" parse="xml"/>
@@ -182,10 +245,16 @@
     <entry descr="Envelope data type" name="envelope" ref_view="object">
       <xi:include href="envelope.pddoc" parse="xml"/>
     </entry>
+    <entry descr="Converts vline messages to env" name="vline2env" ref_view="object">
+      <xi:include href="vline2env.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="flow">
     <entry descr="Substitute enviroment variables in data stream" name="expand_env" ref_view="object">
       <xi:include href="expand_env.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="inject message into flow" name="flow.append" ref_view="object">
+      <xi:include href="flow.append.pddoc" parse="xml"/>
     </entry>
     <entry descr="rejects redundant input values" name="flow.change" ref_view="object">
       <xi:include href="flow.change.pddoc" parse="xml"/>
@@ -196,11 +265,20 @@
     <entry descr="control flow demultiplexer" name="flow.demultiplex" ref_view="object">
       <xi:include href="flow.demultiplex.pddoc" parse="xml"/>
     </entry>
+    <entry descr="audio stream stereo demultiplexer" name="flow.demultiplex2~" ref_view="object">
+      <xi:include href="flow.demultiplex2~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="audio stream demultiplexer" name="flow.demultiplex~" ref_view="object">
+      <xi:include href="flow.demultiplex~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="control flow gate. [spigot] analog" name="flow.gate" ref_view="object">
       <xi:include href="flow.gate.pddoc" parse="xml"/>
     </entry>
     <entry descr="group data atoms in list of specified size" name="flow.group" ref_view="object">
       <xi:include href="flow.group.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="measure time between flow events" name="flow.interval" ref_view="object">
+      <xi:include href="flow.interval.pddoc" parse="xml"/>
     </entry>
     <entry descr="numeric stream router, like many [moses]" name="flow.less" ref_view="object">
       <xi:include href="flow.less.pddoc" parse="xml"/>
@@ -210,6 +288,15 @@
     </entry>
     <entry descr="control flow multiplexer" name="flow.multiplex" ref_view="object">
       <xi:include href="flow.multiplex.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="audio stream stereo multiplexer" name="flow.multiplex2~" ref_view="object">
+      <xi:include href="flow.multiplex2~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="audio stream multiplexer" name="flow.multiplex~" ref_view="object">
+      <xi:include href="flow.multiplex~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="one message pass thru" name="flow.once" ref_view="object">
+      <xi:include href="flow.once.pddoc" parse="xml"/>
     </entry>
     <entry descr="pass specified values" name="flow.pass" ref_view="object">
       <xi:include href="flow.pass.pddoc" parse="xml"/>
@@ -222,6 +309,9 @@
     </entry>
     <entry descr="reject values by predicate" name="flow.reject_if" ref_view="object">
       <xi:include href="flow.reject_if.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="advanced message router" name="flow.route" ref_view="object">
+      <xi:include href="flow.route.pddoc" parse="xml"/>
     </entry>
     <entry descr="control stream speed limitier" name="flow.speedlim" ref_view="object">
       <xi:include href="flow.speedlim.pddoc" parse="xml"/>
@@ -276,6 +366,9 @@
     <entry descr="mono DC blocker" name="flt.dcblock~" ref_view="object">
       <xi:include href="flt.dcblock~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="constant-Q second order peaking equalizer section" name="flt.eq_peak_cq~" ref_view="object">
+      <xi:include href="flt.eq_peak_cq~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="second order &quot;peaking equalizer&quot; section (gain boost or cut near some frequency). Also called a &quot;parametric equalizer&quot; section." name="flt.eq_peak~" ref_view="object">
       <xi:include href="flt.eq_peak~.pddoc" parse="xml"/>
     </entry>
@@ -297,6 +390,9 @@
     <entry descr="Low-pass filter with 24/db per octave slope" name="flt.lpf24~" ref_view="object">
       <xi:include href="flt.lpf24~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="Moog Voltage Controlled Filter" name="flt.moog_vcf~" ref_view="object">
+      <xi:include href="flt.moog_vcf~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="band-rejection filter" name="flt.notch~" ref_view="object">
       <xi:include href="flt.notch~.pddoc" parse="xml"/>
     </entry>
@@ -307,6 +403,12 @@
   <category name="fx">
     <entry descr="cubic nonlinearity distortion" name="fx.distortion~" ref_view="object">
       <xi:include href="fx.distortion~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="mono sympathetic resonance generator" name="fx.drone_box~" ref_view="object">
+      <xi:include href="fx.drone_box~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="simple echo effect" name="fx.echo~" ref_view="object">
+      <xi:include href="fx.echo~.pddoc" parse="xml"/>
     </entry>
     <entry descr="mono flanging effect" name="fx.flanger~" ref_view="object">
       <xi:include href="fx.flanger~.pddoc" parse="xml"/>
@@ -329,11 +431,20 @@
     <entry descr="simple pitch shifter based on 2 delay lines" name="fx.pitchshift~" ref_view="object">
       <xi:include href="fx.pitchshift~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="smooth delay with a feedback control" name="fx.sdelay~" ref_view="object">
+      <xi:include href="fx.sdelay~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="digitized CryBaby wah pedal" name="fx.wahwah~" ref_view="object">
+      <xi:include href="fx.wahwah~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="Zita stereo reverb" name="fx.zita_rev1~" ref_view="object">
       <xi:include href="fx.zita_rev1~.pddoc" parse="xml"/>
     </entry>
   </category>
   <category name="global">
+    <entry descr="global named dict object" name="global.dict" ref_view="object">
+      <xi:include href="global.dict.pddoc" parse="xml"/>
+    </entry>
     <entry descr="global named float object" name="global.float" ref_view="object">
       <xi:include href="global.float.pddoc" parse="xml"/>
     </entry>
@@ -342,6 +453,12 @@
     </entry>
     <entry descr="global named list object" name="global.list" ref_view="object">
       <xi:include href="global.list.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="global named mlist object" name="global.mlist" ref_view="object">
+      <xi:include href="global.mlist.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="global named set object" name="global.set" ref_view="object">
+      <xi:include href="global.set.pddoc" parse="xml"/>
     </entry>
   </category>
   <category name="hw">
@@ -353,6 +470,9 @@
     <entry descr="Unit-amplitude low-frequency impulse train" name="lfo.impulse~" ref_view="object">
       <xi:include href="lfo.impulse~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="Unit-amplitude nonnegative low frequency pulse train," name="lfo.pulse~" ref_view="object">
+      <xi:include href="lfo.pulse~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="Positive low frequence square wave" name="lfo.square~" ref_view="object">
       <xi:include href="lfo.square~.pddoc" parse="xml"/>
     </entry>
@@ -361,29 +481,41 @@
     </entry>
   </category>
   <category name="list">
+    <entry descr="on input index(es) outputs list element(s)" name="list.^at" ref_view="object">
+      <xi:include href="list.%5Eat.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="on input atom or list checks if specified list contains it" name="list.^contains" ref_view="object">
+      <xi:include href="list.%5Econtains.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="on input atom returns it index in list" name="list.^search" ref_view="object">
+      <xi:include href="list.%5Esearch.pddoc" parse="xml"/>
+    </entry>
     <entry descr="checks if all list atoms accepted by predicate" name="list.all_of" ref_view="object">
       <xi:include href="list.all_of.pddoc" parse="xml"/>
     </entry>
     <entry descr="checks if at least one list element is accepted by predicate" name="list.any_of" ref_view="object">
       <xi:include href="list.any_of.pddoc" parse="xml"/>
     </entry>
+    <entry descr="append atom or list to the end of input list" name="list.append" ref_view="object">
+      <xi:include href="list.append.pddoc" parse="xml"/>
+    </entry>
     <entry descr="modifies list value at specified position, filtering it via external object." name="list.apply_to" ref_view="object">
       <xi:include href="list.apply_to.pddoc" parse="xml"/>
     </entry>
-    <entry descr="returns list element(s) at given position(s)" name="list.at" ref_view="object">
+    <entry descr="on input list outputs element(s) at specified index(es)" name="list.at" ref_view="object">
       <xi:include href="list.at.pddoc" parse="xml"/>
     </entry>
     <entry descr="returns random element from list" name="list.choice" ref_view="object">
       <xi:include href="list.choice.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="on input list checks if it contains specified subsequence" name="list.contains" ref_view="object">
+      <xi:include href="list.contains.pddoc" parse="xml"/>
     </entry>
     <entry descr="returns the number of items that equal to specified value" name="list.count" ref_view="object">
       <xi:include href="list.count.pddoc" parse="xml"/>
     </entry>
     <entry descr="returns the number of items that satisfy to external predicate." name="list.count_if" ref_view="object">
       <xi:include href="list.count_if.pddoc" parse="xml"/>
-    </entry>
-    <entry descr="splits list to N lists, each to separate output" name="list.deinterleave" ref_view="object">
-      <xi:include href="list.deinterleave.pddoc" parse="xml"/>
     </entry>
     <entry descr="returns the difference between the current list of floats and the previous one." name="list.delta" ref_view="object">
       <xi:include href="list.delta.pddoc" parse="xml"/>
@@ -412,16 +544,16 @@
     <entry descr="outputs distibution histogram" name="list.histogram" ref_view="object">
       <xi:include href="list.histogram.pddoc" parse="xml"/>
     </entry>
+    <entry descr="insert atom or list to the specified position of input list" name="list.insert" ref_view="object">
+      <xi:include href="list.insert.pddoc" parse="xml"/>
+    </entry>
     <entry descr="returns the sum of the previously stored list and the current one then stores this sum." name="list.integrator" ref_view="object">
       <xi:include href="list.integrator.pddoc" parse="xml"/>
-    </entry>
-    <entry descr="takes n lists from n inlets (specified by argument) and output their elements sequentially (list1-1 list2-1 list1-2 list2-2 etc.)." name="list.interleave" ref_view="object">
-      <xi:include href="list.interleave.pddoc" parse="xml"/>
     </entry>
     <entry descr="returns last list element" name="list.last" ref_view="object">
       <xi:include href="list.last.pddoc" parse="xml"/>
     </entry>
-    <entry descr="returns the number of atoms in the message" name="list.length" ref_view="object">
+    <entry descr="returns the number of atoms in the list" name="list.length" ref_view="object">
       <xi:include href="list.length.pddoc" parse="xml"/>
     </entry>
     <entry descr="returns largest element in the list" name="list.max" ref_view="object">
@@ -442,6 +574,9 @@
     <entry descr="leave only elements accepted by predicate" name="list.pass_if" ref_view="object">
       <xi:include href="list.pass_if.pddoc" parse="xml"/>
     </entry>
+    <entry descr="prepend atom or list before input list" name="list.prepend" ref_view="object">
+      <xi:include href="list.prepend.pddoc" parse="xml"/>
+    </entry>
     <entry descr="calculates product of floats in list" name="list.product" ref_view="object">
       <xi:include href="list.product.pddoc" parse="xml"/>
     </entry>
@@ -450,6 +585,9 @@
     </entry>
     <entry descr="apply function of two arguments cumulatively to the list" name="list.reduce" ref_view="object">
       <xi:include href="list.reduce.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="on input list remove element(s) at specified positions" name="list.remove" ref_view="object">
+      <xi:include href="list.remove.pddoc" parse="xml"/>
     </entry>
     <entry descr="remove elements by predicate" name="list.remove_if" ref_view="object">
       <xi:include href="list.remove_if.pddoc" parse="xml"/>
@@ -466,17 +604,32 @@
     <entry descr="reverses the order of the elements in the list" name="list.reverse" ref_view="object">
       <xi:include href="list.reverse.pddoc" parse="xml"/>
     </entry>
-    <entry descr="rotates list left" name="list.rotate" ref_view="object">
+    <entry descr="Run-length list decoder (RLE)" name="list.rldecode" ref_view="object">
+      <xi:include href="list.rldecode.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="RLE (run-length encoding) for lists" name="list.rlencode" ref_view="object">
+      <xi:include href="list.rlencode.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="rotates list" name="list.rotate" ref_view="object">
       <xi:include href="list.rotate.pddoc" parse="xml"/>
     </entry>
     <entry descr="acts like [route] but for lists" name="list.route" ref_view="object">
       <xi:include href="list.route.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="search specified items in input list" name="list.search" ref_view="object">
+      <xi:include href="list.search.pddoc" parse="xml"/>
     </entry>
     <entry descr="sends list elements one by one separately" name="list.separate" ref_view="object">
       <xi:include href="list.separate.pddoc" parse="xml"/>
     </entry>
     <entry descr="numeric sequence list generator" name="list.seq" ref_view="object">
       <xi:include href="list.seq.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="on input list set value at specified position" name="list.set" ref_view="object">
+      <xi:include href="list.set.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="shifts the contents of the list with linear interpolation" name="list.shift" ref_view="object">
+      <xi:include href="list.shift.pddoc" parse="xml"/>
     </entry>
     <entry descr="randomly rearranges elements in list" name="list.shuffle" ref_view="object">
       <xi:include href="list.shuffle.pddoc" parse="xml"/>
@@ -493,23 +646,26 @@
     <entry descr="splits list into two parts, the length of first list is specified by the argument." name="list.split" ref_view="object">
       <xi:include href="list.split.pddoc" parse="xml"/>
     </entry>
+    <entry descr="stretches list - chenges its size with linear interpolation." name="list.stretch" ref_view="object">
+      <xi:include href="list.stretch.pddoc" parse="xml"/>
+    </entry>
     <entry descr="calculates sum of floats in list" name="list.sum" ref_view="object">
       <xi:include href="list.sum.pddoc" parse="xml"/>
     </entry>
-    <entry descr="sorts and removes duplicates from input list" name="list.unique" ref_view="object">
+    <entry descr="removes duplicates from input list" name="list.unique" ref_view="object">
       <xi:include href="list.unique.pddoc" parse="xml"/>
     </entry>
     <entry descr="unpack list elements to separate outlets" name="list.unpack" ref_view="object">
       <xi:include href="list.unpack.pddoc" parse="xml"/>
     </entry>
-    <entry descr="gets list element on first input and list with count of each element on a second inlet." name="list.unwrap" ref_view="object">
-      <xi:include href="list.unwrap.pddoc" parse="xml"/>
+    <entry descr="splits list to N lists, each to separate output" name="list.unzip" ref_view="object">
+      <xi:include href="list.unzip.pddoc" parse="xml"/>
     </entry>
     <entry descr="Walks thru the list" name="list.walk" ref_view="object">
       <xi:include href="list.walk.pddoc" parse="xml"/>
     </entry>
-    <entry descr="filters repeated elements of the list and outputs unique elements on first outlet, outputs the count of elements on second." name="list.wrap" ref_view="object">
-      <xi:include href="list.wrap.pddoc" parse="xml"/>
+    <entry descr="takes n lists from n inlets (specified by argument) and output their elements sequentially (list1-1 list2-1 list1-2 list2-2 etc.)." name="list.zip" ref_view="object">
+      <xi:include href="list.zip.pddoc" parse="xml"/>
     </entry>
     <xi:include href="ceammc_category_list.xml" parse="xml"/>
   </category>
@@ -519,6 +675,9 @@
     </entry>
   </category>
   <category name="local">
+    <entry descr="local named dict object" name="local.dict" ref_view="object">
+      <xi:include href="local.dict.pddoc" parse="xml"/>
+    </entry>
     <entry descr="canvas-scoped named float variable" name="local.float" ref_view="object">
       <xi:include href="local.float.pddoc" parse="xml"/>
     </entry>
@@ -527,6 +686,12 @@
     </entry>
     <entry descr="local named list object" name="local.list" ref_view="object">
       <xi:include href="local.list.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="local named mlist object" name="local.mlist" ref_view="object">
+      <xi:include href="local.mlist.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="local named set object" name="local.set" ref_view="object">
+      <xi:include href="local.set.pddoc" parse="xml"/>
     </entry>
   </category>
   <category name="math">
@@ -569,6 +734,9 @@
     <entry descr="hyperbolic cosine function" name="math.cosh" ref_view="object">
       <xi:include href="math.cosh.pddoc" parse="xml"/>
     </entry>
+    <entry descr="division (on lists too)" name="math.div" ref_view="object">
+      <xi:include href="math.div.pddoc" parse="xml"/>
+    </entry>
     <entry descr="mathematical constant, base of the natural logarithm" name="math.e" ref_view="object">
       <xi:include href="math.e.pddoc" parse="xml"/>
     </entry>
@@ -577,6 +745,9 @@
     </entry>
     <entry descr="exponential functions" name="math.exp2" ref_view="object">
       <xi:include href="math.exp2.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="dynamic [expr]" name="math.expr" ref_view="object">
+      <xi:include href="math.expr.pddoc" parse="xml"/>
     </entry>
     <entry descr="round to largest integral value not greater than x" name="math.floor" ref_view="object">
       <xi:include href="math.floor.pddoc" parse="xml"/>
@@ -599,6 +770,9 @@
     <entry descr="logarithm functions" name="math.log2" ref_view="object">
       <xi:include href="math.log2.pddoc" parse="xml"/>
     </entry>
+    <entry descr="multiplication (on lists too)" name="math.mul" ref_view="object">
+      <xi:include href="math.mul.pddoc" parse="xml"/>
+    </entry>
     <entry descr="Not a Number, unrepresentable value" name="math.nan" ref_view="object">
       <xi:include href="math.nan.pddoc" parse="xml"/>
     </entry>
@@ -610,6 +784,9 @@
     </entry>
     <entry descr="mathematical constant" name="math.pi" ref_view="object">
       <xi:include href="math.pi.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="evaluates the polynomial described by the coefficients list" name="math.polyeval" ref_view="object">
+      <xi:include href="math.polyeval.pddoc" parse="xml"/>
     </entry>
     <entry descr="calculate reciprocal number" name="math.reciprocal" ref_view="object">
       <xi:include href="math.reciprocal.pddoc" parse="xml"/>
@@ -676,8 +853,14 @@
     <entry descr="Output single impulse on bang" name="click~" ref_view="object">
       <xi:include href="click~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="FluidSynth SoundFont 2 player" name="fluid~" ref_view="object">
+      <xi:include href="fluid~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="MOD file player (using libmodplug)" name="modplug~" ref_view="object">
       <xi:include href="modplug~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="render speech to array" name="speech.flite" ref_view="object">
+      <xi:include href="speech.flite.pddoc" parse="xml"/>
     </entry>
   </category>
   <category name="msg">
@@ -686,6 +869,15 @@
     </entry>
   </category>
   <category name="noise">
+    <entry descr="sparse noise generator" name="noise.crackle~" ref_view="object">
+      <xi:include href="noise.crackle~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="sampled/held noise (piecewise constant)" name="noise.lfreq0~" ref_view="object">
+      <xi:include href="noise.lfreq0~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="noise.lfreq0~ smoothed with no overshoot" name="noise.lfreq~" ref_view="object">
+      <xi:include href="noise.lfreq~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="Pink noise generator" name="noise.pink~" ref_view="object">
       <xi:include href="noise.pink~.pddoc" parse="xml"/>
     </entry>
@@ -694,6 +886,9 @@
     </entry>
   </category>
   <category name="osc">
+    <entry descr="Bandlimited impulse train oscillator" name="osc.blit~" ref_view="object">
+      <xi:include href="osc.blit~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="Bandlimited impulse train generator" name="osc.impulse~" ref_view="object">
       <xi:include href="osc.impulse~.pddoc" parse="xml"/>
     </entry>
@@ -745,6 +940,9 @@
     <entry descr="checks if input data has *bang* type" name="is_bang" ref_view="object">
       <xi:include href="is_bang.pddoc" parse="xml"/>
     </entry>
+    <entry descr="checks if input data has *data* type" name="is_data" ref_view="object">
+      <xi:include href="is_data.pddoc" parse="xml"/>
+    </entry>
     <entry descr="checks if input number is even" name="is_even" ref_view="object">
       <xi:include href="is_even.pddoc" parse="xml"/>
     </entry>
@@ -784,6 +982,9 @@
   <category name="property">
     <entry descr="Property extractor" name="prop.get" ref_view="object">
       <xi:include href="prop.get.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="Property extractor from sound stream" name="prop.get~" ref_view="object">
+      <xi:include href="prop.get~.pddoc" parse="xml"/>
     </entry>
     <entry descr="Property injector" name="prop.set" ref_view="object">
       <xi:include href="prop.set.pddoc" parse="xml"/>
@@ -834,6 +1035,12 @@
     </entry>
     <entry descr="two channel equal power square root panner" name="pan.sqrt~" ref_view="object">
       <xi:include href="pan.sqrt~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="GMEM SPAT: 4-outputs spatializer" name="spat.pan4~" ref_view="object">
+      <xi:include href="spat.pan4~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="GMEM SPAT: 8-outputs spatializer" name="spat.pan8~" ref_view="object">
+      <xi:include href="spat.pan8~.pddoc" parse="xml"/>
     </entry>
   </category>
   <category name="string">
@@ -889,8 +1096,44 @@
     </entry>
   </category>
   <category name="synth">
+    <entry descr="Hammond-oid organ FM synthesis instrument" name="synth.bee3~" ref_view="object">
+      <xi:include href="synth.bee3~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="bird singing generator" name="synth.birds~" ref_view="object">
+      <xi:include href="synth.birds~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="generic church bell modal model" name="synth.church_bell~" ref_view="object">
+      <xi:include href="synth.church_bell~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="simple synth based on a sawtooth wave filtered by a resonant lowpass" name="synth.dubdub~" ref_view="object">
+      <xi:include href="synth.dubdub~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="simple electric guitar model with steel strings" name="synth.eguitar~" ref_view="object">
+      <xi:include href="synth.eguitar~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="file granulator from STK" name="synth.fgrain~" ref_view="object">
+      <xi:include href="synth.fgrain~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="Karplus-Strong string" name="synth.ks~" ref_view="object">
+      <xi:include href="synth.ks~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="simple marimba physical model implementing a single tone bar connected to tube" name="synth.marimba~" ref_view="object">
+      <xi:include href="synth.marimba~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="STK Fender Rhodes electric piano FM synthesis instrument" name="synth.rhodey~" ref_view="object">
+      <xi:include href="synth.rhodey~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="Jean Claude Risset's harmonic arpeggio effect" name="synth.risset_arp~" ref_view="object">
+      <xi:include href="synth.risset_arp~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="Jean Claude Risset's endless glissando" name="synth.risset_tone~" ref_view="object">
       <xi:include href="synth.risset_tone~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="various percussion sounds from STK library" name="synth.shakers~" ref_view="object">
+      <xi:include href="synth.shakers~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="Wurlitzer electric piano FM synthesis instrumentr" name="synth.wurley~" ref_view="object">
+      <xi:include href="synth.wurley~.pddoc" parse="xml"/>
     </entry>
   </category>
   <category name="system">
@@ -922,6 +1165,9 @@
     </entry>
     <entry descr="Timeline transport control" name="tl.transport" ref_view="object">
       <xi:include href="tl.transport.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="array view with cursor and selection" name="ui.aview" ref_view="link">
+      <xi:include href="ui.aview.pddoc" parse="xml"/>
     </entry>
     <entry descr="A bang... that's all" name="ui.bang" ref_view="link">
       <xi:include href="ui.bang.pddoc" parse="xml"/>
@@ -1020,17 +1266,19 @@
     </entry>
   </category>
   <meta>
-    <version>0.5</version>
+    <version>0.6</version>
     <authors>
       <author>Alex Nadzharov</author>
       <author>Hans-Christoph Steiner</author>
       <author>Julian Parker</author>
       <author>Oliver Larkin</author>
       <author>Olli Parviainen</author>
+      <author>Pierre Cochard</author>
       <author>Pierre Guillot</author>
       <author>Serge Poltavsky</author>
       <author>Serge Potlavsky</author>
       <author>Till Bovermann</author>
+      <author>Yann Orlarey</author>
     </authors>
     <xi:include href="ceammc_meta.xml" parse="xml"/>
   </meta>

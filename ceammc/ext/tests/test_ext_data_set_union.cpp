@@ -12,13 +12,13 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../data/set_union.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "catch.hpp"
 #include "ceammc_pd.h"
 
 #include <stdio.h>
 
-typedef TestExtension<SetUnion> SetUnionTest;
+typedef TestExternal<SetUnion> SetUnionTest;
 
 #define REQUIRE_SET_OUTPUT(t, set)                                \
     {                                                             \
@@ -52,9 +52,9 @@ TEST_CASE("set.intersection", "[externals]")
 
         SECTION("args")
         {
-            SetUnionTest t("set.union", L3(1, 2, 3));
+            SetUnionTest t("set.union", LF(1, 2, 3));
             WHEN_SEND_TDATA_TO(0, t, DataTypeSet());
-            REQUIRE_SET_OUTPUT(t, DataTypeSet(L3(1, 2, 3)));
+            REQUIRE_SET_OUTPUT(t, DataTypeSet(LF(1, 2, 3)));
         }
     }
 
@@ -62,45 +62,45 @@ TEST_CASE("set.intersection", "[externals]")
     {
         SetUnionTest t("set.union");
 
-        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(L3(3, 4, 5)));
-        REQUIRE_SET_OUTPUT(t, DataTypeSet(L3(3, 4, 5)));
+        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(LF(3, 4, 5)));
+        REQUIRE_SET_OUTPUT(t, DataTypeSet(LF(3, 4, 5)));
 
         WHEN_SEND_TDATA_TO(0, t, DataTypeSet());
         REQUIRE_SET_OUTPUT(t, DataTypeSet());
 
-        WHEN_SEND_LIST_TO(1, t, L2(1, 4));
+        WHEN_SEND_LIST_TO(1, t, LF(1, 4));
 
-        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(L2(3, 5)));
-        REQUIRE_SET_OUTPUT(t, DataTypeSet(L4(1, 3, 4, 5)));
+        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(LF(3, 5)));
+        REQUIRE_SET_OUTPUT(t, DataTypeSet(LF(1, 3, 4, 5)));
     }
 
     SECTION("do data")
     {
         SetUnionTest t("set.union");
-        WHEN_SEND_LIST_TO(1, t, L2(DINT(1), DINT(3)));
+        WHEN_SEND_LIST_TO(1, t, LA(DINT(1), DINT(3)));
 
-        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(L2(DINT(2), DINT(4))));
-        REQUIRE_SET_OUTPUT(t, DataTypeSet(L4(DINT(1), DINT(2), DINT(3), DINT(4))));
+        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(LA(DINT(2), DINT(4))));
+        REQUIRE_SET_OUTPUT(t, DataTypeSet(LA(DINT(1), DINT(2), DINT(3), DINT(4))));
 
-        WHEN_SEND_LIST_TO(1, t, L1(DSET(L2(DINT(1), DINT(3))).asAtom()));
-        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(L2(DINT(2), DINT(5))));
-        REQUIRE_SET_OUTPUT(t, DataTypeSet(L4(DINT(1), DINT(2), DINT(3), DINT(5))));
+        WHEN_SEND_LIST_TO(1, t, LA(DSET(LA(DINT(1), DINT(3))).asAtom()));
+        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(LA(DINT(2), DINT(5))));
+        REQUIRE_SET_OUTPUT(t, DataTypeSet(LA(DINT(1), DINT(2), DINT(3), DINT(5))));
 
-        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(L4(DINT(2), DINT(5), DINT(3), DINT(1))));
-        REQUIRE_SET_OUTPUT(t, DataTypeSet(L4(DINT(1), DINT(2), DINT(3), DINT(5))));
+        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(LA(DINT(2), DINT(5), DINT(3), DINT(1))));
+        REQUIRE_SET_OUTPUT(t, DataTypeSet(LA(DINT(1), DINT(2), DINT(3), DINT(5))));
     }
 
     SECTION("do list")
     {
         SetUnionTest t("set.union");
 
-        WHEN_SEND_LIST_TO(1, t, L2(1, 2));
-        WHEN_SEND_LIST_TO(0, t, L2(1, 3));
+        WHEN_SEND_LIST_TO(1, t, LF(1, 2));
+        WHEN_SEND_LIST_TO(0, t, LF(1, 3));
 
-        REQUIRE_SET_OUTPUT(t, DataTypeSet(L3(1, 2, 3)));
+        REQUIRE_SET_OUTPUT(t, DataTypeSet(LF(1, 2, 3)));
 
-        WHEN_SEND_LIST_TO(1, t, AtomList());
-        WHEN_SEND_LIST_TO(0, t, AtomList());
+        WHEN_SEND_LIST_TO(1, t, L());
+        WHEN_SEND_LIST_TO(0, t, L());
 
         REQUIRE_SET_OUTPUT(t, DataTypeSet());
     }

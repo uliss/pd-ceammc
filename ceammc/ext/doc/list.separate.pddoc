@@ -23,6 +23,7 @@
         <inlets>
             <inlet>
                 <xinfo on="list">input list</xinfo>
+                <xinfo on="data:mlist">input mlist</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -32,8 +33,10 @@
         <example>
             <pdascii>
 <![CDATA[
-[list a b c d e(
-|
+[1 2 3 4 5( [\(a b c d e\), bang(
+|           |
+|           [ml]
+|           |
 [list.separate]
 |             ^|
 [m insert 0] [flush(

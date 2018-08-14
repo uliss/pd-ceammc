@@ -197,7 +197,7 @@ int UIKeyboard::findPressedKey(const t_pt& pt) const
 
     const float black_key_w = width() / (keyboard_white_keys(keys_) * 2.f);
     const float white_key_w = black_key_w * 2;
-    const int key = music::keyboard::wkey_to_key(int(pt.x / white_key_w));
+    const int key = music::keyboard::wkey_to_key<int>(round(pt.x / white_key_w));
 
     // check nearest white keys
     for (int i = -2; i < 2; i++) {

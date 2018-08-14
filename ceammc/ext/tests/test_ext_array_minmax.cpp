@@ -12,13 +12,13 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../array/array_minmax.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "ceammc_factory.h"
 #include "ceammc_pd.h"
 
 #include "catch.hpp"
 
-typedef TestExtension<ArrayMinMax> ArrayMinMaxTest;
+typedef TestExternal<ArrayMinMax> ArrayMinMaxTest;
 
 using namespace ceammc;
 
@@ -40,7 +40,7 @@ TEST_CASE("array.minmax", "[externals]")
 
     SECTION("invalid")
     {
-        ArrayMinMaxTest t("array.minmax", L1("non-exists"));
+        ArrayMinMaxTest t("array.minmax", LA("non-exists"));
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 2);
         REQUIRE_PROPERTY(t, @array, "non-exists");
@@ -52,7 +52,7 @@ TEST_CASE("array.minmax", "[externals]")
 
     SECTION("array1")
     {
-        ArrayMinMaxTest t("array.minmax", L1("array1"));
+        ArrayMinMaxTest t("array.minmax", LA("array1"));
 
         // no array yet
         WHEN_SEND_BANG_TO(0, t);
@@ -74,7 +74,7 @@ TEST_CASE("array.minmax", "[externals]")
 
         // array created
         WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_LIST_AT_OUTLET(1, t, L2(4, 7));
-        REQUIRE_LIST_AT_OUTLET(0, t, L2(-5, 3));
+        REQUIRE_LIST_AT_OUTLET(1, t, LF(4, 7));
+        REQUIRE_LIST_AT_OUTLET(0, t, LA(-5, 3));
     }
 }

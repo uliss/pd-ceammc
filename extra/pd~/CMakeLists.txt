@@ -1,1 +1,1 @@
-pd_add_extension(NAME pd~ FILES pd~.c pdsched.c INTERNAL TRUE)
+pd_add_external(NAME pd~ FILES pd~.c pdsched.c INTERNAL TRUE)

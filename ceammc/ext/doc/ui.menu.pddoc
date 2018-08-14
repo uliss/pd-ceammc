@@ -28,26 +28,26 @@
             maximum displayed item character length</property>
         </properties>
         <methods>
-            <method name="append">appends new menu item
+            <method name="append">appends new menu item 
             <param name="ATOMS" type="list" required="true">item name</param></method>
-            <method name="insert">inserts new menu item before specified position
+            <method name="insert">inserts new menu item before specified position 
             <param name="IDX" type="int" minvalue="0" required="true">item position</param>
             <param name="ATOM" type="atom" required="true">item name</param></method>
             <method name="clear">clears all items menu</method>
-            <method name="delete">removes item from menu
-            <param name="IDX" type="int" minvalue="0" required="true">removed item index</param></method>
-            <method name="set_item">renames menu item
+            <method name="delete">removes item from menu 
+            <param name="IDX" type="int" minvalue="0" required="true">removed item
+            index</param></method>
+            <method name="set_item">renames menu item 
             <param name="IDX" type="int" required="true" minvalue="0">item index</param>
             <param name="ATOM" type="list" required="true">item name</param></method>
-            <method name="set">silently sets menu state.
+            <method name="set">silently sets menu state. 
             <param name="IDX" type="int" minvalue="0" required="true">item index</param></method>
-            <method name="file_glob">fill menu with filenames.
-                <param name="PATTERN" type="symbol" required="true">filename pattern, like * (all files),
-                *.wav (all wav files) etc.</param>
-                <param name="DIR" type="symbol" required="false">search directory.
-                If omitted - search in patch directory. Performs tilde (~) expansion to home directory.
-                To elide long filenames see @max_length property.</param>
-            </method>
+            <method name="file_glob">fill menu with filenames. 
+            <param name="PATTERN" type="symbol" required="true">filename pattern, like * (all
+            files), *.wav (all wav files) etc.</param>
+            <param name="DIR" type="symbol" required="false">search directory. If omitted - search
+            in patch directory. Performs tilde (~) expansion to home directory. To elide long
+            filenames see @max_length property.</param></method>
         </methods>
         <inlets>
             <inlet>

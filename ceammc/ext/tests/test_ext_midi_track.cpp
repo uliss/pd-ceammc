@@ -13,7 +13,7 @@
  *****************************************************************************/
 #include "../midi/datatype_midistream.h"
 #include "../midi/midi_track.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "ceammc_datatypes.h"
 #include "ceammc_pd.h"
 
@@ -22,13 +22,9 @@
 #include <fstream>
 #include <stdio.h>
 
-#ifndef TEST_DATA_DIR
-#define TEST_DATA_DIR "."
-#endif
-
 static const float Z = 0.f;
 
-typedef TestExtension<MidiTrack> MidiTrackTest;
+typedef TestExternal<MidiTrack> MidiTrackTest;
 
 CanvasPtr p = PureData::instance().createTopCanvas("test");
 
@@ -147,59 +143,59 @@ TEST_CASE("midi.track", "[externals]")
         REQUIRE(t.messageCount(0) == 1);
         REQUIRE(t.messageCount(1) == 1);
         REQUIRE(t.lastMessage(1).atomValue().asFloat() == Approx(26.04167));
-        REQUIRE(approxCompare(t.lastMessage(0).anyValue(), L7("MidiEvent", 455, Z, Z, 144, 60, Z)));
+        REQUIRE(approxCompare(t.lastMessage(0).anyValue(), LA("MidiEvent", 455, Z, Z, 144, 60, Z)));
 
-        t.m_next(0, AtomList());
+        t.m_next(0, L());
         REQUIRE_PROPERTY(t, @current, A(12));
 
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE(t.hasNewMessages(0));
         REQUIRE(t.hasNewMessages(1));
         REQUIRE(t.lastMessage(1).atomValue().asFloat() == Approx(473.958));
-        REQUIRE(approxCompare(t.lastMessage(0).anyValue(), L7("MidiEvent", 480, Z, 473.958, 144, 62, 80)));
+        REQUIRE(approxCompare(t.lastMessage(0).anyValue(), LA("MidiEvent", 480, Z, 473.958, 144, 62, 80)));
 
-        t.m_next(0, AtomList());
+        t.m_next(0, L());
         REQUIRE_PROPERTY(t, @current, A(13));
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE(t.hasNewMessages(0));
         REQUIRE(t.hasNewMessages(1));
         REQUIRE(t.lastMessage(1).atomValue().asFloat() == Approx(26.04167));
-        REQUIRE(approxCompare(t.lastMessage(0).anyValue(), L7("MidiEvent", 935, Z, Z, 144, 62, Z)));
+        REQUIRE(approxCompare(t.lastMessage(0).anyValue(), LA("MidiEvent", 935, Z, Z, 144, 62, Z)));
 
-        t.m_next(0, AtomList());
+        t.m_next(0, L());
         REQUIRE_PROPERTY(t, @current, A(14));
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE(t.hasNewMessages(0));
         REQUIRE(t.hasNewMessages(1));
         REQUIRE(t.lastMessage(1).atomValue().asFloat() == Approx(473.958));
-        REQUIRE(approxCompare(t.lastMessage(0).anyValue(), L7("MidiEvent", 960, Z, 473.958, 144, 64, 80)));
+        REQUIRE(approxCompare(t.lastMessage(0).anyValue(), LA("MidiEvent", 960, Z, 473.958, 144, 64, 80)));
 
-        t.m_next(0, AtomList());
+        t.m_next(0, L());
         REQUIRE_PROPERTY(t, @current, A(15));
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE(t.hasNewMessages(0));
         REQUIRE(t.hasNewMessages(1));
         REQUIRE(t.lastMessage(1).atomValue().asFloat() == Approx(26.04167));
-        REQUIRE(approxCompare(t.lastMessage(0).anyValue(), L7("MidiEvent", 1415, Z, Z, 144, 64, Z)));
+        REQUIRE(approxCompare(t.lastMessage(0).anyValue(), LA("MidiEvent", 1415, Z, Z, 144, 64, Z)));
 
-        t.m_next(0, AtomList());
+        t.m_next(0, L());
         REQUIRE_PROPERTY(t, @current, A(16));
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE(t.hasNewMessages(0));
         REQUIRE(t.hasNewMessages(1));
         REQUIRE(t.lastMessage(1).atomValue().asFloat() == Approx(473.958));
-        REQUIRE(approxCompare(t.lastMessage(0).anyValue(), L7("MidiEvent", 1440, Z, 473.958, 144, 65, 80)));
+        REQUIRE(approxCompare(t.lastMessage(0).anyValue(), LA("MidiEvent", 1440, Z, 473.958, 144, 65, 80)));
 
         WHEN_CALL(t, reset);
         REQUIRE_PROPERTY(t, @current, A(Z));
 
-        WHEN_CALL_1(t, seek, 1);
+        WHEN_CALL_N(t, seek, 1);
         REQUIRE_PROPERTY(t, @current, A(11));
 
-        WHEN_CALL_1(t, seek, Z);
+        WHEN_CALL_N(t, seek, Z);
         REQUIRE_PROPERTY(t, @current, A(Z));
 
-        WHEN_CALL_1(t, seek, 3);
+        WHEN_CALL_N(t, seek, 3);
         REQUIRE_PROPERTY(t, @current, A(13));
     }
 
@@ -256,7 +252,7 @@ TEST_CASE("midi.track", "[externals]")
         DataTypeMidiStream m(TEST_DATA_DIR "/test_01.mid");
         REQUIRE(m.is_open());
 
-        MidiTrackTest t("midi.track", L2("@track", 2));
+        MidiTrackTest t("midi.track", LA("@track", 2));
         REQUIRE_PROPERTY(t, @track, 2);
 
         WHEN_SEND_TDATA_TO(0, t, m);
@@ -273,7 +269,7 @@ TEST_CASE("midi.track", "[externals]")
         DataTypeMidiStream m(TEST_DATA_DIR "/test_01.mid");
         REQUIRE(m.is_open());
 
-        MidiTrackTest t("midi.track", L2("@speed", 0.5));
+        MidiTrackTest t("midi.track", LA("@speed", 0.5));
         WHEN_SEND_TDATA_TO(0, t, m);
         REQUIRE(t.size() == 19);
 
@@ -294,23 +290,23 @@ TEST_CASE("midi.track", "[externals]")
         REQUIRE(t.messageCount(0) == 1);
         REQUIRE(t.messageCount(1) == 1);
         REQUIRE(t.lastMessage(1).atomValue().asFloat() == Approx(26.04167 * 2));
-        REQUIRE(approxCompare(t.lastMessage(0).anyValue(), L7("MidiEvent", 455, Z, Z, 144, 60, Z)));
+        REQUIRE(approxCompare(t.lastMessage(0).anyValue(), LA("MidiEvent", 455, Z, Z, 144, 60, Z)));
 
-        t.m_next(0, AtomList());
+        t.m_next(0, L());
         REQUIRE_PROPERTY(t, @current, A(12));
 
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE(t.hasNewMessages(0));
         REQUIRE(t.hasNewMessages(1));
         REQUIRE(t.lastMessage(1).atomValue().asFloat() == Approx(473.958 * 2));
-        REQUIRE(approxCompare(t.lastMessage(0).anyValue(), L7("MidiEvent", 480, Z, 473.958 * 2, 144, 62, 80)));
+        REQUIRE(approxCompare(t.lastMessage(0).anyValue(), LA("MidiEvent", 480, Z, 473.958 * 2, 144, 62, 80)));
 
-        t.m_next(0, AtomList());
+        t.m_next(0, L());
         REQUIRE_PROPERTY(t, @current, A(13));
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE(t.hasNewMessages(0));
         REQUIRE(t.hasNewMessages(1));
         REQUIRE(t.lastMessage(1).atomValue().asFloat() == Approx(26.04167 * 2));
-        REQUIRE(approxCompare(t.lastMessage(0).anyValue(), L7("MidiEvent", 935, Z, Z, 144, 62, Z)));
+        REQUIRE(approxCompare(t.lastMessage(0).anyValue(), LA("MidiEvent", 935, Z, Z, 144, 62, Z)));
     }
 }

@@ -25,6 +25,7 @@
         <inlets>
             <inlet>
                 <xinfo on="list">Input list</xinfo>
+                <xinfo on="data">Input mlist</xinfo>
             </inlet>
             <inlet>
                 <xinfo>change pattern value</xinfo>

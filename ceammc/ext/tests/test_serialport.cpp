@@ -32,8 +32,12 @@ TEST_CASE("serial", "[serial]")
     SECTION("wine")
     {
 #ifdef _WIN32
-        Serial p("COM1");
-        REQUIRE(p.isOpen());
+        auto l = list_ports();
+
+        if(!l.empty()) {
+            Serial p(l[0].port);
+            REQUIRE(p.isOpen());
+        }
 #endif
     }
 }

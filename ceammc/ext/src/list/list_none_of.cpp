@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_none_of.h"
+#include "../data/datatype_mlist.h"
 #include "ceammc_factory.h"
 
 ListNoneOf::ListNoneOf(const PdArgs& a)
@@ -49,7 +50,13 @@ void ListNoneOf::onInlet(size_t n, const AtomList& l)
         none_ = false;
 }
 
-extern "C" void setup_list0x2enone_of()
+void ListNoneOf::onDataT(const DataTypeMList& lst)
+{
+    onList(lst.toList());
+}
+
+void setup_list_none_of()
 {
     ObjectFactory<ListNoneOf> obj("list.none_of");
+    obj.processData<DataTypeMList>();
 }

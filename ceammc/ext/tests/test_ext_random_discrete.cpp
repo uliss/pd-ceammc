@@ -12,12 +12,12 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../random/random_discrete.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "catch.hpp"
 
 #include <stdio.h>
 
-typedef TestExtension<RandomDiscrete> RandomDiscreteTest;
+typedef TestExternal<RandomDiscrete> RandomDiscreteTest;
 
 #define REQUIRE_OUTPUT_RANGE(obj, from, to)                   \
     {                                                         \
@@ -38,7 +38,7 @@ TEST_CASE("random.discrete", "[PureData]")
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
 
-            REQUIRE_PROPERTY_LIST(t, @weights, AtomList());
+            REQUIRE_PROPERTY_LIST(t, @weights, L());
 
             WHEN_SEND_BANG_TO(0, t);
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
@@ -46,27 +46,27 @@ TEST_CASE("random.discrete", "[PureData]")
 
         SECTION("properties")
         {
-            RandomDiscreteTest t("random.discrete", L6("@weights", 1, 2, 3, 4, 5));
-            REQUIRE_PROPERTY_LIST(t, @weights, L5(1, 2, 3, 4, 5));
+            RandomDiscreteTest t("random.discrete", LA("@weights", 1, 2, 3, 4, 5));
+            REQUIRE_PROPERTY_LIST(t, @weights, LA(1, 2, 3, 4, 5));
         }
 
         SECTION("args")
         {
-            RandomDiscreteTest t("random.discrete", L5(1, 2, 3, 4, 5));
-            REQUIRE_PROPERTY_LIST(t, @weights, L5(1, 2, 3, 4, 5));
+            RandomDiscreteTest t("random.discrete", LA(1, 2, 3, 4, 5));
+            REQUIRE_PROPERTY_LIST(t, @weights, LA(1, 2, 3, 4, 5));
         }
     }
 
     SECTION("onList")
     {
         RandomDiscreteTest t("random.discrete");
-        REQUIRE_PROPERTY_LIST(t, @weights, AtomList());
+        REQUIRE_PROPERTY_LIST(t, @weights, L());
 
-        WHEN_SEND_LIST_TO(0, t, AtomList());
+        WHEN_SEND_LIST_TO(0, t, L());
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-        WHEN_SEND_LIST_TO(0, t, L5(1, 2, 3, 4, 5));
-        REQUIRE_PROPERTY_LIST(t, @weights, L5(1, 2, 3, 4, 5));
+        WHEN_SEND_LIST_TO(0, t, LA(1, 2, 3, 4, 5));
+        REQUIRE_PROPERTY_LIST(t, @weights, LA(1, 2, 3, 4, 5));
         REQUIRE_OUTPUT_RANGE(t, 0, 5);
 
         int n = 100;
@@ -78,26 +78,26 @@ TEST_CASE("random.discrete", "[PureData]")
         SECTION("error few")
         {
             // to few values
-            WHEN_SEND_LIST_TO(0, t, AtomList());
+            WHEN_SEND_LIST_TO(0, t, L());
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
             // values are not changed
-            REQUIRE_PROPERTY_LIST(t, @weights, L5(1, 2, 3, 4, 5));
+            REQUIRE_PROPERTY_LIST(t, @weights, LA(1, 2, 3, 4, 5));
         }
 
         SECTION("error negative weights")
         {
-            WHEN_SEND_LIST_TO(0, t, L3(1, 2, -3));
+            WHEN_SEND_LIST_TO(0, t, LF(1, 2, -3));
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
             // values are not changed
-            REQUIRE_PROPERTY_LIST(t, @weights, L5(1, 2, 3, 4, 5));
+            REQUIRE_PROPERTY_LIST(t, @weights, LA(1, 2, 3, 4, 5));
         }
     }
 
     SECTION("gen")
     {
-        RandomDiscreteTest t("random.discrete", L4(1, 3, 8, 16));
+        RandomDiscreteTest t("random.discrete", LF(1, 3, 8, 16));
 
         int b0 = 0;
         int b1 = 0;
@@ -136,7 +136,7 @@ TEST_CASE("random.discrete", "[PureData]")
 
         SECTION("const")
         {
-            RandomDiscreteTest t("random.discrete", AtomList(1));
+            RandomDiscreteTest t("random.discrete", LF(1));
             int n = 100;
             while (n--) {
                 WHEN_SEND_BANG_TO(0, t);

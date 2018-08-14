@@ -13,7 +13,7 @@
  *****************************************************************************/
 #include "../base/function.h"
 #include "../proto/proto_firmata.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "catch.hpp"
 #include "ceammc_pd.h"
 

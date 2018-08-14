@@ -21,11 +21,23 @@ namespace ceammc {
 class Atom;
 class AtomList;
 class Message;
+class DataPtr;
 
 std::string to_string(const Atom& a);
+std::string to_string(const DataPtr& p);
 std::string to_float_string(const Atom& a, const std::string& defaultValue = "");
 std::string to_float_range_string(const Atom& a, float min, float max, const std::string& defaultValue = "");
 std::string to_hex_string(const Atom& a, const std::string& defaultValue = "");
+
+/**
+ * same as to_string(), but symbol's that contains spaces will be in single quotes, and if there's
+ * inner quotes, they will be escaped with '\\'
+ * @example a b c -> 'a b c', there's a table -> 'there\'s a table'
+ * @param a
+ * @return quoted string if needed
+ */
+std::string to_string_quoted(const std::string& str);
+std::string to_string_quoted(const Atom& a);
 
 std::string to_string(const AtomList& a, const std::string& separator = " ");
 std::string to_string(const Message& msg, const std::string& separator = " ");

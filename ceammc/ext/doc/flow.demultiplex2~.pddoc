@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flow.demultiplex2~">
+        <title>flow.demultiplex2~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>audio stream stereo demultiplexer</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>flow</category>
+            <keywords>flow demultiplex</keywords>
+            <since>0.6</since>
+            <aliases>
+                <alias>flow.demux2~</alias>
+                <alias>demux2~</alias>
+            </aliases>
+            <also>
+                <see>flow.demultiplex~</see>
+                <see>flow.demultiplex</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument type="int" name="N" minvalue="2" maxvalue="8">number of output
+            stereo-pairs</argument>
+        </arguments>
+        <properties>
+            <property name="@value" type="list">gain coefficients per each output</property>
+        </properties>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>left input signal</xinfo>
+            </inlet>
+            <inlet type="audio">
+                <xinfo>right input signal</xinfo>
+            </inlet>
+            <inlet type="control">
+                <xinfo>demultiplexer control</xinfo>
+            </inlet>
+        </inlets>
+        <outlets dynamic="true">
+            <outlet type="audio" number="1">first left output</outlet>
+            <outlet type="audio" number="2">first right output</outlet>
+            <outlet type="audio" number="...">... left output</outlet>
+            <outlet type="audio" number="...">... right output</outlet>
+            <outlet type="audio" number="n-1">last left output</outlet>
+            <outlet type="audio" number="n">last right output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[sig~ 1]            [ui.radio @nitems=2] [ui.dsp~]
+|                   |
+|    [sig~ 0.125]   |
+|    |              |
+|    |              |
+|    |              |    [@value?(
+|    |.             |..  |
+[flow.demultiplex2~ 2 #a   ]
+|
+[~->]
+| ^|
+|  [ui.display @display_type=1]
+|
+[env~]   [env~ #b] [env~ #c] [env~ #d]
+|        |         |         |
+[F]      [F]       [F]       [F]
+
+[X a:1->b]
+[X a:2->c]
+[X a:3->d]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

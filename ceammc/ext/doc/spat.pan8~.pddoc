@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="spat.pan8~">
+        <title>spat.pan8~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>GMEM SPAT: 8-outputs spatializer</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>spat</category>
+            <keywords>spat pan</keywords>
+            <since>0.6</since>
+        </meta>
+        <arguments>
+            <argument name="ANGLE" type="float" minvalue="0">circle panning position in
+            radians</argument>
+        </arguments>
+        <properties>
+            <property name="@angle" type="float" minvalue="0" default="0">panning position in
+            radians</property>
+            <property name="@dist" type="float" minvalue="0" maxvalue="1" default="1">distance from
+            circle center</property>
+        </properties>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">1st output channel</outlet>
+            <outlet type="audio">2nd output channel</outlet>
+            <outlet type="audio">3rd output channel</outlet>
+            <outlet type="audio">4th output channel</outlet>
+            <outlet type="audio">5th output channel</outlet>
+            <outlet type="audio">6th output channel</outlet>
+            <outlet type="audio">7th output channel</outlet>
+            <outlet type="audio">8th output channel</outlet>
+            <outlet>control output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[osc~ 1000] [ui.knob]     [ui.knob]
+|           |             |
+|           |             |
+|           [* 6.2831852] |
+|           |             |
+|           [@angle $1(   [@dist $1(
+|           |             |
+|           |             |
+|           |             |
+[spat.pan8~ 3.141592  1                                        ]
+|       ^|      ^^|     ^^^|    ^^^^|   ^^^^^|  ^^^^^^| ^^^^^^^|
+[ui.m~] [ui.m~] [ui.m~] [ui.m~] [ui.m~] [ui.m~] [ui.m~] [ui.m~ ]
+
+
+
+
+
+
+
+
+[ui.dsp~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

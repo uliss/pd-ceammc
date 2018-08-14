@@ -12,12 +12,12 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../array/array_do.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "ceammc_pd.h"
 
 #include "catch.hpp"
 
-typedef TestExtension<ArrayDo> ArrayDoTest;
+typedef TestExternal<ArrayDo> ArrayDoTest;
 
 using namespace ceammc;
 
@@ -36,7 +36,7 @@ TEST_CASE("array.do", "[externals]")
 
     SECTION("process")
     {
-        ArrayDoTest t("array.do", L1("array1"));
+        ArrayDoTest t("array.do", LA("array1"));
 
         // no array yet
         WHEN_SEND_BANG_TO(0, t);
@@ -53,7 +53,7 @@ TEST_CASE("array.do", "[externals]")
         REQUIRE(t.messageCount(1) == 10);
 
         for (size_t i = 0; i < 10; i++) {
-            REQUIRE(t.messageAt(i, 1).listValue() == L3(-10, i, 10));
+            REQUIRE(t.messageAt(i, 1).listValue() == LA(-10, i, 10));
         }
     }
 }

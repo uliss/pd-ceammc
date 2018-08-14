@@ -1,10 +1,9 @@
 declare name "frequency shifter";
+ma = library("maths.lib");
 
-SR = fconstant(int fSamplingFreq , <math.h>);
+f2smp(freq) = (ma.SR, freq : /);
 
-f2smp(freq) = (SR, freq:/) ;
-
-phasor(smp) =   1 :+~_: _,smp:fmod : _,smp:/;
+phasor(smp) =  1 :+~_: _, smp:fmod : _, smp:/;
 
 unit(v1) =  (_ <: *(v1) , _'' :  - ) : + ~ (_', v1 :  *);
 

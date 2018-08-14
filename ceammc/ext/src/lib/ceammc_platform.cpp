@@ -16,9 +16,13 @@
 #include "config.h"
 
 #include "g_canvas.h"
+extern "C" {
+#include "m_imp.h"
+}
+
+#include <cerrno>
 #include <cstdio>
 #include <cstdlib>
-#include <cerrno>
 #include <cstring>
 
 #ifdef HAVE_UNISTD_H
@@ -158,6 +162,9 @@ namespace platform {
         if (path.empty() || path[0] != '~')
             return path;
 
+        if (path.size() > 1 && path[1] != '/')
+            return path;
+
         std::string res(path);
         return res.replace(0, 1, home_directory());
     }
@@ -168,7 +175,7 @@ namespace platform {
             return path;
 
         const char* patch_dir = "";
-        if (cnv && cnv->gl_env) {
+        if (cnv && (cnv->gl_owner || cnv->gl_env)) {
             patch_dir = canvas_getdir(cnv)->s_name;
         }
 
@@ -198,7 +205,15 @@ namespace platform {
 
     bool remove(const char* path)
     {
-        return ::remove(path) == 0;
+        if(is_dir(path))
+            return rmdir(path);
+        else
+            return ::remove(path) == 0;
+    }
+
+    bool is_dir(const char* path)
+    {
+        return NS(is_dir(path));
     }
 
     void sleep_ms(unsigned int ms)
@@ -235,6 +250,53 @@ namespace platform {
         closedir(dir);
 
         return res;
+    }
+
+    std::string find_in_exernal_dir(t_object* obj, const char* path)
+    {
+        if (!is_path_relative(path))
+            return path;
+
+        char dirname[MAXPDSTRING], *filename;
+        int fd = open_via_path(obj->te_g.g_pd->c_externdir->s_name, path, "", dirname, &filename, MAXPDSTRING, 1);
+        if (fd < 0)
+            return std::string();
+
+        close(fd);
+
+        std::string full_path(dirname);
+        full_path += '/';
+        full_path += filename;
+        return full_path;
+    }
+
+    std::string make_abs_filepath_with_canvas(_glist* cnv, const std::string& path)
+    {
+        if (path.empty() || path == "~" || path == "~/")
+            return std::string();
+
+        std::string p = expand_tilde_path(path);
+        if (!is_path_relative(p.c_str()))
+            return p;
+
+        if (cnv) {
+            if (cnv && (cnv->gl_owner || cnv->gl_env)) {
+                auto patch_dir = canvas_getdir(cnv);
+                if (patch_dir && patch_dir->s_name) {
+                    std::string dir(patch_dir->s_name);
+                    dir += '/';
+                    dir += p;
+                    return dir;
+                }
+            }
+        }
+
+        return pd_user_directory() + "/" + p;
+    }
+
+    std::string pd_user_directory()
+    {
+        return home_directory() + "/Documents/Pd";
     }
 }
 }

@@ -18,6 +18,8 @@
 
 using namespace ceammc;
 
+class DataTypeMList;
+
 class ListPassIf : public BaseObject {
     bool pass_flag_;
 
@@ -25,8 +27,9 @@ public:
     ListPassIf(const PdArgs& a);
     void onList(const AtomList& lst);
     void onInlet(size_t n, const AtomList& l);
+    void onDataT(const DataTypeMList& lst);
 };
 
-extern "C" void setup_list0x2epass_if();
+void setup_list_pass_if();
 
 #endif // LIST_PASS_IF_H

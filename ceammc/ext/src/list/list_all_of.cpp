@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_all_of.h"
+#include "../data/datatype_mlist.h"
 #include "ceammc_factory.h"
 
 ListAllOf::ListAllOf(const PdArgs& a)
@@ -53,7 +54,13 @@ void ListAllOf::onInlet(size_t n, const AtomList& l)
         all_ = false;
 }
 
-extern "C" void setup_list0x2eall_of()
+void ListAllOf::onDataT(const DataTypeMList& lst)
+{
+    onList(lst.toList());
+}
+
+void setup_list_all_of()
 {
     ObjectFactory<ListAllOf> obj("list.all_of");
+    obj.processData<DataTypeMList>();
 }

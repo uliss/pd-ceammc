@@ -5,12 +5,15 @@
 #include "canvas_top.h"
 #include "function.h"
 #include "function_call.h"
+#include "gain.h"
+#include "matrix.h"
 #include "metro_pattern.h"
 #include "metro_seq.h"
+#include "mix.h"
 #include "patch_args.h"
-
-#ifdef WITH_SND_FILE
-#endif
+#include "radio.h"
+#include "xfade2_tilde.h"
+#include "xfade_tilde.h"
 
 extern "C" void expand_env_setup();
 extern "C" void is_any_setup();
@@ -30,12 +33,16 @@ extern "C" void setup_reject0x2eif();
 extern "C" void setup_snd0x2efile();
 extern "C" void setup_test0x2edata();
 extern "C" void setup_test0x2eexpect();
+extern "C" void setup_prop0x2eget_tilde();
+
+void setup_is_data();
 
 void ceammc_base_setup()
 {
     expand_env_setup();
     is_any_setup();
     is_bang_setup();
+    setup_is_data();
     is_even_setup();
     is_file_setup();
     is_float_setup();
@@ -61,6 +68,14 @@ void ceammc_base_setup()
     setup_test0x2eexpect();
 
     setup_canvas_current();
-    setup_patch_args();
     setup_canvas_top();
+    setup_gain_tilde();
+    setup_base_mix();
+    setup_base_matrix();
+    setup_patch_args();
+    setup_base_radio();
+    setup_base_xfade_tilde();
+    setup_base_xfade2_tilde();
+
+    setup_prop0x2eget_tilde();
 }

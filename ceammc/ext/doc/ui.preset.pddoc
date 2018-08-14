@@ -19,28 +19,31 @@
             </also>
         </meta>
         <info>
-            <par>Saves presets value of UI objects that have @presetname property.
-            Can handle UI objects only on the save canvas, no subpatches or abstractions are supported.</par>
+            <par>Saves presets value of UI objects that have @presetname property. Can handle UI
+            objects only on the save canvas, no subpatches or abstractions are supported.</par>
             <par>*Click* activates preset slot, *Shift+click* saves to specified preset slot,
             *Alt+click* removes preset value;</par>
-            <par>NOTE: if no UI widgets with @presetname on canvas - *Shift-click* is disabled.</par>
+            <par>NOTE: if no UI widgets with @presetname on canvas - *Shift-click* is
+            disabled.</par>
             <par>Active slot is highlighted, available slots are dark gray</par>
         </info>
         <properties>
             <property name="@receive" type="symbol">receive source</property>
         </properties>
         <methods>
-            <method name="clear">clear specified preset
+            <method name="clear">clear specified preset 
             <param type="int" name="IDX" required="true" minvalue="0">preset index</param></method>
-            <method name="store">stores specified preset
+            <method name="load">loads specified preset 
             <param type="int" name="IDX" required="true">preset index</param></method>
-            <method name="read">read presets from file
+            <method name="store">stores specified preset 
+            <param type="int" name="IDX" required="true">preset index</param></method>
+            <method name="read">read presets from file 
             <param type="symbol" name="PATH" required="true">path to preset file</param></method>
-            <method name="write">read presets from file
+            <method name="write">read presets from file 
             <param type="symbol" name="PATH" required="true">path to preset file</param></method>
         </methods>
         <inlets>
-            <inlet/>
+            <inlet />
         </inlets>
         <example>
             <pdascii>

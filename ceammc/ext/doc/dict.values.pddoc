@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="dict.values">
+        <title>dict.values</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>dictionary values as mlist</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>data</category>
+            <keywords>size dictionary</keywords>
+            <since>0.6</since>
+            <also>
+                <see>data.dict</see>
+                <see>data.mlist</see>
+                <see>dict.keys</see>
+            </also>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="data">data.dict</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>mlist of values</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]
+|
+[data.dict \[bpm: 120\] \[title: "Unknown masterpiece"\] \[freqs: 1 2 3 4\]]
+|
+|
+|
+[dict.values  ]
+|
+[ui.display @display_type=1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

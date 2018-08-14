@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.div">
+        <title>math.div</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>division (on lists too)</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math divide</keywords>
+            <aliases>
+                <alias>math./</alias>
+            </aliases>
+            <since>0.6</since>
+        </meta>
+        <arguments>
+            <argument name="DIV" type="float">divisor</argument>
+        </arguments>
+        <properties>
+            <property name="@div" type="float" default="1">divisor</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="float">divident</xinfo>
+                <xinfo on="list">list of divident (non float values are ignored)</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float">change divisor</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>float or list</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[1 2 3 A B C( [F]  [F]
+|             |    |
+|             |    |.
+[math.div 2         ]
+|
+[msg set]
+|
+[ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

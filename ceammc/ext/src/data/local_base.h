@@ -38,8 +38,8 @@ static PdArgs make_local_id(const PdArgs& a)
 template <typename T>
 class LocalBase : public GlobalBase<T> {
 public:
-    LocalBase(const PdArgs& a, const std::string& extName)
-        : GlobalBase<T>(make_local_id(a), extName)
+    LocalBase(const PdArgs& a)
+        : GlobalBase<T>(make_local_id(a))
     {
     }
 };

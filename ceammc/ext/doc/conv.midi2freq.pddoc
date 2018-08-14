@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="conv.midi2freq">
+        <title>conv.midi2freq</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>convert from midi pitch to freqency in hz (with various base A and
+            temperament)</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>conv</category>
+            <keywords>conv freq midi</keywords>
+            <since>0.6</since>
+            <also>
+                <see>mtof</see>
+            </also>
+            <aliases>
+                <alias>midi-&gt;freq</alias>
+                <alias>m-&gt;f</alias>
+            </aliases>
+        </meta>
+        <arguments>
+            <argument name="APITCH" type="float" minvalue="200" maxvalue="600">pitch
+            standard</argument>
+        </arguments>
+        <properties>
+            <property name="@a" type="float" default="440" minvalue="200" maxvalue="400">A pitch
+            frequency</property>
+            <property name="@t" type="symbol" default="eq"
+            enum="eq just ganassi meantone kirnberger3 pythagorean rameau valotti zarlino">
+            temperament</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="float">input MIDI pitch</xinfo>
+                <xinfo on="list">input MIDI pitches</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>converted value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.keyboard]
+|
+|
+|
+|
+[f]  [@a 415( [@a 440(   [ui.menu eq just ganassi meantone kirnberger3 pythagorean rameau valotti zarlino]
+|    |        |          |
+|    |        |          [@t $2(
+|    |        |          |
+[m->f 442                ]
+|
+[F]
+|
+[osc~]
+|
+[ui.gain~ @size 120 16]
+|\
+[dac~]
+
+[ui.dsp~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

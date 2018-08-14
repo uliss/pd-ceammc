@@ -1,24 +1,30 @@
+#include "list_distribution.h"
+#include "../data/datatype_mlist.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
-#include "ceammc_object.h"
 
-using namespace ceammc;
+ListDistribution::ListDistribution(const PdArgs& a)
+    : BaseObject(a)
+    , normalize_(nullptr)
+{
+    createOutlet();
 
-class ListDistribution : public BaseObject {
-public:
-    ListDistribution(const PdArgs& a)
-        : BaseObject(a)
-    {
-        createOutlet();
-    }
+    normalize_ = new BoolProperty("@normalize", true);
+    createProperty(normalize_);
+}
 
-    void onList(const AtomList& l)
-    {
-        listTo(0, list::countRepeats(l));
-    }
-};
+void ListDistribution::onList(const AtomList& l)
+{
+    listTo(0, list::countRepeats(l, normalize_->value()));
+}
 
-extern "C" void setup_list0x2edistribution()
+void ListDistribution::onDataT(const DataTypeMList& lst)
+{
+    onList(lst.toList());
+}
+
+void setup_list_distribution()
 {
     ObjectFactory<ListDistribution> obj("list.distribution");
+    obj.processData<DataTypeMList>();
 }

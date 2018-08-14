@@ -18,15 +18,18 @@
 
 using namespace ceammc;
 
+class DataTypeMList;
+
 class ListHistogram : public BaseObject {
     IntProperty* bins_;
 
 public:
     ListHistogram(const PdArgs& a);
-    void onList(const AtomList& l);
-    void onInlet(size_t, const AtomList& l);
+    void onList(const AtomList& l) override;
+    void onInlet(size_t, const AtomList& l) override;
+    void onDataT(const DataTypeMList& lst);
 };
 
-extern "C" void setup_list0x2ehistogram();
+void setup_list_histogram();
 
 #endif // LIST_HISTOGRAM_H

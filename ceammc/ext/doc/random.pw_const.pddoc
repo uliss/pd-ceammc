@@ -18,21 +18,18 @@
             <since>0.4</since>
         </meta>
         <info>
-            <par>Produces random floating-point numbers, which are uniformly distributed
-            within each of the several subintervals [b0, b1) , each with its own weight
-            </par>
+            <par>Produces random floating-point numbers, which are uniformly distributed within
+            each of the several subintervals [b0, b1) , each with its own weight</par>
             <par>Const segments specified as: bound0, weight0, bound1, weight0, bound2 etc</par>
         </info>
         <arguments>
-            <argument type="list" name="P">interleaved interval boundaries
-            and boundary propabilities. Note: number of arguments should be odd and &gt;=5.
-            Boundaries should be in strictly increasing order and weights should be non-negative
-            </argument>
+            <argument type="list" name="P">interleaved interval boundaries and boundary
+            propabilities. Note: number of arguments should be odd and &gt;=5. Boundaries should be
+            in strictly increasing order and weights should be non-negative</argument>
         </arguments>
         <properties>
-            <property name="@v" type="list">interleaved interval boundaries
-            and boundary propabilities.
-            </property>
+            <property name="@v" type="list">interleaved interval boundaries and boundary
+            propabilities.</property>
             <property name="@bounds" type="list" readonly="true">list of boundaries</property>
             <property name="@weights" type="list" readonly="true">list of weights</property>
         </properties>

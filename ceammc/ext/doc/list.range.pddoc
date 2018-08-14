@@ -16,6 +16,9 @@
                 <see>list.min</see>
                 <see>list.max</see>
             </also>
+            <aliases>
+                <alias>list.minmax</alias>
+            </aliases>
         </meta>
         <info>
             <par>Note: numbers are smaller then symbols</par>
@@ -23,6 +26,7 @@
         <inlets>
             <inlet>
                 <xinfo on="list">input list</xinfo>
+                <xinfo on="data:mlist">input mlist</xinfo>
             </inlet>
         </inlets>
         <outlets>

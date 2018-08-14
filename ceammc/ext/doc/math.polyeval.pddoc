@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.polyeval">
+        <title>math.polyeval</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>evaluates the polynomial described by the coefficients list</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math polynomial</keywords>
+            <since>0.6</since>
+        </meta>
+        <arguments>
+            <argument type="float" name="ARGS">coefficient list</argument>
+        </arguments>
+        <properties>
+            <property name="@coeffs" type="list">coefficient list</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="float">evalute polynomial</xinfo>
+                <xinfo on="list">evalute each value in list</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="list">sets polynomial coefficients</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>calculated value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]   [14 28(
+|     |
+|     |        [@coeffs?(
+|     |        |
+[math.polyeval 2 4 5 6] /*calc: y=2*x^3 + 4*x^2 + 5*x + 6*/
+|
+[ui.display]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

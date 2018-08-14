@@ -19,7 +19,7 @@
 using namespace ceammc;
 
 class ListRepeat : public BaseObject {
-    IntProperty* times_;
+    IntPropertyClosedRange* times_;
 
 public:
     ListRepeat(const PdArgs& a);
@@ -29,9 +29,8 @@ public:
     void onData(const DataPtr& d);
 
     void onInlet(size_t, const AtomList& l);
-
-private:
-    size_t repeatCount() const;
 };
+
+void setup_list_repeat();
 
 #endif // LIST_REPEAT_H

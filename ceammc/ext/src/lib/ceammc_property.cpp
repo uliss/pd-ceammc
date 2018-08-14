@@ -128,7 +128,7 @@ bool FloatProperty::set(const AtomList& lst)
 
 AtomList FloatProperty::get() const
 {
-    return AtomList::values(1, v_);
+    return AtomList({ v_ });
 }
 
 BoolProperty::BoolProperty(const std::string& name, bool init, bool readonly)
@@ -171,7 +171,7 @@ bool BoolProperty::set(const AtomList& lst)
 
 AtomList BoolProperty::get() const
 {
-    return AtomList::values(1, v_ ? 1.f : 0.f);
+    return AtomList({ v_ ? 1.f : 0.f });
 }
 
 IntProperty::IntProperty(const std::string& name, int init, bool readonly)

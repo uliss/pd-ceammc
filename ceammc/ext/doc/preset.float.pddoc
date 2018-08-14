@@ -22,12 +22,13 @@
             <par>Named float preset entry. Can store/load up to 16 various float values</par>
         </info>
         <arguments>
-            <argument name="ID" type="symbol">preset id (should be unique in most use cases)</argument>
+            <argument name="ID" type="symbol">preset id (should be unique in most use
+            cases)</argument>
             <argument name="VAL" type="float">preset initial value</argument>
         </arguments>
         <properties>
-            <property name="@path" type="symbol" readonly="true">property OSC-like path
-            that includes id, abstraction name and may be subpatch name separated by slashes.</property>
+            <property name="@path" type="symbol" readonly="true">property OSC-like path that
+            includes id, abstraction name and may be subpatch name separated by slashes.</property>
             <property name="@init" type="float">init float value</property>
             <property name="@global" type="flag">use global path like /ID</property>
             <property name="@subpatch" type="flag">include subpatch name to path</property>

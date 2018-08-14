@@ -24,13 +24,26 @@ static t_symbol* SYM_UNIT_SEC = gensym("sec");
 static t_symbol* SYM_UNIT_MS = gensym("ms");
 static t_symbol* SYM_UNIT_PHASE = gensym("phase");
 
+static t_symbol* SYM_CURSOR_SAMPLE = gensym("@cursor_samp");
+static t_symbol* SYM_CURSOR_PHASE = gensym("@cursor_phase");
+static t_symbol* SYM_CURSOR_MS = gensym("@cursor_ms");
+static t_symbol* SYM_CURSOR_SEC = gensym("@cursor_sec");
+
+static t_symbol* SYM_SELECT_SAMPLE = gensym("@select_samp");
+static t_symbol* SYM_SELECT_PHASE = gensym("@select_phase");
+static t_symbol* SYM_SELECT_MS = gensym("@select_ms");
+static t_symbol* SYM_SELECT_SEC = gensym("@select_sec");
+
 ArrayVlinePlay::ArrayVlinePlay(const PdArgs& args)
     : ArrayBase(args)
     , state_(STATE_STOP)
     , begin_pos_(0)
     , end_pos_(-1)
     , speed_(1)
+    , reversed_(nullptr)
+    , clock_(this, &ArrayVlinePlay::timeElapsed)
 {
+    createOutlet();
     createOutlet();
 
     createCbProperty("@state", &ArrayVlinePlay::propState);
@@ -39,6 +52,24 @@ ArrayVlinePlay::ArrayVlinePlay(const PdArgs& args)
     createCbProperty("@end", &ArrayVlinePlay::propEndSample, &ArrayVlinePlay::propSetEndSample);
     createCbProperty("@abs_begin", &ArrayVlinePlay::propAbsBeginSample);
     createCbProperty("@abs_end", &ArrayVlinePlay::propAbsEndSample);
+
+    reversed_ = new BoolProperty("@reversed", false);
+    createProperty(reversed_);
+}
+
+bool ArrayVlinePlay::processAnyProps(t_symbol* s, const AtomList& args)
+{
+    if (s == SYM_CURSOR_SAMPLE
+        || s == SYM_CURSOR_PHASE
+        || s == SYM_CURSOR_MS
+        || s == SYM_CURSOR_SEC
+        || s == SYM_SELECT_SAMPLE
+        || s == SYM_SELECT_PHASE
+        || s == SYM_SELECT_MS
+        || s == SYM_SELECT_SEC)
+        return true;
+
+    return BaseObject::processAnyProps(s, args);
 }
 
 AtomList ArrayVlinePlay::propState() const
@@ -115,6 +146,12 @@ AtomList ArrayVlinePlay::propAbsEndSample() const
     mthis->checkArray();
 
     return Atom(toAbsPosition(end_pos_));
+}
+
+void ArrayVlinePlay::onBang()
+{
+    if (state_ == STATE_PLAY)
+        output();
 }
 
 void ArrayVlinePlay::onFloat(t_float f)
@@ -239,16 +276,26 @@ SamplePos ArrayVlinePlay::unitToAbsPosition(t_float v, t_symbol* unit)
     }
 }
 
+void ArrayVlinePlay::timeElapsed()
+{
+    state_ = STATE_STOP;
+    bangTo(1);
+}
+
 void ArrayVlinePlay::output()
 {
-    if (state_ == STATE_STOP)
+    if (state_ == STATE_STOP) {
+        clock_.unset();
         floatTo(0, 0);
-    else {
+    } else {
         const t_float SR = sys_getsr();
         const size_t N = array_.size();
 
         size_t begin = toAbsPosition(begin_pos_);
         size_t end = toAbsPosition(end_pos_);
+
+        if (reversed_->value())
+            std::swap(begin, end);
 
         if (begin >= N || end >= N) {
             OBJ_ERR << "invalid play range: " << begin_pos_ << ".." << end_pos_;
@@ -256,8 +303,9 @@ void ArrayVlinePlay::output()
         }
 
         // [begin, end] range
-        size_t dur = labs(long(end) - long(begin)) + 1;
-        t_float dur_ms = 1000 * dur / (SR * speed_);
+        const size_t dur = labs(long(end) - long(begin)) + 1;
+        const t_float dur_ms = 1000 * dur / (SR * speed_);
+        clock_.delay(dur_ms);
 
         floatTo(0, begin);
         listTo(0, AtomList(Atom(end), Atom(dur_ms)));

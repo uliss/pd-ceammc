@@ -16,6 +16,7 @@
         <inlets>
             <inlet>
                 <xinfo on="list">input list</xinfo>
+                <xinfo on="data:mlist">input mlist</xinfo>
             </inlet>
         </inlets>
         <properties>
@@ -30,15 +31,13 @@
 <![CDATA[
 [list A B C D E(
 |
-|    [T]
-|    |
-|    [@from $1(
-|    |
-[list.enumerate]
+|    [T]          [\(a b c d \(e\)\), bang(
+|    |            |
+|    [@from $1(   [mlist]
+|    |            |
+[list.enumerate   ]
 |
-[msg set]
-|
-[ (
+[ui.display @display_type=1]
 ]]>
             </pdascii>
         </example>

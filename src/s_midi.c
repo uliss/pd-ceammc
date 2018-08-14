@@ -36,6 +36,10 @@ typedef struct _midiqelem
 
 #define MIDIQSIZE 1024
 
+#ifdef __MACH__
+#define CEAMMC_MIDI 1
+#endif
+
 t_midiqelem midi_outqueue[MIDIQSIZE];
 int midi_outhead, midi_outtail;
 t_midiqelem midi_inqueue[MIDIQSIZE];
@@ -561,6 +565,13 @@ static void sys_save_midi_params(
         sys_mididevnumbertoname(1, midioutdev[i],
             &midi_outdevnames[i * DEVDESCSIZE], DEVDESCSIZE);
     }
+
+#ifdef CEAMMC_MIDI
+    for(i = midi_nmidiindev; i < MAXMIDIINDEV; i++)
+        midi_midiindev[i] = -1;
+    for(i = midi_nmidioutdev; i < MAXMIDIINDEV; i++)
+        midi_midioutdev[i] = -1;
+#endif
 }
 
 void sys_open_midi(int nmidiindev, int *midiindev,
@@ -655,6 +666,35 @@ void glob_midi_setapi(void *dummy, t_floatarg f)
 
 extern t_class *glob_pdobject;
 
+#ifdef CEAMMC_MIDI
+static int in_array(int* a, int n, int b)
+{
+    for(int i = 0; i < n; i++) {
+        if(a[i] == b)
+            return 1;
+    }
+
+    return 0;
+}
+
+// simple O^2
+static void make_unique_mididevn(int *dev, int* n)
+{
+    int m = 0;
+
+    for(int i = 0; i < *n; i++) {
+        const int x = dev[i];
+        if(x < 0)
+            continue;
+
+        if(!in_array(dev, m, x))
+            dev[m++] = x;
+    }
+
+    *n = m;
+}
+#endif
+
     /* start an midi settings dialog window */
 void glob_midi_properties(t_pd *dummy, t_floatarg flongform)
 {
@@ -688,6 +728,11 @@ void glob_midi_properties(t_pd *dummy, t_floatarg flongform)
 
     if (nindev > 1 || noutdev > 1)
         flongform = 1;
+
+#ifdef CEAMMC_MIDI
+    make_unique_mididevn(midiindev, &nindev);
+    make_unique_mididevn(midioutdev, &noutdev);
+#endif
 
     midiindev1 = (nindev > 0 &&  midiindev[0]>= 0 ? midiindev[0]+1 : 0);
     midiindev2 = (nindev > 1 &&  midiindev[1]>= 0 ? midiindev[1]+1 : 0);

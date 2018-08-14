@@ -13,22 +13,34 @@ set(DOC_FILES
     canvas.current
     canvas.top
     click~
+    conv.amp2dbfs
     conv.bpm2hz
     conv.bpm2ms
     conv.bpm2sec
     conv.cc2amp
+    conv.dbfs2amp
     conv.lin2curve
     conv.lin2exp
     conv.lin2lin
+    conv.midi2freq
     conv.pitch2midi
     conv.samp2sec
     conv.sec2samp
     conv.sec2str
     conv.str2sec
     data.fifo
+    data.float
+    data.dict
+    data.int
     data.list
+    data.mlist
     data.set
     data.set2list
+    dict.contains
+    dict.get
+    dict.keys
+    dict.size
+    dict.values
     dyn.comp2~
     dyn.comp~
     dyn.gate2~
@@ -43,11 +55,15 @@ set(DOC_FILES
     env.vscale
     env.concat
     env.adsr~
+    env.asr~
     env.ar~
     env.follow~
+    env.smooth~
     env2array
     env2vline
+    vline2env
     expand_env
+    flow.append
     flow.change
     flow.count
     flow.gate
@@ -55,11 +71,18 @@ set(DOC_FILES
     flow.less
     flow.less_eq
     flow.demultiplex
+    flow.demultiplex~
+    flow.demultiplex2~
+    flow.interval
     flow.multiplex
+    flow.multiplex~
+    flow.multiplex2~
+    flow.once
     flow.pass
     flow.pass_if
     flow.reject
     flow.reject_if
+    flow.route
     flow.speedlim
     flow.split
     flow.sync
@@ -77,31 +100,43 @@ set(DOC_FILES
     flt.dcblock2~
     flt.dcblock~
     flt.eq_peak~
+    flt.eq_peak_cq~
     flt.highshelf~
     flt.hpf12~
     flt.hpf24~
     flt.lowshelf~
     flt.lpf12~
     flt.lpf24~
+    flt.moog_vcf~
     flt.notch~
     flt.resonbp~
+    fluid~
     function
     function.call
     fx.distortion~
+    fx.echo~
     fx.flanger~
     fx.freeverb2~
     fx.freeverb~
     fx.freqshift~
+    fx.drone_box~
     fx.greyhole~
     fx.looper~
     fx.pitchshift~
+    fx.sdelay~
     fx.zita_rev1~
+    fx.wahwah~
+    gain~
     global.float
+    global.dict
     global.int
     global.list
+    global.mlist
+    global.set
     hw.arduino
     is_any
     is_bang
+    is_data
     is_even
     is_file
     is_float
@@ -112,14 +147,19 @@ set(DOC_FILES
     lfo.impulse~
     lfo.square~
     lfo.tri~
+    lfo.pulse~
+    list.^at
+    list.^contains
+    list.^search
     list.all_of
     list.any_of
+    list.append
     list.apply_to
     list.at
     list.choice
+    list.contains
     list.count
     list.count_if
-    list.deinterleave
     list.delta
     list.distribution
     list.do
@@ -129,8 +169,8 @@ set(DOC_FILES
     list.first
     list.gen
     list.histogram
+    list.insert
     list.integrator
-    list.interleave
     list.last
     list.length
     list.max
@@ -139,33 +179,44 @@ set(DOC_FILES
     list.none_of
     list.normalize
     list.pass_if
+    list.prepend
     list.product
     list.range
     list.reduce
+    list.remove
     list.remove_if
     list.repack
     list.repeat
     list.resize
     list.reverse
+    list.rldecode
+    list.rlencode
     list.rotate
     list.route
+    list.search
     list.separate
+    list.set
     list.seq
+    list.shift
     list.shuffle
     list.slice
     list.sort
     list.sort_with
     list.split
+    list.stretch
     list.sum
     list.unique
     list.unpack
-    list.unwrap
+    list.unzip
     list.walk
-    list.wrap
+    list.zip
     live.capture~
     local.float
+    local.dict
     local.int
     local.list
+    local.mlist
+    local.set
     math.abs
     math.acos
     math.acosh
@@ -179,9 +230,11 @@ set(DOC_FILES
     math.ceil
     math.cos
     math.cosh
+    math.div
     math.e
     math.exp
     math.exp2
+    math.expr
     math.floor
     math.gcd
     math.inf
@@ -189,10 +242,12 @@ set(DOC_FILES
     math.log
     math.log10
     math.log2
+    math.mul
     math.nan
     math.neg
     math.or
     math.pi
+    math.polyeval
     math.reciprocal
     math.round
     math.round~
@@ -204,6 +259,7 @@ set(DOC_FILES
     math.tan
     math.tanh
     math.trunc
+    matrix~
     metro.pattern
     metro.seq
     midi.ctl2str
@@ -214,10 +270,16 @@ set(DOC_FILES
     midi.event2prg
     midi.prg2str
     midi.key2str
+    mix~
+    mlist.flatten
     modplug~
     msg
+    noise.crackle~
     noise.pink~
     noise.white~
+    noise.lfreq~
+    noise.lfreq0~
+    osc.blit~
     osc.impulse~
     osc.pulse~
     osc.saw~
@@ -239,7 +301,9 @@ set(DOC_FILES
     preset.symbol
     proto.firmata
     prop.get
+    prop.get~
     prop.set
+    radio
     random.float
     random.gauss
     random.int
@@ -256,6 +320,9 @@ set(DOC_FILES
     set.symdiff
     set.union
     snd.file
+    spat.pan4~
+    spat.pan8~
+    speech.flite
     string
     string.contains
     string.ends_with
@@ -272,7 +339,19 @@ set(DOC_FILES
     symbol.equal
     symbol.length
     symbol.num_compare
+    synth.bee3~
+    synth.birds~
+    synth.church_bell~
+    synth.dubdub~
+    synth.eguitar~
+    synth.fgrain~
+    synth.ks~
+    synth.marimba~
+    synth.rhodey~
+    synth.risset_arp~
     synth.risset_tone~
+    synth.shakers~
+    synth.wurley~
     system.cursor
     system.getenv
     system.hostname
@@ -282,6 +361,7 @@ set(DOC_FILES
     tl.bang
     tl.cue
     tl.transport
+    ui.aview
     ui.bang
     ui.colorpanel
     ui.display
@@ -314,4 +394,6 @@ set(DOC_FILES
     vector.length
     vector.normalize
     window
+    xfade~
+    xfade2~
 )

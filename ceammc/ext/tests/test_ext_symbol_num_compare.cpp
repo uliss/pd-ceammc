@@ -12,12 +12,12 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../symbol/symbol_num_compare.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "catch.hpp"
 
 #include <stdio.h>
 
-typedef TestExtension<SymbolNumCompare> SymbolNumCmpTest;
+typedef TestExternal<SymbolNumCompare> SymbolNumCmpTest;
 
 TEST_CASE("symbol.num_compare", "[externals]")
 {
@@ -27,7 +27,7 @@ TEST_CASE("symbol.num_compare", "[externals]")
     {
         SECTION("empty arguments")
         {
-            SymbolNumCmpTest t("symbol.num_compare", AtomList());
+            SymbolNumCmpTest t("symbol.num_compare", L());
             REQUIRE_PROPERTY_NONE(t, @with);
 
             WHEN_SEND_SYMBOL_TO(0, t, "123");
@@ -54,7 +54,7 @@ TEST_CASE("symbol.num_compare", "[externals]")
 
         SECTION("properties")
         {
-            SymbolNumCmpTest t("symbol.num_compare", L2("@with", "199.test.txt"));
+            SymbolNumCmpTest t("symbol.num_compare", LA("@with", "199.test.txt"));
             REQUIRE_PROPERTY(t, @with, A("199.test.txt"));
 
             WHEN_SEND_SYMBOL_TO(0, t, "abc");
@@ -88,19 +88,19 @@ TEST_CASE("symbol.num_compare", "[externals]")
 
     SECTION("list propagation")
     {
-        SymbolNumCmpTest t("symbol.num_compare", AtomList());
+        SymbolNumCmpTest t("symbol.num_compare", L());
         REQUIRE_PROPERTY_NONE(t, @with);
 
-        WHEN_SEND_LIST_TO(0, t, L2(1, 2));
+        WHEN_SEND_LIST_TO(0, t, LF(1, 2));
         REQUIRE_NO_MSG(t);
 
-        WHEN_SEND_LIST_TO(0, t, L1("a"));
+        WHEN_SEND_LIST_TO(0, t, LA("a"));
         REQUIRE_NO_MSG(t);
 
-        WHEN_SEND_LIST_TO(0, t, AtomList());
+        WHEN_SEND_LIST_TO(0, t, L());
         REQUIRE_NO_MSG(t);
 
-        WHEN_SEND_LIST_TO(0, t, L2("9", "10"));
+        WHEN_SEND_LIST_TO(0, t, LA("9", "10"));
         REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
         REQUIRE_PROPERTY(t, @with, "10");
     }

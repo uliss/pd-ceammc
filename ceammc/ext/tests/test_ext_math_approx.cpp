@@ -12,12 +12,12 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../math/math_approx.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "catch.hpp"
 
 #include <stdio.h>
 
-typedef TestExtension<MathApprox> ApproxTest;
+typedef TestExternal<MathApprox> ApproxTest;
 
 #define REQUIRE_APPROX(obj, v)            \
     {                                     \
@@ -48,18 +48,18 @@ TEST_CASE("approx", "[externals]")
 
         SECTION("properties")
         {
-            ApproxTest t("approx", L2("@value", 10));
+            ApproxTest t("approx", LA("@value", 10));
             REQUIRE_PROPERTY(t, @value, 10);
             REQUIRE_PROPERTY(t, @epsilon, 0.01f);
 
             {
-                ApproxTest t("approx", L2("@epsilon", 10));
+                ApproxTest t("approx", LA("@epsilon", 10));
                 REQUIRE_PROPERTY(t, @value, 0.f);
                 REQUIRE_PROPERTY(t, @epsilon, 10);
             }
 
             {
-                ApproxTest t("approx", L4("@epsilon", 10, "@value", -100));
+                ApproxTest t("approx", LA("@epsilon", 10, "@value", -100));
                 REQUIRE_PROPERTY(t, @value, -100);
                 REQUIRE_PROPERTY(t, @epsilon, 10);
             }
@@ -68,13 +68,13 @@ TEST_CASE("approx", "[externals]")
         SECTION("positional args")
         {
             {
-                ApproxTest t("approx", L2(20, 10));
+                ApproxTest t("approx", LF(20, 10));
                 REQUIRE_PROPERTY(t, @value, 20);
                 REQUIRE_PROPERTY(t, @epsilon, 10);
             }
 
             {
-                ApproxTest t("approx", L2(20, "a"));
+                ApproxTest t("approx", LA(20, "a"));
                 REQUIRE_PROPERTY(t, @value, 20);
                 REQUIRE_PROPERTY(t, @epsilon, 0.01f);
             }
@@ -83,7 +83,7 @@ TEST_CASE("approx", "[externals]")
 
     SECTION("float")
     {
-        ApproxTest t("approx", L1(2));
+        ApproxTest t("approx", LF(2));
         REQUIRE_APPROX(t, 2);
         REQUIRE_APPROX(t, 2.01f);
         REQUIRE_APPROX(t, 2.001f);
@@ -113,19 +113,19 @@ TEST_CASE("approx", "[externals]")
     {
         ApproxTest t("approx");
 
-        WHEN_SEND_LIST_TO(0, t, L3(2, 2, 0.f));
+        WHEN_SEND_LIST_TO(0, t, LF(2, 2, 0.f));
         REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
 
-        WHEN_SEND_LIST_TO(0, t, L3(2.1f, 2, 0.1f));
+        WHEN_SEND_LIST_TO(0, t, LF(2.1f, 2, 0.1f));
         REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
 
-        WHEN_SEND_LIST_TO(0, t, L3(2.11f, 2, 0.1f));
+        WHEN_SEND_LIST_TO(0, t, LF(2.11f, 2, 0.1f));
         REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
 
-        WHEN_SEND_LIST_TO(0, t, L3(1.99f, 2, 0.1f));
+        WHEN_SEND_LIST_TO(0, t, LF(1.99f, 2, 0.1f));
         REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
 
-        WHEN_SEND_LIST_TO(0, t, L3(1.89f, 2, 0.1f));
+        WHEN_SEND_LIST_TO(0, t, LF(1.89f, 2, 0.1f));
         REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
     }
 }

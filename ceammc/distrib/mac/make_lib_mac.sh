@@ -8,9 +8,9 @@ fi
 SRCDIR="$1"
 BINDIR="$2"
 VERSION="$4"
-OUTDIR="$3/ceammclib"
+OUTDIR="$3/ceammc"
 SYSVER=$(sw_vers | grep ProductVersion | cut -f2 | cut -f1,2 -d.)
-OUTFILE="ceammclib-${VERSION}-macosx-${SYSVER}-vanilla-0.47.tar.gz"
+OUTFILE="ceammc-${VERSION}-macosx-${SYSVER}-pd-0.47.tar.gz"
 DYLIBBUNDLER="@DYLIBBUNDLER@"
 
 
@@ -83,9 +83,22 @@ do
     echo "+ Copy: '$help'"
 done
 
+
+echo "+ Copying misc files:"
+echo "    stargazing.mod"
+cp "${SRCDIR}/ext/doc/stargazing.mod" "${OUTDIR}"
+echo "    prs.txt"
+cp "${SRCDIR}/ext/doc/prs.txt" "${OUTDIR}"
+echo "    soundtouch~.d_fat"
+cp "${BINDIR}/../extra/SoundTouch/pd/soundtouch~.d_fat" "${OUTDIR}"
+echo "    soundtouch~-help.pd"
+cp "${BINDIR}/../extra/SoundTouch/pd/soundtouch~-help.pd" "${OUTDIR}"
+echo "    soundtouch-help.pd"
+cp "${BINDIR}/../extra/SoundTouch/pd/soundtouch-help.pd" "${OUTDIR}"
+
+echo "+ Fix soundtouch link in index-help.pd..."
+sed -i "" 's/ceammc\/soundtouch-help\.pd/soundtouch-help.pd/' "${OUTDIR}/index-help.pd"
+
 cd "$3"
 tar cfvz "${OUTFILE}" $(basename $OUTDIR)
 mv "${OUTFILE}" ..
-
-
-

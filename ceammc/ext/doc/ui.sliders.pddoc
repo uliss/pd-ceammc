@@ -39,24 +39,22 @@
         <methods>
             <method name="dump">dumps all object info to Pd console window</method>
             <method name="select">draws specified slider with select color 
-                <param name="N" required="true" minvalue="0" type="int">slider index, starting from
-                0.</param>
-            </method>
+            <param name="N" required="true" minvalue="0" type="int">slider index, starting from
+            0.</param></method>
             <method name="set">sets sliders value without output</method>
-            <method name="set slider N V">sets specified slider value
-                <param name="N" required="true" type="int" minvalue="0">slider position, starting
-                from 0</param>
-                <param name="V" required="true" type="float">slider value</param>
-            </method>
+            <method name="set slider N V">sets specified slider value 
+            <param name="N" required="true" type="int" minvalue="0">slider position, starting from
+            0</param>
+            <param name="V" required="true" type="float">slider value</param></method>
             <method name="++">increment all sliders without output</method>
             <method name="--">decrement all sliders without output</method>
-            <method name="+">add value to every slider without output
+            <method name="+">add value to every slider without output 
             <param name="V" type="float" required="true">added value</param></method>
-            <method name="-">substruct value from every slider without output
+            <method name="-">substruct value from every slider without output 
             <param name="V" type="float" required="true">substructed value</param></method>
-            <method name="*">multiply each slider without output
+            <method name="*">multiply each slider without output 
             <param name="V" type="float" required="true">mutiplied value</param></method>
-            <method name="/">divide each slider without output
+            <method name="/">divide each slider without output 
             <param name="V" type="float" required="true">denominator value</param></method>
         </methods>
         <inlets>

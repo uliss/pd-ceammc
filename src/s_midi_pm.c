@@ -317,6 +317,31 @@ void sys_poll_midi(void)
     overload: ;
 }
 
+// naive strcpy realization, that prevents PureData from crash
+// if MIDI device name contains unbalanced curly braces.
+// Device name send as string to TCL dialog
+static void strcpy_safe_tcl(char* dest, const char* src) {
+    int i = 0;
+    while (1) {
+        char c = src[i];
+
+        switch(c) {
+        case '{':
+            c = '(';
+            break;
+        case '}':
+            c = ')';
+            break;
+        }
+
+        dest[i] = c;
+        if (c == '\0')
+            break;
+
+        i++;
+    }
+}
+
 void midi_getdevs(char *indevlist, int *nindevs,
     char *outdevlist, int *noutdevs, int maxndev, int devdescsize)
 {
@@ -328,12 +353,12 @@ void midi_getdevs(char *indevlist, int *nindevs,
             info->input, info->output); */
         if (info->input && nindev < maxndev)
         {
-            strcpy(indevlist + nindev * devdescsize, info->name);
+            strcpy_safe_tcl(indevlist + nindev * devdescsize, info->name);
             nindev++;
         }
         if (info->output && noutdev < maxndev)
         {
-            strcpy(outdevlist + noutdev * devdescsize, info->name);
+            strcpy_safe_tcl(outdevlist + noutdev * devdescsize, info->name);
             noutdev++;
         }
     }

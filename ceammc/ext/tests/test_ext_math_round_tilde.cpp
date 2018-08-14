@@ -12,14 +12,14 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../math/math_round_tilde.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "catch.hpp"
 
 #include <algorithm>
 #include <cstdlib>
 #include <stdio.h>
 
-typedef TestSoundExtension<MathRoundTilde> MathRoundTildeTest;
+typedef TestSoundExternal<MathRoundTilde> MathRoundTildeTest;
 
 struct ConstGen {
     double v;

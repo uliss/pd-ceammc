@@ -12,12 +12,12 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../symbol/symbol_equal.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "catch.hpp"
 
 #include <stdio.h>
 
-typedef TestExtension<SymbolEqual> SymbolEqTest;
+typedef TestExternal<SymbolEqual> SymbolEqTest;
 
 TEST_CASE("symbol.equal", "[externals]")
 {
@@ -27,7 +27,7 @@ TEST_CASE("symbol.equal", "[externals]")
     {
         SECTION("empty arguments")
         {
-            SymbolEqTest t("symbol.equal", AtomList());
+            SymbolEqTest t("symbol.equal", L());
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE(t.pattern() == 0);
@@ -56,30 +56,30 @@ TEST_CASE("symbol.equal", "[externals]")
 
     SECTION("list propagation")
     {
-        SymbolEqTest t("symbol.equal", AtomList());
+        SymbolEqTest t("symbol.equal", L());
 
-        WHEN_SEND_LIST_TO(0, t, L2("a", "b"));
+        WHEN_SEND_LIST_TO(0, t, LA("a", "b"));
         REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
 
-        WHEN_SEND_LIST_TO(0, t, L2("b", "b"));
+        WHEN_SEND_LIST_TO(0, t, LA("b", "b"));
         REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
 
-        WHEN_SEND_LIST_TO(0, t, L4("b", "b", "c", "d"));
+        WHEN_SEND_LIST_TO(0, t, LA("b", "b", "c", "d"));
         REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
 
-        WHEN_SEND_LIST_TO(0, t, L2(1, "b"));
+        WHEN_SEND_LIST_TO(0, t, LA(1, "b"));
         REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
 
         WHEN_SEND_SYMBOL_TO(0, t, "b");
         REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
 
-        WHEN_SEND_LIST_TO(0, t, L2("a", 1));
+        WHEN_SEND_LIST_TO(0, t, LA("a", 1));
         REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
 
-        WHEN_SEND_LIST_TO(0, t, L2(1, 1));
+        WHEN_SEND_LIST_TO(0, t, LF(1, 1));
         REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
 
-        WHEN_SEND_LIST_TO(0, t, L2("b", "b"));
+        WHEN_SEND_LIST_TO(0, t, LA("b", "b"));
         REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
     }
 }

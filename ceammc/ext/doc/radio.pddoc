@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="radio">
+        <title>radio</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>float index to outlet values as radio switch</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>base</category>
+            <keywords>radio</keywords>
+            <since>0.6</since>
+            <also>
+                <see>hradio</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="N" type="int" minvalue="2" maxvalue="24">number of outlets</argument>
+        </arguments>
+        <properties>
+            <property name="@n" type="int" minvalue="2" maxvalue="24" default="2">number of
+            outlets</property>
+        </properties>
+        <methods>
+            <method name="reset">output zeroes to all outlets</method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="float">index</xinfo>
+            </inlet>
+        </inlets>
+        <outlets dynamic="true">
+            <outlet>first output</outlet>
+            <outlet number="n">first output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.radio @nitems=4]
+|
+|
+|
+|  [reset(
+|  |
+[radio           4]
+|   ^|   ^^|   ^^^|
+[T]  [T]   [T]    [T]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

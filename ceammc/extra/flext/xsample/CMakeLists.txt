@@ -6,11 +6,16 @@ set(XSAMPLE_SRC
     xsample/source/record.cpp
 )
 
-pd_add_extension(NAME xsample
+pd_add_external(NAME xsample
     FILES ${XSAMPLE_SRC}
     INTERNAL True
     LIBRARY xsample
     LINK flext_static)
+
+if(WIN32)
+    # C++11 doesn't defines M_PI etc
+    target_compile_options(xsample PUBLIC -U__STRICT_ANSI__)
+endif()
 
 # help files
 file(GLOB _xsample_help_files "xsample/pd/*.pd")

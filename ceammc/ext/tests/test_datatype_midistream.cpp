@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../midi/datatype_midistream.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 
 #include "catch.hpp"
 

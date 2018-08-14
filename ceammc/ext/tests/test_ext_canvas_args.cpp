@@ -12,13 +12,13 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../base/patch_args.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "catch.hpp"
 #include "ceammc_pd.h"
 
 #include <stdio.h>
 
-typedef TestExtension<PatchArgs> PatchArgsTest;
+typedef TestExternal<PatchArgs> PatchArgsTest;
 
 TEST_CASE("patch.args", "[externals]")
 {
@@ -31,14 +31,14 @@ TEST_CASE("patch.args", "[externals]")
         REQUIRE(t.numOutlets() == 1);
 
         WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_LIST_AT_OUTLET(0, t, AtomList());
+        REQUIRE_LIST_AT_OUTLET(0, t, L());
 
         CanvasPtr cnv = PureData::instance().createTopCanvas("patch");
 
         {
             PatchArgsTest t("patch.args");
             WHEN_SEND_BANG_TO(0, t);
-            REQUIRE_LIST_AT_OUTLET(0, t, AtomList());
+            REQUIRE_LIST_AT_OUTLET(0, t, L());
         }
     }
 }

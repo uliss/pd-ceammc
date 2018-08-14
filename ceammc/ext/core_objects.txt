@@ -84,6 +84,7 @@ fexpr~
 fft~
 filledcurve
 filledpolygon
+float
 framp~
 fswap
 ftom
@@ -208,6 +209,7 @@ stripnote
 struct
 swap
 switch~
+symbol
 sysexin
 s~
 t

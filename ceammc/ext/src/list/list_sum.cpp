@@ -1,21 +1,34 @@
+#include "list_sum.h"
+#include "../data/datatype_mlist.h"
 #include "ceammc_factory.h"
-#include "ceammc_object.h"
 
-using namespace ceammc;
-
-class ListSum : public BaseObject {
-public:
-    ListSum(const PdArgs& a)
-        : BaseObject(a)
-    {
-        createOutlet();
-    }
-
-    void onFloat(float f) { floatTo(0, f); }
-    void onList(const AtomList& l) { floatTo(0, l.sum()); }
-};
-
-extern "C" void setup_list0x2esum()
+ListSum::ListSum(const PdArgs& a)
+    : BaseObject(a)
 {
-    ObjectFactory<ListSum>("list.sum");
+    createOutlet();
+}
+
+void ListSum::onFloat(float f)
+{
+    floatTo(0, f);
+}
+
+void ListSum::onList(const AtomList& l)
+{
+    auto s = l.sum();
+    if (s == boost::none)
+        return;
+
+    floatTo(0, *s);
+}
+
+void ListSum::onDataT(const DataTypeMList& l)
+{
+    onList(l.toList());
+}
+
+void setup_list_sum()
+{
+    ObjectFactory<ListSum> obj("list.sum");
+    obj.processData<DataTypeMList>();
 }

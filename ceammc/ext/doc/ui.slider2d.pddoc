@@ -40,13 +40,11 @@
         <methods>
             <method name="dump">dumps all object info to Pd console window</method>
             <method name="set">sets slider position without output 
-                <param name="X" type="float" required="true">x-position</param>
-                <param name="Y" type="float" required="true">y-position</param>
-            </method>
-            <method name="move">move slider by given offset
-                <param name="X" type="float" required="true">x-offset</param>
-                <param name="Y" type="float" required="true">y-offset</param>
-            </method>
+            <param name="X" type="float" required="true">x-position</param>
+            <param name="Y" type="float" required="true">y-position</param></method>
+            <method name="move">move slider by given offset 
+            <param name="X" type="float" required="true">x-offset</param>
+            <param name="Y" type="float" required="true">y-offset</param></method>
         </methods>
         <inlets>
             <inlet>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="list.remove">
+        <title>list.remove</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>on input list remove element(s) at specified positions</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>list</category>
+            <keywords>list remove</keywords>
+            <since>0.6</since>
+            <also>
+                <see>list.insert</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="INDEXES" type="list">list of indexes to remove. Negative indexes are
+            also supported</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="list">input list</xinfo>
+                <xinfo on="data:mlist">input mlist</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="list">set remove indexes</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output list</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[1 2 3 4 5 6(      [\(a b c d e\), bang(
+|                  |
+|  [list A B C D(  [ml]
+|  |               |
+|  |           [F] |
+|  |           |.  |
+[list.remove 0 -1  ]
+|
+[ui.display @display_type=1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

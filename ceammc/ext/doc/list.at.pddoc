@@ -6,13 +6,14 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>returns list element(s) at given position(s)</description>
+            <description>on input list outputs element(s) at specified index(es)</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>list</category>
             <keywords>list</keywords>
             <since>0.1</since>
             <also>
+                <see>list.^at</see>
                 <see>list.apply_to</see>
             </also>
         </meta>
@@ -28,13 +29,26 @@
         </info>
         <arguments>
             <argument name="position" type="list">single or multiple elements position</argument>
-            <argument name="method" type="symbol">@rel(default), @clip, @fold or @wrap. They are
-            aliases for property: @method rel, @method clip, @method fold and @method
-            wrap</argument>
         </arguments>
+        <properties>
+            <property name="@default" type="atom" default="none">default output value if element
+            was not found</property>
+            <property name="@method" type="symbol" enum="rel clip fold wrap" default="rel">methods
+            of processing of negative/invalid indexes</property>
+            <property name="@rel" type="alias">alias to @method rel. Negative index means position
+            from the end of the list</property>
+            <property name="@clip" type="alias">alias to @method clip. If index &lt; 0 - return
+            first element. If index greater or equal list size - return last element</property>
+            <property name="@fold" type="alias">alias to @method fold. In range [0, LIST_SIZE)
+            ordinal elements are returned. [LIST_SIZE, 2*LIST_SIZE) - returned in negative order
+            etc.</property>
+            <property name="@wrap" type="alias">alias to @method wrap. In range [0, LIST_SIZE)
+            ordinal elements are returned. Other indexes are wrapped by modulo division.</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="list">input list</xinfo>
+                <xinfo on="data:mlist">input mlist</xinfo>
             </inlet>
             <inlet>
                 <xinfo on="list">positions</xinfo>

@@ -50,20 +50,27 @@
         <example>
             <pdascii>
 <![CDATA[
-[F]
-|                [F]           [F]         [F]
-[lfo.impulse~ 2] |             |           |
-|                [/ 100]       [/ 100]     [/ 100]
-|  [T]           |             |           |
-|  |.            |             |           |
-[*~ ]            |             |           |
-|                [roomsize $1( [drywet $1( [damp $1(
-| [B]            |             |           |
-| |              |             |           |
-[fx.freeverb~ id                            ]
-|  |.         ^|
-[dac~]       [print]
+[F]                [open %CEAMMC%/guitar1.wav, 1(
+|                  |
+[lfo.impulse~ 2]   [expand_env #a]
+|
+|  [T]             [ui.knob]     [ui.knob]   [ui.knob]
+|  |.              |             |           |
+[*~ ] [readsf~ #b] |             |           |
+|     |            |             |           |
+| [B] |            [roomsize $1( [drywet $1( [damp $1(
+| |   |            |             |           |
+| |   |            |             |           |
+| |   |            |             |           |
+[fx.freeverb~ id                             ]
+|                       ^|
+[ui.gain~ @size 120 16] [print]
+| \
+[dac~]
 
+
+[ui.dsp~]
+[X a->b]
 ]]>
             </pdascii>
         </example>

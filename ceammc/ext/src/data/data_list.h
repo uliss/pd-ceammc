@@ -14,36 +14,18 @@
 #ifndef DATA_LIST_H
 #define DATA_LIST_H
 
-#include "ceammc_object.h"
+#include "datatype_mlist.h"
+#include "list_iface.h"
 
-using namespace ceammc;
-
-class DataList : public BaseObject {
+class DataList : public DataListIFace<BaseObject> {
     AtomList list_;
 
 public:
     DataList(const PdArgs& a);
-
-    /** pd */
-    void onFloat(float f);
-    void onList(const AtomList& l);
-    void onBang();
-    void onInlet(size_t n, const AtomList& l);
-
-    /** methods */
-    void m_clear(t_symbol*, const AtomList&);
-    void m_append(t_symbol*, const AtomList& l);
-    void m_set(t_symbol*, const AtomList& l);
-    void m_remove(t_symbol* s, const AtomList& l);
-    void m_pop(t_symbol* s, const AtomList&);
-    void m_fill(t_symbol*, const AtomList& l);
-    void m_insert(t_symbol* s, const AtomList& l);
-    void m_flush(t_symbol* s, const AtomList& l);
-
-    void dump() const;
-
-private:
-    AtomList getSize() const;
+    AtomList& list() final { return list_; }
+    const AtomList& list() const final { return list_; }
 };
+
+void setup_data_list();
 
 #endif // DATA_LIST_H

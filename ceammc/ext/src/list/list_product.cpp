@@ -1,35 +1,34 @@
-#include "ceammc.h"
-#include <m_pd.h>
+#include "list_product.h"
+#include "../data/datatype_mlist.h"
+#include "ceammc_factory.h"
 
-static t_class* list_product_class;
-typedef struct list_product {
-    t_object x_obj;
-} t_list_product;
-
-static void list_product_float(t_list_product* x, t_floatarg f)
+ListProduct::ListProduct(const PdArgs& args)
+    : BaseObject(args)
 {
-    outlet_float(x->x_obj.te_outlet, f);
+    createOutlet();
 }
 
-static t_float product(t_float f1, t_float f2) { return f1 * f2; }
-
-static void list_product_list(t_list_product* x, t_symbol*, int argc, t_atom* argv)
+void ListProduct::onFloat(t_float f)
 {
-    outlet_float(x->x_obj.te_outlet, ceammc_atoms_reduce_float(argc, argv, 1, &product));
+    floatTo(0, f);
 }
 
-static void* list_product_new()
+void ListProduct::onList(const AtomList& lst)
 {
-    t_list_product* x = reinterpret_cast<t_list_product*>(pd_new(list_product_class));
-    outlet_new(&x->x_obj, &s_float);
-    return reinterpret_cast<void*>(x);
+    auto p = lst.product();
+    if (p == boost::none)
+        return;
+
+    floatTo(0, *p);
 }
 
-extern "C" void setup_list0x2eproduct()
+void ListProduct::onDataT(const DataTypeMList& lst)
 {
-    list_product_class = class_new(gensym("list.product"),
-        reinterpret_cast<t_newmethod>(list_product_new), 0,
-        sizeof(t_list_product), 0, A_NULL);
-    class_addfloat(list_product_class, list_product_float);
-    class_addlist(list_product_class, list_product_list);
+    onList(lst.toList());
+}
+
+void setup_list_product()
+{
+    ObjectFactory<ListProduct> obj("list.product");
+    obj.processData<DataTypeMList>();
 }

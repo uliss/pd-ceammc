@@ -12,13 +12,13 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../base/metro_pattern.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "catch.hpp"
 #include "ceammc_pd.h"
 
 #include <stdio.h>
 
-typedef TestExtension<MetroPattern> MetroPatternTest;
+typedef TestExternal<MetroPattern> MetroPatternTest;
 
 static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
 
@@ -31,7 +31,7 @@ TEST_CASE("metro.pattern", "[externals]")
             MetroPatternTest t("metro.pattern");
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
-            REQUIRE_PROPERTY_LIST(t, @pattern, AtomList());
+            REQUIRE_PROPERTY_LIST(t, @pattern, L());
             REQUIRE_PROPERTY(t, @current, 0.f);
 
             REQUIRE_FALSE(t.next());
@@ -41,15 +41,15 @@ TEST_CASE("metro.pattern", "[externals]")
 
         SECTION("wrong init")
         {
-            MetroPatternTest t("metro.pattern", L5("A", "B", 200, 0.f, -100));
-            REQUIRE_PROPERTY_LIST(t, @pattern, L1(200));
+            MetroPatternTest t("metro.pattern", LA("A", "B", 200, 0.f, -100));
+            REQUIRE_PROPERTY_LIST(t, @pattern, LF(200));
             REQUIRE_PROPERTY(t, @current, 0.f);
         }
 
         SECTION("ok init")
         {
-            MetroPatternTest t("metro.pattern", L5(10, 20, 30, 40, 10));
-            REQUIRE_PROPERTY_LIST(t, @pattern, L5(10, 20, 30, 40, 10));
+            MetroPatternTest t("metro.pattern", LA(10, 20, 30, 40, 10));
+            REQUIRE_PROPERTY_LIST(t, @pattern, LA(10, 20, 30, 40, 10));
             REQUIRE_PROPERTY(t, @current, 0.f);
         }
     }
@@ -57,22 +57,22 @@ TEST_CASE("metro.pattern", "[externals]")
     SECTION("pattern")
     {
         MetroPatternTest t("metro.pattern");
-        REQUIRE_PROPERTY_LIST(t, @pattern, AtomList());
-        t.setProperty("@pattern", L2("A", "B"));
-        REQUIRE_PROPERTY_LIST(t, @pattern, AtomList());
-        t.setProperty("@pattern", L2(-10, 10));
-        REQUIRE_PROPERTY_LIST(t, @pattern, AtomList());
-        t.setProperty("@pattern", L2(10, 20));
-        REQUIRE_PROPERTY_LIST(t, @pattern, L2(10, 20));
-        t.setProperty("@pattern", AtomList());
-        REQUIRE_PROPERTY_LIST(t, @pattern, L2(10, 20));
-        t.setProperty("@current", L1(1));
-        t.setProperty("@pattern", L3(10, 20, 30));
-        REQUIRE_PROPERTY_LIST(t, @pattern, L3(10, 20, 30));
+        REQUIRE_PROPERTY_LIST(t, @pattern, L());
+        t.setProperty("@pattern", LA("A", "B"));
+        REQUIRE_PROPERTY_LIST(t, @pattern, L());
+        t.setProperty("@pattern", LA(-10, 10));
+        REQUIRE_PROPERTY_LIST(t, @pattern, L());
+        t.setProperty("@pattern", LF(10, 20));
+        REQUIRE_PROPERTY_LIST(t, @pattern, LF(10, 20));
+        t.setProperty("@pattern", L());
+        REQUIRE_PROPERTY_LIST(t, @pattern, LF(10, 20));
+        t.setProperty("@current", LF(1));
+        t.setProperty("@pattern", LF(10, 20, 30));
+        REQUIRE_PROPERTY_LIST(t, @pattern, LF(10, 20, 30));
         REQUIRE_PROPERTY(t, @current, 1);
 
-        t.setProperty("@pattern", L1(100));
-        REQUIRE_PROPERTY_LIST(t, @pattern, L1(100));
+        t.setProperty("@pattern", LF(100));
+        REQUIRE_PROPERTY_LIST(t, @pattern, LF(100));
         REQUIRE_PROPERTY(t, @current, 0.f);
     }
 
@@ -81,17 +81,17 @@ TEST_CASE("metro.pattern", "[externals]")
         MetroPatternTest t("metro.pattern");
         REQUIRE(t.currentDelay() == 0.f);
 
-        t.setProperty("@pattern", L3(10, 20, 30));
+        t.setProperty("@pattern", LF(10, 20, 30));
         REQUIRE(t.currentDelay() == 10);
-        t.setProperty("@current", L1(1));
+        t.setProperty("@current", LF(1));
         REQUIRE(t.currentDelay() == 20);
-        t.setProperty("@current", L1(2));
+        t.setProperty("@current", LF(2));
         REQUIRE(t.currentDelay() == 30);
-        t.setProperty("@current", L1(3));
+        t.setProperty("@current", LF(3));
         REQUIRE(t.currentDelay() == 10);
-        t.setProperty("@current", L1(4));
+        t.setProperty("@current", LF(4));
         REQUIRE(t.currentDelay() == 10);
-        t.setProperty("@current", L1(100));
+        t.setProperty("@current", LF(100));
         REQUIRE(t.currentDelay() == 10);
     }
 
@@ -104,7 +104,7 @@ TEST_CASE("metro.pattern", "[externals]")
         REQUIRE(t.currentDelay() == 0);
 
         // one-element pattern
-        t.setProperty("@pattern", L1(10));
+        t.setProperty("@pattern", LF(10));
         REQUIRE(t.next());
         REQUIRE_PROPERTY(t, @current, 0.f);
         REQUIRE(t.currentDelay() == 10);
@@ -113,7 +113,7 @@ TEST_CASE("metro.pattern", "[externals]")
         REQUIRE(t.currentDelay() == 10);
 
         // two-element pattern
-        t.setProperty("@pattern", L2(10, 20));
+        t.setProperty("@pattern", LF(10, 20));
         REQUIRE(t.next());
         REQUIRE_PROPERTY(t, @current, 1.f);
         REQUIRE(t.currentDelay() == 20);
@@ -125,8 +125,8 @@ TEST_CASE("metro.pattern", "[externals]")
         REQUIRE(t.currentDelay() == 20);
 
         // 8-element pattern
-        t.setProperty("@pattern", L4(10, 20, 30, 40));
-        t.setProperty("@current", L1(0.f));
+        t.setProperty("@pattern", LF(10, 20, 30, 40));
+        t.setProperty("@current", LF(0.f));
         REQUIRE_PROPERTY(t, @current, 0.f);
         REQUIRE(t.next());
         REQUIRE_PROPERTY(t, @current, 1.f);
@@ -141,7 +141,7 @@ TEST_CASE("metro.pattern", "[externals]")
 
     SECTION("tick")
     {
-        MetroPatternTest t("metro.pattern", L3(100, 200, 300));
+        MetroPatternTest t("metro.pattern", LF(100, 200, 300));
 
         REQUIRE(t.currentDelay() == 100);
         t.tick();
@@ -168,7 +168,7 @@ TEST_CASE("metro.pattern", "[externals]")
 
     SECTION("onFloat")
     {
-        MetroPatternTest t("metro.pattern", L3(100, 200, 300));
+        MetroPatternTest t("metro.pattern", LF(100, 200, 300));
 
         REQUIRE(t.currentDelay() == 100);
         WHEN_SEND_FLOAT_TO(0, t, 1);

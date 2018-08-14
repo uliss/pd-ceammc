@@ -12,12 +12,12 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../list/list_choice.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "catch.hpp"
 
 #include <stdio.h>
 
-typedef TestExtension<ListChoice> ListChoiceTest;
+typedef TestExternal<ListChoice> ListChoiceTest;
 
 TEST_CASE("list.choice", "[externals]")
 {
@@ -37,10 +37,10 @@ TEST_CASE("list.choice", "[externals]")
 
         SECTION("@norepeat")
         {
-            ListChoiceTest t("list.choice", L2("@norepeat", 1));
+            ListChoiceTest t("list.choice", LA("@norepeat", 1));
             REQUIRE_PROPERTY(t, @norepeat, 1);
 
-            ListChoiceTest t1("list.choice", L2("@norepeat", 0.f));
+            ListChoiceTest t1("list.choice", LA("@norepeat", 0.f));
             REQUIRE_PROPERTY(t1, @norepeat, 0.f);
         }
     }
@@ -50,20 +50,20 @@ TEST_CASE("list.choice", "[externals]")
         ListChoiceTest t("list.choice");
 
         // empty list
-        WHEN_SEND_LIST_TO(0, t, AtomList());
+        WHEN_SEND_LIST_TO(0, t, L());
         REQUIRE_NO_MSG(t);
 
         // single value
         int N = 10;
         while (N-- > 0) {
-            WHEN_SEND_LIST_TO(0, t, L1(11));
+            WHEN_SEND_LIST_TO(0, t, LF(11));
             REQUIRE_FLOAT_AT_OUTLET(0, t, 11);
         }
 
         // multiple values
         N = 10;
         while (N-- > 0) {
-            WHEN_SEND_LIST_TO(0, t, L4(1, 2, 3, 4));
+            WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3, 4));
             REQUIRE(t.hasNewMessages(0));
             float v = t.lastMessage(0).atomValue().asFloat();
             bool ok = (v == 1 || v == 2 || v == 3 || v == 4);
@@ -73,40 +73,40 @@ TEST_CASE("list.choice", "[externals]")
 
     SECTION("no-repeat")
     {
-        ListChoiceTest t("list.choice", L2("@norepeat", 1));
+        ListChoiceTest t("list.choice", LA("@norepeat", 1));
 
         // empty list
-        WHEN_SEND_LIST_TO(0, t, AtomList());
+        WHEN_SEND_LIST_TO(0, t, L());
         REQUIRE_NO_MSG(t);
 
         // single value
         // first time is ok
-        WHEN_SEND_LIST_TO(0, t, L1(11));
+        WHEN_SEND_LIST_TO(0, t, LF(11));
         REQUIRE_FLOAT_AT_OUTLET(0, t, 11);
 
         // second is not output
-        WHEN_SEND_LIST_TO(0, t, L1(11));
+        WHEN_SEND_LIST_TO(0, t, LF(11));
         REQUIRE_NO_MSG(t);
 
         // two values
-        WHEN_SEND_LIST_TO(0, t, L2(10, 20));
+        WHEN_SEND_LIST_TO(0, t, LF(10, 20));
         REQUIRE_FLOAT_AT_OUTLET(0, t, 20);
-        WHEN_SEND_LIST_TO(0, t, L2(10, 20));
+        WHEN_SEND_LIST_TO(0, t, LF(10, 20));
         REQUIRE_FLOAT_AT_OUTLET(0, t, 10);
-        WHEN_SEND_LIST_TO(0, t, L2(10, 20));
+        WHEN_SEND_LIST_TO(0, t, LF(10, 20));
         REQUIRE_FLOAT_AT_OUTLET(0, t, 20);
-        WHEN_SEND_LIST_TO(0, t, L2(10, 20));
+        WHEN_SEND_LIST_TO(0, t, LF(10, 20));
         REQUIRE_FLOAT_AT_OUTLET(0, t, 10);
-        WHEN_SEND_LIST_TO(0, t, L2(10, 10));
+        WHEN_SEND_LIST_TO(0, t, LF(10, 10));
         REQUIRE_FLOAT_AT_OUTLET(0, t, 10);
-        WHEN_SEND_LIST_TO(0, t, L2(10, 10));
+        WHEN_SEND_LIST_TO(0, t, LF(10, 10));
         REQUIRE_FLOAT_AT_OUTLET(0, t, 10);
 
         // several values
         int n = 1000;
         float prev = 0;
         while (n-- > 0) {
-            WHEN_SEND_LIST_TO(0, t, L7(10, 20, 30, 40, 50, 60, 70));
+            WHEN_SEND_LIST_TO(0, t, LF(10, 20, 30, 40, 50, 60, 70));
             REQUIRE(t.hasNewMessages(0));
             float v = t.lastMessage(0).atomValue().asFloat();
             REQUIRE(v != Approx(prev));

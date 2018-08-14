@@ -1,4 +1,4 @@
-set(CEAMMC_LIB_VERSION "0.5")
+set(CEAMMC_LIB_VERSION "0.6")
 set(CEAMMC_LIB_HOME "https://github.com/uliss/pure-data")
 
 # we need 1.50.0 for boost random uniform distribution
@@ -12,7 +12,8 @@ find_program(PD_DOC2PD pd_doc2pd)
 find_program(PD_MAKELIB pd_makelibrary)
 find_program(PD_LIB2PD pd_lib2pd)
 find_program(PD_CAT2PD pd_cat2pd)
-find_program(TIDY tidy)
+
+set(CEAMMC_INSTALL_PATH ${PD_INTERNAL_EXT_INSTALL_PATH}/ceammc)
 
 add_subdirectory(extra)
 add_subdirectory(gui)

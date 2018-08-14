@@ -11,7 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "ceammc_canvas.h"
 #include "ceammc_pd.h"
 
@@ -63,15 +63,15 @@ TEST_CASE("Canvas", "[ceammc::Canvas]")
 
         SECTION("paths")
         {
-            REQUIRE(canvas_info_paths(0) == AtomList());
+            REQUIRE(canvas_info_paths(0) == L());
 
             CanvasPtr cnv = PureData::instance().createTopCanvas("patch");
-            REQUIRE(canvas_info_paths(cnv->pd_canvas()) == AtomList());
+            REQUIRE(canvas_info_paths(cnv->pd_canvas()) == L());
 
-            pd::External declare("declare", L2("-path", "dir2"));
+            pd::External declare("declare", LA("-path", "dir2"));
             REQUIRE(!declare.isNull());
 
-            REQUIRE(canvas_info_paths(cnv->pd_canvas()) == AtomList());
+            REQUIRE(canvas_info_paths(cnv->pd_canvas()) == L());
         }
 
         SECTION("is root")
@@ -107,10 +107,10 @@ TEST_CASE("Canvas", "[ceammc::Canvas]")
 
         SECTION("args")
         {
-            REQUIRE(canvas_info_args(0) == AtomList());
+            REQUIRE(canvas_info_args(0) == L());
 
             CanvasPtr cnv = PureData::instance().createTopCanvas("patch");
-            REQUIRE(canvas_info_args(cnv->pd_canvas()) == AtomList());
+            REQUIRE(canvas_info_args(cnv->pd_canvas()) == L());
         }
     }
 }

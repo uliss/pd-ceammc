@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../string/datatype_string.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 
 #include "catch.hpp"
 
@@ -295,5 +295,20 @@ TEST_CASE("DataString", "[external]")
             REQUIRE(DataTypeString("АБВ").contains("БВ"));
             REQUIRE(DataTypeString("АБВ").contains(""));
         }
+    }
+
+    SECTION("isEqual")
+    {
+        DataTypeString s0("ABC");
+        DataTypeString s1("TEST");
+        DataTypeString s2("ABC");
+        REQUIRE(s0 == s0);
+        REQUIRE(s0.isEqual(&s0));
+        REQUIRE(s0 != s1);
+        REQUIRE(!s0.isEqual(&s1));
+        REQUIRE(s0 == s2);
+        REQUIRE(s0.isEqual(&s2));
+        REQUIRE(s0 != s1);
+        REQUIRE(!s0.isEqual(new IntData(123)));
     }
 }

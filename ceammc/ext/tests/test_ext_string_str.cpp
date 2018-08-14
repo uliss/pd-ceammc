@@ -12,14 +12,14 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../string/string_str.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "ceammc_pd.h"
 
 #include "catch.hpp"
 
 using namespace ceammc;
 
-typedef TestExtension<StringStr> StringStrTest;
+typedef TestExternal<StringStr> StringStrTest;
 
 #define REQUIRE_STRING_OUTPUT(t, str_)                                  \
     {                                                                   \
@@ -53,14 +53,14 @@ TEST_CASE("string.str", "[external]")
 
         SECTION("float arg")
         {
-            StringStrTest t("string.str", L1(111));
+            StringStrTest t("string.str", LF(111));
             WHEN_SEND_BANG_TO(0, t);
             REQUIRE_STRING_OUTPUT(t, "111");
         }
 
         SECTION("list args")
         {
-            StringStrTest t("string.str", L3(1, 2, "?"));
+            StringStrTest t("string.str", LA(1, 2, "?"));
             WHEN_SEND_BANG_TO(0, t);
             REQUIRE_STRING_OUTPUT(t, "1 2 ?");
         }
@@ -98,22 +98,22 @@ TEST_CASE("string.str", "[external]")
     {
         StringStrTest t("string.str");
 
-        WHEN_SEND_LIST_TO(0, t, L3(1, 2, 3));
+        WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3));
         REQUIRE_STRING_OUTPUT(t, "1 2 3");
 
         DataPtr p(new DataTypeString("a b c"));
         Atom a = p.asAtom();
 
-        WHEN_SEND_LIST_TO(0, t, L3(1, a, 3));
+        WHEN_SEND_LIST_TO(0, t, LA(1, a, 3));
         REQUIRE_STRING_OUTPUT(t, "1 a b c 3");
 
-        WHEN_SEND_LIST_TO(0, t, L3(1, Atom(DataDesc(100, 200)), 3));
+        WHEN_SEND_LIST_TO(0, t, LA(1, Atom(DataDesc(100, 200)), 3));
         REQUIRE_STRING_OUTPUT(t, "1 ??? 3");
     }
 
     SECTION("clear")
     {
-        StringStrTest t("string.str", L2("a", "b"));
+        StringStrTest t("string.str", LA("a", "b"));
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_STRING_OUTPUT(t, "a b");
 
@@ -128,31 +128,31 @@ TEST_CASE("string.str", "[external]")
 
     SECTION("set")
     {
-        StringStrTest t("string.str", L2("a", "b"));
+        StringStrTest t("string.str", LA("a", "b"));
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_STRING_OUTPUT(t, "a b");
 
-        WHEN_CALL_1(t, set, "a");
+        WHEN_CALL_N(t, set, "a");
         NO_DATA(t);
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_STRING_OUTPUT(t, "a");
 
-        WHEN_CALL_2(t, set, "a", "b");
+        WHEN_CALL_N(t, set, "a", "b");
         NO_DATA(t);
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_STRING_OUTPUT(t, "a b");
 
-        WHEN_CALL_3(t, set, "a", "b", Atom(DataDesc(100, 200)));
+        WHEN_CALL_N(t, set, "a", "b", Atom(DataDesc(100, 200)));
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_STRING_OUTPUT(t, "a b ???");
 
         DataPtr p(new DataTypeString("STRING"));
 
-        WHEN_CALL_3(t, set, "a", "b", p.asAtom());
+        WHEN_CALL_N(t, set, "a", "b", p.asAtom());
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_STRING_OUTPUT(t, "a b STRING");
 
-        WHEN_CALL_4(t, set, "a", "b", p.asAtom(), p.asAtom());
+        WHEN_CALL_N(t, set, "a", "b", p.asAtom(), p.asAtom());
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_STRING_OUTPUT(t, "a b STRING STRING");
     }
@@ -169,24 +169,24 @@ TEST_CASE("string.str", "[external]")
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_STRING_OUTPUT(t, "");
 
-        WHEN_CALL_1(t, append, 1000);
+        WHEN_CALL_N(t, append, 1000);
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_STRING_OUTPUT(t, "1000");
 
-        WHEN_CALL_1(t, append, 2000);
+        WHEN_CALL_N(t, append, 2000);
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_STRING_OUTPUT(t, "10002000");
 
-        WHEN_CALL_2(t, append, "a", "b");
+        WHEN_CALL_N(t, append, "a", "b");
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_STRING_OUTPUT(t, "10002000a b");
 
-        WHEN_CALL_1(t, append, Atom(DataDesc(100, 200)));
+        WHEN_CALL_N(t, append, Atom(DataDesc(100, 200)));
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_STRING_OUTPUT(t, "10002000a b???");
 
         DataPtr p(new DataTypeString("STRING"));
-        WHEN_CALL_1(t, append, p.asAtom());
+        WHEN_CALL_N(t, append, p.asAtom());
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_STRING_OUTPUT(t, "10002000a b???STRING");
     }

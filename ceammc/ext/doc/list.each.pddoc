@@ -33,13 +33,14 @@
         <inlets>
             <inlet>
                 <xinfo on="list">Input list</xinfo>
+                <xinfo on="data:mlist">Input mlist</xinfo>
             </inlet>
             <inlet>
                 <xinfo>New modified value from applied object.</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>New modified list</outlet>
+            <outlet>New modified list (or mlist)</outlet>
             <outlet>single element or list of values (if @step property &gt; 1)</outlet>
         </outlets>
         <example>

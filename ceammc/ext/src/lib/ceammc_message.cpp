@@ -20,24 +20,28 @@ namespace ceammc {
 Message::Message()
     : type_(NONE)
     , value_(Atom(0.f))
+    , data_(Atom())
 {
 }
 
 Message::Message(t_float v)
     : type_(FLOAT)
     , value_(v)
+    , data_(Atom())
 {
 }
 
 Message::Message(t_symbol* s)
     : type_(SYMBOL)
     , value_(s)
+    , data_(Atom())
 {
 }
 
 Message::Message(const Atom& a)
     : type_(NONE)
     , value_(a)
+    , data_(a)
 {
     if (value_.isFloat())
         type_ = FLOAT;
@@ -50,20 +54,27 @@ Message::Message(const Atom& a)
 Message::Message(const AtomList& l)
     : type_(LIST)
     , value_(Atom(0.f))
+    , data_(Atom())
     , v_list_(l)
 {
+    if (l.size() == 1 && l[0].isData())
+        setAtom(l[0]);
 }
 
 Message::Message(int argc, t_atom* argv)
     : type_(LIST)
     , value_(Atom(0.f))
+    , data_(Atom())
     , v_list_(argc, argv)
 {
+    if (argc == 1 && Atom(*argv).isData())
+        setAtom(*argv);
 }
 
 Message::Message(t_symbol* s, const AtomList& l)
     : type_(ANY)
     , value_(s)
+    , data_(Atom())
     , v_list_(l)
 {
 }
@@ -71,19 +82,65 @@ Message::Message(t_symbol* s, const AtomList& l)
 Message::Message(t_symbol* s, int argc, t_atom* argv)
     : type_(ANY)
     , value_(s)
+    , data_(Atom())
     , v_list_(argc, argv)
 {
 }
 
+Message::Message(const Message& m)
+    : type_(m.type_)
+    , value_(m.value_)
+    , data_(m.data_)
+    , v_list_(m.v_list_)
+{
+}
+
+Message::Message(Message&& m)
+    : type_(m.type_)
+    , value_(m.value_)
+    , data_(std::move(m.data_))
+    , v_list_(std::move(m.v_list_))
+{
+}
+
+Message& Message::operator=(const Message& m)
+{
+    if (this == &m)
+        return *this;
+
+    type_ = m.type_;
+    value_ = m.value_;
+    data_ = m.data_;
+    v_list_ = m.v_list_;
+
+    return *this;
+}
+
+Message& Message::operator=(Message&& m)
+{
+    if (this == &m)
+        return *this;
+
+    type_ = m.type_;
+    value_ = m.value_;
+    data_ = std::move(m.data_);
+    v_list_ = std::move(m.v_list_);
+
+    return *this;
+}
+
 void Message::setAtom(const Atom& a)
 {
-    value_ = a;
-    if (a.isFloat())
+    if (a.isFloat()) {
         type_ = FLOAT;
-    if (a.isSymbol())
+        value_ = a;
+    } else if (a.isSymbol()) {
         type_ = SYMBOL;
-    if (a.isData())
+        value_ = a;
+    } else if (a.isData()) {
         type_ = DATA;
+        data_ = DataPtr(a);
+    }
 }
 
 void Message::setFloat(t_float v)
@@ -100,8 +157,12 @@ void Message::setSymbol(t_symbol* s)
 
 void Message::setList(const AtomList& l)
 {
-    type_ = LIST;
-    v_list_ = l;
+    if (l.size() == 1 && l[0].isData()) {
+        setAtom(l[0]);
+    } else {
+        type_ = LIST;
+        v_list_ = l;
+    }
 }
 
 void Message::setList(int argc, t_atom* argv)
@@ -137,6 +198,8 @@ bool Message::isEqual(const Message& v) const
         return v_list_ == v.v_list_;
     case ANY:
         return value_ == v.value_ && v_list_ == v.v_list_;
+    case DATA:
+        return data_.isValid() && data_->isEqual(v.dataValue().data());
     default:
         return false;
     }
@@ -163,6 +226,9 @@ void Message::output(t_outlet* x) const
             static_cast<int>(v_list_.size()),
             v_list_.toPdData());
         break;
+    case DATA:
+        to_outlet(x, data_.asAtom());
+        break;
     case NONE:
         break;
     }
@@ -172,6 +238,11 @@ bool Message::isBang() const
 {
     // NB: this is only for testing purposes now
     return (type_ == SYMBOL && value_.asSymbol() == &s_bang);
+}
+
+const DataPtr& Message::dataValue() const
+{
+    return data_;
 }
 
 bool operator==(const Message& c1, const Message& c2)

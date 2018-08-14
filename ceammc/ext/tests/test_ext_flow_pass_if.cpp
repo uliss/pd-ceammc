@@ -12,14 +12,14 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../flow/flow_pass_if.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "catch.hpp"
 #include "ceammc_pd.h"
 #include "test_external.h"
 
 #include <stdio.h>
 
-typedef TestExtension<FlowPassIf> FlowPassIfTest;
+typedef TestExternal<FlowPassIf> FlowPassIfTest;
 
 static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
 
@@ -63,8 +63,8 @@ TEST_CASE("flow.pass_if", "[externals]")
     {
         FlowPassIfTest t("flow.pass_if");
 
-        WHEN_SEND_LIST_TO(0, t, L2("a", "b"));
-        REQUIRE_LIST_AT_OUTLET(1, t, L2("a", "b"));
+        WHEN_SEND_LIST_TO(0, t, LA("a", "b"));
+        REQUIRE_LIST_AT_OUTLET(1, t, LA("a", "b"));
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
     }
 
@@ -72,8 +72,8 @@ TEST_CASE("flow.pass_if", "[externals]")
     {
         FlowPassIfTest t("flow.pass_if");
 
-        WHEN_SEND_ANY_TO(t, "a", L2(1, 2));
-        REQUIRE_ANY_AT_OUTLET(1, t, L3("a", 1, 2));
+        WHEN_SEND_ANY_TO(t, "a", LF(1, 2));
+        REQUIRE_ANY_AT_OUTLET(1, t, LA("a", 1, 2));
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
     }
 
@@ -85,7 +85,7 @@ TEST_CASE("flow.pass_if", "[externals]")
         pd::External flow_pass_if("flow.pass_if");
         REQUIRE_FALSE(flow_pass_if.isNull());
 
-        pd::External x1(">", L1(10));
+        pd::External x1(">", LF(10));
         REQUIRE_FALSE(x1.isNull());
         flow_pass_if.connectTo(1, x1.object(), 0);
         x1.connectTo(0, flow_pass_if.object(), 1);

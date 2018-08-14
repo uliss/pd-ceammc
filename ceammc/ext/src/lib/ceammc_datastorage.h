@@ -16,16 +16,21 @@
 
 #include "ceammc_abstractdata.h"
 
-#include <boost/unordered_map.hpp>
+#include <unordered_map>
 
 namespace ceammc {
+
+struct DataStorageHasher {
+    size_t operator()(const DataDesc& d) const;
+};
+
 class DataStorage {
     struct Entry {
         int ref_count;
         const AbstractData* data;
     };
 
-    typedef boost::unordered_map<DataDesc, Entry> DataMap;
+    typedef std::unordered_map<DataDesc, Entry, DataStorageHasher> DataMap;
 
     DataMap map_;
 
@@ -45,7 +50,6 @@ public:
     DataId generateId(const AbstractData* data);
 };
 
-size_t hash_value(const DataDesc& d);
 }
 
 #endif // CEAMMC_XDATASTORAGE_H

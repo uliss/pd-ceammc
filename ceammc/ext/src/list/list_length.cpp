@@ -1,33 +1,42 @@
-#include <m_pd.h>
+#include "list_length.h"
+#include "../data/datatype_mlist.h"
+#include "ceammc_factory.h"
 
-#include "ceammc.h"
-
-static t_class* length_class;
-typedef struct length {
-    t_object x_obj;
-} t_length;
-
-static void length_list(t_length* x, t_symbol*, int argc, t_atom*)
+ListLength::ListLength(const PdArgs& args)
+    : BaseObject(args)
 {
-    outlet_float(x->x_obj.te_outlet, argc);
+    createOutlet();
 }
 
-static void length_any(t_length* x, t_symbol*, int argc, t_atom*)
+void ListLength::onList(const AtomList& lst)
 {
-    outlet_float(x->x_obj.te_outlet, argc + 1);
+    floatTo(0, lst.size());
 }
 
-static void* length_new()
+void ListLength::onDataT(const DataTypeMList& lst)
 {
-    t_length* x = reinterpret_cast<t_length*>(pd_new(length_class));
-    outlet_new(&x->x_obj, &s_float);
-    return reinterpret_cast<void*>(x);
+    floatTo(0, lst.size());
 }
 
-extern "C" void setup_list0x2elength()
+static void list_size_fn(PdObject<ListLength>* x, t_symbol*, int argc, t_atom* argv)
 {
-    length_class = class_new(CEAMMC_LIST_GENSYM(length),
-        reinterpret_cast<t_newmethod>(length_new), 0, sizeof(t_length), 0, A_NULL);
-    class_addlist(length_class, length_list);
-    class_addanything(length_class, length_any);
+    if (argc == 1 && Atom(*argv).isData()) {
+        Atom data(*argv);
+        DataTPtr<DataTypeMList> ptr(data);
+        if (ptr.isValid()) {
+            x->impl->onDataT(*ptr.data());
+        } else {
+            DataDesc d = data.getData();
+            LIB_ERR << "can't get data with type=" << d.type << " and id=" << d.id;
+        }
+    } else {
+        x->impl->floatTo(0, argc);
+    }
+}
+
+void setup_list_length()
+{
+    ObjectFactory<ListLength> obj("list.length");
+    obj.addAlias("list.size");
+    obj.setListFn(list_size_fn);
 }

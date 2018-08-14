@@ -1,34 +1,34 @@
-#include "ceammc.hpp"
-#include <m_pd.h>
+#include "list_sort.h"
+#include "../data/datatype_mlist.h"
+#include "ceammc_factory.h"
+
 #include <algorithm>
 
-t_class* list_sort_class;
-struct t_list_sort {
-    t_object x_obj;
-};
-
-static void list_sort_list(t_list_sort* x, t_symbol* s, int argc, t_atom* argv)
+ListSort::ListSort(const PdArgs& args)
+    : BaseObject(args)
 {
-    if (argc < 1)
-        return;
-
-    ceammc::pd::atom_list lst(argv, argv + argc);
-    std::sort(lst.begin(), lst.end(), ceammc::pd::atoms_compare_lt);
-    ceammc::pd::output(x->x_obj.te_outlet, lst);
+    createOutlet();
 }
 
-static void* list_sort_new()
+void ListSort::onList(const AtomList& lst)
 {
-    t_list_sort* x = reinterpret_cast<t_list_sort*>(pd_new(list_sort_class));
-    outlet_new(&x->x_obj, &s_float);
-    return static_cast<void*>(x);
+    // sort only floats and symbols
+    auto pred = [](const Atom& a) { return a.isSymbol() || a.isFloat(); };
+
+    AtomList res(lst.filter(pred));
+    std::sort(res.begin(), res.end());
+    listTo(0, res);
 }
 
-extern "C" void setup_list0x2esort()
+void ListSort::onDataT(const DataTypeMList& lst)
 {
-    list_sort_class = class_new(gensym("list.sort"),
-        static_cast<t_newmethod>(list_sort_new),
-        static_cast<t_method>(0),
-        sizeof(t_list_sort), 0, A_NULL);
-    class_addlist(list_sort_class, list_sort_list);
+    DataTypeMList* res = new DataTypeMList(lst);
+    res->sort();
+    dataTo(0, DataPtr(res));
+}
+
+void setup_list_sort()
+{
+    ObjectFactory<ListSort> obj("list.sort");
+    obj.processData<DataTypeMList>();
 }

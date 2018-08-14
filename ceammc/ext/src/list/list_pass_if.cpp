@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_pass_if.h"
+#include "../data/datatype_mlist.h"
 #include "ceammc_factory.h"
 
 ListPassIf::ListPassIf(const PdArgs& a)
@@ -47,7 +48,27 @@ void ListPassIf::onInlet(size_t n, const AtomList& l)
     pass_flag_ = (!l.empty() && l[0].asInt(0) != 0);
 }
 
-extern "C" void setup_list0x2epass_if()
+void ListPassIf::onDataT(const DataTypeMList& lst)
 {
-    ObjectFactory<ListPassIf>("list.pass_if");
+    DataTypeMList res;
+
+    for (size_t i = 0; i < lst.size(); i++) {
+        pass_flag_ = false;
+
+        atomTo(1, lst.at(i).toAtom());
+
+        if (pass_flag_)
+            res.append(lst.at(i));
+    }
+
+    dataTo(0, DataPtr(res.clone()));
+}
+
+void setup_list_pass_if()
+{
+    ObjectFactory<ListPassIf> obj("list.pass_if");
+    obj.addAlias("list.filter");
+    obj.mapFloatToList();
+
+    obj.processData<DataTypeMList>();
 }

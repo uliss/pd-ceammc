@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/uliss/pure-data.svg?branch=ceammc)](https://travis-ci.org/uliss/pure-data)
 [![Coverage Status](https://coveralls.io/repos/github/uliss/pure-data/badge.svg?branch=ceammc)](https://coveralls.io/github/uliss/pure-data?branch=ceammc)
 
-CEAMMC Puredata distribution 2018.03
+CEAMMC Puredata distribution 2018.10
 ------------------------------------
 
 General purpose Pd distribution and library used for work and education purposes in Centre of electoacoustic music of Moscow Conservatory (CEAMMC) and ZIL-electro studio.
@@ -14,51 +14,14 @@ Key concepts
    - All the externals are grouped by their function. This is different from the traditional approach but this aims to simplify the learning process and makes the language itself more clear.
    - Higher level set of objects for education and handy use in work process: oscillators, filters etc.
    - Library adds several features to basic Pd API. It is written in C++ and covered with tests.
-   - Inclusion of some modern techniques. Library v0.5 includes comprehensive set of objects that work with lists and include some concepts from functional programming.
+   - Inclusion of some modern techniques. Library v0.6 includes comprehensive set of objects that work with lists and include some concepts from functional programming.
 
 ChangeLog:
 ----------
 
+see ceammc/CHANGELOG.md for more details
 [ceammc/CHANGELOG.md](ceammc/CHANGELOG.md)
 
-
-Features: v0.3
---------------
-
- * Core objects:
-   - list.* objects: 32 objects that cover different techniques to work with lists
-   - list.apply_to, list.reduce objects introduce basic functional approach to list processing.
-   - math.* : 28 objects covering math functions with 1 argument
-   - vector.* : basic vector operations
-   - basic JSON handling
-   - system.* object for various system features
-   - flow control: pass, reject objects; predicates objects
-   - random number generators
-   - property concept: non-UI objects may have properties that can be accessed after object creation. This includes special message and prop.get object for handling
-   - custom data types:
-   - 'String' data type. string.\* objects for common string manipulation functionality
-   - 'Set' data type. data.set, set.\* objects to work with sets - unordered lists. conversion to list.
-   - function.call and [function] objects - working with named functions in Pd
-   - array.do, array.each - apply the function to each element of an array
- * Audio objects:
-   - dynamics: compressor, limiter, soft clip
-   - envelope generators (ar, adsr) and follower
-   - filters: eq peak and shelf filters, dc block, lp/hp/bp in 2- and 4-pole versions
-   - filter coefficient calculations and biquad filter object with audio-rate control
-   - oscillators and LFO with different waveforms. including sine oscillator with feedback
-   - some basic effects - pitch/frequency shift, flanger, distortion
-   - snd.file - object for importing sound files
- * GUI objects:
-   - 8 new objects: knob, multiple slider box, 2d slider, keyboard, message display, scope and oscilloscope
-   - breakpoint function object, working with envelope objects
-   - Basic timeline objects: graphical cues in a patch
- * Extensions:
-   - New objects toolbar (also works as edit mode indicator)
-   - Saving subpatch as new patch
-   - Multiple undo (beta)
-   - Grid / Align to grid (beta)
-
-see ceammc/CHANGELOG.md for more details
 
 this work is based on / includes:
 ---------------------------------

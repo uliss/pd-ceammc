@@ -122,6 +122,11 @@ bool DataTypeString::operator==(const DataTypeString& s) const
     return str_ == s.str_;
 }
 
+bool DataTypeString::operator!=(const DataTypeString& s) const
+{
+    return str_ != s.str_;
+}
+
 DataTypeString DataTypeString::removeAll(const std::string& s) const
 {
     return DataTypeString(boost::algorithm::erase_all_copy(str_, s));
@@ -185,6 +190,18 @@ DataTypeString DataTypeString::toUpper() const
 DataTypeString DataTypeString::substr(int from, size_t len) const
 {
     return ceammc::string::utf8_substr(str_.c_str(), from, len);
+}
+
+bool DataTypeString::isEqual(const AbstractData* d) const
+{
+    if (type() != d->type())
+        return false;
+
+    if (this == d)
+        return true;
+
+    const DataTypeString* cmp = static_cast<const DataTypeString*>(d);
+    return this->operator==(*cmp);
 }
 
 void DataTypeString::splitEveryChar(std::vector<std::string>& res) const

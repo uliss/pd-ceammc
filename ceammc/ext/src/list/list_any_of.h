@@ -18,6 +18,8 @@
 
 using namespace ceammc;
 
+class DataTypeMList;
+
 class ListAnyOf : public BaseObject {
     mutable bool any_;
 
@@ -25,6 +27,9 @@ public:
     ListAnyOf(const PdArgs& a);
     void onList(const AtomList& l);
     void onInlet(size_t n, const AtomList& l);
+    void onDataT(const DataTypeMList& lst);
 };
+
+void setup_list_any_of();
 
 #endif // LIST_ANY_OF_H

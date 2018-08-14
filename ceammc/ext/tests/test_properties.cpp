@@ -15,12 +15,12 @@
 #include "catch.hpp"
 #include "ceammc_property.h"
 
-#include "base_extension_test.h"
+#include "test_base.h"
 
 using namespace ceammc;
 
 struct prop_ro {
-    AtomList get() const { return AtomList::values(1, 100.f); }
+    AtomList get() const { return LF(100.f); }
 };
 
 struct prop_rw {
@@ -61,7 +61,7 @@ TEST_CASE("Properties", "[ceammc::properties]")
         p.setValue(3.f);
         REQUIRE(p.value() == 3.f);
 
-        REQUIRE_FALSE(p.set(AtomList()));
+        REQUIRE_FALSE(p.set(L()));
         REQUIRE(p.set(AtomList::ones(2)));
 
         AtomList al;
@@ -86,7 +86,7 @@ TEST_CASE("Properties", "[ceammc::properties]")
         REQUIRE(v[0].isFloat());
         REQUIRE(v[0].asFloat(0.0f) == 120.f);
 
-        REQUIRE_FALSE(p.set(AtomList()));
+        REQUIRE_FALSE(p.set(L()));
         REQUIRE(p.set(AtomList::ones(2)));
 
         AtomList al;
@@ -100,19 +100,19 @@ TEST_CASE("Properties", "[ceammc::properties]")
 
     SECTION("list property")
     {
-        ListProperty p("test", AtomList::values(3, -1.f, -2.f, -3.f), false);
+        ListProperty p("test", LF(-1.f, -2.f, -3.f), false);
         REQUIRE(!p.readonly());
         REQUIRE(p.name() == "test");
-        REQUIRE(p.get() == AtomList::values(3, -1.f, -2.f, -3.f));
-        REQUIRE(p.set(AtomList()));
-        REQUIRE(p.get() == AtomList());
+        REQUIRE(p.get() == LF(-1.f, -2.f, -3.f));
+        REQUIRE(p.set(L()));
+        REQUIRE(p.get() == L());
 
-        ListProperty p2("test2", AtomList::values(3, -1.f, -2.f, -3.f), true);
+        ListProperty p2("test2", LF(-1.f, -2.f, -3.f), true);
         REQUIRE(p2.readonly());
         REQUIRE(p2.name() == "test2");
-        REQUIRE(p2.get() == AtomList::values(3, -1.f, -2.f, -3.f));
-        REQUIRE_FALSE(p2.set(AtomList()));
-        REQUIRE_FALSE(p2.get() == AtomList());
+        REQUIRE(p2.get() == LF(-1.f, -2.f, -3.f));
+        REQUIRE_FALSE(p2.set(L()));
+        REQUIRE_FALSE(p2.get() == L());
     }
 
     SECTION("atom property")
@@ -120,7 +120,7 @@ TEST_CASE("Properties", "[ceammc::properties]")
         AtomProperty p("test", Atom(1.5f));
         REQUIRE(!p.readonly());
         REQUIRE(p.name() == "test");
-        REQUIRE(p.get() == AtomList::values(1, 1.5f));
+        REQUIRE(p.get() == LF(1.5f));
         REQUIRE_FALSE(p.set(AtomList::zeroes(0)));
         REQUIRE(p.set(AtomList::zeroes(10)));
         REQUIRE(p.get() == AtomList::zeroes(1));
@@ -137,18 +137,18 @@ TEST_CASE("Properties", "[ceammc::properties]")
         CallbackProperty<prop_ro> p1("test", &r1, &prop_ro::get);
         REQUIRE(p1.name() == "test");
         REQUIRE(p1.readonly() == true);
-        REQUIRE(p1.get() == AtomList::values(1, 100.f));
-        REQUIRE_FALSE(p1.set(AtomList()));
+        REQUIRE(p1.get() == LF(100.f));
+        REQUIRE_FALSE(p1.set(L()));
 
         prop_rw r2;
         CallbackProperty<prop_rw> p2("test2", &r2, &prop_rw::get, &prop_rw::set);
         REQUIRE(p2.name() == "test2");
         REQUIRE(p2.readonly() == false);
-        REQUIRE(p2.get() == AtomList());
+        REQUIRE(p2.get() == L());
         REQUIRE(p2.set(AtomList::ones(5)));
         REQUIRE(p2.get() == AtomList::ones(5));
-        REQUIRE(p2.set(AtomList()));
-        REQUIRE(p2.get() == AtomList());
+        REQUIRE(p2.set(L()));
+        REQUIRE(p2.get() == L());
     }
 
     SECTION("atom typed cb property")
@@ -158,10 +158,10 @@ TEST_CASE("Properties", "[ceammc::properties]")
         REQUIRE(p1.name() == "@size");
         REQUIRE(p1.readonly() == true);
 
-        REQUIRE(p1.get() == AtomList::values(1, 0.f));
+        REQUIRE(p1.get() == LF(0.f));
         v1.append(1.f);
         v1.append(-1231.f);
-        REQUIRE(p1.get() == AtomList::values(1, 2.f));
+        REQUIRE(p1.get() == LF(2.f));
 
         prop_t_rw s1;
         s1.sz = 3.1415;
@@ -169,9 +169,9 @@ TEST_CASE("Properties", "[ceammc::properties]")
         REQUIRE(p2.name() == "@size1");
         REQUIRE(p2.readonly() == false);
 
-        REQUIRE(p2.get() == AtomList::values(1, 3.1415f));
-        REQUIRE(p2.set(AtomList()));
-        REQUIRE(p2.set(AtomList::values(4, 34.f)));
+        REQUIRE(p2.get() == LF(3.1415f));
+        REQUIRE(p2.set(L()));
+        REQUIRE(p2.set(LF(34.f)));
         REQUIRE(s1.sz == 34.f);
     }
 
@@ -221,7 +221,7 @@ TEST_CASE("Properties", "[ceammc::properties]")
         REQUIRE(p.value() == gensym("a"));
         REQUIRE(p.get() == listFrom(gensym("a")));
 
-        REQUIRE_FALSE(p.set(AtomList()));
+        REQUIRE_FALSE(p.set(L()));
         REQUIRE_FALSE(p.set(AtomList(gensym("c"))));
         REQUIRE(p.value() == gensym("a"));
 
@@ -247,7 +247,7 @@ TEST_CASE("Properties", "[ceammc::properties]")
         p.setValue(24);
         REQUIRE(p.value() == 24);
 
-        REQUIRE_FALSE(p.set(AtomList()));
+        REQUIRE_FALSE(p.set(L()));
         REQUIRE(p.set(AtomList::ones(2)));
         REQUIRE_FALSE(p.set(AtomList::filled(-10, 1)));
 
@@ -278,10 +278,10 @@ TEST_CASE("Properties", "[ceammc::properties]")
                 REQUIRE_FALSE(p.set(AtomList::ones(1)));
                 REQUIRE(p.value() == 3);
 
-                REQUIRE(p.set(AtomList(40)));
+                REQUIRE(p.set(LF(40)));
                 REQUIRE(p.value() == 40);
 
-                REQUIRE(p.get() == AtomList(40));
+                REQUIRE(p.get() == LF(40));
 
                 SECTION("invalid init")
                 {
@@ -414,18 +414,18 @@ TEST_CASE("Properties", "[ceammc::properties]")
     {
         int v = 10;
         PointerProperty<int> rw("test", &v, false);
-        REQUIRE(rw.get() == AtomList(10));
+        REQUIRE(rw.get() == LF(10));
         v = 20;
-        REQUIRE(rw.get() == AtomList(20));
-        REQUIRE(rw.set(AtomList(25)));
+        REQUIRE(rw.get() == LF(20));
+        REQUIRE(rw.set(LF(25)));
         REQUIRE(v == 25);
-        REQUIRE_FALSE(rw.set(AtomList()));
+        REQUIRE_FALSE(rw.set(L()));
 
         PointerProperty<int> ro("test", &v, true);
-        REQUIRE(ro.get() == AtomList(25));
+        REQUIRE(ro.get() == LF(25));
         v = 20;
-        REQUIRE(ro.get() == AtomList(20));
-        REQUIRE_FALSE(ro.set(AtomList(15)));
+        REQUIRE(ro.get() == LF(20));
+        REQUIRE_FALSE(ro.set(LF(15)));
         REQUIRE(v == 20);
     }
 
@@ -436,7 +436,7 @@ TEST_CASE("Properties", "[ceammc::properties]")
 
         fl.set(AtomList(0.f));
         REQUIRE(fl.value() == true);
-        REQUIRE(fl.get() == AtomList(1));
+        REQUIRE(fl.get() == LF(1));
     }
 
     SECTION("symbol property")
@@ -444,25 +444,25 @@ TEST_CASE("Properties", "[ceammc::properties]")
         SymbolProperty p("sym", gensym("test"));
         REQUIRE(p.value() == gensym("test"));
         REQUIRE_FALSE(p.readonly());
-        REQUIRE(p.get() == L1("test"));
+        REQUIRE(p.get() == LA("test"));
         REQUIRE(p.str() == "test");
 
         p.setValue(gensym("ABC"));
-        REQUIRE(p.get() == L1("ABC"));
+        REQUIRE(p.get() == LA("ABC"));
 
         // invalid
         // empty
-        REQUIRE_FALSE(p.set(AtomList()));
+        REQUIRE_FALSE(p.set(L()));
         // wrong type
-        REQUIRE_FALSE(p.set(L2(1, 2)));
-        REQUIRE(p.set(L1("XYZ")));
-        REQUIRE(p.get() == L1("XYZ"));
+        REQUIRE_FALSE(p.set(LF(1, 2)));
+        REQUIRE(p.set(LA("XYZ")));
+        REQUIRE(p.get() == LA("XYZ"));
 
         SymbolProperty p_ro("sym2", gensym("RO"), true);
-        REQUIRE(p_ro.get() == L1("RO"));
+        REQUIRE(p_ro.get() == LA("RO"));
         REQUIRE(p_ro.value() == gensym("RO"));
 
-        REQUIRE_FALSE(p_ro.set(L1("RW")));
+        REQUIRE_FALSE(p_ro.set(LA("RW")));
     }
 
     SECTION("init property")
@@ -472,17 +472,17 @@ TEST_CASE("Properties", "[ceammc::properties]")
         REQUIRE(p.name() == "test");
         REQUIRE_FALSE(p.readonly());
 
-        REQUIRE(p.set(L1(40)));
+        REQUIRE(p.set(LF(40)));
         REQUIRE(p.value() == 40);
-        REQUIRE(p.get() == L1(40));
+        REQUIRE(p.get() == LF(40));
         REQUIRE(p.readonly());
 
-        REQUIRE_FALSE(p.set(L1(100)));
+        REQUIRE_FALSE(p.set(LF(100)));
         REQUIRE(p.value() == 40);
-        REQUIRE(p.get() == L1(40));
+        REQUIRE(p.get() == LF(40));
 
         REQUIRE(InitAtomProperty(new AtomProperty("test", Atom(3))).value() == Atom(3));
-        REQUIRE(InitListProperty(new ListProperty("test", L2(1, 2))).value() == L2(1, 2));
+        REQUIRE(InitListProperty(new ListProperty("test", LF(1, 2))).value() == LF(1, 2));
         REQUIRE(InitIntProperty(new IntProperty("test", -100)).value() == -100);
         REQUIRE(InitFloatProperty(new FloatProperty("test", 1.01f)).value() == 1.01f);
         REQUIRE(InitSizeTProperty(new SizeTProperty("test", 200)).value() == 200);

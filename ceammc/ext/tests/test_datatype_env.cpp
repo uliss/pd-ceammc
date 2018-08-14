@@ -14,17 +14,13 @@
 #include "../env/datatype_env.h"
 #include "../lib/ceammc_datatypes.h"
 
-#include "base_extension_test.h"
+#include "test_base.h"
 
 #include "catch.hpp"
 
 #include <vector>
 
 using namespace ceammc;
-
-#ifndef TEST_DATA_DIR
-#define TEST_DATA_DIR "."
-#endif
 
 TEST_CASE("DataTypeEnv", "[ceammc::DataTypeEnv]")
 {
@@ -242,10 +238,10 @@ TEST_CASE("DataTypeEnv", "[ceammc::DataTypeEnv]")
         REQUIRE(env.totalLength() == 300);
         REQUIRE(env.valueAtTime(0) == 0);
 
-        REQUIRE_FALSE(env.setAR(L3(1, 10, 20)));
-        REQUIRE_FALSE(env.setAR(L2(10, -20)));
-        REQUIRE_FALSE(env.setAR(L2(-10, 20)));
-        REQUIRE(env.setAR(L2(10, 20)));
+        REQUIRE_FALSE(env.setAR(LF(1, 10, 20)));
+        REQUIRE_FALSE(env.setAR(LF(10, -20)));
+        REQUIRE_FALSE(env.setAR(LA(-10, 20)));
+        REQUIRE(env.setAR(LF(10, 20)));
         REQUIRE(env.hasPointAtTime(0));
         REQUIRE(env.hasPointAtTime(10 * 1000));
         REQUIRE(env.hasPointAtTime(30 * 1000));
@@ -264,10 +260,10 @@ TEST_CASE("DataTypeEnv", "[ceammc::DataTypeEnv]")
         REQUIRE(env.nextStopIdx(1) == 2);
         REQUIRE(env.nextStopIdx(2) == -1);
 
-        REQUIRE_FALSE(env.setASR(L3(1, 10, 20)));
-        REQUIRE_FALSE(env.setASR(L2(10, -20)));
-        REQUIRE_FALSE(env.setASR(L2(-10, 20)));
-        REQUIRE(env.setASR(L2(10, 20)));
+        REQUIRE_FALSE(env.setASR(LF(1, 10, 20)));
+        REQUIRE_FALSE(env.setASR(LF(10, -20)));
+        REQUIRE_FALSE(env.setASR(LA(-10, 20)));
+        REQUIRE(env.setASR(LF(10, 20)));
         REQUIRE(env.hasPointAtTime(0));
         REQUIRE(env.hasPointAtTime(10 * 1000));
         REQUIRE(env.hasPointAtTime(30 * 1000));
@@ -277,13 +273,13 @@ TEST_CASE("DataTypeEnv", "[ceammc::DataTypeEnv]")
     {
         DataTypeEnv env;
 
-        REQUIRE_FALSE(env.setADSR(L3(1, 10, 20)));
-        REQUIRE_FALSE(env.setADSR(L4(-10, 20, 10, 100)));
-        REQUIRE_FALSE(env.setADSR(L4(10, -20, 10, 100)));
-        REQUIRE_FALSE(env.setADSR(L4(10, 20, -1, 100)));
-        REQUIRE_FALSE(env.setADSR(L4(10, 20, 101, 100)));
-        REQUIRE_FALSE(env.setADSR(L4(10, 20, 10, -100)));
-        REQUIRE(env.setADSR(L4(10, 20, 10, 70)));
+        REQUIRE_FALSE(env.setADSR(LF(1, 10, 20)));
+        REQUIRE_FALSE(env.setADSR(LF(-10, 20, 10, 100)));
+        REQUIRE_FALSE(env.setADSR(LF(10, -20, 10, 100)));
+        REQUIRE_FALSE(env.setADSR(LF(10, 20, -1, 100)));
+        REQUIRE_FALSE(env.setADSR(LF(10, 20, 101, 100)));
+        REQUIRE_FALSE(env.setADSR(LF(10, 20, 10, -100)));
+        REQUIRE(env.setADSR(LF(10, 20, 10, 70)));
         REQUIRE(env.hasPointAtTime(0));
         REQUIRE(env.hasPointAtTime(10 * 1000));
         REQUIRE(env.hasPointAtTime(30 * 1000));
@@ -396,7 +392,7 @@ TEST_CASE("DataTypeEnv", "[ceammc::DataTypeEnv]")
             REQUIRE(env.nextStopIdx(2) == -1);
 
             // 7-point envelope
-            env.setLine(L7(1, 20, 2, 20, 3, 20, 4) + L6(20, 5, 20, 6, 20, 7));
+            env.setLine(LA(1, 20, 2, 20, 3, 20, 4) + LA(20, 5, 20, 6, 20, 7));
             env.pointAt(0).stop = true;
 
             REQUIRE(env.nextStopIdx(0) == 6);
@@ -560,7 +556,7 @@ TEST_CASE("DataTypeEnv", "[ceammc::DataTypeEnv]")
     SECTION("toList")
     {
         DataTypeEnv env;
-        REQUIRE(env.toList() == AtomList());
+        REQUIRE(env.toList() == L());
         env.setASR(10, 20, -10);
 
         REQUIRE(DataTypeEnv::fromList(env.toList()) == env);
@@ -606,32 +602,32 @@ TEST_CASE("DataTypeEnv", "[ceammc::DataTypeEnv]")
 
         SECTION("set")
         {
-            e.setNamedEnvelope(gensym("ar"), L2(10, 20));
+            e.setNamedEnvelope(gensym("ar"), LF(10, 20));
             REQUIRE(e.numPoints() == 3);
             REQUIRE(e.totalLength() == 30000);
             REQUIRE(e.numStopPoints() == 0);
 
-            e.setNamedEnvelope(gensym("asr"), L2(20, 20));
+            e.setNamedEnvelope(gensym("asr"), LF(20, 20));
             REQUIRE(e.numPoints() == 3);
             REQUIRE(e.totalLength() == 40000);
             REQUIRE(e.numStopPoints() == 1);
 
-            e.setNamedEnvelope(gensym("adsr"), L4(20, 30, 10, 100));
+            e.setNamedEnvelope(gensym("adsr"), LF(20, 30, 10, 100));
             REQUIRE(e.numPoints() == 4);
             REQUIRE(e.totalLength() == 150000);
             REQUIRE(e.numStopPoints() == 1);
 
-            e.setNamedEnvelope(gensym("ear"), L4(10, -1, 20, -2));
+            e.setNamedEnvelope(gensym("ear"), LF(10, -1, 20, -2));
             REQUIRE(e.numPoints() == 3);
             REQUIRE(e.totalLength() == 30000);
             REQUIRE(e.numStopPoints() == 0);
 
-            e.setNamedEnvelope(gensym("easr"), L4(20, -3, 20, -4));
+            e.setNamedEnvelope(gensym("easr"), LF(20, -3, 20, -4));
             REQUIRE(e.numPoints() == 3);
             REQUIRE(e.totalLength() == 40000);
             REQUIRE(e.numStopPoints() == 1);
 
-            e.setNamedEnvelope(gensym("eadsr"), L7(20, -1, 30, -2, 10, 100, -5));
+            e.setNamedEnvelope(gensym("eadsr"), LF(20, -1, 30, -2, 10, 100, -5));
             REQUIRE(e.numPoints() == 4);
             REQUIRE(e.totalLength() == 150000);
             REQUIRE(e.numStopPoints() == 1);
@@ -640,12 +636,12 @@ TEST_CASE("DataTypeEnv", "[ceammc::DataTypeEnv]")
 
     SECTION("fromList")
     {
-        REQUIRE(DataTypeEnv::fromList(AtomList()).empty());
-        REQUIRE(DataTypeEnv::fromList(L2(1, 2)).empty());
-        REQUIRE(DataTypeEnv::fromList(L7("Not an EnvelopePoint", 1, 1, 1, 1, 1, 1)).empty());
-        REQUIRE(DataTypeEnv::fromList(L7("EnvelopePoint", 1, 1, 1, 1, 1, 1)).numPoints() == 1);
+        REQUIRE(DataTypeEnv::fromList(L()).empty());
+        REQUIRE(DataTypeEnv::fromList(LF(1, 2)).empty());
+        REQUIRE(DataTypeEnv::fromList(LA("Not an EnvelopePoint", 1, 1, 1, 1, 1, 1)).empty());
+        REQUIRE(DataTypeEnv::fromList(LA("EnvelopePoint", 1, 1, 1, 1, 1, 1)).numPoints() == 1);
 
-        DataTypeEnv env = DataTypeEnv::fromList(L7("EnvelopePoint", 1, 100, 1, 1, 1, 1));
+        DataTypeEnv env = DataTypeEnv::fromList(LA("EnvelopePoint", 1, 100, 1, 1, 1, 1));
         REQUIRE(env.hasPointAtTime(1));
         REQUIRE(env.valueAtTime(1) == 100);
         REQUIRE(env.pointAt(0).type == CURVE_LINE);
@@ -710,7 +706,7 @@ TEST_CASE("DataTypeEnv", "[ceammc::DataTypeEnv]")
         REQUIRE(e0 == e1);
         REQUIRE(e0.empty());
 
-        e0.setAR(L2(20, 30));
+        e0.setAR(LF(20, 30));
         REQUIRE(!e0.empty());
         DataTypeEnv t(e0);
 
@@ -731,16 +727,16 @@ TEST_CASE("DataTypeEnv", "[ceammc::DataTypeEnv]")
     SECTION("setStep")
     {
         DataTypeEnv e;
-        REQUIRE(!e.setStep(AtomList()));
+        REQUIRE(!e.setStep(L()));
 
-        REQUIRE(e.setStep(L1(10)));
+        REQUIRE(e.setStep(LF(10)));
         REQUIRE(e.numPoints() == 1);
         REQUIRE(e.pointAt(0).value == 10);
 
-        REQUIRE(!e.setStep(AtomList()));
+        REQUIRE(!e.setStep(L()));
         REQUIRE(e.numPoints() == 1);
 
-        REQUIRE(e.setStep(L7(0.1, 10, 0.9, 20, 0.7, 30, 0.4)));
+        REQUIRE(e.setStep(LA(0.1, 10, 0.9, 20, 0.7, 30, 0.4)));
         REQUIRE(e.numPoints() == 4);
         REQUIRE(e.pointAt(0).value == 0.1f);
         REQUIRE(e.pointAt(1).value == 0.9f);
@@ -759,16 +755,16 @@ TEST_CASE("DataTypeEnv", "[ceammc::DataTypeEnv]")
     SECTION("setLine")
     {
         DataTypeEnv e;
-        REQUIRE(!e.setLine(AtomList()));
+        REQUIRE(!e.setLine(L()));
 
-        REQUIRE(e.setLine(L1(10)));
+        REQUIRE(e.setLine(LF(10)));
         REQUIRE(e.numPoints() == 1);
         REQUIRE(e.pointAt(0).value == 10);
 
-        REQUIRE(!e.setLine(AtomList()));
+        REQUIRE(!e.setLine(L()));
         REQUIRE(e.numPoints() == 1);
 
-        REQUIRE(e.setLine(L7(0.1, 10, 0.9, 20, 0.7, 30, 0.4)));
+        REQUIRE(e.setLine(LA(0.1, 10, 0.9, 20, 0.7, 30, 0.4)));
         REQUIRE(e.numPoints() == 4);
         REQUIRE(e.pointAt(0).value == 0.1f);
         REQUIRE(e.pointAt(1).value == 0.9f);
@@ -787,12 +783,12 @@ TEST_CASE("DataTypeEnv", "[ceammc::DataTypeEnv]")
     SECTION("setExponential")
     {
         DataTypeEnv e;
-        REQUIRE(!e.setExponential(AtomList()));
-        REQUIRE(!e.setExponential(L1(1)));
-        REQUIRE(!e.setExponential(L2(1, 2)));
-        REQUIRE(!e.setExponential(L3(1, 2, 3)));
+        REQUIRE(!e.setExponential(L()));
+        REQUIRE(!e.setExponential(LF(1)));
+        REQUIRE(!e.setExponential(LF(1, 2)));
+        REQUIRE(!e.setExponential(LF(1, 2, 3)));
 
-        REQUIRE(e.setExponential(L4(0.1f, 10, -2, 1)));
+        REQUIRE(e.setExponential(LA(0.1f, 10, -2, 1)));
         REQUIRE(e.numPoints() == 2);
         REQUIRE(e.pointAt(0).utime == 0);
         REQUIRE(e.pointAt(0).value == 0.1f);
@@ -803,7 +799,7 @@ TEST_CASE("DataTypeEnv", "[ceammc::DataTypeEnv]")
         REQUIRE(e.pointAt(1).type == CURVE_EXP);
         REQUIRE(e.pointAt(1).data == 0);
 
-        REQUIRE(e.setExponential(L3(0.1f, 10, -2) + L4(0.9, 20, -4, 0.2f)));
+        REQUIRE(e.setExponential(LF(0.1f, 10, -2) + LA(0.9, 20, -4, 0.2f)));
         REQUIRE(e.numPoints() == 3);
         REQUIRE(e.pointAt(0).timeMs() == 0);
         REQUIRE(e.pointAt(1).timeMs() == 10);
@@ -821,7 +817,7 @@ TEST_CASE("DataTypeEnv", "[ceammc::DataTypeEnv]")
         e.scaleValue(2);
         REQUIRE(e.empty());
 
-        REQUIRE(e.setADSR(L4(10, 20, 80, 60)));
+        REQUIRE(e.setADSR(LF(10, 20, 80, 60)));
         e.scaleValue(0.5);
 
         REQUIRE(e.numPoints() == 4);

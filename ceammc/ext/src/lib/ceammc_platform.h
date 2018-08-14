@@ -67,7 +67,16 @@ namespace platform {
      */
     bool remove(const char* path);
 
+    /**
+     * Returns standart system home directory
+     */
     std::string home_directory();
+
+    /**
+     * Returns standart Pd user directory:
+     */
+    std::string pd_user_directory();
+
     std::string expand_tilde_path(const std::string& path);
 
     std::string strip_extension(const std::string& name);
@@ -77,6 +86,20 @@ namespace platform {
      * @return On success returns full path to file, else returns empty string
      */
     std::string find_in_std_path(t_canvas* cnv, const char* path);
+
+    /**
+     * @brief make_path_with_canvas
+     * @param cnv
+     * @param path
+     * @return
+     */
+    std::string make_abs_filepath_with_canvas(t_canvas* cnv, const std::string& path);
+
+    /**
+      * Search file in directory of external
+      * @return On success returns full path to file, else returns empty string
+      */
+    std::string find_in_exernal_dir(t_object* obj, const char* path);
 
     /**
      * suspend thread execution for an interval measured in milliseconds
@@ -93,6 +116,12 @@ namespace platform {
      * @return boost::null on error (can't read directory)
      */
     DirList list_directory(const char* path, const char* pattern = "");
+
+    /**
+     * check if specified path exists and is directory
+     * @return true on sucess
+     */
+    bool is_dir(const char* path);
 }
 }
 

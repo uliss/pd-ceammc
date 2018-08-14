@@ -14,12 +14,12 @@
 
 #include "../preset/preset_storage.h"
 #include "../preset/preset_symbol.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "ceammc_pd.h"
 
 #include "catch.hpp"
 
-typedef TestExtension<PresetSymbol> PresetSymbolTest;
+typedef TestExternal<PresetSymbol> PresetSymbolTest;
 
 CanvasPtr ptr = PureData::instance().createTopCanvas("test_canvas");
 
@@ -31,7 +31,7 @@ TEST_CASE("[preset.symbol]", "[PureData]")
     {
         setup_preset_symbol();
 
-        PresetSymbolTest t("preset.symbol", L1("pf1"));
+        PresetSymbolTest t("preset.symbol", LA("pf1"));
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
         REQUIRE_PROPERTY(t, @id, "pf1");
@@ -42,7 +42,7 @@ TEST_CASE("[preset.symbol]", "[PureData]")
 
         SECTION("init value")
         {
-            PresetSymbolTest t("preset.symbol", L2("pf2", "ABC"));
+            PresetSymbolTest t("preset.symbol", LA("pf2", "ABC"));
             REQUIRE_PROPERTY(t, @path, "/pf2");
             REQUIRE_PROPERTY(t, @init, "ABC");
         }
@@ -50,20 +50,20 @@ TEST_CASE("[preset.symbol]", "[PureData]")
 
     SECTION("do")
     {
-        PresetSymbolTest p1("preset.symbol", L1("p1"));
+        PresetSymbolTest p1("preset.symbol", LA("p1"));
 
         WHEN_SEND_SYMBOL_TO(0, p1, "ABC");
 
-        p1.m_store(0, AtomList());
+        p1.m_store(0, L());
 
         WHEN_SEND_SYMBOL_TO(0, p1, "DEF");
         REQUIRE_NO_MSG(p1);
-        p1.m_store(0, L1(1));
+        p1.m_store(0, LF(1));
 
-        p1.m_load(0, AtomList());
+        p1.m_load(0, L());
         REQUIRE_SYMBOL_AT_OUTLET(0, p1, "ABC");
 
-        p1.m_load(0, L1(1));
+        p1.m_load(0, LF(1));
         REQUIRE_SYMBOL_AT_OUTLET(0, p1, "DEF");
     }
 }

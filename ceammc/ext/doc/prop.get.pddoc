@@ -14,6 +14,7 @@
             <since>0.1</since>
             <aliases>
                 <alias>prop-&gt;</alias>
+                <alias>@-&gt;</alias>
             </aliases>
             <also>
                 <see>prop&lt;-</see>

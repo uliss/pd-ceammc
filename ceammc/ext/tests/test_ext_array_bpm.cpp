@@ -12,13 +12,13 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../array/array_bpm.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "ceammc_factory.h"
 #include "ceammc_pd.h"
 
 #include "catch.hpp"
 
-typedef TestExtension<ArrayBPM> ArrayBPMTest;
+typedef TestExternal<ArrayBPM> ArrayBPMTest;
 
 using namespace ceammc;
 
@@ -39,7 +39,7 @@ TEST_CASE("array.bpm", "[externals]")
 
     SECTION("invalid")
     {
-        ArrayBPMTest t("array.bpm", L1("non-exists"));
+        ArrayBPMTest t("array.bpm", LA("non-exists"));
         REQUIRE_PROPERTY(t, @array, "non-exists");
 
         WHEN_SEND_BANG_TO(0, t);
@@ -48,7 +48,7 @@ TEST_CASE("array.bpm", "[externals]")
 
     SECTION("array1")
     {
-        ArrayBPMTest t("array.bpm", L1("array1"));
+        ArrayBPMTest t("array.bpm", LA("array1"));
 
         // no array yet
         WHEN_SEND_BANG_TO(0, t);

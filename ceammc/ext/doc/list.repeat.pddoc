@@ -14,17 +14,26 @@
             <since>0.1</since>
         </meta>
         <arguments>
-            <argument name="N" type="int" minvalue="0">repeat times</argument>
+            <argument name="N" type="int" minvalue="0" maxvalue="10000">repeat times</argument>
         </arguments>
         <properties>
-            <property name="@times" type="int" default="1" minvalue="0">repeat times</property>
+            <property name="@times" type="int" default="1" minvalue="0" maxvalue="10000">repeat
+            times</property>
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="list">input list</xinfo>
+                <xinfo on="float">input float. Example: input 10 outputs list - 10 x n
+                times</xinfo>
+                <xinfo on="symbol">input symbol. Example: input "A" outputs list - "A" x n
+                times</xinfo>
+                <xinfo on="list">input list. Example: input 1 2 3 outputs list - (1 2 3) x n
+                times</xinfo>
+                <xinfo on="data">input data. Output list of data repeated @times</xinfo>
+                <xinfo on="data:mlist">same as list. Example: (1 2 3) results mlist (1 2 3 1 2 3
+                ...)</xinfo>
             </inlet>
             <inlet>
-                <xinfo on="int" minvalue="0">repeat count</xinfo>
+                <xinfo on="int" minvalue="0" maxvalue="10000">repeat count</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -33,13 +42,15 @@
         <example>
             <pdascii>
 <![CDATA[
-[1 2 3 4 *(  [F]
-|            |.
-[list.repeat 4]
+[1 2 3 4 *(  [\(1 2 3\), bang( [B]
+|            |                 |
+| [symbol A( [ml]              [str a test string]
+| |          |                 |
+| | [10(     |                 | [F]
+| | |        |                 | |.
+[list.repeat 3                    ]
 |
-[msg set]
-|
-[ (
+[ui.display @display_type=1]
 ]]>
             </pdascii>
         </example>

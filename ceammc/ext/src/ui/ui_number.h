@@ -87,6 +87,7 @@ private:
     t_rgba prop_color_active;
     t_float prop_min;
     t_float prop_max;
+    int prop_digits;
 };
 
 void setup_ui_number();

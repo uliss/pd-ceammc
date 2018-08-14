@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="list.rldecode">
+        <title>list.rldecode</title>
+        <meta>
+            <authors>
+                <author>Alex Nadzharov</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Run-length list decoder (RLE)</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>list</category>
+            <keywords>list rle decode</keywords>
+            <since>0.1</since>
+            <also>
+                <see>list.rlencode</see>
+            </also>
+            <aliases>
+                <alias>list.unwrap</alias>
+            </aliases>
+        </meta>
+        <arguments>
+            <argument name="LST" type="list">initial element repeat list</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="list">First list - single elements</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="list">Second list - count of each element</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>result - elements repeated n times specified by corresponding values in second
+            list</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[1 2 1 3(    [1 3 2 2(
+|            |.
+[list.unwrap  ]
+|
+[msg set]
+|
+[ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

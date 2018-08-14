@@ -12,12 +12,12 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../random/random_linear.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "catch.hpp"
 
 #include <stdio.h>
 
-typedef TestExtension<RandomLinear> RandomLinearTest;
+typedef TestExternal<RandomLinear> RandomLinearTest;
 
 #define REQUIRE_OUTPUT_RANGE(obj, from, to)                   \
     {                                                         \
@@ -47,7 +47,7 @@ TEST_CASE("random_linear", "[PureData]")
 
         SECTION("properties")
         {
-            RandomLinearTest t("random.linear", L8("@v0", 2, "@v1", 20, "@p0", 1.2f, "@p1", 0.1f));
+            RandomLinearTest t("random.linear", LA("@v0", 2, "@v1", 20, "@p0", 1.2f, "@p1", 0.1f));
 
             REQUIRE_PROPERTY(t, @v0, 2);
             REQUIRE_PROPERTY(t, @v1, 20);
@@ -73,7 +73,7 @@ TEST_CASE("random_linear", "[PureData]")
 
     SECTION("error")
     {
-        RandomLinearTest t("random.linear", L4("@v0", 3, "@v1", 1));
+        RandomLinearTest t("random.linear", LA("@v0", 3, "@v1", 1));
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
     }

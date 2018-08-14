@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="synth.birds~">
+        <title>synth.birds~</title>
+        <meta>
+            <authors>
+                <author>Pierre Cochard</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>bird singing generator</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>synth</category>
+            <keywords>birds</keywords>
+            <since>0.6</since>
+        </meta>
+        <properties>
+            <property name="@speed" type="float" minvalue="120" maxvalue="480" default="240">
+            maximum speed of whistles</property>
+            <property name="@probability" type="float" minvalue="25" maxvalue="100" default="50">
+            whistles probability</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo>control inlet</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio" />
+            <outlet type="audio" />
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.knob]              [ui.knob]
+|                      |
+|                      |
+|                      |
+[lin->lin 0 1 120 480] [lin->lin 0 1 25 100]
+|                      |
+[@speed $1(            [@probability $1(
+|                      |
+|                      |
+[synth.birds~          ]
+|           ^|.
+[fx.zita_rev1~]
+|  ^|
+|  [ui.gain~ @size 120 16 #a]    [ui.dsp~]
+|
+[ui.gain~ @size 120 16]
+|
+[dac~ #b]
+
+[X a->b:1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

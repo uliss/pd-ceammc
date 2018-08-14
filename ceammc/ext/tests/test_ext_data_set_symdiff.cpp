@@ -12,13 +12,13 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../data/set_symdiff.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "catch.hpp"
 #include "ceammc_pd.h"
 
 #include <stdio.h>
 
-typedef TestExtension<SetSymmetricDifference> SetSymDiffTest;
+typedef TestExternal<SetSymmetricDifference> SetSymDiffTest;
 
 #define REQUIRE_SET_OUTPUT(t, set)                                \
     {                                                             \
@@ -47,24 +47,24 @@ TEST_CASE("set.symdiff", "[externals]")
             REQUIRE(t.numOutlets() == 1);
 
             // {1,2} \ {} = {1,2}
-            WHEN_SEND_TDATA_TO(0, t, DataTypeSet(L2(1, 2)));
-            REQUIRE_SET_OUTPUT(t, DataTypeSet(L2(1, 2)));
+            WHEN_SEND_TDATA_TO(0, t, DataTypeSet(LF(1, 2)));
+            REQUIRE_SET_OUTPUT(t, DataTypeSet(LF(1, 2)));
         }
 
         SECTION("args")
         {
             // {2,4} \ {1,2,3} = {1,3,4}
-            SetSymDiffTest t("set.symdiff", L3(1, 2, 3));
-            WHEN_SEND_TDATA_TO(0, t, DataTypeSet(L2(2, 4)));
-            REQUIRE_SET_OUTPUT(t, DataTypeSet(L3(1, 3, 4)));
+            SetSymDiffTest t("set.symdiff", LF(1, 2, 3));
+            WHEN_SEND_TDATA_TO(0, t, DataTypeSet(LF(2, 4)));
+            REQUIRE_SET_OUTPUT(t, DataTypeSet(LF(1, 3, 4)));
 
             // {1,2,3} \ {1,2,3} = {}
-            WHEN_SEND_TDATA_TO(0, t, DataTypeSet(L3(1, 2, 3)));
+            WHEN_SEND_TDATA_TO(0, t, DataTypeSet(LF(1, 2, 3)));
             REQUIRE_SET_OUTPUT(t, DataTypeSet());
 
             // {} \ {1,2,3} = {1,2,3}
             WHEN_SEND_TDATA_TO(0, t, DataTypeSet());
-            REQUIRE_SET_OUTPUT(t, DataTypeSet(L3(1, 2, 3)));
+            REQUIRE_SET_OUTPUT(t, DataTypeSet(LF(1, 2, 3)));
         }
     }
 
@@ -73,17 +73,17 @@ TEST_CASE("set.symdiff", "[externals]")
         SetSymDiffTest t("set.symdiff");
 
         // {3,4,5} \ {} = {3,4,5}
-        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(L3(3, 4, 5)));
-        REQUIRE_SET_OUTPUT(t, DataTypeSet(L3(3, 4, 5)));
+        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(LF(3, 4, 5)));
+        REQUIRE_SET_OUTPUT(t, DataTypeSet(LF(3, 4, 5)));
 
         // {} \ {} = {}
         WHEN_SEND_TDATA_TO(0, t, DataTypeSet());
         REQUIRE_SET_OUTPUT(t, DataTypeSet());
 
         // {3,5} \ {1,4} = {1,3,4,5}
-        WHEN_SEND_LIST_TO(1, t, L2(1, 4));
-        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(L2(3, 5)));
-        REQUIRE_SET_OUTPUT(t, DataTypeSet(L4(3, 5, 1, 4)));
+        WHEN_SEND_LIST_TO(1, t, LF(1, 4));
+        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(LF(3, 5)));
+        REQUIRE_SET_OUTPUT(t, DataTypeSet(LF(3, 5, 1, 4)));
     }
 
     SECTION("do data")
@@ -91,18 +91,18 @@ TEST_CASE("set.symdiff", "[externals]")
         SetSymDiffTest t("set.symdiff");
 
         // {2,4} \ {1,3} = {2,4,1,3}
-        WHEN_SEND_LIST_TO(1, t, L2(DINT(1), DINT(3)));
-        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(L2(DINT(2), DINT(4))));
-        REQUIRE_SET_OUTPUT(t, DataTypeSet(L4(DINT(2), DINT(4), DINT(1), DINT(3))));
+        WHEN_SEND_LIST_TO(1, t, LA(DINT(1), DINT(3)));
+        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(LA(DINT(2), DINT(4))));
+        REQUIRE_SET_OUTPUT(t, DataTypeSet(LA(DINT(2), DINT(4), DINT(1), DINT(3))));
 
         // {2,4} \ {1,3} = {2,4}
-        WHEN_SEND_LIST_TO(1, t, L1(DSET(L2(DINT(1), DINT(3))).asAtom()));
-        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(L2(DINT(2), DINT(4))));
-        REQUIRE_SET_OUTPUT(t, DataTypeSet(L4(DINT(2), DINT(4), DINT(1), DINT(3))));
+        WHEN_SEND_LIST_TO(1, t, LA(DSET(LA(DINT(1), DINT(3))).asAtom()));
+        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(LA(DINT(2), DINT(4))));
+        REQUIRE_SET_OUTPUT(t, DataTypeSet(LA(DINT(2), DINT(4), DINT(1), DINT(3))));
 
         // {2,3,4,5} \ {1,3} = {1,2,4,5}
-        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(L4(DINT(2), DINT(4), DINT(3), DINT(5))));
-        REQUIRE_SET_OUTPUT(t, DataTypeSet(L4(DINT(2), DINT(5), DINT(4), DINT(1))));
+        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(LA(DINT(2), DINT(4), DINT(3), DINT(5))));
+        REQUIRE_SET_OUTPUT(t, DataTypeSet(LA(DINT(2), DINT(5), DINT(4), DINT(1))));
     }
 
     SECTION("do list")
@@ -110,13 +110,13 @@ TEST_CASE("set.symdiff", "[externals]")
         SetSymDiffTest t("set.symdiff");
 
         // {1,3} \ {1,2} = {2,3}
-        WHEN_SEND_LIST_TO(1, t, L2(1, 2));
-        WHEN_SEND_LIST_TO(0, t, L2(1, 3));
-        REQUIRE_SET_OUTPUT(t, DataTypeSet(L2(2, 3)));
+        WHEN_SEND_LIST_TO(1, t, LF(1, 2));
+        WHEN_SEND_LIST_TO(0, t, LF(1, 3));
+        REQUIRE_SET_OUTPUT(t, DataTypeSet(LF(2, 3)));
 
         // {} \ {} = {}
-        WHEN_SEND_LIST_TO(1, t, AtomList());
-        WHEN_SEND_LIST_TO(0, t, AtomList());
+        WHEN_SEND_LIST_TO(1, t, L());
+        WHEN_SEND_LIST_TO(0, t, L());
         REQUIRE_SET_OUTPUT(t, DataTypeSet());
     }
 }

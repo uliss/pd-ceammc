@@ -17,17 +17,17 @@
             </aliases>
         </meta>
         <info>
-            <par>Passthru all control data not often then specified limit in ms.
-            Can be used for button debouncing. In initial state is opened, on first message pass it and
-            then became closed within specified time interval. All incoming messages in that time are dropped.
+            <par>Passthru all control data not often then specified limit in ms. Can be used for
+            button debouncing. In initial state is opened, on first message pass it and then became
+            closed within specified time interval. All incoming messages in that time are dropped.
             After this interval expiried goes to opened state</par>
         </info>
         <arguments>
             <argument name="TIME" type="int" units="millisecond">limit time</argument>
         </arguments>
         <properties>
-            <property name="@limit" type="int" minvalue="0" units="millisecond">speed limit.
-            If set to zero there is no flow limitations</property>
+            <property name="@limit" type="int" minvalue="0" units="millisecond">speed limit. If set
+            to zero there is no flow limitations</property>
         </properties>
         <methods>
             <method name="reset">reset internal timer and goes to opened state</method>

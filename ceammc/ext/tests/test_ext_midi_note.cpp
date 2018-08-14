@@ -12,12 +12,12 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../midi/midi_event.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "catch.hpp"
 
 #include <stdio.h>
 
-typedef TestExtension<MidiEventToNote> MidiEventNoteTest;
+typedef TestExternal<MidiEventToNote> MidiEventNoteTest;
 
 TEST_CASE("midievent.note", "[externals]")
 {
@@ -40,10 +40,10 @@ TEST_CASE("midievent.note", "[externals]")
         WHEN_SEND_SYMBOL_TO(0, t, "A");
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-        WHEN_SEND_LIST_TO(0, t, L3(1, 2, 3));
+        WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3));
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-        WHEN_SEND_ANY_TO(t, "any", L3(1, 2, 3));
+        WHEN_SEND_ANY_TO(t, "any", LF(1, 2, 3));
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
     }
 
@@ -51,17 +51,17 @@ TEST_CASE("midievent.note", "[externals]")
     {
         MidiEventNoteTest t("midi.ev->note");
 
-        WHEN_SEND_ANY_TO(t, "MidiEvent", L3(1, 1, 1));
+        WHEN_SEND_ANY_TO(t, "MidiEvent", LF(1, 1, 1));
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
         // non note
-        WHEN_SEND_ANY_TO(t, "MidiEvent", L6(100, 4, 1, 0x60, 0x48, 0x40));
+        WHEN_SEND_ANY_TO(t, "MidiEvent", LA(100, 4, 1, 0x60, 0x48, 0x40));
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
         // note event
-        WHEN_SEND_ANY_TO(t, "MidiEvent", L6(100, 4, 200, 0x90, 0x48, 0x40));
+        WHEN_SEND_ANY_TO(t, "MidiEvent", LA(100, 4, 200, 0x90, 0x48, 0x40));
         REQUIRE_FLOAT_AT_OUTLET(2, t, 4);
         REQUIRE_FLOAT_AT_OUTLET(1, t, 200);
-        REQUIRE_LIST_AT_OUTLET(0, t, L2(72, 64));
+        REQUIRE_LIST_AT_OUTLET(0, t, LF(72, 64));
     }
 }

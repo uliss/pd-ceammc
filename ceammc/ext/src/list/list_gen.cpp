@@ -3,24 +3,19 @@
 #include "ceammc_factory.h"
 #include "ceammc_log.h"
 
+static const int MIN_COUNT = 1;
 static const int MAX_COUNT = 1024;
-
-static bool is_valid_count(int v)
-{
-    return 0 <= v && v <= MAX_COUNT;
-}
 
 ListGenerate::ListGenerate(const PdArgs& a)
     : BaseObject(a)
-    , count_(0)
+    , count_(nullptr)
     , in_process_(false)
 {
     createInlet();
     createOutlet();
     createOutlet();
 
-    count_ = new CountProperty("@count", 0, is_valid_count);
-    count_->set(AtomList(positionalFloatArgument(0, 0)));
+    count_ = new IntPropertyClosedRange("@count", positionalFloatArgument(0, 1), MIN_COUNT, MAX_COUNT);
     createProperty(count_);
 }
 
@@ -82,7 +77,7 @@ bool ListGenerate::setCount(float v)
     return true;
 }
 
-extern "C" void setup_list0x2egen()
+void setup_list_gen()
 {
     ObjectFactory<ListGenerate> obj("list.gen");
 }

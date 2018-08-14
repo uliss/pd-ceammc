@@ -11,9 +11,9 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "base_extension_test.h"
-#include "ceammc_dataatom.h"
 #include "ceammc_data.h"
+#include "ceammc_dataatom.h"
+#include "test_base.h"
 
 #include "catch.hpp"
 
@@ -155,5 +155,26 @@ TEST_CASE("DataAtom", "[ceammc::DataAtom]")
 
         a.pop_back();
         REQUIRE(std::find(a.begin(), a.end(), DataAtom(int0)) == a.end());
+    }
+
+    SECTION("isDataType")
+    {
+        REQUIRE_FALSE(DataAtom().isDataType(IntData::dataType));
+        REQUIRE(DataAtom(DataPtr(new IntData(100))).isDataType(IntData::dataType));
+        REQUIRE_FALSE(DataAtom(DataPtr(new IntData(100))).isDataType(StrData::dataType));
+
+        REQUIRE(DataAtom(DataPtr(new IntData(100))).isDataType<IntData>());
+        REQUIRE_FALSE(DataAtom(DataPtr(new IntData(100))).isDataType<StrData>());
+    }
+
+    SECTION("as")
+    {
+        auto int_data = new IntData(100);
+        auto pint = DataPtr(int_data);
+
+        REQUIRE(DataAtom(Atom(123)).as<StrData>() == nullptr);
+        REQUIRE(DataAtom(pint).as<StrData>() == nullptr);
+        REQUIRE(DataAtom(pint).as<IntData>() != nullptr);
+        REQUIRE(DataAtom(pint).as<IntData>()->value() == 100);
     }
 }

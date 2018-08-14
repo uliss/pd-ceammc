@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flow.multiplex2~">
+        <title>flow.multiplex2~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>audio stream stereo multiplexer</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>flow</category>
+            <keywords>flow multiplex</keywords>
+            <since>0.6</since>
+            <aliases>
+                <alias>flow.mux2~</alias>
+                <alias>mux2~</alias>
+            </aliases>
+            <also>
+                <see>flow.multiplex~</see>
+                <see>flow.multiplex</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument type="int" name="N" minvalue="2" maxvalue="8">number of input
+            stereo-pairs</argument>
+        </arguments>
+        <properties>
+            <property name="@value" type="list">gain coefficients per each input</property>
+        </properties>
+        <inlets dynamic="true">
+            <inlet type="audio" number="1">
+                <xinfo>first left input signal</xinfo>
+            </inlet>
+            <inlet type="audio" number="2">
+                <xinfo>first right input signal</xinfo>
+            </inlet>
+            <inlet type="audio" number="...">
+                <xinfo>... left input signal</xinfo>
+            </inlet>
+            <inlet type="audio" number="...">
+                <xinfo>... right input signal</xinfo>
+            </inlet>
+            <inlet type="audio" number="n-1">
+                <xinfo>last left input signal</xinfo>
+            </inlet>
+            <inlet type="audio" number="n-1">
+                <xinfo>last right input signal</xinfo>
+            </inlet>
+            <inlet type="control" number="n-1">
+                <xinfo>multiplexer control</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">left output</outlet>
+            <outlet type="audio">right output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[osc~ 440]             [ui.radio @nitems=2] [ui.dsp~]
+|                      |
+| [osc~ 442]           |
+| |                    |
+| |  [osc~ 660]        |
+| |  |                 |
+| |  |   [osc~ 662]    |
+| |  |   |             |
+| |. |.. |...          |....
+[flow.multiplex2~ 2         ]
+|  ^|
+|   |  [ui.slider @size 120 16]
+|   |. |..
+[gain~  2]
+|  ^|.
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

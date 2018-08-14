@@ -2,77 +2,83 @@
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 
-static const size_t MIN_OUTLETS = 2;
-static const size_t MAX_OUTLETS = 24;
+static const size_t MIN_INLETS = 2;
+static const size_t MAX_INLETS = 24;
 
-FlowMultiplex::FlowMultiplex(const PdArgs& a)
-    : BaseObject(a)
+FlowMultiplex::FlowMultiplex(const PdArgs& args)
+    : BaseObject(args)
     , index_(0)
 {
-    size_t n = clip((size_t)positionalFloatArgument(0, 2), MIN_OUTLETS, MAX_OUTLETS);
+    size_t n = clip((size_t)positionalFloatArgument(0, 2), MIN_INLETS, MAX_INLETS);
     index_ = new SizeTProperty("@index", 0);
     createProperty(index_);
 
-    for (size_t i = 0; i < n; i++)
-        createOutlet();
+    for (size_t i = 1; i < n; i++)
+        createInlet();
+
+    createOutlet();
 }
 
 void FlowMultiplex::onBang()
 {
-    if (!checkIndex())
+    if (0 != index_->value())
         return;
 
-    bangTo(index_->value());
+    bangTo(0);
 }
 
-void FlowMultiplex::onFloat(t_float f)
+void FlowMultiplex::onFloat(float f)
 {
-    if (!checkIndex())
+    if (0 != index_->value())
         return;
 
-    floatTo(index_->value(), f);
+    floatTo(0, f);
 }
 
 void FlowMultiplex::onSymbol(t_symbol* s)
 {
-    if (!checkIndex())
+    if (0 != index_->value())
         return;
 
-    symbolTo(index_->value(), s);
+    symbolTo(0, s);
 }
 
 void FlowMultiplex::onList(const AtomList& l)
 {
-    if (!checkIndex())
-        return;
-
-    listTo(index_->value(), l);
+    onInlet(0, l);
 }
 
-void FlowMultiplex::onAny(t_symbol* s, const AtomList& l)
+void FlowMultiplex::onAny(t_symbol* sel, const AtomList& args)
 {
-    if (!checkIndex())
+    if (0 != index_->value())
         return;
 
-    anyTo(index_->value(), s, l);
+    anyTo(0, sel, args);
 }
 
-void FlowMultiplex::onData(const DataPtr& d)
+void FlowMultiplex::onData(const DataPtr& ptr)
 {
-    if (!checkIndex())
+    if (0 != index_->value())
         return;
 
-    dataTo(index_->value(), d);
+    dataTo(0, ptr);
 }
 
-bool FlowMultiplex::checkIndex() const
+void FlowMultiplex::onInlet(size_t idx, const AtomList& l)
 {
-    if (index_->value() >= numOutlets()) {
-        OBJ_ERR << "invalid index: " << index_->value();
-        return false;
-    }
+    if (idx != index_->value())
+        return;
 
-    return true;
+    if (l.empty())
+        bangTo(0);
+    else if (l.isFloat())
+        floatTo(0, l[0].asFloat());
+    else if (l.isSymbol())
+        symbolTo(0, l[0].asSymbol());
+    else if (l[0].isData())
+        atomTo(0, Atom(l[0].getData()));
+    else
+        listTo(0, l);
 }
 
 void setup_flow_multiplex()

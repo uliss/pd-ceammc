@@ -21,10 +21,10 @@
             </also>
         </meta>
         <info>
-            <par>Display mode: key '-' and '+' increments value. Mouse drag changes value. Default step is 1/pixel.
-            Holding SHIFT divide step by 100. Holding CTRL multiply by 10.</par>
-            <par>Input mode: Double click to enter new value. Accepted keys: -.0123456789. Press ENTER or TAB key
-            to finish. ESCAPE undo input, BACKSPACE removes last character.</par>
+            <par>Display mode: key '-' and '+' increments value. Mouse drag changes value. Default
+            step is 1/pixel. Holding SHIFT divide step by 100. Holding CTRL multiply by 10.</par>
+            <par>Input mode: Double click to enter new value. Accepted keys: -.0123456789. Press
+            ENTER or TAB key to finish. ESCAPE undo input, BACKSPACE removes last character.</par>
         </info>
         <properties>
             <property name="@min" type="float">minimum value</property>
@@ -34,17 +34,17 @@
             <property name="@value" type="float">widget value</property>
         </properties>
         <methods>
-            <method name="set">sets slider value without output
+            <method name="set">sets slider value without output 
             <param name="V" type="float" required="true">new value</param></method>
             <method name="++">increment slider value without output</method>
             <method name="--">decrement slider value without output</method>
-            <method name="+">add value to slider without output
+            <method name="+">add value to slider without output 
             <param name="V" type="float" required="true">added value</param></method>
-            <method name="-">substruct value from slider without output
+            <method name="-">substruct value from slider without output 
             <param name="V" type="float" required="true">substructed value</param></method>
-            <method name="*">multiply slider value without output
+            <method name="*">multiply slider value without output 
             <param name="V" type="float" required="true">mutiplied value</param></method>
-            <method name="/">divide slider value without output
+            <method name="/">divide slider value without output 
             <param name="V" type="float" required="true">denominator value</param></method>
         </methods>
         <inlets>

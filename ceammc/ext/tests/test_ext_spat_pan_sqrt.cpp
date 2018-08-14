@@ -13,11 +13,11 @@
  *****************************************************************************/
 #include "../spat/pan_sqrt.h"
 #include "ceammc_pd.h"
-#include "sound_external_test.h"
+#include "test_sound.h"
 
 #include "catch.hpp"
 
-typedef TestSoundExtension<PanSqrt> PanSqrtTest;
+typedef TestSoundExternal<PanSqrt> PanSqrtTest;
 
 using namespace ceammc;
 
@@ -25,7 +25,7 @@ TEST_CASE("pan.sqrt~", "[externals]")
 {
     SECTION("init")
     {
-        PanSqrtTest t("pan.sqrt~", AtomList(), true);
+        PanSqrtTest t("pan.sqrt~", L(), true);
         REQUIRE_PROPERTY(t, @pos, 0.f);
         REQUIRE_PROPERTY(t, @smooth, 20);
         REQUIRE(t.numInlets() == 2);
@@ -36,7 +36,7 @@ TEST_CASE("pan.sqrt~", "[externals]")
 
     SECTION("process")
     {
-        PanSqrtTest t("pan.sqrt~", L2("@smooth", 0.f), true);
+        PanSqrtTest t("pan.sqrt~", LA("@smooth", 0.f), true);
         REQUIRE(t.blockSize() == 64);
         REQUIRE(t.numInputChannels() == 1);
         REQUIRE(t.numOutputChannels() == 2);
@@ -61,30 +61,30 @@ TEST_CASE("pan.sqrt~", "[externals]")
             REQUIRE(sig.out[0][i] * sig.out[0][i] + sig.out[1][i] * sig.out[1][i] == Approx(1));
         }
 
-        t.setProperty("@pos", L1(-1));
+        t.setProperty("@pos", LF(-1));
         t.processBlock(sig.in, sig.out);
 
         for (int i = 0; i < 64; i++) {
-            REQUIRE(sig.out[0][i] == 1);
+            REQUIRE(sig.out[0][i] == Approx(1));
             REQUIRE(sig.out[1][i] == 0);
         }
 
-        t.setProperty("@pos", L1(1.f));
+        t.setProperty("@pos", LF(1.f));
         t.processBlock(sig.in, sig.out);
 
         for (int i = 0; i < 64; i++) {
             REQUIRE(sig.out[0][i] == 0);
-            REQUIRE(sig.out[1][i] == 1);
+            REQUIRE(sig.out[1][i] == Approx(1));
         }
 
-        t.setProperty("@pos", L1(0.2f));
+        t.setProperty("@pos", LA(0.2f));
         t.processBlock(sig.in, sig.out);
 
         for (int i = 0; i < 64; i++) {
             REQUIRE(sig.out[0][i] * sig.out[0][i] + sig.out[1][i] * sig.out[1][i] == Approx(1));
         }
 
-        t.setProperty("@pos", L1(-0.2f));
+        t.setProperty("@pos", LA(-0.2f));
         t.processBlock(sig.in, sig.out);
 
         for (int i = 0; i < 64; i++) {

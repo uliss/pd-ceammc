@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../ui/ui_gain.h"
-#include "ui_external_test.h"
+#include "test_ui.h"
 
 UI_COMPLETE_DSP_TEST_SETUP(Gain)
 
@@ -34,7 +34,7 @@ TEST_CASE("ui.gain~", "[ui.gain~]")
 
         SECTION("props")
         {
-            TestGain t("ui.gain~", L4("@min", -90, "@max", 6));
+            TestGain t("ui.gain~", LA("@min", -90, "@max", 6));
             REQUIRE_UI_FLOAT_PROPERTY(t, "max", 6);
             REQUIRE_UI_FLOAT_PROPERTY(t, "min", -90);
         }
@@ -59,7 +59,7 @@ TEST_CASE("ui.gain~", "[ui.gain~]")
 
     SECTION("amp")
     {
-        TestGain t("ui.gain~", L4("@max", 6, "@min", -70));
+        TestGain t("ui.gain~", LA("@max", 6, "@min", -70));
         REQUIRE_UI_FLOAT_PROPERTY(t, "max", 6);
         REQUIRE_UI_FLOAT_PROPERTY(t, "min", -70);
         t->setDbValue(-6.0206f);
@@ -108,7 +108,7 @@ TEST_CASE("ui.gain~", "[ui.gain~]")
         SECTION("bang")
         {
             t.bang();
-            REQUIRE_OUTPUT_ANY(t, 0, L2("@db", -60));
+            REQUIRE_OUTPUT_ANY(t, 0, LA("@db", -60));
 
             t.call("@db", -20);
             REQUIRE_NO_OUTPUT(t);
@@ -116,7 +116,7 @@ TEST_CASE("ui.gain~", "[ui.gain~]")
             t.bang();
             REQUIRE(t.hasOutputAt(0));
             REQUIRE(t.isOutputAnyAt(0));
-            REQUIRE(t.outputAnyAt(0).slice(1) == ListApprox(-20));
+            REQUIRE(t.outputAnyAt(0).slice(1) == LX(-20));
             t.clearAt(0);
         }
     }
@@ -143,17 +143,17 @@ TEST_CASE("ui.gain~", "[ui.gain~]")
 
     SECTION("send")
     {
-        TestExtGain t("ui.gain~", L2("@send", "r1"));
+        TestExtGain t("ui.gain~", LA("@send", "r1"));
         t.addListener("r1");
 
         t << BANG;
-        REQUIRE_ANY_WAS_SEND(t, "r1", L2("@db", -60));
+        REQUIRE_ANY_WAS_SEND(t, "r1", LA("@db", -60));
 
         t.mouseDown(5, 20);
         REQUIRE_NONE_WAS_SEND(t, "r1");
 
-        t->setProperty(gensym("output_value"), L1(1));
+        t->setProperty(gensym("output_value"), LF(1));
         t.mouseDown(5, 20);
-        //        REQUIRE_ANY_WAS_SEND(t, "r1", L2("@db", -10));
+        //        REQUIRE_ANY_WAS_SEND(t, "r1", LA("@db", -10));
     }
 }

@@ -1,16 +1,11 @@
 #include "list_choice.h"
+#include "../data/data_mlist.h"
 #include "ceammc_factory.h"
 #include "ceammc_log.h"
 
 #include <cstdlib>
 
 const static int MAX_REPEAT_TRIES = 10;
-
-extern "C" void setup_list0x2echoice()
-{
-    ObjectFactory<ListChoice> obj("list.choice");
-    obj.mapFloatToList();
-}
 
 ListChoice::ListChoice(const PdArgs& a)
     : BaseObject(a)
@@ -56,4 +51,16 @@ void ListChoice::onList(const AtomList& l)
 
     prev_idx_ = idx;
     atomTo(0, l[idx]);
+}
+
+void ListChoice::onDataT(const DataTypeMList& lst)
+{
+    onList(lst.toList());
+}
+
+void setup_list_choice()
+{
+    ObjectFactory<ListChoice> obj("list.choice");
+    obj.mapFloatToList();
+    obj.processData<DataTypeMList>();
 }

@@ -12,12 +12,12 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../math/math_lcm.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "catch.hpp"
 
 #include <stdio.h>
 
-typedef TestExtension<MathLCM> MathLCMTest;
+typedef TestExternal<MathLCM> MathLCMTest;
 
 #define REQUIRE_LCM(in, t, out)             \
     {                                       \
@@ -27,7 +27,7 @@ typedef TestExtension<MathLCM> MathLCMTest;
 
 #define REQUIRE_LCM_2(in1, in2, t, out)        \
     {                                          \
-        WHEN_SEND_LIST_TO(0, t, L2(in1, in2)); \
+        WHEN_SEND_LIST_TO(0, t, LA(in1, in2)); \
         REQUIRE_FLOAT_AT_OUTLET(0, t, out);    \
     }
 
@@ -37,7 +37,7 @@ TEST_CASE("math.lcm", "[externals]")
 
     SECTION("default")
     {
-        MathLCMTest t("math.lcm", L1(5));
+        MathLCMTest t("math.lcm", LF(5));
         REQUIRE_LCM(2, t, 10);
         REQUIRE_LCM(3, t, 15);
         REQUIRE_LCM(4, t, 20);

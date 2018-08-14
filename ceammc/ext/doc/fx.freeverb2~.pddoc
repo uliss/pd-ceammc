@@ -45,22 +45,26 @@
         <example>
             <pdascii>
 <![CDATA[
-
-[F]
-|                       [F]           [F]         [F]
-[lfo.impulse~ 2]        |             |           |
-|                       [/ 100]       [/ 100]     [/ 100]
-| [T] [lfo.impulse~ 5]  |             |           |
-| |.  |                 |             |           |
-[*~]  | [T]             |             |           |
-|     | |.       [roomsize $1( [drywet $1( [damp $1(
-|     [*~]       |             |           |
-|     |          |             |           |
-|     |.         |             |           |
-[fx.freeverb2~ id                             ]
-|  ^|.
+[F]                [open %CEAMMC%/guitar1.wav, 1(
+|                  |
+[lfo.impulse~ 2]   [expand_env #a]
+|
+|  [T]             [ui.knob]     [ui.knob]   [ui.knob]
+|  |.              |             |           |
+[*~ ] [readsf~ #b] |             |           |
+|     |            |             |           |
+| [B] |            [roomsize $1( [drywet $1( [damp $1(
+| |   |            |             |           |
+| |   |            |             |           |
+| |   |            |             |           |
+[fx.freeverb2~ id                            ]
+|  ^|                                      ^^|
+[ui.gain~ @size 120 16]                      [print]
+| \
 [dac~]
 
+[X a->b]
+[ui.dsp~]
 ]]>
             </pdascii>
         </example>

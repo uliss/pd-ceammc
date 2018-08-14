@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../ui/ui_label.h"
-#include "ui_external_test.h"
+#include "test_ui.h"
 
 UI_COMPLETE_TEST_SETUP(Label)
 
@@ -26,38 +26,43 @@ TEST_CASE("ui.label", "[ui.label]")
         REQUIRE(t->numInlets() == 0);
         REQUIRE(t->numOutlets() == 0);
 
-        REQUIRE_UI_LIST_PROPERTY(t, "text", L1("Label"));
+        REQUIRE_UI_LIST_PROPERTY(t, "text", LA("Label"));
 
-        REQUIRE_UI_LIST_PROPERTY(t, "align", L1("left"));
-        REQUIRE_UI_LIST_PROPERTY(t, "fontweight", L1("normal"));
+        REQUIRE_UI_LIST_PROPERTY(t, "align", LA("left"));
+        REQUIRE_UI_LIST_PROPERTY(t, "fontweight", LA("normal"));
+
+#ifndef __WIN32
         REQUIRE_UI_FLOAT_PROPERTY(t, "fontsize", 32);
+#else
+        REQUIRE_UI_FLOAT_PROPERTY(t, "fontsize", 28);
+#endif
 
         REQUIRE_UI_FLOAT_PROPERTY(t, "margin_left", 5);
         REQUIRE_UI_FLOAT_PROPERTY(t, "margin_top", 5);
         REQUIRE_UI_FLOAT_PROPERTY(t, "margin_bottom", 5);
         REQUIRE_UI_FLOAT_PROPERTY(t, "margin_right", 5);
 
-        REQUIRE_UI_LIST_PROPERTY(t, "background_color", L4(1, 1, 1, 1));
-        REQUIRE_UI_LIST_PROPERTY(t, "text_color", L4(0.f, 0.f, 0.f, 1));
+        REQUIRE_UI_LIST_PROPERTY(t, "background_color", LF(1, 1, 1, 1));
+        REQUIRE_UI_LIST_PROPERTY(t, "text_color", LF(0, 0, 0, 1));
 
         SECTION("num args")
         {
-            TestLabel t("ui.label", L3(1, 2, 3));
-            REQUIRE_UI_LIST_PROPERTY(t, "text", L3(1, 2, 3));
+            TestLabel t("ui.label", LF(1, 2, 3));
+            REQUIRE_UI_LIST_PROPERTY(t, "text", LF(1, 2, 3));
             REQUIRE(t->text() == "1 2 3");
         }
 
         SECTION("mixed args")
         {
-            TestLabel t("ui.label", L3("A", "B", 1000));
-            REQUIRE_UI_LIST_PROPERTY(t, "text", L3("A", "B", 1000));
+            TestLabel t("ui.label", LA("A", "B", 1000));
+            REQUIRE_UI_LIST_PROPERTY(t, "text", LA("A", "B", 1000));
             REQUIRE(t->text() == "A B 1000");
         }
 
         SECTION("mixed args and props")
         {
-            TestLabel t("ui.label", L5("A", "BC", 1000, "@pinned", 1));
-            REQUIRE_UI_LIST_PROPERTY(t, "text", L3("A", "BC", 1000));
+            TestLabel t("ui.label", LA("A", "BC", 1000, "@pinned", 1));
+            REQUIRE_UI_LIST_PROPERTY(t, "text", LA("A", "BC", 1000));
             REQUIRE(t->text() == "A BC 1000");
         }
     }
@@ -65,16 +70,16 @@ TEST_CASE("ui.label", "[ui.label]")
     SECTION("props")
     {
         TestLabel t("ui.label");
-        REQUIRE_UI_LIST_PROPERTY(t, "align", L1("left"));
-        t->setProperty(gensym("align"), L1("center"));
-        REQUIRE_UI_LIST_PROPERTY(t, "align", L1("center"));
-        t->setProperty(gensym("align"), L1("right"));
-        REQUIRE_UI_LIST_PROPERTY(t, "align", L1("right"));
+        REQUIRE_UI_LIST_PROPERTY(t, "align", LA("left"));
+        t->setProperty(gensym("align"), LA("center"));
+        REQUIRE_UI_LIST_PROPERTY(t, "align", LA("center"));
+        t->setProperty(gensym("align"), LA("right"));
+        REQUIRE_UI_LIST_PROPERTY(t, "align", LA("right"));
     }
 
     SECTION("clear")
     {
-        TestLabel t("ui.label", L5(1, 2, 3, 4, 5));
+        TestLabel t("ui.label", LF(1, 2, 3, 4, 5));
         REQUIRE(t->text() == "1 2 3 4 5");
 
         t.call("clear");
@@ -83,25 +88,25 @@ TEST_CASE("ui.label", "[ui.label]")
 
     SECTION("input")
     {
-        TestExtLabel t("ui.label", L2("A", "test"));
+        TestExtLabel t("ui.label", LA("A", "test"));
         t.send(10);
         REQUIRE(t->text() == "10");
         t.bang();
         REQUIRE(t->text() == "10");
         t.send("ABC");
         REQUIRE(t->text() == "ABC");
-        t.send(L3(1, 2, 3));
+        t.send(LF(1, 2, 3));
         REQUIRE(t->text() == "1 2 3");
-        t.call("msg", L2("A", 100));
+        t.call("msg", LA("A", 100));
         REQUIRE(t->text() == "msg A 100");
 
-        t.call("append", L2(3, 4));
+        t.call("append", LF(3, 4));
         REQUIRE(t->text() == "msg A 100 3 4");
 
-        t.call("prepend", L2(1, 2));
+        t.call("prepend", LF(1, 2));
         REQUIRE(t->text() == "1 2 msg A 100 3 4");
 
         // but @text property is not changed
-        REQUIRE_UI_LIST_PROPERTY(t, "text", L2("A", "test"));
+        REQUIRE_UI_LIST_PROPERTY(t, "text", LA("A", "test"));
     }
 }

@@ -23,6 +23,7 @@
         <inlets>
             <inlet>
                 <xinfo on="list">First list</xinfo>
+                <xinfo on="data:mlist">First list</xinfo>
             </inlet>
             <inlet>
                 <xinfo on="list">Second list</xinfo>

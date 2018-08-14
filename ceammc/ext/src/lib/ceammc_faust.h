@@ -29,6 +29,8 @@
 #define FAUSTFLOAT float
 #endif
 
+struct Soundfile;
+
 namespace ceammc {
 namespace faust {
 
@@ -150,6 +152,7 @@ namespace faust {
         UIElement* uiAt(size_t pos);
         const UIElement* uiAt(size_t pos) const;
         size_t uiCount() const { return ui_elements_.size(); }
+        void addSoundfile(const char* label, const char* filename, Soundfile** sf_zone) {}
 
     protected:
         void add_elem(UIElementType type, const std::string& label, float* zone);

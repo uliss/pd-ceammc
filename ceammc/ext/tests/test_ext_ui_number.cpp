@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../ui/ui_number.h"
-#include "ui_external_test.h"
+#include "test_ui.h"
 
 UI_COMPLETE_TEST_SETUP(Number)
 
@@ -27,7 +27,7 @@ TEST_CASE("ui.number", "[ui.number]")
         REQUIRE(t->numOutlets() == 1);
         REQUIRE_UI_FLOAT_PROPERTY(t, "min", -std::numeric_limits<float>::max());
         REQUIRE_UI_FLOAT_PROPERTY(t, "max", std::numeric_limits<float>::max());
-        REQUIRE_UI_LIST_PROPERTY(t, "size", L2(53, 16));
+        REQUIRE_UI_LIST_PROPERTY(t, "size", LF(53, 16));
         REQUIRE_UI_FLOAT_PROPERTY(t, "value", 0.f);
         REQUIRE(t->value() == 0.f);
     }
@@ -45,15 +45,15 @@ TEST_CASE("ui.number", "[ui.number]")
         t->setValue(-1200);
         t->storePreset(2);
 
-        t <<= L1("load");
+        t <<= LA("load");
         REQUIRE_OUTPUT_FLOAT(t, 0, 100.f);
-        t <<= L2("load", 1);
+        t <<= LA("load", 1);
         REQUIRE_OUTPUT_FLOAT(t, 0, 200.f);
-        t <<= L2("load", 0.f);
+        t <<= LA("load", 0.f);
         REQUIRE_OUTPUT_FLOAT(t, 0, 100.f);
-        t <<= L2("load", 2);
+        t <<= LA("load", 2);
         REQUIRE_OUTPUT_FLOAT(t, 0, -1200.f);
-        t <<= L2("load", 4);
+        t <<= LA("load", 4);
         REQUIRE_OUTPUT_FLOAT(t, 0, 0.f);
     }
 
@@ -70,7 +70,7 @@ TEST_CASE("ui.number", "[ui.number]")
 
         t << "ABC";
         REQUIRE_NO_OUTPUT(t);
-        t << L3(1, 2, 3);
+        t << LF(1, 2, 3);
         REQUIRE_OUTPUT_FLOAT(t, 0, 1.f);
         t.call("any", 1);
         REQUIRE_NO_OUTPUT(t);
@@ -95,34 +95,34 @@ TEST_CASE("ui.number", "[ui.number]")
         t << 99.999f;
         REQUIRE_OUTPUT_FLOAT(t, 0, 99.999f);
 
-        REQUIRE((t >> "@max") == L1(100));
-        REQUIRE((t >> "@min") == L1(-10));
+        REQUIRE((t >> "@max") == LF(100));
+        REQUIRE((t >> "@min") == LF(-10));
 
         t << 10;
-        REQUIRE((t >> "@value") == L1(10));
+        REQUIRE((t >> "@value") == LF(10));
 
-        t <<= L1("++");
+        t <<= LA("++");
         REQUIRE(t->value() == 11.f);
         REQUIRE_NO_OUTPUT(t);
-        t << 99 <<= L1("++");
+        t << 99 <<= LA("++");
         REQUIRE(t->value() == 100.f);
-        t <<= L1("++");
+        t <<= LA("++");
         REQUIRE(t->value() == 100.f);
-        t <<= L1("--");
+        t <<= LA("--");
         REQUIRE(t->value() == 99.f);
-        t <<= L1("--");
+        t <<= LA("--");
         REQUIRE(t->value() == 98.f);
-        t <<= L2("/", 2);
+        t <<= LA("/", 2);
         REQUIRE(t->value() == 49.f);
-        t <<= L2("-", 29);
-        t <<= L2("*", 2);
+        t <<= LA("-", 29);
+        t <<= LA("*", 2);
         REQUIRE(t->value() == 40.f);
-        t <<= L2("+", 10);
+        t <<= LA("+", 10);
         REQUIRE(t->value() == 50.f);
-        t <<= L2("/", 0.f);
+        t <<= LA("/", 0.f);
         REQUIRE(t->value() == 50.f);
 
-        t <<= L2("set", -5);
+        t <<= LA("set", -5);
         REQUIRE_NO_OUTPUT(t);
         REQUIRE(t->value() == -5.f);
     }
@@ -203,7 +203,7 @@ TEST_CASE("ui.number", "[ui.number]")
 
     SECTION("send")
     {
-        TestExtNumber t("ui.number", L2("@send", "r1"));
+        TestExtNumber t("ui.number", LA("@send", "r1"));
         t.addListener("r1");
 
         t << 4;
