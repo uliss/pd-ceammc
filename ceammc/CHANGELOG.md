@@ -1,6 +1,6 @@
 # CEAMMC external library changelog
 
-## [Unreleased]
+## [0.6]
 ### Added:
 - env.asr~ envelope generator added
 - env.smooth~ envelope generator added
