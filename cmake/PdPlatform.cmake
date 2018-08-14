@@ -32,6 +32,15 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
     endif()
 endif()
 
+function(find_and_install_dll mask dir)
+    file(GLOB _dll "${dir}/${mask}")
+    if(_dll)
+        message(STATUS "Found DLL: ${_dll}")
+        install(PROGRAMS ${_dll} DESTINATION ${PD_EXE_INSTALL_PATH})
+    else()
+        message(STATUS "file is not found: ${dir}/${mask}")
+    endif()
+endfunction()
 
 if(WIN32)
     find_program(WISH_PATH
@@ -148,6 +157,11 @@ if(WIN32)
     if(FFTWDLL_PATH)
         install(PROGRAMS ${FFTWDLL_PATH} DESTINATION ${PD_EXE_INSTALL_PATH})
     endif()
+
+    find_and_install_dll("libglib*.dll" ${WISH_BINDIR})
+    find_and_install_dll("libintl*.dll" ${WISH_BINDIR})
+    find_and_install_dll("libpcre-*.dll" ${WISH_BINDIR})
+    find_and_install_dll("libiconv*.dll" ${WISH_BINDIR})
 
     # mingw runtime libs
 
