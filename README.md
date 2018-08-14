@@ -19,46 +19,9 @@ Key concepts
 ChangeLog:
 ----------
 
+see ceammc/CHANGELOG.md for more details
 [ceammc/CHANGELOG.md](ceammc/CHANGELOG.md)
 
-
-Features: v0.3
---------------
-
- * Core objects:
-   - list.* objects: 32 objects that cover different techniques to work with lists
-   - list.apply_to, list.reduce objects introduce basic functional approach to list processing.
-   - math.* : 28 objects covering math functions with 1 argument
-   - vector.* : basic vector operations
-   - basic JSON handling
-   - system.* object for various system features
-   - flow control: pass, reject objects; predicates objects
-   - random number generators
-   - property concept: non-UI objects may have properties that can be accessed after object creation. This includes special message and prop.get object for handling
-   - custom data types:
-   - 'String' data type. string.\* objects for common string manipulation functionality
-   - 'Set' data type. data.set, set.\* objects to work with sets - unordered lists. conversion to list.
-   - function.call and [function] objects - working with named functions in Pd
-   - array.do, array.each - apply the function to each element of an array
- * Audio objects:
-   - dynamics: compressor, limiter, soft clip
-   - envelope generators (ar, adsr) and follower
-   - filters: eq peak and shelf filters, dc block, lp/hp/bp in 2- and 4-pole versions
-   - filter coefficient calculations and biquad filter object with audio-rate control
-   - oscillators and LFO with different waveforms. including sine oscillator with feedback
-   - some basic effects - pitch/frequency shift, flanger, distortion
-   - snd.file - object for importing sound files
- * GUI objects:
-   - 8 new objects: knob, multiple slider box, 2d slider, keyboard, message display, scope and oscilloscope
-   - breakpoint function object, working with envelope objects
-   - Basic timeline objects: graphical cues in a patch
- * Extensions:
-   - New objects toolbar (also works as edit mode indicator)
-   - Saving subpatch as new patch
-   - Multiple undo (beta)
-   - Grid / Align to grid (beta)
-
-see ceammc/CHANGELOG.md for more details
 
 this work is based on / includes:
 ---------------------------------
