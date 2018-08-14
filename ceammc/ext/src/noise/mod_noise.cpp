@@ -52,5 +52,5 @@ void ceammc_noise_setup() {
      setup_noise0x2etorus();
      setup_noise0x2everhulst();
 
-     post("CEAMMC: using code from of A-Chaos library, (c) 2004 André Sier");
+     post("[ceammc]: A-Chaos library, (c) 2004 André Sier");
 }
