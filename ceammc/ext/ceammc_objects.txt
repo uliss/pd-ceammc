@@ -59,6 +59,7 @@ demux2~
 demux~
 dict
 dict.contains
+dict.get
 dict.keys
 dict.size
 dict.values
@@ -169,7 +170,6 @@ global.mlist
 global.set
 group
 hw.arduino
-hw.udmx
 hw.usb
 is_any
 is_bang

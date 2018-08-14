@@ -47,7 +47,7 @@
     }}
     {data {
         data.dict data.fifo data.float data.int data.list data.mlist data.set
-        data.set2list dict.contains dict.keys dict.size dict.values
+        data.set2list dict.contains dict.get dict.keys dict.size dict.values
         mlist.flatten set.contains set.diff set.equal set.intersect set.size
         set.symdiff set.union
     }}
