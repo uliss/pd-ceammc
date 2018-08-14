@@ -5,18 +5,20 @@ CVER="@CEAMMC_DISTRIB_VERSION@"
 DVER="ubuntu17.10"
 DISTRIB="artful"
 IMAGE="altoviola/pd-${DVER}"
-BUILD="/pure-data/build/release"
+BUILD="/build/release"
 LIB="ceammc-${VER}-${DVER}-pd-@PD_TEXT_VERSION_SHORT@.tar.gz"
 PD="pd-ceammc-${CVER}-@PD_TEXT_VERSION_SHORT@_${DISTRIB}_x86_64.deb"
 
-docker run $IMAGE /bin/bash -c "
-cd pure-data
-git checkout ceammc
-git pull
-git submodule init
-git submodule update
-cd build/release
-../config_release.sh
+docker run --mount type=bind,source=@CMAKE_SOURCE_DIR@,target=/pure-data $IMAGE /bin/bash -c "
+mkdir -p ${BUILD}
+cd ${BUILD}
+cmake -DCMAKE_BUILD_TYPE=RELEASE \
+    -DCMAKE_INSTALL_PREIFX=/usr \
+    -DWITH_PORTAUDIO=OFF \
+    -DWITH_ALSA=ON \
+    -DWITH_PORTMIDI=ON \
+    -DWITH_FLUIDSYNTH=ON \
+    /pure-data
 make -j2
 make test
 make package
