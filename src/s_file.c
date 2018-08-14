@@ -27,9 +27,10 @@
 #ifdef _WIN32
 #include <windows.h>
 #include <tchar.h>
+#include <io.h>
 #endif
 #ifdef _MSC_VER  /* This is only for Microsoft's compiler, not cygwin, e.g. */
-#define snprintf sprintf_s
+#define snprintf _snprintf
 #endif
 
 int sys_defeatrt;
@@ -174,12 +175,11 @@ static int sys_getpreference(const char *key, char *value, int size)
 {
     HKEY hkey;
     DWORD bigsize = size;
-    LONG err = RegOpenKeyEx(HKEY_LOCAL_MACHINE,
-        "Software\\Pd", 0,  KEY_QUERY_VALUE, &hkey);
+    LONG err = RegOpenKeyEx(HKEY_CURRENT_USER,
+        "Software\\Pd-ceammc", 0,  KEY_QUERY_VALUE, &hkey);
     if (err != ERROR_SUCCESS)
-    {
         return (0);
-    }
+
     err = RegQueryValueEx(hkey, key, 0, 0, value, &bigsize);
     if (err != ERROR_SUCCESS)
     {
@@ -201,8 +201,8 @@ static void sys_initsavepreferences( void)
 static void sys_putpreference(const char *key, const char *value)
 {
     HKEY hkey;
-    LONG err = RegCreateKeyEx(HKEY_LOCAL_MACHINE,
-        "Software\\Pd", 0, NULL, REG_OPTION_NON_VOLATILE, KEY_SET_VALUE,
+    LONG err = RegCreateKeyEx(HKEY_CURRENT_USER,
+        "Software\\Pd-ceammc", 0, NULL, REG_OPTION_NON_VOLATILE, KEY_SET_VALUE,
         NULL, &hkey, NULL);
     if (err != ERROR_SUCCESS)
     {
