@@ -1,5 +1,13 @@
 # CEAMMC Pd distribution changelog
 
+## [2018.08]
+### Added:
+- **CEAMMC** external library v0.6 - [ceammc/CHANGELOG.md](ceammc/CHANGELOG.md)
+
+### Fixed:
+- MIDI menu saving properties added
+- win32: saving preferences fixed
+
 ## [2018.03]
 ### Added:
 - **CEAMMC** external library v0.5 - [ceammc/CHANGELOG.md](ceammc/CHANGELOG.md)

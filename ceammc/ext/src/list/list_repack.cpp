@@ -1,4 +1,4 @@
-#include "ceammc.hpp"
+#include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "ceammc_object.h"
 
@@ -10,7 +10,7 @@ static const size_t MAX_GROUP_SIZE = 1024;
 template <typename T>
 static size_t checkedGroupSize(T v)
 {
-    return math::clip(static_cast<size_t>(v), MIN_GROUP_SIZE, MAX_GROUP_SIZE);
+    return clip<size_t>(static_cast<size_t>(v), MIN_GROUP_SIZE, MAX_GROUP_SIZE);
 }
 
 class ListRepack : public BaseObject {
@@ -33,9 +33,9 @@ public:
 
     void onList(const AtomList& l)
     {
-        const size_t step = math::clip(group_size_->value(), MIN_GROUP_SIZE, MAX_GROUP_SIZE);
+        const size_t step = clip<size_t>(group_size_->value(), MIN_GROUP_SIZE, MAX_GROUP_SIZE);
         for (size_t i = 0; i < l.size(); i += step) {
-            listTo(0, l.slice(i, i + step, 1));
+            listTo(0, l.slice(i, i + step - 1, 1));
         }
 
         bangTo(1);

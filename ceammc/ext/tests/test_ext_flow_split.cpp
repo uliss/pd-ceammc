@@ -12,13 +12,13 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../flow/flow_split.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "catch.hpp"
 #include "ceammc_pd.h"
 
 #include <stdio.h>
 
-typedef TestExtension<FlowSplit> FlowSplitTest;
+typedef TestExternal<FlowSplit> FlowSplitTest;
 
 static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
 
@@ -58,16 +58,16 @@ TEST_CASE("flow.split", "[externals]")
     SECTION("list")
     {
         FlowSplitTest t("flow.split");
-        WHEN_SEND_LIST_TO(0, t, L3(1, 2, 3));
-        REQUIRE_LIST_AT_OUTLET(2, t, L3(1, 2, 3));
-        REQUIRE_LIST_AT_OUTLET(1, t, L3(1, 2, 3));
+        WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3));
+        REQUIRE_LIST_AT_OUTLET(2, t, LF(1, 2, 3));
+        REQUIRE_LIST_AT_OUTLET(1, t, LF(1, 2, 3));
     }
 
     SECTION("any")
     {
         FlowSplitTest t("flow.split");
-        WHEN_SEND_ANY_TO(t, "go", L2(1, 2));
-        REQUIRE_ANY_AT_OUTLET(2, t, L3("go", 1, 2));
-        REQUIRE_ANY_AT_OUTLET(1, t, L3("go", 1, 2));
+        WHEN_SEND_ANY_TO(t, "go", LF(1, 2));
+        REQUIRE_ANY_AT_OUTLET(2, t, LA("go", 1, 2));
+        REQUIRE_ANY_AT_OUTLET(1, t, LA("go", 1, 2));
     }
 }

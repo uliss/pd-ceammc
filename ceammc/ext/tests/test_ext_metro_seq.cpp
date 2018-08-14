@@ -12,13 +12,13 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../base/metro_seq.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "catch.hpp"
 #include "ceammc_pd.h"
 
 #include <stdio.h>
 
-typedef TestExtension<MetroSeq> MetroSeqTest;
+typedef TestExternal<MetroSeq> MetroSeqTest;
 
 static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
 
@@ -32,7 +32,7 @@ TEST_CASE("metro.seq", "[externals]")
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
 
-            REQUIRE_PROPERTY_LIST(t, @pattern, AtomList());
+            REQUIRE_PROPERTY_LIST(t, @pattern, L());
             REQUIRE_PROPERTY(t, @interval, 0.f);
             REQUIRE_PROPERTY(t, @current, 0.f);
 
@@ -41,50 +41,50 @@ TEST_CASE("metro.seq", "[externals]")
 
         SECTION("invalid")
         {
-            MetroSeqTest t("metro.seq", L5(500, "A", "B", -100, 10));
+            MetroSeqTest t("metro.seq", LA(500, "A", "B", -100, 10));
 
             REQUIRE_PROPERTY(t, @interval, 500);
-            REQUIRE_PROPERTY_LIST(t, @pattern, L4(0.f, 0.f, 1, 1));
+            REQUIRE_PROPERTY_LIST(t, @pattern, LA(0.f, 0.f, 1, 1));
         }
 
         SECTION("ok")
         {
-            MetroSeqTest t("metro.seq", L5(200, 1, 1, 0.f, 1));
+            MetroSeqTest t("metro.seq", LA(200, 1, 1, 0.f, 1));
             REQUIRE_PROPERTY(t, @interval, 200);
-            REQUIRE_PROPERTY_LIST(t, @pattern, L4(1, 1, 0.f, 1));
+            REQUIRE_PROPERTY_LIST(t, @pattern, LA(1, 1, 0.f, 1));
         }
     }
 
     SECTION("set pattern")
     {
         MetroSeqTest t("metro.seq");
-        REQUIRE_PROPERTY_LIST(t, @pattern, AtomList());
-        t.setProperty("@pattern", L4(1, 1, 0.f, 1));
-        REQUIRE_PROPERTY_LIST(t, @pattern, L4(1, 1, 0.f, 1));
-        t.setProperty("@pattern", L4("A", "B", -100, 10));
-        REQUIRE_PROPERTY_LIST(t, @pattern, L4(0.f, 0.f, 1, 1));
-        t.setProperty("@pattern", AtomList());
-        REQUIRE_PROPERTY_LIST(t, @pattern, L4(0.f, 0.f, 1, 1));
+        REQUIRE_PROPERTY_LIST(t, @pattern, L());
+        t.setProperty("@pattern", LA(1, 1, 0.f, 1));
+        REQUIRE_PROPERTY_LIST(t, @pattern, LA(1, 1, 0.f, 1));
+        t.setProperty("@pattern", LA("A", "B", -100, 10));
+        REQUIRE_PROPERTY_LIST(t, @pattern, LA(0.f, 0.f, 1, 1));
+        t.setProperty("@pattern", L());
+        REQUIRE_PROPERTY_LIST(t, @pattern, LA(0.f, 0.f, 1, 1));
     }
 
     SECTION("set current")
     {
         MetroSeqTest t("metro.seq");
         REQUIRE_PROPERTY(t, @current, 0.f);
-        t.setProperty("@current", L1(20));
-        t.setProperty("@current", L1(0.f));
+        t.setProperty("@current", LF(20));
+        t.setProperty("@current", LF(0.f));
         REQUIRE_PROPERTY(t, @current, 0.f);
 
-        t.setProperty("@pattern", L4(1, 1, 0.f, 1));
-        t.setProperty("@current", L1(0.f));
+        t.setProperty("@pattern", LA(1, 1, 0.f, 1));
+        t.setProperty("@current", LF(0.f));
         REQUIRE_PROPERTY(t, @current, 0.f);
-        t.setProperty("@current", L1(1.f));
+        t.setProperty("@current", LF(1.f));
         REQUIRE_PROPERTY(t, @current, 1.f);
-        t.setProperty("@current", L1(2.f));
+        t.setProperty("@current", LF(2.f));
         REQUIRE_PROPERTY(t, @current, 2.f);
-        t.setProperty("@current", L1(3.f));
+        t.setProperty("@current", LF(3.f));
         REQUIRE_PROPERTY(t, @current, 3.f);
-        t.setProperty("@current", L1(4.f));
+        t.setProperty("@current", LF(4.f));
         REQUIRE_PROPERTY(t, @current, 3.f);
     }
 
@@ -92,11 +92,11 @@ TEST_CASE("metro.seq", "[externals]")
     {
         MetroSeqTest t("metro.seq");
         t.clockTick();
-        t.setProperty("@current", L1(0.f));
+        t.setProperty("@current", LF(0.f));
 
-        t.setProperty("@pattern", L4(1, 1, 0.f, 1));
+        t.setProperty("@pattern", LA(1, 1, 0.f, 1));
         REQUIRE_PROPERTY(t, @current, 0.f);
-        REQUIRE_PROPERTY_LIST(t, @pattern, L4(1, 1, 0.f, 1));
+        REQUIRE_PROPERTY_LIST(t, @pattern, LA(1, 1, 0.f, 1));
         t.storeAllMessageCount();
         t.clockTick();
         REQUIRE_PROPERTY(t, @current, 1.f);
@@ -115,7 +115,7 @@ TEST_CASE("metro.seq", "[externals]")
         REQUIRE_BANG_AT_OUTLET(0, t);
 
         // one-element
-        t.setProperty("@pattern", L1(1));
+        t.setProperty("@pattern", LF(1));
         REQUIRE_PROPERTY(t, @current, 0.f);
         t.storeAllMessageCount();
         t.clockTick();
@@ -131,7 +131,7 @@ TEST_CASE("metro.seq", "[externals]")
         REQUIRE_BANG_AT_OUTLET(0, t);
 
         // two-element
-        t.setProperty("@pattern", L2(1, 0.f));
+        t.setProperty("@pattern", LF(1, 0.f));
         REQUIRE_PROPERTY(t, @current, 0.f);
         t.storeAllMessageCount();
         t.clockTick();
@@ -159,8 +159,8 @@ TEST_CASE("metro.seq", "[externals]")
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
         WHEN_SEND_FLOAT_TO(0, t, 0.f);
-        t.setProperty("@interval", L1(100));
-        t.setProperty("@pattern", L2(1, 0.0f));
+        t.setProperty("@interval", LF(100));
+        t.setProperty("@pattern", LA(1, 0.0f));
         WHEN_SEND_FLOAT_TO(0, t, 1);
         REQUIRE_PROPERTY(t, @current, 1.f);
         REQUIRE_BANG_AT_OUTLET(0, t);

@@ -9,16 +9,12 @@ if(DNSSD_FOUND)
         zconf_resolve.cpp
         zconf_service.cpp
     )
-
-    if(APPLE)
-        if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-#            add_definitions(-D)
-        endif()
-    endif()
     
-    pd_add_extension(NAME zconf
+    pd_add_external(NAME zconf
         FILES ${ZCONF_SRC}
         INTERNAL True
         LIBRARY zconf
         LINK flext_static)
+
+    target_compile_options(zconf PUBLIC -Wno-narrowing)
 endif()

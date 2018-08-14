@@ -12,13 +12,13 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../array/array_stretch.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "ceammc_factory.h"
 #include "ceammc_pd.h"
 
 #include "catch.hpp"
 
-typedef TestExtension<ArrayStretch> ArrayStretchTest;
+typedef TestExternal<ArrayStretch> ArrayStretchTest;
 
 using namespace ceammc;
 
@@ -54,7 +54,7 @@ TEST_CASE("array.stretch", "[externals]")
 
         SECTION("@speech")
         {
-            ArrayStretchTest t("array.stretch", L1("@speech"));
+            ArrayStretchTest t("array.stretch", LA("@speech"));
             REQUIRE_PROPERTY(t, @sequence, 40);
             REQUIRE_PROPERTY(t, @seekwindow, 15);
             REQUIRE_PROPERTY(t, @overlap, 8);
@@ -65,7 +65,7 @@ TEST_CASE("array.stretch", "[externals]")
         {
             SECTION("invalid source")
             {
-                ArrayStretchTest t("array.stretch", L1("non-exists"));
+                ArrayStretchTest t("array.stretch", LA("non-exists"));
                 REQUIRE_PROPERTY(t, @src, "non-exists");
                 REQUIRE_PROPERTY_NONE(t, @dest);
 
@@ -75,7 +75,7 @@ TEST_CASE("array.stretch", "[externals]")
 
             SECTION("invalid dest")
             {
-                ArrayStretchTest t("array.stretch", L2("array0", "non-exists"));
+                ArrayStretchTest t("array.stretch", LA("array0", "non-exists"));
                 REQUIRE_PROPERTY(t, @src, "array0");
                 REQUIRE_PROPERTY(t, @dest, "non-exists");
 
@@ -85,7 +85,7 @@ TEST_CASE("array.stretch", "[externals]")
 
             SECTION("invalid prop source")
             {
-                ArrayStretchTest t("array.stretch", L2("@src", "non-exists"));
+                ArrayStretchTest t("array.stretch", LA("@src", "non-exists"));
                 REQUIRE_PROPERTY(t, @src, "non-exists");
                 REQUIRE_PROPERTY_NONE(t, @dest);
 
@@ -95,7 +95,7 @@ TEST_CASE("array.stretch", "[externals]")
 
             SECTION("invalid dest")
             {
-                ArrayStretchTest t("array.stretch", L2("@dest", "non-exists"));
+                ArrayStretchTest t("array.stretch", LA("@dest", "non-exists"));
                 REQUIRE_PROPERTY_NONE(t, @src);
                 REQUIRE_PROPERTY(t, @dest, "non-exists");
 
@@ -170,7 +170,7 @@ TEST_CASE("array.stretch", "[externals]")
 
     SECTION("array1")
     {
-        ArrayStretchTest t("array.bpm", L2("array0", "array1"));
+        ArrayStretchTest t("array.bpm", LA("array0", "array1"));
         ArrayPtr aptr0 = cnv->createArray("array0", 10);
         ArrayPtr aptr1 = cnv->createArray("array1", 10);
 

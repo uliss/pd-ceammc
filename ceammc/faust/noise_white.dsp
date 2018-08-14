@@ -1,3 +1,3 @@
-n = library("noise.lib");
+no = library("noises.lib");
 
-process = n.noise;
+process = no.noise;

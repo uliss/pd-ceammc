@@ -186,13 +186,13 @@ public:
         setListFn(processDataTypedFn<DataT>);
     }
 
-    static void* createObject(t_symbol*, int argc, t_atom* argv)
+    static void* createObject(t_symbol* name, int argc, t_atom* argv)
     {
         ObjectProxy* x = 0;
         try {
             x = reinterpret_cast<ObjectProxy*>(pd_new(class_));
 
-            PdArgs args(AtomList(argc, argv), class_name_, &x->pd_obj);
+            PdArgs args(AtomList(argc, argv), class_name_, &x->pd_obj, name);
             args.noDefaultInlet = flags_ & OBJECT_FACTORY_NO_DEFAULT_INLET;
             args.mainSignalInlet = flags_ & OBJECT_FACTORY_MAIN_SIGNAL_INLET;
 
@@ -249,34 +249,34 @@ public:
 
     static void processDataFn(ObjectProxy* x, t_symbol*, int argc, t_atom* argv)
     {
-        AtomList l(argc, argv);
-        if (l.size() == 1 && l[0].isData()) {
-            DataPtr ptr(l[0]);
+        if (argc == 1 && Atom(*argv).isData()) {
+            Atom data(*argv);
+            DataPtr ptr(data);
             if (ptr.isValid()) {
                 x->impl->onData(ptr);
             } else {
-                DataDesc desc = l[0].getData();
+                DataDesc desc = data.getData();
                 LIB_ERR << "can't get data with type=" << desc.type << " and id=" << desc.id;
             }
         } else {
-            x->impl->onList(l);
+            x->impl->onList(AtomList(argc, argv));
         }
     }
 
     template <class DataT>
     static void processDataTypedFn(ObjectProxy* x, t_symbol*, int argc, t_atom* argv)
     {
-        AtomList l(argc, argv);
-        if (l.size() == 1 && l[0].isData()) {
-            DataTPtr<DataT> ptr(l[0]);
+        if (argc == 1 && Atom(*argv).isData()) {
+            Atom data(*argv);
+            DataTPtr<DataT> ptr(data);
             if (ptr.isValid()) {
                 x->impl->onDataT(*ptr.data());
             } else {
-                DataDesc d = l[0].getData();
+                DataDesc d = data.getData();
                 LIB_ERR << "can't get data with type=" << d.type << " and id=" << d.id;
             }
         } else {
-            x->impl->onList(l);
+            x->impl->onList(AtomList(argc, argv));
         }
     }
 

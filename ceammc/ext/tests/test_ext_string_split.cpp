@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../string/string_split.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "ceammc_format.h"
 #include "ceammc_pd.h"
 
@@ -20,7 +20,7 @@
 
 using namespace ceammc;
 
-typedef TestExtension<StringSplit> StringSplitTest;
+typedef TestExternal<StringSplit> StringSplitTest;
 
 #define DSTR(l) Data(new DataTypeString(l))
 
@@ -42,13 +42,13 @@ TEST_CASE("string.split", "[external]")
         WHEN_SEND_FLOAT_TO(0, t, 0);
         REQUIRE_NO_MSG(t);
 
-        WHEN_SEND_LIST_TO(0, t, AtomList());
+        WHEN_SEND_LIST_TO(0, t, L());
         REQUIRE_NO_MSG(t);
 
-        WHEN_SEND_LIST_TO(0, t, L1(1));
+        WHEN_SEND_LIST_TO(0, t, LF(1));
         REQUIRE_NO_MSG(t);
 
-        WHEN_SEND_LIST_TO(0, t, L2("a", "b"));
+        WHEN_SEND_LIST_TO(0, t, LA("a", "b"));
         REQUIRE_NO_MSG(t);
 
         REQUIRE_PROPERTY(t, @sep, "");
@@ -61,7 +61,7 @@ TEST_CASE("string.split", "[external]")
 
     SECTION("data")
     {
-        StringSplitTest t("str.split", L1(":"));
+        StringSplitTest t("str.split", LA(":"));
         REQUIRE_PROPERTY(t, @sep, ":");
 
         WHEN_SEND_TDATA_TO(0, t, DataTypeString("ab:cde:"));
@@ -77,7 +77,7 @@ TEST_CASE("string.split", "[external]")
 
     SECTION("symbol")
     {
-        StringSplitTest t("str.split", L1(":"));
+        StringSplitTest t("str.split", LA(":"));
         WHEN_SEND_SYMBOL_TO(0, t, "A:B:C");
 
         REQUIRE(t.hasNewMessages(0));
@@ -89,35 +89,35 @@ TEST_CASE("string.split", "[external]")
     {
         SECTION("empty")
         {
-            StringSplitTest t("str.split", AtomList());
+            StringSplitTest t("str.split", L());
             REQUIRE_PROPERTY(t, @sep, "");
         }
 
         SECTION("list")
         {
-            StringSplitTest t("str.split", L2("A", "B"));
+            StringSplitTest t("str.split", LA("A", "B"));
             REQUIRE_PROPERTY(t, @sep, "A");
         }
 
         SECTION("space")
         {
-            StringSplitTest t("str.split", L2("'", "'"));
+            StringSplitTest t("str.split", LA("'", "'"));
             REQUIRE_PROPERTY(t, @sep, " ");
         }
     }
 
     SECTION("@sep")
     {
-        StringSplitTest t("str.split", AtomList());
+        StringSplitTest t("str.split", L());
         REQUIRE_PROPERTY(t, @sep, "");
 
-        t.setProperty("@sep", L1(123));
+        t.setProperty("@sep", LF(123));
         REQUIRE_PROPERTY(t, @sep, "123");
 
-        t.setProperty("@sep", AtomList());
+        t.setProperty("@sep", L());
         REQUIRE_PROPERTY(t, @sep, "");
 
-        t.setProperty("@sep", L2("A", "B"));
+        t.setProperty("@sep", LA("A", "B"));
         REQUIRE_PROPERTY(t, @sep, "A");
     }
 }

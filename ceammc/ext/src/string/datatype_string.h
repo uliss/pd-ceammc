@@ -39,9 +39,10 @@ public:
     std::string& str() { return str_; }
     const std::string& str() const { return str_; }
 
-    DataType type() const;
-    DataTypeString* clone() const;
-    std::string toString() const;
+    DataType type() const override;
+    DataTypeString* clone() const override;
+    std::string toString() const override;
+    bool isEqual(const AbstractData* d) const override;
 
     void set(float f);
     void set(t_symbol* s);
@@ -50,6 +51,7 @@ public:
     void split(std::vector<std::string>& res, const std::string& sep = "") const;
 
     bool operator==(const DataTypeString& s) const;
+    bool operator!=(const DataTypeString& s) const;
 
     DataTypeString removeAll(const std::string& s) const;
     DataTypeString removeFirst(const std::string& s) const;

@@ -1,6 +1,134 @@
 # CEAMMC external library changelog
 
-## [2018.03]
+## [0.6]
+### Added:
+- env.asr~ envelope generator added
+- env.smooth~ envelope generator added
+- noise.crackle~ added
+- noise.lfreq0~ added
+- noise.lfreq~ doc added
+- lfo.pulse~ added
+- osc.blit~ added
+- spat.pan4~ added
+- spat.pan8~ added
+- synth.bee3~ added
+- synth.birds~ added
+- synth.church_bell~ added
+- synth.eguitar~ added
+- synth.ks~ (Karplus-Strong) added
+- synth.marimba~ added
+- synth.rhodey~ added
+- synth.risset_arp~ added
+- synth.shakers~ added
+- synth.wurley~ added
+- fx.drone_box~ added
+- fx.echo~ added
+- fx.sdelay~ added
+- fx.wahwah~ added
+- flt.eq_peak_cq~ added
+- flt.moog_vcf~ added
+- math.mul (math.*) added for lists
+- math.div (math./) added for lists
+- math.expr added
+- math.polyeval added
+- math.reciprocal alias added: 1/x
+- conv.amp2dbfs (amp->dbfs) added
+- conv.dbfs2amp (dbfs->amp) added
+- conv.midi2freq (m->f) added
+- gain~ added
+- mix~ added
+- matrix~ added
+- is_data predicate added
+- radio added
+- xfade~ and xfade2~ added
+- speech.flite added
+- fluid~ (FluidSynth) added
+- fx.echo~ @drywet support added
+- prop.get~ (prop~>, @~>) added
+- prop.get alias added (@->)
+- list.^at added
+- list.^contains added
+- list.^search added
+- list.append added
+- list.contains added
+- list.prepend added
+- list.remove added
+- list.set added
+- list.deinterleave alias added: list.unzip
+- list.interleave alias added: list.zip
+- list.length alias added: list.size
+- list.pass_if alias added: list.filter
+- list.range alias added: list.minmax
+- list.reduce alias added: list.foldl
+- list.rotate alias added: list.>>
+- list.unwrap alias added: list.rldecode
+- list.wrap alias added: list.rlencode
+- list.stretch doc added
+- local.dict added
+- local.mlist added
+- local.set added
+- global.mlist added
+- global.dict added
+- global.set added
+- data.int added
+- data.float added
+- mlist.flatten added
+- flow.append added
+- flow.interval added
+- flow.multiplex2~ (flow.mux2~, mux2~) added
+- flow.multiplex~ (flow.mux~, mux~) added
+- flow.once (once) added
+- flow.route added
+- ui.aview added
+- Dict (dictionary) data type added :
+    with syntax: \[key: value\]
+    - dict.contains added
+    - dict.keys added
+    - dict.size added
+    - dict.values added
+- Mlist (multilist) data type added:
+    with syntax: (a c b d 1 2 3)
+
+### Changed:
+- migration to Faust v2
+- flt.hpf12~, flt.hpf24~, flt.lpf12~, flt.lpf24~ @q property removed
+- array.vplay - bang message added for play reset and @reversed property added
+- error message added on unsupported message
+- flow.mux <-> flow.demux naming change
+- global.int, local.int, global.float, local.float added Numeric interface message support:
+    - \[set(
+    - \[+(
+    - \[-(
+    - \[*(
+    - \[/(
+    - @value property
+- data.set, local.set, global.set, data.dict, local.dict, global.dict added Collecton interface support:
+    - \[set(
+    - \[add(
+    - \[remove(
+    - \[clear(
+    - @size, @empty properties
+- data.list, local.list, global.list, data.mlist, local.mlist, global.mlist added List interface support:
+    - \[set(
+    - \[append(
+    - \[prepend(
+    - \[remove(
+    - \[clear(
+    - \[insert(
+    - \[pop(
+    - \[fill(
+    - \[sort(
+    - \[reverse(
+    - \[shuffle(
+    - @size, @empty properties
+
+### Fixed:
+- ui.keyboard fixed on glissando (lowest note played between keys)
+
+### Removed:
+- symbol.ends_with removed
+
+## [0.5]
 ### Added:
 - hw.arduino added
 - proto.firmata added

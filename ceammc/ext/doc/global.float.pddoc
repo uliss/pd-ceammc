@@ -13,6 +13,7 @@
             <keywords>float global</keywords>
             <since>0.1</since>
             <also>
+                <see>local.float</see>
                 <see>global.int</see>
             </also>
         </meta>
@@ -22,29 +23,38 @@
         <arguments>
             <argument name="ID" type="symbol">object ID</argument>
         </arguments>
+        <properties>
+            <property name="@value" readonly="true" type="float">current value</property>
+        </properties>
         <methods>
-            <method name="set">sets variable without output</method>
+            <method name="set">sets new value without output</method>
+            <method name="+">add to float, no output</method>
+            <method name="-">substruct from float, no output</method>
+            <method name="*">multiply to, no output</method>
+            <method name="/">divide by, no output</method>
         </methods>
         <inlets>
             <inlet>
                 <xinfo on="bang">outputs variable</xinfo>
                 <xinfo on="float">set variable to given float and outputs new value</xinfo>
-                <xinfo on="list">set variable to first value in list</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="control">float output</outlet>
+            <outlet>float output</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-/* set value */
-
-[F]   [set 1.1(    [bng]  /* get value */
-|     |            |
-[global.float id]  [global.float id]
-|                  |
-[F]                [F]
+[F]   [+ 2, bang(    [* 3, bang(    [bang(
+|     |              |              |
+|     |              |              |
+|     |  [- 3, bang( | [/ 2, bang(  |
+|     |  |           | |            |
+|     |  | [set 2(   | |            |
+|     |  | |         | |            |
+[global.float        f1]            [global.float f1]
+|                                   |
+[F]                                 [F]
 ]]>
             </pdascii>
         </example>

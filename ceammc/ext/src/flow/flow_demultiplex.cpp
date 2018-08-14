@@ -2,83 +2,77 @@
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 
-static const size_t MIN_INLETS = 2;
-static const size_t MAX_INLETS = 24;
+static const size_t MIN_OUTLETS = 2;
+static const size_t MAX_OUTLETS = 24;
 
-FlowDemultiplex::FlowDemultiplex(const PdArgs& args)
-    : BaseObject(args)
+FlowDemultiplex::FlowDemultiplex(const PdArgs& a)
+    : BaseObject(a)
     , index_(0)
 {
-    size_t n = clip((size_t)positionalFloatArgument(0, 2), MIN_INLETS, MAX_INLETS);
+    size_t n = clip((size_t)positionalFloatArgument(0, 2), MIN_OUTLETS, MAX_OUTLETS);
     index_ = new SizeTProperty("@index", 0);
     createProperty(index_);
 
-    for (size_t i = 1; i < n; i++)
-        createInlet();
-
-    createOutlet();
+    for (size_t i = 0; i < n; i++)
+        createOutlet();
 }
 
 void FlowDemultiplex::onBang()
 {
-    if (0 != index_->value())
+    if (!checkIndex())
         return;
 
-    bangTo(0);
+    bangTo(index_->value());
 }
 
-void FlowDemultiplex::onFloat(float f)
+void FlowDemultiplex::onFloat(t_float f)
 {
-    if (0 != index_->value())
+    if (!checkIndex())
         return;
 
-    floatTo(0, f);
+    floatTo(index_->value(), f);
 }
 
 void FlowDemultiplex::onSymbol(t_symbol* s)
 {
-    if (0 != index_->value())
+    if (!checkIndex())
         return;
 
-    symbolTo(0, s);
+    symbolTo(index_->value(), s);
 }
 
 void FlowDemultiplex::onList(const AtomList& l)
 {
-    onInlet(0, l);
-}
-
-void FlowDemultiplex::onAny(t_symbol* sel, const AtomList& args)
-{
-    if (0 != index_->value())
+    if (!checkIndex())
         return;
 
-    anyTo(0, sel, args);
+    listTo(index_->value(), l);
 }
 
-void FlowDemultiplex::onData(const DataPtr& ptr)
+void FlowDemultiplex::onAny(t_symbol* s, const AtomList& l)
 {
-    if (0 != index_->value())
+    if (!checkIndex())
         return;
 
-    dataTo(0, ptr);
+    anyTo(index_->value(), s, l);
 }
 
-void FlowDemultiplex::onInlet(size_t idx, const AtomList& l)
+void FlowDemultiplex::onData(const DataPtr& d)
 {
-    if (idx != index_->value())
+    if (!checkIndex())
         return;
 
-    if (l.empty())
-        bangTo(0);
-    else if (l.isFloat())
-        floatTo(0, l[0].asFloat());
-    else if (l.isSymbol())
-        symbolTo(0, l[0].asSymbol());
-    else if (l[0].isData())
-        atomTo(0, Atom(l[0].getData()));
-    else
-        listTo(0, l);
+    dataTo(index_->value(), d);
+}
+
+bool FlowDemultiplex::checkIndex() const
+{
+    if (index_->value() >= numOutlets()) {
+        OBJ_ERR << "invalid index: " << index_->value();
+        return false;
+    }
+
+    return true;
 }
 
 void setup_flow_demultiplex()

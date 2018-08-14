@@ -13,19 +13,13 @@
  *****************************************************************************/
 
 #include "../preset/preset_base.h"
-#include "base_extension_test.h"
 #include "ceammc_pd.h"
+#include "ceammc_platform.h"
 #include "ceammc_preset.h"
 
-#include "ceammc_platform.h"
+#include "test_base.h"
 
-#ifndef TEST_DATA_DIR
-#define TEST_DATA_DIR "."
-#endif
-
-#include "catch.hpp"
-
-typedef TestExtension<PresetBase> PresetBaseTest;
+typedef TestExternal<PresetBase> PresetBaseTest;
 
 CanvasPtr ptr = PureData::instance().createTopCanvas("test_canvas");
 
@@ -37,7 +31,7 @@ TEST_CASE("ceammc_preset", "[PureData]")
     {
         REQUIRE(ptr->owner() == 0);
 
-        PresetBaseTest t("preset.base", L1("name1"));
+        PresetBaseTest t("preset.base", LA("name1"));
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
 
@@ -58,7 +52,7 @@ TEST_CASE("ceammc_preset", "[PureData]")
         REQUIRE(sub->owner() == ptr->pd_canvas());
 
         REQUIRE_FALSE(PresetStorage::instance().hasPreset(gensym("/name1")));
-        PresetBaseTest t1("preset.base", L1("name1"));
+        PresetBaseTest t1("preset.base", LA("name1"));
         REQUIRE(t1.canvas() == sub->pd_canvas());
         REQUIRE(t1.makePath() == gensym(""));
         REQUIRE(t1.makePresetPath() == gensym("/name1"));
@@ -66,7 +60,7 @@ TEST_CASE("ceammc_preset", "[PureData]")
 
         REQUIRE_FALSE(PresetStorage::instance().hasPreset(gensym("/sub1/name1")));
 
-        PresetBaseTest t2("preset.base", L2("name1", "@subpatch"));
+        PresetBaseTest t2("preset.base", LA("name1", "@subpatch"));
         REQUIRE(t2.canvas() == sub->pd_canvas());
         REQUIRE(t2.makePath()->s_name == std::string("/sub1"));
         REQUIRE(t2.makePresetPath()->s_name == std::string("/sub1/name1"));
@@ -80,15 +74,15 @@ TEST_CASE("ceammc_preset", "[PureData]")
         REQUIRE(t2.path()->s_name == std::string("/sub1"));
         REQUIRE(t2.presetPath()->s_name == std::string("/sub1/name1"));
 
-        t2.m_update(0, AtomList());
+        t2.m_update(0, L());
 
         REQUIRE_FALSE(PresetStorage::instance().hasPreset(gensym("/sub1/name1")));
         REQUIRE(PresetStorage::instance().hasPreset(gensym("/sub2/name1")));
         REQUIRE(t2.path()->s_name == std::string("/sub2"));
         REQUIRE(t2.presetPath()->s_name == std::string("/sub2/name1"));
 
-        t2.m_store(0, AtomList());
-        t2.m_load(0, AtomList());
+        t2.m_store(0, L());
+        t2.m_load(0, L());
     }
 
     SECTION("preset storage")
@@ -97,7 +91,7 @@ TEST_CASE("ceammc_preset", "[PureData]")
         REQUIRE(&s == &PresetStorage::instance());
 
         REQUIRE(s.maxPresetCount() == 16);
-        REQUIRE(s.keys() == AtomList());
+        REQUIRE(s.keys() == L());
 
         REQUIRE_FALSE(s.hasPreset(gensym("a")));
         s.bindPreset(gensym("a")); // ref count: 1
@@ -106,7 +100,7 @@ TEST_CASE("ceammc_preset", "[PureData]")
         REQUIRE(s.hasPreset(gensym("a")));
         s.unbindPreset(gensym("a")); // ref count: 1
         REQUIRE(s.hasPreset(gensym("a")));
-        REQUIRE(s.keys() == L1("a"));
+        REQUIRE(s.keys() == LA("a"));
         s.unbindPreset(gensym("a")); // ref count: 0
         REQUIRE_FALSE(s.hasPreset(gensym("a")));
 
@@ -143,13 +137,13 @@ TEST_CASE("ceammc_preset", "[PureData]")
         s.setFloatValueAt(gensym("F"), 0, -1024);
         s.setSymbolValueAt(gensym("SYM"), 0, gensym("some string"));
         s.setSymbolValueAt(gensym("SYM2"), 0, gensym("a,a"));
-        s.setListValueAt(gensym("LST"), 0, L6(1, 2, 3, "a", "b", "c"));
-        s.setAnyValueAt(gensym("ANY"), 0, gensym("sample"), L2(1, 3));
+        s.setListValueAt(gensym("LST"), 0, LA(1, 2, 3, "a", "b", "c"));
+        s.setAnyValueAt(gensym("ANY"), 0, gensym("sample"), LF(1, 3));
 
         REQUIRE(s.keys().size() == 5);
         REQUIRE(s.write("./presets.txt"));
 
-        REQUIRE(L5(1, 2, 3, 4, 5).slice(3) == L2(4, 5));
+        REQUIRE(LF(1, 2, 3, 4, 5).slice(3) == LF(4, 5));
 
         REQUIRE(s.read("./presets.txt"));
         REQUIRE(s.keys().size() == 5);
@@ -157,8 +151,8 @@ TEST_CASE("ceammc_preset", "[PureData]")
         REQUIRE(s.floatValueAt(gensym("F"), 0) == -1024);
         REQUIRE(s.symbolValueAt(gensym("SYM"), 0, &s_)->s_name == std::string("some string"));
         REQUIRE(s.symbolValueAt(gensym("SYM2"), 0, &s_)->s_name == std::string("a,a"));
-        REQUIRE(s.listValueAt(gensym("LST"), 0) == L6(1, 2, 3, "a", "b", "c"));
-        REQUIRE(s.anyValueAt(gensym("ANY"), 0) == L3("sample", 1, 3));
+        REQUIRE(s.listValueAt(gensym("LST"), 0) == LA(1, 2, 3, "a", "b", "c"));
+        REQUIRE(s.anyValueAt(gensym("ANY"), 0) == LA("sample", 1, 3));
 
         s.clearAll();
         s.setFloatValueAt(gensym("OTHERS"), 0, 1231);

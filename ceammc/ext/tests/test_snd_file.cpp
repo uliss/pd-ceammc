@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../base/snd_file.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "catch.hpp"
 #include "ceammc_sound.h"
 
@@ -35,10 +35,10 @@ void array_zero(t_garray* a)
         vec[i].w_float = 0.f;
 }
 
-class SndFileTest : public TestExtension<SndFile> {
+class SndFileTest : public TestExternal<SndFile> {
 public:
     SndFileTest(const char* name, const AtomList& args)
-        : TestExtension<SndFile>(name, args)
+        : TestExternal<SndFile>(name, args)
     {
     }
 
@@ -212,15 +212,15 @@ TEST_CASE("snd.file", "[PureData]")
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, sf);
 
         // invalid float argument
-        WHEN_CALL_1(sf, load, 1000);
+        WHEN_CALL_N(sf, load, 1000);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, sf);
 
         // do destination argument
-        WHEN_CALL_1(sf, load, "unknown");
+        WHEN_CALL_N(sf, load, "unknown");
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, sf);
 
         // invalid destination
-        WHEN_CALL_3(sf, load, "unknown", "@to", "arrayX");
+        WHEN_CALL_N(sf, load, "unknown", "@to", "arrayX");
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, sf);
 
         /// create "array2"
@@ -228,7 +228,7 @@ TEST_CASE("snd.file", "[PureData]")
         REQUIRE(array2 != 0);
 
         // invalid filename
-        WHEN_CALL_3(sf, load, "unknown", "@to", "array2");
+        WHEN_CALL_N(sf, load, "unknown", "@to", "array2");
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, sf);
 
         REQUIRE(sf.resizeArray_(S("array1"), 20));
@@ -238,7 +238,7 @@ TEST_CASE("snd.file", "[PureData]")
         // first load success
 
         // valid filename
-        WHEN_CALL_3(sf, load, TEST_DATA_DIR "/test_data1.wav", "@to", "array1");
+        WHEN_CALL_N(sf, load, TEST_DATA_DIR "/test_data1.wav", "@to", "array1");
         REQUIRE_NEW_MESSAGES_AT_OUTLET(0, sf);
 
         REQUIRE_ARRAY_SIZE(array1, 20);
@@ -254,7 +254,7 @@ TEST_CASE("snd.file", "[PureData]")
         array_zero(array2);
 
         // load channel 1
-        WHEN_CALL_5(sf, load, TEST_DATA_DIR "/test_data1.wav", "@to", "array1", "@channel", 1);
+        WHEN_CALL_N(sf, load, TEST_DATA_DIR "/test_data1.wav", "@to", "array1", "@channel", 1);
         REQUIRE_NEW_MESSAGES_AT_OUTLET(0, sf);
 
         REQUIRE_ARRAY_SIZE(array1, 20);
@@ -270,7 +270,7 @@ TEST_CASE("snd.file", "[PureData]")
         array_zero(array2);
 
         // load channel 1 with resize
-        WHEN_CALL_6(sf, load, TEST_DATA_DIR "/test_data1.wav", "@to", "array1", "@channel", 1, "@resize");
+        WHEN_CALL_N(sf, load, TEST_DATA_DIR "/test_data1.wav", "@to", "array1", "@channel", 1, "@resize");
         REQUIRE_NEW_MESSAGES_AT_OUTLET(0, sf);
 
         REQUIRE_ARRAY_SIZE(array1, 441);
@@ -290,7 +290,7 @@ TEST_CASE("snd.file", "[PureData]")
             array_zero(array1);
             array_zero(array2);
 
-            WHEN_CALL_8(sf, load, TEST_DATA_DIR "/test_data1.wav", "@to", "array1",
+            WHEN_CALL_N(sf, load, TEST_DATA_DIR "/test_data1.wav", "@to", "array1",
                 "@channel", 1, "@resize", "@offset", 100);
             REQUIRE_NEW_MESSAGES_AT_OUTLET(0, sf);
 
@@ -310,7 +310,7 @@ TEST_CASE("snd.file", "[PureData]")
             array_zero(array1);
             array_zero(array2);
 
-            WHEN_CALL_5(sf, load, TEST_DATA_DIR "/test_data1.wav", "@to", "array1", "array2", "@resize");
+            WHEN_CALL_N(sf, load, TEST_DATA_DIR "/test_data1.wav", "@to", "array1", "array2", "@resize");
             REQUIRE_NEW_MESSAGES_AT_OUTLET(0, sf);
 
             REQUIRE_ARRAY_SIZE(array1, 441);
@@ -331,7 +331,7 @@ TEST_CASE("snd.file", "[PureData]")
             array_zero(array1);
             array_zero(array2);
 
-            WHEN_CALL_5(sf, load, TEST_DATA_DIR "/test_data1.wav", "@to", "array2", "array1", "@resize");
+            WHEN_CALL_N(sf, load, TEST_DATA_DIR "/test_data1.wav", "@to", "array2", "array1", "@resize");
             REQUIRE_NEW_MESSAGES_AT_OUTLET(0, sf);
 
             REQUIRE_ARRAY_SIZE(array1, 441);
@@ -352,7 +352,7 @@ TEST_CASE("snd.file", "[PureData]")
             array_zero(array1);
             array_zero(array2);
 
-            WHEN_CALL_7(sf, load, TEST_DATA_DIR "/test_data1.wav", "@to", "array1", "array2",
+            WHEN_CALL_N(sf, load, TEST_DATA_DIR "/test_data1.wav", "@to", "array1", "array2",
                 "@channel", 1, "@resize");
             REQUIRE_NEW_MESSAGES_AT_OUTLET(0, sf);
 
@@ -374,7 +374,7 @@ TEST_CASE("snd.file", "[PureData]")
             array_zero(array1);
             array_zero(array2);
 
-            WHEN_CALL_8(sf, load, TEST_DATA_DIR "/test_data1.wav", "@to", "array1", "array2",
+            WHEN_CALL_N(sf, load, TEST_DATA_DIR "/test_data1.wav", "@to", "array1", "array2",
                 "@resize", "@channel", 100, -12);
             // final @channel = [0, 0]
             // so ch0 loaded to array1 and array2
@@ -398,8 +398,8 @@ TEST_CASE("snd.file", "[PureData]")
             array_zero(array1);
             array_zero(array2);
 
-            args = L7(TEST_DATA_DIR "/test_data1.wav", "@to", "array1", "array2", "@resize", "@offset", 400);
-            args.append(L3("@channel", 0.f, 1));
+            args = LA(TEST_DATA_DIR "/test_data1.wav", "@to", "array1", "array2", "@resize", "@offset", 400);
+            args.append(LA("@channel", 0.f, 1));
             sf.storeAllMessageCount();
             sf.m_load(gensym("load"), args);
             args.clear();
@@ -423,7 +423,7 @@ TEST_CASE("snd.file", "[PureData]")
             array_zero(array1);
             array_zero(array2);
 
-            WHEN_CALL_7(sf, load, TEST_DATA_DIR "/test_data1.wav", "@to", "array1", "array2",
+            WHEN_CALL_N(sf, load, TEST_DATA_DIR "/test_data1.wav", "@to", "array1", "array2",
                 "@resize", "@offset", -41);
             REQUIRE_NEW_MESSAGES_AT_OUTLET(0, sf);
 
@@ -446,7 +446,7 @@ TEST_CASE("snd.file", "[PureData]")
             array_zero(array1);
             array_zero(array2);
 
-            WHEN_CALL_7(sf, load, TEST_DATA_DIR "/test_data1.wav", "@to", "array1", "array2",
+            WHEN_CALL_N(sf, load, TEST_DATA_DIR "/test_data1.wav", "@to", "array1", "array2",
                 "@resize", "@offset", 10000);
             REQUIRE_NEW_MESSAGES_AT_OUTLET(0, sf);
 
@@ -479,13 +479,13 @@ TEST_CASE("snd.file", "[PureData]")
         WHEN_CALL(sf, info);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, sf);
 
-        WHEN_CALL_1(sf, info, 123);
+        WHEN_CALL_N(sf, info, 123);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, sf);
 
-        WHEN_CALL_1(sf, info, "unknown");
+        WHEN_CALL_N(sf, info, "unknown");
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, sf);
 
-        WHEN_CALL_1(sf, info, TEST_DATA_DIR "/test_data1.wav");
+        WHEN_CALL_N(sf, info, TEST_DATA_DIR "/test_data1.wav");
         REQUIRE(sf.hasNewMessages());
         AtomList info = sf.lastMessage().anyValue();
         AtomList prop;
@@ -539,33 +539,33 @@ TEST_CASE("snd.file", "[PureData]")
         t_garray* array1 = graph_array(canvas_getcurrent(), gensym("array1"), &s_float, 100, 0);
         REQUIRE(array1 != 0);
 
-        REQUIRE(sf.findPatternArrays_("array[]") == L1("array1"));
-        REQUIRE(sf.findPatternArrays_("array[1]") == L1("array1"));
-        REQUIRE(sf.findPatternArrays_("array[|1]") == AtomList());
-        REQUIRE(sf.findPatternArrays_("array[1|]") == AtomList());
-        REQUIRE(sf.findPatternArrays_("array[|1|]") == AtomList());
-        REQUIRE(sf.findPatternArrays_("array[2]") == AtomList()); // not exists yet
-        REQUIRE(sf.findPatternArrays_("array[1|2]") == L1("array1")); // not exists yet
+        REQUIRE(sf.findPatternArrays_("array[]") == LA("array1"));
+        REQUIRE(sf.findPatternArrays_("array[1]") == LA("array1"));
+        REQUIRE(sf.findPatternArrays_("array[|1]") == L());
+        REQUIRE(sf.findPatternArrays_("array[1|]") == L());
+        REQUIRE(sf.findPatternArrays_("array[|1|]") == L());
+        REQUIRE(sf.findPatternArrays_("array[2]") == L()); // not exists yet
+        REQUIRE(sf.findPatternArrays_("array[1|2]") == LA("array1")); // not exists yet
 
         t_garray* array2 = graph_array(canvas_getcurrent(), gensym("array2"), &s_float, 100, 0);
         REQUIRE(array2 != 0);
 
-        REQUIRE(sf.findPatternArrays_("array[]") == L2("array1", "array2"));
-        REQUIRE(sf.findPatternArrays_("array[1]") == L1("array1"));
-        REQUIRE(sf.findPatternArrays_("array[2]") == L1("array2"));
-        REQUIRE(sf.findPatternArrays_("array[1|2]") == L2("array1", "array2"));
-        REQUIRE(sf.findPatternArrays_("array[0-10]") == L2("array1", "array2"));
-        REQUIRE(sf.findPatternArrays_("array[10-0]") == L2("array2", "array1"));
-        REQUIRE(sf.findPatternArrays_("array[|1|2]") == AtomList());
-        REQUIRE(sf.findPatternArrays_("array[1|2|]") == AtomList());
-        REQUIRE(sf.findPatternArrays_("array[||||1|2|]") == AtomList());
-        REQUIRE(sf.findPatternArrays_("array[2|1]") == L2("array2", "array1"));
+        REQUIRE(sf.findPatternArrays_("array[]") == LA("array1", "array2"));
+        REQUIRE(sf.findPatternArrays_("array[1]") == LA("array1"));
+        REQUIRE(sf.findPatternArrays_("array[2]") == LA("array2"));
+        REQUIRE(sf.findPatternArrays_("array[1|2]") == LA("array1", "array2"));
+        REQUIRE(sf.findPatternArrays_("array[0-10]") == LA("array1", "array2"));
+        REQUIRE(sf.findPatternArrays_("array[10-0]") == LA("array2", "array1"));
+        REQUIRE(sf.findPatternArrays_("array[|1|2]") == L());
+        REQUIRE(sf.findPatternArrays_("array[1|2|]") == L());
+        REQUIRE(sf.findPatternArrays_("array[||||1|2|]") == L());
+        REQUIRE(sf.findPatternArrays_("array[2|1]") == LA("array2", "array1"));
 
         t_garray* array3 = graph_array(canvas_getcurrent(), gensym("array3"), &s_float, 100, 0);
         REQUIRE(array3 != 0);
 
-        REQUIRE(sf.findPatternArrays_("array[1-3]") == L3("array1", "array2", "array3"));
-        REQUIRE(sf.findPatternArrays_("array[1-5]") == L3("array1", "array2", "array3"));
+        REQUIRE(sf.findPatternArrays_("array[1-3]") == LA("array1", "array2", "array3"));
+        REQUIRE(sf.findPatternArrays_("array[1-5]") == LA("array1", "array2", "array3"));
     }
 
 #if defined(__APPLE__) && defined(__clang__)
@@ -580,14 +580,14 @@ TEST_CASE("snd.file", "[PureData]")
         WHEN_CALL(sf, info);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, sf);
 
-        WHEN_CALL_1(sf, info, 123);
+        WHEN_CALL_N(sf, info, 123);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, sf);
 
-        WHEN_CALL_1(sf, info, "unknown");
+        WHEN_CALL_N(sf, info, "unknown");
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, sf);
 
         sf.storeMessageCount();
-        WHEN_CALL_1(sf, info, TEST_DATA_DIR "/test_data0.mp3");
+        WHEN_CALL_N(sf, info, TEST_DATA_DIR "/test_data0.mp3");
         REQUIRE(sf.hasNewMessages());
         AtomList info = sf.lastMessage().anyValue();
         AtomList prop;
@@ -604,7 +604,7 @@ TEST_CASE("snd.file", "[PureData]")
         sf.cleanMessages();
         sf.storeMessageCount(0);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, sf);
-        WHEN_CALL_1(sf, info, TEST_DATA_DIR "/test_data0.m4a");
+        WHEN_CALL_N(sf, info, TEST_DATA_DIR "/test_data0.m4a");
         REQUIRE(sf.hasNewMessages(0));
         info = sf.lastMessage().anyValue();
         prop.clear();

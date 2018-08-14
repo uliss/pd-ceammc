@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="noise.crackle~">
+        <title>noise.crackle~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>sparse noise generator</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>noise</category>
+            <keywords>noise crackle</keywords>
+            <since>0.6</since>
+        </meta>
+        <info>
+            <par>Random impulses in the amplitude range -1 to 1 are generated at an average rate of
+            @freq impulses per second</par>
+        </info>
+        <arguments>
+            <argument type="float" name="FREQ">average frequency of noise impulses per
+            second</argument>
+        </arguments>
+        <properties>
+            <property name="@freq" type="float" minvalue="0" maxvalue="100" default="10">average
+            frequency of noise impulses per second</property>
+        </properties>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>control input</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[freq 3( [@freq 50(
+|        |
+[noise.crackle~ ]
+|
+[ui.gain~ @size 120 16]
+|\
+[dac~]
+
+[ui.dsp~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

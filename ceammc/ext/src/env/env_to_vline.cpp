@@ -215,10 +215,16 @@ void Env2VLine::outputNextStop()
 
 void Env2VLine::interpSegment(const EnvelopePoint& pt0, const EnvelopePoint& pt1, Env2VLine::InterpMethod m, AtomList& res)
 {
+    static const int MAX_STEPS = 50;
+
     double duration_ms = intervalMs(pt1, pt0);
     int step_num = ((int(duration_ms) + 9) / 10);
     if (step_num == 0)
         step_num = 1;
+
+    if (step_num > MAX_STEPS)
+        step_num = MAX_STEPS;
+
     float step_len_ms = duration_ms / step_num;
 
     // output interpolated values

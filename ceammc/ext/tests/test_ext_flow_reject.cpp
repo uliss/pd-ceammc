@@ -12,13 +12,13 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../flow/flow_reject.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "catch.hpp"
 #include "ceammc_pd.h"
 
 #include <stdio.h>
 
-typedef TestExtension<FlowReject> FlowRejectTest;
+typedef TestExternal<FlowReject> FlowRejectTest;
 
 static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
 
@@ -32,32 +32,32 @@ TEST_CASE("flow.reject", "[externals]")
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
 
-            REQUIRE_PROPERTY_LIST(t, @values, AtomList());
+            REQUIRE_PROPERTY_LIST(t, @values, L());
         }
 
         SECTION("args")
         {
-            FlowRejectTest t("flow.reject", L4(1, 2, "b", "@c"));
-            REQUIRE_PROPERTY_LIST(t, @values, L4(1, 2, "b", "@c"));
+            FlowRejectTest t("flow.reject", LA(1, 2, "b", "@c"));
+            REQUIRE_PROPERTY_LIST(t, @values, LA(1, 2, "b", "@c"));
         }
 
         SECTION("properties")
         {
-            FlowRejectTest t("flow.reject", L4(1, 2, "@values", "@c"));
-            REQUIRE_PROPERTY_LIST(t, @values, L4(1, 2, "@values", "@c"));
+            FlowRejectTest t("flow.reject", LA(1, 2, "@values", "@c"));
+            REQUIRE_PROPERTY_LIST(t, @values, LA(1, 2, "@values", "@c"));
         }
     }
 
     SECTION("float")
     {
-        FlowRejectTest t("flow.reject", L3(1, "a", "@c"));
+        FlowRejectTest t("flow.reject", LA(1, "a", "@c"));
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_BANG_AT_OUTLET(0, t);
     }
 
     SECTION("float")
     {
-        FlowRejectTest t("flow.reject", L3(1, 0.f, -1));
+        FlowRejectTest t("flow.reject", LF(1, 0.f, -1));
 
         WHEN_SEND_FLOAT_TO(0, t, 1);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
@@ -80,7 +80,7 @@ TEST_CASE("flow.reject", "[externals]")
 
     SECTION("symbol")
     {
-        FlowRejectTest t("flow.reject", L2("a", "b"));
+        FlowRejectTest t("flow.reject", LA("a", "b"));
 
         WHEN_SEND_SYMBOL_TO(0, t, "a");
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
@@ -98,46 +98,46 @@ TEST_CASE("flow.reject", "[externals]")
     SECTION("list")
     {
         // all lists are passed
-        FlowRejectTest t("flow.reject", L2("a", "b"));
+        FlowRejectTest t("flow.reject", LA("a", "b"));
 
-        WHEN_SEND_LIST_TO(0, t, L2("a", "b"));
-        REQUIRE_LIST_AT_OUTLET(0, t, L2("a", "b"));
+        WHEN_SEND_LIST_TO(0, t, LA("a", "b"));
+        REQUIRE_LIST_AT_OUTLET(0, t, LA("a", "b"));
 
-        WHEN_SEND_LIST_TO(0, t, L2("c", "d"));
-        REQUIRE_LIST_AT_OUTLET(0, t, L2("c", "d"));
+        WHEN_SEND_LIST_TO(0, t, LA("c", "d"));
+        REQUIRE_LIST_AT_OUTLET(0, t, LA("c", "d"));
     }
 
     SECTION("any")
     {
-        FlowRejectTest t("flow.reject", L2("a", "b"));
+        FlowRejectTest t("flow.reject", LA("a", "b"));
 
-        WHEN_SEND_ANY_TO(t, "a", L2(1, 2));
+        WHEN_SEND_ANY_TO(t, "a", LF(1, 2));
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-        WHEN_SEND_ANY_TO(t, "a", AtomList());
+        WHEN_SEND_ANY_TO(t, "a", L());
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-        WHEN_SEND_ANY_TO(t, "b", L2(1, 2));
+        WHEN_SEND_ANY_TO(t, "b", LF(1, 2));
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-        WHEN_SEND_ANY_TO(t, "b", AtomList());
+        WHEN_SEND_ANY_TO(t, "b", L());
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-        WHEN_SEND_ANY_TO(t, "c", L2(1, 2));
-        REQUIRE_ANY_AT_OUTLET(0, t, L3("c", 1, 2));
+        WHEN_SEND_ANY_TO(t, "c", LF(1, 2));
+        REQUIRE_ANY_AT_OUTLET(0, t, LA("c", 1, 2));
 
-        WHEN_SEND_ANY_TO(t, "c", AtomList());
-        REQUIRE_ANY_AT_OUTLET(0, t, L1("c"));
+        WHEN_SEND_ANY_TO(t, "c", L());
+        REQUIRE_ANY_AT_OUTLET(0, t, LA("c"));
 
-        WHEN_SEND_ANY_TO(t, "@c", AtomList());
-        REQUIRE_ANY_AT_OUTLET(0, t, L1("@c"));
+        WHEN_SEND_ANY_TO(t, "@c", L());
+        REQUIRE_ANY_AT_OUTLET(0, t, LA("@c"));
     }
 
     SECTION("real")
     {
         setup_flow0x2ereject();
 
-        pd::External flow_reject("flow.reject", L3(1, "c", "@prop"));
+        pd::External flow_reject("flow.reject", LA(1, "c", "@prop"));
         REQUIRE_FALSE(flow_reject.isNull());
     }
 }

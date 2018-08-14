@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="local.set">
+        <title>local.set</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>local named set object</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>local</category>
+            <keywords>set local global</keywords>
+            <since>0.6</since>
+            <also>
+                <see>data.set</see>
+                <see>global.set</see>
+            </also>
+        </meta>
+        <info>
+            <par>Defines local scope set variable, accessed by ID name</par>
+        </info>
+        <arguments>
+            <argument name="ID" type="symbol">object ID</argument>
+        </arguments>
+        <properties>
+            <property name="@empty" readonly="true" enum="0 1" type="int">1 if list is empty,
+            otherwise 0</property>
+            <property name="@size" readonly="true" minvalue="0" type="int">number of elements in
+            list</property>
+        </properties>
+        <methods>
+            <method name="add">add values to the set 
+            <param name="VAL" type="list" required="true">added values</param></method>
+            <method name="clear">removes all set elements</method>
+            <method name="remove">remove elements from the set 
+            <param name="VAL" type="list" required="true">elements</param></method>
+            <method name="set">sets new set content without output 
+            <param name="LIST" type="list" required="true">new set content</param></method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">output set content</xinfo>
+                <xinfo on="float">adds new element to set, no output</xinfo>
+                <xinfo on="symbol">adds new element to set, no output</xinfo>
+                <xinfo on="list">adds new elements to set, no output</xinfo>
+                <xinfo on="data:set">set new set content and output</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>set output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[                     
+[B]   [1 2 3( [F] [clear(    [bang(
+|     |       |   |          |
+|     |       |   |          |
+|     |       |   |          |
+[local.set      s1]          [local.set s1]
+|                            |
+[ui.display @display_type=1] [ui.display @display_type=1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

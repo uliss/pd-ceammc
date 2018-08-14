@@ -1,4 +1,5 @@
 #include "list_unpack.h"
+#include "../data/datatype_mlist.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 
@@ -10,45 +11,29 @@ const static size_t DEFAULT_OUTLETS = 1;
 
 ListUnpack::ListUnpack(const PdArgs& a)
     : BaseObject(a)
-    , n_(DEFAULT_OUTLETS)
+    , n_(clip<int>(positionalFloatArgument(0, DEFAULT_OUTLETS), MIN_OUTLETS, MAX_OUTLETS))
 {
-    if (positionalArguments().size() > 0) {
-        n_ = clip<size_t>(positionalArguments().asSizeT(DEFAULT_OUTLETS), MIN_OUTLETS, MAX_OUTLETS);
-    }
-
-    if (args().hasProperty("@n")) {
-        Atom n;
-        if (args().property("@n", &n)) {
-            if (n.isFloat()) {
-                n_ = clip<size_t>(n.asSizeT(DEFAULT_OUTLETS), MIN_OUTLETS, MAX_OUTLETS);
-            }
-        }
-    }
-
-    createCbProperty("@n", &ListUnpack::p_n);
-
-    for (size_t i = 0; i < n_; i++) {
+    for (size_t i = 0; i < n_; i++)
         createOutlet();
-    }
 }
 
 void ListUnpack::onList(const AtomList& l)
 {
-    for (size_t i = std::min(l.size(), n_); i > 0; i--) {
+    const size_t N = std::min<size_t>(l.size(), n_);
+
+    for (size_t i = N; i > 0; i--)
         atomTo(i - 1, l[i - 1]);
-    }
 }
 
-AtomList ListUnpack::p_n() const
+void ListUnpack::onDataT(const DataTypeMList& l)
 {
-    return AtomList(n_);
+    const size_t N = std::min<size_t>(l.size(), n_);
+    for (size_t i = N; i > 0; i--)
+        atomTo(i - 1, l[i - 1].toAtom());
 }
 
-void ListUnpack::parseProperties()
-{
-}
-
-extern "C" void setup_list0x2eunpack()
+void setup_list_unpack()
 {
     ObjectFactory<ListUnpack> obj("list.unpack");
+    obj.processData<DataTypeMList>();
 }

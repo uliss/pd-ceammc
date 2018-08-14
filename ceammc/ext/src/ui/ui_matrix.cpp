@@ -29,6 +29,19 @@ UIMatrix::UIMatrix()
     createOutlet();
 }
 
+void UIMatrix::init(t_symbol* name, const AtomList& args, bool usePresets)
+{
+    UIObject::init(name, args, usePresets);
+
+    int row = args.intAt(0, -1);
+    int col = args.intAt(1, -1);
+
+    if (row > 0 && col > 0) {
+        prop_cols_ = clip<int>(col, 1, UI_MAX_MATRIX_SIZE);
+        prop_rows_ = clip<int>(row, 1, UI_MAX_MATRIX_SIZE);
+    }
+}
+
 bool UIMatrix::cell(size_t row, size_t col) const
 {
     row %= UI_MAX_MATRIX_SIZE;
@@ -126,6 +139,22 @@ void UIMatrix::setRow(const AtomList& lst)
     }
 
     setRow(idx, lst.slice(1));
+}
+
+void UIMatrix::setList(const AtomList& lst)
+{
+    if (lst.size() != prop_cols_ * prop_rows_)
+        UI_DBG << "warning: list size is not equal number of matrix cells";
+
+    const size_t total = std::min<size_t>(lst.size(), prop_cols_ * prop_rows_);
+    for (size_t i = 0; i < total; i++) {
+        size_t col = i % prop_cols_;
+        size_t row = i / prop_cols_;
+
+        matrix_.set(row * UI_MAX_MATRIX_SIZE + col, lst[i].asFloat() != 0);
+    }
+
+    redrawBGLayer();
 }
 
 void UIMatrix::flipCell(size_t row, size_t col)
@@ -345,18 +374,8 @@ void UIMatrix::onBang()
 
 void UIMatrix::onList(const AtomList& lst)
 {
-    if (lst.size() != prop_cols_ * prop_rows_)
-        UI_DBG << "warning: list size is not equal number of matrix cells";
-
-    const size_t total = std::min<size_t>(lst.size(), prop_cols_ * prop_rows_);
-    for (size_t i = 0; i < total; i++) {
-        size_t col = i % prop_cols_;
-        size_t row = i / prop_cols_;
-
-        matrix_.set(row * UI_MAX_MATRIX_SIZE + col, lst[i].asFloat() != 0);
-    }
-
-    redrawBGLayer();
+    setList(lst);
+    outputAllCells();
 }
 
 void UIMatrix::onMouseDown(t_object* view, const t_pt& pt, long modifiers)
@@ -512,7 +531,7 @@ void UIMatrix::m_set(const AtomList& lst)
     } else if (sel == SYM_ROW) {
         setRow(args);
     } else if (sel == SYM_LIST) {
-        onList(args);
+        setList(args);
     } else {
         UI_ERR << "unknown method: " << sel->s_name;
         UI_ERR << "    usage: set col|row|cell|list [ARGS]";

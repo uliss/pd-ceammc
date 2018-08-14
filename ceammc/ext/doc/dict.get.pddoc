@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="dict.get">
+        <title>dict.get</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>on input dict outputs value to corresponding key outlet</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>data</category>
+            <keywords>get dictionary</keywords>
+            <since>0.6</since>
+            <also>
+                <see>data.dict</see>
+                <see>flow.route</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="KEYS" type="list">keys</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="data:dict">input dictionary</xinfo>
+            </inlet>
+        </inlets>
+        <outlets dynamic="true">
+            <outlet number="1">first key output</outlet>
+            <outlet number="...">... key output</outlet>
+            <outlet number="n">nth key output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[\[a: b\] \[@prop: val\] \[1: 100\], bang(
+|
+|
+|
+[data.dict]
+|
+[dict.get @prop 1 a ?]
+|     ^|    ^^|   ^^^|
+|      |      |      |
+|      |      |      |
+[S]    [F]    [S]    [ui.display]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

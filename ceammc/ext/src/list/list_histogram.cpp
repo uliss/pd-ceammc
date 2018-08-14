@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_histogram.h"
+#include "../data/datatype_mlist.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
 
@@ -42,7 +43,13 @@ void ListHistogram::onInlet(size_t, const AtomList& l)
     bins_->set(l);
 }
 
-extern "C" void setup_list0x2ehistogram()
+void ListHistogram::onDataT(const DataTypeMList& lst)
+{
+    onList(lst.toList());
+}
+
+void setup_list_histogram()
 {
     ObjectFactory<ListHistogram> obj("list.histogram");
+    obj.processData<DataTypeMList>();
 }

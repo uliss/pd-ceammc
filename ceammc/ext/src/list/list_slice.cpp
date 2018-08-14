@@ -12,19 +12,20 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_slice.h"
+#include "../data/datatype_mlist.h"
 #include "ceammc_factory.h"
 
 ListSlice::ListSlice(const PdArgs& a)
     : BaseObject(a)
-    , from_(0)
-    , step_(0)
-    , to_(0)
+    , from_(nullptr)
+    , step_(nullptr)
+    , to_(nullptr)
 {
     createOutlet();
 
     from_ = new IntProperty("@from", int(positionalFloatArgument(0, 0)));
-    to_ = new AtomProperty("@to", positionalArgument(1, Atom()));
-    step_ = new AtomProperty("@step", positionalArgument(2, Atom()));
+    to_ = new IntProperty("@to", positionalFloatArgument(1, -1));
+    step_ = new SizeTProperty("@step", positionalFloatArgument(2, 1));
 
     createProperty(from_);
     createProperty(to_);
@@ -33,23 +34,16 @@ ListSlice::ListSlice(const PdArgs& a)
 
 void ListSlice::onList(const AtomList& l)
 {
-    int from = from_->value();
-
-    if (step_->value().isNone() && to_->value().isNone())
-        return listTo(0, l.slice(from));
-
-    int step = step_->value().asInt(0);
-    if (step < 1)
-        step = 1;
-
-    int to = to_->value().asInt();
-    if (to_->value().isNone())
-        to = int(l.size());
-
-    listTo(0, l.slice(from, to, size_t(step)));
+    listTo(0, l.slice(from_->value(), to_->value(), step_->value()));
 }
 
-extern "C" void setup_list0x2eslice()
+void ListSlice::onDataT(const DataTypeMList& l)
+{
+    DataTypeMList* res = new DataTypeMList(l.slice(from_->value(), to_->value(), step_->value()));
+    dataTo(0, DataPtr(res));
+}
+
+void setup_list_slice()
 {
     ObjectFactory<ListSlice> obj("list.slice");
 }

@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../ui/ui_icon.h"
-#include "ui_external_test.h"
+#include "test_ui.h"
 
 UI_COMPLETE_TEST_SETUP(Icon)
 
@@ -25,10 +25,10 @@ TEST_CASE("ui.icon", "[ui.icon]")
         TestIcon t("ui.icon");
         REQUIRE(t->numOutlets() == 1);
         REQUIRE(t->numInlets() == 1);
-        REQUIRE_UI_LIST_PROPERTY(t, "size", L2(24, 24));
-        REQUIRE_UI_LIST_PROPERTY(t, "presetname", L1("ui.icon.0"));
-        REQUIRE_UI_LIST_PROPERTY(t, "icon", L1("default"));
-        REQUIRE_UI_LIST_PROPERTY(t, "mode", L1("button"));
+        REQUIRE_UI_LIST_PROPERTY(t, "size", LF(24, 24));
+        REQUIRE_UI_LIST_PROPERTY(t, "presetname", LA("ui.icon.0"));
+        REQUIRE_UI_LIST_PROPERTY(t, "icon", LA("default"));
+        REQUIRE_UI_LIST_PROPERTY(t, "mode", LA("button"));
         REQUIRE_UI_FLOAT_PROPERTY(t, "enabled", 1);
     }
 
@@ -36,15 +36,15 @@ TEST_CASE("ui.icon", "[ui.icon]")
     {
         TestExtIcon t("ui.icon");
 
-        t <<= L2("set", "play");
-        REQUIRE_UI_LIST_PROPERTY(t, "icon", L1("play"));
+        t <<= LA("set", "play");
+        REQUIRE_UI_LIST_PROPERTY(t, "icon", LA("play"));
     }
 
     SECTION("click")
     {
         SECTION("bang")
         {
-            TestExtIcon t("ui.icon", L4("@send", "r1", "@mode", "bang"));
+            TestExtIcon t("ui.icon", LA("@send", "r1", "@mode", "bang"));
             t.addListener("r1");
             t.mouseDown(3, 3);
             REQUIRE_OUTPUT_BANG(t, 0);
@@ -59,7 +59,7 @@ TEST_CASE("ui.icon", "[ui.icon]")
 
         SECTION("button")
         {
-            TestExtIcon t("ui.icon", L4("@send", "r1", "@mode", "button"));
+            TestExtIcon t("ui.icon", LA("@send", "r1", "@mode", "button"));
             t.addListener("r1");
             t.mouseDown(3, 3);
             REQUIRE_OUTPUT_FLOAT(t, 0, 1);
@@ -75,7 +75,7 @@ TEST_CASE("ui.icon", "[ui.icon]")
 
         SECTION("toggle")
         {
-            TestExtIcon t("ui.icon", L4("@send", "r1", "@mode", "toggle"));
+            TestExtIcon t("ui.icon", LA("@send", "r1", "@mode", "toggle"));
             t.addListener("r1");
             t.mouseDown(3, 3);
             REQUIRE_OUTPUT_FLOAT(t, 0, 1);

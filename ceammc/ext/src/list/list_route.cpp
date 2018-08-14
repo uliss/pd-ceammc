@@ -1,4 +1,5 @@
 #include "list_route.h"
+#include "../data/datatype_mlist.h"
 #include "ceammc_factory.h"
 
 ListRoute::ListRoute(const PdArgs& args)
@@ -69,6 +70,11 @@ void ListRoute::onList(const AtomList& lst)
     }
 }
 
+void ListRoute::onDataT(const DataTypeMList& lst)
+{
+    onList(lst.toList());
+}
+
 int ListRoute::outletIndex(const Atom& a) const
 {
     return positionalArguments().findPos(a);
@@ -95,4 +101,5 @@ void ListRoute::outputList(size_t idx, const AtomList& l)
 void setup_list_route()
 {
     ObjectFactory<ListRoute> obj("list.route");
+    obj.processData<DataTypeMList>();
 }

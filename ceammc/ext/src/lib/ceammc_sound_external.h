@@ -70,6 +70,11 @@ public:
      */
     virtual void processBlock(const t_sample** in, t_sample** out) = 0;
 
+    /**
+     * @brief dump - dumps internal into to Pd window
+     */
+    void dump() const override;
+
 private:
     inline void _processBlock()
     {

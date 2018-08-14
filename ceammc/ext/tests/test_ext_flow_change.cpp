@@ -13,14 +13,14 @@
  *****************************************************************************/
 #include "../base/function.h"
 #include "../flow/flow_change.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "catch.hpp"
 #include "ceammc_pd.h"
 
 #include <stdio.h>
 
-typedef TestExtension<Function> FunctionTest;
-typedef TestExtension<FlowChange> FlowChangeTest;
+typedef TestExternal<Function> FunctionTest;
+typedef TestExternal<FlowChange> FlowChangeTest;
 
 static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
 
@@ -66,17 +66,17 @@ TEST_CASE("flow.change", "[externals]")
         WHEN_SEND_SYMBOL_TO(0, t, "b");
         REQUIRE_SYMBOL_AT_OUTLET(0, t, "b");
 
-        WHEN_SEND_LIST_TO(0, t, L2(1, 2));
-        REQUIRE_LIST_AT_OUTLET(0, t, L2(1, 2));
+        WHEN_SEND_LIST_TO(0, t, LF(1, 2));
+        REQUIRE_LIST_AT_OUTLET(0, t, LF(1, 2));
 
-        WHEN_SEND_LIST_TO(0, t, L2(1, 2));
+        WHEN_SEND_LIST_TO(0, t, LF(1, 2));
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-        WHEN_SEND_LIST_TO(0, t, L2(1, 3));
-        REQUIRE_LIST_AT_OUTLET(0, t, L2(1, 3));
+        WHEN_SEND_LIST_TO(0, t, LF(1, 3));
+        REQUIRE_LIST_AT_OUTLET(0, t, LF(1, 3));
 
-        WHEN_SEND_ANY_TO(t, "any", L2(3, 4));
-        REQUIRE_ANY_AT_OUTLET(0, t, L3("any", 3, 4));
+        WHEN_SEND_ANY_TO(t, "any", LF(3, 4));
+        REQUIRE_ANY_AT_OUTLET(0, t, LA("any", 3, 4));
     }
 
     SECTION("reset")
@@ -106,22 +106,22 @@ TEST_CASE("flow.change", "[externals]")
         WHEN_SEND_FLOAT_TO(0, t, 2);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-        WHEN_CALL_1(t, set, 1);
+        WHEN_CALL_N(t, set, 1);
         WHEN_SEND_FLOAT_TO(0, t, 2);
         REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
 
-        WHEN_CALL_3(t, set, 1, 2, 3);
-        WHEN_SEND_LIST_TO(0, t, L3(1, 2, 3));
+        WHEN_CALL_N(t, set, 1, 2, 3);
+        WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3));
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-        WHEN_SEND_LIST_TO(0, t, L4(1, 2, 3, 4));
-        REQUIRE_LIST_AT_OUTLET(0, t, L4(1, 2, 3, 4));
+        WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3, 4));
+        REQUIRE_LIST_AT_OUTLET(0, t, LF(1, 2, 3, 4));
     }
 
     SECTION("@onrepeat")
     {
-        FunctionTest cb1("function", L1("test_callback1"));
-        FunctionTest cb2("function", L1("test_callback2"));
+        FunctionTest cb1("function", LA("test_callback1"));
+        FunctionTest cb2("function", LA("test_callback2"));
 
 #define STORE()                     \
     {                               \
@@ -132,7 +132,7 @@ TEST_CASE("flow.change", "[externals]")
         REQUIRE(Function::exists(gensym("test_callback1")));
         REQUIRE(Function::exists(gensym("test_callback2")));
 
-        FlowChangeTest t("flow.change", L2("@onrepeat", "test_callback1"));
+        FlowChangeTest t("flow.change", LA("@onrepeat", "test_callback1"));
         REQUIRE_PROPERTY(t, @onrepeat, gensym("test_callback1"));
 
         SECTION("float")
@@ -201,16 +201,16 @@ TEST_CASE("flow.change", "[externals]")
         SECTION("list")
         {
             STORE();
-            WHEN_SEND_LIST_TO(0, t, L3(1, 2, 3));
-            REQUIRE_LIST_AT_OUTLET(0, t, L3(1, 2, 3));
+            WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3));
+            REQUIRE_LIST_AT_OUTLET(0, t, LF(1, 2, 3));
             REQUIRE_NO_MESSAGES_AT_OUTLET(1, cb1);
             REQUIRE_NO_MESSAGES_AT_OUTLET(1, cb2);
             // change callback
-            t.setProperty("@onrepeat", L1("test_callback2"));
+            t.setProperty("@onrepeat", LA("test_callback2"));
             REQUIRE_PROPERTY(t, @onrepeat, gensym("test_callback2"));
             // repeat
             STORE();
-            WHEN_SEND_LIST_TO(0, t, L3(1, 2, 3));
+            WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3));
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
             REQUIRE_NO_MESSAGES_AT_OUTLET(1, cb1);
@@ -218,7 +218,7 @@ TEST_CASE("flow.change", "[externals]")
 
             // repeat again
             STORE();
-            WHEN_SEND_LIST_TO(0, t, L3(1, 2, 3));
+            WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3));
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
             REQUIRE_NO_MESSAGES_AT_OUTLET(1, cb1);
@@ -226,8 +226,8 @@ TEST_CASE("flow.change", "[externals]")
 
             // new list
             STORE();
-            WHEN_SEND_LIST_TO(0, t, L4(1, 2, 3, 4));
-            REQUIRE_LIST_AT_OUTLET(0, t, L4(1, 2, 3, 4));
+            WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3, 4));
+            REQUIRE_LIST_AT_OUTLET(0, t, LF(1, 2, 3, 4));
             REQUIRE_NO_MESSAGES_AT_OUTLET(1, cb1);
             REQUIRE_NO_MESSAGES_AT_OUTLET(1, cb2);
         }
@@ -235,14 +235,14 @@ TEST_CASE("flow.change", "[externals]")
         SECTION("any")
         {
             STORE();
-            WHEN_SEND_ANY_TO(t, "any1", L1(1));
-            REQUIRE_ANY_AT_OUTLET(0, t, L2("any1", 1));
+            WHEN_SEND_ANY_TO(t, "any1", LF(1));
+            REQUIRE_ANY_AT_OUTLET(0, t, LA("any1", 1));
             REQUIRE_NO_MESSAGES_AT_OUTLET(1, cb1);
             REQUIRE_NO_MESSAGES_AT_OUTLET(1, cb2);
 
             // repeat
             STORE();
-            WHEN_SEND_ANY_TO(t, "any1", L1(1));
+            WHEN_SEND_ANY_TO(t, "any1", LF(1));
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
             REQUIRE_BANG_AT_OUTLET(1, cb1);
@@ -250,7 +250,7 @@ TEST_CASE("flow.change", "[externals]")
 
             // repeat again
             STORE();
-            WHEN_SEND_ANY_TO(t, "any1", L1(1));
+            WHEN_SEND_ANY_TO(t, "any1", LF(1));
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
             REQUIRE_BANG_AT_OUTLET(1, cb1);
@@ -258,15 +258,15 @@ TEST_CASE("flow.change", "[externals]")
 
             // new list
             STORE();
-            WHEN_SEND_ANY_TO(t, "any2", L1(1));
-            REQUIRE_ANY_AT_OUTLET(0, t, L2("any2", 1));
+            WHEN_SEND_ANY_TO(t, "any2", LF(1));
+            REQUIRE_ANY_AT_OUTLET(0, t, LA("any2", 1));
             REQUIRE_NO_MESSAGES_AT_OUTLET(1, cb1);
             REQUIRE_NO_MESSAGES_AT_OUTLET(1, cb2);
         }
 
         SECTION("invalid callback")
         {
-            FlowChangeTest t("flow.change", L2("@onrepeat", "test_callback????"));
+            FlowChangeTest t("flow.change", LA("@onrepeat", "test_callback????"));
             REQUIRE_PROPERTY(t, @onrepeat, gensym("test_callback????"));
 
             STORE();

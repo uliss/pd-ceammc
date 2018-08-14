@@ -1,0 +1,133 @@
+#N canvas 0 0 715 555 12;
+#X declare -lib ceammc;
+#X obj 363 50 cnv 1 332 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 363 50 dictionary container: store values by key;
+#X obj 1 1 cnv 5 712 40 empty empty data.dict 20 20 0 20 -104026 -4096
+0;
+#X obj 568 11 dict;
+#X obj 622 11 data.dict;
+#X obj 205 80 cnv 1 490 33 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 210 80 Syntax: [key: value] or [key : "the value"];
+#X msg 50 141 bang;
+#X msg 78 170 [a: b] [c: d] \, bang;
+#X msg 290 170 clear;
+#X msg 366 170 remove a;
+#X msg 107 199 add 100 float;
+#X obj 386 199 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 386 228 openpanel;
+#X msg 136 242 list a b c d;
+#X msg 386 257 read \$1;
+#X obj 50 285 data.dict \[tempo: 120\]\[title: "New Masterpiece"\];
+#X obj 50 314 ui.display @display_type 1 @size 150 18;
+#X obj 20 354 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 359 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+-49933 0;
+#X msg 120 364 @keys;
+#X text 240 364 (readonly) Get keys of dictionary. Type: list;
+#X msg 120 391 @empty;
+#X text 240 391 (readonly) Get 1 if dict is empty \, otherwise 0\.
+Type: int. Allowed values: 0 \, 1;
+#X msg 120 428 @size;
+#X text 240 428 (readonly) Get number of entries in dictionary. Type:
+int. Min value: 0;
+#X obj 20 475 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 480 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+-49933 0;
+#X msg 120 485 add;
+#X text 240 485 adds entry to dictionary. Arguments are:;
+#X obj 250 513 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 513 KEY: entry key. Type: atom.;
+#X obj 250 541 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 541 VAL: single value or list. Type: list.;
+#X msg 120 569 clear;
+#X text 240 569 removes all dict values. No output.;
+#X msg 120 601 get_key;
+#X text 240 601 get entry from dictionary. Arguments are:;
+#X obj 250 629 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 629 KEY: entry key. Type: atom.;
+#X msg 120 657 set_key;
+#X text 240 657 change entry in dictionary. If it's not exists \, do
+nothing. Arguments are:;
+#X obj 250 699 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 699 KEY: key. Type: atom.;
+#X obj 250 727 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 727 VAL: single value or list. Type: list.;
+#X msg 120 755 set;
+#X text 240 755 set dict content without output.;
+#X msg 120 787 remove;
+#X text 240 787 remove entry from dictionary. Arguments are:;
+#X obj 250 815 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 815 KEY: entry key. Type: atom.;
+#X msg 120 843 [....];
+#X text 240 843 sets new content without output.;
+#X msg 120 875 read;
+#X text 240 875 read dict from JSON file. Arguments are:;
+#X obj 250 903 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 903 PATH: file path. Type: symbol.;
+#X msg 120 931 write;
+#X text 240 931 write dict as JSON file. Arguments are:;
+#X obj 250 959 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 959 PATH: file path. Type: symbol.;
+#X obj 20 997 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1002 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+-49933 0;
+#X text 120 1007 1\.;
+#X text 150 1007 *bang*;
+#X text 240 1007 output current dictionary value.;
+#X text 150 1025 *list*;
+#X text 240 1025 set dict from list. Key-value pairs are expected. [1
+2 3 4( becames dict with keys: 1 and 3 \, values: 2 and 4\. No
+output.;
+#X text 150 1071 *data:dict*;
+#X text 240 1071 set and output new dict.;
+#X obj 20 1099 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1104 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+-49933 0;
+#X text 120 1109 1\.;
+#X text 240 1109 output dictionary;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 115 45 ::;
+#X obj 131 48 ui.link @title data @url ceammc.data-help.pd;
+#X obj 1 1157 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1160 library: ceammc v0.6;
+#X text 469 1172 see also:;
+#X obj 545 1172 data.set;
+#X obj 618 1172 data.mlist;
+#N canvas 10 1179 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 library:;
+#X text 120 10 ceammc;
+#X text 10 32 version:;
+#X text 120 32 0.6;
+#X text 10 54 object:;
+#X text 120 54 data.dict;
+#X text 10 76 category:;
+#X text 120 76 data;
+#X text 10 98 since:;
+#X text 120 98 0.6;
+#X text 10 120 authors:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 license:;
+#X text 120 142 GPL3;
+#X text 10 164 keywords:;
+#X text 120 164 data \, dictionary;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pure-data @url
+https://github.com/uliss/pure-data;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 generated by pddoc;
+#X restore 10 1179 pd info;
+#X connect 12 0 13 0;
+#X connect 13 0 15 0;
+#X connect 7 0 16 0;
+#X connect 8 0 16 0;
+#X connect 11 0 16 0;
+#X connect 14 0 16 0;
+#X connect 9 0 16 0;
+#X connect 10 0 16 0;
+#X connect 15 0 16 0;
+#X connect 16 0 17 0;

@@ -58,10 +58,11 @@ t_symbol* ceammc::canvas_info_name(const t_canvas* c)
 
 t_symbol* ceammc::canvas_info_dir(const t_canvas* c)
 {
-    if (!c || !c->gl_env)
+    auto cnv = canvas_root(c);
+    if (!cnv || !cnv->gl_env)
         return &s_;
 
-    return canvas_getdir(const_cast<t_canvas*>(c));
+    return canvas_getdir(const_cast<t_canvas*>(cnv));
 }
 
 int ceammc::canvas_info_font(const t_canvas* c)
@@ -177,4 +178,12 @@ AtomList ceammc::canvas_info_args(const _glist* c)
     }
 
     return res;
+}
+
+const _glist* ceammc::canvas_root(const _glist* c)
+{
+    if (!c)
+        return nullptr;
+
+    return canvas_getrootfor(const_cast<t_canvas*>(c));
 }

@@ -4,6 +4,7 @@
 #include "ceammc_object.h"
 
 using namespace ceammc;
+class DataTypeMList;
 
 class ListSplit : public BaseObject {
     SizeTProperty* index_;
@@ -11,7 +12,10 @@ class ListSplit : public BaseObject {
 public:
     ListSplit(const PdArgs& args);
 
-    void onList(const AtomList& l);
+    void onList(const AtomList& l) override;
+    void onDataT(const DataTypeMList& lst);
 };
+
+void setup_list_split();
 
 #endif // LIST_SPLIT_H

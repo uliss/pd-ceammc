@@ -6,7 +6,7 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>sorts and removes duplicates from input list</description>
+            <description>removes duplicates from input list</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>list</category>
@@ -16,9 +16,14 @@
                 <see>list.sort</see>
             </also>
         </meta>
+        <properties>
+            <property name="@stable" type="int" enum="0 1" default="1">if true - preserves element
+            appearing order</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="list">input list</xinfo>
+                <xinfo on="data:mlist">input mlist</xinfo>
             </inlet>
         </inlets>
         <outlets>

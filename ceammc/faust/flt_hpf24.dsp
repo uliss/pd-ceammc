@@ -1,4 +1,4 @@
-hpf = library("flt_hpf12.dsp");
+fl = library("filters.lib");
+ui = library("ceammc_ui.lib");
 
-process = hpf.stage12 : hpf.stage12;
-
+process = fl.highpass(4, ui.freq(10000));

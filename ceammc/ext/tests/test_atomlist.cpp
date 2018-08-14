@@ -11,23 +11,10 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "catch.hpp"
-#include "ceammc_atomlist.h"
+#include "test_common.h"
+
+#include <boost/optional/optional_io.hpp>
 #include <cstdarg>
-
-using namespace ceammc;
-
-AtomList AList(size_t n_args, ...)
-{
-    AtomList res;
-    va_list ap;
-    va_start(ap, n_args);
-    for (size_t i = 2; i <= n_args + 1; i++) {
-        res.append(Atom(va_arg(ap, double)));
-    }
-    va_end(ap);
-    return res;
-}
 
 static Atom atomAdd(const Atom& a, const Atom& b)
 {
@@ -56,6 +43,17 @@ static float floatMul(float a, float b)
 
 TEST_CASE("AtomList", "[ceammc::AtomList]")
 {
+    SECTION("test of tests")
+    {
+        REQUIRE(L() == AtomList());
+        REQUIRE(LF(1) == AtomList({ 1 }));
+        REQUIRE(LF(1, 2) == AtomList({ 1, 2 }));
+        REQUIRE(LF(1, 2, 3) == AtomList({ 1, 2, 3 }));
+        REQUIRE(LA("a", 1) == AtomList(A("a"), A(1)));
+        REQUIRE(LA(1) == AtomList(A(1)));
+        REQUIRE(LA(1, 2, 3, 4, "A", "B", "C") == AtomList({ A(1), A(2), A(3), A(4), A("A"), A("B"), A("C") }));
+    }
+
     SECTION("construct")
     {
         AtomList l;
@@ -228,9 +226,9 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         REQUIRE(l.size() == 4);
         REQUIRE(l.insert(0, AtomList::zeroes(2)));
         REQUIRE(l.size() == 6);
-        REQUIRE(l == AtomList::values(6, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0));
-        REQUIRE_FALSE(l.insert(200, AtomList()));
-        REQUIRE_FALSE(l.insert(200, AtomList(2)));
+        REQUIRE(l == LF(0.0, 0.0, 1.0, 1.0, 1.0, 1.0));
+        REQUIRE_FALSE(l.insert(200, L()));
+        REQUIRE_FALSE(l.insert(200, LF(2)));
     }
 
     SECTION("remove")
@@ -308,6 +306,23 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         REQUIRE(l.count(1.0f) == 0);
         REQUIRE(l.count(1.1f) == 1);
         REQUIRE(l.count(isFloat) == 2);
+
+        REQUIRE(LF(1, 1, 1, 1).count(1) == 4);
+
+        DataPtr d100(new IntData(100));
+        DataPtr d200(new IntData(200));
+        DataPtr d100_new(new IntData(100));
+
+        DataPtr d_abc(new StrData("ABC"));
+        DataPtr d_abcd(new StrData("ABCD"));
+
+        REQUIRE(LA(d100, d200).count(d100.asAtom()) == 1);
+        REQUIRE(LA(d100_new, d200).count(d100.asAtom()) == 1);
+        REQUIRE(LA(d100_new, d100).count(d200.asAtom()) == 0);
+        REQUIRE(LA(d100_new, d100).count(d_abc.asAtom()) == 0);
+
+        REQUIRE(LA(d100, d100).count(d100.asAtom()) == 2);
+        REQUIRE(LA(d_abc, d_abcd).count(d_abc.asAtom()) == 1);
     }
 
     SECTION("fill")
@@ -475,19 +490,15 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
     {
         AtomList l;
         REQUIRE(l.clipAt(0) == 0);
-        l.append(1.f);
-        l.append(2.f);
-        l.append(3.f);
 
-        const AtomList cl(l);
-        REQUIRE(cl.clipAt(-2)->asFloat() == 1.f);
-        REQUIRE(cl.clipAt(-1)->asFloat() == 1.f);
-        REQUIRE(cl.clipAt(0)->asFloat() == 1.f);
-        REQUIRE(cl.clipAt(1)->asFloat() == 2.f);
-        REQUIRE(cl.clipAt(2)->asFloat() == 3.f);
-        REQUIRE(cl.clipAt(3)->asFloat() == 3.f);
-        REQUIRE(cl.clipAt(4)->asFloat() == 3.f);
-        REQUIRE(cl.clipAt(200)->asFloat() == 3.f);
+        REQUIRE(LF(1, 2, 3).clipAt(-2)->asFloat() == 1.f);
+        REQUIRE(LF(1, 2, 3).clipAt(-1)->asFloat() == 1.f);
+        REQUIRE(LF(1, 2, 3).clipAt(0)->asFloat() == 1.f);
+        REQUIRE(LF(1, 2, 3).clipAt(1)->asFloat() == 2.f);
+        REQUIRE(LF(1, 2, 3).clipAt(2)->asFloat() == 3.f);
+        REQUIRE(LF(1, 2, 3).clipAt(3)->asFloat() == 3.f);
+        REQUIRE(LF(1, 2, 3).clipAt(4)->asFloat() == 3.f);
+        REQUIRE(LF(1, 2, 3).clipAt(200)->asFloat() == 3.f);
     }
 
     SECTION("clipAt1")
@@ -603,29 +614,22 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
 
     SECTION("foldAt1")
     {
-        AtomList l;
-        REQUIRE(l.foldAt(0) == 0);
-        l.append(1.f);
-
-        const AtomList cl(l);
-        REQUIRE(cl.foldAt(0)->asFloat() == 1.f);
-        REQUIRE(cl.foldAt(1)->asFloat() == 1.f);
-        REQUIRE(cl.foldAt(2)->asFloat() == 1.f);
-        REQUIRE(cl.foldAt(3)->asFloat() == 1.f);
-        REQUIRE(cl.foldAt(4)->asFloat() == 1.f);
-        REQUIRE(cl.foldAt(5)->asFloat() == 1.f);
+        const AtomList cl(1);
+        REQUIRE(cl.foldAt(0));
+        //        REQUIRE(cl.foldAt(0)->asFloat() == 1.f);
+        //        REQUIRE(cl.foldAt(1)->asFloat() == 1.f);
+        //        REQUIRE(cl.foldAt(2)->asFloat() == 1.f);
+        //        REQUIRE(cl.foldAt(3)->asFloat() == 1.f);
+        //        REQUIRE(cl.foldAt(4)->asFloat() == 1.f);
+        //        REQUIRE(cl.foldAt(5)->asFloat() == 1.f);
     }
 
     SECTION("foldAt4")
     {
         AtomList l;
         REQUIRE(l.foldAt(0) == 0);
-        l.append(1.f);
-        l.append(2.f);
-        l.append(3.f);
-        l.append(4.f);
 
-        const AtomList cl(l);
+        const AtomList cl(LF(1, 2, 3, 4));
         REQUIRE(cl.at(0) == 1.f);
         REQUIRE(cl.foldAt(0)->asFloat() == 1.f);
         REQUIRE(cl.foldAt(1)->asFloat() == 2.f);
@@ -636,6 +640,15 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         REQUIRE(cl.foldAt(6)->asFloat() == 1.f);
         REQUIRE(cl.foldAt(7)->asFloat() == 2.f);
         REQUIRE(cl.foldAt(8)->asFloat() == 3.f);
+
+        REQUIRE(cl.foldAt(-1)->asFloat() == 2);
+        REQUIRE(cl.foldAt(-2)->asFloat() == 3);
+        REQUIRE(cl.foldAt(-3)->asFloat() == 4);
+        REQUIRE(cl.foldAt(-4)->asFloat() == 3);
+        REQUIRE(cl.foldAt(-5)->asFloat() == 2);
+        REQUIRE(cl.foldAt(-6)->asFloat() == 1);
+        REQUIRE(cl.foldAt(-7)->asFloat() == 2);
+        REQUIRE(cl.foldAt(-8)->asFloat() == 3);
     }
 
     SECTION("toPdData")
@@ -659,8 +672,8 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
 
         l1.append(1.f);
         REQUIRE(AtomList::sub(l1, l1) == AtomList::zeroes(1));
-        REQUIRE(AtomList::sub(l2, l1) == AtomList());
-        REQUIRE(AtomList::sub(l1, l2) == AtomList());
+        REQUIRE(AtomList::sub(l2, l1) == L());
+        REQUIRE(AtomList::sub(l1, l2) == L());
 
         l2.append(2.f);
         REQUIRE(AtomList::sub(l1, l2) == AtomList::filled(-1.f, 1));
@@ -672,8 +685,8 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         AtomList l1;
         AtomList l2;
 
-        REQUIRE(AtomList::sub(l1, l1, AtomList::PADZERO) == AtomList());
-        REQUIRE(AtomList::sub(l1, l2, AtomList::PADZERO) == AtomList());
+        REQUIRE(AtomList::sub(l1, l1, AtomList::PADZERO) == L());
+        REQUIRE(AtomList::sub(l1, l2, AtomList::PADZERO) == L());
 
         l1.append(1.f);
         REQUIRE(AtomList::sub(l1, l1, AtomList::PADZERO) == AtomList::zeroes(1));
@@ -685,13 +698,13 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         AtomList l1;
         AtomList l2;
 
-        REQUIRE(AtomList::sub(l1, l1, AtomList::CLIP) == AtomList());
-        REQUIRE(AtomList::sub(l1, l2, AtomList::CLIP) == AtomList());
+        REQUIRE(AtomList::sub(l1, l1, AtomList::CLIP) == L());
+        REQUIRE(AtomList::sub(l1, l2, AtomList::CLIP) == L());
 
         l1.append(1.f);
         REQUIRE(AtomList::sub(l1, l1, AtomList::CLIP) == AtomList::zeroes(1));
-        REQUIRE(AtomList::sub(l2, l1, AtomList::CLIP) == AtomList());
-        REQUIRE(AtomList::sub(l1, l2, AtomList::CLIP) == AtomList());
+        REQUIRE(AtomList::sub(l2, l1, AtomList::CLIP) == L());
+        REQUIRE(AtomList::sub(l1, l2, AtomList::CLIP) == L());
 
         l2.append(2.f);
         REQUIRE(AtomList::sub(l1, l2, AtomList::CLIP) == AtomList::filled(-1.f, 1));
@@ -701,8 +714,8 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         l1.append(3.f);
         l1.append(4.f);
 
-        REQUIRE(AtomList::sub(l1, l2, AtomList::CLIP) == AList(4, -1.f, 0.f, 1.f, 2.f));
-        REQUIRE(AtomList::sub(l2, l1, AtomList::CLIP) == AList(4, 1.f, 0.f, -1.f, -2.f));
+        REQUIRE(AtomList::sub(l1, l2, AtomList::CLIP) == LF(-1.f, 0.f, 1.f, 2.f));
+        REQUIRE(AtomList::sub(l2, l1, AtomList::CLIP) == LF(1.f, 0.f, -1.f, -2.f));
     }
 
     SECTION("subWrap")
@@ -710,13 +723,13 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         AtomList l1;
         AtomList l2;
 
-        REQUIRE(AtomList::sub(l1, l1, AtomList::WRAP) == AtomList());
-        REQUIRE(AtomList::sub(l1, l2, AtomList::WRAP) == AtomList());
+        REQUIRE(AtomList::sub(l1, l1, AtomList::WRAP) == L());
+        REQUIRE(AtomList::sub(l1, l2, AtomList::WRAP) == L());
 
         l1.append(1.f);
         REQUIRE(AtomList::sub(l1, l1, AtomList::WRAP) == AtomList::zeroes(1));
-        REQUIRE(AtomList::sub(l2, l1, AtomList::WRAP) == AtomList());
-        REQUIRE(AtomList::sub(l1, l2, AtomList::WRAP) == AtomList());
+        REQUIRE(AtomList::sub(l2, l1, AtomList::WRAP) == L());
+        REQUIRE(AtomList::sub(l1, l2, AtomList::WRAP) == L());
 
         l2.append(2.f);
         REQUIRE(AtomList::sub(l1, l2, AtomList::WRAP) == AtomList::filled(-1.f, 1));
@@ -737,8 +750,8 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         // [2, 1, 3]
         // [2, 1, 3, 2, 1, 3, 2, 1] - wrapped version
         // [-1,1, 0, 2, 4, 3, 5, 7] - diff
-        REQUIRE(AtomList::sub(l1, l2, AtomList::WRAP) == AList(8, -1., 1., 0., 2., 4., 3., 5., 7.));
-        REQUIRE(AtomList::sub(l2, l1, AtomList::WRAP) == AList(8, 1., -1., 0., -2., -4., -3., -5., -7.));
+        REQUIRE(AtomList::sub(l1, l2, AtomList::WRAP) == LF(-1., 1., 0., 2., 4., 3., 5., 7.));
+        REQUIRE(AtomList::sub(l2, l1, AtomList::WRAP) == LF(1., -1., 0., -2., -4., -3., -5., -7.));
     }
 
     SECTION("subFold")
@@ -746,13 +759,13 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         AtomList l1;
         AtomList l2;
 
-        REQUIRE(AtomList::sub(l1, l1, AtomList::FOLD) == AtomList());
-        REQUIRE(AtomList::sub(l1, l2, AtomList::FOLD) == AtomList());
+        REQUIRE(AtomList::sub(l1, l1, AtomList::FOLD) == L());
+        REQUIRE(AtomList::sub(l1, l2, AtomList::FOLD) == L());
 
         l1.append(1.f);
         REQUIRE(AtomList::sub(l1, l1, AtomList::FOLD) == AtomList::zeroes(1));
-        REQUIRE(AtomList::sub(l2, l1, AtomList::FOLD) == AtomList());
-        REQUIRE(AtomList::sub(l1, l2, AtomList::FOLD) == AtomList());
+        REQUIRE(AtomList::sub(l2, l1, AtomList::FOLD) == L());
+        REQUIRE(AtomList::sub(l1, l2, AtomList::FOLD) == L());
 
         l2.append(2.f);
         REQUIRE(AtomList::sub(l1, l2, AtomList::FOLD) == AtomList::filled(-1.f, 1));
@@ -773,8 +786,8 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         // [2, 1, 3]
         // [2, 1, 3, 1, 2, 1, 3, 1] - folded version
         // [-1,1, 0, 3, 3, 5, 4, 7] - diff
-        REQUIRE(AtomList::sub(l1, l2, AtomList::FOLD) == AList(8, -1., 1., 0., 3., 3., 5., 4., 7.));
-        REQUIRE(AtomList::sub(l2, l1, AtomList::FOLD) == AList(8, 1., -1., 0., -3., -3., -5., -4., -7.));
+        REQUIRE(AtomList::sub(l1, l2, AtomList::FOLD) == LF(-1., 1., 0., 3., 3., 5., 4., 7.));
+        REQUIRE(AtomList::sub(l2, l1, AtomList::FOLD) == LF(1., -1., 0., -3., -3., -5., -4., -7.));
     }
 
     SECTION("resizePad")
@@ -842,7 +855,7 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
 
     SECTION("test values")
     {
-        AtomList l = AtomList::values(3, 1.f, 2.f, 3.f);
+        AtomList l({ 1.f, 2.f, 3.f });
         REQUIRE(l.size() == 3);
         REQUIRE(l.at(0).isFloat());
         REQUIRE(l.at(1).isFloat());
@@ -851,23 +864,21 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         REQUIRE(l.at(0).asFloat() == 1.f);
         REQUIRE(l.at(1).asFloat() == 2.f);
         REQUIRE(l.at(2).asFloat() == 3.f);
-
-        REQUIRE(AtomList::values(0) == AtomList());
     }
 
     SECTION("test ones")
     {
         AtomList l = AtomList::ones(4);
         REQUIRE(l.size() == 4);
-        REQUIRE(l == AtomList::values(4, 1.f, 1.f, 1.f, 1.f));
+        REQUIRE(l == LF(1.f, 1.f, 1.f, 1.f));
 
         REQUIRE(l.at(0).asFloat() == 1.f);
         REQUIRE(l.at(1).asFloat() == 1.f);
         REQUIRE(l.at(2).asFloat() == 1.f);
         REQUIRE(l.at(3).asFloat() == 1.f);
 
-        REQUIRE(AtomList::ones(0) == AtomList());
-        REQUIRE(AtomList::zeroes(0) == AtomList());
+        REQUIRE(AtomList::ones(0) == L());
+        REQUIRE(AtomList::zeroes(0) == L());
     }
 
     SECTION("test all properties")
@@ -899,79 +910,80 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
 
     SECTION("test slice")
     {
-        AtomList l = AtomList::values(5, 1.f, 2.f, 3.f, 4.f, 5.f);
-        REQUIRE(l.slice(0) == AtomList::values(5, 1.f, 2.f, 3.f, 4.f, 5.f));
-        REQUIRE(l.slice(1) == AtomList::values(4, 2.f, 3.f, 4.f, 5.f));
-        REQUIRE(l.slice(2) == AtomList::values(3, 3.f, 4.f, 5.f));
-        REQUIRE(l.slice(3) == AtomList::values(2, 4.f, 5.f));
-        REQUIRE(l.slice(4) == AtomList::values(1, 5.f));
-        REQUIRE(l.slice(5) == AtomList());
+        AtomList l = LF(1.f, 2.f, 3.f, 4.f, 5.f);
+        REQUIRE(l.slice(0) == LF(1.f, 2.f, 3.f, 4.f, 5.f));
+        REQUIRE(l.slice(1) == LF(2.f, 3.f, 4.f, 5.f));
+        REQUIRE(l.slice(2) == LF(3.f, 4.f, 5.f));
+        REQUIRE(l.slice(3) == LF(4.f, 5.f));
+        REQUIRE(l.slice(4) == LF(5.f));
+        REQUIRE(l.slice(5) == L());
 
-        REQUIRE(l.slice(-1) == AtomList::values(1, 5.f));
-        REQUIRE(l.slice(-2) == AtomList::values(2, 4.f, 5.f));
-        REQUIRE(l.slice(-3) == AtomList::values(3, 3.f, 4.f, 5.f));
-        REQUIRE(l.slice(-4) == AtomList::values(4, 2.f, 3.f, 4.f, 5.f));
-        REQUIRE(l.slice(-5) == AtomList::values(5, 1.f, 2.f, 3.f, 4.f, 5.f));
+        REQUIRE(l.slice(-1) == LF(5.f));
+        REQUIRE(l.slice(-2) == LF(4.f, 5.f));
+        REQUIRE(l.slice(-3) == LF(3.f, 4.f, 5.f));
+        REQUIRE(l.slice(-4) == LF(2.f, 3.f, 4.f, 5.f));
+        REQUIRE(l.slice(-5) == LF(1.f, 2.f, 3.f, 4.f, 5.f));
 
         AtomList l2;
-        REQUIRE(l2.slice(0) == AtomList());
-        REQUIRE(l2.slice(1) == AtomList());
-        REQUIRE(l2.slice(-1) == AtomList());
+        REQUIRE(l2.slice(0) == L());
+        REQUIRE(l2.slice(1) == L());
+        REQUIRE(l2.slice(-1) == L());
     }
 
     SECTION("test slice2")
     {
-        AtomList l = AtomList::values(5, 1.f, 2.f, 3.f, 4.f, 5.f);
-        REQUIRE(l.slice(0, -1) == AtomList::values(4, 1.f, 2.f, 3.f, 4.f));
-        REQUIRE(l.slice(10, -1) == AtomList());
-        REQUIRE(l.slice(1, 5) == AtomList::values(4, 2.f, 3.f, 4.f, 5.f));
-        REQUIRE(l.slice(2, -1) == AtomList::values(2, 3.f, 4.f));
-        REQUIRE(l.slice(2, -10) == AtomList());
-        REQUIRE(l.slice(-2, -3) == AtomList());
-        REQUIRE(l.slice(-10, -2) == AtomList::values(3, 1.f, 2.f, 3.f));
-        REQUIRE(l.slice(-3, -2) == AtomList::values(1, 3.f));
-        REQUIRE(l.slice(-20, -10) == AtomList());
-        REQUIRE(l.slice(-5, -5) == AtomList());
-        REQUIRE(l.slice(-5, 0) == AtomList());
-        REQUIRE(l.slice(-5, 1) == AtomList::values(1, 1.f));
-        REQUIRE(l.slice(4, 5) == AtomList::values(1, 5.f));
+        AtomList l = LF(1, 2, 3, 4, 5);
+        REQUIRE(l.slice(0, -1) == LF(1, 2, 3, 4, 5));
+        REQUIRE(l.slice(10, -1) == L());
+        REQUIRE(l.slice(1, 5) == LF(2, 3, 4, 5));
+        REQUIRE(l.slice(2, -1) == LF(3, 4, 5));
+        REQUIRE(l.slice(2, -10) == LF(3, 2, 1));
+        REQUIRE(l.slice(-2, -3) == LF(4, 3));
+        REQUIRE(l.slice(-10, -2) == L());
+        REQUIRE(l.slice(-3, -2) == LF(3, 4));
+        REQUIRE(l.slice(-20, -10) == L());
+        REQUIRE(l.slice(-5, -5) == LF(1));
+        REQUIRE(l.slice(-5, 0) == LF(1));
+        REQUIRE(l.slice(-5, 1) == LF(1, 2));
+        REQUIRE(l.slice(4, 5) == LF(5));
 
         AtomList l2;
-        REQUIRE(l2.slice(0, 0) == AtomList());
-        REQUIRE(l2.slice(0, 1) == AtomList());
-        REQUIRE(l2.slice(0, -1) == AtomList());
-        REQUIRE(l2.slice(-1, -1) == AtomList());
-        REQUIRE(l2.slice(-1, 0) == AtomList());
+        REQUIRE(l2.slice(0, 0) == L());
+        REQUIRE(l2.slice(0, 1) == L());
+        REQUIRE(l2.slice(0, -1) == L());
+        REQUIRE(l2.slice(-1, -1) == L());
+        REQUIRE(l2.slice(-1, 0) == L());
     }
 
     SECTION("test slice3")
     {
-        AtomList l = AtomList::values(5, 1.f, 2.f, 3.f, 4.f, 5.f);
-        REQUIRE(l.slice(0, -1, 0) == AtomList());
-        REQUIRE(l.slice(0, -1, 1) == AtomList::values(4, 1.f, 2.f, 3.f, 4.f));
-        REQUIRE(l.slice(0, -1, 2) == AtomList::values(2, 1.f, 3.f));
-        REQUIRE(l.slice(10, -1) == AtomList());
-        REQUIRE(l.slice(10, -1, 2) == AtomList());
-        REQUIRE(l.slice(1, 5) == AtomList::values(4, 2.f, 3.f, 4.f, 5.f));
-        REQUIRE(l.slice(1, 5, 2) == AtomList::values(2, 2.f, 4.f));
-        REQUIRE(l.slice(2, -1) == AtomList::values(2, 3.f, 4.f));
-        REQUIRE(l.slice(2, -1, 3) == AtomList::values(1, 3.f));
-        REQUIRE(l.slice(2, -10) == AtomList());
-        REQUIRE(l.slice(-2, -3) == AtomList());
-        REQUIRE(l.slice(-10, -2) == AtomList::values(3, 1.f, 2.f, 3.f));
-        REQUIRE(l.slice(-3, -2) == AtomList::values(1, 3.f));
-        REQUIRE(l.slice(-20, -10) == AtomList());
-        REQUIRE(l.slice(-5, -5) == AtomList());
-        REQUIRE(l.slice(-5, 0) == AtomList());
-        REQUIRE(l.slice(-5, 1) == AtomList::values(1, 1.f));
-        REQUIRE(l.slice(4, 5) == AtomList::values(1, 5.f));
+        AtomList l = LF(1.f, 2.f, 3.f, 4.f, 5.f);
+        REQUIRE(l.slice(0, -1, 0) == L());
+        REQUIRE(l.slice(0, -1, 1) == LF(1, 2, 3, 4, 5));
+        REQUIRE(l.slice(0, -1, 2) == LF(1, 3, 5));
+        REQUIRE(l.slice(1, -1, 2) == LF(2, 4));
+        REQUIRE(l.slice(10, -1) == L());
+        REQUIRE(l.slice(10, -1, 2) == L());
+        REQUIRE(l.slice(1, 5) == LF(2.f, 3.f, 4.f, 5.f));
+        REQUIRE(l.slice(1, 5, 2) == LF(2.f, 4.f));
+        REQUIRE(l.slice(2, -1) == LF(3, 4, 5));
+        REQUIRE(l.slice(2, -1, 3) == LF(3.f));
+        REQUIRE(l.slice(2, -10) == LF(3, 2, 1));
+        REQUIRE(l.slice(-2, -3) == LF(4, 3));
+        REQUIRE(l.slice(-10, -2) == L());
+        REQUIRE(l.slice(-3, -2) == LF(3, 4));
+        REQUIRE(l.slice(-20, -10) == L());
+        REQUIRE(l.slice(-5, -5) == LF(1));
+        REQUIRE(l.slice(-5, 0) == LF(1));
+        REQUIRE(l.slice(-5, 1) == LF(1, 2));
+        REQUIRE(l.slice(4, 5) == LF(5.f));
 
         AtomList l2;
-        REQUIRE(l2.slice(0, 0) == AtomList());
-        REQUIRE(l2.slice(0, 1) == AtomList());
-        REQUIRE(l2.slice(0, -1) == AtomList());
-        REQUIRE(l2.slice(-1, -1) == AtomList());
-        REQUIRE(l2.slice(-1, 0) == AtomList());
+        REQUIRE(l2.slice(0, 0) == L());
+        REQUIRE(l2.slice(0, 1) == L());
+        REQUIRE(l2.slice(0, -1) == L());
+        REQUIRE(l2.slice(-1, -1) == L());
+        REQUIRE(l2.slice(-1, 0) == L());
     }
 
     SECTION("test atomlistToValue")
@@ -981,12 +993,12 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         REQUIRE(atomlistToValue<double>(AtomList::ones(10), 0) == 1);
         REQUIRE(atomlistToValue<int>(AtomList::ones(10), 112) == 1);
         REQUIRE(atomlistToValue<size_t>(AtomList::ones(10), 12) == 1);
-        REQUIRE(atomlistToValue<size_t>(AtomList::values(1, -1.f), 12) == 12);
+        REQUIRE(atomlistToValue<size_t>(LF(-1.f), 12) == 12);
 
-        REQUIRE(atomlistToValue<float>(AtomList(), 10.f) == 10.f);
-        REQUIRE(atomlistToValue<double>(AtomList(), 11.) == 11.);
-        REQUIRE(atomlistToValue<int>(AtomList(), 10) == 10);
-        REQUIRE(atomlistToValue<size_t>(AtomList(), 20) == 20);
+        REQUIRE(atomlistToValue<float>(L(), 10.f) == 10.f);
+        REQUIRE(atomlistToValue<double>(L(), 11.) == 11.);
+        REQUIRE(atomlistToValue<int>(L(), 10) == 10);
+        REQUIRE(atomlistToValue<size_t>(L(), 20) == 20);
     }
 
     SECTION("addMin")
@@ -999,8 +1011,8 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
 
         l1.append(1.f);
         REQUIRE(AtomList::add(l1, l1) == AtomList::filled(2.f, 1));
-        REQUIRE(AtomList::add(l2, l1) == AtomList());
-        REQUIRE(AtomList::add(l1, l2) == AtomList());
+        REQUIRE(AtomList::add(l2, l1) == L());
+        REQUIRE(AtomList::add(l1, l2) == L());
 
         l2.append(2.f);
         REQUIRE(AtomList::add(l1, l2) == AtomList::filled(3.f, 1));
@@ -1012,8 +1024,8 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         AtomList l1;
         AtomList l2;
 
-        REQUIRE(AtomList::add(l1, l1, AtomList::PADZERO) == AtomList());
-        REQUIRE(AtomList::add(l1, l2, AtomList::PADZERO) == AtomList());
+        REQUIRE(AtomList::add(l1, l1, AtomList::PADZERO) == L());
+        REQUIRE(AtomList::add(l1, l2, AtomList::PADZERO) == L());
 
         l1.append(1.f);
         REQUIRE(AtomList::add(l1, l1, AtomList::PADZERO) == AtomList::filled(2.f, 1));
@@ -1025,13 +1037,13 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         AtomList l1;
         AtomList l2;
 
-        REQUIRE(AtomList::add(l1, l1, AtomList::CLIP) == AtomList());
-        REQUIRE(AtomList::add(l1, l2, AtomList::CLIP) == AtomList());
+        REQUIRE(AtomList::add(l1, l1, AtomList::CLIP) == L());
+        REQUIRE(AtomList::add(l1, l2, AtomList::CLIP) == L());
 
         l1.append(1.f);
         REQUIRE(AtomList::add(l1, l1, AtomList::CLIP) == AtomList::filled(2.f, 1));
-        REQUIRE(AtomList::add(l2, l1, AtomList::CLIP) == AtomList());
-        REQUIRE(AtomList::add(l1, l2, AtomList::CLIP) == AtomList());
+        REQUIRE(AtomList::add(l2, l1, AtomList::CLIP) == L());
+        REQUIRE(AtomList::add(l1, l2, AtomList::CLIP) == L());
 
         l2.append(2.f);
         REQUIRE(AtomList::add(l1, l2, AtomList::CLIP) == AtomList::filled(3.f, 1));
@@ -1044,8 +1056,8 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         // [2, 2, 2, 2]
         // [1, 2, 3, 4]
         // [3, 4, 5, 6]
-        REQUIRE(AtomList::add(l1, l2, AtomList::CLIP) == AtomList::values(4, 3.f, 4.f, 5.f, 6.f));
-        REQUIRE(AtomList::add(l2, l1, AtomList::CLIP) == AtomList::values(4, 3.f, 4.f, 5.f, 6.f));
+        REQUIRE(AtomList::add(l1, l2, AtomList::CLIP) == LF(3.f, 4.f, 5.f, 6.f));
+        REQUIRE(AtomList::add(l2, l1, AtomList::CLIP) == LF(3.f, 4.f, 5.f, 6.f));
     }
 
     SECTION("addWrap")
@@ -1053,13 +1065,13 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         AtomList l1;
         AtomList l2;
 
-        REQUIRE(AtomList::add(l1, l1, AtomList::WRAP) == AtomList());
-        REQUIRE(AtomList::add(l1, l2, AtomList::WRAP) == AtomList());
+        REQUIRE(AtomList::add(l1, l1, AtomList::WRAP) == L());
+        REQUIRE(AtomList::add(l1, l2, AtomList::WRAP) == L());
 
         l1.append(1.f);
         REQUIRE(AtomList::add(l1, l1, AtomList::WRAP) == AtomList::filled(2.f, 1));
-        REQUIRE(AtomList::add(l2, l1, AtomList::WRAP) == AtomList());
-        REQUIRE(AtomList::add(l1, l2, AtomList::WRAP) == AtomList());
+        REQUIRE(AtomList::add(l2, l1, AtomList::WRAP) == L());
+        REQUIRE(AtomList::add(l1, l2, AtomList::WRAP) == L());
 
         l2.append(2.f);
         REQUIRE(AtomList::add(l1, l2, AtomList::WRAP) == AtomList::filled(3.f, 1));
@@ -1080,8 +1092,8 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         // [2, 1, 3]
         // [2, 1, 3, 2, 1, 3, 2, 1] - wrapped version
         // [3, 3, 6, 6, 6, 9, 9, 9] - sum
-        REQUIRE(AtomList::add(l1, l2, AtomList::WRAP) == AList(8, 3., 3., 6., 6., 6., 9., 9., 9.));
-        REQUIRE(AtomList::add(l2, l1, AtomList::WRAP) == AList(8, 3., 3., 6., 6., 6., 9., 9., 9.));
+        REQUIRE(AtomList::add(l1, l2, AtomList::WRAP) == LF(3., 3., 6., 6., 6., 9., 9., 9.));
+        REQUIRE(AtomList::add(l2, l1, AtomList::WRAP) == LF(3., 3., 6., 6., 6., 9., 9., 9.));
     }
 
     SECTION("addFold")
@@ -1089,13 +1101,13 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         AtomList l1;
         AtomList l2;
 
-        REQUIRE(AtomList::add(l1, l1, AtomList::FOLD) == AtomList());
-        REQUIRE(AtomList::add(l1, l2, AtomList::FOLD) == AtomList());
+        REQUIRE(AtomList::add(l1, l1, AtomList::FOLD) == L());
+        REQUIRE(AtomList::add(l1, l2, AtomList::FOLD) == L());
 
         l1.append(1.f);
         REQUIRE(AtomList::add(l1, l1, AtomList::FOLD) == AtomList::filled(2.f, 1));
-        REQUIRE(AtomList::add(l2, l1, AtomList::FOLD) == AtomList());
-        REQUIRE(AtomList::add(l1, l2, AtomList::FOLD) == AtomList());
+        REQUIRE(AtomList::add(l2, l1, AtomList::FOLD) == L());
+        REQUIRE(AtomList::add(l1, l2, AtomList::FOLD) == L());
 
         l2.append(2.f);
         REQUIRE(AtomList::add(l1, l2, AtomList::FOLD) == AtomList::filled(3.f, 1));
@@ -1116,8 +1128,8 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         // [2, 1, 3]
         // [2, 1, 3, 1, 2, 1, 3, 1] - folded version
         // [3, 3, 6, 5, 7, 7, 10, 9] - sum
-        REQUIRE(AtomList::add(l1, l2, AtomList::FOLD) == AList(8, 3., 3., 6., 5., 7., 7., 10., 9.));
-        REQUIRE(AtomList::add(l2, l1, AtomList::FOLD) == AList(8, 3., 3., 6., 5., 7., 7., 10., 9.));
+        REQUIRE(AtomList::add(l1, l2, AtomList::FOLD) == LF(3., 3., 6., 5., 7., 7., 10., 9.));
+        REQUIRE(AtomList::add(l2, l1, AtomList::FOLD) == LF(3., 3., 6., 5., 7., 7., 10., 9.));
     }
 
     SECTION("listFrom templates")
@@ -1149,8 +1161,8 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
     {
         SECTION("bool")
         {
-            REQUIRE(atomlistToValue<bool>(AtomList(), true) == true);
-            REQUIRE(atomlistToValue<bool>(AtomList(), false) == false);
+            REQUIRE(atomlistToValue<bool>(L(), true) == true);
+            REQUIRE(atomlistToValue<bool>(L(), false) == false);
             REQUIRE(atomlistToValue<bool>(AtomList::filled(0.f, 1), true) == false);
             REQUIRE(atomlistToValue<bool>(AtomList::filled(1.f, 1), true) == true);
 
@@ -1203,25 +1215,25 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         {
 
             AtomList l;
-            REQUIRE(l.reduceFloat(1.f, 0.f, &floatSum) == 1.f);
-            REQUIRE(l.reduceFloat(1.f, 1.f, &floatMul) == 1.f);
+            REQUIRE(l.reduceFloat(1.f, &floatSum) == boost::none);
+            REQUIRE(l.reduceFloat(1.f, &floatMul) == boost::none);
             l.append(1.f);
             l.append(2.f);
-            REQUIRE(l.reduceFloat(0.5f, 0.f, &floatSum) == 3.5f);
-            REQUIRE(l.reduceFloat(2.f, 1.f, &floatMul) == 4.f);
+            REQUIRE(l.reduceFloat(0.5f, &floatSum) == 3.5f);
+            REQUIRE(l.reduceFloat(2.f, &floatMul) == 4.f);
             l.append(gensym("a"));
-            REQUIRE(l.reduceFloat(0.5f, 0.f, &floatSum) == 3.5f);
-            REQUIRE(l.reduceFloat(2.f, 1.f, &floatMul) == 4.f);
+            REQUIRE(l.reduceFloat(0.5f, &floatSum) == 3.5f);
+            REQUIRE(l.reduceFloat(2.f, &floatMul) == 4.f);
             l.append(2.f);
-            REQUIRE(l.reduceFloat(0.5f, 0.f, &floatSum) == 5.5f);
-            REQUIRE(l.reduceFloat(2.f, 1.f, &floatMul) == 8.f);
+            REQUIRE(l.reduceFloat(0.5f, &floatSum) == 5.5f);
+            REQUIRE(l.reduceFloat(2.f, &floatMul) == 8.f);
         }
     }
 
     SECTION("test sum")
     {
         AtomList l;
-        REQUIRE(l.sum() == 0.f);
+        REQUIRE(l.sum() == boost::none);
         l.append(1.f);
         l.append(2.f);
         REQUIRE(l.sum() == 3.f);
@@ -1234,7 +1246,7 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
     SECTION("test product")
     {
         AtomList l;
-        REQUIRE(l.product() == 0.f);
+        REQUIRE(l.product() == boost::none);
         l.append(1.f);
         l.append(2.f);
         REQUIRE(l.product() == 2.f);

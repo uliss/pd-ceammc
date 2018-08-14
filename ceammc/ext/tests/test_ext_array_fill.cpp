@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../array/array_fill.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "ceammc_factory.h"
 #include "ceammc_pd.h"
 
@@ -20,7 +20,7 @@
 
 #include "catch.hpp"
 
-typedef TestExtension<ArrayFill> ArrayFillTest;
+typedef TestExternal<ArrayFill> ArrayFillTest;
 
 using namespace ceammc;
 
@@ -42,7 +42,7 @@ TEST_CASE("array.fill", "[externals]")
 
     SECTION("invalid")
     {
-        ArrayFillTest t("array.fill", L1("non-exists"));
+        ArrayFillTest t("array.fill", LA("non-exists"));
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
         REQUIRE_PROPERTY(t, @array, "non-exists");
@@ -54,16 +54,16 @@ TEST_CASE("array.fill", "[externals]")
 
     SECTION("fill")
     {
-        ArrayFillTest t("array.fill", L1("array1"));
+        ArrayFillTest t("array.fill", LA("array1"));
 
         // no array yet
-        WHEN_CALL_1(t, fill, 0.1f);
+        WHEN_CALL_N(t, fill, 0.1f);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
         ArrayPtr aptr = cnv->createArray("array1", 10);
 
         // array created
-        WHEN_CALL_1(t, fill, 0.1f);
+        WHEN_CALL_N(t, fill, 0.1f);
         REQUIRE_BANG_AT_OUTLET(0, t);
         aptr->update();
         REQUIRE(aptr->size() == 10);
@@ -71,11 +71,11 @@ TEST_CASE("array.fill", "[externals]")
         for (size_t i = 0; i < aptr->size(); i++)
             REQUIRE(aptr->at(i) == Approx(0.1));
 
-        WHEN_SEND_LIST_TO(0, t, AtomList());
+        WHEN_SEND_LIST_TO(0, t, L());
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
         // pattern
-        WHEN_CALL_2(t, fill, 0.1f, 0.2f);
+        WHEN_CALL_N(t, fill, 0.1f, 0.2f);
         REQUIRE_BANG_AT_OUTLET(0, t);
         aptr->update();
         REQUIRE(aptr->size() == 10);
@@ -88,7 +88,7 @@ TEST_CASE("array.fill", "[externals]")
         REQUIRE(aptr->size() == 10);
 
         // pattern
-        WHEN_CALL_3(t, fill, 0.1f, 0.2f, 0.3f);
+        WHEN_CALL_N(t, fill, 0.1f, 0.2f, 0.3f);
         REQUIRE_BANG_AT_OUTLET(0, t);
         aptr->update();
         REQUIRE(aptr->size() == 10);
@@ -106,45 +106,45 @@ TEST_CASE("array.fill", "[externals]")
         REQUIRE(aptr->at(9) == 0.1f);
 
         // pattern
-        WHEN_CALL_1(t, fill, 0.1f);
+        WHEN_CALL_N(t, fill, 0.1f);
         REQUIRE_BANG_AT_OUTLET(0, t);
 
         aptr->resize(2);
         // pattern
-        WHEN_CALL_3(t, fill, 1, 2, 3);
+        WHEN_CALL_N(t, fill, 1, 2, 3);
         REQUIRE_BANG_AT_OUTLET(0, t);
         REQUIRE(aptr->at(0) == 1.f);
         REQUIRE(aptr->at(1) == 2.f);
 
         aptr->resize(1);
         // pattern
-        WHEN_CALL_3(t, fill, 3, 4, 5);
+        WHEN_CALL_N(t, fill, 3, 4, 5);
         REQUIRE_BANG_AT_OUTLET(0, t);
         REQUIRE(aptr->at(0) == 3.f);
     }
 
     SECTION("range")
     {
-        ArrayFillTest t("array.fill", L1("array2"));
+        ArrayFillTest t("array.fill", LA("array2"));
 
-        WHEN_SEND_LIST_TO(0, t, L2(1, 2));
+        WHEN_SEND_LIST_TO(0, t, LF(1, 2));
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
         Array a("array1");
         a.resize(5);
         a.fillWith(0.f);
 
-        WHEN_CALL_1(t, fill, 1);
+        WHEN_CALL_N(t, fill, 1);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-        WHEN_CALL_2(t, fill, 1, 2);
+        WHEN_CALL_N(t, fill, 1, 2);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
         WHEN_SEND_SYMBOL_TO(0, t, "array1");
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
         REQUIRE_PROPERTY(t, @array, A("array1"));
 
-        WHEN_CALL_5(t, fill, "@from", 2, "@to", 3, 10);
+        WHEN_CALL_N(t, fill, "@from", 2, "@to", 3, 10);
         REQUIRE_BANG_AT_OUTLET(0, t);
         a.update();
         REQUIRE(a[0] == 0.f);
@@ -153,7 +153,7 @@ TEST_CASE("array.fill", "[externals]")
         REQUIRE(a[3] == 0.f);
         REQUIRE(a[4] == 0.f);
 
-        WHEN_CALL_1(t, fill, 1);
+        WHEN_CALL_N(t, fill, 1);
         REQUIRE_BANG_AT_OUTLET(0, t);
         REQUIRE(a[0] == 1.f);
         REQUIRE(a[1] == 1.f);
@@ -162,9 +162,9 @@ TEST_CASE("array.fill", "[externals]")
         REQUIRE(a[4] == 1.f);
         a.fillWith(0.f);
 
-        WHEN_CALL_5(t, fill, "@to", 2, "@from", 0.f, 20);
+        WHEN_CALL_N(t, fill, "@to", 2, "@from", 0.f, 20);
         REQUIRE_BANG_AT_OUTLET(0, t);
-        WHEN_CALL_5(t, fill, "@from", 2, "@to", 3, 10);
+        WHEN_CALL_N(t, fill, "@from", 2, "@to", 3, 10);
 
         a.update();
         REQUIRE(a[0] == 20.f);
@@ -173,10 +173,10 @@ TEST_CASE("array.fill", "[externals]")
         REQUIRE(a[3] == 0.f);
         REQUIRE(a[4] == 0.f);
 
-        WHEN_CALL_5(t, fill, "@from", 4, "@to", 2333, 44);
+        WHEN_CALL_N(t, fill, "@from", 4, "@to", 2333, 44);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-        WHEN_CALL_5(t, fill, "@from", 3, "@to", -1, 25);
+        WHEN_CALL_N(t, fill, "@from", 3, "@to", -1, 25);
         REQUIRE_BANG_AT_OUTLET(0, t);
         REQUIRE(a[0] == 20.f);
         REQUIRE(a[0] == 20.f);
@@ -184,7 +184,7 @@ TEST_CASE("array.fill", "[externals]")
         REQUIRE(a[3] == 25.f);
         REQUIRE(a[4] == 0.f);
 
-        WHEN_CALL_5(t, fill, "@from", 2, "@to", -2, 24);
+        WHEN_CALL_N(t, fill, "@from", 2, "@to", -2, 24);
         REQUIRE_BANG_AT_OUTLET(0, t);
         REQUIRE(a[0] == 20.f);
         REQUIRE(a[1] == 20.f);
@@ -195,7 +195,7 @@ TEST_CASE("array.fill", "[externals]")
 
     SECTION("fill float")
     {
-        ArrayFillTest t("array.fill", L1("array2"));
+        ArrayFillTest t("array.fill", LA("array2"));
 
         WHEN_SEND_FLOAT_TO(0, t, 0.1f);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
@@ -216,9 +216,9 @@ TEST_CASE("array.fill", "[externals]")
 
     SECTION("fill list")
     {
-        ArrayFillTest t("array.fill", L1("array2"));
+        ArrayFillTest t("array.fill", LA("array2"));
 
-        WHEN_SEND_LIST_TO(0, t, L2(1, 2));
+        WHEN_SEND_LIST_TO(0, t, LF(1, 2));
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
         WHEN_SEND_SYMBOL_TO(0, t, "array1");
@@ -227,10 +227,10 @@ TEST_CASE("array.fill", "[externals]")
         Array a("array1");
         a.resize(5);
 
-        WHEN_SEND_LIST_TO(0, t, AtomList());
+        WHEN_SEND_LIST_TO(0, t, L());
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-        WHEN_SEND_LIST_TO(0, t, L2(1, 2));
+        WHEN_SEND_LIST_TO(0, t, LF(1, 2));
         REQUIRE_BANG_AT_OUTLET(0, t);
 
         REQUIRE(a[0] == 1.f);
@@ -242,98 +242,98 @@ TEST_CASE("array.fill", "[externals]")
 
     SECTION("parse range arguments")
     {
-        ArrayFillTest t("array.fill", L1("array1"));
+        ArrayFillTest t("array.fill", LA("array1"));
 
         size_t from = 0;
         size_t to = 0;
 
-        REQUIRE(t.parseRange(L1(1), &from, &to) == L1(1));
+        REQUIRE(t.parseRange(LF(1), &from, &to) == LF(1));
         REQUIRE(from == 0);
         REQUIRE(to == 5);
         from = to = 0;
 
-        REQUIRE(t.parseRange(L1("@from"), &from, &to) == AtomList());
+        REQUIRE(t.parseRange(LA("@from"), &from, &to) == L());
 
         // no params
-        REQUIRE(t.parseRange(L2(2, 3), &from, &to) == L2(2, 3));
+        REQUIRE(t.parseRange(LF(2, 3), &from, &to) == LF(2, 3));
         REQUIRE(from == 0);
         REQUIRE(to == 5);
         from = to = 0;
 
         // @from
-        REQUIRE(t.parseRange(L4("@from", 1, 2, 3), &from, &to) == L2(2, 3));
+        REQUIRE(t.parseRange(LA("@from", 1, 2, 3), &from, &to) == LF(2, 3));
         REQUIRE(from == 1);
         REQUIRE(to == 5);
         from = to = 0;
 
         // @from invalid
-        REQUIRE(t.parseRange(L4("@from", -1, 2, 3), &from, &to) == AtomList());
+        REQUIRE(t.parseRange(LA("@from", -1, 2, 3), &from, &to) == L());
 
         // @from
-        REQUIRE(t.parseRange(L4("@from", 5, 2, 3), &from, &to) == AtomList());
+        REQUIRE(t.parseRange(LA("@from", 5, 2, 3), &from, &to) == L());
 
         // @to
-        REQUIRE(t.parseRange(L4("@to", 10, 5, 3), &from, &to) == AtomList());
+        REQUIRE(t.parseRange(LA("@to", 10, 5, 3), &from, &to) == L());
 
         // @to
-        REQUIRE(t.parseRange(L4("@to", 6, 5, 3), &from, &to) == AtomList());
+        REQUIRE(t.parseRange(LA("@to", 6, 5, 3), &from, &to) == L());
 
         // @to
-        REQUIRE(t.parseRange(L4("@to", 5, 5, 3), &from, &to) == L2(5, 3));
+        REQUIRE(t.parseRange(LA("@to", 5, 5, 3), &from, &to) == LF(5, 3));
         REQUIRE(from == 0);
         REQUIRE(to == 5);
         from = to = 0;
 
         // @to
-        REQUIRE(t.parseRange(L4("@to", 3, 5, 3), &from, &to) == L2(5, 3));
+        REQUIRE(t.parseRange(LA("@to", 3, 5, 3), &from, &to) == LF(5, 3));
         REQUIRE(from == 0);
         REQUIRE(to == 3);
         from = to = 0;
 
         // @to
-        REQUIRE(t.parseRange(L4("@to", -1, 5, 3), &from, &to) == L2(5, 3));
+        REQUIRE(t.parseRange(LA("@to", -1, 5, 3), &from, &to) == LF(5, 3));
         REQUIRE(from == 0);
         REQUIRE(to == 4);
         from = to = 0;
 
         // @to
-        REQUIRE(t.parseRange(L4("@to", -3, 5, 3), &from, &to) == L2(5, 3));
+        REQUIRE(t.parseRange(LA("@to", -3, 5, 3), &from, &to) == LF(5, 3));
         REQUIRE(from == 0);
         REQUIRE(to == 2);
         from = to = 0;
 
         // @to
-        REQUIRE(t.parseRange(L4("@to", -5, 5, 3), &from, &to) == AtomList());
+        REQUIRE(t.parseRange(LA("@to", -5, 5, 3), &from, &to) == L());
         REQUIRE(from == 0);
         REQUIRE(to == 0);
         from = to = 0;
 
         // @to
-        REQUIRE(t.parseRange(L4("@to", -15, 5, 3), &from, &to) == AtomList());
+        REQUIRE(t.parseRange(LA("@to", -15, 5, 3), &from, &to) == L());
         REQUIRE(from == 0);
         REQUIRE(to == 0);
         from = to = 0;
 
         // @from @to
-        REQUIRE(t.parseRange(L6("@to", 3, "@from", 2, 5, 3), &from, &to) == L2(5, 3));
+        REQUIRE(t.parseRange(LA("@to", 3, "@from", 2, 5, 3), &from, &to) == LF(5, 3));
         REQUIRE(from == 2);
         REQUIRE(to == 3);
         from = to = 0;
 
         // @from @to
-        REQUIRE(t.parseRange(L6("@to", 2, "@from", 2, 5, 3), &from, &to) == AtomList());
+        REQUIRE(t.parseRange(LA("@to", 2, "@from", 2, 5, 3), &from, &to) == L());
         REQUIRE(from == 0);
         REQUIRE(to == 0);
         from = to = 0;
 
         // @from @to
-        REQUIRE(t.parseRange(L6("@from", 2, "@to", 1, 5, 3), &from, &to) == AtomList());
+        REQUIRE(t.parseRange(LA("@from", 2, "@to", 1, 5, 3), &from, &to) == L());
         REQUIRE(from == 0);
         REQUIRE(to == 0);
         from = to = 0;
 
         // @from @to
-        REQUIRE(t.parseRange(L6("@from", 2, "@to", -2, 5, 3), &from, &to) == L2(5, 3));
+        REQUIRE(t.parseRange(LA("@from", 2, "@to", -2, 5, 3), &from, &to) == LF(5, 3));
         REQUIRE(from == 2);
         REQUIRE(to == 3);
         from = to = 0;

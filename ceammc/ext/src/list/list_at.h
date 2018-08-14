@@ -18,6 +18,8 @@
 
 using namespace ceammc;
 
+class DataTypeMList;
+
 class ListAt : public BaseObject {
     ListProperty* pos_;
     SymbolEnumProperty* at_method_;
@@ -26,9 +28,12 @@ public:
     ListAt(const PdArgs& a);
     void onInlet(size_t idx, const AtomList& l);
     void onList(const AtomList& l);
+    void onDataT(const DataTypeMList& data);
 
 private:
     const Atom* at(const AtomList& l, const Atom& p);
 };
+
+void setup_list_at();
 
 #endif // LIST_AT_H

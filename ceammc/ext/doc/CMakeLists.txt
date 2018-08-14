@@ -91,32 +91,43 @@ else()
 endif()
 
 # extra doc file: presets, sound examples etc.
-set(EXTRA_DOC_FILES prs.txt stargazing.mod)
+set(EXTRA_DOC_FILES prs.txt stargazing.mod guitar1.wav)
 
-    # install all help files
-    foreach(_doc_file ${DOC_FILES})
-        install(FILES "${_doc_file}-help.pd"
-            DESTINATION ${DOC_INSTALL_PATH}
-            PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
-    endforeach()
-
-    # About Pd page
-    install(FILES "${CMAKE_CURRENT_BINARY_DIR}/about.pd" DESTINATION ${DOC_INSTALL_PATH}
+# install all help files
+foreach(_doc_file ${DOC_FILES})
+    install(FILES "${_doc_file}-help.pd"
+        DESTINATION ${DOC_INSTALL_PATH}
         PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
+endforeach()
 
-    # Documentation index install
-    install(FILES "index-help.pd" DESTINATION "${DOC_INSTALL_PATH}/.."
-        PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
+# About Pd page
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/about.pd" DESTINATION ${DOC_INSTALL_PATH}
+    PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
 
-    # install extra files
-    install(FILES ${EXTRA_DOC_FILES} DESTINATION ${DOC_INSTALL_PATH}
-        PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
+# Documentation index install
+install(FILES "index-help.pd" DESTINATION "${DOC_INSTALL_PATH}/.."
+    PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
 
-    install(
-        CODE "file( GLOB _PD_CATEGORY_HELP_FILES \"${CMAKE_CURRENT_SOURCE_DIR}/ceammc*-help.pd\" )"
-        CODE "file( INSTALL \${_PD_CATEGORY_HELP_FILES}
-            DESTINATION \"${CMAKE_INSTALL_PREFIX}/${DOC_INSTALL_PATH}\")"
-    )
+# install extra files
+install(FILES ${EXTRA_DOC_FILES} DESTINATION ${DOC_INSTALL_PATH}
+    PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
+
+install(
+    CODE "file( GLOB _PD_CATEGORY_HELP_FILES \"${CMAKE_CURRENT_SOURCE_DIR}/ceammc*-help.pd\" )"
+    CODE "file( INSTALL \${_PD_CATEGORY_HELP_FILES}
+        DESTINATION \"${CMAKE_INSTALL_PREFIX}/${DOC_INSTALL_PATH}\")"
+)
+
+if(APPLE)
+find_program(TIDY tidy PATHS /usr/local/bin /usr/bin
+    NO_DEFAULT_PATH
+    NO_CMAKE_ENVIRONMENT_PATH
+    NO_SYSTEM_ENVIRONMENT_PATH
+    NO_CMAKE_SYSTEM_PATH
+    NO_CMAKE_PATH)
+else()
+    find_program(TIDY tidy)
+endif()
 
 if(TIDY)
     message(STATUS "HTMLtidy found: ${TIDY}. The 'ceammc_pddoc_format' target available.")

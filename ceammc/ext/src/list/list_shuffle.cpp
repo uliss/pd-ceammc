@@ -1,31 +1,31 @@
-#include "ceammc.h"
+#include "list_shuffle.h"
+#include "../data/datatype_mlist.h"
+#include "ceammc_factory.h"
+
 #include <algorithm>
-#include <m_pd.h>
 
-t_class* list_shuffle_class;
-typedef struct list_shuffle {
-    t_object x_obj;
-} t_list_shuffle;
-
-static void list_shuffle_list(t_list_shuffle* x, t_symbol* s, int argc, t_atom* argv)
+ListShuffle::ListShuffle(const PdArgs& args)
+    : BaseObject(args)
 {
-    t_atom* copy = ceammc_atoms_alloc_copy(argc, argv);
-    std::random_shuffle(copy, copy + argc);
-    outlet_list(x->x_obj.te_outlet, s, argc, copy);
-    ceammc_atoms_free(copy, argc);
+    createOutlet();
 }
 
-static void* list_shuffle_new()
+void ListShuffle::onList(const AtomList& lst)
 {
-    t_list_shuffle* x = (t_list_shuffle*)pd_new(list_shuffle_class);
-    outlet_new(&x->x_obj, &s_float);
-    return (void*)x;
+    AtomList res(lst);
+    std::random_shuffle(res.begin(), res.end());
+    listTo(0, res);
 }
 
-extern "C" void setup_list0x2eshuffle()
+void ListShuffle::onDataT(const DataTypeMList& lst)
 {
-    list_shuffle_class = class_new(gensym("list.shuffle"),
-        (t_newmethod)list_shuffle_new, (t_method)0,
-        sizeof(t_list_shuffle), 0, A_NULL);
-    class_addlist(list_shuffle_class, list_shuffle_list);
+    DataTypeMList* res = new DataTypeMList(lst);
+    std::random_shuffle(res->begin(), res->end());
+    dataTo(0, DataPtr(res));
+}
+
+void setup_list_shuffle()
+{
+    ObjectFactory<ListShuffle> obj("list.shuffle");
+    obj.processData<DataTypeMList>();
 }

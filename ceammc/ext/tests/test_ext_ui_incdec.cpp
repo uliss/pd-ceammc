@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../ui/ui_incdec.h"
-#include "ui_external_test.h"
+#include "test_ui.h"
 
 UI_COMPLETE_TEST_SETUP(IncDec)
 
@@ -25,14 +25,14 @@ TEST_CASE("ui.incdec", "[ui.incdec]")
         TestIncDec t("ui.incdec~");
         REQUIRE(t->numInlets() == 1);
         REQUIRE(t->numOutlets() == 1);
-        REQUIRE_UI_LIST_PROPERTY(t, "size", L2(15, 20));
+        REQUIRE_UI_LIST_PROPERTY(t, "size", LF(15, 20));
         REQUIRE_UI_FLOAT_PROPERTY(t, "step", 1);
         REQUIRE_UI_FLOAT_PROPERTY(t, "value", 0);
     }
 
     SECTION("external")
     {
-        TestExtIncDec t("ui.incdec", L2("@send", "r1"));
+        TestExtIncDec t("ui.incdec", LA("@send", "r1"));
         t.addListener("r1");
 
         REQUIRE_UI_FLOAT_PROPERTY(t, "value", 0);
@@ -52,11 +52,11 @@ TEST_CASE("ui.incdec", "[ui.incdec]")
         REQUIRE_UI_FLOAT_PROPERTY(t, "value", -100);
 
         // nothing
-        t <<= L1("set");
+        t <<= LA("set");
         REQUIRE_NO_OUTPUT(t);
         REQUIRE_UI_FLOAT_PROPERTY(t, "value", -100);
 
-        t <<= L2("set", 5);
+        t <<= LA("set", 5);
         REQUIRE_NO_OUTPUT(t);
         REQUIRE_UI_FLOAT_PROPERTY(t, "value", 5);
 
@@ -64,56 +64,56 @@ TEST_CASE("ui.incdec", "[ui.incdec]")
         REQUIRE_NO_OUTPUT(t);
         REQUIRE_UI_FLOAT_PROPERTY(t, "value", 4);
 
-        t <<= L1("inc");
+        t <<= LA("inc");
         REQUIRE_FLOAT_WAS_SEND(t, "r1", 5);
         REQUIRE_OUTPUT_FLOAT(t, 0, 5);
         REQUIRE_UI_FLOAT_PROPERTY(t, "value", 5);
 
-        t <<= L1("inc");
+        t <<= LA("inc");
         REQUIRE_FLOAT_WAS_SEND(t, "r1", 6);
         REQUIRE_OUTPUT_FLOAT(t, 0, 6);
         REQUIRE_UI_FLOAT_PROPERTY(t, "value", 6);
 
-        t <<= L1("dec");
+        t <<= LA("dec");
         REQUIRE_FLOAT_WAS_SEND(t, "r1", 5);
         REQUIRE_OUTPUT_FLOAT(t, 0, 5);
         REQUIRE_UI_FLOAT_PROPERTY(t, "value", 5);
 
-        t <<= L1("dec");
+        t <<= LA("dec");
         REQUIRE_FLOAT_WAS_SEND(t, "r1", 4);
         REQUIRE_OUTPUT_FLOAT(t, 0, 4);
         REQUIRE_UI_FLOAT_PROPERTY(t, "value", 4);
 
-        t <<= L2("@step", 0.5f);
-        t <<= L1("dec");
+        t <<= LA("@step", 0.5f);
+        t <<= LA("dec");
         REQUIRE_FLOAT_WAS_SEND(t, "r1", 3.5f);
         REQUIRE_OUTPUT_FLOAT(t, 0, 3.5f);
         REQUIRE_UI_FLOAT_PROPERTY(t, "value", 3.5f);
 
-        t <<= L2("store", 0.f);
+        t <<= LA("store", 0.f);
         t << 2;
-        t <<= L2("store", 1);
+        t <<= LA("store", 1);
         t << 3;
-        t <<= L2("store", 2);
+        t <<= LA("store", 2);
 
         t << 4;
 
-        t <<= L2("load", 0.f);
+        t <<= LA("load", 0.f);
         REQUIRE_FLOAT_WAS_SEND(t, "r1", 3.5f);
         REQUIRE_OUTPUT_FLOAT(t, 0, 3.5f);
         REQUIRE_UI_FLOAT_PROPERTY(t, "value", 3.5f);
 
-        t <<= L2("load", 1);
+        t <<= LA("load", 1);
         REQUIRE_FLOAT_WAS_SEND(t, "r1", 2);
         REQUIRE_OUTPUT_FLOAT(t, 0, 2);
         REQUIRE_UI_FLOAT_PROPERTY(t, "value", 2);
 
-        t <<= L2("load", 2);
+        t <<= LA("load", 2);
         REQUIRE_FLOAT_WAS_SEND(t, "r1", 3);
         REQUIRE_OUTPUT_FLOAT(t, 0, 3);
         REQUIRE_UI_FLOAT_PROPERTY(t, "value", 3);
 
-        t <<= L2("load", 3);
+        t <<= LA("load", 3);
         REQUIRE_FLOAT_WAS_SEND(t, "r1", 0);
         REQUIRE_OUTPUT_FLOAT(t, 0, 0);
         REQUIRE_UI_FLOAT_PROPERTY(t, "value", 0);

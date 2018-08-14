@@ -1,0 +1,165 @@
+#N canvas 0 0 715 555 12;
+#X declare -lib ceammc;
+#X obj 403 50 cnv 1 292 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 403 50 array view with cursor and selection;
+#X obj 1 1 cnv 5 712 40 empty empty ui.aview 20 20 0 20 -104026 -4096
+0;
+#X obj 627 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ui.aview] @url ui.aview-help.pd;
+#X obj 50 118 loadbang;
+#X obj 155 118 table array_view;
+#X msg 50 147 load %DOC%/sound/voice.wav @to array_view @resize;
+#X obj 50 176 expand_env;
+#X obj 50 205 snd.file;
+#X msg 50 234 update;
+#X text 146 234 Shift+drag - select region to play;
+#X obj 50 262 ui.aview @array array_view @show_labels 1 @size 300 80;
+#X obj 50 349 route @select_samp;
+#X obj 50 378 flow.change;
+#X obj 280 378 loadbang;
+#X obj 50 406 expr $f1\; $f2 - $f1;
+#X msg 280 406 1;
+#X obj 98 435 b;
+#X floatatom 280 435 5 0 0 0 - - -;
+#X text 347 435 speed;
+#X obj 98 464 loop~;
+#X obj 98 493 *~;
+#X obj 50 521 +~;
+#X obj 50 550 tabread4~ array_view;
+#X obj 50 579 ui.gain~ @size 120 16;
+#X obj 290 579 ui.dsp~;
+#X obj 50 608 dac~;
+#X obj 20 647 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 652 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+-49933 0;
+#X msg 120 657 @array;
+#X text 240 657 Get/Set array name. Type: symbol;
+#X msg 120 684 @cursor_samp;
+#X text 240 684 Get/Set cursor position in samples. Type: int;
+#X msg 120 711 @cursor_phase;
+#X text 240 711 Get/Set cursor position in 0-1 range. Type: float.
+Value range: 0-1;
+#X msg 120 748 @cursor_sec;
+#X text 240 748 Get/Set cursor position in seconds. Type: float.
+Units: sec;
+#X msg 120 775 @cursor_ms;
+#X text 240 775 Get/Set cursor position in milliseconds. Type: float.
+Units: ms;
+#X msg 120 812 @select_samp;
+#X text 240 812 Get/Set selection range in samples \, pair of values:
+begin \, end. Type: list;
+#X msg 120 849 @select_sec;
+#X text 240 849 Get/Set selection range in seconds \, pair of values:
+begin \, end. Type: list;
+#X msg 120 886 @select_ms;
+#X text 240 886 Get/Set selection range in milliseconds \, pair of
+values: begin \, end. Type: list;
+#X msg 120 923 @select_phase;
+#X text 240 923 Get/Set selection range noramlized to 0-1 range \,
+pair of values: begin \, end. Type: list;
+#X msg 120 960 @show_rms;
+#X text 240 960 Get/Set show RMS graph. Type: int. Default value: 0\.
+Allowed values: 0 \, 1;
+#X msg 120 997 @show_labels;
+#X text 240 997 Get/Set if show corner labels. Type: int. Default
+value: 0\. Allowed values: 0 \, 1;
+#X msg 120 1034 @label_top;
+#X text 240 1034 Get/Set top right label if @show_labels is on. Type:
+symbol;
+#X msg 120 1061 @label_bottom;
+#X text 240 1061 Get/Set bottom right label if @show_labels is on.
+Type: symbol;
+#X msg 120 1098 @size_samp;
+#X text 240 1098 (readonly) Get array size in samples. Type: int. Min
+value: 0;
+#X msg 120 1135 @size_sec;
+#X text 240 1135 (readonly) Get array size in seconds. Type: float.
+Units: sec. Min value: 0;
+#X msg 120 1172 @size_ms;
+#X text 240 1172 (readonly) Get array size in milleseconds. Type:
+float. Units: ms. Min value: 0;
+#X msg 120 1209 @send;
+#X text 240 1209 Get/Set send destination. Type: symbol;
+#X msg 120 1236 @receive;
+#X text 240 1236 Get/Set receive source. Type: symbol;
+#X obj 20 1273 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1278 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+-49933 0;
+#X msg 120 1283 update;
+#X text 240 1283 redraws view.;
+#X msg 120 1315 select;
+#X text 240 1315 set selection. Arguments are:;
+#X obj 250 1343 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 1343 BEGIN: selection start in samples. Type: int.;
+#X obj 250 1371 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 1371 END: selection end in samples. Type: int.;
+#X obj 20 1409 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1414 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+-49933 0;
+#X text 120 1419 1\.;
+#X text 150 1419 *bang*;
+#X text 240 1419 output current cursor positions: @cursor_samp \,
+@cursor_phase \, @cursor_ms \, @cursor_sec and selection (if
+selected): @select_samp \, @select_phase \, @select_ms \, @select_sec
+\, @begin \, @end.;
+#X text 150 1479 *float*;
+#X text 240 1479 move cursor to specified sample position.;
+#X obj 20 1507 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1512 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+-49933 0;
+#X text 120 1517 1\.;
+#X text 240 1517 output;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 115 45 ::;
+#X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
+#X obj 1 1565 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1568 library: ceammc v0.6;
+#N canvas 10 1587 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 library:;
+#X text 120 10 ceammc;
+#X text 10 32 version:;
+#X text 120 32 0.6;
+#X text 10 54 object:;
+#X text 120 54 ui.aview;
+#X text 10 76 category:;
+#X text 120 76 ui;
+#X text 10 98 since:;
+#X text 120 98 0.6;
+#X text 10 120 authors:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 license:;
+#X text 120 142 GPL3;
+#X text 10 164 keywords:;
+#X text 120 164 ui \, array \, view;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pure-data @url
+https://github.com/uliss/pure-data;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 generated by pddoc;
+#X restore 10 1587 pd info;
+#X connect 4 0 6 0;
+#X connect 6 0 7 0;
+#X connect 7 0 8 0;
+#X connect 8 0 9 0;
+#X connect 9 0 11 0;
+#X connect 11 0 12 0;
+#X connect 12 0 13 0;
+#X connect 13 0 15 0;
+#X connect 14 0 16 0;
+#X connect 16 0 18 0;
+#X connect 17 0 20 0;
+#X connect 15 1 20 1;
+#X connect 18 0 20 0;
+#X connect 20 0 21 0;
+#X connect 20 1 21 1;
+#X connect 15 0 22 0;
+#X connect 21 0 22 1;
+#X connect 22 0 23 0;
+#X connect 23 0 24 0;
+#X connect 24 0 26 0;
+#X connect 24 0 26 1;
+#X connect 13 0 17 0;

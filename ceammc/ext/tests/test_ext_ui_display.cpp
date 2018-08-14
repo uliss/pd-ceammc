@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../ui/ui_display.h"
-#include "ui_external_test.h"
+#include "test_ui.h"
 
 UI_COMPLETE_TEST_SETUP(Display)
 
@@ -28,13 +28,13 @@ TEST_CASE("ui.display", "[ui.display]")
         REQUIRE_UI_FLOAT_PROPERTY(t, "auto_size", 1);
         REQUIRE_UI_FLOAT_PROPERTY(t, "display_type", 0);
         REQUIRE_UI_FLOAT_PROPERTY(t, "display_events", 1);
-        REQUIRE_UI_LIST_PROPERTY(t, "size", L2(150, 18));
+        REQUIRE_UI_LIST_PROPERTY(t, "size", LF(150, 18));
     }
 
     SECTION("external")
     {
         TestExtDisplay t("ui.display");
-        t.call("@send", L2("ABC", 2));
+        t.call("@send", LA("ABC", 2));
         REQUIRE(t->text() == "ABC 2");
         REQUIRE(t->type() == "@send");
 
@@ -46,7 +46,7 @@ TEST_CASE("ui.display", "[ui.display]")
         REQUIRE(t->text() == "A");
         REQUIRE(t->type() == "symbol");
 
-        t.send(L3(1, 2, 3));
+        t.send(LF(1, 2, 3));
         REQUIRE(t->text() == "1 2 3");
         REQUIRE(t->type() == "list");
 

@@ -85,9 +85,11 @@ void ceammc_init()
     setup_env_doc_path();
     setup_env_ceammc_doc_path();
 
+#ifndef __WIN32
     // save vanilla extension list
     vector<string> l = ceammc::currentExtensionList();
     set<string> vanilla_set(l.begin(), l.end());
+#endif
 
     ceammc_array_setup();
     ceammc_base_setup();
@@ -120,6 +122,7 @@ void ceammc_init()
     ceammc_vector_setup();
     ceammc_window_setup();
 
+#ifndef __WIN32
     // get ceammc extension list
     l = ceammc::currentExtensionList();
     set<string> current_set(l.begin(), l.end());
@@ -127,4 +130,5 @@ void ceammc_init()
     set_difference(current_set.begin(), current_set.end(),
         vanilla_set.begin(), vanilla_set.end(),
         inserter(ceammc_ext_list(), ceammc_ext_list().end()));
+#endif
 }

@@ -14,8 +14,9 @@
 #include "ceammc_format.h"
 #include "ceammc_atom.h"
 #include "ceammc_atomlist.h"
-#include "ceammc_message.h"
 #include "ceammc_data.h"
+#include "ceammc_dataatom.h"
+#include "ceammc_message.h"
 
 #include <algorithm>
 #include <iomanip>
@@ -35,17 +36,21 @@ std::string to_string(const Atom& a)
     if (a.isSymbol())
         return std::string(a.asSymbol()->s_name);
 
-    if (a.isData()) {
-        DataPtr ptr(a);
-        if (ptr.isNull())
-            return "???";
-        else
-            return ptr->toString();
-    }
+    if (a.isData())
+        return to_string(DataPtr(a));
 
     std::ostringstream ss;
     ss << a;
     return ss.str();
+}
+
+std::string to_string_quoted(const Atom& a)
+{
+    if (a.isSymbol())
+        return to_string_quoted(a.asSymbol()->s_name);
+    else if (a.isData())
+        return to_string(a);
+    return to_string(a);
 }
 
 std::string to_float_string(const Atom& a, const std::string& defaultValue)
@@ -105,6 +110,51 @@ std::string to_string(const Message& msg, const std::string& separator)
         return to_string(msg.atomValue()) + separator + to_string(msg.listValue(), separator);
 
     return "";
+}
+
+std::string to_string_quoted(const std::string& str)
+{
+    if (str.empty())
+        return "\"\"";
+
+    static const char SINGLE_QUOTE = '"';
+    static const char ESCAPE = '`';
+
+    // no spaces -> no quotes
+    if (std::string::npos == str.find(' ', 0))
+        return str;
+
+    std::string res;
+    res.reserve(str.size() + 2);
+    res += SINGLE_QUOTE;
+
+    // no inner quotes -> just outer quotes
+    if (std::string::npos == str.find(SINGLE_QUOTE, 0)) {
+        res += str;
+    } else {
+        std::string escaped;
+        escaped.reserve(str.size() + 1);
+
+        for (size_t i = 0; i < str.size(); i++) {
+            char c = str[i];
+
+            if (c == SINGLE_QUOTE) {
+                escaped += ESCAPE;
+                escaped += SINGLE_QUOTE;
+            } else
+                escaped += c;
+        }
+
+        res += escaped;
+    }
+
+    res += SINGLE_QUOTE;
+    return res;
+}
+
+std::string to_string(const DataPtr& p)
+{
+    return p.isNull() ? "???" : p->toString();
 }
 
 } // namespace ceammc

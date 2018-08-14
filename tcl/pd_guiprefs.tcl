@@ -46,7 +46,7 @@ proc ::pd_guiprefs::init_aqua {} {
 
 proc ::pd_guiprefs::init_win {} {
     # windows uses registry
-    set ::recentfiles_domain "HKEY_CURRENT_USER\\Software\\Pure-Data"
+    set ::recentfiles_domain "HKEY_CURRENT_USER\\Software\\Pd-ceammc"
     set ::recentfiles_key "RecentDocs"
 }
 

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="dict.size">
+        <title>dict.size</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>dictionary size</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>data</category>
+            <keywords>size dictionary</keywords>
+            <since>0.6</since>
+            <also>
+                <see>data.dict</see>
+                <see>dict.keys</see>
+            </also>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="data">data.dict</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>size of dict</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]         [B]
+|           |
+[data.dict] [data.dict \[a: b\] \[c: 200\] \[12: 15151\]]
+|           |
+[dict.size  ]
+|
+[ui.display @display_type=1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

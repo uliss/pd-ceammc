@@ -23,7 +23,7 @@
             <method name="settings">opens audio settings dialog</method>
         </methods>
         <inlets>
-            <inlet/>
+            <inlet />
         </inlets>
         <example>
             <pdascii>

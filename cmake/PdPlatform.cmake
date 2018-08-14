@@ -32,6 +32,15 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
     endif()
 endif()
 
+function(find_and_install_dll mask dir)
+    file(GLOB _dll "${dir}/${mask}")
+    if(_dll)
+        message(STATUS "Found DLL: ${_dll}")
+        install(PROGRAMS ${_dll} DESTINATION ${PD_EXE_INSTALL_PATH})
+    else()
+        message(STATUS "file is not found: ${dir}/${mask}")
+    endif()
+endfunction()
 
 if(WIN32)
     find_program(WISH_PATH
@@ -149,6 +158,11 @@ if(WIN32)
         install(PROGRAMS ${FFTWDLL_PATH} DESTINATION ${PD_EXE_INSTALL_PATH})
     endif()
 
+    find_and_install_dll("libglib*.dll" ${WISH_BINDIR})
+    find_and_install_dll("libintl*.dll" ${WISH_BINDIR})
+    find_and_install_dll("libpcre-*.dll" ${WISH_BINDIR})
+    find_and_install_dll("libiconv*.dll" ${WISH_BINDIR})
+
     # mingw runtime libs
 
     get_filename_component(_MINGW_PATH ${CMAKE_CXX_COMPILER} PATH)
@@ -223,10 +237,10 @@ if(WIN32)
 
     add_definitions(-DPD_INTERNAL -DWINVER=0x0502 -D_WIN32_WINNT=0x0502)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mms-bitfields")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mms-bitfields -Wno-incompatible-ms-struct")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -mms-bitfields -Wno-incompatible-ms-struct")
 
     set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -mms-bitfields -O2 -funroll-loops -fomit-frame-pointer")
-    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -mms-bitfields -O2 -funroll-loops -fomit-frame-pointer -Wno-incompatible-ms-struct")
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -std=c++11 -mms-bitfields -O2 -funroll-loops -fomit-frame-pointer -Wno-incompatible-ms-struct")
 
     set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--export-all-symbols -lpthread")
     set(CMAKE_EXE_LINKER_FLAGS "-shared-libgcc -lpthread")
@@ -236,10 +250,10 @@ endif()
 
 if(APPLE)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -funroll-loops -fomit-frame-pointer")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -funroll-loops -fomit-frame-pointer")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -funroll-loops -fomit-frame-pointer")
 
     set(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG -ffast-math -funroll-loops -fomit-frame-pointer")
-    set(CMAKE_CXX_FLAGS_RELEASE "-O2 -DNDEBUG -ffast-math -funroll-loops -fomit-frame-pointer")
+    set(CMAKE_CXX_FLAGS_RELEASE "-std=c++11 -O2 -DNDEBUG -ffast-math -funroll-loops -fomit-frame-pointer")
 
     set(BUNDLE "Pd-${PD_MACOSX_BUNDLE_SUFFIX}.app")
     set(BUNDLE_FULL_PATH "${PROJECT_BINARY_DIR}/dist/${BUNDLE}")
@@ -343,8 +357,8 @@ endif()
 
 if(UNIX AND NOT APPLE)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -funroll-loops -fomit-frame-pointer")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -funroll-loops -fomit-frame-pointer")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -funroll-loops -fomit-frame-pointer")
 
     set(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG -ffast-math -funroll-loops -fomit-frame-pointer")
-    set(CMAKE_CXX_FLAGS_RELEASE "-O2 -DNDEBUG -ffast-math -funroll-loops -fomit-frame-pointer")
+    set(CMAKE_CXX_FLAGS_RELEASE "-std=c++11 -O2 -DNDEBUG -ffast-math -funroll-loops -fomit-frame-pointer")
 endif()

@@ -26,8 +26,13 @@ class DataPtr {
 public:
     DataPtr(AbstractData* data);
     DataPtr(const Atom& data);
+
+    // copy/move
     DataPtr(const DataPtr& d);
+    DataPtr(DataPtr&& d);
     DataPtr& operator=(const DataPtr& d);
+    DataPtr& operator=(DataPtr&& d);
+
     ~DataPtr();
 
     bool isValid() const;

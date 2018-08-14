@@ -22,8 +22,8 @@
             </also>
         </meta>
         <info>
-            <par>Hold *Shift* to move ranges separately. When @sync property is true,
-            outputs value on every mouse move</par>
+            <par>Hold *Shift* to move ranges separately. When @sync property is true, outputs value
+            on every mouse move</par>
         </info>
         <properties>
             <property name="@min" type="float" default="0">minimum allowed slider value</property>
@@ -38,7 +38,7 @@
             <property name="@receive" type="symbol">receive source</property>
         </properties>
         <methods>
-            <method name="set">sets slider value without output
+            <method name="set">sets slider value without output 
             <param name="V" type="float" required="true">new value</param></method>
         </methods>
         <inlets>

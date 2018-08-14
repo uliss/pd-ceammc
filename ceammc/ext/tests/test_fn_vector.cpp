@@ -12,8 +12,8 @@
  * this file belongs to.
  *****************************************************************************/
 
-#include "catch.hpp"
 #include "ceammc_fn_vector.h"
+#include "test_common.h"
 
 using namespace ceammc;
 
@@ -48,14 +48,14 @@ TEST_CASE("vector functions", "[ceammc::vector]")
         REQUIRE(vector::dotProduct(a, b) == 3.0);
         REQUIRE(vector::dotProduct(b, a) == 3.0);
 
-        a = AtomList::values(4, 1.0, 2.0, 3.0, 4.0);
-        b = AtomList::values(4, 5.0, 6.0, 7.0, 8.0);
+        a = LF(1.0, 2.0, 3.0, 4.0);
+        b = LF(5.0, 6.0, 7.0, 8.0);
         REQUIRE(vector::dotProduct(a, b) == 70.0);
         REQUIRE(vector::dotProduct(b, a) == 70.0);
 
         b.clear();
         REQUIRE(vector::dotProduct(a, b) == 0.0);
-        b = AtomList::values(2, 5.0, 6.0);
+        b = LF(5.0, 6.0);
         REQUIRE(vector::dotProduct(a, b) == 17.0);
 
         a.clear();

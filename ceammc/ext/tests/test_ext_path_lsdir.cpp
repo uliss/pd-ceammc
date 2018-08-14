@@ -14,13 +14,13 @@
 #include "catch.hpp"
 
 #include "../path/path_listdir.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "ceammc_format.h"
 
 #include <stdio.h>
 #include <vector>
 
-typedef TestExtension<PathListDir> ListDirTest;
+typedef TestExternal<PathListDir> ListDirTest;
 typedef std::vector<std::string> FileList;
 
 #ifndef TEST_DATA_DIR
@@ -48,11 +48,11 @@ TEST_CASE("path.lsdir", "[externals]")
     {
         SECTION("empty arguments")
         {
-            ListDirTest t("path.ls", AtomList());
+            ListDirTest t("path.ls", L());
             REQUIRE_PROPERTY_NONE(t, @match);
 
             WHEN_SEND_BANG_TO(0, t);
-            REQUIRE_LIST_AT_OUTLET(0, t, AtomList());
+            REQUIRE_LIST_AT_OUTLET(0, t, L());
 
             WHEN_SEND_SYMBOL_TO(0, t, TEST_DATA_DIR);
             REQUIRE(t.hasNewMessages(0));
@@ -63,17 +63,17 @@ TEST_CASE("path.lsdir", "[externals]")
             REQUIRE(t.hasNewMessages(0));
             REQUIRE(t.lastMessage(0).listValue().size() > 0);
 
-            WHEN_CALL_1(t, match, A("*.wav"));
+            WHEN_CALL_N(t, match, A("*.wav"));
             REQUIRE_PROPERTY(t, @match, A("*.wav"));
         }
 
         SECTION("properties")
         {
-            ListDirTest t("path.ls", L2("@match", "*.mp3"));
+            ListDirTest t("path.ls", LA("@match", "*.mp3"));
             REQUIRE_PROPERTY(t, @match, A("*.mp3"));
 
             WHEN_SEND_BANG_TO(0, t);
-            REQUIRE_LIST_AT_OUTLET(0, t, AtomList());
+            REQUIRE_LIST_AT_OUTLET(0, t, L());
 
             WHEN_SEND_SYMBOL_TO(0, t, TEST_DATA_DIR);
             REQUIRE(t.hasNewMessages(0));
@@ -84,16 +84,16 @@ TEST_CASE("path.lsdir", "[externals]")
             REQUIRE_PROPERTY_NONE(t, @match);
 
             WHEN_SEND_SYMBOL_TO(0, t, TEST_DATA_DIR "non-exists");
-            REQUIRE_LIST_AT_OUTLET(0, t, AtomList());
+            REQUIRE_LIST_AT_OUTLET(0, t, L());
         }
 
         SECTION("properties")
         {
-            ListDirTest t("path.ls", L3(".", "@match", "*.mp3"));
+            ListDirTest t("path.ls", LA(".", "@match", "*.mp3"));
             REQUIRE_PROPERTY(t, @match, A("*.mp3"));
 
             WHEN_SEND_BANG_TO(0, t);
-            REQUIRE_LIST_AT_OUTLET(0, t, AtomList());
+            REQUIRE_LIST_AT_OUTLET(0, t, L());
 
             WHEN_SEND_SYMBOL_TO(0, t, TEST_DATA_DIR);
             REQUIRE(t.hasNewMessages(0));
@@ -104,10 +104,10 @@ TEST_CASE("path.lsdir", "[externals]")
 
     SECTION("test errors")
     {
-        ListDirTest t("path.ls", AtomList());
+        ListDirTest t("path.ls", L());
 
         WHEN_SEND_SYMBOL_TO(0, t, TEST_DATA_DIR "non-exists");
-        REQUIRE_LIST_AT_OUTLET(0, t, AtomList());
+        REQUIRE_LIST_AT_OUTLET(0, t, L());
 
         WHEN_SEND_SYMBOL_TO(0, t, ".");
         REQUIRE(t.hasNewMessages(0));

@@ -23,14 +23,14 @@
 #include <stdio.h>
 #include <sys/stat.h>
 #ifdef _MSC_VER  /* This is only for Microsoft's compiler, not cygwin, e.g. */
-#define snprintf sprintf_s
+#define snprintf _snprintf
 #define stat _stat
 #endif
 
 typedef void (*t_xxx)(void);
 
 /* naming convention for externs.  The names are kept distinct for those
-who wich to make "fat" externs compiled for many platforms.  Less specific
+who wish to make "fat" externs compiled for many platforms.  Less specific
 fallbacks are provided, primarily for back-compatibility; these suffice if
 you are building a package which will run with a single set of compiled
 objects.  The specific name is the letter b, l, d, or m for  BSD, linux,
@@ -96,7 +96,7 @@ static int sys_do_load_lib(t_canvas *canvas, const char *objectname,
     const char *path)
 {
     char symname[MAXPDSTRING], filename[MAXPDSTRING], dirbuf[MAXPDSTRING],
-        *nameptr, altsymname[MAXPDSTRING];
+        *nameptr;
     const char *classname, *cnameptr;
     void *dlobj;
     t_xxx makeout = NULL;
@@ -210,7 +210,7 @@ gotone:
         ntdll = LoadLibrary(filename);
         if (!ntdll)
         {
-            verbose(1, "%s: couldn't load", filename);
+            error("%s: couldn't load", filename);
             class_set_extern_dir(&s_);
             return (0);
         }
@@ -223,8 +223,7 @@ gotone:
     dlobj = dlopen(filename, RTLD_NOW | RTLD_GLOBAL);
     if (!dlobj)
     {
-        post("%s: %s", filename, dlerror());   //TEMP
-        verbose(1, "%s: %s", filename, dlerror());
+        error("%s: %s", filename, dlerror());
         class_set_extern_dir(&s_);
         return (0);
     }
@@ -238,7 +237,7 @@ gotone:
 
     if (!makeout)
     {
-        verbose(1, "load_object: Symbol \"%s\" not found", symname);
+        error("load_object: Symbol \"%s\" not found", symname);
         class_set_extern_dir(&s_);
         return 0;
     }
@@ -321,7 +320,7 @@ int sys_load_lib(t_canvas *canvas, const char *classname)
         int dirlen;
         if (!z)
             return (0);
-        dirlen = z - classname;
+        dirlen = (int)(z - classname);
         if (dirlen > MAXPDSTRING-1)
             dirlen = MAXPDSTRING-1;
         strncpy(dirbuf, classname, dirlen);

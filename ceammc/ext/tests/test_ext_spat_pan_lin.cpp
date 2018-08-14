@@ -13,11 +13,11 @@
  *****************************************************************************/
 #include "../spat/pan_linear.h"
 #include "ceammc_pd.h"
-#include "sound_external_test.h"
+#include "test_sound.h"
 
 #include "catch.hpp"
 
-typedef TestSoundExtension<PanLinear> PanLinTest;
+typedef TestSoundExternal<PanLinear> PanLinTest;
 
 using namespace ceammc;
 
@@ -25,7 +25,7 @@ TEST_CASE("pan.lin~", "[externals]")
 {
     SECTION("init")
     {
-        PanLinTest t("pan.lin~", AtomList(), true);
+        PanLinTest t("pan.lin~", L(), true);
         REQUIRE_PROPERTY(t, @pos, 0.f);
         REQUIRE_PROPERTY(t, @smooth, 20);
         REQUIRE(t.numInlets() == 2);
@@ -67,7 +67,7 @@ TEST_CASE("pan.lin~", "[externals]")
 
     SECTION("process")
     {
-        PanLinTest t("pan.lin~", L2("@smooth", 0.f), true);
+        PanLinTest t("pan.lin~", LA("@smooth", 0.f), true);
         REQUIRE(t.blockSize() == 64);
         REQUIRE(t.numInputChannels() == 1);
         REQUIRE(t.numOutputChannels() == 2);
@@ -91,7 +91,7 @@ TEST_CASE("pan.lin~", "[externals]")
             REQUIRE(sig.out[1][i] == 0.5f);
         }
 
-        t.setProperty("@pos", L1(-1));
+        t.setProperty("@pos", LF(-1));
         t.processBlock(sig.in, sig.out);
 
         for (int i = 0; i < 64; i++) {
@@ -99,7 +99,7 @@ TEST_CASE("pan.lin~", "[externals]")
             REQUIRE(sig.out[1][i] == 0.f);
         }
 
-        t.setProperty("@pos", L1(1));
+        t.setProperty("@pos", LF(1));
         t.processBlock(sig.in, sig.out);
 
         for (int i = 0; i < 64; i++) {
@@ -107,7 +107,7 @@ TEST_CASE("pan.lin~", "[externals]")
             REQUIRE(sig.out[1][i] == 1.f);
         }
 
-        t.setProperty("@pos", L1(-0.6));
+        t.setProperty("@pos", LF(-0.6));
         t.processBlock(sig.in, sig.out);
 
         for (int i = 0; i < 64; i++) {
@@ -115,7 +115,7 @@ TEST_CASE("pan.lin~", "[externals]")
             REQUIRE(sig.out[1][i] == Approx(0.2f));
         }
 
-        t.setProperty("@pos", L1(0.4));
+        t.setProperty("@pos", LF(0.4));
         t.processBlock(sig.in, sig.out);
 
         for (int i = 0; i < 64; i++) {

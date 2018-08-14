@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flow.interval">
+        <title>flow.interval</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>measure time between flow events</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>flow</category>
+            <keywords>time interval</keywords>
+            <since>0.6</since>
+            <also>
+                <see>timer</see>
+            </also>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="any">input flow</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output time between current and previous event in milliseconds</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[T]      [F]
+|        |.
+[metro 100]
+|
+|  [F]
+|  |
+[flow.interval]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

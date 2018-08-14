@@ -19,20 +19,40 @@
         <arguments>
             <argument name="X" type="any">initial list values</argument>
         </arguments>
+        <properties>
+            <property name="@empty" readonly="true" enum="0 1" type="int">1 if list is empty,
+            otherwise 0</property>
+            <property name="@size" readonly="true" minvalue="0" type="int">number of elements in
+            list</property>
+        </properties>
         <methods>
-            <method name="append">adds values to the end of the list</method>
-            <method name="clear">removes all list values</method>
-            <method name="dump">dump object info to Pd window</method>
-            <method name="flush">outputs and removes all list values</method>
-            <method name="insert">inserts values to the specified position. First argument is
-            position, others - element to insert</method>
+            <method name="append">adds values to the end of the list 
+            <param name="VAL" type="atom" required="true">appended value</param></method>
+            <method name="prepend">inserts values to the list beginning 
+            <param name="VAL" type="atom" required="true">prepended value</param></method>
+            <method name="insert">inserts values to the specified position 
+            <param name="IDX" type="int" required="true">insert position</param>
+            <param name="VAL" type="atom" required="true">value</param></method>
+            <method name="fill">fills with specified value 
+            <param name="VAL" type="atom" required="true">fill value</param></method>
+            <method name="reverse">reverses list</method>
+            <method name="shuffle">put elemtns in random order</method>
+            <method name="sort">sorts list</method>
+            <method name="clear">removes all list elements</method>
             <method name="pop">removes last list element</method>
-            <method name="set">sets new list without output</method>
+            <method name="remove">removes specified element 
+            <param name="IDX" type="int" required="true">element index</param></method>
+            <method name="set">sets new list without output 
+            <param name="LIST" type="list" required="true">new list content</param></method>
+            <method name="dump">dump object info to Pd window</method>
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">same as *flush* message</xinfo>
-                <xinfo on="list">sets new list and output it</xinfo>
+                <xinfo on="bang">output list content</xinfo>
+                <xinfo on="float">outputs list element at specified position. Negative indexes are
+                supported</xinfo>
+                <xinfo on="list">set new list content and output</xinfo>
+                <xinfo on="data:mlist">same as list</xinfo>
             </inlet>
             <inlet>
                 <xinfo on="list">sets new list without output</xinfo>

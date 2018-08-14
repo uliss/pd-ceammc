@@ -17,10 +17,15 @@
 #include "ceammc_object.h"
 using namespace ceammc;
 
+class DataTypeMList;
+
 class ListSeparate : public BaseObject {
 public:
     ListSeparate(const PdArgs& a);
     void onList(const AtomList& l);
+    void onDataT(const DataTypeMList& l);
 };
+
+void setup_list_separate();
 
 #endif // LIST_SEPARATE_H

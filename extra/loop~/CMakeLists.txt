@@ -1,1 +1,1 @@
-pd_add_internal_extension(loop~)
+pd_add_internal_external(loop~)

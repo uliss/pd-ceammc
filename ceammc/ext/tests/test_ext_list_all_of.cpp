@@ -11,13 +11,16 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#include "../data/datatype_mlist.h"
 #include "../list/list_all_of.h"
-#include "base_extension_test.h"
-#include "catch.hpp"
+#include "test_base.h"
+#include "test_external.h"
 
 #include <stdio.h>
 
-typedef TestExtension<ListAllOf> ListAllOfTest;
+PD_COMPLETE_TEST_SETUP(ListAllOf, list, all_of);
+
+typedef TestExternal<ListAllOf> ListAllOfTest;
 
 static void eqThree(ListAllOfTest* obj, size_t, const Atom& a)
 {
@@ -31,11 +34,11 @@ static void lessThree(ListAllOfTest* obj, size_t, const Atom& a)
 
 TEST_CASE("list.all_of", "[externals]")
 {
-    obj_init();
+    pd_test_init();
 
     SECTION("init")
     {
-        ListAllOfTest t("list.all_of", AtomList());
+        ListAllOfTest t("list.all_of", L());
         REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 2);
     }
@@ -56,21 +59,52 @@ TEST_CASE("list.all_of", "[externals]")
 
     SECTION("connect")
     {
-        ListAllOfTest t("list.all_of", AtomList());
+        ListAllOfTest t("list.all_of", L());
 
-        REQUIRE_ALL(t, AtomList(), eqThree);
-        REQUIRE_ALL(t, L1(3), eqThree);
-        REQUIRE_ALL(t, L2(3, 3), eqThree);
-        REQUIRE_ALL(t, L3(3, 3, 3), eqThree);
+        REQUIRE_ALL(t, L(), eqThree);
+        REQUIRE_ALL(t, LF(3), eqThree);
+        REQUIRE_ALL(t, LF(3, 3), eqThree);
+        REQUIRE_ALL(t, LF(3, 3, 3), eqThree);
 
-        REQUIRE_NOT_ALL(t, L3(3, 3, 4), eqThree);
-        REQUIRE_NOT_ALL(t, L3(3, 4, 3), eqThree);
+        REQUIRE_NOT_ALL(t, LF(3, 3, 4), eqThree);
+        REQUIRE_NOT_ALL(t, LF(3, 4, 3), eqThree);
 
-        REQUIRE_ALL(t, AtomList(), lessThree);
-        REQUIRE_ALL(t, L1(2), lessThree);
-        REQUIRE_ALL(t, L2(0.f, 1), lessThree);
-        REQUIRE_ALL(t, L3(0.f, 1, 2), lessThree);
+        REQUIRE_ALL(t, L(), lessThree);
+        REQUIRE_ALL(t, LF(2), lessThree);
+        REQUIRE_ALL(t, LF(0.f, 1), lessThree);
+        REQUIRE_ALL(t, LF(0.f, 1, 2), lessThree);
 
-        REQUIRE_NOT_ALL(t, L4(1, 2, 3, 4), lessThree);
+        REQUIRE_NOT_ALL(t, LF(1, 2, 3, 4), lessThree);
+    }
+
+    SECTION("external")
+    {
+        TestExtListAllOf t("list.all_of");
+        pd::External less10("<", LF(10));
+
+        t.connectTo(1, less10, 0);
+        t.connectFrom(0, less10, 1);
+
+        t.send(LF(1, 2, 3, 4));
+        REQUIRE(t.hasOutput());
+        REQUIRE(t.outputFloatAt(0) == 1);
+
+        t.send(LF(8, 9));
+        REQUIRE(t.outputFloatAt(0) == 1);
+
+        t.send(LF(8, 9, 10));
+        REQUIRE(t.outputFloatAt(0) == 0);
+
+        t.send(DataTypeMList("(1 2 3 4 5)"));
+        REQUIRE(t.outputFloatAt(0) == 1);
+
+        t.send(DataTypeMList("(8 9)"));
+        REQUIRE(t.outputFloatAt(0) == 1);
+
+        t.send(DataTypeMList("(8 9 10)"));
+        REQUIRE(t.outputFloatAt(0) == 0);
+
+        t.send(DataTypeMList("(10 11)"));
+        REQUIRE(t.outputFloatAt(0) == 0);
     }
 }

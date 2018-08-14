@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flow.route">
+        <title>flow.route</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>advanced message router</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>flow</category>
+            <keywords>route</keywords>
+            <since>0.6</since>
+        </meta>
+        <info>
+            <par>if no match occured - output original message to last outlet</par>
+        </info>
+        <arguments>
+            <argument type="list" name="MATCHES">list of route matches</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="list">match to first list element. On match outputs list without first
+                element to corresponding outlet</xinfo>
+                <xinfo on="any">match to message selector. On success outputs message arguments to
+                corresponding outlet</xinfo>
+                <xinfo on="data:set">match set elements. On success outputs bangs to corresponding
+                outlets</xinfo>
+                <xinfo on="data:mlist">same as list</xinfo>
+                <xinfo on="data:dict">match dict keys. On success outputs dict values to
+                corresponding outlets</xinfo>
+            </inlet>
+        </inlets>
+        <outlets dynamic="true">
+            <outlet number="1">first pattern match output</outlet>
+            <outlet number="...">... pattern match output</outlet>
+            <outlet number="n">n-th pattern match output</outlet>
+            <outlet number="n+1">unmatched output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[a b c( [unmatched(       [B]                  [B]
+|       |                 |                    |
+|       | [1 2 3( [2 3 4( [data.set a b c #s0] [data.set d e f #s1]
+|       | |       |
+|       | |       | [B]                        [B]
+|       | |       | |                          |
+|       | |       | [data.mlist (1 2 3) #l0]   [data.mlist (3 4 5) #l1]
+|       | |       |
+|       | |       | [[a: 1 2 3] [b:c] [1: test], bang(
+|       | |       | |
+|       | |       | [data.dict #d0]
+|       | |       |
+|       | |       |
+[flow.route 1 a #a]
+|
+[ui.display @display_type=1]
+
+      [ui.display @display_type=1 #b]
+
+          [ui.display @display_type=1 #c]
+
+[X a:1->b]
+[X a:2->c]
+[X s0->a]
+[X s1->a]
+[X l0->a]
+[X l1->a]
+[X d0->a]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

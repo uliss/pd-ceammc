@@ -20,6 +20,7 @@
         <inlets>
             <inlet>
                 <xinfo on="list">Input list</xinfo>
+                <xinfo on="data:mlist">Input mlist</xinfo>
             </inlet>
             <inlet>
                 <xinfo on="float" minvalue="0" maxvalue="1">input value from predicate. "1" means

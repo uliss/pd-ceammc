@@ -15,64 +15,14 @@
 #include "ceammc_factory.h"
 
 DataSet::DataSet(const PdArgs& a)
-    : BaseObject(a)
+    : DataSetBase(a)
     , set_(positionalArguments())
 {
     createOutlet();
 }
 
-void DataSet::dump() const
+void setup_data_set()
 {
-    BaseObject::dump();
-    OBJ_DBG << set_.toString();
-}
-
-void DataSet::onBang()
-{
-    dataTo(0, DataPtr(set_.clone()));
-}
-
-void DataSet::onFloat(float f)
-{
-    set_.add(Atom(f));
-}
-
-void DataSet::onSymbol(t_symbol* s)
-{
-    set_.add(Atom(s));
-}
-
-void DataSet::onList(const AtomList& l)
-{
-    set_.add(l);
-}
-
-void DataSet::onDataT(const DataTypeSet& s)
-{
-    set_ = s;
-    onBang();
-}
-
-void DataSet::m_clear(t_symbol*, const AtomList&)
-{
-    set_.clear();
-}
-
-void DataSet::m_add(t_symbol*, const AtomList& l)
-{
-    set_.add(l);
-}
-
-void DataSet::m_remove(t_symbol*, const AtomList& l)
-{
-    set_.remove(l);
-}
-
-extern "C" void setup_data0x2eset()
-{
-    ObjectFactory<DataSet> obj("data.set");
+    ColectionIFaceFactory<DataSet> obj("data.set");
     obj.processData<DataTypeSet>();
-    obj.addMethod("clear", &DataSet::m_clear);
-    obj.addMethod("add", &DataSet::m_add);
-    obj.addMethod("remove", &DataSet::m_remove);
 }

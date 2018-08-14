@@ -48,8 +48,8 @@ void DataTypeSet::add(const Atom& a)
 
 void DataTypeSet::add(const AtomList& l)
 {
-    for (size_t i = 0; i < l.size(); i++)
-        add(l[i]);
+    for (auto& el : l)
+        add(el);
 }
 
 void DataTypeSet::remove(const Atom& a)
@@ -59,8 +59,8 @@ void DataTypeSet::remove(const Atom& a)
 
 void DataTypeSet::remove(const AtomList& l)
 {
-    for (size_t i = 0; i < l.size(); i++)
-        remove(l[i]);
+    for (auto& el : l)
+        remove(el);
 }
 
 void DataTypeSet::clear()
@@ -125,9 +125,8 @@ bool DataTypeSet::isEqual(const AbstractData* d) const
     if (size() != ds->size())
         return false;
 
-    DataSet::const_iterator it = data_.begin();
-    for (; it != data_.end(); ++it) {
-        if (!ds->contains(it->toAtom()))
+    for (auto& el : data_) {
+        if (!ds->contains(el.toAtom()))
             return false;
     }
 

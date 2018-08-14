@@ -269,6 +269,10 @@ TEST_CASE("ceammc::platform", "[ceammc::lib]")
 
 #ifdef __APPLE__
         REQUIRE(ceammc::platform::expand_tilde_path("~/").substr(0, 7) == "/Users/");
+        REQUIRE(ceammc::platform::expand_tilde_path("~").substr(0, 7) == "/Users/");
+        REQUIRE(ceammc::platform::expand_tilde_path("~1") == "~1");
+        REQUIRE(ceammc::platform::expand_tilde_path("~ABC") == "~ABC");
+        REQUIRE(ceammc::platform::expand_tilde_path("~/ABC") == home_directory() + "/ABC");
 #endif
 
 #ifdef __WIN32
@@ -319,6 +323,7 @@ TEST_CASE("ceammc::platform", "[ceammc::lib]")
         const char* DIR = "./123";
         REQUIRE(ceammc::platform::mkdir(DIR));
         REQUIRE(ceammc::platform::path_exists(DIR));
+        REQUIRE(ceammc::platform::is_dir(DIR));
 
         // double creation
         REQUIRE_FALSE(ceammc::platform::mkdir(DIR));
@@ -326,13 +331,14 @@ TEST_CASE("ceammc::platform", "[ceammc::lib]")
         // remove
         REQUIRE(ceammc::platform::rmdir(DIR));
         REQUIRE_FALSE(ceammc::platform::rmdir("./dir-not-exists"));
+        REQUIRE_FALSE(ceammc::platform::is_dir(DIR));
     }
 
     SECTION("remove")
     {
-        REQUIRE(ceammc::platform::mkdir("example_path"));
-        REQUIRE(ceammc::platform::remove("example_path"));
-        REQUIRE_FALSE(ceammc::platform::remove("example_path"));
+        REQUIRE(ceammc::platform::mkdir("./example_path"));
+        REQUIRE(ceammc::platform::remove("./example_path"));
+        REQUIRE_FALSE(ceammc::platform::remove("./example_path"));
 
         // create file
         {
@@ -341,5 +347,33 @@ TEST_CASE("ceammc::platform", "[ceammc::lib]")
 
         REQUIRE(ceammc::platform::path_exists("test.file"));
         REQUIRE(ceammc::platform::remove("test.file"));
+    }
+
+    SECTION("make_abs_path_with_canvas")
+    {
+        REQUIRE(make_abs_filepath_with_canvas(nullptr, "") == "");
+        REQUIRE(make_abs_filepath_with_canvas(nullptr, "abc.json") == home_directory() + "/Documents/Pd/abc.json");
+        REQUIRE(make_abs_filepath_with_canvas(nullptr, "~/1.json") == home_directory() + "/1.json");
+        REQUIRE(make_abs_filepath_with_canvas(nullptr, "~") == "");
+        REQUIRE(make_abs_filepath_with_canvas(nullptr, "~/") == "");
+
+        auto cnv = ceammc::PureData::instance().createTopCanvas(TEST_DATA_DIR "/canvas");
+        REQUIRE(cnv);
+        REQUIRE(cnv->pd_canvas());
+
+#ifndef __WIN32
+        REQUIRE(make_abs_filepath_with_canvas(cnv->pd_canvas(), "/abc") == "/abc");
+#else
+        REQUIRE(make_abs_filepath_with_canvas(cnv->pd_canvas(), "C:/abc") == "C:/abc");
+        REQUIRE(make_abs_filepath_with_canvas(cnv->pd_canvas(), "\\abc") == "\\abc");
+#endif
+        REQUIRE(make_abs_filepath_with_canvas(cnv->pd_canvas(), "") == "");
+        REQUIRE(make_abs_filepath_with_canvas(cnv->pd_canvas(), "~") == "");
+        REQUIRE(make_abs_filepath_with_canvas(cnv->pd_canvas(), "~/") == "");
+        REQUIRE(make_abs_filepath_with_canvas(cnv->pd_canvas(), "abc.txt") == TEST_DATA_DIR "/abc.txt");
+        REQUIRE(make_abs_filepath_with_canvas(cnv->pd_canvas(), "./abc.txt") == TEST_DATA_DIR "/./abc.txt");
+
+        auto sub = ceammc::PureData::instance().createSubpatch(cnv->pd_canvas(), "sp");
+        REQUIRE(make_abs_filepath_with_canvas(sub->pd_canvas(), "abc.txt") == TEST_DATA_DIR "/abc.txt");
     }
 }

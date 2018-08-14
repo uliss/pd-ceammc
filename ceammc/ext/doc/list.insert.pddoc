@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="list.insert">
+        <title>list.insert</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>insert atom or list to the specified position of input list</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>list</category>
+            <keywords>list insert</keywords>
+            <since>0.6</since>
+            <also>
+                <see>list.append</see>
+                <see>list.prepend</see>
+            </also>
+        </meta>
+        <info>
+            <par>Works with data atoms</par>
+        </info>
+        <properties>
+            <property name="@index" type="int" default="0" minvalue="0">insert element
+            index</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="list">input list</xinfo>
+                <xinfo on="data:mlist">input mlist</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="list">set inserted atom or list</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float">set insert position</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output result list or mlist</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[1 2 3 4(
+|
+|  [list D E F(  [F]
+|  |             |
+|  |.            |..
+[list.insert A B C @index 1]
+|
+[ui.display @display_type=1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

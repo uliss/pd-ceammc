@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../ui/ui_knob.h"
-#include "ui_external_test.h"
+#include "test_ui.h"
 
 using namespace ceammc;
 
@@ -63,8 +63,8 @@ TEST_CASE("UIObjectFactory", "[ceammc::UIObjectFactory]")
         TestFactory::onBang(ui);
         REQUIRE(ui->b);
 
-        TestFactory::onList(ui, 0, 2, L2(1000, "A").toPdData());
-        REQUIRE(ui->list == L2(1000, "A"));
+        TestFactory::onList(ui, 0, 2, LA(1000, "A").toPdData());
+        REQUIRE(ui->list == LA(1000, "A"));
 
         REQUIRE((void*)ui->asEBox() == (void*)ui->asPd());
         REQUIRE((void*)ui->asPd() == (void*)ui->asPdObject());

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="is_data">
+        <title>is_data</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>checks if input data has *data* type</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>predicates</category>
+            <keywords>predicate data</keywords>
+            <also>
+                <see>is_float</see>
+                <see>is_symbol</see>
+                <see>is_list</see>
+            </also>
+            <since>0.6</since>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="data">outputs '1' to 1st outlet, otherwise '0'</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>0 or 1</outlet>
+            <outlet>passes *data* message</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[bang(
+|
+[str string data]
+|
+| [B] [1( [symbol A( [1 2 3( [any message(
+| |   |   |          |       |
+| |   |   |          |       |
+[is_data                     ]
+|    ^|
+[F]  [ui.d]
+|
+[B]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

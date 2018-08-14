@@ -7,7 +7,7 @@ set(LEAPMOTION_SRC
 if(LEAPMOTION_FOUND)
     include_directories(${LEAPMOTION_INCLUDES})
    
-    pd_add_extension(NAME "leapmotion"
+    pd_add_external(NAME "leapmotion"
         FILES ${LEAPMOTION_SRC}
         INTERNAL True
         LIBRARY leapmotion

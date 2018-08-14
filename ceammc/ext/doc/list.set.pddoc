@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="list.set">
+        <title>list.set</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>on input list set value at specified position</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>list</category>
+            <keywords>list set</keywords>
+            <since>0.6</since>
+        </meta>
+        <arguments>
+            <argument name="IDX" type="int">element position. Negative indexes are supported. -1
+            means last element</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="list">input list</xinfo>
+                <xinfo on="data:mlist">input mlist</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="int">element index</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="atom">new element value</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>result list</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[1 2 3 4 5( [1 2(
+|           |
+|           |
+|           | [F]    [symbol $$$(
+|           | |.     |..
+[list.set -2 ***       ]
+|
+[msg set]
+|
+[ (
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

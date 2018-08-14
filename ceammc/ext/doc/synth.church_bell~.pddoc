@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="synth.church_bell~">
+        <title>synth.church_bell~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>generic church bell modal model</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>synth</category>
+            <keywords>bell church</keywords>
+            <since>0.6</since>
+        </meta>
+        <info>
+            <par>Modeled after T. Rossing and R. Perrin, Vibrations of Bells, Applied Acoustics 2,
+            1987</par>
+            <par>Model height is 301 mm</par>
+            <par>This model contains 7 excitation positions going linearly from the bottom to the
+            top of the bell</par>
+        </info>
+        <methods>
+            <method name="gate">gate signal - 0: off, 1: on</method>
+        </methods>
+        <properties>
+            <property name="@pos" type="int" minvalue="0" maxvalue="6" default="0">strike position
+            (0 is on the bottom)</property>
+            <property name="@gain" type="float" minvalue="0" maxvalue="1" default="1">pluck
+            gain</property>
+            <property name="@sharp" type="float" minvalue="0" maxvalue="5" default="0.5">strike
+            sharpness</property>
+            <property name="@cutoff" type="float" minvalue="20" maxvalue="20000" default="600">
+            cutoff coefficent</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo>input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio" />
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[T]
+|
+[metro 200]
+|
+[t b                       b]
+|                          ^|
+[1(                        [random.int 0 7]
+|                          |
+[flow.append 0 @delay 10]  [ui.radio]
+|                          |
+[@gate $1(                 [@pos $1 #b(
+|                          |
+[synth.church_bell~ #a     ]
+|
+[ui.gain~ @size 120 16]
+|\
+[dac~]
+
+[ui.dsp~]
+[X b->a]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

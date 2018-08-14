@@ -13,7 +13,7 @@
  *****************************************************************************/
 #include "../ui/ui_bang.h"
 #include "ceammc_format.h"
-#include "ui_external_test.h"
+#include "test_ui.h"
 
 UI_COMPLETE_TEST_SETUP(Bang)
 
@@ -26,8 +26,8 @@ TEST_CASE("ui.bang", "[ui.bang]")
         TestBang t("ui.bang");
         REQUIRE(t->numInlets() == 1);
         REQUIRE(t->numOutlets() == 1);
-        REQUIRE_UI_LIST_PROPERTY(t, "send", L1("(null)"));
-        REQUIRE_UI_LIST_PROPERTY(t, "receive", L1("(null)"));
+        REQUIRE_UI_LIST_PROPERTY(t, "send", LA("(null)"));
+        REQUIRE_UI_LIST_PROPERTY(t, "receive", LA("(null)"));
     }
 
     SECTION("external")
@@ -40,11 +40,11 @@ TEST_CASE("ui.bang", "[ui.bang]")
         REQUIRE_OUTPUT_BANG(t, 0);
         t.send(gensym("ABC"));
         REQUIRE_OUTPUT_BANG(t, 0);
-        t.send(AtomList());
+        t.send(L());
         REQUIRE_OUTPUT_BANG(t, 0);
-        t.send(L1(1));
+        t.send(LF(1));
         REQUIRE_OUTPUT_BANG(t, 0);
-        t.send(L3(1, 2, 3));
+        t.send(LF(1, 2, 3));
         REQUIRE_OUTPUT_BANG(t, 0);
         t.call("a");
         REQUIRE_OUTPUT_BANG(t, 0);
@@ -57,7 +57,7 @@ TEST_CASE("ui.bang", "[ui.bang]")
 
     SECTION("send test")
     {
-        TestExtBang t("ui.bang", L2("@send", "r1"));
+        TestExtBang t("ui.bang", LA("@send", "r1"));
         t.addListener("r1");
 
         t << BANG;
@@ -70,13 +70,13 @@ TEST_CASE("ui.bang", "[ui.bang]")
         t << "ABC";
         REQUIRE_BANG_WAS_SEND(t, "r1");
 
-        t << AtomList();
+        t << L();
         REQUIRE_BANG_WAS_SEND(t, "r1");
 
-        t << L1(100);
+        t << LF(100);
         REQUIRE_BANG_WAS_SEND(t, "r1");
 
-        t << L5(1, 2, 3, 4, 5);
+        t << LA(1, 2, 3, 4, 5);
         REQUIRE_BANG_WAS_SEND(t, "r1");
 
         t.call("any");

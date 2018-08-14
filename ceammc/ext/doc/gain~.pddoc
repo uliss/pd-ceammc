@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="gain~">
+        <title>gain~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>multislot signal gain</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>base</category>
+            <keywords>gain amplitude decibell</keywords>
+            <since>0.6</since>
+        </meta>
+        <arguments>
+            <argument name="N" type="int" minvalue="1" maxvalue="16">number of
+            inputs/outputs</argument>
+        </arguments>
+        <methods>
+            <method name="+">increase gain amplitude 
+            <param name="VALS" type="list">values for each input channel</param></method>
+            <method name="-">decrease gain amplitude 
+            <param name="VALS" type="list">values for each input channel</param></method>
+            <method name="+db">increase gain in db 
+            <param name="VALS" type="list">values for each input channel</param></method>
+            <method name="-db">decrease gain in db 
+            <param name="VALS" type="list">values for each input channel</param></method>
+            <method name="+all">increase gain amplitude for all inputs 
+            <param name="V" type="float" required="true">single value for each input
+            channel</param></method>
+            <method name="-all">decrease gain amplitude for all inputs 
+            <param name="V" type="float" required="true">single value for each input
+            channel</param></method>
+            <method name="set">set gain amplitude for all inputs 
+            <param name="V" type="float" required="true" minvalue="0">new gain
+            value</param></method>
+            <method name="set_db">set gain in db for all inputs 
+            <param name="V" type="float" required="true" minvalue="-144">new gain
+            value</param></method>
+        </methods>
+        <properties>
+            <property name="@value" type="list" minvalue="0">gain amplitude values</property>
+            <property name="@db" type="list" minvalue="-144">gain decibell (dbfs) values</property>
+        </properties>
+        <inlets dynamic="true">
+            <inlet number="1" type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+            <inlet number="..." type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+            <inlet number="n" type="control">
+                <xinfo on="float">set gain for all inputs</xinfo>
+            </inlet>
+        </inlets>
+        <outlets dynamic="true">
+            <outlet number="1" type="audio">output signal</outlet>
+            <outlet number="..." type="audio">output signal</outlet>
+            <outlet number="n" type="audio">output signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.sliders @count=4]     [ui.dsp~]
+|
+|
+|
+|
+|
+|
+|
+| [sig~ 1 #a] [+all 0.1( [-db 6 3(
+|             |          |
+|             |          | [ui.knob]
+|             |          | |
+|             |          | |
+|             |          | |....
+[gain~ 4 . . . . . . .         #b]
+|      ^|     ^^|    ^^^|
+[env~] [env~] [env~] [env~]
+|      |      |      |
+[F]    [F]    [F]    [F]
+
+[X a->b] [X a->b:1] [X a->b:2] [X a->b:3]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

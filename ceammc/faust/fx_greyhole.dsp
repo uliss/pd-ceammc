@@ -4,7 +4,6 @@ declare author      "Julian Parker, bug fixes by Till Bovermann";
 declare license     "GPL2+";
 declare copyright   "(c) Julian Parker 2013";
 
-
 import("stdfaust.lib");
 
 fb = hslider("feedback",0.9,0.0,1.0,0.01):linear_interp;
@@ -49,11 +48,9 @@ diffuser_nested(1,angle,g,scale) = si.bus(2) <: ( (si.bus(2)	:par(i,2,*(c_norm))
         s_norm = sin(g);
     };
 
-
-
     diffuser_nested(N,angle,g,scale) = si.bus(2) <: ( (si.bus(2)	:par(i,2,*(c_norm))
 
-    : (( si.bus(4) :> si.bus(2) : diffuser_nested(N-1,angle,g,scale+13) : rotator(angle) : (
+    : (( si.si.bus(4) :> si.bus(2) : diffuser_nested(N-1,angle,g,scale+13) : rotator(angle) : (
         de.fdelay1a(8192, prime_delays(size*scale):smooth_init(0.999,prime_delays(size*scale)) -1  ),
         de.fdelay1a(8192, prime_delays(size*scale +10):smooth_init(0.999,prime_delays(size*scale + 10)) -1  )
         ) )~par(i,2,*(-s_norm)))
@@ -71,9 +68,6 @@ diffuser_nested(1,angle,g,scale) = si.bus(2) <: ( (si.bus(2)	:par(i,2,*(c_norm))
             c_norm = cos(g);
             s_norm = sin(g);
         };
-
-
-
 
         // blackhole =
         process = 	( si.bus(4) :> seq(i,3,diffuser_nested(4,ma.PI/2,(-1^i)*diff,10+19*i) ):par(i,2,si.smooth(damp)) )

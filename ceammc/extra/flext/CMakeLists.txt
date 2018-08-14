@@ -35,7 +35,7 @@ if(APPLE)
     add_definitions(-DFLEXT_THREADS=3)
 elseif(UNIX)
     add_definitions(-DFLEXT_THREADS=1)
-elseif(WIN32) 
+elseif(WIN32)
     add_definitions(-DFLEXT_THREADS=2)
 else()
     message(STATUS "flext: Unsupported platform")
@@ -48,7 +48,9 @@ if(UNIX)
     set_target_properties(flext_static PROPERTIES COMPILE_FLAGS "-fPIC")
 endif()
 
-include(PdExtension)
+target_compile_options(flext_static PUBLIC -Wno-inline-new-delete)
+
+include(PdExternal)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/flext/source)
 
 set(VASP_SRC
@@ -130,7 +132,7 @@ set(VASP_SRC
     vasp/source/vecblk.h
 )
 
-pd_add_extension(NAME vasp
+pd_add_external(NAME vasp
     FILES ${VASP_SRC}
     INTERNAL True
     LIBRARY vasp
@@ -141,8 +143,10 @@ file(GLOB _vasp_help_files1 "vasp/pd-help/*.pd")
 file(GLOB _vasp_help_files2 "vasp/pd/*")
 add_custom_target(vasp_help_files SOURCES ${_vasp_help_files1} ${_vasp_help_files2})
 install(FILES ${_vasp_help_files1} ${_vasp_help_files2} DESTINATION ${PD_INTERNAL_EXT_INSTALL_PATH}/vasp)
+# C++11 doesn't defines M_PI etc
+target_compile_options(vasp PUBLIC -Wno-deprecated-register -U__STRICT_ANSI__)
 
 add_subdirectory(zconf)
 add_subdirectory(leapmotion)
 add_subdirectory(xsample)
-add_subdirectory(disis_munger) 
+add_subdirectory(disis_munger)

@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_remove_if.h"
+#include "../data/datatype_mlist.h"
 #include "ceammc_factory.h"
 
 ListRemoveIf::ListRemoveIf(const PdArgs& a)
@@ -25,27 +26,46 @@ ListRemoveIf::ListRemoveIf(const PdArgs& a)
 
 void ListRemoveIf::onList(const AtomList& l)
 {
-    remove_ = false;
-    passed_values_.clear();
+    remove_ = true;
+    AtomList res;
 
     for (size_t i = 0; i < l.size(); i++) {
+        remove_ = true;
+
         atomTo(1, l[i]);
         if (!remove_)
-            passed_values_.append(l[i]);
+            res.append(l[i]);
     }
 
-    listTo(0, passed_values_);
+    listTo(0, res);
 }
 
 void ListRemoveIf::onInlet(size_t n, const AtomList& l)
 {
-    if (n != 1 || l.empty())
+    if (l.empty())
         return;
 
-    remove_ = (l[0].asInt(0) == 1);
+    remove_ = l[0].asFloat() != 0;
 }
 
-extern "C" void setup_list0x2eremove_if()
+void ListRemoveIf::onDataT(const DataTypeMList& l)
 {
-    ObjectFactory<ListRemoveIf>("list.remove_if");
+    remove_ = true;
+    DataTypeMList* res = new DataTypeMList;
+
+    for (size_t i = 0; i < l.size(); i++) {
+        remove_ = true;
+
+        atomTo(1, l.at(i).toAtom());
+        if (!remove_)
+            res->append(l.at(i));
+    }
+
+    dataTo(0, DataPtr(res));
+}
+
+void setup_list_remove_if()
+{
+    ObjectFactory<ListRemoveIf> obj("list.remove_if");
+    obj.processData<DataTypeMList>();
 }

@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../ui/ui_link.h"
-#include "ui_external_test.h"
+#include "test_ui.h"
 
 UI_COMPLETE_TEST_SETUP(Link)
 
@@ -25,8 +25,8 @@ TEST_CASE("ui.link", "[ui.link]")
         TestLink t("ui.link");
         REQUIRE(t->numInlets() == 0);
         REQUIRE(t->numOutlets() == 0);
-        REQUIRE_UI_LIST_PROPERTY(t, "url", L1("<no url>"));
-        REQUIRE_UI_LIST_PROPERTY(t, "title", L1("<no title>"));
+        REQUIRE_UI_LIST_PROPERTY(t, "url", LA("<no url>"));
+        REQUIRE_UI_LIST_PROPERTY(t, "title", LA("<no title>"));
     }
 
     SECTION("external")
@@ -35,12 +35,12 @@ TEST_CASE("ui.link", "[ui.link]")
         TestExtLink t("ui.link");
 
         t << $1("@url", "http://ya.ru");
-        REQUIRE((t >> "@url") == L1("http://ya.ru"));
+        REQUIRE((t >> "@url") == LA("http://ya.ru"));
 
         t << $1("@title", "Test_title");
-        REQUIRE((t >> "@title") == L1("Test_title"));
+        REQUIRE((t >> "@title") == LA("Test_title"));
 
-        t << $1("@title", L3(1, 2, 3));
-        REQUIRE((t >> "@title") == L1("1 2 3"));
+        t << $1("@title", LF(1, 2, 3));
+        REQUIRE((t >> "@title") == LA("1 2 3"));
     }
 }

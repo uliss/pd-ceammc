@@ -167,7 +167,7 @@ void ListWalk::current()
         if (single_done_)
             return;
 
-        listTo(0, lst_.slice(current_pos_, current_pos_ + length_));
+        listTo(0, lst_.slice(current_pos_, current_pos_ + length_ - 1));
     }
     //! clip
     else if (walk_mode_->value() == m_clip_) {

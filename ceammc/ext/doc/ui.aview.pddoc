@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="ui.aview" type="gui">
+        <title>ui.aview</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>array view with cursor and selection</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category view="link">ui</category>
+            <keywords>ui array view</keywords>
+            <since>0.6</since>
+        </meta>
+        <properties>
+            <property name="@array" type="symbol">array name</property>
+            <!-- cursor-->
+            <property name="@cursor_samp" type="int">cursor position in samples</property>
+            <property name="@cursor_phase" type="float" minvalue="0" maxvalue="1">cursor position
+            in 0-1 range</property>
+            <property name="@cursor_sec" type="float" units="second">cursor position in
+            seconds</property>
+            <property name="@cursor_ms" type="float" units="millisecond">cursor position in
+            milliseconds</property>
+            <!-- selection -->
+            <property name="@select_samp" type="list">selection range in samples, pair of values:
+            begin, end</property>
+            <property name="@select_sec" type="list">selection range in seconds, pair of values:
+            begin, end</property>
+            <property name="@select_ms" type="list">selection range in milliseconds, pair of
+            values: begin, end</property>
+            <property name="@select_phase" type="list">selection range noramlized to 0-1 range,
+            pair of values: begin, end</property>
+            <!-- view -->
+            <property name="@show_rms" type="int" enum="0 1" default="0">show RMS graph</property>
+            <property name="@show_labels" type="int" enum="0 1" default="0">if show corner
+            labels</property>
+            <property name="@label_top" type="symbol">top right label if @show_labels is
+            on</property>
+            <property name="@label_bottom" type="symbol">bottom right label if @show_labels
+            is on</property>
+            <!-- size -->
+            <property name="@size_samp" type="int" minvalue="0" readonly="true">array size in
+            samples</property>
+            <property name="@size_sec" type="float" minvalue="0" readonly="true" units="second">
+            array size in seconds</property>
+            <property name="@size_ms" type="float" minvalue="0" readonly="true"
+            units="millisecond">array size in milleseconds</property>
+            <!-- common -->
+            <property name="@send" type="symbol">send destination</property>
+            <property name="@receive" type="symbol">receive source</property>
+        </properties>
+        <methods>
+            <method name="update">redraws view</method>
+            <method name="select">set selection 
+            <param name="BEGIN" type="int" required="true">selection start in samples</param>
+            <param name="END" type="int" required="true">selection end in samples</param></method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">output current cursor positions: @cursor_samp, @cursor_phase,
+                @cursor_ms, @cursor_sec and selection (if selected): @select_samp, @select_phase,
+                @select_ms, @select_sec, @begin, @end</xinfo>
+                <xinfo on="float">move cursor to specified sample position</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[loadbang] [table array_view]
+|
+[load %DOC%/sound/voice.wav @to array_view @resize(
+|
+[expand_env]
+|
+[snd.file]
+|
+[update(  /*Shift+drag - select region to play*/
+|
+[ui.aview @array=array_view @show_labels=1 @size=300x80]
+|
+|
+|
+|
+|
+[route @select_samp]
+|
+[flow.change #a]        [loadbang]
+|                       |
+[expr $f1\; $f2 - $f1]  [1(
+|           ^|          |
+|    [b #b]  |          [F]    /*speed*/
+|    |       |.         |
+|    [loop~             ]
+|    |  ^|.
+|    [*~  ]
+|    |.
+[+~   ]
+|
+[tabread4~ array_view]
+|
+[ui.gain~ @size 120 16]  [ui.dsp~]
+|\
+[dac~]
+
+[X a->b]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

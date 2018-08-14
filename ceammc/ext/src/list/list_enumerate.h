@@ -17,13 +17,19 @@
 #include "ceammc_object.h"
 using namespace ceammc;
 
+class DataTypeMList;
+
 class ListEnumerate : public BaseObject {
     IntProperty* from_;
     FlagProperty* append_;
 
 public:
     ListEnumerate(const PdArgs& a);
-    void onList(const AtomList& l);
+
+    void onList(const AtomList& l) override;
+    void onDataT(const DataTypeMList& lst);
 };
+
+void setup_list_enumerate();
 
 #endif // LIST_ENUMERATE_H

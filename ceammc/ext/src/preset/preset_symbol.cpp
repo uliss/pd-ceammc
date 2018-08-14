@@ -1,5 +1,6 @@
 #include "preset_symbol.h"
 #include "ceammc_factory.h"
+#include "preset_iface.h"
 
 PresetSymbol::PresetSymbol(const PdArgs& args)
     : PresetBase(args)
@@ -29,9 +30,5 @@ void PresetSymbol::storeAt(size_t idx)
 
 void setup_preset_symbol()
 {
-    ObjectFactory<PresetSymbol> obj("preset.symbol");
-    obj.addMethod("clear", &PresetSymbol::m_clear);
-    obj.addMethod("store", &PresetSymbol::m_store);
-    obj.addMethod("load", &PresetSymbol::m_load);
-    obj.addMethod("update", &PresetSymbol::m_update);
+    PresetIFaceFactory<PresetSymbol> obj("preset.symbol");
 }

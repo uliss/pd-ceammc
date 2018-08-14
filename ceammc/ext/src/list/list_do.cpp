@@ -1,4 +1,5 @@
 #include "list_do.h"
+#include "../data/datatype_mlist.h"
 
 ListDo::ListDo(const PdArgs& a)
     : BaseObject(a)
@@ -30,11 +31,16 @@ void ListDo::onInlet(size_t n, const AtomList& l)
     if (l.empty())
         return;
 
-    for (size_t i = 0; i < l.size(); i++)
-        mapped_list_.append(l[i]);
+    mapped_list_.append(l);
 }
 
-extern "C" void setup_list0x2edo()
+void ListDo::onDataT(const DataTypeMList& lst)
 {
-    ObjectFactory<ListDo>("list.do");
+    onList(lst.toList());
+}
+
+void setup_list_do()
+{
+    ObjectFactory<ListDo> obj("list.do");
+    obj.processData<DataTypeMList>();
 }

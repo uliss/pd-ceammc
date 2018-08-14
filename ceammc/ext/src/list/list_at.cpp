@@ -1,6 +1,12 @@
 #include "list_at.h"
+#include "../data/datatype_mlist.h"
 #include "ceammc_factory.h"
 #include "ceammc_log.h"
+
+static t_symbol* SYM_REL = gensym("rel");
+static t_symbol* SYM_CLIP = gensym("clip");
+static t_symbol* SYM_WRAP = gensym("wrap");
+static t_symbol* SYM_FOLD = gensym("fold");
 
 ListAt::ListAt(const PdArgs& a)
     : BaseObject(a)
@@ -20,10 +26,10 @@ ListAt::ListAt(const PdArgs& a)
     at_method_->appendEnum("fold");
     createProperty(at_method_);
 
-    createProperty(new SymbolEnumAlias("@rel", at_method_, gensym("rel")));
-    createProperty(new SymbolEnumAlias("@clip", at_method_, gensym("clip")));
-    createProperty(new SymbolEnumAlias("@wrap", at_method_, gensym("wrap")));
-    createProperty(new SymbolEnumAlias("@fold", at_method_, gensym("fold")));
+    createProperty(new SymbolEnumAlias("@rel", at_method_, SYM_REL));
+    createProperty(new SymbolEnumAlias("@clip", at_method_, SYM_CLIP));
+    createProperty(new SymbolEnumAlias("@wrap", at_method_, SYM_WRAP));
+    createProperty(new SymbolEnumAlias("@fold", at_method_, SYM_FOLD));
 }
 
 void ListAt::onInlet(size_t idx, const AtomList& l)
@@ -67,6 +73,11 @@ void ListAt::onList(const AtomList& l)
     listTo(0, res);
 }
 
+void ListAt::onDataT(const DataTypeMList& data)
+{
+    onList(data.toList());
+}
+
 const Atom* ListAt::at(const AtomList& l, const Atom& p)
 {
     const Atom* a = 0;
@@ -93,7 +104,8 @@ const Atom* ListAt::at(const AtomList& l, const Atom& p)
     return a;
 }
 
-extern "C" void setup_list0x2eat()
+void setup_list_at()
 {
     ObjectFactory<ListAt> obj("list.at");
+    obj.processData<DataTypeMList>();
 }

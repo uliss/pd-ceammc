@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../flow/flow_group.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "catch.hpp"
 
 #include <stdio.h>
@@ -26,7 +26,7 @@
         REQUIRE_LIST_AT_OUTLET(0, obj, lst); \
     }
 
-typedef TestExtension<FlowGroup> FlowGroupTest;
+typedef TestExternal<FlowGroup> FlowGroupTest;
 
 TEST_CASE("flow.group", "[externals]")
 {
@@ -44,20 +44,20 @@ TEST_CASE("flow.group", "[externals]")
 
         SECTION("raw args")
         {
-            FlowGroupTest t("flow.group", L2(4, 5));
+            FlowGroupTest t("flow.group", LF(4, 5));
             REQUIRE_PROPERTY(t, @by, 4);
         }
 
         SECTION("props")
         {
-            FlowGroupTest t("flow.group", L2("@by", 5));
+            FlowGroupTest t("flow.group", LA("@by", 5));
             REQUIRE_PROPERTY(t, @by, 5);
         }
     }
 
     SECTION("onFloat")
     {
-        FlowGroupTest t("flow.group", L1(2));
+        FlowGroupTest t("flow.group", LF(2));
 
         WHEN_SEND_FLOAT_TO(0, t, 12);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
@@ -67,45 +67,45 @@ TEST_CASE("flow.group", "[externals]")
         REQUIRE_PROPERTY(t, @free, 2);
 
         WHEN_SEND_FLOAT_TO(0, t, 14);
-        REQUIRE_LIST_AT_OUTLET(0, t, L2(12, 13));
+        REQUIRE_LIST_AT_OUTLET(0, t, LF(12, 13));
         REQUIRE_PROPERTY(t, @free, 1);
 
         WHEN_SEND_FLOAT_TO(0, t, 15);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
         WHEN_SEND_FLOAT_TO(0, t, 16);
-        REQUIRE_LIST_AT_OUTLET(0, t, L2(14, 15));
+        REQUIRE_LIST_AT_OUTLET(0, t, LF(14, 15));
     }
 
     SECTION("onSymbol")
     {
-        FlowGroupTest t("flow.group", L1(1));
+        FlowGroupTest t("flow.group", LF(1));
 
         WHEN_SEND_SYMBOL_TO(0, t, "A");
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
         WHEN_SEND_SYMBOL_TO(0, t, "B");
-        REQUIRE_LIST_AT_OUTLET(0, t, L1("A"));
+        REQUIRE_LIST_AT_OUTLET(0, t, LA("A"));
 
         WHEN_SEND_SYMBOL_TO(0, t, "C");
-        REQUIRE_LIST_AT_OUTLET(0, t, L1("B"));
+        REQUIRE_LIST_AT_OUTLET(0, t, LA("B"));
     }
 
     SECTION("onList")
     {
-        FlowGroupTest t("flow.group", L1(3));
+        FlowGroupTest t("flow.group", LF(3));
 
-        WHEN_SEND_LIST_TO(0, t, L1("A"));
+        WHEN_SEND_LIST_TO(0, t, LA("A"));
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-        WHEN_SEND_LIST_TO(0, t, L2("B", "C"));
+        WHEN_SEND_LIST_TO(0, t, LA("B", "C"));
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-        WHEN_SEND_LIST_TO(0, t, L3("D", "E", "F"));
-        REQUIRE_LIST_AT_OUTLET(0, t, L3("A", "B", "C"));
+        WHEN_SEND_LIST_TO(0, t, LA("D", "E", "F"));
+        REQUIRE_LIST_AT_OUTLET(0, t, LA("A", "B", "C"));
 
-        WHEN_SEND_LIST_TO(0, t, L4("G", "H", "I", "J"));
-        REQUIRE_LIST_AT_OUTLET(0, t, L3("G", "H", "I"));
+        WHEN_SEND_LIST_TO(0, t, LA("G", "H", "I", "J"));
+        REQUIRE_LIST_AT_OUTLET(0, t, LA("G", "H", "I"));
     }
 
     SECTION("onData")
@@ -114,7 +114,7 @@ TEST_CASE("flow.group", "[externals]")
         DataPtr d1(new StrData("test"));
         DataPtr d2(new StrData("test2"));
 
-        FlowGroupTest t("flow.group", L1(2));
+        FlowGroupTest t("flow.group", LF(2));
 
         WHEN_SEND_DATA_TO(0, t, d0);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);

@@ -15,7 +15,8 @@
 #define CEAMMC_MESSAGE_H
 
 #include "ceammc_atomlist.h"
-#include <m_pd.h>
+#include "ceammc_data.h"
+#include "ceammc_dataatom.h"
 
 namespace ceammc {
 
@@ -33,6 +34,7 @@ public:
 private:
     Type type_;
     Atom value_;
+    DataPtr data_;
     AtomList v_list_;
 
 public:
@@ -49,6 +51,12 @@ public:
     // create any
     Message(t_symbol* s, const AtomList& l);
     Message(t_symbol* s, int argc, t_atom* argv);
+
+    // copy/move
+    Message(const Message& m);
+    Message(Message&& m);
+    Message& operator=(const Message& m);
+    Message& operator=(Message&& m);
 
     void setAtom(const Atom& a);
     void setFloat(t_float v);
@@ -79,6 +87,8 @@ public:
         res.insert(0, value_);
         return res;
     }
+
+    const DataPtr& dataValue() const;
 };
 
 bool operator==(const Message& c1, const Message& c2);

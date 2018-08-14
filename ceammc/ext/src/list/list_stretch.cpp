@@ -1,64 +1,42 @@
-#include "ceammc.h"
-#include <m_pd.h>
-#include <stdlib.h>
+#include "list_stretch.h"
+#include "../data/datatype_mlist.h"
+#include "ceammc_factory.h"
+#include "ceammc_fn_list.h"
 
-#define MIN(a, b)  (((a) < (b)) ? (a) : (b))
-
-t_class* list_stretch_class;
-struct t_list_stretch {
-    t_object x_obj;
-    t_float new_len;
-    
-    t_atom *output;
-
-};
-
-
-static void list_stretch_list(t_list_stretch* x, t_symbol* s, int argc, t_atom* argv)
+ListStretch::ListStretch(const PdArgs& args)
+    : BaseObject(args)
+    , n_(nullptr)
 {
-    if (argc < 1 || x->new_len<1)
+    createInlet();
+    createOutlet();
+
+    n_ = new IntPropertyMinEq("@size", positionalFloatArgument(0, 1), 1);
+    createProperty(n_);
+}
+
+void ListStretch::onList(const AtomList& lst)
+{
+    if (lst.empty())
         return;
-    
-    if (x->output) free(x->output);
-    x->output = (t_atom*)malloc(sizeof(t_atom)*x->new_len);
-    
-    for (int i=0;i<x->new_len;i++)
-    {
-        float new_index = (float(i)/x->new_len)*argc;
-        
-        int idx1 = int(new_index);
-        int idx2 = ((idx1+1)<argc)? (idx1+1) : (idx1);
-        float mix1 = new_index - idx1;
-        
-        x->output[i].a_type = A_FLOAT;      //?
-        x->output[i].a_w.w_float = argv[idx1].a_w.w_float * (1-mix1) + argv[idx2].a_w.w_float * mix1;
-        
-    }
-    
-    outlet_list(x->x_obj.te_outlet, s, x->new_len, x->output);
-    
+
+    listTo(0, list::stretch(lst, n_->value()));
 }
 
-static void* list_stretch_new()
+void ListStretch::onInlet(size_t n, const AtomList& lst)
 {
-    t_list_stretch* x = reinterpret_cast<t_list_stretch*>(pd_new(list_stretch_class));
-    outlet_new(&x->x_obj, &s_list);
-    
-    x->output = (t_atom*)malloc(0);         //dummy
-    
-    floatinlet_new(&x->x_obj, &x->new_len);
-    
-    return static_cast<void*>(x);
+    n_->set(lst);
 }
 
-extern "C" void setup_list0x2estretch()
+void ListStretch::onDataT(const DataTypeMList& lst)
 {
-    list_stretch_class = class_new(gensym("list.stretch"),
-                                  reinterpret_cast<t_newmethod>(list_stretch_new),
-                                  reinterpret_cast<t_method>(0),
-                                  sizeof(t_list_stretch), 0, A_NULL);
-    class_addlist(list_stretch_class, list_stretch_list);
-    
-    
-    
+    if (lst.empty())
+        return;
+
+    dataTo(0, DataPtr(new DataTypeMList(list::stretch(lst.toList(), n_->value()))));
+}
+
+void setup_list_stretch()
+{
+    ObjectFactory<ListStretch> obj("list.stretch");
+    obj.processData<DataTypeMList>();
 }

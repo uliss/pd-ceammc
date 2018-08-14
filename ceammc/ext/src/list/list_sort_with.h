@@ -18,18 +18,19 @@
 
 using namespace ceammc;
 
-struct Compare;
+class DataTypeMList;
+
 class ListSortWith : public BaseObject {
-private:
-    bool less_;
     AtomList lst_;
+    bool less_;
 
 public:
     ListSortWith(const PdArgs& a);
-    void onList(const AtomList& l);
-    void onInlet(size_t n, const AtomList& l);
-
-    friend struct Compare;
+    void onList(const AtomList& l) override;
+    void onInlet(size_t n, const AtomList& l) override;
+    void onDataT(const DataTypeMList& l);
 };
+
+void setup_list_sort_with();
 
 #endif // LIST_SORT_WITH_H

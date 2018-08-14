@@ -34,6 +34,8 @@ ceammc_noise_extension(verhulst)
 ceammc_faust_noise_extension(white)
 ceammc_faust_noise_extension(pink)
 ceammc_faust_noise_extension(lfreq)
+ceammc_faust_noise_extension(lfreq0)
+ceammc_faust_noise_extension(crackle)
 
 add_library(ceammc_noise STATIC mod_noise.h mod_noise.cpp ${NOISE_SOURCES})
 set_target_properties(ceammc_noise PROPERTIES COMPILE_DEFINITIONS "FAUST_MACRO")

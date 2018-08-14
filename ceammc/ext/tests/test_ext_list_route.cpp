@@ -11,23 +11,23 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#include "../data/datatype_mlist.h"
 #include "../list/list_route.h"
-#include "base_extension_test.h"
-#include "catch.hpp"
+#include "test_base.h"
+#include "test_external.h"
 
-#include <stdio.h>
-
-typedef TestExtension<ListRoute> ListRouteTest;
+PD_COMPLETE_TEST_SETUP(ListRoute, list, route);
+typedef TestExternal<ListRoute> ListRouteTest;
 
 TEST_CASE("list.route", "[externals]")
 {
-    obj_init();
+    pd_test_init();
 
     SECTION("test create with:")
     {
         SECTION("empty arguments")
         {
-            ListRouteTest t("list.route", AtomList());
+            ListRouteTest t("list.route", L());
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
 
@@ -44,13 +44,13 @@ TEST_CASE("list.route", "[externals]")
             WHEN_SEND_SYMBOL_TO(0, t, "ABC");
             REQUIRE_SYMBOL_AT_OUTLET(0, t, "ABC");
 
-            WHEN_SEND_LIST_TO(0, t, L2(1, 2));
-            REQUIRE_LIST_AT_OUTLET(0, t, L2(1, 2));
+            WHEN_SEND_LIST_TO(0, t, LF(1, 2));
+            REQUIRE_LIST_AT_OUTLET(0, t, LF(1, 2));
         }
 
         SECTION("patterns")
         {
-            ListRouteTest t("list.route", L3(1, 2, 3));
+            ListRouteTest t("list.route", LF(1, 2, 3));
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 4);
 
@@ -59,7 +59,7 @@ TEST_CASE("list.route", "[externals]")
 
         SECTION("patterns")
         {
-            ListRouteTest t("list.route", L4(1, 2, 3, "@trim"));
+            ListRouteTest t("list.route", LA(1, 2, 3, "@trim"));
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 4);
 
@@ -71,7 +71,7 @@ TEST_CASE("list.route", "[externals]")
     {
         SECTION("default")
         {
-            ListRouteTest t("list.route", L2(200, 300));
+            ListRouteTest t("list.route", LF(200, 300));
 
             WHEN_SEND_FLOAT_TO(0, t, 100);
             REQUIRE_FLOAT_AT_OUTLET(2, t, 100);
@@ -85,7 +85,7 @@ TEST_CASE("list.route", "[externals]")
 
         SECTION("trim")
         {
-            ListRouteTest t("list.route", L3(200, 300, "@trim"));
+            ListRouteTest t("list.route", LA(200, 300, "@trim"));
 
             WHEN_SEND_FLOAT_TO(0, t, 100);
             REQUIRE_FLOAT_AT_OUTLET(2, t, 100);
@@ -102,7 +102,7 @@ TEST_CASE("list.route", "[externals]")
     {
         SECTION("default")
         {
-            ListRouteTest t("list.route", L2("A", "B"));
+            ListRouteTest t("list.route", LA("A", "B"));
 
             WHEN_SEND_SYMBOL_TO(0, t, "A");
             REQUIRE_SYMBOL_AT_OUTLET(0, t, "A");
@@ -116,7 +116,7 @@ TEST_CASE("list.route", "[externals]")
 
         SECTION("trim")
         {
-            ListRouteTest t("list.route", L3("A", "B", "@trim"));
+            ListRouteTest t("list.route", LA("A", "B", "@trim"));
 
             WHEN_SEND_SYMBOL_TO(0, t, "A");
             REQUIRE_BANG_AT_OUTLET(0, t);
@@ -133,28 +133,28 @@ TEST_CASE("list.route", "[externals]")
     {
         SECTION("default")
         {
-            ListRouteTest t("list.route", L2("A", "B"));
+            ListRouteTest t("list.route", LA("A", "B"));
 
-            WHEN_SEND_LIST_TO(0, t, L3("A", "B", "C"));
-            REQUIRE_LIST_AT_OUTLET(0, t, L3("A", "B", "C"));
+            WHEN_SEND_LIST_TO(0, t, LA("A", "B", "C"));
+            REQUIRE_LIST_AT_OUTLET(0, t, LA("A", "B", "C"));
 
-            WHEN_SEND_LIST_TO(0, t, L3("B", "C", "D"));
-            REQUIRE_LIST_AT_OUTLET(1, t, L3("B", "C", "D"));
+            WHEN_SEND_LIST_TO(0, t, LA("B", "C", "D"));
+            REQUIRE_LIST_AT_OUTLET(1, t, LA("B", "C", "D"));
 
-            WHEN_SEND_LIST_TO(0, t, L3("C", "B", "A"));
-            REQUIRE_LIST_AT_OUTLET(2, t, L3("C", "B", "A"));
+            WHEN_SEND_LIST_TO(0, t, LA("C", "B", "A"));
+            REQUIRE_LIST_AT_OUTLET(2, t, LA("C", "B", "A"));
 
             // short lists
-            WHEN_SEND_LIST_TO(0, t, L1("A"));
+            WHEN_SEND_LIST_TO(0, t, LA("A"));
             REQUIRE_SYMBOL_AT_OUTLET(0, t, "A");
 
-            WHEN_SEND_LIST_TO(0, t, L1("C"));
-            REQUIRE_LIST_AT_OUTLET(2, t, L1("C"));
+            WHEN_SEND_LIST_TO(0, t, LA("C"));
+            REQUIRE_LIST_AT_OUTLET(2, t, LA("C"));
         }
 
         SECTION("as any")
         {
-            ListRouteTest t("list.route", L4("A", "B", 100, "@as_any"));
+            ListRouteTest t("list.route", LA("A", "B", 100, "@as_any"));
             REQUIRE_PROPERTY(t, @as_any, 1);
 
             // no action on floats
@@ -163,18 +163,18 @@ TEST_CASE("list.route", "[externals]")
 
             // only symbols and lists
             WHEN_SEND_SYMBOL_TO(0, t, "A");
-            REQUIRE_ANY_AT_OUTLET(0, t, L1("A"));
+            REQUIRE_ANY_AT_OUTLET(0, t, LA("A"));
 
-            WHEN_SEND_LIST_TO(0, t, L3("A", "B", "C"));
-            REQUIRE_ANY_AT_OUTLET(0, t, L3("A", "B", "C"));
+            WHEN_SEND_LIST_TO(0, t, LA("A", "B", "C"));
+            REQUIRE_ANY_AT_OUTLET(0, t, LA("A", "B", "C"));
 
-            WHEN_SEND_LIST_TO(0, t, L2("B", "C"));
-            REQUIRE_ANY_AT_OUTLET(1, t, L2("B", "C"));
+            WHEN_SEND_LIST_TO(0, t, LA("B", "C"));
+            REQUIRE_ANY_AT_OUTLET(1, t, LA("B", "C"));
         }
 
         SECTION("as any + trim")
         {
-            ListRouteTest t("list.route", L5("A", "B", 100, "@as_any", "@trim"));
+            ListRouteTest t("list.route", LA("A", "B", 100, "@as_any", "@trim"));
             REQUIRE_PROPERTY(t, @as_any, 1);
 
             // no action on floats and symbols
@@ -185,14 +185,14 @@ TEST_CASE("list.route", "[externals]")
             REQUIRE_BANG_AT_OUTLET(0, t);
 
             // only lists
-            WHEN_SEND_LIST_TO(0, t, L3("A", "B", "C"));
-            REQUIRE_ANY_AT_OUTLET(0, t, L2("B", "C"));
+            WHEN_SEND_LIST_TO(0, t, LA("A", "B", "C"));
+            REQUIRE_ANY_AT_OUTLET(0, t, LA("B", "C"));
 
-            WHEN_SEND_LIST_TO(0, t, L2("B", "C"));
-            REQUIRE_ANY_AT_OUTLET(1, t, L1("C"));
+            WHEN_SEND_LIST_TO(0, t, LA("B", "C"));
+            REQUIRE_ANY_AT_OUTLET(1, t, LA("C"));
 
             // with @simplify
-            t.setProperty("@simplify", L1(1));
+            t.setProperty("@simplify", LF(1));
 
             // no action on floats and symbols
             WHEN_SEND_FLOAT_TO(0, t, 100);
@@ -202,16 +202,16 @@ TEST_CASE("list.route", "[externals]")
             REQUIRE_BANG_AT_OUTLET(0, t);
 
             // only lists
-            WHEN_SEND_LIST_TO(0, t, L3("A", "B", "C"));
-            REQUIRE_ANY_AT_OUTLET(0, t, L2("B", "C"));
+            WHEN_SEND_LIST_TO(0, t, LA("A", "B", "C"));
+            REQUIRE_ANY_AT_OUTLET(0, t, LA("B", "C"));
 
-            WHEN_SEND_LIST_TO(0, t, L2("B", "C"));
-            REQUIRE_ANY_AT_OUTLET(1, t, L1("C"));
+            WHEN_SEND_LIST_TO(0, t, LA("B", "C"));
+            REQUIRE_ANY_AT_OUTLET(1, t, LA("C"));
         }
 
         SECTION("simplify")
         {
-            ListRouteTest t("list.route", L5("A", "B", 100, "@simplify", 1));
+            ListRouteTest t("list.route", LA("A", "B", 100, "@simplify", 1));
             REQUIRE_PROPERTY(t, @simplify, 1);
             REQUIRE_PROPERTY(t, @trim, 0.f);
 
@@ -222,20 +222,20 @@ TEST_CASE("list.route", "[externals]")
             WHEN_SEND_SYMBOL_TO(0, t, "A");
             REQUIRE_SYMBOL_AT_OUTLET(0, t, "A");
 
-            WHEN_SEND_LIST_TO(0, t, L3("A", "B", "C"));
-            REQUIRE_LIST_AT_OUTLET(0, t, L3("A", "B", "C"));
+            WHEN_SEND_LIST_TO(0, t, LA("A", "B", "C"));
+            REQUIRE_LIST_AT_OUTLET(0, t, LA("A", "B", "C"));
 
             // only one element lists
-            WHEN_SEND_LIST_TO(0, t, L1(100));
+            WHEN_SEND_LIST_TO(0, t, LF(100));
             REQUIRE_FLOAT_AT_OUTLET(2, t, 100);
 
-            WHEN_SEND_LIST_TO(0, t, L1("B"));
+            WHEN_SEND_LIST_TO(0, t, LA("B"));
             REQUIRE_SYMBOL_AT_OUTLET(1, t, "B");
         }
 
         SECTION("simplify + as_any")
         {
-            ListRouteTest t("list.route", L6("A", "B", 100, "@simplify", 1, "@as_any"));
+            ListRouteTest t("list.route", LA("A", "B", 100, "@simplify", 1, "@as_any"));
             REQUIRE_PROPERTY(t, @simplify, 1);
             REQUIRE_PROPERTY(t, @trim, 0.f);
 
@@ -244,17 +244,37 @@ TEST_CASE("list.route", "[externals]")
             REQUIRE_FLOAT_AT_OUTLET(2, t, 100);
 
             WHEN_SEND_SYMBOL_TO(0, t, "B");
-            REQUIRE_ANY_AT_OUTLET(1, t, L1("B"));
+            REQUIRE_ANY_AT_OUTLET(1, t, LA("B"));
 
-            WHEN_SEND_LIST_TO(0, t, L3("A", "B", "C"));
-            REQUIRE_ANY_AT_OUTLET(0, t, L3("A", "B", "C"));
+            WHEN_SEND_LIST_TO(0, t, LA("A", "B", "C"));
+            REQUIRE_ANY_AT_OUTLET(0, t, LA("A", "B", "C"));
 
             // only one element lists
-            WHEN_SEND_LIST_TO(0, t, L1(100));
+            WHEN_SEND_LIST_TO(0, t, LF(100));
             REQUIRE_FLOAT_AT_OUTLET(2, t, 100);
 
-            WHEN_SEND_LIST_TO(0, t, L1("B"));
-            REQUIRE_ANY_AT_OUTLET(1, t, L1("B"));
+            WHEN_SEND_LIST_TO(0, t, LA("B"));
+            REQUIRE_ANY_AT_OUTLET(1, t, LA("B"));
         }
+    }
+
+    SECTION("mlist")
+    {
+        ListRouteTest t("list.route", LA("A", "B", 1000, "@trim"));
+
+        WHEN_SEND_DATA_TO(0, t, DataTypeMList());
+        REQUIRE_NO_MSG(t);
+
+        WHEN_SEND_TDATA_TO(0, t, DataTypeMList("(A 1 2 3)"));
+        REQUIRE_LIST_AT_OUTLET(0, t, LF(1, 2, 3));
+
+        WHEN_SEND_TDATA_TO(0, t, DataTypeMList("(B 3 4 5)"));
+        REQUIRE_LIST_AT_OUTLET(1, t, LF(3, 4, 5));
+
+        WHEN_SEND_TDATA_TO(0, t, DataTypeMList("(1000 1001 1002)"));
+        REQUIRE_LIST_AT_OUTLET(2, t, LF(1001, 1002));
+
+        WHEN_SEND_TDATA_TO(0, t, DataTypeMList("(1 2)"));
+        REQUIRE_LIST_AT_OUTLET(3, t, LF(1, 2));
     }
 }

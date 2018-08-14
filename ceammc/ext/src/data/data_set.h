@@ -14,30 +14,23 @@
 #ifndef DATA_SET_H
 #define DATA_SET_H
 
-#include "ceammc_dataatom.h"
-#include "ceammc_object.h"
+#include "dataset_iface.h"
 #include "datatype_set.h"
 
 using namespace ceammc;
 
-class DataSet : public BaseObject {
+typedef DataSetIface<BaseObject> DataSetBase;
+
+class DataSet : public DataSetBase {
     DataTypeSet set_;
 
 public:
     DataSet(const PdArgs& a);
 
-    void dump() const;
-    void onBang();
-    void onFloat(float f);
-    void onSymbol(t_symbol* s);
-    void onList(const AtomList& l);
-    void onDataT(const DataTypeSet& s);
-
-    void m_clear(t_symbol*, const AtomList&);
-    void m_add(t_symbol*, const AtomList& l);
-    void m_remove(t_symbol*, const AtomList& l);
+    DataTypeSet& data() final { return set_; }
+    const DataTypeSet& data() const final { return set_; }
 };
 
-extern "C" void setup_data0x2eset();
+void setup_data_set();
 
 #endif // DATA_SET_H

@@ -12,13 +12,13 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../data/set_size.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "catch.hpp"
 #include "ceammc_pd.h"
 
 #include <stdio.h>
 
-typedef TestExtension<SetSize> SetSizeTest;
+typedef TestExternal<SetSize> SetSizeTest;
 
 static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
 
@@ -42,7 +42,7 @@ TEST_CASE("set.size", "[externals]")
         WHEN_SEND_TDATA_TO(0, t, DataTypeSet(Atom(1)));
         REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
 
-        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(L3(1, 2, 3)));
+        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(LF(1, 2, 3)));
         REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
     }
 }

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="mlist.flatten">
+        <title>mlist.flatten</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>flatten nested mlist</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>data</category>
+            <keywords>flatten list</keywords>
+            <since>0.6</since>
+            <also>
+                <see>data.mlist</see>
+            </also>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="data:mlist">mlist input</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>mlist output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[\(\(\) 1 2 \(3 \(4 5\)\) \(\(\(\(6\)\)\)\) 7\), bang(
+|
+[mlist]
+|
+[mlist.flatten]
+|
+[ui.display @display_type=1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

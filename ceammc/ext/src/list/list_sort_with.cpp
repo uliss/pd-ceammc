@@ -12,23 +12,10 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_sort_with.h"
+#include "../data/datatype_mlist.h"
 #include "ceammc_factory.h"
 
 #include <algorithm>
-
-struct Compare {
-    ListSortWith* lsw_;
-    Compare(ListSortWith* lsw)
-        : lsw_(lsw)
-    {
-    }
-
-    bool operator()(t_atom a1, t_atom a2)
-    {
-        lsw_->listTo(1, AtomList(Atom(a1), Atom(a2)));
-        return !lsw_->less_;
-    }
-};
 
 ListSortWith::ListSortWith(const PdArgs& a)
     : BaseObject(a)
@@ -47,10 +34,14 @@ void ListSortWith::onList(const AtomList& l)
     }
 
     less_ = true;
-    AtomList lst = l;
-    Compare pred(this);
-    std::sort(lst.toPdData(), lst.toPdData() + lst.size(), pred);
-    listTo(0, lst);
+
+    AtomList res(l);
+    std::sort(res.begin(), res.end(), [this](const Atom& a0, const Atom& a1) {
+        this->listTo(1, AtomList(a0, a1));
+        return !this->less_;
+    });
+
+    listTo(0, res);
 }
 
 void ListSortWith::onInlet(size_t n, const AtomList& l)
@@ -63,7 +54,26 @@ void ListSortWith::onInlet(size_t n, const AtomList& l)
     }
 }
 
-extern "C" void setup_list0x2esort_with()
+void ListSortWith::onDataT(const DataTypeMList& l)
 {
-    ObjectFactory<ListSortWith>("list.sort_with");
+    if (l.size() < 2) {
+        dataTo(0, DataPtr(l.clone()));
+        return;
+    }
+
+    less_ = true;
+
+    DataTypeMList* res = new DataTypeMList(l);
+    std::sort(res->begin(), res->end(), [this](const DataAtom& a0, const DataAtom& a1) {
+        this->listTo(1, AtomList(a0.toAtom(), a1.toAtom()));
+        return !this->less_;
+    });
+
+    dataTo(0, DataPtr(res));
+}
+
+void setup_list_sort_with()
+{
+    ObjectFactory<ListSortWith> obj("list.sort_with");
+    obj.processData<DataTypeMList>();
 }

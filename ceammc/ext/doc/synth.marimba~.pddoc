@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="synth.marimba~">
+        <title>synth.marimba~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>simple marimba physical model implementing a single tone bar connected to
+            tube</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>synth</category>
+            <keywords>marimba</keywords>
+            <since>0.6</since>
+        </meta>
+        <methods>
+            <method name="gate">gate signal - 0: off, 1: on</method>
+        </methods>
+        <properties>
+            <property name="@pitch" type="float" minvalue="36" maxvalue="84" default="48">
+            pitch</property>
+            <property name="@pos" type="float" minvalue="0" maxvalue="4" default="0">excitation
+            position</property>
+            <property name="@cutoff" type="float" minvalue="1000" maxvalue="10000" default="7000">
+            cuttoff frequency of the strike generator</property>
+            <property name="@sharp" type="float" minvalue="0" maxvalue="1" default="0.25">sharpness
+            of the strike</property>
+            <property name="@gain" type="float" minvalue="0" maxvalue="1" default="0.25">strike
+            gain</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo>input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio" />
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[T]
+|
+[metro 130]
+|
+[0 12 0 36 7 12(
+|
+[list.choice]        [ui.knob @min 0 @max 4] [ui.knob]
+|                    |                       |
+[+ 36]               |                       |
+|                    |                       |
+[@pitch $1, gate 1(  [@pos $1 #b(            [@sharp $1 #c(
+|
+[flow.append gate 0 @msg @delay 10]
+|
+|
+|
+[synth.marimba~ #a]
+|
+[fx.freeverb~ @roomsize 0.95 @drywet 0.001]
+|
+[ui.gain~ @size 120 16]
+|\
+[dac~]
+
+[ui.dsp~]
+[X b->a] [X c->a]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

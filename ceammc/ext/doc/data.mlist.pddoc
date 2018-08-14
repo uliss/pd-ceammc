@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="data.mlist">
+        <title>data.mlist</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>multidimensial list container</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>data</category>
+            <keywords>data multilist</keywords>
+            <since>0.6</since>
+            <also>
+                <see>data.list</see>
+            </also>
+            <aliases>
+                <alias>mlist</alias>
+                <alias>ml</alias>
+            </aliases>
+        </meta>
+        <info>
+            <par>Syntax: values are separated by spaces: (1 2 3) - list of 1, 2 and 3</par>
+            <par>Nested lists: (1 2 3 (nested liat values))</par>
+            <par>Symbols with spaces: ("single item list")</par>
+        </info>
+        <arguments>
+            <argument name="X" type="any">initial list values in (). For example: (1 2 3 (1 2)
+            4)</argument>
+        </arguments>
+        <properties>
+            <property name="@empty" readonly="true" enum="0 1" type="int">1 if list is empty,
+            otherwise 0</property>
+            <property name="@size" readonly="true" minvalue="0" type="int">number of elements in
+            list</property>
+        </properties>
+        <methods>
+            <method name="append">adds values to the end of the list 
+            <param name="VAL" type="atom" required="true">appended value</param></method>
+            <method name="prepend">inserts values to the list beginning 
+            <param name="VAL" type="atom" required="true">prepended value</param></method>
+            <method name="insert">inserts values to the specified position 
+            <param name="IDX" type="int" required="true">insert position</param>
+            <param name="VAL" type="atom" required="true">value</param></method>
+            <method name="fill">fills with specified value 
+            <param name="VAL" type="atom" required="true">fill value</param></method>
+            <method name="reverse">reverses list</method>
+            <method name="shuffle">put elemtns in random order</method>
+            <method name="sort">sorts list</method>
+            <method name="clear">removes all list elements</method>
+            <method name="pop">removes last list element</method>
+            <method name="remove">removes specified element 
+            <param name="IDX" type="int" required="true">element index</param></method>
+            <method name="set">sets new list without output 
+            <param name="LIST" type="list" required="true">new list content</param></method>
+            <method name="dump">dump object info to Pd window</method>
+            <method name="(....)">sets new list without output</method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">output current list value</xinfo>
+                <xinfo on="list">sets new list and output it</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output list or list elements</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[bang(
+|
+|  [\(A B C), bang(
+|  |
+[data.mlist (1 2 3 (1 3 3))]
+|
+[ui.display @display_type=1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

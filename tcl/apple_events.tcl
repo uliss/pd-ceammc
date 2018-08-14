@@ -42,7 +42,7 @@ proc tkAboutDialog {} {
 # kAEShowPreferences
 proc ::tk::mac::ShowPreferences {args} {
     ::pdwindow::verbose 1 "::tk::mac::ShowPreferences $args ++++++++++++\n"
-    pdsend "pd start-path-dialog"
+    pdsend "pd audio-properties"
 }
 
 # kAEQuitApplication
@@ -68,4 +68,8 @@ proc ::tk::mac::OpenApplication {args} {
 
 proc ::tk::mac::ReopenApplication {args} {
     ::pdwindow::verbose 1 "::tk::mac::ReopenApplication $args ++++++++++\n"
+    # raise pdwindow if it's hidden and there are no other windows visible
+    if {[winfo exists .pdwindow] && ![winfo viewable .pdwindow] && [llength [wm stackorder .]] == 0} {
+        ::pd_menucommands::menu_raise_pdwindow
+    }
 }

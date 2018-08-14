@@ -1,4 +1,4 @@
-if(APPLE)
+if(WITH_EXPERIMENTAL)
     ceammc_cxx_extension(exp patchdata)
     ceammc_cxx_extension(exp recursion)
     ceammc_cxx_extension(exp class)

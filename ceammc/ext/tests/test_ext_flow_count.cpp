@@ -12,13 +12,13 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../flow/flow_count.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "catch.hpp"
 #include "ceammc_pd.h"
 
 #include <stdio.h>
 
-typedef TestExtension<FlowCount> FlowCountTest;
+typedef TestExternal<FlowCount> FlowCountTest;
 
 static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
 
@@ -59,11 +59,11 @@ TEST_CASE("flow.count", "[externals]")
         REQUIRE_FLOAT_AT_OUTLET(0, t, 6);
 
         // list
-        WHEN_SEND_LIST_TO(0, t, L3(1, 2, 3));
+        WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3));
         REQUIRE_FLOAT_AT_OUTLET(0, t, 7);
 
         // any
-        WHEN_SEND_ANY_TO(t, "test", L1("A"));
+        WHEN_SEND_ANY_TO(t, "test", LA("A"));
         REQUIRE_FLOAT_AT_OUTLET(0, t, 8);
 
         WHEN_SEND_DATA_TO(0, t, DataPtr(new IntData(123)));

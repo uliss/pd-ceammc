@@ -12,14 +12,14 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../base/expand_env.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "ceammc.hpp"
 
 #include "catch.hpp"
 
 #include <stdio.h>
 
-typedef TestExtension<ExpandEnv> ExpandEnvTest;
+typedef TestExternal<ExpandEnv> ExpandEnvTest;
 
 TEST_CASE("expand_env", "[extension]")
 {
@@ -27,7 +27,7 @@ TEST_CASE("expand_env", "[extension]")
 
     SECTION("expand simple")
     {
-        ExpandEnvTest obj("expand_env", AtomList());
+        ExpandEnvTest obj("expand_env", L());
 
         WHEN_SEND_BANG_TO(0, obj);
         REQUIRE_BANG_AT_OUTLET(0, obj);
@@ -38,11 +38,11 @@ TEST_CASE("expand_env", "[extension]")
         WHEN_SEND_SYMBOL_TO(0, obj, "TEST");
         REQUIRE_SYMBOL_AT_OUTLET(0, obj, "TEST");
 
-        WHEN_SEND_LIST_TO(0, obj, L3(1, "@A", "TEST"));
-        REQUIRE_LIST_AT_OUTLET(0, obj, L3(1, "@A", "TEST"));
+        WHEN_SEND_LIST_TO(0, obj, LA(1, "@A", "TEST"));
+        REQUIRE_LIST_AT_OUTLET(0, obj, LA(1, "@A", "TEST"));
 
-        WHEN_SEND_ANY_TO(obj, L3("ANY", "%DOLLARS%", "B"));
-        REQUIRE_ANY_AT_OUTLET(0, obj, L3("ANY", "%DOLLARS%", "B"));
+        WHEN_SEND_ANY_TO(obj, LA("ANY", "%DOLLARS%", "B"));
+        REQUIRE_ANY_AT_OUTLET(0, obj, LA("ANY", "%DOLLARS%", "B"));
 
         ceammc::set_env("DOLLARS", "$$$$");
 
@@ -58,23 +58,23 @@ TEST_CASE("expand_env", "[extension]")
         WHEN_SEND_SYMBOL_TO(0, obj, "... %DOLLARS% ...");
         REQUIRE_SYMBOL_AT_OUTLET(0, obj, "... $$$$ ...");
 
-        WHEN_SEND_LIST_TO(0, obj, L3(1, "@A", "TEST"));
-        REQUIRE_LIST_AT_OUTLET(0, obj, L3(1, "@A", "TEST"));
+        WHEN_SEND_LIST_TO(0, obj, LA(1, "@A", "TEST"));
+        REQUIRE_LIST_AT_OUTLET(0, obj, LA(1, "@A", "TEST"));
 
-        WHEN_SEND_LIST_TO(0, obj, L3(1, ",, %DOLLARS% ..", "TEST"));
-        REQUIRE_LIST_AT_OUTLET(0, obj, L3(1, ",, $$$$ ..", "TEST"));
+        WHEN_SEND_LIST_TO(0, obj, LA(1, ",, %DOLLARS% ..", "TEST"));
+        REQUIRE_LIST_AT_OUTLET(0, obj, LA(1, ",, $$$$ ..", "TEST"));
 
-        WHEN_SEND_ANY_TO(obj, L3("ANY", "%DOLLARS%", "B"));
-        REQUIRE_ANY_AT_OUTLET(0, obj, L3("ANY", "$$$$", "B"));
+        WHEN_SEND_ANY_TO(obj, LA("ANY", "%DOLLARS%", "B"));
+        REQUIRE_ANY_AT_OUTLET(0, obj, LA("ANY", "$$$$", "B"));
 
         // do not expand any selector
-        WHEN_SEND_ANY_TO(obj, L3("%DOLLARS%", "A", "B"));
-        REQUIRE_ANY_AT_OUTLET(0, obj, L3("%DOLLARS%", "A", "B"));
+        WHEN_SEND_ANY_TO(obj, LA("%DOLLARS%", "A", "B"));
+        REQUIRE_ANY_AT_OUTLET(0, obj, LA("%DOLLARS%", "A", "B"));
     }
 
     SECTION("expand any")
     {
-        ExpandEnvTest obj("expand_env", L1("@any"));
+        ExpandEnvTest obj("expand_env", LA("@any"));
 
         ceammc::set_env("DOLLARS", "$$$$");
 
@@ -87,8 +87,8 @@ TEST_CASE("expand_env", "[extension]")
         WHEN_SEND_SYMBOL_TO(0, obj, "TEST");
         REQUIRE_SYMBOL_AT_OUTLET(0, obj, "TEST");
 
-        WHEN_SEND_LIST_TO(0, obj, L3(1, "@A", "TEST"));
-        REQUIRE_LIST_AT_OUTLET(0, obj, L3(1, "@A", "TEST"));
+        WHEN_SEND_LIST_TO(0, obj, LA(1, "@A", "TEST"));
+        REQUIRE_LIST_AT_OUTLET(0, obj, LA(1, "@A", "TEST"));
 
         WHEN_SEND_SYMBOL_TO(0, obj, "%DOLLARS");
         REQUIRE_SYMBOL_AT_OUTLET(0, obj, "%DOLLARS");
@@ -102,18 +102,18 @@ TEST_CASE("expand_env", "[extension]")
         WHEN_SEND_SYMBOL_TO(0, obj, "... %DOLLARS% ...");
         REQUIRE_SYMBOL_AT_OUTLET(0, obj, "... $$$$ ...");
 
-        WHEN_SEND_LIST_TO(0, obj, L3(1, "@A", "TEST"));
-        REQUIRE_LIST_AT_OUTLET(0, obj, L3(1, "@A", "TEST"));
+        WHEN_SEND_LIST_TO(0, obj, LA(1, "@A", "TEST"));
+        REQUIRE_LIST_AT_OUTLET(0, obj, LA(1, "@A", "TEST"));
 
-        WHEN_SEND_LIST_TO(0, obj, L3(1, ",, %DOLLARS% ..", "TEST"));
-        REQUIRE_LIST_AT_OUTLET(0, obj, L3(1, ",, $$$$ ..", "TEST"));
-
-        // expand any
-        WHEN_SEND_ANY_TO(obj, L3("ANY", "%DOLLARS%", "B"));
-        REQUIRE_ANY_AT_OUTLET(0, obj, L3("ANY", "$$$$", "B"));
+        WHEN_SEND_LIST_TO(0, obj, LA(1, ",, %DOLLARS% ..", "TEST"));
+        REQUIRE_LIST_AT_OUTLET(0, obj, LA(1, ",, $$$$ ..", "TEST"));
 
         // expand any
-        WHEN_SEND_ANY_TO(obj, L3("%DOLLARS%", "A", "B"));
-        REQUIRE_ANY_AT_OUTLET(0, obj, L3("$$$$", "A", "B"));
+        WHEN_SEND_ANY_TO(obj, LA("ANY", "%DOLLARS%", "B"));
+        REQUIRE_ANY_AT_OUTLET(0, obj, LA("ANY", "$$$$", "B"));
+
+        // expand any
+        WHEN_SEND_ANY_TO(obj, LA("%DOLLARS%", "A", "B"));
+        REQUIRE_ANY_AT_OUTLET(0, obj, LA("$$$$", "A", "B"));
     }
 }

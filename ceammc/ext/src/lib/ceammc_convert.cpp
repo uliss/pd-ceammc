@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "ceammc_convert.h"
 
+#include <boost/math/constants/constants.hpp>
 #include <cctype>
 #include <cmath>
 #include <cstdio>
@@ -225,13 +226,15 @@ double ceammc::convert::lin2curve(double x, double x0, double x1, double y0, dou
 
 double ceammc::convert::lin2sin2(double x, double x0, double x1, double y0, double y1)
 {
-    double v = sin(M_PI_2 * (x - x0) / (x1 - x0));
+    using namespace boost::math::double_constants;
+    double v = sin(half_pi * (x - x0) / (x1 - x0));
     return (v * v) * (y1 - y0) + y0;
 }
 
 double ceammc::convert::lin2sigmoid(double x, double x0, double x1, double y0, double y1, double skew)
 {
-    double v = 1 / (1 + pow(M_E, (-skew) * ((x - x0) / (x1 - x0) - 0.5)));
+    using namespace boost::math::double_constants;
+    double v = 1 / (1 + pow(e, (-skew) * ((x - x0) / (x1 - x0) - 0.5)));
     return v * (y1 - y0) + y0;
 }
 
@@ -253,4 +256,30 @@ float ceammc::convert::amp2dbfs(float amp)
 double ceammc::convert::amp2dbfs(double amp)
 {
     return 20 * log10(amp);
+}
+
+float ceammc::convert::midi2freq(float note, float a_freq)
+{
+    return a_freq * powf(2, (note - 69) / 12);
+}
+
+double ceammc::convert::midi2freq(double note, double a_freq)
+{
+    return a_freq * pow(2, (note - 69) / 12);
+}
+
+float ceammc::convert::freq2midi(float freq, float a_freq)
+{
+    if (freq <= 0 || a_freq <= 0)
+        return -1;
+
+    return (12 * log2f(freq / a_freq)) + 69;
+}
+
+double ceammc::convert::freq2midi(double freq, double a_freq)
+{
+    if (freq <= 0 || a_freq <= 0)
+        return -1;
+
+    return (12 * log2(freq / a_freq)) + 69;
 }

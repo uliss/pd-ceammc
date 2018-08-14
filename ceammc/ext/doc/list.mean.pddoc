@@ -15,10 +15,15 @@
             <also>
                 <see>list.normalize</see>
             </also>
+            <aliases>
+                <alias>list.average</alias>
+            </aliases>
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="list">input list of floats. Non float values are just ignored</xinfo>
+                <xinfo on="list">input list of floats. Non float values are just ignored. No output
+                if no floats in list</xinfo>
+                <xinfo on="data:mlist">same as list</xinfo>
             </inlet>
         </inlets>
         <outlets>

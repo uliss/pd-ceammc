@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="dict.contains">
+        <title>dict.contains</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>predicate to check dict contains key</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>data</category>
+            <keywords>contains dictionary</keywords>
+            <since>0.6</since>
+            <also>
+                <see>data.dict</see>
+                <see>dict.keys</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="KEY" type="atom">checked key</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="data">Data.dict expected</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="atom">change searched key</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output 1 is contains key, otherwise 0</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]
+|
+[data.dict \[a: b\] \[c: 200\]]
+|
+[dict.contains c]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

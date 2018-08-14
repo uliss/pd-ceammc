@@ -15,6 +15,7 @@
             <keywords>filter equalizer</keywords>
             <since>0.1</since>
             <also>
+                <see>flt.eq_peak_cq~</see>
                 <see>flt.lowshelf~</see>
                 <see>flt.highshelf~</see>
             </also>
@@ -51,15 +52,22 @@
         <example>
             <pdascii>
 <![CDATA[
-[noise~] [_]
-|  ._____/
-[*~]          [F]       [F]       [F]
-|             |         |         |
-[*~ 0.1]  [B] [freq $1( [gain $1( [bandwidth $1(
-|         |   |         |         |
-[flt.eq_peak~ 3000 20 400 id      ]
-|\                      ^|
-[dac~]                 [print]
+[noise~] [F]       [F]       [F]
+|        |         |         |
+|        [freq $1( [gain $1( [bandwidth $1(
+|        |         |         |
+[flt.eq_peak~ 3000 20 400 id ]
+|
+[ui.ssc~ @size 500 120]
+
+
+
+
+
+
+
+
+[ui.dsp~]
 ]]>
             </pdascii>
         </example>

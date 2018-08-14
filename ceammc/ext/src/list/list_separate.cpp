@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_separate.h"
+#include "../data/datatype_mlist.h"
 #include "ceammc_factory.h"
 
 ListSeparate::ListSeparate(const PdArgs& a)
@@ -23,14 +24,23 @@ ListSeparate::ListSeparate(const PdArgs& a)
 
 void ListSeparate::onList(const AtomList& l)
 {
-    for (size_t i = 0; i < l.size(); i++)
-        atomTo(0, l[i]);
+    for (auto& el : l)
+        atomTo(0, el);
 
     bangTo(1);
 }
 
-extern "C" void setup_list0x2eseparate()
+void ListSeparate::onDataT(const DataTypeMList& l)
+{
+    for (auto& el : l)
+        atomTo(0, el.toAtom());
+
+    bangTo(1);
+}
+
+void setup_list_separate()
 {
     ObjectFactory<ListSeparate> obj("list.separate");
     obj.addAlias("list.sep");
+    obj.processData<DataTypeMList>();
 }

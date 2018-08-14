@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="global.mlist">
+        <title>global.mlist</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>global named mlist object</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>global</category>
+            <keywords>mlist local global</keywords>
+            <since>0.6</since>
+            <also>
+                <see>data.mlist</see>
+                <see>local.mlist</see>
+            </also>
+        </meta>
+        <info>
+            <par>Defines global scope mlist variable, accessed by ID name</par>
+        </info>
+        <arguments>
+            <argument name="ID" type="symbol">object ID</argument>
+        </arguments>
+        <properties>
+            <property name="@empty" readonly="true" enum="0 1" type="int">1 if list is empty,
+            otherwise 0</property>
+            <property name="@size" readonly="true" minvalue="0" type="int">number of elements in
+            list</property>
+        </properties>
+        <methods>
+            <method name="append">adds values to the end of the list 
+            <param name="VAL" type="atom" required="true">appended value</param></method>
+            <method name="prepend">inserts values to the list beginning 
+            <param name="VAL" type="atom" required="true">prepended value</param></method>
+            <method name="insert">inserts values to the specified position 
+            <param name="IDX" type="int" required="true">insert position</param>
+            <param name="VAL" type="atom" required="true">value</param></method>
+            <method name="fill">fills with specified value 
+            <param name="VAL" type="atom" required="true">fill value</param></method>
+            <method name="reverse">reverses list</method>
+            <method name="shuffle">put elemtns in random order</method>
+            <method name="sort">sorts list</method>
+            <method name="clear">removes all list elements</method>
+            <method name="pop">removes last list element</method>
+            <method name="remove">removes specified element 
+            <param name="IDX" type="int" required="true">element index</param></method>
+            <method name="set">sets new list without output 
+            <param name="LIST" type="list" required="true">new list content</param></method>
+            <method name="dump">dump object info to Pd window</method>
+            <method name="(....)">sets new list without output</method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">output list content</xinfo>
+                <xinfo on="data:mlist">same as list</xinfo>
+                <xinfo on="float">set new mlist content and output</xinfo>
+                <xinfo on="symbol">set new mlist content and output</xinfo>
+                <xinfo on="list">set new mlist content and output</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>mlist output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[\(1 2 3 \(a b c\)\), bang( [bang(
+|                           |
+[ml]                        [global.mlist l1]
+|                           |
+[global.mlist l1]           [ui.display @display_type=1]
+|
+[ui.display @display_type=1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

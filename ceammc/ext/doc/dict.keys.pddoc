@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="dict.keys">
+        <title>dict.keys</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>get list of dict keys</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>data</category>
+            <keywords>list keys dictionary</keywords>
+            <since>0.6</since>
+            <also>
+                <see>data.dict</see>
+                <see>dict.values</see>
+            </also>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="data">data.dict</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>list of dict keys</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]
+|
+[data.dict \[a: b\] \[c: 200\] \[12: 15151\]]
+|
+[dict.keys]
+|
+[ui.display @display_type=1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

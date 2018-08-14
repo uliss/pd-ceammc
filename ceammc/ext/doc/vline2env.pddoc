@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="vline2env">
+        <title>vline2env</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Converts vline messages to env</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>env</category>
+            <keywords>envelope vline</keywords>
+            <since>0.6</since>
+            <aliases>
+                <alias>vline-&gt;env</alias>
+            </aliases>
+            <also>
+                <see>env-&gt;vline</see>
+                <see>env-&gt;array</see>
+            </also>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">output current envelope</xinfo>
+                <xinfo on="list">vline message</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>envelope output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[0, 1 200(  [1 100 50( [0, 1 300, 0 500 300(
+|           |          |
+|           |          | [0, 1 300, 0 500 500(
+|           |          | |
+|           |          | |
+|           |          | |
+[vline2env               ]
+|
+[ui.env]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

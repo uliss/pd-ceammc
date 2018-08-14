@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="list.append">
+        <title>list.append</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>append atom or list to the end of input list</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>list</category>
+            <keywords>list append</keywords>
+            <since>0.6</since>
+            <also>
+                <see>list append</see>
+            </also>
+        </meta>
+        <info>
+            <par>Works with data atoms</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">treated as empty input list</xinfo>
+                <xinfo on="float">input float</xinfo>
+                <xinfo on="symbol">input symbol</xinfo>
+                <xinfo on="list">input list</xinfo>
+                <xinfo on="data">input data</xinfo>
+                <xinfo on="data:mlist">append to end of input list</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="list">set appended list</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output concatenated list</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B] [F]  [B]    [1 2 3 4 5( [B]
+|   |    |             |    |
+|   |    [str test1]   |    [str ANOTHER STRING]
+|   |    |             |    |
+|   |    |             |    |.
+[list.append @prop ABC       ]
+|
+[ui.display @display_type=1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

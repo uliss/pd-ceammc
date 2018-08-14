@@ -18,21 +18,20 @@
             <since>0.4</since>
         </meta>
         <info>
-            <par>Produces random floating-point numbers, which are distributed according
-            to a linear probability density function within each of the several subintervals [b0, b1)
-            </par>
+            <par>Produces random floating-point numbers, which are distributed according to a
+            linear probability density function within each of the several subintervals [b0,
+            b1)</par>
             <par>Linear segments specified as: bound0, prob0, bound1, prob1, etc</par>
         </info>
         <arguments>
-            <argument type="list" name="P">interleaved interval boundaries
-            and boundary propabilities. Note: number of arguments should be even and &gt;=4.
-            Boundaries should be in strictly increasing order and weights should be non-negative
-            </argument>
+            <argument type="list" name="P">interleaved interval boundaries and boundary
+            propabilities. Note: number of arguments should be even and &gt;=4. Boundaries should
+            be in strictly increasing order and weights should be non-negative</argument>
         </arguments>
         <properties>
-            <property name="@v" type="list">interleaved interval boundaries
-            and boundary propabilities. For example: values 0 0 0.5 0 1 0 produce triangle distribution
-            </property>
+            <property name="@v" type="list">interleaved interval boundaries and boundary
+            propabilities. For example: values 0 0 0.5 0 1 0 produce triangle
+            distribution</property>
             <property name="@bounds" type="list" readonly="true">list of boundaries</property>
             <property name="@weights" type="list" readonly="true">list of weights</property>
         </properties>

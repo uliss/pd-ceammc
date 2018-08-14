@@ -44,6 +44,7 @@ set(CEAMMC_LIB_SOURCES ceammc.h
     ceammc_impl.cpp
     ceammc_log.cpp
     ceammc_message.cpp
+    ceammc_music_temperament.cpp
     ceammc_music_theory.cpp
     ceammc_music_theory_names.cpp
     ceammc_music_theory_pitch_class.cpp
@@ -94,11 +95,6 @@ set(CEAMMC_LOAD_SRC
     array_load_pattern.cpp)
 set(CEAMMC_LOAD_LIBS "")
 set(CEAMMC_LOAD_DEFS "")
-
-# libsndfile backend
-if(WITH_LIBSNDFILE)
-    include(FindLibSndFile)
-endif()
 
 if(LIBSNDFILE_FOUND)
     list(APPEND CEAMMC_LOAD_DEFS "-DWITH_LIBSOUNDFILE")

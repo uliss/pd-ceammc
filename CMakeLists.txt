@@ -23,6 +23,13 @@ if(APPLE)
     endif()
 endif()
 
+if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")
+else()
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+endif()
+
+
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Debug)
 endif()
@@ -55,9 +62,15 @@ include(install_paths)
 find_package(LeapMotion)
 include(PdPlatform)
 find_package(Gettext)
+find_package(LibUSB)
 include(config)
 include(sound)
 include(cmake_uninstall)
+
+# libsndfile backend
+if(WITH_LIBSNDFILE)
+    include(FindLibSndFile)
+endif()
 
 # FFTW3
 option(WITH_FFTW "Use fftw3 library (http://www.fftw.org/)" ON)

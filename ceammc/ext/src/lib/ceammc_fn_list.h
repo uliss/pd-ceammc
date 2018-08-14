@@ -39,9 +39,9 @@ namespace list {
     void deinterleaveMinLength(const AtomList& in, std::vector<AtomList>& out);
     void deinterleavePadWith(const AtomList& in, const Atom& pad, std::vector<AtomList>& out);
 
-    float average(const AtomList& l);
+    MaybeFloat average(const AtomList& l);
 
-    AtomList countRepeats(const AtomList& l);
+    AtomList countRepeats(const AtomList& l, bool normalizeBySum = false);
 
     AtomList sliceWrap(const AtomList& l, int pos, size_t len);
     AtomList sliceClip(const AtomList& l, int pos, size_t len);
@@ -65,7 +65,15 @@ namespace list {
 
     AtomList enumerate(const AtomList& l, int from = 0, enumerateMode mode = PREPEND);
 
-    AtomList unique(const AtomList& l);
+    // preserves element order but not suitable for data atoms
+    AtomList uniqueStable(const AtomList& l);
+    // suitable for data atoms, but returns sorted output
+    AtomList uniqueSorted(const AtomList& l);
+    AtomList shift(const AtomList& l, t_float off);
+    AtomList stretch(const AtomList& l, size_t sz);
+
+    std::vector<std::pair<Atom, size_t>> rleEncode(const AtomList& l);
+    AtomList rleDecode(const std::vector<std::pair<Atom, size_t>>& rle);
 }
 }
 

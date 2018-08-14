@@ -13,35 +13,40 @@
             <keywords>list distribution</keywords>
             <since>0.1</since>
         </meta>
+        <properties>
+            <property name="@normalize" type="int" enum="0 1" default="1">normalize sum to
+            1</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="list">input list</xinfo>
+                <xinfo on="data:mlist">input mlist</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>list of pairs: first element - value, second - number of repeats in
-            list</outlet>
+            <outlet>list of pairs: first element - value, second - number of repeats in list (by
+            default normalized to have sum 1)</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[B]                             [A array1 yr=0..1]
+[B]                             [A distrib yr=0..1 size=20]
 |
 [t b b]
 ^|  |
  |  [normalize(
  |  |
- |  [s array1]
+ |  [s distrib]
  |
-[list.gen 1000]X[random.int 0 20]
+[list.gen 1000] X [random.int 0 20]
 |
-[list.distribution]
+[list.distribution @normalize 1]
 |
 [list.repack 2]
 |
-[swap]
+[swap  ]
 |   ^|.
-[tabwrite array1]
+[tabwrite distrib]
 ]]>
             </pdascii>
         </example>

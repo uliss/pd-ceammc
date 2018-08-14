@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../string/string_starts_with.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "ceammc_format.h"
 #include "ceammc_pd.h"
 
@@ -20,7 +20,7 @@
 
 using namespace ceammc;
 
-typedef TestExtension<StringStartsWith> TestStringStartsWith;
+typedef TestExternal<StringStartsWith> TestStringStartsWith;
 
 static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
 
@@ -45,7 +45,7 @@ TEST_CASE("string.starts_with", "[external]")
 
         SECTION("args")
         {
-            TestStringStartsWith t("str.starts_with", L1("the"));
+            TestStringStartsWith t("str.starts_with", LA("the"));
 
             WHEN_SEND_TDATA_TO(0, t, DataTypeString("the table"));
             REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
@@ -62,7 +62,7 @@ TEST_CASE("string.starts_with", "[external]")
 
         SECTION("args list")
         {
-            TestStringStartsWith t("str.starts_with", L3("A", "B", "C"));
+            TestStringStartsWith t("str.starts_with", LA("A", "B", "C"));
             WHEN_SEND_SYMBOL_TO(0, t, "ABC");
             REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
 

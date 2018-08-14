@@ -18,27 +18,34 @@
         </info>
         <properties>
             <property name="@text" type="list" default="Label">label text</property>
-            <property name="@align" type="symbol" default="left" enum="left center right">text align</property>
+            <property name="@align" type="symbol" default="left" enum="left center right">text
+            align</property>
             <property name="@receive" type="symbol">receive source</property>
-            <property name="@fontname" type="symbol" default="Helvetica">text font family</property>
-            <property name="@fontweight" type="symbol" default="normal" enum="normal bold">font weight</property>
-            <property name="@fontslant" type="symbol" default="normal" enum="roman italic">font slant</property>
+            <property name="@fontname" type="symbol" default="Helvetica">text font
+            family</property>
+            <property name="@fontweight" type="symbol" default="normal" enum="normal bold">font
+            weight</property>
+            <property name="@fontslant" type="symbol" default="normal" enum="roman italic">font
+            slant</property>
             <property name="@fontsize" type="float" default="32">font size</property>
         </properties>
         <methods>
-            <method name="float">set label text to given float, but do not change @text property</method>
-            <method name="symbol">set label text to given symbol, but do not change @text property</method>
-            <method name="list">set label text to given list separated by spaces,
-            but do not change @text property</method>
-            <method name="any">set label text to given message separated by spaces,
-            but do not change @text property</method>
+            <method name="float">set label text to given float, but do not change @text
+            property</method>
+            <method name="symbol">set label text to given symbol, but do not change @text
+            property</method>
+            <method name="list">set label text to given list separated by spaces, but do not change
+            @text property</method>
+            <method name="any">set label text to given message separated by spaces, but do not
+            change @text property</method>
             <method name="clear">clear label text and clear @text property</method>
             <method name="append">appends to @text end</method>
-             <method name="set">set label text and update @text property, so it would be saved in patch</method>
+            <method name="set">set label text and update @text property, so it would be saved in
+            patch</method>
             <method name="prepend">insert into beginning of @text</method>
         </methods>
-        <inlets/>
-        <outlets/>
+        <inlets />
+        <outlets />
         <example>
             <pdascii>
 <![CDATA[

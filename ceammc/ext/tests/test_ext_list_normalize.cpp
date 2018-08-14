@@ -12,12 +12,12 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../list/list_normalize.h"
-#include "base_extension_test.h"
+#include "test_base.h"
 #include "catch.hpp"
 
 #include <stdio.h>
 
-typedef TestExtension<ListNormalize> ListNormalizeTest;
+typedef TestExternal<ListNormalize> ListNormalizeTest;
 
 TEST_CASE("list.normalize", "[externals]")
 {
@@ -34,19 +34,19 @@ TEST_CASE("list.normalize", "[externals]")
 
         SECTION("properties")
         {
-            ListNormalizeTest t("list.normalize", L2("@by", "range"));
+            ListNormalizeTest t("list.normalize", LA("@by", "range"));
             REQUIRE_PROPERTY(t, @by, A("range"));
         }
 
         SECTION("@sum")
         {
-            ListNormalizeTest t("list.normalize", L1("@sum"));
+            ListNormalizeTest t("list.normalize", LA("@sum"));
             REQUIRE_PROPERTY(t, @by, A("sum"));
         }
 
         SECTION("@range")
         {
-            ListNormalizeTest t("list.normalize", L1("@range"));
+            ListNormalizeTest t("list.normalize", LA("@range"));
             REQUIRE_PROPERTY(t, @by, A("range"));
         }
     }
@@ -54,26 +54,26 @@ TEST_CASE("list.normalize", "[externals]")
     SECTION("sum")
     {
         ListNormalizeTest t("list.normalize");
-        WHEN_SEND_LIST_TO(0, t, L4(1, 2, 3, 4));
-        REQUIRE_LIST_AT_OUTLET(0, t, L4(0.1f, 0.2f, 0.3f, 0.4f));
+        WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3, 4));
+        REQUIRE_LIST_AT_OUTLET(0, t, LF(0.1f, 0.2f, 0.3f, 0.4f));
 
         // sum == 0
-        WHEN_SEND_LIST_TO(0, t, L4(-1, -2, 1, 2));
+        WHEN_SEND_LIST_TO(0, t, LF(-1, -2, 1, 2));
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
         // sum == 0
-        WHEN_SEND_LIST_TO(0, t, L4(-1, -2, -3, -4));
-        REQUIRE_LIST_AT_OUTLET(0, t, L4(0.1f, 0.2f, 0.3f, 0.4f));
+        WHEN_SEND_LIST_TO(0, t, LF(-1, -2, -3, -4));
+        REQUIRE_LIST_AT_OUTLET(0, t, LF(0.1f, 0.2f, 0.3f, 0.4f));
     }
 
     SECTION("sum")
     {
-        ListNormalizeTest t("list.normalize", L1("@range"));
-        WHEN_SEND_LIST_TO(0, t, L5(1, 2, 3, 4, 5));
-        REQUIRE_LIST_AT_OUTLET(0, t, L5(0.0, 0.25, 0.5, 0.75, 1));
+        ListNormalizeTest t("list.normalize", LA("@range"));
+        WHEN_SEND_LIST_TO(0, t, LA(1, 2, 3, 4, 5));
+        REQUIRE_LIST_AT_OUTLET(0, t, LA(0.0, 0.25, 0.5, 0.75, 1));
 
         // range == 0
-        WHEN_SEND_LIST_TO(0, t, L4(1, 1, 1, 1));
+        WHEN_SEND_LIST_TO(0, t, LF(1, 1, 1, 1));
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
     }
 }
