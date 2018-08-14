@@ -101,7 +101,7 @@ string);
 #X obj 30 1452 data.list;
 #X text 175 1452 list container;
 #X obj 30 1479 data.mlist;
-#X text 175 1479 multidimensial list container;
+#X text 175 1479 multidimensional list container;
 #X obj 30 1506 data.set;
 #X text 175 1506 container that store unique elements;
 #X obj 30 1533 data.set2list;

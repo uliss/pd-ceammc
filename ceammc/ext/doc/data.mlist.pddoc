@@ -6,7 +6,7 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>multidimensial list container</description>
+            <description>multidimensional list container</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>data</category>

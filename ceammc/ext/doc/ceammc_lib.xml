@@ -133,7 +133,7 @@
     <entry descr="list container" name="data.list" ref_view="object">
       <xi:include href="data.list.pddoc" parse="xml"/>
     </entry>
-    <entry descr="multidimensial list container" name="data.mlist" ref_view="object">
+    <entry descr="multidimensional list container" name="data.mlist" ref_view="object">
       <xi:include href="data.mlist.pddoc" parse="xml"/>
     </entry>
     <entry descr="container that store unique elements" name="data.set" ref_view="object">
