@@ -27,13 +27,13 @@ static void* ceammc_new()
         return NULL;
     }
 
-    post("CEAMMC extension library\n"
-         "       © 2016-2018 Serge Poltavsky and Alex Nadzharov.\n"
+    post("CEAMMC library\n"
+         "       Centre for Electroacoustic Music Moscow Conservatory, © 2016-2018\n"
+         "       authors: Serge Poltavsky and Alex Nadzharov\n"
          "       version: %s\n"
          "       url: %s\n"
          "       license: GPL-3\n"
-         "       build date: '%s'\n"
-         "       contains code from CICM-Wrapper",
+         "       build date: '%s'\n",
         CEAMMC_LIB_VERSION, CEAMMC_LIB_HOME, __DATE__);
 
     int major, minor, fix;
