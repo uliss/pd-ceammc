@@ -15,6 +15,8 @@
 #include "ceammc_format.h"
 #include "ceammc_log.h"
 
+#include <algorithm>
+
 using namespace ceammc;
 using namespace ceammc::tl;
 
