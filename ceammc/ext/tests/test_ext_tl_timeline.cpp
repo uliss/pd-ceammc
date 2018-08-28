@@ -43,7 +43,7 @@ TEST_CASE("tl.timeline", "[externals]")
         REQUIRE_PROPERTY_FLOAT(t, @length, 60);
         REQUIRE_PROPERTY_FLOAT(t, @size, 1);
         REQUIRE_PROPERTY_FLOAT(t, @current, 0);
-        REQUIRE_PROPERTY_LIST(t, @events, LA("end"));
+        REQUIRE_PROPERTY_LIST(t, @events, LAX("end"));
     }
 
     SECTION("do empty")
@@ -61,7 +61,7 @@ TEST_CASE("tl.timeline", "[externals]")
         t.call("start");
         REQUIRE(t->state() == tl::STATE_RUN);
         REQUIRE(t.hasOutput());
-        REQUIRE(t.outputListAt(0) == LA("begin", 0.f));
+        REQUIRE(t.outputListAt(0) == LAX("begin", 0.f));
         REQUIRE_PROPERTY(t, @is_running, 1);
 
         // save start time
@@ -72,7 +72,7 @@ TEST_CASE("tl.timeline", "[externals]")
         t.schedTicks(1);
         REQUIRE(clock_gettimesince(start_tm) == Approx(100_ticks));
         REQUIRE(t.hasOutput());
-        REQUIRE(t.outputListAt(0) == LA("end", 100_ticks));
+        REQUIRE(t.outputListAt(0) == LAX("end", 100_ticks));
         REQUIRE_PROPERTY(t, @is_running, 0.f);
 
         NO_OUTPUT_NTICKS(t, 200);
@@ -92,7 +92,7 @@ TEST_CASE("tl.timeline", "[externals]")
         // INIT -> START
         t.call("start");
         REQUIRE(t.hasOutput());
-        REQUIRE(t.outputListAt(0) == LA("begin", 0.f));
+        REQUIRE(t.outputListAt(0) == LAX("begin", 0.f));
         REQUIRE_PROPERTY(t, @is_running, 1);
         REQUIRE(t->state() == tl::STATE_RUN);
 
@@ -107,13 +107,13 @@ TEST_CASE("tl.timeline", "[externals]")
 
         // STOP -> START
         t.call("start");
-        REQUIRE(t.outputListAt(0) == LA("begin", 0.f));
+        REQUIRE(t.outputListAt(0) == LAX("begin", 0.f));
         REQUIRE_PROPERTY(t, @is_running, 1);
         NO_OUTPUT_NTICKS(t, 99);
         REQUIRE_PROPERTY_FLOAT(t, @current, Approx(99_ticks));
         t.schedTicks(1);
         REQUIRE(t.hasOutput());
-        REQUIRE(t.outputListAt(0) == LA("end", 100_ticks));
+        REQUIRE(t.outputListAt(0) == LAX("end", 100_ticks));
         REQUIRE_PROPERTY_FLOAT(t, @current, Approx(0_ticks));
         REQUIRE_PROPERTY(t, @is_running, 0.f);
 
@@ -132,32 +132,32 @@ TEST_CASE("tl.timeline", "[externals]")
         TestExtTlTimeLine t("tl.timeline", LF(tm));
         REQUIRE(t.object());
         REQUIRE_PROPERTY(t, @is_running, 0.f);
-        REQUIRE_PROPERTY_LIST(t, @events, LA("end"));
+        REQUIRE_PROPERTY_LIST(t, @events, LAX("end"));
 
         t.call("add");
-        REQUIRE_PROPERTY_LIST(t, @events, LA("end"));
+        REQUIRE_PROPERTY_LIST(t, @events, LAX("end"));
         REQUIRE_PROPERTY(t, @size, 1);
 
-        t.call("add", LA(60_ticks, "ms"));
+        t.call("add", LAX(60_ticks, "ms"));
         REQUIRE_PROPERTY(t, @size, 2);
         // twice insert
-        t.call("add", LA(60_ticks, "ms"));
+        t.call("add", LAX(60_ticks, "ms"));
         REQUIRE_PROPERTY(t, @size, 2);
         // negative offset
-        t.call("add", LA(-30_ticks, "ms"));
+        t.call("add", LAX(-30_ticks, "ms"));
         REQUIRE_PROPERTY(t, @size, 3);
 
         // invalid events
-        t.call("add", LA(-200_ticks, "ms"));
+        t.call("add", LAX(-200_ticks, "ms"));
         REQUIRE_PROPERTY(t, @size, 3);
-        t.call("add", LA(101_ticks, "ms"));
+        t.call("add", LAX(101_ticks, "ms"));
         REQUIRE_PROPERTY(t, @size, 3);
 
         // events: 60, 70 and 100
 
         t.call("start");
         REQUIRE(t.hasOutput());
-        REQUIRE(t.outputListAt(0) == LA("begin", 0.f));
+        REQUIRE(t.outputListAt(0) == LAX("begin", 0.f));
         REQUIRE_PROPERTY(t, @is_running, 1);
         REQUIRE_PROPERTY(t, @current, 0.f);
 
@@ -175,13 +175,13 @@ TEST_CASE("tl.timeline", "[externals]")
         NO_OUTPUT_NTICKS(t, 28);
         // end event
         t.schedTicks(2);
-        REQUIRE(t.outputListAt(0) == LA("end", 100_ticks));
-        REQUIRE_PROPERTY(t, @is_running, 0.f);
+        REQUIRE(t.outputListAt(0) == LAX("end", 100_ticks));
+        REQUIRE_PROPERTY_FLOAT(t, @is_running, 0);
 
         // try to start again
         t.call("start");
-        REQUIRE(t.outputListAt(0) == LA("begin", 0.f));
-        REQUIRE_PROPERTY(t, @is_running, 1);
+        REQUIRE(t.outputListAt(0) == LAX("begin", 0.f));
+        REQUIRE_PROPERTY_FLOAT(t, @is_running, 1);
     }
 
     SECTION("pause")
@@ -197,12 +197,12 @@ TEST_CASE("tl.timeline", "[externals]")
         t.call("pause");
         REQUIRE(!t.hasOutput());
 
-        t.call("add", LA(30_ticks, "ms"));
+        t.call("add", LAX(30_ticks, "ms"));
         REQUIRE_PROPERTY(t, @size, 2);
 
         // init -> start
         t.call("start");
-        REQUIRE(t.outputListAt(0) == LA("begin", 0.f));
+        REQUIRE(t.outputListAt(0) == LAX("begin", 0.f));
         t.call("start");
         REQUIRE(!t.hasOutput());
 
@@ -233,7 +233,7 @@ TEST_CASE("tl.timeline", "[externals]")
 
         // stop -> start
         t.call("start");
-        REQUIRE(t.outputListAt(0) == LA("begin", 0.f));
+        REQUIRE(t.outputListAt(0) == LAX("begin", 0.f));
         NO_OUTPUT_NTICKS(t, 10);
         REQUIRE_PROPERTY_FLOAT(t, @current, Approx(10_ticks));
 
@@ -276,7 +276,7 @@ TEST_CASE("tl.timeline", "[externals]")
         // last event
         // run -> stop
         t.schedTicks(1);
-        REQUIRE(t.outputListAt(0) == LA("end", 100_ticks));
+        REQUIRE(t.outputListAt(0) == LAX("end", 100_ticks));
         REQUIRE_PROPERTY_FLOAT(t, @current, Approx(0_ticks));
     }
 
@@ -290,7 +290,7 @@ TEST_CASE("tl.timeline", "[externals]")
         t_float tm = 100_ticks / 1000.0;
         TestExtTlTimeLine t("tl.timeline", LX(tm));
 
-        t.call("add", LA(-20_ticks, "ms"));
+        t.call("add", LAX(-20_ticks, "ms"));
         REQUIRE_PROPERTY(t, @size, 2);
 
         // invalid
@@ -302,7 +302,7 @@ TEST_CASE("tl.timeline", "[externals]")
         REQUIRE(t->state() == tl::STATE_INIT);
 
         // init -> goto
-        t.call("to_time", LA(10_ticks, "ms"));
+        t.call("to_time", LAX(10_ticks, "ms"));
         REQUIRE(t->state() == tl::STATE_GOTO);
         REQUIRE_PROPERTY_FLOAT(t, @current, Approx(10_ticks));
 
@@ -322,7 +322,7 @@ TEST_CASE("tl.timeline", "[externals]")
         REQUIRE(!t.hasOutput());
 
         // init -> goto
-        t.call("to_time", LA(20_ticks, "ms"));
+        t.call("to_time", LAX(20_ticks, "ms"));
         REQUIRE(t->state() == tl::STATE_GOTO);
 
         // goto -> run
@@ -339,12 +339,12 @@ TEST_CASE("tl.timeline", "[externals]")
         REQUIRE_PROPERTY_FLOAT(t, @current, Approx(91_ticks));
 
         // pause -> goto
-        t.call("to_time", LA(70_ticks, "ms"));
+        t.call("to_time", LAX(70_ticks, "ms"));
         REQUIRE(t->state() == tl::STATE_GOTO);
         REQUIRE_PROPERTY_FLOAT(t, @current, Approx(70_ticks));
 
         // goto -> goto
-        t.call("to_time", LA(79_ticks, "ms"));
+        t.call("to_time", LAX(79_ticks, "ms"));
         REQUIRE(t->state() == tl::STATE_GOTO);
         REQUIRE_PROPERTY_FLOAT(t, @current, Approx(79_ticks));
 
@@ -358,11 +358,11 @@ TEST_CASE("tl.timeline", "[externals]")
         NO_OUTPUT_NTICKS(t, 18);
         REQUIRE_PROPERTY_FLOAT(t, @current, Approx(99_ticks));
         t.schedTicks(2);
-        REQUIRE(t.outputListAt(0) == LA("end", 100_ticks));
+        REQUIRE(t.outputListAt(0) == LAX("end", 100_ticks));
 
         // stop -> goto
-        t.call("add", LA(20_ticks, "ms"));
-        t.call("to_time", LA(40_ticks, "ms"));
+        t.call("add", LAX(20_ticks, "ms"));
+        t.call("to_time", LAX(40_ticks, "ms"));
         REQUIRE(t->state() == tl::STATE_GOTO);
         REQUIRE_PROPERTY_FLOAT(t, @current, Approx(40_ticks));
 
@@ -382,10 +382,10 @@ TEST_CASE("tl.timeline", "[externals]")
 
         t_float tm = 100_ticks / 1000.0;
         TestExtTlTimeLine t("tl.timeline", LX(tm));
-        t.call("add", LA(30_ticks, "ms"));
+        t.call("add", LAX(30_ticks, "ms"));
 
         t.call("start");
-        REQUIRE(t.outputListAt(0) == LA("begin", 0.f));
+        REQUIRE(t.outputListAt(0) == LAX("begin", 0.f));
 
         // nothing
         NO_OUTPUT_NTICKS(t, 29);
@@ -399,9 +399,9 @@ TEST_CASE("tl.timeline", "[externals]")
 
         t_float tm = 100_ticks / 1000.0;
         TestExtTlTimeLine t("tl.timeline", LX(tm));
-        t.call("add", LA(80_ticks, "ms"));
-        t.call("add", LA(30_ticks, "ms"));
-        t.call("add", LA(50_ticks, "ms"));
+        t.call("add", LAX(80_ticks, "ms"));
+        t.call("add", LAX(30_ticks, "ms"));
+        t.call("add", LAX(50_ticks, "ms"));
         REQUIRE_PROPERTY_FLOAT(t, @size, 4);
 
         t.call("to_event", 1);
@@ -438,7 +438,7 @@ TEST_CASE("tl.timeline", "[externals]")
         t.call("start");
         REQUIRE(t.outputListAt(0) == LX(3, 100_ticks));
         t.schedTicks(1);
-        REQUIRE(t.outputListAt(0) == LA("end", 100_ticks));
+        REQUIRE(t.outputListAt(0) == LAX("end", 100_ticks));
     }
 
     SECTION("@loop empty")
@@ -446,16 +446,16 @@ TEST_CASE("tl.timeline", "[externals]")
         setTestSampleRate(44100);
 
         t_float tm = 10_ticks / 1000.0;
-        TestExtTlTimeLine t("tl.timeline", LA(tm, "@loop", 1));
+        TestExtTlTimeLine t("tl.timeline", LAX(tm, "@loop", 1));
 
         t.call("start");
-        REQUIRE(t.outputListAt(0) == LA("begin", 0.f));
+        REQUIRE(t.outputListAt(0) == LAX("begin", 0.f));
 
         for (int i = 0; i < 10; i++) {
             REQUIRE_PROPERTY_FLOAT(t, @current, 0_ticks);
             NO_OUTPUT_NTICKS(t, 9);
             t.schedTicks(1);
-            REQUIRE(t.outputListAt(0) == LA("end", 10_ticks));
+            REQUIRE(t.outputListAt(0) == LAX("end", 10_ticks));
         }
     }
 
@@ -464,11 +464,11 @@ TEST_CASE("tl.timeline", "[externals]")
         setTestSampleRate(44100);
 
         t_float tm = 20_ticks / 1000.0;
-        TestExtTlTimeLine t("tl.timeline", LA(tm, "@loop", 1));
+        TestExtTlTimeLine t("tl.timeline", LAX(tm, "@loop", 1));
 
-        t.call("add", LA(10_ticks, "ms"));
+        t.call("add", LAX(10_ticks, "ms"));
         t.call("start");
-        REQUIRE(t.outputListAt(0) == LA("begin", 0.f));
+        REQUIRE(t.outputListAt(0) == LAX("begin", 0.f));
 
         for (int i = 0; i < 10; i++) {
             NO_OUTPUT_NTICKS(t, 9);
@@ -478,7 +478,7 @@ TEST_CASE("tl.timeline", "[externals]")
             REQUIRE(t.outputListAt(0) == LX(0, 10_ticks));
             NO_OUTPUT_NTICKS(t, 7);
             t.schedTicks(2);
-            REQUIRE(t.outputListAt(0) == LA("end", 20_ticks));
+            REQUIRE(t.outputListAt(0) == LAX("end", 20_ticks));
         }
     }
 
@@ -486,17 +486,17 @@ TEST_CASE("tl.timeline", "[externals]")
     {
         setTestSampleRate(44100);
 
-        TestExtTlTimeLine t("tl.timeline", LA("@mode", "inf"));
+        TestExtTlTimeLine t("tl.timeline", LAX("@mode", "inf"));
         REQUIRE(t.object());
         REQUIRE_PROPERTY(t, @mode, "inf");
 
         t.call("start");
-        REQUIRE(t.outputListAt(0) == LA("begin", 0.f));
+        REQUIRE(t.outputListAt(0) == LAX("begin", 0.f));
 
         NO_OUTPUT_NTICKS(t, 100);
         REQUIRE_PROPERTY_FLOAT(t, @current, 100_ticks);
 
-        t.call("add", LA(200_ticks, "ms"));
+        t.call("add", LAX(200_ticks, "ms"));
         NO_OUTPUT_NTICKS(t, 99);
         REQUIRE_PROPERTY_FLOAT(t, @current, 199_ticks);
         t.schedTicks(1);
@@ -506,17 +506,17 @@ TEST_CASE("tl.timeline", "[externals]")
         REQUIRE_PROPERTY_FLOAT(t, @current, 300_ticks);
         NO_OUTPUT_NTICKS(t, 10);
 
-        t.call("add", LA(350_ticks, "ms"));
+        t.call("add", LAX(350_ticks, "ms"));
         NO_OUTPUT_NTICKS(t, 39);
         t.schedTicks(1);
         REQUIRE(t.outputListAt(0) == LX(1, 350_ticks));
         NO_OUTPUT_NTICKS(t, 10);
 
-        t.call("add", LA(400_ticks, "ms"));
+        t.call("add", LAX(400_ticks, "ms"));
         NO_OUTPUT_NTICKS(t, 10);
-        t.call("add", LA(250_ticks, "ms"));
+        t.call("add", LAX(250_ticks, "ms"));
         NO_OUTPUT_NTICKS(t, 29);
-        t.call("add", LA(150_ticks, "ms"));
+        t.call("add", LAX(150_ticks, "ms"));
         REQUIRE_PROPERTY_FLOAT(t, @current, 399_ticks);
         t.schedTicks(2);
         REQUIRE(t.outputListAt(0) == LX(4, 400_ticks));
@@ -526,9 +526,9 @@ TEST_CASE("tl.timeline", "[externals]")
     {
         setTestSampleRate(44100);
         t_float tm = 100_ticks / 1000.0;
-        TestExtTlTimeLine t("tl.timeline", LA(tm, "@loop", 1));
+        TestExtTlTimeLine t("tl.timeline", LAX(tm, "@loop", 1));
 
-        t.call("add", LA(30_ticks, "ms"));
+        t.call("add", LAX(30_ticks, "ms"));
         REQUIRE_PROPERTY_FLOAT(t, @size, 2);
 
         t.call("start");
@@ -541,11 +541,11 @@ TEST_CASE("tl.timeline", "[externals]")
         NO_OUTPUT_NTICKS(t, 79);
         REQUIRE_PROPERTY_FLOAT(t, @current, 99_ticks);
         t.schedTicks(1);
-        REQUIRE(t.outputListAt(0) == LA("end", 100_ticks));
+        REQUIRE(t.outputListAt(0) == LAX("end", 100_ticks));
 
         // next loop iteration
         NO_OUTPUT_NTICKS(t, 50);
-        t.call("add", LA(80_ticks, "ms"));
+        t.call("add", LAX(80_ticks, "ms"));
         NO_OUTPUT_NTICKS(t, 29);
         t.schedTicks(2);
         REQUIRE(t.outputListAt(0) == LX(0, 80_ticks));
@@ -555,43 +555,43 @@ TEST_CASE("tl.timeline", "[externals]")
         t.call("clear");
         NO_OUTPUT_NTICKS(t, 9);
         t.schedTicks(1);
-        REQUIRE(t.outputListAt(0) == LA("end", 100_ticks));
+        REQUIRE(t.outputListAt(0) == LAX("end", 100_ticks));
 
         // empty loop
         NO_OUTPUT_NTICKS(t, 99);
         t.schedTicks(1);
-        REQUIRE(t.outputListAt(0) == LA("end", 100_ticks));
+        REQUIRE(t.outputListAt(0) == LAX("end", 100_ticks));
     }
 
     SECTION("add named")
     {
         setTestSampleRate(44100);
         t_float tm = 100_ticks / 1000.0;
-        TestExtTlTimeLine t("tl.timeline", LA(tm, "@loop", 1));
+        TestExtTlTimeLine t("tl.timeline", LAX(tm, "@loop", 1));
 
-        t.call("add", LA("ev0", 90_ticks, "ms before end"));
-        REQUIRE_PROPERTY_LIST(t, @events, LA("ev0", "end"));
+        t.call("add", LAX("ev0", 90_ticks, "ms before end"));
+        REQUIRE_PROPERTY_LIST(t, @events, LAX("ev0", "end"));
 
-        t.call("add", LA("my_event", 40, "ms"));
-        REQUIRE_PROPERTY_LIST(t, @events, LA("ev0", "my_event", "end"));
+        t.call("add", LAX("my_event", 40, "ms"));
+        REQUIRE_PROPERTY_LIST(t, @events, LAX("ev0", "my_event", "end"));
 
         // INVALID
-        t.call("add", LA("ev1", 1, "ms after end"));
-        REQUIRE_PROPERTY_LIST(t, @events, LA("ev0", "my_event", "end"));
+        t.call("add", LAX("ev1", 1, "ms after end"));
+        REQUIRE_PROPERTY_LIST(t, @events, LAX("ev0", "my_event", "end"));
 
-        t.call("add", LA("ev1", 20, "ms before end"));
-        REQUIRE_PROPERTY_LIST(t, @events, LA("ev0", "my_event", "ev1", "end"));
+        t.call("add", LAX("ev1", 20, "ms before end"));
+        REQUIRE_PROPERTY_LIST(t, @events, LAX("ev0", "my_event", "ev1", "end"));
     }
 
     SECTION("remove")
     {
         setTestSampleRate(44100);
         t_float tm = 100_ticks / 1000.0;
-        TestExtTlTimeLine t("timeline", LA(tm, "@loop", 1));
+        TestExtTlTimeLine t("timeline", LAX(tm, "@loop", 1));
 
-        t.call("add", LA(30_ticks, "ms"));
+        t.call("add", LAX(30_ticks, "ms"));
         REQUIRE_PROPERTY_FLOAT(t, @size, 2);
-        REQUIRE_PROPERTY_LIST(t, @events, LA("event1", "end"));
+        REQUIRE_PROPERTY_LIST(t, @events, LAX("event1", "end"));
 
         t.call("start");
         NO_OUTPUT_NTICKS(t, 29);
@@ -607,10 +607,10 @@ TEST_CASE("tl.timeline", "[externals]")
         REQUIRE_PROPERTY_FLOAT(t, @size, 1);
         NO_OUTPUT_NTICKS(t, 69);
         t.schedTicks(1);
-        REQUIRE(t.outputListAt(0) == LA("end", 100_ticks));
+        REQUIRE(t.outputListAt(0) == LAX("end", 100_ticks));
 
-        t.call("add", LA(30_ticks, "ms"));
-        t.call("add", LA(90_ticks, "ms"));
+        t.call("add", LAX(30_ticks, "ms"));
+        t.call("add", LAX(90_ticks, "ms"));
 
         t.schedTicks(60);
         // remove before passing event
@@ -618,33 +618,33 @@ TEST_CASE("tl.timeline", "[externals]")
         NO_OUTPUT_NTICKS(t, 39);
         REQUIRE_PROPERTY_FLOAT(t, @current, 99_ticks);
         t.schedTicks(1);
-        REQUIRE(t.outputListAt(0) == LA("end", 100_ticks));
+        REQUIRE(t.outputListAt(0) == LAX("end", 100_ticks));
 
-        REQUIRE_PROPERTY_LIST(t, @events, LA("event1", "end"));
-        t.call("remove", LA("end"));
-        REQUIRE_PROPERTY_LIST(t, @events, LA("event1", "end"));
+        REQUIRE_PROPERTY_LIST(t, @events, LAX("event1", "end"));
+        t.call("remove", LAX("end"));
+        REQUIRE_PROPERTY_LIST(t, @events, LAX("event1", "end"));
         t.call("remove", 0);
-        REQUIRE_PROPERTY_LIST(t, @events, LA("end"));
+        REQUIRE_PROPERTY_LIST(t, @events, LAX("end"));
         t.call("remove", 0);
-        REQUIRE_PROPERTY_LIST(t, @events, LA("end"));
+        REQUIRE_PROPERTY_LIST(t, @events, LAX("end"));
 
-        t.call("add", LA("abs1 50ms"));
-        t.call("add", LA("event1 10ms after abs1"));
-        t.call("add", LA("event2 20ms before end"));
+        t.call("add", LAX("abs1 50ms"));
+        t.call("add", LAX("event1 10ms after abs1"));
+        t.call("add", LAX("event2 20ms before end"));
 
-        REQUIRE_PROPERTY_LIST(t, @events, LA("abs1", "event1", "event2", "end"));
+        REQUIRE_PROPERTY_LIST(t, @events, LAX("abs1", "event1", "event2", "end"));
 
-        t.call("remove", LA("abs1"));
-        REQUIRE_PROPERTY_LIST(t, @events, LA("event2", "end"));
+        t.call("remove", LAX("abs1"));
+        REQUIRE_PROPERTY_LIST(t, @events, LAX("event2", "end"));
 
-        t.call("remove", LA("event2"));
-        REQUIRE_PROPERTY_LIST(t, @events, LA("end"));
+        t.call("remove", LAX("event2"));
+        REQUIRE_PROPERTY_LIST(t, @events, LAX("end"));
 
-        t.call("add", LA("abs0 45ms"));
-        t.call("add", LA("abs1 50ms"));
-        t.call("add", LA("event1 10ms before abs1"));
-        REQUIRE_PROPERTY_LIST(t, @events, LA("event1", "abs0", "abs1", "end"));
-        t.call("remove", LA("abs1"));
-        REQUIRE_PROPERTY_LIST(t, @events, LA("abs0", "end"));
+        t.call("add", LAX("abs0 45ms"));
+        t.call("add", LAX("abs1 50ms"));
+        t.call("add", LAX("event1 10ms before abs1"));
+        REQUIRE_PROPERTY_LIST(t, @events, LAX("event1", "abs0", "abs1", "end"));
+        t.call("remove", LAX("abs1"));
+        REQUIRE_PROPERTY_LIST(t, @events, LAX("abs0", "end"));
     }
 }

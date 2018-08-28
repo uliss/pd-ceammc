@@ -40,4 +40,12 @@ ListApprox operator+(const ListApprox& l0, const ListApprox& l1);
 bool operator==(const ListApprox& la, const AtomList& al);
 bool operator==(const AtomList& al, const ListApprox& la);
 
+class AtomListApprox : public AtomList {
+public:
+    explicit AtomListApprox(const AtomList& lst);
+};
+
+bool operator==(const AtomListApprox& la, const AtomList& al);
+bool operator==(const AtomList& al, const AtomListApprox& la);
+
 #endif // TEST_APPROX_H

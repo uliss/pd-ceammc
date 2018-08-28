@@ -91,6 +91,11 @@
 #define LX(...) ListApprox({ __VA_ARGS__ })
 
 /**
+ * @brief variadic list of float aprrox compare
+ */
+#define LAX(...) AtomListApprox(LA(__VA_ARGS__))
+
+/**
  * @brief variadic list of atoms (mixed)
  */
 #define LD(...) DataAtomList({ CALL_MACRO_X_FOR_EACH(_TEST_ATOM_WRAP, __VA_ARGS__) })
