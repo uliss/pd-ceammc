@@ -3,6 +3,7 @@
 ## [Unreleased]
 ### Added:
 - tl.timeline added
+- msg.onload added
 
 ## [0.6]
 ### Added:

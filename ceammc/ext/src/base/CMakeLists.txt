@@ -4,6 +4,7 @@ set(BASE_SOURCES
     expand_env.cpp
     function.cpp
     function_call.cpp
+    load_msg.cpp
     msg.cpp
     prop.get.cpp
     prop.set.cpp

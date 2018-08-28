@@ -264,6 +264,7 @@ list.walk
 list.wrap
 list.zip
 live.capture~
+loadmsg
 local.dict
 local.float
 local.int
@@ -341,6 +342,7 @@ mlist
 mlist.flatten
 modplug~
 msg
+msg.onload
 mux2~
 mux~
 noise.baker

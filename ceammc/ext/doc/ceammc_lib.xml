@@ -867,6 +867,9 @@
     <entry descr="message constructor" name="msg" ref_view="object">
       <xi:include href="msg.pddoc" parse="xml"/>
     </entry>
+    <entry descr="send message when patch loads" name="msg.onload" ref_view="object">
+      <xi:include href="msg.onload.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="noise">
     <entry descr="sparse noise generator" name="noise.crackle~" ref_view="object">

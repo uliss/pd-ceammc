@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="msg.onload">
+        <title>msg.onload</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>send message when patch loads</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>msg</category>
+            <keywords>message loadbang onload</keywords>
+            <aliases>
+                <alias>loadmsg</alias>
+            </aliases>
+            <since>0.7</since>
+            <also>
+<!--                <see>msg.oninit</see>-->
+<!--                <see>msg.onclose</see>-->
+            </also>
+        </meta>
+        <info>
+            <par>like [loadbang], but with message and click support. </par>
+            <par>Click on object sends message again.</par>
+        </info>
+        <arguments>
+            <argument name="ARGS" type="list">message</argument>
+        </arguments>
+        <inlets/>
+        <outlets>
+            <outlet>message output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+/*click me!*/
+
+[loadmsg load message]
+|   |
+|   |
+[B] [print]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

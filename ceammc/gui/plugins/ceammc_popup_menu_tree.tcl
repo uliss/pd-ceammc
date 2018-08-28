@@ -127,7 +127,7 @@
         click~ fluid~ modplug~ speech.flite
     }}
     {msg {
-        msg
+        msg msg.onload
     }}
     {noise {
         noise.crackle~ noise.lfreq0~ noise.lfreq~ noise.pink~ noise.white~

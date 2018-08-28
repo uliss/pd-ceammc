@@ -274,6 +274,7 @@ set(DOC_FILES
     mlist.flatten
     modplug~
     msg
+    msg.onload
     noise.crackle~
     noise.pink~
     noise.white~

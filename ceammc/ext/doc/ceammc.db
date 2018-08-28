@@ -272,6 +272,7 @@ mix~		?		~
 mlist.flatten		.		.
 modplug~		.		~~
 msg,m		..		.
+msg.onload,loadmsg		-		.
 noise.crackle~		~		~
 noise.lfreq0~		~		~
 noise.lfreq~		~		~
