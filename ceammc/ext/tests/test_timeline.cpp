@@ -17,13 +17,13 @@
 
 using namespace ceammc::tl;
 
-void tl_action(TimelineData* d)
+void tl_action(TimelineData* d, int v)
 {
 }
 
 struct CbActionTest {
     static TimelineData* orig;
-    static void action(TimelineData* d)
+    static void action(TimelineData* d, int v)
     {
         REQUIRE(orig == d);
     }
@@ -176,7 +176,7 @@ TEST_CASE("timeline", "[ceammc::timelime]")
         REQUIRE(t1.object() == (t_object*)0xBEE);
         REQUIRE(t1.xPos() == 0);
         REQUIRE(t1.action() == 0);
-        t1.triggerAction();
+        t1.triggerAction(1);
 
         t1.setXPos(100);
         REQUIRE(t1.xPos() == 100);
@@ -186,7 +186,7 @@ TEST_CASE("timeline", "[ceammc::timelime]")
 
         t1.setAction(&CbActionTest::action);
         CbActionTest::orig = &t1;
-        t1.triggerAction();
+        t1.triggerAction(1);
     }
 
     SECTION("UIStorage")

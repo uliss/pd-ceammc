@@ -150,12 +150,15 @@
         system.cursor system.getenv system.hostname system.memsize
         system.memused system.screen_size
     }}
+    {tl {
+        tl.bang tl.cue tl.timeline tl.toggle tl.transport
+    }}
     {ui {
-        tl.bang tl.cue tl.transport ui.aview ui.bang ui.colorpanel ui.display
-        ui.dsp~ ui.env ui.gain~ ui.icon ui.incdec ui.keyboard ui.knob ui.label
-        ui.link ui.matrix ui.menu ui.meter~ ui.number ui.number~ ui.preset
-        ui.radio ui.rslider ui.scope~ ui.slider ui.slider2d ui.sliders
-        ui.spectroscope~ ui.tab ui.toggle
+        ui.aview ui.bang ui.colorpanel ui.display ui.dsp~ ui.env ui.gain~
+        ui.icon ui.incdec ui.keyboard ui.knob ui.label ui.link ui.matrix
+        ui.menu ui.meter~ ui.number ui.number~ ui.preset ui.radio ui.rslider
+        ui.scope~ ui.slider ui.slider2d ui.sliders ui.spectroscope~ ui.tab
+        ui.toggle
     }}
     {vector {
         vector.distance vector.dot vector.length vector.normalize

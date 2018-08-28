@@ -482,8 +482,11 @@ system.screen_size
 tee~
 test.data
 test.expect
+timeline
 tl.bang
 tl.cue
+tl.timeline
+tl.toggle
 tl.transport
 ui.aview
 ui.b

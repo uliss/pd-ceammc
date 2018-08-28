@@ -24,6 +24,11 @@
 using namespace ceammc;
 using namespace ceammc::pd;
 
+// from s_sched.h
+extern "C" void sched_tick();
+extern "C" int* get_sys_schedblocksize();
+extern "C" t_float* get_sys_dacsr();
+
 #define PD_TEST_CANVAS() static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas")
 
 #define PD_TEST_TYPEDEF(T)                \
@@ -154,6 +159,20 @@ template <class A>
 PropertySetter $1(const char* n, A v) { return PropertySetter::create(n, v); }
 template <class A, class B>
 PropertySetter $2(const char* n, A a, B b) { return PropertySetter::create(n, LA(a, b)); }
+
+static float operator"" _tick(unsigned long long x)
+{
+    auto p_sr = get_sys_dacsr();
+    if (!p_sr || !*p_sr)
+        return 0;
+
+    return (1000 * x * *get_sys_schedblocksize()) / *get_sys_dacsr();
+}
+
+static float operator"" _ticks(unsigned long long x)
+{
+    return (1000 * x * *get_sys_schedblocksize()) / *get_sys_dacsr();
+}
 
 template <class T>
 class TestPdExternal : public pd::External {
@@ -555,6 +574,20 @@ public:
     {
         (*this)->setProperty(p.name(), p.value());
         return *this;
+    }
+
+    void schedMs(t_float ms)
+    {
+        //        static const double UNIT = clock_getsystimeafter(1) - clock_getlogicaltime();
+        //        return (x * *get_sys_schedblocksize()) / get_sys_dacsr();
+        //        while (n-- > 0)
+        //            sched_tick();
+    }
+
+    void schedTicks(size_t n)
+    {
+        while (n-- > 0)
+            sched_tick();
     }
 };
 

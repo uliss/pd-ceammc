@@ -38,8 +38,8 @@
             labels</property>
             <property name="@label_top" type="symbol">top right label if @show_labels is
             on</property>
-            <property name="@label_bottom" type="symbol">bottom right label if @show_labels
-            is on</property>
+            <property name="@label_bottom" type="symbol">bottom right label if @show_labels is
+            on</property>
             <!-- size -->
             <property name="@size_samp" type="int" minvalue="0" readonly="true">array size in
             samples</property>

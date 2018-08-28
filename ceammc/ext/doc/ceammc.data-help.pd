@@ -13,7 +13,7 @@
 #X obj 30 224 data.list;
 #X text 175 224 list container;
 #X obj 30 251 data.mlist;
-#X text 175 251 multidimensial list container;
+#X text 175 251 multidimensional list container;
 #X obj 30 278 data.set;
 #X text 175 278 container that store unique elements;
 #X obj 30 305 data.set2list;

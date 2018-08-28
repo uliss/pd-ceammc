@@ -23,6 +23,8 @@
         <properties>
             <property name="@pattern" type="list">time intervals performed in a loop</property>
             <property name="@current" type="int" minvalue="0">current pattern index</property>
+            <property name="@sync" type="int" enum="0 1" default="0">sync mode - change pattern
+            after full cycle</property>
         </properties>
         <inlets>
             <inlet>
@@ -31,6 +33,7 @@
         </inlets>
         <outlets>
             <outlet>outputs *bang*</outlet>
+            <outlet>outputs current pattern index and bang on loop return</outlet>
         </outlets>
         <example>
             <pdascii>
@@ -40,11 +43,13 @@
 | [T]   [@pattern 500 150(
 | |     |
 [metro.pattern 268 200]
+|                   ^|
+[click~]            [is_bang]
+|                         ^|
+[flt.resonbp~ 1600]       [B]
 |
-[click~]
-|
-[flt.resonbp~ 1600]
-|
+[ui.gain~ @size 120 16] [ui.dsp~]
+| \
 [dac~]
 ]]>
             </pdascii>

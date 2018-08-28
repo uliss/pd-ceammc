@@ -1,5 +1,9 @@
 # CEAMMC external library changelog
 
+## [Unreleased]
+### Added:
+- tl.timeline added
+
 ## [0.6]
 ### Added:
 - env.asr~ envelope generator added

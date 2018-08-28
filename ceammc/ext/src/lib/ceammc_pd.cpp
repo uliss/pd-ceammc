@@ -244,6 +244,38 @@ int pd::External::numInlets() const
     return obj_ninlets(obj_);
 }
 
+int pd::External::xPos() const
+{
+    if (!obj_)
+        return 0;
+
+    return obj_->te_xpix;
+}
+
+int pd::External::yPos() const
+{
+    if (!obj_)
+        return 0;
+
+    return obj_->te_ypix;
+}
+
+void pd::External::setXPos(int x)
+{
+    if (!obj_)
+        return;
+
+    obj_->te_xpix = x;
+}
+
+void pd::External::setYPos(int y)
+{
+    if (!obj_)
+        return;
+
+    obj_->te_ypix = y;
+}
+
 PureData::PureData()
 {
     pd_init();

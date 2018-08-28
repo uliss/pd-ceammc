@@ -55,6 +55,11 @@ namespace pd {
 
         int numOutlets() const;
         int numInlets() const;
+
+        int xPos() const;
+        int yPos() const;
+        void setXPos(int x);
+        void setYPos(int y);
     };
 }
 

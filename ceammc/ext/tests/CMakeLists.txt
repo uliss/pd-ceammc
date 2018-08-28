@@ -64,6 +64,7 @@ ceammc_external_test(base function)
 ceammc_external_test(base gain)
 ceammc_external_test(base matrix)
 ceammc_external_test(base mix)
+ceammc_external_test(base prop_get)
 ceammc_external_test(base radio)
 ceammc_external_test(base xfade)
 ceammc_external_test(base xfade2)
@@ -219,6 +220,11 @@ ceammc_external_test(spat pan_sqrt)
 ceammc_external_test(spat pan_cos)
 ceammc_external_test(spat pan_spread)
 
+ceammc_add_test_linked(TITLE "tl.transport"
+    NAME test_ext_tl_transport
+    LINK ceammc_tl ceammc_ui ceammc_core puredata-core ceammc_core)
+ceammc_external_test(tl timeline)
+
 ceammc_add_extension_test("snd_file" "../src/base/snd_file.cpp")
 ceammc_add_extension_test("ext_replace" "../src/base/replace.cpp")
 ceammc_add_extension_test("ext_expand_env" "../src/base/expand_env.cpp")
@@ -231,6 +237,7 @@ ceammc_add_extension_test("ext_symbol_equal" "../src/symbol/symbol_equal.cpp")
 ceammc_add_extension_test("ext_symbol_num_compare" "../src/symbol/symbol_num_compare.cpp")
 ceammc_add_extension_test("ext_system_getenv" "../src/system/system_getenv.cpp")
 
+ceammc_add_test_linked(TITLE "tl::parser" NAME test_tl_parser LINK ceammc_tl)
 ceammc_add_test_linked(TITLE "ceammc::preset" NAME test_preset LINK ceammc_preset ceammc_core puredata-core ceammc_core)
 ceammc_add_test_linked(TITLE "ceammc::pd" NAME test_pd SRC "../src/base/debug_gensym.cpp" LINK ceammc_core puredata-core)
 ceammc_add_test_linked(TITLE "ceammc::DataString"

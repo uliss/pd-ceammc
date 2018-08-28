@@ -13,9 +13,10 @@
  *****************************************************************************/
 #include "../spat/pan_cosine.h"
 #include "ceammc_pd.h"
+#include "test_external.h"
 #include "test_sound.h"
 
-#include "catch.hpp"
+PD_COMPLETE_SND_TEST_SETUP(PanCosine, pan, cosine)
 
 typedef TestSoundExternal<PanCosine> PanCosTest;
 
@@ -23,6 +24,8 @@ using namespace ceammc;
 
 TEST_CASE("pan.cos~", "[externals]")
 {
+    pd_test_init();
+
     SECTION("init")
     {
         PanCosTest t("pan.cos~", L(), true);

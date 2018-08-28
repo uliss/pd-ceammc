@@ -8,7 +8,6 @@ array.p2s,array.p->s,array.phase->sample		.		.
 array.s2p,array.s->p,array.sample->phase		.		.
 array.set,list->array		.		-
 array.stretch		.		.
-array.vline_play		.		.
 array.vplay		.		..
 canvas.current		.		.
 canvas.top		.		.
@@ -259,7 +258,7 @@ math.tan		.		.
 math.tanh		.		.
 math.trunc		.		.
 matrix~		?		?
-metro.pattern		.		.
+metro.pattern		.		..
 metro.seq		.		.
 midi.ctl2str,midi.ctl->str		.		.
 midi.event2ctl,midi.ev->ctl		.		..
@@ -287,7 +286,6 @@ osc.square~		~		~
 osc.tri~		~		~
 pan.cos~,pan~		~.		~~
 pan.lin~		~.		~~
-pan.pan4~		~		~~~~
 pan.spread~		?		~~
 pan.sqrt~		~.		~~
 patch.args		.		.
@@ -351,7 +349,6 @@ synth.rhodey~		.		~
 synth.risset_arp~		.		~~
 synth.risset_tone~		.		~
 synth.shakers~		.		~
-synth.tambura~		.		~
 synth.wurley~		.		~
 system.cursor		.		.
 system.getenv		.		.
@@ -359,8 +356,10 @@ system.hostname		.		.
 system.memsize		.		.
 system.memused		.		..
 system.screen_size		.		.
-tl.bang		-		.
+tl.bang		.		.
 tl.cue		-		-
+tl.timeline,timeline		.		.
+tl.toggle		.		.
 tl.transport		.		-
 ui.aview		.		.
 ui.bang,ui.b		.		.

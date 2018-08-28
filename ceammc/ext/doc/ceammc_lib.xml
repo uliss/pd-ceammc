@@ -1156,16 +1156,24 @@
       <xi:include href="system.screen_size.pddoc" parse="xml"/>
     </entry>
   </category>
-  <category name="ui">
-    <entry descr="Timeline bang" name="tl.bang" ref_view="link">
+  <category name="tl">
+    <entry descr="Timeline bang (with possible delay)" name="tl.bang" ref_view="object">
       <xi:include href="tl.bang.pddoc" parse="xml"/>
     </entry>
     <entry descr="Timeline section" name="tl.cue" ref_view="link">
       <xi:include href="tl.cue.pddoc" parse="xml"/>
     </entry>
+    <entry descr="Timeline - event scheduler" name="tl.timeline" ref_view="object">
+      <xi:include href="tl.timeline.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="Timeline bang" name="tl.toggle" ref_view="object">
+      <xi:include href="tl.toggle.pddoc" parse="xml"/>
+    </entry>
     <entry descr="Timeline transport control" name="tl.transport" ref_view="object">
       <xi:include href="tl.transport.pddoc" parse="xml"/>
     </entry>
+  </category>
+  <category name="ui">
     <entry descr="array view with cursor and selection" name="ui.aview" ref_view="link">
       <xi:include href="ui.aview.pddoc" parse="xml"/>
     </entry>

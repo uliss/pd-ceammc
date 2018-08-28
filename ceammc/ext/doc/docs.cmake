@@ -360,6 +360,8 @@ set(DOC_FILES
     system.screen_size
     tl.bang
     tl.cue
+    tl.timeline
+    tl.toggle
     tl.transport
     ui.aview
     ui.bang

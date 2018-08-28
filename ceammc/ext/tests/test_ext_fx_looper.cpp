@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "../fx/fx_looper.h"
 #include "test_base.h"
+#include "test_external.h"
 #include "test_sound.h"
 
 #include <algorithm>
@@ -20,6 +21,8 @@
 #include <initializer_list>
 #include <numeric>
 #include <stdio.h>
+
+PD_COMPLETE_SND_TEST_SETUP(FxLooper, fx, looper)
 
 //typedef std::vector<t_sample> Signal;
 
