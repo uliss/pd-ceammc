@@ -39,10 +39,10 @@ TEST_CASE("tl.timeline", "[externals]")
         TestTlTimeLine t("tl.timeline");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
-        REQUIRE_PROPERTY(t, @is_running, 0.f);
-        REQUIRE_PROPERTY(t, @length, 60);
-        REQUIRE_PROPERTY(t, @size, 1);
-        REQUIRE_PROPERTY(t, @current, 0.f);
+        REQUIRE_PROPERTY_FLOAT(t, @is_running, 0);
+        REQUIRE_PROPERTY_FLOAT(t, @length, 60);
+        REQUIRE_PROPERTY_FLOAT(t, @size, 1);
+        REQUIRE_PROPERTY_FLOAT(t, @current, 0);
         REQUIRE_PROPERTY_LIST(t, @events, LA("end"));
     }
 
