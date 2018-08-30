@@ -181,6 +181,17 @@ NONIUS_BENCHMARK("list.each", [] {
     t.sendList(randomFloatList(100));
 })
 
+NONIUS_BENCHMARK("list.each (mlist)", [] {
+    External t("list.each");
+    External plus("+", { 1 });
+
+    t.connectTo(1, plus, 0);
+    t.connectFrom(0, plus, 1);
+
+    DataPtr dlst(randomFloatMList(100));
+    t.sendList(dlst.asAtom());
+})
+
 NONIUS_BENCHMARK("list.choice", [] {
     External t("list.choice");
     t.sendList(randomFloatList(100));

@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "test_datatypes.h"
+#include "ceammc_factory.h"
 
 #include <sstream>
 
@@ -66,6 +67,25 @@ std::string IntData::toString() const
 ceammc::DataType IntData::type() const { return dataType; }
 
 IntData* IntData::clone() const { return new IntData(v_); }
+
+class TestInt : public ceammc::BaseObject {
+public:
+    TestInt(const ceammc::PdArgs& a)
+        : ceammc::BaseObject(a)
+    {
+        createOutlet();
+    }
+
+    void onFloat(t_float f)
+    {
+        dataTo(0, ceammc::DataPtr(new IntData(f)));
+    }
+};
+
+void IntData::init()
+{
+    ceammc::ObjectFactory<TestInt> obj("test.int");
+}
 
 StrData::StrData(const std::string& v)
     : v_(v)

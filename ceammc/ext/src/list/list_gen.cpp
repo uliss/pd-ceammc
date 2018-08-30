@@ -38,7 +38,7 @@ void ListGenerate::onBang()
     for (int i = 0; i < count_->value(); i++)
         bangTo(1);
 
-    listTo(0, gen_values_);
+    listTo(0, gen_values_.toList());
     in_process_ = false;
 }
 

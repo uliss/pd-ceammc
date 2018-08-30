@@ -5,6 +5,9 @@
 - tl.timeline added
 - msg.onload added
 
+### Changed:
+- data type generation support for list.gen and list.each
+
 ## [0.6]
 ### Added:
 - env.asr~ envelope generator added

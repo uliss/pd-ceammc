@@ -84,4 +84,29 @@ TEST_CASE("list.gen", "[externals]")
             REQUIRE_PROPERTY(t, @count, 10);
         }
     }
+
+    SECTION("custom data")
+    {
+        IntData::init();
+
+        TestExtListGenerate t("list.gen");
+        pd::External rnd("int", LA(100));
+        pd::External intd("test.int");
+
+        REQUIRE(t.object());
+        REQUIRE(rnd.object());
+        REQUIRE(intd.object());
+
+        t.connectTo(1, rnd, 0);
+        rnd.connectTo(0, intd, 0);
+        intd.connectTo(0, t, 1);
+
+        t << 3;
+        REQUIRE(t.hasOutput());
+        REQUIRE(t.isOutputListAt(0));
+        DataAtomList dlist(t.outputListAt(0));
+        DataPtr i100(new IntData(100));
+        REQUIRE(dlist.size() == 3);
+        REQUIRE(dlist == DataAtomList({ i100, i100, i100 }));
+    }
 }
