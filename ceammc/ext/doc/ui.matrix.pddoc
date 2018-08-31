@@ -33,9 +33,9 @@
             <property name="@send" type="symbol">send destination</property>
             <property name="@receive" type="symbol">receive source</property>
             <property name="@current_row" type="int" minvalue="0">current row index. -1 if not
-            specified</property>
+            specified. This property is not saved in patch</property>
             <property name="@current_col" type="int" minvalue="0">current column index. -1 if not
-            specified</property>
+            specified. This property is not saved in patch</property>
         </properties>
         <methods>
             <method name="get cell R C">outputs single cell value as message [cell ROW COL VALUE( 

@@ -603,8 +603,10 @@ void UIMatrix::setup()
 
     obj.addProperty("current_row", "", -1, &UIMatrix::current_row_);
     obj.hideProperty("current_row");
+    obj.setPropertySave("current_row", false);
     obj.addProperty("current_col", "", -1, &UIMatrix::current_col_);
     obj.hideProperty("current_col");
+    obj.setPropertySave("current_col", false);
 
     obj.addMethod("flip", &UIMatrix::m_flip);
     obj.addMethod("reset", &UIMatrix::m_reset);

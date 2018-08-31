@@ -482,9 +482,9 @@ public:
         prop_list_map[gensym(name)] = std::make_pair(getter, setter);
     }
 
-    void setPropertySave(const char* name)
+    void setPropertySave(const char* name, bool value = true)
     {
-        eclass_attr_save(pd_class, name, 0);
+        eclass_attr_save(pd_class, name, value);
     }
 
     void setPropertyRedirect(const char* name)

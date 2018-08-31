@@ -226,9 +226,9 @@ void eclass_attr_step(t_eclass* c, const char* attrname, float value);
  * \details         Only GUI can save their attributes. You should prefer to use the MACROS.
  * \param c         The t_eclass pointer
  * \param attrname  The attribute name
- * \param flags     The flags of the attribute (dummy)
+ * \param value     The save or not save
  */
-void eclass_attr_save(t_eclass* c, const char* attrname, long flags);
+void eclass_attr_save(t_eclass* c, const char* attrname, bool value = true);
 
 /*!
  * \fn          void eclass_attr_paint(t_eclass* c, const char* attrname, long flags)

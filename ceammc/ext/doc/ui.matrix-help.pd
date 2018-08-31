@@ -51,11 +51,11 @@ value: 1;
 #X msg 120 653 @receive;
 #X text 240 653 Get/Set receive source. Type: symbol;
 #X msg 120 680 @current_row;
-#X text 240 680 Get/Set current row index. -1 if not specified. Type:
-int. Min value: 0;
+#X text 240 680 Get/Set current row index. -1 if not specified. This
+property is not saved in patch. Type: int. Min value: 0;
 #X msg 120 717 @current_col;
 #X text 240 717 Get/Set current column index. -1 if not specified.
-Type: int. Min value: 0;
+This property is not saved in patch. Type: int. Min value: 0;
 #X obj 20 764 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 769 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;

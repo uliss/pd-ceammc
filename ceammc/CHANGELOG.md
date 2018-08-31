@@ -9,6 +9,7 @@
 ### Changed:
 - data type generation support for list.gen and list.each
 - flow.demultiplex - second inlet added and @noprops flag added
+- ui.matrix @current_col and @current_row are made unsaved properties
 
 ## [0.6]
 ### Added:

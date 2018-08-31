@@ -623,12 +623,12 @@ void eclass_attr_step(t_eclass* c, const char* attrname, float value)
     }
 }
 
-void eclass_attr_save(t_eclass* c, const char* attrname, long flags)
+void eclass_attr_save(t_eclass* c, const char* attrname, bool value)
 {
     t_symbol* s_attrname = gensym(attrname);
     for (int i = 0; i < c->c_nattr; i++) {
         if (c->c_attr[i]->name == s_attrname) {
-            c->c_attr[i]->save = 1;
+            c->c_attr[i]->save = value ? 1 : 0;
             return;
         }
     }
