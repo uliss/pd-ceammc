@@ -5,6 +5,7 @@
 #include "ceammc_cicm.h"
 #include "ceammc_data.h"
 #include "ceammc_log.h"
+#include "ceammc_externals.h"
 #include "m_pd.h"
 
 #include <boost/unordered_map.hpp>
@@ -98,6 +99,7 @@ public:
         eclass_guiinit(pd_class, flags);
         setupMethods();
         setupAttributes();
+        register_ui_external(&pd_class->c_class);
     }
 
     ~UIObjectFactory()
@@ -562,7 +564,6 @@ public:
 #else
         z->onMouseWheel(view, mouse_pos_, modifiers, delta);
 #endif
-
     }
 
     static void updateMousePos(const t_pt& pt)

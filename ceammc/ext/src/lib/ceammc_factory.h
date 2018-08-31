@@ -22,6 +22,7 @@
 #include <string>
 #include <vector>
 
+#include "ceammc_externals.h"
 #include "ceammc_message.h"
 #include "ceammc_object.h"
 
@@ -114,6 +115,7 @@ public:
         class_addmethod(c, reinterpret_cast<t_method>(dumpMethodList), gensym("dump"), A_NULL);
 
         class_name_ = s_name;
+        register_base_external(class_);
     }
 
     void mapFloatToList()

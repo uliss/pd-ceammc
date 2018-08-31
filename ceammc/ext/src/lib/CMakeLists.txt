@@ -36,6 +36,7 @@ set(CEAMMC_LIB_SOURCES ceammc.h
     ceammc_datastorage.cpp
     ceammc_dataatom.cpp
     ceammc_dataatomlist.cpp
+    ceammc_externals.cpp
     ceammc_factory.h
     ceammc_faust.cpp
     ceammc_fn_list.cpp

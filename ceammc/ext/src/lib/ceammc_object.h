@@ -208,6 +208,7 @@ public:
     bool setProperty(t_symbol* key, const AtomList& v);
     bool setProperty(const char* key, const AtomList& v);
     bool setPropertyFromPositionalArg(Property* p, size_t n);
+    const Properties& properties() const;
 
     /**
      * Outputs atom to specified outlet

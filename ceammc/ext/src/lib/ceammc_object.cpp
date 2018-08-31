@@ -99,6 +99,11 @@ bool BaseObject::setPropertyFromPositionalArg(Property* p, size_t n)
     return p->set(AtomList(positional_args_.at(n)));
 }
 
+const BaseObject::Properties& BaseObject::properties() const
+{
+    return props_;
+}
+
 void BaseObject::bangTo(size_t n)
 {
     if (n >= outlets_.size()) {

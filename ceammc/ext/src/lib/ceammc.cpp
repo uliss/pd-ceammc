@@ -46,6 +46,12 @@ std::vector<std::string> currentExtensionList()
     return res;
 }
 
+std::vector<t_symbol*>& objectExternalsList()
+{
+    static std::vector<t_symbol*> lst;
+    return lst;
+}
+
 std::string get_env(const char* varname)
 {
     std::string res;

@@ -10,6 +10,7 @@
 #include "metro_pattern.h"
 #include "metro_seq.h"
 #include "mix.h"
+#include "obj_info.h"
 #include "patch_args.h"
 #include "radio.h"
 #include "xfade2_tilde.h"
@@ -59,6 +60,7 @@ void ceammc_base_setup()
     setup_load_msg();
     setup_metro_pattern();
     setup_metro_seq();
+    setup_obj_info();
     setup_prop0x2eget();
     setup_prop0x2eset();
 
