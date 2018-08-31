@@ -4,14 +4,21 @@
 
 static const size_t MIN_OUTLETS = 2;
 static const size_t MAX_OUTLETS = 24;
+static t_symbol* SYM_INDEX_GET = gensym("@index?");
 
 FlowDemultiplex::FlowDemultiplex(const PdArgs& a)
     : BaseObject(a)
-    , index_(0)
+    , index_(nullptr)
+    , no_props_(nullptr)
 {
     size_t n = clip((size_t)positionalFloatArgument(0, 2), MIN_OUTLETS, MAX_OUTLETS);
     index_ = new SizeTProperty("@index", 0);
     createProperty(index_);
+
+    no_props_ = new FlagProperty("@noprops");
+    createProperty(no_props_);
+
+    createInlet();
 
     for (size_t i = 0; i < n; i++)
         createOutlet();
@@ -63,6 +70,19 @@ void FlowDemultiplex::onData(const DataPtr& d)
         return;
 
     dataTo(index_->value(), d);
+}
+
+void FlowDemultiplex::onInlet(size_t n, const AtomList& l)
+{
+    index_->set(l);
+}
+
+bool FlowDemultiplex::processAnyProps(t_symbol* sel, const AtomList& lst)
+{
+    if (!no_props_->value() && sel == SYM_INDEX_GET)
+        return BaseObject::processAnyProps(sel, lst);
+
+    return false;
 }
 
 bool FlowDemultiplex::checkIndex() const

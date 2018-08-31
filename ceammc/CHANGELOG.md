@@ -8,6 +8,7 @@
 
 ### Changed:
 - data type generation support for list.gen and list.each
+- flow.demultiplex - second inlet added and @noprops flag added
 
 ## [0.6]
 ### Added:

@@ -16,18 +16,18 @@
             </aliases>
             <since>0.7</since>
             <also>
-<!--                <see>msg.oninit</see>-->
-<!--                <see>msg.onclose</see>-->
+                <!--                <see>msg.oninit</see>-->
+                <!--                <see>msg.onclose</see>-->
             </also>
         </meta>
         <info>
-            <par>like [loadbang], but with message and click support. </par>
+            <par>like [loadbang], but with message and click support.</par>
             <par>Click on object sends message again.</par>
         </info>
         <arguments>
             <argument name="ARGS" type="list">message</argument>
         </arguments>
-        <inlets/>
+        <inlets />
         <outlets>
             <outlet>message output</outlet>
         </outlets>
