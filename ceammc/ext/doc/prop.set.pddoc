@@ -49,9 +49,9 @@
 |  |     |.     |..
 [prop<-  @size  @a]
 |
-[prop->     @size             ]
-|      ^|           ^^|
-[F]   [ui.display]  [ui.display @display_type 1]
+[prop->     @size                    ]
+|      ^|                          ^^|
+[F]   [ui.display @display_type=1] [ui.display @display_type=1]
 
 ]]>
             </pdascii>
