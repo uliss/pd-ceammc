@@ -36,48 +36,23 @@ using namespace ceammc;
 pd::External::External(const char* name, const AtomList& lst)
     : obj_(0)
 {
-    t_symbol* OBJ_NAME = gensym(name);
-
-    //    pd_typedmess(&pd_objectmaker, OBJ_NAME, lst.size(), lst.toPdData());
-
-    t_methodentry* m = pd_objectmaker->c_methods;
     try {
-        for (int i = 0; i < pd_objectmaker->c_nmethod; i++) {
-            if (m[i].me_name == OBJ_NAME) {
-                if (m[i].me_arg[0] == A_GIMME) {
-                    t_newgimme new_fn = (t_newgimme)m[i].me_fun;
-                    t_atom* al = lst.toPdData();
-                    obj_ = (*new_fn)(OBJ_NAME, lst.size(), al);
-                    break;
-                }
+        t_symbol* OBJ_NAME = gensym(name);
+        pd_typedmess(&pd_objectmaker, OBJ_NAME, lst.size(), lst.toPdData());
 
-                if (lst.size() > 5) {
-                    break;
-                }
-
-                if (m[i].me_arg[0] == A_NULL) {
-                    t_newempty new_fn = (t_newempty)m[i].me_fun;
-                    obj_ = (*new_fn)();
-                    break;
-                }
-
-                if (m[i].me_arg[0] == A_DEFFLOAT) {
-                    t_newfloat new_fn = (t_newfloat)m[i].me_fun;
-                    t_float f = lst.empty() ? 0 : lst[0].asFloat(0);
-                    obj_ = (*new_fn)(f);
-                    break;
-                }
-
-                if (m[i].me_arg[0] == A_DEFSYMBOL) {
-                    t_newsymbol new_fn = (t_newsymbol)m[i].me_fun;
-                    t_symbol* s = lst.empty() ? 0 : lst[0].asSymbol();
-                    obj_ = (*new_fn)(s);
-                    break;
-                }
-
-                printf("unknown construct method: %d...\n", m[i].me_arg[0]);
-            }
+        t_pd* ptr = pd_newest();
+        if (!ptr) {
+            printf("object creation failed\n");
+            return;
         }
+
+        t_object* res = pd_checkobject(ptr);
+        if (!res) {
+            printf("invalid object\n");
+            return;
+        }
+
+        obj_ = res;
     } catch (std::exception& e) {
         std::cerr << "error: " << e.what() << std::endl;
         obj_ = 0;
@@ -274,6 +249,21 @@ void pd::External::setYPos(int y)
         return;
 
     obj_->te_ypix = y;
+}
+
+std::vector<t_symbol*> pd::External::methods() const
+{
+    std::vector<t_symbol*> res;
+    if (!obj_)
+        return res;
+
+    t_class* c = obj_->te_g.g_pd;
+    for (int i = 0; i < c->c_nmethod; i++) {
+        auto m = &c->c_methods[i];
+        res.push_back(m->me_name);
+    }
+
+    return res;
 }
 
 PureData::PureData()

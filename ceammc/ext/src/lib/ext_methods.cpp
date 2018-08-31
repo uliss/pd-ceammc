@@ -17,11 +17,6 @@
 #include "ceammc_platform.h"
 #include "m_pd.h"
 
-extern "C" {
-#include "g_canvas.h"
-#include "m_imp.h"
-}
-
 #include <algorithm>
 #include <iostream>
 #include <string>
@@ -43,7 +38,7 @@ int main(int argc, char* argv[])
         return 1;
     }
 
-    CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
+    CanvasPtr cnv = PureData::instance().createTopCanvas("/test_canvas");
 
     if (!cnv) {
         cerr << "can't create root canvas" << endl;
@@ -57,10 +52,8 @@ int main(int argc, char* argv[])
     }
 
     vector<string> m_vec;
-    for (int i = 0; i < ext.object()->te_g.g_pd->c_nmethod; i++) {
-        auto mth = (ext.object()->te_g.g_pd->c_methods[i]);
-        m_vec.push_back(mth.me_name->s_name);
-    }
+    for (auto& m : ext.methods())
+        m_vec.push_back(m->s_name);
 
     sort(begin(m_vec), end(m_vec));
 

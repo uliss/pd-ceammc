@@ -60,6 +60,8 @@ namespace pd {
         int yPos() const;
         void setXPos(int x);
         void setYPos(int y);
+
+        std::vector<t_symbol*> methods() const;
     };
 }
 
