@@ -783,6 +783,7 @@ typedef struct t_ebox
 
     char                b_smooth_method;    /*!< Tk canvas line smooth method */
     char                b_mouse_down;       /*!< The mouse state. */
+    char                b_resize;           /*!< Widget is in resize state */
 
     char                b_visible;          /*!< The visible state. */
     char                b_ready_to_draw;    /*!< The ebox state for drawing. */

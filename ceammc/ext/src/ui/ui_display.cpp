@@ -24,6 +24,8 @@
 using namespace ceammc;
 
 static t_symbol* SYM_DATA_TYPE = gensym("data");
+static t_symbol* SYM_PROP_SIZE = gensym("@size");
+static t_symbol* SYM_SIZE = gensym("size");
 static t_rgba COLOR_LIST_TYPE = hex_to_rgba("#00A0C0");
 static t_rgba COLOR_FLOAT_TYPE = hex_to_rgba("#E000A0");
 static t_rgba COLOR_SYMBOL_TYPE = hex_to_rgba("#A0E000");
@@ -178,6 +180,11 @@ void UIDisplay::onAny(t_symbol* s, const AtomList& lst)
 
 void UIDisplay::onProperty(t_symbol* s, const AtomList& lst)
 {
+    if (s == SYM_PROP_SIZE && asEBox()->b_resize) {
+        eclass_attr_setter(asPdObject(), SYM_SIZE, lst.size(), lst.toPdData());
+        return;
+    }
+
     onAny(s, lst);
 }
 
