@@ -45,37 +45,14 @@ namespace math {
 }
 
 namespace pd {
-    typedef std::vector<t_atom> atom_list;
-    bool operator==(const atom_list& l1, const atom_list& l2);
-    bool operator!=(const atom_list& l1, const atom_list& l2);
-
     static inline bool is_float(const t_atom& a)
     {
         return a.a_type == A_FLOAT || a.a_type == A_DEFFLOAT;
     }
 
-    static inline bool get_float(const t_atom& a, t_float* v)
-    {
-        if (is_float(a)) {
-            *v = a.a_w.w_float;
-            return true;
-        }
-        return false;
-    }
-
     static inline bool is_symbol(const t_atom& a)
     {
         return a.a_type == A_DEFSYMBOL;
-    }
-
-    static inline void output(t_outlet* x, const atom_list& lst)
-    {
-        outlet_list(x, &s_list, static_cast<int>(lst.size()), const_cast<t_atom*>(lst.data()));
-    }
-
-    static bool atoms_compare_lt(const t_atom& a1, const t_atom& a2)
-    {
-        return ::ceammc_atoms_compare(&a1, &a2) == -1;
     }
 }
 }
