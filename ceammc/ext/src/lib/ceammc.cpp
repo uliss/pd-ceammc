@@ -18,7 +18,12 @@
 #include "ceammc.hpp"
 #include "config.h"
 
+extern "C" {
 #include "m_imp.h"
+}
+
+#include "ceammc_format.h"
+#include "ceammc_pd.h"
 
 #include <algorithm>
 #include <cassert>
@@ -61,5 +66,42 @@ void set_env(const char* varname, const char* val)
     str += val;
     ::putenv(str.c_str());
 #endif
+}
+
+static t_listmethod old_print_mlist = nullptr;
+
+static void print_list_replace(t_pd* pd, t_symbol* s, int argc, t_atom* argv)
+{
+    if (!old_print_mlist)
+        return;
+
+    bool contains_data = false;
+    for (int i = 0; i < argc; i++) {
+        if (Atom(argv[i]).isData()) {
+            contains_data = true;
+            break;
+        }
+    }
+
+    if (contains_data) {
+        post("[data] %s", to_string(AtomList(argc, argv)).c_str());
+    } else
+        old_print_mlist(pd, s, argc, argv);
+}
+
+bool addPdPrintDataSupport()
+{
+    pd::External p("print");
+    if (!p.object())
+        return false;
+
+    t_class* print_class = p.object()->te_g.g_pd;
+    if (!print_class)
+        return false;
+
+    // save old callback
+    old_print_mlist = print_class->c_listmethod;
+    print_class->c_listmethod = print_list_replace;
+    return true;
 }
 }

@@ -14,6 +14,8 @@ std::vector<std::string> currentExtensionList();
 std::string get_env(const char* varname);
 void set_env(const char* varname, const char* val);
 
+bool addPdPrintDataSupport();
+
 namespace math {
     template <class T>
     static inline bool is_natural(T v)

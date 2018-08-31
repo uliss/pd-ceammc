@@ -81,12 +81,14 @@ using namespace std;
 
 void ceammc_init()
 {
+    ceammc::addPdPrintDataSupport();
+
     // setup env variables
     setup_env_doc_path();
     setup_env_ceammc_doc_path();
 
 #ifndef __WIN32
-    // save vanilla extension list
+    // save vanilla external list
     vector<string> l = ceammc::currentExtensionList();
     set<string> vanilla_set(l.begin(), l.end());
 #endif

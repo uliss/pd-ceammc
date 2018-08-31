@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 ### Added:
+- \[print\] now supports Data types
 - tl.timeline added
 - msg.onload added
 
