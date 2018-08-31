@@ -10,6 +10,7 @@
 - data type generation support for list.gen and list.each
 - flow.demultiplex - second inlet added and @noprops flag added
 - ui.matrix @current_col and @current_row are made unsaved properties
+- \[ceammc\] object prints all library objects to Pd window
 
 ## [0.6]
 ### Added:

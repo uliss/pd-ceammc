@@ -55,6 +55,22 @@ static void* ceammc_new()
     return x;
 }
 
+static void ceammc_bang(t_object* x)
+{
+    auto obj_list = ceammc_ext_list();
+    startpost("[ceammc] objects: ");
+    std::string str;
+    for (auto& o : obj_list) {
+        str += '[';
+        str += o;
+        str += ']';
+        poststring(str.c_str());
+        str.clear();
+    }
+
+    endpost();
+}
+
 extern "C" void ceammc_setup()
 {
     if (ceammc_class) {
@@ -64,7 +80,9 @@ extern "C" void ceammc_setup()
 
     ceammc_class = class_new(gensym("ceammc"),
         reinterpret_cast<t_newmethod>(ceammc_new), 0,
-        sizeof(t_object), CLASS_NOINLET, A_NULL);
+        sizeof(t_object), CLASS_DEFAULT, A_NULL);
+
+    class_addbang(ceammc_class, ceammc_bang);
 
     if (!ceammc_class) {
         pd_error(0, "[ceammc] can't create library class");
