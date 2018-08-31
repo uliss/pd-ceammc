@@ -27,7 +27,7 @@ static void* ceammc_new()
         return NULL;
     }
 
-    post("CEAMMC library\n"
+    post("\nCEAMMC library\n"
          "       Centre for Electroacoustic Music Moscow Conservatory, © 2016-2018\n"
          "       authors: Serge Poltavsky and Alex Nadzharov\n"
          "       version: %s\n"
@@ -45,7 +45,7 @@ static void* ceammc_new()
     if (runtime_version < compiled_version) {
         pd_error(0, "[ceammc] WARNING: running on Pd version (%d.%d.%d) "
                     "that is older then ceammc library was compiled for (%d.%d.%d). "
-                    "Not all featers can be supported.",
+                    "Not all features can be supported.",
             major, minor, fix, PD_MAJOR_VERSION, PD_MINOR_VERSION, PD_BUGFIX_VERSION);
     }
 
