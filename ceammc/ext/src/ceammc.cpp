@@ -19,14 +19,8 @@
 
 static t_class* ceammc_class = 0;
 
-static void* ceammc_new()
+static void ceammc_info_message()
 {
-    t_object* x = reinterpret_cast<t_object*>(pd_new(ceammc_class));
-    if (!x) {
-        pd_error(0, "[ceammc] load error");
-        return NULL;
-    }
-
     post("\nCEAMMC library\n"
          "       Centre for Electroacoustic Music Moscow Conservatory, © 2016-2018\n"
          "       authors: Serge Poltavsky and Alex Nadzharov\n"
@@ -48,6 +42,15 @@ static void* ceammc_new()
                     "Not all features can be supported.",
             major, minor, fix, PD_MAJOR_VERSION, PD_MINOR_VERSION, PD_BUGFIX_VERSION);
     }
+}
+
+static void* ceammc_new()
+{
+    t_object* x = reinterpret_cast<t_object*>(pd_new(ceammc_class));
+    if (!x) {
+        pd_error(0, "[ceammc] load error");
+        return NULL;
+    }
 
     return x;
 }
@@ -68,6 +71,7 @@ extern "C" void ceammc_setup()
         return;
     }
 
+    ceammc_info_message();
     ceammc_new();
     ceammc_init();
 }
