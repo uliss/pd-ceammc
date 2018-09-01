@@ -60,8 +60,8 @@ XFadeTilde::XFadeTilde(const PdArgs& args)
     if (args.flags & XFADE_STEREO)
         createSignalOutlet();
 
-    prop_type_ = new SymbolEnumProperty("@type", "pow");
-    prop_type_->appendEnum("lin");
+    prop_type_ = new SymbolEnumProperty("@type", SYM_POW);
+    prop_type_->appendEnum(SYM_LIN);
     createProperty(prop_type_);
 
     createProperty(new SymbolEnumAlias("@pow", prop_type_, SYM_POW));

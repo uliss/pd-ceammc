@@ -13,8 +13,8 @@ ListNormalize::ListNormalize(const PdArgs& a)
 {
     createOutlet();
 
-    by_ = new SymbolEnumProperty("@by", "sum");
-    by_->appendEnum("range");
+    by_ = new SymbolEnumProperty("@by", BY_SUM);
+    by_->appendEnum(BY_RANGE);
     createProperty(by_);
 
     createProperty(new SymbolEnumAlias("@sum", by_, BY_SUM));

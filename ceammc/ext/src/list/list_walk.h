@@ -23,10 +23,6 @@ namespace ceammc {
 class ListWalk : public BaseObject {
     AtomList lst_;
     SymbolEnumProperty* walk_mode_;
-    t_symbol* m_single_;
-    t_symbol* m_clip_;
-    t_symbol* m_wrap_;
-    t_symbol* m_fold_;
     int current_pos_;
     int length_;
     bool forward_;

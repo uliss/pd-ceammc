@@ -45,11 +45,13 @@ class ControlChangeProperty : public Property {
 
 public:
     ControlChangeProperty(const char* name, int ch, StkBase& synth)
-        : Property(name)
+        : Property(PropertyInfo(name, PropertyInfoType::INTEGER))
         , synth_(synth)
         , channel_(ch)
         , value_(0)
     {
+        info().setDefault(int(0));
+        info().setRange(0, 127);
         value_ = synth_.synth<T>()->getControlChange(ch);
     }
 

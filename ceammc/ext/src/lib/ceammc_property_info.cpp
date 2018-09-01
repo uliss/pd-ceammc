@@ -12,8 +12,6 @@
  * this file belongs to.
  *****************************************************************************/
 
-#define BOOST_VARIANT_USE_RELAXED_GET_BY_DEFAULT
-
 #include "ceammc_property_info.h"
 
 #include <algorithm>
@@ -31,6 +29,8 @@ static PropertyInfoView defaultView(PropertyInfoType type)
     case PropertyInfoType::BOOLEAN:
         return PropertyInfoView::TOGGLE;
     case PropertyInfoType::SYMBOL:
+        return PropertyInfoView::ENTRY;
+    case PropertyInfoType::VARIANT:
         return PropertyInfoView::ENTRY;
     case PropertyInfoType::LIST:
         return PropertyInfoView::ENTRY;
@@ -51,12 +51,12 @@ PropertyInfo::PropertyInfo(const std::string& name, PropertyInfoType type)
 
 bool PropertyInfo::hasMinLimit() const
 {
-    return min_ == std::numeric_limits<decltype(min_)>::min();
+    return min_ != std::numeric_limits<decltype(min_)>::min();
 }
 
 bool PropertyInfo::hasMaxLimit() const
 {
-    return max_ == std::numeric_limits<decltype(max_)>::max();
+    return max_ != std::numeric_limits<decltype(max_)>::max();
 }
 
 bool PropertyInfo::hasEnumLimit() const
@@ -71,27 +71,47 @@ bool PropertyInfo::hasStep() const
 
 void PropertyInfo::setDefault(bool v)
 {
-    default_ = v;
+    default_ = PropertySingleValue(v);
 }
 
 void PropertyInfo::setDefault(int v)
 {
-    default_ = v;
+    default_ = PropertySingleValue(v);
+}
+
+void PropertyInfo::setDefault(size_t v)
+{
+    setDefault(int(v));
 }
 
 void PropertyInfo::setDefault(float v)
 {
+    default_ = PropertySingleValue(v);
+}
+
+void PropertyInfo::setDefault(t_symbol* s)
+{
+    default_ = PropertySingleValue(s);
+}
+
+void PropertyInfo::setDefault(const Atom& a)
+{
+    default_ = PropertySingleValue(a);
+}
+
+void PropertyInfo::setDefault(const PropertySingleValue& v)
+{
     default_ = v;
 }
 
-void PropertyInfo::setDefault(const std::string& s)
-{
-    default_ = s;
-}
-
-void PropertyInfo::setDefault(const PropertyListValue& lst)
+void PropertyInfo::setDefault(const AtomList& lst)
 {
     default_ = lst;
+}
+
+void PropertyInfo::setDefault(const PropertyValue& v)
+{
+    default_ = v;
 }
 
 bool PropertyInfo::setMin(float v)
@@ -164,6 +184,15 @@ bool PropertyInfo::setView(PropertyInfoView v)
             return false;
         }
         break;
+    case PropertyInfoType::VARIANT:
+        switch (v) {
+        case PropertyInfoView::ENTRY:
+            view_ = v;
+            return true;
+        default:
+            return false;
+        }
+        break;
     case PropertyInfoType::LIST:
         switch (v) {
         case PropertyInfoView::ENTRY:
@@ -179,12 +208,23 @@ bool PropertyInfo::setView(PropertyInfoView v)
 
 void PropertyInfo::addEnum(int v)
 {
-    enum_.push_back(v);
+    enum_.append(Atom(v));
 }
 
-void PropertyInfo::addEnum(const std::string& s)
+void PropertyInfo::addEnum(const char* s)
 {
-    enum_.push_back(s);
+    addEnum(gensym(s));
+}
+
+void PropertyInfo::addEnum(t_symbol* s)
+{
+    enum_.append(Atom(s));
+}
+
+void PropertyInfo::setType(PropertyInfoType t)
+{
+    type_ = t;
+    view_ = defaultView(t);
 }
 
 void PropertyInfo::setUnits(const std::string& s)
@@ -194,33 +234,69 @@ void PropertyInfo::setUnits(const std::string& s)
 
 bool PropertyInfo::defaultBool(bool def) const
 {
-    if (default_.type() != typeid(bool))
+    if (default_.type() != typeid(PropertySingleValue))
         return def;
 
-    return boost::get<bool>(default_);
+    auto& val = boost::get<PropertySingleValue>(default_);
+    if (val.type() != typeid(bool))
+        return def;
+
+    return boost::get<bool>(val);
 }
 
 int PropertyInfo::defaultInt(int def) const
 {
-    if (default_.type() != typeid(int))
+    if (default_.type() != typeid(PropertySingleValue))
         return def;
 
-    return boost::get<int>(default_);
+    auto& val = boost::get<PropertySingleValue>(default_);
+    if (val.type() != typeid(int))
+        return def;
+
+    return boost::get<int>(val);
 }
 
 float PropertyInfo::defaultFloat(float def) const
 {
-    if (default_.type() != typeid(float))
+    if (default_.type() != typeid(PropertySingleValue))
         return def;
 
-    return boost::get<float>(default_);
+    auto& val = boost::get<PropertySingleValue>(default_);
+    if (val.type() != typeid(float))
+        return def;
+
+    return boost::get<float>(val);
 }
 
-std::string PropertyInfo::defaultString(const std::string& s) const
+t_symbol* PropertyInfo::defaultSymbol(t_symbol* def) const
 {
-    if (default_.type() != typeid(std::string))
-        return s;
+    if (default_.type() != typeid(PropertySingleValue))
+        return def;
 
-    return boost::get<std::string>(default_);
+    auto& val = boost::get<PropertySingleValue>(default_);
+    if (val.type() != typeid(t_symbol*))
+        return def;
+
+    return boost::get<t_symbol*>(val);
+}
+
+Atom PropertyInfo::defaultAtom(const Atom& def) const
+{
+    if (default_.type() != typeid(PropertySingleValue))
+        return def;
+
+    auto& val = boost::get<PropertySingleValue>(default_);
+    if (val.type() != typeid(Atom))
+        return def;
+
+    return boost::get<Atom>(val);
+}
+
+AtomList PropertyInfo::defaultList() const
+{
+    if (default_.type() != typeid(AtomList))
+        return AtomList();
+
+    return boost::get<AtomList>(default_);
 }
 }

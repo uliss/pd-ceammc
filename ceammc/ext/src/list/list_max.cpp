@@ -12,9 +12,9 @@ ListMax::ListMax(const PdArgs& a)
 {
     createOutlet();
 
-    type_ = new SymbolEnumProperty("@type", "float");
-    type_->appendEnum("symbol");
-    type_->appendEnum("any");
+    type_ = new SymbolEnumProperty("@type", SYM_FLOAT);
+    type_->appendEnum(SYM_SYMBOL);
+    type_->appendEnum(SYM_ANY);
     createProperty(type_);
 
     createProperty(new SymbolEnumAlias("@float", type_, SYM_FLOAT));

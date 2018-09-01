@@ -70,8 +70,8 @@ void ListUnzip::initOutlets()
 
 void ListUnzip::initProperties()
 {
-    method_ = new SymbolEnumProperty("@method", "min");
-    method_->appendEnum("pad");
+    method_ = new SymbolEnumProperty("@method", SYM_MIN);
+    method_->appendEnum(SYM_PAD);
     createProperty(method_);
     createProperty(new SymbolEnumAlias("@min", method_, SYM_MIN));
     createCbProperty("@pad", &ListUnzip::getPadValue, &ListUnzip::setPadValue);

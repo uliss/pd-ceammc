@@ -3,10 +3,10 @@
 
 static const size_t MAX_SIZE = 1024;
 
-static t_symbol* SYM_PAD(gensym("pad"));
-static t_symbol* SYM_CLIP(gensym("clip"));
-static t_symbol* SYM_WRAP(gensym("wrap"));
-static t_symbol* SYM_FOLD(gensym("fold"));
+static t_symbol* SYM_PAD = gensym("pad");
+static t_symbol* SYM_CLIP = gensym("clip");
+static t_symbol* SYM_WRAP = gensym("wrap");
+static t_symbol* SYM_FOLD = gensym("fold");
 
 ListResize::ListResize(const PdArgs& a)
     : BaseObject(a)
@@ -61,10 +61,10 @@ void ListResize::initProperties()
     // @pad - pad with specified value (@pad_value property)
     // @wrap - pad with wrapped values
     // @fold - pad with fold values
-    method_ = new SymbolEnumProperty("@method", "pad");
-    method_->appendEnum("clip");
-    method_->appendEnum("wrap");
-    method_->appendEnum("fold");
+    method_ = new SymbolEnumProperty("@method", SYM_PAD);
+    method_->appendEnum(SYM_CLIP);
+    method_->appendEnum(SYM_WRAP);
+    method_->appendEnum(SYM_FOLD);
     createProperty(method_);
 
     // adding aliases

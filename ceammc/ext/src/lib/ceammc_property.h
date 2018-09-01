@@ -16,23 +16,24 @@
 
 #include "ceammc_atomlist.h"
 #include "ceammc_log.h"
+#include "ceammc_property_info.h"
 
 #include <iterator>
 #include <string>
+#include <type_traits>
 
 namespace ceammc {
 
 class Property {
-    std::string name_;
+    PropertyInfo info_;
     bool readonly_;
     bool visible_;
 
 public:
-    Property(const std::string& name, bool readonly = false);
+    Property(const PropertyInfo& info, bool readonly = false);
     virtual ~Property();
 
-    std::string name() const { return name_; }
-    void setName(const std::string& name) { name_ = name; }
+    const std::string& name() const { return info_.name(); }
 
     bool readonly() const { return readonly_; }
     bool visible() const { return visible_; }
@@ -43,6 +44,9 @@ public:
     void setVisible(bool v) { visible_ = v; }
     void setReadonly(bool v) { readonly_ = v; }
 
+    PropertyInfo& info() { return info_; }
+    const PropertyInfo& info() const { return info_; }
+
 protected:
     bool readonlyCheck() const;
     bool emptyValueCheck(const AtomList& v) const;
@@ -52,7 +56,7 @@ class AtomProperty : public Property {
     Atom v_;
 
 public:
-    AtomProperty(const std::string& name, const Atom& a, bool readonly = false);
+    AtomProperty(const std::string& name, const Atom& def, bool readonly = false);
     bool set(const AtomList& lst);
     AtomList get() const;
 
@@ -115,10 +119,12 @@ public:
 
 public:
     EnumProperty(const std::string& name, T def, bool readonly = false)
-        : Property(name, readonly)
+        : Property(PropertyInfo(name, PropertyInfoType::LIST), readonly)
         , idx_(0)
         , def_(def)
     {
+        info().setDefault(def);
+        info().addEnum(def);
         allowed_.push_back(def);
     }
 
@@ -167,17 +173,19 @@ public:
 
     void appendEnum(T v)
     {
-        if (enumIndex(v) < 0)
+        if (enumIndex(v) < 0) {
             allowed_.push_back(v);
+            info().addEnum(v);
+        }
     }
 
     long enumIndex(T v) const
     {
-        typename ValueList::const_iterator it;
-        for (it = allowed_.begin(); it != allowed_.end(); ++it) {
+        for (auto it = allowed_.begin(); it != allowed_.end(); ++it) {
             if (*it == v)
                 return std::distance(allowed_.begin(), it);
         }
+
         return -1;
     }
 
@@ -204,14 +212,14 @@ public:
 
 class SymbolEnumProperty : public EnumProperty<t_symbol*> {
 public:
-    SymbolEnumProperty(const std::string& name, const char* sym, bool readonly = false)
-        : EnumProperty<t_symbol*>(name, gensym(sym), readonly)
+    SymbolEnumProperty(const std::string& name, t_symbol* init, bool readonly = false)
+        : EnumProperty<t_symbol*>(name, init, readonly)
     {
+        info().setType(PropertyInfoType::SYMBOL);
+        info().setView(PropertyInfoView::MENU);
     }
 
     ~SymbolEnumProperty();
-
-    void appendEnum(const char* v);
 
     bool is(const char* v) const
     {
@@ -236,10 +244,11 @@ class AliasProperty : public Property {
 
 public:
     AliasProperty(const std::string& name, T* prop, V v)
-        : Property(name, false)
+        : Property(PropertyInfo(name, PropertyInfoType::LIST), false)
         , ptr_(prop)
         , val_(v)
     {
+        info().setType(prop->info().type());
     }
 
     bool set(const AtomList&)
@@ -275,7 +284,7 @@ public:
 
 public:
     CallbackProperty(const std::string& name, T* obj, GetterFn gf, SetterFn sf = 0)
-        : Property(name, sf == 0 ? true : false)
+        : Property(PropertyInfo(name, PropertyInfoType::LIST), sf == 0 ? true : false)
         , obj_(obj)
         , getter_(gf)
         , setter_(sf)
@@ -305,13 +314,13 @@ private:
 };
 
 template <typename T, typename B>
-class TypedCbProperty : public CallbackProperty<TypedCbProperty<T, B> > {
+class TypedCbProperty : public CallbackProperty<TypedCbProperty<T, B>> {
     typedef T (B::*TGetterFn)() const;
     typedef void (B::*SGetterFn)(const T&);
 
 public:
     TypedCbProperty(const std::string& name, B* obj, TGetterFn gf, SGetterFn sf = 0)
-        : CallbackProperty<TypedCbProperty<T, B> >(name,
+        : CallbackProperty<TypedCbProperty<T, B>>(name,
               this,
               &TypedCbProperty::defGetter, sf == 0 ? 0 : &TypedCbProperty::defSetter)
         , bobj_(obj)
@@ -346,9 +355,10 @@ class PointerProperty : public Property {
 
 public:
     PointerProperty(const std::string& name, T* value, bool readonly = true)
-        : Property(name, readonly)
+        : Property(PropertyInfo(name, PropertyInfo::toType<T>()), readonly)
         , vptr_(value)
     {
+        info().setDefault(*value);
     }
 
     bool set(const AtomList& lst)
@@ -373,11 +383,12 @@ template <typename P, typename V, typename CheckFunc>
 class CheckedProperty : public Property {
 public:
     CheckedProperty(const std::string& name, V value, CheckFunc fn)
-        : Property(name, false)
+        : Property(PropertyInfo(name, PropertyInfo::toType<V>()), false)
         , prop_(new P(name, value, false))
         , def_(value)
         , check_fn_(fn)
     {
+        info().setDefault(value);
     }
 
     ~CheckedProperty()
@@ -399,7 +410,7 @@ public:
             return false;
 
         if (!check_fn_(atomlistToValue<V>(lst, def_))) {
-            LIB_ERR << "invalid value for property " << name()  << ": " << lst << ". " << errorString();
+            LIB_ERR << "invalid value for property " << name() << ": " << lst << ". " << errorString();
             return false;
         }
 
@@ -538,13 +549,14 @@ public:
 };
 
 template <typename P, typename V>
-class GreaterThenProperty : public CheckedProperty<P, V, ValidateGT<V> > {
+class GreaterThenProperty : public CheckedProperty<P, V, ValidateGT<V>> {
 public:
     GreaterThenProperty(const std::string& name, V initValue, V minValue)
-        : CheckedProperty<P, V, ValidateGT<V> >(name,
-          ValidateGT<V>(minValue)(initValue) ? initValue : minValue + 1,
-          minValue)
+        : CheckedProperty<P, V, ValidateGT<V>>(name,
+              ValidateGT<V>(minValue)(initValue) ? initValue : minValue + 1,
+              minValue)
     {
+        Property::info().setMin(minValue);
     }
 
     virtual std::string errorString() const
@@ -556,11 +568,12 @@ public:
 };
 
 template <typename P, typename V>
-class GreaterEqualProperty : public CheckedProperty<P, V, ValidateGE<V> > {
+class GreaterEqualProperty : public CheckedProperty<P, V, ValidateGE<V>> {
 public:
     GreaterEqualProperty(const std::string& name, V initValue, V minValue)
-        : CheckedProperty<P, V, ValidateGE<V> >(name, std::max(initValue, minValue), minValue)
+        : CheckedProperty<P, V, ValidateGE<V>>(name, std::max(initValue, minValue), minValue)
     {
+        Property::info().setMin(minValue);
     }
 
     std::string errorString() const
@@ -572,12 +585,13 @@ public:
 };
 
 template <typename P, typename V>
-class LessThenProperty : public CheckedProperty<P, V, ValidateLT<V> > {
+class LessThenProperty : public CheckedProperty<P, V, ValidateLT<V>> {
 public:
     LessThenProperty(const std::string& name, V initValue, V maxValue)
-        : CheckedProperty<P, V, ValidateLT<V> >(name,
-            ValidateLT<V>(maxValue)(initValue) ? initValue : maxValue - 1, maxValue)
+        : CheckedProperty<P, V, ValidateLT<V>>(name,
+              ValidateLT<V>(maxValue)(initValue) ? initValue : maxValue - 1, maxValue)
     {
+        Property::info().setMax(maxValue);
     }
 
     std::string errorString() const
@@ -589,11 +603,12 @@ public:
 };
 
 template <typename P, typename V>
-class LessEqualProperty : public CheckedProperty<P, V, ValidateLE<V> > {
+class LessEqualProperty : public CheckedProperty<P, V, ValidateLE<V>> {
 public:
     LessEqualProperty(const std::string& name, V initValue, V maxValue)
-        : CheckedProperty<P, V, ValidateLE<V> >(name, std::min(initValue, maxValue), maxValue)
+        : CheckedProperty<P, V, ValidateLE<V>>(name, std::min(initValue, maxValue), maxValue)
     {
+        Property::info().setMax(maxValue);
     }
 
     virtual std::string errorString() const
@@ -605,13 +620,14 @@ public:
 };
 
 template <typename P, typename V>
-class OpenRangeProperty : public CheckedProperty<P, V, ValidateRangeOpen<V> > {
+class OpenRangeProperty : public CheckedProperty<P, V, ValidateRangeOpen<V>> {
 public:
     OpenRangeProperty(const std::string& name, V initValue, V minValue, V maxValue)
-        : CheckedProperty<P, V, ValidateRangeOpen<V> >(name,
+        : CheckedProperty<P, V, ValidateRangeOpen<V>>(name,
               ValidateRangeOpen<V>(minValue, maxValue)(initValue) ? initValue : (minValue + maxValue) / 2,
               ValidateRangeOpen<V>(minValue, maxValue))
     {
+        Property::info().setRange(minValue, maxValue);
     }
 
     virtual std::string errorString() const
@@ -625,13 +641,14 @@ public:
 };
 
 template <typename P, typename V>
-class ClosedRangeProperty : public CheckedProperty<P, V, ValidateRangeClosed<V> > {
+class ClosedRangeProperty : public CheckedProperty<P, V, ValidateRangeClosed<V>> {
 public:
     ClosedRangeProperty(const std::string& name, V initValue, V minValue, V maxValue)
-        : CheckedProperty<P, V, ValidateRangeClosed<V> >(name,
+        : CheckedProperty<P, V, ValidateRangeClosed<V>>(name,
               std::min(std::max(initValue, minValue), maxValue),
               ValidateRangeClosed<V>(minValue, maxValue))
     {
+        Property::info().setRange(minValue, maxValue);
     }
 
     virtual std::string errorString() const
@@ -644,13 +661,16 @@ public:
     }
 };
 
-template<typename P, typename V>
+template <typename P, typename V>
 class InitProperty : public Property {
     P* prop_;
+
 public:
     InitProperty(P* prop)
-        : Property(prop->name(), false), prop_(prop)
+        : Property(PropertyInfo(prop->name(), PropertyInfo::toType<V>()), false)
+        , prop_(prop)
     {
+        info().setDefault(prop->info().defaultValue());
     }
 
     ~InitProperty()
@@ -670,7 +690,7 @@ public:
 
     bool set(const AtomList& lst)
     {
-        if(!readonlyCheck())
+        if (!readonlyCheck())
             return false;
 
         prop_->set(lst);

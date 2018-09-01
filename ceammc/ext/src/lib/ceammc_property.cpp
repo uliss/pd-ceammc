@@ -20,8 +20,8 @@
 
 namespace ceammc {
 
-Property::Property(const std::string& name, bool readonly)
-    : name_(name)
+Property::Property(const PropertyInfo& info, bool readonly)
+    : info_(info)
     , readonly_(readonly)
     , visible_(true)
 {
@@ -48,10 +48,11 @@ bool Property::emptyValueCheck(const AtomList& v) const
     return true;
 }
 
-AtomProperty::AtomProperty(const std::string& name, const Atom& a, bool readonly)
-    : Property(name, readonly)
-    , v_(a)
+AtomProperty::AtomProperty(const std::string& name, const Atom& def, bool readonly)
+    : Property(PropertyInfo(name, PropertyInfoType::VARIANT), readonly)
+    , v_(def)
 {
+    info().setDefault(def);
 }
 
 bool AtomProperty::set(const AtomList& lst)
@@ -74,10 +75,12 @@ AtomList AtomProperty::get() const
 }
 
 ListProperty::ListProperty(const std::string& name, const AtomList& l, bool readonly)
-    : Property(name, readonly)
+    : Property(PropertyInfo(name, PropertyInfoType::LIST), readonly)
     , lst_(l)
 {
+    info().setDefault(l);
 }
+
 bool ListProperty::set(const AtomList& lst)
 {
     if (!readonlyCheck())
@@ -103,9 +106,10 @@ AtomList& ListProperty::value()
 }
 
 FloatProperty::FloatProperty(const std::string& name, float init, bool readonly)
-    : Property(name, readonly)
+    : Property(PropertyInfo(name, PropertyInfoType::FLOAT), readonly)
     , v_(init)
 {
+    info().setDefault(init);
 }
 
 bool FloatProperty::set(const AtomList& lst)
@@ -132,9 +136,10 @@ AtomList FloatProperty::get() const
 }
 
 BoolProperty::BoolProperty(const std::string& name, bool init, bool readonly)
-    : Property(name, readonly)
+    : Property(PropertyInfo(name, PropertyInfoType::BOOLEAN), readonly)
     , v_(init)
 {
+    info().setDefault(init);
 }
 
 bool BoolProperty::set(const AtomList& lst)
@@ -175,9 +180,10 @@ AtomList BoolProperty::get() const
 }
 
 IntProperty::IntProperty(const std::string& name, int init, bool readonly)
-    : Property(name, readonly)
+    : Property(PropertyInfo(name, PropertyInfoType::INTEGER), readonly)
     , v_(init)
 {
+    info().setDefault(init);
 }
 
 bool IntProperty::set(const AtomList& lst)
@@ -204,9 +210,11 @@ AtomList IntProperty::get() const
 }
 
 SizeTProperty::SizeTProperty(const std::string& name, size_t init, bool readonly)
-    : Property(name, readonly)
+    : Property(PropertyInfo(name, PropertyInfoType::INTEGER), readonly)
     , v_(init)
 {
+    info().setDefault(int(init));
+    info().setMin(0);
 }
 
 bool SizeTProperty::set(const AtomList& lst)
@@ -240,9 +248,10 @@ AtomList SizeTProperty::get() const
 }
 
 FlagProperty::FlagProperty(const std::string& name)
-    : Property(name, false)
+    : Property(PropertyInfo(name, PropertyInfoType::BOOLEAN), false)
     , v_(false)
 {
+    info().setDefault(false);
 }
 
 AtomList FlagProperty::get() const { return listFrom(v_); }
@@ -254,9 +263,11 @@ bool FlagProperty::set(const AtomList&)
 }
 
 SymbolProperty::SymbolProperty(const std::string& name, t_symbol* init, bool readonly)
-    : Property(name, readonly)
+    : Property(PropertyInfo(name, PropertyInfoType::SYMBOL), readonly)
     , value_(init)
 {
+    info().setDefault(init);
+    info().setType(PropertyInfoType::SYMBOL);
 }
 
 AtomList SymbolProperty::get() const
@@ -298,10 +309,5 @@ std::string SymbolProperty::str() const
 
 SymbolEnumProperty::~SymbolEnumProperty()
 {
-}
-
-void SymbolEnumProperty::appendEnum(const char* v)
-{
-    EnumProperty<t_symbol*>::appendEnum(gensym(v));
 }
 }

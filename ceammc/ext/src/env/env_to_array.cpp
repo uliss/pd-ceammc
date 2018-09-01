@@ -12,9 +12,9 @@ Env2Array::Env2Array(const PdArgs& args)
 {
     createOutlet();
 
-    mode_ = new SymbolEnumProperty("@mode", "fit");
-    mode_->appendEnum("raw");
-    mode_->appendEnum("resize");
+    mode_ = new SymbolEnumProperty("@mode", SYM_FIT);
+    mode_->appendEnum(SYM_RAW);
+    mode_->appendEnum(SYM_RESIZE);
     createProperty(mode_);
 
     createProperty(new SymbolEnumAlias("@fit", mode_, SYM_FIT));
