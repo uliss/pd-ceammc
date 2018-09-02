@@ -25,7 +25,16 @@ struct _text;
 typedef struct _text t_object;
 
 namespace ceammc {
+
+class BaseObject;
+
 namespace pd {
+    bool is_ceammc(t_object* x);
+    bool is_ceammc_base(t_object* x);
+    bool is_ceammc_ui(t_object* x);
+    bool is_ceammc_faust(t_object* x);
+    bool is_ceammc_flext(t_object* x);
+
     class External {
     private:
         t_object* obj_;
@@ -62,6 +71,14 @@ namespace pd {
         void setYPos(int y);
 
         std::vector<t_symbol*> methods() const;
+
+        bool isCeammc() const;
+        bool isCeammcBase() const;
+        bool isCeammcUI() const;
+        bool isCeammcFaust() const;
+        bool isCeammcFlext() const;
+
+        BaseObject* asCeammcBaseObject();
     };
 }
 

@@ -11,8 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "test_base.h"
 #include "ceammc_pd.h"
+#include "test_base.h"
 #include "test_external.h"
 
 #include "catch.hpp"
@@ -30,7 +30,15 @@ TEST_CASE("pd external", "[pd::External]")
     SECTION("connectTo")
     {
         External t("+");
+        REQUIRE(t.object());
         REQUIRE_FALSE(t.connectTo(0, NULL, 0));
+        REQUIRE_FALSE(is_ceammc(t.object()));
+        REQUIRE_FALSE(t.isCeammc());
+        REQUIRE_FALSE(t.isCeammcBase());
+        REQUIRE_FALSE(t.isCeammcUI());
+        REQUIRE_FALSE(t.isCeammcFaust());
+        REQUIRE_FALSE(t.isCeammcFlext());
+        REQUIRE(t.asCeammcBaseObject() == nullptr);
 
         External t1("NONE");
         REQUIRE(t1.isNull());

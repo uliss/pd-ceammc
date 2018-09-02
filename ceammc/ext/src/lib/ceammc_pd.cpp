@@ -13,6 +13,8 @@
  *****************************************************************************/
 #include "ceammc_pd.h"
 #include "ceammc_atomlist.h"
+#include "ceammc_externals.h"
+#include "ceammc_factory.h"
 #include "ceammc_platform.h"
 
 #include "m_pd.h"
@@ -266,6 +268,40 @@ std::vector<t_symbol*> pd::External::methods() const
     return res;
 }
 
+bool pd::External::isCeammc() const
+{
+    return pd::is_ceammc(obj_);
+}
+
+bool pd::External::isCeammcBase() const
+{
+    return pd::is_ceammc_base(obj_);
+}
+
+bool pd::External::isCeammcUI() const
+{
+    return pd::is_ceammc_ui(obj_);
+}
+
+bool pd::External::isCeammcFaust() const
+{
+    return pd::is_ceammc_faust(obj_);
+}
+
+bool pd::External::isCeammcFlext() const
+{
+    return pd::is_ceammc_flext(obj_);
+}
+
+BaseObject* pd::External::asCeammcBaseObject()
+{
+    if (!isCeammcBase())
+        return nullptr;
+
+    auto pd_obj = reinterpret_cast<PdObject<BaseObject>*>(obj_);
+    return pd_obj->impl;
+}
+
 PureData::PureData()
 {
     pd_init();
@@ -320,4 +356,53 @@ PureData& PureData::instance()
 {
     static PureData pd;
     return pd;
+}
+
+bool pd::is_ceammc(t_object* x)
+{
+    if (pd::is_ceammc_base(x))
+        return true;
+
+    if (pd::is_ceammc_ui(x))
+        return true;
+
+    if (pd::is_ceammc_faust(x))
+        return true;
+
+    if (pd::is_ceammc_flext(x))
+        return true;
+
+    return false;
+}
+
+bool pd::is_ceammc_base(t_object* x)
+{
+    if (!x)
+        return false;
+
+    return base_external_set().find(x->te_g.g_pd) != base_external_set().end();
+}
+
+bool pd::is_ceammc_ui(t_object* x)
+{
+    if (!x)
+        return false;
+
+    return ui_external_set().find(x->te_g.g_pd) != ui_external_set().end();
+}
+
+bool pd::is_ceammc_faust(t_object* x)
+{
+    if (!x)
+        return false;
+
+    return faust_external_set().find(x->te_g.g_pd) != faust_external_set().end();
+}
+
+bool pd::is_ceammc_flext(t_object* x)
+{
+    if (!x)
+        return false;
+
+    return flext_external_set().find(x->te_g.g_pd) != flext_external_set().end();
 }

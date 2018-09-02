@@ -138,3 +138,6 @@ target_link_libraries(ext_list puredata-core ${CEAMMC_EXT_LINK_LIBRARIES})
 
 add_executable(ext_methods ext_methods.cpp ../mod_init.cpp)
 target_link_libraries(ext_methods puredata-core ${CEAMMC_EXT_LINK_LIBRARIES})
+
+add_executable(ext_props ext_props.cpp ../mod_init.cpp)
+target_link_libraries(ext_props puredata-core ${CEAMMC_EXT_LINK_LIBRARIES})
