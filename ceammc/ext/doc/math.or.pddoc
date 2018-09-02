@@ -23,6 +23,9 @@
             <argument name="NUM" type="int" minvalue="3" maxvalue="16">number of
             arguments</argument>
         </arguments>
+        <methods>
+            <method name="reset">resets all input states to false</method>
+        </methods>
         <properties>
             <property name="@sync" type="int">if specified - all inlets are 'hot'</property>
             <property name="@state" type="list" readonly="true">internal logic state as list of 1

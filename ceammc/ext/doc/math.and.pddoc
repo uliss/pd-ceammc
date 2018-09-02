@@ -24,7 +24,7 @@
             arguments</argument>
         </arguments>
         <methods>
-            <method name="reset">resets input bool state to false</method>
+            <method name="reset">resets all input states to false</method>
         </methods>
         <properties>
             <property name="@sync" type="int">if specified - all inlets are 'hot'</property>
