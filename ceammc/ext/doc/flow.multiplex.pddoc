@@ -25,9 +25,6 @@
         <properties>
             <property name="@index" type="int" minvalue="0">current multiplexer index</property>
         </properties>
-        <methods>
-            <method name="reset">reset counter</method>
-        </methods>
         <inlets dynamic="true">
             <inlet>
                 <xinfo>multiplexer first inlet</xinfo>
