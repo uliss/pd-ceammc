@@ -22,14 +22,15 @@
             <par>Note, that maximum length limited to 1024 elements.</par>
         </info>
         <arguments>
-            <argument type="int" minvalue="0" maxvalue="1024" name="N">length of generated
+            <argument type="int" minvalue="1" maxvalue="1024" name="N">length of generated
             list</argument>
         </arguments>
         <methods>
             <method name="dump">dump internal object state to Pd console window</method>
-            <method name="@count?">outputs current list length</method>
-            <method name="@count">set new length for generated list</method>
         </methods>
+        <properties>
+            <property name="@count" type="int" minvalue="1" maxvalue="1024">length for generated list</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="bang">starts list generation</xinfo>
