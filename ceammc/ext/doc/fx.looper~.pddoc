@@ -32,9 +32,13 @@
         </properties>
         <methods>
             <method name="record">start loop record</method>
+            <method name="rec">same as record</method>
+            <method name="adjust">increase loop length
+            <param type="float" name="DELTA" units="sample">loop length delta</param></method>
             <method name="play">play recorded or stopped loop</method>
             <method name="overdub">start loop overdubbing while keeping it playing</method>
             <method name="stop">stop played loop</method>
+            <method name="pause">loop pause</method>
             <method name="clear">clear loop data</method>
         </methods>
         <inlets>
