@@ -407,7 +407,7 @@ generator;
 input list;
 #X obj 30 5605 list.integrator;
 #X text 175 5605 returns the sum of the previously stored list and the
-current one then stores this sum.;
+current one then stores this sum;
 #X obj 30 5642 list.last;
 #X text 175 5642 returns last list element;
 #X obj 30 5669 list.length;
