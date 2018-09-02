@@ -32,7 +32,7 @@
         <methods>
             <method name="play">play mod file</method>
             <method name="pause">pause playing</method>
-            <method name="pause">stop playing and move play position to the end of file</method>
+            <method name="stop">stop playing and move play position to the end of file</method>
         </methods>
         <outlets>
             <outlet type="audio">left channel and property output</outlet>

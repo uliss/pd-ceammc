@@ -44,7 +44,7 @@ Value range: 0-1;
 #X text 240 542 play mod file.;
 #X msg 120 574 pause;
 #X text 240 574 pause playing.;
-#X msg 120 606 pause;
+#X msg 120 606 stop;
 #X text 240 606 stop playing and move play position to the end of
 file.;
 #X obj 20 648 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
