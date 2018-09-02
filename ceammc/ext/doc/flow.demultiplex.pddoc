@@ -36,9 +36,6 @@
             <property name="@noprops" type="flag">pass all properties requests. When this flag is
             specified you can't get @index property of current object</property>
         </properties>
-        <methods>
-            <method name="reset">reset counter</method>
-        </methods>
         <outlets dynamic="true">
             <outlet>demultiplexer first output</outlet>
             <outlet number="n">demultiplexer N-th output</outlet>
