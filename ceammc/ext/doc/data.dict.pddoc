@@ -43,7 +43,7 @@
             <method name="set">set dict content without output</method>
             <method name="remove">remove entry from dictionary 
             <param name="KEY" type="atom" required="true">entry key</param></method>
-            <method name="[....]">sets new content without output</method>
+            <method name="[....]" example="true">sets new content without output</method>
             <method name="read">read dict from JSON file 
             <param name="PATH" type="symbol" required="true">file path</param></method>
             <method name="write">write dict as JSON file 

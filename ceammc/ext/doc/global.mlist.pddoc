@@ -49,7 +49,7 @@
             <method name="set">sets new list without output 
             <param name="LIST" type="list" required="true">new list content</param></method>
             <method name="dump">dump object info to Pd window</method>
-            <method name="(....)">sets new list without output</method>
+            <method name="(....)" example="true">sets new list without output</method>
         </methods>
         <inlets>
             <inlet>
