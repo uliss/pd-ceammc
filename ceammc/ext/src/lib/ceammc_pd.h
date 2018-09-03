@@ -16,6 +16,7 @@
 
 #include "ceammc_atomlist.h"
 #include "ceammc_canvas.h"
+#include "ceammc_property_info.h"
 
 #include <boost/shared_ptr.hpp>
 #include <map>
@@ -27,14 +28,9 @@ typedef struct _text t_object;
 namespace ceammc {
 
 class BaseObject;
+class UIObject;
 
 namespace pd {
-    bool is_ceammc(t_object* x);
-    bool is_ceammc_base(t_object* x);
-    bool is_ceammc_ui(t_object* x);
-    bool is_ceammc_faust(t_object* x);
-    bool is_ceammc_flext(t_object* x);
-
     class External {
     private:
         t_object* obj_;
@@ -78,7 +74,10 @@ namespace pd {
         bool isCeammcFaust() const;
         bool isCeammcFlext() const;
 
-        BaseObject* asCeammcBaseObject();
+        const BaseObject* asCeammcBaseObject() const;
+        const UIObject* asCeammcUIObject() const;
+
+        std::vector<PropertyInfo> properties() const;
     };
 }
 

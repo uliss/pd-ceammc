@@ -8,6 +8,7 @@
 //
 
 //  CICM Wrapper version
+#include "ceammc_externals.h"
 #include "ceammc_gui.h"
 #include "ceammc_timeline.h"
 
@@ -254,4 +255,5 @@ extern "C" void setup_tl0x2ecue()
 {
     GuiFactory<tl_cue> class1;
     class1.setup_noin("tl.cue");
+    ceammc::register_ui_external(&class1.pd_class->c_class);
 }

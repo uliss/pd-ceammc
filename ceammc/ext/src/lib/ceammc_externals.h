@@ -14,11 +14,15 @@
 #ifndef CEAMMC_EXTERNALS_H
 #define CEAMMC_EXTERNALS_H
 
+#include "ceammc_property_info.h"
 #include "m_pd.h"
 
 #include <unordered_set>
+#include <vector>
 
 namespace ceammc {
+class BaseObject;
+class UIObject;
 typedef std::unordered_set<t_class*> ExternalSet;
 
 const ExternalSet& base_external_set();
@@ -30,6 +34,18 @@ void register_base_external(t_class* c);
 void register_faust_external(t_class* c);
 void register_flext_external(t_class* c);
 void register_ui_external(t_class* c);
+
+bool is_ceammc(t_object* x);
+bool is_ceammc_base(t_object* x);
+bool is_ceammc_ui(t_object* x);
+bool is_ceammc_faust(t_object* x);
+bool is_ceammc_flext(t_object* x);
+
+const BaseObject* ceammc_to_base_object(t_object* x);
+const UIObject* ceammc_to_ui_object(t_object* x);
+std::vector<PropertyInfo> ceammc_base_properties(t_object* x);
+std::vector<PropertyInfo> ceammc_ui_properties(t_object* x);
+std::vector<PropertyInfo> ceammc_faust_properties(t_object* x);
 }
 
 #endif // CEAMMC_EXTERNALS_H

@@ -3,6 +3,7 @@
 
 #include "ceammc_atomlist.h"
 #include "ceammc_cicm.h"
+#include "ceammc_externals.h"
 #include "ceammc_ui.h"
 
 #include <boost/unordered_map.hpp>
@@ -58,6 +59,7 @@ public:
         eclass_guiinit(pd_class, flags);
         setupMethods();
         setupAttributes();
+        register_ui_external(&pd_class->c_class);
     }
 
     ~UIDspFactory()

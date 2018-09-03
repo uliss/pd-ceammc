@@ -13,10 +13,9 @@
  *****************************************************************************/
 
 #include "../mod_init.h"
-#include "ceammc_object.h"
+#include "ceammc_format.h"
 #include "ceammc_pd.h"
 #include "ceammc_platform.h"
-#include "m_pd.h"
 
 #include <algorithm>
 #include <iostream>
@@ -28,6 +27,98 @@ extern "C" void pd_init();
 
 using namespace std;
 using namespace ceammc;
+
+static const char* to_string(PropertyInfoType t)
+{
+    switch (t) {
+    case PropertyInfoType::BOOLEAN:
+        return "bool";
+    case PropertyInfoType::FLOAT:
+        return "float";
+    case PropertyInfoType::INTEGER:
+        return "int";
+    case PropertyInfoType::LIST:
+        return "list";
+    case PropertyInfoType::SYMBOL:
+        return "symbol";
+    case PropertyInfoType::VARIANT:
+        return "atom";
+    }
+}
+
+static const char* to_string(PropertyInfoView v)
+{
+    switch (v) {
+    case PropertyInfoView::SLIDER:
+        return "slider";
+    case PropertyInfoView::KNOB:
+        return "knob";
+    case PropertyInfoView::TOGGLE:
+        return "toggle";
+    case PropertyInfoView::COLOR:
+        return "color";
+    case PropertyInfoView::NUMBOX:
+        return "numbox";
+    default:
+        return "entry";
+    }
+}
+
+static std::string to_string2(const AtomList& lst)
+{
+    std::string res;
+    res += "[ ";
+    for (size_t i = 0; i < lst.size(); i++) {
+        if (i != 0)
+            res += ", ";
+
+        if (lst[i].isSymbol()) {
+            res += '"';
+            res += to_string(lst[i]);
+            res += '"';
+        } else
+            res += to_string(lst[i]);
+    }
+    res += " ]";
+    return res;
+}
+
+static void printInfo(std::ostream& os, const PropertyInfo& pi)
+{
+    os << "  \"" << pi.name() << "\": {\n";
+    os << "    \"type\": \"" << to_string(pi.type()) << "\",\n";
+    os << "    \"view\": \"" << to_string(pi.view()) << "\",\n";
+    if (pi.hasEnumLimit())
+        os << "    \"enum\": " << to_string2(pi.enumValues()) << ",\n";
+    if (pi.hasMinLimit())
+        os << "    \"min\": " << pi.min() << ",\n";
+    if (pi.hasMaxLimit())
+        os << "    \"max\": " << pi.max() << ",\n";
+
+    switch (pi.type()) {
+    case PropertyInfoType::BOOLEAN:
+        os << "    \"default\": " << pi.defaultBool() << ",\n";
+        break;
+    case PropertyInfoType::FLOAT:
+        os << "    \"default\": " << pi.defaultFloat() << ",\n";
+        break;
+    case PropertyInfoType::INTEGER:
+        os << "    \"default\": " << pi.defaultInt() << ",\n";
+        break;
+    case PropertyInfoType::LIST:
+        os << "    \"default\": " << pi.defaultList() << ",\n";
+        break;
+    case PropertyInfoType::SYMBOL:
+        os << "    \"default\": \"" << pi.defaultSymbol()->s_name << "\",\n";
+        break;
+    case PropertyInfoType::VARIANT:
+        if (!pi.defaultAtom().isNone())
+            os << "    \"default\": " << pi.defaultAtom() << ",\n";
+        break;
+    }
+    os << "    \"name\": \"" << pi.name() << "\"\n";
+    os << "  }";
+}
 
 int main(int argc, char* argv[])
 {
@@ -57,17 +148,20 @@ int main(int argc, char* argv[])
         return 4;
     }
 
-    if (ext.isCeammcBase()) {
-        BaseObject* obj = ext.asCeammcBaseObject();
-        if (!obj) {
-            cerr << "corrupted CEAMMC object";
-            return 5;
-        }
+    bool first = true;
+    cout << "{\n";
 
-        for (auto& p : obj->properties()) {
-            cout << p.first->s_name << endl;
-        }
+    for (auto& p : ext.properties()) {
+        if (!first)
+            cout << ",\n";
+
+        if (first)
+            first = false;
+
+        printInfo(cout, p);
     }
+
+    cout << "\n}\n";
 
     return 0;
 }

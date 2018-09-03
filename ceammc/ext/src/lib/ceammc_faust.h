@@ -23,6 +23,7 @@
 
 #include "ceammc_atom.h"
 #include "ceammc_atomlist.h"
+#include "ceammc_property_info.h"
 #include "m_pd.h"
 
 #ifndef FAUSTFLOAT
@@ -53,9 +54,10 @@ namespace faust {
         std::string path_;
         std::string label_;
         FAUSTFLOAT init_, min_, max_, step_;
-        FAUSTFLOAT* zone_;
+        FAUSTFLOAT* value_;
         t_symbol* set_prop_symbol_;
         t_symbol* get_prop_symbol_;
+        PropertyInfo pinfo_;
 
     public:
         UIElement(UIElementType t, const std::string& path, const std::string& label);
@@ -77,13 +79,15 @@ namespace faust {
         FAUSTFLOAT value(FAUSTFLOAT def = 0.f) const;
         void setValue(FAUSTFLOAT v, bool clip = false);
 
-        const FAUSTFLOAT* valuePtr() const { return zone_; }
+        const FAUSTFLOAT* valuePtr() const { return value_; }
         void setValuePtr(FAUSTFLOAT* vPtr);
         void setContraints(FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step);
 
         bool pathcmp(const std::string& path) const;
 
         void dump(t_outlet* out);
+
+        const PropertyInfo& propInfo() const { return pinfo_; }
 
     private:
         static t_symbol *s_button, *s_checkbox, *s_vslider, *s_hslider, *s_nentry, *s_vbargraph, *s_hbargraph;
@@ -116,8 +120,8 @@ namespace faust {
 
     inline void UIElement::setValuePtr(FAUSTFLOAT* vPtr)
     {
-        zone_ = vPtr;
-        *zone_ = init_;
+        value_ = vPtr;
+        *value_ = init_;
     }
 
     inline void UIElement::setContraints(FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step)

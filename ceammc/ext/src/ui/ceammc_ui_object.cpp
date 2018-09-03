@@ -515,6 +515,140 @@ void UIObject::setProperty(t_symbol* name, const AtomList& lst)
     eclass_attr_setter(asPdObject(), name, lst.size(), lst.toPdData());
 }
 
+static AtomList sym_to_list(t_symbol* sym)
+{
+    t_binbuf* bb = binbuf_new();
+    binbuf_text(bb, sym->s_name, strlen(sym->s_name));
+    int argc = binbuf_getnatom(bb);
+    t_atom* argv = binbuf_getvec(bb);
+    AtomList res(argc, argv);
+    binbuf_free(bb);
+
+    return res;
+}
+
+static void set_constrains(PropertyInfo& info, t_eattr* a)
+{
+    if (a->step)
+        info.setStep(a->step);
+
+    if (a->clipped & 0x1)
+        info.setMin(a->minimum);
+
+    if (a->clipped & 0x2)
+        info.setMax(a->maximum);
+
+    if (a->itemssize > 0) {
+        info.setView(PropertyInfoView::MENU);
+
+        for (int i = 0; i < a->itemssize; i++)
+            info.addEnum(a->itemslist[i]);
+    }
+}
+
+static PropertyInfo attr_to_prop(t_eattr* a)
+{
+    static t_symbol* SYM_CHECKBOX = gensym("checkbutton");
+    static t_symbol* SYM_FLOAT = &s_float;
+    static t_symbol* SYM_DOUBLE = gensym("double");
+    static t_symbol* SYM_INT = gensym("int");
+    static t_symbol* SYM_LONG = gensym("long");
+    static t_symbol* SYM_SYMBOL = &s_symbol;
+    static t_symbol* SYM_COLOR = gensym("color");
+    static t_symbol* SYM_ATOM = gensym("atom");
+
+    PropertyInfo res(std::string("@") + a->name->s_name, PropertyInfoType::VARIANT);
+
+    if (a->type == SYM_FLOAT || a->type == SYM_DOUBLE) {
+        if (a->size == 1) {
+            res.setType(PropertyInfoType::FLOAT);
+            set_constrains(res, a);
+
+            if (a->defvals)
+                res.setDefault((float)strtof(a->defvals->s_name, NULL));
+
+        } else if (a->size > 1) {
+            res.setType(PropertyInfoType::LIST);
+
+            if (a->style == SYM_COLOR)
+                res.setView(PropertyInfoView::COLOR);
+
+            if (a->defvals)
+                res.setDefault(sym_to_list(a->defvals));
+
+        } else {
+            std::cerr << "invalid float property size: " << a->size << "\n";
+        }
+    } else if (a->type == SYM_INT || a->type == SYM_LONG) {
+        if (a->size == 1) {
+            if (a->style == SYM_CHECKBOX) {
+                res.setType(PropertyInfoType::BOOLEAN);
+                res.setView(PropertyInfoView::TOGGLE);
+                res.setRange(0, 1);
+
+                if (a->defvals)
+                    res.setDefault(a->defvals->s_name[0] == '1');
+
+            } else {
+                res.setType(PropertyInfoType::INTEGER);
+                set_constrains(res, a);
+
+                if (a->defvals)
+                    res.setDefault((int)strtol(a->defvals->s_name, NULL, 10));
+            }
+        } else if (a->size > 1) {
+            res.setType(PropertyInfoType::LIST);
+            if (a->defvals)
+                res.setDefault(sym_to_list(a->defvals));
+        } else {
+            std::cerr << "invalid int property size: " << a->size << "\n";
+        }
+    } else if (a->type == SYM_SYMBOL) {
+        if (a->size == 1) {
+            res.setType(PropertyInfoType::SYMBOL);
+            set_constrains(res, a);
+
+            if (a->defvals)
+                res.setDefault(a->defvals);
+        } else if (a->size > 1) {
+            res.setType(PropertyInfoType::LIST);
+            if (a->defvals)
+                res.setDefault(sym_to_list(a->defvals));
+        } else {
+            std::cerr << "invalid int property size: " << a->size << "\n";
+        }
+    } else if (a->type == SYM_ATOM) {
+        if (a->size == 1) {
+            res.setType(PropertyInfoType::VARIANT);
+            set_constrains(res, a);
+
+            if (a->defvals)
+                res.setDefault(Atom(a->defvals));
+        } else if (a->size > 1) {
+            res.setType(PropertyInfoType::LIST);
+            if (a->defvals)
+                res.setDefault(sym_to_list(a->defvals));
+        } else {
+            std::cerr << "invalid atom property size: " << a->size << "\n";
+        }
+    }
+
+    return res;
+}
+
+std::vector<PropertyInfo> UIObject::propsInfo() const
+{
+    const t_eclass* c = reinterpret_cast<const t_eclass*>(asEBox()->b_obj.o_obj.te_g.g_pd);
+
+    std::vector<PropertyInfo> res;
+    res.reserve(c->c_nattr);
+
+    for (int i = 0; i < c->c_nattr; i++)
+        res.push_back(attr_to_prop(c->c_attr[i]));
+
+    return res;
+}
+
 void UIObject::bindTo(t_symbol* s)
 {
     if (binded_signals_.find(s) == binded_signals_.end()) {

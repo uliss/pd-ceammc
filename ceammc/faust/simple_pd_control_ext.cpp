@@ -36,7 +36,8 @@
 #include "faust/misc.h"
 
 #include "ceammc_atomlist.h"
-#include <m_pd.h>
+#include "ceammc_externals.h"
+#include "m_pd.h"
 
 /******************************************************************************
 *******************************************************************************
@@ -97,8 +98,9 @@ static t_class* mydsp_faust_class;
 #define FAUST_EXT_CLASS mydsp_faust_class
 // clang-format on
 
-template<class T>
-class _mydsp_UI : public UI {};
+template <class T>
+class _mydsp_UI : public UI {
+};
 typedef _mydsp_UI<mydsp> mydsp_UI;
 
 struct t_faust_mydsp {
@@ -551,8 +553,8 @@ public:
         std::string objId;
 
         int first_prop_idx = argc;
-        for(int i = 0; i < argc; i++) {
-            if(atom_is_property(argv[i]))
+        for (int i = 0; i < argc; i++) {
+            if (atom_is_property(argv[i]))
                 first_prop_idx = i;
         }
 
@@ -645,6 +647,7 @@ static void internal_setup(t_symbol* s, bool soundIn = true)
     class_addmethod(mydsp_faust_class, reinterpret_cast<t_method>(mydsp_faust_dsp), gensym("dsp"), A_NULL);
     class_addmethod(mydsp_faust_class, reinterpret_cast<t_method>(mydsp_dump_to_console), gensym("dump"), A_NULL);
     class_addanything(mydsp_faust_class, mydsp_faust_any);
+    ceammc::register_faust_external(mydsp_faust_class);
 }
 
 #define EXTERNAL_NEW void* mydsp_faust_new(t_symbol*, int argc, t_atom* argv)

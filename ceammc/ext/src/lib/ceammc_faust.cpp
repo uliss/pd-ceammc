@@ -53,6 +53,31 @@ namespace faust {
         set_prop_symbol_ = gensym(buf);
         sprintf(buf, "@%s?", name.c_str());
         get_prop_symbol_ = gensym(buf);
+
+        // set type and view
+        switch (type_) {
+        case UI_CHECK_BUTTON:
+            pinfo_.setType(PropertyInfoType::BOOLEAN);
+            pinfo_.setView(PropertyInfoView::TOGGLE);
+            break;
+        case UI_V_SLIDER:
+        case UI_H_SLIDER:
+            pinfo_.setType(PropertyInfoType::FLOAT);
+            pinfo_.setView(PropertyInfoView::SLIDER);
+            break;
+        case UI_NUM_ENTRY:
+            pinfo_.setType(PropertyInfoType::FLOAT);
+            pinfo_.setView(PropertyInfoView::NUMBOX);
+            break;
+        default:
+            pinfo_.setType(PropertyInfoType::FLOAT);
+            pinfo_.setView(PropertyInfoView::SLIDER);
+            break;
+        }
+
+        pinfo_.setDefault(init_);
+        pinfo_.setStep(step_);
+        pinfo_.setRange(min_, max_);
     }
 
     void UIElement::outputProperty(t_outlet* out)
@@ -62,8 +87,8 @@ namespace faust {
 
         ceammc::Atom a;
 
-        if (zone_)
-            a.setFloat(*zone_, true);
+        if (value_)
+            a.setFloat(*value_, true);
         else
             a.setSymbol(gensym("?"), true);
 
@@ -72,7 +97,7 @@ namespace faust {
 
     void UIElement::outputValue(t_outlet* out)
     {
-        if (!out || !zone_)
+        if (!out || !value_)
             return;
 
         Atom a(value());
@@ -87,41 +112,42 @@ namespace faust {
         , min_(0)
         , max_(1)
         , step_(0)
-        , zone_(0)
+        , value_(0)
         , set_prop_symbol_(0)
         , get_prop_symbol_(0)
+        , pinfo_(std::string("@") + label, PropertyInfoType::FLOAT)
     {
         initProperty(label);
     }
 
     FAUSTFLOAT UIElement::value(FAUSTFLOAT def) const
     {
-        if (!zone_)
+        if (!value_)
             return std::min(max_, std::max(min_, def));
 
-        return std::min(max_, std::max(min_, *zone_));
+        return std::min(max_, std::max(min_, *value_));
     }
 
     void UIElement::setValue(FAUSTFLOAT v, bool clip)
     {
-        if (!zone_)
+        if (!value_)
             return;
 
         if (v < min_) {
             if (clip)
-                *zone_ = min_;
+                *value_ = min_;
 
             return;
         }
 
         if (v > max_) {
             if (clip)
-                *zone_ = max_;
+                *value_ = max_;
 
             return;
         }
 
-        *zone_ = v;
+        *value_ = v;
     }
 
     bool UIElement::pathcmp(const std::string& path) const
@@ -147,7 +173,7 @@ namespace faust {
         if (!out)
             return;
 
-        if (!zone_)
+        if (!value_)
             return;
 
         t_symbol* sel = typeSymbol();
@@ -230,10 +256,6 @@ namespace faust {
         }
         return res;
     }
-
-
-
-
 
 }
 }

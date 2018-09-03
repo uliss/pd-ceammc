@@ -4,6 +4,7 @@
 #include "ceammc_atomlist.h"
 #include "ceammc_cicm.h"
 #include "ceammc_data.h"
+#include "ceammc_property_info.h"
 
 #include <boost/unordered_map.hpp>
 #include <boost/unordered_set.hpp>
@@ -142,6 +143,7 @@ public:
     bool getProperty(t_symbol* name, t_float& f) const;
     bool getProperty(t_symbol* name, AtomList& lst) const;
     void setProperty(t_symbol* name, const AtomList& lst);
+    std::vector<PropertyInfo> propsInfo() const;
 
     // bind to global dispatcher
     void bindTo(t_symbol* s);
