@@ -439,7 +439,8 @@ inline const char* lopts(char* argv[], const char* name, const char* def)
 
 
 #include "ceammc_atomlist.h"
-#include <m_pd.h>
+#include "ceammc_externals.h"
+#include "m_pd.h"
 
 /******************************************************************************
 *******************************************************************************
@@ -745,6 +746,11 @@ static t_class* pan8_faust_class;
 #define FAUST_EXT_CLASS pan8_faust_class
 // clang-format on
 
+template <class T>
+class _pan8_UI : public UI {
+};
+typedef _pan8_UI<pan8> pan8_UI;
+
 struct t_faust_pan8 {
     t_object x_obj;
 #ifdef __MINGW32__
@@ -753,7 +759,7 @@ struct t_faust_pan8 {
     int fence; /* dummy field (not used) */
 #endif
     pan8* dsp;
-    PdUI<UI>* ui;
+    PdUI<pan8_UI>* ui;
     int active, xfade, n_xfade, rate, n_in, n_out;
     t_sample **inputs, **outputs, **buf;
     t_outlet* out;
@@ -836,7 +842,7 @@ static void pan8_faust_dsp(t_faust_pan8* x, t_signal** sp)
 
     if (x->rate <= 0) {
         /* default sample rate is whatever Pd tells us */
-        PdUI<UI>* ui = x->ui;
+        PdUI<pan8_UI>* ui = x->ui;
         std::vector<FAUSTFLOAT> z = ui->uiValues();
         /* set the proper sample rate; this requires reinitializing the dsp */
         x->rate = sr;
@@ -891,7 +897,7 @@ static void pan8_faust_any(t_faust_pan8* x, t_symbol* s, int argc, t_atom* argv)
     if (!x->dsp)
         return;
 
-    PdUI<UI>* ui = x->ui;
+    PdUI<pan8_UI>* ui = x->ui;
     if (s == &s_bang) {
         ui->dumpUI(x->out);
     } else if (isGetAllProperties(s)) {
@@ -1051,7 +1057,7 @@ static bool faust_new_internal(t_faust_pan8* x, const std::string& objId = "", b
     x->n_xfade = static_cast<int>(sr * XFADE_TIME / 64);
 
     x->dsp = new pan8();
-    x->ui = new PdUI<UI>(sym(pan8), objId);
+    x->ui = new PdUI<pan8_UI>(sym(pan8), objId);
 
     if (!faust_init_inputs(x)) {
         pan8_faust_free(x);
@@ -1195,8 +1201,8 @@ public:
         std::string objId;
 
         int first_prop_idx = argc;
-        for(int i = 0; i < argc; i++) {
-            if(atom_is_property(argv[i]))
+        for (int i = 0; i < argc; i++) {
+            if (atom_is_property(argv[i]))
                 first_prop_idx = i;
         }
 
@@ -1289,6 +1295,7 @@ static void internal_setup(t_symbol* s, bool soundIn = true)
     class_addmethod(pan8_faust_class, reinterpret_cast<t_method>(pan8_faust_dsp), gensym("dsp"), A_NULL);
     class_addmethod(pan8_faust_class, reinterpret_cast<t_method>(pan8_dump_to_console), gensym("dump"), A_NULL);
     class_addanything(pan8_faust_class, pan8_faust_any);
+    ceammc::register_faust_external(pan8_faust_class);
 }
 
 #define EXTERNAL_NEW void* pan8_faust_new(t_symbol*, int argc, t_atom* argv)
