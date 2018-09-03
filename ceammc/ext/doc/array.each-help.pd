@@ -26,23 +26,28 @@
 #X obj 241 255 cnv 1 41 18 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 240 254 NAME: array name.;
 #X obj 20 282 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 287 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
-0;
-#X text 120 292 1\.;
-#X text 150 292 *bang*;
-#X text 240 292 process each element of current array.;
-#X text 150 310 *symbol*;
-#X text 240 310 set new array and then process each element of it.;
-#X text 120 328 2\.;
-#X text 150 328 *float*;
-#X text 240 328 processed float value from side-chain.;
-#X obj 20 356 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 361 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 287 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X text 120 366 1\.;
-#X text 240 366 bang on finish;
-#X text 120 384 2\.;
-#X text 240 384 float value;
+#X msg 120 292 @array;
+#X text 240 292 Get/Set array name. Type: symbol;
+#X obj 20 329 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 334 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+0;
+#X text 120 339 1\.;
+#X text 150 339 *bang*;
+#X text 240 339 process each element of current array.;
+#X text 150 357 *symbol*;
+#X text 240 357 set new array and then process each element of it.;
+#X text 120 375 2\.;
+#X text 150 375 *float*;
+#X text 240 375 processed float value from side-chain.;
+#X obj 20 403 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 408 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+-49933 0;
+#X text 120 413 1\.;
+#X text 240 413 bang on finish;
+#X text 120 431 2\.;
+#X text 240 431 float value;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
