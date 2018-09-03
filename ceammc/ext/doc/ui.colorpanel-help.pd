@@ -19,7 +19,7 @@
 -49933 0;
 #X msg 120 352 @matrix;
 #X text 240 352 Get/Set matrix size. Type: list. Default value: 24 13;
-#X msg 120 379 @reversed;
+#X msg 120 379 @reverse;
 #X text 240 379 Get/Set matrix reversed. Type: int. Default value: 0\.
 Allowed values: 0 \, 1;
 #X msg 120 416 @saturation;

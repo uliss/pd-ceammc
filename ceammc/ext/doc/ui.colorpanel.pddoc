@@ -19,7 +19,7 @@
         </meta>
         <properties>
             <property name="@matrix" type="list" default="24 13">matrix size</property>
-            <property name="@reversed" type="int" enum="0 1" default="0">matrix reversed</property>
+            <property name="@reverse" type="int" enum="0 1" default="0">matrix reversed</property>
             <property name="@saturation" type="float" default="1">saturation</property>
             <property name="@hue" type="float" default="0">first hue</property>
             <property name="@lightness" type="float" default="1">first lightness</property>
