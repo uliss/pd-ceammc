@@ -439,7 +439,8 @@ inline const char* lopts(char* argv[], const char* name, const char* def)
 
 
 #include "ceammc_atomlist.h"
-#include <m_pd.h>
+#include "ceammc_externals.h"
+#include "m_pd.h"
 
 /******************************************************************************
 *******************************************************************************
@@ -704,6 +705,11 @@ static t_class* c_lowshelf_faust_class;
 #define FAUST_EXT_CLASS c_lowshelf_faust_class
 // clang-format on
 
+template <class T>
+class _c_lowshelf_UI : public UI {
+};
+typedef _c_lowshelf_UI<c_lowshelf> c_lowshelf_UI;
+
 struct t_faust_c_lowshelf {
     t_object x_obj;
 #ifdef __MINGW32__
@@ -712,7 +718,7 @@ struct t_faust_c_lowshelf {
     int fence; /* dummy field (not used) */
 #endif
     c_lowshelf* dsp;
-    PdUI<UI>* ui;
+    PdUI<c_lowshelf_UI>* ui;
     int active, xfade, n_xfade, rate, n_in, n_out;
     t_sample **inputs, **outputs, **buf;
     t_outlet* out;
@@ -795,7 +801,7 @@ static void c_lowshelf_faust_dsp(t_faust_c_lowshelf* x, t_signal** sp)
 
     if (x->rate <= 0) {
         /* default sample rate is whatever Pd tells us */
-        PdUI<UI>* ui = x->ui;
+        PdUI<c_lowshelf_UI>* ui = x->ui;
         std::vector<FAUSTFLOAT> z = ui->uiValues();
         /* set the proper sample rate; this requires reinitializing the dsp */
         x->rate = sr;
@@ -850,7 +856,7 @@ static void c_lowshelf_faust_any(t_faust_c_lowshelf* x, t_symbol* s, int argc, t
     if (!x->dsp)
         return;
 
-    PdUI<UI>* ui = x->ui;
+    PdUI<c_lowshelf_UI>* ui = x->ui;
     if (s == &s_bang) {
         ui->dumpUI(x->out);
     } else if (isGetAllProperties(s)) {
@@ -1010,7 +1016,7 @@ static bool faust_new_internal(t_faust_c_lowshelf* x, const std::string& objId =
     x->n_xfade = static_cast<int>(sr * XFADE_TIME / 64);
 
     x->dsp = new c_lowshelf();
-    x->ui = new PdUI<UI>(sym(c_lowshelf), objId);
+    x->ui = new PdUI<c_lowshelf_UI>(sym(c_lowshelf), objId);
 
     if (!faust_init_inputs(x)) {
         c_lowshelf_faust_free(x);
@@ -1154,8 +1160,8 @@ public:
         std::string objId;
 
         int first_prop_idx = argc;
-        for(int i = 0; i < argc; i++) {
-            if(atom_is_property(argv[i]))
+        for (int i = 0; i < argc; i++) {
+            if (atom_is_property(argv[i]))
                 first_prop_idx = i;
         }
 
@@ -1248,6 +1254,7 @@ static void internal_setup(t_symbol* s, bool soundIn = true)
     class_addmethod(c_lowshelf_faust_class, reinterpret_cast<t_method>(c_lowshelf_faust_dsp), gensym("dsp"), A_NULL);
     class_addmethod(c_lowshelf_faust_class, reinterpret_cast<t_method>(c_lowshelf_dump_to_console), gensym("dump"), A_NULL);
     class_addanything(c_lowshelf_faust_class, c_lowshelf_faust_any);
+    ceammc::register_faust_external(c_lowshelf_faust_class);
 }
 
 #define EXTERNAL_NEW void* c_lowshelf_faust_new(t_symbol*, int argc, t_atom* argv)

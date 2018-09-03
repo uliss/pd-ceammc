@@ -439,7 +439,8 @@ inline const char* lopts(char* argv[], const char* name, const char* def)
 
 
 #include "ceammc_atomlist.h"
-#include <m_pd.h>
+#include "ceammc_externals.h"
+#include "m_pd.h"
 
 /******************************************************************************
 *******************************************************************************
@@ -651,10 +652,10 @@ class pan4 : public dsp {
 		float fSlow0 = float(fVslider0);
 		float fSlow1 = (fSlow0 + 1.0f);
 		float fSlow2 = (0.159154937f * float(fVslider1));
-		float fSlow3 = (4.99999987e-05f * (fSlow1 * sqrtf(max(0.0f, (1.0f - (4.0f * (fSlow0 * fabsf((fmodf((fSlow2 + 1.5f), 1.0f) + -0.5f)))))))));
-		float fSlow4 = (4.99999987e-05f * (fSlow1 * sqrtf(max(0.0f, (1.0f - (4.0f * (fSlow0 * fabsf((fmodf((fSlow2 + 1.25f), 1.0f) + -0.5f)))))))));
-		float fSlow5 = (4.99999987e-05f * (fSlow1 * sqrtf(max(0.0f, (1.0f - (4.0f * (fSlow0 * fabsf((fmodf((fSlow2 + 1.0f), 1.0f) + -0.5f)))))))));
-		float fSlow6 = (4.99999987e-05f * (fSlow1 * sqrtf(max(0.0f, (1.0f - (4.0f * (fSlow0 * fabsf((fmodf((fSlow2 + 0.75f), 1.0f) + -0.5f)))))))));
+		float fSlow3 = (4.99999987e-05f * (fSlow1 * sqrtf(max(0.0f, (1.0f - (4.0f * (fabsf((fmodf((fSlow2 + 1.5f), 1.0f) + -0.5f)) * fSlow0)))))));
+		float fSlow4 = (4.99999987e-05f * (fSlow1 * sqrtf(max(0.0f, (1.0f - (4.0f * (fabsf((fmodf((fSlow2 + 1.25f), 1.0f) + -0.5f)) * fSlow0)))))));
+		float fSlow5 = (4.99999987e-05f * (fSlow1 * sqrtf(max(0.0f, (1.0f - (4.0f * (fabsf((fmodf((fSlow2 + 1.0f), 1.0f) + -0.5f)) * fSlow0)))))));
+		float fSlow6 = (4.99999987e-05f * (fSlow1 * sqrtf(max(0.0f, (1.0f - (4.0f * (fabsf((fmodf((fSlow2 + 0.75f), 1.0f) + -0.5f)) * fSlow0)))))));
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = float(input0[i]);
 			fRec0[0] = (fSlow3 + (0.999899983f * fRec0[1]));
@@ -689,6 +690,11 @@ static t_class* pan4_faust_class;
 #define FAUST_EXT_CLASS pan4_faust_class
 // clang-format on
 
+template <class T>
+class _pan4_UI : public UI {
+};
+typedef _pan4_UI<pan4> pan4_UI;
+
 struct t_faust_pan4 {
     t_object x_obj;
 #ifdef __MINGW32__
@@ -697,7 +703,7 @@ struct t_faust_pan4 {
     int fence; /* dummy field (not used) */
 #endif
     pan4* dsp;
-    PdUI<UI>* ui;
+    PdUI<pan4_UI>* ui;
     int active, xfade, n_xfade, rate, n_in, n_out;
     t_sample **inputs, **outputs, **buf;
     t_outlet* out;
@@ -780,7 +786,7 @@ static void pan4_faust_dsp(t_faust_pan4* x, t_signal** sp)
 
     if (x->rate <= 0) {
         /* default sample rate is whatever Pd tells us */
-        PdUI<UI>* ui = x->ui;
+        PdUI<pan4_UI>* ui = x->ui;
         std::vector<FAUSTFLOAT> z = ui->uiValues();
         /* set the proper sample rate; this requires reinitializing the dsp */
         x->rate = sr;
@@ -835,7 +841,7 @@ static void pan4_faust_any(t_faust_pan4* x, t_symbol* s, int argc, t_atom* argv)
     if (!x->dsp)
         return;
 
-    PdUI<UI>* ui = x->ui;
+    PdUI<pan4_UI>* ui = x->ui;
     if (s == &s_bang) {
         ui->dumpUI(x->out);
     } else if (isGetAllProperties(s)) {
@@ -995,7 +1001,7 @@ static bool faust_new_internal(t_faust_pan4* x, const std::string& objId = "", b
     x->n_xfade = static_cast<int>(sr * XFADE_TIME / 64);
 
     x->dsp = new pan4();
-    x->ui = new PdUI<UI>(sym(pan4), objId);
+    x->ui = new PdUI<pan4_UI>(sym(pan4), objId);
 
     if (!faust_init_inputs(x)) {
         pan4_faust_free(x);
@@ -1139,8 +1145,8 @@ public:
         std::string objId;
 
         int first_prop_idx = argc;
-        for(int i = 0; i < argc; i++) {
-            if(atom_is_property(argv[i]))
+        for (int i = 0; i < argc; i++) {
+            if (atom_is_property(argv[i]))
                 first_prop_idx = i;
         }
 
@@ -1233,6 +1239,7 @@ static void internal_setup(t_symbol* s, bool soundIn = true)
     class_addmethod(pan4_faust_class, reinterpret_cast<t_method>(pan4_faust_dsp), gensym("dsp"), A_NULL);
     class_addmethod(pan4_faust_class, reinterpret_cast<t_method>(pan4_dump_to_console), gensym("dump"), A_NULL);
     class_addanything(pan4_faust_class, pan4_faust_any);
+    ceammc::register_faust_external(pan4_faust_class);
 }
 
 #define EXTERNAL_NEW void* pan4_faust_new(t_symbol*, int argc, t_atom* argv)
