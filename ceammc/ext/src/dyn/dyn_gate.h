@@ -439,7 +439,8 @@ inline const char* lopts(char* argv[], const char* name, const char* def)
 
 
 #include "ceammc_atomlist.h"
-#include <m_pd.h>
+#include "ceammc_externals.h"
+#include "m_pd.h"
 
 /******************************************************************************
 *******************************************************************************
@@ -684,7 +685,7 @@ class gate : public dsp {
 			float fTemp3 = ((fRec0[1] > fTemp2)?fSlow7:fSlow6);
 			fRec1[0] = ((fRec1[1] * fTemp3) + (fTemp2 * (1.0f - fTemp3)));
 			fRec0[0] = fRec1[0];
-			output0[i] = FAUSTFLOAT((fTemp0 * fRec0[0]));
+			output0[i] = FAUSTFLOAT((fRec0[0] * fTemp0));
 			fRec3[1] = fRec3[0];
 			fRec4[1] = fRec4[0];
 			iVec0[1] = iVec0[0];
@@ -711,6 +712,11 @@ static t_class* gate_faust_class;
 #define FAUST_EXT_CLASS gate_faust_class
 // clang-format on
 
+template <class T>
+class _gate_UI : public UI {
+};
+typedef _gate_UI<gate> gate_UI;
+
 struct t_faust_gate {
     t_object x_obj;
 #ifdef __MINGW32__
@@ -719,7 +725,7 @@ struct t_faust_gate {
     int fence; /* dummy field (not used) */
 #endif
     gate* dsp;
-    PdUI<UI>* ui;
+    PdUI<gate_UI>* ui;
     int active, xfade, n_xfade, rate, n_in, n_out;
     t_sample **inputs, **outputs, **buf;
     t_outlet* out;
@@ -802,7 +808,7 @@ static void gate_faust_dsp(t_faust_gate* x, t_signal** sp)
 
     if (x->rate <= 0) {
         /* default sample rate is whatever Pd tells us */
-        PdUI<UI>* ui = x->ui;
+        PdUI<gate_UI>* ui = x->ui;
         std::vector<FAUSTFLOAT> z = ui->uiValues();
         /* set the proper sample rate; this requires reinitializing the dsp */
         x->rate = sr;
@@ -857,7 +863,7 @@ static void gate_faust_any(t_faust_gate* x, t_symbol* s, int argc, t_atom* argv)
     if (!x->dsp)
         return;
 
-    PdUI<UI>* ui = x->ui;
+    PdUI<gate_UI>* ui = x->ui;
     if (s == &s_bang) {
         ui->dumpUI(x->out);
     } else if (isGetAllProperties(s)) {
@@ -1017,7 +1023,7 @@ static bool faust_new_internal(t_faust_gate* x, const std::string& objId = "", b
     x->n_xfade = static_cast<int>(sr * XFADE_TIME / 64);
 
     x->dsp = new gate();
-    x->ui = new PdUI<UI>(sym(gate), objId);
+    x->ui = new PdUI<gate_UI>(sym(gate), objId);
 
     if (!faust_init_inputs(x)) {
         gate_faust_free(x);
@@ -1161,8 +1167,8 @@ public:
         std::string objId;
 
         int first_prop_idx = argc;
-        for(int i = 0; i < argc; i++) {
-            if(atom_is_property(argv[i]))
+        for (int i = 0; i < argc; i++) {
+            if (atom_is_property(argv[i]))
                 first_prop_idx = i;
         }
 
@@ -1255,6 +1261,7 @@ static void internal_setup(t_symbol* s, bool soundIn = true)
     class_addmethod(gate_faust_class, reinterpret_cast<t_method>(gate_faust_dsp), gensym("dsp"), A_NULL);
     class_addmethod(gate_faust_class, reinterpret_cast<t_method>(gate_dump_to_console), gensym("dump"), A_NULL);
     class_addanything(gate_faust_class, gate_faust_any);
+    ceammc::register_faust_external(gate_faust_class);
 }
 
 #define EXTERNAL_NEW void* gate_faust_new(t_symbol*, int argc, t_atom* argv)

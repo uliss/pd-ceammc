@@ -17,32 +17,31 @@
                 <see>dyn.gate2~</see>
             </also>
         </meta>
-        <methods>
-            <method name="threshold">
-                <param type="float" units="decibel">dB level threshold above which gate opens
-                (e.g., 40 dB)</param>
-            </method>
-            <method name="attack">
-                <param type="float" units="millisecond">attack time = time constant (ms) for gate
-                to open</param>
-            </method>
-            <method name="hold">
-                <param type="float" units="millisecond">hold time = time (ms) gate stays open after
-                signal level &lt; threshold</param>
-            </method>
-            <method name="release">
-                <param type="float" units="millisecond">release time = time constant (ms) for gate
-                to close</param>
-            </method>
-        </methods>
+        <properties>
+            <property name="@threshold" type="float" units="decibel" minvalue="0" maxvalue="100" default="40">
+            dB level threshold above which gate opens
+            </property>
+            <property name="@attack" type="float" units="millisecond" minvalue="0" maxvalue="500"
+            default="0.1">attack time = time constant (ms) for gate
+                to open
+            </property>
+            <property name="@hold" type="float" units="millisecond" minvalue="1" maxvalue="500" default="100">
+            hold time = time (ms) gate stays open after
+                signal level &lt; threshold
+            </property>
+            <property name="@release" type="float" units="millisecond" default="20" minvalue="1" maxvalue="500">
+            release time = time constant (ms) for gate
+                to close
+            </property>
+        </properties>
         <arguments>
-            <argument name="threshold" type="float" units="decibel">dB level threshold above which
+            <argument name="threshold" type="float" units="decibel" minvalue="0" maxvalue="100" >dB level threshold above which
             gate opens (e.g., 40 dB)</argument>
-            <argument name="attack" type="float" units="millisecond">attack time = time constant
+            <argument name="attack" type="float" units="millisecond"  minvalue="0" maxvalue="500">attack time = time constant
             (ms) for gate to open</argument>
-            <argument name="hold" type="float" units="millisecond">hold time = time (ms) gate stays
+            <argument name="hold" type="float" units="millisecond" minvalue="1" maxvalue="500" >hold time = time (ms) gate stays
             open after signal level &lt; threshold</argument>
-            <argument name="release" type="float" units="millisecond">release time = time constant
+            <argument name="release" type="float" units="millisecond" minvalue="1" maxvalue="500" >release time = time constant
             (ms) for gate to close</argument>
             <argument name="ID" type="symbol">object ID for OSC control path</argument>
         </arguments>
@@ -62,13 +61,16 @@
 [osc~ 440] [F]
 |          |
 |     [dbtorms]
-|     |.      [F]
-[*~        ]  |
-|    [bng]    [threshold $1(
-|    |        |
+|     |.
+[*~    ]      [F]
+|             |
+|             [@threshold $1(
+|             |
 [dyn.gate~ 90 id ]
-|\        ^|
-[dac~]    [print]
+|
+[ui.gain~ @size 120 16] [ui.dsp~]
+|\
+[dac~]
 ]]>
             </pdascii>
         </example>
